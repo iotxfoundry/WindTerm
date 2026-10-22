@@ -48,7 +48,7 @@ AppletBar::AppletBar(const QJsonArray &actions, QWidget *parent)
             const QString name = actionValue.toString();
             auto *button = new QPushButton(ActionIcons::iconFor(name, ThemeManager::instance().currentTheme()), name, content);
             button->setFlat(true);
-            button->setIconSize(QSize(16, 16));
+            // 无数据证据的显式 iconSize 已删——回退 Qt 默认；gui.theme 仅有 AppletBar QToolButton:checked 规则
             connect(button, &QPushButton::pressed, this, &AppletBar::onActionPressed);
             contentLayout->addWidget(button);
         }

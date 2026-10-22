@@ -21,6 +21,12 @@ QString schemeColor(const QString &name, const QString &fallback)
     return color.isValid() ? color.name(QColor::HexRgb) : fallback;
 }
 
+// shortcut: 原版滚动回看/系统消息色无数据键，取 ansiBrightBlack 近似实机截图灰色；升级条件=找到 text.scrollback* 键
+QString scrollbackColor()
+{
+    return schemeColor(QStringLiteral("terminal.ansiBrightBlack"), QStringLiteral("#666666"));
+}
+
 QString span(const QString &text, const QString &color)
 {
     return QStringLiteral("<span style=\"color:%1\">%2</span>").arg(color, text.toHtmlEscaped());
@@ -59,7 +65,10 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
     }
     // gui.theme:851 TextView > QAbstractScrollArea QScrollBar:vertical{width:16px}，原版终端区有滚动条
     m_main->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    m_gutter->setFixedWidth(110);
+    // wind.config text.margins（L111-116）：timestamp width 10 leftPadding 4 / number width 10 leftPadding 4
+    // 两列合成当前 gutter；宽度按等宽字符数换算，padding 左右各 4 -> 共 8px
+    const int ch = m_gutter->fontMetrics().horizontalAdvance(QLatin1Char('0'));
+    m_gutter->setFixedWidth((10 + 10) * ch + 4 * 2);
     m_gutter->setFocusPolicy(Qt::NoFocus);
 
     auto *layout = new QHBoxLayout(this);
@@ -156,7 +165,7 @@ void TerminalView::renderScreen()
 {
     QString html;
     for (const QString &line : m_screen->scrollback()) {
-        html += QStringLiteral("<span style=\"color:#888888\">%1</span><br>").arg(line.toHtmlEscaped());
+        html += QStringLiteral("<span style=\"color:%1\">%2</span><br>").arg(scrollbackColor(), line.toHtmlEscaped());
     }
 
     for (int row = 0; row < m_screen->rows(); ++row) {
@@ -244,6 +253,6 @@ void TerminalView::appendSystemMessage(const QString &text)
 {
     QTextCursor cursor(m_main->document());
     cursor.movePosition(QTextCursor::End);
-    cursor.insertHtml(QStringLiteral("<span style=\"color:#888888\">%1</span><br>").arg(text.toHtmlEscaped()));
+    cursor.insertHtml(QStringLiteral("<span style=\"color:%1\">%2</span><br>").arg(scrollbackColor(), text.toHtmlEscaped()));
     m_main->verticalScrollBar()->setValue(m_main->verticalScrollBar()->maximum());
 }

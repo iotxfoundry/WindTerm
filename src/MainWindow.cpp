@@ -165,7 +165,6 @@ void MainWindow::createToolBar()
     // 原版工具栏类 KitBar（QToolBar 子类，0x008b31b6）；gui.theme:583 qproperty-iconSize:20px
     toolBar->setObjectName(QStringLiteral("KitBar"));
     toolBar->setMovable(false);
-    toolBar->setIconSize(QSize(16, 16));
 
     for (const ToolbarEntry &entry : config.entries(name)) {
         switch (entry.type) {

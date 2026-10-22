@@ -53,12 +53,12 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     // 原版 king::add 无图标文件 → 空图标回退文字（docs/phase10-findings.md §2）
     m_addButton->setText(QStringLiteral("+"));
     m_addButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
-    m_addButton->setIconSize(QSize(24, 24));
+    // shortcut: 24px 无数据证据，实机截图对照值；升级条件=反编译 TabBar 按钮创建点尺寸（0x005a859a）
     m_addButton->setFixedSize(24, 24);
     m_menuButton->setObjectName(QStringLiteral("SessionMenuButton"));
     m_menuButton->setText(QStringLiteral("\u2261"));
     m_menuButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
-    m_menuButton->setIconSize(QSize(24, 24));
+    // shortcut: 24px 无数据证据，实机截图对照值；升级条件=反编译 TabBar 按钮创建点尺寸（0x005a859a）
     m_menuButton->setFixedSize(24, 24);
 
     auto *tabRow = new QHBoxLayout;
