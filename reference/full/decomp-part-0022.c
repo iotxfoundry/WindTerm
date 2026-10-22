@@ -2550,7 +2550,7 @@ LAB_006d4891:
 }
 
 
-// ==== entry=006d48bc name=FUN_006d48bc size=19 ====
+// ==== entry=006d48bc orig=FUN_006d48bc size=19 name=GroupWidgetAction_dtor ====
 
 void FUN_006d48bc(QWidgetAction *param_1)
 
@@ -2561,7 +2561,7 @@ void FUN_006d48bc(QWidgetAction *param_1)
 }
 
 
-// ==== entry=006d48d0 name=FUN_006d48d0 size=37 ====
+// ==== entry=006d48d0 orig=FUN_006d48d0 size=37 name=GroupWidgetAction_dtor_deleting ====
 
 void FUN_006d48d0(QWidgetAction *param_1)
 
@@ -5853,7 +5853,7 @@ void FUN_006d9b38(long param_1)
 }
 
 
-// ==== entry=006d9b42 name=FUN_006d9b42 size=29 ====
+// ==== entry=006d9b42 orig=FUN_006d9b42 size=29 name=SessionGroupDialog_dtor ====
 
 void FUN_006d9b42(QDialog *param_1)
 
@@ -5877,7 +5877,7 @@ void FUN_006d9b5f(undefined8 *param_1)
 }
 
 
-// ==== entry=006d9b80 name=FUN_006d9b80 size=47 ====
+// ==== entry=006d9b80 orig=FUN_006d9b80 size=47 name=SessionGroupDialog_dtor_deleting ====
 
 void FUN_006d9b80(QDialog *param_1)
 
@@ -7016,7 +7016,7 @@ LAB_006db665:
 }
 
 
-// ==== entry=006db6aa name=FUN_006db6aa size=134 ====
+// ==== entry=006db6aa orig=FUN_006db6aa size=134 name=SessionTriggerDialog_dtor_deleting ====
 
 void FUN_006db6aa(QDialog *param_1)
 
@@ -7063,7 +7063,7 @@ LAB_006db6f0:
 }
 
 
-// ==== entry=006db730 name=FUN_006db730 size=128 ====
+// ==== entry=006db730 orig=FUN_006db730 size=128 name=SessionTriggerDialog_dtor ====
 
 void FUN_006db730(QDialog *param_1)
 
@@ -15336,7 +15336,7 @@ LAB_006ec1d3:
 }
 
 
-// ==== entry=006ec240 name=FUN_006ec240 size=29 ====
+// ==== entry=006ec240 orig=FUN_006ec240 size=29 name=CategoryPage_dtor ====
 
 void FUN_006ec240(QWidget *param_1)
 
@@ -15360,7 +15360,7 @@ void FUN_006ec25d(undefined8 *param_1)
 }
 
 
-// ==== entry=006ec27e name=FUN_006ec27e size=47 ====
+// ==== entry=006ec27e orig=FUN_006ec27e size=47 name=CategoryPage_dtor_deleting ====
 
 void FUN_006ec27e(QWidget *param_1)
 
@@ -15386,7 +15386,7 @@ void FUN_006ec2ad(undefined8 *param_1)
 }
 
 
-// ==== entry=006ec2e0 name=FUN_006ec2e0 size=29 ====
+// ==== entry=006ec2e0 orig=FUN_006ec2e0 size=29 name=CategoryTree_dtor ====
 
 void FUN_006ec2e0(undefined8 *param_1)
 
@@ -15410,7 +15410,7 @@ void FUN_006ec2fd(undefined8 *param_1)
 }
 
 
-// ==== entry=006ec31e name=FUN_006ec31e size=47 ====
+// ==== entry=006ec31e orig=FUN_006ec31e size=47 name=CategoryTree_dtor_deleting ====
 
 void FUN_006ec31e(undefined8 *param_1)
 
@@ -21944,7 +21944,7 @@ undefined4 * FUN_006f6510(undefined4 *param_1,undefined4 *param_2)
 }
 
 
-// ==== entry=006f651e name=FUN_006f651e size=29 ====
+// ==== entry=006f651e orig=FUN_006f651e size=29 name=TriggerActionDialog_dtor ====
 
 void FUN_006f651e(QDialog *param_1)
 
@@ -21968,7 +21968,7 @@ void FUN_006f653b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f655c name=FUN_006f655c size=47 ====
+// ==== entry=006f655c orig=FUN_006f655c size=47 name=TriggerActionDialog_dtor_deleting ====
 
 void FUN_006f655c(QDialog *param_1)
 
@@ -21994,7 +21994,7 @@ void FUN_006f658b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f65be name=FUN_006f65be size=29 ====
+// ==== entry=006f65be orig=FUN_006f65be size=29 name=TriggerActionWidget_dtor ====
 
 void FUN_006f65be(QWidget *param_1)
 
@@ -22018,7 +22018,7 @@ void FUN_006f65db(undefined8 *param_1)
 }
 
 
-// ==== entry=006f65fc name=FUN_006f65fc size=47 ====
+// ==== entry=006f65fc orig=FUN_006f65fc size=47 name=TriggerActionWidget_dtor_deleting ====
 
 void FUN_006f65fc(QWidget *param_1)
 
@@ -22044,7 +22044,7 @@ void FUN_006f662b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f665e name=FUN_006f665e size=29 ====
+// ==== entry=006f665e orig=FUN_006f665e size=29 name=MarkStyleWidget_dtor ====
 
 void FUN_006f665e(QWidget *param_1)
 
@@ -22068,7 +22068,7 @@ void FUN_006f667b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f669c name=FUN_006f669c size=47 ====
+// ==== entry=006f669c orig=FUN_006f669c size=47 name=MarkStyleWidget_dtor_deleting ====
 
 void FUN_006f669c(QWidget *param_1)
 
@@ -22094,7 +22094,7 @@ void FUN_006f66cb(undefined8 *param_1)
 }
 
 
-// ==== entry=006f66fe name=FUN_006f66fe size=29 ====
+// ==== entry=006f66fe orig=FUN_006f66fe size=29 name=ConnectionTriggerPage_dtor ====
 
 void FUN_006f66fe(QWidget *param_1)
 
@@ -22118,7 +22118,7 @@ void FUN_006f671b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f673c name=FUN_006f673c size=47 ====
+// ==== entry=006f673c orig=FUN_006f673c size=47 name=ConnectionTriggerPage_dtor_deleting ====
 
 void FUN_006f673c(QWidget *param_1)
 
@@ -22144,7 +22144,7 @@ void FUN_006f676b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f679e name=FUN_006f679e size=29 ====
+// ==== entry=006f679e orig=FUN_006f679e size=29 name=CustomLinkTriggerPage_dtor ====
 
 void FUN_006f679e(QWidget *param_1)
 
@@ -22168,7 +22168,7 @@ void FUN_006f67bb(undefined8 *param_1)
 }
 
 
-// ==== entry=006f67dc name=FUN_006f67dc size=47 ====
+// ==== entry=006f67dc orig=FUN_006f67dc size=47 name=CustomLinkTriggerPage_dtor_deleting ====
 
 void FUN_006f67dc(QWidget *param_1)
 
@@ -22194,7 +22194,7 @@ void FUN_006f680b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f683e name=FUN_006f683e size=29 ====
+// ==== entry=006f683e orig=FUN_006f683e size=29 name=CustomMenuTriggerPage_dtor ====
 
 void FUN_006f683e(QWidget *param_1)
 
@@ -22218,7 +22218,7 @@ void FUN_006f685b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f687c name=FUN_006f687c size=47 ====
+// ==== entry=006f687c orig=FUN_006f687c size=47 name=CustomMenuTriggerPage_dtor_deleting ====
 
 void FUN_006f687c(QWidget *param_1)
 
@@ -22244,7 +22244,7 @@ void FUN_006f68ab(undefined8 *param_1)
 }
 
 
-// ==== entry=006f68de name=FUN_006f68de size=29 ====
+// ==== entry=006f68de orig=FUN_006f68de size=29 name=HighlightTextTriggerPage_dtor ====
 
 void FUN_006f68de(QWidget *param_1)
 
@@ -22268,7 +22268,7 @@ void FUN_006f68fb(undefined8 *param_1)
 }
 
 
-// ==== entry=006f691c name=FUN_006f691c size=47 ====
+// ==== entry=006f691c orig=FUN_006f691c size=47 name=HighlightTextTriggerPage_dtor_deleting ====
 
 void FUN_006f691c(QWidget *param_1)
 
@@ -22294,7 +22294,7 @@ void FUN_006f694b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f697e name=FUN_006f697e size=29 ====
+// ==== entry=006f697e orig=FUN_006f697e size=29 name=PlaySoundTriggerPage_dtor ====
 
 void FUN_006f697e(QWidget *param_1)
 
@@ -22318,7 +22318,7 @@ void FUN_006f699b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f69bc name=FUN_006f69bc size=47 ====
+// ==== entry=006f69bc orig=FUN_006f69bc size=47 name=PlaySoundTriggerPage_dtor_deleting ====
 
 void FUN_006f69bc(QWidget *param_1)
 
@@ -22344,7 +22344,7 @@ void FUN_006f69eb(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6a1e name=FUN_006f6a1e size=29 ====
+// ==== entry=006f6a1e orig=FUN_006f6a1e size=29 name=RunCommandTriggerPage_dtor ====
 
 void FUN_006f6a1e(QWidget *param_1)
 
@@ -22368,7 +22368,7 @@ void FUN_006f6a3b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6a5c name=FUN_006f6a5c size=47 ====
+// ==== entry=006f6a5c orig=FUN_006f6a5c size=47 name=RunCommandTriggerPage_dtor_deleting ====
 
 void FUN_006f6a5c(QWidget *param_1)
 
@@ -22394,7 +22394,7 @@ void FUN_006f6a8b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6abe name=FUN_006f6abe size=29 ====
+// ==== entry=006f6abe orig=FUN_006f6abe size=29 name=SendTextTriggerPage_dtor ====
 
 void FUN_006f6abe(QWidget *param_1)
 
@@ -22418,7 +22418,7 @@ void FUN_006f6adb(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6afc name=FUN_006f6afc size=47 ====
+// ==== entry=006f6afc orig=FUN_006f6afc size=47 name=SendTextTriggerPage_dtor_deleting ====
 
 void FUN_006f6afc(QWidget *param_1)
 
@@ -22444,7 +22444,7 @@ void FUN_006f6b2b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6b5e name=FUN_006f6b5e size=29 ====
+// ==== entry=006f6b5e orig=FUN_006f6b5e size=29 name=ShowTooltipTriggerPage_dtor ====
 
 void FUN_006f6b5e(QWidget *param_1)
 
@@ -22468,7 +22468,7 @@ void FUN_006f6b7b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6b9c name=FUN_006f6b9c size=47 ====
+// ==== entry=006f6b9c orig=FUN_006f6b9c size=47 name=ShowTooltipTriggerPage_dtor_deleting ====
 
 void FUN_006f6b9c(QWidget *param_1)
 
@@ -22494,7 +22494,7 @@ void FUN_006f6bcb(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6bfe name=FUN_006f6bfe size=29 ====
+// ==== entry=006f6bfe orig=FUN_006f6bfe size=29 name=CaptureGroupsButton_dtor ====
 
 void FUN_006f6bfe(QToolButton *param_1)
 
@@ -22518,7 +22518,7 @@ void FUN_006f6c1b(undefined8 *param_1)
 }
 
 
-// ==== entry=006f6c3c name=FUN_006f6c3c size=47 ====
+// ==== entry=006f6c3c orig=FUN_006f6c3c size=47 name=CaptureGroupsButton_dtor_deleting ====
 
 void FUN_006f6c3c(QToolButton *param_1)
 
@@ -23708,7 +23708,7 @@ void FUN_006f8590(QLayout *param_1)
 }
 
 
-// ==== entry=006f8a92 name=FUN_006f8a92 size=29 ====
+// ==== entry=006f8a92 orig=FUN_006f8a92 size=29 name=TriggerActionEditPanel_dtor ====
 
 void FUN_006f8a92(undefined8 *param_1)
 
@@ -23737,7 +23737,7 @@ void FUN_006f8aaf(undefined8 *param_1)
 }
 
 
-// ==== entry=006f8b16 name=FUN_006f8b16 size=47 ====
+// ==== entry=006f8b16 orig=FUN_006f8b16 size=47 name=TriggerActionEditPanel_dtor_deleting ====
 
 void FUN_006f8b16(undefined8 *param_1)
 
@@ -30640,7 +30640,7 @@ double FUN_00704e96(void)
 }
 
 
-// ==== entry=00704eb8 name=FUN_00704eb8 size=29 ====
+// ==== entry=00704eb8 orig=FUN_00704eb8 size=29 name=WindowOpacityDialog_dtor ====
 
 void FUN_00704eb8(QDialog *param_1)
 
@@ -30664,7 +30664,7 @@ void FUN_00704ed5(undefined8 *param_1)
 }
 
 
-// ==== entry=00704ef6 name=FUN_00704ef6 size=47 ====
+// ==== entry=00704ef6 orig=FUN_00704ef6 size=47 name=WindowOpacityDialog_dtor_deleting ====
 
 void FUN_00704ef6(QDialog *param_1)
 
@@ -30773,7 +30773,7 @@ LAB_00705006:
 }
 
 
-// ==== entry=007050a6 name=FUN_007050a6 size=86 ====
+// ==== entry=007050a6 orig=FUN_007050a6 size=86 name=MaskDialog_dtor ====
 
 void FUN_007050a6(QWidget *param_1)
 
@@ -30813,7 +30813,7 @@ void FUN_007050fc(long param_1)
 }
 
 
-// ==== entry=00705102 name=FUN_00705102 size=23 ====
+// ==== entry=00705102 orig=FUN_00705102 size=23 name=MaskDialog_dtor_deleting ====
 
 void FUN_00705102(void *param_1)
 
@@ -31960,7 +31960,7 @@ LAB_00706fc5:
 }
 
 
-// ==== entry=0070709c name=FUN_0070709c size=170 ====
+// ==== entry=0070709c orig=FUN_0070709c size=170 name=RunToolDialog_dtor ====
 
 void FUN_0070709c(QDialog *param_1)
 
@@ -32039,7 +32039,7 @@ void FUN_00707146(long param_1)
 }
 
 
-// ==== entry=00707150 name=FUN_00707150 size=23 ====
+// ==== entry=00707150 orig=FUN_00707150 size=23 name=RunToolDialog_dtor_deleting ====
 
 void FUN_00707150(void *param_1)
 
@@ -49174,7 +49174,7 @@ LAB_00726f66:
 }
 
 
-// ==== entry=00726f86 name=FUN_00726f86 size=19 ====
+// ==== entry=00726f86 orig=FUN_00726f86 size=19 name=IntValidator_dtor ====
 
 void FUN_00726f86(QIntValidator *param_1)
 
@@ -49185,7 +49185,7 @@ void FUN_00726f86(QIntValidator *param_1)
 }
 
 
-// ==== entry=00726f9a name=FUN_00726f9a size=37 ====
+// ==== entry=00726f9a orig=FUN_00726f9a size=37 name=IntValidator_dtor_deleting ====
 
 void FUN_00726f9a(QIntValidator *param_1)
 
@@ -55376,7 +55376,7 @@ LAB_0072f3fe:
 }
 
 
-// ==== entry=0072f424 name=FUN_0072f424 size=86 ====
+// ==== entry=0072f424 orig=FUN_0072f424 size=86 name=InsertFileDialog_dtor ====
 
 void FUN_0072f424(QDialog *param_1)
 
@@ -55416,7 +55416,7 @@ void FUN_0072f47a(long param_1)
 }
 
 
-// ==== entry=0072f480 name=FUN_0072f480 size=23 ====
+// ==== entry=0072f480 orig=FUN_0072f480 size=23 name=InsertFileDialog_dtor_deleting ====
 
 void FUN_0072f480(void *param_1)
 
@@ -60600,7 +60600,7 @@ undefined8 FUN_00735858(long param_1,int param_2)
 }
 
 
-// ==== entry=0073591c name=FUN_0073591c size=164 ====
+// ==== entry=0073591c orig=FUN_0073591c size=164 name=SenderPane_dtor ====
 
 void FUN_0073591c(QWidget *param_1)
 
@@ -60642,7 +60642,7 @@ void FUN_007359c0(long param_1)
 }
 
 
-// ==== entry=007359ca name=FUN_007359ca size=23 ====
+// ==== entry=007359ca orig=FUN_007359ca size=23 name=SenderPane_dtor_deleting ====
 
 void FUN_007359ca(void *param_1)
 
@@ -62599,7 +62599,7 @@ LAB_0073904e:
 }
 
 
-// ==== entry=0073906c name=FUN_0073906c size=29 ====
+// ==== entry=0073906c orig=FUN_0073906c size=29 name=DoubleSpinBox_dtor ====
 
 void FUN_0073906c(QDoubleSpinBox *param_1)
 
@@ -62623,7 +62623,7 @@ void FUN_00739089(undefined8 *param_1)
 }
 
 
-// ==== entry=007390aa name=FUN_007390aa size=47 ====
+// ==== entry=007390aa orig=FUN_007390aa size=47 name=DoubleSpinBox_dtor_deleting ====
 
 void FUN_007390aa(QDoubleSpinBox *param_1)
 
@@ -62649,7 +62649,7 @@ void FUN_007390d9(undefined8 *param_1)
 }
 
 
-// ==== entry=0073910c name=FUN_0073910c size=29 ====
+// ==== entry=0073910c orig=FUN_0073910c size=29 name=SpinBox_dtor ====
 
 void FUN_0073910c(QSpinBox *param_1)
 
@@ -62673,7 +62673,7 @@ void FUN_00739129(undefined8 *param_1)
 }
 
 
-// ==== entry=0073914a name=FUN_0073914a size=47 ====
+// ==== entry=0073914a orig=FUN_0073914a size=47 name=SpinBox_dtor_deleting ====
 
 void FUN_0073914a(QSpinBox *param_1)
 
@@ -62699,7 +62699,7 @@ void FUN_00739179(undefined8 *param_1)
 }
 
 
-// ==== entry=007391ac name=FUN_007391ac size=19 ====
+// ==== entry=007391ac orig=FUN_007391ac size=19 name=EditWidgetAction_dtor ====
 
 void FUN_007391ac(QWidgetAction *param_1)
 
@@ -62710,7 +62710,7 @@ void FUN_007391ac(QWidgetAction *param_1)
 }
 
 
-// ==== entry=007391c0 name=FUN_007391c0 size=37 ====
+// ==== entry=007391c0 orig=FUN_007391c0 size=37 name=EditWidgetAction_dtor_deleting ====
 
 void FUN_007391c0(QWidgetAction *param_1)
 
@@ -62722,7 +62722,7 @@ void FUN_007391c0(QWidgetAction *param_1)
 }
 
 
-// ==== entry=007391e6 name=FUN_007391e6 size=19 ====
+// ==== entry=007391e6 orig=FUN_007391e6 size=19 name=UnitWidgetAction_dtor ====
 
 void FUN_007391e6(QWidgetAction *param_1)
 
@@ -62733,7 +62733,7 @@ void FUN_007391e6(QWidgetAction *param_1)
 }
 
 
-// ==== entry=007391fa name=FUN_007391fa size=37 ====
+// ==== entry=007391fa orig=FUN_007391fa size=37 name=UnitWidgetAction_dtor_deleting ====
 
 void FUN_007391fa(QWidgetAction *param_1)
 
@@ -62745,7 +62745,7 @@ void FUN_007391fa(QWidgetAction *param_1)
 }
 
 
-// ==== entry=00739220 name=FUN_00739220 size=19 ====
+// ==== entry=00739220 orig=FUN_00739220 size=19 name=CountWidgetAction_dtor ====
 
 void FUN_00739220(QWidgetAction *param_1)
 
@@ -62756,7 +62756,7 @@ void FUN_00739220(QWidgetAction *param_1)
 }
 
 
-// ==== entry=00739234 name=FUN_00739234 size=37 ====
+// ==== entry=00739234 orig=FUN_00739234 size=37 name=CountWidgetAction_dtor_deleting ====
 
 void FUN_00739234(QWidgetAction *param_1)
 

@@ -24447,7 +24447,7 @@ void FUN_008342c0(long param_1)
 }
 
 
-// ==== entry=00834332 name=FUN_00834332 size=220 ====
+// ==== entry=00834332 orig=FUN_00834332 size=220 name=TerminalView_dtor ====
 
 void FUN_00834332(undefined8 *param_1)
 
@@ -24535,7 +24535,7 @@ void FUN_0083442c(long param_1)
 }
 
 
-// ==== entry=00834438 name=FUN_00834438 size=23 ====
+// ==== entry=00834438 orig=FUN_00834438 size=23 name=TerminalView_dtor_deleting ====
 
 void FUN_00834438(void *param_1)
 
@@ -27511,7 +27511,7 @@ long * FUN_00838df2(long *param_1,long *param_2)
 }
 
 
-// ==== entry=00838f2e name=FUN_00838f2e size=2996 ====
+// ==== entry=00838f2e orig=FUN_00838f2e size=2996 name=TerminalViewConfig_metaObject ====
 
 void FUN_00838f2e(undefined8 *param_1)
 
@@ -28049,7 +28049,7 @@ LAB_00838f64:
 }
 
 
-// ==== entry=00839ae2 name=FUN_00839ae2 size=3009 ====
+// ==== entry=00839ae2 orig=FUN_00839ae2 size=3009 name=TerminalViewConfig_qt_metacast ====
 
 void FUN_00839ae2(undefined8 *param_1)
 
@@ -39656,7 +39656,7 @@ void FUN_0084ab1a(long param_1)
 }
 
 
-// ==== entry=0084ae58 name=FUN_0084ae58 size=676 ====
+// ==== entry=0084ae58 orig=FUN_0084ae58 size=676 name=TerminalWidget_dtor ====
 
 void FUN_0084ae58(undefined8 *param_1)
 
@@ -39777,7 +39777,7 @@ void FUN_0084b10e(long param_1)
 }
 
 
-// ==== entry=0084b11a name=FUN_0084b11a size=23 ====
+// ==== entry=0084b11a orig=FUN_0084b11a size=23 name=TerminalWidget_dtor_deleting ====
 
 void FUN_0084b11a(void *param_1)
 
@@ -49906,7 +49906,7 @@ LAB_008585d8:
 }
 
 
-// ==== entry=00858a38 name=FUN_00858a38 size=164 ====
+// ==== entry=00858a38 orig=FUN_00858a38 size=164 name=TerminalWindow_dtor ====
 
 void FUN_00858a38(undefined8 *param_1)
 
@@ -49964,7 +49964,7 @@ void FUN_00858ae5(long param_1)
 }
 
 
-// ==== entry=00858af2 name=FUN_00858af2 size=23 ====
+// ==== entry=00858af2 orig=FUN_00858af2 size=23 name=TerminalWindow_dtor_deleting ====
 
 void FUN_00858af2(void *param_1)
 

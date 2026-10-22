@@ -6187,7 +6187,7 @@ void FUN_0062b040(QThread *param_1,QObject *param_2)
 }
 
 
-// ==== entry=0062b1e0 name=FUN_0062b1e0 size=223 ====
+// ==== entry=0062b1e0 orig=FUN_0062b1e0 size=223 name=FileWatcher_dtor ====
 
 void FUN_0062b1e0(QThread *param_1)
 
@@ -6248,7 +6248,7 @@ LAB_0062b29f:
 }
 
 
-// ==== entry=0062b2c0 name=FUN_0062b2c0 size=23 ====
+// ==== entry=0062b2c0 orig=FUN_0062b2c0 size=23 name=FileWatcher_dtor_deleting ====
 
 void FUN_0062b2c0(void *param_1)
 
@@ -12646,7 +12646,7 @@ LAB_00633842:
 }
 
 
-// ==== entry=00633d10 name=FUN_00633d10 size=4 ====
+// ==== entry=00633d10 orig=FUN_00633d10 size=4 name=LocalFileSystemItem_dtor ====
 
 undefined4 FUN_00633d10(long param_1)
 
@@ -12655,7 +12655,7 @@ undefined4 FUN_00633d10(long param_1)
 }
 
 
-// ==== entry=00633d14 name=FUN_00633d14 size=4 ====
+// ==== entry=00633d14 orig=FUN_00633d14 size=4 name=LocalFileSystemItem_dtor_deleting ====
 
 undefined4 FUN_00633d14(long param_1)
 
@@ -12664,7 +12664,7 @@ undefined4 FUN_00633d14(long param_1)
 }
 
 
-// ==== entry=00633d18 name=FUN_00633d18 size=27 ====
+// ==== entry=00633d18 orig=FUN_00633d18 size=27 name=LocalFileSystemItem_qt_metacall ====
 
 undefined8 * FUN_00633d18(undefined8 *param_1,long param_2)
 
@@ -13242,7 +13242,7 @@ LAB_006348ed:
 }
 
 
-// ==== entry=00634a20 name=FUN_00634a20 size=596 ====
+// ==== entry=00634a20 orig=FUN_00634a20 size=596 name=LocalFileSystemItem_metaObject ====
 
 void FUN_00634a20(undefined8 *param_1)
 
@@ -13405,7 +13405,7 @@ LAB_00634c01:
 }
 
 
-// ==== entry=00634c74 name=FUN_00634c74 size=621 ====
+// ==== entry=00634c74 orig=FUN_00634c74 size=621 name=LocalFileSystemItem_qt_metacast ====
 
 void FUN_00634c74(undefined8 *param_1)
 
@@ -13705,7 +13705,7 @@ LAB_006350e0:
 }
 
 
-// ==== entry=006351c0 name=FUN_006351c0 size=596 ====
+// ==== entry=006351c0 orig=FUN_006351c0 size=596 name=SftpFileSystemItem_metaObject ====
 
 void FUN_006351c0(undefined8 *param_1)
 
@@ -13868,7 +13868,7 @@ LAB_006353a1:
 }
 
 
-// ==== entry=00635414 name=FUN_00635414 size=621 ====
+// ==== entry=00635414 orig=FUN_00635414 size=621 name=SftpFileSystemItem_qt_metacast ====
 
 void FUN_00635414(undefined8 *param_1)
 
@@ -14271,7 +14271,7 @@ LAB_006359e2:
 }
 
 
-// ==== entry=00635abe name=FUN_00635abe size=1255 ====
+// ==== entry=00635abe orig=FUN_00635abe size=1255 name=King::formatMenuMnemonic ====
 
 QString * FUN_00635abe(QString *param_1,long param_2,undefined8 param_3,char *param_4)
 
@@ -17150,7 +17150,7 @@ LAB_0063951b:
 }
 
 
-// ==== entry=00639652 name=FUN_00639652 size=1573 ====
+// ==== entry=00639652 orig=FUN_00639652 size=1573 name=SvgIconEngine_dtor_deleting ====
 
 QPixmap * FUN_00639652(QPixmap *param_1,long param_2,int *param_3,uint param_4,uint param_5)
 
@@ -17287,7 +17287,7 @@ LAB_006398fa:
 }
 
 
-// ==== entry=00639c88 name=FUN_00639c88 size=486 ====
+// ==== entry=00639c88 orig=FUN_00639c88 size=486 name=SvgIconEngine_qt_metacall ====
 
 void FUN_00639c88(long param_1,QRectF *param_2,int *param_3,undefined4 param_4,undefined4 param_5)
 
@@ -17342,7 +17342,7 @@ void FUN_00639c88(long param_1,QRectF *param_2,int *param_3,undefined4 param_4,u
 }
 
 
-// ==== entry=00639e76 name=FUN_00639e76 size=126 ====
+// ==== entry=00639e76 orig=FUN_00639e76 size=126 name=King::IconEngine::virtual_hook ====
 
 void FUN_00639e76(long param_1,void *param_2,byte *param_3)
 
@@ -17372,7 +17372,7 @@ void FUN_00639e76(long param_1,void *param_2,byte *param_3)
 }
 
 
-// ==== entry=00639ef4 name=FUN_00639ef4 size=132 ====
+// ==== entry=00639ef4 orig=FUN_00639ef4 size=132 name=SvgIconEngine_metaObject ====
 
 void FUN_00639ef4(QIconEngine *param_1)
 
@@ -17415,7 +17415,7 @@ LAB_00639f5d:
 }
 
 
-// ==== entry=00639f78 name=FUN_00639f78 size=135 ====
+// ==== entry=00639f78 orig=FUN_00639f78 size=135 name=SvgIconEngine_qt_metacast ====
 
 void FUN_00639f78(QIconEngine *param_1)
 
@@ -19379,7 +19379,7 @@ LAB_0063c5d9:
 }
 
 
-// ==== entry=0063c630 name=FUN_0063c630 size=470 ====
+// ==== entry=0063c630 orig=FUN_0063c630 size=470 name=TransferTask_dtor ====
 
 void FUN_0063c630(QObject *param_1)
 
@@ -19449,7 +19449,7 @@ void FUN_0063c630(QObject *param_1)
 }
 
 
-// ==== entry=0063c806 name=FUN_0063c806 size=23 ====
+// ==== entry=0063c806 orig=FUN_0063c806 size=23 name=TransferTask_dtor_deleting ====
 
 void FUN_0063c806(void *param_1)
 
@@ -24670,7 +24670,7 @@ LAB_006440bc:
 }
 
 
-// ==== entry=00644108 name=FUN_00644108 size=67 ====
+// ==== entry=00644108 orig=FUN_00644108 size=67 name=TreeModel_dtor ====
 
 void FUN_00644108(QAbstractItemModel *param_1)
 
@@ -24688,7 +24688,7 @@ void FUN_00644108(QAbstractItemModel *param_1)
 }
 
 
-// ==== entry=0064414c name=FUN_0064414c size=23 ====
+// ==== entry=0064414c orig=FUN_0064414c size=23 name=TreeModel_dtor_deleting ====
 
 void FUN_0064414c(void *param_1)
 
@@ -25492,7 +25492,7 @@ LAB_00645051:
 }
 
 
-// ==== entry=006450ba name=FUN_006450ba size=4022 ====
+// ==== entry=006450ba orig=FUN_006450ba size=4022 name=ActionHandler_dtor ====
 
 undefined4 FUN_006450ba(long *param_1,undefined8 param_2,long param_3,undefined8 *param_4)
 
@@ -27148,7 +27148,7 @@ LAB_00647c28:
 }
 
 
-// ==== entry=00647c66 name=FUN_00647c66 size=123 ====
+// ==== entry=00647c66 orig=FUN_00647c66 size=123 name=FileReader_dtor ====
 
 void FUN_00647c66(QThread *param_1)
 
@@ -27183,7 +27183,7 @@ LAB_00647ca3:
 }
 
 
-// ==== entry=00647ce2 name=FUN_00647ce2 size=23 ====
+// ==== entry=00647ce2 orig=FUN_00647ce2 size=23 name=FileReader_dtor_deleting ====
 
 void FUN_00647ce2(void *param_1)
 
@@ -29831,7 +29831,7 @@ LAB_0064aa45:
 }
 
 
-// ==== entry=0064aacc name=FUN_0064aacc size=19 ====
+// ==== entry=0064aacc orig=FUN_0064aacc size=19 name=FileSystemModel_dtor ====
 
 void FUN_0064aacc(QFileSystemModel *param_1)
 
@@ -29842,7 +29842,7 @@ void FUN_0064aacc(QFileSystemModel *param_1)
 }
 
 
-// ==== entry=0064aae0 name=FUN_0064aae0 size=37 ====
+// ==== entry=0064aae0 orig=FUN_0064aae0 size=37 name=FileSystemModel_dtor_deleting ====
 
 void FUN_0064aae0(QFileSystemModel *param_1)
 
@@ -29866,7 +29866,7 @@ void FUN_0064ab10(QObject *param_1,QObject *param_2)
 }
 
 
-// ==== entry=0064ab32 name=FUN_0064ab32 size=19 ====
+// ==== entry=0064ab32 orig=FUN_0064ab32 size=19 name=JsEngine_dtor ====
 
 void FUN_0064ab32(QObject *param_1)
 
@@ -29877,7 +29877,7 @@ void FUN_0064ab32(QObject *param_1)
 }
 
 
-// ==== entry=0064ab46 name=FUN_0064ab46 size=23 ====
+// ==== entry=0064ab46 orig=FUN_0064ab46 size=23 name=JsEngine_dtor_deleting ====
 
 void FUN_0064ab46(void *param_1)
 
@@ -36332,7 +36332,7 @@ undefined * FUN_00651e80(void)
 }
 
 
-// ==== entry=00651f04 name=FUN_00651f04 size=497 ====
+// ==== entry=00651f04 orig=FUN_00651f04 size=497 name=OneKeyCenter_dtor ====
 
 void FUN_00651f04(QObject *param_1)
 
@@ -36422,7 +36422,7 @@ void FUN_00651f04(QObject *param_1)
 }
 
 
-// ==== entry=006520f6 name=FUN_006520f6 size=23 ====
+// ==== entry=006520f6 orig=FUN_006520f6 size=23 name=OneKeyCenter_dtor_deleting ====
 
 void FUN_006520f6(void *param_1)
 
@@ -43240,7 +43240,7 @@ LAB_0065cc36:
 }
 
 
-// ==== entry=0065ccfe name=FUN_0065ccfe size=19 ====
+// ==== entry=0065ccfe orig=FUN_0065ccfe size=19 name=Process_dtor ====
 
 void FUN_0065ccfe(QProcess *param_1)
 
@@ -43251,7 +43251,7 @@ void FUN_0065ccfe(QProcess *param_1)
 }
 
 
-// ==== entry=0065cd12 name=FUN_0065cd12 size=37 ====
+// ==== entry=0065cd12 orig=FUN_0065cd12 size=37 name=Process_dtor_deleting ====
 
 void FUN_0065cd12(QProcess *param_1)
 
@@ -61811,7 +61811,7 @@ void FUN_006744ae(QArrayData *param_1)
 }
 
 
-// ==== entry=006744f4 name=FUN_006744f4 size=67 ====
+// ==== entry=006744f4 orig=FUN_006744f4 size=67 name=SuperKeymap_dtor ====
 
 void FUN_006744f4(QObject *param_1)
 
@@ -61831,7 +61831,7 @@ void FUN_006744f4(QObject *param_1)
 }
 
 
-// ==== entry=00674538 name=FUN_00674538 size=23 ====
+// ==== entry=00674538 orig=FUN_00674538 size=23 name=SuperKeymap_dtor_deleting ====
 
 void FUN_00674538(void *param_1)
 

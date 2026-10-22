@@ -1,5 +1,5 @@
 // Ghidra 12.1.4 decompiled — WindTerm 2.7.0 (sha256 9491b87e…) part 23
-// ==== entry=0073925a name=FUN_0073925a size=19 ====
+// ==== entry=0073925a orig=FUN_0073925a size=19 name=IntervalWidgetAction_dtor ====
 
 void FUN_0073925a(QWidgetAction *param_1)
 
@@ -10,7 +10,7 @@ void FUN_0073925a(QWidgetAction *param_1)
 }
 
 
-// ==== entry=0073926e name=FUN_0073926e size=37 ====
+// ==== entry=0073926e orig=FUN_0073926e size=37 name=IntervalWidgetAction_dtor_deleting ====
 
 void FUN_0073926e(QWidgetAction *param_1)
 
@@ -22,7 +22,7 @@ void FUN_0073926e(QWidgetAction *param_1)
 }
 
 
-// ==== entry=00739294 name=FUN_00739294 size=19 ====
+// ==== entry=00739294 orig=FUN_00739294 size=19 name=TargetsWidgetAction_dtor ====
 
 void FUN_00739294(QWidgetAction *param_1)
 
@@ -33,7 +33,7 @@ void FUN_00739294(QWidgetAction *param_1)
 }
 
 
-// ==== entry=007392a8 name=FUN_007392a8 size=37 ====
+// ==== entry=007392a8 orig=FUN_007392a8 size=37 name=TargetsWidgetAction_dtor_deleting ====
 
 void FUN_007392a8(QWidgetAction *param_1)
 
@@ -10104,7 +10104,7 @@ void FUN_00748587(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=0074860e name=FUN_0074860e size=29 ====
+// ==== entry=0074860e orig=FUN_0074860e size=29 name=OutlineTree_dtor ====
 
 void FUN_0074860e(undefined8 *param_1)
 
@@ -10128,7 +10128,7 @@ void FUN_0074862b(undefined8 *param_1)
 }
 
 
-// ==== entry=0074864c name=FUN_0074864c size=47 ====
+// ==== entry=0074864c orig=FUN_0074864c size=47 name=OutlineTree_dtor_deleting ====
 
 void FUN_0074864c(undefined8 *param_1)
 
@@ -10444,7 +10444,7 @@ LAB_00748a1d:
 }
 
 
-// ==== entry=00748a66 name=FUN_00748a66 size=29 ====
+// ==== entry=00748a66 orig=FUN_00748a66 size=29 name=OutputPane_dtor ====
 
 void FUN_00748a66(QWidget *param_1)
 
@@ -10466,7 +10466,7 @@ void FUN_00748a83(long param_1)
 }
 
 
-// ==== entry=00748a8a name=FUN_00748a8a size=23 ====
+// ==== entry=00748a8a orig=FUN_00748a8a size=23 name=OutputPane_dtor_deleting ====
 
 void FUN_00748a8a(void *param_1)
 
@@ -17224,7 +17224,7 @@ joined_r0x00751e48:
 }
 
 
-// ==== entry=00751eae name=FUN_00751eae size=243 ====
+// ==== entry=00751eae orig=FUN_00751eae size=243 name=SessionDialog_dtor ====
 
 void FUN_00751eae(QDialog *param_1)
 
@@ -17427,7 +17427,7 @@ LAB_00752143:
 }
 
 
-// ==== entry=0075219e name=FUN_0075219e size=249 ====
+// ==== entry=0075219e orig=FUN_0075219e size=249 name=SessionDialog_dtor_deleting ====
 
 void FUN_0075219e(QDialog *param_1)
 
@@ -18687,7 +18687,7 @@ undefined * FUN_007538f6(void)
 }
 
 
-// ==== entry=00753978 name=FUN_00753978 size=312 ====
+// ==== entry=00753978 orig=FUN_00753978 size=312 name=ApplicationTheme_dtor ====
 
 void FUN_00753978(QObject *param_1)
 
@@ -18753,7 +18753,7 @@ LAB_00753a91:
 }
 
 
-// ==== entry=00753ab0 name=FUN_00753ab0 size=23 ====
+// ==== entry=00753ab0 orig=FUN_00753ab0 size=23 name=ApplicationTheme_dtor_deleting ====
 
 void FUN_00753ab0(void *param_1)
 
@@ -19934,7 +19934,7 @@ LAB_0075530f:
 }
 
 
-// ==== entry=0075541e name=FUN_0075541e size=1548 ====
+// ==== entry=0075541e orig=FUN_0075541e size=1548 name=King::resolveIconPaths ====
 
 long * FUN_0075541e(long *param_1,undefined8 param_2,QString *param_3)
 
@@ -20313,7 +20313,7 @@ LAB_00755b76:
 }
 
 
-// ==== entry=00755c86 name=FUN_00755c86 size=1616 ====
+// ==== entry=00755c86 orig=FUN_00755c86 size=1616 name=King::loadIconTheme ====
 
 QSvgRenderer * FUN_00755c86(long param_1,long *param_2)
 
@@ -20615,7 +20615,7 @@ LAB_0075605b:
 }
 
 
-// ==== entry=00756336 name=FUN_00756336 size=129 ====
+// ==== entry=00756336 orig=FUN_00756336 size=129 name=King::loadSvgIcon ====
 
 undefined4 FUN_00756336(undefined8 param_1,undefined8 param_2)
 
@@ -21243,7 +21243,7 @@ undefined8 FUN_0075727c(undefined8 param_1,undefined8 param_2,undefined8 param_3
 }
 
 
-// ==== entry=007572ac name=FUN_007572ac size=769 ====
+// ==== entry=007572ac orig=FUN_007572ac size=769 name=King::iconFactory ====
 
 QIcon * FUN_007572ac(QIcon *param_1,undefined8 param_2,undefined8 param_3,int *param_4)
 
@@ -28122,7 +28122,7 @@ LAB_0075e7ba:
 }
 
 
-// ==== entry=0075f8f0 name=FUN_0075f8f0 size=1682 ====
+// ==== entry=0075f8f0 orig=FUN_0075f8f0 size=1682 name=SuperApplication_dtor ====
 
 /* WARNING: Removing unreachable block (ram,0x0075ff29) */
 /* WARNING: Removing unreachable block (ram,0x0075fa9b) */
@@ -28382,7 +28382,7 @@ void FUN_0075f8f0(QApplication *param_1)
 }
 
 
-// ==== entry=0075ffb4 name=FUN_0075ffb4 size=23 ====
+// ==== entry=0075ffb4 orig=FUN_0075ffb4 size=23 name=SuperApplication_dtor_deleting ====
 
 void FUN_0075ffb4(void *param_1)
 
@@ -30191,7 +30191,7 @@ LAB_00762f51:
 }
 
 
-// ==== entry=0076306e name=FUN_0076306e size=19 ====
+// ==== entry=0076306e orig=FUN_0076306e size=19 name=ThemeChangeEvent_metaObject ====
 
 void FUN_0076306e(QEvent *param_1)
 
@@ -30202,7 +30202,7 @@ void FUN_0076306e(QEvent *param_1)
 }
 
 
-// ==== entry=00763082 name=FUN_00763082 size=37 ====
+// ==== entry=00763082 orig=FUN_00763082 size=37 name=ThemeChangeEvent_qt_metacast ====
 
 void FUN_00763082(QEvent *param_1)
 
@@ -32209,7 +32209,7 @@ void FUN_00765270(long *param_1)
 }
 
 
-// ==== entry=00765350 name=FUN_00765350 size=138 ====
+// ==== entry=00765350 orig=FUN_00765350 size=138 name=PasswordDialog_dtor ====
 
 void FUN_00765350(QDialog *param_1)
 
@@ -32309,7 +32309,7 @@ LAB_00765447:
 }
 
 
-// ==== entry=00765466 name=FUN_00765466 size=144 ====
+// ==== entry=00765466 orig=FUN_00765466 size=144 name=PasswordDialog_dtor_deleting ====
 
 void FUN_00765466(QDialog *param_1)
 
@@ -35163,7 +35163,7 @@ void FUN_00768a48(long param_1,char param_2)
 }
 
 
-// ==== entry=00768cb6 name=FUN_00768cb6 size=315 ====
+// ==== entry=00768cb6 orig=FUN_00768cb6 size=315 name=MainWindow::delayedInit ====
 
 void FUN_00768cb6(QObject *param_1)
 
@@ -35279,7 +35279,7 @@ void FUN_00768dfa(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00768f44 name=FUN_00768f44 size=475 ====
+// ==== entry=00768f44 orig=FUN_00768f44 size=475 name=MainWindow::MainWindow(QWidget*,flags) ====
 
 void FUN_00768f44(QMainWindow *param_1,undefined8 param_2)
 
@@ -36782,7 +36782,7 @@ undefined8 FUN_0076bed4(undefined8 param_1,undefined8 param_2,long *param_3)
 }
 
 
-// ==== entry=0076bf82 name=FUN_0076bf82 size=113 ====
+// ==== entry=0076bf82 orig=FUN_0076bf82 size=113 name=King::buildKeySequence ====
 
 /* WARNING: Removing unreachable block (ram,0x0076bfe8) */
 
@@ -36810,7 +36810,7 @@ undefined8 FUN_0076bf82(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0076bffc name=FUN_0076bffc size=466 ====
+// ==== entry=0076bffc orig=FUN_0076bffc size=466 name=MainWindow_dtor ====
 
 void FUN_0076bffc(QMainWindow *param_1)
 
@@ -36887,7 +36887,7 @@ void FUN_0076c1d3(long param_1)
 }
 
 
-// ==== entry=0076c1dc name=FUN_0076c1dc size=23 ====
+// ==== entry=0076c1dc orig=FUN_0076c1dc size=23 name=MainWindow_dtor_deleting ====
 
 void FUN_0076c1dc(void *param_1)
 

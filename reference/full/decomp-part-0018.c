@@ -9188,7 +9188,7 @@ LAB_0059306d:
 }
 
 
-// ==== entry=0059373a name=FUN_0059373a size=175 ====
+// ==== entry=0059373a orig=FUN_0059373a size=175 name=LoginWizard_dtor ====
 
 void FUN_0059373a(QWidget *param_1)
 
@@ -9244,7 +9244,7 @@ void FUN_005937e9(long param_1)
 }
 
 
-// ==== entry=005937f2 name=FUN_005937f2 size=23 ====
+// ==== entry=005937f2 orig=FUN_005937f2 size=23 name=LoginWizard_dtor_deleting ====
 
 void FUN_005937f2(void *param_1)
 
@@ -17225,7 +17225,7 @@ void FUN_005a0880(int param_1,void *param_2)
 }
 
 
-// ==== entry=005a08fa name=FUN_005a08fa size=173 ====
+// ==== entry=005a08fa orig=FUN_005a08fa size=173 name=PopupWidget_dtor ====
 
 void FUN_005a08fa(QFrame *param_1)
 
@@ -17265,7 +17265,7 @@ void FUN_005a09a7(long param_1)
 }
 
 
-// ==== entry=005a09b0 name=FUN_005a09b0 size=23 ====
+// ==== entry=005a09b0 orig=FUN_005a09b0 size=23 name=PopupWidget_dtor_deleting ====
 
 void FUN_005a09b0(void *param_1)
 
@@ -18035,7 +18035,7 @@ undefined8 FUN_005a1b58(undefined8 param_1,int param_2)
 }
 
 
-// ==== entry=005a1b72 name=FUN_005a1b72 size=19 ====
+// ==== entry=005a1b72 orig=FUN_005a1b72 size=19 name=ProxyStyle_dtor ====
 
 void FUN_005a1b72(QProxyStyle *param_1)
 
@@ -18046,7 +18046,7 @@ void FUN_005a1b72(QProxyStyle *param_1)
 }
 
 
-// ==== entry=005a1b86 name=FUN_005a1b86 size=37 ====
+// ==== entry=005a1b86 orig=FUN_005a1b86 size=37 name=ProxyStyle_dtor_deleting ====
 
 void FUN_005a1b86(QProxyStyle *param_1)
 
@@ -18087,7 +18087,7 @@ LAB_005a1bdb:
 }
 
 
-// ==== entry=005a1c00 name=FUN_005a1c00 size=42 ====
+// ==== entry=005a1c00 orig=FUN_005a1c00 size=42 name=Splitter::Splitter(QWidget*) ====
 
 void FUN_005a1c00(QSplitter *param_1,QWidget *param_2)
 
@@ -18100,7 +18100,7 @@ void FUN_005a1c00(QSplitter *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=005a1c2a name=FUN_005a1c2a size=29 ====
+// ==== entry=005a1c2a orig=FUN_005a1c2a size=29 name=Splitter_dtor ====
 
 void FUN_005a1c2a(QSplitter *param_1)
 
@@ -18122,7 +18122,7 @@ void FUN_005a1c47(long param_1)
 }
 
 
-// ==== entry=005a1c4e name=FUN_005a1c4e size=23 ====
+// ==== entry=005a1c4e orig=FUN_005a1c4e size=23 name=Splitter_dtor_deleting ====
 
 void FUN_005a1c4e(void *param_1)
 
@@ -18341,7 +18341,7 @@ void FUN_005a2096(undefined8 param_1,undefined8 param_2,char param_3)
 }
 
 
-// ==== entry=005a20a4 name=FUN_005a20a4 size=164 ====
+// ==== entry=005a20a4 orig=FUN_005a20a4 size=164 name=Splitter::eventFilter(QObject*,QEvent*) ====
 
 void FUN_005a20a4(QObject *param_1,QEvent *param_2,long param_3)
 
@@ -18725,7 +18725,7 @@ void FUN_005a2518(long param_1,long *param_2,char param_3)
 }
 
 
-// ==== entry=005a277a name=FUN_005a277a size=596 ====
+// ==== entry=005a277a orig=FUN_005a277a size=596 name=King::insertPane ====
 
 void FUN_005a277a(undefined8 param_1,long param_2,long param_3,uint param_4)
 
@@ -26989,7 +26989,7 @@ void thunk_FUN_005ad4a6(double param_1,QObject *param_2)
 }
 
 
-// ==== entry=005ad5c2 name=FUN_005ad5c2 size=5695 ====
+// ==== entry=005ad5c2 orig=FUN_005ad5c2 size=5695 name=TabGroup_dtor ====
 
 void FUN_005ad5c2(QFrame *param_1)
 
@@ -28345,7 +28345,7 @@ void FUN_005aec01(long param_1)
 }
 
 
-// ==== entry=005aec0a name=FUN_005aec0a size=23 ====
+// ==== entry=005aec0a orig=FUN_005aec0a size=23 name=TabGroup_dtor_deleting ====
 
 void FUN_005aec0a(void *param_1)
 
@@ -30444,7 +30444,7 @@ void FUN_005b2bbd(int param_1,void *param_2)
 }
 
 
-// ==== entry=005b2bec name=FUN_005b2bec size=19 ====
+// ==== entry=005b2bec orig=FUN_005b2bec size=19 name=CloseButtonAction_dtor ====
 
 void FUN_005b2bec(QWidgetAction *param_1)
 
@@ -30455,7 +30455,7 @@ void FUN_005b2bec(QWidgetAction *param_1)
 }
 
 
-// ==== entry=005b2c00 name=FUN_005b2c00 size=37 ====
+// ==== entry=005b2c00 orig=FUN_005b2c00 size=37 name=CloseButtonAction_dtor_deleting ====
 
 void FUN_005b2c00(QWidgetAction *param_1)
 
@@ -30467,7 +30467,7 @@ void FUN_005b2c00(QWidgetAction *param_1)
 }
 
 
-// ==== entry=005b2c26 name=FUN_005b2c26 size=19 ====
+// ==== entry=005b2c26 orig=FUN_005b2c26 size=19 name=FilterEditAction_dtor ====
 
 void FUN_005b2c26(QWidgetAction *param_1)
 
@@ -30478,7 +30478,7 @@ void FUN_005b2c26(QWidgetAction *param_1)
 }
 
 
-// ==== entry=005b2c3a name=FUN_005b2c3a size=37 ====
+// ==== entry=005b2c3a orig=FUN_005b2c3a size=37 name=FilterEditAction_dtor_deleting ====
 
 void FUN_005b2c3a(QWidgetAction *param_1)
 

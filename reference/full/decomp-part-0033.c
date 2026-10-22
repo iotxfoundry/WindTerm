@@ -49637,7 +49637,7 @@ void FUN_00a17477(void)
 }
 
 
-// ==== entry=00a175e0 name=FUN_00a175e0 size=24 ====
+// ==== entry=00a175e0 orig=FUN_00a175e0 size=24 name=ScintillaEditBase_metaObject ====
 
 undefined ** FUN_00a175e0(long param_1)
 
@@ -50019,7 +50019,7 @@ LAB_00a179da:
 }
 
 
-// ==== entry=00a17ba8 name=FUN_00a17ba8 size=66 ====
+// ==== entry=00a17ba8 orig=FUN_00a17ba8 size=66 name=ScintillaEditBase_qt_metacast ====
 
 char * FUN_00a17ba8(char *param_1,char *param_2)
 
@@ -50039,7 +50039,7 @@ char * FUN_00a17ba8(char *param_1,char *param_2)
 }
 
 
-// ==== entry=00a17bea name=FUN_00a17bea size=93 ====
+// ==== entry=00a17bea orig=FUN_00a17bea size=93 name=ScintillaEditBase_qt_metacall ====
 
 ulong FUN_00a17bea(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -50079,7 +50079,7 @@ void FUN_00a17c48(void)
 }
 
 
-// ==== entry=00a17c50 name=FUN_00a17c50 size=24 ====
+// ==== entry=00a17c50 orig=FUN_00a17c50 size=24 name=ScintillaBase_dtor ====
 
 undefined ** FUN_00a17c50(long param_1)
 
@@ -50323,7 +50323,7 @@ void FUN_00a17f1f(void)
 }
 
 
-// ==== entry=00a18084 name=FUN_00a18084 size=104 ====
+// ==== entry=00a18084 orig=FUN_00a18084 size=104 name=ScintillaBase_dtor_deleting ====
 
 char * FUN_00a18084(char *param_1,byte *param_2)
 
@@ -50364,7 +50364,7 @@ char * FUN_00a18084(char *param_1,byte *param_2)
 }
 
 
-// ==== entry=00a180ec name=FUN_00a180ec size=97 ====
+// ==== entry=00a180ec orig=FUN_00a180ec size=97 name=ScintillaQt_qt_metacall ====
 
 ulong FUN_00a180ec(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -50413,7 +50413,7 @@ void FUN_00a18156(void)
 }
 
 
-// ==== entry=00a18158 name=FUN_00a18158 size=24 ====
+// ==== entry=00a18158 orig=FUN_00a18158 size=24 name=SciScrollbar_metaObject ====
 
 undefined ** FUN_00a18158(long param_1)
 
@@ -50428,7 +50428,7 @@ undefined ** FUN_00a18158(long param_1)
 }
 
 
-// ==== entry=00a18170 name=FUN_00a18170 size=66 ====
+// ==== entry=00a18170 orig=FUN_00a18170 size=66 name=SciScrollbar_qt_metacast ====
 
 undefined8 FUN_00a18170(undefined8 param_1,char *param_2)
 
@@ -50448,7 +50448,7 @@ undefined8 FUN_00a18170(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=00a181b2 name=thunk_FUN_008f238c size=5 ====
+// ==== entry=00a181b2 orig=thunk_FUN_008f238c size=5 name=SciScrollbar_qt_metacall ====
 
 ulong thunk_FUN_008f238c(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -50488,7 +50488,7 @@ void FUN_00a181b8(void)
 }
 
 
-// ==== entry=00a181ba name=FUN_00a181ba size=24 ====
+// ==== entry=00a181ba orig=FUN_00a181ba size=24 name=ExpectTask_metaObject ====
 
 undefined ** FUN_00a181ba(long param_1)
 
@@ -50503,7 +50503,7 @@ undefined ** FUN_00a181ba(long param_1)
 }
 
 
-// ==== entry=00a181d2 name=FUN_00a181d2 size=66 ====
+// ==== entry=00a181d2 orig=FUN_00a181d2 size=66 name=ExpectTask_qt_metacast ====
 
 char * FUN_00a181d2(char *param_1,char *param_2)
 
@@ -50523,7 +50523,7 @@ char * FUN_00a181d2(char *param_1,char *param_2)
 }
 
 
-// ==== entry=00a18214 name=qt_metacall size=5 ====
+// ==== entry=00a18214 orig=qt_metacall size=5 name=ExpectTask_qt_metacall ====
 
 void QObject::qt_metacall(void)
 
@@ -50533,7 +50533,7 @@ void QObject::qt_metacall(void)
 }
 
 
-// ==== entry=00a18220 name=FUN_00a18220 size=7831 ====
+// ==== entry=00a18220 orig=FUN_00a18220 size=7831 name=ExpectTask_dtor_deleting ====
 
 /* WARNING: Removing unreachable block (ram,0x00a182a3) */
 /* WARNING: Removing unreachable block (ram,0x00a19835) */
@@ -51953,7 +51953,7 @@ LAB_00a18280:
 }
 
 
-// ==== entry=00a1a0c0 name=FUN_00a1a0c0 size=7815 ====
+// ==== entry=00a1a0c0 orig=FUN_00a1a0c0 size=7815 name=ExpectTask_dtor ====
 
 /* WARNING: Removing unreachable block (ram,0x00a1a136) */
 /* WARNING: Removing unreachable block (ram,0x00a1b6c6) */
@@ -53381,7 +53381,7 @@ void FUN_00a1bf48(void)
 }
 
 
-// ==== entry=00a1bf4a name=FUN_00a1bf4a size=24 ====
+// ==== entry=00a1bf4a orig=FUN_00a1bf4a size=24 name=CompleteModel_metaObject ====
 
 undefined ** FUN_00a1bf4a(long param_1)
 
@@ -53396,7 +53396,7 @@ undefined ** FUN_00a1bf4a(long param_1)
 }
 
 
-// ==== entry=00a1bf62 name=FUN_00a1bf62 size=66 ====
+// ==== entry=00a1bf62 orig=FUN_00a1bf62 size=66 name=CompleteModel_qt_metacast ====
 
 undefined8 FUN_00a1bf62(undefined8 param_1,char *param_2)
 
@@ -53416,7 +53416,7 @@ undefined8 FUN_00a1bf62(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=00a1bfa4 name=qt_metacall size=5 ====
+// ==== entry=00a1bfa4 orig=qt_metacall size=5 name=CompleteModel_qt_metacall ====
 
 void QAbstractListModel::qt_metacall(void)
 
@@ -53435,7 +53435,7 @@ void FUN_00a1bfaa(void)
 }
 
 
-// ==== entry=00a1bfac name=FUN_00a1bfac size=24 ====
+// ==== entry=00a1bfac orig=FUN_00a1bfac size=24 name=CompleteList_metaObject ====
 
 undefined ** FUN_00a1bfac(long param_1)
 
@@ -53450,7 +53450,7 @@ undefined ** FUN_00a1bfac(long param_1)
 }
 
 
-// ==== entry=00a1bfc4 name=FUN_00a1bfc4 size=66 ====
+// ==== entry=00a1bfc4 orig=FUN_00a1bfc4 size=66 name=CompleteList_qt_metacast ====
 
 undefined8 FUN_00a1bfc4(undefined8 param_1,char *param_2)
 
@@ -53470,7 +53470,7 @@ undefined8 FUN_00a1bfc4(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=00a1c006 name=qt_metacall size=5 ====
+// ==== entry=00a1c006 orig=qt_metacall size=5 name=CompleteList_qt_metacall ====
 
 void QListView::qt_metacall(void)
 
@@ -53489,7 +53489,7 @@ void FUN_00a1c010(void)
 }
 
 
-// ==== entry=00a1c012 name=FUN_00a1c012 size=24 ====
+// ==== entry=00a1c012 orig=FUN_00a1c012 size=24 name=UndoList_metaObject ====
 
 undefined ** FUN_00a1c012(long param_1)
 
@@ -53504,7 +53504,7 @@ undefined ** FUN_00a1c012(long param_1)
 }
 
 
-// ==== entry=00a1c02a name=FUN_00a1c02a size=24 ====
+// ==== entry=00a1c02a orig=FUN_00a1c02a size=24 name=UndoListAction_metaObject ====
 
 undefined ** FUN_00a1c02a(long param_1)
 
@@ -53519,7 +53519,7 @@ undefined ** FUN_00a1c02a(long param_1)
 }
 
 
-// ==== entry=00a1c042 name=FUN_00a1c042 size=66 ====
+// ==== entry=00a1c042 orig=FUN_00a1c042 size=66 name=UndoList_qt_metacast ====
 
 undefined8 FUN_00a1c042(undefined8 param_1,char *param_2)
 
@@ -53611,7 +53611,7 @@ void FUN_00a1c0ee(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=00a1c15c name=FUN_00a1c15c size=97 ====
+// ==== entry=00a1c15c orig=FUN_00a1c15c size=97 name=UndoList_qt_metacall ====
 
 ulong FUN_00a1c15c(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -53642,7 +53642,7 @@ ulong FUN_00a1c15c(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=00a1c1be name=FUN_00a1c1be size=66 ====
+// ==== entry=00a1c1be orig=FUN_00a1c1be size=66 name=UndoListAction_qt_metacast ====
 
 char * FUN_00a1c1be(char *param_1,char *param_2)
 
@@ -53662,7 +53662,7 @@ char * FUN_00a1c1be(char *param_1,char *param_2)
 }
 
 
-// ==== entry=00a1c200 name=qt_metacall size=5 ====
+// ==== entry=00a1c200 orig=qt_metacall size=5 name=UndoListAction_qt_metacall ====
 
 void QWidgetAction::qt_metacall(void)
 
@@ -53672,7 +53672,7 @@ void QWidgetAction::qt_metacall(void)
 }
 
 
-// ==== entry=00a1c206 name=FUN_00a1c206 size=19 ====
+// ==== entry=00a1c206 orig=FUN_00a1c206 size=19 name=UndoListAction_dtor ====
 
 void FUN_00a1c206(QWidgetAction *param_1)
 
@@ -53683,7 +53683,7 @@ void FUN_00a1c206(QWidgetAction *param_1)
 }
 
 
-// ==== entry=00a1c21a name=FUN_00a1c21a size=37 ====
+// ==== entry=00a1c21a orig=FUN_00a1c21a size=37 name=UndoListAction_dtor_deleting ====
 
 void FUN_00a1c21a(QWidgetAction *param_1)
 
@@ -53695,7 +53695,7 @@ void FUN_00a1c21a(QWidgetAction *param_1)
 }
 
 
-// ==== entry=00a1c240 name=FUN_00a1c240 size=29 ====
+// ==== entry=00a1c240 orig=FUN_00a1c240 size=29 name=UndoList_dtor ====
 
 void FUN_00a1c240(QListView *param_1)
 
@@ -53719,7 +53719,7 @@ void FUN_00a1c25d(undefined8 *param_1)
 }
 
 
-// ==== entry=00a1c27e name=FUN_00a1c27e size=47 ====
+// ==== entry=00a1c27e orig=FUN_00a1c27e size=47 name=UndoList_dtor_deleting ====
 
 void FUN_00a1c27e(QListView *param_1)
 
@@ -53754,7 +53754,7 @@ void FUN_00a1c2e0(void)
 }
 
 
-// ==== entry=00a1c2e2 name=FUN_00a1c2e2 size=24 ====
+// ==== entry=00a1c2e2 orig=FUN_00a1c2e2 size=24 name=UndoModel_metaObject ====
 
 undefined ** FUN_00a1c2e2(long param_1)
 
@@ -53769,7 +53769,7 @@ undefined ** FUN_00a1c2e2(long param_1)
 }
 
 
-// ==== entry=00a1c2fa name=FUN_00a1c2fa size=66 ====
+// ==== entry=00a1c2fa orig=FUN_00a1c2fa size=66 name=UndoModel_qt_metacast ====
 
 undefined8 FUN_00a1c2fa(undefined8 param_1,char *param_2)
 
@@ -53789,7 +53789,7 @@ undefined8 FUN_00a1c2fa(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=00a1c33c name=qt_metacall size=5 ====
+// ==== entry=00a1c33c orig=qt_metacall size=5 name=UndoModel_qt_metacall ====
 
 void QAbstractListModel::qt_metacall(void)
 
@@ -54518,7 +54518,7 @@ LAB_00a1cc98:
 }
 
 
-// ==== entry=00a1ce8e name=FUN_00a1ce8e size=19 ====
+// ==== entry=00a1ce8e orig=FUN_00a1ce8e size=19 name=SciCalltipClickEvent_metaObject ====
 
 void FUN_00a1ce8e(QEvent *param_1)
 
@@ -54529,7 +54529,7 @@ void FUN_00a1ce8e(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cea2 name=FUN_00a1cea2 size=37 ====
+// ==== entry=00a1cea2 orig=FUN_00a1cea2 size=37 name=SciCalltipClickEvent_qt_metacast ====
 
 void FUN_00a1cea2(QEvent *param_1)
 
@@ -54541,7 +54541,7 @@ void FUN_00a1cea2(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cec8 name=FUN_00a1cec8 size=19 ====
+// ==== entry=00a1cec8 orig=FUN_00a1cec8 size=19 name=SciCalltipClickEvent_dtor_deleting ====
 
 void FUN_00a1cec8(QEvent *param_1)
 
@@ -54552,7 +54552,7 @@ void FUN_00a1cec8(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cedc name=FUN_00a1cedc size=37 ====
+// ==== entry=00a1cedc orig=FUN_00a1cedc size=37 name=SciCharAddedEvent_qt_metacast ====
 
 void FUN_00a1cedc(QEvent *param_1)
 
@@ -54564,7 +54564,7 @@ void FUN_00a1cedc(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cf02 name=FUN_00a1cf02 size=19 ====
+// ==== entry=00a1cf02 orig=FUN_00a1cf02 size=19 name=SciCompleterEvent_dtor_deleting ====
 
 void FUN_00a1cf02(QEvent *param_1)
 
@@ -54575,7 +54575,7 @@ void FUN_00a1cf02(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cf16 name=FUN_00a1cf16 size=37 ====
+// ==== entry=00a1cf16 orig=FUN_00a1cf16 size=37 name=SciContainerChangeEvent_qt_metacast ====
 
 void FUN_00a1cf16(QEvent *param_1)
 
@@ -54587,7 +54587,7 @@ void FUN_00a1cf16(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cf3c name=FUN_00a1cf3c size=19 ====
+// ==== entry=00a1cf3c orig=FUN_00a1cf3c size=19 name=SciContainerChangeEvent_dtor_deleting ====
 
 void FUN_00a1cf3c(QEvent *param_1)
 
@@ -54598,7 +54598,7 @@ void FUN_00a1cf3c(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cf50 name=FUN_00a1cf50 size=37 ====
+// ==== entry=00a1cf50 orig=FUN_00a1cf50 size=37 name=SciDecorationChangeEvent_qt_metacast ====
 
 void FUN_00a1cf50(QEvent *param_1)
 
@@ -54610,7 +54610,7 @@ void FUN_00a1cf50(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cf76 name=FUN_00a1cf76 size=19 ====
+// ==== entry=00a1cf76 orig=FUN_00a1cf76 size=19 name=SciDecorationChangeEvent_dtor_deleting ====
 
 void FUN_00a1cf76(QEvent *param_1)
 
@@ -54621,7 +54621,7 @@ void FUN_00a1cf76(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cf8a name=FUN_00a1cf8a size=37 ====
+// ==== entry=00a1cf8a orig=FUN_00a1cf8a size=37 name=SciFocusEvent_qt_metacast ====
 
 void FUN_00a1cf8a(QEvent *param_1)
 
@@ -54633,7 +54633,7 @@ void FUN_00a1cf8a(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cfb0 name=FUN_00a1cfb0 size=19 ====
+// ==== entry=00a1cfb0 orig=FUN_00a1cfb0 size=19 name=SciFocusEvent_dtor_deleting ====
 
 void FUN_00a1cfb0(QEvent *param_1)
 
@@ -54644,7 +54644,7 @@ void FUN_00a1cfb0(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cfc4 name=FUN_00a1cfc4 size=37 ====
+// ==== entry=00a1cfc4 orig=FUN_00a1cfc4 size=37 name=SciHoverEvent_qt_metacast ====
 
 void FUN_00a1cfc4(QEvent *param_1)
 
@@ -54656,7 +54656,7 @@ void FUN_00a1cfc4(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cfea name=FUN_00a1cfea size=19 ====
+// ==== entry=00a1cfea orig=FUN_00a1cfea size=19 name=SciMacroRecordEvent_dtor_deleting ====
 
 void FUN_00a1cfea(QEvent *param_1)
 
@@ -54667,7 +54667,7 @@ void FUN_00a1cfea(QEvent *param_1)
 }
 
 
-// ==== entry=00a1cffe name=FUN_00a1cffe size=37 ====
+// ==== entry=00a1cffe orig=FUN_00a1cffe size=37 name=SciMarginClickEvent_qt_metacast ====
 
 void FUN_00a1cffe(QEvent *param_1)
 
@@ -54679,7 +54679,7 @@ void FUN_00a1cffe(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d024 name=FUN_00a1d024 size=19 ====
+// ==== entry=00a1d024 orig=FUN_00a1d024 size=19 name=SciMarginClickEvent_dtor_deleting ====
 
 void FUN_00a1d024(QEvent *param_1)
 
@@ -54690,7 +54690,7 @@ void FUN_00a1d024(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d038 name=FUN_00a1d038 size=37 ====
+// ==== entry=00a1d038 orig=FUN_00a1d038 size=37 name=SciMouseEvent_qt_metacast ====
 
 void FUN_00a1d038(QEvent *param_1)
 
@@ -54702,7 +54702,7 @@ void FUN_00a1d038(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d05e name=FUN_00a1d05e size=19 ====
+// ==== entry=00a1d05e orig=FUN_00a1d05e size=19 name=SciMouseEvent_dtor_deleting ====
 
 void FUN_00a1d05e(QEvent *param_1)
 
@@ -54713,7 +54713,7 @@ void FUN_00a1d05e(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d072 name=FUN_00a1d072 size=37 ====
+// ==== entry=00a1d072 orig=FUN_00a1d072 size=37 name=SciNavigateEvent_qt_metacast ====
 
 void FUN_00a1d072(QEvent *param_1)
 
@@ -54725,7 +54725,7 @@ void FUN_00a1d072(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d098 name=FUN_00a1d098 size=19 ====
+// ==== entry=00a1d098 orig=FUN_00a1d098 size=19 name=SciNavigateEvent_dtor_deleting ====
 
 void FUN_00a1d098(QEvent *param_1)
 
@@ -54736,7 +54736,7 @@ void FUN_00a1d098(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d0ac name=FUN_00a1d0ac size=37 ====
+// ==== entry=00a1d0ac orig=FUN_00a1d0ac size=37 name=SciPaintEvent_qt_metacast ====
 
 void FUN_00a1d0ac(QEvent *param_1)
 
@@ -54748,7 +54748,7 @@ void FUN_00a1d0ac(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d0d2 name=FUN_00a1d0d2 size=19 ====
+// ==== entry=00a1d0d2 orig=FUN_00a1d0d2 size=19 name=SciPaintEvent_dtor_deleting ====
 
 void FUN_00a1d0d2(QEvent *param_1)
 
@@ -54759,7 +54759,7 @@ void FUN_00a1d0d2(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d0e6 name=FUN_00a1d0e6 size=37 ====
+// ==== entry=00a1d0e6 orig=FUN_00a1d0e6 size=37 name=SciPasteEvent_qt_metacast ====
 
 void FUN_00a1d0e6(QEvent *param_1)
 
@@ -54771,7 +54771,7 @@ void FUN_00a1d0e6(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d10c name=FUN_00a1d10c size=19 ====
+// ==== entry=00a1d10c orig=FUN_00a1d10c size=19 name=SciPasteEvent_dtor_deleting ====
 
 void FUN_00a1d10c(QEvent *param_1)
 
@@ -54782,7 +54782,7 @@ void FUN_00a1d10c(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d120 name=FUN_00a1d120 size=37 ====
+// ==== entry=00a1d120 orig=FUN_00a1d120 size=37 name=SciShownLinesChange_qt_metacast ====
 
 void FUN_00a1d120(QEvent *param_1)
 
@@ -54794,7 +54794,7 @@ void FUN_00a1d120(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d146 name=FUN_00a1d146 size=19 ====
+// ==== entry=00a1d146 orig=FUN_00a1d146 size=19 name=SciShownLinesChange_dtor_deleting ====
 
 void FUN_00a1d146(QEvent *param_1)
 
@@ -54805,7 +54805,7 @@ void FUN_00a1d146(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d15a name=FUN_00a1d15a size=37 ====
+// ==== entry=00a1d15a orig=FUN_00a1d15a size=37 name=SciTextClientResizeEvent_qt_metacast ====
 
 void FUN_00a1d15a(QEvent *param_1)
 
@@ -54817,7 +54817,7 @@ void FUN_00a1d15a(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d180 name=FUN_00a1d180 size=19 ====
+// ==== entry=00a1d180 orig=FUN_00a1d180 size=19 name=SciTextClientResizeEvent_dtor_deleting ====
 
 void FUN_00a1d180(QEvent *param_1)
 
@@ -54828,7 +54828,7 @@ void FUN_00a1d180(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d194 name=FUN_00a1d194 size=37 ====
+// ==== entry=00a1d194 orig=FUN_00a1d194 size=37 name=SciZoomEvent_qt_metacast ====
 
 void FUN_00a1d194(QEvent *param_1)
 
@@ -54840,7 +54840,7 @@ void FUN_00a1d194(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d1ba name=FUN_00a1d1ba size=45 ====
+// ==== entry=00a1d1ba orig=FUN_00a1d1ba size=45 name=SciHoverEvent_dtor_deleting ====
 
 void FUN_00a1d1ba(QEvent *param_1)
 
@@ -54853,7 +54853,7 @@ void FUN_00a1d1ba(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d1e8 name=FUN_00a1d1e8 size=58 ====
+// ==== entry=00a1d1e8 orig=FUN_00a1d1e8 size=58 name=SciMacroRecordEvent_qt_metacast ====
 
 void FUN_00a1d1e8(QEvent *param_1)
 
@@ -54867,7 +54867,7 @@ void FUN_00a1d1e8(QEvent *param_1)
 }
 
 
-// ==== entry=00a1d222 name=FUN_00a1d222 size=143 ====
+// ==== entry=00a1d222 orig=FUN_00a1d222 size=143 name=SciCompleterEvent_qt_metacast ====
 
 void FUN_00a1d222(QEvent *param_1)
 
@@ -54913,7 +54913,7 @@ LAB_00a1d267:
 }
 
 
-// ==== entry=00a1d2b2 name=FUN_00a1d2b2 size=137 ====
+// ==== entry=00a1d2b2 orig=FUN_00a1d2b2 size=137 name=SciCharAddedEvent_dtor_deleting ====
 
 void FUN_00a1d2b2(QEvent *param_1)
 
@@ -55492,7 +55492,7 @@ void FUN_00a1df74(QObject *param_1,int param_2,long param_3)
 }
 
 
-// ==== entry=00a1e0f6 name=FUN_00a1e0f6 size=75 ====
+// ==== entry=00a1e0f6 orig=FUN_00a1e0f6 size=75 name=SciScrollbar_dtor ====
 
 void FUN_00a1e0f6(QScrollBar *param_1)
 
@@ -55518,7 +55518,7 @@ void FUN_00a1e141(long param_1)
 }
 
 
-// ==== entry=00a1e148 name=FUN_00a1e148 size=23 ====
+// ==== entry=00a1e148 orig=FUN_00a1e148 size=23 name=SciScrollbar_dtor_deleting ====
 
 void FUN_00a1e148(void *param_1)
 
@@ -55770,7 +55770,7 @@ undefined4 FUN_00a1e44e(double param_1,double param_2,double param_3,double para
 }
 
 
-// ==== entry=00a1e46e name=FUN_00a1e46e size=8 ====
+// ==== entry=00a1e46e orig=FUN_00a1e46e size=8 name=Editor_qt_metacall ====
 
 undefined1 FUN_00a1e46e(long param_1)
 
@@ -56081,7 +56081,7 @@ undefined8 FUN_00a1e708(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00a1e71a name=FUN_00a1e71a size=25 ====
+// ==== entry=00a1e71a orig=FUN_00a1e71a size=25 name=Editor_dtor ====
 
 void FUN_00a1e71a(long param_1)
 

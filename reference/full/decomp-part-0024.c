@@ -2673,7 +2673,7 @@ void FUN_0079c8a0(undefined8 *param_1)
 }
 
 
-// ==== entry=0079c926 name=FUN_0079c926 size=373 ====
+// ==== entry=0079c926 orig=FUN_0079c926 size=373 name=XYModem_dtor ====
 
 void FUN_0079c926(QObject *param_1)
 
@@ -2774,7 +2774,7 @@ LAB_0079c9fe:
 }
 
 
-// ==== entry=0079ca9c name=FUN_0079ca9c size=23 ====
+// ==== entry=0079ca9c orig=FUN_0079ca9c size=23 name=XYModem_dtor_deleting ====
 
 void FUN_0079ca9c(void *param_1)
 
@@ -5217,7 +5217,7 @@ LAB_007a025f:
 }
 
 
-// ==== entry=007a029e name=FUN_007a029e size=523 ====
+// ==== entry=007a029e orig=FUN_007a029e size=523 name=ZModem_dtor ====
 
 void FUN_007a029e(QObject *param_1)
 
@@ -5339,7 +5339,7 @@ LAB_007a03e7:
 }
 
 
-// ==== entry=007a04aa name=FUN_007a04aa size=23 ====
+// ==== entry=007a04aa orig=FUN_007a04aa size=23 name=ZModem_dtor_deleting ====
 
 void FUN_007a04aa(void *param_1)
 
@@ -6484,7 +6484,7 @@ joined_r0x007a1ff0:
 }
 
 
-// ==== entry=007a200e name=FUN_007a200e size=249 ====
+// ==== entry=007a200e orig=FUN_007a200e size=249 name=ModemProcess_dtor ====
 
 void FUN_007a200e(QProcess *param_1)
 
@@ -6553,7 +6553,7 @@ LAB_007a20e4:
 }
 
 
-// ==== entry=007a2108 name=FUN_007a2108 size=23 ====
+// ==== entry=007a2108 orig=FUN_007a2108 size=23 name=ModemProcess_dtor_deleting ====
 
 void FUN_007a2108(void *param_1)
 
@@ -6851,7 +6851,7 @@ LAB_007a2790:
 }
 
 
-// ==== entry=007a27ce name=FUN_007a27ce size=88 ====
+// ==== entry=007a27ce orig=FUN_007a27ce size=88 name=SuperProtocol_metaObject ====
 
 void FUN_007a27ce(undefined8 *param_1)
 
@@ -6882,7 +6882,7 @@ LAB_007a2816:
 }
 
 
-// ==== entry=007a2826 name=FUN_007a2826 size=23 ====
+// ==== entry=007a2826 orig=FUN_007a2826 size=23 name=SuperProtocol_qt_metacast ====
 
 void FUN_007a2826(void *param_1)
 
@@ -13781,7 +13781,7 @@ void FUN_007a9f92(undefined8 *param_1)
 }
 
 
-// ==== entry=007a9ff2 name=FUN_007a9ff2 size=62 ====
+// ==== entry=007a9ff2 orig=FUN_007a9ff2 size=62 name=Uint32RunStyles_metaObject ====
 
 void FUN_007a9ff2(undefined8 *param_1)
 
@@ -13819,7 +13819,7 @@ void FUN_007aa030(undefined8 *param_1)
 }
 
 
-// ==== entry=007aa076 name=FUN_007aa076 size=70 ====
+// ==== entry=007aa076 orig=FUN_007aa076 size=70 name=Uint32RunStyles_qt_metacast ====
 
 void FUN_007aa076(undefined8 *param_1)
 
@@ -18935,7 +18935,7 @@ void FUN_007b0cb2(void *param_1)
 }
 
 
-// ==== entry=007b0cca name=FUN_007b0cca size=19 ====
+// ==== entry=007b0cca orig=FUN_007b0cca size=19 name=Uint64RunStyles_metaObject ====
 
 void FUN_007b0cca(undefined8 *param_1)
 
@@ -18946,7 +18946,7 @@ void FUN_007b0cca(undefined8 *param_1)
 }
 
 
-// ==== entry=007b0cde name=FUN_007b0cde size=37 ====
+// ==== entry=007b0cde orig=FUN_007b0cde size=37 name=Uint64RunStyles_qt_metacast ====
 
 void FUN_007b0cde(undefined8 *param_1)
 
@@ -20511,7 +20511,7 @@ void FUN_007b31f2(void *param_1)
 }
 
 
-// ==== entry=007b320a name=FUN_007b320a size=19 ====
+// ==== entry=007b320a orig=FUN_007b320a size=19 name=Uint16RunStyles_metaObject ====
 
 void FUN_007b320a(undefined8 *param_1)
 
@@ -20522,7 +20522,7 @@ void FUN_007b320a(undefined8 *param_1)
 }
 
 
-// ==== entry=007b321e name=FUN_007b321e size=37 ====
+// ==== entry=007b321e orig=FUN_007b321e size=37 name=Uint16RunStyles_qt_metacast ====
 
 void FUN_007b321e(undefined8 *param_1)
 
@@ -22369,7 +22369,7 @@ LAB_007b5bf6:
 }
 
 
-// ==== entry=007b5c50 name=FUN_007b5c50 size=645 ====
+// ==== entry=007b5c50 orig=FUN_007b5c50 size=645 name=Uint64RunStyles_qt_metacall ====
 
 void FUN_007b5c50(long param_1,long param_2,long param_3)
 
@@ -22619,7 +22619,7 @@ LAB_007b604c:
 }
 
 
-// ==== entry=007b6352 name=FUN_007b6352 size=230 ====
+// ==== entry=007b6352 orig=FUN_007b6352 size=230 name=Uint64RunStyles_dtor ====
 
 void FUN_007b6352(long *param_1,long param_2,long param_3,char param_4)
 
@@ -22660,7 +22660,7 @@ void FUN_007b6352(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=007b6440 name=FUN_007b6440 size=63 ====
+// ==== entry=007b6440 orig=FUN_007b6440 size=63 name=Uint64RunStyles_dtor_deleting ====
 
 void FUN_007b6440(long param_1,undefined8 param_2,long param_3)
 
@@ -23157,7 +23157,7 @@ LAB_007b6f95:
 }
 
 
-// ==== entry=007b6ff0 name=FUN_007b6ff0 size=660 ====
+// ==== entry=007b6ff0 orig=FUN_007b6ff0 size=660 name=Uint16RunStyles_qt_metacall ====
 
 void FUN_007b6ff0(long param_1,long param_2,long param_3)
 
@@ -23413,7 +23413,7 @@ LAB_007b73fd:
 }
 
 
-// ==== entry=007b7706 name=FUN_007b7706 size=230 ====
+// ==== entry=007b7706 orig=FUN_007b7706 size=230 name=Uint16RunStyles_dtor ====
 
 void FUN_007b7706(long *param_1,long param_2,long param_3,char param_4)
 
@@ -23455,7 +23455,7 @@ void FUN_007b7706(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=007b77f0 name=FUN_007b77f0 size=63 ====
+// ==== entry=007b77f0 orig=FUN_007b77f0 size=63 name=Uint16RunStyles_dtor_deleting ====
 
 void FUN_007b77f0(long param_1,undefined8 param_2,long param_3)
 
@@ -23741,7 +23741,7 @@ LAB_007b7d22:
 }
 
 
-// ==== entry=007b7d7e name=FUN_007b7d7e size=634 ====
+// ==== entry=007b7d7e orig=FUN_007b7d7e size=634 name=Uint32RunStyles_qt_metacall ====
 
 void FUN_007b7d7e(long param_1,long param_2,long param_3)
 
@@ -23992,7 +23992,7 @@ LAB_007b816d:
 }
 
 
-// ==== entry=007b8472 name=FUN_007b8472 size=229 ====
+// ==== entry=007b8472 orig=FUN_007b8472 size=229 name=Uint32RunStyles_dtor ====
 
 void FUN_007b8472(long *param_1,long param_2,long param_3,char param_4)
 
@@ -24033,7 +24033,7 @@ void FUN_007b8472(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=007b8560 name=FUN_007b8560 size=29 ====
+// ==== entry=007b8560 orig=FUN_007b8560 size=29 name=Uint32RunStyles_dtor_deleting ====
 
 void FUN_007b8560(undefined8 param_1,undefined8 param_2,long param_3)
 
@@ -27935,7 +27935,7 @@ void FUN_007bdf66(long param_1)
 }
 
 
-// ==== entry=007be004 name=FUN_007be004 size=138 ====
+// ==== entry=007be004 orig=FUN_007be004 size=138 name=SessionConnector_dtor ====
 
 void FUN_007be004(QObject *param_1)
 
@@ -27974,7 +27974,7 @@ LAB_007be04a:
 }
 
 
-// ==== entry=007be08e name=FUN_007be08e size=23 ====
+// ==== entry=007be08e orig=FUN_007be08e size=23 name=SessionConnector_dtor_deleting ====
 
 void FUN_007be08e(void *param_1)
 
@@ -30610,7 +30610,7 @@ void FUN_007c1b92(long param_1)
 }
 
 
-// ==== entry=007c1bba name=FUN_007c1bba size=205 ====
+// ==== entry=007c1bba orig=FUN_007c1bba size=205 name=SessionLogger_dtor ====
 
 void FUN_007c1bba(QObject *param_1)
 
@@ -30672,7 +30672,7 @@ LAB_007c1c64:
 }
 
 
-// ==== entry=007c1c88 name=FUN_007c1c88 size=23 ====
+// ==== entry=007c1c88 orig=FUN_007c1c88 size=23 name=SessionLogger_dtor_deleting ====
 
 void FUN_007c1c88(void *param_1)
 
@@ -34329,7 +34329,7 @@ void FUN_007c7e8e(long param_1)
 }
 
 
-// ==== entry=007c7ee2 name=FUN_007c7ee2 size=79 ====
+// ==== entry=007c7ee2 orig=FUN_007c7ee2 size=79 name=SessionThread_dtor ====
 
 void FUN_007c7ee2(QObject *param_1)
 
@@ -34349,7 +34349,7 @@ void FUN_007c7ee2(QObject *param_1)
 }
 
 
-// ==== entry=007c7f32 name=FUN_007c7f32 size=23 ====
+// ==== entry=007c7f32 orig=FUN_007c7f32 size=23 name=SessionThread_dtor_deleting ====
 
 void FUN_007c7f32(void *param_1)
 
@@ -41582,7 +41582,7 @@ void FUN_007cdca6(long param_1)
 }
 
 
-// ==== entry=007cdcb2 name=FUN_007cdcb2 size=267 ====
+// ==== entry=007cdcb2 orig=FUN_007cdcb2 size=267 name=SuperCommander_dtor ====
 
 void FUN_007cdcb2(QObject *param_1)
 
@@ -41639,7 +41639,7 @@ void FUN_007cddbd(long param_1)
 }
 
 
-// ==== entry=007cddc6 name=FUN_007cddc6 size=23 ====
+// ==== entry=007cddc6 orig=FUN_007cddc6 size=23 name=SuperCommander_dtor_deleting ====
 
 void FUN_007cddc6(void *param_1)
 
@@ -41856,7 +41856,7 @@ ulong * FUN_007ce1ea(undefined1 *param_1,long param_2,allocator *param_3)
 }
 
 
-// ==== entry=007ce254 name=FUN_007ce254 size=3523 ====
+// ==== entry=007ce254 orig=FUN_007ce254 size=3523 name=King::registerVtOperations ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

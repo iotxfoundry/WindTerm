@@ -751,7 +751,7 @@ ulong * FUN_0097392a(byte *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=009739e0 name=FUN_009739e0 size=1357 ====
+// ==== entry=009739e0 orig=FUN_009739e0 size=1357 name=Uint8PieceTable_metaObject ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1042,7 +1042,7 @@ LAB_00973e89:
 }
 
 
-// ==== entry=00973f40 name=FUN_00973f40 size=1389 ====
+// ==== entry=00973f40 orig=FUN_00973f40 size=1389 name=Uint8PieceTable_qt_metacast ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -9947,7 +9947,7 @@ void FUN_00980b90(long *param_1,long *param_2,char param_3)
 }
 
 
-// ==== entry=00980c62 name=FUN_00980c62 size=550 ====
+// ==== entry=00980c62 orig=FUN_00980c62 size=550 name=CSuperBufferBase_qt_metacall ====
 
 void FUN_00980c62(long *param_1,long *param_2)
 
@@ -11190,7 +11190,7 @@ size_t FUN_0098246a(long param_1,void *param_2,long param_3,size_t param_4)
 }
 
 
-// ==== entry=00982722 name=FUN_00982722 size=4763 ====
+// ==== entry=00982722 orig=FUN_00982722 size=4763 name=CSuperBuffer32_qt_metacall ====
 
 void FUN_00982722(long param_1,long *param_2)
 
@@ -14565,7 +14565,7 @@ LAB_00986d62:
 }
 
 
-// ==== entry=00986e4a name=FUN_00986e4a size=36 ====
+// ==== entry=00986e4a orig=FUN_00986e4a size=36 name=CSuperBuffer32_metaObject ====
 
 void FUN_00986e4a(undefined8 *param_1)
 
@@ -14577,7 +14577,7 @@ void FUN_00986e4a(undefined8 *param_1)
 }
 
 
-// ==== entry=00986e6e name=FUN_00986e6e size=49 ====
+// ==== entry=00986e6e orig=FUN_00986e6e size=49 name=CSuperBuffer32_qt_metacast ====
 
 void FUN_00986e6e(undefined8 *param_1)
 
@@ -17025,7 +17025,7 @@ LAB_00989de9:
 }
 
 
-// ==== entry=00989e70 name=FUN_00989e70 size=9 ====
+// ==== entry=00989e70 orig=FUN_00989e70 size=9 name=CSuperBuffer64_dtor ====
 
 void FUN_00989e70(long param_1)
 
@@ -17035,7 +17035,7 @@ void FUN_00989e70(long param_1)
 }
 
 
-// ==== entry=00989e7a name=FUN_00989e7a size=18 ====
+// ==== entry=00989e7a orig=FUN_00989e7a size=18 name=CSuperBuffer64_dtor_deleting ====
 
 undefined8 FUN_00989e7a(undefined8 param_1,long param_2)
 
@@ -17200,7 +17200,7 @@ void FUN_00989f41(void)
 }
 
 
-// ==== entry=0098a0aa name=FUN_0098a0aa size=257 ====
+// ==== entry=0098a0aa orig=FUN_0098a0aa size=257 name=CSuperBuffer64_qt_metacall ====
 
 void FUN_0098a0aa(long param_1,long *param_2)
 
@@ -17281,7 +17281,7 @@ void FUN_0098a1c0(long *param_1)
 }
 
 
-// ==== entry=0098a1de name=FUN_0098a1de size=36 ====
+// ==== entry=0098a1de orig=FUN_0098a1de size=36 name=CSuperBuffer64_metaObject ====
 
 void FUN_0098a1de(undefined8 *param_1)
 
@@ -17293,7 +17293,7 @@ void FUN_0098a1de(undefined8 *param_1)
 }
 
 
-// ==== entry=0098a202 name=FUN_0098a202 size=49 ====
+// ==== entry=0098a202 orig=FUN_0098a202 size=49 name=CSuperBuffer64_qt_metacast ====
 
 void FUN_0098a202(undefined8 *param_1)
 
@@ -37279,7 +37279,7 @@ void operator_delete(void *param_1)
 }
 
 
-// ==== entry=009a35ac name=FUN_009a35ac size=75 ====
+// ==== entry=009a35ac orig=FUN_009a35ac size=75 name=OutlineTreeModel_dtor_deleting ====
 
 void FUN_009a35ac(undefined8 *param_1)
 
@@ -37297,7 +37297,7 @@ void FUN_009a35ac(undefined8 *param_1)
 }
 
 
-// ==== entry=009a35f8 name=FUN_009a35f8 size=69 ====
+// ==== entry=009a35f8 orig=FUN_009a35f8 size=69 name=OutlineTreeModel_dtor ====
 
 void FUN_009a35f8(undefined8 *param_1)
 
@@ -46533,7 +46533,7 @@ void FUN_009b0bf4(void *param_1)
 }
 
 
-// ==== entry=009b0c0c name=FUN_009b0c0c size=19 ====
+// ==== entry=009b0c0c orig=FUN_009b0c0c size=19 name=Uint64SkipRunStyles_metaObject ====
 
 void FUN_009b0c0c(undefined8 *param_1)
 
@@ -46544,7 +46544,7 @@ void FUN_009b0c0c(undefined8 *param_1)
 }
 
 
-// ==== entry=009b0c20 name=FUN_009b0c20 size=37 ====
+// ==== entry=009b0c20 orig=FUN_009b0c20 size=37 name=Uint64SkipRunStyles_qt_metacast ====
 
 void FUN_009b0c20(undefined8 *param_1)
 
@@ -46664,7 +46664,7 @@ undefined8 FUN_009b0c46(long param_1,long param_2,long param_3,long param_4,unde
 }
 
 
-// ==== entry=009b0f36 name=FUN_009b0f36 size=230 ====
+// ==== entry=009b0f36 orig=FUN_009b0f36 size=230 name=Uint64SkipRunStyles_dtor ====
 
 void FUN_009b0f36(long *param_1,long param_2,long param_3,char param_4)
 
@@ -46705,7 +46705,7 @@ void FUN_009b0f36(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=009b101c name=FUN_009b101c size=638 ====
+// ==== entry=009b101c orig=FUN_009b101c size=638 name=Uint64SkipRunStyles_qt_metacall ====
 
 void FUN_009b101c(long param_1,long param_2,long param_3)
 
@@ -46794,7 +46794,7 @@ LAB_009b11e0:
 }
 
 
-// ==== entry=009b12a0 name=FUN_009b12a0 size=29 ====
+// ==== entry=009b12a0 orig=FUN_009b12a0 size=29 name=Uint64SkipRunStyles_dtor_deleting ====
 
 void FUN_009b12a0(undefined8 param_1,undefined8 param_2,long param_3)
 
@@ -61163,7 +61163,7 @@ void FUN_009c4668(QAbstractListModel *param_1,QObject *param_2,undefined8 param_
 }
 
 
-// ==== entry=009c46b4 name=FUN_009c46b4 size=75 ====
+// ==== entry=009c46b4 orig=FUN_009c46b4 size=75 name=UndoModel_dtor ====
 
 void FUN_009c46b4(QAbstractListModel *param_1)
 
@@ -61180,7 +61180,7 @@ void FUN_009c46b4(QAbstractListModel *param_1)
 }
 
 
-// ==== entry=009c4700 name=FUN_009c4700 size=23 ====
+// ==== entry=009c4700 orig=FUN_009c4700 size=23 name=UndoModel_dtor_deleting ====
 
 void FUN_009c4700(void *param_1)
 
@@ -62294,7 +62294,7 @@ void FUN_009c5cba(long param_1,int param_2)
 }
 
 
-// ==== entry=009c5d06 name=FUN_009c5d06 size=414 ====
+// ==== entry=009c5d06 orig=FUN_009c5d06 size=414 name=TextArrayData_metaObject ====
 
 /* WARNING: Removing unreachable block (ram,0x009c5e63) */
 /* WARNING: Removing unreachable block (ram,0x009c5e99) */
@@ -62391,7 +62391,7 @@ LAB_009c5d96:
 }
 
 
-// ==== entry=009c5ea4 name=FUN_009c5ea4 size=23 ====
+// ==== entry=009c5ea4 orig=FUN_009c5ea4 size=23 name=TextArrayData_qt_metacast ====
 
 void FUN_009c5ea4(void *param_1)
 
@@ -64076,7 +64076,7 @@ LAB_009c83a5:
 }
 
 
-// ==== entry=009c8446 name=FUN_009c8446 size=1 ====
+// ==== entry=009c8446 orig=FUN_009c8446 size=1 name=TextArrayData_dtor_deleting ====
 
 void FUN_009c8446(void)
 
@@ -68520,7 +68520,7 @@ void FUN_009cdeb6(long param_1)
 }
 
 
-// ==== entry=009cdec8 name=FUN_009cdec8 size=62 ====
+// ==== entry=009cdec8 orig=FUN_009cdec8 size=62 name=Uint16SkipRunStyles_metaObject ====
 
 void FUN_009cdec8(undefined8 *param_1)
 
@@ -68558,7 +68558,7 @@ void FUN_009cdf06(undefined8 *param_1)
 }
 
 
-// ==== entry=009cdf4c name=FUN_009cdf4c size=70 ====
+// ==== entry=009cdf4c orig=FUN_009cdf4c size=70 name=Uint16SkipRunStyles_qt_metacast ====
 
 void FUN_009cdf4c(undefined8 *param_1)
 
@@ -68837,7 +68837,7 @@ undefined8 FUN_009ce42e(long param_1,long param_2,short param_3,long param_4,und
 }
 
 
-// ==== entry=009ce722 name=FUN_009ce722 size=230 ====
+// ==== entry=009ce722 orig=FUN_009ce722 size=230 name=Uint16SkipRunStyles_dtor ====
 
 void FUN_009ce722(long *param_1,long param_2,long param_3,char param_4)
 
@@ -68879,7 +68879,7 @@ void FUN_009ce722(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=009ce808 name=FUN_009ce808 size=661 ====
+// ==== entry=009ce808 orig=FUN_009ce808 size=661 name=Uint16SkipRunStyles_qt_metacall ====
 
 void FUN_009ce808(long param_1,long param_2,long param_3)
 
@@ -68973,7 +68973,7 @@ LAB_009ce9d6:
 }
 
 
-// ==== entry=009ceaa0 name=FUN_009ceaa0 size=29 ====
+// ==== entry=009ceaa0 orig=FUN_009ceaa0 size=29 name=Uint16SkipRunStyles_dtor_deleting ====
 
 void FUN_009ceaa0(undefined8 param_1,undefined8 param_2,long param_3)
 

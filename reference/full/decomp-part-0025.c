@@ -8440,7 +8440,7 @@ void thunk_FUN_007db97e(long param_1)
 }
 
 
-// ==== entry=007dba42 name=FUN_007dba42 size=1731 ====
+// ==== entry=007dba42 orig=FUN_007dba42 size=1731 name=SuperSession_dtor ====
 
 void FUN_007dba42(QObject *param_1)
 
@@ -8758,7 +8758,7 @@ void FUN_007dba42(QObject *param_1)
 }
 
 
-// ==== entry=007dc106 name=FUN_007dc106 size=23 ====
+// ==== entry=007dc106 orig=FUN_007dc106 size=23 name=SuperSession_dtor_deleting ====
 
 void FUN_007dc106(void *param_1)
 
@@ -28217,7 +28217,7 @@ void FUN_007f5736(long param_1)
 }
 
 
-// ==== entry=007f582e name=FUN_007f582e size=809 ====
+// ==== entry=007f582e orig=FUN_007f582e size=809 name=SuperTerm_dtor ====
 
 void FUN_007f582e(QObject *param_1)
 
@@ -28339,7 +28339,7 @@ void FUN_007f582e(QObject *param_1)
 }
 
 
-// ==== entry=007f5b58 name=FUN_007f5b58 size=23 ====
+// ==== entry=007f5b58 orig=FUN_007f5b58 size=23 name=SuperTerm_dtor_deleting ====
 
 void FUN_007f5b58(void *param_1)
 
@@ -29070,7 +29070,7 @@ long FUN_007f6a67(long *param_1,int param_2)
 }
 
 
-// ==== entry=007f6a7a name=FUN_007f6a7a size=19 ====
+// ==== entry=007f6a7a orig=FUN_007f6a7a size=19 name=XModem_dtor ====
 
 void FUN_007f6a7a(undefined8 *param_1)
 
@@ -29081,7 +29081,7 @@ void FUN_007f6a7a(undefined8 *param_1)
 }
 
 
-// ==== entry=007f6a8e name=FUN_007f6a8e size=37 ====
+// ==== entry=007f6a8e orig=FUN_007f6a8e size=37 name=XModem_dtor_deleting ====
 
 void FUN_007f6a8e(undefined8 *param_1)
 
@@ -29093,7 +29093,7 @@ void FUN_007f6a8e(undefined8 *param_1)
 }
 
 
-// ==== entry=007f6ab4 name=FUN_007f6ab4 size=19 ====
+// ==== entry=007f6ab4 orig=FUN_007f6ab4 size=19 name=YModem_dtor ====
 
 void FUN_007f6ab4(undefined8 *param_1)
 
@@ -29104,7 +29104,7 @@ void FUN_007f6ab4(undefined8 *param_1)
 }
 
 
-// ==== entry=007f6ac8 name=FUN_007f6ac8 size=37 ====
+// ==== entry=007f6ac8 orig=FUN_007f6ac8 size=37 name=YModem_dtor_deleting ====
 
 void FUN_007f6ac8(undefined8 *param_1)
 
@@ -34176,7 +34176,7 @@ LAB_007fd5d8:
 }
 
 
-// ==== entry=007fd670 name=FUN_007fd670 size=6261 ====
+// ==== entry=007fd670 orig=FUN_007fd670 size=6261 name=Tmux_dtor ====
 
 void FUN_007fd670(QObject *param_1)
 
@@ -35298,7 +35298,7 @@ void FUN_007feee5(long param_1)
 }
 
 
-// ==== entry=007feeee name=FUN_007feeee size=23 ====
+// ==== entry=007feeee orig=FUN_007feeee size=23 name=Tmux_dtor_deleting ====
 
 void FUN_007feeee(void *param_1)
 
@@ -39316,7 +39316,7 @@ LAB_00803a21:
 }
 
 
-// ==== entry=00803ac0 name=FUN_00803ac0 size=11 ====
+// ==== entry=00803ac0 orig=FUN_00803ac0 size=11 name=CTerminalConfig_qt_metacast ====
 
 char * FUN_00803ac0(void)
 
@@ -39325,7 +39325,7 @@ char * FUN_00803ac0(void)
 }
 
 
-// ==== entry=00803acc name=FUN_00803acc size=6 ====
+// ==== entry=00803acc orig=FUN_00803acc size=6 name=CTerminalConfig_dtor_deleting ====
 
 undefined8 FUN_00803acc(void)
 
@@ -49219,7 +49219,7 @@ uint FUN_008154a4(void)
 }
 
 
-// ==== entry=008154c0 name=FUN_008154c0 size=818 ====
+// ==== entry=008154c0 orig=FUN_008154c0 size=818 name=CTerminalConfig_qt_metacall ====
 
 long * FUN_008154c0(long *param_1,undefined8 param_2,undefined1 param_3)
 
@@ -50042,7 +50042,7 @@ uint FUN_00816cae(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00816db2 name=FUN_00816db2 size=229 ====
+// ==== entry=00816db2 orig=FUN_00816db2 size=229 name=CTerminalConfig_dtor ====
 
 undefined8 FUN_00816db2(undefined8 param_1)
 

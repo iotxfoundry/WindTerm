@@ -7286,7 +7286,7 @@ void FUN_008c5029(int param_1,void *param_2)
 }
 
 
-// ==== entry=008c50b0 name=FUN_008c50b0 size=295 ====
+// ==== entry=008c50b0 orig=FUN_008c50b0 size=295 name=KitView_dtor ====
 
 /* WARNING: Removing unreachable block (ram,0x008c51b1) */
 
@@ -7581,7 +7581,7 @@ ulong FUN_008c54e6(undefined8 param_1)
 }
 
 
-// ==== entry=008c5522 name=FUN_008c5522 size=17 ====
+// ==== entry=008c5522 orig=FUN_008c5522 size=17 name=KitView_dtor_deleting ====
 
 uint FUN_008c5522(void)
 
@@ -8329,7 +8329,7 @@ LAB_008c61c5:
 }
 
 
-// ==== entry=008c62fc name=FUN_008c62fc size=694 ====
+// ==== entry=008c62fc orig=FUN_008c62fc size=694 name=KitView_metaObject ====
 
 void FUN_008c62fc(long *param_1,char *param_2)
 
@@ -12810,7 +12810,7 @@ void FUN_008cb950(long param_1)
 }
 
 
-// ==== entry=008cb962 name=FUN_008cb962 size=186 ====
+// ==== entry=008cb962 orig=FUN_008cb962 size=186 name=King::resolveKeyMode ====
 
 ulong FUN_008cb962(undefined8 param_1,char param_2)
 
@@ -13778,7 +13778,7 @@ undefined8 FUN_008ccd10(long *param_1,long *param_2)
 }
 
 
-// ==== entry=008cd068 name=FUN_008cd068 size=1010 ====
+// ==== entry=008cd068 orig=FUN_008cd068 size=1010 name=King::assembleCentralSplitters ====
 
 void FUN_008cd068(QWidget *param_1)
 
@@ -28899,7 +28899,7 @@ undefined8 FUN_008e228a(long param_1)
 }
 
 
-// ==== entry=008e22a0 name=FUN_008e22a0 size=49 ====
+// ==== entry=008e22a0 orig=FUN_008e22a0 size=49 name=LocalFile_dtor ====
 
 void FUN_008e22a0(undefined8 *param_1)
 
@@ -28914,7 +28914,7 @@ void FUN_008e22a0(undefined8 *param_1)
 }
 
 
-// ==== entry=008e22d2 name=FUN_008e22d2 size=23 ====
+// ==== entry=008e22d2 orig=FUN_008e22d2 size=23 name=LocalFile_dtor_deleting ====
 
 void FUN_008e22d2(void *param_1)
 
@@ -29556,7 +29556,7 @@ undefined8 FUN_008e2c60(long param_1)
 }
 
 
-// ==== entry=008e2c9c name=FUN_008e2c9c size=58 ====
+// ==== entry=008e2c9c orig=FUN_008e2c9c size=58 name=LocalFolder_dtor ====
 
 void FUN_008e2c9c(undefined8 *param_1)
 
@@ -29573,7 +29573,7 @@ void FUN_008e2c9c(undefined8 *param_1)
 }
 
 
-// ==== entry=008e2cd6 name=FUN_008e2cd6 size=23 ====
+// ==== entry=008e2cd6 orig=FUN_008e2cd6 size=23 name=LocalFolder_dtor_deleting ====
 
 void FUN_008e2cd6(void *param_1)
 
@@ -30451,7 +30451,7 @@ void thunk_FUN_008ecc38(long param_1)
 }
 
 
-// ==== entry=008e3934 name=FUN_008e3934 size=32 ====
+// ==== entry=008e3934 orig=FUN_008e3934 size=32 name=LocalTransfer_dtor ====
 
 void FUN_008e3934(undefined8 *param_1)
 
@@ -30463,7 +30463,7 @@ void FUN_008e3934(undefined8 *param_1)
 }
 
 
-// ==== entry=008e3954 name=FUN_008e3954 size=23 ====
+// ==== entry=008e3954 orig=FUN_008e3954 size=23 name=LocalTransfer_dtor_deleting ====
 
 void FUN_008e3954(void *param_1)
 
@@ -32031,7 +32031,7 @@ void FUN_008e58d0(long *param_1,long *param_2)
 }
 
 
-// ==== entry=008e59f2 name=FUN_008e59f2 size=47 ====
+// ==== entry=008e59f2 orig=FUN_008e59f2 size=47 name=SftpFile_dtor ====
 
 void FUN_008e59f2(undefined8 *param_1)
 
@@ -32047,7 +32047,7 @@ void FUN_008e59f2(undefined8 *param_1)
 }
 
 
-// ==== entry=008e5a22 name=FUN_008e5a22 size=23 ====
+// ==== entry=008e5a22 orig=FUN_008e5a22 size=23 name=SftpFile_dtor_deleting ====
 
 void FUN_008e5a22(void *param_1)
 
@@ -32995,7 +32995,7 @@ LAB_008e6817:
 }
 
 
-// ==== entry=008e6840 name=FUN_008e6840 size=206 ====
+// ==== entry=008e6840 orig=FUN_008e6840 size=206 name=SftpFolder_dtor ====
 
 void FUN_008e6840(undefined8 *param_1)
 
@@ -33038,7 +33038,7 @@ void FUN_008e6840(undefined8 *param_1)
 }
 
 
-// ==== entry=008e690e name=FUN_008e690e size=23 ====
+// ==== entry=008e690e orig=FUN_008e690e size=23 name=SftpFolder_dtor_deleting ====
 
 void FUN_008e690e(void *param_1)
 
@@ -33615,7 +33615,7 @@ void FUN_008e72d6(undefined8 param_1)
 }
 
 
-// ==== entry=008e72e8 name=FUN_008e72e8 size=32 ====
+// ==== entry=008e72e8 orig=FUN_008e72e8 size=32 name=SftpTransfer_dtor ====
 
 void FUN_008e72e8(undefined8 *param_1)
 
@@ -33627,7 +33627,7 @@ void FUN_008e72e8(undefined8 *param_1)
 }
 
 
-// ==== entry=008e7308 name=FUN_008e7308 size=23 ====
+// ==== entry=008e7308 orig=FUN_008e7308 size=23 name=SftpTransfer_dtor_deleting ====
 
 void FUN_008e7308(void *param_1)
 
@@ -40040,7 +40040,7 @@ undefined ** FUN_008eee64(long param_1)
 }
 
 
-// ==== entry=008eee7c name=FUN_008eee7c size=66 ====
+// ==== entry=008eee7c orig=FUN_008eee7c size=66 name=StatusBar_dtor ====
 
 undefined8 FUN_008eee7c(undefined8 param_1,char *param_2)
 
@@ -40060,7 +40060,7 @@ undefined8 FUN_008eee7c(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008eeebe name=thunk_FUN_008f2522 size=5 ====
+// ==== entry=008eeebe orig=thunk_FUN_008f2522 size=5 name=StatusBar_dtor_deleting ====
 
 ulong thunk_FUN_008f2522(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -40091,7 +40091,7 @@ ulong thunk_FUN_008f2522(undefined8 param_1,int param_2,undefined8 param_3,undef
 }
 
 
-// ==== entry=008eeec4 name=FUN_008eeec4 size=29 ====
+// ==== entry=008eeec4 orig=FUN_008eeec4 size=29 name=AppletBar_dtor ====
 
 void FUN_008eeec4(QStatusBar *param_1)
 
@@ -40115,7 +40115,7 @@ void FUN_008eeee1(undefined8 *param_1)
 }
 
 
-// ==== entry=008eef02 name=FUN_008eef02 size=47 ====
+// ==== entry=008eef02 orig=FUN_008eef02 size=47 name=AppletBar_dtor_deleting ====
 
 void FUN_008eef02(QStatusBar *param_1)
 
@@ -40141,7 +40141,7 @@ void FUN_008eef31(undefined8 *param_1)
 }
 
 
-// ==== entry=008eef70 name=FUN_008eef70 size=24 ====
+// ==== entry=008eef70 orig=FUN_008eef70 size=24 name=ButtonBar_metaObject ====
 
 undefined ** FUN_008eef70(long param_1)
 
@@ -40545,7 +40545,7 @@ LAB_008ef2cb:
 }
 
 
-// ==== entry=008ef4ce name=FUN_008ef4ce size=66 ====
+// ==== entry=008ef4ce orig=FUN_008ef4ce size=66 name=ButtonBar_qt_metacast ====
 
 char * FUN_008ef4ce(char *param_1,char *param_2)
 
@@ -40565,7 +40565,7 @@ char * FUN_008ef4ce(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008ef510 name=FUN_008ef510 size=93 ====
+// ==== entry=008ef510 orig=FUN_008ef510 size=93 name=ButtonBar_qt_metacall ====
 
 ulong FUN_008ef510(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -40596,7 +40596,7 @@ ulong FUN_008ef510(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=008ef56e name=FUN_008ef56e size=127 ====
+// ==== entry=008ef56e orig=FUN_008ef56e size=127 name=ButtonBar_dtor ====
 
 void FUN_008ef56e(QFrame *param_1)
 
@@ -40694,7 +40694,7 @@ LAB_008ef6b1:
 }
 
 
-// ==== entry=008ef6ee name=FUN_008ef6ee size=128 ====
+// ==== entry=008ef6ee orig=FUN_008ef6ee size=128 name=ButtonBar_dtor_deleting ====
 
 void FUN_008ef6ee(QFrame *param_1)
 
@@ -40724,7 +40724,7 @@ LAB_008ef72f:
 }
 
 
-// ==== entry=008ef770 name=FUN_008ef770 size=24 ====
+// ==== entry=008ef770 orig=FUN_008ef770 size=24 name=ButtonBarPanel_metaObject ====
 
 undefined ** FUN_008ef770(long param_1)
 
@@ -41128,7 +41128,7 @@ LAB_008efacb:
 }
 
 
-// ==== entry=008efcce name=FUN_008efcce size=66 ====
+// ==== entry=008efcce orig=FUN_008efcce size=66 name=ButtonBarPanel_qt_metacast ====
 
 char * FUN_008efcce(char *param_1,char *param_2)
 
@@ -41148,7 +41148,7 @@ char * FUN_008efcce(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008efd10 name=FUN_008efd10 size=93 ====
+// ==== entry=008efd10 orig=FUN_008efd10 size=93 name=ButtonBarPanel_qt_metacall ====
 
 ulong FUN_008efd10(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -41179,7 +41179,7 @@ ulong FUN_008efd10(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=008efd6e name=FUN_008efd6e size=29 ====
+// ==== entry=008efd6e orig=FUN_008efd6e size=29 name=ButtonBarPanel_dtor ====
 
 void FUN_008efd6e(QFrame *param_1)
 
@@ -41203,7 +41203,7 @@ void FUN_008efd8b(undefined8 *param_1)
 }
 
 
-// ==== entry=008efdac name=FUN_008efdac size=47 ====
+// ==== entry=008efdac orig=FUN_008efdac size=47 name=ButtonBarPanel_dtor_deleting ====
 
 void FUN_008efdac(QFrame *param_1)
 
@@ -41253,7 +41253,7 @@ undefined ** FUN_008efe12(long param_1)
 }
 
 
-// ==== entry=008efe2a name=FUN_008efe2a size=24 ====
+// ==== entry=008efe2a orig=FUN_008efe2a size=24 name=CheckDelegate_metaObject ====
 
 undefined ** FUN_008efe2a(long param_1)
 
@@ -41285,7 +41285,7 @@ void FUN_008efe42(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=008efe76 name=FUN_008efe76 size=66 ====
+// ==== entry=008efe76 orig=FUN_008efe76 size=66 name=CheckDelegate_qt_metacast ====
 
 undefined8 FUN_008efe76(undefined8 param_1,char *param_2)
 
@@ -41305,7 +41305,7 @@ undefined8 FUN_008efe76(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008efeb8 name=qt_metacall size=5 ====
+// ==== entry=008efeb8 orig=qt_metacall size=5 name=CheckDelegate_qt_metacall ====
 
 void QStyledItemDelegate::qt_metacall(void)
 
@@ -41335,7 +41335,7 @@ void FUN_008efebe(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008eff00 name=FUN_008eff00 size=66 ====
+// ==== entry=008eff00 orig=FUN_008eff00 size=66 name=WidgetDelegate_dtor ====
 
 char * FUN_008eff00(char *param_1,char *param_2)
 
@@ -41355,7 +41355,7 @@ char * FUN_008eff00(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008eff42 name=FUN_008eff42 size=91 ====
+// ==== entry=008eff42 orig=FUN_008eff42 size=91 name=WidgetDelegate_dtor_deleting ====
 
 ulong FUN_008eff42(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -41386,7 +41386,7 @@ ulong FUN_008eff42(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=008eff9e name=FUN_008eff9e size=19 ====
+// ==== entry=008eff9e orig=FUN_008eff9e size=19 name=CheckDelegate_dtor ====
 
 void FUN_008eff9e(QStyledItemDelegate *param_1)
 
@@ -41397,7 +41397,7 @@ void FUN_008eff9e(QStyledItemDelegate *param_1)
 }
 
 
-// ==== entry=008effb2 name=FUN_008effb2 size=37 ====
+// ==== entry=008effb2 orig=FUN_008effb2 size=37 name=CheckDelegate_dtor_deleting ====
 
 void FUN_008effb2(QStyledItemDelegate *param_1)
 
@@ -41409,7 +41409,7 @@ void FUN_008effb2(QStyledItemDelegate *param_1)
 }
 
 
-// ==== entry=008effd8 name=FUN_008effd8 size=29 ====
+// ==== entry=008effd8 orig=FUN_008effd8 size=29 name=CheckEditor_dtor ====
 
 void FUN_008effd8(QWidget *param_1)
 
@@ -41433,7 +41433,7 @@ void FUN_008efff5(undefined8 *param_1)
 }
 
 
-// ==== entry=008f0016 name=FUN_008f0016 size=47 ====
+// ==== entry=008f0016 orig=FUN_008f0016 size=47 name=CheckEditor_dtor_deleting ====
 
 void FUN_008f0016(QWidget *param_1)
 
@@ -41483,7 +41483,7 @@ undefined ** FUN_008f007a(long param_1)
 }
 
 
-// ==== entry=008f0092 name=FUN_008f0092 size=66 ====
+// ==== entry=008f0092 orig=FUN_008f0092 size=66 name=WidgetList_dtor ====
 
 undefined8 FUN_008f0092(undefined8 param_1,char *param_2)
 
@@ -41503,7 +41503,7 @@ undefined8 FUN_008f0092(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008f00d4 name=thunk_FUN_008fbd70 size=5 ====
+// ==== entry=008f00d4 orig=thunk_FUN_008fbd70 size=5 name=WidgetList_dtor_deleting ====
 
 ulong thunk_FUN_008fbd70(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -41534,7 +41534,7 @@ ulong thunk_FUN_008fbd70(undefined8 param_1,int param_2,undefined8 param_3,undef
 }
 
 
-// ==== entry=008f00da name=FUN_008f00da size=29 ====
+// ==== entry=008f00da orig=FUN_008f00da size=29 name=CheckList_dtor ====
 
 void FUN_008f00da(undefined8 *param_1)
 
@@ -41558,7 +41558,7 @@ void FUN_008f00f7(undefined8 *param_1)
 }
 
 
-// ==== entry=008f0118 name=FUN_008f0118 size=47 ====
+// ==== entry=008f0118 orig=FUN_008f0118 size=47 name=CheckList_dtor_deleting ====
 
 void FUN_008f0118(undefined8 *param_1)
 
@@ -41593,7 +41593,7 @@ void FUN_008f017a(void)
 }
 
 
-// ==== entry=008f017c name=FUN_008f017c size=24 ====
+// ==== entry=008f017c orig=FUN_008f017c size=24 name=CheckListPanel_metaObject ====
 
 undefined ** FUN_008f017c(long param_1)
 
@@ -41608,7 +41608,7 @@ undefined ** FUN_008f017c(long param_1)
 }
 
 
-// ==== entry=008f0194 name=FUN_008f0194 size=66 ====
+// ==== entry=008f0194 orig=FUN_008f0194 size=66 name=CheckListPanel_qt_metacast ====
 
 undefined8 FUN_008f0194(undefined8 param_1,char *param_2)
 
@@ -41628,7 +41628,7 @@ undefined8 FUN_008f0194(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008f01d6 name=thunk_FUN_008efd10 size=5 ====
+// ==== entry=008f01d6 orig=thunk_FUN_008efd10 size=5 name=CheckListPanel_qt_metacall ====
 
 ulong thunk_FUN_008efd10(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -41659,7 +41659,7 @@ ulong thunk_FUN_008efd10(undefined8 param_1,int param_2,undefined8 param_3,undef
 }
 
 
-// ==== entry=008f01dc name=FUN_008f01dc size=29 ====
+// ==== entry=008f01dc orig=FUN_008f01dc size=29 name=CheckListPanel_dtor ====
 
 void FUN_008f01dc(QFrame *param_1)
 
@@ -41683,7 +41683,7 @@ void FUN_008f01f9(undefined8 *param_1)
 }
 
 
-// ==== entry=008f021a name=FUN_008f021a size=47 ====
+// ==== entry=008f021a orig=FUN_008f021a size=47 name=CheckListPanel_dtor_deleting ====
 
 void FUN_008f021a(QFrame *param_1)
 
@@ -41709,7 +41709,7 @@ void FUN_008f0249(undefined8 *param_1)
 }
 
 
-// ==== entry=008f0280 name=FUN_008f0280 size=24 ====
+// ==== entry=008f0280 orig=FUN_008f0280 size=24 name=ColorButton_metaObject ====
 
 undefined ** FUN_008f0280(long param_1)
 
@@ -41759,7 +41759,7 @@ void FUN_008f02c0(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f02fc name=FUN_008f02fc size=66 ====
+// ==== entry=008f02fc orig=FUN_008f02fc size=66 name=ColorButton_qt_metacast ====
 
 char * FUN_008f02fc(char *param_1,char *param_2)
 
@@ -41779,7 +41779,7 @@ char * FUN_008f02fc(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f033e name=FUN_008f033e size=91 ====
+// ==== entry=008f033e orig=FUN_008f033e size=91 name=ColorButton_qt_metacall ====
 
 ulong FUN_008f033e(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -41810,7 +41810,7 @@ ulong FUN_008f033e(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=008f039a name=FUN_008f039a size=29 ====
+// ==== entry=008f039a orig=FUN_008f039a size=29 name=ColorButton_dtor ====
 
 void FUN_008f039a(QPushButton *param_1)
 
@@ -41834,7 +41834,7 @@ void FUN_008f03b7(undefined8 *param_1)
 }
 
 
-// ==== entry=008f03d8 name=FUN_008f03d8 size=47 ====
+// ==== entry=008f03d8 orig=FUN_008f03d8 size=47 name=ColorButton_dtor_deleting ====
 
 void FUN_008f03d8(QPushButton *param_1)
 
@@ -41946,7 +41946,7 @@ void FUN_008f04e0(void)
 }
 
 
-// ==== entry=008f04e2 name=FUN_008f04e2 size=24 ====
+// ==== entry=008f04e2 orig=FUN_008f04e2 size=24 name=ExplorerEditor_metaObject ====
 
 undefined ** FUN_008f04e2(long param_1)
 
@@ -41961,7 +41961,7 @@ undefined ** FUN_008f04e2(long param_1)
 }
 
 
-// ==== entry=008f04fa name=FUN_008f04fa size=24 ====
+// ==== entry=008f04fa orig=FUN_008f04fa size=24 name=ExplorerDelegate_metaObject ====
 
 undefined ** FUN_008f04fa(long param_1)
 
@@ -42031,7 +42031,7 @@ void FUN_008f057e(QObject *param_1,undefined8 param_2,undefined4 param_3)
 }
 
 
-// ==== entry=008f05c4 name=FUN_008f05c4 size=66 ====
+// ==== entry=008f05c4 orig=FUN_008f05c4 size=66 name=ExplorerDelegate_qt_metacast ====
 
 undefined8 FUN_008f05c4(undefined8 param_1,char *param_2)
 
@@ -42051,7 +42051,7 @@ undefined8 FUN_008f05c4(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008f0606 name=qt_metacall size=5 ====
+// ==== entry=008f0606 orig=qt_metacall size=5 name=ExplorerDelegate_qt_metacall ====
 
 void QStyledItemDelegate::qt_metacall(void)
 
@@ -42107,7 +42107,7 @@ void FUN_008f060c(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f06a0 name=FUN_008f06a0 size=66 ====
+// ==== entry=008f06a0 orig=FUN_008f06a0 size=66 name=ExplorerEditor_qt_metacast ====
 
 char * FUN_008f06a0(char *param_1,char *param_2)
 
@@ -42127,7 +42127,7 @@ char * FUN_008f06a0(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f06e2 name=FUN_008f06e2 size=93 ====
+// ==== entry=008f06e2 orig=FUN_008f06e2 size=93 name=ExplorerEditor_qt_metacall ====
 
 ulong FUN_008f06e2(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -42158,7 +42158,7 @@ ulong FUN_008f06e2(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=008f0740 name=FUN_008f0740 size=19 ====
+// ==== entry=008f0740 orig=FUN_008f0740 size=19 name=ExplorerDelegate_dtor ====
 
 void FUN_008f0740(QStyledItemDelegate *param_1)
 
@@ -42169,7 +42169,7 @@ void FUN_008f0740(QStyledItemDelegate *param_1)
 }
 
 
-// ==== entry=008f0754 name=FUN_008f0754 size=37 ====
+// ==== entry=008f0754 orig=FUN_008f0754 size=37 name=ExplorerDelegate_dtor_deleting ====
 
 void FUN_008f0754(QStyledItemDelegate *param_1)
 
@@ -42181,7 +42181,7 @@ void FUN_008f0754(QStyledItemDelegate *param_1)
 }
 
 
-// ==== entry=008f077a name=FUN_008f077a size=29 ====
+// ==== entry=008f077a orig=FUN_008f077a size=29 name=ExplorerEditor_dtor ====
 
 void FUN_008f077a(QWidget *param_1)
 
@@ -42205,7 +42205,7 @@ void FUN_008f0797(undefined8 *param_1)
 }
 
 
-// ==== entry=008f07b8 name=FUN_008f07b8 size=47 ====
+// ==== entry=008f07b8 orig=FUN_008f07b8 size=47 name=ExplorerEditor_dtor_deleting ====
 
 void FUN_008f07b8(QWidget *param_1)
 
@@ -42240,7 +42240,7 @@ void FUN_008f081a(void)
 }
 
 
-// ==== entry=008f081c name=FUN_008f081c size=24 ====
+// ==== entry=008f081c orig=FUN_008f081c size=24 name=ExplorerList_metaObject ====
 
 undefined ** FUN_008f081c(long param_1)
 
@@ -42255,7 +42255,7 @@ undefined ** FUN_008f081c(long param_1)
 }
 
 
-// ==== entry=008f0834 name=FUN_008f0834 size=66 ====
+// ==== entry=008f0834 orig=FUN_008f0834 size=66 name=ExplorerList_qt_metacast ====
 
 undefined8 FUN_008f0834(undefined8 param_1,char *param_2)
 
@@ -42275,7 +42275,7 @@ undefined8 FUN_008f0834(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008f0876 name=thunk_FUN_008fbd70 size=5 ====
+// ==== entry=008f0876 orig=thunk_FUN_008fbd70 size=5 name=ExplorerList_qt_metacall ====
 
 ulong thunk_FUN_008fbd70(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -42306,7 +42306,7 @@ ulong thunk_FUN_008fbd70(undefined8 param_1,int param_2,undefined8 param_3,undef
 }
 
 
-// ==== entry=008f087c name=FUN_008f087c size=29 ====
+// ==== entry=008f087c orig=FUN_008f087c size=29 name=ExplorerList_dtor ====
 
 void FUN_008f087c(undefined8 *param_1)
 
@@ -42330,7 +42330,7 @@ void FUN_008f0899(undefined8 *param_1)
 }
 
 
-// ==== entry=008f08ba name=FUN_008f08ba size=47 ====
+// ==== entry=008f08ba orig=FUN_008f08ba size=47 name=ExplorerList_dtor_deleting ====
 
 void FUN_008f08ba(undefined8 *param_1)
 
@@ -42380,7 +42380,7 @@ undefined ** FUN_008f091e(long param_1)
 }
 
 
-// ==== entry=008f0936 name=FUN_008f0936 size=66 ====
+// ==== entry=008f0936 orig=FUN_008f0936 size=66 name=ComboBox_dtor ====
 
 undefined8 FUN_008f0936(undefined8 param_1,char *param_2)
 
@@ -42400,7 +42400,7 @@ undefined8 FUN_008f0936(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008f0978 name=thunk_FUN_008f9660 size=5 ====
+// ==== entry=008f0978 orig=thunk_FUN_008f9660 size=5 name=ComboBox_dtor_deleting ====
 
 ulong thunk_FUN_008f9660(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -42440,7 +42440,7 @@ void FUN_008f097e(void)
 }
 
 
-// ==== entry=008f0980 name=FUN_008f0980 size=24 ====
+// ==== entry=008f0980 orig=FUN_008f0980 size=24 name=FontPreviewDelegate_metaObject ====
 
 undefined ** FUN_008f0980(long param_1)
 
@@ -42455,7 +42455,7 @@ undefined ** FUN_008f0980(long param_1)
 }
 
 
-// ==== entry=008f0998 name=FUN_008f0998 size=66 ====
+// ==== entry=008f0998 orig=FUN_008f0998 size=66 name=FontPreviewDelegate_qt_metacast ====
 
 char * FUN_008f0998(char *param_1,char *param_2)
 
@@ -42475,7 +42475,7 @@ char * FUN_008f0998(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f09da name=qt_metacall size=5 ====
+// ==== entry=008f09da orig=qt_metacall size=5 name=FontPreviewDelegate_qt_metacall ====
 
 void QStyledItemDelegate::qt_metacall(void)
 
@@ -42485,7 +42485,7 @@ void QStyledItemDelegate::qt_metacall(void)
 }
 
 
-// ==== entry=008f09e0 name=FUN_008f09e0 size=19 ====
+// ==== entry=008f09e0 orig=FUN_008f09e0 size=19 name=FontPreviewDelegate_dtor ====
 
 void FUN_008f09e0(QStyledItemDelegate *param_1)
 
@@ -42496,7 +42496,7 @@ void FUN_008f09e0(QStyledItemDelegate *param_1)
 }
 
 
-// ==== entry=008f09f4 name=FUN_008f09f4 size=37 ====
+// ==== entry=008f09f4 orig=FUN_008f09f4 size=37 name=FontPreviewDelegate_dtor_deleting ====
 
 void FUN_008f09f4(QStyledItemDelegate *param_1)
 
@@ -42517,7 +42517,7 @@ void FUN_008f0a1a(void)
 }
 
 
-// ==== entry=008f0a1c name=FUN_008f0a1c size=24 ====
+// ==== entry=008f0a1c orig=FUN_008f0a1c size=24 name=FontPreviewWidget_metaObject ====
 
 undefined ** FUN_008f0a1c(long param_1)
 
@@ -42532,7 +42532,7 @@ undefined ** FUN_008f0a1c(long param_1)
 }
 
 
-// ==== entry=008f0a34 name=FUN_008f0a34 size=66 ====
+// ==== entry=008f0a34 orig=FUN_008f0a34 size=66 name=FontPreviewWidget_qt_metacast ====
 
 char * FUN_008f0a34(char *param_1,char *param_2)
 
@@ -42552,7 +42552,7 @@ char * FUN_008f0a34(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f0a76 name=qt_metacall size=5 ====
+// ==== entry=008f0a76 orig=qt_metacall size=5 name=FontPreviewWidget_qt_metacall ====
 
 void QLineEdit::qt_metacall(void)
 
@@ -42562,7 +42562,7 @@ void QLineEdit::qt_metacall(void)
 }
 
 
-// ==== entry=008f0a7c name=FUN_008f0a7c size=29 ====
+// ==== entry=008f0a7c orig=FUN_008f0a7c size=29 name=FontPreviewWidget_dtor ====
 
 void FUN_008f0a7c(QLineEdit *param_1)
 
@@ -42586,7 +42586,7 @@ void FUN_008f0a99(undefined8 *param_1)
 }
 
 
-// ==== entry=008f0aba name=FUN_008f0aba size=47 ====
+// ==== entry=008f0aba orig=FUN_008f0aba size=47 name=FontPreviewWidget_dtor_deleting ====
 
 void FUN_008f0aba(QLineEdit *param_1)
 
@@ -42612,7 +42612,7 @@ void FUN_008f0ae9(undefined8 *param_1)
 }
 
 
-// ==== entry=008f0b20 name=FUN_008f0b20 size=24 ====
+// ==== entry=008f0b20 orig=FUN_008f0b20 size=24 name=HighlightTextBar_metaObject ====
 
 undefined ** FUN_008f0b20(long param_1)
 
@@ -42666,7 +42666,7 @@ void FUN_008f0b72(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f0bb4 name=FUN_008f0bb4 size=66 ====
+// ==== entry=008f0bb4 orig=FUN_008f0bb4 size=66 name=HighlightTextBar_qt_metacast ====
 
 char * FUN_008f0bb4(char *param_1,char *param_2)
 
@@ -42686,7 +42686,7 @@ char * FUN_008f0bb4(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f0bf6 name=FUN_008f0bf6 size=95 ====
+// ==== entry=008f0bf6 orig=FUN_008f0bf6 size=95 name=HighlightTextBar_qt_metacall ====
 
 ulong FUN_008f0bf6(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -42717,7 +42717,7 @@ ulong FUN_008f0bf6(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=008f0c56 name=FUN_008f0c56 size=55 ====
+// ==== entry=008f0c56 orig=FUN_008f0c56 size=55 name=HighlightTextBar_dtor ====
 
 void FUN_008f0c56(QWidget *param_1)
 
@@ -42760,7 +42760,7 @@ void FUN_008f0cd2(undefined8 *param_1)
 }
 
 
-// ==== entry=008f0d24 name=FUN_008f0d24 size=68 ====
+// ==== entry=008f0d24 orig=FUN_008f0d24 size=68 name=HighlightTextBar_dtor_deleting ====
 
 void FUN_008f0d24(QWidget *param_1)
 
@@ -42784,7 +42784,7 @@ void FUN_008f0d68(void)
 }
 
 
-// ==== entry=008f0d6a name=FUN_008f0d6a size=24 ====
+// ==== entry=008f0d6a orig=FUN_008f0d6a size=24 name=HoverButton_metaObject ====
 
 undefined ** FUN_008f0d6a(long param_1)
 
@@ -42799,7 +42799,7 @@ undefined ** FUN_008f0d6a(long param_1)
 }
 
 
-// ==== entry=008f0d82 name=FUN_008f0d82 size=66 ====
+// ==== entry=008f0d82 orig=FUN_008f0d82 size=66 name=HoverButton_qt_metacast ====
 
 char * FUN_008f0d82(char *param_1,char *param_2)
 
@@ -42819,7 +42819,7 @@ char * FUN_008f0d82(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f0dc4 name=qt_metacall size=5 ====
+// ==== entry=008f0dc4 orig=qt_metacall size=5 name=HoverButton_qt_metacall ====
 
 void QToolButton::qt_metacall(void)
 
@@ -42838,7 +42838,7 @@ void FUN_008f0dca(void)
 }
 
 
-// ==== entry=008f0dcc name=FUN_008f0dcc size=24 ====
+// ==== entry=008f0dcc orig=FUN_008f0dcc size=24 name=PlainTextEdit_metaObject ====
 
 undefined ** FUN_008f0dcc(long param_1)
 
@@ -42853,7 +42853,7 @@ undefined ** FUN_008f0dcc(long param_1)
 }
 
 
-// ==== entry=008f0de4 name=FUN_008f0de4 size=66 ====
+// ==== entry=008f0de4 orig=FUN_008f0de4 size=66 name=PlainTextEdit_qt_metacast ====
 
 char * FUN_008f0de4(char *param_1,char *param_2)
 
@@ -42873,7 +42873,7 @@ char * FUN_008f0de4(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f0e26 name=qt_metacall size=5 ====
+// ==== entry=008f0e26 orig=qt_metacall size=5 name=PlainTextEdit_qt_metacall ====
 
 void QPlainTextEdit::qt_metacall(void)
 
@@ -42883,7 +42883,7 @@ void QPlainTextEdit::qt_metacall(void)
 }
 
 
-// ==== entry=008f0e2c name=FUN_008f0e2c size=94 ====
+// ==== entry=008f0e2c orig=FUN_008f0e2c size=94 name=PlainTextEdit_dtor_deleting ====
 
 void FUN_008f0e2c(QPlainTextEdit *param_1)
 
@@ -42971,7 +42971,7 @@ LAB_008f0f30:
 }
 
 
-// ==== entry=008f0f46 name=FUN_008f0f46 size=88 ====
+// ==== entry=008f0f46 orig=FUN_008f0f46 size=88 name=PlainTextEdit_dtor ====
 
 void FUN_008f0f46(QPlainTextEdit *param_1)
 
@@ -43003,7 +43003,7 @@ LAB_008f0f89:
 }
 
 
-// ==== entry=008f0fa0 name=FUN_008f0fa0 size=24 ====
+// ==== entry=008f0fa0 orig=FUN_008f0fa0 size=24 name=TriggerActionEditPanel_metaObject ====
 
 undefined ** FUN_008f0fa0(long param_1)
 
@@ -43018,7 +43018,7 @@ undefined ** FUN_008f0fa0(long param_1)
 }
 
 
-// ==== entry=008f0fb8 name=FUN_008f0fb8 size=66 ====
+// ==== entry=008f0fb8 orig=FUN_008f0fb8 size=66 name=TriggerActionEditPanel_qt_metacast ====
 
 undefined8 FUN_008f0fb8(undefined8 param_1,char *param_2)
 
@@ -43103,7 +43103,7 @@ void FUN_008f105a(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f10c2 name=FUN_008f10c2 size=93 ====
+// ==== entry=008f10c2 orig=FUN_008f10c2 size=93 name=TriggerActionEditPanel_qt_metacall ====
 
 ulong FUN_008f10c2(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -43143,7 +43143,7 @@ void FUN_008f1120(void)
 }
 
 
-// ==== entry=008f1122 name=FUN_008f1122 size=24 ====
+// ==== entry=008f1122 orig=FUN_008f1122 size=24 name=QuickBar_metaObject ====
 
 undefined ** FUN_008f1122(long param_1)
 
@@ -43158,7 +43158,7 @@ undefined ** FUN_008f1122(long param_1)
 }
 
 
-// ==== entry=008f113a name=FUN_008f113a size=66 ====
+// ==== entry=008f113a orig=FUN_008f113a size=66 name=QuickBar_qt_metacast ====
 
 char * FUN_008f113a(char *param_1,char *param_2)
 
@@ -43178,7 +43178,7 @@ char * FUN_008f113a(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f117c name=qt_metacall size=5 ====
+// ==== entry=008f117c orig=qt_metacall size=5 name=QuickBar_qt_metacall ====
 
 void QWidget::qt_metacall(void)
 
@@ -43188,7 +43188,7 @@ void QWidget::qt_metacall(void)
 }
 
 
-// ==== entry=008f1182 name=FUN_008f1182 size=46 ====
+// ==== entry=008f1182 orig=FUN_008f1182 size=46 name=QuickBar_dtor ====
 
 void FUN_008f1182(QWidget *param_1)
 
@@ -43214,7 +43214,7 @@ void FUN_008f11b0(undefined8 *param_1)
 }
 
 
-// ==== entry=008f11e0 name=FUN_008f11e0 size=59 ====
+// ==== entry=008f11e0 orig=FUN_008f11e0 size=59 name=QuickBar_dtor_deleting ====
 
 void FUN_008f11e0(QWidget *param_1)
 
@@ -43257,7 +43257,7 @@ undefined ** FUN_008f1260(long param_1)
 }
 
 
-// ==== entry=008f1278 name=FUN_008f1278 size=66 ====
+// ==== entry=008f1278 orig=FUN_008f1278 size=66 name=LineEdit_dtor ====
 
 undefined8 FUN_008f1278(undefined8 param_1,char *param_2)
 
@@ -43294,7 +43294,7 @@ void FUN_008f12ba(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=008f12ee name=FUN_008f12ee size=94 ====
+// ==== entry=008f12ee orig=FUN_008f12ee size=94 name=LineEdit_dtor_deleting ====
 
 ulong FUN_008f12ee(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -43369,7 +43369,7 @@ void FUN_008f1388(undefined8 *param_1)
 }
 
 
-// ==== entry=008f13e2 name=FUN_008f13e2 size=75 ====
+// ==== entry=008f13e2 orig=FUN_008f13e2 size=75 name=SearchEdit_dtor ====
 
 void FUN_008f13e2(QLineEdit *param_1)
 
@@ -43418,7 +43418,7 @@ void FUN_008f142e(undefined8 *param_1)
 }
 
 
-// ==== entry=008f1494 name=FUN_008f1494 size=88 ====
+// ==== entry=008f1494 orig=FUN_008f1494 size=88 name=SearchEdit_dtor_deleting ====
 
 void FUN_008f1494(QLineEdit *param_1)
 
@@ -43452,7 +43452,7 @@ void FUN_008f14ec(void)
 }
 
 
-// ==== entry=008f14ee name=FUN_008f14ee size=24 ====
+// ==== entry=008f14ee orig=FUN_008f14ee size=24 name=TableWidget_metaObject ====
 
 undefined ** FUN_008f14ee(long param_1)
 
@@ -43467,7 +43467,7 @@ undefined ** FUN_008f14ee(long param_1)
 }
 
 
-// ==== entry=008f1506 name=FUN_008f1506 size=66 ====
+// ==== entry=008f1506 orig=FUN_008f1506 size=66 name=TableWidget_qt_metacast ====
 
 char * FUN_008f1506(char *param_1,char *param_2)
 
@@ -43487,7 +43487,7 @@ char * FUN_008f1506(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f1548 name=qt_metacall size=5 ====
+// ==== entry=008f1548 orig=qt_metacall size=5 name=TableWidget_qt_metacall ====
 
 void QTableWidget::qt_metacall(void)
 
@@ -43497,7 +43497,7 @@ void QTableWidget::qt_metacall(void)
 }
 
 
-// ==== entry=008f154e name=FUN_008f154e size=92 ====
+// ==== entry=008f154e orig=FUN_008f154e size=92 name=TableWidget_dtor_deleting ====
 
 void FUN_008f154e(QTableWidget *param_1)
 
@@ -43579,7 +43579,7 @@ LAB_008f1649:
 }
 
 
-// ==== entry=008f1662 name=FUN_008f1662 size=86 ====
+// ==== entry=008f1662 orig=FUN_008f1662 size=86 name=TableWidget_dtor ====
 
 void FUN_008f1662(QTableWidget *param_1)
 
@@ -43633,7 +43633,7 @@ undefined ** FUN_008f16ba(long param_1)
 }
 
 
-// ==== entry=008f16d2 name=FUN_008f16d2 size=66 ====
+// ==== entry=008f16d2 orig=FUN_008f16d2 size=66 name=TablePanel_dtor ====
 
 undefined8 FUN_008f16d2(undefined8 param_1,char *param_2)
 
@@ -43653,7 +43653,7 @@ undefined8 FUN_008f16d2(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008f1714 name=thunk_FUN_008efd10 size=5 ====
+// ==== entry=008f1714 orig=thunk_FUN_008efd10 size=5 name=TablePanel_dtor_deleting ====
 
 ulong thunk_FUN_008efd10(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
@@ -43684,7 +43684,7 @@ ulong thunk_FUN_008efd10(undefined8 param_1,int param_2,undefined8 param_3,undef
 }
 
 
-// ==== entry=008f171a name=FUN_008f171a size=29 ====
+// ==== entry=008f171a orig=FUN_008f171a size=29 name=TextMarkTablePanel_dtor ====
 
 void FUN_008f171a(QFrame *param_1)
 
@@ -43708,7 +43708,7 @@ void FUN_008f1737(undefined8 *param_1)
 }
 
 
-// ==== entry=008f1758 name=FUN_008f1758 size=47 ====
+// ==== entry=008f1758 orig=FUN_008f1758 size=47 name=TextMarkTablePanel_dtor_deleting ====
 
 void FUN_008f1758(QFrame *param_1)
 
@@ -43734,7 +43734,7 @@ void FUN_008f1787(undefined8 *param_1)
 }
 
 
-// ==== entry=008f17c0 name=FUN_008f17c0 size=24 ====
+// ==== entry=008f17c0 orig=FUN_008f17c0 size=24 name=TransferLabel_metaObject ====
 
 undefined ** FUN_008f17c0(long param_1)
 
@@ -43790,7 +43790,7 @@ void FUN_008f17d8(long param_1,int param_2,int param_3,undefined8 *param_4)
 }
 
 
-// ==== entry=008f1880 name=FUN_008f1880 size=66 ====
+// ==== entry=008f1880 orig=FUN_008f1880 size=66 name=TransferLabel_qt_metacast ====
 
 char * FUN_008f1880(char *param_1,char *param_2)
 

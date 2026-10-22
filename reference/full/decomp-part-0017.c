@@ -3119,7 +3119,7 @@ undefined4 FUN_00535460(QModelIndex *param_1,QModelIndex *param_2,int *param_3)
 }
 
 
-// ==== entry=0053559e name=FUN_0053559e size=41 ====
+// ==== entry=0053559e orig=FUN_0053559e size=41 name=CheckListSortFilterProxyModel_dtor ====
 
 void FUN_0053559e(QSortFilterProxyModel *param_1)
 
@@ -3133,7 +3133,7 @@ void FUN_0053559e(QSortFilterProxyModel *param_1)
 }
 
 
-// ==== entry=005355c8 name=FUN_005355c8 size=54 ====
+// ==== entry=005355c8 orig=FUN_005355c8 size=54 name=CheckListSortFilterProxyModel_dtor_deleting ====
 
 void FUN_005355c8(QSortFilterProxyModel *param_1)
 
@@ -10502,7 +10502,7 @@ LAB_0053fb9a:
 }
 
 
-// ==== entry=0053fbfc name=FUN_0053fbfc size=51 ====
+// ==== entry=0053fbfc orig=FUN_0053fbfc size=51 name=CommandPalette_dtor ====
 
 void FUN_0053fbfc(QFrame *param_1)
 
@@ -10526,7 +10526,7 @@ void FUN_0053fc2f(long param_1)
 }
 
 
-// ==== entry=0053fc36 name=FUN_0053fc36 size=23 ====
+// ==== entry=0053fc36 orig=FUN_0053fc36 size=23 name=CommandPalette_dtor_deleting ====
 
 void FUN_0053fc36(void *param_1)
 
@@ -13267,7 +13267,7 @@ undefined4 FUN_005444d0(int *param_1)
 }
 
 
-// ==== entry=005444ec name=FUN_005444ec size=101 ====
+// ==== entry=005444ec orig=FUN_005444ec size=101 name=CommandListModel_dtor ====
 
 void FUN_005444ec(QAbstractListModel *param_1)
 
@@ -13290,7 +13290,7 @@ void FUN_005444ec(QAbstractListModel *param_1)
 }
 
 
-// ==== entry=00544552 name=FUN_00544552 size=114 ====
+// ==== entry=00544552 orig=FUN_00544552 size=114 name=CommandListModel_dtor_deleting ====
 
 void FUN_00544552(QAbstractListModel *param_1)
 
@@ -21125,7 +21125,7 @@ void FUN_0054efb6(long param_1)
 }
 
 
-// ==== entry=0054f066 name=FUN_0054f066 size=156 ====
+// ==== entry=0054f066 orig=FUN_0054f066 size=156 name=BreadEdit_dtor ====
 
 void FUN_0054f066(QLineEdit *param_1)
 
@@ -21169,7 +21169,7 @@ void FUN_0054f102(long param_1)
 }
 
 
-// ==== entry=0054f10c name=FUN_0054f10c size=23 ====
+// ==== entry=0054f10c orig=FUN_0054f10c size=23 name=BreadEdit_dtor_deleting ====
 
 void FUN_0054f10c(void *param_1)
 
@@ -23176,7 +23176,7 @@ undefined8 FUN_00551e1e(void)
 }
 
 
-// ==== entry=00551e24 name=FUN_00551e24 size=29 ====
+// ==== entry=00551e24 orig=FUN_00551e24 size=29 name=VBoxLayout_dtor ====
 
 void FUN_00551e24(QVBoxLayout *param_1)
 
@@ -23200,7 +23200,7 @@ void FUN_00551e41(undefined8 *param_1)
 }
 
 
-// ==== entry=00551e62 name=FUN_00551e62 size=47 ====
+// ==== entry=00551e62 orig=FUN_00551e62 size=47 name=VBoxLayout_dtor_deleting ====
 
 void FUN_00551e62(QVBoxLayout *param_1)
 
@@ -26436,7 +26436,7 @@ LAB_0055679d:
 }
 
 
-// ==== entry=0055682e name=FUN_0055682e size=112 ====
+// ==== entry=0055682e orig=FUN_0055682e size=112 name=FontComboBox_dtor ====
 
 void FUN_0055682e(QComboBox *param_1)
 
@@ -26473,7 +26473,7 @@ void FUN_0055689e(long param_1)
 }
 
 
-// ==== entry=005568a4 name=FUN_005568a4 size=23 ====
+// ==== entry=005568a4 orig=FUN_005568a4 size=23 name=FontComboBox_dtor_deleting ====
 
 void FUN_005568a4(void *param_1)
 
@@ -30248,7 +30248,7 @@ ulong FUN_0055ae74(long param_1)
 }
 
 
-// ==== entry=0055aeb0 name=FUN_0055aeb0 size=70 ====
+// ==== entry=0055aeb0 orig=FUN_0055aeb0 size=70 name=HighlightTextBarAction_dtor ====
 
 void FUN_0055aeb0(QWidgetAction *param_1)
 
@@ -30271,7 +30271,7 @@ void FUN_0055aeb0(QWidgetAction *param_1)
 }
 
 
-// ==== entry=0055aef6 name=FUN_0055aef6 size=23 ====
+// ==== entry=0055aef6 orig=FUN_0055aef6 size=23 name=HighlightTextBarAction_dtor_deleting ====
 
 void FUN_0055aef6(void *param_1)
 
@@ -31312,7 +31312,7 @@ void FUN_0055c864(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=0055c86a name=FUN_0055c86a size=29 ====
+// ==== entry=0055c86a orig=FUN_0055c86a size=29 name=WidgetContainer_dtor ====
 
 void FUN_0055c86a(QWidget *param_1)
 
@@ -31336,7 +31336,7 @@ void FUN_0055c887(undefined8 *param_1)
 }
 
 
-// ==== entry=0055c8a8 name=FUN_0055c8a8 size=47 ====
+// ==== entry=0055c8a8 orig=FUN_0055c8a8 size=47 name=WidgetContainer_dtor_deleting ====
 
 void FUN_0055c8a8(QWidget *param_1)
 
@@ -31748,7 +31748,7 @@ void FUN_0055cf8c(long param_1)
 }
 
 
-// ==== entry=0055cfe6 name=FUN_0055cfe6 size=71 ====
+// ==== entry=0055cfe6 orig=FUN_0055cfe6 size=71 name=HoverButton_dtor ====
 
 void FUN_0055cfe6(QToolButton *param_1)
 
@@ -31782,7 +31782,7 @@ void FUN_0055d02d(long param_1)
 }
 
 
-// ==== entry=0055d034 name=FUN_0055d034 size=23 ====
+// ==== entry=0055d034 orig=FUN_0055d034 size=23 name=HoverButton_dtor_deleting ====
 
 void FUN_0055d034(void *param_1)
 
@@ -32903,7 +32903,7 @@ LAB_0055e7f8:
 }
 
 
-// ==== entry=0055e8ce name=FUN_0055e8ce size=677 ====
+// ==== entry=0055e8ce orig=FUN_0055e8ce size=677 name=ListWidget_dtor ====
 
 /* WARNING: Removing unreachable block (ram,0x0055eb68) */
 
@@ -33077,7 +33077,7 @@ void FUN_0055eb73(long param_1)
 }
 
 
-// ==== entry=0055eb7c name=FUN_0055eb7c size=23 ====
+// ==== entry=0055eb7c orig=FUN_0055eb7c size=23 name=ListWidget_dtor_deleting ====
 
 void FUN_0055eb7c(void *param_1)
 
@@ -38337,7 +38337,7 @@ void FUN_005659d4(QCursor *param_1,byte param_2,undefined4 param_3,undefined8 pa
 }
 
 
-// ==== entry=00565c0e name=FUN_00565c0e size=202 ====
+// ==== entry=00565c0e orig=FUN_00565c0e size=202 name=SlipButton_dtor ====
 
 void FUN_00565c0e(QWidget *param_1)
 
@@ -38390,7 +38390,7 @@ void FUN_00565cd8(long param_1)
 }
 
 
-// ==== entry=00565ce2 name=FUN_00565ce2 size=23 ====
+// ==== entry=00565ce2 orig=FUN_00565ce2 size=23 name=SlipButton_dtor_deleting ====
 
 void FUN_00565ce2(void *param_1)
 
@@ -45713,7 +45713,7 @@ void FUN_00570ad0(undefined8 param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00570ad8 name=FUN_00570ad8 size=19 ====
+// ==== entry=00570ad8 orig=FUN_00570ad8 size=19 name=LabelAction_dtor ====
 
 void FUN_00570ad8(QWidgetAction *param_1)
 
@@ -45724,7 +45724,7 @@ void FUN_00570ad8(QWidgetAction *param_1)
 }
 
 
-// ==== entry=00570aec name=FUN_00570aec size=37 ====
+// ==== entry=00570aec orig=FUN_00570aec size=37 name=LabelAction_dtor_deleting ====
 
 void FUN_00570aec(QWidgetAction *param_1)
 
@@ -49033,7 +49033,7 @@ void FUN_00575d12(void)
 }
 
 
-// ==== entry=00575d14 name=FUN_00575d14 size=4 ====
+// ==== entry=00575d14 orig=FUN_00575d14 size=4 name=FileSystemItem_dtor_deleting ====
 
 undefined4 FUN_00575d14(long param_1)
 
@@ -53916,7 +53916,7 @@ undefined8 * FUN_0057ce6c(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=0057ceac name=FUN_0057ceac size=41 ====
+// ==== entry=0057ceac orig=FUN_0057ceac size=41 name=FileSystemSortFilterProxyModel_dtor ====
 
 void FUN_0057ceac(QSortFilterProxyModel *param_1)
 
@@ -53930,7 +53930,7 @@ void FUN_0057ceac(QSortFilterProxyModel *param_1)
 }
 
 
-// ==== entry=0057ced6 name=FUN_0057ced6 size=54 ====
+// ==== entry=0057ced6 orig=FUN_0057ced6 size=54 name=FileSystemSortFilterProxyModel_dtor_deleting ====
 
 void FUN_0057ced6(QSortFilterProxyModel *param_1)
 
@@ -56207,7 +56207,7 @@ LAB_0057fbb9:
 }
 
 
-// ==== entry=00580000 name=FUN_00580000 size=19 ====
+// ==== entry=00580000 orig=FUN_00580000 size=19 name=HtmlDelegate_dtor ====
 
 void FUN_00580000(QStyledItemDelegate *param_1)
 
@@ -56218,7 +56218,7 @@ void FUN_00580000(QStyledItemDelegate *param_1)
 }
 
 
-// ==== entry=00580014 name=FUN_00580014 size=37 ====
+// ==== entry=00580014 orig=FUN_00580014 size=37 name=HtmlDelegate_dtor_deleting ====
 
 void FUN_00580014(QStyledItemDelegate *param_1)
 
@@ -58082,7 +58082,7 @@ LAB_00582bd9:
 }
 
 
-// ==== entry=00582c72 name=FUN_00582c72 size=718 ====
+// ==== entry=00582c72 orig=FUN_00582c72 size=718 name=ListView_dtor ====
 
 /* WARNING: Removing unreachable block (ram,0x00582f35) */
 
@@ -58263,7 +58263,7 @@ void FUN_00582f40(long param_1)
 }
 
 
-// ==== entry=00582f4a name=FUN_00582f4a size=23 ====
+// ==== entry=00582f4a orig=FUN_00582f4a size=23 name=ListView_dtor_deleting ====
 
 void FUN_00582f4a(void *param_1)
 

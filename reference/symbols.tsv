@@ -44,3 +44,1639 @@
 0x008cb962	King::resolveKeyMode	焦点部件 keyMode（phase12）
 0x0076bf82	King::buildKeySequence	绑定→QKeySequence（phase12）
 0x00635abe	King::formatMenuMnemonic	(&%1) 助记符（phase13）
+
+# —— vtable 扫描批（366 类；共享槽=继承基类不命名）——
+0x000052485c	AddressListModel_dtor	AddressListModel vtable[3]
+0x0000524902	AddressListModel_dtor_deleting	AddressListModel vtable[4]
+0x0001183ca8	AddressListModel_vtable	AddressListModel typeinfo 链
+0x000053559e	CheckListSortFilterProxyModel_dtor	CheckListSortFilterProxyModel vtable[3]
+0x00005355c8	CheckListSortFilterProxyModel_dtor_deleting	CheckListSortFilterProxyModel vtable[4]
+0x0001183f08	CheckListSortFilterProxyModel_vtable	CheckListSortFilterProxyModel typeinfo 链
+0x00005444ec	CommandListModel_dtor	CommandListModel vtable[3]
+0x0000544552	CommandListModel_dtor_deleting	CommandListModel vtable[4]
+0x00011840f0	CommandListModel_vtable	CommandListModel typeinfo 链
+0x0000551e24	VBoxLayout_dtor	VBoxLayout vtable[3]
+0x0000551e62	VBoxLayout_dtor_deleting	VBoxLayout vtable[4]
+0x0001184288	VBoxLayout_vtable	VBoxLayout typeinfo 链
+0x000055c86a	WidgetContainer_dtor	WidgetContainer vtable[3]
+0x000055c8a8	WidgetContainer_dtor_deleting	WidgetContainer vtable[4]
+0x0001184488	WidgetContainer_vtable	WidgetContainer typeinfo 链
+0x0001184478	WidgetAction_vtable	WidgetAction typeinfo 链
+0x000055aeb0	HighlightTextBarAction_dtor	HighlightTextBarAction vtable[3]
+0x000055aef6	HighlightTextBarAction_dtor_deleting	HighlightTextBarAction vtable[4]
+0x0001184710	HighlightTextBarAction_vtable	HighlightTextBarAction typeinfo 链
+0x0000570ad8	LabelAction_dtor	LabelAction vtable[3]
+0x0000570aec	LabelAction_dtor_deleting	LabelAction vtable[4]
+0x00011847e0	LabelAction_vtable	LabelAction typeinfo 链
+0x000057ceac	FileSystemSortFilterProxyModel_dtor	FileSystemSortFilterProxyModel vtable[3]
+0x000057ced6	FileSystemSortFilterProxyModel_dtor_deleting	FileSystemSortFilterProxyModel vtable[4]
+0x0001184880	FileSystemSortFilterProxyModel_vtable	FileSystemSortFilterProxyModel typeinfo 链
+0x0001199040	HtmlAbstractModel_vtable	HtmlAbstractModel typeinfo 链
+0x0000580000	HtmlDelegate_dtor	HtmlDelegate vtable[3]
+0x0000580014	HtmlDelegate_dtor_deleting	HtmlDelegate vtable[4]
+0x0001184a68	HtmlDelegate_vtable	HtmlDelegate typeinfo 链
+0x00005a1b72	ProxyStyle_dtor	ProxyStyle vtable[3]
+0x00005a1b86	ProxyStyle_dtor_deleting	ProxyStyle vtable[4]
+0x0001184bb0	ProxyStyle_vtable	ProxyStyle typeinfo 链
+0x00005b2c26	FilterEditAction_dtor	FilterEditAction vtable[3]
+0x00005b2c3a	FilterEditAction_dtor_deleting	FilterEditAction vtable[4]
+0x0001184d28	FilterEditAction_vtable	FilterEditAction typeinfo 链
+0x00005b2bec	CloseButtonAction_dtor	CloseButtonAction vtable[3]
+0x00005b2c00	CloseButtonAction_dtor_deleting	CloseButtonAction vtable[4]
+0x0001184db0	CloseButtonAction_vtable	CloseButtonAction typeinfo 链
+0x00005dd80e	CGlobalConfig_dtor_deleting	CGlobalConfig vtable[4]
+0x00005d9acc	CGlobalConfig_metaObject	CGlobalConfig vtable[0] 独占
+0x00005d9d58	CGlobalConfig_qt_metacast	CGlobalConfig vtable[1] 独占
+0x00011850c8	CGlobalConfig_vtable	CGlobalConfig typeinfo 链
+0x00005e1932	CEditorConfig_dtor	CEditorConfig vtable[3]
+0x00005df82c	CEditorConfig_dtor_deleting	CEditorConfig vtable[4]
+0x0001185138	CEditorConfig_vtable	CEditorConfig typeinfo 链
+0x00005e8f14	SharedConfig_dtor	SharedConfig vtable[3]
+0x00005e8eee	SharedConfig_qt_metacall	SharedConfig vtable[2] 独占
+0x00011851a8	SharedConfig_vtable	SharedConfig typeinfo 链
+0x00005e8f46	EditorViewConfig_metaObject	EditorViewConfig vtable[0] 独占
+0x00005e8f88	EditorViewConfig_qt_metacast	EditorViewConfig vtable[1] 独占
+0x00011851d8	EditorViewConfig_vtable	EditorViewConfig typeinfo 链
+0x0000621a3e	TransferModel_dtor	TransferModel vtable[3]
+0x0000621a52	TransferModel_dtor_deleting	TransferModel vtable[4]
+0x0001186a20	TransferModel_vtable	TransferModel typeinfo 链
+0x0000622e74	FileSystemItem_dtor	FileSystemItem vtable[3]
+0x0000575d14	FileSystemItem_dtor_deleting	FileSystemItem vtable[4]
+0x00006230f0	FileSystemItem_metaObject	FileSystemItem vtable[0] 独占
+0x0000622e78	FileSystemItem_qt_metacast	FileSystemItem vtable[1] 独占
+0x0001186bb0	FileSystemItem_vtable	FileSystemItem typeinfo 链
+0x00006249fe	RemoteFileSystemModel_dtor	RemoteFileSystemModel vtable[3]
+0x0000624a12	RemoteFileSystemModel_dtor_deleting	RemoteFileSystemModel vtable[4]
+0x0001186c00	RemoteFileSystemModel_vtable	RemoteFileSystemModel typeinfo 链
+0x0000633d10	LocalFileSystemItem_dtor	LocalFileSystemItem vtable[3]
+0x0000633d14	LocalFileSystemItem_dtor_deleting	LocalFileSystemItem vtable[4]
+0x0000634a20	LocalFileSystemItem_metaObject	LocalFileSystemItem vtable[0] 独占
+0x0000634c74	LocalFileSystemItem_qt_metacast	LocalFileSystemItem vtable[1] 独占
+0x0000633d18	LocalFileSystemItem_qt_metacall	LocalFileSystemItem vtable[2] 独占
+0x0001186e58	LocalFileSystemItem_vtable	LocalFileSystemItem typeinfo 链
+0x00006351c0	SftpFileSystemItem_metaObject	SftpFileSystemItem vtable[0] 独占
+0x0000635414	SftpFileSystemItem_qt_metacast	SftpFileSystemItem vtable[1] 独占
+0x0001186ea8	SftpFileSystemItem_vtable	SftpFileSystemItem typeinfo 链
+0x0000639652	SvgIconEngine_dtor_deleting	SvgIconEngine vtable[4]
+0x0000639ef4	SvgIconEngine_metaObject	SvgIconEngine vtable[0] 独占
+0x0000639f78	SvgIconEngine_qt_metacast	SvgIconEngine vtable[1] 独占
+0x0000639c88	SvgIconEngine_qt_metacall	SvgIconEngine vtable[2] 独占
+0x0001186ef8	SvgIconEngine_vtable	SvgIconEngine typeinfo 链
+0x00006450ba	ActionHandler_dtor	ActionHandler vtable[3]
+0x0001187098	ActionHandler_vtable	ActionHandler typeinfo 链
+0x000064aacc	FileSystemModel_dtor	FileSystemModel vtable[3]
+0x000064aae0	FileSystemModel_dtor_deleting	FileSystemModel vtable[4]
+0x00011870e0	FileSystemModel_vtable	FileSystemModel typeinfo 链
+0x0000651f04	OneKeyCenter_dtor	OneKeyCenter vtable[3]
+0x00006520f6	OneKeyCenter_dtor_deleting	OneKeyCenter vtable[4]
+0x0001187288	OneKeyCenter_vtable	OneKeyCenter typeinfo 链
+0x000065ccfe	Process_dtor	Process vtable[3]
+0x000065cd12	Process_dtor_deleting	Process vtable[4]
+0x0001187310	Process_vtable	Process typeinfo 链
+0x0000699b7a	TriggerData_metaObject	TriggerData vtable[0] 独占
+0x0000699c12	TriggerData_qt_metacast	TriggerData vtable[1] 独占
+0x0001189e70	TriggerData_vtable	TriggerData typeinfo 链
+0x00006a8cd6	SlipButtonAction_dtor	SlipButtonAction vtable[3]
+0x00006a8cea	SlipButtonAction_dtor_deleting	SlipButtonAction vtable[4]
+0x0001189ed0	SlipButtonAction_vtable	SlipButtonAction typeinfo 链
+0x0001189ec0	SessionWatcher_vtable	SessionWatcher typeinfo 链
+0x00006a8d10	TunnelSession_dtor	TunnelSession vtable[3]
+0x00006a8b36	TunnelSession_dtor_deleting	TunnelSession vtable[4]
+0x00006a8b50	TunnelSession_metaObject	TunnelSession vtable[0] 独占
+0x00006a8b32	TunnelSession_qt_metacast	TunnelSession vtable[1] 独占
+0x00006a8b34	TunnelSession_qt_metacall	TunnelSession vtable[2] 独占
+0x0001189f58	TunnelSession_vtable	TunnelSession typeinfo 链
+0x00006b923a	LogDialog_dtor	LogDialog vtable[3]
+0x00006b91a6	LogDialog_dtor_deleting	LogDialog vtable[4]
+0x0001189ff0	LogDialog_vtable	LogDialog typeinfo 链
+0x00006c5db6	TableItemDialog_dtor	TableItemDialog vtable[3]
+0x00006c6342	TableItemDialog_dtor_deleting	TableItemDialog vtable[4]
+0x000118a6a0	TableItemDialog_vtable	TableItemDialog typeinfo 链
+0x00006d48bc	GroupWidgetAction_dtor	GroupWidgetAction vtable[3]
+0x00006d48d0	GroupWidgetAction_dtor_deleting	GroupWidgetAction vtable[4]
+0x000118a900	GroupWidgetAction_vtable	GroupWidgetAction typeinfo 链
+0x00006d9b42	SessionGroupDialog_dtor	SessionGroupDialog vtable[3]
+0x00006d9b80	SessionGroupDialog_dtor_deleting	SessionGroupDialog vtable[4]
+0x000118a9a0	SessionGroupDialog_vtable	SessionGroupDialog typeinfo 链
+0x00006db730	SessionTriggerDialog_dtor	SessionTriggerDialog vtable[3]
+0x00006db6aa	SessionTriggerDialog_dtor_deleting	SessionTriggerDialog vtable[4]
+0x000118abe0	SessionTriggerDialog_vtable	SessionTriggerDialog typeinfo 链
+0x00006ec240	CategoryPage_dtor	CategoryPage vtable[3]
+0x00006ec27e	CategoryPage_dtor_deleting	CategoryPage vtable[4]
+0x000118ae38	CategoryPage_vtable	CategoryPage typeinfo 链
+0x00006ec2e0	CategoryTree_dtor	CategoryTree vtable[3]
+0x00006ec31e	CategoryTree_dtor_deleting	CategoryTree vtable[4]
+0x000118b038	CategoryTree_vtable	CategoryTree typeinfo 链
+0x00006f6bfe	CaptureGroupsButton_dtor	CaptureGroupsButton vtable[3]
+0x00006f6c3c	CaptureGroupsButton_dtor_deleting	CaptureGroupsButton vtable[4]
+0x000118b500	CaptureGroupsButton_vtable	CaptureGroupsButton typeinfo 链
+0x00006f665e	MarkStyleWidget_dtor	MarkStyleWidget vtable[3]
+0x00006f669c	MarkStyleWidget_dtor_deleting	MarkStyleWidget vtable[4]
+0x000118b718	MarkStyleWidget_vtable	MarkStyleWidget typeinfo 链
+0x00006f8a92	TriggerActionEditPanel_dtor	TriggerActionEditPanel vtable[3]
+0x00006f8b16	TriggerActionEditPanel_dtor_deleting	TriggerActionEditPanel vtable[4]
+0x00008f0fa0	TriggerActionEditPanel_metaObject	TriggerActionEditPanel vtable[0] 独占
+0x00008f0fb8	TriggerActionEditPanel_qt_metacast	TriggerActionEditPanel vtable[1] 独占
+0x00008f10c2	TriggerActionEditPanel_qt_metacall	TriggerActionEditPanel vtable[2] 独占
+0x000118b918	TriggerActionEditPanel_vtable	TriggerActionEditPanel typeinfo 链
+0x00006f65be	TriggerActionWidget_dtor	TriggerActionWidget vtable[3]
+0x00006f65fc	TriggerActionWidget_dtor_deleting	TriggerActionWidget vtable[4]
+0x000118bb18	TriggerActionWidget_vtable	TriggerActionWidget typeinfo 链
+0x00006f651e	TriggerActionDialog_dtor	TriggerActionDialog vtable[3]
+0x00006f655c	TriggerActionDialog_dtor_deleting	TriggerActionDialog vtable[4]
+0x000118bd18	TriggerActionDialog_vtable	TriggerActionDialog typeinfo 链
+0x00006f66fe	ConnectionTriggerPage_dtor	ConnectionTriggerPage vtable[3]
+0x00006f673c	ConnectionTriggerPage_dtor_deleting	ConnectionTriggerPage vtable[4]
+0x000118bf40	ConnectionTriggerPage_vtable	ConnectionTriggerPage typeinfo 链
+0x00006f679e	CustomLinkTriggerPage_dtor	CustomLinkTriggerPage vtable[3]
+0x00006f67dc	CustomLinkTriggerPage_dtor_deleting	CustomLinkTriggerPage vtable[4]
+0x000118c150	CustomLinkTriggerPage_vtable	CustomLinkTriggerPage typeinfo 链
+0x00006f683e	CustomMenuTriggerPage_dtor	CustomMenuTriggerPage vtable[3]
+0x00006f687c	CustomMenuTriggerPage_dtor_deleting	CustomMenuTriggerPage vtable[4]
+0x000118c360	CustomMenuTriggerPage_vtable	CustomMenuTriggerPage typeinfo 链
+0x00006f68de	HighlightTextTriggerPage_dtor	HighlightTextTriggerPage vtable[3]
+0x00006f691c	HighlightTextTriggerPage_dtor_deleting	HighlightTextTriggerPage vtable[4]
+0x000118c570	HighlightTextTriggerPage_vtable	HighlightTextTriggerPage typeinfo 链
+0x00006f697e	PlaySoundTriggerPage_dtor	PlaySoundTriggerPage vtable[3]
+0x00006f69bc	PlaySoundTriggerPage_dtor_deleting	PlaySoundTriggerPage vtable[4]
+0x000118c780	PlaySoundTriggerPage_vtable	PlaySoundTriggerPage typeinfo 链
+0x00006f6a1e	RunCommandTriggerPage_dtor	RunCommandTriggerPage vtable[3]
+0x00006f6a5c	RunCommandTriggerPage_dtor_deleting	RunCommandTriggerPage vtable[4]
+0x000118c990	RunCommandTriggerPage_vtable	RunCommandTriggerPage typeinfo 链
+0x00006f6abe	SendTextTriggerPage_dtor	SendTextTriggerPage vtable[3]
+0x00006f6afc	SendTextTriggerPage_dtor_deleting	SendTextTriggerPage vtable[4]
+0x000118cba0	SendTextTriggerPage_vtable	SendTextTriggerPage typeinfo 链
+0x00006f6b5e	ShowTooltipTriggerPage_dtor	ShowTooltipTriggerPage vtable[3]
+0x00006f6b9c	ShowTooltipTriggerPage_dtor_deleting	ShowTooltipTriggerPage vtable[4]
+0x000118cdb0	ShowTooltipTriggerPage_vtable	ShowTooltipTriggerPage typeinfo 链
+0x0000704eb8	WindowOpacityDialog_dtor	WindowOpacityDialog vtable[3]
+0x0000704ef6	WindowOpacityDialog_dtor_deleting	WindowOpacityDialog vtable[4]
+0x000118cfd8	WindowOpacityDialog_vtable	WindowOpacityDialog typeinfo 链
+0x0000726f86	IntValidator_dtor	IntValidator vtable[3]
+0x0000726f9a	IntValidator_dtor_deleting	IntValidator vtable[4]
+0x000118d218	IntValidator_vtable	IntValidator typeinfo 链
+0x000073910c	SpinBox_dtor	SpinBox vtable[3]
+0x000073914a	SpinBox_dtor_deleting	SpinBox vtable[4]
+0x000118d3a8	SpinBox_vtable	SpinBox typeinfo 链
+0x000073906c	DoubleSpinBox_dtor	DoubleSpinBox vtable[3]
+0x00007390aa	DoubleSpinBox_dtor_deleting	DoubleSpinBox vtable[4]
+0x000118d5e0	DoubleSpinBox_vtable	DoubleSpinBox typeinfo 链
+0x00007391ac	EditWidgetAction_dtor	EditWidgetAction vtable[3]
+0x00007391c0	EditWidgetAction_dtor_deleting	EditWidgetAction vtable[4]
+0x000118d818	EditWidgetAction_vtable	EditWidgetAction typeinfo 链
+0x00007391e6	UnitWidgetAction_dtor	UnitWidgetAction vtable[3]
+0x00007391fa	UnitWidgetAction_dtor_deleting	UnitWidgetAction vtable[4]
+0x000118d8a0	UnitWidgetAction_vtable	UnitWidgetAction typeinfo 链
+0x0000739220	CountWidgetAction_dtor	CountWidgetAction vtable[3]
+0x0000739234	CountWidgetAction_dtor_deleting	CountWidgetAction vtable[4]
+0x000118d928	CountWidgetAction_vtable	CountWidgetAction typeinfo 链
+0x000073925a	IntervalWidgetAction_dtor	IntervalWidgetAction vtable[3]
+0x000073926e	IntervalWidgetAction_dtor_deleting	IntervalWidgetAction vtable[4]
+0x000118d9b0	IntervalWidgetAction_vtable	IntervalWidgetAction typeinfo 链
+0x0000739294	TargetsWidgetAction_dtor	TargetsWidgetAction vtable[3]
+0x00007392a8	TargetsWidgetAction_dtor_deleting	TargetsWidgetAction vtable[4]
+0x000118da38	TargetsWidgetAction_vtable	TargetsWidgetAction typeinfo 链
+0x000074860e	OutlineTree_dtor	OutlineTree vtable[3]
+0x000074864c	OutlineTree_dtor_deleting	OutlineTree vtable[4]
+0x000118e200	OutlineTree_vtable	OutlineTree typeinfo 链
+0x000076306e	ThemeChangeEvent_metaObject	ThemeChangeEvent vtable[0] 独占
+0x0000763082	ThemeChangeEvent_qt_metacast	ThemeChangeEvent vtable[1] 独占
+0x000118e638	ThemeChangeEvent_vtable	ThemeChangeEvent typeinfo 链
+0x000079c926	XYModem_dtor	XYModem vtable[3]
+0x000079ca9c	XYModem_dtor_deleting	XYModem vtable[4]
+0x000118e710	XYModem_vtable	XYModem typeinfo 链
+0x00007a27ce	SuperProtocol_metaObject	SuperProtocol vtable[0] 独占
+0x00007a2826	SuperProtocol_qt_metacast	SuperProtocol vtable[1] 独占
+0x000118e7b8	SuperProtocol_vtable	SuperProtocol typeinfo 链
+0x000118e7f8	QSharedData_vtable	QSharedData typeinfo 链
+0x000118e828	RunStylesInterface_vtable	RunStylesInterface typeinfo 链
+0x00007b7706	Uint16RunStyles_dtor	Uint16RunStyles vtable[3]
+0x00007b77f0	Uint16RunStyles_dtor_deleting	Uint16RunStyles vtable[4]
+0x00007b320a	Uint16RunStyles_metaObject	Uint16RunStyles vtable[0] 独占
+0x00007b321e	Uint16RunStyles_qt_metacast	Uint16RunStyles vtable[1] 独占
+0x00007b6ff0	Uint16RunStyles_qt_metacall	Uint16RunStyles vtable[2] 独占
+0x000118e9d0	Uint16RunStyles_vtable	Uint16RunStyles typeinfo 链
+0x00007b8472	Uint32RunStyles_dtor	Uint32RunStyles vtable[3]
+0x00007b8560	Uint32RunStyles_dtor_deleting	Uint32RunStyles vtable[4]
+0x00007a9ff2	Uint32RunStyles_metaObject	Uint32RunStyles vtable[0] 独占
+0x00007aa076	Uint32RunStyles_qt_metacast	Uint32RunStyles vtable[1] 独占
+0x00007b7d7e	Uint32RunStyles_qt_metacall	Uint32RunStyles vtable[2] 独占
+0x000118eaa0	Uint32RunStyles_vtable	Uint32RunStyles typeinfo 链
+0x00007b6352	Uint64RunStyles_dtor	Uint64RunStyles vtable[3]
+0x00007b6440	Uint64RunStyles_dtor_deleting	Uint64RunStyles vtable[4]
+0x00007b0cca	Uint64RunStyles_metaObject	Uint64RunStyles vtable[0] 独占
+0x00007b0cde	Uint64RunStyles_qt_metacast	Uint64RunStyles vtable[1] 独占
+0x00007b5c50	Uint64RunStyles_qt_metacall	Uint64RunStyles vtable[2] 独占
+0x000118eb70	Uint64RunStyles_vtable	Uint64RunStyles typeinfo 链
+0x00007f6a7a	XModem_dtor	XModem vtable[3]
+0x00007f6a8e	XModem_dtor_deleting	XModem vtable[4]
+0x000118f308	XModem_vtable	XModem typeinfo 链
+0x00007f6ab4	YModem_dtor	YModem vtable[3]
+0x00007f6ac8	YModem_dtor_deleting	YModem vtable[4]
+0x000118f3a0	YModem_vtable	YModem typeinfo 链
+0x00011a74a0	TerminalWatcher_vtable	TerminalWatcher typeinfo 链
+0x0000816db2	CTerminalConfig_dtor	CTerminalConfig vtable[3]
+0x0000803acc	CTerminalConfig_dtor_deleting	CTerminalConfig vtable[4]
+0x0000803ac0	CTerminalConfig_qt_metacast	CTerminalConfig vtable[1] 独占
+0x00008154c0	CTerminalConfig_qt_metacall	CTerminalConfig vtable[2] 独占
+0x00011911e8	CTerminalConfig_vtable	CTerminalConfig typeinfo 链
+0x0000838f2e	TerminalViewConfig_metaObject	TerminalViewConfig vtable[0] 独占
+0x0000839ae2	TerminalViewConfig_qt_metacast	TerminalViewConfig vtable[1] 独占
+0x0001191c20	TerminalViewConfig_vtable	TerminalViewConfig typeinfo 链
+0x00008614fc	TelnetProtocol_metaObject	TelnetProtocol vtable[0] 独占
+0x0000861510	TelnetProtocol_qt_metacast	TelnetProtocol vtable[1] 独占
+0x0001191d58	TelnetProtocol_vtable	TelnetProtocol typeinfo 链
+0x000086b46e	SshAuthOperator_dtor	SshAuthOperator vtable[3]
+0x000086b482	SshAuthOperator_dtor_deleting	SshAuthOperator vtable[4]
+0x0001191ee0	SshAuthOperator_vtable	SshAuthOperator typeinfo 链
+0x00008713c6	UnixPty_dtor	UnixPty vtable[3]
+0x0000871464	UnixPty_dtor_deleting	UnixPty vtable[4]
+0x0001191f98	UnixPty_vtable	UnixPty typeinfo 链
+0x00008912e8	Uint8RunStyles_dtor	Uint8RunStyles vtable[3]
+0x00008913d0	Uint8RunStyles_dtor_deleting	Uint8RunStyles vtable[4]
+0x0000889930	Uint8RunStyles_metaObject	Uint8RunStyles vtable[0] 独占
+0x00008899b4	Uint8RunStyles_qt_metacast	Uint8RunStyles vtable[1] 独占
+0x0000890130	Uint8RunStyles_qt_metacall	Uint8RunStyles vtable[2] 独占
+0x0001192310	Uint8RunStyles_vtable	Uint8RunStyles typeinfo 链
+0x00008926c6	GrepViewConfig_metaObject	GrepViewConfig vtable[0] 独占
+0x0000893d60	GrepViewConfig_qt_metacast	GrepViewConfig vtable[1] 独占
+0x00011923f8	GrepViewConfig_vtable	GrepViewConfig typeinfo 链
+0x000089c1b8	Grep_dtor_deleting	Grep vtable[4]
+0x0000899ab4	Grep_metaObject	Grep vtable[0] 独占
+0x0000899d14	Grep_qt_metacast	Grep vtable[1] 独占
+0x0001192440	Grep_vtable	Grep typeinfo 链
+0x00011924e8	SharedConfigHandler_vtable	SharedConfigHandler typeinfo 链
+0x00005df820	CKitConfig_dtor	CKitConfig vtable[3]
+0x00008a94aa	CKitConfig_dtor_deleting	CKitConfig vtable[4]
+0x0001185128	CKitConfig_vtable	CKitConfig typeinfo 链
+0x00008c50b0	KitView_dtor	KitView vtable[3]
+0x00008c5522	KitView_dtor_deleting	KitView vtable[4]
+0x00008c62fc	KitView_metaObject	KitView vtable[0] 独占
+0x0001192608	KitView_vtable	KitView typeinfo 链
+0x00008e22a0	LocalFile_dtor	LocalFile vtable[3]
+0x00008e22d2	LocalFile_dtor_deleting	LocalFile vtable[4]
+0x00011927e8	LocalFile_vtable	LocalFile typeinfo 链
+0x00008e2c9c	LocalFolder_dtor	LocalFolder vtable[3]
+0x00008e2cd6	LocalFolder_dtor_deleting	LocalFolder vtable[4]
+0x0001192910	LocalFolder_vtable	LocalFolder typeinfo 链
+0x00008e59f2	SftpFile_dtor	SftpFile vtable[3]
+0x00008e5a22	SftpFile_dtor_deleting	SftpFile vtable[4]
+0x0001192a88	SftpFile_vtable	SftpFile typeinfo 链
+0x00008e6840	SftpFolder_dtor	SftpFolder vtable[3]
+0x00008e690e	SftpFolder_dtor_deleting	SftpFolder vtable[4]
+0x0001192bb0	SftpFolder_vtable	SftpFolder typeinfo 链
+0x00008eeec4	AppletBar_dtor	AppletBar vtable[3]
+0x00008eef02	AppletBar_dtor_deleting	AppletBar vtable[4]
+0x0001192d78	AppletBar_vtable	AppletBar typeinfo 链
+0x00008ef56e	ButtonBar_dtor	ButtonBar vtable[3]
+0x00008ef6ee	ButtonBar_dtor_deleting	ButtonBar vtable[4]
+0x00008eef70	ButtonBar_metaObject	ButtonBar vtable[0] 独占
+0x00008ef4ce	ButtonBar_qt_metacast	ButtonBar vtable[1] 独占
+0x00008ef510	ButtonBar_qt_metacall	ButtonBar vtable[2] 独占
+0x0001192fd8	ButtonBar_vtable	ButtonBar typeinfo 链
+0x00008efd6e	ButtonBarPanel_dtor	ButtonBarPanel vtable[3]
+0x00008efdac	ButtonBarPanel_dtor_deleting	ButtonBarPanel vtable[4]
+0x00008ef770	ButtonBarPanel_metaObject	ButtonBarPanel vtable[0] 独占
+0x00008efcce	ButtonBarPanel_qt_metacast	ButtonBarPanel vtable[1] 独占
+0x00008efd10	ButtonBarPanel_qt_metacall	ButtonBarPanel vtable[2] 独占
+0x0001193238	ButtonBarPanel_vtable	ButtonBarPanel typeinfo 链
+0x00008effd8	CheckEditor_dtor	CheckEditor vtable[3]
+0x00008f0016	CheckEditor_dtor_deleting	CheckEditor vtable[4]
+0x00011934b0	CheckEditor_vtable	CheckEditor typeinfo 链
+0x00008eff9e	CheckDelegate_dtor	CheckDelegate vtable[3]
+0x00008effb2	CheckDelegate_dtor_deleting	CheckDelegate vtable[4]
+0x00008efe2a	CheckDelegate_metaObject	CheckDelegate vtable[0] 独占
+0x00008efe76	CheckDelegate_qt_metacast	CheckDelegate vtable[1] 独占
+0x00008efeb8	CheckDelegate_qt_metacall	CheckDelegate vtable[2] 独占
+0x00011936b0	CheckDelegate_vtable	CheckDelegate typeinfo 链
+0x00008f00da	CheckList_dtor	CheckList vtable[3]
+0x00008f0118	CheckList_dtor_deleting	CheckList vtable[4]
+0x0001193818	CheckList_vtable	CheckList typeinfo 链
+0x00008f01dc	CheckListPanel_dtor	CheckListPanel vtable[3]
+0x00008f021a	CheckListPanel_dtor_deleting	CheckListPanel vtable[4]
+0x00008f017c	CheckListPanel_metaObject	CheckListPanel vtable[0] 独占
+0x00008f0194	CheckListPanel_qt_metacast	CheckListPanel vtable[1] 独占
+0x00008f01d6	CheckListPanel_qt_metacall	CheckListPanel vtable[2] 独占
+0x0001193bb8	CheckListPanel_vtable	CheckListPanel typeinfo 链
+0x00008f039a	ColorButton_dtor	ColorButton vtable[3]
+0x00008f03d8	ColorButton_dtor_deleting	ColorButton vtable[4]
+0x00008f0280	ColorButton_metaObject	ColorButton vtable[0] 独占
+0x00008f02fc	ColorButton_qt_metacast	ColorButton vtable[1] 独占
+0x00008f033e	ColorButton_qt_metacall	ColorButton vtable[2] 独占
+0x0001193e18	ColorButton_vtable	ColorButton typeinfo 链
+0x000118a220	ComboBoxDelegate_vtable	ComboBoxDelegate typeinfo 链
+0x00008f077a	ExplorerEditor_dtor	ExplorerEditor vtable[3]
+0x00008f07b8	ExplorerEditor_dtor_deleting	ExplorerEditor vtable[4]
+0x00008f04e2	ExplorerEditor_metaObject	ExplorerEditor vtable[0] 独占
+0x00008f06a0	ExplorerEditor_qt_metacast	ExplorerEditor vtable[1] 独占
+0x00008f06e2	ExplorerEditor_qt_metacall	ExplorerEditor vtable[2] 独占
+0x00011941b0	ExplorerEditor_vtable	ExplorerEditor typeinfo 链
+0x00008f0740	ExplorerDelegate_dtor	ExplorerDelegate vtable[3]
+0x00008f0754	ExplorerDelegate_dtor_deleting	ExplorerDelegate vtable[4]
+0x00008f04fa	ExplorerDelegate_metaObject	ExplorerDelegate vtable[0] 独占
+0x00008f05c4	ExplorerDelegate_qt_metacast	ExplorerDelegate vtable[1] 独占
+0x00008f0606	ExplorerDelegate_qt_metacall	ExplorerDelegate vtable[2] 独占
+0x00011943b0	ExplorerDelegate_vtable	ExplorerDelegate typeinfo 链
+0x00008f087c	ExplorerList_dtor	ExplorerList vtable[3]
+0x00008f08ba	ExplorerList_dtor_deleting	ExplorerList vtable[4]
+0x00008f081c	ExplorerList_metaObject	ExplorerList vtable[0] 独占
+0x00008f0834	ExplorerList_qt_metacast	ExplorerList vtable[1] 独占
+0x00008f0876	ExplorerList_qt_metacall	ExplorerList vtable[2] 独占
+0x0001194518	ExplorerList_vtable	ExplorerList typeinfo 链
+0x000055682e	FontComboBox_dtor	FontComboBox vtable[3]
+0x00005568a4	FontComboBox_dtor_deleting	FontComboBox vtable[4]
+0x00011948b8	FontComboBox_vtable	FontComboBox typeinfo 链
+0x00008f09e0	FontPreviewDelegate_dtor	FontPreviewDelegate vtable[3]
+0x00008f09f4	FontPreviewDelegate_dtor_deleting	FontPreviewDelegate vtable[4]
+0x00008f0980	FontPreviewDelegate_metaObject	FontPreviewDelegate vtable[0] 独占
+0x00008f0998	FontPreviewDelegate_qt_metacast	FontPreviewDelegate vtable[1] 独占
+0x00008f09da	FontPreviewDelegate_qt_metacall	FontPreviewDelegate vtable[2] 独占
+0x0001194b18	FontPreviewDelegate_vtable	FontPreviewDelegate typeinfo 链
+0x00008f0a7c	FontPreviewWidget_dtor	FontPreviewWidget vtable[3]
+0x00008f0aba	FontPreviewWidget_dtor_deleting	FontPreviewWidget vtable[4]
+0x00008f0a1c	FontPreviewWidget_metaObject	FontPreviewWidget vtable[0] 独占
+0x00008f0a34	FontPreviewWidget_qt_metacast	FontPreviewWidget vtable[1] 独占
+0x00008f0a76	FontPreviewWidget_qt_metacall	FontPreviewWidget vtable[2] 独占
+0x0001194c38	FontPreviewWidget_vtable	FontPreviewWidget typeinfo 链
+0x00008f0c56	HighlightTextBar_dtor	HighlightTextBar vtable[3]
+0x00008f0d24	HighlightTextBar_dtor_deleting	HighlightTextBar vtable[4]
+0x00008f0b20	HighlightTextBar_metaObject	HighlightTextBar vtable[0] 独占
+0x00008f0bb4	HighlightTextBar_qt_metacast	HighlightTextBar vtable[1] 独占
+0x00008f0bf6	HighlightTextBar_qt_metacall	HighlightTextBar vtable[2] 独占
+0x0001194e98	HighlightTextBar_vtable	HighlightTextBar typeinfo 链
+0x000055cfe6	HoverButton_dtor	HoverButton vtable[3]
+0x000055d034	HoverButton_dtor_deleting	HoverButton vtable[4]
+0x00008f0d6a	HoverButton_metaObject	HoverButton vtable[0] 独占
+0x00008f0d82	HoverButton_qt_metacast	HoverButton vtable[1] 独占
+0x00008f0dc4	HoverButton_qt_metacall	HoverButton vtable[2] 独占
+0x00011950f8	HoverButton_vtable	HoverButton typeinfo 链
+0x00008f0f46	PlainTextEdit_dtor	PlainTextEdit vtable[3]
+0x00008f0e2c	PlainTextEdit_dtor_deleting	PlainTextEdit vtable[4]
+0x00008f0dcc	PlainTextEdit_metaObject	PlainTextEdit vtable[0] 独占
+0x00008f0de4	PlainTextEdit_qt_metacast	PlainTextEdit vtable[1] 独占
+0x00008f0e26	PlainTextEdit_qt_metacall	PlainTextEdit vtable[2] 独占
+0x0001195358	PlainTextEdit_vtable	PlainTextEdit typeinfo 链
+0x000118b3d0	PlainTextEditPanel_vtable	PlainTextEditPanel typeinfo 链
+0x00008f1182	QuickBar_dtor	QuickBar vtable[3]
+0x00008f11e0	QuickBar_dtor_deleting	QuickBar vtable[4]
+0x00008f1122	QuickBar_metaObject	QuickBar vtable[0] 独占
+0x00008f113a	QuickBar_qt_metacast	QuickBar vtable[1] 独占
+0x00008f117c	QuickBar_qt_metacall	QuickBar vtable[2] 独占
+0x0001195858	QuickBar_vtable	QuickBar typeinfo 链
+0x00008f13e2	SearchEdit_dtor	SearchEdit vtable[3]
+0x00008f1494	SearchEdit_dtor_deleting	SearchEdit vtable[4]
+0x0001195ab8	SearchEdit_vtable	SearchEdit typeinfo 链
+0x00008f1662	TableWidget_dtor	TableWidget vtable[3]
+0x00008f154e	TableWidget_dtor_deleting	TableWidget vtable[4]
+0x00008f14ee	TableWidget_metaObject	TableWidget vtable[0] 独占
+0x00008f1506	TableWidget_qt_metacast	TableWidget vtable[1] 独占
+0x00008f1548	TableWidget_qt_metacall	TableWidget vtable[2] 独占
+0x0001195d18	TableWidget_vtable	TableWidget typeinfo 链
+0x00008f171a	TextMarkTablePanel_dtor	TextMarkTablePanel vtable[3]
+0x00008f1758	TextMarkTablePanel_dtor_deleting	TextMarkTablePanel vtable[4]
+0x00011960d8	TextMarkTablePanel_vtable	TextMarkTablePanel typeinfo 链
+0x00008f193a	TransferLabel_dtor	TransferLabel vtable[3]
+0x00008f1a88	TransferLabel_dtor_deleting	TransferLabel vtable[4]
+0x00008f17c0	TransferLabel_metaObject	TransferLabel vtable[0] 独占
+0x00008f1880	TransferLabel_qt_metacast	TransferLabel vtable[1] 独占
+0x00008f18c2	TransferLabel_qt_metacall	TransferLabel vtable[2] 独占
+0x0001196338	TransferLabel_vtable	TransferLabel typeinfo 链
+0x00008f1d0a	TransferBar_dtor	TransferBar vtable[3]
+0x00008f1bf6	TransferBar_dtor_deleting	TransferBar vtable[4]
+0x00008f1b00	TransferBar_metaObject	TransferBar vtable[0] 独占
+0x00008f1b5c	TransferBar_qt_metacast	TransferBar vtable[1] 独占
+0x00008f1b9e	TransferBar_qt_metacall	TransferBar vtable[2] 独占
+0x0001196598	TransferBar_vtable	TransferBar typeinfo 链
+0x00008f1dc2	TreeItemDelegate_dtor	TreeItemDelegate vtable[3]
+0x00008f1f8c	TreeItemDelegate_dtor_deleting	TreeItemDelegate vtable[4]
+0x00011967f8	TreeItemDelegate_vtable	TreeItemDelegate typeinfo 链
+0x00008f23ec	ScrollBar_dtor	ScrollBar vtable[3]
+0x00008f242a	ScrollBar_dtor_deleting	ScrollBar vtable[4]
+0x00008f2170	ScrollBar_metaObject	ScrollBar vtable[0] 独占
+0x00008f234a	ScrollBar_qt_metacast	ScrollBar vtable[1] 独占
+0x00008f238c	ScrollBar_qt_metacall	ScrollBar vtable[2] 独占
+0x0001196918	ScrollBar_vtable	ScrollBar typeinfo 链
+0x00008eee7c	StatusBar_dtor	StatusBar vtable[3]
+0x00008eeebe	StatusBar_dtor_deleting	StatusBar vtable[4]
+0x0001192d68	StatusBar_vtable	StatusBar typeinfo 链
+0x00008f2bdc	TextEdit_dtor	TextEdit vtable[3]
+0x00008f2c5c	TextEdit_dtor_deleting	TextEdit vtable[4]
+0x0001196dd8	TextEdit_vtable	TextEdit typeinfo 链
+0x00008f2d20	ScintillaEditWatcher_dtor	ScintillaEditWatcher vtable[3]
+0x00008f3a0c	ScintillaEditWatcher_dtor_deleting	ScintillaEditWatcher vtable[4]
+0x0001197450	ScintillaEditWatcher_vtable	ScintillaEditWatcher typeinfo 链
+0x00008f2638	TextView_dtor	TextView vtable[3]
+0x00008f2b72	TextView_dtor_deleting	TextView vtable[4]
+0x0001196dc8	TextView_vtable	TextView typeinfo 链
+0x000053fbfc	CommandPalette_dtor	CommandPalette vtable[3]
+0x000053fc36	CommandPalette_dtor_deleting	CommandPalette vtable[4]
+0x00008f6586	CommandPalette_metaObject	CommandPalette vtable[0] 独占
+0x00008f659e	CommandPalette_qt_metacast	CommandPalette vtable[1] 独占
+0x00008f65e0	CommandPalette_qt_metacall	CommandPalette vtable[2] 独占
+0x0001197ac8	CommandPalette_vtable	CommandPalette typeinfo 链
+0x00008f68fc	TabBar_dtor	TabBar vtable[3]
+0x00008f6a66	TabBar_dtor_deleting	TabBar vtable[4]
+0x00008f65f0	TabBar_metaObject	TabBar vtable[0] 独占
+0x00008f66b2	TabBar_qt_metacast	TabBar vtable[1] 独占
+0x00008f66f4	TabBar_qt_metacall	TabBar vtable[2] 独占
+0x0001197d18	TabBar_vtable	TabBar typeinfo 链
+0x00005a1c2a	Splitter_dtor	Splitter vtable[3]
+0x00005a1c4e	Splitter_dtor_deleting	Splitter vtable[4]
+0x00008f6ae0	Splitter_metaObject	Splitter vtable[0] 独占
+0x00008f6bc4	Splitter_qt_metacast	Splitter vtable[1] 独占
+0x00008f6c06	Splitter_qt_metacall	Splitter vtable[2] 独占
+0x0001197f98	Splitter_vtable	Splitter typeinfo 链
+0x00008f6cc6	SplitterGroup_dtor	SplitterGroup vtable[3]
+0x00008f6d04	SplitterGroup_dtor_deleting	SplitterGroup vtable[4]
+0x00008f6c66	SplitterGroup_metaObject	SplitterGroup vtable[0] 独占
+0x00008f6c7e	SplitterGroup_qt_metacast	SplitterGroup vtable[1] 独占
+0x00008f6cc0	SplitterGroup_qt_metacall	SplitterGroup vtable[2] 独占
+0x00011981f8	SplitterGroup_vtable	SplitterGroup typeinfo 链
+0x00008f1278	LineEdit_dtor	LineEdit vtable[3]
+0x00008f12ee	LineEdit_dtor_deleting	LineEdit vtable[4]
+0x0001195aa8	LineEdit_vtable	LineEdit typeinfo 链
+0x00008f7188	SideButton_dtor	SideButton vtable[3]
+0x00008f71c6	SideButton_dtor_deleting	SideButton vtable[4]
+0x00008f7026	SideButton_metaObject	SideButton vtable[0] 独占
+0x00008f7058	SideButton_qt_metacast	SideButton vtable[1] 独占
+0x00008f709a	SideButton_qt_metacall	SideButton vtable[2] 独占
+0x00011986d0	SideButton_vtable	SideButton typeinfo 链
+0x00008f70e8	SideSeparator_dtor	SideSeparator vtable[3]
+0x00008f7126	SideSeparator_dtor_deleting	SideSeparator vtable[4]
+0x00008f703e	SideSeparator_metaObject	SideSeparator vtable[0] 独占
+0x00008f70a0	SideSeparator_qt_metacast	SideSeparator vtable[1] 独占
+0x00008f70e2	SideSeparator_qt_metacall	SideSeparator vtable[2] 独占
+0x00011988e8	SideSeparator_vtable	SideSeparator typeinfo 链
+0x000059373a	LoginWizard_dtor	LoginWizard vtable[3]
+0x00005937f2	LoginWizard_dtor_deleting	LoginWizard vtable[4]
+0x00008f7230	LoginWizard_metaObject	LoginWizard vtable[0] 独占
+0x00008f72c2	LoginWizard_qt_metacast	LoginWizard vtable[1] 独占
+0x00008f7304	LoginWizard_qt_metacall	LoginWizard vtable[2] 独占
+0x0001198b78	LoginWizard_vtable	LoginWizard typeinfo 链
+0x00008f73c4	SwitchButton_dtor	SwitchButton vtable[3]
+0x00008f7402	SwitchButton_dtor_deleting	SwitchButton vtable[4]
+0x00008f7364	SwitchButton_metaObject	SwitchButton vtable[0] 独占
+0x00008f737c	SwitchButton_qt_metacast	SwitchButton vtable[1] 独占
+0x00008f73be	SwitchButton_qt_metacall	SwitchButton vtable[2] 独占
+0x0001198dd8	SwitchButton_vtable	SwitchButton typeinfo 链
+0x00008f7466	HtmlListModel_metaObject	HtmlListModel vtable[0] 独占
+0x00008f7498	HtmlListModel_qt_metacast	HtmlListModel vtable[1] 独占
+0x00008f7500	HtmlListModel_qt_metacall	HtmlListModel vtable[2] 独占
+0x0001199070	HtmlListModel_vtable	HtmlListModel typeinfo 链
+0x00008f754e	HtmlList_dtor	HtmlList vtable[3]
+0x00008f758c	HtmlList_dtor_deleting	HtmlList vtable[4]
+0x00008f747e	HtmlList_metaObject	HtmlList vtable[0] 独占
+0x00008f7506	HtmlList_qt_metacast	HtmlList vtable[1] 独占
+0x00008f7548	HtmlList_qt_metacall	HtmlList vtable[2] 独占
+0x0001199210	HtmlList_vtable	HtmlList typeinfo 链
+0x00008f7650	ListPanel_dtor	ListPanel vtable[3]
+0x00008f768e	ListPanel_dtor_deleting	ListPanel vtable[4]
+0x00008f75f0	ListPanel_metaObject	ListPanel vtable[0] 独占
+0x00008f7608	ListPanel_qt_metacast	ListPanel vtable[1] 独占
+0x00008f764a	ListPanel_qt_metacall	ListPanel vtable[2] 独占
+0x00011995f8	ListPanel_vtable	ListPanel typeinfo 链
+0x000055e8ce	ListWidget_dtor	ListWidget vtable[3]
+0x000055eb7c	ListWidget_dtor_deleting	ListWidget vtable[4]
+0x00008f76f0	ListWidget_metaObject	ListWidget vtable[0] 独占
+0x00008f774c	ListWidget_qt_metacast	ListWidget vtable[1] 独占
+0x00008f778e	ListWidget_qt_metacall	ListWidget vtable[2] 独占
+0x0001199858	ListWidget_vtable	ListWidget typeinfo 链
+0x00008f7944	LockScreen_dtor	LockScreen vtable[3]
+0x00008f7982	LockScreen_dtor_deleting	LockScreen vtable[4]
+0x00008f77f0	LockScreen_metaObject	LockScreen vtable[0] 独占
+0x00008f78a4	LockScreen_qt_metacast	LockScreen vtable[1] 独占
+0x00008f78e6	LockScreen_qt_metacall	LockScreen vtable[2] 独占
+0x0001199c18	LockScreen_vtable	LockScreen typeinfo 链
+0x00008f7d76	Menu_dtor	Menu vtable[3]
+0x00008f7db4	Menu_dtor_deleting	Menu vtable[4]
+0x00008f79f0	Menu_metaObject	Menu vtable[0] 独占
+0x00008f7cc8	Menu_qt_metacast	Menu vtable[1] 独占
+0x00008f7d0a	Menu_qt_metacall	Menu vtable[2] 独占
+0x0001199e78	Menu_vtable	Menu typeinfo 链
+0x00008f7fc8	MessageBar_dtor	MessageBar vtable[3]
+0x00008f80fc	MessageBar_dtor_deleting	MessageBar vtable[4]
+0x00008f7e20	MessageBar_metaObject	MessageBar vtable[0] 独占
+0x00008f7f28	MessageBar_qt_metacast	MessageBar vtable[1] 独占
+0x00008f7f6a	MessageBar_qt_metacall	MessageBar vtable[2] 独占
+0x000119a0d8	MessageBar_vtable	MessageBar typeinfo 链
+0x00008f8170	BreadCrumb_metaObject	BreadCrumb vtable[0] 独占
+0x00008f83d8	BreadCrumb_qt_metacast	BreadCrumb vtable[1] 独占
+0x00008f841a	BreadCrumb_qt_metacall	BreadCrumb vtable[2] 独占
+0x000119a338	BreadCrumb_vtable	BreadCrumb typeinfo 链
+0x00008f87b4	BreadButton_dtor	BreadButton vtable[3]
+0x00008f88e8	BreadButton_dtor_deleting	BreadButton vtable[4]
+0x00008f8482	BreadButton_metaObject	BreadButton vtable[0] 独占
+0x00008f85e4	BreadButton_qt_metacast	BreadButton vtable[1] 独占
+0x00008f8626	BreadButton_qt_metacall	BreadButton vtable[2] 独占
+0x000119a5c8	BreadButton_vtable	BreadButton typeinfo 链
+0x00008f8714	BreadMenu_dtor	BreadMenu vtable[3]
+0x00008f8752	BreadMenu_dtor_deleting	BreadMenu vtable[4]
+0x00008f849a	BreadMenu_metaObject	BreadMenu vtable[0] 独占
+0x00008f862c	BreadMenu_qt_metacast	BreadMenu vtable[1] 独占
+0x00008f866e	BreadMenu_qt_metacall	BreadMenu vtable[2] 独占
+0x000119a7e0	BreadMenu_vtable	BreadMenu typeinfo 链
+0x000054f066	BreadEdit_dtor	BreadEdit vtable[3]
+0x000054f10c	BreadEdit_dtor_deleting	BreadEdit vtable[4]
+0x00008f84b2	BreadEdit_metaObject	BreadEdit vtable[0] 独占
+0x00008f8674	BreadEdit_qt_metacast	BreadEdit vtable[1] 独占
+0x00008f86b6	BreadEdit_qt_metacall	BreadEdit vtable[2] 独占
+0x000119a9e0	BreadEdit_vtable	BreadEdit typeinfo 链
+0x00008f8b2a	AddressBar_dtor	AddressBar vtable[3]
+0x00008f8a46	AddressBar_dtor_deleting	AddressBar vtable[4]
+0x00008f8950	AddressBar_metaObject	AddressBar vtable[0] 独占
+0x00008f8968	AddressBar_qt_metacast	AddressBar vtable[1] 独占
+0x00008f89ee	AddressBar_qt_metacall	AddressBar vtable[2] 独占
+0x000119acb8	AddressBar_vtable	AddressBar typeinfo 链
+0x00008f8bce	PasswordMeter_dtor	PasswordMeter vtable[3]
+0x00008f8c0c	PasswordMeter_dtor_deleting	PasswordMeter vtable[4]
+0x00008f8b6e	PasswordMeter_metaObject	PasswordMeter vtable[0] 独占
+0x00008f8b86	PasswordMeter_qt_metacast	PasswordMeter vtable[1] 独占
+0x00008f8bc8	PasswordMeter_qt_metacall	PasswordMeter vtable[2] 独占
+0x000119af18	PasswordMeter_vtable	PasswordMeter typeinfo 链
+0x00005a08fa	PopupWidget_dtor	PopupWidget vtable[3]
+0x00005a09b0	PopupWidget_dtor_deleting	PopupWidget vtable[4]
+0x00008f8c70	PopupWidget_metaObject	PopupWidget vtable[0] 独占
+0x00008f8c88	PopupWidget_qt_metacast	PopupWidget vtable[1] 独占
+0x00008f8cca	PopupWidget_qt_metacall	PopupWidget vtable[2] 独占
+0x000119b178	PopupWidget_vtable	PopupWidget typeinfo 链
+0x0000582c72	ListView_dtor	ListView vtable[3]
+0x0000582f4a	ListView_dtor_deleting	ListView vtable[4]
+0x00008f8cd0	ListView_metaObject	ListView vtable[0] 独占
+0x00008f8dc4	ListView_qt_metacast	ListView vtable[1] 独占
+0x00008f8e06	ListView_qt_metacall	ListView vtable[2] 独占
+0x000119b3d8	ListView_vtable	ListView typeinfo 链
+0x00008f8f1a	ListItemDelegate_dtor	ListItemDelegate vtable[3]
+0x00008f8f7c	ListItemDelegate_dtor_deleting	ListItemDelegate vtable[4]
+0x00008f8eba	ListItemDelegate_metaObject	ListItemDelegate vtable[0] 独占
+0x00008f8ed2	ListItemDelegate_qt_metacast	ListItemDelegate vtable[1] 独占
+0x00008f8f14	ListItemDelegate_qt_metacall	ListItemDelegate vtable[2] 独占
+0x000119b778	ListItemDelegate_vtable	ListItemDelegate typeinfo 链
+0x00008f91b4	Completer_dtor	Completer vtable[3]
+0x00008f91f2	Completer_dtor_deleting	Completer vtable[4]
+0x00008f8ff0	Completer_metaObject	Completer vtable[0] 独占
+0x00008f9114	Completer_qt_metacast	Completer vtable[1] 独占
+0x00008f9156	Completer_qt_metacall	Completer vtable[2] 独占
+0x000119b898	Completer_vtable	Completer typeinfo 链
+0x00008f9508	FilterEdit_dtor	FilterEdit vtable[3]
+0x00008f9456	FilterEdit_dtor_deleting	FilterEdit vtable[4]
+0x00008f9260	FilterEdit_metaObject	FilterEdit vtable[0] 独占
+0x00008f9278	FilterEdit_qt_metacast	FilterEdit vtable[1] 独占
+0x00008f9392	FilterEdit_qt_metacall	FilterEdit vtable[2] 独占
+0x000119baf8	FilterEdit_vtable	FilterEdit typeinfo 链
+0x00008f0936	ComboBox_dtor	ComboBox vtable[3]
+0x00008f0978	ComboBox_dtor_deleting	ComboBox vtable[4]
+0x00011948a8	ComboBox_vtable	ComboBox typeinfo 链
+0x00008f9846	TransferDelegate_dtor	TransferDelegate vtable[3]
+0x00008f986a	TransferDelegate_dtor_deleting	TransferDelegate vtable[4]
+0x00008f97e6	TransferDelegate_metaObject	TransferDelegate vtable[0] 独占
+0x00008f97fe	TransferDelegate_qt_metacast	TransferDelegate vtable[1] 独占
+0x00008f9840	TransferDelegate_qt_metacall	TransferDelegate vtable[2] 独占
+0x000119bfb8	TransferDelegate_vtable	TransferDelegate typeinfo 链
+0x00008f1d7a	EditDelegate_dtor	EditDelegate vtable[3]
+0x00008f1dbc	EditDelegate_dtor_deleting	EditDelegate vtable[4]
+0x00011967e8	EditDelegate_vtable	EditDelegate typeinfo 链
+0x00008f9b0e	FileTree_dtor	FileTree vtable[3]
+0x00008f9b4c	FileTree_dtor_deleting	FileTree vtable[4]
+0x00008f99f0	FileTree_metaObject	FileTree vtable[0] 独占
+0x00008f9a70	FileTree_qt_metacast	FileTree vtable[1] 独占
+0x00008f9ab2	FileTree_qt_metacall	FileTree vtable[2] 独占
+0x000119c1f8	FileTree_vtable	FileTree typeinfo 链
+0x00008f9dc0	FileView_dtor	FileView vtable[3]
+0x00008fa15c	FileView_dtor_deleting	FileView vtable[4]
+0x00008f9bb0	FileView_metaObject	FileView vtable[0] 独占
+0x00008f9d20	FileView_qt_metacast	FileView vtable[1] 独占
+0x00008f9d62	FileView_qt_metacall	FileView vtable[2] 独占
+0x000119c5b8	FileView_vtable	FileView typeinfo 链
+0x00008fa41a	HtmlLabel_dtor	HtmlLabel vtable[3]
+0x00008fa306	HtmlLabel_dtor_deleting	HtmlLabel vtable[4]
+0x00008fa2a6	HtmlLabel_metaObject	HtmlLabel vtable[0] 独占
+0x00008fa2be	HtmlLabel_qt_metacast	HtmlLabel vtable[1] 独占
+0x00008fa300	HtmlLabel_qt_metacall	HtmlLabel vtable[2] 独占
+0x000119c818	HtmlLabel_vtable	HtmlLabel typeinfo 链
+0x00008fa5e6	FileDialog_dtor	FileDialog vtable[3]
+0x00008fa4d2	FileDialog_dtor_deleting	FileDialog vtable[4]
+0x00008fa472	FileDialog_metaObject	FileDialog vtable[0] 独占
+0x00008fa48a	FileDialog_qt_metacast	FileDialog vtable[1] 独占
+0x00008fa4cc	FileDialog_qt_metacall	FileDialog vtable[2] 独占
+0x000119ca78	FileDialog_vtable	FileDialog typeinfo 链
+0x00008fa8b8	IconSelector_dtor	IconSelector vtable[3]
+0x00008fa75a	IconSelector_dtor_deleting	IconSelector vtable[4]
+0x00008fa640	IconSelector_metaObject	IconSelector vtable[0] 独占
+0x00008fa658	IconSelector_qt_metacast	IconSelector vtable[1] 独占
+0x00008fa6fc	IconSelector_qt_metacall	IconSelector vtable[2] 独占
+0x000119ccf8	IconSelector_vtable	IconSelector typeinfo 链
+0x00008fab2e	PathEdit_dtor	PathEdit vtable[3]
+0x00008faa7c	PathEdit_dtor_deleting	PathEdit vtable[4]
+0x00008fa920	PathEdit_metaObject	PathEdit vtable[0] 独占
+0x00008fa938	PathEdit_qt_metacast	PathEdit vtable[1] 独占
+0x00008fa9be	PathEdit_qt_metacall	PathEdit vtable[2] 独占
+0x000119cf58	PathEdit_vtable	PathEdit typeinfo 链
+0x00008fadc0	SafeEdit_dtor	SafeEdit vtable[3]
+0x00008fac84	SafeEdit_dtor_deleting	SafeEdit vtable[4]
+0x00008fab7c	SafeEdit_metaObject	SafeEdit vtable[0] 独占
+0x00008fab94	SafeEdit_qt_metacast	SafeEdit vtable[1] 独占
+0x00008fabd6	SafeEdit_qt_metacall	SafeEdit vtable[2] 独占
+0x000119d1b8	SafeEdit_vtable	SafeEdit typeinfo 链
+0x0000565c0e	SlipButton_dtor	SlipButton vtable[3]
+0x0000565ce2	SlipButton_dtor_deleting	SlipButton vtable[4]
+0x00008fae60	SlipButton_metaObject	SlipButton vtable[0] 独占
+0x00008fb0b0	SlipButton_qt_metacast	SlipButton vtable[1] 独占
+0x00008fb0f2	SlipButton_qt_metacall	SlipButton vtable[2] 独占
+0x000119d418	SlipButton_vtable	SlipButton typeinfo 链
+0x00008f16d2	TablePanel_dtor	TablePanel vtable[3]
+0x00008f1714	TablePanel_dtor_deleting	TablePanel vtable[4]
+0x00011960c8	TablePanel_vtable	TablePanel typeinfo 链
+0x000118a238	TreeView_vtable	TreeView typeinfo 链
+0x00005ad5c2	TabGroup_dtor	TabGroup vtable[3]
+0x00005aec0a	TabGroup_dtor_deleting	TabGroup vtable[4]
+0x00008fb530	TabGroup_metaObject	TabGroup vtable[0] 独占
+0x00008fb8de	TabGroup_qt_metacast	TabGroup vtable[1] 独占
+0x00008fb920	TabGroup_qt_metacall	TabGroup vtable[2] 独占
+0x000119dc98	TabGroup_vtable	TabGroup typeinfo 链
+0x00008fbb66	ToolButton_dtor	ToolButton vtable[3]
+0x00008fbba4	ToolButton_dtor_deleting	ToolButton vtable[4]
+0x00008fb9d0	ToolButton_metaObject	ToolButton vtable[0] 独占
+0x00008fbaac	ToolButton_qt_metacast	ToolButton vtable[1] 独占
+0x00008fbaee	ToolButton_qt_metacall	ToolButton vtable[2] 独占
+0x000119def8	ToolButton_vtable	ToolButton typeinfo 链
+0x00008eff00	WidgetDelegate_dtor	WidgetDelegate vtable[3]
+0x00008eff42	WidgetDelegate_dtor_deleting	WidgetDelegate vtable[4]
+0x00011934a0	WidgetDelegate_vtable	WidgetDelegate typeinfo 链
+0x00008f0092	WidgetList_dtor	WidgetList vtable[3]
+0x00008f00d4	WidgetList_dtor_deleting	WidgetList vtable[4]
+0x0001193808	WidgetList_vtable	WidgetList typeinfo 链
+0x00005e5d9e	EditorView_dtor	EditorView vtable[3]
+0x00005e5f78	EditorView_dtor_deleting	EditorView vtable[4]
+0x00008fbdd0	EditorView_metaObject	EditorView vtable[0] 独占
+0x00008fc214	EditorView_qt_metacast	EditorView vtable[1] 独占
+0x00008fc280	EditorView_qt_metacall	EditorView vtable[2] 独占
+0x000119e658	EditorView_vtable	EditorView typeinfo 链
+0x00005e9778	EditorWindow_dtor	EditorWindow vtable[3]
+0x00005e979c	EditorWindow_dtor_deleting	EditorWindow vtable[4]
+0x000119ee38	EditorWindow_vtable	EditorWindow typeinfo 链
+0x0000618b20	TransferCenter_dtor	TransferCenter vtable[3]
+0x0000619f80	TransferCenter_dtor_deleting	TransferCenter vtable[4]
+0x00008fc610	TransferCenter_metaObject	TransferCenter vtable[0] 独占
+0x00008fc778	TransferCenter_qt_metacast	TransferCenter vtable[1] 独占
+0x00008fc7ba	TransferCenter_qt_metacall	TransferCenter vtable[2] 独占
+0x000119f138	TransferCenter_vtable	TransferCenter typeinfo 链
+0x00005ecd00	ForwardingCenter_dtor	ForwardingCenter vtable[3]
+0x00005ece34	ForwardingCenter_dtor_deleting	ForwardingCenter vtable[4]
+0x00008fc820	ForwardingCenter_metaObject	ForwardingCenter vtable[0] 独占
+0x00008fca4a	ForwardingCenter_qt_metacast	ForwardingCenter vtable[1] 独占
+0x00008fca8c	ForwardingCenter_qt_metacall	ForwardingCenter vtable[2] 独占
+0x000119f1f8	ForwardingCenter_vtable	ForwardingCenter typeinfo 链
+0x00008fcc98	ProxyServer_dtor	ProxyServer vtable[3]
+0x00008fcd38	ProxyServer_dtor_deleting	ProxyServer vtable[4]
+0x00008fcaf0	ProxyServer_metaObject	ProxyServer vtable[0] 独占
+0x00008fcbf8	ProxyServer_qt_metacast	ProxyServer vtable[1] 独占
+0x00008fcc3a	ProxyServer_qt_metacall	ProxyServer vtable[2] 独占
+0x000119f2b8	ProxyServer_vtable	ProxyServer typeinfo 链
+0x00005f1838	ForwardingHandler_dtor	ForwardingHandler vtable[3]
+0x00005f19a8	ForwardingHandler_dtor_deleting	ForwardingHandler vtable[4]
+0x00008fcde0	ForwardingHandler_metaObject	ForwardingHandler vtable[0] 独占
+0x00008fd1a4	ForwardingHandler_qt_metacast	ForwardingHandler vtable[1] 独占
+0x00008fd1e6	ForwardingHandler_qt_metacall	ForwardingHandler vtable[2] 独占
+0x000119f398	ForwardingHandler_vtable	ForwardingHandler typeinfo 链
+0x00008fd356	PeriodTimer_dtor	PeriodTimer vtable[3]
+0x00008fd36a	PeriodTimer_dtor_deleting	PeriodTimer vtable[4]
+0x00008fd260	PeriodTimer_metaObject	PeriodTimer vtable[0] 独占
+0x00008fd2bc	PeriodTimer_qt_metacast	PeriodTimer vtable[1] 独占
+0x00008fd2fe	PeriodTimer_qt_metacall	PeriodTimer vtable[2] 独占
+0x000119f458	PeriodTimer_vtable	PeriodTimer typeinfo 链
+0x00008fd7f8	Tools_dtor	Tools vtable[3]
+0x00008fd81c	Tools_dtor_deleting	Tools vtable[4]
+0x00008fd390	Tools_metaObject	Tools vtable[0] 独占
+0x00008fd570	Tools_qt_metacast	Tools vtable[1] 独占
+0x00008fd5d8	Tools_qt_metacall	Tools vtable[2] 独占
+0x000119f578	Tools_vtable	Tools typeinfo 链
+0x0000696dbe	ToolRunner_dtor	ToolRunner vtable[3]
+0x0000696e8e	ToolRunner_dtor_deleting	ToolRunner vtable[4]
+0x00008fd3a8	ToolRunner_metaObject	ToolRunner vtable[0] 独占
+0x00008fd636	ToolRunner_qt_metacast	ToolRunner vtable[1] 独占
+0x00008fd678	ToolRunner_qt_metacall	ToolRunner vtable[2] 独占
+0x000119f5e8	ToolRunner_vtable	ToolRunner typeinfo 链
+0x000064ab32	JsEngine_dtor	JsEngine vtable[3]
+0x000064ab46	JsEngine_dtor_deleting	JsEngine vtable[4]
+0x00008fd850	JsEngine_metaObject	JsEngine vtable[0] 独占
+0x00008fd868	JsEngine_qt_metacast	JsEngine vtable[1] 独占
+0x00008fd8aa	JsEngine_qt_metacall	JsEngine vtable[2] 独占
+0x000119f778	JsEngine_vtable	JsEngine typeinfo 链
+0x00008fda28	JumpServer_dtor	JumpServer vtable[3]
+0x00008fd9d6	JumpServer_dtor_deleting	JumpServer vtable[4]
+0x00008fd8b0	JumpServer_metaObject	JumpServer vtable[0] 独占
+0x00008fd938	JumpServer_qt_metacast	JumpServer vtable[1] 独占
+0x00008fd97a	JumpServer_qt_metacall	JumpServer vtable[2] 独占
+0x000119f838	JumpServer_vtable	JumpServer typeinfo 链
+0x00008fdae0	ProxyCommandSocket_dtor	ProxyCommandSocket vtable[3]
+0x00008ff000	ProxyCommandSocket_dtor_deleting	ProxyCommandSocket vtable[4]
+0x00008fda76	ProxyCommandSocket_metaObject	ProxyCommandSocket vtable[0] 独占
+0x00008fda8e	ProxyCommandSocket_qt_metacast	ProxyCommandSocket vtable[1] 独占
+0x00008fdad0	ProxyCommandSocket_qt_metacall	ProxyCommandSocket vtable[2] 独占
+0x000119f8f8	ProxyCommandSocket_vtable	ProxyCommandSocket typeinfo 链
+0x00008ff042	SortFilterProxyModel_dtor	SortFilterProxyModel vtable[3]
+0x00008ff084	SortFilterProxyModel_dtor_deleting	SortFilterProxyModel vtable[4]
+0x0001183ef8	SortFilterProxyModel_vtable	SortFilterProxyModel typeinfo 链
+0x00008ff152	ListModel_dtor	ListModel vtable[3]
+0x00008ff194	ListModel_dtor_deleting	ListModel vtable[4]
+0x0001183c98	ListModel_vtable	ListModel typeinfo 链
+0x0000900ed0	MediaCenter_dtor	MediaCenter vtable[3]
+0x00008ff2f0	MediaCenter_dtor_deleting	MediaCenter vtable[4]
+0x00008ff284	MediaCenter_metaObject	MediaCenter vtable[0] 独占
+0x00008ff29c	MediaCenter_qt_metacast	MediaCenter vtable[1] 独占
+0x00008ff2de	MediaCenter_qt_metacall	MediaCenter vtable[2] 独占
+0x000119fe98	MediaCenter_vtable	MediaCenter typeinfo 链
+0x000062b1e0	FileWatcher_dtor	FileWatcher vtable[3]
+0x000062b2c0	FileWatcher_dtor_deleting	FileWatcher vtable[4]
+0x0000902ac0	FileWatcher_metaObject	FileWatcher vtable[0] 独占
+0x0000902b88	FileWatcher_qt_metacast	FileWatcher vtable[1] 独占
+0x0000902bca	FileWatcher_qt_metacall	FileWatcher vtable[2] 独占
+0x000119ff58	FileWatcher_vtable	FileWatcher typeinfo 链
+0x0000902cde	SuperTranslator_dtor	SuperTranslator vtable[3]
+0x0000902c8a	SuperTranslator_dtor_deleting	SuperTranslator vtable[4]
+0x0000902c2a	SuperTranslator_metaObject	SuperTranslator vtable[0] 独占
+0x0000902c42	SuperTranslator_qt_metacast	SuperTranslator vtable[1] 独占
+0x0000902c84	SuperTranslator_qt_metacall	SuperTranslator vtable[2] 独占
+0x00011a0018	SuperTranslator_vtable	SuperTranslator typeinfo 链
+0x0000902de8	CyclicMemoryPool_dtor	CyclicMemoryPool vtable[3]
+0x0000902e2c	CyclicMemoryPool_dtor_deleting	CyclicMemoryPool vtable[4]
+0x0000902d3a	CyclicMemoryPool_metaObject	CyclicMemoryPool vtable[0] 独占
+0x0000902d52	CyclicMemoryPool_qt_metacast	CyclicMemoryPool vtable[1] 独占
+0x0000902d94	CyclicMemoryPool_qt_metacall	CyclicMemoryPool vtable[2] 独占
+0x00011a00f8	CyclicMemoryPool_vtable	CyclicMemoryPool typeinfo 链
+0x000063c630	TransferTask_dtor	TransferTask vtable[3]
+0x000063c806	TransferTask_dtor_deleting	TransferTask vtable[4]
+0x0000902e80	TransferTask_metaObject	TransferTask vtable[0] 独占
+0x0000902f48	TransferTask_qt_metacast	TransferTask vtable[1] 独占
+0x0000902f8a	TransferTask_qt_metacall	TransferTask vtable[2] 独占
+0x00011a01b8	TransferTask_vtable	TransferTask typeinfo 链
+0x0000644108	TreeModel_dtor	TreeModel vtable[3]
+0x000064414c	TreeModel_dtor_deleting	TreeModel vtable[4]
+0x00011a0278	TreeModel_vtable	TreeModel typeinfo 链
+0x0000903064	TreeListModel_dtor	TreeListModel vtable[3]
+0x00009030a6	TreeListModel_dtor_deleting	TreeListModel vtable[4]
+0x0001186bf0	TreeListModel_vtable	TreeListModel typeinfo 链
+0x0000647c66	FileReader_dtor	FileReader vtable[3]
+0x0000647ce2	FileReader_dtor_deleting	FileReader vtable[4]
+0x00009030b0	FileReader_metaObject	FileReader vtable[0] 独占
+0x00009034b4	FileReader_qt_metacast	FileReader vtable[1] 独占
+0x00009034f6	FileReader_qt_metacall	FileReader vtable[2] 独占
+0x00011a0638	FileReader_vtable	FileReader typeinfo 链
+0x00009035b6	SuperAction_dtor	SuperAction vtable[3]
+0x000090360e	SuperAction_dtor_deleting	SuperAction vtable[4]
+0x0000903556	SuperAction_metaObject	SuperAction vtable[0] 独占
+0x000090356e	SuperAction_qt_metacast	SuperAction vtable[1] 独占
+0x00009035b0	SuperAction_qt_metacall	SuperAction vtable[2] 独占
+0x00011a06f8	SuperAction_vtable	SuperAction typeinfo 链
+0x00006744f4	SuperKeymap_dtor	SuperKeymap vtable[3]
+0x0000674538	SuperKeymap_dtor_deleting	SuperKeymap vtable[4]
+0x000090366e	SuperKeymap_metaObject	SuperKeymap vtable[0] 独占
+0x0000903686	SuperKeymap_qt_metacast	SuperKeymap vtable[1] 独占
+0x00009036c8	SuperKeymap_qt_metacall	SuperKeymap vtable[2] 独占
+0x00011a07b8	SuperKeymap_vtable	SuperKeymap typeinfo 链
+0x0000903972	SyncInputCenter_dtor	SyncInputCenter vtable[3]
+0x00009038e6	SyncInputCenter_dtor_deleting	SyncInputCenter vtable[4]
+0x00009036d0	SyncInputCenter_metaObject	SyncInputCenter vtable[0] 独占
+0x0000903846	SyncInputCenter_qt_metacast	SyncInputCenter vtable[1] 独占
+0x0000903888	SyncInputCenter_qt_metacall	SyncInputCenter vtable[2] 独占
+0x00011a0878	SyncInputCenter_vtable	SyncInputCenter typeinfo 链
+0x0000699f90	TriggerCenter_dtor	TriggerCenter vtable[3]
+0x000069a034	TriggerCenter_dtor_deleting	TriggerCenter vtable[4]
+0x0000903a00	TriggerCenter_metaObject	TriggerCenter vtable[0] 独占
+0x0000903bc2	TriggerCenter_qt_metacast	TriggerCenter vtable[1] 独占
+0x0000903c04	TriggerCenter_qt_metacall	TriggerCenter vtable[2] 独占
+0x00011a0938	TriggerCenter_vtable	TriggerCenter typeinfo 链
+0x00006a4f28	TunnelCenter_dtor	TunnelCenter vtable[3]
+0x00006a51da	TunnelCenter_dtor_deleting	TunnelCenter vtable[4]
+0x0000903c60	TunnelCenter_metaObject	TunnelCenter vtable[0] 独占
+0x0000903eca	TunnelCenter_qt_metacast	TunnelCenter vtable[1] 独占
+0x0000903f0c	TunnelCenter_qt_metacall	TunnelCenter vtable[2] 独占
+0x00011a09f8	TunnelCenter_vtable	TunnelCenter typeinfo 链
+0x0000904046	UuidCenter_dtor	UuidCenter vtable[3]
+0x0000903fd0	UuidCenter_dtor_deleting	UuidCenter vtable[4]
+0x0000903f70	UuidCenter_metaObject	UuidCenter vtable[0] 独占
+0x0000903f88	UuidCenter_qt_metacast	UuidCenter vtable[1] 独占
+0x0000903fca	UuidCenter_qt_metacall	UuidCenter vtable[2] 独占
+0x00011a0ab8	UuidCenter_vtable	UuidCenter typeinfo 链
+0x0000904240	XServerCenter_dtor	XServerCenter vtable[3]
+0x00009042f0	XServerCenter_dtor_deleting	XServerCenter vtable[4]
+0x00009040c0	XServerCenter_metaObject	XServerCenter vtable[0] 独占
+0x0000904196	XServerCenter_qt_metacast	XServerCenter vtable[1] 独占
+0x00009041d8	XServerCenter_qt_metacall	XServerCenter vtable[2] 独占
+0x00011a0b78	XServerCenter_vtable	XServerCenter typeinfo 链
+0x0000904406	HighlightTextDialog_dtor	HighlightTextDialog vtable[3]
+0x0000904444	HighlightTextDialog_dtor_deleting	HighlightTextDialog vtable[4]
+0x00009043a6	HighlightTextDialog_metaObject	HighlightTextDialog vtable[0] 独占
+0x00009043be	HighlightTextDialog_qt_metacast	HighlightTextDialog vtable[1] 独占
+0x0000904400	HighlightTextDialog_qt_metacall	HighlightTextDialog vtable[2] 独占
+0x00011a0c38	HighlightTextDialog_vtable	HighlightTextDialog typeinfo 链
+0x0000904508	MasterPasswordDialog_dtor	MasterPasswordDialog vtable[3]
+0x0000904546	MasterPasswordDialog_dtor_deleting	MasterPasswordDialog vtable[4]
+0x00009044a8	MasterPasswordDialog_metaObject	MasterPasswordDialog vtable[0] 独占
+0x00009044c0	MasterPasswordDialog_qt_metacast	MasterPasswordDialog vtable[1] 独占
+0x0000904502	MasterPasswordDialog_qt_metacall	MasterPasswordDialog vtable[2] 独占
+0x00011a0eb8	MasterPasswordDialog_vtable	MasterPasswordDialog typeinfo 链
+0x0000904662	ModemFileDialog_dtor	ModemFileDialog vtable[3]
+0x0000904718	ModemFileDialog_dtor_deleting	ModemFileDialog vtable[4]
+0x00009045aa	ModemFileDialog_metaObject	ModemFileDialog vtable[0] 独占
+0x00009045c2	ModemFileDialog_qt_metacast	ModemFileDialog vtable[1] 独占
+0x0000904604	ModemFileDialog_qt_metacall	ModemFileDialog vtable[2] 独占
+0x00011a1138	ModemFileDialog_vtable	ModemFileDialog typeinfo 链
+0x00009048ea	NameDialog_dtor	NameDialog vtable[3]
+0x00009047d6	NameDialog_dtor_deleting	NameDialog vtable[4]
+0x0000904776	NameDialog_metaObject	NameDialog vtable[0] 独占
+0x000090478e	NameDialog_qt_metacast	NameDialog vtable[1] 独占
+0x00009047d0	NameDialog_qt_metacall	NameDialog vtable[2] 独占
+0x00011a13b8	NameDialog_vtable	NameDialog typeinfo 链
+0x00009049a2	OneKeyDialog_dtor	OneKeyDialog vtable[3]
+0x0000904a06	OneKeyDialog_dtor_deleting	OneKeyDialog vtable[4]
+0x0000904942	OneKeyDialog_metaObject	OneKeyDialog vtable[0] 独占
+0x000090495a	OneKeyDialog_qt_metacast	OneKeyDialog vtable[1] 独占
+0x000090499c	OneKeyDialog_qt_metacall	OneKeyDialog vtable[2] 独占
+0x00011a1638	OneKeyDialog_vtable	OneKeyDialog typeinfo 链
+0x0000765350	PasswordDialog_dtor	PasswordDialog vtable[3]
+0x0000765466	PasswordDialog_dtor_deleting	PasswordDialog vtable[4]
+0x0000904a86	PasswordDialog_metaObject	PasswordDialog vtable[0] 独占
+0x0000904a9e	PasswordDialog_qt_metacast	PasswordDialog vtable[1] 独占
+0x0000904ae0	PasswordDialog_qt_metacall	PasswordDialog vtable[2] 独占
+0x00011a18b8	PasswordDialog_vtable	PasswordDialog typeinfo 链
+0x0000904c4a	PlaySoundWidget_dtor	PlaySoundWidget vtable[3]
+0x0000904c88	PlaySoundWidget_dtor_deleting	PlaySoundWidget vtable[4]
+0x0000904ae8	PlaySoundWidget_metaObject	PlaySoundWidget vtable[0] 独占
+0x0000904b1a	PlaySoundWidget_qt_metacast	PlaySoundWidget vtable[1] 独占
+0x0000904b5c	PlaySoundWidget_qt_metacall	PlaySoundWidget vtable[2] 独占
+0x00011a1b50	PlaySoundWidget_vtable	PlaySoundWidget typeinfo 链
+0x0000904baa	PlaySoundDialog_dtor	PlaySoundDialog vtable[3]
+0x0000904be8	PlaySoundDialog_dtor_deleting	PlaySoundDialog vtable[4]
+0x0000904b00	PlaySoundDialog_metaObject	PlaySoundDialog vtable[0] 独占
+0x0000904b62	PlaySoundDialog_qt_metacast	PlaySoundDialog vtable[1] 独占
+0x0000904ba4	PlaySoundDialog_qt_metacall	PlaySoundDialog vtable[2] 独占
+0x00011a1d50	PlaySoundDialog_vtable	PlaySoundDialog typeinfo 链
+0x0000751eae	SessionDialog_dtor	SessionDialog vtable[3]
+0x000075219e	SessionDialog_dtor_deleting	SessionDialog vtable[4]
+0x0000904cf0	SessionDialog_metaObject	SessionDialog vtable[0] 独占
+0x0000904e1a	SessionDialog_qt_metacast	SessionDialog vtable[1] 独占
+0x0000904e5c	SessionDialog_qt_metacall	SessionDialog vtable[2] 独占
+0x00011a2018	SessionDialog_vtable	SessionDialog typeinfo 链
+0x0000904f20	RemoteFileDialog_dtor	RemoteFileDialog vtable[3]
+0x000090514e	RemoteFileDialog_dtor_deleting	RemoteFileDialog vtable[4]
+0x0000904ec0	RemoteFileDialog_metaObject	RemoteFileDialog vtable[0] 独占
+0x0000904ed8	RemoteFileDialog_qt_metacast	RemoteFileDialog vtable[1] 独占
+0x0000904f1a	RemoteFileDialog_qt_metacall	RemoteFileDialog vtable[2] 独占
+0x00011a2298	RemoteFileDialog_vtable	RemoteFileDialog typeinfo 链
+0x0000905276	DefaultEditorDialog_dtor	DefaultEditorDialog vtable[3]
+0x00009052b4	DefaultEditorDialog_dtor_deleting	DefaultEditorDialog vtable[4]
+0x0000905216	DefaultEditorDialog_metaObject	DefaultEditorDialog vtable[0] 独占
+0x000090522e	DefaultEditorDialog_qt_metacast	DefaultEditorDialog vtable[1] 独占
+0x0000905270	DefaultEditorDialog_qt_metacall	DefaultEditorDialog vtable[2] 独占
+0x00011a2518	DefaultEditorDialog_vtable	DefaultEditorDialog typeinfo 链
+0x0000905378	EnvironmentDialog_dtor	EnvironmentDialog vtable[3]
+0x00009053b6	EnvironmentDialog_dtor_deleting	EnvironmentDialog vtable[4]
+0x0000905318	EnvironmentDialog_metaObject	EnvironmentDialog vtable[0] 独占
+0x0000905330	EnvironmentDialog_qt_metacast	EnvironmentDialog vtable[1] 独占
+0x0000905372	EnvironmentDialog_qt_metacall	EnvironmentDialog vtable[2] 独占
+0x00011a2798	EnvironmentDialog_vtable	EnvironmentDialog typeinfo 链
+0x0000905690	FocusModeController_dtor	FocusModeController vtable[3]
+0x000090557c	FocusModeController_dtor_deleting	FocusModeController vtable[4]
+0x000090541a	FocusModeController_metaObject	FocusModeController vtable[0] 独占
+0x000090544c	FocusModeController_qt_metacast	FocusModeController vtable[1] 独占
+0x000090548e	FocusModeController_qt_metacall	FocusModeController vtable[2] 独占
+0x00011a2a30	FocusModeController_vtable	FocusModeController typeinfo 链
+0x00009054dc	FocusModeDialog_dtor	FocusModeDialog vtable[3]
+0x000090551a	FocusModeDialog_dtor_deleting	FocusModeDialog vtable[4]
+0x0000905432	FocusModeDialog_metaObject	FocusModeDialog vtable[0] 独占
+0x0000905494	FocusModeDialog_qt_metacast	FocusModeDialog vtable[1] 独占
+0x00009054d6	FocusModeDialog_qt_metacall	FocusModeDialog vtable[2] 独占
+0x00011a2c30	FocusModeDialog_vtable	FocusModeDialog typeinfo 链
+0x000090580e	QuickDialog_dtor	QuickDialog vtable[3]
+0x0000905940	QuickDialog_dtor_deleting	QuickDialog vtable[4]
+0x00009056f0	QuickDialog_metaObject	QuickDialog vtable[0] 独占
+0x0000905770	QuickDialog_qt_metacast	QuickDialog vtable[1] 独占
+0x00009057b2	QuickDialog_qt_metacall	QuickDialog vtable[2] 独占
+0x00011a2ef8	QuickDialog_vtable	QuickDialog typeinfo 链
+0x0000905b1c	PasteDialog_dtor	PasteDialog vtable[3]
+0x0000905a08	PasteDialog_dtor_deleting	PasteDialog vtable[4]
+0x00009059a8	PasteDialog_metaObject	PasteDialog vtable[0] 独占
+0x00009059c0	PasteDialog_qt_metacast	PasteDialog vtable[1] 独占
+0x0000905a02	PasteDialog_qt_metacall	PasteDialog vtable[2] 独占
+0x00011a3178	PasteDialog_vtable	PasteDialog typeinfo 链
+0x00006ce568	ProfileDialog_dtor	ProfileDialog vtable[3]
+0x00006ce64a	ProfileDialog_dtor_deleting	ProfileDialog vtable[4]
+0x0000905b74	ProfileDialog_metaObject	ProfileDialog vtable[0] 独占
+0x0000905b8c	ProfileDialog_qt_metacast	ProfileDialog vtable[1] 独占
+0x0000905bce	ProfileDialog_qt_metacall	ProfileDialog vtable[2] 独占
+0x00011a33f8	ProfileDialog_vtable	ProfileDialog typeinfo 链
+0x000070709c	RunToolDialog_dtor	RunToolDialog vtable[3]
+0x0000707150	RunToolDialog_dtor_deleting	RunToolDialog vtable[4]
+0x0000905bd6	RunToolDialog_metaObject	RunToolDialog vtable[0] 独占
+0x0000905bee	RunToolDialog_qt_metacast	RunToolDialog vtable[1] 独占
+0x0000905c30	RunToolDialog_qt_metacall	RunToolDialog vtable[2] 独占
+0x00011a3678	RunToolDialog_vtable	RunToolDialog typeinfo 链
+0x00007050a6	MaskDialog_dtor	MaskDialog vtable[3]
+0x0000705102	MaskDialog_dtor_deleting	MaskDialog vtable[4]
+0x0000905c38	MaskDialog_metaObject	MaskDialog vtable[0] 独占
+0x0000905c50	MaskDialog_qt_metacast	MaskDialog vtable[1] 独占
+0x0000905c92	MaskDialog_qt_metacall	MaskDialog vtable[2] 独占
+0x00011a38f8	MaskDialog_vtable	MaskDialog typeinfo 链
+0x000072f424	InsertFileDialog_dtor	InsertFileDialog vtable[3]
+0x000072f480	InsertFileDialog_dtor_deleting	InsertFileDialog vtable[4]
+0x0000905c9a	InsertFileDialog_metaObject	InsertFileDialog vtable[0] 独占
+0x0000905cb2	InsertFileDialog_qt_metacast	InsertFileDialog vtable[1] 独占
+0x0000905cf4	InsertFileDialog_qt_metacall	InsertFileDialog vtable[2] 独占
+0x00011a3b58	InsertFileDialog_vtable	InsertFileDialog typeinfo 链
+0x0000905d5c	SearchEngineDialog_dtor	SearchEngineDialog vtable[3]
+0x0000905d9a	SearchEngineDialog_dtor_deleting	SearchEngineDialog vtable[4]
+0x0000905cfc	SearchEngineDialog_metaObject	SearchEngineDialog vtable[0] 独占
+0x0000905d14	SearchEngineDialog_qt_metacast	SearchEngineDialog vtable[1] 独占
+0x0000905d56	SearchEngineDialog_qt_metacall	SearchEngineDialog vtable[2] 独占
+0x00011a3dd8	SearchEngineDialog_vtable	SearchEngineDialog typeinfo 链
+0x0000905e5e	SettingDialog_dtor	SettingDialog vtable[3]
+0x00009076cc	SettingDialog_dtor_deleting	SettingDialog vtable[4]
+0x0000905dfe	SettingDialog_metaObject	SettingDialog vtable[0] 独占
+0x0000905e16	SettingDialog_qt_metacast	SettingDialog vtable[1] 独占
+0x0000905e58	SettingDialog_qt_metacall	SettingDialog vtable[2] 独占
+0x00011a4058	SettingDialog_vtable	SettingDialog typeinfo 链
+0x0000908f04	SyncInputDialog_dtor	SyncInputDialog vtable[3]
+0x0000908df0	SyncInputDialog_dtor_deleting	SyncInputDialog vtable[4]
+0x0000908d90	SyncInputDialog_metaObject	SyncInputDialog vtable[0] 独占
+0x0000908da8	SyncInputDialog_qt_metacast	SyncInputDialog vtable[1] 独占
+0x0000908dea	SyncInputDialog_qt_metacall	SyncInputDialog vtable[2] 独占
+0x00011a42d8	SyncInputDialog_vtable	SyncInputDialog typeinfo 链
+0x0000908fbc	TextMarkDialog_dtor	TextMarkDialog vtable[3]
+0x0000908ffa	TextMarkDialog_dtor_deleting	TextMarkDialog vtable[4]
+0x0000908f5c	TextMarkDialog_metaObject	TextMarkDialog vtable[0] 独占
+0x0000908f74	TextMarkDialog_qt_metacast	TextMarkDialog vtable[1] 独占
+0x0000908fb6	TextMarkDialog_qt_metacall	TextMarkDialog vtable[2] 独占
+0x00011a4558	TextMarkDialog_vtable	TextMarkDialog typeinfo 链
+0x000118b418	TriggerPage_vtable	TriggerPage typeinfo 链
+0x0000909354	TriggerDialog_dtor	TriggerDialog vtable[3]
+0x000090963e	TriggerDialog_dtor_deleting	TriggerDialog vtable[4]
+0x000090907a	TriggerDialog_metaObject	TriggerDialog vtable[0] 独占
+0x000090930c	TriggerDialog_qt_metacast	TriggerDialog vtable[1] 独占
+0x000090934e	TriggerDialog_qt_metacall	TriggerDialog vtable[2] 独占
+0x00011a4a00	TriggerDialog_vtable	TriggerDialog typeinfo 链
+0x0000909a7c	TunnelDialog_dtor	TunnelDialog vtable[3]
+0x00009099c8	TunnelDialog_dtor_deleting	TunnelDialog vtable[4]
+0x0000909750	TunnelDialog_metaObject	TunnelDialog vtable[0] 独占
+0x0000909768	TunnelDialog_qt_metacast	TunnelDialog vtable[1] 独占
+0x00009097aa	TunnelDialog_qt_metacall	TunnelDialog vtable[2] 独占
+0x00011a4cb8	TunnelDialog_vtable	TunnelDialog typeinfo 链
+0x0000909b84	ExplorerPane_dtor	ExplorerPane vtable[3]
+0x0000909bc2	ExplorerPane_dtor_deleting	ExplorerPane vtable[4]
+0x00011a4f38	ExplorerPane_vtable	ExplorerPane typeinfo 链
+0x0000909d42	TransferPane_dtor	TransferPane vtable[3]
+0x0000909d80	TransferPane_dtor_deleting	TransferPane vtable[4]
+0x0000909c30	TransferPane_metaObject	TransferPane vtable[0] 独占
+0x0000909c48	TransferPane_qt_metacast	TransferPane vtable[1] 独占
+0x0000909ce4	TransferPane_qt_metacall	TransferPane vtable[2] 独占
+0x00011a51d8	TransferPane_vtable	TransferPane typeinfo 链
+0x0000748a66	OutputPane_dtor	OutputPane vtable[3]
+0x0000748a8a	OutputPane_dtor_deleting	OutputPane vtable[4]
+0x0000909df0	OutputPane_metaObject	OutputPane vtable[0] 独占
+0x0000909fae	OutputPane_qt_metacast	OutputPane vtable[1] 独占
+0x0000909ff0	OutputPane_qt_metacall	OutputPane vtable[2] 独占
+0x00011a5478	OutputPane_vtable	OutputPane typeinfo 链
+0x000090a2be	SessionPane_dtor	SessionPane vtable[3]
+0x000090a2fc	SessionPane_dtor_deleting	SessionPane vtable[4]
+0x000090a050	SessionPane_metaObject	SessionPane vtable[0] 独占
+0x000090a068	SessionPane_qt_metacast	SessionPane vtable[1] 独占
+0x000090a260	SessionPane_qt_metacall	SessionPane vtable[2] 独占
+0x00011a5718	SessionPane_vtable	SessionPane typeinfo 链
+0x000073591c	SenderPane_dtor	SenderPane vtable[3]
+0x00007359ca	SenderPane_dtor_deleting	SenderPane vtable[4]
+0x000090a360	SenderPane_metaObject	SenderPane vtable[0] 独占
+0x000090a76a	SenderPane_qt_metacast	SenderPane vtable[1] 独占
+0x000090a7ac	SenderPane_qt_metacall	SenderPane vtable[2] 独占
+0x00011a59b8	SenderPane_vtable	SenderPane typeinfo 链
+0x000090add8	FilerPane_dtor	FilerPane vtable[3]
+0x000090aca0	FilerPane_dtor_deleting	FilerPane vtable[4]
+0x000090a810	FilerPane_metaObject	FilerPane vtable[0] 独占
+0x000090a828	FilerPane_qt_metacast	FilerPane vtable[1] 独占
+0x000090abf2	FilerPane_qt_metacall	FilerPane vtable[2] 独占
+0x00011a5c58	FilerPane_vtable	FilerPane typeinfo 链
+0x000090b020	OutlinePane_dtor	OutlinePane vtable[3]
+0x000090b30c	OutlinePane_dtor_deleting	OutlinePane vtable[4]
+0x000090ae40	OutlinePane_metaObject	OutlinePane vtable[0] 独占
+0x000090ae58	OutlinePane_qt_metacast	OutlinePane vtable[1] 独占
+0x000090afc4	OutlinePane_qt_metacall	OutlinePane vtable[2] 独占
+0x00011a5ef8	OutlinePane_vtable	OutlinePane typeinfo 链
+0x000090b61c	SearchPane_dtor	SearchPane vtable[3]
+0x000090b92e	SearchPane_dtor_deleting	SearchPane vtable[4]
+0x000090b410	SearchPane_metaObject	SearchPane vtable[0] 独占
+0x000090b428	SearchPane_qt_metacast	SearchPane vtable[1] 独占
+0x000090b5c0	SearchPane_qt_metacall	SearchPane vtable[2] 独占
+0x00011a6198	SearchPane_vtable	SearchPane typeinfo 链
+0x000090bcd2	ShellPane_dtor	ShellPane vtable[3]
+0x000090bb30	ShellPane_dtor_deleting	ShellPane vtable[4]
+0x000090ba40	ShellPane_metaObject	ShellPane vtable[0] 独占
+0x000090ba58	ShellPane_qt_metacast	ShellPane vtable[1] 独占
+0x000090bad2	ShellPane_qt_metacall	ShellPane vtable[2] 独占
+0x00011a6438	ShellPane_vtable	ShellPane typeinfo 链
+0x0000753978	ApplicationTheme_dtor	ApplicationTheme vtable[3]
+0x0000753ab0	ApplicationTheme_dtor_deleting	ApplicationTheme vtable[4]
+0x000090bd56	ApplicationTheme_metaObject	ApplicationTheme vtable[0] 独占
+0x000090bd6e	ApplicationTheme_qt_metacast	ApplicationTheme vtable[1] 独占
+0x000090bdb0	ApplicationTheme_qt_metacall	ApplicationTheme vtable[2] 独占
+0x00011a66d8	ApplicationTheme_vtable	ApplicationTheme typeinfo 链
+0x000090d284	ApplicationPalette_dtor	ApplicationPalette vtable[3]
+0x000090d37c	ApplicationPalette_dtor_deleting	ApplicationPalette vtable[4]
+0x000090d1b2	ApplicationPalette_metaObject	ApplicationPalette vtable[0] 独占
+0x000090d1ca	ApplicationPalette_qt_metacast	ApplicationPalette vtable[1] 独占
+0x000090d20c	ApplicationPalette_qt_metacall	ApplicationPalette vtable[2] 独占
+0x00011a6798	ApplicationPalette_vtable	ApplicationPalette typeinfo 链
+0x000076bffc	MainWindow_dtor	MainWindow vtable[3]
+0x000076c1dc	MainWindow_dtor_deleting	MainWindow vtable[4]
+0x000090d3e0	MainWindow_metaObject	MainWindow vtable[0] 独占
+0x000090def8	MainWindow_qt_metacast	MainWindow vtable[1] 独占
+0x000090df3a	MainWindow_qt_metacall	MainWindow vtable[2] 独占
+0x00011a69f8	MainWindow_vtable	MainWindow typeinfo 链
+0x000075f8f0	SuperApplication_dtor	SuperApplication vtable[3]
+0x000075ffb4	SuperApplication_dtor_deleting	SuperApplication vtable[4]
+0x000090e000	SuperApplication_metaObject	SuperApplication vtable[0] 独占
+0x000090e64e	SuperApplication_qt_metacast	SuperApplication vtable[1] 独占
+0x000090e690	SuperApplication_qt_metacall	SuperApplication vtable[2] 独占
+0x00011a6c58	SuperApplication_vtable	SuperApplication typeinfo 链
+0x000090e834	CommanderRobot_dtor	CommanderRobot vtable[3]
+0x000090e848	CommanderRobot_dtor_deleting	CommanderRobot vtable[4]
+0x000090e6f0	CommanderRobot_metaObject	CommanderRobot vtable[0] 独占
+0x000090e78c	CommanderRobot_qt_metacast	CommanderRobot vtable[1] 独占
+0x000090e7ce	CommanderRobot_qt_metacall	CommanderRobot vtable[2] 独占
+0x00011a6d38	CommanderRobot_vtable	CommanderRobot typeinfo 链
+0x000090e996	Modem_dtor	Modem vtable[3]
+0x000090e9d8	Modem_dtor_deleting	Modem vtable[4]
+0x000118e700	Modem_vtable	Modem typeinfo 链
+0x00007a029e	ZModem_dtor	ZModem vtable[3]
+0x00007a04aa	ZModem_dtor_deleting	ZModem vtable[4]
+0x000090ea40	ZModem_metaObject	ZModem vtable[0] 独占
+0x000090eabc	ZModem_qt_metacast	ZModem vtable[1] 独占
+0x000090eafe	ZModem_qt_metacall	ZModem vtable[2] 独占
+0x00011a6ed8	ZModem_vtable	ZModem typeinfo 链
+0x00007a200e	ModemProcess_dtor	ModemProcess vtable[3]
+0x00007a2108	ModemProcess_dtor_deleting	ModemProcess vtable[4]
+0x000090eb60	ModemProcess_metaObject	ModemProcess vtable[0] 独占
+0x000090ebe6	ModemProcess_qt_metacast	ModemProcess vtable[1] 独占
+0x000090ec28	ModemProcess_qt_metacall	ModemProcess vtable[2] 独占
+0x00011a6fb8	ModemProcess_vtable	ModemProcess typeinfo 链
+0x000090ece4	TerminalKeyboard_dtor	TerminalKeyboard vtable[3]
+0x000090ecf8	TerminalKeyboard_dtor_deleting	TerminalKeyboard vtable[4]
+0x000090ec84	TerminalKeyboard_metaObject	TerminalKeyboard vtable[0] 独占
+0x000090ec9c	TerminalKeyboard_qt_metacast	TerminalKeyboard vtable[1] 独占
+0x000090ecde	TerminalKeyboard_qt_metacall	TerminalKeyboard vtable[2] 独占
+0x00011a70f8	TerminalKeyboard_vtable	TerminalKeyboard typeinfo 链
+0x00007be004	SessionConnector_dtor	SessionConnector vtable[3]
+0x00007be08e	SessionConnector_dtor_deleting	SessionConnector vtable[4]
+0x000090ed20	SessionConnector_metaObject	SessionConnector vtable[0] 独占
+0x000090ed38	SessionConnector_qt_metacast	SessionConnector vtable[1] 独占
+0x000090ed7a	SessionConnector_qt_metacall	SessionConnector vtable[2] 独占
+0x00011a71b8	SessionConnector_vtable	SessionConnector typeinfo 链
+0x00007c1bba	SessionLogger_dtor	SessionLogger vtable[3]
+0x00007c1c88	SessionLogger_dtor_deleting	SessionLogger vtable[4]
+0x000090ed82	SessionLogger_metaObject	SessionLogger vtable[0] 独占
+0x000090ed9a	SessionLogger_qt_metacast	SessionLogger vtable[1] 独占
+0x000090eddc	SessionLogger_qt_metacall	SessionLogger vtable[2] 独占
+0x00011a7278	SessionLogger_vtable	SessionLogger typeinfo 链
+0x00007cdcb2	SuperCommander_dtor	SuperCommander vtable[3]
+0x00007cddc6	SuperCommander_dtor_deleting	SuperCommander vtable[4]
+0x000090edf0	SuperCommander_metaObject	SuperCommander vtable[0] 独占
+0x0000910696	SuperCommander_qt_metacast	SuperCommander vtable[1] 独占
+0x00009106fe	SuperCommander_qt_metacall	SuperCommander vtable[2] 独占
+0x00011a7358	SuperCommander_vtable	SuperCommander typeinfo 链
+0x000084ae58	TerminalWidget_dtor	TerminalWidget vtable[3]
+0x000084b11a	TerminalWidget_dtor_deleting	TerminalWidget vtable[4]
+0x0000910770	TerminalWidget_metaObject	TerminalWidget vtable[0] 独占
+0x0000911660	TerminalWidget_qt_metacast	TerminalWidget vtable[1] 独占
+0x00009116f8	TerminalWidget_qt_metacall	TerminalWidget vtable[2] 独占
+0x00011a74c8	TerminalWidget_vtable	TerminalWidget typeinfo 链
+0x0000858a38	TerminalWindow_dtor	TerminalWindow vtable[3]
+0x0000858af2	TerminalWindow_dtor_deleting	TerminalWindow vtable[4]
+0x00009117b0	TerminalWindow_metaObject	TerminalWindow vtable[0] 独占
+0x0000911c3e	TerminalWindow_qt_metacast	TerminalWindow vtable[1] 独占
+0x0000911caa	TerminalWindow_qt_metacall	TerminalWindow vtable[2] 独占
+0x00011a7c88	TerminalWindow_vtable	TerminalWindow typeinfo 链
+0x00007c7ee2	SessionThread_dtor	SessionThread vtable[3]
+0x00007c7f32	SessionThread_dtor_deleting	SessionThread vtable[4]
+0x0000911d10	SessionThread_metaObject	SessionThread vtable[0] 独占
+0x0000911d6c	SessionThread_qt_metacast	SessionThread vtable[1] 独占
+0x0000911dae	SessionThread_qt_metacall	SessionThread vtable[2] 独占
+0x00011a7fb8	SessionThread_vtable	SessionThread typeinfo 链
+0x0000911e10	SuperBridge_metaObject	SuperBridge vtable[0] 独占
+0x0000912122	SuperBridge_qt_metacast	SuperBridge vtable[1] 独占
+0x0000912164	SuperBridge_qt_metacall	SuperBridge vtable[2] 独占
+0x00011a8078	SuperBridge_vtable	SuperBridge typeinfo 链
+0x00007dba42	SuperSession_dtor	SuperSession vtable[3]
+0x00007dc106	SuperSession_dtor_deleting	SuperSession vtable[4]
+0x00009121d0	SuperSession_metaObject	SuperSession vtable[0] 独占
+0x00009130ae	SuperSession_qt_metacast	SuperSession vtable[1] 独占
+0x00009130f0	SuperSession_qt_metacall	SuperSession vtable[2] 独占
+0x00011a8198	SuperSession_vtable	SuperSession typeinfo 链
+0x00007f582e	SuperTerm_dtor	SuperTerm vtable[3]
+0x00007f5b58	SuperTerm_dtor_deleting	SuperTerm vtable[4]
+0x0000913150	SuperTerm_metaObject	SuperTerm vtable[0] 独占
+0x0000914358	SuperTerm_qt_metacast	SuperTerm vtable[1] 独占
+0x000091439a	SuperTerm_qt_metacall	SuperTerm vtable[2] 独占
+0x00011a8278	SuperTerm_vtable	SuperTerm typeinfo 链
+0x0000834332	TerminalView_dtor	TerminalView vtable[3]
+0x0000834438	TerminalView_dtor_deleting	TerminalView vtable[4]
+0x0000914700	TerminalView_metaObject	TerminalView vtable[0] 独占
+0x0000914b0e	TerminalView_qt_metacast	TerminalView vtable[1] 独占
+0x0000914b7a	TerminalView_qt_metacall	TerminalView vtable[2] 独占
+0x00011a8358	TerminalView_vtable	TerminalView typeinfo 链
+0x00009165c0	TerminalSender_dtor	TerminalSender vtable[3]
+0x0000914df0	TerminalSender_dtor_deleting	TerminalSender vtable[4]
+0x0000914be0	TerminalSender_metaObject	TerminalSender vtable[0] 独占
+0x0000914d46	TerminalSender_qt_metacast	TerminalSender vtable[1] 独占
+0x0000914d88	TerminalSender_qt_metacall	TerminalSender vtable[2] 独占
+0x00011a8c78	TerminalSender_vtable	TerminalSender typeinfo 链
+0x0000917e7e	TelnetCommander_dtor	TelnetCommander vtable[3]
+0x0000917f30	TelnetCommander_dtor_deleting	TelnetCommander vtable[4]
+0x0000917d90	TelnetCommander_metaObject	TelnetCommander vtable[0] 独占
+0x0000917dde	TelnetCommander_qt_metacast	TelnetCommander vtable[1] 独占
+0x0000917e20	TelnetCommander_qt_metacall	TelnetCommander vtable[2] 独占
+0x00011a8d38	TelnetCommander_vtable	TelnetCommander typeinfo 链
+0x0000917fd6	TelnetSession_dtor	TelnetSession vtable[3]
+0x0000917fea	TelnetSession_dtor_deleting	TelnetSession vtable[4]
+0x0000917f76	TelnetSession_metaObject	TelnetSession vtable[0] 独占
+0x0000917f8e	TelnetSession_qt_metacast	TelnetSession vtable[1] 独占
+0x0000917fd0	TelnetSession_qt_metacall	TelnetSession vtable[2] 独占
+0x00011a8e78	TelnetSession_vtable	TelnetSession typeinfo 链
+0x0000866c36	SshBridge_dtor	SshBridge vtable[3]
+0x0000866e32	SshBridge_dtor_deleting	SshBridge vtable[4]
+0x0000918010	SshBridge_metaObject	SshBridge vtable[0] 独占
+0x000091810a	SshBridge_qt_metacast	SshBridge vtable[1] 独占
+0x000091814c	SshBridge_qt_metacall	SshBridge vtable[2] 独占
+0x00011a8f58	SshBridge_vtable	SshBridge typeinfo 链
+0x0000869a1c	SshCommander_dtor	SshCommander vtable[3]
+0x0000869a4c	SshCommander_dtor_deleting	SshCommander vtable[4]
+0x00009181b0	SshCommander_metaObject	SshCommander vtable[0] 独占
+0x00009181c8	SshCommander_qt_metacast	SshCommander vtable[1] 独占
+0x000091820a	SshCommander_qt_metacall	SshCommander vtable[2] 独占
+0x00011a9078	SshCommander_vtable	SshCommander typeinfo 链
+0x0000869e26	SshExecutor_dtor	SshExecutor vtable[3]
+0x0000869f68	SshExecutor_dtor_deleting	SshExecutor vtable[4]
+0x0000918210	SshExecutor_metaObject	SshExecutor vtable[0] 独占
+0x00009182e0	SshExecutor_qt_metacast	SshExecutor vtable[1] 独占
+0x0000918322	SshExecutor_qt_metacall	SshExecutor vtable[2] 独占
+0x00011a91b8	SshExecutor_vtable	SshExecutor typeinfo 链
+0x000091839a	SshOperator_dtor	SshOperator vtable[3]
+0x00009183dc	SshOperator_dtor_deleting	SshOperator vtable[4]
+0x0001191ed0	SshOperator_vtable	SshOperator typeinfo 链
+0x0000918444	SshSession_dtor	SshSession vtable[3]
+0x0000918458	SshSession_dtor_deleting	SshSession vtable[4]
+0x00009183e4	SshSession_metaObject	SshSession vtable[0] 独占
+0x00009183fc	SshSession_qt_metacast	SshSession vtable[1] 独占
+0x000091843e	SshSession_qt_metacall	SshSession vtable[2] 独占
+0x00011a9378	SshSession_vtable	SshSession typeinfo 链
+0x000086ebee	SshSocket_dtor	SshSocket vtable[3]
+0x000086ed2e	SshSocket_dtor_deleting	SshSocket vtable[4]
+0x0000918480	SshSocket_metaObject	SshSocket vtable[0] 独占
+0x0000918746	SshSocket_qt_metacast	SshSocket vtable[1] 独占
+0x0000918788	SshSocket_qt_metacall	SshSocket vtable[2] 独占
+0x00011a9458	SshSocket_vtable	SshSocket typeinfo 链
+0x000086f4b0	SerialBridge_dtor	SerialBridge vtable[3]
+0x000086f4fc	SerialBridge_dtor_deleting	SerialBridge vtable[4]
+0x00009187f8	SerialBridge_metaObject	SerialBridge vtable[0] 独占
+0x0000918810	SerialBridge_qt_metacast	SerialBridge vtable[1] 独占
+0x0000918852	SerialBridge_qt_metacall	SerialBridge vtable[2] 独占
+0x00011a9518	SerialBridge_vtable	SerialBridge typeinfo 链
+0x00009188ba	SerialCommander_dtor	SerialCommander vtable[3]
+0x00009188f8	SerialCommander_dtor_deleting	SerialCommander vtable[4]
+0x000091885a	SerialCommander_metaObject	SerialCommander vtable[0] 独占
+0x0000918872	SerialCommander_qt_metacast	SerialCommander vtable[1] 独占
+0x00009188b4	SerialCommander_qt_metacall	SerialCommander vtable[2] 独占
+0x00011a9638	SerialCommander_vtable	SerialCommander typeinfo 链
+0x00009189bc	SerialSession_dtor	SerialSession vtable[3]
+0x00009189d0	SerialSession_dtor_deleting	SerialSession vtable[4]
+0x000091895c	SerialSession_metaObject	SerialSession vtable[0] 独占
+0x0000918974	SerialSession_qt_metacast	SerialSession vtable[1] 独占
+0x00009189b6	SerialSession_qt_metacall	SerialSession vtable[2] 独占
+0x00011a9778	SerialSession_vtable	SerialSession typeinfo 链
+0x0000918aaa	ShellProcess_dtor	ShellProcess vtable[3]
+0x0000918a58	ShellProcess_dtor_deleting	ShellProcess vtable[4]
+0x00009189f8	ShellProcess_metaObject	ShellProcess vtable[0] 独占
+0x0000918a10	ShellProcess_qt_metacast	ShellProcess vtable[1] 独占
+0x0000918a52	ShellProcess_qt_metacall	ShellProcess vtable[2] 独占
+0x00011a9858	ShellProcess_vtable	ShellProcess typeinfo 链
+0x0000918b92	SuperPty_dtor	SuperPty vtable[3]
+0x0000918bd4	SuperPty_dtor_deleting	SuperPty vtable[4]
+0x0001191f88	SuperPty_vtable	SuperPty typeinfo 链
+0x0000872108	ShellBridge_dtor	ShellBridge vtable[3]
+0x0000873852	ShellBridge_dtor_deleting	ShellBridge vtable[4]
+0x0000918c34	ShellBridge_metaObject	ShellBridge vtable[0] 独占
+0x0000918c4c	ShellBridge_qt_metacast	ShellBridge vtable[1] 独占
+0x0000918c8e	ShellBridge_qt_metacall	ShellBridge vtable[2] 独占
+0x00011a9a78	ShellBridge_vtable	ShellBridge typeinfo 链
+0x0000918cf6	ShellCommander_dtor	ShellCommander vtable[3]
+0x0000918d34	ShellCommander_dtor_deleting	ShellCommander vtable[4]
+0x0000918c96	ShellCommander_metaObject	ShellCommander vtable[0] 独占
+0x0000918cae	ShellCommander_qt_metacast	ShellCommander vtable[1] 独占
+0x0000918cf0	ShellCommander_qt_metacall	ShellCommander vtable[2] 独占
+0x00011a9b98	ShellCommander_vtable	ShellCommander typeinfo 链
+0x0000875400	ShellExecutor_dtor	ShellExecutor vtable[3]
+0x0000875478	ShellExecutor_dtor_deleting	ShellExecutor vtable[4]
+0x0000918da0	ShellExecutor_metaObject	ShellExecutor vtable[0] 独占
+0x0000918e3a	ShellExecutor_qt_metacast	ShellExecutor vtable[1] 独占
+0x0000918e7c	ShellExecutor_qt_metacall	ShellExecutor vtable[2] 独占
+0x00011a9cd8	ShellExecutor_vtable	ShellExecutor typeinfo 链
+0x0000918f46	ShellSession_dtor	ShellSession vtable[3]
+0x0000918f5a	ShellSession_dtor_deleting	ShellSession vtable[4]
+0x0000918ee6	ShellSession_metaObject	ShellSession vtable[0] 独占
+0x0000918efe	ShellSession_qt_metacast	ShellSession vtable[1] 独占
+0x0000918f40	ShellSession_qt_metacall	ShellSession vtable[2] 独占
+0x00011a9d98	ShellSession_vtable	ShellSession typeinfo 链
+0x0000876290	TcpBridge_dtor	TcpBridge vtable[3]
+0x00008762dc	TcpBridge_dtor_deleting	TcpBridge vtable[4]
+0x0000918f82	TcpBridge_metaObject	TcpBridge vtable[0] 独占
+0x0000918f9a	TcpBridge_qt_metacast	TcpBridge vtable[1] 独占
+0x0000918fdc	TcpBridge_qt_metacall	TcpBridge vtable[2] 独占
+0x00011a9e78	TcpBridge_vtable	TcpBridge typeinfo 链
+0x0000919044	TcpCommander_dtor	TcpCommander vtable[3]
+0x0000919082	TcpCommander_dtor_deleting	TcpCommander vtable[4]
+0x0000918fe4	TcpCommander_metaObject	TcpCommander vtable[0] 独占
+0x0000918ffc	TcpCommander_qt_metacast	TcpCommander vtable[1] 独占
+0x000091903e	TcpCommander_qt_metacall	TcpCommander vtable[2] 独占
+0x00011a9f98	TcpCommander_vtable	TcpCommander typeinfo 链
+0x0000919146	TcpSession_dtor	TcpSession vtable[3]
+0x000091915a	TcpSession_dtor_deleting	TcpSession vtable[4]
+0x00009190e6	TcpSession_metaObject	TcpSession vtable[0] 独占
+0x00009190fe	TcpSession_qt_metacast	TcpSession vtable[1] 独占
+0x0000919140	TcpSession_qt_metacall	TcpSession vtable[2] 独占
+0x00011aa0d8	TcpSession_vtable	TcpSession typeinfo 链
+0x00007fd670	Tmux_dtor	Tmux vtable[3]
+0x00007feeee	Tmux_dtor_deleting	Tmux vtable[4]
+0x0000919180	Tmux_metaObject	Tmux vtable[0] 独占
+0x0000919ad8	Tmux_qt_metacast	Tmux vtable[1] 独占
+0x0000919b1a	Tmux_qt_metacall	Tmux vtable[2] 独占
+0x00011aa1b8	Tmux_vtable	Tmux typeinfo 链
+0x0000919c70	DirScaner_dtor	DirScaner vtable[3]
+0x0000919d60	DirScaner_dtor_deleting	DirScaner vtable[4]
+0x0000919b8a	DirScaner_metaObject	DirScaner vtable[0] 独占
+0x0000919ba2	DirScaner_qt_metacast	DirScaner vtable[1] 独占
+0x0000919be4	DirScaner_qt_metacall	DirScaner vtable[2] 独占
+0x00011aa278	DirScaner_vtable	DirScaner typeinfo 链
+0x0000919fee	FileScaner_dtor	FileScaner vtable[3]
+0x000091a002	FileScaner_dtor_deleting	FileScaner vtable[4]
+0x0000919e50	FileScaner_metaObject	FileScaner vtable[0] 独占
+0x0000919f4a	FileScaner_qt_metacast	FileScaner vtable[1] 独占
+0x0000919f8c	FileScaner_qt_metacall	FileScaner vtable[2] 独占
+0x00011aa338	FileScaner_vtable	FileScaner typeinfo 链
+0x0000891f46	GrepView_dtor	GrepView vtable[3]
+0x0000892094	GrepView_dtor_deleting	GrepView vtable[4]
+0x000091a030	GrepView_metaObject	GrepView vtable[0] 独占
+0x000091a314	GrepView_qt_metacast	GrepView vtable[1] 独占
+0x000091a380	GrepView_qt_metacall	GrepView vtable[2] 独占
+0x00011aa418	GrepView_vtable	GrepView typeinfo 链
+0x0000895bce	FileGrep_dtor	FileGrep vtable[3]
+0x0000895d76	FileGrep_dtor_deleting	FileGrep vtable[4]
+0x000091a3e0	FileGrep_metaObject	FileGrep vtable[0] 独占
+0x000091a45c	FileGrep_qt_metacast	FileGrep vtable[1] 独占
+0x000091a49e	FileGrep_qt_metacall	FileGrep vtable[2] 独占
+0x00011aabd8	FileGrep_vtable	FileGrep typeinfo 链
+0x000091a6e0	KitBar_dtor	KitBar vtable[3]
+0x000091a73e	KitBar_dtor_deleting	KitBar vtable[4]
+0x000091a500	KitBar_metaObject	KitBar vtable[0] 独占
+0x000091a586	KitBar_qt_metacast	KitBar vtable[1] 独占
+0x000091a5c8	KitBar_qt_metacall	KitBar vtable[2] 独占
+0x00011aac98	KitBar_vtable	KitBar typeinfo 链
+0x000091aaf2	KitDock_dtor	KitDock vtable[3]
+0x000091ab30	KitDock_dtor_deleting	KitDock vtable[4]
+0x000091a7c0	KitDock_metaObject	KitDock vtable[0] 独占
+0x000091aa00	KitDock_qt_metacast	KitDock vtable[1] 独占
+0x000091aa42	KitDock_qt_metacall	KitDock vtable[2] 独占
+0x00011aaef8	KitDock_vtable	KitDock typeinfo 链
+0x000091b128	KitGroup_dtor	KitGroup vtable[3]
+0x000091b074	KitGroup_dtor_deleting	KitGroup vtable[4]
+0x000091aba0	KitGroup_metaObject	KitGroup vtable[0] 独占
+0x000091af64	KitGroup_qt_metacast	KitGroup vtable[1] 独占
+0x000091afa6	KitGroup_qt_metacall	KitGroup vtable[2] 独占
+0x00011ab158	KitGroup_vtable	KitGroup typeinfo 链
+0x00008fc56e	KitWindow_dtor	KitWindow vtable[3]
+0x00008fc5b0	KitWindow_dtor_deleting	KitWindow vtable[4]
+0x000119ee28	KitWindow_vtable	KitWindow typeinfo 链
+0x0000909b3c	KitPane_dtor	KitPane vtable[3]
+0x0000909b7e	KitPane_dtor_deleting	KitPane vtable[4]
+0x00011a4f28	KitPane_vtable	KitPane typeinfo 链
+0x000091db5e	MuxDesktop_dtor	MuxDesktop vtable[3]
+0x000091dd0a	MuxDesktop_dtor_deleting	MuxDesktop vtable[4]
+0x000091d490	MuxDesktop_metaObject	MuxDesktop vtable[0] 独占
+0x000091da6e	MuxDesktop_qt_metacast	MuxDesktop vtable[1] 独占
+0x000091dab0	MuxDesktop_qt_metacall	MuxDesktop vtable[2] 独占
+0x00011ab958	MuxDesktop_vtable	MuxDesktop typeinfo 链
+0x0001197440	MuxPane_vtable	MuxPane typeinfo 链
+0x000091e30e	MuxPaneGroup_dtor	MuxPaneGroup vtable[3]
+0x000091e34c	MuxPaneGroup_dtor_deleting	MuxPaneGroup vtable[4]
+0x000091e100	MuxPaneGroup_metaObject	MuxPaneGroup vtable[0] 独占
+0x000091e26e	MuxPaneGroup_qt_metacast	MuxPaneGroup vtable[1] 独占
+0x000091e2b0	MuxPaneGroup_qt_metacall	MuxPaneGroup vtable[2] 独占
+0x00011abe38	MuxPaneGroup_vtable	MuxPaneGroup typeinfo 链
+0x000091e4ca	MuxWindow_dtor	MuxWindow vtable[3]
+0x000091e740	MuxWindow_dtor_deleting	MuxWindow vtable[4]
+0x000091e3b0	MuxWindow_metaObject	MuxWindow vtable[0] 独占
+0x000091e42c	MuxWindow_qt_metacast	MuxWindow vtable[1] 独占
+0x000091e46e	MuxWindow_qt_metacall	MuxWindow vtable[2] 独占
+0x00011ac098	MuxWindow_vtable	MuxWindow typeinfo 链
+0x000091e874	InsertFilePage_dtor	InsertFilePage vtable[3]
+0x000091e888	InsertFilePage_dtor_deleting	InsertFilePage vtable[4]
+0x000091e814	InsertFilePage_metaObject	InsertFilePage vtable[0] 独占
+0x000091e82c	InsertFilePage_qt_metacast	InsertFilePage vtable[1] 独占
+0x000091e86e	InsertFilePage_qt_metacall	InsertFilePage vtable[2] 独占
+0x00011ac2f8	InsertFilePage_vtable	InsertFilePage typeinfo 链
+0x00008e3934	LocalTransfer_dtor	LocalTransfer vtable[3]
+0x00008e3954	LocalTransfer_dtor_deleting	LocalTransfer vtable[4]
+0x00011ac3b8	LocalTransfer_vtable	LocalTransfer typeinfo 链
+0x00008e72e8	SftpTransfer_dtor	SftpTransfer vtable[3]
+0x00008e7308	SftpTransfer_dtor_deleting	SftpTransfer vtable[4]
+0x000091e918	SftpTransfer_metaObject	SftpTransfer vtable[0] 独占
+0x000091e930	SftpTransfer_qt_metacast	SftpTransfer vtable[1] 独占
+0x000091e972	SftpTransfer_qt_metacall	SftpTransfer vtable[2] 独占
+0x00011ac558	SftpTransfer_vtable	SftpTransfer typeinfo 链
+0x000091e992	SuperFile_dtor	SuperFile vtable[3]
+0x000091e9d4	SuperFile_dtor_deleting	SuperFile vtable[4]
+0x00011927d8	SuperFile_vtable	SuperFile typeinfo 链
+0x000091e9f4	SuperFolder_dtor	SuperFolder vtable[3]
+0x000091ea36	SuperFolder_dtor_deleting	SuperFolder vtable[4]
+0x0001192900	SuperFolder_vtable	SuperFolder typeinfo 链
+0x000091e8c8	SuperTransfer_dtor	SuperTransfer vtable[3]
+0x000091e90a	SuperTransfer_dtor_deleting	SuperTransfer vtable[4]
+0x00011ac3a8	SuperTransfer_vtable	SuperTransfer typeinfo 链
+0x0000924af2	Uint32SkipRunStyles_dtor	Uint32SkipRunStyles vtable[3]
+0x0000924e60	Uint32SkipRunStyles_dtor_deleting	Uint32SkipRunStyles vtable[4]
+0x00009212e0	Uint32SkipRunStyles_metaObject	Uint32SkipRunStyles vtable[0] 独占
+0x0000921364	Uint32SkipRunStyles_qt_metacast	Uint32SkipRunStyles vtable[1] 独占
+0x0000924bd8	Uint32SkipRunStyles_qt_metacall	Uint32SkipRunStyles vtable[2] 独占
+0x00011acbf8	Uint32SkipRunStyles_vtable	Uint32SkipRunStyles typeinfo 链
+0x0000935e80	SciExpectEvent_dtor_deleting	SciExpectEvent vtable[4]
+0x0000939170	SciExpectEvent_metaObject	SciExpectEvent vtable[0] 独占
+0x00009391ba	SciExpectEvent_qt_metacast	SciExpectEvent vtable[1] 独占
+0x00011acde8	SciExpectEvent_vtable	SciExpectEvent typeinfo 链
+0x0000935d38	SciHighlightEvent_dtor_deleting	SciHighlightEvent vtable[4]
+0x0000935eac	SciHighlightEvent_qt_metacast	SciHighlightEvent vtable[1] 独占
+0x00011ace08	SciHighlightEvent_vtable	SciHighlightEvent typeinfo 链
+0x0000935e2e	SciMarginChangeEvent_dtor_deleting	SciMarginChangeEvent vtable[4]
+0x0000935d64	SciMarginChangeEvent_qt_metacast	SciMarginChangeEvent vtable[1] 独占
+0x00011ace28	SciMarginChangeEvent_vtable	SciMarginChangeEvent typeinfo 链
+0x0000935d8a	SciSaveStateChangeEvent_dtor_deleting	SciSaveStateChangeEvent vtable[4]
+0x0000935e5a	SciSaveStateChangeEvent_qt_metacast	SciSaveStateChangeEvent vtable[1] 独占
+0x00011ace48	SciSaveStateChangeEvent_vtable	SciSaveStateChangeEvent typeinfo 链
+0x0000935f24	SciSchemeChangeEvent_dtor_deleting	SciSchemeChangeEvent vtable[4]
+0x0000935db6	SciSchemeChangeEvent_qt_metacast	SciSchemeChangeEvent vtable[1] 独占
+0x00011ace68	SciSchemeChangeEvent_vtable	SciSchemeChangeEvent typeinfo 链
+0x0000935ed2	SciScrollBarMarkEvent_dtor_deleting	SciScrollBarMarkEvent vtable[4]
+0x0000935f50	SciScrollBarMarkEvent_qt_metacast	SciScrollBarMarkEvent vtable[1] 独占
+0x00011ace88	SciScrollBarMarkEvent_vtable	SciScrollBarMarkEvent typeinfo 链
+0x0000935ce6	SciTextChangeEvent_dtor_deleting	SciTextChangeEvent vtable[4]
+0x0000935efe	SciTextChangeEvent_qt_metacast	SciTextChangeEvent vtable[1] 独占
+0x00011acea8	SciTextChangeEvent_vtable	SciTextChangeEvent typeinfo 链
+0x0000935ddc	SciTextMultiChangeEvent_dtor_deleting	SciTextMultiChangeEvent vtable[4]
+0x0000935d12	SciTextMultiChangeEvent_qt_metacast	SciTextMultiChangeEvent vtable[1] 独占
+0x00011acec8	SciTextMultiChangeEvent_vtable	SciTextMultiChangeEvent typeinfo 链
+0x0000935c0e	SciTryModifyReadOnlyEvent_dtor_deleting	SciTryModifyReadOnlyEvent vtable[4]
+0x0000935e08	SciTryModifyReadOnlyEvent_qt_metacast	SciTryModifyReadOnlyEvent vtable[1] 独占
+0x00011acee8	SciTryModifyReadOnlyEvent_vtable	SciTryModifyReadOnlyEvent typeinfo 链
+0x00011acfc8	Surface_vtable	Surface typeinfo 链
+0x0000943324	Window_metaObject	Window vtable[0] 独占
+0x0000943326	Window_qt_metacast	Window vtable[1] 独占
+0x00009435b0	Window_qt_metacall	Window vtable[2] 独占
+0x00011ad150	Window_vtable	Window typeinfo 链
+0x00009433b6	DynamicLibrary_dtor	DynamicLibrary vtable[3]
+0x0000943748	DynamicLibrary_dtor_deleting	DynamicLibrary vtable[4]
+0x00011acfe0	DynamicLibrary_vtable	DynamicLibrary typeinfo 链
+0x000094377c	SurfaceImpl_dtor	SurfaceImpl vtable[3]
+0x00009437a8	SurfaceImpl_dtor_deleting	SurfaceImpl vtable[4]
+0x00011acff0	SurfaceImpl_vtable	SurfaceImpl typeinfo 链
+0x0000944f16	DynamicLibraryImpl_dtor	DynamicLibraryImpl vtable[3]
+0x0000944f32	DynamicLibraryImpl_metaObject	DynamicLibraryImpl vtable[0] 独占
+0x0000944f50	DynamicLibraryImpl_qt_metacast	DynamicLibraryImpl vtable[1] 独占
+0x0000944f20	DynamicLibraryImpl_qt_metacall	DynamicLibraryImpl vtable[2] 独占
+0x00011ad178	DynamicLibraryImpl_vtable	DynamicLibraryImpl typeinfo 链
+0x0000952430	RGBAImage_metaObject	RGBAImage vtable[0] 独占
+0x000095244e	RGBAImage_qt_metacast	RGBAImage vtable[1] 独占
+0x00011ad258	RGBAImage_vtable	RGBAImage typeinfo 链
+0x0000963104	Uint8SkipRunStyles_dtor	Uint8SkipRunStyles vtable[3]
+0x00009631f0	Uint8SkipRunStyles_dtor_deleting	Uint8SkipRunStyles vtable[4]
+0x000095d966	Uint8SkipRunStyles_metaObject	Uint8SkipRunStyles vtable[0] 独占
+0x000095d9ea	Uint8SkipRunStyles_qt_metacast	Uint8SkipRunStyles vtable[1] 独占
+0x0000962b7e	Uint8SkipRunStyles_qt_metacall	Uint8SkipRunStyles vtable[2] 独占
+0x00011ad368	Uint8SkipRunStyles_vtable	Uint8SkipRunStyles typeinfo 链
+0x000096376e	DocumentTask_dtor_deleting	DocumentTask vtable[4]
+0x00009638a6	DocumentTask_metaObject	DocumentTask vtable[0] 独占
+0x00009638ba	DocumentTask_qt_metacast	DocumentTask vtable[1] 独占
+0x00011ad4e8	DocumentTask_vtable	DocumentTask typeinfo 链
+0x0000963a5a	DocumentTaskRunner_qt_metacast	DocumentTaskRunner vtable[1] 独占
+0x0000963a6e	DocumentTaskRunner_qt_metacall	DocumentTaskRunner vtable[2] 独占
+0x00011ad508	DocumentTaskRunner_vtable	DocumentTaskRunner typeinfo 链
+0x00009686e2	Partitioning_qt_metacast	Partitioning vtable[1] 独占
+0x00011ad578	Partitioning_vtable	Partitioning typeinfo 链
+0x00009685f0	Uint32PieceTable_dtor_deleting	Uint32PieceTable vtable[4]
+0x000096aca0	Uint32PieceTable_metaObject	Uint32PieceTable vtable[0] 独占
+0x000096b200	Uint32PieceTable_qt_metacast	Uint32PieceTable vtable[1] 独占
+0x00011ad558	Uint32PieceTable_vtable	Uint32PieceTable typeinfo 链
+0x000096d684	ScanTask_metaObject	ScanTask vtable[0] 独占
+0x000096d886	ScanTask_qt_metacast	ScanTask vtable[1] 独占
+0x00011ad650	ScanTask_vtable	ScanTask typeinfo 链
+0x0000970cd0	SkipPartition_qt_metacast	SkipPartition vtable[1] 独占
+0x00011ad6b8	SkipPartition_vtable	SkipPartition typeinfo 链
+0x0000970bb0	Uint8PieceTable_dtor_deleting	Uint8PieceTable vtable[4]
+0x00009739e0	Uint8PieceTable_metaObject	Uint8PieceTable vtable[0] 独占
+0x0000973f40	Uint8PieceTable_qt_metacast	Uint8PieceTable vtable[1] 独占
+0x00011ad698	Uint8PieceTable_vtable	Uint8PieceTable typeinfo 链
+0x0000935be0	CSuperBufferBase_dtor	CSuperBufferBase vtable[3]
+0x0000935be2	CSuperBufferBase_dtor_deleting	CSuperBufferBase vtable[4]
+0x0000980c62	CSuperBufferBase_qt_metacall	CSuperBufferBase vtable[2] 独占
+0x00011ad728	CSuperBufferBase_vtable	CSuperBufferBase typeinfo 链
+0x0000986e4a	CSuperBuffer32_metaObject	CSuperBuffer32 vtable[0] 独占
+0x0000986e6e	CSuperBuffer32_qt_metacast	CSuperBuffer32 vtable[1] 独占
+0x0000982722	CSuperBuffer32_qt_metacall	CSuperBuffer32 vtable[2] 独占
+0x00011ad818	CSuperBuffer32_vtable	CSuperBuffer32 typeinfo 链
+0x0000989e70	CSuperBuffer64_dtor	CSuperBuffer64 vtable[3]
+0x0000989e7a	CSuperBuffer64_dtor_deleting	CSuperBuffer64 vtable[4]
+0x000098a1de	CSuperBuffer64_metaObject	CSuperBuffer64 vtable[0] 独占
+0x000098a202	CSuperBuffer64_qt_metacast	CSuperBuffer64 vtable[1] 独占
+0x000098a0aa	CSuperBuffer64_qt_metacall	CSuperBuffer64 vtable[2] 独占
+0x00011ad910	CSuperBuffer64_vtable	CSuperBuffer64 typeinfo 链
+0x00009a35f8	OutlineTreeModel_dtor	OutlineTreeModel vtable[3]
+0x00009a35ac	OutlineTreeModel_dtor_deleting	OutlineTreeModel vtable[4]
+0x00011ad9f8	OutlineTreeModel_vtable	OutlineTreeModel typeinfo 链
+0x00009b0f36	Uint64SkipRunStyles_dtor	Uint64SkipRunStyles vtable[3]
+0x00009b12a0	Uint64SkipRunStyles_dtor_deleting	Uint64SkipRunStyles vtable[4]
+0x00009b0c0c	Uint64SkipRunStyles_metaObject	Uint64SkipRunStyles vtable[0] 独占
+0x00009b0c20	Uint64SkipRunStyles_qt_metacast	Uint64SkipRunStyles vtable[1] 独占
+0x00009b101c	Uint64SkipRunStyles_qt_metacall	Uint64SkipRunStyles vtable[2] 独占
+0x00011adc48	Uint64SkipRunStyles_vtable	Uint64SkipRunStyles typeinfo 链
+0x00011afa28	DocWatcher_vtable	DocWatcher typeinfo 链
+0x00009c8446	TextArrayData_dtor_deleting	TextArrayData vtable[4]
+0x00009c5d06	TextArrayData_metaObject	TextArrayData vtable[0] 独占
+0x00009c5ea4	TextArrayData_qt_metacast	TextArrayData vtable[1] 独占
+0x00011ade20	TextArrayData_vtable	TextArrayData typeinfo 链
+0x00009ce722	Uint16SkipRunStyles_dtor	Uint16SkipRunStyles vtable[3]
+0x00009ceaa0	Uint16SkipRunStyles_dtor_deleting	Uint16SkipRunStyles vtable[4]
+0x00009cdec8	Uint16SkipRunStyles_metaObject	Uint16SkipRunStyles vtable[0] 独占
+0x00009cdf4c	Uint16SkipRunStyles_qt_metacast	Uint16SkipRunStyles vtable[1] 独占
+0x00009ce808	Uint16SkipRunStyles_qt_metacall	Uint16SkipRunStyles vtable[2] 独占
+0x00011adf10	Uint16SkipRunStyles_vtable	Uint16SkipRunStyles typeinfo 链
+0x0000945a8a	ScintillaEditBase_dtor	ScintillaEditBase vtable[3]
+0x0000945aae	ScintillaEditBase_dtor_deleting	ScintillaEditBase vtable[4]
+0x0000a175e0	ScintillaEditBase_metaObject	ScintillaEditBase vtable[0] 独占
+0x0000a17ba8	ScintillaEditBase_qt_metacast	ScintillaEditBase vtable[1] 独占
+0x0000a17bea	ScintillaEditBase_qt_metacall	ScintillaEditBase vtable[2] 独占
+0x00011ae188	ScintillaEditBase_vtable	ScintillaEditBase typeinfo 链
+0x0000949f42	ScintillaQt_dtor	ScintillaQt vtable[3]
+0x0000949fa6	ScintillaQt_dtor_deleting	ScintillaQt vtable[4]
+0x0000a180ec	ScintillaQt_qt_metacall	ScintillaQt vtable[2] 独占
+0x00011ae418	ScintillaQt_vtable	ScintillaQt typeinfo 链
+0x0000a1e0f6	SciScrollbar_dtor	SciScrollbar vtable[3]
+0x0000a1e148	SciScrollbar_dtor_deleting	SciScrollbar vtable[4]
+0x0000a18158	SciScrollbar_metaObject	SciScrollbar vtable[0] 独占
+0x0000a18170	SciScrollbar_qt_metacast	SciScrollbar vtable[1] 独占
+0x0000a181b2	SciScrollbar_qt_metacall	SciScrollbar vtable[2] 独占
+0x00011ae778	SciScrollbar_vtable	SciScrollbar typeinfo 链
+0x0000a1a0c0	ExpectTask_dtor	ExpectTask vtable[3]
+0x0000a18220	ExpectTask_dtor_deleting	ExpectTask vtable[4]
+0x0000a181ba	ExpectTask_metaObject	ExpectTask vtable[0] 独占
+0x0000a181d2	ExpectTask_qt_metacast	ExpectTask vtable[1] 独占
+0x0000a18214	ExpectTask_qt_metacall	ExpectTask vtable[2] 独占
+0x00011ae9d8	ExpectTask_vtable	ExpectTask typeinfo 链
+0x0000955856	CompleteModel_dtor	CompleteModel vtable[3]
+0x0000955d58	CompleteModel_dtor_deleting	CompleteModel vtable[4]
+0x0000a1bf4a	CompleteModel_metaObject	CompleteModel vtable[0] 独占
+0x0000a1bf62	CompleteModel_qt_metacast	CompleteModel vtable[1] 独占
+0x0000a1bfa4	CompleteModel_qt_metacall	CompleteModel vtable[2] 独占
+0x00011aea98	CompleteModel_vtable	CompleteModel typeinfo 链
+0x0000955042	CompleteList_dtor	CompleteList vtable[3]
+0x0000955066	CompleteList_dtor_deleting	CompleteList vtable[4]
+0x0000a1bfac	CompleteList_metaObject	CompleteList vtable[0] 独占
+0x0000a1bfc4	CompleteList_qt_metacast	CompleteList vtable[1] 独占
+0x0000a1c006	CompleteList_qt_metacall	CompleteList vtable[2] 独占
+0x00011aec98	CompleteList_vtable	CompleteList typeinfo 链
+0x0000a1c240	UndoList_dtor	UndoList vtable[3]
+0x0000a1c27e	UndoList_dtor_deleting	UndoList vtable[4]
+0x0000a1c012	UndoList_metaObject	UndoList vtable[0] 独占
+0x0000a1c042	UndoList_qt_metacast	UndoList vtable[1] 独占
+0x0000a1c15c	UndoList_qt_metacall	UndoList vtable[2] 独占
+0x00011af050	UndoList_vtable	UndoList typeinfo 链
+0x0000a1c206	UndoListAction_dtor	UndoListAction vtable[3]
+0x0000a1c21a	UndoListAction_dtor_deleting	UndoListAction vtable[4]
+0x0000a1c02a	UndoListAction_metaObject	UndoListAction vtable[0] 独占
+0x0000a1c1be	UndoListAction_qt_metacast	UndoListAction vtable[1] 独占
+0x0000a1c200	UndoListAction_qt_metacall	UndoListAction vtable[2] 独占
+0x00011af3a0	UndoListAction_vtable	UndoListAction typeinfo 链
+0x00009c46b4	UndoModel_dtor	UndoModel vtable[3]
+0x00009c4700	UndoModel_dtor_deleting	UndoModel vtable[4]
+0x0000a1c2e2	UndoModel_metaObject	UndoModel vtable[0] 独占
+0x0000a1c2fa	UndoModel_qt_metacast	UndoModel vtable[1] 独占
+0x0000a1c33c	UndoModel_qt_metacall	UndoModel vtable[2] 独占
+0x00011af4b8	UndoModel_vtable	UndoModel typeinfo 链
+0x0000a1cec8	SciCalltipClickEvent_dtor_deleting	SciCalltipClickEvent vtable[4]
+0x0000a1ce8e	SciCalltipClickEvent_metaObject	SciCalltipClickEvent vtable[0] 独占
+0x0000a1cea2	SciCalltipClickEvent_qt_metacast	SciCalltipClickEvent vtable[1] 独占
+0x00011af820	SciCalltipClickEvent_vtable	SciCalltipClickEvent typeinfo 链
+0x0000a1d2b2	SciCharAddedEvent_dtor_deleting	SciCharAddedEvent vtable[4]
+0x0000a1cedc	SciCharAddedEvent_qt_metacast	SciCharAddedEvent vtable[1] 独占
+0x00011af840	SciCharAddedEvent_vtable	SciCharAddedEvent typeinfo 链
+0x0000a1cf02	SciCompleterEvent_dtor_deleting	SciCompleterEvent vtable[4]
+0x0000a1d222	SciCompleterEvent_qt_metacast	SciCompleterEvent vtable[1] 独占
+0x00011af860	SciCompleterEvent_vtable	SciCompleterEvent typeinfo 链
+0x0000a1cf3c	SciContainerChangeEvent_dtor_deleting	SciContainerChangeEvent vtable[4]
+0x0000a1cf16	SciContainerChangeEvent_qt_metacast	SciContainerChangeEvent vtable[1] 独占
+0x00011af880	SciContainerChangeEvent_vtable	SciContainerChangeEvent typeinfo 链
+0x0000a1cf76	SciDecorationChangeEvent_dtor_deleting	SciDecorationChangeEvent vtable[4]
+0x0000a1cf50	SciDecorationChangeEvent_qt_metacast	SciDecorationChangeEvent vtable[1] 独占
+0x00011af8a0	SciDecorationChangeEvent_vtable	SciDecorationChangeEvent typeinfo 链
+0x0000a1cfb0	SciFocusEvent_dtor_deleting	SciFocusEvent vtable[4]
+0x0000a1cf8a	SciFocusEvent_qt_metacast	SciFocusEvent vtable[1] 独占
+0x00011af8c0	SciFocusEvent_vtable	SciFocusEvent typeinfo 链
+0x0000a1d1ba	SciHoverEvent_dtor_deleting	SciHoverEvent vtable[4]
+0x0000a1cfc4	SciHoverEvent_qt_metacast	SciHoverEvent vtable[1] 独占
+0x00011af8e0	SciHoverEvent_vtable	SciHoverEvent typeinfo 链
+0x0000a1cfea	SciMacroRecordEvent_dtor_deleting	SciMacroRecordEvent vtable[4]
+0x0000a1d1e8	SciMacroRecordEvent_qt_metacast	SciMacroRecordEvent vtable[1] 独占
+0x00011af900	SciMacroRecordEvent_vtable	SciMacroRecordEvent typeinfo 链
+0x0000a1d024	SciMarginClickEvent_dtor_deleting	SciMarginClickEvent vtable[4]
+0x0000a1cffe	SciMarginClickEvent_qt_metacast	SciMarginClickEvent vtable[1] 独占
+0x00011af920	SciMarginClickEvent_vtable	SciMarginClickEvent typeinfo 链
+0x0000a1d05e	SciMouseEvent_dtor_deleting	SciMouseEvent vtable[4]
+0x0000a1d038	SciMouseEvent_qt_metacast	SciMouseEvent vtable[1] 独占
+0x00011af940	SciMouseEvent_vtable	SciMouseEvent typeinfo 链
+0x0000a1d098	SciNavigateEvent_dtor_deleting	SciNavigateEvent vtable[4]
+0x0000a1d072	SciNavigateEvent_qt_metacast	SciNavigateEvent vtable[1] 独占
+0x00011af960	SciNavigateEvent_vtable	SciNavigateEvent typeinfo 链
+0x0000a1d0d2	SciPaintEvent_dtor_deleting	SciPaintEvent vtable[4]
+0x0000a1d0ac	SciPaintEvent_qt_metacast	SciPaintEvent vtable[1] 独占
+0x00011af980	SciPaintEvent_vtable	SciPaintEvent typeinfo 链
+0x0000a1d10c	SciPasteEvent_dtor_deleting	SciPasteEvent vtable[4]
+0x0000a1d0e6	SciPasteEvent_qt_metacast	SciPasteEvent vtable[1] 独占
+0x00011af9a0	SciPasteEvent_vtable	SciPasteEvent typeinfo 链
+0x0000a1d146	SciShownLinesChange_dtor_deleting	SciShownLinesChange vtable[4]
+0x0000a1d120	SciShownLinesChange_qt_metacast	SciShownLinesChange vtable[1] 独占
+0x00011af9c0	SciShownLinesChange_vtable	SciShownLinesChange typeinfo 链
+0x0000a1d180	SciTextClientResizeEvent_dtor_deleting	SciTextClientResizeEvent vtable[4]
+0x0000a1d15a	SciTextClientResizeEvent_qt_metacast	SciTextClientResizeEvent vtable[1] 独占
+0x00011af9e0	SciTextClientResizeEvent_vtable	SciTextClientResizeEvent typeinfo 链
+0x0000a1d194	SciZoomEvent_qt_metacast	SciZoomEvent vtable[1] 独占
+0x00011afa00	SciZoomEvent_vtable	SciZoomEvent typeinfo 链
+0x0000a1e71a	Editor_dtor	Editor vtable[3]
+0x0000a2dd9e	Editor_dtor_deleting	Editor vtable[4]
+0x0000a1e46e	Editor_qt_metacall	Editor vtable[2] 独占
+0x00011afb10	Editor_vtable	Editor typeinfo 链
+0x0000a17c50	ScintillaBase_dtor	ScintillaBase vtable[3]
+0x0000a18084	ScintillaBase_dtor_deleting	ScintillaBase vtable[4]
+0x00011ae400	ScintillaBase_vtable	ScintillaBase typeinfo 链
+0x00011aff58	LinePartition_vtable	LinePartition typeinfo 链
+0x00011aff98	Snapshot_vtable	Snapshot typeinfo 链
+0x0000a61a80	Snapshot32_dtor	Snapshot32 vtable[3]
+0x0000a60344	Snapshot32_dtor_deleting	Snapshot32 vtable[4]
+0x0000a60468	Snapshot32_metaObject	Snapshot32 vtable[0] 独占
+0x0000a6048c	Snapshot32_qt_metacast	Snapshot32 vtable[1] 独占
+0x0000a604c0	Snapshot32_qt_metacall	Snapshot32 vtable[2] 独占
+0x00011affc0	Snapshot32_vtable	Snapshot32 typeinfo 链
+0x0000a6037e	Snapshot64_dtor	Snapshot64 vtable[3]
+0x0000a60358	Snapshot64_dtor_deleting	Snapshot64 vtable[4]
+0x0000a60412	Snapshot64_metaObject	Snapshot64 vtable[0] 独占
+0x0000a60436	Snapshot64_qt_metacast	Snapshot64 vtable[1] 独占
+0x0000a60374	Snapshot64_qt_metacall	Snapshot64 vtable[2] 独占
+0x00011b0008	Snapshot64_vtable	Snapshot64 typeinfo 链
+0x0000a5f2d8	SparsePartition_dtor	SparsePartition vtable[3]
+0x0000a5f2f0	SparsePartition_dtor_deleting	SparsePartition vtable[4]
+0x00011aff48	SparsePartition_vtable	SparsePartition typeinfo 链
+0x0000a73a26	SciPreview_dtor	SciPreview vtable[3]
+0x0000a73a5a	SciPreview_dtor_deleting	SciPreview vtable[4]
+0x0000a78e38	SciPreview_metaObject	SciPreview vtable[0] 独占
+0x0000a78e50	SciPreview_qt_metacast	SciPreview vtable[1] 独占
+0x0000a78e92	SciPreview_qt_metacall	SciPreview vtable[2] 独占
+0x00011b00e8	SciPreview_vtable	SciPreview typeinfo 链
+0x0000a792d0	UniversalChardet_dtor	UniversalChardet vtable[3]
+0x0000a79470	UniversalChardet_dtor_deleting	UniversalChardet vtable[4]
+0x0000a794e0	UniversalChardet_metaObject	UniversalChardet vtable[0] 独占
+0x0000a79500	UniversalChardet_qt_metacast	UniversalChardet vtable[1] 独占
+0x0000a794c0	UniversalChardet_qt_metacall	UniversalChardet vtable[2] 独占
+0x00011b0398	UniversalChardet_vtable	UniversalChardet typeinfo 链
+0x0000a79a20	JapaneseContextAnalysis_dtor_deleting	JapaneseContextAnalysis vtable[4]
+0x00011b04d0	JapaneseContextAnalysis_vtable	JapaneseContextAnalysis typeinfo 链
+0x00011b06d0	CharDistributionAnalysis_vtable	CharDistributionAnalysis typeinfo 链
+0x0000a7b330	EUCTWDistributionAnalysis_dtor	EUCTWDistributionAnalysis vtable[3]
+0x0000a7b300	EUCTWDistributionAnalysis_metaObject	EUCTWDistributionAnalysis vtable[0] 独占
+0x00011b0758	EUCTWDistributionAnalysis_vtable	EUCTWDistributionAnalysis typeinfo 链
+0x0000a7b360	EUCKRDistributionAnalysis_dtor	EUCKRDistributionAnalysis vtable[3]
+0x00011b0770	EUCKRDistributionAnalysis_vtable	EUCKRDistributionAnalysis typeinfo 链
+0x0000a7b390	GB2312DistributionAnalysis_dtor	GB2312DistributionAnalysis vtable[3]
+0x00011b0788	GB2312DistributionAnalysis_vtable	GB2312DistributionAnalysis typeinfo 链
+0x0000a7b3d0	Big5DistributionAnalysis_dtor	Big5DistributionAnalysis vtable[3]
+0x00011b07a0	Big5DistributionAnalysis_vtable	Big5DistributionAnalysis typeinfo 链
+0x0000a7b420	SJISDistributionAnalysis_dtor	SJISDistributionAnalysis vtable[3]
+0x00011b07b8	SJISDistributionAnalysis_vtable	SJISDistributionAnalysis typeinfo 链
+0x00011b07d0	EUCJPDistributionAnalysis_vtable	EUCJPDistributionAnalysis typeinfo 链
+0x0000a7b4b0	SJISContextAnalysis_dtor_deleting	SJISContextAnalysis vtable[4]
+0x0000a7b450	SJISContextAnalysis_metaObject	SJISContextAnalysis vtable[0] 独占
+0x0000a7b650	SJISContextAnalysis_qt_metacast	SJISContextAnalysis vtable[1] 独占
+0x00011b0818	SJISContextAnalysis_vtable	SJISContextAnalysis typeinfo 链
+0x0000a7b680	EUCJPContextAnalysis_qt_metacast	EUCJPContextAnalysis vtable[1] 独占
+0x00011b0838	EUCJPContextAnalysis_vtable	EUCJPContextAnalysis typeinfo 链
+0x0000a7cae0	ByteArrayBimap_dtor	ByteArrayBimap vtable[3]
+0x0000a7d038	ByteArrayBimap_metaObject	ByteArrayBimap vtable[0] 独占
+0x0000a7d08e	ByteArrayBimap_qt_metacast	ByteArrayBimap vtable[1] 独占
+0x0000a7cbd0	ByteArrayBimap_qt_metacall	ByteArrayBimap vtable[2] 独占
+0x00011b0ac8	ByteArrayBimap_vtable	ByteArrayBimap typeinfo 链
+0x0000a7caee	Uint32Bimap_dtor	Uint32Bimap vtable[3]
+0x0000a7d180	Uint32Bimap_metaObject	Uint32Bimap vtable[0] 独占
+0x0000a7d1d4	Uint32Bimap_qt_metacast	Uint32Bimap vtable[1] 独占
+0x0000a7cde0	Uint32Bimap_qt_metacall	Uint32Bimap vtable[2] 独占
+0x00011b0af8	Uint32Bimap_vtable	Uint32Bimap typeinfo 链

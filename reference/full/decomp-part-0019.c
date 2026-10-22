@@ -11054,7 +11054,7 @@ undefined * FUN_005d9a4a(void)
 }
 
 
-// ==== entry=005d9acc name=FUN_005d9acc size=651 ====
+// ==== entry=005d9acc orig=FUN_005d9acc size=651 name=CGlobalConfig_metaObject ====
 
 void FUN_005d9acc(undefined8 *param_1)
 
@@ -11211,7 +11211,7 @@ LAB_005d9ca6:
 }
 
 
-// ==== entry=005d9d58 name=FUN_005d9d58 size=23 ====
+// ==== entry=005d9d58 orig=FUN_005d9d58 size=23 name=CGlobalConfig_qt_metacast ====
 
 void FUN_005d9d58(void *param_1)
 
@@ -13961,7 +13961,7 @@ LAB_005dd7da:
 }
 
 
-// ==== entry=005dd80e name=FUN_005dd80e size=1 ====
+// ==== entry=005dd80e orig=FUN_005dd80e size=1 name=CGlobalConfig_dtor_deleting ====
 
 void FUN_005dd80e(void)
 
@@ -15675,7 +15675,7 @@ LAB_005df6b8:
 }
 
 
-// ==== entry=005df820 name=FUN_005df820 size=11 ====
+// ==== entry=005df820 orig=FUN_005df820 size=11 name=CKitConfig_dtor ====
 
 char * FUN_005df820(void)
 
@@ -15684,7 +15684,7 @@ char * FUN_005df820(void)
 }
 
 
-// ==== entry=005df82c name=FUN_005df82c size=6 ====
+// ==== entry=005df82c orig=FUN_005df82c size=6 name=CEditorConfig_dtor_deleting ====
 
 undefined8 FUN_005df82c(void)
 
@@ -16921,7 +16921,7 @@ LAB_005e1813:
 }
 
 
-// ==== entry=005e1932 name=FUN_005e1932 size=28 ====
+// ==== entry=005e1932 orig=FUN_005e1932 size=28 name=CEditorConfig_dtor ====
 
 undefined8 FUN_005e1932(undefined8 param_1)
 
@@ -20077,7 +20077,7 @@ LAB_005e5c74:
 }
 
 
-// ==== entry=005e5d9e name=FUN_005e5d9e size=444 ====
+// ==== entry=005e5d9e orig=FUN_005e5d9e size=444 name=EditorView_dtor ====
 
 void FUN_005e5d9e(QWidget *param_1)
 
@@ -20193,7 +20193,7 @@ void FUN_005e5f6c(long param_1)
 }
 
 
-// ==== entry=005e5f78 name=FUN_005e5f78 size=23 ====
+// ==== entry=005e5f78 orig=FUN_005e5f78 size=23 name=EditorView_dtor_deleting ====
 
 void FUN_005e5f78(void *param_1)
 
@@ -22247,7 +22247,7 @@ LAB_005e8ee5:
 }
 
 
-// ==== entry=005e8eee name=FUN_005e8eee size=37 ====
+// ==== entry=005e8eee orig=FUN_005e8eee size=37 name=SharedConfig_qt_metacall ====
 
 void FUN_005e8eee(undefined8 *param_1)
 
@@ -22259,7 +22259,7 @@ void FUN_005e8eee(undefined8 *param_1)
 }
 
 
-// ==== entry=005e8f14 name=FUN_005e8f14 size=50 ====
+// ==== entry=005e8f14 orig=FUN_005e8f14 size=50 name=SharedConfig_dtor ====
 
 void FUN_005e8f14(undefined8 *param_1)
 
@@ -22272,7 +22272,7 @@ void FUN_005e8f14(undefined8 *param_1)
 }
 
 
-// ==== entry=005e8f46 name=FUN_005e8f46 size=66 ====
+// ==== entry=005e8f46 orig=FUN_005e8f46 size=66 name=EditorViewConfig_metaObject ====
 
 void FUN_005e8f46(undefined8 *param_1)
 
@@ -22288,7 +22288,7 @@ void FUN_005e8f46(undefined8 *param_1)
 }
 
 
-// ==== entry=005e8f88 name=FUN_005e8f88 size=79 ====
+// ==== entry=005e8f88 orig=FUN_005e8f88 size=79 name=EditorViewConfig_qt_metacast ====
 
 void FUN_005e8f88(undefined8 *param_1)
 
@@ -22719,7 +22719,7 @@ LAB_005e974b:
 }
 
 
-// ==== entry=005e9778 name=FUN_005e9778 size=29 ====
+// ==== entry=005e9778 orig=FUN_005e9778 size=29 name=EditorWindow_dtor ====
 
 void FUN_005e9778(undefined8 *param_1)
 
@@ -22741,7 +22741,7 @@ void FUN_005e9795(long param_1)
 }
 
 
-// ==== entry=005e979c name=FUN_005e979c size=23 ====
+// ==== entry=005e979c orig=FUN_005e979c size=23 name=EditorWindow_dtor_deleting ====
 
 void FUN_005e979c(void *param_1)
 
@@ -25302,7 +25302,7 @@ LAB_005eccea:
 }
 
 
-// ==== entry=005ecd00 name=FUN_005ecd00 size=308 ====
+// ==== entry=005ecd00 orig=FUN_005ecd00 size=308 name=ForwardingCenter_dtor ====
 
 void FUN_005ecd00(QObject *param_1)
 
@@ -25380,7 +25380,7 @@ LAB_005ecddd:
 }
 
 
-// ==== entry=005ece34 name=FUN_005ece34 size=23 ====
+// ==== entry=005ece34 orig=FUN_005ece34 size=23 name=ForwardingCenter_dtor_deleting ====
 
 void FUN_005ece34(void *param_1)
 
@@ -28921,7 +28921,7 @@ void FUN_005f180a(int param_1,void *param_2)
 }
 
 
-// ==== entry=005f1838 name=FUN_005f1838 size=367 ====
+// ==== entry=005f1838 orig=FUN_005f1838 size=367 name=ForwardingHandler_dtor ====
 
 void FUN_005f1838(QObject *param_1)
 
@@ -29018,7 +29018,7 @@ LAB_005f198a:
 }
 
 
-// ==== entry=005f19a8 name=FUN_005f19a8 size=23 ====
+// ==== entry=005f19a8 orig=FUN_005f19a8 size=23 name=ForwardingHandler_dtor_deleting ====
 
 void FUN_005f19a8(void *param_1)
 
@@ -57199,7 +57199,7 @@ undefined * FUN_00618a9c(void)
 }
 
 
-// ==== entry=00618b20 name=FUN_00618b20 size=5215 ====
+// ==== entry=00618b20 orig=FUN_00618b20 size=5215 name=TransferCenter_dtor ====
 
 void FUN_00618b20(QObject *param_1)
 
@@ -58149,7 +58149,7 @@ void FUN_00618b20(QObject *param_1)
 }
 
 
-// ==== entry=00619f80 name=FUN_00619f80 size=23 ====
+// ==== entry=00619f80 orig=FUN_00619f80 size=23 name=TransferCenter_dtor_deleting ====
 
 void FUN_00619f80(void *param_1)
 
@@ -64496,7 +64496,7 @@ LAB_006213b5:
 }
 
 
-// ==== entry=00621a3e name=FUN_00621a3e size=19 ====
+// ==== entry=00621a3e orig=FUN_00621a3e size=19 name=TransferModel_dtor ====
 
 void FUN_00621a3e(QStandardItemModel *param_1)
 
@@ -64507,7 +64507,7 @@ void FUN_00621a3e(QStandardItemModel *param_1)
 }
 
 
-// ==== entry=00621a52 name=FUN_00621a52 size=37 ====
+// ==== entry=00621a52 orig=FUN_00621a52 size=37 name=TransferModel_dtor_deleting ====
 
 void FUN_00621a52(QStandardItemModel *param_1)
 
@@ -65433,7 +65433,7 @@ LAB_00622af3:
 }
 
 
-// ==== entry=00622e74 name=FUN_00622e74 size=4 ====
+// ==== entry=00622e74 orig=FUN_00622e74 size=4 name=FileSystemItem_dtor ====
 
 undefined4 FUN_00622e74(long param_1)
 
@@ -65442,7 +65442,7 @@ undefined4 FUN_00622e74(long param_1)
 }
 
 
-// ==== entry=00622e78 name=FUN_00622e78 size=621 ====
+// ==== entry=00622e78 orig=FUN_00622e78 size=621 name=FileSystemItem_qt_metacast ====
 
 void FUN_00622e78(undefined8 *param_1)
 
@@ -65607,7 +65607,7 @@ LAB_00623065:
 }
 
 
-// ==== entry=006230f0 name=FUN_006230f0 size=596 ====
+// ==== entry=006230f0 orig=FUN_006230f0 size=596 name=FileSystemItem_metaObject ====
 
 void FUN_006230f0(undefined8 *param_1)
 
@@ -66722,7 +66722,7 @@ FUN_006249ce(QVariant *param_1,undefined8 param_2,uint param_3,undefined8 param_
 }
 
 
-// ==== entry=006249fe name=FUN_006249fe size=19 ====
+// ==== entry=006249fe orig=FUN_006249fe size=19 name=RemoteFileSystemModel_dtor ====
 
 void FUN_006249fe(undefined8 *param_1)
 
@@ -66733,7 +66733,7 @@ void FUN_006249fe(undefined8 *param_1)
 }
 
 
-// ==== entry=00624a12 name=FUN_00624a12 size=37 ====
+// ==== entry=00624a12 orig=FUN_00624a12 size=37 name=RemoteFileSystemModel_dtor_deleting ====
 
 void FUN_00624a12(undefined8 *param_1)
 

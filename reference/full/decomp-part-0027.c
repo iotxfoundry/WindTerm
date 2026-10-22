@@ -2764,7 +2764,7 @@ void FUN_008614ee(undefined8 *param_1)
 }
 
 
-// ==== entry=008614fc name=FUN_008614fc size=19 ====
+// ==== entry=008614fc orig=FUN_008614fc size=19 name=TelnetProtocol_metaObject ====
 
 void FUN_008614fc(undefined8 *param_1)
 
@@ -2775,7 +2775,7 @@ void FUN_008614fc(undefined8 *param_1)
 }
 
 
-// ==== entry=00861510 name=FUN_00861510 size=37 ====
+// ==== entry=00861510 orig=FUN_00861510 size=37 name=TelnetProtocol_qt_metacast ====
 
 void FUN_00861510(undefined8 *param_1)
 
@@ -7245,7 +7245,7 @@ void FUN_008669c6(undefined8 *param_1)
 }
 
 
-// ==== entry=00866c36 name=FUN_00866c36 size=508 ====
+// ==== entry=00866c36 orig=FUN_00866c36 size=508 name=SshBridge_dtor ====
 
 void FUN_00866c36(QObject *param_1)
 
@@ -7341,7 +7341,7 @@ void FUN_00866c36(QObject *param_1)
 }
 
 
-// ==== entry=00866e32 name=FUN_00866e32 size=23 ====
+// ==== entry=00866e32 orig=FUN_00866e32 size=23 name=SshBridge_dtor_deleting ====
 
 void FUN_00866e32(void *param_1)
 
@@ -8812,7 +8812,7 @@ void thunk_FUN_008699d4(long param_1)
 }
 
 
-// ==== entry=00869a1c name=FUN_00869a1c size=42 ====
+// ==== entry=00869a1c orig=FUN_00869a1c size=42 name=SshCommander_dtor ====
 
 void FUN_00869a1c(undefined8 *param_1)
 
@@ -8835,7 +8835,7 @@ void FUN_00869a46(long param_1)
 }
 
 
-// ==== entry=00869a4c name=FUN_00869a4c size=23 ====
+// ==== entry=00869a4c orig=FUN_00869a4c size=23 name=SshCommander_dtor_deleting ====
 
 void FUN_00869a4c(void *param_1)
 
@@ -9119,7 +9119,7 @@ LAB_00869de8:
 }
 
 
-// ==== entry=00869e26 name=FUN_00869e26 size=322 ====
+// ==== entry=00869e26 orig=FUN_00869e26 size=322 name=SshExecutor_dtor ====
 
 void FUN_00869e26(QObject *param_1)
 
@@ -9189,7 +9189,7 @@ LAB_00869ef9:
 }
 
 
-// ==== entry=00869f68 name=FUN_00869f68 size=23 ====
+// ==== entry=00869f68 orig=FUN_00869f68 size=23 name=SshExecutor_dtor_deleting ====
 
 void FUN_00869f68(void *param_1)
 
@@ -10405,7 +10405,7 @@ LAB_0086b465:
 }
 
 
-// ==== entry=0086b46e name=FUN_0086b46e size=19 ====
+// ==== entry=0086b46e orig=FUN_0086b46e size=19 name=SshAuthOperator_dtor ====
 
 void FUN_0086b46e(undefined8 *param_1)
 
@@ -10416,7 +10416,7 @@ void FUN_0086b46e(undefined8 *param_1)
 }
 
 
-// ==== entry=0086b482 name=FUN_0086b482 size=37 ====
+// ==== entry=0086b482 orig=FUN_0086b482 size=37 name=SshAuthOperator_dtor_deleting ====
 
 void FUN_0086b482(undefined8 *param_1)
 
@@ -12678,7 +12678,7 @@ void FUN_0086e8ea(long param_1)
 }
 
 
-// ==== entry=0086ebee name=FUN_0086ebee size=320 ====
+// ==== entry=0086ebee orig=FUN_0086ebee size=320 name=SshSocket_dtor ====
 
 void FUN_0086ebee(QObject *param_1)
 
@@ -12737,7 +12737,7 @@ void FUN_0086ebee(QObject *param_1)
 }
 
 
-// ==== entry=0086ed2e name=FUN_0086ed2e size=23 ====
+// ==== entry=0086ed2e orig=FUN_0086ed2e size=23 name=SshSocket_dtor_deleting ====
 
 void FUN_0086ed2e(void *param_1)
 
@@ -13205,7 +13205,7 @@ void FUN_0086f29a(QObject *param_1)
 }
 
 
-// ==== entry=0086f4b0 name=FUN_0086f4b0 size=75 ====
+// ==== entry=0086f4b0 orig=FUN_0086f4b0 size=75 name=SerialBridge_dtor ====
 
 void FUN_0086f4b0(QObject *param_1)
 
@@ -13229,7 +13229,7 @@ void FUN_0086f4b0(QObject *param_1)
 }
 
 
-// ==== entry=0086f4fc name=FUN_0086f4fc size=23 ====
+// ==== entry=0086f4fc orig=FUN_0086f4fc size=23 name=SerialBridge_dtor_deleting ====
 
 void FUN_0086f4fc(void *param_1)
 
@@ -14840,7 +14840,7 @@ LAB_00871384:
 }
 
 
-// ==== entry=008713c6 name=FUN_008713c6 size=157 ====
+// ==== entry=008713c6 orig=FUN_008713c6 size=157 name=UnixPty_dtor ====
 
 void FUN_008713c6(undefined8 *param_1)
 
@@ -14883,7 +14883,7 @@ LAB_00871427:
 }
 
 
-// ==== entry=00871464 name=FUN_00871464 size=23 ====
+// ==== entry=00871464 orig=FUN_00871464 size=23 name=UnixPty_dtor_deleting ====
 
 void FUN_00871464(void *param_1)
 
@@ -15505,7 +15505,7 @@ long FUN_008720e8(long param_1)
 }
 
 
-// ==== entry=00872108 name=FUN_00872108 size=5961 ====
+// ==== entry=00872108 orig=FUN_00872108 size=5961 name=ShellBridge_dtor ====
 
 void FUN_00872108(QObject *param_1)
 
@@ -16908,7 +16908,7 @@ LAB_00872177:
 }
 
 
-// ==== entry=00873852 name=FUN_00873852 size=23 ====
+// ==== entry=00873852 orig=FUN_00873852 size=23 name=ShellBridge_dtor_deleting ====
 
 void FUN_00873852(void *param_1)
 
@@ -18066,7 +18066,7 @@ void FUN_00875362(int param_1,void *param_2)
 }
 
 
-// ==== entry=00875400 name=FUN_00875400 size=120 ====
+// ==== entry=00875400 orig=FUN_00875400 size=120 name=ShellExecutor_dtor ====
 
 void FUN_00875400(QObject *param_1)
 
@@ -18093,7 +18093,7 @@ void FUN_00875400(QObject *param_1)
 }
 
 
-// ==== entry=00875478 name=FUN_00875478 size=23 ====
+// ==== entry=00875478 orig=FUN_00875478 size=23 name=ShellExecutor_dtor_deleting ====
 
 void FUN_00875478(void *param_1)
 
@@ -18751,7 +18751,7 @@ void FUN_00875ffe(undefined8 *param_1)
 }
 
 
-// ==== entry=00876290 name=FUN_00876290 size=75 ====
+// ==== entry=00876290 orig=FUN_00876290 size=75 name=TcpBridge_dtor ====
 
 void FUN_00876290(QObject *param_1)
 
@@ -18775,7 +18775,7 @@ void FUN_00876290(QObject *param_1)
 }
 
 
-// ==== entry=008762dc name=FUN_008762dc size=23 ====
+// ==== entry=008762dc orig=FUN_008762dc size=23 name=TcpBridge_dtor_deleting ====
 
 void FUN_008762dc(void *param_1)
 
@@ -39331,7 +39331,7 @@ void FUN_008898d0(undefined8 *param_1)
 }
 
 
-// ==== entry=00889930 name=FUN_00889930 size=62 ====
+// ==== entry=00889930 orig=FUN_00889930 size=62 name=Uint8RunStyles_metaObject ====
 
 void FUN_00889930(undefined8 *param_1)
 
@@ -39369,7 +39369,7 @@ void FUN_0088996e(undefined8 *param_1)
 }
 
 
-// ==== entry=008899b4 name=FUN_008899b4 size=70 ====
+// ==== entry=008899b4 orig=FUN_008899b4 size=70 name=Uint8RunStyles_qt_metacast ====
 
 void FUN_008899b4(undefined8 *param_1)
 
@@ -44363,7 +44363,7 @@ void FUN_00890016(long param_1,long param_2,undefined1 param_3)
 }
 
 
-// ==== entry=00890130 name=FUN_00890130 size=1854 ====
+// ==== entry=00890130 orig=FUN_00890130 size=1854 name=Uint8RunStyles_qt_metacall ====
 
 void FUN_00890130(long param_1,long param_2,long param_3)
 
@@ -44981,7 +44981,7 @@ LAB_00891134:
 }
 
 
-// ==== entry=008912e8 name=FUN_008912e8 size=229 ====
+// ==== entry=008912e8 orig=FUN_008912e8 size=229 name=Uint8RunStyles_dtor ====
 
 void FUN_008912e8(long *param_1,long param_2,long param_3,char param_4)
 
@@ -45023,7 +45023,7 @@ void FUN_008912e8(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=008913d0 name=FUN_008913d0 size=63 ====
+// ==== entry=008913d0 orig=FUN_008913d0 size=63 name=Uint8RunStyles_dtor_deleting ====
 
 void FUN_008913d0(long param_1,undefined8 param_2,long param_3)
 
@@ -45830,7 +45830,7 @@ LAB_00891edc:
 }
 
 
-// ==== entry=00891f46 name=FUN_00891f46 size=303 ====
+// ==== entry=00891f46 orig=FUN_00891f46 size=303 name=GrepView_dtor ====
 
 void FUN_00891f46(QWidget *param_1)
 
@@ -45926,7 +45926,7 @@ void FUN_00892087(long param_1)
 }
 
 
-// ==== entry=00892094 name=FUN_00892094 size=23 ====
+// ==== entry=00892094 orig=FUN_00892094 size=23 name=GrepView_dtor_deleting ====
 
 void FUN_00892094(void *param_1)
 
@@ -46337,7 +46337,7 @@ void FUN_00892660(int param_1,void *param_2,long param_3,long *param_4,undefined
 }
 
 
-// ==== entry=008926c6 name=FUN_008926c6 size=5786 ====
+// ==== entry=008926c6 orig=FUN_008926c6 size=5786 name=GrepViewConfig_metaObject ====
 
 void FUN_008926c6(undefined8 *param_1)
 
@@ -47695,7 +47695,7 @@ LAB_008926fc:
 }
 
 
-// ==== entry=00893d60 name=FUN_00893d60 size=5799 ====
+// ==== entry=00893d60 orig=FUN_00893d60 size=5799 name=GrepViewConfig_qt_metacast ====
 
 void FUN_00893d60(undefined8 *param_1)
 
@@ -49398,7 +49398,7 @@ void FUN_00895b60(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=00895bce name=FUN_00895bce size=424 ====
+// ==== entry=00895bce orig=FUN_00895bce size=424 name=FileGrep_dtor ====
 
 void FUN_00895bce(QThread *param_1)
 
@@ -49515,7 +49515,7 @@ LAB_00895c8e:
 }
 
 
-// ==== entry=00895d76 name=FUN_00895d76 size=23 ====
+// ==== entry=00895d76 orig=FUN_00895d76 size=23 name=FileGrep_dtor_deleting ====
 
 void FUN_00895d76(void *param_1)
 
@@ -52115,7 +52115,7 @@ LAB_00899a6e:
 }
 
 
-// ==== entry=00899ab4 name=FUN_00899ab4 size=608 ====
+// ==== entry=00899ab4 orig=FUN_00899ab4 size=608 name=Grep_metaObject ====
 
 /* WARNING: Removing unreachable block (ram,0x00899d09) */
 
@@ -52290,7 +52290,7 @@ LAB_00899ca9:
 }
 
 
-// ==== entry=00899d14 name=FUN_00899d14 size=23 ====
+// ==== entry=00899d14 orig=FUN_00899d14 size=23 name=Grep_qt_metacast ====
 
 void FUN_00899d14(void *param_1)
 
@@ -53985,7 +53985,7 @@ void FUN_0089c19a(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=0089c1b8 name=FUN_0089c1b8 size=1 ====
+// ==== entry=0089c1b8 orig=FUN_0089c1b8 size=1 name=Grep_dtor_deleting ====
 
 void FUN_0089c1b8(void)
 
@@ -55711,7 +55711,7 @@ LAB_0089e301:
 }
 
 
-// ==== entry=0089e584 name=FUN_0089e584 size=774 ====
+// ==== entry=0089e584 orig=FUN_0089e584 size=774 name=King::paneIconFactory ====
 
 QIcon * FUN_0089e584(QIcon *param_1,undefined8 *param_2)
 
@@ -57273,7 +57273,7 @@ LAB_008a0daf:
 }
 
 
-// ==== entry=008a1106 name=FUN_008a1106 size=12455 ====
+// ==== entry=008a1106 orig=FUN_008a1106 size=12455 name=King::registerBarsAndPanes ====
 
 /* WARNING: Removing unreachable block (ram,0x008a3446) */
 /* WARNING: Removing unreachable block (ram,0x008a345a) */
@@ -63157,7 +63157,7 @@ LAB_008a74aa:
 }
 
 
-// ==== entry=008a94aa name=FUN_008a94aa size=572 ====
+// ==== entry=008a94aa orig=FUN_008a94aa size=572 name=CKitConfig_dtor_deleting ====
 
 undefined8 * FUN_008a94aa(undefined8 *param_1,undefined8 param_2)
 

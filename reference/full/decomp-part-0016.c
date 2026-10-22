@@ -17911,7 +17911,7 @@ LAB_0052484a:
 }
 
 
-// ==== entry=0052485c name=FUN_0052485c size=165 ====
+// ==== entry=0052485c orig=FUN_0052485c size=165 name=AddressListModel_dtor ====
 
 void FUN_0052485c(QAbstractListModel *param_1)
 
@@ -17956,7 +17956,7 @@ LAB_005248ab:
 }
 
 
-// ==== entry=00524902 name=FUN_00524902 size=178 ====
+// ==== entry=00524902 orig=FUN_00524902 size=178 name=AddressListModel_dtor_deleting ====
 
 void FUN_00524902(QAbstractListModel *param_1)
 

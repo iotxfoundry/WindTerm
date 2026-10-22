@@ -8215,7 +8215,7 @@ undefined8 FUN_0094331e(long param_1)
 }
 
 
-// ==== entry=00943324 name=FUN_00943324 size=1 ====
+// ==== entry=00943324 orig=FUN_00943324 size=1 name=Window_metaObject ====
 
 void FUN_00943324(void)
 
@@ -8224,7 +8224,7 @@ void FUN_00943324(void)
 }
 
 
-// ==== entry=00943326 name=FUN_00943326 size=23 ====
+// ==== entry=00943326 orig=FUN_00943326 size=23 name=Window_qt_metacast ====
 
 void FUN_00943326(void *param_1)
 
@@ -8269,7 +8269,7 @@ void FUN_009433a2(undefined8 *param_1)
 }
 
 
-// ==== entry=009433b6 name=FUN_009433b6 size=23 ====
+// ==== entry=009433b6 orig=FUN_009433b6 size=23 name=DynamicLibrary_dtor ====
 
 void FUN_009433b6(void *param_1)
 
@@ -8392,7 +8392,7 @@ undefined8 FUN_0094356e(long param_1,QFont *param_2)
 }
 
 
-// ==== entry=009435b0 name=FUN_009435b0 size=15 ====
+// ==== entry=009435b0 orig=FUN_009435b0 size=15 name=Window_qt_metacall ====
 
 void FUN_009435b0(long param_1)
 
@@ -8515,7 +8515,7 @@ bool FUN_009436c2(undefined8 param_1,long *param_2)
 }
 
 
-// ==== entry=00943748 name=FUN_00943748 size=52 ====
+// ==== entry=00943748 orig=FUN_00943748 size=52 name=DynamicLibrary_dtor_deleting ====
 
 void FUN_00943748(long *param_1,long param_2)
 
@@ -8533,7 +8533,7 @@ void FUN_00943748(long *param_1,long param_2)
 }
 
 
-// ==== entry=0094377c name=FUN_0094377c size=43 ====
+// ==== entry=0094377c orig=FUN_0094377c size=43 name=SurfaceImpl_dtor ====
 
 void FUN_0094377c(long *param_1,long param_2)
 
@@ -8548,7 +8548,7 @@ void FUN_0094377c(long *param_1,long param_2)
 }
 
 
-// ==== entry=009437a8 name=FUN_009437a8 size=209 ====
+// ==== entry=009437a8 orig=FUN_009437a8 size=209 name=SurfaceImpl_dtor_deleting ====
 
 void FUN_009437a8(double param_1,long *param_2,int param_3,int param_4,undefined1 param_5)
 
@@ -9729,7 +9729,7 @@ void FUN_00944f10(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00944f16 name=FUN_00944f16 size=9 ====
+// ==== entry=00944f16 orig=FUN_00944f16 size=9 name=DynamicLibraryImpl_dtor ====
 
 bool FUN_00944f16(long param_1)
 
@@ -9738,7 +9738,7 @@ bool FUN_00944f16(long param_1)
 }
 
 
-// ==== entry=00944f20 name=FUN_00944f20 size=17 ====
+// ==== entry=00944f20 orig=FUN_00944f20 size=17 name=DynamicLibraryImpl_qt_metacall ====
 
 undefined8 FUN_00944f20(long param_1)
 
@@ -9753,7 +9753,7 @@ undefined8 FUN_00944f20(long param_1)
 }
 
 
-// ==== entry=00944f32 name=FUN_00944f32 size=29 ====
+// ==== entry=00944f32 orig=FUN_00944f32 size=29 name=DynamicLibraryImpl_metaObject ====
 
 void FUN_00944f32(undefined8 *param_1)
 
@@ -9767,7 +9767,7 @@ void FUN_00944f32(undefined8 *param_1)
 }
 
 
-// ==== entry=00944f50 name=FUN_00944f50 size=46 ====
+// ==== entry=00944f50 orig=FUN_00944f50 size=46 name=DynamicLibraryImpl_qt_metacast ====
 
 void FUN_00944f50(undefined8 *param_1)
 
@@ -10209,7 +10209,7 @@ void FUN_009451a4(QAbstractScrollArea *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=00945a8a name=FUN_00945a8a size=29 ====
+// ==== entry=00945a8a orig=FUN_00945a8a size=29 name=ScintillaEditBase_dtor ====
 
 void FUN_00945a8a(QAbstractScrollArea *param_1)
 
@@ -10231,7 +10231,7 @@ void FUN_00945aa7(long param_1)
 }
 
 
-// ==== entry=00945aae name=FUN_00945aae size=23 ====
+// ==== entry=00945aae orig=FUN_00945aae size=23 name=ScintillaEditBase_dtor_deleting ====
 
 void FUN_00945aae(void *param_1)
 
@@ -14015,7 +14015,7 @@ void FUN_00949f3b(long param_1)
 }
 
 
-// ==== entry=00949f42 name=FUN_00949f42 size=94 ====
+// ==== entry=00949f42 orig=FUN_00949f42 size=94 name=ScintillaQt_dtor ====
 
 void FUN_00949f42(QObject *param_1)
 
@@ -14046,7 +14046,7 @@ void FUN_00949fa0(long param_1)
 }
 
 
-// ==== entry=00949fa6 name=FUN_00949fa6 size=23 ====
+// ==== entry=00949fa6 orig=FUN_00949fa6 size=23 name=ScintillaQt_dtor_deleting ====
 
 void FUN_00949fa6(void *param_1)
 
@@ -20576,7 +20576,7 @@ LAB_00952427:
 }
 
 
-// ==== entry=00952430 name=FUN_00952430 size=29 ====
+// ==== entry=00952430 orig=FUN_00952430 size=29 name=RGBAImage_metaObject ====
 
 void FUN_00952430(undefined8 *param_1)
 
@@ -20590,7 +20590,7 @@ void FUN_00952430(undefined8 *param_1)
 }
 
 
-// ==== entry=0095244e name=FUN_0095244e size=23 ====
+// ==== entry=0095244e orig=FUN_0095244e size=23 name=RGBAImage_qt_metacast ====
 
 void FUN_0095244e(void *param_1)
 
@@ -23076,7 +23076,7 @@ void FUN_00954f16(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00955042 name=FUN_00955042 size=29 ====
+// ==== entry=00955042 orig=FUN_00955042 size=29 name=CompleteList_dtor ====
 
 void FUN_00955042(QListView *param_1)
 
@@ -23098,7 +23098,7 @@ void FUN_0095505f(long param_1)
 }
 
 
-// ==== entry=00955066 name=FUN_00955066 size=23 ====
+// ==== entry=00955066 orig=FUN_00955066 size=23 name=CompleteList_dtor_deleting ====
 
 void FUN_00955066(void *param_1)
 
@@ -23551,7 +23551,7 @@ void FUN_009557e0(QAbstractListModel *param_1,QObject *param_2)
 }
 
 
-// ==== entry=00955856 name=FUN_00955856 size=1282 ====
+// ==== entry=00955856 orig=FUN_00955856 size=1282 name=CompleteModel_dtor ====
 
 /* WARNING: Removing unreachable block (ram,0x00955d4d) */
 /* WARNING: Removing unreachable block (ram,0x00955cd0) */
@@ -23831,7 +23831,7 @@ LAB_00955ae2:
 }
 
 
-// ==== entry=00955d58 name=FUN_00955d58 size=23 ====
+// ==== entry=00955d58 orig=FUN_00955d58 size=23 name=CompleteModel_dtor_deleting ====
 
 void FUN_00955d58(void *param_1)
 
@@ -29930,7 +29930,7 @@ void FUN_0095d906(undefined8 *param_1)
 }
 
 
-// ==== entry=0095d966 name=FUN_0095d966 size=62 ====
+// ==== entry=0095d966 orig=FUN_0095d966 size=62 name=Uint8SkipRunStyles_metaObject ====
 
 void FUN_0095d966(undefined8 *param_1)
 
@@ -29968,7 +29968,7 @@ void FUN_0095d9a4(undefined8 *param_1)
 }
 
 
-// ==== entry=0095d9ea name=FUN_0095d9ea size=70 ====
+// ==== entry=0095d9ea orig=FUN_0095d9ea size=70 name=Uint8SkipRunStyles_qt_metacast ====
 
 void FUN_0095d9ea(undefined8 *param_1)
 
@@ -33626,7 +33626,7 @@ void FUN_00962b60(undefined8 param_1,undefined8 param_2,long param_3)
 }
 
 
-// ==== entry=00962b7e name=FUN_00962b7e size=657 ====
+// ==== entry=00962b7e orig=FUN_00962b7e size=657 name=Uint8SkipRunStyles_qt_metacall ====
 
 void FUN_00962b7e(long param_1,long param_2,long param_3)
 
@@ -33828,7 +33828,7 @@ undefined8 FUN_00962e10(long param_1,long param_2,char param_3,long param_4,unde
 }
 
 
-// ==== entry=00963104 name=FUN_00963104 size=229 ====
+// ==== entry=00963104 orig=FUN_00963104 size=229 name=Uint8SkipRunStyles_dtor ====
 
 void FUN_00963104(long *param_1,long param_2,long param_3,char param_4)
 
@@ -33870,7 +33870,7 @@ void FUN_00963104(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=009631f0 name=FUN_009631f0 size=29 ====
+// ==== entry=009631f0 orig=FUN_009631f0 size=29 name=Uint8SkipRunStyles_dtor_deleting ====
 
 void FUN_009631f0(undefined8 param_1,undefined8 param_2,long param_3)
 
@@ -34218,7 +34218,7 @@ LAB_00963657:
 }
 
 
-// ==== entry=0096376e name=FUN_0096376e size=73 ====
+// ==== entry=0096376e orig=FUN_0096376e size=73 name=DocumentTask_dtor_deleting ====
 
 void FUN_0096376e(long param_1)
 
@@ -34322,7 +34322,7 @@ LAB_00963853:
 }
 
 
-// ==== entry=009638a6 name=FUN_009638a6 size=19 ====
+// ==== entry=009638a6 orig=FUN_009638a6 size=19 name=DocumentTask_metaObject ====
 
 void FUN_009638a6(undefined8 *param_1)
 
@@ -34333,7 +34333,7 @@ void FUN_009638a6(undefined8 *param_1)
 }
 
 
-// ==== entry=009638ba name=FUN_009638ba size=23 ====
+// ==== entry=009638ba orig=FUN_009638ba size=23 name=DocumentTask_qt_metacast ====
 
 void FUN_009638ba(void *param_1)
 
@@ -34398,7 +34398,7 @@ void FUN_009638f3(void)
 }
 
 
-// ==== entry=00963a5a name=FUN_00963a5a size=19 ====
+// ==== entry=00963a5a orig=FUN_00963a5a size=19 name=DocumentTaskRunner_qt_metacast ====
 
 void FUN_00963a5a(QRunnable *param_1)
 
@@ -34409,7 +34409,7 @@ void FUN_00963a5a(QRunnable *param_1)
 }
 
 
-// ==== entry=00963a6e name=FUN_00963a6e size=37 ====
+// ==== entry=00963a6e orig=FUN_00963a6e size=37 name=DocumentTaskRunner_qt_metacall ====
 
 void FUN_00963a6e(QRunnable *param_1)
 
@@ -37497,7 +37497,7 @@ undefined8 FUN_009685c4(undefined8 param_1,undefined8 param_2,undefined8 param_3
 }
 
 
-// ==== entry=009685f0 name=FUN_009685f0 size=242 ====
+// ==== entry=009685f0 orig=FUN_009685f0 size=242 name=Uint32PieceTable_dtor_deleting ====
 
 void FUN_009685f0(undefined8 *param_1)
 
@@ -37560,7 +37560,7 @@ LAB_0096867b:
 }
 
 
-// ==== entry=009686e2 name=FUN_009686e2 size=23 ====
+// ==== entry=009686e2 orig=FUN_009686e2 size=23 name=Partitioning_qt_metacast ====
 
 void FUN_009686e2(void *param_1)
 
@@ -39518,7 +39518,7 @@ ulong * FUN_0096abe4(byte *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0096aca0 name=FUN_0096aca0 size=1357 ====
+// ==== entry=0096aca0 orig=FUN_0096aca0 size=1357 name=Uint32PieceTable_metaObject ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -39809,7 +39809,7 @@ LAB_0096b149:
 }
 
 
-// ==== entry=0096b200 name=FUN_0096b200 size=1389 ====
+// ==== entry=0096b200 orig=FUN_0096b200 size=1389 name=Uint32PieceTable_qt_metacast ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -42580,7 +42580,7 @@ undefined8 FUN_0096d66c(long param_1)
 }
 
 
-// ==== entry=0096d684 name=FUN_0096d684 size=514 ====
+// ==== entry=0096d684 orig=FUN_0096d684 size=514 name=ScanTask_metaObject ====
 
 /* WARNING: Removing unreachable block (ram,0x0096d7bf) */
 /* WARNING: Removing unreachable block (ram,0x0096d7cd) */
@@ -42690,7 +42690,7 @@ LAB_0096d79d:
 }
 
 
-// ==== entry=0096d886 name=FUN_0096d886 size=23 ====
+// ==== entry=0096d886 orig=FUN_0096d886 size=23 name=ScanTask_qt_metacast ====
 
 void FUN_0096d886(void *param_1)
 
@@ -44998,7 +44998,7 @@ void FUN_00970850(undefined8 *param_1)
 }
 
 
-// ==== entry=00970bb0 name=FUN_00970bb0 size=288 ====
+// ==== entry=00970bb0 orig=FUN_00970bb0 size=288 name=Uint8PieceTable_dtor_deleting ====
 
 void FUN_00970bb0(undefined8 *param_1)
 
@@ -45069,7 +45069,7 @@ LAB_00970c69:
 }
 
 
-// ==== entry=00970cd0 name=FUN_00970cd0 size=23 ====
+// ==== entry=00970cd0 orig=FUN_00970cd0 size=23 name=SkipPartition_qt_metacast ====
 
 void FUN_00970cd0(void *param_1)
 

@@ -9621,7 +9621,7 @@ void FUN_00a2dada(long param_1)
 }
 
 
-// ==== entry=00a2dd9e name=FUN_00a2dd9e size=125 ====
+// ==== entry=00a2dd9e orig=FUN_00a2dd9e size=125 name=Editor_dtor_deleting ====
 
 void FUN_00a2dd9e(long param_1,string *param_2)
 
@@ -38575,7 +38575,7 @@ void FUN_00a5f28c(undefined8 *param_1)
 }
 
 
-// ==== entry=00a5f2d8 name=FUN_00a5f2d8 size=23 ====
+// ==== entry=00a5f2d8 orig=FUN_00a5f2d8 size=23 name=SparsePartition_dtor ====
 
 void FUN_00a5f2d8(void *param_1)
 
@@ -38586,7 +38586,7 @@ void FUN_00a5f2d8(void *param_1)
 }
 
 
-// ==== entry=00a5f2f0 name=FUN_00a5f2f0 size=465 ====
+// ==== entry=00a5f2f0 orig=FUN_00a5f2f0 size=465 name=SparsePartition_dtor_deleting ====
 
 undefined8 FUN_00a5f2f0(long param_1,long param_2)
 
@@ -39361,7 +39361,7 @@ void FUN_00a60185(void)
 }
 
 
-// ==== entry=00a60344 name=FUN_00a60344 size=15 ====
+// ==== entry=00a60344 orig=FUN_00a60344 size=15 name=Snapshot32_dtor_deleting ====
 
 long FUN_00a60344(long param_1)
 
@@ -39379,7 +39379,7 @@ undefined8 FUN_00a60354(void)
 }
 
 
-// ==== entry=00a60358 name=FUN_00a60358 size=9 ====
+// ==== entry=00a60358 orig=FUN_00a60358 size=9 name=Snapshot64_dtor_deleting ====
 
 undefined8 FUN_00a60358(long param_1)
 
@@ -39407,7 +39407,7 @@ void FUN_00a60366(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00a60374 name=FUN_00a60374 size=9 ====
+// ==== entry=00a60374 orig=FUN_00a60374 size=9 name=Snapshot64_qt_metacall ====
 
 void FUN_00a60374(long param_1)
 
@@ -39417,7 +39417,7 @@ void FUN_00a60374(long param_1)
 }
 
 
-// ==== entry=00a6037e name=FUN_00a6037e size=148 ====
+// ==== entry=00a6037e orig=FUN_00a6037e size=148 name=Snapshot64_dtor ====
 
 long FUN_00a6037e(long param_1,long param_2,long param_3)
 
@@ -39441,7 +39441,7 @@ long FUN_00a6037e(long param_1,long param_2,long param_3)
 }
 
 
-// ==== entry=00a60412 name=FUN_00a60412 size=36 ====
+// ==== entry=00a60412 orig=FUN_00a60412 size=36 name=Snapshot64_metaObject ====
 
 void FUN_00a60412(undefined8 *param_1)
 
@@ -39453,7 +39453,7 @@ void FUN_00a60412(undefined8 *param_1)
 }
 
 
-// ==== entry=00a60436 name=FUN_00a60436 size=49 ====
+// ==== entry=00a60436 orig=FUN_00a60436 size=49 name=Snapshot64_qt_metacast ====
 
 void FUN_00a60436(undefined8 *param_1)
 
@@ -39466,7 +39466,7 @@ void FUN_00a60436(undefined8 *param_1)
 }
 
 
-// ==== entry=00a60468 name=FUN_00a60468 size=36 ====
+// ==== entry=00a60468 orig=FUN_00a60468 size=36 name=Snapshot32_metaObject ====
 
 void FUN_00a60468(undefined8 *param_1)
 
@@ -39478,7 +39478,7 @@ void FUN_00a60468(undefined8 *param_1)
 }
 
 
-// ==== entry=00a6048c name=FUN_00a6048c size=49 ====
+// ==== entry=00a6048c orig=FUN_00a6048c size=49 name=Snapshot32_qt_metacast ====
 
 void FUN_00a6048c(undefined8 *param_1)
 
@@ -39491,7 +39491,7 @@ void FUN_00a6048c(undefined8 *param_1)
 }
 
 
-// ==== entry=00a604c0 name=FUN_00a604c0 size=1486 ====
+// ==== entry=00a604c0 orig=FUN_00a604c0 size=1486 name=Snapshot32_qt_metacall ====
 
 undefined1 FUN_00a604c0(long param_1,ulong param_2)
 
@@ -40402,7 +40402,7 @@ LAB_00a612cb:
 }
 
 
-// ==== entry=00a61a80 name=FUN_00a61a80 size=3686 ====
+// ==== entry=00a61a80 orig=FUN_00a61a80 size=3686 name=Snapshot32_dtor ====
 
 undefined * FUN_00a61a80(long param_1,long param_2,long param_3)
 
@@ -50035,7 +50035,7 @@ LAB_00a73983:
 }
 
 
-// ==== entry=00a73a26 name=FUN_00a73a26 size=46 ====
+// ==== entry=00a73a26 orig=FUN_00a73a26 size=46 name=SciPreview_dtor ====
 
 void FUN_00a73a26(QFrame *param_1)
 
@@ -50058,7 +50058,7 @@ void FUN_00a73a54(long param_1)
 }
 
 
-// ==== entry=00a73a5a name=FUN_00a73a5a size=23 ====
+// ==== entry=00a73a5a orig=FUN_00a73a5a size=23 name=SciPreview_dtor_deleting ====
 
 void FUN_00a73a5a(void *param_1)
 
@@ -53350,7 +53350,7 @@ void FUN_00a78e36(void)
 }
 
 
-// ==== entry=00a78e38 name=FUN_00a78e38 size=24 ====
+// ==== entry=00a78e38 orig=FUN_00a78e38 size=24 name=SciPreview_metaObject ====
 
 undefined ** FUN_00a78e38(long param_1)
 
@@ -53365,7 +53365,7 @@ undefined ** FUN_00a78e38(long param_1)
 }
 
 
-// ==== entry=00a78e50 name=FUN_00a78e50 size=66 ====
+// ==== entry=00a78e50 orig=FUN_00a78e50 size=66 name=SciPreview_qt_metacast ====
 
 char * FUN_00a78e50(char *param_1,char *param_2)
 
@@ -53385,7 +53385,7 @@ char * FUN_00a78e50(char *param_1,char *param_2)
 }
 
 
-// ==== entry=00a78e92 name=qt_metacall size=5 ====
+// ==== entry=00a78e92 orig=qt_metacall size=5 name=SciPreview_qt_metacall ====
 
 void QFrame::qt_metacall(void)
 
@@ -53592,7 +53592,7 @@ LAB_00a78fa0:
 }
 
 
-// ==== entry=00a792d0 name=FUN_00a792d0 size=162 ====
+// ==== entry=00a792d0 orig=FUN_00a792d0 size=162 name=UniversalChardet_dtor ====
 
 void FUN_00a792d0(long *param_1)
 
@@ -53694,7 +53694,7 @@ void FUN_00a79450(void *param_1)
 }
 
 
-// ==== entry=00a79470 name=FUN_00a79470 size=5 ====
+// ==== entry=00a79470 orig=FUN_00a79470 size=5 name=UniversalChardet_dtor_deleting ====
 
 void FUN_00a79470(long param_1,undefined8 param_2)
 
@@ -53726,7 +53726,7 @@ undefined8 FUN_00a794b0(long param_1)
 }
 
 
-// ==== entry=00a794c0 name=thunk_FUN_00a78f00 size=5 ====
+// ==== entry=00a794c0 orig=thunk_FUN_00a78f00 size=5 name=UniversalChardet_qt_metacall ====
 
 undefined8 thunk_FUN_00a78f00(long param_1,char *param_2,uint param_3)
 
@@ -53919,7 +53919,7 @@ void thunk_FUN_00a78ea0(long param_1)
 }
 
 
-// ==== entry=00a794e0 name=FUN_00a794e0 size=19 ====
+// ==== entry=00a794e0 orig=FUN_00a794e0 size=19 name=UniversalChardet_metaObject ====
 
 void FUN_00a794e0(undefined8 *param_1)
 
@@ -53930,7 +53930,7 @@ void FUN_00a794e0(undefined8 *param_1)
 }
 
 
-// ==== entry=00a79500 name=FUN_00a79500 size=37 ====
+// ==== entry=00a79500 orig=FUN_00a79500 size=37 name=UniversalChardet_qt_metacast ====
 
 void FUN_00a79500(undefined8 *param_1)
 
@@ -54260,7 +54260,7 @@ void FUN_00a79a10(void *param_1)
 }
 
 
-// ==== entry=00a79a20 name=FUN_00a79a20 size=62 ====
+// ==== entry=00a79a20 orig=FUN_00a79a20 size=62 name=JapaneseContextAnalysis_dtor_deleting ====
 
 void FUN_00a79a20(undefined8 *param_1)
 
@@ -55568,7 +55568,7 @@ void FUN_00a7b2b0(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7b300 name=FUN_00a7b300 size=33 ====
+// ==== entry=00a7b300 orig=FUN_00a7b300 size=33 name=EUCTWDistributionAnalysis_metaObject ====
 
 int FUN_00a7b300(undefined8 param_1,byte *param_2)
 
@@ -55580,7 +55580,7 @@ int FUN_00a7b300(undefined8 param_1,byte *param_2)
 }
 
 
-// ==== entry=00a7b330 name=FUN_00a7b330 size=33 ====
+// ==== entry=00a7b330 orig=FUN_00a7b330 size=33 name=EUCTWDistributionAnalysis_dtor ====
 
 int FUN_00a7b330(undefined8 param_1,byte *param_2)
 
@@ -55592,7 +55592,7 @@ int FUN_00a7b330(undefined8 param_1,byte *param_2)
 }
 
 
-// ==== entry=00a7b360 name=FUN_00a7b360 size=38 ====
+// ==== entry=00a7b360 orig=FUN_00a7b360 size=38 name=EUCKRDistributionAnalysis_dtor ====
 
 int FUN_00a7b360(undefined8 param_1,byte *param_2)
 
@@ -55604,7 +55604,7 @@ int FUN_00a7b360(undefined8 param_1,byte *param_2)
 }
 
 
-// ==== entry=00a7b390 name=FUN_00a7b390 size=50 ====
+// ==== entry=00a7b390 orig=FUN_00a7b390 size=50 name=GB2312DistributionAnalysis_dtor ====
 
 int FUN_00a7b390(undefined8 param_1,byte *param_2)
 
@@ -55624,7 +55624,7 @@ int FUN_00a7b390(undefined8 param_1,byte *param_2)
 }
 
 
-// ==== entry=00a7b3d0 name=FUN_00a7b3d0 size=77 ====
+// ==== entry=00a7b3d0 orig=FUN_00a7b3d0 size=77 name=Big5DistributionAnalysis_dtor ====
 
 int FUN_00a7b3d0(undefined8 param_1,byte *param_2)
 
@@ -55642,7 +55642,7 @@ int FUN_00a7b3d0(undefined8 param_1,byte *param_2)
 }
 
 
-// ==== entry=00a7b420 name=FUN_00a7b420 size=33 ====
+// ==== entry=00a7b420 orig=FUN_00a7b420 size=33 name=SJISDistributionAnalysis_dtor ====
 
 int FUN_00a7b420(undefined8 param_1,byte *param_2)
 
@@ -55654,7 +55654,7 @@ int FUN_00a7b420(undefined8 param_1,byte *param_2)
 }
 
 
-// ==== entry=00a7b450 name=FUN_00a7b450 size=67 ====
+// ==== entry=00a7b450 orig=FUN_00a7b450 size=67 name=SJISContextAnalysis_metaObject ====
 
 int FUN_00a7b450(undefined8 param_1,char *param_2,undefined4 *param_3)
 
@@ -55675,7 +55675,7 @@ int FUN_00a7b450(undefined8 param_1,char *param_2,undefined4 *param_3)
 }
 
 
-// ==== entry=00a7b4b0 name=FUN_00a7b4b0 size=72 ====
+// ==== entry=00a7b4b0 orig=FUN_00a7b4b0 size=72 name=SJISContextAnalysis_dtor_deleting ====
 
 int FUN_00a7b4b0(undefined8 param_1,byte *param_2,int *param_3)
 
@@ -55764,7 +55764,7 @@ void FUN_00a7b620(void)
 }
 
 
-// ==== entry=00a7b650 name=FUN_00a7b650 size=35 ====
+// ==== entry=00a7b650 orig=FUN_00a7b650 size=35 name=SJISContextAnalysis_qt_metacast ====
 
 int FUN_00a7b650(undefined8 param_1,char *param_2)
 
@@ -55776,7 +55776,7 @@ int FUN_00a7b650(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=00a7b680 name=FUN_00a7b680 size=35 ====
+// ==== entry=00a7b680 orig=FUN_00a7b680 size=35 name=EUCJPContextAnalysis_qt_metacast ====
 
 int FUN_00a7b680(undefined8 param_1,char *param_2)
 
@@ -56971,7 +56971,7 @@ void FUN_00a7cad0(void *param_1)
 }
 
 
-// ==== entry=00a7cae0 name=FUN_00a7cae0 size=14 ====
+// ==== entry=00a7cae0 orig=FUN_00a7cae0 size=14 name=ByteArrayBimap_dtor ====
 
 undefined8 * FUN_00a7cae0(undefined8 *param_1)
 
@@ -56981,7 +56981,7 @@ undefined8 * FUN_00a7cae0(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7caee name=FUN_00a7caee size=3 ====
+// ==== entry=00a7caee orig=FUN_00a7caee size=3 name=Uint32Bimap_dtor ====
 
 undefined8 FUN_00a7caee(void)
 
@@ -57056,7 +57056,7 @@ LAB_00a7cbbd:
 }
 
 
-// ==== entry=00a7cbd0 name=FUN_00a7cbd0 size=523 ====
+// ==== entry=00a7cbd0 orig=FUN_00a7cbd0 size=523 name=ByteArrayBimap_qt_metacall ====
 
 int FUN_00a7cbd0(long param_1,QByteArray *param_2)
 
@@ -57176,7 +57176,7 @@ LAB_00a7cc40:
 }
 
 
-// ==== entry=00a7cde0 name=FUN_00a7cde0 size=544 ====
+// ==== entry=00a7cde0 orig=FUN_00a7cde0 size=544 name=Uint32Bimap_qt_metacall ====
 
 int FUN_00a7cde0(long param_1,uint *param_2)
 
@@ -57350,7 +57350,7 @@ void FUN_00a7d006(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00a7d038 name=FUN_00a7d038 size=86 ====
+// ==== entry=00a7d038 orig=FUN_00a7d038 size=86 name=ByteArrayBimap_metaObject ====
 
 void FUN_00a7d038(undefined8 *param_1)
 
@@ -57377,7 +57377,7 @@ LAB_00a7d064:
 }
 
 
-// ==== entry=00a7d08e name=FUN_00a7d08e size=99 ====
+// ==== entry=00a7d08e orig=FUN_00a7d08e size=99 name=ByteArrayBimap_qt_metacast ====
 
 void FUN_00a7d08e(undefined8 *param_1)
 
@@ -57443,7 +57443,7 @@ long * FUN_00a7d0f2(long *param_1,long *param_2,uint param_3)
 }
 
 
-// ==== entry=00a7d180 name=FUN_00a7d180 size=83 ====
+// ==== entry=00a7d180 orig=FUN_00a7d180 size=83 name=Uint32Bimap_metaObject ====
 
 void FUN_00a7d180(undefined8 *param_1)
 
@@ -57474,7 +57474,7 @@ LAB_00a7d1cd:
 }
 
 
-// ==== entry=00a7d1d4 name=FUN_00a7d1d4 size=108 ====
+// ==== entry=00a7d1d4 orig=FUN_00a7d1d4 size=108 name=Uint32Bimap_qt_metacast ====
 
 void FUN_00a7d1d4(undefined8 *param_1)
 

@@ -18921,7 +18921,7 @@ LAB_00692ff0:
 }
 
 
-// ==== entry=00693036 name=FUN_00693036 size=575 ====
+// ==== entry=00693036 orig=FUN_00693036 size=575 name=King::MenuBar::MenuBar ====
 
 /* WARNING: Removing unreachable block (ram,0x0069325a) */
 /* WARNING: Removing unreachable block (ram,0x0069321f) */
@@ -22077,7 +22077,7 @@ undefined8 FUN_00696da8(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00696dbe name=FUN_00696dbe size=208 ====
+// ==== entry=00696dbe orig=FUN_00696dbe size=208 name=ToolRunner_dtor ====
 
 /* WARNING: Removing unreachable block (ram,0x00696e36) */
 /* WARNING: Removing unreachable block (ram,0x00696e83) */
@@ -22134,7 +22134,7 @@ LAB_00696e06:
 }
 
 
-// ==== entry=00696e8e name=FUN_00696e8e size=23 ====
+// ==== entry=00696e8e orig=FUN_00696e8e size=23 name=ToolRunner_dtor_deleting ====
 
 void FUN_00696e8e(void *param_1)
 
@@ -24250,7 +24250,7 @@ undefined8 FUN_00699ac2(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00699b7a name=FUN_00699b7a size=151 ====
+// ==== entry=00699b7a orig=FUN_00699b7a size=151 name=TriggerData_metaObject ====
 
 void FUN_00699b7a(undefined8 *param_1)
 
@@ -24281,7 +24281,7 @@ void FUN_00699b7a(undefined8 *param_1)
 }
 
 
-// ==== entry=00699c12 name=FUN_00699c12 size=23 ====
+// ==== entry=00699c12 orig=FUN_00699c12 size=23 name=TriggerData_qt_metacast ====
 
 void FUN_00699c12(void *param_1)
 
@@ -24427,7 +24427,7 @@ undefined * FUN_00699f0c(void)
 }
 
 
-// ==== entry=00699f90 name=FUN_00699f90 size=163 ====
+// ==== entry=00699f90 orig=FUN_00699f90 size=163 name=TriggerCenter_dtor ====
 
 void FUN_00699f90(QObject *param_1)
 
@@ -24461,7 +24461,7 @@ void FUN_00699f90(QObject *param_1)
 }
 
 
-// ==== entry=0069a034 name=FUN_0069a034 size=23 ====
+// ==== entry=0069a034 orig=FUN_0069a034 size=23 name=TriggerCenter_dtor_deleting ====
 
 void FUN_0069a034(void *param_1)
 
@@ -32377,7 +32377,7 @@ undefined8 * FUN_006a4e9a(undefined8 *param_1,long param_2,QString *param_3)
 }
 
 
-// ==== entry=006a4f28 name=FUN_006a4f28 size=689 ====
+// ==== entry=006a4f28 orig=FUN_006a4f28 size=689 name=TunnelCenter_dtor ====
 
 void FUN_006a4f28(QObject *param_1)
 
@@ -32547,7 +32547,7 @@ LAB_006a50e9:
 }
 
 
-// ==== entry=006a51da name=FUN_006a51da size=23 ====
+// ==== entry=006a51da orig=FUN_006a51da size=23 name=TunnelCenter_dtor_deleting ====
 
 void FUN_006a51da(void *param_1)
 
@@ -34721,7 +34721,7 @@ void FUN_006a8208(undefined8 param_1,QAction *param_2)
 }
 
 
-// ==== entry=006a872d name=FUN_006a872d size=420 ====
+// ==== entry=006a872d orig=FUN_006a872d size=420 name=King::applyMenuShortcut ====
 
 void FUN_006a872d(int param_1,void *param_2)
 
@@ -34911,7 +34911,7 @@ LAB_006a8aca:
 }
 
 
-// ==== entry=006a8b32 name=FUN_006a8b32 size=1 ====
+// ==== entry=006a8b32 orig=FUN_006a8b32 size=1 name=TunnelSession_qt_metacast ====
 
 void FUN_006a8b32(void)
 
@@ -34920,7 +34920,7 @@ void FUN_006a8b32(void)
 }
 
 
-// ==== entry=006a8b34 name=FUN_006a8b34 size=1 ====
+// ==== entry=006a8b34 orig=FUN_006a8b34 size=1 name=TunnelSession_qt_metacall ====
 
 void FUN_006a8b34(void)
 
@@ -34929,7 +34929,7 @@ void FUN_006a8b34(void)
 }
 
 
-// ==== entry=006a8b36 name=FUN_006a8b36 size=1 ====
+// ==== entry=006a8b36 orig=FUN_006a8b36 size=1 name=TunnelSession_dtor_deleting ====
 
 void FUN_006a8b36(void)
 
@@ -34984,7 +34984,7 @@ void FUN_006a8b40(void)
 }
 
 
-// ==== entry=006a8b50 name=FUN_006a8b50 size=365 ====
+// ==== entry=006a8b50 orig=FUN_006a8b50 size=365 name=TunnelSession_metaObject ====
 
 void * FUN_006a8b50(undefined8 param_1,undefined8 param_2)
 
@@ -35026,7 +35026,7 @@ void * FUN_006a8b50(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=006a8cd6 name=FUN_006a8cd6 size=19 ====
+// ==== entry=006a8cd6 orig=FUN_006a8cd6 size=19 name=SlipButtonAction_dtor ====
 
 void FUN_006a8cd6(QWidgetAction *param_1)
 
@@ -35037,7 +35037,7 @@ void FUN_006a8cd6(QWidgetAction *param_1)
 }
 
 
-// ==== entry=006a8cea name=FUN_006a8cea size=37 ====
+// ==== entry=006a8cea orig=FUN_006a8cea size=37 name=SlipButtonAction_dtor_deleting ====
 
 void FUN_006a8cea(QWidgetAction *param_1)
 
@@ -35049,7 +35049,7 @@ void FUN_006a8cea(QWidgetAction *param_1)
 }
 
 
-// ==== entry=006a8d10 name=FUN_006a8d10 size=54 ====
+// ==== entry=006a8d10 orig=FUN_006a8d10 size=54 name=TunnelSession_dtor ====
 
 void FUN_006a8d10(long param_1,char param_2)
 
@@ -46600,7 +46600,7 @@ void FUN_006b9156(undefined8 *param_1)
 }
 
 
-// ==== entry=006b91a6 name=FUN_006b91a6 size=79 ====
+// ==== entry=006b91a6 orig=FUN_006b91a6 size=79 name=LogDialog_dtor_deleting ====
 
 void FUN_006b91a6(QDialog *param_1)
 
@@ -46647,7 +46647,7 @@ void FUN_006b91f6(undefined8 *param_1)
 }
 
 
-// ==== entry=006b923a name=FUN_006b923a size=66 ====
+// ==== entry=006b923a orig=FUN_006b923a size=66 name=LogDialog_dtor ====
 
 void FUN_006b923a(QDialog *param_1)
 
@@ -55275,7 +55275,7 @@ void FUN_006c5d50(int param_1,void *param_2,long param_3,long *param_4,undefined
 }
 
 
-// ==== entry=006c5db6 name=FUN_006c5db6 size=55 ====
+// ==== entry=006c5db6 orig=FUN_006c5db6 size=55 name=TableItemDialog_dtor ====
 
 void FUN_006c5db6(QDialog *param_1)
 
@@ -55500,7 +55500,7 @@ void FUN_006c62f0(undefined8 *param_1)
 }
 
 
-// ==== entry=006c6342 name=FUN_006c6342 size=68 ====
+// ==== entry=006c6342 orig=FUN_006c6342 size=68 name=TableItemDialog_dtor_deleting ====
 
 void FUN_006c6342(QDialog *param_1)
 
@@ -60765,7 +60765,7 @@ LAB_006ce3c1:
 }
 
 
-// ==== entry=006ce568 name=FUN_006ce568 size=217 ====
+// ==== entry=006ce568 orig=FUN_006ce568 size=217 name=ProfileDialog_dtor ====
 
 void FUN_006ce568(QDialog *param_1)
 
@@ -60844,7 +60844,7 @@ void FUN_006ce641(long param_1)
 }
 
 
-// ==== entry=006ce64a name=FUN_006ce64a size=23 ====
+// ==== entry=006ce64a orig=FUN_006ce64a size=23 name=ProfileDialog_dtor_deleting ====
 
 void FUN_006ce64a(void *param_1)
 
