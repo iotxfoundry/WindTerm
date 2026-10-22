@@ -1,7 +1,9 @@
 #include "ThemeManager.h"
 
-#include <QDir>
-#include <QFileInfo>
+#include <QApplication>
+#include <QCoreApplication>
+#include <QFile>
+#include <QFont>
 
 ThemeManager &ThemeManager::instance()
 {
@@ -9,16 +11,35 @@ ThemeManager &ThemeManager::instance()
     return manager;
 }
 
-void ThemeManager::setTheme(const QString &name)
+bool ThemeManager::loadTheme(const QString &name)
 {
-    m_theme = name;
-    m_images.clear();
+    QFile file(QStringLiteral("assets/themes/%1/gui.theme").arg(name));
+    if (!file.open(QIODevice::ReadOnly))
+        return false;
 
-    const QDir dir(QStringLiteral("assets/themes/%1/images").arg(name));
-    if (!dir.exists())
-        return; // 主题资产缺失时静默跳过
+    QByteArray data = file.readAll();
+    if (data.startsWith("\xEF\xBB\xBF"))
+        data.remove(0, 3);
 
-    const QFileInfoList files = dir.entryInfoList({QStringLiteral("*.svg")}, QDir::Files, QDir::Name);
-    for (const QFileInfo &file : files)
-        m_images.append(file.absoluteFilePath());
+    QString text = QString::fromUtf8(data);
+    text.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
+
+    const QString appDir = QCoreApplication::applicationDirPath();
+    text.replace(QStringLiteral("${AppDir}/global/themes"), appDir + QStringLiteral("/../assets/themes"));
+
+    text.replace(QStringLiteral("${AppDir}"), appDir + QStringLiteral("/.."));
+
+    QString fontFamily = QApplication::font().family();
+    if (fontFamily.isEmpty())
+        fontFamily = QStringLiteral("monospace");
+    text.replace(QStringLiteral("${SystemFonts}"), fontFamily);
+
+    m_currentTheme = name;
+    m_qss = text;
+    return true;
+}
+
+void ThemeManager::apply() const
+{
+    qApp->setStyleSheet(m_qss);
 }

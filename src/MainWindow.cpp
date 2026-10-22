@@ -43,12 +43,16 @@ MainWindow::MainWindow(QWidget *parent)
     resize(1200, 800);
     setAttribute(Qt::WA_DeleteOnClose);
 
+    WindConfig::instance().load(QStringLiteral("assets/config/wind.config"));
+
     const double opacity = WindConfig::instance().valueToDouble(QStringLiteral("application.windowOpacity"), 1.0);
     if (opacity > 0.0 && opacity < 1.0)
         setWindowOpacity(opacity);
 
-    ThemeManager::instance().setTheme(QStringLiteral("default"));
-    WindConfig::instance().load(QStringLiteral("assets/config/wind.config"));
+    const QString theme = WindConfig::instance().valueToString(QStringLiteral("application.themeGui"), QStringLiteral("dige-black"));
+    ThemeManager::instance().loadTheme(theme);
+    ThemeManager::instance().apply();
+
     m_locale.load(QStringLiteral("assets/locales/zh-CN.locale"));
 
     createMenus();
@@ -170,6 +174,7 @@ void MainWindow::createStatusBar()
     statusBar()->addPermanentWidget(new QLabel(tr("Remote Mode"), this));
     statusBar()->addPermanentWidget(new QLabel(tr("Ln 1 Ch 1"), this));
     statusBar()->addPermanentWidget(new QLabel(tr("localhost"), this));
+    statusBar()->addPermanentWidget(new QLabel(ThemeManager::instance().currentTheme(), this));
 
     m_clockLabel = new QLabel(this);
     statusBar()->addPermanentWidget(m_clockLabel);

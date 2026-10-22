@@ -28,7 +28,7 @@ assets/themes/<theme>/images/*.svg
 assets/locales/<locale>.locale
 ```
 
-资产缺失时 `ThemeManager` 静默跳过，界面仍可正常显示。
+资产缺失时 `ThemeManager` 静默跳过，界面仍可正常显示。`ThemeManager` 加载真实 WindTerm 主题 `assets/themes/<name>/gui.theme`（完整 QSS），替换 `${AppDir}`/`${SystemFonts}` 变量后 `setStyleSheet` 应用；主题名取自 `wind.config` 的 `application.themeGui`（默认 `dige-black`）。
 
 ## 结构
 
