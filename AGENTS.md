@@ -52,6 +52,14 @@ QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存
 
 零警告 + 离屏运行存活 = 可提交的最低标准；改布局后须断言 splitter 树方向/计数/比例。
 
+## 破解留痕铁律（用户指令 2026-10-23）
+
+**每次反汇编破解必须三步留痕，缺一不可：**
+1. **存档**：反编译产物存入 `reference/asm/0x<地址>_<角色名>.c`（Ghidra headless `-postScript DecompileDump.java`，脚本在 /tmp 或重写于 tools/）
+2. **应用**：把破解出的规则应用到 src/ 对应代码（不允许只记录不实现）
+3. **记录**：在 `docs/cracked-rules.md` 增加一行（规则→证据函数→代码落点），大发现另开 `docs/phase<N>-findings.md`
+参照库索引见 `reference/README.md`——先查参照库，已破解的不再重复反汇编。
+
 ## 禁用素材（用户指令 2026-10-22）
 
 **不要参考 2020 年英文截图**（`WindTerm/images/screenshots/WindTerm.png`、`SplitView.png`、`WindTerm_DigeWhite_Theme.png`）——那是旧版行为（如菜单编号 "Session (1)"、"(&%1)"），与 2.7.0 不符，已两次误导布局/编号判断。
