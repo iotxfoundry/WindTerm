@@ -12,7 +12,7 @@
 - 分组：Text 226、Window 94、Terminal 52、FilerPane 35、Mux 29、Editor 20、OutlinePane 11、Dock 9、SessionPane 9、Application 8、OutputPane 8、Tool 8、Tmux 7、SenderPane 5、TransferPane 3、Help 2
 - 文件不是严格 JSON（含未转义控制字符）——解析需宽松处理
 
-### `global/wind.config`（5984B，~70 个配置键，严格 JSON + BOM）
+### `global/wind.config`（5984B，~70 个配置键，JSON + BOM；实测含 2 处 `//` 行尾注释，非严格 JSON，解析需字符串感知剥离）
 全部默认值可见，与二进制字符串互证（`application.windowOpacity`、`application.themeGui: dige-black`、`tabbar.*`、`terminal.*`、`quickbar.*`…）。**这就是设置对话框的完整键空间。**
 
 ### `global/wind.keymaps`（69KB）
