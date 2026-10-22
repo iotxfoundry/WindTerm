@@ -1,41 +1,53 @@
-# 还原路线（GUI 骨架）
+# 还原路线 v2 —— 从界面壳到功能实现
 
-目标：**可编译、可运行的 Qt Widgets 工程**，复现 WindTerm 界面壳（窗口/面板/菜单/主题/文案），slot 全部留空——能看，不连接。
+日期：2026-10-22 · 前序：Phase 1–8 界面壳已完成（见 docs/ 各 findings 与 visual-acceptance）
+转折：界面验收通过，进入**功能实现**阶段。
 
-## 阶段
+## 功能地基盘点（证据）
 
-### Phase 1 — 工程骨架（本次交付）
-- CMake + Qt5（≥5.15）Widgets 工程
-- 类声明还原自二进制元数据（命名保持一致）：`MainWindow`、`FilerPane`、`SessionPane`、`OutlinePane`、`SenderPane`、`TransferPane`、`MuxPaneGroup`、`CommandButtonBar` 等
-- 主窗口布局按截图组装：菜单栏 9 项 + 左/右/底停靠面板 + 彩色会话标签 + 状态栏 + 命令按钮栏
-- `ThemeManager` / `LocaleManager`：从外部 assets 目录加载主题与 1,414 条文案（结构兼容 `global/` 布局）
-- 占位内容：文件树/会话树/命令历史用静态示例数据
+作者开源源码中可直接采用的功能层（Apache-2.0）：
 
-### Phase 2 — 构造函数级精修
-- REA 链式定位：RTTI typeinfo → vtable → `MainWindow::MainWindow` 构造函数伪代码
-- 逐面板恢复真实 `addWidget/addLayout/setSpacing/setContentsMargins` 结构
-- 对话框骨架补齐：`MasterPasswordDialog`、会话设置、Session 弹窗等
+| 源码 | 内容 | 用途 |
+|---|---|---|
+| `src/Pty/`（56K） | `Pty` 抽象基类 + `UnixPty`（QProcess 派生 ShellProcess + PTY 主从 fd + QSocketNotifier）+ Win/Con（Windows，暂不编译） | 本地终端进程 |
+| `src/Protocols/TelnetProtocol` | `Protocol` 抽象 + Telnet 实现 | Telnet 会话 |
+| `src/libssh/`（4.7M 完整库源码） | libssh 本体 | SSH/SFTP 依赖（或用系统 libssh-dev） |
 
-### Phase 3 — 视觉打磨
-- 从伪代码提取代码内拼接的 qss 样式
-- 自绘控件（标签页形状、时间戳槽、按钮徽标）逐个 `paintEvent` 分析
-- 主题切换 / 布局持久化（`wind.config`/`wind.keymaps` 解析）
+闭源部分（需自研或引用第三方）：终端仿真（VT/xterm 解析）、SSH 会话编排、SFTP 界面编排。
 
-## 明确不做
-- Session/SSH/SFTP/协议逻辑（用户明确排除）
-- 终端仿真（vt100/xterm 状态机）
-- 行为级还原（slot 留空）
+## F 阶段计划
 
-## 验证标准
-1. `cmake && make` 零警告通过（Qt 5.15）
-2. 运行后主窗口与截图逐区域对照：菜单栏/四组停靠面板/标签栏/按钮栏/状态栏齐全
-3. 主题资产与文案可加载（切换 zh-CN 标题可见中文）
+### F1 本地终端可用（首个功能里程碑）
+1. vendor `src/Pty/{Pty,Pty.cpp,UnixPty,UnixPty.cpp}` + `ptyqt LICENSE`（Windows 文件不编译）
+2. `LocalSession`：包装 UnixPty，createProcess("/bin/bash")、readyRead→渲染、键盘→write、视图 resize→resizeWindow
+3. **最小 VT 过滤器**（F1 必含，否则 bash 提示符转义码刷屏）：SGR 颜色子集、CR/LF/BS/Tab/BEL、清屏/清行——以 HTML 追加渲染进 TerminalView
+4. 会话标签 ↔ LocalSession 生命周期：新建（+ 钮）/关闭（tab close）/切换（stack 切换即前后台保活）
+5. 退出检测：进程结束 → 标签标记 [完成]
 
-## 环境依赖
-```bash
-sudo apt install qtbase5-dev cmake g++   # qtbase5-dev 候选 5.15.13，当前未装（sudo 需密码）
-```
-未安装前交付物以代码正确性为准，编译验证挂起（见 investigation.md §4.3）。
+验收：骨架里点 + 得到**真正可交互的 bash**（ls 彩色、vim 基本可用性不作承诺、resize 生效）。
 
-## 资产接入
-不把 103MB 发行包拷进仓库；用 `tools/fetch-assets.sh` 从本机发行包路径复制所需子集（themes 的 images/fonts + locales）。
+### F2 终端仿真补全
+- 光标定位/滚动区/插入删除行/字符集——按需递进；评估 libvterm（MIT）替换自研解析器
+- 主题联动：SGR 缺省色映射 scheme.theme 的 terminal.ansi*
+
+### F3 SSH 会话
+- 依赖选型：系统 libssh-dev（已随发行包验证存在 libssh.so.4）或 vendor src/libssh
+- `SshSession`：connect/auth(password/key)/shell channel → 与 F1 同一渲染管线
+- 连接对话框（host/port/user/auth/记住密码可选），菜单「会话→打开」接入
+
+### F4 会话持久化
+- `user.sessions`/`reopen.history` 读写（profile 格式对齐 ~/.wind 实测结构）
+- Open Recent 子菜单接真数据
+
+### F5 Telnet
+- `TelnetSession` 包装已开源的 TelnetProtocol
+
+### F6 SFTP/传输（远期）
+- libssh sftp → FilerPane 实体化（本地/远程双栏）
+
+## 不做（维持）
+- Windows 平台（WinPty/ConPty 不编译）；完整 xterm 兼容（目标：日常 shell + ssh 工作流）；JS 脚本引擎（wind.actions 的 script 字段）
+
+## 验证基线（新增）
+- F1 起：除离屏断言外，需真机开一个 bash 标签人工验证交互（用户环节）
+- 每个功能 commit 附操作说明（如何触发该功能）
