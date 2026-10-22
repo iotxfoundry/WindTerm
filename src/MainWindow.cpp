@@ -2,7 +2,7 @@
 
 #include <QAction>
 #include <QCloseEvent>
-#include <QJsonArray>
+
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
@@ -21,6 +21,7 @@ public:
 #include <QMenuBar>
 #include <QPushButton>
 #include <QSettings>
+#include <QSignalBlocker>
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QStatusBar>
@@ -50,14 +51,13 @@ public:
 #include "panes/ShellPane.h"
 #include "panes/TransferPane.h"
 #include "widgets/ActionIcons.h"
-#include "widgets/AppletBar.h"
 #include "widgets/MuxPaneGroup.h"
-#include "widgets/PaneManager.h"
 #include "widgets/Splitter.h"
 
 namespace {
 
-const QString LAYOUT_VERSION = QStringLiteral("v2");
+// v3：中央区由动态插入改为显式原版树，v2 的 RootSplitter/CenterSplitter 旧状态必须失效
+const QString LAYOUT_VERSION = QStringLiteral("v3");
 
 QString splitterSettingsKey(const QString &objectName)
 {
@@ -70,7 +70,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_locale(LocaleManager::instance())
     , m_muxPaneGroup(nullptr)
-    , m_appletBar(nullptr)
     , m_addressBar(nullptr)
     , m_readyLabel(nullptr)
     , m_clockLabel(nullptr)
@@ -300,45 +299,63 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
 
 void MainWindow::createCentral()
 {
-    // 反汇编骨架（FUN_008cd068）保留 root；面板由移植的插入引擎 FUN_005a277a 相对 Mux 生成
+    // 0x008cd068 显式装配：0x38/0x40/0x48/0x50 为裸 QSplitter，0x58/0x60/0x68 为 Splitter 子类。
+    // 仅 0x38/0x40/0x60/0x68 设 V(=2)，0x58 保持默认 H；0x48 设 childrenCollapsible(false)
     auto *root = new Splitter(this);
     root->setOrientation(Qt::Vertical);
     root->setObjectName(QStringLiteral("RootSplitter"));
 
-    auto *muxRow = new QSplitter(Qt::Horizontal, root);
-    muxRow->setObjectName(QStringLiteral("CenterSplitter"));
-    muxRow->setChildrenCollapsible(false);
+    auto *col = new Splitter;
+    col->setObjectName(QStringLiteral("CenterColumn")); // 0x58：未 setOrientation，默认 H（左中右三列）
 
-    m_muxPaneGroup = new MuxPaneGroup(muxRow);
-    muxRow->addWidget(m_muxPaneGroup);
+    auto *left = new QSplitter(Qt::Vertical);
+    left->setObjectName(QStringLiteral("LeftPanes"));
 
     auto *tabsGroup = new QTabWidget;
     tabsGroup->addTab(new ExplorerPane(tabsGroup), m_locale.tr(QStringLiteral("Explorer")));
     tabsGroup->addTab(new SessionPane(tabsGroup), m_locale.tr(QStringLiteral("Session")));
-    PaneManager::insert(root, m_muxPaneGroup, tabsGroup, Dir::Left);
 
     auto *filerPane = new FilerPane;
-    PaneManager::insert(root, tabsGroup, filerPane, Dir::Bottom);
+    left->addWidget(tabsGroup);
+    left->addWidget(filerPane);
+    // shortcut: 原版运行时按均分插入，此处按实机侧栏截图约 2:1 定格；动态插入改走 PaneManager 时恢复均分
+    left->setSizes({2000, 1000});
+
+    auto *center = new Splitter;
+    center->setOrientation(Qt::Vertical);
+    center->setObjectName(QStringLiteral("CenterSplitter"));
+
+    auto *muxRow = new QSplitter(Qt::Horizontal);
+    muxRow->setObjectName(QStringLiteral("MuxRow"));
+    muxRow->setChildrenCollapsible(false);
+    m_muxPaneGroup = new MuxPaneGroup;
+    muxRow->addWidget(m_muxPaneGroup);
+    center->addWidget(muxRow);
+
+    auto *right = new QSplitter(Qt::Vertical);
+    right->setObjectName(QStringLiteral("RightPanes"));
 
     auto *outlineTabs = new QTabWidget;
     outlineTabs->setObjectName(QStringLiteral("OutlineTabs"));
     outlineTabs->addTab(new OutlinePane(outlineTabs), m_locale.tr(QStringLiteral("Outline")));
-    PaneManager::insert(root, m_muxPaneGroup, outlineTabs, Dir::Right);
-    outlineTabs->hide();
+    right->addWidget(outlineTabs);
+
+    auto *bottom = new QSplitter(Qt::Horizontal);
+    bottom->setObjectName(QStringLiteral("BottomPanes"));
 
     auto *bottomGroup = createBottomTabs();
-    PaneManager::insert(root, m_muxPaneGroup, bottomGroup, Dir::Bottom);
+    bottom->addWidget(bottomGroup);
     bottomGroup->hide();
 
-    m_appletBar = new AppletBar(QJsonArray(), root);
-    root->addWidget(muxRow);
-    root->addWidget(m_appletBar);
+    col->addWidget(left);
+    col->addWidget(center);
+    col->addWidget(right);
+    root->addWidget(col);
+    root->addWidget(bottom);
     setCentralWidget(root);
 
-    // 比例：Mux 4 份、左右侧列各 1 份；Mux 所在纵向 splitter 中 Mux 4 : 底栏 1
-    muxRow->setSizes({1000, 4000, 1000});
-    if (auto *muxParent = qobject_cast<QSplitter *>(m_muxPaneGroup->parentWidget()))
-        muxParent->setSizes({4000, 1000});
+    col->setSizes({1000, 4000, 1000});
+    center->setSizes({4000, 2000});
     root->setSizes({4000, 2000});
 
     // 移动分割条即持久化；所有具名 splitter（含 PaneManager 动态嵌套）统一接入
@@ -427,6 +444,15 @@ void MainWindow::onRestoreLayout()
         const QByteArray state = settings.value(splitterSettingsKey(name)).toByteArray();
         if (state.isEmpty() || !splitter->restoreState(state))
             continue;
+    }
+
+    // 右列 Outline 默认隐藏（phase8：运行时插入后 hideIndex）。必须等首次布局完成再折叠，
+    // 否则 QSplitter 会把右列份额重新归一化，左列从 1/6 变成 1/5
+    if (auto *outline = findChild<QWidget *>(QStringLiteral("OutlineTabs")))
+        outline->hide();
+    if (auto *col = findChild<Splitter *>(QStringLiteral("CenterColumn"))) {
+        QSignalBlocker blocker(col); // 程序性折叠不写入 QSettings，否则每次启动左列按比例继续缩水
+        col->hideIndex(2);
     }
 
     Q_UNIMPLEMENTED();
