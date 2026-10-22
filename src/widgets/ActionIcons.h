@@ -1,20 +1,21 @@
-// 图标解析——忠实原版（docs/phase10-findings.md）：
-// FUN_007572ac：名字 → 主题 images/<name>.svg 候选路径 → QSvgRenderer 有效则渲染；
-// 文件缺失 → 空 QIcon → QToolButton/QAction 自动回退显示文字（Qt 默认行为）。
-// 原版无 QPainter 生成器（phase5 推断已推翻）；king::colorXXX 色板见 SwatchIcons.h（已复现的模板）。
+// 图标解析——忠实原版（docs/phase10/11-findings.md）：
+// 掩码 PNG 的着色取活动主题 icon.theme 的 .pixmap .pen stroke（fallback .brush fill，再 black）；
+// 否则按名字找主题 images/<name>.svg；再空 QIcon（按钮自动回退显示文字）。
+// 原版无 QPainter 生成器（phase5 推断已推翻）；king::colorXXX 色板见 SwatchIcons.h。
 #pragma once
 #include <QColor>
 #include <QDir>
 #include <QFile>
+#include <QHash>
 #include <QIcon>
+#include <QImage>
 #include <QPixmap>
+#include <QRegularExpression>
 
 #include "core/Assets.h"
-#include "core/SchemeManager.h"
 
 namespace ActionIcons {
 
-// 主题目录：exe 同级 ../assets 优先，CWD 回退（与 Assets::dir 语义一致，避免循环依赖）
 inline QString themeImagesDir(const QString &theme) {
     const QString base = QStringLiteral("assets/themes/%1/images").arg(theme);
     if (QDir(base).exists())
@@ -22,16 +23,78 @@ inline QString themeImagesDir(const QString &theme) {
     return QStringLiteral("assets/themes/default/images");
 }
 
-// ① 菜单截图裁剪的动作图标 assets/icons/<actionId>.png
+// icon.theme 的图标色：.pixmap .pen { stroke } → .pixmap .brush { fill } → black
+inline QColor themeIconColor(const QString &theme) {
+    static QHash<QString, QColor> cache;
+    if (cache.contains(theme))
+        return cache.value(theme);
+
+    QColor color(Qt::black);
+    QFile file(Assets::dir() + QStringLiteral("/themes/%1/icon.theme").arg(theme));
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray data = file.readAll();
+        if (data.startsWith("\xEF\xBB\xBF"))
+            data.remove(0, 3);
+        QString text = QString::fromUtf8(data);
+        text.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
+
+        bool found = false;
+        const QRegularExpression penBlock(QStringLiteral("\\.pixmap\\s+\\.pen\\s*\\{([^}]*)\\}"));
+        const QRegularExpression strokeValue(QStringLiteral("stroke\\s*:\\s*([^;]+)"));
+        const QRegularExpressionMatch pen = penBlock.match(text);
+        if (pen.hasMatch()) {
+            const QRegularExpressionMatch value = strokeValue.match(pen.captured(1));
+            if (value.hasMatch()) {
+                const QColor candidate(value.captured(1).trimmed());
+                if (candidate.isValid()) {
+                    color = candidate;
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) {
+            const QRegularExpression brushBlock(QStringLiteral("\\.pixmap\\s+\\.brush\\s*\\{([^}]*)\\}"));
+            const QRegularExpression fillValue(QStringLiteral("fill\\s*:\\s*([^;]+)"));
+            const QRegularExpressionMatch brush = brushBlock.match(text);
+            if (brush.hasMatch()) {
+                const QRegularExpressionMatch value = fillValue.match(brush.captured(1));
+                if (value.hasMatch()) {
+                    const QColor candidate(value.captured(1).trimmed());
+                    if (candidate.isValid())
+                        color = candidate;
+                }
+            }
+        }
+    }
+
+    cache.insert(theme, color);
+    return color;
+}
+
+// 黑色剪影 + alpha 掩码 → 按主题色着色
+inline QIcon tintedMaskIcon(const QString &path, const QColor &color) {
+    QImage image(path);
+    if (image.isNull())
+        return QIcon();
+    image = image.convertToFormat(QImage::Format_ARGB32);
+
+    for (int y = 0; y < image.height(); ++y) {
+        QRgb *line = reinterpret_cast<QRgb *>(image.scanLine(y));
+        for (int x = 0; x < image.width(); ++x) {
+            const int alpha = qAlpha(line[x]);
+            line[x] = qRgba(color.red(), color.green(), color.blue(), alpha);
+        }
+    }
+    return QIcon(QPixmap::fromImage(image));
+}
+
+// ① 菜单截图裁剪的掩码 PNG（按 icon.theme 着色）
 // ② 主题同名 SVG（iconName 由调用方传入） ③ 空 QIcon（按钮自动回退文字）
 inline QIcon iconFor(const QString &actionId, const QString &iconName, const QString &theme) {
-    // 主题明暗决定用哪套单色 PNG（白底已转 alpha）
-    const QColor background = SchemeManager::instance().color(QStringLiteral("line.background"));
-    const bool dark = !background.isValid() || background.lightness() < 128;
-    const QString variant = dark ? QStringLiteral("dark/") : QString();
-    const QString pngPath = Assets::dir() + QStringLiteral("/icons/%1%2.png").arg(variant, actionId);
+    const QString pngPath = Assets::dir() + QStringLiteral("/icons/%1.png").arg(actionId);
     if (QFile::exists(pngPath))
-        return QIcon(pngPath);
+        return tintedMaskIcon(pngPath, themeIconColor(theme));
 
     QString name = iconName;
     name.remove(QLatin1String("king::"));

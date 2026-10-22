@@ -6,7 +6,7 @@
 # 仅用于本地界面还原研究；图标版权归 KingToolbox，不随仓库分发。
 #
 # 用法：python3 tools/extract-menu-icons.py
-# 输出：assets/icons/<ActionId>.png（浅色主题）、assets/icons/dark/<ActionId>.png（深色主题）
+# 输出：assets/icons/<ActionId>.png（纯黑剪影 + alpha 掩码，运行时按 icon.theme 着色）
 #       与 assets/icons/manifest.json（可重复运行，覆盖）。
 
 import json
@@ -21,7 +21,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MENU_CONFIG = "/opt/WindTerm_2.7.0/terminal/configs/menu.config"
 IMAGE_DIR = os.path.join(ROOT, "docs/imgs/original")
 OUT_DIR = os.path.join(ROOT, "assets/icons")
-DARK_DIR = os.path.join(OUT_DIR, "dark")
 
 
 def strip_line_comments(text):
@@ -107,7 +106,6 @@ def main():
     config = load_menu_config(MENU_CONFIG)
     menu_names = [entry["Menu"] for entry in config["Kit"]]
     os.makedirs(OUT_DIR, exist_ok=True)
-    os.makedirs(DARK_DIR, exist_ok=True)
     manifest = {}
 
     print(f"{'menu':<12} {'entries':>7} {'bands':>5} {'cropped':>7}  note")
@@ -133,25 +131,15 @@ def main():
             y1 = min(image.height, bottom + 3)
             icon = image.crop((6, y0, 38, y1))
 
-            # 白底按亮度转 alpha；浅色/深色主题各存一份单色图标
+            # 白底按亮度转 alpha，RGB 固定纯黑：运行时由 icon.theme 着色
             alpha = icon.convert("L").point(lambda value: 255 - value)
             file_name = key + ".png"
 
-            light = Image.new("RGBA", icon.size, (0x33, 0x33, 0x33, 0))
-            light.putalpha(alpha)
-            light.save(os.path.join(OUT_DIR, file_name))
+            mask = Image.new("RGBA", icon.size, (0, 0, 0, 0))
+            mask.putalpha(alpha)
+            mask.save(os.path.join(OUT_DIR, file_name))
 
-            dark = Image.new("RGBA", icon.size, (0xE3, 0xE3, 0xDD, 0))
-            dark.putalpha(alpha)
-            dark.save(os.path.join(DARK_DIR, file_name))
-
-            manifest[key] = {
-                "file": file_name,
-                "light": file_name,
-                "dark": "dark/" + file_name,
-                "menu": name,
-                "y": top,
-            }
+            manifest[key] = {"file": file_name, "menu": name, "y": top}
             cropped += 1
 
         print(f"{name:<12} {len(entries):>7} {len(bands):>5} {cropped:>7}")

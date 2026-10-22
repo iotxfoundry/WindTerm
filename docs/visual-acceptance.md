@@ -50,3 +50,10 @@
 - 会话标签可关闭/移动、+钮创建真实 bash（PTY）、AppletBar 语义图标、锁屏钮、layout.v2 持久化
 - 菜单图标：原版菜单截图逐项裁剪（96/102），透明化+双主题变体（浅 #333333/深 #e3e3dd），按主题明暗自动选择
 - Edit 菜单 6 项因截图带粘连未提取（动作回退文字）
+
+## 修复（用户反馈：浅底图标看不清）
+
+- 根因：变体选择错用 scheme.line.background（dige-black-and-white 的 scheme 是深底）→ 选了浅线条
+- 反汇编+数据面确证原版契约：图标色 = 活动主题 icon.theme 的 `.pixmap .pen stroke`（浅壳 black / 暗壳 #A1A1A1 / 激活 #007acc）
+- 修正：图标资产改存"纯黑剪影+alpha 掩码"，运行时按主题 icon.theme 着色（themeIconColor 带缓存）
+- 双主题截图复验：浅壳黑图标/暗壳灰图标均清晰（skeleton-r8-*.png）
