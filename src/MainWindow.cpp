@@ -77,6 +77,8 @@ MainWindow::MainWindow(QWidget *parent)
     , m_clockTimer(nullptr)
 {
     setWindowTitle(tr("WindTerm"));
+    // 原版 TerminalWindow（QSS #CategoryLabel 前缀，gui.theme:447）
+    setObjectName(QStringLiteral("TerminalWindow"));
     resize(1200, 800);
     setAttribute(Qt::WA_DeleteOnClose);
 
@@ -160,7 +162,8 @@ void MainWindow::createToolBar()
         return;
 
     auto *toolBar = addToolBar(name);
-    toolBar->setObjectName(QStringLiteral("Standard"));
+    // 原版工具栏类 KitBar（QToolBar 子类，0x008b31b6）；gui.theme:583 qproperty-iconSize:20px
+    toolBar->setObjectName(QStringLiteral("KitBar"));
     toolBar->setMovable(false);
     toolBar->setIconSize(QSize(16, 16));
 
@@ -171,6 +174,11 @@ void MainWindow::createToolBar()
             break;
         case ToolbarEntry::AddressBar: {
             m_addressBar = new QLineEdit(toolBar);
+            m_addressBar->setObjectName(QStringLiteral("AddressBarEdit"));
+            // gui.theme:467 AddressBar > QLineEdit{...}：骨架地址栏无 BreadCrumb 容器，后代选择器不命中，
+            // 内联同值复刻；多主题支持时移入 ThemeManager 适配段（shortcut）
+            m_addressBar->setStyleSheet(QStringLiteral(
+                "padding:4px;border:1px solid silver;background-color:white;"));
             m_addressBar->setPlaceholderText(QStringLiteral("ssh user@host"));
             m_addressBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
             connect(m_addressBar, &QLineEdit::returnPressed, this, &MainWindow::onAddressBarReturn);
@@ -375,6 +383,8 @@ QWidget *MainWindow::createBottomTabs()
 
 void MainWindow::createStatusBar()
 {
+    // 原版 AppletBar 继承 StatusBar 并覆盖名（0x00526a7c）；gui.theme:493 AppletBar QToolButton
+    statusBar()->setObjectName(QStringLiteral("AppletBar"));
     m_readyLabel = new QLabel(tr("Ready"), this);
     statusBar()->addWidget(m_readyLabel);
     statusBar()->addPermanentWidget(new QLabel(tr("Remote Mode"), this));

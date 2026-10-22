@@ -36,6 +36,9 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
     , m_screen(nullptr)
     , m_parser(nullptr)
 {
+    // 原版 TextView（MuxPane 终端区）以类名挂 objectName（0x005c6d16），驱动 gui.theme TextView 规则
+    setObjectName(QStringLiteral("TextView"));
+
     // 终端外观内聚在此，不依赖 MainWindow 的时机补丁
     const QString background = schemeColor(QStringLiteral("line.background"), QStringLiteral("#272822"));
     const QString foreground = schemeColor(QStringLiteral("terminal.ansiWhite"), QStringLiteral("#e3e3dd"));
@@ -54,6 +57,8 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
         edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         edit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }
+    // gui.theme:851 TextView > QAbstractScrollArea QScrollBar:vertical{width:16px}，原版终端区有滚动条
+    m_main->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     m_gutter->setFixedWidth(110);
     m_gutter->setFocusPolicy(Qt::NoFocus);
 
@@ -73,7 +78,9 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
             m_main->verticalScrollBar()->setValue(value);
     });
 
-    const QString gray = schemeColor(QStringLiteral("terminal.ansiBrightBlack"), QStringLiteral("#666666"));
+    // margin.* 见 scheme.theme margin.number/margin.timestamp
+    const QString lineNumber = schemeColor(QStringLiteral("margin.number"), QStringLiteral("#2B91AF"));
+    const QString timestamp = schemeColor(QStringLiteral("margin.timestamp"), QStringLiteral("gray"));
     const QString green = schemeColor(QStringLiteral("terminal.ansiGreen"), QStringLiteral("#86B42B"));
     const QString blue = schemeColor(QStringLiteral("terminal.ansiBlue"), QStringLiteral("#3465A4"));
     const QString red = schemeColor(QStringLiteral("terminal.ansiRed"), QStringLiteral("#C4265E"));
@@ -82,21 +89,24 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
     const QString user = span(QStringLiteral("neardi@LB3576"), green);
     const QString path = span(QStringLiteral("~"), blue);
 
+    const auto timestampRow = [&](const QString &text) {
+        m_gutter->appendHtml(QStringLiteral("<div align=\"right\">%1</div>").arg(span(text, timestamp)));
+    };
     m_gutter->appendPlainText(QString());
-    m_gutter->appendHtml(QStringLiteral("<div align=\"right\">[14:38:38]</div>"));
+    timestampRow(QStringLiteral("[14:38:38]"));
     m_gutter->appendPlainText(QStringLiteral(" "));
-    m_gutter->appendHtml(QStringLiteral("<div align=\"right\">[14:38:43]</div>"));
+    timestampRow(QStringLiteral("[14:38:43]"));
     m_gutter->appendPlainText(QStringLiteral(" "));
-    m_gutter->appendHtml(QStringLiteral("<div align=\"right\">[14:39:26]</div>"));
+    timestampRow(QStringLiteral("[14:39:26]"));
 
     m_main->appendHtml(span(sessionName + QStringLiteral(" terminal placeholder"), white));
-    m_main->appendHtml(span(QStringLiteral("728"), gray) + QLatin1Char(' ') + user + QLatin1Char(' ')
+    m_main->appendHtml(span(QStringLiteral("728"), lineNumber) + QLatin1Char(' ') + user + QLatin1Char(' ')
                        + path + QStringLiteral(" $ ping 192.168.1.35"));
     m_main->appendHtml(span(QStringLiteral("64 bytes from 192.168.1.35: icmp_seq=1 ttl=64 time=3.99 ms"), white));
-    m_main->appendHtml(span(QStringLiteral("733"), gray) + QLatin1Char(' ') + user + QLatin1Char(' ')
+    m_main->appendHtml(span(QStringLiteral("733"), lineNumber) + QLatin1Char(' ') + user + QLatin1Char(' ')
                        + path + QStringLiteral(" $ frpc -c wapi.toml"));
     m_main->appendHtml(span(QStringLiteral("E [proxy/proxy.go:237] connect to local service error"), red));
-    m_main->appendHtml(span(QStringLiteral("759"), gray) + QLatin1Char(' ') + user + QLatin1Char(' ')
+    m_main->appendHtml(span(QStringLiteral("759"), lineNumber) + QLatin1Char(' ') + user + QLatin1Char(' ')
                        + path + QStringLiteral(" $"));
 }
 

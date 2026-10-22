@@ -40,6 +40,8 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     , m_addButton(new QToolButton(this))
     , m_menuButton(new QToolButton(this))
 {
+    // 原版 TabGroup（QFrame：标签条+右侧按钮，0x005af896）以类名挂 objectName
+    setObjectName(QStringLiteral("TabGroup"));
     m_tabBar->setExpanding(false);
     m_tabBar->setUsesScrollButtons(true);
     m_tabBar->setElideMode(Qt::ElideRight);

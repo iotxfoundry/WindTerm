@@ -43,7 +43,14 @@ bool ThemeManager::loadTheme(const QString &name)
 
 void ThemeManager::apply() const
 {
-    qApp->setStyleSheet(m_qss);
+    // Qt QSS 类型选择器只匹配 C++ 类名（Qt5/6 实测），原版自定义类是 objectName：
+    // 把原版类名改写成 #objectName 才能命中 gui.theme 的 TextView/TabGroup/KitBar 等规则
+    QString qss = m_qss;
+    for (const char *name : {"TextView", "TabGroup", "KitBar", "AppletBar", "TerminalWindow"}) {
+        const QLatin1String token(name);
+        qss.replace(token, QStringLiteral("#") + token);
+    }
+    qApp->setStyleSheet(qss);
 
     // 原版 GUI 为白底窗体（docs/imgs/WindTerm2.7.0.png）；QSS 未覆盖的窗体角色补白
     QPalette palette = qApp->palette();
