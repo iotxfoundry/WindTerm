@@ -151,10 +151,13 @@ void MainWindow::createToolBar()
     if (name.isEmpty())
         return;
 
-    auto *toolBar = addToolBar(name);
+    // 原版 KitBar 在工具栏行（标签行之下、内容之上）。QMainWindow addToolBar 会插到 menuWidget
+    // 之上（行序颠倒）→ 改为普通 widget 挂 m_toolRow，由 createCentral 编排（单层 QMainWindow 模拟）
+    auto *toolBar = new QToolBar(name, this);
     // 原版工具栏类 KitBar（QToolBar 子类，0x008b31b6）；gui.theme:583 qproperty-iconSize:20px
     toolBar->setObjectName(QStringLiteral("KitBar"));
     toolBar->setMovable(false);
+    m_toolBar = toolBar;
 
     for (const ToolbarEntry &entry : config.entries(name)) {
         switch (entry.type) {
@@ -230,18 +233,40 @@ QAction *MainWindow::makeAction(const QString &actionId)
         action->setShortcut(QKeySequence(keys));
 
     action->setData(actionId);
+    // wind.actions Dock.TogglePane* 与 Window.TogglePane*：toggle 对应容器。
+    // 映射按骨架合并形态：原版 Session 独立 pane 与 Explorer 合并为 tabsGroup（QTabWidget），shortcut 挂账
     connect(action, &QAction::triggered, this, [this, actionId]() {
-        if (actionId == QStringLiteral("Window.TogglePaneExplorer"))
-            togglePane(findChild<ExplorerPane *>());
-        else if (actionId == QStringLiteral("Window.TogglePaneFiler"))
-            togglePane(findChild<FilerPane *>());
-        else if (actionId == QStringLiteral("Window.TogglePaneSession"))
-            togglePane(findChild<SessionPane *>());
-        else if (actionId == QStringLiteral("Window.TogglePaneOutline")) {
-            QWidget *pane = findChild<QWidget *>(QStringLiteral("OutlineTabs"));
-            togglePane(pane ? pane : findChild<OutlinePane *>());
-        } else
-            Q_UNIMPLEMENTED();
+        QString pane = actionId.section(QLatin1Char('.'), -1);
+        pane.remove(QStringLiteral("TogglePane"));
+        QWidget *target = nullptr;
+        int bottomTabIndex = -1;
+        if (pane == QStringLiteral("Explorer") || pane == QStringLiteral("Session"))
+            target = findChild<QWidget *>(QStringLiteral("ExplorerTabs"));
+        else if (pane == QStringLiteral("Filer"))
+            target = findChild<FilerPane *>();
+        else if (pane == QStringLiteral("Outline"))
+            target = findChild<QWidget *>(QStringLiteral("OutlineTabs"));
+        else if (pane == QStringLiteral("Sender") || pane == QStringLiteral("Transfer")
+                 || pane == QStringLiteral("Output") || pane == QStringLiteral("Shell")) {
+            // 五页共用 bottomGroup：toggle 整组可见并切到对应页（Sender/Transfer/Output/Search/Shell 顺序）
+            target = findChild<QWidget *>(QStringLiteral("BottomPanes"));
+            static const QStringList order = {QStringLiteral("Sender"), QStringLiteral("Transfer"),
+                                              QStringLiteral("Output"), QStringLiteral("Shell")};
+            bottomTabIndex = order.indexOf(pane);
+        }
+        if (!target)
+            return;
+        if (bottomTabIndex < 0) {
+            togglePane(target);
+            return;
+        }
+        // 五页共用 bottomGroup：显示整组并切到对应页
+        const bool showing = target->isHidden();
+        togglePane(target);
+        if (showing) {
+            if (auto *tabs = target->findChild<QTabBar *>())
+                tabs->setCurrentIndex(bottomTabIndex);
+        }
     });
     return action;
 }
@@ -291,6 +316,8 @@ void MainWindow::createCentral()
     auto *root = new Splitter(this);
     root->setOrientation(Qt::Vertical);
     root->setObjectName(QStringLiteral("RootSplitter"));
+    root->setOrientation(Qt::Vertical);
+    root->setObjectName(QStringLiteral("RootSplitter"));
 
     auto *col = new Splitter;
     col->setObjectName(QStringLiteral("CenterColumn")); // 0x58：未 setOrientation，默认 H（左中右三列）
@@ -299,6 +326,7 @@ void MainWindow::createCentral()
     left->setObjectName(QStringLiteral("LeftPanes"));
 
     auto *tabsGroup = new QTabWidget;
+    tabsGroup->setObjectName(QStringLiteral("ExplorerTabs"));
     tabsGroup->addTab(new ExplorerPane(tabsGroup), m_locale.tr(QStringLiteral("Explorer")));
     tabsGroup->addTab(new SessionPane(tabsGroup), m_locale.tr(QStringLiteral("Session")));
 
@@ -339,7 +367,22 @@ void MainWindow::createCentral()
     col->addWidget(right);
     root->addWidget(col);
     root->addWidget(bottom);
-    setCentralWidget(root);
+
+    // 实机行序（menuWidget 槽 0x008bade2 链）：菜单栏→标签行(全宽)→工具栏行(含地址栏)→内容
+    auto *centralLayout = new QVBoxLayout;
+    centralLayout->setContentsMargins(0, 0, 0, 0);
+    centralLayout->setSpacing(0);
+    if (m_muxPaneGroup)
+        centralLayout->addWidget(m_muxPaneGroup->tabBarRow());
+    if (m_toolBar) {
+        m_toolBar->setParent(this); // 脱离 addToolBar 路径后重挂；objectName KitBar 保持主题规则
+        centralLayout->addWidget(m_toolBar);
+    }
+    centralLayout->addWidget(root, 1);
+
+    auto *central = new QWidget;
+    central->setLayout(centralLayout);
+    setCentralWidget(central);
 
     col->setSizes({1000, 4000, 1000});
     center->setSizes({4000, 2000});
@@ -461,10 +504,11 @@ void MainWindow::togglePane(QWidget *pane)
 {
     if (!pane)
         return;
-    if (pane->isHidden())
-        pane->show();
-    else
-        pane->hide();
+    const bool showing = pane->isHidden();
+    pane->setVisible(showing);
+    if (showing)
+        for (QWidget *p = pane->parentWidget(); p; p = p->parentWidget())
+            p->setVisible(true);
 }
 
 void MainWindow::onPlaceholderAction()

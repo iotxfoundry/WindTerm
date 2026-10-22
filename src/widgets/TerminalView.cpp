@@ -79,6 +79,7 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
 {
     // 原版 TextView（MuxPane 终端区）以类名挂 objectName（0x005c6d16），驱动 gui.theme TextView 规则
     setObjectName(QStringLiteral("TextView"));
+    Q_UNUSED(sessionName); // 占位内容已删（NoSessions），参数保留兼容调用方
 
     // 终端外观内聚在此，不依赖 MainWindow 的时机补丁
     const QString background = schemeColor(QStringLiteral("line.background"), QStringLiteral("#272822"));
@@ -122,36 +123,8 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
             m_main->verticalScrollBar()->setValue(value);
     });
 
-    // margin.* 见 scheme.theme margin.number/margin.timestamp
-    const QString lineNumber = schemeColor(QStringLiteral("margin.number"), QStringLiteral("#2B91AF"));
-    const QString timestamp = schemeColor(QStringLiteral("margin.timestamp"), QStringLiteral("gray"));
-    const QString green = schemeColor(QStringLiteral("terminal.ansiGreen"), QStringLiteral("#86B42B"));
-    const QString blue = schemeColor(QStringLiteral("terminal.ansiBlue"), QStringLiteral("#3465A4"));
-    const QString red = schemeColor(QStringLiteral("terminal.ansiRed"), QStringLiteral("#C4265E"));
-    const QString white = schemeColor(QStringLiteral("terminal.ansiWhite"), QStringLiteral("#e3e3dd"));
-
-    const QString user = span(QStringLiteral("neardi@LB3576"), green);
-    const QString path = span(QStringLiteral("~"), blue);
-
-    const auto timestampRow = [&](const QString &text) {
-        m_gutter->appendHtml(QStringLiteral("<div align=\"right\">%1</div>").arg(span(text, timestamp)));
-    };
-    m_gutter->appendPlainText(QString());
-    timestampRow(QStringLiteral("[14:38:38]"));
-    m_gutter->appendPlainText(QStringLiteral(" "));
-    timestampRow(QStringLiteral("[14:38:43]"));
-    m_gutter->appendPlainText(QStringLiteral(" "));
-    timestampRow(QStringLiteral("[14:39:26]"));
-
-    m_main->appendHtml(span(sessionName + QStringLiteral(" terminal placeholder"), white));
-    m_main->appendHtml(span(QStringLiteral("728"), lineNumber) + QLatin1Char(' ') + user + QLatin1Char(' ')
-                       + path + QStringLiteral(" $ ping 192.168.1.35"));
-    m_main->appendHtml(span(QStringLiteral("64 bytes from 192.168.1.35: icmp_seq=1 ttl=64 time=3.99 ms"), white));
-    m_main->appendHtml(span(QStringLiteral("733"), lineNumber) + QLatin1Char(' ') + user + QLatin1Char(' ')
-                       + path + QStringLiteral(" $ frpc -c wapi.toml"));
-    m_main->appendHtml(span(QStringLiteral("E [proxy/proxy.go:237] connect to local service error"), red));
-    m_main->appendHtml(span(QStringLiteral("759"), lineNumber) + QLatin1Char(' ') + user + QLatin1Char(' ')
-                       + path + QStringLiteral(" $"));
+    // margin.*（scheme.theme margin.number/margin.timestamp）配色延迟到 attachSession/渲染路径；
+    // profile terminal.startupSessions=NoSessions：构造后空白（原版启动无假内容）
 }
 
 void TerminalView::attachSession(Session *session)

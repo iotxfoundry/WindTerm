@@ -11,6 +11,7 @@ class QLabel;
 class QLineEdit;
 class QMenu;
 class QTimer;
+class QToolBar;
 class MuxPaneGroup;
 
 class MainWindow : public QMainWindow
@@ -45,6 +46,7 @@ private:
 
     LocaleManager &m_locale;
     MuxPaneGroup *m_muxPaneGroup;
+    QToolBar *m_toolBar = nullptr;
     QLineEdit *m_addressBar;
     QLabel *m_readyLabel;
     QLabel *m_clockLabel;

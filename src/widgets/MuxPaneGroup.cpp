@@ -39,8 +39,8 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     , m_addButton(new QToolButton(this))
     , m_menuButton(new QToolButton(this))
 {
-    // 原版 TabGroup（QFrame：标签条+右侧按钮，0x005af896）以类名挂 objectName
-    setObjectName(QStringLiteral("TabGroup"));
+    // 原版 TabGroup（QFrame：标签条+右侧按钮，0x005af896）以类名挂 objectName；
+    // 标签行容器同挂 TabGroup 供 gui.theme 命中（MuxPaneGroup 自身不再是标签行）
     m_tabBar->setExpanding(false);
     m_tabBar->setUsesScrollButtons(true);
     m_tabBar->setElideMode(Qt::ElideRight);
@@ -64,11 +64,14 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     tabRow->addWidget(m_tabBar, 1);
     tabRow->addWidget(m_addButton);
     tabRow->addWidget(m_menuButton);
+    m_tabBarRow = new QWidget(this);
+    m_tabBarRow->setObjectName(QStringLiteral("TabGroup"));
+    m_tabBarRow->setLayout(tabRow);
 
     auto *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
-    layout->addLayout(tabRow);
+    layout->addWidget(m_tabBarRow);
     layout->addWidget(m_stack, 1);
 
     connect(m_tabBar, &QTabBar::currentChanged, m_stack, &QStackedWidget::setCurrentIndex);
@@ -76,9 +79,7 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     connect(m_addButton, &QToolButton::clicked, this, &MuxPaneGroup::onAddSession);
     connect(m_menuButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
 
-    addPane(tr("Local SSH"), Qt::red);
-    addPane(tr("Local Telnet"), Qt::green);
-    addPane(tr("Ubuntu"), Qt::blue);
+    // profile terminal.startupSessions=NoSessions：原版启动无标签（空 tabBar 仅 + ≡）
 }
 
 void MuxPaneGroup::addPane(const QString &title, const QColor &color)
