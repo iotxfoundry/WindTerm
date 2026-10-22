@@ -4420,7 +4420,7 @@ LAB_006d8036:
         if (*(int *)local_98 == 0) goto LAB_006d8036;
       }
       pcVar2 = *(code **)(**(long **)(param_1 + 0x90) + 0x10);
-      if (pcVar2 == FUN_0057cfa0) {
+      if (pcVar2 == FileSystemItem_vt2) {
         local_88 = (QArrayData *)(*(long **)(param_1 + 0x90))[2];
         if ((*(int *)local_88 != 0) && (*(int *)local_88 != -1)) {
           LOCK();
@@ -19228,7 +19228,7 @@ void FUN_006f1966(QWidget *param_1,undefined8 param_2)
 
 {
   QWidget::QWidget(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   *(undefined8 *)(param_1 + 0x30) = 0;
   return;
@@ -22160,7 +22160,7 @@ void FUN_006f66cb(undefined8 *param_1)
 void ConnectionTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22172,7 +22172,7 @@ void ConnectionTriggerPage_dtor(QWidget *param_1)
 void FUN_006f671b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22184,7 +22184,7 @@ void FUN_006f671b(undefined8 *param_1)
 void ConnectionTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x48);
@@ -22197,7 +22197,7 @@ void ConnectionTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f676b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x48);
@@ -22210,7 +22210,7 @@ void FUN_006f676b(undefined8 *param_1)
 void CustomLinkTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22222,7 +22222,7 @@ void CustomLinkTriggerPage_dtor(QWidget *param_1)
 void FUN_006f67bb(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22234,7 +22234,7 @@ void FUN_006f67bb(undefined8 *param_1)
 void CustomLinkTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x58);
@@ -22247,7 +22247,7 @@ void CustomLinkTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f680b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x58);
@@ -22260,7 +22260,7 @@ void FUN_006f680b(undefined8 *param_1)
 void CustomMenuTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22272,7 +22272,7 @@ void CustomMenuTriggerPage_dtor(QWidget *param_1)
 void FUN_006f685b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22284,7 +22284,7 @@ void FUN_006f685b(undefined8 *param_1)
 void CustomMenuTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x60);
@@ -22297,7 +22297,7 @@ void CustomMenuTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f68ab(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x60);
@@ -22310,7 +22310,7 @@ void FUN_006f68ab(undefined8 *param_1)
 void HighlightTextTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22322,7 +22322,7 @@ void HighlightTextTriggerPage_dtor(QWidget *param_1)
 void FUN_006f68fb(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22334,7 +22334,7 @@ void FUN_006f68fb(undefined8 *param_1)
 void HighlightTextTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x40);
@@ -22347,7 +22347,7 @@ void HighlightTextTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f694b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x40);
@@ -22360,7 +22360,7 @@ void FUN_006f694b(undefined8 *param_1)
 void PlaySoundTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22372,7 +22372,7 @@ void PlaySoundTriggerPage_dtor(QWidget *param_1)
 void FUN_006f699b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22384,7 +22384,7 @@ void FUN_006f699b(undefined8 *param_1)
 void PlaySoundTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x48);
@@ -22397,7 +22397,7 @@ void PlaySoundTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f69eb(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x48);
@@ -22410,7 +22410,7 @@ void FUN_006f69eb(undefined8 *param_1)
 void RunCommandTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22422,7 +22422,7 @@ void RunCommandTriggerPage_dtor(QWidget *param_1)
 void FUN_006f6a3b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22434,7 +22434,7 @@ void FUN_006f6a3b(undefined8 *param_1)
 void RunCommandTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x50);
@@ -22447,7 +22447,7 @@ void RunCommandTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f6a8b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x50);
@@ -22460,7 +22460,7 @@ void FUN_006f6a8b(undefined8 *param_1)
 void SendTextTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22472,7 +22472,7 @@ void SendTextTriggerPage_dtor(QWidget *param_1)
 void FUN_006f6adb(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22484,7 +22484,7 @@ void FUN_006f6adb(undefined8 *param_1)
 void SendTextTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x68);
@@ -22497,7 +22497,7 @@ void SendTextTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f6b2b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x68);
@@ -22510,7 +22510,7 @@ void FUN_006f6b2b(undefined8 *param_1)
 void ShowTooltipTriggerPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   return;
@@ -22522,7 +22522,7 @@ void ShowTooltipTriggerPage_dtor(QWidget *param_1)
 void FUN_006f6b7b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22534,7 +22534,7 @@ void FUN_006f6b7b(undefined8 *param_1)
 void ShowTooltipTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011a47f0;
+  *(undefined ***)param_1 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *(undefined **)(param_1 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x60);
@@ -22547,7 +22547,7 @@ void ShowTooltipTriggerPage_dtor_deleting(QWidget *param_1)
 void FUN_006f6bcb(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011a47f0;
+  param_1[-2] = &PTR_ConnectionTriggerPage_vt0_011a47f0;
   *param_1 = &DAT_011a49b0;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x60);
@@ -23549,9 +23549,9 @@ QTableWidgetItem * FUN_006f816a(undefined8 param_1,QString *param_2)
 }
 
 
-// ==== entry=006f82c6 name=FUN_006f82c6 size=88 ====
+// ==== entry=006f82c6 orig=FUN_006f82c6 size=88 name=TriggerActionEditPanel_h6f82c6 ====
 
-void FUN_006f82c6(QFrame *param_1)
+void TriggerActionEditPanel_h6f82c6(QFrame *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_TriggerActionEditPanel_metaObject_011955f8;
@@ -23571,7 +23571,7 @@ void FUN_006f82c6(QFrame *param_1)
 void FUN_006f831e(long param_1)
 
 {
-  FUN_006f82c6(param_1 + -0x10);
+  TriggerActionEditPanel_h6f82c6(param_1 + -0x10);
   return;
 }
 
@@ -23581,7 +23581,7 @@ void FUN_006f831e(long param_1)
 void FUN_006f8324(void *param_1)
 
 {
-  FUN_006f82c6();
+  TriggerActionEditPanel_h6f82c6();
   operator_delete(param_1,0x68);
   return;
 }
@@ -23776,7 +23776,7 @@ void TriggerActionEditPanel_dtor(undefined8 *param_1)
 {
   *param_1 = &TriggerActionEditPanel_vtable;
   param_1[2] = &PTR_FUN_0118bac8;
-  FUN_006f82c6();
+  TriggerActionEditPanel_h6f82c6();
   return;
 }
 
@@ -23805,7 +23805,7 @@ void TriggerActionEditPanel_dtor_deleting(undefined8 *param_1)
 {
   *param_1 = &TriggerActionEditPanel_vtable;
   param_1[2] = &PTR_FUN_0118bac8;
-  FUN_006f82c6();
+  TriggerActionEditPanel_h6f82c6();
   operator_delete(param_1,0x70);
   return;
 }
@@ -49403,9 +49403,9 @@ void FUN_00727098(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=007270ce name=FUN_007270ce size=124 ====
+// ==== entry=007270ce orig=FUN_007270ce size=124 name=IntValidator_vt13 ====
 
-void FUN_007270ce(long param_1,bool *param_2)
+void IntValidator_vt13(long param_1,bool *param_2)
 
 {
   QArrayData *pQVar1;
@@ -55879,7 +55879,7 @@ void FUN_0072fd14(long param_1)
             (local_60,uVar1,&local_58,param_1,&local_48,puVar2,0,0,&PTR_staticMetaObject_011ab660);
   QMetaObject::Connection::~Connection(local_60);
   uVar1 = *(undefined8 *)(param_1 + 0x40);
-  local_58 = FUN_0091b2f8;
+  local_58 = KitView_h91b2f8;
   local_50 = 0;
   local_48 = FUN_007303ca;
   local_40 = 0;
@@ -55905,7 +55905,7 @@ void FUN_0072fd14(long param_1)
             (local_60,uVar1,&local_58,param_1,&local_48,puVar2,0,0,&PTR_staticMetaObject_011ab660);
   QMetaObject::Connection::~Connection(local_60);
   uVar1 = *(undefined8 *)(param_1 + 0x40);
-  local_58 = FUN_0091b3a6;
+  local_58 = KitView_h91b3a6;
   local_50 = 0;
   local_48 = FUN_007303ca;
   local_40 = 0;
@@ -60463,9 +60463,9 @@ LAB_00735562:
 }
 
 
-// ==== entry=0073558e name=FUN_0073558e size=226 ====
+// ==== entry=0073558e orig=FUN_0073558e size=226 name=SenderPane_vt6 ====
 
-undefined8 FUN_0073558e(long param_1,QPoint *param_2,long param_3)
+undefined8 SenderPane_vt6(long param_1,QPoint *param_2,long param_3)
 
 {
   undefined8 uVar1;
@@ -60495,7 +60495,7 @@ undefined8 FUN_0073558e(long param_1,QPoint *param_2,long param_3)
       QVariant::~QVariant(local_38);
     }
   }
-  uVar1 = FUN_008c4446(param_1,param_2,param_3);
+  uVar1 = ExplorerPane_vt6(param_1,param_2,param_3);
   return uVar1;
 }
 

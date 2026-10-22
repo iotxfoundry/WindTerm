@@ -2917,7 +2917,7 @@ void FUN_004d4a06(void)
 
 {
   FUN_00525060();
-  FUN_00626248();
+  RemoteFileSystemModel_h626248();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }

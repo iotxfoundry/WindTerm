@@ -1247,23 +1247,23 @@ LAB_00818cf9:
 }
 
 
-// ==== entry=00818d06 name=FUN_00818d06 size=26 ====
+// ==== entry=00818d06 orig=FUN_00818d06 size=26 name=CTerminalConfig_vt11 ====
 
-void FUN_00818d06(undefined8 *param_1)
+void CTerminalConfig_vt11(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_01191240;
+  *param_1 = &PTR_CTerminalConfig_vt11_01191240;
   std::locale::~locale((locale *)(param_1 + 0x42));
   return;
 }
 
 
-// ==== entry=00818d20 name=FUN_00818d20 size=44 ====
+// ==== entry=00818d20 orig=FUN_00818d20 size=44 name=CTerminalConfig_vt12 ====
 
-void FUN_00818d20(undefined8 *param_1)
+void CTerminalConfig_vt12(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_01191240;
+  *param_1 = &PTR_CTerminalConfig_vt11_01191240;
   std::locale::~locale((locale *)(param_1 + 0x42));
   operator_delete(param_1,0x220);
   return;
@@ -6586,14 +6586,14 @@ undefined8 * FUN_0081e738(undefined8 *param_1,char param_2)
   if (iVar2 != 1) {
     if (iVar2 == 2) {
       pcVar3 = *(code **)(*(long *)param_1[1] + 0x10);
-      if (pcVar3 != FUN_0081751a) goto LAB_0081e7b6;
+      if (pcVar3 != CTerminalConfig_vt13) goto LAB_0081e7b6;
       param_2 = (**(code **)(*(long *)((long *)param_1[1])[0x43] + 0x20))();
     }
     std::string::push_back((string *)*param_1,param_2);
     return param_1;
   }
   pcVar3 = *(code **)(*(long *)param_1[1] + 0x18);
-  if (pcVar3 == FUN_0081752c) {
+  if (pcVar3 == CTerminalConfig_vt14) {
     cVar1 = (**(code **)(*(long *)((long *)param_1[1])[0x43] + 0x10))();
     std::string::push_back((string *)*param_1,cVar1);
     return param_1;
@@ -11294,11 +11294,11 @@ undefined8 FUN_00823120(long param_1,long *param_2,char *param_3)
                  ,"/mnt/hgfs/Develop/Library/boost_1_78_0/boost/xpressive/match_results.hpp",0x4e2);
     plVar11 = *(long **)(param_1 + 0x80);
     cVar4 = *(char *)*param_2;
-    if (*(code **)(*plVar11 + 0x20) == FUN_0081753e) {
-      pcVar13 = FUN_0081753e;
+    if (*(code **)(*plVar11 + 0x20) == CTerminalConfig_vt15) {
+      pcVar13 = CTerminalConfig_vt15;
       if (cVar4 < 'a') {
 LAB_008231c5:
-        if (pcVar13 == FUN_0081753e) {
+        if (pcVar13 == CTerminalConfig_vt15) {
           if ('@' < cVar4) goto LAB_008233f1;
           uVar3 = 0;
         }
@@ -11544,11 +11544,11 @@ FUN_008235a0(undefined8 *param_1,long param_2,long *param_3,char *param_4,undefi
                  ,"/mnt/hgfs/Develop/Library/boost_1_78_0/boost/xpressive/match_results.hpp",0x4e2);
     plVar14 = *(long **)(param_2 + 0x80);
     cVar3 = *(char *)*param_3;
-    if (*(code **)(*plVar14 + 0x20) == FUN_0081753e) {
-      pcVar16 = FUN_0081753e;
+    if (*(code **)(*plVar14 + 0x20) == CTerminalConfig_vt15) {
+      pcVar16 = CTerminalConfig_vt15;
       if (cVar3 < 'a') {
 LAB_008238ab:
-        if (pcVar16 == FUN_0081753e) {
+        if (pcVar16 == CTerminalConfig_vt15) {
           if ('@' < cVar3) goto LAB_00823cf2;
           uVar4 = 0;
         }
@@ -11841,11 +11841,11 @@ string * FUN_00823eb0(long param_1,long *param_2,char *param_3,string *param_4)
                  ,"/mnt/hgfs/Develop/Library/boost_1_78_0/boost/xpressive/match_results.hpp",0x4e2);
     plVar13 = *(long **)(param_1 + 0x80);
     cVar2 = *(char *)*param_2;
-    if (*(code **)(*plVar13 + 0x20) == FUN_0081753e) {
-      pcVar14 = FUN_0081753e;
+    if (*(code **)(*plVar13 + 0x20) == CTerminalConfig_vt15) {
+      pcVar14 = CTerminalConfig_vt15;
       if (cVar2 < 'a') {
 LAB_00824066:
-        if (pcVar14 == FUN_0081753e) {
+        if (pcVar14 == CTerminalConfig_vt15) {
           if ('@' < cVar2) goto LAB_008243a4;
           uVar3 = 0;
         }
@@ -16990,7 +16990,7 @@ LAB_0082b17d:
   FUN_00820bd0(local_120,param_2[0x46],puVar24);
   puVar17 = operator_new(0x220);
   *(undefined4 *)(puVar17 + 1) = 0;
-  *puVar17 = &PTR_FUN_01191240;
+  *puVar17 = &PTR_CTerminalConfig_vt11_01191240;
   puVar14 = puVar17 + 2;
   for (lVar21 = 0x40; lVar21 != 0; lVar21 = lVar21 + -1) {
     *puVar14 = *puVar24;
@@ -25313,7 +25313,7 @@ void s_session_color_835306(QString *param_1)
   undefined8 *local_68;
   uint local_60;
   
-  FUN_008c55bc(&local_128,param_1 + 0x218);
+  KitView_vt15(&local_128,param_1 + 0x218);
   local_f8 = (undefined8 *)0x0;
   local_f0 = 0x80000000;
   iVar1 = *(int *)((long)local_128 + 4);
@@ -25693,7 +25693,7 @@ void s_process_workingDirectory_835a16(long param_1,long param_2)
     FUN_008c5734(param_1 + 0x218,&DAT_00cb6fcc,(QVariant *)local_68,0);
     QVariant::~QVariant((QVariant *)local_68);
                     /* try { // try from 00835cd9 to 00835ced has its CatchHandler @ 00835dcd */
-    FUN_008c566a(param_1 + 0x218);
+    KitView_vt7(param_1 + 0x218);
     if (lVar3 != 0) {
       FUN_00af44d0((QVariant *)local_68,(QVariant *)&local_98);
                     /* try { // try from 00835cf4 to 00835cf8 has its CatchHandler @ 00835ddd */
@@ -26772,7 +26772,7 @@ undefined8 s_session_protocol_837fea(undefined8 param_1,long param_2)
   iVar3 = QString::indexOf(param_1,local_68,0,1);
   FUN_005249f0(local_68);
                     /* try { // try from 00838060 to 00838064 has its CatchHandler @ 0083862b */
-  FUN_008c55bc(&local_110,param_2 + 0x218);
+  KitView_vt15(&local_110,param_2 + 0x218);
   if (local_110 == &QArrayData::shared_null) {
     lVar11 = 0;
   }
@@ -27087,7 +27087,7 @@ void thunk_FUN_0084123a(QObject *param_1)
   this[0x1c] = (QTimer)((byte)this[0x1c] | 1);
   pcStack_38 = QTimer::timeout;
   uStack_30 = 0;
-  pcStack_28 = FUN_009107c4;
+  pcStack_28 = TerminalWidget_h9107c4;
   uStack_20 = 0;
   puVar1 = operator_new(0x20);
   *puVar1 = 1;
@@ -30197,7 +30197,7 @@ void FUN_0083c166(undefined8 param_1)
   *(undefined8 *)(puVar1 + 4) = param_1;
   QObject::connectImpl(local_40,param_1,&local_38,param_1,0,puVar1,0,0,&PTR_PTR_011a7c00);
   QMetaObject::Connection::~Connection(local_40);
-  local_38 = FUN_009107c4;
+  local_38 = TerminalWidget_h9107c4;
   local_30 = 0;
   puVar1 = operator_new(0x18);
   *puVar1 = 1;
@@ -30464,9 +30464,9 @@ undefined8 FUN_0083c6a8(long param_1)
 }
 
 
-// ==== entry=0083c6fc name=FUN_0083c6fc size=20 ====
+// ==== entry=0083c6fc orig=FUN_0083c6fc size=20 name=TerminalWidget_h83c6fc ====
 
-undefined8 FUN_0083c6fc(long param_1)
+undefined8 TerminalWidget_h83c6fc(long param_1)
 
 {
   undefined8 uVar1;
@@ -33971,7 +33971,7 @@ void FUN_0084123a(QObject *param_1)
   this[0x1c] = (QTimer)((byte)this[0x1c] | 1);
   local_38 = QTimer::timeout;
   local_30 = 0;
-  local_28 = FUN_009107c4;
+  local_28 = TerminalWidget_h9107c4;
   local_20 = 0;
   puVar1 = operator_new(0x20);
   *puVar1 = 1;
@@ -34911,9 +34911,9 @@ void s_session__tmux_842414(long param_1)
 }
 
 
-// ==== entry=00842772 orig=FUN_00842772 size=5 name=s_session__tmux_842414 ====
+// ==== entry=00842772 orig=FUN_00842772 size=5 name=s_session__tmux_842772 ====
 
-void s_session__tmux_842414(long param_1)
+void s_session__tmux_842772(long param_1)
 
 {
   int iVar1;
@@ -37784,7 +37784,7 @@ void s_window_caretStyle_8464ec(long param_1,undefined8 *param_2)
   }
   local_58 = FUN_009131a0;
   local_50 = 0;
-  local_48 = s_session__tmux_842414;
+  local_48 = s_session__tmux_842772;
   local_40 = 0;
   puVar7 = operator_new(0x20);
   *puVar7 = 1;
@@ -39525,11 +39525,11 @@ void FUN_0084aa8d(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=0084ab1a name=FUN_0084ab1a size=822 ====
+// ==== entry=0084ab1a orig=FUN_0084ab1a size=822 name=TerminalWidget_h84ab1a ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0084ab1a(long param_1)
+void TerminalWidget_h84ab1a(long param_1)
 
 {
   long lVar1;
@@ -39681,11 +39681,11 @@ void TerminalWidget_dtor(undefined8 *param_1)
   param_1[0x20] = &PTR_FUN_011a7b68;
   param_1[0x21] = &PTR_FUN_011a7b88;
   if (*(char *)(param_1 + 0x2c) == '\0') {
-    cVar4 = FUN_0083c6fc();
+    cVar4 = TerminalWidget_h83c6fc();
     if (cVar4 == '\0') {
-      FUN_009107c4(param_1);
+      TerminalWidget_h9107c4(param_1);
     }
-    FUN_0084ab1a(param_1);
+    TerminalWidget_h84ab1a(param_1);
     FUN_007c14fe(DAT_011c1f28,param_1 + 0x21);
   }
   else if ((((*(char *)(param_1 + 0x2c) == '\x01') && (param_1[0x23] != 0)) &&
@@ -39697,7 +39697,7 @@ void TerminalWidget_dtor(undefined8 *param_1)
     else {
       lVar5 = param_1[0x3f];
     }
-    FUN_007d37e8(param_1[0x23],lVar5 + 0x1b0);
+    TerminalWidget_h7d37e8(param_1[0x23],lVar5 + 0x1b0);
   }
   FUN_005249f0(param_1 + 0x42);
   FUN_005249f0(param_1 + 0x41);
@@ -39750,7 +39750,7 @@ void TerminalWidget_dtor(undefined8 *param_1)
     FUN_00842110(pvVar1);
     operator_delete(pvVar1,0x38);
   }
-  FUN_005d4b56(param_1);
+  ScintillaEditWatcher_vt6(param_1);
   return;
 }
 
@@ -39838,7 +39838,7 @@ void s_SessionErrorMessage_84b146(long *param_1,char param_2)
   if ((param_1[0x23] != 0) && ((char)param_1[0x2c] == '\0')) {
     FUN_009107b0();
     FUN_00842778(param_1);
-    FUN_0084ab1a(param_1);
+    TerminalWidget_h84ab1a(param_1);
     pvVar1 = (void *)param_1[0x24];
     if (pvVar1 != (void *)0x0) {
       param_1[0x24] = 0;
@@ -51560,7 +51560,7 @@ void FUN_0085af56(long param_1)
     else {
       uVar5 = *(undefined8 *)(param_1 + 0xf0);
     }
-    local_28 = FUN_008f1b18;
+    local_28 = TransferBar_h8f1b18;
     local_20 = 0;
     puVar4 = operator_new(0x18);
     *puVar4 = 1;

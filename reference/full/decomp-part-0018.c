@@ -2619,9 +2619,10 @@ void FUN_00589f66(long param_1)
 }
 
 
-// ==== entry=00589f70 name=FUN_00589f70 size=436 ====
+// ==== entry=00589f70 orig=FUN_00589f70 size=436 name=TreeItemDelegate_vt13 ====
 
-undefined8 FUN_00589f70(QStyleOptionViewItem *param_1,QModelIndex *param_2,undefined8 param_3)
+undefined8
+TreeItemDelegate_vt13(QStyleOptionViewItem *param_1,QModelIndex *param_2,undefined8 param_3)
 
 {
   int iVar1;
@@ -2844,9 +2845,9 @@ void FUN_0058a3f6(undefined8 *param_1)
 }
 
 
-// ==== entry=0058a496 name=FUN_0058a496 size=2111 ====
+// ==== entry=0058a496 orig=FUN_0058a496 size=2111 name=TreeItemDelegate_vt12 ====
 
-void FUN_0058a496(long *param_1,QPointF *param_2,QStyleOption *param_3,int *param_4)
+void TreeItemDelegate_vt12(long *param_1,QPointF *param_2,QStyleOption *param_3,int *param_4)
 
 {
   long lVar1;
@@ -3726,7 +3727,7 @@ void FUN_0058b7a8(QTreeView *param_1)
   Data *pDVar7;
   Data *pDVar8;
   
-  *(undefined ***)param_1 = &PTR_FUN_0119d8d8;
+  *(undefined ***)param_1 = &PTR_CategoryTree_vt0_0119d8d8;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119dbe8;
   this = *(QRegularExpression **)(param_1 + 0x50);
   if (this != (QRegularExpression *)0x0) {
@@ -4363,7 +4364,7 @@ void s_TreeView_58c362(QTreeView *param_1,byte param_2,byte param_3,QWidget *par
   undefined8 local_30;
   
   QTreeView::QTreeView(param_1,param_4);
-  *(undefined ***)param_1 = &PTR_FUN_0119d8d8;
+  *(undefined ***)param_1 = &PTR_CategoryTree_vt0_0119d8d8;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119dbe8;
   param_1[0x30] =
        (QTreeView)((byte)param_1[0x30] & 0xf8 | (param_3 & 1) * '\x02' | (param_2 & 1) << 2);
@@ -4708,9 +4709,9 @@ void FUN_0058ca90(QPainter *param_1,QRect *param_2,QModelIndex *param_3)
 }
 
 
-// ==== entry=0058cad2 name=FUN_0058cad2 size=437 ====
+// ==== entry=0058cad2 orig=FUN_0058cad2 size=437 name=CategoryTree_vt6 ====
 
-undefined8 FUN_0058cad2(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 CategoryTree_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   char cVar1;
@@ -5323,9 +5324,9 @@ void FUN_0058d620(undefined8 param_1,QWidget *param_2)
 }
 
 
-// ==== entry=0058d638 name=FUN_0058d638 size=105 ====
+// ==== entry=0058d638 orig=FUN_0058d638 size=105 name=SideSeparator_vt14 ====
 
-undefined8 FUN_0058d638(long param_1)
+undefined8 SideSeparator_vt14(long param_1)
 
 {
   undefined4 uVar1;
@@ -6305,9 +6306,9 @@ void FUN_0058eb4d(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=0058eb86 name=FUN_0058eb86 size=270 ====
+// ==== entry=0058eb86 orig=FUN_0058eb86 size=270 name=SideButton_vt5 ====
 
-void FUN_0058eb86(QEvent *param_1,long param_2)
+void SideButton_vt5(QEvent *param_1,long param_2)
 
 {
   QArrayData *local_48;
@@ -6352,9 +6353,9 @@ LAB_0058eba0:
 }
 
 
-// ==== entry=0058ecae name=FUN_0058ecae size=100 ====
+// ==== entry=0058ecae orig=FUN_0058ecae size=100 name=SearchEdit_vt5 ====
 
-void FUN_0058ecae(QEvent *param_1,long param_2)
+void SearchEdit_vt5(QEvent *param_1,long param_2)
 
 {
   undefined8 uVar1;
@@ -6483,9 +6484,9 @@ LAB_0058eecd:
 }
 
 
-// ==== entry=0058ef3e name=FUN_0058ef3e size=197 ====
+// ==== entry=0058ef3e orig=FUN_0058ef3e size=197 name=SearchEdit_vt15 ====
 
-ulong FUN_0058ef3e(long param_1)
+ulong SearchEdit_vt15(long param_1)
 
 {
   int iVar1;
@@ -17345,13 +17346,13 @@ void FUN_005a0abc(undefined8 param_1,QWidget *param_2)
 }
 
 
-// ==== entry=005a0b1a name=FUN_005a0b1a size=1357 ====
+// ==== entry=005a0b1a orig=FUN_005a0b1a size=1357 name=PopupWidget_vt6 ====
 
 /* WARNING: Removing unreachable block (ram,0x005a0ff9) */
 /* WARNING: Removing unreachable block (ram,0x005a0fff) */
 /* WARNING: Removing unreachable block (ram,0x005a1009) */
 
-undefined4 FUN_005a0b1a(QWidget *param_1,long param_2,long param_3)
+undefined4 PopupWidget_vt6(QWidget *param_1,long param_2,long param_3)
 
 {
   ushort uVar1;
@@ -18097,19 +18098,19 @@ void Splitter__Splitter_QWidget__(QSplitter *param_1,QWidget *param_2)
 
 {
   QSplitter::QSplitter(param_1,param_2);
-  *(undefined ***)param_1 = &Splitter_vtable;
+  *(undefined ***)param_1 = &Splitter__vtable;
   *(undefined ***)(param_1 + 0x10) = &Splitter__vtable_secondary;
   *(undefined4 *)(param_1 + 0x30) = 0;
   return;
 }
 
 
-// ==== entry=005a1c2a orig=FUN_005a1c2a size=29 name=Splitter_dtor ====
+// ==== entry=005a1c2a orig=FUN_005a1c2a size=29 name=Splitter::~Splitter() ====
 
-void Splitter_dtor(QSplitter *param_1)
+void Splitter___Splitter__(QSplitter *param_1)
 
 {
-  *(undefined ***)param_1 = &Splitter_vtable;
+  *(undefined ***)param_1 = &Splitter__vtable;
   *(undefined ***)(param_1 + 0x10) = &Splitter__vtable_secondary;
   QSplitter::~QSplitter(param_1);
   return;
@@ -18121,17 +18122,17 @@ void Splitter_dtor(QSplitter *param_1)
 void FUN_005a1c47(long param_1)
 
 {
-  Splitter_dtor(param_1 + -0x10);
+  Splitter___Splitter__(param_1 + -0x10);
   return;
 }
 
 
-// ==== entry=005a1c4e orig=FUN_005a1c4e size=23 name=Splitter_dtor_deleting ====
+// ==== entry=005a1c4e orig=FUN_005a1c4e size=23 name=Splitter::~Splitter(deleting) ====
 
-void Splitter_dtor_deleting(void *param_1)
+void Splitter___Splitter_deleting_(void *param_1)
 
 {
-  Splitter_dtor();
+  Splitter___Splitter__();
   operator_delete(param_1,0x38);
   return;
 }
@@ -18142,7 +18143,7 @@ void Splitter_dtor_deleting(void *param_1)
 void FUN_005a1c65(long param_1)
 
 {
-  Splitter_dtor_deleting(param_1 + -0x10);
+  Splitter___Splitter_deleting_(param_1 + -0x10);
   return;
 }
 
@@ -23215,9 +23216,9 @@ LAB_005a89b5:
 }
 
 
-// ==== entry=005a8aa0 name=FUN_005a8aa0 size=141 ====
+// ==== entry=005a8aa0 orig=FUN_005a8aa0 size=141 name=TabBar_vt5 ====
 
-void FUN_005a8aa0(QEvent *param_1,long param_2)
+void TabBar_vt5(QEvent *param_1,long param_2)
 
 {
   ushort uVar1;
@@ -26003,9 +26004,9 @@ LAB_005abfaf:
 }
 
 
-// ==== entry=005abfd8 name=FUN_005abfd8 size=901 ====
+// ==== entry=005abfd8 orig=FUN_005abfd8 size=901 name=TabGroup_vt6 ====
 
-undefined8 FUN_005abfd8(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 TabGroup_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   double dVar1;
@@ -30494,9 +30495,9 @@ void FilterEditAction_dtor_deleting(QWidgetAction *param_1)
 }
 
 
-// ==== entry=005b2c60 name=FUN_005b2c60 size=222 ====
+// ==== entry=005b2c60 orig=FUN_005b2c60 size=222 name=CloseButtonAction_vt12 ====
 
-undefined8 FUN_005b2c60(long param_1)
+undefined8 CloseButtonAction_vt12(long param_1)
 
 {
   int iVar1;
@@ -30867,9 +30868,9 @@ void FUN_005b3110(long *param_1,long *param_2)
 }
 
 
-// ==== entry=005b3180 name=FUN_005b3180 size=87 ====
+// ==== entry=005b3180 orig=FUN_005b3180 size=87 name=FilterEditAction_vt14 ====
 
-undefined8 * FUN_005b3180(undefined8 *param_1,long param_2)
+undefined8 * FilterEditAction_vt14(undefined8 *param_1,long param_2)
 
 {
   undefined8 local_20 [2];
@@ -30955,9 +30956,9 @@ LAB_005b3327:
 }
 
 
-// ==== entry=005b33e0 name=FUN_005b33e0 size=270 ====
+// ==== entry=005b33e0 orig=FUN_005b33e0 size=270 name=SwitchButton_vt5 ====
 
-void FUN_005b33e0(QEvent *param_1,long param_2)
+void SwitchButton_vt5(QEvent *param_1,long param_2)
 
 {
   QArrayData *local_48;
@@ -44218,9 +44219,9 @@ undefined8 * FUN_005c37b0(void)
 }
 
 
-// ==== entry=005c4986 name=FUN_005c4986 size=381 ====
+// ==== entry=005c4986 orig=FUN_005c4986 size=381 name=TextEdit_vt11 ====
 
-void FUN_005c4986(char *param_1)
+void TextEdit_vt11(char *param_1)
 
 {
   long lVar1;
@@ -44289,9 +44290,9 @@ joined_r0x005c4aa6:
 }
 
 
-// ==== entry=005c4b26 name=FUN_005c4b26 size=207 ====
+// ==== entry=005c4b26 orig=FUN_005c4b26 size=207 name=TerminalWatcher_vt15 ====
 
-void FUN_005c4b26(undefined8 param_1)
+void TerminalWatcher_vt15(undefined8 param_1)
 
 {
   long lVar1;

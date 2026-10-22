@@ -6603,7 +6603,7 @@ void FUN_004fe66c(void)
   if (*(void **)(unaff_RBX + 0x38) != (void *)0x0) {
     operator_delete(*(void **)(unaff_RBX + 0x38),0x10);
   }
-  FUN_0086a570(unaff_RBX + 0x28);
+  SshExecutor_h86a570(unaff_RBX + 0x28);
   QObject::~QObject(unaff_RBX);
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
@@ -8170,7 +8170,7 @@ void FUN_004ff380(void)
   
   FUN_005249c0();
   __cxa_guard_abort(&DAT_011c24a0);
-  FUN_00875c00(unaff_RBX + 0x18);
+  ShellExecutor_h875c00(unaff_RBX + 0x18);
   QObject::~QObject(unaff_RBX);
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
@@ -10748,7 +10748,7 @@ void FUN_005005de(void)
   
   operator_delete(unaff_R12,0x18);
   FUN_008c5220();
-  FUN_005d4b56();
+  ScintillaEditWatcher_vt6();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -10761,7 +10761,7 @@ void FUN_00500606(void)
 {
   FUN_005249f0();
   FUN_008c5220();
-  FUN_005d4b56();
+  ScintillaEditWatcher_vt6();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -12867,12 +12867,12 @@ void FUN_0050143e(void)
     (**(code **)(**(long **)(unaff_RBX + 0xa0) + 8))();
   }
   FUN_008aad30();
-  *(undefined ***)(unaff_RBX + 0x60) = &PTR_FUN_01192530;
+  *(undefined ***)(unaff_RBX + 0x60) = &PTR_SharedConfigHandler_vt9_01192530;
   FUN_008aaae2();
-  FUN_008aaa3a();
-  *(undefined ***)(unaff_RBX + 0x28) = &PTR_FUN_01192530;
+  SharedConfigHandler_vt5();
+  *(undefined ***)(unaff_RBX + 0x28) = &PTR_SharedConfigHandler_vt9_01192530;
   FUN_008aaae2();
-  FUN_008aaa3a();
+  SharedConfigHandler_vt5();
   puVar2 = *(undefined8 **)(unaff_RBX + 0x10);
   while (unaff_R13 != puVar2) {
     puVar1 = (undefined8 *)*puVar2;
@@ -12897,9 +12897,9 @@ void FUN_005014c1(void)
   
   FUN_005249c0(unaff_R12 + 8);
   FUN_005249c0();
-  *(undefined ***)(unaff_RBX + 0x28) = &PTR_FUN_01192530;
+  *(undefined ***)(unaff_RBX + 0x28) = &PTR_SharedConfigHandler_vt9_01192530;
   FUN_008aaae2();
-  FUN_008aaa3a();
+  SharedConfigHandler_vt5();
   puVar2 = *(undefined8 **)(unaff_RBX + 0x10);
   while (unaff_R13 != puVar2) {
     puVar1 = (undefined8 *)*puVar2;

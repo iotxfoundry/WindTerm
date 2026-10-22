@@ -1807,9 +1807,9 @@ LAB_00533bed:
 }
 
 
-// ==== entry=00533c18 name=FUN_00533c18 size=130 ====
+// ==== entry=00533c18 orig=FUN_00533c18 size=130 name=TriggerActionEditPanel_vt6 ====
 
-ulong FUN_00533c18(QObject *param_1,QEvent *param_2,long param_3)
+ulong TriggerActionEditPanel_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   char cVar1;
@@ -3124,7 +3124,7 @@ undefined4 FUN_00535460(QModelIndex *param_1,QModelIndex *param_2,int *param_3)
 void CheckListSortFilterProxyModel_dtor(QSortFilterProxyModel *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_0119fa98;
+  *(undefined ***)param_1 = &PTR_CheckListSortFilterProxyModel_vt0_0119fa98;
   if (*(void **)(param_1 + 0x30) != (void *)0x0) {
     operator_delete(*(void **)(param_1 + 0x30));
   }
@@ -3138,7 +3138,7 @@ void CheckListSortFilterProxyModel_dtor(QSortFilterProxyModel *param_1)
 void CheckListSortFilterProxyModel_dtor_deleting(QSortFilterProxyModel *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_0119fa98;
+  *(undefined ***)param_1 = &PTR_CheckListSortFilterProxyModel_vt0_0119fa98;
   if (*(void **)(param_1 + 0x30) != (void *)0x0) {
     operator_delete(*(void **)(param_1 + 0x30));
   }
@@ -3358,9 +3358,9 @@ void FUN_00535a76(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00535ace name=FUN_00535ace size=54 ====
+// ==== entry=00535ace orig=FUN_00535ace size=54 name=CheckListPanel_vt6 ====
 
-undefined8 FUN_00535ace(long param_1,long param_2,long param_3)
+undefined8 CheckListPanel_vt6(long param_1,long param_2,long param_3)
 
 {
   undefined8 uVar1;
@@ -3371,7 +3371,7 @@ undefined8 FUN_00535ace(long param_1,long param_2,long param_3)
     *(byte *)(param_3 + 0x12) = *(byte *)(param_3 + 0x12) | 4;
     return 1;
   }
-  uVar1 = FUN_00533c18();
+  uVar1 = TriggerActionEditPanel_vt6();
   return uVar1;
 }
 
@@ -9219,7 +9219,7 @@ void FUN_0053debc(QStyledItemDelegate *param_1,QObject *param_2)
 
 {
   QStyledItemDelegate::QStyledItemDelegate(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_01194078;
+  *(undefined ***)param_1 = &PTR_ComboBoxDelegate_vt10_01194078;
   *(undefined8 *)(param_1 + 0x10) = 0;
   return;
 }
@@ -10880,9 +10880,9 @@ void s_CommandPalette_5403f6(QString *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00540500 name=FUN_00540500 size=51 ====
+// ==== entry=00540500 orig=FUN_00540500 size=51 name=CommandPalette_vt6 ====
 
-undefined8 FUN_00540500(undefined8 param_1,long param_2,long param_3)
+undefined8 CommandPalette_vt6(undefined8 param_1,long param_2,long param_3)
 
 {
   long lVar1;
@@ -13276,7 +13276,7 @@ void CommandListModel_dtor(QAbstractListModel *param_1)
   void *pvVar1;
   char cVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_0119fcb8;
+  *(undefined ***)param_1 = &PTR_AddressListModel_vt0_0119fcb8;
   cVar2 = FUN_005444d0(*(undefined8 *)(param_1 + 0x20));
   if (cVar2 == '\0') {
     QArrayData::deallocate(*(QArrayData **)(param_1 + 0x20),2,8);
@@ -13299,7 +13299,7 @@ void CommandListModel_dtor_deleting(QAbstractListModel *param_1)
   void *pvVar1;
   char cVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_0119fcb8;
+  *(undefined ***)param_1 = &PTR_AddressListModel_vt0_0119fcb8;
   cVar2 = FUN_005444d0(*(undefined8 *)(param_1 + 0x20));
   if (cVar2 == '\0') {
     QArrayData::deallocate(*(QArrayData **)(param_1 + 0x20),2,8);
@@ -19981,15 +19981,15 @@ void FUN_0054d62e(QEvent *param_1)
 }
 
 
-// ==== entry=0054d676 name=FUN_0054d676 size=55 ====
+// ==== entry=0054d676 orig=FUN_0054d676 size=55 name=BreadEdit_vt5 ====
 
-void FUN_0054d676(long param_1,long param_2)
+void BreadEdit_vt5(long param_1,long param_2)
 
 {
   if (*(short *)(param_2 + 0x10) == 100) {
     QTimer::start((int)*(undefined8 *)(param_1 + 200));
   }
-  FUN_0058ecae(param_1,param_2);
+  SearchEdit_vt5(param_1,param_2);
   return;
 }
 
@@ -21091,9 +21091,9 @@ LAB_0054edc7:
 }
 
 
-// ==== entry=0054efb6 name=FUN_0054efb6 size=176 ====
+// ==== entry=0054efb6 orig=FUN_0054efb6 size=176 name=BreadEdit_h54efb6 ====
 
-void FUN_0054efb6(long param_1)
+void BreadEdit_h54efb6(long param_1)
 
 {
   uint uVar1;
@@ -21136,7 +21136,7 @@ void BreadEdit_dtor(QLineEdit *param_1)
   
   *(undefined ***)param_1 = &BreadEdit_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119ab90;
-  FUN_0054efb6();
+  BreadEdit_h54efb6();
   FUN_00550ee0(param_1 + 0x98);
   this = *(QRegularExpression **)(param_1 + 0x78);
   if (this != (QRegularExpression *)0x0) {
@@ -21906,7 +21906,7 @@ void FUN_0055025c(long param_1)
   
   if (*(char *)(param_1 + 0x80) == '\0') goto LAB_00550459;
   *(undefined1 *)(param_1 + 0x80) = 0;
-  FUN_0054efb6();
+  BreadEdit_h54efb6();
   QIcon::QIcon((QIcon *)&local_48);
                     /* try { // try from 005502ab to 005502af has its CatchHandler @ 00550986 */
   QString::QString((QString *)&local_40,0xab);
@@ -22135,9 +22135,9 @@ LAB_00550459:
 }
 
 
-// ==== entry=0055098e name=FUN_0055098e size=989 ====
+// ==== entry=0055098e orig=FUN_0055098e size=989 name=BreadEdit_vt6 ====
 
-undefined8 FUN_0055098e(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 BreadEdit_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   double dVar1;
@@ -23032,9 +23032,9 @@ void FUN_00551a7c(long param_1)
 }
 
 
-// ==== entry=00551ada name=FUN_00551ada size=642 ====
+// ==== entry=00551ada orig=FUN_00551ada size=642 name=Completer_vt6 ====
 
-undefined8 FUN_00551ada(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 Completer_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   ushort uVar1;
@@ -23159,9 +23159,9 @@ void FUN_00551d86(QRect *param_1,undefined8 param_2,int param_3)
 }
 
 
-// ==== entry=00551e18 name=FUN_00551e18 size=6 ====
+// ==== entry=00551e18 orig=FUN_00551e18 size=6 name=VBoxLayout_vt15 ====
 
-undefined8 FUN_00551e18(void)
+undefined8 VBoxLayout_vt15(void)
 
 {
   return 1;
@@ -26228,9 +26228,9 @@ LAB_005563ca:
 }
 
 
-// ==== entry=005564a6 name=FUN_005564a6 size=87 ====
+// ==== entry=005564a6 orig=FUN_005564a6 size=87 name=FileDialog_vt6 ====
 
-void FUN_005564a6(QObject *param_1,QEvent *param_2,long param_3)
+void FileDialog_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   long lVar1;
@@ -26684,9 +26684,9 @@ void FUN_00556cac(QStyledItemDelegate *param_1,QObject *param_2)
 }
 
 
-// ==== entry=00556ce0 name=FUN_00556ce0 size=7110 ====
+// ==== entry=00556ce0 orig=FUN_00556ce0 size=7110 name=FontPreviewDelegate_vt12 ====
 
-void FUN_00556ce0(long *param_1,QPointF *param_2,QStyleOption *param_3,long param_4)
+void FontPreviewDelegate_vt12(long *param_1,QPointF *param_2,QStyleOption *param_3,long param_4)
 
 {
   QString *pQVar1;
@@ -30234,9 +30234,9 @@ void FUN_0055ad00(QMouseEvent *param_1,long param_2)
 }
 
 
-// ==== entry=0055ae74 name=FUN_0055ae74 size=49 ====
+// ==== entry=0055ae74 orig=FUN_0055ae74 size=49 name=FontPreviewWidget_vt14 ====
 
-ulong FUN_0055ae74(long param_1)
+ulong FontPreviewWidget_vt14(long param_1)
 
 {
   ulong uVar1;
@@ -30689,9 +30689,9 @@ LAB_0055b7e4:
 }
 
 
-// ==== entry=0055b83a name=FUN_0055b83a size=858 ====
+// ==== entry=0055b83a orig=FUN_0055b83a size=858 name=HighlightTextBar_vt6 ====
 
-void FUN_0055b83a(QObject *param_1,QEvent *param_2,long param_3)
+void HighlightTextBar_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   short sVar1;
@@ -31187,9 +31187,9 @@ LAB_0055c47c:
 }
 
 
-// ==== entry=0055c556 name=FUN_0055c556 size=409 ====
+// ==== entry=0055c556 orig=FUN_0055c556 size=409 name=HighlightTextBarAction_vt14 ====
 
-undefined8 * FUN_0055c556(undefined8 *param_1,long param_2,undefined8 param_3)
+undefined8 * HighlightTextBarAction_vt14(undefined8 *param_1,long param_2,undefined8 param_3)
 
 {
   int *piVar1;
@@ -31483,9 +31483,9 @@ void FUN_0055ca76(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=0055cad0 name=FUN_0055cad0 size=280 ====
+// ==== entry=0055cad0 orig=FUN_0055cad0 size=280 name=HighlightTextBarAction_vt12 ====
 
-QLayout * FUN_0055cad0(long *param_1,undefined8 param_2)
+QLayout * HighlightTextBarAction_vt12(long *param_1,undefined8 param_2)
 
 {
   uint *puVar1;
@@ -31721,9 +31721,9 @@ void FUN_0055cece(QObject *param_1)
 }
 
 
-// ==== entry=0055cf8c name=FUN_0055cf8c size=90 ====
+// ==== entry=0055cf8c orig=FUN_0055cf8c size=90 name=HoverButton_h55cf8c ====
 
-void FUN_0055cf8c(long param_1)
+void HoverButton_h55cf8c(long param_1)
 
 {
   int *piVar1;
@@ -31758,7 +31758,7 @@ void HoverButton_dtor(QToolButton *param_1)
   
   *(undefined ***)param_1 = &HoverButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011952c0;
-  FUN_0055cf8c();
+  HoverButton_h55cf8c();
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -31829,7 +31829,7 @@ LAB_0055d12a:
     if (param_2 == pQVar3) {
       return;
     }
-    FUN_0055cf8c(param_1);
+    HoverButton_h55cf8c(param_1);
     if (param_2 != (QObject *)0x0) goto LAB_0055d2d0;
     piVar5 = *(int **)(param_1 + 0x30);
     *(undefined8 *)(param_1 + 0x30) = 0;
@@ -31863,7 +31863,7 @@ LAB_0055d11b:
       pQVar3 = *(QObject **)(param_1 + 0x38);
       goto LAB_0055d12a;
     }
-    FUN_0055cf8c(param_1);
+    HoverButton_h55cf8c(param_1);
 LAB_0055d2d0:
     lVar4 = QtSharedPointer::ExternalRefCountData::getAndRef(param_2);
     piVar5 = *(int **)(param_1 + 0x30);
@@ -33530,9 +33530,9 @@ void thunk_FUN_0055f23a(QObject *param_1)
 }
 
 
-// ==== entry=0055f314 name=FUN_0055f314 size=347 ====
+// ==== entry=0055f314 orig=FUN_0055f314 size=347 name=ListWidget_vt6 ====
 
-undefined8 FUN_0055f314(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 ListWidget_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   short sVar1;
@@ -38512,9 +38512,9 @@ void FUN_00565f3a(int param_1,void *param_2)
 }
 
 
-// ==== entry=00565f64 name=FUN_00565f64 size=350 ====
+// ==== entry=00565f64 orig=FUN_00565f64 size=350 name=SlipButton_vt14 ====
 
-ulong FUN_00565f64(long param_1)
+ulong SlipButton_vt14(long param_1)
 
 {
   undefined8 uVar1;
@@ -38575,9 +38575,9 @@ LAB_00566094:
 }
 
 
-// ==== entry=005660d6 orig=FUN_005660d6 size=5 name=thunk_FUN_00565f64 ====
+// ==== entry=005660d6 orig=FUN_005660d6 size=5 name=SlipButton_vt15 ====
 
-ulong thunk_FUN_00565f64(long param_1)
+ulong SlipButton_vt15(long param_1)
 
 {
   undefined8 uVar1;
@@ -44079,7 +44079,7 @@ LAB_0056e3a6:
                     /* try { // try from 0056e31e to 0056e322 has its CatchHandler @ 0056e410 */
   local_30[0] = (QArrayData *)QString::fromAscii_helper("QuickBar",(int)sVar1);
                     /* try { // try from 0056e331 to 0056e335 has its CatchHandler @ 0056e400 */
-  King__registerBarsAndPanes(&local_38,local_30);
+  s_ExplorerPane_8a1106(&local_38,local_30);
                     /* try { // try from 0056e33c to 0056e340 has its CatchHandler @ 0056e418 */
   QWidget::setWindowTitle(param_1);
   if (*(int *)local_38 == 0) {
@@ -46303,9 +46303,9 @@ LAB_005711db:
 }
 
 
-// ==== entry=005711f0 name=FUN_005711f0 size=369 ====
+// ==== entry=005711f0 orig=FUN_005711f0 size=369 name=LabelAction_vt14 ====
 
-undefined8 * FUN_005711f0(undefined8 *param_1,long param_2,QWidget *param_3)
+undefined8 * LabelAction_vt14(undefined8 *param_1,long param_2,QWidget *param_3)
 
 {
   QLayout *pQVar1;
@@ -48254,9 +48254,9 @@ LAB_005727c0:
 }
 
 
-// ==== entry=00574bd6 name=FUN_00574bd6 size=98 ====
+// ==== entry=00574bd6 orig=FUN_00574bd6 size=98 name=TransferDelegate_vt13 ====
 
-undefined8 FUN_00574bd6(QStyleOptionViewItem *param_1,QModelIndex *param_2)
+undefined8 TransferDelegate_vt13(QStyleOptionViewItem *param_1,QModelIndex *param_2)
 
 {
   int iVar1;
@@ -48462,9 +48462,9 @@ void FUN_00574f30(QStyledItemDelegate *param_1,QObject *param_2)
 }
 
 
-// ==== entry=00574f7c name=FUN_00574f7c size=929 ====
+// ==== entry=00574f7c orig=FUN_00574f7c size=929 name=TreeItemDelegate_vt14 ====
 
-undefined8 FUN_00574f7c(long param_1,QObject *param_2)
+undefined8 TreeItemDelegate_vt14(long param_1,QObject *param_2)
 
 {
   QObject *pQVar1;
@@ -49009,9 +49009,9 @@ LAB_00575c16:
 }
 
 
-// ==== entry=00575cb6 name=FUN_00575cb6 size=92 ====
+// ==== entry=00575cb6 orig=FUN_00575cb6 size=92 name=TreeItemDelegate_vt6 ====
 
-void FUN_00575cb6(QObject *param_1,QEvent *param_2,long param_3)
+void TreeItemDelegate_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   undefined4 *puVar1;
@@ -50151,7 +50151,7 @@ undefined8 FUN_005773d6(long param_1)
     (*UNRECOVERED_JUMPTABLE)();
   }
   UNRECOVERED_JUMPTABLE = *(code **)(**(long **)(param_1 + 0x90) + 0x70);
-  if (UNRECOVERED_JUMPTABLE == FUN_0057cc5e) {
+  if (UNRECOVERED_JUMPTABLE == SftpTransfer_vt14) {
     return 0;
   }
                     /* WARNING: Could not recover jumptable at 0x00577420. Too many branches */
@@ -51242,7 +51242,7 @@ void FUN_00578a6c(long param_1,undefined8 param_2,bool param_3)
           else {
             uVar3 = *(undefined8 *)(param_1 + 0x90);
           }
-          if (*(code **)(*local_68 + 0x10) == FUN_0057cfa0) {
+          if (*(code **)(*local_68 + 0x10) == FileSystemItem_vt2) {
             local_58 = local_68[2];
             FUN_005444ac();
           }
@@ -51482,7 +51482,7 @@ void FUN_00578fe6(long param_1)
       }
       pcVar1 = *(code **)(**(long **)(param_1 + 0x90) + 0x70);
                     /* try { // try from 00579160 to 00579285 has its CatchHandler @ 00579445 */
-      if ((pcVar1 != FUN_0057cc5e) && (cVar3 = (*pcVar1)(), cVar3 != '\0')) {
+      if ((pcVar1 != SftpTransfer_vt14) && (cVar3 = (*pcVar1)(), cVar3 != '\0')) {
         QDir::toNativeSeparators((QString *)&local_78);
         pcVar1 = local_80;
         local_80 = local_78;
@@ -51875,7 +51875,7 @@ void FUN_00579ba0(QWidget *param_1,long *param_2,QString *param_3)
   
   if ((*(long *)(param_1 + 0x88) != 0) && (*(int *)(*(long *)(param_1 + 0x88) + 4) != 0)) {
     pcVar2 = *(code **)(**(long **)(param_1 + 0x90) + 0x70);
-    if (pcVar2 != FUN_0057cc5e) {
+    if (pcVar2 != SftpTransfer_vt14) {
       cVar3 = (*pcVar2)(*(long **)(param_1 + 0x90));
       if (cVar3 != '\0') {
         local_50 = &QListData::shared_null;
@@ -53165,7 +53165,7 @@ LAB_0057bc1e:
       pcVar1 = (code *)invalidInstructionException();
       (*pcVar1)();
     }
-    if ((*(code **)(**(long **)(param_1 + 0x90) + 0x78) != FUN_0057cc62) &&
+    if ((*(code **)(**(long **)(param_1 + 0x90) + 0x78) != SftpTransfer_vt15) &&
        (cVar3 = (**(code **)(**(long **)(param_1 + 0x90) + 0x78))(), cVar3 != '\0')) {
       uVar5 = *(undefined8 *)(param_1 + 0x48);
       QMetaObject::tr((char *)local_60,(char *)&PTR_staticMetaObject_0119c7c0,0xc8a7e8);
@@ -53632,18 +53632,18 @@ LAB_0057cbf9:
 }
 
 
-// ==== entry=0057cc5e name=FUN_0057cc5e size=3 ====
+// ==== entry=0057cc5e orig=FUN_0057cc5e size=3 name=SftpTransfer_vt14 ====
 
-undefined8 FUN_0057cc5e(void)
+undefined8 SftpTransfer_vt14(void)
 
 {
   return 0;
 }
 
 
-// ==== entry=0057cc62 name=FUN_0057cc62 size=3 ====
+// ==== entry=0057cc62 orig=FUN_0057cc62 size=3 name=SftpTransfer_vt15 ====
 
-undefined8 FUN_0057cc62(void)
+undefined8 SftpTransfer_vt15(void)
 
 {
   return 0;
@@ -53931,7 +53931,7 @@ undefined8 * FUN_0057ce6c(undefined8 *param_1,undefined8 *param_2)
 void FileSystemSortFilterProxyModel_dtor(QSortFilterProxyModel *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_0119fa98;
+  *(undefined ***)param_1 = &PTR_CheckListSortFilterProxyModel_vt0_0119fa98;
   if (*(void **)(param_1 + 0x30) != (void *)0x0) {
     operator_delete(*(void **)(param_1 + 0x30));
   }
@@ -53945,7 +53945,7 @@ void FileSystemSortFilterProxyModel_dtor(QSortFilterProxyModel *param_1)
 void FileSystemSortFilterProxyModel_dtor_deleting(QSortFilterProxyModel *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_0119fa98;
+  *(undefined ***)param_1 = &PTR_CheckListSortFilterProxyModel_vt0_0119fa98;
   if (*(void **)(param_1 + 0x30) != (void *)0x0) {
     operator_delete(*(void **)(param_1 + 0x30));
   }
@@ -53995,9 +53995,9 @@ LAB_0057cf38:
 }
 
 
-// ==== entry=0057cfa0 name=FUN_0057cfa0 size=33 ====
+// ==== entry=0057cfa0 orig=FUN_0057cfa0 size=33 name=FileSystemItem_vt2 ====
 
-undefined8 * FUN_0057cfa0(undefined8 *param_1,long param_2)
+undefined8 * FileSystemItem_vt2(undefined8 *param_1,long param_2)
 
 {
   int *piVar1;
@@ -55589,9 +55589,9 @@ LAB_0057ed48:
 }
 
 
-// ==== entry=0057ed96 name=FUN_0057ed96 size=1516 ====
+// ==== entry=0057ed96 orig=FUN_0057ed96 size=1516 name=HtmlDelegate_vt13 ====
 
-ulong FUN_0057ed96(long *param_1,QStyleOption *param_2,long param_3)
+ulong HtmlDelegate_vt13(long *param_1,QStyleOption *param_2,long param_3)
 
 {
   QArrayData *pQVar1;
@@ -55830,9 +55830,9 @@ void FUN_0057f3e6(long param_1,undefined1 param_2)
 }
 
 
-// ==== entry=0057f3ec name=FUN_0057f3ec size=2951 ====
+// ==== entry=0057f3ec orig=FUN_0057f3ec size=2951 name=HtmlDelegate_vt12 ====
 
-void FUN_0057f3ec(long *param_1,QPointF *param_2,QStyleOption *param_3,long param_4)
+void HtmlDelegate_vt12(long *param_1,QPointF *param_2,QStyleOption *param_3,long param_4)
 
 {
   QArrayData *pQVar1;
@@ -56896,9 +56896,9 @@ void FUN_00580f5e(long param_1)
 }
 
 
-// ==== entry=00580f68 name=FUN_00580f68 size=98 ====
+// ==== entry=00580f68 orig=FUN_00580f68 size=98 name=ListItemDelegate_vt13 ====
 
-undefined8 FUN_00580f68(QStyleOptionViewItem *param_1,QModelIndex *param_2)
+undefined8 ListItemDelegate_vt13(QStyleOptionViewItem *param_1,QModelIndex *param_2)
 
 {
   int iVar1;
@@ -57032,9 +57032,9 @@ void FUN_005812b8(long param_1,int param_2)
 }
 
 
-// ==== entry=005812cc name=FUN_005812cc size=3335 ====
+// ==== entry=005812cc orig=FUN_005812cc size=3335 name=ListItemDelegate_vt12 ====
 
-void FUN_005812cc(long *param_1,QPointF *param_2,QStyleOption *param_3,int *param_4)
+void ListItemDelegate_vt12(long *param_1,QPointF *param_2,QStyleOption *param_3,int *param_4)
 
 {
   uint *puVar1;
@@ -57929,9 +57929,9 @@ LAB_005827f5:
 }
 
 
-// ==== entry=00582940 name=FUN_00582940 size=187 ====
+// ==== entry=00582940 orig=FUN_00582940 size=187 name=HtmlList_vt14 ====
 
-ulong FUN_00582940(long *param_1)
+ulong HtmlList_vt14(long *param_1)
 
 {
   code *pcVar1;
@@ -58375,9 +58375,9 @@ undefined1 FUN_005830a8(long param_1)
 }
 
 
-// ==== entry=005830b2 name=FUN_005830b2 size=14 ====
+// ==== entry=005830b2 orig=FUN_005830b2 size=14 name=ListView_vt15 ====
 
-int FUN_005830b2(long param_1)
+int ListView_vt15(long param_1)
 
 {
   return (*(int *)(*(long *)(param_1 + 0x28) + 0x1c) - *(int *)(*(long *)(param_1 + 0x28) + 0x14)) +
@@ -58874,9 +58874,9 @@ byte FUN_00583abe(long param_1)
 }
 
 
-// ==== entry=00583ace name=FUN_00583ace size=157 ====
+// ==== entry=00583ace orig=FUN_00583ace size=157 name=ListView_vt14 ====
 
-undefined8 FUN_00583ace(long *param_1)
+undefined8 ListView_vt14(long *param_1)
 
 {
   int iVar1;
@@ -59287,9 +59287,9 @@ bool FUN_0058439a(long param_1,int param_2)
 }
 
 
-// ==== entry=005843b0 name=FUN_005843b0 size=461 ====
+// ==== entry=005843b0 orig=FUN_005843b0 size=461 name=ListView_vt6 ====
 
-undefined8 FUN_005843b0(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 ListView_vt6(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   int iVar1;
@@ -60193,7 +60193,7 @@ void FUN_005852ce(long param_1)
   uVar1 = *(undefined8 *)(param_1 + 0x40);
   local_58 = QAbstractButton::clicked;
   local_50 = 0;
-  local_48 = FUN_008f1b18;
+  local_48 = TransferBar_h8f1b18;
   local_40 = 0;
   puVar2 = operator_new(0x20);
   *puVar2 = 1;
@@ -60389,7 +60389,7 @@ LAB_00585a62:
                     /* try { // try from 005859b7 to 005859bb has its CatchHandler @ 00585acf */
   local_30[0] = (QArrayData *)QString::fromAscii_helper("TransferBar",(int)sVar1);
                     /* try { // try from 005859ca to 005859ce has its CatchHandler @ 00585abf */
-  King__registerBarsAndPanes(&local_38,local_30);
+  s_ExplorerPane_8a1106(&local_38,local_30);
                     /* try { // try from 005859d5 to 005859d9 has its CatchHandler @ 00585ad7 */
   QWidget::setWindowTitle(param_1);
   if (*(int *)local_38 == 0) {

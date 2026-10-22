@@ -8552,7 +8552,7 @@ void FUN_0051cd43(undefined8 param_1,undefined8 param_2,long param_3)
   if ((*(byte *)((long)unaff_R14 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     piVar3 = (ios *)(*(long *)(*unaff_R14 + -0x18) + (long)unaff_R14);
-    std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+    std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     if (in_stack_00000038 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -8595,7 +8595,7 @@ void FUN_0051cd6b(undefined8 param_1,undefined8 param_2,long param_3)
   if ((*(byte *)((long)unaff_R14 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     piVar3 = (ios *)(*(long *)(*unaff_R14 + -0x18) + (long)unaff_R14);
-    std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+    std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     if (in_stack_00000038 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -8642,7 +8642,7 @@ void FUN_0051cd6f(void)
   if ((*(byte *)((long)unaff_R14 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     piVar3 = (ios *)(*(long *)(*unaff_R14 + -0x18) + (long)unaff_R14);
-    std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+    std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     if (in_stack_00000038 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -8689,7 +8689,7 @@ void FUN_0051cddf(undefined8 param_1,undefined8 param_2,long param_3)
   if ((*(byte *)((long)unaff_R15 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     piVar3 = (ios *)(*(long *)(*unaff_R15 + -0x18) + (long)unaff_R15);
-    std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+    std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     if (in_stack_00000018 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -8734,7 +8734,7 @@ void FUN_0051ce08(undefined8 param_1,undefined8 param_2,long param_3)
   if ((*(byte *)((long)unaff_R15 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     piVar3 = (ios *)(*(long *)(*unaff_R15 + -0x18) + (long)unaff_R15);
-    std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+    std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     if (in_stack_00000018 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -8822,7 +8822,7 @@ void FUN_0051ce6b(undefined8 param_1,undefined8 param_2,long param_3)
   if ((*(byte *)((long)unaff_R15 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     pwVar3 = (wios *)(*(long *)(*unaff_R15 + -0x18) + (long)unaff_R15);
-    std::wios::clear(pwVar3,*(uint *)(pwVar3 + 0x20) | 4);
+    std::wios::s_basic_ios__clear_c1c9b0(pwVar3,*(uint *)(pwVar3 + 0x20) | 4);
     if (in_stack_00000018 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -8908,7 +8908,7 @@ void FUN_0051ce9c(undefined8 param_1,undefined8 param_2,long param_3)
   if ((*(byte *)((long)unaff_R15 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     pwVar3 = (wios *)(*(long *)(*unaff_R15 + -0x18) + (long)unaff_R15);
-    std::wios::clear(pwVar3,*(uint *)(pwVar3 + 0x20) | 4);
+    std::wios::s_basic_ios__clear_c1c9b0(pwVar3,*(uint *)(pwVar3 + 0x20) | 4);
     if (in_stack_00000018 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -12056,7 +12056,7 @@ void FUN_0051e364(undefined8 param_1,undefined8 param_2,long param_3)
     }
     if (lVar2 == 0) {
       piVar3 = (ios *)(*(long *)(*unaff_RBP + -0x18) + (long)unaff_RBP);
-      std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+      std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     }
     if (in_stack_00000028 == *(long *)(in_FS_OFFSET + 0x28)) {
       return;
@@ -12145,7 +12145,7 @@ void FUN_0051e469(undefined8 param_1,undefined8 param_2,long param_3)
   if ((*(byte *)((long)unaff_R13 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     piVar3 = (ios *)(*(long *)(*unaff_R13 + -0x18) + (long)unaff_R13);
-    std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+    std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     if (in_stack_00000038 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -12192,7 +12192,7 @@ void FUN_0051e492(void)
   if ((*(byte *)((long)unaff_R13 + lVar2 + 0x1c) & 1) == 0) {
     __cxa_end_catch();
     piVar3 = (ios *)(*(long *)(*unaff_R13 + -0x18) + (long)unaff_R13);
-    std::ios::clear(piVar3,*(uint *)(piVar3 + 0x20) | 4);
+    std::ios::s_basic_ios__clear_c1bf70(piVar3,*(uint *)(piVar3 + 0x20) | 4);
     if (in_stack_00000038 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
       __stack_chk_fail();
@@ -12248,7 +12248,7 @@ void FUN_0051e504(undefined8 param_1,undefined8 param_2,long param_3)
     }
     if (lVar2 == 0) {
       pwVar3 = (wios *)(*(long *)(*unaff_R12 + -0x18) + (long)unaff_R12);
-      std::wios::clear(pwVar3,*(uint *)(pwVar3 + 0x20) | 4);
+      std::wios::s_basic_ios__clear_c1c9b0(pwVar3,*(uint *)(pwVar3 + 0x20) | 4);
     }
     if (in_stack_00000028 == *(long *)(in_FS_OFFSET + 0x28)) {
       return;
@@ -14343,9 +14343,9 @@ void _INIT_129(void)
 }
 
 
-// ==== entry=00520424 orig=FUN_00520424 size=132 name=_INIT_130 ====
+// ==== entry=00520424 orig=FUN_00520424 size=132 name=s_KingEditColumnSelect_520424 ====
 
-void _INIT_130(void)
+void s_KingEditColumnSelect_520424(void)
 
 {
   FUN_005445f2(&DAT_011c25b8,"text/x-rectangular-marker");
@@ -17076,7 +17076,7 @@ LAB_005226ca:
                        "Editor",0xffffffff,1);
     if (iVar6 == 0) {
       if ((param_2 != 0) && (lVar14 = FUN_008bca9e(param_2,1), lVar14 != 0)) {
-        FUN_008c55bc(&local_198,lVar14);
+        KitView_vt15(&local_198,lVar14);
                     /* try { // try from 00522767 to 005227a5 has its CatchHandler @ 00524517 */
         uVar7 = QDir::separator();
         iVar6 = QString::lastIndexOf(&local_198,uVar7,0xffffffff,1);
@@ -17934,7 +17934,7 @@ LAB_005248db:
       goto LAB_005248db;
     }
   }
-  *(undefined ***)param_1 = &PTR_FUN_0119fcb8;
+  *(undefined ***)param_1 = &PTR_AddressListModel_vt0_0119fcb8;
   pQVar2 = *(QArrayData **)(param_1 + 0x20);
   if (*(int *)pQVar2 != 0) {
     if (*(int *)pQVar2 == -1) goto LAB_005248ab;
@@ -17979,7 +17979,7 @@ LAB_0052498e:
       goto LAB_0052498e;
     }
   }
-  *(undefined ***)param_1 = &PTR_FUN_0119fcb8;
+  *(undefined ***)param_1 = &PTR_AddressListModel_vt0_0119fcb8;
   pQVar2 = *(QArrayData **)(param_1 + 0x20);
   if (*(int *)pQVar2 != 0) {
     if (*(int *)pQVar2 == -1) goto LAB_00524951;
@@ -19754,7 +19754,7 @@ LAB_00526b67:
                     /* try { // try from 00526b09 to 00526b0d has its CatchHandler @ 00526bd0 */
   local_30[0] = (QArrayData *)QString::fromAscii_helper("AppletBar",(int)sVar1);
                     /* try { // try from 00526b1c to 00526b20 has its CatchHandler @ 00526bc0 */
-  King__registerBarsAndPanes(&local_38,local_30);
+  s_ExplorerPane_8a1106(&local_38,local_30);
                     /* try { // try from 00526b27 to 00526b2b has its CatchHandler @ 00526bd8 */
   QWidget::setWindowTitle(param_1);
   if (*(int *)local_38 == 0) {
@@ -23730,13 +23730,14 @@ string * __thiscall std::string::assign(string *this,string *param_1)
 }
 
 
-// ==== entry=0052baa6 orig=FUN_0052baa6 size=475 name=replace ====
+// ==== entry=0052baa6 orig=FUN_0052baa6 size=475 name=s_basic_string__replace_52baa6 ====
 
 /* WARNING: Removing unreachable block (ram,0x0052bc41) */
 /* std::string::replace(unsigned long, unsigned long, char const*, unsigned long) */
 
 string * __thiscall
-std::string::replace(string *this,ulong param_1,ulong param_2,char *param_3,ulong param_4)
+std::string::s_basic_string__replace_52baa6
+          (string *this,ulong param_1,ulong param_2,char *param_3,ulong param_4)
 
 {
   int *piVar1;
@@ -23898,12 +23899,12 @@ string * FUN_0052bca0(string *param_1,long *param_2)
     }
     else if (local_178 < local_168) {
                     /* try { // try from 0052bfb3 to 0052bfdc has its CatchHandler @ 0052c01d */
-      std::string::replace
+      std::string::s_basic_string__replace_52baa6
                 (param_1,0,std::string::_Rep::_S_empty_rep_storage,local_170,
                  local_168 - (long)local_170);
     }
     else {
-      std::string::replace
+      std::string::s_basic_string__replace_52baa6
                 (param_1,0,std::string::_Rep::_S_empty_rep_storage,local_170,
                  local_178 - (long)local_170);
     }
@@ -23997,8 +23998,9 @@ string * FUN_0052c0f0(string *param_1,char *param_2)
   std::__ostream_insert<char,std::char_traits<char>>((ostream *)&local_198," (key: \"",8);
   if (param_2 == (char *)0x0) {
                     /* try { // try from 0052c438 to 0052c43c has its CatchHandler @ 0052c484 */
-    std::ios::clear((ios *)((long)&local_198 + *(long *)(local_198 + -0x18)),
-                    *(uint *)((long)&local_178 + *(long *)(local_198 + -0x18)) | 1);
+    std::ios::s_basic_ios__clear_c1bf70
+              ((ios *)((long)&local_198 + *(long *)(local_198 + -0x18)),
+               *(uint *)((long)&local_178 + *(long *)(local_198 + -0x18)) | 1);
   }
   else {
     sVar3 = strlen(param_2);
@@ -24011,13 +24013,13 @@ string * FUN_0052c0f0(string *param_1,char *param_2)
     std::string::assign(param_1,(string *)&local_148);
   }
   else if (local_178 < local_168) {
-    std::string::replace
+    std::string::s_basic_string__replace_52baa6
               (param_1,0,std::string::_Rep::_S_empty_rep_storage,local_170,
                local_168 - (long)local_170);
   }
   else {
                     /* try { // try from 0052c33b to 0052c41e has its CatchHandler @ 0052c498 */
-    std::string::replace
+    std::string::s_basic_string__replace_52baa6
               (param_1,0,std::string::_Rep::_S_empty_rep_storage,local_170,
                local_178 - (long)local_170);
   }
@@ -24163,13 +24165,13 @@ string * FUN_0052c550(string *param_1,int *param_2,undefined8 *param_3)
       std::string::assign(param_1,(string *)&local_148);
     }
     else if (local_178 < local_168) {
-      std::string::replace
+      std::string::s_basic_string__replace_52baa6
                 (param_1,0,std::string::_Rep::_S_empty_rep_storage,local_170,
                  local_168 - (long)local_170);
     }
     else {
                     /* try { // try from 0052c7c8 to 0052c8fa has its CatchHandler @ 0052c9c4 */
-      std::string::replace
+      std::string::s_basic_string__replace_52baa6
                 (param_1,0,std::string::_Rep::_S_empty_rep_storage,local_170,
                  local_178 - (long)local_170);
     }

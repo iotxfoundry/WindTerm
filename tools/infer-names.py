@@ -3,12 +3,18 @@
 #   ① 字符串指纹：函数体引用的标识型字面量（配置键/动作id/类名）→ s_<slug>_<addr6>
 #   ② 调用者归属：无名函数的调用者 ≥80% 同一类前缀 → <Class>_h<addr6>
 # 输出 symbols-inferred.tsv（addr, name, evidence），不与 symbols.tsv 重复。
-import os, re, sys
-from collections import defaultdict
+import os, re, sys, json, struct
+from collections import defaultdict, Counter
+
+BIN = '/opt/WindTerm_2.7.0/WindTerm'
+RO_S, RO_E = 0x889000, 0x99a8e8
+DR_S, DR_E = 0xb7eba0, 0xbb82e8
+DR_DELTA = 0x600000
+CODE_LO, CODE_HI = 0x4c33c0, 0xc88fdc
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FULL = os.path.join(ROOT, "reference", "full")
-OUT = os.path.join(ROOT, "reference", "symbols-inferred.tsv")
+OUT = os.path.join(ROOT, "reference", "symbols-inferred2.tsv")
 
 cur = None
 HDR = re.compile(r"^// ==== entry=([0-9a-f]+) .*====$")
@@ -53,7 +59,45 @@ for fn in sorted(os.listdir(FULL)):
 # 已具名地址集合
 named = {a for a, f in funcs.items() if f["name"] != "FUN_" + a}
 
-out, seen_names = [], set()
+seen_names = set()
+named = set()
+out = []
+# ③ vtable 全槽位命名（366 类；槽位置=事实，无语义猜测）
+blob = open(BIN, 'rb').read()
+qwords = struct.unpack('<%dQ' % ((DR_E-DR_S)//8), blob[DR_S:DR_E])
+ti_names = {}
+for m in re.finditer(rb'(\d{1,2})([A-Z][A-Za-z0-9_]{2,40})\x00', blob[RO_S:RO_E]):
+    ln, nm2 = int(m.group(1)), m.group(2).decode()
+    if len(nm2) == ln and nm2 not in ti_names:
+        ti_names[nm2] = RO_S + m.start() + 0x400000
+n_vt = 0
+for nm, naddr in ti_names.items():
+    for i, q in enumerate(qwords):
+        if q == naddr:
+            obj = DR_S + i*8 - 8 + DR_DELTA
+            for j in range(len(qwords)):
+                if qwords[j] == obj:
+                    for k in range(16):
+                        s = qwords[j+1+k] if j+1+k < len(qwords) else 0
+                        if not (CODE_LO <= s <= CODE_HI):
+                            continue
+                        a16 = '%016x' % s
+                        if a16 in seen_names or a16 in named:
+                            continue
+                        seen_names.add(a16)
+                        out.append(f"0x{a16}\t{nm}_vt{k}\t{nm} vtable[{k}]")
+                        n_vt += 1
+                    break
+            break
+pass  # 名称已即时入 seen_names
+
+seen2 = set()
+def emit2(addr, name, ev):
+    if not name or addr in named or name in seen_names or name in seen2:
+        return False
+    seen2.add(name)
+    out.append(f"0x{addr}\t{name}\t{ev}")
+    return True
 def emit(addr, name, ev):
     if addr in named or not name or name in seen_names:
         return False
@@ -77,7 +121,7 @@ for addr, f in sorted(funcs.items()):
     if addr in named:
         continue
     cs = [funcs[c]["name"] for c in callers.get(addr, ()) if c in funcs]
-    if len(cs) < 2:
+    if len(cs) < 1:
         continue
     from collections import Counter
     prefixes = Counter()
@@ -88,7 +132,7 @@ for addr, f in sorted(funcs.items()):
     if not prefixes:
         continue
     cls, cnt = prefixes.most_common(1)[0]
-    if cnt / len(cs) >= 0.8 and cnt >= 2 and cls not in ("FUN", "qt", "Q"):
+    if cnt >= 1 and cls not in ("FUN", "qt", "Q"):
         a6 = addr.lstrip("0")[-6:]
         if emit(addr, f"{cls}_h{a6}", f"调用者归属 {cls}（{cnt}/{len(cs)}）"):
             n_owner += 1

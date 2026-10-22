@@ -482,7 +482,7 @@ void FUN_005097c6(void)
   
   operator_delete(unaff_RBP,0xb0);
   *(undefined ***)unaff_RBX = &HtmlListModel_vtable;
-  *(undefined ***)(unaff_RBX + 0x10) = &PTR___cxa_pure_virtual_011991f0;
+  *(undefined ***)(unaff_RBX + 0x10) = &PTR_ActionHandler_vt2_011991f0;
   QAbstractListModel::~QAbstractListModel(unaff_RBX);
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
@@ -4063,9 +4063,9 @@ void FUN_0050b27a(void)
 }
 
 
-// ==== entry=0050b287 name=FUN_0050b287 size=22 ====
+// ==== entry=0050b287 orig=FUN_0050b287 size=22 name=CSuperBuffer32_h50b287 ====
 
-void FUN_0050b287(void)
+void CSuperBuffer32_h50b287(void)
 
 {
                     /* WARNING: Subroutine does not return */
@@ -4073,9 +4073,9 @@ void FUN_0050b287(void)
 }
 
 
-// ==== entry=0050b29d name=FUN_0050b29d size=22 ====
+// ==== entry=0050b29d orig=FUN_0050b29d size=22 name=CSuperBuffer32_h50b29d ====
 
-void FUN_0050b29d(void)
+void CSuperBuffer32_h50b29d(void)
 
 {
                     /* WARNING: Subroutine does not return */
@@ -8281,7 +8281,7 @@ void FUN_0050d1ac(void)
   }
   FUN_009c8460(unaff_R14 + 0x50);
   *(undefined ***)(unaff_R14 + 0x28) = &Uint64RunStyles_vtable;
-  FUN_007b0a8a(in_stack_00000008);
+  Uint32RunStyles_vt13(in_stack_00000008);
   if (*(_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> **)(unaff_R14 + 0x20) !=
       (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release
@@ -8303,7 +8303,7 @@ void FUN_0050d1eb(void)
   FUN_005249f0();
   FUN_009c8460(unaff_R14 + 0x50);
   *(undefined ***)(unaff_R14 + 0x28) = &Uint64RunStyles_vtable;
-  FUN_007b0a8a(in_stack_00000008);
+  Uint32RunStyles_vt13(in_stack_00000008);
   if (*(_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> **)(unaff_R14 + 0x20) !=
       (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release

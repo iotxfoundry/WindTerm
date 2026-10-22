@@ -1152,9 +1152,9 @@ void s_Session__write_7d11da(long param_1,long *param_2)
 }
 
 
-// ==== entry=007d1348 name=FUN_007d1348 size=684 ====
+// ==== entry=007d1348 orig=FUN_007d1348 size=684 name=SuperCommander_vt14 ====
 
-undefined8 FUN_007d1348(long *param_1,long param_2,long *param_3)
+undefined8 SuperCommander_vt14(long *param_1,long param_2,long *param_3)
 
 {
   long lVar1;
@@ -1568,7 +1568,7 @@ LAB_007d1b63:
       if (local_99 == '\0') {
 LAB_007d1c26:
                     /* try { // try from 007d1c39 to 007d1c3d has its CatchHandler @ 007d1f02 */
-        std::string::insert((string *)&local_80,0,"[Not Supported]",0xf);
+        std::string::s_basic_string__insert_5fdc00((string *)&local_80,0,"[Not Supported]",0xf);
       }
 LAB_007d1c3e:
       uVar2 = DAT_011c1480;
@@ -1737,9 +1737,9 @@ void FUN_007d1f5a(long param_1,long param_2,int param_3)
 }
 
 
-// ==== entry=007d2306 name=FUN_007d2306 size=493 ====
+// ==== entry=007d2306 orig=FUN_007d2306 size=493 name=SuperCommander_vt13 ====
 
-ulong FUN_007d2306(long param_1,long param_2,uint param_3)
+ulong SuperCommander_vt13(long param_1,long param_2,uint param_3)
 
 {
   byte *pbVar1;
@@ -2496,7 +2496,7 @@ void FUN_007d2e02(int param_1,void *param_2)
       return;
     }
     UNRECOVERED_JUMPTABLE = *(code **)(**(long **)((long)param_2 + 0x10) + 0x78);
-    if (UNRECOVERED_JUMPTABLE != FUN_007dc922) {
+    if (UNRECOVERED_JUMPTABLE != SuperSession_vt15) {
                     /* WARNING: Could not recover jumptable at 0x007d2e3f. Too many branches */
                     /* WARNING: Treating indirect jump as call */
       (*UNRECOVERED_JUMPTABLE)();
@@ -2512,7 +2512,7 @@ void FUN_007d2e02(int param_1,void *param_2)
 void FUN_007d2e42(long *param_1)
 
 {
-  if (*(code **)(*param_1 + 0x70) == FUN_007dc920) {
+  if (*(code **)(*param_1 + 0x70) == SuperSession_vt14) {
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x007d2e53. Too many branches */
@@ -3035,9 +3035,9 @@ void FUN_007d377c(undefined8 param_1,QString *param_2,bool param_3)
 }
 
 
-// ==== entry=007d37e8 name=FUN_007d37e8 size=88 ====
+// ==== entry=007d37e8 orig=FUN_007d37e8 size=88 name=TerminalWidget_h7d37e8 ====
 
-void FUN_007d37e8(undefined8 param_1,QString *param_2)
+void TerminalWidget_h7d37e8(undefined8 param_1,QString *param_2)
 
 {
   QVariant aQStack_38 [16];
@@ -5626,11 +5626,11 @@ void FUN_007d6f30(undefined8 param_1,QString *param_2)
 }
 
 
-// ==== entry=007d7096 name=FUN_007d7096 size=3886 ====
+// ==== entry=007d7096 orig=FUN_007d7096 size=3886 name=SuperSession_h7d7096 ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_007d7096(long param_1)
+void SuperSession_h7d7096(long param_1)
 
 {
   long lVar1;
@@ -6340,9 +6340,9 @@ void FUN_007d7096(long param_1)
 }
 
 
-// ==== entry=007d7fc4 name=FUN_007d7fc4 size=162 ====
+// ==== entry=007d7fc4 orig=FUN_007d7fc4 size=162 name=SuperSession_h7d7fc4 ====
 
-void FUN_007d7fc4(long param_1)
+void SuperSession_h7d7fc4(long param_1)
 
 {
   char cVar1;
@@ -6386,8 +6386,8 @@ void FUN_007d7fc4(long param_1)
 void FUN_007d806c(undefined8 param_1)
 
 {
-  FUN_007d7096();
-  FUN_007d7fc4(param_1);
+  SuperSession_h7d7096();
+  SuperSession_h7d7fc4(param_1);
   return;
 }
 
@@ -6684,7 +6684,7 @@ LAB_007d8547:
   uVar10 = *(undefined8 *)(param_1 + 0x10);
   local_d8 = FUN_00911e38;
   local_d0 = 0;
-  local_c8 = thunk_FUN_007db97e;
+  local_c8 = SuperSession_h7db97e;
   local_c0 = 0;
   puVar8 = operator_new(0x20);
   *puVar8 = 1;
@@ -8367,7 +8367,7 @@ void FUN_007db8ee(long param_1,undefined8 param_2,char param_3)
   if (plVar1 != (long *)0x0) {
     lVar2 = FUN_007db6ce(param_1,plVar1);
     if (lVar2 != 0) {
-      FUN_007e58ce(lVar2,plVar1);
+      SuperTerm_h7e58ce(lVar2,plVar1);
     }
     FUN_007c1b92(plVar1);
     if ((param_3 == '\0') || ((*(byte *)((long)plVar1 + 0x19) & 4) == 0)) {
@@ -8382,9 +8382,9 @@ void FUN_007db8ee(long param_1,undefined8 param_2,char param_3)
 }
 
 
-// ==== entry=007db97e name=FUN_007db97e size=181 ====
+// ==== entry=007db97e orig=FUN_007db97e size=181 name=SuperSession_h7db97e ====
 
-void FUN_007db97e(long param_1)
+void SuperSession_h7db97e(long param_1)
 
 {
   uint *puVar1;
@@ -8413,9 +8413,9 @@ void FUN_007db97e(long param_1)
 }
 
 
-// ==== entry=007dba3c orig=FUN_007dba3c size=5 name=thunk_FUN_007db97e ====
+// ==== entry=007dba3c orig=FUN_007dba3c size=5 name=SuperSession_h7db97e ====
 
-void thunk_FUN_007db97e(long param_1)
+void SuperSession_h7db97e(long param_1)
 
 {
   uint *puVar1;
@@ -8458,8 +8458,8 @@ void SuperSession_dtor(QObject *param_1)
   char cVar8;
   
   *(undefined ***)param_1 = &SuperSession_vtable;
-  FUN_007d7096();
-  FUN_007d7fc4(param_1);
+  SuperSession_h7d7096();
+  SuperSession_h7d7fc4(param_1);
   if (*(long **)(param_1 + 0x10) != (long *)0x0) {
     (**(code **)(**(long **)(param_1 + 0x10) + 0x20))();
     *(undefined8 *)(param_1 + 0x10) = 0;
@@ -8468,7 +8468,7 @@ void SuperSession_dtor(QObject *param_1)
     (**(code **)(**(long **)(param_1 + 0x50) + 0x20))();
     *(undefined8 *)(param_1 + 0x50) = 0;
   }
-  FUN_007db97e(param_1);
+  SuperSession_h7db97e(param_1);
   cVar8 = FUN_005444d0(*(undefined8 *)(param_1 + 0x40));
   if (cVar8 == '\0') {
     FUN_007df98a(*(undefined8 *)(param_1 + 0x40));
@@ -9044,18 +9044,18 @@ LAB_007dc1ff:
 }
 
 
-// ==== entry=007dc920 name=FUN_007dc920 size=1 ====
+// ==== entry=007dc920 orig=FUN_007dc920 size=1 name=SuperSession_vt14 ====
 
-void FUN_007dc920(void)
+void SuperSession_vt14(void)
 
 {
   return;
 }
 
 
-// ==== entry=007dc922 name=FUN_007dc922 size=1 ====
+// ==== entry=007dc922 orig=FUN_007dc922 size=1 name=SuperSession_vt15 ====
 
-void FUN_007dc922(void)
+void SuperSession_vt15(void)
 
 {
   return;
@@ -17925,9 +17925,9 @@ LAB_007e5709:
 }
 
 
-// ==== entry=007e58ce name=FUN_007e58ce size=293 ====
+// ==== entry=007e58ce orig=FUN_007e58ce size=293 name=SuperTerm_h7e58ce ====
 
-void FUN_007e58ce(long param_1,long param_2)
+void SuperTerm_h7e58ce(long param_1,long param_2)
 
 {
   ushort uVar1;
@@ -23359,7 +23359,7 @@ void FUN_007ededa(int param_1,void *param_2)
       do {
         lVar8 = lVar7;
         if (1 < *puVar4) {
-          FUN_007fa000(lVar7 + 0x1e0,*(undefined4 *)(*(long *)(lVar7 + 0x1e0) + 4));
+          SuperTerm_h7fa000(lVar7 + 0x1e0,*(undefined4 *)(*(long *)(lVar7 + 0x1e0) + 4));
           lVar8 = *(long *)((long)param_2 + 0x10);
         }
         plVar1 = *(long **)(*(long *)(lVar7 + 0x1e0) + 0x10 +
@@ -23372,7 +23372,7 @@ LAB_007edf67:
           uVar6 = puVar4[2];
           if ((int)(uVar5 - uVar6) <= iVar9) goto LAB_007edf7a;
           if (1 < *puVar4) {
-            FUN_007fa000(lVar8 + 0x1e0,*(undefined4 *)(*(long *)(lVar8 + 0x1e0) + 4));
+            SuperTerm_h7fa000(lVar8 + 0x1e0,*(undefined4 *)(*(long *)(lVar8 + 0x1e0) + 4));
           }
           pvVar2 = *(void **)(*(long *)(lVar8 + 0x1e0) + 0x10 +
                              (lVar10 + *(int *)(*(long *)(lVar8 + 0x1e0) + 8)) * 8);
@@ -28237,19 +28237,19 @@ void SuperTerm_dtor(QObject *param_1)
   *(undefined ***)param_1 = &SuperTerm_vtable;
   pQVar1 = param_1 + 0x1e0;
   if (1 < **(uint **)(param_1 + 0x1e0)) {
-    FUN_007fa000(pQVar1,(*(uint **)(param_1 + 0x1e0))[1]);
+    SuperTerm_h7fa000(pQVar1,(*(uint **)(param_1 + 0x1e0))[1]);
   }
   puVar7 = *(uint **)(param_1 + 0x1e0);
   puVar8 = puVar7 + (long)(int)puVar7[2] * 2 + 4;
   if (1 < *puVar7) {
-    FUN_007fa000(pQVar1,puVar7[1]);
+    SuperTerm_h7fa000(pQVar1,puVar7[1]);
     puVar7 = *(uint **)(param_1 + 0x1e0);
   }
   uVar2 = puVar7[3];
   for (; puVar7 + (long)(int)uVar2 * 2 + 4 != puVar8; puVar8 = puVar8 + 2) {
     lVar3 = **(long **)puVar8;
     if (((lVar3 != 0) && (*(int *)(lVar3 + 4) != 0)) && ((*(long **)puVar8)[1] != 0)) {
-      FUN_007e58ce(param_1);
+      SuperTerm_h7e58ce(param_1);
     }
   }
   FUN_007e4482(param_1);
@@ -29174,9 +29174,9 @@ void FUN_007f6bc3(long param_1)
 }
 
 
-// ==== entry=007f6be6 name=FUN_007f6be6 size=29 ====
+// ==== entry=007f6be6 orig=FUN_007f6be6 size=29 name=Tmux_h7f6be6 ====
 
-void FUN_007f6be6(QRegularExpression *param_1)
+void Tmux_h7f6be6(QRegularExpression *param_1)
 
 {
   if (param_1 != (QRegularExpression *)0x0) {
@@ -32078,9 +32078,9 @@ LAB_007f9f82:
 }
 
 
-// ==== entry=007fa000 name=FUN_007fa000 size=90 ====
+// ==== entry=007fa000 orig=FUN_007fa000 size=90 name=SuperTerm_h7fa000 ====
 
-void FUN_007fa000(long *param_1)
+void SuperTerm_h7fa000(long *param_1)
 
 {
   int iVar1;
@@ -33007,9 +33007,9 @@ LAB_007fae82:
 }
 
 
-// ==== entry=007faf0a name=FUN_007faf0a size=288 ====
+// ==== entry=007faf0a orig=FUN_007faf0a size=288 name=Tmux_h7faf0a ====
 
-void FUN_007faf0a(undefined8 param_1,long *param_2,long *param_3)
+void Tmux_h7faf0a(undefined8 param_1,long *param_2,long *param_3)
 
 {
   void *pvVar1;
@@ -33146,9 +33146,9 @@ LAB_007fb0d4:
 }
 
 
-// ==== entry=007fb0e6 name=FUN_007fb0e6 size=9607 ====
+// ==== entry=007fb0e6 orig=FUN_007fb0e6 size=9607 name=Tmux_h7fb0e6 ====
 
-void FUN_007fb0e6(Data *param_1)
+void Tmux_h7fb0e6(Data *param_1)
 
 {
   int iVar1;
@@ -34210,46 +34210,46 @@ void Tmux_dtor(QObject *param_1)
   
   *(undefined ***)param_1 = &Tmux_vtable;
   if (*(long *)(param_1 + 0x240) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x238) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x230) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x228) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x220) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x218) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x210) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x208) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x200) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1f8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1f0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1e8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1e0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1d8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   this = *(QRegularExpression **)(param_1 + 0x1d0);
   if (this != (QRegularExpression *)0x0) {
@@ -34257,40 +34257,40 @@ void Tmux_dtor(QObject *param_1)
     operator_delete(this,8);
   }
   if (*(long *)(param_1 + 0x1c8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1c0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1b8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1b0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1a8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1a0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x198) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 400) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x188) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x180) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x178) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x170) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   cVar11 = FUN_005444d0(*(undefined8 *)(param_1 + 0x168));
   if (cVar11 == '\0') {
@@ -35195,7 +35195,7 @@ void Tmux_dtor(QObject *param_1)
     cVar11 = FUN_005444d0(*(undefined8 *)(param_1 + 0x160));
   }
   if (cVar11 == '\0') {
-    FUN_007fb0e6(*(undefined8 *)(param_1 + 0x160));
+    Tmux_h7fb0e6(*(undefined8 *)(param_1 + 0x160));
     cVar11 = FUN_005444d0(*(undefined8 *)(param_1 + 0x158));
   }
   else {
@@ -35227,7 +35227,7 @@ void Tmux_dtor(QObject *param_1)
   local_50 = *(undefined8 *)(param_1 + 0x110);
   local_48 = *(undefined8 *)(param_1 + 0x118);
   local_40 = *(undefined8 *)(param_1 + 0x120);
-  FUN_007faf0a(param_1 + 0xf8,&local_58,&local_78);
+  Tmux_h7faf0a(param_1 + 0xf8,&local_58,&local_78);
   pvVar13 = *(void **)(param_1 + 0xf8);
   if (pvVar13 != (void *)0x0) {
     lVar2 = *(long *)(param_1 + 0x140);
@@ -41527,9 +41527,9 @@ undefined4 s_session_uuid_8069b0(undefined8 param_1,undefined8 param_2,char para
 }
 
 
-// ==== entry=00806a9e name=FUN_00806a9e size=191 ====
+// ==== entry=00806a9e orig=FUN_00806a9e size=191 name=CTerminalConfig_h806a9e ====
 
-undefined4 FUN_00806a9e(long param_1)
+undefined4 CTerminalConfig_h806a9e(long param_1)
 
 {
   void *pvVar1;
@@ -43276,9 +43276,9 @@ undefined * FUN_00809d78(void)
 }
 
 
-// ==== entry=00809dfa name=FUN_00809dfa size=680 ====
+// ==== entry=00809dfa orig=FUN_00809dfa size=680 name=CTerminalConfig_vt7 ====
 
-void FUN_00809dfa(undefined8 *param_1)
+void CTerminalConfig_vt7(undefined8 *param_1)
 
 {
   int iVar1;
@@ -43393,12 +43393,12 @@ void FUN_00809dfa(undefined8 *param_1)
 }
 
 
-// ==== entry=0080a0a2 name=FUN_0080a0a2 size=23 ====
+// ==== entry=0080a0a2 orig=FUN_0080a0a2 size=23 name=CTerminalConfig_vt8 ====
 
-void FUN_0080a0a2(void *param_1)
+void CTerminalConfig_vt8(void *param_1)
 
 {
-  FUN_00809dfa();
+  CTerminalConfig_vt7();
   operator_delete(param_1,0x120);
   return;
 }
@@ -43409,7 +43409,7 @@ void FUN_0080a0a2(void *param_1)
 void FUN_0080a0ba(void)
 
 {
-  FUN_00809dfa();
+  CTerminalConfig_vt7();
   if (DAT_011c2340 != -1) {
     return;
   }
@@ -43502,8 +43502,9 @@ void * FUN_0080a14c(undefined8 param_1,string *param_2,undefined8 param_3)
     local_108 = &local_d8;
     if (*(int *)((long)local_d8 + 4) != 0) {
                     /* try { // try from 0080a29b to 0080a2a9 has its CatchHandler @ 0080a331 */
-      std::string::insert(param_2,0,(char *)((long)local_d8 + local_d8[2]),
-                          (long)*(int *)((long)local_d8 + 4));
+      std::string::s_basic_string__insert_5fdc00
+                (param_2,0,(char *)((long)local_d8 + local_d8[2]),(long)*(int *)((long)local_d8 + 4)
+                );
     }
     pvVar4 = operator_new(0x60);
                     /* try { // try from 0080a2c5 to 0080a2c9 has its CatchHandler @ 0080a329 */
@@ -43562,7 +43563,7 @@ undefined4 FUN_0080a352(long param_1,undefined8 param_2,undefined8 param_3)
         else {
           uVar4 = FUN_00a82450(lVar5,&local_d0);
         }
-        FUN_007a2732(lVar1,lVar5,uVar4);
+        SuperProtocol_h7a2732(lVar1,lVar5,uVar4);
         FUN_00af2c10(local_68);
       }
       if (local_d0 != &DAT_011c5338) {
@@ -45675,9 +45676,9 @@ char s_LineContinuation_80e250(long param_1,long *param_2,long *param_3)
 }
 
 
-// ==== entry=0080e9ae name=FUN_0080e9ae size=253 ====
+// ==== entry=0080e9ae orig=FUN_0080e9ae size=253 name=CTerminalConfig_h80e9ae ====
 
-void FUN_0080e9ae(undefined8 param_1)
+void CTerminalConfig_h80e9ae(undefined8 param_1)
 
 {
   int iVar1;
@@ -46245,9 +46246,9 @@ LAB_0080f18b:
 }
 
 
-// ==== entry=0080fa56 name=FUN_0080fa56 size=419 ====
+// ==== entry=0080fa56 orig=FUN_0080fa56 size=419 name=CTerminalConfig_h80fa56 ====
 
-void FUN_0080fa56(undefined8 param_1)
+void CTerminalConfig_h80fa56(undefined8 param_1)
 
 {
   uint uVar1;
@@ -47842,9 +47843,9 @@ undefined4 FUN_0081214e(long param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008129e6 name=FUN_008129e6 size=419 ====
+// ==== entry=008129e6 orig=FUN_008129e6 size=419 name=CTerminalConfig_h8129e6 ====
 
-void FUN_008129e6(undefined8 param_1)
+void CTerminalConfig_h8129e6(undefined8 param_1)
 
 {
   uint uVar1;
@@ -49150,9 +49151,9 @@ undefined4 FUN_00815268(undefined8 param_1)
 }
 
 
-// ==== entry=0081549e orig=FUN_0081549e size=5 name=thunk_FUN_008aa6fc ====
+// ==== entry=0081549e orig=FUN_0081549e size=5 name=CTerminalConfig_vt5 ====
 
-undefined4 thunk_FUN_008aa6fc(long param_1)
+undefined4 CTerminalConfig_vt5(long param_1)
 
 {
   undefined4 uVar1;
@@ -49214,9 +49215,9 @@ LAB_008aa7ec:
 }
 
 
-// ==== entry=008154a4 name=FUN_008154a4 size=27 ====
+// ==== entry=008154a4 orig=FUN_008154a4 size=27 name=CTerminalConfig_vt6 ====
 
-uint FUN_008154a4(void)
+uint CTerminalConfig_vt6(void)
 
 {
   uint uVar1;
@@ -49228,9 +49229,9 @@ uint FUN_008154a4(void)
 }
 
 
-// ==== entry=008154c0 orig=FUN_008154c0 size=818 name=CTerminalConfig_qt_metacall ====
+// ==== entry=008154c0 orig=FUN_008154c0 size=818 name=s_session_icon_8154c0 ====
 
-long * CTerminalConfig_qt_metacall(long *param_1,undefined8 param_2,undefined1 param_3)
+long * s_session_icon_8154c0(long *param_1,undefined8 param_2,undefined1 param_3)
 
 {
   long *plVar1;
@@ -50010,9 +50011,9 @@ LAB_00816ad5:
 }
 
 
-// ==== entry=00816cae name=FUN_00816cae size=235 ====
+// ==== entry=00816cae orig=FUN_00816cae size=235 name=CTerminalConfig_h816cae ====
 
-uint FUN_00816cae(undefined8 param_1,undefined8 param_2)
+uint CTerminalConfig_h816cae(undefined8 param_1,undefined8 param_2)
 
 {
   char cVar1;
@@ -50063,13 +50064,13 @@ undefined8 CTerminalConfig_dtor(undefined8 param_1)
   undefined1 local_28 [8];
   undefined1 local_20 [8];
   
-  cVar1 = FUN_008a57d6();
+  cVar1 = CTerminalConfig_h8a57d6();
   if (cVar1 == '\0') {
     s_session_allowRemoteWriteClipboard_80722e(param_1);
-    FUN_0080fa56(param_1);
-    FUN_008129e6(param_1);
-    FUN_0080e9ae(param_1);
-    FUN_00806a9e(param_1);
+    CTerminalConfig_h80fa56(param_1);
+    CTerminalConfig_h8129e6(param_1);
+    CTerminalConfig_h80e9ae(param_1);
+    CTerminalConfig_h806a9e(param_1);
     s_session_protocol_805f2e(param_1);
     if (*(char *)(DAT_011c1240 + 0x21) != '\0') {
       FUN_005445f2(local_38,"openssh");
@@ -50078,7 +50079,7 @@ undefined8 CTerminalConfig_dtor(undefined8 param_1)
                     /* try { // try from 00816e57 to 00816e5b has its CatchHandler @ 00816e97 */
       FUN_005ec800(local_40,local_38,local_20);
                     /* try { // try from 00816e62 to 00816e66 has its CatchHandler @ 00816e9f */
-      FUN_00816cae(param_1,local_40);
+      CTerminalConfig_h816cae(param_1,local_40);
       FUN_00525060(local_40);
       FUN_005249f0(local_28);
       FUN_005249f0(local_30);
@@ -51168,9 +51169,9 @@ void FUN_008174fc(undefined8 param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=0081751a name=FUN_0081751a size=17 ====
+// ==== entry=0081751a orig=FUN_0081751a size=17 name=CTerminalConfig_vt13 ====
 
-void FUN_0081751a(long param_1,char param_2)
+void CTerminalConfig_vt13(long param_1,char param_2)
 
 {
                     /* WARNING: Could not recover jumptable at 0x00817528. Too many branches */
@@ -51180,9 +51181,9 @@ void FUN_0081751a(long param_1,char param_2)
 }
 
 
-// ==== entry=0081752c name=FUN_0081752c size=17 ====
+// ==== entry=0081752c orig=FUN_0081752c size=17 name=CTerminalConfig_vt14 ====
 
-void FUN_0081752c(long param_1,char param_2)
+void CTerminalConfig_vt14(long param_1,char param_2)
 
 {
                     /* WARNING: Could not recover jumptable at 0x0081753a. Too many branches */
@@ -51192,9 +51193,9 @@ void FUN_0081752c(long param_1,char param_2)
 }
 
 
-// ==== entry=0081753e name=FUN_0081753e size=14 ====
+// ==== entry=0081753e orig=FUN_0081753e size=14 name=CTerminalConfig_vt15 ====
 
-bool FUN_0081753e(undefined8 param_1,char param_2,char param_3,char param_4)
+bool CTerminalConfig_vt15(undefined8 param_1,char param_2,char param_3,char param_4)
 
 {
   if (param_2 <= param_4) {

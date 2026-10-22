@@ -115818,7 +115818,7 @@ void FUN_00be47c0(runtime_error *param_1)
 void FUN_00be47f0(undefined8 *param_1)
 
 {
-  param_1[6] = &PTR___cxa_pure_virtual_01189288;
+  param_1[6] = &PTR_ActionHandler_vt2_01189288;
   *param_1 = &PTR_FUN_011b1590;
   param_1[1] = &PTR_FUN_011b15c0;
   if ((long *)param_1[7] != (long *)0x0) {
@@ -115835,7 +115835,7 @@ void FUN_00be47f0(undefined8 *param_1)
 void FUN_00be4860(runtime_error *param_1)
 
 {
-  *(undefined ***)(param_1 + 0x28) = &PTR___cxa_pure_virtual_01189288;
+  *(undefined ***)(param_1 + 0x28) = &PTR_ActionHandler_vt2_01189288;
   *(undefined ***)(param_1 + -8) = &PTR_FUN_011b1590;
   *(undefined ***)param_1 = &PTR_FUN_011b15c0;
   if (*(long **)(param_1 + 0x30) != (long *)0x0) {
@@ -115852,7 +115852,7 @@ void FUN_00be4860(runtime_error *param_1)
 void FUN_00be48d0(undefined8 *param_1)
 
 {
-  *param_1 = &PTR___cxa_pure_virtual_01189288;
+  *param_1 = &PTR_ActionHandler_vt2_01189288;
   param_1[-6] = &PTR_FUN_011b1590;
   param_1[-5] = &PTR_FUN_011b15c0;
   if ((long *)param_1[1] != (long *)0x0) {
@@ -115869,7 +115869,7 @@ void FUN_00be48d0(undefined8 *param_1)
 void FUN_00be4940(undefined8 *param_1)
 
 {
-  param_1[6] = &PTR___cxa_pure_virtual_01189288;
+  param_1[6] = &PTR_ActionHandler_vt2_01189288;
   *param_1 = &PTR_FUN_011b1608;
   param_1[1] = &PTR_FUN_011b1638;
   if ((long *)param_1[7] != (long *)0x0) {
@@ -115886,7 +115886,7 @@ void FUN_00be4940(undefined8 *param_1)
 void FUN_00be49b0(undefined8 *param_1)
 
 {
-  *param_1 = &PTR___cxa_pure_virtual_01189288;
+  *param_1 = &PTR_ActionHandler_vt2_01189288;
   param_1[-6] = &PTR_FUN_011b1608;
   param_1[-5] = &PTR_FUN_011b1638;
   if ((long *)param_1[1] != (long *)0x0) {
@@ -115903,7 +115903,7 @@ void FUN_00be49b0(undefined8 *param_1)
 void FUN_00be4a20(runtime_error *param_1)
 
 {
-  *(undefined ***)(param_1 + 0x28) = &PTR___cxa_pure_virtual_01189288;
+  *(undefined ***)(param_1 + 0x28) = &PTR_ActionHandler_vt2_01189288;
   *(undefined ***)(param_1 + -8) = &PTR_FUN_011b1608;
   *(undefined ***)param_1 = &PTR_FUN_011b1638;
   if (*(long **)(param_1 + 0x30) != (long *)0x0) {
@@ -115920,7 +115920,7 @@ void FUN_00be4a20(runtime_error *param_1)
 void FUN_00be4a90(undefined8 *param_1)
 
 {
-  param_1[6] = &PTR___cxa_pure_virtual_01189288;
+  param_1[6] = &PTR_ActionHandler_vt2_01189288;
   *param_1 = &PTR_FUN_011b1518;
   param_1[1] = &PTR_FUN_011b1548;
   if ((long *)param_1[7] != (long *)0x0) {
@@ -115937,7 +115937,7 @@ void FUN_00be4a90(undefined8 *param_1)
 void FUN_00be4b00(runtime_error *param_1)
 
 {
-  *(undefined ***)(param_1 + 0x28) = &PTR___cxa_pure_virtual_01189288;
+  *(undefined ***)(param_1 + 0x28) = &PTR_ActionHandler_vt2_01189288;
   *(undefined ***)(param_1 + -8) = &PTR_FUN_011b1518;
   *(undefined ***)param_1 = &PTR_FUN_011b1548;
   if (*(long **)(param_1 + 0x30) != (long *)0x0) {
