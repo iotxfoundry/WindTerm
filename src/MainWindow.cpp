@@ -201,7 +201,7 @@ QAction *MainWindow::makeAction(const QString &actionId)
     auto *action = new QAction(this);
     action->setText(displayActionText(en, m_locale.tr(key)));
 
-    // 原版行为：菜单项全部带图标（icons/<actionId>.png 为原版渲染截图裁剪，见 docs/phase11）
+    // 原版行为：带 icon 字段的动作用 king.svg 矢量（其余纯文字，docs/phase12）
     const QIcon ic = ActionIcons::iconFor(actionId, ActionRegistry::instance().actionIcon(actionId),
                                           ThemeManager::instance().currentTheme());
     if (!ic.isNull())
