@@ -1,6 +1,8 @@
 # WindTerm GUI Skeleton
 
 WindTerm 2.7.0 主窗口的 Qt Widgets 界面壳还原：菜单栏、四组停靠面板、彩色会话标签、命令按钮栏与状态栏。
+已按 Phase 2 二进制发现对齐：9 个面板（Filer/Explorer/Session/Outline/Sender/Transfer/Output/Search/Shell）与 `Bars.h` 登记的 7 个栏名（MenuBar/QuickBar/KitBar/ToolBar/AppletBar/StatusBar/TransferBar），
+`MainWindow` 采用 `WA_DeleteOnClose`、`application/windowOpacity` 配置与单发定时器延迟恢复布局，菜单文案经 `LocaleManager` 查表。
 所有交互槽位均为空（`Q_UNIMPLEMENTED()`），**不含任何连接、协议、终端或文件传输逻辑**。
 
 ## 构建
@@ -30,8 +32,8 @@ assets/locales/<locale>.locale
 ## 结构
 
 - `src/MainWindow.*` — 主窗口组装（菜单/停靠/状态栏）
-- `src/panes/` — FilerPane、SessionPane、OutlinePane、SenderPane、TransferPane
-- `src/widgets/` — MuxPaneGroup、CommandButtonBar
+- `src/panes/` — FilerPane、ExplorerPane、SessionPane、OutlinePane、SenderPane、TransferPane、OutputPane、SearchPane、ShellPane
+- `src/widgets/` — MuxPaneGroup、AppletBar、Bars.h（栏名登记）
 - `src/core/` — ThemeManager、LocaleManager
 - `src/dialogs/` — MasterPasswordDialog、SessionSettingsDialog
 

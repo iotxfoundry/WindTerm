@@ -1,4 +1,4 @@
-#include "CommandButtonBar.h"
+#include "AppletBar.h"
 
 #include <QFrame>
 #include <QHBoxLayout>
@@ -24,7 +24,7 @@ QJsonArray defaultActions()
 
 } // namespace
 
-CommandButtonBar::CommandButtonBar(const QJsonArray &actions, QWidget *parent)
+AppletBar::AppletBar(const QJsonArray &actions, QWidget *parent)
     : QWidget(parent)
 {
     auto *content = new QWidget;
@@ -43,7 +43,7 @@ CommandButtonBar::CommandButtonBar(const QJsonArray &actions, QWidget *parent)
         for (const QJsonValue &actionValue : groupActions) {
             auto *button = new QPushButton(actionValue.toString(), content);
             button->setFlat(true);
-            connect(button, &QPushButton::pressed, this, &CommandButtonBar::onActionPressed);
+            connect(button, &QPushButton::pressed, this, &AppletBar::onActionPressed);
             contentLayout->addWidget(button);
         }
     }
@@ -60,7 +60,7 @@ CommandButtonBar::CommandButtonBar(const QJsonArray &actions, QWidget *parent)
     layout->addWidget(scrollArea);
 }
 
-void CommandButtonBar::onActionPressed()
+void AppletBar::onActionPressed()
 {
     Q_UNIMPLEMENTED();
 }

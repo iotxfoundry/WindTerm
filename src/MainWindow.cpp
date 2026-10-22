@@ -1,64 +1,81 @@
 #include "MainWindow.h"
 
 #include <QAction>
+#include <QCloseEvent>
+#include <QDockWidget>
 #include <QJsonArray>
 #include <QLabel>
 #include <QMenu>
 #include <QMenuBar>
+#include <QSettings>
 #include <QStackedWidget>
 #include <QStatusBar>
 #include <QTabBar>
 #include <QTime>
 #include <QTimer>
 #include <QVBoxLayout>
-#include <QDockWidget>
 
 #include "core/ThemeManager.h"
+#include "panes/ExplorerPane.h"
 #include "panes/FilerPane.h"
 #include "panes/OutlinePane.h"
+#include "panes/OutputPane.h"
+#include "panes/SearchPane.h"
 #include "panes/SenderPane.h"
 #include "panes/SessionPane.h"
+#include "panes/ShellPane.h"
 #include "panes/TransferPane.h"
-#include "widgets/CommandButtonBar.h"
+#include "widgets/AppletBar.h"
 #include "widgets/MuxPaneGroup.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
+    , m_locale(LocaleManager::instance())
     , m_muxPaneGroup(nullptr)
-    , m_commandButtonBar(nullptr)
+    , m_appletBar(nullptr)
     , m_clockLabel(nullptr)
     , m_clockTimer(nullptr)
 {
     setWindowTitle(tr("WindTerm"));
     resize(1200, 800);
+    setAttribute(Qt::WA_DeleteOnClose);
+
+    const double opacity = QSettings().value(QStringLiteral("application/windowOpacity"), 1.0).toDouble();
+    if (opacity > 0.0 && opacity < 1.0)
+        setWindowOpacity(opacity);
 
     ThemeManager::instance().setTheme(QStringLiteral("default"));
+    m_locale.load(QStringLiteral("assets/locales/zh-CN.locale"));
 
     createMenus();
     createCentralWidget();
     createDocks();
     createStatusBar();
+
+    QTimer::singleShot(0, this, &MainWindow::onRestoreLayout);
 }
 
 void MainWindow::createMenus()
 {
     auto addMenu = [this](const QString &title, const QStringList &items) {
-        QMenu *menu = menuBar()->addMenu(title);
+        QString plain = title;
+        plain.remove(QLatin1Char('&')); // locale key 不含助记符 &
+        QMenu *menu = menuBar()->addMenu(m_locale.tr(plain));
         for (const QString &item : items) {
-            QAction *action = menu->addAction(item);
+            QAction *action = menu->addAction(m_locale.tr(item));
             connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderAction);
         }
     };
 
-    addMenu(tr("&Session"), {tr("New Session"), tr("Open Session"), tr("Close Session")});
-    addMenu(tr("&Edit"), {tr("Copy"), tr("Paste"), tr("Select All")});
-    addMenu(tr("&Search"), {tr("Find"), tr("Find Next"), tr("Find Previous")});
-    addMenu(tr("Se&lection"), {tr("Select Line"), tr("Select Word")});
-    addMenu(tr("&Goto"), {tr("Next Tab"), tr("Previous Tab")});
-    addMenu(tr("&View"), {tr("Toggle Filer"), tr("Toggle Session"), tr("Full Screen")});
-    addMenu(tr("&Mode"), {tr("Normal Mode"), tr("Remote Mode")});
-    addMenu(tr("&Window"), {tr("New Window"), tr("Close Window")});
-    addMenu(tr("&Help"), {tr("Help"), tr("About")});
+    addMenu(QStringLiteral("&Session"), {QStringLiteral("New Session"), QStringLiteral("Open Session"), QStringLiteral("Close Session")});
+    addMenu(QStringLiteral("&Edit"), {QStringLiteral("Copy"), QStringLiteral("Paste"), QStringLiteral("Select All")});
+    addMenu(QStringLiteral("&Search"), {QStringLiteral("Find"), QStringLiteral("Find Next"), QStringLiteral("Find Previous")});
+    addMenu(QStringLiteral("Se&lection"), {QStringLiteral("Select Line"), QStringLiteral("Select Word")});
+    addMenu(QStringLiteral("&Goto"), {QStringLiteral("Next Tab"), QStringLiteral("Previous Tab")});
+    addMenu(QStringLiteral("&View"), {QStringLiteral("Toggle Filer"), QStringLiteral("Toggle Session"), QStringLiteral("Full Screen")});
+    addMenu(QStringLiteral("&Mode"), {QStringLiteral("Normal Mode"), QStringLiteral("Remote Mode")});
+    addMenu(QStringLiteral("&Window"), {QStringLiteral("New Window"), QStringLiteral("Close Window")});
+    addMenu(QStringLiteral("&Help"), {QStringLiteral("Help"), QStringLiteral("About")});
 }
 
 void MainWindow::createCentralWidget()
@@ -69,10 +86,10 @@ void MainWindow::createCentralWidget()
     layout->setSpacing(0);
 
     m_muxPaneGroup = new MuxPaneGroup(central);
-    m_commandButtonBar = new CommandButtonBar(QJsonArray(), central);
+    m_appletBar = new AppletBar(QJsonArray(), central);
 
     layout->addWidget(m_muxPaneGroup, 1);
-    layout->addWidget(m_commandButtonBar);
+    layout->addWidget(m_appletBar);
 
     setCentralWidget(central);
 }
@@ -83,6 +100,13 @@ void MainWindow::createDocks()
     filerDock->setObjectName(QStringLiteral("FilerDock"));
     filerDock->setWidget(new FilerPane(filerDock));
     addDockWidget(Qt::LeftDockWidgetArea, filerDock);
+
+    auto *explorerDock = new QDockWidget(tr("Explorer"), this);
+    explorerDock->setObjectName(QStringLiteral("ExplorerDock"));
+    explorerDock->setWidget(new ExplorerPane(explorerDock));
+    addDockWidget(Qt::LeftDockWidgetArea, explorerDock);
+    splitDockWidget(filerDock, explorerDock, Qt::Vertical);
+    explorerDock->hide(); // 初始收起，可从停靠面板菜单恢复
 
     auto *sessionDock = new QDockWidget(tr("Session"), this);
     sessionDock->setObjectName(QStringLiteral("SessionDock"));
@@ -97,11 +121,11 @@ void MainWindow::createDocks()
 
     auto *transferDock = new QDockWidget(tr("Sender | Transfer"), this);
     transferDock->setObjectName(QStringLiteral("SenderTransferDock"));
-    transferDock->setWidget(createSenderTransferTabs());
+    transferDock->setWidget(createBottomTabs());
     addDockWidget(Qt::BottomDockWidgetArea, transferDock);
 }
 
-QWidget *MainWindow::createSenderTransferTabs()
+QWidget *MainWindow::createBottomTabs()
 {
     auto *container = new QWidget;
     auto *layout = new QVBoxLayout(container);
@@ -111,10 +135,16 @@ QWidget *MainWindow::createSenderTransferTabs()
     auto *tabs = new QTabBar(container);
     tabs->addTab(tr("Sender"));
     tabs->addTab(tr("Transfer"));
+    tabs->addTab(tr("Output"));
+    tabs->addTab(tr("Search"));
+    tabs->addTab(tr("Shell"));
 
     auto *stack = new QStackedWidget(container);
     stack->addWidget(new SenderPane(stack));
     stack->addWidget(new TransferPane(stack));
+    stack->addWidget(new OutputPane(stack));
+    stack->addWidget(new SearchPane(stack));
+    stack->addWidget(new ShellPane(stack));
 
     connect(tabs, &QTabBar::currentChanged, stack, &QStackedWidget::setCurrentIndex);
 
@@ -137,6 +167,20 @@ void MainWindow::createStatusBar()
     connect(m_clockTimer, &QTimer::timeout, this, &MainWindow::updateClock);
     m_clockTimer->start(1000);
     updateClock();
+}
+
+void MainWindow::onRestoreLayout()
+{
+    QSettings settings;
+    restoreGeometry(settings.value(QStringLiteral("application/windowGeometry")).toByteArray());
+    Q_UNIMPLEMENTED();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QSettings settings;
+    settings.setValue(QStringLiteral("application/windowGeometry"), saveGeometry());
+    QMainWindow::closeEvent(event);
 }
 
 void MainWindow::updateClock()

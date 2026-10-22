@@ -2,9 +2,12 @@
 
 #include <QMainWindow>
 
+#include "core/LocaleManager.h"
+
+class QCloseEvent;
 class QLabel;
 class QTimer;
-class CommandButtonBar;
+class AppletBar;
 class MuxPaneGroup;
 
 class MainWindow : public QMainWindow
@@ -14,8 +17,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private slots:
     void onPlaceholderAction();
+    void onRestoreLayout();
     void updateClock();
 
 private:
@@ -23,10 +30,11 @@ private:
     void createCentralWidget();
     void createDocks();
     void createStatusBar();
-    QWidget *createSenderTransferTabs();
+    QWidget *createBottomTabs();
 
+    LocaleManager &m_locale;
     MuxPaneGroup *m_muxPaneGroup;
-    CommandButtonBar *m_commandButtonBar;
+    AppletBar *m_appletBar;
     QLabel *m_clockLabel;
     QTimer *m_clockTimer;
 };
