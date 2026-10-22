@@ -13,6 +13,7 @@ class QMenu;
 class QTimer;
 class QToolBar;
 class MuxPaneGroup;
+class QuickBar;
 
 class MainWindow : public QMainWindow
 {
@@ -43,6 +44,8 @@ private:
     QWidget *createBottomTabs();
     QString makeMenuTitle(const QString &base, int n) const;
     void initActionRegistry();
+    QuickBar *ensureQuickBar();
+    void toggleQuickBar();
 
     LocaleManager &m_locale;
     MuxPaneGroup *m_muxPaneGroup;
@@ -51,4 +54,5 @@ private:
     QLabel *m_readyLabel;
     QLabel *m_clockLabel;
     QTimer *m_clockTimer;
+    QuickBar *m_quickBar = nullptr; // 惰性创建（0x0085ad2e：首次显示才构建）
 };

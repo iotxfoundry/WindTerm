@@ -43,6 +43,7 @@
 #include "panes/TransferPane.h"
 #include "widgets/ActionIcons.h"
 #include "widgets/MuxPaneGroup.h"
+#include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
 
 namespace {
@@ -233,6 +234,12 @@ QAction *MainWindow::makeAction(const QString &actionId)
         action->setShortcut(QKeySequence(keys));
 
     action->setData(actionId);
+    // Window.ToggleQuickBar（wind.actions: checkable，state=isHidden?false:true，script=toggleBar）
+    if (actionId == QStringLiteral("Window.ToggleQuickBar")) {
+        action->setCheckable(true);
+        connect(action, &QAction::triggered, this, &MainWindow::toggleQuickBar);
+        return action;
+    }
     // wind.actions Dock.TogglePane* 与 Window.TogglePane*：toggle 对应容器。
     // 映射按骨架合并形态：原版 Session 独立 pane 与 Explorer 合并为 tabsGroup（QTabWidget），shortcut 挂账
     connect(action, &QAction::triggered, this, [this, actionId]() {
@@ -509,6 +516,27 @@ void MainWindow::togglePane(QWidget *pane)
     if (showing)
         for (QWidget *p = pane->parentWidget(); p; p = p->parentWidget())
             p->setVisible(true);
+}
+
+// 惰性创建：原版首次显示时才构建（0x0085ad2e）并 insertWidget 进中央底部区 QSplitter，
+// 排序键 [SearchPane, QuickBar, TransferBar] → bottomGroup 前插（index 0，骨架近似）
+QuickBar *MainWindow::ensureQuickBar()
+{
+    if (m_quickBar)
+        return m_quickBar;
+    m_quickBar = new QuickBar(this);
+    if (auto *bottom = findChild<QSplitter *>(QStringLiteral("BottomPanes")))
+        bottom->insertWidget(0, m_quickBar);
+    // QSplitter::insertWidget 会自动显示新槽（PaneManager 同款坑）；原版创建时不可见，由首次 toggle 接管
+    m_quickBar->hide();
+    return m_quickBar;
+}
+
+void MainWindow::toggleQuickBar()
+{
+    QuickBar *bar = ensureQuickBar();
+    // wind.actions state 勾选态与可见性同步；QSplitter 收养后 insertWidget 即显示
+    bar->setVisible(bar->isHidden());
 }
 
 void MainWindow::onPlaceholderAction()

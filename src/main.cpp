@@ -1,8 +1,12 @@
+#include <QAction>
 #include <QApplication>
+#include <QDebug>
 #include <QPixmap>
 #include <QTimer>
 
 #include "MainWindow.h"
+#include "core/ActionRegistry.h"
+#include "widgets/QuickBar.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +23,55 @@ int main(int argc, char *argv[])
             window->grab().save(path, "PNG");
             QCoreApplication::quit();
         });
+    }
+
+    // --selfcheck：QuickBar 骨架断言（动作注册/惰性创建/toggle 可见性/objectName）
+    if (argc > 1 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--selfcheck")) {
+        QTimer::singleShot(200, &app, [window, &app]() {
+            int failed = 0;
+            auto check = [&failed](bool ok, const char *what) {
+                if (!ok) {
+                    qWarning() << "SELFCHECK FAIL:" << what;
+                    ++failed;
+                }
+            };
+            check(ActionRegistry::instance().actionIds().contains(QStringLiteral("Window.ToggleQuickBar")),
+                  "Window.ToggleQuickBar registered in wind.actions");
+            QuickBar *bar = window->findChild<QuickBar *>();
+            check(!bar, "QuickBar not created until first toggle (lazy)");
+            check(window->objectName() == QStringLiteral("TerminalWindow"), "sanity: main window alive");
+            QMetaObject::invokeMethod(window, [window, &failed, &app]() {
+                int inner = 0;
+                auto check2 = [&inner](bool ok, const char *what) {
+                    if (!ok) {
+                        qWarning() << "SELFCHECK FAIL:" << what;
+                        ++inner;
+                    }
+                };
+                // 通过 QAction data 定位 Window.ToggleQuickBar 并触发（与菜单点击同路径）
+                QAction *quickToggle = nullptr;
+                for (QAction *a : window->findChildren<QAction *>())
+                    if (a->data() == QStringLiteral("Window.ToggleQuickBar"))
+                        quickToggle = a;
+                check2(quickToggle, "action Window.ToggleQuickBar exists");
+                check2(quickToggle && quickToggle->isCheckable(), "action is checkable");
+                if (quickToggle)
+                    quickToggle->trigger();
+                QuickBar *bar2 = window->findChild<QuickBar *>();
+                check2(bar2, "QuickBar created after first toggle");
+                check2(bar2 && bar2->objectName() == QStringLiteral("QuickBar"), "objectName == QuickBar");
+                check2(bar2 && bar2->isVisible(), "QuickBar visible after first toggle");
+                check2(quickToggle && quickToggle->isChecked(), "action checked while visible");
+                if (quickToggle)
+                    quickToggle->trigger();
+                check2(bar2 && !bar2->isVisible(), "QuickBar hidden after second toggle");
+                check2(quickToggle && !quickToggle->isChecked(), "action unchecked while hidden");
+                failed += inner;
+                qInfo() << "SELFCHECK" << (failed == 0 ? "PASSED" : "FAILED") << "(" << failed << "failures)";
+                app.exit(failed == 0 ? 0 : 1);
+            });
+        });
+        return app.exec();
     }
 
     return app.exec();
