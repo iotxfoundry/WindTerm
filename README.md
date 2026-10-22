@@ -3,7 +3,7 @@
 WindTerm 2.7.0 主窗口的 Qt Widgets 界面壳还原：菜单栏、四组停靠面板、彩色会话标签、命令按钮栏与状态栏。
 已按 Phase 2 二进制发现对齐：9 个面板（Filer/Explorer/Session/Outline/Sender/Transfer/Output/Search/Shell）与 `Bars.h` 登记的 7 个栏名（MenuBar/QuickBar/KitBar/ToolBar/AppletBar/StatusBar/TransferBar），
 `MainWindow` 采用 `WA_DeleteOnClose`、`application/windowOpacity` 配置与单发定时器延迟恢复布局，菜单文案经 `LocaleManager` 查表。
-数据驱动层：`WindConfig` 读取 `assets/config/wind.config`（去 BOM，容忍 `//` 行注释），`ActionRegistry` 宽松解析 `assets/config/wind.actions`（净化字符串内控制字符，失败退化正则）；菜单标题复刻二进制的 `标题 + " (&N)"` 模式（Help 为 0）。
+数据驱动层：`WindConfig` 读取 `assets/config/wind.config`（去 BOM，容忍 `//` 行注释），`ActionRegistry` 宽松解析 `assets/config/wind.actions`（净化字符串内控制字符，失败退化正则）；菜单由 `assets/config/uiconfigs/menu.config` 驱动（`MenuConfig` 按 `Kit` 顺序构建，Action/Separator/子菜单递归，加载失败回退内置 9 菜单）；菜单标题复刻二进制的 `标题 + " (&N)"` 模式（Help 为 0）。
 所有交互槽位均为空（`Q_UNIMPLEMENTED()`），**不含任何连接、协议、终端或文件传输逻辑**。
 
 ## 构建

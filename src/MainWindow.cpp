@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QMenu>
 #include <QMenuBar>
+#include <QPalette>
+#include <QPlainTextEdit>
 #include <QSettings>
 #include <QStackedWidget>
 #include <QStatusBar>
@@ -16,6 +18,7 @@
 #include <QVBoxLayout>
 
 #include "core/ActionRegistry.h"
+#include "core/SchemeManager.h"
 #include "core/ThemeManager.h"
 #include "core/WindConfig.h"
 #include "panes/ExplorerPane.h"
@@ -27,6 +30,7 @@
 #include "panes/SessionPane.h"
 #include "panes/ShellPane.h"
 #include "panes/TransferPane.h"
+#include "widgets/ActionIcons.h"
 #include "widgets/AppletBar.h"
 #include "widgets/MuxPaneGroup.h"
 
@@ -52,14 +56,25 @@ MainWindow::MainWindow(QWidget *parent)
     const QString theme = WindConfig::instance().valueToString(QStringLiteral("application.themeGui"), QStringLiteral("dige-black"));
     ThemeManager::instance().loadTheme(theme);
     ThemeManager::instance().apply();
+    SchemeManager::instance().load();
 
     m_locale.load(QStringLiteral("assets/locales/zh-CN.locale"));
 
-    createMenus();
-    createCentralWidget();
-    createDocks();
     createStatusBar();
     initActionRegistry();
+    createMenus();
+    createCentralWidget();
+
+    const QColor terminalBackground = SchemeManager::instance().color(QStringLiteral("line.background"));
+    if (terminalBackground.isValid()) {
+        for (QPlainTextEdit *edit : m_muxPaneGroup->findChildren<QPlainTextEdit *>()) {
+            QPalette palette = edit->palette();
+            palette.setColor(QPalette::Base, terminalBackground);
+            edit->setPalette(palette);
+        }
+    }
+
+    createDocks();
 
     QTimer::singleShot(0, this, &MainWindow::onRestoreLayout);
 }
@@ -70,6 +85,22 @@ QString MainWindow::makeMenuTitle(const QString &base, int n) const
 }
 
 void MainWindow::createMenus()
+{
+    MenuConfig &menuConfig = MenuConfig::instance();
+    if (menuConfig.load(QStringLiteral("assets/config/uiconfigs/menu.config")) && !menuConfig.menuNames().isEmpty()) {
+        const QStringList names = menuConfig.menuNames();
+        for (int i = 0; i < names.size(); ++i) {
+            const int n = (i == names.size() - 1) ? 0 : i + 1;
+            QMenu *menu = menuBar()->addMenu(makeMenuTitle(m_locale.tr(names.at(i)), n));
+            buildMenu(menu, menuConfig.menu(names.at(i)));
+        }
+        return;
+    }
+
+    createFallbackMenus();
+}
+
+void MainWindow::createFallbackMenus()
 {
     auto addMenu = [this](const QString &title, int n, const QStringList &items) {
         QString plain = title;
@@ -90,6 +121,37 @@ void MainWindow::createMenus()
     addMenu(QStringLiteral("&Mode"), 7, {QStringLiteral("Normal Mode"), QStringLiteral("Remote Mode")});
     addMenu(QStringLiteral("&Window"), 8, {QStringLiteral("New Window"), QStringLiteral("Close Window")});
     addMenu(QStringLiteral("&Help"), 0, {QStringLiteral("Help"), QStringLiteral("About")});
+}
+
+void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
+{
+    for (const MenuEntry &entry : entries) {
+        switch (entry.type) {
+        case MenuEntry::Action: {
+            QString text = ActionRegistry::instance().actionText(entry.actionId);
+            if (text.isEmpty())
+                text = entry.actionId.section(QLatin1Char('.'), -1);
+            text.remove(QLatin1Char('&'));
+
+            QAction *action = menu->addAction(m_locale.tr(text));
+            const QString iconName = ActionRegistry::instance().actionIcon(entry.actionId);
+            if (!iconName.isEmpty()) {
+                QString name = iconName;
+                if (name.startsWith(QStringLiteral("king::")))
+                    name.remove(0, 6);
+                action->setIcon(ActionIcons::iconFor(name));
+            }
+            connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderAction);
+            break;
+        }
+        case MenuEntry::Separator:
+            menu->addSeparator();
+            break;
+        case MenuEntry::Submenu:
+            buildMenu(menu->addMenu(entry.title), entry.children);
+            break;
+        }
+    }
 }
 
 void MainWindow::createCentralWidget()

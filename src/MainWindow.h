@@ -3,9 +3,11 @@
 #include <QMainWindow>
 
 #include "core/LocaleManager.h"
+#include "core/MenuConfig.h"
 
 class QCloseEvent;
 class QLabel;
+class QMenu;
 class QTimer;
 class AppletBar;
 class MuxPaneGroup;
@@ -27,6 +29,8 @@ private slots:
 
 private:
     void createMenus();
+    void createFallbackMenus();
+    void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
     void createCentralWidget();
     void createDocks();
     void createStatusBar();
