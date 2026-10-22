@@ -21,6 +21,9 @@ for t in default dige-white dige-black dige-black-and-white; do
 done
 # 全部语言包（<2MB）
 cp "$SRC"/global/locales/*.locale "$ASSETS/locales/"
+# 数据驱动的动作/配置文件（Phase 3）
+mkdir -p "$ASSETS/config"
+cp "$SRC"/global/wind.config "$SRC"/global/wind.actions "$ASSETS/config/"
 
 echo "已写入 $ASSETS:"
 du -sh "$ASSETS/themes/"* "$ASSETS/locales" 2>/dev/null
