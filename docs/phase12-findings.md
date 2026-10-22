@@ -43,3 +43,10 @@
 - 权威数据：`wind.keymaps`（JSON，宽松正则漏解析需整组解析）：Terminal.Save→Ctrl+Shift+S、Window.Close→Ctrl+Shift+Q、CloseActiveView→Ctrl+Shift+W、NewWindow→Ctrl+Shift+N、Exit→Alt+F4
 - 无 keymap 项：二进制内建助记表（strings: Alt+N/C/I/O/W/X + "Alt+%1" 格式）→ & 助记符生成 Alt+X
 - 骨架实现：src/core/KeymapConfig.h（修饰键过滤、同 action 取首条）+ makeAction setShortcut；fetch-assets.sh 增拷 wind.keymaps
+
+## 补充：快捷键显示规则（反汇编 FUN_006a872d→FUN_008cb962 + 7 样本验证）
+
+- 原版按【焦点部件 keyMode】过滤 keymaps 绑定后 setShortcut（多模式键位系统）
+- 显示规则（无会话态实证）：**空 modes=全局绑定**（Alt+F4/Ctrl+Shift+N/Alt+O）；否则 modes 须含 `remote`；滤 Meta*；同 action 取最后一条
+- 实现于 KeymapConfig；Edit 菜单 Copy=Shift+Del/Paste=Shift+Ins（非直觉但与原版一致）
+- 无 icon 字段动作的图标恢复 assets/icons 原生裁剪兜底（45 个）

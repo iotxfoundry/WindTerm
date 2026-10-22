@@ -103,6 +103,10 @@ inline QIcon iconFor(const QString &actionId, const QString &iconName, const QSt
         if (!king.isNull())
             return king;
     }
+    // ② 无 icon 字段动作：原版菜单截图原生裁剪（assets/icons，仅 45 个）
+    const QString crop = Assets::dir() + QStringLiteral("/icons/%1.png").arg(actionId);
+    if (QFile::exists(crop))
+        return tintedMaskIcon(crop, themeIconColor(theme));
     QString name = iconName;
     name.remove(QLatin1String("king::"));
     // 名字即文件名（小写），与原版 images/%1.svg 模板一致

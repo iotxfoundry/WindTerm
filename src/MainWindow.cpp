@@ -211,21 +211,10 @@ QAction *MainWindow::makeAction(const QString &actionId)
     if (!ic.isNull())
         action->setIcon(ic);
 
-    QString keys = KeymapConfig::instance().shortcut(actionId);
-    if (keys.isEmpty()) {
-        // 原版菜单实见观测表（orig_menu_0 逐项；keymaps 无这些 action 的映射）
-        static const QHash<QString, QString> observed = {
-            {QStringLiteral("Terminal.NewSession"), QStringLiteral("Alt+N")},
-            {QStringLiteral("Terminal.OpenSession"), QStringLiteral("Alt+O")},
-            {QStringLiteral("Terminal.ReconnectSession"), QStringLiteral("Return")},
-        };
-        keys = observed.value(actionId);
-    }
-    if (!keys.isEmpty()) {
-        QString qs = keys;
-        qs.remove(QLatin1Char('<')).remove(QLatin1Char('>'));
-        action->setShortcut(QKeySequence(qs));
-    }
+    // 快捷键 = keymaps 显示规则解析（docs/phase12：空modes=全局/含remote，滤Meta，取最后）
+    const QString keys = KeymapConfig::instance().shortcut(actionId);
+    if (!keys.isEmpty())
+        action->setShortcut(QKeySequence(keys));
 
     action->setData(actionId);
     connect(action, &QAction::triggered, this, [this, actionId]() {
