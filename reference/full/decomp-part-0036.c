@@ -399,7 +399,7 @@ void FUN_00b02f98(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   undefined8 uVar2;
   undefined8 uVar3;
   
-  FUN_00b00efa(0x30,param_2);
+  identity_forward(0x30,param_2);
   uVar1 = FUN_00b016fe(param_3);
   uVar2 = FUN_00b0295c(param_2);
   uVar3 = FUN_00b0294e(param_1);
@@ -703,7 +703,7 @@ void FUN_00b033d4(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   undefined8 uVar2;
   
   uVar1 = FUN_00b016fe(param_3);
-  uVar2 = FUN_00b00efa(0x10,param_2);
+  uVar2 = identity_forward(0x10,param_2);
   FUN_00b033ae(uVar2,uVar1);
   return;
 }
@@ -3447,7 +3447,7 @@ void FUN_00b06650(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   
   uVar1 = FUN_00b0551d(param_3);
   uVar2 = FUN_00b0551d(param_4);
-  uVar3 = FUN_00b00efa(0x10,param_2);
+  uVar3 = identity_forward(0x10,param_2);
   FUN_00b06cce(uVar3,uVar1,uVar2);
   return;
 }
@@ -3680,7 +3680,7 @@ void FUN_00b06a36(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   
   puVar2 = (undefined8 *)FUN_00b0551d(param_3);
   uVar1 = *puVar2;
-  puVar2 = (undefined8 *)FUN_00b00efa(8,param_2);
+  puVar2 = (undefined8 *)identity_forward(8,param_2);
   *puVar2 = uVar1;
   return;
 }
@@ -4158,7 +4158,7 @@ void FUN_00b0712e(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   
   uVar1 = FUN_00b0551d(param_3);
   uVar2 = FUN_00b0551d(param_4);
-  uVar3 = FUN_00b00efa(0x10,param_2);
+  uVar3 = identity_forward(0x10,param_2);
   FUN_00b06cce(uVar3,uVar1,uVar2);
   return;
 }
@@ -4399,7 +4399,7 @@ void FUN_00b074b7(undefined8 param_1,undefined8 param_2)
   undefined8 *puVar3;
   
   puVar2 = (undefined8 *)FUN_00b074a9(param_2);
-  puVar3 = (undefined8 *)FUN_00b00efa(0x10,param_1);
+  puVar3 = (undefined8 *)identity_forward(0x10,param_1);
   uVar1 = puVar2[1];
   *puVar3 = *puVar2;
   puVar3[1] = uVar1;
@@ -4706,7 +4706,7 @@ undefined8 FUN_00b07c10(undefined8 param_1,undefined8 param_2)
       FUN_00b24352(local_48,local_c8);
                     /* try { // try from 00b07ca9 to 00b07cad has its CatchHandler @ 00b07ce7 */
       FUN_00b08110(param_1,local_48);
-      FUN_005286b0(local_48);
+      refcounted_pair_release(local_48);
     }
     FUN_00b242c4(local_c8);
   } while (cVar1 == '\x01');
@@ -4796,7 +4796,7 @@ void FUN_00b07f68(long param_1)
 void FUN_00b07f88(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00783348(param_1,param_2);
+  shared_ptr_copy_ref(param_1,param_2);
   return;
 }
 
@@ -5196,7 +5196,7 @@ void FUN_00b0871a(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   undefined8 uVar2;
   
   uVar1 = FUN_00b08058(param_3);
-  uVar2 = FUN_00b00efa(0x28,param_2);
+  uVar2 = identity_forward(0x28,param_2);
                     /* try { // try from 00b0875c to 00b08760 has its CatchHandler @ 00b08763 */
   FUN_007876f8(uVar2,uVar1);
   return;
@@ -5340,7 +5340,7 @@ void FUN_00b089a2(undefined8 param_1,void *param_2)
 void FUN_00b089c5(undefined8 param_1)
 
 {
-  FUN_005286b0(param_1);
+  refcounted_pair_release(param_1);
   return;
 }
 
@@ -5410,7 +5410,7 @@ void FUN_00b08a7a(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 void FUN_00b08aac(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_005286b0(param_2);
+  refcounted_pair_release(param_2);
   return;
 }
 
@@ -5508,7 +5508,7 @@ void FUN_00b08c25(undefined8 param_1,undefined8 param_2)
   undefined8 uVar2;
   
   uVar1 = FUN_00b08c17(param_2);
-  uVar2 = FUN_00b00efa(0x28,param_1);
+  uVar2 = identity_forward(0x28,param_1);
                     /* try { // try from 00b08c63 to 00b08c67 has its CatchHandler @ 00b08c6a */
   FUN_007876f8(uVar2,uVar1);
   return;
@@ -5674,15 +5674,15 @@ void FUN_00b08fd0(undefined8 param_1,long param_2)
     }
   }
   else {
-    FUN_00b0903e(param_1,param_2);
+    yaml_parseDirective(param_1,param_2);
   }
   return;
 }
 
 
-// ==== entry=00b0903e name=FUN_00b0903e size=926 ====
+// ==== entry=00b0903e orig=FUN_00b0903e size=926 name=yaml_parseDirective ====
 
-void FUN_00b0903e(long param_1,long param_2)
+void yaml_parseDirective(long param_1,long param_2)
 
 {
   bool bVar1;
@@ -7447,7 +7447,7 @@ void FUN_00b0b5c2(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   undefined8 uVar4;
   undefined8 uVar5;
   
-  FUN_00b00efa(0x30,param_2);
+  identity_forward(0x30,param_2);
   uVar1 = FUN_00b0a9dd(param_5);
   uVar2 = FUN_00b0a9cf(param_4);
   uVar3 = FUN_00b0a9c1(param_3);
@@ -7916,7 +7916,7 @@ void FUN_00b0bca8(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   uVar1 = FUN_00b0a9cf(param_4);
   FUN_00b0bc82(local_38,uVar1);
   FUN_00b0a9dd(param_5);
-  uVar1 = FUN_00b00efa(0x10,param_2);
+  uVar1 = identity_forward(0x10,param_2);
                     /* try { // try from 00b0bd1d to 00b0bd21 has its CatchHandler @ 00b0bd24 */
   FUN_00b0be5c(uVar1,local_38);
   return;
@@ -9173,7 +9173,7 @@ undefined * FUN_00b0da0c(void)
     iVar1 = __cxa_guard_acquire(&DAT_011c2c40);
     if (iVar1 != 0) {
                     /* try { // try from 00b0da46 to 00b0da4a has its CatchHandler @ 00b0da70 */
-      FUN_00b26bfc(&DAT_011c2c20,0x20);
+      onig_nodeInitAlt(&DAT_011c2c20,0x20);
       __cxa_guard_release(&DAT_011c2c40);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2c20,&DAT_00c89008);
     }
@@ -9193,7 +9193,7 @@ undefined * FUN_00b0da92(void)
     iVar1 = __cxa_guard_acquire(&DAT_011c2c80);
     if (iVar1 != 0) {
                     /* try { // try from 00b0dacc to 00b0dad0 has its CatchHandler @ 00b0daf6 */
-      FUN_00b26bfc(&DAT_011c2c60,9);
+      onig_nodeInitAlt(&DAT_011c2c60,9);
       __cxa_guard_release(&DAT_011c2c80);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2c60,&DAT_00c89008);
     }
@@ -9246,7 +9246,7 @@ undefined * FUN_00b0dbb2(void)
                     /* try { // try from 00b0dc22 to 00b0dc26 has its CatchHandler @ 00b0dcc7 */
       FUN_00b26c88(local_68,local_48,6);
                     /* try { // try from 00b0dc33 to 00b0dc37 has its CatchHandler @ 00b0dcb6 */
-      FUN_00b26bfc(local_38,10);
+      onig_nodeInitAlt(local_38,10);
                     /* try { // try from 00b0dc4b to 00b0dc4f has its CatchHandler @ 00b0dca5 */
       FUN_00b26d8c(&DAT_011c2ce0,local_38,local_68);
       __cxa_guard_release(&DAT_011c2d00);
@@ -9261,9 +9261,9 @@ undefined * FUN_00b0dbb2(void)
 }
 
 
-// ==== entry=00b0dd0a name=FUN_00b0dd0a size=125 ====
+// ==== entry=00b0dd0a orig=FUN_00b0dd0a size=125 name=yaml_getSingleton ====
 
-undefined * FUN_00b0dd0a(void)
+undefined * yaml_getSingleton(void)
 
 {
   int iVar1;
@@ -9304,7 +9304,7 @@ undefined * FUN_00b0dda4(void)
                     /* try { // try from 00b0dde7 to 00b0ddeb has its CatchHandler @ 00b0df09 */
       FUN_00b26bdc(local_68);
                     /* try { // try from 00b0ddec to 00b0de06 has its CatchHandler @ 00b0def8 */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_88,uVar2,local_68);
       std::allocator<char>::allocator();
                     /* try { // try from 00b0de23 to 00b0de27 has its CatchHandler @ 00b0dedb */
@@ -9312,7 +9312,7 @@ undefined * FUN_00b0dda4(void)
                     /* try { // try from 00b0de3b to 00b0de3f has its CatchHandler @ 00b0deca */
       FUN_00b26c88(local_48,local_28,6);
                     /* try { // try from 00b0de53 to 00b0de57 has its CatchHandler @ 00b0deb9 */
-      FUN_00b26e82(&DAT_011c2d60,local_48,local_88);
+      onig_nodeAdd2(&DAT_011c2d60,local_48,local_88);
       __cxa_guard_release(&DAT_011c2d80);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2d60,&DAT_00c89008);
       FUN_00b0d994(local_48);
@@ -9345,7 +9345,7 @@ undefined * FUN_00b0df2f(void)
                     /* try { // try from 00b0df72 to 00b0df76 has its CatchHandler @ 00b0e094 */
       FUN_00b26bdc(local_68);
                     /* try { // try from 00b0df77 to 00b0df91 has its CatchHandler @ 00b0e083 */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_88,uVar2,local_68);
       std::allocator<char>::allocator();
                     /* try { // try from 00b0dfae to 00b0dfb2 has its CatchHandler @ 00b0e066 */
@@ -9353,7 +9353,7 @@ undefined * FUN_00b0df2f(void)
                     /* try { // try from 00b0dfc6 to 00b0dfca has its CatchHandler @ 00b0e055 */
       FUN_00b26c88(local_48,local_28,6);
                     /* try { // try from 00b0dfde to 00b0dfe2 has its CatchHandler @ 00b0e044 */
-      FUN_00b26e82(&DAT_011c2da0,local_48,local_88);
+      onig_nodeAdd2(&DAT_011c2da0,local_48,local_88);
       __cxa_guard_release(&DAT_011c2dc0);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2da0,&DAT_00c89008);
       FUN_00b0d994(local_48);
@@ -9384,12 +9384,12 @@ undefined * FUN_00b0e0ba(void)
                     /* try { // try from 00b0e0fd to 00b0e101 has its CatchHandler @ 00b0e1c2 */
       FUN_00b26bdc(local_58);
                     /* try { // try from 00b0e102 to 00b0e11c has its CatchHandler @ 00b0e1b1 */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_78,uVar2,local_58);
                     /* try { // try from 00b0e129 to 00b0e12d has its CatchHandler @ 00b0e1a0 */
-      FUN_00b26bfc(local_38,0x2d);
+      onig_nodeInitAlt(local_38,0x2d);
                     /* try { // try from 00b0e141 to 00b0e145 has its CatchHandler @ 00b0e18f */
-      FUN_00b26e82(&DAT_011c2de0,local_38,local_78);
+      onig_nodeAdd2(&DAT_011c2de0,local_38,local_78);
       __cxa_guard_release(&DAT_011c2e00);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2de0,&DAT_00c89008);
       FUN_00b0d994(local_38);
@@ -9414,10 +9414,10 @@ undefined * FUN_00b0e1e8(void)
     iVar1 = __cxa_guard_acquire(&DAT_011c2e40);
     if (iVar1 != 0) {
                     /* try { // try from 00b0e21c to 00b0e234 has its CatchHandler @ 00b0e28e */
-      uVar2 = FUN_00b0dd0a();
-      FUN_00b26bfc(local_38,0x3f);
+      uVar2 = yaml_getSingleton();
+      onig_nodeInitAlt(local_38,0x3f);
                     /* try { // try from 00b0e247 to 00b0e24b has its CatchHandler @ 00b0e27d */
-      FUN_00b26e82(&DAT_011c2e20,local_38,uVar2);
+      onig_nodeAdd2(&DAT_011c2e20,local_38,uVar2);
       __cxa_guard_release(&DAT_011c2e40);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2e20,&DAT_00c89008);
       FUN_00b0d994(local_38);
@@ -9440,10 +9440,10 @@ undefined * FUN_00b0e2b4(void)
     iVar1 = __cxa_guard_acquire(&DAT_011c2e80);
     if (iVar1 != 0) {
                     /* try { // try from 00b0e2e8 to 00b0e300 has its CatchHandler @ 00b0e35a */
-      uVar2 = FUN_00b0dd0a();
-      FUN_00b26bfc(local_38,0x3f);
+      uVar2 = yaml_getSingleton();
+      onig_nodeInitAlt(local_38,0x3f);
                     /* try { // try from 00b0e313 to 00b0e317 has its CatchHandler @ 00b0e349 */
-      FUN_00b26e82(&DAT_011c2e60,local_38,uVar2);
+      onig_nodeAdd2(&DAT_011c2e60,local_38,uVar2);
       __cxa_guard_release(&DAT_011c2e80);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2e60,&DAT_00c89008);
       FUN_00b0d994(local_38);
@@ -9470,12 +9470,12 @@ undefined * FUN_00b0e380(void)
                     /* try { // try from 00b0e3c3 to 00b0e3c7 has its CatchHandler @ 00b0e488 */
       FUN_00b26bdc(local_58);
                     /* try { // try from 00b0e3c8 to 00b0e3e2 has its CatchHandler @ 00b0e477 */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_78,uVar2,local_58);
                     /* try { // try from 00b0e3ef to 00b0e3f3 has its CatchHandler @ 00b0e466 */
-      FUN_00b26bfc(local_38,0x3a);
+      onig_nodeInitAlt(local_38,0x3a);
                     /* try { // try from 00b0e407 to 00b0e40b has its CatchHandler @ 00b0e455 */
-      FUN_00b26e82(&DAT_011c2ea0,local_38,local_78);
+      onig_nodeAdd2(&DAT_011c2ea0,local_38,local_78);
       __cxa_guard_release(&DAT_011c2ec0);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2ea0,&DAT_00c89008);
       FUN_00b0d994(local_38);
@@ -9509,12 +9509,12 @@ undefined * FUN_00b0e4ae(void)
                     /* try { // try from 00b0e51e to 00b0e522 has its CatchHandler @ 00b0e5fb */
       FUN_00b26c88(local_68,local_48,3);
                     /* try { // try from 00b0e523 to 00b0e53d has its CatchHandler @ 00b0e5ea */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_88,uVar2,local_68);
                     /* try { // try from 00b0e54a to 00b0e54e has its CatchHandler @ 00b0e5d9 */
-      FUN_00b26bfc(local_38,0x3a);
+      onig_nodeInitAlt(local_38,0x3a);
                     /* try { // try from 00b0e562 to 00b0e566 has its CatchHandler @ 00b0e5c8 */
-      FUN_00b26e82(&DAT_011c2ee0,local_38,local_88);
+      onig_nodeAdd2(&DAT_011c2ee0,local_38,local_88);
       __cxa_guard_release(&DAT_011c2f00);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2ee0,&DAT_00c89008);
       FUN_00b0d994(local_38);
@@ -9539,7 +9539,7 @@ undefined * FUN_00b0e63e(void)
     iVar1 = __cxa_guard_acquire(&DAT_011c2f40);
     if (iVar1 != 0) {
                     /* try { // try from 00b0e678 to 00b0e67c has its CatchHandler @ 00b0e6a2 */
-      FUN_00b26bfc(&DAT_011c2f20,0x3a);
+      onig_nodeInitAlt(&DAT_011c2f20,0x3a);
       __cxa_guard_release(&DAT_011c2f40);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2f20,&DAT_00c89008);
     }
@@ -9559,7 +9559,7 @@ undefined8 FUN_00b0e6c4(undefined8 param_1)
     iVar1 = __cxa_guard_acquire(&DAT_011c2f80);
     if (iVar1 != 0) {
                     /* try { // try from 00b0e706 to 00b0e70a has its CatchHandler @ 00b0e73c */
-      FUN_00b26bfc(&DAT_011c2f60,0x23);
+      onig_nodeInitAlt(&DAT_011c2f60,0x23);
       __cxa_guard_release(&DAT_011c2f80);
       __cxa_atexit(FUN_00b0d994,&DAT_011c2f60,&DAT_00c89008);
     }
@@ -9594,7 +9594,7 @@ undefined * FUN_00b0e766(void)
                     /* try { // try from 00b0e7af to 00b0e7b3 has its CatchHandler @ 00b0ea34 */
       FUN_00b26bdc(local_b8);
                     /* try { // try from 00b0e7b4 to 00b0e7d4 has its CatchHandler @ 00b0ea20 */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_d8,uVar2,local_b8);
       std::allocator<char>::allocator();
                     /* try { // try from 00b0e7f1 to 00b0e7f5 has its CatchHandler @ 00b0ea00 */
@@ -9602,14 +9602,14 @@ undefined * FUN_00b0e766(void)
                     /* try { // try from 00b0e80c to 00b0e810 has its CatchHandler @ 00b0e9ef */
       FUN_00b26c88(local_98,local_78,3);
                     /* try { // try from 00b0e82c to 00b0e830 has its CatchHandler @ 00b0e9db */
-      FUN_00b26e82(local_f8,local_98,local_d8);
+      onig_nodeAdd2(local_f8,local_98,local_d8);
       std::allocator<char>::allocator();
                     /* try { // try from 00b0e84d to 00b0e851 has its CatchHandler @ 00b0e9bb */
       std::string::string(local_28,",[]{}#&*!|>\'\"%@`",&local_19);
                     /* try { // try from 00b0e865 to 00b0e869 has its CatchHandler @ 00b0e9aa */
       FUN_00b26c88(local_48,local_28,3);
                     /* try { // try from 00b0e86a to 00b0e884 has its CatchHandler @ 00b0e999 */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_68,uVar2,local_48);
                     /* try { // try from 00b0e89d to 00b0e8a1 has its CatchHandler @ 00b0e988 */
       FUN_00b26d8c(local_118,local_68,local_f8);
@@ -9667,14 +9667,14 @@ undefined * FUN_00b0ea5d(void)
                     /* try { // try from 00b0eb03 to 00b0eb07 has its CatchHandler @ 00b0ece6 */
       FUN_00b26c88(local_98,local_78,3);
                     /* try { // try from 00b0eb23 to 00b0eb27 has its CatchHandler @ 00b0ecd2 */
-      FUN_00b26e82(local_f8,local_98,local_d8);
+      onig_nodeAdd2(local_f8,local_98,local_d8);
       std::allocator<char>::allocator();
                     /* try { // try from 00b0eb44 to 00b0eb48 has its CatchHandler @ 00b0ecb2 */
       std::string::string(local_28,"?,[]{}#&*!|>\'\"%@`",&local_19);
                     /* try { // try from 00b0eb5c to 00b0eb60 has its CatchHandler @ 00b0eca1 */
       FUN_00b26c88(local_48,local_28,3);
                     /* try { // try from 00b0eb61 to 00b0eb7b has its CatchHandler @ 00b0ec90 */
-      uVar2 = FUN_00b0dd0a();
+      uVar2 = yaml_getSingleton();
       FUN_00b26d8c(local_68,uVar2,local_48);
                     /* try { // try from 00b0eb94 to 00b0eb98 has its CatchHandler @ 00b0ec7f */
       FUN_00b26d8c(local_118,local_68,local_f8);
@@ -9814,7 +9814,7 @@ undefined8 FUN_00b0eec9(undefined8 param_1)
 void FUN_00b0eed8(long param_1)
 
 {
-  FUN_0081a1e4(param_1 + 0x20);
+  string_vector_destroy(param_1 + 0x20);
   std::string::~string((string *)(param_1 + 0x18));
   return;
 }
@@ -13257,7 +13257,7 @@ void FUN_00b12e2e(undefined8 param_1,undefined8 param_2)
   undefined8 uVar2;
   
   uVar1 = FUN_00b12e20(param_2);
-  uVar2 = FUN_00b00efa(0x20,param_1);
+  uVar2 = identity_forward(0x20,param_1);
                     /* try { // try from 00b12e6c to 00b12e70 has its CatchHandler @ 00b12e73 */
   FUN_00b0d9b4(uVar2,uVar1);
   return;
@@ -13842,7 +13842,7 @@ void FUN_00b137d8(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   undefined8 uVar2;
   
   uVar1 = FUN_00b111ba(param_3);
-  uVar2 = FUN_00b00efa(8,param_2);
+  uVar2 = identity_forward(8,param_2);
   FUN_00b13f2e(uVar2,uVar1);
   return;
 }
@@ -13980,7 +13980,7 @@ void FUN_00b13a26(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   
   puVar2 = (undefined8 *)FUN_00b112fd(param_3);
   uVar1 = *puVar2;
-  puVar2 = (undefined8 *)FUN_00b00efa(8,param_2);
+  puVar2 = (undefined8 *)identity_forward(8,param_2);
   *puVar2 = uVar1;
   return;
 }
@@ -14036,7 +14036,7 @@ void FUN_00b13b78(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   undefined8 uVar2;
   
   uVar1 = FUN_00b11392(param_3);
-  uVar2 = FUN_00b00efa(0x40,param_2);
+  uVar2 = identity_forward(0x40,param_2);
   FUN_00b13af0(uVar2,uVar1);
   return;
 }

@@ -1322,7 +1322,7 @@ char * FUN_00be6700(long *param_1,undefined4 param_2,char *param_3,long param_4)
     strncpy(param_3,local_20,param_4 - 1);
     param_3[param_4 + -1] = '\0';
     if (local_20 + -0x18 != (char *)&std::string::_Rep::_S_empty_rep_storage) {
-      FUN_00be1b50(local_20 + -0x18,&local_21);
+      strrep_release(local_20 + -0x18,&local_21);
     }
   }
   return param_3;
@@ -1424,7 +1424,7 @@ string * FUN_00be6820(string *param_1,int *param_2)
                     /* try { // try from 00be68ef to 00be68f3 has its CatchHandler @ 00be6c1d */
   std::string::append(param_1,(string *)local_58);
   if ((undefined8 *)(local_58[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
-    FUN_00be1b50((undefined8 *)(local_58[0] + -0x18),local_78);
+    strrep_release((undefined8 *)(local_58[0] + -0x18),local_78);
   }
   if (3 < *(ulong *)(param_2 + 4)) {
                     /* try { // try from 00be6922 to 00be6958 has its CatchHandler @ 00be6c08 */
@@ -1453,7 +1453,7 @@ string * FUN_00be6820(string *param_1,int *param_2)
                     /* try { // try from 00be69da to 00be69de has its CatchHandler @ 00be6c03 */
     std::string::append(param_1,(string *)local_58);
     if ((undefined8 *)(local_58[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
-      FUN_00be1b50((undefined8 *)(local_58[0] + -0x18),local_78);
+      strrep_release((undefined8 *)(local_58[0] + -0x18),local_78);
     }
   }
                     /* try { // try from 00be6a0a to 00be6a0e has its CatchHandler @ 00be6c08 */
@@ -1685,12 +1685,12 @@ void FUN_00be7050(runtime_error *param_1,undefined8 *param_2,char *param_3)
                     /* try { // try from 00be70b2 to 00be70b6 has its CatchHandler @ 00be712f */
   std::string::append((string *)&local_38,(string *)&local_30);
   if ((undefined8 *)(local_30 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
-    FUN_00be1b50((undefined8 *)(local_30 + -0x18),&local_39);
+    strrep_release((undefined8 *)(local_30 + -0x18),&local_39);
   }
                     /* try { // try from 00be70cb to 00be70cf has its CatchHandler @ 00be712a */
   std::runtime_error::runtime_error(param_1,(string *)&local_38);
   if ((undefined8 *)(local_38 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
-    FUN_00be1b50(local_38 + -0x18,(string *)&local_30);
+    strrep_release(local_38 + -0x18,(string *)&local_30);
   }
   *(undefined ***)param_1 = &PTR_FUN_011b1368;
   uVar1 = param_2[1];
@@ -2203,7 +2203,7 @@ void FUN_00be7d80(long param_1)
 
 {
   if (*(long *)(param_1 + 8) != 0) {
-    FUN_0067ce0e();
+    refcounted_vt_destroy();
     return;
   }
   return;
@@ -2315,7 +2315,7 @@ void FUN_00be7f30(pthread_mutex_t *param_1)
   local_48[0] = &PTR_FUN_011b1368;
   std::runtime_error::~runtime_error((runtime_error *)local_48);
                     /* WARNING: Subroutine does not return */
-  FUN_00c86f70(uVar2);
+  cxa_throw_exception(uVar2);
 }
 
 
@@ -2482,7 +2482,7 @@ LAB_00be832b:
   UNLOCK();
   __cxa_guard_release(&DAT_011c38f0);
   __cxa_atexit(FUN_00be7d80,&DAT_011c3900,&DAT_00c89008);
-  FUN_0067ce0e(puVar3);
+  refcounted_vt_destroy(puVar3);
 LAB_00be8271:
   puVar2 = DAT_011c3908;
   *param_1 = (long)_DAT_011c3900;
@@ -2588,7 +2588,7 @@ LAB_00be861b:
   UNLOCK();
   __cxa_guard_release(&DAT_011c38d0);
   __cxa_atexit(FUN_00be7d80,&DAT_011c38e0,&DAT_00c89008);
-  FUN_0067ce0e(puVar3);
+  refcounted_vt_destroy(puVar3);
 LAB_00be8561:
   puVar2 = DAT_011c38e8;
   *param_1 = (long)_DAT_011c38e0;
@@ -2639,7 +2639,7 @@ void FUN_00be8760(undefined8 *param_1)
   local_48[0] = &PTR_FUN_011b1368;
   std::runtime_error::~runtime_error((runtime_error *)local_48);
                     /* WARNING: Subroutine does not return */
-  FUN_00c86f70(uVar2);
+  cxa_throw_exception(uVar2);
 }
 
 
@@ -2670,7 +2670,7 @@ void FUN_00be8820(long *param_1)
   local_48[0] = &PTR_FUN_011b1368;
   std::runtime_error::~runtime_error((runtime_error *)local_48);
                     /* WARNING: Subroutine does not return */
-  FUN_00c86f70(uVar1);
+  cxa_throw_exception(uVar1);
 }
 
 
@@ -2713,7 +2713,7 @@ void FUN_00be88d0(pthread_mutex_t *param_1,long param_2)
     FUN_00be8820(param_2);
   }
                     /* WARNING: Subroutine does not return */
-  FUN_00c86f70(uVar1);
+  cxa_throw_exception(uVar1);
 }
 
 
@@ -2781,7 +2781,7 @@ void FUN_00be8a50(undefined8 *param_1)
         lVar3 = lVar3 + 0x10;
         if (lVar2 == lVar3) goto LAB_00be8aaf;
       }
-      FUN_0067ce0e();
+      refcounted_vt_destroy();
       lVar3 = lVar3 + 0x10;
     } while (lVar2 != lVar3);
 LAB_00be8aaf:
@@ -2814,7 +2814,7 @@ void FUN_00be8ae0(undefined8 *param_1)
         lVar3 = lVar3 + 0x10;
         if (lVar2 == lVar3) goto LAB_00be8b3f;
       }
-      FUN_0067ce0e();
+      refcounted_vt_destroy();
       lVar3 = lVar3 + 0x10;
     } while (lVar2 != lVar3);
 LAB_00be8b3f:
@@ -2919,7 +2919,7 @@ LAB_00be8bf1:
       puVar7 = puVar7 + 2;
       if (puVar7 == puVar1) goto LAB_00be8ccf;
     }
-    FUN_0067ce0e();
+    refcounted_vt_destroy();
   }
 LAB_00be8ccf:
   if (puVar2 != (undefined8 *)0x0) {
@@ -3443,7 +3443,7 @@ LAB_00be96a9:
   }
 LAB_00be9643:
   if (local_40[0] + -0x18 != (char *)&std::string::_Rep::_S_empty_rep_storage) {
-    FUN_00be1b50(local_40[0] + -0x18,&local_49);
+    strrep_release(local_40[0] + -0x18,&local_49);
   }
 LAB_00be9502:
   std::locale::~locale(local_48);
@@ -7625,7 +7625,7 @@ void __thiscall std::locale::_Impl::_Impl(_Impl *this,ulong param_1)
   _DAT_011c4970 = &PTR_FUN_011b35f0;
   _DAT_011c4980 = &DAT_011c4100;
                     /* try { // try from 00bedc2b to 00bedc2f has its CatchHandler @ 00beea93 */
-  FUN_00bf2ca0(&DAT_011c4970,0);
+  locale_initNumpunct(&DAT_011c4970,0);
                     /* try { // try from 00bedc41 to 00bedca9 has its CatchHandler @ 00beeabf */
   _M_install_facet(this,(id *)&DAT_011c50c0,(facet *)&DAT_011c4970);
   _DAT_011c4968 = 1;
@@ -7773,7 +7773,7 @@ void __thiscall std::locale::_Impl::_Impl(_Impl *this,ulong param_1)
   _DAT_011c42d0 = &PTR_FUN_011b7658;
   _DAT_011c42e0 = &DAT_011c3d00;
                     /* try { // try from 00bee305 to 00bee309 has its CatchHandler @ 00beea88 */
-  FUN_00bf2f70(&DAT_011c42d0,0);
+  locale_initNumpunct2(&DAT_011c42d0,0);
                     /* try { // try from 00bee31b to 00bee383 has its CatchHandler @ 00beeabf */
   _M_install_facet(this,(id *)&DAT_011c5518,(facet *)&DAT_011c42d0);
   _DAT_011c42c8 = 1;
@@ -7914,7 +7914,7 @@ void __thiscall std::locale::_Impl::_Impl(_Impl *this,ulong param_1)
   local_60 = &DAT_011c3d00;
   local_58 = &DAT_011c3bc0;
   local_50 = &DAT_011c3c60;
-  FUN_00c24c80(this,&local_78);
+  locale_implInit(this,&local_78);
   lVar5 = *(long *)(this + 0x18);
   lVar3 = locale::id::_M_id((id *)&DAT_011c50c0);
   *(undefined **)(lVar5 + lVar3 * 8) = &DAT_011c4100;
@@ -8771,7 +8771,7 @@ void __thiscall std::locale::_Impl::_M_install_facet(_Impl *this,id *param_1,fac
         lVar12 = locale::id::_M_id((id *)ppuVar17[1]);
         plVar13 = (long *)(lVar14 + lVar12 * 8);
         if (*plVar13 != 0) {
-          lVar12 = FUN_00bf85e0(param_2,ppuVar17[1]);
+          lVar12 = locale_installFacet(param_2,ppuVar17[1]);
           LOCK();
           *(int *)(lVar12 + 8) = *(int *)(lVar12 + 8) + 1;
           UNLOCK();
@@ -11259,9 +11259,9 @@ void __thiscall std::__numpunct_cache<wchar_t>::~__numpunct_cache(__numpunct_cac
 }
 
 
-// ==== entry=00bf2ca0 name=FUN_00bf2ca0 size=550 ====
+// ==== entry=00bf2ca0 orig=FUN_00bf2ca0 size=550 name=locale_initNumpunct ====
 
-void FUN_00bf2ca0(long param_1,long param_2)
+void locale_initNumpunct(long param_1,long param_2)
 
 {
   undefined *puVar1;
@@ -11376,9 +11376,9 @@ void FUN_00bf2f40(void *param_1)
 }
 
 
-// ==== entry=00bf2f70 name=FUN_00bf2f70 size=487 ====
+// ==== entry=00bf2f70 orig=FUN_00bf2f70 size=487 name=locale_initNumpunct2 ====
 
-void FUN_00bf2f70(long param_1,long param_2)
+void locale_initNumpunct2(long param_1,long param_2)
 
 {
   undefined *puVar1;
@@ -17054,7 +17054,7 @@ FUN_00bf84c0(long *param_1,undefined8 param_2,undefined8 param_3,undefined1 para
 }
 
 
-// ==== entry=00bf85e0 name=FUN_00bf85e0 size=2545 ====
+// ==== entry=00bf85e0 orig=FUN_00bf85e0 size=2545 name=locale_installFacet ====
 
 /* WARNING: Removing unreachable block (ram,0x00bf901c) */
 /* WARNING: Removing unreachable block (ram,0x00bf900a) */
@@ -17073,7 +17073,7 @@ FUN_00bf84c0(long *param_1,undefined8 param_2,undefined8 param_3,undefined1 para
 /* WARNING: Removing unreachable block (ram,0x00bf8cff) */
 /* WARNING: Removing unreachable block (ram,0x00bf8850) */
 
-undefined8 * FUN_00bf85e0(long param_1,undefined *param_2)
+undefined8 * locale_installFacet(long param_1,undefined *param_2)
 
 {
   undefined8 *puVar1;
@@ -17100,7 +17100,7 @@ undefined8 * FUN_00bf85e0(long param_1,undefined *param_2)
       puVar1[2] = puVar3;
       *puVar1 = &PTR_FUN_011b35f0;
                     /* try { // try from 00bf87c3 to 00bf87c7 has its CatchHandler @ 00bf903e */
-      FUN_00bf2ca0(puVar1,0);
+      locale_initNumpunct(puVar1,0);
       puVar1[3] = param_1;
       LOCK();
       *(int *)(param_1 + 8) = *(int *)(param_1 + 8) + 1;
@@ -17245,7 +17245,7 @@ undefined8 * FUN_00bf85e0(long param_1,undefined *param_2)
       puVar1[2] = puVar3;
       *puVar1 = &PTR_FUN_011b7658;
                     /* try { // try from 00bf8cbc to 00bf8cc0 has its CatchHandler @ 00bf904e */
-      FUN_00bf2f70(puVar1,0);
+      locale_initNumpunct2(puVar1,0);
       puVar1[3] = param_1;
       LOCK();
       *(int *)(param_1 + 8) = *(int *)(param_1 + 8) + 1;
@@ -19879,7 +19879,7 @@ void FUN_00bfbf50(undefined8 *param_1,long param_2)
   *(uint *)(param_1 + 1) = (uint)(param_2 != 0);
   *param_1 = &PTR_FUN_011b35f0;
                     /* try { // try from 00bfbf7c to 00bfbf80 has its CatchHandler @ 00bfbf88 */
-  FUN_00bf2ca0(param_1,0);
+  locale_initNumpunct(param_1,0);
   return;
 }
 
@@ -19893,7 +19893,7 @@ void FUN_00bfbfa0(undefined8 *param_1,undefined8 param_2,long param_3)
   *(uint *)(param_1 + 1) = (uint)(param_3 != 0);
   *param_1 = &PTR_FUN_011b35f0;
                     /* try { // try from 00bfbfc8 to 00bfbfcc has its CatchHandler @ 00bfbfd4 */
-  FUN_00bf2ca0(param_1,0);
+  locale_initNumpunct(param_1,0);
   return;
 }
 
@@ -19907,7 +19907,7 @@ void FUN_00bfbff0(undefined8 *param_1,undefined8 param_2,long param_3)
   *(uint *)(param_1 + 1) = (uint)(param_3 != 0);
   *param_1 = &PTR_FUN_011b35f0;
                     /* try { // try from 00bfc01a to 00bfc01e has its CatchHandler @ 00bfc026 */
-  FUN_00bf2ca0();
+  locale_initNumpunct();
   return;
 }
 
@@ -20067,7 +20067,7 @@ void FUN_00bfc250(undefined8 *param_1,byte *param_2,long param_3)
   *(uint *)(param_1 + 1) = (uint)(param_3 != 0);
   *param_1 = &PTR_FUN_011b35f0;
                     /* try { // try from 00bfc291 to 00bfc295 has its CatchHandler @ 00bfc328 */
-  FUN_00bf2ca0(param_1,0);
+  locale_initNumpunct(param_1,0);
   lVar1 = 2;
   bVar4 = false;
   bVar6 = false;
@@ -20099,7 +20099,7 @@ void FUN_00bfc250(undefined8 *param_1,byte *param_2,long param_3)
     if ((!bVar5 && !bVar4) != bVar5) {
                     /* try { // try from 00bfc303 to 00bfc31b has its CatchHandler @ 00bfc323 */
       std::locale::facet::_S_create_c_locale(&local_28,(char *)param_2,(__locale_struct *)0x0);
-      FUN_00bf2ca0(param_1,local_28);
+      locale_initNumpunct(param_1,local_28);
       std::locale::facet::_S_destroy_c_locale(&local_28);
     }
   }
@@ -20135,7 +20135,7 @@ void FUN_00bfc350(undefined8 *param_1,undefined8 *param_2,long param_3)
   *(uint *)(param_1 + 1) = (uint)(param_3 != 0);
   *param_1 = &PTR_FUN_011b35f0;
                     /* try { // try from 00bfc391 to 00bfc395 has its CatchHandler @ 00bfc428 */
-  FUN_00bf2ca0(param_1,0);
+  locale_initNumpunct(param_1,0);
   lVar2 = 2;
   bVar5 = false;
   bVar7 = false;
@@ -20167,7 +20167,7 @@ void FUN_00bfc350(undefined8 *param_1,undefined8 *param_2,long param_3)
     if ((!bVar6 && !bVar5) != bVar6) {
                     /* try { // try from 00bfc403 to 00bfc41b has its CatchHandler @ 00bfc423 */
       std::locale::facet::_S_create_c_locale(&local_28,(char *)pbVar1,(__locale_struct *)0x0);
-      FUN_00bf2ca0(param_1,local_28);
+      locale_initNumpunct(param_1,local_28);
       std::locale::facet::_S_destroy_c_locale(&local_28);
     }
   }
@@ -23702,11 +23702,11 @@ void FUN_00c021f0(long *param_1)
 }
 
 
-// ==== entry=00c02200 name=FUN_00c02200 size=899 ====
+// ==== entry=00c02200 orig=FUN_00c02200 size=899 name=time_get_do_get_fmt ====
 
 undefined1  [16]
-FUN_00c02200(undefined8 param_1,long *param_2,ulong param_3,long *param_4,int param_5,int *param_6,
-            int param_7,int param_8,ulong param_9,long param_10,uint *param_11)
+time_get_do_get_fmt(undefined8 param_1,long *param_2,ulong param_3,long *param_4,int param_5,
+                   int *param_6,int param_7,int param_8,ulong param_9,long param_10,uint *param_11)
 
 {
   byte bVar1;
@@ -23840,7 +23840,7 @@ long * FUN_00c025c0(void)
   int local_48;
   
   lVar1 = *(long *)(in_FS_OFFSET + 0x28);
-  auVar7 = FUN_00c02200();
+  auVar7 = time_get_do_get_fmt();
   plVar3 = auVar7._0_8_;
   iVar2 = local_48 + -0x76c;
   if (local_48 < 0) {
@@ -24258,10 +24258,11 @@ LAB_00c02823:
 }
 
 
-// ==== entry=00c02dd0 name=FUN_00c02dd0 size=1498 ====
+// ==== entry=00c02dd0 orig=FUN_00c02dd0 size=1498 name=time_get_do_get_tm ====
 
-ctype * FUN_00c02dd0(undefined8 param_1,ctype *param_2,undefined8 param_3,long *param_4,int param_5,
-                    int *param_6,ctype *param_7,ulong param_8,long param_9,uint *param_10)
+ctype * time_get_do_get_tm(undefined8 param_1,ctype *param_2,undefined8 param_3,long *param_4,
+                          int param_5,int *param_6,ctype *param_7,ulong param_8,long param_9,
+                          uint *param_10)
 
 {
   ulong uVar1;
@@ -24665,8 +24666,8 @@ long * FUN_00c033e0(undefined8 param_1,undefined8 param_2,undefined8 param_3,lon
   local_60 = *(undefined8 *)(lVar1 + 0x78);
   local_58 = *(undefined8 *)(lVar1 + 0x80);
   local_50 = *(undefined8 *)(lVar1 + 0x88);
-  auVar8 = FUN_00c02dd0(param_1,param_2,param_3,param_4,param_5,&local_c0,&local_b8,7,param_6,
-                        &local_bc);
+  auVar8 = time_get_do_get_tm(param_1,param_2,param_3,param_4,param_5,&local_c0,&local_b8,7,param_6,
+                              &local_bc);
   plVar4 = auVar8._0_8_;
   if (local_bc == 0) {
     *(undefined4 *)(param_8 + 0x18) = local_c0;
@@ -24772,8 +24773,8 @@ long * FUN_00c03650(undefined8 param_1,undefined8 param_2,undefined8 param_3,lon
   local_60 = *(undefined8 *)(lVar1 + 0x110);
   local_58 = *(undefined8 *)(lVar1 + 0x118);
   local_50 = *(undefined8 *)(lVar1 + 0x120);
-  auVar8 = FUN_00c02dd0(param_1,param_2,param_3,param_4,param_5,&local_110,&local_108,0xc,param_6,
-                        &local_10c);
+  auVar8 = time_get_do_get_tm(param_1,param_2,param_3,param_4,param_5,&local_110,&local_108,0xc,
+                              param_6,&local_10c);
   plVar4 = auVar8._0_8_;
   if (local_10c == 0) {
     *(undefined4 *)(param_8 + 0x10) = local_110;
@@ -25675,11 +25676,12 @@ bool FUN_00c04470(long *param_1,long *param_2)
 }
 
 
-// ==== entry=00c04520 name=FUN_00c04520 size=5546 ====
+// ==== entry=00c04520 orig=FUN_00c04520 size=5546 name=money_get_parse_pattern ====
 
 streambuf *
-FUN_00c04520(undefined8 param_1,streambuf *param_2,ulong param_3,long *param_4,undefined8 param_5,
-            long param_6,uint *param_7,int *param_8,char *param_9)
+money_get_parse_pattern
+          (undefined8 param_1,streambuf *param_2,ulong param_3,long *param_4,undefined8 param_5,
+          long param_6,uint *param_7,int *param_8,char *param_9)
 
 {
   long lVar1;
@@ -25889,8 +25891,8 @@ LAB_00c046cd:
       case 2:
       case 0x18:
       case 0x38:
-        auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,9999,4,
-                               param_6,&local_c4);
+        auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,9999,4
+                                      ,param_6,&local_c4);
         local_d8 = auVar14._0_8_;
         local_210 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -25916,8 +25918,9 @@ LAB_00c05217:
           if (*(code **)(*(long *)this + 0x38) == std::ctype<char>::do_widen) goto LAB_00c05217;
           (**(code **)(*(long *)this + 0x38))(this,"%m/%d/%y",&DAT_00d95893,&local_4a);
         }
-        auVar14 = FUN_00c04520(param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8
-                               ,&local_4a);
+        auVar14 = money_get_parse_pattern
+                            (param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8,
+                             &local_4a);
         local_d8 = auVar14._0_8_;
         local_170 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -25926,14 +25929,14 @@ LAB_00c05217:
       default:
         goto switchD_00c04707_caseD_4;
       case 7:
-        auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,0x17,2,
-                               param_6,&local_c4);
+        auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,0x17,2
+                                      ,param_6,&local_c4);
         local_180 = auVar14._8_4_;
         local_d0 = CONCAT44(local_d0._4_4_,local_180);
         goto joined_r0x00c04a41;
       case 8:
-        auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,0xc,2,param_6
-                               ,&local_c4);
+        auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,0xc,2,
+                                      param_6,&local_c4);
         local_190 = auVar14._8_4_;
         local_d0 = CONCAT44(local_d0._4_4_,local_190);
 joined_r0x00c04a41:
@@ -25944,8 +25947,8 @@ joined_r0x00c04a41:
         }
         break;
       case 0xc:
-        auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,0x3b,2,
-                               param_6,&local_c4);
+        auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,0x3b,2
+                                      ,param_6,&local_c4);
         local_d8 = auVar14._0_8_;
         local_1b0 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -25966,16 +25969,17 @@ LAB_00c04a77:
           if (*(code **)(*(long *)this + 0x38) == std::ctype<char>::do_widen) goto LAB_00c04a77;
           (**(code **)(*(long *)this + 0x38))(this,&DAT_00d95893,&DAT_00d95899,&local_4a);
         }
-        auVar14 = FUN_00c04520(param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8
-                               ,&local_4a);
+        auVar14 = money_get_parse_pattern
+                            (param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8,
+                             &local_4a);
         local_d8 = auVar14._0_8_;
         local_1c0 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
         local_d0 = CONCAT44(local_d0._4_4_,local_1c0);
         break;
       case 0x12:
-        auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,0x3c,2,
-                               param_6,&local_c4);
+        auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,0,0x3c,2
+                                      ,param_6,&local_c4);
         local_d8 = auVar14._0_8_;
         local_1d0 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -25997,16 +26001,18 @@ LAB_00c04bd7:
           if (*(code **)(*(long *)this + 0x38) == std::ctype<char>::do_widen) goto LAB_00c04bd7;
           (**(code **)(*(long *)this + 0x38))(this,&DAT_00c8ce9b,&DAT_00c8cea4,&local_4a);
         }
-        auVar14 = FUN_00c04520(param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8
-                               ,&local_4a);
+        auVar14 = money_get_parse_pattern
+                            (param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8,
+                             &local_4a);
         local_d8 = auVar14._0_8_;
         local_1e0 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
         local_d0 = CONCAT44(local_d0._4_4_,local_1e0);
         break;
       case 0x17:
-        auVar14 = FUN_00c04520(param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8
-                               ,*(undefined8 *)(*(long *)(p_Var7 + 0x10) + 0x20));
+        auVar14 = money_get_parse_pattern
+                            (param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8,
+                             *(undefined8 *)(*(long *)(p_Var7 + 0x10) + 0x20));
         local_d8 = auVar14._0_8_;
         local_200 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -26033,12 +26039,12 @@ LAB_00c04bd7:
         }
         if (cVar5 == cVar4) {
 LAB_00c04fa1:
-          auVar15 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_bc,0,0x17,2,
-                                 param_6,&local_c4);
+          auVar15 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_bc,0,0x17
+                                        ,2,param_6,&local_c4);
           local_d8 = auVar15._0_8_;
           local_d0 = CONCAT44(local_d0._4_4_,auVar15._8_4_);
-          auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_bc,0,0x3b,2,
-                                 param_6,&local_c4);
+          auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_bc,0,0x3b
+                                        ,2,param_6,&local_c4);
           local_d8 = auVar14._0_8_;
           local_240 = auVar14._8_4_;
           uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -26102,24 +26108,25 @@ joined_r0x00c0598d:
         }
         break;
       case 0x22:
-        auVar14 = FUN_00c04520(param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8
-                               ,*(undefined8 *)(*(long *)(p_Var7 + 0x10) + 0x30));
+        auVar14 = money_get_parse_pattern
+                            (param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8,
+                             *(undefined8 *)(*(long *)(p_Var7 + 0x10) + 0x30));
         local_d8 = auVar14._0_8_;
         local_130 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
         local_d0 = CONCAT44(local_d0._4_4_,local_130);
         break;
       case 0x23:
-        auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,0x1f,2,
-                               param_6,&local_c4);
+        auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,0x1f,2
+                                      ,param_6,&local_c4);
         local_140 = auVar14._8_4_;
         local_d0 = CONCAT44(local_d0._4_4_,local_140);
         goto joined_r0x00c05a3d;
       case 0x24:
         bVar3 = FUN_00bf9730(&local_d8,local_d0 & 0xffffffff);
         if ((*(byte *)(*(long *)(this + 0x30) + 1 + (ulong)bVar3 * 2) & 0x20) == 0) {
-          auVar15 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,10,0x1f,2,
-                                 param_6,&local_c4);
+          auVar15 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,10,
+                                        0x1f,2,param_6,&local_c4);
           local_d8 = auVar15._0_8_;
           local_d0 = CONCAT44(local_d0._4_4_,auVar15._8_4_);
         }
@@ -26131,8 +26138,8 @@ joined_r0x00c0598d:
             (**(code **)(*(long *)local_d8 + 0x50))();
           }
           local_d0 = CONCAT44(local_d0._4_4_,0xffffffff);
-          auVar15 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,9,1,param_6
-                                 ,&local_c4);
+          auVar15 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,9,1,
+                                        param_6,&local_c4);
           local_d8 = auVar15._0_8_;
           local_d0 = CONCAT44(local_d0._4_4_,auVar15._8_4_);
         }
@@ -26146,8 +26153,8 @@ joined_r0x00c05a3d:
         }
         break;
       case 0x2c:
-        auVar14 = FUN_00c02200(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,0xc,2,param_6
-                               ,&local_c4);
+        auVar14 = time_get_do_get_fmt(param_1,local_d8,local_d0,local_e8,local_e0,&local_c0,1,0xc,2,
+                                      param_6,&local_c4);
         local_d8 = auVar14._0_8_;
         local_1a0 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -26190,8 +26197,9 @@ LAB_00c04e66:
         uVar11 = local_d0 & 0xffffffff;
         break;
       case 0x37:
-        auVar14 = FUN_00c04520(param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8
-                               ,*(undefined8 *)(*(long *)(p_Var7 + 0x10) + 0x10));
+        auVar14 = money_get_parse_pattern
+                            (param_1,local_d8,local_d0,local_e8,local_e0,param_6,&local_c4,param_8,
+                             *(undefined8 *)(*(long *)(p_Var7 + 0x10) + 0x10));
         local_d8 = auVar14._0_8_;
         local_1f0 = auVar14._8_4_;
         uVar11 = auVar14._8_8_ & 0xffffffff;
@@ -26229,8 +26237,9 @@ FUN_00c05b80(undefined8 param_1,undefined8 param_2,ulong param_3,long *param_4,u
   int local_40;
   
   p_Var2 = std::use_facet<std::__timepunct<char>>((locale *)(param_6 + 0xd0));
-  auVar6 = FUN_00c04520(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,
-                        *(undefined8 *)(*(long *)(p_Var2 + 0x10) + 0x20));
+  auVar6 = money_get_parse_pattern
+                     (param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,
+                      *(undefined8 *)(*(long *)(p_Var2 + 0x10) + 0x20));
   plVar3 = auVar6._0_8_;
   local_40 = auVar6._8_4_;
   auVar6._8_8_ = param_3 & 0xffffffff00000000 | auVar6._8_8_ & 0xffffffff;
@@ -26272,8 +26281,9 @@ FUN_00c05cb0(undefined8 param_1,undefined8 param_2,ulong param_3,long *param_4,u
   int local_40;
   
   p_Var2 = std::use_facet<std::__timepunct<char>>((locale *)(param_6 + 0xd0));
-  auVar6 = FUN_00c04520(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,
-                        *(undefined8 *)(*(long *)(p_Var2 + 0x10) + 0x10));
+  auVar6 = money_get_parse_pattern
+                     (param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,
+                      *(undefined8 *)(*(long *)(p_Var2 + 0x10) + 0x10));
   plVar3 = auVar6._0_8_;
   local_40 = auVar6._8_4_;
   auVar6._8_8_ = param_3 & 0xffffffff00000000 | auVar6._8_8_ & 0xffffffff;
@@ -26341,7 +26351,8 @@ long * FUN_00c05de0(undefined8 param_1,undefined8 param_2,undefined8 param_3,lon
     local_43 = param_10;
     local_42 = param_9;
   }
-  auVar5 = FUN_00c04520(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,&local_44);
+  auVar5 = money_get_parse_pattern
+                     (param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,&local_44);
   plVar2 = auVar5._0_8_;
   bVar3 = auVar5._8_4_ == -1;
   if ((plVar2 != (long *)0x0 && bVar3) && (bVar3 = false, (ulong)plVar2[3] <= (ulong)plVar2[2])) {
@@ -26411,8 +26422,8 @@ long * FUN_00c06020(long *param_1,undefined8 param_2,undefined8 param_3,long *pa
       local_41 = 0;
       local_43 = param_10;
     }
-    auVar5 = FUN_00c04520(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,&local_44)
-    ;
+    auVar5 = money_get_parse_pattern
+                       (param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,&local_44);
     plVar2 = auVar5._0_8_;
     bVar3 = auVar5._8_4_ == -1;
     if ((plVar2 != (long *)0x0 && bVar3) && (bVar3 = false, (ulong)plVar2[3] <= (ulong)plVar2[2])) {
@@ -26443,10 +26454,10 @@ long * FUN_00c06020(long *param_1,undefined8 param_2,undefined8 param_3,long *pa
 }
 
 
-// ==== entry=00c06290 name=FUN_00c06290 size=2512 ====
+// ==== entry=00c06290 orig=FUN_00c06290 size=2512 name=numget_parseInt ====
 
-long * FUN_00c06290(long *param_1,long *param_2,ulong param_3,long *param_4,ulong param_5,
-                   long param_6,uint *param_7,undefined8 param_8,ctype *param_9,ctype *param_10)
+long * numget_parseInt(long *param_1,long *param_2,ulong param_3,long *param_4,ulong param_5,
+                      long param_6,uint *param_7,undefined8 param_8,ctype *param_9,ctype *param_10)
 
 {
   byte bVar1;
@@ -26755,8 +26766,9 @@ LAB_00c064ef:
         local_42 = cVar7;
       }
       local_44 = cVar6;
-      auVar22 = FUN_00c04520(param_1,param_2,local_c0,param_4,local_a0,param_6,param_7,param_8,
-                             &local_44);
+      auVar22 = money_get_parse_pattern
+                          (param_1,param_2,local_c0,param_4,local_a0,param_6,param_7,param_8,
+                           &local_44);
       plVar15 = auVar22._0_8_;
       local_50 = auVar22._8_4_;
       bVar20 = local_50 == -1;

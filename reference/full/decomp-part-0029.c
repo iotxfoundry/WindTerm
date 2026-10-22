@@ -376,9 +376,9 @@ undefined ** TreeItemDelegate_vt0(long param_1)
 }
 
 
-// ==== entry=008f1d7a orig=FUN_008f1d7a size=66 name=s_TreeItemDelegate_8f1d7a ====
+// ==== entry=008f1d7a orig=FUN_008f1d7a size=66 name=EditDelegate_dtor ====
 
-undefined8 s_TreeItemDelegate_8f1d7a(undefined8 param_1,char *param_2)
+undefined8 EditDelegate_dtor(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -1071,9 +1071,9 @@ undefined ** TextEdit_vt0(long param_1)
 }
 
 
-// ==== entry=008f2638 orig=FUN_008f2638 size=66 name=s_TextEdit_8f2638 ====
+// ==== entry=008f2638 orig=FUN_008f2638 size=66 name=TextView_dtor ====
 
-undefined8 s_TextEdit_8f2638(undefined8 param_1,char *param_2)
+undefined8 TextView_dtor(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -1086,7 +1086,7 @@ undefined8 s_TextEdit_8f2638(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_ScintillaEditWatcher_8f3a0c(param_1,param_2);
+  uVar2 = ScintillaEditWatcher_dtor_deleting(param_1,param_2);
   return uVar2;
 }
 
@@ -2627,9 +2627,9 @@ void FUN_008f39dc(QObject *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008f3a0c orig=FUN_008f3a0c size=104 name=s_ScintillaEditWatcher_8f3a0c ====
+// ==== entry=008f3a0c orig=FUN_008f3a0c size=104 name=ScintillaEditWatcher_dtor_deleting ====
 
-long s_ScintillaEditWatcher_8f3a0c(long param_1,byte *param_2)
+long ScintillaEditWatcher_dtor_deleting(long param_1,byte *param_2)
 
 {
   int iVar1;
@@ -3208,9 +3208,9 @@ void FUN_008f3a74(long *param_1,int param_2,int param_3,long *param_4)
         local_38 = (QArrayData *)&QListData::shared_null;
         local_28 = (QArrayData *)*puVar4;
         *puVar4 = pQVar5;
-        FUN_00544650(&local_28);
+        qatomic_unref_call_deleter(&local_28);
       }
-      FUN_00544650(&local_38);
+      qatomic_unref_call_deleter(&local_38);
       return;
     case 0x68:
       FUN_005c51aa(&local_38,param_1,param_4[1],*(undefined8 *)param_4[2],*(undefined8 *)param_4[3],
@@ -3221,9 +3221,9 @@ void FUN_008f3a74(long *param_1,int param_2,int param_3,long *param_4)
         local_38 = (QArrayData *)&QListData::shared_null;
         local_28 = (QArrayData *)*puVar4;
         *puVar4 = pQVar5;
-        FUN_00544650(&local_28);
+        qatomic_unref_call_deleter(&local_28);
       }
-      FUN_00544650(&local_38);
+      qatomic_unref_call_deleter(&local_38);
       return;
     case 0x69:
       FUN_005b7ae6();
@@ -3357,9 +3357,9 @@ void FUN_008f3a74(long *param_1,int param_2,int param_3,long *param_4)
         local_38 = (QArrayData *)&QMapDataBase::shared_null;
         local_28 = (QArrayData *)*puVar4;
         *puVar4 = pQVar5;
-        FUN_00528c1c(&local_28);
+        qmap_freetree_variant_nodes(&local_28);
       }
-      FUN_00528c1c(&local_38);
+      qmap_freetree_variant_nodes(&local_38);
       return;
     case 0x7c:
       uVar7 = FUN_005bc118(param_1,param_4[1]);
@@ -3376,9 +3376,9 @@ void FUN_008f3a74(long *param_1,int param_2,int param_3,long *param_4)
         local_38 = (QArrayData *)&QListData::shared_null;
         local_28 = (QArrayData *)*puVar4;
         *puVar4 = pQVar5;
-        FUN_00525060(&local_28);
+        qt_shared_data_unref(&local_28);
       }
-      FUN_00525060(&local_38);
+      qt_shared_data_unref(&local_38);
       return;
     case 0x7e:
       uVar7 = FUN_005bc308();
@@ -4687,9 +4687,9 @@ undefined ** CommandPalette_metaObject(long param_1)
 }
 
 
-// ==== entry=008f659e orig=FUN_008f659e size=66 name=s_CommandPalette_8f659e ====
+// ==== entry=008f659e orig=FUN_008f659e size=66 name=CommandPalette_qt_metacast ====
 
-char * s_CommandPalette_8f659e(char *param_1,char *param_2)
+char * CommandPalette_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -4974,7 +4974,7 @@ void TabBar_dtor(QTabBar *param_1)
   *(undefined ***)param_1 = &TabBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197ef0;
   TabBar_h8f67fc(param_1 + 0x70);
-  FUN_00525060(param_1 + 0x68);
+  qt_shared_data_unref(param_1 + 0x68);
   TabBar_h8f67a0(param_1 + 0x60);
   pQVar1 = *(QArrayData **)(param_1 + 0x38);
   if (*(int *)pQVar1 == 0) {
@@ -5007,7 +5007,7 @@ void FUN_008f696d(undefined8 *param_1)
   param_1[-2] = &TabBar_vtable;
   *param_1 = &PTR_FUN_01197ef0;
   TabBar_h8f67fc(param_1 + 0xc);
-  FUN_00525060(param_1 + 0xb);
+  qt_shared_data_unref(param_1 + 0xb);
   TabBar_h8f67a0(param_1 + 10);
   pQVar1 = (QArrayData *)param_1[5];
   if (*(int *)pQVar1 == 0) {
@@ -5040,7 +5040,7 @@ void FUN_008f69e0(undefined8 *param_1)
   param_1[-2] = &TabBar_vtable;
   *param_1 = &PTR_FUN_01197ef0;
   TabBar_h8f67fc(param_1 + 0xc);
-  FUN_00525060(param_1 + 0xb);
+  qt_shared_data_unref(param_1 + 0xb);
   TabBar_h8f67a0(param_1 + 10);
   pQVar1 = (QArrayData *)param_1[5];
   if (*(int *)pQVar1 != 0) {
@@ -5069,7 +5069,7 @@ void TabBar_dtor_deleting(QTabBar *param_1)
   *(undefined ***)param_1 = &TabBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197ef0;
   TabBar_h8f67fc(param_1 + 0x70);
-  FUN_00525060(param_1 + 0x68);
+  qt_shared_data_unref(param_1 + 0x68);
   TabBar_h8f67a0(param_1 + 0x60);
   pQVar1 = *(QArrayData **)(param_1 + 0x38);
   if (*(int *)pQVar1 != 0) {
@@ -5192,10 +5192,9 @@ char * Splitter_qt_metacast(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f6c06 orig=FUN_008f6c06 size=93 name=Splitter::qt_metacall(QMetaObject::Call,int,void**) ====
+// ==== entry=008f6c06 orig=FUN_008f6c06 size=93 name=Splitter_qt_metacall ====
 
-ulong Splitter__qt_metacall_QMetaObject__Call_int_void___
-                (undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
+ulong Splitter_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
 {
   int iVar1;
@@ -5248,9 +5247,9 @@ undefined ** SplitterGroup_metaObject(long param_1)
 }
 
 
-// ==== entry=008f6c7e orig=FUN_008f6c7e size=66 name=s_SplitterGroup_8f6c7e ====
+// ==== entry=008f6c7e orig=FUN_008f6c7e size=66 name=SplitterGroup_qt_metacast ====
 
-char * s_SplitterGroup_8f6c7e(char *param_1,char *param_2)
+char * SplitterGroup_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -5463,7 +5462,7 @@ void FUN_008f6ece(QLineEdit *param_1)
   
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -5487,7 +5486,7 @@ void FUN_008f6f19(undefined8 *param_1)
   
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -5511,7 +5510,7 @@ void FUN_008f6f66(undefined8 *param_1)
   
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -5536,7 +5535,7 @@ void FUN_008f6fcc(QLineEdit *param_1)
   
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -5600,9 +5599,9 @@ void FUN_008f7056(void)
 }
 
 
-// ==== entry=008f7058 orig=FUN_008f7058 size=66 name=s_SideButton_8f7058 ====
+// ==== entry=008f7058 orig=FUN_008f7058 size=66 name=SideButton_qt_metacast ====
 
-char * s_SideButton_8f7058(char *param_1,char *param_2)
+char * SideButton_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -5630,9 +5629,9 @@ void QPushButton::SideButton_qt_metacall(void)
 }
 
 
-// ==== entry=008f70a0 orig=FUN_008f70a0 size=66 name=s_SideSeparator_8f70a0 ====
+// ==== entry=008f70a0 orig=FUN_008f70a0 size=66 name=SideSeparator_qt_metacast ====
 
-char * s_SideSeparator_8f70a0(char *param_1,char *param_2)
+char * SideSeparator_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -5830,9 +5829,9 @@ void LoginWizard_h8f726c(undefined8 param_1,int param_2,int param_3,undefined8 *
 }
 
 
-// ==== entry=008f72c2 orig=FUN_008f72c2 size=66 name=s_LoginWizard_8f72c2 ====
+// ==== entry=008f72c2 orig=FUN_008f72c2 size=66 name=LoginWizard_qt_metacast ====
 
-char * s_LoginWizard_8f72c2(char *param_1,char *param_2)
+char * LoginWizard_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -5905,9 +5904,9 @@ undefined ** SwitchButton_metaObject(long param_1)
 }
 
 
-// ==== entry=008f737c orig=FUN_008f737c size=66 name=s_SwitchButton_8f737c ====
+// ==== entry=008f737c orig=FUN_008f737c size=66 name=SwitchButton_qt_metacast ====
 
-char * s_SwitchButton_8f737c(char *param_1,char *param_2)
+char * SwitchButton_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -6033,9 +6032,9 @@ void FUN_008f7496(void)
 }
 
 
-// ==== entry=008f7498 orig=FUN_008f7498 size=104 name=s_HtmlAbstractModel_8f7498 ====
+// ==== entry=008f7498 orig=FUN_008f7498 size=104 name=HtmlListModel_qt_metacast ====
 
-char * s_HtmlAbstractModel_8f7498(char *param_1,byte *param_2)
+char * HtmlListModel_qt_metacast(char *param_1,byte *param_2)
 
 {
   int iVar1;
@@ -6084,9 +6083,9 @@ void QAbstractListModel::HtmlListModel_qt_metacall(void)
 }
 
 
-// ==== entry=008f7506 orig=FUN_008f7506 size=66 name=s_HtmlList_8f7506 ====
+// ==== entry=008f7506 orig=FUN_008f7506 size=66 name=HtmlList_qt_metacast ====
 
-char * s_HtmlList_8f7506(char *param_1,char *param_2)
+char * HtmlList_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -6188,9 +6187,9 @@ undefined ** ListPanel_metaObject(long param_1)
 }
 
 
-// ==== entry=008f7608 orig=FUN_008f7608 size=66 name=s_ListPanel_8f7608 ====
+// ==== entry=008f7608 orig=FUN_008f7608 size=66 name=ListPanel_qt_metacast ====
 
-undefined8 s_ListPanel_8f7608(undefined8 param_1,char *param_2)
+undefined8 ListPanel_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -6203,7 +6202,7 @@ undefined8 s_ListPanel_8f7608(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_ButtonBarPanel_8efcce(param_1,param_2);
+  uVar2 = ButtonBarPanel_qt_metacast(param_1,param_2);
   return uVar2;
 }
 
@@ -6334,9 +6333,9 @@ void FUN_008f7718(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f774c orig=FUN_008f774c size=66 name=s_ListWidget_8f774c ====
+// ==== entry=008f774c orig=FUN_008f774c size=66 name=ListWidget_qt_metacast ====
 
-char * s_ListWidget_8f774c(char *param_1,char *param_2)
+char * ListWidget_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -6458,9 +6457,9 @@ void LockScreen_h8f7844(undefined8 param_1,int param_2,int param_3,undefined8 *p
 }
 
 
-// ==== entry=008f78a4 orig=FUN_008f78a4 size=66 name=s_LockScreen_8f78a4 ====
+// ==== entry=008f78a4 orig=FUN_008f78a4 size=66 name=LockScreen_qt_metacast ====
 
-char * s_LockScreen_8f78a4(char *param_1,char *param_2)
+char * LockScreen_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -6947,7 +6946,7 @@ void MessageBar_dtor(QWidget *param_1)
   
   *(undefined ***)param_1 = &MessageBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119a288;
-  FUN_0059d0a0(param_1 + 0x60);
+  qlist_unref_dispose3(param_1 + 0x60);
   pQVar1 = *(QArrayData **)(param_1 + 0x58);
   if (*(int *)pQVar1 == 0) {
 LAB_008f800f:
@@ -6978,7 +6977,7 @@ void FUN_008f8027(undefined8 *param_1)
   
   param_1[-2] = &MessageBar_vtable;
   *param_1 = &PTR_FUN_0119a288;
-  FUN_0059d0a0(param_1 + 10);
+  qlist_unref_dispose3(param_1 + 10);
   pQVar1 = (QArrayData *)param_1[9];
   if (*(int *)pQVar1 == 0) {
 LAB_008f806f:
@@ -7009,7 +7008,7 @@ void FUN_008f8088(undefined8 *param_1)
   
   param_1[-2] = &MessageBar_vtable;
   *param_1 = &PTR_FUN_0119a288;
-  FUN_0059d0a0(param_1 + 10);
+  qlist_unref_dispose3(param_1 + 10);
   pQVar1 = (QArrayData *)param_1[9];
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_008f80cb;
@@ -7036,7 +7035,7 @@ void MessageBar_dtor_deleting(QWidget *param_1)
   
   *(undefined ***)param_1 = &MessageBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119a288;
-  FUN_0059d0a0(param_1 + 0x60);
+  qlist_unref_dispose3(param_1 + 0x60);
   pQVar1 = *(QArrayData **)(param_1 + 0x58);
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_008f8136;
@@ -7229,9 +7228,9 @@ void BreadCrumb_h8f82a6(undefined8 param_1,int param_2,undefined4 param_3,undefi
 }
 
 
-// ==== entry=008f83d8 orig=FUN_008f83d8 size=66 name=s_BreadCrumb_8f83d8 ====
+// ==== entry=008f83d8 orig=FUN_008f83d8 size=66 name=BreadCrumb_qt_metacast ====
 
-char * s_BreadCrumb_8f83d8(char *param_1,char *param_2)
+char * BreadCrumb_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -7424,9 +7423,9 @@ void FUN_008f85e2(void)
 }
 
 
-// ==== entry=008f85e4 orig=FUN_008f85e4 size=66 name=s_BreadButton_8f85e4 ====
+// ==== entry=008f85e4 orig=FUN_008f85e4 size=66 name=BreadButton_qt_metacast ====
 
-char * s_BreadButton_8f85e4(char *param_1,char *param_2)
+char * BreadButton_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -7454,9 +7453,9 @@ void QToolButton::BreadButton_qt_metacall(void)
 }
 
 
-// ==== entry=008f862c orig=FUN_008f862c size=66 name=s_BreadMenu_8f862c ====
+// ==== entry=008f862c orig=FUN_008f862c size=66 name=BreadMenu_qt_metacast ====
 
-char * s_BreadMenu_8f862c(char *param_1,char *param_2)
+char * BreadMenu_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -7484,9 +7483,9 @@ void QMenu::BreadMenu_qt_metacall(void)
 }
 
 
-// ==== entry=008f8674 orig=FUN_008f8674 size=66 name=s_BreadEdit_8f8674 ====
+// ==== entry=008f8674 orig=FUN_008f8674 size=66 name=BreadEdit_qt_metacast ====
 
-undefined8 s_BreadEdit_8f8674(undefined8 param_1,char *param_2)
+undefined8 BreadEdit_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -7594,7 +7593,7 @@ void BreadButton_dtor(QToolButton *param_1)
   
   *(undefined ***)param_1 = &BreadButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119a790;
-  FUN_00550ec0(param_1 + 0x40);
+  qlist_unref_dispose(param_1 + 0x40);
   pQVar1 = *(QArrayData **)(param_1 + 0x30);
   if (*(int *)pQVar1 == 0) {
 LAB_008f87fb:
@@ -7625,7 +7624,7 @@ void FUN_008f8813(undefined8 *param_1)
   
   param_1[-2] = &BreadButton_vtable;
   *param_1 = &PTR_FUN_0119a790;
-  FUN_00550ec0(param_1 + 6);
+  qlist_unref_dispose(param_1 + 6);
   pQVar1 = (QArrayData *)param_1[4];
   if (*(int *)pQVar1 == 0) {
 LAB_008f885b:
@@ -7656,7 +7655,7 @@ void FUN_008f8874(undefined8 *param_1)
   
   param_1[-2] = &BreadButton_vtable;
   *param_1 = &PTR_FUN_0119a790;
-  FUN_00550ec0(param_1 + 6);
+  qlist_unref_dispose(param_1 + 6);
   pQVar1 = (QArrayData *)param_1[4];
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_008f88b7;
@@ -7683,7 +7682,7 @@ void BreadButton_dtor_deleting(QToolButton *param_1)
   
   *(undefined ***)param_1 = &BreadButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119a790;
-  FUN_00550ec0(param_1 + 0x40);
+  qlist_unref_dispose(param_1 + 0x40);
   pQVar1 = *(QArrayData **)(param_1 + 0x30);
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_008f8922;
@@ -7731,7 +7730,7 @@ undefined8 AddressBar_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_BreadCrumb_8f83d8(param_1,param_2);
+  uVar2 = BreadCrumb_qt_metacast(param_1,param_2);
   return uVar2;
 }
 
@@ -7915,9 +7914,9 @@ undefined ** PasswordMeter_metaObject(long param_1)
 }
 
 
-// ==== entry=008f8b86 orig=FUN_008f8b86 size=66 name=s_PasswordMeter_8f8b86 ====
+// ==== entry=008f8b86 orig=FUN_008f8b86 size=66 name=PasswordMeter_qt_metacast ====
 
-char * s_PasswordMeter_8f8b86(char *param_1,char *param_2)
+char * PasswordMeter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -8019,9 +8018,9 @@ undefined ** PopupWidget_metaObject(long param_1)
 }
 
 
-// ==== entry=008f8c88 orig=FUN_008f8c88 size=66 name=s_PopupWidget_8f8c88 ====
+// ==== entry=008f8c88 orig=FUN_008f8c88 size=66 name=PopupWidget_qt_metacast ====
 
-char * s_PopupWidget_8f8c88(char *param_1,char *param_2)
+char * PopupWidget_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -8106,7 +8105,7 @@ void ListView_h8f8d2e(undefined8 param_1,int param_2,int param_3,undefined8 *par
       return;
     }
     if (param_3 == 2) {
-      FUN_00583e8e();
+      listFilter_applyRegExp();
       return;
     }
     if (param_3 == 0) {
@@ -8141,9 +8140,9 @@ void ListView_h8f8d2e(undefined8 param_1,int param_2,int param_3,undefined8 *par
 }
 
 
-// ==== entry=008f8dc4 orig=FUN_008f8dc4 size=66 name=s_ListView_8f8dc4 ====
+// ==== entry=008f8dc4 orig=FUN_008f8dc4 size=66 name=ListView_qt_metacast ====
 
-char * s_ListView_8f8dc4(char *param_1,char *param_2)
+char * ListView_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -8224,9 +8223,9 @@ undefined ** ListItemDelegate_metaObject(long param_1)
 }
 
 
-// ==== entry=008f8ed2 orig=FUN_008f8ed2 size=66 name=s_ListItemDelegate_8f8ed2 ====
+// ==== entry=008f8ed2 orig=FUN_008f8ed2 size=66 name=ListItemDelegate_qt_metacast ====
 
-undefined8 s_ListItemDelegate_8f8ed2(undefined8 param_1,char *param_2)
+undefined8 ListItemDelegate_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -8567,9 +8566,9 @@ undefined ** FilterEdit_metaObject(long param_1)
 }
 
 
-// ==== entry=008f9278 orig=FUN_008f9278 size=66 name=s_FilterEdit_8f9278 ====
+// ==== entry=008f9278 orig=FUN_008f9278 size=66 name=FilterEdit_qt_metacast ====
 
-undefined8 s_FilterEdit_8f9278(undefined8 param_1,char *param_2)
+undefined8 FilterEdit_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -8696,7 +8695,7 @@ void FUN_008f93f0(undefined8 *param_1)
   
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -8721,7 +8720,7 @@ void FilterEdit_dtor_deleting(QLineEdit *param_1)
   
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -8746,7 +8745,7 @@ void FUN_008f94ae(undefined8 *param_1)
   
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -8770,7 +8769,7 @@ void FilterEdit_dtor(QLineEdit *param_1)
   
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -9029,9 +9028,9 @@ undefined ** TransferDelegate_metaObject(long param_1)
 }
 
 
-// ==== entry=008f97fe orig=FUN_008f97fe size=66 name=s_TransferDelegate_8f97fe ====
+// ==== entry=008f97fe orig=FUN_008f97fe size=66 name=TransferDelegate_qt_metacast ====
 
-char * s_TransferDelegate_8f97fe(char *param_1,char *param_2)
+char * TransferDelegate_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -9243,9 +9242,9 @@ void FUN_008f9a34(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f9a70 orig=FUN_008f9a70 size=66 name=s_FileTree_8f9a70 ====
+// ==== entry=008f9a70 orig=FUN_008f9a70 size=66 name=FileTree_qt_metacast ====
 
-undefined8 s_FileTree_8f9a70(undefined8 param_1,char *param_2)
+undefined8 FileTree_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -9301,7 +9300,7 @@ void FileTree_dtor(undefined8 *param_1)
 {
   *param_1 = &FileTree_vtable;
   param_1[2] = &PTR_FUN_0119c508;
-  FUN_0058b7a8();
+  categorytree_dtor();
   return;
 }
 
@@ -9313,7 +9312,7 @@ void FUN_008f9b2b(undefined8 *param_1)
 {
   param_1[-2] = &FileTree_vtable;
   *param_1 = &PTR_FUN_0119c508;
-  FUN_0058b7a8(param_1 + -2);
+  categorytree_dtor(param_1 + -2);
   return;
 }
 
@@ -9325,7 +9324,7 @@ void FileTree_dtor_deleting(undefined8 *param_1)
 {
   *param_1 = &FileTree_vtable;
   param_1[2] = &PTR_FUN_0119c508;
-  FUN_0058b7a8();
+  categorytree_dtor();
   operator_delete(param_1,0x78);
   return;
 }
@@ -9338,7 +9337,7 @@ void FUN_008f9b7b(undefined8 *param_1)
 {
   param_1[-2] = &FileTree_vtable;
   *param_1 = &PTR_FUN_0119c508;
-  FUN_0058b7a8(param_1 + -2);
+  categorytree_dtor(param_1 + -2);
   operator_delete(param_1 + -2,0x78);
   return;
 }
@@ -9473,9 +9472,9 @@ void FileView_h8f9c68(undefined8 param_1,int param_2,int param_3,undefined8 *par
 }
 
 
-// ==== entry=008f9d20 orig=FUN_008f9d20 size=66 name=s_FileView_8f9d20 ====
+// ==== entry=008f9d20 orig=FUN_008f9d20 size=66 name=FileView_qt_metacast ====
 
-char * s_FileView_8f9d20(char *param_1,char *param_2)
+char * FileView_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -9854,9 +9853,9 @@ undefined ** HtmlLabel_metaObject(long param_1)
 }
 
 
-// ==== entry=008fa2be orig=FUN_008fa2be size=66 name=s_HtmlLabel_8fa2be ====
+// ==== entry=008fa2be orig=FUN_008fa2be size=66 name=HtmlLabel_qt_metacast ====
 
-char * s_HtmlLabel_8fa2be(char *param_1,char *param_2)
+char * HtmlLabel_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -10020,9 +10019,9 @@ undefined ** FileDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=008fa48a orig=FUN_008fa48a size=66 name=s_FileDialog_8fa48a ====
+// ==== entry=008fa48a orig=FUN_008fa48a size=66 name=FileDialog_qt_metacast ====
 
-char * s_FileDialog_8fa48a(char *param_1,char *param_2)
+char * FileDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -10177,9 +10176,9 @@ undefined ** IconSelector_metaObject(long param_1)
 }
 
 
-// ==== entry=008fa658 orig=FUN_008fa658 size=66 name=s_IconSelector_8fa658 ====
+// ==== entry=008fa658 orig=FUN_008fa658 size=66 name=IconSelector_qt_metacast ====
 
-undefined8 s_IconSelector_8fa658(undefined8 param_1,char *param_2)
+undefined8 IconSelector_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -10192,7 +10191,7 @@ undefined8 s_IconSelector_8fa658(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_SideButton_8f7058(param_1,param_2);
+  uVar2 = SideButton_qt_metacast(param_1,param_2);
   return uVar2;
 }
 
@@ -10389,9 +10388,9 @@ undefined ** PathEdit_metaObject(long param_1)
 }
 
 
-// ==== entry=008fa938 orig=FUN_008fa938 size=66 name=s_PathEdit_8fa938 ====
+// ==== entry=008fa938 orig=FUN_008fa938 size=66 name=PathEdit_qt_metacast ====
 
-undefined8 s_PathEdit_8fa938(undefined8 param_1,char *param_2)
+undefined8 PathEdit_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -10479,7 +10478,7 @@ void FUN_008faa16(undefined8 *param_1)
   
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10504,7 +10503,7 @@ void PathEdit_dtor_deleting(QLineEdit *param_1)
   
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10529,7 +10528,7 @@ void FUN_008faad4(undefined8 *param_1)
   
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10553,7 +10552,7 @@ void PathEdit_dtor(QLineEdit *param_1)
   
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10592,9 +10591,9 @@ undefined ** SafeEdit_metaObject(long param_1)
 }
 
 
-// ==== entry=008fab94 orig=FUN_008fab94 size=66 name=s_SafeEdit_8fab94 ====
+// ==== entry=008fab94 orig=FUN_008fab94 size=66 name=SafeEdit_qt_metacast ====
 
-undefined8 s_SafeEdit_8fab94(undefined8 param_1,char *param_2)
+undefined8 SafeEdit_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -10666,7 +10665,7 @@ void FUN_008fabdc(undefined8 *param_1)
 LAB_008fac16:
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10705,7 +10704,7 @@ void SafeEdit_dtor_deleting(QLineEdit *param_1)
 LAB_008facb8:
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10744,7 +10743,7 @@ void FUN_008fad24(undefined8 *param_1)
 LAB_008fad5a:
   param_1[-2] = &PTR_FUN_01198458;
   *param_1 = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 8);
+  qatomic_unref_call_deleter2(param_1 + 8);
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10782,7 +10781,7 @@ void SafeEdit_dtor(QLineEdit *param_1)
 LAB_008fadf4:
   *(undefined ***)param_1 = &PTR_FUN_01198458;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198608;
-  FUN_00544670(param_1 + 0x50);
+  qatomic_unref_call_deleter2(param_1 + 0x50);
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -10955,9 +10954,9 @@ switchD_008faf3f_default:
 }
 
 
-// ==== entry=008fb0b0 orig=FUN_008fb0b0 size=66 name=s_SlipButton_8fb0b0 ====
+// ==== entry=008fb0b0 orig=FUN_008fb0b0 size=66 name=SlipButton_qt_metacast ====
 
-char * s_SlipButton_8fb0b0(char *param_1,char *param_2)
+char * SlipButton_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -11053,7 +11052,7 @@ undefined8 s_TablePanel_8fb1bc(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_ButtonBarPanel_8efcce(param_1,param_2);
+  uVar2 = ButtonBarPanel_qt_metacast(param_1,param_2);
   return uVar2;
 }
 
@@ -11584,9 +11583,9 @@ void TabGroup_h8fb6c8(undefined8 param_1,int param_2,int param_3,undefined8 *par
 }
 
 
-// ==== entry=008fb8de orig=FUN_008fb8de size=66 name=s_TabGroup_8fb8de ====
+// ==== entry=008fb8de orig=FUN_008fb8de size=66 name=TabGroup_qt_metacast ====
 
-char * s_TabGroup_8fb8de(char *param_1,char *param_2)
+char * TabGroup_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -11711,9 +11710,9 @@ void ToolButton_h8fb9e8(long param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008fbaac orig=FUN_008fbaac size=66 name=s_ToolButton_8fbaac ====
+// ==== entry=008fbaac orig=FUN_008fbaac size=66 name=ToolButton_qt_metacast ====
 
-char * s_ToolButton_8fbaac(char *param_1,char *param_2)
+char * ToolButton_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -12114,7 +12113,7 @@ void EditorView_h8fbe64(long param_1,int param_2,uint param_3,long *param_4)
     }
     break;
   case 6:
-    FUN_008c6cc2(param_1 + 0x100,param_4[1]);
+    window_closeChildDialogs(param_1 + 0x100,param_4[1]);
     break;
   case 7:
     FUN_008c53f8(local_20,param_1 + 0x100);
@@ -12144,9 +12143,9 @@ void EditorView_h8fbe64(long param_1,int param_2,uint param_3,long *param_4)
       local_28 = &QListData::shared_null;
       local_20[0] = (QArrayData *)*puVar5;
       *puVar5 = puVar6;
-      FUN_005ca570(local_20);
+      qlist_ref_release(local_20);
     }
-    FUN_005ca570(&local_28);
+    qlist_ref_release(&local_28);
     break;
   case 0xd:
     FUN_008c5e88((QIcon *)local_20,param_1 + 0x100);
@@ -12235,9 +12234,9 @@ LAB_008fbf2d:
 }
 
 
-// ==== entry=008fc214 orig=FUN_008fc214 size=107 name=s_EditorView_8fc214 ====
+// ==== entry=008fc214 orig=FUN_008fc214 size=107 name=EditorView_qt_metacast ====
 
-long s_EditorView_8fc214(long param_1,byte *param_2)
+long EditorView_qt_metacast(long param_1,byte *param_2)
 
 {
   int iVar1;
@@ -12272,7 +12271,7 @@ long s_EditorView_8fc214(long param_1,byte *param_2)
   if ((!bVar5 && !bVar6) == bVar5) {
     return param_1 + 0x100;
   }
-  lVar2 = s_TextEdit_8f2638(param_1,param_2);
+  lVar2 = TextView_dtor(param_1,param_2);
   return lVar2;
 }
 
@@ -12396,7 +12395,7 @@ switchD_008fc392_default:
   case 1:
     uVar4 = *(undefined8 *)param_4[2];
     ppQVar5 = &local_20;
-    FUN_00533df0(ppQVar5,param_4[1]);
+    qlist_detach_copy_refs2(ppQVar5,param_4[1]);
                     /* try { // try from 008fc4c7 to 008fc4cb has its CatchHandler @ 008fc55e */
     FUN_008fc332(param_1,ppQVar5,uVar4);
     goto LAB_008fc4cc;
@@ -12434,7 +12433,7 @@ switchD_008fc392_default:
     FUN_005ea368(param_1,&local_20,0);
     break;
   case 6:
-    FUN_005eb64e();
+    kit_collectPanes();
     return;
   case 7:
     ppQVar5 = &local_28;
@@ -12445,10 +12444,10 @@ switchD_008fc392_default:
       local_28 = (QArrayData *)&QListData::shared_null;
       local_20 = (QArrayData *)*puVar2;
       *puVar2 = pQVar3;
-      FUN_00525060(&local_20);
+      qt_shared_data_unref(&local_20);
     }
 LAB_008fc4cc:
-    FUN_00525060(ppQVar5);
+    qt_shared_data_unref(ppQVar5);
     return;
   default:
     goto switchD_008fc392_default;
@@ -12469,9 +12468,9 @@ LAB_008fc4cc:
 }
 
 
-// ==== entry=008fc56e orig=FUN_008fc56e size=66 name=s_EditorWindow_8fc56e ====
+// ==== entry=008fc56e orig=FUN_008fc56e size=66 name=KitWindow_dtor ====
 
-undefined8 s_EditorWindow_8fc56e(undefined8 param_1,char *param_2)
+undefined8 KitWindow_dtor(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -12638,9 +12637,9 @@ void TransferCenter_h8fc6d8(undefined8 param_1,int param_2,int param_3,undefined
 }
 
 
-// ==== entry=008fc778 orig=FUN_008fc778 size=66 name=s_TransferCenter_8fc778 ====
+// ==== entry=008fc778 orig=FUN_008fc778 size=66 name=TransferCenter_qt_metacast ====
 
-char * s_TransferCenter_8fc778(char *param_1,char *param_2)
+char * TransferCenter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -12863,9 +12862,9 @@ void FUN_008fc9ce(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *
 }
 
 
-// ==== entry=008fca4a orig=FUN_008fca4a size=66 name=s_ForwardingCenter_8fca4a ====
+// ==== entry=008fca4a orig=FUN_008fca4a size=66 name=ForwardingCenter_qt_metacast ====
 
-char * s_ForwardingCenter_8fca4a(char *param_1,char *param_2)
+char * ForwardingCenter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -13005,9 +13004,9 @@ void ProxyServer_h8fcb80(undefined8 param_1,int param_2,int param_3,undefined8 *
 }
 
 
-// ==== entry=008fcbf8 orig=FUN_008fcbf8 size=66 name=s_ProxyServer_8fcbf8 ====
+// ==== entry=008fcbf8 orig=FUN_008fcbf8 size=66 name=ProxyServer_qt_metacast ====
 
-char * s_ProxyServer_8fcbf8(char *param_1,char *param_2)
+char * ProxyServer_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -13344,9 +13343,9 @@ LAB_008fd114:
 }
 
 
-// ==== entry=008fd1a4 orig=FUN_008fd1a4 size=66 name=s_ForwardingHandler_8fd1a4 ====
+// ==== entry=008fd1a4 orig=FUN_008fd1a4 size=66 name=ForwardingHandler_qt_metacast ====
 
-char * s_ForwardingHandler_8fd1a4(char *param_1,char *param_2)
+char * ForwardingHandler_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -13442,9 +13441,9 @@ void FUN_008fd288(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008fd2bc orig=FUN_008fd2bc size=66 name=s_PeriodTimer_8fd2bc ====
+// ==== entry=008fd2bc orig=FUN_008fd2bc size=66 name=PeriodTimer_qt_metacast ====
 
-char * s_PeriodTimer_8fd2bc(char *param_1,char *param_2)
+char * PeriodTimer_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -13773,9 +13772,9 @@ ulong Tools_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,undefi
 }
 
 
-// ==== entry=008fd636 orig=FUN_008fd636 size=66 name=s_ToolRunner_8fd636 ====
+// ==== entry=008fd636 orig=FUN_008fd636 size=66 name=ToolRunner_qt_metacast ====
 
-char * s_ToolRunner_8fd636(char *param_1,char *param_2)
+char * ToolRunner_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -13947,9 +13946,9 @@ undefined ** JsEngine_metaObject(long param_1)
 }
 
 
-// ==== entry=008fd868 orig=FUN_008fd868 size=66 name=s_JsEngine_8fd868 ====
+// ==== entry=008fd868 orig=FUN_008fd868 size=66 name=JsEngine_qt_metacast ====
 
-char * s_JsEngine_8fd868(char *param_1,char *param_2)
+char * JsEngine_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -14029,9 +14028,9 @@ void FUN_008fd8fc(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008fd938 orig=FUN_008fd938 size=66 name=s_JumpServer_8fd938 ====
+// ==== entry=008fd938 orig=FUN_008fd938 size=66 name=JumpServer_qt_metacast ====
 
-char * s_JumpServer_8fd938(char *param_1,char *param_2)
+char * JumpServer_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -14158,9 +14157,9 @@ undefined ** ProxyCommandSocket_metaObject(long param_1)
 }
 
 
-// ==== entry=008fda8e orig=FUN_008fda8e size=66 name=s_ProxyCommandSocket_8fda8e ====
+// ==== entry=008fda8e orig=FUN_008fda8e size=66 name=ProxyCommandSocket_qt_metacast ====
 
-char * s_ProxyCommandSocket_8fda8e(char *param_1,char *param_2)
+char * ProxyCommandSocket_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -14234,20 +14233,20 @@ LAB_008fdbb0:
                 if (lVar8 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar8 + 0x20));
                   if (*(long *)(lVar8 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar8 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar7 = *(long *)(lVar7 + 0x10);
                 if (lVar7 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar7 + 0x20));
                   if (*(long *)(lVar7 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar7 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14258,20 +14257,20 @@ LAB_008fdbb0:
                 if (lVar7 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar7 + 0x20));
                   if (*(long *)(lVar7 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar7 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar6 = *(long *)(lVar6 + 0x10);
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14286,20 +14285,20 @@ LAB_008fdbb0:
                 if (lVar7 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar7 + 0x20));
                   if (*(long *)(lVar7 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar7 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar6 = *(long *)(lVar6 + 0x10);
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14310,20 +14309,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14342,20 +14341,20 @@ LAB_008fdbb0:
                 if (lVar7 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar7 + 0x20));
                   if (*(long *)(lVar7 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar7 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar6 = *(long *)(lVar6 + 0x10);
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14366,20 +14365,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14394,20 +14393,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14418,20 +14417,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14454,20 +14453,20 @@ LAB_008fdbb0:
                 if (lVar7 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar7 + 0x20));
                   if (*(long *)(lVar7 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar7 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar6 = *(long *)(lVar6 + 0x10);
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14478,20 +14477,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14506,20 +14505,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14530,20 +14529,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14562,20 +14561,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14586,20 +14585,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14614,20 +14613,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14638,20 +14637,20 @@ LAB_008fdbb0:
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar3 = *(long *)(lVar3 + 0x10);
                 if (lVar3 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
                   if (*(long *)(lVar3 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar3 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14678,20 +14677,20 @@ LAB_008fdbb0:
                 if (lVar7 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar7 + 0x20));
                   if (*(long *)(lVar7 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar7 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar6 = *(long *)(lVar6 + 0x10);
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14702,20 +14701,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14730,20 +14729,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14754,20 +14753,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14786,20 +14785,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14810,20 +14809,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14838,20 +14837,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14862,20 +14861,20 @@ LAB_008fdbb0:
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar3 = *(long *)(lVar3 + 0x10);
                 if (lVar3 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
                   if (*(long *)(lVar3 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar3 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14898,20 +14897,20 @@ LAB_008fdbb0:
                 if (lVar6 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
                   if (*(long *)(lVar6 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar6 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar5 = *(long *)(lVar5 + 0x10);
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14922,20 +14921,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14950,20 +14949,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -14974,20 +14973,20 @@ LAB_008fdbb0:
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar3 = *(long *)(lVar3 + 0x10);
                 if (lVar3 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
                   if (*(long *)(lVar3 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar3 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -15006,20 +15005,20 @@ LAB_008fdbb0:
                 if (lVar5 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
                   if (*(long *)(lVar5 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar5 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar4 = *(long *)(lVar4 + 0x10);
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -15030,20 +15029,20 @@ LAB_008fdbb0:
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar3 = *(long *)(lVar3 + 0x10);
                 if (lVar3 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
                   if (*(long *)(lVar3 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar3 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -15058,20 +15057,20 @@ LAB_008fdbb0:
                 if (lVar4 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
                   if (*(long *)(lVar4 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar4 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar3 = *(long *)(lVar3 + 0x10);
                 if (lVar3 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
                   if (*(long *)(lVar3 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar3 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -15082,20 +15081,20 @@ LAB_008fdbb0:
                 if (lVar3 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
                   if (*(long *)(lVar3 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar3 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
                 lVar2 = *(long *)(lVar2 + 0x10);
                 if (lVar2 != 0) {
                   QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
                   if (*(long *)(lVar2 + 8) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                   if (*(long *)(lVar2 + 0x10) != 0) {
-                    FUN_0065f8a6();
+                    qmap_node_list_destruct_variant();
                   }
                 }
               }
@@ -15250,9 +15249,9 @@ undefined ** CheckListSortFilterProxyModel_vt0(long param_1)
 }
 
 
-// ==== entry=008ff042 orig=FUN_008ff042 size=66 name=s_SortFilterProxyModel_8ff042 ====
+// ==== entry=008ff042 orig=FUN_008ff042 size=66 name=SortFilterProxyModel_dtor ====
 
-char * s_SortFilterProxyModel_8ff042(char *param_1,char *param_2)
+char * SortFilterProxyModel_dtor(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -15355,9 +15354,9 @@ undefined ** AddressListModel_vt0(long param_1)
 }
 
 
-// ==== entry=008ff152 orig=FUN_008ff152 size=66 name=s_ListModel_8ff152 ====
+// ==== entry=008ff152 orig=FUN_008ff152 size=66 name=ListModel_dtor ====
 
-char * s_ListModel_8ff152(char *param_1,char *param_2)
+char * ListModel_dtor(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -15470,9 +15469,9 @@ undefined ** MediaCenter_metaObject(long param_1)
 }
 
 
-// ==== entry=008ff29c orig=FUN_008ff29c size=66 name=s_MediaCenter_8ff29c ====
+// ==== entry=008ff29c orig=FUN_008ff29c size=66 name=MediaCenter_qt_metacast ====
 
-char * s_MediaCenter_8ff29c(char *param_1,char *param_2)
+char * MediaCenter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -15648,7 +15647,7 @@ LAB_00900a75:
                 }
               }
               if (*(long *)(lVar7 + 8) != 0) {
-                FUN_0064e5d8();
+                MediaCenter_map_nodes_destroy();
               }
               lVar7 = *(long *)(lVar7 + 0x10);
               if (lVar7 != 0) {
@@ -15676,10 +15675,10 @@ LAB_00900c30:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -15734,10 +15733,10 @@ LAB_00900d04:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -15766,10 +15765,10 @@ LAB_00900ca4:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -15850,10 +15849,10 @@ LAB_00900dc1:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -15882,10 +15881,10 @@ LAB_00900da9:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -15940,10 +15939,10 @@ LAB_00900bb8:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -15972,10 +15971,10 @@ LAB_00900c8c:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16082,10 +16081,10 @@ LAB_00900c6a:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -16114,10 +16113,10 @@ LAB_00900c52:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16172,10 +16171,10 @@ LAB_00900c00:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -16204,10 +16203,10 @@ LAB_00900d3e:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16288,10 +16287,10 @@ LAB_00900e73:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -16320,10 +16319,10 @@ LAB_00900e8b:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16378,10 +16377,10 @@ LAB_00900be8:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -16410,10 +16409,10 @@ LAB_00900bd0:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16546,10 +16545,10 @@ LAB_00900d6e:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -16578,10 +16577,10 @@ LAB_00900d56:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16636,10 +16635,10 @@ LAB_00900e43:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -16668,10 +16667,10 @@ LAB_00900c18:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16752,10 +16751,10 @@ LAB_00900d26:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -16784,10 +16783,10 @@ LAB_00900cec:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16842,10 +16841,10 @@ LAB_00900cd4:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -16874,10 +16873,10 @@ LAB_00900cbc:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -16984,10 +16983,10 @@ LAB_00900ebb:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -17016,10 +17015,10 @@ LAB_00900ea3:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17074,10 +17073,10 @@ LAB_00900de3:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -17106,10 +17105,10 @@ LAB_00900dfb:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17190,10 +17189,10 @@ LAB_00900e2b:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -17222,10 +17221,10 @@ LAB_00900e5b:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17280,10 +17279,10 @@ LAB_00900e13:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar3 = *(long *)(lVar3 + 0x10);
@@ -17312,10 +17311,10 @@ LAB_00900d91:
                   }
                 }
                 if (*(long *)(lVar3 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar3 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17550,10 +17549,10 @@ LAB_009027cd:
                   }
                 }
                 if (*(long *)(lVar8 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar8 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar7 = *(long *)(lVar7 + 0x10);
@@ -17582,10 +17581,10 @@ LAB_00902a18:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17640,10 +17639,10 @@ LAB_00902a68:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -17672,10 +17671,10 @@ LAB_00902a50:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17756,10 +17755,10 @@ LAB_009027ad:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -17788,10 +17787,10 @@ LAB_00902795:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17846,10 +17845,10 @@ LAB_009029d0:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -17878,10 +17877,10 @@ LAB_00902877:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -17988,10 +17987,10 @@ LAB_00902827:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -18020,10 +18019,10 @@ LAB_0090280f:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18053,7 +18052,7 @@ LAB_009026cd:
                 }
               }
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_0064e5d8();
+                MediaCenter_map_nodes_destroy();
               }
               lVar5 = *(long *)(lVar5 + 0x10);
               if (lVar5 != 0) {
@@ -18081,10 +18080,10 @@ LAB_00902847:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18165,10 +18164,10 @@ LAB_00902a38:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -18197,10 +18196,10 @@ LAB_00902968:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18255,10 +18254,10 @@ LAB_009029e8:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -18287,10 +18286,10 @@ LAB_0090291f:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18423,10 +18422,10 @@ LAB_009029b0:
                   }
                 }
                 if (*(long *)(lVar7 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar7 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar6 = *(long *)(lVar6 + 0x10);
@@ -18455,10 +18454,10 @@ LAB_00902998:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18513,10 +18512,10 @@ LAB_0090285f:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -18545,10 +18544,10 @@ LAB_00902a00:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18629,10 +18628,10 @@ LAB_00902980:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -18661,10 +18660,10 @@ LAB_00902950:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18719,10 +18718,10 @@ LAB_00902aa0:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -18751,10 +18750,10 @@ LAB_00902a88:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18861,10 +18860,10 @@ LAB_009028ef:
                   }
                 }
                 if (*(long *)(lVar6 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar6 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar5 = *(long *)(lVar5 + 0x10);
@@ -18893,10 +18892,10 @@ LAB_009028d7:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -18951,10 +18950,10 @@ LAB_009028a7:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -18983,10 +18982,10 @@ LAB_0090288f:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -19067,10 +19066,10 @@ LAB_009028bf:
                   }
                 }
                 if (*(long *)(lVar5 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar5 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar4 = *(long *)(lVar4 + 0x10);
@@ -19099,10 +19098,10 @@ LAB_009027f7:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -19157,10 +19156,10 @@ LAB_00902907:
                   }
                 }
                 if (*(long *)(lVar4 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar4 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
               lVar3 = *(long *)(lVar3 + 0x10);
@@ -19189,10 +19188,10 @@ LAB_00902938:
                   }
                 }
                 if (*(long *)(lVar3 + 8) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
                 if (*(long *)(lVar3 + 0x10) != 0) {
-                  FUN_0064e5d8();
+                  MediaCenter_map_nodes_destroy();
                 }
               }
             }
@@ -19332,9 +19331,9 @@ void FileWatcher_h902b2a(undefined8 param_1,int param_2,int param_3,undefined8 *
 }
 
 
-// ==== entry=00902b88 orig=FUN_00902b88 size=66 name=s_FileWatcher_902b88 ====
+// ==== entry=00902b88 orig=FUN_00902b88 size=66 name=FileWatcher_qt_metacast ====
 
-char * s_FileWatcher_902b88(char *param_1,char *param_2)
+char * FileWatcher_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -19407,9 +19406,9 @@ undefined ** SuperTranslator_metaObject(long param_1)
 }
 
 
-// ==== entry=00902c42 orig=FUN_00902c42 size=66 name=s_SuperTranslator_902c42 ====
+// ==== entry=00902c42 orig=FUN_00902c42 size=66 name=SuperTranslator_qt_metacast ====
 
-char * s_SuperTranslator_902c42(char *param_1,char *param_2)
+char * SuperTranslator_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -19523,9 +19522,9 @@ undefined ** CyclicMemoryPool_metaObject(long param_1)
 }
 
 
-// ==== entry=00902d52 orig=FUN_00902d52 size=66 name=s_CyclicMemoryPool_902d52 ====
+// ==== entry=00902d52 orig=FUN_00902d52 size=66 name=CyclicMemoryPool_qt_metacast ====
 
-char * s_CyclicMemoryPool_902d52(char *param_1,char *param_2)
+char * CyclicMemoryPool_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -19692,9 +19691,9 @@ void TransferTask_h902eea(undefined8 param_1,int param_2,int param_3,undefined8 
 }
 
 
-// ==== entry=00902f48 orig=FUN_00902f48 size=66 name=s_TransferTask_902f48 ====
+// ==== entry=00902f48 orig=FUN_00902f48 size=66 name=TransferTask_qt_metacast ====
 
-char * s_TransferTask_902f48(char *param_1,char *param_2)
+char * TransferTask_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -19822,9 +19821,9 @@ undefined ** FileSystemItem_vt10(long param_1)
 }
 
 
-// ==== entry=00903064 orig=FUN_00903064 size=66 name=s_TreeListModel_903064 ====
+// ==== entry=00903064 orig=FUN_00903064 size=66 name=TreeListModel_dtor ====
 
-char * s_TreeListModel_903064(char *param_1,char *param_2)
+char * TreeListModel_dtor(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -20124,9 +20123,9 @@ void FileReader_h9032ee(undefined8 param_1,int param_2,undefined4 param_3,undefi
 }
 
 
-// ==== entry=009034b4 orig=FUN_009034b4 size=66 name=s_FileReader_9034b4 ====
+// ==== entry=009034b4 orig=FUN_009034b4 size=66 name=FileReader_qt_metacast ====
 
-char * s_FileReader_9034b4(char *param_1,char *param_2)
+char * FileReader_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -20199,9 +20198,9 @@ undefined ** SuperAction_metaObject(long param_1)
 }
 
 
-// ==== entry=0090356e orig=FUN_0090356e size=66 name=s_SuperAction_90356e ====
+// ==== entry=0090356e orig=FUN_0090356e size=66 name=SuperAction_qt_metacast ====
 
-char * s_SuperAction_90356e(char *param_1,char *param_2)
+char * SuperAction_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -20313,9 +20312,9 @@ undefined ** SuperKeymap_metaObject(long param_1)
 }
 
 
-// ==== entry=00903686 orig=FUN_00903686 size=66 name=s_SuperKeymap_903686 ====
+// ==== entry=00903686 orig=FUN_00903686 size=66 name=SuperKeymap_qt_metacast ====
 
-char * s_SuperKeymap_903686(char *param_1,char *param_2)
+char * SuperKeymap_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -20461,9 +20460,9 @@ void SyncInputCenter_h9037a8(undefined8 param_1,int param_2,int param_3,undefine
 }
 
 
-// ==== entry=00903846 orig=FUN_00903846 size=66 name=s_SyncInputCenter_903846 ====
+// ==== entry=00903846 orig=FUN_00903846 size=66 name=SyncInputCenter_qt_metacast ====
 
-char * s_SyncInputCenter_903846(char *param_1,char *param_2)
+char * SyncInputCenter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -20673,9 +20672,9 @@ void FUN_00903a5c(void)
 }
 
 
-// ==== entry=00903bc2 orig=FUN_00903bc2 size=66 name=s_TriggerCenter_903bc2 ====
+// ==== entry=00903bc2 orig=FUN_00903bc2 size=66 name=TriggerCenter_qt_metacast ====
 
-char * s_TriggerCenter_903bc2(char *param_1,char *param_2)
+char * TriggerCenter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -20904,9 +20903,9 @@ void TunnelCenter_h903d9c(undefined8 param_1,int param_2,undefined4 param_3,unde
 }
 
 
-// ==== entry=00903eca orig=FUN_00903eca size=66 name=s_TunnelCenter_903eca ====
+// ==== entry=00903eca orig=FUN_00903eca size=66 name=TunnelCenter_qt_metacast ====
 
-char * s_TunnelCenter_903eca(char *param_1,char *param_2)
+char * TunnelCenter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -20980,9 +20979,9 @@ undefined ** UuidCenter_metaObject(long param_1)
 }
 
 
-// ==== entry=00903f88 orig=FUN_00903f88 size=66 name=s_UuidCenter_903f88 ====
+// ==== entry=00903f88 orig=FUN_00903f88 size=66 name=UuidCenter_qt_metacast ====
 
-char * s_UuidCenter_903f88(char *param_1,char *param_2)
+char * UuidCenter_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -21325,9 +21324,9 @@ undefined ** HighlightTextDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=009043be orig=FUN_009043be size=66 name=s_HighlightTextDialog_9043be ====
+// ==== entry=009043be orig=FUN_009043be size=66 name=HighlightTextDialog_qt_metacast ====
 
-char * s_HighlightTextDialog_9043be(char *param_1,char *param_2)
+char * HighlightTextDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -21429,9 +21428,9 @@ undefined ** MasterPasswordDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=009044c0 orig=FUN_009044c0 size=66 name=s_MasterPasswordDialog_9044c0 ====
+// ==== entry=009044c0 orig=FUN_009044c0 size=66 name=MasterPasswordDialog_qt_metacast ====
 
-char * s_MasterPasswordDialog_9044c0(char *param_1,char *param_2)
+char * MasterPasswordDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -21533,9 +21532,9 @@ undefined ** ModemFileDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=009045c2 orig=FUN_009045c2 size=66 name=s_ModemFileDialog_9045c2 ====
+// ==== entry=009045c2 orig=FUN_009045c2 size=66 name=ModemFileDialog_qt_metacast ====
 
-undefined8 s_ModemFileDialog_9045c2(undefined8 param_1,char *param_2)
+undefined8 ModemFileDialog_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -21548,7 +21547,7 @@ undefined8 s_ModemFileDialog_9045c2(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_FileDialog_8fa48a(param_1,param_2);
+  uVar2 = FileDialog_qt_metacast(param_1,param_2);
   return uVar2;
 }
 
@@ -21699,9 +21698,9 @@ undefined ** NameDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=0090478e orig=FUN_0090478e size=66 name=s_NameDialog_90478e ====
+// ==== entry=0090478e orig=FUN_0090478e size=66 name=NameDialog_qt_metacast ====
 
-char * s_NameDialog_90478e(char *param_1,char *param_2)
+char * NameDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -21865,9 +21864,9 @@ undefined ** OneKeyDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=0090495a orig=FUN_0090495a size=66 name=s_OneKeyDialog_90495a ====
+// ==== entry=0090495a orig=FUN_0090495a size=66 name=OneKeyDialog_qt_metacast ====
 
-char * s_OneKeyDialog_90495a(char *param_1,char *param_2)
+char * OneKeyDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -21973,9 +21972,9 @@ undefined ** PasswordDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00904a9e orig=FUN_00904a9e size=66 name=s_PasswordDialog_904a9e ====
+// ==== entry=00904a9e orig=FUN_00904a9e size=66 name=PasswordDialog_qt_metacast ====
 
-char * s_PasswordDialog_904a9e(char *param_1,char *param_2)
+char * PasswordDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22051,9 +22050,9 @@ void FUN_00904b18(void)
 }
 
 
-// ==== entry=00904b1a orig=FUN_00904b1a size=66 name=s_PlaySoundWidget_904b1a ====
+// ==== entry=00904b1a orig=FUN_00904b1a size=66 name=PlaySoundWidget_qt_metacast ====
 
-char * s_PlaySoundWidget_904b1a(char *param_1,char *param_2)
+char * PlaySoundWidget_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22081,9 +22080,9 @@ void QWidget::PlaySoundWidget_qt_metacall(void)
 }
 
 
-// ==== entry=00904b62 orig=FUN_00904b62 size=66 name=s_PlaySoundDialog_904b62 ====
+// ==== entry=00904b62 orig=FUN_00904b62 size=66 name=PlaySoundDialog_qt_metacast ====
 
-char * s_PlaySoundDialog_904b62(char *param_1,char *param_2)
+char * PlaySoundDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22319,9 +22318,9 @@ void SessionDialog_h904d8e(undefined8 param_1,int param_2,int param_3,undefined8
 }
 
 
-// ==== entry=00904e1a orig=FUN_00904e1a size=66 name=s_SessionDialog_904e1a ====
+// ==== entry=00904e1a orig=FUN_00904e1a size=66 name=SessionDialog_qt_metacast ====
 
-char * s_SessionDialog_904e1a(char *param_1,char *param_2)
+char * SessionDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22395,9 +22394,9 @@ undefined ** RemoteFileDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00904ed8 orig=FUN_00904ed8 size=66 name=s_RemoteFileDialog_904ed8 ====
+// ==== entry=00904ed8 orig=FUN_00904ed8 size=66 name=RemoteFileDialog_qt_metacast ====
 
-char * s_RemoteFileDialog_904ed8(char *param_1,char *param_2)
+char * RemoteFileDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22647,9 +22646,9 @@ undefined ** DefaultEditorDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=0090522e orig=FUN_0090522e size=66 name=s_DefaultEditorDialog_90522e ====
+// ==== entry=0090522e orig=FUN_0090522e size=66 name=DefaultEditorDialog_qt_metacast ====
 
-char * s_DefaultEditorDialog_90522e(char *param_1,char *param_2)
+char * DefaultEditorDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22751,9 +22750,9 @@ undefined ** EnvironmentDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905330 orig=FUN_00905330 size=66 name=s_EnvironmentDialog_905330 ====
+// ==== entry=00905330 orig=FUN_00905330 size=66 name=EnvironmentDialog_qt_metacast ====
 
-char * s_EnvironmentDialog_905330(char *param_1,char *param_2)
+char * EnvironmentDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22879,9 +22878,9 @@ void FUN_0090544a(void)
 }
 
 
-// ==== entry=0090544c orig=FUN_0090544c size=66 name=s_FocusModeController_90544c ====
+// ==== entry=0090544c orig=FUN_0090544c size=66 name=FocusModeController_qt_metacast ====
 
-char * s_FocusModeController_90544c(char *param_1,char *param_2)
+char * FocusModeController_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -22909,9 +22908,9 @@ void QWidget::FocusModeController_qt_metacall(void)
 }
 
 
-// ==== entry=00905494 orig=FUN_00905494 size=66 name=s_FocusModeDialog_905494 ====
+// ==== entry=00905494 orig=FUN_00905494 size=66 name=FocusModeDialog_qt_metacast ====
 
-char * s_FocusModeDialog_905494(char *param_1,char *param_2)
+char * FocusModeDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23153,9 +23152,9 @@ void FUN_00905734(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=00905770 orig=FUN_00905770 size=66 name=s_QuickDialog_905770 ====
+// ==== entry=00905770 orig=FUN_00905770 size=66 name=QuickDialog_qt_metacast ====
 
-char * s_QuickDialog_905770(char *param_1,char *param_2)
+char * QuickDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23224,7 +23223,7 @@ void QuickDialog_dtor(QDialog *param_1)
   }
   QArrayData::deallocate(pQVar1,2,8);
 LAB_0090583f:
-  FUN_00af2c10(param_1 + 0x38);
+  json_value_destruct(param_1 + 0x38);
   QDialog::~QDialog(param_1);
   return;
 }
@@ -23250,7 +23249,7 @@ void FUN_00905866(undefined8 *param_1)
   }
   QArrayData::deallocate(pQVar1,2,8);
 LAB_0090589c:
-  FUN_00af2c10(param_1 + 5);
+  json_value_destruct(param_1 + 5);
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   return;
 }
@@ -23276,7 +23275,7 @@ void FUN_009058cc(undefined8 *param_1)
   }
   QArrayData::deallocate(pQVar1,2,8);
 LAB_00905906:
-  FUN_00af2c10(param_1 + 5);
+  json_value_destruct(param_1 + 5);
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   operator_delete((QDialog *)(param_1 + -2),0xc0);
   return;
@@ -23303,7 +23302,7 @@ void QuickDialog_dtor_deleting(QDialog *param_1)
   }
   QArrayData::deallocate(pQVar1,2,8);
 LAB_00905971:
-  FUN_00af2c10(param_1 + 0x38);
+  json_value_destruct(param_1 + 0x38);
   QDialog::~QDialog(param_1);
   operator_delete(param_1,0xc0);
   return;
@@ -23334,9 +23333,9 @@ undefined ** PasteDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=009059c0 orig=FUN_009059c0 size=66 name=s_PasteDialog_9059c0 ====
+// ==== entry=009059c0 orig=FUN_009059c0 size=66 name=PasteDialog_qt_metacast ====
 
-char * s_PasteDialog_9059c0(char *param_1,char *param_2)
+char * PasteDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23500,9 +23499,9 @@ undefined ** ProfileDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905b8c orig=FUN_00905b8c size=66 name=s_ProfileDialog_905b8c ====
+// ==== entry=00905b8c orig=FUN_00905b8c size=66 name=ProfileDialog_qt_metacast ====
 
-char * s_ProfileDialog_905b8c(char *param_1,char *param_2)
+char * ProfileDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23554,9 +23553,9 @@ undefined ** RunToolDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905bee orig=FUN_00905bee size=66 name=s_RunToolDialog_905bee ====
+// ==== entry=00905bee orig=FUN_00905bee size=66 name=RunToolDialog_qt_metacast ====
 
-char * s_RunToolDialog_905bee(char *param_1,char *param_2)
+char * RunToolDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23608,9 +23607,9 @@ undefined ** MaskDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905c50 orig=FUN_00905c50 size=66 name=s_MaskDialog_905c50 ====
+// ==== entry=00905c50 orig=FUN_00905c50 size=66 name=MaskDialog_qt_metacast ====
 
-char * s_MaskDialog_905c50(char *param_1,char *param_2)
+char * MaskDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23662,9 +23661,9 @@ undefined ** InsertFileDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905cb2 orig=FUN_00905cb2 size=66 name=s_InsertFileDialog_905cb2 ====
+// ==== entry=00905cb2 orig=FUN_00905cb2 size=66 name=InsertFileDialog_qt_metacast ====
 
-char * s_InsertFileDialog_905cb2(char *param_1,char *param_2)
+char * InsertFileDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23716,9 +23715,9 @@ undefined ** SearchEngineDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905d14 orig=FUN_00905d14 size=66 name=s_SearchEngineDialog_905d14 ====
+// ==== entry=00905d14 orig=FUN_00905d14 size=66 name=SearchEngineDialog_qt_metacast ====
 
-char * s_SearchEngineDialog_905d14(char *param_1,char *param_2)
+char * SearchEngineDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23820,9 +23819,9 @@ undefined ** SettingDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905e16 orig=FUN_00905e16 size=66 name=s_SettingDialog_905e16 ====
+// ==== entry=00905e16 orig=FUN_00905e16 size=66 name=SettingDialog_qt_metacast ====
 
-char * s_SettingDialog_905e16(char *param_1,char *param_2)
+char * SettingDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -23981,10 +23980,10 @@ LAB_009073a5:
               }
               QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
               if (*(long *)(lVar6 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar6 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar5 = *(long *)(lVar5 + 0x10);
@@ -24005,10 +24004,10 @@ LAB_009073e7:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24047,10 +24046,10 @@ LAB_009071f4:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -24071,10 +24070,10 @@ LAB_009073cf:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24131,10 +24130,10 @@ LAB_0090722c:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -24155,10 +24154,10 @@ LAB_00907214:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24197,10 +24196,10 @@ LAB_009074cf:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -24221,10 +24220,10 @@ LAB_00907344:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24299,10 +24298,10 @@ LAB_0090744f:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -24323,10 +24322,10 @@ LAB_00907437:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24365,10 +24364,10 @@ LAB_0090732c:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -24389,10 +24388,10 @@ LAB_00907314:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24449,10 +24448,10 @@ LAB_0090741f:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -24473,10 +24472,10 @@ LAB_00907407:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24515,10 +24514,10 @@ LAB_009072cc:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -24539,10 +24538,10 @@ LAB_009074b7:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24635,10 +24634,10 @@ LAB_0090727c:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -24659,10 +24658,10 @@ LAB_0090738d:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24701,10 +24700,10 @@ LAB_009074ff:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -24725,10 +24724,10 @@ LAB_009074e7:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24785,10 +24784,10 @@ LAB_00907487:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -24809,10 +24808,10 @@ LAB_0090746f:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24851,10 +24850,10 @@ LAB_00907375:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -24875,10 +24874,10 @@ LAB_0090749f:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -24953,10 +24952,10 @@ LAB_0090729c:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -24977,10 +24976,10 @@ LAB_009071dc:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25019,10 +25018,10 @@ LAB_00907264:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -25043,10 +25042,10 @@ LAB_0090724c:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25103,10 +25102,10 @@ LAB_009072fc:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -25127,10 +25126,10 @@ LAB_009072e4:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25169,10 +25168,10 @@ LAB_009072b4:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar1 = *(long *)(lVar1 + 0x10);
@@ -25193,10 +25192,10 @@ LAB_0090735d:
               }
               QVariant::~QVariant((QVariant *)(lVar1 + 0x20));
               if (*(long *)(lVar1 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar1 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25257,10 +25256,10 @@ LAB_009075de:
   }
   QVariant::~QVariant((QVariant *)(lVar1 + 0x20));
   if (*(long *)(lVar1 + 8) != 0) {
-    FUN_00528bb6();
+    qmap_node_list_destruct();
   }
   if (*(long *)(lVar1 + 0x10) != 0) {
-    FUN_00528bb6();
+    qmap_node_list_destruct();
   }
   QMapDataBase::freeTree(pQVar2,(int)*(undefined8 *)(pQVar2 + 0x10));
 LAB_009075c4:
@@ -25311,10 +25310,10 @@ LAB_009076bb:
     }
     QVariant::~QVariant((QVariant *)(lVar1 + 0x20));
     if (*(long *)(lVar1 + 8) != 0) {
-      FUN_00528bb6();
+      qmap_node_list_destruct();
     }
     if (*(long *)(lVar1 + 0x10) != 0) {
-      FUN_00528bb6();
+      qmap_node_list_destruct();
     }
     QMapDataBase::freeTree(pQVar2,(int)*(undefined8 *)(pQVar2 + 0x10));
   }
@@ -25457,10 +25456,10 @@ LAB_00908c20:
               }
               QVariant::~QVariant((QVariant *)(lVar6 + 0x20));
               if (*(long *)(lVar6 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar6 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar5 = *(long *)(lVar5 + 0x10);
@@ -25481,10 +25480,10 @@ LAB_00908c62:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25523,10 +25522,10 @@ LAB_00908a6f:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -25547,10 +25546,10 @@ LAB_00908c4a:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25607,10 +25606,10 @@ LAB_00908aa7:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -25631,10 +25630,10 @@ LAB_00908a8f:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25673,10 +25672,10 @@ LAB_00908d4a:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -25697,10 +25696,10 @@ LAB_00908bbf:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25775,10 +25774,10 @@ LAB_00908cca:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -25799,10 +25798,10 @@ LAB_00908cb2:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25841,10 +25840,10 @@ LAB_00908ba7:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -25865,10 +25864,10 @@ LAB_00908b8f:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25925,10 +25924,10 @@ LAB_00908c9a:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -25949,10 +25948,10 @@ LAB_00908c82:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -25991,10 +25990,10 @@ LAB_00908b47:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -26015,10 +26014,10 @@ LAB_00908d32:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26111,10 +26110,10 @@ LAB_00908af7:
               }
               QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
               if (*(long *)(lVar5 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar5 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar4 = *(long *)(lVar4 + 0x10);
@@ -26135,10 +26134,10 @@ LAB_00908c08:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26177,10 +26176,10 @@ LAB_00908d7a:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -26201,10 +26200,10 @@ LAB_00908d62:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26261,10 +26260,10 @@ LAB_00908d02:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -26285,10 +26284,10 @@ LAB_00908cea:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26327,10 +26326,10 @@ LAB_00908bf0:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -26351,10 +26350,10 @@ LAB_00908d1a:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26429,10 +26428,10 @@ LAB_00908b17:
               }
               QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
               if (*(long *)(lVar4 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar4 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar3 = *(long *)(lVar3 + 0x10);
@@ -26453,10 +26452,10 @@ LAB_00908a57:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26495,10 +26494,10 @@ LAB_00908adf:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -26519,10 +26518,10 @@ LAB_00908ac7:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26579,10 +26578,10 @@ LAB_00908b77:
               }
               QVariant::~QVariant((QVariant *)(lVar3 + 0x20));
               if (*(long *)(lVar3 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar3 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar2 = *(long *)(lVar2 + 0x10);
@@ -26603,10 +26602,10 @@ LAB_00908b5f:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26645,10 +26644,10 @@ LAB_00908b2f:
               }
               QVariant::~QVariant((QVariant *)(lVar2 + 0x20));
               if (*(long *)(lVar2 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar2 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
             lVar1 = *(long *)(lVar1 + 0x10);
@@ -26669,10 +26668,10 @@ LAB_00908bd8:
               }
               QVariant::~QVariant((QVariant *)(lVar1 + 0x20));
               if (*(long *)(lVar1 + 8) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
               if (*(long *)(lVar1 + 0x10) != 0) {
-                FUN_00528bb6();
+                qmap_node_list_destruct();
               }
             }
           }
@@ -26713,9 +26712,9 @@ undefined ** SyncInputDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00908da8 orig=FUN_00908da8 size=66 name=s_SyncInputDialog_908da8 ====
+// ==== entry=00908da8 orig=FUN_00908da8 size=66 name=SyncInputDialog_qt_metacast ====
 
-char * s_SyncInputDialog_908da8(char *param_1,char *param_2)
+char * SyncInputDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -26879,9 +26878,9 @@ undefined ** TextMarkDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00908f74 orig=FUN_00908f74 size=66 name=s_TextMarkDialog_908f74 ====
+// ==== entry=00908f74 orig=FUN_00908f74 size=66 name=TextMarkDialog_qt_metacast ====
 
-char * s_TextMarkDialog_908f74(char *param_1,char *param_2)
+char * TextMarkDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -27127,9 +27126,9 @@ ulong ConnectionTriggerPage_vt2
 }
 
 
-// ==== entry=0090930c orig=FUN_0090930c size=66 name=s_TriggerDialog_90930c ====
+// ==== entry=0090930c orig=FUN_0090930c size=66 name=TriggerDialog_qt_metacast ====
 
-char * s_TriggerDialog_90930c(char *param_1,char *param_2)
+char * TriggerDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -27415,9 +27414,9 @@ undefined ** TunnelDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00909768 orig=FUN_00909768 size=66 name=s_TunnelDialog_909768 ====
+// ==== entry=00909768 orig=FUN_00909768 size=66 name=TunnelDialog_qt_metacast ====
 
-char * s_TunnelDialog_909768(char *param_1,char *param_2)
+char * TunnelDialog_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -27701,9 +27700,9 @@ undefined ** ExplorerPane_vt0(long param_1)
 }
 
 
-// ==== entry=00909b3c orig=FUN_00909b3c size=66 name=s_ExplorerPane_909b3c ====
+// ==== entry=00909b3c orig=FUN_00909b3c size=66 name=KitPane_dtor ====
 
-undefined8 s_ExplorerPane_909b3c(undefined8 param_1,char *param_2)
+undefined8 KitPane_dtor(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -27817,9 +27816,9 @@ undefined ** TransferPane_metaObject(long param_1)
 }
 
 
-// ==== entry=00909c48 orig=FUN_00909c48 size=66 name=s_TransferPane_909c48 ====
+// ==== entry=00909c48 orig=FUN_00909c48 size=66 name=TransferPane_qt_metacast ====
 
-undefined8 s_TransferPane_909c48(undefined8 param_1,char *param_2)
+undefined8 TransferPane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -28048,9 +28047,9 @@ void OutputPane_h909e08(undefined8 param_1,int param_2,uint param_3,long *param_
       local_38 = (QArrayData *)&QListData::shared_null;
       local_28 = (QArrayData *)*puVar2;
       *puVar2 = pQVar1;
-      FUN_00525060(&local_28);
+      qt_shared_data_unref(&local_28);
     }
-    FUN_00525060(&local_38);
+    qt_shared_data_unref(&local_38);
     break;
   case 8:
     FUN_0074a946(&local_38,param_1,param_4[1]);
@@ -28069,9 +28068,9 @@ void OutputPane_h909e08(undefined8 param_1,int param_2,uint param_3,long *param_
 }
 
 
-// ==== entry=00909fae orig=FUN_00909fae size=66 name=s_OutputPane_909fae ====
+// ==== entry=00909fae orig=FUN_00909fae size=66 name=OutputPane_qt_metacast ====
 
-undefined8 s_OutputPane_909fae(undefined8 param_1,char *param_2)
+undefined8 OutputPane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -28135,9 +28134,9 @@ undefined ** SessionPane_metaObject(long param_1)
 }
 
 
-// ==== entry=0090a068 orig=FUN_0090a068 size=66 name=s_SessionPane_90a068 ====
+// ==== entry=0090a068 orig=FUN_0090a068 size=66 name=SessionPane_qt_metacast ====
 
-undefined8 s_SessionPane_90a068(undefined8 param_1,char *param_2)
+undefined8 SessionPane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -28174,7 +28173,7 @@ switchD_0090a0cb_default:
     FUN_00740472();
     break;
   case 1:
-    FUN_0073e756();
+    view_deleteSelectedRows();
     break;
   case 2:
     uVar2 = FUN_0073cdaa();
@@ -28192,7 +28191,7 @@ switchD_0090a0cb_default:
     FUN_0073cdc4();
     break;
   case 6:
-    FUN_007415fc();
+    sessions_deleteSel();
     break;
   case 7:
     lVar1 = param_4[2];
@@ -28203,7 +28202,7 @@ switchD_0090a0cb_default:
       UNLOCK();
     }
                     /* try { // try from 0090a1c9 to 0090a1cd has its CatchHandler @ 0090a257 */
-    FUN_0073d836(param_1,&local_20,lVar1);
+    sessionpane_connect_rows(param_1,&local_20,lVar1);
     goto LAB_0090a128;
   case 8:
     local_20 = (QArrayData *)&QArrayData::shared_null;
@@ -28214,13 +28213,13 @@ switchD_0090a0cb_default:
       UNLOCK();
     }
                     /* try { // try from 0090a105 to 0090a109 has its CatchHandler @ 0090a24f */
-    FUN_0073d836(param_1,&local_28,&local_20);
+    sessionpane_connect_rows(param_1,&local_28,&local_20);
     goto LAB_0090a10a;
   case 9:
     local_20 = (QArrayData *)&QArrayData::shared_null;
     local_28 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0090a170 to 0090a174 has its CatchHandler @ 0090a247 */
-    FUN_0073d836(param_1,&local_28,&local_20);
+    sessionpane_connect_rows(param_1,&local_28,&local_20);
 LAB_0090a10a:
     if (*(int *)local_28 == 0) {
 LAB_0090a233:
@@ -28472,20 +28471,20 @@ LAB_0090a6fc:
     FUN_0073720c(param_1,&local_28);
     goto LAB_0090a3ca;
   case 9:
-    FUN_0073604a(&local_30,param_1,param_4[1]);
+    sender_targets(&local_30,param_1,param_4[1]);
     pQVar1 = local_30;
     puVar2 = (undefined8 *)*param_4;
     if (puVar2 != (undefined8 *)0x0) {
       local_30 = (QArrayData *)&QMapDataBase::shared_null;
       local_28 = (QArrayData *)*puVar2;
       *puVar2 = pQVar1;
-      FUN_00528c1c(&local_28);
+      qmap_freetree_variant_nodes(&local_28);
     }
     goto LAB_0090a617;
   case 10:
     local_28 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0090a643 to 0090a647 has its CatchHandler @ 0090a751 */
-    FUN_0073604a(&local_30,param_1,&local_28);
+    sender_targets(&local_30,param_1,&local_28);
     if (*(int *)local_28 == 0) {
 LAB_0090a6e3:
       QArrayData::deallocate(local_28,2,8);
@@ -28502,10 +28501,10 @@ LAB_0090a6e3:
       local_30 = (QArrayData *)&QMapDataBase::shared_null;
       local_28 = (QArrayData *)*puVar2;
       *puVar2 = pQVar1;
-      FUN_00528c1c(&local_28);
+      qmap_freetree_variant_nodes(&local_28);
     }
 LAB_0090a617:
-    FUN_00528c1c(&local_30);
+    qmap_freetree_variant_nodes(&local_30);
     break;
   case 0xb:
     uVar4 = FUN_00735788();
@@ -28549,9 +28548,9 @@ LAB_0090a3ca:
 }
 
 
-// ==== entry=0090a76a orig=FUN_0090a76a size=66 name=s_SenderPane_90a76a ====
+// ==== entry=0090a76a orig=FUN_0090a76a size=66 name=SenderPane_qt_metacast ====
 
-undefined8 s_SenderPane_90a76a(undefined8 param_1,char *param_2)
+undefined8 SenderPane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -28615,9 +28614,9 @@ undefined ** FilerPane_metaObject(long param_1)
 }
 
 
-// ==== entry=0090a828 orig=FUN_0090a828 size=66 name=s_FilerPane_90a828 ====
+// ==== entry=0090a828 orig=FUN_0090a828 size=66 name=FilerPane_qt_metacast ====
 
-undefined8 s_FilerPane_90a828(undefined8 param_1,char *param_2)
+undefined8 FilerPane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -28750,9 +28749,9 @@ void FilerPane_h90a86a(undefined8 param_1,uint param_2,long *param_3)
       local_28 = &QListData::shared_null;
       local_20[0] = (QArrayData *)*puVar1;
       *puVar1 = puVar3;
-      FUN_00525060(local_20);
+      qt_shared_data_unref(local_20);
     }
-    FUN_00525060(&local_28);
+    qt_shared_data_unref(&local_28);
     break;
   case 0x1b:
     FUN_00731520();
@@ -28991,9 +28990,9 @@ undefined ** OutlinePane_metaObject(long param_1)
 }
 
 
-// ==== entry=0090ae58 orig=FUN_0090ae58 size=66 name=s_OutlinePane_90ae58 ====
+// ==== entry=0090ae58 orig=FUN_0090ae58 size=66 name=OutlinePane_qt_metacast ====
 
-undefined8 s_OutlinePane_90ae58(undefined8 param_1,char *param_2)
+undefined8 OutlinePane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -29023,7 +29022,7 @@ void OutlinePane_h90ae9a(undefined8 param_1,undefined4 param_2,long *param_3)
   
   switch(param_2) {
   case 0:
-    FUN_00747d9e();
+    outline_pane_connect();
     break;
   case 1:
     FUN_0074644a();
@@ -29033,7 +29032,7 @@ void OutlinePane_h90ae9a(undefined8 param_1,undefined4 param_2,long *param_3)
     puVar2 = (undefined8 *)*param_3;
     goto joined_r0x0090af7a;
   case 3:
-    FUN_00746ec6(&local_10,param_1);
+    outline_collectVisibleText(&local_10,param_1);
     puVar2 = (undefined8 *)*param_3;
     goto joined_r0x0090af7a;
   case 4:
@@ -29383,9 +29382,9 @@ undefined ** SearchPane_metaObject(long param_1)
 }
 
 
-// ==== entry=0090b428 orig=FUN_0090b428 size=66 name=s_SearchPane_90b428 ====
+// ==== entry=0090b428 orig=FUN_0090b428 size=66 name=SearchPane_qt_metacast ====
 
-undefined8 s_SearchPane_90b428(undefined8 param_1,char *param_2)
+undefined8 SearchPane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -29805,9 +29804,9 @@ undefined ** ShellPane_metaObject(long param_1)
 }
 
 
-// ==== entry=0090ba58 orig=FUN_0090ba58 size=66 name=s_ShellPane_90ba58 ====
+// ==== entry=0090ba58 orig=FUN_0090ba58 size=66 name=ShellPane_qt_metacast ====
 
-undefined8 s_ShellPane_90ba58(undefined8 param_1,char *param_2)
+undefined8 ShellPane_qt_metacast(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -30028,9 +30027,9 @@ undefined ** ApplicationTheme_metaObject(long param_1)
 }
 
 
-// ==== entry=0090bd6e orig=FUN_0090bd6e size=66 name=s_ApplicationTheme_90bd6e ====
+// ==== entry=0090bd6e orig=FUN_0090bd6e size=66 name=ApplicationTheme_qt_metacast ====
 
-char * s_ApplicationTheme_90bd6e(char *param_1,char *param_2)
+char * ApplicationTheme_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -30818,9 +30817,9 @@ undefined ** ApplicationPalette_metaObject(long param_1)
 }
 
 
-// ==== entry=0090d1ca orig=FUN_0090d1ca size=66 name=s_ApplicationPalette_90d1ca ====
+// ==== entry=0090d1ca orig=FUN_0090d1ca size=66 name=ApplicationPalette_qt_metacast ====
 
-char * s_ApplicationPalette_90d1ca(char *param_1,char *param_2)
+char * ApplicationPalette_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -31022,7 +31021,7 @@ void MainWindow_h90d42c(long param_1,int param_2,int param_3,long *param_4)
           *puVar13 = uVar10;
           return;
         case 2:
-          uVar10 = FUN_007670b4();
+          uVar10 = mainPane_currentWidgetCast();
           *puVar13 = uVar10;
           return;
         case 3:
@@ -31272,9 +31271,9 @@ LAB_0090d97d:
       local_48 = (QArrayData *)&QListData::shared_null;
       local_38 = (QArrayData *)*puVar13;
       *puVar13 = pQVar2;
-      FUN_00525060(&local_38);
+      qt_shared_data_unref(&local_38);
     }
-    FUN_00525060(&local_48);
+    qt_shared_data_unref(&local_48);
     break;
   case 0xd:
     uVar10 = FUN_00767b36(param_1,param_4[1]);
@@ -31298,7 +31297,7 @@ joined_r0x0090da56:
       UNLOCK();
     }
                     /* try { // try from 0090daa3 to 0090daa7 has its CatchHandler @ 0090dedf */
-    uVar5 = FUN_0076e6aa(param_1,&local_38);
+    uVar5 = text_stripListMarker(param_1,&local_38);
     if (*(int *)local_38 == 0) {
 LAB_0090de0d:
       QArrayData::deallocate(local_38,2,8);
@@ -31449,9 +31448,9 @@ joined_r0x0090d7f4:
 }
 
 
-// ==== entry=0090def8 orig=FUN_0090def8 size=66 name=s_MainWindow_90def8 ====
+// ==== entry=0090def8 orig=FUN_0090def8 size=66 name=MainWindow_qt_metacast ====
 
-char * s_MainWindow_90def8(char *param_1,char *param_2)
+char * MainWindow_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -31630,7 +31629,7 @@ switchD_0090e0d5_default:
     FUN_007609d2();
     break;
   case 4:
-    uVar9 = FUN_0075c0be();
+    uVar9 = window_activeMainPane();
     puVar6 = (undefined8 *)*param_4;
     goto joined_r0x0090e19a;
   case 5:
@@ -31745,7 +31744,7 @@ joined_r0x0090e19a:
       local_28 = (QMapNodeBase *)&QMapDataBase::shared_null;
       local_20 = (QArrayData *)*puVar6;
       *puVar6 = pQVar7;
-      FUN_00528c1c(&local_20);
+      qmap_freetree_variant_nodes(&local_20);
     }
     pQVar7 = local_28;
     if (*(int *)local_28 != 0) {
@@ -31794,10 +31793,10 @@ LAB_0090e631:
         }
         QVariant::~QVariant((QVariant *)(lVar5 + 0x20));
         if (*(long *)(lVar5 + 8) != 0) {
-          FUN_00528bb6();
+          qmap_node_list_destruct();
         }
         if (*(long *)(lVar5 + 0x10) != 0) {
-          FUN_00528bb6();
+          qmap_node_list_destruct();
         }
       }
       lVar4 = *(long *)(lVar4 + 0x10);
@@ -31818,10 +31817,10 @@ LAB_0090e618:
         }
         QVariant::~QVariant((QVariant *)(lVar4 + 0x20));
         if (*(long *)(lVar4 + 8) != 0) {
-          FUN_00528bb6();
+          qmap_node_list_destruct();
         }
         if (*(long *)(lVar4 + 0x10) != 0) {
-          FUN_00528bb6();
+          qmap_node_list_destruct();
         }
       }
       QMapDataBase::freeTree(pQVar7,(int)*(undefined8 *)(pQVar7 + 0x10));
@@ -31838,9 +31837,9 @@ joined_r0x0090e4e3:
       local_28 = (QMapNodeBase *)&QListData::shared_null;
       local_20 = (QArrayData *)*puVar6;
       *puVar6 = pQVar7;
-      FUN_00525060(&local_20);
+      qt_shared_data_unref(&local_20);
     }
-    FUN_00525060(&local_28);
+    qt_shared_data_unref(&local_28);
     break;
   case 0x16:
     s_application_searchEngines_75e56a(param_1,param_4[1],param_4[2]);
@@ -31876,9 +31875,9 @@ joined_r0x0090e4e3:
 }
 
 
-// ==== entry=0090e64e orig=FUN_0090e64e size=66 name=s_SuperApplication_90e64e ====
+// ==== entry=0090e64e orig=FUN_0090e64e size=66 name=SuperApplication_qt_metacast ====
 
-char * s_SuperApplication_90e64e(char *param_1,char *param_2)
+char * SuperApplication_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -31984,9 +31983,9 @@ void FUN_0090e746(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=0090e78c orig=FUN_0090e78c size=66 name=s_CommanderRobot_90e78c ====
+// ==== entry=0090e78c orig=FUN_0090e78c size=66 name=CommanderRobot_qt_metacast ====
 
-char * s_CommanderRobot_90e78c(char *param_1,char *param_2)
+char * CommanderRobot_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -32369,9 +32368,9 @@ void FUN_0090ebac(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=0090ebe6 orig=FUN_0090ebe6 size=66 name=s_ModemProcess_90ebe6 ====
+// ==== entry=0090ebe6 orig=FUN_0090ebe6 size=66 name=ModemProcess_qt_metacast ====
 
-char * s_ModemProcess_90ebe6(char *param_1,char *param_2)
+char * ModemProcess_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -32445,9 +32444,9 @@ undefined ** TerminalKeyboard_metaObject(long param_1)
 }
 
 
-// ==== entry=0090ec9c orig=FUN_0090ec9c size=66 name=s_TerminalKeyboard_90ec9c ====
+// ==== entry=0090ec9c orig=FUN_0090ec9c size=66 name=TerminalKeyboard_qt_metacast ====
 
-char * s_TerminalKeyboard_90ec9c(char *param_1,char *param_2)
+char * TerminalKeyboard_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -32522,9 +32521,9 @@ undefined ** SessionConnector_metaObject(long param_1)
 }
 
 
-// ==== entry=0090ed38 orig=FUN_0090ed38 size=66 name=s_SessionConnector_90ed38 ====
+// ==== entry=0090ed38 orig=FUN_0090ed38 size=66 name=SessionConnector_qt_metacast ====
 
-char * s_SessionConnector_90ed38(char *param_1,char *param_2)
+char * SessionConnector_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -32576,9 +32575,9 @@ undefined ** SessionLogger_metaObject(long param_1)
 }
 
 
-// ==== entry=0090ed9a orig=FUN_0090ed9a size=66 name=s_SessionLogger_90ed9a ====
+// ==== entry=0090ed9a orig=FUN_0090ed9a size=66 name=SessionLogger_qt_metacast ====
 
-char * s_SessionLogger_90ed9a(char *param_1,char *param_2)
+char * SessionLogger_qt_metacast(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -33201,7 +33200,7 @@ switchD_0090ef41_default:
     FUN_007cd50c(param_1,param_4[1]);
     break;
   case 0x74:
-    FUN_007cbb36((QVariant *)&local_38,param_1,param_4[1]);
+    config_sshIdentityFile_get((QVariant *)&local_38,param_1,param_4[1]);
     puVar4 = (undefined8 *)*param_4;
     if (puVar4 != (undefined8 *)0x0) {
       local_28 = (QArrayData *)*puVar4;
@@ -33845,9 +33844,9 @@ switchD_0090ef41_default:
 }
 
 
-// ==== entry=00910696 orig=FUN_00910696 size=104 name=s_SuperCommander_910696 ====
+// ==== entry=00910696 orig=FUN_00910696 size=104 name=SuperCommander_qt_metacast ====
 
-char * s_SuperCommander_910696(char *param_1,byte *param_2)
+char * SuperCommander_qt_metacast(char *param_1,byte *param_2)
 
 {
   int iVar1;

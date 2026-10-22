@@ -4336,7 +4336,7 @@ void FUN_00c15a00(long *param_1,long *param_2,long *param_3)
   param_1[1] = param_3[1];
   this = (ios *)(*(long *)(lVar3 + -0x18) + (long)param_1);
   lVar3 = *(long *)(*param_3 + -0x18) + (long)param_3;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -4387,7 +4387,7 @@ void FUN_00c15b50(undefined8 *param_1,long *param_2)
   param_1[0x2b] = 0;
   param_1[0x2c] = 0;
   lVar3 = lVar3 + (long)param_2;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c15bea to 00c15bee has its CatchHandler @ 00c15cb2 */
   std::ios::_M_cache_locale((ios *)this,(locale *)(param_1 + 0x26));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -4432,7 +4432,7 @@ long * FUN_00c15d00(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_00 = (ios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::ios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(this_00 + 0xd8);
@@ -4488,7 +4488,7 @@ void FUN_00c15e70(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_02 = (ios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this_01 = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_02,this_01);
+  locale_swap(this_02,this_01);
   std::ios::_M_cache_locale(this_02,(locale *)(this_02 + 0xd0));
   std::ios::_M_cache_locale(this_01,(locale *)(this_01 + 0xd0));
   uVar2 = *(undefined8 *)(this_02 + 0xd8);
@@ -4873,7 +4873,7 @@ void FUN_00c16880(long *param_1,long *param_2,long *param_3)
   this = (ios *)(lVar3 + (long)param_1);
   *(long *)this = param_2[2];
   lVar3 = *(long *)(*param_3 + -0x18) + (long)param_3;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -4921,7 +4921,7 @@ void FUN_00c169b0(undefined8 *param_1,long *param_2)
   param_1[0x2a] = 0;
   lVar3 = lVar3 + (long)param_2;
   param_1[0x2b] = 0;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c16a42 to 00c16a46 has its CatchHandler @ 00c16b02 */
   std::ios::_M_cache_locale((ios *)this,(locale *)(param_1 + 0x25));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -4963,7 +4963,7 @@ long * FUN_00c16b40(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_00 = (ios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::ios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(this_00 + 0xd8);
@@ -5015,7 +5015,7 @@ void FUN_00c16ca0(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_02 = (ios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this_01 = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_02,this_01);
+  locale_swap(this_02,this_01);
   std::ios::_M_cache_locale(this_02,(locale *)(this_02 + 0xd0));
   std::ios::_M_cache_locale(this_01,(locale *)(this_01 + 0xd0));
   uVar2 = *(undefined8 *)(this_02 + 0xd8);
@@ -5439,7 +5439,7 @@ void FUN_00c178c0(long *param_1,long *param_2,long *param_3)
   param_1[1] = param_3[1];
   this = (ios *)(*(long *)(lVar3 + -0x18) + (long)param_1);
   lVar3 = *(long *)(*param_3 + -0x18) + (long)param_3;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -5498,7 +5498,7 @@ void FUN_00c17a80(undefined8 *param_1,long *param_2)
   param_1[0x2c] = 0;
   param_1[0x2d] = 0;
   lVar3 = lVar3 + (long)param_2;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c17b1a to 00c17b1e has its CatchHandler @ 00c17bea */
   std::ios::_M_cache_locale((ios *)this,(locale *)(param_1 + 0x27));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -5544,7 +5544,7 @@ long * FUN_00c17c40(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_00 = (ios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::ios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(this_00 + 0xd8);
@@ -5600,7 +5600,7 @@ void FUN_00c17db0(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_02 = (ios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this_01 = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_02,this_01);
+  locale_swap(this_02,this_01);
   std::ios::_M_cache_locale(this_02,(locale *)(this_02 + 0xd0));
   std::ios::_M_cache_locale(this_01,(locale *)(this_01 + 0xd0));
   uVar2 = *(undefined8 *)(this_02 + 0xd8);
@@ -6622,7 +6622,7 @@ void FUN_00c19510(long *param_1,long *param_2,long *param_3)
   param_1[1] = param_3[1];
   this = (wios *)(*(long *)(lVar3 + -0x18) + (long)param_1);
   lVar3 = *(long *)(*param_3 + -0x18) + (long)param_3;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -6675,7 +6675,7 @@ void FUN_00c19660(undefined8 *param_1,long *param_2)
   lVar3 = lVar3 + (long)param_2;
   param_1[0x2b] = 0;
   param_1[0x2c] = 0;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c19702 to 00c19706 has its CatchHandler @ 00c197c9 */
   std::wios::_M_cache_locale((wios *)this,(locale *)(param_1 + 0x26));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -6721,7 +6721,7 @@ long * FUN_00c19810(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_00 = (wios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::wios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar3 = *(undefined8 *)(this_00 + 0xd8);
@@ -6778,7 +6778,7 @@ void FUN_00c19980(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_02 = (wios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this_01 = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_02,this_01);
+  locale_swap(this_02,this_01);
   std::wios::_M_cache_locale(this_02,(locale *)(this_02 + 0xd0));
   std::wios::_M_cache_locale(this_01,(locale *)(this_01 + 0xd0));
   uVar3 = *(undefined8 *)(this_02 + 0xd8);
@@ -7166,7 +7166,7 @@ void FUN_00c1a390(long *param_1,long *param_2,long *param_3)
   this = (wios *)(lVar3 + (long)param_1);
   *(long *)this = param_2[2];
   lVar3 = *(long *)(*param_3 + -0x18) + (long)param_3;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -7216,7 +7216,7 @@ void FUN_00c1a4c0(undefined8 *param_1,long *param_2)
   param_1[0x29] = 0;
   param_1[0x2a] = 0;
   param_1[0x2b] = 0;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c1a55a to 00c1a55e has its CatchHandler @ 00c1a619 */
   std::wios::_M_cache_locale((wios *)this,(locale *)(param_1 + 0x25));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -7259,7 +7259,7 @@ long * FUN_00c1a660(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_00 = (wios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::wios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar3 = *(undefined8 *)(this_00 + 0xd8);
@@ -7312,7 +7312,7 @@ void FUN_00c1a7b0(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_02 = (wios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this_01 = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_02,this_01);
+  locale_swap(this_02,this_01);
   std::wios::_M_cache_locale(this_02,(locale *)(this_02 + 0xd0));
   std::wios::_M_cache_locale(this_01,(locale *)(this_01 + 0xd0));
   uVar3 = *(undefined8 *)(this_02 + 0xd8);
@@ -7742,7 +7742,7 @@ void FUN_00c1b3e0(long *param_1,long *param_2,long *param_3)
   param_1[1] = param_3[1];
   this = (wios *)(*(long *)(lVar3 + -0x18) + (long)param_1);
   lVar3 = *(long *)(*param_3 + -0x18) + (long)param_3;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -7803,7 +7803,7 @@ void FUN_00c1b5a0(undefined8 *param_1,long *param_2)
   lVar3 = lVar3 + (long)param_2;
   param_1[0x2c] = 0;
   param_1[0x2d] = 0;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c1b642 to 00c1b646 has its CatchHandler @ 00c1b711 */
   std::wios::_M_cache_locale((wios *)this,(locale *)(param_1 + 0x27));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -7850,7 +7850,7 @@ long * FUN_00c1b760(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_00 = (wios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::wios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar3 = *(undefined8 *)(this_00 + 0xd8);
@@ -7907,7 +7907,7 @@ void FUN_00c1b8d0(long *param_1,long *param_2)
   local_40 = *(long *)(in_FS_OFFSET + 0x28);
   this_02 = (wios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this_01 = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_02,this_01);
+  locale_swap(this_02,this_01);
   std::wios::_M_cache_locale(this_02,(locale *)(this_02 + 0xd0));
   std::wios::_M_cache_locale(this_01,(locale *)(this_01 + 0xd0));
   uVar3 = *(undefined8 *)(this_02 + 0xd8);
@@ -8939,7 +8939,7 @@ void FUN_00c1c810(ios *param_1,long param_2)
   ios iVar1;
   undefined8 uVar2;
   
-  FUN_00c71b00();
+  locale_moveAssign();
   std::ios::_M_cache_locale(param_1,(locale *)(param_1 + 0xd0));
   uVar2 = *(undefined8 *)(param_2 + 0xd8);
   *(undefined8 *)(param_2 + 0xd8) = 0;
@@ -8960,7 +8960,7 @@ void FUN_00c1c880(ios *param_1,ios *param_2)
   ios iVar1;
   undefined8 uVar2;
   
-  FUN_00c71c10();
+  locale_swap();
   std::ios::_M_cache_locale(param_1,(locale *)(param_1 + 0xd0));
   std::ios::_M_cache_locale(param_2,(locale *)(param_2 + 0xd0));
   uVar2 = *(undefined8 *)(param_1 + 0xd8);
@@ -8984,7 +8984,7 @@ void FUN_00c1c910(ios *param_1,long param_2)
   ios iVar1;
   undefined8 uVar2;
   
-  FUN_00c71b00();
+  locale_moveAssign();
   std::ios::_M_cache_locale(param_1,(locale *)(param_1 + 0xd0));
   uVar2 = *(undefined8 *)(param_2 + 0xd8);
   *(undefined8 *)(param_2 + 0xd8) = 0;
@@ -9564,7 +9564,7 @@ void FUN_00c1d100(wios *param_1,long param_2)
   wios wVar1;
   undefined8 uVar2;
   
-  FUN_00c71b00();
+  locale_moveAssign();
   std::wios::_M_cache_locale(param_1,(locale *)(param_1 + 0xd0));
   uVar2 = *(undefined8 *)(param_2 + 0xd8);
   *(undefined8 *)(param_2 + 0xd8) = 0;
@@ -9586,7 +9586,7 @@ void FUN_00c1d170(wios *param_1,wios *param_2)
   undefined4 uVar2;
   undefined8 uVar3;
   
-  FUN_00c71c10();
+  locale_swap();
   std::wios::_M_cache_locale(param_1,(locale *)(param_1 + 0xd0));
   std::wios::_M_cache_locale(param_2,(locale *)(param_2 + 0xd0));
   uVar3 = *(undefined8 *)(param_1 + 0xd8);
@@ -9610,7 +9610,7 @@ void FUN_00c1d200(wios *param_1,long param_2)
   wios wVar1;
   undefined8 uVar2;
   
-  FUN_00c71b00();
+  locale_moveAssign();
   std::wios::_M_cache_locale(param_1,(locale *)(param_1 + 0xd0));
   uVar2 = *(undefined8 *)(param_2 + 0xd8);
   *(undefined8 *)(param_2 + 0xd8) = 0;
@@ -10065,7 +10065,7 @@ void FUN_00c1daa0(long *param_1,long *param_2,long *param_3)
   this = (ios *)((long)param_1 + *(long *)(lVar3 + -0x18));
   *(long *)this = param_2[1];
   lVar3 = (long)param_3 + *(long *)(*param_3 + -0x18);
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -10100,7 +10100,7 @@ void FUN_00c1db20(undefined8 *param_1,long *param_2)
   param_1[0x20] = 0;
   param_1[0x21] = 0;
   lVar3 = (long)param_2 + *(long *)(lVar3 + -0x18);
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c1dba9 to 00c1dbad has its CatchHandler @ 00c1dbf1 */
   std::ios::_M_cache_locale((ios *)this,(locale *)(param_1 + 0x1b));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -10126,7 +10126,7 @@ long * FUN_00c1dc20(long *param_1,long *param_2)
   
   this_00 = (ios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::ios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(this_00 + 0xd8);
@@ -10154,7 +10154,7 @@ void FUN_00c1dcc0(long *param_1,long *param_2)
   
   this_00 = (ios *)((long)param_1 + *(long *)(*param_1 + -0x18));
   this = (ios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::ios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::ios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(this_00 + 0xd8);
@@ -12339,7 +12339,7 @@ void FUN_00c1ffa0(long *param_1,long *param_2,long *param_3)
   this = (wios *)((long)param_1 + *(long *)(lVar3 + -0x18));
   *(long *)this = param_2[1];
   lVar3 = (long)param_3 + *(long *)(*param_3 + -0x18);
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
   *(undefined8 *)(lVar3 + 0xd8) = 0;
@@ -12375,7 +12375,7 @@ void FUN_00c20020(undefined8 *param_1,long *param_2)
   lVar3 = (long)param_2 + *(long *)(lVar3 + -0x18);
   param_1[0x20] = 0;
   param_1[0x21] = 0;
-  FUN_00c71b00(this,lVar3);
+  locale_moveAssign(this,lVar3);
                     /* try { // try from 00c200b1 to 00c200b5 has its CatchHandler @ 00c200f8 */
   std::wios::_M_cache_locale((wios *)this,(locale *)(param_1 + 0x1b));
   uVar2 = *(undefined8 *)(lVar3 + 0xd8);
@@ -12402,7 +12402,7 @@ long * FUN_00c20120(long *param_1,long *param_2)
   
   this_00 = (wios *)(*(long *)(*param_1 + -0x18) + (long)param_1);
   this = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::wios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar3 = *(undefined8 *)(this_00 + 0xd8);
@@ -12431,7 +12431,7 @@ void FUN_00c201c0(long *param_1,long *param_2)
   
   this_00 = (wios *)((long)param_1 + *(long *)(*param_1 + -0x18));
   this = (wios *)(*(long *)(*param_2 + -0x18) + (long)param_2);
-  FUN_00c71c10(this_00,this);
+  locale_swap(this_00,this);
   std::wios::_M_cache_locale(this_00,(locale *)(this_00 + 0xd0));
   std::wios::_M_cache_locale(this,(locale *)(this + 0xd0));
   uVar3 = *(undefined8 *)(this_00 + 0xd8);
@@ -14530,9 +14530,9 @@ void FUN_00c21fe0(long *param_1,long *param_2)
 }
 
 
-// ==== entry=00c220e0 name=FUN_00c220e0 size=323 ====
+// ==== entry=00c220e0 orig=FUN_00c220e0 size=323 name=wstring_grow ====
 
-void FUN_00c220e0(long *param_1,size_t param_2,long param_3,wchar_t *param_4,size_t param_5)
+void wstring_grow(long *param_1,size_t param_2,long param_3,wchar_t *param_4,size_t param_5)
 
 {
   wchar_t *__s2;
@@ -15151,7 +15151,7 @@ long * FUN_00c22830(long *param_1,undefined4 param_2)
     uVar3 = param_1[2];
   }
   if (uVar3 < lVar1 + 1U) {
-    FUN_00c220e0(param_1,lVar1,0,0,1);
+    wstring_grow(param_1,lVar1,0,0,1);
     plVar2 = (long *)*param_1;
   }
   *(undefined4 *)((long)plVar2 + lVar1 * 4) = param_2;
@@ -15179,7 +15179,7 @@ void FUN_00c228b0(long *param_1,undefined4 param_2)
     uVar3 = param_1[2];
   }
   if (uVar3 < lVar1 + 1U) {
-    FUN_00c220e0(param_1,lVar1,0,0,1);
+    wstring_grow(param_1,lVar1,0,0,1);
     plVar2 = (long *)*param_1;
   }
   *(undefined4 *)((long)plVar2 + lVar1 * 4) = param_2;
@@ -15330,9 +15330,9 @@ void FUN_00c22af0(long param_1)
 }
 
 
-// ==== entry=00c22b10 name=FUN_00c22b10 size=242 ====
+// ==== entry=00c22b10 orig=FUN_00c22b10 size=242 name=wstring_replace_fill ====
 
-long * FUN_00c22b10(long *param_1,long param_2,ulong param_3,ulong param_4,wchar_t param_5)
+long * wstring_replace_fill(long *param_1,long param_2,ulong param_3,ulong param_4,wchar_t param_5)
 
 {
   wchar_t *pwVar1;
@@ -15354,7 +15354,7 @@ long * FUN_00c22b10(long *param_1,long param_2,ulong param_3,ulong param_4,wchar
       uVar5 = param_1[2];
     }
     if (uVar5 < uVar4) {
-      FUN_00c220e0(param_1,param_2,param_3,0,param_4);
+      wstring_grow(param_1,param_2,param_3,0,param_4);
       plVar3 = (long *)*param_1;
     }
     else {
@@ -15395,7 +15395,7 @@ long * FUN_00c22b10(long *param_1,long param_2,ulong param_3,ulong param_4,wchar
 void FUN_00c22c20(long param_1,undefined8 param_2,undefined4 param_3)
 
 {
-  FUN_00c22b10(param_1,*(undefined8 *)(param_1 + 8),0,param_2,param_3);
+  wstring_replace_fill(param_1,*(undefined8 *)(param_1 + 8),0,param_2,param_3);
   return;
 }
 
@@ -15415,7 +15415,7 @@ void FUN_00c22c40(long *param_1,ulong param_2,undefined4 param_3)
     }
     return;
   }
-  FUN_00c22b10(param_1,uVar1,0,param_2 - uVar1,param_3);
+  wstring_replace_fill(param_1,uVar1,0,param_2 - uVar1,param_3);
   return;
 }
 
@@ -15435,7 +15435,7 @@ void FUN_00c22c80(undefined8 param_1,undefined8 param_2)
 void FUN_00c22c90(long param_1,undefined8 param_2,undefined4 param_3)
 
 {
-  FUN_00c22b10(param_1,0,*(undefined8 *)(param_1 + 8),param_2,param_3);
+  wstring_replace_fill(param_1,0,*(undefined8 *)(param_1 + 8),param_2,param_3);
   return;
 }
 
@@ -15445,7 +15445,7 @@ void FUN_00c22c90(long param_1,undefined8 param_2,undefined4 param_3)
 long FUN_00c22cb0(long param_1,undefined4 param_2)
 
 {
-  FUN_00c22b10(param_1,0,*(undefined8 *)(param_1 + 8),1,param_2);
+  wstring_replace_fill(param_1,0,*(undefined8 *)(param_1 + 8),1,param_2);
   return param_1;
 }
 
@@ -15456,7 +15456,7 @@ void s_basic_string__insert_c22cd0(long param_1,ulong param_2,undefined8 param_3
 
 {
   if (param_2 <= *(ulong *)(param_1 + 8)) {
-    FUN_00c22b10(param_1,param_2,0,param_3);
+    wstring_replace_fill(param_1,param_2,0,param_3);
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -15474,7 +15474,7 @@ long FUN_00c22d00(long *param_1,long param_2,undefined4 param_3)
   long lVar1;
   
   lVar1 = *param_1;
-  FUN_00c22b10(param_1,param_2 - lVar1 >> 2,0,1,param_3);
+  wstring_replace_fill(param_1,param_2 - lVar1 >> 2,0,1,param_3);
   return *param_1 + (param_2 - lVar1);
 }
 
@@ -15494,7 +15494,7 @@ void s_basic_string__replace_c22d40
     param_3 = uVar2;
   }
   if (param_2 <= uVar1) {
-    FUN_00c22b10(param_1,param_2,param_3);
+    wstring_replace_fill(param_1,param_2,param_3);
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -15509,7 +15509,7 @@ void s_basic_string__replace_c22d40
 void FUN_00c22d80(long *param_1,long param_2,long param_3)
 
 {
-  FUN_00c22b10(param_1,param_2 - *param_1 >> 2,param_3 - param_2 >> 2);
+  wstring_replace_fill(param_1,param_2 - *param_1 >> 2,param_3 - param_2 >> 2);
   return;
 }
 
@@ -15522,7 +15522,7 @@ long FUN_00c22da0(long *param_1,long param_2,undefined8 param_3,undefined4 param
   long lVar1;
   
   lVar1 = *param_1;
-  FUN_00c22b10(param_1,param_2 - lVar1 >> 2,0,param_3,param_4);
+  wstring_replace_fill(param_1,param_2 - lVar1 >> 2,0,param_3,param_4);
   return *param_1 + (param_2 - lVar1);
 }
 
@@ -15555,7 +15555,7 @@ ulong * FUN_00c22de0(ulong *param_1,long param_2,ulong param_3,wchar_t *param_4,
     uVar4 = param_1[2];
   }
   if (uVar4 < uVar1) {
-    FUN_00c220e0(param_1,param_2,param_3);
+    wstring_grow(param_1,param_2,param_3);
     goto LAB_00c22ea8;
   }
   __s1 = pwVar3 + param_2;
@@ -16147,9 +16147,9 @@ void s_basic_string__replace_c23740
 }
 
 
-// ==== entry=00c237b0 name=FUN_00c237b0 size=120 ====
+// ==== entry=00c237b0 orig=FUN_00c237b0 size=120 name=wstring_append ====
 
-long * FUN_00c237b0(long *param_1,wchar_t *param_2,size_t param_3)
+long * wstring_append(long *param_1,wchar_t *param_2,size_t param_3)
 
 {
   ulong uVar1;
@@ -16168,7 +16168,7 @@ long * FUN_00c237b0(long *param_1,wchar_t *param_2,size_t param_3)
     uVar4 = param_1[2];
   }
   if (uVar4 < uVar1) {
-    FUN_00c220e0(param_1,lVar2,0,param_2,param_3);
+    wstring_grow(param_1,lVar2,0,param_2,param_3);
     plVar3 = (long *)*param_1;
   }
   else if (param_3 != 0) {
@@ -16192,7 +16192,7 @@ long * FUN_00c237b0(long *param_1,wchar_t *param_2,size_t param_3)
 void FUN_00c23840(undefined8 param_1,undefined8 *param_2)
 
 {
-  FUN_00c237b0(param_1,*param_2,param_2[1]);
+  wstring_append(param_1,*param_2,param_2[1]);
   return;
 }
 
@@ -16202,7 +16202,7 @@ void FUN_00c23840(undefined8 param_1,undefined8 *param_2)
 void FUN_00c23850(undefined8 param_1,undefined8 *param_2)
 
 {
-  FUN_00c237b0(param_1,*param_2,param_2[1]);
+  wstring_append(param_1,*param_2,param_2[1]);
   return;
 }
 
@@ -16223,7 +16223,7 @@ void s_basic_string__append_c23860
     uVar2 = param_4;
   }
   if (param_3 <= uVar1) {
-    FUN_00c237b0(param_1,*param_2 + param_3 * 4,uVar2);
+    wstring_append(param_1,*param_2 + param_3 * 4,uVar2);
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -16239,7 +16239,7 @@ void s_basic_string__append_c238a0(long param_1,undefined8 param_2,ulong param_3
 
 {
   if (param_3 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
-    FUN_00c237b0();
+    wstring_append();
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -16256,7 +16256,7 @@ void s_basic_string__append_c238d0(long param_1,wchar_t *param_2)
   
   sVar1 = wcslen(param_2);
   if (sVar1 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
-    FUN_00c237b0(param_1,param_2,sVar1);
+    wstring_append(param_1,param_2,sVar1);
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -16273,7 +16273,7 @@ void s_basic_string__append_c23920(long param_1,wchar_t *param_2)
   
   sVar1 = wcslen(param_2);
   if (sVar1 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
-    FUN_00c237b0(param_1,param_2,sVar1);
+    wstring_append(param_1,param_2,sVar1);
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -16287,7 +16287,7 @@ void s_basic_string__append_c23970(long param_1,undefined8 param_2,ulong param_3
 
 {
   if (param_3 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
-    FUN_00c237b0();
+    wstring_append();
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -16301,7 +16301,7 @@ void s_basic_string__append_c239a0(long param_1,undefined8 param_2,ulong param_3
 
 {
   if (param_3 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
-    FUN_00c237b0();
+    wstring_append();
     return;
   }
                     /* WARNING: Subroutine does not return */
@@ -17197,8 +17197,8 @@ long * s_basic_string__append_c24580(long *param_1,wchar_t *param_2,undefined8 *
                     /* try { // try from 00c245bd to 00c2460b has its CatchHandler @ 00c2460c */
   FUN_00c22600(param_1,lVar1 + sVar2);
   if (sVar2 <= 0x1fffffffffffffffU - param_1[1]) {
-    FUN_00c237b0(param_1,param_2,sVar2);
-    FUN_00c237b0(param_1,*param_3,param_3[1]);
+    wstring_append(param_1,param_2,sVar2);
+    wstring_append(param_1,*param_3,param_3[1]);
     return param_1;
   }
                     /* WARNING: Subroutine does not return */
@@ -17219,8 +17219,8 @@ long * FUN_00c24630(long *param_1,undefined4 param_2,undefined8 *param_3)
   *(undefined4 *)(param_1 + 2) = 0;
                     /* try { // try from 00c24661 to 00c2468b has its CatchHandler @ 00c2469a */
   FUN_00c22600(param_1,lVar1 + 1);
-  FUN_00c22b10(param_1,param_1[1],0,1,param_2);
-  FUN_00c237b0(param_1,*param_3,param_3[1]);
+  wstring_replace_fill(param_1,param_1[1],0,1,param_2);
+  wstring_append(param_1,*param_3,param_3[1]);
   return param_1;
 }
 
@@ -17399,7 +17399,7 @@ long * FUN_00c24970(long *param_1,long *param_2,undefined8 *param_3)
   *param_1 = (long)(param_1 + 2);
   FUN_00c24870(param_1,*param_2,*param_2 + lVar1 * 4);
                     /* try { // try from 00c2499f to 00c249a3 has its CatchHandler @ 00c249ac */
-  FUN_00c237b0(param_1,*param_3,param_3[1]);
+  wstring_append(param_1,*param_3,param_3[1]);
   return param_1;
 }
 
@@ -17635,7 +17635,7 @@ undefined8 FUN_00c24c70(long *param_1,long *param_2)
 }
 
 
-// ==== entry=00c24c80 name=FUN_00c24c80 size=1867 ====
+// ==== entry=00c24c80 orig=FUN_00c24c80 size=1867 name=locale_implInit ====
 
 /* WARNING: Removing unreachable block (ram,0x00c25320) */
 /* WARNING: Removing unreachable block (ram,0x00c25340) */
@@ -17655,7 +17655,7 @@ undefined8 FUN_00c24c70(long *param_1,long *param_2)
 /* WARNING: Removing unreachable block (ram,0x00c25310) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00c24c80(long param_1,undefined8 *param_2)
+void locale_implInit(long param_1,undefined8 *param_2)
 
 {
   undefined8 uVar1;
@@ -19657,9 +19657,9 @@ error_category * __thiscall std::_V2::error_category::_M_message(error_category 
 }
 
 
-// ==== entry=00c27800 name=FUN_00c27800 size=105 ====
+// ==== entry=00c27800 orig=FUN_00c27800 size=105 name=str_makeLiteral ====
 
-void FUN_00c27800(undefined8 *param_1,long param_2)
+void str_makeLiteral(undefined8 *param_1,long param_2)
 
 {
   char cVar1;
@@ -19749,7 +19749,7 @@ void FUN_00c278f0(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c2792b to 00c27945 has its CatchHandler @ 00c2796c */
   _ITM_memcpyRnWt(param_1,alStack_38,0x10);
   uVar1 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::logic_error::~logic_error(alStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -19776,7 +19776,7 @@ void FUN_00c27980(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,alStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::logic_error::~logic_error(alStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -19838,7 +19838,7 @@ void FUN_00c27a70(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c27aab to 00c27ac5 has its CatchHandler @ 00c27aec */
   _ITM_memcpyRnWt(param_1,adStack_38,0x10);
   uVar1 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::domain_error::~domain_error(adStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -19865,7 +19865,7 @@ void FUN_00c27b00(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,adStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::domain_error::~domain_error(adStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -19914,7 +19914,7 @@ void FUN_00c27bd0(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c27c0b to 00c27c25 has its CatchHandler @ 00c27c4c */
   _ITM_memcpyRnWt(param_1,aiStack_38,0x10);
   uVar1 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::invalid_argument::~invalid_argument(aiStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -19941,7 +19941,7 @@ void FUN_00c27c60(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,aiStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::invalid_argument::~invalid_argument(aiStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -19990,7 +19990,7 @@ void FUN_00c27d30(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c27d6b to 00c27d85 has its CatchHandler @ 00c27dac */
   _ITM_memcpyRnWt(param_1,alStack_38,0x10);
   uVar1 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::length_error::~length_error(alStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20017,7 +20017,7 @@ void FUN_00c27dc0(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,alStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::length_error::~length_error(alStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20066,7 +20066,7 @@ void FUN_00c27e90(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c27ecb to 00c27ee5 has its CatchHandler @ 00c27f0c */
   _ITM_memcpyRnWt(param_1,aoStack_38,0x10);
   uVar1 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::out_of_range::~out_of_range(aoStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20093,7 +20093,7 @@ void FUN_00c27f20(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,aoStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278d0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::out_of_range::~out_of_range(aoStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20142,7 +20142,7 @@ void FUN_00c27ff0(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c2802b to 00c28045 has its CatchHandler @ 00c2806c */
   _ITM_memcpyRnWt(param_1,arStack_38,0x10);
   uVar1 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::runtime_error::~runtime_error(arStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20169,7 +20169,7 @@ void FUN_00c28080(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,arStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::runtime_error::~runtime_error(arStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20231,7 +20231,7 @@ void FUN_00c28170(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c281ab to 00c281c5 has its CatchHandler @ 00c281ec */
   _ITM_memcpyRnWt(param_1,arStack_38,0x10);
   uVar1 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::range_error::~range_error(arStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20258,7 +20258,7 @@ void FUN_00c28200(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,arStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::range_error::~range_error(arStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20307,7 +20307,7 @@ void FUN_00c282d0(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c2830b to 00c28325 has its CatchHandler @ 00c2834c */
   _ITM_memcpyRnWt(param_1,aoStack_38,0x10);
   uVar1 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::overflow_error::~overflow_error(aoStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20334,7 +20334,7 @@ void FUN_00c28360(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,aoStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::overflow_error::~overflow_error(aoStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20383,7 +20383,7 @@ void FUN_00c28430(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00c2846b to 00c28485 has its CatchHandler @ 00c284ac */
   _ITM_memcpyRnWt(param_1,auStack_38,0x10);
   uVar1 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar1,param_2,param_1);
+  str_makeLiteral(uVar1,param_2,param_1);
   std::underflow_error::~underflow_error(auStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -20410,7 +20410,7 @@ void FUN_00c284c0(undefined8 param_1,undefined8 param_2)
   _ITM_memcpyRnWt(param_1,auStack_38,0x10);
   uVar1 = _ITM_RU8(param_2);
   uVar2 = FUN_00c278e0(param_1);
-  FUN_00c27800(uVar2,uVar1,param_1);
+  str_makeLiteral(uVar2,uVar1,param_1);
   std::underflow_error::~underflow_error(auStack_38);
   if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -22740,7 +22740,7 @@ LAB_0065aad7:
   }
   puVar2 = (undefined8 *)_Rep::_S_create(param_3,uVar4,aaStack_29);
   if ((undefined1 *)*param_1 != &DAT_011c5338) {
-    FUN_006505de();
+    refcount_releaseDelete();
   }
   puVar3 = puVar2 + 3;
   *param_1 = (long)puVar3;
@@ -25399,11 +25399,11 @@ std::codecvt_byname<char,char,__mbstate_t>::~codecvt_byname
 }
 
 
-// ==== entry=00c2b8f0 name=FUN_00c2b8f0 size=43 ====
+// ==== entry=00c2b8f0 orig=FUN_00c2b8f0 size=43 name=strrep_release ====
 
 /* WARNING: Removing unreachable block (ram,0x00c2b910) */
 
-void FUN_00c2b8f0(allocator *param_1)
+void strrep_release(allocator *param_1)
 
 {
   allocator *paVar1;
@@ -25456,10 +25456,10 @@ std::collate<char>::do_compare
     if (iVar3 != 0) {
 LAB_00c2b9e7:
       if (pcVar5 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-        FUN_00c2b8f0(pcVar5 + -0x18,&local_41);
+        strrep_release(pcVar5 + -0x18,&local_41);
       }
       if (pcVar4 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-        FUN_00c2b8f0(pcVar4 + -0x18,&local_41);
+        strrep_release(pcVar4 + -0x18,&local_41);
       }
       if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
         return iVar3;
@@ -25486,9 +25486,9 @@ LAB_00c2b9e7:
 }
 
 
-// ==== entry=00c2baa0 name=FUN_00c2baa0 size=56 ====
+// ==== entry=00c2baa0 orig=FUN_00c2baa0 size=56 name=istream_get_char ====
 
-ulong FUN_00c2baa0(long *param_1,uint param_2)
+ulong istream_get_char(long *param_1,uint param_2)
 
 {
   long *plVar1;
@@ -25591,7 +25591,7 @@ char * std::collate<char>::do_transform(char *param_1,char *param_2)
   }
   operator_delete__(pcVar6);
   if (pcVar5 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c2b8f0(pcVar5 + -0x18,&local_41);
+    strrep_release(pcVar5 + -0x18,&local_41);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return param_1;
