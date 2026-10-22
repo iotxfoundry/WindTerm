@@ -52,6 +52,11 @@ QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存
 
 零警告 + 离屏运行存活 = 可提交的最低标准；改布局后须断言 splitter 树方向/计数/比例。
 
+## 禁用素材（用户指令 2026-10-22）
+
+**不要参考 2020 年英文截图**（`WindTerm/images/screenshots/WindTerm.png`、`SplitView.png`、`WindTerm_DigeWhite_Theme.png`）——那是旧版行为（如菜单编号 "Session (1)"、"(&%1)"），与 2.7.0 不符，已两次误导布局/编号判断。
+**唯一对照基准**：`docs/imgs/original/*`（2.7.0 CN 真机离屏采集，含 orig_menu_*.png 全部弹出菜单）与 `docs/imgs/WindTerm2.7.0.png`（用户工作机实机截图）。
+
 ## 铁律补充（用户指令 2026-10-22）
 
 **出现问题/实现功能前，优先反汇编可执行程序调查原版实现，禁止猜测式实现。**
