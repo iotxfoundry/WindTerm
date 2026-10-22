@@ -22,7 +22,7 @@
 
 ### 构建
 6. **`find_package(QT NAMES Qt6 Qt5)` 在双 Qt 共存机器上永远选 Qt6**（与顺序无关，已最小复现）→ 本仓库已改为显式 `find_package(Qt5 QUIET)` 优先，勿改回 NAMES 写法。
-7. CMake 把产物固定输出到 `<repo>/bin/`：即使 `cmake -B /tmp/xxx`，可执行文件仍写进仓库 bin/——临时实验构建要记得清理。
+7. 产物输出用 CMake 默认（`build/WindTermGuiSkeleton`，用户指令：不放 bin/）——临时实验构建要记得清理。
 8. 本机 Qt5 与 Qt6 并存；提交前验证一律用 Qt5 分支跑（当前 CMake 已 Qt5 优先）。
 
 ### Qt
@@ -46,8 +46,8 @@
 ## 验证基线
 
 ```bash
-cmake -B build && cmake --build build -j4   # Qt5 优先，产物在 bin/
-QT_QPA_PLATFORM=offscreen timeout 5 ./bin/WindTermGuiSkeleton   # 冒烟（存活到超时=OK）
+cmake -B build && cmake --build build -j4   # Qt5 优先，产物在 build/
+QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存活到超时=OK）
 ```
 
 零警告 + 离屏运行存活 = 可提交的最低标准；改布局后须断言 splitter 树方向/计数/比例。

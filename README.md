@@ -20,12 +20,12 @@ WindTerm 2.7.0 主窗口的 Qt Widgets **界面壳还原**：真实菜单树、S
 ```bash
 cmake -B build
 cmake --build build -j4
-./bin/WindTermGuiSkeleton
+./build/WindTermGuiSkeleton
 ```
 
-产物输出到 `bin/`。依赖：CMake >= 3.16、C++17、Qt 5.15（Qt6 亦可构建，自动探测）Widgets。无其他第三方依赖。
+产物输出到 CMake 默认位置 `build/`。依赖：CMake >= 3.16、C++17、Qt 5.15（Qt6 亦可构建，自动探测）Widgets。无其他第三方依赖。
 
-自截图：`QT_QPA_PLATFORM=offscreen ./bin/WindTermGuiSkeleton --screenshot /tmp/opencode/skeleton.png`（显示 400ms 后抓图并退出，省略路径则用默认值）。
+自截图：`QT_QPA_PLATFORM=offscreen ./build/WindTermGuiSkeleton --screenshot /tmp/opencode/skeleton.png`（显示 400ms 后抓图并退出，省略路径则用默认值）。
 配置覆盖：若 `~/.wind/profiles/default.v10/user.config` 存在，其键值覆盖 `assets/config/wind.config`（同样是 JSON、容忍 `//` 注释）。
 
 ## 资产（不随仓库提交）
