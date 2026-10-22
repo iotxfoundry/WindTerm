@@ -16,6 +16,7 @@ for t in default dige-white dige-black dige-black-and-white; do
   if [ -d "$SRC/global/themes/$t" ]; then
     mkdir -p "$ASSETS/themes/$t"
     cp -r "$SRC/global/themes/$t/images"   "$ASSETS/themes/$t/" 2>/dev/null || true
+    cp "$SRC/global/themes/$t/"*.theme     "$ASSETS/themes/$t/" 2>/dev/null || true
     cp -r "$SRC/global/themes/$t/fonts"    "$ASSETS/themes/$t/" 2>/dev/null || true
   fi
 done
