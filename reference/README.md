@@ -26,4 +26,14 @@ Ghidra 12.1.4 headless 反编译产物（`analyzeHeadless … -postScript Decomp
 | `0x635abe_mnemonic-helper.c` | `(&%1)` 助记符 | 2020 EN 编号（CN 无）→ phase13 |
 | `0x5a1c00_splitter-subclass-ctor.c` | 开源 Splitter 子类实例化 | 与 src/Widgets/Splitter 对应 → phase7 |
 
+## reference/full/ — 全量反编译（44,664 函数 / 45 分块 / 49MB）
+
+`DecompileAll.java` 一次跑完（Ghidra headless，175 秒，0 失败）。每函数以
+`// ==== entry=<地址> name=<名> size=<字节> ====` 分隔，可 rg 直接检索：
+
+```bash
+rg -A 20 'entry=008cd068' reference/full/     # 定位已知函数
+rg -l 'QSvgRenderer' reference/full/          # 语义搜索
+```
+
 规则汇总见 `docs/cracked-rules.md`；各阶段证据链见 `docs/phase*.md`。
