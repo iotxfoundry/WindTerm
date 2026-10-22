@@ -14,6 +14,8 @@
 #include <QString>
 #include <dlfcn.h>
 
+#include "core/Assets.h"
+
 namespace KingIcons {
 
 namespace detail {
@@ -46,12 +48,12 @@ inline QString readText(const QString &path) {
 // 按元素名渲染图标（任意分辨率矢量，主题色由 icon.theme CSS 决定）
 inline QIcon icon(const QString &element, const QString &theme, int px = 32) {
     using namespace detail;
-    QString svg = readText(QStringLiteral("assets/themes/default/images/king.svg"));
+    QString svg = readText(Assets::dir() + QStringLiteral("/themes/default/images/king.svg"));
     if (svg.isEmpty())
         return QIcon();
-    QString css = readText(QStringLiteral("assets/themes/%1/icon.theme").arg(theme));
+    QString css = readText(Assets::dir() + QStringLiteral("/themes/%1/icon.theme").arg(theme));
     if (css.isEmpty())
-        css = readText(QStringLiteral("assets/themes/default/images/icon.theme"));
+        css = readText(Assets::dir() + QStringLiteral("/themes/default/images/icon.theme"));
     if (!css.isEmpty()) {
         // 原版 svg 头的 <?xml-stylesheet href="icon.theme"?> 由加载器实现；QtSvg 不支持外链，改为注入 <style>
         const int ins = svg.indexOf(QLatin1Char('>'), svg.indexOf(QStringLiteral("<svg"))) + 1;

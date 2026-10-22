@@ -106,8 +106,9 @@ inline QIcon iconFor(const QString &actionId, const QString &iconName, const QSt
     QString name = iconName;
     name.remove(QLatin1String("king::"));
     // 名字即文件名（小写），与原版 images/%1.svg 模板一致
-    for (const QString &dir : { QStringLiteral("assets/themes/%1/images").arg(theme),
-                                QStringLiteral("assets/themes/default/images") }) {
+    const QString base = Assets::dir() + QStringLiteral("/themes");
+    for (const QString &dir : { QStringLiteral("%1/%2/images").arg(base, theme),
+                                QStringLiteral("%1/default/images").arg(base) }) {
         const QString path = dir + QStringLiteral("/") + name.toLower() + QStringLiteral(".svg");
         if (QFile::exists(path))
             return QIcon(path);
