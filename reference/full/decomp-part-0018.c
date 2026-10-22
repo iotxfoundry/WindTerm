@@ -8670,7 +8670,7 @@ LAB_0059249a:
 LAB_00592101:
                     /* try { // try from 0059210f to 0059238d has its CatchHandler @ 00592839 */
   QBoxLayout::addWidget(this,pQVar10,0,0);
-  uVar16 = FUN_005ab6e8(pQVar9);
+  uVar16 = TabGroup_buildCentral(pQVar9);
   QBoxLayout::addWidget(this,uVar16,0,0);
   s_terminal_usernameEchoMode_58ff66(&local_98,pQVar9,&local_190,"OneKey");
   s_terminal_usernameEchoMode_58ff66(&local_98,pQVar9,&local_190,"Account");
@@ -10004,7 +10004,7 @@ LAB_0059505d:
   QLayout::setContentsMargins((QMargins *)this);
   QBoxLayout::setSpacing((int)this);
   QBoxLayout::addWidget(this,pQVar6,0,0);
-  uVar9 = FUN_005ab6e8(pQVar6);
+  uVar9 = TabGroup_buildCentral(pQVar6);
   QBoxLayout::addWidget(this,uVar9,0,0);
   cVar4 = s_ssh_authPassword_7d5a36(*(undefined8 *)(param_1 + 0xa0));
   if (cVar4 != '\0') {
@@ -25353,9 +25353,9 @@ undefined8 FUN_005ab6e2(long param_1)
 }
 
 
-// ==== entry=005ab6e8 name=FUN_005ab6e8 size=5 ====
+// ==== entry=005ab6e8 orig=FUN_005ab6e8 size=5 name=TabGroup_buildCentral ====
 
-undefined8 FUN_005ab6e8(long param_1)
+undefined8 TabGroup_buildCentral(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x60);

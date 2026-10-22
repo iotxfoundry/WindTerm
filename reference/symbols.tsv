@@ -3061,3 +3061,9 @@
 0x008c9f8c	KitWindow_createStatusBar	排版树:setStatusBar调用点;AppletBar(QStatusBar子类0x00526a7c)本体
 0x008b3178	KitBar_setupLayout	排版树:KitBar内部layout margins=0 spacing=0
 0x005aa7ee	TabBar_setFixedHeightOnShow	排版树:TabBar显隐切换时setFixedHeight(sizeHint)
+
+# —— bars/panes 行序反哺批（setMenuWidget 标签槽 + registerBarsAndPanes 7bars/9panes）——
+0x008bade2	KitWindow_setupBars	行序:TabGroup→setMenuWidget(标签条占菜单槽)+central构建+toolbar_build(Kit/Standard)+循环addToolBar(升级弱名)
+0x005ab6e8	TabGroup_buildCentral	行序:由TabGroup构建KitWindow central容器
+0x008a9d3c	ToolbarConfig_parseType	bars系统:toolbar.config类型码解析(AddressBar=5等)(升级弱名)
+0x0085af56	TransferBar_lazyCreate	bars系统:TransferPane激活时懒创建TransferBar

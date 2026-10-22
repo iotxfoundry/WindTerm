@@ -52,3 +52,9 @@
 | R21 | 面板插入均分：count>1 时按 size/count setSizes（非固定像素）；初始 setSizes 在空树设置、插入覆盖 | 0x008d03ea | `PaneManager::insert`（运行时路径） |
 | R22 | AppletBar=QStatusBar 子类经 setStatusBar 装入（非 splitter 子件）；MuxPaneGroup/TabGroup/MuxPane 布局全部 margins=0 spacing=0，TabGroup sizePolicy hExpanding/vFixed，高度由 QSS QTabBar::tab 定 | 0x008c9f8c / 0x008de936 / 0x005aec28 | `MainWindow::statusBar()` / `MuxPaneGroup` |
 | R23 | 菜单图标列：原版无 QProxyStyle/PM 覆盖痕迹（rg 0 命中）→ Qt 默认 PM_SmallIconSize(16)；King::iconFactory(0x007572ac) 渲染 rect 由动态调用方传入，静态调用图不可达（挂账） | rg + 0x007572ac 无静态调用点 | `ActionIcons::iconFor`(16) |
+
+## 行序与 bars/panes 系统（行序矫正反哺）
+| # | 规则 | 证据 | 代码落点 |
+|---|---|---|---|
+| R24 | 行序：标签条(TabGroup)经 QMainWindow::setMenuWidget **占菜单槽** → 标签行在工具栏行之上；AddressBar 非 pane 子件，是 toolbar_build(0x00694276) 按 toolbar.config 类型码(AddressBar=5)装入 KitBar QToolBar 的构件 | 0x008bade2 / 0x00694276 / toolbar.config | `createCentral` VBox[标签行,KitBar 行,root] |
+| R25 | bars/panes 注册系统：registerBarsAndPanes(0x008a1106)=7 bars(Applet/Kit/Menu/Quick/Status/Tool/Transfer)+9 panes(Explorer/Filer/Outline/Output/Sender/Session/Transfer/Search/Shell)；底部命令条=SenderPane（无 SenderBar 类），动作 Window.ShowPaneSender/TogglePaneSender/Dock.TogglePaneSender；TransferBar 懒创建 | 0x008a1106 + wind.actions:2484-2665 | 面板显隐动作映射 |

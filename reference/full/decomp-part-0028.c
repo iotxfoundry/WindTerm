@@ -22122,7 +22122,7 @@ LAB_008d9ecc:
   local_40 = 0;
   QLayout::setContentsMargins((QMargins *)this_00);
   QBoxLayout::setSpacing((int)this_00);
-  uVar3 = FUN_005ab6e8(*(undefined8 *)(param_1 + 0x30));
+  uVar3 = TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x30));
   QBoxLayout::addWidget(this_00,uVar3,0,0);
   QBoxLayout::addLayout((QLayout *)this_00,(int)this);
   QWidget::setLayout(param_1);
@@ -25944,7 +25944,7 @@ LAB_008deb3e:
   QLayout::setContentsMargins((QMargins *)this);
   QBoxLayout::setSpacing((int)this);
   QBoxLayout::addWidget(this,*(undefined8 *)(param_1 + 0x38),0,0);
-  uVar3 = FUN_005ab6e8(*(undefined8 *)(param_1 + 0x38));
+  uVar3 = TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x38));
   QBoxLayout::addWidget(this,uVar3,0,0);
   QWidget::setLayout(param_1);
   return;

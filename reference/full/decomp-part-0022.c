@@ -60914,7 +60914,7 @@ void s_IntervalSpinbox_735a0c(QWidget *param_1)
   *(QObject **)(param_1 + 0x98) = pQVar5;
   QObject::installEventFilter(pQVar5);
   (**(code **)(**(long **)(param_1 + 0x98) + 0x68))(*(long **)(param_1 + 0x98),0);
-  FUN_005ab6e8(*(undefined8 *)(param_1 + 0x48));
+  TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x48));
   QSplitter::addWidget((QWidget *)this_00);
   QSplitter::addWidget((QWidget *)this_00);
   local_30 = &QListData::shared_null;

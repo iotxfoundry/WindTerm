@@ -11174,7 +11174,7 @@ LAB_00749a72:
   FUN_005ac652(*(undefined8 *)(param_1 + 0x40),0);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x40),1);
   pQVar3 = (QWidget *)QWidget::layout();
-  FUN_005ab6e8(*(undefined8 *)(param_1 + 0x40));
+  TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x40));
   QLayout::addWidget(pQVar3);
   pQVar3 = (QWidget *)QWidget::layout();
   QLayout::addWidget(pQVar3);
@@ -16175,7 +16175,7 @@ LAB_00750a22:
   pQVar4 = (QWidget *)QWidget::layout();
   QLayout::addWidget(pQVar4);
   pQVar4 = (QWidget *)QWidget::layout();
-  FUN_005ab6e8(*(undefined8 *)(param_1 + 0x48));
+  TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x48));
   QLayout::addWidget(pQVar4);
   return;
 }

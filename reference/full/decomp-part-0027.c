@@ -63569,9 +63569,9 @@ LAB_008a9a6a:
 }
 
 
-// ==== entry=008a9d3c orig=FUN_008a9d3c size=1489 name=s_FilterEdit_8a9d3c ====
+// ==== entry=008a9d3c orig=FUN_008a9d3c size=1489 name=ToolbarConfig_parseType ====
 
-undefined8 s_FilterEdit_8a9d3c(undefined8 param_1,undefined8 param_2,long param_3)
+undefined8 ToolbarConfig_parseType(undefined8 param_1,undefined8 param_2,long param_3)
 
 {
   char cVar1;
@@ -63849,7 +63849,7 @@ LAB_008aa614:
         }
       }
                     /* try { // try from 008aa556 to 008aa55a has its CatchHandler @ 008aa6f3 */
-      s_FilterEdit_8a9d3c(param_1,local_68,local_b8);
+      ToolbarConfig_parseType(param_1,local_68,local_b8);
       json_value_destruct(local_68);
       uVar6 = uVar6 + 1;
       plVar4 = local_d8;
@@ -75394,7 +75394,7 @@ LAB_008b7f03:
   QLayout::setContentsMargins((QMargins *)this);
   QBoxLayout::setSpacing((int)this);
   QBoxLayout::addWidget(this,*(undefined8 *)(param_1 + 0x30),0,0,in_R8,in_R9,uVar5,uVar6);
-  uVar5 = FUN_005ab6e8(*(undefined8 *)(param_1 + 0x30));
+  uVar5 = TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x30));
   QBoxLayout::addWidget(this,uVar5,0,0);
   QWidget::setLayout(param_1);
   return;
@@ -77744,11 +77744,11 @@ void FUN_008ba416(long param_1)
 }
 
 
-// ==== entry=008bade2 orig=FUN_008bade2 size=1286 name=s_tabbar_showSequenceNumbers_8bade2 ====
+// ==== entry=008bade2 orig=FUN_008bade2 size=1286 name=KitWindow_setupBars ====
 
 /* WARNING: Removing unreachable block (ram,0x008bb2de) */
 
-void s_tabbar_showSequenceNumbers_8bade2(QWidget *param_1)
+void KitWindow_setupBars(QWidget *param_1)
 
 {
   uint *puVar1;
@@ -77810,7 +77810,7 @@ void s_tabbar_showSequenceNumbers_8bade2(QWidget *param_1)
   thunk_FUN_005ad4a6(uVar11,*(undefined8 *)(param_1 + 0x38));
   FUN_005ab5b6(*(undefined8 *)(param_1 + 0x38),local_70);
   QMainWindow::setMenuWidget(param_1);
-  FUN_005ab6e8(*(undefined8 *)(param_1 + 0x38));
+  TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x38));
   QMainWindow::setCentralWidget(param_1);
   lVar8 = widget_findAncestorPane(param_1);
   if (lVar8 != 0) {
@@ -77918,7 +77918,7 @@ void FUN_008bb360(QMainWindow *param_1,undefined8 *param_2,undefined8 param_3)
                     /* try { // try from 008bb3aa to 008bb3d0 has its CatchHandler @ 008bb3de */
   QWidget::setFocusPolicy(param_1,0);
   QWidget::setAttribute(param_1,0x37,1);
-  s_tabbar_showSequenceNumbers_8bade2(param_1);
+  KitWindow_setupBars(param_1);
   FUN_008ba416(param_1);
   return;
 }

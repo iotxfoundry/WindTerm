@@ -51598,9 +51598,9 @@ undefined8 FUN_0085ae68(undefined8 param_1,QDataStream *param_2,uint param_3)
 }
 
 
-// ==== entry=0085af56 name=FUN_0085af56 size=329 ====
+// ==== entry=0085af56 orig=FUN_0085af56 size=329 name=TransferBar_lazyCreate ====
 
-void FUN_0085af56(long param_1)
+void TransferBar_lazyCreate(long param_1)
 
 {
   int *piVar1;
@@ -52765,7 +52765,7 @@ void s_TransferPane_85cea4(long param_1,undefined8 param_2,int param_3)
   QArrayData::deallocate(local_20,2,8);
 joined_r0x0085d05a:
   if (cVar3 == '\0') {
-    FUN_0085af56(param_1);
+    TransferBar_lazyCreate(param_1);
   }
   lVar1 = *(long *)(param_1 + 0xe8);
   if (((lVar1 != 0) && (*(int *)(lVar1 + 4) != 0)) && (*(long *)(param_1 + 0xf0) != 0)) {
