@@ -15,6 +15,7 @@
 #include "TerminalView.h"
 
 #include "core/LocalSession.h"
+#include "core/Session.h"
 
 namespace {
 
@@ -101,6 +102,17 @@ void MuxPaneGroup::addPane(const QString &title, const QColor &color)
 void MuxPaneGroup::onTabCloseRequested()
 {
     Q_UNIMPLEMENTED();
+}
+
+void MuxPaneGroup::openSession(Session *session, const QString &title, const QColor &color)
+{
+    auto *view = new TerminalView(title, m_stack);
+    view->attachSession(session);
+
+    const int index = m_tabBar->addTab(dotIcon(color), title);
+    m_stack->addWidget(view);
+    m_tabBar->setCurrentIndex(index);
+    m_stack->setCurrentWidget(view);
 }
 
 void MuxPaneGroup::onAddSession()

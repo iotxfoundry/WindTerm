@@ -37,9 +37,11 @@ public:
 #include "core/KeymapConfig.h"
 #include "core/Assets.h"
 #include "core/SchemeManager.h"
+#include "core/SshSession.h"
 #include "core/ThemeManager.h"
 #include "core/ToolbarConfig.h"
 #include "core/WindConfig.h"
+#include "dialogs/ConnectDialog.h"
 #include "panes/ExplorerPane.h"
 #include "panes/FilerPane.h"
 #include "panes/OutlinePane.h"
@@ -71,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_locale(LocaleManager::instance())
     , m_muxPaneGroup(nullptr)
     , m_appletBar(nullptr)
+    , m_addressBar(nullptr)
     , m_readyLabel(nullptr)
     , m_clockLabel(nullptr)
     , m_clockTimer(nullptr)
@@ -178,10 +181,11 @@ void MainWindow::createToolBar()
             toolBar->addAction(makeAction(entry.actionId));
             break;
         case ToolbarEntry::AddressBar: {
-            auto *edit = new QLineEdit(toolBar);
-            edit->setPlaceholderText(QStringLiteral("ssh user@host"));
-            edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-            toolBar->addWidget(edit);
+            m_addressBar = new QLineEdit(toolBar);
+            m_addressBar->setPlaceholderText(QStringLiteral("ssh user@host"));
+            m_addressBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            connect(m_addressBar, &QLineEdit::returnPressed, this, &MainWindow::onAddressBarReturn);
+            toolBar->addWidget(m_addressBar);
             break;
         }
         case ToolbarEntry::Separator:
@@ -189,6 +193,29 @@ void MainWindow::createToolBar()
             break;
         }
     }
+}
+
+void MainWindow::onAddressBarReturn()
+{
+    if (!m_addressBar || !m_muxPaneGroup)
+        return;
+    const QString text = m_addressBar->text().trimmed();
+    if (!text.startsWith(QStringLiteral("ssh "), Qt::CaseInsensitive))
+        return;
+
+    QString user;
+    QString host;
+    int port = 22;
+    ConnectDialog::parseSpec(text, &user, &host, &port);
+
+    ConnectDialog dialog(this);
+    dialog.setSpec(user, host, port);
+    if (dialog.exec() != QDialog::Accepted || dialog.host().isEmpty())
+        return;
+
+    auto *session = new SshSession(24, 80, m_muxPaneGroup);
+    m_muxPaneGroup->openSession(session, QStringLiteral("ssh %1").arg(dialog.host()), Qt::red);
+    session->start(dialog.host(), dialog.user(), dialog.password(), dialog.port());
 }
 
 QAction *MainWindow::makeAction(const QString &actionId)

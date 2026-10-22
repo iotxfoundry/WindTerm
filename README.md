@@ -1,7 +1,7 @@
 # WindTerm GUI Skeleton
 
 WindTerm 2.7.0 主窗口的 Qt Widgets **界面壳还原**：真实菜单树、Standard 工具栏、嵌套 Splitter 树布局、彩色会话标签、命令按钮栏、主题 QSS 与配色方案、状态栏。
-所有交互槽位为空（`Q_UNIMPLEMENTED()`），**不含任何连接、协议、终端或文件传输逻辑**——能看，不连接。
+`+` 钮为本地 PTY bash（F1），地址栏 `ssh user@host` 为真实 SSH 会话（F3）；其余交互槽位仍为空（`Q_UNIMPLEMENTED()`），不含文件传输逻辑。
 
 界面由 WindTerm 原版数据文件驱动，与原版数据层同构：
 
@@ -47,7 +47,8 @@ tools/fetch-assets.sh /path/to/WindTerm_2.7.0
 嵌套 Splitter 树：面板由 PaneManager 相对插入引擎布局（移植反编译算法），Dock.TogglePane 真实显隐；终端占位含时间戳槽与 `scheme.theme` ANSI 配色；分割条状态按 `layout.v2/splitter_<objectName>` 持久化（布局版本升 v3 即让旧状态失效）。
 - `src/panes/` — FilerPane、ExplorerPane、SessionPane、OutlinePane、SenderPane、TransferPane、OutputPane、SearchPane、ShellPane
 - `src/widgets/` — MuxPaneGroup、AppletBar、ActionIcons.h（图标占位）、Bars.h（7 栏名登记）
-- `src/core/` — MenuConfig、ToolbarConfig、ActionRegistry、WindConfig、ThemeManager、SchemeManager、LocaleManager、JsonText
+- `src/core/` — MenuConfig、ToolbarConfig、ActionRegistry、WindConfig、ThemeManager、SchemeManager、LocaleManager、JsonText、Session（基类）、LocalSession、SshSession
+- F3 SSH 会话（dlopen libssh，密码认证，PTY shell）
 - `src/dialogs/` — MasterPasswordDialog、SessionSettingsDialog
 - `docs/` — 调查结论与各阶段发现（可行性、二进制证据、数据文件破译）
 

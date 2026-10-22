@@ -7,7 +7,7 @@
 #include <QScrollBar>
 #include <QTextCursor>
 
-#include "core/LocalSession.h"
+#include "core/Session.h"
 #include "core/SchemeManager.h"
 #include "core/ScreenModel.h"
 #include "core/VtParser.h"
@@ -89,7 +89,7 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
                        + path + QStringLiteral(" $"));
 }
 
-void TerminalView::attachSession(LocalSession *session)
+void TerminalView::attachSession(Session *session)
 {
     m_session = session;
     if (!m_session)
@@ -114,12 +114,12 @@ void TerminalView::attachSession(LocalSession *session)
     m_main->installEventFilter(this);
     m_main->setFocus();
 
-    connect(m_session, &LocalSession::output, this, [this](const QByteArray &data) {
+    connect(m_session, &Session::output, this, [this](const QByteArray &data) {
         m_parser->feed(data);
         renderScreen();
     });
 
-    connect(m_session, &LocalSession::finished, this, [this]() {
+    connect(m_session, &Session::finished, this, [this]() {
         appendSystemMessage(tr("[进程已退出]"));
         m_main->setReadOnly(true);
     });

@@ -2,7 +2,7 @@
 
 #include <QWidget>
 
-class LocalSession;
+class Session;
 class QPlainTextEdit;
 class ScreenModel;
 class VtParser;
@@ -15,7 +15,7 @@ public:
     explicit TerminalView(const QString &sessionName, QWidget *parent = nullptr);
     ~TerminalView() override;
 
-    void attachSession(LocalSession *session);
+    void attachSession(Session *session);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -27,7 +27,7 @@ private:
 
     QPlainTextEdit *m_gutter;
     QPlainTextEdit *m_main;
-    LocalSession *m_session;
+    Session *m_session;
     ScreenModel *m_screen;
     VtParser *m_parser;
 };

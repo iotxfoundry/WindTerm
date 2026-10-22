@@ -8,6 +8,7 @@
 class QCloseEvent;
 class QAction;
 class QLabel;
+class QLineEdit;
 class QMenu;
 class QTimer;
 class AppletBar;
@@ -28,6 +29,7 @@ private slots:
     void onRestoreLayout();
     void updateClock();
     void togglePane(QWidget *pane);
+    void onAddressBarReturn();
 
 private:
     void createMenus();
@@ -45,6 +47,7 @@ private:
     LocaleManager &m_locale;
     MuxPaneGroup *m_muxPaneGroup;
     AppletBar *m_appletBar;
+    QLineEdit *m_addressBar;
     QLabel *m_readyLabel;
     QLabel *m_clockLabel;
     QTimer *m_clockTimer;

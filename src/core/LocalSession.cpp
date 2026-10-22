@@ -8,7 +8,7 @@
 #endif
 
 LocalSession::LocalSession(int rows, int columns, QObject *parent)
-    : QObject(parent)
+    : Session(parent)
 #ifdef Q_OS_UNIX
     , m_pty(new UnixPty(this))
 #else

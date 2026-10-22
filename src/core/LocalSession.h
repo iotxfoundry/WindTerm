@@ -1,12 +1,13 @@
 #pragma once
 
 #include <QByteArray>
-#include <QObject>
 #include <QString>
+
+#include "Session.h"
 
 class UnixPty;
 
-class LocalSession : public QObject
+class LocalSession : public Session
 {
     Q_OBJECT
 
@@ -15,12 +16,8 @@ public:
     ~LocalSession() override;
 
     bool start(const QString &program = QStringLiteral("/bin/bash"));
-    void write(const QByteArray &data);
-    void resize(int rows, int columns);
-
-signals:
-    void output(const QByteArray &data);
-    void finished();
+    void write(const QByteArray &data) override;
+    void resize(int rows, int columns) override;
 
 private:
     UnixPty *m_pty;
