@@ -6,6 +6,7 @@
 #include <QStyle>
 #include <QStringList>
 
+#include "core/Assets.h"
 #include "core/ThemeManager.h"
 
 namespace ActionIcons {
@@ -63,8 +64,8 @@ inline QIcon iconFor(const QString &actionIdOrName)
 {
     const QString fileName = actionIdOrName.toLower() + QStringLiteral(".svg");
     const QStringList dirs{
-        QStringLiteral("assets/themes/%1/images").arg(ThemeManager::instance().currentTheme()),
-        QStringLiteral("assets/themes/default/images")
+        Assets::dir() + QStringLiteral("/themes/%1/images").arg(ThemeManager::instance().currentTheme()),
+        Assets::dir() + QStringLiteral("/themes/default/images")
     };
     for (const QString &dir : dirs) {
         const QString path = dir + QLatin1Char('/') + fileName;

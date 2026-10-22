@@ -14,12 +14,14 @@
 #include <QStackedWidget>
 #include <QStatusBar>
 #include <QTabBar>
+#include <QTabWidget>
 #include <QTime>
 #include <QTimer>
 #include <QToolBar>
 #include <QVBoxLayout>
 
 #include "core/ActionRegistry.h"
+#include "core/Assets.h"
 #include "core/SchemeManager.h"
 #include "core/ThemeManager.h"
 #include "core/ToolbarConfig.h"
@@ -50,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     resize(1200, 800);
     setAttribute(Qt::WA_DeleteOnClose);
 
-    WindConfig::instance().load(QStringLiteral("assets/config/wind.config"));
+    WindConfig::instance().load(Assets::dir() + QStringLiteral("/config/wind.config"));
 
     const double opacity = WindConfig::instance().valueToDouble(QStringLiteral("application.windowOpacity"), 1.0);
     if (opacity > 0.0 && opacity < 1.0)
@@ -61,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent)
     ThemeManager::instance().apply();
     SchemeManager::instance().load();
 
-    m_locale.load(QStringLiteral("assets/locales/zh-CN.locale"));
+    m_locale.load(Assets::dir() + QStringLiteral("/locales/zh-CN.locale"));
 
     createStatusBar();
     initActionRegistry();
@@ -91,7 +93,7 @@ QString MainWindow::makeMenuTitle(const QString &base, int n) const
 void MainWindow::createMenus()
 {
     MenuConfig &menuConfig = MenuConfig::instance();
-    if (menuConfig.load(QStringLiteral("assets/config/uiconfigs/menu.config")) && !menuConfig.menuNames().isEmpty()) {
+    if (menuConfig.load(Assets::dir() + QStringLiteral("/config/uiconfigs/menu.config")) && !menuConfig.menuNames().isEmpty()) {
         const QStringList names = menuConfig.menuNames();
         for (int i = 0; i < names.size(); ++i) {
             const int n = (i == names.size() - 1) ? 0 : i + 1;
@@ -130,7 +132,7 @@ void MainWindow::createFallbackMenus()
 void MainWindow::createToolBar()
 {
     ToolbarConfig &config = ToolbarConfig::instance();
-    if (!config.load(QStringLiteral("assets/config/uiconfigs/toolbar.config")))
+    if (!config.load(Assets::dir() + QStringLiteral("/config/uiconfigs/toolbar.config")))
         return;
 
     const QString name = config.toolbarName();
@@ -218,28 +220,25 @@ void MainWindow::createCentralWidget()
 
 void MainWindow::createDocks()
 {
+    auto *explorerDock = new QDockWidget(tr("Explorer"), this);
+    explorerDock->setObjectName(QStringLiteral("ExplorerDock"));
+
+    auto *explorerTabs = new QTabWidget(explorerDock);
+    explorerTabs->addTab(new ExplorerPane(explorerTabs), tr("Explorer"));
+    explorerTabs->addTab(new SessionPane(explorerTabs), tr("Session"));
+    explorerDock->setWidget(explorerTabs);
+    addDockWidget(Qt::LeftDockWidgetArea, explorerDock);
+
     auto *filerDock = new QDockWidget(tr("Filer"), this);
     filerDock->setObjectName(QStringLiteral("FilerDock"));
     filerDock->setWidget(new FilerPane(filerDock));
     addDockWidget(Qt::LeftDockWidgetArea, filerDock);
-
-    auto *explorerDock = new QDockWidget(tr("Explorer"), this);
-    explorerDock->setObjectName(QStringLiteral("ExplorerDock"));
-    explorerDock->setWidget(new ExplorerPane(explorerDock));
-    addDockWidget(Qt::LeftDockWidgetArea, explorerDock);
-    splitDockWidget(filerDock, explorerDock, Qt::Vertical);
-    explorerDock->hide(); // 初始收起，可从停靠面板菜单恢复
-
-    auto *sessionDock = new QDockWidget(tr("Session"), this);
-    sessionDock->setObjectName(QStringLiteral("SessionDock"));
-    sessionDock->setWidget(new SessionPane(sessionDock));
-    addDockWidget(Qt::RightDockWidgetArea, sessionDock);
+    splitDockWidget(explorerDock, filerDock, Qt::Vertical);
 
     auto *outlineDock = new QDockWidget(tr("Outline"), this);
     outlineDock->setObjectName(QStringLiteral("OutlineDock"));
     outlineDock->setWidget(new OutlinePane(outlineDock));
     addDockWidget(Qt::RightDockWidgetArea, outlineDock);
-    splitDockWidget(sessionDock, outlineDock, Qt::Vertical);
 
     auto *transferDock = new QDockWidget(tr("Sender | Transfer"), this);
     transferDock->setObjectName(QStringLiteral("SenderTransferDock"));
@@ -280,9 +279,10 @@ void MainWindow::createStatusBar()
     m_readyLabel = new QLabel(tr("Ready"), this);
     statusBar()->addWidget(m_readyLabel);
     statusBar()->addPermanentWidget(new QLabel(tr("Remote Mode"), this));
-    statusBar()->addPermanentWidget(new QLabel(tr("Ln 1 Ch 1"), this));
-    statusBar()->addPermanentWidget(new QLabel(tr("localhost"), this));
+    statusBar()->addPermanentWidget(new QLabel(tr("窗口 53×193"), this));
+    statusBar()->addPermanentWidget(new QLabel(tr("行 1 字符 1"), this));
     statusBar()->addPermanentWidget(new QLabel(ThemeManager::instance().currentTheme(), this));
+    statusBar()->addPermanentWidget(new QLabel(tr("localhost"), this));
 
     m_clockLabel = new QLabel(this);
     statusBar()->addPermanentWidget(m_clockLabel);
@@ -296,7 +296,7 @@ void MainWindow::createStatusBar()
 void MainWindow::initActionRegistry()
 {
     ActionRegistry &registry = ActionRegistry::instance();
-    if (!registry.load(QStringLiteral("assets/config/wind.actions")))
+    if (!registry.load(Assets::dir() + QStringLiteral("/config/wind.actions")))
         return;
 
     m_readyLabel->setText(m_readyLabel->text() + QStringLiteral(" · ")

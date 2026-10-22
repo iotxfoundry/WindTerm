@@ -1,9 +1,10 @@
 #include "ThemeManager.h"
 
 #include <QApplication>
-#include <QCoreApplication>
 #include <QFile>
 #include <QFont>
+
+#include "Assets.h"
 
 ThemeManager &ThemeManager::instance()
 {
@@ -13,7 +14,7 @@ ThemeManager &ThemeManager::instance()
 
 bool ThemeManager::loadTheme(const QString &name)
 {
-    QFile file(QStringLiteral("assets/themes/%1/gui.theme").arg(name));
+    QFile file(Assets::dir() + QStringLiteral("/themes/%1/gui.theme").arg(name));
     if (!file.open(QIODevice::ReadOnly))
         return false;
 
@@ -24,10 +25,10 @@ bool ThemeManager::loadTheme(const QString &name)
     QString text = QString::fromUtf8(data);
     text.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
 
-    const QString appDir = QCoreApplication::applicationDirPath();
-    text.replace(QStringLiteral("${AppDir}/global/themes"), appDir + QStringLiteral("/../assets/themes"));
+    const QString assetsDir = Assets::dir();
+    text.replace(QStringLiteral("${AppDir}/global/themes"), assetsDir + QStringLiteral("/themes"));
 
-    text.replace(QStringLiteral("${AppDir}"), appDir + QStringLiteral("/.."));
+    text.replace(QStringLiteral("${AppDir}"), assetsDir);
 
     QString fontFamily = QApplication::font().family();
     if (fontFamily.isEmpty())

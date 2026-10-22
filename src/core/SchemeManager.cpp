@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include "Assets.h"
 #include "JsonText.h"
 #include "ThemeManager.h"
 
@@ -21,7 +22,7 @@ bool SchemeManager::load(const QString &path)
         const QString theme = ThemeManager::instance().currentTheme();
         if (theme.isEmpty())
             return false;
-        filePath = QStringLiteral("assets/themes/%1/scheme.theme").arg(theme);
+        filePath = Assets::dir() + QStringLiteral("/themes/%1/scheme.theme").arg(theme);
     }
 
     QFile file(filePath);
