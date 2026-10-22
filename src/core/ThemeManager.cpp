@@ -52,9 +52,11 @@ void ThemeManager::apply() const
     }
     qApp->setStyleSheet(qss);
 
-    // 原版 GUI 为白底窗体（docs/imgs/WindTerm2.7.0.png）；QSS 未覆盖的窗体角色补白
+    // 全局窗口/输入底色 = #efefef：原版 gui.theme 无全局背景规则，实机采样全域 #efefef
+    // （菜单栏 #ebebed≈Fusion Button 灰）；且 gui.theme 让 QLineEdit 仅 focus 时白 → 非焦点灰底。
+    // 显式固化 Fusion 默认灰（替代早期误设的白），并抵消 offscreen 平台样式差异
     QPalette palette = qApp->palette();
-    palette.setColor(QPalette::Window, Qt::white);
-    palette.setColor(QPalette::Base, Qt::white);
+    palette.setColor(QPalette::Window, QColor(QStringLiteral("#efefef")));
+    palette.setColor(QPalette::Base, QColor(QStringLiteral("#efefef")));
     qApp->setPalette(palette);
 }
