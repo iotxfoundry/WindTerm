@@ -4,6 +4,8 @@
 // 原版无 QPainter 生成器（phase5 推断已推翻）；king::colorXXX 色板见 SwatchIcons.h。
 #pragma once
 #include <QColor>
+
+#include "KingIcons.h"
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
@@ -93,7 +95,15 @@ inline QIcon tintedMaskIcon(const QString &path, const QColor &color) {
 // ① 菜单截图裁剪的掩码 PNG（按 icon.theme 着色）
 // ② 主题同名 SVG（iconName 由调用方传入） ③ 空 QIcon（按钮自动回退文字）
 inline QIcon iconFor(const QString &actionId, const QString &iconName, const QString &theme) {
-    // 完整原生图标存 docs/icons/（用户指定）；exe 在 build/ 下时回退仓库相对路径
+    // ① 原版矢量精灵 king.svg（302 元素，与原版工厂同源同 API）——最高保真
+    QString kingName = iconName;
+    kingName.remove(QLatin1String("king::"));
+    if (!kingName.isEmpty()) {
+        const QIcon king = KingIcons::icon(kingName, theme, 32);
+        if (!king.isNull())
+            return king;
+    }
+    // ② docs/icons 菜单截图裁剪（无 icon 字段动作的兜底）；exe 在 build/ 下时回退仓库相对路径
     const QStringList pngCandidates = {
         QStringLiteral("docs/icons/%1.png").arg(actionId),
         QCoreApplication::applicationDirPath() + QStringLiteral("/../../docs/icons/%1.png").arg(actionId),

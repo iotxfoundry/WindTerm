@@ -56,3 +56,8 @@ QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存
 
 **出现问题/实现功能前，优先反汇编可执行程序调查原版实现，禁止猜测式实现。**
 适用于：终端仿真、转义序列处理、会话编排等一切闭源功能层。流程：定位类（typeinfo/字符串）→ 构造/虚表 → 调用链 → 反编译语义 → 再写代码。AGENTS.md 证据优先级同样适用。
+
+## 陷阱补充（phase12）
+
+21. **dlopen 调 C++ 成员/构造函数的 ABI**：构造函数隐含 this（RDI）——须预分配对象内存显式传 this；按普通函数指针调用会把对象写进参数内存段错误。
+22. dlsym 的 mangled 名逐字符计数易错（elementExists=13、boundsOnElement=15、QRectF=6QRectF）——务必 nm 校验。
