@@ -19279,7 +19279,7 @@ QHBoxLayout * FUN_006f1994(long param_1)
   
   pvVar2 = operator_new(0xa0);
                     /* try { // try from 006f19be to 006f19c2 has its CatchHandler @ 006f1b35 */
-  overlay_makeBusyWidget(pvVar2,1,0,0);
+  Overlay_makeBusyWidget(pvVar2,1,0,0);
   *(void **)(param_1 + 0x30) = pvVar2;
   local_58 = FUN_008fae78;
   local_50 = 0;
@@ -24033,7 +24033,7 @@ QWidget * page_build_platform_opts(undefined8 param_1,char *param_2)
   if (local_60 == "windows") {
     local_78 = operator_new(0xa0);
                     /* try { // try from 006f9280 to 006f9284 has its CatchHandler @ 006f92fc */
-    overlay_makeBusyWidget(local_78,0,0,0);
+    Overlay_makeBusyWidget(local_78,0,0,0);
     qstring_assign_from_ascii(local_58,"%1.%2");
                     /* try { // try from 006f92b8 to 006f92bc has its CatchHandler @ 006f9302 */
     FUN_006f8d3e((QString *)local_50,local_58,&local_60,&PTR_s_hideShellWindow_011821d0);
@@ -36167,7 +36167,7 @@ QString * s_shell_sysmon_70cac8(long param_1,char *param_2)
   QVariant::~QVariant((QVariant *)&local_68);
   pQVar3 = operator_new(0xa0);
                     /* try { // try from 0070cb24 to 0070cb28 has its CatchHandler @ 0070ccdf */
-  overlay_makeBusyWidget(pQVar3,uVar1,0,0);
+  Overlay_makeBusyWidget(pQVar3,uVar1,0,0);
   cVar2 = json_hasKey(param_1 + 0x40,param_2);
   if (cVar2 != '\0') {
     json_value_init_bool(local_98,0);
@@ -53419,7 +53419,7 @@ LAB_0072cb82:
   *(QLabel **)(param_1 + 0x88) = pQVar13;
   pvVar11 = operator_new(0xa0);
                     /* try { // try from 0072c303 to 0072c307 has its CatchHandler @ 0072ced2 */
-  overlay_makeBusyWidget(pvVar11,0,0,0);
+  Overlay_makeBusyWidget(pvVar11,0,0,0);
   *(void **)(param_1 + 0x98) = pvVar11;
   QMetaObject::tr((char *)&local_58,(char *)&PTR_staticMetaObject_011a4ee0,0xca1a10);
                     /* try { // try from 0072c347 to 0072c34b has its CatchHandler @ 0072ceca */
@@ -55828,11 +55828,11 @@ void FUN_0072fb90(Data *param_1)
 }
 
 
-// ==== entry=0072fbee orig=FUN_0072fbee size=182 name=s_ExplorerPane_72fbee ====
+// ==== entry=0072fbee orig=FUN_0072fbee size=182 name=ExplorerPane_create ====
 
 /* WARNING: Removing unreachable block (ram,0x0072fc9a) */
 
-void s_ExplorerPane_72fbee(undefined8 *param_1,undefined8 param_2)
+void ExplorerPane_create(undefined8 *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -55841,7 +55841,7 @@ void s_ExplorerPane_72fbee(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("ExplorerPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("ExplorerPane",(int)sVar1);
                     /* try { // try from 0072fc34 to 0072fc38 has its CatchHandler @ 0072fca4 */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_0072fc4f;
     LOCK();
@@ -56683,7 +56683,7 @@ void s_FilerPane_730c20(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("FilerPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("FilerPane",(int)sVar1);
                     /* try { // try from 00730c66 to 00730c6a has its CatchHandler @ 00730cee */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_00730c81;
     LOCK();
@@ -59376,7 +59376,7 @@ void s_TransferPane_733a18(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("TransferPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("TransferPane",(int)sVar1);
                     /* try { // try from 00733a5e to 00733a62 has its CatchHandler @ 00733ad6 */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_00733a79;
     LOCK();
@@ -60260,7 +60260,7 @@ void s_SenderPane_734dc2(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("SenderPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("SenderPane",(int)sVar1);
                     /* try { // try from 00734e08 to 00734e0c has its CatchHandler @ 00734ee1 */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_00734e2b;
     LOCK();
@@ -60898,7 +60898,7 @@ void s_IntervalSpinbox_735a0c(QWidget *param_1)
   }
   pvVar4 = operator_new(0xa8);
                     /* try { // try from 00735cfa to 00735cfe has its CatchHandler @ 00735ecd */
-  s_TabGroup_5af896(pvVar4,param_1);
+  TabGroup_initUi(pvVar4,param_1);
   *(void **)(param_1 + 0x48) = pvVar4;
   QWidget::setFocusPolicy(pvVar4,0);
   FUN_005ab89c(*(undefined8 *)(param_1 + 0x48),0);

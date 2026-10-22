@@ -18620,7 +18620,7 @@ QString * FUN_00692766(long *param_1,undefined8 param_2)
   
   pQVar2 = operator_new(0x48);
                     /* try { // try from 00692789 to 0069278d has its CatchHandler @ 0069295b */
-  FUN_005a2d26(pQVar2,param_2);
+  StatusBar_ctor(pQVar2,param_2);
   sVar3 = strlen("StatusBar");
   local_30[0] = (QArrayData *)QString::fromAscii_helper("StatusBar",(int)sVar3);
                     /* try { // try from 006927c3 to 006927c7 has its CatchHandler @ 00692953 */
@@ -19936,13 +19936,13 @@ LAB_006945f6:
                     /* try { // try from 0069453f to 00694543 has its CatchHandler @ 00694b2d */
         pvVar11 = operator_new(0x48);
                     /* try { // try from 0069454c to 00694550 has its CatchHandler @ 00694b05 */
-        FUN_005211fe(pvVar11,0);
+        AddressBar_initUi(pvVar11,0);
         goto LAB_00694551;
       case 6:
                     /* try { // try from 006946a0 to 006946a4 has its CatchHandler @ 00694b2d */
         pvVar11 = operator_new(0x80);
                     /* try { // try from 006946ad to 006946b1 has its CatchHandler @ 00694b25 */
-        FUN_0057eb0c(pvVar11,0);
+        FilterEdit_ctor(pvVar11,0);
 LAB_00694551:
                     /* try { // try from 00694559 to 006945ad has its CatchHandler @ 00694b2d */
         QWidget::setSizePolicy(pvVar11,0x570000);
@@ -31837,7 +31837,7 @@ QMenu * FUN_006a3fc2(undefined8 param_1,QWidget *param_2)
                     /* try { // try from 006a406d to 006a4071 has its CatchHandler @ 006a4336 */
   pvVar3 = operator_new(0xa0);
                     /* try { // try from 006a4081 to 006a4085 has its CatchHandler @ 006a4346 */
-  overlay_makeBusyWidget(pvVar3,1,0,0);
+  Overlay_makeBusyWidget(pvVar3,1,0,0);
   *(void **)(this_00 + 0x20) = pvVar3;
                     /* try { // try from 006a408f to 006a4093 has its CatchHandler @ 006a4336 */
   pQVar4 = operator_new(0x30);
@@ -34683,7 +34683,7 @@ void menu_add_slipbutton_action(undefined8 param_1,QAction *param_2)
                     /* try { // try from 006a8643 to 006a8647 has its CatchHandler @ 006a870d */
             pvVar10 = operator_new(0xa0);
                     /* try { // try from 006a8656 to 006a865a has its CatchHandler @ 006a86fb */
-            overlay_makeBusyWidget(pvVar10,uVar1 < 2,0,0);
+            Overlay_makeBusyWidget(pvVar10,uVar1 < 2,0,0);
             *(void **)(this + 0x20) = pvVar10;
                     /* try { // try from 006a8664 to 006a8668 has its CatchHandler @ 006a870d */
             pQVar11 = operator_new(0x30);
@@ -35053,7 +35053,7 @@ void * TunnelSession_metaObject(undefined8 param_1,undefined8 param_2)
   
   pvVar2 = operator_new(0xb0);
                     /* try { // try from 006a8b79 to 006a8b7d has its CatchHandler @ 006a8cbd */
-  s_LoginWizard_593810(pvVar2,param_2,0);
+  LoginWizard_initUi(pvVar2,param_2,0);
   uVar1 = DAT_011c1b00;
   local_48 = FUN_008f7248;
   local_40 = 0;
@@ -40356,7 +40356,7 @@ QMenu * slipButton_makeMenu(undefined8 param_1,QWidget *param_2)
                     /* try { // try from 006af192 to 006af196 has its CatchHandler @ 006af509 */
   pvVar5 = operator_new(0xa0);
                     /* try { // try from 006af1a5 to 006af1a9 has its CatchHandler @ 006af519 */
-  overlay_makeBusyWidget(pvVar5,uVar3,0,0);
+  Overlay_makeBusyWidget(pvVar5,uVar3,0,0);
   *(void **)(this_00 + 0x20) = pvVar5;
                     /* try { // try from 006af1b3 to 006af1b7 has its CatchHandler @ 006af509 */
   pQVar6 = operator_new(0x30);
@@ -44848,9 +44848,9 @@ LAB_006b62ca:
 }
 
 
-// ==== entry=006b639e name=FUN_006b639e size=656 ====
+// ==== entry=006b639e orig=FUN_006b639e size=656 name=FocusModeDialog_setupUi ====
 
-void FUN_006b639e(QLayout *param_1)
+void FocusModeDialog_setupUi(QLayout *param_1)
 
 {
   QHBoxLayout *this;
@@ -44928,9 +44928,9 @@ LAB_006b64de:
 }
 
 
-// ==== entry=006b6676 name=FUN_006b6676 size=157 ====
+// ==== entry=006b6676 orig=FUN_006b6676 size=157 name=FocusModeDialog_ctor ====
 
-void FUN_006b6676(QString *param_1,undefined8 param_2)
+void FocusModeDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   QArrayData *local_20;
@@ -44952,7 +44952,7 @@ void FUN_006b6676(QString *param_1,undefined8 param_2)
   QArrayData::deallocate(local_20,2,8);
 LAB_006b66e4:
                     /* try { // try from 006b66e7 to 006b66f3 has its CatchHandler @ 006b6713 */
-  FUN_006b639e(param_1);
+  FocusModeDialog_setupUi(param_1);
   FUN_006b3a40(param_1);
   return;
 }
@@ -53267,7 +53267,7 @@ void s_king__oneKeySSH_6c2878(long param_1)
   *(void **)(param_1 + 0x48) = pvVar9;
   pvVar9 = operator_new(0xa0);
                     /* try { // try from 006c2a46 to 006c2a4a has its CatchHandler @ 006c2d5e */
-  overlay_makeBusyWidget(pvVar9,0,0,0);
+  Overlay_makeBusyWidget(pvVar9,0,0,0);
   *(void **)(param_1 + 0x50) = pvVar9;
   qstring_assign_from_ascii((QVariant *)local_48,"Keyboard Interactive");
                     /* try { // try from 006c2a67 to 006c2a6b has its CatchHandler @ 006c2d56 */
@@ -54487,7 +54487,7 @@ void s_OneKeyPageSession_6c4fa0(long param_1)
   QWidget::QWidget((QWidget *)pQVar4,0,0);
   pvVar5 = operator_new(0x80);
                     /* try { // try from 006c4fdc to 006c4fe0 has its CatchHandler @ 006c52c0 */
-  FUN_0057eb0c(pvVar5,0);
+  FilterEdit_ctor(pvVar5,0);
   this = operator_new(0x20);
                     /* try { // try from 006c4ff1 to 006c4ff5 has its CatchHandler @ 006c52b8 */
   QVBoxLayout::QVBoxLayout(this);
@@ -57605,12 +57605,12 @@ void FUN_006c955c(long param_1)
 }
 
 
-// ==== entry=006c97d0 orig=FUN_006c97d0 size=1552 name=s_TitleLabel_6c97d0 ====
+// ==== entry=006c97d0 orig=FUN_006c97d0 size=1552 name=PasswordDialog_createHeader ====
 
 /* WARNING: Removing unreachable block (ram,0x006c9dcc) */
 /* WARNING: Removing unreachable block (ram,0x006c9dd6) */
 
-void s_TitleLabel_6c97d0(QLayout *param_1)
+void PasswordDialog_createHeader(QLayout *param_1)
 
 {
   QString *pQVar1;
@@ -57817,10 +57817,10 @@ LAB_006c9c00:
 }
 
 
-// ==== entry=006c9e70 name=FUN_006c9e70 size=227 ====
+// ==== entry=006c9e70 orig=FUN_006c9e70 size=227 name=PasswordDialog_ctor ====
 
-void FUN_006c9e70(QString *param_1,undefined8 param_2,undefined8 *param_3,undefined8 *param_4,
-                 QString param_5)
+void PasswordDialog_ctor(QString *param_1,undefined8 param_2,undefined8 *param_3,undefined8 *param_4
+                        ,QString param_5)
 
 {
   int *piVar1;
@@ -57858,7 +57858,7 @@ void FUN_006c9e70(QString *param_1,undefined8 param_2,undefined8 *param_3,undefi
   QArrayData::deallocate(local_30[0],2,8);
 LAB_006c9f13:
                     /* try { // try from 006c9f16 to 006c9f22 has its CatchHandler @ 006c9f53 */
-  s_TitleLabel_6c97d0(param_1);
+  PasswordDialog_createHeader(param_1);
   FUN_006c955c(param_1);
   return;
 }

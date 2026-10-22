@@ -36,3 +36,11 @@
 | # | 规则 | 证据 | 代码落点 |
 |---|---|---|---|
 | R15 | 动作文本 = locale 查表（键=EN 去尾部 `...`）；CJK 下补 `(X)` 助记符 | zh-CN.locale + orig_menu_0 | `makeAction` |
+
+## 主题与对象树（界面还原反哺）
+| # | 规则 | 证据 | 代码落点 |
+|---|---|---|---|
+| R16 | 主题三件套：`global/themes/<名>/{gui.theme(QSS 893行), scheme.theme(61键配色JSON), icon.theme}`；profile `application.themeGui/themeText` 选主题；用户实机=dige-black-and-white（GUI 浅 + 终端 Monokai #272822） | `/opt/WindTerm_2.7.0/global/themes/*` + `~/.wind/profiles` | `ThemeManager`/`SchemeManager` |
+| R17 | QSS 类型选择器只匹配 C++ 类名——原版自定义类（TabGroup/KitBar/TextView/AppletBar/MuxPane…）是真实子类；骨架以 objectName 挂名时需把选择器改写为 `#名` 才命中 | Qt5 探针实测 + 反编译对象树 | `ThemeManager::apply()` 改写层 |
+| R18 | gui.theme 类名 ↔ setObjectName 对照（50 点）已回填 symbols.tsv：`Theme_loadGuiTheme`(0x007563c0)、`Scheme_loadSchemeTheme`(0x00752c8e)、`TabGroup_initUi`(0x005af896)、`KitBar_ctor`(0x008b31b6)、`TextView_ctor`(0x005c6d16)、`BreadButton_setTypeProperty`(0x0054c8b8) 等 | explorer 对象树查证（rg 类名字面量→宿主函数） | `reference/symbols.tsv` 反哺节 |
+| R19 | 终端配色链：scheme.theme `terminal.ansi*` 16 色 + `line.background` 终端底 + `margin.number`(#2B91AF)/`margin.timestamp`(gray)；字体 = wind.config `text.fontFamily1/fontSize` | dige-black-and-white/scheme.theme + wind.config | `ScreenModel::color256`/`TerminalView` |

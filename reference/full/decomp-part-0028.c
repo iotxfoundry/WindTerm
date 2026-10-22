@@ -6302,9 +6302,9 @@ LAB_008c3b88:
 }
 
 
-// ==== entry=008c3bbe name=FUN_008c3bbe size=84 ====
+// ==== entry=008c3bbe orig=FUN_008c3bbe size=84 name=KitPane_setObjectNameByArg ====
 
-void FUN_008c3bbe(QString *param_1,undefined8 param_2,undefined8 param_3)
+void KitPane_setObjectNameByArg(QString *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   QWidget::QWidget((QWidget *)param_1,param_3,0);
@@ -22047,7 +22047,7 @@ void s_tabbar_doubleClickAction_8d9be0(QLayout *param_1)
   QVBoxLayout::QVBoxLayout(this_00);
   pvVar2 = operator_new(0xa8);
                     /* try { // try from 008d9c2e to 008d9c32 has its CatchHandler @ 008d9f5e */
-  s_TabGroup_5af896(pvVar2);
+  TabGroup_initUi(pvVar2);
   *(void **)(param_1 + 0x30) = pvVar2;
   uVar3 = qcoreapp_self_get();
   QVariant::QVariant((QVariant *)&local_48,0);
@@ -22515,11 +22515,11 @@ void FUN_008da44e(QObject *param_1)
 }
 
 
-// ==== entry=008da51c orig=FUN_008da51c size=390 name=s_MuxDesktop_8da51c ====
+// ==== entry=008da51c orig=FUN_008da51c size=390 name=MuxDesktop_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x008da698) */
 
-void s_MuxDesktop_8da51c(QString *param_1,QString param_2,undefined8 param_3)
+void MuxDesktop_initUi(QString *param_1,QString param_2,undefined8 param_3)
 
 {
   QRegularExpression *this;
@@ -25441,11 +25441,11 @@ void FUN_008de0b0(void)
 }
 
 
-// ==== entry=008de0c0 orig=FUN_008de0c0 size=202 name=s_MuxPane_8de0c0 ====
+// ==== entry=008de0c0 orig=FUN_008de0c0 size=202 name=MuxPane_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x008de183) */
 
-void s_MuxPane_8de0c0(QString *param_1,undefined4 param_2,undefined8 param_3)
+void MuxPane_ctor(QString *param_1,undefined4 param_2,undefined8 param_3)
 
 {
   undefined4 uVar1;
@@ -25490,9 +25490,9 @@ void FUN_008de1a6(void)
 }
 
 
-// ==== entry=008de1a8 name=FUN_008de1a8 size=124 ====
+// ==== entry=008de1a8 orig=FUN_008de1a8 size=124 name=MuxPane_addChildWidget ====
 
-void FUN_008de1a8(QWidget *param_1,long param_2)
+void MuxPane_addChildWidget(QWidget *param_1,long param_2)
 
 {
   long lVar1;
@@ -25860,7 +25860,7 @@ void s_tabbar_doubleClickAction_8de936(QLayout *param_1)
   QVBoxLayout::QVBoxLayout(this);
   pvVar2 = operator_new(0xa8);
                     /* try { // try from 008de96f to 008de973 has its CatchHandler @ 008decd8 */
-  s_TabGroup_5af896(pvVar2);
+  TabGroup_initUi(pvVar2);
   *(void **)(param_1 + 0x38) = pvVar2;
   uVar3 = qcoreapp_self_get();
   QVariant::QVariant((QVariant *)&local_48,0);
@@ -25951,11 +25951,11 @@ LAB_008deb3e:
 }
 
 
-// ==== entry=008dece0 orig=FUN_008dece0 size=189 name=s_MuxPaneGroup_8dece0 ====
+// ==== entry=008dece0 orig=FUN_008dece0 size=189 name=MuxPaneGroup_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x008ded96) */
 
-void s_MuxPaneGroup_8dece0(QString *param_1,QString param_2,undefined8 param_3)
+void MuxPaneGroup_initUi(QString *param_1,QString param_2,undefined8 param_3)
 
 {
   size_t sVar1;

@@ -2227,7 +2227,7 @@ void s_TitleLabel_5341aa(QLayout *param_1)
   *(void **)(param_1 + 0x38) = pvVar6;
   pvVar6 = operator_new(0xa0);
                     /* try { // try from 0053423f to 00534243 has its CatchHandler @ 0053450a */
-  overlay_makeBusyWidget(pvVar6,0,1,0);
+  Overlay_makeBusyWidget(pvVar6,0,1,0);
   *(void **)(param_1 + 0x40) = pvVar6;
   pQVar2 = *(QString **)(param_1 + 0x30);
   sVar7 = strlen("IconLabel");
@@ -3285,7 +3285,7 @@ void FUN_00535910(long param_1)
   }
   pvVar2 = operator_new(0x80);
                     /* try { // try from 00535933 to 00535937 has its CatchHandler @ 005359ae */
-  FUN_0057eb0c(pvVar2,0);
+  FilterEdit_ctor(pvVar2,0);
   *(void **)(param_1 + 0x40) = pvVar2;
   lVar3 = QWidget::layout();
   if (lVar3 != 0) {
@@ -16201,9 +16201,9 @@ void FUN_0054813e(long param_1)
 }
 
 
-// ==== entry=0054842a name=FUN_0054842a size=258 ====
+// ==== entry=0054842a orig=FUN_0054842a size=258 name=AddressBar_createBreadEdit ====
 
-void FUN_0054842a(QWidget *param_1)
+void AddressBar_createBreadEdit(QWidget *param_1)
 
 {
   void *pvVar1;
@@ -16255,7 +16255,7 @@ void FUN_00548546(QWidget *param_1,undefined8 param_2)
                     /* try { // try from 0054858b to 005485ac has its CatchHandler @ 005485b4 */
   QWidget::setAttribute(param_1,0xe,1);
   QWidget::setFocusPolicy(param_1,0xb);
-  FUN_0054842a(param_1);
+  AddressBar_createBreadEdit(param_1);
   FUN_0054813e(param_1);
   return;
 }
@@ -16547,7 +16547,7 @@ void obj_connectDestroyed(long param_1,undefined8 *param_2,long *param_3)
   if (((lVar4 == 0) || (*(int *)(lVar4 + 4) == 0)) || (*(long *)(param_1 + 0x40) == 0)) {
     pQVar3 = operator_new(0x40);
                     /* try { // try from 005489fc to 00548a00 has its CatchHandler @ 00548cbd */
-    FUN_005518d8(pQVar3,param_1);
+    Completer_create(pQVar3,param_1);
     lVar4 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar3);
     piVar1 = *(int **)(param_1 + 0x38);
     *(long *)(param_1 + 0x38) = lVar4;
@@ -19237,9 +19237,9 @@ void FUN_0054c858(void)
 }
 
 
-// ==== entry=0054c85a name=FUN_0054c85a size=83 ====
+// ==== entry=0054c85a orig=FUN_0054c85a size=83 name=BreadButton_setImportant ====
 
-void FUN_0054c85a(char *param_1,bool param_2)
+void BreadButton_setImportant(char *param_1,bool param_2)
 
 {
   QVariant aQStack_28 [24];
@@ -19262,9 +19262,9 @@ void FUN_0054c8b6(void)
 }
 
 
-// ==== entry=0054c8b8 name=FUN_0054c8b8 size=119 ====
+// ==== entry=0054c8b8 orig=FUN_0054c8b8 size=119 name=BreadButton_setTypeProperty ====
 
-void FUN_0054c8b8(char *param_1)
+void BreadButton_setTypeProperty(char *param_1)
 
 {
   char *pcVar1;
@@ -19338,9 +19338,9 @@ LAB_0054ca27:
 }
 
 
-// ==== entry=0054ca66 name=FUN_0054ca66 size=184 ====
+// ==== entry=0054ca66 orig=FUN_0054ca66 size=184 name=BreadButton_setPartial ====
 
-void FUN_0054ca66(QString *param_1)
+void BreadButton_setPartial(QString *param_1)
 
 {
   QArrayData *local_28 [3];
@@ -19378,7 +19378,7 @@ int FUN_0054cb2e(long param_1)
 {
   if (*(char *)(param_1 + 0x48) != '\x03') {
     *(undefined4 *)(param_1 + 0x3c) = *(undefined4 *)(*(long *)(param_1 + 0x30) + 4);
-    FUN_0054ca66();
+    BreadButton_setPartial();
   }
   return (*(int *)(*(long *)(param_1 + 0x28) + 0x1c) - *(int *)(*(long *)(param_1 + 0x28) + 0x14)) +
          1;
@@ -20517,9 +20517,9 @@ void FUN_0054de5c(QObject *param_1,int param_2)
 }
 
 
-// ==== entry=0054e116 name=FUN_0054e116 size=105 ====
+// ==== entry=0054e116 orig=FUN_0054e116 size=105 name=BreadButton_ctor ====
 
-void FUN_0054e116(QToolButton *param_1,QWidget *param_2)
+void BreadButton_ctor(QToolButton *param_1,QWidget *param_2)
 
 {
   QToolButton::QToolButton(param_1,param_2);
@@ -20757,7 +20757,7 @@ void FUN_0054e74e(long param_1)
   qlist_unref_dispose(&local_30);
   *(undefined4 *)(param_1 + 0x3c) = *(undefined4 *)(*(long *)(param_1 + 0x30) + 4);
   do {
-    FUN_0054ca66(param_1);
+    BreadButton_setPartial(param_1);
     iVar1 = *(int *)(param_1 + 0x3c);
     if (iVar1 < 2) {
 LAB_0054e7a1:
@@ -20799,10 +20799,10 @@ void FUN_0054e822(QIcon *param_1,QString *param_2)
 }
 
 
-// ==== entry=0054e850 name=FUN_0054e850 size=205 ====
+// ==== entry=0054e850 orig=FUN_0054e850 size=205 name=BreadButton_create ====
 
-QObject * FUN_0054e850(long param_1,int param_2,undefined4 param_3,undefined8 param_4,
-                      undefined8 param_5)
+QObject * BreadButton_create(long param_1,int param_2,undefined4 param_3,undefined8 param_4,
+                            undefined8 param_5)
 
 {
   QObject *pQVar1;
@@ -20811,10 +20811,10 @@ QObject * FUN_0054e850(long param_1,int param_2,undefined4 param_3,undefined8 pa
   
   pQVar1 = operator_new(0x50);
                     /* try { // try from 0054e880 to 0054e884 has its CatchHandler @ 0054e925 */
-  FUN_0054e116(pQVar1,param_1);
+  BreadButton_ctor(pQVar1,param_1);
   local_40[0] = pQVar1;
   QWidget::hide();
-  FUN_0054c8b8(local_40[0],param_2);
+  BreadButton_setTypeProperty(local_40[0],param_2);
   *(undefined4 *)(local_40[0] + 0x38) = param_3;
   FUN_0054e822(local_40[0],param_4,param_5);
   QObject::installEventFilter(local_40[0]);
@@ -21442,7 +21442,7 @@ void FUN_0054f680(long param_1,undefined8 param_2,undefined8 param_3,char param_
       uVar2 = puVar4[3];
       if (puVar5 != puVar4 + (long)(int)uVar2 * 2 + 4) {
         do {
-          FUN_0054c85a(*(undefined8 *)puVar5,0);
+          BreadButton_setImportant(*(undefined8 *)puVar5,0);
           puVar5 = puVar5 + 2;
         } while (puVar4 + (long)(int)uVar2 * 2 + 4 != puVar5);
         puVar4 = *(uint **)(param_1 + 0x98);
@@ -21450,9 +21450,10 @@ void FUN_0054f680(long param_1,undefined8 param_2,undefined8 param_3,char param_
       if (1 < *puVar4) {
         FUN_00551430(lVar1,*(undefined4 *)(*(long *)(param_1 + 0x98) + 4));
       }
-      FUN_0054c85a(*(undefined8 *)
-                    (*(long *)(param_1 + 0x98) + 8 +
-                    (long)*(int *)(*(long *)(param_1 + 0x98) + 0xc) * 8),1);
+      BreadButton_setImportant
+                (*(undefined8 *)
+                  (*(long *)(param_1 + 0x98) + 8 +
+                  (long)*(int *)(*(long *)(param_1 + 0x98) + 0xc) * 8),1);
       return;
     }
     return;
@@ -21504,7 +21505,7 @@ LAB_0054f820:
       uVar2 = puVar5[3];
       for (; puVar4 != puVar5 + (long)(int)uVar2 * 2 + 4; puVar4 = puVar4 + 2) {
                     /* try { // try from 0054f884 to 0054f8fc has its CatchHandler @ 0054f9ae */
-        FUN_0054c85a(*(long *)puVar4,lVar1 == *(long *)puVar4);
+        BreadButton_setImportant(*(long *)puVar4,lVar1 == *(long *)puVar4);
       }
 LAB_0054f892:
       if (*(int *)local_48 == 0) {
@@ -21716,7 +21717,7 @@ LAB_0054fd0c:
       }
       puVar8 = local_50 + (long)(int)local_50[3] * 2 + 4;
       for (; puVar9 != puVar8; puVar9 = puVar9 + 2) {
-        FUN_0054ca66(*(undefined8 *)puVar9);
+        BreadButton_setPartial(*(undefined8 *)puVar9);
       }
       FUN_00550ee0(&local_50);
       local_74 = local_74 + 1;
@@ -21914,7 +21915,7 @@ void searchpanel_apply(long param_1)
                     /* try { // try from 005502ab to 005502af has its CatchHandler @ 00550986 */
   QString::QString((QString *)&local_40,0xab);
                     /* try { // try from 005502bd to 005502c1 has its CatchHandler @ 00550979 */
-  FUN_0054e850(param_1,0,0,(QIcon *)&local_40,(QIcon *)&local_48);
+  BreadButton_create(param_1,0,0,(QIcon *)&local_40,(QIcon *)&local_48);
   piVar5 = (int *)CONCAT44(iStack_3c,local_40);
   if (*piVar5 == 0) {
 LAB_005502dd:
@@ -22036,7 +22037,7 @@ LAB_0055040d:
           QString::trimmed_helper((QString *)&local_48);
           QIcon::QIcon((QIcon *)&local_40);
                     /* try { // try from 00550638 to 0055063c has its CatchHandler @ 00550969 */
-          FUN_0054e850(param_1,1,iVar9,(QIcon *)&local_48,(QIcon *)&local_40);
+          BreadButton_create(param_1,1,iVar9,(QIcon *)&local_48,(QIcon *)&local_40);
           QIcon::~QIcon((QIcon *)&local_40);
           if (*(int *)local_48 == 0) {
 LAB_00550758:
@@ -22075,7 +22076,7 @@ LAB_00550726:
                     /* try { // try from 005508bb to 005508bf has its CatchHandler @ 00550918 */
             QString::QString((QString *)&local_40,0x25b8);
                     /* try { // try from 005508d0 to 005508d4 has its CatchHandler @ 00550910 */
-            FUN_0054e850(param_1,2,iVar9,(QIcon *)&local_40,(QIcon *)&local_48);
+            BreadButton_create(param_1,2,iVar9,(QIcon *)&local_40,(QIcon *)&local_48);
             piVar5 = (int *)CONCAT44(iStack_3c,local_40);
             if (*piVar5 == 0) {
 LAB_005508ff:
@@ -22918,11 +22919,11 @@ void FUN_005517e2(QLayout *param_1)
 }
 
 
-// ==== entry=005518d8 name=FUN_005518d8 size=247 ====
+// ==== entry=005518d8 orig=FUN_005518d8 size=247 name=Completer_create ====
 
 /* WARNING: Removing unreachable block (ram,0x005519c5) */
 
-void FUN_005518d8(QString *param_1,undefined8 param_2)
+void Completer_create(QString *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -23545,7 +23546,7 @@ LAB_005522b4:
 }
 
 
-// ==== entry=005524a0 orig=FUN_005524a0 size=2310 name=s_king__syncInputSmall_5524a0 ====
+// ==== entry=005524a0 orig=FUN_005524a0 size=2310 name=PaneHeader_createFamily ====
 
 /* WARNING: Removing unreachable block (ram,0x00552bda) */
 /* WARNING: Removing unreachable block (ram,0x00552bf8) */
@@ -23554,7 +23555,7 @@ LAB_005522b4:
 /* WARNING: Removing unreachable block (ram,0x00552bee) */
 /* WARNING: Removing unreachable block (ram,0x00552be4) */
 
-void s_king__syncInputSmall_5524a0(QLayout *param_1)
+void PaneHeader_createFamily(QLayout *param_1)
 
 {
   QString *pQVar1;
@@ -23900,7 +23901,7 @@ void s_ExplorerEditor_552e88(QString *param_1,undefined8 param_2,undefined8 para
   QArrayData::deallocate(pQVar2,2,8);
 LAB_00552f0c:
                     /* try { // try from 00552f0f to 00552f1b has its CatchHandler @ 00552f42 */
-  s_king__syncInputSmall_5524a0(param_1);
+  PaneHeader_createFamily(param_1);
   explorer_connectButtons(param_1);
   return;
 }
@@ -24016,9 +24017,9 @@ void FUN_005530e3(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=00553156 name=FUN_00553156 size=85 ====
+// ==== entry=00553156 orig=FUN_00553156 size=85 name=PaneTitle_setStateProperty ====
 
-void FUN_00553156(long param_1,QString *param_2)
+void PaneTitle_setStateProperty(long param_1,QString *param_2)
 
 {
   char *pcVar1;
@@ -24302,7 +24303,7 @@ void FUN_0055340c(undefined8 param_1,long param_2,long param_3)
     FUN_0055300a(lVar6,uVar5);
   }
   FUN_00553378(lVar6,(QIcon *)&local_58);
-  FUN_00553156(lVar6,&local_68);
+  PaneTitle_setStateProperty(lVar6,&local_68);
   FUN_005531b4(lVar6,uVar2);
   FUN_00553242(lVar6,&local_60);
   QVariant::~QVariant((QVariant *)&local_48);
@@ -31673,9 +31674,9 @@ void FUN_0055ce00(int param_1,void *param_2)
 }
 
 
-// ==== entry=0055ce3e name=FUN_0055ce3e size=136 ====
+// ==== entry=0055ce3e orig=FUN_0055ce3e size=136 name=HoverButton_ctor ====
 
-void FUN_0055ce3e(QToolButton *param_1,QWidget *param_2)
+void HoverButton_ctor(QToolButton *param_1,QWidget *param_2)
 
 {
   QToolButton::QToolButton(param_1,param_2);
@@ -34310,11 +34311,11 @@ void lockscreen_connectSignals(long param_1)
 }
 
 
-// ==== entry=00560414 orig=FUN_00560414 size=1004 name=s_TitleLabel_560414 ====
+// ==== entry=00560414 orig=FUN_00560414 size=1004 name=LockScreen_createTitle ====
 
 /* WARNING: Removing unreachable block (ram,0x005607f6) */
 
-void s_TitleLabel_560414(QLayout *param_1)
+void LockScreen_createTitle(QLayout *param_1)
 
 {
   QString *pQVar1;
@@ -34453,11 +34454,11 @@ LAB_00560684:
 }
 
 
-// ==== entry=00560888 orig=FUN_00560888 size=243 name=s_LockScreen_560888 ====
+// ==== entry=00560888 orig=FUN_00560888 size=243 name=LockScreen_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x00560971) */
 
-void s_LockScreen_560888(QString *param_1,undefined8 param_2)
+void LockScreen_initUi(QString *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -34486,7 +34487,7 @@ LAB_0056090c:
   QWidget::setAutoFillBackground(SUB81(param_1,0));
   QWidget::setFocusPolicy(param_1,0);
   QWidget::setWindowModality(param_1,1);
-  s_TitleLabel_560414(param_1);
+  LockScreen_createTitle(param_1);
   lockscreen_connectSignals(param_1);
   return;
 }
@@ -38264,9 +38265,9 @@ void FUN_0056595a(int param_1,void *param_2)
 }
 
 
-// ==== entry=005659d4 orig=FUN_005659d4 size=513 name=overlay_makeBusyWidget ====
+// ==== entry=005659d4 orig=FUN_005659d4 size=513 name=Overlay_makeBusyWidget ====
 
-void overlay_makeBusyWidget(QCursor *param_1,byte param_2,undefined4 param_3,undefined8 param_4)
+void Overlay_makeBusyWidget(QCursor *param_1,byte param_2,undefined4 param_3,undefined8 param_4)
 
 {
   undefined *puVar1;
@@ -55455,9 +55456,9 @@ void FUN_0057eb02(long param_1)
 }
 
 
-// ==== entry=0057eb0c name=FUN_0057eb0c size=200 ====
+// ==== entry=0057eb0c orig=FUN_0057eb0c size=200 name=FilterEdit_ctor ====
 
-void FUN_0057eb0c(QObject *param_1)
+void FilterEdit_ctor(QObject *param_1)
 
 {
   QTimer *this;
@@ -56525,7 +56526,7 @@ void FUN_00580432(QPaintEvent *param_1)
 }
 
 
-// ==== entry=00580460 orig=FUN_00580460 size=1857 name=s_DummyArrowLabel_580460 ====
+// ==== entry=00580460 orig=FUN_00580460 size=1857 name=CategoryLabel_createFamily ====
 
 /* WARNING: Removing unreachable block (ram,0x00580b8d) */
 /* WARNING: Removing unreachable block (ram,0x00580ac8) */
@@ -56534,7 +56535,7 @@ void FUN_00580432(QPaintEvent *param_1)
 /* WARNING: Removing unreachable block (ram,0x00580b97) */
 /* WARNING: Removing unreachable block (ram,0x00580b43) */
 
-void s_DummyArrowLabel_580460(long param_1)
+void CategoryLabel_createFamily(long param_1)
 
 {
   long lVar1;
@@ -57016,7 +57017,7 @@ void FUN_00581260(undefined8 *param_1)
   *(byte *)(param_1 + 0x11) = *(byte *)(param_1 + 0x11) & 0xc1;
   *(undefined8 *)((long)param_1 + 0x8c) = 0x100000001;
                     /* try { // try from 00581297 to 005812a8 has its CatchHandler @ 005812b0 */
-  s_DummyArrowLabel_580460(param_1);
+  CategoryLabel_createFamily(param_1);
   FUN_00581242(param_1,1);
   return;
 }
@@ -57036,9 +57037,10 @@ void FUN_005812b8(long param_1,int param_2)
 }
 
 
-// ==== entry=005812cc orig=FUN_005812cc size=3335 name=ListItemDelegate_vt12 ====
+// ==== entry=005812cc orig=FUN_005812cc size=3335 name=CategoryDelegate_setCategoryProperty ====
 
-void ListItemDelegate_vt12(long *param_1,QPointF *param_2,QStyleOption *param_3,int *param_4)
+void CategoryDelegate_setCategoryProperty
+               (long *param_1,QPointF *param_2,QStyleOption *param_3,int *param_4)
 
 {
   uint *puVar1;
@@ -60075,9 +60077,9 @@ void FUN_00585093(undefined8 *param_1)
 }
 
 
-// ==== entry=005850c6 name=FUN_005850c6 size=493 ====
+// ==== entry=005850c6 orig=FUN_005850c6 size=493 name=TransferBar_createLabel ====
 
-void FUN_005850c6(code *param_1,undefined8 param_2)
+void TransferBar_createLabel(code *param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -60123,7 +60125,7 @@ void FUN_005850c6(code *param_1,undefined8 param_2)
                     /* try { // try from 005851b8 to 005851bc has its CatchHandler @ 005852bb */
     pvVar3 = operator_new(0x88);
                     /* try { // try from 005851c9 to 005851cd has its CatchHandler @ 005852b3 */
-    FUN_00586b86(pvVar3,param_2,param_1);
+    TransferLabel_ctor(pvVar3,param_2,param_1);
     local_78 = QObject::destroyed;
     local_70 = 0;
                     /* try { // try from 005851e8 to 00585267 has its CatchHandler @ 005852bb */
@@ -60222,12 +60224,12 @@ void FUN_005852ce(long param_1)
 }
 
 
-// ==== entry=00585528 orig=FUN_00585528 size=897 name=s_CloseButton_585528 ====
+// ==== entry=00585528 orig=FUN_00585528 size=897 name=TransferBar_createButtons ====
 
 /* WARNING: Removing unreachable block (ram,0x0058589f) */
 /* WARNING: Removing unreachable block (ram,0x00585895) */
 
-void s_CloseButton_585528(QLayout *param_1)
+void TransferBar_createButtons(QLayout *param_1)
 
 {
   QString *pQVar1;
@@ -60355,12 +60357,12 @@ LAB_00585769:
 }
 
 
-// ==== entry=005858fe name=FUN_005858fe size=449 ====
+// ==== entry=005858fe orig=FUN_005858fe size=449 name=TransferBar_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x00585ab5) */
 /* WARNING: Removing unreachable block (ram,0x00585a7a) */
 
-void FUN_005858fe(QString *param_1,undefined8 param_2)
+void TransferBar_initUi(QString *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -60419,7 +60421,7 @@ LAB_00585a11:
   QWidget::setAttribute(param_1,0x5d,1);
   QWidget::setAttribute(param_1,0x37,1);
   QWidget::setSizePolicy(param_1,0x5d0000);
-  s_CloseButton_585528(param_1);
+  TransferBar_createButtons(param_1);
   FUN_005852ce(param_1);
   return;
 }

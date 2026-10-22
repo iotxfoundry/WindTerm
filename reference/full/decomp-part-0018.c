@@ -593,9 +593,9 @@ LAB_00586879:
 }
 
 
-// ==== entry=00586b86 name=FUN_00586b86 size=139 ====
+// ==== entry=00586b86 orig=FUN_00586b86 size=139 name=TransferLabel_ctor ====
 
-void FUN_00586b86(QFrame *param_1,undefined8 *param_2,undefined8 param_3)
+void TransferLabel_ctor(QFrame *param_1,undefined8 *param_2,undefined8 param_3)
 
 {
   int *piVar1;
@@ -5299,9 +5299,9 @@ void FUN_0058d562(QPushButton *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=0058d5dc name=FUN_0058d5dc size=60 ====
+// ==== entry=0058d5dc orig=FUN_0058d5dc size=60 name=SideSeparator_ctor ====
 
-void FUN_0058d5dc(QWidget *param_1,undefined8 param_2)
+void SideSeparator_ctor(QWidget *param_1,undefined8 param_2)
 
 {
   QWidget::QWidget(param_1,param_2,0);
@@ -5412,7 +5412,7 @@ void FUN_0058d7dc(undefined8 param_1,undefined4 param_2)
   
   pvVar1 = operator_new(0x30);
                     /* try { // try from 0058d7f8 to 0058d7fc has its CatchHandler @ 0058d80f */
-  FUN_0058d5dc(pvVar1,0);
+  SideSeparator_ctor(pvVar1,0);
   boxlayout_insertRtlAware(param_1,pvVar1,param_2);
   return;
 }
@@ -6201,7 +6201,7 @@ LAB_0058e8a4:
   if (((lVar16 == 0) || (*(int *)(lVar16 + 4) == 0)) || (*(long *)(param_1 + 0x38) == 0)) {
     pQVar15 = operator_new(0x40);
                     /* try { // try from 0058e6f7 to 0058e6fb has its CatchHandler @ 0058eb3d */
-    FUN_005518d8(pQVar15,param_1);
+    Completer_create(pQVar15,param_1);
     lVar16 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar15);
     piVar7 = *(int **)(param_1 + 0x30);
     *(long *)(param_1 + 0x30) = lVar16;
@@ -8174,7 +8174,7 @@ QVBoxLayout * s_terminal_loginWizard_defaultAuthType_5914ca(QWidget *param_1,und
   local_48 = param_2;
   pQVar9 = operator_new(0xa8);
                     /* try { // try from 00591599 to 0059159d has its CatchHandler @ 00592876 */
-  s_TabGroup_5af896(pQVar9,param_1);
+  TabGroup_initUi(pQVar9,param_1);
   this = operator_new(0x20);
                     /* try { // try from 005915b0 to 005915b4 has its CatchHandler @ 005928a3 */
   QVBoxLayout::QVBoxLayout(this);
@@ -9269,11 +9269,11 @@ void FUN_00593809(long param_1)
 }
 
 
-// ==== entry=00593810 orig=FUN_00593810 size=323 name=s_LoginWizard_593810 ====
+// ==== entry=00593810 orig=FUN_00593810 size=323 name=LoginWizard_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x0059394c) */
 
-void s_LoginWizard_593810(QString *param_1,undefined8 param_2,undefined8 param_3)
+void LoginWizard_initUi(QString *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   size_t sVar1;
@@ -9906,7 +9906,7 @@ QVBoxLayout * s_ssh_identityFilePath_5948ea(QArrayData *param_1)
   
   pQVar6 = operator_new(0xa8);
                     /* try { // try from 00594911 to 00594915 has its CatchHandler @ 0059517a */
-  s_TabGroup_5af896(pQVar6,param_1);
+  TabGroup_initUi(pQVar6,param_1);
   local_d0 = (QArrayData *)QString::fromAscii_helper("%1.%2",5);
   iVar5 = *(int *)(local_d0 + 4);
   pQVar7 = local_d0 + *(long *)(local_d0 + 0x10);
@@ -12596,12 +12596,12 @@ void FUN_0059834c(long param_1)
 }
 
 
-// ==== entry=005984be orig=FUN_005984be size=1021 name=s_ExpandButton_5984be ====
+// ==== entry=005984be orig=FUN_005984be size=1021 name=MessageBar_createButtons ====
 
 /* WARNING: Removing unreachable block (ram,0x005988b1) */
 /* WARNING: Removing unreachable block (ram,0x005988a7) */
 
-void s_ExpandButton_5984be(QLayout *param_1)
+void MessageBar_createButtons(QLayout *param_1)
 
 {
   QString *pQVar1;
@@ -14382,11 +14382,11 @@ LAB_0059a9fa:
 }
 
 
-// ==== entry=0059af30 name=FUN_0059af30 size=262 ====
+// ==== entry=0059af30 orig=FUN_0059af30 size=262 name=MessageBar_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x0059b02c) */
 
-void FUN_0059af30(QString *param_1,undefined8 param_2)
+void MessageBar_initUi(QString *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -14417,7 +14417,7 @@ LAB_0059afcc:
   QWidget::setAttribute(param_1,0x5d,1);
   QWidget::setAttribute(param_1,0x37,1);
   QWidget::setSizePolicy(param_1,0x5d0000);
-  s_ExpandButton_5984be(param_1);
+  MessageBar_createButtons(param_1);
   FUN_0059834c(param_1);
   return;
 }
@@ -14492,7 +14492,7 @@ LAB_0059b134:
 }
 
 
-// ==== entry=0059b1e0 orig=FUN_0059b1e0 size=5777 name=s_IconLabel_59b1e0 ====
+// ==== entry=0059b1e0 orig=FUN_0059b1e0 size=5777 name=MessageBar_setIconState ====
 
 /* WARNING: Removing unreachable block (ram,0x0059c601) */
 /* WARNING: Removing unreachable block (ram,0x0059c867) */
@@ -14500,7 +14500,7 @@ LAB_0059b134:
 /* WARNING: Removing unreachable block (ram,0x0059c849) */
 /* WARNING: Removing unreachable block (ram,0x0059c85d) */
 
-void s_IconLabel_59b1e0(long param_1)
+void MessageBar_setIconState(long param_1)
 
 {
   undefined8 *puVar1;
@@ -15436,7 +15436,7 @@ LAB_0059cd0e:
   }
   QWidget::show();
 LAB_0059cc24:
-  s_IconLabel_59b1e0(param_1);
+  MessageBar_setIconState(param_1);
   return;
 }
 
@@ -18963,11 +18963,11 @@ void FUN_005a2cc8(Data *param_1)
 }
 
 
-// ==== entry=005a2d26 name=FUN_005a2d26 size=252 ====
+// ==== entry=005a2d26 orig=FUN_005a2d26 size=252 name=StatusBar_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x005a2e18) */
 
-void FUN_005a2d26(QStatusBar *param_1,QWidget *param_2)
+void StatusBar_ctor(QStatusBar *param_1,QWidget *param_2)
 
 {
   int iVar1;
@@ -23036,12 +23036,12 @@ LAB_005a8567:
 }
 
 
-// ==== entry=005a859a orig=FUN_005a859a size=605 name=s_TextLabel_5a859a ====
+// ==== entry=005a859a orig=FUN_005a859a size=605 name=TabBar_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x005a87ed) */
 /* WARNING: Removing unreachable block (ram,0x005a87e3) */
 
-void s_TextLabel_5a859a(QTabBar *param_1,QWidget *param_2)
+void TabBar_ctor(QTabBar *param_1,QWidget *param_2)
 
 {
   size_t sVar1;
@@ -26860,7 +26860,7 @@ LAB_005ad0de:
         if (param_2 == "TabListButton") {
           local_e8 = (QArrayData *)QAbstractButton::clicked;
           local_e0 = 0;
-          local_d8 = (QArrayData *)s_MenuItemWidget_5b1c08;
+          local_d8 = (QArrayData *)TabListMenu_createItemWidget;
           local_d0 = 0;
                     /* try { // try from 005ad06f to 005ad432 has its CatchHandler @ 005ad455 */
           puVar4 = operator_new(0x20);
@@ -28522,7 +28522,7 @@ LAB_005af782:
   QMetaObject::Connection::~Connection((Connection *)&local_78);
   pvVar8 = operator_new(0x80);
                     /* try { // try from 005aef45 to 005aef49 has its CatchHandler @ 005af812 */
-  s_TextLabel_5a859a(pvVar8,param_1);
+  TabBar_ctor(pvVar8,param_1);
   *(void **)(param_1 + 0x58) = pvVar8;
   QWidget::setSizePolicy(pvVar8,0x70000);
   QTabBar::setElideMode(*(undefined8 *)(param_1 + 0x58),1);
@@ -28722,11 +28722,11 @@ LAB_005af3d0:
 }
 
 
-// ==== entry=005af896 orig=FUN_005af896 size=295 name=s_TabGroup_5af896 ====
+// ==== entry=005af896 orig=FUN_005af896 size=295 name=TabGroup_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x005af9b6) */
 
-void s_TabGroup_5af896(QString *param_1,undefined8 param_2)
+void TabGroup_initUi(QString *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -29920,7 +29920,7 @@ void FUN_005b19ad(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=005b1c08 orig=FUN_005b1c08 size=3727 name=s_MenuItemWidget_5b1c08 ====
+// ==== entry=005b1c08 orig=FUN_005b1c08 size=3727 name=TabListMenu_createItemWidget ====
 
 /* WARNING: Removing unreachable block (ram,0x005b2a4d) */
 /* WARNING: Removing unreachable block (ram,0x005b2594) */
@@ -29929,7 +29929,7 @@ void FUN_005b19ad(int param_1,void *param_2,undefined8 param_3,long param_4)
 /* WARNING: Removing unreachable block (ram,0x005b25a8) */
 /* WARNING: Removing unreachable block (ram,0x005b2a8d) */
 
-void s_MenuItemWidget_5b1c08(QArrayData *param_1)
+void TabListMenu_createItemWidget(QArrayData *param_1)
 
 {
   int iVar1;
@@ -30298,7 +30298,7 @@ LAB_005b2496:
                     /* try { // try from 005b2619 to 005b261d has its CatchHandler @ 005b2b4c */
   pvVar14 = operator_new(0x80);
                     /* try { // try from 005b2626 to 005b262a has its CatchHandler @ 005b2b3c */
-  FUN_0057eb0c(pvVar14,0);
+  FilterEdit_ctor(pvVar14,0);
   *(void **)(this_01 + 0x18) = pvVar14;
   pQVar5 = *(QString **)(this_01 + 0x10);
   sVar13 = strlen("CountLabel");
@@ -40998,7 +40998,7 @@ joined_r0x005bf50f:
       if (lVar2 != 0) {
         pvVar1 = operator_new(0x48);
                     /* try { // try from 005bf554 to 005bf558 has its CatchHandler @ 005bf583 */
-        FUN_00526a7c(pvVar1,param_1);
+        AppletBar_setObjectName(pvVar1,param_1);
         QBoxLayout::addWidget(lVar2,pvVar1,0,0);
         return pvVar1;
       }
@@ -41009,9 +41009,9 @@ joined_r0x005bf50f:
 }
 
 
-// ==== entry=005bf58c name=FUN_005bf58c size=355 ====
+// ==== entry=005bf58c orig=FUN_005bf58c size=355 name=TextView_createHoverButton ====
 
-void FUN_005bf58c(long param_1,undefined8 param_2,long param_3)
+void TextView_createHoverButton(long param_1,undefined8 param_2,long param_3)
 
 {
   int *piVar1;
@@ -41028,7 +41028,7 @@ void FUN_005bf58c(long param_1,undefined8 param_2,long param_3)
     if (((lVar4 == 0) || (*(int *)(lVar4 + 4) == 0)) || (*(long *)(param_1 + 0xa0) == 0)) {
       pQVar3 = operator_new(0x48);
                     /* try { // try from 005bf5d2 to 005bf5d6 has its CatchHandler @ 005bf6e5 */
-      FUN_0055ce3e(pQVar3,param_1);
+      HoverButton_ctor(pQVar3,param_1);
       lVar4 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar3);
       piVar1 = *(int **)(param_1 + 0x98);
       *(long *)(param_1 + 0x98) = lVar4;
@@ -41092,7 +41092,7 @@ void * FUN_005bf6ee(undefined8 param_1,undefined8 param_2)
   
   pvVar1 = operator_new(0x68);
                     /* try { // try from 005bf70a to 005bf70e has its CatchHandler @ 005bf761 */
-  FUN_0059af30(pvVar1,0);
+  MessageBar_initUi(pvVar1,0);
   lVar2 = QWidget::layout();
   if (lVar2 != 0) {
     lVar2 = __dynamic_cast(lVar2,&QLayout::typeinfo,&QVBoxLayout::typeinfo,0);
@@ -45540,17 +45540,17 @@ void textView_connectSignals(long param_1)
 }
 
 
-// ==== entry=005c6d16 orig=FUN_005c6d16 size=445 name=s_TextView_5c6d16 ====
+// ==== entry=005c6d16 orig=FUN_005c6d16 size=445 name=TextView_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x005c6ecc) */
 
-void s_TextView_5c6d16(QString *param_1,undefined8 param_2,undefined4 param_3,undefined8 param_4)
+void TextView_ctor(QString *param_1,undefined8 param_2,undefined4 param_3,undefined8 param_4)
 
 {
   size_t sVar1;
   QArrayData *pQVar2;
   
-  s_MuxPane_8de0c0(param_1,param_2,param_4);
+  MuxPane_ctor(param_1,param_2,param_4);
   *(undefined ***)param_1 = &PTR_ScintillaEditWatcher_dtor_01197468;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197828;
   *(undefined ***)(param_1 + 0x48) = &PTR_FUN_01197878;

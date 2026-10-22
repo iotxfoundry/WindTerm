@@ -1472,7 +1472,7 @@ void s_TextEdit_5cc884(QString *param_1,undefined8 param_2)
   size_t sVar1;
   QArrayData *pQVar2;
   
-  s_TextView_5c6d16(param_1,2,1,param_2);
+  TextView_ctor(param_1,2,1,param_2);
   *(undefined ***)param_1 = &TextEdit_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197198;
   *(undefined ***)(param_1 + 0x48) = &PTR_FUN_011971e8;
@@ -18400,7 +18400,7 @@ void * thunk_FUN_005bf6ee(undefined8 param_1,undefined8 param_2)
   long lVar2;
   
   pvVar1 = operator_new(0x68);
-  FUN_0059af30(pvVar1,0);
+  MessageBar_initUi(pvVar1,0);
   lVar2 = QWidget::layout();
   if (lVar2 != 0) {
     lVar2 = __dynamic_cast(lVar2,&QLayout::typeinfo,&QVBoxLayout::typeinfo,0);

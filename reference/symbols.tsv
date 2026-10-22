@@ -2988,3 +2988,55 @@
 0x0000000000c7dd70	demangle_special_name	'{default arg#'/'JArray'/'table for '/'VTT for '/'typeinfo for '符号替换
 0x0000000000c82e40	demangle_default_arg	解构器中处理 "{default arg#" 占位
 0x0000000000c875f0	dwarf_read_encoded_pointer	按低 4 位选择 leb128/2/4/8 字节读取 DWARF 编码指针（0x50 特殊）
+
+# —— 界面还原反哺批（QSS gui.theme 类名↔setObjectName 对象树对照，explorer 查证）——
+0x005211fe	AddressBar_initUi	QSS类名对照:设置objectName AddressBar(0x005211fe)
+0x0054842a	AddressBar_createBreadEdit	对象树:AddressBar内QLineEdit(BreadEdit)创建点
+0x0054e116	BreadButton_ctor	对象树:BreadButton构造
+0x0054e850	BreadButton_create	对象树:BreadButton创建并挂到QLineEdit
+0x0054c8b8	BreadButton_setTypeProperty	QSS属性type=ArrowButton/ChevronButton/TextButton(QMetaEnum valueToKey)
+0x0054c85a	BreadButton_setImportant	QSS属性important
+0x0054ca66	BreadButton_setPartial	QSS属性partial
+0x005518d8	Completer_create	对象树:AddressBar>Completer objectName设置点
+0x00580460	CategoryLabel_createFamily	对象树:CategoryLabel/TitleLabel/SubtitleLabel/IconLabel/TipLabel/ArrowLabel族创建
+0x005812cc	CategoryDelegate_setCategoryProperty	QSS属性category(Opened/Recent)绘制时代理设置
+0x005a859a	TabBar_ctor	对象树:TabBar构造含TextLabel子项
+0x005af896	TabGroup_initUi	QSS类名对照:TabGroup objectName设置点(升级弱名)
+0x005b1c08	TabListMenu_createItemWidget	对象树:TabListMenu项+#TextLabel
+0x008da51c	MuxDesktop_initUi	QSS类名对照:MuxDesktop(升级弱名)
+0x008dece0	MuxPaneGroup_initUi	QSS类名对照:MuxPaneGroup容器(升级弱名)
+0x008de0c0	MuxPane_ctor	对象树:MuxPane基类构造(TextView父类)
+0x008de1a8	MuxPane_addChildWidget	对象树:MuxPane QVBoxLayout加子widget点
+0x005c6d16	TextView_ctor	QSS类名对照:TextView调MuxPane_ctor后覆盖objectName
+0x0055ce3e	HoverButton_ctor	对象树:HoverButton(QToolButton子类)构造
+0x005bf58c	TextView_createHoverButton	对象树:HoverButton懒创建点
+0x00954f16	CompleteList_ctor	对象树:CompleteList(QListView子类)构造
+0x008b31b6	KitBar_ctor	QSS类名对照:KitBar setObjectName+windowTitle(QToolBar子类)
+0x008c3bbe	KitPane_setObjectNameByArg	对象树:KitPane基类按传入类名setObjectName(pane族通用)
+0x0072fbee	ExplorerPane_create	对象树:传入ExplorerPane类名创建资源面板
+0x005524a0	PaneHeader_createFamily	对象树:pane标题IconLabel/TitleLabel/StateLabel/CloseButton族
+0x00553156	PaneTitle_setStateProperty	QSS属性state(TitleLabel[state])设置点
+0x0059af30	MessageBar_initUi	QSS类名对照:MessageBar objectName设置点
+0x005984be	MessageBar_createButtons	对象树:CloseButton/ExpandButton设置点
+0x0059b1e0	MessageBar_setIconState	对象树:IconLabel+setProperty state(Critical/Information/Question/Warning)
+0x0083759c	MessageBar_createPauseButton	对象树:PauseButton objectName设置点
+0x0058d5dc	SideSeparator_ctor	QSS类名对照:SideSeparator构造(无objectName类选择器)
+0x005659d4	Overlay_makeBusyWidget	对象树:SlipButton所在overlay创建点
+0x00560888	LockScreen_initUi	QSS类名对照:LockScreen objectName设置点
+0x00560414	LockScreen_createTitle	对象树:LockScreen #TitleLabel设置点
+0x00593810	LoginWizard_initUi	QSS类名对照:LoginWizard objectName设置点
+0x00590efa	LoginWizard_setupUi	对象树:LoginWizard子QFrame/QLabel创建
+0x006c9e70	PasswordDialog_ctor	QSS类名对照:PasswordDialog构造
+0x006c97d0	PasswordDialog_createHeader	对象树:IconLabel/TitleLabel设置点
+0x006b6676	FocusModeDialog_ctor	QSS类名对照:FocusModeDialog构造
+0x006b639e	FocusModeDialog_setupUi	对象树:TabBar/QStackedWidget/QCheckBox内容创建
+0x005a2d26	StatusBar_ctor	对象树:StatusBar基类设名(AppletBar前身)
+0x00526a7c	AppletBar_setObjectName	QSS类名对照:覆盖StatusBar为AppletBar
+0x005858fe	TransferBar_initUi	QSS类名对照:TransferBar objectName设置点
+0x00585528	TransferBar_createButtons	对象树:CloseButton/OpenButton设置点
+0x005850c6	TransferBar_createLabel	对象树:TransferLabel创建(父=TransferBar)
+0x00586b86	TransferLabel_ctor	QSS类名对照:TransferLabel构造
+0x0057eb0c	FilterEdit_ctor	QSS类名对照:FilterEdit(QLineEdit子类)构造
+0x0075233c	ApplicationPalette_refresh	反编译:ApplicationPalette_vt5事件100调用的调色板刷新
+0x00752c8e	Scheme_loadSchemeTheme	数据文件:引用scheme.theme字面量的加载器(升级弱名)
+0x007563c0	Theme_loadGuiTheme	数据文件:引用gui.theme字面量的加载器(升级弱名)

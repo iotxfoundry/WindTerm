@@ -45695,7 +45695,7 @@ void * thunk_FUN_005bf6ee(undefined8 param_1,undefined8 param_2)
   long lVar2;
   
   pvVar1 = operator_new(0x68);
-  FUN_0059af30(pvVar1,0);
+  MessageBar_initUi(pvVar1,0);
   lVar2 = QWidget::layout();
   if (lVar2 != 0) {
     lVar2 = __dynamic_cast(lVar2,&QLayout::typeinfo,&QVBoxLayout::typeinfo,0);
@@ -45875,7 +45875,7 @@ void s_GrepView_891e22(QString *param_1,undefined8 param_2)
   QArrayData *pQVar3;
   void *pvVar4;
   
-  s_TextView_5c6d16(param_1,3,1,param_2);
+  TextView_ctor(param_1,3,1,param_2);
   pQVar1 = param_1 + 0x100;
                     /* try { // try from 00891e4b to 00891e4f has its CatchHandler @ 00891f3d */
   FUN_008c51e8(pQVar1);
@@ -56246,7 +56246,7 @@ LAB_0089ef1b:
   if (iVar3 == 0) {
     pvVar4 = operator_new(0x58);
                     /* try { // try from 0089efa2 to 0089efa6 has its CatchHandler @ 0089f389 */
-    s_ExplorerPane_72fbee(pvVar4,param_2);
+    ExplorerPane_create(pvVar4,param_2);
   }
   else {
     lVar6 = *param_1;
@@ -71179,12 +71179,12 @@ void FUN_008b3178(void)
 }
 
 
-// ==== entry=008b31b6 name=FUN_008b31b6 size=420 ====
+// ==== entry=008b31b6 orig=FUN_008b31b6 size=420 name=KitBar_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x008b3350) */
 /* WARNING: Removing unreachable block (ram,0x008b3318) */
 
-void FUN_008b31b6(QToolBar *param_1,QWidget *param_2)
+void KitBar_ctor(QToolBar *param_1,QWidget *param_2)
 
 {
   size_t sVar1;
@@ -75358,7 +75358,7 @@ void s_ExpandButton_8b7dd4(QLayout *param_1)
   
   pQVar2 = operator_new(0xa8);
                     /* try { // try from 008b7df1 to 008b7df5 has its CatchHandler @ 008b7f4f */
-  s_TabGroup_5af896(pQVar2,0);
+  TabGroup_initUi(pQVar2,0);
   *(QString **)(param_1 + 0x30) = pQVar2;
   sVar3 = strlen("PaneGroup");
   pQVar4 = (QArrayData *)QString::fromAscii_helper("PaneGroup",(int)sVar3);
@@ -77770,7 +77770,7 @@ void s_tabbar_showSequenceNumbers_8bade2(QWidget *param_1)
   
   pvVar5 = operator_new(0xa8);
                     /* try { // try from 008bae05 to 008bae09 has its CatchHandler @ 008bb330 */
-  s_TabGroup_5af896(pvVar5);
+  TabGroup_initUi(pvVar5);
   *(void **)(param_1 + 0x38) = pvVar5;
   uVar6 = qcoreapp_self_get();
   QVariant::QVariant((QVariant *)local_58,0);

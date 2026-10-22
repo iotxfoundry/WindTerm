@@ -23041,9 +23041,9 @@ void FUN_00954ee0(int param_1,void *param_2)
 }
 
 
-// ==== entry=00954f16 name=FUN_00954f16 size=292 ====
+// ==== entry=00954f16 orig=FUN_00954f16 size=292 name=CompleteList_ctor ====
 
-void FUN_00954f16(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+void CompleteList_ctor(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   undefined4 *puVar1;

@@ -28659,7 +28659,7 @@ LAB_00a4fe12:
       uVar8 = FUN_00a4f750(param_1);
       pvVar9 = operator_new(0x50);
                     /* try { // try from 00a50241 to 00a50245 has its CatchHandler @ 00a503be */
-      FUN_00954f16(pvVar9,uVar8,param_1);
+      CompleteList_ctor(pvVar9,uVar8,param_1);
       *(void **)(param_1 + 0x1240) = pvVar9;
       pvVar9 = operator_new(0x40);
                     /* try { // try from 00a50266 to 00a5026a has its CatchHandler @ 00a503b6 */

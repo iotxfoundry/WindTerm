@@ -15186,11 +15186,11 @@ void FUN_00521178(undefined8 param_1)
 }
 
 
-// ==== entry=005211fe name=FUN_005211fe size=162 ====
+// ==== entry=005211fe orig=FUN_005211fe size=162 name=AddressBar_initUi ====
 
 /* WARNING: Removing unreachable block (ram,0x00521299) */
 
-void FUN_005211fe(QString *param_1)
+void AddressBar_initUi(QString *param_1)
 
 {
   size_t sVar1;
@@ -19721,19 +19721,19 @@ void FUN_00526a50(void *param_1)
 }
 
 
-// ==== entry=00526a7c name=FUN_00526a7c size=324 ====
+// ==== entry=00526a7c orig=FUN_00526a7c size=324 name=AppletBar_setObjectName ====
 
 /* WARNING: Removing unreachable block (ram,0x00526bb6) */
 /* WARNING: Removing unreachable block (ram,0x00526b7b) */
 
-void FUN_00526a7c(QString *param_1)
+void AppletBar_setObjectName(QString *param_1)
 
 {
   size_t sVar1;
   QArrayData *local_38;
   QArrayData *local_30 [2];
   
-  FUN_005a2d26();
+  StatusBar_ctor();
   *(undefined ***)param_1 = &AppletBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01192f28;
   sVar1 = strlen("AppletBar");

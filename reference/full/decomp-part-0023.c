@@ -2897,7 +2897,7 @@ void s_SessionPane_73cb1e(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("SessionPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("SessionPane",(int)sVar1);
                     /* try { // try from 0073cb64 to 0073cb68 has its CatchHandler @ 0073cbd4 */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_0073cb7f;
     LOCK();
@@ -8440,7 +8440,7 @@ void s_OutlinePane_745dea(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("OutlinePane");
   local_20 = (QArrayData *)QString::fromAscii_helper("OutlinePane",(int)sVar1);
                     /* try { // try from 00745e30 to 00745e34 has its CatchHandler @ 00745ed4 */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_00745e4b;
     LOCK();
@@ -10429,7 +10429,7 @@ void s_OutputPane_7489c0(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("OutputPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("OutputPane",(int)sVar1);
                     /* try { // try from 00748a02 to 00748a06 has its CatchHandler @ 00748a5b */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_00748a1d;
     LOCK();
@@ -11065,7 +11065,7 @@ void * FUN_00749792(undefined8 param_1)
   
   pvVar1 = operator_new(0x100);
                     /* try { // try from 007497ba to 007497be has its CatchHandler @ 00749870 */
-  s_TextView_5c6d16(pvVar1,4,1,param_1);
+  TextView_ctor(pvVar1,4,1,param_1);
   FUN_005bd0d8(pvVar1,0);
   local_38 = FUN_008f3816;
   local_30 = 0;
@@ -11153,7 +11153,7 @@ void s_output_tabbarVisible_749900(long param_1)
   
   pQVar2 = operator_new(0xa8);
                     /* try { // try from 00749922 to 00749926 has its CatchHandler @ 00749aac */
-  s_TabGroup_5af896(pQVar2,param_1);
+  TabGroup_initUi(pQVar2,param_1);
   *(QString **)(param_1 + 0x40) = pQVar2;
   local_38[0] = (QArrayData *)QString::fromAscii_helper("OutputTabGroup",0xe);
                     /* try { // try from 0074994c to 00749950 has its CatchHandler @ 00749ab5 */
@@ -14871,7 +14871,7 @@ void s_SearchPane_74efe6(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("SearchPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("SearchPane",(int)sVar1);
                     /* try { // try from 0074f02c to 0074f030 has its CatchHandler @ 0074f168 */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 == 0) {
 LAB_0074f125:
     QArrayData::deallocate(local_20,2,8);
@@ -15726,7 +15726,7 @@ void s_ShellPane_74feb4(undefined8 *param_1,undefined8 param_2)
   sVar1 = strlen("ShellPane");
   local_20 = (QArrayData *)QString::fromAscii_helper("ShellPane",(int)sVar1);
                     /* try { // try from 0074fefa to 0074fefe has its CatchHandler @ 0074ff75 */
-  FUN_008c3bbe(param_1,&local_20,param_2);
+  KitPane_setObjectNameByArg(param_1,&local_20,param_2);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_0074ff15;
     LOCK();
@@ -16113,7 +16113,7 @@ void s_tabbar_showSequenceNumbers_75086e(long param_1)
   
   pvVar1 = operator_new(0xa8);
                     /* try { // try from 00750892 to 00750896 has its CatchHandler @ 00750aab */
-  s_TabGroup_5af896(pvVar1);
+  TabGroup_initUi(pvVar1);
   *(void **)(param_1 + 0x48) = pvVar1;
   uVar2 = qcoreapp_self_get();
   QVariant::QVariant(local_48,0);
@@ -17528,9 +17528,9 @@ void FUN_00752298(QWidget *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0075233c name=FUN_0075233c size=36 ====
+// ==== entry=0075233c orig=FUN_0075233c size=36 name=ApplicationPalette_refresh ====
 
-undefined1 FUN_0075233c(long param_1)
+undefined1 ApplicationPalette_refresh(long param_1)
 
 {
   QWidget::ensurePolished();
@@ -17551,7 +17551,7 @@ void ApplicationPalette_vt5(QEvent *param_1,long param_2)
     QWidget::event(param_1);
     return;
   }
-  FUN_0075233c();
+  ApplicationPalette_refresh();
   QWidget::event(param_1);
   return;
 }
@@ -18167,11 +18167,11 @@ LAB_00752c48:
 }
 
 
-// ==== entry=00752c8e orig=FUN_00752c8e size=1244 name=s_scheme_theme_752c8e ====
+// ==== entry=00752c8e orig=FUN_00752c8e size=1244 name=Scheme_loadSchemeTheme ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void * s_scheme_theme_752c8e(QObject *param_1,QObject *param_2,undefined8 param_3)
+void * Scheme_loadSchemeTheme(QObject *param_1,QObject *param_2,undefined8 param_3)
 
 {
   char cVar1;
@@ -18345,7 +18345,7 @@ long FUN_0075319a(undefined8 param_1,long param_2)
   }
   lVar2 = FUN_007528e6(param_1,lVar1);
   if (lVar2 == 0) {
-    lVar1 = s_scheme_theme_752c8e(param_1,lVar1,param_2);
+    lVar1 = Scheme_loadSchemeTheme(param_1,lVar1,param_2);
     return lVar1;
   }
   return lVar2;
@@ -18844,7 +18844,7 @@ void FUN_00753b10(long param_1)
     lVar5 = FUN_0076840e(uVar4);
     if ((lVar5 != 0) && (lVar6 = FUN_007528e6(param_1,lVar5), lVar6 == 0)) {
                     /* try { // try from 00753c26 to 00753c47 has its CatchHandler @ 00753c52 */
-      s_scheme_theme_752c8e(param_1,lVar5,uVar4);
+      Scheme_loadSchemeTheme(param_1,lVar5,uVar4);
     }
   }
   qlist_release_if_shared(local_40);
@@ -20648,9 +20648,9 @@ LAB_00756373:
 }
 
 
-// ==== entry=007563c0 orig=FUN_007563c0 size=956 name=s_gui_theme_7563c0 ====
+// ==== entry=007563c0 orig=FUN_007563c0 size=956 name=Theme_loadGuiTheme ====
 
-void s_gui_theme_7563c0(undefined8 param_1)
+void Theme_loadGuiTheme(undefined8 param_1)
 
 {
   QArrayData *pQVar1;
@@ -20814,7 +20814,7 @@ ulong FUN_007567dc(long param_1,QString *param_2)
       FUN_00753516(param_1);
       FUN_00753550(param_1);
       load_custom_fonts(param_1);
-      s_gui_theme_7563c0(param_1);
+      Theme_loadGuiTheme(param_1);
       FUN_00753b10(param_1);
       return CONCAT71((int7)((ulong)unaff_R13 >> 8),iVar1 != 0) & 0xffffffff;
     }
@@ -29489,7 +29489,7 @@ bool s_application_masterPassword_761950
       }
       else {
                     /* try { // try from 00761c4e to 00761c52 has its CatchHandler @ 00761d27 */
-        FUN_006c9e70((QVariant *)local_a8,uVar4,param_3,param_4,0);
+        PasswordDialog_ctor((QVariant *)local_a8,uVar4,param_3,param_4,0);
                     /* try { // try from 00761c56 to 00761c5a has its CatchHandler @ 00761cd7 */
         iVar3 = QDialog::exec();
         if (iVar3 == 1) {
@@ -33107,7 +33107,7 @@ void FUN_007662e6(QWidget *param_1)
   
   pvVar1 = operator_new(0x48);
                     /* try { // try from 00766302 to 00766306 has its CatchHandler @ 00766353 */
-  FUN_008b31b6(pvVar1,param_1);
+  KitBar_ctor(pvVar1,param_1);
   *(void **)(param_1 + 0x50) = pvVar1;
   this = operator_new(0x30);
                     /* try { // try from 0076631e to 00766322 has its CatchHandler @ 0076635b */
@@ -34622,7 +34622,7 @@ void FUN_007680b2(undefined8 param_1,undefined1 param_2)
   
   plVar2 = operator_new(0x50);
                     /* try { // try from 007680d8 to 007680dc has its CatchHandler @ 00768265 */
-  FUN_006b6676(plVar2,param_1);
+  FocusModeDialog_ctor(plVar2,param_1);
   FUN_00766742(param_1);
   local_48 = QDialog::finished;
   local_40 = 0;
@@ -35111,7 +35111,7 @@ void FUN_00768a48(long param_1,char param_2)
   }
   pQVar3 = operator_new(0x98);
                     /* try { // try from 00768a81 to 00768a85 has its CatchHandler @ 00768cad */
-  s_LockScreen_560888(pQVar3,param_1);
+  LockScreen_initUi(pQVar3,param_1);
   uVar4 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar3);
   local_38 = (code *)0x0;
   local_30 = 0;

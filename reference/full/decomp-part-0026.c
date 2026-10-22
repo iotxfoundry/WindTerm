@@ -25582,7 +25582,7 @@ void * thunk_FUN_005bf6ee(undefined8 param_1,undefined8 param_2)
   long lVar2;
   
   pvVar1 = operator_new(0x68);
-  FUN_0059af30(pvVar1,0);
+  MessageBar_initUi(pvVar1,0);
   lVar2 = QWidget::layout();
   if (lVar2 != 0) {
     lVar2 = __dynamic_cast(lVar2,&QLayout::typeinfo,&QVBoxLayout::typeinfo,0);
@@ -26385,7 +26385,7 @@ void ipc_syncChannelInit(undefined8 param_1)
   uVar1 = DAT_011c1a00;
   local_58 = FUN_00903720;
   local_50 = 0;
-  local_48 = s_SyncChannelMessage_83759c;
+  local_48 = MessageBar_createPauseButton;
   local_40 = 0;
   puVar2 = operator_new(0x20);
   *puVar2 = 1;
@@ -26523,11 +26523,11 @@ void FUN_00837590(long param_1)
 }
 
 
-// ==== entry=0083759c orig=FUN_0083759c size=2241 name=s_SyncChannelMessage_83759c ====
+// ==== entry=0083759c orig=FUN_0083759c size=2241 name=MessageBar_createPauseButton ====
 
 /* WARNING: Removing unreachable block (ram,0x00837d09) */
 
-void s_SyncChannelMessage_83759c(QObject *param_1,QObject *param_2,int param_3)
+void MessageBar_createPauseButton(QObject *param_1,QObject *param_2,int param_3)
 
 {
   undefined4 uVar1;
@@ -26783,7 +26783,7 @@ void FUN_00837f78(int param_1,void *param_2)
   }
   else if (param_1 == 1) {
     uVar1 = FUN_00695084(DAT_011c1a00,*(undefined8 *)((long)param_2 + 0x10));
-    s_SyncChannelMessage_83759c
+    MessageBar_createPauseButton
               (*(undefined8 *)((long)param_2 + 0x10),*(undefined8 *)((long)param_2 + 0x10),uVar1);
     return;
   }
@@ -29944,7 +29944,7 @@ LAB_0083bba1:
       }
       pvVar5 = operator_new(0x40);
                     /* try { // try from 0083bc91 to 0083bc95 has its CatchHandler @ 0083be0f */
-      s_MuxPaneGroup_8dece0(pvVar5,1,uVar8);
+      MuxPaneGroup_initUi(pvVar5,1,uVar8);
                     /* try { // try from 0083bc99 to 0083bcb4 has its CatchHandler @ 0083be1f */
       iVar3 = QSplitter::count();
       if ((int)param_4 < iVar3) {
@@ -34897,7 +34897,7 @@ void s_session__tmux_842414(long param_1)
       if (iVar1 != -1) {
         pQVar3 = operator_new(0x68);
                     /* try { // try from 00842490 to 00842494 has its CatchHandler @ 00842751 */
-        s_MuxDesktop_8da51c(pQVar3,1,0);
+        MuxDesktop_initUi(pQVar3,1,0);
         uVar4 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar3);
         local_48 = (code *)0x0;
         local_40 = 0;
@@ -34950,7 +34950,7 @@ void s_session__tmux_842414(long param_1)
           }
           pvVar7 = operator_new(0x40);
                     /* try { // try from 0084263c to 00842640 has its CatchHandler @ 00842769 */
-          s_MuxPaneGroup_8dece0(pvVar7,bVar9,0);
+          MuxPaneGroup_initUi(pvVar7,bVar9,0);
           qstring_assign_from_ascii((QString *)&local_48,"tmux");
                     /* try { // try from 00842656 to 0084265a has its CatchHandler @ 00842759 */
           FUN_008de224(param_1,(QString *)&local_48);
@@ -35013,7 +35013,7 @@ void s_session__tmux_842772(long param_1)
       iVar1 = (**(code **)(*plVar2 + 0xa8))(plVar2,param_1);
       if (iVar1 != -1) {
         pQVar3 = operator_new(0x68);
-        s_MuxDesktop_8da51c(pQVar3,1,0);
+        MuxDesktop_initUi(pQVar3,1,0);
         uVar4 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar3);
         pcStack_48 = (code *)0x0;
         uStack_40 = 0;
@@ -35064,7 +35064,7 @@ void s_session__tmux_842772(long param_1)
             bVar9 = *(long *)(param_1 + 0x1d0) != 0;
           }
           pvVar7 = operator_new(0x40);
-          s_MuxPaneGroup_8dece0(pvVar7,bVar9,0);
+          MuxPaneGroup_initUi(pvVar7,bVar9,0);
           qstring_assign_from_ascii((QString *)&pcStack_48,"tmux");
           FUN_008de224(param_1,(QString *)&pcStack_48);
           qt_array_data_unref((QString *)&pcStack_48);
@@ -35318,7 +35318,7 @@ undefined8 FUN_00842a58(long param_1,undefined8 param_2)
   if (((lVar1 == 0) || (*(int *)(lVar1 + 4) == 0)) || (*(long *)(param_1 + 0x1c0) == 0)) {
     pQVar2 = operator_new(0xb0);
                     /* try { // try from 00842a95 to 00842a99 has its CatchHandler @ 00842bfb */
-    s_LoginWizard_593810(pQVar2,param_2,param_1);
+    LoginWizard_initUi(pQVar2,param_2,param_1);
     uVar3 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar2);
     local_38 = (code *)0x0;
     local_30 = 0;
@@ -36604,7 +36604,7 @@ LAB_0084475a:
             local_f8 = (ulong)uVar1 | (extraout_RDX >> 0x20) << 0x20;
           }
                     /* try { // try from 00844b02 to 00844b06 has its CatchHandler @ 00844e78 */
-          FUN_005bf58c(param_1,local_f8,lVar7);
+          TextView_createHoverButton(param_1,local_f8,lVar7);
           qatomic_unref_call_deleter(&local_a0);
         }
         puVar11 = local_d8;
@@ -37370,7 +37370,7 @@ void s_TerminalWidget_8462f6(QString *param_1,QString param_2,undefined8 param_3
 {
   undefined1 local_20 [8];
   
-  s_TextView_5c6d16(param_1,1,2,param_3);
+  TextView_ctor(param_1,1,2,param_3);
   param_1[0x110] = (QString)0x0;
   *(undefined ***)param_1 = &TerminalWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a7920;
@@ -51616,7 +51616,7 @@ void FUN_0085af56(long param_1)
   if (((lVar3 == 0) || (*(int *)(lVar3 + 4) == 0)) || (*(long *)(param_1 + 0xf0) == 0)) {
     pQVar2 = operator_new(0x58);
                     /* try { // try from 0085af8b to 0085af8f has its CatchHandler @ 0085b09f */
-    FUN_005858fe(pQVar2,param_1);
+    TransferBar_initUi(pQVar2,param_1);
     lVar3 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar2);
     piVar1 = *(int **)(param_1 + 0xe8);
     *(long *)(param_1 + 0xe8) = lVar3;
@@ -52779,7 +52779,7 @@ joined_r0x0085d05a:
       if (*(int *)(lVar1 + 4) == 0) {
         lVar5 = 0;
       }
-      FUN_005850c6(lVar5,param_2);
+      TransferBar_createLabel(lVar5,param_2);
     }
   }
   return;
