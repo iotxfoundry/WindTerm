@@ -24,7 +24,8 @@ done
 cp "$SRC"/global/locales/*.locale "$ASSETS/locales/"
 # 数据驱动的动作/配置文件（Phase 3/6）
 mkdir -p "$ASSETS/config"
-cp "$SRC"/global/wind.config "$SRC"/global/wind.actions "$ASSETS/config/" 2>/dev/null || true
+cp "$SRC"/global/wind.config "$SRC"/global/wind.actions "$ASSETS/config/" 2>/dev/null
+cp "$SRC"/global/wind.keymaps "$ASSETS/config/" 2>/dev/null || true
 mkdir -p "$ASSETS/config/uiconfigs"
 cp "$SRC"/terminal/configs/*.config "$ASSETS/config/uiconfigs/" 2>/dev/null || true
 

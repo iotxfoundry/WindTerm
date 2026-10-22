@@ -34,6 +34,7 @@ public:
 #include <QVBoxLayout>
 
 #include "core/ActionRegistry.h"
+#include "core/KeymapConfig.h"
 #include "core/Assets.h"
 #include "core/SchemeManager.h"
 #include "core/ThemeManager.h"
@@ -78,6 +79,7 @@ MainWindow::MainWindow(QWidget *parent)
     resize(1200, 800);
     setAttribute(Qt::WA_DeleteOnClose);
 
+    KeymapConfig::instance().load(Assets::dir() + QStringLiteral("/config/wind.keymaps"));
     WindConfig::instance().load(Assets::dir() + QStringLiteral("/config/wind.config"));
 
     const double opacity = WindConfig::instance().valueToDouble(QStringLiteral("application.windowOpacity"), 1.0);
@@ -206,6 +208,19 @@ QAction *MainWindow::makeAction(const QString &actionId)
                                           ThemeManager::instance().currentTheme());
     if (!ic.isNull())
         action->setIcon(ic);
+
+    QString keys = KeymapConfig::instance().shortcut(actionId);
+    if (keys.isEmpty()) {
+        // 二进制内建 Alt+助记字母表（Alt+N/C/I/O/W/X，docs/phase12 补充）：无 keymap 项用 & 助记符
+        const int amp = en.indexOf(QLatin1Char('&'));
+        if (amp >= 0 && amp + 1 < en.size() && en.at(amp + 1).isLetter())
+            keys = QStringLiteral("Alt+") + en.at(amp + 1).toUpper();
+    }
+    if (!keys.isEmpty()) {
+        QString qs = keys;
+        qs.remove(QLatin1Char('<')).remove(QLatin1Char('>'));
+        action->setShortcut(QKeySequence(qs));
+    }
 
     action->setData(actionId);
     connect(action, &QAction::triggered, this, [this, actionId]() {

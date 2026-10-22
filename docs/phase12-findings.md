@@ -36,3 +36,10 @@
 - QtSvg 对注入 CSS 的类选择器支持有限（frame 颜色渲染为默认灰，非 icon.theme 指定色——观感已接近原版，精确着色可后续按类解析后改属性注入）
 - 302 元素中仅覆盖菜单/动作子集；其余（tabbar/symbol/number 等）待用时提取
 - AppletBar/工具栏未接 king 矢量（仍语义绘制/文字）——需要时同一 API 直接取
+
+## 补充：菜单快捷键右列（"图标显大"的真因）
+
+- 图标实测尺寸两侧本已相等（±1px）；视觉"大"源于菜单缺**快捷键右列**（164 vs 260 宽）
+- 权威数据：`wind.keymaps`（JSON，宽松正则漏解析需整组解析）：Terminal.Save→Ctrl+Shift+S、Window.Close→Ctrl+Shift+Q、CloseActiveView→Ctrl+Shift+W、NewWindow→Ctrl+Shift+N、Exit→Alt+F4
+- 无 keymap 项：二进制内建助记表（strings: Alt+N/C/I/O/W/X + "Alt+%1" 格式）→ & 助记符生成 Alt+X
+- 骨架实现：src/core/KeymapConfig.h（修饰键过滤、同 action 取首条）+ makeAction setShortcut；fetch-assets.sh 增拷 wind.keymaps
