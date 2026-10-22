@@ -13,5 +13,6 @@ file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp)
 file(GLOB_RECURSE PROJECT_HEADERS CONFIGURE_DEPENDS src/*.h)
 
 add_executable(WindTermGuiSkeleton ${PROJECT_SOURCES} ${PROJECT_HEADERS})
+set_target_properties(WindTermGuiSkeleton PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 target_include_directories(WindTermGuiSkeleton PRIVATE src)
 target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
