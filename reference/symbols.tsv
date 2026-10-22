@@ -3067,3 +3067,9 @@
 0x005ab6e8	TabGroup_buildCentral	行序:由TabGroup构建KitWindow central容器
 0x008a9d3c	ToolbarConfig_parseType	bars系统:toolbar.config类型码解析(AddressBar=5等)(升级弱名)
 0x0085af56	TransferBar_lazyCreate	bars系统:TransferPane激活时懒创建TransferBar
+
+# —— QuickBar bar 反哺批 ——
+0x0056e26e	QuickBar_ctor	bars系统:QWidget子类 objectName QuickBar+tr标题+setAttribute(0x5d,1)
+0x0056e420	QuickBar_buildCommands	bars系统:按配置命令列表构建内容(quickbar.showCommandsInOrder等)
+0x0056ce72	QuickBar_onButtonClicked	bars系统:命令按钮 clicked→QWidget::close
+0x0085ad2e	KitWindow_lazyCreateQuickBar	bars系统:首次显示惰性创建并 insertWidget 底部区排序[SearchPane,QuickBar,TransferBar]

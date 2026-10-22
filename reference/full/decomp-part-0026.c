@@ -51489,9 +51489,9 @@ LAB_0085abca:
 }
 
 
-// ==== entry=0085ad2e name=FUN_0085ad2e size=208 ====
+// ==== entry=0085ad2e orig=FUN_0085ad2e size=208 name=KitWindow_lazyCreateQuickBar ====
 
-void FUN_0085ad2e(long param_1)
+void KitWindow_lazyCreateQuickBar(long param_1)
 
 {
   int *piVar1;
@@ -51503,7 +51503,7 @@ void FUN_0085ad2e(long param_1)
   if (((lVar3 == 0) || (*(int *)(lVar3 + 4) == 0)) || (*(long *)(param_1 + 0xe0) == 0)) {
     pQVar2 = operator_new(0x70);
                     /* try { // try from 0085ad61 to 0085ad65 has its CatchHandler @ 0085adfe */
-    FUN_0056e26e(pQVar2,param_1);
+    QuickBar_ctor(pQVar2,param_1);
     lVar3 = QtSharedPointer::ExternalRefCountData::getAndRef(pQVar2);
     piVar1 = *(int **)(param_1 + 0xd8);
     *(long *)(param_1 + 0xd8) = lVar3;
@@ -51542,7 +51542,7 @@ void FUN_0085ae06(long param_1,undefined8 param_2)
 {
   long lVar1;
   
-  FUN_0085ad2e();
+  KitWindow_lazyCreateQuickBar();
   lVar1 = *(long *)(param_1 + 0xd8);
   if (((lVar1 != 0) && (*(int *)(lVar1 + 4) != 0)) && (*(long *)(param_1 + 0xe0) != 0)) {
     if (*(int *)(lVar1 + 4) != 0) {
@@ -52804,7 +52804,7 @@ void FUN_0085d080(undefined8 param_1,undefined8 param_2,char param_3)
       FUN_008595c8(param_1);
     }
     else {
-      FUN_0085ad2e();
+      KitWindow_lazyCreateQuickBar();
     }
   }
   FUN_008cfa86(param_1,param_2,param_3);

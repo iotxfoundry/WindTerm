@@ -43277,9 +43277,9 @@ LAB_0056c92f:
 }
 
 
-// ==== entry=0056ce72 name=FUN_0056ce72 size=570 ====
+// ==== entry=0056ce72 orig=FUN_0056ce72 size=570 name=QuickBar_onButtonClicked ====
 
-void FUN_0056ce72(long param_1)
+void QuickBar_onButtonClicked(long param_1)
 
 {
   undefined4 *puVar1;
@@ -44046,12 +44046,12 @@ void FUN_0056e22d(int param_1,void *param_2)
 }
 
 
-// ==== entry=0056e26e name=FUN_0056e26e size=402 ====
+// ==== entry=0056e26e orig=FUN_0056e26e size=402 name=QuickBar_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x0056e3f6) */
 /* WARNING: Removing unreachable block (ram,0x0056e3be) */
 
-void FUN_0056e26e(QString *param_1,undefined8 param_2)
+void QuickBar_ctor(QString *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -44108,14 +44108,14 @@ LAB_0056e374:
                     /* try { // try from 0056e381 to 0056e395 has its CatchHandler @ 0056e410 */
   QWidget::setAttribute(param_1,0x5d,1);
   s_king__monoLogo_56d0ac(param_1);
-  FUN_0056ce72(param_1);
+  QuickBar_onButtonClicked(param_1);
   return;
 }
 
 
-// ==== entry=0056e420 name=FUN_0056e420 size=288 ====
+// ==== entry=0056e420 orig=FUN_0056e420 size=288 name=QuickBar_buildCommands ====
 
-void FUN_0056e420(undefined8 param_1,long *param_2)
+void QuickBar_buildCommands(undefined8 param_1,long *param_2)
 
 {
   uint *puVar1;
@@ -44270,7 +44270,7 @@ LAB_0056e74c:
 LAB_0056e759:
     local_c0 = &local_b0;
                     /* try { // try from 0056e763 to 0056e854 has its CatchHandler @ 0056ea75 */
-    FUN_0056e420(param_1,local_c0);
+    QuickBar_buildCommands(param_1,local_c0);
     if (1 < *local_b0) {
       FUN_00571040(local_c0,local_b0[1]);
     }
@@ -45422,7 +45422,7 @@ LAB_005706c9:
       if (*(int *)local_98 == 0) goto LAB_005706c9;
     }
                     /* try { // try from 0056fd3a to 0056fddc has its CatchHandler @ 00570835 */
-    FUN_0056e420(param_1,local_120);
+    QuickBar_buildCommands(param_1,local_120);
     if (1 < *local_e0) {
                     /* try { // try from 00570738 to 0057074e has its CatchHandler @ 00570835 */
       FUN_00571040(local_120,local_e0[1]);

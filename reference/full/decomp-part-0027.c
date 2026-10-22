@@ -205,7 +205,7 @@ LAB_0085d7f5:
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_0085d75c:
-  FUN_0085ad2e(param_1);
+  KitWindow_lazyCreateQuickBar(param_1);
   FUN_008cb89a(param_1);
   return;
 }
@@ -239,7 +239,7 @@ void FUN_0085d8be(long param_1,undefined8 param_2)
         goto LAB_0085d944;
       }
     }
-    FUN_0085ad2e(param_1);
+    KitWindow_lazyCreateQuickBar(param_1);
   }
 LAB_0085d944:
   FUN_008ca332(param_1,param_2);
