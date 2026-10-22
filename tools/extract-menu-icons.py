@@ -20,7 +20,7 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MENU_CONFIG = "/opt/WindTerm_2.7.0/terminal/configs/menu.config"
 IMAGE_DIR = os.path.join(ROOT, "docs/imgs/original")
-OUT_DIR = os.path.join(ROOT, "assets/icons")
+OUT_DIR = os.path.join(ROOT, "docs", "icons")  # 用户指定：完整图标存 docs/icons
 
 
 def strip_line_comments(text):
@@ -129,35 +129,22 @@ def main():
 
             y0 = max(0, top - 2)
             y1 = min(image.height, bottom + 3)
-            icon = image.crop((6, y0, 38, y1))
+            icon = image.crop((10, y0, 38, y1))  # x≥10 避开菜单左边框
 
             # 白底按亮度转 alpha，RGB 固定纯黑：运行时由 icon.theme 着色
-            alpha = icon.convert("L").point(lambda value: 255 - value)
+            # 拉伸使黑色核心（亮度≤55）达全不透明——否则整体 88% 半透明发灰
+            alpha = icon.convert("L").point(lambda value: min(255, (255 - value) * 255 // 200))
             file_name = key + ".png"
 
             mask = Image.new("RGBA", icon.size, (0, 0, 0, 0))
             mask.putalpha(alpha)
 
-            # alpha 包围盒 + 2px 边距，最长边适配 18px 等比缩放，居中放进 18×18 画布
+            # 完整原生提取：仅按 alpha 包围盒裁剪（无缩放/画布压缩），保存完整位图
             bbox = mask.getchannel("A").getbbox()
             if bbox:
-                left = max(0, bbox[0] - 2)
-                top = max(0, bbox[1] - 2)
-                right = min(mask.width, bbox[2] + 2)
-                bottom = min(mask.height, bbox[3] + 2)
-                mask = mask.crop((left, top, right, bottom))
+                mask = mask.crop(bbox)
 
-            # alpha 拉伸：≥140 全不透明，之下线性——抵消抗锯齿细线发灰（原版为实心黑）
-            alpha = mask.getchannel("A").point(lambda v: 255 if v >= 140 else v * 255 // 140)
-            mask.putalpha(alpha)
-
-            scale = 18 / max(mask.width, mask.height)
-            width = max(1, round(mask.width * scale))
-            height = max(1, round(mask.height * scale))
-            mask = mask.resize((width, height), Image.LANCZOS)
-            canvas = Image.new("RGBA", (18, 18), (0, 0, 0, 0))
-            canvas.paste(mask, ((18 - width) // 2, (18 - height) // 2))
-            canvas.save(os.path.join(OUT_DIR, file_name))
+            mask.save(os.path.join(OUT_DIR, file_name))
 
             manifest[key] = {"file": file_name, "menu": name, "y": top}
             cropped += 1

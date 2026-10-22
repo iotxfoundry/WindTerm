@@ -1,0 +1,482 @@
+{
+  "Terminal.NewSession": {
+    "file": "Terminal.NewSession.png",
+    "menu": "Session",
+    "y": 10
+  },
+  "Application.NewWindow": {
+    "file": "Application.NewWindow.png",
+    "menu": "Session",
+    "y": 41
+  },
+  "Terminal.DisconnectSession": {
+    "file": "Terminal.DisconnectSession.png",
+    "menu": "Session",
+    "y": 72
+  },
+  "Terminal.ReconnectSession": {
+    "file": "Terminal.ReconnectSession.png",
+    "menu": "Session",
+    "y": 102
+  },
+  "Terminal.OpenSession": {
+    "file": "Terminal.OpenSession.png",
+    "menu": "Session",
+    "y": 133
+  },
+  "open-recent": {
+    "file": "open-recent.png",
+    "menu": "Session",
+    "y": 163
+  },
+  "Terminal.Save": {
+    "file": "Terminal.Save.png",
+    "menu": "Session",
+    "y": 195
+  },
+  "Terminal.SaveSelectionAs": {
+    "file": "Terminal.SaveSelectionAs.png",
+    "menu": "Session",
+    "y": 225
+  },
+  "log": {
+    "file": "log.png",
+    "menu": "Session",
+    "y": 258
+  },
+  "preferences": {
+    "file": "preferences.png",
+    "menu": "Session",
+    "y": 287
+  },
+  "Window.CloseActiveView": {
+    "file": "Window.CloseActiveView.png",
+    "menu": "Session",
+    "y": 319
+  },
+  "Window.CloseAllViews": {
+    "file": "Window.CloseAllViews.png",
+    "menu": "Session",
+    "y": 349
+  },
+  "Window.Close": {
+    "file": "Window.Close.png",
+    "menu": "Session",
+    "y": 380
+  },
+  "Application.Exit": {
+    "file": "Application.Exit.png",
+    "menu": "Session",
+    "y": 411
+  },
+  "Text.Find": {
+    "file": "Text.Find.png",
+    "menu": "Search",
+    "y": 11
+  },
+  "search-online": {
+    "file": "search-online.png",
+    "menu": "Search",
+    "y": 42
+  },
+  "Text.FindNext": {
+    "file": "Text.FindNext.png",
+    "menu": "Search",
+    "y": 73
+  },
+  "Text.FindPrevious": {
+    "file": "Text.FindPrevious.png",
+    "menu": "Search",
+    "y": 102
+  },
+  "Text.FindNextSelection": {
+    "file": "Text.FindNextSelection.png",
+    "menu": "Search",
+    "y": 132
+  },
+  "Text.FindPreviousSelection": {
+    "file": "Text.FindPreviousSelection.png",
+    "menu": "Search",
+    "y": 162
+  },
+  "Text.HighlightText": {
+    "file": "Text.HighlightText.png",
+    "menu": "Search",
+    "y": 195
+  },
+  "select": {
+    "file": "select.png",
+    "menu": "Selection",
+    "y": 10
+  },
+  "select-to": {
+    "file": "select-to.png",
+    "menu": "Selection",
+    "y": 41
+  },
+  "select-column-to": {
+    "file": "select-column-to.png",
+    "menu": "Selection",
+    "y": 71
+  },
+  "Text.ActivateNextSelection": {
+    "file": "Text.ActivateNextSelection.png",
+    "menu": "Selection",
+    "y": 102
+  },
+  "Text.ActivatePreviousSelection": {
+    "file": "Text.ActivatePreviousSelection.png",
+    "menu": "Selection",
+    "y": 132
+  },
+  "Text.LockSelection": {
+    "file": "Text.LockSelection.png",
+    "menu": "Selection",
+    "y": 163
+  },
+  "Text.DropSelection": {
+    "file": "Text.DropSelection.png",
+    "menu": "Selection",
+    "y": 194
+  },
+  "Text.CancelSelection": {
+    "file": "Text.CancelSelection.png",
+    "menu": "Selection",
+    "y": 224
+  },
+  "Text.SplitSelection": {
+    "file": "Text.SplitSelection.png",
+    "menu": "Selection",
+    "y": 255
+  },
+  "Text.InvertSelection": {
+    "file": "Text.InvertSelection.png",
+    "menu": "Selection",
+    "y": 285
+  },
+  "Text.SwitchStreamColumn": {
+    "file": "Text.SwitchStreamColumn.png",
+    "menu": "Selection",
+    "y": 316
+  },
+  "Text.ExchangeCaretAnchor": {
+    "file": "Text.ExchangeCaretAnchor.png",
+    "menu": "Selection",
+    "y": 346
+  },
+  "Window.GotoAddressBar": {
+    "file": "Window.GotoAddressBar.png",
+    "menu": "Goto",
+    "y": 10
+  },
+  "Window.GotoSession": {
+    "file": "Window.GotoSession.png",
+    "menu": "Goto",
+    "y": 42
+  },
+  "Window.GotoLine": {
+    "file": "Window.GotoLine.png",
+    "menu": "Goto",
+    "y": 72
+  },
+  "Window.GotoSymbol": {
+    "file": "Window.GotoSymbol.png",
+    "menu": "Goto",
+    "y": 102
+  },
+  "Text.MoveToPreviousChar": {
+    "file": "Text.MoveToPreviousChar.png",
+    "menu": "Goto",
+    "y": 133
+  },
+  "Text.MoveToNextChar": {
+    "file": "Text.MoveToNextChar.png",
+    "menu": "Goto",
+    "y": 163
+  },
+  "Text.MoveToPreviousLine": {
+    "file": "Text.MoveToPreviousLine.png",
+    "menu": "Goto",
+    "y": 195
+  },
+  "Text.MoveToNextLine": {
+    "file": "Text.MoveToNextLine.png",
+    "menu": "Goto",
+    "y": 225
+  },
+  "word": {
+    "file": "word.png",
+    "menu": "Goto",
+    "y": 255
+  },
+  "page": {
+    "file": "page.png",
+    "menu": "Goto",
+    "y": 286
+  },
+  "paragraph": {
+    "file": "paragraph.png",
+    "menu": "Goto",
+    "y": 316
+  },
+  "command": {
+    "file": "command.png",
+    "menu": "Goto",
+    "y": 347
+  },
+  "fold": {
+    "file": "fold.png",
+    "menu": "Goto",
+    "y": 376
+  },
+  "scope": {
+    "file": "scope.png",
+    "menu": "Goto",
+    "y": 406
+  },
+  "indentation": {
+    "file": "indentation.png",
+    "menu": "Goto",
+    "y": 436
+  },
+  "pair": {
+    "file": "pair.png",
+    "menu": "Goto",
+    "y": 469
+  },
+  "line": {
+    "file": "line.png",
+    "menu": "Goto",
+    "y": 498
+  },
+  "document": {
+    "file": "document.png",
+    "menu": "Goto",
+    "y": 529
+  },
+  "Window.ShowPaletteAnything": {
+    "file": "Window.ShowPaletteAnything.png",
+    "menu": "View",
+    "y": 10
+  },
+  "Window.ShowPaletteCommand": {
+    "file": "Window.ShowPaletteCommand.png",
+    "menu": "View",
+    "y": 42
+  },
+  "Window.ShowPaletteMultiplexer": {
+    "file": "Window.ShowPaletteMultiplexer.png",
+    "menu": "View",
+    "y": 72
+  },
+  "hex-base": {
+    "file": "hex-base.png",
+    "menu": "View",
+    "y": 102
+  },
+  "hex-columns": {
+    "file": "hex-columns.png",
+    "menu": "View",
+    "y": 132
+  },
+  "hex-group-chars": {
+    "file": "hex-group-chars.png",
+    "menu": "View",
+    "y": 162
+  },
+  "bars": {
+    "file": "bars.png",
+    "menu": "View",
+    "y": 196
+  },
+  "panes": {
+    "file": "panes.png",
+    "menu": "View",
+    "y": 225
+  },
+  "syntax-schemes": {
+    "file": "syntax-schemes.png",
+    "menu": "View",
+    "y": 255
+  },
+  "Text.ToggleCaretLineHighlight": {
+    "file": "Text.ToggleCaretLineHighlight.png",
+    "menu": "View",
+    "y": 286
+  },
+  "margins": {
+    "file": "margins.png",
+    "menu": "View",
+    "y": 319
+  },
+  "symbols": {
+    "file": "symbols.png",
+    "menu": "View",
+    "y": 349
+  },
+  "white-spaces": {
+    "file": "white-spaces.png",
+    "menu": "View",
+    "y": 379
+  },
+  "folds": {
+    "file": "folds.png",
+    "menu": "View",
+    "y": 410
+  },
+  "zoom": {
+    "file": "zoom.png",
+    "menu": "View",
+    "y": 442
+  },
+  "window-opacity": {
+    "file": "window-opacity.png",
+    "menu": "View",
+    "y": 471
+  },
+  "Window.SetRemoteMode": {
+    "file": "Window.SetRemoteMode.png",
+    "menu": "Mode",
+    "y": 10
+  },
+  "Window.SetLocalMode": {
+    "file": "Window.SetLocalMode.png",
+    "menu": "Mode",
+    "y": 41
+  },
+  "Text.ToggleHexEdit": {
+    "file": "Text.ToggleHexEdit.png",
+    "menu": "Mode",
+    "y": 72
+  },
+  "Text.ToggleWordWrap": {
+    "file": "Text.ToggleWordWrap.png",
+    "menu": "Mode",
+    "y": 98
+  },
+  "Text.ToggleVirtualSpace": {
+    "file": "Text.ToggleVirtualSpace.png",
+    "menu": "Mode",
+    "y": 133
+  },
+  "Text.ToggleMultipleCaret": {
+    "file": "Text.ToggleMultipleCaret.png",
+    "menu": "Mode",
+    "y": 163
+  },
+  "Window.ToggleFocusMode": {
+    "file": "Window.ToggleFocusMode.png",
+    "menu": "Mode",
+    "y": 195
+  },
+  "Window.OpenFocusModeSettings": {
+    "file": "Window.OpenFocusModeSettings.png",
+    "menu": "Mode",
+    "y": 225
+  },
+  "Window.ToggleFullScreen": {
+    "file": "Window.ToggleFullScreen.png",
+    "menu": "Mode",
+    "y": 257
+  },
+  "Window.ToggleAlwaysOnTop": {
+    "file": "Window.ToggleAlwaysOnTop.png",
+    "menu": "Mode",
+    "y": 286
+  },
+  "Window.LockScreen": {
+    "file": "Window.LockScreen.png",
+    "menu": "Mode",
+    "y": 318
+  },
+  "Window.ToggleDebugMode": {
+    "file": "Window.ToggleDebugMode.png",
+    "menu": "Mode",
+    "y": 349
+  },
+  "Terminal.SyncInput": {
+    "file": "Terminal.SyncInput.png",
+    "menu": "Tool",
+    "y": 10
+  },
+  "Terminal.ManageOneKeys": {
+    "file": "Terminal.ManageOneKeys.png",
+    "menu": "Tool",
+    "y": 43
+  },
+  "Terminal.ManageTriggers": {
+    "file": "Terminal.ManageTriggers.png",
+    "menu": "Tool",
+    "y": 72
+  },
+  "Terminal.ManageTunnels": {
+    "file": "Terminal.ManageTunnels.png",
+    "menu": "Tool",
+    "y": 102
+  },
+  "transfer-binary": {
+    "file": "transfer-binary.png",
+    "menu": "Tool",
+    "y": 133
+  },
+  "Window.SplitViewHorizontally": {
+    "file": "Window.SplitViewHorizontally.png",
+    "menu": "Window",
+    "y": 10
+  },
+  "Window.SplitViewVertically": {
+    "file": "Window.SplitViewVertically.png",
+    "menu": "Window",
+    "y": 41
+  },
+  "Window.SplitGroupHorizontally": {
+    "file": "Window.SplitGroupHorizontally.png",
+    "menu": "Window",
+    "y": 72
+  },
+  "Window.SplitGroupVertically": {
+    "file": "Window.SplitGroupVertically.png",
+    "menu": "Window",
+    "y": 102
+  },
+  "merge-to-group": {
+    "file": "merge-to-group.png",
+    "menu": "Window",
+    "y": 132
+  },
+  "Window.CloseActiveGroup": {
+    "file": "Window.CloseActiveGroup.png",
+    "menu": "Window",
+    "y": 162
+  },
+  "Window.ActivateNextView": {
+    "file": "Window.ActivateNextView.png",
+    "menu": "Window",
+    "y": 194
+  },
+  "Window.ActivatePreviousView": {
+    "file": "Window.ActivatePreviousView.png",
+    "menu": "Window",
+    "y": 224
+  },
+  "Window.WindowManager": {
+    "file": "Window.WindowManager.png",
+    "menu": "Window",
+    "y": 255
+  },
+  "Window.WindowList": {
+    "file": "Window.WindowList.png",
+    "menu": "Window",
+    "y": 286
+  },
+  "Help.Help": {
+    "file": "Help.Help.png",
+    "menu": "Help",
+    "y": 11
+  },
+  "Help.About": {
+    "file": "Help.About.png",
+    "menu": "Help",
+    "y": 42
+  }
+}

@@ -6,6 +6,18 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
+#include <QProxyStyle>
+
+// 原版菜单图标列 ~20px（反汇编+截图对照）；仅作用于菜单实例
+class MenuIconStyle : public QProxyStyle {
+public:
+    int pixelMetric(PixelMetric metric, const QStyleOption *option,
+                    const QWidget *widget) const override {
+        if (metric == QStyle::PM_SmallIconSize)
+            return 20;
+        return QProxyStyle::pixelMetric(metric, option, widget);
+    }
+};
 #include <QMenuBar>
 #include <QPalette>
 #include <QPlainTextEdit>
@@ -228,6 +240,8 @@ QString MainWindow::displayActionText(const QString &en, const QString &translat
 
 void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
 {
+    static MenuIconStyle menuIconStyle;
+    menu->setStyle(&menuIconStyle);
     // 图标尺寸走 PM_SmallIconSize(16)：裁剪图字形已满幅，无需调整
     for (const MenuEntry &entry : entries) {
         switch (entry.type) {
@@ -238,12 +252,24 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
             menu->addSeparator();
             break;
         case MenuEntry::Submenu: {
-            // 子菜单标题走同款 locale 管线（原版：最近打开/日志/首选项…）
+            // 子菜单标题走同款 locale 管线（原版：最近打开/日志/首选项…）+ 裁剪图标（slug 键）
             QString key = entry.title;
             key.remove(QLatin1Char('&'));
             if (key.endsWith(QStringLiteral("...")))
                 key.chop(3);
-            buildMenu(menu->addMenu(displayActionText(entry.title, m_locale.tr(key))), entry.children);
+            QString slug;
+            for (QChar ch : key) {
+                if (ch.isLetterOrNumber())
+                    slug += ch.toLower();
+                else if (ch == QLatin1Char(' '))
+                    slug += QLatin1Char('-');
+            }
+            const QString subIcon = QStringLiteral("docs/icons/%1.png").arg(slug);
+            QMenu *sub = menu->addMenu(displayActionText(entry.title, m_locale.tr(key)));
+            if (QFile::exists(subIcon))
+                sub->setIcon(ActionIcons::tintedMaskIcon(subIcon, ActionIcons::themeIconColor(ThemeManager::instance().currentTheme())));
+            sub->setStyle(&menuIconStyle);
+            buildMenu(sub, entry.children);
             break;
         }
         }
