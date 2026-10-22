@@ -33097,9 +33097,9 @@ void FUN_007662ce(long param_1,long param_2)
 }
 
 
-// ==== entry=007662e6 name=FUN_007662e6 size=109 ====
+// ==== entry=007662e6 orig=FUN_007662e6 size=109 name=MainWindow_initUi ====
 
-void FUN_007662e6(QWidget *param_1)
+void MainWindow_initUi(QWidget *param_1)
 
 {
   void *pvVar1;
@@ -33362,7 +33362,7 @@ long FUN_0076679c(long param_1,undefined8 param_2,char param_3)
   if (lVar1 != 0) {
     lVar2 = __dynamic_cast(lVar1,&QWidget::typeinfo,&PTR_PTR_011ab390,0);
     if ((lVar2 != 0) && (param_3 != '\0')) {
-      FUN_008d3cc2(lVar2);
+      KitWindow_initUi(lVar2);
       return lVar2;
     }
   }
@@ -33457,7 +33457,7 @@ LAB_00766868:
       if (param_3 == '\0') {
         return uVar3;
       }
-      FUN_008d3cc2(uVar3);
+      KitWindow_initUi(uVar3);
       return uVar3;
     }
     iVar4 = iVar4 + 1;
@@ -33737,7 +33737,7 @@ long mainPane_currentWidgetCast(long param_1)
   if (lVar1 != 0) {
     lVar1 = __dynamic_cast(lVar1,&QWidget::typeinfo,&PTR_PTR_011ab390,0);
     if (lVar1 != 0) {
-      FUN_008d3cc2(lVar1);
+      KitWindow_initUi(lVar1);
     }
     return lVar1;
   }
@@ -36626,7 +36626,7 @@ void mainWindow_connectSignals(long param_1)
   
   FUN_0076b9da();
   FUN_0076663e(param_1);
-  FUN_007662e6(param_1);
+  MainWindow_initUi(param_1);
   uVar1 = qcoreapp_self_get();
   local_58 = FUN_0090e018;
   local_50 = 0;

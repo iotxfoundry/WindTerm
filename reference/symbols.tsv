@@ -3040,3 +3040,24 @@
 0x0075233c	ApplicationPalette_refresh	反编译:ApplicationPalette_vt5事件100调用的调色板刷新
 0x00752c8e	Scheme_loadSchemeTheme	数据文件:引用scheme.theme字面量的加载器(升级弱名)
 0x007563c0	Theme_loadGuiTheme	数据文件:引用gui.theme字面量的加载器(升级弱名)
+
+# —— 排版树反哺批（0x008cd068 布局还原回填，explorer/fixer 双向验证）——
+0x008d3cc2	KitWindow_initUi	排版树:KitWindow延迟initUi,调assembleCentralSplitters+setCentralWidget(+0x68)
+0x008cc692	KitWindow_ctor	排版树:KitWindow(QMainWindow)构造,AcceptDrops
+0x007662e6	MainWindow_initUi	排版树:addToolBar(KitBar)+QStackedWidget central;每页=KitWindow
+0x005a1c6c	Splitter_initWithMainIndex	排版树:Splitter子类构造(mainIndex=1),col 0x58使用
+0x005a81c6	TabBar_syncCount	排版树:TabBar ctor内tab计数比较/同步循环
+0x005a84f6	TabBar_initHelper	排版树:TabBar_ctor(0x005a859a)调用的初始化helper
+0x005a8376	TabBar_callback_5a8376	排版树:TabBar ctor装配的回调(FUN指针),功能未定位
+0x005a95b0	TabBar_callback_5a95b0	排版树:TabBar ctor装配的回调(FUN指针),功能未定位
+0x005a7fa7	TabBar_callback_5a7fa7	排版树:TabBar ctor装配的回调(FUN指针),功能未定位
+0x008d9be0	MuxDesktop_setupUi	排版树:QVBoxLayout[stack,hbox[TabGroup,addStretch]]标签在内容下方(升级弱名;兼有双击字面量)
+0x008de936	MuxPaneGroup_setupUi	排版树:QVBoxLayout margins=0 spacing=0 [TabGroup,stack] stretch=0(升级弱名)
+0x008de052	MuxPane_setupLayout	排版树:QVBoxLayout margins=0 spacing=0;addChildWidget后续add stretch=0
+0x005aec28	TabGroup_setupUi	排版树:QHBoxLayout margins=0 spacing=0 [scrollL,QTabBar,scrollR];sizePolicy hExp/vFixed(升级弱名)
+0x008d03ea	KitWindow_insertPaneEvenly	排版树:面板插入时count>1按size/count均分setSizes
+0x008d9786	MuxDesktop_addPage	排版树:MuxDesktop_initUi+MuxPaneGroup加页(tmux会话路径)
+0x008c9ee4	KitWindow_createMenuBar	排版树:QMainWindow::setMenuBar调用点
+0x008c9f8c	KitWindow_createStatusBar	排版树:setStatusBar调用点;AppletBar(QStatusBar子类0x00526a7c)本体
+0x008b3178	KitBar_setupLayout	排版树:KitBar内部layout margins=0 spacing=0
+0x005aa7ee	TabBar_setFixedHeightOnShow	排版树:TabBar显隐切换时setFixedHeight(sizeHint)

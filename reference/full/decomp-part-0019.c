@@ -22703,7 +22703,7 @@ void s_EditorWindow_5e96ac(QString *param_1)
   size_t sVar1;
   QArrayData *pQVar2;
   
-  FUN_008cc692();
+  KitWindow_ctor();
   *(undefined ***)param_1 = &EditorWindow_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119f0a0;
   *(undefined8 *)(param_1 + 0xb8) = 0;

@@ -6,18 +6,9 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
-#include <QProxyStyle>
 
-// 菜单图标列 ~20px：无数据键、反汇编未定位（诚实标注）；升级条件=反编译 QMenu 图标列宽绘制路径。仅作用于菜单实例
-class MenuIconStyle : public QProxyStyle {
-public:
-    int pixelMetric(PixelMetric metric, const QStyleOption *option,
-                    const QWidget *widget) const override {
-        if (metric == QStyle::PM_SmallIconSize)
-            return 20;
-        return QProxyStyle::pixelMetric(metric, option, widget);
-    }
-};
+// 菜单图标列尺寸：原版无 QProxyStyle/PM 覆盖痕迹（rg 0 命中）→ 回退 Qt 默认 PM_SmallIconSize；
+// King::iconFactory(0x007572ac) 的渲染 rect 由动态调用方传入，静态不可达（挂账）
 #include <QMenuBar>
 #include <QPushButton>
 #include <QSettings>
@@ -271,9 +262,6 @@ QString MainWindow::displayActionText(const QString &en, const QString &translat
 
 void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
 {
-    static MenuIconStyle menuIconStyle;
-    menu->setStyle(&menuIconStyle);
-    // 图标尺寸走 PM_SmallIconSize(16)：裁剪图字形已满幅，无需调整
     for (const MenuEntry &entry : entries) {
         switch (entry.type) {
         case MenuEntry::Action:
@@ -289,7 +277,6 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
             if (key.endsWith(QStringLiteral("...")))
                 key.chop(3);
             QMenu *sub = menu->addMenu(displayActionText(entry.title, m_locale.tr(key)));
-            sub->setStyle(&menuIconStyle);
             buildMenu(sub, entry.children);
             break;
         }

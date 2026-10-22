@@ -34973,7 +34973,7 @@ void s_session__tmux_842414(long param_1)
           else {
             uVar4 = *(undefined8 *)(param_1 + 0x1d0);
           }
-          FUN_008d9786(uVar4,pvVar6,0);
+          MuxDesktop_addPage(uVar4,pvVar6,0);
           (**(code **)(*plVar2 + 8))(plVar2);
         }
       }
@@ -35085,7 +35085,7 @@ void s_session__tmux_842772(long param_1)
           else {
             uVar4 = *(undefined8 *)(param_1 + 0x1d0);
           }
-          FUN_008d9786(uVar4,pvVar6,0);
+          MuxDesktop_addPage(uVar4,pvVar6,0);
           (**(code **)(*plVar2 + 8))(plVar2);
         }
       }
@@ -50732,7 +50732,7 @@ void s_TerminalWindow_859902(QString *param_1)
   size_t sVar1;
   QArrayData *pQVar2;
   
-  FUN_008cc692();
+  KitWindow_ctor();
                     /* try { // try from 0085991e to 00859922 has its CatchHandler @ 00859a32 */
   QAbstractNativeEventFilter::QAbstractNativeEventFilter
             ((QAbstractNativeEventFilter *)(param_1 + 0xb8));

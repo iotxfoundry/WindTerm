@@ -44,3 +44,11 @@
 | R17 | QSS 类型选择器只匹配 C++ 类名——原版自定义类（TabGroup/KitBar/TextView/AppletBar/MuxPane…）是真实子类；骨架以 objectName 挂名时需把选择器改写为 `#名` 才命中 | Qt5 探针实测 + 反编译对象树 | `ThemeManager::apply()` 改写层 |
 | R18 | gui.theme 类名 ↔ setObjectName 对照（50 点）已回填 symbols.tsv：`Theme_loadGuiTheme`(0x007563c0)、`Scheme_loadSchemeTheme`(0x00752c8e)、`TabGroup_initUi`(0x005af896)、`KitBar_ctor`(0x008b31b6)、`TextView_ctor`(0x005c6d16)、`BreadButton_setTypeProperty`(0x0054c8b8) 等 | explorer 对象树查证（rg 类名字面量→宿主函数） | `reference/symbols.tsv` 反哺节 |
 | R19 | 终端配色链：scheme.theme `terminal.ansi*` 16 色 + `line.background` 终端底 + `margin.number`(#2B91AF)/`margin.timestamp`(gray)；字体 = wind.config `text.fontFamily1/fontSize` | dige-black-and-white/scheme.theme + wind.config | `ScreenModel::color256`/`TerminalView` |
+
+## 排版树（0x008cd068 布局还原反哺）
+| # | 规则 | 证据 | 代码落点 |
+|---|---|---|---|
+| R20 | 中央区树：root V [col, bottom] 2:1；col H [left V, center V, right V] 1:4:1；center V [muxRow H(collapsible✕)] 2:1。setOrientation(2) 仅 0x38/0x40/0x60/0x68——0x58(col)/0x50(bottom) 未设=默认 H。全树零 margins/spacing/stretch/handleWidth | `King::assembleCentralSplitters`(0x008cd068) 逐条 | `MainWindow::createCentral` 显式树 |
+| R21 | 面板插入均分：count>1 时按 size/count setSizes（非固定像素）；初始 setSizes 在空树设置、插入覆盖 | 0x008d03ea | `PaneManager::insert`（运行时路径） |
+| R22 | AppletBar=QStatusBar 子类经 setStatusBar 装入（非 splitter 子件）；MuxPaneGroup/TabGroup/MuxPane 布局全部 margins=0 spacing=0，TabGroup sizePolicy hExpanding/vFixed，高度由 QSS QTabBar::tab 定 | 0x008c9f8c / 0x008de936 / 0x005aec28 | `MainWindow::statusBar()` / `MuxPaneGroup` |
+| R23 | 菜单图标列：原版无 QProxyStyle/PM 覆盖痕迹（rg 0 命中）→ Qt 默认 PM_SmallIconSize(16)；King::iconFactory(0x007572ac) 渲染 rect 由动态调用方传入，静态调用图不可达（挂账） | rg + 0x007572ac 无静态调用点 | `ActionIcons::iconFor`(16) |

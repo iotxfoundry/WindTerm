@@ -71163,9 +71163,9 @@ QToolButton * FUN_008b30f2(QWidget *param_1)
 }
 
 
-// ==== entry=008b3178 name=FUN_008b3178 size=62 ====
+// ==== entry=008b3178 orig=FUN_008b3178 size=62 name=KitBar_setupLayout ====
 
-void FUN_008b3178(void)
+void KitBar_setupLayout(void)
 
 {
   QMargins *pQVar1;
@@ -71242,7 +71242,7 @@ LAB_008b32bf:
   QWidget::setAttribute(param_1,0x37,1);
   QToolBar::setAllowedAreas(param_1,3);
   QToolBar::setFloatable(SUB81(param_1,0));
-  FUN_008b3178(param_1);
+  KitBar_setupLayout(param_1);
   return;
 }
 

@@ -4786,7 +4786,7 @@ void TabBar_h8f6618(long param_1,int param_2,int param_3,undefined8 *param_4)
       return;
     }
     if (param_3 == 2) {
-      FUN_005a84f6(param_1,*(undefined1 *)puVar2);
+      TabBar_initHelper(param_1,*(undefined1 *)puVar2);
       return;
     }
     if (param_3 == 0) {

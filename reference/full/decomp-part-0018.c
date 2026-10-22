@@ -18149,9 +18149,9 @@ void FUN_005a1c65(long param_1)
 }
 
 
-// ==== entry=005a1c6c name=FUN_005a1c6c size=4 ====
+// ==== entry=005a1c6c orig=FUN_005a1c6c size=4 name=Splitter_initWithMainIndex ====
 
-void FUN_005a1c6c(long param_1,undefined4 param_2)
+void Splitter_initWithMainIndex(long param_1,undefined4 param_2)
 
 {
   *(undefined4 *)(param_1 + 0x30) = param_2;
@@ -22726,9 +22726,9 @@ LAB_005a7dfb:
 }
 
 
-// ==== entry=005a7fa7 name=FUN_005a7fa7 size=251 ====
+// ==== entry=005a7fa7 orig=FUN_005a7fa7 size=251 name=TabBar_callback_5a7fa7 ====
 
-void FUN_005a7fa7(int param_1,void *param_2,undefined8 param_3,long param_4)
+void TabBar_callback_5a7fa7(int param_1,void *param_2,undefined8 param_3,long param_4)
 
 {
   long lVar1;
@@ -22837,9 +22837,9 @@ void FUN_005a80f8(long param_1,int param_2,int param_3,QWidget *param_4)
 }
 
 
-// ==== entry=005a81c6 name=FUN_005a81c6 size=134 ====
+// ==== entry=005a81c6 orig=FUN_005a81c6 size=134 name=TabBar_syncCount ====
 
-void FUN_005a81c6(long param_1)
+void TabBar_syncCount(long param_1)
 
 {
   long lVar1;
@@ -22919,9 +22919,9 @@ void FUN_005a824c(long param_1,int param_2,long param_3)
 }
 
 
-// ==== entry=005a8376 name=FUN_005a8376 size=383 ====
+// ==== entry=005a8376 orig=FUN_005a8376 size=383 name=TabBar_callback_5a8376 ====
 
-void FUN_005a8376(long param_1,int param_2)
+void TabBar_callback_5a8376(long param_1,int param_2)
 
 {
   int iVar1;
@@ -22991,9 +22991,9 @@ LAB_005a84d3:
 }
 
 
-// ==== entry=005a84f6 name=FUN_005a84f6 size=163 ====
+// ==== entry=005a84f6 orig=FUN_005a84f6 size=163 name=TabBar_initHelper ====
 
-void FUN_005a84f6(long param_1,char param_2)
+void TabBar_initHelper(long param_1,char param_2)
 
 {
   long lVar1;
@@ -23093,15 +23093,15 @@ void TabBar_ctor(QTabBar *param_1,QWidget *param_2)
 LAB_005a8699:
                     /* try { // try from 005a869d to 005a87b6 has its CatchHandler @ 005a87f7 */
   QWidget::hide();
-  FUN_005a81c6(param_1);
-  FUN_005a84f6(param_1,1);
+  TabBar_syncCount(param_1);
+  TabBar_initHelper(param_1,1);
   local_58 = QTabBar::currentChanged;
   local_50 = 0;
-  local_48 = FUN_005a8376;
+  local_48 = TabBar_callback_5a8376;
   local_40 = 0;
   puVar4 = operator_new(0x20);
   *puVar4 = 1;
-  *(code **)(puVar4 + 2) = FUN_005a95b0;
+  *(code **)(puVar4 + 2) = TabBar_callback_5a95b0;
   *(code **)(puVar4 + 4) = local_48;
   *(undefined8 *)(puVar4 + 6) = local_40;
   QObject::connectImpl
@@ -23111,7 +23111,7 @@ LAB_005a8699:
   local_30 = 0;
   puVar4 = operator_new(0x18);
   *puVar4 = 1;
-  *(code **)(puVar4 + 2) = FUN_005a7fa7;
+  *(code **)(puVar4 + 2) = TabBar_callback_5a7fa7;
   *(QTabBar **)(puVar4 + 4) = param_1;
   QObject::connectImpl(local_60,param_1,&local_38,param_1,0,puVar4,0,0,&QTabBar::staticMetaObject);
   QMetaObject::Connection::~Connection(local_60);
@@ -23233,7 +23233,7 @@ void TabBar_vt5(QEvent *param_1,long param_2)
       else {
         if (uVar1 == 0x3d) goto LAB_005a8af0;
         if (uVar1 == 100) {
-          FUN_005a81c6();
+          TabBar_syncCount();
         }
       }
 LAB_005a8add:
@@ -23632,9 +23632,10 @@ LAB_005a94b6:
 }
 
 
-// ==== entry=005a95b0 name=FUN_005a95b0 size=110 ====
+// ==== entry=005a95b0 orig=FUN_005a95b0 size=110 name=TabBar_callback_5a95b0 ====
 
-void FUN_005a95b0(int param_1,void *param_2,long param_3,long *param_4,undefined1 *param_5)
+void TabBar_callback_5a95b0
+               (int param_1,void *param_2,long param_3,long *param_4,undefined1 *param_5)
 
 {
   long *plVar1;
@@ -24506,9 +24507,9 @@ void FUN_005aa7b0(long param_1,int param_2)
 }
 
 
-// ==== entry=005aa7ee name=FUN_005aa7ee size=116 ====
+// ==== entry=005aa7ee orig=FUN_005aa7ee size=116 name=TabBar_setFixedHeightOnShow ====
 
-void FUN_005aa7ee(int param_1,void *param_2)
+void TabBar_setFixedHeightOnShow(int param_1,void *param_2)
 
 {
   long *plVar1;
@@ -25216,7 +25217,7 @@ LAB_005ab49d:
 void FUN_005ab5a8(long param_1,undefined1 param_2)
 
 {
-  FUN_005a84f6(*(undefined8 *)(param_1 + 0x58),param_2);
+  TabBar_initHelper(*(undefined8 *)(param_1 + 0x58),param_2);
   return;
 }
 
@@ -25950,7 +25951,7 @@ LAB_005abe87:
   }
   puVar3 = operator_new(0x18);
   *puVar3 = 1;
-  *(code **)(puVar3 + 2) = FUN_005aa7ee;
+  *(code **)(puVar3 + 2) = TabBar_setFixedHeightOnShow;
   *(long *)(puVar3 + 4) = param_1;
   QTimer::singleShotImpl(0,0,param_1,puVar3);
   return uVar2;
@@ -28372,12 +28373,12 @@ void FUN_005aec21(long param_1)
 }
 
 
-// ==== entry=005aec28 orig=FUN_005aec28 size=3050 name=s_TabScrollRightButton_5aec28 ====
+// ==== entry=005aec28 orig=FUN_005aec28 size=3050 name=TabGroup_setupUi ====
 
 /* WARNING: Removing unreachable block (ram,0x005af7ea) */
 /* WARNING: Removing unreachable block (ram,0x005af7f1) */
 
-void s_TabScrollRightButton_5aec28(QLayout *param_1)
+void TabGroup_setupUi(QLayout *param_1)
 
 {
   QObject *pQVar1;
@@ -28765,7 +28766,7 @@ void TabGroup_initUi(QString *param_1,undefined8 param_2)
   QArrayData::deallocate(pQVar2,2,8);
 LAB_005af98f:
                     /* try { // try from 005af992 to 005af996 has its CatchHandler @ 005af9bd */
-  s_TabScrollRightButton_5aec28(param_1);
+  TabGroup_setupUi(param_1);
   return;
 }
 

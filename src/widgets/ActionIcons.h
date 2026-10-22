@@ -28,7 +28,7 @@ inline QIcon iconFor(const QString &actionId, const QString &iconName, const QSt
     QString kingName = iconName;
     kingName.remove(QLatin1String("king::"));
     if (!kingName.isEmpty()) {
-        const QIcon king = KingIcons::icon(kingName, theme, 18);  // 菜单图标列尺寸（16–18）
+        const QIcon king = KingIcons::icon(kingName, theme, 16);  // Qt Fusion PM_SmallIconSize 默认 16；原版工厂 rect 动态不可达
         if (!king.isNull())
             return king;
     }

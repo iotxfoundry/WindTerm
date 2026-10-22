@@ -11373,9 +11373,9 @@ undefined1 FUN_008c9ede(long param_1)
 }
 
 
-// ==== entry=008c9ee4 name=FUN_008c9ee4 size=159 ====
+// ==== entry=008c9ee4 orig=FUN_008c9ee4 size=159 name=KitWindow_createMenuBar ====
 
-void FUN_008c9ee4(QMenuBar *param_1)
+void KitWindow_createMenuBar(QMenuBar *param_1)
 
 {
   char cVar1;
@@ -11401,9 +11401,9 @@ void FUN_008c9ee4(QMenuBar *param_1)
 }
 
 
-// ==== entry=008c9f8c name=FUN_008c9f8c size=54 ====
+// ==== entry=008c9f8c orig=FUN_008c9f8c size=54 name=KitWindow_createStatusBar ====
 
-void FUN_008c9f8c(QStatusBar *param_1)
+void KitWindow_createStatusBar(QStatusBar *param_1)
 
 {
   undefined1 local_20 [16];
@@ -13329,9 +13329,9 @@ void FUN_008cc4a0(undefined8 param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=008cc692 name=FUN_008cc692 size=214 ====
+// ==== entry=008cc692 orig=FUN_008cc692 size=214 name=KitWindow_ctor ====
 
-void FUN_008cc692(QMainWindow *param_1,undefined8 param_2)
+void KitWindow_ctor(QMainWindow *param_1,undefined8 param_2)
 
 {
   QMainWindow::QMainWindow(param_1,param_2,0);
@@ -13825,7 +13825,7 @@ void King__assembleCentralSplitters(QWidget *param_1)
   Splitter__Splitter_QWidget__(pvVar3,0);
   *(void **)(param_1 + 0x68) = pvVar3;
   QSplitter::setChildrenCollapsible(SUB81(*(undefined8 *)(param_1 + 0x48),0));
-  FUN_005a1c6c(*(undefined8 *)(param_1 + 0x58),1);
+  Splitter_initWithMainIndex(*(undefined8 *)(param_1 + 0x58),1);
   uVar1 = *(undefined8 *)(param_1 + 0x58);
   local_58 = FUN_008f6af8;
   local_50 = 0;
@@ -15680,9 +15680,9 @@ void FUN_008d0270(long param_1,QString *param_2,long param_3)
 }
 
 
-// ==== entry=008d03ea name=FUN_008d03ea size=627 ====
+// ==== entry=008d03ea orig=FUN_008d03ea size=627 name=KitWindow_insertPaneEvenly ====
 
-void FUN_008d03ea(undefined8 param_1,undefined8 *param_2,int param_3,int param_4)
+void KitWindow_insertPaneEvenly(undefined8 param_1,undefined8 *param_2,int param_3,int param_4)
 
 {
   char cVar1;
@@ -15791,7 +15791,7 @@ void FUN_008d0676(undefined8 param_1,undefined8 param_2,char param_3)
   if ((param_3 != '\0') &&
      ((lVar4 = variant_type_register((QVariant *)&local_68), lVar4 == 0 ||
       (lVar4 = FUN_008c3918(lVar4), lVar4 == 0)))) {
-    FUN_008d03ea(param_1,param_2,0,0xffffffff);
+    KitWindow_insertPaneEvenly(param_1,param_2,0,0xffffffff);
     FUN_008ca23e((QVariant *)&local_58,param_1,param_2,1);
     local_40 = local_60;
     uVar1 = local_68;
@@ -17649,9 +17649,9 @@ LAB_008d3801:
 }
 
 
-// ==== entry=008d3cc2 name=FUN_008d3cc2 size=296 ====
+// ==== entry=008d3cc2 orig=FUN_008d3cc2 size=296 name=KitWindow_initUi ====
 
-void FUN_008d3cc2(long *param_1)
+void KitWindow_initUi(long *param_1)
 
 {
   char cVar1;
@@ -17664,8 +17664,8 @@ void FUN_008d3cc2(long *param_1)
   if ((char)param_1[6] == '\0') {
     return;
   }
-  FUN_008c9ee4();
-  FUN_008c9f8c(param_1);
+  KitWindow_createMenuBar();
+  KitWindow_createStatusBar(param_1);
   King__assembleCentralSplitters(param_1);
   if (*(code **)(*param_1 + 0x210) != FUN_008c99b6) {
     (**(code **)(*param_1 + 0x210))(param_1);
@@ -17706,7 +17706,7 @@ void EditorWindow_vt13(bool param_1,char param_2)
 
 {
   if (param_2 != '\0') {
-    FUN_008d3cc2();
+    KitWindow_initUi();
   }
   QWidget::setVisible(param_1);
   return;
@@ -21878,11 +21878,11 @@ undefined8 FUN_008d9764(void)
 }
 
 
-// ==== entry=008d9786 name=FUN_008d9786 size=301 ====
+// ==== entry=008d9786 orig=FUN_008d9786 size=301 name=MuxDesktop_addPage ====
 
 /* WARNING: Removing unreachable block (ram,0x008d9866) */
 
-void FUN_008d9786(long param_1,long param_2,char param_3)
+void MuxDesktop_addPage(long param_1,long param_2,char param_3)
 
 {
   undefined4 uVar1;
@@ -22020,12 +22020,12 @@ void FUN_008d98d0(long param_1)
 }
 
 
-// ==== entry=008d9be0 orig=FUN_008d9be0 size=838 name=s_tabbar_doubleClickAction_8d9be0 ====
+// ==== entry=008d9be0 orig=FUN_008d9be0 size=838 name=MuxDesktop_setupUi ====
 
 /* WARNING: Removing unreachable block (ram,0x008d9f12) */
 /* WARNING: Removing unreachable block (ram,0x008d9f1c) */
 
-void s_tabbar_doubleClickAction_8d9be0(QLayout *param_1)
+void MuxDesktop_setupUi(QLayout *param_1)
 
 {
   QLayout QVar1;
@@ -22555,7 +22555,7 @@ LAB_008da66e:
     if (*(int *)local_30[0] == 0) goto LAB_008da66e;
   }
                     /* try { // try from 008da5e9 to 008da606 has its CatchHandler @ 008da6b2 */
-  s_tabbar_doubleClickAction_8d9be0(param_1);
+  MuxDesktop_setupUi(param_1);
   FUN_008d98d0(param_1);
   local_30[0] = (QArrayData *)QString::fromAscii_helper("^(\\d++)",7);
                     /* try { // try from 008da611 to 008da615 has its CatchHandler @ 008da6ba */
@@ -23404,7 +23404,7 @@ void FUN_008db95e(long param_1)
   pvVar1 = operator_new(0x88);
                     /* try { // try from 008db9b1 to 008db9b5 has its CatchHandler @ 008db9cd */
   s_MuxWindow_8e0938(pvVar1,0,param_1);
-  FUN_008d9786(param_1,pvVar1,1);
+  MuxDesktop_addPage(param_1,pvVar1,1);
   return;
 }
 
@@ -23427,7 +23427,7 @@ void thunk_FUN_008db95e(long param_1)
   }
   pvVar1 = operator_new(0x88);
   s_MuxWindow_8e0938(pvVar1,0,param_1);
-  FUN_008d9786(param_1,pvVar1,1);
+  MuxDesktop_addPage(param_1,pvVar1,1);
   return;
 }
 
@@ -25414,9 +25414,9 @@ void FUN_008de050(void)
 }
 
 
-// ==== entry=008de052 name=FUN_008de052 size=86 ====
+// ==== entry=008de052 orig=FUN_008de052 size=86 name=MuxPane_setupLayout ====
 
-void FUN_008de052(QLayout *param_1)
+void MuxPane_setupLayout(QLayout *param_1)
 
 {
   QVBoxLayout *this;
@@ -25476,7 +25476,7 @@ void MuxPane_ctor(QString *param_1,undefined4 param_2,undefined8 param_3)
   QArrayData::deallocate(pQVar3,2,8);
 LAB_008de15c:
                     /* try { // try from 008de15f to 008de163 has its CatchHandler @ 008de18a */
-  FUN_008de052(param_1);
+  MuxPane_setupLayout(param_1);
   return;
 }
 
@@ -25836,13 +25836,13 @@ void FUN_008de5a6(long param_1)
 }
 
 
-// ==== entry=008de936 orig=FUN_008de936 size=874 name=s_tabbar_doubleClickAction_8de936 ====
+// ==== entry=008de936 orig=FUN_008de936 size=874 name=MuxPaneGroup_setupUi ====
 
 /* WARNING: Removing unreachable block (ram,0x008dec8c) */
 /* WARNING: Removing unreachable block (ram,0x008dec96) */
 /* WARNING: Removing unreachable block (ram,0x008dec82) */
 
-void s_tabbar_doubleClickAction_8de936(QLayout *param_1)
+void MuxPaneGroup_setupUi(QLayout *param_1)
 
 {
   QString *pQVar1;
@@ -25981,7 +25981,7 @@ void MuxPaneGroup_initUi(QString *param_1,QString param_2,undefined8 param_3)
   QArrayData::deallocate(pQVar2,2,8);
 LAB_008ded67:
                     /* try { // try from 008ded6a to 008ded76 has its CatchHandler @ 008ded9d */
-  s_tabbar_doubleClickAction_8de936(param_1);
+  MuxPaneGroup_setupUi(param_1);
   FUN_008de5a6(param_1);
   return;
 }

@@ -11808,10 +11808,11 @@ void kitwindow_qt_metacall(long *param_1,int param_2,int param_3,long *param_4)
       QVariant::~QVariant((QVariant *)&local_58);
       return;
     case 0x11:
-      FUN_008d03ea(param_1,param_4[1],*(undefined4 *)param_4[2],*(undefined4 *)param_4[3]);
+      KitWindow_insertPaneEvenly
+                (param_1,param_4[1],*(undefined4 *)param_4[2],*(undefined4 *)param_4[3]);
       return;
     case 0x12:
-      FUN_008d03ea(param_1,param_4[1],*(undefined4 *)param_4[2],0xffffffff);
+      KitWindow_insertPaneEvenly(param_1,param_4[1],*(undefined4 *)param_4[2],0xffffffff);
       return;
     case 0x13:
       FUN_008ca2b8(param_1,param_4[1],*(undefined8 *)param_4[2]);
