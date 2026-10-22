@@ -19,8 +19,6 @@ public:
     }
 };
 #include <QMenuBar>
-#include <QPalette>
-#include <QPlainTextEdit>
 #include <QPushButton>
 #include <QSettings>
 #include <QSplitter>
@@ -101,15 +99,6 @@ MainWindow::MainWindow(QWidget *parent)
     createMenus();
     createToolBar();
     createCentral();
-
-    const QColor terminalBackground = SchemeManager::instance().color(QStringLiteral("line.background"));
-    if (terminalBackground.isValid()) {
-        for (QPlainTextEdit *edit : m_muxPaneGroup->findChildren<QPlainTextEdit *>()) {
-            QPalette palette = edit->palette();
-            palette.setColor(QPalette::Base, terminalBackground);
-            edit->setPalette(palette);
-        }
-    }
 
     QTimer::singleShot(0, this, &MainWindow::onRestoreLayout);
 }

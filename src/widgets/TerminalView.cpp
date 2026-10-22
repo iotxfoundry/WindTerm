@@ -1,6 +1,6 @@
 #include "TerminalView.h"
 
-#include <QFontDatabase>
+#include <QFont>
 #include <QHBoxLayout>
 #include <QKeyEvent>
 #include <QPlainTextEdit>
@@ -11,6 +11,7 @@
 #include "core/SchemeManager.h"
 #include "core/ScreenModel.h"
 #include "core/VtParser.h"
+#include "core/WindConfig.h"
 
 namespace {
 
@@ -35,10 +36,20 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
     , m_screen(nullptr)
     , m_parser(nullptr)
 {
-    const QFont mono = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    // 终端外观内聚在此，不依赖 MainWindow 的时机补丁
+    const QString background = schemeColor(QStringLiteral("line.background"), QStringLiteral("#272822"));
+    const QString foreground = schemeColor(QStringLiteral("terminal.ansiWhite"), QStringLiteral("#e3e3dd"));
+    const QString editorStyle = QStringLiteral("QPlainTextEdit{background-color:%1;color:%2;border:none;}")
+                                    .arg(background, foreground);
+
+    QFont font(WindConfig::instance().valueToString(QStringLiteral("text.fontFamily1"),
+                                                    QStringLiteral("Roboto Mono")));
+    font.setPointSizeF(WindConfig::instance().valueToDouble(QStringLiteral("text.fontSize"), 10));
+
     for (QPlainTextEdit *edit : {m_gutter, m_main}) {
         edit->setReadOnly(true);
-        edit->setFont(mono);
+        edit->setFont(font);
+        edit->setStyleSheet(editorStyle);
         edit->setFrameShape(QFrame::NoFrame);
         edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         edit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -103,7 +114,7 @@ void TerminalView::attachSession(Session *session)
     if (!fg.isValid())
         fg = QColor(QStringLiteral("#e3e3dd"));
     if (!bg.isValid())
-        bg = QColor(QStringLiteral("#1c1c1c"));
+        bg = QColor(QStringLiteral("#272822"));
 
     m_screen = new ScreenModel(24, 80, fg, bg);
     m_parser = new VtParser(m_screen);

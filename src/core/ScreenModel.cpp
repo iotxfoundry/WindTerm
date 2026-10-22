@@ -2,19 +2,36 @@
 
 #include <QStringList>
 
+#include "SchemeManager.h"
+
 namespace {
+
+// scheme.theme 的 ansi 色；未加载或缺失时回退到 VGA 调色板
+QColor ansiColor(const char *name, const char *fallback)
+{
+    const QColor color = SchemeManager::instance().color(QLatin1String(name));
+    return color.isValid() ? color : QColor(QLatin1String(fallback));
+}
 
 QColor color256(int index)
 {
     static const QColor base[16] = {
-        QColor(QStringLiteral("#000000")), QColor(QStringLiteral("#800000")),
-        QColor(QStringLiteral("#008000")), QColor(QStringLiteral("#808000")),
-        QColor(QStringLiteral("#000080")), QColor(QStringLiteral("#800080")),
-        QColor(QStringLiteral("#008080")), QColor(QStringLiteral("#c0c0c0")),
-        QColor(QStringLiteral("#808080")), QColor(QStringLiteral("#ff0000")),
-        QColor(QStringLiteral("#00ff00")), QColor(QStringLiteral("#ffff00")),
-        QColor(QStringLiteral("#0000ff")), QColor(QStringLiteral("#ff00ff")),
-        QColor(QStringLiteral("#00ffff")), QColor(QStringLiteral("#ffffff"))
+        ansiColor("terminal.ansiBlack", "#000000"),
+        ansiColor("terminal.ansiRed", "#800000"),
+        ansiColor("terminal.ansiGreen", "#008000"),
+        ansiColor("terminal.ansiYellow", "#808000"),
+        ansiColor("terminal.ansiBlue", "#000080"),
+        ansiColor("terminal.ansiMagenta", "#800080"),
+        ansiColor("terminal.ansiCyan", "#008080"),
+        ansiColor("terminal.ansiWhite", "#c0c0c0"),
+        ansiColor("terminal.ansiBrightBlack", "#808080"),
+        ansiColor("terminal.ansiBrightRed", "#ff0000"),
+        ansiColor("terminal.ansiBrightGreen", "#00ff00"),
+        ansiColor("terminal.ansiBrightYellow", "#ffff00"),
+        ansiColor("terminal.ansiBrightBlue", "#0000ff"),
+        ansiColor("terminal.ansiBrightMagenta", "#ff00ff"),
+        ansiColor("terminal.ansiBrightCyan", "#00ffff"),
+        ansiColor("terminal.ansiBrightWhite", "#ffffff")
     };
 
     if (index < 0)

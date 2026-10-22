@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QFont>
+#include <QPalette>
 
 #include "Assets.h"
 
@@ -43,4 +44,10 @@ bool ThemeManager::loadTheme(const QString &name)
 void ThemeManager::apply() const
 {
     qApp->setStyleSheet(m_qss);
+
+    // 原版 GUI 为白底窗体（docs/imgs/WindTerm2.7.0.png）；QSS 未覆盖的窗体角色补白
+    QPalette palette = qApp->palette();
+    palette.setColor(QPalette::Window, Qt::white);
+    palette.setColor(QPalette::Base, Qt::white);
+    qApp->setPalette(palette);
 }
