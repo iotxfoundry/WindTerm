@@ -99,7 +99,7 @@ inline QIcon iconFor(const QString &actionId, const QString &iconName, const QSt
     QString kingName = iconName;
     kingName.remove(QLatin1String("king::"));
     if (!kingName.isEmpty()) {
-        const QIcon king = KingIcons::icon(kingName, theme, 32);
+        const QIcon king = KingIcons::icon(kingName, theme, 18);  // 菜单图标列尺寸（16–18）
         if (!king.isNull())
             return king;
     }
