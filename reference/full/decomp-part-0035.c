@@ -840,7 +840,7 @@ void FUN_00a83e76(long param_1,long param_2,long *param_3)
   if (lVar1 != lVar2) {
     do {
       if (*(undefined1 **)(lVar3 + 8) != &DAT_011c5338) {
-        FUN_00a83320();
+        string_rep_release3();
       }
       lVar3 = lVar3 + 0x20;
     } while (lVar2 != lVar3);
@@ -870,7 +870,7 @@ void FUN_00a83ef6(long param_1,undefined8 *param_2)
   if (puVar1 != puVar2) {
     do {
       if ((undefined1 *)*puVar3 != &DAT_011c5338) {
-        FUN_00a83320();
+        string_rep_release3();
       }
       puVar3 = puVar3 + 2;
     } while (puVar2 != puVar3);
@@ -908,7 +908,7 @@ void FUN_00a83f74(long *param_1,undefined8 *param_2)
     if (puVar2 != puVar3) {
       do {
         if ((undefined1 *)*puVar7 != &DAT_011c5338) {
-          FUN_00a83320();
+          string_rep_release3();
         }
         puVar7 = puVar7 + 2;
       } while (puVar3 != puVar7);
@@ -932,7 +932,7 @@ void FUN_00a83f74(long *param_1,undefined8 *param_2)
     local_38 = 0;
     for (puVar7 = puVar2; puVar7 != puVar3; puVar7 = puVar7 + 2) {
       if ((undefined1 *)*puVar7 != &DAT_011c5338) {
-        FUN_00a83320();
+        string_rep_release3();
       }
     }
     plVar4 = local_48;
@@ -945,7 +945,7 @@ void FUN_00a83f74(long *param_1,undefined8 *param_2)
     for (; plVar6 = local_40, local_40 != plVar4; plVar4 = plVar4 + 2) {
       local_40 = plVar5;
       if ((undefined1 *)*plVar4 != &DAT_011c5338) {
-        FUN_00a83320();
+        string_rep_release3();
       }
       plVar5 = local_40;
       local_40 = plVar6;
@@ -1316,7 +1316,7 @@ LAB_00a845a1:
     }
   }
   if (local_48 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   pcVar5 = local_50;
   if ((int)*(undefined8 *)(local_50 + -0x18) == -1) {
@@ -1325,7 +1325,7 @@ LAB_00a845a1:
                     /* try { // try from 00a8460f to 00a84613 has its CatchHandler @ 00a846b7 */
   QString::fromUtf8_helper(param_1,(int)pcVar5);
   if (local_50 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   return param_1;
 }
@@ -1397,7 +1397,7 @@ FUN_00a84740(char *param_1,long param_2,int param_3,int *param_4,undefined8 para
         std::string::s_basic_string__basic_string_5fac8a
                   ((string *)&local_48,(string *)local_40,0,param_2 - (long)param_1);
         if (local_40[0] != &DAT_011c5338) {
-          FUN_00a83320();
+          string_rep_release3();
         }
         lVar4 = param_6[1];
         piVar5 = *(int **)(lVar4 + 8);
@@ -1417,7 +1417,7 @@ FUN_00a84740(char *param_1,long param_2,int param_3,int *param_4,undefined8 para
           *(long *)(lVar4 + 8) = *(long *)(lVar4 + 8) + 0x20;
         }
         if (local_48 != &DAT_011c5338) {
-          FUN_00a83320();
+          string_rep_release3();
         }
       }
       param_4 = param_4 + 1;
@@ -1444,7 +1444,7 @@ FUN_00a848d6(undefined8 *param_1,long *param_2,undefined1 param_3,undefined1 par
                     /* try { // try from 00a8491c to 00a84920 has its CatchHandler @ 00a84996 */
   uVar1 = FUN_00a81655(&local_30,param_3,param_4,param_5,param_6);
   if (local_30 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   *param_1 = uVar1;
   param_1[1] = 0;
@@ -1480,7 +1480,7 @@ FUN_00a849a5(char *param_1,long param_2,int param_3,undefined4 *param_4,undefine
   std::string::s_basic_string__basic_string_5fac8a
             ((string *)&local_48,(string *)local_40,0,param_2 - (long)param_1);
   if (local_40[0] != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   if (0 < param_3) {
     puVar1 = param_4 + (ulong)(param_3 - 1) + 1;
@@ -1511,7 +1511,7 @@ FUN_00a849a5(char *param_1,long param_2,int param_3,undefined4 *param_4,undefine
   }
 LAB_00a84a76:
   if (local_48 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   return 0;
 }
@@ -1648,9 +1648,9 @@ long * xpr_compileStr(long *param_1,string *param_2,uint param_3,undefined **par
     }
     else {
                     /* try { // try from 00a84c2f to 00a84c33 has its CatchHandler @ 00a85115 */
-      FUN_009aec40(&local_a8,"\\\\(\\\\?<\\w+>\\\\)",0);
+      wordchar_class_build(&local_a8,"\\\\(\\\\?<\\w+>\\\\)",0);
                     /* try { // try from 00a84c4a to 00a84c4e has its CatchHandler @ 00a85105 */
-      FUN_009aec40(&local_a0,"\\\\([rnR]|x0[aAdD])",0);
+      wordchar_class_build(&local_a0,"\\\\([rnR]|x0[aAdD])",0);
       pcVar18 = *(char **)param_2;
       pcVar13 = pcVar18 + *(long *)(pcVar18 + -0x18);
       pcVar11 = pcVar18;
@@ -1737,7 +1737,7 @@ LAB_00a84d5a:
       lVar19 = std::string::find((string *)local_98,"\\K",0,sVar8);
       *pbVar5 = bVar6 & 0xe7 | bVar21 * '\b' | (lVar19 != -1) << 4;
       if (local_98[0] != &DAT_011c5338) {
-        FUN_00a83320();
+        string_rep_release3();
       }
       if (local_a0 != 0) {
         FUN_0081e506();
@@ -2296,7 +2296,7 @@ LAB_00a85769:
   }
   for (; puVar5 != puVar2; puVar5 = puVar5 + 8) {
     if (*(undefined1 **)(puVar5 + 2) != &DAT_011c5338) {
-      FUN_00a83320();
+      string_rep_release3();
     }
   }
   if (puVar1 != (undefined4 *)0x0) {
@@ -4497,7 +4497,7 @@ void FUN_00a88430(long param_1)
           local_58 = plVar16;
           local_50 = plVar22;
                     /* try { // try from 00a88896 to 00a8889a has its CatchHandler @ 00a898fd */
-          FUN_00a8cc3a(local_d8,&local_160,&local_58,&local_58);
+          strtrie_find_d(local_d8,&local_160,&local_58,&local_58);
         }
         else {
           if (cVar8 != '@') goto LAB_00a88500;
@@ -4531,7 +4531,7 @@ void FUN_00a88430(long param_1)
           local_58 = plVar16;
           local_50 = plVar22;
                     /* try { // try from 00a88920 to 00a88924 has its CatchHandler @ 00a89905 */
-          FUN_00a8cc3a(&local_b8,&local_158,&local_58,&local_58);
+          strtrie_find_d(&local_b8,&local_158,&local_58,&local_58);
         }
         if (local_58 + -3 != &std::string::_Rep::_S_empty_rep_storage) {
           LOCK();
@@ -4766,7 +4766,7 @@ LAB_00a88f2e:
           local_78 = (long *)&DAT_011c5338;
           local_70 = local_78;
                     /* try { // try from 00a88fcd to 00a88fd1 has its CatchHandler @ 00a898e5 */
-          FUN_009a57c0(&local_98,param_1 + 0x20,&local_58,&local_58);
+          strtrie_find_g(&local_98,param_1 + 0x20,&local_58,&local_58);
           if (local_50 + -3 != &std::string::_Rep::_S_empty_rep_storage) {
             LOCK();
             plVar22 = local_50 + -1;
@@ -4862,7 +4862,7 @@ LAB_00a88f2e:
             local_58 = plVar24;
             local_50 = local_98;
                     /* try { // try from 00a88a3f to 00a88a43 has its CatchHandler @ 00a898f5 */
-            FUN_009a57c0(&local_78,param_1 + 0x20,&local_58,&local_58);
+            strtrie_find_g(&local_78,param_1 + 0x20,&local_58,&local_58);
             if (local_50 + -3 != &std::string::_Rep::_S_empty_rep_storage) {
               LOCK();
               plVar24 = local_50 + -1;
@@ -4908,13 +4908,13 @@ LAB_00a88f2e:
         } while (lVar17 != lVar11);
       }
       if (local_150 != (long *)0x0) {
-        FUN_00a8b7b0(&local_150);
+        trie_node_free15(&local_150);
       }
       if (local_158 != (char *)0x0) {
-        FUN_00a8b7b0(&local_158);
+        trie_node_free15(&local_158);
       }
       if (local_160 != (long *)0x0) {
-        FUN_00a8b7b0(&local_160);
+        trie_node_free15(&local_160);
       }
       return;
     }
@@ -4922,7 +4922,7 @@ LAB_00a88f2e:
     if (local_150 == (long *)0x0) {
 LAB_00a88949:
                     /* try { // try from 00a88959 to 00a8895d has its CatchHandler @ 00a8990d */
-      FUN_00a8cc3a(&local_58,&local_150,pcVar18,pcVar18);
+      strtrie_find_d(&local_58,&local_150,pcVar18,pcVar18);
     }
     else {
       if ((char)*local_150 == '\0') {
@@ -5272,7 +5272,7 @@ LAB_00a89b23:
       local_68 = pQVar7;
       local_60 = puVar6;
                     /* try { // try from 00a89a0a to 00a89a0e has its CatchHandler @ 00a89d14 */
-      FUN_009a57c0(local_58,&local_88,(QString *)&local_68,(QString *)&local_68);
+      strtrie_find_g(local_58,&local_88,(QString *)&local_68,(QString *)&local_68);
       if ((undefined8 *)(local_60 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
         LOCK();
         piVar1 = (int *)(local_60 + -8);
@@ -5347,7 +5347,7 @@ LAB_00a89b0f:
     }
   }
   if (local_88 != 0) {
-    FUN_009a3cb0(&local_88);
+    trie_node_free_alt(&local_88);
   }
   return param_1;
 }
@@ -5626,7 +5626,7 @@ LAB_00a8a452:
     lVar5 = lVar5 * 0xaaaaaaab + (lVar5 * 0x55555555 << 0x21);
   }
   param_4 = param_4 - lVar5;
-  puVar4 = (ulong *)FUN_00a8d745(puVar3,param_2,local_58,param_4,lVar10,param_6,param_7);
+  puVar4 = (ulong *)vector48_range_move(puVar3,param_2,local_58,param_4,lVar10,param_6,param_7);
   FUN_00a8a16a(param_1,puVar3,puVar4,lVar5,lVar10,param_6,param_7);
   param_5 = param_5 - lVar10;
   param_2 = local_58;
@@ -6190,7 +6190,7 @@ LAB_00a8b35c:
   convert_qmapToStdMap(param_1,(QString *)&local_58,param_3);
   pvVar4 = local_50;
   if (local_38[0] != 0) {
-    FUN_009a3cb0(local_38);
+    trie_node_free_alt(local_38);
     pvVar4 = local_50;
   }
   for (; local_48 != pvVar4; pvVar4 = (void *)((long)pvVar4 + 0x30)) {
@@ -6391,13 +6391,13 @@ void FUN_00a8b610(long *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00a8b7b0 name=FUN_00a8b7b0 size=411 ====
+// ==== entry=00a8b7b0 orig=FUN_00a8b7b0 size=411 name=trie_node_free15 ====
 
 /* WARNING: Removing unreachable block (ram,0x00a8b940) */
 /* WARNING: Removing unreachable block (ram,0x00a8b90c) */
 /* WARNING: Removing unreachable block (ram,0x00a8b901) */
 
-void FUN_00a8b7b0(undefined8 *param_1,long *param_2)
+void trie_node_free15(undefined8 *param_1,long *param_2)
 
 {
   undefined8 *puVar1;
@@ -6411,7 +6411,7 @@ void FUN_00a8b7b0(undefined8 *param_1,long *param_2)
   if ((char)*param_2 == '\0') {
     lVar5 = 0;
     do {
-      FUN_00a8b7b0(param_1,param_2[lVar5 + 0x20]);
+      trie_node_free15(param_1,param_2[lVar5 + 0x20]);
       lVar5 = lVar5 + 1;
     } while ((int)lVar5 <= (int)(uint)*(byte *)((long)param_2 + 3));
     plVar7 = (long *)*param_1;
@@ -7515,12 +7515,13 @@ void FUN_00a8cbc2(undefined8 *param_1)
 }
 
 
-// ==== entry=00a8cc3a name=FUN_00a8cc3a size=1174 ====
+// ==== entry=00a8cc3a orig=FUN_00a8cc3a size=1174 name=strtrie_find_d ====
 
 /* WARNING: Removing unreachable block (ram,0x00a8d06d) */
 /* WARNING: Removing unreachable block (ram,0x00a8d0bb) */
 
-undefined8 * FUN_00a8cc3a(undefined8 *param_1,long *param_2,undefined8 param_3,undefined8 *param_4)
+undefined8 *
+strtrie_find_d(undefined8 *param_1,long *param_2,undefined8 param_3,undefined8 *param_4)
 
 {
   string *psVar1;
@@ -7957,11 +7958,11 @@ undefined8 * FUN_00a8d0d0(undefined8 *param_1,undefined8 *param_2,undefined8 *pa
 }
 
 
-// ==== entry=00a8d745 name=FUN_00a8d745 size=1152 ====
+// ==== entry=00a8d745 orig=FUN_00a8d745 size=1152 name=vector48_range_move ====
 
 undefined8 *
-FUN_00a8d745(undefined8 *param_1,long param_2,undefined8 *param_3,long param_4,long param_5,
-            undefined8 *param_6,long param_7)
+vector48_range_move(undefined8 *param_1,long param_2,undefined8 *param_3,long param_4,long param_5,
+                   undefined8 *param_6,long param_7)
 
 {
   string *psVar1;
@@ -8623,7 +8624,7 @@ undefined8 FUN_00a8e30e(undefined8 param_1)
   
   QString::toLower_helper((QString *)local_20);
                     /* try { // try from 00a8e32d to 00a8e331 has its CatchHandler @ 00a8e370 */
-  FUN_0065c11e(param_1,(QString *)local_20);
+  qstring_split_words(param_1,(QString *)local_20);
   if (*(int *)local_20[0] != 0) {
     if (*(int *)local_20[0] != -1) {
       LOCK();
@@ -8799,7 +8800,7 @@ LAB_00a8e4ca:
 void FUN_00a8e652(long param_1,undefined8 param_2)
 
 {
-  FUN_00a914d0(param_1,param_1 + 8,param_2);
+  wordbreak_between(param_1,param_1 + 8,param_2);
   return;
 }
 
@@ -8842,7 +8843,7 @@ undefined8 FUN_00a8e6aa(long param_1,undefined8 *param_2)
   if (*(char *)(param_1 + 0x20) != '\0') {
     return 0;
   }
-  uVar2 = FUN_00a91de0(param_1,param_1,param_2);
+  uVar2 = wordbreak_between2(param_1,param_1,param_2);
   return uVar2;
 }
 
@@ -9354,9 +9355,9 @@ LAB_00a8efe1:
 }
 
 
-// ==== entry=00a8f180 name=FUN_00a8f180 size=1244 ====
+// ==== entry=00a8f180 orig=FUN_00a8f180 size=1244 name=runstyles_insert_space_e ====
 
-void FUN_00a8f180(undefined8 *param_1,long *param_2,int param_3,int param_4)
+void runstyles_insert_space_e(undefined8 *param_1,long *param_2,int param_3,int param_4)
 
 {
   int iVar1;
@@ -9598,11 +9599,12 @@ void FUN_00a8f661(void)
 }
 
 
-// ==== entry=00a8f7ca name=FUN_00a8f7ca size=3290 ====
+// ==== entry=00a8f7ca orig=FUN_00a8f7ca size=3290 name=text_to_html_escaped ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-long * FUN_00a8f7ca(long *param_1,long param_2,long *param_3,char param_4,int *param_5,int *param_6)
+long * text_to_html_escaped
+                 (long *param_1,long param_2,long *param_3,char param_4,int *param_5,int *param_6)
 
 {
   uint uVar1;
@@ -9769,7 +9771,7 @@ LAB_00a8f8d8:
   local_50 = pvVar13;
                     /* try { // try from 00a8fa92 to 00a8fa96 has its CatchHandler @ 00a904f5 */
   puVar14 = operator_new(0x30);
-  *puVar14 = &PTR_FUN_01192288;
+  *puVar14 = &PTR_runstyles_priv_dtor_u8b_01192288;
   puVar14[1] = puVar14[1] & 0xfffffffe00000000 | 0x100000000;
   *(undefined4 *)(puVar14 + 2) = 0;
   *(uint *)((long)puVar14 + 0x14) = *(uint *)((long)puVar14 + 0x14) & 0x80000000;
@@ -9777,7 +9779,7 @@ LAB_00a8f8d8:
   puVar14[4] = 0;
   puVar14[5] = 0;
                     /* try { // try from 00a8fafa to 00a8fafe has its CatchHandler @ 00a904d5 */
-  FUN_0093fc60(puVar14);
+  runlocks_acquire_all2(puVar14);
   pvVar13 = (void *)puVar14[5];
   if (pvVar13 != (void *)0x0) {
     pQVar4 = *(QMapNodeBase **)((long)pvVar13 + 0x38);
@@ -9872,7 +9874,7 @@ LAB_00a8f8d8:
   }
   iVar11 = runstyles_runs_count(local_50);
                     /* try { // try from 00a90436 to 00a9043a has its CatchHandler @ 00a90506 */
-  if ((iVar11 < 2) && (cVar9 = FUN_0088ff00(local_48,0), cVar9 == '\0')) {
+  if ((iVar11 < 2) && (cVar9 = gapbuffer_get_byte_at(local_48,0), cVar9 == '\0')) {
     local_58 = &Uint8RunStyles_vtable;
     FUN_00889746(&local_58);
     qt_array_data_unref(&local_f0);
@@ -9936,7 +9938,7 @@ LAB_00a8fdc2:
   if (0 < iVar11) {
     uVar17 = 0;
     do {
-      cVar9 = FUN_0088ff00(local_48,uVar17);
+      cVar9 = gapbuffer_get_byte_at(local_48,uVar17);
       runstyles_run_start_at(local_50,uVar17 + 1);
       if (cVar9 != '\0') {
         QString::append((QStringRef *)&local_f0,1);
@@ -10749,9 +10751,9 @@ LAB_00a911b0:
 }
 
 
-// ==== entry=00a914d0 name=FUN_00a914d0 size=1381 ====
+// ==== entry=00a914d0 orig=FUN_00a914d0 size=1381 name=wordbreak_between ====
 
-long FUN_00a914d0(long param_1,long *param_2,long *param_3)
+long wordbreak_between(long param_1,long *param_2,long *param_3)
 
 {
   ushort uVar1;
@@ -11148,9 +11150,9 @@ LAB_00a91abe:
 }
 
 
-// ==== entry=00a91de0 name=FUN_00a91de0 size=1282 ====
+// ==== entry=00a91de0 orig=FUN_00a91de0 size=1282 name=wordbreak_between2 ====
 
-long FUN_00a91de0(long param_1,long *param_2,long *param_3)
+long wordbreak_between2(long param_1,long *param_2,long *param_3)
 
 {
   char *pcVar1;
@@ -11935,7 +11937,7 @@ LAB_00a92f7f:
       }
     }
     local_98 = *(long *)(local_48 + (long)(int)*(uint *)(local_48 + 8) * 8 + 0x10);
-    FUN_0069eab0(&local_48);
+    qlist_release_if_shared(&local_48);
     if (local_98 != 0) goto LAB_00a92f01;
   }
   else {
@@ -11972,7 +11974,7 @@ LAB_00a92e98:
                 uVar10 = 0;
                 uVar13 = uVar12;
               }
-              FUN_0064a830(&local_60,uVar13,uVar10);
+              qlist_int_realloc(&local_60,uVar13,uVar10);
               *(int *)(local_60 +
                       *(long *)(local_60 + 0x10) + (long)(int)*(uint *)(local_60 + 4) * 4) = iVar11;
             }
@@ -12023,7 +12025,7 @@ LAB_00a92e98:
                   }
                   else {
                     /* try { // try from 00a92fac to 00a92fb0 has its CatchHandler @ 00a92fed */
-                    FUN_0064a830(&local_60,*(uint *)(local_60 + 8) & 0x7fffffff,0);
+                    qlist_int_realloc(&local_60,*(uint *)(local_60 + 8) & 0x7fffffff,0);
                   }
                 }
                 iVar1 = *(int *)(local_60 +
@@ -12327,7 +12329,7 @@ LAB_00a931d0:
         p_Var1 = (_Rb_tree_node_base *)(plVar9 + 3);
         for (p_Var10 = (_Rb_tree_node_base *)plVar9[5]; p_Var10 != p_Var1;
             p_Var10 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var10)) {
-          FUN_005289b6(*(undefined8 *)(p_Var10 + 0x20));
+          rbtree_clear_recursive(*(undefined8 *)(p_Var10 + 0x20));
         }
         FUN_00528980(plVar9 + 2,plVar9[4]);
         plVar9[4] = 0;
@@ -12351,7 +12353,7 @@ LAB_00a931d0:
       p_Var1 = (_Rb_tree_node_base *)(plVar9 + 3);
       for (p_Var10 = (_Rb_tree_node_base *)plVar9[5]; p_Var10 != p_Var1;
           p_Var10 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var10)) {
-        FUN_005289b6(*(undefined8 *)(p_Var10 + 0x20));
+        rbtree_clear_recursive(*(undefined8 *)(p_Var10 + 0x20));
       }
       FUN_00528980(plVar9 + 2,plVar9[4]);
       plVar9[4] = 0;
@@ -12617,7 +12619,7 @@ LAB_00a93971:
           p_Var2 = (_Rb_tree_node_base *)(plVar14 + 3);
           for (p_Var15 = (_Rb_tree_node_base *)plVar14[5]; p_Var15 != p_Var2;
               p_Var15 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var15)) {
-            FUN_005289b6(*(undefined8 *)(p_Var15 + 0x20));
+            rbtree_clear_recursive(*(undefined8 *)(p_Var15 + 0x20));
           }
           FUN_00528980(plVar14 + 2,plVar14[4]);
           plVar14[4] = 0;
@@ -12642,7 +12644,7 @@ LAB_00a93971:
         p_Var2 = (_Rb_tree_node_base *)(plVar14 + 3);
         for (p_Var15 = (_Rb_tree_node_base *)plVar14[5]; p_Var15 != p_Var2;
             p_Var15 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var15)) {
-          FUN_005289b6(*(undefined8 *)(p_Var15 + 0x20));
+          rbtree_clear_recursive(*(undefined8 *)(p_Var15 + 0x20));
         }
         FUN_00528980(plVar14 + 2,plVar14[4]);
         plVar14[4] = 0;
@@ -12919,7 +12921,7 @@ QByteArray * FUN_00a9405a(QByteArray *param_1,undefined8 *param_2,long *param_3)
   long lVar7;
   uint *puVar8;
   
-  uVar6 = FUN_00b4c130((long)*(int *)(*param_3 + 4));
+  uVar6 = hashtable_grow_size((long)*(int *)(*param_3 + 4));
   QByteArray::QByteArray(param_1,(int)uVar6,'\0');
   uVar1 = *(undefined4 *)(param_2 + 1);
   lVar3 = *param_3;
@@ -13398,10 +13400,11 @@ LAB_00a9491c:
 }
 
 
-// ==== entry=00a94940 name=FUN_00a94940 size=1031 ====
+// ==== entry=00a94940 orig=FUN_00a94940 size=1031 name=charclass_fill_range ====
 
-uint FUN_00a94940(long param_1,undefined8 *param_2,uint param_3,long param_4,uint param_5,
-                 uint param_6)
+uint charclass_fill_range
+               (long param_1,undefined8 *param_2,uint param_3,long param_4,uint param_5,uint param_6
+               )
 
 {
   uint *puVar1;
@@ -13483,7 +13486,7 @@ uint FUN_00a94940(long param_1,undefined8 *param_2,uint param_3,long param_4,uin
                     puVar1 = puVar8 + uVar10;
                     uVar9 = uVar9 + uVar15;
                   } while (uVar9 == *puVar1);
-                  iVar5 = FUN_00a94940(param_1,param_2,local_54,param_4,uVar15,uVar16);
+                  iVar5 = charclass_fill_range(param_1,param_2,local_54,param_4,uVar15,uVar16);
                   uVar15 = *puVar1;
                   iVar11 = iVar11 + iVar5;
                   puVar8 = puVar1;
@@ -13563,7 +13566,7 @@ LAB_00a94b18:
                 }
               }
               else {
-                iVar11 = FUN_00a94940(param_1,param_2,local_54,param_4);
+                iVar11 = charclass_fill_range(param_1,param_2,local_54,param_4);
                 local_48 = local_48 + iVar11;
                 uVar4 = local_44;
               }
@@ -13640,7 +13643,7 @@ int FUN_00a94d80(undefined8 param_1,undefined8 param_2,uint param_3,long param_4
   else {
     *(undefined4 *)(param_4 + 0x108) = 0;
     *(int *)(param_4 + 0x10c) = iVar5 + -1;
-    iVar5 = FUN_00a94940();
+    iVar5 = charclass_fill_range();
     iVar4 = *param_5;
     if (iVar4 == -1) {
       return iVar5;
@@ -13671,7 +13674,7 @@ int FUN_00a94d80(undefined8 param_1,undefined8 param_2,uint param_3,long param_4
     }
     *(int *)(param_4 + 0x108) = iVar4;
     *(int *)(param_4 + 0x10c) = iVar2;
-    iVar2 = FUN_00a94940(param_1,param_2,param_3,param_4);
+    iVar2 = charclass_fill_range(param_1,param_2,param_3,param_4);
     iVar4 = param_5[1];
     iVar5 = iVar5 + iVar2;
     param_5 = param_5 + 1;
@@ -17149,7 +17152,7 @@ LAB_00a99300:
               *(uint *)((long)param_11 + 0x10c) = uVar56;
               uVar42 = uVar56;
             }
-            iVar27 = FUN_00a94940(local_78,&local_a0,local_1c8,param_11,uVar56,uVar42);
+            iVar27 = charclass_fill_range(local_78,&local_a0,local_1c8,param_11,uVar56,uVar42);
             puVar54 = local_b8;
             iVar35 = iVar35 + iVar27;
             goto LAB_00a992b0;
@@ -17299,7 +17302,7 @@ LAB_00a9b4f0:
               } while (*piVar1 == uVar56 + iVar35);
               *(int *)(param_11 + 0x21) = iVar35;
               *(int *)((long)param_11 + 0x10c) = piVar50[uVar44];
-              FUN_00a94940(local_78,&local_a0,local_1c8 & 0xfffffff7,param_11,*piVar50);
+              charclass_fill_range(local_78,&local_a0,local_1c8 & 0xfffffff7,param_11,*piVar50);
               iVar35 = *piVar1;
               piVar50 = piVar1;
             } while (iVar35 != -1);
@@ -17324,7 +17327,7 @@ LAB_00a9b3d3:
               } while (*piVar1 == uVar56 + iVar35);
               *(int *)(param_11 + 0x21) = iVar35;
               *(int *)((long)param_11 + 0x10c) = piVar50[uVar44];
-              FUN_00a94940(local_78,&local_a0,local_1c8 & 0xfffffff7,param_11,*piVar50);
+              charclass_fill_range(local_78,&local_a0,local_1c8 & 0xfffffff7,param_11,*piVar50);
               iVar35 = *piVar1;
               piVar50 = piVar1;
             } while (iVar35 != -1);
@@ -17905,10 +17908,11 @@ void FUN_00a9bb60(long param_1)
 }
 
 
-// ==== entry=00a9bbc0 name=FUN_00a9bbc0 size=2908 ====
+// ==== entry=00a9bbc0 orig=FUN_00a9bbc0 size=2908 name=utf8_decode_codepoint2 ====
 
-int FUN_00a9bbc0(ulong *param_1,byte *param_2,uint *param_3,int *param_4,uint param_5,ulong param_6,
-                int param_7,long param_8)
+int utf8_decode_codepoint2
+              (ulong *param_1,byte *param_2,uint *param_3,int *param_4,uint param_5,ulong param_6,
+              int param_7,long param_8)
 
 {
   byte *pbVar1;
@@ -18391,13 +18395,13 @@ switchD_00a9bcb4_caseD_16:
 }
 
 
-// ==== entry=00a9c780 name=FUN_00a9c780 size=22391 ====
+// ==== entry=00a9c780 orig=FUN_00a9c780 size=22391 name=regex_compile_parse ====
 
 /* WARNING: Type propagation algorithm not settling */
 
 undefined8 *
-FUN_00a9c780(qword *param_1,undefined *param_2,uint param_3,uint *param_4,ulong *param_5,
-            undefined **param_6)
+regex_compile_parse(qword *param_1,undefined *param_2,uint param_3,uint *param_4,ulong *param_5,
+                   undefined **param_6)
 
 {
   undefined8 *puVar1;
@@ -19572,8 +19576,9 @@ LAB_00a9f737:
                     }
                     if (local_463c != 0x5c) goto LAB_00a9f737;
                     local_4610 = local_4620;
-                    uVar17 = FUN_00a9bbc0(&local_4620,pqVar31,&local_463c,&local_4634,uVar35,
-                                          *(undefined4 *)(local_4588 + 8),1,&local_4588);
+                    uVar17 = utf8_decode_codepoint2
+                                       (&local_4620,pqVar31,&local_463c,&local_4634,uVar35,
+                                        *(undefined4 *)(local_4588 + 8),1,&local_4588);
                     pqVar26 = local_4620;
                     if (local_4634 != 0) {
                       uVar36 = local_4634;
@@ -19787,8 +19792,9 @@ LAB_00a9fd46:
                   case 0x5c:
                     local_4610 = local_4620;
                     pppuVar57 = &local_4588;
-                    uVar30 = FUN_00a9bbc0(&local_4620,pqVar31,&local_463c,&local_4634,uVar35,
-                                          *(undefined4 *)(local_4588 + 8),0,pppuVar57);
+                    uVar30 = utf8_decode_codepoint2
+                                       (&local_4620,pqVar31,&local_463c,&local_4634,uVar35,
+                                        *(undefined4 *)(local_4588 + 8),0,pppuVar57);
                     if (local_4634 != 0) goto LAB_00a9d97c;
                     uVar17 = local_463c;
                     if (uVar30 == 0) goto switchD_00a9d828_caseD_25;
@@ -20902,8 +20908,9 @@ LAB_00a9d6b7:
                 else {
                   if ((uVar17 != 0x5c) || ((uVar35 & 0x400000) == 0)) goto LAB_00a9e07f;
                   pqVar56 = (qword *)0x0;
-                  iVar51 = FUN_00a9bbc0(&local_4620,pqVar31,&local_463c,&local_4634,uVar35,
-                                        *(undefined4 *)(local_4588 + 8),0,&local_4588);
+                  iVar51 = utf8_decode_codepoint2
+                                     (&local_4620,pqVar31,&local_463c,&local_4634,uVar35,
+                                      *(undefined4 *)(local_4588 + 8),0,&local_4588);
                   pqVar26 = local_4620;
                   uVar36 = local_4634;
                   if (local_4634 != 0) goto LAB_00a9d254;
@@ -23386,7 +23393,7 @@ undefined8 FUN_00aa3d90(undefined8 param_1,undefined8 param_2)
   int iVar1;
   undefined8 uVar2;
   
-  iVar1 = FUN_00ad8580(param_1,param_2,0);
+  iVar1 = utf8_decode_codepoint(param_1,param_2,0);
   uVar2 = 0;
   if (iVar1 != 0) {
     uVar2 = param_2;
@@ -23403,7 +23410,7 @@ undefined8 FUN_00aa3db0(undefined8 param_1,undefined8 param_2)
   int iVar1;
   undefined8 uVar2;
   
-  iVar1 = FUN_00ad8580(param_1,param_2,1);
+  iVar1 = utf8_decode_codepoint(param_1,param_2,1);
   uVar2 = 0;
   if (iVar1 != 0) {
     uVar2 = param_2;
@@ -23749,9 +23756,9 @@ ulong FUN_00aa4100(long param_1,ulong param_2)
 }
 
 
-// ==== entry=00aa41a0 name=FUN_00aa41a0 size=1162 ====
+// ==== entry=00aa41a0 orig=FUN_00aa41a0 size=1162 name=jit_relocate_patches ====
 
-byte * FUN_00aa41a0(int *param_1)
+byte * jit_relocate_patches(int *param_1)
 
 {
   size_t __n;
@@ -24893,9 +24900,9 @@ undefined8 * arena_page_alloc16(int *param_1)
 }
 
 
-// ==== entry=00aa5760 name=FUN_00aa5760 size=160 ====
+// ==== entry=00aa5760 orig=FUN_00aa5760 size=160 name=jit_emit_mov_imm ====
 
-undefined4 FUN_00aa5760(undefined4 *param_1,int param_2,undefined8 param_3)
+undefined4 jit_emit_mov_imm(undefined4 *param_1,int param_2,undefined8 param_3)
 
 {
   ulong uVar1;
@@ -25877,7 +25884,7 @@ byte * asm_encodeModrm(undefined4 *param_1,uint param_2,uint param_3,ulong param
         }
         goto LAB_00aa65b0;
       }
-      iVar5 = FUN_00aa5760(param_1,0x10);
+      iVar5 = jit_emit_mov_imm(param_1,0x10);
       if (iVar5 != 0) {
         return (byte *)0x0;
       }
@@ -26175,7 +26182,7 @@ long kitty_key_to_functional_code
       }
       goto LAB_00aa6db6;
     }
-    iVar10 = FUN_00aa5760(param_1,0x10,param_5);
+    iVar10 = jit_emit_mov_imm(param_1,0x10,param_5);
     if (iVar10 != 0) {
       return 0;
     }
@@ -26377,12 +26384,12 @@ LAB_00aa71fa:
         return uVar3;
       }
       if (0xffffffff < param_5 + 0x80000000U) {
-        uVar3 = FUN_00aa5760(param_1,param_2);
+        uVar3 = jit_emit_mov_imm(param_1,param_2);
         return uVar3;
       }
     }
     else if ((param_1[0x26] == 0) && (0xffffffff < param_5 + 0x80000000U)) {
-      iVar1 = FUN_00aa5760(param_1,0xf);
+      iVar1 = jit_emit_mov_imm(param_1,0xf);
       uVar4 = 0;
       if (iVar1 != 0) goto LAB_00aa71a7;
       goto LAB_00aa71fa;
@@ -26531,7 +26538,7 @@ undefined1 (*) [16] FUN_00aa7400(int *param_1,undefined8 param_2)
   }
   *(undefined1 (**) [16])(param_1 + 0x10) = pauVar9;
   param_1[0x26] = 0;
-  iVar5 = FUN_00aa5760(param_1,0xf,0);
+  iVar5 = jit_emit_mov_imm(param_1,0xf,0);
   if (iVar5 != 0) {
     return (undefined1 (*) [16])0x0;
   }
@@ -26838,7 +26845,7 @@ long FUN_00aa7aa0(undefined4 *param_1,uint param_2,uint param_3,long param_4)
       }
       goto LAB_00aa7c1e;
     }
-    iVar11 = FUN_00aa5760(param_1,0x10,param_4);
+    iVar11 = jit_emit_mov_imm(param_1,0x10,param_4);
     if (iVar11 != 0) {
       return 0;
     }
@@ -27658,7 +27665,7 @@ ulong FUN_00aa8740(uint *param_1,uint param_2,uint param_3,undefined8 param_4,ui
     if ((param_5 & 0x40) != 0) {
 LAB_00aa8776:
       if ((0x7fffffff < param_6) && ((param_2 & 1) == 0)) {
-        uVar2 = FUN_00aa5760(param_1,param_3,param_6);
+        uVar2 = jit_emit_mov_imm(param_1,param_3,param_6);
         return uVar2;
       }
       puVar3 = (undefined1 *)
@@ -27765,7 +27772,7 @@ LAB_00aa8ac6:
 LAB_00aa8b78:
       lVar6 = param_3;
       if ((param_5 + 0x80000000U < 0x100000000) || (param_1[0x26] != 0)) goto LAB_00aa8b55;
-      iVar1 = FUN_00aa5760(param_1,0xf,param_5);
+      iVar1 = jit_emit_mov_imm(param_1,0xf,param_5);
       param_5 = param_3;
       param_4 = param_2;
 joined_r0x00aa8c09:
@@ -27806,7 +27813,7 @@ LAB_00aa8ba0:
       lVar6 = param_5;
       param_2 = param_4;
       if ((0xffffffff < param_3 + 0x80000000U) && (param_1[0x26] == 0)) {
-        iVar1 = FUN_00aa5760(param_1,0xf,param_3);
+        iVar1 = jit_emit_mov_imm(param_1,0xf,param_3);
         goto joined_r0x00aa8c09;
       }
     }
@@ -27838,7 +27845,7 @@ LAB_00aa898d:
         if (uVar4 == 0) goto LAB_00aa89b7;
       }
       if ((0xffffffff < param_5 + 0x80000000U) && (param_1[0x26] == 0)) {
-        iVar1 = FUN_00aa5760(param_1,0x10,param_5);
+        iVar1 = jit_emit_mov_imm(param_1,0x10,param_5);
         if (iVar1 != 0) goto LAB_00aa8a70;
         puVar2 = (undefined1 *)kitty_key_to_functional_code(param_1,0x10,0,0xf,0);
         goto joined_r0x00aa89c9;
@@ -27951,12 +27958,12 @@ LAB_00aa8dbc:
         return uVar3;
       }
       if (0xffffffff < param_5 + 0x80000000U) {
-        uVar3 = FUN_00aa5760(param_1,param_2);
+        uVar3 = jit_emit_mov_imm(param_1,param_2);
         return uVar3;
       }
     }
     else if ((param_1[0x26] == 0) && (0xffffffff < param_5 + 0x80000000U)) {
-      iVar1 = FUN_00aa5760(param_1,0xf);
+      iVar1 = jit_emit_mov_imm(param_1,0xf);
       uVar4 = 0;
       if (iVar1 != 0) goto LAB_00aa8eb0;
       goto LAB_00aa8dbc;
@@ -28013,7 +28020,7 @@ LAB_00aa9060:
       }
       goto LAB_00aa9230;
     }
-    iVar1 = FUN_00aa5760(param_1,0x10,param_8);
+    iVar1 = jit_emit_mov_imm(param_1,0x10,param_8);
     if (iVar1 != 0) goto LAB_00aa9230;
     puVar2 = (undefined1 *)kitty_key_to_functional_code(param_1,0x10,0,0xf,0);
   }
@@ -28062,7 +28069,7 @@ LAB_00aa92dc:
       }
       cVar6 = (param_3 == 0xf) + '\x0f';
 LAB_00aa91ee:
-      iVar1 = FUN_00aa5760(param_1,cVar6,param_8);
+      iVar1 = jit_emit_mov_imm(param_1,cVar6,param_8);
     }
     else {
       if ((0x3f < (int)param_3) || (param_3 == param_7)) {
@@ -28079,7 +28086,7 @@ LAB_00aa91ee:
             *(byte *)(lVar3 + 1) = *(byte *)(lVar3 + 1) | bVar5;
           }
           else {
-            iVar1 = FUN_00aa5760(param_1,0x10,param_8);
+            iVar1 = jit_emit_mov_imm(param_1,0x10,param_8);
             if ((iVar1 != 0) ||
                (puVar2 = (undefined1 *)kitty_key_to_functional_code(param_1,0x10,0,0xf,0),
                puVar2 == (undefined1 *)0x0)) goto LAB_00aa9230;
@@ -28101,7 +28108,7 @@ LAB_00aa91ee:
       }
       if ((param_8 + 0x80000000U < 0x100000000) || (param_1[0x26] != 0)) goto LAB_00aa9060;
       cVar6 = (param_3 == 0xf) + '\x0f';
-      iVar1 = FUN_00aa5760(param_1,cVar6,param_8);
+      iVar1 = jit_emit_mov_imm(param_1,cVar6,param_8);
       param_4 = 0;
     }
     if (iVar1 != 0) goto LAB_00aa9230;
@@ -28162,7 +28169,7 @@ LAB_00aa9519:
 LAB_00aa950b:
         if (param_1[0x26] == 0) {
           param_4 = (param_2 == 0xf) + 0xf;
-          iVar1 = FUN_00aa5760(param_1,param_4,param_5);
+          iVar1 = jit_emit_mov_imm(param_1,param_4,param_5);
           param_3 = 0;
 joined_r0x00aa9684:
           if (iVar1 != 0) goto LAB_00aa95b0;
@@ -28206,7 +28213,7 @@ LAB_00aa9690:
       if ((0xffffffff < param_5 + 0x80000000U) && (param_1[0x26] == 0)) {
         param_4 = 0xf;
 LAB_00aa95fd:
-        iVar1 = FUN_00aa5760(param_1,param_4,param_5);
+        iVar1 = jit_emit_mov_imm(param_1,param_4,param_5);
         goto joined_r0x00aa9684;
       }
     }
@@ -28273,7 +28280,7 @@ joined_r0x00aa98a3:
         if (iVar3 != 0) goto LAB_00aa9838;
       }
 LAB_00aa981c:
-      iVar3 = FUN_00aa5760(param_1,0x10,param_7);
+      iVar3 = jit_emit_mov_imm(param_1,0x10,param_7);
       param_7 = 0;
       param_6 = 0x10;
       goto joined_r0x00aa9832;
@@ -28433,7 +28440,7 @@ LAB_00aa9c55:
       }
       goto LAB_00aa9da0;
     }
-    iVar1 = FUN_00aa5760(param_1,0x10,param_8);
+    iVar1 = jit_emit_mov_imm(param_1,0x10,param_8);
     if (iVar1 != 0) goto LAB_00aa9da0;
     puVar2 = (undefined1 *)kitty_key_to_functional_code(param_1,0x10,0,0xf,0);
 joined_r0x00aaa007:
@@ -28492,7 +28499,7 @@ LAB_00aa9cc8:
       }
       cVar5 = (param_3 == 0xf) + '\x0f';
 LAB_00aa9f6e:
-      iVar1 = FUN_00aa5760(param_1,cVar5,param_6);
+      iVar1 = jit_emit_mov_imm(param_1,cVar5,param_6);
     }
     else {
       if ((param_3 == param_7) && (param_8 == param_4)) {
@@ -28535,7 +28542,7 @@ LAB_00aa9f6e:
           *(byte *)(lVar3 + 1) = *(byte *)(lVar3 + 1) | bVar4;
         }
         else {
-          iVar1 = FUN_00aa5760(param_1,0x10,param_8);
+          iVar1 = jit_emit_mov_imm(param_1,0x10,param_8);
           if ((iVar1 != 0) ||
              (puVar2 = (undefined1 *)kitty_key_to_functional_code(param_1,0x10,0,0xf,0),
              puVar2 == (undefined1 *)0x0)) goto LAB_00aa9da0;
@@ -28553,7 +28560,7 @@ LAB_00aa9f6e:
       }
       if ((param_8 + 0x80000000U < 0x100000000) || (param_1[0x26] != 0)) goto LAB_00aa9c55;
       cVar5 = (param_3 == 0xf) + '\x0f';
-      iVar1 = FUN_00aa5760(param_1,cVar5,param_8);
+      iVar1 = jit_emit_mov_imm(param_1,cVar5,param_8);
       param_4 = 0;
     }
     if (iVar1 != 0) goto LAB_00aa9da0;
@@ -29763,7 +29770,7 @@ int FUN_00aabf80(int *param_1,undefined4 param_2,long param_3)
     uVar3 = 0x8e;
   }
   else {
-    iVar1 = FUN_00aa5760(param_1,0xf);
+    iVar1 = jit_emit_mov_imm(param_1,0xf);
     param_3 = 0;
     uVar3 = 0xf8e;
     if (iVar1 != 0) goto LAB_00aac010;
@@ -29778,10 +29785,10 @@ LAB_00aac010:
 }
 
 
-// ==== entry=00aac030 name=FUN_00aac030 size=1022 ====
+// ==== entry=00aac030 orig=FUN_00aac030 size=1022 name=jit_emit_conv ====
 
-ulong FUN_00aac030(uint *param_1,byte param_2,uint param_3,long param_4,uint param_5,long param_6,
-                  uint param_7,undefined8 param_8)
+ulong jit_emit_conv(uint *param_1,byte param_2,uint param_3,long param_4,uint param_5,long param_6,
+                   uint param_7,undefined8 param_8)
 
 {
   int iVar1;
@@ -29921,7 +29928,7 @@ ulong FUN_00aac470(uint *param_1,undefined1 param_2,int param_3,int param_4,unde
   if ((param_8 & 0x40) == 0) {
     if (param_3 == 0) goto LAB_00aac4f0;
     if (param_4 < 0x40) {
-      iVar1 = FUN_00aac030(param_1,param_2,param_4,param_5,param_6,param_7,param_8,param_9);
+      iVar1 = jit_emit_conv(param_1,param_2,param_4,param_5,param_6,param_7,param_8,param_9);
       if (iVar1 == 0) {
         if (param_4 == 0) {
           param_4 = 0xf;
@@ -29933,7 +29940,7 @@ ulong FUN_00aac470(uint *param_1,undefined1 param_2,int param_3,int param_4,unde
     else {
       iVar1 = FUN_00aa9450(param_1,param_6,param_7,0x40,0);
       if ((iVar1 == 0) &&
-         (uVar2 = FUN_00aac030(param_1,param_2,param_4,param_5,param_6,param_7,param_8,param_9),
+         (uVar2 = jit_emit_conv(param_1,param_2,param_4,param_5,param_6,param_7,param_8,param_9),
          (int)uVar2 == 0)) {
         return uVar2;
       }
@@ -29942,7 +29949,7 @@ ulong FUN_00aac470(uint *param_1,undefined1 param_2,int param_3,int param_4,unde
   else {
     if (((param_9 & 0x3f) != 0) || ((param_1[0x26] != 0 && ((param_9 & 0x1f) != 0)))) {
 LAB_00aac4f0:
-      uVar2 = FUN_00aac030(param_1,param_2,param_4,param_5,param_6);
+      uVar2 = jit_emit_conv(param_1,param_2,param_4,param_5,param_6);
       return uVar2;
     }
     if (param_3 != 0) {
@@ -30411,9 +30418,9 @@ LAB_00aad1d8:
 }
 
 
-// ==== entry=00aad210 name=FUN_00aad210 size=265 ====
+// ==== entry=00aad210 orig=FUN_00aad210 size=265 name=jit_emit_test_setcc ====
 
-int FUN_00aad210(int *param_1,int param_2,uint param_3)
+int jit_emit_test_setcc(int *param_1,int param_2,uint param_3)
 
 {
   ulong uVar1;
@@ -30564,9 +30571,9 @@ FUN_00aad420(int *param_1,uint param_2,uint param_3,undefined8 param_4,uint para
 }
 
 
-// ==== entry=00aad4f0 name=FUN_00aad4f0 size=120 ====
+// ==== entry=00aad4f0 orig=FUN_00aad4f0 size=120 name=jit_emit_cmp_set3 ====
 
-undefined8 FUN_00aad4f0(int *param_1,uint param_2,uint param_3,undefined8 param_4)
+undefined8 jit_emit_cmp_set3(int *param_1,uint param_2,uint param_3,undefined8 param_4)
 
 {
   uint uVar1;
@@ -30665,10 +30672,10 @@ kitty_encode_special_key
 }
 
 
-// ==== entry=00aad670 name=FUN_00aad670 size=129 ====
+// ==== entry=00aad670 orig=FUN_00aad670 size=129 name=jit_emit_cmp_set2 ====
 
 undefined8
-FUN_00aad670(int *param_1,uint param_2,undefined8 param_3,uint param_4,undefined8 param_5)
+jit_emit_cmp_set2(int *param_1,uint param_2,undefined8 param_3,uint param_4,undefined8 param_5)
 
 {
   uint uVar1;
@@ -31606,9 +31613,9 @@ LAB_00aaf23b:
 }
 
 
-// ==== entry=00aaf440 name=FUN_00aaf440 size=1125 ====
+// ==== entry=00aaf440 orig=FUN_00aaf440 size=1125 name=jit_emit_stack_ops2 ====
 
-void FUN_00aaf440(int *param_1)
+void jit_emit_stack_ops2(int *param_1)
 
 {
   int iVar1;
@@ -32294,9 +32301,9 @@ LAB_00ab0d25:
 }
 
 
-// ==== entry=00ab0e30 name=FUN_00ab0e30 size=1063 ====
+// ==== entry=00ab0e30 orig=FUN_00ab0e30 size=1063 name=jit_compile_jumptable ====
 
-void FUN_00ab0e30(undefined8 *param_1,long param_2,undefined8 *param_3)
+void jit_compile_jumptable(undefined8 *param_1,long param_2,undefined8 *param_3)
 
 {
   ulong uVar1;
@@ -32375,7 +32382,7 @@ LAB_00ab1197:
           lVar9 = (long)*(int *)((long)param_1 + 0x44);
         }
         else {
-          iVar4 = FUN_00aa5760(piVar2,0xf,lVar14);
+          iVar4 = jit_emit_mov_imm(piVar2,0xf,lVar14);
           if (iVar4 == 0) {
             lVar14 = 0;
             uVar10 = 0xf8e;
@@ -32485,10 +32492,11 @@ LAB_00ab110a:
 }
 
 
-// ==== entry=00ab1290 name=FUN_00ab1290 size=3770 ====
+// ==== entry=00ab1290 orig=FUN_00ab1290 size=3770 name=kitty_csi_u_encode_modifiers ====
 
-void FUN_00ab1290(undefined8 *param_1,int param_2,byte param_3,byte param_4,int param_5,byte param_6
-                 ,byte param_7)
+void kitty_csi_u_encode_modifiers
+               (undefined8 *param_1,int param_2,byte param_3,byte param_4,int param_5,byte param_6,
+               byte param_7)
 
 {
   ulong uVar1;
@@ -32873,7 +32881,7 @@ joined_r0x00ab1c46:
     kitty_key_encode_select(piVar2,0x65,1,1,0,0x40,0xc0);
     lVar10 = kitty_encode_special_key(piVar2,1,0,0x40,0x80);
     kitty_key_encode_select(piVar2,0x60,2,2,0,0x40,1);
-    lVar11 = FUN_00aad670(piVar2,2,0,0xd,0);
+    lVar11 = jit_emit_cmp_set2(piVar2,2,0,0xd,0);
     if ((lVar11 != 0) && (lVar9 != 0)) {
       *(long *)(lVar11 + 0x18) = lVar9;
       *(ulong *)(lVar11 + 0x10) = *(ulong *)(lVar11 + 0x10) & 0xfffffffffffffffd | 1;
@@ -32901,9 +32909,9 @@ joined_r0x00ab1c46:
 }
 
 
-// ==== entry=00ab21c0 name=FUN_00ab21c0 size=1232 ====
+// ==== entry=00ab21c0 orig=FUN_00ab21c0 size=1232 name=jit_emit_prologue ====
 
-void FUN_00ab21c0(undefined8 *param_1,undefined8 *param_2)
+void jit_emit_prologue(undefined8 *param_1,undefined8 *param_2)
 
 {
   ulong uVar1;
@@ -33138,9 +33146,9 @@ LAB_00ab231c:
 }
 
 
-// ==== entry=00ab2700 name=FUN_00ab2700 size=1095 ====
+// ==== entry=00ab2700 orig=FUN_00ab2700 size=1095 name=jit_emit_store_local ====
 
-void FUN_00ab2700(undefined8 *param_1,int param_2,long *param_3,uint param_4)
+void jit_emit_store_local(undefined8 *param_1,int param_2,long *param_3,uint param_4)
 
 {
   ulong uVar1;
@@ -33823,9 +33831,9 @@ joined_r0x00ab39ae:
 }
 
 
-// ==== entry=00ab3b40 name=FUN_00ab3b40 size=1184 ====
+// ==== entry=00ab3b40 orig=FUN_00ab3b40 size=1184 name=jit_emit_stack_ops ====
 
-void FUN_00ab3b40(undefined8 *param_1,undefined8 *param_2,int param_3)
+void jit_emit_stack_ops(undefined8 *param_1,undefined8 *param_2,int param_3)
 
 {
   int *piVar1;
@@ -33894,7 +33902,7 @@ void FUN_00ab3b40(undefined8 *param_1,undefined8 *param_2,int param_3)
       }
     }
     FUN_00aaa9d0(piVar1,1,0,0x40,0);
-    lVar7 = FUN_00aad4f0(piVar1,4,0x40,0xff);
+    lVar7 = jit_emit_cmp_set3(piVar1,4,0x40,0xff);
     kitty_key_encode_flag(piVar1,1,0,0x84,param_1[0x1b]);
     lVar9 = arena_page_alloc_node(piVar1);
     lVar8 = lVar7;
@@ -33930,7 +33938,7 @@ void FUN_00ab3b40(undefined8 *param_1,undefined8 *param_2,int param_3)
       *param_2 = puVar6;
     }
     FUN_00aaa9d0(piVar1,1,0,0x40,0);
-    lVar7 = FUN_00aad4f0(piVar1,4,0x40,0xff);
+    lVar7 = jit_emit_cmp_set3(piVar1,4,0x40,0xff);
     kitty_key_encode_flag(piVar1,1,0,0x84,param_1[0x1b]);
     lVar8 = arena_page_alloc_node(piVar1);
     lVar9 = lVar8;
@@ -34464,8 +34472,9 @@ LAB_00ab4edf:
 LAB_00ab4fcd:
     if (uVar27 != 0) {
       lVar23 = (long)iVar25 * 7;
-      FUN_00ab1290(param_1,iVar8,local_96[(long)iVar8 * 7],local_96[(long)iVar8 * 7 + 1],
-                   (long)iVar25,local_96[lVar23],local_96[lVar23 + 1]);
+      kitty_csi_u_encode_modifiers
+                (param_1,iVar8,local_96[(long)iVar8 * 7],local_96[(long)iVar8 * 7 + 1],(long)iVar25,
+                 local_96[lVar23],local_96[lVar23 + 1]);
       return 1;
     }
   }
@@ -34648,7 +34657,7 @@ LAB_00ab518a:
   }
   FUN_00aaa9d0(uVar3,5,0,0x40,puVar14);
   lVar11 = arena_page_alloc_node(uVar3);
-  uVar12 = FUN_00aad4f0(uVar3,2,0xd,0);
+  uVar12 = jit_emit_cmp_set3(uVar3,2,0xd,0);
   puVar14 = (undefined8 *)arena_page_alloc16(uVar3);
   if (puVar14 != (undefined8 *)0x0) {
     uVar4 = param_1[0x2b];
@@ -34724,11 +34733,11 @@ LAB_00ab530f:
 }
 
 
-// ==== entry=00ab5980 name=FUN_00ab5980 size=3777 ====
+// ==== entry=00ab5980 orig=FUN_00ab5980 size=3777 name=kitty_func_key_encode_a ====
 
 /* WARNING: Removing unreachable block (ram,0x00ab59a1) */
 
-void FUN_00ab5980(int *param_1,ulong param_2,ulong param_3,ulong param_4)
+void kitty_func_key_encode_a(int *param_1,ulong param_2,ulong param_3,ulong param_4)
 
 {
   uint uVar1;
@@ -35040,11 +35049,11 @@ LAB_00ab607a:
 }
 
 
-// ==== entry=00ab68a0 name=FUN_00ab68a0 size=3843 ====
+// ==== entry=00ab68a0 orig=FUN_00ab68a0 size=3843 name=kitty_func_key_encode_b ====
 
 /* WARNING: Removing unreachable block (ram,0x00ab68c1) */
 
-void FUN_00ab68a0(int *param_1,ulong param_2,ulong param_3,ulong param_4)
+void kitty_func_key_encode_b(int *param_1,ulong param_2,ulong param_3,ulong param_4)
 
 {
   uint uVar1;
@@ -35520,7 +35529,7 @@ LAB_00ab7b8a:
     }
     if ((ushort)local_48 == 0) {
       kitty_key_encode_select(piVar1,0x262,0,1,0,0x40,0);
-      FUN_00aad210(piVar1,4,0);
+      jit_emit_test_setcc(piVar1,4,0);
       iVar17 = 1;
       if (1 < iVar21) {
 LAB_00ab7a5c:
@@ -35826,7 +35835,7 @@ LAB_00ab7ea2:
             }
             else {
               kitty_key_encode_select(piVar1,0x62,1,1,0,0x40,(long)(int)local_48);
-              uVar7 = FUN_00aad670(piVar1,1,0,0x40,(long)iVar21);
+              uVar7 = jit_emit_cmp_set2(piVar1,1,0,0x40,(long)iVar21);
               puVar8 = (undefined8 *)arena_page_alloc16(piVar1);
               uVar15 = local_40 - local_48;
             }
@@ -35854,7 +35863,7 @@ LAB_00ab7ea2:
       }
       lVar6 = (long)(int)local_48;
       if (cVar20 == '\0') {
-        uVar7 = FUN_00aad670(piVar1,1,0,0x40,lVar6);
+        uVar7 = jit_emit_cmp_set2(piVar1,1,0,0x40,lVar6);
         puVar8 = (undefined8 *)arena_page_alloc16(piVar1);
         if (puVar8 != (undefined8 *)0x0) {
           uVar2 = *param_5;
@@ -35884,7 +35893,7 @@ LAB_00ab80c0:
       kitty_key_encode_select(piVar1,0x62,1,1,0,0x40,lVar6);
       lVar6 = (long)(int)(local_44 - local_48);
 LAB_00ab7dfc:
-      uVar7 = FUN_00aad670(piVar1,1,0,0x40,lVar6);
+      uVar7 = jit_emit_cmp_set2(piVar1,1,0,0x40,lVar6);
       puVar8 = (undefined8 *)arena_page_alloc16(piVar1);
     }
   }
@@ -35956,7 +35965,7 @@ void FUN_00ab8880(undefined8 *param_1)
        (((*(char *)(lVar6 + 0x43) != '\0' || (*(char *)(lVar6 + 0x44) != '\0')) ||
         (((*(char *)(lVar6 + 0x45) != '\0' ||
           ((*(char *)(lVar6 + 0x46) != '\0' || (*(char *)(lVar6 + 0x47) != '\0')))) ||
-         (lVar6 = FUN_00aad4f0(piVar1,1,0x40,0x7f), lVar6 == 0)))))) {
+         (lVar6 = jit_emit_cmp_set3(piVar1,1,0x40,0x7f), lVar6 == 0)))))) {
       kitty_key_encode_select(piVar1,0x65,4,1,0,0x40,7);
       kitty_key_encode_select(piVar1,0x69,1,1,0,0x40,3);
       kitty_key_encode_flag(piVar1,1,0,0x81,lVar7);
@@ -36418,7 +36427,7 @@ void kitty_keyboard_send_report
     return;
   }
   if ((*(int *)((long)param_1 + 0x1c4) != 0) && ((param_5 & 4) == 0)) {
-    lVar4 = FUN_00aad670(piVar1,1,0,0x40,0x80,0xab98e6);
+    lVar4 = jit_emit_cmp_set2(piVar1,1,0,0x40,0x80,0xab98e6);
     if ((param_5 & 2) == 0) {
       uVar9 = arena_page_alloc_cell(piVar1,0x17);
       puVar7 = (undefined8 *)arena_page_alloc16(piVar1);
@@ -36512,7 +36521,7 @@ LAB_00ab9ca3:
     if ((param_5 & 1) != 0) {
       kitty_key_encode_flag(piVar1,5,0,0x81,&DAT_00d1ba40);
       kitty_key_encode_flag(piVar1,1,0,0x82,0);
-      lVar5 = FUN_00aad4f0(piVar1,4,0x40,0xf);
+      lVar5 = jit_emit_cmp_set3(piVar1,4,0x40,0xf);
       kitty_key_encode_select(piVar1,0x68,4,4,0,0x40,6);
       kitty_key_encode_select(piVar1,0x65,1,1,0,0x40,0x3f);
       kitty_key_encode_select(piVar1,0x66,1,1,0,4,0);
@@ -36520,7 +36529,7 @@ LAB_00ab9ca3:
       goto LAB_00ab9ff9;
     }
     kitty_key_encode_flag(piVar1,1,0,0x82,0);
-    lVar5 = FUN_00aad4f0(piVar1,4,0x40,0xf);
+    lVar5 = jit_emit_cmp_set3(piVar1,4,0x40,0xf);
     kitty_key_encode_select(piVar1,0x68,4,4,0,0x40,6);
     kitty_key_encode_select(piVar1,0x65,1,1,0,0x40,0x3f);
     kitty_key_encode_select(piVar1,0x66,1,1,0,4,0);
@@ -36532,7 +36541,7 @@ LAB_00ab9ca3:
     if ((param_5 & 1) != 0) {
       kitty_key_encode_flag(piVar1,5,0,0x81,&DAT_00d1ba40);
       kitty_key_encode_flag(piVar1,1,0,0x82,0);
-      lVar5 = FUN_00aad4f0(piVar1,4,0x40,7);
+      lVar5 = jit_emit_cmp_set3(piVar1,4,0x40,7);
       kitty_key_encode_select(piVar1,0x68,4,4,0,0x40,6);
       kitty_key_encode_select(piVar1,0x65,1,1,0,0x40,0x3f);
       kitty_key_encode_select(piVar1,0x66,1,1,0,4,0);
@@ -36556,7 +36565,7 @@ LAB_00aba0b5:
       goto LAB_00ab9ca3;
     }
     kitty_key_encode_flag(piVar1,1,0,0x82,0);
-    lVar5 = FUN_00aad4f0(piVar1,4,0x40,7);
+    lVar5 = jit_emit_cmp_set3(piVar1,4,0x40,7);
     kitty_key_encode_select(piVar1,0x68,4,4,0,0x40,6);
     kitty_key_encode_select(piVar1,0x65,1,1,0,0x40,0x3f);
     kitty_key_encode_select(piVar1,0x66,1,1,0,4,0);
@@ -36664,8 +36673,8 @@ joined_r0x00abad45:
       FUN_00aaa9d0(uVar3,0x8e,(long)*(int *)((long)param_1 + 0x5c),2,0);
       kitty_keyboard_send_report
                 (param_1,*(undefined4 *)((long)param_1 + 0xbc),*(undefined4 *)(param_1 + 0x17),0,3);
-      FUN_00ab2700(param_1,*(undefined4 *)((long)param_1 + 0xb4),local_40,1);
-      lVar8 = FUN_00aad670(uVar3,2,0,0xd,0);
+      jit_emit_store_local(param_1,*(undefined4 *)((long)param_1 + 0xb4),local_40,1);
+      lVar8 = jit_emit_cmp_set2(uVar3,2,0,0xd,0);
       if ((lVar8 != 0) && (lVar7 != 0)) {
         *(long *)(lVar8 + 0x18) = lVar7;
         *(ulong *)(lVar8 + 0x10) = *(ulong *)(lVar8 + 0x10) & 0xfffffffffffffffd | 1;
@@ -36727,7 +36736,7 @@ joined_r0x00aba817:
         *(ulong *)(lVar7 + 0x10) = *(ulong *)(lVar7 + 0x10) & 0xfffffffffffffffd | 1;
       }
       FUN_00aaa9d0(uVar3,1,0,0x40,0xffffffffffffffff);
-      uVar16 = FUN_00aad670(uVar3,4,0,2,0);
+      uVar16 = jit_emit_cmp_set2(uVar3,4,0,2,0);
       puVar10 = (undefined8 *)arena_page_alloc16(uVar3);
       if (puVar10 != (undefined8 *)0x0) {
         uVar4 = param_1[0x2a];
@@ -36749,7 +36758,7 @@ joined_r0x00aba817:
     lVar6 = jit_emit_cmp_set(uVar3,2,0,0xd,0);
     kitty_key_encode_flag(uVar3,1,0,0x82,0);
     kitty_key_encode_select(uVar3,0x262,0,1,0,0x40,*(undefined1 *)(param_1 + 0x18));
-    FUN_00aad210(uVar3,1,0);
+    jit_emit_test_setcc(uVar3,1,0);
     kitty_key_encode_select(uVar3,0x60,2,2,0,1,0);
     lVar7 = arena_page_alloc_cell(uVar3,0x16);
     local_58 = arena_page_alloc_node(uVar3);
@@ -36763,7 +36772,7 @@ joined_r0x00aba817:
   kitty_key_encode_select(uVar3,0x60,2,2,0,0x40,1);
   if (*(int *)((long)param_1 + 0x1c4) == 0) {
     if (*(int *)(param_1 + 0x38) == 0) goto LAB_00aba620;
-    lVar9 = FUN_00aad670(uVar3,1,0,0x40,0xc0);
+    lVar9 = jit_emit_cmp_set2(uVar3,1,0,0x40,0xc0);
     kitty_key_encode_flag(uVar3,1,0,0x81,&DAT_00d1ba40);
     kitty_key_encode_select(uVar3,0x60,2,2,0,1);
     lVar13 = arena_page_alloc_node(uVar3);
@@ -36776,7 +36785,7 @@ joined_r0x00aba817:
     kitty_key_encode_flag(uVar3,1,0,0x82,0);
     kitty_key_encode_select(uVar3,0x60,2,2,0,0x40,1);
     kitty_key_encode_select(uVar3,0x62,1,1,0,0x40,0x80);
-    lVar13 = FUN_00aad670(uVar3,1,0,0x40,0x40);
+    lVar13 = jit_emit_cmp_set2(uVar3,1,0,0x40,0x40);
     if ((lVar13 != 0) && (lVar11 != 0)) {
       *(long *)(lVar13 + 0x18) = lVar11;
       *(ulong *)(lVar13 + 0x10) = *(ulong *)(lVar13 + 0x10) & 0xfffffffffffffffd | 1;
@@ -37266,7 +37275,7 @@ LAB_00abc780:
     FUN_00aadc00(param_1,1);
     if (1 < bVar8) {
       FUN_00aaa9d0(piVar21,0x8c,0,0x40,0);
-      FUN_00ab0e30(param_1,param_2,pauVar22[1] + 8);
+      jit_compile_jumptable(param_1,param_2,pauVar22[1] + 8);
       FUN_00aaa9d0(piVar21,1,0,0x84,0);
       FUN_00aaa9d0(piVar21,0x8e,0x18,4,0);
       lVar23 = FUN_00aad580(piVar21,1,0,0x84,8);
@@ -37339,7 +37348,7 @@ LAB_00abc425:
       FUN_00aaa9d0(piVar21,0x8c,0,2,0);
       FUN_00aaa9d0(piVar21,0x8c,8,0x40,0);
       kitty_key_encode_select(piVar21,0x60,0xc,0xc,0,0x40,8);
-      FUN_00ab0e30(param_1,param_2,0);
+      jit_compile_jumptable(param_1,param_2,0);
       FUN_00aaa9d0(piVar21,1,0,0x84,0);
       FUN_00aaa9d0(piVar21,0x8e,0x18,4,0);
       lVar23 = 8;
@@ -37363,8 +37372,8 @@ LAB_00abca6d:
       FUN_00aaa9d0(piVar21,1,0,0x8e,0x10);
       kitty_key_encode_select(piVar21,0x60,1,1,0,0x40,1);
       FUN_00aaa9d0(piVar21,0x8e,0x10,1,0);
-      if (((bVar6) && (lVar16 = FUN_00aad670(piVar21,1,0,0x40,uVar9), lVar14 != 0)) && (lVar16 != 0)
-         ) {
+      if (((bVar6) && (lVar16 = jit_emit_cmp_set2(piVar21,1,0,0x40,uVar9), lVar14 != 0)) &&
+         (lVar16 != 0)) {
         *(long *)(lVar16 + 0x18) = lVar14;
         *(ulong *)(lVar16 + 0x10) = *(ulong *)(lVar16 + 0x10) & 0xfffffffffffffffd | 1;
       }
@@ -37527,7 +37536,7 @@ LAB_00abbd92:
         lVar23 = (long)*(int *)((long)param_1 + 0x44) + (long)(iVar10 + 1) * 8;
       }
       else {
-        FUN_00ab0e30(param_1,param_2,0);
+        jit_compile_jumptable(param_1,param_2,0);
         FUN_00aaa9d0(piVar21,1,0,0x84,0);
         FUN_00aaa9d0(piVar21,0x8c,0x10,4,0);
         lVar23 = 8;
@@ -37565,7 +37574,7 @@ LAB_00abbfdf:
           kitty_key_encode_select(piVar21,0x60,1,1,0,0x40,1);
           FUN_00aaa9d0(piVar21,0x8c,8,1,0);
           lVar16 = *(long *)(pauVar22[2] + 8);
-          lVar15 = FUN_00aad670(piVar21,1,0,0x40,uVar9);
+          lVar15 = jit_emit_cmp_set2(piVar21,1,0,0x40,uVar9);
           if ((lVar15 != 0) && (lVar16 != 0)) {
             *(long *)(lVar15 + 0x18) = lVar16;
             *(ulong *)(lVar15 + 0x10) = *(ulong *)(lVar15 + 0x10) & 0xfffffffffffffffd | 1;
@@ -37581,7 +37590,7 @@ LAB_00abc078:
     else {
       if (1 < bVar8) {
         lVar14 = 0;
-        FUN_00ab0e30(param_1,param_2,pauVar22[1] + 8);
+        jit_compile_jumptable(param_1,param_2,pauVar22[1] + 8);
         FUN_00aaa9d0(piVar21,1,0,0x84,0);
         FUN_00aaa9d0(piVar21,0x8c,0x10,4,0);
         lVar23 = FUN_00aad580(piVar21,1,0,0x84,8);
@@ -37930,9 +37939,9 @@ LAB_00abd2e7:
 }
 
 
-// ==== entry=00abd370 name=FUN_00abd370 size=4468 ====
+// ==== entry=00abd370 orig=FUN_00abd370 size=4468 name=kitty_encode_csi_modes ====
 
-ushort * FUN_00abd370(undefined8 *param_1,byte param_2,ushort *param_3,long *param_4)
+ushort * kitty_encode_csi_modes(undefined8 *param_1,byte param_2,ushort *param_3,long *param_4)
 
 {
   int *piVar1;
@@ -37953,7 +37962,7 @@ ushort * FUN_00abd370(undefined8 *param_1,byte param_2,ushort *param_3,long *par
   
   uVar14 = *param_1;
   if (param_2 == 0x18) {
-    uVar5 = FUN_00aad670(uVar14,2,0,0xd,0);
+    uVar5 = jit_emit_cmp_set2(uVar14,2,0,0xd,0);
     puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
     if (puVar6 != (undefined8 *)0x0) {
       lVar7 = *param_4;
@@ -38004,7 +38013,7 @@ LAB_00abda56:
             else {
               lVar8 = FUN_00aad580();
               kitty_key_encode_select(uVar14,0x862,0,4,0,0xd,0);
-              FUN_00aad210(uVar14,4,2);
+              jit_emit_test_setcc(uVar14,4,2);
               kitty_key_encode_select(uVar14,0x262,0,1,0,0x40,*(undefined1 *)((long)param_1 + 0xc1))
               ;
               FUN_00aad330(uVar14,1);
@@ -38081,7 +38090,7 @@ LAB_00abda56:
           }
           if (*(int *)((long)param_1 + 0xb4) == 2) {
             kitty_key_encode_select(uVar14,0x60,4,2,0,0x40,1);
-            uVar5 = FUN_00aad670(uVar14,4,0,0xd,0);
+            uVar5 = jit_emit_cmp_set2(uVar14,4,0,0xd,0);
             puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
             if (puVar6 != (undefined8 *)0x0) {
               lVar4 = *param_4;
@@ -38192,7 +38201,7 @@ LAB_00abda56:
               *param_4 = (long)puVar6;
             }
             if (*(int *)(param_1 + 0x1a) != 0) {
-              uVar5 = FUN_00aad670(uVar14,2,0,0xd,0);
+              uVar5 = jit_emit_cmp_set2(uVar14,2,0,0xd,0);
               puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
               if (puVar6 != (undefined8 *)0x0) {
                 lVar7 = *param_4;
@@ -38203,13 +38212,13 @@ LAB_00abda56:
               FUN_00ab2f00(param_1,0);
               return param_3;
             }
-            FUN_00abd370(param_1,0x17,param_3,param_4);
+            kitty_encode_csi_modes(param_1,0x17,param_3,param_4);
             return param_3;
           }
           if (param_2 != 0x1a) {
             return param_3;
           }
-          lVar4 = FUN_00aad670(uVar14,2,0,0xd,0);
+          lVar4 = jit_emit_cmp_set2(uVar14,2,0,0xd,0);
           kitty_key_encode_select(uVar14,0x365,0,0x89,0x58,0x40,2);
           uVar5 = arena_page_alloc_cell(uVar14,1);
           puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
@@ -38230,7 +38239,7 @@ LAB_00abda56:
             kitty_key_encode_select(uVar14,0x60,4,2,0,0x40,2);
             kitty_key_encode_flag(uVar14,1,0,0x82,0);
             if (*(int *)(param_1 + 0x12) == 1) {
-              uVar5 = FUN_00aad4f0(uVar14,4,0xd,0);
+              uVar5 = jit_emit_cmp_set3(uVar14,4,0xd,0);
               puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
               if (puVar6 != (undefined8 *)0x0) {
                 lVar4 = *param_4;
@@ -38300,7 +38309,7 @@ LAB_00abdf96:
             FUN_00aaa9d0(uVar14,4,0,0x89,0x10);
             if (*(int *)(param_1 + 0x38) == 0) {
               kitty_key_encode_select(uVar14,0x62,2,2,0,0x40,uVar13);
-              uVar5 = FUN_00aad670(uVar14,2,0,4,0);
+              uVar5 = jit_emit_cmp_set2(uVar14,2,0,4,0);
               puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
               if (puVar6 != (undefined8 *)0x0) {
                 lVar7 = *param_4;
@@ -38377,7 +38386,7 @@ joined_r0x00abe489:
             return puVar12;
           }
           FUN_00aaa9d0(uVar14,4,0,0x89,0x10);
-          lVar4 = FUN_00aad4f0(uVar14,2,4,0);
+          lVar4 = jit_emit_cmp_set3(uVar14,2,4,0);
           kitty_key_encode_select(uVar14,0x365,0,0x89,0x58,0x40,1);
           uVar5 = arena_page_alloc_cell(uVar14,1);
           puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
@@ -38406,7 +38415,7 @@ joined_r0x00abe489:
           }
           if ((*(int *)((long)param_1 + 0xb4) == 0) && (0xff < *(int *)(param_1 + 0x18))) {
             kitty_key_encode_select(uVar14,0x62,1,2,0,0x40,2);
-            uVar5 = FUN_00aad670(uVar14,1,0,4,0);
+            uVar5 = jit_emit_cmp_set2(uVar14,1,0,4,0);
             puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
             if (puVar6 != (undefined8 *)0x0) {
               lVar4 = *param_4;
@@ -38420,7 +38429,7 @@ joined_r0x00abe489:
           }
           FUN_00abcd10(param_1,*(undefined4 *)(param_1 + 0x17),param_4);
         }
-        FUN_00ab2700(param_1,*(undefined4 *)((long)param_1 + 0xb4),param_4,0);
+        jit_emit_store_local(param_1,*(undefined4 *)((long)param_1 + 0xb4),param_4,0);
 LAB_00abd4bb:
         lVar4 = arena_page_alloc_node(uVar14);
         if (lVar7 == 0) {
@@ -38434,7 +38443,7 @@ LAB_00abd4bb:
         return param_3;
       }
       FUN_00aaa9d0(uVar14,1,0,0x89,0x10);
-      uVar5 = FUN_00aad4f0(uVar14,2,1,0);
+      uVar5 = jit_emit_cmp_set3(uVar14,2,1,0);
       puVar6 = (undefined8 *)arena_page_alloc16(uVar14);
       if (puVar6 != (undefined8 *)0x0) {
         lVar7 = *param_4;
@@ -38457,9 +38466,9 @@ LAB_00abd4bb:
 }
 
 
-// ==== entry=00abe540 name=FUN_00abe540 size=3480 ====
+// ==== entry=00abe540 orig=FUN_00abe540 size=3480 name=kitty_keyboard_set_flags ====
 
-void FUN_00abe540(undefined8 *param_1)
+void kitty_keyboard_set_flags(undefined8 *param_1)
 
 {
   ulong uVar1;
@@ -38535,7 +38544,7 @@ LAB_00abe6a6:
       kitty_key_encode_select(piVar2,0x65,3,1,0,0x40,1);
     }
     else {
-      lVar8 = FUN_00aad4f0(piVar2,1,0x40,0xff);
+      lVar8 = jit_emit_cmp_set3(piVar2,1,0x40,0xff);
       kitty_key_encode_flag(piVar2,1,0,0x81,param_1[0x1b]);
       kitty_key_encode_select(piVar2,0x69,1,1,0,0x40,4);
       kitty_key_encode_select(piVar2,0x65,3,1,0,0x40,1);
@@ -38602,7 +38611,7 @@ LAB_00abea9f:
     }
     kitty_key_encode_select(piVar2,0x62,1,1,0,0x40,5);
     kitty_key_encode_select(piVar2,0x1462,0,1,0,0x40,4);
-    FUN_00aad210(piVar2,4,5);
+    jit_emit_test_setcc(piVar2,4,5);
     kitty_key_encode_select(piVar2,0x62,1,1,0,0x40,8);
     kitty_key_encode_select(piVar2,0x1462,0,1,0,0x40,2);
     if (*piVar2 == 0) {
@@ -38636,7 +38645,7 @@ LAB_00abea9f:
     *(ulong *)(lVar7 + 0x10) = *(ulong *)(lVar7 + 0x10) & 0xfffffffffffffffd | 1;
   }
   FUN_00aaa9d0(piVar2,4,0,0x40,0);
-  FUN_00ab21c0(param_1,&local_50);
+  jit_emit_prologue(param_1,&local_50);
   FUN_00ab0b80(param_1,0x7fffffff,0x8e,8,local_40);
   lVar7 = arena_page_alloc_node(piVar2);
   if (*(int *)(param_1 + 0x39) == 0) {
@@ -38647,7 +38656,7 @@ LAB_00abea9f:
       kitty_key_encode_select(piVar2,0x65,4,4,0,0x40,1);
       goto LAB_00abe9b9;
     }
-    lVar8 = FUN_00aad4f0(piVar2,1,0x40,0xff);
+    lVar8 = jit_emit_cmp_set3(piVar2,1,0x40,0xff);
     kitty_key_encode_flag(piVar2,4,0,0x81,param_1[0x1b]);
     kitty_key_encode_select(piVar2,0x69,4,4,0,0x40,4);
     kitty_key_encode_select(piVar2,0x65,4,4,0,0x40,1);
@@ -38820,13 +38829,14 @@ void FUN_00abf320(undefined8 *param_1)
       lVar5 = FUN_00aad710(piVar2,2,0,4,0);
       kitty_key_encode_select(piVar2,0x62,2,2,0,0x40,1);
       kitty_key_encode_select(piVar2,0x262,0,2,0,1,0);
-      FUN_00aad210(piVar2,1,1);
+      jit_emit_test_setcc(piVar2,1,1);
       uVar14 = 0;
       kitty_key_encode_select(piVar2,0x62,2,2,0,1,0);
       uVar3 = *(uint *)(param_1 + 0x18) >> 8;
       uVar11 = *(uint *)(param_1 + 0x18) & 0xff;
-      FUN_00ab1290(param_1,1,uVar11,uVar11,0,uVar3 & 0xff,
-                   CONCAT44(uVar14,uVar3) & 0xffffffff000000ff);
+      kitty_csi_u_encode_modifiers
+                (param_1,1,uVar11,uVar11,0,uVar3 & 0xff,CONCAT44(uVar14,uVar3) & 0xffffffff000000ff)
+      ;
       kitty_key_encode_select(piVar2,0x60,2,2,0,0x40,2);
     }
     else {
@@ -38836,7 +38846,7 @@ void FUN_00abf320(undefined8 *param_1)
       lVar5 = FUN_00aad710(piVar2,2,0,4,0);
       kitty_key_encode_select(piVar2,0x60,1,1,0,0x40,2);
       kitty_key_encode_select(piVar2,0xc62,0,2,0,1,0);
-      FUN_00aad210(piVar2,4,3);
+      jit_emit_test_setcc(piVar2,4,3);
       kitty_key_encode_select(piVar2,0x62,2,2,0,4,0);
       lVar9 = arena_page_alloc_node(piVar2);
       kitty_key_encode_select(piVar2,0x60,2,2,0,0x40,1);
@@ -38923,7 +38933,7 @@ joined_r0x00abfdcd:
         lVar7 = jit_emit_cmp_set(piVar2,2,0,0xd,0);
         kitty_key_encode_flag(piVar2,1,0,0x82,0);
         kitty_key_encode_select(piVar2,0x262,0,1,0,0x40,10);
-        FUN_00aad210(piVar2,1,0);
+        jit_emit_test_setcc(piVar2,1,0);
         uVar13 = 0;
         kitty_key_encode_select(piVar2,0x60,2,2,0,1);
         lVar8 = arena_page_alloc_node(piVar2);
@@ -38954,7 +38964,7 @@ LAB_00abf4a9:
         lVar7 = jit_emit_cmp_set(piVar2,2,0,0xd,0);
         kitty_key_encode_flag(piVar2,1,0,0x82,0);
         kitty_key_encode_select(piVar2,0x262,0,1,0,0x40,10);
-        FUN_00aad210(piVar2,1,0);
+        jit_emit_test_setcc(piVar2,1,0);
         kitty_key_encode_select(piVar2,0x60,2,2,0,1,0);
         lVar8 = arena_page_alloc_node(piVar2);
         if ((lVar7 != 0) && (lVar8 != 0)) {
@@ -38977,7 +38987,7 @@ LAB_00abfad9:
         lVar7 = FUN_00aad580(piVar2,1,0,0x40,0xd);
         iVar4 = *(int *)((long)param_1 + 0xb4);
       }
-      FUN_00ab2700(param_1,iVar4,local_40,0);
+      jit_emit_store_local(param_1,iVar4,local_40,0);
       if (local_40[0] != (long *)0x0) {
         plVar10 = local_40[0];
         do {
@@ -39189,7 +39199,7 @@ ushort * kitty_csi_dispatch(undefined8 *param_1,char param_2,ushort *param_3,lon
     }
     if (*(int *)(param_1 + 0x38) == 0) {
 LAB_00ac1340:
-      FUN_00ab3b40(param_1,param_4,param_2 == '\x06');
+      jit_emit_stack_ops(param_1,param_4,param_2 == '\x06');
     }
     else {
       lVar14 = param_1[0x1b];
@@ -39238,7 +39248,7 @@ LAB_00ac1340:
     }
     if (*(int *)(param_1 + 0x38) == 0) {
 LAB_00ac1320:
-      FUN_00ab3b40(param_1,param_4,param_2 == '\b');
+      jit_emit_stack_ops(param_1,param_4,param_2 == '\b');
     }
     else {
       lVar14 = param_1[0x1b];
@@ -39287,7 +39297,7 @@ LAB_00ac1320:
     }
     if (*(int *)(param_1 + 0x38) == 0) {
 LAB_00ac1300:
-      FUN_00ab3b40(param_1,param_4,param_2 == '\n');
+      jit_emit_stack_ops(param_1,param_4,param_2 == '\n');
     }
     else {
       lVar14 = param_1[0x1b];
@@ -39353,7 +39363,7 @@ LAB_00ac0766:
       uStack_56 = 0;
       uStack_54 = 0;
       if (*(int *)(param_1 + 0x12) == 4) {
-        FUN_00ab21c0(param_1,&local_58);
+        jit_emit_prologue(param_1,&local_58);
       }
       else {
         uVar19 = jit_emit_cmp_set(piVar4,2,0,0xd,0);
@@ -39394,7 +39404,7 @@ LAB_00ac186a:
       }
     }
     else {
-      FUN_00ab2700(param_1,*(int *)((long)param_1 + 0xb4),param_4,1);
+      jit_emit_store_local(param_1,*(int *)((long)param_1 + 0xb4),param_4,1);
     }
     break;
   case '\r':
@@ -39408,7 +39418,7 @@ LAB_00ac186a:
       }
       kitty_key_encode_flag(piVar4,1,0,0x82,0);
       kitty_key_encode_select(piVar4,0x60,2,2,0,0x40,1);
-      lVar14 = FUN_00aad670(piVar4,1,0,0x40,0xc0);
+      lVar14 = jit_emit_cmp_set2(piVar4,1,0,0x40,0xc0);
       kitty_key_encode_flag(piVar4,1,0,0x81,&DAT_00d1ba40);
       kitty_key_encode_select(piVar4,0x60,2,2,0,1,0);
       lVar15 = arena_page_alloc_node(piVar4);
@@ -39439,7 +39449,7 @@ LAB_00ac0839:
     if (param_5 != 0) {
       FUN_00ab93f0(param_1,param_4);
     }
-    FUN_00ac1ef0(param_1,&local_58,param_4);
+    kitty_input_parse_ctrl_char(param_1,&local_58,param_4);
     puVar13 = param_3 + 1;
     break;
   case '\x11':
@@ -39454,7 +39464,7 @@ LAB_00ac0839:
     uStack_56 = 0;
     uStack_54 = 0;
     if (*(int *)(param_1 + 0x12) == 4) {
-      FUN_00ab21c0(param_1,&local_58);
+      jit_emit_prologue(param_1,&local_58);
     }
     else {
       uVar19 = jit_emit_cmp_set(piVar4,2,0,0xd,0);
@@ -39477,7 +39487,7 @@ LAB_00ac0839:
       *(long *)(lVar14 + 0x18) = lVar10;
       *(ulong *)(lVar14 + 0x10) = *(ulong *)(lVar14 + 0x10) & 0xfffffffffffffffd | 1;
     }
-    FUN_00ab2700(param_1,*(undefined4 *)((long)param_1 + 0xc4),param_4,0);
+    jit_emit_store_local(param_1,*(undefined4 *)((long)param_1 + 0xc4),param_4,0);
     lVar14 = arena_page_alloc_node(piVar4);
     for (plVar16 = (long *)CONCAT44(uStack_54,CONCAT22(uStack_56,CONCAT11(cStack_57,local_58)));
         plVar16 != (long *)0x0; plVar16 = (long *)plVar16[1]) {
@@ -39571,7 +39581,7 @@ LAB_00ac0fe8:
     }
     FUN_00aaa9d0(piVar4,2,0,1,0);
     if (*(int *)(param_1 + 0x12) == 4) {
-      lVar14 = FUN_00aad670(piVar4,1,0,0xd,0);
+      lVar14 = jit_emit_cmp_set2(piVar4,1,0,0xd,0);
       FUN_00ab2f00(param_1,1);
       lVar15 = arena_page_alloc_node(piVar4);
       if ((lVar15 != 0) && (lVar14 != 0)) {
@@ -39595,7 +39605,7 @@ LAB_00ac0fe8:
        (iVar7 = FUN_00aa2e30(), iVar7 != 0)) {
       kitty_key_encode_select(piVar4,0x60,2,2,0,0x40,iVar6);
       if ((iVar6 != 1) || ((param_5 != 0 && (*(int *)(param_1 + 0x12) == 1)))) {
-        uVar19 = FUN_00aad4f0(piVar4,2,0xd,0);
+        uVar19 = jit_emit_cmp_set3(piVar4,2,0xd,0);
         puVar12 = (undefined8 *)arena_page_alloc16(piVar4);
         if (puVar12 != (undefined8 *)0x0) {
           lVar14 = *param_4;
@@ -39769,7 +39779,7 @@ LAB_00ac1210:
           *param_4 = (long)puVar12;
         }
         kitty_key_encode_select(piVar4,0x60,2,2,0,0x40,1);
-        lVar14 = FUN_00aad670(piVar4,1,0,0x40,0xc0);
+        lVar14 = jit_emit_cmp_set2(piVar4,1,0,0x40,0xc0);
         kitty_key_encode_flag(piVar4,1,0,0x81,&DAT_00d1ba40);
         kitty_key_encode_select(piVar4,0x60,2,2,0,1,0);
         lVar15 = arena_page_alloc_node(piVar4);
@@ -39906,7 +39916,7 @@ LAB_00ac1250:
     iVar6 = FUN_00ab77d0(param_1,param_3,param_2 == 'o',0,param_4);
     if (iVar6 == 0) {
       if (*(int *)(param_1 + 0x38) != 0) {
-        lVar14 = FUN_00aad4f0(piVar4,1,0x40,local_60);
+        lVar14 = jit_emit_cmp_set3(piVar4,1,0x40,local_60);
         if (param_2 != 'n') {
           kitty_key_encode_select(piVar4,0x65,4,1,0,0x40,7);
           kitty_key_encode_select(piVar4,0x69,1,1,0,0x40,3);
@@ -39960,16 +39970,16 @@ LAB_00ac1250:
     if (param_5 != 0) {
       FUN_00ab93f0(param_1,param_4);
     }
-    FUN_00ac1ef0(param_1,param_3 + 1,param_4);
+    kitty_input_parse_ctrl_char(param_1,param_3 + 1,param_4);
     puVar13 = (ushort *)((long)param_3 + ((ulong)(ushort)(*param_3 << 8 | *param_3 >> 8) - 1));
   }
   return puVar13;
 }
 
 
-// ==== entry=00ac1ef0 name=FUN_00ac1ef0 size=10516 ====
+// ==== entry=00ac1ef0 orig=FUN_00ac1ef0 size=10516 name=kitty_input_parse_ctrl_char ====
 
-void FUN_00ac1ef0(undefined8 *param_1,byte *param_2,long **param_3)
+void kitty_input_parse_ctrl_char(undefined8 *param_1,byte *param_2,long **param_3)
 
 {
   byte bVar1;
@@ -40331,7 +40341,7 @@ LAB_00ac3838:
     if (bVar8 == 0) {
       uVar23 = uVar25;
       kitty_key_encode_select(piVar5,0x62,4,1,0,0x40);
-      lVar11 = FUN_00aad4f0(piVar5,4,0x40,uVar26 - uVar25);
+      lVar11 = jit_emit_cmp_set3(piVar5,4,0x40,uVar26 - uVar25);
       pplVar16 = local_40;
       if ((*param_2 & 1) == 0) {
         pplVar16 = param_3;
@@ -40346,7 +40356,7 @@ LAB_00ac3838:
       }
     }
     else {
-      lVar11 = FUN_00aad4f0(piVar5,1,0x40,0xff);
+      lVar11 = jit_emit_cmp_set3(piVar5,1,0x40,0xff);
       iVar20 = FUN_00ab77d0(param_1,pbVar27,(uint)(int)(char)param_2[0x20] >> 0x1f,1,local_40);
       if (iVar20 == 0) {
         kitty_key_encode_select(piVar5,0x65,4,1,0,0x40,7);
@@ -40529,7 +40539,7 @@ LAB_00ac21d3:
     if (iVar20 == 0) {
       lVar11 = 0;
       if (*(int *)(param_1 + 0x38) != 0) {
-        lVar11 = FUN_00aad4f0(piVar5,1,0x40,0xff);
+        lVar11 = jit_emit_cmp_set3(piVar5,1,0x40,0xff);
       }
       kitty_key_encode_select(piVar5,0x65,4,1,0,0x40,7);
       kitty_key_encode_select(piVar5,0x69,1,1,0,0x40,3);
@@ -40770,7 +40780,7 @@ LAB_00ac3550:
     goto switchD_00ac224f_default;
   case 1:
     kitty_key_encode_select(piVar5,0x262,0,local_70,0,0x40,9 - local_68);
-    FUN_00aad210(piVar5,4,0);
+    jit_emit_test_setcc(piVar5,4,0);
     kitty_key_encode_select(piVar5,0x262,0,local_70,0,0x40,5 - local_68);
     FUN_00aa8ca0(piVar5,0);
     kitty_key_encode_select(piVar5,0x262,0,local_70,0,0x40,8 - local_68);
@@ -40815,7 +40825,7 @@ LAB_00ac3550:
       }
     }
     kitty_key_encode_select(piVar5,0x1462,0,1,0,0x40,4);
-    FUN_00aad210(piVar5,4,5);
+    jit_emit_test_setcc(piVar5,4,5);
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,0x7c);
     FUN_00aa8ca0(piVar5,0);
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,0x1805);
@@ -40836,7 +40846,7 @@ LAB_00ac3550:
     break;
   case 8:
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,0x5f - uVar25);
-    FUN_00aad210(piVar5,4,0);
+    jit_emit_test_setcc(piVar5,4,0);
     goto switchD_00ac224f_caseD_5;
   case 9:
     uVar23 = (ulong)pbVar27[2];
@@ -40854,7 +40864,7 @@ LAB_00ac3550:
       puVar28 = (uint *)(&DAT_00d35188 + lVar11);
       kitty_key_encode_select(piVar5,0x66,4,uVar36,0,0x40,uVar17);
       kitty_key_encode_select(piVar5,0x262,0,4,0,0x40,*(undefined4 *)(&DAT_00d35184 + lVar11));
-      FUN_00aad210(piVar5,4,0);
+      jit_emit_test_setcc(piVar5,4,0);
     }
     else {
       uVar17 = *(uint *)(&DAT_00d35184 + lVar11) ^ *(uint *)(&DAT_00d35188 + lVar11);
@@ -40869,7 +40879,7 @@ LAB_00ac3550:
         }
         kitty_key_encode_select(piVar5,0x66,4,uVar36,0,0x40,uVar17);
         kitty_key_encode_select(piVar5,0x262,0,4,0,0x40,*(undefined4 *)(&DAT_00d35188 + lVar11));
-        FUN_00aad210(piVar5,4,0);
+        jit_emit_test_setcc(piVar5,4,0);
         kitty_key_encode_select(piVar5,0x262,0,1,0,0x40);
         uVar36 = 0x266;
         if (*(int *)(&DAT_00d3518c + lVar11) != -1) {
@@ -40883,7 +40893,7 @@ LAB_00ac3550:
         puVar28 = (uint *)(&DAT_00d35184 + lVar11);
         kitty_key_encode_select
                   (piVar5,0x262,0,1,0,0x40,*(uint *)(&DAT_00d35180 + uVar23 * 4) - uVar25);
-        FUN_00aad210(piVar5,4,0);
+        jit_emit_test_setcc(piVar5,4,0);
       }
     }
     while (uVar36 = uStack_90, uVar17 = *puVar28, uVar17 != 0xffffffff) {
@@ -40901,7 +40911,7 @@ LAB_00ac3550:
     break;
   case 10:
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,0x24 - uVar25);
-    FUN_00aad210(piVar5,4,0);
+    jit_emit_test_setcc(piVar5,4,0);
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,0x40 - uVar25);
     FUN_00aa8ca0(piVar5,0);
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,0x60 - uVar25);
@@ -40932,7 +40942,7 @@ LAB_00ac3550:
       }
     }
     kitty_key_encode_select(piVar5,0x1062,0,local_70,0,0x40,0x15);
-    FUN_00aad210(piVar5,4,4);
+    jit_emit_test_setcc(piVar5,4,4);
     lVar11 = kitty_encode_special_key(piVar5,local_70,0,0x40,0xfffffffffffffffc);
     if (uVar25 != 0x2066) {
       if (uVar25 < 0x2067) {
@@ -40943,7 +40953,7 @@ LAB_00ac3550:
       }
     }
     kitty_key_encode_select(piVar5,0x1462,0,1,0,0x40,3);
-    FUN_00aad210(piVar5,4,5);
+    jit_emit_test_setcc(piVar5,4,5);
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,0xffffffffffffe5b6);
     FUN_00aa8ca0(piVar5,0);
     uVar36 = 0xfffffffffffff7a8;
@@ -40958,7 +40968,7 @@ LAB_00ac3550:
       }
     }
     kitty_key_encode_select(piVar5,0x1062,0,local_70,0,0x40,0x15);
-    FUN_00aad210(piVar5,4,4);
+    jit_emit_test_setcc(piVar5,4,4);
     kitty_key_encode_select(piVar5,0x262,0,local_70,0,0x40,0x18);
     FUN_00aacdd0(piVar5,0x65,1);
     lVar11 = kitty_encode_special_key(piVar5,local_70,0,0x40,0xfffffffffffffffc);
@@ -40971,7 +40981,7 @@ LAB_00ac3550:
       }
     }
     kitty_key_encode_select(piVar5,0x1462,0,1,0,0x40,3);
-    FUN_00aad210(piVar5,4,5);
+    jit_emit_test_setcc(piVar5,4,5);
     uVar36 = 0xffffffffffffe5b6;
 LAB_00ac2a41:
     kitty_key_encode_select(piVar5,0x262,0,1,0,0x40,uVar36);
@@ -40996,7 +41006,7 @@ LAB_00ac2a41:
       }
     }
     kitty_key_encode_select(piVar5,0x1462,0,local_70,0,0x40,3);
-    FUN_00aad210(piVar5,4,5);
+    jit_emit_test_setcc(piVar5,4,5);
     if (uVar25 != 0) {
       kitty_key_encode_select(piVar5,0x60,1,1,0,0x40,uVar25);
     }
@@ -41302,7 +41312,7 @@ LAB_00ac5566:
       goto LAB_00ac4c92;
     }
     kitty_key_encode_select(piVar16,0x60,1,2,0,0x40,uVar23);
-    uVar9 = FUN_00aad4f0(piVar16,1,0xd,0);
+    uVar9 = jit_emit_cmp_set3(piVar16,1,0xd,0);
     puVar6 = (undefined8 *)arena_page_alloc16(piVar16);
     if (puVar6 != (undefined8 *)0x0) {
       puVar6[1] = *(undefined8 *)(pauVar24[1] + 8);
@@ -42178,7 +42188,7 @@ LAB_00ac81d8:
       if (*(long *)(param_4 + 0x10) != 0) {
         lVar25 = *(long *)(param_4 + 0x10) + 8;
       }
-      pbVar15 = (byte *)FUN_00abd370(param_1,bVar6,param_2 + 1,lVar25);
+      pbVar15 = (byte *)kitty_encode_csi_modes(param_1,bVar6,param_2 + 1,lVar25);
       break;
     case 3:
       if (*piVar3 != 0) {
@@ -42313,7 +42323,7 @@ LAB_00ac7b11:
           if (iVar7 == 0) goto LAB_00ac8479;
 LAB_00ac8855:
           kitty_key_encode_select(uVar12,0x60,2,2,0,0x40,(long)iVar7);
-          uVar16 = FUN_00aad4f0(uVar12,2,0xd,0);
+          uVar16 = jit_emit_cmp_set3(uVar12,2,0xd,0);
           puVar17 = (undefined8 *)arena_page_alloc16(uVar12);
           if (puVar17 != (undefined8 *)0x0) {
             uVar12 = *puVar14;
@@ -42447,7 +42457,7 @@ LAB_00ac8130:
       if (*(long *)(param_4 + 0x10) == 0) {
         lVar25 = param_4 + 0x18;
       }
-      FUN_00ab0e30(param_1,param_2,lVar25);
+      jit_compile_jumptable(param_1,param_2,lVar25);
       lVar25 = *(long *)(param_4 + 0x10) + 8;
       if (*(long *)(param_4 + 0x10) == 0) {
         lVar25 = param_4 + 0x18;
@@ -42753,7 +42763,7 @@ LAB_00ac7dd7:
     case 0x8d:
     case 0x8f:
 switchD_00ac6ced_caseD_82:
-      pbVar15 = (byte *)FUN_00aca5f0(param_1,param_2,param_4);
+      pbVar15 = (byte *)kitty_input_parse_escape_seq(param_1,param_2,param_4);
       break;
     case 0x87:
     case 0x89:
@@ -43957,9 +43967,9 @@ LAB_00ac95ef:
 }
 
 
-// ==== entry=00aca5f0 name=FUN_00aca5f0 size=8564 ====
+// ==== entry=00aca5f0 orig=FUN_00aca5f0 size=8564 name=kitty_input_parse_escape_seq ====
 
-byte * FUN_00aca5f0(undefined8 *param_1,byte *param_2,long param_3)
+byte * kitty_input_parse_escape_seq(undefined8 *param_1,byte *param_2,long param_3)
 
 {
   ulong uVar1;
@@ -45286,7 +45296,7 @@ switchD_00acd034_caseD_25:
               *(ulong *)(lVar16 + 0x10) = *(ulong *)(lVar16 + 0x10) & 0xfffffffffffffffd | 1;
             }
             onig_compileOp(param_1,0,1);
-            lVar12 = FUN_00aad4f0(uVar13,2,4);
+            lVar12 = jit_emit_cmp_set3(uVar13,2,4);
             if ((lVar15 != 0) && (lVar12 != 0)) {
               *(long *)(lVar12 + 0x18) = lVar15;
               *(ulong *)(lVar12 + 0x10) = *(ulong *)(lVar12 + 0x10) & 0xfffffffffffffffd | 1;
@@ -45597,7 +45607,7 @@ LAB_00accf65:
     case 0x8b:
     case 0x8d:
     case 0x8f:
-      FUN_00ace3a0(param_1,param_2);
+      kitty_input_decode_csi_params(param_1,param_2);
       break;
     case 0x87:
     case 0x89:
@@ -45695,14 +45705,14 @@ LAB_00accb82:
       }
       else {
 LAB_00acca0d:
-        FUN_00ace3a0(param_1,puVar18);
+        kitty_input_decode_csi_params(param_1,puVar18);
       }
       break;
     case 0x97:
       param_2[3] = 0;
       *(undefined1 (*) [16])(param_2 + 1) = (undefined1  [16])0x0;
       if (0x81 < pbVar3[1]) {
-        FUN_00aca5f0(param_1,pbVar3,param_2);
+        kitty_input_parse_escape_seq(param_1,pbVar3,param_2);
         puVar18 = (undefined8 *)param_2[2];
         goto LAB_00acca0d;
       }
@@ -45914,9 +45924,9 @@ code_r0x00acc86d:
 }
 
 
-// ==== entry=00ace3a0 name=FUN_00ace3a0 size=8417 ====
+// ==== entry=00ace3a0 orig=FUN_00ace3a0 size=8417 name=kitty_input_decode_csi_params ====
 
-ulong FUN_00ace3a0(undefined8 *param_1,long param_2)
+ulong kitty_input_decode_csi_params(undefined8 *param_1,long param_2)
 
 {
   byte bVar1;
@@ -49073,7 +49083,7 @@ LAB_00ad3708:
             kitty_key_encode_select(piVar1,0x60,1,1,0,0x40,0x18);
             FUN_00aaa9d0(piVar1,0x81,0xfffffffffffffff0,3,0);
             FUN_00aaa9d0(piVar1,0x81,0xfffffffffffffff8,3,0);
-            lVar18 = FUN_00aad670(piVar1,1,0,4,0);
+            lVar18 = jit_emit_cmp_set2(piVar1,1,0,4,0);
             if ((lVar18 != 0) && (lVar38 != 0)) {
               *(long *)(lVar18 + 0x18) = lVar38;
               *(ulong *)(lVar18 + 0x10) = *(ulong *)(lVar18 + 0x10) & 0xfffffffffffffffd | 1;
@@ -49142,7 +49152,7 @@ LAB_00ad4c24:
         {
           FUN_00aaa9d0(piVar8,1,0,0x40,0xffffffffffffffff);
           kitty_key_encode_select(piVar8,0x60,4,2,0,0x40,*(undefined2 *)((long)param_1 + 0x7e));
-          lVar38 = FUN_00aad4f0(piVar8,4,0xd,0);
+          lVar38 = jit_emit_cmp_set3(piVar8,4,0xd,0);
         }
       }
       piVar1 = local_258[0];
@@ -49154,8 +49164,8 @@ LAB_00ad4c24:
         local_2f8._0_4_ = uVar4 & 0x100;
         kitty_key_encode_select(local_258[0],0x60,4,2,0,0x40,500000);
         FUN_00aaa9d0(piVar1,1,0,0x8e,(long)(int)local_20c);
-        lVar18 = FUN_00aad670(piVar1,4,0,0xd,0);
-        lVar40 = FUN_00aad670(piVar1,2,0,1,0);
+        lVar18 = jit_emit_cmp_set2(piVar1,4,0,0xd,0);
+        lVar40 = jit_emit_cmp_set2(piVar1,2,0,1,0);
         if ((uVar4 & 0x10) == 0) {
           FUN_00aaa9d0(piVar1,1,0,2,0);
         }
@@ -49557,7 +49567,7 @@ LAB_00ad4182:
       FUN_00aaa9d0(piVar8,2,0,0x8e,(long)(int)uVar4);
       if (-1 < (int)*(uint *)(param_1 + 0xb)) {
         if (local_140 == 0) {
-          lVar40 = FUN_00aad670(piVar8,2,0,(-(local_1fc == 0) & 0xcU) + 1,0);
+          lVar40 = jit_emit_cmp_set2(piVar8,2,0,(-(local_1fc == 0) & 0xcU) + 1,0);
           if ((lVar40 != 0) && (local_2e0 != 0)) {
             *(long *)(lVar40 + 0x18) = local_2e0;
             *(ulong *)(lVar40 + 0x10) = *(ulong *)(lVar40 + 0x10) & 0xfffffffffffffffd | 1;
@@ -49565,7 +49575,7 @@ LAB_00ad4182:
         }
         else if ((*(uint *)(param_1 + 0xb) & 0x100) == 0) {
           if (local_1fc == 0) {
-            lVar40 = FUN_00aad670(piVar8,2,0,0xd,0);
+            lVar40 = jit_emit_cmp_set2(piVar8,2,0,0xd,0);
             if (lVar40 != 0) {
               *(long *)(lVar40 + 0x18) = local_140;
               *(ulong *)(lVar40 + 0x10) = *(ulong *)(lVar40 + 0x10) & 0xfffffffffffffffd | 1;
@@ -49574,7 +49584,7 @@ LAB_00ad4182:
           else {
             FUN_00aaa9d0(piVar8,3);
             FUN_00aaa9d0(piVar8,0xd,0,1,0);
-            lVar40 = FUN_00aad670(piVar8,2,0,1,0);
+            lVar40 = jit_emit_cmp_set2(piVar8,2,0,1,0);
             if ((lVar40 != 0) && (local_140 != 0)) {
               *(long *)(lVar40 + 0x18) = local_140;
               *(ulong *)(lVar40 + 0x10) = *(ulong *)(lVar40 + 0x10) & 0xfffffffffffffffd | 1;
@@ -49776,7 +49786,7 @@ LAB_00ad5452:
           }
         }
 LAB_00ad54c2:
-        FUN_00abe540(local_258);
+        kitty_keyboard_set_flags(local_258);
       }
       if (local_d0 != (long *)0x0) {
         lVar38 = arena_page_alloc_node(piVar8);
@@ -49921,7 +49931,7 @@ LAB_00ad590a:
         }
         FUN_00aaa9d0(piVar1,1,0,0x8e,(long)(int)local_210);
         FUN_00aaa9d0(piVar1,0xc,0,0x8c,8);
-        lVar38 = FUN_00aad4f0(piVar8,2,1,0);
+        lVar38 = jit_emit_cmp_set3(piVar8,2,1,0);
         if ((local_2e8 != 0) && (lVar38 != 0)) {
           *(long *)(lVar38 + 0x18) = local_2e8;
           *(ulong *)(lVar38 + 0x10) = *(ulong *)(lVar38 + 0x10) & 0xfffffffffffffffd | 1;
@@ -49971,7 +49981,7 @@ LAB_00ad5ae2:
           *(ulong *)(lVar18 + 0x10) = *(ulong *)(lVar18 + 0x10) & 0xfffffffffffffffd | 1;
         }
 LAB_00ad5b52:
-        FUN_00aaf440(local_258[0]);
+        jit_emit_stack_ops2(local_258[0]);
       }
       if (local_60 != (long *)0x0) {
         lVar38 = arena_page_alloc_node(piVar8);
@@ -49984,7 +49994,7 @@ LAB_00ad5b52:
           }
         }
 LAB_00ad5bc2:
-        FUN_00ab68a0(local_258[0]);
+        kitty_func_key_encode_b(local_258[0]);
       }
       if (local_58 != (long *)0x0) {
         lVar38 = arena_page_alloc_node(piVar8);
@@ -50024,7 +50034,7 @@ LAB_00ad5ca2:
           }
         }
 LAB_00ad5d12:
-        FUN_00ab5980(local_258[0]);
+        kitty_func_key_encode_a(local_258[0]);
       }
       if (local_88 != (long *)0x0) {
         lVar38 = arena_page_alloc_node(piVar8);
@@ -50082,7 +50092,7 @@ LAB_00ad5f22:
       }
       (*(code *)param_1[1])(local_230,param_1[2]);
       (*(code *)param_1[1])(local_240,param_1[2]);
-      lVar18 = FUN_00aa41a0(piVar8);
+      lVar18 = jit_relocate_patches(piVar8);
       lVar38 = *(long *)(piVar8 + 0x24);
       FUN_00aa2750(piVar8);
       if (lVar18 == 0) {
@@ -51171,11 +51181,11 @@ LAB_00ad8420:
 }
 
 
-// ==== entry=00ad8580 name=FUN_00ad8580 size=5512 ====
+// ==== entry=00ad8580 orig=FUN_00ad8580 size=5512 name=utf8_decode_codepoint ====
 
 /* WARNING: Type propagation algorithm not settling */
 
-undefined8 FUN_00ad8580(byte *param_1,byte *param_2,int param_3)
+undefined8 utf8_decode_codepoint(byte *param_1,byte *param_2,int param_3)
 
 {
   byte bVar1;
@@ -52552,10 +52562,11 @@ byte * FUN_00ad9d30(long param_1,byte *param_2,int param_3,int param_4,int param
 }
 
 
-// ==== entry=00ad9fc0 name=FUN_00ad9fc0 size=2632 ====
+// ==== entry=00ad9fc0 orig=FUN_00ad9fc0 size=2632 name=regex_parse_walk_nodes ====
 
-uint FUN_00ad9fc0(long param_1,char *param_2,long param_3,int param_4,long *param_5,int *param_6,
-                 uint *param_7)
+uint regex_parse_walk_nodes
+               (long param_1,char *param_2,long param_3,int param_4,long *param_5,int *param_6,
+               uint *param_7)
 
 {
   int iVar1;
@@ -52842,7 +52853,8 @@ LAB_00ada673:
             }
             local_48 = param_5;
             pbStack_40 = pbVar16;
-            uVar7 = FUN_00ad9fc0(param_1,pbVar16,param_3,param_4,&local_48,param_6,param_7);
+            uVar7 = regex_parse_walk_nodes
+                              (param_1,pbVar16,param_3,param_4,&local_48,param_6,param_7);
             if ((int)uVar7 < 0) {
               return uVar7;
             }
@@ -52906,7 +52918,8 @@ LAB_00ada78a:
 LAB_00ada982:
                 local_48 = param_5;
                 pbStack_40 = pbVar16;
-                uVar9 = FUN_00ad9fc0(param_1,pbVar16,param_3,param_4,&local_48,param_6,param_7);
+                uVar9 = regex_parse_walk_nodes
+                                  (param_1,pbVar16,param_3,param_4,&local_48,param_6,param_7);
                 if ((int)uVar9 < 0) {
                   return uVar9;
                 }
@@ -52972,7 +52985,8 @@ LAB_00ada2f0:
 LAB_00adaa02:
             local_48 = param_5;
             pbStack_40 = pbVar16;
-            local_58 = FUN_00ad9fc0(param_1,pbVar16,param_3,param_4,&local_48,param_6,param_7);
+            local_58 = regex_parse_walk_nodes
+                                 (param_1,pbVar16,param_3,param_4,&local_48,param_6,param_7);
             if ((int)local_58 < 0) {
               return local_58;
             }
@@ -53016,7 +53030,7 @@ switchD_00ada08d_caseD_1:
     case 0x8b:
     case 0x8c:
 switchD_00ada08d_caseD_84:
-      uVar7 = FUN_00ad9fc0(param_1,pbVar13,param_3,param_4,param_5,param_6,param_7);
+      uVar7 = regex_parse_walk_nodes(param_1,pbVar13,param_3,param_4,param_5,param_6,param_7);
       if ((int)uVar7 < 0) {
         return uVar7;
       }
@@ -53037,8 +53051,8 @@ switchD_00ada08d_caseD_84:
     case 0x8e:
       uVar7 = (uint)(ushort)(*(ushort *)(pbVar13 + 3) << 8 | *(ushort *)(pbVar13 + 3) >> 8);
       if (((uVar6 != 0) || (local_7c != uVar7)) &&
-         (local_80 = FUN_00ad9fc0(param_1,pbVar13,param_3,param_4,param_5,param_6,param_7),
-         local_7c = uVar7, (int)local_80 < 0)) {
+         (local_80 = regex_parse_walk_nodes(param_1,pbVar13,param_3,param_4,param_5,param_6,param_7)
+         , local_7c = uVar7, (int)local_80 < 0)) {
         return local_80;
       }
       uVar15 = uVar15 + local_80;
@@ -54280,7 +54294,7 @@ LAB_00addb15:
   uVar6 = 0;
   if (((uVar9 & 0x802000) == 0) && (uVar6 = 0, *(ushort *)(param_1 + 0x82) < 0x81)) {
     local_238[0] = 0;
-    iVar4 = FUN_00ad9fc0(param_1,lVar1,lVar1,uVar14,0,&local_23c,local_238);
+    iVar4 = regex_parse_walk_nodes(param_1,lVar1,lVar1,uVar14,0,&local_23c,local_238);
     uVar6 = 2;
     if (iVar4 != -2) {
       if (iVar4 != -1) {
@@ -56554,9 +56568,9 @@ void FUN_00ae0d80(long param_1)
 }
 
 
-// ==== entry=00ae0e90 name=FUN_00ae0e90 size=541 ====
+// ==== entry=00ae0e90 orig=FUN_00ae0e90 size=541 name=json_lex_token ====
 
-undefined8 FUN_00ae0e90(long param_1,undefined4 *param_2)
+undefined8 json_lex_token(long param_1,undefined4 *param_2)
 
 {
   byte *pbVar1;
@@ -56683,11 +56697,11 @@ void FUN_00ae1110(long param_1,int *param_2)
 {
   if (*(char *)(param_1 + 0xd8) != '\0') {
     do {
-      FUN_00ae0e90(param_1,param_2);
+      json_lex_token(param_1,param_2);
     } while (*param_2 == 0xc);
     return;
   }
-  FUN_00ae0e90();
+  json_lex_token();
   return;
 }
 
@@ -58185,27 +58199,27 @@ void FUN_00ae2e40(undefined8 param_1)
   undefined8 uVar1;
   undefined1 auStack_38 [48];
   
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae2e5a to 00ae2e69 has its CatchHandler @ 00ae2fd4 */
   uVar1 = json_assign_cstring(param_1,"allowComments");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,1);
+  json_value_init_bool(auStack_38,1);
                     /* try { // try from 00ae2e87 to 00ae2e96 has its CatchHandler @ 00ae3014 */
   uVar1 = json_assign_cstring(param_1,"strictRoot");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae2eb1 to 00ae2ec0 has its CatchHandler @ 00ae2ff4 */
   uVar1 = json_assign_cstring(param_1,"allowDroppedNullPlaceholders");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae2edb to 00ae2eea has its CatchHandler @ 00ae3004 */
   uVar1 = json_assign_cstring(param_1,"allowNumericKeys");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae2f05 to 00ae2f14 has its CatchHandler @ 00ae2fe4 */
   uVar1 = json_assign_cstring(param_1,"allowSingleQuotes");
   json_value_swap(uVar1,auStack_38);
@@ -58215,17 +58229,17 @@ void FUN_00ae2e40(undefined8 param_1)
   uVar1 = json_assign_cstring(param_1,"stackLimit");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,1);
+  json_value_init_bool(auStack_38,1);
                     /* try { // try from 00ae2f5f to 00ae2f6e has its CatchHandler @ 00ae2fec */
   uVar1 = json_assign_cstring(param_1,"failIfExtra");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,1);
+  json_value_init_bool(auStack_38,1);
                     /* try { // try from 00ae2f8c to 00ae2f9b has its CatchHandler @ 00ae2ffc */
   uVar1 = json_assign_cstring(param_1,"rejectDupKeys");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae2fb6 to 00ae2fc5 has its CatchHandler @ 00ae2fdc */
   uVar1 = json_assign_cstring(param_1,"allowSpecialFloats");
   json_value_swap(uVar1,auStack_38);
@@ -58242,32 +58256,32 @@ void FUN_00ae3020(undefined8 param_1)
   undefined8 uVar1;
   undefined1 auStack_38 [48];
   
-  FUN_00aee7e0(auStack_38,1);
+  json_value_init_bool(auStack_38,1);
                     /* try { // try from 00ae303d to 00ae304c has its CatchHandler @ 00ae31db */
   uVar1 = json_assign_cstring(param_1,"collectComments");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,1);
+  json_value_init_bool(auStack_38,1);
                     /* try { // try from 00ae306a to 00ae3079 has its CatchHandler @ 00ae3223 */
   uVar1 = json_assign_cstring(param_1,"allowComments");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae3094 to 00ae30a3 has its CatchHandler @ 00ae321b */
   uVar1 = json_assign_cstring(param_1,"strictRoot");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae30be to 00ae30cd has its CatchHandler @ 00ae3213 */
   uVar1 = json_assign_cstring(param_1,"allowDroppedNullPlaceholders");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae30e8 to 00ae30f7 has its CatchHandler @ 00ae320b */
   uVar1 = json_assign_cstring(param_1,"allowNumericKeys");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae3112 to 00ae3121 has its CatchHandler @ 00ae3203 */
   uVar1 = json_assign_cstring(param_1,"allowSingleQuotes");
   json_value_swap(uVar1,auStack_38);
@@ -58277,17 +58291,17 @@ void FUN_00ae3020(undefined8 param_1)
   uVar1 = json_assign_cstring(param_1,"stackLimit");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae3169 to 00ae3178 has its CatchHandler @ 00ae31f3 */
   uVar1 = json_assign_cstring(param_1,"failIfExtra");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae3193 to 00ae31a2 has its CatchHandler @ 00ae31eb */
   uVar1 = json_assign_cstring(param_1,"rejectDupKeys");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00ae31bd to 00ae31cc has its CatchHandler @ 00ae31e3 */
   uVar1 = json_assign_cstring(param_1,"allowSpecialFloats");
   json_value_swap(uVar1,auStack_38);
@@ -58505,70 +58519,70 @@ ulong jsoncpp_readBuilder(long param_1,undefined1 *param_2)
                     /* try { // try from 00ae3571 to 00ae3575 has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"collectComments",&local_e9);
                     /* try { // try from 00ae3586 to 00ae358a has its CatchHandler @ 00ae3c4a */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae35b6 to 00ae35ba has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"allowComments",&local_e9);
                     /* try { // try from 00ae35cb to 00ae35cf has its CatchHandler @ 00ae3c82 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae35fb to 00ae35ff has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"strictRoot",&local_e9);
                     /* try { // try from 00ae3610 to 00ae3614 has its CatchHandler @ 00ae3c42 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae3640 to 00ae3644 has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"allowDroppedNullPlaceholders",&local_e9);
                     /* try { // try from 00ae3655 to 00ae3659 has its CatchHandler @ 00ae3c72 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae3685 to 00ae3689 has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"allowNumericKeys",&local_e9);
                     /* try { // try from 00ae369a to 00ae369e has its CatchHandler @ 00ae3c6a */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae36ca to 00ae36ce has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"allowSingleQuotes",&local_e9);
                     /* try { // try from 00ae36df to 00ae36e3 has its CatchHandler @ 00ae3ca2 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae370f to 00ae3713 has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"stackLimit",&local_e9);
                     /* try { // try from 00ae3724 to 00ae3728 has its CatchHandler @ 00ae3c92 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae3754 to 00ae3758 has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"failIfExtra",&local_e9);
                     /* try { // try from 00ae3769 to 00ae376d has its CatchHandler @ 00ae3c62 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae3799 to 00ae379d has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"rejectDupKeys",&local_e9);
                     /* try { // try from 00ae37ae to 00ae37b2 has its CatchHandler @ 00ae3c52 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae37de to 00ae37e2 has its CatchHandler @ 00ae3c7a */
   std::string::string((string *)local_98,"allowSpecialFloats",&local_e9);
                     /* try { // try from 00ae37f3 to 00ae37f7 has its CatchHandler @ 00ae3c5a */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((undefined8 *)(local_98[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
@@ -58667,7 +58681,7 @@ LAB_00ae3924:
     puVar6 = local_58;
   }
   while (puVar6 != (undefined4 *)0x0) {
-    FUN_00aecf80(local_68,*(undefined8 *)(puVar6 + 6));
+    rbtree_str_free(local_68,*(undefined8 *)(puVar6 + 6));
     puVar17 = *(undefined4 **)(puVar6 + 4);
     paVar1 = (allocator *)(*(long *)(puVar6 + 8) + -0x18);
     if (paVar1 != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
@@ -58850,34 +58864,34 @@ undefined8 * FUN_00ae40f0(long param_1)
   
   param_1 = param_1 + 8;
   uVar3 = FUN_00af3460(param_1,"collectComments");
-  uVar1 = FUN_00af06e0(uVar3);
+  uVar1 = json_value_as_bool(uVar3);
   local_24 = 0;
   local_1c = 0;
   uVar3 = FUN_00af3460(param_1,"allowComments");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24 = CONCAT71(local_24._1_7_,uVar2);
   uVar3 = FUN_00af3460(param_1,"strictRoot");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24._0_2_ = CONCAT11(uVar2,(undefined1)local_24);
   uVar3 = FUN_00af3460(param_1,"allowDroppedNullPlaceholders");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24._0_3_ = CONCAT12(uVar2,(undefined2)local_24);
   uVar3 = FUN_00af3460(param_1,"allowNumericKeys");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24._0_4_ = CONCAT13(uVar2,(undefined3)local_24);
   uVar3 = FUN_00af3460(param_1,"allowSingleQuotes");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24._0_5_ = CONCAT14(uVar2,(undefined4)local_24);
   uVar3 = FUN_00af3460(param_1,"stackLimit");
   local_1c = json_asDouble(uVar3);
   uVar3 = FUN_00af3460(param_1,"failIfExtra");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24._0_6_ = CONCAT15(uVar2,(undefined5)local_24);
   uVar3 = FUN_00af3460(param_1,"rejectDupKeys");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24._0_7_ = CONCAT16(uVar2,(undefined6)local_24);
   uVar3 = FUN_00af3460(param_1,"allowSpecialFloats");
-  uVar2 = FUN_00af06e0(uVar3);
+  uVar2 = json_value_as_bool(uVar3);
   local_24 = CONCAT17(uVar2,(undefined7)local_24);
   puVar4 = operator_new(0x100);
   *puVar4 = &PTR_FUN_00d376c0;
@@ -58997,11 +59011,11 @@ undefined8 FUN_00ae43c0(long param_1,string *param_2,undefined8 *param_3,undefin
 }
 
 
-// ==== entry=00ae44c0 name=FUN_00ae44c0 size=1228 ====
+// ==== entry=00ae44c0 orig=FUN_00ae44c0 size=1228 name=json_parse_number ====
 
 /* WARNING: Removing unreachable block (ram,0x00ae4980) */
 
-undefined4 FUN_00ae44c0(undefined8 param_1,long param_2,undefined8 param_3)
+undefined4 json_parse_number(undefined8 param_1,long param_2,undefined8 param_3)
 
 {
   int iVar1;
@@ -59247,7 +59261,7 @@ LAB_00ae4ab7:
           cVar3 = *pcVar9;
         } while ((byte)(cVar3 - 0x30U) < 10);
       }
-      uVar6 = FUN_00ae44c0(param_1,param_2,param_3);
+      uVar6 = json_parse_number(param_1,param_2,param_3);
       return uVar6;
     }
     uVar5 = 0;
@@ -59308,7 +59322,7 @@ undefined4 FUN_00ae4d10(long param_1,long param_2)
   
   json_value_init_by_type(auStack_48,0);
                     /* try { // try from 00ae4d31 to 00ae4d8e has its CatchHandler @ 00ae4deb */
-  uVar1 = FUN_00ae44c0(param_1,param_2,auStack_48);
+  uVar1 = json_parse_number(param_1,param_2,auStack_48);
   if ((char)uVar1 != '\0') {
     lVar2 = *(long *)(param_1 + 0x30);
     if (*(long *)(param_1 + 0x38) == lVar2) {
@@ -59990,7 +60004,7 @@ undefined8 FUN_00ae5c90(long param_1,int param_2)
           ((*(long *)(param_1 + 0x98) - *(long *)(param_1 + 0x78) >> 3) * 3 + -3) * 4 +
           (*(long *)(param_1 + 0x70) - *(long *)(param_1 + 0x60) >> 3) * -0x3333333333333333;
   do {
-    cVar7 = FUN_00ae0e90(param_1,local_58);
+    cVar7 = json_lex_token(param_1,local_58);
     if (cVar7 == '\0') {
       plVar4 = *(long **)(param_1 + 0x98);
       plVar13 = *(long **)(param_1 + 0x78);
@@ -60505,7 +60519,7 @@ undefined4 FUN_00ae6e30(long param_1,long param_2)
   }
 LAB_00ae6eb7:
   if (bVar4 == 0x5d) {
-    FUN_00ae0e90(param_1,local_68);
+    json_lex_token(param_1,local_68);
     uVar6 = 1;
   }
   else {
@@ -60543,7 +60557,7 @@ LAB_00ae6f10:
         goto LAB_00ae6ece;
       }
       while( true ) {
-        cVar5 = FUN_00ae0e90(param_1,local_68);
+        cVar5 = json_lex_token(param_1,local_68);
         if ((int)local_68[0] != 0xc) break;
         if (cVar5 == '\0') goto LAB_00ae70b8;
       }
@@ -60599,12 +60613,12 @@ ulong json_read_value(long param_1)
   }
   DAT_011c2a28 = DAT_011c2a28 + 1;
   if (*(char *)(param_1 + 0xd8) == '\0') {
-    FUN_00ae0e90(param_1,local_68);
+    json_lex_token(param_1,local_68);
     cVar1 = *(char *)(param_1 + 0xdc);
   }
   else {
     do {
-      FUN_00ae0e90(param_1,local_68);
+      json_lex_token(param_1,local_68);
     } while (local_68[0] == 0xc);
     cVar1 = *(char *)(param_1 + 0xdc);
   }
@@ -60620,7 +60634,7 @@ ulong json_read_value(long param_1)
   default:
     goto switchD_00ae71d2_caseD_0;
   case 1:
-    uVar2 = FUN_00ae7760(param_1,local_68);
+    uVar2 = json_read_object(param_1,local_68);
     uVar4 = (ulong)uVar2;
     lVar3 = *(long *)(param_1 + 0x30);
     if (*(long *)(param_1 + 0x38) == lVar3) {
@@ -60675,7 +60689,7 @@ LAB_00ae72dc:
     uVar4 = (ulong)uVar2;
     goto LAB_00ae7275;
   case 7:
-    FUN_00aee7e0(local_48,1);
+    json_value_init_bool(local_48,1);
     lVar3 = *(long *)(param_1 + 0x30);
     if (lVar3 == *(long *)(param_1 + 0x38)) {
       lVar3 = *(long *)(*(long *)(param_1 + 0x48) + -8) + 0x200;
@@ -60694,7 +60708,7 @@ LAB_00ae72dc:
     json_setField20(*(undefined8 *)(lVar3 + -8),local_58 - *(long *)(param_1 + 0xa8));
     break;
   case 8:
-    FUN_00aee7e0(local_48,0);
+    json_value_init_bool(local_48,0);
     lVar3 = *(long *)(param_1 + 0x30);
     if (lVar3 == *(long *)(param_1 + 0x38)) {
       lVar3 = *(long *)(*(long *)(param_1 + 0x48) + -8) + 0x200;
@@ -60767,11 +60781,11 @@ switchD_00ae71d2_caseD_0:
 }
 
 
-// ==== entry=00ae7760 name=FUN_00ae7760 size=1272 ====
+// ==== entry=00ae7760 orig=FUN_00ae7760 size=1272 name=json_read_object ====
 
 /* WARNING: Removing unreachable block (ram,0x00ae7b71) */
 
-undefined4 FUN_00ae7760(long param_1,long param_2)
+undefined4 json_read_object(long param_1,long param_2)
 
 {
   allocator *paVar1;
@@ -60809,7 +60823,7 @@ undefined4 FUN_00ae7760(long param_1,long param_2)
   json_setField18(*(undefined8 *)(lVar9 + -8),*(long *)(param_2 + 8) - *(long *)(param_1 + 0xa8));
 LAB_00ae77c5:
   do {
-    uVar7 = FUN_00ae0e90(param_1,local_b8);
+    uVar7 = json_lex_token(param_1,local_b8);
     if ((char)uVar7 == '\0') {
 LAB_00ae7ae8:
       std::string::string((string *)local_48,"Missing \'}\' or object member name",
@@ -60824,7 +60838,7 @@ LAB_00ae7ae8:
     }
     while (local_b8[0] == 0xc) {
       if ((char)uVar7 == '\0') goto LAB_00ae7ae8;
-      uVar7 = FUN_00ae0e90(param_1,local_b8);
+      uVar7 = json_lex_token(param_1,local_b8);
     }
     if ((char)uVar7 == '\0') goto LAB_00ae7ae8;
     if ((local_b8[0] == 2) && (*(long *)(local_c8 + -0x18) == 0)) goto LAB_00ae79c8;
@@ -60864,7 +60878,7 @@ LAB_00ae7a2a:
     json_value_destruct(local_48);
 LAB_00ae78d0:
                     /* try { // try from 00ae78d8 to 00ae7b01 has its CatchHandler @ 00ae7c93 */
-    cVar6 = FUN_00ae0e90(param_1,&local_98);
+    cVar6 = json_lex_token(param_1,&local_98);
     if ((cVar6 == '\0') || (local_98 != 0xb)) {
                     /* try { // try from 00ae7b94 to 00ae7b98 has its CatchHandler @ 00ae7c93 */
       std::string::string((string *)local_48,"Missing \':\' after object member name",&local_c9);
@@ -60903,7 +60917,7 @@ LAB_00ae78d0:
       *(long *)(param_1 + 0x30) = (long)pvVar5 + -8;
     }
     if (cVar6 == '\0') goto LAB_00ae7a2a;
-    cVar6 = FUN_00ae0e90(param_1,local_48);
+    cVar6 = json_lex_token(param_1,local_48);
     if ((cVar6 == '\0') || ((((uint)local_48[0] & 0xfffffff7) != 2 && ((uint)local_48[0] != 0xc))))
     {
                     /* try { // try from 00ae7bf1 to 00ae7bf5 has its CatchHandler @ 00ae7c93 */
@@ -60919,7 +60933,7 @@ LAB_00ae78d0:
     }
     if ((uint)local_48[0] != 0xc) break;
     do {
-      cVar6 = FUN_00ae0e90(param_1,local_48);
+      cVar6 = json_lex_token(param_1,local_48);
       if ((uint)local_48[0] != 0xc) goto LAB_00ae79bc;
     } while (cVar6 != '\0');
   } while( true );
@@ -61238,11 +61252,11 @@ LAB_00ae7ff7:
   DAT_011c2a28 = 0;
   uVar12 = json_read_value(param_1);
   if (*(char *)(param_1 + 0xd8) == '\0') {
-    FUN_00ae0e90(param_1,&local_58);
+    json_lex_token(param_1,&local_58);
   }
   else {
     do {
-      FUN_00ae0e90(param_1,&local_58);
+      json_lex_token(param_1,&local_58);
     } while ((int)local_58 == 0xc);
   }
   if ((*(char *)(param_1 + 0xdc) != '\0') && (*(long *)(*(long *)(param_1 + 0xd0) + -0x18) != 0)) {
@@ -62685,7 +62699,7 @@ LAB_00aeaa84:
     uVar4 = (ulong)uVar2;
     goto LAB_00aeaa1e;
   case 7:
-    FUN_00aee7e0(local_48,1);
+    json_value_init_bool(local_48,1);
     lVar3 = *(long *)(param_1 + 0x30);
     if (*(long *)(param_1 + 0x38) == lVar3) {
       lVar3 = *(long *)(*(long *)(param_1 + 0x48) + -8) + 0x200;
@@ -62704,7 +62718,7 @@ LAB_00aeaa84:
     json_setField20(*(undefined8 *)(lVar3 + -8),local_58 - *(long *)(param_1 + 0xa8));
     break;
   case 8:
-    FUN_00aee7e0(local_48,0);
+    json_value_init_bool(local_48,0);
     lVar3 = *(long *)(param_1 + 0x30);
     if (lVar3 == *(long *)(param_1 + 0x38)) {
       lVar3 = *(long *)(*(long *)(param_1 + 0x48) + -8) + 0x200;
@@ -63924,9 +63938,9 @@ LAB_00aecaf3:
 }
 
 
-// ==== entry=00aecd30 name=FUN_00aecd30 size=569 ====
+// ==== entry=00aecd30 orig=FUN_00aecd30 size=569 name=rbtree_str_lower_bound ====
 
-undefined1  [16] FUN_00aecd30(long param_1,undefined8 *param_2)
+undefined1  [16] rbtree_str_lower_bound(long param_1,undefined8 *param_2)
 
 {
   undefined8 uVar1;
@@ -64057,7 +64071,7 @@ LAB_00aece5a:
 }
 
 
-// ==== entry=00aecf80 name=FUN_00aecf80 size=194 ====
+// ==== entry=00aecf80 orig=FUN_00aecf80 size=194 name=rbtree_str_free ====
 
 /* WARNING: Removing unreachable block (ram,0x00aecfe0) */
 /* WARNING: Removing unreachable block (ram,0x00aed040) */
@@ -64065,7 +64079,7 @@ LAB_00aece5a:
 /* WARNING: Removing unreachable block (ram,0x00aed001) */
 /* WARNING: Removing unreachable block (ram,0x00aed011) */
 
-void FUN_00aecf80(undefined8 param_1,void *param_2)
+void rbtree_str_free(undefined8 param_1,void *param_2)
 
 {
   allocator *paVar1;
@@ -64075,7 +64089,7 @@ void FUN_00aecf80(undefined8 param_1,void *param_2)
   
   if (param_2 != (void *)0x0) {
     do {
-      FUN_00aecf80(param_1,*(undefined8 *)((long)param_2 + 0x18));
+      rbtree_str_free(param_1,*(undefined8 *)((long)param_2 + 0x18));
       pvVar4 = *(void **)((long)param_2 + 0x10);
       paVar1 = (allocator *)(*(long *)((long)param_2 + 0x20) + -0x18);
       if (paVar1 != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
@@ -65446,9 +65460,9 @@ void FUN_00aee7b0(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00aee7e0 name=FUN_00aee7e0 size=43 ====
+// ==== entry=00aee7e0 orig=FUN_00aee7e0 size=43 name=json_value_init_bool ====
 
-void FUN_00aee7e0(undefined1 *param_1,undefined1 param_2)
+void json_value_init_bool(undefined1 *param_1,undefined1 param_2)
 
 {
   *(undefined8 *)(param_1 + 0x10) = 0;
@@ -65590,9 +65604,9 @@ undefined1 FUN_00aee9d0(long param_1)
 }
 
 
-// ==== entry=00aee9e0 name=FUN_00aee9e0 size=931 ====
+// ==== entry=00aee9e0 orig=FUN_00aee9e0 size=931 name=json_value_less ====
 
-uint FUN_00aee9e0(double *param_1,double *param_2)
+uint json_value_less(double *param_1,double *param_2)
 
 {
   double dVar1;
@@ -65711,7 +65725,7 @@ LAB_00aeec59:
 LAB_00aeeca1:
           if (!bVar15) {
 LAB_00aeea10:
-            cVar4 = FUN_00aee9e0(p_Var10 + 0x30,p_Var9 + 0x30);
+            cVar4 = json_value_less(p_Var10 + 0x30,p_Var9 + 0x30);
             if (cVar4 != '\0') goto switchD_00aeea06_caseD_0;
           }
         }
@@ -65749,7 +65763,7 @@ LAB_00aeec54:
             goto LAB_00aeec59;
           }
 LAB_00aeed06:
-          cVar4 = FUN_00aee9e0(p_Var9 + 0x30,p_Var10 + 0x30);
+          cVar4 = json_value_less(p_Var9 + 0x30,p_Var10 + 0x30);
           if (cVar4 != '\0') {
             return 1;
           }
@@ -65801,10 +65815,10 @@ ulong FUN_00aeede0(undefined8 param_1,undefined8 param_2)
   byte bVar2;
   ulong uVar3;
   
-  cVar1 = FUN_00aee9e0();
+  cVar1 = json_value_less();
   uVar3 = 0xffffffff;
   if (cVar1 == '\0') {
-    bVar2 = FUN_00aee9e0(param_2,param_1);
+    bVar2 = json_value_less(param_2,param_1);
     uVar3 = (ulong)bVar2;
   }
   return uVar3;
@@ -65818,7 +65832,7 @@ uint FUN_00aeee20(undefined8 param_1,undefined8 param_2)
 {
   uint uVar1;
   
-  uVar1 = FUN_00aee9e0(param_2,param_1);
+  uVar1 = json_value_less(param_2,param_1);
   return uVar1 ^ 1;
 }
 
@@ -65830,7 +65844,7 @@ uint FUN_00aeee40(void)
 {
   uint uVar1;
   
-  uVar1 = FUN_00aee9e0();
+  uVar1 = json_value_less();
   return uVar1 ^ 1;
 }
 
@@ -65840,7 +65854,7 @@ uint FUN_00aeee40(void)
 void FUN_00aeee60(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00aee9e0(param_2,param_1);
+  json_value_less(param_2,param_1);
   return;
 }
 
@@ -66435,9 +66449,9 @@ bool FUN_00aef800(long param_1)
 }
 
 
-// ==== entry=00aef810 name=FUN_00aef810 size=23 ====
+// ==== entry=00aef810 orig=FUN_00aef810 size=23 name=slot_nonnull_at ====
 
-bool FUN_00aef810(long param_1,int param_2)
+bool slot_nonnull_at(long param_1,int param_2)
 
 {
   bool bVar1;
@@ -67200,11 +67214,11 @@ LAB_00af0614:
 }
 
 
-// ==== entry=00af06e0 name=FUN_00af06e0 size=454 ====
+// ==== entry=00af06e0 orig=FUN_00af06e0 size=454 name=json_value_as_bool ====
 
 /* WARNING: Removing unreachable block (ram,0x00af08b4) */
 
-bool FUN_00af06e0(double *param_1)
+bool json_value_as_bool(double *param_1)
 
 {
   int *piVar1;
@@ -67729,13 +67743,13 @@ LAB_00af1150:
 }
 
 
-// ==== entry=00af1310 name=FUN_00af1310 size=1288 ====
+// ==== entry=00af1310 orig=FUN_00af1310 size=1288 name=json_value_as_int64 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af17f6) */
 /* WARNING: Removing unreachable block (ram,0x00af182c) */
 /* WARNING: Removing unreachable block (ram,0x00af17eb) */
 
-double FUN_00af1310(double *param_1)
+double json_value_as_int64(double *param_1)
 
 {
   int *piVar1;
@@ -67907,13 +67921,13 @@ switchD_00af132e_caseD_1:
 }
 
 
-// ==== entry=00af1880 orig=FUN_00af1880 size=5 name=thunk_FUN_00af1310 ====
+// ==== entry=00af1880 orig=FUN_00af1880 size=5 name=json_value_as_int64 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af17f6) */
 /* WARNING: Removing unreachable block (ram,0x00af182c) */
 /* WARNING: Removing unreachable block (ram,0x00af17eb) */
 
-double thunk_FUN_00af1310(double *param_1)
+double json_value_as_int64(double *param_1)
 
 {
   int *piVar1;
@@ -68077,13 +68091,13 @@ switchD_00af132e_caseD_1:
 }
 
 
-// ==== entry=00af1890 name=FUN_00af1890 size=1319 ====
+// ==== entry=00af1890 orig=FUN_00af1890 size=1319 name=json_value_as_uint64 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af1d96) */
 /* WARNING: Removing unreachable block (ram,0x00af1dcc) */
 /* WARNING: Removing unreachable block (ram,0x00af1d8b) */
 
-double FUN_00af1890(double *param_1)
+double json_value_as_uint64(double *param_1)
 
 {
   int *piVar1;
@@ -68261,13 +68275,13 @@ double FUN_00af1890(double *param_1)
 }
 
 
-// ==== entry=00af1e20 orig=FUN_00af1e20 size=5 name=thunk_FUN_00af1890 ====
+// ==== entry=00af1e20 orig=FUN_00af1e20 size=5 name=json_value_as_uint64 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af1d96) */
 /* WARNING: Removing unreachable block (ram,0x00af1dcc) */
 /* WARNING: Removing unreachable block (ram,0x00af1d8b) */
 
-double thunk_FUN_00af1890(double *param_1)
+double json_value_as_uint64(double *param_1)
 
 {
   int *piVar1;
@@ -70645,12 +70659,12 @@ LAB_00af50e6:
 }
 
 
-// ==== entry=00af5490 name=FUN_00af5490 size=1448 ====
+// ==== entry=00af5490 orig=FUN_00af5490 size=1448 name=json_value_resize ====
 
 /* WARNING: Removing unreachable block (ram,0x00af5931) */
 /* WARNING: Type propagation algorithm not settling */
 
-void FUN_00af5490(long *param_1,uint param_2)
+void json_value_resize(long *param_1,uint param_2)
 
 {
   _Rb_tree_node_base *p_Var1;
@@ -71237,11 +71251,11 @@ void FUN_00af61b0(undefined8 param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00af61c0 name=FUN_00af61c0 size=1068 ====
+// ==== entry=00af61c0 orig=FUN_00af61c0 size=1068 name=json_value_resolve ====
 
 /* WARNING: Removing unreachable block (ram,0x00af6600) */
 
-long FUN_00af61c0(long *param_1,void *param_2,int param_3)
+long json_value_resolve(long *param_1,void *param_2,int param_3)
 
 {
   int *piVar1;
@@ -71433,7 +71447,7 @@ void json_assign_cstring(undefined8 param_1,char *param_2)
   size_t sVar1;
   
   sVar1 = strlen(param_2);
-  FUN_00af61c0(param_1,param_2,param_2 + sVar1);
+  json_value_resolve(param_1,param_2,param_2 + sVar1);
   return;
 }
 
@@ -71446,7 +71460,7 @@ void FUN_00af6670(undefined8 param_1,long *param_2)
   long lVar1;
   
   lVar1 = *param_2;
-  FUN_00af61c0(param_1,lVar1,*(long *)(lVar1 + -0x18) + lVar1);
+  json_value_resolve(param_1,lVar1,*(long *)(lVar1 + -0x18) + lVar1);
   return;
 }
 
@@ -71475,7 +71489,7 @@ void FUN_00af6680(long *param_1,undefined8 param_2)
       }
       if (*(int *)((long)plVar3 + 0xc) == 2) {
         lVar1 = *plVar3;
-        param_2 = FUN_00af61c0(param_2,lVar1,*(long *)(lVar1 + -0x18) + lVar1);
+        param_2 = json_value_resolve(param_2,lVar1,*(long *)(lVar1 + -0x18) + lVar1);
         plVar2 = (long *)param_1[1];
       }
       plVar3 = plVar3 + 2;
@@ -73278,7 +73292,7 @@ void FUN_00af8ab0(long param_1,undefined8 param_2)
   char *pcVar8;
   char *local_40 [2];
   
-  cVar7 = FUN_00aef810(param_2,0);
+  cVar7 = slot_nonnull_at(param_2,0);
   if (cVar7 != '\0') {
     this = (string *)(param_1 + 0x20);
     std::string::s_basic_string__append_5fd166(this,"\n",1);
@@ -73348,7 +73362,7 @@ void FUN_00af8c40(long param_1,undefined8 param_2)
   long local_28;
   long local_20 [2];
   
-  cVar3 = FUN_00aef810(param_2,1);
+  cVar3 = slot_nonnull_at(param_2,1);
   if (cVar3 != '\0') {
     FUN_00aef830(&local_28,param_2,1);
                     /* try { // try from 00af8c80 to 00af8c84 has its CatchHandler @ 00af8e1b */
@@ -73379,7 +73393,7 @@ void FUN_00af8c40(long param_1,undefined8 param_2)
       }
     }
   }
-  cVar3 = FUN_00aef810(param_2,2);
+  cVar3 = slot_nonnull_at(param_2,2);
   if (cVar3 != '\0') {
     this = (string *)(param_1 + 0x20);
     std::string::s_basic_string__append_5fd166(this,"\n",1);
@@ -73412,11 +73426,11 @@ undefined8 FUN_00af8e30(undefined8 param_1,undefined8 param_2)
   char cVar1;
   undefined8 uVar2;
   
-  cVar1 = FUN_00aef810(param_2,0);
+  cVar1 = slot_nonnull_at(param_2,0);
   if (cVar1 == '\0') {
-    cVar1 = FUN_00aef810(param_2,1);
+    cVar1 = slot_nonnull_at(param_2,1);
     if (cVar1 == '\0') {
-      uVar2 = FUN_00aef810(param_2,2);
+      uVar2 = slot_nonnull_at(param_2,2);
       return uVar2;
     }
   }
@@ -73504,7 +73518,7 @@ void FUN_00af8f40(long param_1,undefined8 param_2)
   char local_20;
   undefined7 uStack_1f;
   
-  cVar3 = FUN_00aef810(param_2,0);
+  cVar3 = slot_nonnull_at(param_2,0);
   if (cVar3 != '\0') {
     if ((*(byte *)(param_1 + 0x38) & 2) == 0) {
       local_20 = '\n';
@@ -73569,7 +73583,7 @@ void FUN_00af9080(long param_1,undefined8 param_2)
   char local_20;
   undefined7 uStack_1f;
   
-  cVar4 = FUN_00aef810(param_2,1);
+  cVar4 = slot_nonnull_at(param_2,1);
   if (cVar4 != '\0') {
     local_20 = ' ';
     poVar5 = std::__ostream_insert<char,std::char_traits<char>>
@@ -73591,7 +73605,7 @@ void FUN_00af9080(long param_1,undefined8 param_2)
       }
     }
   }
-  cVar4 = FUN_00aef810(param_2,2);
+  cVar4 = slot_nonnull_at(param_2,2);
   if (cVar4 != '\0') {
     local_20 = '\n';
     poVar5 = std::__ostream_insert<char,std::char_traits<char>>
@@ -73629,11 +73643,11 @@ undefined8 FUN_00af9210(undefined8 param_1,undefined8 param_2)
   char cVar1;
   undefined8 uVar2;
   
-  cVar1 = FUN_00aef810(param_2,0);
+  cVar1 = slot_nonnull_at(param_2,0);
   if (cVar1 == '\0') {
-    cVar1 = FUN_00aef810(param_2,1);
+    cVar1 = slot_nonnull_at(param_2,1);
     if (cVar1 == '\0') {
-      uVar2 = FUN_00aef810(param_2,2);
+      uVar2 = slot_nonnull_at(param_2,2);
       return uVar2;
     }
   }
@@ -73728,7 +73742,7 @@ void FUN_00af9340(long param_1,undefined8 param_2)
   if (*(int *)(param_1 + 0x40) == 0) {
     return;
   }
-  cVar3 = FUN_00aef810(param_2,0);
+  cVar3 = slot_nonnull_at(param_2,0);
   if (cVar3 != '\0') {
     if (((*(byte *)(param_1 + 0x60) & 2) == 0) &&
        (*(long *)(*(long *)(param_1 + 0x38) + -0x18) != 0)) {
@@ -73797,7 +73811,7 @@ void FUN_00af94a0(long param_1,undefined8 param_2)
   undefined7 uStack_2f;
   
   if (*(int *)(param_1 + 0x40) != 0) {
-    cVar5 = FUN_00aef810(param_2,1);
+    cVar5 = slot_nonnull_at(param_2,1);
     if (cVar5 != '\0') {
       poVar7 = *(ostream **)(param_1 + 8);
       FUN_00aef830(&local_30,param_2,1);
@@ -73829,7 +73843,7 @@ void FUN_00af94a0(long param_1,undefined8 param_2)
         }
       }
     }
-    cVar5 = FUN_00aef810(param_2,2);
+    cVar5 = slot_nonnull_at(param_2,2);
     if (cVar5 != '\0') {
       poVar7 = *(ostream **)(param_1 + 8);
       if (*(long *)(*(long *)(param_1 + 0x38) + -0x18) != 0) {
@@ -73870,11 +73884,11 @@ undefined8 FUN_00af96c0(undefined8 param_1)
   char cVar1;
   undefined8 uVar2;
   
-  cVar1 = FUN_00aef810(param_1,0);
+  cVar1 = slot_nonnull_at(param_1,0);
   if (cVar1 == '\0') {
-    cVar1 = FUN_00aef810(param_1,1);
+    cVar1 = slot_nonnull_at(param_1,1);
     if (cVar1 == '\0') {
-      uVar2 = FUN_00aef810(param_1,2);
+      uVar2 = slot_nonnull_at(param_1,2);
       return uVar2;
     }
   }
@@ -73959,17 +73973,17 @@ void FUN_00af9760(undefined8 param_1)
   uVar1 = json_assign_cstring(param_1,"indentation");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00af97d4 to 00af97e3 has its CatchHandler @ 00af9893 */
   uVar1 = json_assign_cstring(param_1,"enableYAMLCompatibility");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00af97fe to 00af980d has its CatchHandler @ 00af988b */
   uVar1 = json_assign_cstring(param_1,"dropNullPlaceholders");
   json_value_swap(uVar1,auStack_38);
   json_value_destruct(auStack_38);
-  FUN_00aee7e0(auStack_38,0);
+  json_value_init_bool(auStack_38,0);
                     /* try { // try from 00af9828 to 00af9837 has its CatchHandler @ 00af9883 */
   uVar1 = json_assign_cstring(param_1,"useSpecialFloats");
   json_value_swap(uVar1,auStack_38);
@@ -74075,12 +74089,12 @@ void * json_settingsFromMap(long param_1)
   json_value_as_string(&local_58,uVar7);
                     /* try { // try from 00af9a5f to 00af9b0a has its CatchHandler @ 00af9dee */
   uVar7 = FUN_00af3460(param_1,"enableYAMLCompatibility");
-  cVar2 = FUN_00af06e0(uVar7);
+  cVar2 = json_value_as_bool(uVar7);
   uVar7 = FUN_00af3460(param_1,"dropNullPlaceholders");
-  uVar4 = FUN_00af06e0(uVar7);
+  uVar4 = json_value_as_bool(uVar7);
   pvVar8 = (void *)(ulong)uVar4;
   uVar7 = FUN_00af3460(param_1,"useSpecialFloats");
-  uVar3 = FUN_00af06e0(uVar7);
+  uVar3 = json_value_as_bool(uVar7);
   uVar7 = FUN_00af3460(param_1,"precision");
   uVar5 = json_asUInt(uVar7);
   iVar6 = std::string::compare((string *)&local_58,"All");
@@ -74886,13 +74900,13 @@ void jsoncpp_writeValue(long param_1,undefined8 param_2)
     }
     break;
   case 1:
-    uVar11 = thunk_FUN_00af1310(param_2);
+    uVar11 = json_value_as_int64(param_2);
     FUN_00af81c0(&local_58,uVar11);
                     /* try { // try from 00afb28e to 00afb292 has its CatchHandler @ 00afb6c0 */
     std::string::append((string *)(param_1 + 8),(string *)&local_58);
     goto LAB_00afb293;
   case 2:
-    uVar12 = thunk_FUN_00af1890(param_2);
+    uVar12 = json_value_as_uint64(param_2);
     local_41[1] = 0;
     pcVar13 = local_41 + 1;
     do {
@@ -74951,7 +74965,7 @@ LAB_00afb293:
     }
     break;
   case 5:
-    cVar8 = FUN_00af06e0(param_2);
+    cVar8 = json_value_as_bool(param_2);
     pcVar13 = "true";
     if (cVar8 == '\0') {
       pcVar13 = "false";
@@ -75272,7 +75286,7 @@ LAB_00afbbbb:
     }
     goto LAB_00afbd10;
   case 1:
-    uVar11 = thunk_FUN_00af1310(param_2);
+    uVar11 = json_value_as_int64(param_2);
     FUN_00af81c0(&local_58,uVar11);
     if (*(char *)(param_1 + 0x38) == '\0') {
                     /* try { // try from 00afbdb9 to 00afbdbd has its CatchHandler @ 00afc157 */
@@ -75290,7 +75304,7 @@ LAB_00afbbbb:
     }
     goto LAB_00afbd10;
   case 2:
-    uVar12 = thunk_FUN_00af1890(param_2);
+    uVar12 = json_value_as_uint64(param_2);
     local_41[1] = 0;
     pcVar13 = local_41 + 1;
     do {
@@ -75407,7 +75421,7 @@ LAB_00afbdfe:
     }
     break;
   case 5:
-    cVar9 = FUN_00af06e0(param_2);
+    cVar9 = json_value_as_bool(param_2);
     pcVar13 = "true";
     if (cVar9 == '\0') {
       pcVar13 = "false";
@@ -75667,9 +75681,9 @@ LAB_00afc49e:
       bVar14 = false;
       do {
         uVar10 = FUN_00af2fb0(param_2,uVar13 & 0xffffffff);
-        cVar7 = FUN_00aef810(uVar10,0);
-        if (((cVar7 != '\0') || (cVar7 = FUN_00aef810(uVar10,1), cVar7 != '\0')) ||
-           (cVar7 = FUN_00aef810(uVar10,2), cVar7 != '\0')) {
+        cVar7 = slot_nonnull_at(uVar10,0);
+        if (((cVar7 != '\0') || (cVar7 = slot_nonnull_at(uVar10,1), cVar7 != '\0')) ||
+           (cVar7 = slot_nonnull_at(uVar10,2), cVar7 != '\0')) {
           bVar14 = bVar6;
         }
         uVar10 = FUN_00af2fb0(param_2,uVar13 & 0xffffffff);
@@ -75878,7 +75892,7 @@ void json_toString(long param_1,undefined8 param_2)
     }
     break;
   case 1:
-    uVar10 = thunk_FUN_00af1310(param_2);
+    uVar10 = json_value_as_int64(param_2);
     FUN_00af81c0(&local_58,uVar10);
     if ((*(byte *)(param_1 + 0x60) & 1) == 0) {
                     /* try { // try from 00afce05 to 00afce09 has its CatchHandler @ 00afd235 */
@@ -75900,7 +75914,7 @@ LAB_00afcbfb:
     }
     goto LAB_00afce0a;
   case 2:
-    uVar11 = thunk_FUN_00af1890(param_2);
+    uVar11 = json_value_as_uint64(param_2);
     local_41[1] = 0;
     pcVar13 = local_41 + 1;
     do {
@@ -76024,7 +76038,7 @@ LAB_00afcf98:
     }
     break;
   case 5:
-    cVar8 = FUN_00af06e0(param_2);
+    cVar8 = json_value_as_bool(param_2);
     pcVar13 = "true";
     if (cVar8 == '\0') {
       pcVar13 = "false";
@@ -76321,9 +76335,9 @@ LAB_00afd59e:
       bVar14 = false;
       do {
         uVar10 = FUN_00af2fb0(param_2,uVar13 & 0xffffffff);
-        cVar7 = FUN_00aef810(uVar10,0);
-        if (((cVar7 != '\0') || (cVar7 = FUN_00aef810(uVar10,1), cVar7 != '\0')) ||
-           (cVar7 = FUN_00aef810(uVar10,2), cVar7 != '\0')) {
+        cVar7 = slot_nonnull_at(uVar10,0);
+        if (((cVar7 != '\0') || (cVar7 = slot_nonnull_at(uVar10,1), cVar7 != '\0')) ||
+           (cVar7 = slot_nonnull_at(uVar10,2), cVar7 != '\0')) {
           bVar14 = bVar6;
         }
         uVar10 = FUN_00af2fb0(param_2,uVar13 & 0xffffffff);
@@ -76585,7 +76599,7 @@ LAB_00afddfb:
     }
     goto LAB_00afdf98;
   case 1:
-    uVar9 = thunk_FUN_00af1310(param_2);
+    uVar9 = json_value_as_int64(param_2);
     FUN_00af81c0(&local_58,uVar9);
     if ((*(byte *)(param_1 + 0x38) & 1) == 0) {
                     /* try { // try from 00afe045 to 00afe049 has its CatchHandler @ 00afe43a */
@@ -76604,7 +76618,7 @@ LAB_00afddfb:
     }
     goto LAB_00afdf98;
   case 2:
-    uVar10 = thunk_FUN_00af1890(param_2);
+    uVar10 = json_value_as_uint64(param_2);
     local_41[1] = 0;
     pcVar12 = local_41 + 1;
     do {
@@ -76726,7 +76740,7 @@ LAB_00afe118:
     }
     break;
   case 5:
-    cVar7 = FUN_00af06e0(param_2);
+    cVar7 = json_value_as_bool(param_2);
     pcVar12 = "true";
     if (cVar7 == '\0') {
       pcVar12 = "false";
@@ -77017,9 +77031,9 @@ LAB_00afe75e:
       bVar14 = false;
       do {
         uVar10 = FUN_00af2fb0(param_2,uVar13 & 0xffffffff);
-        cVar7 = FUN_00aef810(uVar10,0);
-        if (((cVar7 != '\0') || (cVar7 = FUN_00aef810(uVar10,1), cVar7 != '\0')) ||
-           (cVar7 = FUN_00aef810(uVar10,2), cVar7 != '\0')) {
+        cVar7 = slot_nonnull_at(uVar10,0);
+        if (((cVar7 != '\0') || (cVar7 = slot_nonnull_at(uVar10,1), cVar7 != '\0')) ||
+           (cVar7 = slot_nonnull_at(uVar10,2), cVar7 != '\0')) {
           bVar14 = bVar6;
         }
         uVar10 = FUN_00af2fb0(param_2,uVar13 & 0xffffffff);
@@ -77274,7 +77288,7 @@ ulong jsoncpp_writeSettings(long param_1,undefined1 *param_2)
                     /* try { // try from 00afec41 to 00afec45 has its CatchHandler @ 00aff2d4 */
   std::string::string((string *)local_98,"indentation",&local_e9);
                     /* try { // try from 00afec56 to 00afec5a has its CatchHandler @ 00aff2ec */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((allocator *)(local_98[0] + -0x18) != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
     LOCK();
     piVar2 = (int *)(local_98[0] + -8);
@@ -77288,7 +77302,7 @@ ulong jsoncpp_writeSettings(long param_1,undefined1 *param_2)
                     /* try { // try from 00afec86 to 00afec8a has its CatchHandler @ 00aff2d4 */
   std::string::string((string *)local_98,"commentStyle",&local_e9);
                     /* try { // try from 00afec9b to 00afec9f has its CatchHandler @ 00aff2f4 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((allocator *)(local_98[0] + -0x18) != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
     LOCK();
     piVar2 = (int *)(local_98[0] + -8);
@@ -77302,7 +77316,7 @@ ulong jsoncpp_writeSettings(long param_1,undefined1 *param_2)
                     /* try { // try from 00afeccb to 00afeccf has its CatchHandler @ 00aff2d4 */
   std::string::string((string *)local_98,"enableYAMLCompatibility",&local_e9);
                     /* try { // try from 00afece0 to 00afece4 has its CatchHandler @ 00aff2cc */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((allocator *)(local_98[0] + -0x18) != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
     LOCK();
     piVar2 = (int *)(local_98[0] + -8);
@@ -77316,7 +77330,7 @@ ulong jsoncpp_writeSettings(long param_1,undefined1 *param_2)
                     /* try { // try from 00afed10 to 00afed14 has its CatchHandler @ 00aff2d4 */
   std::string::string((string *)local_98,"dropNullPlaceholders",&local_e9);
                     /* try { // try from 00afed25 to 00afed29 has its CatchHandler @ 00aff304 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((allocator *)(local_98[0] + -0x18) != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
     LOCK();
     piVar2 = (int *)(local_98[0] + -8);
@@ -77330,7 +77344,7 @@ ulong jsoncpp_writeSettings(long param_1,undefined1 *param_2)
                     /* try { // try from 00afed55 to 00afed59 has its CatchHandler @ 00aff2d4 */
   std::string::string((string *)local_98,"useSpecialFloats",&local_e9);
                     /* try { // try from 00afed6a to 00afed6e has its CatchHandler @ 00aff2e4 */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((allocator *)(local_98[0] + -0x18) != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
     LOCK();
     piVar2 = (int *)(local_98[0] + -8);
@@ -77344,7 +77358,7 @@ ulong jsoncpp_writeSettings(long param_1,undefined1 *param_2)
                     /* try { // try from 00afed9a to 00afed9e has its CatchHandler @ 00aff2d4 */
   std::string::string((string *)local_98,"precision",&local_e9);
                     /* try { // try from 00afedaf to 00afedb3 has its CatchHandler @ 00aff30c */
-  FUN_00aecd30(local_68,local_98);
+  rbtree_str_lower_bound(local_68,local_98);
   if ((allocator *)(local_98[0] + -0x18) != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {
     LOCK();
     piVar2 = (int *)(local_98[0] + -8);
@@ -77451,7 +77465,7 @@ LAB_00afeefc:
     puVar6 = local_58;
   }
   while (puVar6 != (undefined4 *)0x0) {
-    FUN_00aecf80(local_68,*(undefined8 *)(puVar6 + 6));
+    rbtree_str_free(local_68,*(undefined8 *)(puVar6 + 6));
     puVar17 = *(undefined4 **)(puVar6 + 4);
     paVar1 = (allocator *)(*(long *)(puVar6 + 8) + -0x18);
     if (paVar1 != (allocator *)&std::string::_Rep::_S_empty_rep_storage) {

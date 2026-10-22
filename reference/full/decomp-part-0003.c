@@ -8638,7 +8638,7 @@ void FUN_004c3ec8(void)
   void *unaff_RBP;
   
   operator_delete(unaff_RBP,0x18);
-  FUN_005d5b28();
+  qlistview_dtor_completer();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -8660,7 +8660,7 @@ void FUN_004c3ee8(void)
   }
   QArrayData::deallocate(in_stack_00000030,2,8);
 LAB_004c3ed8:
-  FUN_005d5b28();
+  qlistview_dtor_completer();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -10379,7 +10379,7 @@ void FUN_004c49cb(void)
   
   QJSValue::~QJSValue(unaff_R13);
   QJSValue::~QJSValue(in_stack_00000028);
-  FUN_00544630();
+  qlist_release_data();
   QJSValue::~QJSValue(unaff_retaddr);
   QJSValue::~QJSValue(in_stack_00000020);
   QJSValue::~QJSValue(in_stack_00000018);

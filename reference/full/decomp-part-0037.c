@@ -247,7 +247,7 @@ void FUN_00b1456a(undefined8 param_1,ulong param_2)
 void FUN_00b145ac(undefined8 param_1)
 
 {
-  FUN_00b0eed8(param_1);
+  yaml_token_dtor(param_1);
   return;
 }
 
@@ -1198,7 +1198,7 @@ LAB_00b15555:
   if (bVar2) {
                     /* try { // try from 00b15585 to 00b1559d has its CatchHandler @ 00b1568d */
     FUN_00b18ccc(param_1 + 0x80,local_a8);
-    FUN_00b0eed8(local_a8);
+    yaml_token_dtor(local_a8);
     string_vector_destroy(local_68);
     std::string::~string(local_50);
     return;
@@ -1244,7 +1244,7 @@ void FUN_00b156d4(long param_1)
   FUN_00b0ed54(local_58,1,local_64);
                     /* try { // try from 00b15765 to 00b15769 has its CatchHandler @ 00b15778 */
   FUN_00b0f508(param_1 + 0x80,local_58);
-  FUN_00b0eed8(local_58);
+  yaml_token_dtor(local_58);
   return;
 }
 
@@ -1266,7 +1266,7 @@ void FUN_00b1579a(long param_1)
   FUN_00b0ed54(local_58,2,local_64);
                     /* try { // try from 00b1582b to 00b1582f has its CatchHandler @ 00b1583e */
   FUN_00b0f508(param_1 + 0x80,local_58);
-  FUN_00b0eed8(local_58);
+  yaml_token_dtor(local_58);
   return;
 }
 
@@ -1298,7 +1298,7 @@ void FUN_00b15860(long param_1)
   FUN_00b0ed54(local_68,local_20,local_74);
                     /* try { // try from 00b15929 to 00b1592d has its CatchHandler @ 00b1593c */
   FUN_00b0f508(param_1 + 0x80,local_68);
-  FUN_00b0eed8(local_68);
+  yaml_token_dtor(local_68);
   return;
 }
 
@@ -1354,7 +1354,7 @@ void FUN_00b1595e(long param_1)
       FUN_00b0ed54(local_c8,0xf,local_84);
                     /* try { // try from 00b15ad7 to 00b15adb has its CatchHandler @ 00b15cbf */
       FUN_00b0f508(param_1 + 0x80,local_c8);
-      FUN_00b0eed8(local_c8);
+      yaml_token_dtor(local_c8);
     }
     else {
       piVar4 = (int *)FUN_00b18d18(param_1 + 400);
@@ -1391,7 +1391,7 @@ void FUN_00b1595e(long param_1)
   FUN_00b0ed54(local_68,local_24,local_ec);
                     /* try { // try from 00b15c70 to 00b15c74 has its CatchHandler @ 00b15d0f */
   FUN_00b0f508(param_1 + 0x80,local_68);
-  FUN_00b0eed8(local_68);
+  yaml_token_dtor(local_68);
   return;
 }
 
@@ -1426,7 +1426,7 @@ LAB_00b15d95:
     FUN_00b0ed54(local_a8,0xf,local_64);
                     /* try { // try from 00b15def to 00b15df3 has its CatchHandler @ 00b15ecf */
     FUN_00b0f508(param_1 + 0x80,local_a8);
-    FUN_00b0eed8(local_a8);
+    yaml_token_dtor(local_a8);
   }
   else {
     piVar3 = (int *)FUN_00b18d18(param_1 + 400);
@@ -1442,7 +1442,7 @@ LAB_00b15e35:
   FUN_00b0ed54(local_58,0xd,local_b4);
                     /* try { // try from 00b15ebc to 00b15ec0 has its CatchHandler @ 00b15eec */
   FUN_00b0f508(param_1 + 0x80,local_58);
-  FUN_00b0eed8(local_58);
+  yaml_token_dtor(local_58);
   return;
 }
 
@@ -1500,7 +1500,7 @@ void FUN_00b15f10(long param_1)
   FUN_00b0ed54(local_58,7,local_94);
                     /* try { // try from 00b16115 to 00b16119 has its CatchHandler @ 00b16191 */
   FUN_00b0f508(param_1 + 0x80,local_58);
-  FUN_00b0eed8(local_58);
+  yaml_token_dtor(local_58);
   return;
 }
 
@@ -1545,7 +1545,7 @@ void FUN_00b161b8(long param_1)
   FUN_00b0ed54(local_58,0xe,local_7c);
                     /* try { // try from 00b16327 to 00b1632b has its CatchHandler @ 00b1636d */
   FUN_00b0f508(param_1 + 0x80,local_58);
-  FUN_00b0eed8(local_58);
+  yaml_token_dtor(local_58);
   return;
 }
 
@@ -1598,7 +1598,7 @@ void FUN_00b16390(long param_1)
   FUN_00b0ed54(local_68,0xf,local_8c);
                     /* try { // try from 00b16541 to 00b16545 has its CatchHandler @ 00b16587 */
   FUN_00b0f508(param_1 + 0x80,local_68);
-  FUN_00b0eed8(local_68);
+  yaml_token_dtor(local_68);
   return;
 }
 
@@ -1711,7 +1711,7 @@ LAB_00b16784:
                     /* try { // try from 00b16861 to 00b16885 has its CatchHandler @ 00b16900 */
   std::string::operator=(asStack_90,local_58);
   FUN_00b18ccc(param_1 + 0x80,local_a8);
-  FUN_00b0eed8(local_a8);
+  yaml_token_dtor(local_a8);
   std::string::~string(local_58);
   return;
 }
@@ -1747,7 +1747,7 @@ LAB_00b169e7:
     bVar1 = false;
   }
   else {
-    cVar2 = FUN_00b21596(param_1);
+    cVar2 = yaml_read_byte(param_1);
     if (cVar2 != '<') goto LAB_00b169e7;
     bVar1 = true;
   }
@@ -1791,7 +1791,7 @@ LAB_00b16af0:
   }
   else {
                     /* try { // try from 00b16ae0 to 00b16b1d has its CatchHandler @ 00b16ba6 */
-    cVar2 = FUN_00b21596(param_1);
+    cVar2 = yaml_read_byte(param_1);
     if (cVar2 != '!') goto LAB_00b16af0;
     bVar1 = true;
   }
@@ -1806,7 +1806,7 @@ LAB_00b16af0:
 LAB_00b16b48:
                     /* try { // try from 00b16b60 to 00b16b64 has its CatchHandler @ 00b16ba6 */
   FUN_00b18ccc(param_1 + 0x80,local_78);
-  FUN_00b0eed8(local_78);
+  yaml_token_dtor(local_78);
   return;
 }
 
@@ -1871,7 +1871,7 @@ void FUN_00b16bca(long param_1)
                     /* try { // try from 00b16d21 to 00b16d45 has its CatchHandler @ 00b16d74 */
   std::string::operator=(asStack_90,local_28);
   FUN_00b18ccc(param_1 + 0x80,local_a8);
-  FUN_00b0eed8(local_a8);
+  yaml_token_dtor(local_a8);
   std::string::~string(local_28);
   return;
 }
@@ -1905,7 +1905,7 @@ void FUN_00b16dac(long param_1)
   
   std::string::string(local_80);
                     /* try { // try from 00b16dd9 to 00b16ddd has its CatchHandler @ 00b17077 */
-  local_29 = FUN_00b21596(param_1);
+  local_29 = yaml_read_byte(param_1);
   local_2a = local_29 == '\'';
   FUN_00b18b8e(&local_b8);
   if (local_2a == '\0') {
@@ -1949,16 +1949,16 @@ void FUN_00b16dac(long param_1)
                     /* try { // try from 00b16fc1 to 00b16fe5 has its CatchHandler @ 00b1704f */
   std::string::operator=(asStack_110,local_80);
   FUN_00b18ccc(param_1 + 0x80,local_128);
-  FUN_00b0eed8(local_128);
+  yaml_token_dtor(local_128);
   FUN_00b0d994(local_d8);
   std::string::~string(local_80);
   return;
 }
 
 
-// ==== entry=00b170a0 name=FUN_00b170a0 size=1169 ====
+// ==== entry=00b170a0 orig=FUN_00b170a0 size=1169 name=yaml_scan_block_scalar ====
 
-void FUN_00b170a0(long param_1)
+void yaml_scan_block_scalar(long param_1)
 
 {
   bool bVar1;
@@ -2104,7 +2104,7 @@ LAB_00b17378:
                     /* try { // try from 00b174e0 to 00b17504 has its CatchHandler @ 00b175a1 */
   std::string::operator=(asStack_f0,local_88);
   FUN_00b18ccc(param_1 + 0x80,local_108);
-  FUN_00b0eed8(local_108);
+  yaml_token_dtor(local_108);
   std::string::~string(local_88);
   return;
 }
@@ -2126,9 +2126,9 @@ void FUN_00b175db(void)
 }
 
 
-// ==== entry=00b1760b name=FUN_00b1760b size=1151 ====
+// ==== entry=00b1760b orig=FUN_00b1760b size=1151 name=yaml_static_init_c ====
 
-void FUN_00b1760b(int param_1,int param_2)
+void yaml_static_init_c(int param_1,int param_2)
 
 {
   allocator local_3c;
@@ -2246,7 +2246,7 @@ void FUN_00b1760b(int param_1,int param_2)
 void _INIT_172(void)
 
 {
-  FUN_00b1760b(1,0xffff);
+  yaml_static_init_c(1,0xffff);
   return;
 }
 
@@ -4183,7 +4183,7 @@ void FUN_00b1a798(long param_1)
     FUN_00b0ed54(local_68,0xe,local_24);
                     /* try { // try from 00b1a8cd to 00b1a8d1 has its CatchHandler @ 00b1a921 */
     FUN_00b0f508(param_1 + 0x80,local_68);
-    FUN_00b0eed8(local_68);
+    yaml_token_dtor(local_68);
     local_80 = (undefined4 *)FUN_00b0f53c(param_1 + 0x80);
     *local_80 = 2;
     FUN_00b1b21a(param_1 + 0xd8,local_a8);
@@ -4308,9 +4308,9 @@ void FUN_00b1ab1a(void)
 }
 
 
-// ==== entry=00b1ab4a name=FUN_00b1ab4a size=1151 ====
+// ==== entry=00b1ab4a orig=FUN_00b1ab4a size=1151 name=yaml_static_init_d ====
 
-void FUN_00b1ab4a(int param_1,int param_2)
+void yaml_static_init_d(int param_1,int param_2)
 
 {
   allocator local_3c;
@@ -4428,7 +4428,7 @@ void FUN_00b1ab4a(int param_1,int param_2)
 void _INIT_173(void)
 
 {
-  FUN_00b1ab4a(1,0xffff);
+  yaml_static_init_d(1,0xffff);
   return;
 }
 
@@ -5082,11 +5082,11 @@ void FUN_00b1be9a(long param_1,long *param_2)
                   0x20,"void YAML::SingleDocParser::HandleDocument(YAML::EventHandler&)");
   }
   pcVar1 = *(code **)(*param_2 + 0x10);
-  lVar4 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar4 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   (*pcVar1)(param_2,lVar4 + 8);
-  lVar4 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar4 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   if (*(int *)(lVar4 + 4) == 1) {
-    FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+    yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   }
   FUN_00b1bfe0(param_1,param_2);
   (**(code **)(*param_2 + 0x18))(param_2);
@@ -5097,14 +5097,14 @@ LAB_00b1bfbc:
       bVar2 = false;
     }
     else {
-      lVar4 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+      lVar4 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
       if (*(int *)(lVar4 + 4) != 2) goto LAB_00b1bfbc;
       bVar2 = true;
     }
     if (!bVar2) {
       return;
     }
-    FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+    yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   } while( true );
 }
 
@@ -5153,10 +5153,10 @@ void FUN_00b1bfe0(long param_1,long *param_2)
     (*pcVar1)(param_2,local_4c,0);
     goto LAB_00b1c7a4;
   }
-  lVar5 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar5 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   local_7c = *(undefined8 *)(lVar5 + 8);
   local_74 = *(undefined4 *)(lVar5 + 0x10);
-  lVar5 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar5 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   if (*(int *)(lVar5 + 4) == 0xf) {
     pcVar1 = *(code **)(*param_2 + 0x48);
     std::allocator<char>::allocator();
@@ -5171,13 +5171,13 @@ void FUN_00b1bfe0(long param_1,long *param_2)
     (**(code **)(*param_2 + 0x50))(param_2);
     goto LAB_00b1c7a4;
   }
-  lVar5 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar5 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   if (*(int *)(lVar5 + 4) == 0x11) {
     pcVar1 = *(code **)(*param_2 + 0x28);
-    lVar5 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    lVar5 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     uVar6 = FUN_00b1dcc6(param_1,&local_7c,lVar5 + 0x18);
     (*pcVar1)(param_2,&local_7c,uVar6);
-    FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+    yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
     goto LAB_00b1c7a4;
   }
   std::string::string(local_88);
@@ -5191,7 +5191,7 @@ void FUN_00b1bfe0(long param_1,long *param_2)
   }
   cVar3 = FUN_00b0c0ba(*(undefined8 *)(param_1 + 8));
   if (cVar3 == '\0') {
-    local_20 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    local_20 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     cVar3 = std::string::empty(local_88);
     if (cVar3 != '\0') {
       if (*(int *)(local_20 + 4) == 0x14) {
@@ -5215,7 +5215,7 @@ LAB_00b1c3a8:
     }
     if (bVar2) {
       (**(code **)(*param_2 + 0x20))(param_2,&local_7c,local_98);
-      FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+      yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
     }
     else {
       switch(*(undefined4 *)(local_20 + 4)) {
@@ -5267,7 +5267,7 @@ LAB_00b1c6b7:
       case 0x13:
       case 0x14:
         (**(code **)(*param_2 + 0x30))(param_2,&local_7c,local_88,local_98,local_20 + 0x18);
-        FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+        yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
       }
     }
   }
@@ -5289,7 +5289,7 @@ void FUN_00b1c870(long param_1,undefined8 param_2)
 {
   long lVar1;
   
-  lVar1 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar1 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   if (*(int *)(lVar1 + 4) == 3) {
     FUN_00b1c8cc(param_1,param_2);
   }
@@ -5318,7 +5318,7 @@ void FUN_00b1c8cc(long param_1,long *param_2)
   allocator local_21;
   long local_20;
   
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   uVar2 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4b6(uVar2,2);
   while( true ) {
@@ -5336,18 +5336,18 @@ void FUN_00b1c8cc(long param_1,long *param_2)
                     /* WARNING: Subroutine does not return */
       __cxa_throw(uVar2,&PTR_PTR_00d39ce8,FUN_00b009e6);
     }
-    uVar2 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    uVar2 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     FUN_00b19942(local_88,uVar2);
     if ((local_84 != 7) && (local_84 != 5)) break;
-    FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+    yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
     if (local_84 == 5) {
       iVar3 = 0;
     }
     else {
       cVar1 = FUN_00b0c0ba(*(undefined8 *)(param_1 + 8));
       if ((cVar1 == '\x01') ||
-         ((local_20 = FUN_00b0c126(*(undefined8 *)(param_1 + 8)), *(int *)(local_20 + 4) != 7 &&
-          (*(int *)(local_20 + 4) != 5)))) {
+         ((local_20 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8)), *(int *)(local_20 + 4) != 7
+          && (*(int *)(local_20 + 4) != 5)))) {
         FUN_00b1bfe0(param_1,param_2);
         iVar3 = 2;
       }
@@ -5356,7 +5356,7 @@ void FUN_00b1c8cc(long param_1,long *param_2)
         iVar3 = 1;
       }
     }
-    FUN_00b0eed8(local_88);
+    yaml_token_dtor(local_88);
     if (iVar3 == 0) {
       uVar2 = FUN_00b1e8d6(param_1 + 0x18);
       FUN_00b1e4dc(uVar2,2);
@@ -5395,7 +5395,7 @@ void FUN_00b1cbe2(long param_1,undefined8 param_2)
   allocator local_21;
   long local_20;
   
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   uVar2 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4b6(uVar2,4);
   while( true ) {
@@ -5413,7 +5413,7 @@ void FUN_00b1cbe2(long param_1,undefined8 param_2)
                     /* WARNING: Subroutine does not return */
       __cxa_throw(uVar2,&PTR_PTR_00d39ce8,FUN_00b009e6);
     }
-    lVar3 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    lVar3 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     if (*(int *)(lVar3 + 4) == 10) break;
     FUN_00b1bfe0(param_1,param_2);
     cVar1 = FUN_00b0c0ba(*(undefined8 *)(param_1 + 8));
@@ -5430,9 +5430,9 @@ void FUN_00b1cbe2(long param_1,undefined8 param_2)
                     /* WARNING: Subroutine does not return */
       __cxa_throw(uVar2,&PTR_PTR_00d39ce8,FUN_00b009e6);
     }
-    local_20 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    local_20 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     if (*(int *)(local_20 + 4) == 0xd) {
-      FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+      yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
     }
     else if (*(int *)(local_20 + 4) != 10) {
       uVar2 = __cxa_allocate_exception(0x28);
@@ -5447,7 +5447,7 @@ void FUN_00b1cbe2(long param_1,undefined8 param_2)
       __cxa_throw(uVar2,&PTR_PTR_00d39ce8,FUN_00b009e6);
     }
   }
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   uVar2 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4dc(uVar2,4);
   return;
@@ -5462,7 +5462,7 @@ void FUN_00b1cf22(long param_1,undefined8 param_2)
   int iVar1;
   long lVar2;
   
-  lVar2 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar2 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   iVar1 = *(int *)(lVar2 + 4);
   if (iVar1 == 9) {
     yaml_scanMapFlow(param_1,param_2);
@@ -5500,7 +5500,7 @@ void FUN_00b1cfb8(long param_1,long *param_2)
   string local_28 [15];
   allocator local_19;
   
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   uVar3 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4b6(uVar3,1);
   while( true ) {
@@ -5518,16 +5518,16 @@ void FUN_00b1cfb8(long param_1,long *param_2)
                     /* WARNING: Subroutine does not return */
       __cxa_throw(uVar3,&PTR_PTR_00d39ce8,FUN_00b009e6);
     }
-    uVar3 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    uVar3 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     FUN_00b19942(local_88,uVar3);
     if (((local_84 != 0xe) && (local_84 != 0xf)) && (local_84 != 6)) break;
     if (local_84 == 6) {
-      FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+      yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
       bVar1 = false;
     }
     else {
       if (local_84 == 0xe) {
-        FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+        yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
         FUN_00b1bfe0(param_1,param_2);
       }
       else {
@@ -5535,14 +5535,14 @@ void FUN_00b1cfb8(long param_1,long *param_2)
       }
       cVar2 = FUN_00b0c0ba(*(undefined8 *)(param_1 + 8));
       if ((cVar2 == '\x01') ||
-         (lVar4 = FUN_00b0c126(*(undefined8 *)(param_1 + 8)), *(int *)(lVar4 + 4) != 0xf)) {
+         (lVar4 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8)), *(int *)(lVar4 + 4) != 0xf)) {
         bVar1 = false;
       }
       else {
         bVar1 = true;
       }
       if (bVar1) {
-        FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+        yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
         FUN_00b1bfe0(param_1,param_2);
       }
       else {
@@ -5550,7 +5550,7 @@ void FUN_00b1cfb8(long param_1,long *param_2)
       }
       bVar1 = true;
     }
-    FUN_00b0eed8(local_88);
+    yaml_token_dtor(local_88);
     if (!bVar1) {
       uVar3 = FUN_00b1e8d6(param_1 + 0x18);
       FUN_00b1e4dc(uVar3,1);
@@ -5593,7 +5593,7 @@ void yaml_scanMapFlow(long param_1,long *param_2)
   long local_28;
   long local_20;
   
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   uVar3 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4b6(uVar3,3);
   do {
@@ -5611,17 +5611,17 @@ void yaml_scanMapFlow(long param_1,long *param_2)
                     /* WARNING: Subroutine does not return */
       __cxa_throw(uVar3,&PTR_PTR_00d39ce8,FUN_00b009e6);
     }
-    local_20 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    local_20 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     local_74 = *(undefined8 *)(local_20 + 8);
     local_6c = *(undefined4 *)(local_20 + 0x10);
     if (*(int *)(local_20 + 4) == 0xb) {
-      FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+      yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
       uVar3 = FUN_00b1e8d6(param_1 + 0x18);
       FUN_00b1e4dc(uVar3,3);
       return;
     }
     if (*(int *)(local_20 + 4) == 0xe) {
-      FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+      yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
       FUN_00b1bfe0(param_1,param_2);
     }
     else {
@@ -5633,12 +5633,12 @@ LAB_00b1d50f:
       bVar1 = false;
     }
     else {
-      lVar4 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+      lVar4 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
       if (*(int *)(lVar4 + 4) != 0xf) goto LAB_00b1d50f;
       bVar1 = true;
     }
     if (bVar1) {
-      FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+      yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
       FUN_00b1bfe0(param_1,param_2);
     }
     else {
@@ -5658,9 +5658,9 @@ LAB_00b1d50f:
                     /* WARNING: Subroutine does not return */
       __cxa_throw(uVar3,&PTR_PTR_00d39ce8,FUN_00b009e6);
     }
-    local_28 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    local_28 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     if (*(int *)(local_28 + 4) == 0xd) {
-      FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+      yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
     }
     else if (*(int *)(local_28 + 4) != 0xb) {
       uVar3 = __cxa_allocate_exception(0x28);
@@ -5692,14 +5692,14 @@ void FUN_00b1d758(long param_1,long *param_2)
   
   uVar3 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4b6(uVar3,5);
-  lVar4 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar4 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   local_14 = *(undefined8 *)(lVar4 + 8);
   local_c = *(undefined4 *)(lVar4 + 0x10);
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   FUN_00b1bfe0(param_1,param_2);
   cVar2 = FUN_00b0c0ba(*(undefined8 *)(param_1 + 8));
   if (cVar2 != '\x01') {
-    lVar4 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+    lVar4 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
     if (*(int *)(lVar4 + 4) == 0xf) {
       bVar1 = true;
       goto LAB_00b1d801;
@@ -5708,7 +5708,7 @@ void FUN_00b1d758(long param_1,long *param_2)
   bVar1 = false;
 LAB_00b1d801:
   if (bVar1) {
-    FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+    yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
     FUN_00b1bfe0(param_1,param_2);
   }
   else {
@@ -5732,9 +5732,9 @@ void FUN_00b1d86a(long param_1,long *param_2)
   uVar2 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4b6(uVar2,5);
   pcVar1 = *(code **)(*param_2 + 0x20);
-  lVar3 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  lVar3 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   (*pcVar1)(param_2,lVar3 + 8,0);
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   FUN_00b1bfe0(param_1,param_2);
   uVar2 = FUN_00b1e8d6(param_1 + 0x18);
   FUN_00b1e4dc(uVar2,5);
@@ -5759,7 +5759,7 @@ void FUN_00b1d914(long param_1,string *param_2,undefined8 *param_3,string *param
       if (cVar1 != '\0') {
         return;
       }
-      lVar2 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+      lVar2 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
       if (*(int *)(lVar2 + 4) != 0x10) break;
       FUN_00b1db34(param_1,param_3,param_4);
     }
@@ -5783,7 +5783,7 @@ void FUN_00b1d9b6(long param_1,string *param_2)
   string local_28 [8];
   long local_20;
   
-  local_20 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  local_20 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   cVar1 = std::string::empty(param_2);
   if (cVar1 != '\x01') {
     uVar2 = __cxa_allocate_exception(0x28);
@@ -5804,7 +5804,7 @@ void FUN_00b1d9b6(long param_1,string *param_2)
   std::string::operator=(param_2,local_28);
   std::string::~string(local_28);
                     /* try { // try from 00b1daba to 00b1dabe has its CatchHandler @ 00b1db11 */
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   FUN_00b1e594(local_58);
   return;
 }
@@ -5821,7 +5821,7 @@ void FUN_00b1db34(long param_1,long *param_2,string *param_3)
   allocator local_21;
   long local_20;
   
-  local_20 = FUN_00b0c126(*(undefined8 *)(param_1 + 8));
+  local_20 = yaml_scanner_peek(*(undefined8 *)(param_1 + 8));
   if (*param_2 != 0) {
     uVar1 = __cxa_allocate_exception(0x28);
     std::allocator<char>::allocator();
@@ -5837,7 +5837,7 @@ void FUN_00b1db34(long param_1,long *param_2,string *param_3)
   std::string::operator=(param_3,(string *)(local_20 + 0x18));
   lVar2 = FUN_00b1dc64(param_1,local_20 + 0x18);
   *param_2 = lVar2;
-  FUN_00b0c0e4(*(undefined8 *)(param_1 + 8));
+  yaml_scanner_pop(*(undefined8 *)(param_1 + 8));
   return;
 }
 
@@ -5914,9 +5914,9 @@ void FUN_00b1dddc(void)
 }
 
 
-// ==== entry=00b1de0c name=FUN_00b1de0c size=1151 ====
+// ==== entry=00b1de0c orig=FUN_00b1de0c size=1151 name=yaml_static_init_e ====
 
-void FUN_00b1de0c(int param_1,int param_2)
+void yaml_static_init_e(int param_1,int param_2)
 
 {
   allocator local_3c;
@@ -6034,7 +6034,7 @@ void FUN_00b1de0c(int param_1,int param_2)
 void _INIT_174(void)
 
 {
-  FUN_00b1de0c(1,0xffff);
+  yaml_static_init_e(1,0xffff);
   return;
 }
 
@@ -8780,9 +8780,9 @@ void FUN_00b2155a(long param_1)
 }
 
 
-// ==== entry=00b21596 name=FUN_00b21596 size=65 ====
+// ==== entry=00b21596 orig=FUN_00b21596 size=65 name=yaml_read_byte ====
 
-ulong FUN_00b21596(long param_1)
+ulong yaml_read_byte(long param_1)
 
 {
   char cVar1;
@@ -8837,7 +8837,7 @@ char reader_readCharAdvance(long param_1)
 {
   char cVar1;
   
-  cVar1 = FUN_00b21596(param_1);
+  cVar1 = yaml_read_byte(param_1);
   FUN_00b21780(param_1);
   *(int *)(param_1 + 0x10) = *(int *)(param_1 + 0x10) + 1;
   if (cVar1 == '\n') {
@@ -10177,9 +10177,9 @@ void FUN_00b2360a(void)
 }
 
 
-// ==== entry=00b2363a name=FUN_00b2363a size=1151 ====
+// ==== entry=00b2363a orig=FUN_00b2363a size=1151 name=yaml_static_init_f ====
 
-void FUN_00b2363a(int param_1,int param_2)
+void yaml_static_init_f(int param_1,int param_2)
 
 {
   allocator local_3c;
@@ -10297,7 +10297,7 @@ void FUN_00b2363a(int param_1,int param_2)
 void _INIT_176(void)
 
 {
-  FUN_00b2363a(1,0xffff);
+  yaml_static_init_f(1,0xffff);
   return;
 }
 
@@ -11072,7 +11072,7 @@ void FUN_00b24c18(undefined8 param_1,int param_2)
   undefined8 uVar1;
   
   if (param_2 != 0) {
-    FUN_005289b6(param_1);
+    rbtree_clear_recursive(param_1);
   }
   uVar1 = FUN_00b00764(param_1);
   FUN_00b24a94(uVar1,param_2);
@@ -11087,7 +11087,7 @@ void FUN_00b24c58(undefined8 param_1)
 {
   undefined8 uVar1;
   
-  FUN_005289b6(param_1);
+  rbtree_clear_recursive(param_1);
   uVar1 = FUN_00b00764(param_1);
   FUN_00b24af4(uVar1);
   return;
@@ -11101,7 +11101,7 @@ void FUN_00b24c88(undefined8 param_1,undefined8 param_2)
 {
   undefined8 uVar1;
   
-  FUN_005289b6(param_1);
+  rbtree_clear_recursive(param_1);
   uVar1 = FUN_00b00764(param_1);
   FUN_00b24ac2(uVar1,param_2);
   return;
@@ -11115,7 +11115,7 @@ void FUN_00b24cc6(undefined8 param_1,undefined4 param_2)
 {
   undefined8 uVar1;
   
-  FUN_005289b6(param_1);
+  rbtree_clear_recursive(param_1);
   uVar1 = FUN_00b00764(param_1);
   FUN_00b24b18(uVar1,param_2);
   return;
@@ -13710,7 +13710,7 @@ LAB_00b27c38:
         bVar1 = false;
       }
       if (bVar1) goto code_r0x00b27c41;
-      cVar2 = FUN_00b21596(param_2);
+      cVar2 = yaml_read_byte(param_2);
       if (cVar2 == *(char *)((long)param_3 + 0x12)) {
         yaml_parse_escape(local_b0,param_2);
                     /* try { // try from 00b27cd1 to 00b27cd5 has its CatchHandler @ 00b28639 */
@@ -13779,7 +13779,7 @@ LAB_00b27e81:
   local_60 = FUN_00b0d95a(uVar5,param_2);
   FUN_00b2174c(param_2,local_60);
   while( true ) {
-    cVar2 = FUN_00b21596(param_2);
+    cVar2 = yaml_read_byte(param_2);
     if ((cVar2 == ' ') &&
        (((iVar3 = FUN_00b0d7c0(param_2), iVar3 < *(int *)((long)param_3 + 0xc) ||
          (((char)param_3[2] != '\0' && (local_19 != '\x01')))) &&
@@ -13801,7 +13801,7 @@ LAB_00b27e81:
     uVar5 = FUN_00b0db18();
     cVar2 = FUN_00b0d930(uVar5,param_2);
     if (cVar2 == '\0') break;
-    cVar2 = FUN_00b21596(param_2);
+    cVar2 = yaml_read_byte(param_2);
     if (((cVar2 == '\t') && (iVar3 = FUN_00b0d7c0(param_2), iVar3 < *(int *)((long)param_3 + 0xc)))
        && (*(int *)((long)param_3 + 0x24) == 2)) {
       bVar1 = true;
@@ -14070,7 +14070,7 @@ string * FUN_00b28964(string *param_1,undefined8 param_2)
   while( true ) {
     cVar1 = FUN_00b215d8(param_2);
     if (cVar1 == '\0') break;
-    cVar1 = FUN_00b21596(param_2);
+    cVar1 = yaml_read_byte(param_2);
     if (cVar1 == '>') {
       reader_readCharAdvance(param_2);
       return param_1;
@@ -14121,7 +14121,7 @@ string * FUN_00b28b0f(string *param_1,undefined8 param_2,char *param_3)
     if (cVar1 == '\0') {
       return param_1;
     }
-    cVar1 = FUN_00b21596(param_2);
+    cVar1 = yaml_read_byte(param_2);
     if (cVar1 == '!') break;
     local_1c = 0;
     auVar3 = local_44;
@@ -14521,9 +14521,9 @@ string * FUN_00b29892(string *param_1,char param_2)
 }
 
 
-// ==== entry=00b298fc name=FUN_00b298fc size=1048 ====
+// ==== entry=00b298fc orig=FUN_00b298fc size=1048 name=yaml_unicode_escape ====
 
-undefined8 FUN_00b298fc(undefined8 param_1,undefined8 param_2,int param_3)
+undefined8 yaml_unicode_escape(undefined8 param_1,undefined8 param_2,int param_3)
 
 {
   char cVar1;
@@ -14752,7 +14752,7 @@ string * yaml_parse_escape(string *param_1,undefined8 param_2)
       std::allocator<char>::~allocator((allocator<char> *)&local_41);
       break;
     case 'U':
-      FUN_00b298fc(param_1,param_2,8);
+      yaml_unicode_escape(param_1,param_2,8);
       break;
     case '\\':
       std::allocator<char>::allocator();
@@ -14803,7 +14803,7 @@ string * yaml_parse_escape(string *param_1,undefined8 param_2)
       std::allocator<char>::~allocator((allocator<char> *)&local_4b);
       break;
     case 'u':
-      FUN_00b298fc(param_1,param_2,4);
+      yaml_unicode_escape(param_1,param_2,4);
       break;
     case 'v':
       std::allocator<char>::allocator();
@@ -14812,7 +14812,7 @@ string * yaml_parse_escape(string *param_1,undefined8 param_2)
       std::allocator<char>::~allocator((allocator<char> *)&local_4d);
       break;
     case 'x':
-      FUN_00b298fc(param_1,param_2,2);
+      yaml_unicode_escape(param_1,param_2,2);
     }
   }
   return param_1;
@@ -17693,9 +17693,9 @@ LAB_00b2d9fc:
 }
 
 
-// ==== entry=00b2dbf0 name=FUN_00b2dbf0 size=2887 ====
+// ==== entry=00b2dbf0 orig=FUN_00b2dbf0 size=2887 name=regex_parse_char_class ====
 
-int FUN_00b2dbf0(long *param_1,int *param_2,ulong *param_3,ulong param_4,uint *param_5)
+int regex_parse_char_class(long *param_1,int *param_2,ulong *param_3,ulong param_4,uint *param_5)
 
 {
   int iVar1;
@@ -18059,7 +18059,7 @@ LAB_00b2df9d:
     }
     goto LAB_00b2de7d;
   case 0x1a:
-    iVar6 = FUN_00b2dbf0(&local_70,param_2,&local_78,param_4,param_5);
+    iVar6 = regex_parse_char_class(&local_70,param_2,&local_78,param_4,param_5);
     if (iVar6 == 0) {
       iVar6 = FUN_00b2cb60(local_d0,CONCAT71(auStack_6f,local_70),*(undefined8 *)(param_5 + 2));
       xpr_nodeFree(CONCAT71(auStack_6f,local_70));
@@ -20481,12 +20481,13 @@ void FUN_00b313d0(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00b31550 name=FUN_00b31550 size=7924 ====
+// ==== entry=00b31550 orig=FUN_00b31550 size=7924 name=regex_parse_repeat_op ====
 
 /* WARNING: Type propagation algorithm not settling */
 
-uint FUN_00b31550(long *param_1,uint *param_2,uint param_3,undefined8 *param_4,uint *param_5,
-                 uint *param_6)
+uint regex_parse_repeat_op
+               (long *param_1,uint *param_2,uint param_3,undefined8 *param_4,uint *param_5,
+               uint *param_6)
 
 {
   uint uVar1;
@@ -21577,7 +21578,7 @@ LAB_00b32058:
     return 0xfffffffb;
   case 0x10:
     puVar26 = param_6;
-    uVar9 = FUN_00b2dbf0(param_1,param_2,param_4,param_5);
+    uVar9 = regex_parse_char_class(param_1,param_2,param_4,param_5);
     if (uVar9 != 0) {
       return uVar9;
     }
@@ -21880,7 +21881,7 @@ int FUN_00b33520(undefined8 *param_1,undefined8 param_2,int param_3,undefined8 p
   int *local_40 [2];
   
   *param_1 = 0;
-  iVar2 = FUN_00b31550(local_40);
+  iVar2 = regex_parse_repeat_op(local_40);
   if (iVar2 < 0) {
 LAB_00b33620:
     xpr_nodeFree(local_40[0]);
@@ -21893,7 +21894,7 @@ LAB_00b33620:
     *param_1 = piVar3;
     do {
       piVar4 = piVar3 + 4;
-      iVar2 = FUN_00b31550(local_40,param_2,param_3,param_4,param_5,param_6);
+      iVar2 = regex_parse_repeat_op(local_40,param_2,param_3,param_4,param_5,param_6);
       if (iVar2 < 0) goto LAB_00b33620;
       if (*local_40[0] == 8) {
         *(int **)piVar4 = local_40[0];
@@ -22359,9 +22360,9 @@ switchD_00b33c83_caseD_5:
 }
 
 
-// ==== entry=00b33d30 name=FUN_00b33d30 size=665 ====
+// ==== entry=00b33d30 orig=FUN_00b33d30 size=665 name=regexp_min_length ====
 
-int FUN_00b33d30(int *param_1,ulong *param_2,long param_3)
+int regexp_min_length(int *param_1,ulong *param_2,long param_3)
 
 {
   undefined1 auVar1 [16];
@@ -22394,7 +22395,7 @@ int FUN_00b33d30(int *param_1,ulong *param_2,long param_3)
         piVar5 = param_1 + 3;
       }
       if (*piVar5 <= *(int *)(param_3 + 0x60)) {
-        iVar2 = FUN_00b33d30(*(undefined8 *)(lVar4 + (long)*piVar5 * 8));
+        iVar2 = regexp_min_length(*(undefined8 *)(lVar4 + (long)*piVar5 * 8));
         if (iVar2 != 0) {
           return iVar2;
         }
@@ -22405,7 +22406,7 @@ int FUN_00b33d30(int *param_1,ulong *param_2,long param_3)
         if (iVar2 <= *(int *)(param_3 + 0x60)) {
           lVar6 = 2;
           do {
-            iVar2 = FUN_00b33d30(*(undefined8 *)(lVar4 + (long)iVar2 * 8),local_40,param_3);
+            iVar2 = regexp_min_length(*(undefined8 *)(lVar4 + (long)iVar2 * 8),local_40,param_3);
             if (iVar2 != 0) {
               return iVar2;
             }
@@ -22425,7 +22426,7 @@ int FUN_00b33d30(int *param_1,ulong *param_2,long param_3)
     break;
   case 5:
     if (0 < param_1[4]) {
-      iVar2 = FUN_00b33d30(*(undefined8 *)(param_1 + 2));
+      iVar2 = regexp_min_length(*(undefined8 *)(param_1 + 2));
       if (iVar2 == 0) {
         iVar2 = param_1[4];
         uVar3 = 0;
@@ -22451,7 +22452,7 @@ int FUN_00b33d30(int *param_1,ulong *param_2,long param_3)
           return 0;
         }
         if ((*(byte *)(param_1 + 1) & 1) == 0) {
-          iVar2 = FUN_00b33d30(*(undefined8 *)(param_1 + 6));
+          iVar2 = regexp_min_length(*(undefined8 *)(param_1 + 6));
           if (iVar2 == 0) {
             uVar3 = *param_2;
             param_1[1] = param_1[1] | 1;
@@ -22469,13 +22470,13 @@ int FUN_00b33d30(int *param_1,ulong *param_2,long param_3)
     }
     lVar4 = *(long *)(param_1 + 6);
 LAB_00b33fb4:
-    iVar2 = FUN_00b33d30(lVar4,param_2,param_3);
+    iVar2 = regexp_min_length(lVar4,param_2,param_3);
     return iVar2;
   case 7:
     break;
   case 8:
     do {
-      iVar2 = FUN_00b33d30(*(undefined8 *)(param_1 + 2),local_40,param_3);
+      iVar2 = regexp_min_length(*(undefined8 *)(param_1 + 2),local_40,param_3);
       if (iVar2 != 0) {
         return iVar2;
       }
@@ -22486,7 +22487,7 @@ LAB_00b33fb4:
   case 9:
     piVar5 = param_1;
     do {
-      iVar2 = FUN_00b33d30(*(undefined8 *)(piVar5 + 2),local_40,param_3);
+      iVar2 = regexp_min_length(*(undefined8 *)(piVar5 + 2),local_40,param_3);
       if (iVar2 != 0) {
         return iVar2;
       }
@@ -22916,7 +22917,7 @@ LAB_00b346e6:
         param_3 = 0;
       }
       else {
-        uVar3 = FUN_00b33d30(*(undefined8 *)(param_1 + 2),local_30,param_2);
+        uVar3 = regexp_min_length(*(undefined8 *)(param_1 + 2),local_30,param_2);
         if ((int)uVar3 != 0) {
           return uVar3;
         }
@@ -24748,7 +24749,7 @@ int FUN_00b35ff0(int *param_1,ulong *param_2,ulong *param_3)
       if (*(int **)(param_1 + 10) == (int *)0x0) {
         piVar20 = param_1 + 3;
       }
-      iVar7 = FUN_00b33d30(*(undefined8 *)(lVar9 + (long)*piVar20 * 8),&local_278);
+      iVar7 = regexp_min_length(*(undefined8 *)(lVar9 + (long)*piVar20 * 8),&local_278);
       if (iVar7 != 0) {
         return iVar7;
       }
@@ -24759,8 +24760,8 @@ int FUN_00b35ff0(int *param_1,ulong *param_2,ulong *param_3)
       if (1 < param_1[2]) {
         lVar21 = 1;
         do {
-          iVar7 = FUN_00b33d30(*(undefined8 *)(lVar9 + (long)piVar20[lVar21] * 8),&local_268,
-                               param_3[4]);
+          iVar7 = regexp_min_length(*(undefined8 *)(lVar9 + (long)piVar20[lVar21] * 8),&local_268,
+                                    param_3[4]);
           if (iVar7 != 0) {
             return iVar7;
           }
@@ -25226,11 +25227,11 @@ LAB_00b3672b:
 }
 
 
-// ==== entry=00b37120 name=FUN_00b37120 size=1041 ====
+// ==== entry=00b37120 orig=FUN_00b37120 size=1041 name=charmap_build ====
 
 undefined8
-FUN_00b37120(long param_1,long param_2,undefined8 *param_3,undefined4 *param_4,char *param_5,
-            long *param_6,int param_7)
+charmap_build(long param_1,long param_2,undefined8 *param_3,undefined4 *param_4,char *param_5,
+             long *param_6,int param_7)
 
 {
   int *piVar1;
@@ -27211,7 +27212,7 @@ LAB_00b39ac5:
     }
     iVar4 = param_1[5];
     if ((iVar4 == -1) || (0 < iVar4)) {
-      iVar4 = FUN_00b33d30(piVar25,local_40,param_4);
+      iVar4 = regexp_min_length(piVar25,local_40,param_4);
       if (iVar4 != 0) {
         return iVar4;
       }
@@ -27825,8 +27826,8 @@ LAB_00b3ad96:
         if (local_204 < 1) {
           if (local_200 < 3) {
             if ((local_200 == 2) && (iVar3 != 0)) {
-              iVar2 = FUN_00b37120(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,
-                                   param_1 + 0x15,param_1 + 0x35,0);
+              iVar2 = charmap_build(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,
+                                    param_1 + 0x15,param_1 + 0x35,0);
               if (iVar2 == 0) goto LAB_00b3af85;
 LAB_00b3aa13:
               *(uint *)(param_1 + 0x12) =
@@ -27836,8 +27837,8 @@ LAB_00b3aa13:
             *(undefined4 *)(param_1 + 0xe) = 1;
           }
           else {
-            iVar2 = FUN_00b37120(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,param_1 + 0x15
-                                 ,param_1 + 0x35,0);
+            iVar2 = charmap_build(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,
+                                  param_1 + 0x15,param_1 + 0x35,0);
             if (iVar2 != 0) goto LAB_00b3aa13;
             uVar4 = 3;
             if (iVar3 == 0) goto LAB_00b3af37;
@@ -27850,16 +27851,16 @@ LAB_00b3af37:
         else {
           if (local_200 < 3) {
             if (((local_200 == 2) && (iVar3 != 0)) &&
-               (iVar2 = FUN_00b37120(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,
-                                     param_1 + 0x15,param_1 + 0x35,1), iVar2 == 0)) {
+               (iVar2 = charmap_build(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,
+                                      param_1 + 0x15,param_1 + 0x35,1), iVar2 == 0)) {
 LAB_00b3afc5:
               uVar4 = 6;
               goto LAB_00b3af37;
             }
           }
           else {
-            iVar2 = FUN_00b37120(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,param_1 + 0x15
-                                 ,param_1 + 0x35,1);
+            iVar2 = charmap_build(param_1[0x13],param_1[0x14],param_1[9],param_1 + 0xc,
+                                  param_1 + 0x15,param_1 + 0x35,1);
             if (iVar2 == 0) {
               uVar4 = 7;
               if (iVar3 == 0) goto LAB_00b3af37;

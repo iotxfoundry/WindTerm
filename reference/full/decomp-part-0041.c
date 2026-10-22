@@ -3358,7 +3358,7 @@ std::money_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>::do_p
   auStack_100[2] = param_8;
   auStack_100[1] = param_7;
   auStack_100[0] = 0xc30f18;
-  iVar6 = FUN_00bf9d20((string *)&local_48,puVar9,0x40,"%.*Lf",0);
+  iVar6 = locale_vsnprintf((string *)&local_48,puVar9,0x40,"%.*Lf",0);
   if (0x3f < iVar6) {
     lVar2 = -((long)(iVar6 + 1) + 0x17U & 0xfffffffffffffff0);
     puVar8 = auStack_e8 + lVar2;
@@ -3369,7 +3369,7 @@ std::money_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>::do_p
     *(undefined8 *)((long)auStack_100 + lVar2 + 8) = param_7;
     local_48 = lVar7;
     *(undefined8 *)((long)auStack_100 + lVar2) = 0xc30f64;
-    iVar6 = FUN_00bf9d20((string *)&local_48,puVar9,iVar6 + 1,"%.*Lf",0);
+    iVar6 = locale_vsnprintf((string *)&local_48,puVar9,iVar6 + 1,"%.*Lf",0);
   }
   *(undefined8 *)(puVar8 + -8) = 0xc30f7d;
   string::string((string *)&local_48,(long)iVar6,'\0',&local_51);
@@ -3726,9 +3726,9 @@ long FUN_00c31690(undefined8 param_1,locale *param_2)
 }
 
 
-// ==== entry=00c317b0 name=FUN_00c317b0 size=200 ====
+// ==== entry=00c317b0 orig=FUN_00c317b0 size=200 name=numpunct_cache_char ====
 
-long FUN_00c317b0(undefined8 param_1,locale *param_2)
+long numpunct_cache_char(undefined8 param_1,locale *param_2)
 
 {
   long *plVar1;
@@ -3810,7 +3810,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
   uStack_80 = 0xc318f4;
   local_6c = param_5;
   local_68 = param_1;
-  local_60 = (undefined1 *)FUN_00c317b0(&local_45,param_4 + 0xd0);
+  local_60 = (undefined1 *)numpunct_cache_char(&local_45,param_4 + 0xd0);
   uVar13 = *(uint *)(param_4 + 0x18);
   puVar8 = auStack_a8;
   puVar9 = auStack_a8;
@@ -4002,7 +4002,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
   local_90 = CONCAT44(local_90._4_4_,*(uint *)(param_4 + 0x18));
   local_98 = CONCAT44(local_98._4_4_,param_5);
   uStack_b0 = 0xc31c3b;
-  lVar3 = FUN_00c317b0(&local_41,param_4 + 0xd0);
+  lVar3 = numpunct_cache_char(&local_41,param_4 + 0xd0);
   if (param_6 == '\0') {
     lVar10 = (long)*(int *)(lVar3 + 0x40);
     lVar4 = *(long *)(param_4 + 0x10);
@@ -4140,7 +4140,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
   local_6c = param_5;
   local_68 = param_1;
   local_50 = param_6;
-  lVar6 = FUN_00c317b0(&local_45,param_4 + 0xd0);
+  lVar6 = numpunct_cache_char(&local_45,param_4 + 0xd0);
   uVar2 = *(uint *)(param_4 + 0x18);
   puVar7 = auStack_a8;
   puVar8 = auStack_a8;
@@ -4319,7 +4319,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
   uStack_80 = 0xc32104;
   local_6c = param_5;
   local_68 = param_1;
-  local_60 = (undefined1 *)FUN_00c317b0(&local_45,param_4 + 0xd0);
+  local_60 = (undefined1 *)numpunct_cache_char(&local_45,param_4 + 0xd0);
   uVar13 = *(uint *)(param_4 + 0x18);
   puVar8 = auStack_a8;
   puVar9 = auStack_a8;
@@ -4506,7 +4506,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
   local_6c = param_5;
   local_68 = param_1;
   local_50 = param_6;
-  lVar6 = FUN_00c317b0(&local_45,param_4 + 0xd0);
+  lVar6 = numpunct_cache_char(&local_45,param_4 + 0xd0);
   uVar2 = *(uint *)(param_4 + 0x18);
   puVar7 = auStack_a8;
   puVar8 = auStack_a8;
@@ -4679,7 +4679,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
   local_90 = param_2;
   local_88 = param_4;
   local_70 = (locale *)param_1;
-  lVar7 = FUN_00c317b0(&local_65,local_80);
+  lVar7 = numpunct_cache_char(&local_65,local_80);
   lVar21 = *(long *)(param_5 + 8);
   if (lVar21 < 0) {
     lVar21 = 6;
@@ -4693,7 +4693,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
     uStack_f0 = 0xc3294d;
     local_60 = locale::facet::_S_get_c_locale();
     uStack_f0 = 0xc32973;
-    local_64 = FUN_00bf9d20(local_70,&local_60,pcVar14,0x2d,local_78);
+    local_64 = locale_vsnprintf(local_70,&local_60,pcVar14,0x2d,local_78);
     if (0x2c < local_64) {
       local_a0 = (undefined8 *)CONCAT44(local_a0._4_4_,local_64 + 1);
       lVar21 = -((long)(local_64 + 1) + 0x17U & 0xfffffffffffffff0);
@@ -4705,7 +4705,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
       pcVar14 = local_e0 + lVar21;
       uVar13 = (ulong)local_a0 & 0xffffffff;
       *(undefined8 *)(auStack_e8 + lVar21 + -8) = 0xc329c7;
-      local_64 = FUN_00bf9d20(plVar11,&local_60,pcVar14,uVar13,pcVar6);
+      local_64 = locale_vsnprintf(plVar11,&local_60,pcVar14,uVar13,pcVar6);
     }
   }
   else {
@@ -4713,7 +4713,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
     local_60 = locale::facet::_S_get_c_locale();
     local_a0 = &local_60;
     uStack_f0 = 0xc326f7;
-    local_64 = FUN_00bf9d20(local_70,local_a0,pcVar14,0x2d,local_78,lVar21);
+    local_64 = locale_vsnprintf(local_70,local_a0,pcVar14,0x2d,local_78,lVar21);
     puVar15 = auStack_e8;
     if (0x2c < local_64) {
       local_98 = local_64 + 1;
@@ -4727,7 +4727,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
       puVar3 = local_a0;
       pcVar14 = local_e0 + lVar12;
       *(undefined8 *)(auStack_e8 + lVar12 + -8) = 0xc3284f;
-      local_64 = FUN_00bf9d20(plVar11,puVar3,pcVar14,iVar18,pcVar6,lVar21);
+      local_64 = locale_vsnprintf(plVar11,puVar3,pcVar14,iVar18,pcVar6,lVar21);
     }
   }
   piVar5 = local_80;
@@ -4900,7 +4900,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
   local_94 = param_5;
   local_88 = param_1;
   local_80 = param_3;
-  lVar5 = FUN_00c317b0(&local_65,local_78);
+  lVar5 = numpunct_cache_char(&local_65,local_78);
   lVar19 = *(long *)(param_4 + 8);
   if (lVar19 < 0) {
     lVar19 = 6;
@@ -4916,7 +4916,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
     auStack_f0[2] = param_8;
     auStack_f0[1] = param_7;
     auStack_f0[0] = 0xc32d89;
-    local_64 = FUN_00bf9d20(&local_60,pcVar13,0x36,local_70);
+    local_64 = locale_vsnprintf(&local_60,pcVar13,0x36,local_70);
     if (0x35 < local_64) {
       local_90 = (char *)CONCAT44(local_90._4_4_,local_64 + 1);
       lVar19 = -((long)(local_64 + 1) + 0x17U & 0xfffffffffffffff0);
@@ -4930,7 +4930,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
       *(undefined8 *)((long)auStack_f0 + lVar19 + 8) = param_7;
       local_60 = uVar9;
       *(undefined8 *)((long)auStack_f0 + lVar19) = 0xc32dde;
-      local_64 = FUN_00bf9d20(&local_60,pcVar13,uVar12,pcVar10);
+      local_64 = locale_vsnprintf(&local_60,pcVar13,uVar12,pcVar10);
     }
   }
   else {
@@ -4940,7 +4940,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
     local_90 = (char *)&local_60;
     auStack_f0[1] = param_7;
     auStack_f0[0] = 0xc32b0d;
-    local_64 = FUN_00bf9d20(local_90,pcVar13,0x36,local_70,lVar19);
+    local_64 = locale_vsnprintf(local_90,pcVar13,0x36,local_70,lVar19);
     puVar14 = auStack_d8;
     if (0x35 < local_64) {
       local_98 = local_64 + 1;
@@ -4956,7 +4956,7 @@ long * std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>:
       pcVar10 = local_90;
       local_60 = uVar9;
       *(undefined8 *)((long)auStack_f0 + lVar11) = 0xc32c6d;
-      local_64 = FUN_00bf9d20(pcVar10,pcVar13,iVar17,pcVar20,lVar19);
+      local_64 = locale_vsnprintf(pcVar10,pcVar13,iVar17,pcVar20,lVar19);
     }
   }
   piVar4 = local_78;
@@ -6054,7 +6054,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::_M_ext
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar8 = FUN_00c317b0(&local_4a,param_6 + 0xd0);
+  lVar8 = numpunct_cache_char(&local_4a,param_6 + 0xd0);
   bVar2 = FUN_00c04470(&local_68);
   if (bVar2 == 0) {
     uVar6 = istream_get_char(&local_68,local_60 & 0xffffffff);
@@ -6635,7 +6635,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::_M_ext
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar8 = FUN_00c317b0(&local_4a,param_6 + 0xd0);
+  lVar8 = numpunct_cache_char(&local_4a,param_6 + 0xd0);
   uVar7 = *(uint *)(param_6 + 0x18);
   uVar11 = uVar7 & 0x4a;
   if (uVar11 == 0x40) {
@@ -7067,7 +7067,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::do_get
   uStack_70 = param_5;
   psStack_68 = param_2;
   uStack_60 = param_3;
-  lVar8 = FUN_00c317b0(&uStack_4a,param_6 + 0xd0);
+  lVar8 = numpunct_cache_char(&uStack_4a,param_6 + 0xd0);
   uVar7 = *(uint *)(param_6 + 0x18);
   uVar11 = uVar7 & 0x4a;
   if (uVar11 == 0x40) {
@@ -7527,7 +7527,7 @@ LAB_00c3647b:
     return local_58;
   }
   bVar10 = true;
-  lVar4 = FUN_00c317b0(&local_48,param_6 + 0xd0);
+  lVar4 = numpunct_cache_char(&local_48,param_6 + 0xd0);
   bVar8 = true;
   bVar6 = *(long *)(lVar4 + 0x40) == 0;
   bVar7 = *(long *)(lVar4 + 0x30) == 0;
@@ -7700,7 +7700,7 @@ _M_extract_int<unsigned_short>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar11 = FUN_00c317b0(&local_4a,param_6 + 0xd0);
+  lVar11 = numpunct_cache_char(&local_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18);
   uVar16 = uVar10 & 0x4a;
   if (uVar16 == 0x40) {
@@ -8105,7 +8105,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::do_get
   uStack_70 = param_5;
   psStack_68 = param_2;
   uStack_60 = param_3;
-  lVar11 = FUN_00c317b0(&uStack_4a,param_6 + 0xd0);
+  lVar11 = numpunct_cache_char(&uStack_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18);
   uVar16 = uVar10 & 0x4a;
   if (uVar16 == 0x40) {
@@ -8528,7 +8528,7 @@ _M_extract_int<unsigned_int>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar10 = FUN_00c317b0(&local_4a,param_6 + 0xd0);
+  lVar10 = numpunct_cache_char(&local_4a,param_6 + 0xd0);
   uVar7 = *(uint *)(param_6 + 0x18);
   uVar15 = uVar7 & 0x4a;
   if (uVar15 == 0x40) {
@@ -8932,7 +8932,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::do_get
   uStack_70 = param_5;
   psStack_68 = param_2;
   uStack_60 = param_3;
-  lVar10 = FUN_00c317b0(&uStack_4a,param_6 + 0xd0);
+  lVar10 = numpunct_cache_char(&uStack_4a,param_6 + 0xd0);
   uVar7 = *(uint *)(param_6 + 0x18);
   uVar15 = uVar7 & 0x4a;
   if (uVar15 == 0x40) {
@@ -9356,7 +9356,7 @@ _M_extract_int<unsigned_long>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar11 = FUN_00c317b0(&local_4a,param_6 + 0xd0);
+  lVar11 = numpunct_cache_char(&local_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18);
   uVar16 = uVar10 & 0x4a;
   if (uVar16 == 0x40) {
@@ -9763,7 +9763,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::do_get
   uStack_70 = param_5;
   psStack_68 = param_2;
   uStack_60 = param_3;
-  lVar11 = FUN_00c317b0(&uStack_4a,param_6 + 0xd0);
+  lVar11 = numpunct_cache_char(&uStack_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18);
   uVar16 = uVar10 & 0x4a;
   if (uVar16 == 0x40) {
@@ -10217,7 +10217,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::_M_ext
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar8 = FUN_00c317b0(&local_4a,param_6 + 0xd0);
+  lVar8 = numpunct_cache_char(&local_4a,param_6 + 0xd0);
   uVar11 = *(uint *)(param_6 + 0x18) & 0x4a;
   if (uVar11 == 0x40) {
     iVar6 = 8;
@@ -10624,7 +10624,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::do_get
   uStack_70 = param_5;
   psStack_68 = param_2;
   uStack_60 = param_3;
-  lVar8 = FUN_00c317b0(&uStack_4a,param_6 + 0xd0);
+  lVar8 = numpunct_cache_char(&uStack_4a,param_6 + 0xd0);
   uVar11 = *(uint *)(param_6 + 0x18) & 0x4a;
   if (uVar11 == 0x40) {
     iVar6 = 8;
@@ -11052,7 +11052,7 @@ _M_extract_int<unsigned_long_long>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar11 = FUN_00c317b0(&local_4a,param_6 + 0xd0);
+  lVar11 = numpunct_cache_char(&local_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18);
   uVar16 = uVar10 & 0x4a;
   if (uVar16 == 0x40) {
@@ -11459,7 +11459,7 @@ std::num_get<char,std::istreambuf_iterator<char,std::char_traits<char>>>::do_get
   uStack_70 = param_5;
   psStack_68 = param_2;
   uStack_60 = param_3;
-  lVar11 = FUN_00c317b0(&uStack_4a,param_6 + 0xd0);
+  lVar11 = numpunct_cache_char(&uStack_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18);
   uVar16 = uVar10 & 0x4a;
   if (uVar16 == 0x40) {
@@ -29527,11 +29527,11 @@ ulong istream_get_char2(long *param_1,uint param_2)
 }
 
 
-// ==== entry=00c4f8c0 name=FUN_00c4f8c0 size=43 ====
+// ==== entry=00c4f8c0 orig=FUN_00c4f8c0 size=43 name=string_rep_release ====
 
 /* WARNING: Removing unreachable block (ram,0x00c4f8e0) */
 
-void FUN_00c4f8c0(allocator *param_1)
+void string_rep_release(allocator *param_1)
 
 {
   allocator *paVar1;
@@ -32774,7 +32774,7 @@ std::__numpunct_cache<wchar_t>::_M_cache(__numpunct_cache<wchar_t> *this,locale 
     FUN_00c4f900((undefined8 *)(local_50 + -0x18),&local_59);
   }
   if ((undefined8 *)(local_58 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0((undefined8 *)(local_58 + -0x18),&local_59);
+    string_rep_release((undefined8 *)(local_58 + -0x18),&local_59);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return;
@@ -33043,7 +33043,7 @@ std::__moneypunct_cache<wchar_t,true>::_M_cache
       FUN_00c4f900((undefined8 *)(local_58 + -0x18),&local_61);
     }
     if ((undefined8 *)(local_60 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-      FUN_00c4f8c0((undefined8 *)(local_60 + -0x18),&local_61);
+      string_rep_release((undefined8 *)(local_60 + -0x18),&local_61);
     }
     if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
       return;
@@ -33246,7 +33246,7 @@ std::__moneypunct_cache<wchar_t,false>::_M_cache
       FUN_00c4f900((undefined8 *)(local_58 + -0x18),&local_61);
     }
     if ((undefined8 *)(local_60 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-      FUN_00c4f8c0((undefined8 *)(local_60 + -0x18),&local_61);
+      string_rep_release((undefined8 *)(local_60 + -0x18),&local_61);
     }
     if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
       return;
@@ -34464,7 +34464,7 @@ std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wchar_t
   auStack_100[2] = param_8;
   auStack_100[1] = param_7;
   auStack_100[0] = 0xc54d78;
-  iVar8 = FUN_00bf9d20((wstring *)&local_48,puVar11,0x40,"%.*Lf",0);
+  iVar8 = locale_vsnprintf((wstring *)&local_48,puVar11,0x40,"%.*Lf",0);
   if (0x3f < iVar8) {
     lVar3 = -((long)(iVar8 + 1) + 0x17U & 0xfffffffffffffff0);
     puVar10 = auStack_e8 + lVar3;
@@ -34475,7 +34475,7 @@ std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wchar_t
     *(undefined8 *)((long)auStack_100 + lVar3 + 8) = param_7;
     local_48 = lVar9;
     *(undefined8 *)((long)auStack_100 + lVar3) = 0xc54dc4;
-    iVar8 = FUN_00bf9d20((wstring *)&local_48,puVar11,iVar8 + 1,"%.*Lf",0);
+    iVar8 = locale_vsnprintf((wstring *)&local_48,puVar11,iVar8 + 1,"%.*Lf",0);
   }
   *(undefined8 *)(puVar10 + -8) = 0xc54ddd;
   wstring::wstring((wstring *)&local_48,(long)iVar8,L'\0',&local_51);
@@ -34795,9 +34795,9 @@ long FUN_00c55440(undefined8 param_1,locale *param_2)
 }
 
 
-// ==== entry=00c55570 name=FUN_00c55570 size=202 ====
+// ==== entry=00c55570 orig=FUN_00c55570 size=202 name=numpunct_cache_wide ====
 
-long FUN_00c55570(undefined8 param_1,locale *param_2)
+long numpunct_cache_wide(undefined8 param_1,locale *param_2)
 
 {
   long *plVar1;
@@ -34881,7 +34881,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   local_80 = 0xc556c4;
   local_74 = param_5;
   local_70 = param_1;
-  local_68 = (undefined1 *)FUN_00c55570(&local_45,param_4 + 0xd0);
+  local_68 = (undefined1 *)numpunct_cache_wide(&local_45,param_4 + 0xd0);
   uVar14 = *(uint *)(param_4 + 0x18);
   puVar9 = auStack_128;
   puVar10 = auStack_128;
@@ -35036,7 +35036,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   uStack_80 = 0xc556c4;
   wStack_74 = param_5;
   pnStack_70 = param_1;
-  puStack_68 = (undefined1 *)FUN_00c55570(&uStack_45,param_4 + 0xd0);
+  puStack_68 = (undefined1 *)numpunct_cache_wide(&uStack_45,param_4 + 0xd0);
   uVar14 = *(uint *)(param_4 + 0x18);
   puVar9 = auStack_128;
   puVar10 = auStack_128;
@@ -35215,7 +35215,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   local_90 = CONCAT44(local_90._4_4_,*(uint *)(param_4 + 0x18));
   local_98 = CONCAT44(local_98._4_4_,param_5);
   uStack_b0 = 0xc55a03;
-  lVar3 = FUN_00c55570(&local_41,param_4 + 0xd0);
+  lVar3 = numpunct_cache_wide(&local_41,param_4 + 0xd0);
   __c = (wchar_t)local_98;
   if (param_6 == '\0') {
     lVar9 = (long)*(int *)(lVar3 + 0x40);
@@ -35355,7 +35355,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   local_6c = param_5;
   local_68 = param_1;
   local_50 = param_6;
-  lVar7 = FUN_00c55570(&local_45,param_4 + 0xd0);
+  lVar7 = numpunct_cache_wide(&local_45,param_4 + 0xd0);
   uVar1 = *(uint *)(param_4 + 0x18);
   puVar8 = auStack_128;
   puVar9 = auStack_128;
@@ -35483,7 +35483,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   wStack_6c = param_5;
   pnStack_68 = param_1;
   lStack_50 = param_6;
-  lVar7 = FUN_00c55570(&uStack_45,param_4 + 0xd0);
+  lVar7 = numpunct_cache_wide(&uStack_45,param_4 + 0xd0);
   uVar1 = *(uint *)(param_4 + 0x18);
   puVar8 = auStack_128;
   puVar9 = auStack_128;
@@ -35655,7 +35655,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   local_80 = 0xc55ed4;
   local_74 = param_5;
   local_70 = param_1;
-  local_68 = (undefined1 *)FUN_00c55570(&local_45,param_4 + 0xd0);
+  local_68 = (undefined1 *)numpunct_cache_wide(&local_45,param_4 + 0xd0);
   uVar14 = *(uint *)(param_4 + 0x18);
   puVar9 = auStack_128;
   puVar10 = auStack_128;
@@ -35810,7 +35810,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   uStack_80 = 0xc55ed4;
   wStack_74 = param_5;
   pnStack_70 = param_1;
-  puStack_68 = (undefined1 *)FUN_00c55570(&uStack_45,param_4 + 0xd0);
+  puStack_68 = (undefined1 *)numpunct_cache_wide(&uStack_45,param_4 + 0xd0);
   uVar14 = *(uint *)(param_4 + 0x18);
   puVar9 = auStack_128;
   puVar10 = auStack_128;
@@ -35987,7 +35987,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   local_6c = param_5;
   local_68 = param_1;
   local_50 = param_6;
-  lVar7 = FUN_00c55570(&local_45,param_4 + 0xd0);
+  lVar7 = numpunct_cache_wide(&local_45,param_4 + 0xd0);
   uVar1 = *(uint *)(param_4 + 0x18);
   puVar8 = auStack_128;
   puVar9 = auStack_128;
@@ -36115,7 +36115,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   wStack_6c = param_5;
   pnStack_68 = param_1;
   lStack_50 = param_6;
-  lVar7 = FUN_00c55570(&uStack_45,param_4 + 0xd0);
+  lVar7 = numpunct_cache_wide(&uStack_45,param_4 + 0xd0);
   uVar1 = *(uint *)(param_4 + 0x18);
   puVar8 = auStack_128;
   puVar9 = auStack_128;
@@ -36281,7 +36281,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   local_90 = param_2;
   local_88 = param_4;
   local_70 = (locale *)param_1;
-  lVar8 = FUN_00c55570(&local_65,local_80);
+  lVar8 = numpunct_cache_wide(&local_65,local_80);
   lVar22 = *(long *)(param_5 + 8);
   if (lVar22 < 0) {
     lVar22 = 6;
@@ -36295,7 +36295,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
     uStack_f0 = 0xc5672d;
     local_60 = locale::facet::_S_get_c_locale();
     uStack_f0 = 0xc56753;
-    local_64 = FUN_00bf9d20(local_70,&local_60,pcVar15,0x2d,local_78);
+    local_64 = locale_vsnprintf(local_70,&local_60,pcVar15,0x2d,local_78);
     if (0x2c < local_64) {
       local_a0 = (undefined8 *)CONCAT44(local_a0._4_4_,local_64 + 1);
       lVar22 = -((long)(local_64 + 1) + 0x17U & 0xfffffffffffffff0);
@@ -36307,7 +36307,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
       pcVar15 = local_e0 + lVar22;
       uVar14 = (ulong)local_a0 & 0xffffffff;
       *(undefined8 *)(auStack_e8 + lVar22 + -8) = 0xc567a7;
-      local_64 = FUN_00bf9d20(plVar12,&local_60,pcVar15,uVar14,pcVar7);
+      local_64 = locale_vsnprintf(plVar12,&local_60,pcVar15,uVar14,pcVar7);
     }
   }
   else {
@@ -36315,7 +36315,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
     local_60 = locale::facet::_S_get_c_locale();
     local_a0 = &local_60;
     uStack_f0 = 0xc564c7;
-    local_64 = FUN_00bf9d20(local_70,local_a0,pcVar15,0x2d,local_78,lVar22);
+    local_64 = locale_vsnprintf(local_70,local_a0,pcVar15,0x2d,local_78,lVar22);
     puVar16 = auStack_e8;
     if (0x2c < local_64) {
       local_98 = local_64 + 1;
@@ -36329,7 +36329,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
       puVar4 = local_a0;
       pcVar15 = local_e0 + lVar13;
       *(undefined8 *)(auStack_e8 + lVar13 + -8) = 0xc5662f;
-      local_64 = FUN_00bf9d20(plVar12,puVar4,pcVar15,iVar19,pcVar7,lVar22);
+      local_64 = locale_vsnprintf(plVar12,puVar4,pcVar15,iVar19,pcVar7,lVar22);
     }
   }
   piVar6 = local_80;
@@ -36507,7 +36507,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
   local_94 = param_5;
   local_88 = param_1;
   local_80 = param_3;
-  lVar6 = FUN_00c55570(&local_65,local_78);
+  lVar6 = numpunct_cache_wide(&local_65,local_78);
   lVar21 = *(long *)(param_4 + 8);
   if (lVar21 < 0) {
     lVar21 = 6;
@@ -36523,7 +36523,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
     auStack_f0[2] = param_8;
     auStack_f0[1] = param_7;
     auStack_f0[0] = 0xc56b71;
-    local_64 = FUN_00bf9d20(&local_60,pcVar14,0x36,local_70);
+    local_64 = locale_vsnprintf(&local_60,pcVar14,0x36,local_70);
     if (0x35 < local_64) {
       local_90 = (wchar_t *)CONCAT44(local_90._4_4_,local_64 + 1);
       lVar21 = -((long)(local_64 + 1) + 0x17U & 0xfffffffffffffff0);
@@ -36537,7 +36537,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
       *(undefined8 *)((long)auStack_f0 + lVar21 + 8) = param_7;
       local_60 = uVar9;
       *(undefined8 *)((long)auStack_f0 + lVar21) = 0xc56bc6;
-      local_64 = FUN_00bf9d20(&local_60,pcVar14,uVar13,pwVar11);
+      local_64 = locale_vsnprintf(&local_60,pcVar14,uVar13,pwVar11);
     }
   }
   else {
@@ -36547,7 +36547,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
     local_90 = (wchar_t *)&local_60;
     auStack_f0[1] = param_7;
     auStack_f0[0] = 0xc568dd;
-    local_64 = FUN_00bf9d20(local_90,pcVar14,0x36,local_70,lVar21);
+    local_64 = locale_vsnprintf(local_90,pcVar14,0x36,local_70,lVar21);
     puVar15 = auStack_d8;
     if (0x35 < local_64) {
       local_98 = local_64 + 1;
@@ -36563,7 +36563,7 @@ long * std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t,std::char_traits<wc
       pwVar11 = local_90;
       local_60 = uVar9;
       *(undefined8 *)((long)auStack_f0 + lVar12) = 0xc56a4d;
-      local_64 = FUN_00bf9d20(pwVar11,pcVar14,iVar18,pwVar22,lVar21);
+      local_64 = locale_vsnprintf(pwVar11,pcVar14,iVar18,pwVar22,lVar21);
     }
   }
   piVar5 = local_78;
@@ -37673,7 +37673,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar7 = FUN_00c55570(&local_4a,param_6 + 0xd0);
+  lVar7 = numpunct_cache_wide(&local_4a,param_6 + 0xd0);
   cVar4 = FUN_00c56c30(&local_68);
   if (cVar4 == '\0') {
     __c = istream_get_char2(&local_68,local_60 & 0xffffffff);
@@ -37984,7 +37984,7 @@ LAB_00c58870:
         }
         else {
           if ((undefined8 *)(puVar13 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-            FUN_00c4f8c0(puVar13 + -0x18,&local_49);
+            string_rep_release(puVar13 + -0x18,&local_49);
           }
           *(undefined1 **)param_8 = &DAT_011c5338;
         }
@@ -38050,7 +38050,7 @@ LAB_00c58b7d:
 LAB_00c58b9c:
   pwVar3 = local_68;
   if ((undefined8 *)(puVar13 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(puVar13 + -0x18,&local_49);
+    string_rep_release(puVar13 + -0x18,&local_49);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return pwVar3;
@@ -38105,7 +38105,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
     *param_7 = *param_7 | 2;
   }
   if (local_50 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_50 + -0x18,&local_48);
+    string_rep_release(local_50 + -0x18,&local_48);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return uVar1;
@@ -38160,7 +38160,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
     *param_7 = *param_7 | 2;
   }
   if (local_50 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_50 + -0x18,&local_48);
+    string_rep_release(local_50 + -0x18,&local_48);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return uVar1;
@@ -38215,7 +38215,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
     *param_7 = *param_7 | 2;
   }
   if (local_50 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_50 + -0x18,&local_48);
+    string_rep_release(local_50 + -0x18,&local_48);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return uVar1;
@@ -38278,7 +38278,7 @@ _M_extract_int<long>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar7 = FUN_00c55570(&local_4a,param_6 + 0xd0);
+  lVar7 = numpunct_cache_wide(&local_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18) & 0x4a;
   if (uVar10 == 0x40) {
     iVar12 = 8;
@@ -38623,7 +38623,7 @@ LAB_00c59a68:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(local_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_48 + -0x18,&local_49);
+    string_rep_release(local_48 + -0x18,&local_49);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return pwVar2;
@@ -38684,7 +38684,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
   uStack_70 = param_5;
   pwStack_68 = param_2;
   uStack_60 = param_3;
-  lVar7 = FUN_00c55570(&uStack_4a,param_6 + 0xd0);
+  lVar7 = numpunct_cache_wide(&uStack_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18) & 0x4a;
   if (uVar10 == 0x40) {
     iVar12 = 8;
@@ -39026,7 +39026,7 @@ LAB_00c59a68:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(puStack_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(puStack_48 + -0x18,&uStack_49);
+    string_rep_release(puStack_48 + -0x18,&uStack_49);
   }
   if (lStack_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return pwVar2;
@@ -39121,7 +39121,7 @@ LAB_00c5a1ce:
   }
   bVar8 = true;
   bVar10 = true;
-  lVar4 = FUN_00c55570(&local_48,param_6 + 0xd0);
+  lVar4 = numpunct_cache_wide(&local_48,param_6 + 0xd0);
   bVar6 = *(long *)(lVar4 + 0x40) == 0;
   bVar7 = *(long *)(lVar4 + 0x30) == 0;
   uVar5 = 0;
@@ -39307,7 +39307,7 @@ _M_extract_int<unsigned_short>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar9 = FUN_00c55570(&local_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&local_4a,param_6 + 0xd0);
   uVar16 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar16 & 0x4a;
   if (uVar14 == 0x40) {
@@ -39662,7 +39662,7 @@ LAB_00c5a952:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(local_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_48 + -0x18,&local_49);
+    string_rep_release(local_48 + -0x18,&local_49);
   }
   if (local_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -39727,7 +39727,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
   uStack_70 = param_5;
   pwStack_68 = param_2;
   uStack_60 = param_3;
-  lVar9 = FUN_00c55570(&uStack_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&uStack_4a,param_6 + 0xd0);
   uVar16 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar16 & 0x4a;
   if (uVar14 == 0x40) {
@@ -40080,7 +40080,7 @@ LAB_00c5a952:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(puStack_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(puStack_48 + -0x18,&uStack_49);
+    string_rep_release(puStack_48 + -0x18,&uStack_49);
   }
   if (lStack_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -40169,7 +40169,7 @@ _M_extract_int<unsigned_int>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar9 = FUN_00c55570(&local_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&local_4a,param_6 + 0xd0);
   uVar6 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar6 & 0x4a;
   if (uVar14 == 0x40) {
@@ -40525,7 +40525,7 @@ LAB_00c5b371:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(local_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_48 + -0x18,&local_49);
+    string_rep_release(local_48 + -0x18,&local_49);
   }
   if (local_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -40590,7 +40590,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
   uStack_70 = param_5;
   pwStack_68 = param_2;
   uStack_60 = param_3;
-  lVar9 = FUN_00c55570(&uStack_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&uStack_4a,param_6 + 0xd0);
   uVar6 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar6 & 0x4a;
   if (uVar14 == 0x40) {
@@ -40944,7 +40944,7 @@ LAB_00c5b371:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(puStack_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(puStack_48 + -0x18,&uStack_49);
+    string_rep_release(puStack_48 + -0x18,&uStack_49);
   }
   if (lStack_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -41034,7 +41034,7 @@ _M_extract_int<unsigned_long>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar9 = FUN_00c55570(&local_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&local_4a,param_6 + 0xd0);
   uVar18 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar18 & 0x4a;
   if (uVar14 == 0x40) {
@@ -41377,7 +41377,7 @@ LAB_00c5bd7e:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(local_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_48 + -0x18,&local_49);
+    string_rep_release(local_48 + -0x18,&local_49);
   }
   if (local_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -41443,7 +41443,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
   uStack_70 = param_5;
   pwStack_68 = param_2;
   uStack_60 = param_3;
-  lVar9 = FUN_00c55570(&uStack_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&uStack_4a,param_6 + 0xd0);
   uVar18 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar18 & 0x4a;
   if (uVar14 == 0x40) {
@@ -41784,7 +41784,7 @@ LAB_00c5bd7e:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(puStack_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(puStack_48 + -0x18,&uStack_49);
+    string_rep_release(puStack_48 + -0x18,&uStack_49);
   }
   if (lStack_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -41902,7 +41902,7 @@ _M_extract_int<long_long>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar7 = FUN_00c55570(&local_4a,param_6 + 0xd0);
+  lVar7 = numpunct_cache_wide(&local_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18) & 0x4a;
   if (uVar10 == 0x40) {
     iVar12 = 8;
@@ -42247,7 +42247,7 @@ LAB_00c5c818:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(local_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_48 + -0x18,&local_49);
+    string_rep_release(local_48 + -0x18,&local_49);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return pwVar2;
@@ -42308,7 +42308,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
   uStack_70 = param_5;
   pwStack_68 = param_2;
   uStack_60 = param_3;
-  lVar7 = FUN_00c55570(&uStack_4a,param_6 + 0xd0);
+  lVar7 = numpunct_cache_wide(&uStack_4a,param_6 + 0xd0);
   uVar10 = *(uint *)(param_6 + 0x18) & 0x4a;
   if (uVar10 == 0x40) {
     iVar12 = 8;
@@ -42650,7 +42650,7 @@ LAB_00c5c818:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(puStack_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(puStack_48 + -0x18,&uStack_49);
+    string_rep_release(puStack_48 + -0x18,&uStack_49);
   }
   if (lStack_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return pwVar2;
@@ -42740,7 +42740,7 @@ _M_extract_int<unsigned_long_long>
   local_70 = param_5;
   local_68 = param_2;
   local_60 = param_3;
-  lVar9 = FUN_00c55570(&local_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&local_4a,param_6 + 0xd0);
   uVar18 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar18 & 0x4a;
   if (uVar14 == 0x40) {
@@ -43091,7 +43091,7 @@ LAB_00c5d26e:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(local_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_48 + -0x18,&local_49);
+    string_rep_release(local_48 + -0x18,&local_49);
   }
   if (local_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -43157,7 +43157,7 @@ std::num_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t>>
   uStack_70 = param_5;
   pwStack_68 = param_2;
   uStack_60 = param_3;
-  lVar9 = FUN_00c55570(&uStack_4a,param_6 + 0xd0);
+  lVar9 = numpunct_cache_wide(&uStack_4a,param_6 + 0xd0);
   uVar18 = *(uint *)(param_6 + 0x18);
   uVar14 = uVar18 & 0x4a;
   if (uVar14 == 0x40) {
@@ -43506,7 +43506,7 @@ LAB_00c5d26e:
     *param_7 = *param_7 | 2;
   }
   if ((undefined8 *)(puStack_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(puStack_48 + -0x18,&uStack_49);
+    string_rep_release(puStack_48 + -0x18,&uStack_49);
   }
   if (lStack_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -44800,10 +44800,10 @@ LAB_00c5f43e:
     *param_7 = *param_7 | 2;
   }
   if (local_50 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_50 + -0x18,&local_59);
+    string_rep_release(local_50 + -0x18,&local_59);
   }
   if ((undefined8 *)(local_58 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_58 + -0x18,&local_59);
+    string_rep_release(local_58 + -0x18,&local_59);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return pwVar17;
@@ -44866,10 +44866,10 @@ LAB_00c5e78e:
     *param_7 = *param_7 | 2;
   }
   if (local_50 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_50 + -0x18,&local_59);
+    string_rep_release(local_50 + -0x18,&local_59);
   }
   if ((undefined8 *)(local_58 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_58 + -0x18,&local_59);
+    string_rep_release(local_58 + -0x18,&local_59);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return pwVar17;
@@ -45324,10 +45324,10 @@ LAB_00c5f43e:
     *param_7 = *param_7 | 2;
   }
   if (local_50 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_50 + -0x18,&local_59);
+    string_rep_release(local_50 + -0x18,&local_59);
   }
   if ((undefined8 *)(local_58 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_58 + -0x18,&local_59);
+    string_rep_release(local_58 + -0x18,&local_59);
   }
   if (local_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -45369,7 +45369,7 @@ std::money_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t
   local_48 = (__locale_struct *)locale::facet::_S_get_c_locale();
   __convert_to_v<long_double>(local_50,param_9,param_8,&local_48);
   if (local_50 + -0x18 != (char *)&string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_50 + -0x18,&local_48);
+    string_rep_release(local_50 + -0x18,&local_48);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return uVar1;
@@ -45419,7 +45419,7 @@ std::money_get<wchar_t,std::istreambuf_iterator<wchar_t,std::char_traits<wchar_t
     (**(code **)(*(long *)pcVar2 + 0x58))(pcVar2,local_48,local_48 + uVar1,*(undefined8 *)param_9);
   }
   if ((undefined8 *)(local_48 + -0x18) != &string::_Rep::_S_empty_rep_storage) {
-    FUN_00c4f8c0(local_48 + -0x18,&local_49);
+    string_rep_release(local_48 + -0x18,&local_49);
   }
   if (local_40 == *(long *)(in_FS_OFFSET + 0x28)) {
     return uVar3;
@@ -48832,7 +48832,7 @@ FUN_00c64270(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined4
   auStack_120[1] = param_7;
   local_b0 = &local_70;
   auStack_120[0] = 0xc6431d;
-  iVar8 = FUN_00bf9d20(local_b0,puVar11,0x40,"%.*Lf",0);
+  iVar8 = locale_vsnprintf(local_b0,puVar11,0x40,"%.*Lf",0);
   if (0x3f < iVar8) {
     lVar2 = -((long)(iVar8 + 1) + 0x17U & 0xfffffffffffffff0);
     puVar10 = auStack_108 + lVar2;
@@ -48844,7 +48844,7 @@ FUN_00c64270(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined4
     *(undefined8 *)((long)auStack_120 + lVar2 + 8) = param_7;
     local_70 = uVar9;
     *(undefined8 *)((long)auStack_120 + lVar2) = 0xc6436d;
-    iVar8 = FUN_00bf9d20(puVar3,puVar11,iVar8 + 1,"%.*Lf",0);
+    iVar8 = locale_vsnprintf(puVar3,puVar11,iVar8 + 1,"%.*Lf",0);
   }
   local_68[0] = local_58;
   *(undefined8 *)(puVar10 + -8) = 0xc6438b;
@@ -49208,10 +49208,11 @@ void FUN_00c648a0(undefined8 *param_1,undefined8 *param_2,long param_3)
 }
 
 
-// ==== entry=00c649a0 name=FUN_00c649a0 size=3564 ====
+// ==== entry=00c649a0 orig=FUN_00c649a0 size=3564 name=num_put_write_winteger ====
 
-long * FUN_00c649a0(undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_winteger
+                 (undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -49768,10 +49769,11 @@ LAB_00c64dde:
 }
 
 
-// ==== entry=00c65880 name=FUN_00c65880 size=3480 ====
+// ==== entry=00c65880 orig=FUN_00c65880 size=3480 name=num_put_write_winteger2 ====
 
-long * FUN_00c65880(undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ushort *param_8)
+long * num_put_write_winteger2
+                 (undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ushort *param_8)
 
 {
   ulong uVar1;
@@ -50319,10 +50321,11 @@ LAB_00c65c96:
 }
 
 
-// ==== entry=00c666f0 name=FUN_00c666f0 size=3506 ====
+// ==== entry=00c666f0 orig=FUN_00c666f0 size=3506 name=num_put_write_winteger3 ====
 
-long * FUN_00c666f0(undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,uint *param_8)
+long * num_put_write_winteger3
+                 (undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,uint *param_8)
 
 {
   ulong uVar1;
@@ -50873,10 +50876,11 @@ LAB_00c66b1f:
 }
 
 
-// ==== entry=00c67590 name=FUN_00c67590 size=3515 ====
+// ==== entry=00c67590 orig=FUN_00c67590 size=3515 name=num_put_write_winteger4 ====
 
-long * FUN_00c67590(undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_winteger4
+                 (undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -51427,10 +51431,11 @@ LAB_00c679be:
 }
 
 
-// ==== entry=00c68450 name=FUN_00c68450 size=3564 ====
+// ==== entry=00c68450 orig=FUN_00c68450 size=3564 name=num_put_write_winteger5 ====
 
-long * FUN_00c68450(undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_winteger5
+                 (undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -51987,10 +51992,11 @@ LAB_00c6888e:
 }
 
 
-// ==== entry=00c69330 name=FUN_00c69330 size=3515 ====
+// ==== entry=00c69330 orig=FUN_00c69330 size=3515 name=num_put_write_winteger6 ====
 
-long * FUN_00c69330(undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_winteger6
+                 (undefined8 param_1,long *param_2,wchar_t param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -52635,11 +52641,12 @@ void FUN_00c6a280(long *param_1)
 }
 
 
-// ==== entry=00c6a290 name=FUN_00c6a290 size=741 ====
+// ==== entry=00c6a290 orig=FUN_00c6a290 size=741 name=time_get_do_get_fmt_wide ====
 
 undefined1  [16]
-FUN_00c6a290(undefined8 param_1,long *param_2,ulong param_3,long *param_4,int param_5,int *param_6,
-            int param_7,int param_8,ulong param_9,long param_10,uint *param_11)
+time_get_do_get_fmt_wide
+          (undefined8 param_1,long *param_2,ulong param_3,long *param_4,int param_5,int *param_6,
+          int param_7,int param_8,ulong param_9,long param_10,uint *param_11)
 
 {
   long *plVar1;
@@ -52772,7 +52779,7 @@ long * FUN_00c6a5a0(void)
   int local_48;
   
   lVar1 = *(long *)(in_FS_OFFSET + 0x28);
-  auVar7 = FUN_00c6a290();
+  auVar7 = time_get_do_get_fmt_wide();
   plVar3 = auVar7._0_8_;
   iVar2 = local_48 + -0x76c;
   if (local_48 < 0) {

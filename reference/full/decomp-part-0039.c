@@ -18234,12 +18234,12 @@ long * s_basic_string__append_bf9af0(long *param_1,undefined8 param_2,long param
 }
 
 
-// ==== entry=00bf9d20 name=FUN_00bf9d20 size=219 ====
+// ==== entry=00bf9d20 orig=FUN_00bf9d20 size=219 name=locale_vsnprintf ====
 
-int FUN_00bf9d20(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,
-                undefined8 param_5,undefined8 param_6,undefined8 param_7,undefined8 param_8,
-                undefined8 *param_9,char *param_10,int param_11,char *param_12,undefined8 param_13,
-                undefined8 param_14)
+int locale_vsnprintf(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,
+                    undefined8 param_5,undefined8 param_6,undefined8 param_7,undefined8 param_8,
+                    undefined8 *param_9,char *param_10,int param_11,char *param_12,
+                    undefined8 param_13,undefined8 param_14)
 
 {
   char in_AL;
@@ -19782,7 +19782,7 @@ FUN_00bfbc90(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined4
   auStack_120[2] = param_8;
   auStack_120[1] = param_7;
   auStack_120[0] = 0xbfbd3d;
-  iVar6 = FUN_00bf9d20(&local_70,puVar9,0x40,"%.*Lf",0);
+  iVar6 = locale_vsnprintf(&local_70,puVar9,0x40,"%.*Lf",0);
   if (0x3f < iVar6) {
     lVar2 = -((long)(iVar6 + 1) + 0x17U & 0xfffffffffffffff0);
     puVar8 = auStack_108 + lVar2;
@@ -19793,7 +19793,7 @@ FUN_00bfbc90(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined4
     *(undefined8 *)((long)auStack_120 + lVar2 + 8) = param_7;
     local_70 = uVar7;
     *(undefined8 *)((long)auStack_120 + lVar2) = 0xbfbd89;
-    iVar6 = FUN_00bf9d20(&local_70,puVar9,iVar6 + 1,"%.*Lf",0);
+    iVar6 = locale_vsnprintf(&local_70,puVar9,iVar6 + 1,"%.*Lf",0);
   }
   local_68[0] = local_58;
   *(undefined8 *)(puVar8 + -8) = 0xbfbda8;
@@ -20179,10 +20179,11 @@ void FUN_00bfc350(undefined8 *param_1,undefined8 *param_2,long param_3)
 }
 
 
-// ==== entry=00bfc450 name=FUN_00bfc450 size=3804 ====
+// ==== entry=00bfc450 orig=FUN_00bfc450 size=3804 name=num_put_write_integer ====
 
-long * FUN_00bfc450(undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_integer
+                 (undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -20757,10 +20758,11 @@ LAB_00bfca88:
 }
 
 
-// ==== entry=00bfd420 name=FUN_00bfd420 size=3631 ====
+// ==== entry=00bfd420 orig=FUN_00bfd420 size=3631 name=num_put_write_integer2 ====
 
-long * FUN_00bfd420(undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ushort *param_8)
+long * num_put_write_integer2
+                 (undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ushort *param_8)
 
 {
   ulong uVar1;
@@ -21321,10 +21323,11 @@ LAB_00bfda08:
 }
 
 
-// ==== entry=00bfe330 name=FUN_00bfe330 size=3661 ====
+// ==== entry=00bfe330 orig=FUN_00bfe330 size=3661 name=num_put_write_integer3 ====
 
-long * FUN_00bfe330(undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,uint *param_8)
+long * num_put_write_integer3
+                 (undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,uint *param_8)
 
 {
   ulong uVar1;
@@ -21882,10 +21885,11 @@ LAB_00bfe928:
 }
 
 
-// ==== entry=00bff250 name=FUN_00bff250 size=3753 ====
+// ==== entry=00bff250 orig=FUN_00bff250 size=3753 name=num_put_write_integer4 ====
 
-long * FUN_00bff250(undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_integer4
+                 (undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -22456,10 +22460,11 @@ LAB_00bff860:
 }
 
 
-// ==== entry=00c001f0 name=FUN_00c001f0 size=3804 ====
+// ==== entry=00c001f0 orig=FUN_00c001f0 size=3804 name=num_put_write_integer5 ====
 
-long * FUN_00c001f0(undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_integer5
+                 (undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -23034,10 +23039,11 @@ LAB_00c00828:
 }
 
 
-// ==== entry=00c011c0 name=FUN_00c011c0 size=3753 ====
+// ==== entry=00c011c0 orig=FUN_00c011c0 size=3753 name=num_put_write_integer6 ====
 
-long * FUN_00c011c0(undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
-                   long param_6,uint *param_7,ulong *param_8)
+long * num_put_write_integer6
+                 (undefined8 param_1,long *param_2,uint param_3,long *param_4,int param_5,
+                 long param_6,uint *param_7,ulong *param_8)
 
 {
   ulong uVar1;
@@ -34926,9 +34932,9 @@ wstring * __thiscall std::wstring::operator=(wstring *this,wstring *param_1)
   undefined1 uStack_9;
   
   if (*(long *)this != *(long *)param_1) {
-    uVar1 = FUN_00674702(*(long *)param_1 + -0x18,&uStack_9);
+    uVar1 = wstring_rep_ref(*(long *)param_1 + -0x18,&uStack_9);
     if (*(undefined **)this != &DAT_011c5118) {
-      FUN_00673ecc();
+      refcount_delete_offset10_g();
     }
     *(undefined8 *)this = uVar1;
   }

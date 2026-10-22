@@ -602,7 +602,7 @@ void FUN_004dace9(void)
   
   FUN_0069ea90();
   qt_array_data_unref(in_stack_00000008);
-  FUN_0069eab0(in_stack_00000020);
+  qlist_release_if_shared(in_stack_00000020);
   cVar1 = qatomic_int_deref(in_stack_00000078);
   if (cVar1 == '\0') {
     QListData::dispose(in_stack_00000078);
@@ -2762,7 +2762,7 @@ void FUN_004dbad2(void)
   QVariant::~QVariant(unaff_RBX);
   qt_array_data_unref(unaff_retaddr);
   qt_byte_array_unref();
-  FUN_00596d30(in_stack_00000008);
+  qlist_ref_release3(in_stack_00000008);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -2775,7 +2775,7 @@ void FUN_004dbb00(void)
 {
   undefined8 in_stack_00000008;
   
-  FUN_00596d30(in_stack_00000008);
+  qlist_ref_release3(in_stack_00000008);
   qt_array_data_unref();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2806,7 +2806,7 @@ void FUN_004dbb33(void)
   undefined8 in_stack_00000008;
   
   QVariant::~QVariant(unaff_RBX);
-  FUN_00596d30(in_stack_00000008);
+  qlist_ref_release3(in_stack_00000008);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -2827,7 +2827,7 @@ void FUN_004dbb40(void)
   QVariant::~QVariant(unaff_R12);
   qt_array_data_unref();
   qt_byte_array_unref(unaff_retaddr);
-  FUN_00596d30(in_stack_00000030);
+  qlist_ref_release3(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -2840,7 +2840,7 @@ void FUN_004dbb7e(void)
 {
   undefined8 in_stack_00000030;
   
-  FUN_00596d30(in_stack_00000030);
+  qlist_ref_release3(in_stack_00000030);
   qt_array_data_unref();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2859,7 +2859,7 @@ void FUN_004dbb98(void)
   qt_array_data_unref(in_stack_00000010);
   qt_array_data_unref();
   qt_byte_array_unref(unaff_retaddr);
-  FUN_00596d30(in_stack_00000030);
+  qlist_ref_release3(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -2874,7 +2874,7 @@ void FUN_004dbba4(void)
   undefined8 in_stack_00000030;
   
   QVariant::~QVariant(unaff_RBX);
-  FUN_00596d30(in_stack_00000030);
+  qlist_ref_release3(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -2898,7 +2898,7 @@ void FUN_004dbbb2(void)
   qt_array_data_unref(in_stack_00000020);
   QVariant::~QVariant(unaff_R12);
   qt_byte_array_unref(unaff_retaddr);
-  FUN_00596d30(in_stack_00000030);
+  qlist_ref_release3(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -6712,7 +6712,7 @@ void FUN_004dd3da(void)
   
   qlist_disposeIfShared();
   qt_array_data_unref(in_stack_00000008);
-  FUN_0069eab0(unaff_retaddr);
+  qlist_release_if_shared(unaff_retaddr);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -6758,7 +6758,7 @@ void FUN_004dd433(void)
   undefined8 unaff_retaddr;
   
   qlist_disposeIfShared();
-  FUN_0069eab0(unaff_retaddr);
+  qlist_release_if_shared(unaff_retaddr);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -11727,7 +11727,7 @@ void FUN_004df837(void)
 void FUN_004df84a(void)
 
 {
-  FUN_00596d30();
+  qlist_ref_release3();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -11738,7 +11738,7 @@ void FUN_004df84a(void)
 void FUN_004df85a(void)
 
 {
-  FUN_00596d30();
+  qlist_ref_release3();
   qt_array_data_unref();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();

@@ -263,10 +263,10 @@ void FUN_00518980(void)
   long in_stack_00000020;
   
   if (in_stack_00000020 + -0x18 != unaff_RBP) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   if (in_stack_00000018 + -0x18 != unaff_RBP) {
-    FUN_00a83320();
+    string_rep_release3();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -292,7 +292,7 @@ void FUN_005189ae(void)
   QArrayData::deallocate(in_stack_00000028,1,8);
 LAB_00518993:
   if (in_stack_00000018 + -0x18 != unaff_RBP) {
-    FUN_00a83320();
+    string_rep_release3();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -307,7 +307,7 @@ void FUN_005189dc(void)
   undefined1 *in_stack_00000058;
   
   if (in_stack_00000058 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -322,7 +322,7 @@ void FUN_005189fb(void)
   undefined1 *in_stack_00000050;
   
   if (in_stack_00000050 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -350,7 +350,7 @@ void FUN_00518a32(void)
   undefined1 *in_stack_00000008;
   
   if (in_stack_00000008 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -366,7 +366,7 @@ void FUN_00518a61(void)
   long in_stack_00000020;
   
   if (in_stack_00000020 + -0x18 != unaff_R14) {
-    FUN_00a83320();
+    string_rep_release3();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -381,7 +381,7 @@ void FUN_00518a7c(void)
   undefined1 *in_stack_00000028;
   
   if (in_stack_00000028 != &DAT_011c5338) {
-    FUN_00a83320();
+    string_rep_release3();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -400,7 +400,7 @@ void FUN_00518a9c(void)
   long in_stack_00000040;
   
   if (in_stack_00000040 + -0x18 != in_stack_00000008) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   if (in_stack_00000038 != 0) {
     FUN_0081e506();
@@ -449,7 +449,7 @@ void FUN_00518aef(void)
   long in_stack_00000040;
   
   if (in_stack_00000040 + -0x18 != in_stack_00000008) {
-    FUN_00a83320();
+    string_rep_release3();
   }
   if (in_stack_00000038 != 0) {
     FUN_0081e506();
@@ -711,13 +711,13 @@ void FUN_00518d18(void)
     FUN_00a86a20();
   }
   if (in_stack_00000098 != 0) {
-    FUN_00a8b7b0(&stack0x00000098);
+    trie_node_free15(&stack0x00000098);
   }
   if (in_stack_00000090 != 0) {
-    FUN_00a8b7b0(&stack0x00000090);
+    trie_node_free15(&stack0x00000090);
   }
   if (in_stack_00000088 != 0) {
-    FUN_00a8b7b0(&stack0x00000088);
+    trie_node_free15(&stack0x00000088);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -743,13 +743,13 @@ void FUN_00518d9e(void)
     FUN_00a86a20();
   }
   if (in_stack_00000098 != 0) {
-    FUN_00a8b7b0(&stack0x00000098);
+    trie_node_free15(&stack0x00000098);
   }
   if (in_stack_00000090 != 0) {
-    FUN_00a8b7b0(&stack0x00000090);
+    trie_node_free15(&stack0x00000090);
   }
   if (in_stack_00000088 != 0) {
-    FUN_00a8b7b0(&stack0x00000088);
+    trie_node_free15(&stack0x00000088);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -775,13 +775,13 @@ void FUN_00518dbf(void)
     FUN_00a86a20();
   }
   if (in_stack_00000098 != 0) {
-    FUN_00a8b7b0(&stack0x00000098);
+    trie_node_free15(&stack0x00000098);
   }
   if (in_stack_00000090 != 0) {
-    FUN_00a8b7b0(&stack0x00000090);
+    trie_node_free15(&stack0x00000090);
   }
   if (in_stack_00000088 != 0) {
-    FUN_00a8b7b0(&stack0x00000088);
+    trie_node_free15(&stack0x00000088);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -805,13 +805,13 @@ void FUN_00518de0(void)
     FUN_00a86a20();
   }
   if (in_stack_00000098 != 0) {
-    FUN_00a8b7b0(&stack0x00000098);
+    trie_node_free15(&stack0x00000098);
   }
   if (in_stack_00000090 != 0) {
-    FUN_00a8b7b0(&stack0x00000090);
+    trie_node_free15(&stack0x00000090);
   }
   if (in_stack_00000088 != 0) {
-    FUN_00a8b7b0(&stack0x00000088);
+    trie_node_free15(&stack0x00000088);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -830,13 +830,13 @@ void FUN_00518dfd(void)
   FUN_009a3690();
   FUN_009a3640(&stack0x00000150);
   if (in_stack_00000098 != 0) {
-    FUN_00a8b7b0(&stack0x00000098);
+    trie_node_free15(&stack0x00000098);
   }
   if (in_stack_00000090 != 0) {
-    FUN_00a8b7b0(&stack0x00000090);
+    trie_node_free15(&stack0x00000090);
   }
   if (in_stack_00000088 != 0) {
-    FUN_00a8b7b0(&stack0x00000088);
+    trie_node_free15(&stack0x00000088);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -857,10 +857,10 @@ void FUN_00518e17(void)
     FUN_00a86a20();
   }
   if (in_stack_00000090 != 0) {
-    FUN_00a8b7b0(&stack0x00000090);
+    trie_node_free15(&stack0x00000090);
   }
   if (in_stack_00000088 != 0) {
-    FUN_00a8b7b0(&stack0x00000088);
+    trie_node_free15(&stack0x00000088);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -887,7 +887,7 @@ void FUN_00518e38(void)
   QArrayData::deallocate(in_stack_00000048,2,8);
 LAB_00518e5c:
   if (in_stack_00000040 != 0) {
-    FUN_009a3cb0(&stack0x00000040);
+    trie_node_free_alt(&stack0x00000040);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -918,7 +918,7 @@ void FUN_00518e78(void)
   QArrayData::deallocate(in_stack_00000048,2,8);
 LAB_00518e5c:
   if (in_stack_00000040 != 0) {
-    FUN_009a3cb0(&stack0x00000040);
+    trie_node_free_alt(&stack0x00000040);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -946,7 +946,7 @@ void FUN_00518e90(void)
   QArrayData::deallocate(in_stack_00000048,2,8);
 LAB_00518e5c:
   if (in_stack_00000040 != 0) {
-    FUN_009a3cb0(&stack0x00000040);
+    trie_node_free_alt(&stack0x00000040);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -965,7 +965,7 @@ void FUN_00518eb9(void)
     FUN_00a86a20();
   }
   if (in_stack_00000040 != 0) {
-    FUN_009a3cb0(&stack0x00000040);
+    trie_node_free_alt(&stack0x00000040);
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -1011,7 +1011,7 @@ void FUN_00518f4e(void)
   long unaff_R12;
   
   if (unaff_RBX[4] != 0) {
-    FUN_009a3cb0(unaff_RBX + 4);
+    trie_node_free_alt(unaff_RBX + 4);
   }
   FUN_00a8b506(unaff_RBX + 1);
   if (*unaff_RBX + -0x18 != unaff_R12) {
@@ -1434,7 +1434,7 @@ void FUN_005192fe(void)
 {
   QArrayData *in_stack_00000038;
   
-  FUN_0069eab0();
+  qlist_release_if_shared();
   if (*(int *)in_stack_00000038 != 0) {
     if (*(int *)in_stack_00000038 == -1) goto LAB_005192d8;
     LOCK();
@@ -2456,7 +2456,7 @@ void FUN_00519b28(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2474,7 +2474,7 @@ void FUN_00519b49(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2492,7 +2492,7 @@ void FUN_00519b8f(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2510,7 +2510,7 @@ void FUN_00519bb0(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2528,7 +2528,7 @@ void FUN_00519bd1(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2546,7 +2546,7 @@ void FUN_00519bf5(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2564,7 +2564,7 @@ void FUN_00519c1d(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2582,7 +2582,7 @@ void FUN_00519c45(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2621,7 +2621,7 @@ void FUN_00519c6d(void)
   if (in_stack_00000040 != (long *)0x0) {
     operator_delete(in_stack_00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2639,7 +2639,7 @@ void FUN_00519ca7(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -2657,7 +2657,7 @@ void FUN_00519ccf(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     string_rep_dispose((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6844,7 +6844,7 @@ void FUN_0051c33e(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     FUN_0051b694((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6861,7 +6861,7 @@ void FUN_0051c384(void)
   
   json_value_destruct(&stack0x00000090);
   string_vector_destroy(in_stack_00000028);
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6879,7 +6879,7 @@ void FUN_0051c39d(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     FUN_0051b694((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6897,7 +6897,7 @@ void FUN_0051c3be(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     FUN_0051b694((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6915,7 +6915,7 @@ void FUN_0051c3e2(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     FUN_0051b694((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6933,7 +6933,7 @@ void FUN_0051c40a(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     FUN_0051b694((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6951,7 +6951,7 @@ void FUN_0051c432(void)
   if ((undefined8 *)(in_stack_00000090 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
     FUN_0051b694((undefined8 *)(in_stack_00000090 + -0x18),&stack0x00000040);
   }
-  FUN_00aecf80(&stack0x000000c0,in_stack_000000d0);
+  rbtree_str_free(&stack0x000000c0,in_stack_000000d0);
   json_value_destruct(&stack0x00000060);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -16619,7 +16619,7 @@ LAB_00522ce6:
   }
   else {
                     /* try { // try from 00522288 to 0052228c has its CatchHandler @ 00524507 */
-    FUN_008c9e64();
+    window_name_strip();
     local_1b0 = (_func_void_Node_ptr_void_ptr *)&QHashData::shared_null;
     local_180 = &local_1b8;
                     /* try { // try from 005222df to 00522305 has its CatchHandler @ 0052441a */
@@ -16764,8 +16764,8 @@ LAB_005242ee:
                     /* try { // try from 00522fb8 to 00522fba has its CatchHandler @ 0052447a */
             (**(code **)(*plVar15 + 0x78))(&local_178,plVar15);
                     /* try { // try from 00522fbe to 00522ffc has its CatchHandler @ 005244aa */
-            lVar14 = FUN_008c52fa(plVar15);
-            if ((lVar14 != 0) && (iVar6 = FUN_008b99f6(lVar14,plVar15), iVar6 != -1)) {
+            lVar14 = find_ancestor_type(plVar15);
+            if ((lVar14 != 0) && (iVar6 = widget_type_index_find(lVar14,plVar15), iVar6 != -1)) {
               FUN_008b9c46((QString *)&local_148,lVar14,iVar6,1);
                     /* try { // try from 0052300c to 00523011 has its CatchHandler @ 005244a2 */
               (**(code **)(*plVar15 + 0x80))((QVariant *)&local_118,plVar15);
@@ -16892,7 +16892,7 @@ LAB_0052254d:
                     /* try { // try from 00522581 to 00522585 has its CatchHandler @ 005243fd */
           QString::toUtf8_helper((QString *)&local_118);
                     /* try { // try from 00522596 to 0052259a has its CatchHandler @ 00524442 */
-          FUN_00a7e872(&local_178,(QVariant *)&local_118);
+          json_parse_string(&local_178,(QVariant *)&local_118);
           if (*(int *)local_118 == 0) {
 LAB_005234dc:
             QArrayData::deallocate(local_118,1,8);
@@ -17765,7 +17765,7 @@ joined_r0x00524763:
     local_50 = (QArrayData *)&QArrayData::shared_null;
   }
   else {
-    FUN_008c9e64(&local_50,lVar7);
+    window_name_strip(&local_50,lVar7);
   }
                     /* try { // try from 005245ee to 005245f2 has its CatchHandler @ 005247ac */
   puVar9 = operator_new(0x30);
@@ -18164,7 +18164,7 @@ LAB_00524c9e:
                     /* try { // try from 00524f10 to 00524f3a has its CatchHandler @ 00525024 */
         lVar6 = qmetatype_register(local_c8);
         if (lVar6 != 0) {
-          FUN_008c5578(&local_d0,lVar6);
+          property_to_string(&local_d0,lVar6);
           pQVar8 = local_e0;
           local_e0 = local_d0;
           local_d0 = pQVar8;
@@ -19995,7 +19995,7 @@ LAB_00526ddd:
 }
 
 
-// ==== entry=00526ffa name=FUN_00526ffa size=5055 ====
+// ==== entry=00526ffa orig=FUN_00526ffa size=5055 name=applet_load_script_info ====
 
 /* WARNING: Removing unreachable block (ram,0x00527f73) */
 /* WARNING: Removing unreachable block (ram,0x005280de) */
@@ -20029,7 +20029,7 @@ LAB_00526ddd:
 /* WARNING: Removing unreachable block (ram,0x00527c93) */
 /* WARNING: Removing unreachable block (ram,0x00527c5c) */
 
-void FUN_00526ffa(undefined8 param_1,QString *param_2)
+void applet_load_script_info(undefined8 param_1,QString *param_2)
 
 {
   long *plVar1;
@@ -20485,7 +20485,7 @@ LAB_005274d9:
       if (uVar4 == 2) {
         puVar15 = (undefined8 *)__cxa_allocate_exception(0x28);
                     /* try { // try from 00528377 to 0052837b has its CatchHandler @ 005283cd */
-        FUN_0052c0f0(&local_c0,"version");
+        json_value_key_get(&local_c0,"version");
                     /* try { // try from 00528385 to 00528389 has its CatchHandler @ 005283c5 */
         FUN_0052ca8a(puVar15,lVar16 + 4,&local_c0);
         *puVar15 = &PTR_FUN_00d39a48;
@@ -20553,7 +20553,7 @@ LAB_005274d9:
         p_Var19 = (_Rb_tree_node_base *)(puVar15 + 3);
         for (p_Var12 = (_Rb_tree_node_base *)puVar15[5]; p_Var12 != p_Var19;
             p_Var12 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var12)) {
-          FUN_005289b6(*(undefined8 *)(p_Var12 + 0x20));
+          rbtree_clear_recursive(*(undefined8 *)(p_Var12 + 0x20));
         }
         FUN_00528980(puVar15 + 2,puVar15[4]);
         puVar15[4] = 0;
@@ -20789,7 +20789,7 @@ LAB_005285c0:
         if (*(int *)pQVar3 == 0) goto LAB_005285c0;
       }
     }
-    FUN_00526ffa(param_1,&local_38);
+    applet_load_script_info(param_1,&local_38);
     if (*(int *)local_38 == 0) {
       QArrayData::deallocate(local_38,2,8);
 LAB_005285a6:
@@ -21168,9 +21168,9 @@ void FUN_00528980(undefined8 param_1,void *param_2)
 }
 
 
-// ==== entry=005289b6 name=FUN_005289b6 size=108 ====
+// ==== entry=005289b6 orig=FUN_005289b6 size=108 name=rbtree_clear_recursive ====
 
-void FUN_005289b6(undefined8 *param_1)
+void rbtree_clear_recursive(undefined8 *param_1)
 
 {
   _Rb_tree_node_base *p_Var1;
@@ -21181,7 +21181,7 @@ void FUN_005289b6(undefined8 *param_1)
     p_Var1 = (_Rb_tree_node_base *)(param_1 + 3);
     for (p_Var2 = (_Rb_tree_node_base *)param_1[5]; p_Var1 != p_Var2;
         p_Var2 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var2)) {
-      FUN_005289b6(*(undefined8 *)(p_Var2 + 0x20));
+      rbtree_clear_recursive(*(undefined8 *)(p_Var2 + 0x20));
     }
     FUN_00528980(param_1 + 2,param_1[4]);
     param_1[4] = 0;
@@ -23935,11 +23935,11 @@ string * json_throwInvalidNode(string *param_1,long *param_2)
 }
 
 
-// ==== entry=0052c0f0 name=FUN_0052c0f0 size=916 ====
+// ==== entry=0052c0f0 orig=FUN_0052c0f0 size=916 name=json_value_key_get ====
 
 /* WARNING: Removing unreachable block (ram,0x0052c479) */
 
-string * FUN_0052c0f0(string *param_1,char *param_2)
+string * json_value_key_get(string *param_1,char *param_2)
 
 {
   int *piVar1;
@@ -24046,12 +24046,12 @@ string * FUN_0052c0f0(string *param_1,char *param_2)
 }
 
 
-// ==== entry=0052c550 name=FUN_0052c550 size=1130 ====
+// ==== entry=0052c550 orig=FUN_0052c550 size=1130 name=yaml_error_message ====
 
 /* WARNING: Removing unreachable block (ram,0x0052c9b1) */
 /* WARNING: Removing unreachable block (ram,0x0052c926) */
 
-string * FUN_0052c550(string *param_1,int *param_2,undefined8 *param_3)
+string * yaml_error_message(string *param_1,int *param_2,undefined8 *param_3)
 
 {
   int *piVar1;
@@ -24219,7 +24219,7 @@ void FUN_0052ca8a(runtime_error *param_1,undefined8 *param_2,undefined8 *param_3
   long lVar4;
   long local_30;
   
-  FUN_0052c550((string *)&local_30);
+  yaml_error_message((string *)&local_30);
                     /* try { // try from 0052cab2 to 0052cab6 has its CatchHandler @ 0052cbcc */
   std::runtime_error::runtime_error(param_1,(string *)&local_30);
   if ((undefined8 *)(local_30 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -24297,7 +24297,7 @@ void FUN_0052cc00(runtime_error *param_1)
   local_34 = 0xffffffffffffffff;
   local_2c = 0xffffffff;
                     /* try { // try from 0052cc3a to 0052cc3e has its CatchHandler @ 0052cdd9 */
-  FUN_0052c550((string *)&local_40,&local_34,&local_48);
+  yaml_error_message((string *)&local_40,&local_34,&local_48);
                     /* try { // try from 0052cc45 to 0052cc49 has its CatchHandler @ 0052cdd4 */
   std::runtime_error::runtime_error(param_1,(string *)&local_40);
   if ((undefined8 *)(local_40 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -24443,7 +24443,7 @@ void FUN_0052ce30(char *param_1)
     p_Var2 = (_Rb_tree_node_base *)(puVar7 + 3);
     for (p_Var10 = (_Rb_tree_node_base *)puVar7[5]; p_Var10 != p_Var2;
         p_Var10 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var10)) {
-      FUN_005289b6(*(undefined8 *)(p_Var10 + 0x20));
+      rbtree_clear_recursive(*(undefined8 *)(p_Var10 + 0x20));
     }
     FUN_00528980(puVar7 + 2,puVar7[4]);
     puVar7[4] = 0;
@@ -24575,7 +24575,7 @@ void FUN_0052d0d0(char *param_1,undefined8 *param_2)
         p_Var1 = (_Rb_tree_node_base *)(puVar7 + 3);
         for (p_Var10 = (_Rb_tree_node_base *)puVar7[5]; p_Var10 != p_Var1;
             p_Var10 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var10)) {
-          FUN_005289b6(*(undefined8 *)(p_Var10 + 0x20));
+          rbtree_clear_recursive(*(undefined8 *)(p_Var10 + 0x20));
         }
         FUN_00528980(puVar7 + 2,puVar7[4]);
         puVar7[4] = 0;
@@ -24594,7 +24594,7 @@ void FUN_0052d0d0(char *param_1,undefined8 *param_2)
       p_Var1 = (_Rb_tree_node_base *)(puVar7 + 3);
       for (p_Var10 = (_Rb_tree_node_base *)puVar7[5]; p_Var10 != p_Var1;
           p_Var10 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var10)) {
-        FUN_005289b6(*(undefined8 *)(p_Var10 + 0x20));
+        rbtree_clear_recursive(*(undefined8 *)(p_Var10 + 0x20));
       }
       FUN_00528980(puVar7 + 2,puVar7[4]);
       puVar7[4] = 0;
@@ -25311,7 +25311,7 @@ undefined1 * FUN_0052e420(undefined1 *param_1,char *param_2,char *param_3)
       p_Var15 = (_Rb_tree_node_base *)(puVar16 + 3);
       for (p_Var10 = (_Rb_tree_node_base *)puVar16[5]; p_Var10 != p_Var15;
           p_Var10 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var10)) {
-        FUN_005289b6(*(undefined8 *)(p_Var10 + 0x20));
+        rbtree_clear_recursive(*(undefined8 *)(p_Var10 + 0x20));
       }
       FUN_00528980(puVar16 + 2,puVar16[4]);
       puVar16[4] = 0;
@@ -25421,7 +25421,7 @@ undefined1 * FUN_0052e420(undefined1 *param_1,char *param_2,char *param_3)
         p_Var10 = (_Rb_tree_node_base *)(puVar12 + 3);
         for (p_Var15 = (_Rb_tree_node_base *)puVar12[5]; p_Var15 != p_Var10;
             p_Var15 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var15)) {
-          FUN_005289b6(*(undefined8 *)(p_Var15 + 0x20));
+          rbtree_clear_recursive(*(undefined8 *)(p_Var15 + 0x20));
         }
         FUN_00528980(puVar12 + 2,puVar12[4]);
         puVar12[4] = 0;
@@ -25546,7 +25546,7 @@ undefined1 * FUN_0052e420(undefined1 *param_1,char *param_2,char *param_3)
       p_Var15 = (_Rb_tree_node_base *)(puVar16 + 3);
       for (p_Var10 = (_Rb_tree_node_base *)puVar16[5]; p_Var10 != p_Var15;
           p_Var10 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var10)) {
-        FUN_005289b6(*(undefined8 *)(p_Var10 + 0x20));
+        rbtree_clear_recursive(*(undefined8 *)(p_Var10 + 0x20));
       }
       FUN_00528980(puVar16 + 2,puVar16[4]);
       puVar16[4] = 0;
@@ -25614,7 +25614,7 @@ undefined1 * FUN_0052e420(undefined1 *param_1,char *param_2,char *param_3)
   }
   puVar16 = (undefined8 *)__cxa_allocate_exception(0x28);
                     /* try { // try from 0052eef6 to 0052eefa has its CatchHandler @ 0052ef83 */
-  FUN_0052c0f0(&local_88,param_3);
+  json_value_key_get(&local_88,param_3);
                     /* try { // try from 0052ef04 to 0052ef08 has its CatchHandler @ 0052f015 */
   FUN_0052ca8a(puVar16,lVar19 + 4,&local_88);
   *puVar16 = &PTR_FUN_00d39a48;

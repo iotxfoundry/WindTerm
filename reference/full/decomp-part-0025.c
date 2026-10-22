@@ -257,9 +257,9 @@ LAB_007cf88b:
 }
 
 
-// ==== entry=007cf9b6 name=FUN_007cf9b6 size=3190 ====
+// ==== entry=007cf9b6 orig=FUN_007cf9b6 size=3190 name=proc_ps_parse_line ====
 
-void FUN_007cf9b6(long param_1,long param_2)
+void proc_ps_parse_line(long param_1,long param_2)
 
 {
   long *plVar1;
@@ -688,7 +688,7 @@ LAB_007d07a2:
                        ), iVar3 != 0)) {
       return 0;
     }
-    FUN_007cf9b6(param_1,param_4,param_3);
+    proc_ps_parse_line(param_1,param_4,param_3);
     if (0 < *(long *)(param_1 + 0x70)) {
       FUN_007cb69a(param_1);
     }
@@ -816,7 +816,7 @@ void FUN_007d0a2a(long param_1)
   }
   if (*(char *)(param_1 + 0x90) != '\0') {
     local_38 = (code *)CONCAT44(local_38._4_4_,*(undefined4 *)(param_1 + 0xa0));
-    FUN_007d2c69(&local_40,"Show timer interval: {}ms",0x19,1,&local_38);
+    session_fmt_message(&local_40,"Show timer interval: {}ms",0x19,1,&local_38);
     uVar1 = DAT_011c1480;
     if (*(int *)(local_40 + -8) < 0) {
                     /* try { // try from 007d0bf0 to 007d0bf4 has its CatchHandler @ 007d0c46 */
@@ -831,12 +831,12 @@ void FUN_007d0a2a(long param_1)
       }
     }
                     /* try { // try from 007d0acb to 007d0acf has its CatchHandler @ 007d0c3e */
-    FUN_005f2ede(uVar1,&local_38);
+    log_timestamp_format(uVar1,&local_38);
     if (local_38 != (code *)&DAT_011c5338) {
-      FUN_007c8e68();
+      string_rep_release2();
     }
     if (local_40 != (code *)&DAT_011c5338) {
-      FUN_007c8e68();
+      string_rep_release2();
     }
   }
   FUN_0061325c(*(undefined8 *)(param_1 + 0x98),*(undefined4 *)(param_1 + 0xa0));
@@ -974,14 +974,14 @@ void s_SuperCommander__processData_7d0d8a(long *param_1,int param_2)
     local_58[0] = iVar4;
     local_48 = puVar3;
                     /* try { // try from 007d0f8f to 007d0f93 has its CatchHandler @ 007d108e */
-    FUN_007d2c69(&local_68,"commander read\nlength: {}, content:\n{}",0x26,0xd1,local_58);
+    session_fmt_message(&local_68,"commander read\nlength: {}, content:\n{}",0x26,0xd1,local_58);
                     /* try { // try from 007d0f9c to 007d0fa0 has its CatchHandler @ 007d10a3 */
-    FUN_005f2ede(uVar1);
+    log_timestamp_format(uVar1);
     if (local_68 != &DAT_011c5338) {
-      FUN_007c8e68();
+      string_rep_release2();
     }
     if (puVar3 != &DAT_011c5338) {
-      FUN_007c8e68();
+      string_rep_release2();
     }
     qt_byte_array_unref(&local_70);
   }
@@ -1023,7 +1023,7 @@ LAB_007d0fe1:
     goto LAB_007d0fe1;
   }
   if (pvVar2 != (void *)0x0) {
-    FUN_005f38a6(pvVar2);
+    log_leave_elapsed(pvVar2);
     operator_delete(pvVar2,0x10);
   }
   if (*(int *)(param_1[0x16] + 4) != 0) {
@@ -1137,16 +1137,16 @@ void s_Session__write_7d11da(long param_1,long *param_2)
   local_30 = *(undefined8 *)(puVar3 + -0x18);
   local_38 = puVar3;
                     /* try { // try from 007d12a0 to 007d12a4 has its CatchHandler @ 007d1328 */
-  FUN_007d2c69(&local_50,"session write\nlength: {}, content:\n{}",0x25,0xd1,local_48);
+  session_fmt_message(&local_50,"session write\nlength: {}, content:\n{}",0x25,0xd1,local_48);
                     /* try { // try from 007d12ab to 007d12af has its CatchHandler @ 007d1330 */
-  FUN_005f2ede(uVar1,&local_50);
+  log_timestamp_format(uVar1,&local_50);
   if (local_50 != &DAT_011c5338) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (puVar3 != &DAT_011c5338) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
-  FUN_005f38a6(pvVar2);
+  log_leave_elapsed(pvVar2);
   operator_delete(pvVar2,0x10);
   return;
 }
@@ -1225,9 +1225,9 @@ switchD_007d148e_caseD_46:
         local_59 = 0x9f;
       }
       QByteArray::remove((int)param_3,iVar3);
-      FUN_007c4392(param_3);
+      qbytearray_detach_realloc(param_3);
       if (iVar3 < *(int *)(*param_3 + 4)) {
-        FUN_007c4392(param_3);
+        qbytearray_detach_realloc(param_3);
       }
       else {
         QByteArray::expand((int)param_3);
@@ -1485,7 +1485,7 @@ LAB_007d19db:
       local_78 = puVar10;
       local_68 = puVar6;
                     /* try { // try from 007d1a22 to 007d1a26 has its CatchHandler @ 007d1f0a */
-      FUN_007d2c69(&local_58,&DAT_00ca7c08,7,0xdd,&local_78);
+      session_fmt_message(&local_58,&DAT_00ca7c08,7,0xdd,&local_78);
       __n = *(size_t *)(local_58 + -0x18);
       if (__n != 0) {
         uVar15 = *(long *)(local_80 + -0x18) + __n;
@@ -1506,13 +1506,13 @@ LAB_007d19db:
         }
       }
       if (local_58 != &DAT_011c5338) {
-        FUN_007c8e68();
+        string_rep_release2();
       }
       if (puVar10 != &DAT_011c5338) {
-        FUN_007c8e68();
+        string_rep_release2();
       }
       if (puVar6 != &DAT_011c5338) {
-        FUN_007c8e68();
+        string_rep_release2();
       }
       local_f0 = local_f0 + 1;
     } while ((int)local_f0 < *(int *)(param_1 + 0x18));
@@ -1548,7 +1548,7 @@ LAB_007d1b63:
   local_48 = local_80;
   local_58 = puVar6;
                     /* try { // try from 007d1bb2 to 007d1bb6 has its CatchHandler @ 007d1f2a */
-  FUN_007d2c69(&local_88,"[TERM] {0}({1})",0xf,0xdd,&local_58);
+  session_fmt_message(&local_88,"[TERM] {0}({1})",0xf,0xdd,&local_58);
   puVar10 = local_80;
   if (*(int *)(local_80 + -8) < 0) {
     *(undefined4 *)(local_80 + -8) = 0;
@@ -1559,10 +1559,10 @@ LAB_007d1b63:
   local_80 = local_88;
   local_88 = puVar10;
   if (puVar10 != &DAT_011c5338) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (puVar6 != &DAT_011c5338) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (*(char *)(*(long *)(param_1 + 0x80) + 0x1da) == '\0') {
     if (param_1[0x90] != '\0') {
@@ -1586,9 +1586,9 @@ LAB_007d1c3e:
         }
       }
                     /* try { // try from 007d1c77 to 007d1c7b has its CatchHandler @ 007d1f12 */
-      FUN_005f2ede(uVar2,&local_58);
+      log_timestamp_format(uVar2,&local_58);
       if (local_58 != &DAT_011c5338) {
-        FUN_007c8e68();
+        string_rep_release2();
       }
     }
   }
@@ -1607,11 +1607,11 @@ LAB_007d1c3e:
     }
   }
   if (local_80 != &DAT_011c5338) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
 LAB_007d1ca5:
   if (local_b8 != (void *)0x0) {
-    FUN_005f38a6(local_b8);
+    log_leave_elapsed(local_b8);
     operator_delete(local_b8,0x10);
   }
   return;
@@ -2359,9 +2359,9 @@ void FUN_007d2c44(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=007d2c69 name=FUN_007d2c69 size=181 ====
+// ==== entry=007d2c69 orig=FUN_007d2c69 size=181 name=session_fmt_message ====
 
-undefined8 * FUN_007d2c69(undefined8 *param_1)
+undefined8 * session_fmt_message(undefined8 *param_1)
 
 {
   undefined1 *puVar1;
@@ -2724,9 +2724,9 @@ void FUN_007d2fda(QString *param_1,char *param_2,long *param_3,char *param_4,lon
 }
 
 
-// ==== entry=007d31aa name=FUN_007d31aa size=9 ====
+// ==== entry=007d31aa orig=FUN_007d31aa size=9 name=session_write_char ====
 
-void FUN_007d31aa(undefined8 param_1,char param_2)
+void session_write_char(undefined8 param_1,char param_2)
 
 {
   FUN_009121fc(param_1,(int)param_2);
@@ -2748,7 +2748,7 @@ void FUN_007d31b4(undefined8 param_1,QByteArray *param_2)
                     /* try { // try from 007d31d6 to 007d31da has its CatchHandler @ 007d3209 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d31eb to 007d31ef has its CatchHandler @ 007d3216 */
-  FUN_007d31aa(param_1,0,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2769,7 +2769,7 @@ void FUN_007d321e(undefined8 param_1,QByteArray *param_2)
                     /* try { // try from 007d3240 to 007d3244 has its CatchHandler @ 007d3276 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3258 to 007d325c has its CatchHandler @ 007d3283 */
-  FUN_007d31aa(param_1,1,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,1,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2785,7 +2785,7 @@ void FUN_007d328c(undefined8 param_1,undefined8 param_2,QByteArray *param_3)
   
   QVariant::QVariant(aQStack_28,param_3);
                     /* try { // try from 007d32b6 to 007d32ba has its CatchHandler @ 007d32cc */
-  FUN_007d31aa(param_1,2,param_2,aQStack_28);
+  session_write_char(param_1,2,param_2,aQStack_28);
   QVariant::~QVariant(aQStack_28);
   return;
 }
@@ -2805,7 +2805,7 @@ void FUN_007d32d4(undefined8 param_1,QByteArray *param_2)
                     /* try { // try from 007d32f6 to 007d32fa has its CatchHandler @ 007d332c */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d330e to 007d3312 has its CatchHandler @ 007d3339 */
-  FUN_007d31aa(param_1,7,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,7,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2824,7 +2824,7 @@ void FUN_007d3342(undefined8 param_1,QString *param_2,QByteArray *param_3)
                     /* try { // try from 007d336b to 007d336f has its CatchHandler @ 007d339e */
   QVariant::QVariant(aQStack_48,param_2);
                     /* try { // try from 007d337e to 007d3382 has its CatchHandler @ 007d33a6 */
-  FUN_007d31aa(param_1,8,aQStack_48,local_38);
+  session_write_char(param_1,8,aQStack_48,local_38);
   QVariant::~QVariant(aQStack_48);
   QVariant::~QVariant(local_38);
   return;
@@ -2843,7 +2843,7 @@ void FUN_007d33ae(undefined8 param_1,QByteArray *param_2,QByteArray *param_3)
                     /* try { // try from 007d33d7 to 007d33db has its CatchHandler @ 007d340a */
   QVariant::QVariant(aQStack_48,param_2);
                     /* try { // try from 007d33ea to 007d33ee has its CatchHandler @ 007d3412 */
-  FUN_007d31aa(param_1,9,aQStack_48,local_38);
+  session_write_char(param_1,9,aQStack_48,local_38);
   QVariant::~QVariant(aQStack_48);
   QVariant::~QVariant(local_38);
   return;
@@ -2865,7 +2865,7 @@ void FUN_007d341a(undefined8 param_1)
   local_38 = 0;
   local_30 = 0x80000000;
                     /* try { // try from 007d3456 to 007d345a has its CatchHandler @ 007d3474 */
-  FUN_007d31aa(param_1,6,&local_38,(QVariant *)&local_28);
+  session_write_char(param_1,6,&local_38,(QVariant *)&local_28);
   QVariant::~QVariant((QVariant *)&local_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2886,7 +2886,7 @@ void FUN_007d347c(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d349e to 007d34a2 has its CatchHandler @ 007d34d4 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d34b6 to 007d34ba has its CatchHandler @ 007d34e1 */
-  FUN_007d31aa(param_1,0xb,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0xb,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2905,7 +2905,7 @@ void FUN_007d34ea(undefined8 param_1,QString *param_2,QList *param_3)
                     /* try { // try from 007d3513 to 007d3517 has its CatchHandler @ 007d3546 */
   QVariant::QVariant(aQStack_48,param_2);
                     /* try { // try from 007d3526 to 007d352a has its CatchHandler @ 007d354e */
-  FUN_007d31aa(param_1,0xd,aQStack_48,local_38);
+  session_write_char(param_1,0xd,aQStack_48,local_38);
   QVariant::~QVariant(aQStack_48);
   QVariant::~QVariant(local_38);
   return;
@@ -2926,7 +2926,7 @@ void FUN_007d3556(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d3578 to 007d357c has its CatchHandler @ 007d35ae */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3590 to 007d3594 has its CatchHandler @ 007d35bb */
-  FUN_007d31aa(param_1,0xe,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0xe,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2947,7 +2947,7 @@ void FUN_007d35c4(undefined8 param_1,QByteArray *param_2)
                     /* try { // try from 007d35e6 to 007d35ea has its CatchHandler @ 007d361c */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d35fe to 007d3602 has its CatchHandler @ 007d3629 */
-  FUN_007d31aa(param_1,0xf,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0xf,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2968,7 +2968,7 @@ void FUN_007d3632(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d3654 to 007d3658 has its CatchHandler @ 007d368a */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d366c to 007d3670 has its CatchHandler @ 007d3697 */
-  FUN_007d31aa(param_1,0x15,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x15,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -2989,7 +2989,7 @@ void FUN_007d36a0(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d36c2 to 007d36c6 has its CatchHandler @ 007d36f8 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d36da to 007d36de has its CatchHandler @ 007d3705 */
-  FUN_007d31aa(param_1,0x17,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x17,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3010,7 +3010,7 @@ void FUN_007d370e(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d3730 to 007d3734 has its CatchHandler @ 007d3766 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3748 to 007d374c has its CatchHandler @ 007d3773 */
-  FUN_007d31aa(param_1,0x18,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x18,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3029,7 +3029,7 @@ void FUN_007d377c(undefined8 param_1,QString *param_2,bool param_3)
                     /* try { // try from 007d37a5 to 007d37a9 has its CatchHandler @ 007d37d8 */
   QVariant::QVariant(aQStack_48,param_2);
                     /* try { // try from 007d37b8 to 007d37bc has its CatchHandler @ 007d37e0 */
-  FUN_007d31aa(param_1,0x19,aQStack_48,local_38);
+  session_write_char(param_1,0x19,aQStack_48,local_38);
   QVariant::~QVariant(aQStack_48);
   QVariant::~QVariant(local_38);
   return;
@@ -3050,7 +3050,7 @@ void TerminalWidget_h7d37e8(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d380a to 007d380e has its CatchHandler @ 007d3840 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3822 to 007d3826 has its CatchHandler @ 007d384d */
-  FUN_007d31aa(param_1,0x1a,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x1a,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3071,7 +3071,7 @@ void FUN_007d3856(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d3878 to 007d387c has its CatchHandler @ 007d38ae */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3890 to 007d3894 has its CatchHandler @ 007d38bb */
-  FUN_007d31aa(param_1,0x1b,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x1b,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3289,7 +3289,7 @@ void FUN_007d3d28(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d3d4a to 007d3d4e has its CatchHandler @ 007d3d80 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3d62 to 007d3d66 has its CatchHandler @ 007d3d8d */
-  FUN_007d31aa(param_1,0x1c,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x1c,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3311,7 +3311,7 @@ void FUN_007d3d96(undefined8 param_1)
   local_38 = 0;
   local_30 = 0x80000000;
                     /* try { // try from 007d3dd2 to 007d3dd6 has its CatchHandler @ 007d3df0 */
-  FUN_007d31aa(param_1,0x1d,&local_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x1d,&local_38,(QVariant *)&local_28);
   QVariant::~QVariant((QVariant *)&local_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3358,7 +3358,7 @@ void FUN_007d3e88(undefined8 param_1,bool param_2)
                     /* try { // try from 007d3eae to 007d3eb2 has its CatchHandler @ 007d3ee4 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3ec6 to 007d3eca has its CatchHandler @ 007d3ef1 */
-  FUN_007d31aa(param_1,0x1e,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x1e,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3379,7 +3379,7 @@ void FUN_007d3efa(undefined8 param_1,bool param_2)
                     /* try { // try from 007d3f20 to 007d3f24 has its CatchHandler @ 007d3f56 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3f38 to 007d3f3c has its CatchHandler @ 007d3f63 */
-  FUN_007d31aa(param_1,0x1f,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x1f,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3400,7 +3400,7 @@ void FUN_007d3f6c(undefined8 param_1,int param_2)
                     /* try { // try from 007d3f8e to 007d3f92 has its CatchHandler @ 007d3fc4 */
   QVariant::QVariant(aQStack_38,param_2);
                     /* try { // try from 007d3fa6 to 007d3faa has its CatchHandler @ 007d3fd1 */
-  FUN_007d31aa(param_1,0x20,aQStack_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x20,aQStack_38,(QVariant *)&local_28);
   QVariant::~QVariant(aQStack_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3416,7 +3416,7 @@ void FUN_007d3fda(undefined8 param_1,QByteArray *param_2,undefined8 param_3)
   
   QVariant::QVariant(aQStack_28,param_2);
                     /* try { // try from 007d4001 to 007d4005 has its CatchHandler @ 007d4017 */
-  FUN_007d31aa(param_1,0x21,aQStack_28,param_3);
+  session_write_char(param_1,0x21,aQStack_28,param_3);
   QVariant::~QVariant(aQStack_28);
   return;
 }
@@ -3437,7 +3437,7 @@ void FUN_007d4020(undefined8 param_1)
   local_38 = 0;
   local_30 = 0x80000000;
                     /* try { // try from 007d405c to 007d4060 has its CatchHandler @ 007d407a */
-  FUN_007d31aa(param_1,0x22,&local_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x22,&local_38,(QVariant *)&local_28);
   QVariant::~QVariant((QVariant *)&local_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3459,7 +3459,7 @@ void FUN_007d4082(undefined8 param_1)
   local_38 = 0;
   local_30 = 0x80000000;
                     /* try { // try from 007d40be to 007d40c2 has its CatchHandler @ 007d40dc */
-  FUN_007d31aa(param_1,0x24,&local_38,(QVariant *)&local_28);
+  session_write_char(param_1,0x24,&local_38,(QVariant *)&local_28);
   QVariant::~QVariant((QVariant *)&local_38);
   QVariant::~QVariant((QVariant *)&local_28);
   return;
@@ -3733,7 +3733,7 @@ void FUN_007d45d2(long param_1,undefined8 *param_2,undefined8 param_3,undefined8
       local_30[0] = *param_2;
       qatomic_int_ref();
                     /* try { // try from 007d4629 to 007d462d has its CatchHandler @ 007d4642 */
-      FUN_008684f6(lVar1,local_30,param_3,param_4);
+      pubkey_info_build(lVar1,local_30,param_3,param_4);
       qt_array_data_unref(local_30);
     }
     return;
@@ -4194,7 +4194,7 @@ undefined8 * logfmt_buildFieldRanges(undefined8 *param_1)
                     /* try { // try from 007d4fa9 to 007d4fad has its CatchHandler @ 007d52b9 */
   QMetaObject::tr(local_30,(char *)&PTR_staticMetaObject_011a8220,0xca092a);
                     /* try { // try from 007d4fb8 to 007d4fd9 has its CatchHandler @ 007d5329 */
-  uVar1 = FUN_0069e842(local_30," 01-31");
+  uVar1 = qstring_append_utf8(local_30," 01-31");
   QMetaObject::tr(acStack_38,(char *)&PTR_staticMetaObject_011a8220,0xca09bc);
                     /* try { // try from 007d4ff1 to 007d4ff5 has its CatchHandler @ 007d5321 */
   FUN_007d2fda(param_1,&DAT_00ca9163,acStack_38,"%d",uVar1);
@@ -4203,17 +4203,17 @@ undefined8 * logfmt_buildFieldRanges(undefined8 *param_1)
                     /* try { // try from 007d501b to 007d501f has its CatchHandler @ 007d52b9 */
   QMetaObject::tr(local_30,(char *)&PTR_staticMetaObject_011a8220,0xca09d2);
                     /* try { // try from 007d502a to 007d504b has its CatchHandler @ 007d5319 */
-  uVar1 = FUN_0069e842(local_30," 00-23");
+  uVar1 = qstring_append_utf8(local_30," 00-23");
   QMetaObject::tr(acStack_38,(char *)&PTR_staticMetaObject_011a8220,0xca0a13);
                     /* try { // try from 007d5056 to 007d5076 has its CatchHandler @ 007d5311 */
-  uVar2 = FUN_0069e842(acStack_38," 000-999");
+  uVar2 = qstring_append_utf8(acStack_38," 000-999");
   FUN_007d2fda(param_1,&DAT_00ca9169,uVar2,&DAT_00ca9166,uVar1);
   qt_array_data_unref(acStack_38);
   qt_array_data_unref(local_30);
                     /* try { // try from 007d509c to 007d50a0 has its CatchHandler @ 007d52b9 */
   QMetaObject::tr(local_30,(char *)&PTR_staticMetaObject_011a8220,0xca916c);
                     /* try { // try from 007d50ab to 007d50cc has its CatchHandler @ 007d5309 */
-  uVar1 = FUN_0069e842(local_30," 01-12");
+  uVar1 = qstring_append_utf8(local_30," 01-12");
   QMetaObject::tr(acStack_38,(char *)&PTR_staticMetaObject_011a8220,0xca917f);
                     /* try { // try from 007d50e4 to 007d50e8 has its CatchHandler @ 007d5301 */
   FUN_007d2fda(param_1,&DAT_00ca918f,acStack_38,&DAT_00ca918c,uVar1);
@@ -4222,10 +4222,10 @@ undefined8 * logfmt_buildFieldRanges(undefined8 *param_1)
                     /* try { // try from 007d510e to 007d5112 has its CatchHandler @ 007d52b9 */
   QMetaObject::tr(local_30,(char *)&PTR_staticMetaObject_011a8220,0xca096c);
                     /* try { // try from 007d511d to 007d513e has its CatchHandler @ 007d52f9 */
-  uVar1 = FUN_0069e842(local_30," 01-12");
+  uVar1 = qstring_append_utf8(local_30," 01-12");
   QMetaObject::tr(acStack_38,(char *)&PTR_staticMetaObject_011a8220,0xca09f6);
                     /* try { // try from 007d5149 to 007d5169 has its CatchHandler @ 007d52f1 */
-  uVar2 = FUN_0069e842(acStack_38," 00-59");
+  uVar2 = qstring_append_utf8(acStack_38," 00-59");
   FUN_007d2fda(param_1,&DAT_00d95896,uVar2,&DAT_00ca9192,uVar1);
   qt_array_data_unref(acStack_38);
   qt_array_data_unref(local_30);
@@ -4242,7 +4242,7 @@ undefined8 * logfmt_buildFieldRanges(undefined8 *param_1)
                     /* try { // try from 007d5209 to 007d520d has its CatchHandler @ 007d52d9 */
   QMetaObject::tr(acStack_38,(char *)&PTR_staticMetaObject_011a8220,0xca0a0b);
                     /* try { // try from 007d5218 to 007d5238 has its CatchHandler @ 007d52d1 */
-  uVar1 = FUN_0069e842(acStack_38," 00-59");
+  uVar1 = qstring_append_utf8(acStack_38," 00-59");
   FUN_007d2fda(param_1,&DAT_00c8cea1,uVar1,&DAT_00ca91a8,local_30);
   qt_array_data_unref(acStack_38);
   qt_array_data_unref(local_30);
@@ -5559,7 +5559,7 @@ void FUN_007d6e14(undefined8 param_1,QString *param_2,QByteArray *param_3,int pa
                     /* try { // try from 007d6ebe to 007d6ec2 has its CatchHandler @ 007d6f0f */
   QVariant::QVariant(local_58,param_2);
                     /* try { // try from 007d6ed3 to 007d6ed7 has its CatchHandler @ 007d6f07 */
-  FUN_007d31aa(param_1,0xc,local_58,local_48);
+  session_write_char(param_1,0xc,local_58,local_48);
   QVariant::~QVariant(local_58);
   QVariant::~QVariant(local_48);
   qatomic_unref_call_deleter(&local_70);
@@ -5617,7 +5617,7 @@ void FUN_007d6f30(undefined8 param_1,QString *param_2)
                     /* try { // try from 007d700f to 007d7013 has its CatchHandler @ 007d7085 */
     QVariant::QVariant(local_98,(QList *)&local_a0);
                     /* try { // try from 007d7022 to 007d7026 has its CatchHandler @ 007d708d */
-    FUN_007d31aa(param_1,0x16,local_98,(QVariant *)&local_88);
+    session_write_char(param_1,0x16,local_98,(QVariant *)&local_88);
     QVariant::~QVariant(local_98);
     QVariant::~QVariant((QVariant *)&local_88);
     qatomic_unref_call_deleter(&local_a0);
@@ -6492,7 +6492,7 @@ void FUN_007d811e(undefined8 param_1,long *param_2,long *param_3,long *param_4)
                     /* try { // try from 007d8281 to 007d8285 has its CatchHandler @ 007d82dd */
   QVariant::QVariant(local_58,local_60);
                     /* try { // try from 007d8294 to 007d8298 has its CatchHandler @ 007d82d5 */
-  FUN_007d31aa(param_1,10,local_58,(QVariant *)&local_48);
+  session_write_char(param_1,10,local_58,(QVariant *)&local_48);
   QVariant::~QVariant(local_58);
   QVariant::~QVariant((QVariant *)&local_48);
   qt_shared_data_unref(local_60);
@@ -6715,7 +6715,7 @@ LAB_007d8547:
   uVar10 = *(undefined8 *)(param_1 + 0x10);
   local_98 = FUN_00911eb6;
   local_90 = 0;
-  local_88 = FUN_00912342;
+  local_88 = qt_emit_signal4;
   local_80 = 0;
   puVar8 = operator_new(0x20);
   *puVar8 = 1;
@@ -7580,7 +7580,8 @@ void FUN_007da228(long param_1,undefined8 param_2,long *param_3)
   local_48 = local_68;
   qatomic_int_ref();
                     /* try { // try from 007da36a to 007da36e has its CatchHandler @ 007da435 */
-  cVar2 = FUN_007c24c8(plVar5,local_58,local_50,(int)cVar2,(int)cVar3,uVar4,&local_48,local_40);
+  cVar2 = win_reserved_name_check
+                    (plVar5,local_58,local_50,(int)cVar2,(int)cVar3,uVar4,&local_48,local_40);
   qt_array_data_unref(&local_48);
   qt_array_data_unref(local_40);
   if (cVar2 == '\0') {
@@ -17612,12 +17613,12 @@ void FUN_007e52fc(undefined8 param_1,int param_2,char param_3)
   lVar3 = (long)(param_2 >> 3) + 1;
   bVar4 = (byte)(1 << ((byte)param_2 & 7));
   if (param_3 == '\0') {
-    FUN_007c4392(plVar2);
+    qbytearray_detach_realloc(plVar2);
     pbVar1 = (byte *)(*plVar2 + lVar3 + *(long *)(*plVar2 + 0x10));
     *pbVar1 = *pbVar1 & ~bVar4;
     return;
   }
-  FUN_007c4392(plVar2);
+  qbytearray_detach_realloc(plVar2);
   pbVar1 = (byte *)(*plVar2 + lVar3 + *(long *)(*plVar2 + 0x10));
   *pbVar1 = *pbVar1 | bVar4;
   return;
@@ -17684,8 +17685,9 @@ void FUN_007e53b6(long param_1,int param_2)
         puVar9 = (ushort *)FUN_007a44f8(*(undefined8 *)(param_1 + 0x80),iVar11);
         uVar2 = *puVar9;
         bVar4 = (byte)(uVar2 >> 8) & 1;
-        iVar5 = FUN_007a9582(*(undefined8 *)(param_1 + 0x80),puVar9,*(long *)(param_1 + 0x98) + 0x28
-                             ,0);
+        iVar5 = styles_merge_range32
+                          (*(undefined8 *)(param_1 + 0x80),puVar9,*(long *)(param_1 + 0x98) + 0x28,0
+                          );
         *(byte *)(*(long *)(param_1 + 0x98) + 0x24) = bVar4;
         if ((cVar3 != '\0') && (0 < iVar5)) {
           lVar10 = *(long *)(puVar9 + 0x28);
@@ -17920,9 +17922,9 @@ void terminal_resizeBuffer(long param_1,int param_2,int param_3,undefined1 param
   }
   lVar8 = *(long *)(param_1 + 0x88);
 LAB_007e5709:
-  FUN_007a604a(lVar8,param_2,param_3);
+  line_styles_resize(lVar8,param_2,param_3);
   if (*(long *)(param_1 + 0x90) != 0) {
-    FUN_007a604a(*(long *)(param_1 + 0x90),param_2,param_3);
+    line_styles_resize(*(long *)(param_1 + 0x90),param_2,param_3);
   }
   *(int *)(param_1 + 0x1c0) = param_2;
   *(int *)(param_1 + 0x1c4) = param_3;
@@ -17959,7 +17961,7 @@ void SuperTerm_h7e58ce(long param_1,long param_2)
       local_70 = 0;
       do {
         puVar6 = (ushort *)FUN_007a44f8(*(undefined8 *)(param_1 + 0x80),iVar8);
-        iVar3 = FUN_007a9582(*(undefined8 *)(param_1 + 0x80),puVar6,local_68,0);
+        iVar3 = styles_merge_range32(*(undefined8 *)(param_1 + 0x80),puVar6,local_68,0);
         if (0 < iVar3) {
           uVar1 = *puVar6;
           uVar4 = (uint)uVar1;
@@ -18152,7 +18154,7 @@ void FUN_007e5ba2(long param_1,int param_2)
   }
   uVar1 = *(undefined8 *)(param_1 + 0x80);
   uVar2 = FUN_007e5b96();
-  FUN_007a604a(uVar1,param_2,uVar2);
+  line_styles_resize(uVar1,param_2,uVar2);
   return;
 }
 
@@ -18328,7 +18330,7 @@ void FUN_007e5df0(undefined8 param_1,int param_2)
   if (param_2 == 0) {
     plVar3 = (long *)FUN_007e52f0();
     iVar2 = FUN_007e368e(param_1);
-    FUN_007c4392(plVar3);
+    qbytearray_detach_realloc(plVar3);
     pbVar1 = (byte *)(*plVar3 + (long)(iVar2 >> 3) + 1 + *(long *)(*plVar3 + 0x10));
     *pbVar1 = *pbVar1 & ~(byte)(1 << ((byte)iVar2 & 7));
     return;
@@ -18339,7 +18341,7 @@ void FUN_007e5df0(undefined8 param_1,int param_2)
       iVar4 = 0;
       do {
         plVar3 = (long *)FUN_007e52f0(param_1);
-        FUN_007c4392(plVar3);
+        qbytearray_detach_realloc(plVar3);
         pbVar1 = (byte *)(*plVar3 + (long)(iVar4 >> 3) + 1 + *(long *)(*plVar3 + 0x10));
         *pbVar1 = *pbVar1 & ~(byte)(1 << ((byte)iVar4 & 7));
         iVar4 = iVar4 + 1;
@@ -18639,14 +18641,14 @@ void FUN_007e62e4(long *param_1,int param_2,char param_3)
     }
     QByteArray::QByteArray((QByteArray *)&local_38,3,'\0');
                     /* try { // try from 007e633e to 007e6342 has its CatchHandler @ 007e63fd */
-    FUN_007c4392(&local_38);
+    qbytearray_detach_realloc(&local_38);
     snprintf((char *)(local_38 + *(long *)(local_38 + 0x10)),4,"\x1b%c%c",(ulong)uVar3,
              (ulong)(uint)(int)param_3);
   }
   else {
     QByteArray::QByteArray((QByteArray *)&local_38,2,'\0');
                     /* try { // try from 007e63bf to 007e63c3 has its CatchHandler @ 007e63e3 */
-    FUN_007c4392(&local_38);
+    qbytearray_detach_realloc(&local_38);
     snprintf((char *)(local_38 + *(long *)(local_38 + 0x10)),3,"\x1b%c",(ulong)(uint)(int)param_3);
   }
   lVar1 = *param_1;
@@ -18762,9 +18764,9 @@ LAB_007e6586:
 }
 
 
-// ==== entry=007e66c6 name=FUN_007e66c6 size=110 ====
+// ==== entry=007e66c6 orig=FUN_007e66c6 size=110 name=bytearraylist_join_write ====
 
-void FUN_007e66c6(long param_1,char *param_2)
+void bytearraylist_join_write(long param_1,char *param_2)
 
 {
   long *plVar1;
@@ -19892,7 +19894,7 @@ LAB_007e80c2:
         uVar9 = 0;
         uVar10 = puVar6[2] & 0x7fffffff;
 LAB_007e8054:
-        FUN_0064a830(param_2,uVar10,uVar9);
+        qlist_int_realloc(param_2,uVar10,uVar9);
         puVar6 = (uint *)*param_2;
         *(undefined4 *)((long)puVar6 + *(long *)(puVar6 + 4) + (long)(int)puVar6[1] * 4) = uVar1;
       }
@@ -19929,7 +19931,7 @@ LAB_007e8054:
             *param_2 = (long)puVar6;
           }
           else {
-            FUN_0064a830(param_2,puVar6[2] & 0x7fffffff,0);
+            qlist_int_realloc(param_2,puVar6[2] & 0x7fffffff,0);
             puVar6 = (uint *)*param_2;
           }
         }
@@ -19941,7 +19943,7 @@ LAB_007e8054:
             *(uint **)(param_1 + 0xd0) = puVar6;
           }
           else {
-            FUN_0064a830(param_1 + 0xd0,puVar6[2] & 0x7fffffff,0);
+            qlist_int_realloc(param_1 + 0xd0,puVar6[2] & 0x7fffffff,0);
             puVar6 = *(uint **)(param_1 + 0xd0);
           }
         }
@@ -20016,7 +20018,7 @@ void FUN_007e8267(void)
           DAT_011c2100 = (QArrayData *)QArrayData::allocate(4,8,0,2);
         }
         else {
-          FUN_0064a830(&DAT_011c2100,*(uint *)((long)DAT_011c2100 + 8) & 0x7fffffff,0);
+          qlist_int_realloc(&DAT_011c2100,*(uint *)((long)DAT_011c2100 + 8) & 0x7fffffff,0);
         }
       }
       puVar4 = (uint *)DAT_011c2100;
@@ -20028,7 +20030,7 @@ void FUN_007e8267(void)
           DAT_011c2100 = (QArrayData *)QArrayData::allocate(4,8,0,2);
         }
         else {
-          FUN_0064a830(&DAT_011c2100,*(uint *)((long)DAT_011c2100 + 8) & 0x7fffffff,0);
+          qlist_int_realloc(&DAT_011c2100,*(uint *)((long)DAT_011c2100 + 8) & 0x7fffffff,0);
         }
       }
       puVar4 = (uint *)DAT_011c2100;
@@ -20389,7 +20391,7 @@ int FUN_007e8ae6(long param_1,undefined8 param_2,long param_3,int param_4)
           if (iVar13 <= piVar11[2]) {
             do {
               uVar7 = FUN_007a44f8(param_2,iVar13);
-              FUN_007a9582(param_2,uVar7,local_40[0],uVar9);
+              styles_merge_range32(param_2,uVar7,local_40[0],uVar9);
               iVar13 = iVar13 + 1;
             } while (iVar13 <= piVar11[2]);
           }
@@ -20601,7 +20603,7 @@ void FUN_007e90b6(long param_1,char param_2)
     *(undefined4 *)pQVar3 = 1;
     local_70 = pQVar3 + 0x10;
                     /* try { // try from 007e9122 to 007e9141 has its CatchHandler @ 007e99f3 */
-    FUN_0087842e(local_70,param_1,0);
+    tmux_ctor_init_patterns(local_70,param_1,0);
     *(code **)(pQVar3 + 8) = FUN_007feee5;
     QtSharedPointer::ExternalRefCountData::setQObjectShared(pQVar3,SUB81(local_70,0));
     lVar1 = *(long *)(param_1 + 400);
@@ -20883,7 +20885,7 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
         bVar2 = true;
       }
       else {
-        FUN_007c4392((QByteArray *)&local_80);
+        qbytearray_detach_realloc((QByteArray *)&local_80);
         pcVar8 = (char *)((iVar5 + -1) + local_80 + *(long *)(local_80 + 0x10));
         local_bc = (*pcVar8 == '\r') + 1;
         bVar2 = true;
@@ -20893,7 +20895,7 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
       }
       QByteArray::setRawData((char *)&local_78,iVar9 + local_b0);
       if (!bVar2) break;
-      uVar3 = FUN_00878fee(*(undefined8 *)(param_1 + 0x188),&local_78);
+      uVar3 = tmux_parse_notify(*(undefined8 *)(param_1 + 0x188),&local_78);
       switch(uVar3) {
       case 0:
         QByteArray::prepend((char *)&local_78);
@@ -21014,9 +21016,9 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
           iVar11 = *(int *)(local_40[0] + 4) + 10;
           qt_byte_array_unref(local_40);
           iVar7 = *(int *)((long)local_78 + 4);
-          FUN_007c4392(&local_78);
+          qbytearray_detach_realloc(&local_78);
           cVar4 = *(char *)((long)local_78 + local_78[2] + (long)(iVar7 + -1));
-          FUN_007c4392(&local_78);
+          qbytearray_detach_realloc(&local_78);
           lVar10 = (long)local_78 + (long)iVar11 + local_78[2];
           uVar6 = FUN_00877128(*(undefined8 *)(param_1 + 0x188),lVar10,
                                (*(int *)((long)local_78 + 4) - iVar11) - (uint)(cVar4 == '\r'));
@@ -21136,9 +21138,9 @@ LAB_007e9b87:
 }
 
 
-// ==== entry=007ea318 name=FUN_007ea318 size=1051 ====
+// ==== entry=007ea318 orig=FUN_007ea318 size=1051 name=terminal_reset_state ====
 
-void FUN_007ea318(long param_1,char param_2)
+void terminal_reset_state(long param_1,char param_2)
 
 {
   void *pvVar1;
@@ -21276,7 +21278,7 @@ void FUN_007ea73c(long param_1)
                     /* try { // try from 007ea764 to 007ea768 has its CatchHandler @ 007ea7d4 */
   FUN_007e626e(param_1,local_20);
   qt_byte_array_unref(local_20);
-  FUN_007ea318(param_1,1);
+  terminal_reset_state(param_1,1);
   if (*(char *)(param_1 + 0x122) != '\0') {
     FUN_007e606a(param_1,2,0);
   }
@@ -21294,7 +21296,7 @@ void FUN_007ea73c(long param_1)
 void FUN_007ea7e6(undefined8 param_1)
 
 {
-  FUN_007ea318(param_1,0);
+  terminal_reset_state(param_1,0);
   FUN_007e4aa2(param_1);
   FUN_007e4f38(param_1,0,0);
   return;
@@ -21515,25 +21517,25 @@ void FUN_007eac52(long param_1,int param_2,undefined8 param_3)
   FUN_007eab83(local_40,param_3);
   if (*(int *)(local_40[0] + 0xc) - *(int *)(local_40[0] + 8) == 4) {
                     /* try { // try from 007eacd6 to 007ead7d has its CatchHandler @ 007eadb2 */
-    FUN_007f7da2(local_40);
+    qlist_shared_detach(local_40);
     iVar4 = *(int *)(local_40[0] + 8);
     lVar1 = local_40[0] + 0x10;
-    FUN_007f7da2(local_40);
+    qlist_shared_detach(local_40);
     iVar5 = *(int *)(local_40[0] + 0xc);
     for (piVar12 = (int *)(lVar1 + (long)iVar4 * 8);
         piVar12 != (int *)(local_40[0] + 0x10 + (long)iVar5 * 8); piVar12 = piVar12 + 2) {
       *piVar12 = *piVar12 + -1;
     }
-    FUN_007f7da2(local_40);
+    qlist_shared_detach(local_40);
     iVar4 = *(int *)(local_40[0] + 8);
     lVar1 = local_40[0] + 0x28;
-    FUN_007f7da2(local_40);
+    qlist_shared_detach(local_40);
     iVar5 = *(int *)(local_40[0] + 8);
     lVar2 = local_40[0] + 0x20;
-    FUN_007f7da2(local_40);
+    qlist_shared_detach(local_40);
     iVar6 = *(int *)(local_40[0] + 8);
     lVar3 = local_40[0] + 0x18;
-    FUN_007f7da2(local_40);
+    qlist_shared_detach(local_40);
     uVar7 = *(undefined4 *)(local_40[0] + 0x10 + (long)*(int *)(local_40[0] + 8) * 8);
     uVar8 = *(undefined4 *)(lVar3 + (long)iVar6 * 8);
     uVar9 = *(undefined4 *)(lVar2 + (long)iVar5 * 8);
@@ -21576,9 +21578,9 @@ void FUN_007eadba(void)
   local_1c = 4;
   FUN_007eab83(&local_30);
                     /* try { // try from 007eadf5 to 007eae0f has its CatchHandler @ 007eaee5 */
-  FUN_007f7da2(&local_30);
+  qlist_shared_detach(&local_30);
   puVar3 = (undefined4 *)(local_30 + 0x10 + (long)*(int *)(local_30 + 8) * 8);
-  FUN_007f7da2(&local_30);
+  qlist_shared_detach(&local_30);
   puVar1 = (undefined4 *)(local_30 + 0x10 + (long)*(int *)(local_30 + 0xc) * 8);
   if (puVar3 == puVar1) {
     cVar5 = '\0';
@@ -21887,9 +21889,10 @@ LAB_007eb350:
 }
 
 
-// ==== entry=007eb4d6 name=FUN_007eb4d6 size=1001 ====
+// ==== entry=007eb4d6 orig=FUN_007eb4d6 size=1001 name=term_resp_cursor_report ====
 
-void FUN_007eb4d6(long param_1,uint param_2,uint param_3,undefined8 param_4,int param_5,int param_6)
+void term_resp_cursor_report
+               (long param_1,uint param_2,uint param_3,undefined8 param_4,int param_5,int param_6)
 
 {
   undefined4 uVar1;
@@ -22023,7 +22026,7 @@ LAB_007eb7ce:
   QByteArray::QByteArray((QByteArray *)&local_58,iVar4,'\0');
   uVar1 = *(undefined4 *)(param_1 + 200);
                     /* try { // try from 007eb664 to 007eb668 has its CatchHandler @ 007eb8df */
-  FUN_007c4392((QByteArray *)&local_58);
+  qbytearray_detach_realloc((QByteArray *)&local_58);
   snprintf((char *)(local_58 + *(long *)(local_58 + 0x10)),(long)(iVar4 + 1),"%d;%d;%s;%s;%d&w",
            (ulong)local_64,(ulong)param_3,puVar6,puVar7,uVar1);
   if (bVar2) {
@@ -22038,9 +22041,9 @@ LAB_007eb6f1:
   local_40 = local_58;
   qatomic_int_ref();
                     /* try { // try from 007eb724 to 007eb728 has its CatchHandler @ 007eb8cf */
-  FUN_00673d20(&local_50,(QByteArray *)&local_48,local_38);
+  qlist_fill_range8(&local_50,(QByteArray *)&local_48,local_38);
                     /* try { // try from 007eb72f to 007eb733 has its CatchHandler @ 007eb8f5 */
-  FUN_007e66c6(param_1,&local_50);
+  bytearraylist_join_write(param_1,&local_50);
   qatomic_unref_call_deleter2(&local_50);
   qt_byte_array_unref(&local_40);
   qt_byte_array_unref((QByteArray *)&local_48);
@@ -22072,7 +22075,7 @@ void FUN_007eb8fe(long param_1)
   if (*(char *)(param_1 + 0x161) == '\0') {
     local_48 = 0.0;
     local_40 = 0.0;
-    FUN_007eb4d6(param_1,0,0,&local_48,0xffffffff);
+    term_resp_cursor_report(param_1,0,0,&local_48,0xffffffff);
     return;
   }
   QByteArray::split((char)&local_58);
@@ -22128,7 +22131,7 @@ void FUN_007eb8fe(long param_1)
     local_48 = (double)(int)uVar6;
     local_40 = (double)(int)((ulong)uVar6 >> 0x20);
     uVar4 = QGuiApplication::mouseButtons();
-    FUN_007eb4d6(param_1,8,uVar4,&local_48,0xffffffff);
+    term_resp_cursor_report(param_1,8,uVar4,&local_48,0xffffffff);
   }
   qatomic_unref_call_deleter2(&local_58);
   return;
@@ -22177,19 +22180,19 @@ undefined4 FUN_007ebb56(long param_1,long param_2,undefined4 param_3,undefined4 
     sVar2 = *(short *)(param_2 + 0x10);
     if (sVar2 == 3) {
       if ((*(char *)(param_1 + 0x161) != '\0') && ((*(byte *)(param_1 + 0x160) & 4) != 0)) {
-        FUN_007eb4d6(param_1,4,uVar7,&local_48,param_3,param_4);
+        term_resp_cursor_report(param_1,4,uVar7,&local_48,param_3,param_4);
       }
     }
     else if (sVar2 == 5) {
       local_50 = FUN_007e3114(param_1,&local_48);
       cVar3 = FUN_007e2f72(param_1 + 0x160,&local_50,param_3,param_4);
       if (cVar3 != '\0') {
-        FUN_007eb4d6(param_1,8,uVar7,&local_48,param_3,param_4);
+        term_resp_cursor_report(param_1,8,uVar7,&local_48,param_3,param_4);
       }
     }
     else if (((sVar2 == 2) && (*(char *)(param_1 + 0x161) != '\0')) &&
             ((*(byte *)(param_1 + 0x160) & 2) != 0)) {
-      FUN_007eb4d6(param_1,2,uVar7,&local_48,param_3,param_4);
+      term_resp_cursor_report(param_1,2,uVar7,&local_48,param_3,param_4);
     }
     return uVar4;
   }
@@ -22214,19 +22217,19 @@ void FUN_007ebd6a(long param_1)
     local_18 = (double)(int)uVar3;
     local_10 = (double)(int)((ulong)uVar3 >> 0x20);
     uVar2 = QGuiApplication::mouseButtons();
-    FUN_007eb4d6(param_1,1,uVar2,&local_18,0xffffffff);
+    term_resp_cursor_report(param_1,1,uVar2,&local_18,0xffffffff);
     return;
   }
   local_18 = 0.0;
   local_10 = 0.0;
-  FUN_007eb4d6(param_1,0,0,&local_18,0xffffffff);
+  term_resp_cursor_report(param_1,0,0,&local_18,0xffffffff);
   return;
 }
 
 
-// ==== entry=007ebdfc name=FUN_007ebdfc size=3853 ====
+// ==== entry=007ebdfc orig=FUN_007ebdfc size=3853 name=mouse_xterm_seq_build ====
 
-void FUN_007ebdfc(long param_1,long *param_2,long *param_3,int param_4,int param_5)
+void mouse_xterm_seq_build(long param_1,long *param_2,long *param_3,int param_4,int param_5)
 
 {
   int *piVar1;
@@ -22388,7 +22391,7 @@ LAB_007ebf3d:
                     /* try { // try from 007ec603 to 007ec607 has its CatchHandler @ 007ecd59 */
           QByteArray::QByteArray((QByteArray *)&local_48,4,'\0');
                     /* try { // try from 007ec60b to 007ec60f has its CatchHandler @ 007ecd81 */
-          FUN_007c4392((QByteArray *)&local_48);
+          qbytearray_detach_realloc((QByteArray *)&local_48);
           snprintf((char *)((long)local_48 + local_48[2]),5,"M%c%c%c",(int)(char)(local_e0 + ' '),
                    (ulong)uVar16,(ulong)uVar6);
           puVar4 = local_b0;
@@ -22402,7 +22405,7 @@ LAB_007ebf3d:
                     /* try { // try from 007ec707 to 007ec70b has its CatchHandler @ 007ecd59 */
           QByteArray::QByteArray((QByteArray *)&local_50,iVar8,'\0');
                     /* try { // try from 007ec716 to 007ec71a has its CatchHandler @ 007ecd21 */
-          FUN_007c4392((QByteArray *)&local_50);
+          qbytearray_detach_realloc((QByteArray *)&local_50);
           snprintf((char *)((long)local_50 + local_50[2]),(long)(iVar8 + 1),"%d;%d;%dM",
                    uVar14 + 0x20,param_5 + 1U,(ulong)(param_4 + 1U));
           puVar4 = local_b0;
@@ -22449,7 +22452,7 @@ LAB_007ebf3d:
                     /* try { // try from 007ec253 to 007ec257 has its CatchHandler @ 007ecd59 */
       QByteArray::QByteArray((QByteArray *)&local_60,iVar8,'\0');
                     /* try { // try from 007ec262 to 007ec266 has its CatchHandler @ 007ecd51 */
-      FUN_007c4392((QByteArray *)&local_60);
+      qbytearray_detach_realloc((QByteArray *)&local_60);
       snprintf((char *)((long)local_60 + local_60[2]),(long)(iVar8 + 1),"<%d;%d;%d%c",(ulong)uVar14,
                param_5 + 1U,param_4 + 1U,CONCAT44(uVar20,uVar7));
       puVar4 = local_b0;
@@ -22483,7 +22486,7 @@ LAB_007ebf3d:
             QByteArray::QByteArray((QByteArray *)&local_68,3,'\0');
             uVar6 = (uint)local_b1;
                     /* try { // try from 007ecca5 to 007ecca9 has its CatchHandler @ 007ecd19 */
-            FUN_007c4392((QByteArray *)&local_68);
+            qbytearray_detach_realloc((QByteArray *)&local_68);
             snprintf((char *)((long)local_68 + local_68[2]),4,"%c%c%c",(ulong)uVar6,
                      (ulong)(uint)(int)(char)iVar17,(ulong)(uint)(int)(char)iVar8);
             puVar4 = local_b0;
@@ -22597,7 +22600,7 @@ LAB_007ec163:
           QByteArray::QByteArray((QByteArray *)&local_70,7,'\0');
           iVar13 = (int)local_b1;
                     /* try { // try from 007eca56 to 007eca5a has its CatchHandler @ 007ecd11 */
-          FUN_007c4392((QByteArray *)&local_70);
+          qbytearray_detach_realloc((QByteArray *)&local_70);
           snprintf((char *)((long)local_70 + local_70[2]),8,"%c%c%c%c%c%c%c",iVar13,
                    (ulong)(uint)(int)(char)iVar9,(ulong)(uint)(int)(char)iVar17,
                    CONCAT44(uVar20,(int)(char)iVar11),CONCAT44(uVar7,(int)(char)iVar10),
@@ -22649,9 +22652,9 @@ LAB_007ec163:
   local_40 = local_b0;
   qatomic_int_ref();
                     /* try { // try from 007ec2fc to 007ec300 has its CatchHandler @ 007ecd49 */
-  FUN_00673d20(&local_50,(QByteArray *)&local_48,local_38);
+  qlist_fill_range8(&local_50,(QByteArray *)&local_48,local_38);
                     /* try { // try from 007ec307 to 007ec30b has its CatchHandler @ 007ecd41 */
-  FUN_007e66c6(param_1,&local_50);
+  bytearraylist_join_write(param_1,&local_50);
   qatomic_unref_call_deleter2(&local_50);
   qt_byte_array_unref(&local_40);
   qt_byte_array_unref((QByteArray *)&local_48);
@@ -22687,7 +22690,7 @@ void FUN_007ecdc2(undefined8 param_1,uint param_2)
   }
   QByteArray::QByteArray((QByteArray *)&local_48,0x12,'\0');
                     /* try { // try from 007ecdef to 007ecdf3 has its CatchHandler @ 007eceb4 */
-  FUN_007c4392((QByteArray *)&local_48);
+  qbytearray_detach_realloc((QByteArray *)&local_48);
   snprintf((char *)(local_48 + *(long *)(local_48 + 0x10)),0x13,"%d;%d;%d;%d;%d;%d;%dx",
            (ulong)(param_2 + 2),1,1,0x78,0x78,1,0);
                     /* try { // try from 007ece54 to 007ece58 has its CatchHandler @ 007ecebc */
@@ -22695,9 +22698,9 @@ void FUN_007ecdc2(undefined8 param_1,uint param_2)
   local_30 = local_48;
   qatomic_int_ref();
                     /* try { // try from 007ece78 to 007ece7c has its CatchHandler @ 007ecec4 */
-  FUN_00673d20(local_40,local_38,local_28);
+  qlist_fill_range8(local_40,local_38,local_28);
                     /* try { // try from 007ece83 to 007ece87 has its CatchHandler @ 007ececc */
-  FUN_007e66c6(param_1,local_40);
+  bytearraylist_join_write(param_1,local_40);
   qatomic_unref_call_deleter2(local_40);
   qt_byte_array_unref(&local_30);
   qt_byte_array_unref(local_38);
@@ -22771,9 +22774,9 @@ void FUN_007eced6(long param_1,int param_2)
       qatomic_int_ref();
       QByteArray::QByteArray(local_48,"\x1b\\",-1);
                     /* try { // try from 007ed037 to 007ed03b has its CatchHandler @ 007ed128 */
-      FUN_00673d20(local_70,local_68,local_40);
+      qlist_fill_range8(local_70,local_68,local_40);
                     /* try { // try from 007ed042 to 007ed046 has its CatchHandler @ 007ed130 */
-      FUN_007e66c6(param_1,local_70);
+      bytearraylist_join_write(param_1,local_70);
       qatomic_unref_call_deleter2(local_70);
       pQVar5 = local_40;
       do {
@@ -22807,7 +22810,7 @@ void FUN_007ed148(undefined8 param_1)
   iVar3 = snprintf((char *)0x0,0,"%d;%d;%d;%d;%d\"w",(ulong)uVar2,(ulong)uVar1,1,1,1);
   QByteArray::QByteArray((QByteArray *)&local_48,iVar3,'\0');
                     /* try { // try from 007ed1af to 007ed1b3 has its CatchHandler @ 007ed262 */
-  FUN_007c4392((QByteArray *)&local_48);
+  qbytearray_detach_realloc((QByteArray *)&local_48);
   snprintf((char *)(local_48 + *(long *)(local_48 + 0x10)),(long)(iVar3 + 1),"%d;%d;%d;%d;%d\"w",
            (ulong)uVar2,(ulong)uVar1,1,1,1);
                     /* try { // try from 007ed200 to 007ed204 has its CatchHandler @ 007ed27a */
@@ -22815,9 +22818,9 @@ void FUN_007ed148(undefined8 param_1)
   local_30 = local_48;
   qatomic_int_ref();
                     /* try { // try from 007ed224 to 007ed228 has its CatchHandler @ 007ed272 */
-  FUN_00673d20(local_40,local_38,&stack0xffffffffffffffd8);
+  qlist_fill_range8(local_40,local_38,&stack0xffffffffffffffd8);
                     /* try { // try from 007ed22f to 007ed233 has its CatchHandler @ 007ed26a */
-  FUN_007e66c6(param_1,local_40);
+  bytearraylist_join_write(param_1,local_40);
   qatomic_unref_call_deleter2(local_40);
   qt_byte_array_unref(&local_30);
   qt_byte_array_unref(local_38);
@@ -22845,9 +22848,9 @@ void FUN_007ed282(long param_1,undefined4 param_2)
   QByteArray::QByteArray(local_28,"\x1b[",-1);
   FUN_007a3766(local_20,">%d;%dm",local_3c,&local_34);
                     /* try { // try from 007ed2e5 to 007ed2e9 has its CatchHandler @ 007ed34a */
-  FUN_00673d20(local_30,local_28,&stack0xffffffffffffffe8);
+  qlist_fill_range8(local_30,local_28,&stack0xffffffffffffffe8);
                     /* try { // try from 007ed2f0 to 007ed2f4 has its CatchHandler @ 007ed352 */
-  FUN_007e66c6(param_1,local_30);
+  bytearraylist_join_write(param_1,local_30);
   qatomic_unref_call_deleter2(local_30);
   pQVar3 = (QByteArray *)&stack0xffffffffffffffe8;
   do {
@@ -22967,7 +22970,7 @@ void terminal_buildDECRQMResponse(long param_1,int param_2)
                        uVar20,(int)(char)local_8c);
       QByteArray::QByteArray((QByteArray *)&local_58,iVar8,'\0');
                     /* try { // try from 007ed710 to 007ed714 has its CatchHandler @ 007ed7dd */
-      FUN_007c4392((QByteArray *)&local_58);
+      qbytearray_detach_realloc((QByteArray *)&local_58);
       snprintf((char *)(local_58 + *(long *)(local_58 + 0x10)),(long)(iVar8 + 1),
                "%d;%d;%d;%c;%c;%c;%d;%d;%c;",(ulong)(iVar19 + 1U),(ulong)(iVar5 + 1U),(ulong)uVar14,
                (int)(char)local_7c,iVar17,iVar18,uVar7,uVar20,(int)(char)local_8c);
@@ -23005,9 +23008,9 @@ void terminal_buildDECRQMResponse(long param_1,int param_2)
     qatomic_int_ref();
     QByteArray::QByteArray(local_40,"\x1b\\",-1);
                     /* try { // try from 007ed4a9 to 007ed4ad has its CatchHandler @ 007ed7c4 */
-    FUN_00673d20(&local_60,(QByteArray *)&local_58,local_38);
+    qlist_fill_range8(&local_60,(QByteArray *)&local_58,local_38);
                     /* try { // try from 007ed4b4 to 007ed4b8 has its CatchHandler @ 007ed7bc */
-    FUN_007e66c6(param_1,&local_60);
+    bytearraylist_join_write(param_1,&local_60);
     qatomic_unref_call_deleter2(&local_60);
     pQVar16 = local_38;
     do {
@@ -23050,9 +23053,9 @@ void FUN_007ed7f6(undefined8 param_1)
   qatomic_int_ref();
   QByteArray::QByteArray(local_38,"\x1b\\",-1);
                     /* try { // try from 007ed880 to 007ed884 has its CatchHandler @ 007ed8fe */
-  FUN_00673d20(local_50,local_48,local_30);
+  qlist_fill_range8(local_50,local_48,local_30);
                     /* try { // try from 007ed88b to 007ed88f has its CatchHandler @ 007ed8f6 */
-  FUN_007e66c6(param_1,local_50);
+  bytearraylist_join_write(param_1,local_50);
   qatomic_unref_call_deleter2(local_50);
   pQVar4 = local_30;
   do {
@@ -23098,9 +23101,9 @@ void FUN_007ed906(long param_1,char param_2)
       }
       QByteArray::QByteArray(local_20,pcVar2,-1);
                     /* try { // try from 007ed979 to 007ed97d has its CatchHandler @ 007ed9c6 */
-      FUN_00673d20(local_30,local_28,&stack0xffffffffffffffe8);
+      qlist_fill_range8(local_30,local_28,&stack0xffffffffffffffe8);
                     /* try { // try from 007ed984 to 007ed988 has its CatchHandler @ 007ed9be */
-      FUN_007e66c6(param_1,local_30);
+      bytearraylist_join_write(param_1,local_30);
       qatomic_unref_call_deleter2(local_30);
       qt_byte_array_unref(local_20);
       qt_byte_array_unref(local_28);
@@ -23213,9 +23216,9 @@ void FUN_007edc22(undefined8 param_1)
   QByteArray::QByteArray(local_28,"\x1b",-1);
   QByteArray::QByteArray(local_20,"/Z",-1);
                     /* try { // try from 007edc6b to 007edc6f has its CatchHandler @ 007edcd0 */
-  FUN_00673d20(local_30,local_28,&stack0xffffffffffffffe8);
+  qlist_fill_range8(local_30,local_28,&stack0xffffffffffffffe8);
                     /* try { // try from 007edc76 to 007edc7a has its CatchHandler @ 007edcd8 */
-  FUN_007e66c6(param_1,local_30);
+  bytearraylist_join_write(param_1,local_30);
   qatomic_unref_call_deleter2(local_30);
   pQVar3 = (QByteArray *)&stack0xffffffffffffffe8;
   do {
@@ -24031,7 +24034,7 @@ void FUN_007eeea2(long param_1,long *param_2,long *param_3)
     local_48 = param_2[1];
     local_28 = &local_68;
     local_20 = fmt_hexDumpFormat;
-    FUN_007d2c69(&local_70,"{} {} bytes.{:a}",0x10,0xf4d,&local_48);
+    session_fmt_message(&local_70,"{} {} bytes.{:a}",0x10,0xf4d,&local_48);
     lVar2 = *(long *)(param_1 + 0x1e0);
     iVar1 = *(int *)(lVar2 + 0xc);
     for (plVar4 = (long *)(lVar2 + 0x10 + (long)*(int *)(lVar2 + 8) * 8);
@@ -24075,7 +24078,7 @@ void broadcast_unsupported(long param_1,long *param_2)
   if (*(int *)(*(long *)(param_1 + 0x1e0) + 0xc) != *(int *)(*(long *)(param_1 + 0x1e0) + 8)) {
     local_20 = *param_2;
     local_28 = param_2[1];
-    FUN_007d2c69(&local_30,"[NOT SUPPORTED] {}",0x12,0xd,&local_28);
+    session_fmt_message(&local_30,"[NOT SUPPORTED] {}",0x12,0xd,&local_28);
     lVar2 = *(long *)(param_1 + 0x1e0);
     iVar1 = *(int *)(lVar2 + 0xc);
     for (plVar4 = (long *)(lVar2 + 0x10 + (long)*(int *)(lVar2 + 8) * 8);
@@ -24237,7 +24240,7 @@ void vt_dcsParse(long param_1,int param_2)
           (cVar3 = FUN_007ede24(&local_60,3), cVar3 != '\0')))) {
         FUN_0067dffe(&local_80);
         plVar2 = (long *)(local_80 + 0x28 + (long)*(int *)(local_80 + 8) * 8);
-        FUN_007c4392(plVar2);
+        qbytearray_detach_realloc(plVar2);
         lVar14 = *plVar2;
         if (*(int *)(lVar14 + 4) < 1) {
           uVar13 = 0;
@@ -24253,7 +24256,7 @@ void vt_dcsParse(long param_1,int param_2)
         if ((4 < *(int *)local_68) && (cVar3 = FUN_007ede24(&local_60,4), cVar3 != '\0')) {
           FUN_0067dffe(&local_80);
           plVar2 = (long *)(local_80 + 0x30 + (long)*(int *)(local_80 + 8) * 8);
-          FUN_007c4392(plVar2);
+          qbytearray_detach_realloc(plVar2);
           lVar14 = *plVar2;
           if (*(int *)(lVar14 + 4) < 1) {
             bVar4 = 0;
@@ -24265,7 +24268,7 @@ void vt_dcsParse(long param_1,int param_2)
           if ((5 < *(int *)local_68) && (cVar3 = FUN_007ede24(&local_60,5), cVar3 != '\0')) {
             FUN_0067dffe(&local_80);
             plVar2 = (long *)(local_80 + 0x38 + (long)*(int *)(local_80 + 8) * 8);
-            FUN_007c4392(plVar2);
+            qbytearray_detach_realloc(plVar2);
             lVar14 = *plVar2;
             if (*(int *)(lVar14 + 4) < 1) {
               uVar13 = 0;
@@ -24298,7 +24301,7 @@ void vt_dcsParse(long param_1,int param_2)
                   (cVar3 = FUN_007ede24(&local_60,8), cVar3 != '\0')))))))) {
               FUN_0067dffe(&local_80);
               plVar2 = (long *)(local_80 + 0x50 + (long)*(int *)(local_80 + 8) * 8);
-              FUN_007c4392(plVar2);
+              qbytearray_detach_realloc(plVar2);
               lVar14 = *plVar2;
               if (*(int *)(lVar14 + 4) < 1) {
                 cVar3 = '\0';
@@ -24314,7 +24317,7 @@ void vt_dcsParse(long param_1,int param_2)
                 do {
                   if (*(int *)(local_78 + 4) != 0) {
                     /* try { // try from 007ef7ac to 007ef7f2 has its CatchHandler @ 007ef844 */
-                    FUN_007c4392(&local_78);
+                    qbytearray_detach_realloc(&local_78);
                     if ((*(char *)(local_78 + *(long *)(local_78 + 0x10)) == '%') &&
                        (*(int *)(local_78 + 4) == 1)) break;
                     uVar9 = FUN_007e4ab6(param_1);
@@ -24798,9 +24801,9 @@ void FUN_007f0434(undefined8 param_1,int param_2)
   qatomic_int_ref();
   QByteArray::QByteArray(local_20,"\x1b\\",-1);
                     /* try { // try from 007f04b1 to 007f04b5 has its CatchHandler @ 007f0520 */
-  FUN_00673d20(local_40,(QByteArray *)&local_38,&stack0xffffffffffffffe8);
+  qlist_fill_range8(local_40,(QByteArray *)&local_38,&stack0xffffffffffffffe8);
                     /* try { // try from 007f04bc to 007f04c0 has its CatchHandler @ 007f0528 */
-  FUN_007e66c6(param_1,local_40);
+  bytearraylist_join_write(param_1,local_40);
   qatomic_unref_call_deleter2(local_40);
   pQVar1 = (QByteArray *)&stack0xffffffffffffffe8;
   do {
@@ -24833,7 +24836,7 @@ void FUN_007f0530(long param_1,undefined4 param_2)
     return;
   default:
     local_28 = CONCAT44(local_28._4_4_,param_2);
-    FUN_007d2c69(&local_30,"Media Copy Type {}",0x12,1,&local_28);
+    session_fmt_message(&local_30,"Media Copy Type {}",0x12,1,&local_28);
     local_28 = *(size_t *)(local_30 + -0x18);
     local_20 = (char *)local_30;
                     /* try { // try from 007f0618 to 007f061c has its CatchHandler @ 007f0632 */
@@ -24868,7 +24871,7 @@ void FUN_007f063a(long param_1,undefined4 param_2)
   switch(param_2) {
   default:
     local_28 = CONCAT44(local_28._4_4_,param_2);
-    FUN_007d2c69(&local_30,"Media Copy Type {}",0x12,1,&local_28);
+    session_fmt_message(&local_30,"Media Copy Type {}",0x12,1,&local_28);
     local_28 = *(size_t *)(local_30 + -0x18);
     local_20 = (char *)local_30;
                     /* try { // try from 007f07b5 to 007f07b9 has its CatchHandler @ 007f07cf */
@@ -24925,7 +24928,7 @@ void FUN_007f07d8(undefined8 param_1,long *param_2)
   __s = (char *)(*param_2 + *(long *)(*param_2 + 0x10));
   local_20 = strlen(__s);
   local_28 = __s;
-  FUN_007d2c69(&local_30,"XTerm Set Termcap/Terminfo String {}",0x24,0xd,&local_28);
+  session_fmt_message(&local_30,"XTerm Set Termcap/Terminfo String {}",0x24,0xd,&local_28);
   local_28 = *(char **)(local_30 + -0x18);
   local_20 = local_30;
                     /* try { // try from 007f0836 to 007f083a has its CatchHandler @ 007f0850 */
@@ -25007,7 +25010,7 @@ void FUN_007f0858(long param_1,int param_2,uint param_3)
       return;
     }
     local_28 = param_2;
-    FUN_007d2c69(&local_30,"XTerm Reset Window Color Type {}",0x20,1,&local_28);
+    session_fmt_message(&local_30,"XTerm Reset Window Color Type {}",0x20,1,&local_28);
     local_28 = (int)*(undefined8 *)(local_30 + -0x18);
     uStack_24 = (undefined4)((ulong)*(undefined8 *)(local_30 + -0x18) >> 0x20);
     local_20 = (undefined4)local_30;
@@ -25034,7 +25037,7 @@ void FUN_007f0a5e(undefined8 param_1,long *param_2)
   __s = (char *)(*param_2 + *(long *)(*param_2 + 0x10));
   local_20 = strlen(__s);
   local_28 = __s;
-  FUN_007d2c69(&local_30,"Invoke Confidence Test {}",0x19,0xd,&local_28);
+  session_fmt_message(&local_30,"Invoke Confidence Test {}",0x19,0xd,&local_28);
   local_28 = *(char **)(local_30 + -0x18);
   local_20 = local_30;
                     /* try { // try from 007f0abc to 007f0ac0 has its CatchHandler @ 007f0ade */
@@ -25094,7 +25097,7 @@ void FUN_007f0ae6(undefined8 param_1)
     else {
       local_58 = CONCAT44(local_58._4_4_,iVar2);
                     /* try { // try from 007f0d00 to 007f0d04 has its CatchHandler @ 007f0d57 */
-      FUN_007d2c69(&local_60,"Report Device Status {}",0x17,1,&local_58);
+      session_fmt_message(&local_60,"Report Device Status {}",0x17,1,&local_58);
       local_58 = local_60[-3];
       local_50 = local_60;
                     /* try { // try from 007f0d1e to 007f0d22 has its CatchHandler @ 007f0d5f */
@@ -25108,9 +25111,9 @@ void FUN_007f0ae6(undefined8 param_1)
       local_48 = local_68;
       qatomic_int_ref();
                     /* try { // try from 007f0c80 to 007f0c84 has its CatchHandler @ 007f0d4f */
-      FUN_00673d20(&local_60,(QByteArray *)&local_58,local_40);
+      qlist_fill_range8(&local_60,(QByteArray *)&local_58,local_40);
                     /* try { // try from 007f0c8b to 007f0c8f has its CatchHandler @ 007f0d74 */
-      FUN_007e66c6(param_1,&local_60);
+      bytearraylist_join_write(param_1,&local_60);
       qatomic_unref_call_deleter2(&local_60);
       qt_byte_array_unref(&local_48);
       qt_byte_array_unref(&local_50);
@@ -25200,7 +25203,7 @@ void term_resp_dec_status(long param_1)
       iVar11 = snprintf((char *)0x0,0,"%d;%d;%d",(ulong)uVar8,(ulong)uVar12,(ulong)uVar9);
       QByteArray::QByteArray((QByteArray *)&local_60,iVar11,'\0');
                     /* try { // try from 007f105c to 007f1060 has its CatchHandler @ 007f1346 */
-      FUN_007c4392((QByteArray *)&local_60);
+      qbytearray_detach_realloc((QByteArray *)&local_60);
       snprintf((char *)((long)local_60 + local_60[2]),(long)(iVar11 + 1),"%d;%d;%d",(ulong)uVar8,
                (ulong)uVar12,(ulong)uVar9);
       puVar2 = local_78;
@@ -25212,7 +25215,7 @@ void term_resp_dec_status(long param_1)
       break;
     default:
       local_58 = CONCAT44(local_58._4_4_,uVar3);
-      FUN_007d2c69(&local_60,"Report DEC Device Status {}",0x1b,1,(QByteArray *)&local_58);
+      session_fmt_message(&local_60,"Report DEC Device Status {}",0x1b,1,(QByteArray *)&local_58);
       local_58 = local_60[-3];
       local_50 = local_60;
                     /* try { // try from 007f12f0 to 007f12f4 has its CatchHandler @ 007f1398 */
@@ -25285,9 +25288,9 @@ void term_resp_dec_status(long param_1)
       local_48 = local_68;
       qatomic_int_ref();
                     /* try { // try from 007f0f3d to 007f0f41 has its CatchHandler @ 007f135e */
-      FUN_00673d20(&local_60,(QByteArray *)&local_58,local_40);
+      qlist_fill_range8(&local_60,(QByteArray *)&local_58,local_40);
                     /* try { // try from 007f0f4a to 007f0f4e has its CatchHandler @ 007f1356 */
-      FUN_007e66c6(param_1,&local_60);
+      bytearraylist_join_write(param_1,&local_60);
       qatomic_unref_call_deleter2(&local_60);
       qt_byte_array_unref(&local_48);
       qt_byte_array_unref(&local_50);
@@ -25409,7 +25412,7 @@ code_r0x007f1440:
   switch(local_3c[0]) {
   default:
     local_28 = CONCAT44(local_28._4_4_,local_3c[0]);
-    FUN_007d2c69(&local_30,"Request Dec Modes (DECRQM), Mode {}",0x23,1,&local_28);
+    session_fmt_message(&local_30,"Request Dec Modes (DECRQM), Mode {}",0x23,1,&local_28);
     local_28 = *(undefined8 *)(local_30 + -0x18);
     local_20 = local_30;
                     /* try { // try from 007f16eb to 007f16ef has its CatchHandler @ 007f17a9 */
@@ -25527,9 +25530,9 @@ switchD_007f1450_caseD_a:
   QByteArray::QByteArray((QByteArray *)&local_28,"\x1b[",-1);
   FUN_007f79c6(&local_20,&DAT_00ca98eb,local_3c,&local_31);
                     /* try { // try from 007f155e to 007f1562 has its CatchHandler @ 007f17b1 */
-  FUN_00673d20(&local_30,(QByteArray *)&local_28,&stack0xffffffffffffffe8);
+  qlist_fill_range8(&local_30,(QByteArray *)&local_28,&stack0xffffffffffffffe8);
                     /* try { // try from 007f1569 to 007f156d has its CatchHandler @ 007f17b9 */
-  FUN_007e66c6(param_1,&local_30);
+  bytearraylist_join_write(param_1,&local_30);
   qatomic_unref_call_deleter2(&local_30);
   qt_byte_array_unref(&local_20);
   qt_byte_array_unref((QByteArray *)&local_28);
@@ -25554,7 +25557,7 @@ void FUN_007f17c2(long param_1,undefined4 param_2)
   switch(param_2) {
   default:
     local_28 = CONCAT44(local_28._4_4_,param_2);
-    FUN_007d2c69(&local_30,"Request Modes (DECRQM), Mode {}",0x1f,1,&local_28);
+    session_fmt_message(&local_30,"Request Modes (DECRQM), Mode {}",0x1f,1,&local_28);
     local_28 = *(undefined8 *)(local_30 + -0x18);
     local_20 = local_30;
                     /* try { // try from 007f191c to 007f1920 has its CatchHandler @ 007f193c */
@@ -25595,9 +25598,9 @@ LAB_007f17f8:
   QByteArray::QByteArray((QByteArray *)&local_28,"\x1b[",-1);
   FUN_007f79c6(&local_20,&DAT_00ca98ec,local_3c,&local_31);
                     /* try { // try from 007f1848 to 007f184c has its CatchHandler @ 007f1934 */
-  FUN_00673d20(&local_30,(QByteArray *)&local_28,&stack0xffffffffffffffe8);
+  qlist_fill_range8(&local_30,(QByteArray *)&local_28,&stack0xffffffffffffffe8);
                     /* try { // try from 007f1853 to 007f1857 has its CatchHandler @ 007f1945 */
-  FUN_007e66c6(param_1,&local_30);
+  bytearraylist_join_write(param_1,&local_30);
   qatomic_unref_call_deleter2(&local_30);
   qt_byte_array_unref(&local_20);
   qt_byte_array_unref((QByteArray *)&local_28);
@@ -25895,8 +25898,8 @@ LAB_007f1bb8:
       __s = (char *)(*(long *)param_2 + *(long *)(*(long *)param_2 + 0x10));
       local_60 = (undefined8 *)strlen(__s);
       local_68 = __s;
-      FUN_007d2c69(&local_70,"Request Selection Or Setting (DECRQSS), Final Char {}",0x35,0xd,
-                   (QByteArray *)&local_68);
+      session_fmt_message(&local_70,"Request Selection Or Setting (DECRQSS), Final Char {}",0x35,0xd
+                          ,(QByteArray *)&local_68);
       local_68 = (char *)local_70[-3];
       local_60 = local_70;
                     /* try { // try from 007f1c19 to 007f1c1d has its CatchHandler @ 007f217f */
@@ -25914,7 +25917,7 @@ LAB_007f1bb8:
 LAB_007f1a44:
   QByteArray::QByteArray((QByteArray *)&local_60,3,'\0');
                     /* try { // try from 007f1a58 to 007f1a5c has its CatchHandler @ 007f2197 */
-  FUN_007c4392(&local_60);
+  qbytearray_detach_realloc(&local_60);
   snprintf((char *)((long)local_60 + local_60[2]),4,"%d$r",uVar34);
   local_58 = local_88;
   qatomic_int_ref();
@@ -25923,9 +25926,9 @@ LAB_007f1a44:
                     /* try { // try from 007f1aa7 to 007f1aab has its CatchHandler @ 007f2187 */
   QByteArray::QByteArray(local_48,"\x1b\\",-1);
                     /* try { // try from 007f1abb to 007f1abf has its CatchHandler @ 007f218f */
-  FUN_00673d20(&local_70,(QByteArray *)&local_68,local_40);
+  qlist_fill_range8(&local_70,(QByteArray *)&local_68,local_40);
                     /* try { // try from 007f1ac6 to 007f1aca has its CatchHandler @ 007f219f */
-  FUN_007e66c6(param_1,&local_70);
+  bytearraylist_join_write(param_1,&local_70);
   qatomic_unref_call_deleter2(&local_70);
   pQVar31 = local_40;
   do {
@@ -26029,7 +26032,7 @@ void s_line_caret_remote_7f21a8(long param_1,uint param_2,int param_3)
                      uVar2);
     QByteArray::QByteArray((QByteArray *)&local_78,iVar5,'\0');
                     /* try { // try from 007f231d to 007f2321 has its CatchHandler @ 007f2493 */
-    FUN_007c4392((QByteArray *)&local_78);
+    qbytearray_detach_realloc((QByteArray *)&local_78);
     snprintf((char *)(local_78 + *(long *)(local_78 + 0x10)),(long)(iVar5 + 1),
              "%d;rgb:%.2x/%.2x/%.2x",(ulong)param_2,(ulong)uVar4,(ulong)uVar3,uVar2);
                     /* try { // try from 007f235b to 007f2383 has its CatchHandler @ 007f249b */
@@ -26040,9 +26043,9 @@ void s_line_caret_remote_7f21a8(long param_1,uint param_2,int param_3)
     qatomic_int_ref();
     QByteArray::QByteArray(local_48,"\x1b\\",-1);
                     /* try { // try from 007f2393 to 007f2397 has its CatchHandler @ 007f248b */
-    FUN_00673d20(&local_70,(QByteArray *)&local_58,local_40);
+    qlist_fill_range8(&local_70,(QByteArray *)&local_58,local_40);
                     /* try { // try from 007f239e to 007f23a2 has its CatchHandler @ 007f2483 */
-    FUN_007e66c6(param_1,&local_70);
+    bytearraylist_join_write(param_1,&local_70);
     qatomic_unref_call_deleter2(&local_70);
     qt_byte_array_unref(local_48);
     qt_byte_array_unref(&uStack_50);
@@ -26052,7 +26055,7 @@ void s_line_caret_remote_7f21a8(long param_1,uint param_2,int param_3)
   }
 switchD_007f2206_default:
   local_58 = param_2;
-  FUN_007d2c69(&local_70,"XTerm Request Window Color Type {}",0x22,1,&local_58);
+  session_fmt_message(&local_70,"XTerm Request Window Color Type {}",0x22,1,&local_58);
   local_58 = (uint)*(undefined8 *)(local_70 + -0x18);
   uStack_54 = (undefined4)((ulong)*(undefined8 *)(local_70 + -0x18) >> 0x20);
   uStack_50 = (undefined4)local_70;
@@ -26065,9 +26068,9 @@ switchD_007f2206_default:
 }
 
 
-// ==== entry=007f24ae name=FUN_007f24ae size=1213 ====
+// ==== entry=007f24ae orig=FUN_007f24ae size=1213 name=term_set_window_color ====
 
-void FUN_007f24ae(long param_1,int param_2,undefined8 param_3)
+void term_set_window_color(long param_1,int param_2,undefined8 param_3)
 
 {
   byte *pbVar1;
@@ -26131,7 +26134,7 @@ joined_r0x007f2709:
                 this = *(QBitArray **)(param_1 + 0xd8);
               }
             }
-            FUN_007c4392(this);
+            qbytearray_detach_realloc(this);
             pbVar1 = (byte *)(*(long *)this +
                              (long)(iVar4 >> 3) + 1 + *(long *)(*(long *)this + 0x10));
             *pbVar1 = *pbVar1 | (byte)(1 << ((byte)iVar4 & 7));
@@ -26179,7 +26182,7 @@ LAB_007f2661:
         FUN_0067dffe(&local_58);
         iVar9 = str_parseInt(uVar7,local_58 + 0x10 + (lVar10 + *(int *)(local_58 + 8)) * 8,0);
         if (iVar9 != 0) {
-          FUN_007c4392(local_70);
+          qbytearray_detach_realloc(local_70);
           pbVar1 = (byte *)(*(long *)local_70 + 1 + *(long *)(*(long *)local_70 + 0x10));
           *pbVar1 = *pbVar1 | (byte)(1 << ((byte)iVar4 & 0x1f));
           goto joined_r0x007f2709;
@@ -26210,7 +26213,7 @@ LAB_007f2661:
     }
     local_48[0] = CONCAT44(local_48[0]._4_4_,param_2);
                     /* try { // try from 007f253d to 007f2541 has its CatchHandler @ 007f296b */
-    FUN_007d2c69(&local_50,"XTerm Set Window Color Type {}",0x1e,1,local_48);
+    session_fmt_message(&local_50,"XTerm Set Window Color Type {}",0x1e,1,local_48);
     local_48[0] = *(undefined8 *)(CONCAT71(uStack_4f,local_50) + -0x18);
                     /* try { // try from 007f255d to 007f2561 has its CatchHandler @ 007f2985 */
     broadcast_unsupported(param_1,local_48);
@@ -26222,9 +26225,9 @@ LAB_007f2570:
 }
 
 
-// ==== entry=007f298e name=FUN_007f298e size=2761 ====
+// ==== entry=007f298e orig=FUN_007f298e size=2761 name=mouse_event_sgr_encode ====
 
-void FUN_007f298e(long param_1,long *param_2)
+void mouse_event_sgr_encode(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -26266,11 +26269,11 @@ void FUN_007f298e(long param_1,long *param_2)
     FUN_007e5eb2(param_1,0x18);
     goto LAB_007f29f3;
   }
-  FUN_007f7da2(&local_80);
+  qlist_shared_detach(&local_80);
   iVar9 = *(int *)(local_80 + 0x10 + (long)*(int *)(local_80 + 8) * 8);
   if (0x17 < iVar9) {
                     /* try { // try from 007f2c06 to 007f2cf8 has its CatchHandler @ 007f3507 */
-    FUN_007f7da2(&local_80);
+    qlist_shared_detach(&local_80);
     FUN_007e5eb2(param_1,*(undefined4 *)(local_80 + 0x10 + (long)*(int *)(local_80 + 8) * 8));
     goto LAB_007f29f3;
   }
@@ -26286,9 +26289,9 @@ LAB_007f2c5d:
     if (iVar9 == 3) {
       if (iVar7 == 3) {
                     /* try { // try from 007f2f5e to 007f301f has its CatchHandler @ 007f3507 */
-        FUN_007f7da2(&local_80);
+        qlist_shared_detach(&local_80);
         uVar3 = *(undefined4 *)(local_80 + 0x20 + (long)*(int *)(local_80 + 8) * 8);
-        FUN_007f7da2(&local_80);
+        qlist_shared_detach(&local_80);
         local_48 = CONCAT44(uVar3,*(undefined4 *)
                                    (local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8));
         FUN_009137ce(param_1,&local_48);
@@ -26307,13 +26310,13 @@ LAB_007f2c5d:
       if (iVar9 == 8) {
         if (iVar7 == 3) {
                     /* try { // try from 007f2d50 to 007f2eb7 has its CatchHandler @ 007f3507 */
-          FUN_007f7da2(&local_80);
+          qlist_shared_detach(&local_80);
           if ((0 < *(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8)) &&
-             (FUN_007f7da2(&local_80),
+             (qlist_shared_detach(&local_80),
              0 < *(int *)(local_80 + 0x20 + (long)*(int *)(local_80 + 8) * 8))) {
-            FUN_007f7da2(&local_80);
+            qlist_shared_detach(&local_80);
             uVar3 = *(undefined4 *)(local_80 + 0x20 + (long)*(int *)(local_80 + 8) * 8);
-            FUN_007f7da2(&local_80);
+            qlist_shared_detach(&local_80);
             terminal_resizeBuffer
                       (param_1,*(undefined4 *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8),
                        uVar3,0);
@@ -26323,7 +26326,7 @@ LAB_007f2c5d:
       }
       else if (iVar9 == 9) {
         if (iVar7 == 2) {
-          FUN_007f7da2(&local_80);
+          qlist_shared_detach(&local_80);
           iVar9 = *(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8);
           if (iVar9 == 1) {
             FUN_009137f8(param_1,4);
@@ -26357,9 +26360,9 @@ LAB_007f2c55:
             QByteArray::number((int)&local_40,iVar9);
             QByteArray::QByteArray(local_38,"t",-1);
                     /* try { // try from 007f2f46 to 007f2f4a has its CatchHandler @ 007f3477 */
-            FUN_00673d20(&local_68,(QByteArray *)&local_48,local_30);
+            qlist_fill_range8(&local_68,(QByteArray *)&local_48,local_30);
                     /* try { // try from 007f2f51 to 007f2f55 has its CatchHandler @ 007f346f */
-            FUN_007e66c6(param_1,&local_68);
+            bytearraylist_join_write(param_1,&local_68);
           }
           else if (iVar9 == 0xd) {
             if (pQVar4 == (QPoint *)0x0) {
@@ -26377,9 +26380,9 @@ LAB_007f2c55:
             FUN_007f7a4c(&local_40,&DAT_00ca992a,&local_84,&local_78);
             QByteArray::QByteArray(local_38,"t",-1);
                     /* try { // try from 007f2ec7 to 007f2ecb has its CatchHandler @ 007f347f */
-            FUN_00673d20(&local_68,(QByteArray *)&local_48,local_30);
+            qlist_fill_range8(&local_68,(QByteArray *)&local_48,local_30);
                     /* try { // try from 007f2ed2 to 007f2ed6 has its CatchHandler @ 007f348f */
-            FUN_007e66c6(param_1,&local_68);
+            bytearraylist_join_write(param_1,&local_68);
           }
           else if (iVar9 == 0xe) {
             if (pQVar4 == (QPoint *)0x0) {
@@ -26397,9 +26400,9 @@ LAB_007f2c55:
             FUN_007f7a4c(&local_40,"4;%d;%d",&local_84,&local_78);
             QByteArray::QByteArray(local_38,"t",-1);
                     /* try { // try from 007f2d08 to 007f2d0c has its CatchHandler @ 007f34d7 */
-            FUN_00673d20(&local_68,(QByteArray *)&local_48,local_30);
+            qlist_fill_range8(&local_68,(QByteArray *)&local_48,local_30);
                     /* try { // try from 007f2d13 to 007f2d17 has its CatchHandler @ 007f3487 */
-            FUN_007e66c6(param_1,&local_68);
+            bytearraylist_join_write(param_1,&local_68);
           }
           else if (iVar9 == 0xf) {
             QGuiApplication::primaryScreen();
@@ -26410,9 +26413,9 @@ LAB_007f2c55:
             FUN_007f7a4c(&local_40,"5;%d;%d",&local_84,&local_78);
             QByteArray::QByteArray(local_38,"t",-1);
                     /* try { // try from 007f302f to 007f3033 has its CatchHandler @ 007f345f */
-            FUN_00673d20(&local_68,(QByteArray *)&local_48,local_30);
+            qlist_fill_range8(&local_68,(QByteArray *)&local_48,local_30);
                     /* try { // try from 007f303a to 007f303e has its CatchHandler @ 007f3457 */
-            FUN_007e66c6(param_1,&local_68);
+            bytearraylist_join_write(param_1,&local_68);
           }
           else {
             if (iVar9 != 0x12) {
@@ -26425,9 +26428,9 @@ LAB_007f2c55:
                 QString::toUtf8_helper(local_58);
                 QByteArray::QByteArray(local_50,"\x1b\\",-1);
                     /* try { // try from 007f3229 to 007f322d has its CatchHandler @ 007f34cf */
-                FUN_00673d20(&local_48,(QByteArray *)&local_68,&local_48);
+                qlist_fill_range8(&local_48,(QByteArray *)&local_68,&local_48);
                     /* try { // try from 007f3234 to 007f3238 has its CatchHandler @ 007f34c7 */
-                FUN_007e66c6(param_1,&local_48);
+                bytearraylist_join_write(param_1,&local_48);
                 qatomic_unref_call_deleter2(&local_48);
                 pQVar8 = (QByteArray *)&local_48;
                 do {
@@ -26440,9 +26443,9 @@ LAB_007f2c55:
                   if (iVar9 == 0x16) {
                     if (1 < iVar7) {
                     /* try { // try from 007f30e0 to 007f311c has its CatchHandler @ 007f3507 */
-                      FUN_007f7da2(&local_80);
+                      qlist_shared_detach(&local_80);
                       if ((*(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 0) ||
-                         (FUN_007f7da2(&local_80),
+                         (qlist_shared_detach(&local_80),
                          *(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 1)) {
                         puVar6 = *(undefined8 **)(param_1 + 0xb0);
                         if (puVar6 == (undefined8 *)0x0) {
@@ -26459,14 +26462,14 @@ LAB_007f2c55:
                     /* try { // try from 007f3128 to 007f312c has its CatchHandler @ 007f34af */
                         QString::toUtf8_helper((QString *)&local_48);
                     /* try { // try from 007f3133 to 007f3137 has its CatchHandler @ 007f34a7 */
-                        FUN_00546bae(puVar6,(QString *)&local_48);
+                        qlist_str_append(puVar6,(QString *)&local_48);
                         qt_byte_array_unref((QString *)&local_48);
                         qt_array_data_unref(&local_68);
                       }
                     /* try { // try from 007f314b to 007f3187 has its CatchHandler @ 007f3507 */
-                      FUN_007f7da2(&local_80);
+                      qlist_shared_detach(&local_80);
                       if ((*(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 0) ||
-                         (FUN_007f7da2(&local_80),
+                         (qlist_shared_detach(&local_80),
                          *(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 2)) {
                         puVar6 = *(undefined8 **)(param_1 + 0xb8);
                         if (puVar6 == (undefined8 *)0x0) {
@@ -26483,7 +26486,7 @@ LAB_007f2c55:
                     /* try { // try from 007f3193 to 007f3197 has its CatchHandler @ 007f349f */
                         QString::toUtf8_helper((QString *)&local_48);
                     /* try { // try from 007f319e to 007f31a2 has its CatchHandler @ 007f3497 */
-                        FUN_00546bae(puVar6,(QString *)&local_48);
+                        qlist_str_append(puVar6,(QString *)&local_48);
                         qt_byte_array_unref((QString *)&local_48);
                         qt_array_data_unref(&local_68);
                       }
@@ -26491,9 +26494,9 @@ LAB_007f2c55:
                     }
                   }
                   else if ((iVar9 == 0x17) && (1 < iVar7)) {
-                    FUN_007f7da2(&local_80);
+                    qlist_shared_detach(&local_80);
                     if (((*(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 0) ||
-                        (FUN_007f7da2(&local_80),
+                        (qlist_shared_detach(&local_80),
                         *(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 1)) &&
                        ((*(long **)(param_1 + 0xb0) != (long *)0x0 &&
                         (lVar1 = **(long **)(param_1 + 0xb0),
@@ -26505,9 +26508,9 @@ LAB_007f2c55:
                       qt_byte_array_unref(&local_48);
                     }
                     /* try { // try from 007f2b27 to 007f2b72 has its CatchHandler @ 007f3507 */
-                    FUN_007f7da2(&local_80);
+                    qlist_shared_detach(&local_80);
                     if ((((*(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 0) ||
-                         (FUN_007f7da2(&local_80),
+                         (qlist_shared_detach(&local_80),
                          *(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8) == 2)) &&
                         (*(long **)(param_1 + 0xb8) != (long *)0x0)) &&
                        (lVar1 = **(long **)(param_1 + 0xb8),
@@ -26530,9 +26533,9 @@ LAB_007f2c55:
                 QString::toUtf8_helper((QString *)local_38);
                 QByteArray::QByteArray(local_30,"\x1b\\",-1);
                     /* try { // try from 007f32d7 to 007f32db has its CatchHandler @ 007f34ef */
-                FUN_00673d20(&local_68,(QByteArray *)&local_48,&stack0xffffffffffffffd8);
+                qlist_fill_range8(&local_68,(QByteArray *)&local_48,&stack0xffffffffffffffd8);
                     /* try { // try from 007f32e2 to 007f32e6 has its CatchHandler @ 007f34e7 */
-                FUN_007e66c6(param_1,&local_68);
+                bytearraylist_join_write(param_1,&local_68);
                 qatomic_unref_call_deleter2(&local_68);
                 pQVar8 = (QByteArray *)&stack0xffffffffffffffd8;
                 do {
@@ -26551,9 +26554,9 @@ LAB_007f2c55:
             FUN_007f7a4c(&local_40,"8;%d;%d",&local_84,&local_78);
             QByteArray::QByteArray(local_38,"t",-1);
                     /* try { // try from 007f30b4 to 007f30b8 has its CatchHandler @ 007f34bf */
-            FUN_00673d20(&local_68,(QByteArray *)&local_48,local_30);
+            qlist_fill_range8(&local_68,(QByteArray *)&local_48,local_30);
                     /* try { // try from 007f30bf to 007f30c3 has its CatchHandler @ 007f34b7 */
-            FUN_007e66c6(param_1,&local_68);
+            bytearraylist_join_write(param_1,&local_68);
           }
           qatomic_unref_call_deleter2(&local_68);
           qt_byte_array_unref(local_38);
@@ -26562,7 +26565,7 @@ LAB_007f2c55:
           goto LAB_007f29f3;
         }
         if (iVar7 == 2) {
-          FUN_007f7da2(&local_80);
+          qlist_shared_detach(&local_80);
           iVar9 = *(int *)(local_80 + 0x18 + (long)*(int *)(local_80 + 8) * 8);
           if (iVar9 == 1) {
             FUN_009137f8(param_1,0);
@@ -26582,7 +26585,7 @@ LAB_007f2b96:
     local_70 = strlen(__s);
     local_78 = __s;
                     /* try { // try from 007f2bcb to 007f2bcf has its CatchHandler @ 007f3507 */
-    FUN_007d2c69(&local_68,"XTerm Set Window Attributes {}",0x1e,0xd,&local_78);
+    session_fmt_message(&local_68,"XTerm Set Window Attributes {}",0x1e,0xd,&local_78);
     local_48 = *(undefined8 *)(local_68 + -0x18);
     local_40 = local_68;
                     /* try { // try from 007f2beb to 007f2bef has its CatchHandler @ 007f3467 */
@@ -26814,8 +26817,8 @@ LAB_007f3a34:
     local_60 = (QByteArray *)strlen((char *)pwVar5);
     local_68 = pwVar5;
                     /* try { // try from 007f3a65 to 007f3a69 has its CatchHandler @ 007f3c32 */
-    FUN_007d2c69(&local_78,"XTerm Request Termcap/Terminfo String {}",0x28,0xd,
-                 (QByteArray *)&local_68);
+    session_fmt_message(&local_78,"XTerm Request Termcap/Terminfo String {}",0x28,0xd,
+                        (QByteArray *)&local_68);
     local_68 = *(wstring **)(local_78 + -0x18);
     local_60 = local_78;
                     /* try { // try from 007f3a8b to 007f3a8f has its CatchHandler @ 007f3c62 */
@@ -26841,9 +26844,9 @@ LAB_007f3a34:
   qatomic_int_ref();
   QByteArray::QByteArray(local_48,"\x1b\\",-1);
                     /* try { // try from 007f399c to 007f39a0 has its CatchHandler @ 007f3c5a */
-  FUN_00673d20(&local_78,(QByteArray *)&local_68,local_40);
+  qlist_fill_range8(&local_78,(QByteArray *)&local_68,local_40);
                     /* try { // try from 007f39a9 to 007f39ad has its CatchHandler @ 007f3c6a */
-  FUN_007e66c6(param_1,&local_78);
+  bytearraylist_join_write(param_1,&local_78);
   qatomic_unref_call_deleter2(&local_78);
   pQVar8 = local_40;
   do {
@@ -26957,7 +26960,7 @@ void FUN_007f3c72(QObject *param_1,QObject *param_2,undefined8 param_3,undefined
                     /* try { // try from 007f3f5f to 007f3f78 has its CatchHandler @ 007f3f92 */
   FUN_007e35e0(param_1);
   FUN_007e3f9c(param_1);
-  FUN_007ea318(param_1,1);
+  terminal_reset_state(param_1,1);
   return;
 }
 
@@ -27768,7 +27771,7 @@ void FUN_007f4dbc(long param_1,long param_2)
     QReadWriteLock::unlock();
   }
   if (iVar5 != 0) {
-    FUN_007b36da(param_1,param_2,1);
+    runbuf_compact(param_1,param_2,1);
   }
   puVar2 = *(undefined1 **)(param_1 + 0x28);
   local_30[0] = param_2;
@@ -27781,7 +27784,7 @@ void FUN_007f4dbc(long param_1,long param_2)
       if (0 < iVar5) {
         if (1 < **(uint **)(puVar2 + 0x48)) {
                     /* try { // try from 007f4f40 to 007f4f44 has its CatchHandler @ 007f4f59 */
-          FUN_007b3344(puVar1,(*(uint **)(puVar2 + 0x48))[1]);
+          qlist_detach_copy2(puVar1,(*(uint **)(puVar2 + 0x48))[1]);
         }
                     /* try { // try from 007f4e62 to 007f4ed4 has its CatchHandler @ 007f4f59 */
         QListData::move((int)puVar1,iVar5);
@@ -27854,7 +27857,7 @@ void FUN_007f4f5e(undefined8 *param_1,long *param_2,int param_3,int param_4)
       }
       else {
         if (param_3 != *(int *)(lVar2 + 0x18)) {
-          FUN_007adf3e(lVar2,param_3);
+          gapbuf_set_len64b(lVar2,param_3);
           iVar5 = *(int *)(lVar2 + 0x14);
         }
         iVar5 = iVar5 - param_4;
@@ -27865,7 +27868,7 @@ void FUN_007f4f5e(undefined8 *param_1,long *param_2,int param_3,int param_4)
           if ((double)iVar5 < (double)iVar1 * 0.6) {
             iVar4 = (iVar5 >> 8) + iVar5;
             if (iVar5 != *(int *)(lVar2 + 0x18)) {
-              FUN_007adf3e(lVar2);
+              gapbuf_set_len64b(lVar2);
             }
             cVar3 = FUN_0080191a(lVar2,iVar4);
             if (cVar3 != '\0') {
@@ -27961,10 +27964,10 @@ void FUN_007f51ba(long *param_1,long param_2)
           Uint64RunStyles_insert(*(long *)(piVar4 + 2),(long)iVar6,0,1,0);
         }
         if (*(long *)(piVar4 + 4) != 0) {
-          FUN_007b7290(*(long *)(piVar4 + 4),(long)iVar6,0,1,0);
+          runstyles_fill_range16(*(long *)(piVar4 + 4),(long)iVar6,0,1,0);
         }
         if (*(long *)(piVar4 + 6) != 0) {
-          FUN_007b8000(*(long *)(piVar4 + 6),(long)iVar6,0,1,0);
+          runstyles_fill_range32(*(long *)(piVar4 + 6),(long)iVar6,0,1,0);
           return;
         }
       }
@@ -28401,7 +28404,7 @@ void FUN_007f5b70(long param_1,char param_2,char param_3)
       lVar9 = *(long *)(param_1 + 0x90);
     }
     *(long *)(param_1 + 0x80) = lVar9;
-    FUN_007a604a(lVar9,*(undefined4 *)(param_1 + 0x1c0),*(undefined4 *)(param_1 + 0x1c4));
+    line_styles_resize(lVar9,*(undefined4 *)(param_1 + 0x1c0),*(undefined4 *)(param_1 + 0x1c4));
   }
   *(char *)(param_1 + 0x139) = param_2;
   if (*(long *)(param_1 + 0x90) == 0) goto LAB_007f5cb1;
@@ -28643,7 +28646,7 @@ LAB_007f5fe0:
       default:
         local_58 = pcVar6;
         local_48 = iVar2;
-        FUN_007d2c69(&local_60,"{} DEC Mode {}",0xe,0x1c,&local_58);
+        session_fmt_message(&local_60,"{} DEC Mode {}",0xe,0x1c,&local_58);
         local_58 = *(char **)(local_60 + -0x18);
         local_50 = local_60;
                     /* try { // try from 007f63c3 to 007f63c7 has its CatchHandler @ 007f641d */
@@ -28888,7 +28891,7 @@ void FUN_007f670a(long param_1,undefined4 param_2,char param_3,int param_4,long 
                     /* try { // try from 007f6748 to 007f682d has its CatchHandler @ 007f6939 */
   lVar3 = FUN_00879a6c(*(undefined8 *)(param_1 + 0x188),param_2);
   if ((((local_48 != 0) && (*(int *)(local_48 + 4) != 0)) && (local_40 != 0)) && (lVar3 != 0)) {
-    FUN_007c4392(param_5);
+    qbytearray_detach_realloc(param_5);
     lVar7 = *param_5;
     lVar5 = *(long *)(lVar7 + 0x10) + lVar7;
     uVar2 = FUN_00877128(*(undefined8 *)(param_1 + 0x188),lVar5,*(undefined4 *)(lVar7 + 4));
@@ -29621,7 +29624,7 @@ void FUN_007f7076(long *param_1,int param_2)
 {
   byte *pbVar1;
   
-  FUN_007c4392();
+  qbytearray_detach_realloc();
   pbVar1 = (byte *)(*param_1 + (long)(param_2 >> 3) + 1 + *(long *)(*param_1 + 0x10));
   *pbVar1 = *pbVar1 & ~(byte)(1 << ((byte)param_2 & 7));
   return;
@@ -30046,7 +30049,7 @@ FUN_007f778d(QByteArray *param_1,char *param_2,uint *param_3,uint *param_4,uint 
   uVar6 = *param_4;
   uVar7 = *param_3;
                     /* try { // try from 007f784a to 007f784e has its CatchHandler @ 007f7899 */
-  FUN_007c4392(param_1);
+  qbytearray_detach_realloc(param_1);
   snprintf((char *)(*(long *)param_1 + *(long *)(*(long *)param_1 + 0x10)),(long)(iVar8 + 1),param_2
            ,uVar7,(ulong)uVar6,(ulong)uVar5,uVar4,uVar3,uVar2,(int)cVar1);
   return param_1;
@@ -30071,7 +30074,7 @@ FUN_007f78ac(QByteArray *param_1,char *param_2,uint *param_3,uint *param_4,char 
   uVar2 = *param_4;
   uVar3 = *param_3;
                     /* try { // try from 007f78ff to 007f7903 has its CatchHandler @ 007f7937 */
-  FUN_007c4392(param_1);
+  qbytearray_detach_realloc(param_1);
   snprintf((char *)(*(long *)param_1 + *(long *)(*(long *)param_1 + 0x10)),(long)(iVar4 + 1),param_2
            ,(ulong)uVar3,(ulong)uVar2,(ulong)(uint)(int)cVar1);
   return param_1;
@@ -30090,7 +30093,7 @@ QByteArray * FUN_007f794a(QByteArray *param_1,char *param_2,uint *param_3)
   QByteArray::QByteArray(param_1,iVar2,'\0');
   uVar1 = *param_3;
                     /* try { // try from 007f7985 to 007f7989 has its CatchHandler @ 007f79b3 */
-  FUN_007c4392(param_1);
+  qbytearray_detach_realloc(param_1);
   snprintf((char *)(*(long *)param_1 + *(long *)(*(long *)param_1 + 0x10)),(long)(iVar2 + 1),param_2
            ,(ulong)uVar1);
   return param_1;
@@ -30111,7 +30114,7 @@ QByteArray * FUN_007f79c6(QByteArray *param_1,char *param_2,uint *param_3,char *
   cVar1 = *param_4;
   uVar2 = *param_3;
                     /* try { // try from 007f7a0a to 007f7a0e has its CatchHandler @ 007f7a39 */
-  FUN_007c4392(param_1);
+  qbytearray_detach_realloc(param_1);
   snprintf((char *)(*(long *)param_1 + *(long *)(*(long *)param_1 + 0x10)),(long)(iVar3 + 1),param_2
            ,(ulong)uVar2,(ulong)(uint)(int)cVar1);
   return param_1;
@@ -30132,7 +30135,7 @@ QByteArray * FUN_007f7a4c(QByteArray *param_1,char *param_2,uint *param_3,uint *
   uVar1 = *param_4;
   uVar2 = *param_3;
                     /* try { // try from 007f7a8e to 007f7a92 has its CatchHandler @ 007f7abd */
-  FUN_007c4392(param_1);
+  qbytearray_detach_realloc(param_1);
   snprintf((char *)(*(long *)param_1 + *(long *)(*(long *)param_1 + 0x10)),(long)(iVar3 + 1),param_2
            ,(ulong)uVar2,(ulong)uVar1);
   return param_1;
@@ -30260,7 +30263,7 @@ void qlist_detachGrow(undefined8 *param_1)
     *param_1 = uVar1;
     return;
   }
-  FUN_0064a830(param_1,uVar2,0);
+  qlist_int_realloc(param_1,uVar2,0);
   return;
 }
 
@@ -30292,7 +30295,7 @@ void FUN_007f7cfc(long *param_1,uint param_2)
     if (*puVar4 < 2) goto LAB_007f7d30;
     uVar5 = 0;
   }
-  FUN_0064a830(param_1,uVar6,uVar5);
+  qlist_int_realloc(param_1,uVar6,uVar5);
   puVar4 = (uint *)*param_1;
 LAB_007f7d30:
   if ((int)puVar4[1] <= (int)param_2) {
@@ -30313,9 +30316,9 @@ LAB_007f7d30:
 }
 
 
-// ==== entry=007f7da2 name=FUN_007f7da2 size=124 ====
+// ==== entry=007f7da2 orig=FUN_007f7da2 size=124 name=qlist_shared_detach ====
 
-void FUN_007f7da2(long *param_1)
+void qlist_shared_detach(long *param_1)
 
 {
   uint *__dest;
@@ -30377,7 +30380,7 @@ long * FUN_007f7e1e(long *param_1,long *param_2)
     }
     QByteArray::reallocData(param_1,uVar9 + 1,1);
   }
-  FUN_007c4392(param_1);
+  qbytearray_detach_realloc(param_1);
   lVar4 = *param_1;
   pcVar8 = (char *)(lVar4 + (long)*(int *)(lVar4 + 4) + *(long *)(lVar4 + 0x10));
   puVar5 = (undefined8 *)*param_2;
@@ -32429,9 +32432,9 @@ LAB_007fa50f:
           pbVar16 = (byte *)*param_1;
           if (local_4a._1_1_ != '\0') {
             local_48[0] = pbVar5;
-            FUN_005febc2(local_48,local_4e);
+            obuffer_put_char2(local_48,local_4e);
             local_48[0] = pbVar5;
-            FUN_005febc2(local_48,local_4e);
+            obuffer_put_char2(local_48,local_4e);
             if (pbVar11 < pbVar12) {
               do {
                 bVar3 = *pbVar11;
@@ -32462,9 +32465,9 @@ LAB_007fa50f:
           fmt_format_arg(pbVar5,"{:04X}: ",8,4,local_48,0);
         }
         local_48[0] = pbVar5;
-        FUN_005febc2(local_48,local_90 + (bVar2 >> 4));
+        obuffer_put_char2(local_48,local_90 + (bVar2 >> 4));
         local_48[0] = pbVar5;
-        FUN_005febc2(local_48,local_90 + (bVar2 & 0xf));
+        obuffer_put_char2(local_48,local_90 + (bVar2 & 0xf));
         pbVar11 = pbVar12;
       }
       pbVar12 = pbVar12 + 1;
@@ -32475,19 +32478,19 @@ LAB_007fa50f:
       for (lVar15 = (long)iVar7 - ((long)pbVar12 - (long)pbVar11); 0 < lVar15; lVar15 = lVar15 + -1)
       {
         local_48[0] = pbVar5;
-        FUN_005febc2(local_48,local_4e);
+        obuffer_put_char2(local_48,local_4e);
         local_48[0] = pbVar5;
-        FUN_005febc2(local_48,local_4e);
+        obuffer_put_char2(local_48,local_4e);
         if (cStack_4c != '\0') {
           local_48[0] = pbVar5;
-          FUN_005febc2(local_48,local_4e);
+          obuffer_put_char2(local_48,local_4e);
         }
       }
     }
     local_48[0] = pbVar5;
-    FUN_005febc2(local_48,local_4e);
+    obuffer_put_char2(local_48,local_4e);
     local_48[0] = pbVar5;
-    FUN_005febc2(local_48,local_4e);
+    obuffer_put_char2(local_48,local_4e);
     if ((byte *)param_1[1] != pbVar11) {
       do {
         bVar2 = *pbVar11;
@@ -39544,9 +39547,9 @@ void FUN_00803c6c(Data *param_1)
 }
 
 
-// ==== entry=00803caa name=FUN_00803caa size=129 ====
+// ==== entry=00803caa orig=FUN_00803caa size=129 name=action_slots_static_get ====
 
-undefined8 * FUN_00803caa(ulong *param_1,long *param_2,ulong param_3)
+undefined8 * action_slots_static_get(ulong *param_1,long *param_2,ulong param_3)
 
 {
   int iVar1;
@@ -40395,9 +40398,9 @@ LAB_00804b70:
 }
 
 
-// ==== entry=00804d4e name=FUN_00804d4e size=1148 ====
+// ==== entry=00804d4e orig=FUN_00804d4e size=1148 name=sort_actions_by_text ====
 
-void FUN_00804d4e(long *param_1,long *param_2,int param_3)
+void sort_actions_by_text(long *param_1,long *param_2,int param_3)
 
 {
   QArrayData *pQVar1;
@@ -40601,7 +40604,7 @@ LAB_008050ca:
 LAB_00805078:
   local_48[0] = (QArrayData *)*param_2;
   local_50 = local_80;
-  FUN_00804d4e(&local_50,(QVariant *)local_48,local_a4);
+  sort_actions_by_text(&local_50,(QVariant *)local_48,local_a4);
   *param_2 = (long)local_80;
   pQVar7 = (QArrayData *)*param_1;
   lVar5 = (long)local_80 - (long)pQVar7 >> 3;
@@ -41222,7 +41225,7 @@ undefined8 FUN_00806382(undefined8 param_1,undefined8 param_2)
   
   local_20 = QString::fromAscii_helper("/ssh/",5);
                     /* try { // try from 008063b4 to 008063b8 has its CatchHandler @ 008063cd */
-  FUN_008a5a8e(param_1,param_2,&local_20);
+  id_lower_join(param_1,param_2,&local_20);
   qt_array_data_unref(&local_20);
   return param_1;
 }
@@ -41237,7 +41240,7 @@ undefined8 FUN_008063d6(undefined8 param_1,undefined8 param_2)
   
   local_20 = QString::fromAscii_helper("/logs/",6);
                     /* try { // try from 00806408 to 0080640c has its CatchHandler @ 00806421 */
-  FUN_008a5a8e(param_1,param_2,&local_20);
+  id_lower_join(param_1,param_2,&local_20);
   qt_array_data_unref(&local_20);
   return param_1;
 }
@@ -41252,7 +41255,7 @@ undefined8 FUN_0080642a(undefined8 param_1,undefined8 param_2)
   
   local_20 = QString::fromAscii_helper("/onekeys.config",0xf);
                     /* try { // try from 0080645c to 00806460 has its CatchHandler @ 00806475 */
-  FUN_008a5a8e(param_1,param_2,&local_20);
+  id_lower_join(param_1,param_2,&local_20);
   qt_array_data_unref(&local_20);
   return param_1;
 }
@@ -41267,7 +41270,7 @@ undefined8 FUN_0080647e(undefined8 param_1,undefined8 param_2)
   
   local_20 = QString::fromAscii_helper("/quickbar.config",0x10);
                     /* try { // try from 008064b0 to 008064b4 has its CatchHandler @ 008064c9 */
-  FUN_008a5a8e(param_1,param_2,&local_20);
+  id_lower_join(param_1,param_2,&local_20);
   qt_array_data_unref(&local_20);
   return param_1;
 }
@@ -41418,7 +41421,7 @@ undefined8 FUN_008067c8(undefined8 param_1,undefined8 param_2)
   
   local_20 = QString::fromAscii_helper("/schemes/",9);
                     /* try { // try from 008067fa to 008067fe has its CatchHandler @ 00806813 */
-  FUN_008a5a8e(param_1,param_2,&local_20);
+  id_lower_join(param_1,param_2,&local_20);
   qt_array_data_unref(&local_20);
   return param_1;
 }
@@ -41473,7 +41476,7 @@ undefined8 FUN_00806904(undefined8 param_1,undefined8 param_2)
   
   local_20 = QString::fromAscii_helper("/user.sessions",0xe);
                     /* try { // try from 00806936 to 0080693a has its CatchHandler @ 0080694f */
-  FUN_008a5a8e(param_1,param_2,&local_20);
+  id_lower_join(param_1,param_2,&local_20);
   qt_array_data_unref(&local_20);
   return param_1;
 }
@@ -41584,7 +41587,7 @@ undefined8 FUN_00806b7e(undefined8 param_1,undefined8 param_2)
   
   local_20 = QString::fromAscii_helper("/triggers.config",0x10);
                     /* try { // try from 00806bb0 to 00806bb4 has its CatchHandler @ 00806bc9 */
-  FUN_008a5a8e(param_1,param_2,&local_20);
+  id_lower_join(param_1,param_2,&local_20);
   qt_array_data_unref(&local_20);
   return param_1;
 }
@@ -42644,9 +42647,9 @@ void FUN_008087a6(undefined8 param_1,undefined8 *param_2,string *param_3)
 }
 
 
-// ==== entry=00808a8e name=FUN_00808a8e size=4353 ====
+// ==== entry=00808a8e orig=FUN_00808a8e size=4353 name=qlist_variantmaps_dispose2 ====
 
-void FUN_00808a8e(Data *param_1)
+void qlist_variantmaps_dispose2(Data *param_1)
 
 {
   int iVar1;
@@ -43683,7 +43686,7 @@ undefined8 cfg_loadAppletFiles(undefined8 param_1,undefined8 *param_2)
                     /* try { // try from 0080a740 to 0080a744 has its CatchHandler @ 0080a94a */
     FUN_0081a504(&local_60,(QString *)&local_48);
                     /* try { // try from 0080a74b to 0080a74f has its CatchHandler @ 0080a95a */
-    FUN_009d534e(param_2,&local_60);
+    yaml_parse_import(param_2,&local_60);
     qt_array_data_unref(&local_60);
     local_58 = 9;
     local_50 = ".complete";
@@ -43692,7 +43695,7 @@ undefined8 cfg_loadAppletFiles(undefined8 param_1,undefined8 *param_2)
                     /* try { // try from 0080a77c to 0080a780 has its CatchHandler @ 0080a94a */
     FUN_0081a504(&local_60,(QString *)&local_48);
                     /* try { // try from 0080a787 to 0080a78b has its CatchHandler @ 0080a962 */
-    FUN_009d43ee(param_2,&local_60);
+    textmate_rule_from_json(param_2,&local_60);
     qt_array_data_unref(&local_60);
     local_58 = 5;
     local_50 = ".fold";
@@ -43719,7 +43722,7 @@ undefined8 cfg_loadAppletFiles(undefined8 param_1,undefined8 *param_2)
                     /* try { // try from 0080a830 to 0080a834 has its CatchHandler @ 0080a94a */
     FUN_0081a504(&local_60,(QString *)&local_48);
                     /* try { // try from 0080a83b to 0080a83f has its CatchHandler @ 0080a97a */
-    FUN_009de1ce(param_2,&local_60);
+    syntax_def_parse(param_2,&local_60);
     qt_array_data_unref(&local_60);
     local_58 = 5;
     local_50 = ".pair";
@@ -44191,11 +44194,11 @@ void s_session_protocol_80b1d8(long param_1,QSize *param_2,long *param_3)
 }
 
 
-// ==== entry=0080b720 name=FUN_0080b720 size=1296 ====
+// ==== entry=0080b720 orig=FUN_0080b720 size=1296 name=sessions_group_by_group ====
 
 /* WARNING: Removing unreachable block (ram,0x0080b9cb) */
 
-long * FUN_0080b720(long *param_1,long param_2)
+long * sessions_group_by_group(long *param_1,long param_2)
 
 {
   long *plVar1;
@@ -44232,7 +44235,7 @@ long * FUN_0080b720(long *param_1,long param_2)
         s_session_group_805a3e(local_40,param_2,uVar7);
         if (*(int *)(local_40[0] + 4) != 0) {
                     /* try { // try from 0080b7b4 to 0080b7b8 has its CatchHandler @ 0080bc30 */
-          FUN_006a2140(&local_60,local_40,&local_61);
+          qhash_insert_node(&local_60,local_40,&local_61);
         }
         qt_array_data_unref(local_40);
         iVar12 = iVar12 + 1;
@@ -44418,7 +44421,7 @@ void s_SessionGroupComboBox_80bc66(undefined8 param_1,QString *param_2)
   undefined8 local_50;
   long local_48;
   
-  FUN_0080b720(&local_c0,param_1);
+  sessions_group_by_group(&local_c0,param_1);
                     /* try { // try from 0080bc91 to 0080bcab has its CatchHandler @ 0080be7c */
   qlist_detach_copy_refs(&local_c0);
   iVar2 = *(int *)(local_c0 + 8);
@@ -44587,7 +44590,7 @@ undefined8 * s_session_group_80c102(undefined8 *param_1,long param_2,QString *pa
       uVar7 = json_valueAt(*(undefined8 *)(param_2 + 0xe0),iVar11);
       s_session_group_805a3e(local_68,param_2,uVar7);
                     /* try { // try from 0080c1b2 to 0080c1b6 has its CatchHandler @ 0080c75d */
-      FUN_006a2140(&local_c0,local_68,&local_a0);
+      qhash_insert_node(&local_c0,local_68,&local_a0);
       qt_array_data_unref(local_68);
       iVar11 = iVar11 + 1;
     } while (iVar6 != iVar11);
@@ -45593,14 +45596,14 @@ char s_LineContinuation_80e250(long param_1,long *param_2,long *param_3)
     }
     uVar5 = json_assign_cstring(local_f8,"supportsDetectShellCwd");
     psVar4 = local_140;
-    sVar2 = (string)FUN_00af06e0(uVar5);
+    sVar2 = (string)json_value_as_bool(uVar5);
     psVar4[0x30] = sVar2;
-    FUN_00aee7e0(&local_98,1);
+    json_value_init_bool(&local_98,1);
                     /* try { // try from 0080e569 to 0080e56d has its CatchHandler @ 0080e995 */
     json_get_string_default(&local_68,local_f8,"CaseSensitive",&local_98);
     psVar4 = local_140;
                     /* try { // try from 0080e576 to 0080e57a has its CatchHandler @ 0080e9a5 */
-    sVar2 = (string)FUN_00af06e0(&local_68);
+    sVar2 = (string)json_value_as_bool(&local_68);
     psVar4[0x50] = sVar2;
     json_value_destruct(&local_68);
     json_value_destruct(&local_98);
@@ -45755,7 +45758,7 @@ void FUN_0080ead6(int param_1)
   std::runtime_error::runtime_error
             ((runtime_error *)local_58,"character escape too large to fit in target character type")
   ;
-  local_58[0] = &PTR_FUN_01189318;
+  local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
   local_48 = &PTR_FUN_01189340;
   local_40 = 0;
   local_38 = 0;
@@ -45818,7 +45821,7 @@ void s_RenamedTitle_80eb6c(undefined8 param_1,QString *param_2,undefined8 param_
       for (; puVar7 != puVar2; puVar7 = puVar7 + 2) {
         lVar1 = *(long *)puVar7 + 0x218;
                     /* try { // try from 0080ecbb to 0080ed0d has its CatchHandler @ 0080ee6d */
-        FUN_008c5578((QString *)local_48,lVar1);
+        property_to_string((QString *)local_48,lVar1);
         cVar5 = operator==((QString *)local_48,param_2);
         if (*(int *)local_48[0] == 0) {
 LAB_0080ecd6:
@@ -45858,7 +45861,7 @@ LAB_0080ecd6:
       local_a0 = local_a0 + 2;
     } while (local_60 + (long)(int)uVar4 * 2 + 4 != local_a0);
   }
-  FUN_0069eab0(&local_60);
+  qlist_release_if_shared(&local_60);
   FUN_00805342(param_1);
   return;
 }
@@ -46446,7 +46449,7 @@ LAB_0080fcad:
     local_c0 = pQVar1;
     local_b8 = pQVar11;
                     /* try { // try from 0080ff3a to 0080ffdf has its CatchHandler @ 0081004d */
-    FUN_00804d4e(&local_c0,&local_b8,(0x1f - (uVar2 ^ 0x1f)) * 2);
+    sort_actions_by_text(&local_c0,&local_b8,(0x1f - (uVar2 ^ 0x1f)) * 2);
     if ((int)uVar8 < 0x11) {
       local_a0 = pQVar11;
       local_98[0] = pQVar1;
@@ -46744,7 +46747,7 @@ undefined8 * s_session_label_810606(undefined8 *param_1,long param_2,undefined8 
         uVar7 = json_valueAt(*(undefined8 *)(param_2 + 0xe0),iVar10);
         s_session_label_8062b6(local_68,param_2,uVar7,1);
                     /* try { // try from 0081070a to 0081070e has its CatchHandler @ 0081098d */
-        FUN_006a2140(&local_b0,local_68);
+        qhash_insert_node(&local_b0,local_68);
         qt_array_data_unref(local_68);
         iVar10 = iVar10 + 1;
       } while (iVar5 != iVar10);
@@ -47648,7 +47651,7 @@ undefined4 CTerminalConfig_parse(long param_1,undefined8 param_2,undefined8 para
                     /* try { // try from 0081224c to 00812250 has its CatchHandler @ 008129cd */
       QByteArray::QByteArray((QByteArray *)local_5b8,local_5e8,*(int *)(local_5e8 + -0x18));
                     /* try { // try from 00812257 to 0081225b has its CatchHandler @ 008129d5 */
-      FUN_00546bae(pvVar3,(QByteArray *)local_5b8);
+      qlist_str_append(pvVar3,(QByteArray *)local_5b8);
       qt_byte_array_unref((QByteArray *)local_5b8);
       if (local_5e8 != &DAT_011c5338) {
         refcount_delete_offset10_b();
@@ -49058,7 +49061,7 @@ LAB_008142bd:
         QTextStream::~QTextStream(local_138);
         cVar6 = qatomic_int_deref(local_1c8);
         if (cVar6 == '\0') {
-          FUN_0081a79c(local_1c8);
+          Session_proxyjump_freetree(local_1c8);
         }
         cVar6 = qatomic_int_deref(local_1d0);
         if (cVar6 == '\0') {
@@ -49184,7 +49187,7 @@ undefined4 CTerminalConfig_vt5(long param_1)
   QArrayData *apQStack_58 [5];
   
   apQStack_58[0] = (QArrayData *)QString::fromLatin1_helper("/reopen.history",0xf);
-  FUN_008a5a8e(&pQStack_78,param_1,(QDataStream *)apQStack_58);
+  id_lower_join(&pQStack_78,param_1,(QDataStream *)apQStack_58);
   if (*(int *)apQStack_58[0] == 0) {
 LAB_008aa820:
     QArrayData::deallocate(apQStack_58[0],2,8);
@@ -49786,7 +49789,7 @@ LAB_00815e4a:
       goto LAB_00815a6c;
     }
 LAB_00815a96:
-    FUN_00570eb4(local_f8,local_e8);
+    rbtree_free_qstring(local_f8,local_e8);
     FUN_0054be70(&local_158);
   }
   QFile::~QFile(local_108);
@@ -49888,12 +49891,12 @@ undefined1 s_session_protocol_8166fe(undefined8 param_1,char param_2)
     qt_array_data_unref(&local_68);
   }
   if (1 < *local_c8) {
-    FUN_005a0620(&local_c8,local_c8[1]);
+    qlist_maplist_detach(&local_c8,local_c8[1]);
   }
   local_100 = local_c8 + (long)(int)local_c8[2] * 2 + 4;
   if (1 < *local_c8) {
                     /* try { // try from 00816bb7 to 00816bf3 has its CatchHandler @ 00816ca5 */
-    FUN_005a0620(&local_c8,local_c8[1]);
+    qlist_maplist_detach(&local_c8,local_c8[1]);
   }
   uVar2 = local_c8[3];
   if (local_100 != local_c8 + (long)(int)uVar2 * 2 + 4) {

@@ -1154,7 +1154,7 @@ void FUN_004ed9b0(void)
 void FUN_004ed9c8(void)
 
 {
-  FUN_00544630();
+  qlist_release_data();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -1982,7 +1982,7 @@ void FUN_004edf27(void)
   QJSValue *unaff_R13;
   QVariant *unaff_R14;
   
-  FUN_00544630();
+  qlist_release_data();
   QJSValue::~QJSValue(unaff_R13);
   QVariant::~QVariant(unaff_R14);
   QVariant::~QVariant(unaff_RBX);
@@ -12378,7 +12378,7 @@ void FUN_004f1fe4(undefined8 param_1,undefined8 param_2,long param_3)
                     /* try { // try from 004f200c to 004f2010 has its CatchHandler @ 004f2049 */
   qstring_assign_from_ascii(&stack0x00000008,uVar3);
                     /* try { // try from 004f201a to 004f201e has its CatchHandler @ 004f2031 */
-  FUN_00912342(uVar1,0xffffffff,&stack0x00000008);
+  qt_emit_signal4(uVar1,0xffffffff,&stack0x00000008);
   qt_array_data_unref(&stack0x00000008);
   __cxa_end_catch();
   return;
@@ -12461,7 +12461,7 @@ void FUN_004f2104(void)
                     /* try { // try from 004f2136 to 004f213a has its CatchHandler @ 004f21e1 */
     qstring_assign_from_ascii(&stack0x00000020,uVar3);
                     /* try { // try from 004f2144 to 004f2148 has its CatchHandler @ 004f21c9 */
-    FUN_00912342(uVar1,0xffffffff,&stack0x00000020);
+    qt_emit_signal4(uVar1,0xffffffff,&stack0x00000020);
     qt_array_data_unref(&stack0x00000020);
     __cxa_end_catch();
     return;
@@ -12497,7 +12497,7 @@ void FUN_004f215b(void)
     uVar1 = *(undefined8 *)(unaff_RBP + 0x10);
     uVar3 = (**(code **)(*plVar2 + 0x10))(plVar2);
     qstring_assign_from_ascii(&stack0x00000020,uVar3);
-    FUN_00912342(uVar1,0xffffffff,&stack0x00000020);
+    qt_emit_signal4(uVar1,0xffffffff,&stack0x00000020);
     qt_array_data_unref(&stack0x00000020);
     __cxa_end_catch();
     return;
@@ -12526,7 +12526,7 @@ void FUN_004f21a9(void)
     uVar1 = *(undefined8 *)(unaff_RBP + 0x10);
     uVar3 = (**(code **)(*plVar2 + 0x10))(plVar2);
     qstring_assign_from_ascii(&stack0x00000020,uVar3);
-    FUN_00912342(uVar1,0xffffffff,&stack0x00000020);
+    qt_emit_signal4(uVar1,0xffffffff,&stack0x00000020);
     qt_array_data_unref(&stack0x00000020);
     __cxa_end_catch();
     return;
@@ -12590,7 +12590,7 @@ undefined8 FUN_004f21e6(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -12606,16 +12606,16 @@ undefined8 FUN_004f21e6(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -12691,7 +12691,7 @@ undefined8 FUN_004f228c(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -12707,16 +12707,16 @@ undefined8 FUN_004f228c(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -12782,7 +12782,7 @@ undefined8 FUN_004f22c1(void)
   uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
   (**(code **)(*plVar3 + 0x10))(plVar3);
   qstring_assign_from_ascii();
-  FUN_00912342(uVar1,0xffffffff);
+  qt_emit_signal4(uVar1,0xffffffff);
   qt_array_data_unref();
   __cxa_end_catch();
   if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -12798,16 +12798,16 @@ undefined8 FUN_004f22c1(void)
     *(void **)(in_stack_00000008 + 0x30) = pvVar4;
     if (pvVar2 != (void *)0x0) {
       QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-      FUN_007c4440((long)pvVar2 + 8);
+      qlist_release_custom2((long)pvVar2 + 8);
       qt_byte_array_unref(pvVar2);
       operator_delete(pvVar2,0x48);
     }
     qt_byte_array_unref();
     if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-      FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+      template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
       uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
       QString::toUtf8_helper(unaff_R13);
-      FUN_007c5882(uVar1,0x6e);
+      template_replace_placeholder(uVar1,0x6e);
       qt_byte_array_unref();
     }
   }
@@ -12867,7 +12867,7 @@ undefined8 FUN_004f2331(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -12883,16 +12883,16 @@ undefined8 FUN_004f2331(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -12953,7 +12953,7 @@ undefined8 FUN_004f2385(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -12969,16 +12969,16 @@ undefined8 FUN_004f2385(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13044,7 +13044,7 @@ undefined8 FUN_004f239d(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13060,16 +13060,16 @@ undefined8 FUN_004f239d(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13115,7 +13115,7 @@ undefined8 FUN_004f23cb(void)
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
                     /* try { // try from 004f2418 to 004f241c has its CatchHandler @ 004f26eb */
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
                     /* try { // try from 004f2425 to 004f2429 has its CatchHandler @ 004f24e5 */
     __cxa_end_catch();
@@ -13132,16 +13132,16 @@ undefined8 FUN_004f23cb(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13214,7 +13214,7 @@ undefined8 FUN_004f245c(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13230,16 +13230,16 @@ undefined8 FUN_004f245c(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13288,7 +13288,7 @@ undefined8 FUN_004f248d(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13304,16 +13304,16 @@ undefined8 FUN_004f248d(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13392,7 +13392,7 @@ void FUN_004f24ea(void)
   QLocale::~QLocale(unaff_R15);
   QTimeZone::~QTimeZone(unaff_RBX);
   QDateTime::~QDateTime((QDateTime *)(unaff_R14 + 0x28));
-  FUN_007c4440(unaff_R14 + 8);
+  qlist_release_custom2(unaff_R14 + 8);
   qt_byte_array_unref();
   qt_byte_array_unref(in_stack_00000028);
   qt_array_data_unref(in_stack_00000020);
@@ -13416,7 +13416,7 @@ void FUN_004f2502(void)
   qt_byte_array_unref();
   qt_array_data_unref(in_stack_00000018);
   QDateTime::~QDateTime((QDateTime *)(unaff_R14 + 0x28));
-  FUN_007c4440(unaff_R14 + 8);
+  qlist_release_custom2(unaff_R14 + 8);
   qt_byte_array_unref();
   qt_byte_array_unref(in_stack_00000028);
   qt_array_data_unref(in_stack_00000020);
@@ -13478,7 +13478,7 @@ undefined8 FUN_004f254a(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13494,16 +13494,16 @@ undefined8 FUN_004f254a(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13562,7 +13562,7 @@ undefined8 FUN_004f25a5(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13578,16 +13578,16 @@ undefined8 FUN_004f25a5(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13653,7 +13653,7 @@ undefined8 FUN_004f25f2(void)
   uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
   (**(code **)(*plVar3 + 0x10))(plVar3);
   qstring_assign_from_ascii();
-  FUN_00912342(uVar1,0xffffffff);
+  qt_emit_signal4(uVar1,0xffffffff);
   qt_array_data_unref();
   __cxa_end_catch();
   if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13669,16 +13669,16 @@ undefined8 FUN_004f25f2(void)
     *(void **)(in_stack_00000008 + 0x30) = pvVar4;
     if (pvVar2 != (void *)0x0) {
       QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-      FUN_007c4440((long)pvVar2 + 8);
+      qlist_release_custom2((long)pvVar2 + 8);
       qt_byte_array_unref(pvVar2);
       operator_delete(pvVar2,0x48);
     }
     qt_byte_array_unref();
     if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-      FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+      template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
       uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
       QString::toUtf8_helper(unaff_R13);
-      FUN_007c5882(uVar1,0x6e);
+      template_replace_placeholder(uVar1,0x6e);
       qt_byte_array_unref();
     }
   }
@@ -13745,7 +13745,7 @@ undefined8 FUN_004f261a(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13761,16 +13761,16 @@ undefined8 FUN_004f261a(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -13840,7 +13840,7 @@ undefined8 FUN_004f2639(void)
   uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
   (**(code **)(*plVar3 + 0x10))(plVar3);
   qstring_assign_from_ascii();
-  FUN_00912342(uVar1,0xffffffff);
+  qt_emit_signal4(uVar1,0xffffffff);
   qt_array_data_unref();
   __cxa_end_catch();
   if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13856,16 +13856,16 @@ undefined8 FUN_004f2639(void)
     *(void **)(in_stack_00000008 + 0x30) = pvVar4;
     if (pvVar2 != (void *)0x0) {
       QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-      FUN_007c4440((long)pvVar2 + 8);
+      qlist_release_custom2((long)pvVar2 + 8);
       qt_byte_array_unref(pvVar2);
       operator_delete(pvVar2,0x48);
     }
     qt_byte_array_unref();
     if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-      FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+      template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
       uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
       QString::toUtf8_helper(unaff_R13);
-      FUN_007c5882(uVar1,0x6e);
+      template_replace_placeholder(uVar1,0x6e);
       qt_byte_array_unref();
     }
   }
@@ -13930,7 +13930,7 @@ undefined8 FUN_004f267a(void)
   uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
   (**(code **)(*plVar3 + 0x10))(plVar3);
   qstring_assign_from_ascii();
-  FUN_00912342(uVar1,0xffffffff);
+  qt_emit_signal4(uVar1,0xffffffff);
   qt_array_data_unref();
   __cxa_end_catch();
   if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -13946,16 +13946,16 @@ undefined8 FUN_004f267a(void)
     *(void **)(in_stack_00000008 + 0x30) = pvVar4;
     if (pvVar2 != (void *)0x0) {
       QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-      FUN_007c4440((long)pvVar2 + 8);
+      qlist_release_custom2((long)pvVar2 + 8);
       qt_byte_array_unref(pvVar2);
       operator_delete(pvVar2,0x48);
     }
     qt_byte_array_unref();
     if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-      FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+      template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
       uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
       QString::toUtf8_helper(unaff_R13);
-      FUN_007c5882(uVar1,0x6e);
+      template_replace_placeholder(uVar1,0x6e);
       qt_byte_array_unref();
     }
   }
@@ -14011,7 +14011,7 @@ undefined8 FUN_004f26be(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -14027,16 +14027,16 @@ undefined8 FUN_004f26be(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -14148,7 +14148,7 @@ undefined8 FUN_004f272e(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -14164,16 +14164,16 @@ undefined8 FUN_004f272e(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -14217,7 +14217,7 @@ undefined8 FUN_004f274f(void)
     uVar1 = *(undefined8 *)(in_stack_00000008 + 0x10);
     (**(code **)(*plVar3 + 0x10))(plVar3);
     qstring_assign_from_ascii();
-    FUN_00912342(uVar1,0xffffffff);
+    qt_emit_signal4(uVar1,0xffffffff);
     qt_array_data_unref();
     __cxa_end_catch();
     if (*(long *)(in_stack_00000008 + 0x38) != 0) {
@@ -14233,16 +14233,16 @@ undefined8 FUN_004f274f(void)
       *(void **)(in_stack_00000008 + 0x30) = pvVar4;
       if (pvVar2 != (void *)0x0) {
         QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-        FUN_007c4440((long)pvVar2 + 8);
+        qlist_release_custom2((long)pvVar2 + 8);
         qt_byte_array_unref(pvVar2);
         operator_delete(pvVar2,0x48);
       }
       qt_byte_array_unref();
       if (*(long *)(in_stack_00000008 + 0x30) != 0) {
-        FUN_007c6570(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
+        template_replace_unknown_ip(*(long *)(in_stack_00000008 + 0x30),in_stack_00000068);
         uVar1 = *(undefined8 *)(in_stack_00000008 + 0x30);
         QString::toUtf8_helper(unaff_R13);
-        FUN_007c5882(uVar1,0x6e);
+        template_replace_placeholder(uVar1,0x6e);
         qt_byte_array_unref();
       }
     }
@@ -14511,7 +14511,7 @@ void FUN_004f28c4(void)
 void FUN_004f28d4(void *param_1)
 
 {
-  FUN_005f38a6();
+  log_leave_elapsed();
   operator_delete(param_1,0x10);
   return;
 }
@@ -16037,10 +16037,10 @@ void FUN_004f33b9(void)
   long in_stack_00000030;
   
   if (in_stack_00000030 + -0x18 != unaff_RBP) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (in_stack_00000028 + -0x18 != unaff_RBP) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -16085,10 +16085,10 @@ void FUN_004f340d(void)
   long in_stack_00000030;
   
   if (in_stack_00000030 + -0x18 != in_stack_00000008) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (unaff_R14 + -0x18 != in_stack_00000008) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   qt_byte_array_unref(in_stack_00000010);
   FUN_004f28d4();
@@ -16135,10 +16135,10 @@ void FUN_004f3485(void)
   long in_stack_00000008;
   
   if (in_stack_00000008 + -0x18 != unaff_RBX) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (unaff_R14 + -0x18 != unaff_RBX) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   FUN_004f28d4();
                     /* WARNING: Subroutine does not return */
@@ -16181,16 +16181,16 @@ void FUN_004f34d4(void)
   long in_stack_000000a0;
   
   if (in_stack_000000a0 + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (unaff_RBP + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (unaff_R12 + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (in_stack_00000078 + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (in_stack_00000040 != 0) {
     FUN_004f28d4(in_stack_00000040);
@@ -16211,10 +16211,10 @@ void FUN_004f3534(void)
   long in_stack_000000a0;
   
   if (in_stack_000000a0 + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (in_stack_00000078 + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (in_stack_00000040 != 0) {
     FUN_004f28d4(in_stack_00000040);
@@ -16268,10 +16268,10 @@ void FUN_004f3585(void)
   long in_stack_00000078;
   
   if (unaff_R12 + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (in_stack_00000078 + -0x18 != unaff_R13) {
-    FUN_007c8e68();
+    string_rep_release2();
   }
   if (in_stack_00000040 != 0) {
     FUN_004f28d4(in_stack_00000040);

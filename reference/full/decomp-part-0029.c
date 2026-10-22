@@ -1243,7 +1243,7 @@ LAB_008f2b55:
     puVar1 = (undefined8 *)*param_4;
     goto joined_r0x008f2b45;
   case 0x23:
-    FUN_005cc94e(param_1,*(undefined4 *)param_4[1]);
+    textmenu_build_unique(param_1,*(undefined4 *)param_4[1]);
     break;
   case 0x24:
     FUN_005cc7f6(param_1,*(undefined8 *)param_4[1],*(undefined8 *)param_4[2],param_4[3]);
@@ -1252,7 +1252,7 @@ LAB_008f2b55:
     FUN_005cc6f0(param_1,*(undefined8 *)param_4[1],*(undefined8 *)param_4[2],param_4[3]);
     break;
   case 0x26:
-    FUN_005d0a4e();
+    textmenu_build_reverse();
     break;
   case 0x27:
     FUN_005cbf24(param_1,*(undefined1 *)param_4[1]);
@@ -1267,10 +1267,10 @@ LAB_008f2b55:
     FUN_005cc0ac(param_1,*(undefined1 *)param_4[1]);
     break;
   case 0x2b:
-    FUN_005cebe6();
+    textmenu_build_shuffle();
     break;
   case 0x2c:
-    FUN_005d28b6(param_1,*(undefined4 *)param_4[1]);
+    textmenu_build_sort(param_1,*(undefined4 *)param_4[1]);
     break;
   case 0x2d:
     FUN_005cc0b6();
@@ -2669,7 +2669,7 @@ long ScintillaEditWatcher_dtor_deleting(long param_1,byte *param_2)
 }
 
 
-// ==== entry=008f3a74 name=FUN_008f3a74 size=10735 ====
+// ==== entry=008f3a74 orig=FUN_008f3a74 size=10735 name=terminalwidget_qt_metacall ====
 
 /* WARNING: Removing unreachable block (ram,0x008f6273) */
 /* WARNING: Removing unreachable block (ram,0x008f5f61) */
@@ -2678,7 +2678,7 @@ long ScintillaEditWatcher_dtor_deleting(long param_1,byte *param_2)
 /* WARNING: Removing unreachable block (ram,0x008f609f) */
 /* WARNING: Removing unreachable block (ram,0x008f6335) */
 
-void FUN_008f3a74(long *param_1,int param_2,int param_3,long *param_4)
+void terminalwidget_qt_metacall(long *param_1,int param_2,int param_3,long *param_4)
 
 {
   undefined4 *puVar1;
@@ -4637,14 +4637,14 @@ ulong TerminalWidget_h8f64ce(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0xe3) {
-        FUN_008f3a74(param_1,0,uVar2 & 0xffffffff,param_4);
+        terminalwidget_qt_metacall(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          FUN_008f3a74(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          terminalwidget_qt_metacall(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 0xb);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -12162,7 +12162,7 @@ void EditorView_h8fbe64(long param_1,int param_2,uint param_3,long *param_4)
     puVar5 = (undefined8 *)*param_4;
     goto joined_r0x008fbff0;
   case 0xf:
-    FUN_008c5578(local_20,param_1 + 0x100);
+    property_to_string(local_20,param_1 + 0x100);
     puVar5 = (undefined8 *)*param_4;
     goto joined_r0x008fbff0;
   case 0x10:
@@ -28025,10 +28025,10 @@ void OutputPane_h909e08(undefined8 param_1,int param_2,uint param_3,long *param_
     QArrayData::deallocate(local_28,2,8);
     break;
   case 3:
-    FUN_0074a1ea(param_1,*(undefined4 *)param_4[1]);
+    outputpane_jump_match(param_1,*(undefined4 *)param_4[1]);
     break;
   case 4:
-    FUN_0074a1ea(param_1,0xffffffff);
+    outputpane_jump_match(param_1,0xffffffff);
     break;
   case 5:
     uVar3 = FUN_0074a728(param_1,*(undefined1 *)param_4[1]);
@@ -28170,7 +28170,7 @@ switchD_0090a0cb_default:
   }
   switch(param_3) {
   case 0:
-    FUN_00740472();
+    sessionpane_rows_concat_text();
     break;
   case 1:
     view_deleteSelectedRows();
@@ -28185,7 +28185,7 @@ switchD_0090a0cb_default:
     FUN_007400aa(param_1,param_4[1]);
     break;
   case 4:
-    FUN_0073eb92();
+    sessionpane_connect_selection();
     break;
   case 5:
     FUN_0073cdc4();
@@ -29458,11 +29458,13 @@ void SearchPane_h90b4c6(undefined8 param_1,undefined4 param_2,long param_3)
     FUN_0074eecc(param_1,**(undefined4 **)(param_3 + 8));
     return;
   case 4:
-    FUN_0074e9cc(param_1,**(undefined4 **)(param_3 + 8),**(undefined1 **)(param_3 + 0x10),
-                 **(undefined4 **)(param_3 + 0x18));
+    search_options_apply
+              (param_1,**(undefined4 **)(param_3 + 8),**(undefined1 **)(param_3 + 0x10),
+               **(undefined4 **)(param_3 + 0x18));
     return;
   case 5:
-    FUN_0074e9cc(param_1,**(undefined4 **)(param_3 + 8),**(undefined1 **)(param_3 + 0x10),0);
+    search_options_apply(param_1,**(undefined4 **)(param_3 + 8),**(undefined1 **)(param_3 + 0x10),0)
+    ;
     return;
   case 6:
     FUN_0074e58e(param_1,**(undefined1 **)(param_3 + 8),*(undefined8 *)(param_3 + 0x10));
@@ -31648,9 +31650,9 @@ joined_r0x0090e19a:
       local_28 = (QMapNodeBase *)&QListData::shared_null;
       local_20 = (QArrayData *)*puVar6;
       *puVar6 = pQVar7;
-      FUN_0069eab0(&local_20);
+      qlist_release_if_shared(&local_20);
     }
-    FUN_0069eab0(&local_28);
+    qlist_release_if_shared(&local_28);
     break;
   case 7:
     FUN_00760ffe(param_1,param_4[1]);

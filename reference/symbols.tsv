@@ -2524,3 +2524,467 @@
 0x0000000000c83b00	demangle_global_prefix	解构器中处理 "_GLOBAL_" 前缀
 0x0000000000c85ea0	bigstruct_copy	把 param_1 指向的 14 个 ulong 结构整体拷贝到栈再处理
 0x0000000000c86f70	cxa_throw_exception	FUN_0067f4ad构造runtime_error后调用且不返回, 12700调用者的异常抛出桩
+
+# —— AI 理解批（fixer 阅读，证据列=一句话依据）——
+0x0000000000526ffa	applet_load_script_info	QFileInfo::exists/suffix/canonicalPath+字符串applet/type/init
+0x00000000005289b6	rbtree_clear_recursive	递归遍历并清空红黑树节点容器
+0x000000000052c0f0	json_value_key_get	jsoncpp 对非对象值取键时报 "operator[] call on a scalar" 并带 key
+0x000000000052c550	yaml_error_message	构造 "yaml-cpp: error at line X, column Y" 消息
+0x000000000053f552	commandpane_connect	连接 focusChanged/clicked/shortcut 到命令面板按钮
+0x0000000000541896	actionid_to_menu_title	用 camelCase 正则切分 Editor.RedoList/UndoList 生成菜单标题
+0x00000000005420c8	session_title_format_parse	字符串Editor/Terminal/protocol/title/subtitle+正则'[/\\\\]'+lastIndexOf
+0x0000000000544630	qlist_release_data	判定非共享后调用 FUN_0053e58c 释放数据
+0x0000000000546bae	qlist_str_append	先增 QString 引用计数再 QListData::append
+0x0000000000547a4c	sort_sessions_by_name	以三点取中快速排序按 QString 名称排会话
+0x0000000000548cee	drives_menu_add_volumes	用 QStorageInfo::mountedVolumes 的 displayName 追加 " (%1)"
+0x000000000054e188	breadedit_ctor	设置 BreadEdit vtable、创建 QTimer 并连接信号
+0x000000000054f12a	lineedit_paint_placeholder	重绘 QLineEdit 并对占位文本做 elidedText
+0x000000000056200c	browse_path_dialog	按模式调用 getOpenFileName 或 getSaveFileName 选择路径
+0x0000000000570eb4	rbtree_free_qstring	递归释放红黑树节点并 QArrayData::deallocate 字符串
+0x0000000000578fe6	pathcompleter_attach	为 QLineEdit 挂接 QFileSystemModel+QCompleter 路径补全
+0x000000000057b1da	filer_selection_tooltip	把 selectedRows 数量填入 "%1/" 提示文本
+0x000000000057b706	filer_bind_selection_model	为文件树创建 QItemSelectionModel、连接并 expandAll
+0x000000000058313c	searchline_attach_focus	同上搜索框绑定并额外设置 focusProxy/事件过滤器
+0x000000000058bc66	lineedit_filter_attach	安装事件过滤器并把 textChanged 连到过滤逻辑
+0x000000000058dac2	lineedit_set_placeholder	设置占位文本后同步提示状态
+0x0000000000592a1a	banner_html_show	用 darkorange/red 的 <font color> HTML 显示横幅消息
+0x0000000000594366	ssh_add_kbi_row	定位 "Keyboard Interactive" 标签并插入表单行
+0x0000000000596d30	qlist_ref_release3	引用计数递减后 QListData::dispose 的又一实例
+0x00000000005a0620	qlist_maplist_detach	detach 后逐元素深拷贝 QMap
+0x00000000005a1078	popup_region_shape	按全局矩形与样式边距计算 QRegion 并 setMask
+0x00000000005a2170	qlist_detach_erase_mid	QListData::detach后memmove搬移中间区间
+0x00000000005a4432	applet_layout_widgets	QWidget::setUpdatesEnabled+QVariant::toMap后逐项FUN_005a333e建控件
+0x00000000005aa082	qhash_find_node	计算 qHash 并调用查找实现返回节点
+0x00000000005c02a0	widget_signal_state_refresh	检查信号连接与 bool 属性(0x4ef9)后决定是否刷新
+0x00000000005cc94e	textmenu_build_unique	字符串'unique'/'type'/'case'/'numeric'/'punctuation', 调用者=TextView
+0x00000000005cebe6	textmenu_build_shuffle	字符串'shuffle'/'type'构造排序动作
+0x00000000005d0a4e	textmenu_build_reverse	字符串'reverse'/'type'构造排序动作
+0x00000000005d28b6	textmenu_build_sort	字符串'sort'/'type'/'case'/'numeric'/'punctuation'
+0x00000000005d4fc6	toolbutton_paint_custom	initStyleOption 后自绘 QToolButton（clip/save/restore）
+0x00000000005d5b28	qlistview_dtor_completer	~QListView 并销毁 QStringMatcher 池等补全器数据
+0x00000000005d6024	searchline_attach	绑定 QLineEdit textChanged + QTimer + 事件过滤器实现防抖搜索
+0x00000000005da8e0	palettes_dir_list	字符串'palettes'/'*.palette'+QDir::entryList枚举配色文件
+0x00000000005dcda3	collator_merge_sort_qstring	以 QCollator::compare 归并排序 QString 区间
+0x00000000005ece74	forwarding_server_listen	QTcpServer::listen/isListening/errorString+QHostAddress 启动监听
+0x00000000005f29b6	log_singleton_init	双重检查锁后初始化静态表与 vtable 单例
+0x00000000005f2ede	log_timestamp_format	'yyyy-MM-dd HH:mm:ss.zzz'+'[Time {}] {}'日志前缀
+0x00000000005f38a6	log_leave_elapsed	输出 "\n[Level %1] Leave %2, Elapsed %3 ms" 并递减计数
+0x00000000005f9710	vector48_copy_assign	为 6 字（48 字节）元素区间预分配并逐项拷贝
+0x00000000005fd340	log_writer_ctor	设置 PTR_FUN_01185c90 vtable 并搬移字符串成员
+0x00000000005febc2	obuffer_put_char2	容量不足先扩容再写单字节
+0x00000000005fec10	float_to_digits	分解尾数/指数生成浮点十进制数字串
+0x0000000000605310	numput_grouped_digits	用 numpunct 的分组/千位分隔符格式化数字
+0x00000000006084c0	fmt_format_int_value3	'invalid type specifier'+二进制位长计算输出整数
+0x000000000060ae70	fmt_format_int_value	字符串'invalid type specifier', 整数按格式串输出
+0x000000000060bd50	fmt_format_int_value2	同格式串整数输出(无符号分支)
+0x000000000060cc20	double_format_put	按格式符格式化 double 并报类型/溢出错误
+0x000000000060d0f0	float_format_put	按 'A'/'G' 等格式符格式化浮点并报 "invalid type specifier"/"number is too big"
+0x000000000060d5e0	fmt_format_compile_run	字符串invalid fill/'missing }'/'argument not found'格式化引擎
+0x000000000060fd8c	fmt_write_two_digits	两位零填充写出('{:02}')
+0x0000000000610d3c	logline_ts_prefix	按缓存秒数写入 '[' 与 '-' 分隔的时间戳前缀
+0x0000000000613736	knownhosts_parse_address	QDataStream::skipRawData+QHostAddress::toIPv6Address/toString解析地址
+0x000000000061444e	read_packet_checked	readAll 后校验长度与类型字节，不符则抛翻译后的错误
+0x0000000000614d5c	hostinfo_resolve_done	QHostInfo 解析完成后取 addresses 写入结果结构
+0x000000000061a5f2	recent_list_prune	规范化分隔符并剔除文件不存在的最近项
+0x000000000061abbe	recent_map_update	自旋锁保护下按条目类型创建/删除 QMap 节点
+0x000000000061c1ea	TransferCenter_map_freetree	callers=TransferCenter_dtor, 7层freeTree
+0x00000000006202ba	transfermodel_data_directory	QStandardItemModel::data重写, role==3取s_transfer_targetDirectory
+0x0000000000621ede	mode_to_type_char	按 st_mode 高位映射 'd'/'l'/'s'/'p'/'c'/'b'/'-' 类型字符
+0x00000000006238ca	properties_html_table_build	'<tr><td align=right>%1: </td><td>%2</td>'+QIcon转QVariant
+0x000000000062d08d	qvariantmap_diff_values	QVariant::toDouble/toString+QString::compare 比较两map值
+0x000000000062e087	sort_deque_bisect	按块计算 deque 元素总数并用 QVariant 比较二分
+0x000000000062e5ee	sort_deque_bisect2	同 deque 尺寸推算 + QVariant 二分的孪生实现
+0x000000000063174e	qvariantmap_deep_merge	递归QVariant::toDouble/toString比较合并两段
+0x0000000000633ed0	path_resolve_home	stat/realpath 并结合 passwd/group 解析路径与 ~
+0x000000000064149e	logqueue_drain_same_thread	判断同线程后循环取出环形队列日志并写出
+0x0000000000643740	qlist_clone_elements	detach 后对新元素逐个 operator_new(0x60) 并增引用计数
+0x0000000000648960	text_filter_match	用 QRegExp::exactMatch 逐个匹配过滤模式并设大小写敏感
+0x000000000064a830	qlist_int_realloc	重新分配 4 字节元素的 QArrayData 并 memcpy
+0x000000000064c3d8	mediacenter_destructor_full	置MediaCenter_vtable+QMapDataBase::freeTree+QObject析构
+0x000000000064dff8	play_event_sound	"beep" 走 QApplication::beep，否则用 QMediaPlayer 播放文件
+0x000000000065ba96	qstring_collapse_spaces	合并连续空格并处理反斜杠转义
+0x000000000065c11e	qstring_split_words	trimmed 后按 QChar::isSpace 逐字符切分单词
+0x000000000065d482	external_process_launch	QProcess::QProcess/setProgram+applicationDirPath+toNativeSeparators
+0x000000000065f0a0	proxysocket_ctor	在 QTcpSocket 上设 ProxyCommandSocket vtable 并注册元类型
+0x0000000000660b90	sort_heap_siftdown_num	以 QVariant::toDouble 比较的堆下滤
+0x000000000066215e	sort_heap_siftdown_iter	以迭代器区间做堆下滤比较
+0x000000000066613a	windaction_apply_config	字符串script/icon/iconFile/text/tooltip/state+QAction::setText/setIcon
+0x000000000066ceb2	encodings_list_build	字符串System/UTF-8/UTF-16BE/UTF-16LE/UTF-32BE/UTF-32LE/'Unicode (%1)'
+0x000000000066eab8	encodings_map_nodes_destroy	caller=FUN_0066ceb2, 释放QArrayData(1,8)链
+0x0000000000673d20	qlist_fill_range8	QListData::realloc 后按指针区间追加 8 字节元素
+0x0000000000673ecc	refcount_delete_offset10_g	LOCK递减+0x10引用归零operator_delete
+0x0000000000674702	wstring_rep_ref	std::wstring::_Rep 克隆或引用计数自增
+0x0000000000677d7e	keymap_entry_parse	字符串keys/modes/space/alnum/upper/action/map/script+QString::split
+0x000000000067cf84	actionhandler_exception_dtor	按ActionHandler vtable减引用并std::runtime_error析构
+0x000000000067e2c0	treenode_dtor_recursive	自递归释放 0xe0 子节点并处理引用计数字符串
+0x000000000067fae4	tree_node_release	递减 +0x70 引用，清零树指针并释放子对象
+0x00000000006816e0	handler_move_ctor	窃取两个引用计数指针并释放旧值（移动构造）
+0x00000000006847c0	xpressive_get_group_type_w	宽字符版 parser_traits::get_group_type
+0x00000000006892f0	syntax_regex_parse_quant	'incomplete escape sequence'/'quantifier not expected'
+0x000000000068aaf0	grammar_regex_validate	'mismatched parenthesis'/'rule assignments must be at the front of the regex'
+0x000000000068c9b0	linecache_grow	按需扩容 0x28 字节元素的行缓存向量
+0x0000000000690e90	tasktree_clone_nodes2	operator_new(0xe0)复制节点字段并链接(另一入口)
+0x0000000000692a70	menubar_create_menu	创建 QMenu 并连接 aboutToShow、addMenu/addSeparator
+0x000000000069766e	toolrunner_ctor	在 QProcess 上设置 ToolRunner vtable 并注册信号元类型
+0x000000000069d5f0	parse_snippet_config	读取 name/uuid/type/enabled/description/targetSessions/settings 解析片段配置
+0x000000000069e842	qstring_append_utf8	QString::fromUtf8_helper后append到参数QString
+0x000000000069eab0	qlist_release_if_shared	非共享判定后 QListData::dispose 释放
+0x000000000069fcb0	qlist72_detach	QArrayData::allocate(0x48,8,0,2) 的 72 字节元素 detach
+0x00000000006a2140	qhash_insert_node	必要时 rehash 后 QHashData::allocateNode 并插入键值
+0x00000000006a3062	tunnel_html_report_build	'<font color="red">%1</font>'+'</table></body></html>'(TunnelCenter)
+0x00000000006a8208	menu_add_slipbutton_action	在分隔符后插入 SlipButtonAction 的 QWidgetAction
+0x00000000006a9820	qlist72_append	追加 0x48 字节记录并对其引用计数成员加引用
+0x00000000006a9cb0	ssh_tunnels_erase	区间擦除时逐个释放 0x48 结构内的 QString 成员
+0x00000000006aa900	config_get_locked	自旋锁+QMap查找命中后FUN_00529dcc拷贝QVariant
+0x00000000006ac4e2	qmap_erase_locked	自旋锁+QMapDataBase::freeNodeAndRebalance 删除节点
+0x00000000006b6e1e	log_export_dialog	以 "Log Files (*.log);;Any Files (*)" 过滤并校验日志导出路径
+0x00000000006bb240	qmap_freetree_deep	QMapDataBase::freeTree 7层内联深释放(通用)
+0x00000000006c7c96	qmap_freetree_free_variants2	7层freeTree+QVariant析构, 递归FUN_006c7c70
+0x00000000006d6bf2	settings_form_layout_build	QFormLayout::addRow+QCheckBox+QLineEdit+QDialogButtonBox+' [%1]'
+0x00000000006dcb1e	settings_checkbox_create	QCheckBox+setText+配置读toBool+setChecked+connect stateChanged
+0x00000000006dda08	settings_add_spinbox	创建绑定设置键的 QSpinBox 并连接 valueChanged
+0x00000000006e6c46	startup_session_launch	用 QTimer::timeout 延迟按名打开启动会话
+0x00000000006e97f0	settings_tree_populate	为 Editor/Terminal/Indentation/Line Ending 等类目填充 QStandardItem
+0x00000000006eb3ce	settings_find_node	用 qstrcmp 在类目树上二分查找设置节点
+0x00000000006f503a	sort_records72	对 0x48 字节记录用 FUN_006f14ae 做内省排序
+0x00000000006f5b42	settings_filter_model_build	用 "*" 通配项构建 QStandardItemModel 过滤表
+0x00000000006f8e30	page_build_platform_opts	按 "windows"/"%1.%2"/"${HomeDir}" 构建平台选项控件
+0x00000000006f9f3c	settings_page_connect_widgets	qt_qFindChildren 后按控件类型分别 connect 信号
+0x00000000006fc1c0	action_context_menu_item_create	'label'/'action'/'Separator'+'>%1: </td><td><b>%2</b></td></tr>'建表项
+0x00000000006fd6c0	platform_tabs_build	以 linux/macos/windows 分组框和堆叠控件搭建平台页
+0x00000000007024c0	search_collect_options	按 combo 类型(3=script)读取 text/property 汇总到映射
+0x0000000000705f82	session_port_dialog_init	QComboBox::setEditable+字符串Telnet/SSH+QPushButton无边框样式
+0x000000000070c774	settings_add_checkbox	创建绑定设置键的 QCheckBox 并在 stateChanged 时保存
+0x00000000007101a0	dialog_tabbed_build	用 QTabBar/QStackedWidget/QDialogButtonBox 搭建分页对话框
+0x0000000000711026	qlist_variantmaps_dispose	QListData::dispose+QVariant析构遍历
+0x000000000071e226	table_to_kv_string	遍历 QTableWidget 行按 "%1=%2%3" 拼键值串
+0x0000000000721412	ssh_settings_model_init	字符串SSH/Connection/Proxy/Authentication/Agent/Ciphers/Key Exchange/MAC Hashes
+0x0000000000729f1e	dialog_tabs_layout_build	QVBoxLayout/QGridLayout+QComboBox+QTabBar+QStackedWidget
+0x000000000072d304	info_page_build	创建只读 QPlainTextEdit 与标签行的信息页
+0x0000000000731eae	mux_bind_kit	取 kit 控件后绑定 +0x48 并重连视图
+0x000000000073eb92	sessionpane_connect_selection	QItemSelectionModel::selectedRows+QObject::connectImpl 绑定选中
+0x0000000000740472	sessionpane_rows_concat_text	QItemSelectionModel::selectedRows+'%1%2'拼接选中行文本
+0x00000000007410a2	sessions_move_to_group	用 selectedRows/indexBelow 把所选行移入分组
+0x00000000007433a0	sessionpane_drop_rows_move	QAbstractItemView::dropEvent+dropIndicatorPosition 移动会话行
+0x000000000074a1ea	outputpane_jump_match	向上找 OutputPane，按 'Last' 属性与正则捕获定位跳转
+0x000000000074c368	pane_title_update	用 "%1 (%2)" 设置窗口标题/标签与提示
+0x000000000074dda2	lineedit_decode_text	经 ConverterState 编解码器解码 QLineEdit 文本
+0x000000000074e5ce	search_history_update	按 find/replace/where 选择列表去重并 prepend 到下拉框
+0x000000000074e9cc	search_options_apply	按模式设置 +0x110 的搜索正则标志与选项
+0x0000000000754a5a	load_custom_fonts	扫描 "fonts"/"default" 目录并 QFontDatabase::addApplicationFont
+0x000000000075c132	dialog_min_size_fix	设置最小宽高并启用量角 QDialog::setSizeGripEnabled
+0x0000000000766c26	pane_restore_state	QDataStream 读入尺寸/字符串后 restoreGeometry、setWindowOpacity
+0x000000000076913f	metatypes_register_all	QMetaObject::className+QMetaType::registerNormalizedType 批量注册
+0x000000000076aee6	shortcut_json_build	生成 window.activeKit.startTool('%1') 等 when/keys/script 的 JSON
+0x000000000076cb16	tool_menu_action_update	QAction::text/setText+属性'Tool.ExternalToolList'/'%1\t%2'
+0x00000000007749a0	command_parse_args	按前缀与标志位转调选项解析器解析命令参数
+0x000000000077c226	command_help_parse_doc	字符串description/synopses/options/optionDefine/'delimiter_%1'
+0x000000000077dfea	command_script_load_spec	'*.command'/'__init__.command'/optionSpecifiers+QDir::entryInfoList
+0x000000000078330a	qstring_ensure_unique	数据共享或容量不足时 QString::reallocData
+0x000000000078447a	deque_splice_range	直接搬移 deque 块指针完成区间拼接
+0x000000000078bbee	command_history_add	用 currentSecsSinceEpoch 与 QHash 去重后追加命令历史
+0x000000000078c894	hash_deserialize_stream	QDataStream::operator>>+QHashData::allocateNode/rehash 反序列化哈希
+0x000000000078d642	qhash_rehash_buckets	QHashData::rehash/allocateNode重建桶数组
+0x00000000007907ec	qlist_mapnodes_dispose2	QListData::dispose+内嵌QMap freeTree遍历
+0x0000000000793808	command_syntax_parse_options	字符串parameter/openSquare/ellipsis/options/'delimiter_%1'/'parameter_%1'
+0x0000000000794d50	parse_option_string	用正则 globalMatch 解析 token/option/optionName/parameter 的命令选项串
+0x000000000079bd1a	savefile_prepare	创建 QSaveFile 并 setFileName/拼接目录与后缀
+0x000000000079d680	transfer_send_file	用 QFile 发送并打印 "Sending: %1"/"Sending %1 failed: %2"
+0x000000000079dc32	file_info_serialize_meta	QFileInfo+QDateTime::toSecsSinceEpoch+QByteArray::number 记录文件元数据
+0x00000000007a0f86	transfer_progress_parse_line	正则'[\\r\\n]'+字符串transferFile/transferedSize/totalSize/complete
+0x00000000007a38d0	runlock_acquire	未加锁时 lockForRead 并把标志位置 1
+0x00000000007a604a	line_styles_resize	行数变化时调整 QBitArray/QByteArray 的行样式表
+0x00000000007a9582	styles_merge_range32	遍历源 run 区间并写入目标 run 映射（按需建子样式）
+0x00000000007ab23e	runstyles_value_at64	按 gap 下标取 8 字节样式值
+0x00000000007ac8e0	runlocks_acquire_all	逐条自旋获取 run 条目的锁标志
+0x00000000007adf3e	gapbuf_set_len64b	与 gapbuf_set_len64 相同的 8 字节 gap 长度设置孪生
+0x00000000007af370	styles_cache_create64	建立 QReadWriteLock 与 64 位 run styles 的线程缓存
+0x00000000007b0430	runstyles64_priv_rebuild	64 位 run styles 的 run 数据重建
+0x00000000007b1880	styles_cache_create16	建立 QReadWriteLock 与 16 位 run styles 的线程缓存
+0x00000000007b2d70	runstyles_insert_space_16	Uint16RunStyles 的插入拆分（经 FUN_007b1420）
+0x00000000007b3344	qlist_detach_copy2	再次出现的 QListData::detach + memcpy 复制
+0x00000000007b36da	runbuf_compact	加写锁压缩 run 缓冲，占用低于 80% 时收缩
+0x00000000007b3960	runstyles_remove_range	区间恰好覆盖整 run 时删除，否则拆分调整样式
+0x00000000007b3dc0	styles_cache_create32	建立 QReadWriteLock + run styles 的 32 位线程缓存结构
+0x00000000007b4c50	runstyles32_priv_dtor	释放 run 缓冲并销毁 QMap/QHash 节点
+0x00000000007b4e70	runstyles32_priv_rebuild	重新分配 0x20 run 数据并释放旧映射
+0x00000000007b5270	runstyles_insert_space_32	Uint32RunStyles 的插入拆分（经 FUN_007b3960）
+0x00000000007b7290	runstyles_fill_range16	以 16 位值合并/写入 run 区间的实例化
+0x00000000007b8000	runstyles_fill_range32	以 32 位值合并/写入 run 区间的另一次实例化
+0x00000000007b9d5e	command_meta_register_types	QMetaType::registerNormalizedType+字符串targets/text/mode/unit
+0x00000000007c24c8	win_reserved_name_check	字符串UnknownIP/CON/PRN/AUX/NUL/COM1/COM2/COM3 校验Windows保留名
+0x00000000007c4392	qbytearray_detach_realloc	共享时QByteArray::reallocData 做写时复制
+0x00000000007c4440	qlist_release_custom2	引用计数归零后调用 FUN_007c19fe 释放
+0x00000000007c5882	template_replace_placeholder	把首字节匹配的占位项替换为给定 QByteArray 并修正偏移
+0x00000000007c5970	timestamp_round_minute	QElapsedTimer::elapsed+QDateTime::addMSecs+QTime::setHMS 按分钟对齐
+0x00000000007c6570	template_replace_unknown_ip	把模板中的主机占位替换为 "UnknownIP" 或实际 IP
+0x00000000007c85dc	set_current_index_data	缓存当前索引(+0x2c)变化时转交 QVariant 数据
+0x00000000007c8e68	string_rep_release2	引用计数递减后 operator_delete 释放 string rep
+0x00000000007cf9b6	proc_ps_parse_line	正则'uname=(.*)'/'pid=(\\d+)'/'(?<tty>...)'解析ps输出
+0x00000000007d2c69	session_fmt_message	用 500 字节 fmt 缓冲格式化后构造 std::string
+0x00000000007d31aa	session_write_char	把字符拓宽后转发给会话写入函数 FUN_009121fc
+0x00000000007e66c6	bytearraylist_join_write	QByteArrayList_join 后交给写入器 vtable
+0x00000000007ea318	terminal_reset_state	复位大量终端标志字节并重置编码/字符集状态
+0x00000000007eb4d6	term_resp_cursor_report	按 "%d;%d;%s;%s;%d&w" 构造 ESC[ 光标/状态应答
+0x00000000007ebdfc	mouse_xterm_seq_build	格式串'M%c%c%c'/'%d;%d;%dM'/'<%d;%d;%d%c' 生成鼠标序列
+0x00000000007f24ae	term_set_window_color	处理 "XTerm Set Window Color Type {}" 并写颜色表
+0x00000000007f298e	mouse_event_sgr_encode	'\\x1b['+'4;%d;%d'/'5;%d;%d'+QWidget::mapToGlobal 上报鼠标/窗口
+0x00000000007f7da2	qlist_shared_detach	仅引用计数>1 时 QListData::detach 并从当前首元素 memcpy
+0x0000000000803caa	action_slots_static_get	守卫初始化静态表(0x11c2390), 按0x28步长取元素
+0x0000000000804d4e	sort_actions_by_text	三点取中快排并按 QAction::text 比较
+0x0000000000808a8e	qlist_variantmaps_dispose2	QListData::dispose+QVariant析构遍历
+0x000000000080b720	sessions_group_by_group	按 group 路径（trimmed/lastIndexOf）聚合成 QHash
+0x000000000081a79c	Session_proxyjump_freetree	callers=s_session_proxyJumpServer1, 005249f0+00525060深树释放
+0x000000000081df20	xpressive_get_group_type	boost xpressive parser_traits 的 get_group_type（incomplete/unrecognized extension）
+0x0000000000823120	xpressive_parse_escape2	'\x' 十六进制转义解析的另一迭代器实例
+0x000000000082bad0	grammar_regex_validate2	同0068aaf0的正则语法校验(另一入口)
+0x000000000082dcc0	linecache_grow2	0x28 元素行缓存扩容的孪生实现
+0x0000000000831d80	tasktree_clone_nodes	operator_new(0xe0)逐项复制字段并串成双向链
+0x000000000083e286	termview_write_checked	先判断信号已连接再调用 TermView::write 输出
+0x000000000083eaa6	term_flush_if_active	当 +0x160==1 且有数据时触发写出
+0x000000000084b8ed	splitter_set_sizes_variant	注册 QList<int> 元类型后按 QVariant 列表 setSizes
+0x000000000084c145	metatype_register_qvariant_list	QMetaType::registerNormalizedType+QVariant::convert/constData
+0x000000000084dd5a	focus_breadcrumb_build	QApplication::focusWidget+QWidget::isAncestorOf+'%1:%2%3'拼控件路径
+0x00000000008540ae	TerminalWidget_map_nodes_destroy	callers=TerminalWidget_h84ab1a, 005249f0+00550ea0链表递归
+0x000000000085f5d4	telnet_log_option	以 'Server'/'Client' 标注打印 telnet 选项协商
+0x000000000085fc72	telnet_log_suboption	以 "Client:\tSubOption " 打印 telnet 子协商内容
+0x0000000000860cd6	telopt_name	把 telnet 选项号映射为 "MUD COMPRESSION PROTOCOL (V1)" 等名称
+0x0000000000864972	thread_worker_start	创建 QThread、moveToThread 并连接 finished
+0x00000000008684f6	pubkey_info_build	构造 "Public Key" 信息的 QVariant 标签
+0x0000000000870e7c	log_strerror_error	用 strerror 结果填充 "%1: %2 -> %3" 日志
+0x0000000000876d57	qregexp_new_from_str	用字符串构造并缓存 QRegularExpression 对象
+0x000000000087842e	tmux_ctor_init_patterns	置Tmux_vtable+正则'^%client-detached'/'^%exit'/'^%layout-change'/'^%output'
+0x0000000000878fee	tmux_parse_notify	解析 tmux control 模式通知（begin/end/output/exit/layout-change）
+0x000000000087df1a	Tmux_map_freetree	callers含Tmux函数族, QMapDataBase::freeTree深释放
+0x0000000000888d92	runstyles_insert_space_c	先按长度扩 gap 再拆分调整 run（Uint8RunStyles 插入）
+0x000000000088a016	gapbuf_reallocate	realloc 后搬移 gap，尺寸为负时抛 GapBuffer 异常
+0x000000000088c2c0	runstyles_priv_dtor_u8	重置 vtable 后释放 gap 缓冲与 QMap/QHash 节点（Uint8 族）
+0x000000000088c850	runstyles_priv_dtor_u8b	同族 run styles 缓冲与映射析构的又一实例
+0x000000000088f940	gapbuffer_threadbuf_find	QThread::currentThreadId+QReadWriteLock+QMap定位线程缓冲
+0x000000000088ff00	gapbuffer_get_byte_at	QReadWriteLock::lockForRead+块内偏移取单字节
+0x000000000089754a	path_utils_clean_build	QDir::cleanPath+QFileInfo::isRelative+'^/*\\.\\.?/'等正则归一化路径
+0x00000000008a01f0	variant_from_gui_object	按 dynamic_cast 结果把控件指针封装成对应类型 QVariant
+0x00000000008a0d7c	variant_type_register	按 QVariant 类型注册 QMetaType 并转换内容
+0x00000000008a5a8e	id_lower_join	取对象名转小写后按 "%1.%2" 拼接标识
+0x00000000008acf1a	qlist_variantmaps_dispose3	QListData::dispose+QVariant析构遍历
+0x00000000008afe34	qmap_deep_clone	createData 后深拷贝树并释放旧节点（含 QVariant 析构）
+0x00000000008b0530	qdatastream_read_list_maps	QDataStream::status/resetStatus+QListData::realloc 读map列表
+0x00000000008b23b0	qdatastream_read_map	QDataStream::status/resetStatus+QMapDataBase::createNode 读map
+0x00000000008b346e	quickswitcher_buttons_build	字符串Editor/Terminal/'Window.ActivateEditor'+QButtonGroup::addButton
+0x00000000008b99f6	widget_type_index_find	沿父链查找指定元类型并返回类型索引
+0x00000000008bef20	qlist_ref_release4	引用计数递减后 QListData::dispose
+0x00000000008c52fa	find_ancestor_type	沿父链 dynamic_cast 查找特定元类型祖先
+0x00000000008c5578	property_to_string	按键取属性后 QVariant::toString
+0x00000000008c8238	sharedconfig_destroy_dispatch	按vtable==SharedConfig_dtor判定后释放配置map
+0x00000000008c9e64	window_name_strip	从 QObject::objectName 去掉 "Window" 后缀
+0x00000000008ca6ca	kit_focus_widget_get	优先返回缓存 +0x80，否则沿焦点控件父链找视图
+0x00000000008cba1c	settings_get_string_value	按键取设置字符串并做主题字体替换后返回
+0x00000000008ce8f6	splitter_restore_state	用 QDataStream 读取并 QSplitter::restoreState/addWidget
+0x00000000008d43ba	kit_view_acquire	按 kit 类型标志获取或新建 KitView
+0x00000000008d4c70	kit_paths_add_numbered	规范化路径后追加编号并 show/hide 控件
+0x00000000008d8922	natural_sort_compare	QRegularExpression::match+captured+toInt 按数字段比较(自然排序)
+0x00000000008dbf3a	window_name_ask	QInputDialog::getText 后用正则 windowName 提取窗口名
+0x00000000008e04ae	tab_label_update	在标签文本后追加 " [%1]" 并设置焦点
+0x00000000008e0bb2	focus_active_widget_find	读取 "state"/"Active" 属性并结合 focusWidget 找活动子控件
+0x00000000008eb908	path_normalize_slashes	from/toNativeSeparators 并用 "/+" 正则压缩斜杠
+0x00000000008f3a74	terminalwidget_qt_metacall	param_2==0时switch属性id调QVariant/QString设置器(TerminalWidget)
+0x0000000000912342	qt_emit_signal4	以 staticMetaObject 索引 4 和单参数调 QMetaObject::activate
+0x000000000091b3d6	kitwindow_qt_metacall	字符串'Last'+QVariant设置器分发(KitWindow属性)
+0x00000000009258b2	handler_lookup_by_tag	在 +0x2d8 映射中按标签查找并 dynamic_cast 处理器对象
+0x00000000009284c6	indent_column_at	按空格/制表符与 +0x270 制表宽度换算缩进列
+0x000000000092961a	doc_range_pair_set	取两个位置并设置文档区间对
+0x000000000092c1ba	editor_insert_text	转调替换区间助手且长度为 0（即插入）
+0x000000000092cb60	theme_style_apply	取样式项后把其字段批量写入结构并遍历样式条目
+0x000000000092f0f6	session_attach_to_view	把会话存到 +600 并重建 +0x98/+0xa0 处理器对象
+0x000000000092f62e	session_dtor_full	释放处理器 QMap、对象向量与 QDateTime 等会话状态
+0x0000000000930d1c	line_doc_lookup	先按位置取行再取行关联文档对象
+0x00000000009391ec	gapbuf_reallocate2	realloc + gap 搬移的 GapBuffer 扩容孪生实现
+0x000000000093fc60	runlocks_acquire_all2	另一 run styles 家族的自旋加锁遍历
+0x0000000000940f36	gapbuf_erase_lines	擦除行指针并搬移 gap（含 ReAllocate 断言）
+0x0000000000941886	gapbuf_insert_line	扩展到 param_2+1 存指针并搬移 gap，含 ReAllocate 断言
+0x0000000000943882	surface_get_painter	惰性创建 QPainter 并设置渲染提示与缩放
+0x0000000000946326	color_from_variant	用 toLongLong/toReal/toString 组合出颜色值
+0x0000000000946f78	scintilla_notification_route	switch(0x3e9/0x3ea/0x3eb)按通知码调vtable对应槽
+0x000000000094a56a	deref_first	直接返回 *param_1
+0x000000000094ad5e	charwidth_cache_fill	以 -1.0 为哨兵填充字符宽度缓存并调 horizontalAdvance
+0x000000000094b406	textwidth_hash_get	调 QFontMetricsF::horizontalAdvance 并用 QHash 缓存文本宽度
+0x000000000095411e	runstyles_insert_space_f	run styles 插入空间的第六份实现
+0x000000000095b556	position_to_x	以基准 + 位置差×字符宽计算 x 坐标
+0x000000000095bb76	edit_delta_apply_markers	按编辑位移调整 +0x178 处标记区间的起止
+0x000000000095ccc6	marker_add_range	遍历 run 后在标记数组插入新标记节点
+0x0000000000962310	runstyles_fill_range_f64	以 double 值合并/写入 run 区间的实例化
+0x0000000000963d50	qlist_variantmaps_dispose4	QListData::dispose+QVariant析构遍历
+0x00000000009670c0	snippet_prune_conditions	读取 "condition"/"position" 后剔除失效片段条目
+0x000000000096825c	gapnode_free	释放 QArrayData 与底层缓冲
+0x00000000009694fe	runstyles_value_at32	读锁下从 gap 取指定下标的 uint 值
+0x000000000096bb04	pos_equal	按掩码 0xfffffffe 比较两个位置结构是否相等
+0x000000000096bbe0	doc_length_set	把长度钳制到 0x3fffffff 后写入（*4 编码）并可复位
+0x000000000096bd82	cursor_reset	把两个位置都置 -1 复位光标区间
+0x000000000096c0c0	pos_min	比较两个位置返回较小者
+0x000000000096c666	utf8_is_continuation	判断 (byte & 0xC0) == 0x80 的 UTF-8 续字节
+0x0000000000975bc6	doc_instance_get	取文档单例后转交 FUN_0096bfc8
+0x00000000009766d0	doc_rect_from_range	从 +0x60..+0x98 的区间字段构造矩形结构
+0x0000000000976bec	docbits_build_from_runs	以文档区间距离构造 QBitArray 并按 run 置位
+0x00000000009776d6	doc_range_from_positions	清零 10 字段区间结构后由两个位置填充
+0x0000000000979e66	doc_chars_walk	在区间内逐位置用代理对/字符分类助手遍历
+0x000000000097a50a	undo_push_snapshot	向 +0x50/+0x60 的撤销栈压入/回退快照
+0x000000000097daa2	splitvector_split_node2	区间整理后FUN_0097b9aa分裂节点(另一入口)
+0x000000000097f8d0	splitvector_splice_range	按0x18步长拼接两段块序列
+0x0000000000985da0	runbounds_get_b	CSuperBuffer32 家族按 run 下标取首尾边界
+0x0000000000986ea0	runstyles_priv_dtor_u8c	另一 run styles 家族的缓冲与映射析构
+0x0000000000987430	runstyles_priv_dtor_u8d	同族 run styles 缓冲与映射析构的第四份
+0x00000000009893c0	runcache_thread_local_get_b	按线程在受保护 QMap 中取/建 run 缓存（CSuperBuffer32 族）
+0x000000000098b606	wordinfo_at_collect	按列号遍历行/词并用 ostream 汇总 UTF-8 描述信息
+0x000000000098e632	trigger_action_alloc	字符串'trigger'+operator_new(0x70)构造触发项
+0x0000000000993690	strtrie_find_f	0x20 槽前缀树的另一份二分查找
+0x0000000000997d50	unicode_case_convert	toUcs4 后按 QChar::toUpper/toLower 逐码点转换再回 UTF-8
+0x000000000099bbb0	gapbuf_flush_if_big	累计长度超过 0xfffff 时带锁创建一次刷写任务
+0x00000000009a3cb0	trie_node_free_alt	递归释放子节点并析构两个 std::string 引用的另一实现
+0x00000000009a4586	hash_next_prime	在素数表 DAT_00ce9140 上二分求下一个容量
+0x00000000009a57c0	strtrie_find_g	经 FUN_00a86c3a 比较的前缀树查找再一实例
+0x00000000009a7140	token_at_position	由位置反查行再用字符串比较定位该处样式/标记对象
+0x00000000009aa350	marker_erase_range	按 [param_2,param_4) 切分/删除区间条目
+0x00000000009ab640	xpressive_parse_escape3	'\x' 十六进制转义解析的第三份实例
+0x00000000009aec40	wordchar_class_build	按 'upper'/'alnum' 等类别构造字符分类位表
+0x00000000009b12c0	runstyles_priv_dtor_u64	Uint64 run styles(007afe40 族)私有数据析构
+0x00000000009b245c	bytearrays_concat_resize	QByteArray::resize/reallocData 拼接两块数据
+0x00000000009b510c	editor_state_serialize	把多处状态字段经 FUN_00a92326 依次写入 QByteArray
+0x00000000009bb4fa	theme_style_parse_fonts	字符串foreground/background/fontFamilies/fontSize+正则拆分字体族
+0x00000000009c561e	runstyles_insert_space_64	Uint64 run styles 的插入拆分
+0x00000000009c934e	variant_list_diff_rebuild	QVariant::cmp逐个比较后清空重建列表
+0x00000000009cc396	run_vcall_28	通过对象 vtable+0x28 的单次间接调用
+0x00000000009cd3da	stylerun_value_get_variant	按类型 0..5 分派返回 u8/u16/u32 样式值
+0x00000000009cd91e	skipruns_split_at	按 run 种类分派并按需新建 Uint16RunStyles 后拆分
+0x00000000009d1a4a	snippets_parse_yaml	从 YAML 读取 trigger/template/name/scope 生成片段
+0x00000000009d43ee	textmate_rule_from_json	字符串repository/regions/match/triggers/scope 构造规则
+0x00000000009d534e	yaml_parse_import	按 import/parser/null 键解析 YAML 文档
+0x00000000009d81ce	grammar_regex_convert_named_groups	'\\[gk]<(\\w+).*?>'+'(?<'改写命名捕获组
+0x00000000009dc25c	textmate_capture_parse	QBitArray+字符串scope/match/begin/middle/end/keyword 解析捕获
+0x00000000009dd4ca	textmate_rule_compile_bits	QBitArray+字符串scope/match/begin/middle/end/keyword 编译规则位图
+0x00000000009de1ce	syntax_def_parse	字符串type/syntax/masks/patterns/regions/sequence/name/icon 解析语法定义
+0x00000000009e4de0	yaml_throw_error	按 mark 生成行/列信息并抛 yaml 解析异常
+0x00000000009e5470	strtrie_find_add_c	按长度二分查找并新建 0x18 节点的前缀树实现
+0x00000000009ee3a8	styles_init_from_length	按文档长度分配 Uint32RunStyles 与 gap 缓冲
+0x00000000009f4d52	editor_view_init	清零大量字段后分配 0x40/0x200 缓冲初始化视图
+0x0000000000a01fb0	deque_splice_range2	deque 区间拼接的又一实例
+0x0000000000a08a3e	textmate_scope_end_log	字符串'Scoping End, Nothing to do............'
+0x0000000000a0b500	gapbuffer_destroy_locked	自旋锁+QHashData::free_helper+QReadWriteLock释放
+0x0000000000a0d718	spvec_release_strings	递减向量内多个 shared_ptr 引用并释放字符串
+0x0000000000a114bc	rule_entry_dtor	释放嵌套 +0x28、引用计数 +0x20 与 +0x10 字符串
+0x0000000000a11818	snippet_entry_clone	深拷贝指针向量与 +0x30 标志字节生成新条目
+0x0000000000a20438	visible_line_count	按可视高度除以行高（可选向上取整）算可见行数
+0x0000000000a22844	line_rect_compute	由位置换算行号并用虚函数矩形计算行矩形
+0x0000000000a254a6	editor_replace_range	计算起止偏移后转调区间替换 FUN_0092be0a
+0x0000000000a258e4	replace_text_apply	"Replace Text" 按换行宽度(+0x1124)跨行替换文本
+0x0000000000a2f09a	snippet_expand	以 "Expand Snippet" 为动作名插入片段内容
+0x0000000000a2f82a	motion_name_map_init	把 char/wordpart/wordend/linestart/lineend/page/stutteredpage 等名字映射为编号
+0x0000000000a31966	select_range_expand	由起止位置推进 param_6 次构建选区列表
+0x0000000000a34394	collator_merge_sorted	用 QCollatorSortKey::compare 归并有序区间
+0x0000000000a36ffc	clipboard_paste_expand	字符串'Paste'+QByteArray::repeated 展开多选粘贴内容
+0x0000000000a38c56	editor_uncomment_selection	字符串'Uncomment Selection'+FUN_00963aa0命令包装
+0x0000000000a3a3ee	lines_sort_reverse_shuffle	字符串reverse/'Reverse Lines'/shuffle/'Shuffle Lines'/sort/unique
+0x0000000000a3b36a	editor_cmd_dispatch	按命令 ID(0x914..0x9a5) 分派到各编辑器处理函数
+0x0000000000a3e5ca	editor_caret_geometry_update	FUN_00a2b7b0+FUN_00a2b246 由坐标算插入符几何
+0x0000000000a3f090	terminal_snapshot_style_scan	遍历run取区间样式, callers=s_Editor__terminalSnapshotText
+0x0000000000a50bf2	editor_show_autocomplete	字符串'Expand Snippet'/'Auto Complete'+FUN_00926e8a触发补全
+0x0000000000a51780	selection_text_build	由 currentIndex 取选中项并转 UTF-8 文本
+0x0000000000a5940a	caret_spec_parse	正则'(\\d*)(.)(.?)'+QString::toLongLong 解析行/列定位串
+0x0000000000a5ed6e	word_range_at	由位置与样式字节计算词/段范围
+0x0000000000a64838	caret_rect_render	由 +0x38..+0x60 的矩形字段计算并追加选区/光标绘制
+0x0000000000a66ae8	line_marker_fill	用 QPainter::fillRect 按行状态填色标记
+0x0000000000a6a57e	view_ensure_visible	将可视矩形与高度上限比较并调整滚动偏移
+0x0000000000a6d05e	style_applier_build_map	字符串'Style'+QHashData::allocateNode/QMapDataBase::createNode 建样式表
+0x0000000000a7e872	json_parse_string	用 jsoncpp 读取器解析给定范围内的 JSON 文本
+0x0000000000a7f24a	qjsvalue_to_qvariant_convert	QJSValue::toVariant+QMetaType::registerNormalizedType 互转
+0x0000000000a83320	string_rep_release3	引用计数递减后释放 string rep
+0x0000000000a8b7b0	trie_node_free15	递归释放 15 槽前缀树子节点与 std::string 引用
+0x0000000000a8cc3a	strtrie_find_d	经 FUN_00a86c3a 比较器在 0x20 节点上二分查找
+0x0000000000a8d745	vector48_range_move	在 6 字元素区间之间搬移数据
+0x0000000000a8f180	runstyles_insert_space_e	run styles 插入空间的第五份实现
+0x0000000000a8f7ca	text_to_html_escaped	'<span style="color: %1; background-color: %2">'+QColor::name+toHtmlEscaped
+0x0000000000a914d0	wordbreak_between	用 QChar::category/isSpace/isPunct 判断相邻字符的词边界
+0x0000000000a91de0	wordbreak_between2	字符类别判断词边界的孪生实现
+0x0000000000a94940	charclass_fill_range	在 256 字节位图中按 [param_5,param_6] 置字符位
+0x0000000000a9bbc0	utf8_decode_codepoint2	按0x80000标志解码多字节UTF-8, 越界报错0x65
+0x0000000000a9c780	regex_compile_parse	22KB正则编译: 字符类表alpha/lower/upper/alnum/ascii/blank
+0x0000000000aa41a0	jit_relocate_patches	反转 patch 链表并回填相对偏移完成重定位
+0x0000000000aa5760	jit_emit_mov_imm	发射 0xb8+r 形式并写 8 字节立即数的 mov 指令
+0x0000000000aac030	jit_emit_conv	发射 0x89/0x21 的类型转换指令
+0x0000000000aad210	jit_emit_test_setcc	发射 test 与 setcc（0xf40/0xf41）字节序列
+0x0000000000aad4f0	jit_emit_cmp_set3	发射 0x862/0x1062 形式的比较+置位指令
+0x0000000000aad670	jit_emit_cmp_set2	发射 0x862/0x1062 的另一种比较+置位指令对
+0x0000000000aaf440	jit_emit_stack_ops2	发射 0x62/0x68 栈操作序列的第二份实现
+0x0000000000ab0e30	jit_compile_jumptable	按大端 16 位长度前缀遍历并发射跳转表代码
+0x0000000000ab1290	kitty_csi_u_encode_modifiers	FUN_00aaa9d0(0x8e)+FUN_00aaca30(0x60,0x862,0xc62)拼装CSI u
+0x0000000000ab21c0	jit_emit_prologue	在入口分支发射 0xc62 等指令并预留栈帧
+0x0000000000ab2700	jit_emit_store_local	发射 0x17 操作码并把槽位立即数写入指令流
+0x0000000000ab3b40	jit_emit_stack_ops	发射 0x60/0x62/0x68 的入栈/出栈指令序列
+0x0000000000ab5980	kitty_func_key_encode_a	cpuid_Version_info+0xC62/0x60 CSI序列编码功能键
+0x0000000000ab68a0	kitty_func_key_encode_b	cpuid_Version_info+0x62/0x262 CSI序列编码功能键
+0x0000000000abd370	kitty_encode_csi_modes	param_2==0x18/0x17 分支调FUN_00aad670/FUN_00aad7b0生成CSI
+0x0000000000abe540	kitty_keyboard_set_flags	FUN_00aa6c30写0x8f+0x9/0x81/0x40标志位设置键盘模式
+0x0000000000ac1ef0	kitty_input_parse_ctrl_char	按param_2字节+1的转义/控制位分支, 0x38为已解析事件数
+0x0000000000aca5f0	kitty_input_parse_escape_seq	逐字节解析ESC序列并映射到功能码
+0x0000000000ace3a0	kitty_input_decode_csi_params	解码CSI数字参数并校验修饰位
+0x0000000000ad8580	utf8_decode_codepoint	按0xc0/0x20/0x10/0x8多字节掩码解码UTF-8码点
+0x0000000000ad9fc0	regex_parse_walk_nodes	按0x75-0x79操作码跳转表遍历正则节点, 计数上限1000
+0x0000000000ae0e90	json_lex_token	逐字节识别字符串/逗号/数字/注释等 JSON token
+0x0000000000ae44c0	json_parse_number	用 istringstream 解析数字并报 "is not a number."
+0x0000000000ae7760	json_read_object	解析对象成员并报 "Missing '}' or object member name"
+0x0000000000aecd30	rbtree_str_lower_bound	用 _Rb_tree_decrement 与 memcmp 做字符串下界查找
+0x0000000000aecf80	rbtree_str_free	递归删除红黑树节点并销毁其 std::string rep
+0x0000000000aee7e0	json_value_init_bool	类型位置5(bool)+存param_2, 其余字段清零
+0x0000000000aee9e0	json_value_less	按类型分派比较 int/uint/double/string 的大小
+0x0000000000aef810	slot_nonnull_at	检查内部数组指定下标槽位是否非空
+0x0000000000af06e0	json_value_as_bool	'Value is not convertible to bool.'+按类型取值
+0x0000000000af1310	json_value_as_int64	jsoncpp 转 Int64 并检查 "LargestUInt out of Int64 range"
+0x0000000000af1890	json_value_as_uint64	jsoncpp 转 UInt64 并做 "LargestInt out of UInt64 range" 检查
+0x0000000000af5490	json_value_resize	断言 "Json::Value::resize(): requires arrayValue" 的数组扩容
+0x0000000000af61c0	json_value_resolve	调用 jsoncpp Value::resolveReference 解引用
+0x0000000000b097cc	yaml_static_init_a	静态初始化 DIRECTIVE/DOC_START 等 token 名称表
+0x0000000000b0c0e4	yaml_scanner_pop	非空时弹出扫描器 token（peek 的对应实现）
+0x0000000000b0c126	yaml_scanner_peek	断言 "!m_tokens.empty()" 的 Scanner::peek
+0x0000000000b0c236	yaml_scan_token	按首字节分派扫描各类 token，无法识别时报 "unknown token"
+0x0000000000b0d10a	yaml_static_init_b	另一份 token 名称表静态初始化
+0x0000000000b0eed8	yaml_token_dtor	释放 token 内部容器与 std::string
+0x0000000000b170a0	yaml_scan_block_scalar	扫描块标量缩进（"cannot set zero indentation for a block scalar"）
+0x0000000000b1760b	yaml_static_init_c	第三份 token 名称表静态初始化
+0x0000000000b1ab4a	yaml_static_init_d	第四份 token 名称表静态初始化
+0x0000000000b1de0c	yaml_static_init_e	第五份 token 名称表静态初始化
+0x0000000000b21596	yaml_read_byte	经扫描器助手读当前字节或触发填充
+0x0000000000b2363a	yaml_static_init_f	第六份 token 名称表静态初始化
+0x0000000000b298fc	yaml_unicode_escape	解析 \u 转义并按 UTF-8 编码（"invalid unicode: "）
+0x0000000000b2dbf0	regex_parse_char_class	字符串'alnum'+FUN_00b2d150 解析正则字符类
+0x0000000000b31550	regex_parse_repeat_op	字符串'redundant nested repeat operator', 解析量词
+0x0000000000b33d30	regexp_min_length	递归遍历正则解析树求最小匹配长度
+0x0000000000b37120	charmap_build	先生成 0..255 的映射表再按输入字符查表
+0x0000000000b49eb0	word_walk_back	借助 DAT_00d8f9e0 分类表向前回退扫描字符类别
+0x0000000000b4a470	wordwalk_back_codec	经编解码逐字符与分类表向前回退断词
+0x0000000000b4c130	hashtable_grow_size	以 (len>>8)+len 估算并使用小尺寸修正的容量计算
+0x0000000000bb47d0	threadpool_cond_timedwait	pthread_cond_t/pthread_mutex_t 条件变量等待
+0x0000000000bb56a0	async_pipe_write_chunk	pthread_mutex_t+memcpy 分块写入管道缓冲
+0x0000000000bca340	huffman_decode_tail	同一查找表解码的尾部处理（成对符号）
+0x0000000000bcf940	huffman_table_build	由 12 个码值在上下文 +0x1e0 处构造解码表
+0x0000000000bd16a0	codec_decode_validate_a	解码前做 0x1f08 尺寸与范围校验
+0x0000000000bd1dc0	codec_decode_validate_b	解码前尺寸/范围校验的另一入口
+0x0000000000be37c0	cpu_topology_parse	'/proc/cpuinfo'+'physical id'/'core id'统计核心
+0x0000000000bf9d20	locale_vsnprintf	__uselocale 包裹的 vsnprintf 封装
+0x0000000000bfc450	num_put_write_integer	__numpunct_cache<char>分组+填充写出整数(ulong)
+0x0000000000bfd420	num_put_write_integer2	__numpunct_cache<char>分组写出整数(ushort)
+0x0000000000bfe330	num_put_write_integer3	__numpunct_cache<char>分组写出整数(uint)
+0x0000000000bff250	num_put_write_integer4	__numpunct_cache<char>分组写出整数(另一入口)
+0x0000000000c001f0	num_put_write_integer5	__numpunct_cache<char>分组写出整数(另一入口)
+0x0000000000c011c0	num_put_write_integer6	__numpunct_cache<char>分组写出整数(另一入口)
+0x0000000000c317b0	numpunct_cache_char	安装 __numpunct_cache<char> 到 locale
+0x0000000000c4f8c0	string_rep_release	引用计数归零后 std::string::_Rep::_M_destroy
+0x0000000000c55570	numpunct_cache_wide	安装 __numpunct_cache<wchar_t> 到 locale
+0x0000000000c649a0	num_put_write_winteger	__numpunct_cache<wchar_t>分组写出宽字符整数
+0x0000000000c65880	num_put_write_winteger2	__numpunct_cache<wchar_t>分组写出(ushort)
+0x0000000000c666f0	num_put_write_winteger3	__numpunct_cache<wchar_t>分组写出(uint)
+0x0000000000c67590	num_put_write_winteger4	__numpunct_cache<wchar_t>分组写出(ulong)
+0x0000000000c68450	num_put_write_winteger5	__numpunct_cache<wchar_t>分组写出(另一入口)
+0x0000000000c69330	num_put_write_winteger6	__numpunct_cache<wchar_t>分组写出(另一入口)
+0x0000000000c6a290	time_get_do_get_fmt_wide	宽字符 ctype 版本的 do_get 格式解析
+0x0000000000c7dd70	demangle_special_name	'{default arg#'/'JArray'/'table for '/'VTT for '/'typeinfo for '符号替换
+0x0000000000c82e40	demangle_default_arg	解构器中处理 "{default arg#" 占位
+0x0000000000c875f0	dwarf_read_encoded_pointer	按低 4 位选择 leb128/2/4/8 字节读取 DWARF 编码指针（0x50 特殊）

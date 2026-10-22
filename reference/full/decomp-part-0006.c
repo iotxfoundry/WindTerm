@@ -2185,7 +2185,7 @@ void FUN_004d44de(void)
   if (cVar1 == '\0') {
     FUN_0061d3c8(*(undefined8 *)(unaff_RBX + 0x38));
   }
-  FUN_0061c1ea(unaff_RBX + 0x30);
+  TransferCenter_map_freetree(unaff_RBX + 0x30);
   FUN_0061c030(unaff_RBX + 0x28);
   FUN_0061c010(unaff_RBX + 0x20);
   QObject::~QObject(unaff_RBX);
@@ -8086,7 +8086,7 @@ void FUN_004d6cd4(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8122,7 +8122,7 @@ void FUN_004d6d66(void)
     QTextDecoder::~QTextDecoder(in_stack_00000028);
     operator_delete(in_stack_00000028,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8162,7 +8162,7 @@ void FUN_004d6d84(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(uStack0000000000000008);
@@ -8196,7 +8196,7 @@ void FUN_004d6d9b(void)
   QIcon::~QIcon(in_stack_00000078);
   qt_array_data_unref(in_stack_00000070);
   QFileInfo::~QFileInfo(in_stack_00000090);
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(uStack0000000000000008);
@@ -8223,7 +8223,7 @@ void FUN_004d6dcd(void)
   QIcon::~QIcon(in_stack_00000078);
   qt_array_data_unref(in_stack_00000070);
   QFileInfo::~QFileInfo(in_stack_00000090);
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8259,7 +8259,7 @@ void FUN_004d6df1(void)
     QTextDecoder::~QTextDecoder(in_stack_00000038);
     operator_delete(in_stack_00000038,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8299,7 +8299,7 @@ void FUN_004d6e00(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(uStack0000000000000008);
@@ -8339,7 +8339,7 @@ void FUN_004d6e17(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(uStack0000000000000008);
@@ -8379,7 +8379,7 @@ void FUN_004d6e2e(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(uStack0000000000000008);
@@ -8415,7 +8415,7 @@ void FUN_004d6e61(void)
   QVariant::~QVariant(in_stack_00000048);
   qt_byte_array_unref(in_stack_00000060);
   QVariant::~QVariant(in_stack_00000080);
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -8450,7 +8450,7 @@ void FUN_004d6e8e(void)
     QTextDecoder::~QTextDecoder(in_stack_00000038);
     operator_delete(in_stack_00000038,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8487,7 +8487,7 @@ void FUN_004d6eaa(void)
     QTextDecoder::~QTextDecoder(in_stack_00000038);
     operator_delete(in_stack_00000038,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(uStack0000000000000008);
@@ -8522,7 +8522,7 @@ void FUN_004d6eb8(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -8557,7 +8557,7 @@ void FUN_004d6ecf(void)
     QTextDecoder::~QTextDecoder(in_stack_00000038);
     operator_delete(in_stack_00000038,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8590,7 +8590,7 @@ void FUN_004d6edc(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -8626,7 +8626,7 @@ void FUN_004d6ef3(void)
     QTextDecoder::~QTextDecoder(in_stack_00000038);
     operator_delete(in_stack_00000038,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8666,7 +8666,7 @@ void FUN_004d6f02(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(uStack0000000000000008);
@@ -8702,7 +8702,7 @@ void FUN_004d6f19(void)
     QTextDecoder::~QTextDecoder(in_stack_00000038);
     operator_delete(in_stack_00000038,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -8740,7 +8740,7 @@ void FUN_004d6f2d(void)
     QTextDecoder::~QTextDecoder(pQStack0000000000000038);
     operator_delete(pQVar1,0x28);
   }
-  FUN_0096825c(in_stack_00000058);
+  gapnode_free(in_stack_00000058);
   QFile::~QFile(in_stack_00000018);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception(unaff_RBX);
@@ -12797,7 +12797,7 @@ void FUN_004d8a54(void)
   QJSValue *unaff_RBX;
   
   QJSValue::~QJSValue(unaff_RBX);
-  FUN_00544630();
+  qlist_release_data();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -12811,7 +12811,7 @@ void FUN_004d8a6c(void)
   QJSValue *unaff_RBX;
   
   QJSValue::~QJSValue(unaff_RBX);
-  FUN_00544630();
+  qlist_release_data();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -13379,7 +13379,7 @@ void FUN_004d8cfb(void)
   undefined8 *in_stack_00000050;
   QJSValue *in_stack_00000058;
   
-  FUN_00544630();
+  qlist_release_data();
   QJSValue::~QJSValue(in_stack_00000058);
   piVar1 = (int *)*in_stack_00000050;
   if (*piVar1 != 0) {
@@ -14456,7 +14456,7 @@ void FUN_004d9336(void)
   
   qt_byte_array_unref(in_stack_00000018);
   if ((undefined *)*unaff_R13 != &DAT_011c5118) {
-    FUN_00673ecc();
+    refcount_delete_offset10_g();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -14498,7 +14498,7 @@ void FUN_004d9388(void)
   long *in_stack_00000048;
   
   if (*in_stack_00000048 + -0x18 != unaff_RBX) {
-    FUN_00673ecc();
+    refcount_delete_offset10_g();
   }
   QRegularExpression::~QRegularExpression(in_stack_00000038);
                     /* WARNING: Subroutine does not return */
@@ -14561,7 +14561,7 @@ void FUN_004d93da(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14581,12 +14581,12 @@ void FUN_004d942b(void)
     FUN_0067cdf0();
   }
   if (in_stack_000000d0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14633,12 +14633,12 @@ void FUN_004d9451(void)
     refcounted_vt_destroy();
   }
   if (in_stack_000000d0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14661,7 +14661,7 @@ void FUN_004d94e4(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14682,7 +14682,7 @@ void FUN_004d950d(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14698,12 +14698,12 @@ void FUN_004d9522(void)
   undefined8 in_stack_00000038;
   _Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *in_stack_00000098;
   
-  FUN_00544630(in_stack_00000038);
+  qlist_release_data(in_stack_00000038);
   QJSValue::~QJSValue(unaff_R12);
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14720,7 +14720,7 @@ void FUN_004d952e(void)
   __cxa_begin_catch();
   for (; unaff_R14 != unaff_RBP; unaff_R14 = unaff_R14 + 2) {
     if ((undefined *)*unaff_R14 != &DAT_011c5118) {
-      FUN_00673ecc();
+      refcount_delete_offset10_g();
     }
   }
                     /* WARNING: Subroutine does not return */
@@ -14748,12 +14748,12 @@ void FUN_004d95c9(void)
   FUN_006809c0(in_stack_00000038 + 0x30,in_stack_00000320);
   FUN_0067faa0(in_stack_00000038,in_stack_000002f0);
   if (in_stack_000000d0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14769,13 +14769,13 @@ void FUN_004d9606(void)
   _Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *in_stack_00000098;
   QJSValue *in_stack_000000b0;
   
-  FUN_00544630();
+  qlist_release_data();
   QJSValue::~QJSValue(unaff_retaddr);
   QJSValue::~QJSValue(in_stack_000000b0);
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14798,13 +14798,13 @@ void FUN_004d961c(void)
   QJSValue::~QJSValue(unaff_R13);
   qt_array_data_unref(in_stack_00000088);
   if (unaff_RBP + -0x18 != unaff_RBX) {
-    FUN_00673ecc();
+    refcount_delete_offset10_g();
   }
   QJSValue::~QJSValue(in_stack_000000b0);
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14824,7 +14824,7 @@ void FUN_004d964f(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14845,7 +14845,7 @@ void FUN_004d965c(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14865,7 +14865,7 @@ void FUN_004d966c(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14884,7 +14884,7 @@ void FUN_004d9679(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14902,7 +14902,7 @@ void FUN_004d968b(void)
   if (in_stack_00000098 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(in_stack_00000098);
   }
-  FUN_0067e2c0(in_stack_00000030);
+  treenode_dtor_recursive(in_stack_00000030);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14920,7 +14920,7 @@ void FUN_004d9698(void)
   __cxa_begin_catch();
   for (plVar1 = unaff_R12; unaff_R12 != plVar1; plVar1 = plVar1 + 1) {
     if (*plVar1 + -0x18 != in_stack_00000008) {
-      FUN_00673ecc();
+      refcount_delete_offset10_g();
     }
   }
                     /* WARNING: Subroutine does not return */
@@ -15005,7 +15005,7 @@ void FUN_004d97b3(void)
   long in_stack_000000c0;
   
   if (in_stack_000000c0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   qt_shared_data_unref(in_stack_00000038);
   if (in_stack_000000a8 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
@@ -15134,11 +15134,11 @@ void FUN_004d9846(void)
   undefined4 in_stack_000000f8;
   
   if (in_stack_000000d0 != (undefined1 *)0x0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (unaff_R14 != 1) {
     if (in_stack_000000c0 != 0) {
-      FUN_0067fae4();
+      tree_node_release();
     }
     qt_shared_data_unref(in_stack_00000038);
     if (in_stack_000000a8 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
@@ -15158,7 +15158,7 @@ void FUN_004d9846(void)
   __cxa_end_catch();
   FUN_00687320(in_stack_000000a0 + 8,in_stack_00000008);
   if (in_stack_000000c0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (in_stack_00000018 == '\0') goto LAB_006780b2;
   QByteArray::QByteArray((QByteArray *)unaff_RBX,"action",-1);
@@ -15174,9 +15174,9 @@ void FUN_004d9846(void)
     }
   }
   _in_stack_00000018 = &stack0x00000070;
-  FUN_00546bae(_in_stack_00000018);
-  FUN_00546bae(_in_stack_00000018,unaff_RBX + 8);
-  FUN_00546bae(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018,unaff_RBX + 8);
+  qlist_str_append(_in_stack_00000018);
   qt_byte_array_unref(unaff_RBX + 0x10);
   qt_byte_array_unref(unaff_RBX + 8);
   qt_byte_array_unref();
@@ -15347,7 +15347,7 @@ void FUN_004d98ad(void)
   std::locale::~locale(unaff_retaddr);
   if (unaff_R14 != 1) {
     if (in_stack_000000c0 != 0) {
-      FUN_0067fae4();
+      tree_node_release();
     }
     qt_shared_data_unref(in_stack_00000038);
     if (in_stack_000000a8 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
@@ -15366,7 +15366,7 @@ void FUN_004d98ad(void)
   __cxa_end_catch();
   FUN_00687320(in_stack_000000a0 + 8,in_stack_00000008);
   if (in_stack_000000c0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (in_stack_00000018 == '\0') goto LAB_006780b2;
   QByteArray::QByteArray((QByteArray *)unaff_RBX,"action",-1);
@@ -15382,9 +15382,9 @@ void FUN_004d98ad(void)
     }
   }
   _in_stack_00000018 = &stack0x00000070;
-  FUN_00546bae(_in_stack_00000018);
-  FUN_00546bae(_in_stack_00000018,unaff_RBX + 8);
-  FUN_00546bae(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018,unaff_RBX + 8);
+  qlist_str_append(_in_stack_00000018);
   qt_byte_array_unref(unaff_RBX + 0x10);
   qt_byte_array_unref(unaff_RBX + 8);
   qt_byte_array_unref();
@@ -15555,7 +15555,7 @@ void FUN_004d9909(void)
   std::locale::~locale(unaff_retaddr);
   if (unaff_R14 != 1) {
     if (in_stack_000000c0 != 0) {
-      FUN_0067fae4();
+      tree_node_release();
     }
     qt_shared_data_unref(in_stack_00000038);
     if (in_stack_000000a8 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
@@ -15574,7 +15574,7 @@ void FUN_004d9909(void)
   __cxa_end_catch();
   FUN_00687320(in_stack_000000a0 + 8,in_stack_00000008);
   if (in_stack_000000c0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (in_stack_00000018 == '\0') goto LAB_006780b2;
   QByteArray::QByteArray((QByteArray *)unaff_RBX,"action",-1);
@@ -15590,9 +15590,9 @@ void FUN_004d9909(void)
     }
   }
   _in_stack_00000018 = &stack0x00000070;
-  FUN_00546bae(_in_stack_00000018);
-  FUN_00546bae(_in_stack_00000018,unaff_RBX + 8);
-  FUN_00546bae(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018,unaff_RBX + 8);
+  qlist_str_append(_in_stack_00000018);
   qt_byte_array_unref(unaff_RBX + 0x10);
   qt_byte_array_unref(unaff_RBX + 8);
   qt_byte_array_unref();
@@ -15762,7 +15762,7 @@ void FUN_004d992e(undefined8 param_1,undefined8 param_2,long param_3)
   std::locale::~locale(unaff_R14);
   if (lStack0000000000000040 != 1) {
     if (in_stack_000000c0 != 0) {
-      FUN_0067fae4();
+      tree_node_release();
     }
     qt_shared_data_unref(in_stack_00000038);
     if (in_stack_000000a8 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
@@ -15781,7 +15781,7 @@ void FUN_004d992e(undefined8 param_1,undefined8 param_2,long param_3)
   __cxa_end_catch();
   FUN_00687320(in_stack_000000a0 + 8,in_stack_00000008);
   if (in_stack_000000c0 != 0) {
-    FUN_0067fae4();
+    tree_node_release();
   }
   if (in_stack_00000018 == '\0') goto LAB_006780b2;
   QByteArray::QByteArray((QByteArray *)unaff_RBX,"action",-1);
@@ -15797,9 +15797,9 @@ void FUN_004d992e(undefined8 param_1,undefined8 param_2,long param_3)
     }
   }
   _in_stack_00000018 = &stack0x00000070;
-  FUN_00546bae(_in_stack_00000018);
-  FUN_00546bae(_in_stack_00000018,unaff_RBX + 8);
-  FUN_00546bae(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018);
+  qlist_str_append(_in_stack_00000018,unaff_RBX + 8);
+  qlist_str_append(_in_stack_00000018);
   qt_byte_array_unref(unaff_RBX + 0x10);
   qt_byte_array_unref(unaff_RBX + 8);
   qt_byte_array_unref();
@@ -17835,7 +17835,7 @@ void FUN_004da5fc(void)
   QJSValue *unaff_RBP;
   QJSValue *in_stack_00000028;
   
-  FUN_00544630();
+  qlist_release_data();
   QJSValue::~QJSValue(unaff_RBP);
   QJSValue::~QJSValue(in_stack_00000028);
   qt_array_data_unref();

@@ -201,7 +201,7 @@ long FUN_00797bd0(long *param_1,int param_2,int param_3)
                lVar1 + 0x10 + (long)*(int *)(lVar1 + 0xc) * 8,lVar2 + (long)local_3c[0] * 8);
   cVar3 = qatomic_int_deref(uVar4);
   if (cVar3 == '\0') {
-    FUN_007907ec(uVar4);
+    qlist_mapnodes_dispose2(uVar4);
   }
   return *param_1 + 0x10 + ((long)local_3c[0] + (long)*(int *)(*param_1 + 8)) * 8;
 }
@@ -2135,9 +2135,9 @@ bool FUN_0079bcd2(long param_1,long param_2,int param_3)
 }
 
 
-// ==== entry=0079bd1a name=FUN_0079bd1a size=1120 ====
+// ==== entry=0079bd1a orig=FUN_0079bd1a size=1120 name=savefile_prepare ====
 
-undefined8 FUN_0079bd1a(long param_1)
+undefined8 savefile_prepare(long param_1)
 
 {
   long *plVar1;
@@ -2520,7 +2520,7 @@ LAB_0079c4ad:
       return '\x01';
     }
   }
-  cVar2 = FUN_0079bd1a(param_1);
+  cVar2 = savefile_prepare(param_1);
   if (cVar2 == '\0') {
     return '\x01';
   }
@@ -3051,7 +3051,7 @@ LAB_0079cfbc:
       }
       else {
         if (cVar5 == '\x04') {
-          cVar5 = FUN_0079bd1a(param_1);
+          cVar5 = savefile_prepare(param_1);
           if (cVar5 != '\0') {
             if (((byte)((char)param_1[0x88] - 1U) < 2) || (param_1[0x88] == (QObject)0x4)) {
               (**(code **)(**(long **)(param_1 + 0x78) + 0xe0))((QDateTime *)&local_48);
@@ -3246,9 +3246,9 @@ LAB_0079ceb2:
 }
 
 
-// ==== entry=0079d680 name=FUN_0079d680 size=1365 ====
+// ==== entry=0079d680 orig=FUN_0079d680 size=1365 name=transfer_send_file ====
 
-undefined4 FUN_0079d680(long *param_1)
+undefined4 transfer_send_file(long *param_1)
 
 {
   void **ppvVar1;
@@ -3490,9 +3490,9 @@ LAB_0079d9d8:
 }
 
 
-// ==== entry=0079dc32 name=FUN_0079dc32 size=3833 ====
+// ==== entry=0079dc32 orig=FUN_0079dc32 size=3833 name=file_info_serialize_meta ====
 
-undefined4 FUN_0079dc32(long param_1,short param_2)
+undefined4 file_info_serialize_meta(long param_1,short param_2)
 
 {
   long lVar1;
@@ -3543,7 +3543,7 @@ undefined4 FUN_0079dc32(long param_1,short param_2)
     pcVar29 = *(char **)(param_1 + 0x80);
     if (*(char *)(param_1 + 0x50) == '\0') {
       if (pcVar29 != (char *)0x0) goto LAB_0079dc8c;
-      FUN_0079d680(&local_470);
+      transfer_send_file(&local_470);
       pcVar29 = *(char **)(param_1 + 0x80);
     }
     if (pcVar29 == (char *)0x0) {
@@ -3715,7 +3715,7 @@ LAB_0079dc8c:
     *(undefined1 *)(param_1 + 0x58) = 4;
     return 0;
   }
-  uVar15 = FUN_0079d680(&local_470);
+  uVar15 = transfer_send_file(&local_470);
   if ((char)uVar15 != '\0') {
     QFileInfo::QFileInfo(local_468,*(QFile **)(param_1 + 0x80));
     local_460 = (QArrayData *)&QArrayData::shared_null;
@@ -4148,7 +4148,7 @@ void FUN_0079eb8c(long param_1,undefined2 param_2)
   int iVar3;
   QArrayData *local_20 [2];
   
-  cVar2 = FUN_0079dc32(param_1,param_2);
+  cVar2 = file_info_serialize_meta(param_1,param_2);
   if (cVar2 == '\0') {
     if ((*(long *)(param_1 + 0x80) != 0) && (iVar3 = QFileDevice::error(), iVar3 != 0)) {
       QIODevice::errorString();
@@ -5707,7 +5707,7 @@ LAB_007a08a8:
   local_40 = 0;
   puVar10 = operator_new(0x18);
   *puVar10 = 1;
-  *(code **)(puVar10 + 2) = FUN_007a0f86;
+  *(code **)(puVar10 + 2) = transfer_progress_parse_line;
   *(QObject **)(puVar10 + 4) = param_1;
   QObject::connectImpl
             ((QString *)&local_58,uVar8,(QString *)&local_48,param_1,0,puVar10,0,0,
@@ -5734,9 +5734,9 @@ LAB_007a08a8:
 }
 
 
-// ==== entry=007a0f86 name=FUN_007a0f86 size=3062 ====
+// ==== entry=007a0f86 orig=FUN_007a0f86 size=3062 name=transfer_progress_parse_line ====
 
-void FUN_007a0f86(int param_1,void *param_2,undefined8 param_3,long param_4)
+void transfer_progress_parse_line(int param_1,void *param_2,undefined8 param_3,long param_4)
 
 {
   uint *puVar1;
@@ -7797,9 +7797,9 @@ ulong * FUN_007a3814(byte *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=007a38d0 name=FUN_007a38d0 size=35 ====
+// ==== entry=007a38d0 orig=FUN_007a38d0 size=35 name=runlock_acquire ====
 
-void FUN_007a38d0(ulong *param_1)
+void runlock_acquire(ulong *param_1)
 
 {
   if ((*param_1 != 0) && ((*param_1 & 1) == 0)) {
@@ -10423,9 +10423,9 @@ void FUN_007a5ff2(long param_1,int param_2)
 }
 
 
-// ==== entry=007a604a name=FUN_007a604a size=967 ====
+// ==== entry=007a604a orig=FUN_007a604a size=967 name=line_styles_resize ====
 
-void FUN_007a604a(long param_1,int param_2,int param_3)
+void line_styles_resize(long param_1,int param_2,int param_3)
 
 {
   int *piVar1;
@@ -10899,7 +10899,7 @@ void FUN_007a69b8(long param_1,undefined1 param_2)
   *(undefined8 *)(param_1 + 0xe0) = 0;
                     /* try { // try from 007a6a6f to 007a6a92 has its CatchHandler @ 007a6aa0 */
   FUN_007a4b0a(param_1);
-  FUN_007a604a(param_1,2,8);
+  line_styles_resize(param_1,2,8);
   FUN_007a461c(param_1,1);
   return;
 }
@@ -11357,11 +11357,11 @@ LAB_007a73c2:
   do {
     uVar5 = *(ulong *)(*(long *)(puVar7 + 8) + 0x18);
     if (1 < *local_60) {
-      FUN_005a2170(&local_60,local_60[1]);
+      qlist_detach_erase_mid(&local_60,local_60[1]);
     }
     puVar6 = local_60 + (long)(int)local_60[2] * 2 + 4;
     if (1 < *local_60) {
-      FUN_005a2170(&local_60,local_60[1]);
+      qlist_detach_erase_mid(&local_60,local_60[1]);
     }
 joined_r0x007a7304:
     uVar4 = uVar5;
@@ -11458,11 +11458,11 @@ void FUN_007a748e(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
     do {
       uVar10 = *(ulong *)(*(long *)(puVar11 + 8) + 0x18);
       if (1 < *local_60) {
-        FUN_005a2170(&local_60,local_60[1]);
+        qlist_detach_erase_mid(&local_60,local_60[1]);
       }
       puVar9 = local_60 + (long)(int)local_60[2] * 2 + 4;
       if (1 < *local_60) {
-        FUN_005a2170(&local_60,local_60[1]);
+        qlist_detach_erase_mid(&local_60,local_60[1]);
       }
       puVar1 = local_60 + (long)(int)local_60[3] * 2 + 4;
       if (puVar9 != puVar1) {
@@ -12212,7 +12212,7 @@ void FUN_007a838a(undefined8 *param_1,long *param_2,int param_3,int param_4)
       }
       else {
         if (param_3 != *(int *)(lVar2 + 0x18)) {
-          FUN_007adf3e(lVar2,param_3);
+          gapbuf_set_len64b(lVar2,param_3);
           iVar5 = *(int *)(lVar2 + 0x14);
         }
         iVar5 = iVar5 - param_4;
@@ -12223,7 +12223,7 @@ void FUN_007a838a(undefined8 *param_1,long *param_2,int param_3,int param_4)
           if ((double)iVar5 < (double)iVar1 * 0.6) {
             iVar4 = (iVar5 >> 8) + iVar5;
             if (iVar5 != *(int *)(lVar2 + 0x18)) {
-              FUN_007adf3e(lVar2);
+              gapbuf_set_len64b(lVar2);
             }
             if (iVar4 < 1) {
               if (iVar4 != 0) {
@@ -12457,7 +12457,7 @@ LAB_007a87cd:
           FUN_007b0210(lVar1);
         }
         else {
-          FUN_007b0430();
+          runstyles64_priv_rebuild();
         }
       }
       else {
@@ -12742,7 +12742,7 @@ void FUN_007a8f00(long param_1,long param_2)
     QReadWriteLock::unlock();
   }
   if (iVar5 != 0) {
-    FUN_007b36da(param_1,param_2,1);
+    runbuf_compact(param_1,param_2,1);
   }
   puVar2 = *(undefined1 **)(param_1 + 0x28);
   local_30[0] = param_2;
@@ -12755,7 +12755,7 @@ void FUN_007a8f00(long param_1,long param_2)
       if (0 < iVar5) {
         if (1 < **(uint **)(puVar2 + 0x48)) {
                     /* try { // try from 007a9084 to 007a9088 has its CatchHandler @ 007a909d */
-          FUN_007b3344(puVar1,(*(uint **)(puVar2 + 0x48))[1]);
+          qlist_detach_copy2(puVar1,(*(uint **)(puVar2 + 0x48))[1]);
         }
                     /* try { // try from 007a8fa6 to 007a9018 has its CatchHandler @ 007a909d */
         QListData::move((int)puVar1,iVar5);
@@ -12897,7 +12897,7 @@ LAB_007a9203:
             local_70 = local_70 + 8;
           } while (local_68 != iVar7);
         }
-        FUN_007b3960(&local_48,local_64,lVar6,local_50);
+        runstyles_remove_range(&local_48,local_64,lVar6,local_50);
         plVar2 = *(long **)(lVar1 + 0x20);
         local_64 = local_68;
         if (*(code **)(*plVar2 + 0x38) == FUN_007a9d76) {
@@ -12907,7 +12907,7 @@ LAB_007a9203:
           lVar5 = (**(code **)(*plVar2 + 0x38))(plVar2,local_68);
         }
       }
-      FUN_007b3960(&local_48,local_64,lVar5,lVar8 + lVar6);
+      runstyles_remove_range(&local_48,local_64,lVar5,lVar8 + lVar6);
       RunStyles32_removeRange(*(undefined8 *)(lVar1 + 0x20),lVar6,lVar8);
       lVar8 = (*(long *)(lVar1 + 0x10) - lVar8) * 2;
       lVar6 = lVar8 >> 1;
@@ -12916,10 +12916,10 @@ LAB_007a9203:
            *(uint *)(lVar1 + 0x14) & 0x80000000 | (uint)(lVar8 >> 0x21) & 0x7fffffff;
       if (lVar6 < 0x2000001) {
         if ((*(ulong *)(lVar1 + 0x10) & 0x7fffffffffffffff) == 0) {
-          FUN_007b4c50(lVar1);
+          runstyles32_priv_dtor(lVar1);
         }
         else {
-          FUN_007b4e70();
+          runstyles32_priv_rebuild();
         }
       }
       else {
@@ -12984,9 +12984,9 @@ void FUN_007a941c(void)
 }
 
 
-// ==== entry=007a9582 name=FUN_007a9582 size=1262 ====
+// ==== entry=007a9582 orig=FUN_007a9582 size=1262 name=styles_merge_range32 ====
 
-int FUN_007a9582(undefined8 param_1,ushort *param_2,long param_3,long param_4)
+int styles_merge_range32(undefined8 param_1,ushort *param_2,long param_3,long param_4)
 
 {
   byte bVar1;
@@ -13077,7 +13077,7 @@ LAB_007a95f3:
             *puVar13 = &Uint16RunStyles_vtable;
             *(undefined8 **)(param_3 + 0x10) = puVar13;
           }
-          FUN_007b7290(puVar13,(long)iVar3,sVar4,(long)iVar8);
+          runstyles_fill_range16(puVar13,(long)iVar3,sVar4,(long)iVar8);
         }
         if (iVar7 == 0) goto LAB_007a95f3;
         puVar13 = *(undefined8 **)(param_3 + 0x18);
@@ -13102,14 +13102,14 @@ LAB_007a95f3:
           puVar12[4] = 0;
           puVar12[5] = 0;
                     /* try { // try from 007a98e3 to 007a98e7 has its CatchHandler @ 007a9a90 */
-          FUN_007b4c50(puVar12);
+          runstyles32_priv_dtor(puVar12);
           puVar13[2] = puVar12;
                     /* try { // try from 007a98f8 to 007a98fc has its CatchHandler @ 007a9aa0 */
           Uint32RunStyles_fill(puVar12,0,0,2);
           *puVar13 = &Uint32RunStyles_vtable;
           *(undefined8 **)(param_3 + 0x18) = puVar13;
         }
-        FUN_007b8000(puVar13,(long)iVar3,iVar7,(long)iVar8);
+        runstyles_fill_range32(puVar13,(long)iVar3,iVar7,(long)iVar8);
         iVar8 = iVar6;
       } while (iVar6 < iVar5);
     }
@@ -14657,9 +14657,9 @@ undefined8 gapbuf_realloc4(long param_1)
 }
 
 
-// ==== entry=007ab23e name=FUN_007ab23e size=44 ====
+// ==== entry=007ab23e orig=FUN_007ab23e size=44 name=runstyles_value_at64 ====
 
-undefined8 FUN_007ab23e(long param_1,int param_2)
+undefined8 runstyles_value_at64(long param_1,int param_2)
 
 {
   if (param_2 < *(int *)(param_1 + 0x18)) {
@@ -14808,7 +14808,7 @@ ulong FUN_007ab46e(long param_1,undefined4 param_2,undefined4 param_3)
   ulong local_20;
   
   local_20 = param_1 + 0x20;
-  FUN_007a38d0(&local_20);
+  runlock_acquire(&local_20);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007ab49b to 007ab4ac has its CatchHandler @ 007ab4e6 */
     GapBuffer_materialize(param_1);
@@ -14882,7 +14882,7 @@ ulong FUN_007ab620(long param_1,int param_2,undefined8 param_3,int param_4)
   ulong local_30 [2];
   
   local_30[0] = param_1 + 0x20;
-  FUN_007a38d0(local_30);
+  runlock_acquire(local_30);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007ab67e to 007ab682 has its CatchHandler @ 007ab6b9 */
     GapBuffer_materialize(param_1);
@@ -14917,7 +14917,7 @@ undefined8 * FUN_007ab6f0(long param_1,int param_2,undefined8 param_3,int param_
   ulong local_30 [2];
   
   local_30[0] = param_1 + 0x20;
-  FUN_007a38d0(local_30);
+  runlock_acquire(local_30);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007ab722 to 007ab726 has its CatchHandler @ 007ab848 */
     GapBuffer_materialize(param_1);
@@ -15096,7 +15096,7 @@ ulong FUN_007aba5c(long param_1,undefined4 param_2,undefined4 param_3)
   ulong local_20;
   
   local_20 = param_1 + 0x20;
-  FUN_007a38d0(&local_20);
+  runlock_acquire(&local_20);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007aba89 to 007aba9a has its CatchHandler @ 007abad4 */
     FUN_007ab0f8(param_1);
@@ -15170,7 +15170,7 @@ ulong FUN_007abc00(long param_1,int param_2,undefined8 param_3,int param_4)
   ulong local_30 [2];
   
   local_30[0] = param_1 + 0x20;
-  FUN_007a38d0(local_30);
+  runlock_acquire(local_30);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007abc5e to 007abc62 has its CatchHandler @ 007abc99 */
     FUN_007ab0f8(param_1);
@@ -15205,7 +15205,7 @@ undefined2 * FUN_007abcd0(long param_1,int param_2,undefined2 param_3,int param_
   ulong local_30;
   
   local_30 = param_1 + 0x20;
-  FUN_007a38d0(&local_30);
+  runlock_acquire(&local_30);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007abd07 to 007abd0b has its CatchHandler @ 007abe37 */
     FUN_007ab0f8(param_1);
@@ -15384,7 +15384,7 @@ ulong FUN_007ac04e(long param_1,undefined4 param_2,undefined4 param_3)
   ulong local_20;
   
   local_20 = param_1 + 0x20;
-  FUN_007a38d0(&local_20);
+  runlock_acquire(&local_20);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007ac07b to 007ac08c has its CatchHandler @ 007ac0c6 */
     gapbuf_realloc4(param_1);
@@ -15458,7 +15458,7 @@ ulong FUN_007ac200(long param_1,int param_2,undefined8 param_3,int param_4)
   ulong local_30 [2];
   
   local_30[0] = param_1 + 0x20;
-  FUN_007a38d0(local_30);
+  runlock_acquire(local_30);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007ac25e to 007ac262 has its CatchHandler @ 007ac299 */
     gapbuf_realloc4(param_1);
@@ -15491,7 +15491,7 @@ undefined4 * FUN_007ac2d0(long param_1,int param_2,undefined4 param_3,int param_
   ulong local_30 [2];
   
   local_30[0] = param_1 + 0x20;
-  FUN_007a38d0(local_30);
+  runlock_acquire(local_30);
   if (*(int *)(param_1 + 0x2c) != 0) {
                     /* try { // try from 007ac302 to 007ac306 has its CatchHandler @ 007ac43f */
     gapbuf_realloc4(param_1);
@@ -15898,9 +15898,9 @@ LAB_007ac8a5:
 }
 
 
-// ==== entry=007ac8e0 name=FUN_007ac8e0 size=546 ====
+// ==== entry=007ac8e0 orig=FUN_007ac8e0 size=546 name=runlocks_acquire_all ====
 
-void FUN_007ac8e0(long param_1)
+void runlocks_acquire_all(long param_1)
 
 {
   char cVar1;
@@ -16991,9 +16991,9 @@ void FUN_007adf20(undefined8 param_1,undefined8 param_2,long param_3)
 }
 
 
-// ==== entry=007adf3e name=FUN_007adf3e size=105 ====
+// ==== entry=007adf3e orig=FUN_007adf3e size=105 name=gapbuf_set_len64b ====
 
-void FUN_007adf3e(long param_1,int param_2)
+void gapbuf_set_len64b(long param_1,int param_2)
 
 {
   int iVar1;
@@ -17080,7 +17080,7 @@ undefined8 * FUN_007ae0a8(long param_1,int param_2,undefined8 param_3,int param_
   if (((0 < param_4) && (-1 < param_2)) && (param_2 <= *(int *)(param_1 + 0x14))) {
     iVar5 = *(int *)(param_1 + 0x18);
     if (iVar5 < param_2) {
-      FUN_007adf3e();
+      gapbuf_set_len64b();
       iVar5 = *(int *)(param_1 + 0x1c);
       if (iVar5 < param_4) {
         FUN_007adfa8(param_1,param_4);
@@ -17097,7 +17097,7 @@ undefined8 * FUN_007ae0a8(long param_1,int param_2,undefined8 param_3,int param_
         iVar5 = *(int *)(param_1 + 0x18);
       }
       if (param_2 != iVar5) {
-        FUN_007adf3e(param_1,param_2);
+        gapbuf_set_len64b(param_1,param_2);
         iVar5 = *(int *)(param_1 + 0x18);
       }
       lVar2 = (long)iVar5;
@@ -17171,14 +17171,14 @@ void RunStyles32_removeRange(long param_1,long param_2,long param_3)
         }
       }
       else {
-        lVar7 = FUN_007ab23e(*(undefined8 *)(param_1 + 0x10),iVar3);
+        lVar7 = runstyles_value_at64(*(undefined8 *)(param_1 + 0x10),iVar3);
         if (0 < iVar3 - iVar1) {
           FUN_007a838a(param_1 + 8,param_1 + 0x10,iVar2);
         }
         runstyles_fill_value_range(*(undefined8 *)(param_1 + 8),lVar9,param_3);
         uVar8 = *(undefined8 *)(param_1 + 0x10);
         if (param_2 == lVar5) {
-          if ((0 < iVar1) && (lVar4 = FUN_007ab23e(uVar8,iVar1 + -1), lVar4 == lVar7)) {
+          if ((0 < iVar1) && (lVar4 = runstyles_value_at64(uVar8,iVar1 + -1), lVar4 == lVar7)) {
 LAB_007ae334:
             FUN_007a838a(param_1 + 8,param_1 + 0x10,iVar1,1);
             return;
@@ -17187,7 +17187,7 @@ LAB_007ae379:
           FUN_007ac46a(uVar8,iVar1,lVar7);
           return;
         }
-        lVar4 = FUN_007ab23e(uVar8,iVar1);
+        lVar4 = runstyles_value_at64(uVar8,iVar1);
         if (lVar4 != lVar7) {
           runstyles_insert_chars(*(undefined8 *)(param_1 + 8),(long)iVar2,param_2);
           FUN_007ae0a8(*(undefined8 *)(param_1 + 0x10),iVar2,lVar7,1);
@@ -17229,7 +17229,7 @@ LAB_007ae461:
   else {
     param_4 = param_4 + param_2;
     iVar1 = runstyles_fill_range(*(undefined8 *)(param_1 + 8));
-    lVar3 = FUN_007ab23e(*(undefined8 *)(param_1 + 0x10),iVar1);
+    lVar3 = runstyles_value_at64(*(undefined8 *)(param_1 + 0x10),iVar1);
     iVar9 = iVar1 + 1;
     lVar4 = (long)iVar9;
     lVar5 = runstyles_run_start_at(*(undefined8 *)(param_1 + 8),lVar4);
@@ -17242,7 +17242,8 @@ LAB_007ae461:
         if (param_2 == lVar5) {
           uVar8 = *(undefined8 *)(param_1 + 8);
           if ((0 < iVar1) &&
-             (lVar3 = FUN_007ab23e(*(undefined8 *)(param_1 + 0x10),iVar1 + -1), lVar3 == param_3)) {
+             (lVar3 = runstyles_value_at64(*(undefined8 *)(param_1 + 0x10),iVar1 + -1),
+             lVar3 == param_3)) {
             runs_insertSpaceRange(uVar8,(long)iVar1,param_4);
             return 1;
           }
@@ -17256,7 +17257,7 @@ LAB_007ae461:
         goto LAB_007ae461;
         iVar1 = *(int *)(lVar4 + 0x18);
         if (iVar1 < iVar9) {
-          FUN_007adf3e(lVar4,iVar9);
+          gapbuf_set_len64b(lVar4,iVar9);
           if (1 < *(int *)(lVar4 + 0x1c)) goto LAB_007ae440;
           FUN_007adfa8(lVar4,2);
           lVar5 = (long)*(int *)(lVar4 + 0x18);
@@ -17268,7 +17269,7 @@ LAB_007ae461:
           }
           lVar5 = (long)iVar1;
           if (iVar9 != iVar1) {
-            FUN_007adf3e(lVar4,iVar9);
+            gapbuf_set_len64b(lVar4,iVar9);
 LAB_007ae440:
             lVar5 = (long)*(int *)(lVar4 + 0x18);
           }
@@ -17289,7 +17290,7 @@ LAB_007ae606:
     else {
       if ((param_4 == lVar5) && (lVar3 == param_3)) goto LAB_007ae606;
       iVar2 = runstyles_fill_range(*(undefined8 *)(param_1 + 8),param_4);
-      lVar5 = FUN_007ab23e(*(undefined8 *)(param_1 + 0x10),iVar2);
+      lVar5 = runstyles_value_at64(*(undefined8 *)(param_1 + 0x10),iVar2);
       if (0 < iVar2 - iVar1) {
         FUN_007a838a(param_1 + 8,param_1 + 0x10,iVar9);
       }
@@ -17317,7 +17318,7 @@ LAB_007ae606:
           return uVar8;
         }
         uVar6 = *(undefined8 *)(param_1 + 0x10);
-        if ((0 < iVar1) && (lVar3 = FUN_007ab23e(uVar6,iVar1 + -1), lVar3 == param_3)) {
+        if ((0 < iVar1) && (lVar3 = runstyles_value_at64(uVar6,iVar1 + -1), lVar3 == param_3)) {
           FUN_007a838a(param_1 + 8,param_1 + 0x10,iVar1,1);
           return 1;
         }
@@ -17347,7 +17348,7 @@ void FUN_007ae6f4(long *param_1,long param_2,long param_3,char param_4)
     if (param_4 != '\0') {
       if (param_4 == '\x02') {
         runstyles_fill_value_range(param_1[1],(long)iVar1,param_3);
-        lVar2 = FUN_007ab23e(param_1[2],iVar1);
+        lVar2 = runstyles_value_at64(param_1[2],iVar1);
         if (lVar2 != 0) {
           RunStyles16_insertStyle(param_1,param_2,0,param_3,0);
           return;
@@ -17640,7 +17641,7 @@ void gapbuf_ensureChunk(long param_1,long param_2,char param_3)
   if (param_3 == '\0') {
     local_40[0] = param_2 + 0x20;
                     /* try { // try from 007aecc7 to 007aecf4 has its CatchHandler @ 007aee58 */
-    FUN_007a38d0(local_40);
+    runlock_acquire(local_40);
     iVar1 = *(int *)(param_2 + 0x2c);
     if ((local_40[0] != 0) && ((local_40[0] & 1) != 0)) {
       local_40[0] = local_40[0] & 0xfffffffffffffffe;
@@ -17659,7 +17660,7 @@ void gapbuf_ensureChunk(long param_1,long param_2,char param_3)
       iVar1 = *(int *)(lVar4 + 0x14);
       lVar7 = (long)iVar1 << 3;
                     /* try { // try from 007aed44 to 007aed8a has its CatchHandler @ 007aee53 */
-      sVar5 = FUN_00b4c130(lVar7);
+      sVar5 = hashtable_grow_size(lVar7);
       pvVar6 = malloc(sVar5);
       if (*(int *)(lVar4 + 0x18) != *(int *)(lVar4 + 0x14)) {
         gapbuf_set_len64(lVar4,*(int *)(lVar4 + 0x14),sVar5);
@@ -17765,7 +17766,7 @@ void RunStyles64_setStyleRange(long *param_1,int param_2,long param_3,long param
         FUN_007a84ca(lVar3,lVar5);
       }
       local_40[0] = lVar5 + 0x20;
-      FUN_007a38d0(local_40);
+      runlock_acquire(local_40);
       if (*(int *)(lVar5 + 0x2c) != 0) {
                     /* try { // try from 007aefd3 to 007aefe5 has its CatchHandler @ 007af055 */
         GapBuffer_materialize(lVar5);
@@ -17925,9 +17926,9 @@ void FUN_007af2f0(long param_1)
 }
 
 
-// ==== entry=007af370 name=FUN_007af370 size=1105 ====
+// ==== entry=007af370 orig=FUN_007af370 size=1105 name=styles_cache_create64 ====
 
-void FUN_007af370(long param_1)
+void styles_cache_create64(long param_1)
 
 {
   int iVar1;
@@ -18011,7 +18012,7 @@ void FUN_007af370(long param_1)
   *(undefined1 **)(param_1 + 0x28) = puVar8;
   lVar11 = *(long *)(param_1 + 0x18);
   local_30 = (QReadWriteLock *)(puVar2 + 8);
-  FUN_007a38d0(&local_30);
+  runlock_acquire(&local_30);
   if (puVar2[0xb] != 0) {
                     /* try { // try from 007af550 to 007af554 has its CatchHandler @ 007af7c1 */
     GapBuffer_materialize(puVar2);
@@ -18191,7 +18192,7 @@ void Uint64RunStyles_fill(long param_1,ulong param_2,undefined8 param_3,ulong pa
            (uint)((ulong)lVar4 >> 0x20) & 0x7fffffff | *(uint *)(param_1 + 0x14) & 0x80000000;
       return;
     }
-    FUN_007af370();
+    styles_cache_create64();
   }
   uVar13 = (ulong)(uVar10 & 0x7ffff);
   if ((param_4 & 0x7ffff) == 0) {
@@ -18252,7 +18253,7 @@ void Uint64RunStyles_fill(long param_1,ulong param_2,undefined8 param_3,ulong pa
       *(undefined8 *)(puVar6 + 4) = 0;
       *(undefined8 *)(puVar6 + 6) = 0;
       local_40[0] = (QReadWriteLock *)(puVar6 + 8);
-      FUN_007a38d0(local_40);
+      runlock_acquire(local_40);
       if (puVar6[0xb] != 0) {
                     /* try { // try from 007afad9 to 007afadd has its CatchHandler @ 007afde5 */
         GapBuffer_materialize(puVar6);
@@ -18336,7 +18337,7 @@ void FUN_007afe40(undefined8 *param_1)
     operator_delete(pvVar1,0x20);
     param_1[3] = 0;
   }
-  FUN_007ac8e0(param_1);
+  runlocks_acquire_all(param_1);
   pvVar1 = (void *)param_1[5];
   if (pvVar1 != (void *)0x0) {
     pQVar2 = *(QMapNodeBase **)((long)pvVar1 + 0x38);
@@ -18418,7 +18419,7 @@ void FUN_007b0030(undefined8 *param_1)
     operator_delete(pvVar1,0x20);
     param_1[3] = 0;
   }
-  FUN_007ac8e0(param_1);
+  runlocks_acquire_all(param_1);
   pvVar1 = (void *)param_1[5];
   if (pvVar1 != (void *)0x0) {
     pQVar2 = *(QMapNodeBase **)((long)pvVar1 + 0x38);
@@ -18499,7 +18500,7 @@ void FUN_007b0210(long param_1)
     operator_delete(pvVar1,0x20);
     *(undefined8 *)(param_1 + 0x18) = 0;
   }
-  FUN_007ac8e0(param_1);
+  runlocks_acquire_all(param_1);
   pvVar1 = *(void **)(param_1 + 0x28);
   if (pvVar1 != (void *)0x0) {
     pQVar2 = *(QMapNodeBase **)((long)pvVar1 + 0x38);
@@ -18568,11 +18569,11 @@ void FUN_007b0210(long param_1)
 }
 
 
-// ==== entry=007b0430 name=FUN_007b0430 size=984 ====
+// ==== entry=007b0430 orig=FUN_007b0430 size=984 name=runstyles64_priv_rebuild ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_007b0430(long param_1)
+void runstyles64_priv_rebuild(long param_1)
 
 {
   int iVar1;
@@ -18608,7 +18609,7 @@ void FUN_007b0430(long param_1)
   }
   if (iVar9 < 1) {
 LAB_007b058b:
-    FUN_007ac8e0(param_1);
+    runlocks_acquire_all(param_1);
     pvVar4 = *(void **)(param_1 + 0x28);
     if (pvVar4 != (void *)0x0) {
       pQVar5 = *(QMapNodeBase **)((long)pvVar4 + 0x38);
@@ -18814,7 +18815,7 @@ void RunStyles64_fillRange(long param_1,long param_2,long param_3)
           FUN_007b0210();
         }
         else {
-          FUN_007b0430(param_1);
+          runstyles64_priv_rebuild(param_1);
         }
       }
       else {
@@ -18872,7 +18873,7 @@ void Uint32RunStyles_vt13(undefined8 *param_1)
       operator_delete(pvVar2,0x20);
       plVar1[3] = 0;
     }
-    FUN_007ac8e0(plVar1);
+    runlocks_acquire_all(plVar1);
     pvVar2 = (void *)plVar1[5];
     if (pvVar2 != (void *)0x0) {
       pQVar3 = *(QMapNodeBase **)((long)pvVar2 + 0x38);
@@ -19213,7 +19214,7 @@ void FUN_007b119a(long param_1,long param_2,char param_3)
   if (param_3 == '\0') {
     local_40[0] = param_2 + 0x20;
                     /* try { // try from 007b11d7 to 007b1204 has its CatchHandler @ 007b1367 */
-    FUN_007a38d0(local_40);
+    runlock_acquire(local_40);
     iVar1 = *(int *)(param_2 + 0x2c);
     if ((local_40[0] != 0) && ((local_40[0] & 1) != 0)) {
       local_40[0] = local_40[0] & 0xfffffffffffffffe;
@@ -19232,7 +19233,7 @@ void FUN_007b119a(long param_1,long param_2,char param_3)
       iVar1 = *(int *)(lVar5 + 0x14);
       lVar4 = (long)iVar1 * 2;
                     /* try { // try from 007b1253 to 007b1299 has its CatchHandler @ 007b1362 */
-      sVar6 = FUN_00b4c130(lVar4);
+      sVar6 = hashtable_grow_size(lVar4);
       pvVar7 = malloc(sVar6);
       if (*(int *)(lVar5 + 0x18) != *(int *)(lVar5 + 0x14)) {
         GapBuffer_moveGap2(lVar5,*(int *)(lVar5 + 0x14),sVar6);
@@ -19338,7 +19339,7 @@ void FUN_007b1420(long *param_1,int param_2,long param_3,long param_4)
         FUN_007a89e6(lVar3,lVar5);
       }
       local_40[0] = lVar5 + 0x20;
-      FUN_007a38d0(local_40);
+      runlock_acquire(local_40);
       if (*(int *)(lVar5 + 0x2c) != 0) {
                     /* try { // try from 007b14e3 to 007b14f5 has its CatchHandler @ 007b1565 */
         FUN_007ab0f8(lVar5);
@@ -19498,9 +19499,9 @@ void FUN_007b1800(long param_1)
 }
 
 
-// ==== entry=007b1880 name=FUN_007b1880 size=1105 ====
+// ==== entry=007b1880 orig=FUN_007b1880 size=1105 name=styles_cache_create16 ====
 
-void FUN_007b1880(long param_1)
+void styles_cache_create16(long param_1)
 
 {
   int iVar1;
@@ -19584,7 +19585,7 @@ void FUN_007b1880(long param_1)
   *(undefined1 **)(param_1 + 0x28) = puVar8;
   lVar11 = *(long *)(param_1 + 0x18);
   local_30 = (QReadWriteLock *)(puVar2 + 8);
-  FUN_007a38d0(&local_30);
+  runlock_acquire(&local_30);
   if (puVar2[0xb] != 0) {
                     /* try { // try from 007b1a60 to 007b1a64 has its CatchHandler @ 007b1cd1 */
     FUN_007ab0f8(puVar2);
@@ -19767,7 +19768,7 @@ void Uint16RunStyles_fill(long param_1,ulong param_2,undefined2 param_3,ulong pa
            (uint)((ulong)lVar5 >> 0x20) & 0x7fffffff | *(uint *)(param_1 + 0x14) & 0x80000000;
       return;
     }
-    FUN_007b1880();
+    styles_cache_create16();
   }
   uVar13 = (ulong)(uVar10 & 0x1fffff);
   if ((param_4 & 0x1fffff) == 0) {
@@ -19828,7 +19829,7 @@ void Uint16RunStyles_fill(long param_1,ulong param_2,undefined2 param_3,ulong pa
       *(undefined8 *)(puVar7 + 4) = 0;
       *(undefined8 *)(puVar7 + 6) = 0;
       local_40[0] = (QReadWriteLock *)(puVar7 + 8);
-      FUN_007a38d0(local_40);
+      runlock_acquire(local_40);
       if (puVar7[0xb] != 0) {
                     /* try { // try from 007b1ff9 to 007b1ffd has its CatchHandler @ 007b2331 */
         FUN_007ab0f8(puVar7);
@@ -20317,9 +20318,9 @@ LAB_007b2a9a:
 }
 
 
-// ==== entry=007b2d70 name=FUN_007b2d70 size=601 ====
+// ==== entry=007b2d70 orig=FUN_007b2d70 size=601 name=runstyles_insert_space_16 ====
 
-void FUN_007b2d70(long param_1,long param_2,long param_3)
+void runstyles_insert_space_16(long param_1,long param_2,long param_3)
 
 {
   code *pcVar1;
@@ -20588,9 +20589,9 @@ long FUN_007b3250(long *param_1,int param_2,int param_3)
 }
 
 
-// ==== entry=007b3344 name=FUN_007b3344 size=114 ====
+// ==== entry=007b3344 orig=FUN_007b3344 size=114 name=qlist_detach_copy2 ====
 
-void FUN_007b3344(long *param_1)
+void qlist_detach_copy2(long *param_1)
 
 {
   void *__src;
@@ -20654,7 +20655,7 @@ ulong lru_touchKey(long param_1,long param_2)
       return 0;
     }
     if (1 < **(uint **)(param_1 + 0x48)) {
-      FUN_007b3344(lVar1,(*(uint **)(param_1 + 0x48))[1]);
+      qlist_detach_copy2(lVar1,(*(uint **)(param_1 + 0x48))[1]);
     }
     QListData::move(iVar12,iVar4);
     return 0;
@@ -20666,7 +20667,7 @@ ulong lru_touchKey(long param_1,long param_2)
       lVar13 = (long)iVar4;
       do {
         if (1 < *puVar6) {
-          FUN_007b3344(lVar1,*(undefined4 *)(*(long *)(param_1 + 0x48) + 4));
+          qlist_detach_copy2(lVar1,*(undefined4 *)(*(long *)(param_1 + 0x48) + 4));
         }
         local_40[0] = *(ulong *)(*(long *)(param_1 + 0x48) + 0x10 +
                                 (*(int *)(*(long *)(param_1 + 0x48) + 8) + lVar13) * 8);
@@ -20680,7 +20681,7 @@ ulong lru_touchKey(long param_1,long param_2)
               QListData::remove(iVar12);
             }
             else {
-              FUN_007b3344(lVar1,puVar6[1]);
+              qlist_detach_copy2(lVar1,puVar6[1]);
               QListData::remove(iVar12);
             }
           }
@@ -20766,9 +20767,9 @@ LAB_007b35aa:
 }
 
 
-// ==== entry=007b36da name=FUN_007b36da size=457 ====
+// ==== entry=007b36da orig=FUN_007b36da size=457 name=runbuf_compact ====
 
-void FUN_007b36da(long param_1,long param_2,char param_3)
+void runbuf_compact(long param_1,long param_2,char param_3)
 
 {
   int iVar1;
@@ -20789,7 +20790,7 @@ void FUN_007b36da(long param_1,long param_2,char param_3)
   if (param_3 == '\0') {
     local_40[0] = param_2 + 0x20;
                     /* try { // try from 007b3717 to 007b3744 has its CatchHandler @ 007b38a8 */
-    FUN_007a38d0(local_40);
+    runlock_acquire(local_40);
     iVar1 = *(int *)(param_2 + 0x2c);
     if ((local_40[0] != 0) && ((local_40[0] & 1) != 0)) {
       local_40[0] = local_40[0] & 0xfffffffffffffffe;
@@ -20808,7 +20809,7 @@ void FUN_007b36da(long param_1,long param_2,char param_3)
       iVar1 = *(int *)(lVar4 + 0x14);
       lVar7 = (long)iVar1 << 2;
                     /* try { // try from 007b3794 to 007b37da has its CatchHandler @ 007b38a3 */
-      sVar5 = FUN_00b4c130(lVar7);
+      sVar5 = hashtable_grow_size(lVar7);
       pvVar6 = malloc(sVar5);
       if (*(int *)(lVar4 + 0x18) != *(int *)(lVar4 + 0x14)) {
         gapbuf_shrink4(lVar4,*(int *)(lVar4 + 0x14),sVar5);
@@ -20877,9 +20878,9 @@ void qmap_detach4(long *param_1)
 }
 
 
-// ==== entry=007b3960 name=FUN_007b3960 size=325 ====
+// ==== entry=007b3960 orig=FUN_007b3960 size=325 name=runstyles_remove_range ====
 
-void FUN_007b3960(long *param_1,int param_2,long param_3,long param_4)
+void runstyles_remove_range(long *param_1,int param_2,long param_3,long param_4)
 
 {
   code *pcVar1;
@@ -20909,12 +20910,12 @@ void FUN_007b3960(long *param_1,int param_2,long param_3,long param_4)
       FUN_007a7d76(*(long *)(lVar3 + 0x20),*(undefined8 *)(lVar3 + 0x28),param_2);
     }
     else {
-      lVar5 = FUN_007ab23e(*(undefined8 *)(*(long *)(lVar3 + 0x20) + 0x10),param_2);
+      lVar5 = runstyles_value_at64(*(undefined8 *)(*(long *)(lVar3 + 0x20) + 0x10),param_2);
       if ((*(byte *)(lVar3 + 0xc) & 1) != 0) {
         FUN_007a8f00(lVar3,lVar5);
       }
       local_40[0] = lVar5 + 0x20;
-      FUN_007a38d0(local_40);
+      runlock_acquire(local_40);
       if (*(int *)(lVar5 + 0x2c) != 0) {
                     /* try { // try from 007b3a23 to 007b3a35 has its CatchHandler @ 007b3aa5 */
         gapbuf_realloc4(lVar5);
@@ -20952,7 +20953,7 @@ void runstyles_initLock(long param_1,long param_2)
     iVar3 = (*pcVar1)();
   }
   plVar2 = *(long **)(param_1 + 0x20);
-  lVar4 = FUN_007ab23e(plVar2[2],iVar3);
+  lVar4 = runstyles_value_at64(plVar2[2],iVar3);
   if (*(code **)(*plVar2 + 0x38) == FUN_007a9d76) {
     lVar5 = runstyles_run_start_at(plVar2[1],(long)iVar3);
   }
@@ -20990,7 +20991,7 @@ void runstyles_initLock(long param_1,long param_2)
     }
     FUN_007ac04e(lVar4,param_2 - lVar5 & 0xffffffff,uVar7 & 0xffffffff);
     RunStyles16_insertStyle(*(undefined8 *)(param_1 + 0x20),param_2,puVar8,uVar7,0);
-    FUN_007b36da(param_1,puVar8,0);
+    runbuf_compact(param_1,puVar8,0);
     return;
   }
   return;
@@ -21074,9 +21075,9 @@ void FUN_007b3d40(long param_1)
 }
 
 
-// ==== entry=007b3dc0 name=FUN_007b3dc0 size=1105 ====
+// ==== entry=007b3dc0 orig=FUN_007b3dc0 size=1105 name=styles_cache_create32 ====
 
-void FUN_007b3dc0(long param_1)
+void styles_cache_create32(long param_1)
 
 {
   int iVar1;
@@ -21126,7 +21127,7 @@ void FUN_007b3dc0(long param_1)
   FUN_007adfa8(puVar5,2);
   iVar1 = 0;
   if (puVar5[6] != 0) {
-    FUN_007adf3e(puVar5,0);
+    gapbuf_set_len64b(puVar5,0);
     iVar1 = puVar5[6];
   }
   lVar11 = *(long *)(puVar5 + 2);
@@ -21160,7 +21161,7 @@ void FUN_007b3dc0(long param_1)
   *(undefined1 **)(param_1 + 0x28) = puVar8;
   lVar11 = *(long *)(param_1 + 0x18);
   local_30 = (QReadWriteLock *)(puVar2 + 8);
-  FUN_007a38d0(&local_30);
+  runlock_acquire(&local_30);
   if (puVar2[0xb] != 0) {
                     /* try { // try from 007b3fa0 to 007b3fa4 has its CatchHandler @ 007b4211 */
     gapbuf_realloc4(puVar2);
@@ -21215,7 +21216,7 @@ LAB_007b4097:
   lVar11 = *(long *)(param_1 + 0x20);
   lVar10 = runstyles_runs_count(*(undefined8 *)(lVar11 + 8));
   lVar6 = *(long *)(lVar11 + 0x10);
-  if ((1 < lVar10) && (puVar5 = (undefined4 *)FUN_007ab23e(lVar6,1), puVar2 == puVar5)) {
+  if ((1 < lVar10) && (puVar5 = (undefined4 *)runstyles_value_at64(lVar6,1), puVar2 == puVar5)) {
     FUN_007a838a(lVar11 + 8,lVar11 + 0x10,1,1);
     lVar6 = *(long *)(lVar11 + 0x10);
   }
@@ -21227,7 +21228,7 @@ LAB_007b4097:
   else {
     **(undefined8 **)(lVar6 + 8) = puVar2;
   }
-  FUN_007b36da(param_1,puVar2,0);
+  runbuf_compact(param_1,puVar2,0);
   lVar11 = *(long *)(param_1 + 0x10) * 2 >> 1;
   if (lVar11 < 0) {
     lVar11 = lVar11 + 0xfffff;
@@ -21334,7 +21335,7 @@ LAB_007b4671:
            (uint)((ulong)lVar5 >> 0x20) & 0x7fffffff | *(uint *)(param_1 + 0x14) & 0x80000000;
       return;
     }
-    FUN_007b3dc0();
+    styles_cache_create32();
   }
   uVar11 = (ulong)(uVar9 & 0xfffff);
   if ((param_4 & 0xfffff) == 0) {
@@ -21349,7 +21350,7 @@ LAB_007b4671:
       iVar3 = (**(code **)(*plVar2 + 0x28))(plVar2,param_2);
     }
     plVar2 = *(long **)(param_1 + 0x20);
-    lVar5 = FUN_007ab23e(plVar2[2],iVar3);
+    lVar5 = runstyles_value_at64(plVar2[2],iVar3);
     if (*(code **)(*plVar2 + 0x38) == FUN_007a9d76) {
       local_58 = runstyles_run_start_at(plVar2[1],(long)iVar3);
     }
@@ -21395,7 +21396,7 @@ LAB_007b4671:
       *(undefined8 *)(puVar7 + 4) = 0;
       *(undefined8 *)(puVar7 + 6) = 0;
       local_40[0] = (QReadWriteLock *)(puVar7 + 8);
-      FUN_007a38d0(local_40);
+      runlock_acquire(local_40);
       if (puVar7[0xb] != 0) {
                     /* try { // try from 007b4529 to 007b452d has its CatchHandler @ 007b4826 */
         gapbuf_realloc4(puVar7);
@@ -21443,7 +21444,7 @@ LAB_007b455b:
       }
       FUN_007ae6f4(*(undefined8 *)(param_1 + 0x20),param_2,0x100000,1);
       RunStyles16_insertStyle(*(undefined8 *)(param_1 + 0x20),param_2,puVar7,0x100000,0);
-      FUN_007b36da(param_1,puVar7,0);
+      runbuf_compact(param_1,puVar7,0);
       param_2 = param_2 + 0x100000;
       lVar6 = (*(long *)(param_1 + 0x10) * 2 >> 1) + 0x100000;
       *(int *)(param_1 + 0x10) = (int)lVar6;
@@ -21623,11 +21624,11 @@ void FUN_007b4a70(undefined8 *param_1)
 }
 
 
-// ==== entry=007b4c50 name=FUN_007b4c50 size=519 ====
+// ==== entry=007b4c50 orig=FUN_007b4c50 size=519 name=runstyles32_priv_dtor ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_007b4c50(long param_1)
+void runstyles32_priv_dtor(long param_1)
 
 {
   void *pvVar1;
@@ -21713,11 +21714,11 @@ void FUN_007b4c50(long param_1)
 }
 
 
-// ==== entry=007b4e70 name=FUN_007b4e70 size=984 ====
+// ==== entry=007b4e70 orig=FUN_007b4e70 size=984 name=runstyles32_priv_rebuild ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_007b4e70(long param_1)
+void runstyles32_priv_rebuild(long param_1)
 
 {
   int iVar1;
@@ -21886,9 +21887,9 @@ LAB_007b4f9a:
 }
 
 
-// ==== entry=007b5270 name=FUN_007b5270 size=601 ====
+// ==== entry=007b5270 orig=FUN_007b5270 size=601 name=runstyles_insert_space_32 ====
 
-void FUN_007b5270(long param_1,long param_2,long param_3)
+void runstyles_insert_space_32(long param_1,long param_2,long param_3)
 
 {
   code *pcVar1;
@@ -21938,7 +21939,7 @@ void FUN_007b5270(long param_1,long param_2,long param_3)
             iVar8 = iVar8 + 1;
           } while (iVar5 != iVar8);
         }
-        FUN_007b3960(local_40,iVar4,param_2,local_50);
+        runstyles_remove_range(local_40,iVar4,param_2,local_50);
         plVar2 = *(long **)(param_1 + 0x20);
         if (*(code **)(*plVar2 + 0x38) == FUN_007a9d76) {
           lVar6 = runstyles_run_start_at(plVar2[1],(long)iVar5);
@@ -21947,7 +21948,7 @@ void FUN_007b5270(long param_1,long param_2,long param_3)
           lVar6 = (**(code **)(*plVar2 + 0x38))(plVar2,iVar5);
         }
       }
-      FUN_007b3960(local_40,iVar5,lVar6,param_3 + param_2);
+      runstyles_remove_range(local_40,iVar5,lVar6,param_3 + param_2);
       RunStyles32_removeRange(*(undefined8 *)(param_1 + 0x20),param_2,param_3);
       lVar6 = (*(long *)(param_1 + 0x10) - param_3) * 2;
       lVar7 = lVar6 >> 1;
@@ -21956,10 +21957,10 @@ void FUN_007b5270(long param_1,long param_2,long param_3)
            *(uint *)(param_1 + 0x14) & 0x80000000 | (uint)(lVar6 >> 0x21) & 0x7fffffff;
       if (lVar7 < 0x2000001) {
         if ((*(ulong *)(param_1 + 0x10) & 0x7fffffffffffffff) == 0) {
-          FUN_007b4c50();
+          runstyles32_priv_dtor();
         }
         else {
-          FUN_007b4e70(param_1);
+          runstyles32_priv_rebuild(param_1);
         }
       }
       else {
@@ -22351,7 +22352,7 @@ void FUN_007b5b50(long param_1,long param_2,undefined8 param_3)
   lVar1 = *(long *)(lVar2 + 0x18);
   iVar3 = iVar3 - (int)*(undefined8 *)(lVar2 + 0x20);
   local_20 = lVar1 + 0x20;
-  FUN_007a38d0(&local_20);
+  runlock_acquire(&local_20);
   if (*(int *)(lVar1 + 0x2c) != 0) {
                     /* try { // try from 007b5bd2 to 007b5bd6 has its CatchHandler @ 007b5c25 */
     GapBuffer_materialize(lVar1);
@@ -22532,7 +22533,7 @@ LAB_007b5fdc:
             }
             goto LAB_007b5fdc;
           }
-          FUN_007af370(lVar5);
+          styles_cache_create64(lVar5);
         }
         plVar1 = *(long **)(lVar5 + 0x20);
         if (*(code **)(*plVar1 + 0x28) == FUN_007a9c74) {
@@ -22718,7 +22719,7 @@ void FUN_007b6480(long param_1,undefined8 param_2,long param_3)
         operator_delete(pvVar7,0x20);
         plVar1[3] = 0;
       }
-      FUN_007ac8e0(plVar1);
+      runlocks_acquire_all(plVar1);
       pvVar7 = (void *)plVar1[5];
       if (pvVar7 != (void *)0x0) {
         pQVar2 = *(QMapNodeBase **)((long)pvVar7 + 0x38);
@@ -22787,7 +22788,7 @@ void FUN_007b6480(long param_1,undefined8 param_2,long param_3)
   puVar8[4] = 0;
   puVar8[5] = 0;
                     /* try { // try from 007b669a to 007b669e has its CatchHandler @ 007b6a0b */
-  FUN_007ac8e0(puVar8);
+  runlocks_acquire_all(puVar8);
   pvVar7 = (void *)puVar8[5];
   if (pvVar7 != (void *)0x0) {
     pQVar2 = *(QMapNodeBase **)((long)pvVar7 + 0x38);
@@ -22864,7 +22865,7 @@ void FUN_007b6480(long param_1,undefined8 param_2,long param_3)
         lVar5 = *(long *)(lVar10 + 0x18);
         iVar11 = -(int)*(undefined8 *)(lVar10 + 0x20);
         local_40[0] = lVar5 + 0x20;
-        FUN_007a38d0(local_40);
+        runlock_acquire(local_40);
         if (*(int *)(lVar5 + 0x2c) != 0) {
                     /* try { // try from 007b68f5 to 007b68f9 has its CatchHandler @ 007b6a17 */
           GapBuffer_materialize(lVar5);
@@ -23140,7 +23141,7 @@ void FUN_007b6ef0(long param_1,long param_2,undefined2 param_3)
   lVar1 = *(long *)(lVar2 + 0x18);
   iVar3 = iVar3 - (int)*(undefined8 *)(lVar2 + 0x20);
   local_20 = lVar1 + 0x20;
-  FUN_007a38d0(&local_20);
+  runlock_acquire(&local_20);
   if (*(int *)(lVar1 + 0x2c) != 0) {
                     /* try { // try from 007b6f71 to 007b6f75 has its CatchHandler @ 007b6fc4 */
     FUN_007ab0f8(lVar1);
@@ -23204,7 +23205,7 @@ void Uint16RunStyles_qt_metacall(long param_1,long param_2,long param_3)
         uVar10 = *(undefined8 *)(param_1 + 8);
         if (0 < iVar5) {
           runstyles_delete_chars(uVar10,lVar6,(long)iVar5);
-          FUN_007b2d70(*(undefined8 *)(param_1 + 0x10),lVar6,(long)iVar5);
+          runstyles_insert_space_16(*(undefined8 *)(param_1 + 0x10),lVar6,(long)iVar5);
           uVar10 = *(undefined8 *)(param_1 + 8);
         }
         runstyles_fill_value_range(uVar10,lVar11,param_3);
@@ -23228,7 +23229,7 @@ LAB_007b71cc:
         }
         else {
           runstyles_delete_chars(*(undefined8 *)(param_1 + 8),lVar6,(long)iVar5);
-          FUN_007b2d70(*(undefined8 *)(param_1 + 0x10),lVar6,(long)iVar5);
+          runstyles_insert_space_16(*(undefined8 *)(param_1 + 0x10),lVar6,(long)iVar5);
           runstyles_fill_value_range(*(undefined8 *)(param_1 + 8),lVar11,param_3);
         }
         uVar10 = *(undefined8 *)(param_1 + 0x10);
@@ -23255,9 +23256,10 @@ LAB_007b71cc:
 }
 
 
-// ==== entry=007b7290 name=FUN_007b7290 size=1141 ====
+// ==== entry=007b7290 orig=FUN_007b7290 size=1141 name=runstyles_fill_range16 ====
 
-undefined8 FUN_007b7290(long param_1,long param_2,short param_3,long param_4,undefined1 *param_5)
+undefined8
+runstyles_fill_range16(long param_1,long param_2,short param_3,long param_4,undefined1 *param_5)
 
 {
   long *plVar1;
@@ -23326,7 +23328,7 @@ LAB_007b738c:
             }
             goto LAB_007b738c;
           }
-          FUN_007b1880(lVar8);
+          styles_cache_create16(lVar8);
         }
         plVar1 = *(long **)(lVar8 + 0x20);
         if (*(code **)(*plVar1 + 0x28) == FUN_007a9c2c) {
@@ -23374,7 +23376,7 @@ LAB_007b73fd:
       iVar6 = iVar6 - iVar5;
       if (0 < iVar6) {
         runstyles_delete_chars(*(undefined8 *)(param_1 + 8),lVar12,(long)iVar6);
-        FUN_007b2d70(*(undefined8 *)(param_1 + 0x10),lVar12,(long)iVar6);
+        runstyles_insert_space_16(*(undefined8 *)(param_1 + 0x10),lVar12,(long)iVar6);
       }
       if (param_3 == sVar4) {
         uVar11 = 1;
@@ -23437,7 +23439,7 @@ void Uint16RunStyles_dtor(long *param_1,long param_2,long param_3,char param_4)
         runstyles_fill_value_range(param_1[1],(long)iVar2,param_3);
         sVar1 = runstyles_value_at16(param_1[2],(long)iVar2);
         if (sVar1 != 0) {
-          FUN_007b7290(param_1,param_2,0,param_3,0);
+          runstyles_fill_range16(param_1,param_2,0,param_3,0);
           return;
         }
       }
@@ -23606,7 +23608,7 @@ LAB_007b78c3:
     }
     *(int *)(plVar9 + 2) = iVar6;
     plVar1 = *(long **)(param_1 + 0x20);
-    lVar8 = FUN_007ab23e(plVar1[2],iVar6);
+    lVar8 = runstyles_value_at64(plVar1[2],iVar6);
     plVar9[3] = lVar8;
     if (*(code **)(*plVar1 + 0x38) == FUN_007a9d76) {
       lVar8 = runstyles_run_start_at(plVar1[1],(long)iVar6);
@@ -23724,7 +23726,7 @@ void FUN_007b7c80(long param_1,long param_2,undefined4 param_3)
   lVar1 = *(long *)(lVar2 + 0x18);
   iVar3 = iVar3 - (int)*(undefined8 *)(lVar2 + 0x20);
   local_20 = lVar1 + 0x20;
-  FUN_007a38d0(&local_20);
+  runlock_acquire(&local_20);
   if (*(int *)(lVar1 + 0x2c) != 0) {
                     /* try { // try from 007b7cff to 007b7d03 has its CatchHandler @ 007b7d52 */
     gapbuf_realloc4(lVar1);
@@ -23789,7 +23791,7 @@ LAB_007b7dd7:
     uVar9 = *(undefined8 *)(param_1 + 8);
     if (0 < iVar3) {
       runstyles_delete_chars(uVar9,lVar5,(long)iVar3);
-      FUN_007b5270(*(undefined8 *)(param_1 + 0x10),lVar5,(long)iVar3);
+      runstyles_insert_space_32(*(undefined8 *)(param_1 + 0x10),lVar5,(long)iVar3);
       uVar9 = *(undefined8 *)(param_1 + 8);
     }
     runstyles_fill_value_range(uVar9,lVar10,param_3);
@@ -23810,7 +23812,7 @@ LAB_007b7f7d:
     }
     else {
       runstyles_delete_chars(*(undefined8 *)(param_1 + 8),lVar5,(long)iVar3);
-      FUN_007b5270(*(undefined8 *)(param_1 + 0x10),lVar5,(long)iVar3);
+      runstyles_insert_space_32(*(undefined8 *)(param_1 + 0x10),lVar5,(long)iVar3);
       runstyles_fill_value_range(*(undefined8 *)(param_1 + 8),lVar10,param_3);
     }
     uVar9 = *(undefined8 *)(param_1 + 0x10);
@@ -23834,9 +23836,10 @@ LAB_007b7f4d:
 }
 
 
-// ==== entry=007b8000 name=FUN_007b8000 size=1137 ====
+// ==== entry=007b8000 orig=FUN_007b8000 size=1137 name=runstyles_fill_range32 ====
 
-undefined8 FUN_007b8000(long param_1,long param_2,int param_3,long param_4,undefined1 *param_5)
+undefined8
+runstyles_fill_range32(long param_1,long param_2,int param_3,long param_4,undefined1 *param_5)
 
 {
   long *plVar1;
@@ -23905,7 +23908,7 @@ LAB_007b80fc:
             }
             goto LAB_007b80fc;
           }
-          FUN_007b3dc0(lVar8);
+          styles_cache_create32(lVar8);
         }
         plVar1 = *(long **)(lVar8 + 0x20);
         if (*(code **)(*plVar1 + 0x28) == FUN_007a9c50) {
@@ -23915,7 +23918,7 @@ LAB_007b80fc:
           iVar3 = (**(code **)(*plVar1 + 0x28))(plVar1,lVar12);
         }
         plVar1 = *(long **)(lVar8 + 0x20);
-        lVar9 = FUN_007ab23e(plVar1[2],iVar3);
+        lVar9 = runstyles_value_at64(plVar1[2],iVar3);
         if (*(code **)(*plVar1 + 0x38) == FUN_007a9d76) {
           lVar7 = runstyles_run_start_at(plVar1[1],(long)iVar3);
         }
@@ -23953,7 +23956,7 @@ LAB_007b816d:
       iVar5 = iVar5 - iVar3;
       if (0 < iVar5) {
         runstyles_delete_chars(*(undefined8 *)(param_1 + 8),lVar12,(long)iVar5);
-        FUN_007b5270(*(undefined8 *)(param_1 + 0x10),lVar12,(long)iVar5);
+        runstyles_insert_space_32(*(undefined8 *)(param_1 + 0x10),lVar12,(long)iVar5);
       }
       if (param_3 == iVar6) {
         uVar11 = 1;
@@ -24015,7 +24018,7 @@ void Uint32RunStyles_dtor(long *param_1,long param_2,long param_3,char param_4)
         runstyles_fill_value_range(param_1[1],(long)iVar1,param_3);
         iVar1 = Uint32RunStyles_valueAt(param_1[2],(long)iVar1);
         if (iVar1 != 0) {
-          FUN_007b8000(param_1,param_2,0,param_3,0);
+          runstyles_fill_range32(param_1,param_2,0,param_3,0);
           return;
         }
       }
@@ -24095,7 +24098,7 @@ void FUN_007b85de(int param_1,void *param_2,undefined8 param_3,long param_4)
   else if (param_1 == 1) {
     uVar1 = *(undefined8 *)(param_4 + 8);
     FUN_00842d34(*(undefined8 *)((long)param_2 + 0x10));
-    FUN_0083e286(*(undefined8 *)((long)param_2 + 0x10),uVar1,3);
+    termview_write_checked(*(undefined8 *)((long)param_2 + 0x10),uVar1,3);
     return;
   }
   return;
@@ -25122,12 +25125,12 @@ joined_r0x007b9116:
 }
 
 
-// ==== entry=007b9d5e name=FUN_007b9d5e size=3628 ====
+// ==== entry=007b9d5e orig=FUN_007b9d5e size=3628 name=command_meta_register_types ====
 
 /* WARNING: Removing unreachable block (ram,0x007bab7f) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_007b9d5e(long param_1,long *param_2)
+void command_meta_register_types(long param_1,long *param_2)
 
 {
   void **ppvVar1;
@@ -26190,7 +26193,7 @@ LAB_007bb316:
       }
       QMetaObject::tr((char *)&local_38,(char *)&PTR_staticMetaObject_011a7220,0xca6a78);
                     /* try { // try from 007bb4e0 to 007bb4e4 has its CatchHandler @ 007bb52f */
-      FUN_00592a1a(uVar6,&local_38,4);
+      banner_html_show(uVar6,&local_38,4);
       if (*(int *)local_38 == 0) {
 LAB_007bb51e:
         QArrayData::deallocate(local_38,2,8);
@@ -26512,7 +26515,7 @@ LAB_007bb8f3:
       s_session_uuid_7d5f7e(&local_98,*(undefined8 *)(param_1 + 0x38));
       lVar2 = DAT_011c2200;
                     /* try { // try from 007bb943 to 007bb947 has its CatchHandler @ 007bbb29 */
-      FUN_00a7f24a(local_68,(QVariant *)&local_78);
+      qjsvalue_to_qvariant_convert(local_68,(QVariant *)&local_78);
                     /* try { // try from 007bb95b to 007bb95f has its CatchHandler @ 007bbaf9 */
       FUN_00810c4e(lVar2,&local_98,"session.autoLogin",local_68,1);
       json_value_destruct(local_68);
@@ -26536,7 +26539,7 @@ joined_r0x007bb980:
     s_session_uuid_7d5f7e(&local_90,*(undefined8 *)(param_1 + 0x38));
     lVar2 = DAT_011c2200;
                     /* try { // try from 007bba4f to 007bba53 has its CatchHandler @ 007bbb21 */
-    FUN_00a7f24a(local_68,(QVariant *)&local_78);
+    qjsvalue_to_qvariant_convert(local_68,(QVariant *)&local_78);
                     /* try { // try from 007bba69 to 007bba6d has its CatchHandler @ 007bbb19 */
     FUN_00810c4e(lVar2,&local_90,"session.autoLogin",local_68,1);
     json_value_destruct(local_68);
@@ -26577,7 +26580,7 @@ LAB_007bb840:
     s_session_uuid_7d5f7e(&local_a0,*(undefined8 *)(param_1 + 0x38));
     lVar2 = DAT_011c2200;
                     /* try { // try from 007bb870 to 007bb874 has its CatchHandler @ 007bbb09 */
-    FUN_00a7f24a(local_68,(QVariant *)&local_78);
+    qjsvalue_to_qvariant_convert(local_68,(QVariant *)&local_78);
                     /* try { // try from 007bb888 to 007bb88c has its CatchHandler @ 007bbb01 */
     FUN_00810c4e(lVar2,&local_a0,"session.oneKey",local_68,1);
     json_value_destruct(local_68);
@@ -27031,7 +27034,7 @@ LAB_007bc34e:
             (local_138,param_2,&local_e8,param_1,&local_d8,puVar4,0,0,&PTR_staticMetaObject_011a8220
             );
   QMetaObject::Connection::~Connection(local_138);
-  local_c8 = FUN_00912342;
+  local_c8 = qt_emit_signal4;
   local_c0 = 0;
   local_b8 = FUN_007bebdc;
   local_b0 = 0;
@@ -28534,7 +28537,7 @@ LAB_007bedff:
     UNLOCK();
   }
                     /* try { // try from 007bec97 to 007bec9b has its CatchHandler @ 007beea0 */
-  FUN_00592a1a(uVar9,&local_48,4);
+  banner_html_show(uVar9,&local_48,4);
   if (*(int *)local_48 != 0) {
     if (*(int *)local_48 == -1) goto LAB_007becb9;
     LOCK();
@@ -28778,7 +28781,7 @@ LAB_007bf613:
                 uVar15 = *(undefined8 *)(param_1 + 0x20);
               }
                     /* try { // try from 007c0153 to 007c016f has its CatchHandler @ 007c03f5 */
-              FUN_00594366(uVar15);
+              ssh_add_kbi_row(uVar15);
             }
             else if (iVar7 != 4) {
               local_a8 = (int *)&QArrayData::shared_null;
@@ -28844,7 +28847,7 @@ LAB_007bf613:
                 local_68._0_8_ = local_a8;
                 qatomic_int_ref();
                     /* try { // try from 007c0096 to 007c009a has its CatchHandler @ 007c0334 */
-                FUN_00592a1a(lVar16,local_68,uVar15);
+                banner_html_show(lVar16,local_68,uVar15);
                 qt_array_data_unref(local_68);
               }
               qt_array_data_unref(&local_88);
@@ -28866,7 +28869,7 @@ LAB_007bf613:
             UNLOCK();
           }
                     /* try { // try from 007bfcbf to 007bfcc3 has its CatchHandler @ 007c040d */
-          FUN_00592a1a(lVar16,local_68,4);
+          banner_html_show(lVar16,local_68,4);
           qt_array_data_unref(local_68);
           qt_array_data_unref(&local_88);
         }
@@ -28968,7 +28971,7 @@ LAB_007bf613:
           local_68._0_8_ = local_a8;
           qatomic_int_ref();
                     /* try { // try from 007bf539 to 007bf53d has its CatchHandler @ 007c044d */
-          FUN_00592a1a(lVar14,local_68,4);
+          banner_html_show(lVar14,local_68,4);
           qt_array_data_unref(local_68);
           qt_array_data_unref(local_270);
           qt_array_data_unref(&local_a8);
@@ -29156,7 +29159,7 @@ LAB_007bfdc8:
             }
             if (iVar7 == 0x8000) {
                     /* try { // try from 007c0188 to 007c018c has its CatchHandler @ 007c033c */
-              FUN_00aee7e0((QVariant *)local_68,0);
+              json_value_init_bool((QVariant *)local_68,0);
                     /* try { // try from 007c01a8 to 007c01ac has its CatchHandler @ 007c03fd */
               FUN_00810c4e(uVar15,param_1 + 0x30,"ssh.verifyServerFingerprint",(QVariant *)local_68,
                            1);
@@ -30635,7 +30638,7 @@ void SessionLogger_dtor(QObject *param_1)
   pvVar2 = *(void **)(param_1 + 0x30);
   if (pvVar2 != (void *)0x0) {
     QDateTime::~QDateTime((QDateTime *)((long)pvVar2 + 0x28));
-    FUN_007c4440((long)pvVar2 + 8);
+    qlist_release_custom2((long)pvVar2 + 8);
     qt_byte_array_unref(pvVar2);
     operator_delete(pvVar2,0x48);
   }
@@ -30751,7 +30754,8 @@ undefined8 * FUN_007c1d40(undefined8 *param_1,long param_2,undefined8 param_3,un
     *param_1 = &QArrayData::shared_null;
     return param_1;
   }
-  puVar2 = (undefined8 *)FUN_007c5970(*(long *)(param_2 + 0x30),param_3,*param_4,param_4[1]);
+  puVar2 = (undefined8 *)
+           timestamp_round_minute(*(long *)(param_2 + 0x30),param_3,*param_4,param_4[1]);
   piVar1 = (int *)*puVar2;
   *param_1 = piVar1;
   if ((*piVar1 != 0) && (*piVar1 != -1)) {
@@ -31044,15 +31048,16 @@ LAB_007c20b5:
 }
 
 
-// ==== entry=007c24c8 name=FUN_007c24c8 size=5980 ====
+// ==== entry=007c24c8 orig=FUN_007c24c8 size=5980 name=win_reserved_name_check ====
 
 /* WARNING: Removing unreachable block (ram,0x007c3ae5) */
 /* WARNING: Removing unreachable block (ram,0x007c3af7) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined8
-FUN_007c24c8(long param_1,undefined8 *param_2,QString *param_3,char param_4,byte param_5,int param_6
-            ,undefined8 *param_7,long *param_8)
+win_reserved_name_check
+          (long param_1,undefined8 *param_2,QString *param_3,char param_4,byte param_5,int param_6,
+          undefined8 *param_7,long *param_8)
 
 {
   _Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *p_Var1;
@@ -31188,8 +31193,8 @@ FUN_007c24c8(long param_1,undefined8 *param_2,QString *param_3,char param_4,byte
   local_178[0]._0_8_ = local_1c0;
   local_e8 = (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)&QListData::shared_null;
   local_1c0 = (uint *)&QListData::shared_null;
-  FUN_007c4440((stat64 *)local_178);
-  FUN_007c4440((QLocale *)&local_e8);
+  qlist_release_custom2((stat64 *)local_178);
+  qlist_release_custom2((QLocale *)&local_e8);
                     /* try { // try from 007c26db to 007c2775 has its CatchHandler @ 007c3dd5 */
   QByteArray::clear();
   if ((*(uint *)local_1c8 < 2) && (0x100 < (*(uint *)((long)local_1c8 + 8) & 0x7fffffff))) {
@@ -31353,7 +31358,7 @@ LAB_007c295c:
   qt_byte_array_unref((QString *)&local_260);
   uVar10 = QDateTime::currentMSecsSinceEpoch();
                     /* try { // try from 007c2975 to 007c2a45 has its CatchHandler @ 007c3c8f */
-  plVar11 = (long *)FUN_007c5970((string *)local_1c8,uVar10,0,0);
+  plVar11 = (long *)timestamp_round_minute((string *)local_1c8,uVar10,0,0);
   cVar7 = QByteArray::isNull();
   if (cVar7 == '\0') {
     lVar9 = *plVar11;
@@ -31548,7 +31553,7 @@ LAB_007c2f9a:
   local_e8 = (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)local_208;
   local_208 = &QArrayData::shared_null;
   QDateTime::~QDateTime(local_1a0);
-  FUN_007c4440(&local_1c0);
+  qlist_release_custom2(&local_1c0);
   qt_byte_array_unref((string *)local_1c8);
   puVar15 = *(undefined1 **)(param_1 + 0x20);
   *(_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> **)(param_1 + 0x20) = local_e8;
@@ -31786,7 +31791,7 @@ LAB_007c3388:
                     /* try { // try from 007c343c to 007c3440 has its CatchHandler @ 007c3e02 */
   plVar11 = operator_new(0xb0);
                     /* try { // try from 007c3454 to 007c3458 has its CatchHandler @ 007c3c84 */
-  FUN_005fd340(plVar11,local_2e8,0,(stat64 *)local_178,(QLocale *)&local_e8);
+  log_writer_ctor(plVar11,local_2e8,0,(stat64 *)local_178,(QLocale *)&local_e8);
   FUN_005f611c((QLocale *)&local_e8);
   if ((undefined1 *)local_178[0]._0_8_ != &DAT_011c5338) {
     refcount_delete_offset10_d();
@@ -31820,18 +31825,18 @@ LAB_007c3388:
     *(void **)(param_1 + 0x30) = pvVar19;
     if (pvVar17 != (void *)0x0) {
       QDateTime::~QDateTime((QDateTime *)((long)pvVar17 + 0x28));
-      FUN_007c4440((long)pvVar17 + 8);
+      qlist_release_custom2((long)pvVar17 + 8);
       qt_byte_array_unref(pvVar17);
       operator_delete(pvVar17,0x48);
     }
     qt_byte_array_unref((QLocale *)&local_e8);
     if (*(long *)(param_1 + 0x30) != 0) {
                     /* try { // try from 007c3573 to 007c3588 has its CatchHandler @ 007c3efb */
-      FUN_007c6570(*(long *)(param_1 + 0x30),(QString *)(param_1 + 0x28));
+      template_replace_unknown_ip(*(long *)(param_1 + 0x30),(QString *)(param_1 + 0x28));
       uVar10 = *(undefined8 *)(param_1 + 0x30);
       QString::toUtf8_helper((QString *)&local_1f0);
                     /* try { // try from 007c3594 to 007c3598 has its CatchHandler @ 007c3cce */
-      FUN_007c5882(uVar10,0x6e,(QString *)&local_1f0);
+      template_replace_placeholder(uVar10,0x6e,(QString *)&local_1f0);
       qt_byte_array_unref((QString *)&local_1f0);
     }
   }
@@ -32205,9 +32210,9 @@ void FUN_007c4300(undefined8 *param_1)
 }
 
 
-// ==== entry=007c4392 name=FUN_007c4392 size=36 ====
+// ==== entry=007c4392 orig=FUN_007c4392 size=36 name=qbytearray_detach_realloc ====
 
-void FUN_007c4392(undefined8 *param_1)
+void qbytearray_detach_realloc(undefined8 *param_1)
 
 {
   uint *puVar1;
@@ -32256,9 +32261,9 @@ void FUN_007c43fe(long param_1)
 }
 
 
-// ==== entry=007c4440 name=FUN_007c4440 size=29 ====
+// ==== entry=007c4440 orig=FUN_007c4440 size=29 name=qlist_release_custom2 ====
 
-void FUN_007c4440(undefined8 *param_1)
+void qlist_release_custom2(undefined8 *param_1)
 
 {
   int *piVar1;
@@ -32287,7 +32292,7 @@ void FUN_007c4460(undefined8 *param_1)
   int *piVar1;
   
   QDateTime::~QDateTime((QDateTime *)(param_1 + 5));
-  FUN_007c4440(param_1 + 1);
+  qlist_release_custom2(param_1 + 1);
   piVar1 = (int *)*param_1;
   if (*piVar1 != 0) {
     if (*piVar1 != -1) {
@@ -32581,8 +32586,8 @@ void session_state_init(QByteArray *param_1,long *param_2)
   local_48 = &QListData::shared_null;
   local_50 = *(undefined8 *)(param_1 + 8);
   *(undefined8 **)(param_1 + 8) = &QListData::shared_null;
-  FUN_007c4440((QLocale *)&local_50);
-  FUN_007c4440((QTimeZone *)&local_48);
+  qlist_release_custom2((QLocale *)&local_50);
+  qlist_release_custom2((QTimeZone *)&local_48);
                     /* try { // try from 007c4b26 to 007c4bc0 has its CatchHandler @ 007c4c8a */
   QByteArray::clear();
   puVar4 = *(uint **)param_1;
@@ -33092,9 +33097,9 @@ LAB_007c5815:
 }
 
 
-// ==== entry=007c5882 name=FUN_007c5882 size=223 ====
+// ==== entry=007c5882 orig=FUN_007c5882 size=223 name=template_replace_placeholder ====
 
-void FUN_007c5882(long param_1,char param_2,long *param_3)
+void template_replace_placeholder(long param_1,char param_2,long *param_3)
 
 {
   uint uVar1;
@@ -33148,9 +33153,9 @@ void FUN_007c5882(long param_1,char param_2,long *param_3)
 }
 
 
-// ==== entry=007c5970 name=FUN_007c5970 size=2712 ====
+// ==== entry=007c5970 orig=FUN_007c5970 size=2712 name=timestamp_round_minute ====
 
-long FUN_007c5970(long param_1,long param_2,int param_3,int param_4)
+long timestamp_round_minute(long param_1,long param_2,int param_3,int param_4)
 
 {
   uint uVar1;
@@ -33247,7 +33252,7 @@ long FUN_007c5970(long param_1,long param_2,int param_3,int param_4)
             qt_array_data_unref(&local_48);
             iVar6 = *(int *)(local_50 + 4);
                     /* try { // try from 007c6207 to 007c6228 has its CatchHandler @ 007c6515 */
-            FUN_007c4392((QString *)&local_50);
+            qbytearray_detach_realloc((QString *)&local_50);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_50 + (int)*(undefined8 *)(local_50 + 0x10));
 LAB_007c62eb:
@@ -33280,7 +33285,7 @@ LAB_007c6300:
             qt_array_data_unref(&local_48);
             iVar6 = *(int *)(local_50 + 4);
                     /* try { // try from 007c62c9 to 007c62ea has its CatchHandler @ 007c6545 */
-            FUN_007c4392((QString *)&local_50);
+            qbytearray_detach_realloc((QString *)&local_50);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_50 + (int)*(undefined8 *)(local_50 + 0x10));
             goto LAB_007c62eb;
@@ -33299,7 +33304,7 @@ LAB_007c6300:
             qt_byte_array_unref(local_40);
             iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c6145 to 007c6166 has its CatchHandler @ 007c64f5 */
-            FUN_007c4392(&local_48);
+            qbytearray_detach_realloc(&local_48);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
             goto LAB_007c5c72;
@@ -33318,7 +33323,7 @@ LAB_007c6300:
             qt_byte_array_unref(local_40);
             iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c6066 to 007c6087 has its CatchHandler @ 007c64d5 */
-            FUN_007c4392(&local_48);
+            qbytearray_detach_realloc(&local_48);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
             goto LAB_007c5c72;
@@ -33338,7 +33343,7 @@ LAB_007c6300:
             qt_byte_array_unref(local_40);
             iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c5fc7 to 007c5fe8 has its CatchHandler @ 007c64b5 */
-            FUN_007c4392(&local_48);
+            qbytearray_detach_realloc(&local_48);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
             goto LAB_007c5c72;
@@ -33357,7 +33362,7 @@ LAB_007c6300:
             qt_byte_array_unref(local_40);
             iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c5eea to 007c5f0b has its CatchHandler @ 007c6497 */
-            FUN_007c4392(&local_48);
+            qbytearray_detach_realloc(&local_48);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
             goto LAB_007c5c72;
@@ -33373,7 +33378,7 @@ LAB_007c6300:
           qt_byte_array_unref(local_40);
           iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c5e4e to 007c5e6c has its CatchHandler @ 007c6455 */
-          FUN_007c4392(&local_48);
+          qbytearray_detach_realloc(&local_48);
           QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                               (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
 LAB_007c5c72:
@@ -33398,7 +33403,7 @@ LAB_007c5c87:
             qt_byte_array_unref(local_40);
             iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c5db3 to 007c5dd4 has its CatchHandler @ 007c6486 */
-            FUN_007c4392(&local_48);
+            qbytearray_detach_realloc(&local_48);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
 LAB_007c5dd5:
@@ -33421,7 +33426,7 @@ LAB_007c5dd5:
             qt_byte_array_unref(local_40);
             iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c5d13 to 007c5d34 has its CatchHandler @ 007c6482 */
-            FUN_007c4392(&local_48);
+            qbytearray_detach_realloc(&local_48);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
             goto LAB_007c5c72;
@@ -33437,7 +33442,7 @@ LAB_007c5dd5:
           qt_byte_array_unref(local_40);
           iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c5c53 to 007c5c71 has its CatchHandler @ 007c6412 */
-          FUN_007c4392(&local_48);
+          qbytearray_detach_realloc(&local_48);
           QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                               (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
           goto LAB_007c5c72;
@@ -33454,7 +33459,7 @@ LAB_007c5dd5:
             qt_byte_array_unref(local_40);
             iVar13 = *(int *)(local_48 + 4);
                     /* try { // try from 007c5bd1 to 007c5bf2 has its CatchHandler @ 007c6479 */
-            FUN_007c4392(&local_48);
+            qbytearray_detach_realloc(&local_48);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_48 + (int)*(undefined8 *)(local_48 + 0x10));
             goto LAB_007c5dd5;
@@ -33477,7 +33482,7 @@ LAB_007c5dd5:
             qt_array_data_unref(&local_48);
             iVar6 = *(int *)(local_50 + 4);
                     /* try { // try from 007c5b18 to 007c5b39 has its CatchHandler @ 007c6457 */
-            FUN_007c4392((QString *)&local_50);
+            qbytearray_detach_realloc((QString *)&local_50);
             QByteArray::replace(iVar7,*(int *)(pcVar2 + 4),(char *)(ulong)*(uint *)(pcVar2 + 8),
                                 (int)local_50 + (int)*(undefined8 *)(local_50 + 0x10));
             if (iVar6 != *(int *)(pcVar2 + 8)) {
@@ -33506,9 +33511,9 @@ LAB_007c5dd5:
 }
 
 
-// ==== entry=007c6570 name=FUN_007c6570 size=338 ====
+// ==== entry=007c6570 orig=FUN_007c6570 size=338 name=template_replace_unknown_ip ====
 
-void FUN_007c6570(long param_1,long *param_2)
+void template_replace_unknown_ip(long param_1,long *param_2)
 
 {
   int iVar1;
@@ -34780,9 +34785,9 @@ void FUN_007c85da(void)
 }
 
 
-// ==== entry=007c85dc name=FUN_007c85dc size=87 ====
+// ==== entry=007c85dc orig=FUN_007c85dc size=87 name=set_current_index_data ====
 
-void FUN_007c85dc(long param_1,int param_2,QVariant *param_3)
+void set_current_index_data(long param_1,int param_2,QVariant *param_3)
 
 {
   QVariant aQStack_28 [16];
@@ -36037,11 +36042,11 @@ void FUN_007c8e58(void)
 }
 
 
-// ==== entry=007c8e68 name=FUN_007c8e68 size=43 ====
+// ==== entry=007c8e68 orig=FUN_007c8e68 size=43 name=string_rep_release2 ====
 
 /* WARNING: Removing unreachable block (ram,0x007c8e81) */
 
-void FUN_007c8e68(void *param_1)
+void string_rep_release2(void *param_1)
 
 {
   int *piVar1;
@@ -37785,7 +37790,7 @@ FUN_007caadc(undefined8 *param_1,long param_2,char param_3,undefined8 param_4,un
                     /* try { // try from 007cab2b to 007cab2f has its CatchHandler @ 007cabef */
   FUN_0090eed6(param_2,(int)param_3,param_4,param_5,param_1);
   if (pvVar1 != (void *)0x0) {
-    FUN_005f38a6(pvVar1);
+    log_leave_elapsed(pvVar1);
     operator_delete(pvVar1,0x10);
   }
   return param_1;
@@ -40621,7 +40626,7 @@ void FUN_007cce4e(long param_1)
 void FUN_007cce5a(long param_1)
 
 {
-  FUN_007f298e(*(undefined8 *)(param_1 + 0x80));
+  mouse_event_sgr_encode(*(undefined8 *)(param_1 + 0x80));
   return;
 }
 
@@ -40631,7 +40636,7 @@ void FUN_007cce5a(long param_1)
 void FUN_007cce66(long param_1)
 
 {
-  FUN_007f24ae(*(undefined8 *)(param_1 + 0x80));
+  term_set_window_color(*(undefined8 *)(param_1 + 0x80));
   return;
 }
 
@@ -41174,14 +41179,14 @@ void FUN_007cd578(long param_1,long param_2,long *param_3)
       lVar3 = 0;
       do {
         iVar2 = (int)lVar3;
-        FUN_007c4392(&local_50);
+        qbytearray_detach_realloc(&local_50);
         iVar1 = *(int *)((long)local_50 + 4);
         iVar5 = iVar2 + 1;
         if (*(char *)((long)local_50 + local_50[2] + lVar3) == '\\') {
           iVar4 = (int)&local_50;
           if (iVar5 < iVar1) {
                     /* try { // try from 007cd6fd to 007cd75a has its CatchHandler @ 007cd7fd */
-            FUN_007c4392(&local_50);
+            qbytearray_detach_realloc(&local_50);
             if (*(char *)((long)local_50 + local_50[2] + lVar3 + 1) != '\\') {
               iVar1 = *(int *)((long)local_50 + 4);
               if (iVar1 <= iVar2 + 3) goto LAB_007cd61a;
@@ -41193,14 +41198,14 @@ void FUN_007cd578(long param_1,long param_2,long *param_3)
             local_40[0] = local_50;
             if (iVar1 <= iVar2 + 3) break;
 LAB_007cd65a:
-            FUN_007c4392(&local_50);
+            qbytearray_detach_realloc(&local_50);
             if (*(char *)((long)local_50 + local_50[2] + lVar3 + 1) == 'x') {
               QByteArray::mid((int)local_40,iVar4);
                     /* try { // try from 007cd761 to 007cd765 has its CatchHandler @ 007cd7ed */
               QByteArray::fromHex((QByteArray *)&local_48);
                     /* try { // try from 007cd769 to 007cd79c has its CatchHandler @ 007cd7e5 */
-              FUN_007c4392((QByteArray *)&local_48);
-              FUN_007c4392(&local_50);
+              qbytearray_detach_realloc((QByteArray *)&local_48);
+              qbytearray_detach_realloc(&local_50);
               if (*(int *)(local_48 + 4) < 1) {
                 uVar6 = 0;
               }
@@ -41208,7 +41213,7 @@ LAB_007cd65a:
                 uVar6 = *(undefined1 *)(local_48 + *(long *)(local_48 + 0x10));
               }
               if (iVar2 < *(int *)((long)local_50 + 4)) {
-                FUN_007c4392(&local_50);
+                qbytearray_detach_realloc(&local_50);
               }
               else {
                     /* try { // try from 007cd7de to 007cd7e2 has its CatchHandler @ 007cd7e5 */
@@ -41784,7 +41789,7 @@ long FUN_007cdff2(long *param_1,long param_2,long *param_3)
     return 0;
   }
   if (*(int *)(*param_3 + 4) == 1) {
-    FUN_007c4392(param_3);
+    qbytearray_detach_realloc(param_3);
     lVar2 = *param_3;
     if ((0 < *(int *)(lVar2 + 4)) && (*(char *)(lVar2 + *(long *)(lVar2 + 0x10)) == '\x03')) {
       (**(code **)(*param_1 + 0x78))(param_1,local_90[0]);

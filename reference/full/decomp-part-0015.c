@@ -8061,7 +8061,7 @@ void FUN_00514e4a(void)
   FUN_00974856(in_stack_00000070);
   FUN_00a161d8(in_stack_00000068);
   if (in_stack_00000060 != (void *)0x0) {
-    FUN_005f38a6(in_stack_00000060);
+    log_leave_elapsed(in_stack_00000060);
     operator_delete(in_stack_00000060,0x10);
   }
                     /* WARNING: Subroutine does not return */
@@ -8091,7 +8091,7 @@ void FUN_00514e90(void)
   FUN_00974856(in_stack_00000070);
   FUN_00a161d8(in_stack_00000068);
   if (in_stack_00000060 != (void *)0x0) {
-    FUN_005f38a6(in_stack_00000060);
+    log_leave_elapsed(in_stack_00000060);
     operator_delete(in_stack_00000060,0x10);
   }
                     /* WARNING: Subroutine does not return */
@@ -8120,7 +8120,7 @@ void FUN_00514e9b(void)
   FUN_00974856(in_stack_00000070);
   FUN_00a161d8(in_stack_00000068);
   if (in_stack_00000060 != (void *)0x0) {
-    FUN_005f38a6(in_stack_00000060);
+    log_leave_elapsed(in_stack_00000060);
     operator_delete(in_stack_00000060,0x10);
   }
                     /* WARNING: Subroutine does not return */
@@ -8150,7 +8150,7 @@ void FUN_00514f0f(void)
   FUN_00974856(in_stack_00000070);
   FUN_00a161d8(in_stack_00000068);
   if (in_stack_00000060 != (void *)0x0) {
-    FUN_005f38a6(in_stack_00000060);
+    log_leave_elapsed(in_stack_00000060);
     operator_delete(in_stack_00000060,0x10);
   }
                     /* WARNING: Subroutine does not return */
@@ -8179,7 +8179,7 @@ void FUN_00514f1d(void)
   FUN_00974856(in_stack_00000070);
   FUN_00a161d8(in_stack_00000068);
   if (in_stack_00000060 != (void *)0x0) {
-    FUN_005f38a6(in_stack_00000060);
+    log_leave_elapsed(in_stack_00000060);
     operator_delete(in_stack_00000060,0x10);
   }
                     /* WARNING: Subroutine does not return */
@@ -8223,7 +8223,7 @@ void FUN_00514f4d(void)
   FUN_00974856(in_stack_00000070);
   FUN_00a161d8(in_stack_00000068);
   if (in_stack_00000060 != (void *)0x0) {
-    FUN_005f38a6(in_stack_00000060);
+    log_leave_elapsed(in_stack_00000060);
     operator_delete(in_stack_00000060,0x10);
   }
                     /* WARNING: Subroutine does not return */
@@ -8249,7 +8249,7 @@ void FUN_00514f5c(void)
   FUN_00974856(in_stack_00000070);
   FUN_00a161d8(in_stack_00000068);
   if (in_stack_00000060 != (void *)0x0) {
-    FUN_005f38a6(in_stack_00000060);
+    log_leave_elapsed(in_stack_00000060);
     operator_delete(in_stack_00000060,0x10);
   }
                     /* WARNING: Subroutine does not return */

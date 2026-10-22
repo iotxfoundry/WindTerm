@@ -1900,7 +1900,7 @@ void FUN_00b04b86(undefined8 param_1,undefined8 param_2)
 {
   undefined8 uVar1;
   
-  FUN_005289b6(param_1);
+  rbtree_clear_recursive(param_1);
   uVar1 = FUN_00b00764(param_1);
   FUN_00b04b0c(uVar1,param_2);
   return;
@@ -5642,7 +5642,7 @@ void FUN_00b08ef4(long param_1)
       return;
     }
     uVar3 = FUN_00b0a23a(param_1);
-    lVar4 = FUN_00b0c126(uVar3);
+    lVar4 = yaml_scanner_peek(uVar3);
     if (*(int *)(lVar4 + 4) != 0) break;
     if (!bVar1) {
       pvVar5 = operator_new(0x40);
@@ -5653,7 +5653,7 @@ void FUN_00b08ef4(long param_1)
     bVar1 = true;
     FUN_00b08fd0(param_1,lVar4);
     uVar3 = FUN_00b0a23a(param_1);
-    FUN_00b0c0e4(uVar3);
+    yaml_scanner_pop(uVar3);
   }
   return;
 }
@@ -5862,11 +5862,11 @@ void FUN_00b09712(undefined8 param_1,undefined8 param_2)
       cVar1 = FUN_00b0c0ba(uVar2);
       if (cVar1 == '\x01') break;
       uVar2 = FUN_00b0a23a(param_1);
-      uVar2 = FUN_00b0c126(uVar2);
+      uVar2 = yaml_scanner_peek(uVar2);
       poVar3 = (ostream *)FUN_00b09e0a(param_2,uVar2);
       std::operator<<(poVar3,"\n");
       uVar2 = FUN_00b0a23a(param_1);
-      FUN_00b0c0e4(uVar2);
+      yaml_scanner_pop(uVar2);
     }
   }
   return;
@@ -5889,9 +5889,9 @@ void FUN_00b0979c(void)
 }
 
 
-// ==== entry=00b097cc name=FUN_00b097cc size=1151 ====
+// ==== entry=00b097cc orig=FUN_00b097cc size=1151 name=yaml_static_init_a ====
 
-void FUN_00b097cc(int param_1,int param_2)
+void yaml_static_init_a(int param_1,int param_2)
 
 {
   allocator local_3c;
@@ -6009,7 +6009,7 @@ void FUN_00b097cc(int param_1,int param_2)
 void _INIT_170(void)
 
 {
-  FUN_00b097cc(1,0xffff);
+  yaml_static_init_a(1,0xffff);
   return;
 }
 
@@ -8135,9 +8135,9 @@ void FUN_00b0c0ba(long param_1)
 }
 
 
-// ==== entry=00b0c0e4 name=FUN_00b0c0e4 size=66 ====
+// ==== entry=00b0c0e4 orig=FUN_00b0c0e4 size=66 name=yaml_scanner_pop ====
 
-void FUN_00b0c0e4(long param_1)
+void yaml_scanner_pop(long param_1)
 
 {
   char cVar1;
@@ -8151,9 +8151,9 @@ void FUN_00b0c0e4(long param_1)
 }
 
 
-// ==== entry=00b0c126 name=FUN_00b0c126 size=90 ====
+// ==== entry=00b0c126 orig=FUN_00b0c126 size=90 name=yaml_scanner_peek ====
 
-void FUN_00b0c126(long param_1)
+void yaml_scanner_peek(long param_1)
 
 {
   char cVar1;
@@ -8199,7 +8199,7 @@ LAB_00b0c212:
       if (*(char *)(param_1 + 0xd1) != '\0') {
         return;
       }
-      FUN_00b0c236(param_1);
+      yaml_scan_token(param_1);
     }
     piVar2 = (int *)FUN_00b0f3ca(param_1 + 0x80);
     if (*piVar2 == 0) {
@@ -8211,9 +8211,9 @@ LAB_00b0c212:
 }
 
 
-// ==== entry=00b0c236 name=FUN_00b0c236 size=1139 ====
+// ==== entry=00b0c236 orig=FUN_00b0c236 size=1139 name=yaml_scan_token ====
 
-void FUN_00b0c236(long param_1)
+void yaml_scan_token(long param_1)
 
 {
   bool bVar1;
@@ -8239,7 +8239,7 @@ void FUN_00b0c236(long param_1)
     return;
   }
   iVar3 = FUN_00b0d7c0(param_1);
-  if ((iVar3 == 0) && (cVar2 = FUN_00b21596(param_1), cVar2 == '%')) {
+  if ((iVar3 == 0) && (cVar2 = yaml_read_byte(param_1), cVar2 == '%')) {
     bVar1 = true;
   }
   else {
@@ -8279,8 +8279,8 @@ LAB_00b0c378:
     FUN_00b1579a(param_1);
     return;
   }
-  cVar2 = FUN_00b21596(param_1);
-  if ((cVar2 == '[') || (cVar2 = FUN_00b21596(param_1), cVar2 == '{')) {
+  cVar2 = yaml_read_byte(param_1);
+  if ((cVar2 == '[') || (cVar2 = yaml_read_byte(param_1), cVar2 == '{')) {
     bVar1 = true;
   }
   else {
@@ -8290,8 +8290,8 @@ LAB_00b0c378:
     FUN_00b15860(param_1);
     return;
   }
-  cVar2 = FUN_00b21596(param_1);
-  if ((cVar2 == ']') || (cVar2 = FUN_00b21596(param_1), cVar2 == '}')) {
+  cVar2 = yaml_read_byte(param_1);
+  if ((cVar2 == ']') || (cVar2 = yaml_read_byte(param_1), cVar2 == '}')) {
     bVar1 = true;
   }
   else {
@@ -8301,7 +8301,7 @@ LAB_00b0c378:
     FUN_00b1595e(param_1);
     return;
   }
-  cVar2 = FUN_00b21596(param_1);
+  cVar2 = yaml_read_byte(param_1);
   if (cVar2 == ',') {
     FUN_00b15d36(param_1);
     return;
@@ -8327,31 +8327,31 @@ LAB_00b0c378:
       FUN_00b16390(param_1);
       return;
     }
-    cVar2 = FUN_00b21596(param_1);
-    if ((cVar2 == '*') || (cVar2 = FUN_00b21596(param_1), cVar2 == '&')) {
+    cVar2 = yaml_read_byte(param_1);
+    if ((cVar2 == '*') || (cVar2 = yaml_read_byte(param_1), cVar2 == '&')) {
       bVar1 = true;
     }
     else {
       bVar1 = false;
     }
     if (!bVar1) {
-      cVar2 = FUN_00b21596(param_1);
+      cVar2 = yaml_read_byte(param_1);
       if (cVar2 == '!') {
         FUN_00b1693a(param_1);
         return;
       }
       cVar2 = FUN_00b0ee1e(param_1);
       if ((cVar2 == '\0') ||
-         ((cVar2 = FUN_00b21596(param_1), cVar2 != '|' &&
-          (cVar2 = FUN_00b21596(param_1), cVar2 != '>')))) {
+         ((cVar2 = yaml_read_byte(param_1), cVar2 != '|' &&
+          (cVar2 = yaml_read_byte(param_1), cVar2 != '>')))) {
         bVar1 = false;
       }
       else {
         bVar1 = true;
       }
       if (!bVar1) {
-        cVar2 = FUN_00b21596(param_1);
-        if ((cVar2 == '\'') || (cVar2 = FUN_00b21596(param_1), cVar2 == '\"')) {
+        cVar2 = yaml_read_byte(param_1);
+        if ((cVar2 == '\'') || (cVar2 = yaml_read_byte(param_1), cVar2 == '\"')) {
           bVar1 = true;
         }
         else {
@@ -8386,7 +8386,7 @@ LAB_00b0c378:
         }
         return;
       }
-      FUN_00b170a0(param_1);
+      yaml_scan_block_scalar(param_1);
       return;
     }
     FUN_00b165ae(param_1);
@@ -8416,7 +8416,7 @@ LAB_00b0c721:
       bVar1 = false;
     }
     else {
-      cVar2 = FUN_00b21596(param_1);
+      cVar2 = yaml_read_byte(param_1);
       cVar2 = FUN_00b0c8a6(param_1,(int)cVar2);
       if (cVar2 == '\0') goto LAB_00b0c721;
       bVar1 = true;
@@ -8576,7 +8576,7 @@ void FUN_00b0ca44(long param_1,undefined4 param_2)
   FUN_00b0ed54(local_68,param_2,local_24);
                     /* try { // try from 00b0ca99 to 00b0ca9d has its CatchHandler @ 00b0cabc */
   FUN_00b0f508(param_1 + 0x80,local_68);
-  FUN_00b0eed8(local_68);
+  yaml_token_dtor(local_68);
   FUN_00b0f53c(param_1 + 0x80);
   return;
 }
@@ -8756,14 +8756,14 @@ void FUN_00b0ce64(long param_1)
       FUN_00b0ed54(local_c8,5,local_84);
                     /* try { // try from 00b0cf24 to 00b0cf28 has its CatchHandler @ 00b0cfaa */
       FUN_00b0f508(param_1 + 0x80,local_c8);
-      FUN_00b0eed8(local_c8);
+      yaml_token_dtor(local_c8);
     }
     else if (*(int *)(local_20 + 4) == 0) {
       local_2c = FUN_00b0d79a(param_1);
       FUN_00b0ed54(local_78,6,local_2c);
                     /* try { // try from 00b0cf97 to 00b0cf9b has its CatchHandler @ 00b0cfc7 */
       FUN_00b0f508(param_1 + 0x80,local_78);
-      FUN_00b0eed8(local_78);
+      yaml_token_dtor(local_78);
     }
   }
   else {
@@ -8834,9 +8834,9 @@ void FUN_00b0d0da(void)
 }
 
 
-// ==== entry=00b0d10a name=FUN_00b0d10a size=1151 ====
+// ==== entry=00b0d10a orig=FUN_00b0d10a size=1151 name=yaml_static_init_b ====
 
-void FUN_00b0d10a(int param_1,int param_2)
+void yaml_static_init_b(int param_1,int param_2)
 
 {
   allocator local_3c;
@@ -8954,7 +8954,7 @@ void FUN_00b0d10a(int param_1,int param_2)
 void _INIT_171(void)
 
 {
-  FUN_00b0d10a(1,0xffff);
+  yaml_static_init_b(1,0xffff);
   return;
 }
 
@@ -9809,9 +9809,9 @@ undefined8 FUN_00b0eec9(undefined8 param_1)
 }
 
 
-// ==== entry=00b0eed8 name=FUN_00b0eed8 size=47 ====
+// ==== entry=00b0eed8 orig=FUN_00b0eed8 size=47 name=yaml_token_dtor ====
 
-void FUN_00b0eed8(long param_1)
+void yaml_token_dtor(long param_1)
 
 {
   string_vector_destroy(param_1 + 0x20);
@@ -12900,7 +12900,7 @@ void FUN_00b1267d(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 void FUN_00b126ac(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b0eed8(param_2);
+  yaml_token_dtor(param_2);
   return;
 }
 

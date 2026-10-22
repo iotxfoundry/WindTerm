@@ -12778,7 +12778,7 @@ void FUN_004ec20c(void)
 void FUN_004ec236(void)
 
 {
-  FUN_0069eab0();
+  qlist_release_if_shared();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14156,7 +14156,7 @@ void FUN_004ecbf0(void)
   QApplication *unaff_RBX;
   
   FUN_007633f0(unaff_RBX + 0x50);
-  FUN_0069eab0(unaff_RBX + 0x48);
+  qlist_release_if_shared(unaff_RBX + 0x48);
   QApplication::~QApplication(unaff_RBX);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -14597,7 +14597,7 @@ void FUN_004ecff4(void)
   
   FUN_00534d80();
   qt_array_data_unref(in_stack_00000008);
-  FUN_0069eab0(in_stack_00000018);
+  qlist_release_if_shared(in_stack_00000018);
   QEvent::~QEvent(unaff_R12);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -14613,7 +14613,7 @@ void FUN_004ed030(void)
   undefined8 in_stack_00000018;
   
   FUN_00534d80();
-  FUN_0069eab0(in_stack_00000018);
+  qlist_release_if_shared(in_stack_00000018);
   QEvent::~QEvent(unaff_R12);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();

@@ -1595,7 +1595,7 @@ void FUN_005036a4(void)
   undefined8 in_stack_00000008;
   
   qt_array_data_unref();
-  FUN_0069eab0(in_stack_00000008);
+  qlist_release_if_shared(in_stack_00000008);
   qatomic_unref_call_deleter();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -1610,7 +1610,7 @@ void FUN_005036c6(void)
   undefined8 in_stack_00000008;
   
   qatomic_unref_call_deleter();
-  FUN_0069eab0(in_stack_00000008);
+  qlist_release_if_shared(in_stack_00000008);
   qatomic_unref_call_deleter();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
