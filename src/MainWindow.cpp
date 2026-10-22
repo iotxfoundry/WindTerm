@@ -15,7 +15,9 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+#include "core/ActionRegistry.h"
 #include "core/ThemeManager.h"
+#include "core/WindConfig.h"
 #include "panes/ExplorerPane.h"
 #include "panes/FilerPane.h"
 #include "panes/OutlinePane.h"
@@ -33,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_locale(LocaleManager::instance())
     , m_muxPaneGroup(nullptr)
     , m_appletBar(nullptr)
+    , m_readyLabel(nullptr)
     , m_clockLabel(nullptr)
     , m_clockTimer(nullptr)
 {
@@ -40,42 +43,49 @@ MainWindow::MainWindow(QWidget *parent)
     resize(1200, 800);
     setAttribute(Qt::WA_DeleteOnClose);
 
-    const double opacity = QSettings().value(QStringLiteral("application/windowOpacity"), 1.0).toDouble();
+    const double opacity = WindConfig::instance().valueToDouble(QStringLiteral("application.windowOpacity"), 1.0);
     if (opacity > 0.0 && opacity < 1.0)
         setWindowOpacity(opacity);
 
     ThemeManager::instance().setTheme(QStringLiteral("default"));
+    WindConfig::instance().load(QStringLiteral("assets/config/wind.config"));
     m_locale.load(QStringLiteral("assets/locales/zh-CN.locale"));
 
     createMenus();
     createCentralWidget();
     createDocks();
     createStatusBar();
+    initActionRegistry();
 
     QTimer::singleShot(0, this, &MainWindow::onRestoreLayout);
 }
 
+QString MainWindow::makeMenuTitle(const QString &base, int n) const
+{
+    return n == 0 ? base + QStringLiteral(" (&0)") : base + QStringLiteral(" (&%1)").arg(n);
+}
+
 void MainWindow::createMenus()
 {
-    auto addMenu = [this](const QString &title, const QStringList &items) {
+    auto addMenu = [this](const QString &title, int n, const QStringList &items) {
         QString plain = title;
         plain.remove(QLatin1Char('&')); // locale key 不含助记符 &
-        QMenu *menu = menuBar()->addMenu(m_locale.tr(plain));
+        QMenu *menu = menuBar()->addMenu(makeMenuTitle(m_locale.tr(plain), n));
         for (const QString &item : items) {
             QAction *action = menu->addAction(m_locale.tr(item));
             connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderAction);
         }
     };
 
-    addMenu(QStringLiteral("&Session"), {QStringLiteral("New Session"), QStringLiteral("Open Session"), QStringLiteral("Close Session")});
-    addMenu(QStringLiteral("&Edit"), {QStringLiteral("Copy"), QStringLiteral("Paste"), QStringLiteral("Select All")});
-    addMenu(QStringLiteral("&Search"), {QStringLiteral("Find"), QStringLiteral("Find Next"), QStringLiteral("Find Previous")});
-    addMenu(QStringLiteral("Se&lection"), {QStringLiteral("Select Line"), QStringLiteral("Select Word")});
-    addMenu(QStringLiteral("&Goto"), {QStringLiteral("Next Tab"), QStringLiteral("Previous Tab")});
-    addMenu(QStringLiteral("&View"), {QStringLiteral("Toggle Filer"), QStringLiteral("Toggle Session"), QStringLiteral("Full Screen")});
-    addMenu(QStringLiteral("&Mode"), {QStringLiteral("Normal Mode"), QStringLiteral("Remote Mode")});
-    addMenu(QStringLiteral("&Window"), {QStringLiteral("New Window"), QStringLiteral("Close Window")});
-    addMenu(QStringLiteral("&Help"), {QStringLiteral("Help"), QStringLiteral("About")});
+    addMenu(QStringLiteral("&Session"), 1, {QStringLiteral("New Session"), QStringLiteral("Open Session"), QStringLiteral("Close Session")});
+    addMenu(QStringLiteral("&Edit"), 2, {QStringLiteral("Copy"), QStringLiteral("Paste"), QStringLiteral("Select All")});
+    addMenu(QStringLiteral("&Search"), 3, {QStringLiteral("Find"), QStringLiteral("Find Next"), QStringLiteral("Find Previous")});
+    addMenu(QStringLiteral("Se&lection"), 4, {QStringLiteral("Select Line"), QStringLiteral("Select Word")});
+    addMenu(QStringLiteral("&Goto"), 5, {QStringLiteral("Next Tab"), QStringLiteral("Previous Tab")});
+    addMenu(QStringLiteral("&View"), 6, {QStringLiteral("Toggle Filer"), QStringLiteral("Toggle Session"), QStringLiteral("Full Screen")});
+    addMenu(QStringLiteral("&Mode"), 7, {QStringLiteral("Normal Mode"), QStringLiteral("Remote Mode")});
+    addMenu(QStringLiteral("&Window"), 8, {QStringLiteral("New Window"), QStringLiteral("Close Window")});
+    addMenu(QStringLiteral("&Help"), 0, {QStringLiteral("Help"), QStringLiteral("About")});
 }
 
 void MainWindow::createCentralWidget()
@@ -155,7 +165,8 @@ QWidget *MainWindow::createBottomTabs()
 
 void MainWindow::createStatusBar()
 {
-    statusBar()->addWidget(new QLabel(tr("Ready"), this));
+    m_readyLabel = new QLabel(tr("Ready"), this);
+    statusBar()->addWidget(m_readyLabel);
     statusBar()->addPermanentWidget(new QLabel(tr("Remote Mode"), this));
     statusBar()->addPermanentWidget(new QLabel(tr("Ln 1 Ch 1"), this));
     statusBar()->addPermanentWidget(new QLabel(tr("localhost"), this));
@@ -167,6 +178,16 @@ void MainWindow::createStatusBar()
     connect(m_clockTimer, &QTimer::timeout, this, &MainWindow::updateClock);
     m_clockTimer->start(1000);
     updateClock();
+}
+
+void MainWindow::initActionRegistry()
+{
+    ActionRegistry &registry = ActionRegistry::instance();
+    if (!registry.load(QStringLiteral("assets/config/wind.actions")))
+        return;
+
+    m_readyLabel->setText(m_readyLabel->text() + QStringLiteral(" · ")
+                          + QString::number(registry.actionIds().size()) + QStringLiteral(" actions"));
 }
 
 void MainWindow::onRestoreLayout()

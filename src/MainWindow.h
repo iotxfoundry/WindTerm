@@ -31,10 +31,13 @@ private:
     void createDocks();
     void createStatusBar();
     QWidget *createBottomTabs();
+    QString makeMenuTitle(const QString &base, int n) const;
+    void initActionRegistry();
 
     LocaleManager &m_locale;
     MuxPaneGroup *m_muxPaneGroup;
     AppletBar *m_appletBar;
+    QLabel *m_readyLabel;
     QLabel *m_clockLabel;
     QTimer *m_clockTimer;
 };
