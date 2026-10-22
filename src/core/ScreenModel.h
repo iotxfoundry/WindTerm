@@ -3,7 +3,6 @@
 #include <QColor>
 #include <QSet>
 #include <QString>
-#include <QStringList>
 #include <QVector>
 
 struct Cell
@@ -28,7 +27,8 @@ public:
     const Cell &cellAt(int row, int col) const;
     int cursorX() const { return m_cursorX; }
     int cursorY() const { return m_cursorY; }
-    const QStringList &scrollback() const { return m_scrollback; }
+    // 滚动回看保存带格式快照——原版滚回保留原色（不重刷历史行颜色）
+    const QList<QVector<Cell>> &scrollback() const { return m_scrollback; }
     bool cursorVisible() const { return m_cursorVisible; }
     bool alternateScreen() const { return m_alternate; }
     bool bracketedPaste() const { return m_bracketedPaste; }
@@ -61,7 +61,7 @@ private:
     void scrollDown(int n);
     void blankRow(int row);
     void blankCell(Cell &cell) const;
-    QString rowText(int row) const;
+    QVector<Cell> rowCells(int row) const;
     void clampCursor();
 
     int m_rows;
@@ -97,6 +97,6 @@ private:
     int m_mainCursorX = 0;
     int m_mainCursorY = 0;
 
-    QStringList m_scrollback;
+    QList<QVector<Cell>> m_scrollback;
     QChar m_lastChar;
 };

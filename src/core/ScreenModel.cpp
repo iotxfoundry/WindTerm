@@ -447,7 +447,7 @@ void ScreenModel::scrollUp(int n)
 {
     for (int i = 0; i < n; ++i) {
         if (m_top == 0) {
-            m_scrollback.append(rowText(0));
+            m_scrollback.append(rowCells(0));
             if (m_scrollback.size() > 1000)
                 m_scrollback.removeFirst();
         }
@@ -484,15 +484,13 @@ void ScreenModel::blankCell(Cell &cell) const
     cell.reverse = false;
 }
 
-QString ScreenModel::rowText(int row) const
+QVector<Cell> ScreenModel::rowCells(int row) const
 {
-    QString text;
-    text.reserve(m_cols);
-    for (int x = 0; x < m_cols; ++x)
-        text.append(m_cells.at(row).at(x).ch);
-    while (text.endsWith(QLatin1Char(' ')))
-        text.chop(1);
-    return text;
+    QVector<Cell> cells = m_cells.at(row);
+    while (cells.size() > 1 && cells.last().ch == QLatin1Char(' ')
+           && !cells.last().fg.isValid() && !cells.last().bg.isValid())
+        cells.removeLast();
+    return cells;
 }
 
 void ScreenModel::clampCursor()

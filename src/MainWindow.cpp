@@ -8,7 +8,7 @@
 #include <QMenu>
 #include <QProxyStyle>
 
-// 原版菜单图标列 ~20px（反汇编+截图对照）；仅作用于菜单实例
+// 菜单图标列 ~20px：无数据键、反汇编未定位（诚实标注）；升级条件=反编译 QMenu 图标列宽绘制路径。仅作用于菜单实例
 class MenuIconStyle : public QProxyStyle {
 public:
     int pixelMetric(PixelMetric metric, const QStyleOption *option,

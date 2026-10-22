@@ -77,6 +77,7 @@ QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存
 - **禁止自创联动/派生逻辑**：如"终端暗色→标签变暗"这类原版不存在的机制（GUI 主题与终端 scheme 独立，见 cracked-rules R16）。发现既有代码含自创样式 → 删除，改由主题数据接管。
 - 控件级内联 QSS 会压制应用级 gui.theme 规则——除有独立证据外禁止内联样式；主题值统一走 ThemeManager。
 - 原版类名规则生效机制：QSS 类型选择器只匹配 C++ 类名（真实子类）；骨架以 objectName 挂名需 ThemeManager 改写（R17），新部件命名对照 `symbols.tsv` 反哺节的 setObjectName 点。
+- **截图仅用于视觉验收对照（最终比对），禁作实现证据来源**（用户指令 2026-10-23）——颜色/尺寸/行为的实现依据必须来自反汇编或数据文件；无数据键时标注"无证据"并给出反汇编升级路径，不得写"截图对照值"兜底（截图曾两次误导：2020 EN 素材、菜单编号）。
 
 ## 陷阱补充（phase12）
 

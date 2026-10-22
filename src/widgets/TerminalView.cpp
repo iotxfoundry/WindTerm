@@ -21,8 +21,8 @@ QString schemeColor(const QString &name, const QString &fallback)
     return color.isValid() ? color.name(QColor::HexRgb) : fallback;
 }
 
-// shortcut: 原版滚动回看/系统消息色无数据键，取 ansiBrightBlack 近似实机截图灰色；升级条件=找到 text.scrollback* 键
-QString scrollbackColor()
+// 系统提示色（视图层元素，原版无对应；与滚回旧内容同为弱化灰）
+QString hintColor()
 {
     return schemeColor(QStringLiteral("terminal.ansiBrightBlack"), QStringLiteral("#666666"));
 }
@@ -30,6 +30,41 @@ QString scrollbackColor()
 QString span(const QString &text, const QString &color)
 {
     return QStringLiteral("<span style=\"color:%1\">%2</span>").arg(color, text.toHtmlEscaped());
+}
+
+// 历史行与当前屏共用同一 cell→HTML 路径——滚回保留原色（原版不重刷历史行颜色）
+void appendRowHtml(QString &html, const QVector<Cell> &cells, bool last)
+{
+    QString style;
+    bool spanOpen = false;
+    for (const Cell &cell : cells) {
+        QColor fg = cell.fg;
+        QColor bg = cell.bg;
+        if (cell.reverse)
+            qSwap(fg, bg);
+
+        const QString current = QStringLiteral("color:%1;background-color:%2;%3%4")
+                                    .arg(fg.name(), bg.name(),
+                                         cell.bold ? QStringLiteral("font-weight:bold;") : QString(),
+                                         cell.underline ? QStringLiteral("text-decoration:underline;") : QString());
+        if (current != style) {
+            if (spanOpen)
+                html += QStringLiteral("</span>");
+            html += QStringLiteral("<span style=\"%1\">").arg(current);
+            style = current;
+            spanOpen = true;
+        }
+
+        const QChar ch = cell.ch;
+        html += ch == QLatin1Char('&') ? QStringLiteral("&amp;")
+              : ch == QLatin1Char('<') ? QStringLiteral("&lt;")
+              : ch == QLatin1Char('>') ? QStringLiteral("&gt;")
+              : QString(ch);
+    }
+    if (spanOpen)
+        html += QStringLiteral("</span>");
+    if (!last)
+        html += QStringLiteral("<br>");
 }
 
 } // namespace
@@ -164,44 +199,14 @@ TerminalView::~TerminalView()
 void TerminalView::renderScreen()
 {
     QString html;
-    for (const QString &line : m_screen->scrollback()) {
-        html += QStringLiteral("<span style=\"color:%1\">%2</span><br>").arg(scrollbackColor(), line.toHtmlEscaped());
-    }
+    for (const auto &row : m_screen->scrollback())
+        appendRowHtml(html, row, false);
 
     for (int row = 0; row < m_screen->rows(); ++row) {
-        QString style;
-        bool spanOpen = false;
-        for (int col = 0; col < m_screen->cols(); ++col) {
-            const Cell &cell = m_screen->cellAt(row, col);
-            QColor fg = cell.fg;
-            QColor bg = cell.bg;
-            if (cell.reverse)
-                qSwap(fg, bg);
-
-            QString current = QStringLiteral("color:%1;background-color:%2;").arg(fg.name(), bg.name());
-            if (cell.bold)
-                current += QStringLiteral("font-weight:bold;");
-            if (cell.underline)
-                current += QStringLiteral("text-decoration:underline;");
-
-            if (current != style) {
-                if (spanOpen)
-                    html += QStringLiteral("</span>");
-                html += QStringLiteral("<span style=\"%1\">").arg(current);
-                style = current;
-                spanOpen = true;
-            }
-
-            const QChar ch = cell.ch;
-            html += ch == QLatin1Char('&') ? QStringLiteral("&amp;")
-                  : ch == QLatin1Char('<') ? QStringLiteral("&lt;")
-                  : ch == QLatin1Char('>') ? QStringLiteral("&gt;")
-                  : QString(ch);
-        }
-        if (spanOpen)
-            html += QStringLiteral("</span>");
-        if (row + 1 < m_screen->rows())
-            html += QStringLiteral("<br>");
+        QVector<Cell> cells(m_screen->cols());
+        for (int col = 0; col < m_screen->cols(); ++col)
+            cells[col] = m_screen->cellAt(row, col);
+        appendRowHtml(html, cells, row + 1 == m_screen->rows());
     }
 
     m_main->document()->setHtml(html);
@@ -253,6 +258,6 @@ void TerminalView::appendSystemMessage(const QString &text)
 {
     QTextCursor cursor(m_main->document());
     cursor.movePosition(QTextCursor::End);
-    cursor.insertHtml(QStringLiteral("<span style=\"color:%1\">%2</span><br>").arg(scrollbackColor(), text.toHtmlEscaped()));
+    cursor.insertHtml(QStringLiteral("<span style=\"color:%1\">%2</span><br>").arg(hintColor(), text.toHtmlEscaped()));
     m_main->verticalScrollBar()->setValue(m_main->verticalScrollBar()->maximum());
 }
