@@ -177,13 +177,17 @@ void MainWindow::createToolBar()
 
 QAction *MainWindow::makeAction(const QString &actionId)
 {
-    QString text = ActionRegistry::instance().actionText(actionId);
-    if (text.isEmpty())
-        text = actionId.section(QLatin1Char('.'), -1);
-    text.remove(QLatin1Char('&'));
+    QString en = ActionRegistry::instance().actionText(actionId);
+    if (en.isEmpty())
+        en = actionId.section(QLatin1Char('.'), -1);
+
+    QString key = en;
+    key.remove(QLatin1Char('&'));
+    if (key.endsWith(QStringLiteral("...")))
+        key.chop(3);
 
     auto *action = new QAction(this);
-    action->setText(m_locale.tr(text));
+    action->setText(displayActionText(en, m_locale.tr(key)));
 
     const QString iconName = ActionRegistry::instance().actionIcon(actionId);
     if (!iconName.isEmpty()) {
@@ -208,6 +212,20 @@ QAction *MainWindow::makeAction(const QString &actionId)
             Q_UNIMPLEMENTED();
     });
     return action;
+}
+
+QString MainWindow::displayActionText(const QString &en, const QString &translated)
+{
+    if (translated.isEmpty())
+        return en;
+
+    QString text = translated;
+    if (en.endsWith(QStringLiteral("...")))
+        text += QStringLiteral("...");
+    const int ampersand = en.indexOf(QLatin1Char('&'));
+    if (ampersand >= 0 && ampersand + 1 < en.size())
+        text += QStringLiteral("(%1)").arg(en.at(ampersand + 1));
+    return text;
 }
 
 void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)

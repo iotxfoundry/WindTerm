@@ -137,7 +137,23 @@ def main():
 
             mask = Image.new("RGBA", icon.size, (0, 0, 0, 0))
             mask.putalpha(alpha)
-            mask.save(os.path.join(OUT_DIR, file_name))
+
+            # alpha 包围盒 + 2px 边距，最长边适配 18px 等比缩放，居中放进 18×18 画布
+            bbox = mask.getchannel("A").getbbox()
+            if bbox:
+                left = max(0, bbox[0] - 2)
+                top = max(0, bbox[1] - 2)
+                right = min(mask.width, bbox[2] + 2)
+                bottom = min(mask.height, bbox[3] + 2)
+                mask = mask.crop((left, top, right, bottom))
+
+            scale = 18 / max(mask.width, mask.height)
+            width = max(1, round(mask.width * scale))
+            height = max(1, round(mask.height * scale))
+            mask = mask.resize((width, height), Image.LANCZOS)
+            canvas = Image.new("RGBA", (18, 18), (0, 0, 0, 0))
+            canvas.paste(mask, ((18 - width) // 2, (18 - height) // 2))
+            canvas.save(os.path.join(OUT_DIR, file_name))
 
             manifest[key] = {"file": file_name, "menu": name, "y": top}
             cropped += 1

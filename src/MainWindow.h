@@ -35,6 +35,7 @@ private:
     void createToolBar();
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
     QAction *makeAction(const QString &actionId);
+    static QString displayActionText(const QString &en, const QString &translated);
     void createCentral();
     void createStatusBar();
     QWidget *createBottomTabs();
