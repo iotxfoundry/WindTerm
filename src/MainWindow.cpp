@@ -189,13 +189,11 @@ QAction *MainWindow::makeAction(const QString &actionId)
     auto *action = new QAction(this);
     action->setText(displayActionText(en, m_locale.tr(key)));
 
-    const QString iconName = ActionRegistry::instance().actionIcon(actionId);
-    if (!iconName.isEmpty()) {
-        QString name = iconName;
-        if (name.startsWith(QStringLiteral("king::")))
-            name.remove(0, 6);
-        action->setIcon(ActionIcons::iconFor(actionId, name, ThemeManager::instance().currentTheme()));
-    }
+    // 原版行为：菜单项全部带图标（icons/<actionId>.png 为原版渲染截图裁剪，见 docs/phase11）
+    const QIcon ic = ActionIcons::iconFor(actionId, ActionRegistry::instance().actionIcon(actionId),
+                                          ThemeManager::instance().currentTheme());
+    if (!ic.isNull())
+        action->setIcon(ic);
 
     action->setData(actionId);
     connect(action, &QAction::triggered, this, [this, actionId]() {
@@ -230,6 +228,7 @@ QString MainWindow::displayActionText(const QString &en, const QString &translat
 
 void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
 {
+    // 图标尺寸走 PM_SmallIconSize(16)：裁剪图字形已满幅，无需调整
     for (const MenuEntry &entry : entries) {
         switch (entry.type) {
         case MenuEntry::Action:
@@ -238,9 +237,15 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
         case MenuEntry::Separator:
             menu->addSeparator();
             break;
-        case MenuEntry::Submenu:
-            buildMenu(menu->addMenu(entry.title), entry.children);
+        case MenuEntry::Submenu: {
+            // 子菜单标题走同款 locale 管线（原版：最近打开/日志/首选项…）
+            QString key = entry.title;
+            key.remove(QLatin1Char('&'));
+            if (key.endsWith(QStringLiteral("...")))
+                key.chop(3);
+            buildMenu(menu->addMenu(displayActionText(entry.title, m_locale.tr(key))), entry.children);
             break;
+        }
         }
     }
 }
