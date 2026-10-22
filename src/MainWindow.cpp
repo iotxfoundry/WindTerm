@@ -189,9 +189,10 @@ QAction *MainWindow::makeAction(const QString &actionId)
             togglePane(findChild<FilerPane *>());
         else if (actionId == QStringLiteral("Window.TogglePaneSession"))
             togglePane(findChild<SessionPane *>());
-        else if (actionId == QStringLiteral("Window.TogglePaneOutline"))
-            togglePane(findChild<OutlinePane *>());
-        else
+        else if (actionId == QStringLiteral("Window.TogglePaneOutline")) {
+            QWidget *pane = findChild<QWidget *>(QStringLiteral("OutlineTabs"));
+            togglePane(pane ? pane : findChild<OutlinePane *>());
+        } else
             Q_UNIMPLEMENTED();
     });
     return action;
@@ -229,16 +230,18 @@ void MainWindow::createCentral()
     muxRow->addWidget(m_muxPaneGroup);
 
     auto *tabsGroup = new QTabWidget;
-    tabsGroup->addTab(new ExplorerPane(tabsGroup), tr("Explorer"));
-    tabsGroup->addTab(new SessionPane(tabsGroup), tr("Session"));
+    tabsGroup->addTab(new ExplorerPane(tabsGroup), m_locale.tr(QStringLiteral("Explorer")));
+    tabsGroup->addTab(new SessionPane(tabsGroup), m_locale.tr(QStringLiteral("Session")));
     PaneManager::insert(root, m_muxPaneGroup, tabsGroup, Dir::Left);
 
     auto *filerPane = new FilerPane;
     PaneManager::insert(root, tabsGroup, filerPane, Dir::Bottom);
 
-    auto *outlinePane = new OutlinePane;
-    PaneManager::insert(root, m_muxPaneGroup, outlinePane, Dir::Right);
-    outlinePane->hide();
+    auto *outlineTabs = new QTabWidget;
+    outlineTabs->setObjectName(QStringLiteral("OutlineTabs"));
+    outlineTabs->addTab(new OutlinePane(outlineTabs), m_locale.tr(QStringLiteral("Outline")));
+    PaneManager::insert(root, m_muxPaneGroup, outlineTabs, Dir::Right);
+    outlineTabs->hide();
 
     auto *bottomGroup = createBottomTabs();
     PaneManager::insert(root, m_muxPaneGroup, bottomGroup, Dir::Bottom);
@@ -274,11 +277,11 @@ QWidget *MainWindow::createBottomTabs()
     layout->setSpacing(0);
 
     auto *tabs = new QTabBar(container);
-    tabs->addTab(tr("Sender"));
-    tabs->addTab(tr("Transfer"));
-    tabs->addTab(tr("Output"));
-    tabs->addTab(tr("Search"));
-    tabs->addTab(tr("Shell"));
+    tabs->addTab(m_locale.tr(QStringLiteral("Sender")));
+    tabs->addTab(m_locale.tr(QStringLiteral("Transfer")));
+    tabs->addTab(m_locale.tr(QStringLiteral("Output")));
+    tabs->addTab(m_locale.tr(QStringLiteral("Search")));
+    tabs->addTab(m_locale.tr(QStringLiteral("Shell")));
 
     auto *stack = new QStackedWidget(container);
     stack->addWidget(new SenderPane(stack));

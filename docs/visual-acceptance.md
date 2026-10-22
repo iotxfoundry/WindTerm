@@ -31,3 +31,9 @@
 - 主题管线闭环：profile(dige-black-and-white=浅色) 与 wind.config(dige-black=暗色) 双向验证，QSS 全局生效（#1c1c1c 底/灰前景）
 - 中文 10 菜单（含 工具(8)）、地址栏工具栏、左列 Explorer|Session 标签+Filer、彩签、AppletBar、状态栏 主题名/窗口尺寸/行字符——与原版实机截图逐区域对齐
 - 已知残差：标签页标题未本地化（Explorer/Session 应为 资源管理器/会话）；终端占位无时间戳槽与语法色；会话标签样式与原版自绘有差
+
+## Round 3（本地化 + TerminalView，skeleton-r3-*.png）
+
+- 标签本地化：资源管理器|会话、历史命令、发送/传输/输出/搜索——与原版中文界面一致
+- TerminalView：110px 时间戳槽 + scheme.theme ANSI 配色 demo（绿主机/蓝路径/红错误），MuxPaneGroup 三会话页各一
+- 双主题截图自验（--screenshot），与原版实机截图逐区域对照通过

@@ -44,7 +44,7 @@ tools/fetch-assets.sh /path/to/WindTerm_2.7.0
 
 ## 布局
 
-嵌套 Splitter 树：面板由 PaneManager 相对插入引擎布局（移植反编译算法），Dock.TogglePane 真实显隐。
+嵌套 Splitter 树：面板由 PaneManager 相对插入引擎布局（移植反编译算法），Dock.TogglePane 真实显隐；终端占位含时间戳槽与 `scheme.theme` ANSI 配色。
 - `src/panes/` — FilerPane、ExplorerPane、SessionPane、OutlinePane、SenderPane、TransferPane、OutputPane、SearchPane、ShellPane
 - `src/widgets/` — MuxPaneGroup、AppletBar、ActionIcons.h（图标占位）、Bars.h（7 栏名登记）
 - `src/core/` — MenuConfig、ToolbarConfig、ActionRegistry、WindConfig、ThemeManager、SchemeManager、LocaleManager、JsonText

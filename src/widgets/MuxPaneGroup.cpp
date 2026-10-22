@@ -3,7 +3,8 @@
 #include <QIcon>
 #include <QPainter>
 #include <QPixmap>
-#include <QPlainTextEdit>
+
+#include "TerminalView.h"
 
 namespace {
 
@@ -31,8 +32,5 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
 
 void MuxPaneGroup::addPane(const QString &title, const QColor &color)
 {
-    auto *edit = new QPlainTextEdit(this);
-    edit->setReadOnly(true);
-    edit->setPlainText(title + QStringLiteral(" terminal placeholder"));
-    addTab(edit, dotIcon(color), title);
+    addTab(new TerminalView(title, this), dotIcon(color), title);
 }
