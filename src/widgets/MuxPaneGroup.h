@@ -16,6 +16,7 @@ public:
 
 private slots:
     void onTabCloseRequested();
+    void onAddSession();
 
 private:
     void addPane(const QString &title, const QColor &color);

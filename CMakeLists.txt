@@ -19,6 +19,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp)
 file(GLOB_RECURSE PROJECT_HEADERS CONFIGURE_DEPENDS src/*.h)
 
+# Pty 层仅 Unix（macOS 的 Q_OS_UNIX 路径不参与，按 roadmap F1 限定 Linux/BSD）
+if(NOT (UNIX AND NOT APPLE))
+  list(FILTER PROJECT_SOURCES EXCLUDE REGEX "/src/pty/")
+  list(FILTER PROJECT_HEADERS EXCLUDE REGEX "/src/pty/")
+endif()
+
 add_executable(WindTermGuiSkeleton ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 set_target_properties(WindTermGuiSkeleton PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 target_include_directories(WindTermGuiSkeleton PRIVATE src)

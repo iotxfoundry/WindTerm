@@ -14,6 +14,8 @@
 
 #include "TerminalView.h"
 
+#include "core/LocalSession.h"
+
 namespace {
 
 QIcon dotIcon(const QColor &color)
@@ -77,7 +79,7 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
 
     connect(m_tabBar, &QTabBar::currentChanged, m_stack, &QStackedWidget::setCurrentIndex);
     connect(m_tabBar, &QTabBar::tabCloseRequested, this, &MuxPaneGroup::onTabCloseRequested);
-    connect(m_addButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
+    connect(m_addButton, &QToolButton::clicked, this, &MuxPaneGroup::onAddSession);
     connect(m_menuButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
 
     addPane(tr("Local SSH"), Qt::red);
@@ -94,4 +96,18 @@ void MuxPaneGroup::addPane(const QString &title, const QColor &color)
 void MuxPaneGroup::onTabCloseRequested()
 {
     Q_UNIMPLEMENTED();
+}
+
+void MuxPaneGroup::onAddSession()
+{
+    auto *session = new LocalSession(24, 80, this);
+    auto *view = new TerminalView(tr("Local"), this);
+    view->attachSession(session);
+
+    const int index = m_tabBar->addTab(dotIcon(Qt::gray), tr("Local"));
+    m_stack->addWidget(view);
+    m_tabBar->setCurrentIndex(index);
+    m_stack->setCurrentWidget(view);
+
+    session->start();
 }
