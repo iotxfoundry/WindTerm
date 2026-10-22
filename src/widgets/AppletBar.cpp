@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 
 #include "ActionIcons.h"
+#include "core/ThemeManager.h"
 
 namespace {
 
@@ -45,7 +46,7 @@ AppletBar::AppletBar(const QJsonArray &actions, QWidget *parent)
         const QJsonArray groupActions = group.value(QStringLiteral("actions")).toArray();
         for (const QJsonValue &actionValue : groupActions) {
             const QString name = actionValue.toString();
-            auto *button = new QPushButton(ActionIcons::iconFor(name), name, content);
+            auto *button = new QPushButton(ActionIcons::iconFor(name, ThemeManager::instance().currentTheme()), name, content);
             button->setFlat(true);
             button->setIconSize(QSize(16, 16));
             connect(button, &QPushButton::pressed, this, &AppletBar::onActionPressed);

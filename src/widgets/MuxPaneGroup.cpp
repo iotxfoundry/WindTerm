@@ -58,11 +58,14 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
         .arg(tabText, hover, selected));
 
     m_addButton->setObjectName(QStringLiteral("AddSessionButton"));
-    m_addButton->setIcon(ActionIcons::paintIcon(QStringLiteral("add"), QColor(QStringLiteral("#007acc")), 24));
+    // 原版 king::add 无图标文件 → 空图标回退文字（docs/phase10-findings.md §2）
+    m_addButton->setText(QStringLiteral("+"));
+    m_addButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     m_addButton->setIconSize(QSize(24, 24));
     m_addButton->setFixedSize(24, 24);
     m_menuButton->setObjectName(QStringLiteral("SessionMenuButton"));
-    m_menuButton->setIcon(ActionIcons::paintIcon(QStringLiteral("menu"), QColor(QStringLiteral("#007acc")), 24));
+    m_menuButton->setText(QStringLiteral("\u2261"));
+    m_menuButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     m_menuButton->setIconSize(QSize(24, 24));
     m_menuButton->setFixedSize(24, 24);
 

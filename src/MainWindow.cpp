@@ -190,7 +190,7 @@ QAction *MainWindow::makeAction(const QString &actionId)
         QString name = iconName;
         if (name.startsWith(QStringLiteral("king::")))
             name.remove(0, 6);
-        action->setIcon(ActionIcons::iconFor(name));
+        action->setIcon(ActionIcons::iconFor(name, ThemeManager::instance().currentTheme()));
     }
 
     action->setData(actionId);
