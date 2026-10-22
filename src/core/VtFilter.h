@@ -1,5 +1,6 @@
 #pragma once
 
+// deprecated: F1 临时 HTML 过滤器；F2 起由 VtParser + ScreenModel 取代，仅保留作历史参照
 #include <QByteArray>
 #include <QColor>
 #include <QString>

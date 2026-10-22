@@ -9,6 +9,8 @@
 
 #include "core/LocalSession.h"
 #include "core/SchemeManager.h"
+#include "core/ScreenModel.h"
+#include "core/VtParser.h"
 
 namespace {
 
@@ -30,6 +32,8 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
     , m_gutter(new QPlainTextEdit(this))
     , m_main(new QPlainTextEdit(this))
     , m_session(nullptr)
+    , m_screen(nullptr)
+    , m_parser(nullptr)
 {
     const QFont mono = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     for (QPlainTextEdit *edit : {m_gutter, m_main}) {
@@ -91,6 +95,19 @@ void TerminalView::attachSession(LocalSession *session)
     if (!m_session)
         return;
 
+    delete m_parser;
+    delete m_screen;
+
+    QColor fg = SchemeManager::instance().color(QStringLiteral("terminal.ansiWhite"));
+    QColor bg = SchemeManager::instance().color(QStringLiteral("line.background"));
+    if (!fg.isValid())
+        fg = QColor(QStringLiteral("#e3e3dd"));
+    if (!bg.isValid())
+        bg = QColor(QStringLiteral("#1c1c1c"));
+
+    m_screen = new ScreenModel(24, 80, fg, bg);
+    m_parser = new VtParser(m_screen);
+
     m_gutter->clear();
     m_main->clear();
     m_main->setReadOnly(false);
@@ -98,21 +115,67 @@ void TerminalView::attachSession(LocalSession *session)
     m_main->setFocus();
 
     connect(m_session, &LocalSession::output, this, [this](const QByteArray &data) {
-        const QString html = m_vtFilter.feed(data);
-        if (m_vtFilter.takeClearRequest())
-            m_main->clear();
-        if (!html.isEmpty()) {
-            QTextCursor cursor(m_main->document());
-            cursor.movePosition(QTextCursor::End);
-            cursor.insertHtml(html);
-        }
-        m_main->verticalScrollBar()->setValue(m_main->verticalScrollBar()->maximum());
+        m_parser->feed(data);
+        renderScreen();
     });
 
     connect(m_session, &LocalSession::finished, this, [this]() {
         appendSystemMessage(tr("[进程已退出]"));
         m_main->setReadOnly(true);
     });
+}
+
+TerminalView::~TerminalView()
+{
+    delete m_parser;
+    delete m_screen;
+}
+
+void TerminalView::renderScreen()
+{
+    QString html;
+    for (const QString &line : m_screen->scrollback()) {
+        html += QStringLiteral("<span style=\"color:#888888\">%1</span><br>").arg(line.toHtmlEscaped());
+    }
+
+    for (int row = 0; row < m_screen->rows(); ++row) {
+        QString style;
+        bool spanOpen = false;
+        for (int col = 0; col < m_screen->cols(); ++col) {
+            const Cell &cell = m_screen->cellAt(row, col);
+            QColor fg = cell.fg;
+            QColor bg = cell.bg;
+            if (cell.reverse)
+                qSwap(fg, bg);
+
+            QString current = QStringLiteral("color:%1;background-color:%2;").arg(fg.name(), bg.name());
+            if (cell.bold)
+                current += QStringLiteral("font-weight:bold;");
+            if (cell.underline)
+                current += QStringLiteral("text-decoration:underline;");
+
+            if (current != style) {
+                if (spanOpen)
+                    html += QStringLiteral("</span>");
+                html += QStringLiteral("<span style=\"%1\">").arg(current);
+                style = current;
+                spanOpen = true;
+            }
+
+            const QChar ch = cell.ch;
+            html += ch == QLatin1Char('&') ? QStringLiteral("&amp;")
+                  : ch == QLatin1Char('<') ? QStringLiteral("&lt;")
+                  : ch == QLatin1Char('>') ? QStringLiteral("&gt;")
+                  : QString(ch);
+        }
+        if (spanOpen)
+            html += QStringLiteral("</span>");
+        if (row + 1 < m_screen->rows())
+            html += QStringLiteral("<br>");
+    }
+
+    m_main->document()->setHtml(html);
+    m_main->verticalScrollBar()->setValue(m_main->verticalScrollBar()->maximum());
 }
 
 bool TerminalView::eventFilter(QObject *obj, QEvent *event)
