@@ -5,6 +5,7 @@
 #include <QDockWidget>
 #include <QJsonArray>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMenu>
 #include <QMenuBar>
 #include <QPalette>
@@ -15,11 +16,13 @@
 #include <QTabBar>
 #include <QTime>
 #include <QTimer>
+#include <QToolBar>
 #include <QVBoxLayout>
 
 #include "core/ActionRegistry.h"
 #include "core/SchemeManager.h"
 #include "core/ThemeManager.h"
+#include "core/ToolbarConfig.h"
 #include "core/WindConfig.h"
 #include "panes/ExplorerPane.h"
 #include "panes/FilerPane.h"
@@ -63,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
     createStatusBar();
     initActionRegistry();
     createMenus();
+    createToolBar();
     createCentralWidget();
 
     const QColor terminalBackground = SchemeManager::instance().color(QStringLiteral("line.background"));
@@ -123,27 +127,69 @@ void MainWindow::createFallbackMenus()
     addMenu(QStringLiteral("&Help"), 0, {QStringLiteral("Help"), QStringLiteral("About")});
 }
 
+void MainWindow::createToolBar()
+{
+    ToolbarConfig &config = ToolbarConfig::instance();
+    if (!config.load(QStringLiteral("assets/config/uiconfigs/toolbar.config")))
+        return;
+
+    const QString name = config.toolbarName();
+    if (name.isEmpty())
+        return;
+
+    auto *toolBar = addToolBar(name);
+    toolBar->setObjectName(QStringLiteral("Standard"));
+    toolBar->setMovable(false);
+    toolBar->setIconSize(QSize(16, 16));
+
+    for (const ToolbarEntry &entry : config.entries(name)) {
+        switch (entry.type) {
+        case ToolbarEntry::Action:
+            toolBar->addAction(makeAction(entry.actionId));
+            break;
+        case ToolbarEntry::AddressBar: {
+            auto *edit = new QLineEdit(toolBar);
+            edit->setPlaceholderText(QStringLiteral("ssh user@host"));
+            edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            toolBar->addWidget(edit);
+            break;
+        }
+        case ToolbarEntry::Separator:
+            toolBar->addSeparator();
+            break;
+        }
+    }
+}
+
+QAction *MainWindow::makeAction(const QString &actionId)
+{
+    QString text = ActionRegistry::instance().actionText(actionId);
+    if (text.isEmpty())
+        text = actionId.section(QLatin1Char('.'), -1);
+    text.remove(QLatin1Char('&'));
+
+    auto *action = new QAction(this);
+    action->setText(m_locale.tr(text));
+
+    const QString iconName = ActionRegistry::instance().actionIcon(actionId);
+    if (!iconName.isEmpty()) {
+        QString name = iconName;
+        if (name.startsWith(QStringLiteral("king::")))
+            name.remove(0, 6);
+        action->setIcon(ActionIcons::iconFor(name));
+    }
+
+    connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderAction);
+    return action;
+}
+
 void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
 {
     for (const MenuEntry &entry : entries) {
         switch (entry.type) {
-        case MenuEntry::Action: {
-            QString text = ActionRegistry::instance().actionText(entry.actionId);
-            if (text.isEmpty())
-                text = entry.actionId.section(QLatin1Char('.'), -1);
-            text.remove(QLatin1Char('&'));
-
-            QAction *action = menu->addAction(m_locale.tr(text));
-            const QString iconName = ActionRegistry::instance().actionIcon(entry.actionId);
-            if (!iconName.isEmpty()) {
-                QString name = iconName;
-                if (name.startsWith(QStringLiteral("king::")))
-                    name.remove(0, 6);
-                action->setIcon(ActionIcons::iconFor(name));
-            }
-            connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderAction);
+        case MenuEntry::Action:
+            menu->addAction(makeAction(entry.actionId));
             break;
-        }
         case MenuEntry::Separator:
             menu->addSeparator();
             break;

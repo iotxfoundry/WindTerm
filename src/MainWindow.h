@@ -6,6 +6,7 @@
 #include "core/MenuConfig.h"
 
 class QCloseEvent;
+class QAction;
 class QLabel;
 class QMenu;
 class QTimer;
@@ -30,7 +31,9 @@ private slots:
 private:
     void createMenus();
     void createFallbackMenus();
+    void createToolBar();
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
+    QAction *makeAction(const QString &actionId);
     void createCentralWidget();
     void createDocks();
     void createStatusBar();

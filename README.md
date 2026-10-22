@@ -1,44 +1,57 @@
 # WindTerm GUI Skeleton
 
-WindTerm 2.7.0 主窗口的 Qt Widgets 界面壳还原：菜单栏、四组停靠面板、彩色会话标签、命令按钮栏与状态栏。
-已按 Phase 2 二进制发现对齐：9 个面板（Filer/Explorer/Session/Outline/Sender/Transfer/Output/Search/Shell）与 `Bars.h` 登记的 7 个栏名（MenuBar/QuickBar/KitBar/ToolBar/AppletBar/StatusBar/TransferBar），
-`MainWindow` 采用 `WA_DeleteOnClose`、`application/windowOpacity` 配置与单发定时器延迟恢复布局，菜单文案经 `LocaleManager` 查表。
-数据驱动层：`WindConfig` 读取 `assets/config/wind.config`（去 BOM，容忍 `//` 行注释），`ActionRegistry` 宽松解析 `assets/config/wind.actions`（净化字符串内控制字符，失败退化正则）；菜单由 `assets/config/uiconfigs/menu.config` 驱动（`MenuConfig` 按 `Kit` 顺序构建，Action/Separator/子菜单递归，加载失败回退内置 9 菜单）；菜单标题复刻二进制的 `标题 + " (&N)"` 模式（Help 为 0）。
-所有交互槽位均为空（`Q_UNIMPLEMENTED()`），**不含任何连接、协议、终端或文件传输逻辑**。
+WindTerm 2.7.0 主窗口的 Qt Widgets **界面壳还原**：真实菜单树、Standard 工具栏、九面板停靠布局、彩色会话标签、命令按钮栏、主题 QSS 与配色方案、状态栏。
+所有交互槽位为空（`Q_UNIMPLEMENTED()`），**不含任何连接、协议、终端或文件传输逻辑**——能看，不连接。
+
+界面由 WindTerm 原版数据文件驱动，与原版数据层同构：
+
+| 数据文件（assets/，见下） | 驱动的界面 | 加载器 |
+|---|---|---|
+| `uiconfigs/menu.config` | 全部 10 个菜单 + 子菜单/分隔符（Session 21 项、View 23 项…） | `MenuConfig` |
+| `uiconfigs/toolbar.config` | Standard 工具栏（新建/断开/重连/地址栏/更多） | `ToolbarConfig` |
+| `wind.actions` | 526 个动作的文案与图标名 | `ActionRegistry` |
+| `wind.config` | 配置键（主题名、窗口透明度…） | `WindConfig` |
+| `themes/<name>/gui.theme` | 完整 QSS 主题（~900 行，`${AppDir}`/`${SystemFonts}` 变量替换） | `ThemeManager` |
+| `themes/<name>/scheme.theme` | 编辑器/终端配色（61 样式，Monokai 系） | `SchemeManager` |
+| `locales/*.locale` | 1414 条界面文案 | `LocaleManager` |
 
 ## 构建
 
 ```bash
 cmake -B build
-cmake --build build
-./build/WindTermGuiSkeleton
+cmake --build build -j4
+./bin/WindTermGuiSkeleton
 ```
 
-依赖：CMake >= 3.16、C++17、Qt 5.15（Widgets）。无其他第三方依赖。
+产物输出到 `bin/`。依赖：CMake >= 3.16、C++17、Qt 5.15（Qt6 亦可构建，自动探测）Widgets。无其他第三方依赖。
 
-## 资产
+## 资产（不随仓库提交）
 
-主题与界面文案来自 WindTerm 发行包，不随本仓库提交。构建完成后在仓库根目录运行
-`tools/fetch-assets.sh`（由他人提供），把主题 `images/` 与 `locales/` 复制到 `assets/`。
+主题/文案/配置均来自本机 WindTerm 2.7.0 发行包，由脚本复制为子集（约 6MB+配置）：
 
-运行时期望的目录结构：
-
-```
-assets/themes/<theme>/images/*.svg
-assets/locales/<locale>.locale
+```bash
+tools/fetch-assets.sh /path/to/WindTerm_2.7.0
 ```
 
-资产缺失时 `ThemeManager` 静默跳过，界面仍可正常显示。`ThemeManager` 加载真实 WindTerm 主题 `assets/themes/<name>/gui.theme`（完整 QSS），替换 `${AppDir}`/`${SystemFonts}` 变量后 `setStyleSheet` 应用；主题名取自 `wind.config` 的 `application.themeGui`（默认 `dige-black`）。
-AppletBar 按钮图标为占位方案：优先使用主题同名 SVG（`assets/themes/<theme>/images/<name>.svg`，回退 `default/images`），否则按语义映射 Qt 标准图标；真实 `king::*` 图标是程序化绘制的，未逆向。
+运行时期望：`assets/themes/<name>/{gui.theme,scheme.theme,icon.theme,images/,fonts/}`、`assets/locales/*.locale`、`assets/config/{wind.config,wind.actions,uiconfigs/*.config}`。资产缺失时静默降级（无主题、无文案查表），界面仍可显示。
 
 ## 结构
 
-- `src/MainWindow.*` — 主窗口组装（菜单/停靠/状态栏）
+- `src/MainWindow.*` — 主窗口组装（菜单/工具栏/停靠/状态栏）
 - `src/panes/` — FilerPane、ExplorerPane、SessionPane、OutlinePane、SenderPane、TransferPane、OutputPane、SearchPane、ShellPane
-- `src/widgets/` — MuxPaneGroup、AppletBar、Bars.h（栏名登记）
-- `src/core/` — ThemeManager、LocaleManager
+- `src/widgets/` — MuxPaneGroup、AppletBar、ActionIcons.h（图标占位）、Bars.h（7 栏名登记）
+- `src/core/` — MenuConfig、ToolbarConfig、ActionRegistry、WindConfig、ThemeManager、SchemeManager、LocaleManager、JsonText
 - `src/dialogs/` — MasterPasswordDialog、SessionSettingsDialog
+- `docs/` — 调查结论与各阶段发现（可行性、二进制证据、数据文件破译）
 
-## 声明
+## 已知占位（有实证的边界，见 docs/）
 
-这是界面骨架，仅用于还原布局与外观；不实现任何业务功能。
+- 动作图标：原版为程序化绘制（`king::*` 生成器名，0/89 对应文件），此处用主题 SVG/标准图标占位
+- 菜单动作无下拉行为（`Menu` 字段语义未实现）；状态栏 JS（statusbar.config）不执行
+- 终端区为只读占位，仅应用 scheme.theme 背景/前景
+
+## 许可与定位
+
+- 本仓库**代码**为独立编写，按 Apache-2.0 提供（与 WindTerm 开源部分许可一致）。
+- `assets/` 内的数据文件（主题/文案/配置）**版权归 KingToolbox 所有**，来自 WindTerm 发行包（免费软件，GUI 闭源，见发行包 `license.txt`）。本仓库**不 redistribution** 这些文件——请自行从官方发行包运行 `tools/fetch-assets.sh` 获取。
+- 本项目仅用于界面结构学习/参考/二次开发起点，不内嵌、不绕过原版任何保护。商业再发布前请自行确认对 KingToolbox 资产的使用条款。
