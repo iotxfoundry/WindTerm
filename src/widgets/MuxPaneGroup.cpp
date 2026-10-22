@@ -7,7 +7,6 @@
 #include <QStackedWidget>
 #include <QTabBar>
 
-#include "core/SchemeManager.h"
 #include <QToolButton>
 #include <QVBoxLayout>
 
@@ -47,18 +46,8 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     m_tabBar->setElideMode(Qt::ElideRight);
     m_tabBar->setMovable(true);
     m_tabBar->setTabsClosable(true);
-    // 标签色取自当前主题背景（line.background）判明暗——QSS 主题不改 QPalette，勿用调色板判断
-    const QColor bg = SchemeManager::instance().color(QStringLiteral("line.background"));
-    const bool dark = !bg.isValid() || bg.lightness() < 128;
-    const QString hover = dark ? QStringLiteral("#2a2a2a") : QStringLiteral("#e0e0e0");
-    const QString selected = dark ? QStringLiteral("#333333") : QStringLiteral("#c8c8c8");
-    const QString tabText = dark ? QStringLiteral("#bbbbbb") : QStringLiteral("#333333");
-    m_tabBar->setStyleSheet(QStringLiteral(
-        "QTabBar::tab { padding: 2px 10px; max-height: 24px; margin-right: 1px;"
-        " background: transparent; color: %1; }"
-        "QTabBar::tab:hover { background: %2; }"
-        "QTabBar::tab:selected { background: %3; }")
-        .arg(tabText, hover, selected));
+    // 标签样式全部交 gui.theme（QTabBar::tab #dcdcdc/选中 #f5f5f5）；GUI 主题与终端 scheme 独立，
+    // 原版无"终端暗色→标签变暗"联动（R16），勿在控件级内联 QSS 覆盖主题
 
     m_addButton->setObjectName(QStringLiteral("AddSessionButton"));
     // 原版 king::add 无图标文件 → 空图标回退文字（docs/phase10-findings.md §2）
