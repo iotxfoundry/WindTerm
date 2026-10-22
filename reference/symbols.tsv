@@ -1,0 +1,46 @@
+# address	name	evidence
+# —— Splitter（开源 src/Widgets/Splitter.{h,cpp} 实锤对应）——
+0x005a1c00	Splitter::Splitter(QWidget*)	构造：call QSplitter::QSplitter + movl $0,0x30(=m_mainIndex(0)) + 双vptr(0x1197f98/0x1198150)，与源码逐句对应；对象0x38字节
+0x005a1c2a	Splitter::~Splitter()	主vtable[3] D1
+0x005a1c4e	Splitter::~Splitter(deleting)	主vtable[4] D0
+0x005a20a4	Splitter::eventFilter(QObject*,QEvent*)	主vtable[6]，头文件声明 override
+0x008f6ae0	Splitter_metaObject	主vtable[0]（moc 生成区）
+0x008f6bc4	Splitter_qt_metacast	主vtable[1]
+0x008f6c06	Splitter::qt_metacall(QMetaObject::Call,int,void**)	主vtable[2]
+0x1197f98	Splitter::vtable	数据；构造函数 vptr 存储实证
+0x1198150	Splitter::vtable_secondary	次基接口 vtable（+0x1c8）
+# —— ScrollBar（开源 src/Widgets/ScrollBar）——
+0x11ae768	ScrollBar::vtable	typeinfo@0x11968f0 的唯一数据引用
+0x00948b76	ScrollBar::ctor_candidate	引用 typeinfo 的函数区域（0x948b76-0x948c5a）
+0x00a18158	ScrollBar::vt_slot2	主vtable 实槽[2]
+0x00a18170	ScrollBar::vt_slot3	主vtable 实槽[3]
+0x00a181b2	ScrollBar::vt_slot4	主vtable 实槽[4]
+0x00a1e0f6	ScrollBar::vt_slot5	主vtable 实槽[5]
+0x00a1e148	ScrollBar::vt_slot6	主vtable 实槽[6]
+# —— typeinfo 对象（开源类在二进制中的存在证明）——
+0x1191d30	TelnetProtocol::typeinfo	name@0xcb7f20
+0x1191f70	UnixPty::typeinfo	name@0xcb8788
+0x1197f70	Splitter::typeinfo	name@0xcc79f0
+0x119b150	PopupWidget::typeinfo	name@0xcc9208
+0x11a9830	ShellProcess::typeinfo	name@0xce2da8
+0x11968f0	ScrollBar::typeinfo	name@0xcc1790
+# —— 已破解核心函数（phase2-13，详见 reference/README.md）——
+0x008cd068	King::assembleCentralSplitters	central splitter 树装配（phase7）
+0x005a277a	King::insertPane	四方向插入引擎（phase8）
+0x00768f44	MainWindow::MainWindow(QWidget*,flags)	C1 构造（phase2）
+0x0076bffc	MainWindow::MainWindow(base)	C2 构造（phase2）
+0x00768cb6	MainWindow::delayedInit	QTimer 延迟恢复（phase2）
+0x00693036	King::MenuBar::MenuBar	菜单栏构造（phase2）
+0x008a1106	King::registerBarsAndPanes	7栏9面板注册表（phase2）
+0x007ce254	King::registerVtOperations	53 VT 操作注册表（phase9）
+0x0075541e	King::resolveIconPaths	图标名::分解/路径候选（phase10）
+0x00755c86	King::loadIconTheme	icon.theme+QSvgRenderer（phase12）
+0x00756336	King::loadSvgIcon	SVG 图标加载（phase12）
+0x007572ac	King::iconFactory	king.svg 工厂 elementExists→render（phase12）
+0x00639652	King::IconEngine::scaledPixmap	QIconEngine 缓存/生成（phase11）
+0x00639e76	King::IconEngine::virtual_hook	QIconEngine 钩子（phase11）
+0x0089e584	King::paneIconFactory	king::%1 Pane 特判（phase10）
+0x006a872d	King::applyMenuShortcut	菜单快捷键解析（phase12）
+0x008cb962	King::resolveKeyMode	焦点部件 keyMode（phase12）
+0x0076bf82	King::buildKeySequence	绑定→QKeySequence（phase12）
+0x00635abe	King::formatMenuMnemonic	(&%1) 助记符（phase13）
