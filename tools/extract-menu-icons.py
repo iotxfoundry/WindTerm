@@ -147,6 +147,10 @@ def main():
                 bottom = min(mask.height, bbox[3] + 2)
                 mask = mask.crop((left, top, right, bottom))
 
+            # alpha 拉伸：≥140 全不透明，之下线性——抵消抗锯齿细线发灰（原版为实心黑）
+            alpha = mask.getchannel("A").point(lambda v: 255 if v >= 140 else v * 255 // 140)
+            mask.putalpha(alpha)
+
             scale = 18 / max(mask.width, mask.height)
             width = max(1, round(mask.width * scale))
             height = max(1, round(mask.height * scale))

@@ -57,3 +57,5 @@
 - 反汇编+数据面确证原版契约：图标色 = 活动主题 icon.theme 的 `.pixmap .pen stroke`（浅壳 black / 暗壳 #A1A1A1 / 激活 #007acc）
 - 修正：图标资产改存"纯黑剪影+alpha 掩码"，运行时按主题 icon.theme 着色（themeIconColor 带缓存）
 - 双主题截图复验：浅壳黑图标/暗壳灰图标均清晰（skeleton-r8-*.png）
+
+## 图标清晰度迭代（QT_SCALE_FACTOR=2 采集尝试失败：offscreen 下窗口未显示；维持 1x 源 + alpha 拉伸 ≥140 全不透明）
