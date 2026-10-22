@@ -59,3 +59,9 @@
 - 双主题截图复验：浅壳黑图标/暗壳灰图标均清晰（skeleton-r8-*.png）
 
 ## 图标清晰度迭代（QT_SCALE_FACTOR=2 采集尝试失败：offscreen 下窗口未显示；维持 1x 源 + alpha 拉伸 ≥140 全不透明）
+
+## 图标最终契约（phase12/13，docs/imgs/skeleton-menu.png）
+
+- 像素级证据：原版仅 wind.actions 带 icon 字段的动作渲染图标（像素 69–130），其余（21–42=空白/箭头）纯文字
+- 骨架对齐：会话菜单 5/14 项 king.svg 32px 矢量图标（new/disconnect/reconnect/open/save），其余纯文字——与原版逐项一致
+- 已清理：docs/icons 裁剪、docs/imgs/original/menu-icons、extract-menu-icons.py（被 king.svg 矢量管线取代）

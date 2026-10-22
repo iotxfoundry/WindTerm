@@ -95,7 +95,7 @@ inline QIcon tintedMaskIcon(const QString &path, const QColor &color) {
 // ① 菜单截图裁剪的掩码 PNG（按 icon.theme 着色）
 // ② 主题同名 SVG（iconName 由调用方传入） ③ 空 QIcon（按钮自动回退文字）
 inline QIcon iconFor(const QString &actionId, const QString &iconName, const QString &theme) {
-    // ① 原版矢量精灵 king.svg（302 元素，与原版工厂同源同 API）——最高保真
+    // 原版契约：仅 wind.actions 带 icon 字段的动作有图标（king.svg 矢量），其余纯文字（docs/phase13）
     QString kingName = iconName;
     kingName.remove(QLatin1String("king::"));
     if (!kingName.isEmpty()) {
@@ -103,16 +103,6 @@ inline QIcon iconFor(const QString &actionId, const QString &iconName, const QSt
         if (!king.isNull())
             return king;
     }
-    // ② docs/icons 菜单截图裁剪（无 icon 字段动作的兜底）；exe 在 build/ 下时回退仓库相对路径
-    const QStringList pngCandidates = {
-        QStringLiteral("docs/icons/%1.png").arg(actionId),
-        QCoreApplication::applicationDirPath() + QStringLiteral("/../../docs/icons/%1.png").arg(actionId),
-    };
-    for (const QString &pngPath : pngCandidates) {
-        if (QFile::exists(pngPath))
-            return tintedMaskIcon(pngPath, themeIconColor(theme));
-    }
-
     QString name = iconName;
     name.remove(QLatin1String("king::"));
     // 名字即文件名（小写），与原版 images/%1.svg 模板一致

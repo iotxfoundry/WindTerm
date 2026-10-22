@@ -257,17 +257,7 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
             key.remove(QLatin1Char('&'));
             if (key.endsWith(QStringLiteral("...")))
                 key.chop(3);
-            QString slug;
-            for (QChar ch : key) {
-                if (ch.isLetterOrNumber())
-                    slug += ch.toLower();
-                else if (ch == QLatin1Char(' '))
-                    slug += QLatin1Char('-');
-            }
-            const QString subIcon = QStringLiteral("docs/icons/%1.png").arg(slug);
             QMenu *sub = menu->addMenu(displayActionText(entry.title, m_locale.tr(key)));
-            if (QFile::exists(subIcon))
-                sub->setIcon(ActionIcons::tintedMaskIcon(subIcon, ActionIcons::themeIconColor(ThemeManager::instance().currentTheme())));
             sub->setStyle(&menuIconStyle);
             buildMenu(sub, entry.children);
             break;
