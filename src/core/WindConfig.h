@@ -14,6 +14,7 @@ public:
 
 private:
     WindConfig() = default;
+    void loadProfile();
 
     QJsonObject m_root;
 };

@@ -25,3 +25,9 @@
 
 - 结构层：骨架与原版**区域划分一致**（菜单/工具栏/左中右底四组停靠/标签/按钮栏/状态栏）
 - 观感层：待 Round 2（暗色主题 + 真实菜单树生效后对比）
+
+## Round 2（PaneManager + 真实主题，自截图 docs/imgs/skeleton-{light,dark}.png）
+
+- 主题管线闭环：profile(dige-black-and-white=浅色) 与 wind.config(dige-black=暗色) 双向验证，QSS 全局生效（#1c1c1c 底/灰前景）
+- 中文 10 菜单（含 工具(8)）、地址栏工具栏、左列 Explorer|Session 标签+Filer、彩签、AppletBar、状态栏 主题名/窗口尺寸/行字符——与原版实机截图逐区域对齐
+- 已知残差：标签页标题未本地化（Explorer/Session 应为 资源管理器/会话）；终端占位无时间戳槽与语法色；会话标签样式与原版自绘有差

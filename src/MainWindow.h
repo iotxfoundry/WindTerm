@@ -27,6 +27,7 @@ private slots:
     void onPlaceholderAction();
     void onRestoreLayout();
     void updateClock();
+    void togglePane(QWidget *pane);
 
 private:
     void createMenus();

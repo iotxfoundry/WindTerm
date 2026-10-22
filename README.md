@@ -25,6 +25,9 @@ cmake --build build -j4
 
 产物输出到 `bin/`。依赖：CMake >= 3.16、C++17、Qt 5.15（Qt6 亦可构建，自动探测）Widgets。无其他第三方依赖。
 
+自截图：`QT_QPA_PLATFORM=offscreen ./bin/WindTermGuiSkeleton --screenshot /tmp/opencode/skeleton.png`（显示 400ms 后抓图并退出，省略路径则用默认值）。
+配置覆盖：若 `~/.wind/profiles/default.v10/user.config` 存在，其键值覆盖 `assets/config/wind.config`（同样是 JSON、容忍 `//` 注释）。
+
 ## 资产（不随仓库提交）
 
 主题/文案/配置均来自本机 WindTerm 2.7.0 发行包，由脚本复制为子集（约 6MB+配置）：
@@ -41,7 +44,7 @@ tools/fetch-assets.sh /path/to/WindTerm_2.7.0
 
 ## 布局
 
-嵌套 Splitter 树（反汇编还原：`Root(V) → Col(V, 1:4:1, mainIndex=1) 三条水平带：Top(Explorer|Session + Filer) / Center(MuxRow + AppletBar, 4000:2000) / BottomBand(Outline)` + 底部条；root 尺寸 4000:2000；无 QDockWidget）。splitterMoved 会把各分割条状态写入 `QSettings application/splitter_<objectName>`，启动时恢复。
+嵌套 Splitter 树：面板由 PaneManager 相对插入引擎布局（移植反编译算法），Dock.TogglePane 真实显隐。
 - `src/panes/` — FilerPane、ExplorerPane、SessionPane、OutlinePane、SenderPane、TransferPane、OutputPane、SearchPane、ShellPane
 - `src/widgets/` — MuxPaneGroup、AppletBar、ActionIcons.h（图标占位）、Bars.h（7 栏名登记）
 - `src/core/` — MenuConfig、ToolbarConfig、ActionRegistry、WindConfig、ThemeManager、SchemeManager、LocaleManager、JsonText
