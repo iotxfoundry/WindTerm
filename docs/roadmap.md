@@ -51,3 +51,9 @@
 ## 验证基线（新增）
 - F1 起：除离屏断言外，需真机开一个 bash 标签人工验证交互（用户环节）
 - 每个功能 commit 附操作说明（如何触发该功能）
+
+## F3 完成记录（2026-10-22）
+- SshSession（dlopen libssh.so.4，密码认证→PTY shell→QSocketNotifier 驱动读）
+- ConnectDialog + 地址栏 `ssh [user@]host[:port]` 解析接线
+- Session 基类解耦（Local/Ssh 共用 TerminalView）
+- 已知缺口（F4 处理）：首连不验证主机密钥（MITM 窗口）；connect/auth 阻塞 GUI ≤5s；关标签不销毁会话；仅密码认证
