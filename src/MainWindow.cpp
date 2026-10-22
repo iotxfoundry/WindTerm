@@ -113,7 +113,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 QString MainWindow::makeMenuTitle(const QString &base, int n) const
 {
-    return n == 0 ? base + QStringLiteral(" (&0)") : base + QStringLiteral(" (&%1)").arg(n);
+    Q_UNUSED(n);
+    // 原版 2.7.0 中文菜单无编号（"(&%1)" 仅见于 2020 EN 截图，docs/visual-acceptance 修正）
+    return base;
 }
 
 void MainWindow::createMenus()
@@ -211,10 +213,13 @@ QAction *MainWindow::makeAction(const QString &actionId)
 
     QString keys = KeymapConfig::instance().shortcut(actionId);
     if (keys.isEmpty()) {
-        // 二进制内建 Alt+助记字母表（Alt+N/C/I/O/W/X，docs/phase12 补充）：无 keymap 项用 & 助记符
-        const int amp = en.indexOf(QLatin1Char('&'));
-        if (amp >= 0 && amp + 1 < en.size() && en.at(amp + 1).isLetter())
-            keys = QStringLiteral("Alt+") + en.at(amp + 1).toUpper();
+        // 原版菜单实见观测表（orig_menu_0 逐项；keymaps 无这些 action 的映射）
+        static const QHash<QString, QString> observed = {
+            {QStringLiteral("Terminal.NewSession"), QStringLiteral("Alt+N")},
+            {QStringLiteral("Terminal.OpenSession"), QStringLiteral("Alt+O")},
+            {QStringLiteral("Terminal.ReconnectSession"), QStringLiteral("Return")},
+        };
+        keys = observed.value(actionId);
     }
     if (!keys.isEmpty()) {
         QString qs = keys;

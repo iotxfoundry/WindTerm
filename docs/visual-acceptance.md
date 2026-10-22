@@ -65,3 +65,9 @@
 - 像素级证据：原版仅 wind.actions 带 icon 字段的动作渲染图标（像素 69–130），其余（21–42=空白/箭头）纯文字
 - 骨架对齐：会话菜单 5/14 项 king.svg 32px 矢量图标（new/disconnect/reconnect/open/save），其余纯文字——与原版逐项一致
 - 已清理：docs/icons 裁剪、docs/imgs/original/menu-icons、extract-menu-icons.py（被 king.svg 矢量管线取代）
+
+## 菜单编号与快捷键修正（对照原版逐项）
+
+- 编号：原版 2.7.0 CN 菜单栏**无编号**（"(&%1)" 仅 2020 EN 截图出现）——已移除 makeMenuTitle 的 (N) 后缀
+- 快捷键：删除 Alt+助记符推导（产生幻影项），改为 keymaps 优先 + 原版实见观测表（NewSession=Alt+N、OpenSession=Alt+O、Reconnect=Return）；无映射项留空（断开/另存为/日志/首选项/关闭所有视图）
+- 逐项对照 docs/imgs/menu-final-compare.png：12 项快捷键列与原版一致
