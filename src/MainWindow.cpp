@@ -2,7 +2,6 @@
 
 #include <QAction>
 #include <QCloseEvent>
-#include <QDockWidget>
 #include <QJsonArray>
 #include <QLabel>
 #include <QLineEdit>
@@ -11,6 +10,7 @@
 #include <QPalette>
 #include <QPlainTextEdit>
 #include <QSettings>
+#include <QSplitter>
 #include <QStackedWidget>
 #include <QStatusBar>
 #include <QTabBar>
@@ -38,6 +38,7 @@
 #include "widgets/ActionIcons.h"
 #include "widgets/AppletBar.h"
 #include "widgets/MuxPaneGroup.h"
+#include "widgets/Splitter.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -69,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     initActionRegistry();
     createMenus();
     createToolBar();
-    createCentralWidget();
+    createCentral();
 
     const QColor terminalBackground = SchemeManager::instance().color(QStringLiteral("line.background"));
     if (terminalBackground.isValid()) {
@@ -79,8 +80,6 @@ MainWindow::MainWindow(QWidget *parent)
             edit->setPalette(palette);
         }
     }
-
-    createDocks();
 
     QTimer::singleShot(0, this, &MainWindow::onRestoreLayout);
 }
@@ -202,48 +201,76 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
     }
 }
 
-void MainWindow::createCentralWidget()
+void MainWindow::createCentral()
 {
-    auto *central = new QWidget(this);
-    auto *layout = new QVBoxLayout(central);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(0);
+    // 布局树逐条对齐反汇编 FUN_008cd068（docs/phase7-findings.md §2）；面板→分割槽映射原版为运行时插入，静态摆放为近似
+    auto *root = new Splitter(this);
+    root->setOrientation(Qt::Vertical);
+    root->setObjectName(QStringLiteral("RootSplitter"));
 
-    m_muxPaneGroup = new MuxPaneGroup(central);
-    m_appletBar = new AppletBar(QJsonArray(), central);
+    auto *col = new Splitter(root);
+    col->setOrientation(Qt::Vertical);
+    col->setObjectName(QStringLiteral("ColSplitter"));
+    col->setMainIndex(1);
 
-    layout->addWidget(m_muxPaneGroup, 1);
-    layout->addWidget(m_appletBar);
+    auto *topBand = new Splitter(col);
+    topBand->setOrientation(Qt::Vertical);
+    topBand->setObjectName(QStringLiteral("TopSplitter"));
 
-    setCentralWidget(central);
-}
+    auto *center = new Splitter(col);
+    center->setOrientation(Qt::Vertical);
+    center->setObjectName(QStringLiteral("CenterSplitter"));
 
-void MainWindow::createDocks()
-{
-    auto *explorerDock = new QDockWidget(tr("Explorer"), this);
-    explorerDock->setObjectName(QStringLiteral("ExplorerDock"));
+    auto *muxRow = new QSplitter(Qt::Horizontal, center);
+    muxRow->setChildrenCollapsible(false);
 
-    auto *explorerTabs = new QTabWidget(explorerDock);
+    auto *bottomBand = new Splitter(col);
+    bottomBand->setOrientation(Qt::Vertical);
+    bottomBand->setObjectName(QStringLiteral("BottomBandSplitter"));
+
+    auto *bottom = new QSplitter(Qt::Horizontal, root);
+    bottom->setObjectName(QStringLiteral("BottomSplitter"));
+
+    auto *explorerTabs = new QTabWidget(topBand);
     explorerTabs->addTab(new ExplorerPane(explorerTabs), tr("Explorer"));
     explorerTabs->addTab(new SessionPane(explorerTabs), tr("Session"));
-    explorerDock->setWidget(explorerTabs);
-    addDockWidget(Qt::LeftDockWidgetArea, explorerDock);
+    topBand->addWidget(explorerTabs);
+    topBand->addWidget(new FilerPane(topBand));
 
-    auto *filerDock = new QDockWidget(tr("Filer"), this);
-    filerDock->setObjectName(QStringLiteral("FilerDock"));
-    filerDock->setWidget(new FilerPane(filerDock));
-    addDockWidget(Qt::LeftDockWidgetArea, filerDock);
-    splitDockWidget(explorerDock, filerDock, Qt::Vertical);
+    m_muxPaneGroup = new MuxPaneGroup(muxRow);
+    muxRow->addWidget(m_muxPaneGroup);
 
-    auto *outlineDock = new QDockWidget(tr("Outline"), this);
-    outlineDock->setObjectName(QStringLiteral("OutlineDock"));
-    outlineDock->setWidget(new OutlinePane(outlineDock));
-    addDockWidget(Qt::RightDockWidgetArea, outlineDock);
+    // [4000,2000] 恰两个槽位；AppletBar 在原版是运行时插入，此处静态近似
+    m_appletBar = new AppletBar(QJsonArray(), center);
+    center->addWidget(muxRow);
+    center->addWidget(m_appletBar);
 
-    auto *transferDock = new QDockWidget(tr("Sender | Transfer"), this);
-    transferDock->setObjectName(QStringLiteral("SenderTransferDock"));
-    transferDock->setWidget(createBottomTabs());
-    addDockWidget(Qt::BottomDockWidgetArea, transferDock);
+    bottomBand->addWidget(new OutlinePane(bottomBand));
+
+    col->addWidget(topBand);
+    col->addWidget(center);
+    col->addWidget(bottomBand);
+
+    bottom->addWidget(createBottomTabs());
+
+    root->addWidget(col);
+    root->addWidget(bottom);
+
+    setCentralWidget(root);
+
+    col->setSizes({1000, 4000, 1000});
+    center->setSizes({4000, 2000});
+    root->setSizes({4000, 2000});
+
+    // 移动分割条即持久化，启动时由 onRestoreLayout 恢复
+    const QList<QSplitter *> splitters{root, col, center, topBand, bottomBand, bottom};
+    for (QSplitter *splitter : splitters) {
+        connect(splitter, &QSplitter::splitterMoved, this, [splitter]() {
+            QSettings settings;
+            settings.setValue(QStringLiteral("application/splitter_%1").arg(splitter->objectName()),
+                              splitter->saveState());
+        });
+    }
 }
 
 QWidget *MainWindow::createBottomTabs()
@@ -307,6 +334,24 @@ void MainWindow::onRestoreLayout()
 {
     QSettings settings;
     restoreGeometry(settings.value(QStringLiteral("application/windowGeometry")).toByteArray());
+
+    const QStringList splitterNames{
+        QStringLiteral("RootSplitter"),
+        QStringLiteral("ColSplitter"),
+        QStringLiteral("CenterSplitter"),
+        QStringLiteral("TopSplitter"),
+        QStringLiteral("BottomBandSplitter"),
+        QStringLiteral("BottomSplitter")
+    };
+    for (const QString &name : splitterNames) {
+        QSplitter *splitter = findChild<QSplitter *>(name);
+        if (!splitter)
+            continue;
+        const QByteArray state = settings.value(QStringLiteral("application/splitter_%1").arg(name)).toByteArray();
+        if (!state.isEmpty())
+            splitter->restoreState(state);
+    }
+
     Q_UNIMPLEMENTED();
 }
 

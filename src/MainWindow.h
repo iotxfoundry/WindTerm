@@ -34,8 +34,7 @@ private:
     void createToolBar();
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
     QAction *makeAction(const QString &actionId);
-    void createCentralWidget();
-    void createDocks();
+    void createCentral();
     void createStatusBar();
     QWidget *createBottomTabs();
     QString makeMenuTitle(const QString &base, int n) const;

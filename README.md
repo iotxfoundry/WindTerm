@@ -1,6 +1,6 @@
 # WindTerm GUI Skeleton
 
-WindTerm 2.7.0 主窗口的 Qt Widgets **界面壳还原**：真实菜单树、Standard 工具栏、九面板停靠布局、彩色会话标签、命令按钮栏、主题 QSS 与配色方案、状态栏。
+WindTerm 2.7.0 主窗口的 Qt Widgets **界面壳还原**：真实菜单树、Standard 工具栏、嵌套 Splitter 树布局、彩色会话标签、命令按钮栏、主题 QSS 与配色方案、状态栏。
 所有交互槽位为空（`Q_UNIMPLEMENTED()`），**不含任何连接、协议、终端或文件传输逻辑**——能看，不连接。
 
 界面由 WindTerm 原版数据文件驱动，与原版数据层同构：
@@ -37,7 +37,11 @@ tools/fetch-assets.sh /path/to/WindTerm_2.7.0
 
 ## 结构
 
-- `src/MainWindow.*` — 主窗口组装（菜单/工具栏/停靠/状态栏）
+- `src/MainWindow.*` — 主窗口组装（菜单/工具栏/状态栏）
+
+## 布局
+
+嵌套 Splitter 树（反汇编还原：`Root(V) → Col(V, 1:4:1, mainIndex=1) 三条水平带：Top(Explorer|Session + Filer) / Center(MuxRow + AppletBar, 4000:2000) / BottomBand(Outline)` + 底部条；root 尺寸 4000:2000；无 QDockWidget）。splitterMoved 会把各分割条状态写入 `QSettings application/splitter_<objectName>`，启动时恢复。
 - `src/panes/` — FilerPane、ExplorerPane、SessionPane、OutlinePane、SenderPane、TransferPane、OutputPane、SearchPane、ShellPane
 - `src/widgets/` — MuxPaneGroup、AppletBar、ActionIcons.h（图标占位）、Bars.h（7 栏名登记）
 - `src/core/` — MenuConfig、ToolbarConfig、ActionRegistry、WindConfig、ThemeManager、SchemeManager、LocaleManager、JsonText
