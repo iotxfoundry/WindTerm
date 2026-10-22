@@ -3859,7 +3859,7 @@ void FUN_00be9bb0(long param_1,char *param_2,undefined8 *param_3)
 }
 
 
-// ==== entry=00be9cb0 name=__gxx_personality_v0 size=1447 ====
+// ==== entry=00be9cb0 orig=FUN_00be9cb0 size=1447 name=__gxx_personality_v0 ====
 
 undefined8 __gxx_personality_v0(int param_1,uint param_2,long param_3,byte *param_4,byte *param_5)
 
@@ -4123,7 +4123,7 @@ LAB_00be9dc5:
 }
 
 
-// ==== entry=00bea270 name=__cxa_call_unexpected size=66 ====
+// ==== entry=00bea270 orig=FUN_00bea270 size=66 name=__cxa_call_unexpected ====
 
 void __cxa_call_unexpected(long param_1)
 
@@ -4135,7 +4135,7 @@ void __cxa_call_unexpected(long param_1)
 }
 
 
-// ==== entry=00bea2c0 name=__dynamic_cast size=272 ====
+// ==== entry=00bea2c0 orig=FUN_00bea2c0 size=272 name=__dynamic_cast ====
 
 long __dynamic_cast(long *param_1,undefined8 param_2,long *param_3,long param_4)
 
@@ -4435,7 +4435,7 @@ void FUN_00bea790(void)
 }
 
 
-// ==== entry=00bea7c0 name=__cxa_allocate_exception size=91 ====
+// ==== entry=00bea7c0 orig=FUN_00bea7c0 size=91 name=__cxa_allocate_exception ====
 
 undefined8 * __cxa_allocate_exception(long param_1)
 
@@ -4466,7 +4466,7 @@ undefined8 * __cxa_allocate_exception(long param_1)
 }
 
 
-// ==== entry=00bea830 name=__cxa_free_exception size=38 ====
+// ==== entry=00bea830 orig=FUN_00bea830 size=38 name=__cxa_free_exception ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4485,7 +4485,7 @@ void __cxa_free_exception(long param_1)
 }
 
 
-// ==== entry=00bea860 name=__cxa_allocate_dependent_exception size=93 ====
+// ==== entry=00bea860 orig=FUN_00bea860 size=93 name=__cxa_allocate_dependent_exception ====
 
 undefined8 * __cxa_allocate_dependent_exception(void)
 
@@ -4516,7 +4516,7 @@ undefined8 * __cxa_allocate_dependent_exception(void)
 }
 
 
-// ==== entry=00bea8d0 name=__cxa_free_dependent_exception size=34 ====
+// ==== entry=00bea8d0 orig=FUN_00bea8d0 size=34 name=__cxa_free_dependent_exception ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4602,7 +4602,7 @@ void FUN_00bea9b0(void)
 }
 
 
-// ==== entry=00beaa50 name=__cxa_thread_atexit size=192 ====
+// ==== entry=00beaa50 orig=FUN_00beaa50 size=192 name=__cxa_thread_atexit ====
 
 /* WARNING: Removing unreachable block (ram,0x00beaad0) */
 /* WARNING: Removing unreachable block (ram,0x00beab00) */
@@ -4633,7 +4633,7 @@ undefined8 __cxa_thread_atexit(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00beab20 name=what size=8 ====
+// ==== entry=00beab20 orig=FUN_00beab20 size=8 name=what ====
 
 /* std::bad_cast::what() const */
 
@@ -4644,7 +4644,7 @@ char * std::bad_cast::what(void)
 }
 
 
-// ==== entry=00beab30 name=~bad_cast size=19 ====
+// ==== entry=00beab30 orig=FUN_00beab30 size=19 name=~bad_cast ====
 
 /* std::bad_cast::~bad_cast() */
 
@@ -4657,7 +4657,7 @@ void __thiscall std::bad_cast::~bad_cast(bad_cast *this)
 }
 
 
-// ==== entry=00beab50 name=~bad_cast size=23 ====
+// ==== entry=00beab50 orig=FUN_00beab50 size=23 name=~bad_cast ====
 
 /* std::bad_cast::~bad_cast() */
 
@@ -4670,7 +4670,7 @@ void __thiscall std::bad_cast::~bad_cast(bad_cast *this)
 }
 
 
-// ==== entry=00beab70 name=_Hash_bytes size=168 ====
+// ==== entry=00beab70 orig=FUN_00beab70 size=168 name=_Hash_bytes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Hash_bytes(void const*, unsigned long, unsigned long) */
@@ -4706,7 +4706,7 @@ ulong std::_Hash_bytes(void *param_1,ulong param_2,ulong param_3)
 }
 
 
-// ==== entry=00beac20 name=_Fnv_hash_bytes size=50 ====
+// ==== entry=00beac20 orig=FUN_00beac20 size=50 name=_Fnv_hash_bytes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Fnv_hash_bytes(void const*, unsigned long, unsigned long) */
@@ -4730,7 +4730,7 @@ ulong std::_Fnv_hash_bytes(void *param_1,ulong param_2,ulong param_3)
 }
 
 
-// ==== entry=00beac60 name=__cxa_guard_acquire size=242 ====
+// ==== entry=00beac60 orig=FUN_00beac60 size=242 name=__cxa_guard_acquire ====
 
 /* WARNING: Removing unreachable block (ram,0x00beacd0) */
 /* WARNING: Removing unreachable block (ram,0x00beacd5) */
@@ -4796,7 +4796,7 @@ LAB_00bead03:
 }
 
 
-// ==== entry=00bead60 name=__cxa_guard_abort size=114 ====
+// ==== entry=00bead60 orig=FUN_00bead60 size=114 name=__cxa_guard_abort ====
 
 /* WARNING: Removing unreachable block (ram,0x00bead7e) */
 
@@ -4826,7 +4826,7 @@ void __cxa_guard_abort(uint *param_1)
 }
 
 
-// ==== entry=00beade0 name=__cxa_guard_release size=124 ====
+// ==== entry=00beade0 orig=FUN_00beade0 size=124 name=__cxa_guard_release ====
 
 /* WARNING: Removing unreachable block (ram,0x00beae28) */
 
@@ -4856,7 +4856,7 @@ void __cxa_guard_release(uint *param_1)
 }
 
 
-// ==== entry=00beae70 name=~exception size=1 ====
+// ==== entry=00beae70 orig=FUN_00beae70 size=1 name=~exception ====
 
 /* std::exception::~exception() */
 
@@ -4867,7 +4867,7 @@ void __thiscall std::exception::~exception(exception *this)
 }
 
 
-// ==== entry=00beae80 name=~bad_exception size=19 ====
+// ==== entry=00beae80 orig=FUN_00beae80 size=19 name=~bad_exception ====
 
 /* std::bad_exception::~bad_exception() */
 
@@ -4880,7 +4880,7 @@ void __thiscall std::bad_exception::~bad_exception(bad_exception *this)
 }
 
 
-// ==== entry=00beaea0 name=what size=8 ====
+// ==== entry=00beaea0 orig=FUN_00beaea0 size=8 name=what ====
 
 /* std::exception::what() const */
 
@@ -4891,7 +4891,7 @@ char * std::exception::what(void)
 }
 
 
-// ==== entry=00beaeb0 name=what size=8 ====
+// ==== entry=00beaeb0 orig=FUN_00beaeb0 size=8 name=what ====
 
 /* std::bad_exception::what() const */
 
@@ -4902,7 +4902,7 @@ char * std::bad_exception::what(void)
 }
 
 
-// ==== entry=00beaec0 name=~exception size=23 ====
+// ==== entry=00beaec0 orig=FUN_00beaec0 size=23 name=~exception ====
 
 /* std::exception::~exception() */
 
@@ -4915,7 +4915,7 @@ void __thiscall std::exception::~exception(exception *this)
 }
 
 
-// ==== entry=00beaee0 name=~bad_exception size=23 ====
+// ==== entry=00beaee0 orig=FUN_00beaee0 size=23 name=~bad_exception ====
 
 /* std::bad_exception::~bad_exception() */
 
@@ -4977,7 +4977,7 @@ void FUN_00beaf60(void)
 }
 
 
-// ==== entry=00beaf70 name=what size=5 ====
+// ==== entry=00beaf70 orig=FUN_00beaf70 size=5 name=what ====
 
 char * std::exception::what(void)
 
@@ -4995,7 +4995,7 @@ void FUN_00beaf80(void)
 }
 
 
-// ==== entry=00beaf90 name=what size=5 ====
+// ==== entry=00beaf90 orig=FUN_00beaf90 size=5 name=what ====
 
 char * std::bad_exception::what(void)
 
@@ -5004,7 +5004,7 @@ char * std::bad_exception::what(void)
 }
 
 
-// ==== entry=00beafa0 name=what size=8 ====
+// ==== entry=00beafa0 orig=FUN_00beafa0 size=8 name=what ====
 
 /* std::bad_alloc::what() const */
 
@@ -5015,7 +5015,7 @@ char * std::bad_alloc::what(void)
 }
 
 
-// ==== entry=00beafb0 name=~bad_alloc size=19 ====
+// ==== entry=00beafb0 orig=FUN_00beafb0 size=19 name=~bad_alloc ====
 
 /* std::bad_alloc::~bad_alloc() */
 
@@ -5028,7 +5028,7 @@ void __thiscall std::bad_alloc::~bad_alloc(bad_alloc *this)
 }
 
 
-// ==== entry=00beafd0 name=~bad_alloc size=23 ====
+// ==== entry=00beafd0 orig=FUN_00beafd0 size=23 name=~bad_alloc ====
 
 /* std::bad_alloc::~bad_alloc() */
 
@@ -5041,7 +5041,7 @@ void __thiscall std::bad_alloc::~bad_alloc(bad_alloc *this)
 }
 
 
-// ==== entry=00beaff0 name=operator.new[] size=5 ====
+// ==== entry=00beaff0 orig=FUN_00beaff0 size=5 name=operator.new[] ====
 
 /* operator new[](unsigned long) */
 
@@ -5071,7 +5071,7 @@ void * operator_new__(ulong param_1)
 }
 
 
-// ==== entry=00beb000 name=__do_upcast size=121 ====
+// ==== entry=00beb000 orig=FUN_00beb000 size=121 name=__do_upcast ====
 
 /* __cxxabiv1::__class_type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void**) const */
 
@@ -5104,7 +5104,7 @@ __cxxabiv1::__class_type_info::__do_upcast
 }
 
 
-// ==== entry=00beb080 name=__do_find_public_src size=13 ====
+// ==== entry=00beb080 orig=FUN_00beb080 size=13 name=__do_find_public_src ====
 
 /* __cxxabiv1::__class_type_info::__do_find_public_src(long, void const*,
    __cxxabiv1::__class_type_info const*, void const*) const */
@@ -5119,7 +5119,7 @@ __cxxabiv1::__class_type_info::__do_find_public_src
 }
 
 
-// ==== entry=00beb090 name=~__class_type_info size=19 ====
+// ==== entry=00beb090 orig=FUN_00beb090 size=19 name=~__class_type_info ====
 
 /* __cxxabiv1::__class_type_info::~__class_type_info() */
 
@@ -5132,7 +5132,7 @@ void __thiscall __cxxabiv1::__class_type_info::~__class_type_info(__class_type_i
 }
 
 
-// ==== entry=00beb0b0 name=~__class_type_info size=23 ====
+// ==== entry=00beb0b0 orig=FUN_00beb0b0 size=23 name=~__class_type_info ====
 
 /* __cxxabiv1::__class_type_info::~__class_type_info() */
 
@@ -5145,7 +5145,7 @@ void __thiscall __cxxabiv1::__class_type_info::~__class_type_info(__class_type_i
 }
 
 
-// ==== entry=00beb0d0 name=__do_dyncast size=158 ====
+// ==== entry=00beb0d0 orig=FUN_00beb0d0 size=158 name=__do_dyncast ====
 
 /* __cxxabiv1::__class_type_info::__do_dyncast(long, __cxxabiv1::__class_type_info::__sub_kind,
    __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info const*, void
@@ -5198,7 +5198,7 @@ LAB_00beb10a:
 }
 
 
-// ==== entry=00beb190 name=__do_upcast size=69 ====
+// ==== entry=00beb190 orig=FUN_00beb190 size=69 name=__do_upcast ====
 
 /* __cxxabiv1::__class_type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void const*,
    __cxxabiv1::__class_type_info::__upcast_result&) const */
@@ -5229,7 +5229,7 @@ __cxxabiv1::__class_type_info::__do_upcast
 }
 
 
-// ==== entry=00beb1e0 name=__do_catch size=116 ====
+// ==== entry=00beb1e0 orig=FUN_00beb1e0 size=116 name=__do_catch ====
 
 /* __cxxabiv1::__class_type_info::__do_catch(std::type_info const*, void**, unsigned int) const */
 
@@ -5281,7 +5281,7 @@ void FUN_00beb280(void *param_1)
 }
 
 
-// ==== entry=00beb2a0 name=__cxa_get_exception_ptr size=5 ====
+// ==== entry=00beb2a0 orig=FUN_00beb2a0 size=5 name=__cxa_get_exception_ptr ====
 
 undefined8 __cxa_get_exception_ptr(long param_1)
 
@@ -5290,7 +5290,7 @@ undefined8 __cxa_get_exception_ptr(long param_1)
 }
 
 
-// ==== entry=00beb2b0 name=__cxa_begin_catch size=105 ====
+// ==== entry=00beb2b0 orig=FUN_00beb2b0 size=105 name=__cxa_begin_catch ====
 
 long __cxa_begin_catch(long *param_1)
 
@@ -5325,7 +5325,7 @@ long __cxa_begin_catch(long *param_1)
 }
 
 
-// ==== entry=00beb320 name=__cxa_end_catch size=118 ====
+// ==== entry=00beb320 orig=FUN_00beb320 size=118 name=__cxa_end_catch ====
 
 void __cxa_end_catch(void)
 
@@ -5367,7 +5367,7 @@ void __cxa_end_catch(void)
 }
 
 
-// ==== entry=00beb3b0 name=uncaught_exception size=22 ====
+// ==== entry=00beb3b0 orig=FUN_00beb3b0 size=22 name=uncaught_exception ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::uncaught_exception() */
@@ -5440,7 +5440,7 @@ long FUN_00beb430(long param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00beb480 name=__cxa_throw size=67 ====
+// ==== entry=00beb480 orig=FUN_00beb480 size=67 name=__cxa_throw ====
 
 void __cxa_throw(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
@@ -5459,7 +5459,7 @@ void __cxa_throw(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00beb4d0 name=__cxa_rethrow size=75 ====
+// ==== entry=00beb4d0 orig=FUN_00beb4d0 size=75 name=__cxa_rethrow ====
 
 void __cxa_rethrow(void)
 
@@ -5485,7 +5485,7 @@ void __cxa_rethrow(void)
 }
 
 
-// ==== entry=00beb520 name=~type_info size=1 ====
+// ==== entry=00beb520 orig=FUN_00beb520 size=1 name=~type_info ====
 
 /* std::type_info::~type_info() */
 
@@ -5496,7 +5496,7 @@ void __thiscall std::type_info::~type_info(type_info *this)
 }
 
 
-// ==== entry=00beb530 name=__is_function_p size=3 ====
+// ==== entry=00beb530 orig=FUN_00beb530 size=3 name=__is_function_p ====
 
 /* std::type_info::__is_function_p() const */
 
@@ -5507,7 +5507,7 @@ undefined8 std::type_info::__is_function_p(void)
 }
 
 
-// ==== entry=00beb540 name=__do_upcast size=3 ====
+// ==== entry=00beb540 orig=FUN_00beb540 size=3 name=__do_upcast ====
 
 /* std::type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void**) const */
 
@@ -5518,7 +5518,7 @@ undefined8 std::type_info::__do_upcast(__class_type_info *param_1,void **param_2
 }
 
 
-// ==== entry=00beb550 name=~type_info size=23 ====
+// ==== entry=00beb550 orig=FUN_00beb550 size=23 name=~type_info ====
 
 /* std::type_info::~type_info() */
 
@@ -5531,7 +5531,7 @@ void __thiscall std::type_info::~type_info(type_info *this)
 }
 
 
-// ==== entry=00beb570 name=__do_catch size=45 ====
+// ==== entry=00beb570 orig=FUN_00beb570 size=45 name=__do_catch ====
 
 /* std::type_info::__do_catch(std::type_info const*, void**, unsigned int) const */
 
@@ -5553,7 +5553,7 @@ undefined8 std::type_info::__do_catch(type_info *param_1,void **param_2,uint par
 }
 
 
-// ==== entry=00beb5b0 name=set_new_handler size=11 ====
+// ==== entry=00beb5b0 orig=FUN_00beb5b0 size=11 name=set_new_handler ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::set_new_handler(void (*)()) */
@@ -5580,7 +5580,7 @@ undefined8 FUN_00beb5c0(void)
 }
 
 
-// ==== entry=00beb5d0 name=operator.delete size=5 ====
+// ==== entry=00beb5d0 orig=FUN_00beb5d0 size=5 name=operator.delete ====
 
 /* operator delete(void*) */
 
@@ -5592,7 +5592,7 @@ void operator_delete(void *param_1)
 }
 
 
-// ==== entry=00beb5e0 name=operator.delete[] size=5 ====
+// ==== entry=00beb5e0 orig=FUN_00beb5e0 size=5 name=operator.delete[] ====
 
 /* operator delete[](void*) */
 
@@ -5604,7 +5604,7 @@ void operator_delete__(void *param_1)
 }
 
 
-// ==== entry=00beb5f0 name=~__vmi_class_type_info size=19 ====
+// ==== entry=00beb5f0 orig=FUN_00beb5f0 size=19 name=~__vmi_class_type_info ====
 
 /* __cxxabiv1::__vmi_class_type_info::~__vmi_class_type_info() */
 
@@ -5618,7 +5618,7 @@ __cxxabiv1::__vmi_class_type_info::~__vmi_class_type_info(__vmi_class_type_info 
 }
 
 
-// ==== entry=00beb610 name=~__vmi_class_type_info size=23 ====
+// ==== entry=00beb610 orig=FUN_00beb610 size=23 name=~__vmi_class_type_info ====
 
 /* __cxxabiv1::__vmi_class_type_info::~__vmi_class_type_info() */
 
@@ -5632,7 +5632,7 @@ __cxxabiv1::__vmi_class_type_info::~__vmi_class_type_info(__vmi_class_type_info 
 }
 
 
-// ==== entry=00beb630 name=__do_find_public_src size=211 ====
+// ==== entry=00beb630 orig=FUN_00beb630 size=211 name=__do_find_public_src ====
 
 /* __cxxabiv1::__vmi_class_type_info::__do_find_public_src(long, void const*,
    __cxxabiv1::__class_type_info const*, void const*) const */
@@ -5686,7 +5686,7 @@ LAB_00beb6b3:
 }
 
 
-// ==== entry=00beb730 name=__do_dyncast size=1561 ====
+// ==== entry=00beb730 orig=FUN_00beb730 size=1561 name=__do_dyncast ====
 
 /* __cxxabiv1::__vmi_class_type_info::__do_dyncast(long, __cxxabiv1::__class_type_info::__sub_kind,
    __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info const*, void
@@ -5952,7 +5952,7 @@ LAB_00beba41:
 }
 
 
-// ==== entry=00bebdb0 name=__do_upcast size=565 ====
+// ==== entry=00bebdb0 orig=FUN_00bebdb0 size=565 name=__do_upcast ====
 
 /* __cxxabiv1::__vmi_class_type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void const*,
    __cxxabiv1::__class_type_info::__upcast_result&) const */
@@ -6066,7 +6066,7 @@ LAB_00bebf28:
 }
 
 
-// ==== entry=00bec010 name=~__si_class_type_info size=19 ====
+// ==== entry=00bec010 orig=FUN_00bec010 size=19 name=~__si_class_type_info ====
 
 /* __cxxabiv1::__si_class_type_info::~__si_class_type_info() */
 
@@ -6079,7 +6079,7 @@ void __thiscall __cxxabiv1::__si_class_type_info::~__si_class_type_info(__si_cla
 }
 
 
-// ==== entry=00bec030 name=~__si_class_type_info size=23 ====
+// ==== entry=00bec030 orig=FUN_00bec030 size=23 name=~__si_class_type_info ====
 
 /* __cxxabiv1::__si_class_type_info::~__si_class_type_info() */
 
@@ -6092,7 +6092,7 @@ void __thiscall __cxxabiv1::__si_class_type_info::~__si_class_type_info(__si_cla
 }
 
 
-// ==== entry=00bec050 name=__do_find_public_src size=108 ====
+// ==== entry=00bec050 orig=FUN_00bec050 size=108 name=__do_find_public_src ====
 
 /* __cxxabiv1::__si_class_type_info::__do_find_public_src(long, void const*,
    __cxxabiv1::__class_type_info const*, void const*) const */
@@ -6124,7 +6124,7 @@ __cxxabiv1::__si_class_type_info::__do_find_public_src
 }
 
 
-// ==== entry=00bec0d0 name=__do_dyncast size=303 ====
+// ==== entry=00bec0d0 orig=FUN_00bec0d0 size=303 name=__do_dyncast ====
 
 /* __cxxabiv1::__si_class_type_info::__do_dyncast(long, __cxxabiv1::__class_type_info::__sub_kind,
    __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info const*, void
@@ -6182,7 +6182,7 @@ LAB_00bec147:
 }
 
 
-// ==== entry=00bec210 name=__do_upcast size=74 ====
+// ==== entry=00bec210 orig=FUN_00bec210 size=74 name=__do_upcast ====
 
 /* __cxxabiv1::__si_class_type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void const*,
    __cxxabiv1::__class_type_info::__upcast_result&) const */
@@ -6206,7 +6206,7 @@ __cxxabiv1::__si_class_type_info::__do_upcast
 }
 
 
-// ==== entry=00bec260 name=operator.new size=61 ====
+// ==== entry=00bec260 orig=FUN_00bec260 size=61 name=operator.new ====
 
 /* operator new(unsigned long, std::nothrow_t const&) */
 
@@ -6233,7 +6233,7 @@ void * operator_new(ulong param_1,nothrow_t *param_2)
 }
 
 
-// ==== entry=00bec2b0 name=~__fundamental_type_info size=19 ====
+// ==== entry=00bec2b0 orig=FUN_00bec2b0 size=19 name=~__fundamental_type_info ====
 
 /* __cxxabiv1::__fundamental_type_info::~__fundamental_type_info() */
 
@@ -6247,7 +6247,7 @@ __cxxabiv1::__fundamental_type_info::~__fundamental_type_info(__fundamental_type
 }
 
 
-// ==== entry=00bec2d0 name=~__fundamental_type_info size=23 ====
+// ==== entry=00bec2d0 orig=FUN_00bec2d0 size=23 name=~__fundamental_type_info ====
 
 /* __cxxabiv1::__fundamental_type_info::~__fundamental_type_info() */
 
@@ -6261,7 +6261,7 @@ __cxxabiv1::__fundamental_type_info::~__fundamental_type_info(__fundamental_type
 }
 
 
-// ==== entry=00bec2f0 name=operator.new size=91 ====
+// ==== entry=00bec2f0 orig=FUN_00bec2f0 size=91 name=operator.new ====
 
 /* operator new(unsigned long) */
 
@@ -6291,7 +6291,7 @@ void * operator_new(ulong param_1)
 }
 
 
-// ==== entry=00bec350 name=__cxa_pure_virtual size=31 ====
+// ==== entry=00bec350 orig=FUN_00bec350 size=31 name=__cxa_pure_virtual ====
 
 void __cxa_pure_virtual(void)
 
@@ -6302,7 +6302,7 @@ void __cxa_pure_virtual(void)
 }
 
 
-// ==== entry=00bec370 name=__cxa_deleted_virtual size=31 ====
+// ==== entry=00bec370 orig=FUN_00bec370 size=31 name=__cxa_deleted_virtual ====
 
 void __cxa_deleted_virtual(void)
 
@@ -6330,7 +6330,7 @@ void FUN_00bec390(long *param_1)
 }
 
 
-// ==== entry=00bec3d0 name=__cxa_get_globals_fast size=27 ====
+// ==== entry=00bec3d0 orig=FUN_00bec3d0 size=27 name=__cxa_get_globals_fast ====
 
 long __cxa_get_globals_fast(void)
 
@@ -6341,7 +6341,7 @@ long __cxa_get_globals_fast(void)
 }
 
 
-// ==== entry=00bec3f0 name=__cxa_get_globals size=27 ====
+// ==== entry=00bec3f0 orig=FUN_00bec3f0 size=27 name=__cxa_get_globals ====
 
 long __cxa_get_globals(void)
 
@@ -6352,7 +6352,7 @@ long __cxa_get_globals(void)
 }
 
 
-// ==== entry=00bec410 name=operator.delete size=5 ====
+// ==== entry=00bec410 orig=FUN_00bec410 size=5 name=operator.delete ====
 
 /* operator delete(void*, std::nothrow_t const&) */
 
@@ -6376,7 +6376,7 @@ void FUN_00bec420(code *param_1)
 }
 
 
-// ==== entry=00bec430 name=set_terminate size=14 ====
+// ==== entry=00bec430 orig=FUN_00bec430 size=14 name=set_terminate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::set_terminate(void (*)()) */
@@ -6403,7 +6403,7 @@ undefined * FUN_00bec440(void)
 }
 
 
-// ==== entry=00bec450 name=terminate size=17 ====
+// ==== entry=00bec450 orig=FUN_00bec450 size=17 name=terminate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::terminate() */
@@ -6430,7 +6430,7 @@ void FUN_00bec470(code *param_1)
 }
 
 
-// ==== entry=00bec480 name=set_unexpected size=14 ====
+// ==== entry=00bec480 orig=FUN_00bec480 size=14 name=set_unexpected ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::set_unexpected(void (*)()) */
@@ -6457,7 +6457,7 @@ undefined * FUN_00bec490(void)
 }
 
 
-// ==== entry=00bec4a0 name=unexpected size=17 ====
+// ==== entry=00bec4a0 orig=FUN_00bec4a0 size=17 name=unexpected ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::unexpected() */
@@ -6473,7 +6473,7 @@ void std::unexpected(void)
 }
 
 
-// ==== entry=00bec4c0 name=Init size=1934 ====
+// ==== entry=00bec4c0 orig=FUN_00bec4c0 size=1934 name=Init ====
 
 /* WARNING: Removing unreachable block (ram,0x00bec500) */
 /* WARNING: Removing unreachable block (ram,0x00becc40) */
@@ -6674,7 +6674,7 @@ void __thiscall std::ios_base::Init::Init(Init *this)
 }
 
 
-// ==== entry=00becca0 name=~Init size=125 ====
+// ==== entry=00becca0 orig=FUN_00becca0 size=125 name=~Init ====
 
 /* WARNING: Removing unreachable block (ram,0x00beccc0) */
 /* std::ios_base::Init::~Init() */
@@ -6702,7 +6702,7 @@ void __thiscall std::ios_base::Init::~Init(Init *this)
 }
 
 
-// ==== entry=00becd30 name=sync_with_stdio size=614 ====
+// ==== entry=00becd30 orig=FUN_00becd30 size=614 name=sync_with_stdio ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* std::ios_base::sync_with_stdio(bool) */
@@ -6790,7 +6790,7 @@ long FUN_00becfb0(int *param_1)
 }
 
 
-// ==== entry=00bed010 name=_Rb_tree_increment size=59 ====
+// ==== entry=00bed010 orig=FUN_00bed010 size=59 name=_Rb_tree_increment ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_increment(std::_Rb_tree_node_base*) */
@@ -6824,7 +6824,7 @@ long std::_Rb_tree_increment(_Rb_tree_node_base *param_1)
 }
 
 
-// ==== entry=00bed060 name=_Rb_tree_increment size=5 ====
+// ==== entry=00bed060 orig=FUN_00bed060 size=5 name=_Rb_tree_increment ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_increment(std::_Rb_tree_node_base const*) */
@@ -6858,7 +6858,7 @@ long std::_Rb_tree_increment(_Rb_tree_node_base *param_1)
 }
 
 
-// ==== entry=00bed070 name=_Rb_tree_decrement size=5 ====
+// ==== entry=00bed070 orig=FUN_00bed070 size=5 name=_Rb_tree_decrement ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_decrement(std::_Rb_tree_node_base*) */
@@ -6894,7 +6894,7 @@ long std::_Rb_tree_decrement(_Rb_tree_node_base *param_1)
 }
 
 
-// ==== entry=00bed080 name=_Rb_tree_decrement size=5 ====
+// ==== entry=00bed080 orig=FUN_00bed080 size=5 name=_Rb_tree_decrement ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_decrement(std::_Rb_tree_node_base const*) */
@@ -6930,7 +6930,7 @@ long std::_Rb_tree_decrement(_Rb_tree_node_base *param_1)
 }
 
 
-// ==== entry=00bed090 name=_Rb_tree_rotate_left size=78 ====
+// ==== entry=00bed090 orig=FUN_00bed090 size=78 name=_Rb_tree_rotate_left ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_rotate_left(std::_Rb_tree_node_base*, std::_Rb_tree_node_base*&) */
@@ -6968,7 +6968,7 @@ void std::_Rb_tree_rotate_left(_Rb_tree_node_base *param_1,_Rb_tree_node_base **
 }
 
 
-// ==== entry=00bed0f0 name=_Rb_tree_rotate_right size=78 ====
+// ==== entry=00bed0f0 orig=FUN_00bed0f0 size=78 name=_Rb_tree_rotate_right ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_rotate_right(std::_Rb_tree_node_base*, std::_Rb_tree_node_base*&) */
@@ -7006,7 +7006,7 @@ void std::_Rb_tree_rotate_right(_Rb_tree_node_base *param_1,_Rb_tree_node_base *
 }
 
 
-// ==== entry=00bed150 name=_Rb_tree_insert_and_rebalance size=655 ====
+// ==== entry=00bed150 orig=FUN_00bed150 size=655 name=_Rb_tree_insert_and_rebalance ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_insert_and_rebalance(bool, std::_Rb_tree_node_base*, std::_Rb_tree_node_base*,
@@ -7179,7 +7179,7 @@ LAB_00bed430:
 }
 
 
-// ==== entry=00bed440 name=_Rb_tree_rebalance_for_erase size=1219 ====
+// ==== entry=00bed440 orig=FUN_00bed440 size=1219 name=_Rb_tree_rebalance_for_erase ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_rebalance_for_erase(std::_Rb_tree_node_base*, std::_Rb_tree_node_base&) */
@@ -7493,7 +7493,7 @@ LAB_00bed5c8:
 }
 
 
-// ==== entry=00bed950 name=_Rb_tree_black_count size=29 ====
+// ==== entry=00bed950 orig=FUN_00bed950 size=29 name=_Rb_tree_black_count ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::_Rb_tree_black_count(std::_Rb_tree_node_base const*, std::_Rb_tree_node_base const*) */
@@ -7559,7 +7559,7 @@ void FUN_00beda00(undefined8 *param_1)
 }
 
 
-// ==== entry=00beda70 name=_Impl size=4087 ====
+// ==== entry=00beda70 orig=FUN_00beda70 size=4087 name=_Impl ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* std::locale::_Impl::_Impl(unsigned long) */
@@ -7977,7 +7977,7 @@ void FUN_00beeb10(void)
 }
 
 
-// ==== entry=00beeb80 name=locale size=226 ====
+// ==== entry=00beeb80 orig=FUN_00beeb80 size=226 name=locale ====
 
 /* WARNING: Removing unreachable block (ram,0x00beec08) */
 /* WARNING: Removing unreachable block (ram,0x00beec30) */
@@ -8025,7 +8025,7 @@ void __thiscall std::locale::locale(locale *this)
 }
 
 
-// ==== entry=00beec90 name=classic size=43 ====
+// ==== entry=00beec90 orig=FUN_00beec90 size=43 name=classic ====
 
 /* std::locale::classic() */
 
@@ -8038,7 +8038,7 @@ undefined * std::locale::classic(void)
 }
 
 
-// ==== entry=00beecc0 name=global size=314 ====
+// ==== entry=00beecc0 orig=FUN_00beecc0 size=314 name=global ====
 
 /* WARNING: Removing unreachable block (ram,0x00beeda8) */
 /* std::locale::global(std::locale const&) */
@@ -8097,7 +8097,7 @@ locale * __thiscall std::locale::global(locale *this,locale *param_1)
 }
 
 
-// ==== entry=00beee10 name=~facet size=1 ====
+// ==== entry=00beee10 orig=FUN_00beee10 size=1 name=~facet ====
 
 /* std::locale::facet::~facet() */
 
@@ -8108,7 +8108,7 @@ void __thiscall std::locale::facet::~facet(facet *this)
 }
 
 
-// ==== entry=00beee20 name=~facet size=28 ====
+// ==== entry=00beee20 orig=FUN_00beee20 size=28 name=~facet ====
 
 /* std::locale::facet::~facet() */
 
@@ -8133,7 +8133,7 @@ void FUN_00beee50(void)
 }
 
 
-// ==== entry=00beee70 name=locale size=25 ====
+// ==== entry=00beee70 orig=FUN_00beee70 size=25 name=locale ====
 
 /* WARNING: Removing unreachable block (ram,0x00beee88) */
 /* std::locale::locale(std::locale const&) */
@@ -8152,7 +8152,7 @@ void __thiscall std::locale::locale(locale *this,locale *param_1)
 }
 
 
-// ==== entry=00beee90 name=locale size=4 ====
+// ==== entry=00beee90 orig=FUN_00beee90 size=4 name=locale ====
 
 /* std::locale::locale(std::locale::_Impl*) */
 
@@ -8291,7 +8291,7 @@ long * FUN_00beeea0(long *param_1,long *param_2)
 }
 
 
-// ==== entry=00bef1f0 name=operator== size=303 ====
+// ==== entry=00bef1f0 orig=FUN_00bef1f0 size=303 name=operator== ====
 
 /* std::locale::TEMPNAMEPLACEHOLDERVALUE(std::locale const&) const */
 
@@ -8360,7 +8360,7 @@ LAB_00bef2ca:
 }
 
 
-// ==== entry=00bef340 name=_S_normalize_category size=54 ====
+// ==== entry=00bef340 orig=FUN_00bef340 size=54 name=_S_normalize_category ====
 
 /* std::locale::_S_normalize_category(int) */
 
@@ -8384,7 +8384,7 @@ int std::locale::_S_normalize_category(int param_1)
 }
 
 
-// ==== entry=00bef380 name=_S_get_c_locale size=67 ====
+// ==== entry=00bef380 orig=FUN_00bef380 size=67 name=_S_get_c_locale ====
 
 /* WARNING: Removing unreachable block (ram,0x00bef3b0) */
 /* WARNING: Removing unreachable block (ram,0x00bef3bf) */
@@ -8398,7 +8398,7 @@ undefined8 std::locale::facet::_S_get_c_locale(void)
 }
 
 
-// ==== entry=00bef3d0 name=_S_get_c_name size=8 ====
+// ==== entry=00bef3d0 orig=FUN_00bef3d0 size=8 name=_S_get_c_name ====
 
 /* std::locale::facet::_S_get_c_name() */
 
@@ -8409,7 +8409,7 @@ undefined * std::locale::facet::_S_get_c_name(void)
 }
 
 
-// ==== entry=00bef3e0 name=~_Impl size=288 ====
+// ==== entry=00bef3e0 orig=FUN_00bef3e0 size=288 name=~_Impl ====
 
 /* WARNING: Removing unreachable block (ram,0x00bef430) */
 /* WARNING: Removing unreachable block (ram,0x00bef4a8) */
@@ -8493,7 +8493,7 @@ LAB_00bef4cd:
 }
 
 
-// ==== entry=00bef530 name=operator= size=130 ====
+// ==== entry=00bef530 orig=FUN_00bef530 size=130 name=operator= ====
 
 /* WARNING: Removing unreachable block (ram,0x00bef570) */
 /* WARNING: Removing unreachable block (ram,0x00bef57b) */
@@ -8524,7 +8524,7 @@ void __thiscall std::locale::operator=(locale *this,locale *param_1)
 }
 
 
-// ==== entry=00bef5c0 name=~locale size=59 ====
+// ==== entry=00bef5c0 orig=FUN_00bef5c0 size=59 name=~locale ====
 
 /* WARNING: Removing unreachable block (ram,0x00bef5e0) */
 /* std::locale::~locale() */
@@ -8549,7 +8549,7 @@ void __thiscall std::locale::~locale(locale *this)
 }
 
 
-// ==== entry=00bef600 name=_Impl size=417 ====
+// ==== entry=00bef600 orig=FUN_00bef600 size=417 name=_Impl ====
 
 /* WARNING: Removing unreachable block (ram,0x00bef6a2) */
 /* WARNING: Removing unreachable block (ram,0x00bef717) */
@@ -8644,7 +8644,7 @@ void __thiscall std::locale::_Impl::_Impl(_Impl *this,_Impl *param_1,ulong param
 }
 
 
-// ==== entry=00bef7c0 name=_M_id size=56 ====
+// ==== entry=00bef7c0 orig=FUN_00bef7c0 size=56 name=_M_id ====
 
 /* WARNING: Removing unreachable block (ram,0x00bef7f0) */
 /* std::locale::id::_M_id() const */
@@ -8666,7 +8666,7 @@ long __thiscall std::locale::id::_M_id(id *this)
 }
 
 
-// ==== entry=00bef800 name=_M_install_facet size=855 ====
+// ==== entry=00bef800 orig=FUN_00bef800 size=855 name=_M_install_facet ====
 
 /* WARNING: Removing unreachable block (ram,0x00befad4) */
 /* WARNING: Removing unreachable block (ram,0x00befb4f) */
@@ -8858,7 +8858,7 @@ LAB_00befa16:
 }
 
 
-// ==== entry=00befba0 name=_M_replace_facet size=74 ====
+// ==== entry=00befba0 orig=FUN_00befba0 size=74 name=_M_replace_facet ====
 
 /* std::locale::_Impl::_M_replace_facet(std::locale::_Impl const*, std::locale::id const*) */
 
@@ -8879,7 +8879,7 @@ void __thiscall std::locale::_Impl::_M_replace_facet(_Impl *this,_Impl *param_1,
 }
 
 
-// ==== entry=00befbf0 name=_M_replace_category size=52 ====
+// ==== entry=00befbf0 orig=FUN_00befbf0 size=52 name=_M_replace_category ====
 
 /* std::locale::_Impl::_M_replace_category(std::locale::_Impl const*, std::locale::id const* const*)
     */
@@ -8899,7 +8899,7 @@ void __thiscall std::locale::_Impl::_M_replace_category(_Impl *this,_Impl *param
 }
 
 
-// ==== entry=00befc30 name=_M_install_cache size=512 ====
+// ==== entry=00befc30 orig=FUN_00befc30 size=512 name=_M_install_cache ====
 
 /* WARNING: Removing unreachable block (ram,0x00befde0) */
 /* WARNING: Removing unreachable block (ram,0x00befde8) */
@@ -8988,7 +8988,7 @@ LAB_00befcd0:
 }
 
 
-// ==== entry=00befe70 name=operator>> size=872 ====
+// ==== entry=00befe70 orig=FUN_00befe70 size=872 name=operator>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::istream& std::TEMPNAMEPLACEHOLDERVALUE(std::istream&, std::string&) */
@@ -9161,7 +9161,7 @@ LAB_00befec1:
 }
 
 
-// ==== entry=00bf0210 name=getline<char,std::char_traits<char>,std::allocator<char>> size=755 ====
+// ==== entry=00bf0210 orig=FUN_00bf0210 size=755 name=getline<char,std::char_traits<char>,std::allocator<char>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::istream& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::istream&,
@@ -9323,7 +9323,7 @@ LAB_00bf0269:
 }
 
 
-// ==== entry=00bf0540 name=getline<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> size=797 ====
+// ==== entry=00bf0540 orig=FUN_00bf0540 size=797 name=getline<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::wistream& std::getline<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>
@@ -9550,7 +9550,7 @@ size_t FUN_00bf0990(int param_1,void *param_2,size_t param_3)
 }
 
 
-// ==== entry=00bf09f0 name=__basic_file size=12 ====
+// ==== entry=00bf09f0 orig=FUN_00bf09f0 size=12 name=__basic_file ====
 
 /* std::__basic_file<char>::__basic_file(pthread_mutex_t*) */
 
@@ -9563,7 +9563,7 @@ void std::__basic_file<char>::__basic_file(pthread_mutex_t *param_1)
 }
 
 
-// ==== entry=00bf0a00 name=is_open size=8 ====
+// ==== entry=00bf0a00 orig=FUN_00bf0a00 size=8 name=is_open ====
 
 /* std::__basic_file<char>::is_open() const */
 
@@ -9574,7 +9574,7 @@ bool __thiscall std::__basic_file<char>::is_open(__basic_file<char> *this)
 }
 
 
-// ==== entry=00bf0a10 name=sys_open size=112 ====
+// ==== entry=00bf0a10 orig=FUN_00bf0a10 size=112 name=sys_open ====
 
 /* std::__basic_file<char>::sys_open(_IO_FILE*, std::_Ios_Openmode) */
 
@@ -9606,7 +9606,7 @@ __basic_file<char> * std::__basic_file<char>::sys_open(__basic_file<char> *param
 }
 
 
-// ==== entry=00bf0aa0 name=sys_open size=100 ====
+// ==== entry=00bf0aa0 orig=FUN_00bf0aa0 size=100 name=sys_open ====
 
 /* std::__basic_file<char>::sys_open(int, std::_Ios_Openmode) */
 
@@ -9635,7 +9635,7 @@ std::__basic_file<char>::sys_open(__basic_file<char> *this,int param_1,undefined
 }
 
 
-// ==== entry=00bf0b10 name=open size=75 ====
+// ==== entry=00bf0b10 orig=FUN_00bf0b10 size=75 name=open ====
 
 /* std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) */
 
@@ -9663,7 +9663,7 @@ std::__basic_file<char>::open(__basic_file<char> *param_1,char *param_2,undefine
 }
 
 
-// ==== entry=00bf0b60 name=fd size=8 ====
+// ==== entry=00bf0b60 orig=FUN_00bf0b60 size=8 name=fd ====
 
 /* std::__basic_file<char>::fd() */
 
@@ -9675,7 +9675,7 @@ void __thiscall std::__basic_file<char>::fd(__basic_file<char> *this)
 }
 
 
-// ==== entry=00bf0b70 name=file size=4 ====
+// ==== entry=00bf0b70 orig=FUN_00bf0b70 size=4 name=file ====
 
 /* std::__basic_file<char>::file() */
 
@@ -9686,7 +9686,7 @@ undefined8 __thiscall std::__basic_file<char>::file(__basic_file<char> *this)
 }
 
 
-// ==== entry=00bf0b80 name=close size=59 ====
+// ==== entry=00bf0b80 orig=FUN_00bf0b80 size=59 name=close ====
 
 /* std::__basic_file<char>::close() */
 
@@ -9712,7 +9712,7 @@ __basic_file<char> * __thiscall std::__basic_file<char>::close(__basic_file<char
 }
 
 
-// ==== entry=00bf0bd0 name=~__basic_file size=5 ====
+// ==== entry=00bf0bd0 orig=FUN_00bf0bd0 size=5 name=~__basic_file ====
 
 /* std::__basic_file<char>::~__basic_file() */
 
@@ -9738,7 +9738,7 @@ __basic_file<char> * __thiscall std::__basic_file<char>::~__basic_file(__basic_f
 }
 
 
-// ==== entry=00bf0be0 name=xsgetn size=75 ====
+// ==== entry=00bf0be0 orig=FUN_00bf0be0 size=75 name=xsgetn ====
 
 /* std::__basic_file<char>::xsgetn(char*, long) */
 
@@ -9762,7 +9762,7 @@ std::__basic_file<char>::xsgetn(__basic_file<char> *this,char *param_1,long para
 }
 
 
-// ==== entry=00bf0c30 name=xsputn size=36 ====
+// ==== entry=00bf0c30 orig=FUN_00bf0c30 size=36 name=xsputn ====
 
 /* std::__basic_file<char>::xsputn(char const*, long) */
 
@@ -9777,7 +9777,7 @@ void __thiscall std::__basic_file<char>::xsputn(__basic_file<char> *this,char *p
 }
 
 
-// ==== entry=00bf0c60 name=xsputn_2 size=212 ====
+// ==== entry=00bf0c60 orig=FUN_00bf0c60 size=212 name=xsputn_2 ====
 
 /* std::__basic_file<char>::xsputn_2(char const*, long, char const*, long) */
 
@@ -9835,7 +9835,7 @@ LAB_00bf0cf3:
 }
 
 
-// ==== entry=00bf0d40 name=seekoff size=34 ====
+// ==== entry=00bf0d40 orig=FUN_00bf0d40 size=34 name=seekoff ====
 
 /* std::__basic_file<char>::seekoff(long, std::_Ios_Seekdir) */
 
@@ -9851,7 +9851,7 @@ std::__basic_file<char>::seekoff(__basic_file<char> *this,__off64_t param_1,int 
 }
 
 
-// ==== entry=00bf0d70 name=sync size=8 ====
+// ==== entry=00bf0d70 orig=FUN_00bf0d70 size=8 name=sync ====
 
 /* std::__basic_file<char>::sync() */
 
@@ -9863,7 +9863,7 @@ void __thiscall std::__basic_file<char>::sync(__basic_file<char> *this)
 }
 
 
-// ==== entry=00bf0d80 name=showmanyc size=235 ====
+// ==== entry=00bf0d80 orig=FUN_00bf0d80 size=235 name=showmanyc ====
 
 /* std::__basic_file<char>::showmanyc() */
 
@@ -9908,7 +9908,7 @@ LAB_00bf0e26:
 }
 
 
-// ==== entry=00bf0e70 name=swap size=130 ====
+// ==== entry=00bf0e70 orig=FUN_00bf0e70 size=130 name=swap ====
 
 /* std::__detail::_List_node_base::swap(std::__detail::_List_node_base&,
    std::__detail::_List_node_base&) */
@@ -9959,7 +9959,7 @@ void std::__detail::_List_node_base::swap(_List_node_base *param_1,_List_node_ba
 }
 
 
-// ==== entry=00bf0f00 name=_M_transfer size=43 ====
+// ==== entry=00bf0f00 orig=FUN_00bf0f00 size=43 name=_M_transfer ====
 
 /* std::__detail::_List_node_base::_M_transfer(std::__detail::_List_node_base*,
    std::__detail::_List_node_base*) */
@@ -9987,7 +9987,7 @@ std::__detail::_List_node_base::_M_transfer
 }
 
 
-// ==== entry=00bf0f30 name=_M_reverse size=31 ====
+// ==== entry=00bf0f30 orig=FUN_00bf0f30 size=31 name=_M_reverse ====
 
 /* std::__detail::_List_node_base::_M_reverse() */
 
@@ -10010,7 +10010,7 @@ void __thiscall std::__detail::_List_node_base::_M_reverse(_List_node_base *this
 }
 
 
-// ==== entry=00bf0f50 name=_M_hook size=23 ====
+// ==== entry=00bf0f50 orig=FUN_00bf0f50 size=23 name=_M_hook ====
 
 /* std::__detail::_List_node_base::_M_hook(std::__detail::_List_node_base*) */
 
@@ -10029,7 +10029,7 @@ std::__detail::_List_node_base::_M_hook(_List_node_base *this,_List_node_base *p
 }
 
 
-// ==== entry=00bf0f70 name=_M_unhook size=15 ====
+// ==== entry=00bf0f70 orig=FUN_00bf0f70 size=15 name=_M_unhook ====
 
 /* std::__detail::_List_node_base::_M_unhook() */
 
@@ -10047,7 +10047,7 @@ void __thiscall std::__detail::_List_node_base::_M_unhook(_List_node_base *this)
 }
 
 
-// ==== entry=00bf0f80 name=~__moneypunct_cache size=89 ====
+// ==== entry=00bf0f80 orig=FUN_00bf0f80 size=89 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<char, true>::~__moneypunct_cache() */
 
@@ -10075,7 +10075,7 @@ std::__moneypunct_cache<char,true>::~__moneypunct_cache(__moneypunct_cache<char,
 }
 
 
-// ==== entry=00bf0fe0 name=~__moneypunct_cache size=28 ====
+// ==== entry=00bf0fe0 orig=FUN_00bf0fe0 size=28 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<char, true>::~__moneypunct_cache() */
 
@@ -10090,7 +10090,7 @@ std::__moneypunct_cache<char,true>::~__moneypunct_cache(__moneypunct_cache<char,
 }
 
 
-// ==== entry=00bf1010 name=~__moneypunct_cache size=89 ====
+// ==== entry=00bf1010 orig=FUN_00bf1010 size=89 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<char, false>::~__moneypunct_cache() */
 
@@ -10118,7 +10118,7 @@ std::__moneypunct_cache<char,false>::~__moneypunct_cache(__moneypunct_cache<char
 }
 
 
-// ==== entry=00bf1070 name=~__moneypunct_cache size=28 ====
+// ==== entry=00bf1070 orig=FUN_00bf1070 size=28 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<char, false>::~__moneypunct_cache() */
 
@@ -10133,7 +10133,7 @@ std::__moneypunct_cache<char,false>::~__moneypunct_cache(__moneypunct_cache<char
 }
 
 
-// ==== entry=00bf10a0 name=~__moneypunct_cache size=92 ====
+// ==== entry=00bf10a0 orig=FUN_00bf10a0 size=92 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<wchar_t, true>::~__moneypunct_cache() */
 
@@ -10161,7 +10161,7 @@ std::__moneypunct_cache<wchar_t,true>::~__moneypunct_cache(__moneypunct_cache<wc
 }
 
 
-// ==== entry=00bf1100 name=~__moneypunct_cache size=28 ====
+// ==== entry=00bf1100 orig=FUN_00bf1100 size=28 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<wchar_t, true>::~__moneypunct_cache() */
 
@@ -10176,7 +10176,7 @@ std::__moneypunct_cache<wchar_t,true>::~__moneypunct_cache(__moneypunct_cache<wc
 }
 
 
-// ==== entry=00bf1130 name=~__moneypunct_cache size=92 ====
+// ==== entry=00bf1130 orig=FUN_00bf1130 size=92 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<wchar_t, false>::~__moneypunct_cache() */
 
@@ -10204,7 +10204,7 @@ std::__moneypunct_cache<wchar_t,false>::~__moneypunct_cache(__moneypunct_cache<w
 }
 
 
-// ==== entry=00bf1190 name=~__moneypunct_cache size=28 ====
+// ==== entry=00bf1190 orig=FUN_00bf1190 size=28 name=~__moneypunct_cache ====
 
 /* std::__moneypunct_cache<wchar_t, false>::~__moneypunct_cache() */
 
@@ -11181,7 +11181,7 @@ void FUN_00bf2b70(void *param_1)
 }
 
 
-// ==== entry=00bf2ba0 name=~__numpunct_cache size=78 ====
+// ==== entry=00bf2ba0 orig=FUN_00bf2ba0 size=78 name=~__numpunct_cache ====
 
 /* std::__numpunct_cache<char>::~__numpunct_cache() */
 
@@ -11205,7 +11205,7 @@ void __thiscall std::__numpunct_cache<char>::~__numpunct_cache(__numpunct_cache<
 }
 
 
-// ==== entry=00bf2bf0 name=~__numpunct_cache size=28 ====
+// ==== entry=00bf2bf0 orig=FUN_00bf2bf0 size=28 name=~__numpunct_cache ====
 
 /* std::__numpunct_cache<char>::~__numpunct_cache() */
 
@@ -11219,7 +11219,7 @@ void __thiscall std::__numpunct_cache<char>::~__numpunct_cache(__numpunct_cache<
 }
 
 
-// ==== entry=00bf2c20 name=~__numpunct_cache size=78 ====
+// ==== entry=00bf2c20 orig=FUN_00bf2c20 size=78 name=~__numpunct_cache ====
 
 /* std::__numpunct_cache<wchar_t>::~__numpunct_cache() */
 
@@ -11243,7 +11243,7 @@ void __thiscall std::__numpunct_cache<wchar_t>::~__numpunct_cache(__numpunct_cac
 }
 
 
-// ==== entry=00bf2c70 name=~__numpunct_cache size=28 ====
+// ==== entry=00bf2c70 orig=FUN_00bf2c70 size=28 name=~__numpunct_cache ====
 
 /* std::__numpunct_cache<wchar_t>::~__numpunct_cache() */
 
@@ -11496,7 +11496,7 @@ void FUN_00bf31d0(void *param_1)
 }
 
 
-// ==== entry=00bf3200 name=_S_format_float size=194 ====
+// ==== entry=00bf3200 orig=FUN_00bf3200 size=194 name=_S_format_float ====
 
 /* std::__num_base::_S_format_float(std::ios_base const&, char*, char) */
 
@@ -11609,7 +11609,7 @@ ulong FUN_00bf32d0(long param_1,long param_2,char *param_3,long param_4)
 }
 
 
-// ==== entry=00bf3370 name=__verify_grouping size=21 ====
+// ==== entry=00bf3370 orig=FUN_00bf3370 size=21 name=__verify_grouping ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::__verify_grouping(char const*, unsigned long, std::string const&) */
@@ -11623,7 +11623,7 @@ void std::__verify_grouping(char *param_1,ulong param_2,string *param_3)
 }
 
 
-// ==== entry=00bf3390 name=what size=5 ====
+// ==== entry=00bf3390 orig=FUN_00bf3390 size=5 name=what ====
 
 /* std::logic_error::what() const */
 
@@ -11634,7 +11634,7 @@ undefined8 __thiscall std::logic_error::what(logic_error *this)
 }
 
 
-// ==== entry=00bf33a0 name=what size=5 ====
+// ==== entry=00bf33a0 orig=FUN_00bf33a0 size=5 name=what ====
 
 /* std::runtime_error::what() const */
 
@@ -11645,7 +11645,7 @@ undefined8 __thiscall std::runtime_error::what(runtime_error *this)
 }
 
 
-// ==== entry=00bf33b0 name=~logic_error size=137 ====
+// ==== entry=00bf33b0 orig=FUN_00bf33b0 size=137 name=~logic_error ====
 
 /* WARNING: Removing unreachable block (ram,0x00bf3430) */
 /* std::logic_error::~logic_error() */
@@ -11681,7 +11681,7 @@ void __thiscall std::logic_error::~logic_error(logic_error *this)
 }
 
 
-// ==== entry=00bf3440 name=~logic_error size=18 ====
+// ==== entry=00bf3440 orig=FUN_00bf3440 size=18 name=~logic_error ====
 
 /* std::logic_error::~logic_error() */
 
@@ -11694,7 +11694,7 @@ void __thiscall std::logic_error::~logic_error(logic_error *this)
 }
 
 
-// ==== entry=00bf3460 name=~domain_error size=19 ====
+// ==== entry=00bf3460 orig=FUN_00bf3460 size=19 name=~domain_error ====
 
 /* std::domain_error::~domain_error() */
 
@@ -11707,7 +11707,7 @@ void __thiscall std::domain_error::~domain_error(domain_error *this)
 }
 
 
-// ==== entry=00bf3480 name=~domain_error size=18 ====
+// ==== entry=00bf3480 orig=FUN_00bf3480 size=18 name=~domain_error ====
 
 /* std::domain_error::~domain_error() */
 
@@ -11720,7 +11720,7 @@ void __thiscall std::domain_error::~domain_error(domain_error *this)
 }
 
 
-// ==== entry=00bf34a0 name=~invalid_argument size=19 ====
+// ==== entry=00bf34a0 orig=FUN_00bf34a0 size=19 name=~invalid_argument ====
 
 /* std::invalid_argument::~invalid_argument() */
 
@@ -11733,7 +11733,7 @@ void __thiscall std::invalid_argument::~invalid_argument(invalid_argument *this)
 }
 
 
-// ==== entry=00bf34c0 name=~invalid_argument size=18 ====
+// ==== entry=00bf34c0 orig=FUN_00bf34c0 size=18 name=~invalid_argument ====
 
 /* std::invalid_argument::~invalid_argument() */
 
@@ -11746,7 +11746,7 @@ void __thiscall std::invalid_argument::~invalid_argument(invalid_argument *this)
 }
 
 
-// ==== entry=00bf34e0 name=~length_error size=19 ====
+// ==== entry=00bf34e0 orig=FUN_00bf34e0 size=19 name=~length_error ====
 
 /* std::length_error::~length_error() */
 
@@ -11759,7 +11759,7 @@ void __thiscall std::length_error::~length_error(length_error *this)
 }
 
 
-// ==== entry=00bf3500 name=~length_error size=18 ====
+// ==== entry=00bf3500 orig=FUN_00bf3500 size=18 name=~length_error ====
 
 /* std::length_error::~length_error() */
 
@@ -11772,7 +11772,7 @@ void __thiscall std::length_error::~length_error(length_error *this)
 }
 
 
-// ==== entry=00bf3520 name=~out_of_range size=19 ====
+// ==== entry=00bf3520 orig=FUN_00bf3520 size=19 name=~out_of_range ====
 
 /* std::out_of_range::~out_of_range() */
 
@@ -11785,7 +11785,7 @@ void __thiscall std::out_of_range::~out_of_range(out_of_range *this)
 }
 
 
-// ==== entry=00bf3540 name=~out_of_range size=18 ====
+// ==== entry=00bf3540 orig=FUN_00bf3540 size=18 name=~out_of_range ====
 
 /* std::out_of_range::~out_of_range() */
 
@@ -11798,7 +11798,7 @@ void __thiscall std::out_of_range::~out_of_range(out_of_range *this)
 }
 
 
-// ==== entry=00bf3560 name=~runtime_error size=137 ====
+// ==== entry=00bf3560 orig=FUN_00bf3560 size=137 name=~runtime_error ====
 
 /* WARNING: Removing unreachable block (ram,0x00bf35e0) */
 /* std::runtime_error::~runtime_error() */
@@ -11834,7 +11834,7 @@ void __thiscall std::runtime_error::~runtime_error(runtime_error *this)
 }
 
 
-// ==== entry=00bf35f0 name=~runtime_error size=18 ====
+// ==== entry=00bf35f0 orig=FUN_00bf35f0 size=18 name=~runtime_error ====
 
 /* std::runtime_error::~runtime_error() */
 
@@ -11847,7 +11847,7 @@ void __thiscall std::runtime_error::~runtime_error(runtime_error *this)
 }
 
 
-// ==== entry=00bf3610 name=~range_error size=19 ====
+// ==== entry=00bf3610 orig=FUN_00bf3610 size=19 name=~range_error ====
 
 /* std::range_error::~range_error() */
 
@@ -11860,7 +11860,7 @@ void __thiscall std::range_error::~range_error(range_error *this)
 }
 
 
-// ==== entry=00bf3630 name=~range_error size=18 ====
+// ==== entry=00bf3630 orig=FUN_00bf3630 size=18 name=~range_error ====
 
 /* std::range_error::~range_error() */
 
@@ -11873,7 +11873,7 @@ void __thiscall std::range_error::~range_error(range_error *this)
 }
 
 
-// ==== entry=00bf3650 name=~overflow_error size=19 ====
+// ==== entry=00bf3650 orig=FUN_00bf3650 size=19 name=~overflow_error ====
 
 /* std::overflow_error::~overflow_error() */
 
@@ -11886,7 +11886,7 @@ void __thiscall std::overflow_error::~overflow_error(overflow_error *this)
 }
 
 
-// ==== entry=00bf3670 name=~overflow_error size=18 ====
+// ==== entry=00bf3670 orig=FUN_00bf3670 size=18 name=~overflow_error ====
 
 /* std::overflow_error::~overflow_error() */
 
@@ -11899,7 +11899,7 @@ void __thiscall std::overflow_error::~overflow_error(overflow_error *this)
 }
 
 
-// ==== entry=00bf3690 name=~underflow_error size=19 ====
+// ==== entry=00bf3690 orig=FUN_00bf3690 size=19 name=~underflow_error ====
 
 /* std::underflow_error::~underflow_error() */
 
@@ -11912,7 +11912,7 @@ void __thiscall std::underflow_error::~underflow_error(underflow_error *this)
 }
 
 
-// ==== entry=00bf36b0 name=~underflow_error size=18 ====
+// ==== entry=00bf36b0 orig=FUN_00bf36b0 size=18 name=~underflow_error ====
 
 /* std::underflow_error::~underflow_error() */
 
@@ -11925,7 +11925,7 @@ void __thiscall std::underflow_error::~underflow_error(underflow_error *this)
 }
 
 
-// ==== entry=00bf36d0 name=logic_error size=40 ====
+// ==== entry=00bf36d0 orig=FUN_00bf36d0 size=40 name=logic_error ====
 
 /* std::logic_error::logic_error(std::string const&) */
 
@@ -11939,7 +11939,7 @@ void __thiscall std::logic_error::logic_error(logic_error *this,string *param_1)
 }
 
 
-// ==== entry=00bf3700 name=domain_error size=25 ====
+// ==== entry=00bf3700 orig=FUN_00bf3700 size=25 name=domain_error ====
 
 /* std::domain_error::domain_error(std::string const&) */
 
@@ -11952,7 +11952,7 @@ void __thiscall std::domain_error::domain_error(domain_error *this,string *param
 }
 
 
-// ==== entry=00bf3720 name=invalid_argument size=25 ====
+// ==== entry=00bf3720 orig=FUN_00bf3720 size=25 name=invalid_argument ====
 
 /* std::invalid_argument::invalid_argument(std::string const&) */
 
@@ -11965,7 +11965,7 @@ void __thiscall std::invalid_argument::invalid_argument(invalid_argument *this,s
 }
 
 
-// ==== entry=00bf3740 name=length_error size=25 ====
+// ==== entry=00bf3740 orig=FUN_00bf3740 size=25 name=length_error ====
 
 /* std::length_error::length_error(std::string const&) */
 
@@ -11978,7 +11978,7 @@ void __thiscall std::length_error::length_error(length_error *this,string *param
 }
 
 
-// ==== entry=00bf3760 name=out_of_range size=25 ====
+// ==== entry=00bf3760 orig=FUN_00bf3760 size=25 name=out_of_range ====
 
 /* std::out_of_range::out_of_range(std::string const&) */
 
@@ -11991,7 +11991,7 @@ void __thiscall std::out_of_range::out_of_range(out_of_range *this,string *param
 }
 
 
-// ==== entry=00bf3780 name=runtime_error size=40 ====
+// ==== entry=00bf3780 orig=FUN_00bf3780 size=40 name=runtime_error ====
 
 /* std::runtime_error::runtime_error(std::string const&) */
 
@@ -12005,7 +12005,7 @@ void __thiscall std::runtime_error::runtime_error(runtime_error *this,string *pa
 }
 
 
-// ==== entry=00bf37b0 name=range_error size=25 ====
+// ==== entry=00bf37b0 orig=FUN_00bf37b0 size=25 name=range_error ====
 
 /* std::range_error::range_error(std::string const&) */
 
@@ -12018,7 +12018,7 @@ void __thiscall std::range_error::range_error(range_error *this,string *param_1)
 }
 
 
-// ==== entry=00bf37d0 name=overflow_error size=25 ====
+// ==== entry=00bf37d0 orig=FUN_00bf37d0 size=25 name=overflow_error ====
 
 /* std::overflow_error::overflow_error(std::string const&) */
 
@@ -12031,7 +12031,7 @@ void __thiscall std::overflow_error::overflow_error(overflow_error *this,string 
 }
 
 
-// ==== entry=00bf37f0 name=underflow_error size=25 ====
+// ==== entry=00bf37f0 orig=FUN_00bf37f0 size=25 name=underflow_error ====
 
 /* std::underflow_error::underflow_error(std::string const&) */
 
@@ -12044,7 +12044,7 @@ void __thiscall std::underflow_error::underflow_error(underflow_error *this,stri
 }
 
 
-// ==== entry=00bf3810 name=allocator size=1 ====
+// ==== entry=00bf3810 orig=FUN_00bf3810 size=1 name=allocator ====
 
 /* std::allocator<char>::allocator() */
 
@@ -12055,7 +12055,7 @@ void std::allocator<char>::allocator(void)
 }
 
 
-// ==== entry=00bf3820 name=allocator size=1 ====
+// ==== entry=00bf3820 orig=FUN_00bf3820 size=1 name=allocator ====
 
 /* std::allocator<char>::allocator(std::allocator<char> const&) */
 
@@ -12066,7 +12066,7 @@ void std::allocator<char>::allocator(allocator *param_1)
 }
 
 
-// ==== entry=00bf3830 name=~allocator size=1 ====
+// ==== entry=00bf3830 orig=FUN_00bf3830 size=1 name=~allocator ====
 
 /* std::allocator<char>::~allocator() */
 
@@ -12077,7 +12077,7 @@ void __thiscall std::allocator<char>::~allocator(allocator<char> *this)
 }
 
 
-// ==== entry=00bf3840 name=allocator size=1 ====
+// ==== entry=00bf3840 orig=FUN_00bf3840 size=1 name=allocator ====
 
 /* std::allocator<wchar_t>::allocator() */
 
@@ -12088,7 +12088,7 @@ void std::allocator<wchar_t>::allocator(void)
 }
 
 
-// ==== entry=00bf3850 name=allocator size=1 ====
+// ==== entry=00bf3850 orig=FUN_00bf3850 size=1 name=allocator ====
 
 /* std::allocator<wchar_t>::allocator(std::allocator<wchar_t> const&) */
 
@@ -12099,7 +12099,7 @@ void std::allocator<wchar_t>::allocator(allocator *param_1)
 }
 
 
-// ==== entry=00bf3860 name=~allocator size=1 ====
+// ==== entry=00bf3860 orig=FUN_00bf3860 size=1 name=~allocator ====
 
 /* std::allocator<wchar_t>::~allocator() */
 
@@ -12110,7 +12110,7 @@ void __thiscall std::allocator<wchar_t>::~allocator(allocator<wchar_t> *this)
 }
 
 
-// ==== entry=00bf3870 name=imbue size=1 ====
+// ==== entry=00bf3870 orig=FUN_00bf3870 size=1 name=imbue ====
 
 /* std::streambuf::imbue(std::locale const&) */
 
@@ -12121,7 +12121,7 @@ void std::streambuf::imbue(locale *param_1)
 }
 
 
-// ==== entry=00bf3880 name=setbuf size=4 ====
+// ==== entry=00bf3880 orig=FUN_00bf3880 size=4 name=setbuf ====
 
 /* std::streambuf::setbuf(char*, long) */
 
@@ -12132,7 +12132,7 @@ char * std::streambuf::setbuf(char *param_1,long param_2)
 }
 
 
-// ==== entry=00bf3890 name=seekoff size=55 ====
+// ==== entry=00bf3890 orig=FUN_00bf3890 size=55 name=seekoff ====
 
 /* std::streambuf::seekoff(long, std::_Ios_Seekdir, std::_Ios_Openmode) */
 
@@ -12149,7 +12149,7 @@ undefined1  [16] std::streambuf::seekoff(void)
 }
 
 
-// ==== entry=00bf38d0 name=seekpos size=55 ====
+// ==== entry=00bf38d0 orig=FUN_00bf38d0 size=55 name=seekpos ====
 
 /* std::streambuf::seekpos(std::fpos<__mbstate_t>, std::_Ios_Openmode) */
 
@@ -12166,7 +12166,7 @@ undefined1  [16] std::streambuf::seekpos(void)
 }
 
 
-// ==== entry=00bf3910 name=sync size=3 ====
+// ==== entry=00bf3910 orig=FUN_00bf3910 size=3 name=sync ====
 
 /* std::streambuf::sync() */
 
@@ -12177,7 +12177,7 @@ undefined8 std::streambuf::sync(void)
 }
 
 
-// ==== entry=00bf3920 name=showmanyc size=3 ====
+// ==== entry=00bf3920 orig=FUN_00bf3920 size=3 name=showmanyc ====
 
 /* std::streambuf::showmanyc() */
 
@@ -12188,7 +12188,7 @@ undefined8 std::streambuf::showmanyc(void)
 }
 
 
-// ==== entry=00bf3930 name=underflow size=6 ====
+// ==== entry=00bf3930 orig=FUN_00bf3930 size=6 name=underflow ====
 
 /* std::streambuf::underflow() */
 
@@ -12199,7 +12199,7 @@ undefined8 std::streambuf::underflow(void)
 }
 
 
-// ==== entry=00bf3940 name=pbackfail size=6 ====
+// ==== entry=00bf3940 orig=FUN_00bf3940 size=6 name=pbackfail ====
 
 /* std::streambuf::pbackfail(int) */
 
@@ -12210,7 +12210,7 @@ undefined8 std::streambuf::pbackfail(int param_1)
 }
 
 
-// ==== entry=00bf3950 name=overflow size=6 ====
+// ==== entry=00bf3950 orig=FUN_00bf3950 size=6 name=overflow ====
 
 /* std::streambuf::overflow(int) */
 
@@ -12221,7 +12221,7 @@ undefined8 std::streambuf::overflow(int param_1)
 }
 
 
-// ==== entry=00bf3960 name=imbue size=1 ====
+// ==== entry=00bf3960 orig=FUN_00bf3960 size=1 name=imbue ====
 
 /* std::wstreambuf::imbue(std::locale const&) */
 
@@ -12232,7 +12232,7 @@ void std::wstreambuf::imbue(locale *param_1)
 }
 
 
-// ==== entry=00bf3970 name=setbuf size=4 ====
+// ==== entry=00bf3970 orig=FUN_00bf3970 size=4 name=setbuf ====
 
 /* std::wstreambuf::setbuf(wchar_t*, long) */
 
@@ -12243,7 +12243,7 @@ wchar_t * std::wstreambuf::setbuf(wchar_t *param_1,long param_2)
 }
 
 
-// ==== entry=00bf3980 name=seekoff size=55 ====
+// ==== entry=00bf3980 orig=FUN_00bf3980 size=55 name=seekoff ====
 
 /* std::wstreambuf::seekoff(long, std::_Ios_Seekdir, std::_Ios_Openmode) */
 
@@ -12260,7 +12260,7 @@ undefined1  [16] std::wstreambuf::seekoff(void)
 }
 
 
-// ==== entry=00bf39c0 name=seekpos size=55 ====
+// ==== entry=00bf39c0 orig=FUN_00bf39c0 size=55 name=seekpos ====
 
 /* std::wstreambuf::seekpos(std::fpos<__mbstate_t>, std::_Ios_Openmode) */
 
@@ -12277,7 +12277,7 @@ undefined1  [16] std::wstreambuf::seekpos(void)
 }
 
 
-// ==== entry=00bf3a00 name=sync size=3 ====
+// ==== entry=00bf3a00 orig=FUN_00bf3a00 size=3 name=sync ====
 
 /* std::wstreambuf::sync() */
 
@@ -12288,7 +12288,7 @@ undefined8 std::wstreambuf::sync(void)
 }
 
 
-// ==== entry=00bf3a10 name=showmanyc size=3 ====
+// ==== entry=00bf3a10 orig=FUN_00bf3a10 size=3 name=showmanyc ====
 
 /* std::wstreambuf::showmanyc() */
 
@@ -12299,7 +12299,7 @@ undefined8 std::wstreambuf::showmanyc(void)
 }
 
 
-// ==== entry=00bf3a20 name=underflow size=6 ====
+// ==== entry=00bf3a20 orig=FUN_00bf3a20 size=6 name=underflow ====
 
 /* std::wstreambuf::underflow() */
 
@@ -12310,7 +12310,7 @@ undefined8 std::wstreambuf::underflow(void)
 }
 
 
-// ==== entry=00bf3a30 name=pbackfail size=6 ====
+// ==== entry=00bf3a30 orig=FUN_00bf3a30 size=6 name=pbackfail ====
 
 /* std::wstreambuf::pbackfail(unsigned int) */
 
@@ -12321,7 +12321,7 @@ undefined8 std::wstreambuf::pbackfail(uint param_1)
 }
 
 
-// ==== entry=00bf3a40 name=overflow size=6 ====
+// ==== entry=00bf3a40 orig=FUN_00bf3a40 size=6 name=overflow ====
 
 /* std::wstreambuf::overflow(unsigned int) */
 
@@ -12332,7 +12332,7 @@ undefined8 std::wstreambuf::overflow(uint param_1)
 }
 
 
-// ==== entry=00bf3a50 name=~streambuf size=24 ====
+// ==== entry=00bf3a50 orig=FUN_00bf3a50 size=24 name=~streambuf ====
 
 /* std::streambuf::~streambuf() */
 
@@ -12345,7 +12345,7 @@ void __thiscall std::streambuf::~streambuf(streambuf *this)
 }
 
 
-// ==== entry=00bf3a70 name=~wstreambuf size=24 ====
+// ==== entry=00bf3a70 orig=FUN_00bf3a70 size=24 name=~wstreambuf ====
 
 /* std::wstreambuf::~wstreambuf() */
 
@@ -12358,7 +12358,7 @@ void __thiscall std::wstreambuf::~wstreambuf(wstreambuf *this)
 }
 
 
-// ==== entry=00bf3a90 name=~streambuf size=37 ====
+// ==== entry=00bf3a90 orig=FUN_00bf3a90 size=37 name=~streambuf ====
 
 /* std::streambuf::~streambuf() */
 
@@ -12372,7 +12372,7 @@ void __thiscall std::streambuf::~streambuf(streambuf *this)
 }
 
 
-// ==== entry=00bf3ac0 name=~wstreambuf size=37 ====
+// ==== entry=00bf3ac0 orig=FUN_00bf3ac0 size=37 name=~wstreambuf ====
 
 /* std::wstreambuf::~wstreambuf() */
 
@@ -12386,7 +12386,7 @@ void __thiscall std::wstreambuf::~wstreambuf(wstreambuf *this)
 }
 
 
-// ==== entry=00bf3af0 name=xsputn size=147 ====
+// ==== entry=00bf3af0 orig=FUN_00bf3af0 size=147 name=xsputn ====
 
 /* std::streambuf::xsputn(char const*, long) */
 
@@ -12432,7 +12432,7 @@ long __thiscall std::streambuf::xsputn(streambuf *this,char *param_1,long param_
 }
 
 
-// ==== entry=00bf3b90 name=xsputn size=162 ====
+// ==== entry=00bf3b90 orig=FUN_00bf3b90 size=162 name=xsputn ====
 
 /* std::wstreambuf::xsputn(wchar_t const*, long) */
 
@@ -12480,7 +12480,7 @@ long __thiscall std::wstreambuf::xsputn(wstreambuf *this,wchar_t *param_1,long p
 }
 
 
-// ==== entry=00bf3c40 name=uflow size=57 ====
+// ==== entry=00bf3c40 orig=FUN_00bf3c40 size=57 name=uflow ====
 
 /* std::streambuf::uflow() */
 
@@ -12503,7 +12503,7 @@ ulong __thiscall std::streambuf::uflow(streambuf *this)
 }
 
 
-// ==== entry=00bf3c90 name=uflow size=56 ====
+// ==== entry=00bf3c90 orig=FUN_00bf3c90 size=56 name=uflow ====
 
 /* std::wstreambuf::uflow() */
 
@@ -12526,7 +12526,7 @@ undefined4 __thiscall std::wstreambuf::uflow(wstreambuf *this)
 }
 
 
-// ==== entry=00bf3ce0 name=xsgetn size=207 ====
+// ==== entry=00bf3ce0 orig=FUN_00bf3ce0 size=207 name=xsgetn ====
 
 /* std::streambuf::xsgetn(char*, long) */
 
@@ -12591,7 +12591,7 @@ long __thiscall std::streambuf::xsgetn(streambuf *this,char *param_1,long param_
 }
 
 
-// ==== entry=00bf3dd0 name=xsgetn size=208 ====
+// ==== entry=00bf3dd0 orig=FUN_00bf3dd0 size=208 name=xsgetn ====
 
 /* std::wstreambuf::xsgetn(wchar_t*, long) */
 
@@ -12653,7 +12653,7 @@ long __thiscall std::wstreambuf::xsgetn(wstreambuf *this,wchar_t *param_1,long p
 }
 
 
-// ==== entry=00bf3eb0 name=pubimbue size=82 ====
+// ==== entry=00bf3eb0 orig=FUN_00bf3eb0 size=82 name=pubimbue ====
 
 /* std::streambuf::pubimbue(std::locale const&) */
 
@@ -12673,7 +12673,7 @@ locale * std::streambuf::pubimbue(locale *param_1)
 }
 
 
-// ==== entry=00bf3f20 name=getloc size=18 ====
+// ==== entry=00bf3f20 orig=FUN_00bf3f20 size=18 name=getloc ====
 
 /* std::streambuf::getloc() const */
 
@@ -12688,7 +12688,7 @@ void std::streambuf::getloc(void)
 }
 
 
-// ==== entry=00bf3f40 name=pubsetbuf size=22 ====
+// ==== entry=00bf3f40 orig=FUN_00bf3f40 size=22 name=pubsetbuf ====
 
 /* std::streambuf::pubsetbuf(char*, long) */
 
@@ -12707,7 +12707,7 @@ char * std::streambuf::pubsetbuf(char *param_1,long param_2)
 }
 
 
-// ==== entry=00bf3f60 name=pubseekoff size=93 ====
+// ==== entry=00bf3f60 orig=FUN_00bf3f60 size=93 name=pubseekoff ====
 
 /* std::streambuf::pubseekoff(long, std::_Ios_Seekdir, std::_Ios_Openmode) */
 
@@ -12734,7 +12734,7 @@ undefined8 std::streambuf::pubseekoff(long *param_1,undefined8 param_2,undefined
 }
 
 
-// ==== entry=00bf3fd0 name=pubseekpos size=93 ====
+// ==== entry=00bf3fd0 orig=FUN_00bf3fd0 size=93 name=pubseekpos ====
 
 /* std::streambuf::pubseekpos(std::fpos<__mbstate_t>, std::_Ios_Openmode) */
 
@@ -12762,7 +12762,7 @@ std::streambuf::pubseekpos(streambuf *this,undefined8 param_2,undefined8 param_3
 }
 
 
-// ==== entry=00bf4040 name=pubsync size=21 ====
+// ==== entry=00bf4040 orig=FUN_00bf4040 size=21 name=pubsync ====
 
 /* std::streambuf::pubsync() */
 
@@ -12781,7 +12781,7 @@ undefined8 __thiscall std::streambuf::pubsync(streambuf *this)
 }
 
 
-// ==== entry=00bf4060 name=in_avail size=29 ====
+// ==== entry=00bf4060 orig=FUN_00bf4060 size=29 name=in_avail ====
 
 /* std::streambuf::in_avail() */
 
@@ -12799,7 +12799,7 @@ void __thiscall std::streambuf::in_avail(streambuf *this)
 }
 
 
-// ==== entry=00bf4090 name=snextc size=138 ====
+// ==== entry=00bf4090 orig=FUN_00bf4090 size=138 name=snextc ====
 
 /* std::streambuf::snextc() */
 
@@ -12854,7 +12854,7 @@ ulong __thiscall std::streambuf::snextc(streambuf *this)
 }
 
 
-// ==== entry=00bf4140 name=sbumpc size=94 ====
+// ==== entry=00bf4140 orig=FUN_00bf4140 size=94 name=sbumpc ====
 
 /* std::streambuf::sbumpc() */
 
@@ -12894,7 +12894,7 @@ ulong __thiscall std::streambuf::sbumpc(streambuf *this)
 }
 
 
-// ==== entry=00bf41c0 name=sgetc size=38 ====
+// ==== entry=00bf41c0 orig=FUN_00bf41c0 size=38 name=sgetc ====
 
 /* std::streambuf::sgetc() */
 
@@ -12916,7 +12916,7 @@ ulong __thiscall std::streambuf::sgetc(streambuf *this)
 }
 
 
-// ==== entry=00bf4200 name=sgetn size=6 ====
+// ==== entry=00bf4200 orig=FUN_00bf4200 size=6 name=sgetn ====
 
 /* std::streambuf::sgetn(char*, long) */
 
@@ -12930,7 +12930,7 @@ void std::streambuf::sgetn(char *param_1,long param_2)
 }
 
 
-// ==== entry=00bf4210 name=sputbackc size=56 ====
+// ==== entry=00bf4210 orig=FUN_00bf4210 size=56 name=sputbackc ====
 
 /* std::streambuf::sputbackc(char) */
 
@@ -12957,7 +12957,7 @@ ulong __thiscall std::streambuf::sputbackc(streambuf *this,char param_1)
 }
 
 
-// ==== entry=00bf4250 name=sungetc size=49 ====
+// ==== entry=00bf4250 orig=FUN_00bf4250 size=49 name=sungetc ====
 
 /* std::streambuf::sungetc() */
 
@@ -12981,7 +12981,7 @@ ulong __thiscall std::streambuf::sungetc(streambuf *this)
 }
 
 
-// ==== entry=00bf42a0 name=sputc size=49 ====
+// ==== entry=00bf42a0 orig=FUN_00bf42a0 size=49 name=sputc ====
 
 /* std::streambuf::sputc(char) */
 
@@ -13005,7 +13005,7 @@ ulong __thiscall std::streambuf::sputc(streambuf *this,char param_1)
 }
 
 
-// ==== entry=00bf42f0 name=sputn size=6 ====
+// ==== entry=00bf42f0 orig=FUN_00bf42f0 size=6 name=sputn ====
 
 /* std::streambuf::sputn(char const*, long) */
 
@@ -13019,7 +13019,7 @@ void std::streambuf::sputn(char *param_1,long param_2)
 }
 
 
-// ==== entry=00bf4300 name=streambuf size=72 ====
+// ==== entry=00bf4300 orig=FUN_00bf4300 size=72 name=streambuf ====
 
 /* std::streambuf::streambuf() */
 
@@ -13038,7 +13038,7 @@ void __thiscall std::streambuf::streambuf(streambuf *this)
 }
 
 
-// ==== entry=00bf4350 name=eback size=5 ====
+// ==== entry=00bf4350 orig=FUN_00bf4350 size=5 name=eback ====
 
 /* std::streambuf::eback() const */
 
@@ -13049,7 +13049,7 @@ undefined8 __thiscall std::streambuf::eback(streambuf *this)
 }
 
 
-// ==== entry=00bf4360 name=gptr size=5 ====
+// ==== entry=00bf4360 orig=FUN_00bf4360 size=5 name=gptr ====
 
 /* std::streambuf::gptr() const */
 
@@ -13060,7 +13060,7 @@ undefined8 __thiscall std::streambuf::gptr(streambuf *this)
 }
 
 
-// ==== entry=00bf4370 name=egptr size=5 ====
+// ==== entry=00bf4370 orig=FUN_00bf4370 size=5 name=egptr ====
 
 /* std::streambuf::egptr() const */
 
@@ -13071,7 +13071,7 @@ undefined8 __thiscall std::streambuf::egptr(streambuf *this)
 }
 
 
-// ==== entry=00bf4380 name=gbump size=8 ====
+// ==== entry=00bf4380 orig=FUN_00bf4380 size=8 name=gbump ====
 
 /* std::streambuf::gbump(int) */
 
@@ -13083,7 +13083,7 @@ void __thiscall std::streambuf::gbump(streambuf *this,int param_1)
 }
 
 
-// ==== entry=00bf4390 name=setg size=13 ====
+// ==== entry=00bf4390 orig=FUN_00bf4390 size=13 name=setg ====
 
 /* std::streambuf::setg(char*, char*, char*) */
 
@@ -13097,7 +13097,7 @@ void __thiscall std::streambuf::setg(streambuf *this,char *param_1,char *param_2
 }
 
 
-// ==== entry=00bf43a0 name=pbase size=5 ====
+// ==== entry=00bf43a0 orig=FUN_00bf43a0 size=5 name=pbase ====
 
 /* std::streambuf::pbase() const */
 
@@ -13108,7 +13108,7 @@ undefined8 __thiscall std::streambuf::pbase(streambuf *this)
 }
 
 
-// ==== entry=00bf43b0 name=pptr size=5 ====
+// ==== entry=00bf43b0 orig=FUN_00bf43b0 size=5 name=pptr ====
 
 /* std::streambuf::pptr() const */
 
@@ -13119,7 +13119,7 @@ undefined8 __thiscall std::streambuf::pptr(streambuf *this)
 }
 
 
-// ==== entry=00bf43c0 name=epptr size=5 ====
+// ==== entry=00bf43c0 orig=FUN_00bf43c0 size=5 name=epptr ====
 
 /* std::streambuf::epptr() const */
 
@@ -13130,7 +13130,7 @@ undefined8 __thiscall std::streambuf::epptr(streambuf *this)
 }
 
 
-// ==== entry=00bf43d0 name=pbump size=8 ====
+// ==== entry=00bf43d0 orig=FUN_00bf43d0 size=8 name=pbump ====
 
 /* std::streambuf::pbump(int) */
 
@@ -13142,7 +13142,7 @@ void __thiscall std::streambuf::pbump(streambuf *this,int param_1)
 }
 
 
-// ==== entry=00bf43e0 name=setp size=13 ====
+// ==== entry=00bf43e0 orig=FUN_00bf43e0 size=13 name=setp ====
 
 /* std::streambuf::setp(char*, char*) */
 
@@ -13156,7 +13156,7 @@ void __thiscall std::streambuf::setp(streambuf *this,char *param_1,char *param_2
 }
 
 
-// ==== entry=00bf43f0 name=stossc size=69 ====
+// ==== entry=00bf43f0 orig=FUN_00bf43f0 size=69 name=stossc ====
 
 /* std::streambuf::stossc() */
 
@@ -13189,7 +13189,7 @@ void __thiscall std::streambuf::stossc(streambuf *this)
 }
 
 
-// ==== entry=00bf4450 name=__safe_gbump size=5 ====
+// ==== entry=00bf4450 orig=FUN_00bf4450 size=5 name=__safe_gbump ====
 
 /* std::streambuf::__safe_gbump(long) */
 
@@ -13201,7 +13201,7 @@ void __thiscall std::streambuf::__safe_gbump(streambuf *this,long param_1)
 }
 
 
-// ==== entry=00bf4460 name=__safe_pbump size=5 ====
+// ==== entry=00bf4460 orig=FUN_00bf4460 size=5 name=__safe_pbump ====
 
 /* std::streambuf::__safe_pbump(long) */
 
@@ -13213,7 +13213,7 @@ void __thiscall std::streambuf::__safe_pbump(streambuf *this,long param_1)
 }
 
 
-// ==== entry=00bf4470 name=streambuf size=76 ====
+// ==== entry=00bf4470 orig=FUN_00bf4470 size=76 name=streambuf ====
 
 /* std::streambuf::streambuf(std::streambuf const&) */
 
@@ -13232,7 +13232,7 @@ void __thiscall std::streambuf::streambuf(streambuf *this,streambuf *param_1)
 }
 
 
-// ==== entry=00bf44c0 name=operator= size=70 ====
+// ==== entry=00bf44c0 orig=FUN_00bf44c0 size=70 name=operator= ====
 
 /* std::streambuf::TEMPNAMEPLACEHOLDERVALUE(std::streambuf const&) */
 
@@ -13291,7 +13291,7 @@ void FUN_00bf4510(long param_1,long param_2)
 }
 
 
-// ==== entry=00bf45e0 name=__copy_streambufs<char,std::char_traits<char>> size=56 ====
+// ==== entry=00bf45e0 orig=FUN_00bf45e0 size=56 name=__copy_streambufs<char,std::char_traits<char>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* long std::__copy_streambufs<char, std::char_traits<char> >(std::streambuf*, std::streambuf*) */
@@ -13314,7 +13314,7 @@ long std::__copy_streambufs<char,std::char_traits<char>>(streambuf *param_1,stre
 }
 
 
-// ==== entry=00bf4620 name=pubimbue size=82 ====
+// ==== entry=00bf4620 orig=FUN_00bf4620 size=82 name=pubimbue ====
 
 /* std::wstreambuf::pubimbue(std::locale const&) */
 
@@ -13334,7 +13334,7 @@ locale * std::wstreambuf::pubimbue(locale *param_1)
 }
 
 
-// ==== entry=00bf4690 name=getloc size=18 ====
+// ==== entry=00bf4690 orig=FUN_00bf4690 size=18 name=getloc ====
 
 /* std::wstreambuf::getloc() const */
 
@@ -13349,7 +13349,7 @@ void std::wstreambuf::getloc(void)
 }
 
 
-// ==== entry=00bf46b0 name=pubsetbuf size=22 ====
+// ==== entry=00bf46b0 orig=FUN_00bf46b0 size=22 name=pubsetbuf ====
 
 /* std::wstreambuf::pubsetbuf(wchar_t*, long) */
 
@@ -13368,7 +13368,7 @@ wchar_t * std::wstreambuf::pubsetbuf(wchar_t *param_1,long param_2)
 }
 
 
-// ==== entry=00bf46d0 name=pubseekoff size=93 ====
+// ==== entry=00bf46d0 orig=FUN_00bf46d0 size=93 name=pubseekoff ====
 
 /* std::wstreambuf::pubseekoff(long, std::_Ios_Seekdir, std::_Ios_Openmode) */
 
@@ -13395,7 +13395,7 @@ undefined8 std::wstreambuf::pubseekoff(long *param_1,undefined8 param_2,undefine
 }
 
 
-// ==== entry=00bf4740 name=pubseekpos size=93 ====
+// ==== entry=00bf4740 orig=FUN_00bf4740 size=93 name=pubseekpos ====
 
 /* std::wstreambuf::pubseekpos(std::fpos<__mbstate_t>, std::_Ios_Openmode) */
 
@@ -13423,7 +13423,7 @@ std::wstreambuf::pubseekpos(wstreambuf *this,undefined8 param_2,undefined8 param
 }
 
 
-// ==== entry=00bf47b0 name=pubsync size=21 ====
+// ==== entry=00bf47b0 orig=FUN_00bf47b0 size=21 name=pubsync ====
 
 /* std::wstreambuf::pubsync() */
 
@@ -13442,7 +13442,7 @@ undefined8 __thiscall std::wstreambuf::pubsync(wstreambuf *this)
 }
 
 
-// ==== entry=00bf47d0 name=in_avail size=42 ====
+// ==== entry=00bf47d0 orig=FUN_00bf47d0 size=42 name=in_avail ====
 
 /* std::wstreambuf::in_avail() */
 
@@ -13464,7 +13464,7 @@ long __thiscall std::wstreambuf::in_avail(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4810 name=snextc size=118 ====
+// ==== entry=00bf4810 orig=FUN_00bf4810 size=118 name=snextc ====
 
 /* std::wstreambuf::snextc() */
 
@@ -13511,7 +13511,7 @@ LAB_00bf4828:
 }
 
 
-// ==== entry=00bf48a0 name=sbumpc size=92 ====
+// ==== entry=00bf48a0 orig=FUN_00bf48a0 size=92 name=sbumpc ====
 
 /* std::wstreambuf::sbumpc() */
 
@@ -13551,7 +13551,7 @@ ulong __thiscall std::wstreambuf::sbumpc(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4910 name=sgetc size=37 ====
+// ==== entry=00bf4910 orig=FUN_00bf4910 size=37 name=sgetc ====
 
 /* std::wstreambuf::sgetc() */
 
@@ -13573,7 +13573,7 @@ ulong __thiscall std::wstreambuf::sgetc(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4950 name=sgetn size=6 ====
+// ==== entry=00bf4950 orig=FUN_00bf4950 size=6 name=sgetn ====
 
 /* std::wstreambuf::sgetn(wchar_t*, long) */
 
@@ -13587,7 +13587,7 @@ void std::wstreambuf::sgetn(wchar_t *param_1,long param_2)
 }
 
 
-// ==== entry=00bf4960 name=sputbackc size=49 ====
+// ==== entry=00bf4960 orig=FUN_00bf4960 size=49 name=sputbackc ====
 
 /* std::wstreambuf::sputbackc(wchar_t) */
 
@@ -13615,7 +13615,7 @@ ulong __thiscall std::wstreambuf::sputbackc(wstreambuf *this,wchar_t param_1)
 }
 
 
-// ==== entry=00bf49a0 name=sungetc size=48 ====
+// ==== entry=00bf49a0 orig=FUN_00bf49a0 size=48 name=sungetc ====
 
 /* std::wstreambuf::sungetc() */
 
@@ -13641,7 +13641,7 @@ ulong __thiscall std::wstreambuf::sungetc(wstreambuf *this)
 }
 
 
-// ==== entry=00bf49f0 name=sputc size=47 ====
+// ==== entry=00bf49f0 orig=FUN_00bf49f0 size=47 name=sputc ====
 
 /* std::wstreambuf::sputc(wchar_t) */
 
@@ -13667,7 +13667,7 @@ ulong __thiscall std::wstreambuf::sputc(wstreambuf *this,wchar_t param_1)
 }
 
 
-// ==== entry=00bf4a40 name=sputn size=6 ====
+// ==== entry=00bf4a40 orig=FUN_00bf4a40 size=6 name=sputn ====
 
 /* std::wstreambuf::sputn(wchar_t const*, long) */
 
@@ -13681,7 +13681,7 @@ void std::wstreambuf::sputn(wchar_t *param_1,long param_2)
 }
 
 
-// ==== entry=00bf4a50 name=wstreambuf size=72 ====
+// ==== entry=00bf4a50 orig=FUN_00bf4a50 size=72 name=wstreambuf ====
 
 /* std::wstreambuf::wstreambuf() */
 
@@ -13700,7 +13700,7 @@ void __thiscall std::wstreambuf::wstreambuf(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4aa0 name=eback size=5 ====
+// ==== entry=00bf4aa0 orig=FUN_00bf4aa0 size=5 name=eback ====
 
 /* std::wstreambuf::eback() const */
 
@@ -13711,7 +13711,7 @@ undefined8 __thiscall std::wstreambuf::eback(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4ab0 name=gptr size=5 ====
+// ==== entry=00bf4ab0 orig=FUN_00bf4ab0 size=5 name=gptr ====
 
 /* std::wstreambuf::gptr() const */
 
@@ -13722,7 +13722,7 @@ undefined8 __thiscall std::wstreambuf::gptr(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4ac0 name=egptr size=5 ====
+// ==== entry=00bf4ac0 orig=FUN_00bf4ac0 size=5 name=egptr ====
 
 /* std::wstreambuf::egptr() const */
 
@@ -13733,7 +13733,7 @@ undefined8 __thiscall std::wstreambuf::egptr(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4ad0 name=gbump size=12 ====
+// ==== entry=00bf4ad0 orig=FUN_00bf4ad0 size=12 name=gbump ====
 
 /* std::wstreambuf::gbump(int) */
 
@@ -13745,7 +13745,7 @@ void __thiscall std::wstreambuf::gbump(wstreambuf *this,int param_1)
 }
 
 
-// ==== entry=00bf4ae0 name=setg size=13 ====
+// ==== entry=00bf4ae0 orig=FUN_00bf4ae0 size=13 name=setg ====
 
 /* std::wstreambuf::setg(wchar_t*, wchar_t*, wchar_t*) */
 
@@ -13760,7 +13760,7 @@ std::wstreambuf::setg(wstreambuf *this,wchar_t *param_1,wchar_t *param_2,wchar_t
 }
 
 
-// ==== entry=00bf4af0 name=pbase size=5 ====
+// ==== entry=00bf4af0 orig=FUN_00bf4af0 size=5 name=pbase ====
 
 /* std::wstreambuf::pbase() const */
 
@@ -13771,7 +13771,7 @@ undefined8 __thiscall std::wstreambuf::pbase(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4b00 name=pptr size=5 ====
+// ==== entry=00bf4b00 orig=FUN_00bf4b00 size=5 name=pptr ====
 
 /* std::wstreambuf::pptr() const */
 
@@ -13782,7 +13782,7 @@ undefined8 __thiscall std::wstreambuf::pptr(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4b10 name=epptr size=5 ====
+// ==== entry=00bf4b10 orig=FUN_00bf4b10 size=5 name=epptr ====
 
 /* std::wstreambuf::epptr() const */
 
@@ -13793,7 +13793,7 @@ undefined8 __thiscall std::wstreambuf::epptr(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4b20 name=pbump size=12 ====
+// ==== entry=00bf4b20 orig=FUN_00bf4b20 size=12 name=pbump ====
 
 /* std::wstreambuf::pbump(int) */
 
@@ -13805,7 +13805,7 @@ void __thiscall std::wstreambuf::pbump(wstreambuf *this,int param_1)
 }
 
 
-// ==== entry=00bf4b30 name=setp size=13 ====
+// ==== entry=00bf4b30 orig=FUN_00bf4b30 size=13 name=setp ====
 
 /* std::wstreambuf::setp(wchar_t*, wchar_t*) */
 
@@ -13819,7 +13819,7 @@ void __thiscall std::wstreambuf::setp(wstreambuf *this,wchar_t *param_1,wchar_t 
 }
 
 
-// ==== entry=00bf4b40 name=stossc size=69 ====
+// ==== entry=00bf4b40 orig=FUN_00bf4b40 size=69 name=stossc ====
 
 /* std::wstreambuf::stossc() */
 
@@ -13852,7 +13852,7 @@ void __thiscall std::wstreambuf::stossc(wstreambuf *this)
 }
 
 
-// ==== entry=00bf4ba0 name=__safe_gbump size=9 ====
+// ==== entry=00bf4ba0 orig=FUN_00bf4ba0 size=9 name=__safe_gbump ====
 
 /* std::wstreambuf::__safe_gbump(long) */
 
@@ -13864,7 +13864,7 @@ void __thiscall std::wstreambuf::__safe_gbump(wstreambuf *this,long param_1)
 }
 
 
-// ==== entry=00bf4bb0 name=__safe_pbump size=9 ====
+// ==== entry=00bf4bb0 orig=FUN_00bf4bb0 size=9 name=__safe_pbump ====
 
 /* std::wstreambuf::__safe_pbump(long) */
 
@@ -13876,7 +13876,7 @@ void __thiscall std::wstreambuf::__safe_pbump(wstreambuf *this,long param_1)
 }
 
 
-// ==== entry=00bf4bc0 name=wstreambuf size=76 ====
+// ==== entry=00bf4bc0 orig=FUN_00bf4bc0 size=76 name=wstreambuf ====
 
 /* std::wstreambuf::wstreambuf(std::wstreambuf const&) */
 
@@ -13895,7 +13895,7 @@ void __thiscall std::wstreambuf::wstreambuf(wstreambuf *this,wstreambuf *param_1
 }
 
 
-// ==== entry=00bf4c10 name=operator= size=70 ====
+// ==== entry=00bf4c10 orig=FUN_00bf4c10 size=70 name=operator= ====
 
 /* std::wstreambuf::TEMPNAMEPLACEHOLDERVALUE(std::wstreambuf const&) */
 
@@ -13954,7 +13954,7 @@ void FUN_00bf4c60(long param_1,long param_2)
 }
 
 
-// ==== entry=00bf4d30 name=__copy_streambufs<wchar_t,std::char_traits<wchar_t>> size=56 ====
+// ==== entry=00bf4d30 orig=FUN_00bf4d30 size=56 name=__copy_streambufs<wchar_t,std::char_traits<wchar_t>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* long std::__copy_streambufs<wchar_t, std::char_traits<wchar_t> >(std::wstreambuf*,
@@ -14084,7 +14084,7 @@ void FUN_00bf4ff0(void *param_1)
 }
 
 
-// ==== entry=00bf5010 name=join size=44 ====
+// ==== entry=00bf5010 orig=FUN_00bf5010 size=44 name=join ====
 
 /* std::thread::join() */
 
@@ -14108,7 +14108,7 @@ void __thiscall std::thread::join(thread *this)
 }
 
 
-// ==== entry=00bf5040 name=detach size=42 ====
+// ==== entry=00bf5040 orig=FUN_00bf5040 size=42 name=detach ====
 
 /* std::thread::detach() */
 
@@ -14149,7 +14149,7 @@ void FUN_00bf5070(pthread_t *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00bf50a0 name=hardware_concurrency size=24 ====
+// ==== entry=00bf50a0 orig=FUN_00bf50a0 size=24 name=hardware_concurrency ====
 
 /* std::thread::hardware_concurrency() */
 
@@ -14166,7 +14166,7 @@ int std::thread::hardware_concurrency(void)
 }
 
 
-// ==== entry=00bf50c0 name=__sleep_for size=88 ====
+// ==== entry=00bf50c0 orig=FUN_00bf50c0 size=88 name=__sleep_for ====
 
 /* std::this_thread::__sleep_for(std::chrono::duration<long, std::ratio<1l, 1l> >,
    std::chrono::duration<long, std::ratio<1l, 1000000000l> >) */
@@ -14312,7 +14312,7 @@ void FUN_00bf51f0(pthread_t *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00bf5310 name=_M_start_thread size=226 ====
+// ==== entry=00bf5310 orig=FUN_00bf5310 size=226 name=_M_start_thread ====
 
 /* WARNING: Removing unreachable block (ram,0x00bf53d4) */
 /* std::thread::_M_start_thread(std::shared_ptr<std::thread::_Impl_base>) */
@@ -17382,7 +17382,7 @@ undefined8 * FUN_00bf85e0(long param_1,undefined *param_2)
 }
 
 
-// ==== entry=00bf90b0 name=do_narrow size=3 ====
+// ==== entry=00bf90b0 orig=FUN_00bf90b0 size=3 name=do_narrow ====
 
 /* std::ctype<char>::do_narrow(char, char) const */
 
@@ -17634,7 +17634,7 @@ void FUN_00bf9340(facet *param_1)
 }
 
 
-// ==== entry=00bf9360 name=do_widen size=25 ====
+// ==== entry=00bf9360 orig=FUN_00bf9360 size=25 name=do_widen ====
 
 /* std::ctype<char>::do_widen(char const*, char const*, char*) const */
 
@@ -28518,7 +28518,7 @@ LAB_00c0938e:
 }
 
 
-// ==== entry=00c094c0 name=_M_next_bkt size=418 ====
+// ==== entry=00c094c0 orig=FUN_00c094c0 size=418 name=_M_next_bkt ====
 
 /* std::__detail::_Prime_rehash_policy::_M_next_bkt(unsigned long) const */
 
@@ -28587,7 +28587,7 @@ LAB_00c09507:
 }
 
 
-// ==== entry=00c09680 name=_M_need_rehash size=443 ====
+// ==== entry=00c09680 orig=FUN_00c09680 size=443 name=_M_need_rehash ====
 
 /* std::__detail::_Prime_rehash_policy::_M_need_rehash(unsigned long, unsigned long, unsigned long)
    const */
@@ -31974,7 +31974,7 @@ __locale_struct * FUN_00c0d3c0(__locale_data *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00c0de90 name=_M_data size=4 ====
+// ==== entry=00c0de90 orig=FUN_00c0de90 size=4 name=_M_data ====
 
 /* std::wstring::_M_data() const */
 
@@ -31985,7 +31985,7 @@ undefined8 __thiscall std::wstring::_M_data(wstring *this)
 }
 
 
-// ==== entry=00c0dea0 name=_M_data size=7 ====
+// ==== entry=00c0dea0 orig=FUN_00c0dea0 size=7 name=_M_data ====
 
 /* std::wstring::_M_data(wchar_t*) */
 
@@ -31997,7 +31997,7 @@ wchar_t * __thiscall std::wstring::_M_data(wstring *this,wchar_t *param_1)
 }
 
 
-// ==== entry=00c0deb0 name=_M_rep size=8 ====
+// ==== entry=00c0deb0 orig=FUN_00c0deb0 size=8 name=_M_rep ====
 
 /* std::wstring::_M_rep() const */
 
@@ -32008,7 +32008,7 @@ long __thiscall std::wstring::_M_rep(wstring *this)
 }
 
 
-// ==== entry=00c0dec0 name=_M_ibegin size=4 ====
+// ==== entry=00c0dec0 orig=FUN_00c0dec0 size=4 name=_M_ibegin ====
 
 /* std::wstring::_M_ibegin() const */
 
@@ -32019,7 +32019,7 @@ undefined8 __thiscall std::wstring::_M_ibegin(wstring *this)
 }
 
 
-// ==== entry=00c0ded0 name=_M_iend size=12 ====
+// ==== entry=00c0ded0 orig=FUN_00c0ded0 size=12 name=_M_iend ====
 
 /* std::wstring::_M_iend() const */
 
@@ -32030,7 +32030,7 @@ long __thiscall std::wstring::_M_iend(wstring *this)
 }
 
 
-// ==== entry=00c0dee0 name=_M_check size=37 ====
+// ==== entry=00c0dee0 orig=FUN_00c0dee0 size=37 name=_M_check ====
 
 /* std::wstring::_M_check(unsigned long, char const*) const */
 
@@ -32046,7 +32046,7 @@ void __thiscall std::wstring::_M_check(wstring *this,ulong param_1,char *param_2
 }
 
 
-// ==== entry=00c0df10 name=_M_check_length size=35 ====
+// ==== entry=00c0df10 orig=FUN_00c0df10 size=35 name=_M_check_length ====
 
 /* std::wstring::_M_check_length(unsigned long, unsigned long, char const*) const */
 
@@ -32062,7 +32062,7 @@ std::wstring::_M_check_length(wstring *this,ulong param_1,ulong param_2,char *pa
 }
 
 
-// ==== entry=00c0df40 name=_M_limit size=18 ====
+// ==== entry=00c0df40 orig=FUN_00c0df40 size=18 name=_M_limit ====
 
 /* std::wstring::_M_limit(unsigned long, unsigned long) const */
 
@@ -32079,7 +32079,7 @@ ulong __thiscall std::wstring::_M_limit(wstring *this,ulong param_1,ulong param_
 }
 
 
-// ==== entry=00c0df60 name=_M_disjunct size=28 ====
+// ==== entry=00c0df60 orig=FUN_00c0df60 size=28 name=_M_disjunct ====
 
 /* std::wstring::_M_disjunct(wchar_t const*) const */
 
@@ -32099,7 +32099,7 @@ undefined8 __thiscall std::wstring::_M_disjunct(wstring *this,wchar_t *param_1)
 }
 
 
-// ==== entry=00c0df80 name=_M_copy size=22 ====
+// ==== entry=00c0df80 orig=FUN_00c0df80 size=22 name=_M_copy ====
 
 /* std::wstring::_M_copy(wchar_t*, wchar_t const*, unsigned long) */
 
@@ -32118,7 +32118,7 @@ void std::wstring::_M_copy(wchar_t *param_1,wchar_t *param_2,ulong param_3)
 }
 
 
-// ==== entry=00c0dfa0 name=_M_move size=22 ====
+// ==== entry=00c0dfa0 orig=FUN_00c0dfa0 size=22 name=_M_move ====
 
 /* std::wstring::_M_move(wchar_t*, wchar_t const*, unsigned long) */
 
@@ -32137,7 +32137,7 @@ void std::wstring::_M_move(wchar_t *param_1,wchar_t *param_2,ulong param_3)
 }
 
 
-// ==== entry=00c0dfc0 name=_M_assign size=27 ====
+// ==== entry=00c0dfc0 orig=FUN_00c0dfc0 size=27 name=_M_assign ====
 
 /* std::wstring::_M_assign(wchar_t*, unsigned long, wchar_t) */
 
@@ -32156,7 +32156,7 @@ void std::wstring::_M_assign(wchar_t *param_1,ulong param_2,wchar_t param_3)
 }
 
 
-// ==== entry=00c0dff0 name=_S_copy_chars size=29 ====
+// ==== entry=00c0dff0 orig=FUN_00c0dff0 size=29 name=_S_copy_chars ====
 
 /* std::wstring::_S_copy_chars(wchar_t*, __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >) */
@@ -32179,7 +32179,7 @@ void std::wstring::_S_copy_chars(wchar_t *param_1,wchar_t *param_2,long param_3)
 }
 
 
-// ==== entry=00c0e020 name=_S_copy_chars size=29 ====
+// ==== entry=00c0e020 orig=FUN_00c0e020 size=29 name=_S_copy_chars ====
 
 /* std::wstring::_S_copy_chars(wchar_t*, __gnu_cxx::__normal_iterator<wchar_t const*, std::wstring
    >, __gnu_cxx::__normal_iterator<wchar_t const*, std::wstring >) */
@@ -32202,7 +32202,7 @@ void std::wstring::_S_copy_chars(wchar_t *param_1,wchar_t *param_2,long param_3)
 }
 
 
-// ==== entry=00c0e050 name=_S_copy_chars size=29 ====
+// ==== entry=00c0e050 orig=FUN_00c0e050 size=29 name=_S_copy_chars ====
 
 /* std::wstring::_S_copy_chars(wchar_t*, wchar_t*, wchar_t*) */
 
@@ -32224,7 +32224,7 @@ void std::wstring::_S_copy_chars(wchar_t *param_1,wchar_t *param_2,wchar_t *para
 }
 
 
-// ==== entry=00c0e080 name=_S_copy_chars size=29 ====
+// ==== entry=00c0e080 orig=FUN_00c0e080 size=29 name=_S_copy_chars ====
 
 /* std::wstring::_S_copy_chars(wchar_t*, wchar_t const*, wchar_t const*) */
 
@@ -32246,7 +32246,7 @@ void std::wstring::_S_copy_chars(wchar_t *param_1,wchar_t *param_2,wchar_t *para
 }
 
 
-// ==== entry=00c0e0b0 name=_S_compare size=31 ====
+// ==== entry=00c0e0b0 orig=FUN_00c0e0b0 size=31 name=_S_compare ====
 
 /* std::wstring::_S_compare(unsigned long, unsigned long) */
 
@@ -32265,7 +32265,7 @@ ulong std::wstring::_S_compare(ulong param_1,ulong param_2)
 }
 
 
-// ==== entry=00c0e0d0 name=_S_empty_rep size=8 ====
+// ==== entry=00c0e0d0 orig=FUN_00c0e0d0 size=8 name=_S_empty_rep ====
 
 /* std::wstring::_S_empty_rep() */
 
@@ -32276,7 +32276,7 @@ undefined8 * std::wstring::_S_empty_rep(void)
 }
 
 
-// ==== entry=00c0e0e0 name=wstring size=15 ====
+// ==== entry=00c0e0e0 orig=FUN_00c0e0e0 size=15 name=wstring ====
 
 /* std::wstring::wstring() */
 
@@ -32288,7 +32288,7 @@ void __thiscall std::wstring::wstring(wstring *this)
 }
 
 
-// ==== entry=00c0e0f0 name=wstring size=21 ====
+// ==== entry=00c0e0f0 orig=FUN_00c0e0f0 size=21 name=wstring ====
 
 /* std::wstring::wstring(std::wstring&&) */
 
@@ -32301,7 +32301,7 @@ void __thiscall std::wstring::wstring(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=00c0e110 name=begin size=4 ====
+// ==== entry=00c0e110 orig=FUN_00c0e110 size=4 name=begin ====
 
 /* std::wstring::begin() const */
 
@@ -32312,7 +32312,7 @@ undefined8 __thiscall std::wstring::begin(wstring *this)
 }
 
 
-// ==== entry=00c0e120 name=end size=12 ====
+// ==== entry=00c0e120 orig=FUN_00c0e120 size=12 name=end ====
 
 /* std::wstring::end() const */
 
@@ -32323,7 +32323,7 @@ long __thiscall std::wstring::end(wstring *this)
 }
 
 
-// ==== entry=00c0e130 name=rbegin size=18 ====
+// ==== entry=00c0e130 orig=FUN_00c0e130 size=18 name=rbegin ====
 
 /* std::wstring::rbegin() const */
 
@@ -32338,7 +32338,7 @@ void std::wstring::rbegin(void)
 }
 
 
-// ==== entry=00c0e150 name=rend size=10 ====
+// ==== entry=00c0e150 orig=FUN_00c0e150 size=10 name=rend ====
 
 /* std::wstring::rend() const */
 
@@ -32353,7 +32353,7 @@ void std::wstring::rend(void)
 }
 
 
-// ==== entry=00c0e160 name=cbegin size=4 ====
+// ==== entry=00c0e160 orig=FUN_00c0e160 size=4 name=cbegin ====
 
 /* std::wstring::cbegin() const */
 
@@ -32364,7 +32364,7 @@ undefined8 __thiscall std::wstring::cbegin(wstring *this)
 }
 
 
-// ==== entry=00c0e170 name=cend size=12 ====
+// ==== entry=00c0e170 orig=FUN_00c0e170 size=12 name=cend ====
 
 /* std::wstring::cend() const */
 
@@ -32375,7 +32375,7 @@ long __thiscall std::wstring::cend(wstring *this)
 }
 
 
-// ==== entry=00c0e180 name=crbegin size=18 ====
+// ==== entry=00c0e180 orig=FUN_00c0e180 size=18 name=crbegin ====
 
 /* std::wstring::crbegin() const */
 
@@ -32390,7 +32390,7 @@ void std::wstring::crbegin(void)
 }
 
 
-// ==== entry=00c0e1a0 name=crend size=10 ====
+// ==== entry=00c0e1a0 orig=FUN_00c0e1a0 size=10 name=crend ====
 
 /* std::wstring::crend() const */
 
@@ -32405,7 +32405,7 @@ void std::wstring::crend(void)
 }
 
 
-// ==== entry=00c0e1b0 name=size size=8 ====
+// ==== entry=00c0e1b0 orig=FUN_00c0e1b0 size=8 name=size ====
 
 /* std::wstring::size() const */
 
@@ -32416,7 +32416,7 @@ undefined8 __thiscall std::wstring::size(wstring *this)
 }
 
 
-// ==== entry=00c0e1c0 name=length size=8 ====
+// ==== entry=00c0e1c0 orig=FUN_00c0e1c0 size=8 name=length ====
 
 /* std::wstring::length() const */
 
@@ -32427,7 +32427,7 @@ undefined8 __thiscall std::wstring::length(wstring *this)
 }
 
 
-// ==== entry=00c0e1d0 name=max_size size=11 ====
+// ==== entry=00c0e1d0 orig=FUN_00c0e1d0 size=11 name=max_size ====
 
 /* std::wstring::max_size() const */
 
@@ -32438,7 +32438,7 @@ undefined8 std::wstring::max_size(void)
 }
 
 
-// ==== entry=00c0e1e0 name=capacity size=8 ====
+// ==== entry=00c0e1e0 orig=FUN_00c0e1e0 size=8 name=capacity ====
 
 /* std::wstring::capacity() const */
 
@@ -32449,7 +32449,7 @@ undefined8 __thiscall std::wstring::capacity(wstring *this)
 }
 
 
-// ==== entry=00c0e1f0 name=empty size=12 ====
+// ==== entry=00c0e1f0 orig=FUN_00c0e1f0 size=12 name=empty ====
 
 /* std::wstring::empty() const */
 
@@ -32460,7 +32460,7 @@ undefined8 __thiscall std::wstring::empty(wstring *this)
 }
 
 
-// ==== entry=00c0e200 name=operator[] size=8 ====
+// ==== entry=00c0e200 orig=FUN_00c0e200 size=8 name=operator[] ====
 
 /* std::wstring::operator[](unsigned long) const */
 
@@ -32471,7 +32471,7 @@ long __thiscall std::wstring::operator[](wstring *this,ulong param_1)
 }
 
 
-// ==== entry=00c0e210 name=at size=32 ====
+// ==== entry=00c0e210 orig=FUN_00c0e210 size=32 name=at ====
 
 /* std::wstring::at(unsigned long) const */
 
@@ -32486,7 +32486,7 @@ long __thiscall std::wstring::at(wstring *this,ulong param_1)
 }
 
 
-// ==== entry=00c0e230 name=front size=4 ====
+// ==== entry=00c0e230 orig=FUN_00c0e230 size=4 name=front ====
 
 /* std::wstring::front() const */
 
@@ -32497,7 +32497,7 @@ undefined8 __thiscall std::wstring::front(wstring *this)
 }
 
 
-// ==== entry=00c0e240 name=back size=13 ====
+// ==== entry=00c0e240 orig=FUN_00c0e240 size=13 name=back ====
 
 /* std::wstring::back() const */
 
@@ -32508,7 +32508,7 @@ long __thiscall std::wstring::back(wstring *this)
 }
 
 
-// ==== entry=00c0e250 name=copy size=97 ====
+// ==== entry=00c0e250 orig=FUN_00c0e250 size=97 name=copy ====
 
 /* std::wstring::copy(wchar_t*, unsigned long, unsigned long) const */
 
@@ -32542,7 +32542,7 @@ size_t __thiscall std::wstring::copy(wstring *this,wchar_t *param_1,ulong param_
 }
 
 
-// ==== entry=00c0e2c0 name=operator= size=14 ====
+// ==== entry=00c0e2c0 orig=FUN_00c0e2c0 size=14 name=operator= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(std::wstring&&) */
 
@@ -32554,7 +32554,7 @@ wstring * __thiscall std::wstring::operator=(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=00c0e2d0 name=assign size=14 ====
+// ==== entry=00c0e2d0 orig=FUN_00c0e2d0 size=14 name=assign ====
 
 /* std::wstring::assign(std::wstring&&) */
 
@@ -32566,7 +32566,7 @@ wstring * __thiscall std::wstring::assign(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=00c0e2e0 name=c_str size=4 ====
+// ==== entry=00c0e2e0 orig=FUN_00c0e2e0 size=4 name=c_str ====
 
 /* std::wstring::c_str() const */
 
@@ -32577,7 +32577,7 @@ undefined8 __thiscall std::wstring::c_str(wstring *this)
 }
 
 
-// ==== entry=00c0e2f0 name=data size=4 ====
+// ==== entry=00c0e2f0 orig=FUN_00c0e2f0 size=4 name=data ====
 
 /* std::wstring::data() const */
 
@@ -32588,7 +32588,7 @@ undefined8 __thiscall std::wstring::data(wstring *this)
 }
 
 
-// ==== entry=00c0e300 name=get_allocator size=4 ====
+// ==== entry=00c0e300 orig=FUN_00c0e300 size=4 name=get_allocator ====
 
 /* std::wstring::get_allocator() const */
 
@@ -32599,7 +32599,7 @@ wstring * __thiscall std::wstring::get_allocator(wstring *this)
 }
 
 
-// ==== entry=00c0e310 name=find size=219 ====
+// ==== entry=00c0e310 orig=FUN_00c0e310 size=219 name=find ====
 
 /* std::wstring::find(wchar_t const*, unsigned long, unsigned long) const */
 
@@ -32649,7 +32649,7 @@ ulong __thiscall std::wstring::find(wstring *this,wchar_t *param_1,ulong param_2
 }
 
 
-// ==== entry=00c0e400 name=find size=12 ====
+// ==== entry=00c0e400 orig=FUN_00c0e400 size=12 name=find ====
 
 /* std::wstring::find(std::wstring const&, unsigned long) const */
 
@@ -32661,7 +32661,7 @@ void __thiscall std::wstring::find(wstring *this,wstring *param_1,ulong param_2)
 }
 
 
-// ==== entry=00c0e410 name=find size=42 ====
+// ==== entry=00c0e410 orig=FUN_00c0e410 size=42 name=find ====
 
 /* std::wstring::find(wchar_t const*, unsigned long) const */
 
@@ -32676,7 +32676,7 @@ void __thiscall std::wstring::find(wstring *this,wchar_t *param_1,ulong param_2)
 }
 
 
-// ==== entry=00c0e440 name=find size=71 ====
+// ==== entry=00c0e440 orig=FUN_00c0e440 size=71 name=find ====
 
 /* std::wstring::find(wchar_t, unsigned long) const */
 
@@ -32699,7 +32699,7 @@ long __thiscall std::wstring::find(wstring *this,wchar_t param_1,ulong param_2)
 }
 
 
-// ==== entry=00c0e490 name=rfind size=113 ====
+// ==== entry=00c0e490 orig=FUN_00c0e490 size=113 name=rfind ====
 
 /* std::wstring::rfind(wchar_t const*, unsigned long, unsigned long) const */
 
@@ -32734,7 +32734,7 @@ ulong __thiscall std::wstring::rfind(wstring *this,wchar_t *param_1,ulong param_
 }
 
 
-// ==== entry=00c0e510 name=rfind size=12 ====
+// ==== entry=00c0e510 orig=FUN_00c0e510 size=12 name=rfind ====
 
 /* std::wstring::rfind(std::wstring const&, unsigned long) const */
 
@@ -32746,7 +32746,7 @@ void __thiscall std::wstring::rfind(wstring *this,wstring *param_1,ulong param_2
 }
 
 
-// ==== entry=00c0e520 name=rfind size=42 ====
+// ==== entry=00c0e520 orig=FUN_00c0e520 size=42 name=rfind ====
 
 /* std::wstring::rfind(wchar_t const*, unsigned long) const */
 
@@ -32761,7 +32761,7 @@ void __thiscall std::wstring::rfind(wstring *this,wchar_t *param_1,ulong param_2
 }
 
 
-// ==== entry=00c0e550 name=rfind size=48 ====
+// ==== entry=00c0e550 orig=FUN_00c0e550 size=48 name=rfind ====
 
 /* std::wstring::rfind(wchar_t, unsigned long) const */
 
@@ -32788,7 +32788,7 @@ void __thiscall std::wstring::rfind(wstring *this,wchar_t param_1,ulong param_2)
 }
 
 
-// ==== entry=00c0e580 name=find_first_of size=102 ====
+// ==== entry=00c0e580 orig=FUN_00c0e580 size=102 name=find_first_of ====
 
 /* std::wstring::find_first_of(wchar_t const*, unsigned long, unsigned long) const */
 
@@ -32818,7 +32818,7 @@ std::wstring::find_first_of(wstring *this,wchar_t *param_1,ulong param_2,ulong p
 }
 
 
-// ==== entry=00c0e5f0 name=find_first_of size=12 ====
+// ==== entry=00c0e5f0 orig=FUN_00c0e5f0 size=12 name=find_first_of ====
 
 /* std::wstring::find_first_of(std::wstring const&, unsigned long) const */
 
@@ -32830,7 +32830,7 @@ void __thiscall std::wstring::find_first_of(wstring *this,wstring *param_1,ulong
 }
 
 
-// ==== entry=00c0e600 name=find_first_of size=42 ====
+// ==== entry=00c0e600 orig=FUN_00c0e600 size=42 name=find_first_of ====
 
 /* std::wstring::find_first_of(wchar_t const*, unsigned long) const */
 
@@ -32845,7 +32845,7 @@ void __thiscall std::wstring::find_first_of(wstring *this,wchar_t *param_1,ulong
 }
 
 
-// ==== entry=00c0e630 name=find_first_of size=5 ====
+// ==== entry=00c0e630 orig=FUN_00c0e630 size=5 name=find_first_of ====
 
 /* std::wstring::find_first_of(wchar_t, unsigned long) const */
 
@@ -32868,7 +32868,7 @@ long __thiscall std::wstring::find_first_of(wstring *this,wchar_t param_1,ulong 
 }
 
 
-// ==== entry=00c0e640 name=find_last_of size=115 ====
+// ==== entry=00c0e640 orig=FUN_00c0e640 size=115 name=find_last_of ====
 
 /* std::wstring::find_last_of(wchar_t const*, unsigned long, unsigned long) const */
 
@@ -32901,7 +32901,7 @@ std::wstring::find_last_of(wstring *this,wchar_t *param_1,ulong param_2,ulong pa
 }
 
 
-// ==== entry=00c0e6c0 name=find_last_of size=12 ====
+// ==== entry=00c0e6c0 orig=FUN_00c0e6c0 size=12 name=find_last_of ====
 
 /* std::wstring::find_last_of(std::wstring const&, unsigned long) const */
 
@@ -32913,7 +32913,7 @@ void __thiscall std::wstring::find_last_of(wstring *this,wstring *param_1,ulong 
 }
 
 
-// ==== entry=00c0e6d0 name=find_last_of size=42 ====
+// ==== entry=00c0e6d0 orig=FUN_00c0e6d0 size=42 name=find_last_of ====
 
 /* std::wstring::find_last_of(wchar_t const*, unsigned long) const */
 
@@ -32928,7 +32928,7 @@ void __thiscall std::wstring::find_last_of(wstring *this,wchar_t *param_1,ulong 
 }
 
 
-// ==== entry=00c0e700 name=find_last_of size=5 ====
+// ==== entry=00c0e700 orig=FUN_00c0e700 size=5 name=find_last_of ====
 
 /* std::wstring::find_last_of(wchar_t, unsigned long) const */
 
@@ -32955,7 +32955,7 @@ void __thiscall std::wstring::find_last_of(wstring *this,wchar_t param_1,ulong p
 }
 
 
-// ==== entry=00c0e710 name=find_first_not_of size=96 ====
+// ==== entry=00c0e710 orig=FUN_00c0e710 size=96 name=find_first_not_of ====
 
 /* std::wstring::find_first_not_of(wchar_t const*, unsigned long, unsigned long) const */
 
@@ -32985,7 +32985,7 @@ std::wstring::find_first_not_of(wstring *this,wchar_t *param_1,ulong param_2,ulo
 }
 
 
-// ==== entry=00c0e780 name=find_first_not_of size=12 ====
+// ==== entry=00c0e780 orig=FUN_00c0e780 size=12 name=find_first_not_of ====
 
 /* std::wstring::find_first_not_of(std::wstring const&, unsigned long) const */
 
@@ -32997,7 +32997,7 @@ void __thiscall std::wstring::find_first_not_of(wstring *this,wstring *param_1,u
 }
 
 
-// ==== entry=00c0e790 name=find_first_not_of size=42 ====
+// ==== entry=00c0e790 orig=FUN_00c0e790 size=42 name=find_first_not_of ====
 
 /* std::wstring::find_first_not_of(wchar_t const*, unsigned long) const */
 
@@ -33012,7 +33012,7 @@ void __thiscall std::wstring::find_first_not_of(wstring *this,wchar_t *param_1,u
 }
 
 
-// ==== entry=00c0e7c0 name=find_first_not_of size=52 ====
+// ==== entry=00c0e7c0 orig=FUN_00c0e7c0 size=52 name=find_first_not_of ====
 
 /* std::wstring::find_first_not_of(wchar_t, unsigned long) const */
 
@@ -33040,7 +33040,7 @@ ulong __thiscall std::wstring::find_first_not_of(wstring *this,wchar_t param_1,u
 }
 
 
-// ==== entry=00c0e810 name=find_last_not_of size=98 ====
+// ==== entry=00c0e810 orig=FUN_00c0e810 size=98 name=find_last_not_of ====
 
 /* std::wstring::find_last_not_of(wchar_t const*, unsigned long, unsigned long) const */
 
@@ -33077,7 +33077,7 @@ std::wstring::find_last_not_of(wstring *this,wchar_t *param_1,ulong param_2,ulon
 }
 
 
-// ==== entry=00c0e880 name=find_last_not_of size=12 ====
+// ==== entry=00c0e880 orig=FUN_00c0e880 size=12 name=find_last_not_of ====
 
 /* std::wstring::find_last_not_of(std::wstring const&, unsigned long) const */
 
@@ -33089,7 +33089,7 @@ void __thiscall std::wstring::find_last_not_of(wstring *this,wstring *param_1,ul
 }
 
 
-// ==== entry=00c0e890 name=find_last_not_of size=42 ====
+// ==== entry=00c0e890 orig=FUN_00c0e890 size=42 name=find_last_not_of ====
 
 /* std::wstring::find_last_not_of(wchar_t const*, unsigned long) const */
 
@@ -33104,7 +33104,7 @@ void __thiscall std::wstring::find_last_not_of(wstring *this,wchar_t *param_1,ul
 }
 
 
-// ==== entry=00c0e8c0 name=find_last_not_of size=47 ====
+// ==== entry=00c0e8c0 orig=FUN_00c0e8c0 size=47 name=find_last_not_of ====
 
 /* std::wstring::find_last_not_of(wchar_t, unsigned long) const */
 
@@ -33131,7 +33131,7 @@ void __thiscall std::wstring::find_last_not_of(wstring *this,wchar_t param_1,ulo
 }
 
 
-// ==== entry=00c0e8f0 name=compare size=137 ====
+// ==== entry=00c0e8f0 orig=FUN_00c0e8f0 size=137 name=compare ====
 
 /* std::wstring::compare(unsigned long, unsigned long, std::wstring const&) const */
 
@@ -33174,7 +33174,7 @@ ulong __thiscall std::wstring::compare(wstring *this,ulong param_1,ulong param_2
 }
 
 
-// ==== entry=00c0e990 name=compare size=187 ====
+// ==== entry=00c0e990 orig=FUN_00c0e990 size=187 name=compare ====
 
 /* std::wstring::compare(unsigned long, unsigned long, std::wstring const&, unsigned long, unsigned
    long) const */
@@ -33231,7 +33231,7 @@ std::wstring::compare
 }
 
 
-// ==== entry=00c0ea60 name=compare size=103 ====
+// ==== entry=00c0ea60 orig=FUN_00c0ea60 size=103 name=compare ====
 
 /* std::wstring::compare(wchar_t const*) const */
 
@@ -33266,7 +33266,7 @@ ulong __thiscall std::wstring::compare(wstring *this,wchar_t *param_1)
 }
 
 
-// ==== entry=00c0ead0 name=compare size=154 ====
+// ==== entry=00c0ead0 orig=FUN_00c0ead0 size=154 name=compare ====
 
 /* std::wstring::compare(unsigned long, unsigned long, wchar_t const*) const */
 
@@ -33311,7 +33311,7 @@ ulong __thiscall std::wstring::compare(wstring *this,ulong param_1,ulong param_2
 }
 
 
-// ==== entry=00c0eb70 name=compare size=133 ====
+// ==== entry=00c0eb70 orig=FUN_00c0eb70 size=133 name=compare ====
 
 /* std::wstring::compare(unsigned long, unsigned long, wchar_t const*, unsigned long) const */
 
@@ -33353,7 +33353,7 @@ std::wstring::compare(wstring *this,ulong param_1,ulong param_2,wchar_t *param_3
 }
 
 
-// ==== entry=00c0ec00 name=_Alloc_hider size=4 ====
+// ==== entry=00c0ec00 orig=FUN_00c0ec00 size=4 name=_Alloc_hider ====
 
 /* std::wstring::_Alloc_hider::_Alloc_hider(wchar_t*, std::allocator<wchar_t> const&) */
 
@@ -33366,7 +33366,7 @@ std::wstring::_Alloc_hider::_Alloc_hider(_Alloc_hider *this,wchar_t *param_1,all
 }
 
 
-// ==== entry=00c0ec10 name=_S_empty_rep size=8 ====
+// ==== entry=00c0ec10 orig=FUN_00c0ec10 size=8 name=_S_empty_rep ====
 
 /* std::wstring::_Rep::_S_empty_rep() */
 
@@ -33377,7 +33377,7 @@ undefined8 * std::wstring::_Rep::_S_empty_rep(void)
 }
 
 
-// ==== entry=00c0ec20 name=_M_is_leaked size=7 ====
+// ==== entry=00c0ec20 orig=FUN_00c0ec20 size=7 name=_M_is_leaked ====
 
 /* std::wstring::_Rep::_M_is_leaked() const */
 
@@ -33388,7 +33388,7 @@ uint __thiscall std::wstring::_Rep::_M_is_leaked(_Rep *this)
 }
 
 
-// ==== entry=00c0ec30 name=_M_is_shared size=9 ====
+// ==== entry=00c0ec30 orig=FUN_00c0ec30 size=9 name=_M_is_shared ====
 
 /* std::wstring::_Rep::_M_is_shared() const */
 
@@ -33399,7 +33399,7 @@ undefined4 __thiscall std::wstring::_Rep::_M_is_shared(_Rep *this)
 }
 
 
-// ==== entry=00c0ec40 name=_M_set_leaked size=8 ====
+// ==== entry=00c0ec40 orig=FUN_00c0ec40 size=8 name=_M_set_leaked ====
 
 /* std::wstring::_Rep::_M_set_leaked() */
 
@@ -33411,7 +33411,7 @@ void __thiscall std::wstring::_Rep::_M_set_leaked(_Rep *this)
 }
 
 
-// ==== entry=00c0ec50 name=_M_set_sharable size=8 ====
+// ==== entry=00c0ec50 orig=FUN_00c0ec50 size=8 name=_M_set_sharable ====
 
 /* std::wstring::_Rep::_M_set_sharable() */
 
@@ -33423,7 +33423,7 @@ void __thiscall std::wstring::_Rep::_M_set_sharable(_Rep *this)
 }
 
 
-// ==== entry=00c0ec60 name=_M_set_length_and_sharable size=29 ====
+// ==== entry=00c0ec60 orig=FUN_00c0ec60 size=29 name=_M_set_length_and_sharable ====
 
 /* std::wstring::_Rep::_M_set_length_and_sharable(unsigned long) */
 
@@ -33440,7 +33440,7 @@ void __thiscall std::wstring::_Rep::_M_set_length_and_sharable(_Rep *this,ulong 
 }
 
 
-// ==== entry=00c0ec90 name=_M_refdata size=5 ====
+// ==== entry=00c0ec90 orig=FUN_00c0ec90 size=5 name=_M_refdata ====
 
 /* std::wstring::_Rep::_M_refdata() */
 
@@ -33451,7 +33451,7 @@ _Rep * __thiscall std::wstring::_Rep::_M_refdata(_Rep *this)
 }
 
 
-// ==== entry=00c0eca0 name=_S_construct size=118 ====
+// ==== entry=00c0eca0 orig=FUN_00c0eca0 size=118 name=_S_construct ====
 
 /* std::wstring::_S_construct(unsigned long, wchar_t, std::allocator<wchar_t> const&) */
 
@@ -33483,7 +33483,7 @@ wchar_t * std::wstring::_S_construct(ulong param_1,wchar_t param_2,allocator *pa
 }
 
 
-// ==== entry=00c0ed30 name=wstring size=21 ====
+// ==== entry=00c0ed30 orig=FUN_00c0ed30 size=21 name=wstring ====
 
 /* std::wstring::wstring(std::allocator<wchar_t> const&) */
 
@@ -33498,7 +33498,7 @@ void __thiscall std::wstring::wstring(wstring *this,allocator *param_1)
 }
 
 
-// ==== entry=00c0ed50 name=wstring size=22 ====
+// ==== entry=00c0ed50 orig=FUN_00c0ed50 size=22 name=wstring ====
 
 /* std::wstring::wstring(unsigned long, wchar_t, std::allocator<wchar_t> const&) */
 
@@ -33514,7 +33514,7 @@ std::wstring::wstring(wstring *this,ulong param_1,wchar_t param_2,allocator *par
 }
 
 
-// ==== entry=00c0ed70 name=_S_construct_aux_2 size=5 ====
+// ==== entry=00c0ed70 orig=FUN_00c0ed70 size=5 name=_S_construct_aux_2 ====
 
 /* std::wstring::_S_construct_aux_2(unsigned long, wchar_t, std::allocator<wchar_t> const&) */
 
@@ -33571,7 +33571,7 @@ wchar_t * FUN_00c0ed80(wchar_t *param_1,long param_2,allocator *param_3)
 }
 
 
-// ==== entry=00c0ee00 name=_M_destroy size=5 ====
+// ==== entry=00c0ee00 orig=FUN_00c0ee00 size=5 name=_M_destroy ====
 
 /* std::wstring::_Rep::_M_destroy(std::allocator<wchar_t> const&) */
 
@@ -33606,7 +33606,7 @@ void FUN_00c0ee10(allocator *param_1)
 }
 
 
-// ==== entry=00c0ee50 name=_M_dispose size=50 ====
+// ==== entry=00c0ee50 orig=FUN_00c0ee50 size=50 name=_M_dispose ====
 
 /* WARNING: Removing unreachable block (ram,0x00c0ee80) */
 /* std::wstring::_Rep::_M_dispose(std::allocator<wchar_t> const&) */
@@ -33632,7 +33632,7 @@ void std::wstring::_Rep::_M_dispose(allocator *param_1)
 }
 
 
-// ==== entry=00c0ee90 name=~wstring size=109 ====
+// ==== entry=00c0ee90 orig=FUN_00c0ee90 size=109 name=~wstring ====
 
 /* WARNING: Removing unreachable block (ram,0x00c0eef8) */
 /* std::wstring::~wstring() */
@@ -33666,7 +33666,7 @@ void __thiscall std::wstring::~wstring(wstring *this)
 }
 
 
-// ==== entry=00c0ef10 name=clear size=172 ====
+// ==== entry=00c0ef10 orig=FUN_00c0ef10 size=172 name=clear ====
 
 /* WARNING: Removing unreachable block (ram,0x00c0efb8) */
 /* std::wstring::clear() */
@@ -33710,7 +33710,7 @@ void __thiscall std::wstring::clear(wstring *this)
 }
 
 
-// ==== entry=00c0efd0 name=front size=25 ====
+// ==== entry=00c0efd0 orig=FUN_00c0efd0 size=25 name=front ====
 
 /* std::wstring::front() */
 
@@ -33725,7 +33725,7 @@ long __thiscall std::wstring::front(wstring *this)
 }
 
 
-// ==== entry=00c0eff0 name=rend size=47 ====
+// ==== entry=00c0eff0 orig=FUN_00c0eff0 size=47 name=rend ====
 
 /* std::wstring::rend() */
 
@@ -33746,7 +33746,7 @@ void std::wstring::rend(void)
 }
 
 
-// ==== entry=00c0f020 name=begin size=25 ====
+// ==== entry=00c0f020 orig=FUN_00c0f020 size=25 name=begin ====
 
 /* std::wstring::begin() */
 
@@ -33761,7 +33761,7 @@ long __thiscall std::wstring::begin(wstring *this)
 }
 
 
-// ==== entry=00c0f040 name=operator[] size=41 ====
+// ==== entry=00c0f040 orig=FUN_00c0f040 size=41 name=operator[] ====
 
 /* std::wstring::operator[](unsigned long) */
 
@@ -33779,7 +33779,7 @@ long __thiscall std::wstring::operator[](wstring *this,ulong param_1)
 }
 
 
-// ==== entry=00c0f070 name=end size=41 ====
+// ==== entry=00c0f070 orig=FUN_00c0f070 size=41 name=end ====
 
 /* std::wstring::end() */
 
@@ -33797,7 +33797,7 @@ long __thiscall std::wstring::end(wstring *this)
 }
 
 
-// ==== entry=00c0f0a0 name=rbegin size=55 ====
+// ==== entry=00c0f0a0 orig=FUN_00c0f0a0 size=55 name=rbegin ====
 
 /* std::wstring::rbegin() */
 
@@ -33818,7 +33818,7 @@ void std::wstring::rbegin(void)
 }
 
 
-// ==== entry=00c0f0e0 name=back size=47 ====
+// ==== entry=00c0f0e0 orig=FUN_00c0f0e0 size=47 name=back ====
 
 /* std::wstring::back() */
 
@@ -33838,7 +33838,7 @@ long __thiscall std::wstring::back(wstring *this)
 }
 
 
-// ==== entry=00c0f110 name=at size=65 ====
+// ==== entry=00c0f110 orig=FUN_00c0f110 size=65 name=at ====
 
 /* std::wstring::at(unsigned long) */
 
@@ -33860,7 +33860,7 @@ long __thiscall std::wstring::at(wstring *this,ulong param_1)
 }
 
 
-// ==== entry=00c0f160 name=erase size=68 ====
+// ==== entry=00c0f160 orig=FUN_00c0f160 size=68 name=erase ====
 
 /* std::wstring::erase(unsigned long, unsigned long) */
 
@@ -33884,7 +33884,7 @@ wstring * __thiscall std::wstring::erase(wstring *this,ulong param_1,ulong param
 }
 
 
-// ==== entry=00c0f1b0 name=erase size=55 ====
+// ==== entry=00c0f1b0 orig=FUN_00c0f1b0 size=55 name=erase ====
 
 /* std::wstring::erase(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >) */
 
@@ -33902,7 +33902,7 @@ long __thiscall std::wstring::erase(wstring *this,long param_2)
 }
 
 
-// ==== entry=00c0f1f0 name=erase size=64 ====
+// ==== entry=00c0f1f0 orig=FUN_00c0f1f0 size=64 name=erase ====
 
 /* std::wstring::erase(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >) */
@@ -33926,7 +33926,7 @@ long __thiscall std::wstring::erase(wstring *this,long param_2,long param_3)
 }
 
 
-// ==== entry=00c0f240 name=_M_replace_aux size=128 ====
+// ==== entry=00c0f240 orig=FUN_00c0f240 size=128 name=_M_replace_aux ====
 
 /* std::wstring::_M_replace_aux(unsigned long, unsigned long, unsigned long, wchar_t) */
 
@@ -33954,7 +33954,7 @@ std::wstring::_M_replace_aux
 }
 
 
-// ==== entry=00c0f2d0 name=assign size=20 ====
+// ==== entry=00c0f2d0 orig=FUN_00c0f2d0 size=20 name=assign ====
 
 /* std::wstring::assign(unsigned long, wchar_t) */
 
@@ -33966,7 +33966,7 @@ void __thiscall std::wstring::assign(wstring *this,ulong param_1,wchar_t param_2
 }
 
 
-// ==== entry=00c0f2f0 name=operator= size=31 ====
+// ==== entry=00c0f2f0 orig=FUN_00c0f2f0 size=31 name=operator= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(wchar_t) */
 
@@ -33978,7 +33978,7 @@ wstring * __thiscall std::wstring::operator=(wstring *this,wchar_t param_1)
 }
 
 
-// ==== entry=00c0f310 name=insert size=50 ====
+// ==== entry=00c0f310 orig=FUN_00c0f310 size=50 name=insert ====
 
 /* std::wstring::insert(unsigned long, unsigned long, wchar_t) */
 
@@ -33996,7 +33996,7 @@ void __thiscall std::wstring::insert(wstring *this,ulong param_1,ulong param_2,w
 }
 
 
-// ==== entry=00c0f350 name=insert size=58 ====
+// ==== entry=00c0f350 orig=FUN_00c0f350 size=58 name=insert ====
 
 /* std::wstring::insert(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, wchar_t) */
 
@@ -34014,7 +34014,7 @@ long __thiscall std::wstring::insert(wstring *this,long param_2,wchar_t param_3)
 }
 
 
-// ==== entry=00c0f390 name=replace size=58 ====
+// ==== entry=00c0f390 orig=FUN_00c0f390 size=58 name=replace ====
 
 /* std::wstring::replace(unsigned long, unsigned long, unsigned long, wchar_t) */
 
@@ -34041,7 +34041,7 @@ std::wstring::replace(wstring *this,ulong param_1,ulong param_2,ulong param_3,wc
 }
 
 
-// ==== entry=00c0f3d0 name=replace size=19 ====
+// ==== entry=00c0f3d0 orig=FUN_00c0f3d0 size=19 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, unsigned long, wchar_t) */
@@ -34055,7 +34055,7 @@ std::wstring::replace(wstring *this,long param_2,long param_3,ulong param_4,wcha
 }
 
 
-// ==== entry=00c0f3f0 name=insert size=20 ====
+// ==== entry=00c0f3f0 orig=FUN_00c0f3f0 size=20 name=insert ====
 
 /* std::wstring::insert(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, unsigned long,
    wchar_t) */
@@ -34068,7 +34068,7 @@ void __thiscall std::wstring::insert(wstring *this,long param_2,ulong param_3,wc
 }
 
 
-// ==== entry=00c0f410 name=assign size=234 ====
+// ==== entry=00c0f410 orig=FUN_00c0f410 size=234 name=assign ====
 
 /* std::wstring::assign(wchar_t const*, unsigned long) */
 
@@ -34124,7 +34124,7 @@ LAB_00c0f4a0:
 }
 
 
-// ==== entry=00c0f510 name=operator= size=14 ====
+// ==== entry=00c0f510 orig=FUN_00c0f510 size=14 name=operator= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(std::initializer_list<wchar_t>) */
 
@@ -34136,7 +34136,7 @@ wstring * __thiscall std::wstring::operator=(wstring *this,wchar_t *param_2,ulon
 }
 
 
-// ==== entry=00c0f520 name=assign size=62 ====
+// ==== entry=00c0f520 orig=FUN_00c0f520 size=62 name=assign ====
 
 /* std::wstring::assign(std::wstring const&, unsigned long, unsigned long) */
 
@@ -34166,7 +34166,7 @@ void std::wstring::assign(wstring *param_1,ulong param_2,ulong param_3)
 }
 
 
-// ==== entry=00c0f560 name=assign size=40 ====
+// ==== entry=00c0f560 orig=FUN_00c0f560 size=40 name=assign ====
 
 /* std::wstring::assign(wchar_t const*) */
 
@@ -34181,7 +34181,7 @@ void __thiscall std::wstring::assign(wstring *this,wchar_t *param_1)
 }
 
 
-// ==== entry=00c0f590 name=operator= size=40 ====
+// ==== entry=00c0f590 orig=FUN_00c0f590 size=40 name=operator= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(wchar_t const*) */
 
@@ -34196,7 +34196,7 @@ void __thiscall std::wstring::operator=(wstring *this,wchar_t *param_1)
 }
 
 
-// ==== entry=00c0f5c0 name=assign size=5 ====
+// ==== entry=00c0f5c0 orig=FUN_00c0f5c0 size=5 name=assign ====
 
 /* std::wstring::assign(std::initializer_list<wchar_t>) */
 
@@ -34252,7 +34252,7 @@ LAB_00c0f4a0:
 }
 
 
-// ==== entry=00c0f5d0 name=insert size=398 ====
+// ==== entry=00c0f5d0 orig=FUN_00c0f5d0 size=398 name=insert ====
 
 /* std::wstring::insert(unsigned long, wchar_t const*, unsigned long) */
 
@@ -34325,7 +34325,7 @@ std::wstring::insert(wstring *this,ulong param_1,wchar_t *param_2,ulong param_3)
 }
 
 
-// ==== entry=00c0f770 name=insert size=12 ====
+// ==== entry=00c0f770 orig=FUN_00c0f770 size=12 name=insert ====
 
 /* std::wstring::insert(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    std::initializer_list<wchar_t>) */
@@ -34338,7 +34338,7 @@ void std::wstring::insert(wstring *param_1,long param_2,wchar_t *param_3,ulong p
 }
 
 
-// ==== entry=00c0f780 name=insert size=65 ====
+// ==== entry=00c0f780 orig=FUN_00c0f780 size=65 name=insert ====
 
 /* std::wstring::insert(unsigned long, std::wstring const&, unsigned long, unsigned long) */
 
@@ -34365,7 +34365,7 @@ std::wstring::insert(wstring *this,ulong param_1,wstring *param_2,ulong param_3,
 }
 
 
-// ==== entry=00c0f7d0 name=insert size=42 ====
+// ==== entry=00c0f7d0 orig=FUN_00c0f7d0 size=42 name=insert ====
 
 /* std::wstring::insert(unsigned long, wchar_t const*) */
 
@@ -34380,7 +34380,7 @@ void __thiscall std::wstring::insert(wstring *this,ulong param_1,wchar_t *param_
 }
 
 
-// ==== entry=00c0f800 name=insert size=12 ====
+// ==== entry=00c0f800 orig=FUN_00c0f800 size=12 name=insert ====
 
 /* std::wstring::insert(unsigned long, std::wstring const&) */
 
@@ -34392,7 +34392,7 @@ void __thiscall std::wstring::insert(wstring *this,ulong param_1,wstring *param_
 }
 
 
-// ==== entry=00c0f810 name=pop_back size=56 ====
+// ==== entry=00c0f810 orig=FUN_00c0f810 size=56 name=pop_back ====
 
 /* std::wstring::pop_back() */
 
@@ -34415,7 +34415,7 @@ void __thiscall std::wstring::pop_back(wstring *this)
 }
 
 
-// ==== entry=00c0f850 name=_M_refcopy size=37 ====
+// ==== entry=00c0f850 orig=FUN_00c0f850 size=37 name=_M_refcopy ====
 
 /* WARNING: Removing unreachable block (ram,0x00c0f878) */
 /* std::wstring::_Rep::_M_refcopy() */
@@ -34432,7 +34432,7 @@ _Rep * __thiscall std::wstring::_Rep::_M_refcopy(_Rep *this)
 }
 
 
-// ==== entry=00c0f880 name=shrink_to_fit size=30 ====
+// ==== entry=00c0f880 orig=FUN_00c0f880 size=30 name=shrink_to_fit ====
 
 /* std::wstring::shrink_to_fit() */
 
@@ -34448,7 +34448,7 @@ void __thiscall std::wstring::shrink_to_fit(wstring *this)
 }
 
 
-// ==== entry=00c0f8b0 name=append size=150 ====
+// ==== entry=00c0f8b0 orig=FUN_00c0f8b0 size=150 name=append ====
 
 /* std::wstring::append(std::wstring const&) */
 
@@ -34485,7 +34485,7 @@ wstring * __thiscall std::wstring::append(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=00c0f960 name=operator+= size=5 ====
+// ==== entry=00c0f960 orig=FUN_00c0f960 size=5 name=operator+= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(std::wstring const&) */
 
@@ -34522,7 +34522,7 @@ wstring * __thiscall std::wstring::operator+=(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=00c0f970 name=append size=196 ====
+// ==== entry=00c0f970 orig=FUN_00c0f970 size=196 name=append ====
 
 /* std::wstring::append(std::wstring const&, unsigned long, unsigned long) */
 
@@ -34572,7 +34572,7 @@ std::wstring::append(wstring *this,wstring *param_1,ulong param_2,ulong param_3)
 }
 
 
-// ==== entry=00c0fa40 name=append size=244 ====
+// ==== entry=00c0fa40 orig=FUN_00c0fa40 size=244 name=append ====
 
 /* std::wstring::append(wchar_t const*, unsigned long) */
 
@@ -34624,7 +34624,7 @@ joined_r0x00c0fb00:
 }
 
 
-// ==== entry=00c0fb50 name=operator+= size=5 ====
+// ==== entry=00c0fb50 orig=FUN_00c0fb50 size=5 name=operator+= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(std::initializer_list<wchar_t>) */
 
@@ -34676,7 +34676,7 @@ joined_r0x00c0fb00:
 }
 
 
-// ==== entry=00c0fb60 name=append size=40 ====
+// ==== entry=00c0fb60 orig=FUN_00c0fb60 size=40 name=append ====
 
 /* std::wstring::append(wchar_t const*) */
 
@@ -34691,7 +34691,7 @@ void __thiscall std::wstring::append(wstring *this,wchar_t *param_1)
 }
 
 
-// ==== entry=00c0fb90 name=operator+= size=40 ====
+// ==== entry=00c0fb90 orig=FUN_00c0fb90 size=40 name=operator+= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(wchar_t const*) */
 
@@ -34706,7 +34706,7 @@ void __thiscall std::wstring::operator+=(wstring *this,wchar_t *param_1)
 }
 
 
-// ==== entry=00c0fbc0 name=append size=5 ====
+// ==== entry=00c0fbc0 orig=FUN_00c0fbc0 size=5 name=append ====
 
 /* std::wstring::append(std::initializer_list<wchar_t>) */
 
@@ -34758,7 +34758,7 @@ joined_r0x00c0fb00:
 }
 
 
-// ==== entry=00c0fbd0 name=resize size=7 ====
+// ==== entry=00c0fbd0 orig=FUN_00c0fbd0 size=7 name=resize ====
 
 /* std::wstring::resize(unsigned long) */
 
@@ -34770,7 +34770,7 @@ void __thiscall std::wstring::resize(wstring *this,ulong param_1)
 }
 
 
-// ==== entry=00c0fbe0 name=push_back size=95 ====
+// ==== entry=00c0fbe0 orig=FUN_00c0fbe0 size=95 name=push_back ====
 
 /* std::wstring::push_back(wchar_t) */
 
@@ -34797,7 +34797,7 @@ void __thiscall std::wstring::push_back(wstring *this,wchar_t param_1)
 }
 
 
-// ==== entry=00c0fc50 name=operator+= size=98 ====
+// ==== entry=00c0fc50 orig=FUN_00c0fc50 size=98 name=operator+= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(wchar_t) */
 
@@ -34824,7 +34824,7 @@ wstring * __thiscall std::wstring::operator+=(wstring *this,wchar_t param_1)
 }
 
 
-// ==== entry=00c0fcc0 name=_M_grab size=54 ====
+// ==== entry=00c0fcc0 orig=FUN_00c0fcc0 size=54 name=_M_grab ====
 
 /* WARNING: Removing unreachable block (ram,0x00c0fd00) */
 /* std::wstring::_Rep::_M_grab(std::allocator<wchar_t> const&, std::allocator<wchar_t> const&) */
@@ -34847,7 +34847,7 @@ allocator * std::wstring::_Rep::_M_grab(allocator *param_1,allocator *param_2)
 }
 
 
-// ==== entry=00c0fd10 name=wstring size=117 ====
+// ==== entry=00c0fd10 orig=FUN_00c0fd10 size=117 name=wstring ====
 
 /* WARNING: Removing unreachable block (ram,0x00c0fd88) */
 /* std::wstring::wstring(std::wstring const&) */
@@ -34879,7 +34879,7 @@ void __thiscall std::wstring::wstring(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=00c0fda0 name=operator= size=5 ====
+// ==== entry=00c0fda0 orig=FUN_00c0fda0 size=5 name=operator= ====
 
 /* std::wstring::TEMPNAMEPLACEHOLDERVALUE(std::wstring const&) */
 
@@ -34900,7 +34900,7 @@ wstring * __thiscall std::wstring::operator=(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=00c0fdb0 name=operator+ size=143 ====
+// ==== entry=00c0fdb0 orig=FUN_00c0fdb0 size=143 name=operator+ ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::wstring std::TEMPNAMEPLACEHOLDERVALUE(wchar_t const*, std::wstring const&) */
@@ -34928,7 +34928,7 @@ wchar_t * std::operator+(wchar_t *param_1,wstring *param_2)
 }
 
 
-// ==== entry=00c0fe60 name=operator+ size=127 ====
+// ==== entry=00c0fe60 orig=FUN_00c0fe60 size=127 name=operator+ ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::wstring std::TEMPNAMEPLACEHOLDERVALUE(wchar_t, std::wstring const&) */
@@ -34957,7 +34957,7 @@ wstring * std::operator+(wchar_t param_1,wstring *param_2)
 }
 
 
-// ==== entry=00c0ff00 name=operator+ size=75 ====
+// ==== entry=00c0ff00 orig=FUN_00c0ff00 size=75 name=operator+ ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::wstring std::TEMPNAMEPLACEHOLDERVALUE(std::wstring const&, std::wstring const&) */
@@ -34981,7 +34981,7 @@ wstring * std::operator+(wstring *param_1,wstring *param_2)
 }
 
 
-// ==== entry=00c0ff70 name=_S_construct<__gnu_cxx::__normal_iterator<wchar_t*,std::wstring>> size=129 ====
+// ==== entry=00c0ff70 orig=FUN_00c0ff70 size=129 name=_S_construct<__gnu_cxx::__normal_iterator<wchar_t*,std::wstring>> ====
 
 /* wchar_t* std::wstring::_S_construct<__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >
    >(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, __gnu_cxx::__normal_iterator<wchar_t*,
@@ -35018,7 +35018,7 @@ wchar_t * std::wstring::_S_construct<__gnu_cxx::__normal_iterator<wchar_t*,std::
 }
 
 
-// ==== entry=00c10000 name=wstring<__gnu_cxx::__normal_iterator<wchar_t*,std::wstring>> size=23 ====
+// ==== entry=00c10000 orig=FUN_00c10000 size=23 name=wstring<__gnu_cxx::__normal_iterator<wchar_t*,std::wstring>> ====
 
 /* std::wstring::wstring<__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >
    >(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, __gnu_cxx::__normal_iterator<wchar_t*,
@@ -35038,7 +35038,7 @@ std::wstring::wstring<__gnu_cxx::__normal_iterator<wchar_t*,std::wstring>>
 }
 
 
-// ==== entry=00c10020 name=_S_construct<wchar_t*> size=40 ====
+// ==== entry=00c10020 orig=FUN_00c10020 size=40 name=_S_construct<wchar_t*> ====
 
 /* wchar_t* std::wstring::_S_construct<wchar_t*>(wchar_t*, wchar_t*, std::allocator<wchar_t> const&,
    std::forward_iterator_tag) */
@@ -35083,7 +35083,7 @@ void FUN_00c10050(undefined8 *param_1,long *param_2,ulong param_3,undefined8 par
 }
 
 
-// ==== entry=00c10090 name=wstring size=130 ====
+// ==== entry=00c10090 orig=FUN_00c10090 size=130 name=wstring ====
 
 /* std::wstring::wstring(std::wstring const&, unsigned long, unsigned long) */
 
@@ -35121,7 +35121,7 @@ void __thiscall std::wstring::wstring(wstring *this,wstring *param_1,ulong param
 }
 
 
-// ==== entry=00c10120 name=substr size=50 ====
+// ==== entry=00c10120 orig=FUN_00c10120 size=50 name=substr ====
 
 /* std::wstring::substr(unsigned long, unsigned long) const */
 
@@ -35142,7 +35142,7 @@ ulong std::wstring::substr(ulong param_1,ulong param_2)
 }
 
 
-// ==== entry=00c10160 name=wstring size=77 ====
+// ==== entry=00c10160 orig=FUN_00c10160 size=77 name=wstring ====
 
 /* std::wstring::wstring(std::wstring const&, unsigned long, unsigned long, std::allocator<wchar_t>
    const&) */
@@ -35174,7 +35174,7 @@ std::wstring::wstring(wstring *this,wstring *param_1,ulong param_2,ulong param_3
 }
 
 
-// ==== entry=00c101b0 name=wstring<wchar_t*> size=23 ====
+// ==== entry=00c101b0 orig=FUN_00c101b0 size=23 name=wstring<wchar_t*> ====
 
 /* std::wstring::wstring<wchar_t*>(wchar_t*, wchar_t*, std::allocator<wchar_t> const&) */
 
@@ -35190,7 +35190,7 @@ std::wstring::wstring<wchar_t*>(wstring *this,wchar_t *param_1,wchar_t *param_2,
 }
 
 
-// ==== entry=00c101d0 name=_S_construct<wchar_t_const*> size=40 ====
+// ==== entry=00c101d0 orig=FUN_00c101d0 size=40 name=_S_construct<wchar_t_const*> ====
 
 /* wchar_t* std::wstring::_S_construct<wchar_t const*>(wchar_t const*, wchar_t const*,
    std::allocator<wchar_t> const&, std::forward_iterator_tag) */
@@ -35212,7 +35212,7 @@ wchar_t * std::wstring::_S_construct<wchar_t_const*>(long param_1,long param_2)
 }
 
 
-// ==== entry=00c10200 name=wstring size=24 ====
+// ==== entry=00c10200 orig=FUN_00c10200 size=24 name=wstring ====
 
 /* std::wstring::wstring(wchar_t const*, unsigned long, std::allocator<wchar_t> const&) */
 
@@ -35228,7 +35228,7 @@ std::wstring::wstring(wstring *this,wchar_t *param_1,ulong param_2,allocator *pa
 }
 
 
-// ==== entry=00c10220 name=replace size=12 ====
+// ==== entry=00c10220 orig=FUN_00c10220 size=12 name=replace ====
 
 /* std::wstring::replace(unsigned long, unsigned long, std::wstring const&) */
 
@@ -35240,7 +35240,7 @@ void __thiscall std::wstring::replace(wstring *this,ulong param_1,ulong param_2,
 }
 
 
-// ==== entry=00c10230 name=replace size=62 ====
+// ==== entry=00c10230 orig=FUN_00c10230 size=62 name=replace ====
 
 /* std::wstring::replace(unsigned long, unsigned long, std::wstring const&, unsigned long, unsigned
    long) */
@@ -35269,7 +35269,7 @@ std::wstring::replace
 }
 
 
-// ==== entry=00c10270 name=replace size=60 ====
+// ==== entry=00c10270 orig=FUN_00c10270 size=60 name=replace ====
 
 /* std::wstring::replace(unsigned long, unsigned long, wchar_t const*) */
 
@@ -35284,7 +35284,7 @@ void __thiscall std::wstring::replace(wstring *this,ulong param_1,ulong param_2,
 }
 
 
-// ==== entry=00c102b0 name=replace size=19 ====
+// ==== entry=00c102b0 orig=FUN_00c102b0 size=19 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, wchar_t const*, unsigned long) */
@@ -35298,7 +35298,7 @@ std::wstring::replace(wstring *this,long param_2,long param_3,wchar_t *param_4,u
 }
 
 
-// ==== entry=00c102d0 name=replace size=26 ====
+// ==== entry=00c102d0 orig=FUN_00c102d0 size=26 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, std::wstring const&) */
@@ -35312,7 +35312,7 @@ void __thiscall std::wstring::replace(wstring *this,long param_2,long param_3,un
 }
 
 
-// ==== entry=00c102f0 name=replace size=75 ====
+// ==== entry=00c102f0 orig=FUN_00c102f0 size=75 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, wchar_t const*) */
@@ -35328,7 +35328,7 @@ void __thiscall std::wstring::replace(wstring *this,long param_2,long param_3,wc
 }
 
 
-// ==== entry=00c10340 name=replace size=26 ====
+// ==== entry=00c10340 orig=FUN_00c10340 size=26 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, wchar_t*, wchar_t*) */
@@ -35343,7 +35343,7 @@ std::wstring::replace(wstring *this,long param_2,long param_3,wchar_t *param_4,l
 }
 
 
-// ==== entry=00c10360 name=replace size=26 ====
+// ==== entry=00c10360 orig=FUN_00c10360 size=26 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, wchar_t const*, wchar_t const*) */
@@ -35358,7 +35358,7 @@ std::wstring::replace(wstring *this,long param_2,long param_3,wchar_t *param_4,l
 }
 
 
-// ==== entry=00c10380 name=replace size=27 ====
+// ==== entry=00c10380 orig=FUN_00c10380 size=27 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, std::initializer_list<wchar_t>) */
@@ -35372,7 +35372,7 @@ void std::wstring::replace(wstring *param_1,long param_2,long param_3,wchar_t *p
 }
 
 
-// ==== entry=00c103a0 name=replace size=26 ====
+// ==== entry=00c103a0 orig=FUN_00c103a0 size=26 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, __gnu_cxx::__normal_iterator<wchar_t*,
@@ -35388,7 +35388,7 @@ std::wstring::replace(wstring *this,long param_2,long param_3,wchar_t *param_4,l
 }
 
 
-// ==== entry=00c103c0 name=replace size=26 ====
+// ==== entry=00c103c0 orig=FUN_00c103c0 size=26 name=replace ====
 
 /* std::wstring::replace(__gnu_cxx::__normal_iterator<wchar_t*, std::wstring >,
    __gnu_cxx::__normal_iterator<wchar_t*, std::wstring >, __gnu_cxx::__normal_iterator<wchar_t
@@ -35404,7 +35404,7 @@ std::wstring::replace(wstring *this,long param_2,long param_3,wchar_t *param_4,l
 }
 
 
-// ==== entry=00c103e0 name=wstring size=57 ====
+// ==== entry=00c103e0 orig=FUN_00c103e0 size=57 name=wstring ====
 
 /* std::wstring::wstring(wchar_t const*, std::allocator<wchar_t> const&) */
 
@@ -35425,7 +35425,7 @@ void __thiscall std::wstring::wstring(wstring *this,wchar_t *param_1,allocator *
 }
 
 
-// ==== entry=00c10420 name=wstring size=24 ====
+// ==== entry=00c10420 orig=FUN_00c10420 size=24 name=wstring ====
 
 /* std::wstring::wstring(std::initializer_list<wchar_t>, std::allocator<wchar_t> const&) */
 
@@ -35440,7 +35440,7 @@ void __thiscall std::wstring::wstring(wstring *this,long param_2,long param_3,un
 }
 
 
-// ==== entry=00c10440 name=wstring<wchar_t_const*> size=23 ====
+// ==== entry=00c10440 orig=FUN_00c10440 size=23 name=wstring<wchar_t_const*> ====
 
 /* std::wstring::wstring<wchar_t const*>(wchar_t const*, wchar_t const*, std::allocator<wchar_t>
    const&) */

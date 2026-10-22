@@ -2728,7 +2728,7 @@ void FUN_004fc9be(void)
 void FUN_004fc9d4(void)
 
 {
-  FUN_00751eae();
+  SessionDialog_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -3124,7 +3124,7 @@ void FUN_004fcc64(void)
   if (*(void **)(unaff_RBX + 0x128) != (void *)0x0) {
     operator_delete(*(void **)(unaff_RBX + 0x128));
   }
-  FUN_007cdcb2();
+  SuperCommander_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -3374,7 +3374,7 @@ void FUN_004fce58(void *param_1)
 void FUN_004fce80(void)
 
 {
-  FUN_007a27ce();
+  SuperProtocol_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -5350,7 +5350,7 @@ void FUN_004fdd66(void)
   FUN_00550ea0(unaff_RBX + 0x50);
   FUN_00550ea0(unaff_RBX + 0x40);
   FUN_00550ea0(unaff_RBX + 0x30);
-  *(undefined ***)unaff_RBX = &PTR_FUN_011a8078;
+  *(undefined ***)unaff_RBX = &SuperBridge_vtable;
   FUN_00550ea0(unaff_RBX + 0x18);
   QObject::~QObject(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -7210,7 +7210,7 @@ void FUN_004fecd0(void)
   void *unaff_R13;
   
   operator_delete(unaff_R13,0x18);
-  *(undefined ***)unaff_RBX = &PTR_FUN_011a8078;
+  *(undefined ***)unaff_RBX = &SuperBridge_vtable;
   piVar1 = *(int **)(unaff_RBX + 0x18);
   if (piVar1 != (int *)0x0) {
     LOCK();
@@ -8284,7 +8284,7 @@ void FUN_004ff43e(void)
   void *unaff_R12;
   
   operator_delete(unaff_R12,0x40);
-  *(undefined ***)unaff_RBX = &PTR_FUN_011a8078;
+  *(undefined ***)unaff_RBX = &SuperBridge_vtable;
   piVar1 = *(int **)(unaff_RBX + 0x18);
   if (piVar1 != (int *)0x0) {
     LOCK();

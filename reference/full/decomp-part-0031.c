@@ -8217,7 +8217,7 @@ undefined8 FUN_0094331e(long param_1)
 
 // ==== entry=00943324 orig=FUN_00943324 size=1 name=Window_metaObject ====
 
-void FUN_00943324(void)
+void Window_metaObject(void)
 
 {
   return;
@@ -8226,10 +8226,10 @@ void FUN_00943324(void)
 
 // ==== entry=00943326 orig=FUN_00943326 size=23 name=Window_qt_metacast ====
 
-void FUN_00943326(void *param_1)
+void Window_qt_metacast(void *param_1)
 
 {
-  FUN_00943324();
+  Window_metaObject();
   operator_delete(param_1,0x18);
   return;
 }
@@ -8263,7 +8263,7 @@ void FUN_0094333e(long param_1)
 void FUN_009433a2(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011acff0;
+  *param_1 = &SurfaceImpl_vtable;
   FUN_0094333e();
   return;
 }
@@ -8271,7 +8271,7 @@ void FUN_009433a2(undefined8 *param_1)
 
 // ==== entry=009433b6 orig=FUN_009433b6 size=23 name=DynamicLibrary_dtor ====
 
-void FUN_009433b6(void *param_1)
+void DynamicLibrary_dtor(void *param_1)
 
 {
   FUN_009433a2();
@@ -8394,7 +8394,7 @@ undefined8 FUN_0094356e(long param_1,QFont *param_2)
 
 // ==== entry=009435b0 orig=FUN_009435b0 size=15 name=Window_qt_metacall ====
 
-void FUN_009435b0(long param_1)
+void Window_qt_metacall(long param_1)
 
 {
   if (*(QFont **)(param_1 + 8) != (QFont *)0x0) {
@@ -8472,7 +8472,7 @@ undefined8 FUN_009435f2(undefined8 param_1,long *param_2)
 void FUN_0094367a(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011acff0;
+  *param_1 = &SurfaceImpl_vtable;
   param_1[1] = 0;
   param_1[2] = 0;
   *(undefined2 *)(param_1 + 3) = 0;
@@ -8517,7 +8517,7 @@ bool FUN_009436c2(undefined8 param_1,long *param_2)
 
 // ==== entry=00943748 orig=FUN_00943748 size=52 name=DynamicLibrary_dtor_deleting ====
 
-void FUN_00943748(long *param_1,long param_2)
+void DynamicLibrary_dtor_deleting(long *param_1,long param_2)
 
 {
   undefined1 uVar1;
@@ -8535,7 +8535,7 @@ void FUN_00943748(long *param_1,long param_2)
 
 // ==== entry=0094377c orig=FUN_0094377c size=43 name=SurfaceImpl_dtor ====
 
-void FUN_0094377c(long *param_1,long param_2)
+void SurfaceImpl_dtor(long *param_1,long param_2)
 
 {
   undefined1 uVar1;
@@ -8550,7 +8550,8 @@ void FUN_0094377c(long *param_1,long param_2)
 
 // ==== entry=009437a8 orig=FUN_009437a8 size=209 name=SurfaceImpl_dtor_deleting ====
 
-void FUN_009437a8(double param_1,long *param_2,int param_3,int param_4,undefined1 param_5)
+void SurfaceImpl_dtor_deleting
+               (double param_1,long *param_2,int param_3,int param_4,undefined1 param_5)
 
 {
   undefined1 uVar1;
@@ -9401,7 +9402,7 @@ undefined8 * FUN_00944a0e(char *param_1)
   QArrayData *local_30 [2];
   
   puVar1 = operator_new(0x10);
-  *puVar1 = &PTR_FUN_011ad178;
+  *puVar1 = &DynamicLibraryImpl_vtable;
   if (param_1 != (char *)0x0) {
     strlen(param_1);
   }
@@ -9453,7 +9454,7 @@ undefined4 FUN_00944aec(void)
 }
 
 
-// ==== entry=00944b20 name=doubleClickInterval size=5 ====
+// ==== entry=00944b20 orig=FUN_00944b20 size=5 name=doubleClickInterval ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9731,7 +9732,7 @@ void FUN_00944f10(undefined8 param_1,long param_2)
 
 // ==== entry=00944f16 orig=FUN_00944f16 size=9 name=DynamicLibraryImpl_dtor ====
 
-bool FUN_00944f16(long param_1)
+bool DynamicLibraryImpl_dtor(long param_1)
 
 {
   return *(long *)(param_1 + 8) != 0;
@@ -9740,7 +9741,7 @@ bool FUN_00944f16(long param_1)
 
 // ==== entry=00944f20 orig=FUN_00944f20 size=17 name=DynamicLibraryImpl_qt_metacall ====
 
-undefined8 FUN_00944f20(long param_1)
+undefined8 DynamicLibraryImpl_qt_metacall(long param_1)
 
 {
   undefined8 uVar1;
@@ -9755,10 +9756,10 @@ undefined8 FUN_00944f20(long param_1)
 
 // ==== entry=00944f32 orig=FUN_00944f32 size=29 name=DynamicLibraryImpl_metaObject ====
 
-void FUN_00944f32(undefined8 *param_1)
+void DynamicLibraryImpl_metaObject(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad178;
+  *param_1 = &DynamicLibraryImpl_vtable;
   if (param_1[1] != 0) {
     QLibrary::unload();
     return;
@@ -9769,10 +9770,10 @@ void FUN_00944f32(undefined8 *param_1)
 
 // ==== entry=00944f50 orig=FUN_00944f50 size=46 name=DynamicLibraryImpl_qt_metacast ====
 
-void FUN_00944f50(undefined8 *param_1)
+void DynamicLibraryImpl_qt_metacast(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad178;
+  *param_1 = &DynamicLibraryImpl_vtable;
   if (param_1[1] != 0) {
     QLibrary::unload();
   }
@@ -10024,7 +10025,7 @@ void FUN_009451a4(QAbstractScrollArea *param_1,QWidget *param_2)
   undefined8 local_40;
   
   QAbstractScrollArea::QAbstractScrollArea(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011ae188;
+  *(undefined ***)param_1 = &ScintillaEditBase_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011ae360;
   *(undefined8 *)(param_1 + 0x30) = 0;
   *(undefined8 *)(param_1 + 0x50) = 0x8000000000000000;
@@ -10211,10 +10212,10 @@ void FUN_009451a4(QAbstractScrollArea *param_1,QWidget *param_2)
 
 // ==== entry=00945a8a orig=FUN_00945a8a size=29 name=ScintillaEditBase_dtor ====
 
-void FUN_00945a8a(QAbstractScrollArea *param_1)
+void ScintillaEditBase_dtor(QAbstractScrollArea *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011ae188;
+  *(undefined ***)param_1 = &ScintillaEditBase_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011ae360;
   QAbstractScrollArea::~QAbstractScrollArea(param_1);
   return;
@@ -10226,17 +10227,17 @@ void FUN_00945a8a(QAbstractScrollArea *param_1)
 void FUN_00945aa7(long param_1)
 
 {
-  FUN_00945a8a(param_1 + -0x10);
+  ScintillaEditBase_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=00945aae orig=FUN_00945aae size=23 name=ScintillaEditBase_dtor_deleting ====
 
-void FUN_00945aae(void *param_1)
+void ScintillaEditBase_dtor_deleting(void *param_1)
 
 {
-  FUN_00945a8a();
+  ScintillaEditBase_dtor();
   operator_delete(param_1,0x68);
   return;
 }
@@ -10247,7 +10248,7 @@ void FUN_00945aae(void *param_1)
 void FUN_00945ac5(long param_1)
 
 {
-  FUN_00945aae(param_1 + -0x10);
+  ScintillaEditBase_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -10838,7 +10839,7 @@ void FUN_009468a0(long param_1)
 }
 
 
-// ==== entry=009468ae name=thunk_FUN_009468a0 size=5 ====
+// ==== entry=009468ae orig=FUN_009468ae size=5 name=thunk_FUN_009468a0 ====
 
 void thunk_FUN_009468a0(long param_1)
 
@@ -12998,7 +12999,7 @@ void FUN_00948b5a(undefined8 param_1)
   
   lVar1 = FUN_00948a24(param_1,2);
   if (lVar1 != 0) {
-    lVar1 = __dynamic_cast(lVar1,&PTR_PTR_011968f0,&PTR_PTR_011ae750,0);
+    lVar1 = __dynamic_cast(lVar1,&ScrollBar__typeinfo,&PTR_PTR_011ae750,0);
     if (lVar1 != 0) {
       FUN_00a1d782(lVar1);
       return;
@@ -13029,7 +13030,7 @@ void FUN_00948ba2(long param_1,long param_2)
   
   lVar1 = FUN_00948a24(param_1,2);
   if (lVar1 != 0) {
-    lVar1 = __dynamic_cast(lVar1,&PTR_PTR_011968f0,&PTR_PTR_011ae750,0);
+    lVar1 = __dynamic_cast(lVar1,&ScrollBar__typeinfo,&PTR_PTR_011ae750,0);
     if ((lVar1 != 0) && ((*(byte *)(*(long *)(lVar1 + 0x28) + 9) & 0x80) != 0)) {
       uVar2 = FUN_00a1fa2a(param_1 + 0x10);
       uVar3 = FUN_00958722(*(undefined8 *)(param_1 + 0x10b0));
@@ -13060,7 +13061,7 @@ void FUN_00948c3e(undefined8 param_1)
   
   lVar1 = FUN_00948a24(param_1,2);
   if (lVar1 != 0) {
-    lVar1 = __dynamic_cast(lVar1,&PTR_PTR_011968f0,&PTR_PTR_011ae750,0);
+    lVar1 = __dynamic_cast(lVar1,&ScrollBar__typeinfo,&PTR_PTR_011ae750,0);
     if ((lVar1 != 0) && ((*(byte *)(*(long *)(lVar1 + 0x28) + 9) & 0x80) != 0)) {
       FUN_00a1d83a(lVar1);
       return;
@@ -13863,7 +13864,7 @@ void FUN_00949b7c(long param_1,undefined8 *param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00949bec name=thunk_FUN_00949b7c size=2 ====
+// ==== entry=00949bec orig=FUN_00949bec size=2 name=thunk_FUN_00949b7c ====
 
 void thunk_FUN_00949b7c(long param_1,undefined8 *param_2,undefined8 param_3)
 
@@ -14017,12 +14018,12 @@ void FUN_00949f3b(long param_1)
 
 // ==== entry=00949f42 orig=FUN_00949f42 size=94 name=ScintillaQt_dtor ====
 
-void FUN_00949f42(QObject *param_1)
+void ScintillaQt_dtor(QObject *param_1)
 
 {
   void *pvVar1;
   
-  *(undefined ***)param_1 = &PTR_FUN_011ae418;
+  *(undefined ***)param_1 = &ScintillaQt_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011ae558;
   FUN_00949f22();
   pvVar1 = *(void **)(param_1 + 0x1260);
@@ -14041,17 +14042,17 @@ void FUN_00949f42(QObject *param_1)
 void FUN_00949fa0(long param_1)
 
 {
-  FUN_00949f42(param_1 + -0x10);
+  ScintillaQt_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=00949fa6 orig=FUN_00949fa6 size=23 name=ScintillaQt_dtor_deleting ====
 
-void FUN_00949fa6(void *param_1)
+void ScintillaQt_dtor_deleting(void *param_1)
 
 {
-  FUN_00949f42();
+  ScintillaQt_dtor();
   operator_delete(param_1,0x1270);
   return;
 }
@@ -14062,7 +14063,7 @@ void FUN_00949fa6(void *param_1)
 void FUN_00949fbd(long param_1)
 
 {
-  FUN_00949fa6(param_1 + -0x10);
+  ScintillaQt_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -14116,7 +14117,7 @@ void FUN_0094a056(QObject *param_1,QObject *param_2)
   QObject::QObject(param_1,param_2);
                     /* try { // try from 0094a074 to 0094a078 has its CatchHandler @ 0094a159 */
   FUN_00a4f69e(param_1 + 0x10);
-  *(undefined ***)param_1 = &PTR_FUN_011ae418;
+  *(undefined ***)param_1 = &ScintillaQt_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011ae558;
   *(QObject **)(param_1 + 0x1258) = param_2;
   *(undefined8 *)(param_1 + 0x1260) = 0;
@@ -20578,10 +20579,10 @@ LAB_00952427:
 
 // ==== entry=00952430 orig=FUN_00952430 size=29 name=RGBAImage_metaObject ====
 
-void FUN_00952430(undefined8 *param_1)
+void RGBAImage_metaObject(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad258;
+  *param_1 = &RGBAImage_vtable;
   if ((void *)param_1[3] != (void *)0x0) {
     operator_delete((void *)param_1[3]);
     return;
@@ -20592,16 +20593,16 @@ void FUN_00952430(undefined8 *param_1)
 
 // ==== entry=0095244e orig=FUN_0095244e size=23 name=RGBAImage_qt_metacast ====
 
-void FUN_0095244e(void *param_1)
+void RGBAImage_qt_metacast(void *param_1)
 
 {
-  FUN_00952430();
+  RGBAImage_metaObject();
   operator_delete(param_1,0x30);
   return;
 }
 
 
-// ==== entry=00952465 name=thunk_FUN_0095246b size=6 ====
+// ==== entry=00952465 orig=FUN_00952465 size=6 name=thunk_FUN_0095246b ====
 
 char * thunk_FUN_0095246b(char *param_1)
 
@@ -21127,7 +21128,7 @@ void FUN_00952bdc(undefined8 *param_1,undefined4 *param_2)
   undefined8 local_44;
   undefined2 local_3c;
   
-  *param_1 = &PTR_FUN_011ad258;
+  *param_1 = &RGBAImage_vtable;
   param_1[3] = 0;
   param_1[4] = 0;
   param_1[5] = 0;
@@ -21353,7 +21354,7 @@ void FUN_00953004(undefined4 param_1,undefined8 *param_2,undefined4 param_3,unde
   ulong uVar3;
   long lVar4;
   
-  *param_2 = &PTR_FUN_011ad258;
+  *param_2 = &RGBAImage_vtable;
   *(undefined4 *)(param_2 + 1) = param_4;
   *(undefined4 *)((long)param_2 + 0xc) = param_3;
   *(undefined4 *)(param_2 + 2) = param_1;
@@ -21461,7 +21462,7 @@ LAB_00953102:
 }
 
 
-// ==== entry=009531c8 name=_M_default_append size=283 ====
+// ==== entry=009531c8 orig=FUN_009531c8 size=283 name=_M_default_append ====
 
 /* std::vector<unsigned char, std::allocator<unsigned char> >::_M_default_append(unsigned long) */
 
@@ -22363,7 +22364,7 @@ LAB_00953f9c:
   puVar8[2] = puVar10;
                     /* try { // try from 00953ff0 to 00953ff4 has its CatchHandler @ 00954115 */
   FUN_007af8e0(puVar10,0,0,2);
-  *puVar8 = &PTR_FUN_0118eb70;
+  *puVar8 = &Uint64RunStyles_vtable;
   puVar6[1] = puVar8;
   param_1[1] = puVar6;
   return;
@@ -22678,7 +22679,7 @@ void FUN_009547f8(long param_1,undefined8 param_2,long param_3,long param_4)
   }
   if (param_3 < 1) {
     if (param_3 != 0) {
-      FUN_007b5c50(*(undefined8 *)(lVar1 + 8),param_2,-param_3);
+      Uint64RunStyles_qt_metacall(*(undefined8 *)(lVar1 + 8),param_2,-param_3);
       return;
     }
   }
@@ -23049,7 +23050,7 @@ void FUN_00954f16(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
   undefined8 local_20;
   
   FUN_0058222a();
-  *param_1 = &PTR_FUN_011aec98;
+  *param_1 = &CompleteList_vtable;
   param_1[2] = &PTR_FUN_011aef98;
   param_1[8] = param_3;
   *(undefined4 *)(param_1 + 9) = 9;
@@ -23078,10 +23079,10 @@ void FUN_00954f16(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
 
 // ==== entry=00955042 orig=FUN_00955042 size=29 name=CompleteList_dtor ====
 
-void FUN_00955042(QListView *param_1)
+void CompleteList_dtor(QListView *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_01199210;
+  *(undefined ***)param_1 = &HtmlList_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01199510;
   QListView::~QListView(param_1);
   return;
@@ -23093,17 +23094,17 @@ void FUN_00955042(QListView *param_1)
 void FUN_0095505f(long param_1)
 
 {
-  FUN_00955042(param_1 + -0x10);
+  CompleteList_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=00955066 orig=FUN_00955066 size=23 name=CompleteList_dtor_deleting ====
 
-void FUN_00955066(void *param_1)
+void CompleteList_dtor_deleting(void *param_1)
 
 {
-  FUN_00955042();
+  CompleteList_dtor();
   operator_delete(param_1,0x50);
   return;
 }
@@ -23114,7 +23115,7 @@ void FUN_00955066(void *param_1)
 void FUN_0095507d(long param_1)
 
 {
-  FUN_00955066(param_1 + -0x10);
+  CompleteList_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -23536,7 +23537,7 @@ void FUN_009557e0(QAbstractListModel *param_1,QObject *param_2)
   void *pvVar1;
   
   QAbstractListModel::QAbstractListModel(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011aea98;
+  *(undefined ***)param_1 = &CompleteModel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011aec28;
   *(undefined8 *)(param_1 + 0x18) = 0;
   *(undefined4 *)(param_1 + 0x20) = 0;
@@ -23559,7 +23560,7 @@ void FUN_009557e0(QAbstractListModel *param_1,QObject *param_2)
 /* WARNING: Removing unreachable block (ram,0x00955cc5) */
 /* WARNING: Removing unreachable block (ram,0x00955d42) */
 
-void FUN_00955856(QAbstractListModel *param_1)
+void CompleteModel_dtor(QAbstractListModel *param_1)
 
 {
   undefined8 *puVar1;
@@ -23580,7 +23581,7 @@ void FUN_00955856(QAbstractListModel *param_1)
   undefined8 *puVar14;
   Data *pDVar15;
   
-  *(undefined ***)param_1 = &PTR_FUN_011aea98;
+  *(undefined ***)param_1 = &CompleteModel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011aec28;
   this = *(QFontMetrics **)(param_1 + 0x38);
   if (this != (QFontMetrics *)0x0) {
@@ -23824,7 +23825,7 @@ LAB_00955c34:
   operator_delete(plVar7,0xb0);
 LAB_00955ae2:
   *(undefined8 *)(param_1 + 0x28) = 0;
-  *(undefined ***)param_1 = &PTR_FUN_01199070;
+  *(undefined ***)param_1 = &HtmlListModel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR___cxa_pure_virtual_011991f0;
   QAbstractListModel::~QAbstractListModel(param_1);
   return;
@@ -23833,10 +23834,10 @@ LAB_00955ae2:
 
 // ==== entry=00955d58 orig=FUN_00955d58 size=23 name=CompleteModel_dtor_deleting ====
 
-void FUN_00955d58(void *param_1)
+void CompleteModel_dtor_deleting(void *param_1)
 
 {
-  FUN_00955856();
+  CompleteModel_dtor();
   operator_delete(param_1,0x40);
   return;
 }
@@ -25176,7 +25177,7 @@ void FUN_00957874(long param_1,undefined4 param_2)
   undefined4 local_c [3];
   
   local_c[0] = param_2;
-  FUN_00a7cde0(*(undefined8 *)(param_1 + 400),local_c);
+  Uint32Bimap_qt_metacall(*(undefined8 *)(param_1 + 400),local_c);
   return;
 }
 
@@ -25466,7 +25467,7 @@ void FUN_00957cb6(long param_1)
   *(undefined4 *)(puVar5 + 1) = 0;
   *(undefined1 *)((long)puVar5 + 0xc) = 0;
   puVar5[2] = &QListData::shared_null;
-  *puVar5 = &PTR_FUN_011b0af8;
+  *puVar5 = &Uint32Bimap_vtable;
   puVar5[3] = 0;
   plVar3 = *(long **)(param_1 + 400);
   *(undefined8 **)(param_1 + 400) = puVar5;
@@ -25475,7 +25476,7 @@ void FUN_00957cb6(long param_1)
     puVar5 = *(undefined8 **)(param_1 + 400);
   }
   local_2c = 0;
-  FUN_00a7cde0(puVar5,&local_2c);
+  Uint32Bimap_qt_metacall(puVar5,&local_2c);
   return;
 }
 
@@ -26338,7 +26339,7 @@ LAB_009589a0:
 }
 
 
-// ==== entry=009589ea name=thunk_FUN_00958948 size=5 ====
+// ==== entry=009589ea orig=FUN_009589ea size=5 name=thunk_FUN_00958948 ====
 
 void thunk_FUN_00958948(long param_1)
 
@@ -28715,7 +28716,7 @@ void FUN_0095c086(long param_1)
   puVar3[2] = puVar5;
                     /* try { // try from 0095c163 to 0095c167 has its CatchHandler @ 0095c1ba */
   FUN_0088e5a0(puVar5,0,0,2);
-  *puVar3 = &PTR_FUN_01192310;
+  *puVar3 = &Uint8RunStyles_vtable;
   plVar1 = *(long **)(param_1 + 0x180);
   *(undefined8 **)(param_1 + 0x180) = puVar3;
   if (plVar1 != (long *)0x0) {
@@ -29352,7 +29353,7 @@ void FUN_0095ccc6(long param_1,int *param_2,long param_3,long param_4,undefined4
       puVar10[2] = puVar13;
                     /* try { // try from 0095d064 to 0095d068 has its CatchHandler @ 0095d183 */
       FUN_0088e5a0(puVar13,0,0,2);
-      *puVar10 = &PTR_FUN_011ad368;
+      *puVar10 = &Uint8SkipRunStyles_vtable;
       pvVar12 = operator_new(0x40);
                     /* try { // try from 0095d08b to 0095d08f has its CatchHandler @ 0095d17b */
       FUN_009cc22c(pvVar12,puVar10);
@@ -29932,7 +29933,7 @@ void FUN_0095d906(undefined8 *param_1)
 
 // ==== entry=0095d966 orig=FUN_0095d966 size=62 name=Uint8SkipRunStyles_metaObject ====
 
-void FUN_0095d966(undefined8 *param_1)
+void Uint8SkipRunStyles_metaObject(undefined8 *param_1)
 
 {
   *param_1 = &PTR_FUN_011ad300;
@@ -29970,7 +29971,7 @@ void FUN_0095d9a4(undefined8 *param_1)
 
 // ==== entry=0095d9ea orig=FUN_0095d9ea size=70 name=Uint8SkipRunStyles_qt_metacast ====
 
-void FUN_0095d9ea(undefined8 *param_1)
+void Uint8SkipRunStyles_qt_metacast(undefined8 *param_1)
 
 {
   *param_1 = &PTR_FUN_011ad300;
@@ -33628,7 +33629,7 @@ void FUN_00962b60(undefined8 param_1,undefined8 param_2,long param_3)
 
 // ==== entry=00962b7e orig=FUN_00962b7e size=657 name=Uint8SkipRunStyles_qt_metacall ====
 
-void FUN_00962b7e(long param_1,long param_2,long param_3)
+void Uint8SkipRunStyles_qt_metacall(long param_1,long param_2,long param_3)
 
 {
   long lVar1;
@@ -33830,7 +33831,7 @@ undefined8 FUN_00962e10(long param_1,long param_2,char param_3,long param_4,unde
 
 // ==== entry=00963104 orig=FUN_00963104 size=229 name=Uint8SkipRunStyles_dtor ====
 
-void FUN_00963104(long *param_1,long param_2,long param_3,char param_4)
+void Uint8SkipRunStyles_dtor(long *param_1,long param_2,long param_3,char param_4)
 
 {
   char cVar1;
@@ -33872,17 +33873,17 @@ void FUN_00963104(long *param_1,long param_2,long param_3,char param_4)
 
 // ==== entry=009631f0 orig=FUN_009631f0 size=29 name=Uint8SkipRunStyles_dtor_deleting ====
 
-void FUN_009631f0(undefined8 param_1,undefined8 param_2,long param_3)
+void Uint8SkipRunStyles_dtor_deleting(undefined8 param_1,undefined8 param_2,long param_3)
 
 {
   if (0 < param_3) {
-    FUN_00963104();
+    Uint8SkipRunStyles_dtor();
     return;
   }
   if (param_3 == 0) {
     return;
   }
-  FUN_00962b7e(param_1,param_2,-param_3);
+  Uint8SkipRunStyles_qt_metacall(param_1,param_2,-param_3);
   return;
 }
 
@@ -34088,7 +34089,7 @@ void FUN_009633f0(long *param_1)
 void FUN_00963590(undefined8 *param_1,undefined1 param_2,undefined8 param_3)
 
 {
-  *param_1 = &PTR_FUN_011ad4e8;
+  *param_1 = &DocumentTask_vtable;
   *(undefined1 *)(param_1 + 1) = param_2;
   *(undefined4 *)((long)param_1 + 0xc) = 0;
   *(undefined1 *)(param_1 + 2) = 0;
@@ -34220,7 +34221,7 @@ LAB_00963657:
 
 // ==== entry=0096376e orig=FUN_0096376e size=73 name=DocumentTask_dtor_deleting ====
 
-void FUN_0096376e(long param_1)
+void DocumentTask_dtor_deleting(long param_1)
 
 {
   char cVar1;
@@ -34324,10 +34325,10 @@ LAB_00963853:
 
 // ==== entry=009638a6 orig=FUN_009638a6 size=19 name=DocumentTask_metaObject ====
 
-void FUN_009638a6(undefined8 *param_1)
+void DocumentTask_metaObject(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad4e8;
+  *param_1 = &DocumentTask_vtable;
   FUN_009637ea();
   return;
 }
@@ -34335,10 +34336,10 @@ void FUN_009638a6(undefined8 *param_1)
 
 // ==== entry=009638ba orig=FUN_009638ba size=23 name=DocumentTask_qt_metacast ====
 
-void FUN_009638ba(void *param_1)
+void DocumentTask_qt_metacast(void *param_1)
 
 {
-  FUN_009638a6();
+  DocumentTask_metaObject();
   operator_delete(param_1,0x30);
   return;
 }
@@ -34350,7 +34351,7 @@ void FUN_009638d2(undefined8 *param_1,undefined8 param_2,undefined8 param_3,unde
 
 {
   *(undefined4 *)(param_1 + 1) = 0;
-  *param_1 = &PTR_FUN_011ad508;
+  *param_1 = &DocumentTaskRunner_vtable;
   param_1[2] = param_2;
   param_1[3] = param_3;
   *(undefined4 *)(param_1 + 4) = param_4;
@@ -34400,10 +34401,10 @@ void FUN_009638f3(void)
 
 // ==== entry=00963a5a orig=FUN_00963a5a size=19 name=DocumentTaskRunner_qt_metacast ====
 
-void FUN_00963a5a(QRunnable *param_1)
+void DocumentTaskRunner_qt_metacast(QRunnable *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011ad508;
+  *(undefined ***)param_1 = &DocumentTaskRunner_vtable;
   QRunnable::~QRunnable(param_1);
   return;
 }
@@ -34411,10 +34412,10 @@ void FUN_00963a5a(QRunnable *param_1)
 
 // ==== entry=00963a6e orig=FUN_00963a6e size=37 name=DocumentTaskRunner_qt_metacall ====
 
-void FUN_00963a6e(QRunnable *param_1)
+void DocumentTaskRunner_qt_metacall(QRunnable *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011ad508;
+  *(undefined ***)param_1 = &DocumentTaskRunner_vtable;
   QRunnable::~QRunnable(param_1);
   operator_delete(param_1,0x28);
   return;
@@ -34514,7 +34515,7 @@ void FUN_00963cf0(QObject *param_1,undefined8 param_2)
 
 {
   QObject::QObject(param_1,(QObject *)0x0);
-  *(undefined ***)param_1 = &PTR_FUN_011ae9d8;
+  *(undefined ***)param_1 = &ExpectTask_vtable;
   *(undefined8 **)(param_1 + 0x10) = &QListData::shared_null;
   *(undefined8 *)(param_1 + 0x18) = 0;
   *(undefined8 *)(param_1 + 0x20) = 0xffffffffffffffff;
@@ -37499,7 +37500,7 @@ undefined8 FUN_009685c4(undefined8 param_1,undefined8 param_2,undefined8 param_3
 
 // ==== entry=009685f0 orig=FUN_009685f0 size=242 name=Uint32PieceTable_dtor_deleting ====
 
-void FUN_009685f0(undefined8 *param_1)
+void Uint32PieceTable_dtor_deleting(undefined8 *param_1)
 
 {
   char cVar1;
@@ -37508,7 +37509,7 @@ void FUN_009685f0(undefined8 *param_1)
   ulong uVar4;
   timespec local_38;
   
-  *param_1 = &PTR_FUN_011ad578;
+  *param_1 = &Partitioning_vtable;
   if ((long *)param_1[6] != (long *)0x0) {
     (**(code **)(*(long *)param_1[6] + 8))();
   }
@@ -37562,10 +37563,10 @@ LAB_0096867b:
 
 // ==== entry=009686e2 orig=FUN_009686e2 size=23 name=Partitioning_qt_metacast ====
 
-void FUN_009686e2(void *param_1)
+void Partitioning_qt_metacast(void *param_1)
 
 {
-  FUN_009685f0();
+  Uint32PieceTable_dtor_deleting();
   operator_delete(param_1,0x60);
   return;
 }
@@ -39046,7 +39047,7 @@ void FUN_0096a2f8(undefined8 *param_1,undefined8 param_2)
   undefined4 *puVar3;
   undefined8 uVar4;
   
-  *param_1 = &PTR_FUN_011ad578;
+  *param_1 = &Partitioning_vtable;
   puVar2 = operator_new(0x30);
   *puVar2 = &PTR_FUN_0118e948;
   puVar2[1] = puVar2[1] & 0xfffffffe00000000 | 0x100000000;
@@ -39062,7 +39063,7 @@ void FUN_0096a2f8(undefined8 *param_1,undefined8 param_2)
   *(undefined8 *)(puVar3 + 4) = 0;
   *(undefined8 *)(puVar3 + 6) = 0;
   puVar2[3] = puVar3;
-  *puVar2 = &PTR_FUN_011ad558;
+  *puVar2 = &Uint32PieceTable_vtable;
   param_1[6] = puVar2;
   param_1[7] = 1;
   uVar4 = QThread::currentThreadId();
@@ -39522,7 +39523,7 @@ ulong * FUN_0096abe4(byte *param_1,undefined8 param_2)
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0096aca0(undefined8 *param_1)
+void Uint32PieceTable_metaObject(undefined8 *param_1)
 
 {
   code *pcVar1;
@@ -39813,7 +39814,7 @@ LAB_0096b149:
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0096b200(undefined8 *param_1)
+void Uint32PieceTable_qt_metacast(undefined8 *param_1)
 
 {
   code *pcVar1;
@@ -41035,7 +41036,7 @@ long FUN_0096c0ea(long param_1)
 }
 
 
-// ==== entry=0096c114 name=thunk_FUN_0096c0c0 size=2 ====
+// ==== entry=0096c114 orig=FUN_0096c114 size=2 name=thunk_FUN_0096c0c0 ====
 
 long thunk_FUN_0096c0c0(long param_1)
 
@@ -41052,7 +41053,7 @@ long thunk_FUN_0096c0c0(long param_1)
 }
 
 
-// ==== entry=0096c116 name=thunk_FUN_0096c0ea size=2 ====
+// ==== entry=0096c116 orig=FUN_0096c116 size=2 name=thunk_FUN_0096c0ea ====
 
 long thunk_FUN_0096c0ea(long param_1)
 
@@ -42585,7 +42586,7 @@ undefined8 FUN_0096d66c(long param_1)
 /* WARNING: Removing unreachable block (ram,0x0096d7bf) */
 /* WARNING: Removing unreachable block (ram,0x0096d7cd) */
 
-void FUN_0096d684(undefined8 *param_1)
+void ScanTask_metaObject(undefined8 *param_1)
 
 {
   long *plVar1;
@@ -42600,7 +42601,7 @@ void FUN_0096d684(undefined8 *param_1)
   char cVar10;
   void *pvVar11;
   
-  *param_1 = &PTR_FUN_011ad650;
+  *param_1 = &ScanTask_vtable;
   pvVar4 = (void *)param_1[0x15];
   if (pvVar4 != (void *)0x0) {
     pvVar11 = *(void **)((long)pvVar4 + 8);
@@ -42685,17 +42686,17 @@ LAB_0096d79d:
   if (pvVar11 != (void *)0x0) {
     operator_delete(pvVar11);
   }
-  FUN_009638a6(param_1);
+  DocumentTask_metaObject(param_1);
   return;
 }
 
 
 // ==== entry=0096d886 orig=FUN_0096d886 size=23 name=ScanTask_qt_metacast ====
 
-void FUN_0096d886(void *param_1)
+void ScanTask_qt_metacast(void *param_1)
 
 {
-  FUN_0096d684();
+  ScanTask_metaObject();
   operator_delete(param_1,0xb0);
   return;
 }
@@ -43939,7 +43940,7 @@ undefined8 * FUN_0096f21c(undefined8 *param_1,long param_2,long param_3,long par
   puVar9[2] = puVar11;
                     /* try { // try from 0096f45c to 0096f460 has its CatchHandler @ 0096f5f5 */
   FUN_007b4330(puVar11,0,0,2);
-  *puVar9 = &PTR_FUN_0118eaa0;
+  *puVar9 = &Uint32RunStyles_vtable;
   *param_1 = puVar9;
                     /* try { // try from 0096f47e to 0096f4e3 has its CatchHandler @ 0096f5fd */
   iVar5 = FUN_0096cb24(param_2,param_3);
@@ -43968,7 +43969,7 @@ void FUN_0096f606(undefined8 *param_1,char param_2)
   undefined8 *puVar1;
   
   FUN_00963590(param_1,(int)param_2);
-  *param_1 = &PTR_FUN_011ad650;
+  *param_1 = &ScanTask_vtable;
   param_1[6] = 0;
   param_1[7] = 0;
   param_1[8] = 0;
@@ -44989,7 +44990,7 @@ void FUN_00970850(undefined8 *param_1)
   puVar6[2] = puVar8;
                     /* try { // try from 00970a5b to 00970a5f has its CatchHandler @ 00970b47 */
   FUN_0088e5a0(puVar8,0,0,2);
-  *puVar6 = &PTR_FUN_011ad368;
+  *puVar6 = &Uint8SkipRunStyles_vtable;
   pvVar7 = operator_new(0x40);
                     /* try { // try from 00970a82 to 00970a86 has its CatchHandler @ 00970b42 */
   FUN_009cc22c(pvVar7,puVar6);
@@ -45000,7 +45001,7 @@ void FUN_00970850(undefined8 *param_1)
 
 // ==== entry=00970bb0 orig=FUN_00970bb0 size=288 name=Uint8PieceTable_dtor_deleting ====
 
-void FUN_00970bb0(undefined8 *param_1)
+void Uint8PieceTable_dtor_deleting(undefined8 *param_1)
 
 {
   char cVar1;
@@ -45009,7 +45010,7 @@ void FUN_00970bb0(undefined8 *param_1)
   ulong uVar4;
   timespec local_38;
   
-  *param_1 = &PTR_FUN_011ad6b8;
+  *param_1 = &SkipPartition_vtable;
   if ((long *)param_1[2] != (long *)0x0) {
     (**(code **)(*(long *)param_1[2] + 8))();
   }
@@ -45071,10 +45072,10 @@ LAB_00970c69:
 
 // ==== entry=00970cd0 orig=FUN_00970cd0 size=23 name=SkipPartition_qt_metacast ====
 
-void FUN_00970cd0(void *param_1)
+void SkipPartition_qt_metacast(void *param_1)
 
 {
-  FUN_00970bb0();
+  Uint8PieceTable_dtor_deleting();
   operator_delete(param_1,0x50);
   return;
 }
@@ -45541,7 +45542,7 @@ void FUN_009714b6(undefined8 *param_1,undefined8 param_2)
   undefined4 *puVar3;
   undefined8 uVar4;
   
-  *param_1 = &PTR_FUN_011ad6b8;
+  *param_1 = &SkipPartition_vtable;
   param_1[1] = 0;
   param_1[2] = 0;
   param_1[3] = 0;
@@ -45560,7 +45561,7 @@ void FUN_009714b6(undefined8 *param_1,undefined8 param_2)
   *(undefined8 *)(puVar3 + 4) = 0;
   *(undefined8 *)(puVar3 + 6) = 0;
   puVar2[3] = puVar3;
-  *puVar2 = &PTR_FUN_011ad698;
+  *puVar2 = &Uint8PieceTable_vtable;
   param_1[4] = puVar2;
   param_1[5] = 1;
   uVar4 = QThread::currentThreadId();

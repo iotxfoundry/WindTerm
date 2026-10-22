@@ -12469,7 +12469,7 @@ void FUN_004ebfa2(void)
 
 {
   FUN_005249f0();
-  FUN_00751eae();
+  SessionDialog_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -13264,7 +13264,7 @@ void FUN_004ec5cd(void)
   FUN_005249f0();
   FUN_005249f0(&stack0x00000020);
   pQVar1 = in_stack_000000a8;
-  in_stack_00000070 = &PTR_FUN_011a6798;
+  in_stack_00000070 = &ApplicationPalette_vtable;
   in_stack_00000080 = &PTR_FUN_011a6948;
   if (in_stack_000000a8 != (QPalette *)0x0) {
     QPalette::~QPalette(in_stack_000000a8);
@@ -14777,7 +14777,7 @@ void FUN_004ed106(void)
   undefined8 in_stack_00000018;
   
   FUN_005249f0();
-  FUN_00765350();
+  PasswordDialog_dtor();
   FUN_005249c0(in_stack_00000018);
   FUN_005249c0();
                     /* WARNING: Subroutine does not return */

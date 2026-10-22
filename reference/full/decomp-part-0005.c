@@ -13693,7 +13693,7 @@ void FUN_004d2960(void)
   
   operator_delete(unaff_R12,0x30);
   FUN_008c5220();
-  *unaff_RBX = &PTR_FUN_01196dd8;
+  *unaff_RBX = &TextEdit_vtable;
   unaff_RBX[2] = &PTR_FUN_01197198;
   unaff_RBX[9] = &PTR_FUN_011971e8;
   FUN_005d4b56();
@@ -13711,7 +13711,7 @@ void FUN_004d2972(void)
   
   FUN_005249f0();
   FUN_008c5220();
-  *unaff_RBX = &PTR_FUN_01196dd8;
+  *unaff_RBX = &TextEdit_vtable;
   unaff_RBX[2] = &PTR_FUN_01197198;
   unaff_RBX[9] = &PTR_FUN_011971e8;
   FUN_005d4b56();
@@ -14893,7 +14893,7 @@ void FUN_004d312e(void)
 
 {
   FUN_005249f0();
-  FUN_0072f424();
+  InsertFileDialog_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -15076,7 +15076,7 @@ void FUN_004d3251(void)
 void FUN_004d3261(void)
 
 {
-  FUN_0075f8f0();
+  SuperApplication_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }

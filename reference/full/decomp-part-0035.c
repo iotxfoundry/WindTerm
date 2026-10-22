@@ -2160,7 +2160,7 @@ LAB_00a856b2:
 }
 
 
-// ==== entry=00a856bc name=operator.delete size=5 ====
+// ==== entry=00a856bc orig=FUN_00a856bc size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -2170,7 +2170,7 @@ void operator_delete(void *param_1)
 }
 
 
-// ==== entry=00a856c2 name=operator.delete size=5 ====
+// ==== entry=00a856c2 orig=FUN_00a856c2 size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -2180,7 +2180,7 @@ void operator_delete(void *param_1)
 }
 
 
-// ==== entry=00a856c8 name=operator.delete size=5 ====
+// ==== entry=00a856c8 orig=FUN_00a856c8 size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -2699,7 +2699,7 @@ void FUN_00a86116(long param_1,long param_2)
 void FUN_00a86142(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011851b8;
+  *param_1 = &PTR_SharedConfig_qt_metacall_011851b8;
   param_1[1] = &QListData::shared_null;
   param_1[2] = &QMapDataBase::shared_null;
                     /* try { // try from 00a8616f to 00a86173 has its CatchHandler @ 00a8617b */
@@ -9836,7 +9836,7 @@ LAB_00a8f8d8:
   local_48 = puVar14;
                     /* try { // try from 00a8fc41 to 00a8fc45 has its CatchHandler @ 00a904f5 */
   FUN_0088e5a0(puVar14,0,0,2);
-  local_58 = &PTR_FUN_01192310;
+  local_58 = &Uint8RunStyles_vtable;
   if (1 < **(uint **)(param_2 + 0x40)) {
     FUN_00a91000(param_2 + 0x40,(*(uint **)(param_2 + 0x40))[1]);
   }
@@ -9869,7 +9869,7 @@ LAB_00a8f8d8:
   iVar11 = FUN_00968a72(local_50);
                     /* try { // try from 00a90436 to 00a9043a has its CatchHandler @ 00a90506 */
   if ((iVar11 < 2) && (cVar9 = FUN_0088ff00(local_48,0), cVar9 == '\0')) {
-    local_58 = &PTR_FUN_01192310;
+    local_58 = &Uint8RunStyles_vtable;
     FUN_00889746(&local_58);
     FUN_005249f0(&local_f0);
 LAB_00a8f810:
@@ -9959,7 +9959,7 @@ LAB_00a8fdc2:
   local_f0 = (int *)&QArrayData::shared_null;
   FUN_005249f0(local_108);
   FUN_005249f0(local_128);
-  local_58 = &PTR_FUN_01192310;
+  local_58 = &Uint8RunStyles_vtable;
   FUN_00889746(&local_58);
   FUN_005249f0(local_138);
   return param_1;
@@ -21640,7 +21640,7 @@ void FUN_00aa1f70(size_t param_1)
 }
 
 
-// ==== entry=00aa1f80 name=free size=5 ====
+// ==== entry=00aa1f80 orig=FUN_00aa1f80 size=5 name=free ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -67808,7 +67808,7 @@ switchD_00af132e_caseD_1:
 }
 
 
-// ==== entry=00af1880 name=thunk_FUN_00af1310 size=5 ====
+// ==== entry=00af1880 orig=FUN_00af1880 size=5 name=thunk_FUN_00af1310 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af17f6) */
 /* WARNING: Removing unreachable block (ram,0x00af182c) */
@@ -68162,7 +68162,7 @@ double FUN_00af1890(double *param_1)
 }
 
 
-// ==== entry=00af1e20 name=thunk_FUN_00af1890 size=5 ====
+// ==== entry=00af1e20 orig=FUN_00af1e20 size=5 name=thunk_FUN_00af1890 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af1d96) */
 /* WARNING: Removing unreachable block (ram,0x00af1dcc) */
@@ -72957,7 +72957,7 @@ void FUN_00af87a0(void)
 }
 
 
-// ==== entry=00af87b0 name=operator.delete size=5 ====
+// ==== entry=00af87b0 orig=FUN_00af87b0 size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -73801,7 +73801,7 @@ void FUN_00af9710(void)
 }
 
 
-// ==== entry=00af9720 name=operator.delete size=5 ====
+// ==== entry=00af9720 orig=FUN_00af9720 size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -73820,7 +73820,7 @@ void FUN_00af9730(void)
 }
 
 
-// ==== entry=00af9740 name=operator.delete size=5 ====
+// ==== entry=00af9740 orig=FUN_00af9740 size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 

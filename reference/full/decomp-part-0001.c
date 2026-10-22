@@ -1,5 +1,5 @@
 // Ghidra 12.1.4 decompiled — WindTerm 2.7.0 (sha256 9491b87e…) part 1
-// ==== entry=004b9110 name=_init size=26 ====
+// ==== entry=004b9110 orig=FUN_004b9110 size=26 name=_init ====
 
 int _init(EVP_PKEY_CTX *ctx)
 
@@ -21,7 +21,7 @@ void FUN_004b9130(void)
 }
 
 
-// ==== entry=004b9140 name=pthread_join size=6 ====
+// ==== entry=004b9140 orig=FUN_004b9140 size=6 name=pthread_join ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -35,7 +35,7 @@ int pthread_join(pthread_t __th,void **__thread_return)
 }
 
 
-// ==== entry=004b9150 name=ssh_string_free_char size=6 ====
+// ==== entry=004b9150 orig=FUN_004b9150 size=6 name=ssh_string_free_char ====
 
 void ssh_string_free_char(void)
 
@@ -45,7 +45,7 @@ void ssh_string_free_char(void)
 }
 
 
-// ==== entry=004b9160 name=setSectionResizeMode size=6 ====
+// ==== entry=004b9160 orig=FUN_004b9160 size=6 name=setSectionResizeMode ====
 
 void QHeaderView::setSectionResizeMode(void)
 
@@ -55,7 +55,7 @@ void QHeaderView::setSectionResizeMode(void)
 }
 
 
-// ==== entry=004b9170 name=sortByColumn size=6 ====
+// ==== entry=004b9170 orig=FUN_004b9170 size=6 name=sortByColumn ====
 
 void QTreeView::sortByColumn(void)
 
@@ -65,7 +65,7 @@ void QTreeView::sortByColumn(void)
 }
 
 
-// ==== entry=004b9180 name=contentsMargins size=6 ====
+// ==== entry=004b9180 orig=FUN_004b9180 size=6 name=contentsMargins ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -77,7 +77,7 @@ void QWidget::contentsMargins(void)
 }
 
 
-// ==== entry=004b9190 name=resetIndentation size=6 ====
+// ==== entry=004b9190 orig=FUN_004b9190 size=6 name=resetIndentation ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -89,7 +89,7 @@ void QTreeView::resetIndentation(void)
 }
 
 
-// ==== entry=004b91a0 name=QRegion size=6 ====
+// ==== entry=004b91a0 orig=FUN_004b91a0 size=6 name=QRegion ====
 
 void __thiscall QRegion::QRegion(void)
 
@@ -99,7 +99,7 @@ void __thiscall QRegion::QRegion(void)
 }
 
 
-// ==== entry=004b91b0 name=brush size=6 ====
+// ==== entry=004b91b0 orig=FUN_004b91b0 size=6 name=brush ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -111,7 +111,7 @@ void QPainter::brush(void)
 }
 
 
-// ==== entry=004b91c0 name=argToQString size=6 ====
+// ==== entry=004b91c0 orig=FUN_004b91c0 size=6 name=argToQString ====
 
 void QtPrivate::argToQString(void)
 
@@ -121,7 +121,7 @@ void QtPrivate::argToQString(void)
 }
 
 
-// ==== entry=004b91d0 name=setObjectOwnership size=6 ====
+// ==== entry=004b91d0 orig=FUN_004b91d0 size=6 name=setObjectOwnership ====
 
 void QQmlEngine::setObjectOwnership(void)
 
@@ -131,7 +131,7 @@ void QQmlEngine::setObjectOwnership(void)
 }
 
 
-// ==== entry=004b91e0 name=setSelected size=6 ====
+// ==== entry=004b91e0 orig=FUN_004b91e0 size=6 name=setSelected ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -143,7 +143,7 @@ void QListWidgetItem::setSelected(bool param_1)
 }
 
 
-// ==== entry=004b91f0 name=hasNext size=6 ====
+// ==== entry=004b91f0 orig=FUN_004b91f0 size=6 name=hasNext ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -155,7 +155,7 @@ void QRegularExpressionMatchIterator::hasNext(void)
 }
 
 
-// ==== entry=004b9200 name=setIndexWidget size=6 ====
+// ==== entry=004b9200 orig=FUN_004b9200 size=6 name=setIndexWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -167,7 +167,7 @@ void QAbstractItemView::setIndexWidget(QModelIndex *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=004b9210 name=entryList size=6 ====
+// ==== entry=004b9210 orig=FUN_004b9210 size=6 name=entryList ====
 
 void QDir::entryList(void)
 
@@ -177,7 +177,7 @@ void QDir::entryList(void)
 }
 
 
-// ==== entry=004b9220 name=setContextMenuPolicy size=6 ====
+// ==== entry=004b9220 orig=FUN_004b9220 size=6 name=setContextMenuPolicy ====
 
 void QWidget::setContextMenuPolicy(void)
 
@@ -187,7 +187,7 @@ void QWidget::setContextMenuPolicy(void)
 }
 
 
-// ==== entry=004b9230 name=~QVBoxLayout size=6 ====
+// ==== entry=004b9230 orig=FUN_004b9230 size=6 name=~QVBoxLayout ====
 
 void __thiscall QVBoxLayout::~QVBoxLayout(QVBoxLayout *this)
 
@@ -197,7 +197,7 @@ void __thiscall QVBoxLayout::~QVBoxLayout(QVBoxLayout *this)
 }
 
 
-// ==== entry=004b9240 name=completeSuffix size=6 ====
+// ==== entry=004b9240 orig=FUN_004b9240 size=6 name=completeSuffix ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -209,7 +209,7 @@ void QFileInfo::completeSuffix(void)
 }
 
 
-// ==== entry=004b9250 name=QLineEdit size=6 ====
+// ==== entry=004b9250 orig=FUN_004b9250 size=6 name=QLineEdit ====
 
 void __thiscall QLineEdit::QLineEdit(QLineEdit *this,QWidget *param_1)
 
@@ -219,7 +219,7 @@ void __thiscall QLineEdit::QLineEdit(QLineEdit *this,QWidget *param_1)
 }
 
 
-// ==== entry=004b9260 name=removeRecursively size=6 ====
+// ==== entry=004b9260 orig=FUN_004b9260 size=6 name=removeRecursively ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -231,7 +231,7 @@ void QDir::removeRecursively(void)
 }
 
 
-// ==== entry=004b9270 name=sftp_async_mkdir size=6 ====
+// ==== entry=004b9270 orig=FUN_004b9270 size=6 name=sftp_async_mkdir ====
 
 void sftp_async_mkdir(void)
 
@@ -241,7 +241,7 @@ void sftp_async_mkdir(void)
 }
 
 
-// ==== entry=004b9280 name=sendEvent size=6 ====
+// ==== entry=004b9280 orig=FUN_004b9280 size=6 name=sendEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -253,7 +253,7 @@ void QCoreApplication::sendEvent(QObject *param_1,QEvent *param_2)
 }
 
 
-// ==== entry=004b9290 name=insertPermanentWidget size=6 ====
+// ==== entry=004b9290 orig=FUN_004b9290 size=6 name=insertPermanentWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -265,7 +265,7 @@ void QStatusBar::insertPermanentWidget(int param_1,QWidget *param_2,int param_3)
 }
 
 
-// ==== entry=004b92a0 name=qt_metacast size=6 ====
+// ==== entry=004b92a0 orig=FUN_004b92a0 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -277,7 +277,7 @@ void QListWidget::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004b92b0 name=QHostAddress size=6 ====
+// ==== entry=004b92b0 orig=FUN_004b92b0 size=6 name=QHostAddress ====
 
 void __thiscall QHostAddress::QHostAddress(void)
 
@@ -287,7 +287,7 @@ void __thiscall QHostAddress::QHostAddress(void)
 }
 
 
-// ==== entry=004b92c0 name=remove size=6 ====
+// ==== entry=004b92c0 orig=FUN_004b92c0 size=6 name=remove ====
 
 void QString::remove(void)
 
@@ -297,7 +297,7 @@ void QString::remove(void)
 }
 
 
-// ==== entry=004b92d0 name=ftello64 size=6 ====
+// ==== entry=004b92d0 orig=FUN_004b92d0 size=6 name=ftello64 ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -311,7 +311,7 @@ __off64_t ftello64(FILE *__stream)
 }
 
 
-// ==== entry=004b92e0 name=QMetaType size=6 ====
+// ==== entry=004b92e0 orig=FUN_004b92e0 size=6 name=QMetaType ====
 
 void __thiscall QMetaType::QMetaType(QMetaType *this,int param_1)
 
@@ -321,7 +321,7 @@ void __thiscall QMetaType::QMetaType(QMetaType *this,int param_1)
 }
 
 
-// ==== entry=004b92f0 name=QAbstractListModel size=6 ====
+// ==== entry=004b92f0 orig=FUN_004b92f0 size=6 name=QAbstractListModel ====
 
 void __thiscall QAbstractListModel::QAbstractListModel(QAbstractListModel *this,QObject *param_1)
 
@@ -331,7 +331,7 @@ void __thiscall QAbstractListModel::QAbstractListModel(QAbstractListModel *this,
 }
 
 
-// ==== entry=004b9300 name=QStringList_removeDuplicates size=6 ====
+// ==== entry=004b9300 orig=FUN_004b9300 size=6 name=QStringList_removeDuplicates ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -343,7 +343,7 @@ void QtPrivate::QStringList_removeDuplicates(QStringList *param_1)
 }
 
 
-// ==== entry=004b9310 name=averageCharWidth size=6 ====
+// ==== entry=004b9310 orig=FUN_004b9310 size=6 name=averageCharWidth ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -355,7 +355,7 @@ void QFontMetrics::averageCharWidth(void)
 }
 
 
-// ==== entry=004b9320 name=operator!= size=6 ====
+// ==== entry=004b9320 orig=FUN_004b9320 size=6 name=operator!= ====
 
 void __thiscall QFont::operator!=(QFont *this,QFont *param_1)
 
@@ -365,7 +365,7 @@ void __thiscall QFont::operator!=(QFont *this,QFont *param_1)
 }
 
 
-// ==== entry=004b9330 name=setUniformRowHeights size=6 ====
+// ==== entry=004b9330 orig=FUN_004b9330 size=6 name=setUniformRowHeights ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -377,7 +377,7 @@ void QTreeView::setUniformRowHeights(bool param_1)
 }
 
 
-// ==== entry=004b9340 name=setBackground size=6 ====
+// ==== entry=004b9340 orig=FUN_004b9340 size=6 name=setBackground ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -389,7 +389,7 @@ void QPainter::setBackground(QBrush *param_1)
 }
 
 
-// ==== entry=004b9350 name=newObject size=6 ====
+// ==== entry=004b9350 orig=FUN_004b9350 size=6 name=newObject ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -401,7 +401,7 @@ void QJSEngine::newObject(void)
 }
 
 
-// ==== entry=004b9360 name=hasText size=6 ====
+// ==== entry=004b9360 orig=FUN_004b9360 size=6 name=hasText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -413,7 +413,7 @@ void QMimeData::hasText(void)
 }
 
 
-// ==== entry=004b9370 name=start size=6 ====
+// ==== entry=004b9370 orig=FUN_004b9370 size=6 name=start ====
 
 void QAbstractAnimation::start(void)
 
@@ -423,7 +423,7 @@ void QAbstractAnimation::start(void)
 }
 
 
-// ==== entry=004b9380 name=leaveEvent size=6 ====
+// ==== entry=004b9380 orig=FUN_004b9380 size=6 name=leaveEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -435,7 +435,7 @@ void QWidget::leaveEvent(QEvent *param_1)
 }
 
 
-// ==== entry=004b9390 name=globalStrut size=6 ====
+// ==== entry=004b9390 orig=FUN_004b9390 size=6 name=globalStrut ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -447,7 +447,7 @@ void QApplication::globalStrut(void)
 }
 
 
-// ==== entry=004b93a0 name=ssh_userauth_password size=6 ====
+// ==== entry=004b93a0 orig=FUN_004b93a0 size=6 name=ssh_userauth_password ====
 
 void ssh_userauth_password(void)
 
@@ -457,7 +457,7 @@ void ssh_userauth_password(void)
 }
 
 
-// ==== entry=004b93b0 name=sftp_closedir size=6 ====
+// ==== entry=004b93b0 orig=FUN_004b93b0 size=6 name=sftp_closedir ====
 
 void sftp_closedir(void)
 
@@ -467,7 +467,7 @@ void sftp_closedir(void)
 }
 
 
-// ==== entry=004b93c0 name=QFileDialog size=6 ====
+// ==== entry=004b93c0 orig=FUN_004b93c0 size=6 name=QFileDialog ====
 
 void __thiscall
 QFileDialog::QFileDialog
@@ -479,7 +479,7 @@ QFileDialog::QFileDialog
 }
 
 
-// ==== entry=004b93d0 name=weight size=6 ====
+// ==== entry=004b93d0 orig=FUN_004b93d0 size=6 name=weight ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -491,7 +491,7 @@ void QFont::weight(void)
 }
 
 
-// ==== entry=004b93e0 name=show size=6 ====
+// ==== entry=004b93e0 orig=FUN_004b93e0 size=6 name=show ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -503,7 +503,7 @@ void QWidget::show(void)
 }
 
 
-// ==== entry=004b93f0 name=toIPv6Address size=6 ====
+// ==== entry=004b93f0 orig=FUN_004b93f0 size=6 name=toIPv6Address ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -515,7 +515,7 @@ void QHostAddress::toIPv6Address(void)
 }
 
 
-// ==== entry=004b9400 name=disconnect size=6 ====
+// ==== entry=004b9400 orig=FUN_004b9400 size=6 name=disconnect ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -527,7 +527,7 @@ void QObject::disconnect(QObject *param_1,char *param_2,QObject *param_3,char *p
 }
 
 
-// ==== entry=004b9410 name=mimeTypeForFile size=6 ====
+// ==== entry=004b9410 orig=FUN_004b9410 size=6 name=mimeTypeForFile ====
 
 void QMimeDatabase::mimeTypeForFile(void)
 
@@ -537,7 +537,7 @@ void QMimeDatabase::mimeTypeForFile(void)
 }
 
 
-// ==== entry=004b9420 name=qt_metacall size=6 ====
+// ==== entry=004b9420 orig=FUN_004b9420 size=6 name=qt_metacall ====
 
 void QMenu::qt_metacall(void)
 
@@ -547,7 +547,7 @@ void QMenu::qt_metacall(void)
 }
 
 
-// ==== entry=004b9430 name=getColor size=6 ====
+// ==== entry=004b9430 orig=FUN_004b9430 size=6 name=getColor ====
 
 void QColorDialog::getColor(void)
 
@@ -557,7 +557,7 @@ void QColorDialog::getColor(void)
 }
 
 
-// ==== entry=004b9440 name=mouseMoveEvent size=6 ====
+// ==== entry=004b9440 orig=FUN_004b9440 size=6 name=mouseMoveEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -569,7 +569,7 @@ void QLineEdit::mouseMoveEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=004b9450 name=insertRow size=6 ====
+// ==== entry=004b9450 orig=FUN_004b9450 size=6 name=insertRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -581,7 +581,7 @@ void QFormLayout::insertRow(int param_1,QString *param_2,QWidget *param_3)
 }
 
 
-// ==== entry=004b9460 name=strdup size=6 ====
+// ==== entry=004b9460 orig=FUN_004b9460 size=6 name=strdup ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -595,7 +595,7 @@ char * strdup(char *__s)
 }
 
 
-// ==== entry=004b9470 name=keyCount size=6 ====
+// ==== entry=004b9470 orig=FUN_004b9470 size=6 name=keyCount ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -607,7 +607,7 @@ void QMetaEnum::keyCount(void)
 }
 
 
-// ==== entry=004b9480 name=~QPixmap size=6 ====
+// ==== entry=004b9480 orig=FUN_004b9480 size=6 name=~QPixmap ====
 
 void __thiscall QPixmap::~QPixmap(QPixmap *this)
 
@@ -617,7 +617,7 @@ void __thiscall QPixmap::~QPixmap(QPixmap *this)
 }
 
 
-// ==== entry=004b9490 name=program size=6 ====
+// ==== entry=004b9490 orig=FUN_004b9490 size=6 name=program ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -629,7 +629,7 @@ void QProcess::program(void)
 }
 
 
-// ==== entry=004b94a0 name=QThread size=6 ====
+// ==== entry=004b94a0 orig=FUN_004b94a0 size=6 name=QThread ====
 
 void __thiscall QThread::QThread(QThread *this,QObject *param_1)
 
@@ -639,7 +639,7 @@ void __thiscall QThread::QThread(QThread *this,QObject *param_1)
 }
 
 
-// ==== entry=004b94b0 name=keys size=6 ====
+// ==== entry=004b94b0 orig=FUN_004b94b0 size=6 name=keys ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -651,7 +651,7 @@ void QJsonObject::keys(void)
 }
 
 
-// ==== entry=004b94c0 name=isFullScreen size=6 ====
+// ==== entry=004b94c0 orig=FUN_004b94c0 size=6 name=isFullScreen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -663,7 +663,7 @@ void QWidget::isFullScreen(void)
 }
 
 
-// ==== entry=004b94d0 name=setProperty size=6 ====
+// ==== entry=004b94d0 orig=FUN_004b94d0 size=6 name=setProperty ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -675,7 +675,7 @@ void QObject::setProperty(char *param_1,QVariant *param_2)
 }
 
 
-// ==== entry=004b94e0 name=setModel size=6 ====
+// ==== entry=004b94e0 orig=FUN_004b94e0 size=6 name=setModel ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -687,7 +687,7 @@ void QComboBox::setModel(QAbstractItemModel *param_1)
 }
 
 
-// ==== entry=004b94f0 name=setCentralWidget size=6 ====
+// ==== entry=004b94f0 orig=FUN_004b94f0 size=6 name=setCentralWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -699,7 +699,7 @@ void QMainWindow::setCentralWidget(QWidget *param_1)
 }
 
 
-// ==== entry=004b9500 name=trimmed_helper size=6 ====
+// ==== entry=004b9500 orig=FUN_004b9500 size=6 name=trimmed_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -711,7 +711,7 @@ void QString::trimmed_helper(QString *param_1)
 }
 
 
-// ==== entry=004b9510 name=geometry size=6 ====
+// ==== entry=004b9510 orig=FUN_004b9510 size=6 name=geometry ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -723,7 +723,7 @@ void QScreen::geometry(void)
 }
 
 
-// ==== entry=004b9520 name=errorOccurred size=6 ====
+// ==== entry=004b9520 orig=FUN_004b9520 size=6 name=errorOccurred ====
 
 void QAbstractSocket::errorOccurred(void)
 
@@ -733,7 +733,7 @@ void QAbstractSocket::errorOccurred(void)
 }
 
 
-// ==== entry=004b9530 name=itemText size=6 ====
+// ==== entry=004b9530 orig=FUN_004b9530 size=6 name=itemText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -745,7 +745,7 @@ void QComboBox::itemText(int param_1)
 }
 
 
-// ==== entry=004b9540 name=operator!= size=6 ====
+// ==== entry=004b9540 orig=FUN_004b9540 size=6 name=operator!= ====
 
 void __thiscall QColor::operator!=(QColor *this,QColor *param_1)
 
@@ -755,7 +755,7 @@ void __thiscall QColor::operator!=(QColor *this,QColor *param_1)
 }
 
 
-// ==== entry=004b9550 name=sftp_dir_eof size=6 ====
+// ==== entry=004b9550 orig=FUN_004b9550 size=6 name=sftp_dir_eof ====
 
 void sftp_dir_eof(void)
 
@@ -765,7 +765,7 @@ void sftp_dir_eof(void)
 }
 
 
-// ==== entry=004b9560 name=setProxy size=6 ====
+// ==== entry=004b9560 orig=FUN_004b9560 size=6 name=setProxy ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -777,7 +777,7 @@ void QAbstractSocket::setProxy(QNetworkProxy *param_1)
 }
 
 
-// ==== entry=004b9570 name=fdopen size=6 ====
+// ==== entry=004b9570 orig=FUN_004b9570 size=6 name=fdopen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -791,7 +791,7 @@ FILE * fdopen(int __fd,char *__modes)
 }
 
 
-// ==== entry=004b9580 name=replace size=6 ====
+// ==== entry=004b9580 orig=FUN_004b9580 size=6 name=replace ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -803,7 +803,7 @@ void QByteArray::replace(int param_1,int param_2,QByteArray *param_3)
 }
 
 
-// ==== entry=004b9590 name=~QStyledItemDelegate size=6 ====
+// ==== entry=004b9590 orig=FUN_004b9590 size=6 name=~QStyledItemDelegate ====
 
 void __thiscall QStyledItemDelegate::~QStyledItemDelegate(QStyledItemDelegate *this)
 
@@ -813,7 +813,7 @@ void __thiscall QStyledItemDelegate::~QStyledItemDelegate(QStyledItemDelegate *t
 }
 
 
-// ==== entry=004b95a0 name=start size=6 ====
+// ==== entry=004b95a0 orig=FUN_004b95a0 size=6 name=start ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -825,7 +825,7 @@ void QTimeLine::start(void)
 }
 
 
-// ==== entry=004b95b0 name=QDir size=6 ====
+// ==== entry=004b95b0 orig=FUN_004b95b0 size=6 name=QDir ====
 
 void __thiscall QDir::QDir(QDir *this,QString *param_1)
 
@@ -835,7 +835,7 @@ void __thiscall QDir::QDir(QDir *this,QString *param_1)
 }
 
 
-// ==== entry=004b95c0 name=~QFontMetrics size=6 ====
+// ==== entry=004b95c0 orig=FUN_004b95c0 size=6 name=~QFontMetrics ====
 
 void __thiscall QFontMetrics::~QFontMetrics(QFontMetrics *this)
 
@@ -845,7 +845,7 @@ void __thiscall QFontMetrics::~QFontMetrics(QFontMetrics *this)
 }
 
 
-// ==== entry=004b95d0 name=ssh_userauth_gssapi size=6 ====
+// ==== entry=004b95d0 orig=FUN_004b95d0 size=6 name=ssh_userauth_gssapi ====
 
 void ssh_userauth_gssapi(void)
 
@@ -855,7 +855,7 @@ void ssh_userauth_gssapi(void)
 }
 
 
-// ==== entry=004b95e0 name=setDefault size=6 ====
+// ==== entry=004b95e0 orig=FUN_004b95e0 size=6 name=setDefault ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -867,7 +867,7 @@ void QPushButton::setDefault(bool param_1)
 }
 
 
-// ==== entry=004b95f0 name=arg size=6 ====
+// ==== entry=004b95f0 orig=FUN_004b95f0 size=6 name=arg ====
 
 void QString::arg(void)
 
@@ -877,7 +877,7 @@ void QString::arg(void)
 }
 
 
-// ==== entry=004b9600 name=size size=6 ====
+// ==== entry=004b9600 orig=FUN_004b9600 size=6 name=size ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -889,7 +889,7 @@ void QFile::size(void)
 }
 
 
-// ==== entry=004b9610 name=wcrtomb size=6 ====
+// ==== entry=004b9610 orig=FUN_004b9610 size=6 name=wcrtomb ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -903,7 +903,7 @@ size_t wcrtomb(char *__s,wchar_t __wc,mbstate_t *__ps)
 }
 
 
-// ==== entry=004b9620 name=hasSelection size=6 ====
+// ==== entry=004b9620 orig=FUN_004b9620 size=6 name=hasSelection ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -915,7 +915,7 @@ void QItemSelectionModel::hasSelection(void)
 }
 
 
-// ==== entry=004b9630 name=setUpdateInterval size=6 ====
+// ==== entry=004b9630 orig=FUN_004b9630 size=6 name=setUpdateInterval ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -927,7 +927,7 @@ void QTimeLine::setUpdateInterval(int param_1)
 }
 
 
-// ==== entry=004b9640 name=isSliderDown size=6 ====
+// ==== entry=004b9640 orig=FUN_004b9640 size=6 name=isSliderDown ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -939,7 +939,7 @@ void QAbstractSlider::isSliderDown(void)
 }
 
 
-// ==== entry=004b9650 name=processEvents size=6 ====
+// ==== entry=004b9650 orig=FUN_004b9650 size=6 name=processEvents ====
 
 void QCoreApplication::processEvents(void)
 
@@ -949,7 +949,7 @@ void QCoreApplication::processEvents(void)
 }
 
 
-// ==== entry=004b9660 name=setMimeData size=6 ====
+// ==== entry=004b9660 orig=FUN_004b9660 size=6 name=setMimeData ====
 
 void QClipboard::setMimeData(void)
 
@@ -959,7 +959,7 @@ void QClipboard::setMimeData(void)
 }
 
 
-// ==== entry=004b9670 name=ssh_channel_request_pty_size size=6 ====
+// ==== entry=004b9670 orig=FUN_004b9670 size=6 name=ssh_channel_request_pty_size ====
 
 void ssh_channel_request_pty_size(void)
 
@@ -969,7 +969,7 @@ void ssh_channel_request_pty_size(void)
 }
 
 
-// ==== entry=004b9680 name=setPen size=6 ====
+// ==== entry=004b9680 orig=FUN_004b9680 size=6 name=setPen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -981,7 +981,7 @@ void QPainter::setPen(QColor *param_1)
 }
 
 
-// ==== entry=004b9690 name=showMaximized size=6 ====
+// ==== entry=004b9690 orig=FUN_004b9690 size=6 name=showMaximized ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -993,7 +993,7 @@ void QWidget::showMaximized(void)
 }
 
 
-// ==== entry=004b96a0 name=display size=6 ====
+// ==== entry=004b96a0 orig=FUN_004b96a0 size=6 name=display ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1005,7 +1005,7 @@ void QX11Info::display(void)
 }
 
 
-// ==== entry=004b96b0 name=qstrcmp size=6 ====
+// ==== entry=004b96b0 orig=FUN_004b96b0 size=6 name=qstrcmp ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1017,7 +1017,7 @@ void qstrcmp(char *param_1,char *param_2)
 }
 
 
-// ==== entry=004b96c0 name=value size=6 ====
+// ==== entry=004b96c0 orig=FUN_004b96c0 size=6 name=value ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1029,7 +1029,7 @@ void QAssociativeIterable::const_iterator::value(void)
 }
 
 
-// ==== entry=004b96d0 name=completer size=6 ====
+// ==== entry=004b96d0 orig=FUN_004b96d0 size=6 name=completer ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1041,7 +1041,7 @@ void QComboBox::completer(void)
 }
 
 
-// ==== entry=004b96e0 name=qt_metacast size=6 ====
+// ==== entry=004b96e0 orig=FUN_004b96e0 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1053,7 +1053,7 @@ void QThread::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004b96f0 name=keyPressEvent size=6 ====
+// ==== entry=004b96f0 orig=FUN_004b96f0 size=6 name=keyPressEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1065,7 +1065,7 @@ void QWidget::keyPressEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=004b9700 name=wcscmp size=6 ====
+// ==== entry=004b9700 orig=FUN_004b9700 size=6 name=wcscmp ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1079,7 +1079,7 @@ int wcscmp(wchar_t *__s1,wchar_t *__s2)
 }
 
 
-// ==== entry=004b9710 name=createMaskFromColor size=6 ====
+// ==== entry=004b9710 orig=FUN_004b9710 size=6 name=createMaskFromColor ====
 
 void QPixmap::createMaskFromColor(void)
 
@@ -1089,7 +1089,7 @@ void QPixmap::createMaskFromColor(void)
 }
 
 
-// ==== entry=004b9720 name=reallocData size=6 ====
+// ==== entry=004b9720 orig=FUN_004b9720 size=6 name=reallocData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1101,7 +1101,7 @@ void QString::reallocData(uint param_1,bool param_2)
 }
 
 
-// ==== entry=004b9730 name=~QTextCursor size=6 ====
+// ==== entry=004b9730 orig=FUN_004b9730 size=6 name=~QTextCursor ====
 
 void __thiscall QTextCursor::~QTextCursor(QTextCursor *this)
 
@@ -1111,7 +1111,7 @@ void __thiscall QTextCursor::~QTextCursor(QTextCursor *this)
 }
 
 
-// ==== entry=004b9740 name=setCapabilities size=6 ====
+// ==== entry=004b9740 orig=FUN_004b9740 size=6 name=setCapabilities ====
 
 void QNetworkProxy::setCapabilities(void)
 
@@ -1121,7 +1121,7 @@ void QNetworkProxy::setCapabilities(void)
 }
 
 
-// ==== entry=004b9750 name=currentIndex size=6 ====
+// ==== entry=004b9750 orig=FUN_004b9750 size=6 name=currentIndex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1133,7 +1133,7 @@ void QAbstractItemView::currentIndex(void)
 }
 
 
-// ==== entry=004b9760 name=~QTreeView size=6 ====
+// ==== entry=004b9760 orig=FUN_004b9760 size=6 name=~QTreeView ====
 
 void __thiscall QTreeView::~QTreeView(QTreeView *this)
 
@@ -1143,7 +1143,7 @@ void __thiscall QTreeView::~QTreeView(QTreeView *this)
 }
 
 
-// ==== entry=004b9770 name=data size=6 ====
+// ==== entry=004b9770 orig=FUN_004b9770 size=6 name=data ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1155,7 +1155,7 @@ void QStandardItemModel::data(QModelIndex *param_1,int param_2)
 }
 
 
-// ==== entry=004b9780 name=read size=6 ====
+// ==== entry=004b9780 orig=FUN_004b9780 size=6 name=read ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1167,7 +1167,7 @@ void QIODevice::read(char *param_1,longlong param_2)
 }
 
 
-// ==== entry=004b9790 name=stretch size=6 ====
+// ==== entry=004b9790 orig=FUN_004b9790 size=6 name=stretch ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1179,7 +1179,7 @@ void QFont::stretch(void)
 }
 
 
-// ==== entry=004b97a0 name=QShortcut size=6 ====
+// ==== entry=004b97a0 orig=FUN_004b97a0 size=6 name=QShortcut ====
 
 void __thiscall QShortcut::QShortcut(QShortcut *this,QWidget *param_1)
 
@@ -1189,7 +1189,7 @@ void __thiscall QShortcut::QShortcut(QShortcut *this,QWidget *param_1)
 }
 
 
-// ==== entry=004b97b0 name=captured size=6 ====
+// ==== entry=004b97b0 orig=FUN_004b97b0 size=6 name=captured ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1201,7 +1201,7 @@ void QRegularExpressionMatch::captured(int param_1)
 }
 
 
-// ==== entry=004b97c0 name=setColumnStretch size=6 ====
+// ==== entry=004b97c0 orig=FUN_004b97c0 size=6 name=setColumnStretch ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1213,7 +1213,7 @@ void QGridLayout::setColumnStretch(int param_1,int param_2)
 }
 
 
-// ==== entry=004b97d0 name=_M_construct size=6 ====
+// ==== entry=004b97d0 orig=FUN_004b97d0 size=6 name=_M_construct ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1225,7 +1225,7 @@ void std::__cxx11::string::_M_construct(ulong param_1,char param_2)
 }
 
 
-// ==== entry=004b97e0 name=setEndValue size=6 ====
+// ==== entry=004b97e0 orig=FUN_004b97e0 size=6 name=setEndValue ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1237,7 +1237,7 @@ void QVariantAnimation::setEndValue(QVariant *param_1)
 }
 
 
-// ==== entry=004b97f0 name=closeEvent size=6 ====
+// ==== entry=004b97f0 orig=FUN_004b97f0 size=6 name=closeEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1249,7 +1249,7 @@ void QWidget::closeEvent(QCloseEvent *param_1)
 }
 
 
-// ==== entry=004b9800 name=setPortName size=6 ====
+// ==== entry=004b9800 orig=FUN_004b9800 size=6 name=setPortName ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1261,7 +1261,7 @@ void QSerialPort::setPortName(QString *param_1)
 }
 
 
-// ==== entry=004b9810 name=realloc size=6 ====
+// ==== entry=004b9810 orig=FUN_004b9810 size=6 name=realloc ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1275,7 +1275,7 @@ void * realloc(void *__ptr,size_t __size)
 }
 
 
-// ==== entry=004b9820 name=setItem size=6 ====
+// ==== entry=004b9820 orig=FUN_004b9820 size=6 name=setItem ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1287,7 +1287,7 @@ void QStandardItemModel::setItem(int param_1,int param_2,QStandardItem *param_3)
 }
 
 
-// ==== entry=004b9830 name=getOpenFileName size=6 ====
+// ==== entry=004b9830 orig=FUN_004b9830 size=6 name=getOpenFileName ====
 
 void QFileDialog::getOpenFileName(void)
 
@@ -1297,7 +1297,7 @@ void QFileDialog::getOpenFileName(void)
 }
 
 
-// ==== entry=004b9840 name=~QSettings size=6 ====
+// ==== entry=004b9840 orig=FUN_004b9840 size=6 name=~QSettings ====
 
 void __thiscall QSettings::~QSettings(QSettings *this)
 
@@ -1307,7 +1307,7 @@ void __thiscall QSettings::~QSettings(QSettings *this)
 }
 
 
-// ==== entry=004b9850 name=underline size=6 ====
+// ==== entry=004b9850 orig=FUN_004b9850 size=6 name=underline ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1319,7 +1319,7 @@ void QFont::underline(void)
 }
 
 
-// ==== entry=004b9860 name=terminate size=6 ====
+// ==== entry=004b9860 orig=FUN_004b9860 size=6 name=terminate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1331,7 +1331,7 @@ void QProcess::terminate(void)
 }
 
 
-// ==== entry=004b9870 name=setCheckable size=6 ====
+// ==== entry=004b9870 orig=FUN_004b9870 size=6 name=setCheckable ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1343,7 +1343,7 @@ void QAction::setCheckable(bool param_1)
 }
 
 
-// ==== entry=004b9880 name=setWordWrapMode size=6 ====
+// ==== entry=004b9880 orig=FUN_004b9880 size=6 name=setWordWrapMode ====
 
 void QPlainTextEdit::setWordWrapMode(void)
 
@@ -1353,7 +1353,7 @@ void QPlainTextEdit::setWordWrapMode(void)
 }
 
 
-// ==== entry=004b9890 name=pututxline size=6 ====
+// ==== entry=004b9890 orig=FUN_004b9890 size=6 name=pututxline ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1367,7 +1367,7 @@ utmpx * pututxline(utmpx *__utmpx)
 }
 
 
-// ==== entry=004b98a0 name=hasChildren size=6 ====
+// ==== entry=004b98a0 orig=FUN_004b98a0 size=6 name=hasChildren ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1379,7 +1379,7 @@ void QStandardItem::hasChildren(void)
 }
 
 
-// ==== entry=004b98b0 name=toInt size=6 ====
+// ==== entry=004b98b0 orig=FUN_004b98b0 size=6 name=toInt ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1391,7 +1391,7 @@ void QByteArray::toInt(bool *param_1,int param_2)
 }
 
 
-// ==== entry=004b98c0 name=text size=6 ====
+// ==== entry=004b98c0 orig=FUN_004b98c0 size=6 name=text ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1403,7 +1403,7 @@ void QLineEdit::text(void)
 }
 
 
-// ==== entry=004b98d0 name=QKeySequence size=6 ====
+// ==== entry=004b98d0 orig=FUN_004b98d0 size=6 name=QKeySequence ====
 
 void __thiscall
 QKeySequence::QKeySequence(QKeySequence *this,int param_1,int param_2,int param_3,int param_4)
@@ -1414,7 +1414,7 @@ QKeySequence::QKeySequence(QKeySequence *this,int param_1,int param_2,int param_
 }
 
 
-// ==== entry=004b98e0 name=QTextCursor size=6 ====
+// ==== entry=004b98e0 orig=FUN_004b98e0 size=6 name=QTextCursor ====
 
 void __thiscall QTextCursor::QTextCursor(QTextCursor *this,QTextDocument *param_1)
 
@@ -1424,7 +1424,7 @@ void __thiscall QTextCursor::QTextCursor(QTextCursor *this,QTextDocument *param_
 }
 
 
-// ==== entry=004b98f0 name=addWidget size=6 ====
+// ==== entry=004b98f0 orig=FUN_004b98f0 size=6 name=addWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1436,7 +1436,7 @@ void QStackedLayout::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=004b9900 name=ZSTD_trace_compress_end size=6 ====
+// ==== entry=004b9900 orig=FUN_004b9900 size=6 name=ZSTD_trace_compress_end ====
 
 void ZSTD_trace_compress_end(void)
 
@@ -1446,7 +1446,7 @@ void ZSTD_trace_compress_end(void)
 }
 
 
-// ==== entry=004b9910 name=toString size=6 ====
+// ==== entry=004b9910 orig=FUN_004b9910 size=6 name=toString ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1458,7 +1458,7 @@ void QHostAddress::toString(void)
 }
 
 
-// ==== entry=004b9920 name=isPersistentEditorOpen size=6 ====
+// ==== entry=004b9920 orig=FUN_004b9920 size=6 name=isPersistentEditorOpen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1470,7 +1470,7 @@ void QAbstractItemView::isPersistentEditorOpen(QModelIndex *param_1)
 }
 
 
-// ==== entry=004b9930 name=setOverrideCursor size=6 ====
+// ==== entry=004b9930 orig=FUN_004b9930 size=6 name=setOverrideCursor ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1482,7 +1482,7 @@ void QGuiApplication::setOverrideCursor(QCursor *param_1)
 }
 
 
-// ==== entry=004b9940 name=newQObject size=6 ====
+// ==== entry=004b9940 orig=FUN_004b9940 size=6 name=newQObject ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1494,7 +1494,7 @@ void QJSEngine::newQObject(QObject *param_1)
 }
 
 
-// ==== entry=004b9950 name=__nl_langinfo_l size=6 ====
+// ==== entry=004b9950 orig=FUN_004b9950 size=6 name=__nl_langinfo_l ====
 
 void __nl_langinfo_l(void)
 
@@ -1504,7 +1504,7 @@ void __nl_langinfo_l(void)
 }
 
 
-// ==== entry=004b9960 name=toUnicode size=6 ====
+// ==== entry=004b9960 orig=FUN_004b9960 size=6 name=toUnicode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1516,7 +1516,7 @@ void QTextDecoder::toUnicode(QByteArray *param_1)
 }
 
 
-// ==== entry=004b9970 name=permissions size=6 ====
+// ==== entry=004b9970 orig=FUN_004b9970 size=6 name=permissions ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1528,7 +1528,7 @@ void QFileInfo::permissions(void)
 }
 
 
-// ==== entry=004b9980 name=layoutDirection size=6 ====
+// ==== entry=004b9980 orig=FUN_004b9980 size=6 name=layoutDirection ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1540,7 +1540,7 @@ void QWidget::layoutDirection(void)
 }
 
 
-// ==== entry=004b9990 name=setContentsMargins size=6 ====
+// ==== entry=004b9990 orig=FUN_004b9990 size=6 name=setContentsMargins ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1552,7 +1552,7 @@ void QLayout::setContentsMargins(int param_1,int param_2,int param_3,int param_4
 }
 
 
-// ==== entry=004b99a0 name=activate size=6 ====
+// ==== entry=004b99a0 orig=FUN_004b99a0 size=6 name=activate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1564,7 +1564,7 @@ void QLayout::activate(void)
 }
 
 
-// ==== entry=004b99b0 name=text size=6 ====
+// ==== entry=004b99b0 orig=FUN_004b99b0 size=6 name=text ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1576,7 +1576,7 @@ void QAbstractButton::text(void)
 }
 
 
-// ==== entry=004b99c0 name=dispose size=6 ====
+// ==== entry=004b99c0 orig=FUN_004b99c0 size=6 name=dispose ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1588,7 +1588,7 @@ void QListData::dispose(Data *param_1)
 }
 
 
-// ==== entry=004b99d0 name=ioctl size=6 ====
+// ==== entry=004b99d0 orig=FUN_004b99d0 size=6 name=ioctl ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1602,7 +1602,7 @@ int ioctl(int __fd,ulong __request,...)
 }
 
 
-// ==== entry=004b99e0 name=isalpha size=6 ====
+// ==== entry=004b99e0 orig=FUN_004b99e0 size=6 name=isalpha ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1616,7 +1616,7 @@ int isalpha(int param_1)
 }
 
 
-// ==== entry=004b99f0 name=QThreadPool size=6 ====
+// ==== entry=004b99f0 orig=FUN_004b99f0 size=6 name=QThreadPool ====
 
 void __thiscall QThreadPool::QThreadPool(QThreadPool *this,QObject *param_1)
 
@@ -1626,7 +1626,7 @@ void __thiscall QThreadPool::QThreadPool(QThreadPool *this,QObject *param_1)
 }
 
 
-// ==== entry=004b9a00 name=QPersistentModelIndex size=6 ====
+// ==== entry=004b9a00 orig=FUN_004b9a00 size=6 name=QPersistentModelIndex ====
 
 void __thiscall
 QPersistentModelIndex::QPersistentModelIndex(QPersistentModelIndex *this,QModelIndex *param_1)
@@ -1637,7 +1637,7 @@ QPersistentModelIndex::QPersistentModelIndex(QPersistentModelIndex *this,QModelI
 }
 
 
-// ==== entry=004b9a10 name=setSelectionBehavior size=6 ====
+// ==== entry=004b9a10 orig=FUN_004b9a10 size=6 name=setSelectionBehavior ====
 
 void QAbstractItemView::setSelectionBehavior(void)
 
@@ -1647,7 +1647,7 @@ void QAbstractItemView::setSelectionBehavior(void)
 }
 
 
-// ==== entry=004b9a20 name=indexOf size=6 ====
+// ==== entry=004b9a20 orig=FUN_004b9a20 size=6 name=indexOf ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1659,7 +1659,7 @@ void QStackedWidget::indexOf(QWidget *param_1)
 }
 
 
-// ==== entry=004b9a30 name=grabShortcut size=6 ====
+// ==== entry=004b9a30 orig=FUN_004b9a30 size=6 name=grabShortcut ====
 
 void QWidget::grabShortcut(void)
 
@@ -1669,7 +1669,7 @@ void QWidget::grabShortcut(void)
 }
 
 
-// ==== entry=004b9a40 name=fillRect size=6 ====
+// ==== entry=004b9a40 orig=FUN_004b9a40 size=6 name=fillRect ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1681,7 +1681,7 @@ void QPainter::fillRect(QRectF *param_1,QColor *param_2)
 }
 
 
-// ==== entry=004b9a50 name=indexOf size=6 ====
+// ==== entry=004b9a50 orig=FUN_004b9a50 size=6 name=indexOf ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1693,7 +1693,7 @@ void QByteArray::indexOf(char *param_1,int param_2)
 }
 
 
-// ==== entry=004b9a60 name=setValue size=6 ====
+// ==== entry=004b9a60 orig=FUN_004b9a60 size=6 name=setValue ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1705,7 +1705,7 @@ void QProgressDialog::setValue(int param_1)
 }
 
 
-// ==== entry=004b9a70 name=registerNormalizedType size=6 ====
+// ==== entry=004b9a70 orig=FUN_004b9a70 size=6 name=registerNormalizedType ====
 
 void QMetaType::registerNormalizedType(void)
 
@@ -1715,7 +1715,7 @@ void QMetaType::registerNormalizedType(void)
 }
 
 
-// ==== entry=004b9a80 name=QSettings size=6 ====
+// ==== entry=004b9a80 orig=FUN_004b9a80 size=6 name=QSettings ====
 
 void __thiscall QSettings::QSettings(void)
 
@@ -1725,7 +1725,7 @@ void __thiscall QSettings::QSettings(void)
 }
 
 
-// ==== entry=004b9a90 name=trimmed_helper size=6 ====
+// ==== entry=004b9a90 orig=FUN_004b9a90 size=6 name=trimmed_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1737,7 +1737,7 @@ void QByteArray::trimmed_helper(QByteArray *param_1)
 }
 
 
-// ==== entry=004b9aa0 name=setSingleStep size=6 ====
+// ==== entry=004b9aa0 orig=FUN_004b9aa0 size=6 name=setSingleStep ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1749,7 +1749,7 @@ void QDoubleSpinBox::setSingleStep(double param_1)
 }
 
 
-// ==== entry=004b9ab0 name=setTitle size=6 ====
+// ==== entry=004b9ab0 orig=FUN_004b9ab0 size=6 name=setTitle ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1761,7 +1761,7 @@ void QGroupBox::setTitle(QString *param_1)
 }
 
 
-// ==== entry=004b9ac0 name=memmove size=6 ====
+// ==== entry=004b9ac0 orig=FUN_004b9ac0 size=6 name=memmove ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1775,7 +1775,7 @@ void * memmove(void *__dest,void *__src,size_t __n)
 }
 
 
-// ==== entry=004b9ad0 name=setSizeConstraint size=6 ====
+// ==== entry=004b9ad0 orig=FUN_004b9ad0 size=6 name=setSizeConstraint ====
 
 void QLayout::setSizeConstraint(void)
 
@@ -1785,7 +1785,7 @@ void QLayout::setSizeConstraint(void)
 }
 
 
-// ==== entry=004b9ae0 name=contains size=6 ====
+// ==== entry=004b9ae0 orig=FUN_004b9ae0 size=6 name=contains ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1797,7 +1797,7 @@ void QRect::contains(QPoint *param_1,bool param_2)
 }
 
 
-// ==== entry=004b9af0 name=toVariant size=6 ====
+// ==== entry=004b9af0 orig=FUN_004b9af0 size=6 name=toVariant ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1809,7 +1809,7 @@ void QJsonValueRef::toVariant(void)
 }
 
 
-// ==== entry=004b9b00 name=drawLines size=6 ====
+// ==== entry=004b9b00 orig=FUN_004b9b00 size=6 name=drawLines ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1821,7 +1821,7 @@ void QPainter::drawLines(QLine *param_1,int param_2)
 }
 
 
-// ==== entry=004b9b10 name=~QMenu size=6 ====
+// ==== entry=004b9b10 orig=FUN_004b9b10 size=6 name=~QMenu ====
 
 void __thiscall QMenu::~QMenu(QMenu *this)
 
@@ -1831,7 +1831,7 @@ void __thiscall QMenu::~QMenu(QMenu *this)
 }
 
 
-// ==== entry=004b9b20 name=setWindowFlags size=6 ====
+// ==== entry=004b9b20 orig=FUN_004b9b20 size=6 name=setWindowFlags ====
 
 void QWidget::setWindowFlags(void)
 
@@ -1841,7 +1841,7 @@ void QWidget::setWindowFlags(void)
 }
 
 
-// ==== entry=004b9b30 name=ssh_get_error_code size=6 ====
+// ==== entry=004b9b30 orig=FUN_004b9b30 size=6 name=ssh_get_error_code ====
 
 void ssh_get_error_code(void)
 
@@ -1851,7 +1851,7 @@ void ssh_get_error_code(void)
 }
 
 
-// ==== entry=004b9b40 name=QVariant size=6 ====
+// ==== entry=004b9b40 orig=FUN_004b9b40 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,QString *param_1)
 
@@ -1861,7 +1861,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QString *param_1)
 }
 
 
-// ==== entry=004b9b50 name=isValid size=6 ====
+// ==== entry=004b9b50 orig=FUN_004b9b50 size=6 name=isValid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1873,7 +1873,7 @@ void QSvgRenderer::isValid(void)
 }
 
 
-// ==== entry=004b9b60 name=QTreeView size=6 ====
+// ==== entry=004b9b60 orig=FUN_004b9b60 size=6 name=QTreeView ====
 
 void __thiscall QTreeView::QTreeView(QTreeView *this,QWidget *param_1)
 
@@ -1883,7 +1883,7 @@ void __thiscall QTreeView::QTreeView(QTreeView *this,QWidget *param_1)
 }
 
 
-// ==== entry=004b9b70 name=currentWidget size=6 ====
+// ==== entry=004b9b70 orig=FUN_004b9b70 size=6 name=currentWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1895,7 +1895,7 @@ void QStackedWidget::currentWidget(void)
 }
 
 
-// ==== entry=004b9b80 name=__ctype_b_loc size=6 ====
+// ==== entry=004b9b80 orig=FUN_004b9b80 size=6 name=__ctype_b_loc ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1909,7 +1909,7 @@ ushort ** __ctype_b_loc(void)
 }
 
 
-// ==== entry=004b9b90 name=addAction size=6 ====
+// ==== entry=004b9b90 orig=FUN_004b9b90 size=6 name=addAction ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1921,7 +1921,7 @@ void QMenu::addAction(QString *param_1)
 }
 
 
-// ==== entry=004b9ba0 name=setCurrentIndex size=6 ====
+// ==== entry=004b9ba0 orig=FUN_004b9ba0 size=6 name=setCurrentIndex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1933,7 +1933,7 @@ void QStackedWidget::setCurrentIndex(int param_1)
 }
 
 
-// ==== entry=004b9bb0 name=strncpy size=6 ====
+// ==== entry=004b9bb0 orig=FUN_004b9bb0 size=6 name=strncpy ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1947,7 +1947,7 @@ char * strncpy(char *__dest,char *__src,size_t __n)
 }
 
 
-// ==== entry=004b9bc0 name=QVariant size=6 ====
+// ==== entry=004b9bc0 orig=FUN_004b9bc0 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,QRectF *param_1)
 
@@ -1957,7 +1957,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QRectF *param_1)
 }
 
 
-// ==== entry=004b9bd0 name=toupper size=6 ====
+// ==== entry=004b9bd0 orig=FUN_004b9bd0 size=6 name=toupper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1971,7 +1971,7 @@ int toupper(int __c)
 }
 
 
-// ==== entry=004b9be0 name=localtime_r size=6 ====
+// ==== entry=004b9be0 orig=FUN_004b9be0 size=6 name=localtime_r ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1985,7 +1985,7 @@ tm * localtime_r(time_t *__timer,tm *__tp)
 }
 
 
-// ==== entry=004b9bf0 name=autoHide size=6 ====
+// ==== entry=004b9bf0 orig=FUN_004b9bf0 size=6 name=autoHide ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -1997,7 +1997,7 @@ void QTabBar::autoHide(void)
 }
 
 
-// ==== entry=004b9c00 name=~QWidgetAction size=6 ====
+// ==== entry=004b9c00 orig=FUN_004b9c00 size=6 name=~QWidgetAction ====
 
 void __thiscall QWidgetAction::~QWidgetAction(QWidgetAction *this)
 
@@ -2007,7 +2007,7 @@ void __thiscall QWidgetAction::~QWidgetAction(QWidgetAction *this)
 }
 
 
-// ==== entry=004b9c10 name=__assert_fail size=6 ====
+// ==== entry=004b9c10 orig=FUN_004b9c10 size=6 name=__assert_fail ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2019,7 +2019,7 @@ void __assert_fail(char *__assertion,char *__file,uint __line,char *__function)
 }
 
 
-// ==== entry=004b9c20 name=columnCount size=6 ====
+// ==== entry=004b9c20 orig=FUN_004b9c20 size=6 name=columnCount ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2031,7 +2031,7 @@ void QGridLayout::columnCount(void)
 }
 
 
-// ==== entry=004b9c30 name=pthread_mutex_destroy size=6 ====
+// ==== entry=004b9c30 orig=FUN_004b9c30 size=6 name=pthread_mutex_destroy ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2045,7 +2045,7 @@ int pthread_mutex_destroy(pthread_mutex_t *__mutex)
 }
 
 
-// ==== entry=004b9c40 name=insert size=6 ====
+// ==== entry=004b9c40 orig=FUN_004b9c40 size=6 name=insert ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2057,7 +2057,7 @@ void QProcessEnvironment::insert(QString *param_1,QString *param_2)
 }
 
 
-// ==== entry=004b9c50 name=QBuffer size=6 ====
+// ==== entry=004b9c50 orig=FUN_004b9c50 size=6 name=QBuffer ====
 
 void __thiscall QBuffer::QBuffer(QBuffer *this,QByteArray *param_1,QObject *param_2)
 
@@ -2067,7 +2067,7 @@ void __thiscall QBuffer::QBuffer(QBuffer *this,QByteArray *param_1,QObject *para
 }
 
 
-// ==== entry=004b9c60 name=setTabStopDistance size=6 ====
+// ==== entry=004b9c60 orig=FUN_004b9c60 size=6 name=setTabStopDistance ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2079,7 +2079,7 @@ void QPlainTextEdit::setTabStopDistance(double param_1)
 }
 
 
-// ==== entry=004b9c70 name=selectionMode size=6 ====
+// ==== entry=004b9c70 orig=FUN_004b9c70 size=6 name=selectionMode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2091,7 +2091,7 @@ void QAbstractItemView::selectionMode(void)
 }
 
 
-// ==== entry=004b9c80 name=isVisibleTo size=6 ====
+// ==== entry=004b9c80 orig=FUN_004b9c80 size=6 name=isVisibleTo ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2103,7 +2103,7 @@ void QWidget::isVisibleTo(QWidget *param_1)
 }
 
 
-// ==== entry=004b9c90 name=qt_metacall size=6 ====
+// ==== entry=004b9c90 orig=FUN_004b9c90 size=6 name=qt_metacall ====
 
 void QComboBox::qt_metacall(void)
 
@@ -2113,7 +2113,7 @@ void QComboBox::qt_metacall(void)
 }
 
 
-// ==== entry=004b9ca0 name=operator>> size=6 ====
+// ==== entry=004b9ca0 orig=FUN_004b9ca0 size=6 name=operator>> ====
 
 void __thiscall QDataStream::operator>>(QDataStream *this,bool *param_1)
 
@@ -2123,7 +2123,7 @@ void __thiscall QDataStream::operator>>(QDataStream *this,bool *param_1)
 }
 
 
-// ==== entry=004b9cb0 name=absolutePath size=6 ====
+// ==== entry=004b9cb0 orig=FUN_004b9cb0 size=6 name=absolutePath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2135,7 +2135,7 @@ void QFileInfo::absolutePath(void)
 }
 
 
-// ==== entry=004b9cc0 name=QSaveFile size=6 ====
+// ==== entry=004b9cc0 orig=FUN_004b9cc0 size=6 name=QSaveFile ====
 
 void __thiscall QSaveFile::QSaveFile(QSaveFile *this,QObject *param_1)
 
@@ -2145,7 +2145,7 @@ void __thiscall QSaveFile::QSaveFile(QSaveFile *this,QObject *param_1)
 }
 
 
-// ==== entry=004b9cd0 name=~QBitmap size=6 ====
+// ==== entry=004b9cd0 orig=FUN_004b9cd0 size=6 name=~QBitmap ====
 
 void __thiscall QBitmap::~QBitmap(QBitmap *this)
 
@@ -2155,7 +2155,7 @@ void __thiscall QBitmap::~QBitmap(QBitmap *this)
 }
 
 
-// ==== entry=004b9ce0 name=isExpanded size=6 ====
+// ==== entry=004b9ce0 orig=FUN_004b9ce0 size=6 name=isExpanded ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2167,7 +2167,7 @@ void QTreeView::isExpanded(QModelIndex *param_1)
 }
 
 
-// ==== entry=004b9cf0 name=currentThreadId size=6 ====
+// ==== entry=004b9cf0 orig=FUN_004b9cf0 size=6 name=currentThreadId ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2179,7 +2179,7 @@ void QThread::currentThreadId(void)
 }
 
 
-// ==== entry=004b9d00 name=QTranslator size=6 ====
+// ==== entry=004b9d00 orig=FUN_004b9d00 size=6 name=QTranslator ====
 
 void __thiscall QTranslator::QTranslator(QTranslator *this,QObject *param_1)
 
@@ -2189,7 +2189,7 @@ void __thiscall QTranslator::QTranslator(QTranslator *this,QObject *param_1)
 }
 
 
-// ==== entry=004b9d10 name=layoutDirection size=6 ====
+// ==== entry=004b9d10 orig=FUN_004b9d10 size=6 name=layoutDirection ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2201,7 +2201,7 @@ void QGuiApplication::layoutDirection(void)
 }
 
 
-// ==== entry=004b9d20 name=keys size=6 ====
+// ==== entry=004b9d20 orig=FUN_004b9d20 size=6 name=keys ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2213,7 +2213,7 @@ void QProcessEnvironment::keys(void)
 }
 
 
-// ==== entry=004b9d30 name=startsWith size=6 ====
+// ==== entry=004b9d30 orig=FUN_004b9d30 size=6 name=startsWith ====
 
 void QString::startsWith(void)
 
@@ -2223,7 +2223,7 @@ void QString::startsWith(void)
 }
 
 
-// ==== entry=004b9d40 name=supportsSelection size=6 ====
+// ==== entry=004b9d40 orig=FUN_004b9d40 size=6 name=supportsSelection ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2235,7 +2235,7 @@ void QClipboard::supportsSelection(void)
 }
 
 
-// ==== entry=004b9d50 name=QIcon size=6 ====
+// ==== entry=004b9d50 orig=FUN_004b9d50 size=6 name=QIcon ====
 
 void __thiscall QIcon::QIcon(QIcon *this,QIcon *param_1)
 
@@ -2245,7 +2245,7 @@ void __thiscall QIcon::QIcon(QIcon *this,QIcon *param_1)
 }
 
 
-// ==== entry=004b9d60 name=setHorizontalScrollMode size=6 ====
+// ==== entry=004b9d60 orig=FUN_004b9d60 size=6 name=setHorizontalScrollMode ====
 
 void QAbstractItemView::setHorizontalScrollMode(void)
 
@@ -2255,7 +2255,7 @@ void QAbstractItemView::setHorizontalScrollMode(void)
 }
 
 
-// ==== entry=004b9d70 name=qt_metacall size=6 ====
+// ==== entry=004b9d70 orig=FUN_004b9d70 size=6 name=qt_metacall ====
 
 void QLabel::qt_metacall(void)
 
@@ -2265,7 +2265,7 @@ void QLabel::qt_metacall(void)
 }
 
 
-// ==== entry=004b9d80 name=paintEvent size=6 ====
+// ==== entry=004b9d80 orig=FUN_004b9d80 size=6 name=paintEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2277,7 +2277,7 @@ void QFrame::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=004b9d90 name=~QPushButton size=6 ====
+// ==== entry=004b9d90 orig=FUN_004b9d90 size=6 name=~QPushButton ====
 
 void __thiscall QPushButton::~QPushButton(QPushButton *this)
 
@@ -2287,7 +2287,7 @@ void __thiscall QPushButton::~QPushButton(QPushButton *this)
 }
 
 
-// ==== entry=004b9da0 name=isActiveWindow size=6 ====
+// ==== entry=004b9da0 orig=FUN_004b9da0 size=6 name=isActiveWindow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2299,7 +2299,7 @@ void QWidget::isActiveWindow(void)
 }
 
 
-// ==== entry=004b9db0 name=qt_metacast size=6 ====
+// ==== entry=004b9db0 orig=FUN_004b9db0 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2311,7 +2311,7 @@ void QLabel::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004b9dc0 name=cacheKey size=6 ====
+// ==== entry=004b9dc0 orig=FUN_004b9dc0 size=6 name=cacheKey ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2323,7 +2323,7 @@ void QIcon::cacheKey(void)
 }
 
 
-// ==== entry=004b9dd0 name=setToolTipsVisible size=6 ====
+// ==== entry=004b9dd0 orig=FUN_004b9dd0 size=6 name=setToolTipsVisible ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2335,7 +2335,7 @@ void QMenu::setToolTipsVisible(bool param_1)
 }
 
 
-// ==== entry=004b9de0 name=installExtensions size=6 ====
+// ==== entry=004b9de0 orig=FUN_004b9de0 size=6 name=installExtensions ====
 
 void QJSEngine::installExtensions(void)
 
@@ -2345,7 +2345,7 @@ void QJSEngine::installExtensions(void)
 }
 
 
-// ==== entry=004b9df0 name=singleShot size=6 ====
+// ==== entry=004b9df0 orig=FUN_004b9df0 size=6 name=singleShot ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2357,7 +2357,7 @@ void QTimer::singleShot(int param_1,QObject *param_2,char *param_3)
 }
 
 
-// ==== entry=004b9e00 name=remove size=6 ====
+// ==== entry=004b9e00 orig=FUN_004b9e00 size=6 name=remove ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2371,7 +2371,7 @@ int remove(char *__filename)
 }
 
 
-// ==== entry=004b9e10 name=syscall size=6 ====
+// ==== entry=004b9e10 orig=FUN_004b9e10 size=6 name=syscall ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2385,7 +2385,7 @@ long syscall(long __sysno,...)
 }
 
 
-// ==== entry=004b9e20 name=replaceWidget size=6 ====
+// ==== entry=004b9e20 orig=FUN_004b9e20 size=6 name=replaceWidget ====
 
 void QLayout::replaceWidget(void)
 
@@ -2395,7 +2395,7 @@ void QLayout::replaceWidget(void)
 }
 
 
-// ==== entry=004b9e30 name=addLayout size=6 ====
+// ==== entry=004b9e30 orig=FUN_004b9e30 size=6 name=addLayout ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2407,7 +2407,7 @@ void QBoxLayout::addLayout(QLayout *param_1,int param_2)
 }
 
 
-// ==== entry=004b9e40 name=~QMimeDatabase size=6 ====
+// ==== entry=004b9e40 orig=FUN_004b9e40 size=6 name=~QMimeDatabase ====
 
 void __thiscall QMimeDatabase::~QMimeDatabase(QMimeDatabase *this)
 
@@ -2417,7 +2417,7 @@ void __thiscall QMimeDatabase::~QMimeDatabase(QMimeDatabase *this)
 }
 
 
-// ==== entry=004b9e50 name=tabToolTip size=6 ====
+// ==== entry=004b9e50 orig=FUN_004b9e50 size=6 name=tabToolTip ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2429,7 +2429,7 @@ void QTabBar::tabToolTip(int param_1)
 }
 
 
-// ==== entry=004b9e60 name=selectionChanged size=6 ====
+// ==== entry=004b9e60 orig=FUN_004b9e60 size=6 name=selectionChanged ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2441,7 +2441,7 @@ void QListView::selectionChanged(QItemSelection *param_1,QItemSelection *param_2
 }
 
 
-// ==== entry=004b9e70 name=keyPressEvent size=6 ====
+// ==== entry=004b9e70 orig=FUN_004b9e70 size=6 name=keyPressEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2453,7 +2453,7 @@ void QTreeView::keyPressEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=004b9e80 name=insertItems size=6 ====
+// ==== entry=004b9e80 orig=FUN_004b9e80 size=6 name=insertItems ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2465,7 +2465,7 @@ void QListWidget::insertItems(int param_1,QStringList *param_2)
 }
 
 
-// ==== entry=004b9e90 name=mid size=6 ====
+// ==== entry=004b9e90 orig=FUN_004b9e90 size=6 name=mid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2477,7 +2477,7 @@ void QByteArray::mid(int param_1,int param_2)
 }
 
 
-// ==== entry=004b9ea0 name=setDefaultAlignment size=6 ====
+// ==== entry=004b9ea0 orig=FUN_004b9ea0 size=6 name=setDefaultAlignment ====
 
 void QHeaderView::setDefaultAlignment(void)
 
@@ -2487,7 +2487,7 @@ void QHeaderView::setDefaultAlignment(void)
 }
 
 
-// ==== entry=004b9eb0 name=ssh_channel_new size=6 ====
+// ==== entry=004b9eb0 orig=FUN_004b9eb0 size=6 name=ssh_channel_new ====
 
 void ssh_channel_new(void)
 
@@ -2497,7 +2497,7 @@ void ssh_channel_new(void)
 }
 
 
-// ==== entry=004b9ec0 name=QString size=6 ====
+// ==== entry=004b9ec0 orig=FUN_004b9ec0 size=6 name=QString ====
 
 void __thiscall QString::QString(void)
 
@@ -2507,7 +2507,7 @@ void __thiscall QString::QString(void)
 }
 
 
-// ==== entry=004b9ed0 name=QVariant size=6 ====
+// ==== entry=004b9ed0 orig=FUN_004b9ed0 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,QJsonObject *param_1)
 
@@ -2517,7 +2517,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QJsonObject *param_1)
 }
 
 
-// ==== entry=004b9ee0 name=currentItem size=6 ====
+// ==== entry=004b9ee0 orig=FUN_004b9ee0 size=6 name=currentItem ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2529,7 +2529,7 @@ void QTableWidget::currentItem(void)
 }
 
 
-// ==== entry=004b9ef0 name=strikeOut size=6 ====
+// ==== entry=004b9ef0 orig=FUN_004b9ef0 size=6 name=strikeOut ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2541,7 +2541,7 @@ void QFont::strikeOut(void)
 }
 
 
-// ==== entry=004b9f00 name=horizontalAdvance size=6 ====
+// ==== entry=004b9f00 orig=FUN_004b9f00 size=6 name=horizontalAdvance ====
 
 void QFontMetricsF::horizontalAdvance(void)
 
@@ -2551,7 +2551,7 @@ void QFontMetricsF::horizontalAdvance(void)
 }
 
 
-// ==== entry=004b9f10 name=~QInputDialog size=6 ====
+// ==== entry=004b9f10 orig=FUN_004b9f10 size=6 name=~QInputDialog ====
 
 void __thiscall QInputDialog::~QInputDialog(QInputDialog *this)
 
@@ -2561,7 +2561,7 @@ void __thiscall QInputDialog::~QInputDialog(QInputDialog *this)
 }
 
 
-// ==== entry=004b9f20 name=operator>> size=6 ====
+// ==== entry=004b9f20 orig=FUN_004b9f20 size=6 name=operator>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2573,7 +2573,7 @@ void operator>>(QDataStream *param_1,QVariant *param_2)
 }
 
 
-// ==== entry=004b9f30 name=QIcon size=6 ====
+// ==== entry=004b9f30 orig=FUN_004b9f30 size=6 name=QIcon ====
 
 void __thiscall QIcon::QIcon(QIcon *this,QPixmap *param_1)
 
@@ -2583,7 +2583,7 @@ void __thiscall QIcon::QIcon(QIcon *this,QPixmap *param_1)
 }
 
 
-// ==== entry=004b9f40 name=operator>> size=6 ====
+// ==== entry=004b9f40 orig=FUN_004b9f40 size=6 name=operator>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2595,7 +2595,7 @@ void operator>>(QDataStream *param_1,QString *param_2)
 }
 
 
-// ==== entry=004b9f50 name=init size=6 ====
+// ==== entry=004b9f50 orig=FUN_004b9f50 size=6 name=init ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2607,7 +2607,7 @@ void QStyleOption::init(QWidget *param_1)
 }
 
 
-// ==== entry=004b9f60 name=setFileTime size=6 ====
+// ==== entry=004b9f60 orig=FUN_004b9f60 size=6 name=setFileTime ====
 
 void QFileDevice::setFileTime(void)
 
@@ -2617,7 +2617,7 @@ void QFileDevice::setFileTime(void)
 }
 
 
-// ==== entry=004b9f70 name=pthread_setspecific size=6 ====
+// ==== entry=004b9f70 orig=FUN_004b9f70 size=6 name=pthread_setspecific ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2631,7 +2631,7 @@ int pthread_setspecific(pthread_key_t __key,void *__pointer)
 }
 
 
-// ==== entry=004b9f80 name=QPainterPath size=6 ====
+// ==== entry=004b9f80 orig=FUN_004b9f80 size=6 name=QPainterPath ====
 
 void __thiscall QPainterPath::QPainterPath(QPainterPath *this)
 
@@ -2641,7 +2641,7 @@ void __thiscall QPainterPath::QPainterPath(QPainterPath *this)
 }
 
 
-// ==== entry=004b9f90 name=y size=6 ====
+// ==== entry=004b9f90 orig=FUN_004b9f90 size=6 name=y ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2653,7 +2653,7 @@ void QWidget::y(void)
 }
 
 
-// ==== entry=004b9fa0 name=setProcessChannelMode size=6 ====
+// ==== entry=004b9fa0 orig=FUN_004b9fa0 size=6 name=setProcessChannelMode ====
 
 void QProcess::setProcessChannelMode(void)
 
@@ -2663,7 +2663,7 @@ void QProcess::setProcessChannelMode(void)
 }
 
 
-// ==== entry=004b9fb0 name=QListView size=6 ====
+// ==== entry=004b9fb0 orig=FUN_004b9fb0 size=6 name=QListView ====
 
 void __thiscall QListView::QListView(QListView *this,QWidget *param_1)
 
@@ -2673,7 +2673,7 @@ void __thiscall QListView::QListView(QListView *this,QWidget *param_1)
 }
 
 
-// ==== entry=004b9fc0 name=isTransactionStarted size=6 ====
+// ==== entry=004b9fc0 orig=FUN_004b9fc0 size=6 name=isTransactionStarted ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2685,7 +2685,7 @@ void QIODevice::isTransactionStarted(void)
 }
 
 
-// ==== entry=004b9fd0 name=hour size=6 ====
+// ==== entry=004b9fd0 orig=FUN_004b9fd0 size=6 name=hour ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2697,7 +2697,7 @@ void QTime::hour(void)
 }
 
 
-// ==== entry=004b9fe0 name=child size=6 ====
+// ==== entry=004b9fe0 orig=FUN_004b9fe0 size=6 name=child ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2709,7 +2709,7 @@ void QStandardItem::child(int param_1,int param_2)
 }
 
 
-// ==== entry=004b9ff0 name=~QPersistentModelIndex size=6 ====
+// ==== entry=004b9ff0 orig=FUN_004b9ff0 size=6 name=~QPersistentModelIndex ====
 
 void __thiscall QPersistentModelIndex::~QPersistentModelIndex(QPersistentModelIndex *this)
 
@@ -2719,7 +2719,7 @@ void __thiscall QPersistentModelIndex::~QPersistentModelIndex(QPersistentModelIn
 }
 
 
-// ==== entry=004ba000 name=addButton size=6 ====
+// ==== entry=004ba000 orig=FUN_004ba000 size=6 name=addButton ====
 
 void QDialogButtonBox::addButton(void)
 
@@ -2729,7 +2729,7 @@ void QDialogButtonBox::addButton(void)
 }
 
 
-// ==== entry=004ba010 name=QStandardItem size=6 ====
+// ==== entry=004ba010 orig=FUN_004ba010 size=6 name=QStandardItem ====
 
 void __thiscall QStandardItem::QStandardItem(QStandardItem *this,QIcon *param_1,QString *param_2)
 
@@ -2739,7 +2739,7 @@ void __thiscall QStandardItem::QStandardItem(QStandardItem *this,QIcon *param_1,
 }
 
 
-// ==== entry=004ba020 name=hasMatch size=6 ====
+// ==== entry=004ba020 orig=FUN_004ba020 size=6 name=hasMatch ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2751,7 +2751,7 @@ void QRegularExpressionMatch::hasMatch(void)
 }
 
 
-// ==== entry=004ba030 name=QFileInfo size=6 ====
+// ==== entry=004ba030 orig=FUN_004ba030 size=6 name=QFileInfo ====
 
 void __thiscall QFileInfo::QFileInfo(QFileInfo *this,QFile *param_1)
 
@@ -2761,7 +2761,7 @@ void __thiscall QFileInfo::QFileInfo(QFileInfo *this,QFile *param_1)
 }
 
 
-// ==== entry=004ba040 name=ssh_key_free size=6 ====
+// ==== entry=004ba040 orig=FUN_004ba040 size=6 name=ssh_key_free ====
 
 void ssh_key_free(void)
 
@@ -2771,7 +2771,7 @@ void ssh_key_free(void)
 }
 
 
-// ==== entry=004ba050 name=addPixmap size=6 ====
+// ==== entry=004ba050 orig=FUN_004ba050 size=6 name=addPixmap ====
 
 void QIcon::addPixmap(void)
 
@@ -2781,7 +2781,7 @@ void QIcon::addPixmap(void)
 }
 
 
-// ==== entry=004ba060 name=setUpdatesEnabled size=6 ====
+// ==== entry=004ba060 orig=FUN_004ba060 size=6 name=setUpdatesEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2793,7 +2793,7 @@ void QWidget::setUpdatesEnabled(bool param_1)
 }
 
 
-// ==== entry=004ba070 name=begin size=6 ====
+// ==== entry=004ba070 orig=FUN_004ba070 size=6 name=begin ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2805,7 +2805,7 @@ void QPainter::begin(QPaintDevice *param_1)
 }
 
 
-// ==== entry=004ba080 name=__lxstat size=6 ====
+// ==== entry=004ba080 orig=FUN_004ba080 size=6 name=__lxstat ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2819,7 +2819,7 @@ int __lxstat(int __ver,char *__filename,stat *__stat_buf)
 }
 
 
-// ==== entry=004ba090 name=operator[] size=6 ====
+// ==== entry=004ba090 orig=FUN_004ba090 size=6 name=operator[] ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2831,7 +2831,7 @@ void QJsonObject::operator[](QString *param_1)
 }
 
 
-// ==== entry=004ba0a0 name=setShortcutEnabled size=6 ====
+// ==== entry=004ba0a0 orig=FUN_004ba0a0 size=6 name=setShortcutEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2843,7 +2843,7 @@ void QWidget::setShortcutEnabled(int param_1,bool param_2)
 }
 
 
-// ==== entry=004ba0b0 name=data size=6 ====
+// ==== entry=004ba0b0 orig=FUN_004ba0b0 size=6 name=data ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2855,7 +2855,7 @@ void QFileSystemModel::data(QModelIndex *param_1,int param_2)
 }
 
 
-// ==== entry=004ba0c0 name=setData size=6 ====
+// ==== entry=004ba0c0 orig=FUN_004ba0c0 size=6 name=setData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2867,7 +2867,7 @@ void QMimeData::setData(QString *param_1,QByteArray *param_2)
 }
 
 
-// ==== entry=004ba0d0 name=addWidget size=6 ====
+// ==== entry=004ba0d0 orig=FUN_004ba0d0 size=6 name=addWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2879,7 +2879,7 @@ void QSplitter::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=004ba0e0 name=flags size=6 ====
+// ==== entry=004ba0e0 orig=FUN_004ba0e0 size=6 name=flags ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2891,7 +2891,7 @@ void QStandardItem::flags(void)
 }
 
 
-// ==== entry=004ba0f0 name=objectName size=6 ====
+// ==== entry=004ba0f0 orig=FUN_004ba0f0 size=6 name=objectName ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2903,7 +2903,7 @@ void QObject::objectName(void)
 }
 
 
-// ==== entry=004ba100 name=setRawData size=6 ====
+// ==== entry=004ba100 orig=FUN_004ba100 size=6 name=setRawData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2915,7 +2915,7 @@ void QString::setRawData(QChar *param_1,int param_2)
 }
 
 
-// ==== entry=004ba110 name=__strtof_l size=6 ====
+// ==== entry=004ba110 orig=FUN_004ba110 size=6 name=__strtof_l ====
 
 void __strtof_l(void)
 
@@ -2925,7 +2925,7 @@ void __strtof_l(void)
 }
 
 
-// ==== entry=004ba120 name=toolButtonStyle size=6 ====
+// ==== entry=004ba120 orig=FUN_004ba120 size=6 name=toolButtonStyle ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2937,7 +2937,7 @@ void QToolButton::toolButtonStyle(void)
 }
 
 
-// ==== entry=004ba130 name=ssh_get_publickey_hash size=6 ====
+// ==== entry=004ba130 orig=FUN_004ba130 size=6 name=ssh_get_publickey_hash ====
 
 void ssh_get_publickey_hash(void)
 
@@ -2947,7 +2947,7 @@ void ssh_get_publickey_hash(void)
 }
 
 
-// ==== entry=004ba140 name=setPen size=6 ====
+// ==== entry=004ba140 orig=FUN_004ba140 size=6 name=setPen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2959,7 +2959,7 @@ void QPainter::setPen(QPen *param_1)
 }
 
 
-// ==== entry=004ba150 name=keyPressEvent size=6 ====
+// ==== entry=004ba150 orig=FUN_004ba150 size=6 name=keyPressEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2971,7 +2971,7 @@ void QPlainTextEdit::keyPressEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=004ba160 name=addMSecs size=6 ====
+// ==== entry=004ba160 orig=FUN_004ba160 size=6 name=addMSecs ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2983,7 +2983,7 @@ void QDateTime::addMSecs(longlong param_1)
 }
 
 
-// ==== entry=004ba170 name=~QUrl size=6 ====
+// ==== entry=004ba170 orig=FUN_004ba170 size=6 name=~QUrl ====
 
 void __thiscall QUrl::~QUrl(QUrl *this)
 
@@ -2993,7 +2993,7 @@ void __thiscall QUrl::~QUrl(QUrl *this)
 }
 
 
-// ==== entry=004ba180 name=setFlags size=6 ====
+// ==== entry=004ba180 orig=FUN_004ba180 size=6 name=setFlags ====
 
 void QStandardItem::setFlags(void)
 
@@ -3003,7 +3003,7 @@ void QStandardItem::setFlags(void)
 }
 
 
-// ==== entry=004ba190 name=QTcpServer size=6 ====
+// ==== entry=004ba190 orig=FUN_004ba190 size=6 name=QTcpServer ====
 
 void __thiscall QTcpServer::QTcpServer(QTcpServer *this,QObject *param_1)
 
@@ -3013,7 +3013,7 @@ void __thiscall QTcpServer::QTcpServer(QTcpServer *this,QObject *param_1)
 }
 
 
-// ==== entry=004ba1a0 name=XOpenDisplay size=6 ====
+// ==== entry=004ba1a0 orig=FUN_004ba1a0 size=6 name=XOpenDisplay ====
 
 void XOpenDisplay(void)
 
@@ -3023,7 +3023,7 @@ void XOpenDisplay(void)
 }
 
 
-// ==== entry=004ba1b0 name=setSectionResizeMode size=6 ====
+// ==== entry=004ba1b0 orig=FUN_004ba1b0 size=6 name=setSectionResizeMode ====
 
 void QHeaderView::setSectionResizeMode(void)
 
@@ -3033,7 +3033,7 @@ void QHeaderView::setSectionResizeMode(void)
 }
 
 
-// ==== entry=004ba1c0 name=setWindowTitle size=6 ====
+// ==== entry=004ba1c0 orig=FUN_004ba1c0 size=6 name=setWindowTitle ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3045,7 +3045,7 @@ void QWidget::setWindowTitle(QString *param_1)
 }
 
 
-// ==== entry=004ba1d0 name=removeRow size=6 ====
+// ==== entry=004ba1d0 orig=FUN_004ba1d0 size=6 name=removeRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3057,7 +3057,7 @@ void QTableWidget::removeRow(int param_1)
 }
 
 
-// ==== entry=004ba1e0 name=sftp_async_setstat size=6 ====
+// ==== entry=004ba1e0 orig=FUN_004ba1e0 size=6 name=sftp_async_setstat ====
 
 void sftp_async_setstat(void)
 
@@ -3067,7 +3067,7 @@ void sftp_async_setstat(void)
 }
 
 
-// ==== entry=004ba1f0 name=indexIn size=6 ====
+// ==== entry=004ba1f0 orig=FUN_004ba1f0 size=6 name=indexIn ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3079,7 +3079,7 @@ void QByteArrayMatcher::indexIn(QByteArray *param_1,int param_2)
 }
 
 
-// ==== entry=004ba200 name=~QAbstractListModel size=6 ====
+// ==== entry=004ba200 orig=FUN_004ba200 size=6 name=~QAbstractListModel ====
 
 void __thiscall QAbstractListModel::~QAbstractListModel(QAbstractListModel *this)
 
@@ -3089,7 +3089,7 @@ void __thiscall QAbstractListModel::~QAbstractListModel(QAbstractListModel *this
 }
 
 
-// ==== entry=004ba210 name=rgba size=6 ====
+// ==== entry=004ba210 orig=FUN_004ba210 size=6 name=rgba ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3101,7 +3101,7 @@ void QColor::rgba(void)
 }
 
 
-// ==== entry=004ba220 name=owner size=6 ====
+// ==== entry=004ba220 orig=FUN_004ba220 size=6 name=owner ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3113,7 +3113,7 @@ void QFileInfo::owner(void)
 }
 
 
-// ==== entry=004ba230 name=isCallable size=6 ====
+// ==== entry=004ba230 orig=FUN_004ba230 size=6 name=isCallable ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3125,7 +3125,7 @@ void QJSValue::isCallable(void)
 }
 
 
-// ==== entry=004ba240 name=operator= size=6 ====
+// ==== entry=004ba240 orig=FUN_004ba240 size=6 name=operator= ====
 
 void __thiscall QFont::operator=(QFont *this,QFont *param_1)
 
@@ -3135,7 +3135,7 @@ void __thiscall QFont::operator=(QFont *this,QFont *param_1)
 }
 
 
-// ==== entry=004ba250 name=~QProxyStyle size=6 ====
+// ==== entry=004ba250 orig=FUN_004ba250 size=6 name=~QProxyStyle ====
 
 void __thiscall QProxyStyle::~QProxyStyle(QProxyStyle *this)
 
@@ -3145,7 +3145,7 @@ void __thiscall QProxyStyle::~QProxyStyle(QProxyStyle *this)
 }
 
 
-// ==== entry=004ba260 name=handleWidth size=6 ====
+// ==== entry=004ba260 orig=FUN_004ba260 size=6 name=handleWidth ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3157,7 +3157,7 @@ void QSplitter::handleWidth(void)
 }
 
 
-// ==== entry=004ba270 name=separator size=6 ====
+// ==== entry=004ba270 orig=FUN_004ba270 size=6 name=separator ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3169,7 +3169,7 @@ void QDir::separator(void)
 }
 
 
-// ==== entry=004ba280 name=chop size=6 ====
+// ==== entry=004ba280 orig=FUN_004ba280 size=6 name=chop ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3181,7 +3181,7 @@ void QString::chop(int param_1)
 }
 
 
-// ==== entry=004ba290 name=append size=6 ====
+// ==== entry=004ba290 orig=FUN_004ba290 size=6 name=append ====
 
 void QString::append(void)
 
@@ -3191,7 +3191,7 @@ void QString::append(void)
 }
 
 
-// ==== entry=004ba2a0 name=hasIndex size=6 ====
+// ==== entry=004ba2a0 orig=FUN_004ba2a0 size=6 name=hasIndex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3203,7 +3203,7 @@ void QAbstractItemModel::hasIndex(int param_1,int param_2,QModelIndex *param_3)
 }
 
 
-// ==== entry=004ba2b0 name=QVariant size=6 ====
+// ==== entry=004ba2b0 orig=FUN_004ba2b0 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,QByteArray *param_1)
 
@@ -3213,7 +3213,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QByteArray *param_1)
 }
 
 
-// ==== entry=004ba2c0 name=qt_metacast size=6 ====
+// ==== entry=004ba2c0 orig=FUN_004ba2c0 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3225,7 +3225,7 @@ void QTableWidget::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004ba2d0 name=setPen size=6 ====
+// ==== entry=004ba2d0 orig=FUN_004ba2d0 size=6 name=setPen ====
 
 void QPainter::setPen(void)
 
@@ -3235,7 +3235,7 @@ void QPainter::setPen(void)
 }
 
 
-// ==== entry=004ba2e0 name=isTabEnabled size=6 ====
+// ==== entry=004ba2e0 orig=FUN_004ba2e0 size=6 name=isTabEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3247,7 +3247,7 @@ void QTabBar::isTabEnabled(int param_1)
 }
 
 
-// ==== entry=004ba2f0 name=QPushButton size=6 ====
+// ==== entry=004ba2f0 orig=FUN_004ba2f0 size=6 name=QPushButton ====
 
 void __thiscall QPushButton::QPushButton(QPushButton *this,QString *param_1,QWidget *param_2)
 
@@ -3257,7 +3257,7 @@ void __thiscall QPushButton::QPushButton(QPushButton *this,QString *param_1,QWid
 }
 
 
-// ==== entry=004ba300 name=toStringList size=6 ====
+// ==== entry=004ba300 orig=FUN_004ba300 size=6 name=toStringList ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3269,7 +3269,7 @@ void QProcessEnvironment::toStringList(void)
 }
 
 
-// ==== entry=004ba310 name=mkdir size=6 ====
+// ==== entry=004ba310 orig=FUN_004ba310 size=6 name=mkdir ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3283,7 +3283,7 @@ int mkdir(char *__path,__mode_t __mode)
 }
 
 
-// ==== entry=004ba320 name=QTextEncoder size=6 ====
+// ==== entry=004ba320 orig=FUN_004ba320 size=6 name=QTextEncoder ====
 
 void __thiscall QTextEncoder::QTextEncoder(void)
 
@@ -3293,7 +3293,7 @@ void __thiscall QTextEncoder::QTextEncoder(void)
 }
 
 
-// ==== entry=004ba330 name=sizeHint size=6 ====
+// ==== entry=004ba330 orig=FUN_004ba330 size=6 name=sizeHint ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3305,7 +3305,7 @@ void QAbstractScrollArea::sizeHint(void)
 }
 
 
-// ==== entry=004ba340 name=endInsertRows size=6 ====
+// ==== entry=004ba340 orig=FUN_004ba340 size=6 name=endInsertRows ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3317,7 +3317,7 @@ void QAbstractItemModel::endInsertRows(void)
 }
 
 
-// ==== entry=004ba350 name=XFlush size=6 ====
+// ==== entry=004ba350 orig=FUN_004ba350 size=6 name=XFlush ====
 
 void XFlush(void)
 
@@ -3327,7 +3327,7 @@ void XFlush(void)
 }
 
 
-// ==== entry=004ba360 name=contains size=6 ====
+// ==== entry=004ba360 orig=FUN_004ba360 size=6 name=contains ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3339,7 +3339,7 @@ void QJsonObject::contains(QString *param_1)
 }
 
 
-// ==== entry=004ba370 name=QApplication size=6 ====
+// ==== entry=004ba370 orig=FUN_004ba370 size=6 name=QApplication ====
 
 void __thiscall
 QApplication::QApplication(QApplication *this,int *param_1,char **param_2,int param_3)
@@ -3350,7 +3350,7 @@ QApplication::QApplication(QApplication *this,int *param_1,char **param_2,int pa
 }
 
 
-// ==== entry=004ba380 name=~QStorageInfo size=6 ====
+// ==== entry=004ba380 orig=FUN_004ba380 size=6 name=~QStorageInfo ====
 
 void __thiscall QStorageInfo::~QStorageInfo(QStorageInfo *this)
 
@@ -3360,7 +3360,7 @@ void __thiscall QStorageInfo::~QStorageInfo(QStorageInfo *this)
 }
 
 
-// ==== entry=004ba390 name=move size=6 ====
+// ==== entry=004ba390 orig=FUN_004ba390 size=6 name=move ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3372,7 +3372,7 @@ void QListData::move(int param_1,int param_2)
 }
 
 
-// ==== entry=004ba3a0 name=~QFont size=6 ====
+// ==== entry=004ba3a0 orig=FUN_004ba3a0 size=6 name=~QFont ====
 
 void __thiscall QFont::~QFont(QFont *this)
 
@@ -3382,7 +3382,7 @@ void __thiscall QFont::~QFont(QFont *this)
 }
 
 
-// ==== entry=004ba3b0 name=removeRow size=6 ====
+// ==== entry=004ba3b0 orig=FUN_004ba3b0 size=6 name=removeRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3394,7 +3394,7 @@ void QFormLayout::removeRow(QWidget *param_1)
 }
 
 
-// ==== entry=004ba3c0 name=pen size=6 ====
+// ==== entry=004ba3c0 orig=FUN_004ba3c0 size=6 name=pen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3406,7 +3406,7 @@ void QPainter::pen(void)
 }
 
 
-// ==== entry=004ba3d0 name=QVariant size=6 ====
+// ==== entry=004ba3d0 orig=FUN_004ba3d0 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,bool param_1)
 
@@ -3416,7 +3416,7 @@ void __thiscall QVariant::QVariant(QVariant *this,bool param_1)
 }
 
 
-// ==== entry=004ba3e0 name=completeBaseName size=6 ====
+// ==== entry=004ba3e0 orig=FUN_004ba3e0 size=6 name=completeBaseName ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3428,7 +3428,7 @@ void QFileInfo::completeBaseName(void)
 }
 
 
-// ==== entry=004ba3f0 name=setWindowIcon size=6 ====
+// ==== entry=004ba3f0 orig=FUN_004ba3f0 size=6 name=setWindowIcon ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3440,7 +3440,7 @@ void QApplication::setWindowIcon(QIcon *param_1)
 }
 
 
-// ==== entry=004ba400 name=addRow size=6 ====
+// ==== entry=004ba400 orig=FUN_004ba400 size=6 name=addRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3452,7 +3452,7 @@ void QFormLayout::addRow(QLayout *param_1)
 }
 
 
-// ==== entry=004ba410 name=prepend size=6 ====
+// ==== entry=004ba410 orig=FUN_004ba410 size=6 name=prepend ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3464,7 +3464,7 @@ void QByteArray::prepend(char param_1)
 }
 
 
-// ==== entry=004ba420 name=setUniformItemSizes size=6 ====
+// ==== entry=004ba420 orig=FUN_004ba420 size=6 name=setUniformItemSizes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3476,7 +3476,7 @@ void QListView::setUniformItemSizes(bool param_1)
 }
 
 
-// ==== entry=004ba430 name=setCollapsible size=6 ====
+// ==== entry=004ba430 orig=FUN_004ba430 size=6 name=setCollapsible ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3488,7 +3488,7 @@ void QSplitter::setCollapsible(int param_1,bool param_2)
 }
 
 
-// ==== entry=004ba440 name=setFrame size=6 ====
+// ==== entry=004ba440 orig=FUN_004ba440 size=6 name=setFrame ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3500,7 +3500,7 @@ void QLineEdit::setFrame(bool param_1)
 }
 
 
-// ==== entry=004ba450 name=focusOutEvent size=6 ====
+// ==== entry=004ba450 orig=FUN_004ba450 size=6 name=focusOutEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3512,7 +3512,7 @@ void QWidget::focusOutEvent(QFocusEvent *param_1)
 }
 
 
-// ==== entry=004ba460 name=methodOffset size=6 ====
+// ==== entry=004ba460 orig=FUN_004ba460 size=6 name=methodOffset ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3524,7 +3524,7 @@ void QMetaObject::methodOffset(void)
 }
 
 
-// ==== entry=004ba470 name=toSizeF size=6 ====
+// ==== entry=004ba470 orig=FUN_004ba470 size=6 name=toSizeF ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3536,7 +3536,7 @@ void QVariant::toSizeF(void)
 }
 
 
-// ==== entry=004ba480 name=setTabChangesFocus size=6 ====
+// ==== entry=004ba480 orig=FUN_004ba480 size=6 name=setTabChangesFocus ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3548,7 +3548,7 @@ void QPlainTextEdit::setTabChangesFocus(bool param_1)
 }
 
 
-// ==== entry=004ba490 name=checkState size=6 ====
+// ==== entry=004ba490 orig=FUN_004ba490 size=6 name=checkState ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3560,7 +3560,7 @@ void QCheckBox::checkState(void)
 }
 
 
-// ==== entry=004ba4a0 name=QFileInfo size=6 ====
+// ==== entry=004ba4a0 orig=FUN_004ba4a0 size=6 name=QFileInfo ====
 
 void __thiscall QFileInfo::QFileInfo(QFileInfo *this)
 
@@ -3570,7 +3570,7 @@ void __thiscall QFileInfo::QFileInfo(QFileInfo *this)
 }
 
 
-// ==== entry=004ba4b0 name=move size=6 ====
+// ==== entry=004ba4b0 orig=FUN_004ba4b0 size=6 name=move ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3582,7 +3582,7 @@ void QWidget::move(QPoint *param_1)
 }
 
 
-// ==== entry=004ba4c0 name=readlink size=6 ====
+// ==== entry=004ba4c0 orig=FUN_004ba4c0 size=6 name=readlink ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3596,7 +3596,7 @@ ssize_t readlink(char *__path,char *__buf,size_t __len)
 }
 
 
-// ==== entry=004ba4d0 name=__stack_chk_fail size=6 ====
+// ==== entry=004ba4d0 orig=FUN_004ba4d0 size=6 name=__stack_chk_fail ====
 
 void __stack_chk_fail(void)
 
@@ -3606,7 +3606,7 @@ void __stack_chk_fail(void)
 }
 
 
-// ==== entry=004ba4e0 name=className size=6 ====
+// ==== entry=004ba4e0 orig=FUN_004ba4e0 size=6 name=className ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3618,7 +3618,7 @@ void QMetaObject::className(void)
 }
 
 
-// ==== entry=004ba4f0 name=setText size=6 ====
+// ==== entry=004ba4f0 orig=FUN_004ba4f0 size=6 name=setText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3630,7 +3630,7 @@ void QLabel::setText(QString *param_1)
 }
 
 
-// ==== entry=004ba500 name=operator= size=6 ====
+// ==== entry=004ba500 orig=FUN_004ba500 size=6 name=operator= ====
 
 void __thiscall QString::operator=(void)
 
@@ -3640,7 +3640,7 @@ void __thiscall QString::operator=(void)
 }
 
 
-// ==== entry=004ba510 name=QFileDialog size=6 ====
+// ==== entry=004ba510 orig=FUN_004ba510 size=6 name=QFileDialog ====
 
 void __thiscall
 QFileDialog::QFileDialog
@@ -3652,7 +3652,7 @@ QFileDialog::QFileDialog
 }
 
 
-// ==== entry=004ba520 name=eventFilter size=6 ====
+// ==== entry=004ba520 orig=FUN_004ba520 size=6 name=eventFilter ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3664,7 +3664,7 @@ void QAbstractItemView::eventFilter(QObject *param_1,QEvent *param_2)
 }
 
 
-// ==== entry=004ba530 name=qt_metacall size=6 ====
+// ==== entry=004ba530 orig=FUN_004ba530 size=6 name=qt_metacall ====
 
 void QThread::qt_metacall(void)
 
@@ -3674,7 +3674,7 @@ void QThread::qt_metacall(void)
 }
 
 
-// ==== entry=004ba540 name=~QTranslator size=6 ====
+// ==== entry=004ba540 orig=FUN_004ba540 size=6 name=~QTranslator ====
 
 void __thiscall QTranslator::~QTranslator(QTranslator *this)
 
@@ -3684,7 +3684,7 @@ void __thiscall QTranslator::~QTranslator(QTranslator *this)
 }
 
 
-// ==== entry=004ba550 name=drawControl size=6 ====
+// ==== entry=004ba550 orig=FUN_004ba550 size=6 name=drawControl ====
 
 void QProxyStyle::drawControl(void)
 
@@ -3694,7 +3694,7 @@ void QProxyStyle::drawControl(void)
 }
 
 
-// ==== entry=004ba560 name=mapToSource size=6 ====
+// ==== entry=004ba560 orig=FUN_004ba560 size=6 name=mapToSource ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3706,7 +3706,7 @@ void QSortFilterProxyModel::mapToSource(QModelIndex *param_1)
 }
 
 
-// ==== entry=004ba570 name=setEnabled size=6 ====
+// ==== entry=004ba570 orig=FUN_004ba570 size=6 name=setEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3718,7 +3718,7 @@ void QWidget::setEnabled(bool param_1)
 }
 
 
-// ==== entry=004ba580 name=memset size=6 ====
+// ==== entry=004ba580 orig=FUN_004ba580 size=6 name=memset ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3732,7 +3732,7 @@ void * memset(void *__s,int __c,size_t __n)
 }
 
 
-// ==== entry=004ba590 name=paintEvent size=6 ====
+// ==== entry=004ba590 orig=FUN_004ba590 size=6 name=paintEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3744,7 +3744,7 @@ void QLineEdit::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=004ba5a0 name=focusWidget size=6 ====
+// ==== entry=004ba5a0 orig=FUN_004ba5a0 size=6 name=focusWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3756,7 +3756,7 @@ void QWidget::focusWidget(void)
 }
 
 
-// ==== entry=004ba5b0 name=createData size=6 ====
+// ==== entry=004ba5b0 orig=FUN_004ba5b0 size=6 name=createData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3768,7 +3768,7 @@ void QMapDataBase::createData(void)
 }
 
 
-// ==== entry=004ba5c0 name=EVP_CipherUpdate size=6 ====
+// ==== entry=004ba5c0 orig=FUN_004ba5c0 size=6 name=EVP_CipherUpdate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3782,7 +3782,7 @@ int EVP_CipherUpdate(EVP_CIPHER_CTX *ctx,uchar *out,int *outl,uchar *in,int inl)
 }
 
 
-// ==== entry=004ba5d0 name=number size=6 ====
+// ==== entry=004ba5d0 orig=FUN_004ba5d0 size=6 name=number ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3794,7 +3794,7 @@ void QString::number(uint param_1,int param_2)
 }
 
 
-// ==== entry=004ba5e0 name=QJsonValue size=6 ====
+// ==== entry=004ba5e0 orig=FUN_004ba5e0 size=6 name=QJsonValue ====
 
 void __thiscall QJsonValue::QJsonValue(QJsonValue *this,QJsonObject *param_1)
 
@@ -3804,7 +3804,7 @@ void __thiscall QJsonValue::QJsonValue(QJsonValue *this,QJsonObject *param_1)
 }
 
 
-// ==== entry=004ba5f0 name=getSaveFileName size=6 ====
+// ==== entry=004ba5f0 orig=FUN_004ba5f0 size=6 name=getSaveFileName ====
 
 void QFileDialog::getSaveFileName(void)
 
@@ -3814,7 +3814,7 @@ void QFileDialog::getSaveFileName(void)
 }
 
 
-// ==== entry=004ba600 name=systemEnvironment size=6 ====
+// ==== entry=004ba600 orig=FUN_004ba600 size=6 name=systemEnvironment ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3826,7 +3826,7 @@ void QProcessEnvironment::systemEnvironment(void)
 }
 
 
-// ==== entry=004ba610 name=setColor size=6 ====
+// ==== entry=004ba610 orig=FUN_004ba610 size=6 name=setColor ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3838,7 +3838,7 @@ void QBrush::setColor(QColor *param_1)
 }
 
 
-// ==== entry=004ba620 name=sscanf size=6 ====
+// ==== entry=004ba620 orig=FUN_004ba620 size=6 name=sscanf ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3852,7 +3852,7 @@ int sscanf(char *__s,char *__format,...)
 }
 
 
-// ==== entry=004ba630 name=mid size=6 ====
+// ==== entry=004ba630 orig=FUN_004ba630 size=6 name=mid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3864,7 +3864,7 @@ void QtPrivate::QContainerImplHelper::mid(int param_1,int *param_2,int *param_3)
 }
 
 
-// ==== entry=004ba640 name=addAction size=6 ====
+// ==== entry=004ba640 orig=FUN_004ba640 size=6 name=addAction ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3876,7 +3876,7 @@ void QMenu::addAction(QIcon *param_1,QString *param_2)
 }
 
 
-// ==== entry=004ba650 name=toLower_helper size=6 ====
+// ==== entry=004ba650 orig=FUN_004ba650 size=6 name=toLower_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3888,7 +3888,7 @@ void QByteArray::toLower_helper(QByteArray *param_1)
 }
 
 
-// ==== entry=004ba660 name=alignment size=6 ====
+// ==== entry=004ba660 orig=FUN_004ba660 size=6 name=alignment ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3900,7 +3900,7 @@ void QLabel::alignment(void)
 }
 
 
-// ==== entry=004ba670 name=showMinimized size=6 ====
+// ==== entry=004ba670 orig=FUN_004ba670 size=6 name=showMinimized ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3912,7 +3912,7 @@ void QWidget::showMinimized(void)
 }
 
 
-// ==== entry=004ba680 name=mid size=6 ====
+// ==== entry=004ba680 orig=FUN_004ba680 size=6 name=mid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3924,7 +3924,7 @@ void QString::mid(int param_1,int param_2)
 }
 
 
-// ==== entry=004ba690 name=QSocketNotifier size=6 ====
+// ==== entry=004ba690 orig=FUN_004ba690 size=6 name=QSocketNotifier ====
 
 void __thiscall QSocketNotifier::QSocketNotifier(void)
 
@@ -3934,7 +3934,7 @@ void __thiscall QSocketNotifier::QSocketNotifier(void)
 }
 
 
-// ==== entry=004ba6a0 name=escape size=6 ====
+// ==== entry=004ba6a0 orig=FUN_004ba6a0 size=6 name=escape ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3946,7 +3946,7 @@ void QRegularExpression::escape(QString *param_1)
 }
 
 
-// ==== entry=004ba6b0 name=create size=6 ====
+// ==== entry=004ba6b0 orig=FUN_004ba6b0 size=6 name=create ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3958,7 +3958,7 @@ void QJSEngine::create(int param_1,void *param_2)
 }
 
 
-// ==== entry=004ba6c0 name=disconnectImpl size=6 ====
+// ==== entry=004ba6c0 orig=FUN_004ba6c0 size=6 name=disconnectImpl ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3972,7 +3972,7 @@ void QObject::disconnectImpl
 }
 
 
-// ==== entry=004ba6d0 name=fputs size=6 ====
+// ==== entry=004ba6d0 orig=FUN_004ba6d0 size=6 name=fputs ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3986,7 +3986,7 @@ int fputs(char *__s,FILE *__stream)
 }
 
 
-// ==== entry=004ba6e0 name=comment size=6 ====
+// ==== entry=004ba6e0 orig=FUN_004ba6e0 size=6 name=comment ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -3998,7 +3998,7 @@ void QMimeType::comment(void)
 }
 
 
-// ==== entry=004ba6f0 name=ssh_userauth_none size=6 ====
+// ==== entry=004ba6f0 orig=FUN_004ba6f0 size=6 name=ssh_userauth_none ====
 
 void ssh_userauth_none(void)
 
@@ -4008,7 +4008,7 @@ void ssh_userauth_none(void)
 }
 
 
-// ==== entry=004ba700 name=sin size=6 ====
+// ==== entry=004ba700 orig=FUN_004ba700 size=6 name=sin ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4022,7 +4022,7 @@ double sin(double __x)
 }
 
 
-// ==== entry=004ba710 name=QFontDatabase size=6 ====
+// ==== entry=004ba710 orig=FUN_004ba710 size=6 name=QFontDatabase ====
 
 void __thiscall QFontDatabase::QFontDatabase(QFontDatabase *this)
 
@@ -4032,7 +4032,7 @@ void __thiscall QFontDatabase::QFontDatabase(QFontDatabase *this)
 }
 
 
-// ==== entry=004ba720 name=urls size=6 ====
+// ==== entry=004ba720 orig=FUN_004ba720 size=6 name=urls ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4044,7 +4044,7 @@ void QMimeData::urls(void)
 }
 
 
-// ==== entry=004ba730 name=qt_metacall size=6 ====
+// ==== entry=004ba730 orig=FUN_004ba730 size=6 name=qt_metacall ====
 
 void QToolButton::qt_metacall(void)
 
@@ -4054,7 +4054,7 @@ void QToolButton::qt_metacall(void)
 }
 
 
-// ==== entry=004ba740 name=QNetworkProxy size=6 ====
+// ==== entry=004ba740 orig=FUN_004ba740 size=6 name=QNetworkProxy ====
 
 void __thiscall QNetworkProxy::QNetworkProxy(QNetworkProxy *this,QNetworkProxy *param_1)
 
@@ -4064,7 +4064,7 @@ void __thiscall QNetworkProxy::QNetworkProxy(QNetworkProxy *this,QNetworkProxy *
 }
 
 
-// ==== entry=004ba750 name=append size=6 ====
+// ==== entry=004ba750 orig=FUN_004ba750 size=6 name=append ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4076,7 +4076,7 @@ void QString::append(QChar *param_1,int param_2)
 }
 
 
-// ==== entry=004ba760 name=cmp size=6 ====
+// ==== entry=004ba760 orig=FUN_004ba760 size=6 name=cmp ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4088,7 +4088,7 @@ void QVariant::cmp(QVariant *param_1)
 }
 
 
-// ==== entry=004ba770 name=drawPolygon size=6 ====
+// ==== entry=004ba770 orig=FUN_004ba770 size=6 name=drawPolygon ====
 
 void QPainter::drawPolygon(void)
 
@@ -4098,7 +4098,7 @@ void QPainter::drawPolygon(void)
 }
 
 
-// ==== entry=004ba780 name=QComboBox size=6 ====
+// ==== entry=004ba780 orig=FUN_004ba780 size=6 name=QComboBox ====
 
 void __thiscall QComboBox::QComboBox(QComboBox *this,QWidget *param_1)
 
@@ -4108,7 +4108,7 @@ void __thiscall QComboBox::QComboBox(QComboBox *this,QWidget *param_1)
 }
 
 
-// ==== entry=004ba790 name=toHex size=6 ====
+// ==== entry=004ba790 orig=FUN_004ba790 size=6 name=toHex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4120,7 +4120,7 @@ void QByteArray::toHex(void)
 }
 
 
-// ==== entry=004ba7a0 name=setErrorString size=6 ====
+// ==== entry=004ba7a0 orig=FUN_004ba7a0 size=6 name=setErrorString ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4132,7 +4132,7 @@ void QIODevice::setErrorString(QString *param_1)
 }
 
 
-// ==== entry=004ba7b0 name=QImage size=6 ====
+// ==== entry=004ba7b0 orig=FUN_004ba7b0 size=6 name=QImage ====
 
 void __thiscall QImage::QImage(void)
 
@@ -4142,7 +4142,7 @@ void __thiscall QImage::QImage(void)
 }
 
 
-// ==== entry=004ba7c0 name=id size=6 ====
+// ==== entry=004ba7c0 orig=FUN_004ba7c0 size=6 name=id ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4154,7 +4154,7 @@ void QButtonGroup::id(QAbstractButton *param_1)
 }
 
 
-// ==== entry=004ba7d0 name=isColumnHidden size=6 ====
+// ==== entry=004ba7d0 orig=FUN_004ba7d0 size=6 name=isColumnHidden ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4166,7 +4166,7 @@ void QTableView::isColumnHidden(int param_1)
 }
 
 
-// ==== entry=004ba7e0 name=pthread_cond_destroy size=6 ====
+// ==== entry=004ba7e0 orig=FUN_004ba7e0 size=6 name=pthread_cond_destroy ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4180,7 +4180,7 @@ int pthread_cond_destroy(pthread_cond_t *__cond)
 }
 
 
-// ==== entry=004ba7f0 name=lastIndexOf size=6 ====
+// ==== entry=004ba7f0 orig=FUN_004ba7f0 size=6 name=lastIndexOf ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4192,7 +4192,7 @@ void QString::lastIndexOf(QRegularExpression *param_1,int param_2)
 }
 
 
-// ==== entry=004ba800 name=QMenu size=6 ====
+// ==== entry=004ba800 orig=FUN_004ba800 size=6 name=QMenu ====
 
 void __thiscall QMenu::QMenu(QMenu *this,QString *param_1,QWidget *param_2)
 
@@ -4202,7 +4202,7 @@ void __thiscall QMenu::QMenu(QMenu *this,QString *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=004ba810 name=protocol size=6 ====
+// ==== entry=004ba810 orig=FUN_004ba810 size=6 name=protocol ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4214,7 +4214,7 @@ void QHostAddress::protocol(void)
 }
 
 
-// ==== entry=004ba820 name=setCaseSensitivity size=6 ====
+// ==== entry=004ba820 orig=FUN_004ba820 size=6 name=setCaseSensitivity ====
 
 void QRegExp::setCaseSensitivity(void)
 
@@ -4224,7 +4224,7 @@ void QRegExp::setCaseSensitivity(void)
 }
 
 
-// ==== entry=004ba830 name=setTextMargins size=6 ====
+// ==== entry=004ba830 orig=FUN_004ba830 size=6 name=setTextMargins ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4236,7 +4236,7 @@ void QLineEdit::setTextMargins(int param_1,int param_2,int param_3,int param_4)
 }
 
 
-// ==== entry=004ba840 name=ssh_channel_read_nonblocking size=6 ====
+// ==== entry=004ba840 orig=FUN_004ba840 size=6 name=ssh_channel_read_nonblocking ====
 
 void ssh_channel_read_nonblocking(void)
 
@@ -4246,7 +4246,7 @@ void ssh_channel_read_nonblocking(void)
 }
 
 
-// ==== entry=004ba850 name=setFocusPolicy size=6 ====
+// ==== entry=004ba850 orig=FUN_004ba850 size=6 name=setFocusPolicy ====
 
 void QWidget::setFocusPolicy(void)
 
@@ -4256,7 +4256,7 @@ void QWidget::setFocusPolicy(void)
 }
 
 
-// ==== entry=004ba860 name=QLabel size=6 ====
+// ==== entry=004ba860 orig=FUN_004ba860 size=6 name=QLabel ====
 
 void __thiscall QLabel::QLabel(void)
 
@@ -4266,7 +4266,7 @@ void __thiscall QLabel::QLabel(void)
 }
 
 
-// ==== entry=004ba870 name=utf16 size=6 ====
+// ==== entry=004ba870 orig=FUN_004ba870 size=6 name=utf16 ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4278,7 +4278,7 @@ void QString::utf16(void)
 }
 
 
-// ==== entry=004ba880 name=ssh_channel_free size=6 ====
+// ==== entry=004ba880 orig=FUN_004ba880 size=6 name=ssh_channel_free ====
 
 void ssh_channel_free(void)
 
@@ -4288,7 +4288,7 @@ void ssh_channel_free(void)
 }
 
 
-// ==== entry=004ba890 name=setLineWrapMode size=6 ====
+// ==== entry=004ba890 orig=FUN_004ba890 size=6 name=setLineWrapMode ====
 
 void QPlainTextEdit::setLineWrapMode(void)
 
@@ -4298,7 +4298,7 @@ void QPlainTextEdit::setLineWrapMode(void)
 }
 
 
-// ==== entry=004ba8a0 name=setChecked size=6 ====
+// ==== entry=004ba8a0 orig=FUN_004ba8a0 size=6 name=setChecked ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4310,7 +4310,7 @@ void QAbstractButton::setChecked(bool param_1)
 }
 
 
-// ==== entry=004ba8b0 name=setTabText size=6 ====
+// ==== entry=004ba8b0 orig=FUN_004ba8b0 size=6 name=setTabText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4322,7 +4322,7 @@ void QTabBar::setTabText(int param_1,QString *param_2)
 }
 
 
-// ==== entry=004ba8c0 name=windowState size=6 ====
+// ==== entry=004ba8c0 orig=FUN_004ba8c0 size=6 name=windowState ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4334,7 +4334,7 @@ void QWidget::windowState(void)
 }
 
 
-// ==== entry=004ba8d0 name=setFrameShadow size=6 ====
+// ==== entry=004ba8d0 orig=FUN_004ba8d0 size=6 name=setFrameShadow ====
 
 void QFrame::setFrameShadow(void)
 
@@ -4344,7 +4344,7 @@ void QFrame::setFrameShadow(void)
 }
 
 
-// ==== entry=004ba8e0 name=link size=6 ====
+// ==== entry=004ba8e0 orig=FUN_004ba8e0 size=6 name=link ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4356,7 +4356,7 @@ void QFile::link(QString *param_1,QString *param_2)
 }
 
 
-// ==== entry=004ba8f0 name=dropIndicatorPosition size=6 ====
+// ==== entry=004ba8f0 orig=FUN_004ba8f0 size=6 name=dropIndicatorPosition ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4368,7 +4368,7 @@ void QAbstractItemView::dropIndicatorPosition(void)
 }
 
 
-// ==== entry=004ba900 name=pthread_once size=6 ====
+// ==== entry=004ba900 orig=FUN_004ba900 size=6 name=pthread_once ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4382,7 +4382,7 @@ int pthread_once(pthread_once_t *__once_control,__init_routine *__init_routine)
 }
 
 
-// ==== entry=004ba910 name=ssh_channel_request_x11 size=6 ====
+// ==== entry=004ba910 orig=FUN_004ba910 size=6 name=ssh_channel_request_x11 ====
 
 void ssh_channel_request_x11(void)
 
@@ -4392,7 +4392,7 @@ void ssh_channel_request_x11(void)
 }
 
 
-// ==== entry=004ba920 name=QTableWidget size=6 ====
+// ==== entry=004ba920 orig=FUN_004ba920 size=6 name=QTableWidget ====
 
 void __thiscall QTableWidget::QTableWidget(QTableWidget *this,QWidget *param_1)
 
@@ -4402,7 +4402,7 @@ void __thiscall QTableWidget::QTableWidget(QTableWidget *this,QWidget *param_1)
 }
 
 
-// ==== entry=004ba930 name=widgetAt size=6 ====
+// ==== entry=004ba930 orig=FUN_004ba930 size=6 name=widgetAt ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4414,7 +4414,7 @@ void QApplication::widgetAt(QPoint *param_1)
 }
 
 
-// ==== entry=004ba940 name=singleStep size=6 ====
+// ==== entry=004ba940 orig=FUN_004ba940 size=6 name=singleStep ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4426,7 +4426,7 @@ void QAbstractSlider::singleStep(void)
 }
 
 
-// ==== entry=004ba950 name=currentIndex size=6 ====
+// ==== entry=004ba950 orig=FUN_004ba950 size=6 name=currentIndex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4438,7 +4438,7 @@ void QItemSelectionModel::currentIndex(void)
 }
 
 
-// ==== entry=004ba960 name=globalObject size=6 ====
+// ==== entry=004ba960 orig=FUN_004ba960 size=6 name=globalObject ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4450,7 +4450,7 @@ void QJSEngine::globalObject(void)
 }
 
 
-// ==== entry=004ba970 name=append size=6 ====
+// ==== entry=004ba970 orig=FUN_004ba970 size=6 name=append ====
 
 void QString::append(void)
 
@@ -4460,7 +4460,7 @@ void QString::append(void)
 }
 
 
-// ==== entry=004ba980 name=strlen size=6 ====
+// ==== entry=004ba980 orig=FUN_004ba980 size=6 name=strlen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4474,7 +4474,7 @@ size_t strlen(char *__s)
 }
 
 
-// ==== entry=004ba990 name=name size=6 ====
+// ==== entry=004ba990 orig=FUN_004ba990 size=6 name=name ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4486,7 +4486,7 @@ void QLocale::name(void)
 }
 
 
-// ==== entry=004ba9a0 name=wcsnrtombs size=6 ====
+// ==== entry=004ba9a0 orig=FUN_004ba9a0 size=6 name=wcsnrtombs ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4500,7 +4500,7 @@ size_t wcsnrtombs(char *__dst,wchar_t **__src,size_t __nwc,size_t __len,mbstate_
 }
 
 
-// ==== entry=004ba9b0 name=rootPath size=6 ====
+// ==== entry=004ba9b0 orig=FUN_004ba9b0 size=6 name=rootPath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4512,7 +4512,7 @@ void QStorageInfo::rootPath(void)
 }
 
 
-// ==== entry=004ba9c0 name=localHostName size=6 ====
+// ==== entry=004ba9c0 orig=FUN_004ba9c0 size=6 name=localHostName ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4524,7 +4524,7 @@ void QHostInfo::localHostName(void)
 }
 
 
-// ==== entry=004ba9d0 name=pthread_mutex_init size=6 ====
+// ==== entry=004ba9d0 orig=FUN_004ba9d0 size=6 name=pthread_mutex_init ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4538,7 +4538,7 @@ int pthread_mutex_init(pthread_mutex_t *__mutex,pthread_mutexattr_t *__mutexattr
 }
 
 
-// ==== entry=004ba9e0 name=toVariant size=6 ====
+// ==== entry=004ba9e0 orig=FUN_004ba9e0 size=6 name=toVariant ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4550,7 +4550,7 @@ void QJSValue::toVariant(void)
 }
 
 
-// ==== entry=004ba9f0 name=clipboard size=6 ====
+// ==== entry=004ba9f0 orig=FUN_004ba9f0 size=6 name=clipboard ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4562,7 +4562,7 @@ void QGuiApplication::clipboard(void)
 }
 
 
-// ==== entry=004baa00 name=setArguments size=6 ====
+// ==== entry=004baa00 orig=FUN_004baa00 size=6 name=setArguments ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4574,7 +4574,7 @@ void QProcess::setArguments(QStringList *param_1)
 }
 
 
-// ==== entry=004baa10 name=QPlainTextEdit size=6 ====
+// ==== entry=004baa10 orig=FUN_004baa10 size=6 name=QPlainTextEdit ====
 
 void __thiscall QPlainTextEdit::QPlainTextEdit(QPlainTextEdit *this,QWidget *param_1)
 
@@ -4584,7 +4584,7 @@ void __thiscall QPlainTextEdit::QPlainTextEdit(QPlainTextEdit *this,QWidget *par
 }
 
 
-// ==== entry=004baa20 name=drawLines size=6 ====
+// ==== entry=004baa20 orig=FUN_004baa20 size=6 name=drawLines ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4596,7 +4596,7 @@ void QPainter::drawLines(QLineF *param_1,int param_2)
 }
 
 
-// ==== entry=004baa30 name=qt_metacast size=6 ====
+// ==== entry=004baa30 orig=FUN_004baa30 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4608,7 +4608,7 @@ void QLineEdit::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004baa40 name=sftp_async_opendir size=6 ====
+// ==== entry=004baa40 orig=FUN_004baa40 size=6 name=sftp_async_opendir ====
 
 void sftp_async_opendir(void)
 
@@ -4618,7 +4618,7 @@ void sftp_async_opendir(void)
 }
 
 
-// ==== entry=004baa50 name=QListWidgetItem size=6 ====
+// ==== entry=004baa50 orig=FUN_004baa50 size=6 name=QListWidgetItem ====
 
 void __thiscall
 QListWidgetItem::QListWidgetItem
@@ -4630,7 +4630,7 @@ QListWidgetItem::QListWidgetItem
 }
 
 
-// ==== entry=004baa60 name=~QDoubleSpinBox size=6 ====
+// ==== entry=004baa60 orig=FUN_004baa60 size=6 name=~QDoubleSpinBox ====
 
 void __thiscall QDoubleSpinBox::~QDoubleSpinBox(QDoubleSpinBox *this)
 
@@ -4640,7 +4640,7 @@ void __thiscall QDoubleSpinBox::~QDoubleSpinBox(QDoubleSpinBox *this)
 }
 
 
-// ==== entry=004baa70 name=isChecked size=6 ====
+// ==== entry=004baa70 orig=FUN_004baa70 size=6 name=isChecked ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4652,7 +4652,7 @@ void QAbstractButton::isChecked(void)
 }
 
 
-// ==== entry=004baa80 name=toNativeSeparators size=6 ====
+// ==== entry=004baa80 orig=FUN_004baa80 size=6 name=toNativeSeparators ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4664,7 +4664,7 @@ void QDir::toNativeSeparators(QString *param_1)
 }
 
 
-// ==== entry=004baa90 name=families size=6 ====
+// ==== entry=004baa90 orig=FUN_004baa90 size=6 name=families ====
 
 void QFontDatabase::families(void)
 
@@ -4674,7 +4674,7 @@ void QFontDatabase::families(void)
 }
 
 
-// ==== entry=004baaa0 name=QTimer size=6 ====
+// ==== entry=004baaa0 orig=FUN_004baaa0 size=6 name=QTimer ====
 
 void __thiscall QTimer::QTimer(QTimer *this,QObject *param_1)
 
@@ -4684,7 +4684,7 @@ void __thiscall QTimer::QTimer(QTimer *this,QObject *param_1)
 }
 
 
-// ==== entry=004baab0 name=remove size=6 ====
+// ==== entry=004baab0 orig=FUN_004baab0 size=6 name=remove ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4696,7 +4696,7 @@ void QListData::remove(int param_1)
 }
 
 
-// ==== entry=004baac0 name=information size=6 ====
+// ==== entry=004baac0 orig=FUN_004baac0 size=6 name=information ====
 
 void QMessageBox::information(void)
 
@@ -4706,7 +4706,7 @@ void QMessageBox::information(void)
 }
 
 
-// ==== entry=004baad0 name=activeWindow size=6 ====
+// ==== entry=004baad0 orig=FUN_004baad0 size=6 name=activeWindow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4718,7 +4718,7 @@ void QApplication::activeWindow(void)
 }
 
 
-// ==== entry=004baae0 name=setCheckState size=6 ====
+// ==== entry=004baae0 orig=FUN_004baae0 size=6 name=setCheckState ====
 
 void QCheckBox::setCheckState(void)
 
@@ -4728,7 +4728,7 @@ void QCheckBox::setCheckState(void)
 }
 
 
-// ==== entry=004baaf0 name=toPlainText size=6 ====
+// ==== entry=004baaf0 orig=FUN_004baaf0 size=6 name=toPlainText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4740,7 +4740,7 @@ void QTextDocument::toPlainText(void)
 }
 
 
-// ==== entry=004bab00 name=getgrgid size=6 ====
+// ==== entry=004bab00 orig=FUN_004bab00 size=6 name=getgrgid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4754,7 +4754,7 @@ group * getgrgid(__gid_t __gid)
 }
 
 
-// ==== entry=004bab10 name=allocate size=6 ====
+// ==== entry=004bab10 orig=FUN_004bab10 size=6 name=allocate ====
 
 void QArrayData::allocate(void)
 
@@ -4764,7 +4764,7 @@ void QArrayData::allocate(void)
 }
 
 
-// ==== entry=004bab20 name=codecForName size=6 ====
+// ==== entry=004bab20 orig=FUN_004bab20 size=6 name=codecForName ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4776,7 +4776,7 @@ void QTextCodec::codecForName(QByteArray *param_1)
 }
 
 
-// ==== entry=004bab30 name=QFontMetricsF size=6 ====
+// ==== entry=004bab30 orig=FUN_004bab30 size=6 name=QFontMetricsF ====
 
 void __thiscall
 QFontMetricsF::QFontMetricsF(QFontMetricsF *this,QFont *param_1,QPaintDevice *param_2)
@@ -4787,7 +4787,7 @@ QFontMetricsF::QFontMetricsF(QFontMetricsF *this,QFont *param_1,QPaintDevice *pa
 }
 
 
-// ==== entry=004bab40 name=QSpinBox size=6 ====
+// ==== entry=004bab40 orig=FUN_004bab40 size=6 name=QSpinBox ====
 
 void __thiscall QSpinBox::QSpinBox(QSpinBox *this,QWidget *param_1)
 
@@ -4797,7 +4797,7 @@ void __thiscall QSpinBox::QSpinBox(QSpinBox *this,QWidget *param_1)
 }
 
 
-// ==== entry=004bab50 name=QSignalMapper size=6 ====
+// ==== entry=004bab50 orig=FUN_004bab50 size=6 name=QSignalMapper ====
 
 void __thiscall QSignalMapper::QSignalMapper(QSignalMapper *this,QObject *param_1)
 
@@ -4807,7 +4807,7 @@ void __thiscall QSignalMapper::QSignalMapper(QSignalMapper *this,QObject *param_
 }
 
 
-// ==== entry=004bab60 name=QStringList_contains size=6 ====
+// ==== entry=004bab60 orig=FUN_004bab60 size=6 name=QStringList_contains ====
 
 void QtPrivate::QStringList_contains(void)
 
@@ -4817,7 +4817,7 @@ void QtPrivate::QStringList_contains(void)
 }
 
 
-// ==== entry=004bab70 name=fromRgba size=6 ====
+// ==== entry=004bab70 orig=FUN_004bab70 size=6 name=fromRgba ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4829,7 +4829,7 @@ void QColor::fromRgba(uint param_1)
 }
 
 
-// ==== entry=004bab80 name=~QEvent size=6 ====
+// ==== entry=004bab80 orig=FUN_004bab80 size=6 name=~QEvent ====
 
 void __thiscall QEvent::~QEvent(QEvent *this)
 
@@ -4839,7 +4839,7 @@ void __thiscall QEvent::~QEvent(QEvent *this)
 }
 
 
-// ==== entry=004bab90 name=restoreGeometry size=6 ====
+// ==== entry=004bab90 orig=FUN_004bab90 size=6 name=restoreGeometry ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4851,7 +4851,7 @@ void QWidget::restoreGeometry(QByteArray *param_1)
 }
 
 
-// ==== entry=004baba0 name=fclose size=6 ====
+// ==== entry=004baba0 orig=FUN_004baba0 size=6 name=fclose ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4865,7 +4865,7 @@ int fclose(FILE *__stream)
 }
 
 
-// ==== entry=004babb0 name=QTreeView size=6 ====
+// ==== entry=004babb0 orig=FUN_004babb0 size=6 name=QTreeView ====
 
 void __thiscall QTreeView::QTreeView(QTreeView *this,QWidget *param_1)
 
@@ -4875,7 +4875,7 @@ void __thiscall QTreeView::QTreeView(QTreeView *this,QWidget *param_1)
 }
 
 
-// ==== entry=004babc0 name=setsid size=6 ====
+// ==== entry=004babc0 orig=FUN_004babc0 size=6 name=setsid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4889,7 +4889,7 @@ __pid_t setsid(void)
 }
 
 
-// ==== entry=004babd0 name=start size=6 ====
+// ==== entry=004babd0 orig=FUN_004babd0 size=6 name=start ====
 
 void QProcess::start(void)
 
@@ -4899,7 +4899,7 @@ void QProcess::start(void)
 }
 
 
-// ==== entry=004babe0 name=~QTcpServer size=6 ====
+// ==== entry=004babe0 orig=FUN_004babe0 size=6 name=~QTcpServer ====
 
 void __thiscall QTcpServer::~QTcpServer(QTcpServer *this)
 
@@ -4909,7 +4909,7 @@ void __thiscall QTcpServer::~QTcpServer(QTcpServer *this)
 }
 
 
-// ==== entry=004babf0 name=error size=6 ====
+// ==== entry=004babf0 orig=FUN_004babf0 size=6 name=error ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4921,7 +4921,7 @@ void QSerialPort::error(void)
 }
 
 
-// ==== entry=004bac00 name=simplified_helper size=6 ====
+// ==== entry=004bac00 orig=FUN_004bac00 size=6 name=simplified_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4933,7 +4933,7 @@ void QString::simplified_helper(QString *param_1)
 }
 
 
-// ==== entry=004bac10 name=ssh_channel_request_send_signal size=6 ====
+// ==== entry=004bac10 orig=FUN_004bac10 size=6 name=ssh_channel_request_send_signal ====
 
 void ssh_channel_request_send_signal(void)
 
@@ -4943,7 +4943,7 @@ void ssh_channel_request_send_signal(void)
 }
 
 
-// ==== entry=004bac20 name=QDialogButtonBox size=6 ====
+// ==== entry=004bac20 orig=FUN_004bac20 size=6 name=QDialogButtonBox ====
 
 void __thiscall QDialogButtonBox::QDialogButtonBox(void)
 
@@ -4953,7 +4953,7 @@ void __thiscall QDialogButtonBox::QDialogButtonBox(void)
 }
 
 
-// ==== entry=004bac30 name=hasExpired size=6 ====
+// ==== entry=004bac30 orig=FUN_004bac30 size=6 name=hasExpired ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4965,7 +4965,7 @@ void QDeadlineTimer::hasExpired(void)
 }
 
 
-// ==== entry=004bac40 name=addWidget size=6 ====
+// ==== entry=004bac40 orig=FUN_004bac40 size=6 name=addWidget ====
 
 void QGridLayout::addWidget(void)
 
@@ -4975,7 +4975,7 @@ void QGridLayout::addWidget(void)
 }
 
 
-// ==== entry=004bac50 name=setFilter size=6 ====
+// ==== entry=004bac50 orig=FUN_004bac50 size=6 name=setFilter ====
 
 void QDir::setFilter(void)
 
@@ -4985,7 +4985,7 @@ void QDir::setFilter(void)
 }
 
 
-// ==== entry=004bac60 name=setWindowModified size=6 ====
+// ==== entry=004bac60 orig=FUN_004bac60 size=6 name=setWindowModified ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -4997,7 +4997,7 @@ void QWidget::setWindowModified(bool param_1)
 }
 
 
-// ==== entry=004bac70 name=activateWindow size=6 ====
+// ==== entry=004bac70 orig=FUN_004bac70 size=6 name=activateWindow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5009,7 +5009,7 @@ void QWidget::activateWindow(void)
 }
 
 
-// ==== entry=004bac80 name=QPen size=6 ====
+// ==== entry=004bac80 orig=FUN_004bac80 size=6 name=QPen ====
 
 void __thiscall QPen::QPen(QPen *this)
 
@@ -5019,7 +5019,7 @@ void __thiscall QPen::QPen(QPen *this)
 }
 
 
-// ==== entry=004bac90 name=event size=6 ====
+// ==== entry=004bac90 orig=FUN_004bac90 size=6 name=event ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5031,7 +5031,7 @@ void QTabBar::event(QEvent *param_1)
 }
 
 
-// ==== entry=004baca0 name=qt_metacall size=6 ====
+// ==== entry=004baca0 orig=FUN_004baca0 size=6 name=qt_metacall ====
 
 void QStatusBar::qt_metacall(void)
 
@@ -5041,7 +5041,7 @@ void QStatusBar::qt_metacall(void)
 }
 
 
-// ==== entry=004bacb0 name=insert size=6 ====
+// ==== entry=004bacb0 orig=FUN_004bacb0 size=6 name=insert ====
 
 void QString::insert(void)
 
@@ -5051,7 +5051,7 @@ void QString::insert(void)
 }
 
 
-// ==== entry=004bacc0 name=setNumericMode size=6 ====
+// ==== entry=004bacc0 orig=FUN_004bacc0 size=6 name=setNumericMode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5063,7 +5063,7 @@ void QCollator::setNumericMode(bool param_1)
 }
 
 
-// ==== entry=004bacd0 name=setStandardButtons size=6 ====
+// ==== entry=004bacd0 orig=FUN_004bacd0 size=6 name=setStandardButtons ====
 
 void QMessageBox::setStandardButtons(void)
 
@@ -5073,7 +5073,7 @@ void QMessageBox::setStandardButtons(void)
 }
 
 
-// ==== entry=004bace0 name=setEnabled size=6 ====
+// ==== entry=004bace0 orig=FUN_004bace0 size=6 name=setEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5085,7 +5085,7 @@ void QStandardItem::setEnabled(bool param_1)
 }
 
 
-// ==== entry=004bacf0 name=wmemset size=6 ====
+// ==== entry=004bacf0 orig=FUN_004bacf0 size=6 name=wmemset ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5099,7 +5099,7 @@ wchar_t * wmemset(wchar_t *__s,wchar_t __c,size_t __n)
 }
 
 
-// ==== entry=004bad00 name=addWidget size=6 ====
+// ==== entry=004bad00 orig=FUN_004bad00 size=6 name=addWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5111,7 +5111,7 @@ void QLayout::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=004bad10 name=currentSecsSinceEpoch size=6 ====
+// ==== entry=004bad10 orig=FUN_004bad10 size=6 name=currentSecsSinceEpoch ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5123,7 +5123,7 @@ void QDateTime::currentSecsSinceEpoch(void)
 }
 
 
-// ==== entry=004bad20 name=prepend size=6 ====
+// ==== entry=004bad20 orig=FUN_004bad20 size=6 name=prepend ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5135,7 +5135,7 @@ void QByteArray::prepend(QByteArray *param_1)
 }
 
 
-// ==== entry=004bad30 name=sftp_new2 size=6 ====
+// ==== entry=004bad30 orig=FUN_004bad30 size=6 name=sftp_new2 ====
 
 void sftp_new2(void)
 
@@ -5145,7 +5145,7 @@ void sftp_new2(void)
 }
 
 
-// ==== entry=004bad40 name=clear size=6 ====
+// ==== entry=004bad40 orig=FUN_004bad40 size=6 name=clear ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5157,7 +5157,7 @@ void QPlainTextEdit::clear(void)
 }
 
 
-// ==== entry=004bad50 name=insertWidget size=6 ====
+// ==== entry=004bad50 orig=FUN_004bad50 size=6 name=insertWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5169,7 +5169,7 @@ void QStackedWidget::insertWidget(int param_1,QWidget *param_2)
 }
 
 
-// ==== entry=004bad60 name=isalnum size=6 ====
+// ==== entry=004bad60 orig=FUN_004bad60 size=6 name=isalnum ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5183,7 +5183,7 @@ int isalnum(int param_1)
 }
 
 
-// ==== entry=004bad70 name=typeName size=6 ====
+// ==== entry=004bad70 orig=FUN_004bad70 size=6 name=typeName ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5195,7 +5195,7 @@ void QMetaType::typeName(int param_1)
 }
 
 
-// ==== entry=004bad80 name=setValue size=6 ====
+// ==== entry=004bad80 orig=FUN_004bad80 size=6 name=setValue ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5207,7 +5207,7 @@ void QProgressBar::setValue(int param_1)
 }
 
 
-// ==== entry=004bad90 name=unlock size=6 ====
+// ==== entry=004bad90 orig=FUN_004bad90 size=6 name=unlock ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5219,7 +5219,7 @@ void QReadWriteLock::unlock(void)
 }
 
 
-// ==== entry=004bada0 name=setAutoDefault size=6 ====
+// ==== entry=004bada0 orig=FUN_004bada0 size=6 name=setAutoDefault ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5231,7 +5231,7 @@ void QPushButton::setAutoDefault(bool param_1)
 }
 
 
-// ==== entry=004badb0 name=listen size=6 ====
+// ==== entry=004badb0 orig=FUN_004badb0 size=6 name=listen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5243,7 +5243,7 @@ void QTcpServer::listen(QHostAddress *param_1,ushort param_2)
 }
 
 
-// ==== entry=004badc0 name=freeNode size=6 ====
+// ==== entry=004badc0 orig=FUN_004badc0 size=6 name=freeNode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5255,7 +5255,7 @@ void QHashData::freeNode(void *param_1)
 }
 
 
-// ==== entry=004badd0 name=absoluteFilePath size=6 ====
+// ==== entry=004badd0 orig=FUN_004badd0 size=6 name=absoluteFilePath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5267,7 +5267,7 @@ void QDir::absoluteFilePath(QString *param_1)
 }
 
 
-// ==== entry=004bade0 name=drawBranches size=6 ====
+// ==== entry=004bade0 orig=FUN_004bade0 size=6 name=drawBranches ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5279,7 +5279,7 @@ void QTreeView::drawBranches(QPainter *param_1,QRect *param_2,QModelIndex *param
 }
 
 
-// ==== entry=004badf0 name=operator>> size=6 ====
+// ==== entry=004badf0 orig=FUN_004badf0 size=6 name=operator>> ====
 
 void __thiscall QDataStream::operator>>(QDataStream *this,double *param_1)
 
@@ -5289,7 +5289,7 @@ void __thiscall QDataStream::operator>>(QDataStream *this,double *param_1)
 }
 
 
-// ==== entry=004bae00 name=pthread_attr_getdetachstate size=6 ====
+// ==== entry=004bae00 orig=FUN_004bae00 size=6 name=pthread_attr_getdetachstate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5303,7 +5303,7 @@ int pthread_attr_getdetachstate(pthread_attr_t *__attr,int *__detachstate)
 }
 
 
-// ==== entry=004bae10 name=setAttribute size=6 ====
+// ==== entry=004bae10 orig=FUN_004bae10 size=6 name=setAttribute ====
 
 void QWidget::setAttribute(void)
 
@@ -5313,7 +5313,7 @@ void QWidget::setAttribute(void)
 }
 
 
-// ==== entry=004bae20 name=strstr size=6 ====
+// ==== entry=004bae20 orig=FUN_004bae20 size=6 name=strstr ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5327,7 +5327,7 @@ char * strstr(char *__haystack,char *__needle)
 }
 
 
-// ==== entry=004bae30 name=QSortFilterProxyModel size=6 ====
+// ==== entry=004bae30 orig=FUN_004bae30 size=6 name=QSortFilterProxyModel ====
 
 void __thiscall
 QSortFilterProxyModel::QSortFilterProxyModel(QSortFilterProxyModel *this,QObject *param_1)
@@ -5338,7 +5338,7 @@ QSortFilterProxyModel::QSortFilterProxyModel(QSortFilterProxyModel *this,QObject
 }
 
 
-// ==== entry=004bae40 name=~QFile size=6 ====
+// ==== entry=004bae40 orig=FUN_004bae40 size=6 name=~QFile ====
 
 void __thiscall QFile::~QFile(QFile *this)
 
@@ -5348,7 +5348,7 @@ void __thiscall QFile::~QFile(QFile *this)
 }
 
 
-// ==== entry=004bae50 name=_M_append size=6 ====
+// ==== entry=004bae50 orig=FUN_004bae50 size=6 name=_M_append ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5360,7 +5360,7 @@ void std::__cxx11::string::_M_append(char *param_1,ulong param_2)
 }
 
 
-// ==== entry=004bae60 name=QVariant size=6 ====
+// ==== entry=004bae60 orig=FUN_004bae60 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,QList *param_1)
 
@@ -5370,7 +5370,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QList *param_1)
 }
 
 
-// ==== entry=004bae70 name=sftp_limits size=6 ====
+// ==== entry=004bae70 orig=FUN_004bae70 size=6 name=sftp_limits ====
 
 void sftp_limits(void)
 
@@ -5380,7 +5380,7 @@ void sftp_limits(void)
 }
 
 
-// ==== entry=004bae80 name=EVP_CipherInit_ex size=6 ====
+// ==== entry=004bae80 orig=FUN_004bae80 size=6 name=EVP_CipherInit_ex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5395,7 +5395,7 @@ int EVP_CipherInit_ex(EVP_CIPHER_CTX *ctx,EVP_CIPHER *cipher,ENGINE *impl,uchar 
 }
 
 
-// ==== entry=004bae90 name=placeholderText size=6 ====
+// ==== entry=004bae90 orig=FUN_004bae90 size=6 name=placeholderText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5407,7 +5407,7 @@ void QComboBox::placeholderText(void)
 }
 
 
-// ==== entry=004baea0 name=paintEvent size=6 ====
+// ==== entry=004baea0 orig=FUN_004baea0 size=6 name=paintEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5419,7 +5419,7 @@ void QTableView::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=004baeb0 name=aio_return size=6 ====
+// ==== entry=004baeb0 orig=FUN_004baeb0 size=6 name=aio_return ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5433,7 +5433,7 @@ __ssize_t aio_return(aiocb *__aiocbp)
 }
 
 
-// ==== entry=004baec0 name=rightJustified size=6 ====
+// ==== entry=004baec0 orig=FUN_004baec0 size=6 name=rightJustified ====
 
 void QString::rightJustified(void)
 
@@ -5443,7 +5443,7 @@ void QString::rightJustified(void)
 }
 
 
-// ==== entry=004baed0 name=bind_textdomain_codeset size=6 ====
+// ==== entry=004baed0 orig=FUN_004baed0 size=6 name=bind_textdomain_codeset ====
 
 void bind_textdomain_codeset(void)
 
@@ -5453,7 +5453,7 @@ void bind_textdomain_codeset(void)
 }
 
 
-// ==== entry=004baee0 name=addLayout size=6 ====
+// ==== entry=004baee0 orig=FUN_004baee0 size=6 name=addLayout ====
 
 void QGridLayout::addLayout(void)
 
@@ -5463,7 +5463,7 @@ void QGridLayout::addLayout(void)
 }
 
 
-// ==== entry=004baef0 name=readAllStandardError size=6 ====
+// ==== entry=004baef0 orig=FUN_004baef0 size=6 name=readAllStandardError ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5475,7 +5475,7 @@ void QProcess::readAllStandardError(void)
 }
 
 
-// ==== entry=004baf00 name=operator<< size=6 ====
+// ==== entry=004baf00 orig=FUN_004baf00 size=6 name=operator<< ====
 
 void __thiscall QDataStream::operator<<(void)
 
@@ -5485,7 +5485,7 @@ void __thiscall QDataStream::operator<<(void)
 }
 
 
-// ==== entry=004baf10 name=mimeTypeForUrl size=6 ====
+// ==== entry=004baf10 orig=FUN_004baf10 size=6 name=mimeTypeForUrl ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5497,7 +5497,7 @@ void QMimeDatabase::mimeTypeForUrl(QUrl *param_1)
 }
 
 
-// ==== entry=004baf20 name=painter size=6 ====
+// ==== entry=004baf20 orig=FUN_004baf20 size=6 name=painter ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5509,7 +5509,7 @@ void QPaintEngine::painter(void)
 }
 
 
-// ==== entry=004baf30 name=sortKey size=6 ====
+// ==== entry=004baf30 orig=FUN_004baf30 size=6 name=sortKey ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5521,7 +5521,7 @@ void QCollator::sortKey(QString *param_1)
 }
 
 
-// ==== entry=004baf40 name=uniformItemSizes size=6 ====
+// ==== entry=004baf40 orig=FUN_004baf40 size=6 name=uniformItemSizes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5533,7 +5533,7 @@ void QListView::uniformItemSizes(void)
 }
 
 
-// ==== entry=004baf50 name=sftp_file_set_nonblocking size=6 ====
+// ==== entry=004baf50 orig=FUN_004baf50 size=6 name=sftp_file_set_nonblocking ====
 
 void sftp_file_set_nonblocking(void)
 
@@ -5543,7 +5543,7 @@ void sftp_file_set_nonblocking(void)
 }
 
 
-// ==== entry=004baf60 name=~QDateTime size=6 ====
+// ==== entry=004baf60 orig=FUN_004baf60 size=6 name=~QDateTime ====
 
 void __thiscall QDateTime::~QDateTime(QDateTime *this)
 
@@ -5553,7 +5553,7 @@ void __thiscall QDateTime::~QDateTime(QDateTime *this)
 }
 
 
-// ==== entry=004baf70 name=appendHtml size=6 ====
+// ==== entry=004baf70 orig=FUN_004baf70 size=6 name=appendHtml ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5565,7 +5565,7 @@ void QPlainTextEdit::appendHtml(QString *param_1)
 }
 
 
-// ==== entry=004baf80 name=find_first_not_of size=6 ====
+// ==== entry=004baf80 orig=FUN_004baf80 size=6 name=find_first_not_of ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5577,7 +5577,7 @@ void std::__cxx11::string::find_first_not_of(char param_1,ulong param_2)
 }
 
 
-// ==== entry=004baf90 name=sqrt size=6 ====
+// ==== entry=004baf90 orig=FUN_004baf90 size=6 name=sqrt ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5591,7 +5591,7 @@ double sqrt(double __x)
 }
 
 
-// ==== entry=004bafa0 name=tabAt size=6 ====
+// ==== entry=004bafa0 orig=FUN_004bafa0 size=6 name=tabAt ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5603,7 +5603,7 @@ void QTabBar::tabAt(QPoint *param_1)
 }
 
 
-// ==== entry=004bafb0 name=ssh_pki_import_privkey_file size=6 ====
+// ==== entry=004bafb0 orig=FUN_004bafb0 size=6 name=ssh_pki_import_privkey_file ====
 
 void ssh_pki_import_privkey_file(void)
 
@@ -5613,7 +5613,7 @@ void ssh_pki_import_privkey_file(void)
 }
 
 
-// ==== entry=004bafc0 name=operator[] size=6 ====
+// ==== entry=004bafc0 orig=FUN_004bafc0 size=6 name=operator[] ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5625,7 +5625,7 @@ void QKeySequence::operator[](uint param_1)
 }
 
 
-// ==== entry=004bafd0 name=dynamicSortFilter size=6 ====
+// ==== entry=004bafd0 orig=FUN_004bafd0 size=6 name=dynamicSortFilter ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5637,7 +5637,7 @@ void QSortFilterProxyModel::dynamicSortFilter(void)
 }
 
 
-// ==== entry=004bafe0 name=append size=6 ====
+// ==== entry=004bafe0 orig=FUN_004bafe0 size=6 name=append ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5649,7 +5649,7 @@ void QString::append(QStringRef *param_1)
 }
 
 
-// ==== entry=004baff0 name=update size=6 ====
+// ==== entry=004baff0 orig=FUN_004baff0 size=6 name=update ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5661,7 +5661,7 @@ void QWidget::update(void)
 }
 
 
-// ==== entry=004bb000 name=qt_metacast size=6 ====
+// ==== entry=004bb000 orig=FUN_004bb000 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5673,7 +5673,7 @@ void QComboBox::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004bb010 name=itemAtPosition size=6 ====
+// ==== entry=004bb010 orig=FUN_004bb010 size=6 name=itemAtPosition ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5685,7 +5685,7 @@ void QGridLayout::itemAtPosition(int param_1,int param_2)
 }
 
 
-// ==== entry=004bb020 name=readLineInto size=6 ====
+// ==== entry=004bb020 orig=FUN_004bb020 size=6 name=readLineInto ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5697,7 +5697,7 @@ void QTextStream::readLineInto(QString *param_1,longlong param_2)
 }
 
 
-// ==== entry=004bb030 name=deallocate size=6 ====
+// ==== entry=004bb030 orig=FUN_004bb030 size=6 name=deallocate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5709,7 +5709,7 @@ void QArrayData::deallocate(QArrayData *param_1,ulong param_2,ulong param_3)
 }
 
 
-// ==== entry=004bb040 name=QProcess size=6 ====
+// ==== entry=004bb040 orig=FUN_004bb040 size=6 name=QProcess ====
 
 void __thiscall QProcess::QProcess(QProcess *this,QObject *param_1)
 
@@ -5719,7 +5719,7 @@ void __thiscall QProcess::QProcess(QProcess *this,QObject *param_1)
 }
 
 
-// ==== entry=004bb050 name=setCompleter size=6 ====
+// ==== entry=004bb050 orig=FUN_004bb050 size=6 name=setCompleter ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5731,7 +5731,7 @@ void QComboBox::setCompleter(QCompleter *param_1)
 }
 
 
-// ==== entry=004bb060 name=QDialog size=6 ====
+// ==== entry=004bb060 orig=FUN_004bb060 size=6 name=QDialog ====
 
 void __thiscall QDialog::QDialog(void)
 
@@ -5741,7 +5741,7 @@ void __thiscall QDialog::QDialog(void)
 }
 
 
-// ==== entry=004bb070 name=~QKeyEvent size=6 ====
+// ==== entry=004bb070 orig=FUN_004bb070 size=6 name=~QKeyEvent ====
 
 void __thiscall QKeyEvent::~QKeyEvent(QKeyEvent *this)
 
@@ -5751,7 +5751,7 @@ void __thiscall QKeyEvent::~QKeyEvent(QKeyEvent *this)
 }
 
 
-// ==== entry=004bb080 name=setData size=6 ====
+// ==== entry=004bb080 orig=FUN_004bb080 size=6 name=setData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5763,7 +5763,7 @@ void QAction::setData(QVariant *param_1)
 }
 
 
-// ==== entry=004bb090 name=qt_metacall size=6 ====
+// ==== entry=004bb090 orig=FUN_004bb090 size=6 name=qt_metacall ====
 
 void QPushButton::qt_metacall(void)
 
@@ -5773,7 +5773,7 @@ void QPushButton::qt_metacall(void)
 }
 
 
-// ==== entry=004bb0a0 name=fflush size=6 ====
+// ==== entry=004bb0a0 orig=FUN_004bb0a0 size=6 name=fflush ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5787,7 +5787,7 @@ int fflush(FILE *__stream)
 }
 
 
-// ==== entry=004bb0b0 name=done size=6 ====
+// ==== entry=004bb0b0 orig=FUN_004bb0b0 size=6 name=done ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5799,7 +5799,7 @@ void QDialog::done(int param_1)
 }
 
 
-// ==== entry=004bb0c0 name=setModel size=6 ====
+// ==== entry=004bb0c0 orig=FUN_004bb0c0 size=6 name=setModel ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5811,7 +5811,7 @@ void QCompleter::setModel(QAbstractItemModel *param_1)
 }
 
 
-// ==== entry=004bb0d0 name=menu size=6 ====
+// ==== entry=004bb0d0 orig=FUN_004bb0d0 size=6 name=menu ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5823,7 +5823,7 @@ void QPushButton::menu(void)
 }
 
 
-// ==== entry=004bb0e0 name=strtold_l size=6 ====
+// ==== entry=004bb0e0 orig=FUN_004bb0e0 size=6 name=strtold_l ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5837,7 +5837,7 @@ double strtold_l(char *__nptr,char **__endptr,__locale_t __loc)
 }
 
 
-// ==== entry=004bb0f0 name=addMenu size=6 ====
+// ==== entry=004bb0f0 orig=FUN_004bb0f0 size=6 name=addMenu ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5849,7 +5849,7 @@ void QMenu::addMenu(QString *param_1)
 }
 
 
-// ==== entry=004bb100 name=XQueryPointer size=6 ====
+// ==== entry=004bb100 orig=FUN_004bb100 size=6 name=XQueryPointer ====
 
 void XQueryPointer(void)
 
@@ -5859,7 +5859,7 @@ void XQueryPointer(void)
 }
 
 
-// ==== entry=004bb110 name=compare size=6 ====
+// ==== entry=004bb110 orig=FUN_004bb110 size=6 name=compare ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5871,7 +5871,7 @@ void std::__cxx11::string::compare(char *param_1)
 }
 
 
-// ==== entry=004bb120 name=pthread_key_delete size=6 ====
+// ==== entry=004bb120 orig=FUN_004bb120 size=6 name=pthread_key_delete ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5885,7 +5885,7 @@ int pthread_key_delete(pthread_key_t __key)
 }
 
 
-// ==== entry=004bb130 name=setNameFilters size=6 ====
+// ==== entry=004bb130 orig=FUN_004bb130 size=6 name=setNameFilters ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5897,7 +5897,7 @@ void QFileDialog::setNameFilters(QStringList *param_1)
 }
 
 
-// ==== entry=004bb140 name=activePopupWidget size=6 ====
+// ==== entry=004bb140 orig=FUN_004bb140 size=6 name=activePopupWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5909,7 +5909,7 @@ void QApplication::activePopupWidget(void)
 }
 
 
-// ==== entry=004bb150 name=ssh_options_get size=6 ====
+// ==== entry=004bb150 orig=FUN_004bb150 size=6 name=ssh_options_get ====
 
 void ssh_options_get(void)
 
@@ -5919,7 +5919,7 @@ void ssh_options_get(void)
 }
 
 
-// ==== entry=004bb160 name=appendLatin1To size=6 ====
+// ==== entry=004bb160 orig=FUN_004bb160 size=6 name=appendLatin1To ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5931,7 +5931,7 @@ void QAbstractConcatenable::appendLatin1To(char *param_1,int param_2,QChar *para
 }
 
 
-// ==== entry=004bb170 name=QCollator size=6 ====
+// ==== entry=004bb170 orig=FUN_004bb170 size=6 name=QCollator ====
 
 void __thiscall QCollator::QCollator(QCollator *this)
 
@@ -5941,7 +5941,7 @@ void __thiscall QCollator::QCollator(QCollator *this)
 }
 
 
-// ==== entry=004bb180 name=sftp_async_readdir_begin size=6 ====
+// ==== entry=004bb180 orig=FUN_004bb180 size=6 name=sftp_async_readdir_begin ====
 
 void sftp_async_readdir_begin(void)
 
@@ -5951,7 +5951,7 @@ void sftp_async_readdir_begin(void)
 }
 
 
-// ==== entry=004bb190 name=readAll size=6 ====
+// ==== entry=004bb190 orig=FUN_004bb190 size=6 name=readAll ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -5963,7 +5963,7 @@ void QTextStream::readAll(void)
 }
 
 
-// ==== entry=004bb1a0 name=open size=6 ====
+// ==== entry=004bb1a0 orig=FUN_004bb1a0 size=6 name=open ====
 
 void QSaveFile::open(void)
 
@@ -5973,7 +5973,7 @@ void QSaveFile::open(void)
 }
 
 
-// ==== entry=004bb1b0 name=count size=6 ====
+// ==== entry=004bb1b0 orig=FUN_004bb1b0 size=6 name=count ====
 
 void QStringRef::count(void)
 
@@ -5983,7 +5983,7 @@ void QStringRef::count(void)
 }
 
 
-// ==== entry=004bb1c0 name=operator<< size=6 ====
+// ==== entry=004bb1c0 orig=FUN_004bb1c0 size=6 name=operator<< ====
 
 void __thiscall QDataStream::operator<<(QDataStream *this,bool param_1)
 
@@ -5993,7 +5993,7 @@ void __thiscall QDataStream::operator<<(QDataStream *this,bool param_1)
 }
 
 
-// ==== entry=004bb1d0 name=QJSValue size=6 ====
+// ==== entry=004bb1d0 orig=FUN_004bb1d0 size=6 name=QJSValue ====
 
 void __thiscall QJSValue::QJSValue(QJSValue *this,QJSValue *param_1)
 
@@ -6003,7 +6003,7 @@ void __thiscall QJSValue::QJSValue(QJSValue *this,QJSValue *param_1)
 }
 
 
-// ==== entry=004bb1e0 name=insert size=6 ====
+// ==== entry=004bb1e0 orig=FUN_004bb1e0 size=6 name=insert ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6015,7 +6015,7 @@ void QJsonObject::insert(QString *param_1,QJsonValue *param_2)
 }
 
 
-// ==== entry=004bb1f0 name=ssh_silent_disconnect size=6 ====
+// ==== entry=004bb1f0 orig=FUN_004bb1f0 size=6 name=ssh_silent_disconnect ====
 
 void ssh_silent_disconnect(void)
 
@@ -6025,7 +6025,7 @@ void ssh_silent_disconnect(void)
 }
 
 
-// ==== entry=004bb200 name=isSymLink size=6 ====
+// ==== entry=004bb200 orig=FUN_004bb200 size=6 name=isSymLink ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6037,7 +6037,7 @@ void QFileInfo::isSymLink(void)
 }
 
 
-// ==== entry=004bb210 name=toJsonObject size=6 ====
+// ==== entry=004bb210 orig=FUN_004bb210 size=6 name=toJsonObject ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6049,7 +6049,7 @@ void QVariant::toJsonObject(void)
 }
 
 
-// ==== entry=004bb220 name=__iswctype_l size=6 ====
+// ==== entry=004bb220 orig=FUN_004bb220 size=6 name=__iswctype_l ====
 
 void __iswctype_l(void)
 
@@ -6059,7 +6059,7 @@ void __iswctype_l(void)
 }
 
 
-// ==== entry=004bb230 name=warning size=6 ====
+// ==== entry=004bb230 orig=FUN_004bb230 size=6 name=warning ====
 
 void QMessageBox::warning(void)
 
@@ -6069,7 +6069,7 @@ void QMessageBox::warning(void)
 }
 
 
-// ==== entry=004bb240 name=setIconSize size=6 ====
+// ==== entry=004bb240 orig=FUN_004bb240 size=6 name=setIconSize ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6081,7 +6081,7 @@ void QAbstractButton::setIconSize(QSize *param_1)
 }
 
 
-// ==== entry=004bb250 name=qHash size=6 ====
+// ==== entry=004bb250 orig=FUN_004bb250 size=6 name=qHash ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6093,7 +6093,7 @@ void qHash(QString *param_1,uint param_2)
 }
 
 
-// ==== entry=004bb260 name=exec size=6 ====
+// ==== entry=004bb260 orig=FUN_004bb260 size=6 name=exec ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6105,7 +6105,7 @@ void QMenu::exec(QPoint *param_1,QAction *param_2)
 }
 
 
-// ==== entry=004bb270 name=endsWith size=6 ====
+// ==== entry=004bb270 orig=FUN_004bb270 size=6 name=endsWith ====
 
 void QString::endsWith(void)
 
@@ -6115,7 +6115,7 @@ void QString::endsWith(void)
 }
 
 
-// ==== entry=004bb280 name=installTranslator size=6 ====
+// ==== entry=004bb280 orig=FUN_004bb280 size=6 name=installTranslator ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6127,7 +6127,7 @@ void QCoreApplication::installTranslator(QTranslator *param_1)
 }
 
 
-// ==== entry=004bb290 name=unlock size=6 ====
+// ==== entry=004bb290 orig=FUN_004bb290 size=6 name=unlock ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6139,7 +6139,7 @@ void QMutex::unlock(void)
 }
 
 
-// ==== entry=004bb2a0 name=ssh_channel_request_exec size=6 ====
+// ==== entry=004bb2a0 orig=FUN_004bb2a0 size=6 name=ssh_channel_request_exec ====
 
 void ssh_channel_request_exec(void)
 
@@ -6149,7 +6149,7 @@ void ssh_channel_request_exec(void)
 }
 
 
-// ==== entry=004bb2b0 name=isWritable size=6 ====
+// ==== entry=004bb2b0 orig=FUN_004bb2b0 size=6 name=isWritable ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6161,7 +6161,7 @@ void QFileInfo::isWritable(void)
 }
 
 
-// ==== entry=004bb2c0 name=QFileIconProvider size=6 ====
+// ==== entry=004bb2c0 orig=FUN_004bb2c0 size=6 name=QFileIconProvider ====
 
 void __thiscall QFileIconProvider::QFileIconProvider(QFileIconProvider *this)
 
@@ -6171,7 +6171,7 @@ void __thiscall QFileIconProvider::QFileIconProvider(QFileIconProvider *this)
 }
 
 
-// ==== entry=004bb2d0 name=tcsetattr size=6 ====
+// ==== entry=004bb2d0 orig=FUN_004bb2d0 size=6 name=tcsetattr ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6185,7 +6185,7 @@ int tcsetattr(int __fd,int __optional_actions,termios *__termios_p)
 }
 
 
-// ==== entry=004bb2e0 name=isObject size=6 ====
+// ==== entry=004bb2e0 orig=FUN_004bb2e0 size=6 name=isObject ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6197,7 +6197,7 @@ void QJsonDocument::isObject(void)
 }
 
 
-// ==== entry=004bb2f0 name=QHostAddress size=6 ====
+// ==== entry=004bb2f0 orig=FUN_004bb2f0 size=6 name=QHostAddress ====
 
 void __thiscall QHostAddress::QHostAddress(QHostAddress *this,QHostAddress *param_1)
 
@@ -6207,7 +6207,7 @@ void __thiscall QHostAddress::QHostAddress(QHostAddress *this,QHostAddress *para
 }
 
 
-// ==== entry=004bb300 name=QPushButton size=6 ====
+// ==== entry=004bb300 orig=FUN_004bb300 size=6 name=QPushButton ====
 
 void __thiscall
 QPushButton::QPushButton(QPushButton *this,QIcon *param_1,QString *param_2,QWidget *param_3)
@@ -6218,7 +6218,7 @@ QPushButton::QPushButton(QPushButton *this,QIcon *param_1,QString *param_2,QWidg
 }
 
 
-// ==== entry=004bb310 name=setTextElideMode size=6 ====
+// ==== entry=004bb310 orig=FUN_004bb310 size=6 name=setTextElideMode ====
 
 void QAbstractItemView::setTextElideMode(void)
 
@@ -6228,7 +6228,7 @@ void QAbstractItemView::setTextElideMode(void)
 }
 
 
-// ==== entry=004bb320 name=tabRect size=6 ====
+// ==== entry=004bb320 orig=FUN_004bb320 size=6 name=tabRect ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6240,7 +6240,7 @@ void QTabBar::tabRect(int param_1)
 }
 
 
-// ==== entry=004bb330 name=contains size=6 ====
+// ==== entry=004bb330 orig=FUN_004bb330 size=6 name=contains ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6252,7 +6252,7 @@ void QString::contains(QRegularExpression *param_1)
 }
 
 
-// ==== entry=004bb340 name=truncate size=6 ====
+// ==== entry=004bb340 orig=FUN_004bb340 size=6 name=truncate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6264,7 +6264,7 @@ void QString::truncate(int param_1)
 }
 
 
-// ==== entry=004bb350 name=setNum size=6 ====
+// ==== entry=004bb350 orig=FUN_004bb350 size=6 name=setNum ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6276,7 +6276,7 @@ void QString::setNum(longlong param_1,int param_2)
 }
 
 
-// ==== entry=004bb360 name=drawPixmap size=6 ====
+// ==== entry=004bb360 orig=FUN_004bb360 size=6 name=drawPixmap ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6288,7 +6288,7 @@ void QPainter::drawPixmap(QPointF *param_1,QPixmap *param_2)
 }
 
 
-// ==== entry=004bb370 name=flags size=6 ====
+// ==== entry=004bb370 orig=FUN_004bb370 size=6 name=flags ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6300,7 +6300,7 @@ void QAbstractItemModel::flags(QModelIndex *param_1)
 }
 
 
-// ==== entry=004bb380 name=currentIndex size=6 ====
+// ==== entry=004bb380 orig=FUN_004bb380 size=6 name=currentIndex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6312,7 +6312,7 @@ void QComboBox::currentIndex(void)
 }
 
 
-// ==== entry=004bb390 name=verticalScrollBarPolicy size=6 ====
+// ==== entry=004bb390 orig=FUN_004bb390 size=6 name=verticalScrollBarPolicy ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6324,7 +6324,7 @@ void QAbstractScrollArea::verticalScrollBarPolicy(void)
 }
 
 
-// ==== entry=004bb3a0 name=setMenu size=6 ====
+// ==== entry=004bb3a0 orig=FUN_004bb3a0 size=6 name=setMenu ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6336,7 +6336,7 @@ void QPushButton::setMenu(QMenu *param_1)
 }
 
 
-// ==== entry=004bb3b0 name=operator= size=6 ====
+// ==== entry=004bb3b0 orig=FUN_004bb3b0 size=6 name=operator= ====
 
 void __thiscall QStyleOption::operator=(QStyleOption *this,QStyleOption *param_1)
 
@@ -6346,7 +6346,7 @@ void __thiscall QStyleOption::operator=(QStyleOption *this,QStyleOption *param_1
 }
 
 
-// ==== entry=004bb3c0 name=setClipRect size=6 ====
+// ==== entry=004bb3c0 orig=FUN_004bb3c0 size=6 name=setClipRect ====
 
 void QPainter::setClipRect(void)
 
@@ -6356,7 +6356,7 @@ void QPainter::setClipRect(void)
 }
 
 
-// ==== entry=004bb3d0 name=restoreOverrideCursor size=6 ====
+// ==== entry=004bb3d0 orig=FUN_004bb3d0 size=6 name=restoreOverrideCursor ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6368,7 +6368,7 @@ void QGuiApplication::restoreOverrideCursor(void)
 }
 
 
-// ==== entry=004bb3e0 name=count size=6 ====
+// ==== entry=004bb3e0 orig=FUN_004bb3e0 size=6 name=count ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6380,7 +6380,7 @@ void QTabBar::count(void)
 }
 
 
-// ==== entry=004bb3f0 name=new[] size=6 ====
+// ==== entry=004bb3f0 orig=FUN_004bb3f0 size=6 name=new[] ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6392,7 +6392,7 @@ void new__(ulong param_1)
 }
 
 
-// ==== entry=004bb400 name=operator= size=6 ====
+// ==== entry=004bb400 orig=FUN_004bb400 size=6 name=operator= ====
 
 void __thiscall QPersistentModelIndex::operator=(QPersistentModelIndex *this,QModelIndex *param_1)
 
@@ -6402,7 +6402,7 @@ void __thiscall QPersistentModelIndex::operator=(QPersistentModelIndex *this,QMo
 }
 
 
-// ==== entry=004bb410 name=setStatusTip size=6 ====
+// ==== entry=004bb410 orig=FUN_004bb410 size=6 name=setStatusTip ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6414,7 +6414,7 @@ void QWidget::setStatusTip(QString *param_1)
 }
 
 
-// ==== entry=004bb420 name=setItemDelegate size=6 ====
+// ==== entry=004bb420 orig=FUN_004bb420 size=6 name=setItemDelegate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6426,7 +6426,7 @@ void QAbstractItemView::setItemDelegate(QAbstractItemDelegate *param_1)
 }
 
 
-// ==== entry=004bb430 name=screen size=6 ====
+// ==== entry=004bb430 orig=FUN_004bb430 size=6 name=screen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6438,7 +6438,7 @@ void QWidget::screen(void)
 }
 
 
-// ==== entry=004bb440 name=QPalette size=6 ====
+// ==== entry=004bb440 orig=FUN_004bb440 size=6 name=QPalette ====
 
 void __thiscall QPalette::QPalette(QPalette *this)
 
@@ -6448,7 +6448,7 @@ void __thiscall QPalette::QPalette(QPalette *this)
 }
 
 
-// ==== entry=004bb450 name=mapTo size=6 ====
+// ==== entry=004bb450 orig=FUN_004bb450 size=6 name=mapTo ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6460,7 +6460,7 @@ void QWidget::mapTo(QWidget *param_1,QPoint *param_2)
 }
 
 
-// ==== entry=004bb460 name=__wctype_l size=6 ====
+// ==== entry=004bb460 orig=FUN_004bb460 size=6 name=__wctype_l ====
 
 void __wctype_l(void)
 
@@ -6470,7 +6470,7 @@ void __wctype_l(void)
 }
 
 
-// ==== entry=004bb470 name=addRow size=6 ====
+// ==== entry=004bb470 orig=FUN_004bb470 size=6 name=addRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6482,7 +6482,7 @@ void QFormLayout::addRow(QWidget *param_1)
 }
 
 
-// ==== entry=004bb480 name=addRow size=6 ====
+// ==== entry=004bb480 orig=FUN_004bb480 size=6 name=addRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6494,7 +6494,7 @@ void QFormLayout::addRow(QWidget *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=004bb490 name=setDetailedText size=6 ====
+// ==== entry=004bb490 orig=FUN_004bb490 size=6 name=setDetailedText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6506,7 +6506,7 @@ void QMessageBox::setDetailedText(QString *param_1)
 }
 
 
-// ==== entry=004bb4a0 name=QSerialPortInfo size=6 ====
+// ==== entry=004bb4a0 orig=FUN_004bb4a0 size=6 name=QSerialPortInfo ====
 
 void __thiscall QSerialPortInfo::QSerialPortInfo(QSerialPortInfo *this,QSerialPortInfo *param_1)
 
@@ -6516,7 +6516,7 @@ void __thiscall QSerialPortInfo::QSerialPortInfo(QSerialPortInfo *this,QSerialPo
 }
 
 
-// ==== entry=004bb4b0 name=keyToValue size=6 ====
+// ==== entry=004bb4b0 orig=FUN_004bb4b0 size=6 name=keyToValue ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6528,7 +6528,7 @@ void QMetaEnum::keyToValue(char *param_1,bool *param_2)
 }
 
 
-// ==== entry=004bb4c0 name=rgb size=6 ====
+// ==== entry=004bb4c0 orig=FUN_004bb4c0 size=6 name=rgb ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6540,7 +6540,7 @@ void QColor::rgb(void)
 }
 
 
-// ==== entry=004bb4d0 name=QDirIterator size=6 ====
+// ==== entry=004bb4d0 orig=FUN_004bb4d0 size=6 name=QDirIterator ====
 
 void __thiscall QDirIterator::QDirIterator(void)
 
@@ -6550,7 +6550,7 @@ void __thiscall QDirIterator::QDirIterator(void)
 }
 
 
-// ==== entry=004bb4e0 name=name size=6 ====
+// ==== entry=004bb4e0 orig=FUN_004bb4e0 size=6 name=name ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6562,7 +6562,7 @@ void QMimeType::name(void)
 }
 
 
-// ==== entry=004bb4f0 name=moveToThread size=6 ====
+// ==== entry=004bb4f0 orig=FUN_004bb4f0 size=6 name=moveToThread ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6574,7 +6574,7 @@ void QObject::moveToThread(QThread *param_1)
 }
 
 
-// ==== entry=004bb500 name=ptsname size=6 ====
+// ==== entry=004bb500 orig=FUN_004bb500 size=6 name=ptsname ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6588,7 +6588,7 @@ char * ptsname(int __fd)
 }
 
 
-// ==== entry=004bb510 name=~QProgressBar size=6 ====
+// ==== entry=004bb510 orig=FUN_004bb510 size=6 name=~QProgressBar ====
 
 void __thiscall QProgressBar::~QProgressBar(QProgressBar *this)
 
@@ -6598,7 +6598,7 @@ void __thiscall QProgressBar::~QProgressBar(QProgressBar *this)
 }
 
 
-// ==== entry=004bb520 name=matchedLength size=6 ====
+// ==== entry=004bb520 orig=FUN_004bb520 size=6 name=matchedLength ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6610,7 +6610,7 @@ void QRegExp::matchedLength(void)
 }
 
 
-// ==== entry=004bb530 name=strpbrk size=6 ====
+// ==== entry=004bb530 orig=FUN_004bb530 size=6 name=strpbrk ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6624,7 +6624,7 @@ char * strpbrk(char *__s,char *__accept)
 }
 
 
-// ==== entry=004bb540 name=QDialogButtonBox size=6 ====
+// ==== entry=004bb540 orig=FUN_004bb540 size=6 name=QDialogButtonBox ====
 
 void __thiscall QDialogButtonBox::QDialogButtonBox(QDialogButtonBox *this,QWidget *param_1)
 
@@ -6634,7 +6634,7 @@ void __thiscall QDialogButtonBox::QDialogButtonBox(QDialogButtonBox *this,QWidge
 }
 
 
-// ==== entry=004bb550 name=setFirstSectionMovable size=6 ====
+// ==== entry=004bb550 orig=FUN_004bb550 size=6 name=setFirstSectionMovable ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6646,7 +6646,7 @@ void QHeaderView::setFirstSectionMovable(bool param_1)
 }
 
 
-// ==== entry=004bb560 name=futimes size=6 ====
+// ==== entry=004bb560 orig=FUN_004bb560 size=6 name=futimes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6660,7 +6660,7 @@ int futimes(int __fd,timeval *__tvp)
 }
 
 
-// ==== entry=004bb570 name=QVariant size=6 ====
+// ==== entry=004bb570 orig=FUN_004bb570 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,QJsonArray *param_1)
 
@@ -6670,7 +6670,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QJsonArray *param_1)
 }
 
 
-// ==== entry=004bb580 name=tabButton size=6 ====
+// ==== entry=004bb580 orig=FUN_004bb580 size=6 name=tabButton ====
 
 void QTabBar::tabButton(void)
 
@@ -6680,7 +6680,7 @@ void QTabBar::tabButton(void)
 }
 
 
-// ==== entry=004bb590 name=addLayout size=6 ====
+// ==== entry=004bb590 orig=FUN_004bb590 size=6 name=addLayout ====
 
 void QGridLayout::addLayout(void)
 
@@ -6690,7 +6690,7 @@ void QGridLayout::addLayout(void)
 }
 
 
-// ==== entry=004bb5a0 name=gettext size=6 ====
+// ==== entry=004bb5a0 orig=FUN_004bb5a0 size=6 name=gettext ====
 
 void gettext(void)
 
@@ -6700,7 +6700,7 @@ void gettext(void)
 }
 
 
-// ==== entry=004bb5b0 name=headerDataChanged size=6 ====
+// ==== entry=004bb5b0 orig=FUN_004bb5b0 size=6 name=headerDataChanged ====
 
 void QAbstractItemModel::headerDataChanged(void)
 
@@ -6710,7 +6710,7 @@ void QAbstractItemModel::headerDataChanged(void)
 }
 
 
-// ==== entry=004bb5c0 name=addSeparator size=6 ====
+// ==== entry=004bb5c0 orig=FUN_004bb5c0 size=6 name=addSeparator ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6722,7 +6722,7 @@ void QToolBar::addSeparator(void)
 }
 
 
-// ==== entry=004bb5d0 name=remove size=6 ====
+// ==== entry=004bb5d0 orig=FUN_004bb5d0 size=6 name=remove ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6734,7 +6734,7 @@ void QListData::remove(int param_1,int param_2)
 }
 
 
-// ==== entry=004bb5e0 name=putwc size=6 ====
+// ==== entry=004bb5e0 orig=FUN_004bb5e0 size=6 name=putwc ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6748,7 +6748,7 @@ wint_t putwc(wchar_t __wc,__FILE *__stream)
 }
 
 
-// ==== entry=004bb5f0 name=wmemmove size=6 ====
+// ==== entry=004bb5f0 orig=FUN_004bb5f0 size=6 name=wmemmove ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6762,7 +6762,7 @@ wchar_t * wmemmove(wchar_t *__s1,wchar_t *__s2,size_t __n)
 }
 
 
-// ==== entry=004bb600 name=start size=6 ====
+// ==== entry=004bb600 orig=FUN_004bb600 size=6 name=start ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6774,7 +6774,7 @@ void QElapsedTimer::start(void)
 }
 
 
-// ==== entry=004bb610 name=freeNodeAndRebalance size=6 ====
+// ==== entry=004bb610 orig=FUN_004bb610 size=6 name=freeNodeAndRebalance ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6786,7 +6786,7 @@ void QMapDataBase::freeNodeAndRebalance(QMapNodeBase *param_1)
 }
 
 
-// ==== entry=004bb620 name=opendir size=6 ====
+// ==== entry=004bb620 orig=FUN_004bb620 size=6 name=opendir ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6800,7 +6800,7 @@ DIR * opendir(char *__name)
 }
 
 
-// ==== entry=004bb630 name=getAndRef size=6 ====
+// ==== entry=004bb630 orig=FUN_004bb630 size=6 name=getAndRef ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6812,7 +6812,7 @@ void QtSharedPointer::ExternalRefCountData::getAndRef(QObject *param_1)
 }
 
 
-// ==== entry=004bb640 name=~QProcessEnvironment size=6 ====
+// ==== entry=004bb640 orig=FUN_004bb640 size=6 name=~QProcessEnvironment ====
 
 void __thiscall QProcessEnvironment::~QProcessEnvironment(QProcessEnvironment *this)
 
@@ -6822,7 +6822,7 @@ void __thiscall QProcessEnvironment::~QProcessEnvironment(QProcessEnvironment *t
 }
 
 
-// ==== entry=004bb650 name=operator>> size=6 ====
+// ==== entry=004bb650 orig=FUN_004bb650 size=6 name=operator>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6834,7 +6834,7 @@ void operator>>(QDataStream *param_1,QIcon *param_2)
 }
 
 
-// ==== entry=004bb660 name=setMinimumWidth size=6 ====
+// ==== entry=004bb660 orig=FUN_004bb660 size=6 name=setMinimumWidth ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6846,7 +6846,7 @@ void QWidget::setMinimumWidth(int param_1)
 }
 
 
-// ==== entry=004bb670 name=toString size=6 ====
+// ==== entry=004bb670 orig=FUN_004bb670 size=6 name=toString ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6858,7 +6858,7 @@ void QLocale::toString(double param_1,char param_2,int param_3)
 }
 
 
-// ==== entry=004bb680 name=itemDelegate size=6 ====
+// ==== entry=004bb680 orig=FUN_004bb680 size=6 name=itemDelegate ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6870,7 +6870,7 @@ void QAbstractItemView::itemDelegate(void)
 }
 
 
-// ==== entry=004bb690 name=addMenu size=6 ====
+// ==== entry=004bb690 orig=FUN_004bb690 size=6 name=addMenu ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6882,7 +6882,7 @@ void QMenu::addMenu(QMenu *param_1)
 }
 
 
-// ==== entry=004bb6a0 name=addPath size=6 ====
+// ==== entry=004bb6a0 orig=FUN_004bb6a0 size=6 name=addPath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6894,7 +6894,7 @@ void QFileSystemWatcher::addPath(QString *param_1)
 }
 
 
-// ==== entry=004bb6b0 name=error size=6 ====
+// ==== entry=004bb6b0 orig=FUN_004bb6b0 size=6 name=error ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6906,7 +6906,7 @@ void QFileDevice::error(void)
 }
 
 
-// ==== entry=004bb6c0 name=addButton size=6 ====
+// ==== entry=004bb6c0 orig=FUN_004bb6c0 size=6 name=addButton ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6918,7 +6918,7 @@ void QButtonGroup::addButton(QAbstractButton *param_1,int param_2)
 }
 
 
-// ==== entry=004bb6d0 name=mouseDoubleClickEvent size=6 ====
+// ==== entry=004bb6d0 orig=FUN_004bb6d0 size=6 name=mouseDoubleClickEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6930,7 +6930,7 @@ void QLineEdit::mouseDoubleClickEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=004bb6e0 name=toString size=6 ====
+// ==== entry=004bb6e0 orig=FUN_004bb6e0 size=6 name=toString ====
 
 void QLocale::toString(void)
 
@@ -6940,7 +6940,7 @@ void QLocale::toString(void)
 }
 
 
-// ==== entry=004bb6f0 name=qt_metacall size=6 ====
+// ==== entry=004bb6f0 orig=FUN_004bb6f0 size=6 name=qt_metacall ====
 
 void QProcess::qt_metacall(void)
 
@@ -6950,7 +6950,7 @@ void QProcess::qt_metacall(void)
 }
 
 
-// ==== entry=004bb700 name=trimmed_helper size=6 ====
+// ==== entry=004bb700 orig=FUN_004bb700 size=6 name=trimmed_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6962,7 +6962,7 @@ void QByteArray::trimmed_helper(QByteArray *param_1)
 }
 
 
-// ==== entry=004bb710 name=setStyleSheet size=6 ====
+// ==== entry=004bb710 orig=FUN_004bb710 size=6 name=setStyleSheet ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6974,7 +6974,7 @@ void QWidget::setStyleSheet(QString *param_1)
 }
 
 
-// ==== entry=004bb720 name=canonicalPath size=6 ====
+// ==== entry=004bb720 orig=FUN_004bb720 size=6 name=canonicalPath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6986,7 +6986,7 @@ void QDir::canonicalPath(void)
 }
 
 
-// ==== entry=004bb730 name=setCursor size=6 ====
+// ==== entry=004bb730 orig=FUN_004bb730 size=6 name=setCursor ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -6998,7 +6998,7 @@ void QWidget::setCursor(QCursor *param_1)
 }
 
 
-// ==== entry=004bb740 name=operator.cast.to.QVariant size=6 ====
+// ==== entry=004bb740 orig=FUN_004bb740 size=6 name=operator.cast.to.QVariant ====
 
 void __thiscall QIcon::operator_cast_to_QVariant(QIcon *this)
 
@@ -7008,7 +7008,7 @@ void __thiscall QIcon::operator_cast_to_QVariant(QIcon *this)
 }
 
 
-// ==== entry=004bb750 name=render size=6 ====
+// ==== entry=004bb750 orig=FUN_004bb750 size=6 name=render ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7020,7 +7020,7 @@ void QSvgRenderer::render(QPainter *param_1,QString *param_2,QRectF *param_3)
 }
 
 
-// ==== entry=004bb760 name=addresses size=6 ====
+// ==== entry=004bb760 orig=FUN_004bb760 size=6 name=addresses ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7032,7 +7032,7 @@ void QHostInfo::addresses(void)
 }
 
 
-// ==== entry=004bb770 name=startTransaction size=6 ====
+// ==== entry=004bb770 orig=FUN_004bb770 size=6 name=startTransaction ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7044,7 +7044,7 @@ void QDataStream::startTransaction(void)
 }
 
 
-// ==== entry=004bb780 name=realpath size=6 ====
+// ==== entry=004bb780 orig=FUN_004bb780 size=6 name=realpath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7058,7 +7058,7 @@ char * realpath(char *__name,char *__resolved)
 }
 
 
-// ==== entry=004bb790 name=tcgetattr size=6 ====
+// ==== entry=004bb790 orig=FUN_004bb790 size=6 name=tcgetattr ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7072,7 +7072,7 @@ int tcgetattr(int __fd,termios *__termios_p)
 }
 
 
-// ==== entry=004bb7a0 name=indexBelow size=6 ====
+// ==== entry=004bb7a0 orig=FUN_004bb7a0 size=6 name=indexBelow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7084,7 +7084,7 @@ void QTreeView::indexBelow(QModelIndex *param_1)
 }
 
 
-// ==== entry=004bb7b0 name=QTextFormat size=6 ====
+// ==== entry=004bb7b0 orig=FUN_004bb7b0 size=6 name=QTextFormat ====
 
 void __thiscall QTextFormat::QTextFormat(QTextFormat *this,QTextFormat *param_1)
 
@@ -7094,7 +7094,7 @@ void __thiscall QTextFormat::QTextFormat(QTextFormat *this,QTextFormat *param_1)
 }
 
 
-// ==== entry=004bb7c0 name=usleep size=6 ====
+// ==== entry=004bb7c0 orig=FUN_004bb7c0 size=6 name=usleep ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7106,7 +7106,7 @@ void QThread::usleep(ulong param_1)
 }
 
 
-// ==== entry=004bb7d0 name=addSeparator size=6 ====
+// ==== entry=004bb7d0 orig=FUN_004bb7d0 size=6 name=addSeparator ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7118,7 +7118,7 @@ void QMenu::addSeparator(void)
 }
 
 
-// ==== entry=004bb7e0 name=QItemSelectionModel size=6 ====
+// ==== entry=004bb7e0 orig=FUN_004bb7e0 size=6 name=QItemSelectionModel ====
 
 void __thiscall
 QItemSelectionModel::QItemSelectionModel
@@ -7130,7 +7130,7 @@ QItemSelectionModel::QItemSelectionModel
 }
 
 
-// ==== entry=004bb7f0 name=operator<< size=6 ====
+// ==== entry=004bb7f0 orig=FUN_004bb7f0 size=6 name=operator<< ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7142,7 +7142,7 @@ void operator<<(QDataStream *param_1,QByteArray *param_2)
 }
 
 
-// ==== entry=004bb800 name=setTextFormat size=6 ====
+// ==== entry=004bb800 orig=FUN_004bb800 size=6 name=setTextFormat ====
 
 void QLabel::setTextFormat(void)
 
@@ -7152,7 +7152,7 @@ void QLabel::setTextFormat(void)
 }
 
 
-// ==== entry=004bb810 name=parameterCount size=6 ====
+// ==== entry=004bb810 orig=FUN_004bb810 size=6 name=parameterCount ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7164,7 +7164,7 @@ void QMetaMethod::parameterCount(void)
 }
 
 
-// ==== entry=004bb820 name=QProgressBar size=6 ====
+// ==== entry=004bb820 orig=FUN_004bb820 size=6 name=QProgressBar ====
 
 void __thiscall QProgressBar::QProgressBar(QProgressBar *this,QWidget *param_1)
 
@@ -7174,7 +7174,7 @@ void __thiscall QProgressBar::QProgressBar(QProgressBar *this,QWidget *param_1)
 }
 
 
-// ==== entry=004bb830 name=mousePressEvent size=6 ====
+// ==== entry=004bb830 orig=FUN_004bb830 size=6 name=mousePressEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7186,7 +7186,7 @@ void QWidget::mousePressEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=004bb840 name=scrollTo size=6 ====
+// ==== entry=004bb840 orig=FUN_004bb840 size=6 name=scrollTo ====
 
 void QTreeView::scrollTo(void)
 
@@ -7196,7 +7196,7 @@ void QTreeView::scrollTo(void)
 }
 
 
-// ==== entry=004bb850 name=documentMode size=6 ====
+// ==== entry=004bb850 orig=FUN_004bb850 size=6 name=documentMode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7208,7 +7208,7 @@ void QTabBar::documentMode(void)
 }
 
 
-// ==== entry=004bb860 name=isprint size=6 ====
+// ==== entry=004bb860 orig=FUN_004bb860 size=6 name=isprint ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7222,7 +7222,7 @@ int isprint(int param_1)
 }
 
 
-// ==== entry=004bb870 name=~QFontMetricsF size=6 ====
+// ==== entry=004bb870 orig=FUN_004bb870 size=6 name=~QFontMetricsF ====
 
 void __thiscall QFontMetricsF::~QFontMetricsF(QFontMetricsF *this)
 
@@ -7232,7 +7232,7 @@ void __thiscall QFontMetricsF::~QFontMetricsF(QFontMetricsF *this)
 }
 
 
-// ==== entry=004bb880 name=sftp_setstat size=6 ====
+// ==== entry=004bb880 orig=FUN_004bb880 size=6 name=sftp_setstat ====
 
 void sftp_setstat(void)
 
@@ -7242,7 +7242,7 @@ void sftp_setstat(void)
 }
 
 
-// ==== entry=004bb890 name=ensurePolished size=6 ====
+// ==== entry=004bb890 orig=FUN_004bb890 size=6 name=ensurePolished ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7254,7 +7254,7 @@ void QWidget::ensurePolished(void)
 }
 
 
-// ==== entry=004bb8a0 name=addRow size=6 ====
+// ==== entry=004bb8a0 orig=FUN_004bb8a0 size=6 name=addRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7266,7 +7266,7 @@ void QFormLayout::addRow(QWidget *param_1,QLayout *param_2)
 }
 
 
-// ==== entry=004bb8b0 name=setIcon size=6 ====
+// ==== entry=004bb8b0 orig=FUN_004bb8b0 size=6 name=setIcon ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7278,7 +7278,7 @@ void QAction::setIcon(QIcon *param_1)
 }
 
 
-// ==== entry=004bb8c0 name=setSortIndicator size=6 ====
+// ==== entry=004bb8c0 orig=FUN_004bb8c0 size=6 name=setSortIndicator ====
 
 void QHeaderView::setSortIndicator(void)
 
@@ -7288,7 +7288,7 @@ void QHeaderView::setSortIndicator(void)
 }
 
 
-// ==== entry=004bb8d0 name=lessThan size=6 ====
+// ==== entry=004bb8d0 orig=FUN_004bb8d0 size=6 name=lessThan ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7300,7 +7300,7 @@ void QSortFilterProxyModel::lessThan(QModelIndex *param_1,QModelIndex *param_2)
 }
 
 
-// ==== entry=004bb8e0 name=QTableWidgetItem size=6 ====
+// ==== entry=004bb8e0 orig=FUN_004bb8e0 size=6 name=QTableWidgetItem ====
 
 void __thiscall
 QTableWidgetItem::QTableWidgetItem(QTableWidgetItem *this,QString *param_1,int param_2)
@@ -7311,7 +7311,7 @@ QTableWidgetItem::QTableWidgetItem(QTableWidgetItem *this,QString *param_1,int p
 }
 
 
-// ==== entry=004bb8f0 name=insertText size=6 ====
+// ==== entry=004bb8f0 orig=FUN_004bb8f0 size=6 name=insertText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7323,7 +7323,7 @@ void QTextCursor::insertText(QString *param_1,QTextCharFormat *param_2)
 }
 
 
-// ==== entry=004bb900 name=toUnicode size=6 ====
+// ==== entry=004bb900 orig=FUN_004bb900 size=6 name=toUnicode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7335,7 +7335,7 @@ void QTextDecoder::toUnicode(char *param_1,int param_2)
 }
 
 
-// ==== entry=004bb910 name=resolve size=6 ====
+// ==== entry=004bb910 orig=FUN_004bb910 size=6 name=resolve ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7347,7 +7347,7 @@ void QLibrary::resolve(char *param_1)
 }
 
 
-// ==== entry=004bb920 name=setTabData size=6 ====
+// ==== entry=004bb920 orig=FUN_004bb920 size=6 name=setTabData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7359,7 +7359,7 @@ void QTabBar::setTabData(int param_1,QVariant *param_2)
 }
 
 
-// ==== entry=004bb930 name=fillRect size=6 ====
+// ==== entry=004bb930 orig=FUN_004bb930 size=6 name=fillRect ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7371,7 +7371,7 @@ void QPainter::fillRect(QRect *param_1,QColor *param_2)
 }
 
 
-// ==== entry=004bb940 name=isObject size=6 ====
+// ==== entry=004bb940 orig=FUN_004bb940 size=6 name=isObject ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7383,7 +7383,7 @@ void QJSValue::isObject(void)
 }
 
 
-// ==== entry=004bb950 name=setSocketOption size=6 ====
+// ==== entry=004bb950 orig=FUN_004bb950 size=6 name=setSocketOption ====
 
 void QAbstractSocket::setSocketOption(void)
 
@@ -7393,7 +7393,7 @@ void QAbstractSocket::setSocketOption(void)
 }
 
 
-// ==== entry=004bb960 name=sftp_get_error size=6 ====
+// ==== entry=004bb960 orig=FUN_004bb960 size=6 name=sftp_get_error ====
 
 void sftp_get_error(void)
 
@@ -7403,7 +7403,7 @@ void sftp_get_error(void)
 }
 
 
-// ==== entry=004bb970 name=pow size=6 ====
+// ==== entry=004bb970 orig=FUN_004bb970 size=6 name=pow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7417,7 +7417,7 @@ double pow(double __x,double __y)
 }
 
 
-// ==== entry=004bb980 name=setContentsMargins size=6 ====
+// ==== entry=004bb980 orig=FUN_004bb980 size=6 name=setContentsMargins ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7429,7 +7429,7 @@ void QLayout::setContentsMargins(QMargins *param_1)
 }
 
 
-// ==== entry=004bb990 name=~QCollator size=6 ====
+// ==== entry=004bb990 orig=FUN_004bb990 size=6 name=~QCollator ====
 
 void __thiscall QCollator::~QCollator(QCollator *this)
 
@@ -7439,7 +7439,7 @@ void __thiscall QCollator::~QCollator(QCollator *this)
 }
 
 
-// ==== entry=004bb9a0 name=QTextDocument size=6 ====
+// ==== entry=004bb9a0 orig=FUN_004bb9a0 size=6 name=QTextDocument ====
 
 void __thiscall QTextDocument::QTextDocument(QTextDocument *this,QObject *param_1)
 
@@ -7449,7 +7449,7 @@ void __thiscall QTextDocument::QTextDocument(QTextDocument *this,QObject *param_
 }
 
 
-// ==== entry=004bb9b0 name=resize size=6 ====
+// ==== entry=004bb9b0 orig=FUN_004bb9b0 size=6 name=resize ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7461,7 +7461,7 @@ void QByteArray::resize(int param_1)
 }
 
 
-// ==== entry=004bb9c0 name=setEnabled size=6 ====
+// ==== entry=004bb9c0 orig=FUN_004bb9c0 size=6 name=setEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7473,7 +7473,7 @@ void QAction::setEnabled(bool param_1)
 }
 
 
-// ==== entry=004bb9d0 name=right size=6 ====
+// ==== entry=004bb9d0 orig=FUN_004bb9d0 size=6 name=right ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7485,7 +7485,7 @@ void QString::right(int param_1)
 }
 
 
-// ==== entry=004bb9e0 name=sortItems size=6 ====
+// ==== entry=004bb9e0 orig=FUN_004bb9e0 size=6 name=sortItems ====
 
 void QListWidget::sortItems(void)
 
@@ -7495,7 +7495,7 @@ void QListWidget::sortItems(void)
 }
 
 
-// ==== entry=004bb9f0 name=availableMibs size=6 ====
+// ==== entry=004bb9f0 orig=FUN_004bb9f0 size=6 name=availableMibs ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7507,7 +7507,7 @@ void QTextCodec::availableMibs(void)
 }
 
 
-// ==== entry=004bba00 name=setFormAlignment size=6 ====
+// ==== entry=004bba00 orig=FUN_004bba00 size=6 name=setFormAlignment ====
 
 void QFormLayout::setFormAlignment(void)
 
@@ -7517,7 +7517,7 @@ void QFormLayout::setFormAlignment(void)
 }
 
 
-// ==== entry=004bba10 name=setAutoExpandDelay size=6 ====
+// ==== entry=004bba10 orig=FUN_004bba10 size=6 name=setAutoExpandDelay ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7529,7 +7529,7 @@ void QTreeView::setAutoExpandDelay(int param_1)
 }
 
 
-// ==== entry=004bba20 name=setFont size=6 ====
+// ==== entry=004bba20 orig=FUN_004bba20 size=6 name=setFont ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7541,7 +7541,7 @@ void QPainter::setFont(QFont *param_1)
 }
 
 
-// ==== entry=004bba30 name=elementExists size=6 ====
+// ==== entry=004bba30 orig=FUN_004bba30 size=6 name=elementExists ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7553,7 +7553,7 @@ void QSvgRenderer::elementExists(QString *param_1)
 }
 
 
-// ==== entry=004bba40 name=setWindowIcon size=6 ====
+// ==== entry=004bba40 orig=FUN_004bba40 size=6 name=setWindowIcon ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7565,7 +7565,7 @@ void QWidget::setWindowIcon(QIcon *param_1)
 }
 
 
-// ==== entry=004bba50 name=unmap size=6 ====
+// ==== entry=004bba50 orig=FUN_004bba50 size=6 name=unmap ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7577,7 +7577,7 @@ void QFileDevice::unmap(uchar *param_1)
 }
 
 
-// ==== entry=004bba60 name=parent size=6 ====
+// ==== entry=004bba60 orig=FUN_004bba60 size=6 name=parent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7589,7 +7589,7 @@ void QPersistentModelIndex::parent(void)
 }
 
 
-// ==== entry=004bba70 name=absolutePath size=6 ====
+// ==== entry=004bba70 orig=FUN_004bba70 size=6 name=absolutePath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7601,7 +7601,7 @@ void QDir::absolutePath(void)
 }
 
 
-// ==== entry=004bba80 name=~QSplitter size=6 ====
+// ==== entry=004bba80 orig=FUN_004bba80 size=6 name=~QSplitter ====
 
 void __thiscall QSplitter::~QSplitter(QSplitter *this)
 
@@ -7611,7 +7611,7 @@ void __thiscall QSplitter::~QSplitter(QSplitter *this)
 }
 
 
-// ==== entry=004bba90 name=ssh_set_agent_channel size=6 ====
+// ==== entry=004bba90 orig=FUN_004bba90 size=6 name=ssh_set_agent_channel ====
 
 void ssh_set_agent_channel(void)
 
@@ -7621,7 +7621,7 @@ void ssh_set_agent_channel(void)
 }
 
 
-// ==== entry=004bbaa0 name=QLabel size=6 ====
+// ==== entry=004bbaa0 orig=FUN_004bbaa0 size=6 name=QLabel ====
 
 void __thiscall QLabel::QLabel(void)
 
@@ -7631,7 +7631,7 @@ void __thiscall QLabel::QLabel(void)
 }
 
 
-// ==== entry=004bbab0 name=itemData size=6 ====
+// ==== entry=004bbab0 orig=FUN_004bbab0 size=6 name=itemData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7643,7 +7643,7 @@ void QComboBox::itemData(int param_1,int param_2)
 }
 
 
-// ==== entry=004bbac0 name=fromVariantMap size=6 ====
+// ==== entry=004bbac0 orig=FUN_004bbac0 size=6 name=fromVariantMap ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7655,7 +7655,7 @@ void QJsonObject::fromVariantMap(QMap *param_1)
 }
 
 
-// ==== entry=004bbad0 name=operator>> size=6 ====
+// ==== entry=004bbad0 orig=FUN_004bbad0 size=6 name=operator>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7667,7 +7667,7 @@ void operator>>(QDataStream *param_1,QByteArray *param_2)
 }
 
 
-// ==== entry=004bbae0 name=showEvent size=6 ====
+// ==== entry=004bbae0 orig=FUN_004bbae0 size=6 name=showEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7679,7 +7679,7 @@ void QWidget::showEvent(QShowEvent *param_1)
 }
 
 
-// ==== entry=004bbaf0 name=setCurrentItem size=6 ====
+// ==== entry=004bbaf0 orig=FUN_004bbaf0 size=6 name=setCurrentItem ====
 
 void QListWidget::setCurrentItem(void)
 
@@ -7689,7 +7689,7 @@ void QListWidget::setCurrentItem(void)
 }
 
 
-// ==== entry=004bbb00 name=QFontMetricsF size=6 ====
+// ==== entry=004bbb00 orig=FUN_004bbb00 size=6 name=QFontMetricsF ====
 
 void __thiscall QFontMetricsF::QFontMetricsF(QFontMetricsF *this,QFont *param_1)
 
@@ -7699,7 +7699,7 @@ void __thiscall QFontMetricsF::QFontMetricsF(QFontMetricsF *this,QFont *param_1)
 }
 
 
-// ==== entry=004bbb10 name=toUtf8_helper size=6 ====
+// ==== entry=004bbb10 orig=FUN_004bbb10 size=6 name=toUtf8_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7711,7 +7711,7 @@ void QString::toUtf8_helper(QString *param_1)
 }
 
 
-// ==== entry=004bbb20 name=setStyleStrategy size=6 ====
+// ==== entry=004bbb20 orig=FUN_004bbb20 size=6 name=setStyleStrategy ====
 
 void QFont::setStyleStrategy(void)
 
@@ -7721,7 +7721,7 @@ void QFont::setStyleStrategy(void)
 }
 
 
-// ==== entry=004bbb30 name=sizes size=6 ====
+// ==== entry=004bbb30 orig=FUN_004bbb30 size=6 name=sizes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7733,7 +7733,7 @@ void QSplitter::sizes(void)
 }
 
 
-// ==== entry=004bbb40 name=setDirectory size=6 ====
+// ==== entry=004bbb40 orig=FUN_004bbb40 size=6 name=setDirectory ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7745,7 +7745,7 @@ void QFileDialog::setDirectory(QString *param_1)
 }
 
 
-// ==== entry=004bbb50 name=codecForUtfText size=6 ====
+// ==== entry=004bbb50 orig=FUN_004bbb50 size=6 name=codecForUtfText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7757,7 +7757,7 @@ void QTextCodec::codecForUtfText(QByteArray *param_1,QTextCodec *param_2)
 }
 
 
-// ==== entry=004bbb60 name=setEditable size=6 ====
+// ==== entry=004bbb60 orig=FUN_004bbb60 size=6 name=setEditable ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7769,7 +7769,7 @@ void QComboBox::setEditable(bool param_1)
 }
 
 
-// ==== entry=004bbb70 name=currentThread size=6 ====
+// ==== entry=004bbb70 orig=FUN_004bbb70 size=6 name=currentThread ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7781,7 +7781,7 @@ void QThread::currentThread(void)
 }
 
 
-// ==== entry=004bbb80 name=start size=6 ====
+// ==== entry=004bbb80 orig=FUN_004bbb80 size=6 name=start ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7793,7 +7793,7 @@ void QThreadPool::start(QRunnable *param_1,int param_2)
 }
 
 
-// ==== entry=004bbb90 name=operator== size=6 ====
+// ==== entry=004bbb90 orig=FUN_004bbb90 size=6 name=operator== ====
 
 void __thiscall QString::operator==(void)
 
@@ -7803,7 +7803,7 @@ void __thiscall QString::operator==(void)
 }
 
 
-// ==== entry=004bbba0 name=setChecked size=6 ====
+// ==== entry=004bbba0 orig=FUN_004bbba0 size=6 name=setChecked ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7815,7 +7815,7 @@ void QAction::setChecked(bool param_1)
 }
 
 
-// ==== entry=004bbbb0 name=isLoopback size=6 ====
+// ==== entry=004bbbb0 orig=FUN_004bbbb0 size=6 name=isLoopback ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7827,7 +7827,7 @@ void QHostAddress::isLoopback(void)
 }
 
 
-// ==== entry=004bbbc0 name=QStandardItemModel size=6 ====
+// ==== entry=004bbbc0 orig=FUN_004bbbc0 size=6 name=QStandardItemModel ====
 
 void __thiscall QStandardItemModel::QStandardItemModel(QStandardItemModel *this,QObject *param_1)
 
@@ -7837,7 +7837,7 @@ void __thiscall QStandardItemModel::QStandardItemModel(QStandardItemModel *this,
 }
 
 
-// ==== entry=004bbbd0 name=save size=6 ====
+// ==== entry=004bbbd0 orig=FUN_004bbbd0 size=6 name=save ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7849,7 +7849,7 @@ void QPixmap::save(QIODevice *param_1,char *param_2,int param_3)
 }
 
 
-// ==== entry=004bbbe0 name=entryInfoList size=6 ====
+// ==== entry=004bbbe0 orig=FUN_004bbbe0 size=6 name=entryInfoList ====
 
 void QDir::entryInfoList(void)
 
@@ -7859,7 +7859,7 @@ void QDir::entryInfoList(void)
 }
 
 
-// ==== entry=004bbbf0 name=paint size=6 ====
+// ==== entry=004bbbf0 orig=FUN_004bbbf0 size=6 name=paint ====
 
 void QIcon::paint(void)
 
@@ -7869,7 +7869,7 @@ void QIcon::paint(void)
 }
 
 
-// ==== entry=004bbc00 name=createExtended size=6 ====
+// ==== entry=004bbc00 orig=FUN_004bbc00 size=6 name=createExtended ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7881,7 +7881,7 @@ void QMetaType::createExtended(void *param_1)
 }
 
 
-// ==== entry=004bbc10 name=setSizeAdjustPolicy size=6 ====
+// ==== entry=004bbc10 orig=FUN_004bbc10 size=6 name=setSizeAdjustPolicy ====
 
 void QComboBox::setSizeAdjustPolicy(void)
 
@@ -7891,7 +7891,7 @@ void QComboBox::setSizeAdjustPolicy(void)
 }
 
 
-// ==== entry=004bbc20 name=QKeySequence size=6 ====
+// ==== entry=004bbc20 orig=FUN_004bbc20 size=6 name=QKeySequence ====
 
 void __thiscall QKeySequence::QKeySequence(void)
 
@@ -7901,7 +7901,7 @@ void __thiscall QKeySequence::QKeySequence(void)
 }
 
 
-// ==== entry=004bbc30 name=free_helper size=6 ====
+// ==== entry=004bbc30 orig=FUN_004bbc30 size=6 name=free_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7913,7 +7913,7 @@ void QHashData::free_helper(_func_void_Node_ptr *param_1)
 }
 
 
-// ==== entry=004bbc40 name=QVariant size=6 ====
+// ==== entry=004bbc40 orig=FUN_004bbc40 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,ulonglong param_1)
 
@@ -7923,7 +7923,7 @@ void __thiscall QVariant::QVariant(QVariant *this,ulonglong param_1)
 }
 
 
-// ==== entry=004bbc50 name=~QIconEngine size=6 ====
+// ==== entry=004bbc50 orig=FUN_004bbc50 size=6 name=~QIconEngine ====
 
 void __thiscall QIconEngine::~QIconEngine(QIconEngine *this)
 
@@ -7933,7 +7933,7 @@ void __thiscall QIconEngine::~QIconEngine(QIconEngine *this)
 }
 
 
-// ==== entry=004bbc60 name=~QToolBar size=6 ====
+// ==== entry=004bbc60 orig=FUN_004bbc60 size=6 name=~QToolBar ====
 
 void __thiscall QToolBar::~QToolBar(QToolBar *this)
 
@@ -7943,7 +7943,7 @@ void __thiscall QToolBar::~QToolBar(QToolBar *this)
 }
 
 
-// ==== entry=004bbc70 name=hide size=6 ====
+// ==== entry=004bbc70 orig=FUN_004bbc70 size=6 name=hide ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7955,7 +7955,7 @@ void QWidget::hide(void)
 }
 
 
-// ==== entry=004bbc80 name=isValid size=6 ====
+// ==== entry=004bbc80 orig=FUN_004bbc80 size=6 name=isValid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7967,7 +7967,7 @@ void QPersistentModelIndex::isValid(void)
 }
 
 
-// ==== entry=004bbc90 name=QFileInfo size=6 ====
+// ==== entry=004bbc90 orig=FUN_004bbc90 size=6 name=QFileInfo ====
 
 void __thiscall QFileInfo::QFileInfo(QFileInfo *this,QDir *param_1,QString *param_2)
 
@@ -7977,7 +7977,7 @@ void __thiscall QFileInfo::QFileInfo(QFileInfo *this,QDir *param_1,QString *para
 }
 
 
-// ==== entry=004bbca0 name=statusTip size=6 ====
+// ==== entry=004bbca0 orig=FUN_004bbca0 size=6 name=statusTip ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -7989,7 +7989,7 @@ void QWidget::statusTip(void)
 }
 
 
-// ==== entry=004bbcb0 name=QStyleOptionSlider size=6 ====
+// ==== entry=004bbcb0 orig=FUN_004bbcb0 size=6 name=QStyleOptionSlider ====
 
 void __thiscall QStyleOptionSlider::QStyleOptionSlider(QStyleOptionSlider *this)
 
@@ -7999,7 +7999,7 @@ void __thiscall QStyleOptionSlider::QStyleOptionSlider(QStyleOptionSlider *this)
 }
 
 
-// ==== entry=004bbcc0 name=applicationDirPath size=6 ====
+// ==== entry=004bbcc0 orig=FUN_004bbcc0 size=6 name=applicationDirPath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8011,7 +8011,7 @@ void QCoreApplication::applicationDirPath(void)
 }
 
 
-// ==== entry=004bbcd0 name=setCapitalization size=6 ====
+// ==== entry=004bbcd0 orig=FUN_004bbcd0 size=6 name=setCapitalization ====
 
 void QFont::setCapitalization(void)
 
@@ -8021,7 +8021,7 @@ void QFont::setCapitalization(void)
 }
 
 
-// ==== entry=004bbce0 name=startsWith size=6 ====
+// ==== entry=004bbce0 orig=FUN_004bbce0 size=6 name=startsWith ====
 
 void QString::startsWith(void)
 
@@ -8031,7 +8031,7 @@ void QString::startsWith(void)
 }
 
 
-// ==== entry=004bbcf0 name=textChanged size=6 ====
+// ==== entry=004bbcf0 orig=FUN_004bbcf0 size=6 name=textChanged ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8043,7 +8043,7 @@ void QLineEdit::textChanged(QString *param_1)
 }
 
 
-// ==== entry=004bbd00 name=addWidget size=6 ====
+// ==== entry=004bbd00 orig=FUN_004bbd00 size=6 name=addWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8055,7 +8055,7 @@ void QStackedWidget::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=004bbd10 name=QJsonValue size=6 ====
+// ==== entry=004bbd10 orig=FUN_004bbd10 size=6 name=QJsonValue ====
 
 void __thiscall QJsonValue::QJsonValue(QJsonValue *this,QString *param_1)
 
@@ -8065,7 +8065,7 @@ void __thiscall QJsonValue::QJsonValue(QJsonValue *this,QString *param_1)
 }
 
 
-// ==== entry=004bbd20 name=kill size=6 ====
+// ==== entry=004bbd20 orig=FUN_004bbd20 size=6 name=kill ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8077,7 +8077,7 @@ void QProcess::kill(void)
 }
 
 
-// ==== entry=004bbd30 name=delete size=6 ====
+// ==== entry=004bbd30 orig=FUN_004bbd30 size=6 name=delete ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8089,7 +8089,7 @@ void delete(void *param_1)
 }
 
 
-// ==== entry=004bbd40 name=setVisible size=6 ====
+// ==== entry=004bbd40 orig=FUN_004bbd40 size=6 name=setVisible ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8101,7 +8101,7 @@ void QAction::setVisible(bool param_1)
 }
 
 
-// ==== entry=004bbd50 name=selectionBehaviorOnRemove size=6 ====
+// ==== entry=004bbd50 orig=FUN_004bbd50 size=6 name=selectionBehaviorOnRemove ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8113,7 +8113,7 @@ void QTabBar::selectionBehaviorOnRemove(void)
 }
 
 
-// ==== entry=004bbd60 name=setSortCaseSensitivity size=6 ====
+// ==== entry=004bbd60 orig=FUN_004bbd60 size=6 name=setSortCaseSensitivity ====
 
 void QSortFilterProxyModel::setSortCaseSensitivity(void)
 
@@ -8123,7 +8123,7 @@ void QSortFilterProxyModel::setSortCaseSensitivity(void)
 }
 
 
-// ==== entry=004bbd70 name=indexOf size=6 ====
+// ==== entry=004bbd70 orig=FUN_004bbd70 size=6 name=indexOf ====
 
 void QString::indexOf(void)
 
@@ -8133,7 +8133,7 @@ void QString::indexOf(void)
 }
 
 
-// ==== entry=004bbd80 name=grantpt size=6 ====
+// ==== entry=004bbd80 orig=FUN_004bbd80 size=6 name=grantpt ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8147,7 +8147,7 @@ int grantpt(int __fd)
 }
 
 
-// ==== entry=004bbd90 name=isEmpty size=6 ====
+// ==== entry=004bbd90 orig=FUN_004bbd90 size=6 name=isEmpty ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8159,7 +8159,7 @@ void QJsonObject::isEmpty(void)
 }
 
 
-// ==== entry=004bbda0 name=resizeColumnToContents size=6 ====
+// ==== entry=004bbda0 orig=FUN_004bbda0 size=6 name=resizeColumnToContents ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8171,7 +8171,7 @@ void QTreeView::resizeColumnToContents(int param_1)
 }
 
 
-// ==== entry=004bbdb0 name=number size=6 ====
+// ==== entry=004bbdb0 orig=FUN_004bbdb0 size=6 name=number ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8183,7 +8183,7 @@ void QByteArray::number(ulonglong param_1,int param_2)
 }
 
 
-// ==== entry=004bbdc0 name=pos size=6 ====
+// ==== entry=004bbdc0 orig=FUN_004bbdc0 size=6 name=pos ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8195,7 +8195,7 @@ void QCursor::pos(void)
 }
 
 
-// ==== entry=004bbdd0 name=setProgram size=6 ====
+// ==== entry=004bbdd0 orig=FUN_004bbdd0 size=6 name=setProgram ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8207,7 +8207,7 @@ void QProcess::setProgram(QString *param_1)
 }
 
 
-// ==== entry=004bbde0 name=setSizes size=6 ====
+// ==== entry=004bbde0 orig=FUN_004bbde0 size=6 name=setSizes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8219,7 +8219,7 @@ void QSplitter::setSizes(QList *param_1)
 }
 
 
-// ==== entry=004bbdf0 name=QPixmap size=6 ====
+// ==== entry=004bbdf0 orig=FUN_004bbdf0 size=6 name=QPixmap ====
 
 void __thiscall QPixmap::QPixmap(QPixmap *this,int param_1,int param_2)
 
@@ -8229,7 +8229,7 @@ void __thiscall QPixmap::QPixmap(QPixmap *this,int param_1,int param_2)
 }
 
 
-// ==== entry=004bbe00 name=fromPercentEncoding size=6 ====
+// ==== entry=004bbe00 orig=FUN_004bbe00 size=6 name=fromPercentEncoding ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8241,7 +8241,7 @@ void QUrl::fromPercentEncoding(QByteArray *param_1)
 }
 
 
-// ==== entry=004bbe10 name=systemProxyForQuery size=6 ====
+// ==== entry=004bbe10 orig=FUN_004bbe10 size=6 name=systemProxyForQuery ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8253,7 +8253,7 @@ void QNetworkProxyFactory::systemProxyForQuery(QNetworkProxyQuery *param_1)
 }
 
 
-// ==== entry=004bbe20 name=property size=6 ====
+// ==== entry=004bbe20 orig=FUN_004bbe20 size=6 name=property ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8265,7 +8265,7 @@ void QJSValue::property(QString *param_1)
 }
 
 
-// ==== entry=004bbe30 name=newQMetaObject size=6 ====
+// ==== entry=004bbe30 orig=FUN_004bbe30 size=6 name=newQMetaObject ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8277,7 +8277,7 @@ void QJSEngine::newQMetaObject(QMetaObject *param_1)
 }
 
 
-// ==== entry=004bbe40 name=vsnprintf size=6 ====
+// ==== entry=004bbe40 orig=FUN_004bbe40 size=6 name=vsnprintf ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8291,7 +8291,7 @@ int vsnprintf(char *__s,size_t __maxlen,char *__format,__gnuc_va_list __arg)
 }
 
 
-// ==== entry=004bbe50 name=XGetModifierMapping size=6 ====
+// ==== entry=004bbe50 orig=FUN_004bbe50 size=6 name=XGetModifierMapping ====
 
 void XGetModifierMapping(void)
 
@@ -8301,7 +8301,7 @@ void XGetModifierMapping(void)
 }
 
 
-// ==== entry=004bbe60 name=~QJsonArray size=6 ====
+// ==== entry=004bbe60 orig=FUN_004bbe60 size=6 name=~QJsonArray ====
 
 void __thiscall QJsonArray::~QJsonArray(QJsonArray *this)
 
@@ -8311,7 +8311,7 @@ void __thiscall QJsonArray::~QJsonArray(QJsonArray *this)
 }
 
 
-// ==== entry=004bbe70 name=open size=6 ====
+// ==== entry=004bbe70 orig=FUN_004bbe70 size=6 name=open ====
 
 void QFile::open(void)
 
@@ -8321,7 +8321,7 @@ void QFile::open(void)
 }
 
 
-// ==== entry=004bbe80 name=canEncode size=6 ====
+// ==== entry=004bbe80 orig=FUN_004bbe80 size=6 name=canEncode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8333,7 +8333,7 @@ void QTextCodec::canEncode(QString *param_1)
 }
 
 
-// ==== entry=004bbe90 name=setTabIcon size=6 ====
+// ==== entry=004bbe90 orig=FUN_004bbe90 size=6 name=setTabIcon ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8345,7 +8345,7 @@ void QTabBar::setTabIcon(int param_1,QIcon *param_2)
 }
 
 
-// ==== entry=004bbea0 name=replace size=6 ====
+// ==== entry=004bbea0 orig=FUN_004bbea0 size=6 name=replace ====
 
 void QString::replace(void)
 
@@ -8355,7 +8355,7 @@ void QString::replace(void)
 }
 
 
-// ==== entry=004bbeb0 name=modifiers size=6 ====
+// ==== entry=004bbeb0 orig=FUN_004bbeb0 size=6 name=modifiers ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8367,7 +8367,7 @@ void QKeyEvent::modifiers(void)
 }
 
 
-// ==== entry=004bbec0 name=entryList size=6 ====
+// ==== entry=004bbec0 orig=FUN_004bbec0 size=6 name=entryList ====
 
 void QDir::entryList(void)
 
@@ -8377,7 +8377,7 @@ void QDir::entryList(void)
 }
 
 
-// ==== entry=004bbed0 name=availablePorts size=6 ====
+// ==== entry=004bbed0 orig=FUN_004bbed0 size=6 name=availablePorts ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8389,7 +8389,7 @@ void QSerialPortInfo::availablePorts(void)
 }
 
 
-// ==== entry=004bbee0 name=setFrameRange size=6 ====
+// ==== entry=004bbee0 orig=FUN_004bbee0 size=6 name=setFrameRange ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8401,7 +8401,7 @@ void QTimeLine::setFrameRange(int param_1,int param_2)
 }
 
 
-// ==== entry=004bbef0 name=drawPie size=6 ====
+// ==== entry=004bbef0 orig=FUN_004bbef0 size=6 name=drawPie ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8413,7 +8413,7 @@ void QPainter::drawPie(QRectF *param_1,int param_2,int param_3)
 }
 
 
-// ==== entry=004bbf00 name=raise size=6 ====
+// ==== entry=004bbf00 orig=FUN_004bbf00 size=6 name=raise ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8425,7 +8425,7 @@ void QWidget::raise(void)
 }
 
 
-// ==== entry=004bbf10 name=deriveKeyPbkdf2 size=6 ====
+// ==== entry=004bbf10 orig=FUN_004bbf10 size=6 name=deriveKeyPbkdf2 ====
 
 void QPasswordDigestor::deriveKeyPbkdf2(void)
 
@@ -8435,7 +8435,7 @@ void QPasswordDigestor::deriveKeyPbkdf2(void)
 }
 
 
-// ==== entry=004bbf20 name=focusInEvent size=6 ====
+// ==== entry=004bbf20 orig=FUN_004bbf20 size=6 name=focusInEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8447,7 +8447,7 @@ void QWidget::focusInEvent(QFocusEvent *param_1)
 }
 
 
-// ==== entry=004bbf30 name=toValue size=6 ====
+// ==== entry=004bbf30 orig=FUN_004bbf30 size=6 name=toValue ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8459,7 +8459,7 @@ void QJsonValueRef::toValue(void)
 }
 
 
-// ==== entry=004bbf40 name=QFrame size=6 ====
+// ==== entry=004bbf40 orig=FUN_004bbf40 size=6 name=QFrame ====
 
 void __thiscall QFrame::QFrame(void)
 
@@ -8469,7 +8469,7 @@ void __thiscall QFrame::QFrame(void)
 }
 
 
-// ==== entry=004bbf50 name=normalizedType size=6 ====
+// ==== entry=004bbf50 orig=FUN_004bbf50 size=6 name=normalizedType ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8481,7 +8481,7 @@ void QMetaObject::normalizedType(char *param_1)
 }
 
 
-// ==== entry=004bbf60 name=QRegularExpression size=6 ====
+// ==== entry=004bbf60 orig=FUN_004bbf60 size=6 name=QRegularExpression ====
 
 void __thiscall QRegularExpression::QRegularExpression(QRegularExpression *this)
 
@@ -8491,7 +8491,7 @@ void __thiscall QRegularExpression::QRegularExpression(QRegularExpression *this)
 }
 
 
-// ==== entry=004bbf70 name=sftp_async_rmdir size=6 ====
+// ==== entry=004bbf70 orig=FUN_004bbf70 size=6 name=sftp_async_rmdir ====
 
 void sftp_async_rmdir(void)
 
@@ -8501,7 +8501,7 @@ void sftp_async_rmdir(void)
 }
 
 
-// ==== entry=004bbf80 name=QByteArray size=6 ====
+// ==== entry=004bbf80 orig=FUN_004bbf80 size=6 name=QByteArray ====
 
 void __thiscall QByteArray::QByteArray(void)
 
@@ -8511,7 +8511,7 @@ void __thiscall QByteArray::QByteArray(void)
 }
 
 
-// ==== entry=004bbf90 name=qFadeEffect size=6 ====
+// ==== entry=004bbf90 orig=FUN_004bbf90 size=6 name=qFadeEffect ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8523,7 +8523,7 @@ void qFadeEffect(QWidget *param_1,int param_2)
 }
 
 
-// ==== entry=004bbfa0 name=setMask size=6 ====
+// ==== entry=004bbfa0 orig=FUN_004bbfa0 size=6 name=setMask ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8535,7 +8535,7 @@ void QPixmap::setMask(QBitmap *param_1)
 }
 
 
-// ==== entry=004bbfb0 name=QStringList_filter size=6 ====
+// ==== entry=004bbfb0 orig=FUN_004bbfb0 size=6 name=QStringList_filter ====
 
 void QtPrivate::QStringList_filter(void)
 
@@ -8545,7 +8545,7 @@ void QtPrivate::QStringList_filter(void)
 }
 
 
-// ==== entry=004bbfc0 name=family size=6 ====
+// ==== entry=004bbfc0 orig=FUN_004bbfc0 size=6 name=family ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8557,7 +8557,7 @@ void QFont::family(void)
 }
 
 
-// ==== entry=004bbfd0 name=setCompletionMode size=6 ====
+// ==== entry=004bbfd0 orig=FUN_004bbfd0 size=6 name=setCompletionMode ====
 
 void QCompleter::setCompletionMode(void)
 
@@ -8567,7 +8567,7 @@ void QCompleter::setCompletionMode(void)
 }
 
 
-// ==== entry=004bbfe0 name=freeData size=6 ====
+// ==== entry=004bbfe0 orig=FUN_004bbfe0 size=6 name=freeData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8579,7 +8579,7 @@ void QMapDataBase::freeData(QMapDataBase *param_1)
 }
 
 
-// ==== entry=004bbff0 name=createUuid size=6 ====
+// ==== entry=004bbff0 orig=FUN_004bbff0 size=6 name=createUuid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8591,7 +8591,7 @@ void QUuid::createUuid(void)
 }
 
 
-// ==== entry=004bc000 name=system size=6 ====
+// ==== entry=004bc000 orig=FUN_004bc000 size=6 name=system ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8603,7 +8603,7 @@ void QLocale::system(void)
 }
 
 
-// ==== entry=004bc010 name=hasExpired size=6 ====
+// ==== entry=004bc010 orig=FUN_004bc010 size=6 name=hasExpired ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8615,7 +8615,7 @@ void QElapsedTimer::hasExpired(longlong param_1)
 }
 
 
-// ==== entry=004bc020 name=ssh_channel_request_shell size=6 ====
+// ==== entry=004bc020 orig=FUN_004bc020 size=6 name=ssh_channel_request_shell ====
 
 void ssh_channel_request_shell(void)
 
@@ -8625,7 +8625,7 @@ void ssh_channel_request_shell(void)
 }
 
 
-// ==== entry=004bc030 name=isEmpty size=6 ====
+// ==== entry=004bc030 orig=FUN_004bc030 size=6 name=isEmpty ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8637,7 +8637,7 @@ void QMenu::isEmpty(void)
 }
 
 
-// ==== entry=004bc040 name=QStringMatcher size=6 ====
+// ==== entry=004bc040 orig=FUN_004bc040 size=6 name=QStringMatcher ====
 
 void __thiscall QStringMatcher::QStringMatcher(QStringMatcher *this,QStringMatcher *param_1)
 
@@ -8647,7 +8647,7 @@ void __thiscall QStringMatcher::QStringMatcher(QStringMatcher *this,QStringMatch
 }
 
 
-// ==== entry=004bc050 name=expand size=6 ====
+// ==== entry=004bc050 orig=FUN_004bc050 size=6 name=expand ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8659,7 +8659,7 @@ void QByteArray::expand(int param_1)
 }
 
 
-// ==== entry=004bc060 name=setFixedHeight size=6 ====
+// ==== entry=004bc060 orig=FUN_004bc060 size=6 name=setFixedHeight ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8671,7 +8671,7 @@ void QWidget::setFixedHeight(int param_1)
 }
 
 
-// ==== entry=004bc070 name=indexFromItem size=6 ====
+// ==== entry=004bc070 orig=FUN_004bc070 size=6 name=indexFromItem ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8683,7 +8683,7 @@ void QStandardItemModel::indexFromItem(QStandardItem *param_1)
 }
 
 
-// ==== entry=004bc080 name=__strcoll_l size=6 ====
+// ==== entry=004bc080 orig=FUN_004bc080 size=6 name=__strcoll_l ====
 
 void __strcoll_l(void)
 
@@ -8693,7 +8693,7 @@ void __strcoll_l(void)
 }
 
 
-// ==== entry=004bc090 name=QEvent size=6 ====
+// ==== entry=004bc090 orig=FUN_004bc090 size=6 name=QEvent ====
 
 void __thiscall QEvent::QEvent(void)
 
@@ -8703,7 +8703,7 @@ void __thiscall QEvent::QEvent(void)
 }
 
 
-// ==== entry=004bc0a0 name=restart size=6 ====
+// ==== entry=004bc0a0 orig=FUN_004bc0a0 size=6 name=restart ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8715,7 +8715,7 @@ void QElapsedTimer::restart(void)
 }
 
 
-// ==== entry=004bc0b0 name=setFile size=6 ====
+// ==== entry=004bc0b0 orig=FUN_004bc0b0 size=6 name=setFile ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8727,7 +8727,7 @@ void QFileInfo::setFile(QString *param_1)
 }
 
 
-// ==== entry=004bc0c0 name=setOverline size=6 ====
+// ==== entry=004bc0c0 orig=FUN_004bc0c0 size=6 name=setOverline ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8739,7 +8739,7 @@ void QFont::setOverline(bool param_1)
 }
 
 
-// ==== entry=004bc0d0 name=QByteArray size=6 ====
+// ==== entry=004bc0d0 orig=FUN_004bc0d0 size=6 name=QByteArray ====
 
 void __thiscall QByteArray::QByteArray(QByteArray *this,char *param_1,int param_2)
 
@@ -8749,7 +8749,7 @@ void __thiscall QByteArray::QByteArray(QByteArray *this,char *param_1,int param_
 }
 
 
-// ==== entry=004bc0e0 name=remainingTime size=6 ====
+// ==== entry=004bc0e0 orig=FUN_004bc0e0 size=6 name=remainingTime ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8761,7 +8761,7 @@ void QTimer::remainingTime(void)
 }
 
 
-// ==== entry=004bc0f0 name=utime size=6 ====
+// ==== entry=004bc0f0 orig=FUN_004bc0f0 size=6 name=utime ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8775,7 +8775,7 @@ int utime(char *__file,utimbuf *__file_times)
 }
 
 
-// ==== entry=004bc100 name=registerNormalizedTypedef size=6 ====
+// ==== entry=004bc100 orig=FUN_004bc100 size=6 name=registerNormalizedTypedef ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8787,7 +8787,7 @@ void QMetaType::registerNormalizedTypedef(QByteArray *param_1,int param_2)
 }
 
 
-// ==== entry=004bc110 name=minimumSizeHint size=6 ====
+// ==== entry=004bc110 orig=FUN_004bc110 size=6 name=minimumSizeHint ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8799,7 +8799,7 @@ void QLineEdit::minimumSizeHint(void)
 }
 
 
-// ==== entry=004bc120 name=toVariantMap size=6 ====
+// ==== entry=004bc120 orig=FUN_004bc120 size=6 name=toVariantMap ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8811,7 +8811,7 @@ void QJsonObject::toVariantMap(void)
 }
 
 
-// ==== entry=004bc130 name=update size=6 ====
+// ==== entry=004bc130 orig=FUN_004bc130 size=6 name=update ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8823,7 +8823,7 @@ void QWidget::update(QRect *param_1)
 }
 
 
-// ==== entry=004bc140 name=pthread_cond_signal size=6 ====
+// ==== entry=004bc140 orig=FUN_004bc140 size=6 name=pthread_cond_signal ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8837,7 +8837,7 @@ int pthread_cond_signal(pthread_cond_t *__cond)
 }
 
 
-// ==== entry=004bc150 name=selectedIndexes size=6 ====
+// ==== entry=004bc150 orig=FUN_004bc150 size=6 name=selectedIndexes ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8849,7 +8849,7 @@ void QItemSelectionModel::selectedIndexes(void)
 }
 
 
-// ==== entry=004bc160 name=callWithInstance size=6 ====
+// ==== entry=004bc160 orig=FUN_004bc160 size=6 name=callWithInstance ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8861,7 +8861,7 @@ void QJSValue::callWithInstance(QJSValue *param_1,QList *param_2)
 }
 
 
-// ==== entry=004bc170 name=methodSignature size=6 ====
+// ==== entry=004bc170 orig=FUN_004bc170 size=6 name=methodSignature ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8873,7 +8873,7 @@ void QMetaMethod::methodSignature(void)
 }
 
 
-// ==== entry=004bc180 name=exec size=6 ====
+// ==== entry=004bc180 orig=FUN_004bc180 size=6 name=exec ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8885,7 +8885,7 @@ void QDialog::exec(void)
 }
 
 
-// ==== entry=004bc190 name=count size=6 ====
+// ==== entry=004bc190 orig=FUN_004bc190 size=6 name=count ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8897,7 +8897,7 @@ void QStackedWidget::count(void)
 }
 
 
-// ==== entry=004bc1a0 name=repeated size=6 ====
+// ==== entry=004bc1a0 orig=FUN_004bc1a0 size=6 name=repeated ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8909,7 +8909,7 @@ void QByteArray::repeated(int param_1)
 }
 
 
-// ==== entry=004bc1b0 name=setCurrentIndex size=6 ====
+// ==== entry=004bc1b0 orig=FUN_004bc1b0 size=6 name=setCurrentIndex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8921,7 +8921,7 @@ void QStackedLayout::setCurrentIndex(int param_1)
 }
 
 
-// ==== entry=004bc1c0 name=applicationName size=6 ====
+// ==== entry=004bc1c0 orig=FUN_004bc1c0 size=6 name=applicationName ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8933,7 +8933,7 @@ void QCoreApplication::applicationName(void)
 }
 
 
-// ==== entry=004bc1d0 name=repeated size=6 ====
+// ==== entry=004bc1d0 orig=FUN_004bc1d0 size=6 name=repeated ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8945,7 +8945,7 @@ void QString::repeated(int param_1)
 }
 
 
-// ==== entry=004bc1e0 name=windowFilePath size=6 ====
+// ==== entry=004bc1e0 orig=FUN_004bc1e0 size=6 name=windowFilePath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8957,7 +8957,7 @@ void QWidget::windowFilePath(void)
 }
 
 
-// ==== entry=004bc1f0 name=mousePressEvent size=6 ====
+// ==== entry=004bc1f0 orig=FUN_004bc1f0 size=6 name=mousePressEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8969,7 +8969,7 @@ void QTreeView::mousePressEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=004bc200 name=end size=6 ====
+// ==== entry=004bc200 orig=FUN_004bc200 size=6 name=end ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8981,7 +8981,7 @@ void QAssociativeIterable::end(void)
 }
 
 
-// ==== entry=004bc210 name=insert size=6 ====
+// ==== entry=004bc210 orig=FUN_004bc210 size=6 name=insert ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8993,7 +8993,7 @@ void QString::insert(int param_1,QChar *param_2,int param_3)
 }
 
 
-// ==== entry=004bc220 name=minute size=6 ====
+// ==== entry=004bc220 orig=FUN_004bc220 size=6 name=minute ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9005,7 +9005,7 @@ void QTime::minute(void)
 }
 
 
-// ==== entry=004bc230 name=QListWidgetItem size=6 ====
+// ==== entry=004bc230 orig=FUN_004bc230 size=6 name=QListWidgetItem ====
 
 void __thiscall
 QListWidgetItem::QListWidgetItem
@@ -9017,7 +9017,7 @@ QListWidgetItem::QListWidgetItem
 }
 
 
-// ==== entry=004bc240 name=QAbstractNativeEventFilter size=6 ====
+// ==== entry=004bc240 orig=FUN_004bc240 size=6 name=QAbstractNativeEventFilter ====
 
 void __thiscall
 QAbstractNativeEventFilter::QAbstractNativeEventFilter(QAbstractNativeEventFilter *this)
@@ -9028,7 +9028,7 @@ QAbstractNativeEventFilter::QAbstractNativeEventFilter(QAbstractNativeEventFilte
 }
 
 
-// ==== entry=004bc250 name=ssh_options_get_port size=6 ====
+// ==== entry=004bc250 orig=FUN_004bc250 size=6 name=ssh_options_get_port ====
 
 void ssh_options_get_port(void)
 
@@ -9038,7 +9038,7 @@ void ssh_options_get_port(void)
 }
 
 
-// ==== entry=004bc260 name=setFixedSize size=6 ====
+// ==== entry=004bc260 orig=FUN_004bc260 size=6 name=setFixedSize ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9050,7 +9050,7 @@ void QWidget::setFixedSize(QSize *param_1)
 }
 
 
-// ==== entry=004bc270 name=pixelMetric size=6 ====
+// ==== entry=004bc270 orig=FUN_004bc270 size=6 name=pixelMetric ====
 
 void QProxyStyle::pixelMetric(void)
 
@@ -9060,7 +9060,7 @@ void QProxyStyle::pixelMetric(void)
 }
 
 
-// ==== entry=004bc280 name=QVariant size=6 ====
+// ==== entry=004bc280 orig=FUN_004bc280 size=6 name=QVariant ====
 
 void __thiscall QVariant::QVariant(QVariant *this,QSize *param_1)
 
@@ -9070,7 +9070,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QSize *param_1)
 }
 
 
-// ==== entry=004bc290 name=setExpanding size=6 ====
+// ==== entry=004bc290 orig=FUN_004bc290 size=6 name=setExpanding ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9082,7 +9082,7 @@ void QTabBar::setExpanding(bool param_1)
 }
 
 
-// ==== entry=004bc2a0 name=isspace size=6 ====
+// ==== entry=004bc2a0 orig=FUN_004bc2a0 size=6 name=isspace ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9096,7 +9096,7 @@ int isspace(int param_1)
 }
 
 
-// ==== entry=004bc2b0 name=setAlphaF size=6 ====
+// ==== entry=004bc2b0 orig=FUN_004bc2b0 size=6 name=setAlphaF ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9108,7 +9108,7 @@ void QColor::setAlphaF(double param_1)
 }
 
 
-// ==== entry=004bc2c0 name=view size=6 ====
+// ==== entry=004bc2c0 orig=FUN_004bc2c0 size=6 name=view ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9120,7 +9120,7 @@ void QComboBox::view(void)
 }
 
 
-// ==== entry=004bc2d0 name=setStrikeOut size=6 ====
+// ==== entry=004bc2d0 orig=FUN_004bc2d0 size=6 name=setStrikeOut ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9132,7 +9132,7 @@ void QFont::setStrikeOut(bool param_1)
 }
 
 
-// ==== entry=004bc2e0 name=setPosition size=6 ====
+// ==== entry=004bc2e0 orig=FUN_004bc2e0 size=6 name=setPosition ====
 
 void QTextCursor::setPosition(void)
 
@@ -9142,7 +9142,7 @@ void QTextCursor::setPosition(void)
 }
 
 
-// ==== entry=004bc2f0 name=append size=6 ====
+// ==== entry=004bc2f0 orig=FUN_004bc2f0 size=6 name=append ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9154,7 +9154,7 @@ void QListData::append(QListData *param_1)
 }
 
 
-// ==== entry=004bc300 name=addSection size=6 ====
+// ==== entry=004bc300 orig=FUN_004bc300 size=6 name=addSection ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9166,7 +9166,7 @@ void QMenu::addSection(QIcon *param_1,QString *param_2)
 }
 
 
-// ==== entry=004bc310 name=setCompositionMode size=6 ====
+// ==== entry=004bc310 orig=FUN_004bc310 size=6 name=setCompositionMode ====
 
 void QPainter::setCompositionMode(void)
 
@@ -9176,7 +9176,7 @@ void QPainter::setCompositionMode(void)
 }
 
 
-// ==== entry=004bc320 name=setFlowControl size=6 ====
+// ==== entry=004bc320 orig=FUN_004bc320 size=6 name=setFlowControl ====
 
 void QSerialPort::setFlowControl(void)
 
@@ -9186,7 +9186,7 @@ void QSerialPort::setFlowControl(void)
 }
 
 
-// ==== entry=004bc330 name=textValue size=6 ====
+// ==== entry=004bc330 orig=FUN_004bc330 size=6 name=textValue ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9198,7 +9198,7 @@ void QInputDialog::textValue(void)
 }
 
 
-// ==== entry=004bc340 name=system size=6 ====
+// ==== entry=004bc340 orig=FUN_004bc340 size=6 name=system ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9210,7 +9210,7 @@ void QRandomGenerator64::system(void)
 }
 
 
-// ==== entry=004bc350 name=item size=6 ====
+// ==== entry=004bc350 orig=FUN_004bc350 size=6 name=item ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9222,7 +9222,7 @@ void QListWidget::item(int param_1)
 }
 
 
-// ==== entry=004bc360 name=QBrush size=6 ====
+// ==== entry=004bc360 orig=FUN_004bc360 size=6 name=QBrush ====
 
 void __thiscall QBrush::QBrush(QBrush *this,QBrush *param_1)
 
@@ -9232,7 +9232,7 @@ void __thiscall QBrush::QBrush(QBrush *this,QBrush *param_1)
 }
 
 
-// ==== entry=004bc370 name=EVP_CIPHER_CTX_free size=6 ====
+// ==== entry=004bc370 orig=FUN_004bc370 size=6 name=EVP_CIPHER_CTX_free ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9244,7 +9244,7 @@ void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *a)
 }
 
 
-// ==== entry=004bc380 name=QStyleOptionComboBox size=6 ====
+// ==== entry=004bc380 orig=FUN_004bc380 size=6 name=QStyleOptionComboBox ====
 
 void __thiscall QStyleOptionComboBox::QStyleOptionComboBox(QStyleOptionComboBox *this)
 
@@ -9254,7 +9254,7 @@ void __thiscall QStyleOptionComboBox::QStyleOptionComboBox(QStyleOptionComboBox 
 }
 
 
-// ==== entry=004bc390 name=showFullScreen size=6 ====
+// ==== entry=004bc390 orig=FUN_004bc390 size=6 name=showFullScreen ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9266,7 +9266,7 @@ void QWidget::showFullScreen(void)
 }
 
 
-// ==== entry=004bc3a0 name=QTextFormat size=6 ====
+// ==== entry=004bc3a0 orig=FUN_004bc3a0 size=6 name=QTextFormat ====
 
 void __thiscall QTextFormat::QTextFormat(QTextFormat *this)
 
@@ -9276,7 +9276,7 @@ void __thiscall QTextFormat::QTextFormat(QTextFormat *this)
 }
 
 
-// ==== entry=004bc3b0 name=ssh_channel_send_eof size=6 ====
+// ==== entry=004bc3b0 orig=FUN_004bc3b0 size=6 name=ssh_channel_send_eof ====
 
 void ssh_channel_send_eof(void)
 
@@ -9286,7 +9286,7 @@ void ssh_channel_send_eof(void)
 }
 
 
-// ==== entry=004bc3c0 name=setlocale size=6 ====
+// ==== entry=004bc3c0 orig=FUN_004bc3c0 size=6 name=setlocale ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9300,7 +9300,7 @@ char * setlocale(int __category,char *__locale)
 }
 
 
-// ==== entry=004bc3d0 name=qt_metacall size=6 ====
+// ==== entry=004bc3d0 orig=FUN_004bc3d0 size=6 name=qt_metacall ====
 
 void QLineEdit::qt_metacall(void)
 
@@ -9310,7 +9310,7 @@ void QLineEdit::qt_metacall(void)
 }
 
 
-// ==== entry=004bc3e0 name=addRect size=6 ====
+// ==== entry=004bc3e0 orig=FUN_004bc3e0 size=6 name=addRect ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9322,7 +9322,7 @@ void QPainterPath::addRect(QRectF *param_1)
 }
 
 
-// ==== entry=004bc3f0 name=wait size=6 ====
+// ==== entry=004bc3f0 orig=FUN_004bc3f0 size=6 name=wait ====
 
 void QWaitCondition::wait(void)
 
@@ -9332,7 +9332,7 @@ void QWaitCondition::wait(void)
 }
 
 
-// ==== entry=004bc400 name=gmtime_r size=6 ====
+// ==== entry=004bc400 orig=FUN_004bc400 size=6 name=gmtime_r ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9346,7 +9346,7 @@ tm * gmtime_r(time_t *__timer,tm *__tp)
 }
 
 
-// ==== entry=004bc410 name=isSymbolicLink size=6 ====
+// ==== entry=004bc410 orig=FUN_004bc410 size=6 name=isSymbolicLink ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9358,7 +9358,7 @@ void QFileInfo::isSymbolicLink(void)
 }
 
 
-// ==== entry=004bc420 name=qt_metacast size=6 ====
+// ==== entry=004bc420 orig=FUN_004bc420 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9370,7 +9370,7 @@ void QTcpServer::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004bc430 name=accept size=6 ====
+// ==== entry=004bc430 orig=FUN_004bc430 size=6 name=accept ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9382,7 +9382,7 @@ void QFileDialog::accept(void)
 }
 
 
-// ==== entry=004bc440 name=initStyleOption size=6 ====
+// ==== entry=004bc440 orig=FUN_004bc440 size=6 name=initStyleOption ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9394,7 +9394,7 @@ void QLineEdit::initStyleOption(QStyleOptionFrame *param_1)
 }
 
 
-// ==== entry=004bc450 name=buttons size=6 ====
+// ==== entry=004bc450 orig=FUN_004bc450 size=6 name=buttons ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9406,7 +9406,7 @@ void QButtonGroup::buttons(void)
 }
 
 
-// ==== entry=004bc460 name=state size=6 ====
+// ==== entry=004bc460 orig=FUN_004bc460 size=6 name=state ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9418,7 +9418,7 @@ void QMediaPlayer::state(void)
 }
 
 
-// ==== entry=004bc470 name=indexOf size=6 ====
+// ==== entry=004bc470 orig=FUN_004bc470 size=6 name=indexOf ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9430,7 +9430,7 @@ void QSplitter::indexOf(QWidget *param_1)
 }
 
 
-// ==== entry=004bc480 name=ssh_channel_open_session size=6 ====
+// ==== entry=004bc480 orig=FUN_004bc480 size=6 name=ssh_channel_open_session ====
 
 void ssh_channel_open_session(void)
 
@@ -9440,7 +9440,7 @@ void ssh_channel_open_session(void)
 }
 
 
-// ==== entry=004bc490 name=hasRegisteredConverterFunction size=6 ====
+// ==== entry=004bc490 orig=FUN_004bc490 size=6 name=hasRegisteredConverterFunction ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9452,7 +9452,7 @@ void QMetaType::hasRegisteredConverterFunction(int param_1,int param_2)
 }
 
 
-// ==== entry=004bc4a0 name=fromLatin1_helper size=6 ====
+// ==== entry=004bc4a0 orig=FUN_004bc4a0 size=6 name=fromLatin1_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9464,7 +9464,7 @@ void QString::fromLatin1_helper(char *param_1,int param_2)
 }
 
 
-// ==== entry=004bc4b0 name=writev size=6 ====
+// ==== entry=004bc4b0 orig=FUN_004bc4b0 size=6 name=writev ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9478,7 +9478,7 @@ ssize_t writev(int __fd,iovec *__iovec,int __count)
 }
 
 
-// ==== entry=004bc4c0 name=yieldCurrentThread size=6 ====
+// ==== entry=004bc4c0 orig=FUN_004bc4c0 size=6 name=yieldCurrentThread ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9490,7 +9490,7 @@ void QThread::yieldCurrentThread(void)
 }
 
 
-// ==== entry=004bc4d0 name=sftp_async_write size=6 ====
+// ==== entry=004bc4d0 orig=FUN_004bc4d0 size=6 name=sftp_async_write ====
 
 void sftp_async_write(void)
 
@@ -9500,7 +9500,7 @@ void sftp_async_write(void)
 }
 
 
-// ==== entry=004bc4e0 name=XFreeModifiermap size=6 ====
+// ==== entry=004bc4e0 orig=FUN_004bc4e0 size=6 name=XFreeModifiermap ====
 
 void XFreeModifiermap(void)
 
@@ -9510,7 +9510,7 @@ void XFreeModifiermap(void)
 }
 
 
-// ==== entry=004bc4f0 name=setMinimum size=6 ====
+// ==== entry=004bc4f0 orig=FUN_004bc4f0 size=6 name=setMinimum ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9522,7 +9522,7 @@ void QDoubleSpinBox::setMinimum(double param_1)
 }
 
 
-// ==== entry=004bc500 name=~QStyleOption size=6 ====
+// ==== entry=004bc500 orig=FUN_004bc500 size=6 name=~QStyleOption ====
 
 void __thiscall QStyleOption::~QStyleOption(QStyleOption *this)
 
@@ -9532,7 +9532,7 @@ void __thiscall QStyleOption::~QStyleOption(QStyleOption *this)
 }
 
 
-// ==== entry=004bc510 name=qt_metacall size=6 ====
+// ==== entry=004bc510 orig=FUN_004bc510 size=6 name=qt_metacall ====
 
 void QApplication::qt_metacall(void)
 
@@ -9542,7 +9542,7 @@ void QApplication::qt_metacall(void)
 }
 
 
-// ==== entry=004bc520 name=QDataStream size=6 ====
+// ==== entry=004bc520 orig=FUN_004bc520 size=6 name=QDataStream ====
 
 void __thiscall QDataStream::QDataStream(QDataStream *this,QIODevice *param_1)
 
@@ -9552,7 +9552,7 @@ void __thiscall QDataStream::QDataStream(QDataStream *this,QIODevice *param_1)
 }
 
 
-// ==== entry=004bc530 name=doubleClickInterval size=6 ====
+// ==== entry=004bc530 orig=FUN_004bc530 size=6 name=doubleClickInterval ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9564,7 +9564,7 @@ void QApplication::doubleClickInterval(void)
 }
 
 
-// ==== entry=004bc540 name=size size=6 ====
+// ==== entry=004bc540 orig=FUN_004bc540 size=6 name=size ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9576,7 +9576,7 @@ void QTextDocument::size(void)
 }
 
 
-// ==== entry=004bc550 name=exists size=6 ====
+// ==== entry=004bc550 orig=FUN_004bc550 size=6 name=exists ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9588,7 +9588,7 @@ void QDir::exists(void)
 }
 
 
-// ==== entry=004bc560 name=setApplicationVersion size=6 ====
+// ==== entry=004bc560 orig=FUN_004bc560 size=6 name=setApplicationVersion ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9600,7 +9600,7 @@ void QCoreApplication::setApplicationVersion(QString *param_1)
 }
 
 
-// ==== entry=004bc570 name=invisibleRootItem size=6 ====
+// ==== entry=004bc570 orig=FUN_004bc570 size=6 name=invisibleRootItem ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9612,7 +9612,7 @@ void QStandardItemModel::invisibleRootItem(void)
 }
 
 
-// ==== entry=004bc580 name=QTableWidgetItem size=6 ====
+// ==== entry=004bc580 orig=FUN_004bc580 size=6 name=QTableWidgetItem ====
 
 void __thiscall
 QTableWidgetItem::QTableWidgetItem
@@ -9624,7 +9624,7 @@ QTableWidgetItem::QTableWidgetItem
 }
 
 
-// ==== entry=004bc590 name=isDir size=6 ====
+// ==== entry=004bc590 orig=FUN_004bc590 size=6 name=isDir ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9636,7 +9636,7 @@ void QFileInfo::isDir(void)
 }
 
 
-// ==== entry=004bc5a0 name=qt_metacast size=6 ====
+// ==== entry=004bc5a0 orig=FUN_004bc5a0 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9648,7 +9648,7 @@ void QFileDialog::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004bc5b0 name=drawText size=6 ====
+// ==== entry=004bc5b0 orig=FUN_004bc5b0 size=6 name=drawText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9660,7 +9660,7 @@ void QPainter::drawText(QPointF *param_1,QString *param_2)
 }
 
 
-// ==== entry=004bc5c0 name=ZSTD_trace_decompress_begin size=6 ====
+// ==== entry=004bc5c0 orig=FUN_004bc5c0 size=6 name=ZSTD_trace_decompress_begin ====
 
 void ZSTD_trace_decompress_begin(void)
 
@@ -9670,7 +9670,7 @@ void ZSTD_trace_decompress_begin(void)
 }
 
 
-// ==== entry=004bc5d0 name=drawRoundedRect size=6 ====
+// ==== entry=004bc5d0 orig=FUN_004bc5d0 size=6 name=drawRoundedRect ====
 
 void QPainter::drawRoundedRect(void)
 
@@ -9680,7 +9680,7 @@ void QPainter::drawRoundedRect(void)
 }
 
 
-// ==== entry=004bc5e0 name=addEllipse size=6 ====
+// ==== entry=004bc5e0 orig=FUN_004bc5e0 size=6 name=addEllipse ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9692,7 +9692,7 @@ void QPainterPath::addEllipse(QRectF *param_1)
 }
 
 
-// ==== entry=004bc5f0 name=setParity size=6 ====
+// ==== entry=004bc5f0 orig=FUN_004bc5f0 size=6 name=setParity ====
 
 void QSerialPort::setParity(void)
 
@@ -9702,7 +9702,7 @@ void QSerialPort::setParity(void)
 }
 
 
-// ==== entry=004bc600 name=processId size=6 ====
+// ==== entry=004bc600 orig=FUN_004bc600 size=6 name=processId ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9714,7 +9714,7 @@ void QProcess::processId(void)
 }
 
 
-// ==== entry=004bc610 name=pointSize size=6 ====
+// ==== entry=004bc610 orig=FUN_004bc610 size=6 name=pointSize ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9726,7 +9726,7 @@ void QFont::pointSize(void)
 }
 
 
-// ==== entry=004bc620 name=toVariant size=6 ====
+// ==== entry=004bc620 orig=FUN_004bc620 size=6 name=toVariant ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9738,7 +9738,7 @@ void QJsonValue::toVariant(void)
 }
 
 
-// ==== entry=004bc630 name=setTextWidth size=6 ====
+// ==== entry=004bc630 orig=FUN_004bc630 size=6 name=setTextWidth ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9750,7 +9750,7 @@ void QTextDocument::setTextWidth(double param_1)
 }
 
 
-// ==== entry=004bc640 name=widget size=6 ====
+// ==== entry=004bc640 orig=FUN_004bc640 size=6 name=widget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9762,7 +9762,7 @@ void QStackedWidget::widget(int param_1)
 }
 
 
-// ==== entry=004bc650 name=operator<< size=6 ====
+// ==== entry=004bc650 orig=FUN_004bc650 size=6 name=operator<< ====
 
 void __thiscall QDataStream::operator<<(QDataStream *this,int param_1)
 
@@ -9772,7 +9772,7 @@ void __thiscall QDataStream::operator<<(QDataStream *this,int param_1)
 }
 
 
-// ==== entry=004bc660 name=value size=6 ====
+// ==== entry=004bc660 orig=FUN_004bc660 size=6 name=value ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9784,7 +9784,7 @@ void QDoubleSpinBox::value(void)
 }
 
 
-// ==== entry=004bc670 name=resize size=6 ====
+// ==== entry=004bc670 orig=FUN_004bc670 size=6 name=resize ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9796,7 +9796,7 @@ void QString::resize(int param_1)
 }
 
 
-// ==== entry=004bc680 name=setRenderHint size=6 ====
+// ==== entry=004bc680 orig=FUN_004bc680 size=6 name=setRenderHint ====
 
 void QPainter::setRenderHint(void)
 
@@ -9806,7 +9806,7 @@ void QPainter::setRenderHint(void)
 }
 
 
-// ==== entry=004bc690 name=toByteArray size=6 ====
+// ==== entry=004bc690 orig=FUN_004bc690 size=6 name=toByteArray ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9818,7 +9818,7 @@ void QVariant::toByteArray(void)
 }
 
 
-// ==== entry=004bc6a0 name=paintEvent size=6 ====
+// ==== entry=004bc6a0 orig=FUN_004bc6a0 size=6 name=paintEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9830,7 +9830,7 @@ void QWidget::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=004bc6b0 name=setPlainText size=6 ====
+// ==== entry=004bc6b0 orig=FUN_004bc6b0 size=6 name=setPlainText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9842,7 +9842,7 @@ void QPlainTextEdit::setPlainText(QString *param_1)
 }
 
 
-// ==== entry=004bc6c0 name=setCurrentIndex size=6 ====
+// ==== entry=004bc6c0 orig=FUN_004bc6c0 size=6 name=setCurrentIndex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9854,7 +9854,7 @@ void QTabBar::setCurrentIndex(int param_1)
 }
 
 
-// ==== entry=004bc6d0 name=QScrollBar size=6 ====
+// ==== entry=004bc6d0 orig=FUN_004bc6d0 size=6 name=QScrollBar ====
 
 void __thiscall QScrollBar::QScrollBar(void)
 
@@ -9864,7 +9864,7 @@ void __thiscall QScrollBar::QScrollBar(void)
 }
 
 
-// ==== entry=004bc6e0 name=setMinimumSize size=6 ====
+// ==== entry=004bc6e0 orig=FUN_004bc6e0 size=6 name=setMinimumSize ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9876,7 +9876,7 @@ void QWidget::setMinimumSize(int param_1,int param_2)
 }
 
 
-// ==== entry=004bc6f0 name=at size=6 ====
+// ==== entry=004bc6f0 orig=FUN_004bc6f0 size=6 name=at ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9888,7 +9888,7 @@ void QTabBarPrivate::at(int param_1)
 }
 
 
-// ==== entry=004bc700 name=setRowWrapPolicy size=6 ====
+// ==== entry=004bc700 orig=FUN_004bc700 size=6 name=setRowWrapPolicy ====
 
 void QFormLayout::setRowWrapPolicy(void)
 
@@ -9898,7 +9898,7 @@ void QFormLayout::setRowWrapPolicy(void)
 }
 
 
-// ==== entry=004bc710 name=QPixmap size=6 ====
+// ==== entry=004bc710 orig=FUN_004bc710 size=6 name=QPixmap ====
 
 void __thiscall QPixmap::QPixmap(QPixmap *this)
 
@@ -9908,7 +9908,7 @@ void __thiscall QPixmap::QPixmap(QPixmap *this)
 }
 
 
-// ==== entry=004bc720 name=qt_metacast size=6 ====
+// ==== entry=004bc720 orig=FUN_004bc720 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9920,7 +9920,7 @@ void QTreeView::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004bc730 name=startsWith size=6 ====
+// ==== entry=004bc730 orig=FUN_004bc730 size=6 name=startsWith ====
 
 void QString::startsWith(void)
 
@@ -9930,7 +9930,7 @@ void QString::startsWith(void)
 }
 
 
-// ==== entry=004bc740 name=ZSTD_trace_decompress_end size=6 ====
+// ==== entry=004bc740 orig=FUN_004bc740 size=6 name=ZSTD_trace_decompress_end ====
 
 void ZSTD_trace_decompress_end(void)
 
@@ -9940,7 +9940,7 @@ void ZSTD_trace_decompress_end(void)
 }
 
 
-// ==== entry=004bc750 name=QTcpSocket size=6 ====
+// ==== entry=004bc750 orig=FUN_004bc750 size=6 name=QTcpSocket ====
 
 void __thiscall QTcpSocket::QTcpSocket(QTcpSocket *this,QObject *param_1)
 
@@ -9950,7 +9950,7 @@ void __thiscall QTcpSocket::QTcpSocket(QTcpSocket *this,QObject *param_1)
 }
 
 
-// ==== entry=004bc760 name=toULongLong size=6 ====
+// ==== entry=004bc760 orig=FUN_004bc760 size=6 name=toULongLong ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9962,7 +9962,7 @@ void QVariant::toULongLong(bool *param_1)
 }
 
 
-// ==== entry=004bc770 name=toInt size=6 ====
+// ==== entry=004bc770 orig=FUN_004bc770 size=6 name=toInt ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9974,7 +9974,7 @@ void QJSValue::toInt(void)
 }
 
 
-// ==== entry=004bc780 name=operator.cast.to.QVariant size=6 ====
+// ==== entry=004bc780 orig=FUN_004bc780 size=6 name=operator.cast.to.QVariant ====
 
 void __thiscall QPixmap::operator_cast_to_QVariant(QPixmap *this)
 
@@ -9984,7 +9984,7 @@ void __thiscall QPixmap::operator_cast_to_QVariant(QPixmap *this)
 }
 
 
-// ==== entry=004bc790 name=pthread_getspecific size=6 ====
+// ==== entry=004bc790 orig=FUN_004bc790 size=6 name=pthread_getspecific ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -9998,7 +9998,7 @@ void * pthread_getspecific(pthread_key_t __key)
 }
 
 
-// ==== entry=004bc7a0 name=QItemSelection size=6 ====
+// ==== entry=004bc7a0 orig=FUN_004bc7a0 size=6 name=QItemSelection ====
 
 void __thiscall
 QItemSelection::QItemSelection(QItemSelection *this,QModelIndex *param_1,QModelIndex *param_2)
@@ -10009,7 +10009,7 @@ QItemSelection::QItemSelection(QItemSelection *this,QModelIndex *param_1,QModelI
 }
 
 
-// ==== entry=004bc7b0 name=setActiveAction size=6 ====
+// ==== entry=004bc7b0 orig=FUN_004bc7b0 size=6 name=setActiveAction ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10021,7 +10021,7 @@ void QMenu::setActiveAction(QAction *param_1)
 }
 
 
-// ==== entry=004bc7c0 name=toLongLong size=6 ====
+// ==== entry=004bc7c0 orig=FUN_004bc7c0 size=6 name=toLongLong ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10033,7 +10033,7 @@ void QByteArray::toLongLong(bool *param_1,int param_2)
 }
 
 
-// ==== entry=004bc7d0 name=setHtml size=6 ====
+// ==== entry=004bc7d0 orig=FUN_004bc7d0 size=6 name=setHtml ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10045,7 +10045,7 @@ void QTextDocument::setHtml(QString *param_1)
 }
 
 
-// ==== entry=004bc7e0 name=paintEvent size=6 ====
+// ==== entry=004bc7e0 orig=FUN_004bc7e0 size=6 name=paintEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10057,7 +10057,7 @@ void QToolButton::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=004bc7f0 name=addRow size=6 ====
+// ==== entry=004bc7f0 orig=FUN_004bc7f0 size=6 name=addRow ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10069,7 +10069,7 @@ void QFormLayout::addRow(QString *param_1,QLayout *param_2)
 }
 
 
-// ==== entry=004bc800 name=setFlat size=6 ====
+// ==== entry=004bc800 orig=FUN_004bc800 size=6 name=setFlat ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10081,7 +10081,7 @@ void QPushButton::setFlat(bool param_1)
 }
 
 
-// ==== entry=004bc810 name=QHostAddress size=6 ====
+// ==== entry=004bc810 orig=FUN_004bc810 size=6 name=QHostAddress ====
 
 void __thiscall QHostAddress::QHostAddress(QHostAddress *this,uchar *param_1)
 
@@ -10091,7 +10091,7 @@ void __thiscall QHostAddress::QHostAddress(QHostAddress *this,uchar *param_1)
 }
 
 
-// ==== entry=004bc820 name=~QTcpSocket size=6 ====
+// ==== entry=004bc820 orig=FUN_004bc820 size=6 name=~QTcpSocket ====
 
 void __thiscall QTcpSocket::~QTcpSocket(QTcpSocket *this)
 
@@ -10101,7 +10101,7 @@ void __thiscall QTcpSocket::~QTcpSocket(QTcpSocket *this)
 }
 
 
-// ==== entry=004bc830 name=strtoul size=6 ====
+// ==== entry=004bc830 orig=FUN_004bc830 size=6 name=strtoul ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10115,7 +10115,7 @@ ulong strtoul(char *__nptr,char **__endptr,int __base)
 }
 
 
-// ==== entry=004bc840 name=setRowCount size=6 ====
+// ==== entry=004bc840 orig=FUN_004bc840 size=6 name=setRowCount ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10127,7 +10127,7 @@ void QTableWidget::setRowCount(int param_1)
 }
 
 
-// ==== entry=004bc850 name=serverPort size=6 ====
+// ==== entry=004bc850 orig=FUN_004bc850 size=6 name=serverPort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10139,7 +10139,7 @@ void QTcpServer::serverPort(void)
 }
 
 
-// ==== entry=004bc860 name=toUcs4_helper size=6 ====
+// ==== entry=004bc860 orig=FUN_004bc860 size=6 name=toUcs4_helper ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10151,7 +10151,7 @@ void QString::toUcs4_helper(ushort *param_1,int param_2,uint *param_3)
 }
 
 
-// ==== entry=004bc870 name=setDragEnabled size=6 ====
+// ==== entry=004bc870 orig=FUN_004bc870 size=6 name=setDragEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10163,7 +10163,7 @@ void QAbstractItemView::setDragEnabled(bool param_1)
 }
 
 
-// ==== entry=004bc880 name=setDirection size=6 ====
+// ==== entry=004bc880 orig=FUN_004bc880 size=6 name=setDirection ====
 
 void QTimeLine::setDirection(void)
 
@@ -10173,7 +10173,7 @@ void QTimeLine::setDirection(void)
 }
 
 
-// ==== entry=004bc890 name=setToolButtonStyle size=6 ====
+// ==== entry=004bc890 orig=FUN_004bc890 size=6 name=setToolButtonStyle ====
 
 void QToolBar::setToolButtonStyle(void)
 
@@ -10183,7 +10183,7 @@ void QToolBar::setToolButtonStyle(void)
 }
 
 
-// ==== entry=004bc8a0 name=eventFilter size=6 ====
+// ==== entry=004bc8a0 orig=FUN_004bc8a0 size=6 name=eventFilter ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10195,7 +10195,7 @@ void QDialog::eventFilter(QObject *param_1,QEvent *param_2)
 }
 
 
-// ==== entry=004bc8b0 name=layoutWidgets size=6 ====
+// ==== entry=004bc8b0 orig=FUN_004bc8b0 size=6 name=layoutWidgets ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10207,7 +10207,7 @@ void QTabBarPrivate::layoutWidgets(int param_1)
 }
 
 
-// ==== entry=004bc8c0 name=~QStandardItemModel size=6 ====
+// ==== entry=004bc8c0 orig=FUN_004bc8c0 size=6 name=~QStandardItemModel ====
 
 void __thiscall QStandardItemModel::~QStandardItemModel(QStandardItemModel *this)
 
@@ -10217,7 +10217,7 @@ void __thiscall QStandardItemModel::~QStandardItemModel(QStandardItemModel *this
 }
 
 
-// ==== entry=004bc8d0 name=setHorizontalHeaderLabels size=6 ====
+// ==== entry=004bc8d0 orig=FUN_004bc8d0 size=6 name=setHorizontalHeaderLabels ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10229,7 +10229,7 @@ void QStandardItemModel::setHorizontalHeaderLabels(QStringList *param_1)
 }
 
 
-// ==== entry=004bc8e0 name=QRegularExpressionValidator size=6 ====
+// ==== entry=004bc8e0 orig=FUN_004bc8e0 size=6 name=QRegularExpressionValidator ====
 
 void __thiscall
 QRegularExpressionValidator::QRegularExpressionValidator
@@ -10241,7 +10241,7 @@ QRegularExpressionValidator::QRegularExpressionValidator
 }
 
 
-// ==== entry=004bc8f0 name=strtol size=6 ====
+// ==== entry=004bc8f0 orig=FUN_004bc8f0 size=6 name=strtol ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10255,7 +10255,7 @@ long strtol(char *__nptr,char **__endptr,int __base)
 }
 
 
-// ==== entry=004bc900 name=replaceWidget size=6 ====
+// ==== entry=004bc900 orig=FUN_004bc900 size=6 name=replaceWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10267,7 +10267,7 @@ void QSplitter::replaceWidget(int param_1,QWidget *param_2)
 }
 
 
-// ==== entry=004bc910 name=setSuffix size=6 ====
+// ==== entry=004bc910 orig=FUN_004bc910 size=6 name=setSuffix ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10279,7 +10279,7 @@ void QSpinBox::setSuffix(QString *param_1)
 }
 
 
-// ==== entry=004bc920 name=source size=6 ====
+// ==== entry=004bc920 orig=FUN_004bc920 size=6 name=source ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10291,7 +10291,7 @@ void QMouseEvent::source(void)
 }
 
 
-// ==== entry=004bc930 name=script size=6 ====
+// ==== entry=004bc930 orig=FUN_004bc930 size=6 name=script ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10303,7 +10303,7 @@ void QChar::script(uint param_1)
 }
 
 
-// ==== entry=004bc940 name=rowCount size=6 ====
+// ==== entry=004bc940 orig=FUN_004bc940 size=6 name=rowCount ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10315,7 +10315,7 @@ void QTableWidget::rowCount(void)
 }
 
 
-// ==== entry=004bc950 name=error size=6 ====
+// ==== entry=004bc950 orig=FUN_004bc950 size=6 name=error ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10327,7 +10327,7 @@ void QProcess::error(void)
 }
 
 
-// ==== entry=004bc960 name=qt_metacast size=6 ====
+// ==== entry=004bc960 orig=FUN_004bc960 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10339,7 +10339,7 @@ void QMenu::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004bc970 name=event size=6 ====
+// ==== entry=004bc970 orig=FUN_004bc970 size=6 name=event ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10351,7 +10351,7 @@ void QAbstractScrollArea::event(QEvent *param_1)
 }
 
 
-// ==== entry=004bc980 name=isValid size=6 ====
+// ==== entry=004bc980 orig=FUN_004bc980 size=6 name=isValid ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10363,7 +10363,7 @@ void QElapsedTimer::isValid(void)
 }
 
 
-// ==== entry=004bc990 name=qt_metacall size=6 ====
+// ==== entry=004bc990 orig=FUN_004bc990 size=6 name=qt_metacall ====
 
 void QTranslator::qt_metacall(void)
 
@@ -10373,7 +10373,7 @@ void QTranslator::qt_metacall(void)
 }
 
 
-// ==== entry=004bc9a0 name=QPainter size=6 ====
+// ==== entry=004bc9a0 orig=FUN_004bc9a0 size=6 name=QPainter ====
 
 void __thiscall QPainter::QPainter(QPainter *this,QPaintDevice *param_1)
 
@@ -10383,7 +10383,7 @@ void __thiscall QPainter::QPainter(QPainter *this,QPaintDevice *param_1)
 }
 
 
-// ==== entry=004bc9b0 name=setContext size=6 ====
+// ==== entry=004bc9b0 orig=FUN_004bc9b0 size=6 name=setContext ====
 
 void QShortcut::setContext(void)
 
@@ -10393,7 +10393,7 @@ void QShortcut::setContext(void)
 }
 
 
-// ==== entry=004bc9c0 name=QPlainTextEdit size=6 ====
+// ==== entry=004bc9c0 orig=FUN_004bc9c0 size=6 name=QPlainTextEdit ====
 
 void __thiscall QPlainTextEdit::QPlainTextEdit(QPlainTextEdit *this,QWidget *param_1)
 
@@ -10403,7 +10403,7 @@ void __thiscall QPlainTextEdit::QPlainTextEdit(QPlainTextEdit *this,QWidget *par
 }
 
 
-// ==== entry=004bc9d0 name=event size=6 ====
+// ==== entry=004bc9d0 orig=FUN_004bc9d0 size=6 name=event ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10415,7 +10415,7 @@ void QWidget::event(QEvent *param_1)
 }
 
 
-// ==== entry=004bc9e0 name=waitForStarted size=6 ====
+// ==== entry=004bc9e0 orig=FUN_004bc9e0 size=6 name=waitForStarted ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10427,7 +10427,7 @@ void QProcess::waitForStarted(int param_1)
 }
 
 
-// ==== entry=004bc9f0 name=clock_gettime size=6 ====
+// ==== entry=004bc9f0 orig=FUN_004bc9f0 size=6 name=clock_gettime ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10441,7 +10441,7 @@ int clock_gettime(clockid_t __clock_id,timespec *__tp)
 }
 
 
-// ==== entry=004bca00 name=dataChanged size=6 ====
+// ==== entry=004bca00 orig=FUN_004bca00 size=6 name=dataChanged ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10453,7 +10453,7 @@ void QAbstractItemModel::dataChanged(QModelIndex *param_1,QModelIndex *param_2,Q
 }
 
 
-// ==== entry=004bca10 name=sizeHint size=6 ====
+// ==== entry=004bca10 orig=FUN_004bca10 size=6 name=sizeHint ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10465,7 +10465,7 @@ void QLineEdit::sizeHint(void)
 }
 
 
-// ==== entry=004bca20 name=closeAllWindows size=6 ====
+// ==== entry=004bca20 orig=FUN_004bca20 size=6 name=closeAllWindows ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10477,7 +10477,7 @@ void QApplication::closeAllWindows(void)
 }
 
 
-// ==== entry=004bca30 name=widget size=6 ====
+// ==== entry=004bca30 orig=FUN_004bca30 size=6 name=widget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10489,7 +10489,7 @@ void QSplitter::widget(int param_1)
 }
 
 
-// ==== entry=004bca40 name=QSplitter size=6 ====
+// ==== entry=004bca40 orig=FUN_004bca40 size=6 name=QSplitter ====
 
 void __thiscall QSplitter::QSplitter(QSplitter *this,QWidget *param_1)
 
@@ -10499,7 +10499,7 @@ void __thiscall QSplitter::QSplitter(QSplitter *this,QWidget *param_1)
 }
 
 
-// ==== entry=004bca50 name=setVerticalScrollBar size=6 ====
+// ==== entry=004bca50 orig=FUN_004bca50 size=6 name=setVerticalScrollBar ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10511,7 +10511,7 @@ void QAbstractScrollArea::setVerticalScrollBar(QScrollBar *param_1)
 }
 
 
-// ==== entry=004bca60 name=addWidget size=6 ====
+// ==== entry=004bca60 orig=FUN_004bca60 size=6 name=addWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10523,7 +10523,7 @@ void QToolBar::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=004bca70 name=setSizeGripEnabled size=6 ====
+// ==== entry=004bca70 orig=FUN_004bca70 size=6 name=setSizeGripEnabled ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10535,7 +10535,7 @@ void QStatusBar::setSizeGripEnabled(bool param_1)
 }
 
 
-// ==== entry=004bca80 name=defaultWidget size=6 ====
+// ==== entry=004bca80 orig=FUN_004bca80 size=6 name=defaultWidget ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10547,7 +10547,7 @@ void QWidgetAction::defaultWidget(void)
 }
 
 
-// ==== entry=004bca90 name=tabWhatsThis size=6 ====
+// ==== entry=004bca90 orig=FUN_004bca90 size=6 name=tabWhatsThis ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10559,7 +10559,7 @@ void QTabBar::tabWhatsThis(int param_1)
 }
 
 
-// ==== entry=004bcaa0 name=isRelativePath size=6 ====
+// ==== entry=004bcaa0 orig=FUN_004bcaa0 size=6 name=isRelativePath ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10571,7 +10571,7 @@ void QDir::isRelativePath(QString *param_1)
 }
 
 
-// ==== entry=004bcab0 name=QPersistentModelIndex size=6 ====
+// ==== entry=004bcab0 orig=FUN_004bcab0 size=6 name=QPersistentModelIndex ====
 
 void __thiscall
 QPersistentModelIndex::QPersistentModelIndex
@@ -10583,7 +10583,7 @@ QPersistentModelIndex::QPersistentModelIndex
 }
 
 
-// ==== entry=004bcac0 name=isPrivateFamily size=6 ====
+// ==== entry=004bcac0 orig=FUN_004bcac0 size=6 name=isPrivateFamily ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10595,7 +10595,7 @@ void QFontDatabase::isPrivateFamily(QString *param_1)
 }
 
 
-// ==== entry=004bcad0 name=pthread_condattr_destroy size=6 ====
+// ==== entry=004bcad0 orig=FUN_004bcad0 size=6 name=pthread_condattr_destroy ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10609,7 +10609,7 @@ int pthread_condattr_destroy(pthread_condattr_t *__attr)
 }
 
 
-// ==== entry=004bcae0 name=pthread_detach size=6 ====
+// ==== entry=004bcae0 orig=FUN_004bcae0 size=6 name=pthread_detach ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10623,7 +10623,7 @@ int pthread_detach(pthread_t __th)
 }
 
 
-// ==== entry=004bcaf0 name=setWindowModality size=6 ====
+// ==== entry=004bcaf0 orig=FUN_004bcaf0 size=6 name=setWindowModality ====
 
 void QWidget::setWindowModality(void)
 
@@ -10633,7 +10633,7 @@ void QWidget::setWindowModality(void)
 }
 
 
-// ==== entry=004bcb00 name=~QImage size=6 ====
+// ==== entry=004bcb00 orig=FUN_004bcb00 size=6 name=~QImage ====
 
 void __thiscall QImage::~QImage(QImage *this)
 
@@ -10643,7 +10643,7 @@ void __thiscall QImage::~QImage(QImage *this)
 }
 
 
-// ==== entry=004bcb10 name=setDragDropMode size=6 ====
+// ==== entry=004bcb10 orig=FUN_004bcb10 size=6 name=setDragDropMode ====
 
 void QAbstractItemView::setDragDropMode(void)
 
@@ -10653,7 +10653,7 @@ void QAbstractItemView::setDragDropMode(void)
 }
 
 
-// ==== entry=004bcb20 name=indexIn size=6 ====
+// ==== entry=004bcb20 orig=FUN_004bcb20 size=6 name=indexIn ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10665,7 +10665,7 @@ void QStringMatcher::indexIn(QString *param_1,int param_2)
 }
 
 
-// ==== entry=004bcb30 name=remove size=6 ====
+// ==== entry=004bcb30 orig=FUN_004bcb30 size=6 name=remove ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10677,7 +10677,7 @@ void QFile::remove(void)
 }
 
 
-// ==== entry=004bcb40 name=QAssociativeIterable size=6 ====
+// ==== entry=004bcb40 orig=FUN_004bcb40 size=6 name=QAssociativeIterable ====
 
 void __thiscall QAssociativeIterable::QAssociativeIterable(void)
 
@@ -10687,7 +10687,7 @@ void __thiscall QAssociativeIterable::QAssociativeIterable(void)
 }
 
 
-// ==== entry=004bcb50 name=QToolBar size=6 ====
+// ==== entry=004bcb50 orig=FUN_004bcb50 size=6 name=QToolBar ====
 
 void __thiscall QToolBar::QToolBar(QToolBar *this,QString *param_1,QWidget *param_2)
 
@@ -10697,7 +10697,7 @@ void __thiscall QToolBar::QToolBar(QToolBar *this,QString *param_1,QWidget *para
 }
 
 
-// ==== entry=004bcb60 name=replace size=6 ====
+// ==== entry=004bcb60 orig=FUN_004bcb60 size=6 name=replace ====
 
 void QString::replace(void)
 
@@ -10707,7 +10707,7 @@ void QString::replace(void)
 }
 
 
-// ==== entry=004bcb70 name=setWindowTitle size=6 ====
+// ==== entry=004bcb70 orig=FUN_004bcb70 size=6 name=setWindowTitle ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10719,7 +10719,7 @@ void QMessageBox::setWindowTitle(QString *param_1)
 }
 
 
-// ==== entry=004bcb80 name=setLineEdit size=6 ====
+// ==== entry=004bcb80 orig=FUN_004bcb80 size=6 name=setLineEdit ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10731,7 +10731,7 @@ void QComboBox::setLineEdit(QLineEdit *param_1)
 }
 
 
-// ==== entry=004bcb90 name=left size=6 ====
+// ==== entry=004bcb90 orig=FUN_004bcb90 size=6 name=left ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10743,7 +10743,7 @@ void QString::left(int param_1)
 }
 
 
-// ==== entry=004bcba0 name=count size=6 ====
+// ==== entry=004bcba0 orig=FUN_004bcba0 size=6 name=count ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10755,7 +10755,7 @@ void QListWidget::count(void)
 }
 
 
-// ==== entry=004bcbb0 name=__uselocale size=6 ====
+// ==== entry=004bcbb0 orig=FUN_004bcbb0 size=6 name=__uselocale ====
 
 void __uselocale(void)
 
@@ -10765,7 +10765,7 @@ void __uselocale(void)
 }
 
 
-// ==== entry=004bcbc0 name=compare size=6 ====
+// ==== entry=004bcbc0 orig=FUN_004bcbc0 size=6 name=compare ====
 
 void QString::compare(void)
 
@@ -10775,7 +10775,7 @@ void QString::compare(void)
 }
 
 
-// ==== entry=004bcbd0 name=filterRole size=6 ====
+// ==== entry=004bcbd0 orig=FUN_004bcbd0 size=6 name=filterRole ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10787,7 +10787,7 @@ void QSortFilterProxyModel::filterRole(void)
 }
 
 
-// ==== entry=004bcbe0 name=capStyle size=6 ====
+// ==== entry=004bcbe0 orig=FUN_004bcbe0 size=6 name=capStyle ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10799,7 +10799,7 @@ void QPen::capStyle(void)
 }
 
 
-// ==== entry=004bcbf0 name=__fxstat64 size=6 ====
+// ==== entry=004bcbf0 orig=FUN_004bcbf0 size=6 name=__fxstat64 ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10813,7 +10813,7 @@ int __fxstat64(int __ver,int __fildes,stat64 *__stat_buf)
 }
 
 
-// ==== entry=004bcc00 name=__cxa_atexit size=6 ====
+// ==== entry=004bcc00 orig=FUN_004bcc00 size=6 name=__cxa_atexit ====
 
 void __cxa_atexit(void)
 
@@ -10823,7 +10823,7 @@ void __cxa_atexit(void)
 }
 
 
-// ==== entry=004bcc10 name=nextNode size=6 ====
+// ==== entry=004bcc10 orig=FUN_004bcc10 size=6 name=nextNode ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10835,7 +10835,7 @@ void QHashData::nextNode(Node *param_1)
 }
 
 
-// ==== entry=004bcc20 name=endsWith size=6 ====
+// ==== entry=004bcc20 orig=FUN_004bcc20 size=6 name=endsWith ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10847,7 +10847,7 @@ void QByteArray::endsWith(char param_1)
 }
 
 
-// ==== entry=004bcc30 name=setText size=6 ====
+// ==== entry=004bcc30 orig=FUN_004bcc30 size=6 name=setText ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10859,7 +10859,7 @@ void QMimeData::setText(QString *param_1)
 }
 
 
-// ==== entry=004bcc40 name=styleHint size=6 ====
+// ==== entry=004bcc40 orig=FUN_004bcc40 size=6 name=styleHint ====
 
 void QProxyStyle::styleHint(void)
 
@@ -10869,7 +10869,7 @@ void QProxyStyle::styleHint(void)
 }
 
 
-// ==== entry=004bcc50 name=paintEvent size=6 ====
+// ==== entry=004bcc50 orig=FUN_004bcc50 size=6 name=paintEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10881,7 +10881,7 @@ void QScrollBar::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=004bcc60 name=setLabelAlignment size=6 ====
+// ==== entry=004bcc60 orig=FUN_004bcc60 size=6 name=setLabelAlignment ====
 
 void QFormLayout::setLabelAlignment(void)
 
@@ -10891,7 +10891,7 @@ void QFormLayout::setLabelAlignment(void)
 }
 
 
-// ==== entry=004bcc70 name=ssh_userauth_publickey size=6 ====
+// ==== entry=004bcc70 orig=FUN_004bcc70 size=6 name=ssh_userauth_publickey ====
 
 void ssh_userauth_publickey(void)
 
@@ -10901,7 +10901,7 @@ void ssh_userauth_publickey(void)
 }
 
 
-// ==== entry=004bcc80 name=setOrientation size=6 ====
+// ==== entry=004bcc80 orig=FUN_004bcc80 size=6 name=setOrientation ====
 
 void QAbstractSlider::setOrientation(void)
 
@@ -10911,7 +10911,7 @@ void QAbstractSlider::setOrientation(void)
 }
 
 
-// ==== entry=004bcc90 name=QStyleOption size=6 ====
+// ==== entry=004bcc90 orig=FUN_004bcc90 size=6 name=QStyleOption ====
 
 void __thiscall QStyleOption::QStyleOption(QStyleOption *this,int param_1,int param_2)
 
@@ -10921,7 +10921,7 @@ void __thiscall QStyleOption::QStyleOption(QStyleOption *this,int param_1,int pa
 }
 
 
-// ==== entry=004bcca0 name=setScaledContents size=6 ====
+// ==== entry=004bcca0 orig=FUN_004bcca0 size=6 name=setScaledContents ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10933,7 +10933,7 @@ void QLabel::setScaledContents(bool param_1)
 }
 
 
-// ==== entry=004bccb0 name=setFillRule size=6 ====
+// ==== entry=004bccb0 orig=FUN_004bccb0 size=6 name=setFillRule ====
 
 void QPainterPath::setFillRule(void)
 
@@ -10943,7 +10943,7 @@ void QPainterPath::setFillRule(void)
 }
 
 
-// ==== entry=004bccc0 name=error size=6 ====
+// ==== entry=004bccc0 orig=FUN_004bccc0 size=6 name=error ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10955,7 +10955,7 @@ void QHostInfo::error(void)
 }
 
 
-// ==== entry=004bccd0 name=spacing size=6 ====
+// ==== entry=004bccd0 orig=FUN_004bccd0 size=6 name=spacing ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10967,7 +10967,7 @@ void QBoxLayout::spacing(void)
 }
 
 
-// ==== entry=004bcce0 name=reason size=6 ====
+// ==== entry=004bcce0 orig=FUN_004bcce0 size=6 name=reason ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10979,7 +10979,7 @@ void QFocusEvent::reason(void)
 }
 
 
-// ==== entry=004bccf0 name=blockSignals size=6 ====
+// ==== entry=004bccf0 orig=FUN_004bccf0 size=6 name=blockSignals ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -10991,7 +10991,7 @@ void QObject::blockSignals(bool param_1)
 }
 
 
-// ==== entry=004bcd00 name=~QObject size=6 ====
+// ==== entry=004bcd00 orig=FUN_004bcd00 size=6 name=~QObject ====
 
 void __thiscall QObject::~QObject(QObject *this)
 
@@ -11001,7 +11001,7 @@ void __thiscall QObject::~QObject(QObject *this)
 }
 
 
-// ==== entry=004bcd10 name=operator<< size=6 ====
+// ==== entry=004bcd10 orig=FUN_004bcd10 size=6 name=operator<< ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11013,7 +11013,7 @@ void operator<<(QDataStream *param_1,QVariant *param_2)
 }
 
 
-// ==== entry=004bcd20 name=round size=6 ====
+// ==== entry=004bcd20 orig=FUN_004bcd20 size=6 name=round ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11027,7 +11027,7 @@ double round(double __x)
 }
 
 
-// ==== entry=004bcd30 name=isPrint size=6 ====
+// ==== entry=004bcd30 orig=FUN_004bcd30 size=6 name=isPrint ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11039,7 +11039,7 @@ void QChar::isPrint(uint param_1)
 }
 
 
-// ==== entry=004bcd40 name=sftp_init2 size=6 ====
+// ==== entry=004bcd40 orig=FUN_004bcd40 size=6 name=sftp_init2 ====
 
 void sftp_init2(void)
 
@@ -11049,7 +11049,7 @@ void sftp_init2(void)
 }
 
 
-// ==== entry=004bcd50 name=~QRegularExpressionMatch size=6 ====
+// ==== entry=004bcd50 orig=FUN_004bcd50 size=6 name=~QRegularExpressionMatch ====
 
 void __thiscall QRegularExpressionMatch::~QRegularExpressionMatch(QRegularExpressionMatch *this)
 
@@ -11059,7 +11059,7 @@ void __thiscall QRegularExpressionMatch::~QRegularExpressionMatch(QRegularExpres
 }
 
 
-// ==== entry=004bcd60 name=availableSizes size=6 ====
+// ==== entry=004bcd60 orig=FUN_004bcd60 size=6 name=availableSizes ====
 
 void QIcon::availableSizes(void)
 
@@ -11069,7 +11069,7 @@ void QIcon::availableSizes(void)
 }
 
 
-// ==== entry=004bcd70 name=QTextStream size=6 ====
+// ==== entry=004bcd70 orig=FUN_004bcd70 size=6 name=QTextStream ====
 
 void __thiscall QTextStream::QTextStream(QTextStream *this,QIODevice *param_1)
 
@@ -11079,7 +11079,7 @@ void __thiscall QTextStream::QTextStream(QTextStream *this,QIODevice *param_1)
 }
 
 
-// ==== entry=004bcd80 name=sender size=6 ====
+// ==== entry=004bcd80 orig=FUN_004bcd80 size=6 name=sender ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11091,7 +11091,7 @@ void QObject::sender(void)
 }
 
 
-// ==== entry=004bcd90 name=mouseMoveEvent size=6 ====
+// ==== entry=004bcd90 orig=FUN_004bcd90 size=6 name=mouseMoveEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11103,7 +11103,7 @@ void QTreeView::mouseMoveEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=004bcda0 name=height size=6 ====
+// ==== entry=004bcda0 orig=FUN_004bcda0 size=6 name=height ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11115,7 +11115,7 @@ void QFontMetricsF::height(void)
 }
 
 
-// ==== entry=004bcdb0 name=keyPressEvent size=6 ====
+// ==== entry=004bcdb0 orig=FUN_004bcdb0 size=6 name=keyPressEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11127,7 +11127,7 @@ void QLineEdit::keyPressEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=004bcdc0 name=QLocalSocket size=6 ====
+// ==== entry=004bcdc0 orig=FUN_004bcdc0 size=6 name=QLocalSocket ====
 
 void __thiscall QLocalSocket::QLocalSocket(QLocalSocket *this,QObject *param_1)
 
@@ -11137,7 +11137,7 @@ void __thiscall QLocalSocket::QLocalSocket(QLocalSocket *this,QObject *param_1)
 }
 
 
-// ==== entry=004bcdd0 name=qt_metacall size=6 ====
+// ==== entry=004bcdd0 orig=FUN_004bcdd0 size=6 name=qt_metacall ====
 
 void QFileDialog::qt_metacall(void)
 
@@ -11147,7 +11147,7 @@ void QFileDialog::qt_metacall(void)
 }
 
 
-// ==== entry=004bcde0 name=operator[] size=6 ====
+// ==== entry=004bcde0 orig=FUN_004bcde0 size=6 name=operator[] ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11159,7 +11159,7 @@ void QJsonArray::operator[](int param_1)
 }
 
 
-// ==== entry=004bcdf0 name=setMimeData size=6 ====
+// ==== entry=004bcdf0 orig=FUN_004bcdf0 size=6 name=setMimeData ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11171,7 +11171,7 @@ void QDrag::setMimeData(QMimeData *param_1)
 }
 
 
-// ==== entry=004bce00 name=qt_metacall size=6 ====
+// ==== entry=004bce00 orig=FUN_004bce00 size=6 name=qt_metacall ====
 
 void QStyledItemDelegate::qt_metacall(void)
 
@@ -11181,7 +11181,7 @@ void QStyledItemDelegate::qt_metacall(void)
 }
 
 
-// ==== entry=004bce10 name=~QBrush size=6 ====
+// ==== entry=004bce10 orig=FUN_004bce10 size=6 name=~QBrush ====
 
 void __thiscall QBrush::~QBrush(QBrush *this)
 
@@ -11191,7 +11191,7 @@ void __thiscall QBrush::~QBrush(QBrush *this)
 }
 
 
-// ==== entry=004bce20 name=pthread_cond_broadcast size=6 ====
+// ==== entry=004bce20 orig=FUN_004bce20 size=6 name=pthread_cond_broadcast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11205,7 +11205,7 @@ int pthread_cond_broadcast(pthread_cond_t *__cond)
 }
 
 
-// ==== entry=004bce30 name=QStringList_join size=6 ====
+// ==== entry=004bce30 orig=FUN_004bce30 size=6 name=QStringList_join ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11217,7 +11217,7 @@ void QtPrivate::QStringList_join(QStringList *param_1,QChar *param_2,int param_3
 }
 
 
-// ==== entry=004bce40 name=ssh_set_callbacks size=6 ====
+// ==== entry=004bce40 orig=FUN_004bce40 size=6 name=ssh_set_callbacks ====
 
 void ssh_set_callbacks(void)
 
@@ -11227,7 +11227,7 @@ void ssh_set_callbacks(void)
 }
 
 
-// ==== entry=004bce50 name=btowc size=6 ====
+// ==== entry=004bce50 orig=FUN_004bce50 size=6 name=btowc ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11241,7 +11241,7 @@ wint_t btowc(int __c)
 }
 
 
-// ==== entry=004bce60 name=fromHex size=6 ====
+// ==== entry=004bce60 orig=FUN_004bce60 size=6 name=fromHex ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11253,7 +11253,7 @@ void QByteArray::fromHex(QByteArray *param_1)
 }
 
 
-// ==== entry=004bce70 name=toList size=6 ====
+// ==== entry=004bce70 orig=FUN_004bce70 size=6 name=toList ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11265,7 +11265,7 @@ void QVariant::toList(void)
 }
 
 
-// ==== entry=004bce80 name=ssh_userauth_kbdint_getnprompts size=6 ====
+// ==== entry=004bce80 orig=FUN_004bce80 size=6 name=ssh_userauth_kbdint_getnprompts ====
 
 void ssh_userauth_kbdint_getnprompts(void)
 
@@ -11275,7 +11275,7 @@ void ssh_userauth_kbdint_getnprompts(void)
 }
 
 
-// ==== entry=004bce90 name=setIconSize size=6 ====
+// ==== entry=004bce90 orig=FUN_004bce90 size=6 name=setIconSize ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11287,7 +11287,7 @@ void QTabBar::setIconSize(QSize *param_1)
 }
 
 
-// ==== entry=004bcea0 name=getText size=6 ====
+// ==== entry=004bcea0 orig=FUN_004bcea0 size=6 name=getText ====
 
 void QInputDialog::getText(void)
 
@@ -11297,7 +11297,7 @@ void QInputDialog::getText(void)
 }
 
 
-// ==== entry=004bceb0 name=setWordWrap size=6 ====
+// ==== entry=004bceb0 orig=FUN_004bceb0 size=6 name=setWordWrap ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11309,7 +11309,7 @@ void QLabel::setWordWrap(bool param_1)
 }
 
 
-// ==== entry=004bcec0 name=ssh_channel_request_env size=6 ====
+// ==== entry=004bcec0 orig=FUN_004bcec0 size=6 name=ssh_channel_request_env ====
 
 void ssh_channel_request_env(void)
 
@@ -11319,7 +11319,7 @@ void ssh_channel_request_env(void)
 }
 
 
-// ==== entry=004bced0 name=lockForRead size=6 ====
+// ==== entry=004bced0 orig=FUN_004bced0 size=6 name=lockForRead ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11331,7 +11331,7 @@ void QReadWriteLock::lockForRead(void)
 }
 
 
-// ==== entry=004bcee0 name=connected size=6 ====
+// ==== entry=004bcee0 orig=FUN_004bcee0 size=6 name=connected ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11343,7 +11343,7 @@ void QAbstractSocket::connected(void)
 }
 
 
-// ==== entry=004bcef0 name=start size=6 ====
+// ==== entry=004bcef0 orig=FUN_004bcef0 size=6 name=start ====
 
 void QThread::start(void)
 
@@ -11353,7 +11353,7 @@ void QThread::start(void)
 }
 
 
-// ==== entry=004bcf00 name=rename size=6 ====
+// ==== entry=004bcf00 orig=FUN_004bcf00 size=6 name=rename ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11365,7 +11365,7 @@ void QDir::rename(QString *param_1,QString *param_2)
 }
 
 
-// ==== entry=004bcf10 name=restore size=6 ====
+// ==== entry=004bcf10 orig=FUN_004bcf10 size=6 name=restore ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11377,7 +11377,7 @@ void QPainter::restore(void)
 }
 
 
-// ==== entry=004bcf20 name=setColumnWidth size=6 ====
+// ==== entry=004bcf20 orig=FUN_004bcf20 size=6 name=setColumnWidth ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11389,7 +11389,7 @@ void QTreeView::setColumnWidth(int param_1,int param_2)
 }
 
 
-// ==== entry=004bcf30 name=qt_metacall size=6 ====
+// ==== entry=004bcf30 orig=FUN_004bcf30 size=6 name=qt_metacall ====
 
 void QWidget::qt_metacall(void)
 
@@ -11399,7 +11399,7 @@ void QWidget::qt_metacall(void)
 }
 
 
-// ==== entry=004bcf40 name=wmemcmp size=6 ====
+// ==== entry=004bcf40 orig=FUN_004bcf40 size=6 name=wmemcmp ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11413,7 +11413,7 @@ int wmemcmp(wchar_t *__s1,wchar_t *__s2,size_t __n)
 }
 
 
-// ==== entry=004bcf50 name=qt_metacast size=6 ====
+// ==== entry=004bcf50 orig=FUN_004bcf50 size=6 name=qt_metacast ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11425,7 +11425,7 @@ void QAbstractItemModel::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=004bcf60 name=pattern size=6 ====
+// ==== entry=004bcf60 orig=FUN_004bcf60 size=6 name=pattern ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11437,7 +11437,7 @@ void QStringMatcher::pattern(void)
 }
 
 
-// ==== entry=004bcf70 name=red size=6 ====
+// ==== entry=004bcf70 orig=FUN_004bcf70 size=6 name=red ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11449,7 +11449,7 @@ void QColor::red(void)
 }
 
 
-// ==== entry=004bcf80 name=setDropIndicatorShown size=6 ====
+// ==== entry=004bcf80 orig=FUN_004bcf80 size=6 name=setDropIndicatorShown ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -11461,7 +11461,7 @@ void QAbstractItemView::setDropIndicatorShown(bool param_1)
 }
 
 
-// ==== entry=004bcf90 name=QProxyStyle size=6 ====
+// ==== entry=004bcf90 orig=FUN_004bcf90 size=6 name=QProxyStyle ====
 
 void __thiscall QProxyStyle::QProxyStyle(QProxyStyle *this,QString *param_1)
 

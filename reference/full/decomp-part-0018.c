@@ -601,7 +601,7 @@ void FUN_00586b86(QFrame *param_1,undefined8 *param_2,undefined8 param_3)
   int *piVar1;
   
   QFrame::QFrame(param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_FUN_01196338;
+  *(undefined ***)param_1 = &TransferLabel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011964e8;
   piVar1 = (int *)*param_2;
   *(int **)(param_1 + 0x30) = piVar1;
@@ -2827,7 +2827,7 @@ void FUN_0058a3f6(undefined8 *param_1)
 
 {
   FUN_00574f30();
-  *param_1 = &PTR_FUN_011967f8;
+  *param_1 = &TreeItemDelegate_vtable;
   param_1[0xb] = 0xffffffffffffffff;
                     /* try { // try from 0058a41f to 0058a423 has its CatchHandler @ 0058a485 */
   QPixmap::QPixmap((QPixmap *)(param_1 + 0xc));
@@ -5284,7 +5284,7 @@ void FUN_0058d562(QPushButton *param_1,QWidget *param_2)
   QCursor local_20 [8];
   
   QPushButton::QPushButton(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011986d0;
+  *(undefined ***)param_1 = &SideButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198898;
                     /* try { // try from 0058d592 to 0058d5a5 has its CatchHandler @ 0058d5cc */
   QPushButton::setFlat(SUB81(param_1,0));
@@ -5304,7 +5304,7 @@ void FUN_0058d5dc(QWidget *param_1,undefined8 param_2)
 
 {
   QWidget::QWidget(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011988e8;
+  *(undefined ***)param_1 = &SideSeparator_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198a98;
                     /* try { // try from 0058d60c to 0058d610 has its CatchHandler @ 0058d618 */
   QWidget::setSizePolicy(param_1,0x110000);
@@ -9190,13 +9190,13 @@ LAB_0059306d:
 
 // ==== entry=0059373a orig=FUN_0059373a size=175 name=LoginWizard_dtor ====
 
-void FUN_0059373a(QWidget *param_1)
+void LoginWizard_dtor(QWidget *param_1)
 
 {
   int *piVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_01198b78;
+  *(undefined ***)param_1 = &LoginWizard_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198d28;
   pQVar2 = *(QArrayData **)(param_1 + 0xa8);
   if (*(int *)pQVar2 != 0) {
@@ -9239,17 +9239,17 @@ LAB_0059376e:
 void FUN_005937e9(long param_1)
 
 {
-  FUN_0059373a(param_1 + -0x10);
+  LoginWizard_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=005937f2 orig=FUN_005937f2 size=23 name=LoginWizard_dtor_deleting ====
 
-void FUN_005937f2(void *param_1)
+void LoginWizard_dtor_deleting(void *param_1)
 
 {
-  FUN_0059373a();
+  LoginWizard_dtor();
   operator_delete(param_1,0xb0);
   return;
 }
@@ -9260,7 +9260,7 @@ void FUN_005937f2(void *param_1)
 void FUN_00593809(long param_1)
 
 {
-  FUN_005937f2(param_1 + -0x10);
+  LoginWizard_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -9276,7 +9276,7 @@ void FUN_00593810(QString *param_1,undefined8 param_2,undefined8 param_3)
   QArrayData *pQVar2;
   
   QWidget::QWidget((QWidget *)param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_FUN_01198b78;
+  *(undefined ***)param_1 = &LoginWizard_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198d28;
   param_1[0x30] = (QString)0x0;
   *(undefined8 **)(param_1 + 0x38) = &QListData::shared_null;
@@ -11018,7 +11018,7 @@ joined_r0x00596ba6:
 }
 
 
-// ==== entry=00596c40 name=thunk_FUN_00596a82 size=5 ====
+// ==== entry=00596c40 orig=FUN_00596c40 size=5 name=thunk_FUN_00596a82 ====
 
 void thunk_FUN_00596a82(undefined8 param_1)
 
@@ -12335,13 +12335,13 @@ void FUN_005980a8(QMenu *param_1,QString *param_2,QWidget *param_3)
 
 {
   QMenu::QMenu(param_1,param_2,param_3);
-  *(undefined ***)param_1 = &PTR_FUN_01199e78;
+  *(undefined ***)param_1 = &Menu_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119a028;
   return;
 }
 
 
-// ==== entry=005980cc name=addAction size=5 ====
+// ==== entry=005980cc orig=FUN_005980cc size=5 name=addAction ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12353,7 +12353,7 @@ void QWidget::addAction(QAction *param_1)
 }
 
 
-// ==== entry=005980d2 name=addAction size=5 ====
+// ==== entry=005980d2 orig=FUN_005980d2 size=5 name=addAction ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12365,7 +12365,7 @@ void QMenu::addAction(QIcon *param_1,QString *param_2)
 }
 
 
-// ==== entry=005980d8 name=addMenu size=5 ====
+// ==== entry=005980d8 orig=FUN_005980d8 size=5 name=addMenu ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12377,7 +12377,7 @@ void QMenu::addMenu(QMenu *param_1)
 }
 
 
-// ==== entry=005980de name=addSection size=5 ====
+// ==== entry=005980de orig=FUN_005980de size=5 name=addSection ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12389,7 +12389,7 @@ void QMenu::addSection(QIcon *param_1,QString *param_2)
 }
 
 
-// ==== entry=005980e4 name=addSeparator size=5 ====
+// ==== entry=005980e4 orig=FUN_005980e4 size=5 name=addSeparator ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -14388,7 +14388,7 @@ void FUN_0059af30(QString *param_1,undefined8 param_2)
   QArrayData *pQVar2;
   
   QWidget::QWidget((QWidget *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_0119a0d8;
+  *(undefined ***)param_1 = &MessageBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119a288;
   *(undefined8 *)(param_1 + 0x48) = 0;
   param_1[0x50] = (QString)((byte)param_1[0x50] & 0xfc);
@@ -17227,13 +17227,13 @@ void FUN_005a0880(int param_1,void *param_2)
 
 // ==== entry=005a08fa orig=FUN_005a08fa size=173 name=PopupWidget_dtor ====
 
-void FUN_005a08fa(QFrame *param_1)
+void PopupWidget_dtor(QFrame *param_1)
 
 {
   long lVar1;
   long lVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_0119b178;
+  *(undefined ***)param_1 = &PopupWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119b328;
   lVar2 = *(long *)(*(long *)(param_1 + 8) + 0x10);
   if (lVar2 != 0) {
@@ -17260,17 +17260,17 @@ void FUN_005a08fa(QFrame *param_1)
 void FUN_005a09a7(long param_1)
 
 {
-  FUN_005a08fa(param_1 + -0x10);
+  PopupWidget_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=005a09b0 orig=FUN_005a09b0 size=23 name=PopupWidget_dtor_deleting ====
 
-void FUN_005a09b0(void *param_1)
+void PopupWidget_dtor_deleting(void *param_1)
 
 {
-  FUN_005a08fa();
+  PopupWidget_dtor();
   operator_delete(param_1,0x30);
   return;
 }
@@ -17281,7 +17281,7 @@ void FUN_005a09b0(void *param_1)
 void FUN_005a09c7(long param_1)
 
 {
-  FUN_005a09b0(param_1 + -0x10);
+  PopupWidget_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -17308,7 +17308,7 @@ void FUN_005a0a10(QFrame *param_1,undefined8 param_2)
 
 {
   QFrame::QFrame(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_0119b178;
+  *(undefined ***)param_1 = &PopupWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119b328;
                     /* try { // try from 005a0a40 to 005a0aab has its CatchHandler @ 005a0ab3 */
   QWidget::setWindowFlags(param_1,0x240c0b);
@@ -17809,7 +17809,7 @@ void FUN_005a16d0(QProxyStyle *param_1,QString *param_2)
 
 {
   QProxyStyle::QProxyStyle(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_metaObject_01184bb0;
+  *(undefined ***)param_1 = &ProxyStyle_vtable;
   return;
 }
 
@@ -18037,10 +18037,10 @@ undefined8 FUN_005a1b58(undefined8 param_1,int param_2)
 
 // ==== entry=005a1b72 orig=FUN_005a1b72 size=19 name=ProxyStyle_dtor ====
 
-void FUN_005a1b72(QProxyStyle *param_1)
+void ProxyStyle_dtor(QProxyStyle *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_01184bb0;
+  *(undefined ***)param_1 = &ProxyStyle_vtable;
   QProxyStyle::~QProxyStyle(param_1);
   return;
 }
@@ -18048,10 +18048,10 @@ void FUN_005a1b72(QProxyStyle *param_1)
 
 // ==== entry=005a1b86 orig=FUN_005a1b86 size=37 name=ProxyStyle_dtor_deleting ====
 
-void FUN_005a1b86(QProxyStyle *param_1)
+void ProxyStyle_dtor_deleting(QProxyStyle *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_01184bb0;
+  *(undefined ***)param_1 = &ProxyStyle_vtable;
   QProxyStyle::~QProxyStyle(param_1);
   operator_delete(param_1,0x10);
   return;
@@ -18089,12 +18089,12 @@ LAB_005a1bdb:
 
 // ==== entry=005a1c00 orig=FUN_005a1c00 size=42 name=Splitter::Splitter(QWidget*) ====
 
-void FUN_005a1c00(QSplitter *param_1,QWidget *param_2)
+void Splitter__Splitter_QWidget__(QSplitter *param_1,QWidget *param_2)
 
 {
   QSplitter::QSplitter(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_01197f98;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198150;
+  *(undefined ***)param_1 = &Splitter_vtable;
+  *(undefined ***)(param_1 + 0x10) = &Splitter__vtable_secondary;
   *(undefined4 *)(param_1 + 0x30) = 0;
   return;
 }
@@ -18102,11 +18102,11 @@ void FUN_005a1c00(QSplitter *param_1,QWidget *param_2)
 
 // ==== entry=005a1c2a orig=FUN_005a1c2a size=29 name=Splitter_dtor ====
 
-void FUN_005a1c2a(QSplitter *param_1)
+void Splitter_dtor(QSplitter *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_01197f98;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198150;
+  *(undefined ***)param_1 = &Splitter_vtable;
+  *(undefined ***)(param_1 + 0x10) = &Splitter__vtable_secondary;
   QSplitter::~QSplitter(param_1);
   return;
 }
@@ -18117,17 +18117,17 @@ void FUN_005a1c2a(QSplitter *param_1)
 void FUN_005a1c47(long param_1)
 
 {
-  FUN_005a1c2a(param_1 + -0x10);
+  Splitter_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=005a1c4e orig=FUN_005a1c4e size=23 name=Splitter_dtor_deleting ====
 
-void FUN_005a1c4e(void *param_1)
+void Splitter_dtor_deleting(void *param_1)
 
 {
-  FUN_005a1c2a();
+  Splitter_dtor();
   operator_delete(param_1,0x38);
   return;
 }
@@ -18138,7 +18138,7 @@ void FUN_005a1c4e(void *param_1)
 void FUN_005a1c65(long param_1)
 
 {
-  FUN_005a1c4e(param_1 + -0x10);
+  Splitter_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -18343,7 +18343,7 @@ void FUN_005a2096(undefined8 param_1,undefined8 param_2,char param_3)
 
 // ==== entry=005a20a4 orig=FUN_005a20a4 size=164 name=Splitter::eventFilter(QObject*,QEvent*) ====
 
-void FUN_005a20a4(QObject *param_1,QEvent *param_2,long param_3)
+void Splitter__eventFilter_QObject__QEvent__(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   byte bVar1;
@@ -18536,7 +18536,7 @@ void FUN_005a2314(QWidget *param_1,undefined8 param_2)
 
 {
   QWidget::QWidget(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011981f8;
+  *(undefined ***)param_1 = &SplitterGroup_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011983a8;
   *(undefined8 *)(param_1 + 0x30) = 0;
   *(undefined8 *)(param_1 + 0x38) = 0;
@@ -18727,7 +18727,7 @@ void FUN_005a2518(long param_1,long *param_2,char param_3)
 
 // ==== entry=005a277a orig=FUN_005a277a size=596 name=King::insertPane ====
 
-void FUN_005a277a(undefined8 param_1,long param_2,long param_3,uint param_4)
+void King__insertPane(undefined8 param_1,long param_2,long param_3,uint param_4)
 
 {
   uint uVar1;
@@ -21869,7 +21869,7 @@ void FUN_005a6ca6(undefined8 *param_1,long param_2,int param_3)
 }
 
 
-// ==== entry=005a6cfa name=thunk_FUN_008f6608 size=5 ====
+// ==== entry=005a6cfa orig=FUN_005a6cfa size=5 name=thunk_FUN_008f6608 ====
 
 void thunk_FUN_008f6608(QObject *param_1)
 
@@ -23052,7 +23052,7 @@ void FUN_005a859a(QTabBar *param_1,QWidget *param_2)
   undefined8 local_30;
   
   QTabBar::QTabBar(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_01197d18;
+  *(undefined ***)param_1 = &TabBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197ef0;
   param_1[0x31] = (QTabBar)0x1;
   sVar1 = strlen("None");
@@ -26949,7 +26949,7 @@ void FUN_005ad4a6(double param_1,QObject *param_2)
 }
 
 
-// ==== entry=005ad5bc name=thunk_FUN_005ad4a6 size=5 ====
+// ==== entry=005ad5bc orig=FUN_005ad5bc size=5 name=thunk_FUN_005ad4a6 ====
 
 void thunk_FUN_005ad4a6(double param_1,QObject *param_2)
 
@@ -26991,7 +26991,7 @@ void thunk_FUN_005ad4a6(double param_1,QObject *param_2)
 
 // ==== entry=005ad5c2 orig=FUN_005ad5c2 size=5695 name=TabGroup_dtor ====
 
-void FUN_005ad5c2(QFrame *param_1)
+void TabGroup_dtor(QFrame *param_1)
 
 {
   long lVar1;
@@ -27003,7 +27003,7 @@ void FUN_005ad5c2(QFrame *param_1)
   QMapNodeBase *pQVar7;
   QArrayData *pQVar8;
   
-  *(undefined ***)param_1 = &PTR_FUN_0119dc98;
+  *(undefined ***)param_1 = &TabGroup_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119de48;
   pQVar7 = *(QMapNodeBase **)(param_1 + 0x38);
   if (*(int *)pQVar7 != 0) {
@@ -28340,17 +28340,17 @@ LAB_005ad602:
 void FUN_005aec01(long param_1)
 
 {
-  FUN_005ad5c2(param_1 + -0x10);
+  TabGroup_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=005aec0a orig=FUN_005aec0a size=23 name=TabGroup_dtor_deleting ====
 
-void FUN_005aec0a(void *param_1)
+void TabGroup_dtor_deleting(void *param_1)
 
 {
-  FUN_005ad5c2();
+  TabGroup_dtor();
   operator_delete(param_1,0xa8);
   return;
 }
@@ -28361,7 +28361,7 @@ void FUN_005aec0a(void *param_1)
 void FUN_005aec21(long param_1)
 
 {
-  FUN_005aec0a(param_1 + -0x10);
+  TabGroup_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -28727,7 +28727,7 @@ void FUN_005af896(QString *param_1,undefined8 param_2)
   QArrayData *pQVar2;
   
   QFrame::QFrame((QFrame *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_0119dc98;
+  *(undefined ***)param_1 = &TabGroup_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119de48;
   param_1[0x30] = (QString)0x0;
   *(undefined8 **)(param_1 + 0x38) = &QMapDataBase::shared_null;
@@ -30001,7 +30001,7 @@ void FUN_005b1c08(QArrayData *param_1)
       this = operator_new(0x38);
                     /* try { // try from 005b2399 to 005b239d has its CatchHandler @ 005b2bb5 */
       QWidgetAction::QWidgetAction((QWidgetAction *)this,(QObject *)local_68);
-      *(undefined ***)this = &PTR_metaObject_01184db0;
+      *(undefined ***)this = &CloseButtonAction_vtable;
       *(undefined2 *)(this + 0x30) = 0x100;
       this[0x32] = (QVariant)0x0;
                     /* try { // try from 005b23bb to 005b23bf has its CatchHandler @ 005b2bad */
@@ -30283,7 +30283,7 @@ LAB_005b2496:
   this_01 = operator_new(0x20);
                     /* try { // try from 005b25e4 to 005b25e8 has its CatchHandler @ 005b2b55 */
   QWidgetAction::QWidgetAction(this_01,(QObject *)local_68);
-  *(undefined ***)this_01 = &PTR_metaObject_01184d28;
+  *(undefined ***)this_01 = &FilterEditAction_vtable;
                     /* try { // try from 005b25fc to 005b2600 has its CatchHandler @ 005b2b4c */
   pQVar12 = operator_new(0x30);
                     /* try { // try from 005b260b to 005b260f has its CatchHandler @ 005b2b44 */
@@ -30446,10 +30446,10 @@ void FUN_005b2bbd(int param_1,void *param_2)
 
 // ==== entry=005b2bec orig=FUN_005b2bec size=19 name=CloseButtonAction_dtor ====
 
-void FUN_005b2bec(QWidgetAction *param_1)
+void CloseButtonAction_dtor(QWidgetAction *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_01184db0;
+  *(undefined ***)param_1 = &CloseButtonAction_vtable;
   QWidgetAction::~QWidgetAction(param_1);
   return;
 }
@@ -30457,10 +30457,10 @@ void FUN_005b2bec(QWidgetAction *param_1)
 
 // ==== entry=005b2c00 orig=FUN_005b2c00 size=37 name=CloseButtonAction_dtor_deleting ====
 
-void FUN_005b2c00(QWidgetAction *param_1)
+void CloseButtonAction_dtor_deleting(QWidgetAction *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_01184db0;
+  *(undefined ***)param_1 = &CloseButtonAction_vtable;
   QWidgetAction::~QWidgetAction(param_1);
   operator_delete(param_1,0x38);
   return;
@@ -30469,7 +30469,7 @@ void FUN_005b2c00(QWidgetAction *param_1)
 
 // ==== entry=005b2c26 orig=FUN_005b2c26 size=19 name=FilterEditAction_dtor ====
 
-void FUN_005b2c26(QWidgetAction *param_1)
+void FilterEditAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -30480,7 +30480,7 @@ void FUN_005b2c26(QWidgetAction *param_1)
 
 // ==== entry=005b2c3a orig=FUN_005b2c3a size=37 name=FilterEditAction_dtor_deleting ====
 
-void FUN_005b2c3a(QWidgetAction *param_1)
+void FilterEditAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -30916,7 +30916,7 @@ void FUN_005b329c(QPushButton *param_1,QString *param_2,QWidget *param_3)
   QArrayData *local_38 [3];
   
   QPushButton::QPushButton(param_1,param_3);
-  *(undefined ***)param_1 = &PTR_FUN_01198dd8;
+  *(undefined ***)param_1 = &SwitchButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198fa0;
   local_38[0] = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 005b32f5 to 005b32f9 has its CatchHandler @ 005b33cf */
@@ -33412,7 +33412,7 @@ void FUN_005b5697(long param_1)
 }
 
 
-// ==== entry=005b56a0 name=thunk_FUN_008f2e28 size=5 ====
+// ==== entry=005b56a0 orig=FUN_005b56a0 size=5 name=thunk_FUN_008f2e28 ====
 
 void thunk_FUN_008f2e28(QObject *param_1)
 
@@ -45545,7 +45545,7 @@ void FUN_005c6d16(QString *param_1,undefined8 param_2,undefined4 param_3,undefin
   QArrayData *pQVar2;
   
   FUN_008de0c0(param_1,param_2,param_4);
-  *(undefined ***)param_1 = &PTR_FUN_01197468;
+  *(undefined ***)param_1 = &PTR_ScintillaEditWatcher_dtor_01197468;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197828;
   *(undefined ***)(param_1 + 0x48) = &PTR_FUN_01197878;
   *(undefined8 **)(param_1 + 0x50) = &QArrayData::shared_null;
@@ -47809,7 +47809,7 @@ LAB_005ca5bf:
 }
 
 
-// ==== entry=005ca5fa name=_M_clone size=209 ====
+// ==== entry=005ca5fa orig=FUN_005ca5fa size=209 name=_M_clone ====
 
 /* std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) */
 

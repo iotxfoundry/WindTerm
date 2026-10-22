@@ -5346,7 +5346,7 @@ void FUN_004dcb16(void)
   QFileDialog *unaff_RBX;
   QArrayData *pQVar1;
   
-  *(undefined ***)unaff_RBX = &PTR_FUN_0119ca78;
+  *(undefined ***)unaff_RBX = &FileDialog_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_0119cc50;
   pQVar1 = *(QArrayData **)(unaff_RBX + 0x30);
   if (*(int *)pQVar1 != 0) {

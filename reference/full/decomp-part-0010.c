@@ -165,7 +165,7 @@ void FUN_004ed298(void)
 
 {
   FUN_005249f0();
-  FUN_006ce568();
+  ProfileDialog_dtor();
   FUN_005249f0();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
@@ -178,7 +178,7 @@ void FUN_004ed2b8(void)
 
 {
   FUN_005249f0();
-  FUN_006ce568();
+  ProfileDialog_dtor();
   FUN_005249f0();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();

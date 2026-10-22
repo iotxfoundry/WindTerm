@@ -4038,7 +4038,7 @@ FUN_00c70e30(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8
 }
 
 
-// ==== entry=00c70fc0 name=~ctype size=57 ====
+// ==== entry=00c70fc0 orig=FUN_00c70fc0 size=57 name=~ctype ====
 
 /* std::ctype<char>::~ctype() */
 
@@ -4055,7 +4055,7 @@ void __thiscall std::ctype<char>::~ctype(ctype<char> *this)
 }
 
 
-// ==== entry=00c71000 name=~ctype size=51 ====
+// ==== entry=00c71000 orig=FUN_00c71000 size=51 name=~ctype ====
 
 /* std::ctype<wchar_t>::~ctype() */
 
@@ -4070,7 +4070,7 @@ void __thiscall std::ctype<wchar_t>::~ctype(ctype<wchar_t> *this)
 }
 
 
-// ==== entry=00c71040 name=~ctype_byname size=19 ====
+// ==== entry=00c71040 orig=FUN_00c71040 size=19 name=~ctype_byname ====
 
 /* std::ctype_byname<wchar_t>::~ctype_byname() */
 
@@ -4083,7 +4083,7 @@ void __thiscall std::ctype_byname<wchar_t>::~ctype_byname(ctype_byname<wchar_t> 
 }
 
 
-// ==== entry=00c71060 name=~ctype size=18 ====
+// ==== entry=00c71060 orig=FUN_00c71060 size=18 name=~ctype ====
 
 /* std::ctype<char>::~ctype() */
 
@@ -4096,7 +4096,7 @@ void __thiscall std::ctype<char>::~ctype(ctype<char> *this)
 }
 
 
-// ==== entry=00c71080 name=~ctype size=18 ====
+// ==== entry=00c71080 orig=FUN_00c71080 size=18 name=~ctype ====
 
 /* std::ctype<wchar_t>::~ctype() */
 
@@ -4109,7 +4109,7 @@ void __thiscall std::ctype<wchar_t>::~ctype(ctype<wchar_t> *this)
 }
 
 
-// ==== entry=00c710a0 name=~ctype_byname size=18 ====
+// ==== entry=00c710a0 orig=FUN_00c710a0 size=18 name=~ctype_byname ====
 
 /* std::ctype_byname<wchar_t>::~ctype_byname() */
 
@@ -4122,7 +4122,7 @@ void __thiscall std::ctype_byname<wchar_t>::~ctype_byname(ctype_byname<wchar_t> 
 }
 
 
-// ==== entry=00c710c0 name=_M_narrow_init size=476 ====
+// ==== entry=00c710c0 orig=FUN_00c710c0 size=476 name=_M_narrow_init ====
 
 /* std::ctype<char>::_M_narrow_init() const */
 
@@ -4233,7 +4233,7 @@ LAB_00c71248:
 }
 
 
-// ==== entry=00c712a0 name=_M_widen_init size=380 ====
+// ==== entry=00c712a0 orig=FUN_00c712a0 size=380 name=_M_widen_init ====
 
 /* std::ctype<char>::_M_widen_init() const */
 
@@ -4334,7 +4334,7 @@ void __thiscall std::ctype<char>::_M_widen_init(ctype<char> *this)
 }
 
 
-// ==== entry=00c71420 name=ctype size=61 ====
+// ==== entry=00c71420 orig=FUN_00c71420 size=61 name=ctype ====
 
 /* std::ctype<wchar_t>::ctype(unsigned long) */
 
@@ -4354,7 +4354,7 @@ void __thiscall std::ctype<wchar_t>::ctype(ctype<wchar_t> *this,ulong param_1)
 }
 
 
-// ==== entry=00c71470 name=ctype size=70 ====
+// ==== entry=00c71470 orig=FUN_00c71470 size=70 name=ctype ====
 
 /* std::ctype<wchar_t>::ctype(__locale_struct*, unsigned long) */
 
@@ -4376,7 +4376,7 @@ std::ctype<wchar_t>::ctype(ctype<wchar_t> *this,__locale_struct *param_1,ulong p
 }
 
 
-// ==== entry=00c714c0 name=ctype_byname size=126 ====
+// ==== entry=00c714c0 orig=FUN_00c714c0 size=126 name=ctype_byname ====
 
 /* std::ctype_byname<wchar_t>::ctype_byname(char const*, unsigned long) */
 
@@ -4435,7 +4435,7 @@ std::ctype_byname<wchar_t>::ctype_byname(ctype_byname<wchar_t> *this,char *param
 }
 
 
-// ==== entry=00c71550 name=operator<< size=12 ====
+// ==== entry=00c71550 orig=FUN_00c71550 size=12 name=operator<< ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::ostream& std::TEMPNAMEPLACEHOLDERVALUE(std::ostream&, std::string const&) */
@@ -4451,7 +4451,7 @@ ostream * std::operator<<(ostream *param_1,string *param_2)
 }
 
 
-// ==== entry=00c71560 name=getline<char,std::char_traits<char>,std::allocator<char>> size=104 ====
+// ==== entry=00c71560 orig=FUN_00c71560 size=104 name=getline<char,std::char_traits<char>,std::allocator<char>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::istream& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::istream&,
@@ -4596,7 +4596,7 @@ void FUN_00c71710(undefined8 *param_1)
 }
 
 
-// ==== entry=00c71730 name=ios_base size=138 ====
+// ==== entry=00c71730 orig=FUN_00c71730 size=138 name=ios_base ====
 
 /* std::ios_base::ios_base() */
 
@@ -4628,7 +4628,7 @@ void __thiscall std::ios_base::ios_base(ios_base *this)
 }
 
 
-// ==== entry=00c717c0 name=xalloc size=46 ====
+// ==== entry=00c717c0 orig=FUN_00c717c0 size=46 name=xalloc ====
 
 /* WARNING: Removing unreachable block (ram,0x00c717e0) */
 /* std::ios_base::xalloc() */
@@ -4646,7 +4646,7 @@ int std::ios_base::xalloc(void)
 }
 
 
-// ==== entry=00c71800 name=register_callback size=52 ====
+// ==== entry=00c71800 orig=FUN_00c71800 size=52 name=register_callback ====
 
 /* std::ios_base::register_callback(void (*)(std::ios_base::event, std::ios_base&, int), int) */
 
@@ -4669,7 +4669,7 @@ std::ios_base::register_callback
 }
 
 
-// ==== entry=00c71840 name=_M_grow_words size=376 ====
+// ==== entry=00c71840 orig=FUN_00c71840 size=376 name=_M_grow_words ====
 
 /* std::ios_base::_M_grow_words(int, bool) */
 
@@ -4748,7 +4748,7 @@ LAB_00c718a6:
 }
 
 
-// ==== entry=00c719e0 name=_M_call_callbacks size=49 ====
+// ==== entry=00c719e0 orig=FUN_00c719e0 size=49 name=_M_call_callbacks ====
 
 /* std::ios_base::_M_call_callbacks(std::ios_base::event) */
 
@@ -4766,7 +4766,7 @@ void __thiscall std::ios_base::_M_call_callbacks(ios_base *this,undefined4 param
 }
 
 
-// ==== entry=00c71a20 name=_M_dispose_callbacks size=87 ====
+// ==== entry=00c71a20 orig=FUN_00c71a20 size=87 name=_M_dispose_callbacks ====
 
 /* WARNING: Removing unreachable block (ram,0x00c71a63) */
 /* std::ios_base::_M_dispose_callbacks() */
@@ -4796,7 +4796,7 @@ void __thiscall std::ios_base::_M_dispose_callbacks(ios_base *this)
 }
 
 
-// ==== entry=00c71a80 name=~ios_base size=83 ====
+// ==== entry=00c71a80 orig=FUN_00c71a80 size=83 name=~ios_base ====
 
 /* std::ios_base::~ios_base() */
 
@@ -4820,7 +4820,7 @@ void __thiscall std::ios_base::~ios_base(ios_base *this)
 }
 
 
-// ==== entry=00c71ae0 name=~ios_base size=18 ====
+// ==== entry=00c71ae0 orig=FUN_00c71ae0 size=18 name=~ios_base ====
 
 /* std::ios_base::~ios_base() */
 
@@ -4988,7 +4988,7 @@ void FUN_00c71c10(long param_1,long param_2)
 }
 
 
-// ==== entry=00c71dd0 name=classic_table size=18 ====
+// ==== entry=00c71dd0 orig=FUN_00c71dd0 size=18 name=classic_table ====
 
 /* std::ctype<char>::classic_table() */
 
@@ -5003,7 +5003,7 @@ undefined8 std::ctype<char>::classic_table(void)
 }
 
 
-// ==== entry=00c71df0 name=ctype size=219 ====
+// ==== entry=00c71df0 orig=FUN_00c71df0 size=219 name=ctype ====
 
 /* std::ctype<char>::ctype(__locale_struct*, unsigned short const*, bool, unsigned long) */
 
@@ -5053,7 +5053,7 @@ std::ctype<char>::ctype
 }
 
 
-// ==== entry=00c71ed0 name=ctype size=201 ====
+// ==== entry=00c71ed0 orig=FUN_00c71ed0 size=201 name=ctype ====
 
 /* std::ctype<char>::ctype(unsigned short const*, bool, unsigned long) */
 
@@ -5101,7 +5101,7 @@ std::ctype<char>::ctype(ctype<char> *this,ushort *param_1,bool param_2,ulong par
 }
 
 
-// ==== entry=00c71fb0 name=do_toupper size=12 ====
+// ==== entry=00c71fb0 orig=FUN_00c71fb0 size=12 name=do_toupper ====
 
 /* std::ctype<char>::do_toupper(char) const */
 
@@ -5112,7 +5112,7 @@ undefined4 __thiscall std::ctype<char>::do_toupper(ctype<char> *this,char param_
 }
 
 
-// ==== entry=00c71fc0 name=do_toupper size=41 ====
+// ==== entry=00c71fc0 orig=FUN_00c71fc0 size=41 name=do_toupper ====
 
 /* std::ctype<char>::do_toupper(char*, char const*) const */
 
@@ -5132,7 +5132,7 @@ void __thiscall std::ctype<char>::do_toupper(ctype<char> *this,char *param_1,cha
 }
 
 
-// ==== entry=00c71ff0 name=do_tolower size=12 ====
+// ==== entry=00c71ff0 orig=FUN_00c71ff0 size=12 name=do_tolower ====
 
 /* std::ctype<char>::do_tolower(char) const */
 
@@ -5143,7 +5143,7 @@ undefined4 __thiscall std::ctype<char>::do_tolower(ctype<char> *this,char param_
 }
 
 
-// ==== entry=00c72000 name=do_tolower size=41 ====
+// ==== entry=00c72000 orig=FUN_00c72000 size=41 name=do_tolower ====
 
 /* std::ctype<char>::do_tolower(char*, char const*) const */
 
@@ -5163,7 +5163,7 @@ void __thiscall std::ctype<char>::do_tolower(ctype<char> *this,char *param_1,cha
 }
 
 
-// ==== entry=00c72030 name=operator.new[] size=5 ====
+// ==== entry=00c72030 orig=FUN_00c72030 size=5 name=operator.new[] ====
 
 /* operator new[](unsigned long, std::nothrow_t const&) */
 
@@ -5189,7 +5189,7 @@ void * operator_new__(ulong param_1,nothrow_t *param_2)
 }
 
 
-// ==== entry=00c72040 name=__cxa_bad_cast size=50 ====
+// ==== entry=00c72040 orig=FUN_00c72040 size=50 name=__cxa_bad_cast ====
 
 void __cxa_bad_cast(void)
 
@@ -5203,7 +5203,7 @@ void __cxa_bad_cast(void)
 }
 
 
-// ==== entry=00c72080 name=__cxa_bad_typeid size=50 ====
+// ==== entry=00c72080 orig=FUN_00c72080 size=50 name=__cxa_bad_typeid ====
 
 void __cxa_bad_typeid(void)
 
@@ -5217,7 +5217,7 @@ void __cxa_bad_typeid(void)
 }
 
 
-// ==== entry=00c720c0 name=__cxa_throw_bad_array_new_length size=50 ====
+// ==== entry=00c720c0 orig=FUN_00c720c0 size=50 name=__cxa_throw_bad_array_new_length ====
 
 void __cxa_throw_bad_array_new_length(void)
 
@@ -5232,7 +5232,7 @@ void __cxa_throw_bad_array_new_length(void)
 }
 
 
-// ==== entry=00c72100 name=__is_pointer_p size=6 ====
+// ==== entry=00c72100 orig=FUN_00c72100 size=6 name=__is_pointer_p ====
 
 /* __cxxabiv1::__pointer_type_info::__is_pointer_p() const */
 
@@ -5243,7 +5243,7 @@ undefined8 __cxxabiv1::__pointer_type_info::__is_pointer_p(void)
 }
 
 
-// ==== entry=00c72110 name=~__pointer_type_info size=19 ====
+// ==== entry=00c72110 orig=FUN_00c72110 size=19 name=~__pointer_type_info ====
 
 /* __cxxabiv1::__pointer_type_info::~__pointer_type_info() */
 
@@ -5256,7 +5256,7 @@ void __thiscall __cxxabiv1::__pointer_type_info::~__pointer_type_info(__pointer_
 }
 
 
-// ==== entry=00c72130 name=~__pointer_type_info size=23 ====
+// ==== entry=00c72130 orig=FUN_00c72130 size=23 name=~__pointer_type_info ====
 
 /* __cxxabiv1::__pointer_type_info::~__pointer_type_info() */
 
@@ -5269,7 +5269,7 @@ void __thiscall __cxxabiv1::__pointer_type_info::~__pointer_type_info(__pointer_
 }
 
 
-// ==== entry=00c72150 name=__pointer_catch size=113 ====
+// ==== entry=00c72150 orig=FUN_00c72150 size=113 name=__pointer_catch ====
 
 /* __cxxabiv1::__pointer_type_info::__pointer_catch(__cxxabiv1::__pbase_type_info const*, void**,
    unsigned int) const */
@@ -5305,7 +5305,7 @@ LAB_00c721b2:
 }
 
 
-// ==== entry=00c721d0 name=__pointer_catch size=17 ====
+// ==== entry=00c721d0 orig=FUN_00c721d0 size=17 name=__pointer_catch ====
 
 /* __cxxabiv1::__pbase_type_info::__pointer_catch(__cxxabiv1::__pbase_type_info const*, void**,
    unsigned int) const */
@@ -5323,7 +5323,7 @@ __cxxabiv1::__pbase_type_info::__pointer_catch
 }
 
 
-// ==== entry=00c721f0 name=~__pbase_type_info size=19 ====
+// ==== entry=00c721f0 orig=FUN_00c721f0 size=19 name=~__pbase_type_info ====
 
 /* __cxxabiv1::__pbase_type_info::~__pbase_type_info() */
 
@@ -5336,7 +5336,7 @@ void __thiscall __cxxabiv1::__pbase_type_info::~__pbase_type_info(__pbase_type_i
 }
 
 
-// ==== entry=00c72210 name=~__pbase_type_info size=23 ====
+// ==== entry=00c72210 orig=FUN_00c72210 size=23 name=~__pbase_type_info ====
 
 /* __cxxabiv1::__pbase_type_info::~__pbase_type_info() */
 
@@ -5349,7 +5349,7 @@ void __thiscall __cxxabiv1::__pbase_type_info::~__pbase_type_info(__pbase_type_i
 }
 
 
-// ==== entry=00c72230 name=__do_catch size=574 ====
+// ==== entry=00c72230 orig=FUN_00c72230 size=574 name=__do_catch ====
 
 /* __cxxabiv1::__pbase_type_info::__do_catch(std::type_info const*, void**, unsigned int) const */
 
@@ -5451,7 +5451,7 @@ LAB_00c72366:
 }
 
 
-// ==== entry=00c724a0 name=what size=8 ====
+// ==== entry=00c724a0 orig=FUN_00c724a0 size=8 name=what ====
 
 /* std::bad_typeid::what() const */
 
@@ -5462,7 +5462,7 @@ char * std::bad_typeid::what(void)
 }
 
 
-// ==== entry=00c724b0 name=~bad_typeid size=19 ====
+// ==== entry=00c724b0 orig=FUN_00c724b0 size=19 name=~bad_typeid ====
 
 /* std::bad_typeid::~bad_typeid() */
 
@@ -5475,7 +5475,7 @@ void __thiscall std::bad_typeid::~bad_typeid(bad_typeid *this)
 }
 
 
-// ==== entry=00c724d0 name=~bad_typeid size=23 ====
+// ==== entry=00c724d0 orig=FUN_00c724d0 size=23 name=~bad_typeid ====
 
 /* std::bad_typeid::~bad_typeid() */
 
@@ -5488,7 +5488,7 @@ void __thiscall std::bad_typeid::~bad_typeid(bad_typeid *this)
 }
 
 
-// ==== entry=00c724f0 name=_S_construct_pattern size=422 ====
+// ==== entry=00c724f0 orig=FUN_00c724f0 size=422 name=_S_construct_pattern ====
 
 /* std::money_base::_S_construct_pattern(char, char, char) */
 
@@ -5591,7 +5591,7 @@ undefined4 std::money_base::_S_construct_pattern(char param_1,char param_2,char 
 }
 
 
-// ==== entry=00c726d0 name=_M_initialize_moneypunct size=1254 ====
+// ==== entry=00c726d0 orig=FUN_00c726d0 size=1254 name=_M_initialize_moneypunct ====
 
 /* std::moneypunct<char, true>::_M_initialize_moneypunct(__locale_struct*, char const*) */
 
@@ -5753,7 +5753,7 @@ void std::moneypunct<char,true>::_M_initialize_moneypunct(__locale_struct *param
 }
 
 
-// ==== entry=00c72bf0 name=_M_initialize_moneypunct size=1254 ====
+// ==== entry=00c72bf0 orig=FUN_00c72bf0 size=1254 name=_M_initialize_moneypunct ====
 
 /* std::moneypunct<char, false>::_M_initialize_moneypunct(__locale_struct*, char const*) */
 
@@ -5915,7 +5915,7 @@ void std::moneypunct<char,false>::_M_initialize_moneypunct(__locale_struct *para
 }
 
 
-// ==== entry=00c73110 name=~moneypunct size=189 ====
+// ==== entry=00c73110 orig=FUN_00c73110 size=189 name=~moneypunct ====
 
 /* std::moneypunct<char, true>::~moneypunct() */
 
@@ -5973,7 +5973,7 @@ LAB_00c731b1:
 }
 
 
-// ==== entry=00c731e0 name=~moneypunct size=28 ====
+// ==== entry=00c731e0 orig=FUN_00c731e0 size=28 name=~moneypunct ====
 
 /* std::moneypunct<char, true>::~moneypunct() */
 
@@ -5987,7 +5987,7 @@ void __thiscall std::moneypunct<char,true>::~moneypunct(moneypunct<char,true> *t
 }
 
 
-// ==== entry=00c73210 name=~moneypunct size=189 ====
+// ==== entry=00c73210 orig=FUN_00c73210 size=189 name=~moneypunct ====
 
 /* std::moneypunct<char, false>::~moneypunct() */
 
@@ -6045,7 +6045,7 @@ LAB_00c732b1:
 }
 
 
-// ==== entry=00c732e0 name=~moneypunct size=28 ====
+// ==== entry=00c732e0 orig=FUN_00c732e0 size=28 name=~moneypunct ====
 
 /* std::moneypunct<char, false>::~moneypunct() */
 
@@ -6059,7 +6059,7 @@ void __thiscall std::moneypunct<char,false>::~moneypunct(moneypunct<char,false> 
 }
 
 
-// ==== entry=00c73310 name=_M_initialize_moneypunct size=1437 ====
+// ==== entry=00c73310 orig=FUN_00c73310 size=1437 name=_M_initialize_moneypunct ====
 
 /* std::moneypunct<wchar_t, true>::_M_initialize_moneypunct(__locale_struct*, char const*) */
 
@@ -6261,7 +6261,7 @@ LAB_00c73555:
 }
 
 
-// ==== entry=00c738f0 name=_M_initialize_moneypunct size=1437 ====
+// ==== entry=00c738f0 orig=FUN_00c738f0 size=1437 name=_M_initialize_moneypunct ====
 
 /* std::moneypunct<wchar_t, false>::_M_initialize_moneypunct(__locale_struct*, char const*) */
 
@@ -6464,7 +6464,7 @@ LAB_00c73b35:
 }
 
 
-// ==== entry=00c73ed0 name=~moneypunct size=179 ====
+// ==== entry=00c73ed0 orig=FUN_00c73ed0 size=179 name=~moneypunct ====
 
 /* std::moneypunct<wchar_t, true>::~moneypunct() */
 
@@ -6506,7 +6506,7 @@ LAB_00c73f69:
 }
 
 
-// ==== entry=00c73f90 name=~moneypunct size=28 ====
+// ==== entry=00c73f90 orig=FUN_00c73f90 size=28 name=~moneypunct ====
 
 /* std::moneypunct<wchar_t, true>::~moneypunct() */
 
@@ -6520,7 +6520,7 @@ void __thiscall std::moneypunct<wchar_t,true>::~moneypunct(moneypunct<wchar_t,tr
 }
 
 
-// ==== entry=00c73fc0 name=~moneypunct size=179 ====
+// ==== entry=00c73fc0 orig=FUN_00c73fc0 size=179 name=~moneypunct ====
 
 /* std::moneypunct<wchar_t, false>::~moneypunct() */
 
@@ -6562,7 +6562,7 @@ LAB_00c74059:
 }
 
 
-// ==== entry=00c74080 name=~moneypunct size=28 ====
+// ==== entry=00c74080 orig=FUN_00c74080 size=28 name=~moneypunct ====
 
 /* std::moneypunct<wchar_t, false>::~moneypunct() */
 
@@ -7122,7 +7122,7 @@ void FUN_00c74830(undefined8 param_1,undefined8 param_2,undefined8 *param_3)
 }
 
 
-// ==== entry=00c74850 name=_M_initialize_numpunct size=550 ====
+// ==== entry=00c74850 orig=FUN_00c74850 size=550 name=_M_initialize_numpunct ====
 
 /* std::numpunct<char>::_M_initialize_numpunct(__locale_struct*) */
 
@@ -7208,7 +7208,7 @@ std::numpunct<char>::_M_initialize_numpunct(numpunct<char> *this,__locale_struct
 }
 
 
-// ==== entry=00c74a90 name=~numpunct size=84 ====
+// ==== entry=00c74a90 orig=FUN_00c74a90 size=84 name=~numpunct ====
 
 /* std::numpunct<char>::~numpunct() */
 
@@ -7232,7 +7232,7 @@ LAB_00c74ad6:
 }
 
 
-// ==== entry=00c74af0 name=~numpunct size=28 ====
+// ==== entry=00c74af0 orig=FUN_00c74af0 size=28 name=~numpunct ====
 
 /* std::numpunct<char>::~numpunct() */
 
@@ -7246,7 +7246,7 @@ void __thiscall std::numpunct<char>::~numpunct(numpunct<char> *this)
 }
 
 
-// ==== entry=00c74b20 name=_M_initialize_numpunct size=487 ====
+// ==== entry=00c74b20 orig=FUN_00c74b20 size=487 name=_M_initialize_numpunct ====
 
 /* std::numpunct<wchar_t>::_M_initialize_numpunct(__locale_struct*) */
 
@@ -7337,7 +7337,7 @@ std::numpunct<wchar_t>::_M_initialize_numpunct(numpunct<wchar_t> *this,__locale_
 }
 
 
-// ==== entry=00c74d20 name=~numpunct size=84 ====
+// ==== entry=00c74d20 orig=FUN_00c74d20 size=84 name=~numpunct ====
 
 /* std::numpunct<wchar_t>::~numpunct() */
 
@@ -7361,7 +7361,7 @@ LAB_00c74d66:
 }
 
 
-// ==== entry=00c74d80 name=~numpunct size=28 ====
+// ==== entry=00c74d80 orig=FUN_00c74d80 size=28 name=~numpunct ====
 
 /* std::numpunct<wchar_t>::~numpunct() */
 
@@ -7446,7 +7446,7 @@ undefined4 FUN_00c74e70(undefined8 param_1,undefined8 *param_2,locale *param_3)
 }
 
 
-// ==== entry=00c74f10 name=_M_construct<char*> size=191 ====
+// ==== entry=00c74f10 orig=FUN_00c74f10 size=191 name=_M_construct<char*> ====
 
 /* void std::__cxx11::string::_M_construct<char*>(char*, char*, std::forward_iterator_tag) */
 
@@ -7687,7 +7687,7 @@ LAB_00c751aa:
 }
 
 
-// ==== entry=00c75370 name=_M_put size=35 ====
+// ==== entry=00c75370 orig=FUN_00c75370 size=35 name=_M_put ====
 
 /* std::__timepunct<char>::_M_put(char*, unsigned long, char const*, tm const*) const */
 
@@ -7706,7 +7706,7 @@ std::__timepunct<char>::_M_put
 }
 
 
-// ==== entry=00c753a0 name=_M_initialize_timepunct size=2361 ====
+// ==== entry=00c753a0 orig=FUN_00c753a0 size=2361 name=_M_initialize_timepunct ====
 
 /* std::__timepunct<char>::_M_initialize_timepunct(__locale_struct*) */
 
@@ -7975,7 +7975,7 @@ std::__timepunct<char>::_M_initialize_timepunct(__timepunct<char> *this,__locale
 }
 
 
-// ==== entry=00c75cf0 name=_M_put size=38 ====
+// ==== entry=00c75cf0 orig=FUN_00c75cf0 size=38 name=_M_put ====
 
 /* std::__timepunct<wchar_t>::_M_put(wchar_t*, unsigned long, wchar_t const*, tm const*) const */
 
@@ -7994,7 +7994,7 @@ std::__timepunct<wchar_t>::_M_put
 }
 
 
-// ==== entry=00c75d20 name=_M_initialize_timepunct size=2358 ====
+// ==== entry=00c75d20 orig=FUN_00c75d20 size=2358 name=_M_initialize_timepunct ====
 
 /* std::__timepunct<wchar_t>::_M_initialize_timepunct(__locale_struct*) */
 
@@ -8216,7 +8216,7 @@ std::__timepunct<wchar_t>::_M_initialize_timepunct
 }
 
 
-// ==== entry=00c76660 name=do_in size=17 ====
+// ==== entry=00c76660 orig=FUN_00c76660 size=17 name=do_in ====
 
 /* std::codecvt<char, char, __mbstate_t>::do_in(__mbstate_t&, char const*, char const*, char
    const*&, char*, char*, char*&) const */
@@ -8233,7 +8233,7 @@ std::codecvt<char,char,__mbstate_t>::do_in
 }
 
 
-// ==== entry=00c76680 name=do_unshift size=9 ====
+// ==== entry=00c76680 orig=FUN_00c76680 size=9 name=do_unshift ====
 
 /* std::codecvt<char, char, __mbstate_t>::do_unshift(__mbstate_t&, char*, char*, char*&) const */
 
@@ -8248,7 +8248,7 @@ std::codecvt<char,char,__mbstate_t>::do_unshift
 }
 
 
-// ==== entry=00c76690 name=do_max_length size=6 ====
+// ==== entry=00c76690 orig=FUN_00c76690 size=6 name=do_max_length ====
 
 /* std::codecvt<char, char, __mbstate_t>::do_max_length() const */
 
@@ -8259,7 +8259,7 @@ undefined8 std::codecvt<char,char,__mbstate_t>::do_max_length(void)
 }
 
 
-// ==== entry=00c766a0 name=do_always_noconv size=6 ====
+// ==== entry=00c766a0 orig=FUN_00c766a0 size=6 name=do_always_noconv ====
 
 /* std::codecvt<char, char, __mbstate_t>::do_always_noconv() const */
 
@@ -8270,7 +8270,7 @@ undefined8 std::codecvt<char,char,__mbstate_t>::do_always_noconv(void)
 }
 
 
-// ==== entry=00c766b0 name=do_length size=14 ====
+// ==== entry=00c766b0 orig=FUN_00c766b0 size=14 name=do_length ====
 
 /* std::codecvt<char, char, __mbstate_t>::do_length(__mbstate_t&, char const*, char const*, unsigned
    long) const */
@@ -8288,7 +8288,7 @@ std::codecvt<char,char,__mbstate_t>::do_length
 }
 
 
-// ==== entry=00c766c0 name=do_always_noconv size=3 ====
+// ==== entry=00c766c0 orig=FUN_00c766c0 size=3 name=do_always_noconv ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::do_always_noconv() const */
 
@@ -8299,7 +8299,7 @@ undefined8 std::codecvt<wchar_t,char,__mbstate_t>::do_always_noconv(void)
 }
 
 
-// ==== entry=00c766d0 name=~codecvt size=61 ====
+// ==== entry=00c766d0 orig=FUN_00c766d0 size=61 name=~codecvt ====
 
 /* std::codecvt<char, char, __mbstate_t>::~codecvt() */
 
@@ -8315,7 +8315,7 @@ void __thiscall std::codecvt<char,char,__mbstate_t>::~codecvt(codecvt<char,char,
 }
 
 
-// ==== entry=00c76720 name=~codecvt size=28 ====
+// ==== entry=00c76720 orig=FUN_00c76720 size=28 name=~codecvt ====
 
 /* std::codecvt<char, char, __mbstate_t>::~codecvt() */
 
@@ -8329,7 +8329,7 @@ void __thiscall std::codecvt<char,char,__mbstate_t>::~codecvt(codecvt<char,char,
 }
 
 
-// ==== entry=00c76750 name=~codecvt size=61 ====
+// ==== entry=00c76750 orig=FUN_00c76750 size=61 name=~codecvt ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::~codecvt() */
 
@@ -8346,7 +8346,7 @@ std::codecvt<wchar_t,char,__mbstate_t>::~codecvt(codecvt<wchar_t,char,__mbstate_
 }
 
 
-// ==== entry=00c767a0 name=~codecvt size=28 ====
+// ==== entry=00c767a0 orig=FUN_00c767a0 size=28 name=~codecvt ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::~codecvt() */
 
@@ -8361,7 +8361,7 @@ std::codecvt<wchar_t,char,__mbstate_t>::~codecvt(codecvt<wchar_t,char,__mbstate_
 }
 
 
-// ==== entry=00c767d0 name=codecvt size=50 ====
+// ==== entry=00c767d0 orig=FUN_00c767d0 size=50 name=codecvt ====
 
 /* std::codecvt<char, char, __mbstate_t>::codecvt(unsigned long) */
 
@@ -8380,7 +8380,7 @@ std::codecvt<char,char,__mbstate_t>::codecvt(codecvt<char,char,__mbstate_t> *thi
 }
 
 
-// ==== entry=00c76810 name=codecvt size=58 ====
+// ==== entry=00c76810 orig=FUN_00c76810 size=58 name=codecvt ====
 
 /* std::codecvt<char, char, __mbstate_t>::codecvt(__locale_struct*, unsigned long) */
 
@@ -8401,7 +8401,7 @@ std::codecvt<char,char,__mbstate_t>::codecvt
 }
 
 
-// ==== entry=00c76850 name=codecvt size=50 ====
+// ==== entry=00c76850 orig=FUN_00c76850 size=50 name=codecvt ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::codecvt(unsigned long) */
 
@@ -8421,7 +8421,7 @@ std::codecvt<wchar_t,char,__mbstate_t>::codecvt
 }
 
 
-// ==== entry=00c76890 name=codecvt size=58 ====
+// ==== entry=00c76890 orig=FUN_00c76890 size=58 name=codecvt ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::codecvt(__locale_struct*, unsigned long) */
 
@@ -8473,7 +8473,7 @@ void FUN_00c768d0(long param_1)
 }
 
 
-// ==== entry=00c76940 name=__convert_to_v<float> size=164 ====
+// ==== entry=00c76940 orig=FUN_00c76940 size=164 name=__convert_to_v<float> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* void std::__convert_to_v<float>(char const*, float&, std::_Ios_Iostate&, __locale_struct* const&)
@@ -8511,7 +8511,7 @@ void std::__convert_to_v<float>
 }
 
 
-// ==== entry=00c76a00 name=__convert_to_v<double> size=175 ====
+// ==== entry=00c76a00 orig=FUN_00c76a00 size=175 name=__convert_to_v<double> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* void std::__convert_to_v<double>(char const*, double&, std::_Ios_Iostate&, __locale_struct*
@@ -8549,7 +8549,7 @@ void std::__convert_to_v<double>
 }
 
 
-// ==== entry=00c76ac0 name=__convert_to_v<long_double> size=184 ====
+// ==== entry=00c76ac0 orig=FUN_00c76ac0 size=184 name=__convert_to_v<long_double> ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -8588,7 +8588,7 @@ void std::__convert_to_v<long_double>
 }
 
 
-// ==== entry=00c76b80 name=_S_create_c_locale size=36 ====
+// ==== entry=00c76b80 orig=FUN_00c76b80 size=36 name=_S_create_c_locale ====
 
 /* std::locale::facet::_S_create_c_locale(__locale_struct*&, char const*, __locale_struct*) */
 
@@ -8608,7 +8608,7 @@ void std::locale::facet::_S_create_c_locale
 }
 
 
-// ==== entry=00c76bb0 name=_S_destroy_c_locale size=32 ====
+// ==== entry=00c76bb0 orig=FUN_00c76bb0 size=32 name=_S_destroy_c_locale ====
 
 /* std::locale::facet::_S_destroy_c_locale(__locale_struct*&) */
 
@@ -8629,7 +8629,7 @@ void std::locale::facet::_S_destroy_c_locale(__locale_struct **param_1)
 }
 
 
-// ==== entry=00c76be0 name=_S_clone_c_locale size=8 ====
+// ==== entry=00c76be0 orig=FUN_00c76be0 size=8 name=_S_clone_c_locale ====
 
 /* std::locale::facet::_S_clone_c_locale(__locale_struct*&) */
 
@@ -8942,7 +8942,7 @@ int FUN_00c770d0(pthread_mutex_t *param_1,char *param_2,locale *param_3)
 }
 
 
-// ==== entry=00c77260 name=_M_compare size=42 ====
+// ==== entry=00c77260 orig=FUN_00c77260 size=42 name=_M_compare ====
 
 /* std::collate<char>::_M_compare(char const*, char const*) const */
 
@@ -8956,7 +8956,7 @@ uint __thiscall std::collate<char>::_M_compare(collate<char> *this,char *param_1
 }
 
 
-// ==== entry=00c77290 name=_M_transform size=21 ====
+// ==== entry=00c77290 orig=FUN_00c77290 size=21 name=_M_transform ====
 
 /* std::collate<char>::_M_transform(char*, char const*, unsigned long) const */
 
@@ -8969,7 +8969,7 @@ std::collate<char>::_M_transform(collate<char> *this,char *param_1,char *param_2
 }
 
 
-// ==== entry=00c772b0 name=_M_compare size=42 ====
+// ==== entry=00c772b0 orig=FUN_00c772b0 size=42 name=_M_compare ====
 
 /* std::collate<wchar_t>::_M_compare(wchar_t const*, wchar_t const*) const */
 
@@ -8984,7 +8984,7 @@ std::collate<wchar_t>::_M_compare(collate<wchar_t> *this,wchar_t *param_1,wchar_
 }
 
 
-// ==== entry=00c772e0 name=_M_transform size=21 ====
+// ==== entry=00c772e0 orig=FUN_00c772e0 size=21 name=_M_transform ====
 
 /* std::collate<wchar_t>::_M_transform(wchar_t*, wchar_t const*, unsigned long) const */
 
@@ -9042,7 +9042,7 @@ void FUN_00c77380(long param_1,undefined8 param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=00c773a0 name=_M_init size=110 ====
+// ==== entry=00c773a0 orig=FUN_00c773a0 size=110 name=_M_init ====
 
 /* std::ios_base::_M_init() */
 
@@ -9068,7 +9068,7 @@ void __thiscall std::ios_base::_M_init(ios_base *this)
 }
 
 
-// ==== entry=00c77410 name=imbue size=72 ====
+// ==== entry=00c77410 orig=FUN_00c77410 size=72 name=imbue ====
 
 /* std::ios_base::imbue(std::locale const&) */
 
@@ -9085,7 +9085,7 @@ locale * std::ios_base::imbue(locale *param_1)
 }
 
 
-// ==== entry=00c77460 name=operator.cast.to.void* size=14 ====
+// ==== entry=00c77460 orig=FUN_00c77460 size=14 name=operator.cast.to.void* ====
 
 /* std::ios::operator void*() const */
 
@@ -9102,7 +9102,7 @@ void * __thiscall std::ios::operator_cast_to_void_(ios *this)
 }
 
 
-// ==== entry=00c77470 name=operator.cast.to.void* size=14 ====
+// ==== entry=00c77470 orig=FUN_00c77470 size=14 name=operator.cast.to.void* ====
 
 /* std::wios::operator void*() const */
 
@@ -9119,7 +9119,7 @@ void * __thiscall std::wios::operator_cast_to_void_(wios *this)
 }
 
 
-// ==== entry=00c77480 name=getline size=822 ====
+// ==== entry=00c77480 orig=FUN_00c77480 size=822 name=getline ====
 
 /* std::istream::getline(char*, long, char) */
 
@@ -9294,7 +9294,7 @@ LAB_00c776b8:
 }
 
 
-// ==== entry=00c777f0 name=ignore size=810 ====
+// ==== entry=00c777f0 orig=FUN_00c777f0 size=810 name=ignore ====
 
 /* std::istream::ignore(long, int) */
 
@@ -9444,7 +9444,7 @@ LAB_00c77993:
 }
 
 
-// ==== entry=00c77b60 name=operator>> size=724 ====
+// ==== entry=00c77b60 orig=FUN_00c77b60 size=724 name=operator>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::istream& std::TEMPNAMEPLACEHOLDERVALUE(std::istream&, char*) */
@@ -9593,7 +9593,7 @@ LAB_00c77d14:
 }
 
 
-// ==== entry=00c77e60 name=getline size=842 ====
+// ==== entry=00c77e60 orig=FUN_00c77e60 size=842 name=getline ====
 
 /* std::wistream::getline(wchar_t*, long, wchar_t) */
 
@@ -9758,7 +9758,7 @@ LAB_00c78018:
 }
 
 
-// ==== entry=00c781e0 name=ignore size=808 ====
+// ==== entry=00c781e0 orig=FUN_00c781e0 size=808 name=ignore ====
 
 /* std::wistream::ignore(long, unsigned int) */
 
@@ -9905,7 +9905,7 @@ LAB_00c78383:
 }
 
 
-// ==== entry=00c78550 name=do_out size=578 ====
+// ==== entry=00c78550 orig=FUN_00c78550 size=578 name=do_out ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::do_out(__mbstate_t&, wchar_t const*, wchar_t const*,
    wchar_t const*&, char*, char*, char*&) const */
@@ -10003,7 +10003,7 @@ LAB_00c78700:
 }
 
 
-// ==== entry=00c787b0 name=do_in size=531 ====
+// ==== entry=00c787b0 orig=FUN_00c787b0 size=531 name=do_in ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::do_in(__mbstate_t&, char const*, char const*, char
    const*&, wchar_t*, wchar_t*, wchar_t*&) const */
@@ -10095,7 +10095,7 @@ LAB_00c78960:
 }
 
 
-// ==== entry=00c789e0 name=do_encoding size=50 ====
+// ==== entry=00c789e0 orig=FUN_00c789e0 size=50 name=do_encoding ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::do_encoding() const */
 
@@ -10113,7 +10113,7 @@ std::codecvt<wchar_t,char,__mbstate_t>::do_encoding(codecvt<wchar_t,char,__mbsta
 }
 
 
-// ==== entry=00c78a20 name=do_max_length size=43 ====
+// ==== entry=00c78a20 orig=FUN_00c78a20 size=43 name=do_max_length ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::do_max_length() const */
 
@@ -10131,7 +10131,7 @@ std::codecvt<wchar_t,char,__mbstate_t>::do_max_length(codecvt<wchar_t,char,__mbs
 }
 
 
-// ==== entry=00c78a50 name=do_length size=436 ====
+// ==== entry=00c78a50 orig=FUN_00c78a50 size=436 name=do_length ====
 
 /* std::codecvt<wchar_t, char, __mbstate_t>::do_length(__mbstate_t&, char const*, char const*,
    unsigned long) const */
@@ -10231,7 +10231,7 @@ LAB_00c78b78:
 }
 
 
-// ==== entry=00c78c20 name=do_open size=147 ====
+// ==== entry=00c78c20 orig=FUN_00c78c20 size=147 name=do_open ====
 
 /* std::messages<char>::do_open(std::string const&, std::locale const&) const */
 
@@ -10263,7 +10263,7 @@ std::messages<char>::do_open(messages<char> *this,string *param_1,locale *param_
 }
 
 
-// ==== entry=00c78cc0 name=do_close size=19 ====
+// ==== entry=00c78cc0 orig=FUN_00c78cc0 size=19 name=do_close ====
 
 /* std::messages<wchar_t>::do_close(int) const */
 
@@ -10278,7 +10278,7 @@ void __thiscall std::messages<wchar_t>::do_close(messages<wchar_t> *this,int par
 }
 
 
-// ==== entry=00c78ce0 name=do_get size=196 ====
+// ==== entry=00c78ce0 orig=FUN_00c78ce0 size=196 name=do_get ====
 
 /* std::messages<char>::do_get(int, int, int, std::string const&) const */
 
@@ -10323,7 +10323,7 @@ LAB_00c78d18:
 }
 
 
-// ==== entry=00c78db0 name=do_open size=147 ====
+// ==== entry=00c78db0 orig=FUN_00c78db0 size=147 name=do_open ====
 
 /* std::messages<wchar_t>::do_open(std::string const&, std::locale const&) const */
 
@@ -10355,7 +10355,7 @@ std::messages<wchar_t>::do_open(messages<wchar_t> *this,string *param_1,locale *
 }
 
 
-// ==== entry=00c78e50 name=do_get size=441 ====
+// ==== entry=00c78e50 orig=FUN_00c78e50 size=441 name=do_get ====
 
 /* std::messages<wchar_t>::do_get(int, int, int, std::wstring const&) const */
 
@@ -10475,7 +10475,7 @@ LAB_00c78e8f:
 }
 
 
-// ==== entry=00c79010 name=__copy_streambufs_eof<char,std::char_traits<char>> size=267 ====
+// ==== entry=00c79010 orig=FUN_00c79010 size=267 name=__copy_streambufs_eof<char,std::char_traits<char>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* long std::__copy_streambufs_eof<char, std::char_traits<char> >(std::streambuf*, std::streambuf*,
@@ -10560,7 +10560,7 @@ LAB_00c79085:
 }
 
 
-// ==== entry=00c79130 name=__copy_streambufs_eof<wchar_t,std::char_traits<wchar_t>> size=253 ====
+// ==== entry=00c79130 orig=FUN_00c79130 size=253 name=__copy_streambufs_eof<wchar_t,std::char_traits<wchar_t>> ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* long std::__copy_streambufs_eof<wchar_t, std::char_traits<wchar_t> >(std::wstreambuf*,
@@ -10843,7 +10843,7 @@ void FUN_00c79450(void *param_1)
 }
 
 
-// ==== entry=00c79470 name=what size=5 ====
+// ==== entry=00c79470 orig=FUN_00c79470 size=5 name=what ====
 
 undefined8 __thiscall std::runtime_error::what(runtime_error *this)
 
@@ -11254,7 +11254,7 @@ void FUN_00c79b60(undefined8 *param_1,char *param_2,int *param_3)
 }
 
 
-// ==== entry=00c79da0 name=__throw_ios_failure size=136 ====
+// ==== entry=00c79da0 orig=FUN_00c79da0 size=136 name=__throw_ios_failure ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::__throw_ios_failure(char const*) */
@@ -11285,7 +11285,7 @@ void std::__throw_ios_failure(char *param_1)
 }
 
 
-// ==== entry=00c79e40 name=ignore size=540 ====
+// ==== entry=00c79e40 orig=FUN_00c79e40 size=540 name=ignore ====
 
 /* std::istream::ignore(long) */
 
@@ -11402,7 +11402,7 @@ LAB_00c7a013:
 }
 
 
-// ==== entry=00c7a090 name=ignore size=542 ====
+// ==== entry=00c7a090 orig=FUN_00c7a090 size=542 name=ignore ====
 
 /* std::wistream::ignore(long) */
 
@@ -11516,7 +11516,7 @@ LAB_00c7a27b:
 }
 
 
-// ==== entry=00c7a2e0 name=~__pointer_to_member_type_info size=19 ====
+// ==== entry=00c7a2e0 orig=FUN_00c7a2e0 size=19 name=~__pointer_to_member_type_info ====
 
 /* __cxxabiv1::__pointer_to_member_type_info::~__pointer_to_member_type_info() */
 
@@ -11531,7 +11531,7 @@ __cxxabiv1::__pointer_to_member_type_info::~__pointer_to_member_type_info
 }
 
 
-// ==== entry=00c7a300 name=~__pointer_to_member_type_info size=23 ====
+// ==== entry=00c7a300 orig=FUN_00c7a300 size=23 name=~__pointer_to_member_type_info ====
 
 /* __cxxabiv1::__pointer_to_member_type_info::~__pointer_to_member_type_info() */
 
@@ -11546,7 +11546,7 @@ __cxxabiv1::__pointer_to_member_type_info::~__pointer_to_member_type_info
 }
 
 
-// ==== entry=00c7a320 name=__pointer_catch size=103 ====
+// ==== entry=00c7a320 orig=FUN_00c7a320 size=103 name=__pointer_catch ====
 
 /* __cxxabiv1::__pointer_to_member_type_info::__pointer_catch(__cxxabiv1::__pbase_type_info const*,
    void**, unsigned int) const */
@@ -11578,7 +11578,7 @@ LAB_00c7a368:
 }
 
 
-// ==== entry=00c7a390 name=__verbose_terminate_handler size=281 ====
+// ==== entry=00c7a390 orig=FUN_00c7a390 size=281 name=__verbose_terminate_handler ====
 
 /* __gnu_cxx::__verbose_terminate_handler() */
 
@@ -11625,7 +11625,7 @@ void __gnu_cxx::__verbose_terminate_handler(void)
 }
 
 
-// ==== entry=00c7a4c0 name=what size=5 ====
+// ==== entry=00c7a4c0 orig=FUN_00c7a4c0 size=5 name=what ====
 
 /* std::ios_base::failure::what() const */
 
@@ -11636,7 +11636,7 @@ undefined8 __thiscall std::ios_base::failure::what(failure *this)
 }
 
 
-// ==== entry=00c7a4d0 name=~failure size=137 ====
+// ==== entry=00c7a4d0 orig=FUN_00c7a4d0 size=137 name=~failure ====
 
 /* WARNING: Removing unreachable block (ram,0x00c7a550) */
 /* std::ios_base::failure::~failure() */
@@ -11672,7 +11672,7 @@ void __thiscall std::ios_base::failure::~failure(failure *this)
 }
 
 
-// ==== entry=00c7a560 name=~failure size=18 ====
+// ==== entry=00c7a560 orig=FUN_00c7a560 size=18 name=~failure ====
 
 /* std::ios_base::failure::~failure() */
 
@@ -11685,7 +11685,7 @@ void __thiscall std::ios_base::failure::~failure(failure *this)
 }
 
 
-// ==== entry=00c7a580 name=failure size=36 ====
+// ==== entry=00c7a580 orig=FUN_00c7a580 size=36 name=failure ====
 
 /* std::ios_base::failure::failure(std::string const&) */
 
@@ -19065,7 +19065,7 @@ LAB_00c83e6d:
 }
 
 
-// ==== entry=00c840a0 name=__cxa_demangle size=369 ====
+// ==== entry=00c840a0 orig=FUN_00c840a0 size=369 name=__cxa_demangle ====
 
 char * __cxa_demangle(long param_1,char *param_2,ulong *param_3,undefined4 *param_4)
 
@@ -19173,7 +19173,7 @@ uint FUN_00c84240(long param_1,long param_2)
 }
 
 
-// ==== entry=00c84270 name=__cxa_current_exception_type size=38 ====
+// ==== entry=00c84270 orig=FUN_00c84270 size=38 name=__cxa_current_exception_type ====
 
 long __cxa_current_exception_type(void)
 
@@ -23349,7 +23349,7 @@ LAB_00c88c38:
 }
 
 
-// ==== entry=00c88cb0 name=thunk_FUN_00c88b90 size=5 ====
+// ==== entry=00c88cb0 orig=FUN_00c88cb0 size=5 name=thunk_FUN_00c88b90 ====
 
 long thunk_FUN_00c88b90(int *param_1)
 
@@ -23550,7 +23550,7 @@ void FUN_00c88fc0(undefined8 param_1)
 }
 
 
-// ==== entry=00c88fdc name=_fini size=9 ====
+// ==== entry=00c88fdc orig=FUN_00c88fdc size=9 name=_fini ====
 
 void _fini(void)
 
@@ -23559,7 +23559,7 @@ void _fini(void)
 }
 
 
-// ==== entry=011c7000 name=pthread_join size=1 ====
+// ==== entry=011c7000 orig=FUN_011c7000 size=1 name=pthread_join ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23572,7 +23572,7 @@ int pthread_join(pthread_t __th,void **__thread_return)
 }
 
 
-// ==== entry=011c7010 name=ssh_string_free_char size=1 ====
+// ==== entry=011c7010 orig=FUN_011c7010 size=1 name=ssh_string_free_char ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23584,7 +23584,7 @@ void ssh_string_free_char(void)
 }
 
 
-// ==== entry=011c7018 name=setSectionResizeMode size=1 ====
+// ==== entry=011c7018 orig=FUN_011c7018 size=1 name=setSectionResizeMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23596,7 +23596,7 @@ void QHeaderView::setSectionResizeMode(void)
 }
 
 
-// ==== entry=011c7020 name=sortByColumn size=1 ====
+// ==== entry=011c7020 orig=FUN_011c7020 size=1 name=sortByColumn ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23608,7 +23608,7 @@ void QTreeView::sortByColumn(void)
 }
 
 
-// ==== entry=011c7028 name=contentsMargins size=1 ====
+// ==== entry=011c7028 orig=FUN_011c7028 size=1 name=contentsMargins ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23621,7 +23621,7 @@ void QWidget::contentsMargins(void)
 }
 
 
-// ==== entry=011c7030 name=resetIndentation size=1 ====
+// ==== entry=011c7030 orig=FUN_011c7030 size=1 name=resetIndentation ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23634,7 +23634,7 @@ void QTreeView::resetIndentation(void)
 }
 
 
-// ==== entry=011c7038 name=QRegion size=1 ====
+// ==== entry=011c7038 orig=FUN_011c7038 size=1 name=QRegion ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23646,7 +23646,7 @@ void __thiscall QRegion::QRegion(void)
 }
 
 
-// ==== entry=011c7040 name=changeEvent size=1 ====
+// ==== entry=011c7040 orig=FUN_011c7040 size=1 name=changeEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23659,7 +23659,7 @@ void QLabel::changeEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c7048 name=brush size=1 ====
+// ==== entry=011c7048 orig=FUN_011c7048 size=1 name=brush ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23672,7 +23672,7 @@ void QPainter::brush(void)
 }
 
 
-// ==== entry=011c7050 name=argToQString size=1 ====
+// ==== entry=011c7050 orig=FUN_011c7050 size=1 name=argToQString ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23684,7 +23684,7 @@ void QtPrivate::argToQString(void)
 }
 
 
-// ==== entry=011c7058 name=setObjectOwnership size=1 ====
+// ==== entry=011c7058 orig=FUN_011c7058 size=1 name=setObjectOwnership ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23696,7 +23696,7 @@ void QQmlEngine::setObjectOwnership(void)
 }
 
 
-// ==== entry=011c7060 name=setSelected size=1 ====
+// ==== entry=011c7060 orig=FUN_011c7060 size=1 name=setSelected ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23709,7 +23709,7 @@ void QListWidgetItem::setSelected(bool param_1)
 }
 
 
-// ==== entry=011c7068 name=hasNext size=1 ====
+// ==== entry=011c7068 orig=FUN_011c7068 size=1 name=hasNext ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23722,7 +23722,7 @@ void QRegularExpressionMatchIterator::hasNext(void)
 }
 
 
-// ==== entry=011c7070 name=setIndexWidget size=1 ====
+// ==== entry=011c7070 orig=FUN_011c7070 size=1 name=setIndexWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23735,7 +23735,7 @@ void QAbstractItemView::setIndexWidget(QModelIndex *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=011c7078 name=entryList size=1 ====
+// ==== entry=011c7078 orig=FUN_011c7078 size=1 name=entryList ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23747,7 +23747,7 @@ void QDir::entryList(void)
 }
 
 
-// ==== entry=011c7080 name=setContextMenuPolicy size=1 ====
+// ==== entry=011c7080 orig=FUN_011c7080 size=1 name=setContextMenuPolicy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23759,7 +23759,7 @@ void QWidget::setContextMenuPolicy(void)
 }
 
 
-// ==== entry=011c7088 name=~QVBoxLayout size=1 ====
+// ==== entry=011c7088 orig=FUN_011c7088 size=1 name=~QVBoxLayout ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23771,7 +23771,7 @@ void __thiscall QVBoxLayout::~QVBoxLayout(QVBoxLayout *this)
 }
 
 
-// ==== entry=011c7090 name=completeSuffix size=1 ====
+// ==== entry=011c7090 orig=FUN_011c7090 size=1 name=completeSuffix ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23784,7 +23784,7 @@ void QFileInfo::completeSuffix(void)
 }
 
 
-// ==== entry=011c7098 name=QLineEdit size=1 ====
+// ==== entry=011c7098 orig=FUN_011c7098 size=1 name=QLineEdit ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23796,7 +23796,7 @@ void __thiscall QLineEdit::QLineEdit(QLineEdit *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c70a0 name=removeRecursively size=1 ====
+// ==== entry=011c70a0 orig=FUN_011c70a0 size=1 name=removeRecursively ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23809,7 +23809,7 @@ void QDir::removeRecursively(void)
 }
 
 
-// ==== entry=011c70a8 name=sftp_async_mkdir size=1 ====
+// ==== entry=011c70a8 orig=FUN_011c70a8 size=1 name=sftp_async_mkdir ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23821,7 +23821,7 @@ void sftp_async_mkdir(void)
 }
 
 
-// ==== entry=011c70b0 name=sendEvent size=1 ====
+// ==== entry=011c70b0 orig=FUN_011c70b0 size=1 name=sendEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23834,7 +23834,7 @@ void QCoreApplication::sendEvent(QObject *param_1,QEvent *param_2)
 }
 
 
-// ==== entry=011c70b8 name=updateGeometries size=1 ====
+// ==== entry=011c70b8 orig=FUN_011c70b8 size=1 name=updateGeometries ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23847,7 +23847,7 @@ void QListView::updateGeometries(void)
 }
 
 
-// ==== entry=011c70c0 name=insertPermanentWidget size=1 ====
+// ==== entry=011c70c0 orig=FUN_011c70c0 size=1 name=insertPermanentWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23860,7 +23860,7 @@ void QStatusBar::insertPermanentWidget(int param_1,QWidget *param_2,int param_3)
 }
 
 
-// ==== entry=011c70c8 name=qt_metacast size=1 ====
+// ==== entry=011c70c8 orig=FUN_011c70c8 size=1 name=qt_metacast ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23873,7 +23873,7 @@ void QListWidget::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=011c70d0 name=QHostAddress size=1 ====
+// ==== entry=011c70d0 orig=FUN_011c70d0 size=1 name=QHostAddress ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23885,7 +23885,7 @@ void __thiscall QHostAddress::QHostAddress(void)
 }
 
 
-// ==== entry=011c70d8 name=remove size=1 ====
+// ==== entry=011c70d8 orig=FUN_011c70d8 size=1 name=remove ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23897,7 +23897,7 @@ void QString::remove(void)
 }
 
 
-// ==== entry=011c70e0 name=ftello64 size=1 ====
+// ==== entry=011c70e0 orig=FUN_011c70e0 size=1 name=ftello64 ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23910,7 +23910,7 @@ __off64_t ftello64(FILE *__stream)
 }
 
 
-// ==== entry=011c70e8 name=QMetaType size=1 ====
+// ==== entry=011c70e8 orig=FUN_011c70e8 size=1 name=QMetaType ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23922,7 +23922,7 @@ void __thiscall QMetaType::QMetaType(QMetaType *this,int param_1)
 }
 
 
-// ==== entry=011c70f0 name=QAbstractListModel size=1 ====
+// ==== entry=011c70f0 orig=FUN_011c70f0 size=1 name=QAbstractListModel ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23934,7 +23934,7 @@ void __thiscall QAbstractListModel::QAbstractListModel(QAbstractListModel *this,
 }
 
 
-// ==== entry=011c70f8 name=finished size=1 ====
+// ==== entry=011c70f8 orig=FUN_011c70f8 size=1 name=finished ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23946,7 +23946,7 @@ void QThread::finished(void)
 }
 
 
-// ==== entry=011c7100 name=QStringList_removeDuplicates size=1 ====
+// ==== entry=011c7100 orig=FUN_011c7100 size=1 name=QStringList_removeDuplicates ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23959,7 +23959,7 @@ void QtPrivate::QStringList_removeDuplicates(QStringList *param_1)
 }
 
 
-// ==== entry=011c7108 name=averageCharWidth size=1 ====
+// ==== entry=011c7108 orig=FUN_011c7108 size=1 name=averageCharWidth ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23972,7 +23972,7 @@ void QFontMetrics::averageCharWidth(void)
 }
 
 
-// ==== entry=011c7110 name=operator!= size=1 ====
+// ==== entry=011c7110 orig=FUN_011c7110 size=1 name=operator!= ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -23984,7 +23984,7 @@ void __thiscall QFont::operator!=(QFont *this,QFont *param_1)
 }
 
 
-// ==== entry=011c7118 name=setUniformRowHeights size=1 ====
+// ==== entry=011c7118 orig=FUN_011c7118 size=1 name=setUniformRowHeights ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -23997,7 +23997,7 @@ void QTreeView::setUniformRowHeights(bool param_1)
 }
 
 
-// ==== entry=011c7120 name=metaObject size=1 ====
+// ==== entry=011c7120 orig=FUN_011c7120 size=1 name=metaObject ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24010,7 +24010,7 @@ void QToolButton::metaObject(void)
 }
 
 
-// ==== entry=011c7128 name=setBackground size=1 ====
+// ==== entry=011c7128 orig=FUN_011c7128 size=1 name=setBackground ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24023,7 +24023,7 @@ void QPainter::setBackground(QBrush *param_1)
 }
 
 
-// ==== entry=011c7130 name=newObject size=1 ====
+// ==== entry=011c7130 orig=FUN_011c7130 size=1 name=newObject ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24036,7 +24036,7 @@ void QJSEngine::newObject(void)
 }
 
 
-// ==== entry=011c7138 name=hasText size=1 ====
+// ==== entry=011c7138 orig=FUN_011c7138 size=1 name=hasText ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24049,7 +24049,7 @@ void QMimeData::hasText(void)
 }
 
 
-// ==== entry=011c7140 name=start size=1 ====
+// ==== entry=011c7140 orig=FUN_011c7140 size=1 name=start ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24061,7 +24061,7 @@ void QAbstractAnimation::start(void)
 }
 
 
-// ==== entry=011c7148 name=globalStrut size=1 ====
+// ==== entry=011c7148 orig=FUN_011c7148 size=1 name=globalStrut ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24074,7 +24074,7 @@ void QApplication::globalStrut(void)
 }
 
 
-// ==== entry=011c7150 name=ssh_userauth_password size=1 ====
+// ==== entry=011c7150 orig=FUN_011c7150 size=1 name=ssh_userauth_password ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24086,7 +24086,7 @@ void ssh_userauth_password(void)
 }
 
 
-// ==== entry=011c7158 name=sftp_closedir size=1 ====
+// ==== entry=011c7158 orig=FUN_011c7158 size=1 name=sftp_closedir ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24098,7 +24098,7 @@ void sftp_closedir(void)
 }
 
 
-// ==== entry=011c7160 name=QFileDialog size=1 ====
+// ==== entry=011c7160 orig=FUN_011c7160 size=1 name=QFileDialog ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24112,7 +24112,7 @@ QFileDialog::QFileDialog
 }
 
 
-// ==== entry=011c7168 name=weight size=1 ====
+// ==== entry=011c7168 orig=FUN_011c7168 size=1 name=weight ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24125,7 +24125,7 @@ void QFont::weight(void)
 }
 
 
-// ==== entry=011c7170 name=itemEntered size=1 ====
+// ==== entry=011c7170 orig=FUN_011c7170 size=1 name=itemEntered ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24138,7 +24138,7 @@ void QListWidget::itemEntered(QListWidgetItem *param_1)
 }
 
 
-// ==== entry=011c7178 name=show size=1 ====
+// ==== entry=011c7178 orig=FUN_011c7178 size=1 name=show ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24151,7 +24151,7 @@ void QWidget::show(void)
 }
 
 
-// ==== entry=011c7180 name=toIPv6Address size=1 ====
+// ==== entry=011c7180 orig=FUN_011c7180 size=1 name=toIPv6Address ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24164,7 +24164,7 @@ void QHostAddress::toIPv6Address(void)
 }
 
 
-// ==== entry=011c7188 name=viewportEvent size=1 ====
+// ==== entry=011c7188 orig=FUN_011c7188 size=1 name=viewportEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24177,7 +24177,7 @@ void QTreeView::viewportEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c7190 name=moveCursor size=1 ====
+// ==== entry=011c7190 orig=FUN_011c7190 size=1 name=moveCursor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24189,7 +24189,7 @@ void QTableView::moveCursor(void)
 }
 
 
-// ==== entry=011c7198 name=mouseReleaseEvent size=1 ====
+// ==== entry=011c7198 orig=FUN_011c7198 size=1 name=mouseReleaseEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24202,7 +24202,7 @@ void QPlainTextEdit::mouseReleaseEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=011c71a8 name=disconnect size=1 ====
+// ==== entry=011c71a8 orig=FUN_011c71a8 size=1 name=disconnect ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24215,7 +24215,7 @@ void QObject::disconnect(QObject *param_1,char *param_2,QObject *param_3,char *p
 }
 
 
-// ==== entry=011c71b0 name=mimeTypeForFile size=1 ====
+// ==== entry=011c71b0 orig=FUN_011c71b0 size=1 name=mimeTypeForFile ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24227,7 +24227,7 @@ void QMimeDatabase::mimeTypeForFile(void)
 }
 
 
-// ==== entry=011c71b8 name=qt_metacall size=1 ====
+// ==== entry=011c71b8 orig=FUN_011c71b8 size=1 name=qt_metacall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24239,7 +24239,7 @@ void QMenu::qt_metacall(void)
 }
 
 
-// ==== entry=011c71c0 name=getColor size=1 ====
+// ==== entry=011c71c0 orig=FUN_011c71c0 size=1 name=getColor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24251,7 +24251,7 @@ void QColorDialog::getColor(void)
 }
 
 
-// ==== entry=011c71c8 name=keyPressEvent size=1 ====
+// ==== entry=011c71c8 orig=FUN_011c71c8 size=1 name=keyPressEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24264,7 +24264,7 @@ void QMenu::keyPressEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=011c71d0 name=indexAt size=1 ====
+// ==== entry=011c71d0 orig=FUN_011c71d0 size=1 name=indexAt ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24277,7 +24277,7 @@ void QListView::indexAt(QPoint *param_1)
 }
 
 
-// ==== entry=011c71d8 name=insertRow size=1 ====
+// ==== entry=011c71d8 orig=FUN_011c71d8 size=1 name=insertRow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24290,7 +24290,7 @@ void QFormLayout::insertRow(int param_1,QString *param_2,QWidget *param_3)
 }
 
 
-// ==== entry=011c71e0 name=strdup size=1 ====
+// ==== entry=011c71e0 orig=FUN_011c71e0 size=1 name=strdup ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24303,7 +24303,7 @@ char * strdup(char *__s)
 }
 
 
-// ==== entry=011c71e8 name=keyCount size=1 ====
+// ==== entry=011c71e8 orig=FUN_011c71e8 size=1 name=keyCount ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24316,7 +24316,7 @@ void QMetaEnum::keyCount(void)
 }
 
 
-// ==== entry=011c71f0 name=released size=1 ====
+// ==== entry=011c71f0 orig=FUN_011c71f0 size=1 name=released ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24329,7 +24329,7 @@ void QAbstractButton::released(void)
 }
 
 
-// ==== entry=011c71f8 name=~QPixmap size=1 ====
+// ==== entry=011c71f8 orig=FUN_011c71f8 size=1 name=~QPixmap ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24341,7 +24341,7 @@ void __thiscall QPixmap::~QPixmap(QPixmap *this)
 }
 
 
-// ==== entry=011c7200 name=program size=1 ====
+// ==== entry=011c7200 orig=FUN_011c7200 size=1 name=program ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24354,7 +24354,7 @@ void QProcess::program(void)
 }
 
 
-// ==== entry=011c7208 name=QThread size=1 ====
+// ==== entry=011c7208 orig=FUN_011c7208 size=1 name=QThread ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24366,7 +24366,7 @@ void __thiscall QThread::QThread(QThread *this,QObject *param_1)
 }
 
 
-// ==== entry=011c7210 name=verticalScrollbarValueChanged size=1 ====
+// ==== entry=011c7210 orig=FUN_011c7210 size=1 name=verticalScrollbarValueChanged ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24379,7 +24379,7 @@ void QTreeView::verticalScrollbarValueChanged(int param_1)
 }
 
 
-// ==== entry=011c7218 name=keys size=1 ====
+// ==== entry=011c7218 orig=FUN_011c7218 size=1 name=keys ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24392,7 +24392,7 @@ void QJsonObject::keys(void)
 }
 
 
-// ==== entry=011c7220 name=isFullScreen size=1 ====
+// ==== entry=011c7220 orig=FUN_011c7220 size=1 name=isFullScreen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24405,7 +24405,7 @@ void QWidget::isFullScreen(void)
 }
 
 
-// ==== entry=011c7228 name=supportedDropActions size=1 ====
+// ==== entry=011c7228 orig=FUN_011c7228 size=1 name=supportedDropActions ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24418,7 +24418,7 @@ void QTableWidget::supportedDropActions(void)
 }
 
 
-// ==== entry=011c7230 name=setProperty size=1 ====
+// ==== entry=011c7230 orig=FUN_011c7230 size=1 name=setProperty ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24431,7 +24431,7 @@ void QObject::setProperty(char *param_1,QVariant *param_2)
 }
 
 
-// ==== entry=011c7238 name=setModel size=1 ====
+// ==== entry=011c7238 orig=FUN_011c7238 size=1 name=setModel ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24444,7 +24444,7 @@ void QComboBox::setModel(QAbstractItemModel *param_1)
 }
 
 
-// ==== entry=011c7240 name=reset size=1 ====
+// ==== entry=011c7240 orig=FUN_011c7240 size=1 name=reset ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24457,7 +24457,7 @@ void QListView::reset(void)
 }
 
 
-// ==== entry=011c7248 name=setCentralWidget size=1 ====
+// ==== entry=011c7248 orig=FUN_011c7248 size=1 name=setCentralWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24470,7 +24470,7 @@ void QMainWindow::setCentralWidget(QWidget *param_1)
 }
 
 
-// ==== entry=011c7250 name=trimmed_helper size=1 ====
+// ==== entry=011c7250 orig=FUN_011c7250 size=1 name=trimmed_helper ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24483,7 +24483,7 @@ void QString::trimmed_helper(QString *param_1)
 }
 
 
-// ==== entry=011c7258 name=geometry size=1 ====
+// ==== entry=011c7258 orig=FUN_011c7258 size=1 name=geometry ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24496,7 +24496,7 @@ void QScreen::geometry(void)
 }
 
 
-// ==== entry=011c7260 name=errorOccurred size=1 ====
+// ==== entry=011c7260 orig=FUN_011c7260 size=1 name=errorOccurred ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24508,7 +24508,7 @@ void QAbstractSocket::errorOccurred(void)
 }
 
 
-// ==== entry=011c7268 name=itemText size=1 ====
+// ==== entry=011c7268 orig=FUN_011c7268 size=1 name=itemText ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24521,7 +24521,7 @@ void QComboBox::itemText(int param_1)
 }
 
 
-// ==== entry=011c7270 name=operator!= size=1 ====
+// ==== entry=011c7270 orig=FUN_011c7270 size=1 name=operator!= ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24533,7 +24533,7 @@ void __thiscall QColor::operator!=(QColor *this,QColor *param_1)
 }
 
 
-// ==== entry=011c7278 name=sftp_dir_eof size=1 ====
+// ==== entry=011c7278 orig=FUN_011c7278 size=1 name=sftp_dir_eof ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24545,7 +24545,7 @@ void sftp_dir_eof(void)
 }
 
 
-// ==== entry=011c7280 name=setProxy size=1 ====
+// ==== entry=011c7280 orig=FUN_011c7280 size=1 name=setProxy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24558,7 +24558,7 @@ void QAbstractSocket::setProxy(QNetworkProxy *param_1)
 }
 
 
-// ==== entry=011c7288 name=fdopen size=1 ====
+// ==== entry=011c7288 orig=FUN_011c7288 size=1 name=fdopen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24571,7 +24571,7 @@ FILE * fdopen(int __fd,char *__modes)
 }
 
 
-// ==== entry=011c7290 name=replace size=1 ====
+// ==== entry=011c7290 orig=FUN_011c7290 size=1 name=replace ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24584,7 +24584,7 @@ void QByteArray::replace(int param_1,int param_2,QByteArray *param_3)
 }
 
 
-// ==== entry=011c7298 name=~QStyledItemDelegate size=1 ====
+// ==== entry=011c7298 orig=FUN_011c7298 size=1 name=~QStyledItemDelegate ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24596,7 +24596,7 @@ void __thiscall QStyledItemDelegate::~QStyledItemDelegate(QStyledItemDelegate *t
 }
 
 
-// ==== entry=011c72a0 name=start size=1 ====
+// ==== entry=011c72a0 orig=FUN_011c72a0 size=1 name=start ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24609,7 +24609,7 @@ void QTimeLine::start(void)
 }
 
 
-// ==== entry=011c72a8 name=QDir size=1 ====
+// ==== entry=011c72a8 orig=FUN_011c72a8 size=1 name=QDir ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24621,7 +24621,7 @@ void __thiscall QDir::QDir(QDir *this,QString *param_1)
 }
 
 
-// ==== entry=011c72b0 name=~QFontMetrics size=1 ====
+// ==== entry=011c72b0 orig=FUN_011c72b0 size=1 name=~QFontMetrics ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24633,7 +24633,7 @@ void __thiscall QFontMetrics::~QFontMetrics(QFontMetrics *this)
 }
 
 
-// ==== entry=011c72b8 name=ssh_userauth_gssapi size=1 ====
+// ==== entry=011c72b8 orig=FUN_011c72b8 size=1 name=ssh_userauth_gssapi ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24645,7 +24645,7 @@ void ssh_userauth_gssapi(void)
 }
 
 
-// ==== entry=011c72c0 name=paintEvent size=1 ====
+// ==== entry=011c72c0 orig=FUN_011c72c0 size=1 name=paintEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24658,7 +24658,7 @@ void QStatusBar::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=011c72c8 name=iconName size=1 ====
+// ==== entry=011c72c8 orig=FUN_011c72c8 size=1 name=iconName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24671,7 +24671,7 @@ void QIconEngine::iconName(void)
 }
 
 
-// ==== entry=011c72d0 name=setEditorData size=1 ====
+// ==== entry=011c72d0 orig=FUN_011c72d0 size=1 name=setEditorData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24684,7 +24684,7 @@ void QStyledItemDelegate::setEditorData(QWidget *param_1,QModelIndex *param_2)
 }
 
 
-// ==== entry=011c72d8 name=setDefault size=1 ====
+// ==== entry=011c72d8 orig=FUN_011c72d8 size=1 name=setDefault ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24697,7 +24697,7 @@ void QPushButton::setDefault(bool param_1)
 }
 
 
-// ==== entry=011c72e0 name=arg size=1 ====
+// ==== entry=011c72e0 orig=FUN_011c72e0 size=1 name=arg ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24709,7 +24709,7 @@ void QString::arg(void)
 }
 
 
-// ==== entry=011c72f0 name=~bad_array_new_length size=1 ====
+// ==== entry=011c72f0 orig=FUN_011c72f0 size=1 name=~bad_array_new_length ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24721,7 +24721,7 @@ void __thiscall std::bad_array_new_length::~bad_array_new_length(bad_array_new_l
 }
 
 
-// ==== entry=011c72f8 name=mimeData size=1 ====
+// ==== entry=011c72f8 orig=FUN_011c72f8 size=1 name=mimeData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24733,7 +24733,7 @@ void QTableWidget::mimeData(void)
 }
 
 
-// ==== entry=011c7308 name=size size=1 ====
+// ==== entry=011c7308 orig=FUN_011c7308 size=1 name=size ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24746,7 +24746,7 @@ void QFile::size(void)
 }
 
 
-// ==== entry=011c7310 name=wcrtomb size=1 ====
+// ==== entry=011c7310 orig=FUN_011c7310 size=1 name=wcrtomb ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24759,7 +24759,7 @@ size_t wcrtomb(char *__s,wchar_t __wc,mbstate_t *__ps)
 }
 
 
-// ==== entry=011c7318 name=hasSelection size=1 ====
+// ==== entry=011c7318 orig=FUN_011c7318 size=1 name=hasSelection ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24772,7 +24772,7 @@ void QItemSelectionModel::hasSelection(void)
 }
 
 
-// ==== entry=011c7320 name=setUpdateInterval size=1 ====
+// ==== entry=011c7320 orig=FUN_011c7320 size=1 name=setUpdateInterval ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24785,7 +24785,7 @@ void QTimeLine::setUpdateInterval(int param_1)
 }
 
 
-// ==== entry=011c7328 name=isSliderDown size=1 ====
+// ==== entry=011c7328 orig=FUN_011c7328 size=1 name=isSliderDown ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24798,7 +24798,7 @@ void QAbstractSlider::isSliderDown(void)
 }
 
 
-// ==== entry=011c7330 name=processEvents size=1 ====
+// ==== entry=011c7330 orig=FUN_011c7330 size=1 name=processEvents ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24810,7 +24810,7 @@ void QCoreApplication::processEvents(void)
 }
 
 
-// ==== entry=011c7338 name=setMimeData size=1 ====
+// ==== entry=011c7338 orig=FUN_011c7338 size=1 name=setMimeData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24822,7 +24822,7 @@ void QClipboard::setMimeData(void)
 }
 
 
-// ==== entry=011c7340 name=ssh_channel_request_pty_size size=1 ====
+// ==== entry=011c7340 orig=FUN_011c7340 size=1 name=ssh_channel_request_pty_size ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24834,7 +24834,7 @@ void ssh_channel_request_pty_size(void)
 }
 
 
-// ==== entry=011c7348 name=setPen size=1 ====
+// ==== entry=011c7348 orig=FUN_011c7348 size=1 name=setPen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24847,7 +24847,7 @@ void QPainter::setPen(QColor *param_1)
 }
 
 
-// ==== entry=011c7358 name=showMaximized size=1 ====
+// ==== entry=011c7358 orig=FUN_011c7358 size=1 name=showMaximized ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24860,7 +24860,7 @@ void QWidget::showMaximized(void)
 }
 
 
-// ==== entry=011c7360 name=display size=1 ====
+// ==== entry=011c7360 orig=FUN_011c7360 size=1 name=display ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24873,7 +24873,7 @@ void QX11Info::display(void)
 }
 
 
-// ==== entry=011c7368 name=qstrcmp size=1 ====
+// ==== entry=011c7368 orig=FUN_011c7368 size=1 name=qstrcmp ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24886,7 +24886,7 @@ void qstrcmp(char *param_1,char *param_2)
 }
 
 
-// ==== entry=011c7370 name=setHeaderData size=1 ====
+// ==== entry=011c7370 orig=FUN_011c7370 size=1 name=setHeaderData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24898,7 +24898,7 @@ void QAbstractItemModel::setHeaderData(void)
 }
 
 
-// ==== entry=011c7378 name=value size=1 ====
+// ==== entry=011c7378 orig=FUN_011c7378 size=1 name=value ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24911,7 +24911,7 @@ void QAssociativeIterable::const_iterator::value(void)
 }
 
 
-// ==== entry=011c7380 name=completer size=1 ====
+// ==== entry=011c7380 orig=FUN_011c7380 size=1 name=completer ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24924,7 +24924,7 @@ void QComboBox::completer(void)
 }
 
 
-// ==== entry=011c7390 name=qt_metacast size=1 ====
+// ==== entry=011c7390 orig=FUN_011c7390 size=1 name=qt_metacast ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24937,7 +24937,7 @@ void QThread::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=011c7398 name=setReadBufferSize size=1 ====
+// ==== entry=011c7398 orig=FUN_011c7398 size=1 name=setReadBufferSize ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24950,7 +24950,7 @@ void QAbstractSocket::setReadBufferSize(longlong param_1)
 }
 
 
-// ==== entry=011c73a0 name=wcscmp size=1 ====
+// ==== entry=011c73a0 orig=FUN_011c73a0 size=1 name=wcscmp ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24963,7 +24963,7 @@ int wcscmp(wchar_t *__s1,wchar_t *__s2)
 }
 
 
-// ==== entry=011c73a8 name=createMaskFromColor size=1 ====
+// ==== entry=011c73a8 orig=FUN_011c73a8 size=1 name=createMaskFromColor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -24975,7 +24975,7 @@ void QPixmap::createMaskFromColor(void)
 }
 
 
-// ==== entry=011c73b8 name=changeEvent size=1 ====
+// ==== entry=011c73b8 orig=FUN_011c73b8 size=1 name=changeEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -24988,7 +24988,7 @@ void QMenu::changeEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c73c0 name=reallocData size=1 ====
+// ==== entry=011c73c0 orig=FUN_011c73c0 size=1 name=reallocData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25001,7 +25001,7 @@ void QString::reallocData(uint param_1,bool param_2)
 }
 
 
-// ==== entry=011c73d0 name=~QTextCursor size=1 ====
+// ==== entry=011c73d0 orig=FUN_011c73d0 size=1 name=~QTextCursor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25013,7 +25013,7 @@ void __thiscall QTextCursor::~QTextCursor(QTextCursor *this)
 }
 
 
-// ==== entry=011c73d8 name=setCapabilities size=1 ====
+// ==== entry=011c73d8 orig=FUN_011c73d8 size=1 name=setCapabilities ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25025,7 +25025,7 @@ void QNetworkProxy::setCapabilities(void)
 }
 
 
-// ==== entry=011c73e8 name=currentIndex size=1 ====
+// ==== entry=011c73e8 orig=FUN_011c73e8 size=1 name=currentIndex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25038,7 +25038,7 @@ void QAbstractItemView::currentIndex(void)
 }
 
 
-// ==== entry=011c73f0 name=~QTreeView size=1 ====
+// ==== entry=011c73f0 orig=FUN_011c73f0 size=1 name=~QTreeView ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25050,7 +25050,7 @@ void __thiscall QTreeView::~QTreeView(QTreeView *this)
 }
 
 
-// ==== entry=011c73f8 name=data size=1 ====
+// ==== entry=011c73f8 orig=FUN_011c73f8 size=1 name=data ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25063,7 +25063,7 @@ void QStandardItemModel::data(QModelIndex *param_1,int param_2)
 }
 
 
-// ==== entry=011c7400 name=flags size=1 ====
+// ==== entry=011c7400 orig=FUN_011c7400 size=1 name=flags ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25076,7 +25076,7 @@ void QFileSystemModel::flags(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7408 name=read size=1 ====
+// ==== entry=011c7408 orig=FUN_011c7408 size=1 name=read ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25089,7 +25089,7 @@ void QIODevice::read(char *param_1,longlong param_2)
 }
 
 
-// ==== entry=011c7410 name=stretch size=1 ====
+// ==== entry=011c7410 orig=FUN_011c7410 size=1 name=stretch ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25102,7 +25102,7 @@ void QFont::stretch(void)
 }
 
 
-// ==== entry=011c7418 name=QShortcut size=1 ====
+// ==== entry=011c7418 orig=FUN_011c7418 size=1 name=QShortcut ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25114,7 +25114,7 @@ void __thiscall QShortcut::QShortcut(QShortcut *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c7420 name=captured size=1 ====
+// ==== entry=011c7420 orig=FUN_011c7420 size=1 name=captured ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25127,7 +25127,7 @@ void QRegularExpressionMatch::captured(int param_1)
 }
 
 
-// ==== entry=011c7428 name=selectionChanged size=1 ====
+// ==== entry=011c7428 orig=FUN_011c7428 size=1 name=selectionChanged ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25140,7 +25140,7 @@ void QTreeView::selectionChanged(QItemSelection *param_1,QItemSelection *param_2
 }
 
 
-// ==== entry=011c7430 name=setColumnStretch size=1 ====
+// ==== entry=011c7430 orig=FUN_011c7430 size=1 name=setColumnStretch ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25153,7 +25153,7 @@ void QGridLayout::setColumnStretch(int param_1,int param_2)
 }
 
 
-// ==== entry=011c7438 name=_M_construct size=1 ====
+// ==== entry=011c7438 orig=FUN_011c7438 size=1 name=_M_construct ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25166,7 +25166,7 @@ void std::__cxx11::string::_M_construct(ulong param_1,char param_2)
 }
 
 
-// ==== entry=011c7440 name=setEndValue size=1 ====
+// ==== entry=011c7440 orig=FUN_011c7440 size=1 name=setEndValue ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25179,7 +25179,7 @@ void QVariantAnimation::setEndValue(QVariant *param_1)
 }
 
 
-// ==== entry=011c7448 name=setPortName size=1 ====
+// ==== entry=011c7448 orig=FUN_011c7448 size=1 name=setPortName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25192,7 +25192,7 @@ void QSerialPort::setPortName(QString *param_1)
 }
 
 
-// ==== entry=011c7450 name=clicked size=1 ====
+// ==== entry=011c7450 orig=FUN_011c7450 size=1 name=clicked ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25205,7 +25205,7 @@ void QAbstractButton::clicked(bool param_1)
 }
 
 
-// ==== entry=011c7458 name=realloc size=1 ====
+// ==== entry=011c7458 orig=FUN_011c7458 size=1 name=realloc ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25218,7 +25218,7 @@ void * realloc(void *__ptr,size_t __size)
 }
 
 
-// ==== entry=011c7460 name=setItem size=1 ====
+// ==== entry=011c7460 orig=FUN_011c7460 size=1 name=setItem ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25231,7 +25231,7 @@ void QStandardItemModel::setItem(int param_1,int param_2,QStandardItem *param_3)
 }
 
 
-// ==== entry=011c7468 name=getOpenFileName size=1 ====
+// ==== entry=011c7468 orig=FUN_011c7468 size=1 name=getOpenFileName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25243,7 +25243,7 @@ void QFileDialog::getOpenFileName(void)
 }
 
 
-// ==== entry=011c7470 name=~QSettings size=1 ====
+// ==== entry=011c7470 orig=FUN_011c7470 size=1 name=~QSettings ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25255,7 +25255,7 @@ void __thiscall QSettings::~QSettings(QSettings *this)
 }
 
 
-// ==== entry=011c7478 name=underline size=1 ====
+// ==== entry=011c7478 orig=FUN_011c7478 size=1 name=underline ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25268,7 +25268,7 @@ void QFont::underline(void)
 }
 
 
-// ==== entry=011c7480 name=polish size=1 ====
+// ==== entry=011c7480 orig=FUN_011c7480 size=1 name=polish ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25281,7 +25281,7 @@ void QProxyStyle::polish(QApplication *param_1)
 }
 
 
-// ==== entry=011c7488 name=terminate size=1 ====
+// ==== entry=011c7488 orig=FUN_011c7488 size=1 name=terminate ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25294,7 +25294,7 @@ void QProcess::terminate(void)
 }
 
 
-// ==== entry=011c7490 name=setCheckable size=1 ====
+// ==== entry=011c7490 orig=FUN_011c7490 size=1 name=setCheckable ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25307,7 +25307,7 @@ void QAction::setCheckable(bool param_1)
 }
 
 
-// ==== entry=011c7498 name=hitTestComplexControl size=1 ====
+// ==== entry=011c7498 orig=FUN_011c7498 size=1 name=hitTestComplexControl ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25319,7 +25319,7 @@ void QProxyStyle::hitTestComplexControl(void)
 }
 
 
-// ==== entry=011c74a0 name=writeData size=1 ====
+// ==== entry=011c74a0 orig=FUN_011c74a0 size=1 name=writeData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25332,7 +25332,7 @@ void QAbstractSocket::writeData(char *param_1,longlong param_2)
 }
 
 
-// ==== entry=011c74a8 name=setWordWrapMode size=1 ====
+// ==== entry=011c74a8 orig=FUN_011c74a8 size=1 name=setWordWrapMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25344,7 +25344,7 @@ void QPlainTextEdit::setWordWrapMode(void)
 }
 
 
-// ==== entry=011c74b0 name=pututxline size=1 ====
+// ==== entry=011c74b0 orig=FUN_011c74b0 size=1 name=pututxline ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25357,7 +25357,7 @@ utmpx * pututxline(utmpx *__utmpx)
 }
 
 
-// ==== entry=011c74b8 name=hasChildren size=1 ====
+// ==== entry=011c74b8 orig=FUN_011c74b8 size=1 name=hasChildren ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25370,7 +25370,7 @@ void QStandardItem::hasChildren(void)
 }
 
 
-// ==== entry=011c74c0 name=toInt size=1 ====
+// ==== entry=011c74c0 orig=FUN_011c74c0 size=1 name=toInt ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25383,7 +25383,7 @@ void QByteArray::toInt(bool *param_1,int param_2)
 }
 
 
-// ==== entry=011c74c8 name=rowsInserted size=1 ====
+// ==== entry=011c74c8 orig=FUN_011c74c8 size=1 name=rowsInserted ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25396,7 +25396,7 @@ void QAbstractItemView::rowsInserted(QModelIndex *param_1,int param_2,int param_
 }
 
 
-// ==== entry=011c74d0 name=text size=1 ====
+// ==== entry=011c74d0 orig=FUN_011c74d0 size=1 name=text ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25409,7 +25409,7 @@ void QLineEdit::text(void)
 }
 
 
-// ==== entry=011c74d8 name=QKeySequence size=1 ====
+// ==== entry=011c74d8 orig=FUN_011c74d8 size=1 name=QKeySequence ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25422,7 +25422,7 @@ QKeySequence::QKeySequence(QKeySequence *this,int param_1,int param_2,int param_
 }
 
 
-// ==== entry=011c74e0 name=QTextCursor size=1 ====
+// ==== entry=011c74e0 orig=FUN_011c74e0 size=1 name=QTextCursor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25434,7 +25434,7 @@ void __thiscall QTextCursor::QTextCursor(QTextCursor *this,QTextDocument *param_
 }
 
 
-// ==== entry=011c74e8 name=addWidget size=1 ====
+// ==== entry=011c74e8 orig=FUN_011c74e8 size=1 name=addWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25447,7 +25447,7 @@ void QStackedLayout::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=011c74f0 name=ZSTD_trace_compress_end size=1 ====
+// ==== entry=011c74f0 orig=FUN_011c74f0 size=1 name=ZSTD_trace_compress_end ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25459,7 +25459,7 @@ void ZSTD_trace_compress_end(void)
 }
 
 
-// ==== entry=011c74f8 name=toString size=1 ====
+// ==== entry=011c74f8 orig=FUN_011c74f8 size=1 name=toString ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25472,7 +25472,7 @@ void QHostAddress::toString(void)
 }
 
 
-// ==== entry=011c7500 name=isPersistentEditorOpen size=1 ====
+// ==== entry=011c7500 orig=FUN_011c7500 size=1 name=isPersistentEditorOpen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25485,7 +25485,7 @@ void QAbstractItemView::isPersistentEditorOpen(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7510 name=setOverrideCursor size=1 ====
+// ==== entry=011c7510 orig=FUN_011c7510 size=1 name=setOverrideCursor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25498,7 +25498,7 @@ void QGuiApplication::setOverrideCursor(QCursor *param_1)
 }
 
 
-// ==== entry=011c7518 name=newQObject size=1 ====
+// ==== entry=011c7518 orig=FUN_011c7518 size=1 name=newQObject ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25511,7 +25511,7 @@ void QJSEngine::newQObject(QObject *param_1)
 }
 
 
-// ==== entry=011c7520 name=__nl_langinfo_l size=1 ====
+// ==== entry=011c7520 orig=FUN_011c7520 size=1 name=__nl_langinfo_l ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25523,7 +25523,7 @@ void __nl_langinfo_l(void)
 }
 
 
-// ==== entry=011c7530 name=canDropMimeData size=1 ====
+// ==== entry=011c7530 orig=FUN_011c7530 size=1 name=canDropMimeData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25535,7 +25535,7 @@ void QAbstractProxyModel::canDropMimeData(void)
 }
 
 
-// ==== entry=011c7538 name=valueChanged size=1 ====
+// ==== entry=011c7538 orig=FUN_011c7538 size=1 name=valueChanged ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25548,7 +25548,7 @@ void QSpinBox::valueChanged(int param_1)
 }
 
 
-// ==== entry=011c7540 name=toUnicode size=1 ====
+// ==== entry=011c7540 orig=FUN_011c7540 size=1 name=toUnicode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25561,7 +25561,7 @@ void QTextDecoder::toUnicode(QByteArray *param_1)
 }
 
 
-// ==== entry=011c7548 name=permissions size=1 ====
+// ==== entry=011c7548 orig=FUN_011c7548 size=1 name=permissions ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25574,7 +25574,7 @@ void QFileInfo::permissions(void)
 }
 
 
-// ==== entry=011c7550 name=layoutDirection size=1 ====
+// ==== entry=011c7550 orig=FUN_011c7550 size=1 name=layoutDirection ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25587,7 +25587,7 @@ void QWidget::layoutDirection(void)
 }
 
 
-// ==== entry=011c7558 name=setContentsMargins size=1 ====
+// ==== entry=011c7558 orig=FUN_011c7558 size=1 name=setContentsMargins ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25600,7 +25600,7 @@ void QLayout::setContentsMargins(int param_1,int param_2,int param_3,int param_4
 }
 
 
-// ==== entry=011c7560 name=activate size=1 ====
+// ==== entry=011c7560 orig=FUN_011c7560 size=1 name=activate ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25613,7 +25613,7 @@ void QLayout::activate(void)
 }
 
 
-// ==== entry=011c7568 name=text size=1 ====
+// ==== entry=011c7568 orig=FUN_011c7568 size=1 name=text ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25626,7 +25626,7 @@ void QAbstractButton::text(void)
 }
 
 
-// ==== entry=011c7570 name=dispose size=1 ====
+// ==== entry=011c7570 orig=FUN_011c7570 size=1 name=dispose ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25639,7 +25639,7 @@ void QListData::dispose(Data *param_1)
 }
 
 
-// ==== entry=011c7578 name=selectionCommand size=1 ====
+// ==== entry=011c7578 orig=FUN_011c7578 size=1 name=selectionCommand ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25652,7 +25652,7 @@ void QAbstractItemView::selectionCommand(QModelIndex *param_1,QEvent *param_2)
 }
 
 
-// ==== entry=011c7580 name=ioctl size=1 ====
+// ==== entry=011c7580 orig=FUN_011c7580 size=1 name=ioctl ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25665,7 +25665,7 @@ int ioctl(int __fd,ulong __request,...)
 }
 
 
-// ==== entry=011c7590 name=isalpha size=1 ====
+// ==== entry=011c7590 orig=FUN_011c7590 size=1 name=isalpha ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25678,7 +25678,7 @@ int isalpha(int param_1)
 }
 
 
-// ==== entry=011c7598 name=QThreadPool size=1 ====
+// ==== entry=011c7598 orig=FUN_011c7598 size=1 name=QThreadPool ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25690,7 +25690,7 @@ void __thiscall QThreadPool::QThreadPool(QThreadPool *this,QObject *param_1)
 }
 
 
-// ==== entry=011c75a0 name=QPersistentModelIndex size=1 ====
+// ==== entry=011c75a0 orig=FUN_011c75a0 size=1 name=QPersistentModelIndex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25703,7 +25703,7 @@ QPersistentModelIndex::QPersistentModelIndex(QPersistentModelIndex *this,QModelI
 }
 
 
-// ==== entry=011c75a8 name=setSelectionBehavior size=1 ====
+// ==== entry=011c75a8 orig=FUN_011c75a8 size=1 name=setSelectionBehavior ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25715,7 +25715,7 @@ void QAbstractItemView::setSelectionBehavior(void)
 }
 
 
-// ==== entry=011c75b0 name=reset size=1 ====
+// ==== entry=011c75b0 orig=FUN_011c75b0 size=1 name=reset ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25728,7 +25728,7 @@ void QIODevice::reset(void)
 }
 
 
-// ==== entry=011c75b8 name=indexOf size=1 ====
+// ==== entry=011c75b8 orig=FUN_011c75b8 size=1 name=indexOf ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25741,7 +25741,7 @@ void QStackedWidget::indexOf(QWidget *param_1)
 }
 
 
-// ==== entry=011c75c0 name=grabShortcut size=1 ====
+// ==== entry=011c75c0 orig=FUN_011c75c0 size=1 name=grabShortcut ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25753,7 +25753,7 @@ void QWidget::grabShortcut(void)
 }
 
 
-// ==== entry=011c75c8 name=fillRect size=1 ====
+// ==== entry=011c75c8 orig=FUN_011c75c8 size=1 name=fillRect ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25766,7 +25766,7 @@ void QPainter::fillRect(QRectF *param_1,QColor *param_2)
 }
 
 
-// ==== entry=011c75d0 name=key size=1 ====
+// ==== entry=011c75d0 orig=FUN_011c75d0 size=1 name=key ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25779,7 +25779,7 @@ void QIconEngine::key(void)
 }
 
 
-// ==== entry=011c75d8 name=indexOf size=1 ====
+// ==== entry=011c75d8 orig=FUN_011c75d8 size=1 name=indexOf ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25792,7 +25792,7 @@ void QByteArray::indexOf(char *param_1,int param_2)
 }
 
 
-// ==== entry=011c75e0 name=setValue size=1 ====
+// ==== entry=011c75e0 orig=FUN_011c75e0 size=1 name=setValue ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25805,7 +25805,7 @@ void QProgressDialog::setValue(int param_1)
 }
 
 
-// ==== entry=011c75e8 name=paintEvent size=1 ====
+// ==== entry=011c75e8 orig=FUN_011c75e8 size=1 name=paintEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25818,7 +25818,7 @@ void QPlainTextEdit::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=011c75f0 name=registerNormalizedType size=1 ====
+// ==== entry=011c75f0 orig=FUN_011c75f0 size=1 name=registerNormalizedType ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25830,7 +25830,7 @@ void QMetaType::registerNormalizedType(void)
 }
 
 
-// ==== entry=011c75f8 name=QSettings size=1 ====
+// ==== entry=011c75f8 orig=FUN_011c75f8 size=1 name=QSettings ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25842,7 +25842,7 @@ void __thiscall QSettings::QSettings(void)
 }
 
 
-// ==== entry=011c7600 name=trimmed_helper size=1 ====
+// ==== entry=011c7600 orig=FUN_011c7600 size=1 name=trimmed_helper ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25855,7 +25855,7 @@ void QByteArray::trimmed_helper(QByteArray *param_1)
 }
 
 
-// ==== entry=011c7608 name=setSingleStep size=1 ====
+// ==== entry=011c7608 orig=FUN_011c7608 size=1 name=setSingleStep ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25868,7 +25868,7 @@ void QDoubleSpinBox::setSingleStep(double param_1)
 }
 
 
-// ==== entry=011c7610 name=setTitle size=1 ====
+// ==== entry=011c7610 orig=FUN_011c7610 size=1 name=setTitle ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25881,7 +25881,7 @@ void QGroupBox::setTitle(QString *param_1)
 }
 
 
-// ==== entry=011c7618 name=memmove size=1 ====
+// ==== entry=011c7618 orig=FUN_011c7618 size=1 name=memmove ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25894,7 +25894,7 @@ void * memmove(void *__dest,void *__src,size_t __n)
 }
 
 
-// ==== entry=011c7620 name=hideEvent size=1 ====
+// ==== entry=011c7620 orig=FUN_011c7620 size=1 name=hideEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25907,7 +25907,7 @@ void QMenu::hideEvent(QHideEvent *param_1)
 }
 
 
-// ==== entry=011c7628 name=setSizeConstraint size=1 ====
+// ==== entry=011c7628 orig=FUN_011c7628 size=1 name=setSizeConstraint ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25919,7 +25919,7 @@ void QLayout::setSizeConstraint(void)
 }
 
 
-// ==== entry=011c7630 name=contains size=1 ====
+// ==== entry=011c7630 orig=FUN_011c7630 size=1 name=contains ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25932,7 +25932,7 @@ void QRect::contains(QPoint *param_1,bool param_2)
 }
 
 
-// ==== entry=011c7638 name=toVariant size=1 ====
+// ==== entry=011c7638 orig=FUN_011c7638 size=1 name=toVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25945,7 +25945,7 @@ void QJsonValueRef::toVariant(void)
 }
 
 
-// ==== entry=011c7640 name=drawLines size=1 ====
+// ==== entry=011c7640 orig=FUN_011c7640 size=1 name=drawLines ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25958,7 +25958,7 @@ void QPainter::drawLines(QLine *param_1,int param_2)
 }
 
 
-// ==== entry=011c7648 name=~QMenu size=1 ====
+// ==== entry=011c7648 orig=FUN_011c7648 size=1 name=~QMenu ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25970,7 +25970,7 @@ void __thiscall QMenu::~QMenu(QMenu *this)
 }
 
 
-// ==== entry=011c7650 name=setWindowFlags size=1 ====
+// ==== entry=011c7650 orig=FUN_011c7650 size=1 name=setWindowFlags ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -25982,7 +25982,7 @@ void QWidget::setWindowFlags(void)
 }
 
 
-// ==== entry=011c7658 name=keyReleaseEvent size=1 ====
+// ==== entry=011c7658 orig=FUN_011c7658 size=1 name=keyReleaseEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -25995,7 +25995,7 @@ void QComboBox::keyReleaseEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=011c7660 name=ssh_get_error_code size=1 ====
+// ==== entry=011c7660 orig=FUN_011c7660 size=1 name=ssh_get_error_code ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26007,7 +26007,7 @@ void ssh_get_error_code(void)
 }
 
 
-// ==== entry=011c7668 name=QVariant size=1 ====
+// ==== entry=011c7668 orig=FUN_011c7668 size=1 name=QVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26019,7 +26019,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QString *param_1)
 }
 
 
-// ==== entry=011c7670 name=isValid size=1 ====
+// ==== entry=011c7670 orig=FUN_011c7670 size=1 name=isValid ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26032,7 +26032,7 @@ void QSvgRenderer::isValid(void)
 }
 
 
-// ==== entry=011c7678 name=supportedDropActions size=1 ====
+// ==== entry=011c7678 orig=FUN_011c7678 size=1 name=supportedDropActions ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26045,7 +26045,7 @@ void QSortFilterProxyModel::supportedDropActions(void)
 }
 
 
-// ==== entry=011c7680 name=QTreeView size=1 ====
+// ==== entry=011c7680 orig=FUN_011c7680 size=1 name=QTreeView ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26057,7 +26057,7 @@ void __thiscall QTreeView::QTreeView(QTreeView *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c7688 name=currentWidget size=1 ====
+// ==== entry=011c7688 orig=FUN_011c7688 size=1 name=currentWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26070,7 +26070,7 @@ void QStackedWidget::currentWidget(void)
 }
 
 
-// ==== entry=011c7690 name=__ctype_b_loc size=1 ====
+// ==== entry=011c7690 orig=FUN_011c7690 size=1 name=__ctype_b_loc ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26083,7 +26083,7 @@ ushort ** __ctype_b_loc(void)
 }
 
 
-// ==== entry=011c7698 name=addAction size=1 ====
+// ==== entry=011c7698 orig=FUN_011c7698 size=1 name=addAction ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26096,7 +26096,7 @@ void QMenu::addAction(QString *param_1)
 }
 
 
-// ==== entry=011c76a0 name=leaveEvent size=1 ====
+// ==== entry=011c76a0 orig=FUN_011c76a0 size=1 name=leaveEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26109,7 +26109,7 @@ void QToolButton::leaveEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c76a8 name=setCurrentIndex size=1 ====
+// ==== entry=011c76a8 orig=FUN_011c76a8 size=1 name=setCurrentIndex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26122,7 +26122,7 @@ void QStackedWidget::setCurrentIndex(int param_1)
 }
 
 
-// ==== entry=011c76b8 name=strncpy size=1 ====
+// ==== entry=011c76b8 orig=FUN_011c76b8 size=1 name=strncpy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26135,7 +26135,7 @@ char * strncpy(char *__dest,char *__src,size_t __n)
 }
 
 
-// ==== entry=011c76c0 name=QVariant size=1 ====
+// ==== entry=011c76c0 orig=FUN_011c76c0 size=1 name=QVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26147,7 +26147,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QRectF *param_1)
 }
 
 
-// ==== entry=011c76c8 name=toupper size=1 ====
+// ==== entry=011c76c8 orig=FUN_011c76c8 size=1 name=toupper ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26160,7 +26160,7 @@ int toupper(int __c)
 }
 
 
-// ==== entry=011c76d0 name=localtime_r size=1 ====
+// ==== entry=011c76d0 orig=FUN_011c76d0 size=1 name=localtime_r ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26173,7 +26173,7 @@ tm * localtime_r(time_t *__timer,tm *__tp)
 }
 
 
-// ==== entry=011c76d8 name=autoHide size=1 ====
+// ==== entry=011c76d8 orig=FUN_011c76d8 size=1 name=autoHide ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26186,7 +26186,7 @@ void QTabBar::autoHide(void)
 }
 
 
-// ==== entry=011c76e0 name=~QWidgetAction size=1 ====
+// ==== entry=011c76e0 orig=FUN_011c76e0 size=1 name=~QWidgetAction ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26198,7 +26198,7 @@ void __thiscall QWidgetAction::~QWidgetAction(QWidgetAction *this)
 }
 
 
-// ==== entry=011c76e8 name=__assert_fail size=1 ====
+// ==== entry=011c76e8 orig=FUN_011c76e8 size=1 name=__assert_fail ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26211,7 +26211,7 @@ void __assert_fail(char *__assertion,char *__file,uint __line,char *__function)
 }
 
 
-// ==== entry=011c76f0 name=minimumTabSizeHint size=1 ====
+// ==== entry=011c76f0 orig=FUN_011c76f0 size=1 name=minimumTabSizeHint ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26224,7 +26224,7 @@ void QTabBar::minimumTabSizeHint(int param_1)
 }
 
 
-// ==== entry=011c76f8 name=metric size=1 ====
+// ==== entry=011c76f8 orig=FUN_011c76f8 size=1 name=metric ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26236,7 +26236,7 @@ void QWidget::metric(void)
 }
 
 
-// ==== entry=011c7700 name=columnCount size=1 ====
+// ==== entry=011c7700 orig=FUN_011c7700 size=1 name=columnCount ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26249,7 +26249,7 @@ void QGridLayout::columnCount(void)
 }
 
 
-// ==== entry=011c7708 name=pthread_mutex_destroy size=1 ====
+// ==== entry=011c7708 orig=FUN_011c7708 size=1 name=pthread_mutex_destroy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26262,7 +26262,7 @@ int pthread_mutex_destroy(pthread_mutex_t *__mutex)
 }
 
 
-// ==== entry=011c7710 name=insert size=1 ====
+// ==== entry=011c7710 orig=FUN_011c7710 size=1 name=insert ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26275,7 +26275,7 @@ void QProcessEnvironment::insert(QString *param_1,QString *param_2)
 }
 
 
-// ==== entry=011c7720 name=QBuffer size=1 ====
+// ==== entry=011c7720 orig=FUN_011c7720 size=1 name=QBuffer ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26287,7 +26287,7 @@ void __thiscall QBuffer::QBuffer(QBuffer *this,QByteArray *param_1,QObject *para
 }
 
 
-// ==== entry=011c7728 name=setTabStopDistance size=1 ====
+// ==== entry=011c7728 orig=FUN_011c7728 size=1 name=setTabStopDistance ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26300,7 +26300,7 @@ void QPlainTextEdit::setTabStopDistance(double param_1)
 }
 
 
-// ==== entry=011c7730 name=sizeHint size=1 ====
+// ==== entry=011c7730 orig=FUN_011c7730 size=1 name=sizeHint ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26312,7 +26312,7 @@ void QBoxLayout::sizeHint(void)
 }
 
 
-// ==== entry=011c7738 name=selectionMode size=1 ====
+// ==== entry=011c7738 orig=FUN_011c7738 size=1 name=selectionMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26325,7 +26325,7 @@ void QAbstractItemView::selectionMode(void)
 }
 
 
-// ==== entry=011c7748 name=buddy size=1 ====
+// ==== entry=011c7748 orig=FUN_011c7748 size=1 name=buddy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26338,7 +26338,7 @@ void QAbstractItemModel::buddy(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7750 name=isVisibleTo size=1 ====
+// ==== entry=011c7750 orig=FUN_011c7750 size=1 name=isVisibleTo ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26351,7 +26351,7 @@ void QWidget::isVisibleTo(QWidget *param_1)
 }
 
 
-// ==== entry=011c7758 name=qt_metacall size=1 ====
+// ==== entry=011c7758 orig=FUN_011c7758 size=1 name=qt_metacall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26363,7 +26363,7 @@ void QComboBox::qt_metacall(void)
 }
 
 
-// ==== entry=011c7760 name=operator>> size=1 ====
+// ==== entry=011c7760 orig=FUN_011c7760 size=1 name=operator>> ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26375,7 +26375,7 @@ void __thiscall QDataStream::operator>>(QDataStream *this,bool *param_1)
 }
 
 
-// ==== entry=011c7768 name=absolutePath size=1 ====
+// ==== entry=011c7768 orig=FUN_011c7768 size=1 name=absolutePath ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26388,7 +26388,7 @@ void QFileInfo::absolutePath(void)
 }
 
 
-// ==== entry=011c7770 name=QSaveFile size=1 ====
+// ==== entry=011c7770 orig=FUN_011c7770 size=1 name=QSaveFile ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26400,7 +26400,7 @@ void __thiscall QSaveFile::QSaveFile(QSaveFile *this,QObject *param_1)
 }
 
 
-// ==== entry=011c7778 name=~QBitmap size=1 ====
+// ==== entry=011c7778 orig=FUN_011c7778 size=1 name=~QBitmap ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26412,7 +26412,7 @@ void __thiscall QBitmap::~QBitmap(QBitmap *this)
 }
 
 
-// ==== entry=011c7780 name=spacerItem size=1 ====
+// ==== entry=011c7780 orig=FUN_011c7780 size=1 name=spacerItem ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26425,7 +26425,7 @@ void QLayoutItem::spacerItem(void)
 }
 
 
-// ==== entry=011c7788 name=isExpanded size=1 ====
+// ==== entry=011c7788 orig=FUN_011c7788 size=1 name=isExpanded ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26438,7 +26438,7 @@ void QTreeView::isExpanded(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7790 name=currentThreadId size=1 ====
+// ==== entry=011c7790 orig=FUN_011c7790 size=1 name=currentThreadId ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26451,7 +26451,7 @@ void QThread::currentThreadId(void)
 }
 
 
-// ==== entry=011c7798 name=QTranslator size=1 ====
+// ==== entry=011c7798 orig=FUN_011c7798 size=1 name=QTranslator ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26463,7 +26463,7 @@ void __thiscall QTranslator::QTranslator(QTranslator *this,QObject *param_1)
 }
 
 
-// ==== entry=011c77a0 name=layoutDirection size=1 ====
+// ==== entry=011c77a0 orig=FUN_011c77a0 size=1 name=layoutDirection ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26476,7 +26476,7 @@ void QGuiApplication::layoutDirection(void)
 }
 
 
-// ==== entry=011c77a8 name=itemPixmapRect size=1 ====
+// ==== entry=011c77a8 orig=FUN_011c77a8 size=1 name=itemPixmapRect ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26489,7 +26489,7 @@ void QProxyStyle::itemPixmapRect(QRect *param_1,int param_2,QPixmap *param_3)
 }
 
 
-// ==== entry=011c77b0 name=keys size=1 ====
+// ==== entry=011c77b0 orig=FUN_011c77b0 size=1 name=keys ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26502,7 +26502,7 @@ void QProcessEnvironment::keys(void)
 }
 
 
-// ==== entry=011c77b8 name=startsWith size=1 ====
+// ==== entry=011c77b8 orig=FUN_011c77b8 size=1 name=startsWith ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26514,7 +26514,7 @@ void QString::startsWith(void)
 }
 
 
-// ==== entry=011c77c0 name=supportsSelection size=1 ====
+// ==== entry=011c77c0 orig=FUN_011c77c0 size=1 name=supportsSelection ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26527,7 +26527,7 @@ void QClipboard::supportsSelection(void)
 }
 
 
-// ==== entry=011c77c8 name=QIcon size=1 ====
+// ==== entry=011c77c8 orig=FUN_011c77c8 size=1 name=QIcon ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26539,7 +26539,7 @@ void __thiscall QIcon::QIcon(QIcon *this,QIcon *param_1)
 }
 
 
-// ==== entry=011c77d0 name=setHorizontalScrollMode size=1 ====
+// ==== entry=011c77d0 orig=FUN_011c77d0 size=1 name=setHorizontalScrollMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26551,7 +26551,7 @@ void QAbstractItemView::setHorizontalScrollMode(void)
 }
 
 
-// ==== entry=011c77d8 name=qt_metacall size=1 ====
+// ==== entry=011c77d8 orig=FUN_011c77d8 size=1 name=qt_metacall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26563,7 +26563,7 @@ void QLabel::qt_metacall(void)
 }
 
 
-// ==== entry=011c77e8 name=~QPushButton size=1 ====
+// ==== entry=011c77e8 orig=FUN_011c77e8 size=1 name=~QPushButton ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26575,7 +26575,7 @@ void __thiscall QPushButton::~QPushButton(QPushButton *this)
 }
 
 
-// ==== entry=011c77f8 name=isActiveWindow size=1 ====
+// ==== entry=011c77f8 orig=FUN_011c77f8 size=1 name=isActiveWindow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26588,7 +26588,7 @@ void QWidget::isActiveWindow(void)
 }
 
 
-// ==== entry=011c7800 name=qt_metacast size=1 ====
+// ==== entry=011c7800 orig=FUN_011c7800 size=1 name=qt_metacast ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26601,7 +26601,7 @@ void QLabel::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=011c7808 name=dropEvent size=1 ====
+// ==== entry=011c7808 orig=FUN_011c7808 size=1 name=dropEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26614,7 +26614,7 @@ void QTableWidget::dropEvent(QDropEvent *param_1)
 }
 
 
-// ==== entry=011c7810 name=cacheKey size=1 ====
+// ==== entry=011c7810 orig=FUN_011c7810 size=1 name=cacheKey ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26627,7 +26627,7 @@ void QIcon::cacheKey(void)
 }
 
 
-// ==== entry=011c7818 name=focusOutEvent size=1 ====
+// ==== entry=011c7818 orig=FUN_011c7818 size=1 name=focusOutEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26640,7 +26640,7 @@ void QPushButton::focusOutEvent(QFocusEvent *param_1)
 }
 
 
-// ==== entry=011c7820 name=minimumSizeHint size=1 ====
+// ==== entry=011c7820 orig=FUN_011c7820 size=1 name=minimumSizeHint ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26653,7 +26653,7 @@ void QComboBox::minimumSizeHint(void)
 }
 
 
-// ==== entry=011c7828 name=setToolTipsVisible size=1 ====
+// ==== entry=011c7828 orig=FUN_011c7828 size=1 name=setToolTipsVisible ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26666,7 +26666,7 @@ void QMenu::setToolTipsVisible(bool param_1)
 }
 
 
-// ==== entry=011c7830 name=installExtensions size=1 ====
+// ==== entry=011c7830 orig=FUN_011c7830 size=1 name=installExtensions ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26678,7 +26678,7 @@ void QJSEngine::installExtensions(void)
 }
 
 
-// ==== entry=011c7838 name=singleShot size=1 ====
+// ==== entry=011c7838 orig=FUN_011c7838 size=1 name=singleShot ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26691,7 +26691,7 @@ void QTimer::singleShot(int param_1,QObject *param_2,char *param_3)
 }
 
 
-// ==== entry=011c7840 name=remove size=1 ====
+// ==== entry=011c7840 orig=FUN_011c7840 size=1 name=remove ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26704,7 +26704,7 @@ int remove(char *__filename)
 }
 
 
-// ==== entry=011c7848 name=syscall size=1 ====
+// ==== entry=011c7848 orig=FUN_011c7848 size=1 name=syscall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26717,7 +26717,7 @@ long syscall(long __sysno,...)
 }
 
 
-// ==== entry=011c7850 name=replaceWidget size=1 ====
+// ==== entry=011c7850 orig=FUN_011c7850 size=1 name=replaceWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26729,7 +26729,7 @@ void QLayout::replaceWidget(void)
 }
 
 
-// ==== entry=011c7858 name=addLayout size=1 ====
+// ==== entry=011c7858 orig=FUN_011c7858 size=1 name=addLayout ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26742,7 +26742,7 @@ void QBoxLayout::addLayout(QLayout *param_1,int param_2)
 }
 
 
-// ==== entry=011c7860 name=~QMimeDatabase size=1 ====
+// ==== entry=011c7860 orig=FUN_011c7860 size=1 name=~QMimeDatabase ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26754,7 +26754,7 @@ void __thiscall QMimeDatabase::~QMimeDatabase(QMimeDatabase *this)
 }
 
 
-// ==== entry=011c7868 name=tabToolTip size=1 ====
+// ==== entry=011c7868 orig=FUN_011c7868 size=1 name=tabToolTip ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26767,7 +26767,7 @@ void QTabBar::tabToolTip(int param_1)
 }
 
 
-// ==== entry=011c7870 name=keyPressEvent size=1 ====
+// ==== entry=011c7870 orig=FUN_011c7870 size=1 name=keyPressEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26780,7 +26780,7 @@ void QTreeView::keyPressEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=011c7878 name=expanded size=1 ====
+// ==== entry=011c7878 orig=FUN_011c7878 size=1 name=expanded ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26793,7 +26793,7 @@ void QTreeView::expanded(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7880 name=insertItems size=1 ====
+// ==== entry=011c7880 orig=FUN_011c7880 size=1 name=insertItems ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26806,7 +26806,7 @@ void QListWidget::insertItems(int param_1,QStringList *param_2)
 }
 
 
-// ==== entry=011c7888 name=mid size=1 ====
+// ==== entry=011c7888 orig=FUN_011c7888 size=1 name=mid ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26819,7 +26819,7 @@ void QByteArray::mid(int param_1,int param_2)
 }
 
 
-// ==== entry=011c7898 name=setDefaultAlignment size=1 ====
+// ==== entry=011c7898 orig=FUN_011c7898 size=1 name=setDefaultAlignment ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26831,7 +26831,7 @@ void QHeaderView::setDefaultAlignment(void)
 }
 
 
-// ==== entry=011c78a0 name=ssh_channel_new size=1 ====
+// ==== entry=011c78a0 orig=FUN_011c78a0 size=1 name=ssh_channel_new ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26843,7 +26843,7 @@ void ssh_channel_new(void)
 }
 
 
-// ==== entry=011c78a8 name=QString size=1 ====
+// ==== entry=011c78a8 orig=FUN_011c78a8 size=1 name=QString ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26855,7 +26855,7 @@ void __thiscall QString::QString(void)
 }
 
 
-// ==== entry=011c78b0 name=QVariant size=1 ====
+// ==== entry=011c78b0 orig=FUN_011c78b0 size=1 name=QVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26867,7 +26867,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QJsonObject *param_1)
 }
 
 
-// ==== entry=011c78b8 name=currentItem size=1 ====
+// ==== entry=011c78b8 orig=FUN_011c78b8 size=1 name=currentItem ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26880,7 +26880,7 @@ void QTableWidget::currentItem(void)
 }
 
 
-// ==== entry=011c78c0 name=strikeOut size=1 ====
+// ==== entry=011c78c0 orig=FUN_011c78c0 size=1 name=strikeOut ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26893,7 +26893,7 @@ void QFont::strikeOut(void)
 }
 
 
-// ==== entry=011c78c8 name=event size=1 ====
+// ==== entry=011c78c8 orig=FUN_011c78c8 size=1 name=event ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26906,7 +26906,7 @@ void QFrame::event(QEvent *param_1)
 }
 
 
-// ==== entry=011c78d0 name=horizontalAdvance size=1 ====
+// ==== entry=011c78d0 orig=FUN_011c78d0 size=1 name=horizontalAdvance ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26918,7 +26918,7 @@ void QFontMetricsF::horizontalAdvance(void)
 }
 
 
-// ==== entry=011c78d8 name=~QInputDialog size=1 ====
+// ==== entry=011c78d8 orig=FUN_011c78d8 size=1 name=~QInputDialog ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26930,7 +26930,7 @@ void __thiscall QInputDialog::~QInputDialog(QInputDialog *this)
 }
 
 
-// ==== entry=011c78e0 name=operator>> size=1 ====
+// ==== entry=011c78e0 orig=FUN_011c78e0 size=1 name=operator>> ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26943,7 +26943,7 @@ void operator>>(QDataStream *param_1,QVariant *param_2)
 }
 
 
-// ==== entry=011c78e8 name=QIcon size=1 ====
+// ==== entry=011c78e8 orig=FUN_011c78e8 size=1 name=QIcon ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -26955,7 +26955,7 @@ void __thiscall QIcon::QIcon(QIcon *this,QPixmap *param_1)
 }
 
 
-// ==== entry=011c78f0 name=wheelEvent size=1 ====
+// ==== entry=011c78f0 orig=FUN_011c78f0 size=1 name=wheelEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26968,7 +26968,7 @@ void QTabBar::wheelEvent(QWheelEvent *param_1)
 }
 
 
-// ==== entry=011c78f8 name=operator>> size=1 ====
+// ==== entry=011c78f8 orig=FUN_011c78f8 size=1 name=operator>> ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26981,7 +26981,7 @@ void operator>>(QDataStream *param_1,QString *param_2)
 }
 
 
-// ==== entry=011c7900 name=init size=1 ====
+// ==== entry=011c7900 orig=FUN_011c7900 size=1 name=init ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -26994,7 +26994,7 @@ void QStyleOption::init(QWidget *param_1)
 }
 
 
-// ==== entry=011c7908 name=maximumSize size=1 ====
+// ==== entry=011c7908 orig=FUN_011c7908 size=1 name=maximumSize ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27006,7 +27006,7 @@ void QBoxLayout::maximumSize(void)
 }
 
 
-// ==== entry=011c7910 name=pos size=1 ====
+// ==== entry=011c7910 orig=FUN_011c7910 size=1 name=pos ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27019,7 +27019,7 @@ void QIODevice::pos(void)
 }
 
 
-// ==== entry=011c7918 name=setFileTime size=1 ====
+// ==== entry=011c7918 orig=FUN_011c7918 size=1 name=setFileTime ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27031,7 +27031,7 @@ void QFileDevice::setFileTime(void)
 }
 
 
-// ==== entry=011c7920 name=pthread_setspecific size=1 ====
+// ==== entry=011c7920 orig=FUN_011c7920 size=1 name=pthread_setspecific ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27044,7 +27044,7 @@ int pthread_setspecific(pthread_key_t __key,void *__pointer)
 }
 
 
-// ==== entry=011c7928 name=QPainterPath size=1 ====
+// ==== entry=011c7928 orig=FUN_011c7928 size=1 name=QPainterPath ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27056,7 +27056,7 @@ void __thiscall QPainterPath::QPainterPath(QPainterPath *this)
 }
 
 
-// ==== entry=011c7930 name=y size=1 ====
+// ==== entry=011c7930 orig=FUN_011c7930 size=1 name=y ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27069,7 +27069,7 @@ void QWidget::y(void)
 }
 
 
-// ==== entry=011c7938 name=setProcessChannelMode size=1 ====
+// ==== entry=011c7938 orig=FUN_011c7938 size=1 name=setProcessChannelMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27081,7 +27081,7 @@ void QProcess::setProcessChannelMode(void)
 }
 
 
-// ==== entry=011c7940 name=QListView size=1 ====
+// ==== entry=011c7940 orig=FUN_011c7940 size=1 name=QListView ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27093,7 +27093,7 @@ void __thiscall QListView::QListView(QListView *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c7948 name=isTransactionStarted size=1 ====
+// ==== entry=011c7948 orig=FUN_011c7948 size=1 name=isTransactionStarted ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27106,7 +27106,7 @@ void QIODevice::isTransactionStarted(void)
 }
 
 
-// ==== entry=011c7950 name=hour size=1 ====
+// ==== entry=011c7950 orig=FUN_011c7950 size=1 name=hour ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27119,7 +27119,7 @@ void QTime::hour(void)
 }
 
 
-// ==== entry=011c7958 name=child size=1 ====
+// ==== entry=011c7958 orig=FUN_011c7958 size=1 name=child ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27132,7 +27132,7 @@ void QStandardItem::child(int param_1,int param_2)
 }
 
 
-// ==== entry=011c7960 name=~QPersistentModelIndex size=1 ====
+// ==== entry=011c7960 orig=FUN_011c7960 size=1 name=~QPersistentModelIndex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27144,7 +27144,7 @@ void __thiscall QPersistentModelIndex::~QPersistentModelIndex(QPersistentModelIn
 }
 
 
-// ==== entry=011c7968 name=addButton size=1 ====
+// ==== entry=011c7968 orig=FUN_011c7968 size=1 name=addButton ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27156,7 +27156,7 @@ void QDialogButtonBox::addButton(void)
 }
 
 
-// ==== entry=011c7970 name=QStandardItem size=1 ====
+// ==== entry=011c7970 orig=FUN_011c7970 size=1 name=QStandardItem ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27168,7 +27168,7 @@ void __thiscall QStandardItem::QStandardItem(QStandardItem *this,QIcon *param_1,
 }
 
 
-// ==== entry=011c7978 name=roleNames size=1 ====
+// ==== entry=011c7978 orig=FUN_011c7978 size=1 name=roleNames ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27181,7 +27181,7 @@ void QAbstractItemModel::roleNames(void)
 }
 
 
-// ==== entry=011c7980 name=hasMatch size=1 ====
+// ==== entry=011c7980 orig=FUN_011c7980 size=1 name=hasMatch ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27194,7 +27194,7 @@ void QRegularExpressionMatch::hasMatch(void)
 }
 
 
-// ==== entry=011c7988 name=QFileInfo size=1 ====
+// ==== entry=011c7988 orig=FUN_011c7988 size=1 name=QFileInfo ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27206,7 +27206,7 @@ void __thiscall QFileInfo::QFileInfo(QFileInfo *this,QFile *param_1)
 }
 
 
-// ==== entry=011c7990 name=ssh_key_free size=1 ====
+// ==== entry=011c7990 orig=FUN_011c7990 size=1 name=ssh_key_free ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27218,7 +27218,7 @@ void ssh_key_free(void)
 }
 
 
-// ==== entry=011c7998 name=paintEvent size=1 ====
+// ==== entry=011c7998 orig=FUN_011c7998 size=1 name=paintEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27231,7 +27231,7 @@ void QPushButton::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=011c79a0 name=addPixmap size=1 ====
+// ==== entry=011c79a0 orig=FUN_011c79a0 size=1 name=addPixmap ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27243,7 +27243,7 @@ void QIcon::addPixmap(void)
 }
 
 
-// ==== entry=011c79a8 name=setUpdatesEnabled size=1 ====
+// ==== entry=011c79a8 orig=FUN_011c79a8 size=1 name=setUpdatesEnabled ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27256,7 +27256,7 @@ void QWidget::setUpdatesEnabled(bool param_1)
 }
 
 
-// ==== entry=011c79b0 name=begin size=1 ====
+// ==== entry=011c79b0 orig=FUN_011c79b0 size=1 name=begin ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27269,7 +27269,7 @@ void QPainter::begin(QPaintDevice *param_1)
 }
 
 
-// ==== entry=011c79b8 name=__lxstat size=1 ====
+// ==== entry=011c79b8 orig=FUN_011c79b8 size=1 name=__lxstat ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27282,7 +27282,7 @@ int __lxstat(int __ver,char *__filename,stat *__stat_buf)
 }
 
 
-// ==== entry=011c79c0 name=inputMethodQuery size=1 ====
+// ==== entry=011c79c0 orig=FUN_011c79c0 size=1 name=inputMethodQuery ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27294,7 +27294,7 @@ void QComboBox::inputMethodQuery(void)
 }
 
 
-// ==== entry=011c79c8 name=operator[] size=1 ====
+// ==== entry=011c79c8 orig=FUN_011c79c8 size=1 name=operator[] ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27307,7 +27307,7 @@ void QJsonObject::operator[](QString *param_1)
 }
 
 
-// ==== entry=011c79d0 name=setShortcutEnabled size=1 ====
+// ==== entry=011c79d0 orig=FUN_011c79d0 size=1 name=setShortcutEnabled ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27320,7 +27320,7 @@ void QWidget::setShortcutEnabled(int param_1,bool param_2)
 }
 
 
-// ==== entry=011c79d8 name=errorOccurred size=1 ====
+// ==== entry=011c79d8 orig=FUN_011c79d8 size=1 name=errorOccurred ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27332,7 +27332,7 @@ void QLocalSocket::errorOccurred(void)
 }
 
 
-// ==== entry=011c79e0 name=aboutToClose size=1 ====
+// ==== entry=011c79e0 orig=FUN_011c79e0 size=1 name=aboutToClose ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27345,7 +27345,7 @@ void QIODevice::aboutToClose(void)
 }
 
 
-// ==== entry=011c79e8 name=data size=1 ====
+// ==== entry=011c79e8 orig=FUN_011c79e8 size=1 name=data ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27358,7 +27358,7 @@ void QFileSystemModel::data(QModelIndex *param_1,int param_2)
 }
 
 
-// ==== entry=011c79f0 name=disconnectNotify size=1 ====
+// ==== entry=011c79f0 orig=FUN_011c79f0 size=1 name=disconnectNotify ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27371,7 +27371,7 @@ void QObject::disconnectNotify(QMetaMethod *param_1)
 }
 
 
-// ==== entry=011c79f8 name=setData size=1 ====
+// ==== entry=011c79f8 orig=FUN_011c79f8 size=1 name=setData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27384,7 +27384,7 @@ void QMimeData::setData(QString *param_1,QByteArray *param_2)
 }
 
 
-// ==== entry=011c7a00 name=addWidget size=1 ====
+// ==== entry=011c7a00 orig=FUN_011c7a00 size=1 name=addWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27397,7 +27397,7 @@ void QSplitter::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=011c7a08 name=flags size=1 ====
+// ==== entry=011c7a08 orig=FUN_011c7a08 size=1 name=flags ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27410,7 +27410,7 @@ void QStandardItem::flags(void)
 }
 
 
-// ==== entry=011c7a10 name=inputMethodEvent size=1 ====
+// ==== entry=011c7a10 orig=FUN_011c7a10 size=1 name=inputMethodEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27423,7 +27423,7 @@ void QPlainTextEdit::inputMethodEvent(QInputMethodEvent *param_1)
 }
 
 
-// ==== entry=011c7a18 name=objectName size=1 ====
+// ==== entry=011c7a18 orig=FUN_011c7a18 size=1 name=objectName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27436,7 +27436,7 @@ void QObject::objectName(void)
 }
 
 
-// ==== entry=011c7a20 name=setRawData size=1 ====
+// ==== entry=011c7a20 orig=FUN_011c7a20 size=1 name=setRawData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27449,7 +27449,7 @@ void QString::setRawData(QChar *param_1,int param_2)
 }
 
 
-// ==== entry=011c7a28 name=__strtof_l size=1 ====
+// ==== entry=011c7a28 orig=FUN_011c7a28 size=1 name=__strtof_l ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27461,7 +27461,7 @@ void __strtof_l(void)
 }
 
 
-// ==== entry=011c7a30 name=activated size=1 ====
+// ==== entry=011c7a30 orig=FUN_011c7a30 size=1 name=activated ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27474,7 +27474,7 @@ void QCompleter::activated(QString *param_1)
 }
 
 
-// ==== entry=011c7a38 name=toolButtonStyle size=1 ====
+// ==== entry=011c7a38 orig=FUN_011c7a38 size=1 name=toolButtonStyle ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27487,7 +27487,7 @@ void QToolButton::toolButtonStyle(void)
 }
 
 
-// ==== entry=011c7a48 name=ssh_get_publickey_hash size=1 ====
+// ==== entry=011c7a48 orig=FUN_011c7a48 size=1 name=ssh_get_publickey_hash ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27499,7 +27499,7 @@ void ssh_get_publickey_hash(void)
 }
 
 
-// ==== entry=011c7a50 name=setPen size=1 ====
+// ==== entry=011c7a50 orig=FUN_011c7a50 size=1 name=setPen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27512,7 +27512,7 @@ void QPainter::setPen(QPen *param_1)
 }
 
 
-// ==== entry=011c7a58 name=keyPressEvent size=1 ====
+// ==== entry=011c7a58 orig=FUN_011c7a58 size=1 name=keyPressEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27525,7 +27525,7 @@ void QPlainTextEdit::keyPressEvent(QKeyEvent *param_1)
 }
 
 
-// ==== entry=011c7a60 name=enterEvent size=1 ====
+// ==== entry=011c7a60 orig=FUN_011c7a60 size=1 name=enterEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27538,7 +27538,7 @@ void QMenu::enterEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c7a68 name=addMSecs size=1 ====
+// ==== entry=011c7a68 orig=FUN_011c7a68 size=1 name=addMSecs ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27551,7 +27551,7 @@ void QDateTime::addMSecs(longlong param_1)
 }
 
 
-// ==== entry=011c7a70 name=mousePressEvent size=1 ====
+// ==== entry=011c7a70 orig=FUN_011c7a70 size=1 name=mousePressEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27564,7 +27564,7 @@ void QLabel::mousePressEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=011c7a80 name=~QUrl size=1 ====
+// ==== entry=011c7a80 orig=FUN_011c7a80 size=1 name=~QUrl ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27576,7 +27576,7 @@ void __thiscall QUrl::~QUrl(QUrl *this)
 }
 
 
-// ==== entry=011c7a88 name=setFlags size=1 ====
+// ==== entry=011c7a88 orig=FUN_011c7a88 size=1 name=setFlags ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27588,7 +27588,7 @@ void QStandardItem::setFlags(void)
 }
 
 
-// ==== entry=011c7a90 name=mouseReleaseEvent size=1 ====
+// ==== entry=011c7a90 orig=FUN_011c7a90 size=1 name=mouseReleaseEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27601,7 +27601,7 @@ void QAbstractButton::mouseReleaseEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=011c7a98 name=mouseReleaseEvent size=1 ====
+// ==== entry=011c7a98 orig=FUN_011c7a98 size=1 name=mouseReleaseEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27614,7 +27614,7 @@ void QScrollBar::mouseReleaseEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=011c7aa0 name=QTcpServer size=1 ====
+// ==== entry=011c7aa0 orig=FUN_011c7aa0 size=1 name=QTcpServer ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27626,7 +27626,7 @@ void __thiscall QTcpServer::QTcpServer(QTcpServer *this,QObject *param_1)
 }
 
 
-// ==== entry=011c7aa8 name=stateChanged size=1 ====
+// ==== entry=011c7aa8 orig=FUN_011c7aa8 size=1 name=stateChanged ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27638,7 +27638,7 @@ void QProcess::stateChanged(void)
 }
 
 
-// ==== entry=011c7ab0 name=XOpenDisplay size=1 ====
+// ==== entry=011c7ab0 orig=FUN_011c7ab0 size=1 name=XOpenDisplay ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27650,7 +27650,7 @@ void XOpenDisplay(void)
 }
 
 
-// ==== entry=011c7ab8 name=setSectionResizeMode size=1 ====
+// ==== entry=011c7ab8 orig=FUN_011c7ab8 size=1 name=setSectionResizeMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27662,7 +27662,7 @@ void QHeaderView::setSectionResizeMode(void)
 }
 
 
-// ==== entry=011c7ac0 name=rejected size=1 ====
+// ==== entry=011c7ac0 orig=FUN_011c7ac0 size=1 name=rejected ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27675,7 +27675,7 @@ void QDialogButtonBox::rejected(void)
 }
 
 
-// ==== entry=011c7ac8 name=setWindowTitle size=1 ====
+// ==== entry=011c7ac8 orig=FUN_011c7ac8 size=1 name=setWindowTitle ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27688,7 +27688,7 @@ void QWidget::setWindowTitle(QString *param_1)
 }
 
 
-// ==== entry=011c7ad0 name=removeRow size=1 ====
+// ==== entry=011c7ad0 orig=FUN_011c7ad0 size=1 name=removeRow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27701,7 +27701,7 @@ void QTableWidget::removeRow(int param_1)
 }
 
 
-// ==== entry=011c7ad8 name=sftp_async_setstat size=1 ====
+// ==== entry=011c7ad8 orig=FUN_011c7ad8 size=1 name=sftp_async_setstat ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27713,7 +27713,7 @@ void sftp_async_setstat(void)
 }
 
 
-// ==== entry=011c7ae0 name=indexIn size=1 ====
+// ==== entry=011c7ae0 orig=FUN_011c7ae0 size=1 name=indexIn ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27726,7 +27726,7 @@ void QByteArrayMatcher::indexIn(QByteArray *param_1,int param_2)
 }
 
 
-// ==== entry=011c7ae8 name=~QAbstractListModel size=1 ====
+// ==== entry=011c7ae8 orig=FUN_011c7ae8 size=1 name=~QAbstractListModel ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27738,7 +27738,7 @@ void __thiscall QAbstractListModel::~QAbstractListModel(QAbstractListModel *this
 }
 
 
-// ==== entry=011c7af0 name=rgba size=1 ====
+// ==== entry=011c7af0 orig=FUN_011c7af0 size=1 name=rgba ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27751,7 +27751,7 @@ void QColor::rgba(void)
 }
 
 
-// ==== entry=011c7af8 name=mouseReleaseEvent size=1 ====
+// ==== entry=011c7af8 orig=FUN_011c7af8 size=1 name=mouseReleaseEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27764,7 +27764,7 @@ void QMenu::mouseReleaseEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=011c7b00 name=owner size=1 ====
+// ==== entry=011c7b00 orig=FUN_011c7b00 size=1 name=owner ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27777,7 +27777,7 @@ void QFileInfo::owner(void)
 }
 
 
-// ==== entry=011c7b08 name=qt_metacast size=1 ====
+// ==== entry=011c7b08 orig=FUN_011c7b08 size=1 name=qt_metacast ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27790,7 +27790,7 @@ void QFileSystemModel::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=011c7b10 name=isCallable size=1 ====
+// ==== entry=011c7b10 orig=FUN_011c7b10 size=1 name=isCallable ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27803,7 +27803,7 @@ void QJSValue::isCallable(void)
 }
 
 
-// ==== entry=011c7b18 name=operator= size=1 ====
+// ==== entry=011c7b18 orig=FUN_011c7b18 size=1 name=operator= ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27815,7 +27815,7 @@ void __thiscall QFont::operator=(QFont *this,QFont *param_1)
 }
 
 
-// ==== entry=011c7b20 name=~QProxyStyle size=1 ====
+// ==== entry=011c7b20 orig=FUN_011c7b20 size=1 name=~QProxyStyle ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27827,7 +27827,7 @@ void __thiscall QProxyStyle::~QProxyStyle(QProxyStyle *this)
 }
 
 
-// ==== entry=011c7b28 name=handleWidth size=1 ====
+// ==== entry=011c7b28 orig=FUN_011c7b28 size=1 name=handleWidth ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27840,7 +27840,7 @@ void QSplitter::handleWidth(void)
 }
 
 
-// ==== entry=011c7b30 name=separator size=1 ====
+// ==== entry=011c7b30 orig=FUN_011c7b30 size=1 name=separator ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27853,7 +27853,7 @@ void QDir::separator(void)
 }
 
 
-// ==== entry=011c7b38 name=chop size=1 ====
+// ==== entry=011c7b38 orig=FUN_011c7b38 size=1 name=chop ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27866,7 +27866,7 @@ void QString::chop(int param_1)
 }
 
 
-// ==== entry=011c7b40 name=append size=1 ====
+// ==== entry=011c7b40 orig=FUN_011c7b40 size=1 name=append ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27878,7 +27878,7 @@ void QString::append(void)
 }
 
 
-// ==== entry=011c7b48 name=hasHeightForWidth size=1 ====
+// ==== entry=011c7b48 orig=FUN_011c7b48 size=1 name=hasHeightForWidth ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27891,7 +27891,7 @@ void QWidget::hasHeightForWidth(void)
 }
 
 
-// ==== entry=011c7b50 name=hasIndex size=1 ====
+// ==== entry=011c7b50 orig=FUN_011c7b50 size=1 name=hasIndex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27904,7 +27904,7 @@ void QAbstractItemModel::hasIndex(int param_1,int param_2,QModelIndex *param_3)
 }
 
 
-// ==== entry=011c7b58 name=QVariant size=1 ====
+// ==== entry=011c7b58 orig=FUN_011c7b58 size=1 name=QVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27916,7 +27916,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QByteArray *param_1)
 }
 
 
-// ==== entry=011c7b60 name=sizeHintForColumn size=1 ====
+// ==== entry=011c7b60 orig=FUN_011c7b60 size=1 name=sizeHintForColumn ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27929,7 +27929,7 @@ void QTableView::sizeHintForColumn(int param_1)
 }
 
 
-// ==== entry=011c7b68 name=qt_metacast size=1 ====
+// ==== entry=011c7b68 orig=FUN_011c7b68 size=1 name=qt_metacast ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27942,7 +27942,7 @@ void QTableWidget::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=011c7b70 name=setPen size=1 ====
+// ==== entry=011c7b70 orig=FUN_011c7b70 size=1 name=setPen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27954,7 +27954,7 @@ void QPainter::setPen(void)
 }
 
 
-// ==== entry=011c7b78 name=isTabEnabled size=1 ====
+// ==== entry=011c7b78 orig=FUN_011c7b78 size=1 name=isTabEnabled ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27967,7 +27967,7 @@ void QTabBar::isTabEnabled(int param_1)
 }
 
 
-// ==== entry=011c7b80 name=QPushButton size=1 ====
+// ==== entry=011c7b80 orig=FUN_011c7b80 size=1 name=QPushButton ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -27979,7 +27979,7 @@ void __thiscall QPushButton::QPushButton(QPushButton *this,QString *param_1,QWid
 }
 
 
-// ==== entry=011c7b88 name=toStringList size=1 ====
+// ==== entry=011c7b88 orig=FUN_011c7b88 size=1 name=toStringList ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -27992,7 +27992,7 @@ void QProcessEnvironment::toStringList(void)
 }
 
 
-// ==== entry=011c7b90 name=mkdir size=1 ====
+// ==== entry=011c7b90 orig=FUN_011c7b90 size=1 name=mkdir ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28005,7 +28005,7 @@ int mkdir(char *__path,__mode_t __mode)
 }
 
 
-// ==== entry=011c7b98 name=QTextEncoder size=1 ====
+// ==== entry=011c7b98 orig=FUN_011c7b98 size=1 name=QTextEncoder ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28017,7 +28017,7 @@ void __thiscall QTextEncoder::QTextEncoder(void)
 }
 
 
-// ==== entry=011c7ba0 name=waitForReadyRead size=1 ====
+// ==== entry=011c7ba0 orig=FUN_011c7ba0 size=1 name=waitForReadyRead ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28030,7 +28030,7 @@ void QAbstractSocket::waitForReadyRead(int param_1)
 }
 
 
-// ==== entry=011c7ba8 name=setHeaderData size=1 ====
+// ==== entry=011c7ba8 orig=FUN_011c7ba8 size=1 name=setHeaderData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28042,7 +28042,7 @@ void QSortFilterProxyModel::setHeaderData(void)
 }
 
 
-// ==== entry=011c7bb0 name=endInsertRows size=1 ====
+// ==== entry=011c7bb0 orig=FUN_011c7bb0 size=1 name=endInsertRows ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28055,7 +28055,7 @@ void QAbstractItemModel::endInsertRows(void)
 }
 
 
-// ==== entry=011c7bb8 name=XFlush size=1 ====
+// ==== entry=011c7bb8 orig=FUN_011c7bb8 size=1 name=XFlush ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28067,7 +28067,7 @@ void XFlush(void)
 }
 
 
-// ==== entry=011c7bc0 name=contains size=1 ====
+// ==== entry=011c7bc0 orig=FUN_011c7bc0 size=1 name=contains ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28080,7 +28080,7 @@ void QJsonObject::contains(QString *param_1)
 }
 
 
-// ==== entry=011c7bc8 name=resizeEvent size=1 ====
+// ==== entry=011c7bc8 orig=FUN_011c7bc8 size=1 name=resizeEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28093,7 +28093,7 @@ void QTabBar::resizeEvent(QResizeEvent *param_1)
 }
 
 
-// ==== entry=011c7bd0 name=event size=1 ====
+// ==== entry=011c7bd0 orig=FUN_011c7bd0 size=1 name=event ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28106,7 +28106,7 @@ void QAbstractItemView::event(QEvent *param_1)
 }
 
 
-// ==== entry=011c7bd8 name=QApplication size=1 ====
+// ==== entry=011c7bd8 orig=FUN_011c7bd8 size=1 name=QApplication ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28119,7 +28119,7 @@ QApplication::QApplication(QApplication *this,int *param_1,char **param_2,int pa
 }
 
 
-// ==== entry=011c7be0 name=nextCheckState size=1 ====
+// ==== entry=011c7be0 orig=FUN_011c7be0 size=1 name=nextCheckState ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28132,7 +28132,7 @@ void QAbstractButton::nextCheckState(void)
 }
 
 
-// ==== entry=011c7be8 name=~QStorageInfo size=1 ====
+// ==== entry=011c7be8 orig=FUN_011c7be8 size=1 name=~QStorageInfo ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28144,7 +28144,7 @@ void __thiscall QStorageInfo::~QStorageInfo(QStorageInfo *this)
 }
 
 
-// ==== entry=011c7bf0 name=currentChanged size=1 ====
+// ==== entry=011c7bf0 orig=FUN_011c7bf0 size=1 name=currentChanged ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28157,7 +28157,7 @@ void QTableView::currentChanged(QModelIndex *param_1,QModelIndex *param_2)
 }
 
 
-// ==== entry=011c7bf8 name=open size=1 ====
+// ==== entry=011c7bf8 orig=FUN_011c7bf8 size=1 name=open ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28169,7 +28169,7 @@ void QProcess::open(void)
 }
 
 
-// ==== entry=011c7c00 name=move size=1 ====
+// ==== entry=011c7c00 orig=FUN_011c7c00 size=1 name=move ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28182,7 +28182,7 @@ void QListData::move(int param_1,int param_2)
 }
 
 
-// ==== entry=011c7c08 name=~QFont size=1 ====
+// ==== entry=011c7c08 orig=FUN_011c7c08 size=1 name=~QFont ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28194,7 +28194,7 @@ void __thiscall QFont::~QFont(QFont *this)
 }
 
 
-// ==== entry=011c7c10 name=removeRow size=1 ====
+// ==== entry=011c7c10 orig=FUN_011c7c10 size=1 name=removeRow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28207,7 +28207,7 @@ void QFormLayout::removeRow(QWidget *param_1)
 }
 
 
-// ==== entry=011c7c18 name=pen size=1 ====
+// ==== entry=011c7c18 orig=FUN_011c7c18 size=1 name=pen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28220,7 +28220,7 @@ void QPainter::pen(void)
 }
 
 
-// ==== entry=011c7c20 name=QVariant size=1 ====
+// ==== entry=011c7c20 orig=FUN_011c7c20 size=1 name=QVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28232,7 +28232,7 @@ void __thiscall QVariant::QVariant(QVariant *this,bool param_1)
 }
 
 
-// ==== entry=011c7c28 name=completeBaseName size=1 ====
+// ==== entry=011c7c28 orig=FUN_011c7c28 size=1 name=completeBaseName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28245,7 +28245,7 @@ void QFileInfo::completeBaseName(void)
 }
 
 
-// ==== entry=011c7c30 name=minimumSize size=1 ====
+// ==== entry=011c7c30 orig=FUN_011c7c30 size=1 name=minimumSize ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28258,7 +28258,7 @@ void QBoxLayout::minimumSize(void)
 }
 
 
-// ==== entry=011c7c38 name=paintingRoles size=1 ====
+// ==== entry=011c7c38 orig=FUN_011c7c38 size=1 name=paintingRoles ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28271,7 +28271,7 @@ void QAbstractItemDelegate::paintingRoles(void)
 }
 
 
-// ==== entry=011c7c40 name=readData size=1 ====
+// ==== entry=011c7c40 orig=FUN_011c7c40 size=1 name=readData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28284,7 +28284,7 @@ void QProcess::readData(char *param_1,longlong param_2)
 }
 
 
-// ==== entry=011c7c48 name=setWindowIcon size=1 ====
+// ==== entry=011c7c48 orig=FUN_011c7c48 size=1 name=setWindowIcon ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28297,7 +28297,7 @@ void QApplication::setWindowIcon(QIcon *param_1)
 }
 
 
-// ==== entry=011c7c58 name=changeEvent size=1 ====
+// ==== entry=011c7c58 orig=FUN_011c7c58 size=1 name=changeEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28310,7 +28310,7 @@ void QToolBar::changeEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c7c60 name=addRow size=1 ====
+// ==== entry=011c7c60 orig=FUN_011c7c60 size=1 name=addRow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28323,7 +28323,7 @@ void QFormLayout::addRow(QLayout *param_1)
 }
 
 
-// ==== entry=011c7c68 name=prepend size=1 ====
+// ==== entry=011c7c68 orig=FUN_011c7c68 size=1 name=prepend ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28336,7 +28336,7 @@ void QByteArray::prepend(char param_1)
 }
 
 
-// ==== entry=011c7c70 name=setUniformItemSizes size=1 ====
+// ==== entry=011c7c70 orig=FUN_011c7c70 size=1 name=setUniformItemSizes ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28349,7 +28349,7 @@ void QListView::setUniformItemSizes(bool param_1)
 }
 
 
-// ==== entry=011c7c80 name=setCollapsible size=1 ====
+// ==== entry=011c7c80 orig=FUN_011c7c80 size=1 name=setCollapsible ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28362,7 +28362,7 @@ void QSplitter::setCollapsible(int param_1,bool param_2)
 }
 
 
-// ==== entry=011c7c88 name=setFrame size=1 ====
+// ==== entry=011c7c88 orig=FUN_011c7c88 size=1 name=setFrame ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28375,7 +28375,7 @@ void QLineEdit::setFrame(bool param_1)
 }
 
 
-// ==== entry=011c7c90 name=mousePressEvent size=1 ====
+// ==== entry=011c7c90 orig=FUN_011c7c90 size=1 name=mousePressEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28388,7 +28388,7 @@ void QTabBar::mousePressEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=011c7c98 name=newConnection size=1 ====
+// ==== entry=011c7c98 orig=FUN_011c7c98 size=1 name=newConnection ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28401,7 +28401,7 @@ void QTcpServer::newConnection(void)
 }
 
 
-// ==== entry=011c7ca0 name=itemSelectionChanged size=1 ====
+// ==== entry=011c7ca0 orig=FUN_011c7ca0 size=1 name=itemSelectionChanged ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28414,7 +28414,7 @@ void QTableWidget::itemSelectionChanged(void)
 }
 
 
-// ==== entry=011c7ca8 name=methodOffset size=1 ====
+// ==== entry=011c7ca8 orig=FUN_011c7ca8 size=1 name=methodOffset ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28427,7 +28427,7 @@ void QMetaObject::methodOffset(void)
 }
 
 
-// ==== entry=011c7cb0 name=toSizeF size=1 ====
+// ==== entry=011c7cb0 orig=FUN_011c7cb0 size=1 name=toSizeF ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28440,7 +28440,7 @@ void QVariant::toSizeF(void)
 }
 
 
-// ==== entry=011c7cb8 name=setTabChangesFocus size=1 ====
+// ==== entry=011c7cb8 orig=FUN_011c7cb8 size=1 name=setTabChangesFocus ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28453,7 +28453,7 @@ void QPlainTextEdit::setTabChangesFocus(bool param_1)
 }
 
 
-// ==== entry=011c7cc0 name=checkState size=1 ====
+// ==== entry=011c7cc0 orig=FUN_011c7cc0 size=1 name=checkState ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28466,7 +28466,7 @@ void QCheckBox::checkState(void)
 }
 
 
-// ==== entry=011c7cc8 name=QFileInfo size=1 ====
+// ==== entry=011c7cc8 orig=FUN_011c7cc8 size=1 name=QFileInfo ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28478,7 +28478,7 @@ void __thiscall QFileInfo::QFileInfo(QFileInfo *this)
 }
 
 
-// ==== entry=011c7cd0 name=move size=1 ====
+// ==== entry=011c7cd0 orig=FUN_011c7cd0 size=1 name=move ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28491,7 +28491,7 @@ void QWidget::move(QPoint *param_1)
 }
 
 
-// ==== entry=011c7cd8 name=readlink size=1 ====
+// ==== entry=011c7cd8 orig=FUN_011c7cd8 size=1 name=readlink ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28504,7 +28504,7 @@ ssize_t readlink(char *__path,char *__buf,size_t __len)
 }
 
 
-// ==== entry=011c7ce0 name=__stack_chk_fail size=1 ====
+// ==== entry=011c7ce0 orig=FUN_011c7ce0 size=1 name=__stack_chk_fail ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28516,7 +28516,7 @@ void __stack_chk_fail(void)
 }
 
 
-// ==== entry=011c7ce8 name=className size=1 ====
+// ==== entry=011c7ce8 orig=FUN_011c7ce8 size=1 name=className ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28529,7 +28529,7 @@ void QMetaObject::className(void)
 }
 
 
-// ==== entry=011c7cf0 name=heightForWidth size=1 ====
+// ==== entry=011c7cf0 orig=FUN_011c7cf0 size=1 name=heightForWidth ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28542,7 +28542,7 @@ void QBoxLayout::heightForWidth(int param_1)
 }
 
 
-// ==== entry=011c7cf8 name=reset size=1 ====
+// ==== entry=011c7cf8 orig=FUN_011c7cf8 size=1 name=reset ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28555,7 +28555,7 @@ void QAbstractItemView::reset(void)
 }
 
 
-// ==== entry=011c7d00 name=setText size=1 ====
+// ==== entry=011c7d00 orig=FUN_011c7d00 size=1 name=setText ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28568,7 +28568,7 @@ void QLabel::setText(QString *param_1)
 }
 
 
-// ==== entry=011c7d08 name=operator= size=1 ====
+// ==== entry=011c7d08 orig=FUN_011c7d08 size=1 name=operator= ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28580,7 +28580,7 @@ void __thiscall QString::operator=(void)
 }
 
 
-// ==== entry=011c7d10 name=QFileDialog size=1 ====
+// ==== entry=011c7d10 orig=FUN_011c7d10 size=1 name=QFileDialog ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28594,7 +28594,7 @@ QFileDialog::QFileDialog
 }
 
 
-// ==== entry=011c7d18 name=qt_metacall size=1 ====
+// ==== entry=011c7d18 orig=FUN_011c7d18 size=1 name=qt_metacall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28606,7 +28606,7 @@ void QThread::qt_metacall(void)
 }
 
 
-// ==== entry=011c7d20 name=~QTranslator size=1 ====
+// ==== entry=011c7d20 orig=FUN_011c7d20 size=1 name=~QTranslator ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28618,7 +28618,7 @@ void __thiscall QTranslator::~QTranslator(QTranslator *this)
 }
 
 
-// ==== entry=011c7d28 name=drawControl size=1 ====
+// ==== entry=011c7d28 orig=FUN_011c7d28 size=1 name=drawControl ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28630,7 +28630,7 @@ void QProxyStyle::drawControl(void)
 }
 
 
-// ==== entry=011c7d30 name=mapToSource size=1 ====
+// ==== entry=011c7d30 orig=FUN_011c7d30 size=1 name=mapToSource ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28643,7 +28643,7 @@ void QSortFilterProxyModel::mapToSource(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7d38 name=maximumSize size=1 ====
+// ==== entry=011c7d38 orig=FUN_011c7d38 size=1 name=maximumSize ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28656,7 +28656,7 @@ void QBoxLayout::maximumSize(void)
 }
 
 
-// ==== entry=011c7d40 name=setEnabled size=1 ====
+// ==== entry=011c7d40 orig=FUN_011c7d40 size=1 name=setEnabled ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28669,7 +28669,7 @@ void QWidget::setEnabled(bool param_1)
 }
 
 
-// ==== entry=011c7d48 name=memset size=1 ====
+// ==== entry=011c7d48 orig=FUN_011c7d48 size=1 name=memset ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28682,7 +28682,7 @@ void * memset(void *__s,int __c,size_t __n)
 }
 
 
-// ==== entry=011c7d50 name=mouseReleaseEvent size=1 ====
+// ==== entry=011c7d50 orig=FUN_011c7d50 size=1 name=mouseReleaseEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28695,7 +28695,7 @@ void QListView::mouseReleaseEvent(QMouseEvent *param_1)
 }
 
 
-// ==== entry=011c7d58 name=isIndexHidden size=1 ====
+// ==== entry=011c7d58 orig=FUN_011c7d58 size=1 name=isIndexHidden ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28708,7 +28708,7 @@ void QListView::isIndexHidden(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7d60 name=visualRect size=1 ====
+// ==== entry=011c7d60 orig=FUN_011c7d60 size=1 name=visualRect ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28721,7 +28721,7 @@ void QTableView::visualRect(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c7d68 name=focusWidget size=1 ====
+// ==== entry=011c7d68 orig=FUN_011c7d68 size=1 name=focusWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28734,7 +28734,7 @@ void QWidget::focusWidget(void)
 }
 
 
-// ==== entry=011c7d70 name=canReadLine size=1 ====
+// ==== entry=011c7d70 orig=FUN_011c7d70 size=1 name=canReadLine ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28747,7 +28747,7 @@ void QProcess::canReadLine(void)
 }
 
 
-// ==== entry=011c7d78 name=createData size=1 ====
+// ==== entry=011c7d78 orig=FUN_011c7d78 size=1 name=createData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28760,7 +28760,7 @@ void QMapDataBase::createData(void)
 }
 
 
-// ==== entry=011c7d80 name=EVP_CipherUpdate size=1 ====
+// ==== entry=011c7d80 orig=FUN_011c7d80 size=1 name=EVP_CipherUpdate ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28773,7 +28773,7 @@ int EVP_CipherUpdate(EVP_CIPHER_CTX *ctx,uchar *out,int *outl,uchar *in,int inl)
 }
 
 
-// ==== entry=011c7d88 name=number size=1 ====
+// ==== entry=011c7d88 orig=FUN_011c7d88 size=1 name=number ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28786,7 +28786,7 @@ void QString::number(uint param_1,int param_2)
 }
 
 
-// ==== entry=011c7d90 name=QJsonValue size=1 ====
+// ==== entry=011c7d90 orig=FUN_011c7d90 size=1 name=QJsonValue ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28798,7 +28798,7 @@ void __thiscall QJsonValue::QJsonValue(QJsonValue *this,QJsonObject *param_1)
 }
 
 
-// ==== entry=011c7d98 name=getSaveFileName size=1 ====
+// ==== entry=011c7d98 orig=FUN_011c7d98 size=1 name=getSaveFileName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28810,7 +28810,7 @@ void QFileDialog::getSaveFileName(void)
 }
 
 
-// ==== entry=011c7da0 name=systemEnvironment size=1 ====
+// ==== entry=011c7da0 orig=FUN_011c7da0 size=1 name=systemEnvironment ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28823,7 +28823,7 @@ void QProcessEnvironment::systemEnvironment(void)
 }
 
 
-// ==== entry=011c7da8 name=setColor size=1 ====
+// ==== entry=011c7da8 orig=FUN_011c7da8 size=1 name=setColor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28836,7 +28836,7 @@ void QBrush::setColor(QColor *param_1)
 }
 
 
-// ==== entry=011c7db0 name=sscanf size=1 ====
+// ==== entry=011c7db0 orig=FUN_011c7db0 size=1 name=sscanf ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28849,7 +28849,7 @@ int sscanf(char *__s,char *__format,...)
 }
 
 
-// ==== entry=011c7db8 name=mid size=1 ====
+// ==== entry=011c7db8 orig=FUN_011c7db8 size=1 name=mid ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28862,7 +28862,7 @@ void QtPrivate::QContainerImplHelper::mid(int param_1,int *param_2,int *param_3)
 }
 
 
-// ==== entry=011c7dc0 name=addAction size=1 ====
+// ==== entry=011c7dc0 orig=FUN_011c7dc0 size=1 name=addAction ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28875,7 +28875,7 @@ void QMenu::addAction(QIcon *param_1,QString *param_2)
 }
 
 
-// ==== entry=011c7dc8 name=toLower_helper size=1 ====
+// ==== entry=011c7dc8 orig=FUN_011c7dc8 size=1 name=toLower_helper ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28888,7 +28888,7 @@ void QByteArray::toLower_helper(QByteArray *param_1)
 }
 
 
-// ==== entry=011c7dd0 name=alignment size=1 ====
+// ==== entry=011c7dd0 orig=FUN_011c7dd0 size=1 name=alignment ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28901,7 +28901,7 @@ void QLabel::alignment(void)
 }
 
 
-// ==== entry=011c7dd8 name=showMinimized size=1 ====
+// ==== entry=011c7dd8 orig=FUN_011c7dd8 size=1 name=showMinimized ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28914,7 +28914,7 @@ void QWidget::showMinimized(void)
 }
 
 
-// ==== entry=011c7de0 name=mid size=1 ====
+// ==== entry=011c7de0 orig=FUN_011c7de0 size=1 name=mid ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28927,7 +28927,7 @@ void QString::mid(int param_1,int param_2)
 }
 
 
-// ==== entry=011c7de8 name=QSocketNotifier size=1 ====
+// ==== entry=011c7de8 orig=FUN_011c7de8 size=1 name=QSocketNotifier ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -28939,7 +28939,7 @@ void __thiscall QSocketNotifier::QSocketNotifier(void)
 }
 
 
-// ==== entry=011c7df0 name=escape size=1 ====
+// ==== entry=011c7df0 orig=FUN_011c7df0 size=1 name=escape ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28952,7 +28952,7 @@ void QRegularExpression::escape(QString *param_1)
 }
 
 
-// ==== entry=011c7df8 name=contextMenuEvent size=1 ====
+// ==== entry=011c7df8 orig=FUN_011c7df8 size=1 name=contextMenuEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28965,7 +28965,7 @@ void QLineEdit::contextMenuEvent(QContextMenuEvent *param_1)
 }
 
 
-// ==== entry=011c7e00 name=create size=1 ====
+// ==== entry=011c7e00 orig=FUN_011c7e00 size=1 name=create ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28978,7 +28978,7 @@ void QJSEngine::create(int param_1,void *param_2)
 }
 
 
-// ==== entry=011c7e08 name=disconnectImpl size=1 ====
+// ==== entry=011c7e08 orig=FUN_011c7e08 size=1 name=disconnectImpl ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -28993,7 +28993,7 @@ void QObject::disconnectImpl
 }
 
 
-// ==== entry=011c7e10 name=fputs size=1 ====
+// ==== entry=011c7e10 orig=FUN_011c7e10 size=1 name=fputs ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29006,7 +29006,7 @@ int fputs(char *__s,FILE *__stream)
 }
 
 
-// ==== entry=011c7e18 name=comment size=1 ====
+// ==== entry=011c7e18 orig=FUN_011c7e18 size=1 name=comment ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29019,7 +29019,7 @@ void QMimeType::comment(void)
 }
 
 
-// ==== entry=011c7e20 name=ssh_userauth_none size=1 ====
+// ==== entry=011c7e20 orig=FUN_011c7e20 size=1 name=ssh_userauth_none ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29031,7 +29031,7 @@ void ssh_userauth_none(void)
 }
 
 
-// ==== entry=011c7e28 name=sin size=1 ====
+// ==== entry=011c7e28 orig=FUN_011c7e28 size=1 name=sin ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29044,7 +29044,7 @@ double sin(double __x)
 }
 
 
-// ==== entry=011c7e30 name=QFontDatabase size=1 ====
+// ==== entry=011c7e30 orig=FUN_011c7e30 size=1 name=QFontDatabase ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29056,7 +29056,7 @@ void __thiscall QFontDatabase::QFontDatabase(QFontDatabase *this)
 }
 
 
-// ==== entry=011c7e38 name=mimeData size=1 ====
+// ==== entry=011c7e38 orig=FUN_011c7e38 size=1 name=mimeData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29069,7 +29069,7 @@ void QFileSystemModel::mimeData(QList *param_1)
 }
 
 
-// ==== entry=011c7e40 name=urls size=1 ====
+// ==== entry=011c7e40 orig=FUN_011c7e40 size=1 name=urls ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29082,7 +29082,7 @@ void QMimeData::urls(void)
 }
 
 
-// ==== entry=011c7e50 name=QNetworkProxy size=1 ====
+// ==== entry=011c7e50 orig=FUN_011c7e50 size=1 name=QNetworkProxy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29094,7 +29094,7 @@ void __thiscall QNetworkProxy::QNetworkProxy(QNetworkProxy *this,QNetworkProxy *
 }
 
 
-// ==== entry=011c7e58 name=append size=1 ====
+// ==== entry=011c7e58 orig=FUN_011c7e58 size=1 name=append ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29107,7 +29107,7 @@ void QString::append(QChar *param_1,int param_2)
 }
 
 
-// ==== entry=011c7e60 name=cmp size=1 ====
+// ==== entry=011c7e60 orig=FUN_011c7e60 size=1 name=cmp ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29120,7 +29120,7 @@ void QVariant::cmp(QVariant *param_1)
 }
 
 
-// ==== entry=011c7e68 name=drawPolygon size=1 ====
+// ==== entry=011c7e68 orig=FUN_011c7e68 size=1 name=drawPolygon ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29132,7 +29132,7 @@ void QPainter::drawPolygon(void)
 }
 
 
-// ==== entry=011c7e70 name=QComboBox size=1 ====
+// ==== entry=011c7e70 orig=FUN_011c7e70 size=1 name=QComboBox ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29144,7 +29144,7 @@ void __thiscall QComboBox::QComboBox(QComboBox *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c7e78 name=toHex size=1 ====
+// ==== entry=011c7e78 orig=FUN_011c7e78 size=1 name=toHex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29157,7 +29157,7 @@ void QByteArray::toHex(void)
 }
 
 
-// ==== entry=011c7e80 name=setErrorString size=1 ====
+// ==== entry=011c7e80 orig=FUN_011c7e80 size=1 name=setErrorString ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29170,7 +29170,7 @@ void QIODevice::setErrorString(QString *param_1)
 }
 
 
-// ==== entry=011c7e88 name=createEditor size=1 ====
+// ==== entry=011c7e88 orig=FUN_011c7e88 size=1 name=createEditor ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29184,7 +29184,7 @@ void QStyledItemDelegate::createEditor
 }
 
 
-// ==== entry=011c7e90 name=QImage size=1 ====
+// ==== entry=011c7e90 orig=FUN_011c7e90 size=1 name=QImage ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29196,7 +29196,7 @@ void __thiscall QImage::QImage(void)
 }
 
 
-// ==== entry=011c7e98 name=id size=1 ====
+// ==== entry=011c7e98 orig=FUN_011c7e98 size=1 name=id ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29209,7 +29209,7 @@ void QButtonGroup::id(QAbstractButton *param_1)
 }
 
 
-// ==== entry=011c7ea0 name=isColumnHidden size=1 ====
+// ==== entry=011c7ea0 orig=FUN_011c7ea0 size=1 name=isColumnHidden ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29222,7 +29222,7 @@ void QTableView::isColumnHidden(int param_1)
 }
 
 
-// ==== entry=011c7ea8 name=pthread_cond_destroy size=1 ====
+// ==== entry=011c7ea8 orig=FUN_011c7ea8 size=1 name=pthread_cond_destroy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29235,7 +29235,7 @@ int pthread_cond_destroy(pthread_cond_t *__cond)
 }
 
 
-// ==== entry=011c7eb0 name=lastIndexOf size=1 ====
+// ==== entry=011c7eb0 orig=FUN_011c7eb0 size=1 name=lastIndexOf ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29248,7 +29248,7 @@ void QString::lastIndexOf(QRegularExpression *param_1,int param_2)
 }
 
 
-// ==== entry=011c7eb8 name=QMenu size=1 ====
+// ==== entry=011c7eb8 orig=FUN_011c7eb8 size=1 name=QMenu ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29260,7 +29260,7 @@ void __thiscall QMenu::QMenu(QMenu *this,QString *param_1,QWidget *param_2)
 }
 
 
-// ==== entry=011c7ec0 name=protocol size=1 ====
+// ==== entry=011c7ec0 orig=FUN_011c7ec0 size=1 name=protocol ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29273,7 +29273,7 @@ void QHostAddress::protocol(void)
 }
 
 
-// ==== entry=011c7ec8 name=setCaseSensitivity size=1 ====
+// ==== entry=011c7ec8 orig=FUN_011c7ec8 size=1 name=setCaseSensitivity ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29285,7 +29285,7 @@ void QRegExp::setCaseSensitivity(void)
 }
 
 
-// ==== entry=011c7ed0 name=setTextMargins size=1 ====
+// ==== entry=011c7ed0 orig=FUN_011c7ed0 size=1 name=setTextMargins ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29298,7 +29298,7 @@ void QLineEdit::setTextMargins(int param_1,int param_2,int param_3,int param_4)
 }
 
 
-// ==== entry=011c7ed8 name=contextMenuEvent size=1 ====
+// ==== entry=011c7ed8 orig=FUN_011c7ed8 size=1 name=contextMenuEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29311,7 +29311,7 @@ void QWidget::contextMenuEvent(QContextMenuEvent *param_1)
 }
 
 
-// ==== entry=011c7ee0 name=ssh_channel_read_nonblocking size=1 ====
+// ==== entry=011c7ee0 orig=FUN_011c7ee0 size=1 name=ssh_channel_read_nonblocking ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29323,7 +29323,7 @@ void ssh_channel_read_nonblocking(void)
 }
 
 
-// ==== entry=011c7ee8 name=setFocusPolicy size=1 ====
+// ==== entry=011c7ee8 orig=FUN_011c7ee8 size=1 name=setFocusPolicy ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29335,7 +29335,7 @@ void QWidget::setFocusPolicy(void)
 }
 
 
-// ==== entry=011c7ef0 name=paintEvent size=1 ====
+// ==== entry=011c7ef0 orig=FUN_011c7ef0 size=1 name=paintEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29348,7 +29348,7 @@ void QMenu::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=011c7ef8 name=loadResource size=1 ====
+// ==== entry=011c7ef8 orig=FUN_011c7ef8 size=1 name=loadResource ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29361,7 +29361,7 @@ void QPlainTextEdit::loadResource(int param_1,QUrl *param_2)
 }
 
 
-// ==== entry=011c7f00 name=QLabel size=1 ====
+// ==== entry=011c7f00 orig=FUN_011c7f00 size=1 name=QLabel ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29373,7 +29373,7 @@ void __thiscall QLabel::QLabel(void)
 }
 
 
-// ==== entry=011c7f08 name=utf16 size=1 ====
+// ==== entry=011c7f08 orig=FUN_011c7f08 size=1 name=utf16 ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29386,7 +29386,7 @@ void QString::utf16(void)
 }
 
 
-// ==== entry=011c7f10 name=ssh_channel_free size=1 ====
+// ==== entry=011c7f10 orig=FUN_011c7f10 size=1 name=ssh_channel_free ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29398,7 +29398,7 @@ void ssh_channel_free(void)
 }
 
 
-// ==== entry=011c7f18 name=setLineWrapMode size=1 ====
+// ==== entry=011c7f18 orig=FUN_011c7f18 size=1 name=setLineWrapMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29410,7 +29410,7 @@ void QPlainTextEdit::setLineWrapMode(void)
 }
 
 
-// ==== entry=011c7f20 name=setChecked size=1 ====
+// ==== entry=011c7f20 orig=FUN_011c7f20 size=1 name=setChecked ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29423,7 +29423,7 @@ void QAbstractButton::setChecked(bool param_1)
 }
 
 
-// ==== entry=011c7f28 name=setTabText size=1 ====
+// ==== entry=011c7f28 orig=FUN_011c7f28 size=1 name=setTabText ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29436,7 +29436,7 @@ void QTabBar::setTabText(int param_1,QString *param_2)
 }
 
 
-// ==== entry=011c7f30 name=windowState size=1 ====
+// ==== entry=011c7f30 orig=FUN_011c7f30 size=1 name=windowState ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29449,7 +29449,7 @@ void QWidget::windowState(void)
 }
 
 
-// ==== entry=011c7f38 name=contextMenuEvent size=1 ====
+// ==== entry=011c7f38 orig=FUN_011c7f38 size=1 name=contextMenuEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29462,7 +29462,7 @@ void QAbstractSpinBox::contextMenuEvent(QContextMenuEvent *param_1)
 }
 
 
-// ==== entry=011c7f40 name=itemTextRect size=1 ====
+// ==== entry=011c7f40 orig=FUN_011c7f40 size=1 name=itemTextRect ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29476,7 +29476,7 @@ void QProxyStyle::itemTextRect
 }
 
 
-// ==== entry=011c7f48 name=setFrameShadow size=1 ====
+// ==== entry=011c7f48 orig=FUN_011c7f48 size=1 name=setFrameShadow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29488,7 +29488,7 @@ void QFrame::setFrameShadow(void)
 }
 
 
-// ==== entry=011c7f50 name=link size=1 ====
+// ==== entry=011c7f50 orig=FUN_011c7f50 size=1 name=link ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29501,7 +29501,7 @@ void QFile::link(QString *param_1,QString *param_2)
 }
 
 
-// ==== entry=011c7f58 name=dropIndicatorPosition size=1 ====
+// ==== entry=011c7f58 orig=FUN_011c7f58 size=1 name=dropIndicatorPosition ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29514,7 +29514,7 @@ void QAbstractItemView::dropIndicatorPosition(void)
 }
 
 
-// ==== entry=011c7f60 name=pthread_once size=1 ====
+// ==== entry=011c7f60 orig=FUN_011c7f60 size=1 name=pthread_once ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29527,7 +29527,7 @@ int pthread_once(pthread_once_t *__once_control,__init_routine *__init_routine)
 }
 
 
-// ==== entry=011c7f68 name=ssh_channel_request_x11 size=1 ====
+// ==== entry=011c7f68 orig=FUN_011c7f68 size=1 name=ssh_channel_request_x11 ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29539,7 +29539,7 @@ void ssh_channel_request_x11(void)
 }
 
 
-// ==== entry=011c7f70 name=insertColumns size=1 ====
+// ==== entry=011c7f70 orig=FUN_011c7f70 size=1 name=insertColumns ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29552,7 +29552,7 @@ void QSortFilterProxyModel::insertColumns(int param_1,int param_2,QModelIndex *p
 }
 
 
-// ==== entry=011c7f78 name=textFromValue size=1 ====
+// ==== entry=011c7f78 orig=FUN_011c7f78 size=1 name=textFromValue ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29565,7 +29565,7 @@ void QSpinBox::textFromValue(int param_1)
 }
 
 
-// ==== entry=011c7f80 name=QTableWidget size=1 ====
+// ==== entry=011c7f80 orig=FUN_011c7f80 size=1 name=QTableWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29577,7 +29577,7 @@ void __thiscall QTableWidget::QTableWidget(QTableWidget *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c7f88 name=widgetAt size=1 ====
+// ==== entry=011c7f88 orig=FUN_011c7f88 size=1 name=widgetAt ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29590,7 +29590,7 @@ void QApplication::widgetAt(QPoint *param_1)
 }
 
 
-// ==== entry=011c7f90 name=singleStep size=1 ====
+// ==== entry=011c7f90 orig=FUN_011c7f90 size=1 name=singleStep ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29603,7 +29603,7 @@ void QAbstractSlider::singleStep(void)
 }
 
 
-// ==== entry=011c7f98 name=currentIndex size=1 ====
+// ==== entry=011c7f98 orig=FUN_011c7f98 size=1 name=currentIndex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29616,7 +29616,7 @@ void QItemSelectionModel::currentIndex(void)
 }
 
 
-// ==== entry=011c7fa0 name=globalObject size=1 ====
+// ==== entry=011c7fa0 orig=FUN_011c7fa0 size=1 name=globalObject ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29629,7 +29629,7 @@ void QJSEngine::globalObject(void)
 }
 
 
-// ==== entry=011c7fa8 name=append size=1 ====
+// ==== entry=011c7fa8 orig=FUN_011c7fa8 size=1 name=append ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29641,7 +29641,7 @@ void QString::append(void)
 }
 
 
-// ==== entry=011c7fb0 name=strlen size=1 ====
+// ==== entry=011c7fb0 orig=FUN_011c7fb0 size=1 name=strlen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29654,7 +29654,7 @@ size_t strlen(char *__s)
 }
 
 
-// ==== entry=011c7fb8 name=waitForReadyRead size=1 ====
+// ==== entry=011c7fb8 orig=FUN_011c7fb8 size=1 name=waitForReadyRead ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29667,7 +29667,7 @@ void QProcess::waitForReadyRead(int param_1)
 }
 
 
-// ==== entry=011c7fc0 name=name size=1 ====
+// ==== entry=011c7fc0 orig=FUN_011c7fc0 size=1 name=name ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29680,7 +29680,7 @@ void QLocale::name(void)
 }
 
 
-// ==== entry=011c7fc8 name=wcsnrtombs size=1 ====
+// ==== entry=011c7fc8 orig=FUN_011c7fc8 size=1 name=wcsnrtombs ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29693,7 +29693,7 @@ size_t wcsnrtombs(char *__dst,wchar_t **__src,size_t __nwc,size_t __len,mbstate_
 }
 
 
-// ==== entry=011c7fd0 name=rootPath size=1 ====
+// ==== entry=011c7fd0 orig=FUN_011c7fd0 size=1 name=rootPath ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29706,7 +29706,7 @@ void QStorageInfo::rootPath(void)
 }
 
 
-// ==== entry=011c7fd8 name=localHostName size=1 ====
+// ==== entry=011c7fd8 orig=FUN_011c7fd8 size=1 name=localHostName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29719,7 +29719,7 @@ void QHostInfo::localHostName(void)
 }
 
 
-// ==== entry=011c7fe0 name=pthread_mutex_init size=1 ====
+// ==== entry=011c7fe0 orig=FUN_011c7fe0 size=1 name=pthread_mutex_init ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29732,7 +29732,7 @@ int pthread_mutex_init(pthread_mutex_t *__mutex,pthread_mutexattr_t *__mutexattr
 }
 
 
-// ==== entry=011c7fe8 name=toVariant size=1 ====
+// ==== entry=011c7fe8 orig=FUN_011c7fe8 size=1 name=toVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29745,7 +29745,7 @@ void QJSValue::toVariant(void)
 }
 
 
-// ==== entry=011c7ff0 name=insertRows size=1 ====
+// ==== entry=011c7ff0 orig=FUN_011c7ff0 size=1 name=insertRows ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29758,7 +29758,7 @@ void QSortFilterProxyModel::insertRows(int param_1,int param_2,QModelIndex *para
 }
 
 
-// ==== entry=011c7ff8 name=clipboard size=1 ====
+// ==== entry=011c7ff8 orig=FUN_011c7ff8 size=1 name=clipboard ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29771,7 +29771,7 @@ void QGuiApplication::clipboard(void)
 }
 
 
-// ==== entry=011c8000 name=setModelData size=1 ====
+// ==== entry=011c8000 orig=FUN_011c8000 size=1 name=setModelData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29785,7 +29785,7 @@ void QStyledItemDelegate::setModelData
 }
 
 
-// ==== entry=011c8008 name=setArguments size=1 ====
+// ==== entry=011c8008 orig=FUN_011c8008 size=1 name=setArguments ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29798,7 +29798,7 @@ void QProcess::setArguments(QStringList *param_1)
 }
 
 
-// ==== entry=011c8010 name=QPlainTextEdit size=1 ====
+// ==== entry=011c8010 orig=FUN_011c8010 size=1 name=QPlainTextEdit ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29810,7 +29810,7 @@ void __thiscall QPlainTextEdit::QPlainTextEdit(QPlainTextEdit *this,QWidget *par
 }
 
 
-// ==== entry=011c8018 name=verticalScrollbarAction size=1 ====
+// ==== entry=011c8018 orig=FUN_011c8018 size=1 name=verticalScrollbarAction ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29823,7 +29823,7 @@ void QAbstractItemView::verticalScrollbarAction(int param_1)
 }
 
 
-// ==== entry=011c8020 name=drawLines size=1 ====
+// ==== entry=011c8020 orig=FUN_011c8020 size=1 name=drawLines ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29836,7 +29836,7 @@ void QPainter::drawLines(QLineF *param_1,int param_2)
 }
 
 
-// ==== entry=011c8028 name=qt_metacast size=1 ====
+// ==== entry=011c8028 orig=FUN_011c8028 size=1 name=qt_metacast ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29849,7 +29849,7 @@ void QLineEdit::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=011c8030 name=sftp_async_opendir size=1 ====
+// ==== entry=011c8030 orig=FUN_011c8030 size=1 name=sftp_async_opendir ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29861,7 +29861,7 @@ void sftp_async_opendir(void)
 }
 
 
-// ==== entry=011c8038 name=QListWidgetItem size=1 ====
+// ==== entry=011c8038 orig=FUN_011c8038 size=1 name=QListWidgetItem ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29875,7 +29875,7 @@ QListWidgetItem::QListWidgetItem
 }
 
 
-// ==== entry=011c8040 name=~QDoubleSpinBox size=1 ====
+// ==== entry=011c8040 orig=FUN_011c8040 size=1 name=~QDoubleSpinBox ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29887,7 +29887,7 @@ void __thiscall QDoubleSpinBox::~QDoubleSpinBox(QDoubleSpinBox *this)
 }
 
 
-// ==== entry=011c8048 name=isChecked size=1 ====
+// ==== entry=011c8048 orig=FUN_011c8048 size=1 name=isChecked ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29900,7 +29900,7 @@ void QAbstractButton::isChecked(void)
 }
 
 
-// ==== entry=011c8050 name=toNativeSeparators size=1 ====
+// ==== entry=011c8050 orig=FUN_011c8050 size=1 name=toNativeSeparators ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29913,7 +29913,7 @@ void QDir::toNativeSeparators(QString *param_1)
 }
 
 
-// ==== entry=011c8058 name=families size=1 ====
+// ==== entry=011c8058 orig=FUN_011c8058 size=1 name=families ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29925,7 +29925,7 @@ void QFontDatabase::families(void)
 }
 
 
-// ==== entry=011c8060 name=QTimer size=1 ====
+// ==== entry=011c8060 orig=FUN_011c8060 size=1 name=QTimer ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29937,7 +29937,7 @@ void __thiscall QTimer::QTimer(QTimer *this,QObject *param_1)
 }
 
 
-// ==== entry=011c8068 name=isEmpty size=1 ====
+// ==== entry=011c8068 orig=FUN_011c8068 size=1 name=isEmpty ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29950,7 +29950,7 @@ void QTranslator::isEmpty(void)
 }
 
 
-// ==== entry=011c8070 name=headerData size=1 ====
+// ==== entry=011c8070 orig=FUN_011c8070 size=1 name=headerData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29962,7 +29962,7 @@ void QSortFilterProxyModel::headerData(void)
 }
 
 
-// ==== entry=011c8078 name=remove size=1 ====
+// ==== entry=011c8078 orig=FUN_011c8078 size=1 name=remove ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -29975,7 +29975,7 @@ void QListData::remove(int param_1)
 }
 
 
-// ==== entry=011c8080 name=information size=1 ====
+// ==== entry=011c8080 orig=FUN_011c8080 size=1 name=information ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -29987,7 +29987,7 @@ void QMessageBox::information(void)
 }
 
 
-// ==== entry=011c8088 name=geometry size=1 ====
+// ==== entry=011c8088 orig=FUN_011c8088 size=1 name=geometry ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30000,7 +30000,7 @@ void QLayout::geometry(void)
 }
 
 
-// ==== entry=011c8090 name=childEvent size=1 ====
+// ==== entry=011c8090 orig=FUN_011c8090 size=1 name=childEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30013,7 +30013,7 @@ void QSplitter::childEvent(QChildEvent *param_1)
 }
 
 
-// ==== entry=011c8098 name=activeWindow size=1 ====
+// ==== entry=011c8098 orig=FUN_011c8098 size=1 name=activeWindow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30026,7 +30026,7 @@ void QApplication::activeWindow(void)
 }
 
 
-// ==== entry=011c80a0 name=setCheckState size=1 ====
+// ==== entry=011c80a0 orig=FUN_011c80a0 size=1 name=setCheckState ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30038,7 +30038,7 @@ void QCheckBox::setCheckState(void)
 }
 
 
-// ==== entry=011c80a8 name=toPlainText size=1 ====
+// ==== entry=011c80a8 orig=FUN_011c80a8 size=1 name=toPlainText ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30051,7 +30051,7 @@ void QTextDocument::toPlainText(void)
 }
 
 
-// ==== entry=011c80b0 name=getgrgid size=1 ====
+// ==== entry=011c80b0 orig=FUN_011c80b0 size=1 name=getgrgid ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30064,7 +30064,7 @@ group * getgrgid(__gid_t __gid)
 }
 
 
-// ==== entry=011c80b8 name=allocate size=1 ====
+// ==== entry=011c80b8 orig=FUN_011c80b8 size=1 name=allocate ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30076,7 +30076,7 @@ void QArrayData::allocate(void)
 }
 
 
-// ==== entry=011c80c0 name=codecForName size=1 ====
+// ==== entry=011c80c0 orig=FUN_011c80c0 size=1 name=codecForName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30089,7 +30089,7 @@ void QTextCodec::codecForName(QByteArray *param_1)
 }
 
 
-// ==== entry=011c80c8 name=minimumSize size=1 ====
+// ==== entry=011c80c8 orig=FUN_011c80c8 size=1 name=minimumSize ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30101,7 +30101,7 @@ void QBoxLayout::minimumSize(void)
 }
 
 
-// ==== entry=011c80d0 name=QFontMetricsF size=1 ====
+// ==== entry=011c80d0 orig=FUN_011c80d0 size=1 name=QFontMetricsF ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30114,7 +30114,7 @@ QFontMetricsF::QFontMetricsF(QFontMetricsF *this,QFont *param_1,QPaintDevice *pa
 }
 
 
-// ==== entry=011c80d8 name=timerEvent size=1 ====
+// ==== entry=011c80d8 orig=FUN_011c80d8 size=1 name=timerEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30127,7 +30127,7 @@ void QAbstractSpinBox::timerEvent(QTimerEvent *param_1)
 }
 
 
-// ==== entry=011c80e0 name=QSpinBox size=1 ====
+// ==== entry=011c80e0 orig=FUN_011c80e0 size=1 name=QSpinBox ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30139,7 +30139,7 @@ void __thiscall QSpinBox::QSpinBox(QSpinBox *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c80e8 name=QSignalMapper size=1 ====
+// ==== entry=011c80e8 orig=FUN_011c80e8 size=1 name=QSignalMapper ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30151,7 +30151,7 @@ void __thiscall QSignalMapper::QSignalMapper(QSignalMapper *this,QObject *param_
 }
 
 
-// ==== entry=011c80f0 name=QStringList_contains size=1 ====
+// ==== entry=011c80f0 orig=FUN_011c80f0 size=1 name=QStringList_contains ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30163,7 +30163,7 @@ void QtPrivate::QStringList_contains(void)
 }
 
 
-// ==== entry=011c80f8 name=fromRgba size=1 ====
+// ==== entry=011c80f8 orig=FUN_011c80f8 size=1 name=fromRgba ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30176,7 +30176,7 @@ void QColor::fromRgba(uint param_1)
 }
 
 
-// ==== entry=011c8108 name=~QEvent size=1 ====
+// ==== entry=011c8108 orig=FUN_011c8108 size=1 name=~QEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30188,7 +30188,7 @@ void __thiscall QEvent::~QEvent(QEvent *this)
 }
 
 
-// ==== entry=011c8110 name=restoreGeometry size=1 ====
+// ==== entry=011c8110 orig=FUN_011c8110 size=1 name=restoreGeometry ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30201,7 +30201,7 @@ void QWidget::restoreGeometry(QByteArray *param_1)
 }
 
 
-// ==== entry=011c8120 name=fclose size=1 ====
+// ==== entry=011c8120 orig=FUN_011c8120 size=1 name=fclose ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30214,7 +30214,7 @@ int fclose(FILE *__stream)
 }
 
 
-// ==== entry=011c8128 name=QTreeView size=1 ====
+// ==== entry=011c8128 orig=FUN_011c8128 size=1 name=QTreeView ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30226,7 +30226,7 @@ void __thiscall QTreeView::QTreeView(QTreeView *this,QWidget *param_1)
 }
 
 
-// ==== entry=011c8130 name=setsid size=1 ====
+// ==== entry=011c8130 orig=FUN_011c8130 size=1 name=setsid ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30239,7 +30239,7 @@ __pid_t setsid(void)
 }
 
 
-// ==== entry=011c8138 name=start size=1 ====
+// ==== entry=011c8138 orig=FUN_011c8138 size=1 name=start ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30251,7 +30251,7 @@ void QProcess::start(void)
 }
 
 
-// ==== entry=011c8140 name=waitForBytesWritten size=1 ====
+// ==== entry=011c8140 orig=FUN_011c8140 size=1 name=waitForBytesWritten ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30264,7 +30264,7 @@ void QProcess::waitForBytesWritten(int param_1)
 }
 
 
-// ==== entry=011c8148 name=~QTcpServer size=1 ====
+// ==== entry=011c8148 orig=FUN_011c8148 size=1 name=~QTcpServer ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30276,7 +30276,7 @@ void __thiscall QTcpServer::~QTcpServer(QTcpServer *this)
 }
 
 
-// ==== entry=011c8150 name=error size=1 ====
+// ==== entry=011c8150 orig=FUN_011c8150 size=1 name=error ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30289,7 +30289,7 @@ void QSerialPort::error(void)
 }
 
 
-// ==== entry=011c8158 name=simplified_helper size=1 ====
+// ==== entry=011c8158 orig=FUN_011c8158 size=1 name=simplified_helper ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30302,7 +30302,7 @@ void QString::simplified_helper(QString *param_1)
 }
 
 
-// ==== entry=011c8160 name=ssh_channel_request_send_signal size=1 ====
+// ==== entry=011c8160 orig=FUN_011c8160 size=1 name=ssh_channel_request_send_signal ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30314,7 +30314,7 @@ void ssh_channel_request_send_signal(void)
 }
 
 
-// ==== entry=011c8168 name=QDialogButtonBox size=1 ====
+// ==== entry=011c8168 orig=FUN_011c8168 size=1 name=QDialogButtonBox ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30326,7 +30326,7 @@ void __thiscall QDialogButtonBox::QDialogButtonBox(void)
 }
 
 
-// ==== entry=011c8170 name=hasExpired size=1 ====
+// ==== entry=011c8170 orig=FUN_011c8170 size=1 name=hasExpired ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30339,7 +30339,7 @@ void QDeadlineTimer::hasExpired(void)
 }
 
 
-// ==== entry=011c8178 name=addWidget size=1 ====
+// ==== entry=011c8178 orig=FUN_011c8178 size=1 name=addWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30351,7 +30351,7 @@ void QGridLayout::addWidget(void)
 }
 
 
-// ==== entry=011c8180 name=setFilter size=1 ====
+// ==== entry=011c8180 orig=FUN_011c8180 size=1 name=setFilter ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30363,7 +30363,7 @@ void QDir::setFilter(void)
 }
 
 
-// ==== entry=011c8188 name=setWindowModified size=1 ====
+// ==== entry=011c8188 orig=FUN_011c8188 size=1 name=setWindowModified ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30376,7 +30376,7 @@ void QWidget::setWindowModified(bool param_1)
 }
 
 
-// ==== entry=011c8190 name=activateWindow size=1 ====
+// ==== entry=011c8190 orig=FUN_011c8190 size=1 name=activateWindow ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30389,7 +30389,7 @@ void QWidget::activateWindow(void)
 }
 
 
-// ==== entry=011c8198 name=QPen size=1 ====
+// ==== entry=011c8198 orig=FUN_011c8198 size=1 name=QPen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30401,7 +30401,7 @@ void __thiscall QPen::QPen(QPen *this)
 }
 
 
-// ==== entry=011c81a0 name=event size=1 ====
+// ==== entry=011c81a0 orig=FUN_011c81a0 size=1 name=event ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30414,7 +30414,7 @@ void QTabBar::event(QEvent *param_1)
 }
 
 
-// ==== entry=011c81a8 name=qt_metacall size=1 ====
+// ==== entry=011c81a8 orig=FUN_011c81a8 size=1 name=qt_metacall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30426,7 +30426,7 @@ void QStatusBar::qt_metacall(void)
 }
 
 
-// ==== entry=011c81b0 name=insert size=1 ====
+// ==== entry=011c81b0 orig=FUN_011c81b0 size=1 name=insert ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30438,7 +30438,7 @@ void QString::insert(void)
 }
 
 
-// ==== entry=011c81b8 name=setNumericMode size=1 ====
+// ==== entry=011c81b8 orig=FUN_011c81b8 size=1 name=setNumericMode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30451,7 +30451,7 @@ void QCollator::setNumericMode(bool param_1)
 }
 
 
-// ==== entry=011c81c0 name=setStandardButtons size=1 ====
+// ==== entry=011c81c0 orig=FUN_011c81c0 size=1 name=setStandardButtons ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30463,7 +30463,7 @@ void QMessageBox::setStandardButtons(void)
 }
 
 
-// ==== entry=011c81c8 name=setEnabled size=1 ====
+// ==== entry=011c81c8 orig=FUN_011c81c8 size=1 name=setEnabled ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30476,7 +30476,7 @@ void QStandardItem::setEnabled(bool param_1)
 }
 
 
-// ==== entry=011c81d0 name=wmemset size=1 ====
+// ==== entry=011c81d0 orig=FUN_011c81d0 size=1 name=wmemset ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30489,7 +30489,7 @@ wchar_t * wmemset(wchar_t *__s,wchar_t __c,size_t __n)
 }
 
 
-// ==== entry=011c81d8 name=addWidget size=1 ====
+// ==== entry=011c81d8 orig=FUN_011c81d8 size=1 name=addWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30502,7 +30502,7 @@ void QLayout::addWidget(QWidget *param_1)
 }
 
 
-// ==== entry=011c81e0 name=currentSecsSinceEpoch size=1 ====
+// ==== entry=011c81e0 orig=FUN_011c81e0 size=1 name=currentSecsSinceEpoch ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30515,7 +30515,7 @@ void QDateTime::currentSecsSinceEpoch(void)
 }
 
 
-// ==== entry=011c81e8 name=focusInEvent size=1 ====
+// ==== entry=011c81e8 orig=FUN_011c81e8 size=1 name=focusInEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30528,7 +30528,7 @@ void QPushButton::focusInEvent(QFocusEvent *param_1)
 }
 
 
-// ==== entry=011c81f0 name=prepend size=1 ====
+// ==== entry=011c81f0 orig=FUN_011c81f0 size=1 name=prepend ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30541,7 +30541,7 @@ void QByteArray::prepend(QByteArray *param_1)
 }
 
 
-// ==== entry=011c81f8 name=sftp_new2 size=1 ====
+// ==== entry=011c81f8 orig=FUN_011c81f8 size=1 name=sftp_new2 ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30553,7 +30553,7 @@ void sftp_new2(void)
 }
 
 
-// ==== entry=011c8200 name=clear size=1 ====
+// ==== entry=011c8200 orig=FUN_011c8200 size=1 name=clear ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30566,7 +30566,7 @@ void QPlainTextEdit::clear(void)
 }
 
 
-// ==== entry=011c8208 name=insertWidget size=1 ====
+// ==== entry=011c8208 orig=FUN_011c8208 size=1 name=insertWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30579,7 +30579,7 @@ void QStackedWidget::insertWidget(int param_1,QWidget *param_2)
 }
 
 
-// ==== entry=011c8210 name=addItem size=1 ====
+// ==== entry=011c8210 orig=FUN_011c8210 size=1 name=addItem ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30592,7 +30592,7 @@ void QBoxLayout::addItem(QLayoutItem *param_1)
 }
 
 
-// ==== entry=011c8218 name=isalnum size=1 ====
+// ==== entry=011c8218 orig=FUN_011c8218 size=1 name=isalnum ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30605,7 +30605,7 @@ int isalnum(int param_1)
 }
 
 
-// ==== entry=011c8220 name=typeName size=1 ====
+// ==== entry=011c8220 orig=FUN_011c8220 size=1 name=typeName ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30618,7 +30618,7 @@ void QMetaType::typeName(int param_1)
 }
 
 
-// ==== entry=011c8228 name=setValue size=1 ====
+// ==== entry=011c8228 orig=FUN_011c8228 size=1 name=setValue ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30631,7 +30631,7 @@ void QProgressBar::setValue(int param_1)
 }
 
 
-// ==== entry=011c8230 name=unlock size=1 ====
+// ==== entry=011c8230 orig=FUN_011c8230 size=1 name=unlock ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30644,7 +30644,7 @@ void QReadWriteLock::unlock(void)
 }
 
 
-// ==== entry=011c8238 name=setAutoDefault size=1 ====
+// ==== entry=011c8238 orig=FUN_011c8238 size=1 name=setAutoDefault ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30657,7 +30657,7 @@ void QPushButton::setAutoDefault(bool param_1)
 }
 
 
-// ==== entry=011c8240 name=listen size=1 ====
+// ==== entry=011c8240 orig=FUN_011c8240 size=1 name=listen ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30670,7 +30670,7 @@ void QTcpServer::listen(QHostAddress *param_1,ushort param_2)
 }
 
 
-// ==== entry=011c8248 name=freeNode size=1 ====
+// ==== entry=011c8248 orig=FUN_011c8248 size=1 name=freeNode ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30683,7 +30683,7 @@ void QHashData::freeNode(void *param_1)
 }
 
 
-// ==== entry=011c8250 name=absoluteFilePath size=1 ====
+// ==== entry=011c8250 orig=FUN_011c8250 size=1 name=absoluteFilePath ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30696,7 +30696,7 @@ void QDir::absoluteFilePath(QString *param_1)
 }
 
 
-// ==== entry=011c8258 name=drawBranches size=1 ====
+// ==== entry=011c8258 orig=FUN_011c8258 size=1 name=drawBranches ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30709,7 +30709,7 @@ void QTreeView::drawBranches(QPainter *param_1,QRect *param_2,QModelIndex *param
 }
 
 
-// ==== entry=011c8268 name=operator>> size=1 ====
+// ==== entry=011c8268 orig=FUN_011c8268 size=1 name=operator>> ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30721,7 +30721,7 @@ void __thiscall QDataStream::operator>>(QDataStream *this,double *param_1)
 }
 
 
-// ==== entry=011c8270 name=pthread_attr_getdetachstate size=1 ====
+// ==== entry=011c8270 orig=FUN_011c8270 size=1 name=pthread_attr_getdetachstate ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30734,7 +30734,7 @@ int pthread_attr_getdetachstate(pthread_attr_t *__attr,int *__detachstate)
 }
 
 
-// ==== entry=011c8278 name=setAttribute size=1 ====
+// ==== entry=011c8278 orig=FUN_011c8278 size=1 name=setAttribute ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30746,7 +30746,7 @@ void QWidget::setAttribute(void)
 }
 
 
-// ==== entry=011c8280 name=strstr size=1 ====
+// ==== entry=011c8280 orig=FUN_011c8280 size=1 name=strstr ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30759,7 +30759,7 @@ char * strstr(char *__haystack,char *__needle)
 }
 
 
-// ==== entry=011c8288 name=QSortFilterProxyModel size=1 ====
+// ==== entry=011c8288 orig=FUN_011c8288 size=1 name=QSortFilterProxyModel ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30772,7 +30772,7 @@ QSortFilterProxyModel::QSortFilterProxyModel(QSortFilterProxyModel *this,QObject
 }
 
 
-// ==== entry=011c8290 name=~QFile size=1 ====
+// ==== entry=011c8290 orig=FUN_011c8290 size=1 name=~QFile ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30784,7 +30784,7 @@ void __thiscall QFile::~QFile(QFile *this)
 }
 
 
-// ==== entry=011c8298 name=_M_append size=1 ====
+// ==== entry=011c8298 orig=FUN_011c8298 size=1 name=_M_append ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30797,7 +30797,7 @@ void std::__cxx11::string::_M_append(char *param_1,ulong param_2)
 }
 
 
-// ==== entry=011c82a0 name=QVariant size=1 ====
+// ==== entry=011c82a0 orig=FUN_011c82a0 size=1 name=QVariant ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30809,7 +30809,7 @@ void __thiscall QVariant::QVariant(QVariant *this,QList *param_1)
 }
 
 
-// ==== entry=011c82a8 name=sftp_limits size=1 ====
+// ==== entry=011c82a8 orig=FUN_011c82a8 size=1 name=sftp_limits ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30821,7 +30821,7 @@ void sftp_limits(void)
 }
 
 
-// ==== entry=011c82b0 name=actualSize size=1 ====
+// ==== entry=011c82b0 orig=FUN_011c82b0 size=1 name=actualSize ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30833,7 +30833,7 @@ void QIconEngine::actualSize(void)
 }
 
 
-// ==== entry=011c82b8 name=EVP_CipherInit_ex size=1 ====
+// ==== entry=011c82b8 orig=FUN_011c82b8 size=1 name=EVP_CipherInit_ex ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30847,7 +30847,7 @@ int EVP_CipherInit_ex(EVP_CIPHER_CTX *ctx,EVP_CIPHER *cipher,ENGINE *impl,uchar 
 }
 
 
-// ==== entry=011c82c0 name=placeholderText size=1 ====
+// ==== entry=011c82c0 orig=FUN_011c82c0 size=1 name=placeholderText ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30860,7 +30860,7 @@ void QComboBox::placeholderText(void)
 }
 
 
-// ==== entry=011c82c8 name=paintEvent size=1 ====
+// ==== entry=011c82c8 orig=FUN_011c82c8 size=1 name=paintEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30873,7 +30873,7 @@ void QTableView::paintEvent(QPaintEvent *param_1)
 }
 
 
-// ==== entry=011c82d0 name=qt_metacall size=1 ====
+// ==== entry=011c82d0 orig=FUN_011c82d0 size=1 name=qt_metacall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30885,7 +30885,7 @@ void QStandardItemModel::qt_metacall(void)
 }
 
 
-// ==== entry=011c82d8 name=aio_return size=1 ====
+// ==== entry=011c82d8 orig=FUN_011c82d8 size=1 name=aio_return ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30898,7 +30898,7 @@ __ssize_t aio_return(aiocb *__aiocbp)
 }
 
 
-// ==== entry=011c82e0 name=scrollTo size=1 ====
+// ==== entry=011c82e0 orig=FUN_011c82e0 size=1 name=scrollTo ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30910,7 +30910,7 @@ void QTableView::scrollTo(void)
 }
 
 
-// ==== entry=011c82e8 name=indexOf size=1 ====
+// ==== entry=011c82e8 orig=FUN_011c82e8 size=1 name=indexOf ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30923,7 +30923,7 @@ void QLayout::indexOf(QWidget *param_1)
 }
 
 
-// ==== entry=011c82f0 name=rightJustified size=1 ====
+// ==== entry=011c82f0 orig=FUN_011c82f0 size=1 name=rightJustified ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30935,7 +30935,7 @@ void QString::rightJustified(void)
 }
 
 
-// ==== entry=011c82f8 name=bind_textdomain_codeset size=1 ====
+// ==== entry=011c82f8 orig=FUN_011c82f8 size=1 name=bind_textdomain_codeset ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30947,7 +30947,7 @@ void bind_textdomain_codeset(void)
 }
 
 
-// ==== entry=011c8300 name=selectAll size=1 ====
+// ==== entry=011c8300 orig=FUN_011c8300 size=1 name=selectAll ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30960,7 +30960,7 @@ void QTreeView::selectAll(void)
 }
 
 
-// ==== entry=011c8308 name=addLayout size=1 ====
+// ==== entry=011c8308 orig=FUN_011c8308 size=1 name=addLayout ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30972,7 +30972,7 @@ void QGridLayout::addLayout(void)
 }
 
 
-// ==== entry=011c8310 name=readAllStandardError size=1 ====
+// ==== entry=011c8310 orig=FUN_011c8310 size=1 name=readAllStandardError ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -30985,7 +30985,7 @@ void QProcess::readAllStandardError(void)
 }
 
 
-// ==== entry=011c8318 name=operator<< size=1 ====
+// ==== entry=011c8318 orig=FUN_011c8318 size=1 name=operator<< ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -30997,7 +30997,7 @@ void __thiscall QDataStream::operator<<(void)
 }
 
 
-// ==== entry=011c8320 name=mimeTypeForUrl size=1 ====
+// ==== entry=011c8320 orig=FUN_011c8320 size=1 name=mimeTypeForUrl ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31010,7 +31010,7 @@ void QMimeDatabase::mimeTypeForUrl(QUrl *param_1)
 }
 
 
-// ==== entry=011c8328 name=painter size=1 ====
+// ==== entry=011c8328 orig=FUN_011c8328 size=1 name=painter ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31023,7 +31023,7 @@ void QPaintEngine::painter(void)
 }
 
 
-// ==== entry=011c8330 name=sortKey size=1 ====
+// ==== entry=011c8330 orig=FUN_011c8330 size=1 name=sortKey ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31036,7 +31036,7 @@ void QCollator::sortKey(QString *param_1)
 }
 
 
-// ==== entry=011c8338 name=uniformItemSizes size=1 ====
+// ==== entry=011c8338 orig=FUN_011c8338 size=1 name=uniformItemSizes ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31049,7 +31049,7 @@ void QListView::uniformItemSizes(void)
 }
 
 
-// ==== entry=011c8340 name=sftp_file_set_nonblocking size=1 ====
+// ==== entry=011c8340 orig=FUN_011c8340 size=1 name=sftp_file_set_nonblocking ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31061,7 +31061,7 @@ void sftp_file_set_nonblocking(void)
 }
 
 
-// ==== entry=011c8348 name=~QDateTime size=1 ====
+// ==== entry=011c8348 orig=FUN_011c8348 size=1 name=~QDateTime ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31073,7 +31073,7 @@ void __thiscall QDateTime::~QDateTime(QDateTime *this)
 }
 
 
-// ==== entry=011c8350 name=bytesToWrite size=1 ====
+// ==== entry=011c8350 orig=FUN_011c8350 size=1 name=bytesToWrite ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31086,7 +31086,7 @@ void QAbstractSocket::bytesToWrite(void)
 }
 
 
-// ==== entry=011c8358 name=appendHtml size=1 ====
+// ==== entry=011c8358 orig=FUN_011c8358 size=1 name=appendHtml ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31099,7 +31099,7 @@ void QPlainTextEdit::appendHtml(QString *param_1)
 }
 
 
-// ==== entry=011c8360 name=find_first_not_of size=1 ====
+// ==== entry=011c8360 orig=FUN_011c8360 size=1 name=find_first_not_of ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31112,7 +31112,7 @@ void std::__cxx11::string::find_first_not_of(char param_1,ulong param_2)
 }
 
 
-// ==== entry=011c8368 name=sqrt size=1 ====
+// ==== entry=011c8368 orig=FUN_011c8368 size=1 name=sqrt ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31125,7 +31125,7 @@ double sqrt(double __x)
 }
 
 
-// ==== entry=011c8370 name=tabAt size=1 ====
+// ==== entry=011c8370 orig=FUN_011c8370 size=1 name=tabAt ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31138,7 +31138,7 @@ void QTabBar::tabAt(QPoint *param_1)
 }
 
 
-// ==== entry=011c8378 name=ssh_pki_import_privkey_file size=1 ====
+// ==== entry=011c8378 orig=FUN_011c8378 size=1 name=ssh_pki_import_privkey_file ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31150,7 +31150,7 @@ void ssh_pki_import_privkey_file(void)
 }
 
 
-// ==== entry=011c8380 name=operator[] size=1 ====
+// ==== entry=011c8380 orig=FUN_011c8380 size=1 name=operator[] ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31163,7 +31163,7 @@ void QKeySequence::operator[](uint param_1)
 }
 
 
-// ==== entry=011c8388 name=dynamicSortFilter size=1 ====
+// ==== entry=011c8388 orig=FUN_011c8388 size=1 name=dynamicSortFilter ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31176,7 +31176,7 @@ void QSortFilterProxyModel::dynamicSortFilter(void)
 }
 
 
-// ==== entry=011c8390 name=append size=1 ====
+// ==== entry=011c8390 orig=FUN_011c8390 size=1 name=append ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31189,7 +31189,7 @@ void QString::append(QStringRef *param_1)
 }
 
 
-// ==== entry=011c8398 name=update size=1 ====
+// ==== entry=011c8398 orig=FUN_011c8398 size=1 name=update ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31202,7 +31202,7 @@ void QWidget::update(void)
 }
 
 
-// ==== entry=011c83a0 name=qt_metacast size=1 ====
+// ==== entry=011c83a0 orig=FUN_011c83a0 size=1 name=qt_metacast ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31215,7 +31215,7 @@ void QComboBox::qt_metacast(char *param_1)
 }
 
 
-// ==== entry=011c83a8 name=itemAtPosition size=1 ====
+// ==== entry=011c83a8 orig=FUN_011c83a8 size=1 name=itemAtPosition ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31228,7 +31228,7 @@ void QGridLayout::itemAtPosition(int param_1,int param_2)
 }
 
 
-// ==== entry=011c83b0 name=metaObject size=1 ====
+// ==== entry=011c83b0 orig=FUN_011c83b0 size=1 name=metaObject ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31241,7 +31241,7 @@ void QStandardItemModel::metaObject(void)
 }
 
 
-// ==== entry=011c83b8 name=readLineInto size=1 ====
+// ==== entry=011c83b8 orig=FUN_011c83b8 size=1 name=readLineInto ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31254,7 +31254,7 @@ void QTextStream::readLineInto(QString *param_1,longlong param_2)
 }
 
 
-// ==== entry=011c83c0 name=deallocate size=1 ====
+// ==== entry=011c83c0 orig=FUN_011c83c0 size=1 name=deallocate ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31267,7 +31267,7 @@ void QArrayData::deallocate(QArrayData *param_1,ulong param_2,ulong param_3)
 }
 
 
-// ==== entry=011c83d0 name=QProcess size=1 ====
+// ==== entry=011c83d0 orig=FUN_011c83d0 size=1 name=QProcess ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31279,7 +31279,7 @@ void __thiscall QProcess::QProcess(QProcess *this,QObject *param_1)
 }
 
 
-// ==== entry=011c83d8 name=setCompleter size=1 ====
+// ==== entry=011c83d8 orig=FUN_011c83d8 size=1 name=setCompleter ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31292,7 +31292,7 @@ void QComboBox::setCompleter(QCompleter *param_1)
 }
 
 
-// ==== entry=011c83e0 name=QDialog size=1 ====
+// ==== entry=011c83e0 orig=FUN_011c83e0 size=1 name=QDialog ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31304,7 +31304,7 @@ void __thiscall QDialog::QDialog(void)
 }
 
 
-// ==== entry=011c83e8 name=~QKeyEvent size=1 ====
+// ==== entry=011c83e8 orig=FUN_011c83e8 size=1 name=~QKeyEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31316,7 +31316,7 @@ void __thiscall QKeyEvent::~QKeyEvent(QKeyEvent *this)
 }
 
 
-// ==== entry=011c83f0 name=setData size=1 ====
+// ==== entry=011c83f0 orig=FUN_011c83f0 size=1 name=setData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31329,7 +31329,7 @@ void QAction::setData(QVariant *param_1)
 }
 
 
-// ==== entry=011c83f8 name=qt_metacall size=1 ====
+// ==== entry=011c83f8 orig=FUN_011c83f8 size=1 name=qt_metacall ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31341,7 +31341,7 @@ void QPushButton::qt_metacall(void)
 }
 
 
-// ==== entry=011c8400 name=index size=1 ====
+// ==== entry=011c8400 orig=FUN_011c8400 size=1 name=index ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31354,7 +31354,7 @@ void QSortFilterProxyModel::index(int param_1,int param_2,QModelIndex *param_3)
 }
 
 
-// ==== entry=011c8408 name=fflush size=1 ====
+// ==== entry=011c8408 orig=FUN_011c8408 size=1 name=fflush ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31367,7 +31367,7 @@ int fflush(FILE *__stream)
 }
 
 
-// ==== entry=011c8410 name=setModel size=1 ====
+// ==== entry=011c8410 orig=FUN_011c8410 size=1 name=setModel ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31380,7 +31380,7 @@ void QCompleter::setModel(QAbstractItemModel *param_1)
 }
 
 
-// ==== entry=011c8418 name=menu size=1 ====
+// ==== entry=011c8418 orig=FUN_011c8418 size=1 name=menu ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31393,7 +31393,7 @@ void QPushButton::menu(void)
 }
 
 
-// ==== entry=011c8420 name=event size=1 ====
+// ==== entry=011c8420 orig=FUN_011c8420 size=1 name=event ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31406,7 +31406,7 @@ void QSplitter::event(QEvent *param_1)
 }
 
 
-// ==== entry=011c8428 name=sourceModelChanged size=1 ====
+// ==== entry=011c8428 orig=FUN_011c8428 size=1 name=sourceModelChanged ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31418,7 +31418,7 @@ void QAbstractProxyModel::sourceModelChanged(void)
 }
 
 
-// ==== entry=011c8430 name=showPopup size=1 ====
+// ==== entry=011c8430 orig=FUN_011c8430 size=1 name=showPopup ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31431,7 +31431,7 @@ void QComboBox::showPopup(void)
 }
 
 
-// ==== entry=011c8440 name=strtold_l size=1 ====
+// ==== entry=011c8440 orig=FUN_011c8440 size=1 name=strtold_l ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31444,7 +31444,7 @@ double strtold_l(char *__nptr,char **__endptr,__locale_t __loc)
 }
 
 
-// ==== entry=011c8448 name=addMenu size=1 ====
+// ==== entry=011c8448 orig=FUN_011c8448 size=1 name=addMenu ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31457,7 +31457,7 @@ void QMenu::addMenu(QString *param_1)
 }
 
 
-// ==== entry=011c8450 name=XQueryPointer size=1 ====
+// ==== entry=011c8450 orig=FUN_011c8450 size=1 name=XQueryPointer ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31469,7 +31469,7 @@ void XQueryPointer(void)
 }
 
 
-// ==== entry=011c8458 name=compare size=1 ====
+// ==== entry=011c8458 orig=FUN_011c8458 size=1 name=compare ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31482,7 +31482,7 @@ void std::__cxx11::string::compare(char *param_1)
 }
 
 
-// ==== entry=011c8460 name=changeEvent size=1 ====
+// ==== entry=011c8460 orig=FUN_011c8460 size=1 name=changeEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31495,7 +31495,7 @@ void QAbstractSpinBox::changeEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c8470 name=pthread_key_delete size=1 ====
+// ==== entry=011c8470 orig=FUN_011c8470 size=1 name=pthread_key_delete ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31508,7 +31508,7 @@ int pthread_key_delete(pthread_key_t __key)
 }
 
 
-// ==== entry=011c8478 name=setNameFilters size=1 ====
+// ==== entry=011c8478 orig=FUN_011c8478 size=1 name=setNameFilters ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31521,7 +31521,7 @@ void QFileDialog::setNameFilters(QStringList *param_1)
 }
 
 
-// ==== entry=011c8480 name=activePopupWidget size=1 ====
+// ==== entry=011c8480 orig=FUN_011c8480 size=1 name=activePopupWidget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31534,7 +31534,7 @@ void QApplication::activePopupWidget(void)
 }
 
 
-// ==== entry=011c8488 name=ssh_options_get size=1 ====
+// ==== entry=011c8488 orig=FUN_011c8488 size=1 name=ssh_options_get ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31546,7 +31546,7 @@ void ssh_options_get(void)
 }
 
 
-// ==== entry=011c8498 name=changeEvent size=1 ====
+// ==== entry=011c8498 orig=FUN_011c8498 size=1 name=changeEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31559,7 +31559,7 @@ void QAbstractSlider::changeEvent(QEvent *param_1)
 }
 
 
-// ==== entry=011c84a0 name=appendLatin1To size=1 ====
+// ==== entry=011c84a0 orig=FUN_011c84a0 size=1 name=appendLatin1To ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31572,7 +31572,7 @@ void QAbstractConcatenable::appendLatin1To(char *param_1,int param_2,QChar *para
 }
 
 
-// ==== entry=011c84a8 name=dropMimeData size=1 ====
+// ==== entry=011c84a8 orig=FUN_011c84a8 size=1 name=dropMimeData ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31584,7 +31584,7 @@ void QListWidget::dropMimeData(void)
 }
 
 
-// ==== entry=011c84b0 name=QCollator size=1 ====
+// ==== entry=011c84b0 orig=FUN_011c84b0 size=1 name=QCollator ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31596,7 +31596,7 @@ void __thiscall QCollator::QCollator(QCollator *this)
 }
 
 
-// ==== entry=011c84b8 name=columnCount size=1 ====
+// ==== entry=011c84b8 orig=FUN_011c84b8 size=1 name=columnCount ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31609,7 +31609,7 @@ void QSortFilterProxyModel::columnCount(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c84c0 name=widget size=1 ====
+// ==== entry=011c84c0 orig=FUN_011c84c0 size=1 name=widget ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31622,7 +31622,7 @@ void QLayoutItem::widget(void)
 }
 
 
-// ==== entry=011c84c8 name=sftp_async_readdir_begin size=1 ====
+// ==== entry=011c84c8 orig=FUN_011c84c8 size=1 name=sftp_async_readdir_begin ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31634,7 +31634,7 @@ void sftp_async_readdir_begin(void)
 }
 
 
-// ==== entry=011c84d0 name=readAll size=1 ====
+// ==== entry=011c84d0 orig=FUN_011c84d0 size=1 name=readAll ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31647,7 +31647,7 @@ void QTextStream::readAll(void)
 }
 
 
-// ==== entry=011c84d8 name=open size=1 ====
+// ==== entry=011c84d8 orig=FUN_011c84d8 size=1 name=open ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31659,7 +31659,7 @@ void QSaveFile::open(void)
 }
 
 
-// ==== entry=011c84e0 name=count size=1 ====
+// ==== entry=011c84e0 orig=FUN_011c84e0 size=1 name=count ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31671,7 +31671,7 @@ void QStringRef::count(void)
 }
 
 
-// ==== entry=011c84f0 name=operator<< size=1 ====
+// ==== entry=011c84f0 orig=FUN_011c84f0 size=1 name=operator<< ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31683,7 +31683,7 @@ void __thiscall QDataStream::operator<<(QDataStream *this,bool param_1)
 }
 
 
-// ==== entry=011c84f8 name=sort size=1 ====
+// ==== entry=011c84f8 orig=FUN_011c84f8 size=1 name=sort ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31695,7 +31695,7 @@ void QFileSystemModel::sort(void)
 }
 
 
-// ==== entry=011c8500 name=isIndexHidden size=1 ====
+// ==== entry=011c8500 orig=FUN_011c8500 size=1 name=isIndexHidden ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31708,7 +31708,7 @@ void QTreeView::isIndexHidden(QModelIndex *param_1)
 }
 
 
-// ==== entry=011c8508 name=QJSValue size=1 ====
+// ==== entry=011c8508 orig=FUN_011c8508 size=1 name=QJSValue ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31720,7 +31720,7 @@ void __thiscall QJSValue::QJSValue(QJSValue *this,QJSValue *param_1)
 }
 
 
-// ==== entry=011c8510 name=insert size=1 ====
+// ==== entry=011c8510 orig=FUN_011c8510 size=1 name=insert ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31733,7 +31733,7 @@ void QJsonObject::insert(QString *param_1,QJsonValue *param_2)
 }
 
 
-// ==== entry=011c8518 name=dropEvent size=1 ====
+// ==== entry=011c8518 orig=FUN_011c8518 size=1 name=dropEvent ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31746,7 +31746,7 @@ void QListWidget::dropEvent(QDropEvent *param_1)
 }
 
 
-// ==== entry=011c8520 name=ssh_silent_disconnect size=1 ====
+// ==== entry=011c8520 orig=FUN_011c8520 size=1 name=ssh_silent_disconnect ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31758,7 +31758,7 @@ void ssh_silent_disconnect(void)
 }
 
 
-// ==== entry=011c8528 name=isSymLink size=1 ====
+// ==== entry=011c8528 orig=FUN_011c8528 size=1 name=isSymLink ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31771,7 +31771,7 @@ void QFileInfo::isSymLink(void)
 }
 
 
-// ==== entry=011c8530 name=toJsonObject size=1 ====
+// ==== entry=011c8530 orig=FUN_011c8530 size=1 name=toJsonObject ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31784,7 +31784,7 @@ void QVariant::toJsonObject(void)
 }
 
 
-// ==== entry=011c8538 name=__iswctype_l size=1 ====
+// ==== entry=011c8538 orig=FUN_011c8538 size=1 name=__iswctype_l ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31796,7 +31796,7 @@ void __iswctype_l(void)
 }
 
 
-// ==== entry=011c8540 name=warning size=1 ====
+// ==== entry=011c8540 orig=FUN_011c8540 size=1 name=warning ====
 
 /* WARNING: Control flow encountered bad instruction data */
 
@@ -31808,7 +31808,7 @@ void QMessageBox::warning(void)
 }
 
 
-// ==== entry=011c8548 name=setIconSize size=1 ====
+// ==== entry=011c8548 orig=FUN_011c8548 size=1 name=setIconSize ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -31821,7 +31821,7 @@ void QAbstractButton::setIconSize(QSize *param_1)
 }
 
 
-// ==== entry=011c8550 name=qHash size=1 ====
+// ==== entry=011c8550 orig=FUN_011c8550 size=1 name=qHash ====
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */

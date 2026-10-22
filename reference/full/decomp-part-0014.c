@@ -430,7 +430,7 @@ void FUN_00509758(void)
 {
   QListView *unaff_RBX;
   
-  *(undefined ***)unaff_RBX = &PTR_FUN_01199210;
+  *(undefined ***)unaff_RBX = &HtmlList_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_01199510;
   QListView::~QListView(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -481,7 +481,7 @@ void FUN_005097c6(void)
   void *unaff_RBP;
   
   operator_delete(unaff_RBP,0xb0);
-  *(undefined ***)unaff_RBX = &PTR_FUN_01199070;
+  *(undefined ***)unaff_RBX = &HtmlListModel_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR___cxa_pure_virtual_011991f0;
   QAbstractListModel::~QAbstractListModel(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -2789,7 +2789,7 @@ void FUN_0050a7e6(void)
     operator_delete(puVar1,8);
   }
   FUN_0096ff8c(unaff_RBX + 0x30);
-  FUN_009638a6();
+  DocumentTask_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70(unaff_R12);
 }
@@ -7855,7 +7855,7 @@ void FUN_0050ced2(void)
 {
   QListView *unaff_RBX;
   
-  *(undefined ***)unaff_RBX = &PTR_FUN_01199210;
+  *(undefined ***)unaff_RBX = &HtmlList_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_01199510;
   QListView::~QListView(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -8280,7 +8280,7 @@ void FUN_0050d1ac(void)
     QReadWriteLock::unlock();
   }
   FUN_009c8460(unaff_R14 + 0x50);
-  *(undefined ***)(unaff_R14 + 0x28) = &PTR_FUN_0118eb70;
+  *(undefined ***)(unaff_R14 + 0x28) = &Uint64RunStyles_vtable;
   FUN_007b0a8a(in_stack_00000008);
   if (*(_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> **)(unaff_R14 + 0x20) !=
       (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
@@ -8302,7 +8302,7 @@ void FUN_0050d1eb(void)
   
   FUN_005249f0();
   FUN_009c8460(unaff_R14 + 0x50);
-  *(undefined ***)(unaff_R14 + 0x28) = &PTR_FUN_0118eb70;
+  *(undefined ***)(unaff_R14 + 0x28) = &Uint64RunStyles_vtable;
   FUN_007b0a8a(in_stack_00000008);
   if (*(_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> **)(unaff_R14 + 0x20) !=
       (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {

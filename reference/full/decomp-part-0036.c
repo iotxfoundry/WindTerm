@@ -6004,7 +6004,7 @@ void FUN_00b097cc(int param_1,int param_2)
 }
 
 
-// ==== entry=00b09df5 name=_INIT_170 size=21 ====
+// ==== entry=00b09df5 orig=FUN_00b09df5 size=21 name=_INIT_170 ====
 
 void _INIT_170(void)
 
@@ -8949,7 +8949,7 @@ void FUN_00b0d10a(int param_1,int param_2)
 }
 
 
-// ==== entry=00b0d733 name=_INIT_171 size=21 ====
+// ==== entry=00b0d733 orig=FUN_00b0d733 size=21 name=_INIT_171 ====
 
 void _INIT_171(void)
 

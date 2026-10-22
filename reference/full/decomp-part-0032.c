@@ -755,7 +755,7 @@ ulong * FUN_0097392a(byte *param_1,undefined8 param_2)
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_009739e0(undefined8 *param_1)
+void Uint8PieceTable_metaObject(undefined8 *param_1)
 
 {
   code *pcVar1;
@@ -1046,7 +1046,7 @@ LAB_00973e89:
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00973f40(undefined8 *param_1)
+void Uint8PieceTable_qt_metacast(undefined8 *param_1)
 
 {
   code *pcVar1;
@@ -6545,7 +6545,7 @@ undefined8 * FUN_0097b24a(undefined8 *param_1,long param_2,char param_3,undefine
   puVar9[2] = puVar11;
                     /* try { // try from 0097b48e to 0097b492 has its CatchHandler @ 0097b715 */
   FUN_0088e5a0(puVar11,0,0,2);
-  *puVar9 = &PTR_FUN_01192310;
+  *puVar9 = &Uint8RunStyles_vtable;
   *param_1 = puVar9;
   lVar19 = *(long *)(param_2 + 0x60);
   lVar20 = *(long *)(param_2 + 0x70);
@@ -9397,7 +9397,7 @@ void FUN_00980380(undefined8 *param_1,undefined8 param_2)
 {
   void *pvVar1;
   
-  *param_1 = &DAT_011ad728;
+  *param_1 = &CSuperBufferBase_vtable;
   param_1[3] = param_2;
   *(undefined1 *)(param_1 + 4) = 1;
   param_1[5] = 0;
@@ -9426,7 +9426,7 @@ void FUN_00980410(undefined8 *param_1)
   void *pvVar1;
   QArrayData *pQVar2;
   
-  *param_1 = &DAT_011ad728;
+  *param_1 = &CSuperBufferBase_vtable;
   if ((long *)param_1[1] != (long *)0x0) {
     (**(code **)(*(long *)param_1[1] + 8))();
   }
@@ -9949,7 +9949,7 @@ void FUN_00980b90(long *param_1,long *param_2,char param_3)
 
 // ==== entry=00980c62 orig=FUN_00980c62 size=550 name=CSuperBufferBase_qt_metacall ====
 
-void FUN_00980c62(long *param_1,long *param_2)
+void CSuperBufferBase_qt_metacall(long *param_1,long *param_2)
 
 {
   size_t __n;
@@ -10499,7 +10499,7 @@ void FUN_009818aa(undefined8 *param_1)
   undefined4 *puVar2;
   
   FUN_00980380();
-  *param_1 = &PTR_FUN_011ad818;
+  *param_1 = &CSuperBuffer32_vtable;
                     /* try { // try from 009818ca to 009818ce has its CatchHandler @ 0098195f */
   puVar1 = operator_new(0x30);
   *puVar1 = &PTR_FUN_011ad7f8;
@@ -11192,7 +11192,7 @@ size_t FUN_0098246a(long param_1,void *param_2,long param_3,size_t param_4)
 
 // ==== entry=00982722 orig=FUN_00982722 size=4763 name=CSuperBuffer32_qt_metacall ====
 
-void FUN_00982722(long param_1,long *param_2)
+void CSuperBuffer32_qt_metacall(long param_1,long *param_2)
 
 {
   char *pcVar1;
@@ -11240,7 +11240,7 @@ void FUN_00982722(long param_1,long *param_2)
   timespec local_48;
   uint uVar10;
   
-  FUN_00980c62();
+  CSuperBufferBase_qt_metacall();
   if ((*(long *)(param_1 + 0x40) != 0) && (*(int *)(*(long *)(param_1 + 0x40) + 8) != 1)) {
     FUN_00988790(param_1 + 0x40);
   }
@@ -14567,10 +14567,10 @@ LAB_00986d62:
 
 // ==== entry=00986e4a orig=FUN_00986e4a size=36 name=CSuperBuffer32_metaObject ====
 
-void FUN_00986e4a(undefined8 *param_1)
+void CSuperBuffer32_metaObject(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad818;
+  *param_1 = &CSuperBuffer32_vtable;
   FUN_00986b90(param_1 + 8);
   FUN_00980410(param_1);
   return;
@@ -14579,10 +14579,10 @@ void FUN_00986e4a(undefined8 *param_1)
 
 // ==== entry=00986e6e orig=FUN_00986e6e size=49 name=CSuperBuffer32_qt_metacast ====
 
-void FUN_00986e6e(undefined8 *param_1)
+void CSuperBuffer32_qt_metacast(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad818;
+  *param_1 = &CSuperBuffer32_vtable;
   FUN_00986b90(param_1 + 8);
   FUN_00980410(param_1);
   operator_delete(param_1,0x48);
@@ -17027,7 +17027,7 @@ LAB_00989de9:
 
 // ==== entry=00989e70 orig=FUN_00989e70 size=9 name=CSuperBuffer64_dtor ====
 
-void FUN_00989e70(long param_1)
+void CSuperBuffer64_dtor(long param_1)
 
 {
   FUN_009c7d72(*(undefined8 *)(param_1 + 0x40));
@@ -17037,7 +17037,7 @@ void FUN_00989e70(long param_1)
 
 // ==== entry=00989e7a orig=FUN_00989e7a size=18 name=CSuperBuffer64_dtor_deleting ====
 
-undefined8 FUN_00989e7a(undefined8 param_1,long param_2)
+undefined8 CSuperBuffer64_dtor_deleting(undefined8 param_1,long param_2)
 
 {
   FUN_009c803e(param_1,*(undefined8 *)(param_2 + 0x40));
@@ -17138,7 +17138,7 @@ void FUN_00989ef2(undefined8 *param_1)
   void *pvVar1;
   
   FUN_00980380();
-  *param_1 = &PTR_FUN_011ad910;
+  *param_1 = &CSuperBuffer64_vtable;
                     /* try { // try from 00989f12 to 00989f16 has its CatchHandler @ 00989f30 */
   pvVar1 = operator_new(0x70);
                     /* try { // try from 00989f1d to 00989f21 has its CatchHandler @ 00989f38 */
@@ -17202,7 +17202,7 @@ void FUN_00989f41(void)
 
 // ==== entry=0098a0aa orig=FUN_0098a0aa size=257 name=CSuperBuffer64_qt_metacall ====
 
-void FUN_0098a0aa(long param_1,long *param_2)
+void CSuperBuffer64_qt_metacall(long param_1,long *param_2)
 
 {
   int *piVar1;
@@ -17211,7 +17211,7 @@ void FUN_0098a0aa(long param_1,long *param_2)
   long lVar4;
   long lVar5;
   
-  FUN_00980c62();
+  CSuperBufferBase_qt_metacall();
   pvVar2 = *(void **)(param_1 + 0x40);
   if ((pvVar2 != (void *)0x0) && (*(int *)((long)pvVar2 + 8) != 1)) {
     pvVar2 = operator_new(0x70);
@@ -17283,10 +17283,10 @@ void FUN_0098a1c0(long *param_1)
 
 // ==== entry=0098a1de orig=FUN_0098a1de size=36 name=CSuperBuffer64_metaObject ====
 
-void FUN_0098a1de(undefined8 *param_1)
+void CSuperBuffer64_metaObject(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad910;
+  *param_1 = &CSuperBuffer64_vtable;
   FUN_0098a1c0(param_1 + 8);
   FUN_00980410(param_1);
   return;
@@ -17295,10 +17295,10 @@ void FUN_0098a1de(undefined8 *param_1)
 
 // ==== entry=0098a202 orig=FUN_0098a202 size=49 name=CSuperBuffer64_qt_metacast ====
 
-void FUN_0098a202(undefined8 *param_1)
+void CSuperBuffer64_qt_metacast(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011ad910;
+  *param_1 = &CSuperBuffer64_vtable;
   FUN_0098a1c0(param_1 + 8);
   FUN_00980410(param_1);
   operator_delete(param_1,0x48);
@@ -19329,7 +19329,7 @@ void FUN_0098c866(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
   puVar8[2] = puVar9;
                     /* try { // try from 0098cbb4 to 0098cbb8 has its CatchHandler @ 0098cca5 */
   FUN_007b4330(puVar9,0,0,2);
-  *puVar8 = &PTR_FUN_011acbf8;
+  *puVar8 = &Uint32SkipRunStyles_vtable;
   puVar7[1] = puVar8;
   *param_1 = puVar7;
   return;
@@ -21190,11 +21190,11 @@ void FUN_0098fc70(long *param_1,undefined8 param_2,long param_3)
   
   param_1 = (long *)*param_1;
   if (0 < param_3) {
-    FUN_00924af2(param_1[1],param_2,param_3,1);
+    Uint32SkipRunStyles_dtor(param_1[1],param_2,param_3,1);
     return;
   }
   if (param_3 != 0) {
-    FUN_00924bd8(param_1[1],param_2,-param_3);
+    Uint32SkipRunStyles_qt_metacall(param_1[1],param_2,-param_3);
     lVar1 = FUN_0092801a(*(undefined8 *)(*param_1 + 8));
     if (lVar1 == 0) {
       FUN_0098abae(*param_1);
@@ -31056,7 +31056,7 @@ void FUN_0099af52(long *param_1,int param_2,long param_3)
   *(long *)(lVar1 + 8) = *(long *)(lVar1 + 8) - param_3;
   lVar2 = *(long *)(lVar1 + 0x18);
   if (lVar2 == 0) {
-    FUN_00890130(*(undefined8 *)(lVar1 + 0x10));
+    Uint8RunStyles_qt_metacall(*(undefined8 *)(lVar1 + 0x10));
     return;
   }
   if (((-1 < param_2) && (iVar3 = *(int *)(lVar2 + 0x14), param_2 < iVar3)) &&
@@ -31809,7 +31809,7 @@ void FUN_0099bbb0(long param_1,ulong param_2,ulong param_3,byte param_4)
       puVar7[2] = puVar9;
                     /* try { // try from 0099be06 to 0099be0a has its CatchHandler @ 0099c0c0 */
       FUN_0088e5a0(puVar9,0,0,2);
-      *puVar7 = &PTR_FUN_01192310;
+      *puVar7 = &Uint8RunStyles_vtable;
       *(undefined8 **)(param_1 + 0x10) = puVar7;
       if (0 < (long)iVar12) {
         lVar6 = 0;
@@ -31863,7 +31863,7 @@ LAB_0099bf04:
       *(undefined8 *)(param_1 + 0x18) = 0;
     }
 LAB_0099bf2b:
-    FUN_008912e8(*(undefined8 *)(param_1 + 0x10),param_2,param_3,1);
+    Uint8RunStyles_dtor(*(undefined8 *)(param_1 + 0x10),param_2,param_3,1);
     FUN_00890880(*(undefined8 *)(param_1 + 0x10),param_2,param_4,param_3,0);
     return;
   }
@@ -36602,7 +36602,7 @@ undefined8 FUN_009a2766(long param_1)
   p_Var1 = this + 0x10;
                     /* try { // try from 009a27b2 to 009a27b6 has its CatchHandler @ 009a29af */
   FUN_00644404(p_Var1,0);
-  *(undefined ***)(this + 0x10) = &PTR_FUN_011ad9f8;
+  *(undefined ***)(this + 0x10) = &OutlineTreeModel_vtable;
   *(undefined8 *)(this + 0x28) = uVar7;
   *(undefined8 **)(this + 0x30) = &QHashData::shared_null;
                     /* try { // try from 009a27d8 to 009a27dc has its CatchHandler @ 009a29c5 */
@@ -37035,7 +37035,7 @@ void FUN_009a2e1e(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
   puVar7[2] = puVar9;
                     /* try { // try from 009a30e0 to 009a30e4 has its CatchHandler @ 009a31f5 */
   FUN_0088e5a0(puVar9,0,0,2);
-  *puVar7 = &PTR_FUN_011ad368;
+  *puVar7 = &Uint8SkipRunStyles_vtable;
                     /* try { // try from 009a30f9 to 009a30fd has its CatchHandler @ 009a31fd */
   pvVar8 = operator_new(0x40);
                     /* try { // try from 009a3107 to 009a310b has its CatchHandler @ 009a3205 */
@@ -37269,7 +37269,7 @@ LAB_009a359b:
 }
 
 
-// ==== entry=009a35a6 name=operator.delete size=5 ====
+// ==== entry=009a35a6 orig=FUN_009a35a6 size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -37281,17 +37281,17 @@ void operator_delete(void *param_1)
 
 // ==== entry=009a35ac orig=FUN_009a35ac size=75 name=OutlineTreeModel_dtor_deleting ====
 
-void FUN_009a35ac(undefined8 *param_1)
+void OutlineTreeModel_dtor_deleting(undefined8 *param_1)
 
 {
   char cVar1;
   
-  *param_1 = &PTR_FUN_011ad9f8;
+  *param_1 = &OutlineTreeModel_vtable;
   cVar1 = FUN_005444d0(param_1[4] + 0x10);
   if (cVar1 == '\0') {
     QHashData::free_helper((_func_void_Node_ptr *)param_1[4]);
   }
-  FUN_00644108(param_1);
+  TreeModel_dtor(param_1);
   operator_delete(param_1,0x28);
   return;
 }
@@ -37299,19 +37299,19 @@ void FUN_009a35ac(undefined8 *param_1)
 
 // ==== entry=009a35f8 orig=FUN_009a35f8 size=69 name=OutlineTreeModel_dtor ====
 
-void FUN_009a35f8(undefined8 *param_1)
+void OutlineTreeModel_dtor(undefined8 *param_1)
 
 {
   char cVar1;
   
-  *param_1 = &PTR_FUN_011ad9f8;
+  *param_1 = &OutlineTreeModel_vtable;
   cVar1 = FUN_005444d0(param_1[4] + 0x10);
   if (cVar1 != '\0') {
-    FUN_00644108(param_1);
+    TreeModel_dtor(param_1);
     return;
   }
   QHashData::free_helper((_func_void_Node_ptr *)param_1[4]);
-  FUN_00644108(param_1);
+  TreeModel_dtor(param_1);
   return;
 }
 
@@ -39262,7 +39262,7 @@ void FUN_009a5bc0(long *param_1,int param_2)
   puVar5[2] = puVar7;
                     /* try { // try from 009a5def to 009a5df3 has its CatchHandler @ 009a5f61 */
   FUN_007b4330(puVar7,0,0,2);
-  *puVar5 = &PTR_FUN_0118eaa0;
+  *puVar5 = &Uint32RunStyles_vtable;
   puVar9 = operator_new(0x18);
   *puVar9 = 1;
   *(undefined8 *)(puVar9 + 0x10) = 0;
@@ -39491,7 +39491,7 @@ void FUN_009a62c0(long *param_1,long param_2,long param_3,ulong param_4)
       plVar6[3] = 0;
                     /* try { // try from 009a645f to 009a6463 has its CatchHandler @ 009a65f5 */
       FUN_007b6480(plVar6,0,0);
-      *plVar6 = (long)&PTR_FUN_0118eb70;
+      *plVar6 = (long)&Uint64RunStyles_vtable;
       *(long **)(pcVar1 + 0x10) = plVar6;
       FUN_009a5f80(plVar6,pcVar1 + 8);
       if (*(code **)(*plVar6 + 0x30) == FUN_007a9eae) {
@@ -45849,7 +45849,7 @@ void FUN_009afa88(undefined8 *param_1,undefined8 param_2)
   puVar7[2] = puVar9;
                     /* try { // try from 009afcd0 to 009afcd4 has its CatchHandler @ 009afdf5 */
   FUN_007b4330(puVar9,0,0,2);
-  *puVar7 = &PTR_FUN_011acbf8;
+  *puVar7 = &Uint32SkipRunStyles_vtable;
   puVar5[2] = puVar7;
   puVar5[1] = puVar7;
   *param_1 = puVar5;
@@ -46100,7 +46100,7 @@ LAB_009b021e:
       puVar4[3] = 0;
                     /* try { // try from 009b027e to 009b0282 has its CatchHandler @ 009b052a */
       FUN_009b12c0(puVar4,0,0);
-      *puVar4 = &PTR_FUN_011adc48;
+      *puVar4 = &Uint64SkipRunStyles_vtable;
       *(undefined8 **)(lVar10 + 0x18) = puVar4;
       FUN_009b12c0(puVar4,0,puVar4[3]);
       lVar9 = *(long *)(lVar10 + 0x10);
@@ -46535,10 +46535,10 @@ void FUN_009b0bf4(void *param_1)
 
 // ==== entry=009b0c0c orig=FUN_009b0c0c size=19 name=Uint64SkipRunStyles_metaObject ====
 
-void FUN_009b0c0c(undefined8 *param_1)
+void Uint64SkipRunStyles_metaObject(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011adc48;
+  *param_1 = &Uint64SkipRunStyles_vtable;
   FUN_009b09cc();
   return;
 }
@@ -46546,10 +46546,10 @@ void FUN_009b0c0c(undefined8 *param_1)
 
 // ==== entry=009b0c20 orig=FUN_009b0c20 size=37 name=Uint64SkipRunStyles_qt_metacast ====
 
-void FUN_009b0c20(undefined8 *param_1)
+void Uint64SkipRunStyles_qt_metacast(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_011adc48;
+  *param_1 = &Uint64SkipRunStyles_vtable;
   FUN_009b09cc();
   operator_delete(param_1,0x20);
   return;
@@ -46666,7 +46666,7 @@ undefined8 FUN_009b0c46(long param_1,long param_2,long param_3,long param_4,unde
 
 // ==== entry=009b0f36 orig=FUN_009b0f36 size=230 name=Uint64SkipRunStyles_dtor ====
 
-void FUN_009b0f36(long *param_1,long param_2,long param_3,char param_4)
+void Uint64SkipRunStyles_dtor(long *param_1,long param_2,long param_3,char param_4)
 
 {
   int iVar1;
@@ -46707,7 +46707,7 @@ void FUN_009b0f36(long *param_1,long param_2,long param_3,char param_4)
 
 // ==== entry=009b101c orig=FUN_009b101c size=638 name=Uint64SkipRunStyles_qt_metacall ====
 
-void FUN_009b101c(long param_1,long param_2,long param_3)
+void Uint64SkipRunStyles_qt_metacall(long param_1,long param_2,long param_3)
 
 {
   int iVar1;
@@ -46796,17 +46796,17 @@ LAB_009b11e0:
 
 // ==== entry=009b12a0 orig=FUN_009b12a0 size=29 name=Uint64SkipRunStyles_dtor_deleting ====
 
-void FUN_009b12a0(undefined8 param_1,undefined8 param_2,long param_3)
+void Uint64SkipRunStyles_dtor_deleting(undefined8 param_1,undefined8 param_2,long param_3)
 
 {
   if (0 < param_3) {
-    FUN_009b0f36();
+    Uint64SkipRunStyles_dtor();
     return;
   }
   if (param_3 == 0) {
     return;
   }
-  FUN_009b101c(param_1,param_2,-param_3);
+  Uint64SkipRunStyles_qt_metacall(param_1,param_2,-param_3);
   return;
 }
 
@@ -48917,7 +48917,7 @@ undefined1 FUN_009b3ef6(long param_1)
 }
 
 
-// ==== entry=009b3efc name=thunk_FUN_009b3978 size=5 ====
+// ==== entry=009b3efc orig=FUN_009b3efc size=5 name=thunk_FUN_009b3978 ====
 
 void thunk_FUN_009b3978(long param_1)
 
@@ -60726,7 +60726,7 @@ void FUN_009c3e06(undefined8 *param_1)
 
 {
   FUN_0058222a();
-  *param_1 = &PTR_FUN_011af050;
+  *param_1 = &UndoList_vtable;
   param_1[2] = &PTR_FUN_011af350;
                     /* try { // try from 009c3e34 to 009c3e78 has its CatchHandler @ 009c3e80 */
   QAbstractItemView::setTextElideMode(param_1,1);
@@ -60767,7 +60767,7 @@ void FUN_009c3ee4(QWidgetAction *param_1,QObject *param_2,QWidgetAction param_3)
 
 {
   QWidgetAction::QWidgetAction(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011af3a0;
+  *(undefined ***)param_1 = &UndoListAction_vtable;
   param_1[0x10] = param_3;
   *(QObject **)(param_1 + 0x18) = param_2;
   return;
@@ -61153,7 +61153,7 @@ void FUN_009c4668(QAbstractListModel *param_1,QObject *param_2,undefined8 param_
 
 {
   QAbstractListModel::QAbstractListModel(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011af4b8;
+  *(undefined ***)param_1 = &UndoModel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011af648;
   *(undefined8 *)(param_1 + 0x18) = param_3;
   *(undefined8 *)(param_1 + 0x20) = 0;
@@ -61165,15 +61165,15 @@ void FUN_009c4668(QAbstractListModel *param_1,QObject *param_2,undefined8 param_
 
 // ==== entry=009c46b4 orig=FUN_009c46b4 size=75 name=UndoModel_dtor ====
 
-void FUN_009c46b4(QAbstractListModel *param_1)
+void UndoModel_dtor(QAbstractListModel *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011af4b8;
+  *(undefined ***)param_1 = &UndoModel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011af648;
   if (*(void **)(param_1 + 0x20) != (void *)0x0) {
     operator_delete(*(void **)(param_1 + 0x20));
   }
-  *(undefined ***)param_1 = &PTR_FUN_01199070;
+  *(undefined ***)param_1 = &HtmlListModel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR___cxa_pure_virtual_011991f0;
   QAbstractListModel::~QAbstractListModel(param_1);
   return;
@@ -61182,10 +61182,10 @@ void FUN_009c46b4(QAbstractListModel *param_1)
 
 // ==== entry=009c4700 orig=FUN_009c4700 size=23 name=UndoModel_dtor_deleting ====
 
-void FUN_009c4700(void *param_1)
+void UndoModel_dtor_deleting(void *param_1)
 
 {
-  FUN_009c46b4();
+  UndoModel_dtor();
   operator_delete(param_1,0x38);
   return;
 }
@@ -62299,7 +62299,7 @@ void FUN_009c5cba(long param_1,int param_2)
 /* WARNING: Removing unreachable block (ram,0x009c5e63) */
 /* WARNING: Removing unreachable block (ram,0x009c5e99) */
 
-void FUN_009c5d06(undefined8 *param_1)
+void TextArrayData_metaObject(undefined8 *param_1)
 
 {
   long *plVar1;
@@ -62314,7 +62314,7 @@ void FUN_009c5d06(undefined8 *param_1)
   ulong uVar10;
   timespec local_38;
   
-  *param_1 = &PTR_FUN_011ade20;
+  *param_1 = &TextArrayData_vtable;
   for (iVar8 = 0; iVar7 = FUN_00968a72(param_1[6]), iVar8 < iVar7; iVar8 = iVar8 + 1) {
     FUN_009c5cba(param_1,iVar8);
   }
@@ -62337,7 +62337,7 @@ LAB_009c5d4a:
       }
       param_1[0xb] = 0;
       *(undefined1 *)(param_1 + 0xd) = 0;
-      param_1[5] = &PTR_FUN_0118eb70;
+      param_1[5] = &Uint64RunStyles_vtable;
       FUN_007b0a8a(param_1 + 5);
       plVar5 = (long *)param_1[4];
       if (plVar5 != (long *)0x0) {
@@ -62393,10 +62393,10 @@ LAB_009c5d96:
 
 // ==== entry=009c5ea4 orig=FUN_009c5ea4 size=23 name=TextArrayData_qt_metacast ====
 
-void FUN_009c5ea4(void *param_1)
+void TextArrayData_qt_metacast(void *param_1)
 
 {
-  FUN_009c5d06();
+  TextArrayData_metaObject();
   operator_delete(param_1,0x70);
   return;
 }
@@ -62504,7 +62504,7 @@ void FUN_009c60de(long param_1,long param_2,long param_3,uint param_4,long param
         lVar2 = FUN_009698d0(*(undefined8 *)(param_1 + 0x30),(long)(iVar1 + 1));
         lVar5 = FUN_009698d0(*(undefined8 *)(param_1 + 0x30),(long)iVar1);
         if ((uVar4 >> 0x10) + (lVar2 - lVar5) == param_5) {
-          FUN_007b6352(param_1 + 0x28,param_2 + -1,param_3,1);
+          Uint64RunStyles_dtor(param_1 + 0x28,param_2 + -1,param_3,1);
           goto LAB_009c6163;
         }
       }
@@ -62963,7 +62963,7 @@ void FUN_009c6cd0(long param_1,long param_2,long param_3)
       FUN_009c6204(&local_48,iVar1,param_2,lVar4);
       uVar5 = FUN_009698d0(*(undefined8 *)(param_1 + 0x30),(long)iVar3);
       FUN_009c6204(&local_48,iVar3,uVar5,lVar6);
-      FUN_007b5c50(param_1 + 0x28,param_2,param_3);
+      Uint64RunStyles_qt_metacall(param_1 + 0x28,param_2,param_3);
       lVar6 = FUN_009698d0(*(undefined8 *)(param_1 + 0x30),(long)iVar1);
       if (param_2 == lVar6) {
         if (0 < iVar1) {
@@ -62979,7 +62979,7 @@ void FUN_009c6cd0(long param_1,long param_2,long param_3)
     }
     else {
       FUN_009c6204(&local_48,iVar1,param_2,lVar6);
-      FUN_007b5c50(param_1 + 0x28,param_2,param_3);
+      Uint64RunStyles_qt_metacall(param_1 + 0x28,param_2,param_3);
     }
     *(long *)(param_1 + 0x10) = *(long *)(param_1 + 0x10) - param_3;
     return;
@@ -63069,7 +63069,7 @@ joined_r0x009c6f59:
           ((-1 < iVar2 && (iVar2 <= *(int *)((uVar5 >> 0x10) + 0x14))))) {
     FUN_009c4ef0(uVar5 >> 0x10,uVar3 & 0xffffffff,param_4,param_3 & 0xffffffff);
   }
-  FUN_007b6352(param_1 + 0x28,param_2 + -1 + (ulong)!bVar1,param_3,1);
+  Uint64RunStyles_dtor(param_1 + 0x28,param_2 + -1 + (ulong)!bVar1,param_3,1);
 LAB_009c6f0c:
   *(long *)(param_1 + 0x10) = *(long *)(param_1 + 0x10) + param_3;
   return;
@@ -63085,7 +63085,7 @@ void FUN_009c7114(undefined8 *param_1)
   undefined8 uVar2;
   
   *(undefined4 *)(param_1 + 1) = 0;
-  *param_1 = &PTR_FUN_011ade20;
+  *param_1 = &TextArrayData_vtable;
   param_1[2] = 0;
   param_1[3] = 0;
   param_1[4] = 0;
@@ -63095,7 +63095,7 @@ void FUN_009c7114(undefined8 *param_1)
   param_1[8] = 0;
                     /* try { // try from 009c7179 to 009c717d has its CatchHandler @ 009c71c6 */
   FUN_007b6480(param_1 + 5,0,0);
-  param_1[5] = &PTR_FUN_0118eb70;
+  param_1[5] = &Uint64RunStyles_vtable;
   param_1[9] = 1;
   uVar2 = QThread::currentThreadId();
   param_1[10] = uVar2;
@@ -63368,7 +63368,7 @@ void FUN_009c7604(long param_1,QString *param_2)
     puVar6 = operator_new(0x18);
   }
   puVar6[1] = 0x100000001;
-  *puVar6 = &PTR_FUN_011ade40;
+  *puVar6 = &PTR_TextArrayData_dtor_deleting_011ade40;
   puVar6[2] = this;
   *(QFile **)(param_1 + 0x18) = this;
   plVar4 = *(long **)(param_1 + 0x20);
@@ -63962,7 +63962,7 @@ void FUN_009c812e(undefined8 *param_1,long param_2)
   QArrayData *local_40 [2];
   
   *(undefined4 *)(param_1 + 1) = 0;
-  *param_1 = &PTR_FUN_011ade20;
+  *param_1 = &TextArrayData_vtable;
   param_1[2] = *(undefined8 *)(param_2 + 0x10);
   param_1[3] = 0;
   param_1[4] = 0;
@@ -63973,7 +63973,7 @@ void FUN_009c812e(undefined8 *param_1,long param_2)
   param_1[8] = 0;
                     /* try { // try from 009c81a3 to 009c81a7 has its CatchHandler @ 009c843d */
   FUN_007b6480(puVar1,0,0);
-  param_1[5] = &PTR_FUN_0118eb70;
+  param_1[5] = &Uint64RunStyles_vtable;
   uVar5 = QThread::currentThreadId();
   param_1[10] = uVar5;
   param_1[0xb] = 0;
@@ -63996,7 +63996,7 @@ void FUN_009c812e(undefined8 *param_1,long param_2)
   uVar5 = *(undefined8 *)(param_2 + 0x30);
   uVar6 = FUN_00968a72(uVar5);
   uVar5 = FUN_009698d0(uVar5,uVar6);
-  FUN_007b6352(puVar1,0,uVar5,1);
+  Uint64RunStyles_dtor(puVar1,0,uVar5,1);
   iVar4 = FUN_00968a72(*(undefined8 *)(param_2 + 0x30));
   if (0 < iVar4) {
     uVar10 = 0;
@@ -64078,7 +64078,7 @@ LAB_009c83a5:
 
 // ==== entry=009c8446 orig=FUN_009c8446 size=1 name=TextArrayData_dtor_deleting ====
 
-void FUN_009c8446(void)
+void TextArrayData_dtor_deleting(void)
 
 {
   return;
@@ -68142,7 +68142,7 @@ undefined8 FUN_009cd554(undefined4 *param_1,undefined8 param_2,uint param_3,unde
       *(undefined2 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cd617 to 009cd61b has its CatchHandler @ 009cd8f4 */
       FUN_009ceabe(puVar2,0,0);
-      *puVar2 = &PTR_FUN_0118e9d0;
+      *puVar2 = &Uint16RunStyles_vtable;
       *(undefined8 **)(param_1 + 6) = puVar2;
       FUN_009cee86(puVar2,param_1 + 4);
       uVar1 = *(undefined8 *)(param_1 + 6);
@@ -68159,7 +68159,7 @@ LAB_009cd65a:
     *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cd898 to 009cd89c has its CatchHandler @ 009cd905 */
     FUN_009cf2da(puVar2,0,0);
-    *puVar2 = &PTR_FUN_0118eaa0;
+    *puVar2 = &Uint32RunStyles_vtable;
     *(undefined8 **)(param_1 + 8) = puVar2;
     FUN_009cf8c2(puVar2,param_1 + 4);
     goto LAB_009cd775;
@@ -68175,7 +68175,7 @@ LAB_009cd65a:
     *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cd752 to 009cd756 has its CatchHandler @ 009cd915 */
     FUN_009cf2da(puVar2,0,0);
-    *puVar2 = &PTR_FUN_0118eaa0;
+    *puVar2 = &Uint32RunStyles_vtable;
     *(undefined8 **)(param_1 + 8) = puVar2;
     FUN_009cf69e(puVar2,param_1 + 6);
 LAB_009cd775:
@@ -68201,7 +68201,7 @@ LAB_009cd676:
       *(undefined2 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cd6df to 009cd6e3 has its CatchHandler @ 009cd8ec */
       FUN_009cebe6(puVar2,0,0);
-      *puVar2 = &PTR_FUN_011adf10;
+      *puVar2 = &Uint16SkipRunStyles_vtable;
       *(undefined8 **)(param_1 + 0xc) = puVar2;
       FUN_009cf0b0(puVar2,param_1 + 10);
       uVar1 = *(undefined8 *)(param_1 + 0xc);
@@ -68218,7 +68218,7 @@ LAB_009cd592:
     *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cd82d to 009cd831 has its CatchHandler @ 009cd8fc */
     FUN_009cf400(puVar2,0,0);
-    *puVar2 = &PTR_FUN_011acbf8;
+    *puVar2 = &Uint32SkipRunStyles_vtable;
     *(undefined8 **)(param_1 + 0xe) = puVar2;
     FUN_009cfae6(puVar2,param_1 + 10);
     uVar1 = *(undefined8 *)(param_1 + 0xe);
@@ -68237,7 +68237,7 @@ LAB_009cd592:
     *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cd7c2 to 009cd7c6 has its CatchHandler @ 009cd90d */
     FUN_009cf400(puVar2,0,0);
-    *puVar2 = &PTR_FUN_011acbf8;
+    *puVar2 = &Uint32SkipRunStyles_vtable;
     *(undefined8 **)(param_1 + 0xe) = puVar2;
     FUN_009cfd0a(puVar2,param_1 + 0xc);
     uVar1 = *(undefined8 *)(param_1 + 0xe);
@@ -68299,7 +68299,7 @@ LAB_009cdd3a:
       *(undefined2 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cd9e3 to 009cd9e7 has its CatchHandler @ 009cddfd */
       FUN_009ceabe(puVar2,0,0);
-      *puVar2 = &PTR_FUN_0118e9d0;
+      *puVar2 = &Uint16RunStyles_vtable;
       *(undefined8 **)(param_1 + 6) = puVar2;
       FUN_009cee86(puVar2,param_1 + 4);
       uVar6 = *(undefined8 *)(param_1 + 6);
@@ -68314,7 +68314,7 @@ LAB_009cdd3a:
     *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cdc6e to 009cdc72 has its CatchHandler @ 009cde0d */
     FUN_009cf2da(puVar2,0,0);
-    *puVar2 = &PTR_FUN_0118eaa0;
+    *puVar2 = &Uint32RunStyles_vtable;
     *(undefined8 **)(param_1 + 8) = puVar2;
     FUN_009cf8c2(puVar2,param_1 + 4);
     break;
@@ -68332,7 +68332,7 @@ LAB_009cda27:
     *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cdb22 to 009cdb26 has its CatchHandler @ 009cddeb */
     FUN_009cf2da(puVar2,0,0);
-    *puVar2 = &PTR_FUN_0118eaa0;
+    *puVar2 = &Uint32RunStyles_vtable;
     *(undefined8 **)(param_1 + 8) = puVar2;
     FUN_009cf69e(puVar2,param_1 + 6);
     break;
@@ -68349,7 +68349,7 @@ LAB_009cda27:
         *(undefined2 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cdaaf to 009cdab3 has its CatchHandler @ 009cddf5 */
         FUN_009cebe6(puVar2,0,0);
-        *puVar2 = &PTR_FUN_011adf10;
+        *puVar2 = &Uint16SkipRunStyles_vtable;
         *(undefined8 **)(param_1 + 0xc) = puVar2;
         FUN_009cf0b0(puVar2,param_1 + 10);
         uVar6 = *(undefined8 *)(param_1 + 0xc);
@@ -68364,7 +68364,7 @@ LAB_009cda27:
       *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cdc01 to 009cdc05 has its CatchHandler @ 009cde05 */
       FUN_009cf400(puVar2,0,0);
-      *puVar2 = &PTR_FUN_011acbf8;
+      *puVar2 = &Uint32SkipRunStyles_vtable;
       *(undefined8 **)(param_1 + 0xe) = puVar2;
       FUN_009cfae6(puVar2,param_1 + 10);
       uVar6 = *(undefined8 *)(param_1 + 0xe);
@@ -68406,7 +68406,7 @@ LAB_009cd95b:
     *(undefined4 *)(puVar2 + 3) = 0;
                     /* try { // try from 009cdb94 to 009cdb98 has its CatchHandler @ 009cdde3 */
     FUN_009cf400(puVar2,0,0);
-    *puVar2 = &PTR_FUN_011acbf8;
+    *puVar2 = &Uint32SkipRunStyles_vtable;
     *(undefined8 **)(param_1 + 0xe) = puVar2;
     FUN_009cfd0a(puVar2,param_1 + 0xc);
     uVar6 = *(undefined8 *)(param_1 + 0xe);
@@ -68522,7 +68522,7 @@ void FUN_009cdeb6(long param_1)
 
 // ==== entry=009cdec8 orig=FUN_009cdec8 size=62 name=Uint16SkipRunStyles_metaObject ====
 
-void FUN_009cdec8(undefined8 *param_1)
+void Uint16SkipRunStyles_metaObject(undefined8 *param_1)
 
 {
   *param_1 = &PTR_FUN_011adea8;
@@ -68560,7 +68560,7 @@ void FUN_009cdf06(undefined8 *param_1)
 
 // ==== entry=009cdf4c orig=FUN_009cdf4c size=70 name=Uint16SkipRunStyles_qt_metacast ====
 
-void FUN_009cdf4c(undefined8 *param_1)
+void Uint16SkipRunStyles_qt_metacast(undefined8 *param_1)
 
 {
   *param_1 = &PTR_FUN_011adea8;
@@ -68839,7 +68839,7 @@ undefined8 FUN_009ce42e(long param_1,long param_2,short param_3,long param_4,und
 
 // ==== entry=009ce722 orig=FUN_009ce722 size=230 name=Uint16SkipRunStyles_dtor ====
 
-void FUN_009ce722(long *param_1,long param_2,long param_3,char param_4)
+void Uint16SkipRunStyles_dtor(long *param_1,long param_2,long param_3,char param_4)
 
 {
   short sVar1;
@@ -68881,7 +68881,7 @@ void FUN_009ce722(long *param_1,long param_2,long param_3,char param_4)
 
 // ==== entry=009ce808 orig=FUN_009ce808 size=661 name=Uint16SkipRunStyles_qt_metacall ====
 
-void FUN_009ce808(long param_1,long param_2,long param_3)
+void Uint16SkipRunStyles_qt_metacall(long param_1,long param_2,long param_3)
 
 {
   long lVar1;
@@ -68975,17 +68975,17 @@ LAB_009ce9d6:
 
 // ==== entry=009ceaa0 orig=FUN_009ceaa0 size=29 name=Uint16SkipRunStyles_dtor_deleting ====
 
-void FUN_009ceaa0(undefined8 param_1,undefined8 param_2,long param_3)
+void Uint16SkipRunStyles_dtor_deleting(undefined8 param_1,undefined8 param_2,long param_3)
 
 {
   if (0 < param_3) {
-    FUN_009ce722();
+    Uint16SkipRunStyles_dtor();
     return;
   }
   if (param_3 == 0) {
     return;
   }
-  FUN_009ce808(param_1,param_2,-param_3);
+  Uint16SkipRunStyles_qt_metacall(param_1,param_2,-param_3);
   return;
 }
 

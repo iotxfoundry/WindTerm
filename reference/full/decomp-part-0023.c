@@ -1,7 +1,7 @@
 // Ghidra 12.1.4 decompiled — WindTerm 2.7.0 (sha256 9491b87e…) part 23
 // ==== entry=0073925a orig=FUN_0073925a size=19 name=IntervalWidgetAction_dtor ====
 
-void FUN_0073925a(QWidgetAction *param_1)
+void IntervalWidgetAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -12,7 +12,7 @@ void FUN_0073925a(QWidgetAction *param_1)
 
 // ==== entry=0073926e orig=FUN_0073926e size=37 name=IntervalWidgetAction_dtor_deleting ====
 
-void FUN_0073926e(QWidgetAction *param_1)
+void IntervalWidgetAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -24,7 +24,7 @@ void FUN_0073926e(QWidgetAction *param_1)
 
 // ==== entry=00739294 orig=FUN_00739294 size=19 name=TargetsWidgetAction_dtor ====
 
-void FUN_00739294(QWidgetAction *param_1)
+void TargetsWidgetAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -35,7 +35,7 @@ void FUN_00739294(QWidgetAction *param_1)
 
 // ==== entry=007392a8 orig=FUN_007392a8 size=37 name=TargetsWidgetAction_dtor_deleting ====
 
-void FUN_007392a8(QWidgetAction *param_1)
+void TargetsWidgetAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -2236,7 +2236,7 @@ undefined8 FUN_0073bcf0(undefined8 param_1)
   this = operator_new(0x30);
                     /* try { // try from 0073bd54 to 0073bd58 has its CatchHandler @ 0073be5c */
   QDoubleSpinBox::QDoubleSpinBox(this,(QWidget *)0x0);
-  *(undefined ***)this = &PTR_metaObject_0118d5e0;
+  *(undefined ***)this = &DoubleSpinBox_vtable;
   *(undefined ***)(this + 0x10) = &PTR_FUN_0118d7c8;
   local_38 = (QWidget *)QString::fromAscii_helper("IntervalSpinbox",0xf);
                     /* try { // try from 0073bd8c to 0073bd90 has its CatchHandler @ 0073be99 */
@@ -2280,7 +2280,7 @@ undefined8 FUN_0073bea0(undefined8 param_1)
   this = operator_new(0x30);
                     /* try { // try from 0073bf04 to 0073bf08 has its CatchHandler @ 0073bfbd */
   QSpinBox::QSpinBox(this,(QWidget *)0x0);
-  *(undefined ***)this = &PTR_metaObject_0118d3a8;
+  *(undefined ***)this = &SpinBox_vtable;
   *(undefined ***)(this + 0x10) = &PTR_FUN_0118d590;
   QLabel::setBuddy(pQVar1);
   local_38 = (QWidget *)QString::fromAscii_helper("CountSpinbox",0xc);
@@ -2907,7 +2907,7 @@ void FUN_0073cb1e(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_0073cb7f:
-  *param_1 = &PTR_FUN_011a5718;
+  *param_1 = &SessionPane_vtable;
   param_1[2] = &PTR_FUN_011a5910;
   param_1[8] = param_2;
   param_1[9] = 0;
@@ -8318,7 +8318,7 @@ LAB_0074476b:
 }
 
 
-// ==== entry=00745cac name=dragMoveEvent size=5 ====
+// ==== entry=00745cac orig=FUN_00745cac size=5 name=dragMoveEvent ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -8449,7 +8449,7 @@ void FUN_00745dea(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_00745e4b:
-  *param_1 = &PTR_FUN_011a5ef8;
+  *param_1 = &OutlinePane_vtable;
   param_1[2] = &PTR_FUN_011a60f0;
   param_1[8] = param_2;
   param_1[9] = 0;
@@ -9262,7 +9262,7 @@ void FUN_0074727e(QWidget *param_1)
   puVar1 = operator_new(0x78);
                     /* try { // try from 007472aa to 007472ae has its CatchHandler @ 007474ed */
   FUN_0058c362(puVar1,1,1,param_1);
-  *puVar1 = &PTR_FUN_0118e200;
+  *puVar1 = &OutlineTree_vtable;
   puVar1[2] = &PTR_FUN_0118e510;
                     /* try { // try from 007472cd to 007472f2 has its CatchHandler @ 007474dc */
   QFrame::setFrameShape(puVar1,0);
@@ -10106,10 +10106,10 @@ void FUN_00748587(int param_1,void *param_2,undefined8 param_3,long param_4)
 
 // ==== entry=0074860e orig=FUN_0074860e size=29 name=OutlineTree_dtor ====
 
-void FUN_0074860e(undefined8 *param_1)
+void OutlineTree_dtor(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118e200;
+  *param_1 = &OutlineTree_vtable;
   param_1[2] = &PTR_FUN_0118e510;
   FUN_0058b7a8();
   return;
@@ -10121,7 +10121,7 @@ void FUN_0074860e(undefined8 *param_1)
 void FUN_0074862b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_0118e200;
+  param_1[-2] = &OutlineTree_vtable;
   *param_1 = &PTR_FUN_0118e510;
   FUN_0058b7a8(param_1 + -2);
   return;
@@ -10130,10 +10130,10 @@ void FUN_0074862b(undefined8 *param_1)
 
 // ==== entry=0074864c orig=FUN_0074864c size=47 name=OutlineTree_dtor_deleting ====
 
-void FUN_0074864c(undefined8 *param_1)
+void OutlineTree_dtor_deleting(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118e200;
+  *param_1 = &OutlineTree_vtable;
   param_1[2] = &PTR_FUN_0118e510;
   FUN_0058b7a8();
   operator_delete(param_1,0x78);
@@ -10146,7 +10146,7 @@ void FUN_0074864c(undefined8 *param_1)
 void FUN_0074867b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_0118e200;
+  param_1[-2] = &OutlineTree_vtable;
   *param_1 = &PTR_FUN_0118e510;
   FUN_0058b7a8(param_1 + -2);
   operator_delete(param_1 + -2,0x78);
@@ -10438,7 +10438,7 @@ void FUN_007489c0(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_00748a1d:
-  *param_1 = &PTR_FUN_011a5478;
+  *param_1 = &OutputPane_vtable;
   param_1[2] = &PTR_FUN_011a5670;
   return;
 }
@@ -10446,7 +10446,7 @@ LAB_00748a1d:
 
 // ==== entry=00748a66 orig=FUN_00748a66 size=29 name=OutputPane_dtor ====
 
-void FUN_00748a66(QWidget *param_1)
+void OutputPane_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011ab6b8;
@@ -10461,17 +10461,17 @@ void FUN_00748a66(QWidget *param_1)
 void FUN_00748a83(long param_1)
 
 {
-  FUN_00748a66(param_1 + -0x10);
+  OutputPane_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=00748a8a orig=FUN_00748a8a size=23 name=OutputPane_dtor_deleting ====
 
-void FUN_00748a8a(void *param_1)
+void OutputPane_dtor_deleting(void *param_1)
 
 {
-  FUN_00748a66();
+  OutputPane_dtor();
   operator_delete(param_1,0x48);
   return;
 }
@@ -10482,7 +10482,7 @@ void FUN_00748a8a(void *param_1)
 void FUN_00748aa1(long param_1)
 
 {
-  FUN_00748a8a(param_1 + -0x10);
+  OutputPane_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -14879,7 +14879,7 @@ LAB_0074f125:
     UNLOCK();
     if (*(int *)local_20 == 0) goto LAB_0074f125;
   }
-  *param_1 = &PTR_FUN_011a6198;
+  *param_1 = &SearchPane_vtable;
   param_1[2] = &PTR_FUN_011a6390;
   param_1[0x1f] = 0;
                     /* try { // try from 0074f077 to 0074f07b has its CatchHandler @ 0074f160 */
@@ -15733,7 +15733,7 @@ void FUN_0074feb4(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_0074ff15:
-  *param_1 = &PTR_FUN_011a6438;
+  *param_1 = &ShellPane_vtable;
   param_1[2] = &PTR_FUN_011a6630;
   param_1[8] = param_2;
   param_1[9] = 0;
@@ -16695,7 +16695,7 @@ LAB_00751466:
             this_00 = operator_new(0x28);
                     /* try { // try from 00751328 to 0075132c has its CatchHandler @ 00751720 */
             QWidgetAction::QWidgetAction(this_00,(QObject *)this);
-            *(undefined ***)this_00 = &PTR_metaObject_011847e0;
+            *(undefined ***)this_00 = &LabelAction_vtable;
             *(undefined4 *)(this_00 + 0x10) = 0x84;
             *(undefined8 *)(this_00 + 0x18) = 0;
                     /* try { // try from 00751353 to 00751357 has its CatchHandler @ 00751782 */
@@ -16811,7 +16811,7 @@ LAB_00751947:
       if (*(int *)local_168[0] == 0) goto LAB_00751947;
     }
   }
-  local_138[0] = &PTR_FUN_011a2018;
+  local_138[0] = &SessionDialog_vtable;
   local_128 = &PTR_FUN_011a21f0;
   if (local_30 != 0) {
     FUN_006ec54c(&local_30);
@@ -17226,14 +17226,14 @@ joined_r0x00751e48:
 
 // ==== entry=00751eae orig=FUN_00751eae size=243 name=SessionDialog_dtor ====
 
-void FUN_00751eae(QDialog *param_1)
+void SessionDialog_dtor(QDialog *param_1)
 
 {
   code *pcVar1;
   QArrayData *pQVar2;
   _func_void_Node_ptr *p_Var3;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a2018;
+  *(undefined ***)param_1 = &SessionDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a21f0;
   if (*(long *)(param_1 + 0x108) != 0) {
     FUN_006ec54c(param_1 + 0x108);
@@ -17302,7 +17302,7 @@ void FUN_00751fa1(undefined8 *param_1)
   QArrayData *pQVar2;
   _func_void_Node_ptr *p_Var3;
   
-  param_1[-2] = &PTR_FUN_011a2018;
+  param_1[-2] = &SessionDialog_vtable;
   *param_1 = &PTR_FUN_011a21f0;
   if (param_1[0x1f] != 0) {
     FUN_006ec54c(param_1 + 0x1f);
@@ -17371,7 +17371,7 @@ void FUN_00752096(undefined8 *param_1)
   QArrayData *pQVar2;
   _func_void_Node_ptr *p_Var3;
   
-  param_1[-2] = &PTR_FUN_011a2018;
+  param_1[-2] = &SessionDialog_vtable;
   *param_1 = &PTR_FUN_011a21f0;
   if (param_1[0x1f] != 0) {
     FUN_006ec54c(param_1 + 0x1f);
@@ -17429,14 +17429,14 @@ LAB_00752143:
 
 // ==== entry=0075219e orig=FUN_0075219e size=249 name=SessionDialog_dtor_deleting ====
 
-void FUN_0075219e(QDialog *param_1)
+void SessionDialog_dtor_deleting(QDialog *param_1)
 
 {
   code *pcVar1;
   QArrayData *pQVar2;
   _func_void_Node_ptr *p_Var3;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a2018;
+  *(undefined ***)param_1 = &SessionDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a21f0;
   if (*(long *)(param_1 + 0x108) != 0) {
     FUN_006ec54c(param_1 + 0x108);
@@ -17503,7 +17503,7 @@ void FUN_00752298(QWidget *param_1,undefined8 param_2)
   undefined4 local_20;
   
   QWidget::QWidget(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a6798;
+  *(undefined ***)param_1 = &ApplicationPalette_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a6948;
   param_1[0x30] = (QWidget)0x0;
   *(undefined8 *)(param_1 + 0x38) = 0;
@@ -18611,7 +18611,7 @@ void FUN_00753706(QObject *param_1)
   undefined8 local_40;
   
   QObject::QObject(param_1,(QObject *)0x0);
-  *(undefined ***)param_1 = &PTR_FUN_011a66d8;
+  *(undefined ***)param_1 = &ApplicationTheme_vtable;
   *(undefined8 **)(param_1 + 0x10) = &QArrayData::shared_null;
   *(undefined8 **)(param_1 + 0x18) = &QListData::shared_null;
   *(undefined8 **)(param_1 + 0x20) = &QListData::shared_null;
@@ -18689,7 +18689,7 @@ undefined * FUN_007538f6(void)
 
 // ==== entry=00753978 orig=FUN_00753978 size=312 name=ApplicationTheme_dtor ====
 
-void FUN_00753978(QObject *param_1)
+void ApplicationTheme_dtor(QObject *param_1)
 
 {
   int iVar1;
@@ -18698,7 +18698,7 @@ void FUN_00753978(QObject *param_1)
   undefined8 *puVar4;
   QArrayData *pQVar5;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a66d8;
+  *(undefined ***)param_1 = &ApplicationTheme_vtable;
   if (*(long **)(param_1 + 0x28) != (long *)0x0) {
     (**(code **)(**(long **)(param_1 + 0x28) + 0x20))();
   }
@@ -18755,10 +18755,10 @@ LAB_00753a91:
 
 // ==== entry=00753ab0 orig=FUN_00753ab0 size=23 name=ApplicationTheme_dtor_deleting ====
 
-void FUN_00753ab0(void *param_1)
+void ApplicationTheme_dtor_deleting(void *param_1)
 
 {
-  FUN_00753978();
+  ApplicationTheme_dtor();
   operator_delete(param_1,0x58);
   return;
 }
@@ -18769,7 +18769,7 @@ void FUN_00753ab0(void *param_1)
 void FUN_00753ac8(void)
 
 {
-  FUN_00753978();
+  ApplicationTheme_dtor();
   if (DAT_011c1d78 != -1) {
     return;
   }
@@ -19936,7 +19936,7 @@ LAB_0075530f:
 
 // ==== entry=0075541e orig=FUN_0075541e size=1548 name=King::resolveIconPaths ====
 
-long * FUN_0075541e(long *param_1,undefined8 param_2,QString *param_3)
+long * King__resolveIconPaths(long *param_1,undefined8 param_2,QString *param_3)
 
 {
   QString *pQVar1;
@@ -20315,7 +20315,7 @@ LAB_00755b76:
 
 // ==== entry=00755c86 orig=FUN_00755c86 size=1616 name=King::loadIconTheme ====
 
-QSvgRenderer * FUN_00755c86(long param_1,long *param_2)
+QSvgRenderer * King__loadIconTheme(long param_1,long *param_2)
 
 {
   byte *pbVar1;
@@ -20617,7 +20617,7 @@ LAB_0075605b:
 
 // ==== entry=00756336 orig=FUN_00756336 size=129 name=King::loadSvgIcon ====
 
-undefined4 FUN_00756336(undefined8 param_1,undefined8 param_2)
+undefined4 King__loadSvgIcon(undefined8 param_1,undefined8 param_2)
 
 {
   char cVar1;
@@ -20625,9 +20625,9 @@ undefined4 FUN_00756336(undefined8 param_1,undefined8 param_2)
   QString *pQVar3;
   uint *local_20 [2];
   
-  FUN_0075541e(local_20,param_1,param_2);
+  King__resolveIconPaths(local_20,param_1,param_2);
                     /* try { // try from 00756358 to 007563b4 has its CatchHandler @ 007563b7 */
-  pQVar3 = (QString *)FUN_00755c86(param_1,local_20);
+  pQVar3 = (QString *)King__loadIconTheme(param_1,local_20);
   if (pQVar3 != (QString *)0x0) {
     cVar1 = QSvgRenderer::isValid();
     if (cVar1 != '\0') {
@@ -20781,7 +20781,7 @@ LAB_00756704:
   }
   QArrayData::deallocate(local_c8,2,8);
 LAB_007564c8:
-  local_78[0] = &PTR_FUN_011a6798;
+  local_78[0] = &ApplicationPalette_vtable;
   local_68 = &PTR_FUN_011a6948;
   if (local_40 != (QPalette *)0x0) {
     QPalette::~QPalette(local_40);
@@ -20841,9 +20841,9 @@ undefined8 * FUN_00756872(undefined8 *param_1,undefined8 param_2)
   
   *param_1 = &QListData::shared_null;
                     /* try { // try from 00756898 to 0075689c has its CatchHandler @ 00756b38 */
-  FUN_0075541e(&local_78);
+  King__resolveIconPaths(&local_78);
                     /* try { // try from 007568a3 to 00756905 has its CatchHandler @ 00756b30 */
-  pQVar3 = (QString *)FUN_00755c86(param_2,&local_78);
+  pQVar3 = (QString *)King__loadIconTheme(param_2,&local_78);
   if ((pQVar3 == (QString *)0x0) || (cVar2 = QSvgRenderer::isValid(), cVar2 == '\0'))
   goto LAB_007568bc;
   if (1 < *local_78) {
@@ -21245,7 +21245,7 @@ undefined8 FUN_0075727c(undefined8 param_1,undefined8 param_2,undefined8 param_3
 
 // ==== entry=007572ac orig=FUN_007572ac size=769 name=King::iconFactory ====
 
-QIcon * FUN_007572ac(QIcon *param_1,undefined8 param_2,undefined8 param_3,int *param_4)
+QIcon * King__iconFactory(QIcon *param_1,undefined8 param_2,undefined8 param_3,int *param_4)
 
 {
   undefined8 uVar1;
@@ -21270,9 +21270,9 @@ QIcon * FUN_007572ac(QIcon *param_1,undefined8 param_2,undefined8 param_3,int *p
   
   QPixmap::QPixmap(local_b8);
                     /* try { // try from 007572e4 to 007572e8 has its CatchHandler @ 007575ad */
-  FUN_0075541e(&local_c8,param_2,param_3);
+  King__resolveIconPaths(&local_c8,param_2,param_3);
                     /* try { // try from 007572ef to 007572f3 has its CatchHandler @ 007575c5 */
-  pQVar3 = (QString *)FUN_00755c86(param_2,&local_c8);
+  pQVar3 = (QString *)King__loadIconTheme(param_2,&local_c8);
   if (1 < *local_c8) {
                     /* try { // try from 007574e8 to 007574ec has its CatchHandler @ 007575c5 */
     FUN_00525800(&local_c8,local_c8[1]);
@@ -25703,7 +25703,7 @@ void FUN_0075bdc0(undefined8 param_1,QString *param_2)
 }
 
 
-// ==== entry=0075be3a name=ssh_init size=5 ====
+// ==== entry=0075be3a orig=FUN_0075be3a size=5 name=ssh_init ====
 
 void ssh_init(void)
 
@@ -27014,7 +27014,7 @@ void FUN_0075dba4(QApplication *param_1,int *param_2,char **param_3)
   undefined4 *puVar1;
   
   QApplication::QApplication(param_1,param_2,param_3,0x50f02);
-  *(undefined ***)param_1 = &PTR_FUN_011a6c58;
+  *(undefined ***)param_1 = &SuperApplication_vtable;
   *(undefined2 *)(param_1 + 0x10) = 0;
   *(undefined8 *)(param_1 + 0x18) = 0;
   *(undefined8 *)(param_1 + 0x20) = 0;
@@ -27263,7 +27263,7 @@ QByteArray * FUN_0075e0f8(long param_1,long *param_2)
   
   pQVar3 = operator_new(0xf0);
                     /* try { // try from 0075e11a to 0075e11e has its CatchHandler @ 0075e3f5 */
-  FUN_00768f44(pQVar3,0);
+  MainWindow__MainWindow_QWidget__flags_(pQVar3,0);
   local_40 = pQVar3;
   FUN_00763b64(param_1 + 0x48,&local_40);
   if (*(int *)(*param_2 + 4) != 0) {
@@ -28130,7 +28130,7 @@ LAB_0075e7ba:
 /* WARNING: Removing unreachable block (ram,0x0075ff19) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0075f8f0(QApplication *param_1)
+void SuperApplication_dtor(QApplication *param_1)
 
 {
   long *plVar1;
@@ -28152,7 +28152,7 @@ void FUN_0075f8f0(QApplication *param_1)
   long *local_40 [2];
   
   bVar14 = 0;
-  *(undefined ***)param_1 = &PTR_FUN_011a6c58;
+  *(undefined ***)param_1 = &SuperApplication_vtable;
   FUN_007c148c(DAT_011c1f28);
   ssh_finalize();
   if ((DAT_011c14c8 == '\0') && (iVar6 = __cxa_guard_acquire(&DAT_011c14c8), iVar6 != 0)) {
@@ -28384,10 +28384,10 @@ void FUN_0075f8f0(QApplication *param_1)
 
 // ==== entry=0075ffb4 orig=FUN_0075ffb4 size=23 name=SuperApplication_dtor_deleting ====
 
-void FUN_0075ffb4(void *param_1)
+void SuperApplication_dtor_deleting(void *param_1)
 
 {
-  FUN_0075f8f0();
+  SuperApplication_dtor();
   operator_delete(param_1,0x58);
   return;
 }
@@ -29078,7 +29078,7 @@ void FUN_00760ffe(undefined8 param_1)
       } while (local_70 + (long)(int)uVar2 * 2 + 4 != puVar6);
     }
     FUN_0069eab0(&local_70);
-    local_58[0] = &PTR_FUN_0118e638;
+    local_58[0] = &ThemeChangeEvent_vtable;
     QEvent::~QEvent((QEvent *)local_58);
     return;
   }
@@ -29459,7 +29459,7 @@ bool FUN_00761950(undefined8 param_1,char param_2,undefined8 param_3,undefined8 
                     /* try { // try from 00761ba0 to 00761ba4 has its CatchHandler @ 00761d3f */
         FUN_0075bc54(&local_c0,local_110,(QByteArray *)&local_e0);
         FUN_005249f0(local_110);
-        local_a8[0] = &PTR_FUN_011a0eb8;
+        local_a8[0] = &MasterPasswordDialog_vtable;
         local_98 = &PTR_FUN_011a1090;
         QDialog::~QDialog((QDialog *)local_a8);
       }
@@ -29494,7 +29494,7 @@ bool FUN_00761950(undefined8 param_1,char param_2,undefined8 param_3,undefined8 
           FUN_0075bc54(&local_c0,(QVariant *)&local_b8,(QByteArray *)&local_e0);
           FUN_005249f0((QVariant *)&local_b8);
         }
-        FUN_00765350((QVariant *)local_a8);
+        PasswordDialog_dtor((QVariant *)local_a8);
       }
     }
     FUN_005249c0((QByteArray *)&local_e0);
@@ -29822,7 +29822,7 @@ void FUN_007625b6(void)
                     /* try { // try from 00762679 to 0076267d has its CatchHandler @ 007626b6 */
     FUN_005d9066(uVar1,&local_d0);
     FUN_005249f0(&local_d0);
-    FUN_006ce568(local_c8);
+    ProfileDialog_dtor(local_c8);
   }
                     /* try { // try from 00762691 to 00762695 has its CatchHandler @ 007626ae */
   FUN_005dc0d0(DAT_011c1240);
@@ -30193,10 +30193,10 @@ LAB_00762f51:
 
 // ==== entry=0076306e orig=FUN_0076306e size=19 name=ThemeChangeEvent_metaObject ====
 
-void FUN_0076306e(QEvent *param_1)
+void ThemeChangeEvent_metaObject(QEvent *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_0118e638;
+  *(undefined ***)param_1 = &ThemeChangeEvent_vtable;
   QEvent::~QEvent(param_1);
   return;
 }
@@ -30204,10 +30204,10 @@ void FUN_0076306e(QEvent *param_1)
 
 // ==== entry=00763082 orig=FUN_00763082 size=37 name=ThemeChangeEvent_qt_metacast ====
 
-void FUN_00763082(QEvent *param_1)
+void ThemeChangeEvent_qt_metacast(QEvent *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_0118e638;
+  *(undefined ***)param_1 = &ThemeChangeEvent_vtable;
   QEvent::~QEvent(param_1);
   operator_delete(param_1,0x18);
   return;
@@ -32211,13 +32211,13 @@ void FUN_00765270(long *param_1)
 
 // ==== entry=00765350 orig=FUN_00765350 size=138 name=PasswordDialog_dtor ====
 
-void FUN_00765350(QDialog *param_1)
+void PasswordDialog_dtor(QDialog *param_1)
 
 {
   int iVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a18b8;
+  *(undefined ***)param_1 = &PasswordDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1a90;
   pQVar2 = *(QArrayData **)(param_1 + 0x60);
   if (*(int *)pQVar2 == 0) {
@@ -32267,7 +32267,7 @@ void FUN_007653da(undefined8 *param_1)
   int iVar1;
   QArrayData *pQVar2;
   
-  param_1[-2] = &PTR_FUN_011a18b8;
+  param_1[-2] = &PasswordDialog_vtable;
   *param_1 = &PTR_FUN_011a1a90;
   pQVar2 = (QArrayData *)param_1[10];
   if (*(int *)pQVar2 == 0) {
@@ -32311,13 +32311,13 @@ LAB_00765447:
 
 // ==== entry=00765466 orig=FUN_00765466 size=144 name=PasswordDialog_dtor_deleting ====
 
-void FUN_00765466(QDialog *param_1)
+void PasswordDialog_dtor_deleting(QDialog *param_1)
 
 {
   int iVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a18b8;
+  *(undefined ***)param_1 = &PasswordDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1a90;
   pQVar2 = *(QArrayData **)(param_1 + 0x60);
   if (*(int *)pQVar2 == 0) {
@@ -32363,7 +32363,7 @@ void FUN_007654f6(undefined8 *param_1)
   int iVar1;
   QArrayData *pQVar2;
   
-  param_1[-2] = &PTR_FUN_011a18b8;
+  param_1[-2] = &PasswordDialog_vtable;
   *param_1 = &PTR_FUN_011a1a90;
   pQVar2 = (QArrayData *)param_1[10];
   if (*(int *)pQVar2 == 0) {
@@ -33153,7 +33153,7 @@ void FUN_00766364(long param_1,byte param_2)
     local_d0 = uVar3;
     local_c0 = (ulong)param_2;
     local_b8 = uVar4;
-    XSendEvent(uVar2,uVar1,0,FUN_00580000);
+    XSendEvent(uVar2,uVar1,0,HtmlDelegate_dtor);
     XFlush(uVar2);
     *(byte *)(param_1 + 0x30) = param_2;
     return;
@@ -35165,7 +35165,7 @@ void FUN_00768a48(long param_1,char param_2)
 
 // ==== entry=00768cb6 orig=FUN_00768cb6 size=315 name=MainWindow::delayedInit ====
 
-void FUN_00768cb6(QObject *param_1)
+void MainWindow__delayedInit(QObject *param_1)
 
 {
   byte *pbVar1;
@@ -35281,7 +35281,7 @@ void FUN_00768dfa(long param_1,undefined8 *param_2)
 
 // ==== entry=00768f44 orig=FUN_00768f44 size=475 name=MainWindow::MainWindow(QWidget*,flags) ====
 
-void FUN_00768f44(QMainWindow *param_1,undefined8 param_2)
+void MainWindow__MainWindow_QWidget__flags_(QMainWindow *param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -35291,7 +35291,7 @@ void FUN_00768f44(QMainWindow *param_1,undefined8 param_2)
   QVariant local_38 [16];
   
   QMainWindow::QMainWindow(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a69f8;
+  *(undefined ***)param_1 = &MainWindow_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a6bb0;
   *(undefined2 *)(param_1 + 0x30) = 0;
   param_1[0x32] = (QMainWindow)0x0;
@@ -35335,7 +35335,7 @@ void FUN_00768f44(QMainWindow *param_1,undefined8 param_2)
   }
                     /* try { // try from 007690fb to 0076911c has its CatchHandler @ 0076911f */
   QWidget::setAttribute(param_1,0x37,1);
-  FUN_00768cb6(param_1);
+  MainWindow__delayedInit(param_1);
   return;
 }
 
@@ -36786,7 +36786,7 @@ undefined8 FUN_0076bed4(undefined8 param_1,undefined8 param_2,long *param_3)
 
 /* WARNING: Removing unreachable block (ram,0x0076bfe8) */
 
-undefined8 FUN_0076bf82(undefined8 param_1,undefined8 param_2)
+undefined8 King__buildKeySequence(undefined8 param_1,undefined8 param_2)
 
 {
   int *piVar1;
@@ -36812,7 +36812,7 @@ undefined8 FUN_0076bf82(undefined8 param_1,undefined8 param_2)
 
 // ==== entry=0076bffc orig=FUN_0076bffc size=466 name=MainWindow_dtor ====
 
-void FUN_0076bffc(QMainWindow *param_1)
+void MainWindow_dtor(QMainWindow *param_1)
 
 {
   uint *puVar1;
@@ -36823,7 +36823,7 @@ void FUN_0076bffc(QMainWindow *param_1)
   undefined8 *local_48;
   undefined8 local_40;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a69f8;
+  *(undefined ***)param_1 = &MainWindow_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a6bb0;
   local_48 = &QArrayData::shared_null;
   local_58 = (uint *)&QListData::shared_null;
@@ -36882,17 +36882,17 @@ LAB_0076c11f:
 void FUN_0076c1d3(long param_1)
 
 {
-  FUN_0076bffc(param_1 + -0x10);
+  MainWindow_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=0076c1dc orig=FUN_0076c1dc size=23 name=MainWindow_dtor_deleting ====
 
-void FUN_0076c1dc(void *param_1)
+void MainWindow_dtor_deleting(void *param_1)
 
 {
-  FUN_0076bffc();
+  MainWindow_dtor();
   operator_delete(param_1,0xf0);
   return;
 }
@@ -36903,7 +36903,7 @@ void FUN_0076c1dc(void *param_1)
 void FUN_0076c1f3(long param_1)
 
 {
-  FUN_0076c1dc(param_1 + -0x10);
+  MainWindow_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -37315,7 +37315,7 @@ void FUN_0076cb16(long param_1)
     uVar7 = 0;
 LAB_0076cbb4:
     uVar11 = FUN_007670b4(param_1);
-    uVar7 = FUN_008cb962(uVar11,uVar7);
+    uVar7 = King__resolveKeyMode(uVar11,uVar7);
     QWidget::actions();
     if (1 < *local_1b8) {
       FUN_00546220(&local_1b8,local_1b8[1]);
@@ -40191,7 +40191,7 @@ void FUN_00770ac0(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00770b7e name=swap size=41 ====
+// ==== entry=00770b7e orig=FUN_00770b7e size=41 name=swap ====
 
 /* std::wstring::swap(std::wstring&) */
 
@@ -50926,7 +50926,7 @@ void FUN_00783202(void *param_1)
 }
 
 
-// ==== entry=0078320c name=operator.delete size=5 ====
+// ==== entry=0078320c orig=FUN_0078320c size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -51108,7 +51108,7 @@ void FUN_00783370(long param_1)
 }
 
 
-// ==== entry=007833e2 name=thunk_FUN_00525060 size=5 ====
+// ==== entry=007833e2 orig=FUN_007833e2 size=5 name=thunk_FUN_00525060 ====
 
 void thunk_FUN_00525060(undefined8 *param_1)
 
@@ -54580,7 +54580,7 @@ void FUN_00787684(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=007876d0 name=operator= size=40 ====
+// ==== entry=007876d0 orig=FUN_007876d0 size=40 name=operator= ====
 
 /* std::string::TEMPNAMEPLACEHOLDERVALUE(char const*) */
 

@@ -1389,7 +1389,7 @@ LAB_007d16ca:
   plVar8 = *(long **)(param_1 + 0xd0);
   if (plVar8 == (long *)0x0) {
 LAB_007d182c:
-    local_99 = FUN_006450ba(param_1 + 0x10,param_1,local_90,0);
+    local_99 = ActionHandler_dtor(param_1 + 0x10,param_1,local_90,0);
   }
   else {
     if (1 < *(uint *)(*plVar8 + 0x10)) {
@@ -2095,7 +2095,7 @@ void FUN_007d279c(undefined8 *param_1)
 {
   QArrayData *pQVar1;
   
-  *param_1 = &DAT_01187098;
+  *param_1 = &ActionHandler_vtable;
   pQVar1 = (QArrayData *)param_1[4];
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_007d27c3;
@@ -2120,7 +2120,7 @@ void FUN_007d27ec(undefined8 *param_1)
 {
   QArrayData *pQVar1;
   
-  *param_1 = &DAT_01187098;
+  *param_1 = &ActionHandler_vtable;
   pQVar1 = (QArrayData *)param_1[4];
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_007d2813;
@@ -6396,7 +6396,7 @@ void FUN_007d807e(QObject *param_1,undefined8 param_2,QObject *param_3)
 
 {
   QObject::QObject(param_1,param_3);
-  *(undefined ***)param_1 = &PTR_FUN_011a8198;
+  *(undefined ***)param_1 = &SuperSession_vtable;
   *(undefined8 *)(param_1 + 0x10) = 0;
   *(undefined8 **)(param_1 + 0x18) = &QMapDataBase::shared_null;
   *(undefined8 **)(param_1 + 0x20) = &QMapDataBase::shared_null;
@@ -8410,7 +8410,7 @@ void FUN_007db97e(long param_1)
 }
 
 
-// ==== entry=007dba3c name=thunk_FUN_007db97e size=5 ====
+// ==== entry=007dba3c orig=FUN_007dba3c size=5 name=thunk_FUN_007db97e ====
 
 void thunk_FUN_007db97e(long param_1)
 
@@ -8442,7 +8442,7 @@ void thunk_FUN_007db97e(long param_1)
 
 // ==== entry=007dba42 orig=FUN_007dba42 size=1731 name=SuperSession_dtor ====
 
-void FUN_007dba42(QObject *param_1)
+void SuperSession_dtor(QObject *param_1)
 
 {
   void *pvVar1;
@@ -8454,7 +8454,7 @@ void FUN_007dba42(QObject *param_1)
   long lVar7;
   char cVar8;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a8198;
+  *(undefined ***)param_1 = &SuperSession_vtable;
   FUN_007d7096();
   FUN_007d7fc4(param_1);
   if (*(long **)(param_1 + 0x10) != (long *)0x0) {
@@ -8760,10 +8760,10 @@ void FUN_007dba42(QObject *param_1)
 
 // ==== entry=007dc106 orig=FUN_007dc106 size=23 name=SuperSession_dtor_deleting ====
 
-void FUN_007dc106(void *param_1)
+void SuperSession_dtor_deleting(void *param_1)
 
 {
-  FUN_007dba42();
+  SuperSession_dtor();
   operator_delete(param_1,0x68);
   return;
 }
@@ -14855,7 +14855,7 @@ void FUN_007e2f52(undefined1 *param_1)
 }
 
 
-// ==== entry=007e2f6c name=thunk_FUN_007e2f52 size=5 ====
+// ==== entry=007e2f6c orig=FUN_007e2f6c size=5 name=thunk_FUN_007e2f52 ====
 
 void thunk_FUN_007e2f52(undefined1 *param_1)
 
@@ -16428,7 +16428,7 @@ bool FUN_007e44c0(long param_1,int param_2)
     puVar3 = operator_new(200);
                     /* try { // try from 007e451d to 007e4521 has its CatchHandler @ 007e4677 */
     FUN_0079c8a0(puVar3,*(undefined8 *)(param_1 + 0x10),param_1);
-    *puVar3 = &PTR_FUN_0118f308;
+    *puVar3 = &XModem_vtable;
     *(undefined2 *)(puVar3 + 10) = 0;
     uVar1 = *(undefined8 *)(param_1 + 0x10);
     QByteArray::QByteArray(local_40,"xmodem.packetSize",-1);
@@ -16445,7 +16445,7 @@ bool FUN_007e44c0(long param_1,int param_2)
     puVar3 = operator_new(200);
                     /* try { // try from 007e45e7 to 007e45eb has its CatchHandler @ 007e469f */
     FUN_0079c8a0(puVar3,*(undefined8 *)(param_1 + 0x10),param_1);
-    *puVar3 = &PTR_FUN_0118f3a0;
+    *puVar3 = &YModem_vtable;
     *(undefined2 *)(puVar3 + 10) = 0x101;
     uVar1 = *(undefined8 *)(param_1 + 0x10);
     QByteArray::QByteArray(local_40,"ymodem.packetSize",-1);
@@ -17230,7 +17230,7 @@ void FUN_007e4f44(long param_1)
 }
 
 
-// ==== entry=007e4fb6 name=thunk_FUN_00913436 size=5 ====
+// ==== entry=007e4fb6 orig=FUN_007e4fb6 size=5 name=thunk_FUN_00913436 ====
 
 void thunk_FUN_00913436(QObject *param_1,undefined8 param_2)
 
@@ -17288,7 +17288,7 @@ void FUN_007e4fe8(long param_1)
 }
 
 
-// ==== entry=007e4ff4 name=thunk_FUN_009131c8 size=5 ====
+// ==== entry=007e4ff4 orig=FUN_007e4ff4 size=5 name=thunk_FUN_009131c8 ====
 
 void thunk_FUN_009131c8(QObject *param_1,undefined4 param_2)
 
@@ -17769,7 +17769,7 @@ void FUN_007e55fc(undefined8 param_1)
 }
 
 
-// ==== entry=007e5626 name=thunk_FUN_007e55fc size=5 ====
+// ==== entry=007e5626 orig=FUN_007e5626 size=5 name=thunk_FUN_007e55fc ====
 
 void thunk_FUN_007e55fc(undefined8 param_1)
 
@@ -17971,7 +17971,7 @@ void FUN_007e58ce(long param_1,long param_2)
 }
 
 
-// ==== entry=007e59fc name=thunk_FUN_007e55fc size=5 ====
+// ==== entry=007e59fc orig=FUN_007e59fc size=5 name=thunk_FUN_007e55fc ====
 
 void thunk_FUN_007e55fc(undefined8 param_1)
 
@@ -26851,7 +26851,7 @@ void FUN_007f3c72(QObject *param_1,QObject *param_2,undefined8 param_3,undefined
   undefined4 *puVar3;
   
   QObject::QObject(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011a8278;
+  *(undefined ***)param_1 = &SuperTerm_vtable;
   *(QObject **)(param_1 + 0x10) = param_2;
   *(undefined8 *)(param_1 + 0x18) = param_3;
   *(undefined8 *)(param_1 + 0x2c) = 0;
@@ -28219,7 +28219,7 @@ void FUN_007f5736(long param_1)
 
 // ==== entry=007f582e orig=FUN_007f582e size=809 name=SuperTerm_dtor ====
 
-void FUN_007f582e(QObject *param_1)
+void SuperTerm_dtor(QObject *param_1)
 
 {
   QObject *pQVar1;
@@ -28231,7 +28231,7 @@ void FUN_007f582e(QObject *param_1)
   uint *puVar7;
   uint *puVar8;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a8278;
+  *(undefined ***)param_1 = &SuperTerm_vtable;
   pQVar1 = param_1 + 0x1e0;
   if (1 < **(uint **)(param_1 + 0x1e0)) {
     FUN_007fa000(pQVar1,(*(uint **)(param_1 + 0x1e0))[1]);
@@ -28341,10 +28341,10 @@ void FUN_007f582e(QObject *param_1)
 
 // ==== entry=007f5b58 orig=FUN_007f5b58 size=23 name=SuperTerm_dtor_deleting ====
 
-void FUN_007f5b58(void *param_1)
+void SuperTerm_dtor_deleting(void *param_1)
 
 {
-  FUN_007f582e();
+  SuperTerm_dtor();
   operator_delete(param_1,0x210);
   return;
 }
@@ -29072,22 +29072,22 @@ long FUN_007f6a67(long *param_1,int param_2)
 
 // ==== entry=007f6a7a orig=FUN_007f6a7a size=19 name=XModem_dtor ====
 
-void FUN_007f6a7a(undefined8 *param_1)
+void XModem_dtor(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118f308;
-  FUN_0079c926();
+  *param_1 = &XModem_vtable;
+  XYModem_dtor();
   return;
 }
 
 
 // ==== entry=007f6a8e orig=FUN_007f6a8e size=37 name=XModem_dtor_deleting ====
 
-void FUN_007f6a8e(undefined8 *param_1)
+void XModem_dtor_deleting(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118f308;
-  FUN_0079c926();
+  *param_1 = &XModem_vtable;
+  XYModem_dtor();
   operator_delete(param_1,200);
   return;
 }
@@ -29095,22 +29095,22 @@ void FUN_007f6a8e(undefined8 *param_1)
 
 // ==== entry=007f6ab4 orig=FUN_007f6ab4 size=19 name=YModem_dtor ====
 
-void FUN_007f6ab4(undefined8 *param_1)
+void YModem_dtor(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118f3a0;
-  FUN_0079c926();
+  *param_1 = &YModem_vtable;
+  XYModem_dtor();
   return;
 }
 
 
 // ==== entry=007f6ac8 orig=FUN_007f6ac8 size=37 name=YModem_dtor_deleting ====
 
-void FUN_007f6ac8(undefined8 *param_1)
+void YModem_dtor_deleting(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118f3a0;
-  FUN_0079c926();
+  *param_1 = &YModem_vtable;
+  XYModem_dtor();
   operator_delete(param_1,200);
   return;
 }
@@ -29958,7 +29958,7 @@ LAB_007f7755:
 }
 
 
-// ==== entry=007f7767 name=thunk_FUN_00550ec0 size=5 ====
+// ==== entry=007f7767 orig=FUN_007f7767 size=5 name=thunk_FUN_00550ec0 ====
 
 void thunk_FUN_00550ec0(undefined8 *param_1)
 
@@ -30400,7 +30400,7 @@ long * FUN_007f7e1e(long *param_1,long *param_2)
 }
 
 
-// ==== entry=007f7f36 name=thunk_FUN_0057e490 size=5 ====
+// ==== entry=007f7f36 orig=FUN_007f7f36 size=5 name=thunk_FUN_0057e490 ====
 
 void thunk_FUN_0057e490(undefined8 *param_1,uint *param_2)
 
@@ -34178,7 +34178,7 @@ LAB_007fd5d8:
 
 // ==== entry=007fd670 orig=FUN_007fd670 size=6261 name=Tmux_dtor ====
 
-void FUN_007fd670(QObject *param_1)
+void Tmux_dtor(QObject *param_1)
 
 {
   int iVar1;
@@ -34205,7 +34205,7 @@ void FUN_007fd670(QObject *param_1)
   undefined8 local_48;
   undefined8 local_40;
   
-  *(undefined ***)param_1 = &PTR_FUN_011aa1b8;
+  *(undefined ***)param_1 = &Tmux_vtable;
   if (*(long *)(param_1 + 0x240) != 0) {
     FUN_007f6be6();
   }
@@ -35293,17 +35293,17 @@ void FUN_007fd670(QObject *param_1)
 void FUN_007feee5(long param_1)
 
 {
-  FUN_007fd670(param_1 + 0x10);
+  Tmux_dtor(param_1 + 0x10);
   return;
 }
 
 
 // ==== entry=007feeee orig=FUN_007feeee size=23 name=Tmux_dtor_deleting ====
 
-void FUN_007feeee(void *param_1)
+void Tmux_dtor_deleting(void *param_1)
 
 {
-  FUN_007fd670();
+  Tmux_dtor();
   operator_delete(param_1,0x250);
   return;
 }
@@ -39318,7 +39318,7 @@ LAB_00803a21:
 
 // ==== entry=00803ac0 orig=FUN_00803ac0 size=11 name=CTerminalConfig_qt_metacast ====
 
-char * FUN_00803ac0(void)
+char * CTerminalConfig_qt_metacast(void)
 
 {
   return "Terminal";
@@ -39327,7 +39327,7 @@ char * FUN_00803ac0(void)
 
 // ==== entry=00803acc orig=FUN_00803acc size=6 name=CTerminalConfig_dtor_deleting ====
 
-undefined8 FUN_00803acc(void)
+undefined8 CTerminalConfig_dtor_deleting(void)
 
 {
   return 1;
@@ -43193,7 +43193,7 @@ void FUN_00809b90(undefined8 *param_1)
   undefined1 local_40 [16];
   
   FUN_008a71e4();
-  *param_1 = &PTR_FUN_011911e8;
+  *param_1 = &CTerminalConfig_vtable;
   param_1[0x15] = &QArrayData::shared_null;
   param_1[0x16] = 0;
   *(undefined1 *)(param_1 + 0x17) = 0;
@@ -43287,7 +43287,7 @@ void FUN_00809dfa(undefined8 *param_1)
   undefined8 *puVar10;
   undefined8 *puVar11;
   
-  *param_1 = &PTR_FUN_011911e8;
+  *param_1 = &CTerminalConfig_vtable;
   FUN_0081a6e0(param_1 + 0x15);
   lVar2 = param_1[0x15];
   lVar3 = *(long *)(lVar2 + 0x10);
@@ -49141,7 +49141,7 @@ undefined4 FUN_00815268(undefined8 param_1)
 }
 
 
-// ==== entry=0081549e name=thunk_FUN_008aa6fc size=5 ====
+// ==== entry=0081549e orig=FUN_0081549e size=5 name=thunk_FUN_008aa6fc ====
 
 undefined4 thunk_FUN_008aa6fc(long param_1)
 
@@ -49221,7 +49221,7 @@ uint FUN_008154a4(void)
 
 // ==== entry=008154c0 orig=FUN_008154c0 size=818 name=CTerminalConfig_qt_metacall ====
 
-long * FUN_008154c0(long *param_1,undefined8 param_2,undefined1 param_3)
+long * CTerminalConfig_qt_metacall(long *param_1,undefined8 param_2,undefined1 param_3)
 
 {
   long *plVar1;
@@ -49251,7 +49251,7 @@ long * FUN_008154c0(long *param_1,undefined8 param_2,undefined1 param_3)
   undefined1 *local_58;
   undefined8 local_50;
   
-  FUN_008a94aa(param_1,param_2,param_3);
+  CKitConfig_dtor_deleting(param_1,param_2,param_3);
   iVar5 = (*(int *)(*param_1 + 0xc) - *(int *)(*param_1 + 8)) + -1;
   if (-1 < iVar5) {
     lVar6 = (long)iVar5;
@@ -50044,7 +50044,7 @@ uint FUN_00816cae(undefined8 param_1,undefined8 param_2)
 
 // ==== entry=00816db2 orig=FUN_00816db2 size=229 name=CTerminalConfig_dtor ====
 
-undefined8 FUN_00816db2(undefined8 param_1)
+undefined8 CTerminalConfig_dtor(undefined8 param_1)
 
 {
   char cVar1;

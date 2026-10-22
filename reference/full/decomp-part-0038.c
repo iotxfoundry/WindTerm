@@ -1093,7 +1093,7 @@ uint FUN_00b43ce0(long param_1,uint param_2,uint param_3)
 }
 
 
-// ==== entry=00b43d40 name=thunk_FUN_00b43ce0 size=2 ====
+// ==== entry=00b43d40 orig=FUN_00b43d40 size=2 name=thunk_FUN_00b43ce0 ====
 
 uint thunk_FUN_00b43ce0(long param_1,uint param_2,uint param_3)
 
@@ -8064,7 +8064,7 @@ int FUN_00b4adc0(ulong param_1)
 }
 
 
-// ==== entry=00b4ade0 name=thunk_FUN_00bc60a0 size=5 ====
+// ==== entry=00b4ade0 orig=FUN_00b4ade0 size=5 name=thunk_FUN_00bc60a0 ====
 
 char * thunk_FUN_00bc60a0(undefined4 param_1)
 
@@ -15755,7 +15755,7 @@ long FUN_00b55d10(long param_1)
 }
 
 
-// ==== entry=00b55d90 name=thunk_FUN_00b55d10 size=5 ====
+// ==== entry=00b55d90 orig=FUN_00b55d90 size=5 name=thunk_FUN_00b55d10 ====
 
 long thunk_FUN_00b55d10(long param_1)
 
@@ -16423,7 +16423,7 @@ LAB_00b5685e:
 }
 
 
-// ==== entry=00b56f90 name=thunk_FUN_00b4c160 size=5 ====
+// ==== entry=00b56f90 orig=FUN_00b56f90 size=5 name=thunk_FUN_00b4c160 ====
 
 /* WARNING: Removing unreachable block (ram,0x00b4c30e) */
 /* WARNING: Removing unreachable block (ram,0x00b4c300) */
@@ -16533,7 +16533,7 @@ undefined1  [16] thunk_FUN_00b4c160(undefined8 *param_1,ulong param_2,ulong para
 }
 
 
-// ==== entry=00b56fa0 name=thunk_FUN_00b55f60 size=5 ====
+// ==== entry=00b56fa0 orig=FUN_00b56fa0 size=5 name=thunk_FUN_00b55f60 ====
 
 /* WARNING: Removing unreachable block (ram,0x00b56011) */
 /* WARNING: Removing unreachable block (ram,0x00b55ff7) */
@@ -16596,7 +16596,7 @@ void FUN_00b56fb0(void)
 }
 
 
-// ==== entry=00b56fd0 name=thunk_FUN_00b56390 size=5 ====
+// ==== entry=00b56fd0 orig=FUN_00b56fd0 size=5 name=thunk_FUN_00b56390 ====
 
 undefined8 thunk_FUN_00b56390(ulong param_1)
 
@@ -84757,7 +84757,7 @@ long FUN_00bb8a40(void)
 }
 
 
-// ==== entry=00bb8b80 name=thunk_FUN_00bb6620 size=5 ====
+// ==== entry=00bb8b80 orig=FUN_00bb8b80 size=5 name=thunk_FUN_00bb6620 ====
 
 /* WARNING: Removing unreachable block (ram,0x00bb669e) */
 /* WARNING: Removing unreachable block (ram,0x00bb6645) */
@@ -84869,7 +84869,7 @@ undefined1  [16] FUN_00bb8b90(void)
 }
 
 
-// ==== entry=00bb8d00 name=thunk_FUN_00bb69d0 size=5 ====
+// ==== entry=00bb8d00 orig=FUN_00bb8d00 size=5 name=thunk_FUN_00bb69d0 ====
 
 undefined8 thunk_FUN_00bb69d0(long param_1)
 
@@ -85407,7 +85407,7 @@ ulong FUN_00bb96b0(long param_1)
 }
 
 
-// ==== entry=00bb96e0 name=thunk_FUN_00bb65d0 size=5 ====
+// ==== entry=00bb96e0 orig=FUN_00bb96e0 size=5 name=thunk_FUN_00bb65d0 ====
 
 long thunk_FUN_00bb65d0(long param_1)
 
@@ -94438,7 +94438,7 @@ void FUN_00bc7330(uint param_1)
 }
 
 
-// ==== entry=00bc7360 name=free size=5 ====
+// ==== entry=00bc7360 orig=FUN_00bc7360 size=5 name=free ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -94450,7 +94450,7 @@ void free(void *__ptr)
 }
 
 
-// ==== entry=00bc7370 name=thunk_FUN_00bc6280 size=5 ====
+// ==== entry=00bc7370 orig=FUN_00bc7370 size=5 name=thunk_FUN_00bc6280 ====
 
 undefined8
 thunk_FUN_00bc6280(uint *param_1,short *param_2,uint param_3,uint param_4,long param_5,ulong param_6
@@ -95957,7 +95957,7 @@ void FUN_00bc92d0(undefined8 param_1)
 }
 
 
-// ==== entry=00bc92e0 name=thunk_FUN_00bc9030 size=5 ====
+// ==== entry=00bc92e0 orig=FUN_00bc92e0 size=5 name=thunk_FUN_00bc9030 ====
 
 void thunk_FUN_00bc9030(long param_1)
 
@@ -97396,7 +97396,7 @@ void FUN_00bcb0e0(int param_1,uint param_2)
 }
 
 
-// ==== entry=00bcb110 name=free size=5 ====
+// ==== entry=00bcb110 orig=FUN_00bcb110 size=5 name=free ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -113913,7 +113913,7 @@ void FUN_00be2360(timespec *param_1)
 }
 
 
-// ==== entry=00be2380 name=sched_yield size=5 ====
+// ==== entry=00be2380 orig=FUN_00be2380 size=5 name=sched_yield ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 

@@ -1076,7 +1076,7 @@ void FUN_0067e4c2(long param_1,long param_2,long param_3)
 }
 
 
-// ==== entry=0067e59a name=_S_create size=140 ====
+// ==== entry=0067e59a orig=FUN_0067e59a size=140 name=_S_create ====
 
 /* std::wstring::_Rep::_S_create(unsigned long, unsigned long, std::allocator<wchar_t> const&) */
 
@@ -1115,7 +1115,7 @@ void std::wstring::_Rep::_S_create(ulong param_1,ulong param_2,allocator *param_
 }
 
 
-// ==== entry=0067e626 name=_M_clone size=114 ====
+// ==== entry=0067e626 orig=FUN_0067e626 size=114 name=_M_clone ====
 
 /* std::wstring::_Rep::_M_clone(std::allocator<wchar_t> const&, unsigned long) */
 
@@ -1145,7 +1145,7 @@ wchar_t * __thiscall std::wstring::_Rep::_M_clone(_Rep *this,allocator *param_1,
 }
 
 
-// ==== entry=0067e698 name=assign size=75 ====
+// ==== entry=0067e698 orig=FUN_0067e698 size=75 name=assign ====
 
 /* std::wstring::assign(std::wstring const&) */
 
@@ -1166,7 +1166,7 @@ wstring * __thiscall std::wstring::assign(wstring *this,wstring *param_1)
 }
 
 
-// ==== entry=0067e6f0 name=reserve size=103 ====
+// ==== entry=0067e6f0 orig=FUN_0067e6f0 size=103 name=reserve ====
 
 /* std::wstring::reserve(unsigned long) */
 
@@ -1198,7 +1198,7 @@ void __thiscall std::wstring::reserve(wstring *this,ulong param_1)
 }
 
 
-// ==== entry=0067e758 name=append size=175 ====
+// ==== entry=0067e758 orig=FUN_0067e758 size=175 name=append ====
 
 /* std::wstring::append(unsigned long, wchar_t) */
 
@@ -1237,7 +1237,7 @@ wstring * __thiscall std::wstring::append(wstring *this,ulong param_1,wchar_t pa
 }
 
 
-// ==== entry=0067e808 name=_M_mutate size=403 ====
+// ==== entry=0067e808 orig=FUN_0067e808 size=403 name=_M_mutate ====
 
 /* std::wstring::_M_mutate(unsigned long, unsigned long, unsigned long) */
 
@@ -1326,7 +1326,7 @@ LAB_0067e949:
 }
 
 
-// ==== entry=0067e99c name=_M_leak_hard size=63 ====
+// ==== entry=0067e99c orig=FUN_0067e99c size=63 name=_M_leak_hard ====
 
 /* std::wstring::_M_leak_hard() */
 
@@ -1346,7 +1346,7 @@ void __thiscall std::wstring::_M_leak_hard(wstring *this)
 }
 
 
-// ==== entry=0067e9dc name=_M_leak size=16 ====
+// ==== entry=0067e9dc orig=FUN_0067e9dc size=16 name=_M_leak ====
 
 /* std::wstring::_M_leak() */
 
@@ -1361,7 +1361,7 @@ void __thiscall std::wstring::_M_leak(wstring *this)
 }
 
 
-// ==== entry=0067e9f0 name=resize size=67 ====
+// ==== entry=0067e9f0 orig=FUN_0067e9f0 size=67 name=resize ====
 
 /* std::wstring::resize(unsigned long, wchar_t) */
 
@@ -1387,7 +1387,7 @@ void __thiscall std::wstring::resize(wstring *this,ulong param_1,wchar_t param_2
 }
 
 
-// ==== entry=0067ea34 name=_M_replace_safe size=94 ====
+// ==== entry=0067ea34 orig=FUN_0067ea34 size=94 name=_M_replace_safe ====
 
 /* std::wstring::_M_replace_safe(unsigned long, unsigned long, wchar_t const*, unsigned long) */
 
@@ -1544,7 +1544,7 @@ void FUN_0067ed05(long param_1,long param_2,undefined1 param_3)
 }
 
 
-// ==== entry=0067ed76 name=replace size=444 ====
+// ==== entry=0067ed76 orig=FUN_0067ed76 size=444 name=replace ====
 
 /* std::wstring::replace(unsigned long, unsigned long, wchar_t const*, unsigned long) */
 
@@ -6183,7 +6183,7 @@ long * FUN_0068327c(long *param_1,long param_2,long *param_3,long *param_4)
 }
 
 
-// ==== entry=00683358 name=compare size=97 ====
+// ==== entry=00683358 orig=FUN_00683358 size=97 name=compare ====
 
 /* std::wstring::compare(std::wstring const&) const */
 
@@ -18591,7 +18591,7 @@ LAB_006928dd:
   sVar3 = strlen("StatusBar");
   local_38 = (QArrayData *)QString::fromAscii_helper("StatusBar",(int)sVar3);
                     /* try { // try from 0069280e to 00692812 has its CatchHandler @ 00692963 */
-  FUN_008a1106(local_30,&local_38);
+  King__registerBarsAndPanes(local_30,&local_38);
                     /* try { // try from 00692819 to 0069281d has its CatchHandler @ 0069296b */
   QWidget::setWindowTitle(pQVar2);
   if (*(int *)local_30[0] == 0) {
@@ -18926,7 +18926,7 @@ LAB_00692ff0:
 /* WARNING: Removing unreachable block (ram,0x0069325a) */
 /* WARNING: Removing unreachable block (ram,0x0069321f) */
 
-QMenuBar * FUN_00693036(long *param_1,undefined8 param_2,QWidget *param_3)
+QMenuBar * King__MenuBar__MenuBar(long *param_1,undefined8 param_2,QWidget *param_3)
 
 {
   long lVar1;
@@ -18961,7 +18961,7 @@ LAB_00693207:
   sVar2 = strlen("MenuBar");
   local_78 = (QArrayData *)QString::fromAscii_helper("MenuBar",(int)sVar2);
                     /* try { // try from 006930e5 to 006930e9 has its CatchHandler @ 00693275 */
-  FUN_008a1106(&local_58,&local_78);
+  King__registerBarsAndPanes(&local_58,&local_78);
                     /* try { // try from 006930f0 to 006930f4 has its CatchHandler @ 0069328d */
   QWidget::setWindowTitle((QString *)this);
   if (*(int *)local_58 == 0) {
@@ -20186,7 +20186,7 @@ void FUN_00694eb0(QObject *param_1)
   int *piVar3;
   void *pvVar4;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a0878;
+  *(undefined ***)param_1 = &SyncInputCenter_vtable;
   pvVar2 = *(void **)(param_1 + 0x20);
   pvVar4 = *(void **)(param_1 + 0x18);
   if (pvVar2 != pvVar4) {
@@ -20280,7 +20280,7 @@ void FUN_00694ffe(QObject *param_1,QObject *param_2)
 
 {
   QObject::QObject(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011a0878;
+  *(undefined ***)param_1 = &SyncInputCenter_vtable;
   param_1[0x10] = (QObject)0x0;
   *(undefined8 *)(param_1 + 0x18) = 0;
   *(undefined8 *)(param_1 + 0x20) = 0;
@@ -22082,7 +22082,7 @@ undefined8 FUN_00696da8(undefined8 param_1,undefined8 param_2)
 /* WARNING: Removing unreachable block (ram,0x00696e36) */
 /* WARNING: Removing unreachable block (ram,0x00696e83) */
 
-void FUN_00696dbe(QProcess *param_1)
+void ToolRunner_dtor(QProcess *param_1)
 
 {
   long *plVar1;
@@ -22093,7 +22093,7 @@ void FUN_00696dbe(QProcess *param_1)
   long lVar5;
   QArrayData *pQVar6;
   
-  *(undefined ***)param_1 = &PTR_FUN_0119f5e8;
+  *(undefined ***)param_1 = &ToolRunner_vtable;
   this = *(QTextDecoder **)(param_1 + 0x28);
   if (this != (QTextDecoder *)0x0) {
     QTextDecoder::~QTextDecoder(this);
@@ -22136,10 +22136,10 @@ LAB_00696e06:
 
 // ==== entry=00696e8e orig=FUN_00696e8e size=23 name=ToolRunner_dtor_deleting ====
 
-void FUN_00696e8e(void *param_1)
+void ToolRunner_dtor_deleting(void *param_1)
 
 {
-  FUN_00696dbe();
+  ToolRunner_dtor();
   operator_delete(param_1,0x30);
   return;
 }
@@ -22261,7 +22261,7 @@ LAB_0069707e:
 }
 
 
-// ==== entry=006970ac name=thunk_FUN_008fd3c0 size=5 ====
+// ==== entry=006970ac orig=FUN_006970ac size=5 name=thunk_FUN_008fd3c0 ====
 
 void thunk_FUN_008fd3c0(QObject *param_1)
 
@@ -22603,7 +22603,7 @@ void FUN_0069766e(QProcess *param_1,undefined8 *param_2,QObject *param_3)
   undefined8 local_40;
   
   QProcess::QProcess(param_1,param_3);
-  *(undefined ***)param_1 = &PTR_FUN_0119f5e8;
+  *(undefined ***)param_1 = &ToolRunner_vtable;
   *(undefined8 *)(param_1 + 0x18) = 0;
   *(undefined8 **)(param_1 + 0x20) = &QArrayData::shared_null;
   *(undefined8 *)(param_1 + 0x28) = 0;
@@ -23289,7 +23289,7 @@ void FUN_0069884e(void *param_1)
 }
 
 
-// ==== entry=00698858 name=operator.delete size=5 ====
+// ==== entry=00698858 orig=FUN_00698858 size=5 name=operator.delete ====
 
 void operator_delete(void *param_1)
 
@@ -24252,7 +24252,7 @@ undefined8 FUN_00699ac2(undefined8 param_1,long param_2)
 
 // ==== entry=00699b7a orig=FUN_00699b7a size=151 name=TriggerData_metaObject ====
 
-void FUN_00699b7a(undefined8 *param_1)
+void TriggerData_metaObject(undefined8 *param_1)
 
 {
   int iVar1;
@@ -24260,7 +24260,7 @@ void FUN_00699b7a(undefined8 *param_1)
   QJSValue *this;
   undefined8 *puVar3;
   
-  *param_1 = &PTR_FUN_01189e70;
+  *param_1 = &TriggerData_vtable;
   lVar2 = param_1[2];
   iVar1 = *(int *)(lVar2 + 0xc);
   for (puVar3 = (undefined8 *)(lVar2 + 0x10 + (long)*(int *)(lVar2 + 8) * 8);
@@ -24283,10 +24283,10 @@ void FUN_00699b7a(undefined8 *param_1)
 
 // ==== entry=00699c12 orig=FUN_00699c12 size=23 name=TriggerData_qt_metacast ====
 
-void FUN_00699c12(void *param_1)
+void TriggerData_qt_metacast(void *param_1)
 
 {
-  FUN_00699b7a();
+  TriggerData_metaObject();
   operator_delete(param_1,0x28);
   return;
 }
@@ -24386,7 +24386,7 @@ void FUN_00699e68(QObject *param_1,QObject *param_2)
 
 {
   QObject::QObject(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011a0938;
+  *(undefined ***)param_1 = &TriggerCenter_vtable;
   param_1[0x10] = (QObject)0x0;
   *(undefined8 **)(param_1 + 0x18) = &QArrayData::shared_null;
   *(undefined8 **)(param_1 + 0x20) = &QListData::shared_null;
@@ -24429,7 +24429,7 @@ undefined * FUN_00699f0c(void)
 
 // ==== entry=00699f90 orig=FUN_00699f90 size=163 name=TriggerCenter_dtor ====
 
-void FUN_00699f90(QObject *param_1)
+void TriggerCenter_dtor(QObject *param_1)
 
 {
   int iVar1;
@@ -24438,7 +24438,7 @@ void FUN_00699f90(QObject *param_1)
   char cVar4;
   undefined8 *puVar5;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a0938;
+  *(undefined ***)param_1 = &TriggerCenter_vtable;
   lVar2 = *(long *)(param_1 + 0x20);
   iVar1 = *(int *)(lVar2 + 0xc);
   for (puVar5 = (undefined8 *)(lVar2 + 0x10 + (long)*(int *)(lVar2 + 8) * 8);
@@ -24463,10 +24463,10 @@ void FUN_00699f90(QObject *param_1)
 
 // ==== entry=0069a034 orig=FUN_0069a034 size=23 name=TriggerCenter_dtor_deleting ====
 
-void FUN_0069a034(void *param_1)
+void TriggerCenter_dtor_deleting(void *param_1)
 
 {
-  FUN_00699f90();
+  TriggerCenter_dtor();
   operator_delete(param_1,0x78);
   return;
 }
@@ -24477,7 +24477,7 @@ void FUN_0069a034(void *param_1)
 void FUN_0069a04c(void)
 
 {
-  FUN_00699f90();
+  TriggerCenter_dtor();
   if (DAT_011c1af8 != -1) {
     return;
   }
@@ -24855,7 +24855,7 @@ ulong FUN_0069a72e(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 0069a7d7 to 0069a7e9 has its CatchHandler @ 0069a845 */
     local_38 = FUN_00699834(param_1);
     bVar1 = FUN_0065be44((QString *)local_48,0);
-    local_48[0] = &PTR_metaObject_01187310;
+    local_48[0] = &Process_vtable;
     QProcess::~QProcess((QProcess *)local_48);
   }
   FUN_005249f0(&local_58);
@@ -25037,7 +25037,7 @@ joined_r0x0069a9e0:
             this_00 = operator_new(0x28);
                     /* try { // try from 0069adc8 to 0069adcc has its CatchHandler @ 0069af85 */
             QWidgetAction::QWidgetAction(this_00,(QObject *)this);
-            *(undefined ***)this_00 = &PTR_metaObject_011847e0;
+            *(undefined ***)this_00 = &LabelAction_vtable;
             *(undefined4 *)(this_00 + 0x10) = 0x84;
             *(undefined8 *)(this_00 + 0x18) = 0;
                     /* try { // try from 0069adf0 to 0069adf4 has its CatchHandler @ 0069af7d */
@@ -25419,7 +25419,7 @@ void FUN_0069b7c6(undefined8 *param_1,uint param_2,undefined8 *param_3)
   undefined2 local_4c;
   undefined4 local_48;
   
-  *param_1 = &PTR_FUN_01189e70;
+  *param_1 = &TriggerData_vtable;
   FUN_00529dcc(param_1 + 1,param_3);
   param_1[2] = &QListData::shared_null;
   param_1[3] = 0;
@@ -31775,7 +31775,7 @@ QMenu * FUN_006a3fc2(undefined8 param_1,QWidget *param_2)
   this_00 = operator_new(0x30);
                     /* try { // try from 006a402c to 006a4030 has its CatchHandler @ 006a4326 */
   QWidgetAction::QWidgetAction(this_00,(QObject *)this);
-  *(undefined ***)this_00 = &PTR_metaObject_01189ed0;
+  *(undefined ***)this_00 = &SlipButtonAction_vtable;
   *(undefined8 *)(this_00 + 0x10) = 0;
                     /* try { // try from 006a404d to 006a4051 has its CatchHandler @ 006a4336 */
   pQVar2 = operator_new(0x30);
@@ -31818,7 +31818,7 @@ QMenu * FUN_006a3fc2(undefined8 param_1,QWidget *param_2)
   local_40 = 0;
   puVar5 = operator_new(0x30);
   *puVar5 = 1;
-  *(code **)(puVar5 + 2) = FUN_006a872d;
+  *(code **)(puVar5 + 2) = King__applyMenuShortcut;
   *(undefined8 *)(puVar5 + 4) = param_1;
   *(QMenu **)(puVar5 + 6) = this;
   *(QWidgetAction **)(puVar5 + 8) = this_00;
@@ -32301,7 +32301,7 @@ void FUN_006a4d96(QObject *param_1,QObject *param_2)
   undefined4 *puVar1;
   
   QObject::QObject(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011a09f8;
+  *(undefined ***)param_1 = &TunnelCenter_vtable;
   param_1[0x10] = (QObject)0x1;
                     /* try { // try from 006a4dbd to 006a4dc1 has its CatchHandler @ 006a4e04 */
   FUN_006a2b60(param_1 + 0x18,0);
@@ -32379,7 +32379,7 @@ undefined8 * FUN_006a4e9a(undefined8 *param_1,long param_2,QString *param_3)
 
 // ==== entry=006a4f28 orig=FUN_006a4f28 size=689 name=TunnelCenter_dtor ====
 
-void FUN_006a4f28(QObject *param_1)
+void TunnelCenter_dtor(QObject *param_1)
 
 {
   uint uVar1;
@@ -32389,7 +32389,7 @@ void FUN_006a4f28(QObject *param_1)
   int *piVar5;
   QArrayData *pQVar6;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a09f8;
+  *(undefined ***)param_1 = &TunnelCenter_vtable;
   lVar2 = *(long *)(param_1 + 0x68);
   FUN_006a92b7(lVar2 + *(long *)(lVar2 + 0x10),
                *(long *)(lVar2 + 0x10) + (long)*(int *)(lVar2 + 4) * 8 + lVar2);
@@ -32549,10 +32549,10 @@ LAB_006a50e9:
 
 // ==== entry=006a51da orig=FUN_006a51da size=23 name=TunnelCenter_dtor_deleting ====
 
-void FUN_006a51da(void *param_1)
+void TunnelCenter_dtor_deleting(void *param_1)
 
 {
-  FUN_006a4f28();
+  TunnelCenter_dtor();
   operator_delete(param_1,0x70);
   return;
 }
@@ -32563,7 +32563,7 @@ void FUN_006a51da(void *param_1)
 void FUN_006a51f2(void)
 
 {
-  FUN_006a4f28();
+  TunnelCenter_dtor();
   if (DAT_011c1b90 != -1) {
     return;
   }
@@ -32786,7 +32786,7 @@ LAB_006a576a:
   }
   local_48 = operator_new(0x38);
   *(undefined1 *)(local_48 + 1) = 0;
-  *local_48 = &PTR_FUN_01189f58;
+  *local_48 = &TunnelSession_vtable;
   local_48[2] = 0;
   piVar2 = *(int **)(lVar6 + 8);
   local_48[3] = piVar2;
@@ -33039,7 +33039,7 @@ LAB_006a5c50:
         FUN_006aa200(param_1 + 0x68,lVar3 + *(long *)(lVar3 + 0x10) + -8 + lVar6,
                      *(long *)(lVar3 + 0x10) + lVar6 + lVar3);
       }
-      *puVar2 = &PTR_FUN_01189f58;
+      *puVar2 = &TunnelSession_vtable;
       puVar2[2] = 0;
       FUN_007c14fe(DAT_011c1f28,puVar2);
       FUN_00525060(puVar2 + 6);
@@ -33303,7 +33303,7 @@ LAB_006a6319:
                      *(long *)(lVar7 + 0x10) + lVar9 + lVar7);
       }
       if (puVar2 != (undefined8 *)0x0) {
-        *puVar2 = &PTR_FUN_01189f58;
+        *puVar2 = &TunnelSession_vtable;
         puVar2[2] = 0;
         FUN_007c14fe(DAT_011c1f28,puVar2);
         FUN_00525060(puVar2 + 6);
@@ -33550,7 +33550,7 @@ LAB_006a675e:
                     /* try { // try from 006a67e0 to 006a67e4 has its CatchHandler @ 006a697b */
       FUN_006aa200(param_1 + 0x68,lVar6 + *(long *)(lVar6 + 0x10) + lVar13,
                    *(long *)(lVar6 + 0x10) + 8 + lVar13 + lVar6);
-      *puVar3 = &PTR_FUN_01189f58;
+      *puVar3 = &TunnelSession_vtable;
       puVar3[2] = 0;
       FUN_007c14fe(DAT_011c1f28,puVar3);
       FUN_00525060(puVar3 + 6);
@@ -34618,7 +34618,7 @@ void FUN_006a8208(undefined8 param_1,QAction *param_2)
             this = operator_new(0x30);
                     /* try { // try from 006a8601 to 006a8605 has its CatchHandler @ 006a8715 */
             QWidgetAction::QWidgetAction((QWidgetAction *)this,(QObject *)param_2);
-            *(undefined ***)this = &PTR_metaObject_01189ed0;
+            *(undefined ***)this = &SlipButtonAction_vtable;
             *(undefined8 *)(this + 0x10) = 0;
                     /* try { // try from 006a8622 to 006a8626 has its CatchHandler @ 006a870d */
             pQVar9 = operator_new(0x30);
@@ -34723,7 +34723,7 @@ void FUN_006a8208(undefined8 param_1,QAction *param_2)
 
 // ==== entry=006a872d orig=FUN_006a872d size=420 name=King::applyMenuShortcut ====
 
-void FUN_006a872d(int param_1,void *param_2)
+void King__applyMenuShortcut(int param_1,void *param_2)
 
 {
   QKeySequence *pQVar1;
@@ -34776,8 +34776,8 @@ LAB_006a88bd:
               if (*(int *)local_40[0] == 0) goto LAB_006a88bd;
             }
             if (lVar5 != 0) {
-              uVar2 = FUN_008cb962(lVar4,1);
-              FUN_0076bf82(auStack_48,lVar3,lVar5,uVar2);
+              uVar2 = King__resolveKeyMode(lVar4,1);
+              King__buildKeySequence(auStack_48,lVar3,lVar5,uVar2);
               pQVar1 = *(QKeySequence **)((long)param_2 + 0x28);
                     /* try { // try from 006a8879 to 006a887d has its CatchHandler @ 006a88e5 */
               QKeySequence::QKeySequence((QKeySequence *)local_40,auStack_48,0);
@@ -34913,7 +34913,7 @@ LAB_006a8aca:
 
 // ==== entry=006a8b32 orig=FUN_006a8b32 size=1 name=TunnelSession_qt_metacast ====
 
-void FUN_006a8b32(void)
+void TunnelSession_qt_metacast(void)
 
 {
   return;
@@ -34922,7 +34922,7 @@ void FUN_006a8b32(void)
 
 // ==== entry=006a8b34 orig=FUN_006a8b34 size=1 name=TunnelSession_qt_metacall ====
 
-void FUN_006a8b34(void)
+void TunnelSession_qt_metacall(void)
 
 {
   return;
@@ -34931,7 +34931,7 @@ void FUN_006a8b34(void)
 
 // ==== entry=006a8b36 orig=FUN_006a8b36 size=1 name=TunnelSession_dtor_deleting ====
 
-void FUN_006a8b36(void)
+void TunnelSession_dtor_deleting(void)
 
 {
   return;
@@ -34986,7 +34986,7 @@ void FUN_006a8b40(void)
 
 // ==== entry=006a8b50 orig=FUN_006a8b50 size=365 name=TunnelSession_metaObject ====
 
-void * FUN_006a8b50(undefined8 param_1,undefined8 param_2)
+void * TunnelSession_metaObject(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -35028,7 +35028,7 @@ void * FUN_006a8b50(undefined8 param_1,undefined8 param_2)
 
 // ==== entry=006a8cd6 orig=FUN_006a8cd6 size=19 name=SlipButtonAction_dtor ====
 
-void FUN_006a8cd6(QWidgetAction *param_1)
+void SlipButtonAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -35039,7 +35039,7 @@ void FUN_006a8cd6(QWidgetAction *param_1)
 
 // ==== entry=006a8cea orig=FUN_006a8cea size=37 name=SlipButtonAction_dtor_deleting ====
 
-void FUN_006a8cea(QWidgetAction *param_1)
+void SlipButtonAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -35051,7 +35051,7 @@ void FUN_006a8cea(QWidgetAction *param_1)
 
 // ==== entry=006a8d10 orig=FUN_006a8d10 size=54 name=TunnelSession_dtor ====
 
-void FUN_006a8d10(long param_1,char param_2)
+void TunnelSession_dtor(long param_1,char param_2)
 
 {
   if (param_2 != '\0') {
@@ -35323,7 +35323,7 @@ void FUN_006a92b7(long *param_1,long *param_2)
     do {
       puVar3 = (undefined8 *)*param_1;
       if (puVar3 != (undefined8 *)0x0) {
-        *puVar3 = &PTR_FUN_01189f58;
+        *puVar3 = &TunnelSession_vtable;
         puVar3[2] = 0;
         FUN_007c14fe(DAT_011c1f28,puVar3);
         FUN_00525060(puVar3 + 6);
@@ -36335,7 +36335,7 @@ void FUN_006aa60c(QObject *param_1,QObject *param_2)
 
 {
   QObject::QObject(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011a0ab8;
+  *(undefined ***)param_1 = &UuidCenter_vtable;
   param_1[0x10] = (QObject)0x0;
   *(undefined8 **)(param_1 + 0x18) = &QMapDataBase::shared_null;
   return;
@@ -36481,7 +36481,7 @@ void FUN_006aa87c(QObject *param_1)
 {
   QMapNodeBase *pQVar1;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a0ab8;
+  *(undefined ***)param_1 = &UuidCenter_vtable;
   pQVar1 = *(QMapNodeBase **)(param_1 + 0x18);
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_006aa8a8;
@@ -39863,7 +39863,7 @@ void FUN_006ae82e(QObject *param_1)
   code *pcVar5;
   long lVar6;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a0b78;
+  *(undefined ***)param_1 = &XServerCenter_vtable;
   plVar4 = *(long **)(param_1 + 0x18);
   if (plVar4 != (long *)0x0) {
     LOCK();
@@ -40011,7 +40011,7 @@ void FUN_006aea80(QObject *param_1,QObject *param_2)
 
 {
   QObject::QObject(param_1,param_2);
-  *(undefined ***)param_1 = &PTR_FUN_011a0b78;
+  *(undefined ***)param_1 = &XServerCenter_vtable;
   *(undefined8 *)(param_1 + 0x10) = 0;
   *(undefined8 *)(param_1 + 0x18) = 0;
   param_1[0x20] = (QObject)0x0;
@@ -40291,7 +40291,7 @@ QMenu * FUN_006af0da(undefined8 param_1,QWidget *param_2)
   this_00 = operator_new(0x30);
                     /* try { // try from 006af152 to 006af156 has its CatchHandler @ 006af4f9 */
   QWidgetAction::QWidgetAction(this_00,(QObject *)this);
-  *(undefined ***)this_00 = &PTR_metaObject_01189ed0;
+  *(undefined ***)this_00 = &SlipButtonAction_vtable;
   *(undefined8 *)(this_00 + 0x10) = 0;
                     /* try { // try from 006af172 to 006af176 has its CatchHandler @ 006af509 */
   pQVar4 = operator_new(0x30);
@@ -42073,7 +42073,7 @@ void FUN_006b22e6(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a2518;
+  *(undefined ***)param_1 = &DefaultEditorDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a26f0;
                     /* try { // try from 006b232e to 006b2332 has its CatchHandler @ 006b238b */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a2740,0xc9d4db);
@@ -43016,7 +43016,7 @@ void FUN_006b35a6(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a2798;
+  *(undefined ***)param_1 = &EnvironmentDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a2970;
                     /* try { // try from 006b35ee to 006b35f2 has its CatchHandler @ 006b3655 */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a29c0,0xc9d50b);
@@ -44375,7 +44375,7 @@ void FUN_006b573e(QWidget *param_1,undefined8 *param_2,undefined8 param_3,undefi
   int *piVar1;
   
   QWidget::QWidget(param_1,param_5,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a2a30;
+  *(undefined ***)param_1 = &FocusModeController_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a2be0;
   piVar1 = (int *)*param_2;
   *(int **)(param_1 + 0x30) = piVar1;
@@ -44438,9 +44438,9 @@ QWidget * FUN_006b57f8(undefined8 param_1,long *param_2)
   if (pQVar6 != pQVar1) {
     do {
                     /* try { // try from 006b58e8 to 006b58ec has its CatchHandler @ 006b60ed */
-      FUN_0089e584(local_50,pQVar6);
+      King__paneIconFactory(local_50,pQVar6);
                     /* try { // try from 006b58f5 to 006b58f9 has its CatchHandler @ 006b60d5 */
-      FUN_008a1106(&local_48,pQVar6);
+      King__registerBarsAndPanes(&local_48,pQVar6);
                     /* try { // try from 006b58ff to 006b5903 has its CatchHandler @ 006b60cd */
       pvVar4 = operator_new(0x78);
                     /* try { // try from 006b5918 to 006b591c has its CatchHandler @ 006b606d */
@@ -44589,9 +44589,9 @@ LAB_006b5fc0:
   if (pQVar6 != pQVar1) {
     do {
                     /* try { // try from 006b5ca8 to 006b5cac has its CatchHandler @ 006b60bd */
-      FUN_0089e584(local_50,pQVar6);
+      King__paneIconFactory(local_50,pQVar6);
                     /* try { // try from 006b5cb5 to 006b5cb9 has its CatchHandler @ 006b6065 */
-      FUN_008a1106(&local_48,pQVar6);
+      King__registerBarsAndPanes(&local_48,pQVar6);
                     /* try { // try from 006b5cbf to 006b5cc3 has its CatchHandler @ 006b6059 */
       pvVar4 = operator_new(0x78);
                     /* try { // try from 006b5cd8 to 006b5cdc has its CatchHandler @ 006b6051 */
@@ -44643,9 +44643,9 @@ LAB_006b5fa7:
   if (pQVar6 != pQVar1) {
     do {
                     /* try { // try from 006b5e03 to 006b5e07 has its CatchHandler @ 006b607d */
-      FUN_0089e584(local_50,pQVar6);
+      King__paneIconFactory(local_50,pQVar6);
                     /* try { // try from 006b5e10 to 006b5e14 has its CatchHandler @ 006b609d */
-      FUN_008a1106(&local_48,pQVar6);
+      King__registerBarsAndPanes(&local_48,pQVar6);
                     /* try { // try from 006b5e1a to 006b5e1e has its CatchHandler @ 006b6095 */
       pvVar4 = operator_new(0x78);
                     /* try { // try from 006b5e33 to 006b5e37 has its CatchHandler @ 006b608d */
@@ -44880,7 +44880,7 @@ void FUN_006b6676(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a2c30;
+  *(undefined ***)param_1 = &FocusModeDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a2e08;
                     /* try { // try from 006b66be to 006b66c2 has its CatchHandler @ 006b6713 */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a2e60,0xc9d5b2);
@@ -45138,7 +45138,7 @@ void FUN_006b6bfe(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a0c38;
+  *(undefined ***)param_1 = &HighlightTextDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a0e10;
                     /* try { // try from 006b6c46 to 006b6c4a has its CatchHandler @ 006b6cad */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a0e60,0xc9fb3c);
@@ -46163,7 +46163,7 @@ void FUN_006b874c(QString *param_1,QObject *param_2,undefined8 param_3)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_metaObject_01189ff0;
+  *(undefined ***)param_1 = &LogDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118a1c8;
   if (param_2 == (QObject *)0x0) {
     uVar1 = 0;
@@ -46583,7 +46583,7 @@ void FUN_006b9156(undefined8 *param_1)
 {
   int *piVar1;
   
-  param_1[-2] = &PTR_metaObject_01189ff0;
+  param_1[-2] = &LogDialog_vtable;
   *param_1 = &PTR_FUN_0118a1c8;
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
@@ -46602,12 +46602,12 @@ void FUN_006b9156(undefined8 *param_1)
 
 // ==== entry=006b91a6 orig=FUN_006b91a6 size=79 name=LogDialog_dtor_deleting ====
 
-void FUN_006b91a6(QDialog *param_1)
+void LogDialog_dtor_deleting(QDialog *param_1)
 
 {
   int *piVar1;
   
-  *(undefined ***)param_1 = &PTR_metaObject_01189ff0;
+  *(undefined ***)param_1 = &LogDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118a1c8;
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
@@ -46631,7 +46631,7 @@ void FUN_006b91f6(undefined8 *param_1)
 {
   int *piVar1;
   
-  param_1[-2] = &PTR_metaObject_01189ff0;
+  param_1[-2] = &LogDialog_vtable;
   *param_1 = &PTR_FUN_0118a1c8;
   piVar1 = (int *)param_1[4];
   if (piVar1 != (int *)0x0) {
@@ -46649,12 +46649,12 @@ void FUN_006b91f6(undefined8 *param_1)
 
 // ==== entry=006b923a orig=FUN_006b923a size=66 name=LogDialog_dtor ====
 
-void FUN_006b923a(QDialog *param_1)
+void LogDialog_dtor(QDialog *param_1)
 
 {
   int *piVar1;
   
-  *(undefined ***)param_1 = &PTR_metaObject_01189ff0;
+  *(undefined ***)param_1 = &LogDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118a1c8;
   piVar1 = *(int **)(param_1 + 0x30);
   if (piVar1 != (int *)0x0) {
@@ -47090,7 +47090,7 @@ void FUN_006b9e92(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a0eb8;
+  *(undefined ***)param_1 = &MasterPasswordDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1090;
                     /* try { // try from 006b9eda to 006b9ede has its CatchHandler @ 006b9f2f */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a10e0,0xc9d743);
@@ -47590,7 +47590,7 @@ void FUN_006bab56(undefined8 *param_1,int param_2,int param_3,undefined8 param_4
     bVar2 = ~-(param_2 == 0) & 2;
   }
   FUN_00555936(param_1,bVar2,param_4);
-  *param_1 = &PTR_FUN_011a1138;
+  *param_1 = &ModemFileDialog_vtable;
   param_1[2] = &PTR_FUN_011a1310;
   *(int *)(param_1 + 7) = param_2;
   *(int *)((long)param_1 + 0x3c) = param_3;
@@ -50196,7 +50196,7 @@ void FUN_006bd7f6(QString *param_1,undefined8 *param_2,undefined8 param_3)
   QArrayData *local_30;
   
   QDialog::QDialog((QDialog *)param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a13b8;
+  *(undefined ***)param_1 = &NameDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1590;
   param_1[0x30] = (QString)0x0;
   piVar1 = (int *)*param_2;
@@ -54587,7 +54587,7 @@ void FUN_006c55c0(QString *param_1,undefined8 param_2)
   char local_20 [8];
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a1638;
+  *(undefined ***)param_1 = &OneKeyDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1810;
   param_1[200] = (QString)0x0;
   *(undefined8 **)(param_1 + 0xd0) = &QListData::shared_null;
@@ -55277,10 +55277,10 @@ void FUN_006c5d50(int param_1,void *param_2,long param_3,long *param_4,undefined
 
 // ==== entry=006c5db6 orig=FUN_006c5db6 size=55 name=TableItemDialog_dtor ====
 
-void FUN_006c5db6(QDialog *param_1)
+void TableItemDialog_dtor(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118a6a0;
+  *(undefined ***)param_1 = &TableItemDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118a878;
   FUN_005249f0(param_1 + 0x38);
   FUN_005249f0(param_1 + 0x30);
@@ -55294,7 +55294,7 @@ void FUN_006c5db6(QDialog *param_1)
 void FUN_006c5ded(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118a6a0;
+  param_1[-2] = &TableItemDialog_vtable;
   *param_1 = &PTR_FUN_0118a878;
   FUN_005249f0(param_1 + 5);
   FUN_005249f0(param_1 + 4);
@@ -55490,7 +55490,7 @@ LAB_006c60e3:
 void FUN_006c62f0(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118a6a0;
+  param_1[-2] = &TableItemDialog_vtable;
   *param_1 = &PTR_FUN_0118a878;
   FUN_005249f0(param_1 + 5);
   FUN_005249f0(param_1 + 4);
@@ -55502,10 +55502,10 @@ void FUN_006c62f0(undefined8 *param_1)
 
 // ==== entry=006c6342 orig=FUN_006c6342 size=68 name=TableItemDialog_dtor_deleting ====
 
-void FUN_006c6342(QDialog *param_1)
+void TableItemDialog_dtor_deleting(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118a6a0;
+  *(undefined ***)param_1 = &TableItemDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118a878;
   FUN_005249f0(param_1 + 0x38);
   FUN_005249f0(param_1 + 0x30);
@@ -55850,7 +55850,7 @@ void FUN_006c7080(QString *param_1,undefined8 *param_2,undefined8 *param_3,undef
   long local_30 [2];
   
   QDialog::QDialog((QDialog *)param_1,param_4,0);
-  *(undefined ***)param_1 = &PTR_metaObject_0118a6a0;
+  *(undefined ***)param_1 = &TableItemDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118a878;
   *(undefined8 *)(param_1 + 0x30) = *param_2;
   FUN_005444ac();
@@ -57771,7 +57771,7 @@ void FUN_006c9e70(QString *param_1,undefined8 param_2,undefined8 *param_3,undefi
   QArrayData *local_30 [2];
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a18b8;
+  *(undefined ***)param_1 = &PasswordDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1a90;
   piVar1 = (int *)*param_4;
   *(int **)(param_1 + 0x58) = piVar1;
@@ -58472,7 +58472,7 @@ void FUN_006caf18(QString *param_1,undefined8 *param_2,undefined8 param_3)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a3178;
+  *(undefined ***)param_1 = &PasteDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3350;
   *(undefined4 *)(param_1 + 0x30) = 1;
   piVar1 = (int *)*param_2;
@@ -59316,7 +59316,7 @@ void FUN_006cc226(QWidget *param_1,undefined8 param_2)
 
 {
   QWidget::QWidget(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a1b50;
+  *(undefined ***)param_1 = &PlaySoundWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1d00;
   *(undefined8 *)(param_1 + 0x48) = 0;
                     /* try { // try from 006cc259 to 006cc265 has its CatchHandler @ 006cc26d */
@@ -59452,7 +59452,7 @@ void FUN_006cc63e(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a1d50;
+  *(undefined ***)param_1 = &PlaySoundDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a1f28;
                     /* try { // try from 006cc686 to 006cc68a has its CatchHandler @ 006cc6ed */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a1f80,0xc9fb4c);
@@ -60767,13 +60767,13 @@ LAB_006ce3c1:
 
 // ==== entry=006ce568 orig=FUN_006ce568 size=217 name=ProfileDialog_dtor ====
 
-void FUN_006ce568(QDialog *param_1)
+void ProfileDialog_dtor(QDialog *param_1)
 
 {
   int iVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a33f8;
+  *(undefined ***)param_1 = &ProfileDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a35d0;
   QCoreApplication::removeTranslator(*(QTranslator **)(param_1 + 0x90));
   pQVar2 = *(QArrayData **)(param_1 + 0x88);
@@ -60839,17 +60839,17 @@ LAB_006ce61a:
 void FUN_006ce641(long param_1)
 
 {
-  FUN_006ce568(param_1 + -0x10);
+  ProfileDialog_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=006ce64a orig=FUN_006ce64a size=23 name=ProfileDialog_dtor_deleting ====
 
-void FUN_006ce64a(void *param_1)
+void ProfileDialog_dtor_deleting(void *param_1)
 
 {
-  FUN_006ce568();
+  ProfileDialog_dtor();
   operator_delete(param_1,0x98);
   return;
 }
@@ -60860,7 +60860,7 @@ void FUN_006ce64a(void *param_1)
 void FUN_006ce661(long param_1)
 
 {
-  FUN_006ce64a(param_1 + -0x10);
+  ProfileDialog_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -61247,7 +61247,7 @@ void FUN_006cf13c(QString *param_1,char param_2,undefined8 param_3)
   QArrayData *local_30;
   
   QDialog::QDialog((QDialog *)param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a33f8;
+  *(undefined ***)param_1 = &ProfileDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a35d0;
                     /* try { // try from 006cf177 to 006cf17b has its CatchHandler @ 006cf22c */
   QCoreApplication::applicationDirPath();

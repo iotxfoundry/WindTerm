@@ -2005,7 +2005,7 @@ void FUN_004c6acc(void)
   
   FUN_005249f0();
   FUN_005249f0(unaff_RBX + 0x38);
-  *(undefined ***)unaff_RBX = &PTR_FUN_011986d0;
+  *(undefined ***)unaff_RBX = &SideButton_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_01198898;
   QPushButton::~QPushButton(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -2023,7 +2023,7 @@ void FUN_004c6b05(void)
   
   operator_delete(unaff_RBP,0x10);
   FUN_005249f0(unaff_RBX + 0x38);
-  *(undefined ***)unaff_RBX = &PTR_FUN_011986d0;
+  *(undefined ***)unaff_RBX = &SideButton_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_01198898;
   QPushButton::~QPushButton(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -2164,7 +2164,7 @@ void FUN_004c6be4(void)
 {
   QFrame *unaff_RBX;
   
-  *(undefined ***)unaff_RBX = &PTR_FUN_01193238;
+  *(undefined ***)unaff_RBX = &ButtonBarPanel_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_011933e8;
   QFrame::~QFrame(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -3257,7 +3257,7 @@ void FUN_004c7304(void)
   FUN_005249f0(unaff_RBX + 0x60);
   FUN_005249f0(unaff_RBX + 0x58);
   FUN_00525060(unaff_RBX + 0x50);
-  *(undefined ***)unaff_RBX = &PTR_FUN_01193238;
+  *(undefined ***)unaff_RBX = &ButtonBarPanel_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_011933e8;
   QFrame::~QFrame(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -4045,7 +4045,7 @@ void FUN_004c7920(void)
 {
   QFrame *unaff_RBX;
   
-  *(undefined ***)unaff_RBX = &PTR_FUN_01193238;
+  *(undefined ***)unaff_RBX = &ButtonBarPanel_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_011933e8;
   QFrame::~QFrame(unaff_RBX);
                     /* WARNING: Subroutine does not return */
@@ -10141,7 +10141,7 @@ void FUN_004ca17c(void)
 {
   QFrame *unaff_RBX;
   
-  *(undefined ***)unaff_RBX = &PTR_FUN_01193238;
+  *(undefined ***)unaff_RBX = &ButtonBarPanel_vtable;
   *(undefined ***)(unaff_RBX + 0x10) = &PTR_FUN_011933e8;
   QFrame::~QFrame(unaff_RBX);
                     /* WARNING: Subroutine does not return */

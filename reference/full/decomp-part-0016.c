@@ -1290,7 +1290,7 @@ void FUN_00519168(void)
   FUN_005249f0(&stack0x00000060);
   FUN_005249f0(&stack0x00000058);
   FUN_005249f0(&stack0x00000050);
-  in_stack_000000e0 = &PTR_FUN_01192310;
+  in_stack_000000e0 = &Uint8RunStyles_vtable;
   FUN_00889746();
   FUN_005249f0(&stack0x00000048);
                     /* WARNING: Subroutine does not return */
@@ -7609,7 +7609,7 @@ undefined4 FUN_0051c896(void)
 }
 
 
-// ==== entry=0051c8cc name=caseD_5 size=5 ====
+// ==== entry=0051c8cc orig=FUN_0051c8cc size=5 name=caseD_5 ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12687,7 +12687,7 @@ void FUN_0051e923(void)
 }
 
 
-// ==== entry=0051e9c0 name=caseD_5 size=5 ====
+// ==== entry=0051e9c0 orig=FUN_0051e9c0 size=5 name=caseD_5 ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12699,7 +12699,7 @@ void switchD_00c8454c::caseD_5(void)
 }
 
 
-// ==== entry=0051e9c5 name=caseD_17 size=5 ====
+// ==== entry=0051e9c5 orig=FUN_0051e9c5 size=5 name=caseD_17 ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12711,7 +12711,7 @@ void switchD_00c8476e::caseD_17(void)
 }
 
 
-// ==== entry=0051e9ca name=abort size=5 ====
+// ==== entry=0051e9ca orig=FUN_0051e9ca size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12723,7 +12723,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9cf name=abort size=5 ====
+// ==== entry=0051e9cf orig=FUN_0051e9cf size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12735,7 +12735,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9d4 name=abort size=5 ====
+// ==== entry=0051e9d4 orig=FUN_0051e9d4 size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12747,7 +12747,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9d9 name=abort size=5 ====
+// ==== entry=0051e9d9 orig=FUN_0051e9d9 size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12759,7 +12759,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9de name=abort size=5 ====
+// ==== entry=0051e9de orig=FUN_0051e9de size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12771,7 +12771,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9e3 name=abort size=5 ====
+// ==== entry=0051e9e3 orig=FUN_0051e9e3 size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12783,7 +12783,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9e8 name=abort size=5 ====
+// ==== entry=0051e9e8 orig=FUN_0051e9e8 size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12795,7 +12795,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9ed name=abort size=5 ====
+// ==== entry=0051e9ed orig=FUN_0051e9ed size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12807,7 +12807,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9f2 name=abort size=5 ====
+// ==== entry=0051e9f2 orig=FUN_0051e9f2 size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12819,7 +12819,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9f7 name=abort size=5 ====
+// ==== entry=0051e9f7 orig=FUN_0051e9f7 size=5 name=abort ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12831,7 +12831,7 @@ void abort(void)
 }
 
 
-// ==== entry=0051e9fc name=caseD_5 size=5 ====
+// ==== entry=0051e9fc orig=FUN_0051e9fc size=5 name=caseD_5 ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -12843,7 +12843,7 @@ void switchD_00c8761c::caseD_5(void)
 }
 
 
-// ==== entry=0051ea01 name=_INIT_1 size=46 ====
+// ==== entry=0051ea01 orig=FUN_0051ea01 size=46 name=_INIT_1 ====
 
 void _INIT_1(void)
 
@@ -12854,7 +12854,7 @@ void _INIT_1(void)
 }
 
 
-// ==== entry=0051ea2f name=_INIT_2 size=36 ====
+// ==== entry=0051ea2f orig=FUN_0051ea2f size=36 name=_INIT_2 ====
 
 void _INIT_2(void)
 
@@ -12865,7 +12865,7 @@ void _INIT_2(void)
 }
 
 
-// ==== entry=0051ea53 name=_INIT_3 size=46 ====
+// ==== entry=0051ea53 orig=FUN_0051ea53 size=46 name=_INIT_3 ====
 
 void _INIT_3(void)
 
@@ -12876,7 +12876,7 @@ void _INIT_3(void)
 }
 
 
-// ==== entry=0051ea81 name=_INIT_4 size=46 ====
+// ==== entry=0051ea81 orig=FUN_0051ea81 size=46 name=_INIT_4 ====
 
 void _INIT_4(void)
 
@@ -12887,7 +12887,7 @@ void _INIT_4(void)
 }
 
 
-// ==== entry=0051eaaf name=_INIT_5 size=46 ====
+// ==== entry=0051eaaf orig=FUN_0051eaaf size=46 name=_INIT_5 ====
 
 void _INIT_5(void)
 
@@ -12898,7 +12898,7 @@ void _INIT_5(void)
 }
 
 
-// ==== entry=0051eadd name=_INIT_6 size=46 ====
+// ==== entry=0051eadd orig=FUN_0051eadd size=46 name=_INIT_6 ====
 
 void _INIT_6(void)
 
@@ -12909,7 +12909,7 @@ void _INIT_6(void)
 }
 
 
-// ==== entry=0051eb0b name=_INIT_7 size=46 ====
+// ==== entry=0051eb0b orig=FUN_0051eb0b size=46 name=_INIT_7 ====
 
 void _INIT_7(void)
 
@@ -12920,7 +12920,7 @@ void _INIT_7(void)
 }
 
 
-// ==== entry=0051eb39 name=_INIT_8 size=46 ====
+// ==== entry=0051eb39 orig=FUN_0051eb39 size=46 name=_INIT_8 ====
 
 void _INIT_8(void)
 
@@ -12931,7 +12931,7 @@ void _INIT_8(void)
 }
 
 
-// ==== entry=0051eb67 name=_INIT_9 size=46 ====
+// ==== entry=0051eb67 orig=FUN_0051eb67 size=46 name=_INIT_9 ====
 
 void _INIT_9(void)
 
@@ -12942,7 +12942,7 @@ void _INIT_9(void)
 }
 
 
-// ==== entry=0051eb95 name=_INIT_10 size=169 ====
+// ==== entry=0051eb95 orig=FUN_0051eb95 size=169 name=_INIT_10 ====
 
 void _INIT_10(void)
 
@@ -12962,7 +12962,7 @@ void _INIT_10(void)
 }
 
 
-// ==== entry=0051ec3e name=_INIT_11 size=46 ====
+// ==== entry=0051ec3e orig=FUN_0051ec3e size=46 name=_INIT_11 ====
 
 void _INIT_11(void)
 
@@ -12973,7 +12973,7 @@ void _INIT_11(void)
 }
 
 
-// ==== entry=0051ec6c name=_INIT_12 size=46 ====
+// ==== entry=0051ec6c orig=FUN_0051ec6c size=46 name=_INIT_12 ====
 
 void _INIT_12(void)
 
@@ -12984,7 +12984,7 @@ void _INIT_12(void)
 }
 
 
-// ==== entry=0051ec9a name=_INIT_13 size=64 ====
+// ==== entry=0051ec9a orig=FUN_0051ec9a size=64 name=_INIT_13 ====
 
 void _INIT_13(void)
 
@@ -12996,7 +12996,7 @@ void _INIT_13(void)
 }
 
 
-// ==== entry=0051ecda name=_INIT_14 size=46 ====
+// ==== entry=0051ecda orig=FUN_0051ecda size=46 name=_INIT_14 ====
 
 void _INIT_14(void)
 
@@ -13007,7 +13007,7 @@ void _INIT_14(void)
 }
 
 
-// ==== entry=0051ed08 name=_INIT_15 size=46 ====
+// ==== entry=0051ed08 orig=FUN_0051ed08 size=46 name=_INIT_15 ====
 
 void _INIT_15(void)
 
@@ -13018,7 +13018,7 @@ void _INIT_15(void)
 }
 
 
-// ==== entry=0051ed36 name=_INIT_16 size=46 ====
+// ==== entry=0051ed36 orig=FUN_0051ed36 size=46 name=_INIT_16 ====
 
 void _INIT_16(void)
 
@@ -13029,7 +13029,7 @@ void _INIT_16(void)
 }
 
 
-// ==== entry=0051ed64 name=_INIT_17 size=46 ====
+// ==== entry=0051ed64 orig=FUN_0051ed64 size=46 name=_INIT_17 ====
 
 void _INIT_17(void)
 
@@ -13040,7 +13040,7 @@ void _INIT_17(void)
 }
 
 
-// ==== entry=0051ed92 name=_INIT_18 size=46 ====
+// ==== entry=0051ed92 orig=FUN_0051ed92 size=46 name=_INIT_18 ====
 
 void _INIT_18(void)
 
@@ -13051,7 +13051,7 @@ void _INIT_18(void)
 }
 
 
-// ==== entry=0051edc0 name=_INIT_19 size=46 ====
+// ==== entry=0051edc0 orig=FUN_0051edc0 size=46 name=_INIT_19 ====
 
 void _INIT_19(void)
 
@@ -13062,7 +13062,7 @@ void _INIT_19(void)
 }
 
 
-// ==== entry=0051edee name=_INIT_20 size=46 ====
+// ==== entry=0051edee orig=FUN_0051edee size=46 name=_INIT_20 ====
 
 void _INIT_20(void)
 
@@ -13073,7 +13073,7 @@ void _INIT_20(void)
 }
 
 
-// ==== entry=0051ee1c name=_INIT_21 size=46 ====
+// ==== entry=0051ee1c orig=FUN_0051ee1c size=46 name=_INIT_21 ====
 
 void _INIT_21(void)
 
@@ -13084,7 +13084,7 @@ void _INIT_21(void)
 }
 
 
-// ==== entry=0051ee4a name=_INIT_22 size=46 ====
+// ==== entry=0051ee4a orig=FUN_0051ee4a size=46 name=_INIT_22 ====
 
 void _INIT_22(void)
 
@@ -13095,7 +13095,7 @@ void _INIT_22(void)
 }
 
 
-// ==== entry=0051ee78 name=_INIT_23 size=46 ====
+// ==== entry=0051ee78 orig=FUN_0051ee78 size=46 name=_INIT_23 ====
 
 void _INIT_23(void)
 
@@ -13106,7 +13106,7 @@ void _INIT_23(void)
 }
 
 
-// ==== entry=0051eea6 name=_INIT_24 size=46 ====
+// ==== entry=0051eea6 orig=FUN_0051eea6 size=46 name=_INIT_24 ====
 
 void _INIT_24(void)
 
@@ -13117,7 +13117,7 @@ void _INIT_24(void)
 }
 
 
-// ==== entry=0051eed4 name=_INIT_25 size=46 ====
+// ==== entry=0051eed4 orig=FUN_0051eed4 size=46 name=_INIT_25 ====
 
 void _INIT_25(void)
 
@@ -13128,7 +13128,7 @@ void _INIT_25(void)
 }
 
 
-// ==== entry=0051ef02 name=_INIT_26 size=46 ====
+// ==== entry=0051ef02 orig=FUN_0051ef02 size=46 name=_INIT_26 ====
 
 void _INIT_26(void)
 
@@ -13139,7 +13139,7 @@ void _INIT_26(void)
 }
 
 
-// ==== entry=0051ef30 name=_INIT_27 size=46 ====
+// ==== entry=0051ef30 orig=FUN_0051ef30 size=46 name=_INIT_27 ====
 
 void _INIT_27(void)
 
@@ -13150,7 +13150,7 @@ void _INIT_27(void)
 }
 
 
-// ==== entry=0051ef5e name=_INIT_28 size=46 ====
+// ==== entry=0051ef5e orig=FUN_0051ef5e size=46 name=_INIT_28 ====
 
 void _INIT_28(void)
 
@@ -13161,7 +13161,7 @@ void _INIT_28(void)
 }
 
 
-// ==== entry=0051ef8c name=_INIT_29 size=46 ====
+// ==== entry=0051ef8c orig=FUN_0051ef8c size=46 name=_INIT_29 ====
 
 void _INIT_29(void)
 
@@ -13172,7 +13172,7 @@ void _INIT_29(void)
 }
 
 
-// ==== entry=0051efba name=_INIT_30 size=46 ====
+// ==== entry=0051efba orig=FUN_0051efba size=46 name=_INIT_30 ====
 
 void _INIT_30(void)
 
@@ -13183,7 +13183,7 @@ void _INIT_30(void)
 }
 
 
-// ==== entry=0051efe8 name=_INIT_31 size=46 ====
+// ==== entry=0051efe8 orig=FUN_0051efe8 size=46 name=_INIT_31 ====
 
 void _INIT_31(void)
 
@@ -13194,7 +13194,7 @@ void _INIT_31(void)
 }
 
 
-// ==== entry=0051f016 name=_INIT_32 size=46 ====
+// ==== entry=0051f016 orig=FUN_0051f016 size=46 name=_INIT_32 ====
 
 void _INIT_32(void)
 
@@ -13205,7 +13205,7 @@ void _INIT_32(void)
 }
 
 
-// ==== entry=0051f044 name=_INIT_33 size=46 ====
+// ==== entry=0051f044 orig=FUN_0051f044 size=46 name=_INIT_33 ====
 
 void _INIT_33(void)
 
@@ -13216,7 +13216,7 @@ void _INIT_33(void)
 }
 
 
-// ==== entry=0051f072 name=_INIT_34 size=46 ====
+// ==== entry=0051f072 orig=FUN_0051f072 size=46 name=_INIT_34 ====
 
 void _INIT_34(void)
 
@@ -13227,7 +13227,7 @@ void _INIT_34(void)
 }
 
 
-// ==== entry=0051f0a0 name=_INIT_35 size=46 ====
+// ==== entry=0051f0a0 orig=FUN_0051f0a0 size=46 name=_INIT_35 ====
 
 void _INIT_35(void)
 
@@ -13238,7 +13238,7 @@ void _INIT_35(void)
 }
 
 
-// ==== entry=0051f0ce name=_INIT_36 size=46 ====
+// ==== entry=0051f0ce orig=FUN_0051f0ce size=46 name=_INIT_36 ====
 
 void _INIT_36(void)
 
@@ -13249,7 +13249,7 @@ void _INIT_36(void)
 }
 
 
-// ==== entry=0051f0fc name=_INIT_37 size=173 ====
+// ==== entry=0051f0fc orig=FUN_0051f0fc size=173 name=_INIT_37 ====
 
 void _INIT_37(void)
 
@@ -13288,7 +13288,7 @@ void _INIT_37(void)
 }
 
 
-// ==== entry=0051f1b1 name=_INIT_38 size=46 ====
+// ==== entry=0051f1b1 orig=FUN_0051f1b1 size=46 name=_INIT_38 ====
 
 void _INIT_38(void)
 
@@ -13299,7 +13299,7 @@ void _INIT_38(void)
 }
 
 
-// ==== entry=0051f1df name=_INIT_39 size=46 ====
+// ==== entry=0051f1df orig=FUN_0051f1df size=46 name=_INIT_39 ====
 
 void _INIT_39(void)
 
@@ -13310,7 +13310,7 @@ void _INIT_39(void)
 }
 
 
-// ==== entry=0051f20d name=_INIT_40 size=46 ====
+// ==== entry=0051f20d orig=FUN_0051f20d size=46 name=_INIT_40 ====
 
 void _INIT_40(void)
 
@@ -13321,7 +13321,7 @@ void _INIT_40(void)
 }
 
 
-// ==== entry=0051f23b name=_INIT_41 size=46 ====
+// ==== entry=0051f23b orig=FUN_0051f23b size=46 name=_INIT_41 ====
 
 void _INIT_41(void)
 
@@ -13332,7 +13332,7 @@ void _INIT_41(void)
 }
 
 
-// ==== entry=0051f269 name=_INIT_42 size=46 ====
+// ==== entry=0051f269 orig=FUN_0051f269 size=46 name=_INIT_42 ====
 
 void _INIT_42(void)
 
@@ -13343,7 +13343,7 @@ void _INIT_42(void)
 }
 
 
-// ==== entry=0051f297 name=_INIT_43 size=46 ====
+// ==== entry=0051f297 orig=FUN_0051f297 size=46 name=_INIT_43 ====
 
 void _INIT_43(void)
 
@@ -13354,7 +13354,7 @@ void _INIT_43(void)
 }
 
 
-// ==== entry=0051f2c5 name=_INIT_44 size=46 ====
+// ==== entry=0051f2c5 orig=FUN_0051f2c5 size=46 name=_INIT_44 ====
 
 void _INIT_44(void)
 
@@ -13365,7 +13365,7 @@ void _INIT_44(void)
 }
 
 
-// ==== entry=0051f2f3 name=_INIT_45 size=46 ====
+// ==== entry=0051f2f3 orig=FUN_0051f2f3 size=46 name=_INIT_45 ====
 
 void _INIT_45(void)
 
@@ -13376,7 +13376,7 @@ void _INIT_45(void)
 }
 
 
-// ==== entry=0051f321 name=_INIT_46 size=46 ====
+// ==== entry=0051f321 orig=FUN_0051f321 size=46 name=_INIT_46 ====
 
 void _INIT_46(void)
 
@@ -13387,7 +13387,7 @@ void _INIT_46(void)
 }
 
 
-// ==== entry=0051f34f name=_INIT_47 size=46 ====
+// ==== entry=0051f34f orig=FUN_0051f34f size=46 name=_INIT_47 ====
 
 void _INIT_47(void)
 
@@ -13398,7 +13398,7 @@ void _INIT_47(void)
 }
 
 
-// ==== entry=0051f37d name=_INIT_48 size=46 ====
+// ==== entry=0051f37d orig=FUN_0051f37d size=46 name=_INIT_48 ====
 
 void _INIT_48(void)
 
@@ -13409,7 +13409,7 @@ void _INIT_48(void)
 }
 
 
-// ==== entry=0051f3ab name=main size=106 ====
+// ==== entry=0051f3ab orig=FUN_0051f3ab size=106 name=main ====
 
 undefined4 main(undefined4 param_1,undefined8 param_2)
 
@@ -13426,12 +13426,12 @@ undefined4 main(undefined4 param_1,undefined8 param_2)
                     /* try { // try from 0051f3f8 to 0051f401 has its CatchHandler @ 0051f415 */
   FUN_0075be40(local_78);
   uVar1 = QApplication::exec();
-  FUN_0075f8f0(local_78);
+  SuperApplication_dtor(local_78);
   return uVar1;
 }
 
 
-// ==== entry=0051f41d name=_INIT_49 size=24 ====
+// ==== entry=0051f41d orig=FUN_0051f41d size=24 name=_INIT_49 ====
 
 void _INIT_49(void)
 
@@ -13441,7 +13441,7 @@ void _INIT_49(void)
 }
 
 
-// ==== entry=0051f435 name=_INIT_50 size=62 ====
+// ==== entry=0051f435 orig=FUN_0051f435 size=62 name=_INIT_50 ====
 
 void _INIT_50(void)
 
@@ -13453,7 +13453,7 @@ void _INIT_50(void)
 }
 
 
-// ==== entry=0051f473 name=_INIT_51 size=62 ====
+// ==== entry=0051f473 orig=FUN_0051f473 size=62 name=_INIT_51 ====
 
 void _INIT_51(void)
 
@@ -13465,7 +13465,7 @@ void _INIT_51(void)
 }
 
 
-// ==== entry=0051f4b1 name=_INIT_52 size=46 ====
+// ==== entry=0051f4b1 orig=FUN_0051f4b1 size=46 name=_INIT_52 ====
 
 void _INIT_52(void)
 
@@ -13476,7 +13476,7 @@ void _INIT_52(void)
 }
 
 
-// ==== entry=0051f4df name=_INIT_53 size=46 ====
+// ==== entry=0051f4df orig=FUN_0051f4df size=46 name=_INIT_53 ====
 
 void _INIT_53(void)
 
@@ -13487,7 +13487,7 @@ void _INIT_53(void)
 }
 
 
-// ==== entry=0051f50d name=_INIT_54 size=46 ====
+// ==== entry=0051f50d orig=FUN_0051f50d size=46 name=_INIT_54 ====
 
 void _INIT_54(void)
 
@@ -13498,7 +13498,7 @@ void _INIT_54(void)
 }
 
 
-// ==== entry=0051f53b name=_INIT_55 size=46 ====
+// ==== entry=0051f53b orig=FUN_0051f53b size=46 name=_INIT_55 ====
 
 void _INIT_55(void)
 
@@ -13509,7 +13509,7 @@ void _INIT_55(void)
 }
 
 
-// ==== entry=0051f569 name=_INIT_56 size=46 ====
+// ==== entry=0051f569 orig=FUN_0051f569 size=46 name=_INIT_56 ====
 
 void _INIT_56(void)
 
@@ -13520,7 +13520,7 @@ void _INIT_56(void)
 }
 
 
-// ==== entry=0051f597 name=_INIT_57 size=24 ====
+// ==== entry=0051f597 orig=FUN_0051f597 size=24 name=_INIT_57 ====
 
 void _INIT_57(void)
 
@@ -13530,7 +13530,7 @@ void _INIT_57(void)
 }
 
 
-// ==== entry=0051f5af name=_INIT_58 size=62 ====
+// ==== entry=0051f5af orig=FUN_0051f5af size=62 name=_INIT_58 ====
 
 void _INIT_58(void)
 
@@ -13542,7 +13542,7 @@ void _INIT_58(void)
 }
 
 
-// ==== entry=0051f5ed name=_INIT_59 size=82 ====
+// ==== entry=0051f5ed orig=FUN_0051f5ed size=82 name=_INIT_59 ====
 
 void _INIT_59(void)
 
@@ -13555,7 +13555,7 @@ void _INIT_59(void)
 }
 
 
-// ==== entry=0051f63f name=_INIT_60 size=46 ====
+// ==== entry=0051f63f orig=FUN_0051f63f size=46 name=_INIT_60 ====
 
 void _INIT_60(void)
 
@@ -13566,7 +13566,7 @@ void _INIT_60(void)
 }
 
 
-// ==== entry=0051f66d name=_INIT_61 size=46 ====
+// ==== entry=0051f66d orig=FUN_0051f66d size=46 name=_INIT_61 ====
 
 void _INIT_61(void)
 
@@ -13577,7 +13577,7 @@ void _INIT_61(void)
 }
 
 
-// ==== entry=0051f69b name=_INIT_62 size=77 ====
+// ==== entry=0051f69b orig=FUN_0051f69b size=77 name=_INIT_62 ====
 
 void _INIT_62(void)
 
@@ -13590,7 +13590,7 @@ void _INIT_62(void)
 }
 
 
-// ==== entry=0051f6e8 name=_INIT_63 size=46 ====
+// ==== entry=0051f6e8 orig=FUN_0051f6e8 size=46 name=_INIT_63 ====
 
 void _INIT_63(void)
 
@@ -13601,7 +13601,7 @@ void _INIT_63(void)
 }
 
 
-// ==== entry=0051f716 name=_INIT_64 size=24 ====
+// ==== entry=0051f716 orig=FUN_0051f716 size=24 name=_INIT_64 ====
 
 void _INIT_64(void)
 
@@ -13611,7 +13611,7 @@ void _INIT_64(void)
 }
 
 
-// ==== entry=0051f72e name=_INIT_65 size=62 ====
+// ==== entry=0051f72e orig=FUN_0051f72e size=62 name=_INIT_65 ====
 
 void _INIT_65(void)
 
@@ -13623,7 +13623,7 @@ void _INIT_65(void)
 }
 
 
-// ==== entry=0051f76c name=_INIT_66 size=62 ====
+// ==== entry=0051f76c orig=FUN_0051f76c size=62 name=_INIT_66 ====
 
 void _INIT_66(void)
 
@@ -13635,7 +13635,7 @@ void _INIT_66(void)
 }
 
 
-// ==== entry=0051f7aa name=_INIT_67 size=24 ====
+// ==== entry=0051f7aa orig=FUN_0051f7aa size=24 name=_INIT_67 ====
 
 void _INIT_67(void)
 
@@ -13645,7 +13645,7 @@ void _INIT_67(void)
 }
 
 
-// ==== entry=0051f7c2 name=_INIT_68 size=24 ====
+// ==== entry=0051f7c2 orig=FUN_0051f7c2 size=24 name=_INIT_68 ====
 
 void _INIT_68(void)
 
@@ -13655,7 +13655,7 @@ void _INIT_68(void)
 }
 
 
-// ==== entry=0051f7da name=_INIT_69 size=46 ====
+// ==== entry=0051f7da orig=FUN_0051f7da size=46 name=_INIT_69 ====
 
 void _INIT_69(void)
 
@@ -13666,7 +13666,7 @@ void _INIT_69(void)
 }
 
 
-// ==== entry=0051f808 name=_INIT_70 size=46 ====
+// ==== entry=0051f808 orig=FUN_0051f808 size=46 name=_INIT_70 ====
 
 void _INIT_70(void)
 
@@ -13677,7 +13677,7 @@ void _INIT_70(void)
 }
 
 
-// ==== entry=0051f836 name=_INIT_71 size=46 ====
+// ==== entry=0051f836 orig=FUN_0051f836 size=46 name=_INIT_71 ====
 
 void _INIT_71(void)
 
@@ -13688,7 +13688,7 @@ void _INIT_71(void)
 }
 
 
-// ==== entry=0051f864 name=_INIT_72 size=46 ====
+// ==== entry=0051f864 orig=FUN_0051f864 size=46 name=_INIT_72 ====
 
 void _INIT_72(void)
 
@@ -13699,7 +13699,7 @@ void _INIT_72(void)
 }
 
 
-// ==== entry=0051f892 name=_INIT_73 size=46 ====
+// ==== entry=0051f892 orig=FUN_0051f892 size=46 name=_INIT_73 ====
 
 void _INIT_73(void)
 
@@ -13710,7 +13710,7 @@ void _INIT_73(void)
 }
 
 
-// ==== entry=0051f8c0 name=_INIT_74 size=46 ====
+// ==== entry=0051f8c0 orig=FUN_0051f8c0 size=46 name=_INIT_74 ====
 
 void _INIT_74(void)
 
@@ -13721,7 +13721,7 @@ void _INIT_74(void)
 }
 
 
-// ==== entry=0051f8ee name=_INIT_75 size=46 ====
+// ==== entry=0051f8ee orig=FUN_0051f8ee size=46 name=_INIT_75 ====
 
 void _INIT_75(void)
 
@@ -13732,7 +13732,7 @@ void _INIT_75(void)
 }
 
 
-// ==== entry=0051f91c name=_INIT_76 size=46 ====
+// ==== entry=0051f91c orig=FUN_0051f91c size=46 name=_INIT_76 ====
 
 void _INIT_76(void)
 
@@ -13743,7 +13743,7 @@ void _INIT_76(void)
 }
 
 
-// ==== entry=0051f94a name=_INIT_77 size=46 ====
+// ==== entry=0051f94a orig=FUN_0051f94a size=46 name=_INIT_77 ====
 
 void _INIT_77(void)
 
@@ -13754,7 +13754,7 @@ void _INIT_77(void)
 }
 
 
-// ==== entry=0051f978 name=_INIT_78 size=46 ====
+// ==== entry=0051f978 orig=FUN_0051f978 size=46 name=_INIT_78 ====
 
 void _INIT_78(void)
 
@@ -13765,7 +13765,7 @@ void _INIT_78(void)
 }
 
 
-// ==== entry=0051f9a6 name=_INIT_79 size=46 ====
+// ==== entry=0051f9a6 orig=FUN_0051f9a6 size=46 name=_INIT_79 ====
 
 void _INIT_79(void)
 
@@ -13776,7 +13776,7 @@ void _INIT_79(void)
 }
 
 
-// ==== entry=0051f9d4 name=_INIT_80 size=46 ====
+// ==== entry=0051f9d4 orig=FUN_0051f9d4 size=46 name=_INIT_80 ====
 
 void _INIT_80(void)
 
@@ -13787,7 +13787,7 @@ void _INIT_80(void)
 }
 
 
-// ==== entry=0051fa02 name=_INIT_81 size=46 ====
+// ==== entry=0051fa02 orig=FUN_0051fa02 size=46 name=_INIT_81 ====
 
 void _INIT_81(void)
 
@@ -13798,7 +13798,7 @@ void _INIT_81(void)
 }
 
 
-// ==== entry=0051fa30 name=_INIT_82 size=46 ====
+// ==== entry=0051fa30 orig=FUN_0051fa30 size=46 name=_INIT_82 ====
 
 void _INIT_82(void)
 
@@ -13809,7 +13809,7 @@ void _INIT_82(void)
 }
 
 
-// ==== entry=0051fa5e name=_INIT_83 size=46 ====
+// ==== entry=0051fa5e orig=FUN_0051fa5e size=46 name=_INIT_83 ====
 
 void _INIT_83(void)
 
@@ -13820,7 +13820,7 @@ void _INIT_83(void)
 }
 
 
-// ==== entry=0051fa8c name=_INIT_84 size=46 ====
+// ==== entry=0051fa8c orig=FUN_0051fa8c size=46 name=_INIT_84 ====
 
 void _INIT_84(void)
 
@@ -13831,7 +13831,7 @@ void _INIT_84(void)
 }
 
 
-// ==== entry=0051faba name=_INIT_85 size=46 ====
+// ==== entry=0051faba orig=FUN_0051faba size=46 name=_INIT_85 ====
 
 void _INIT_85(void)
 
@@ -13842,7 +13842,7 @@ void _INIT_85(void)
 }
 
 
-// ==== entry=0051fae8 name=_INIT_86 size=46 ====
+// ==== entry=0051fae8 orig=FUN_0051fae8 size=46 name=_INIT_86 ====
 
 void _INIT_86(void)
 
@@ -13853,7 +13853,7 @@ void _INIT_86(void)
 }
 
 
-// ==== entry=0051fb16 name=_INIT_87 size=46 ====
+// ==== entry=0051fb16 orig=FUN_0051fb16 size=46 name=_INIT_87 ====
 
 void _INIT_87(void)
 
@@ -13864,7 +13864,7 @@ void _INIT_87(void)
 }
 
 
-// ==== entry=0051fb44 name=_INIT_88 size=46 ====
+// ==== entry=0051fb44 orig=FUN_0051fb44 size=46 name=_INIT_88 ====
 
 void _INIT_88(void)
 
@@ -13875,7 +13875,7 @@ void _INIT_88(void)
 }
 
 
-// ==== entry=0051fb72 name=_INIT_89 size=46 ====
+// ==== entry=0051fb72 orig=FUN_0051fb72 size=46 name=_INIT_89 ====
 
 void _INIT_89(void)
 
@@ -13886,7 +13886,7 @@ void _INIT_89(void)
 }
 
 
-// ==== entry=0051fba0 name=_INIT_90 size=62 ====
+// ==== entry=0051fba0 orig=FUN_0051fba0 size=62 name=_INIT_90 ====
 
 void _INIT_90(void)
 
@@ -13898,7 +13898,7 @@ void _INIT_90(void)
 }
 
 
-// ==== entry=0051fbde name=_INIT_91 size=46 ====
+// ==== entry=0051fbde orig=FUN_0051fbde size=46 name=_INIT_91 ====
 
 void _INIT_91(void)
 
@@ -13909,7 +13909,7 @@ void _INIT_91(void)
 }
 
 
-// ==== entry=0051fc0c name=_INIT_92 size=46 ====
+// ==== entry=0051fc0c orig=FUN_0051fc0c size=46 name=_INIT_92 ====
 
 void _INIT_92(void)
 
@@ -13920,7 +13920,7 @@ void _INIT_92(void)
 }
 
 
-// ==== entry=0051fc3a name=_INIT_93 size=62 ====
+// ==== entry=0051fc3a orig=FUN_0051fc3a size=62 name=_INIT_93 ====
 
 void _INIT_93(void)
 
@@ -13932,7 +13932,7 @@ void _INIT_93(void)
 }
 
 
-// ==== entry=0051fc78 name=_INIT_94 size=46 ====
+// ==== entry=0051fc78 orig=FUN_0051fc78 size=46 name=_INIT_94 ====
 
 void _INIT_94(void)
 
@@ -13943,7 +13943,7 @@ void _INIT_94(void)
 }
 
 
-// ==== entry=0051fca6 name=_INIT_95 size=46 ====
+// ==== entry=0051fca6 orig=FUN_0051fca6 size=46 name=_INIT_95 ====
 
 void _INIT_95(void)
 
@@ -13954,7 +13954,7 @@ void _INIT_95(void)
 }
 
 
-// ==== entry=0051fcd4 name=_INIT_96 size=46 ====
+// ==== entry=0051fcd4 orig=FUN_0051fcd4 size=46 name=_INIT_96 ====
 
 void _INIT_96(void)
 
@@ -13965,7 +13965,7 @@ void _INIT_96(void)
 }
 
 
-// ==== entry=0051fd02 name=_INIT_97 size=24 ====
+// ==== entry=0051fd02 orig=FUN_0051fd02 size=24 name=_INIT_97 ====
 
 void _INIT_97(void)
 
@@ -13975,7 +13975,7 @@ void _INIT_97(void)
 }
 
 
-// ==== entry=0051fd1a name=_INIT_98 size=46 ====
+// ==== entry=0051fd1a orig=FUN_0051fd1a size=46 name=_INIT_98 ====
 
 void _INIT_98(void)
 
@@ -13986,7 +13986,7 @@ void _INIT_98(void)
 }
 
 
-// ==== entry=0051fd48 name=_INIT_99 size=287 ====
+// ==== entry=0051fd48 orig=FUN_0051fd48 size=287 name=_INIT_99 ====
 
 void _INIT_99(void)
 
@@ -14007,7 +14007,7 @@ void _INIT_99(void)
 }
 
 
-// ==== entry=0051fe67 name=_INIT_100 size=46 ====
+// ==== entry=0051fe67 orig=FUN_0051fe67 size=46 name=_INIT_100 ====
 
 void _INIT_100(void)
 
@@ -14018,7 +14018,7 @@ void _INIT_100(void)
 }
 
 
-// ==== entry=0051fe95 name=_INIT_101 size=46 ====
+// ==== entry=0051fe95 orig=FUN_0051fe95 size=46 name=_INIT_101 ====
 
 void _INIT_101(void)
 
@@ -14029,7 +14029,7 @@ void _INIT_101(void)
 }
 
 
-// ==== entry=0051fec3 name=_INIT_102 size=36 ====
+// ==== entry=0051fec3 orig=FUN_0051fec3 size=36 name=_INIT_102 ====
 
 void _INIT_102(void)
 
@@ -14040,7 +14040,7 @@ void _INIT_102(void)
 }
 
 
-// ==== entry=0051fee7 name=_INIT_103 size=46 ====
+// ==== entry=0051fee7 orig=FUN_0051fee7 size=46 name=_INIT_103 ====
 
 void _INIT_103(void)
 
@@ -14051,7 +14051,7 @@ void _INIT_103(void)
 }
 
 
-// ==== entry=0051ff15 name=_INIT_104 size=46 ====
+// ==== entry=0051ff15 orig=FUN_0051ff15 size=46 name=_INIT_104 ====
 
 void _INIT_104(void)
 
@@ -14062,7 +14062,7 @@ void _INIT_104(void)
 }
 
 
-// ==== entry=0051ff43 name=_INIT_105 size=46 ====
+// ==== entry=0051ff43 orig=FUN_0051ff43 size=46 name=_INIT_105 ====
 
 void _INIT_105(void)
 
@@ -14073,7 +14073,7 @@ void _INIT_105(void)
 }
 
 
-// ==== entry=0051ff71 name=_INIT_106 size=46 ====
+// ==== entry=0051ff71 orig=FUN_0051ff71 size=46 name=_INIT_106 ====
 
 void _INIT_106(void)
 
@@ -14084,7 +14084,7 @@ void _INIT_106(void)
 }
 
 
-// ==== entry=0051ff9f name=_INIT_107 size=46 ====
+// ==== entry=0051ff9f orig=FUN_0051ff9f size=46 name=_INIT_107 ====
 
 void _INIT_107(void)
 
@@ -14095,7 +14095,7 @@ void _INIT_107(void)
 }
 
 
-// ==== entry=0051ffcd name=_INIT_108 size=46 ====
+// ==== entry=0051ffcd orig=FUN_0051ffcd size=46 name=_INIT_108 ====
 
 void _INIT_108(void)
 
@@ -14106,7 +14106,7 @@ void _INIT_108(void)
 }
 
 
-// ==== entry=0051fffb name=_INIT_109 size=46 ====
+// ==== entry=0051fffb orig=FUN_0051fffb size=46 name=_INIT_109 ====
 
 void _INIT_109(void)
 
@@ -14117,7 +14117,7 @@ void _INIT_109(void)
 }
 
 
-// ==== entry=00520029 name=_INIT_110 size=46 ====
+// ==== entry=00520029 orig=FUN_00520029 size=46 name=_INIT_110 ====
 
 void _INIT_110(void)
 
@@ -14128,7 +14128,7 @@ void _INIT_110(void)
 }
 
 
-// ==== entry=00520057 name=_INIT_111 size=101 ====
+// ==== entry=00520057 orig=FUN_00520057 size=101 name=_INIT_111 ====
 
 void _INIT_111(void)
 
@@ -14141,7 +14141,7 @@ void _INIT_111(void)
 }
 
 
-// ==== entry=005200bc name=_INIT_112 size=46 ====
+// ==== entry=005200bc orig=FUN_005200bc size=46 name=_INIT_112 ====
 
 void _INIT_112(void)
 
@@ -14152,7 +14152,7 @@ void _INIT_112(void)
 }
 
 
-// ==== entry=005200ea name=_INIT_113 size=46 ====
+// ==== entry=005200ea orig=FUN_005200ea size=46 name=_INIT_113 ====
 
 void _INIT_113(void)
 
@@ -14163,7 +14163,7 @@ void _INIT_113(void)
 }
 
 
-// ==== entry=00520118 name=_INIT_114 size=46 ====
+// ==== entry=00520118 orig=FUN_00520118 size=46 name=_INIT_114 ====
 
 void _INIT_114(void)
 
@@ -14174,7 +14174,7 @@ void _INIT_114(void)
 }
 
 
-// ==== entry=00520146 name=_INIT_115 size=46 ====
+// ==== entry=00520146 orig=FUN_00520146 size=46 name=_INIT_115 ====
 
 void _INIT_115(void)
 
@@ -14185,7 +14185,7 @@ void _INIT_115(void)
 }
 
 
-// ==== entry=00520174 name=_INIT_116 size=46 ====
+// ==== entry=00520174 orig=FUN_00520174 size=46 name=_INIT_116 ====
 
 void _INIT_116(void)
 
@@ -14196,7 +14196,7 @@ void _INIT_116(void)
 }
 
 
-// ==== entry=005201a2 name=_INIT_117 size=46 ====
+// ==== entry=005201a2 orig=FUN_005201a2 size=46 name=_INIT_117 ====
 
 void _INIT_117(void)
 
@@ -14207,7 +14207,7 @@ void _INIT_117(void)
 }
 
 
-// ==== entry=005201d0 name=_INIT_118 size=46 ====
+// ==== entry=005201d0 orig=FUN_005201d0 size=46 name=_INIT_118 ====
 
 void _INIT_118(void)
 
@@ -14218,7 +14218,7 @@ void _INIT_118(void)
 }
 
 
-// ==== entry=005201fe name=_INIT_119 size=39 ====
+// ==== entry=005201fe orig=FUN_005201fe size=39 name=_INIT_119 ====
 
 void _INIT_119(void)
 
@@ -14229,7 +14229,7 @@ void _INIT_119(void)
 }
 
 
-// ==== entry=00520225 name=_INIT_120 size=46 ====
+// ==== entry=00520225 orig=FUN_00520225 size=46 name=_INIT_120 ====
 
 void _INIT_120(void)
 
@@ -14240,7 +14240,7 @@ void _INIT_120(void)
 }
 
 
-// ==== entry=00520253 name=_INIT_121 size=46 ====
+// ==== entry=00520253 orig=FUN_00520253 size=46 name=_INIT_121 ====
 
 void _INIT_121(void)
 
@@ -14251,7 +14251,7 @@ void _INIT_121(void)
 }
 
 
-// ==== entry=00520281 name=_INIT_122 size=46 ====
+// ==== entry=00520281 orig=FUN_00520281 size=46 name=_INIT_122 ====
 
 void _INIT_122(void)
 
@@ -14262,7 +14262,7 @@ void _INIT_122(void)
 }
 
 
-// ==== entry=005202af name=_INIT_123 size=46 ====
+// ==== entry=005202af orig=FUN_005202af size=46 name=_INIT_123 ====
 
 void _INIT_123(void)
 
@@ -14273,7 +14273,7 @@ void _INIT_123(void)
 }
 
 
-// ==== entry=005202dd name=_INIT_124 size=46 ====
+// ==== entry=005202dd orig=FUN_005202dd size=46 name=_INIT_124 ====
 
 void _INIT_124(void)
 
@@ -14284,7 +14284,7 @@ void _INIT_124(void)
 }
 
 
-// ==== entry=0052030b name=_INIT_125 size=46 ====
+// ==== entry=0052030b orig=FUN_0052030b size=46 name=_INIT_125 ====
 
 void _INIT_125(void)
 
@@ -14295,7 +14295,7 @@ void _INIT_125(void)
 }
 
 
-// ==== entry=00520339 name=_INIT_126 size=46 ====
+// ==== entry=00520339 orig=FUN_00520339 size=46 name=_INIT_126 ====
 
 void _INIT_126(void)
 
@@ -14306,7 +14306,7 @@ void _INIT_126(void)
 }
 
 
-// ==== entry=00520367 name=_INIT_127 size=46 ====
+// ==== entry=00520367 orig=FUN_00520367 size=46 name=_INIT_127 ====
 
 void _INIT_127(void)
 
@@ -14317,7 +14317,7 @@ void _INIT_127(void)
 }
 
 
-// ==== entry=00520395 name=_INIT_128 size=46 ====
+// ==== entry=00520395 orig=FUN_00520395 size=46 name=_INIT_128 ====
 
 void _INIT_128(void)
 
@@ -14328,7 +14328,7 @@ void _INIT_128(void)
 }
 
 
-// ==== entry=005203c3 name=_INIT_129 size=97 ====
+// ==== entry=005203c3 orig=FUN_005203c3 size=97 name=_INIT_129 ====
 
 void _INIT_129(void)
 
@@ -14343,7 +14343,7 @@ void _INIT_129(void)
 }
 
 
-// ==== entry=00520424 name=_INIT_130 size=132 ====
+// ==== entry=00520424 orig=FUN_00520424 size=132 name=_INIT_130 ====
 
 void _INIT_130(void)
 
@@ -14358,7 +14358,7 @@ void _INIT_130(void)
 }
 
 
-// ==== entry=005204a8 name=_INIT_131 size=59 ====
+// ==== entry=005204a8 orig=FUN_005204a8 size=59 name=_INIT_131 ====
 
 void _INIT_131(void)
 
@@ -14370,7 +14370,7 @@ void _INIT_131(void)
 }
 
 
-// ==== entry=005204e3 name=_INIT_132 size=46 ====
+// ==== entry=005204e3 orig=FUN_005204e3 size=46 name=_INIT_132 ====
 
 void _INIT_132(void)
 
@@ -14381,7 +14381,7 @@ void _INIT_132(void)
 }
 
 
-// ==== entry=00520511 name=_INIT_133 size=46 ====
+// ==== entry=00520511 orig=FUN_00520511 size=46 name=_INIT_133 ====
 
 void _INIT_133(void)
 
@@ -14392,7 +14392,7 @@ void _INIT_133(void)
 }
 
 
-// ==== entry=0052053f name=_INIT_134 size=46 ====
+// ==== entry=0052053f orig=FUN_0052053f size=46 name=_INIT_134 ====
 
 void _INIT_134(void)
 
@@ -14403,7 +14403,7 @@ void _INIT_134(void)
 }
 
 
-// ==== entry=0052056d name=_INIT_135 size=46 ====
+// ==== entry=0052056d orig=FUN_0052056d size=46 name=_INIT_135 ====
 
 void _INIT_135(void)
 
@@ -14414,7 +14414,7 @@ void _INIT_135(void)
 }
 
 
-// ==== entry=0052059b name=_INIT_136 size=46 ====
+// ==== entry=0052059b orig=FUN_0052059b size=46 name=_INIT_136 ====
 
 void _INIT_136(void)
 
@@ -14425,7 +14425,7 @@ void _INIT_136(void)
 }
 
 
-// ==== entry=005205c9 name=_INIT_137 size=46 ====
+// ==== entry=005205c9 orig=FUN_005205c9 size=46 name=_INIT_137 ====
 
 void _INIT_137(void)
 
@@ -14436,7 +14436,7 @@ void _INIT_137(void)
 }
 
 
-// ==== entry=005205f7 name=_INIT_138 size=46 ====
+// ==== entry=005205f7 orig=FUN_005205f7 size=46 name=_INIT_138 ====
 
 void _INIT_138(void)
 
@@ -14447,7 +14447,7 @@ void _INIT_138(void)
 }
 
 
-// ==== entry=00520625 name=_INIT_139 size=46 ====
+// ==== entry=00520625 orig=FUN_00520625 size=46 name=_INIT_139 ====
 
 void _INIT_139(void)
 
@@ -14458,7 +14458,7 @@ void _INIT_139(void)
 }
 
 
-// ==== entry=00520653 name=_INIT_140 size=79 ====
+// ==== entry=00520653 orig=FUN_00520653 size=79 name=_INIT_140 ====
 
 void _INIT_140(void)
 
@@ -14471,7 +14471,7 @@ void _INIT_140(void)
 }
 
 
-// ==== entry=005206a2 name=_INIT_141 size=46 ====
+// ==== entry=005206a2 orig=FUN_005206a2 size=46 name=_INIT_141 ====
 
 void _INIT_141(void)
 
@@ -14482,7 +14482,7 @@ void _INIT_141(void)
 }
 
 
-// ==== entry=005206d0 name=_INIT_142 size=46 ====
+// ==== entry=005206d0 orig=FUN_005206d0 size=46 name=_INIT_142 ====
 
 void _INIT_142(void)
 
@@ -14493,7 +14493,7 @@ void _INIT_142(void)
 }
 
 
-// ==== entry=005206fe name=_INIT_143 size=46 ====
+// ==== entry=005206fe orig=FUN_005206fe size=46 name=_INIT_143 ====
 
 void _INIT_143(void)
 
@@ -14504,7 +14504,7 @@ void _INIT_143(void)
 }
 
 
-// ==== entry=0052072c name=_INIT_144 size=46 ====
+// ==== entry=0052072c orig=FUN_0052072c size=46 name=_INIT_144 ====
 
 void _INIT_144(void)
 
@@ -14515,7 +14515,7 @@ void _INIT_144(void)
 }
 
 
-// ==== entry=0052075a name=_INIT_145 size=46 ====
+// ==== entry=0052075a orig=FUN_0052075a size=46 name=_INIT_145 ====
 
 void _INIT_145(void)
 
@@ -14526,7 +14526,7 @@ void _INIT_145(void)
 }
 
 
-// ==== entry=00520788 name=_INIT_146 size=46 ====
+// ==== entry=00520788 orig=FUN_00520788 size=46 name=_INIT_146 ====
 
 void _INIT_146(void)
 
@@ -14537,7 +14537,7 @@ void _INIT_146(void)
 }
 
 
-// ==== entry=005207b6 name=_INIT_147 size=46 ====
+// ==== entry=005207b6 orig=FUN_005207b6 size=46 name=_INIT_147 ====
 
 void _INIT_147(void)
 
@@ -14548,7 +14548,7 @@ void _INIT_147(void)
 }
 
 
-// ==== entry=005207e4 name=_INIT_148 size=46 ====
+// ==== entry=005207e4 orig=FUN_005207e4 size=46 name=_INIT_148 ====
 
 void _INIT_148(void)
 
@@ -14559,7 +14559,7 @@ void _INIT_148(void)
 }
 
 
-// ==== entry=00520812 name=_INIT_149 size=46 ====
+// ==== entry=00520812 orig=FUN_00520812 size=46 name=_INIT_149 ====
 
 void _INIT_149(void)
 
@@ -14570,7 +14570,7 @@ void _INIT_149(void)
 }
 
 
-// ==== entry=00520840 name=_INIT_150 size=46 ====
+// ==== entry=00520840 orig=FUN_00520840 size=46 name=_INIT_150 ====
 
 void _INIT_150(void)
 
@@ -14581,7 +14581,7 @@ void _INIT_150(void)
 }
 
 
-// ==== entry=0052086e name=_INIT_151 size=137 ====
+// ==== entry=0052086e orig=FUN_0052086e size=137 name=_INIT_151 ====
 
 void _INIT_151(void)
 
@@ -14605,7 +14605,7 @@ void _INIT_151(void)
 }
 
 
-// ==== entry=005208f7 name=_INIT_152 size=46 ====
+// ==== entry=005208f7 orig=FUN_005208f7 size=46 name=_INIT_152 ====
 
 void _INIT_152(void)
 
@@ -14616,7 +14616,7 @@ void _INIT_152(void)
 }
 
 
-// ==== entry=00520925 name=_INIT_153 size=46 ====
+// ==== entry=00520925 orig=FUN_00520925 size=46 name=_INIT_153 ====
 
 void _INIT_153(void)
 
@@ -14627,7 +14627,7 @@ void _INIT_153(void)
 }
 
 
-// ==== entry=00520953 name=_INIT_154 size=46 ====
+// ==== entry=00520953 orig=FUN_00520953 size=46 name=_INIT_154 ====
 
 void _INIT_154(void)
 
@@ -14638,7 +14638,7 @@ void _INIT_154(void)
 }
 
 
-// ==== entry=00520981 name=_INIT_155 size=46 ====
+// ==== entry=00520981 orig=FUN_00520981 size=46 name=_INIT_155 ====
 
 void _INIT_155(void)
 
@@ -14649,7 +14649,7 @@ void _INIT_155(void)
 }
 
 
-// ==== entry=005209af name=_INIT_156 size=46 ====
+// ==== entry=005209af orig=FUN_005209af size=46 name=_INIT_156 ====
 
 void _INIT_156(void)
 
@@ -14660,7 +14660,7 @@ void _INIT_156(void)
 }
 
 
-// ==== entry=005209dd name=_INIT_157 size=46 ====
+// ==== entry=005209dd orig=FUN_005209dd size=46 name=_INIT_157 ====
 
 void _INIT_157(void)
 
@@ -14671,7 +14671,7 @@ void _INIT_157(void)
 }
 
 
-// ==== entry=00520a0b name=_INIT_158 size=24 ====
+// ==== entry=00520a0b orig=FUN_00520a0b size=24 name=_INIT_158 ====
 
 void _INIT_158(void)
 
@@ -14681,7 +14681,7 @@ void _INIT_158(void)
 }
 
 
-// ==== entry=00520a23 name=_INIT_159 size=11 ====
+// ==== entry=00520a23 orig=FUN_00520a23 size=11 name=_INIT_159 ====
 
 void _INIT_159(void)
 
@@ -14691,7 +14691,7 @@ void _INIT_159(void)
 }
 
 
-// ==== entry=00520a2e name=_INIT_160 size=46 ====
+// ==== entry=00520a2e orig=FUN_00520a2e size=46 name=_INIT_160 ====
 
 void _INIT_160(void)
 
@@ -14702,7 +14702,7 @@ void _INIT_160(void)
 }
 
 
-// ==== entry=00520a5c name=_INIT_161 size=46 ====
+// ==== entry=00520a5c orig=FUN_00520a5c size=46 name=_INIT_161 ====
 
 void _INIT_161(void)
 
@@ -14713,7 +14713,7 @@ void _INIT_161(void)
 }
 
 
-// ==== entry=00520a8a name=_INIT_162 size=46 ====
+// ==== entry=00520a8a orig=FUN_00520a8a size=46 name=_INIT_162 ====
 
 void _INIT_162(void)
 
@@ -14724,7 +14724,7 @@ void _INIT_162(void)
 }
 
 
-// ==== entry=00520ab8 name=_INIT_163 size=46 ====
+// ==== entry=00520ab8 orig=FUN_00520ab8 size=46 name=_INIT_163 ====
 
 void _INIT_163(void)
 
@@ -14735,7 +14735,7 @@ void _INIT_163(void)
 }
 
 
-// ==== entry=00520ae6 name=_INIT_164 size=46 ====
+// ==== entry=00520ae6 orig=FUN_00520ae6 size=46 name=_INIT_164 ====
 
 void _INIT_164(void)
 
@@ -14746,7 +14746,7 @@ void _INIT_164(void)
 }
 
 
-// ==== entry=00520b14 name=_INIT_165 size=46 ====
+// ==== entry=00520b14 orig=FUN_00520b14 size=46 name=_INIT_165 ====
 
 void _INIT_165(void)
 
@@ -14757,7 +14757,7 @@ void _INIT_165(void)
 }
 
 
-// ==== entry=00520b42 name=_INIT_166 size=46 ====
+// ==== entry=00520b42 orig=FUN_00520b42 size=46 name=_INIT_166 ====
 
 void _INIT_166(void)
 
@@ -14768,7 +14768,7 @@ void _INIT_166(void)
 }
 
 
-// ==== entry=00520b70 name=_INIT_167 size=46 ====
+// ==== entry=00520b70 orig=FUN_00520b70 size=46 name=_INIT_167 ====
 
 void _INIT_167(void)
 
@@ -14779,7 +14779,7 @@ void _INIT_167(void)
 }
 
 
-// ==== entry=00520b9e name=_INIT_168 size=36 ====
+// ==== entry=00520b9e orig=FUN_00520b9e size=36 name=_INIT_168 ====
 
 void _INIT_168(void)
 
@@ -14790,7 +14790,7 @@ void _INIT_168(void)
 }
 
 
-// ==== entry=00520bc2 name=_INIT_169 size=46 ====
+// ==== entry=00520bc2 orig=FUN_00520bc2 size=46 name=_INIT_169 ====
 
 void _INIT_169(void)
 
@@ -14801,7 +14801,7 @@ void _INIT_169(void)
 }
 
 
-// ==== entry=00520bf0 name=_INIT_181 size=120 ====
+// ==== entry=00520bf0 orig=FUN_00520bf0 size=120 name=_INIT_181 ====
 
 void _INIT_181(void)
 
@@ -14821,7 +14821,7 @@ void _INIT_181(void)
 }
 
 
-// ==== entry=00520c70 name=_INIT_182 size=117 ====
+// ==== entry=00520c70 orig=FUN_00520c70 size=117 name=_INIT_182 ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -14849,7 +14849,7 @@ void _INIT_182(void)
 }
 
 
-// ==== entry=00520cf0 name=_INIT_183 size=121 ====
+// ==== entry=00520cf0 orig=FUN_00520cf0 size=121 name=_INIT_183 ====
 
 void _INIT_183(void)
 
@@ -14882,7 +14882,7 @@ void _INIT_183(void)
 }
 
 
-// ==== entry=00520d70 name=_INIT_184 size=60 ====
+// ==== entry=00520d70 orig=FUN_00520d70 size=60 name=_INIT_184 ====
 
 void _INIT_184(void)
 
@@ -14893,7 +14893,7 @@ void _INIT_184(void)
 }
 
 
-// ==== entry=00520db0 name=_INIT_185 size=181 ====
+// ==== entry=00520db0 orig=FUN_00520db0 size=181 name=_INIT_185 ====
 
 void _INIT_185(void)
 
@@ -14938,7 +14938,7 @@ void _INIT_185(void)
 }
 
 
-// ==== entry=00520e70 name=_INIT_186 size=181 ====
+// ==== entry=00520e70 orig=FUN_00520e70 size=181 name=_INIT_186 ====
 
 void _INIT_186(void)
 
@@ -14991,7 +14991,7 @@ void _INIT_186(void)
 }
 
 
-// ==== entry=00520f30 name=_INIT_187 size=121 ====
+// ==== entry=00520f30 orig=FUN_00520f30 size=121 name=_INIT_187 ====
 
 void _INIT_187(void)
 
@@ -15024,7 +15024,7 @@ void _INIT_187(void)
 }
 
 
-// ==== entry=00520fa9 name=entry size=42 ====
+// ==== entry=00520fa9 orig=FUN_00520fa9 size=42 name=entry ====
 
 void processEntry entry(undefined8 param_1,undefined8 param_2)
 
@@ -15062,7 +15062,7 @@ void FUN_00521010(void)
 }
 
 
-// ==== entry=00521050 name=_FINI_0 size=28 ====
+// ==== entry=00521050 orig=FUN_00521050 size=28 name=_FINI_0 ====
 
 void _FINI_0(void)
 
@@ -15076,7 +15076,7 @@ void _FINI_0(void)
 }
 
 
-// ==== entry=00521080 name=_INIT_0 size=2 ====
+// ==== entry=00521080 orig=FUN_00521080 size=2 name=_INIT_0 ====
 
 /* WARNING: Removing unreachable block (ram,0x0052102f) */
 /* WARNING: Removing unreachable block (ram,0x00521039) */
@@ -15197,7 +15197,7 @@ void FUN_005211fe(QString *param_1)
   QArrayData *pQVar2;
   
   FUN_00548546();
-  *(undefined ***)param_1 = &PTR_FUN_0119acb8;
+  *(undefined ***)param_1 = &AddressBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119ae80;
   sVar1 = strlen("AddressBar");
                     /* try { // try from 00521242 to 00521246 has its CatchHandler @ 005212a0 */
@@ -17770,7 +17770,7 @@ joined_r0x00524763:
   puVar9 = operator_new(0x30);
                     /* try { // try from 005245fc to 00524600 has its CatchHandler @ 005247bc */
   FUN_0062cd9a(puVar9,param_1);
-  *puVar9 = &PTR_FUN_01183ca8;
+  *puVar9 = &AddressListModel_vtable;
   puVar9[5] = local_50;
   if ((*(int *)local_50 != 0) && (*(int *)local_50 != -1)) {
     LOCK();
@@ -17913,13 +17913,13 @@ LAB_0052484a:
 
 // ==== entry=0052485c orig=FUN_0052485c size=165 name=AddressListModel_dtor ====
 
-void FUN_0052485c(QAbstractListModel *param_1)
+void AddressListModel_dtor(QAbstractListModel *param_1)
 
 {
   void *pvVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_01183ca8;
+  *(undefined ***)param_1 = &AddressListModel_vtable;
   pQVar2 = *(QArrayData **)(param_1 + 0x28);
   if (*(int *)pQVar2 == 0) {
 LAB_005248db:
@@ -17958,13 +17958,13 @@ LAB_005248ab:
 
 // ==== entry=00524902 orig=FUN_00524902 size=178 name=AddressListModel_dtor_deleting ====
 
-void FUN_00524902(QAbstractListModel *param_1)
+void AddressListModel_dtor_deleting(QAbstractListModel *param_1)
 
 {
   void *pvVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_FUN_01183ca8;
+  *(undefined ***)param_1 = &AddressListModel_vtable;
   pQVar2 = *(QArrayData **)(param_1 + 0x28);
   if (*(int *)pQVar2 == 0) {
 LAB_0052498e:
@@ -19733,7 +19733,7 @@ void FUN_00526a7c(QString *param_1)
   QArrayData *local_30 [2];
   
   FUN_005a2d26();
-  *(undefined ***)param_1 = &PTR_FUN_01192d78;
+  *(undefined ***)param_1 = &AppletBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01192f28;
   sVar1 = strlen("AppletBar");
                     /* try { // try from 00526ac7 to 00526acb has its CatchHandler @ 00526bd0 */
@@ -19754,7 +19754,7 @@ LAB_00526b67:
                     /* try { // try from 00526b09 to 00526b0d has its CatchHandler @ 00526bd0 */
   local_30[0] = (QArrayData *)QString::fromAscii_helper("AppletBar",(int)sVar1);
                     /* try { // try from 00526b1c to 00526b20 has its CatchHandler @ 00526bc0 */
-  FUN_008a1106(&local_38,local_30);
+  King__registerBarsAndPanes(&local_38,local_30);
                     /* try { // try from 00526b27 to 00526b2b has its CatchHandler @ 00526bd8 */
   QWidget::setWindowTitle(param_1);
   if (*(int *)local_38 == 0) {
@@ -20985,7 +20985,7 @@ void FUN_005286b0(long param_1)
 }
 
 
-// ==== entry=0052875e name=~stringbuf size=101 ====
+// ==== entry=0052875e orig=FUN_0052875e size=101 name=~stringbuf ====
 
 /* WARNING: Removing unreachable block (ram,0x005287b8) */
 /* std::stringbuf::~stringbuf() */
@@ -21015,7 +21015,7 @@ void __thiscall std::stringbuf::~stringbuf(stringbuf *this)
 }
 
 
-// ==== entry=005287c4 name=~stringbuf size=114 ====
+// ==== entry=005287c4 orig=FUN_005287c4 size=114 name=~stringbuf ====
 
 /* WARNING: Removing unreachable block (ram,0x0052882b) */
 /* std::stringbuf::~stringbuf() */
@@ -21110,7 +21110,7 @@ void FUN_005288e8(long param_1)
 }
 
 
-// ==== entry=0052890e name=_M_release size=112 ====
+// ==== entry=0052890e orig=FUN_0052890e size=112 name=_M_release ====
 
 /* WARNING: Removing unreachable block (ram,0x00528936) */
 /* WARNING: Removing unreachable block (ram,0x00528973) */
@@ -21263,7 +21263,7 @@ LAB_00528ad2:
 }
 
 
-// ==== entry=00528b36 name=compare size=127 ====
+// ==== entry=00528b36 orig=FUN_00528b36 size=127 name=compare ====
 
 /* std::string::compare(char const*) const */
 
@@ -23480,7 +23480,7 @@ joined_r0x00529f98:
 }
 
 
-// ==== entry=0052b6a6 name=_S_create size=120 ====
+// ==== entry=0052b6a6 orig=FUN_0052b6a6 size=120 name=_S_create ====
 
 /* std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) */
 
@@ -23517,7 +23517,7 @@ void std::string::_Rep::_S_create(ulong param_1,ulong param_2,allocator *param_3
 }
 
 
-// ==== entry=0052b71e name=string size=97 ====
+// ==== entry=0052b71e orig=FUN_0052b71e size=97 name=string ====
 
 /* std::string::string(char const*, std::allocator<char> const&) */
 
@@ -23542,7 +23542,7 @@ void __thiscall std::string::string(string *this,char *param_1,allocator *param_
 }
 
 
-// ==== entry=0052b780 name=_M_mutate size=438 ====
+// ==== entry=0052b780 orig=FUN_0052b780 size=438 name=_M_mutate ====
 
 /* WARNING: Removing unreachable block (ram,0x0052b912) */
 /* std::string::_M_mutate(unsigned long, unsigned long, unsigned long) */
@@ -23640,7 +23640,7 @@ LAB_0052b8b2:
 }
 
 
-// ==== entry=0052b936 name=_M_replace_safe size=94 ====
+// ==== entry=0052b936 orig=FUN_0052b936 size=94 name=_M_replace_safe ====
 
 /* std::string::_M_replace_safe(unsigned long, unsigned long, char const*, unsigned long) */
 
@@ -23660,7 +23660,7 @@ std::string::_M_replace_safe(string *this,ulong param_1,ulong param_2,char *para
 }
 
 
-// ==== entry=0052b994 name=assign size=273 ====
+// ==== entry=0052b994 orig=FUN_0052b994 size=273 name=assign ====
 
 /* WARNING: Removing unreachable block (ram,0x0052ba9c) */
 /* WARNING: Removing unreachable block (ram,0x0052ba6a) */
@@ -23730,7 +23730,7 @@ string * __thiscall std::string::assign(string *this,string *param_1)
 }
 
 
-// ==== entry=0052baa6 name=replace size=475 ====
+// ==== entry=0052baa6 orig=FUN_0052baa6 size=475 name=replace ====
 
 /* WARNING: Removing unreachable block (ram,0x0052bc41) */
 /* std::string::replace(unsigned long, unsigned long, char const*, unsigned long) */

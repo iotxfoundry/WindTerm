@@ -5068,7 +5068,7 @@ void FUN_004d59ac(void)
   FUN_005249f0();
   FUN_005249f0();
   QFileInfo::~QFileInfo(unaff_RBP);
-  FUN_006230f0();
+  FileSystemItem_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -5079,7 +5079,7 @@ void FUN_004d59ac(void)
 void FUN_004d59e0(void)
 
 {
-  FUN_006230f0();
+  FileSystemItem_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -5094,7 +5094,7 @@ void FUN_004d59f0(void)
   
   QDateTime::~QDateTime(unaff_RBP);
   FUN_005249f0();
-  FUN_006230f0();
+  FileSystemItem_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -5107,7 +5107,7 @@ void FUN_004d5a13(void)
 {
   FUN_005249f0();
   FUN_005249f0();
-  FUN_006230f0();
+  FileSystemItem_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -5122,7 +5122,7 @@ void FUN_004d5a1d(void)
   
   QFile::~QFile(unaff_RBP);
   FUN_005249f0();
-  FUN_006230f0();
+  FileSystemItem_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -5135,7 +5135,7 @@ void FUN_004d5a27(void)
 {
   FUN_005249f0();
   FUN_005249f0();
-  FUN_006230f0();
+  FileSystemItem_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -5157,7 +5157,7 @@ void FUN_004d5a32(void)
   }
   QArrayData::deallocate(in_stack_00000008,2,8);
 LAB_004d5a4c:
-  FUN_006230f0();
+  FileSystemItem_metaObject();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }

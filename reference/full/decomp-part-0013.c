@@ -3086,7 +3086,7 @@ void FUN_00504064(void)
 {
   FUN_005249f0();
   FUN_005249f0(&stack0x00000000);
-  FUN_0070709c();
+  RunToolDialog_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -9540,7 +9540,7 @@ void FUN_00506c24(void)
   long unaff_R15;
   
   FUN_005249c0();
-  *(undefined ***)((long)unaff_RBX + 0x88) = &PTR_FUN_011b0ac8;
+  *(undefined ***)((long)unaff_RBX + 0x88) = &ByteArrayBimap_vtable;
   cVar1 = FUN_005444d0(*(long *)((long)unaff_RBX + 0xa0) + 0x10);
   if (cVar1 == '\0') {
     QHashData::free_helper(*(_func_void_Node_ptr **)((long)unaff_RBX + 0xa0));
@@ -9574,7 +9574,7 @@ void FUN_00506ce7(void)
   long unaff_R15;
   
   FUN_005249c0();
-  *(undefined ***)((long)unaff_RBX + 0x88) = &PTR_FUN_011b0ac8;
+  *(undefined ***)((long)unaff_RBX + 0x88) = &ByteArrayBimap_vtable;
   cVar1 = FUN_005444d0(*(long *)((long)unaff_RBX + 0xa0) + 0x10);
   if (cVar1 == '\0') {
     QHashData::free_helper(*(_func_void_Node_ptr **)((long)unaff_RBX + 0xa0));
@@ -9608,7 +9608,7 @@ void FUN_00506cf4(void)
   long unaff_R15;
   
   FUN_005249c0();
-  *(undefined ***)((long)unaff_RBX + 0x88) = &PTR_FUN_011b0ac8;
+  *(undefined ***)((long)unaff_RBX + 0x88) = &ByteArrayBimap_vtable;
   cVar1 = FUN_005444d0(*(long *)((long)unaff_RBX + 0xa0) + 0x10);
   if (cVar1 == '\0') {
     QHashData::free_helper(*(_func_void_Node_ptr **)((long)unaff_RBX + 0xa0));
@@ -9642,7 +9642,7 @@ void FUN_00506d05(void)
   long unaff_R15;
   
   FUN_005249c0();
-  *(undefined ***)((long)unaff_RBX + 0x88) = &PTR_FUN_011b0ac8;
+  *(undefined ***)((long)unaff_RBX + 0x88) = &ByteArrayBimap_vtable;
   cVar1 = FUN_005444d0(*(long *)((long)unaff_RBX + 0xa0) + 0x10);
   if (cVar1 == '\0') {
     QHashData::free_helper(*(_func_void_Node_ptr **)((long)unaff_RBX + 0xa0));
@@ -14209,7 +14209,7 @@ void FUN_0050867c(void)
 }
 
 
-// ==== entry=0050868c name=__cxa_throw_bad_array_new_length size=5 ====
+// ==== entry=0050868c orig=FUN_0050868c size=5 name=__cxa_throw_bad_array_new_length ====
 
 void __cxa_throw_bad_array_new_length(void)
 
@@ -14271,7 +14271,7 @@ void FUN_005086c2(void)
 }
 
 
-// ==== entry=005086d2 name=__cxa_throw_bad_array_new_length size=5 ====
+// ==== entry=005086d2 orig=FUN_005086d2 size=5 name=__cxa_throw_bad_array_new_length ====
 
 void __cxa_throw_bad_array_new_length(void)
 

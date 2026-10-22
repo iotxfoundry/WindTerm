@@ -2241,7 +2241,7 @@ void FUN_00b1760b(int param_1,int param_2)
 }
 
 
-// ==== entry=00b17c34 name=_INIT_172 size=21 ====
+// ==== entry=00b17c34 orig=FUN_00b17c34 size=21 name=_INIT_172 ====
 
 void _INIT_172(void)
 
@@ -4423,7 +4423,7 @@ void FUN_00b1ab4a(int param_1,int param_2)
 }
 
 
-// ==== entry=00b1b173 name=_INIT_173 size=21 ====
+// ==== entry=00b1b173 orig=FUN_00b1b173 size=21 name=_INIT_173 ====
 
 void _INIT_173(void)
 
@@ -6029,7 +6029,7 @@ void FUN_00b1de0c(int param_1,int param_2)
 }
 
 
-// ==== entry=00b1e435 name=_INIT_174 size=21 ====
+// ==== entry=00b1e435 orig=FUN_00b1e435 size=21 name=_INIT_174 ====
 
 void _INIT_174(void)
 
@@ -9092,7 +9092,7 @@ void FUN_00b21d64(int param_1,int param_2)
 }
 
 
-// ==== entry=00b21da2 name=_INIT_175 size=21 ====
+// ==== entry=00b21da2 orig=FUN_00b21da2 size=21 name=_INIT_175 ====
 
 void _INIT_175(void)
 
@@ -10291,7 +10291,7 @@ void FUN_00b2363a(int param_1,int param_2)
 }
 
 
-// ==== entry=00b23c63 name=_INIT_176 size=21 ====
+// ==== entry=00b23c63 orig=FUN_00b23c63 size=21 name=_INIT_176 ====
 
 void _INIT_176(void)
 
@@ -10301,7 +10301,7 @@ void _INIT_176(void)
 }
 
 
-// ==== entry=00b23c78 name=operator+ size=72 ====
+// ==== entry=00b23c78 orig=FUN_00b23c78 size=72 name=operator+ ====
 
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* std::string std::TEMPNAMEPLACEHOLDERVALUE(std::string const&, std::string const&) */
@@ -13067,7 +13067,7 @@ void FUN_00b26efd(int param_1,int param_2)
 }
 
 
-// ==== entry=00b26f3b name=_INIT_177 size=21 ====
+// ==== entry=00b26f3b orig=FUN_00b26f3b size=21 name=_INIT_177 ====
 
 void _INIT_177(void)
 
@@ -13958,7 +13958,7 @@ void FUN_00b28702(int param_1,int param_2)
 }
 
 
-// ==== entry=00b28740 name=_INIT_178 size=21 ====
+// ==== entry=00b28740 orig=FUN_00b28740 size=21 name=_INIT_178 ====
 
 void _INIT_178(void)
 
@@ -14221,7 +14221,7 @@ void FUN_00b28e9b(int param_1,int param_2)
 }
 
 
-// ==== entry=00b28ed9 name=_INIT_179 size=21 ====
+// ==== entry=00b28ed9 orig=FUN_00b28ed9 size=21 name=_INIT_179 ====
 
 void _INIT_179(void)
 
@@ -14831,7 +14831,7 @@ void FUN_00b2a631(int param_1,int param_2)
 }
 
 
-// ==== entry=00b2a66f name=_INIT_180 size=21 ====
+// ==== entry=00b2a66f orig=FUN_00b2a66f size=21 name=_INIT_180 ====
 
 void _INIT_180(void)
 
@@ -18405,7 +18405,7 @@ uint FUN_00b2eac0(long param_1)
 }
 
 
-// ==== entry=00b2eb00 name=thunk_FUN_00b2d8d0 size=5 ====
+// ==== entry=00b2eb00 orig=FUN_00b2eb00 size=5 name=thunk_FUN_00b2d8d0 ====
 
 void thunk_FUN_00b2d8d0(undefined8 *param_1)
 
@@ -18492,7 +18492,7 @@ undefined8 FUN_00b2eb10(void)
 }
 
 
-// ==== entry=00b2eb50 name=thunk_FUN_00b2c0d0 size=5 ====
+// ==== entry=00b2eb50 orig=FUN_00b2eb50 size=5 name=thunk_FUN_00b2c0d0 ====
 
 void thunk_FUN_00b2c0d0(undefined8 param_1,undefined8 param_2)
 
@@ -18585,7 +18585,7 @@ void FUN_00b2ebf0(undefined4 param_1)
 }
 
 
-// ==== entry=00b2ec40 name=thunk_FUN_00b2c120 size=5 ====
+// ==== entry=00b2ec40 orig=FUN_00b2ec40 size=5 name=thunk_FUN_00b2c120 ====
 
 void thunk_FUN_00b2c120(undefined4 param_1)
 
@@ -18842,7 +18842,7 @@ void FUN_00b2f090(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00b2f0c0 name=thunk_FUN_00b2edc0 size=5 ====
+// ==== entry=00b2f0c0 orig=FUN_00b2f0c0 size=5 name=thunk_FUN_00b2edc0 ====
 
 undefined8 * thunk_FUN_00b2edc0(undefined8 param_1,undefined8 param_2)
 
@@ -26870,7 +26870,7 @@ void FUN_00b39710(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00b39770 name=thunk_FUN_00b3977b size=5 ====
+// ==== entry=00b39770 orig=FUN_00b39770 size=5 name=thunk_FUN_00b3977b ====
 
 void thunk_FUN_00b3977b(long param_1,undefined8 param_2)
 

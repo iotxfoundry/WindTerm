@@ -2844,7 +2844,7 @@ void FUN_0081a178(long param_1)
 }
 
 
-// ==== entry=0081a182 name=compare size=97 ====
+// ==== entry=0081a182 orig=FUN_0081a182 size=97 name=compare ====
 
 /* std::string::compare(std::string const&) const */
 
@@ -3157,7 +3157,7 @@ void FUN_0081a6e0(undefined8 *param_1)
 }
 
 
-// ==== entry=0081a71c name=_M_leak_hard size=63 ====
+// ==== entry=0081a71c orig=FUN_0081a71c size=63 name=_M_leak_hard ====
 
 /* std::string::_M_leak_hard() */
 
@@ -3177,7 +3177,7 @@ void __thiscall std::string::_M_leak_hard(string *this)
 }
 
 
-// ==== entry=0081a75c name=_M_leak size=16 ====
+// ==== entry=0081a75c orig=FUN_0081a75c size=16 name=_M_leak ====
 
 /* std::string::_M_leak() */
 
@@ -23859,7 +23859,7 @@ undefined8 FUN_00833860(void)
 }
 
 
-// ==== entry=0083386c name=thunk_FUN_00841898 size=5 ====
+// ==== entry=0083386c orig=FUN_0083386c size=5 name=thunk_FUN_00841898 ====
 
 void thunk_FUN_00841898(QObject *param_1)
 
@@ -24084,7 +24084,7 @@ void FUN_00833b65(int param_1,void *param_2)
        (*(int *)(*(long *)((long)param_2 + 0x18) + 4) != 0)) {
       for (lVar1 = *(long *)((long)param_2 + 0x20); lVar1 != 0;
           lVar1 = *(long *)(*(long *)(lVar1 + 8) + 0x10)) {
-        lVar4 = __dynamic_cast(lVar1,&QObject::typeinfo,&PTR_PTR_0119b150,0);
+        lVar4 = __dynamic_cast(lVar1,&QObject::typeinfo,&PopupWidget__typeinfo,0);
         if (lVar4 != 0) {
           QObject::deleteLater();
           break;
@@ -24449,14 +24449,14 @@ void FUN_008342c0(long param_1)
 
 // ==== entry=00834332 orig=FUN_00834332 size=220 name=TerminalView_dtor ====
 
-void FUN_00834332(undefined8 *param_1)
+void TerminalView_dtor(undefined8 *param_1)
 
 {
   int iVar1;
   int *piVar2;
   QArrayData *pQVar3;
   
-  *param_1 = &PTR_FUN_011a8358;
+  *param_1 = &TerminalView_vtable;
   param_1[2] = &PTR_FUN_011a8840;
   param_1[9] = &PTR_FUN_011a8890;
   param_1[0x20] = &PTR_FUN_011a8a88;
@@ -24490,7 +24490,7 @@ joined_r0x008343e3:
     }
   }
   FUN_008c5220(param_1 + 0x43);
-  FUN_0084ae58(param_1);
+  TerminalWidget_dtor(param_1);
   return;
 }
 
@@ -24500,7 +24500,7 @@ joined_r0x008343e3:
 void FUN_0083440e(long param_1)
 
 {
-  FUN_00834332(param_1 + -0x100);
+  TerminalView_dtor(param_1 + -0x100);
   return;
 }
 
@@ -24510,7 +24510,7 @@ void FUN_0083440e(long param_1)
 void FUN_0083441a(long param_1)
 
 {
-  FUN_00834332(param_1 + -0x48);
+  TerminalView_dtor(param_1 + -0x48);
   return;
 }
 
@@ -24520,7 +24520,7 @@ void FUN_0083441a(long param_1)
 void FUN_00834423(long param_1)
 
 {
-  FUN_00834332(param_1 + -0x10);
+  TerminalView_dtor(param_1 + -0x10);
   return;
 }
 
@@ -24530,17 +24530,17 @@ void FUN_00834423(long param_1)
 void FUN_0083442c(long param_1)
 
 {
-  FUN_00834332(param_1 + -0x218);
+  TerminalView_dtor(param_1 + -0x218);
   return;
 }
 
 
 // ==== entry=00834438 orig=FUN_00834438 size=23 name=TerminalView_dtor_deleting ====
 
-void FUN_00834438(void *param_1)
+void TerminalView_dtor_deleting(void *param_1)
 
 {
-  FUN_00834332();
+  TerminalView_dtor();
   operator_delete(param_1,0x270);
   return;
 }
@@ -24551,7 +24551,7 @@ void FUN_00834438(void *param_1)
 void FUN_0083444f(long param_1)
 
 {
-  FUN_00834438(param_1 + -0x218);
+  TerminalView_dtor_deleting(param_1 + -0x218);
   return;
 }
 
@@ -24561,7 +24561,7 @@ void FUN_0083444f(long param_1)
 void FUN_00834458(long param_1)
 
 {
-  FUN_00834438(param_1 + -0x100);
+  TerminalView_dtor_deleting(param_1 + -0x100);
   return;
 }
 
@@ -24571,7 +24571,7 @@ void FUN_00834458(long param_1)
 void FUN_00834461(long param_1)
 
 {
-  FUN_00834438(param_1 + -0x48);
+  TerminalView_dtor_deleting(param_1 + -0x48);
   return;
 }
 
@@ -24581,7 +24581,7 @@ void FUN_00834461(long param_1)
 void FUN_00834467(long param_1)
 
 {
-  FUN_00834438(param_1 + -0x10);
+  TerminalView_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -24815,7 +24815,7 @@ void FUN_0083487f(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=008348ce name=thunk_FUN_009107d8 size=5 ====
+// ==== entry=008348ce orig=FUN_008348ce size=5 name=thunk_FUN_009107d8 ====
 
 void thunk_FUN_009107d8(QObject *param_1)
 
@@ -25502,7 +25502,7 @@ void FUN_00835940(long param_1)
 }
 
 
-// ==== entry=0083594a name=thunk_FUN_005bf6ee size=5 ====
+// ==== entry=0083594a orig=FUN_0083594a size=5 name=thunk_FUN_005bf6ee ====
 
 void * thunk_FUN_005bf6ee(undefined8 param_1,undefined8 param_2)
 
@@ -25718,7 +25718,7 @@ void FUN_00835e0a(long param_1)
 }
 
 
-// ==== entry=00835e16 name=thunk_FUN_0083c674 size=5 ====
+// ==== entry=00835e16 orig=FUN_00835e16 size=5 name=thunk_FUN_0083c674 ====
 
 undefined4 thunk_FUN_0083c674(long param_1)
 
@@ -25749,7 +25749,7 @@ void FUN_00835e24(undefined8 *param_1)
 
 {
   FUN_00a86142();
-  *param_1 = &PTR_FUN_01191c20;
+  *param_1 = &TerminalViewConfig_vtable;
   return;
 }
 
@@ -25821,7 +25821,7 @@ void FUN_00835f5a(QString *param_1,undefined8 param_2)
   pQVar1 = param_1 + 0x218;
                     /* try { // try from 00835f7b to 00835f7f has its CatchHandler @ 008360b5 */
   FUN_008c51e8(pQVar1);
-  *(undefined ***)param_1 = &PTR_FUN_011a8358;
+  *(undefined ***)param_1 = &TerminalView_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a8840;
   *(undefined ***)(param_1 + 0x48) = &PTR_FUN_011a8890;
   *(undefined ***)(param_1 + 0x100) = &PTR_FUN_011a8a88;
@@ -26958,7 +26958,7 @@ void FUN_00838705(undefined8 param_1,long param_2)
 void FUN_00838712(long param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4)
 
 {
-  FUN_008c62fc(param_1 + 0x218);
+  KitView_metaObject(param_1 + 0x218);
   FUN_00914718(param_1,param_2,param_3,param_4);
   return;
 }
@@ -27063,7 +27063,7 @@ void FUN_00838934(long param_1)
 }
 
 
-// ==== entry=00838940 name=thunk_FUN_0084123a size=5 ====
+// ==== entry=00838940 orig=FUN_00838940 size=5 name=thunk_FUN_0084123a ====
 
 void thunk_FUN_0084123a(QObject *param_1)
 
@@ -27513,7 +27513,7 @@ long * FUN_00838df2(long *param_1,long *param_2)
 
 // ==== entry=00838f2e orig=FUN_00838f2e size=2996 name=TerminalViewConfig_metaObject ====
 
-void FUN_00838f2e(undefined8 *param_1)
+void TerminalViewConfig_metaObject(undefined8 *param_1)
 
 {
   long lVar1;
@@ -27524,7 +27524,7 @@ void FUN_00838f2e(undefined8 *param_1)
   long lVar6;
   QMapNodeBase *pQVar7;
   
-  *param_1 = &PTR_FUN_011851b8;
+  *param_1 = &PTR_SharedConfig_qt_metacall_011851b8;
   pQVar7 = (QMapNodeBase *)param_1[2];
   if (*(int *)pQVar7 != 0) {
     if (*(int *)pQVar7 == -1) goto LAB_00838f64;
@@ -28051,7 +28051,7 @@ LAB_00838f64:
 
 // ==== entry=00839ae2 orig=FUN_00839ae2 size=3009 name=TerminalViewConfig_qt_metacast ====
 
-void FUN_00839ae2(undefined8 *param_1)
+void TerminalViewConfig_qt_metacast(undefined8 *param_1)
 
 {
   long lVar1;
@@ -28062,7 +28062,7 @@ void FUN_00839ae2(undefined8 *param_1)
   long lVar6;
   QMapNodeBase *pQVar7;
   
-  *param_1 = &PTR_FUN_011851b8;
+  *param_1 = &PTR_SharedConfig_qt_metacall_011851b8;
   pQVar7 = (QMapNodeBase *)param_1[2];
   if (*(int *)pQVar7 != 0) {
     if (*(int *)pQVar7 == -1) goto LAB_00839b18;
@@ -30687,7 +30687,7 @@ undefined8 FUN_0083ca74(undefined8 param_1)
 }
 
 
-// ==== entry=0083cb06 name=thunk_FUN_0083ca74 size=5 ====
+// ==== entry=0083cb06 orig=FUN_0083cb06 size=5 name=thunk_FUN_0083ca74 ====
 
 undefined8 thunk_FUN_0083ca74(undefined8 param_1)
 
@@ -32111,7 +32111,7 @@ void FUN_0083eaa6(long param_1,long *param_2)
 }
 
 
-// ==== entry=0083eac0 name=thunk_FUN_0083eaa6 size=5 ====
+// ==== entry=0083eac0 orig=FUN_0083eac0 size=5 name=thunk_FUN_0083eaa6 ====
 
 void thunk_FUN_0083eaa6(long param_1,long *param_2)
 
@@ -32549,7 +32549,7 @@ void FUN_0083f3a6(undefined8 param_1,int param_2,int param_3)
 }
 
 
-// ==== entry=0083f45a name=thunk_FUN_0083f3a6 size=5 ====
+// ==== entry=0083f45a orig=FUN_0083f45a size=5 name=thunk_FUN_0083f3a6 ====
 
 void thunk_FUN_0083f3a6(undefined8 param_1,int param_2,int param_3)
 
@@ -34157,7 +34157,7 @@ void FUN_008417eb(long param_1)
 }
 
 
-// ==== entry=008417f8 name=thunk_FUN_0083d7a8 size=5 ====
+// ==== entry=008417f8 orig=FUN_008417f8 size=5 name=thunk_FUN_0083d7a8 ====
 
 void thunk_FUN_0083d7a8(char *param_1,char *param_2)
 
@@ -34909,7 +34909,7 @@ void FUN_00842414(long param_1)
 }
 
 
-// ==== entry=00842772 name=thunk_FUN_00842414 size=5 ====
+// ==== entry=00842772 orig=FUN_00842772 size=5 name=thunk_FUN_00842414 ====
 
 void thunk_FUN_00842414(long param_1)
 
@@ -35092,7 +35092,7 @@ LAB_00842870:
 }
 
 
-// ==== entry=008428f6 name=thunk_FUN_00842778 size=5 ====
+// ==== entry=008428f6 orig=FUN_008428f6 size=5 name=thunk_FUN_00842778 ====
 
 void thunk_FUN_00842778(long *param_1)
 
@@ -37297,7 +37297,7 @@ void FUN_008462f6(QString *param_1,QString param_2,undefined8 param_3)
   
   FUN_005c6d16(param_1,1,2,param_3);
   param_1[0x110] = (QString)0x0;
-  *(undefined ***)param_1 = &PTR_FUN_011a74c8;
+  *(undefined ***)param_1 = &TerminalWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a7920;
   *(undefined ***)(param_1 + 0x48) = &PTR_FUN_011a7970;
   *(undefined ***)(param_1 + 0x100) = &PTR_FUN_011a7b68;
@@ -39658,7 +39658,7 @@ void FUN_0084ab1a(long param_1)
 
 // ==== entry=0084ae58 orig=FUN_0084ae58 size=676 name=TerminalWidget_dtor ====
 
-void FUN_0084ae58(undefined8 *param_1)
+void TerminalWidget_dtor(undefined8 *param_1)
 
 {
   void *pvVar1;
@@ -39667,7 +39667,7 @@ void FUN_0084ae58(undefined8 *param_1)
   char cVar4;
   long lVar5;
   
-  *param_1 = &PTR_FUN_011a74c8;
+  *param_1 = &TerminalWidget_vtable;
   param_1[2] = &PTR_FUN_011a7920;
   param_1[9] = &PTR_FUN_011a7970;
   param_1[0x20] = &PTR_FUN_011a7b68;
@@ -39752,7 +39752,7 @@ void FUN_0084ae58(undefined8 *param_1)
 void FUN_0084b0fc(long param_1)
 
 {
-  FUN_0084ae58(param_1 + -0x48);
+  TerminalWidget_dtor(param_1 + -0x48);
   return;
 }
 
@@ -39762,7 +39762,7 @@ void FUN_0084b0fc(long param_1)
 void FUN_0084b105(long param_1)
 
 {
-  FUN_0084ae58(param_1 + -0x10);
+  TerminalWidget_dtor(param_1 + -0x10);
   return;
 }
 
@@ -39772,17 +39772,17 @@ void FUN_0084b105(long param_1)
 void FUN_0084b10e(long param_1)
 
 {
-  FUN_0084ae58(param_1 + -0x100);
+  TerminalWidget_dtor(param_1 + -0x100);
   return;
 }
 
 
 // ==== entry=0084b11a orig=FUN_0084b11a size=23 name=TerminalWidget_dtor_deleting ====
 
-void FUN_0084b11a(void *param_1)
+void TerminalWidget_dtor_deleting(void *param_1)
 
 {
-  FUN_0084ae58();
+  TerminalWidget_dtor();
   operator_delete(param_1,0x218);
   return;
 }
@@ -39793,7 +39793,7 @@ void FUN_0084b11a(void *param_1)
 void FUN_0084b131(long param_1)
 
 {
-  FUN_0084b11a(param_1 + -0x100);
+  TerminalWidget_dtor_deleting(param_1 + -0x100);
   return;
 }
 
@@ -39803,7 +39803,7 @@ void FUN_0084b131(long param_1)
 void FUN_0084b13a(long param_1)
 
 {
-  FUN_0084b11a(param_1 + -0x48);
+  TerminalWidget_dtor_deleting(param_1 + -0x48);
   return;
 }
 
@@ -39813,7 +39813,7 @@ void FUN_0084b13a(long param_1)
 void FUN_0084b140(long param_1)
 
 {
-  FUN_0084b11a(param_1 + -0x10);
+  TerminalWidget_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -45209,7 +45209,7 @@ void FUN_008530a8(undefined8 *param_1)
 }
 
 
-// ==== entry=008530d1 name=thunk_FUN_00550ea0 size=5 ====
+// ==== entry=008530d1 orig=FUN_008530d1 size=5 name=thunk_FUN_00550ea0 ====
 
 void thunk_FUN_00550ea0(undefined8 *param_1)
 
@@ -47661,7 +47661,7 @@ void FUN_00855db4(long param_1)
 }
 
 
-// ==== entry=00855e07 name=thunk_FUN_00855db4 size=5 ====
+// ==== entry=00855e07 orig=FUN_00855e07 size=5 name=thunk_FUN_00855db4 ====
 
 void thunk_FUN_00855db4(long param_1)
 
@@ -49908,13 +49908,13 @@ LAB_008585d8:
 
 // ==== entry=00858a38 orig=FUN_00858a38 size=164 name=TerminalWindow_dtor ====
 
-void FUN_00858a38(undefined8 *param_1)
+void TerminalWindow_dtor(undefined8 *param_1)
 
 {
   int *piVar1;
   QAbstractNativeEventFilter *pQVar2;
   
-  *param_1 = &PTR_FUN_011a7c88;
+  *param_1 = &TerminalWindow_vtable;
   param_1[2] = &PTR_FUN_011a7ef8;
   param_1[0x17] = &PTR_FUN_011a7f48;
   pQVar2 = (QAbstractNativeEventFilter *)FUN_0075bd66();
@@ -49949,7 +49949,7 @@ void FUN_00858a38(undefined8 *param_1)
 void FUN_00858adc(long param_1)
 
 {
-  FUN_00858a38(param_1 + -0x10);
+  TerminalWindow_dtor(param_1 + -0x10);
   return;
 }
 
@@ -49959,17 +49959,17 @@ void FUN_00858adc(long param_1)
 void FUN_00858ae5(long param_1)
 
 {
-  FUN_00858a38(param_1 + -0xb8);
+  TerminalWindow_dtor(param_1 + -0xb8);
   return;
 }
 
 
 // ==== entry=00858af2 orig=FUN_00858af2 size=23 name=TerminalWindow_dtor_deleting ====
 
-void FUN_00858af2(void *param_1)
+void TerminalWindow_dtor_deleting(void *param_1)
 
 {
-  FUN_00858a38();
+  TerminalWindow_dtor();
   operator_delete(param_1,0x110);
   return;
 }
@@ -49980,7 +49980,7 @@ void FUN_00858af2(void *param_1)
 void FUN_00858b09(long param_1)
 
 {
-  FUN_00858af2(param_1 + -0xb8);
+  TerminalWindow_dtor_deleting(param_1 + -0xb8);
   return;
 }
 
@@ -49990,7 +49990,7 @@ void FUN_00858b09(long param_1)
 void FUN_00858b12(long param_1)
 
 {
-  FUN_00858af2(param_1 + -0x10);
+  TerminalWindow_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -50648,7 +50648,7 @@ void FUN_00859902(QString *param_1)
                     /* try { // try from 0085991e to 00859922 has its CatchHandler @ 00859a32 */
   QAbstractNativeEventFilter::QAbstractNativeEventFilter
             ((QAbstractNativeEventFilter *)(param_1 + 0xb8));
-  *(undefined ***)param_1 = &PTR_FUN_011a7c88;
+  *(undefined ***)param_1 = &TerminalWindow_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a7ef8;
   *(undefined ***)(param_1 + 0xb8) = &PTR_FUN_011a7f48;
   *(undefined8 *)(param_1 + 200) = 0;
@@ -52045,7 +52045,7 @@ LAB_0085c569:
             pQVar12 = operator_new(0x28);
                     /* try { // try from 0085bbbc to 0085bbc0 has its CatchHandler @ 0085c8da */
             QWidgetAction::QWidgetAction(pQVar12,(QObject *)this);
-            *(undefined ***)pQVar12 = &PTR_metaObject_011847e0;
+            *(undefined ***)pQVar12 = &LabelAction_vtable;
             *(undefined4 *)(pQVar12 + 0x10) = 0x84;
             *(undefined8 *)(pQVar12 + 0x18) = 0;
                     /* try { // try from 0085bbe4 to 0085bbe8 has its CatchHandler @ 0085c840 */
@@ -52336,7 +52336,7 @@ LAB_0085c0bd:
   pQVar12 = operator_new(0x28);
                     /* try { // try from 0085c17e to 0085c182 has its CatchHandler @ 0085c8aa */
   QWidgetAction::QWidgetAction(pQVar12,(QObject *)this);
-  *(undefined ***)pQVar12 = &PTR_metaObject_011847e0;
+  *(undefined ***)pQVar12 = &LabelAction_vtable;
   *(undefined4 *)(pQVar12 + 0x10) = 0x84;
   *(undefined8 *)(pQVar12 + 0x18) = 0;
                     /* try { // try from 0085c1a6 to 0085c1aa has its CatchHandler @ 0085c8c2 */
@@ -52471,7 +52471,7 @@ LAB_0085cd14:
     }
     FUN_00911802(param_1,param_2);
   }
-  local_138[0] = &PTR_FUN_011a2018;
+  local_138[0] = &SessionDialog_vtable;
   local_128 = &PTR_FUN_011a21f0;
   if (local_30 != 0) {
     FUN_006ec54c(&local_30);

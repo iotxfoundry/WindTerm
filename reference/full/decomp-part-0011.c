@@ -13518,7 +13518,7 @@ void FUN_004f9636(void)
   FUN_00550ea0(unaff_RBX + 600);
   FUN_005249f0(unaff_RBX + 0x250);
   FUN_008c5220();
-  FUN_0084ae58();
+  TerminalWidget_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }
@@ -13535,7 +13535,7 @@ void FUN_004f9676(void)
   FUN_00550ea0(unaff_RBX + 600);
   FUN_005249f0(unaff_RBX + 0x250);
   FUN_008c5220();
-  FUN_0084ae58();
+  TerminalWidget_dtor();
                     /* WARNING: Subroutine does not return */
   FUN_00c86f70();
 }

@@ -1622,7 +1622,7 @@ LAB_006d330f:
   this_05 = operator_new(0x10);
                     /* try { // try from 006d2bcf to 006d2bd3 has its CatchHandler @ 006d34c7 */
   QWidgetAction::QWidgetAction(this_05,(QObject *)this_01);
-  *(undefined ***)this_05 = &PTR_metaObject_0118a900;
+  *(undefined ***)this_05 = &GroupWidgetAction_vtable;
   QWidget::addAction((QAction *)this_01);
   local_68[0] = &QListData::shared_null;
   local_58 = (QArrayData *)this_02;
@@ -1845,7 +1845,7 @@ void FUN_006d3630(QDialog *param_1,undefined8 param_2)
 
 {
   QDialog::QDialog(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a2ef8;
+  *(undefined ***)param_1 = &QuickDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a30d0;
   param_1[0x30] = (QDialog)0x1;
                     /* try { // try from 006d3663 to 006d3667 has its CatchHandler @ 006d36ad */
@@ -2552,7 +2552,7 @@ LAB_006d4891:
 
 // ==== entry=006d48bc orig=FUN_006d48bc size=19 name=GroupWidgetAction_dtor ====
 
-void FUN_006d48bc(QWidgetAction *param_1)
+void GroupWidgetAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -2563,7 +2563,7 @@ void FUN_006d48bc(QWidgetAction *param_1)
 
 // ==== entry=006d48d0 orig=FUN_006d48d0 size=37 name=GroupWidgetAction_dtor_deleting ====
 
-void FUN_006d48d0(QWidgetAction *param_1)
+void GroupWidgetAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -4233,7 +4233,7 @@ LAB_006d6d16:
   case (QLayout)0x3:
     plVar19 = *(long **)(param_1 + 0x90);
     if ((plVar19 != (long *)0x0) && ((int)plVar19[1] != 0)) {
-      if (*(code **)(*plVar19 + 0x18) == FUN_00622e74) {
+      if (*(code **)(*plVar19 + 0x18) == FileSystemItem_dtor) {
         *(uint *)(param_1 + 0x34) = *(uint *)(plVar19 + 9) & 0xfff;
 LAB_006d7026:
         local_58[0] = (QArrayData *)plVar19[0xc];
@@ -5152,7 +5152,7 @@ void FUN_006d8cfe(QDialog *param_1,QDialog param_2,undefined8 param_3,undefined8
   long lVar1;
   
   QDialog::QDialog(param_1,param_5,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a2298;
+  *(undefined ***)param_1 = &RemoteFileDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a2470;
   param_1[0x30] = param_2;
   *(undefined4 *)(param_1 + 0x34) = 0;
@@ -5541,7 +5541,7 @@ void FUN_006d9574(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a3dd8;
+  *(undefined ***)param_1 = &SearchEngineDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3fb0;
                     /* try { // try from 006d95bc to 006d95c0 has its CatchHandler @ 006d9623 */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a4000,0xc9e45d);
@@ -5810,7 +5810,7 @@ void FUN_006d9a66(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_metaObject_0118a9a0;
+  *(undefined ***)param_1 = &SessionGroupDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118ab78;
                     /* try { // try from 006d9aae to 006d9ab2 has its CatchHandler @ 006d9b15 */
   QMetaObject::tr((char *)&local_20,(char *)&QDialog::staticMetaObject,0xc9e491);
@@ -5855,10 +5855,10 @@ void FUN_006d9b38(long param_1)
 
 // ==== entry=006d9b42 orig=FUN_006d9b42 size=29 name=SessionGroupDialog_dtor ====
 
-void FUN_006d9b42(QDialog *param_1)
+void SessionGroupDialog_dtor(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118a9a0;
+  *(undefined ***)param_1 = &SessionGroupDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118ab78;
   QDialog::~QDialog(param_1);
   return;
@@ -5870,7 +5870,7 @@ void FUN_006d9b42(QDialog *param_1)
 void FUN_006d9b5f(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118a9a0;
+  param_1[-2] = &SessionGroupDialog_vtable;
   *param_1 = &PTR_FUN_0118ab78;
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   return;
@@ -5879,10 +5879,10 @@ void FUN_006d9b5f(undefined8 *param_1)
 
 // ==== entry=006d9b80 orig=FUN_006d9b80 size=47 name=SessionGroupDialog_dtor_deleting ====
 
-void FUN_006d9b80(QDialog *param_1)
+void SessionGroupDialog_dtor_deleting(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118a9a0;
+  *(undefined ***)param_1 = &SessionGroupDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118ab78;
   QDialog::~QDialog(param_1);
   operator_delete(param_1,0x40);
@@ -5895,7 +5895,7 @@ void FUN_006d9b80(QDialog *param_1)
 void FUN_006d9baf(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118a9a0;
+  param_1[-2] = &SessionGroupDialog_vtable;
   *param_1 = &PTR_FUN_0118ab78;
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   operator_delete((QDialog *)(param_1 + -2),0x40);
@@ -6435,7 +6435,7 @@ void FUN_006da816(QString *param_1,undefined8 *param_2,undefined8 param_3)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_metaObject_0118abe0;
+  *(undefined ***)param_1 = &SessionTriggerDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118adb8;
   piVar1 = (int *)*param_2;
   *(int **)(param_1 + 0x50) = piVar1;
@@ -6978,7 +6978,7 @@ void FUN_006db616(undefined8 *param_1)
   int *piVar2;
   QArrayData *pQVar3;
   
-  param_1[-2] = &PTR_metaObject_0118abe0;
+  param_1[-2] = &SessionTriggerDialog_vtable;
   *param_1 = &PTR_FUN_0118adb8;
   piVar2 = (int *)param_1[9];
   if (*piVar2 == 0) {
@@ -7018,14 +7018,14 @@ LAB_006db665:
 
 // ==== entry=006db6aa orig=FUN_006db6aa size=134 name=SessionTriggerDialog_dtor_deleting ====
 
-void FUN_006db6aa(QDialog *param_1)
+void SessionTriggerDialog_dtor_deleting(QDialog *param_1)
 
 {
   int iVar1;
   int *piVar2;
   QArrayData *pQVar3;
   
-  *(undefined ***)param_1 = &PTR_metaObject_0118abe0;
+  *(undefined ***)param_1 = &SessionTriggerDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118adb8;
   piVar2 = *(int **)(param_1 + 0x58);
   if (*piVar2 == 0) {
@@ -7065,14 +7065,14 @@ LAB_006db6f0:
 
 // ==== entry=006db730 orig=FUN_006db730 size=128 name=SessionTriggerDialog_dtor ====
 
-void FUN_006db730(QDialog *param_1)
+void SessionTriggerDialog_dtor(QDialog *param_1)
 
 {
   int iVar1;
   int *piVar2;
   QArrayData *pQVar3;
   
-  *(undefined ***)param_1 = &PTR_metaObject_0118abe0;
+  *(undefined ***)param_1 = &SessionTriggerDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118adb8;
   piVar2 = *(int **)(param_1 + 0x58);
   if (*piVar2 == 0) {
@@ -7123,7 +7123,7 @@ void FUN_006db7b0(undefined8 *param_1)
   int *piVar2;
   QArrayData *pQVar3;
   
-  param_1[-2] = &PTR_metaObject_0118abe0;
+  param_1[-2] = &SessionTriggerDialog_vtable;
   *param_1 = &PTR_FUN_0118adb8;
   piVar2 = (int *)param_1[9];
   if (*piVar2 == 0) {
@@ -8638,7 +8638,7 @@ QLayout * FUN_006ddb8c(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006ddbb2 to 006ddbb6 has its CatchHandler @ 006dde0d */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a4280,0xc9ed8a);
@@ -8715,7 +8715,7 @@ QLayout * FUN_006dde66(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006dde8f to 006dde93 has its CatchHandler @ 006de2f4 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9e5f8);
@@ -8834,7 +8834,7 @@ QLayout * FUN_006de37e(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006de3a4 to 006de3a8 has its CatchHandler @ 006de86f */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xc8a1d5);
@@ -8982,7 +8982,7 @@ QWidget * FUN_006de920(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006de94e to 006de952 has its CatchHandler @ 006df413 */
   QWidget::QWidget(pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9f02d);
@@ -9232,7 +9232,7 @@ QLayout * FUN_006df506(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006df52f to 006df533 has its CatchHandler @ 006df99c */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9e788);
@@ -9342,7 +9342,7 @@ QLayout * FUN_006dfa0e(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006dfa34 to 006dfa38 has its CatchHandler @ 006dfd45 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a4280,0xc9e7fb);
@@ -9426,7 +9426,7 @@ QLayout * FUN_006dfd9e(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006dfdc4 to 006dfdc8 has its CatchHandler @ 006e0263 */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9ed8a);
@@ -9548,7 +9548,7 @@ QLayout * FUN_006e0326(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006e034c to 006e0350 has its CatchHandler @ 006e05f9 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a4280,0xc9e8da);
@@ -9627,7 +9627,7 @@ QWidget * FUN_006e064a(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006e0678 to 006e067c has its CatchHandler @ 006e0f3f */
   QWidget::QWidget(pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9e936);
@@ -9852,7 +9852,7 @@ QLayout * FUN_006e1090(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006e10b6 to 006e10ba has its CatchHandler @ 006e1352 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a4280,0xc9e9c2);
@@ -9931,7 +9931,7 @@ QWidget * FUN_006e13a2(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006e13d0 to 006e13d4 has its CatchHandler @ 006e1c8c */
   QWidget::QWidget(pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xd0e1ca);
@@ -10148,7 +10148,7 @@ QLayout * FUN_006e1dee(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006e1e19 to 006e1e1d has its CatchHandler @ 006e222c */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9eaf2);
@@ -10265,7 +10265,7 @@ QLayout * FUN_006e22de(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006e2304 to 006e2308 has its CatchHandler @ 006e28d7 */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9eba0);
@@ -10412,7 +10412,7 @@ QLayout * FUN_006e29c8(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006e29ee to 006e29f2 has its CatchHandler @ 006e2b15 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a4280,0xc9ed8a);
@@ -10458,7 +10458,7 @@ QLayout * FUN_006e2b46(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006e2b6c to 006e2b70 has its CatchHandler @ 006e2d4f */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a4280,0xc9ed8a);
@@ -10509,7 +10509,7 @@ QWidget * FUN_006e2d90(undefined8 param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006e2dae to 006e2db2 has its CatchHandler @ 006e2ddd */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   return pQVar1;
@@ -11172,7 +11172,7 @@ QLayout * FUN_006e3d36(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006e3d5f to 006e3d63 has its CatchHandler @ 006e454a */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   pQVar2 = (QString *)FUN_006dda08(param_1,"xserver.displayNumber",0xffffffff,9999);
@@ -11420,7 +11420,7 @@ QLayout * FUN_006e4798(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006e47be to 006e47c2 has its CatchHandler @ 006e4ce3 */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xca1ad3);
@@ -11567,7 +11567,7 @@ QWidget * FUN_006e4dbe(QWidget *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 006e4dec to 006e4df0 has its CatchHandler @ 006e58ab */
   QWidget::QWidget(pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9e86c);
@@ -11826,7 +11826,7 @@ QLayout * FUN_006e5a1e(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 006e5a47 to 006e5a4b has its CatchHandler @ 006e5f51 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a4280,0xc9ed8a);
@@ -11968,7 +11968,7 @@ QWidget * FUN_006e6002(QWidget *param_1)
   pQVar6 = operator_new(0x38);
                     /* try { // try from 006e6030 to 006e6034 has its CatchHandler @ 006e6544 */
   QWidget::QWidget(pQVar6,param_1,0);
-  *(undefined ***)pQVar6 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar6 = &CategoryPage_vtable;
   *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar6 + 0x30) = 0;
   uVar2 = *(undefined8 *)(param_1 + 0x30);
@@ -13169,7 +13169,7 @@ QWidget * FUN_006e7dda(long param_1)
   pQVar11 = operator_new(0x38);
                     /* try { // try from 006e7e10 to 006e7e14 has its CatchHandler @ 006e90e5 */
   QWidget::QWidget(pQVar11,param_1,0);
-  *(undefined ***)pQVar11 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar11 = &CategoryPage_vtable;
   *(undefined ***)(pQVar11 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar11 + 0x30) = 0;
   QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_011a4280,0xc9efde);
@@ -13754,7 +13754,7 @@ QLayout * FUN_006e912e(QWidget *param_1)
   pQVar6 = operator_new(0x38);
                     /* try { // try from 006e9159 to 006e915d has its CatchHandler @ 006e9758 */
   QWidget::QWidget((QWidget *)pQVar6,param_1,0);
-  *(undefined ***)pQVar6 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar6 = &CategoryPage_vtable;
   *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar6 + 0x30) = 0;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a4280,0xca04b0);
@@ -14170,7 +14170,7 @@ void FUN_006e9cd8(long param_1)
   puVar2 = operator_new(0x78);
                     /* try { // try from 006e9d09 to 006e9d0d has its CatchHandler @ 006ea30f */
   FUN_0058c362(puVar2,1,1,param_1);
-  *puVar2 = &PTR_FUN_0118b038;
+  *puVar2 = &CategoryTree_vtable;
   puVar2[2] = &PTR_FUN_0118b348;
                     /* try { // try from 006e9d2b to 006e9d46 has its CatchHandler @ 006ea307 */
   QFrame::setFrameShape(puVar2,0);
@@ -14393,7 +14393,7 @@ void FUN_006ea66e(QString *param_1,undefined8 param_2)
   char local_30 [16];
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a4058;
+  *(undefined ***)param_1 = &SettingDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a4230;
   *(undefined8 *)(param_1 + 0x30) = param_2;
   *(undefined8 *)(param_1 + 0x38) = 0;
@@ -14484,7 +14484,7 @@ QWidget * FUN_006ea7c6(QObject *param_1)
   pQVar6 = operator_new(0x38);
                     /* try { // try from 006ea7f4 to 006ea7f8 has its CatchHandler @ 006eb305 */
   QWidget::QWidget(pQVar6,param_1,0);
-  *(undefined ***)pQVar6 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar6 = &CategoryPage_vtable;
   *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar6 + 0x30) = 0;
   QMetaObject::tr((char *)&local_68,(char *)&PTR_staticMetaObject_011a4280,0xc9f08d);
@@ -15338,10 +15338,10 @@ LAB_006ec1d3:
 
 // ==== entry=006ec240 orig=FUN_006ec240 size=29 name=CategoryPage_dtor ====
 
-void FUN_006ec240(QWidget *param_1)
+void CategoryPage_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)param_1 = &CategoryPage_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118afe8;
   QWidget::~QWidget(param_1);
   return;
@@ -15353,7 +15353,7 @@ void FUN_006ec240(QWidget *param_1)
 void FUN_006ec25d(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118ae38;
+  param_1[-2] = &CategoryPage_vtable;
   *param_1 = &PTR_FUN_0118afe8;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -15362,10 +15362,10 @@ void FUN_006ec25d(undefined8 *param_1)
 
 // ==== entry=006ec27e orig=FUN_006ec27e size=47 name=CategoryPage_dtor_deleting ====
 
-void FUN_006ec27e(QWidget *param_1)
+void CategoryPage_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)param_1 = &CategoryPage_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118afe8;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x38);
@@ -15378,7 +15378,7 @@ void FUN_006ec27e(QWidget *param_1)
 void FUN_006ec2ad(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118ae38;
+  param_1[-2] = &CategoryPage_vtable;
   *param_1 = &PTR_FUN_0118afe8;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x38);
@@ -15388,10 +15388,10 @@ void FUN_006ec2ad(undefined8 *param_1)
 
 // ==== entry=006ec2e0 orig=FUN_006ec2e0 size=29 name=CategoryTree_dtor ====
 
-void FUN_006ec2e0(undefined8 *param_1)
+void CategoryTree_dtor(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118b038;
+  *param_1 = &CategoryTree_vtable;
   param_1[2] = &PTR_FUN_0118b348;
   FUN_0058b7a8();
   return;
@@ -15403,7 +15403,7 @@ void FUN_006ec2e0(undefined8 *param_1)
 void FUN_006ec2fd(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_0118b038;
+  param_1[-2] = &CategoryTree_vtable;
   *param_1 = &PTR_FUN_0118b348;
   FUN_0058b7a8(param_1 + -2);
   return;
@@ -15412,10 +15412,10 @@ void FUN_006ec2fd(undefined8 *param_1)
 
 // ==== entry=006ec31e orig=FUN_006ec31e size=47 name=CategoryTree_dtor_deleting ====
 
-void FUN_006ec31e(undefined8 *param_1)
+void CategoryTree_dtor_deleting(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118b038;
+  *param_1 = &CategoryTree_vtable;
   param_1[2] = &PTR_FUN_0118b348;
   FUN_0058b7a8();
   operator_delete(param_1,0x78);
@@ -15428,7 +15428,7 @@ void FUN_006ec31e(undefined8 *param_1)
 void FUN_006ec34d(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_0118b038;
+  param_1[-2] = &CategoryTree_vtable;
   *param_1 = &PTR_FUN_0118b348;
   FUN_0058b7a8(param_1 + -2);
   operator_delete(param_1 + -2,0x78);
@@ -18645,7 +18645,7 @@ void FUN_006f1036(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a4558;
+  *(undefined ***)param_1 = &TextMarkDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a4730;
                     /* try { // try from 006f107e to 006f1082 has its CatchHandler @ 006f10e5 */
   QMetaObject::tr((char *)&local_20,(char *)&PTR_staticMetaObject_011a4780,0xc9faaa);
@@ -19977,7 +19977,7 @@ void FUN_006f2dd4(QString *param_1,undefined8 param_2)
   char local_30 [16];
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a4a00;
+  *(undefined ***)param_1 = &TriggerDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a4bd8;
   param_1[0x78] = (QString)0x0;
   *(undefined8 **)(param_1 + 0x88) = &QMapDataBase::shared_null;
@@ -20800,7 +20800,7 @@ code_r0x006f45ac:
       pQVar6 = operator_new(0x58);
                     /* try { // try from 006f4800 to 006f4804 has its CatchHandler @ 006f4b72 */
       FUN_006f1966(pQVar6,param_1);
-      *(undefined ***)pQVar6 = &PTR_FUN_0118c150;
+      *(undefined ***)pQVar6 = &CustomLinkTriggerPage_vtable;
       *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118c310;
                     /* try { // try from 006f483d to 006f4841 has its CatchHandler @ 006f4b6a */
       QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a4c60,0xc9fb21);
@@ -20815,7 +20815,7 @@ code_r0x006f45ac:
       pQVar6 = operator_new(0x60);
                     /* try { // try from 006f490c to 006f4910 has its CatchHandler @ 006f4bf2 */
       FUN_006f1966(pQVar6,param_1);
-      *(undefined ***)pQVar6 = &PTR_FUN_0118c360;
+      *(undefined ***)pQVar6 = &CustomMenuTriggerPage_vtable;
       *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118c520;
                     /* try { // try from 006f4949 to 006f494d has its CatchHandler @ 006f4bea */
       QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a4c60,0xc9fb2e);
@@ -20831,7 +20831,7 @@ code_r0x006f45ac:
       pQVar6 = operator_new(0x40);
                     /* try { // try from 006f478b to 006f478f has its CatchHandler @ 006f4b52 */
       FUN_006f1966(pQVar6,param_1);
-      *(undefined ***)pQVar6 = &PTR_FUN_0118c570;
+      *(undefined ***)pQVar6 = &HighlightTextTriggerPage_vtable;
       *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118c730;
                     /* try { // try from 006f47c8 to 006f47cc has its CatchHandler @ 006f4b4a */
       QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a4c60,0xc9fb3b);
@@ -20846,7 +20846,7 @@ code_r0x006f45ac:
       pQVar6 = operator_new(0x48);
                     /* try { // try from 006f4989 to 006f498d has its CatchHandler @ 006f4b32 */
       FUN_006f1966(pQVar6,param_1);
-      *(undefined ***)pQVar6 = &PTR_FUN_0118c780;
+      *(undefined ***)pQVar6 = &PlaySoundTriggerPage_vtable;
       *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118c940;
                     /* try { // try from 006f49c6 to 006f49ca has its CatchHandler @ 006f4b2a */
       QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a4c60,0xc9fb4b);
@@ -20862,7 +20862,7 @@ code_r0x006f45ac:
       pQVar6 = operator_new(0x50);
                     /* try { // try from 006f4897 to 006f489b has its CatchHandler @ 006f4bd2 */
       FUN_006f1966(pQVar6,param_1);
-      *(undefined ***)pQVar6 = &PTR_FUN_0118c990;
+      *(undefined ***)pQVar6 = &RunCommandTriggerPage_vtable;
       *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118cb50;
                     /* try { // try from 006f48d4 to 006f48d8 has its CatchHandler @ 006f4bca */
       QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a4c60,0xc9fb57);
@@ -20877,7 +20877,7 @@ code_r0x006f45ac:
       pQVar6 = operator_new(0x68);
                     /* try { // try from 006f4a06 to 006f4a0a has its CatchHandler @ 006f4bb2 */
       FUN_006f1966(pQVar6,param_1);
-      *(undefined ***)pQVar6 = &PTR_FUN_0118cba0;
+      *(undefined ***)pQVar6 = &SendTextTriggerPage_vtable;
       *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118cd60;
                     /* try { // try from 006f4a43 to 006f4a47 has its CatchHandler @ 006f4ba2 */
       QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a4c60,0xc9fb64);
@@ -20891,7 +20891,7 @@ code_r0x006f45ac:
       pQVar6 = operator_new(0x60);
                     /* try { // try from 006f45d1 to 006f45d5 has its CatchHandler @ 006f4b42 */
       FUN_006f1966(pQVar6,param_1);
-      *(undefined ***)pQVar6 = &PTR_FUN_0118cdb0;
+      *(undefined ***)pQVar6 = &ShowTooltipTriggerPage_vtable;
       *(undefined ***)(pQVar6 + 0x10) = &PTR_FUN_0118cf70;
                     /* try { // try from 006f460e to 006f4612 has its CatchHandler @ 006f4b3a */
       QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a4c60,0xc9fb6f);
@@ -21946,10 +21946,10 @@ undefined4 * FUN_006f6510(undefined4 *param_1,undefined4 *param_2)
 
 // ==== entry=006f651e orig=FUN_006f651e size=29 name=TriggerActionDialog_dtor ====
 
-void FUN_006f651e(QDialog *param_1)
+void TriggerActionDialog_dtor(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118bd18;
+  *(undefined ***)param_1 = &TriggerActionDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118bef0;
   QDialog::~QDialog(param_1);
   return;
@@ -21961,7 +21961,7 @@ void FUN_006f651e(QDialog *param_1)
 void FUN_006f653b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118bd18;
+  param_1[-2] = &TriggerActionDialog_vtable;
   *param_1 = &PTR_FUN_0118bef0;
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   return;
@@ -21970,10 +21970,10 @@ void FUN_006f653b(undefined8 *param_1)
 
 // ==== entry=006f655c orig=FUN_006f655c size=47 name=TriggerActionDialog_dtor_deleting ====
 
-void FUN_006f655c(QDialog *param_1)
+void TriggerActionDialog_dtor_deleting(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118bd18;
+  *(undefined ***)param_1 = &TriggerActionDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118bef0;
   QDialog::~QDialog(param_1);
   operator_delete(param_1,0x48);
@@ -21986,7 +21986,7 @@ void FUN_006f655c(QDialog *param_1)
 void FUN_006f658b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118bd18;
+  param_1[-2] = &TriggerActionDialog_vtable;
   *param_1 = &PTR_FUN_0118bef0;
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   operator_delete((QDialog *)(param_1 + -2),0x48);
@@ -21996,10 +21996,10 @@ void FUN_006f658b(undefined8 *param_1)
 
 // ==== entry=006f65be orig=FUN_006f65be size=29 name=TriggerActionWidget_dtor ====
 
-void FUN_006f65be(QWidget *param_1)
+void TriggerActionWidget_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118bb18;
+  *(undefined ***)param_1 = &TriggerActionWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118bcc8;
   QWidget::~QWidget(param_1);
   return;
@@ -22011,7 +22011,7 @@ void FUN_006f65be(QWidget *param_1)
 void FUN_006f65db(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118bb18;
+  param_1[-2] = &TriggerActionWidget_vtable;
   *param_1 = &PTR_FUN_0118bcc8;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22020,10 +22020,10 @@ void FUN_006f65db(undefined8 *param_1)
 
 // ==== entry=006f65fc orig=FUN_006f65fc size=47 name=TriggerActionWidget_dtor_deleting ====
 
-void FUN_006f65fc(QWidget *param_1)
+void TriggerActionWidget_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118bb18;
+  *(undefined ***)param_1 = &TriggerActionWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118bcc8;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x78);
@@ -22036,7 +22036,7 @@ void FUN_006f65fc(QWidget *param_1)
 void FUN_006f662b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118bb18;
+  param_1[-2] = &TriggerActionWidget_vtable;
   *param_1 = &PTR_FUN_0118bcc8;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x78);
@@ -22046,10 +22046,10 @@ void FUN_006f662b(undefined8 *param_1)
 
 // ==== entry=006f665e orig=FUN_006f665e size=29 name=MarkStyleWidget_dtor ====
 
-void FUN_006f665e(QWidget *param_1)
+void MarkStyleWidget_dtor(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118b718;
+  *(undefined ***)param_1 = &MarkStyleWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118b8c8;
   QWidget::~QWidget(param_1);
   return;
@@ -22061,7 +22061,7 @@ void FUN_006f665e(QWidget *param_1)
 void FUN_006f667b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118b718;
+  param_1[-2] = &MarkStyleWidget_vtable;
   *param_1 = &PTR_FUN_0118b8c8;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   return;
@@ -22070,10 +22070,10 @@ void FUN_006f667b(undefined8 *param_1)
 
 // ==== entry=006f669c orig=FUN_006f669c size=47 name=MarkStyleWidget_dtor_deleting ====
 
-void FUN_006f669c(QWidget *param_1)
+void MarkStyleWidget_dtor_deleting(QWidget *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118b718;
+  *(undefined ***)param_1 = &MarkStyleWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118b8c8;
   QWidget::~QWidget(param_1);
   operator_delete(param_1,0x40);
@@ -22086,7 +22086,7 @@ void FUN_006f669c(QWidget *param_1)
 void FUN_006f66cb(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118b718;
+  param_1[-2] = &MarkStyleWidget_vtable;
   *param_1 = &PTR_FUN_0118b8c8;
   QWidget::~QWidget((QWidget *)(param_1 + -2));
   operator_delete((QWidget *)(param_1 + -2),0x40);
@@ -22096,7 +22096,7 @@ void FUN_006f66cb(undefined8 *param_1)
 
 // ==== entry=006f66fe orig=FUN_006f66fe size=29 name=ConnectionTriggerPage_dtor ====
 
-void FUN_006f66fe(QWidget *param_1)
+void ConnectionTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22120,7 +22120,7 @@ void FUN_006f671b(undefined8 *param_1)
 
 // ==== entry=006f673c orig=FUN_006f673c size=47 name=ConnectionTriggerPage_dtor_deleting ====
 
-void FUN_006f673c(QWidget *param_1)
+void ConnectionTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22146,7 +22146,7 @@ void FUN_006f676b(undefined8 *param_1)
 
 // ==== entry=006f679e orig=FUN_006f679e size=29 name=CustomLinkTriggerPage_dtor ====
 
-void FUN_006f679e(QWidget *param_1)
+void CustomLinkTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22170,7 +22170,7 @@ void FUN_006f67bb(undefined8 *param_1)
 
 // ==== entry=006f67dc orig=FUN_006f67dc size=47 name=CustomLinkTriggerPage_dtor_deleting ====
 
-void FUN_006f67dc(QWidget *param_1)
+void CustomLinkTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22196,7 +22196,7 @@ void FUN_006f680b(undefined8 *param_1)
 
 // ==== entry=006f683e orig=FUN_006f683e size=29 name=CustomMenuTriggerPage_dtor ====
 
-void FUN_006f683e(QWidget *param_1)
+void CustomMenuTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22220,7 +22220,7 @@ void FUN_006f685b(undefined8 *param_1)
 
 // ==== entry=006f687c orig=FUN_006f687c size=47 name=CustomMenuTriggerPage_dtor_deleting ====
 
-void FUN_006f687c(QWidget *param_1)
+void CustomMenuTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22246,7 +22246,7 @@ void FUN_006f68ab(undefined8 *param_1)
 
 // ==== entry=006f68de orig=FUN_006f68de size=29 name=HighlightTextTriggerPage_dtor ====
 
-void FUN_006f68de(QWidget *param_1)
+void HighlightTextTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22270,7 +22270,7 @@ void FUN_006f68fb(undefined8 *param_1)
 
 // ==== entry=006f691c orig=FUN_006f691c size=47 name=HighlightTextTriggerPage_dtor_deleting ====
 
-void FUN_006f691c(QWidget *param_1)
+void HighlightTextTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22296,7 +22296,7 @@ void FUN_006f694b(undefined8 *param_1)
 
 // ==== entry=006f697e orig=FUN_006f697e size=29 name=PlaySoundTriggerPage_dtor ====
 
-void FUN_006f697e(QWidget *param_1)
+void PlaySoundTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22320,7 +22320,7 @@ void FUN_006f699b(undefined8 *param_1)
 
 // ==== entry=006f69bc orig=FUN_006f69bc size=47 name=PlaySoundTriggerPage_dtor_deleting ====
 
-void FUN_006f69bc(QWidget *param_1)
+void PlaySoundTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22346,7 +22346,7 @@ void FUN_006f69eb(undefined8 *param_1)
 
 // ==== entry=006f6a1e orig=FUN_006f6a1e size=29 name=RunCommandTriggerPage_dtor ====
 
-void FUN_006f6a1e(QWidget *param_1)
+void RunCommandTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22370,7 +22370,7 @@ void FUN_006f6a3b(undefined8 *param_1)
 
 // ==== entry=006f6a5c orig=FUN_006f6a5c size=47 name=RunCommandTriggerPage_dtor_deleting ====
 
-void FUN_006f6a5c(QWidget *param_1)
+void RunCommandTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22396,7 +22396,7 @@ void FUN_006f6a8b(undefined8 *param_1)
 
 // ==== entry=006f6abe orig=FUN_006f6abe size=29 name=SendTextTriggerPage_dtor ====
 
-void FUN_006f6abe(QWidget *param_1)
+void SendTextTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22420,7 +22420,7 @@ void FUN_006f6adb(undefined8 *param_1)
 
 // ==== entry=006f6afc orig=FUN_006f6afc size=47 name=SendTextTriggerPage_dtor_deleting ====
 
-void FUN_006f6afc(QWidget *param_1)
+void SendTextTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22446,7 +22446,7 @@ void FUN_006f6b2b(undefined8 *param_1)
 
 // ==== entry=006f6b5e orig=FUN_006f6b5e size=29 name=ShowTooltipTriggerPage_dtor ====
 
-void FUN_006f6b5e(QWidget *param_1)
+void ShowTooltipTriggerPage_dtor(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22470,7 +22470,7 @@ void FUN_006f6b7b(undefined8 *param_1)
 
 // ==== entry=006f6b9c orig=FUN_006f6b9c size=47 name=ShowTooltipTriggerPage_dtor_deleting ====
 
-void FUN_006f6b9c(QWidget *param_1)
+void ShowTooltipTriggerPage_dtor_deleting(QWidget *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_011a47f0;
@@ -22496,10 +22496,10 @@ void FUN_006f6bcb(undefined8 *param_1)
 
 // ==== entry=006f6bfe orig=FUN_006f6bfe size=29 name=CaptureGroupsButton_dtor ====
 
-void FUN_006f6bfe(QToolButton *param_1)
+void CaptureGroupsButton_dtor(QToolButton *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118b500;
+  *(undefined ***)param_1 = &CaptureGroupsButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118b6c8;
   QToolButton::~QToolButton(param_1);
   return;
@@ -22511,7 +22511,7 @@ void FUN_006f6bfe(QToolButton *param_1)
 void FUN_006f6c1b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118b500;
+  param_1[-2] = &CaptureGroupsButton_vtable;
   *param_1 = &PTR_FUN_0118b6c8;
   QToolButton::~QToolButton((QToolButton *)(param_1 + -2));
   return;
@@ -22520,10 +22520,10 @@ void FUN_006f6c1b(undefined8 *param_1)
 
 // ==== entry=006f6c3c orig=FUN_006f6c3c size=47 name=CaptureGroupsButton_dtor_deleting ====
 
-void FUN_006f6c3c(QToolButton *param_1)
+void CaptureGroupsButton_dtor_deleting(QToolButton *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118b500;
+  *(undefined ***)param_1 = &CaptureGroupsButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118b6c8;
   QToolButton::~QToolButton(param_1);
   operator_delete(param_1,0x38);
@@ -22536,7 +22536,7 @@ void FUN_006f6c3c(QToolButton *param_1)
 void FUN_006f6c6b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118b500;
+  param_1[-2] = &CaptureGroupsButton_vtable;
   *param_1 = &PTR_FUN_0118b6c8;
   QToolButton::~QToolButton((QToolButton *)(param_1 + -2));
   operator_delete((QToolButton *)(param_1 + -2),0x38);
@@ -23493,12 +23493,12 @@ QTableWidgetItem * FUN_006f816a(undefined8 param_1,QString *param_2)
 void FUN_006f82c6(QFrame *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_FUN_011955f8;
+  *(undefined ***)param_1 = &PTR_TriggerActionEditPanel_metaObject_011955f8;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011957a8;
   FUN_005249f0(param_1 + 0x60);
   FUN_005249f0(param_1 + 0x58);
   FUN_00525060(param_1 + 0x50);
-  *(undefined ***)param_1 = &PTR_FUN_01193238;
+  *(undefined ***)param_1 = &ButtonBarPanel_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011933e8;
   QFrame::~QFrame(param_1);
   return;
@@ -23531,12 +23531,12 @@ void FUN_006f8324(void *param_1)
 void FUN_006f833b(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011955f8;
+  param_1[-2] = &PTR_TriggerActionEditPanel_metaObject_011955f8;
   *param_1 = &PTR_FUN_011957a8;
   FUN_005249f0(param_1 + 10);
   FUN_005249f0(param_1 + 9);
   FUN_00525060(param_1 + 8);
-  param_1[-2] = &PTR_FUN_01193238;
+  param_1[-2] = &ButtonBarPanel_vtable;
   *param_1 = &PTR_FUN_011933e8;
   QFrame::~QFrame((QFrame *)(param_1 + -2));
   operator_delete((QFrame *)(param_1 + -2),0x68);
@@ -23555,7 +23555,7 @@ void FUN_006f83b0(undefined8 *param_1,int param_2,char param_3,undefined8 param_
   char local_40 [16];
   
   FUN_0056376e(param_1,(-(uint)(param_3 == '\0') & 0xffff0000) + 0x11800,param_4);
-  *param_1 = &PTR_FUN_0118b918;
+  *param_1 = &TriggerActionEditPanel_vtable;
   param_1[2] = &PTR_FUN_0118bac8;
   *(int *)(param_1 + 0xd) = param_2;
   local_58 = &QArrayData::shared_null;
@@ -23710,10 +23710,10 @@ void FUN_006f8590(QLayout *param_1)
 
 // ==== entry=006f8a92 orig=FUN_006f8a92 size=29 name=TriggerActionEditPanel_dtor ====
 
-void FUN_006f8a92(undefined8 *param_1)
+void TriggerActionEditPanel_dtor(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118b918;
+  *param_1 = &TriggerActionEditPanel_vtable;
   param_1[2] = &PTR_FUN_0118bac8;
   FUN_006f82c6();
   return;
@@ -23725,12 +23725,12 @@ void FUN_006f8a92(undefined8 *param_1)
 void FUN_006f8aaf(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011955f8;
+  param_1[-2] = &PTR_TriggerActionEditPanel_metaObject_011955f8;
   *param_1 = &PTR_FUN_011957a8;
   FUN_005249f0(param_1 + 10);
   FUN_005249f0(param_1 + 9);
   FUN_00525060(param_1 + 8);
-  param_1[-2] = &PTR_FUN_01193238;
+  param_1[-2] = &ButtonBarPanel_vtable;
   *param_1 = &PTR_FUN_011933e8;
   QFrame::~QFrame((QFrame *)(param_1 + -2));
   return;
@@ -23739,10 +23739,10 @@ void FUN_006f8aaf(undefined8 *param_1)
 
 // ==== entry=006f8b16 orig=FUN_006f8b16 size=47 name=TriggerActionEditPanel_dtor_deleting ====
 
-void FUN_006f8b16(undefined8 *param_1)
+void TriggerActionEditPanel_dtor_deleting(undefined8 *param_1)
 
 {
-  *param_1 = &PTR_FUN_0118b918;
+  *param_1 = &TriggerActionEditPanel_vtable;
   param_1[2] = &PTR_FUN_0118bac8;
   FUN_006f82c6();
   operator_delete(param_1,0x70);
@@ -23755,12 +23755,12 @@ void FUN_006f8b16(undefined8 *param_1)
 void FUN_006f8b45(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_FUN_011955f8;
+  param_1[-2] = &PTR_TriggerActionEditPanel_metaObject_011955f8;
   *param_1 = &PTR_FUN_011957a8;
   FUN_005249f0(param_1 + 10);
   FUN_005249f0(param_1 + 9);
   FUN_00525060(param_1 + 8);
-  param_1[-2] = &PTR_FUN_01193238;
+  param_1[-2] = &ButtonBarPanel_vtable;
   *param_1 = &PTR_FUN_011933e8;
   QFrame::~QFrame((QFrame *)(param_1 + -2));
   operator_delete((QFrame *)(param_1 + -2),0x70);
@@ -24938,7 +24938,7 @@ void FUN_006fad0a(QToolButton *param_1,undefined8 param_2,QWidget *param_3)
   undefined8 local_30;
   
   QToolButton::QToolButton(param_1,param_3);
-  *(undefined ***)param_1 = &PTR_metaObject_0118b500;
+  *(undefined ***)param_1 = &CaptureGroupsButton_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118b6c8;
   *(undefined8 *)(param_1 + 0x30) = param_2;
                     /* try { // try from 006fad46 to 006fad6e has its CatchHandler @ 006fae80 */
@@ -26646,7 +26646,7 @@ void FUN_006fdcde(QWidget *param_1,undefined4 param_2,undefined8 param_3)
   undefined8 local_30;
   
   QWidget::QWidget(param_1,param_3,0);
-  *(undefined ***)param_1 = &PTR_metaObject_0118bb18;
+  *(undefined ***)param_1 = &TriggerActionWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118bcc8;
   *(undefined4 *)(param_1 + 0x30) = param_2;
   *(undefined8 *)(param_1 + 0x50) = 0;
@@ -26713,7 +26713,7 @@ void FUN_006fdf10(QString *param_1,int param_2,undefined8 param_3)
   char local_20 [8];
   
   FUN_006f1966(param_1,param_3);
-  *(undefined ***)param_1 = &PTR_FUN_0118bf40;
+  *(undefined ***)param_1 = &ConnectionTriggerPage_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118c100;
   *(int *)(param_1 + 0x38) = param_2;
   if (param_2 == 1) {
@@ -27293,7 +27293,7 @@ void FUN_006ff1a0(long param_1,char param_2)
   pQVar3 = operator_new(0x48);
                     /* try { // try from 006ff1c9 to 006ff1cd has its CatchHandler @ 006ff461 */
   QDialog::QDialog((QDialog *)pQVar3,param_1,0);
-  *(undefined ***)pQVar3 = &PTR_metaObject_0118bd18;
+  *(undefined ***)pQVar3 = &TriggerActionDialog_vtable;
   *(undefined ***)(pQVar3 + 0x10) = &PTR_FUN_0118bef0;
                     /* try { // try from 006ff207 to 006ff20b has its CatchHandler @ 006ff4df */
   QMetaObject::tr((char *)&local_48,(char *)&QDialog::staticMetaObject,0xc9fcf1);
@@ -29933,7 +29933,7 @@ void FUN_00703a58(QWidget *param_1,undefined8 param_2)
 
 {
   QWidget::QWidget(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_metaObject_0118b718;
+  *(undefined ***)param_1 = &MarkStyleWidget_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118b8c8;
                     /* try { // try from 00703a83 to 00703a87 has its CatchHandler @ 00703a8f */
   FUN_00703900(param_1);
@@ -30605,7 +30605,7 @@ void FUN_00704dd2(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_metaObject_0118cfd8;
+  *(undefined ***)param_1 = &WindowOpacityDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118d1b0;
                     /* try { // try from 00704e1a to 00704e1e has its CatchHandler @ 00704e81 */
   QMetaObject::tr((char *)&local_20,(char *)&QDialog::staticMetaObject,0xca0270);
@@ -30642,10 +30642,10 @@ double FUN_00704e96(void)
 
 // ==== entry=00704eb8 orig=FUN_00704eb8 size=29 name=WindowOpacityDialog_dtor ====
 
-void FUN_00704eb8(QDialog *param_1)
+void WindowOpacityDialog_dtor(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118cfd8;
+  *(undefined ***)param_1 = &WindowOpacityDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118d1b0;
   QDialog::~QDialog(param_1);
   return;
@@ -30657,7 +30657,7 @@ void FUN_00704eb8(QDialog *param_1)
 void FUN_00704ed5(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118cfd8;
+  param_1[-2] = &WindowOpacityDialog_vtable;
   *param_1 = &PTR_FUN_0118d1b0;
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   return;
@@ -30666,10 +30666,10 @@ void FUN_00704ed5(undefined8 *param_1)
 
 // ==== entry=00704ef6 orig=FUN_00704ef6 size=47 name=WindowOpacityDialog_dtor_deleting ====
 
-void FUN_00704ef6(QDialog *param_1)
+void WindowOpacityDialog_dtor_deleting(QDialog *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118cfd8;
+  *(undefined ***)param_1 = &WindowOpacityDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118d1b0;
   QDialog::~QDialog(param_1);
   operator_delete(param_1,0x48);
@@ -30682,7 +30682,7 @@ void FUN_00704ef6(QDialog *param_1)
 void FUN_00704f25(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118cfd8;
+  param_1[-2] = &WindowOpacityDialog_vtable;
   *param_1 = &PTR_FUN_0118d1b0;
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   operator_delete((QDialog *)(param_1 + -2),0x48);
@@ -30775,12 +30775,12 @@ LAB_00705006:
 
 // ==== entry=007050a6 orig=FUN_007050a6 size=86 name=MaskDialog_dtor ====
 
-void FUN_007050a6(QWidget *param_1)
+void MaskDialog_dtor(QWidget *param_1)
 
 {
   QArrayData *pQVar1;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a38f8;
+  *(undefined ***)param_1 = &MaskDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3aa8;
   pQVar1 = *(QArrayData **)(param_1 + 0x30);
   if (*(int *)pQVar1 == 0) {
@@ -30808,17 +30808,17 @@ LAB_007050e4:
 void FUN_007050fc(long param_1)
 
 {
-  FUN_007050a6(param_1 + -0x10);
+  MaskDialog_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=00705102 orig=FUN_00705102 size=23 name=MaskDialog_dtor_deleting ====
 
-void FUN_00705102(void *param_1)
+void MaskDialog_dtor_deleting(void *param_1)
 
 {
-  FUN_007050a6();
+  MaskDialog_dtor();
   operator_delete(param_1,0xb0);
   return;
 }
@@ -30829,7 +30829,7 @@ void FUN_00705102(void *param_1)
 void FUN_00705119(long param_1)
 
 {
-  FUN_00705102(param_1 + -0x10);
+  MaskDialog_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -31694,7 +31694,7 @@ void FUN_00706bc6(QWidget *param_1,undefined8 param_2)
 
 {
   QWidget::QWidget(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a38f8;
+  *(undefined ***)param_1 = &MaskDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3aa8;
   *(undefined8 **)(param_1 + 0x30) = &QArrayData::shared_null;
                     /* try { // try from 00706bfc to 00706c1a has its CatchHandler @ 00706c22 */
@@ -31962,14 +31962,14 @@ LAB_00706fc5:
 
 // ==== entry=0070709c orig=FUN_0070709c size=170 name=RunToolDialog_dtor ====
 
-void FUN_0070709c(QDialog *param_1)
+void RunToolDialog_dtor(QDialog *param_1)
 
 {
   int iVar1;
   QArrayData *pQVar2;
   int *piVar3;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a3678;
+  *(undefined ***)param_1 = &RunToolDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3850;
   pQVar2 = *(QArrayData **)(param_1 + 0x78);
   if (*(int *)pQVar2 == 0) {
@@ -32034,17 +32034,17 @@ LAB_0070712c:
 void FUN_00707146(long param_1)
 
 {
-  FUN_0070709c(param_1 + -0x10);
+  RunToolDialog_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=00707150 orig=FUN_00707150 size=23 name=RunToolDialog_dtor_deleting ====
 
-void FUN_00707150(void *param_1)
+void RunToolDialog_dtor_deleting(void *param_1)
 
 {
-  FUN_0070709c();
+  RunToolDialog_dtor();
   operator_delete(param_1,0x80);
   return;
 }
@@ -32055,7 +32055,7 @@ void FUN_00707150(void *param_1)
 void FUN_00707167(long param_1)
 
 {
-  FUN_00707150(param_1 + -0x10);
+  RunToolDialog_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -32544,7 +32544,7 @@ void FUN_00707f8e(QDialog *param_1,undefined8 param_2)
   undefined8 *puVar7;
   
   QDialog::QDialog(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a3678;
+  *(undefined ***)param_1 = &RunToolDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3850;
   *(undefined8 *)(param_1 + 0x30) = 0;
   *(undefined8 *)(param_1 + 0x38) = 0;
@@ -36033,14 +36033,14 @@ QWidget * FUN_0070ca70(undefined8 param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 0070ca8e to 0070ca92 has its CatchHandler @ 0070cabd */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   return pQVar1;
 }
 
 
-// ==== entry=0070cac6 name=thunk_FUN_0070ca70 size=2 ====
+// ==== entry=0070cac6 orig=FUN_0070cac6 size=2 name=thunk_FUN_0070ca70 ====
 
 QWidget * thunk_FUN_0070ca70(undefined8 param_1)
 
@@ -36049,7 +36049,7 @@ QWidget * thunk_FUN_0070ca70(undefined8 param_1)
   
   pQVar1 = operator_new(0x38);
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   return pQVar1;
@@ -36118,7 +36118,7 @@ QString * FUN_0070cac8(long param_1,char *param_2)
 }
 
 
-// ==== entry=0070ccf0 name=thunk_FUN_0070ca70 size=5 ====
+// ==== entry=0070ccf0 orig=FUN_0070ccf0 size=5 name=thunk_FUN_0070ca70 ====
 
 QWidget * thunk_FUN_0070ca70(undefined8 param_1)
 
@@ -36127,14 +36127,14 @@ QWidget * thunk_FUN_0070ca70(undefined8 param_1)
   
   pQVar1 = operator_new(0x38);
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   return pQVar1;
 }
 
 
-// ==== entry=0070ccf6 name=thunk_FUN_0070ca70 size=5 ====
+// ==== entry=0070ccf6 orig=FUN_0070ccf6 size=5 name=thunk_FUN_0070ca70 ====
 
 QWidget * thunk_FUN_0070ca70(undefined8 param_1)
 
@@ -36143,14 +36143,14 @@ QWidget * thunk_FUN_0070ca70(undefined8 param_1)
   
   pQVar1 = operator_new(0x38);
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   return pQVar1;
 }
 
 
-// ==== entry=0070ccfc name=thunk_FUN_0070ca70 size=5 ====
+// ==== entry=0070ccfc orig=FUN_0070ccfc size=5 name=thunk_FUN_0070ca70 ====
 
 QWidget * thunk_FUN_0070ca70(undefined8 param_1)
 
@@ -36159,7 +36159,7 @@ QWidget * thunk_FUN_0070ca70(undefined8 param_1)
   
   pQVar1 = operator_new(0x38);
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   return pQVar1;
@@ -38440,7 +38440,7 @@ QLayout * FUN_007108c6(undefined8 param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 007108ea to 007108ee has its CatchHandler @ 00710a31 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   sVar2 = strlen(
@@ -38502,7 +38502,7 @@ QLayout * FUN_00710a42(undefined8 param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 00710a68 to 00710a6c has its CatchHandler @ 00710cd6 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   sVar2 = strlen(
@@ -38577,7 +38577,7 @@ QLayout * FUN_00710d2e(undefined8 param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 00710d52 to 00710d56 has its CatchHandler @ 00710e99 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   sVar2 = strlen(
@@ -38634,7 +38634,7 @@ QLayout * FUN_00710eaa(undefined8 param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 00710ece to 00710ed2 has its CatchHandler @ 00711015 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   sVar2 = strlen(
@@ -39606,7 +39606,7 @@ long FUN_00712ca8(long param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 00712cdb to 00712cdf has its CatchHandler @ 007130eb */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0x98) = pQVar1;
@@ -40359,7 +40359,7 @@ long FUN_00714626(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 0071465c to 00714660 has its CatchHandler @ 00715191 */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xa0) = pQVar1;
@@ -40670,7 +40670,7 @@ QLayout * FUN_00715312(QObject *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 0071533b to 0071533f has its CatchHandler @ 007158ed */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)&local_58,(char *)&PTR_staticMetaObject_011a2240,0xca1270);
@@ -40931,7 +40931,7 @@ QLayout * FUN_00715d0e(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 00715d3f to 00715d43 has its CatchHandler @ 00716492 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_011a2240,0xca1398);
@@ -41107,7 +41107,7 @@ long FUN_00716582(QObject *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 007165b5 to 007165b9 has its CatchHandler @ 007169fd */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xb0) = pQVar1;
@@ -41249,7 +41249,7 @@ long FUN_00716a7e(QObject *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 00716ab4 to 00716ab8 has its CatchHandler @ 0071738d */
   QWidget::QWidget(pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   *(QWidget **)(param_1 + 200) = pQVar2;
@@ -41465,7 +41465,7 @@ long FUN_007174b8(long param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 007174eb to 007174ef has its CatchHandler @ 00717635 */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xd0) = pQVar1;
@@ -41527,7 +41527,7 @@ long FUN_0071766a(long param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 007176a0 to 007176a4 has its CatchHandler @ 007181aa */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xe0) = pQVar1;
@@ -41772,7 +41772,7 @@ long FUN_0071831a(long param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 0071834d to 00718351 has its CatchHandler @ 007184c9 */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xe8) = pQVar1;
@@ -42177,7 +42177,7 @@ QLayout * FUN_0071908e(QWidget *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 007190b9 to 007190bd has its CatchHandler @ 007192e4 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a2240,0xca15c0);
@@ -42249,7 +42249,7 @@ QLayout * FUN_00719336(QObject *param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 0071935f to 00719363 has its CatchHandler @ 007198c7 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_011a2240,0xca0b4a);
@@ -43340,7 +43340,7 @@ long FUN_0071b672(long param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 0071b6a8 to 0071b6ac has its CatchHandler @ 0071c095 */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xa8) = pQVar1;
@@ -43664,7 +43664,7 @@ QLayout * FUN_0071c460(undefined8 param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 0071c486 to 0071c48a has its CatchHandler @ 0071c953 */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   QMetaObject::tr((char *)local_40,(char *)&PTR_staticMetaObject_011a2240,0xc9fe3c);
@@ -46149,7 +46149,7 @@ long FUN_00720926(long param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 00720959 to 0072095d has its CatchHandler @ 00720c2e */
   QWidget::QWidget(pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xd8) = pQVar2;
@@ -46305,7 +46305,7 @@ long FUN_00720e70(long param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 00720ea3 to 00720ea7 has its CatchHandler @ 00721267 */
   QWidget::QWidget(pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xb8) = pQVar1;
@@ -46605,7 +46605,7 @@ LAB_00721700:
   pQVar11 = operator_new(0x78);
                     /* try { // try from 00721725 to 00721729 has its CatchHandler @ 0072218a */
   FUN_0058c362(pQVar11,1,1,param_1);
-  *(undefined ***)pQVar11 = &PTR_FUN_0118b038;
+  *(undefined ***)pQVar11 = &CategoryTree_vtable;
   *(undefined ***)(pQVar11 + 0x10) = &PTR_FUN_0118b348;
                     /* try { // try from 00721748 to 00721763 has its CatchHandler @ 007221d1 */
   QFrame::setFrameShape(pQVar11,0);
@@ -46862,7 +46862,7 @@ void FUN_0072223c(QString *param_1,undefined8 param_2,undefined8 param_3,QString
   QIntValidator *this;
   
   QDialog::QDialog((QDialog *)param_1,param_5,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a2018;
+  *(undefined ***)param_1 = &SessionDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a21f0;
   param_1[0x30] = param_4;
   *(undefined8 **)(param_1 + 0x38) = &QArrayData::shared_null;
@@ -46872,7 +46872,7 @@ void FUN_0072223c(QString *param_1,undefined8 param_2,undefined8 param_3,QString
   this = operator_new(0x18);
                     /* try { // try from 007222ac to 007222b0 has its CatchHandler @ 007223b8 */
   QIntValidator::QIntValidator(this,0,99999999,(QObject *)param_1);
-  *(undefined ***)this = &PTR_metaObject_0118d218;
+  *(undefined ***)this = &IntValidator_vtable;
   *(QIntValidator **)(param_1 + 0x70) = this;
   *(undefined8 *)(param_1 + 0x78) = 0;
   *(undefined8 *)(param_1 + 0x98) = 0;
@@ -47424,7 +47424,7 @@ QLayout * FUN_007232e8(undefined8 param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 0072330e to 00723312 has its CatchHandler @ 007234f4 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   pQVar2 = (QWidget *)FUN_00722446(param_1);
@@ -47580,7 +47580,7 @@ long FUN_007237ce(QObject *param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 00723804 to 00723808 has its CatchHandler @ 00723e00 */
   QWidget::QWidget(pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   *(QWidget **)(param_1 + 0xc0) = pQVar2;
@@ -47872,7 +47872,7 @@ QLayout * FUN_007242de(undefined8 param_1)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 00724304 to 00724308 has its CatchHandler @ 0072459a */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   iVar1 = FUN_0070cdb0(param_1);
@@ -47958,7 +47958,7 @@ QLayout * FUN_007245b2(long param_1)
   pQVar3 = operator_new(0x38);
                     /* try { // try from 007245db to 007245df has its CatchHandler @ 00724c4d */
   QWidget::QWidget((QWidget *)pQVar3,param_1,0);
-  *(undefined ***)pQVar3 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar3 = &CategoryPage_vtable;
   *(undefined ***)(pQVar3 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar3 + 0x30) = 0;
   pQVar4 = (QWidget *)FUN_0071ce28(param_1);
@@ -48119,7 +48119,7 @@ QLayout * FUN_00724c76(long param_1)
   pQVar1 = operator_new(0x38);
                     /* try { // try from 00724c9f to 00724ca3 has its CatchHandler @ 00725282 */
   QWidget::QWidget((QWidget *)pQVar1,param_1,0);
-  *(undefined ***)pQVar1 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar1 = &CategoryPage_vtable;
   *(undefined ***)(pQVar1 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar1 + 0x30) = 0;
   pQVar2 = (QWidget *)FUN_0071d166(param_1);
@@ -48301,7 +48301,7 @@ QLayout * FUN_0072532a(undefined8 param_1,int param_2)
   pQVar2 = operator_new(0x38);
                     /* try { // try from 00725359 to 0072535d has its CatchHandler @ 00725d35 */
   QWidget::QWidget((QWidget *)pQVar2,param_1,0);
-  *(undefined ***)pQVar2 = &PTR_metaObject_0118ae38;
+  *(undefined ***)pQVar2 = &CategoryPage_vtable;
   *(undefined ***)(pQVar2 + 0x10) = &PTR_FUN_0118afe8;
   *(undefined8 *)(pQVar2 + 0x30) = 0;
   local_48 = (code *)&QArrayData::shared_null;
@@ -49176,10 +49176,10 @@ LAB_00726f66:
 
 // ==== entry=00726f86 orig=FUN_00726f86 size=19 name=IntValidator_dtor ====
 
-void FUN_00726f86(QIntValidator *param_1)
+void IntValidator_dtor(QIntValidator *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118d218;
+  *(undefined ***)param_1 = &IntValidator_vtable;
   QIntValidator::~QIntValidator(param_1);
   return;
 }
@@ -49187,10 +49187,10 @@ void FUN_00726f86(QIntValidator *param_1)
 
 // ==== entry=00726f9a orig=FUN_00726f9a size=37 name=IntValidator_dtor_deleting ====
 
-void FUN_00726f9a(QIntValidator *param_1)
+void IntValidator_dtor_deleting(QIntValidator *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118d218;
+  *(undefined ***)param_1 = &IntValidator_vtable;
   QIntValidator::~QIntValidator(param_1);
   operator_delete(param_1,0x18);
   return;
@@ -52204,7 +52204,7 @@ void FUN_0072abce(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a42d8;
+  *(undefined ***)param_1 = &SyncInputDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a44b0;
   *(undefined4 *)(param_1 + 0x60) = 0;
   *(undefined8 **)(param_1 + 0x68) = &QArrayData::shared_null;
@@ -53660,7 +53660,7 @@ void FUN_0072cf44(QString *param_1,undefined8 param_2)
   QArrayData *local_20;
   
   QDialog::QDialog((QDialog *)param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a4cb8;
+  *(undefined ***)param_1 = &TunnelDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a4e90;
   *(undefined8 *)(param_1 + 0x80) = 0;
   *(undefined8 *)(param_1 + 0xa0) = 0;
@@ -55378,12 +55378,12 @@ LAB_0072f3fe:
 
 // ==== entry=0072f424 orig=FUN_0072f424 size=86 name=InsertFileDialog_dtor ====
 
-void FUN_0072f424(QDialog *param_1)
+void InsertFileDialog_dtor(QDialog *param_1)
 
 {
   QArrayData *pQVar1;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a3b58;
+  *(undefined ***)param_1 = &InsertFileDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3d30;
   pQVar1 = *(QArrayData **)(param_1 + 0x30);
   if (*(int *)pQVar1 == 0) {
@@ -55411,17 +55411,17 @@ LAB_0072f462:
 void FUN_0072f47a(long param_1)
 
 {
-  FUN_0072f424(param_1 + -0x10);
+  InsertFileDialog_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=0072f480 orig=FUN_0072f480 size=23 name=InsertFileDialog_dtor_deleting ====
 
-void FUN_0072f480(void *param_1)
+void InsertFileDialog_dtor_deleting(void *param_1)
 
 {
-  FUN_0072f424();
+  InsertFileDialog_dtor();
   operator_delete(param_1,0x78);
   return;
 }
@@ -55432,7 +55432,7 @@ void FUN_0072f480(void *param_1)
 void FUN_0072f497(long param_1)
 
 {
-  FUN_0072f480(param_1 + -0x10);
+  InsertFileDialog_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -55638,7 +55638,7 @@ void FUN_0072facc(QDialog *param_1,undefined8 param_2)
 
 {
   QDialog::QDialog(param_1,param_2,0);
-  *(undefined ***)param_1 = &PTR_FUN_011a3b58;
+  *(undefined ***)param_1 = &InsertFileDialog_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a3d30;
   *(undefined8 **)(param_1 + 0x30) = &QArrayData::shared_null;
                     /* try { // try from 0072fb02 to 0072fb0e has its CatchHandler @ 0072fb16 */
@@ -55723,7 +55723,7 @@ void FUN_0072fbee(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_0072fc4f:
-  *param_1 = &PTR_FUN_011a4f38;
+  *param_1 = &ExplorerPane_vtable;
   param_1[2] = &PTR_FUN_011a5130;
   param_1[8] = param_2;
   param_1[9] = 0;
@@ -56565,7 +56565,7 @@ void FUN_00730c20(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_00730c81:
-  *param_1 = &PTR_FUN_011a5c58;
+  *param_1 = &FilerPane_vtable;
   param_1[2] = &PTR_FUN_011a5e50;
   param_1[8] = param_2;
   param_1[9] = 0;
@@ -57772,7 +57772,7 @@ LAB_0073225f:
 }
 
 
-// ==== entry=0073233c name=thunk_FUN_00731eae size=5 ====
+// ==== entry=0073233c orig=FUN_0073233c size=5 name=thunk_FUN_00731eae ====
 
 void thunk_FUN_00731eae(QObject *param_1)
 
@@ -59258,7 +59258,7 @@ void FUN_00733a18(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_00733a79:
-  *param_1 = &PTR_FUN_011a51d8;
+  *param_1 = &TransferPane_vtable;
   param_1[2] = &PTR_FUN_011a53d0;
   param_1[8] = param_2;
   param_1[9] = 0;
@@ -60141,7 +60141,7 @@ void FUN_00734dc2(undefined8 *param_1,undefined8 param_2)
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_00734e2b:
-  *param_1 = &PTR_FUN_011a59b8;
+  *param_1 = &SenderPane_vtable;
   param_1[2] = &PTR_FUN_011a5bb0;
   param_1[8] = param_2;
   param_1[9] = 0;
@@ -60602,14 +60602,14 @@ undefined8 FUN_00735858(long param_1,int param_2)
 
 // ==== entry=0073591c orig=FUN_0073591c size=164 name=SenderPane_dtor ====
 
-void FUN_0073591c(QWidget *param_1)
+void SenderPane_dtor(QWidget *param_1)
 
 {
   int iVar1;
   long lVar2;
   int iVar3;
   
-  *(undefined ***)param_1 = &PTR_FUN_011a59b8;
+  *(undefined ***)param_1 = &SenderPane_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a5bb0;
   if (*(long *)(param_1 + 0x48) != 0) {
     iVar1 = FUN_005abbda();
@@ -60637,17 +60637,17 @@ void FUN_0073591c(QWidget *param_1)
 void FUN_007359c0(long param_1)
 
 {
-  FUN_0073591c(param_1 + -0x10);
+  SenderPane_dtor(param_1 + -0x10);
   return;
 }
 
 
 // ==== entry=007359ca orig=FUN_007359ca size=23 name=SenderPane_dtor_deleting ====
 
-void FUN_007359ca(void *param_1)
+void SenderPane_dtor_deleting(void *param_1)
 
 {
-  FUN_0073591c();
+  SenderPane_dtor();
   operator_delete(param_1,0xa8);
   return;
 }
@@ -60658,7 +60658,7 @@ void FUN_007359ca(void *param_1)
 void FUN_007359e1(long param_1)
 
 {
-  FUN_007359ca(param_1 + -0x10);
+  SenderPane_dtor_deleting(param_1 + -0x10);
   return;
 }
 
@@ -60707,27 +60707,27 @@ void FUN_00735a0c(QWidget *param_1)
     pQVar2 = operator_new(0x10);
                     /* try { // try from 00735a53 to 00735a57 has its CatchHandler @ 00735f2d */
     QWidgetAction::QWidgetAction(pQVar2,(QObject *)this);
-    *(undefined ***)pQVar2 = &PTR_metaObject_0118d818;
+    *(undefined ***)pQVar2 = &EditWidgetAction_vtable;
     QWidget::addAction((QAction *)this);
     pQVar2 = operator_new(0x10);
                     /* try { // try from 00735a85 to 00735a89 has its CatchHandler @ 00735f25 */
     QWidgetAction::QWidgetAction(pQVar2,(QObject *)this);
-    *(undefined ***)pQVar2 = &PTR_metaObject_0118d8a0;
+    *(undefined ***)pQVar2 = &UnitWidgetAction_vtable;
     QWidget::addAction((QAction *)this);
     pQVar2 = operator_new(0x10);
                     /* try { // try from 00735ab7 to 00735abb has its CatchHandler @ 00735f1d */
     QWidgetAction::QWidgetAction(pQVar2,(QObject *)this);
-    *(undefined ***)pQVar2 = &PTR_metaObject_0118d928;
+    *(undefined ***)pQVar2 = &CountWidgetAction_vtable;
     QWidget::addAction((QAction *)this);
     pQVar2 = operator_new(0x10);
                     /* try { // try from 00735ae9 to 00735aed has its CatchHandler @ 00735f15 */
     QWidgetAction::QWidgetAction(pQVar2,(QObject *)this);
-    *(undefined ***)pQVar2 = &PTR_metaObject_0118d9b0;
+    *(undefined ***)pQVar2 = &IntervalWidgetAction_vtable;
     QWidget::addAction((QAction *)this);
     pQVar2 = operator_new(0x10);
                     /* try { // try from 00735b1b to 00735b1f has its CatchHandler @ 00735f0d */
     QWidgetAction::QWidgetAction(pQVar2,(QObject *)this);
-    *(undefined ***)pQVar2 = &PTR_metaObject_0118da38;
+    *(undefined ***)pQVar2 = &TargetsWidgetAction_vtable;
     QWidget::addAction((QAction *)this);
     local_30 = (undefined8 *)QString::fromAscii_helper("TextRadio",9);
                     /* try { // try from 00735b6a to 00735b6e has its CatchHandler @ 00735f05 */
@@ -62601,10 +62601,10 @@ LAB_0073904e:
 
 // ==== entry=0073906c orig=FUN_0073906c size=29 name=DoubleSpinBox_dtor ====
 
-void FUN_0073906c(QDoubleSpinBox *param_1)
+void DoubleSpinBox_dtor(QDoubleSpinBox *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118d5e0;
+  *(undefined ***)param_1 = &DoubleSpinBox_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118d7c8;
   QDoubleSpinBox::~QDoubleSpinBox(param_1);
   return;
@@ -62616,7 +62616,7 @@ void FUN_0073906c(QDoubleSpinBox *param_1)
 void FUN_00739089(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118d5e0;
+  param_1[-2] = &DoubleSpinBox_vtable;
   *param_1 = &PTR_FUN_0118d7c8;
   QDoubleSpinBox::~QDoubleSpinBox((QDoubleSpinBox *)(param_1 + -2));
   return;
@@ -62625,10 +62625,10 @@ void FUN_00739089(undefined8 *param_1)
 
 // ==== entry=007390aa orig=FUN_007390aa size=47 name=DoubleSpinBox_dtor_deleting ====
 
-void FUN_007390aa(QDoubleSpinBox *param_1)
+void DoubleSpinBox_dtor_deleting(QDoubleSpinBox *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118d5e0;
+  *(undefined ***)param_1 = &DoubleSpinBox_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118d7c8;
   QDoubleSpinBox::~QDoubleSpinBox(param_1);
   operator_delete(param_1,0x30);
@@ -62641,7 +62641,7 @@ void FUN_007390aa(QDoubleSpinBox *param_1)
 void FUN_007390d9(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118d5e0;
+  param_1[-2] = &DoubleSpinBox_vtable;
   *param_1 = &PTR_FUN_0118d7c8;
   QDoubleSpinBox::~QDoubleSpinBox((QDoubleSpinBox *)(param_1 + -2));
   operator_delete((QDoubleSpinBox *)(param_1 + -2),0x30);
@@ -62651,10 +62651,10 @@ void FUN_007390d9(undefined8 *param_1)
 
 // ==== entry=0073910c orig=FUN_0073910c size=29 name=SpinBox_dtor ====
 
-void FUN_0073910c(QSpinBox *param_1)
+void SpinBox_dtor(QSpinBox *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118d3a8;
+  *(undefined ***)param_1 = &SpinBox_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118d590;
   QSpinBox::~QSpinBox(param_1);
   return;
@@ -62666,7 +62666,7 @@ void FUN_0073910c(QSpinBox *param_1)
 void FUN_00739129(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118d3a8;
+  param_1[-2] = &SpinBox_vtable;
   *param_1 = &PTR_FUN_0118d590;
   QSpinBox::~QSpinBox((QSpinBox *)(param_1 + -2));
   return;
@@ -62675,10 +62675,10 @@ void FUN_00739129(undefined8 *param_1)
 
 // ==== entry=0073914a orig=FUN_0073914a size=47 name=SpinBox_dtor_deleting ====
 
-void FUN_0073914a(QSpinBox *param_1)
+void SpinBox_dtor_deleting(QSpinBox *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_metaObject_0118d3a8;
+  *(undefined ***)param_1 = &SpinBox_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0118d590;
   QSpinBox::~QSpinBox(param_1);
   operator_delete(param_1,0x30);
@@ -62691,7 +62691,7 @@ void FUN_0073914a(QSpinBox *param_1)
 void FUN_00739179(undefined8 *param_1)
 
 {
-  param_1[-2] = &PTR_metaObject_0118d3a8;
+  param_1[-2] = &SpinBox_vtable;
   *param_1 = &PTR_FUN_0118d590;
   QSpinBox::~QSpinBox((QSpinBox *)(param_1 + -2));
   operator_delete((QSpinBox *)(param_1 + -2),0x30);
@@ -62701,7 +62701,7 @@ void FUN_00739179(undefined8 *param_1)
 
 // ==== entry=007391ac orig=FUN_007391ac size=19 name=EditWidgetAction_dtor ====
 
-void FUN_007391ac(QWidgetAction *param_1)
+void EditWidgetAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -62712,7 +62712,7 @@ void FUN_007391ac(QWidgetAction *param_1)
 
 // ==== entry=007391c0 orig=FUN_007391c0 size=37 name=EditWidgetAction_dtor_deleting ====
 
-void FUN_007391c0(QWidgetAction *param_1)
+void EditWidgetAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -62724,7 +62724,7 @@ void FUN_007391c0(QWidgetAction *param_1)
 
 // ==== entry=007391e6 orig=FUN_007391e6 size=19 name=UnitWidgetAction_dtor ====
 
-void FUN_007391e6(QWidgetAction *param_1)
+void UnitWidgetAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -62735,7 +62735,7 @@ void FUN_007391e6(QWidgetAction *param_1)
 
 // ==== entry=007391fa orig=FUN_007391fa size=37 name=UnitWidgetAction_dtor_deleting ====
 
-void FUN_007391fa(QWidgetAction *param_1)
+void UnitWidgetAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -62747,7 +62747,7 @@ void FUN_007391fa(QWidgetAction *param_1)
 
 // ==== entry=00739220 orig=FUN_00739220 size=19 name=CountWidgetAction_dtor ====
 
-void FUN_00739220(QWidgetAction *param_1)
+void CountWidgetAction_dtor(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
@@ -62758,7 +62758,7 @@ void FUN_00739220(QWidgetAction *param_1)
 
 // ==== entry=00739234 orig=FUN_00739234 size=37 name=CountWidgetAction_dtor_deleting ====
 
-void FUN_00739234(QWidgetAction *param_1)
+void CountWidgetAction_dtor_deleting(QWidgetAction *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_metaObject_01184688;
