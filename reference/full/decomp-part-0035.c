@@ -4088,13 +4088,13 @@ joined_r0x00a87c23:
 }
 
 
-// ==== entry=00a87d72 name=FUN_00a87d72 size=1685 ====
+// ==== entry=00a87d72 orig=FUN_00a87d72 size=1685 name=s_basic_string__substr_a87d72 ====
 
 /* WARNING: Removing unreachable block (ram,0x00a88382) */
 /* WARNING: Removing unreachable block (ram,0x00a8838d) */
 /* WARNING: Removing unreachable block (ram,0x00a8832b) */
 
-ulong * FUN_00a87d72(ulong *param_1,long *param_2,ulong param_3,ulong param_4)
+ulong * s_basic_string__substr_a87d72(ulong *param_1,long *param_2,ulong param_3,ulong param_4)
 
 {
   int *piVar1;
@@ -5729,7 +5729,7 @@ void FUN_00a8a857(long param_1,long param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=00a8a99e name=FUN_00a8a99e size=2081 ====
+// ==== entry=00a8a99e orig=FUN_00a8a99e size=2081 name=s_basic_string__erase_a8a99e ====
 
 /* WARNING: Removing unreachable block (ram,0x00a8ad6d) */
 /* WARNING: Removing unreachable block (ram,0x00a8b141) */
@@ -5738,7 +5738,7 @@ void FUN_00a8a857(long param_1,long param_2,undefined8 param_3,long param_4)
 /* WARNING: Removing unreachable block (ram,0x00a8b14b) */
 /* WARNING: Removing unreachable block (ram,0x00a8b0f5) */
 
-void FUN_00a8a99e(string *param_1)
+void s_basic_string__erase_a8a99e(string *param_1)
 
 {
   int *piVar1;
@@ -5830,7 +5830,7 @@ LAB_00a8aadc:
             }
 LAB_00a8ac3e:
             if (uVar13 == 0xffffffffffffffff) goto LAB_00a8acef;
-            FUN_00a87d72(&local_b8,param_1,uVar13,uVar14);
+            s_basic_string__substr_a87d72(&local_b8,param_1,uVar13,uVar14);
             local_a8 = (void *)(((long)local_68 - (long)local_78 >> 3) +
                                (((long)local_40 - (long)local_60 >> 3) + -1) * 0x40 +
                                ((long)local_58 - (long)local_50 >> 3));
@@ -6119,7 +6119,7 @@ void FUN_00a8b1dc(undefined8 *param_1,undefined8 *param_2)
   param_1[3] = 0;
   param_1[4] = 0;
                     /* try { // try from 00a8b22d to 00a8b239 has its CatchHandler @ 00a8b2dd */
-  FUN_00a8a99e(param_1);
+  s_basic_string__erase_a8a99e(param_1);
   FUN_00a88430(param_1);
   return;
 }
@@ -58485,7 +58485,7 @@ ulong FUN_00ae34f0(long param_1,undefined1 *param_2)
     FUN_00ae0170((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae3825 to 00ae3829 has its CatchHandler @ 00ae3c7a */
-  FUN_00af3a20(&local_e8,param_1 + 8);
+  s_vector__reserve_af3a20(&local_e8,param_1 + 8);
   lVar16 = (long)local_e0 - (long)local_e8 >> 3;
   if (lVar16 != 0) {
     lVar12 = 0;
@@ -69384,7 +69384,7 @@ void FUN_00af39b0(long param_1,undefined8 param_2,long param_3,long *param_4,int
 }
 
 
-// ==== entry=00af3a20 name=FUN_00af3a20 size=1119 ====
+// ==== entry=00af3a20 orig=FUN_00af3a20 size=1119 name=s_vector__reserve_af3a20 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af3e00) */
 /* WARNING: Removing unreachable block (ram,0x00af3e40) */
@@ -69400,7 +69400,7 @@ void FUN_00af39b0(long param_1,undefined8 param_2,long param_3,long *param_4,int
 /* WARNING: Removing unreachable block (ram,0x00af3d2f) */
 /* WARNING: Removing unreachable block (ram,0x00af3cd2) */
 
-undefined1 (*) [16] FUN_00af3a20(undefined1 (*param_1) [16],long *param_2)
+undefined1 (*) [16] s_vector__reserve_af3a20(undefined1 (*param_1) [16],long *param_2)
 
 {
   int *piVar1;
@@ -74920,7 +74920,7 @@ LAB_00afb293:
     break;
   case 7:
     psVar1 = (string *)(param_1 + 8);
-    FUN_00af3a20(&local_58,param_2);
+    s_vector__reserve_af3a20(&local_58,param_2);
     lVar4 = *(long *)(param_1 + 8);
     lVar5 = *(long *)(lVar4 + -0x18);
     uVar12 = lVar5 + 1;
@@ -75338,7 +75338,7 @@ LAB_00afbdfe:
     FUN_00afc4f0(param_1,param_2);
     return;
   case 7:
-    FUN_00af3a20(&local_58,param_2);
+    s_vector__reserve_af3a20(&local_58,param_2);
     if (local_58 == local_50) {
                     /* try { // try from 00afbfd8 to 00afbfdc has its CatchHandler @ 00afc187 */
       std::string::string((string *)&local_60,"{}",&local_69);
@@ -75533,7 +75533,7 @@ undefined4 FUN_00afc240(long param_1,undefined8 param_2)
   }
   if ((uVar8 == 0) || (uVar12 <= uVar8 * 3)) {
     if (uVar8 * 3 < uVar12) {
-      FUN_00aff900(param_1 + 8,uVar8);
+      s_vector__reserve_aff900(param_1 + 8,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(undefined1 *)(param_1 + 0x38) = 0;
 LAB_00afc49e:
@@ -75554,7 +75554,7 @@ LAB_00afc49e:
     } while (!bVar6);
     if (!bVar14) {
       uVar13 = 0;
-      FUN_00aff900(param_1 + 8,uVar8);
+      s_vector__reserve_aff900(param_1 + 8,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(undefined1 *)(param_1 + 0x38) = 1;
       bVar14 = false;
@@ -75954,7 +75954,7 @@ LAB_00afcf98:
     FUN_00afd5f0(param_1,param_2);
     return;
   case 7:
-    FUN_00af3a20(&local_58,param_2);
+    s_vector__reserve_af3a20(&local_58,param_2);
     if (local_58 == local_50) {
                     /* try { // try from 00afd0d8 to 00afd0dc has its CatchHandler @ 00afd24d */
       std::string::string((string *)&local_60,"{}",&local_69);
@@ -76185,7 +76185,7 @@ undefined4 FUN_00afd340(long param_1,undefined8 param_2)
   }
   if ((uVar8 == 0) || (uVar12 <= uVar8 * 3)) {
     if (uVar8 * 3 < uVar12) {
-      FUN_00aff900(param_1 + 0x10,uVar8);
+      s_vector__reserve_aff900(param_1 + 0x10,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 0x60) = *(byte *)(param_1 + 0x60) & 0xfe;
 LAB_00afd59e:
@@ -76206,7 +76206,7 @@ LAB_00afd59e:
     } while (!bVar6);
     if (!bVar14) {
       uVar13 = 0;
-      FUN_00aff900(param_1 + 0x10,uVar8);
+      s_vector__reserve_aff900(param_1 + 0x10,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 0x60) = *(byte *)(param_1 + 0x60) | 1;
       bVar14 = false;
@@ -76654,7 +76654,7 @@ LAB_00afe118:
     FUN_00afe7b0(param_1,param_2);
     return;
   case 7:
-    FUN_00af3a20(&local_58,param_2);
+    s_vector__reserve_af3a20(&local_58,param_2);
     if (local_58 == local_50) {
                     /* try { // try from 00afe238 to 00afe23c has its CatchHandler @ 00afe412 */
       std::string::string((string *)&local_60,"{}",&local_69);
@@ -76879,7 +76879,7 @@ undefined4 FUN_00afe500(long *param_1,undefined8 param_2)
   }
   if ((uVar8 == 0) || (uVar12 <= uVar8 * 3)) {
     if (uVar8 * 3 < uVar12) {
-      FUN_00aff900(param_1,uVar8);
+      s_vector__reserve_aff900(param_1,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 7) = *(byte *)(param_1 + 7) & 0xfe;
 LAB_00afe75e:
@@ -76900,7 +76900,7 @@ LAB_00afe75e:
     } while (!bVar6);
     if (!bVar14) {
       uVar13 = 0;
-      FUN_00aff900(param_1,uVar8);
+      s_vector__reserve_aff900(param_1,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 7) = *(byte *)(param_1 + 7) | 1;
       bVar14 = false;
@@ -77245,7 +77245,7 @@ ulong FUN_00afebc0(long param_1,undefined1 *param_2)
   }
   local_100 = &local_e8;
                     /* try { // try from 00afede8 to 00afedec has its CatchHandler @ 00aff2d4 */
-  FUN_00af3a20(local_100,param_1 + 8);
+  s_vector__reserve_af3a20(local_100,param_1 + 8);
   lVar16 = (long)local_e0 - (long)local_e8 >> 3;
   if (lVar16 != 0) {
     lVar12 = 0;
@@ -77625,7 +77625,7 @@ void FUN_00aff680(undefined8 *param_1)
 }
 
 
-// ==== entry=00aff900 name=FUN_00aff900 size=400 ====
+// ==== entry=00aff900 orig=FUN_00aff900 size=400 name=s_vector__reserve_aff900 ====
 
 /* WARNING: Removing unreachable block (ram,0x00affa18) */
 /* WARNING: Removing unreachable block (ram,0x00affa60) */
@@ -77633,7 +77633,7 @@ void FUN_00aff680(undefined8 *param_1)
 /* WARNING: Removing unreachable block (ram,0x00affa29) */
 /* WARNING: Removing unreachable block (ram,0x00affa32) */
 
-void FUN_00aff900(undefined8 *param_1,ulong param_2)
+void s_vector__reserve_aff900(undefined8 *param_1,ulong param_2)
 
 {
   allocator *paVar1;

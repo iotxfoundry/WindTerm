@@ -115500,9 +115500,9 @@ undefined8 FUN_00be44e0(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00be4500 name=FUN_00be4500 size=8 ====
+// ==== entry=00be4500 orig=FUN_00be4500 size=8 name=s_tr1__bad_weak_ptr_be4500 ====
 
-char * FUN_00be4500(void)
+char * s_tr1__bad_weak_ptr_be4500(void)
 
 {
   return "tr1::bad_weak_ptr";

@@ -13424,7 +13424,7 @@ undefined4 main(undefined4 param_1,undefined8 param_2)
   QGuiApplication::setHighDpiScaleFactorRoundingPolicy(5);
   FUN_0075dba4(local_78,&local_7c,param_2);
                     /* try { // try from 0051f3f8 to 0051f401 has its CatchHandler @ 0051f415 */
-  FUN_0075be40(local_78);
+  s_WindTerm_75be40(local_78);
   uVar1 = QApplication::exec();
   SuperApplication_dtor(local_78);
   return uVar1;
@@ -16438,13 +16438,13 @@ LAB_00521b02:
 }
 
 
-// ==== entry=00522056 name=FUN_00522056 size=9063 ====
+// ==== entry=00522056 orig=FUN_00522056 size=9063 name=s_session_uuid_522056 ====
 
 /* WARNING: Removing unreachable block (ram,0x00524113) */
 /* WARNING: Removing unreachable block (ram,0x00524121) */
 /* WARNING: Removing unreachable block (ram,0x00524285) */
 
-undefined8 * FUN_00522056(long param_1,long param_2,undefined8 *param_3)
+undefined8 * s_session_uuid_522056(long param_1,long param_2,undefined8 *param_3)
 
 {
   code *pcVar1;
@@ -17342,7 +17342,7 @@ LAB_00524375:
               if (pQVar24 == local_190 + (long)(int)*(uint *)(local_190 + 0xc) * 8 + 0x10) {
 LAB_00524008:
                     /* try { // try from 00524025 to 00524029 has its CatchHandler @ 0052455f */
-                FUN_00810d6e(&local_178,DAT_011c2200,(QString *)&local_198,1);
+                s_session_protocol_810d6e(&local_178,DAT_011c2200,(QString *)&local_198,1);
                     /* try { // try from 0052403d to 00524041 has its CatchHandler @ 00524557 */
                 QRegularExpression::match
                           ((QRegularExpressionMatch *)&local_148,(QRegularExpression *)&local_1a0,
@@ -17780,7 +17780,7 @@ joined_r0x00524763:
                     /* try { // try from 00524632 to 00524636 has its CatchHandler @ 005247ac */
   FUN_00548cdc(&local_48,param_1);
                     /* try { // try from 00524640 to 00524644 has its CatchHandler @ 005247b4 */
-  uVar6 = FUN_00522056(lVar7,lVar8,&local_48);
+  uVar6 = s_session_uuid_522056(lVar7,lVar8,&local_48);
   piVar5 = (int *)CONCAT44(iStack_44,local_48);
   if (*piVar5 == 0) {
 LAB_0052477f:
@@ -18048,9 +18048,9 @@ LAB_00524a05:
 }
 
 
-// ==== entry=00524a20 name=FUN_00524a20 size=1401 ====
+// ==== entry=00524a20 orig=FUN_00524a20 size=1401 name=s_session_icon_524a20 ====
 
-QIcon * FUN_00524a20(QIcon *param_1,long param_2,undefined8 param_3,int param_4)
+QIcon * s_session_icon_524a20(QIcon *param_1,long param_2,undefined8 param_3,int param_4)
 
 {
   long lVar1;
@@ -18177,7 +18177,7 @@ LAB_00524c9e:
         local_d8 = pQVar8;
         FUN_005249f0(&local_d8);
       }
-      lVar6 = FUN_00810056(DAT_011c2200,&local_e0,0);
+      lVar6 = s_session_uuid_810056(DAT_011c2200,&local_e0,0);
       if (lVar6 != 0) {
         FUN_00af0450((QIcon *)local_98,&DAT_00cb99b6);
                     /* try { // try from 00524de1 to 00524de5 has its CatchHandler @ 00525029 */

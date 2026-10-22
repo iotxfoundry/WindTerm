@@ -822,7 +822,7 @@ LAB_00973a9a:
         }
         if (*(int *)(*(long *)(pcVar4 + 0x40) + 0x14) != 0) {
                     /* try { // try from 00973b09 to 00973b0d has its CatchHandler @ 00973f32 */
-          FUN_00970f34(pcVar4 + 0x40,&local_50);
+          Uint8PieceTable_h970f34(pcVar4 + 0x40,&local_50);
         }
         *pcVar4 = '\0';
         if (pvVar11 != (void *)0x0) {
@@ -1113,7 +1113,7 @@ LAB_00973ffa:
         }
         if (*(int *)(*(long *)(pcVar4 + 0x40) + 0x14) != 0) {
                     /* try { // try from 00974069 to 0097406d has its CatchHandler @ 009744b2 */
-          FUN_00970f34(pcVar4 + 0x40,&local_50);
+          Uint8PieceTable_h970f34(pcVar4 + 0x40,&local_50);
         }
         *pcVar4 = '\0';
         if (pvVar10 != (void *)0x0) {
@@ -39541,9 +39541,9 @@ LAB_009a64c2:
 }
 
 
-// ==== entry=009a6610 name=FUN_009a6610 size=1364 ====
+// ==== entry=009a6610 orig=FUN_009a6610 size=1364 name=s_king__label_9a6610 ====
 
-QVariant * FUN_009a6610(QVariant *param_1,long param_2,long param_3,int param_4)
+QVariant * s_king__label_9a6610(QVariant *param_1,long param_2,long param_3,int param_4)
 
 {
   int *piVar1;
@@ -52942,9 +52942,9 @@ LAB_009b93ad:
 }
 
 
-// ==== entry=009b9428 name=FUN_009b9428 size=108 ====
+// ==== entry=009b9428 orig=FUN_009b9428 size=108 name=s_text_default_9b9428 ====
 
-void FUN_009b9428(undefined8 *param_1,undefined8 param_2)
+void s_text_default_9b9428(undefined8 *param_1,undefined8 param_2)
 
 {
   *param_1 = 0;
@@ -53696,9 +53696,9 @@ ulong * FUN_009ba204(undefined1 *param_1,long param_2,allocator *param_3)
 }
 
 
-// ==== entry=009ba26e name=FUN_009ba26e size=131 ====
+// ==== entry=009ba26e orig=FUN_009ba26e size=131 name=s_text_default_9ba26e ====
 
-undefined * FUN_009ba26e(void)
+undefined * s_text_default_9ba26e(void)
 
 {
   int iVar1;
@@ -53734,7 +53734,7 @@ void FUN_009ba2fa(long param_1,long param_2)
   pcVar4 = *(char **)(param_1 + 0x18);
   if (pcVar4 == (char *)0x0) {
 LAB_009ba38f:
-    FUN_009ba26e(param_1);
+    s_text_default_9ba26e(param_1);
   }
   else {
     pcVar1 = *(char **)(pcVar4 + 8);
@@ -54143,9 +54143,9 @@ undefined8 FUN_009ba966(long param_1,int param_2)
 }
 
 
-// ==== entry=009baa86 name=FUN_009baa86 size=727 ====
+// ==== entry=009baa86 orig=FUN_009baa86 size=727 name=s_text_default_9baa86 ====
 
-void * FUN_009baa86(long param_1,ulong param_2)
+void * s_text_default_9baa86(long param_1,ulong param_2)
 
 {
   allocator aVar1;
@@ -54295,18 +54295,18 @@ void FUN_009bad6e(long param_1)
     FUN_009b94fc(param_1);
     return;
   }
-  uVar1 = FUN_009baa86(param_1,0);
+  uVar1 = s_text_default_9baa86(param_1,0);
   *(undefined8 *)(param_1 + 0x30) = uVar1;
   FUN_009b94fc(param_1);
   return;
 }
 
 
-// ==== entry=009bad96 name=FUN_009bad96 size=1343 ====
+// ==== entry=009bad96 orig=FUN_009bad96 size=1343 name=s_text_preferThemeFonts_9bad96 ====
 
 /* WARNING: Removing unreachable block (ram,0x009bb2c3) */
 
-void FUN_009bad96(long param_1)
+void s_text_preferThemeFonts_9bad96(long param_1)
 
 {
   int *piVar1;
@@ -54768,7 +54768,7 @@ void * FUN_009bb4fa(long *param_1,undefined8 param_2)
                     /* try { // try from 009bb53c to 009bb540 has its CatchHandler @ 009bd8c5 */
   FUN_0094b8a6(*(undefined8 *)(*param_1 + 0x40),pvVar7,lVar17);
                     /* try { // try from 009bb556 to 009bb55a has its CatchHandler @ 009bd7b5 */
-  FUN_00af3a20(&local_238,param_2);
+  s_vector__reserve_af3a20(&local_238,param_2);
   plVar19 = local_230;
   local_338 = local_230;
   if (local_238 != local_230) {
@@ -56261,7 +56261,7 @@ LAB_009bde36:
     FUN_00af2c10(local_f8);
   }
                     /* try { // try from 009bde4d to 009bdf9b has its CatchHandler @ 009be328 */
-  FUN_009bad96(param_1);
+  s_text_preferThemeFonts_9bad96(param_1);
   puVar8 = (undefined8 *)param_1[1];
   for (puVar14 = (undefined8 *)*param_1; puVar8 != puVar14; puVar14 = puVar14 + 1) {
     FUN_0094e0ae(*(undefined8 *)*puVar14,param_1[4]);
@@ -64601,7 +64601,7 @@ undefined8 * FUN_009c8c16(undefined8 *param_1,undefined8 param_2,undefined8 para
   undefined2 local_1c;
   undefined4 local_18;
   
-  FUN_0091f32e(&local_48,param_3);
+  s_text_backgroundColor_91f32e(&local_48,param_3);
   puVar1 = operator_new(0x34);
   *puVar1 = local_48;
   *(undefined8 *)(puVar1 + 1) = local_44;
@@ -64667,7 +64667,7 @@ undefined8 * FUN_009c8cf0(undefined8 *param_1,long param_2,int param_3)
 }
 
 
-// ==== entry=009c8d82 name=FUN_009c8d82 size=1357 ====
+// ==== entry=009c8d82 orig=FUN_009c8d82 size=1357 name=s_text_matchWholeWord_9c8d82 ====
 
 /* WARNING: Removing unreachable block (ram,0x009c92ac) */
 /* WARNING: Removing unreachable block (ram,0x009c921f) */
@@ -64675,7 +64675,7 @@ undefined8 * FUN_009c8cf0(undefined8 *param_1,long param_2,int param_3)
 /* WARNING: Removing unreachable block (ram,0x009c91f2) */
 /* WARNING: Removing unreachable block (ram,0x009c9205) */
 
-undefined8 FUN_009c8d82(undefined8 param_1,undefined8 *param_2,undefined8 *param_3)
+undefined8 s_text_matchWholeWord_9c8d82(undefined8 param_1,undefined8 *param_2,undefined8 *param_3)
 
 {
   undefined8 uVar1;
@@ -66304,7 +66304,7 @@ LAB_009caeac:
 }
 
 
-// ==== entry=009cb27c name=FUN_009cb27c size=2573 ====
+// ==== entry=009cb27c orig=FUN_009cb27c size=2573 name=s_text_matchWholeWord_9cb27c ====
 
 /* WARNING: Removing unreachable block (ram,0x009cbc49) */
 /* WARNING: Removing unreachable block (ram,0x009cbc7b) */
@@ -66318,7 +66318,7 @@ LAB_009caeac:
 /* WARNING: Removing unreachable block (ram,0x009cbbe0) */
 /* WARNING: Removing unreachable block (ram,0x009cbc71) */
 
-long * FUN_009cb27c(long *param_1,long param_2,QMap *param_3)
+long * s_text_matchWholeWord_9cb27c(long *param_1,long param_2,QMap *param_3)
 
 {
   long *plVar1;
@@ -66645,7 +66645,7 @@ LAB_009cb526:
     } while (bVar11);
   }
                     /* try { // try from 009cb993 to 009cb997 has its CatchHandler @ 009cbcd1 */
-  FUN_009c8d82(&local_58,param_2,param_3);
+  s_text_matchWholeWord_9c8d82(&local_58,param_2,param_3);
                     /* try { // try from 009cb9ad to 009cb9b1 has its CatchHandler @ 009cbd49 */
   FUN_009c8c16(local_68,param_2,param_3);
   if (local_58 != 0) {

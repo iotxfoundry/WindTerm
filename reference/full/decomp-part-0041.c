@@ -47153,9 +47153,9 @@ long * FUN_00c62070(long *param_1,long param_2)
 }
 
 
-// ==== entry=00c620c0 name=FUN_00c620c0 size=495 ====
+// ==== entry=00c620c0 orig=FUN_00c620c0 size=495 name=s_basic_string__append_c620c0 ====
 
-long * FUN_00c620c0(long *param_1,undefined8 param_2,long param_3,long param_4)
+long * s_basic_string__append_c620c0(long *param_1,undefined8 param_2,long param_3,long param_4)
 
 {
   wchar_t *pwVar1;
@@ -48124,10 +48124,11 @@ void FUN_00c630a0(long *param_1)
 }
 
 
-// ==== entry=00c630b0 name=FUN_00c630b0 size=2026 ====
+// ==== entry=00c630b0 orig=FUN_00c630b0 size=2026 name=s_basic_string__append_c630b0 ====
 
-long * FUN_00c630b0(undefined8 param_1,long *param_2,char param_3,long param_4,undefined4 param_5,
-                   undefined8 *param_6)
+long * s_basic_string__append_c630b0
+                 (undefined8 param_1,long *param_2,char param_3,long param_4,undefined4 param_5,
+                 undefined8 *param_6)
 
 {
   ulong uVar1;
@@ -48395,10 +48396,11 @@ LAB_00c63188:
 }
 
 
-// ==== entry=00c63990 name=FUN_00c63990 size=2026 ====
+// ==== entry=00c63990 orig=FUN_00c63990 size=2026 name=s_basic_string__append_c63990 ====
 
-long * FUN_00c63990(undefined8 param_1,long *param_2,char param_3,long param_4,undefined4 param_5,
-                   undefined8 *param_6)
+long * s_basic_string__append_c63990
+                 (undefined8 param_1,long *param_2,char param_3,long param_4,undefined4 param_5,
+                 undefined8 *param_6)
 
 {
   ulong uVar1;
@@ -48750,11 +48752,11 @@ FUN_00c64270(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined4
   uVar4 = local_a8;
   if ((char)local_a4 == '\0') {
     *(undefined8 *)(puVar10 + -8) = 0xc64435;
-    local_88 = FUN_00c63990(uVar6,uVar5,uVar9,param_5,uVar4,local_68);
+    local_88 = s_basic_string__append_c63990(uVar6,uVar5,uVar9,param_5,uVar4,local_68);
   }
   else {
     *(undefined8 *)(puVar10 + -8) = 0xc643d2;
-    local_88 = FUN_00c630b0();
+    local_88 = s_basic_string__append_c630b0();
   }
   puVar11 = local_68[0];
   if (local_68[0] != local_58) {
@@ -48780,10 +48782,10 @@ void FUN_00c64470(void)
   char in_CL;
   
   if (in_CL != '\0') {
-    FUN_00c630b0();
+    s_basic_string__append_c630b0();
     return;
   }
-  FUN_00c63990();
+  s_basic_string__append_c63990();
   return;
 }
 

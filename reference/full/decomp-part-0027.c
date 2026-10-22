@@ -1,7 +1,7 @@
 // Ghidra 12.1.4 decompiled — WindTerm 2.7.0 (sha256 9491b87e…) part 27
-// ==== entry=0085d25c name=FUN_0085d25c size=697 ====
+// ==== entry=0085d25c orig=FUN_0085d25c size=697 name=s_kit_askBeforeCloseWindow_85d25c ====
 
-void FUN_0085d25c(undefined8 param_1,long param_2)
+void s_kit_askBeforeCloseWindow_85d25c(undefined8 param_1,long param_2)
 
 {
   uint uVar1;
@@ -107,7 +107,7 @@ LAB_0085d4e4:
 }
 
 
-// ==== entry=0085d55e name=FUN_0085d55e size=815 ====
+// ==== entry=0085d55e orig=FUN_0085d55e size=815 name=s_ExplorerPane_85d55e ====
 
 /* WARNING: Removing unreachable block (ram,0x0085d848) */
 /* WARNING: Removing unreachable block (ram,0x0085d879) */
@@ -116,7 +116,7 @@ LAB_0085d4e4:
 /* WARNING: Removing unreachable block (ram,0x0085d883) */
 /* WARNING: Removing unreachable block (ram,0x0085d817) */
 
-void FUN_0085d55e(undefined8 param_1)
+void s_ExplorerPane_85d55e(undefined8 param_1)
 
 {
   size_t sVar1;
@@ -258,11 +258,11 @@ LAB_0085d973:
 }
 
 
-// ==== entry=0085d99e name=FUN_0085d99e size=1096 ====
+// ==== entry=0085d99e orig=FUN_0085d99e size=1096 name=s_king__tunnelSmall_85d99e ====
 
 /* WARNING: Removing unreachable block (ram,0x0085ddb7) */
 
-QWidget * FUN_0085d99e(undefined8 param_1)
+QWidget * s_king__tunnelSmall_85d99e(undefined8 param_1)
 
 {
   undefined8 uVar1;
@@ -282,7 +282,7 @@ QWidget * FUN_0085d99e(undefined8 param_1)
   code *local_48;
   undefined8 local_40;
   
-  pQVar3 = (QWidget *)FUN_008cbffe();
+  pQVar3 = (QWidget *)s_king__anythingPaletteSmall_8cbffe();
   if (pQVar3 == (QWidget *)0x0) {
     return (QWidget *)0x0;
   }
@@ -398,7 +398,7 @@ LAB_0085dc4d:
                     /* try { // try from 0085dc77 to 0085dce8 has its CatchHandler @ 0085de15 */
   puVar6 = operator_new(0x20);
   *puVar6 = 1;
-  *(code **)(puVar6 + 2) = FUN_008575d4;
+  *(code **)(puVar6 + 2) = s_king__tunnelSmallActive_8575d4;
   *(QToolButton **)(puVar6 + 4) = this;
   QObject::connectImpl
             ((Connection *)&local_58,uVar1,(QIcon *)&local_48,this,0,puVar6,0,0,
@@ -1954,11 +1954,11 @@ void FUN_0085fc72(long param_1,undefined1 param_2,long param_3)
 }
 
 
-// ==== entry=00860126 name=FUN_00860126 size=1251 ====
+// ==== entry=00860126 orig=FUN_00860126 size=1251 name=s_session_term_860126 ====
 
 /* WARNING: Removing unreachable block (ram,0x008605fe) */
 
-void FUN_00860126(undefined8 param_1,char param_2,char param_3)
+void s_session_term_860126(undefined8 param_1,char param_2,char param_3)
 
 {
   int *piVar1;
@@ -2149,7 +2149,7 @@ void FUN_00860642(undefined8 param_1,undefined1 param_2,undefined1 param_3)
       if (*(char *)(lVar3 + 4 + uVar5 * 0xc) == '\x01') {
         cVar1 = FUN_0085e326(param_1,uVar5);
         if (cVar1 != '\0') {
-          FUN_00860126(param_1,param_2,param_3);
+          s_session_term_860126(param_1,param_2,param_3);
           return;
         }
         lVar3 = *plVar2;
@@ -3821,7 +3821,7 @@ void FUN_00862283(int param_1,void *param_2)
       local_20 = *(undefined8 *)((long)param_2 + 0x18);
       FUN_005444ac();
                     /* try { // try from 008622de to 008622e2 has its CatchHandler @ 0086231c */
-      FUN_0086c7b2(uVar4,&local_20,uVar1);
+      s_session_proxyWorkingDirectory_86c7b2(uVar4,&local_20,uVar1);
       FUN_005249f0(&local_20);
     }
   }
@@ -4014,7 +4014,7 @@ ulong FUN_0086254e(long param_1,undefined8 param_2)
   else {
     FUN_00806382(&local_20,DAT_011c2200);
                     /* try { // try from 00862582 to 00862586 has its CatchHandler @ 008625d2 */
-    uVar2 = FUN_0062aac6(lVar1,&local_20,param_2);
+    uVar2 = s_known_hosts_62aac6(lVar1,&local_20,param_2);
     if (*(int *)local_20 == 0) {
 LAB_008625ab:
       QArrayData::deallocate(local_20,2,8);
@@ -4591,9 +4591,9 @@ void FUN_00862f69(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=008630d5 name=FUN_008630d5 size=912 ====
+// ==== entry=008630d5 orig=FUN_008630d5 size=912 name=s_ssh_x11Protocol_8630d5 ====
 
-int FUN_008630d5(long *param_1)
+int s_ssh_x11Protocol_8630d5(long *param_1)
 
 {
   char *pcVar1;
@@ -4770,9 +4770,9 @@ LAB_00863313:
 }
 
 
-// ==== entry=008634cd name=FUN_008634cd size=480 ====
+// ==== entry=008634cd orig=FUN_008634cd size=480 name=s_ssh_agentForwarding_8634cd ====
 
-undefined8 FUN_008634cd(long *param_1)
+undefined8 s_ssh_agentForwarding_8634cd(long *param_1)
 
 {
   char *pcVar1;
@@ -5398,11 +5398,11 @@ void FUN_00863e7c(long param_1)
 }
 
 
-// ==== entry=00863ea0 name=FUN_00863ea0 size=473 ====
+// ==== entry=00863ea0 orig=FUN_00863ea0 size=473 name=s_ssh_serverFingerprint_863ea0 ====
 
 /* WARNING: Removing unreachable block (ram,0x00864068) */
 
-QJsonObject * FUN_00863ea0(QJsonObject *param_1,long param_2)
+QJsonObject * s_ssh_serverFingerprint_863ea0(QJsonObject *param_1,long param_2)
 
 {
   QString *pQVar1;
@@ -6612,11 +6612,11 @@ undefined8 * FUN_008659ca(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=00865ace name=FUN_00865ace size=1908 ====
+// ==== entry=00865ace orig=FUN_00865ace size=1908 name=s_ssh_agent_865ace ====
 
 /* WARNING: Removing unreachable block (ram,0x00866210) */
 
-void FUN_00865ace(long *param_1,undefined2 param_2)
+void s_ssh_agent_865ace(long *param_1,undefined2 param_2)
 
 {
   undefined4 *puVar1;
@@ -6905,7 +6905,7 @@ void FUN_00866335(int param_1,void *param_2,undefined8 param_3,long param_4)
     return;
   }
   if (param_1 == 1) {
-    FUN_00865ace((long)param_2 + 0x10,**(undefined2 **)(param_4 + 8));
+    s_ssh_agent_865ace((long)param_2 + 0x10,**(undefined2 **)(param_4 + 8));
     return;
   }
   return;
@@ -7088,13 +7088,13 @@ void FUN_00866620(undefined8 param_1,undefined8 *param_2,long *param_3,undefined
     local_f8[0] = lVar1;
                     /* try { // try from 008666b7 to 008666bb has its CatchHandler @ 00866986 */
     uVar2 = FUN_0086ac68(local_140,local_f8);
-    local_c0 = FUN_008630d5;
+    local_c0 = s_ssh_x11Protocol_8630d5;
     local_c8 = FUN_008618b1;
     local_d8 = param_1;
     local_d0 = lVar1;
                     /* try { // try from 008666fd to 00866701 has its CatchHandler @ 0086698e */
     uVar2 = FUN_0086ac68(uVar2,&local_d8);
-    local_a0 = FUN_008634cd;
+    local_a0 = s_ssh_agentForwarding_8634cd;
     local_a8 = FUN_008618e3;
     local_b8 = param_1;
     local_b0 = lVar1;
@@ -7352,9 +7352,9 @@ void SshBridge_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=00866e4a name=FUN_00866e4a size=2734 ====
+// ==== entry=00866e4a orig=FUN_00866e4a size=2734 name=s_PasswordEnabled_866e4a ====
 
-undefined4 FUN_00866e4a(undefined8 *param_1,uint param_2)
+undefined4 s_PasswordEnabled_866e4a(undefined8 *param_1,uint param_2)
 
 {
   int iVar1;
@@ -7443,7 +7443,7 @@ undefined4 FUN_00866e4a(undefined8 *param_1,uint param_2)
             uVar9 = param_1[4];
           }
                     /* try { // try from 00867289 to 008672ac has its CatchHandler @ 0086791d */
-          cVar3 = FUN_007d5a36(uVar9);
+          cVar3 = s_ssh_authPassword_7d5a36(uVar9);
           if (cVar3 != '\0') {
             FUN_005445f2(&local_98,"Password");
                     /* try { // try from 008672b6 to 008672ba has its CatchHandler @ 008679f5 */
@@ -7506,7 +7506,7 @@ undefined4 FUN_00866e4a(undefined8 *param_1,uint param_2)
             uVar9 = param_1[4];
           }
                     /* try { // try from 008674a3 to 008674c8 has its CatchHandler @ 0086791d */
-          uVar5 = FUN_007d5aa8(uVar9);
+          uVar5 = s_ssh_authPublicKey_7d5aa8(uVar9);
           if ((char)uVar5 != '\0') {
             FUN_005445f2(&local_98,"Public Key");
                     /* try { // try from 008674d2 to 008674d6 has its CatchHandler @ 00867a25 */
@@ -7612,7 +7612,7 @@ undefined4 FUN_00866e4a(undefined8 *param_1,uint param_2)
             uVar9 = param_1[4];
           }
                     /* try { // try from 00867045 to 00867061 has its CatchHandler @ 0086791d */
-          uVar5 = FUN_007d59c4(uVar9);
+          uVar5 = s_ssh_authKeyboardInteractive_7d59c4(uVar9);
           if ((char)uVar5 != '\0') {
             FUN_005445f2((QString *)&local_78,"Keyboard Interactive");
                     /* try { // try from 0086706b to 0086706f has its CatchHandler @ 00867915 */
@@ -7721,7 +7721,7 @@ LAB_00866ffc:
 }
 
 
-// ==== entry=00867a2e name=FUN_00867a2e size=1553 ====
+// ==== entry=00867a2e orig=FUN_00867a2e size=1553 name=s_session_tcpReceiveBufferSize_867a2e ====
 
 /* WARNING: Removing unreachable block (ram,0x00868019) */
 /* WARNING: Removing unreachable block (ram,0x00867f4f) */
@@ -7737,7 +7737,7 @@ LAB_00866ffc:
 /* WARNING: Removing unreachable block (ram,0x00867fb8) */
 /* WARNING: Removing unreachable block (ram,0x0086802f) */
 
-void FUN_00867a2e(long param_1,QByteArray *param_2,bool *param_3)
+void s_session_tcpReceiveBufferSize_867a2e(long param_1,QByteArray *param_2,bool *param_3)
 
 {
   char cVar1;
@@ -7916,7 +7916,7 @@ void FUN_00867a2e(long param_1,QByteArray *param_2,bool *param_3)
 }
 
 
-// ==== entry=00868050 name=FUN_00868050 size=611 ====
+// ==== entry=00868050 orig=FUN_00868050 size=611 name=s_session_proxyPassword_868050 ====
 
 /* WARNING: Removing unreachable block (ram,0x0086828b) */
 /* WARNING: Removing unreachable block (ram,0x0086829f) */
@@ -7925,8 +7925,9 @@ void FUN_00867a2e(long param_1,QByteArray *param_2,bool *param_3)
 /* WARNING: Removing unreachable block (ram,0x00868295) */
 /* WARNING: Removing unreachable block (ram,0x00868284) */
 
-void FUN_00868050(long param_1,QString *param_2,bool param_3,QString *param_4,uint param_5,
-                 QString *param_6,QString *param_7)
+void s_session_proxyPassword_868050
+               (long param_1,QString *param_2,bool param_3,QString *param_4,uint param_5,
+               QString *param_6,QString *param_7)
 
 {
   size_t sVar1;
@@ -7986,14 +7987,15 @@ void FUN_00868050(long param_1,QString *param_2,bool param_3,QString *param_4,ui
 }
 
 
-// ==== entry=00868316 name=FUN_00868316 size=414 ====
+// ==== entry=00868316 orig=FUN_00868316 size=414 name=s_session_proxyWorkingDirectory_868316 ====
 
 /* WARNING: Removing unreachable block (ram,0x008684a0) */
 /* WARNING: Removing unreachable block (ram,0x0086848f) */
 /* WARNING: Removing unreachable block (ram,0x008684aa) */
 /* WARNING: Removing unreachable block (ram,0x00868499) */
 
-void FUN_00868316(long param_1,QString *param_2,QString *param_3,QString *param_4,QString *param_5)
+void s_session_proxyWorkingDirectory_868316
+               (long param_1,QString *param_2,QString *param_3,QString *param_4,QString *param_5)
 
 {
   size_t sVar1;
@@ -8245,9 +8247,9 @@ void FUN_008689b7(int param_1,void *param_2)
 }
 
 
-// ==== entry=00868a4e name=FUN_00868a4e size=2615 ====
+// ==== entry=00868a4e orig=FUN_00868a4e size=2615 name=s_PasswordEnabled_868a4e ====
 
-void FUN_00868a4e(long param_1,char *param_2,undefined8 param_3,int param_4)
+void s_PasswordEnabled_868a4e(long param_1,char *param_2,undefined8 param_3,int param_4)
 
 {
   undefined8 *puVar1;
@@ -8597,7 +8599,7 @@ void FUN_00869602(long param_1,char *param_2,undefined8 param_3,uint param_4)
   QVariant::~QVariant(local_50);
   FUN_005249f0(local_58);
                     /* try { // try from 00869675 to 008696ab has its CatchHandler @ 00869897 */
-  FUN_00868a4e(param_1,param_2,param_3,param_4);
+  s_PasswordEnabled_868a4e(param_1,param_2,param_3,param_4);
   if (param_4 == 0) {
     QObject::deleteLater();
     QVariant::QVariant(local_58,(QMap *)&local_68);
@@ -8606,7 +8608,7 @@ void FUN_00869602(long param_1,char *param_2,undefined8 param_3,uint param_4)
   }
   else {
                     /* try { // try from 008696e1 to 00869731 has its CatchHandler @ 00869897 */
-    cVar1 = FUN_00866e4a(param_1,param_4);
+    cVar1 = s_PasswordEnabled_866e4a(param_1,param_4);
     if (cVar1 != '\0') goto switchD_0086971e_caseD_0;
     if ((param_4 & 0xfffffffd) == 1) {
                     /* try { // try from 008697d4 to 008697d8 has its CatchHandler @ 00869897 */
@@ -8879,9 +8881,9 @@ void FUN_00869a6a(long param_1,undefined4 param_2,undefined4 param_3,char param_
 }
 
 
-// ==== entry=00869ac2 name=FUN_00869ac2 size=297 ====
+// ==== entry=00869ac2 orig=FUN_00869ac2 size=297 name=s_SshCommander__write_869ac2 ====
 
-long FUN_00869ac2(long param_1,undefined8 param_2,undefined8 *param_3)
+long s_SshCommander__write_869ac2(long param_1,undefined8 param_2,undefined8 *param_3)
 
 {
   int iVar1;
@@ -11398,7 +11400,7 @@ LAB_0086c6cf:
 }
 
 
-// ==== entry=0086c7b2 name=FUN_0086c7b2 size=7768 ====
+// ==== entry=0086c7b2 orig=FUN_0086c7b2 size=7768 name=s_session_proxyWorkingDirectory_86c7b2 ====
 
 /* WARNING: Removing unreachable block (ram,0x0086dda7) */
 /* WARNING: Removing unreachable block (ram,0x0086e017) */
@@ -11412,7 +11414,7 @@ LAB_0086c6cf:
 /* WARNING: Removing unreachable block (ram,0x0086da2c) */
 /* WARNING: Removing unreachable block (ram,0x0086da36) */
 
-void FUN_0086c7b2(long param_1,undefined8 param_2,undefined2 param_3)
+void s_session_proxyWorkingDirectory_86c7b2(long param_1,undefined8 param_2,undefined2 param_3)
 
 {
   code *pcVar1;
@@ -13357,9 +13359,9 @@ undefined8 FUN_0086f69e(undefined8 param_1)
 }
 
 
-// ==== entry=0086f6b0 name=FUN_0086f6b0 size=1976 ====
+// ==== entry=0086f6b0 orig=FUN_0086f6b0 size=1976 name=s_serial_flowControl_86f6b0 ====
 
-void FUN_0086f6b0(long param_1,long param_2)
+void s_serial_flowControl_86f6b0(long param_1,long param_2)
 
 {
   undefined4 uVar1;
@@ -13389,7 +13391,7 @@ void FUN_0086f6b0(long param_1,long param_2)
                     /* try { // try from 0086f70f to 0086f713 has its CatchHandler @ 0086fef0 */
     QByteArray::QByteArray((QByteArray *)&local_50,"serial.baudRate",-1);
                     /* try { // try from 0086f722 to 0086f726 has its CatchHandler @ 0086fee8 */
-    FUN_007d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
+    s_ssh_identityFilePath_7d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
                     /* try { // try from 0086f72c to 0086f730 has its CatchHandler @ 0086fe90 */
     uVar1 = QVariant::toInt((bool *)local_48);
     QVariant::~QVariant((QVariant *)local_48);
@@ -13423,7 +13425,7 @@ LAB_0086fa85:
                     /* try { // try from 0086fac1 to 0086fac5 has its CatchHandler @ 0086feb8 */
     QByteArray::QByteArray((QByteArray *)&local_50,"serial.parity",-1);
                     /* try { // try from 0086fad4 to 0086fad8 has its CatchHandler @ 0086fea0 */
-    FUN_007d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
+    s_ssh_identityFilePath_7d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
                     /* try { // try from 0086fae2 to 0086fae6 has its CatchHandler @ 0086feb0 */
     QVariant::toString();
     QVariant::~QVariant((QVariant *)local_48);
@@ -13448,7 +13450,7 @@ LAB_0086fb12:
                     /* try { // try from 0086f7c8 to 0086f7cc has its CatchHandler @ 0086fec0 */
     QByteArray::QByteArray((QByteArray *)&local_50,"serial.dataBits",-1);
                     /* try { // try from 0086f7db to 0086f7df has its CatchHandler @ 0086fe98 */
-    FUN_007d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
+    s_ssh_identityFilePath_7d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
                     /* try { // try from 0086f7e5 to 0086f7e9 has its CatchHandler @ 0086fec8 */
     iVar2 = QVariant::toInt((bool *)local_48);
     QVariant::~QVariant((QVariant *)local_48);
@@ -13569,7 +13571,7 @@ LAB_0086fb45:
                     /* try { // try from 0086fb81 to 0086fb85 has its CatchHandler @ 0086ff00 */
     QByteArray::QByteArray((QByteArray *)&local_50,"serial.flowControl",-1);
                     /* try { // try from 0086fb94 to 0086fb98 has its CatchHandler @ 0086fef8 */
-    FUN_007d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
+    s_ssh_identityFilePath_7d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
                     /* try { // try from 0086fba4 to 0086fba8 has its CatchHandler @ 0086fe68 */
     QVariant::toString();
     QVariant::~QVariant((QVariant *)local_48);
@@ -13594,7 +13596,7 @@ LAB_0086fbd4:
                     /* try { // try from 0086f93c to 0086f940 has its CatchHandler @ 0086fee0 */
     QByteArray::QByteArray((QByteArray *)&local_50,"serial.stopBits",-1);
                     /* try { // try from 0086f94f to 0086f953 has its CatchHandler @ 0086fed8 */
-    FUN_007d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
+    s_ssh_identityFilePath_7d5538((QVariant *)local_48,uVar4,(QByteArray *)&local_50);
                     /* try { // try from 0086f959 to 0086f95d has its CatchHandler @ 0086fed0 */
     iVar2 = QVariant::toInt((bool *)local_48);
     QVariant::~QVariant((QVariant *)local_48);
@@ -13748,9 +13750,9 @@ void FUN_0086ff90(undefined8 *param_1)
 }
 
 
-// ==== entry=0086ffaa name=FUN_0086ffaa size=263 ====
+// ==== entry=0086ffaa orig=FUN_0086ffaa size=263 name=s_session_target_86ffaa ====
 
-void FUN_0086ffaa(long param_1)
+void s_session_target_86ffaa(long param_1)
 
 {
   long lVar1;
@@ -13758,7 +13760,7 @@ void FUN_0086ffaa(long param_1)
   QArrayData *local_40;
   QVariant local_38 [24];
   
-  lVar1 = FUN_007d846e();
+  lVar1 = s_session_proxyWorkingDirectory_7d846e();
   if (lVar1 == 0) {
     return;
   }
@@ -13766,10 +13768,10 @@ void FUN_0086ffaa(long param_1)
   if (lVar1 == 0) {
     return;
   }
-  FUN_0086f6b0(lVar1,*(undefined8 *)(param_1 + 0x30));
+  s_serial_flowControl_86f6b0(lVar1,*(undefined8 *)(param_1 + 0x30));
   QByteArray::QByteArray((QByteArray *)&local_48,"session.target",-1);
                     /* try { // try from 0087001d to 00870021 has its CatchHandler @ 008700b1 */
-  FUN_007d5538(local_38,param_1,&local_48);
+  s_ssh_identityFilePath_7d5538(local_38,param_1,&local_48);
                     /* try { // try from 0087002d to 00870031 has its CatchHandler @ 008700b9 */
   QVariant::toString();
                     /* try { // try from 0087003a to 0087003e has its CatchHandler @ 008700c1 */
@@ -17013,14 +17015,14 @@ joined_r0x008739ca:
 }
 
 
-// ==== entry=00873a46 name=FUN_00873a46 size=5446 ====
+// ==== entry=00873a46 orig=FUN_00873a46 size=5446 name=s_process_workingDirectory_873a46 ====
 
 /* WARNING: Removing unreachable block (ram,0x00874dc9) */
 /* WARNING: Removing unreachable block (ram,0x00874df1) */
 /* WARNING: Removing unreachable block (ram,0x00874e05) */
 /* WARNING: Removing unreachable block (ram,0x00874ddd) */
 
-void FUN_00873a46(long param_1,undefined8 *param_2)
+void s_process_workingDirectory_873a46(long param_1,undefined8 *param_2)
 
 {
   uint uVar1;
@@ -17205,7 +17207,7 @@ LAB_00874a8e:
                     /* try { // try from 00873d6c to 00873d70 has its CatchHandler @ 0087505d */
       QByteArray::QByteArray((QByteArray *)&local_98,"window.rows",-1);
                     /* try { // try from 00873d7c to 00873d80 has its CatchHandler @ 0087501d */
-      FUN_007d5538((QString *)&local_88,uVar13,(QByteArray *)&local_98);
+      s_ssh_identityFilePath_7d5538((QString *)&local_88,uVar13,(QByteArray *)&local_98);
                     /* try { // try from 00873d86 to 00873d8a has its CatchHandler @ 00875025 */
       local_ec = QVariant::toInt((bool *)&local_88);
       QVariant::~QVariant((QVariant *)&local_88);
@@ -17235,7 +17237,7 @@ LAB_00874eee:
                     /* try { // try from 00873e2f to 00873e33 has its CatchHandler @ 00874f94 */
     QByteArray::QByteArray((QByteArray *)&local_98,"window.columns",-1);
                     /* try { // try from 00873e3f to 00873e43 has its CatchHandler @ 0087506d */
-    FUN_007d5538((QString *)&local_88,uVar13,(QByteArray *)&local_98);
+    s_ssh_identityFilePath_7d5538((QString *)&local_88,uVar13,(QByteArray *)&local_98);
                     /* try { // try from 00873e49 to 00873e4d has its CatchHandler @ 0087507d */
     local_f0 = QVariant::toInt((bool *)&local_88);
     QVariant::~QVariant((QVariant *)&local_88);
@@ -19001,12 +19003,13 @@ LAB_0087651c:
 }
 
 
-// ==== entry=00876780 name=FUN_00876780 size=218 ====
+// ==== entry=00876780 orig=FUN_00876780 size=218 name=s_ProxyCommand_876780 ====
 
 /* WARNING: Removing unreachable block (ram,0x00876850) */
 
-void FUN_00876780(long param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,
-                 QString *param_5)
+void s_ProxyCommand_876780
+               (long param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,
+               QString *param_5)
 
 {
   int iVar1;
@@ -19075,14 +19078,14 @@ void FUN_0087687c(long param_1)
 }
 
 
-// ==== entry=008768d2 name=FUN_008768d2 size=324 ====
+// ==== entry=008768d2 orig=FUN_008768d2 size=324 name=s_session_tcpReceiveBufferSize_8768d2 ====
 
 /* WARNING: Removing unreachable block (ram,0x008769c7) */
 /* WARNING: Removing unreachable block (ram,0x008769a1) */
 /* WARNING: Removing unreachable block (ram,0x0087697c) */
 /* WARNING: Removing unreachable block (ram,0x008769f0) */
 
-void FUN_008768d2(long param_1,QByteArray *param_2,undefined8 param_3)
+void s_session_tcpReceiveBufferSize_8768d2(long param_1,QByteArray *param_2,undefined8 param_3)
 
 {
   int iVar1;
@@ -21621,9 +21624,9 @@ void FUN_00879b76(long param_1,long param_2,long *param_3)
 }
 
 
-// ==== entry=00879d62 name=FUN_00879d62 size=3291 ====
+// ==== entry=00879d62 orig=FUN_00879d62 size=3291 name=s_mouse_standard_flag_879d62 ====
 
-void FUN_00879d62(long param_1,long *param_2)
+void s_mouse_standard_flag_879d62(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -22609,9 +22612,9 @@ void FUN_0087b66a(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0087b76a name=FUN_0087b76a size=3244 ====
+// ==== entry=0087b76a orig=FUN_0087b76a size=3244 name=s_window_visible_layout_87b76a ====
 
-void FUN_0087b76a(long param_1,long *param_2)
+void s_window_visible_layout_87b76a(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -23132,10 +23135,10 @@ void FUN_0087c44e(long param_1,undefined8 param_2,char param_3)
     break;
   case 4:
                     /* try { // try from 0087c5a4 to 0087c739 has its CatchHandler @ 0087c821 */
-    FUN_00879d62(param_1,plVar5 + 2);
+    s_mouse_standard_flag_879d62(param_1,plVar5 + 2);
     break;
   case 5:
-    FUN_0087b76a(param_1,plVar5 + 2);
+    s_window_visible_layout_87b76a(param_1,plVar5 + 2);
   }
 switchD_0087c59b_caseD_2:
   plVar5 = *(long **)(param_1 + 0x80);
@@ -45785,11 +45788,11 @@ void FUN_00891e16(long param_1)
 }
 
 
-// ==== entry=00891e22 name=FUN_00891e22 size=258 ====
+// ==== entry=00891e22 orig=FUN_00891e22 size=258 name=s_GrepView_891e22 ====
 
 /* WARNING: Removing unreachable block (ram,0x00891f20) */
 
-void FUN_00891e22(QString *param_1,undefined8 param_2)
+void s_GrepView_891e22(QString *param_1,undefined8 param_2)
 
 {
   QString *pQVar1;
@@ -45797,7 +45800,7 @@ void FUN_00891e22(QString *param_1,undefined8 param_2)
   QArrayData *pQVar3;
   void *pvVar4;
   
-  FUN_005c6d16(param_1,3,1,param_2);
+  s_TextView_5c6d16(param_1,3,1,param_2);
   pQVar1 = param_1 + 0x100;
                     /* try { // try from 00891e4b to 00891e4f has its CatchHandler @ 00891f3d */
   FUN_008c51e8(pQVar1);
@@ -55178,7 +55181,8 @@ void FUN_0089d637(int param_1,void *param_2,undefined8 param_3,long param_4)
   else if (param_1 == 1) {
     local_20[0] = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0089d668 to 0089d66c has its CatchHandler @ 0089d6be */
-    FUN_008ca950(*(undefined8 *)((long)param_2 + 0x10),**(undefined8 **)(param_4 + 8),local_20);
+    s_RenamedTitle_8ca950
+              (*(undefined8 *)((long)param_2 + 0x10),**(undefined8 **)(param_4 + 8),local_20);
     if (*(int *)local_20[0] == 0) {
 LAB_0089d6a8:
       QArrayData::deallocate(local_20[0],2,8);
@@ -55246,7 +55250,7 @@ void * FUN_0089d752(long *param_1,undefined8 param_2)
   if (iVar2 == 0) {
     pvVar3 = operator_new(0xd0);
                     /* try { // try from 0089d799 to 0089d79d has its CatchHandler @ 0089d850 */
-    FUN_005e96ac(pvVar3,param_2);
+    s_EditorWindow_5e96ac(pvVar3,param_2);
     return pvVar3;
   }
   lVar1 = *param_1;
@@ -55256,7 +55260,7 @@ void * FUN_0089d752(long *param_1,undefined8 param_2)
   if (iVar2 == 0) {
     pvVar3 = operator_new(0x110);
                     /* try { // try from 0089d7e3 to 0089d7e7 has its CatchHandler @ 0089d858 */
-    FUN_00859902(pvVar3,param_2);
+    s_TerminalWindow_859902(pvVar3,param_2);
     return pvVar3;
   }
   lVar1 = *param_1;
@@ -55266,16 +55270,16 @@ void * FUN_0089d752(long *param_1,undefined8 param_2)
   if (iVar2 == 0) {
     pvVar3 = operator_new(0xd0);
                     /* try { // try from 0089d82d to 0089d831 has its CatchHandler @ 0089d848 */
-    FUN_005e96ac(pvVar3,param_2);
+    s_EditorWindow_5e96ac(pvVar3,param_2);
     return pvVar3;
   }
   return (void *)0x0;
 }
 
 
-// ==== entry=0089d860 name=FUN_0089d860 size=1346 ====
+// ==== entry=0089d860 orig=FUN_0089d860 size=1346 name=s_tabbar_selectionBehaviorOnRemove_89d860 ====
 
-void * FUN_0089d860(long param_1,undefined1 param_2)
+void * s_tabbar_selectionBehaviorOnRemove_89d860(long param_1,undefined1 param_2)
 
 {
   int iVar1;
@@ -55878,7 +55882,7 @@ long FUN_0089e8de(long *param_1,long param_2)
   if (iVar3 == 0) {
     pvVar4 = operator_new(0x140);
                     /* try { // try from 0089e931 to 0089e935 has its CatchHandler @ 0089e9d0 */
-    FUN_005e5bb6(pvVar4,param_2);
+    s_EditorView_5e5bb6(pvVar4,param_2);
   }
   else {
     lVar1 = *param_1;
@@ -55888,7 +55892,7 @@ long FUN_0089e8de(long *param_1,long param_2)
     if (iVar3 == 0) {
       pvVar4 = operator_new(0x270);
                     /* try { // try from 0089e980 to 0089e984 has its CatchHandler @ 0089e9d8 */
-      FUN_00835f5a(pvVar4,param_2);
+      s_TerminalView_835f5a(pvVar4,param_2);
       return (long)pvVar4 + 0x218;
     }
     cVar2 = FUN_0089e8c8(param_1);
@@ -55897,7 +55901,7 @@ long FUN_0089e8de(long *param_1,long param_2)
     }
     pvVar4 = operator_new(0x138);
                     /* try { // try from 0089e9b2 to 0089e9b6 has its CatchHandler @ 0089e9c8 */
-    FUN_00891e22(pvVar4,param_2);
+    s_GrepView_891e22(pvVar4,param_2);
   }
   return (long)pvVar4 + 0x100;
 }
@@ -56128,9 +56132,9 @@ LAB_0089eea4:
 }
 
 
-// ==== entry=0089eed8 name=FUN_0089eed8 size=1185 ====
+// ==== entry=0089eed8 orig=FUN_0089eed8 size=1185 name=s_ExplorerPane_89eed8 ====
 
-void * FUN_0089eed8(long *param_1,long param_2)
+void * s_ExplorerPane_89eed8(long *param_1,long param_2)
 
 {
   QArrayData *pQVar1;
@@ -56167,7 +56171,7 @@ LAB_0089ef1b:
   if (iVar3 == 0) {
     pvVar4 = operator_new(0x58);
                     /* try { // try from 0089efa2 to 0089efa6 has its CatchHandler @ 0089f389 */
-    FUN_0072fbee(pvVar4,param_2);
+    s_ExplorerPane_72fbee(pvVar4,param_2);
   }
   else {
     lVar6 = *param_1;
@@ -56177,7 +56181,7 @@ LAB_0089ef1b:
     if (iVar3 == 0) {
       pvVar4 = operator_new(0x78);
                     /* try { // try from 0089f145 to 0089f149 has its CatchHandler @ 0089f379 */
-      FUN_00730c20(pvVar4,param_2);
+      s_FilerPane_730c20(pvVar4,param_2);
     }
     else {
       lVar6 = *param_1;
@@ -56195,7 +56199,7 @@ LAB_0089ef1b:
         }
         pvVar4 = operator_new(0x90);
                     /* try { // try from 0089f128 to 0089f12c has its CatchHandler @ 0089f3a9 */
-        FUN_00745dea(pvVar4,param_2);
+        s_OutlinePane_745dea(pvVar4,param_2);
       }
       else {
         lVar6 = *param_1;
@@ -56205,7 +56209,7 @@ LAB_0089ef1b:
         if (iVar3 == 0) {
           pvVar4 = operator_new(0x48);
                     /* try { // try from 0089f18d to 0089f191 has its CatchHandler @ 0089f399 */
-          FUN_007489c0(pvVar4,param_2);
+          s_OutputPane_7489c0(pvVar4,param_2);
         }
         else {
           lVar6 = *param_1;
@@ -56215,7 +56219,7 @@ LAB_0089ef1b:
           if (iVar3 == 0) {
             pvVar4 = operator_new(0x148);
                     /* try { // try from 0089f1f7 to 0089f1fb has its CatchHandler @ 0089f381 */
-            FUN_0074efe6(pvVar4,param_2);
+            s_SearchPane_74efe6(pvVar4,param_2);
           }
           else {
             lVar6 = *param_1;
@@ -56230,7 +56234,7 @@ LAB_0089ef1b:
               }
               pvVar4 = operator_new(0xa8);
                     /* try { // try from 0089f269 to 0089f26d has its CatchHandler @ 0089f3a1 */
-              FUN_00734dc2(pvVar4,param_2);
+              s_SenderPane_734dc2(pvVar4,param_2);
             }
             else {
               lVar6 = *param_1;
@@ -56247,7 +56251,7 @@ LAB_0089ef1b:
                 }
                 pvVar4 = operator_new(0x68);
                     /* try { // try from 0089f2db to 0089f2df has its CatchHandler @ 0089f391 */
-                FUN_0073cb1e(pvVar4,param_2);
+                s_SessionPane_73cb1e(pvVar4,param_2);
               }
               else {
                 cVar2 = FUN_006c6386(param_1,"ShellPane");
@@ -56265,12 +56269,12 @@ LAB_0089ef1b:
                   }
                   pvVar4 = operator_new(0x60);
                     /* try { // try from 0089f36f to 0089f373 has its CatchHandler @ 0089f3b9 */
-                  FUN_00733a18(pvVar4,param_2);
+                  s_TransferPane_733a18(pvVar4,param_2);
                 }
                 else {
                   pvVar4 = operator_new(0x60);
                     /* try { // try from 0089f30e to 0089f312 has its CatchHandler @ 0089f3b1 */
-                  FUN_0074feb4(pvVar4,param_2);
+                  s_ShellPane_74feb4(pvVar4,param_2);
                 }
               }
             }
@@ -56354,9 +56358,9 @@ LAB_0089f4e5:
 }
 
 
-// ==== entry=0089f516 name=FUN_0089f516 size=2234 ====
+// ==== entry=0089f516 orig=FUN_0089f516 size=2234 name=s_tabbar_selectionBehaviorOnRemove_89f516 ====
 
-void * FUN_0089f516(long param_1,undefined1 param_2)
+void * s_tabbar_selectionBehaviorOnRemove_89f516(long param_1,undefined1 param_2)
 
 {
   int iVar1;
@@ -57030,12 +57034,12 @@ void FUN_008a09ac(int param_1,void *param_2,undefined8 param_3,long param_4)
       if (**(char **)(param_4 + 0x10) == '\0') {
         FUN_008a067e(aQStack_48,uVar1);
                     /* try { // try from 008a0aac to 008a0ab0 has its CatchHandler @ 008a0abb */
-        FUN_00858b18(local_38,lVar4,aQStack_48,1,uVar3);
+        s_ControlMaster_858b18(local_38,lVar4,aQStack_48,1,uVar3);
       }
       else {
         FUN_008a067e(aQStack_48,uVar1);
                     /* try { // try from 008a0a30 to 008a0a34 has its CatchHandler @ 008a0ab3 */
-        FUN_00858be8(local_38,lVar4,aQStack_48,1,uVar3);
+        s_ControlMaster_858be8(local_38,lVar4,aQStack_48,1,uVar3);
       }
       QVariant::~QVariant(local_38);
       QVariant::~QVariant(aQStack_48);
@@ -63407,7 +63411,7 @@ LAB_008a9c54:
   local_f8 = (QArrayData *)&QArrayData::shared_null;
   local_f0 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 008a9add to 008a9ae1 has its CatchHandler @ 008a9d16 */
-  FUN_00af3a20(&local_d8,local_98);
+  s_vector__reserve_af3a20(&local_d8,local_98);
   if (local_d8 != local_d0) {
     uVar6 = 0;
     do {
@@ -63490,9 +63494,9 @@ LAB_008a9a6a:
 }
 
 
-// ==== entry=008a9d3c name=FUN_008a9d3c size=1489 ====
+// ==== entry=008a9d3c orig=FUN_008a9d3c size=1489 name=s_FilterEdit_8a9d3c ====
 
-undefined8 FUN_008a9d3c(undefined8 param_1,undefined8 param_2,long param_3)
+undefined8 s_FilterEdit_8a9d3c(undefined8 param_1,undefined8 param_2,long param_3)
 
 {
   char cVar1;
@@ -63745,7 +63749,7 @@ LAB_008aa614:
   local_f8 = (QArrayData *)&QArrayData::shared_null;
   local_f0 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 008aa49d to 008aa4a1 has its CatchHandler @ 008aa6d6 */
-  FUN_00af3a20(&local_d8,local_98);
+  s_vector__reserve_af3a20(&local_d8,local_98);
   if (local_d8 != local_d0) {
     uVar6 = 0;
     do {
@@ -63770,7 +63774,7 @@ LAB_008aa614:
         }
       }
                     /* try { // try from 008aa556 to 008aa55a has its CatchHandler @ 008aa6f3 */
-      FUN_008a9d3c(param_1,local_68,local_b8);
+      s_FilterEdit_8a9d3c(param_1,local_68,local_b8);
       FUN_00af2c10(local_68);
       uVar6 = uVar6 + 1;
       plVar4 = local_d8;
@@ -75259,11 +75263,11 @@ LAB_008b7dab:
 }
 
 
-// ==== entry=008b7dd4 name=FUN_008b7dd4 size=371 ====
+// ==== entry=008b7dd4 orig=FUN_008b7dd4 size=371 name=s_ExpandButton_8b7dd4 ====
 
 /* WARNING: Removing unreachable block (ram,0x008b7f3d) */
 
-void FUN_008b7dd4(QLayout *param_1)
+void s_ExpandButton_8b7dd4(QLayout *param_1)
 
 {
   QLayout QVar1;
@@ -75278,7 +75282,7 @@ void FUN_008b7dd4(QLayout *param_1)
   
   pQVar2 = operator_new(0xa8);
                     /* try { // try from 008b7df1 to 008b7df5 has its CatchHandler @ 008b7f4f */
-  FUN_005af896(pQVar2,0);
+  s_TabGroup_5af896(pQVar2,0);
   *(QString **)(param_1 + 0x30) = pQVar2;
   sVar3 = strlen("PaneGroup");
   pQVar4 = (QArrayData *)QString::fromAscii_helper("PaneGroup",(int)sVar3);
@@ -75301,11 +75305,11 @@ LAB_008b7f03:
     QVar1 = param_1[0x38];
   }
   if (QVar1 != (QLayout)0x0) {
-    FUN_005acc3e(uVar5,"ExpandButton",1);
+    s_TabGroupButton_5acc3e(uVar5,"ExpandButton",1);
     uVar5 = *(undefined8 *)(param_1 + 0x30);
   }
-  FUN_005acc3e(uVar5,"ConfigButton",1);
-  FUN_005acc3e(*(undefined8 *)(param_1 + 0x30),"CloseButton",1);
+  s_TabGroupButton_5acc3e(uVar5,"ConfigButton",1);
+  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x30),"CloseButton",1);
   this = operator_new(0x20);
                     /* try { // try from 008b7e98 to 008b7e9c has its CatchHandler @ 008b7f47 */
   QVBoxLayout::QVBoxLayout(this);
@@ -75365,7 +75369,7 @@ void FUN_008b7f60(long param_1)
   uVar1 = *(undefined8 *)(param_1 + 0x30);
   local_58 = FUN_008fb598;
   local_50 = 0;
-  local_48 = FUN_008b877e;
+  local_48 = s_ConfigButton_8b877e;
   local_40 = 0;
   puVar2 = operator_new(0x20);
   *puVar2 = 1;
@@ -75406,7 +75410,7 @@ void FUN_008b81b0(QWidget *param_1,QWidget param_2,undefined8 param_3)
   *(undefined8 *)(param_1 + 0x4c) = 0xffffffffffffffff;
                     /* try { // try from 008b8201 to 008b8215 has its CatchHandler @ 008b821d */
   QWidget::setFocusPolicy(param_1,0);
-  FUN_008b7dd4(param_1);
+  s_ExpandButton_8b7dd4(param_1);
   FUN_008b7f60(param_1);
   return;
 }
@@ -75773,9 +75777,9 @@ LAB_008b8730:
 }
 
 
-// ==== entry=008b877e name=FUN_008b877e size=150 ====
+// ==== entry=008b877e orig=FUN_008b877e size=150 name=s_ConfigButton_8b877e ====
 
-void FUN_008b877e(long param_1)
+void s_ConfigButton_8b877e(long param_1)
 
 {
   undefined8 uVar1;
@@ -75840,7 +75844,7 @@ undefined8 FUN_008b881c(long param_1,QByteArray *param_2)
         UNLOCK();
       }
                     /* try { // try from 008b88cf to 008b88d3 has its CatchHandler @ 008b8a1d */
-      pcVar2 = (char *)FUN_0089eed8((QVariant *)local_68,uVar1);
+      pcVar2 = (char *)s_ExplorerPane_89eed8((QVariant *)local_68,uVar1);
       if (*(int *)local_68[0] == 0) {
 LAB_008b896e:
         QArrayData::deallocate(local_68[0],2,8);
@@ -75904,7 +75908,7 @@ void FUN_008b8a26(undefined8 param_1,undefined8 *param_2,undefined4 param_3,unde
     UNLOCK();
   }
                     /* try { // try from 008b8a5f to 008b8a63 has its CatchHandler @ 008b8ab5 */
-  uVar1 = FUN_0089eed8(local_30,uVar1);
+  uVar1 = s_ExplorerPane_89eed8(local_30,uVar1);
   if (*(int *)local_30[0] != 0) {
     if (*(int *)local_30[0] == -1) goto LAB_008b8a7d;
     LOCK();
@@ -76033,7 +76037,7 @@ undefined1 FUN_008b8c62(long param_1)
 void FUN_008b8c68(long param_1,undefined1 param_2)
 
 {
-  FUN_005ab32a(*(undefined8 *)(param_1 + 0x30),param_2);
+  s_ExpandButton_5ab32a(*(undefined8 *)(param_1 + 0x30),param_2);
   return;
 }
 
@@ -76242,7 +76246,7 @@ undefined8 FUN_008b9092(long param_1)
     iVar3 = QSplitter::indexOf(pQVar6);
     uVar1 = *(undefined1 *)(param_1 + 0x38);
     uVar7 = FUN_008b8694(param_1);
-    uVar7 = FUN_0089d860(uVar7,uVar1);
+    uVar7 = s_tabbar_selectionBehaviorOnRemove_89d860(uVar7,uVar1);
     QSplitter::insertWidget((int)pQVar6,(QWidget *)(ulong)(iVar3 + 1));
     iVar3 = QSplitter::count();
     iVar4 = QSplitter::orientation();
@@ -77112,9 +77116,9 @@ long FUN_008b9ccc(long param_1)
 }
 
 
-// ==== entry=008b9d1c name=FUN_008b9d1c size=73 ====
+// ==== entry=008b9d1c orig=FUN_008b9d1c size=73 name=s_TabGroupButton_8b9d1c ====
 
-void FUN_008b9d1c(long param_1)
+void s_TabGroupButton_8b9d1c(long param_1)
 
 {
   undefined8 uVar1;
@@ -77158,11 +77162,11 @@ void FUN_008b9d66(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008b9dfa name=FUN_008b9dfa size=257 ====
+// ==== entry=008b9dfa orig=FUN_008b9dfa size=257 name=s_TabAddButton_8b9dfa ====
 
 /* WARNING: Removing unreachable block (ram,0x008b9ef1) */
 
-void FUN_008b9dfa(long param_1)
+void s_TabAddButton_8b9dfa(long param_1)
 
 {
   long *plVar1;
@@ -77473,7 +77477,7 @@ void FUN_008ba416(long param_1)
   uVar2 = *(undefined8 *)(param_1 + 0x38);
   local_58 = FUN_008fb548;
   local_50 = 0;
-  local_48 = FUN_008b9dfa;
+  local_48 = s_TabAddButton_8b9dfa;
   local_40 = 0;
   puVar3 = operator_new(0x20);
   *puVar3 = 1;
@@ -77487,7 +77491,7 @@ void FUN_008ba416(long param_1)
   uVar2 = *(undefined8 *)(param_1 + 0x38);
   local_58 = FUN_008fb570;
   local_50 = 0;
-  local_48 = FUN_008b9d1c;
+  local_48 = s_TabGroupButton_8b9d1c;
   local_40 = 0;
   puVar3 = operator_new(0x20);
   *puVar3 = 1;
@@ -77597,7 +77601,7 @@ void FUN_008ba416(long param_1)
       uVar2 = *(undefined8 *)puVar5;
       local_c8 = FUN_008f8188;
       local_c0 = 0;
-      local_b8 = FUN_008bcba8;
+      local_b8 = s_PropertyPopup_8bcba8;
       local_b0 = 0;
                     /* try { // try from 008baa90 to 008badc7 has its CatchHandler @ 008badda */
       puVar3 = operator_new(0x20);
@@ -77664,11 +77668,11 @@ void FUN_008ba416(long param_1)
 }
 
 
-// ==== entry=008bade2 name=FUN_008bade2 size=1286 ====
+// ==== entry=008bade2 orig=FUN_008bade2 size=1286 name=s_tabbar_showSequenceNumbers_8bade2 ====
 
 /* WARNING: Removing unreachable block (ram,0x008bb2de) */
 
-void FUN_008bade2(QWidget *param_1)
+void s_tabbar_showSequenceNumbers_8bade2(QWidget *param_1)
 
 {
   uint *puVar1;
@@ -77690,7 +77694,7 @@ void FUN_008bade2(QWidget *param_1)
   
   pvVar5 = operator_new(0xa8);
                     /* try { // try from 008bae05 to 008bae09 has its CatchHandler @ 008bb330 */
-  FUN_005af896(pvVar5);
+  s_TabGroup_5af896(pvVar5);
   *(void **)(param_1 + 0x38) = pvVar5;
   uVar6 = FUN_0075bd66();
   QVariant::QVariant((QVariant *)local_58,0);
@@ -77722,10 +77726,10 @@ void FUN_008bade2(QWidget *param_1)
   QObject::setObjectName(pQVar3);
   FUN_005249f0((QVariant *)local_48);
                     /* try { // try from 008baf46 to 008bb009 has its CatchHandler @ 008bb2e8 */
-  FUN_005acc3e(*(undefined8 *)(param_1 + 0x38),"TabGroupButton",1);
-  FUN_005acc3e(*(undefined8 *)(param_1 + 0x38),"TabAddButton",1);
-  FUN_005acc3e(*(undefined8 *)(param_1 + 0x38),"TabListButton",1);
-  FUN_005aba4e(*(undefined8 *)(param_1 + 0x38),param_1 + 0x30);
+  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x38),"TabGroupButton",1);
+  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x38),"TabAddButton",1);
+  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x38),"TabListButton",1);
+  s_TabGroupButton_5aba4e(*(undefined8 *)(param_1 + 0x38),param_1 + 0x30);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x38),1);
   thunk_FUN_005ad4a6(uVar11,*(undefined8 *)(param_1 + 0x38));
   FUN_005ab5b6(*(undefined8 *)(param_1 + 0x38),local_70);
@@ -77838,7 +77842,7 @@ void FUN_008bb360(QMainWindow *param_1,undefined8 *param_2,undefined8 param_3)
                     /* try { // try from 008bb3aa to 008bb3d0 has its CatchHandler @ 008bb3de */
   QWidget::setFocusPolicy(param_1,0);
   QWidget::setAttribute(param_1,0x37,1);
-  FUN_008bade2(param_1);
+  s_tabbar_showSequenceNumbers_8bade2(param_1);
   FUN_008ba416(param_1);
   return;
 }

@@ -11280,7 +11280,7 @@ LAB_00947a9c:
           if ((uVar3 & 0x20) == 0) break;
         }
         else {
-          FUN_00a50430(*(long *)(param_1 + 0x30) + 0x10);
+          s_text_default_a50430(*(long *)(param_1 + 0x30) + 0x10);
         }
         plVar7 = (long *)FUN_00a1faf6(*(long *)(param_1 + 0x30) + 0x10);
         if (*(int *)(*plVar7 + 4) != 0) {
@@ -11732,9 +11732,9 @@ void FUN_00947e7e(QFocusEvent *param_1)
 }
 
 
-// ==== entry=00947edc name=FUN_00947edc size=117 ====
+// ==== entry=00947edc orig=FUN_00947edc size=117 name=s_CompleteList_947edc ====
 
-void FUN_00947edc(QFocusEvent *param_1)
+void s_CompleteList_947edc(QFocusEvent *param_1)
 
 {
   long *plVar1;
@@ -18785,9 +18785,9 @@ void FUN_0094fc8c(undefined8 *param_1,byte param_2)
 }
 
 
-// ==== entry=0094fcc4 name=FUN_0094fcc4 size=104 ====
+// ==== entry=0094fcc4 orig=FUN_0094fcc4 size=104 name=s_margin_timestamp_94fcc4 ====
 
-char * FUN_0094fcc4(long param_1)
+char * s_margin_timestamp_94fcc4(long param_1)
 
 {
   switch(*(byte *)(param_1 + 10) & 0xf) {
@@ -19292,7 +19292,7 @@ ulong * FUN_009504ac(undefined1 *param_1,long param_2,allocator *param_3)
 }
 
 
-// ==== entry=00950516 name=FUN_00950516 size=897 ====
+// ==== entry=00950516 orig=FUN_00950516 size=897 name=s_fold_highlight_950516 ====
 
 /* WARNING: Removing unreachable block (ram,0x009507b6) */
 /* WARNING: Removing unreachable block (ram,0x00950876) */
@@ -19301,7 +19301,7 @@ ulong * FUN_009504ac(undefined1 *param_1,long param_2,allocator *param_3)
 /* WARNING: Removing unreachable block (ram,0x00950868) */
 /* WARNING: Removing unreachable block (ram,0x009507c1) */
 
-void FUN_00950516(long param_1)
+void s_fold_highlight_950516(long param_1)
 
 {
   int *piVar1;
@@ -19426,13 +19426,13 @@ LAB_00950701:
 }
 
 
-// ==== entry=009508c8 name=FUN_009508c8 size=611 ====
+// ==== entry=009508c8 orig=FUN_009508c8 size=611 name=s_text_inserted_9508c8 ====
 
 /* WARNING: Removing unreachable block (ram,0x00950b15) */
 /* WARNING: Removing unreachable block (ram,0x00950b0a) */
 /* WARNING: Removing unreachable block (ram,0x00950b20) */
 
-void FUN_009508c8(long param_1)
+void s_text_inserted_9508c8(long param_1)
 
 {
   int *piVar1;
@@ -19678,7 +19678,7 @@ void FUN_00950b52(long param_1)
       }
     }
   }
-  FUN_009508c8(param_1);
+  s_text_inserted_9508c8(param_1);
   return;
 }
 
@@ -19806,14 +19806,14 @@ LAB_009511dc:
 }
 
 
-// ==== entry=009512ae name=FUN_009512ae size=717 ====
+// ==== entry=009512ae orig=FUN_009512ae size=717 name=s_pair_levelUnmatched_9512ae ====
 
 /* WARNING: Removing unreachable block (ram,0x00951565) */
 /* WARNING: Removing unreachable block (ram,0x009514fb) */
 /* WARNING: Removing unreachable block (ram,0x009514ed) */
 /* WARNING: Removing unreachable block (ram,0x00951570) */
 
-void FUN_009512ae(long param_1)
+void s_pair_levelUnmatched_9512ae(long param_1)
 
 {
   int *piVar1;
@@ -20059,9 +20059,9 @@ undefined8 FUN_00951844(long param_1,long param_2)
   if (param_2 != 0) {
     *(long *)(param_1 + 0xe00) = param_2;
     FUN_0095159e();
-    FUN_009508c8(param_1);
-    FUN_009512ae(param_1);
-    FUN_00950516(param_1);
+    s_text_inserted_9508c8(param_1);
+    s_pair_levelUnmatched_9512ae(param_1);
+    s_fold_highlight_950516(param_1);
     FUN_0094fdee(param_1);
     return 1;
   }
@@ -20100,7 +20100,7 @@ long FUN_00951884(long param_1,undefined8 param_2)
   if (cVar3 != '\0') {
     uVar4 = FUN_00926b40(uVar9,param_2);
     if (((uVar4 != 0) && ((uVar4 & 0xffffffffffffc884) != 0)) &&
-       (lVar5 = FUN_009baa86(*(undefined8 *)(param_1 + 0xe00),uVar4), lVar5 != 0)) {
+       (lVar5 = s_text_default_9baa86(*(undefined8 *)(param_1 + 0xe00),uVar4), lVar5 != 0)) {
       return lVar5;
     }
     uVar9 = *(undefined8 *)(param_1 + 0xe08);
@@ -23860,9 +23860,9 @@ int FUN_00955d70(long param_1,int *param_2)
 }
 
 
-// ==== entry=00955dc6 name=FUN_00955dc6 size=704 ====
+// ==== entry=00955dc6 orig=FUN_00955dc6 size=704 name=s_king__snippet_955dc6 ====
 
-QVariant * FUN_00955dc6(QVariant *param_1,long *param_2,int *param_3,int param_4)
+QVariant * s_king__snippet_955dc6(QVariant *param_1,long *param_2,int *param_3,int param_4)
 
 {
   int iVar1;
@@ -37795,9 +37795,9 @@ void FUN_00968a72(long param_1)
 }
 
 
-// ==== entry=00968aa8 name=FUN_00968aa8 size=240 ====
+// ==== entry=00968aa8 orig=FUN_00968aa8 size=240 name=Uint32PieceTable_h968aa8 ====
 
-int FUN_00968aa8(long *param_1,undefined8 param_2)
+int Uint32PieceTable_h968aa8(long *param_1,undefined8 param_2)
 
 {
   int iVar1;
@@ -39590,7 +39590,7 @@ LAB_0096ad5a:
         }
         if (*(int *)(*(long *)(pcVar4 + 0x40) + 0x14) != 0) {
                     /* try { // try from 0096adc9 to 0096adcd has its CatchHandler @ 0096b1f2 */
-          FUN_00968aa8(pcVar4 + 0x40,&local_50);
+          Uint32PieceTable_h968aa8(pcVar4 + 0x40,&local_50);
         }
         *pcVar4 = '\0';
         if (pvVar11 != (void *)0x0) {
@@ -39881,7 +39881,7 @@ LAB_0096b2ba:
         }
         if (*(int *)(*(long *)(pcVar4 + 0x40) + 0x14) != 0) {
                     /* try { // try from 0096b329 to 0096b32d has its CatchHandler @ 0096b772 */
-          FUN_00968aa8(pcVar4 + 0x40,&local_50);
+          Uint32PieceTable_h968aa8(pcVar4 + 0x40,&local_50);
         }
         *pcVar4 = '\0';
         if (pvVar10 != (void *)0x0) {
@@ -45238,9 +45238,9 @@ void FUN_00970da2(undefined8 *param_1,long *param_2,int param_3,int param_4)
 }
 
 
-// ==== entry=00970f34 name=FUN_00970f34 size=240 ====
+// ==== entry=00970f34 orig=FUN_00970f34 size=240 name=Uint8PieceTable_h970f34 ====
 
-int FUN_00970f34(long *param_1,undefined8 param_2)
+int Uint8PieceTable_h970f34(long *param_1,undefined8 param_2)
 
 {
   int iVar1;

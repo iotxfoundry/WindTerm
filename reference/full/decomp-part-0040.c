@@ -15189,9 +15189,9 @@ LAB_00c22989:
 }
 
 
-// ==== entry=00c22a00 name=FUN_00c22a00 size=87 ====
+// ==== entry=00c22a00 orig=FUN_00c22a00 size=87 name=s_basic_string__erase_c22a00 ====
 
-long * FUN_00c22a00(long *param_1,ulong param_2,ulong param_3)
+long * s_basic_string__erase_c22a00(long *param_1,ulong param_2,ulong param_3)
 
 {
   ulong uVar1;
@@ -15381,9 +15381,9 @@ long FUN_00c22cb0(long param_1,undefined4 param_2)
 }
 
 
-// ==== entry=00c22cd0 name=FUN_00c22cd0 size=47 ====
+// ==== entry=00c22cd0 orig=FUN_00c22cd0 size=47 name=s_basic_string__insert_c22cd0 ====
 
-void FUN_00c22cd0(long param_1,ulong param_2,undefined8 param_3,uint param_4)
+void s_basic_string__insert_c22cd0(long param_1,ulong param_2,undefined8 param_3,uint param_4)
 
 {
   if (param_2 <= *(ulong *)(param_1 + 8)) {
@@ -15410,9 +15410,10 @@ long FUN_00c22d00(long *param_1,long param_2,undefined4 param_3)
 }
 
 
-// ==== entry=00c22d40 name=FUN_00c22d40 size=55 ====
+// ==== entry=00c22d40 orig=FUN_00c22d40 size=55 name=s_basic_string__replace_c22d40 ====
 
-void FUN_00c22d40(long param_1,ulong param_2,ulong param_3,undefined8 param_4,undefined8 param_5)
+void s_basic_string__replace_c22d40
+               (long param_1,ulong param_2,ulong param_3,undefined8 param_4,undefined8 param_5)
 
 {
   ulong uVar1;
@@ -15568,10 +15569,11 @@ LAB_00c22ea8:
 }
 
 
-// ==== entry=00c230c0 name=FUN_00c230c0 size=65 ====
+// ==== entry=00c230c0 orig=FUN_00c230c0 size=65 name=s_basic_string__assign_c230c0 ====
 
-void FUN_00c230c0(long param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
-                 undefined8 param_6)
+void s_basic_string__assign_c230c0
+               (long param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
+               undefined8 param_6)
 
 {
   ulong uVar1;
@@ -15636,9 +15638,10 @@ void FUN_00c23170(long param_1,wchar_t *param_2)
 }
 
 
-// ==== entry=00c231a0 name=FUN_00c231a0 size=55 ====
+// ==== entry=00c231a0 orig=FUN_00c231a0 size=55 name=s_basic_string__replace_c231a0 ====
 
-void FUN_00c231a0(long param_1,ulong param_2,ulong param_3,undefined8 param_4,undefined8 param_5)
+void s_basic_string__replace_c231a0
+               (long param_1,ulong param_2,ulong param_3,undefined8 param_4,undefined8 param_5)
 
 {
   ulong uVar1;
@@ -15673,9 +15676,10 @@ void FUN_00c231e0(long param_1,wchar_t *param_2)
 }
 
 
-// ==== entry=00c23210 name=FUN_00c23210 size=47 ====
+// ==== entry=00c23210 orig=FUN_00c23210 size=47 name=s_basic_string__replace_c23210 ====
 
-void FUN_00c23210(long param_1,ulong param_2,undefined8 param_3,undefined8 param_4)
+void s_basic_string__replace_c23210
+               (long param_1,ulong param_2,undefined8 param_3,undefined8 param_4)
 
 {
   if (param_2 <= *(ulong *)(param_1 + 8)) {
@@ -15689,10 +15693,11 @@ void FUN_00c23210(long param_1,ulong param_2,undefined8 param_3,undefined8 param
 }
 
 
-// ==== entry=00c23240 name=FUN_00c23240 size=51 ====
+// ==== entry=00c23240 orig=FUN_00c23240 size=51 name=s_basic_string__replace_c23240 ====
 
-void FUN_00c23240(long param_1,ulong param_2,undefined8 *param_3,undefined8 param_4,
-                 undefined8 param_5,undefined8 param_6)
+void s_basic_string__replace_c23240
+               (long param_1,ulong param_2,undefined8 *param_3,undefined8 param_4,undefined8 param_5
+               ,undefined8 param_6)
 
 {
   if (param_2 <= *(ulong *)(param_1 + 8)) {
@@ -15706,9 +15711,9 @@ void FUN_00c23240(long param_1,ulong param_2,undefined8 *param_3,undefined8 para
 }
 
 
-// ==== entry=00c23280 name=FUN_00c23280 size=62 ====
+// ==== entry=00c23280 orig=FUN_00c23280 size=62 name=s_basic_string__replace_c23280 ====
 
-void FUN_00c23280(long param_1,ulong param_2,ulong param_3,undefined8 *param_4)
+void s_basic_string__replace_c23280(long param_1,ulong param_2,ulong param_3,undefined8 *param_4)
 
 {
   ulong uVar1;
@@ -15730,9 +15735,9 @@ void FUN_00c23280(long param_1,ulong param_2,ulong param_3,undefined8 *param_4)
 }
 
 
-// ==== entry=00c232c0 name=FUN_00c232c0 size=77 ====
+// ==== entry=00c232c0 orig=FUN_00c232c0 size=77 name=s_basic_string__replace_c232c0 ====
 
-void FUN_00c232c0(long param_1,ulong param_2,wchar_t *param_3)
+void s_basic_string__replace_c232c0(long param_1,ulong param_2,wchar_t *param_3)
 
 {
   size_t sVar1;
@@ -15749,9 +15754,9 @@ void FUN_00c232c0(long param_1,ulong param_2,wchar_t *param_3)
 }
 
 
-// ==== entry=00c23310 name=FUN_00c23310 size=107 ====
+// ==== entry=00c23310 orig=FUN_00c23310 size=107 name=s_basic_string__replace_c23310 ====
 
-void FUN_00c23310(long param_1,ulong param_2,ulong param_3,wchar_t *param_4)
+void s_basic_string__replace_c23310(long param_1,ulong param_2,ulong param_3,wchar_t *param_4)
 
 {
   size_t sVar1;
@@ -15773,9 +15778,10 @@ void FUN_00c23310(long param_1,ulong param_2,ulong param_3,wchar_t *param_4)
 }
 
 
-// ==== entry=00c23380 name=FUN_00c23380 size=75 ====
+// ==== entry=00c23380 orig=FUN_00c23380 size=75 name=s_basic_string__replace_c23380 ====
 
-void FUN_00c23380(long *param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5)
+void s_basic_string__replace_c23380
+               (long *param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5)
 
 {
   ulong uVar1;
@@ -15799,9 +15805,9 @@ void FUN_00c23380(long *param_1,long param_2,long param_3,undefined8 param_4,und
 }
 
 
-// ==== entry=00c233d0 name=FUN_00c233d0 size=82 ====
+// ==== entry=00c233d0 orig=FUN_00c233d0 size=82 name=s_basic_string__replace_c233d0 ====
 
-void FUN_00c233d0(long *param_1,long param_2,long param_3,undefined8 *param_4)
+void s_basic_string__replace_c233d0(long *param_1,long param_2,long param_3,undefined8 *param_4)
 
 {
   ulong uVar1;
@@ -15825,35 +15831,10 @@ void FUN_00c233d0(long *param_1,long param_2,long param_3,undefined8 *param_4)
 }
 
 
-// ==== entry=00c23430 name=FUN_00c23430 size=82 ====
+// ==== entry=00c23430 orig=FUN_00c23430 size=82 name=s_basic_string__replace_c23430 ====
 
-void FUN_00c23430(long *param_1,long param_2,long param_3,long param_4,long param_5)
-
-{
-  ulong uVar1;
-  ulong uVar2;
-  ulong uVar3;
-  
-  uVar1 = param_1[1];
-  uVar2 = param_2 - *param_1 >> 2;
-  uVar3 = param_3 - param_2 >> 2;
-  if (uVar1 - uVar2 < uVar3) {
-    uVar3 = uVar1 - uVar2;
-  }
-  if (uVar2 <= uVar1) {
-    FUN_00c22de0(param_1,uVar2);
-    return;
-  }
-                    /* WARNING: Subroutine does not return */
-  std::__throw_out_of_range_fmt
-            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
-             uVar1,param_5 - param_4 >> 2,uVar1,uVar3);
-}
-
-
-// ==== entry=00c23490 name=FUN_00c23490 size=82 ====
-
-void FUN_00c23490(long *param_1,long param_2,long param_3,long param_4,long param_5)
+void s_basic_string__replace_c23430
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
 
 {
   ulong uVar1;
@@ -15877,9 +15858,37 @@ void FUN_00c23490(long *param_1,long param_2,long param_3,long param_4,long para
 }
 
 
-// ==== entry=00c234f0 name=FUN_00c234f0 size=75 ====
+// ==== entry=00c23490 orig=FUN_00c23490 size=82 name=s_basic_string__replace_c23490 ====
 
-void FUN_00c234f0(long *param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5)
+void s_basic_string__replace_c23490
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
+
+{
+  ulong uVar1;
+  ulong uVar2;
+  ulong uVar3;
+  
+  uVar1 = param_1[1];
+  uVar2 = param_2 - *param_1 >> 2;
+  uVar3 = param_3 - param_2 >> 2;
+  if (uVar1 - uVar2 < uVar3) {
+    uVar3 = uVar1 - uVar2;
+  }
+  if (uVar2 <= uVar1) {
+    FUN_00c22de0(param_1,uVar2);
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  std::__throw_out_of_range_fmt
+            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
+             uVar1,param_5 - param_4 >> 2,uVar1,uVar3);
+}
+
+
+// ==== entry=00c234f0 orig=FUN_00c234f0 size=75 name=s_basic_string__replace_c234f0 ====
+
+void s_basic_string__replace_c234f0
+               (long *param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5)
 
 {
   ulong uVar1;
@@ -15903,9 +15912,9 @@ void FUN_00c234f0(long *param_1,long param_2,long param_3,undefined8 param_4,und
 }
 
 
-// ==== entry=00c23540 name=FUN_00c23540 size=124 ====
+// ==== entry=00c23540 orig=FUN_00c23540 size=124 name=s_basic_string__replace_c23540 ====
 
-void FUN_00c23540(long *param_1,long param_2,long param_3,wchar_t *param_4)
+void s_basic_string__replace_c23540(long *param_1,long param_2,long param_3,wchar_t *param_4)
 
 {
   size_t sVar1;
@@ -15931,9 +15940,10 @@ void FUN_00c23540(long *param_1,long param_2,long param_3,wchar_t *param_4)
 }
 
 
-// ==== entry=00c235c0 name=FUN_00c235c0 size=54 ====
+// ==== entry=00c235c0 orig=FUN_00c235c0 size=54 name=s_basic_string__replace_c235c0 ====
 
-void FUN_00c235c0(long *param_1,long param_2,undefined8 param_3,undefined8 param_4)
+void s_basic_string__replace_c235c0
+               (long *param_1,long param_2,undefined8 param_3,undefined8 param_4)
 
 {
   ulong uVar1;
@@ -15950,35 +15960,10 @@ void FUN_00c235c0(long *param_1,long param_2,undefined8 param_3,undefined8 param
 }
 
 
-// ==== entry=00c23600 name=FUN_00c23600 size=82 ====
+// ==== entry=00c23600 orig=FUN_00c23600 size=82 name=s_basic_string__replace_c23600 ====
 
-void FUN_00c23600(long *param_1,long param_2,long param_3,long param_4,long param_5)
-
-{
-  ulong uVar1;
-  ulong uVar2;
-  ulong uVar3;
-  
-  uVar1 = param_1[1];
-  uVar2 = param_2 - *param_1 >> 2;
-  uVar3 = param_3 - param_2 >> 2;
-  if (uVar1 - uVar2 < uVar3) {
-    uVar3 = uVar1 - uVar2;
-  }
-  if (uVar2 <= uVar1) {
-    FUN_00c22de0(param_1,uVar2);
-    return;
-  }
-                    /* WARNING: Subroutine does not return */
-  std::__throw_out_of_range_fmt
-            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
-             uVar1,param_5 - param_4 >> 2,uVar1,uVar3);
-}
-
-
-// ==== entry=00c23660 name=FUN_00c23660 size=82 ====
-
-void FUN_00c23660(long *param_1,long param_2,long param_3,long param_4,long param_5)
+void s_basic_string__replace_c23600
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
 
 {
   ulong uVar1;
@@ -16002,10 +15987,37 @@ void FUN_00c23660(long *param_1,long param_2,long param_3,long param_4,long para
 }
 
 
-// ==== entry=00c236c0 name=FUN_00c236c0 size=121 ====
+// ==== entry=00c23660 orig=FUN_00c23660 size=82 name=s_basic_string__replace_c23660 ====
 
-void FUN_00c236c0(long param_1,ulong param_2,ulong param_3,long *param_4,ulong param_5,ulong param_6
-                 )
+void s_basic_string__replace_c23660
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
+
+{
+  ulong uVar1;
+  ulong uVar2;
+  ulong uVar3;
+  
+  uVar1 = param_1[1];
+  uVar2 = param_2 - *param_1 >> 2;
+  uVar3 = param_3 - param_2 >> 2;
+  if (uVar1 - uVar2 < uVar3) {
+    uVar3 = uVar1 - uVar2;
+  }
+  if (uVar2 <= uVar1) {
+    FUN_00c22de0(param_1,uVar2);
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  std::__throw_out_of_range_fmt
+            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
+             uVar1,param_5 - param_4 >> 2,uVar1,uVar3);
+}
+
+
+// ==== entry=00c236c0 orig=FUN_00c236c0 size=121 name=s_basic_string__replace_c236c0 ====
+
+void s_basic_string__replace_c236c0
+               (long param_1,ulong param_2,ulong param_3,long *param_4,ulong param_5,ulong param_6)
 
 {
   ulong uVar1;
@@ -16037,9 +16049,10 @@ void FUN_00c236c0(long param_1,ulong param_2,ulong param_3,long *param_4,ulong p
 }
 
 
-// ==== entry=00c23740 name=FUN_00c23740 size=107 ====
+// ==== entry=00c23740 orig=FUN_00c23740 size=107 name=s_basic_string__replace_c23740 ====
 
-void FUN_00c23740(long param_1,ulong param_2,long *param_3,ulong param_4,ulong param_5)
+void s_basic_string__replace_c23740
+               (long param_1,ulong param_2,long *param_3,ulong param_4,ulong param_5)
 
 {
   ulong uVar1;
@@ -16125,10 +16138,11 @@ void FUN_00c23850(undefined8 param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00c23860 name=FUN_00c23860 size=62 ====
+// ==== entry=00c23860 orig=FUN_00c23860 size=62 name=s_basic_string__append_c23860 ====
 
-void FUN_00c23860(undefined8 param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
-                 undefined8 param_6)
+void s_basic_string__append_c23860
+               (undefined8 param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
+               undefined8 param_6)
 
 {
   ulong uVar1;
@@ -16150,9 +16164,9 @@ void FUN_00c23860(undefined8 param_1,long *param_2,ulong param_3,ulong param_4,u
 }
 
 
-// ==== entry=00c238a0 name=FUN_00c238a0 size=37 ====
+// ==== entry=00c238a0 orig=FUN_00c238a0 size=37 name=s_basic_string__append_c238a0 ====
 
-void FUN_00c238a0(long param_1,undefined8 param_2,ulong param_3)
+void s_basic_string__append_c238a0(long param_1,undefined8 param_2,ulong param_3)
 
 {
   if (param_3 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
@@ -16164,9 +16178,9 @@ void FUN_00c238a0(long param_1,undefined8 param_2,ulong param_3)
 }
 
 
-// ==== entry=00c238d0 name=FUN_00c238d0 size=71 ====
+// ==== entry=00c238d0 orig=FUN_00c238d0 size=71 name=s_basic_string__append_c238d0 ====
 
-void FUN_00c238d0(long param_1,wchar_t *param_2)
+void s_basic_string__append_c238d0(long param_1,wchar_t *param_2)
 
 {
   size_t sVar1;
@@ -16181,9 +16195,9 @@ void FUN_00c238d0(long param_1,wchar_t *param_2)
 }
 
 
-// ==== entry=00c23920 name=FUN_00c23920 size=71 ====
+// ==== entry=00c23920 orig=FUN_00c23920 size=71 name=s_basic_string__append_c23920 ====
 
-void FUN_00c23920(long param_1,wchar_t *param_2)
+void s_basic_string__append_c23920(long param_1,wchar_t *param_2)
 
 {
   size_t sVar1;
@@ -16198,23 +16212,9 @@ void FUN_00c23920(long param_1,wchar_t *param_2)
 }
 
 
-// ==== entry=00c23970 name=FUN_00c23970 size=37 ====
+// ==== entry=00c23970 orig=FUN_00c23970 size=37 name=s_basic_string__append_c23970 ====
 
-void FUN_00c23970(long param_1,undefined8 param_2,ulong param_3)
-
-{
-  if (param_3 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
-    FUN_00c237b0();
-    return;
-  }
-                    /* WARNING: Subroutine does not return */
-  std::__throw_length_error("basic_string::append");
-}
-
-
-// ==== entry=00c239a0 name=FUN_00c239a0 size=37 ====
-
-void FUN_00c239a0(long param_1,undefined8 param_2,ulong param_3)
+void s_basic_string__append_c23970(long param_1,undefined8 param_2,ulong param_3)
 
 {
   if (param_3 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
@@ -16226,9 +16226,23 @@ void FUN_00c239a0(long param_1,undefined8 param_2,ulong param_3)
 }
 
 
-// ==== entry=00c239d0 name=FUN_00c239d0 size=97 ====
+// ==== entry=00c239a0 orig=FUN_00c239a0 size=37 name=s_basic_string__append_c239a0 ====
 
-size_t FUN_00c239d0(long *param_1,wchar_t *param_2,ulong param_3,ulong param_4)
+void s_basic_string__append_c239a0(long param_1,undefined8 param_2,ulong param_3)
+
+{
+  if (param_3 <= 0x1fffffffffffffffU - *(long *)(param_1 + 8)) {
+    FUN_00c237b0();
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  std::__throw_length_error("basic_string::append");
+}
+
+
+// ==== entry=00c239d0 orig=FUN_00c239d0 size=97 name=s_basic_string__copy_c239d0 ====
+
+size_t s_basic_string__copy_c239d0(long *param_1,wchar_t *param_2,ulong param_3,ulong param_4)
 
 {
   wchar_t *__s2;
@@ -16871,9 +16885,9 @@ ulong FUN_00c24210(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00c24270 name=FUN_00c24270 size=134 ====
+// ==== entry=00c24270 orig=FUN_00c24270 size=134 name=s_basic_string__compare_c24270 ====
 
-ulong FUN_00c24270(long *param_1,ulong param_2,ulong param_3,undefined8 *param_4)
+ulong s_basic_string__compare_c24270(long *param_1,ulong param_2,ulong param_3,undefined8 *param_4)
 
 {
   ulong uVar1;
@@ -16912,10 +16926,11 @@ ulong FUN_00c24270(long *param_1,ulong param_2,ulong param_3,undefined8 *param_4
 }
 
 
-// ==== entry=00c24300 name=FUN_00c24300 size=187 ====
+// ==== entry=00c24300 orig=FUN_00c24300 size=187 name=s_basic_string__compare_c24300 ====
 
-ulong FUN_00c24300(long *param_1,ulong param_2,ulong param_3,long *param_4,ulong param_5,
-                  ulong param_6)
+ulong s_basic_string__compare_c24300
+                (long *param_1,ulong param_2,ulong param_3,long *param_4,ulong param_5,ulong param_6
+                )
 
 {
   uint uVar1;
@@ -16996,9 +17011,9 @@ ulong FUN_00c243c0(undefined8 *param_1,wchar_t *param_2)
 }
 
 
-// ==== entry=00c24430 name=FUN_00c24430 size=157 ====
+// ==== entry=00c24430 orig=FUN_00c24430 size=157 name=s_basic_string__compare_c24430 ====
 
-ulong FUN_00c24430(long *param_1,ulong param_2,ulong param_3,wchar_t *param_4)
+ulong s_basic_string__compare_c24430(long *param_1,ulong param_2,ulong param_3,wchar_t *param_4)
 
 {
   uint uVar1;
@@ -17037,9 +17052,10 @@ ulong FUN_00c24430(long *param_1,ulong param_2,ulong param_3,wchar_t *param_4)
 }
 
 
-// ==== entry=00c244d0 name=FUN_00c244d0 size=133 ====
+// ==== entry=00c244d0 orig=FUN_00c244d0 size=133 name=s_basic_string__compare_c244d0 ====
 
-ulong FUN_00c244d0(long *param_1,ulong param_2,ulong param_3,wchar_t *param_4,ulong param_5)
+ulong s_basic_string__compare_c244d0
+                (long *param_1,ulong param_2,ulong param_3,wchar_t *param_4,ulong param_5)
 
 {
   uint uVar1;
@@ -17096,9 +17112,9 @@ void FUN_00c24570(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c24580 name=FUN_00c24580 size=140 ====
+// ==== entry=00c24580 orig=FUN_00c24580 size=140 name=s_basic_string__append_c24580 ====
 
-long * FUN_00c24580(long *param_1,wchar_t *param_2,undefined8 *param_3)
+long * s_basic_string__append_c24580(long *param_1,wchar_t *param_2,undefined8 *param_3)
 
 {
   long lVar1;
@@ -17374,9 +17390,9 @@ LAB_00c24a33:
 }
 
 
-// ==== entry=00c24ac0 name=FUN_00c24ac0 size=57 ====
+// ==== entry=00c24ac0 orig=FUN_00c24ac0 size=57 name=s_basic_string__basic_string_c24ac0 ====
 
-void FUN_00c24ac0(long *param_1,long *param_2,ulong param_3)
+void s_basic_string__basic_string_c24ac0(long *param_1,long *param_2,ulong param_3)
 
 {
   long lVar1;
@@ -17395,10 +17411,11 @@ void FUN_00c24ac0(long *param_1,long *param_2,ulong param_3)
 }
 
 
-// ==== entry=00c24b00 name=FUN_00c24b00 size=67 ====
+// ==== entry=00c24b00 orig=FUN_00c24b00 size=67 name=s_basic_string__basic_string_c24b00 ====
 
-void FUN_00c24b00(long *param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
-                 undefined8 param_6)
+void s_basic_string__basic_string_c24b00
+               (long *param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
+               undefined8 param_6)
 
 {
   long lVar1;
@@ -17423,10 +17440,11 @@ void FUN_00c24b00(long *param_1,long *param_2,ulong param_3,ulong param_4,undefi
 }
 
 
-// ==== entry=00c24b50 name=FUN_00c24b50 size=67 ====
+// ==== entry=00c24b50 orig=FUN_00c24b50 size=67 name=s_string__string_c24b50 ====
 
-void FUN_00c24b50(long *param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
-                 undefined8 param_6)
+void s_string__string_c24b50
+               (long *param_1,long *param_2,ulong param_3,ulong param_4,undefined8 param_5,
+               undefined8 param_6)
 
 {
   long lVar1;
@@ -17503,9 +17521,9 @@ void FUN_00c24c00(long *param_1)
 }
 
 
-// ==== entry=00c24c10 name=FUN_00c24c10 size=78 ====
+// ==== entry=00c24c10 orig=FUN_00c24c10 size=78 name=s_basic_string__substr_c24c10 ====
 
-long * FUN_00c24c10(long *param_1,long *param_2,ulong param_3,ulong param_4)
+long * s_basic_string__substr_c24c10(long *param_1,long *param_2,ulong param_3,ulong param_4)
 
 {
   long lVar1;
@@ -23328,9 +23346,10 @@ std::string::string<__gnu_cxx::__normal_iterator<char*,std::string>>
 }
 
 
-// ==== entry=00c2a290 name=FUN_00c2a290 size=60 ====
+// ==== entry=00c2a290 orig=FUN_00c2a290 size=60 name=s_basic_string__basic_string_c2a290 ====
 
-void FUN_00c2a290(undefined8 *param_1,long *param_2,ulong param_3,undefined8 param_4)
+void s_basic_string__basic_string_c2a290
+               (undefined8 *param_1,long *param_2,ulong param_3,undefined8 param_4)
 
 {
   long lVar1;

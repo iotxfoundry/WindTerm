@@ -8072,7 +8072,7 @@ locale * __thiscall std::locale::global(locale *this,locale *param_1)
   UNLOCK();
   DAT_011c5020 = *(_Impl **)param_1;
                     /* try { // try from 00beed38 to 00beed3c has its CatchHandler @ 00beedf9 */
-  FUN_00beeea0(local_58,param_1);
+  s_basic_string__append_beeea0(local_58,param_1);
   iVar2 = std::__cxx11::string::compare((char *)local_58);
   if (iVar2 != 0) {
     setlocale(6,local_58[0]);
@@ -8164,9 +8164,9 @@ void __thiscall std::locale::locale(locale *this,_Impl *param_1)
 }
 
 
-// ==== entry=00beeea0 name=FUN_00beeea0 size=787 ====
+// ==== entry=00beeea0 orig=FUN_00beeea0 size=787 name=s_basic_string__append_beeea0 ====
 
-long * FUN_00beeea0(long *param_1,long *param_2)
+long * s_basic_string__append_beeea0(long *param_1,long *param_2)
 
 {
   long *plVar1;
@@ -8328,9 +8328,9 @@ LAB_00bef2f8:
       if ((__s2 != (char *)0x0) && (iVar3 = strcmp(__s1,__s2), iVar3 == 0)) {
         if ((puVar1[1] != 0) || (puVar2[1] != 0)) {
                     /* try { // try from 00bef261 to 00bef265 has its CatchHandler @ 00bef335 */
-          FUN_00beeea0(&local_58,param_1);
+          s_basic_string__append_beeea0(&local_58,param_1);
                     /* try { // try from 00bef271 to 00bef275 has its CatchHandler @ 00bef32a */
-          FUN_00beeea0(&local_78,this);
+          s_basic_string__append_beeea0(&local_78,this);
           uVar4 = 0;
           if ((local_70 == local_50) && (uVar4 = 1, local_70 != 0)) {
             iVar3 = memcmp(local_78,local_58,local_70);
@@ -16043,7 +16043,7 @@ void FUN_00bf6f20(long *param_1,long param_2)
   uVar1 = (local_60 + 1) * 4;
                     /* try { // try from 00bf6ffd to 00bf7014 has its CatchHandler @ 00bf70d4 */
   pvVar4 = operator_new__(uVar1);
-  FUN_00c239d0(&local_68,pvVar4,uVar5,0);
+  s_basic_string__copy_c239d0(&local_68,pvVar4,uVar5,0);
   *(void **)(param_2 + 0x28) = pvVar4;
   *(undefined4 *)((long)pvVar4 + (uVar1 - 4)) = 0;
   *(ulong *)(param_2 + 0x30) = uVar5;
@@ -16055,7 +16055,7 @@ void FUN_00bf6f20(long *param_1,long param_2)
     uVar5 = (local_60 + 1) * 4;
                     /* try { // try from 00bf7064 to 00bf70cc has its CatchHandler @ 00bf70c3 */
     pvVar4 = operator_new__(uVar5);
-    FUN_00c239d0(&local_68,pvVar4,local_60,0);
+    s_basic_string__copy_c239d0(&local_68,pvVar4,local_60,0);
     *(void **)(param_2 + 0x38) = pvVar4;
     *(undefined4 *)((long)pvVar4 + (uVar5 - 4)) = 0;
     *(ulong *)(param_2 + 0x40) = local_60;
@@ -16371,7 +16371,7 @@ void FUN_00bf7690(long *param_1,long param_2)
   uVar4 = (local_60 + 1) * 4;
                     /* try { // try from 00bf7783 to 00bf779a has its CatchHandler @ 00bf78f0 */
   pvVar3 = operator_new__(uVar4);
-  FUN_00c239d0(&local_68,pvVar3,uVar1,0);
+  s_basic_string__copy_c239d0(&local_68,pvVar3,uVar1,0);
   *(void **)(param_2 + 0x30) = pvVar3;
   *(undefined4 *)((long)pvVar3 + (uVar4 - 4)) = 0;
   *(ulong *)(param_2 + 0x38) = uVar1;
@@ -16384,7 +16384,7 @@ void FUN_00bf7690(long *param_1,long param_2)
     uVar4 = (local_60 + 1) * 4;
                     /* try { // try from 00bf77ef to 00bf7806 has its CatchHandler @ 00bf78e2 */
     pvVar3 = operator_new__(uVar4);
-    FUN_00c239d0(&local_68,pvVar3,uVar1,0);
+    s_basic_string__copy_c239d0(&local_68,pvVar3,uVar1,0);
     *(void **)(param_2 + 0x40) = pvVar3;
     *(undefined4 *)((long)pvVar3 + (uVar4 - 4)) = 0;
     *(ulong *)(param_2 + 0x48) = uVar1;
@@ -16396,7 +16396,7 @@ void FUN_00bf7690(long *param_1,long param_2)
       uVar1 = (local_60 + 1) * 4;
                     /* try { // try from 00bf785f to 00bf7876 has its CatchHandler @ 00bf78d8 */
       pvVar3 = operator_new__(uVar1);
-      FUN_00c239d0(&local_68,pvVar3,local_60,0);
+      s_basic_string__copy_c239d0(&local_68,pvVar3,local_60,0);
       *(void **)(param_2 + 0x50) = pvVar3;
       *(undefined4 *)((long)pvVar3 + (uVar1 - 4)) = 0;
       *(ulong *)(param_2 + 0x58) = local_60;
@@ -16471,7 +16471,7 @@ void FUN_00bf7910(long *param_1,long param_2)
   uVar4 = (local_60 + 1) * 4;
                     /* try { // try from 00bf7a03 to 00bf7a1a has its CatchHandler @ 00bf7b70 */
   pvVar3 = operator_new__(uVar4);
-  FUN_00c239d0(&local_68,pvVar3,uVar1,0);
+  s_basic_string__copy_c239d0(&local_68,pvVar3,uVar1,0);
   *(void **)(param_2 + 0x30) = pvVar3;
   *(undefined4 *)((long)pvVar3 + (uVar4 - 4)) = 0;
   *(ulong *)(param_2 + 0x38) = uVar1;
@@ -16484,7 +16484,7 @@ void FUN_00bf7910(long *param_1,long param_2)
     uVar4 = (local_60 + 1) * 4;
                     /* try { // try from 00bf7a6f to 00bf7a86 has its CatchHandler @ 00bf7b62 */
     pvVar3 = operator_new__(uVar4);
-    FUN_00c239d0(&local_68,pvVar3,uVar1,0);
+    s_basic_string__copy_c239d0(&local_68,pvVar3,uVar1,0);
     *(void **)(param_2 + 0x40) = pvVar3;
     *(undefined4 *)((long)pvVar3 + (uVar4 - 4)) = 0;
     *(ulong *)(param_2 + 0x48) = uVar1;
@@ -16496,7 +16496,7 @@ void FUN_00bf7910(long *param_1,long param_2)
       uVar1 = (local_60 + 1) * 4;
                     /* try { // try from 00bf7adf to 00bf7af6 has its CatchHandler @ 00bf7b58 */
       pvVar3 = operator_new__(uVar1);
-      FUN_00c239d0(&local_68,pvVar3,local_60,0);
+      s_basic_string__copy_c239d0(&local_68,pvVar3,local_60,0);
       *(void **)(param_2 + 0x50) = pvVar3;
       *(undefined4 *)((long)pvVar3 + (uVar1 - 4)) = 0;
       *(ulong *)(param_2 + 0x58) = local_60;
@@ -18155,9 +18155,9 @@ long * FUN_00bf9aa0(long *param_1,long param_2)
 }
 
 
-// ==== entry=00bf9af0 name=FUN_00bf9af0 size=427 ====
+// ==== entry=00bf9af0 orig=FUN_00bf9af0 size=427 name=s_basic_string__append_bf9af0 ====
 
-long * FUN_00bf9af0(long *param_1,undefined8 param_2,long param_3,long param_4)
+long * s_basic_string__append_bf9af0(long *param_1,undefined8 param_2,long param_3,long param_4)
 
 {
   char *pcVar1;
@@ -19173,10 +19173,11 @@ void FUN_00bfab70(long *param_1)
 }
 
 
-// ==== entry=00bfab80 name=FUN_00bfab80 size=1936 ====
+// ==== entry=00bfab80 orig=FUN_00bfab80 size=1936 name=s_basic_string__append_bfab80 ====
 
-long * FUN_00bfab80(undefined8 param_1,long *param_2,char param_3,long param_4,undefined1 param_5,
-                   undefined8 *param_6)
+long * s_basic_string__append_bfab80
+                 (undefined8 param_1,long *param_2,char param_3,long param_4,undefined1 param_5,
+                 undefined8 *param_6)
 
 {
   long *plVar1;
@@ -19442,10 +19443,11 @@ LAB_00bfac78:
 }
 
 
-// ==== entry=00bfb3c0 name=FUN_00bfb3c0 size=2063 ====
+// ==== entry=00bfb3c0 orig=FUN_00bfb3c0 size=2063 name=s_basic_string__append_bfb3c0 ====
 
-long * FUN_00bfb3c0(undefined8 param_1,long *param_2,char param_3,long param_4,undefined1 param_5,
-                   undefined8 *param_6)
+long * s_basic_string__append_bfb3c0
+                 (undefined8 param_1,long *param_2,char param_3,long param_4,undefined1 param_5,
+                 undefined8 *param_6)
 
 {
   long *plVar1;
@@ -19827,11 +19829,11 @@ LAB_00bfbdf4:
   if ((char)local_a4 == '\0') {
                     /* try { // try from 00bfbe21 to 00bfbedd has its CatchHandler @ 00bfbeed */
     *(undefined8 *)(puVar8 + -8) = 0xbfbe26;
-    local_98 = FUN_00bfb3c0();
+    local_98 = s_basic_string__append_bfb3c0();
   }
   else {
     *(undefined8 *)(puVar8 + -8) = 0xbfbea5;
-    local_98 = FUN_00bfab80(uVar4,uVar5,uVar7,lVar2,iVar6,local_68);
+    local_98 = s_basic_string__append_bfab80(uVar4,uVar5,uVar7,lVar2,iVar6,local_68);
   }
   puVar9 = local_68[0];
   if (local_68[0] != local_58) {
@@ -19858,10 +19860,10 @@ void FUN_00bfbf20(void)
   char in_CL;
   
   if (in_CL != '\0') {
-    FUN_00bfab80();
+    s_basic_string__append_bfab80();
     return;
   }
-  FUN_00bfb3c0();
+  s_basic_string__append_bfb3c0();
   return;
 }
 
@@ -35060,9 +35062,10 @@ wchar_t * std::wstring::_S_construct<wchar_t*>(long param_1,long param_2)
 }
 
 
-// ==== entry=00c10050 name=FUN_00c10050 size=61 ====
+// ==== entry=00c10050 orig=FUN_00c10050 size=61 name=s_basic_string__basic_string_c10050 ====
 
-void FUN_00c10050(undefined8 *param_1,long *param_2,ulong param_3,undefined8 param_4)
+void s_basic_string__basic_string_c10050
+               (undefined8 *param_1,long *param_2,ulong param_3,undefined8 param_4)
 
 {
   long lVar1;

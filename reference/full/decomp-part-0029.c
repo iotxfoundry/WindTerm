@@ -391,7 +391,7 @@ undefined8 EditDelegate_dtor(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_008f993c(param_1,param_2);
+  uVar2 = s_EditDelegate_8f993c(param_1,param_2);
   return uVar2;
 }
 
@@ -2664,7 +2664,7 @@ long ScintillaEditWatcher_dtor_deleting(long param_1,byte *param_2)
   if ((!bVar5 && !bVar6) == bVar5) {
     return param_1 + 0x48;
   }
-  lVar2 = FUN_0091de9a(param_1,param_2);
+  lVar2 = s_MuxPane_91de9a(param_1,param_2);
   return lVar2;
 }
 
@@ -4271,7 +4271,7 @@ LAB_008f4d02:
       if (param_3 != 5) {
         return;
       }
-      FUN_005bd926(param_1,*(undefined4 *)puVar4);
+      s_editor_commandModeEnabled_5bd926(param_1,*(undefined4 *)puVar4);
       return;
     }
     FUN_005be68c(param_1,*puVar4);
@@ -5402,9 +5402,9 @@ void FUN_008f6dd0(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f6e2e name=FUN_008f6e2e size=66 ====
+// ==== entry=008f6e2e orig=FUN_008f6e2e size=66 name=s_LineEdit_8f6e2e ====
 
-char * FUN_008f6e2e(char *param_1,char *param_2)
+char * s_LineEdit_8f6e2e(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -7498,7 +7498,7 @@ undefined8 BreadEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_008f6e2e(param_1,param_2);
+  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -8238,7 +8238,7 @@ undefined8 ListItemDelegate_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_008f993c(param_1,param_2);
+  uVar2 = s_EditDelegate_8f993c(param_1,param_2);
   return uVar2;
 }
 
@@ -8581,7 +8581,7 @@ undefined8 FilterEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_008f6e2e(param_1,param_2);
+  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -9139,9 +9139,9 @@ void FUN_008f98f6(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f993c name=FUN_008f993c size=66 ====
+// ==== entry=008f993c orig=FUN_008f993c size=66 name=s_EditDelegate_8f993c ====
 
-char * FUN_008f993c(char *param_1,char *param_2)
+char * s_EditDelegate_8f993c(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -9257,7 +9257,7 @@ undefined8 FileTree_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_008fb430(param_1,param_2);
+  uVar2 = s_TreeView_8fb430(param_1,param_2);
   return uVar2;
 }
 
@@ -10403,7 +10403,7 @@ undefined8 PathEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_008f6e2e(param_1,param_2);
+  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -10606,7 +10606,7 @@ undefined8 SafeEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_008f6e2e(param_1,param_2);
+  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -11037,9 +11037,9 @@ undefined ** FUN_008fb1a4(long param_1)
 }
 
 
-// ==== entry=008fb1bc name=FUN_008fb1bc size=66 ====
+// ==== entry=008fb1bc orig=FUN_008fb1bc size=66 name=s_TablePanel_8fb1bc ====
 
-undefined8 FUN_008fb1bc(undefined8 param_1,char *param_2)
+undefined8 s_TablePanel_8fb1bc(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -11247,9 +11247,9 @@ void FUN_008fb302(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008fb430 name=FUN_008fb430 size=66 ====
+// ==== entry=008fb430 orig=FUN_008fb430 size=66 name=s_TreeView_8fb430 ====
 
-char * FUN_008fb430(char *param_1,char *param_2)
+char * s_TreeView_8fb430(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -11828,9 +11828,9 @@ undefined ** FUN_008fbc08(long param_1)
 }
 
 
-// ==== entry=008fbc20 name=FUN_008fbc20 size=66 ====
+// ==== entry=008fbc20 orig=FUN_008fbc20 size=66 name=s_WidgetDelegate_8fbc20 ====
 
-char * FUN_008fbc20(char *param_1,char *param_2)
+char * s_WidgetDelegate_8fbc20(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -11933,9 +11933,9 @@ void FUN_008fbcce(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008fbd2e name=FUN_008fbd2e size=66 ====
+// ==== entry=008fbd2e orig=FUN_008fbd2e size=66 name=s_WidgetList_8fbd2e ====
 
-char * FUN_008fbd2e(char *param_1,char *param_2)
+char * s_WidgetList_8fbd2e(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -12136,7 +12136,7 @@ void FUN_008fbe64(long param_1,int param_2,uint param_3,long *param_4)
     FUN_008c5e56(param_1 + 0x100,param_4[1]);
     break;
   case 0xc:
-    FUN_008c6f48(&local_28,param_1 + 0x100,param_4[1]);
+    s_SessionNotificationMessage_8c6f48(&local_28,param_1 + 0x100,param_4[1]);
     puVar6 = local_28;
     puVar5 = (undefined8 *)*param_4;
     if (puVar5 != (undefined8 *)0x0) {
@@ -12188,7 +12188,7 @@ joined_r0x008fbff0:
     QArrayData::deallocate(local_20[0],2,8);
     break;
   case 0x11:
-    uVar8 = FUN_005e7442(param_1,param_4[1],*(undefined8 *)param_4[2]);
+    uVar8 = s_FileErrorMessage_5e7442(param_1,param_4[1],*(undefined8 *)param_4[2]);
     if ((undefined8 *)*param_4 != (undefined8 *)0x0) {
       *(undefined8 *)*param_4 = uVar8;
     }
@@ -12202,7 +12202,7 @@ joined_r0x008fbff0:
       UNLOCK();
     }
                     /* try { // try from 008fc1e8 to 008fc1ec has its CatchHandler @ 008fc204 */
-    FUN_005e6c92(param_1,local_20,uVar7);
+    s_FileReloadMessage_5e6c92(param_1,local_20,uVar7);
     goto LAB_008fbf2d;
   case 0x13:
     local_20[0] = *(QArrayData **)param_4[1];
@@ -12212,7 +12212,7 @@ joined_r0x008fbff0:
       UNLOCK();
     }
                     /* try { // try from 008fbf28 to 008fbf2c has its CatchHandler @ 008fc20c */
-    FUN_005e6c92(param_1,local_20,1);
+    s_FileReloadMessage_5e6c92(param_1,local_20,1);
 LAB_008fbf2d:
     if (*(int *)local_20[0] != 0) {
       if (*(int *)local_20[0] == -1) {
@@ -12483,7 +12483,7 @@ undefined8 KitWindow_dtor(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d250(param_1,param_2);
+  uVar2 = s_KitWindow_91d250(param_1,param_2);
   return uVar2;
 }
 
@@ -13823,12 +13823,12 @@ ulong ToolRunner_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
 }
 
 
-// ==== entry=008fd6e0 name=FUN_008fd6e0 size=279 ====
+// ==== entry=008fd6e0 orig=FUN_008fd6e0 size=279 name=Tools_h8fd6e0 ====
 
 /* WARNING: Removing unreachable block (ram,0x008fd777) */
 /* WARNING: Removing unreachable block (ram,0x008fd7d7) */
 
-void FUN_008fd6e0(undefined8 *param_1)
+void Tools_h8fd6e0(undefined8 *param_1)
 
 {
   long *plVar1;
@@ -13903,7 +13903,7 @@ void Tools_dtor(QObject *param_1)
 
 {
   *(undefined ***)param_1 = &Tools_vtable;
-  FUN_008fd6e0(param_1 + 0x10);
+  Tools_h8fd6e0(param_1 + 0x10);
   QObject::~QObject(param_1);
   return;
 }
@@ -13915,7 +13915,7 @@ void Tools_dtor_deleting(QObject *param_1)
 
 {
   *(undefined ***)param_1 = &Tools_vtable;
-  FUN_008fd6e0(param_1 + 0x10);
+  Tools_h8fd6e0(param_1 + 0x10);
   QObject::~QObject(param_1);
   operator_delete(param_1,0x18);
   return;
@@ -19767,9 +19767,9 @@ undefined ** FUN_00902fea(long param_1)
 }
 
 
-// ==== entry=00903002 name=FUN_00903002 size=66 ====
+// ==== entry=00903002 orig=FUN_00903002 size=66 name=s_TreeModel_903002 ====
 
-char * FUN_00903002(char *param_1,char *param_2)
+char * s_TreeModel_903002(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -27074,9 +27074,9 @@ void FUN_00909101(void)
 }
 
 
-// ==== entry=0090926a name=FUN_0090926a size=66 ====
+// ==== entry=0090926a orig=FUN_0090926a size=66 name=s_TriggerPage_90926a ====
 
-char * FUN_0090926a(char *param_1,char *param_2)
+char * s_TriggerPage_90926a(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -27714,7 +27714,7 @@ undefined8 KitPane_dtor(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -27830,7 +27830,7 @@ undefined8 TransferPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -28082,7 +28082,7 @@ undefined8 OutputPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -28148,7 +28148,7 @@ undefined8 SessionPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -28512,12 +28512,12 @@ LAB_0090a617:
     }
     break;
   case 0xc:
-    FUN_00738346(param_1,param_4[1]);
+    s_TabTargetTitle_738346(param_1,param_4[1]);
     break;
   case 0xd:
     local_28 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0090a6ca to 0090a6ce has its CatchHandler @ 0090a741 */
-    FUN_00738346(param_1,&local_28);
+    s_TabTargetTitle_738346(param_1,&local_28);
     goto LAB_0090a3ca;
   case 0xe:
     FUN_007371c0(param_1,param_4[1]);
@@ -28562,7 +28562,7 @@ undefined8 SenderPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -28628,7 +28628,7 @@ undefined8 FilerPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -29004,7 +29004,7 @@ undefined8 OutlinePane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -29059,7 +29059,7 @@ LAB_0090af2b:
     FUN_00746bfe();
     break;
   case 6:
-    FUN_00746ce4();
+    s_SenderPane_746ce4();
     break;
   case 7:
     FUN_00748510();
@@ -29396,7 +29396,7 @@ undefined8 SearchPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -29818,7 +29818,7 @@ undefined8 ShellPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = FUN_0091d3e2(param_1,param_2);
+  uVar2 = s_KitPane_91d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -29832,7 +29832,7 @@ void FUN_0090ba9a(undefined8 param_1,int param_2,int param_3,long *param_4)
   
   if (param_2 == 0) {
     if (param_3 == 0) {
-      uVar1 = FUN_007503a0(param_1,param_4[1]);
+      uVar1 = s_session_color_7503a0(param_1,param_4[1]);
       if ((undefined4 *)*param_4 != (undefined4 *)0x0) {
         *(undefined4 *)*param_4 = uVar1;
       }
@@ -31715,7 +31715,7 @@ joined_r0x0090e19a:
       UNLOCK();
     }
                     /* try { // try from 0090e311 to 0090e315 has its CatchHandler @ 0090e645 */
-    FUN_0075d22e(param_1,&local_20,uVar8);
+    s_ShowFolders_75d22e(param_1,&local_20,uVar8);
     if (*(int *)local_20 != 0) {
       if (*(int *)local_20 == -1) {
         return;
@@ -31827,7 +31827,7 @@ LAB_0090e618:
     QMapDataBase::freeData((QMapDataBase *)pQVar7);
     break;
   case 0x15:
-    FUN_0075dc4c(&local_28,param_1);
+    s_application_searchEngines_75dc4c(&local_28,param_1);
     puVar6 = (undefined8 *)*param_4;
     pQVar7 = local_28;
 joined_r0x0090e4e3:
@@ -31841,7 +31841,7 @@ joined_r0x0090e4e3:
     FUN_00525060(&local_28);
     break;
   case 0x16:
-    FUN_0075e56a(param_1,param_4[1],param_4[2]);
+    s_application_searchEngines_75e56a(param_1,param_4[1],param_4[2]);
     break;
   case 0x17:
     FUN_0075debe(param_1,param_4[1]);
@@ -31856,13 +31856,13 @@ joined_r0x0090e4e3:
     FUN_0075d78c(param_1,param_4[1],param_4[2]);
     break;
   case 0x1b:
-    FUN_0075d79c(*(undefined8 *)param_4[1],param_1,*(undefined1 *)param_4[2]);
+    s_application_windowOpacity_75d79c(*(undefined8 *)param_4[1],param_1,*(undefined1 *)param_4[2]);
     break;
   case 0x1c:
-    FUN_0075d79c(*(undefined8 *)param_4[1],param_1,1);
+    s_application_windowOpacity_75d79c(*(undefined8 *)param_4[1],param_1,1);
     break;
   case 0x1d:
-    FUN_0075d79c(0,param_1,1);
+    s_application_windowOpacity_75d79c(0,param_1,1);
     break;
   case 0x1e:
     FUN_0075d956();
@@ -32804,7 +32804,7 @@ switchD_0090ef41_default:
     }
     break;
   case 7:
-    FUN_007cbb60();
+    s_terminal_answerBack_7cbb60();
     break;
   case 8:
     FUN_007ca8d4(param_1,*(undefined4 *)param_4[1],param_4[2]);
@@ -32816,7 +32816,7 @@ switchD_0090ef41_default:
     FUN_007cad8a();
     break;
   case 0xb:
-    FUN_007cbc46();
+    s_terminal_bellInterval_7cbc46();
     break;
   case 0xc:
     uVar6 = FUN_007cad96();
@@ -33165,13 +33165,13 @@ switchD_0090ef41_default:
     FUN_007c9e90(param_1,param_4[1]);
     break;
   case 0x6f:
-    FUN_007cf856(param_1,param_4[1]);
+    s_StartPrompt_7cf856(param_1,param_4[1]);
     break;
   case 0x70:
     FUN_007cf526(param_1,param_4[1]);
     break;
   case 0x71:
-    FUN_007cf5d0(param_1,param_4[1]);
+    s_CursorShape_7cf5d0(param_1,param_4[1]);
     break;
   case 0x72:
     local_28 = *(QArrayData **)param_4[2];

@@ -26250,9 +26250,9 @@ undefined8 FUN_007bb538(long param_1)
 }
 
 
-// ==== entry=007bb546 name=FUN_007bb546 size=352 ====
+// ==== entry=007bb546 orig=FUN_007bb546 size=352 name=s_session_keepAlive_7bb546 ====
 
-void FUN_007bb546(int param_1,void *param_2)
+void s_session_keepAlive_7bb546(int param_1,void *param_2)
 
 {
   long lVar1;
@@ -26321,7 +26321,7 @@ void FUN_007bb546(int param_1,void *param_2)
   uVar6 = *(undefined8 *)((long)param_2 + 0x20);
   QByteArray::QByteArray((QByteArray *)&local_40,"session.keepAlive",-1);
                     /* try { // try from 007bb644 to 007bb648 has its CatchHandler @ 007bb6ae */
-  FUN_007d5538(local_38,uVar6,(QByteArray *)&local_40);
+  s_ssh_identityFilePath_7d5538(local_38,uVar6,(QByteArray *)&local_40);
                     /* try { // try from 007bb64e to 007bb652 has its CatchHandler @ 007bb6a6 */
   iVar4 = QVariant::toInt((bool *)local_38);
   QVariant::~QVariant(local_38);
@@ -26461,11 +26461,11 @@ void FUN_007bb757(int param_1,void *param_2)
 }
 
 
-// ==== entry=007bb786 name=FUN_007bb786 size=867 ====
+// ==== entry=007bb786 orig=FUN_007bb786 size=867 name=s_session_autoLogin_7bb786 ====
 
 /* WARNING: Removing unreachable block (ram,0x007bb9e1) */
 
-void FUN_007bb786(long param_1)
+void s_session_autoLogin_7bb786(long param_1)
 
 {
   int iVar1;
@@ -26504,7 +26504,7 @@ LAB_007bb8f3:
       local_78 = (QArrayData *)0x0;
       local_70 = 0x80000000;
                     /* try { // try from 007bb92e to 007bb932 has its CatchHandler @ 007bbb31 */
-      FUN_007d5f7e(&local_98,*(undefined8 *)(param_1 + 0x38));
+      s_session_uuid_7d5f7e(&local_98,*(undefined8 *)(param_1 + 0x38));
       lVar2 = DAT_011c2200;
                     /* try { // try from 007bb943 to 007bb947 has its CatchHandler @ 007bbb29 */
       FUN_00a7f24a(local_68,(QVariant *)&local_78);
@@ -26528,7 +26528,7 @@ joined_r0x007bb980:
                     /* try { // try from 007bba16 to 007bba1a has its CatchHandler @ 007bbaf1 */
     QVariant::QVariant((QVariant *)&local_78,(QByteArray *)&local_98);
                     /* try { // try from 007bba3a to 007bba3e has its CatchHandler @ 007bbae9 */
-    FUN_007d5f7e(&local_90,*(undefined8 *)(param_1 + 0x38));
+    s_session_uuid_7d5f7e(&local_90,*(undefined8 *)(param_1 + 0x38));
     lVar2 = DAT_011c2200;
                     /* try { // try from 007bba4f to 007bba53 has its CatchHandler @ 007bbb21 */
     FUN_00a7f24a(local_68,(QVariant *)&local_78);
@@ -26569,7 +26569,7 @@ LAB_007bb840:
                     /* try { // try from 007bb846 to 007bb84a has its CatchHandler @ 007bbb39 */
     QVariant::QVariant((QVariant *)&local_78,(QString *)&local_a8);
                     /* try { // try from 007bb85b to 007bb85f has its CatchHandler @ 007bbb11 */
-    FUN_007d5f7e(&local_a0,*(undefined8 *)(param_1 + 0x38));
+    s_session_uuid_7d5f7e(&local_a0,*(undefined8 *)(param_1 + 0x38));
     lVar2 = DAT_011c2200;
                     /* try { // try from 007bb870 to 007bb874 has its CatchHandler @ 007bbb09 */
     FUN_00a7f24a(local_68,(QVariant *)&local_78);
@@ -26647,9 +26647,9 @@ void FUN_007bbb8e(QObject *param_1,undefined8 param_2,QObject *param_3)
 }
 
 
-// ==== entry=007bbc1e name=FUN_007bbc1e size=1047 ====
+// ==== entry=007bbc1e orig=FUN_007bbc1e size=1047 name=s_session_logFileSize_7bbc1e ====
 
-undefined8 * FUN_007bbc1e(undefined8 *param_1,undefined8 param_2,long param_3)
+undefined8 * s_session_logFileSize_7bbc1e(undefined8 *param_1,undefined8 param_2,long param_3)
 
 {
   int iVar1;
@@ -26670,7 +26670,7 @@ undefined8 * FUN_007bbc1e(undefined8 *param_1,undefined8 param_2,long param_3)
   if (param_3 == 0) goto LAB_007bbcad;
   QByteArray::QByteArray((QByteArray *)&local_90,"session.logType",-1);
                     /* try { // try from 007bbc64 to 007bbc68 has its CatchHandler @ 007bc06d */
-  FUN_007d5538(local_88,param_3,(QByteArray *)&local_90);
+  s_ssh_identityFilePath_7d5538(local_88,param_3,(QByteArray *)&local_90);
                     /* try { // try from 007bbc6e to 007bbc72 has its CatchHandler @ 007bc055 */
   iVar1 = QVariant::toInt((bool *)local_88);
   QVariant::~QVariant(local_88);
@@ -26691,7 +26691,7 @@ LAB_007bbcad:
   }
   QByteArray::QByteArray((QByteArray *)&local_90,"session.logOption",-1);
                     /* try { // try from 007bbcec to 007bbcf0 has its CatchHandler @ 007bc04d */
-  FUN_007d5538(local_88,param_3,(QByteArray *)&local_90);
+  s_ssh_identityFilePath_7d5538(local_88,param_3,(QByteArray *)&local_90);
                     /* try { // try from 007bbcf6 to 007bbcfa has its CatchHandler @ 007bc075 */
   iVar2 = QVariant::toInt((bool *)local_88);
   QVariant::~QVariant(local_88);
@@ -26707,7 +26707,7 @@ LAB_007bbff7:
   }
   QByteArray::QByteArray((QByteArray *)&local_90,"session.logFileSize",-1);
                     /* try { // try from 007bbd45 to 007bbd49 has its CatchHandler @ 007bc085 */
-  FUN_007d5538(local_88,param_3,(QByteArray *)&local_90);
+  s_ssh_identityFilePath_7d5538(local_88,param_3,(QByteArray *)&local_90);
                     /* try { // try from 007bbd4f to 007bbd53 has its CatchHandler @ 007bc07d */
   iVar3 = QVariant::toInt((bool *)local_88);
   QVariant::~QVariant(local_88);
@@ -26723,7 +26723,7 @@ LAB_007bbfde:
   }
   QByteArray::QByteArray((QByteArray *)&local_90,"session.logFilePath",-1);
                     /* try { // try from 007bbd9e to 007bbda2 has its CatchHandler @ 007bc035 */
-  FUN_007d5538(local_88,param_3,(QByteArray *)&local_90);
+  s_ssh_identityFilePath_7d5538(local_88,param_3,(QByteArray *)&local_90);
                     /* try { // try from 007bbdb0 to 007bbdb4 has its CatchHandler @ 007bc045 */
   QVariant::toString();
   QVariant::~QVariant(local_88);
@@ -26740,7 +26740,7 @@ LAB_007bbfc5:
                     /* try { // try from 007bbded to 007bbdf1 has its CatchHandler @ 007bc065 */
   QByteArray::QByteArray((QByteArray *)&local_90,"session.logPattern",-1);
                     /* try { // try from 007bbdfb to 007bbdff has its CatchHandler @ 007bc05d */
-  FUN_007d5538(local_88,param_3,(QByteArray *)&local_90);
+  s_ssh_identityFilePath_7d5538(local_88,param_3,(QByteArray *)&local_90);
                     /* try { // try from 007bbe10 to 007bbe14 has its CatchHandler @ 007bc03d */
   QVariant::toString();
   QVariant::~QVariant(local_88);
@@ -26839,7 +26839,7 @@ void FUN_007bc0ae(long param_1,long *param_2)
   undefined4 local_30;
   
   local_50[0] = param_2;
-  FUN_007bbc1e(&local_40,param_1,*(undefined8 *)(param_1 + 0x38));
+  s_session_logFileSize_7bbc1e(&local_40,param_1,*(undefined8 *)(param_1 + 0x38));
                     /* try { // try from 007bc0e2 to 007bc0e4 has its CatchHandler @ 007bc201 */
   (**(code **)(*local_50[0] + 0x28))(local_50[0],*(undefined8 *)(param_1 + 0x38));
   plVar2 = local_50[0];
@@ -26945,7 +26945,7 @@ void FUN_007bc21e(QObject *param_1,long param_2,char param_3)
     if (cVar1 == '\0') {
       (**(code **)(*plVar2 + 0x28))(plVar2,param_2);
     }
-    FUN_007bbc1e(&local_48,param_1,param_2);
+    s_session_logFileSize_7bbc1e(&local_48,param_1,param_2);
     if (*(code **)(*plVar2 + 0x68) != FUN_006a8b3e) {
                     /* try { // try from 007bc911 to 007bc912 has its CatchHandler @ 007bc9ce */
       (**(code **)(*plVar2 + 0x68))(plVar2,param_2,&local_48);
@@ -27041,7 +27041,7 @@ LAB_007bc34e:
   QMetaObject::Connection::~Connection(local_130);
   local_a8 = FUN_0091237e;
   local_a0 = 0;
-  local_98 = FUN_007beea8;
+  local_98 = s_ssh_verifyServerFingerprint_7beea8;
   local_90 = 0;
   puVar4 = operator_new(0x20);
   *puVar4 = 1;
@@ -27072,7 +27072,7 @@ LAB_007bc34e:
                     /* try { // try from 007bc690 to 007bc71e has its CatchHandler @ 007bc9be */
   puVar4 = operator_new(0x28);
   *puVar4 = 1;
-  *(code **)(puVar4 + 2) = FUN_007bb546;
+  *(code **)(puVar4 + 2) = s_session_keepAlive_7bb546;
   *(QArrayData **)(puVar4 + 4) = local_48;
   *(QObject **)(puVar4 + 6) = local_40;
   local_48 = (QArrayData *)0x0;
@@ -27162,7 +27162,7 @@ LAB_007bc8be:
 }
 
 
-// ==== entry=007bc9e6 name=FUN_007bc9e6 size=3782 ====
+// ==== entry=007bc9e6 orig=FUN_007bc9e6 size=3782 name=s_application_proxyPassword_7bc9e6 ====
 
 /* WARNING: Removing unreachable block (ram,0x007bd8a1) */
 /* WARNING: Removing unreachable block (ram,0x007bd896) */
@@ -27175,7 +27175,7 @@ LAB_007bc8be:
 /* WARNING: Removing unreachable block (ram,0x007bd847) */
 /* WARNING: Removing unreachable block (ram,0x007bd507) */
 
-void FUN_007bc9e6(undefined8 param_1,undefined8 param_2)
+void s_application_proxyPassword_7bc9e6(undefined8 param_1,undefined8 param_2)
 
 {
   QArrayData *pQVar1;
@@ -27209,7 +27209,7 @@ void FUN_007bc9e6(undefined8 param_1,undefined8 param_2)
   undefined1 local_50 [8];
   QArrayData *local_48;
   
-  FUN_008062b6(&local_d0,DAT_011c2200,param_2,0);
+  s_session_label_8062b6(&local_d0,DAT_011c2200,param_2,0);
                     /* try { // try from 007bca40 to 007bca44 has its CatchHandler @ 007bd8ac */
   FUN_00806ce4((QVariant *)&local_78,DAT_011c2200,param_2,"session.oneKey");
                     /* try { // try from 007bca55 to 007bca59 has its CatchHandler @ 007bd9a5 */
@@ -27474,7 +27474,8 @@ LAB_007bd203:
                     /* try { // try from 007bcc9e to 007bcca2 has its CatchHandler @ 007bd97d */
     QMetaObject::tr((char *)&local_88,(char *)&PTR_staticMetaObject_011a7220,0xc8acce);
                     /* try { // try from 007bccb3 to 007bccb7 has its CatchHandler @ 007bd985 */
-    cVar2 = FUN_00761950(uVar5,0,(QString *)&local_88,(QVariant *)&local_78,0);
+    cVar2 = s_application_masterPassword_761950
+                      (uVar5,0,(QString *)&local_88,(QVariant *)&local_78,0);
     if (*(int *)local_88 == 0) {
 LAB_007bd33c:
       QArrayData::deallocate(local_88,2,8);
@@ -27602,7 +27603,7 @@ LAB_007bcd0f:
           if (iVar3 == 0) {
             local_f0 = "application.proxyPassword";
           }
-          FUN_00761d5c((QJsonValue *)&local_90,uVar5,local_f0,&local_b0);
+          s_application_proxyPassword_761d5c((QJsonValue *)&local_90,uVar5,local_f0,&local_b0);
                     /* try { // try from 007bd7cf to 007bd7d3 has its CatchHandler @ 007bd8e5 */
           local_88 = (QArrayData *)
                      std::string::_S_construct<char_const*>
@@ -27694,11 +27695,11 @@ LAB_007bce7d:
 }
 
 
-// ==== entry=007bd9ce name=FUN_007bd9ce size=1350 ====
+// ==== entry=007bd9ce orig=FUN_007bd9ce size=1350 name=s_session_proxyJumpServer1_7bd9ce ====
 
 /* WARNING: Removing unreachable block (ram,0x007bdd07) */
 
-uint FUN_007bd9ce(long param_1,undefined8 param_2)
+uint s_session_proxyJumpServer1_7bd9ce(long param_1,undefined8 param_2)
 
 {
   long lVar1;
@@ -27802,7 +27803,7 @@ LAB_007bdb7e:
           } while (puVar7 + (long)(int)uVar2 * 2 + 4 != puVar12);
           uVar5 = uVar5 & 0xff;
         }
-        lVar8 = FUN_00810056(DAT_011c2200,(QString *)&local_a8,0);
+        lVar8 = s_session_uuid_810056(DAT_011c2200,(QString *)&local_a8,0);
         if (lVar8 == 0) {
           QMetaObject::tr((char *)&local_78,(char *)&PTR_staticMetaObject_011a7220,0xca6ae0);
                     /* try { // try from 007bdea4 to 007bdea8 has its CatchHandler @ 007bdf25 */
@@ -27844,7 +27845,7 @@ LAB_007bdf00:
             if (*(int *)local_70 == 0) goto LAB_007bdf00;
           }
                     /* try { // try from 007bde20 to 007bde8b has its CatchHandler @ 007bdf55 */
-          uVar5 = FUN_007bd9ce(param_1,lVar8);
+          uVar5 = s_session_proxyJumpServer1_7bd9ce(param_1,lVar8);
         }
       }
       else {
@@ -27985,11 +27986,11 @@ void SessionConnector_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=007be0a6 name=FUN_007be0a6 size=1922 ====
+// ==== entry=007be0a6 orig=FUN_007be0a6 size=1922 name=s_session_proxyHost_7be0a6 ====
 
 /* WARNING: Removing unreachable block (ram,0x007be81d) */
 
-undefined4 FUN_007be0a6(long param_1,undefined1 param_2)
+undefined4 s_session_proxyHost_7be0a6(long param_1,undefined1 param_2)
 
 {
   int *piVar1;
@@ -28172,7 +28173,7 @@ LAB_007be666:
       FUN_00af2c10(local_a8);
     }
                     /* try { // try from 007be31a to 007be35f has its CatchHandler @ 007be858 */
-    FUN_007bc9e6(param_1,local_60);
+    s_application_proxyPassword_7bc9e6(param_1,local_60);
     uVar6 = FUN_00a7e796(pvVar8,local_60);
     if ((char)uVar6 == '\0') {
       plVar10 = (long *)FUN_007bb280(param_1);
@@ -28213,7 +28214,7 @@ LAB_007be666:
     }
     else {
                     /* try { // try from 007be3ba to 007be3be has its CatchHandler @ 007be830 */
-      lVar11 = FUN_007d48ce(pvVar8,0);
+      lVar11 = s_session_protocol_7d48ce(pvVar8,0);
       if (lVar11 == 0) {
         uVar6 = 0;
         pvVar8 = (void *)0x0;
@@ -28312,7 +28313,7 @@ void FUN_007be8b8(int param_1,void *param_2)
     return;
   }
   if (param_1 == 1) {
-    FUN_007be0a6(*(undefined8 *)((long)param_2 + 0x10),0);
+    s_session_proxyHost_7be0a6(*(undefined8 *)((long)param_2 + 0x10),0);
     return;
   }
   return;
@@ -28336,7 +28337,7 @@ undefined8 FUN_007be8e4(long param_1,QString *param_2,undefined1 param_3,undefin
   QString::operator=((QString *)(param_1 + 0x30),param_2);
   *(undefined1 *)(param_1 + 0x28) = param_4;
   FUN_007bbb5a(param_1);
-  lVar1 = FUN_00810056(DAT_011c2200,param_2,1);
+  lVar1 = s_session_uuid_810056(DAT_011c2200,param_2,1);
   if (lVar1 == 0) {
     QMetaObject::tr((char *)&local_78,(char *)&PTR_staticMetaObject_011a7220,0xca6b68);
                     /* try { // try from 007bea51 to 007bea55 has its CatchHandler @ 007beb66 */
@@ -28380,7 +28381,7 @@ LAB_007beaad:
     QArrayData::deallocate(local_80,2,8);
     return 0;
   }
-  uVar2 = FUN_007bd9ce(param_1,lVar1);
+  uVar2 = s_session_proxyJumpServer1_7bd9ce(param_1,lVar1);
   if ((char)uVar2 == '\0') {
     return uVar2;
   }
@@ -28419,7 +28420,7 @@ LAB_007beb52:
   }
   QArrayData::deallocate(local_80,2,8);
 LAB_007be9fc:
-  uVar2 = FUN_007be0a6(param_1,1);
+  uVar2 = s_session_proxyHost_7be0a6(param_1,1);
   return uVar2;
 }
 
@@ -28548,7 +28549,7 @@ LAB_007becb9:
     local_48 = (QArrayData *)0x0;
     local_40 = 0x80000000;
                     /* try { // try from 007becf9 to 007becfd has its CatchHandler @ 007bee88 */
-    FUN_00595192(uVar9,2,&local_48);
+    s_session_oneKey_595192(uVar9,2,&local_48);
     QVariant::~QVariant((QVariant *)&local_48);
   }
   plVar6 = (long *)FUN_007bb280(param_1);
@@ -28559,13 +28560,13 @@ LAB_007becb9:
 }
 
 
-// ==== entry=007beea8 name=FUN_007beea8 size=5269 ====
+// ==== entry=007beea8 orig=FUN_007beea8 size=5269 name=s_ssh_verifyServerFingerprint_7beea8 ====
 
 /* WARNING: Removing unreachable block (ram,0x007bfcdb) */
 /* WARNING: Removing unreachable block (ram,0x007bf6b7) */
 /* WARNING: Removing unreachable block (ram,0x007bff70) */
 
-void FUN_007beea8(long param_1,undefined4 param_2,QVariant *param_3)
+void s_ssh_verifyServerFingerprint_7beea8(long param_1,undefined4 param_2,QVariant *param_3)
 
 {
   int *piVar1;
@@ -28638,7 +28639,7 @@ void FUN_007beea8(long param_1,undefined4 param_2,QVariant *param_3)
   undefined8 local_48;
   
   if (*(long *)(param_1 + 0x38) == 0) goto LAB_007bf09d;
-  FUN_007d5d2a(&local_228);
+  s_session_protocol_7d5d2a(&local_228);
   iVar7 = (int)param_3;
   switch(param_2) {
   case 0:
@@ -28662,7 +28663,7 @@ void FUN_007beea8(long param_1,undefined4 param_2,QVariant *param_3)
       local_68._0_8_ = 0;
       local_68._8_4_ = 0x80000000;
                     /* try { // try from 007bf220 to 007bf224 has its CatchHandler @ 007c037d */
-      FUN_00595192(uVar15,2,local_68);
+      s_session_oneKey_595192(uVar15,2,local_68);
 LAB_007bf225:
       QVariant::~QVariant((QVariant *)local_68);
     }
@@ -28690,7 +28691,7 @@ LAB_007bf613:
     break;
   case 7:
     FUN_007bb1fa(param_1);
-    FUN_007bb786(param_1);
+    s_session_autoLogin_7bb786(param_1);
     plVar10 = (long *)FUN_007bb280(param_1);
     if ((plVar10 != (long *)0x0) && (*(code **)(*plVar10 + 0x48) != FUN_006a8b38)) {
                     /* try { // try from 007bf6d5 to 007bf707 has its CatchHandler @ 007c043d */
@@ -28868,7 +28869,7 @@ LAB_007bf613:
                     /* try { // try from 007bef99 to 007bef9d has its CatchHandler @ 007c03ed */
           QByteArray::QByteArray((QByteArray *)&local_a8,"ssh.autoLogin",-1);
                     /* try { // try from 007befb3 to 007befb7 has its CatchHandler @ 007c0435 */
-          FUN_007d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_a8);
+          s_ssh_identityFilePath_7d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_a8);
                     /* try { // try from 007befcb to 007befcf has its CatchHandler @ 007c042d */
           QVariant::toJsonObject();
           QVariant::~QVariant((QVariant *)local_68);
@@ -28876,7 +28877,7 @@ LAB_007bf613:
                     /* try { // try from 007befe8 to 007befec has its CatchHandler @ 007c0415 */
           QVariant::QVariant((QVariant *)local_68,param_3);
                     /* try { // try from 007beff8 to 007beffc has its CatchHandler @ 007c03a5 */
-          FUN_00595192(lVar16,1,(QVariant *)local_68);
+          s_session_oneKey_595192(lVar16,1,(QVariant *)local_68);
           QVariant::~QVariant((QVariant *)local_68);
           sVar13 = strlen("session.oneKey");
                     /* try { // try from 007bf02f to 007bf033 has its CatchHandler @ 007c0415 */
@@ -28974,7 +28975,7 @@ LAB_007bf65f:
     break;
   case 10:
                     /* try { // try from 007bf164 to 007bf1c3 has its CatchHandler @ 007c043d */
-    cVar6 = FUN_007d5c26(*(undefined8 *)(param_1 + 0x38));
+    cVar6 = s_ssh_autoLogin_7d5c26(*(undefined8 *)(param_1 + 0x38));
     if (cVar6 == '\0') {
 LAB_007bf594:
                     /* try { // try from 007bf597 to 007bf5ca has its CatchHandler @ 007c043d */
@@ -28985,7 +28986,7 @@ LAB_007bf594:
           uVar15 = *(undefined8 *)(param_1 + 0x38);
           QByteArray::QByteArray((QByteArray *)&local_88,"session.label",-1);
                     /* try { // try from 007bf71b to 007bf71f has its CatchHandler @ 007c0375 */
-          FUN_007d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_88);
+          s_ssh_identityFilePath_7d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_88);
                     /* try { // try from 007bf733 to 007bf737 has its CatchHandler @ 007c036d */
           QVariant::toString();
           QVariant::~QVariant((QVariant *)local_68);
@@ -28995,7 +28996,7 @@ LAB_007bf594:
                     /* try { // try from 007bf772 to 007bf776 has its CatchHandler @ 007c0365 */
             QByteArray::QByteArray((QByteArray *)&local_88,"session.target",-1);
                     /* try { // try from 007bf782 to 007bf786 has its CatchHandler @ 007c035d */
-            FUN_007d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_88);
+            s_ssh_identityFilePath_7d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_88);
                     /* try { // try from 007bf792 to 007bf796 has its CatchHandler @ 007c0355 */
             QVariant::toString();
             piVar1 = local_a8;
@@ -29010,7 +29011,7 @@ LAB_007bf594:
         }
         QVariant::QVariant((QVariant *)local_68,param_3);
                     /* try { // try from 007bf5d3 to 007bf5d7 has its CatchHandler @ 007c034c */
-        FUN_00595192(lVar14,0,(QVariant *)local_68);
+        s_session_oneKey_595192(lVar14,0,(QVariant *)local_68);
         goto LAB_007bf225;
       }
     }
@@ -29018,12 +29019,12 @@ LAB_007bf594:
       iVar7 = QVariant::toInt((bool *)param_3);
       uVar15 = *(undefined8 *)(param_1 + 0x38);
       if (iVar7 != 1) {
-        cVar6 = FUN_007d5cb8(uVar15);
+        cVar6 = s_ssh_verifyServerFingerprint_7d5cb8(uVar15);
         uVar15 = *(undefined8 *)(param_1 + 0x38);
         if (cVar6 != '\0') {
           QByteArray::QByteArray((QByteArray *)&local_88,"ssh.autoLogin",-1);
                     /* try { // try from 007bf84b to 007bf84f has its CatchHandler @ 007c0455 */
-          FUN_007d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_88);
+          s_ssh_identityFilePath_7d5538((QVariant *)local_68,uVar15,(QByteArray *)&local_88);
                     /* try { // try from 007bf863 to 007bf867 has its CatchHandler @ 007c047d */
           QVariant::toJsonObject();
           QVariant::~QVariant((QVariant *)local_68);
@@ -33845,13 +33846,13 @@ LAB_007c6b10:
 }
 
 
-// ==== entry=007c7040 name=FUN_007c7040 size=2384 ====
+// ==== entry=007c7040 orig=FUN_007c7040 size=2384 name=s_basic_string__substr_7c7040 ====
 
 /* WARNING: Removing unreachable block (ram,0x007c78ef) */
 /* WARNING: Removing unreachable block (ram,0x007c78f9) */
 /* WARNING: Removing unreachable block (ram,0x007c7868) */
 
-void FUN_007c7040(long param_1,undefined8 param_2,undefined8 param_3,ulong param_4)
+void s_basic_string__substr_7c7040(long param_1,undefined8 param_2,undefined8 param_3,ulong param_4)
 
 {
   ulong uVar1;
@@ -34253,7 +34254,7 @@ void FUN_007c7bd0(long param_1,long param_2)
   uVar6 = *(long *)(param_1 + 0x38) + local_148;
   *(ulong *)(param_1 + 0x38) = uVar6;
   if (*(ulong *)(param_1 + 0x28) < uVar6) {
-    FUN_007c7040(param_1);
+    s_basic_string__substr_7c7040(param_1);
     *(size_t *)(param_1 + 0x38) = local_148;
   }
   sVar5 = local_148;
@@ -34740,7 +34741,7 @@ undefined8 * FUN_007c8584(undefined8 *param_1,long param_2)
     else {
       uVar2 = *(undefined8 *)(param_2 + 0x20);
     }
-    FUN_007d5538(param_1,uVar2);
+    s_ssh_identityFilePath_7d5538(param_1,uVar2);
     return param_1;
   }
   *param_1 = 0;
@@ -38056,7 +38057,8 @@ void FUN_007caec2(undefined8 param_1)
 undefined8 FUN_007cb00e(undefined8 param_1,long param_2,undefined8 param_3,undefined4 param_4)
 
 {
-  FUN_007da43e(param_1,*(undefined8 *)(param_2 + 0x38),param_2,param_3,param_4);
+  s_terminal_eraseWithBackground_7da43e
+            (param_1,*(undefined8 *)(param_2 + 0x38),param_2,param_3,param_4);
   return param_1;
 }
 
@@ -39092,7 +39094,7 @@ undefined8 * FUN_007cbb36(undefined8 *param_1,long param_2)
 
 {
   if (*(long *)(param_2 + 0x38) != 0) {
-    FUN_007d5538();
+    s_ssh_identityFilePath_7d5538();
     return param_1;
   }
   *param_1 = 0;
@@ -39101,9 +39103,9 @@ undefined8 * FUN_007cbb36(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=007cbb60 name=FUN_007cbb60 size=196 ====
+// ==== entry=007cbb60 orig=FUN_007cbb60 size=196 name=s_terminal_answerBack_7cbb60 ====
 
-void FUN_007cbb60(long *param_1)
+void s_terminal_answerBack_7cbb60(long *param_1)
 
 {
   code *pcVar1;
@@ -39136,9 +39138,9 @@ void FUN_007cbb60(long *param_1)
 }
 
 
-// ==== entry=007cbc46 name=FUN_007cbc46 size=390 ====
+// ==== entry=007cbc46 orig=FUN_007cbc46 size=390 name=s_terminal_bellInterval_7cbc46 ====
 
-void FUN_007cbc46(long param_1)
+void s_terminal_bellInterval_7cbc46(long param_1)
 
 {
   undefined8 uVar1;
@@ -40039,7 +40041,7 @@ undefined8 * FUN_007cc56c(undefined8 *param_1,long param_2)
   undefined8 uVar1;
   
   if (*(long *)(param_2 + 0x38) != 0) {
-    FUN_007d583a();
+    s_session_target_7d583a();
     return param_1;
   }
   uVar1 = QString::fromAscii_helper("Unknown",7);
@@ -40331,11 +40333,11 @@ void FUN_007cc8a2(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=007cc8aa name=FUN_007cc8aa size=569 ====
+// ==== entry=007cc8aa orig=FUN_007cc8aa size=569 name=s_window_scrollbackLimit_7cc8aa ====
 
 /* WARNING: Removing unreachable block (ram,0x007ccad1) */
 
-void FUN_007cc8aa(long param_1,long param_2)
+void s_window_scrollbackLimit_7cc8aa(long param_1,long param_2)
 
 {
   int iVar1;
@@ -40587,7 +40589,7 @@ void FUN_007cce36(long param_1)
 void FUN_007cce42(long param_1)
 
 {
-  FUN_007e8cf8(*(undefined8 *)(param_1 + 0x80));
+  s_terminal_numericKeypadMode_7e8cf8(*(undefined8 *)(param_1 + 0x80));
   return;
 }
 
@@ -40892,7 +40894,8 @@ void FUN_007cd120(long param_1)
   if (*(long **)(param_1 + 0x50) != (long *)0x0) {
     (**(code **)(**(long **)(param_1 + 0x50) + 0x20))();
   }
-  FUN_007da43e(&local_38,*(undefined8 *)(param_1 + 0x38),param_1,0,0xffffffff);
+  s_terminal_eraseWithBackground_7da43e
+            (&local_38,*(undefined8 *)(param_1 + 0x38),param_1,0,0xffffffff);
   if (local_38 == (int *)0x0) {
     *(undefined8 *)(param_1 + 0x50) = 0;
     local_30 = 0;
@@ -42336,7 +42339,7 @@ void FUN_007cf02c(QObject *param_1,undefined8 param_2,undefined8 param_3,QObject
   FUN_007caec2(param_1);
   FUN_007cb02c(param_1);
   King__registerVtOperations(param_1);
-  FUN_007cc8aa(param_1,param_2);
+  s_window_scrollbackLimit_7cc8aa(param_1,param_2);
   puVar3 = operator_new(0x10);
   *puVar3 = 0x8000000000000000;
   puVar3[1] = 0x8000000000000000;
