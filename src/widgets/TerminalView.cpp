@@ -3,6 +3,7 @@
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QPlainTextEdit>
+#include <QScrollBar>
 
 #include "core/SchemeManager.h"
 
@@ -42,6 +43,16 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
     layout->setSpacing(0);
     layout->addWidget(m_gutter);
     layout->addWidget(m_main, 1);
+
+    // gutter 与主区滚动联动；先比较值避免双向递归
+    connect(m_main->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int value) {
+        if (m_gutter->verticalScrollBar()->value() != value)
+            m_gutter->verticalScrollBar()->setValue(value);
+    });
+    connect(m_gutter->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int value) {
+        if (m_main->verticalScrollBar()->value() != value)
+            m_main->verticalScrollBar()->setValue(value);
+    });
 
     const QString gray = schemeColor(QStringLiteral("terminal.ansiBrightBlack"), QStringLiteral("#666666"));
     const QString green = schemeColor(QStringLiteral("terminal.ansiGreen"), QStringLiteral("#86B42B"));

@@ -29,7 +29,7 @@
 9. **QDockWidget 模型是错的**：原版布局是嵌套 QSplitter（导入表零 dock 函数）。勿再引入 dock。
 10. `QDockWidget::setCollapsed()` 不存在（Qt5/6 均无）。
 11. `WA_DeleteOnClose` 要求 MainWindow 堆分配（main.cpp 已是 `new`，勿改回栈对象）。
-12. **QSettings 的 restoreState 连 orientation 一起恢复**：旧保存状态会让新代码设置的方向失效——splitter 持久化键将来需带布局版本前缀（TODO）。
+12. **QSettings 的 restoreState 连 orientation 一起恢复**：旧保存状态会让新代码设置的方向失效——已解决：持久化键带布局版本前缀 `layout.v2/splitter_<objectName>`（MainWindow 的 LAYOUT_VERSION 常量），布局结构变化时升 v3 即可让旧状态自然失效；恢复时 `!restoreState(state)` 的状态直接忽略。**每次调整布局结构必须记得升版**。
 13. `Q_UNIMPLEMENTED()` 占位槽每次触发会打运行时警告，属预期。
 14. locale 查表 key 不含 `&` 助记符：先剥离再查；菜单标题的 `标题 + " (&N)"` 数字模式是另一套（复刻二进制格式串 `(&%1)`），勿混淆。
 

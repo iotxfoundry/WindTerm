@@ -15,6 +15,13 @@ inline Qt::Orientation orientationFor(Dir dir)
     return (dir == Dir::Left || dir == Dir::Right) ? Qt::Horizontal : Qt::Vertical;
 }
 
+// 稳定名称用于 QSettings 持久化；启动插入序列确定，序号可复现
+inline QString nextNestedSplitterName()
+{
+    static int counter = 0;
+    return QStringLiteral("NestedSplitter_%1").arg(++counter);
+}
+
 // 移植 FUN_005a277a：相对锚点四方向插入，方向冲突时自动外包一层 splitter
 inline QWidget *insert(Splitter *root, QWidget *anchor, QWidget *pane, Dir dir)
 {
@@ -40,6 +47,7 @@ inline QWidget *insert(Splitter *root, QWidget *anchor, QWidget *pane, Dir dir)
         auto *nested = new Splitter;
         nested->setOrientation(target);
         nested->setChildrenCollapsible(false);
+        nested->setObjectName(nextNestedSplitterName());
         parent->replaceWidget(idx, nested);
         nested->addWidget(anchor);
         nested->show(); // 无父新建的 splitter 被 replaceWidget 收养后不会自动显示

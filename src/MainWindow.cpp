@@ -9,6 +9,7 @@
 #include <QMenuBar>
 #include <QPalette>
 #include <QPlainTextEdit>
+#include <QPushButton>
 #include <QSettings>
 #include <QSplitter>
 #include <QStackedWidget>
@@ -40,6 +41,17 @@
 #include "widgets/MuxPaneGroup.h"
 #include "widgets/PaneManager.h"
 #include "widgets/Splitter.h"
+
+namespace {
+
+const QString LAYOUT_VERSION = QStringLiteral("v2");
+
+QString splitterSettingsKey(const QString &objectName)
+{
+    return QStringLiteral("layout.%1/splitter_%2").arg(LAYOUT_VERSION, objectName);
+}
+
+} // namespace
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -258,13 +270,13 @@ void MainWindow::createCentral()
         muxParent->setSizes({4000, 1000});
     root->setSizes({4000, 2000});
 
-    // 移动分割条即持久化；动态插入的匿名嵌套 splitter 暂不持久化
-    const QList<QSplitter *> splitters{root, muxRow};
-    for (QSplitter *splitter : splitters) {
+    // 移动分割条即持久化；所有具名 splitter（含 PaneManager 动态嵌套）统一接入
+    for (QSplitter *splitter : findChildren<QSplitter *>()) {
+        if (splitter->objectName().isEmpty())
+            continue;
         connect(splitter, &QSplitter::splitterMoved, this, [splitter]() {
             QSettings settings;
-            settings.setValue(QStringLiteral("application/splitter_%1").arg(splitter->objectName()),
-                              splitter->saveState());
+            settings.setValue(splitterSettingsKey(splitter->objectName()), splitter->saveState());
         });
     }
 }
@@ -310,6 +322,10 @@ void MainWindow::createStatusBar()
     m_clockLabel = new QLabel(this);
     statusBar()->addPermanentWidget(m_clockLabel);
 
+    auto *lockButton = new QPushButton(tr("锁屏"), this);
+    statusBar()->addPermanentWidget(lockButton);
+    connect(lockButton, &QPushButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
+
     m_clockTimer = new QTimer(this);
     connect(m_clockTimer, &QTimer::timeout, this, &MainWindow::updateClock);
     m_clockTimer->start(1000);
@@ -331,17 +347,13 @@ void MainWindow::onRestoreLayout()
     QSettings settings;
     restoreGeometry(settings.value(QStringLiteral("application/windowGeometry")).toByteArray());
 
-    const QStringList splitterNames{
-        QStringLiteral("RootSplitter"),
-        QStringLiteral("CenterSplitter")
-    };
-    for (const QString &name : splitterNames) {
-        QSplitter *splitter = findChild<QSplitter *>(name);
-        if (!splitter)
+    for (QSplitter *splitter : findChildren<QSplitter *>()) {
+        const QString name = splitter->objectName();
+        if (name.isEmpty())
             continue;
-        const QByteArray state = settings.value(QStringLiteral("application/splitter_%1").arg(name)).toByteArray();
-        if (!state.isEmpty())
-            splitter->restoreState(state);
+        const QByteArray state = settings.value(splitterSettingsKey(name)).toByteArray();
+        if (state.isEmpty() || !splitter->restoreState(state))
+            continue;
     }
 
     Q_UNIMPLEMENTED();
