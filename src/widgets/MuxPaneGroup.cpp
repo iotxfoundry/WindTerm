@@ -5,13 +5,13 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QStackedWidget>
-#include <QStyle>
 #include <QTabBar>
 
 #include "core/SchemeManager.h"
 #include <QToolButton>
 #include <QVBoxLayout>
 
+#include "ActionIcons.h"
 #include "TerminalView.h"
 
 #include "core/LocalSession.h"
@@ -58,10 +58,12 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
         .arg(tabText, hover, selected));
 
     m_addButton->setObjectName(QStringLiteral("AddSessionButton"));
-    m_addButton->setIcon(style()->standardIcon(QStyle::SP_FileDialogNewFolder));
+    m_addButton->setIcon(ActionIcons::paintIcon(QStringLiteral("add"), QColor(QStringLiteral("#007acc")), 24));
+    m_addButton->setIconSize(QSize(24, 24));
     m_addButton->setFixedSize(24, 24);
     m_menuButton->setObjectName(QStringLiteral("SessionMenuButton"));
-    m_menuButton->setIcon(style()->standardIcon(QStyle::SP_FileDialogDetailedView));
+    m_menuButton->setIcon(ActionIcons::paintIcon(QStringLiteral("menu"), QColor(QStringLiteral("#007acc")), 24));
+    m_menuButton->setIconSize(QSize(24, 24));
     m_menuButton->setFixedSize(24, 24);
 
     auto *tabRow = new QHBoxLayout;
