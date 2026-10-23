@@ -10,11 +10,15 @@ class QAction;
 class QLabel;
 class QLineEdit;
 class QMenu;
+class QResizeEvent;
 class QTimer;
 class QToolBar;
+class QToolButton;
 class MuxPaneGroup;
 class QuickBar;
+class SearchPane;
 class SessionPane;
+class TransferBar;
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +29,7 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 
 private slots:
     void onPlaceholderAction();
@@ -48,13 +53,20 @@ private:
     void connectSessionPane(SessionPane *pane);
     QuickBar *ensureQuickBar();
     void toggleQuickBar();
+    void updateWindowSizeLabel();
 
     LocaleManager &m_locale;
     MuxPaneGroup *m_muxPaneGroup;
     QToolBar *m_toolBar = nullptr;
     QLineEdit *m_addressBar;
-    QLabel *m_readyLabel;
-    QLabel *m_clockLabel;
-    QTimer *m_clockTimer;
-    QuickBar *m_quickBar = nullptr; // 惰性创建（0x0085ad2e：首次显示才构建）
+    QLabel *m_windowSizeLabel = nullptr;
+    QLabel *m_caretLabel = nullptr;
+    QLabel *m_clockLabel = nullptr;
+    QTimer *m_clockTimer = nullptr;
+    QToolButton *m_modeButton = nullptr;
+    QToolButton *m_schemeButton = nullptr;
+    bool m_localMode = false;
+    QuickBar *m_quickBar = nullptr; // 懒建（0x85ad2e），toggleQuickBar 首次创建
+    SearchPane *m_searchPane = nullptr;
+    TransferBar *m_transferBar = nullptr; // shortcut: 懒建点挂账（0x85af56 传输启动时建），传输功能实现时接入
 };

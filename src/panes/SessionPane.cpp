@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QPixmap>
 
+#include "core/LocaleManager.h"
 #include "core/SessionStore.h"
 #include "widgets/ActionIcons.h"
 #include "core/ThemeManager.h"
@@ -26,6 +27,10 @@ QIcon sessionIcon(const QString &icon)
 SessionPane::SessionPane(QWidget *parent)
     : QTreeWidget(parent)
 {
+    // KitPane 三连 0x008c3bbe：objectName → setWindowIcon（挂账）→ setWindowTitle(King_title 0x008a1106)
+    setObjectName(QStringLiteral("SessionPane"));
+    setWindowTitle(LocaleManager::instance().tr(QStringLiteral("Session")));
+    // shortcut: setWindowIcon 挂账, paneIconFactory 未实现
     setHeaderHidden(true);
 
     // 按 session.group 分组：顶层=组名，子项=label + target:port

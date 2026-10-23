@@ -7,10 +7,12 @@
 
 struct ToolbarEntry
 {
-    enum Type { Action, AddressBar, Separator };
+    enum Type { Action, AddressBar, Separator, FilterEdit };
 
     Type type = Action;
     QString actionId;
+    // 原版 type3 QToolButton 的可选下拉菜单名（toolbar.config "Menu" 键，0x00694276）
+    QString menu;
 };
 
 class ToolbarConfig

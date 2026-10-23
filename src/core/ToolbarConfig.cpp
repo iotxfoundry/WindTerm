@@ -62,9 +62,13 @@ QVector<ToolbarEntry> ToolbarConfig::parseEntries(const QJsonArray &array)
             entry.type = ToolbarEntry::AddressBar;
         } else if (object.contains(QStringLiteral("Separator"))) {
             entry.type = ToolbarEntry::Separator;
+        } else if (object.contains(QStringLiteral("FilterEdit"))) {
+            entry.type = ToolbarEntry::FilterEdit;
         } else {
             continue;
         }
+        // 仅 Action 条目带 Menu（toolbar.config Standard/FilerPane/… 各节）
+        entry.menu = object.value(QStringLiteral("Menu")).toString();
         entries.append(entry);
     }
     return entries;

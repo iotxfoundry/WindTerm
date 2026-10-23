@@ -3,14 +3,22 @@
 #include <QAction>
 #include <QCloseEvent>
 
+#include <QDateTime>
+#include <QDir>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QLabel>
 #include <QLineEdit>
+#include <QLocale>
 #include <QMenu>
 
 // 菜单图标列尺寸：原版无 QProxyStyle/PM 覆盖痕迹（rg 0 命中）→ 回退 Qt 默认 PM_SmallIconSize；
 // King::iconFactory(0x007572ac) 的渲染 rect 由动态调用方传入，静态不可达（挂账）
 #include <QMenuBar>
 #include <QPushButton>
+#include <QResizeEvent>
 #include <QSettings>
 #include <QSignalBlocker>
 #include <QSplitter>
@@ -18,14 +26,15 @@
 #include <QStatusBar>
 #include <QTabBar>
 #include <QTabWidget>
-#include <QTime>
 #include <QTimer>
 #include <QToolBar>
+#include <QToolButton>
 #include <QVBoxLayout>
 
 #include "core/ActionRegistry.h"
 #include "core/KeymapConfig.h"
 #include "core/Assets.h"
+#include "core/JsonText.h"
 #include "core/SchemeManager.h"
 #include "core/SessionStore.h"
 #include "core/SshSession.h"
@@ -44,10 +53,12 @@
 #include "panes/TransferPane.h"
 #include "widgets/ActionIcons.h"
 #include "widgets/KitGroup.h"
+#include "widgets/MenuBarCorner.h"
 #include "widgets/MuxPaneGroup.h"
 #include "widgets/PaneHeader.h"
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
+#include "widgets/TransferBar.h"
 
 namespace {
 
@@ -61,6 +72,45 @@ QString splitterSettingsKey(const QString &objectName)
     return QStringLiteral("layout.%1/splitter_%2").arg(LAYOUT_VERSION, objectName);
 }
 
+// B4：menu.config 顶层独立节（如 "Open Recent"）不在 MenuConfig::m_menus（只收集 Kit 菜单），
+// 按同名节补取 Actions。解析规则与 MenuConfig::parseEntries 一致。
+QVector<MenuEntry> parseMenuSection(const QJsonArray &array)
+{
+    QVector<MenuEntry> entries;
+    for (const QJsonValue &value : array) {
+        const QJsonObject object = value.toObject();
+        MenuEntry entry;
+        if (object.contains(QStringLiteral("Menu"))) {
+            entry.type = MenuEntry::Submenu;
+            entry.title = object.value(QStringLiteral("Menu")).toString();
+            entry.children = parseMenuSection(object.value(QStringLiteral("Actions")).toArray());
+        } else if (object.contains(QStringLiteral("Separator"))) {
+            entry.type = MenuEntry::Separator;
+        } else if (object.contains(QStringLiteral("Action"))) {
+            entry.type = MenuEntry::Action;
+            entry.actionId = object.value(QStringLiteral("Action")).toString();
+        } else {
+            continue;
+        }
+        entries.append(entry);
+    }
+    return entries;
+}
+
+QVector<MenuEntry> menuSection(const QString &name)
+{
+    QFile file(Assets::dir() + QStringLiteral("/config/uiconfigs/menu.config"));
+    if (!file.open(QIODevice::ReadOnly))
+        return {};
+    QByteArray data = file.readAll();
+    if (data.startsWith("\xEF\xBB\xBF"))
+        data.remove(0, 3);
+    const QJsonDocument doc = QJsonDocument::fromJson(JsonText::stripLineComments(data));
+    if (!doc.isObject())
+        return {};
+    return parseMenuSection(doc.object().value(name).toArray());
+}
+
 } // namespace
 
 MainWindow::MainWindow(QWidget *parent)
@@ -68,9 +118,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_locale(LocaleManager::instance())
     , m_muxPaneGroup(nullptr)
     , m_addressBar(nullptr)
-    , m_readyLabel(nullptr)
-    , m_clockLabel(nullptr)
-    , m_clockTimer(nullptr)
 {
     setWindowTitle(tr("WindTerm"));
     // 原版 TerminalWindow（QSS #CategoryLabel 前缀，gui.theme:447）
@@ -110,6 +157,9 @@ QString MainWindow::makeMenuTitle(const QString &base, int n) const
 
 void MainWindow::createMenus()
 {
+    // 证据 0x008c9ee4/0x0085d99e：MenuBar 右上角 MenuBarCorner（Terminal 版含 Tunnels/XServer）
+    menuBar()->setCornerWidget(new MenuBarCorner(this, true), Qt::TopRightCorner);
+
     MenuConfig &menuConfig = MenuConfig::instance();
     if (menuConfig.load(Assets::dir() + QStringLiteral("/config/uiconfigs/menu.config")) && !menuConfig.menuNames().isEmpty()) {
         const QStringList names = menuConfig.menuNames();
@@ -157,12 +207,13 @@ void MainWindow::createToolBar()
     if (name.isEmpty())
         return;
 
-    // 原版 KitBar 在 KitGroup 的 toolBar 区（工具栏行：标签行之下、终端之上，只占中部宽）。
+    // 原版 KitGroup 的 toolBar 区（工具栏行：标签行之下、终端之上，只占中部宽）。
     // 经 KitGroup::addToolBar 挂入（setupBars 0x008bade2 → QMainWindow::addToolBar 0x008bb07d）；
     // createCentral 里装配
     auto *toolBar = new QToolBar(name, this);
-    // 原版工具栏类 KitBar（QToolBar 子类，0x008b31b6）；gui.theme:583 qproperty-iconSize:20px
-    toolBar->setObjectName(QStringLiteral("KitBar"));
+    // 原版 toolbar_build 产物 objectName="ToolBar"（0x00694276，title=tr("Standard")）；
+    // "KitBar" 只属 QuickSwitcher（0x008b31b6），不得用于主窗工具栏
+    toolBar->setObjectName(QStringLiteral("ToolBar"));
     toolBar->setMovable(false);
     m_toolBar = toolBar;
 
@@ -267,6 +318,15 @@ QAction *MainWindow::makeAction(const QString &actionId)
         connect(action, &QAction::triggered, this, &MainWindow::toggleQuickBar);
         return action;
     }
+    // Window.ToggleMenuBar / Window.ToggleStatusBar（wind.actions:2614/2683 script=toggleBar）
+    if (actionId == QStringLiteral("Window.ToggleMenuBar")) {
+        connect(action, &QAction::triggered, this, [this]() { menuBar()->setVisible(!menuBar()->isVisible()); });
+        return action;
+    }
+    if (actionId == QStringLiteral("Window.ToggleStatusBar")) {
+        connect(action, &QAction::triggered, this, [this]() { statusBar()->setVisible(!statusBar()->isVisible()); });
+        return action;
+    }
     // wind.actions Dock.TogglePane* 与 Window.TogglePane*：toggle 对应容器。
     // 映射按骨架合并形态：原版 Session 独立 pane 与 Explorer 合并为 tabsGroup（QTabWidget），shortcut 挂账
     connect(action, &QAction::triggered, this, [this, actionId]() {
@@ -280,9 +340,11 @@ QAction *MainWindow::makeAction(const QString &actionId)
             target = findChild<FilerPane *>();
         else if (pane == QStringLiteral("Outline"))
             target = findChild<QWidget *>(QStringLiteral("OutlineTabs"));
+        else if (pane == QStringLiteral("Search"))
+            target = m_searchPane;
         else if (pane == QStringLiteral("Sender") || pane == QStringLiteral("Transfer")
                  || pane == QStringLiteral("Output") || pane == QStringLiteral("Shell")) {
-            // 五页共用 bottomGroup：toggle 整组可见并切到对应页（Sender/Transfer/Output/Search/Shell 顺序）
+            // 四页共用 bottomGroup：toggle 整组可见并切到对应页（Sender/Transfer/Output/Shell 顺序）
             target = findChild<QWidget *>(QStringLiteral("BottomPanes"));
             static const QStringList order = {QStringLiteral("Sender"), QStringLiteral("Transfer"),
                                               QStringLiteral("Output"), QStringLiteral("Shell")};
@@ -294,7 +356,7 @@ QAction *MainWindow::makeAction(const QString &actionId)
             togglePane(target);
             return;
         }
-        // 五页共用 bottomGroup：显示整组并切到对应页
+        // 四页共用 bottomGroup：显示整组并切到对应页
         const bool showing = target->isHidden();
         togglePane(target);
         if (showing) {
@@ -336,7 +398,16 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
             if (key.endsWith(QStringLiteral("...")))
                 key.chop(3);
             QMenu *sub = menu->addMenu(displayActionText(entry.title, m_locale.tr(key)));
-            buildMenu(sub, entry.children);
+            if (!entry.children.isEmpty()) {
+                buildMenu(sub, entry.children);
+                break;
+            }
+            // 证据 menu.config:75-81：独立 "Open Recent" 节；menu.config:423 的 "Open Rece&nt" 无 Actions 键
+            QString section = entry.title;
+            section.remove(QLatin1Char('&'));
+            const QVector<MenuEntry> derived = menuSection(section);
+            if (!derived.isEmpty())
+                buildMenu(sub, derived);
             break;
         }
         }
@@ -381,14 +452,14 @@ void MainWindow::createCentral()
     muxRow->addWidget(m_muxPaneGroup);
 
     // 中央列 = KitGroup（嵌套 QMainWindow，ctor 0x008bb360）：标签行占 menuWidget 槽、
-    // KitBar 占 toolBar 区（QToolBar 只占中部宽，不横跨侧栏）、central=MuxPaneGroup
+    // ToolBar 占 toolBar 区（QToolBar 只占中部宽，不横跨侧栏）、central=MuxPaneGroup
     // 的堆栈（对应 setupBars 0x008bade2：setMenuWidget 0x008bb044 → TabGroup_buildCentral
     // 0x005ab6e8 return +0x60 → addToolBar 0x008bb07d）
     auto *kitGroup = new KitGroup;
     if (m_muxPaneGroup->tabBarRow())
         kitGroup->setMenuWidget(m_muxPaneGroup->tabBarRow());
     if (m_toolBar) {
-        m_toolBar->setParent(kitGroup); // 脱离 MainWindow，改挂 KitGroup；objectName KitBar 保持主题规则
+        m_toolBar->setParent(kitGroup); // 脱离 MainWindow，改挂 KitGroup；objectName ToolBar 保持主题规则
         kitGroup->addToolBar(m_toolBar);
     }
     kitGroup->setCentralWidget(muxRow);
@@ -414,8 +485,24 @@ void MainWindow::createCentral()
     root->addWidget(col);
     root->addWidget(bottom);
 
+    // 证据 0x0085a7a6：+0xc8 竖向 splitter 包住整个中央树，底部按
+    // [SearchPane, QuickBar, TransferBar] 顺序 insertWidget —— 三条全宽独立条，上下堆叠。
+    auto *centralVSplitter = new QSplitter(Qt::Vertical);
+    centralVSplitter->addWidget(root);
+
+    m_searchPane = new SearchPane;
+    centralVSplitter->addWidget(m_searchPane);
+    m_searchPane->hide();
+
+    m_searchPane = new SearchPane;
+    centralVSplitter->addWidget(m_searchPane);
+    m_searchPane->hide();
+
+    // QuickBar/TransferBar 懒建（证据 0x85ad2e lazyCreateQuickBar / 0x85af56：
+    // 原版首次显示才建，显隐分发 0x85d080），ensureQuickBar 插在本条之后
+
     // v5：中央 widget 即 root splitter（中部单元=KitGroup 嵌套窗口，标签行/工具栏不横跨侧栏）
-    setCentralWidget(root);
+    setCentralWidget(centralVSplitter);
 
     col->setSizes({1000, 4000, 1000});
     // 原 CenterGroup VBox 期 setSizes({4000,2000}) 双值随 KitGroup 化失效移除（muxRow 内部
@@ -444,14 +531,12 @@ QWidget *MainWindow::createBottomTabs()
     tabs->addTab(m_locale.tr(QStringLiteral("Sender")));
     tabs->addTab(m_locale.tr(QStringLiteral("Transfer")));
     tabs->addTab(m_locale.tr(QStringLiteral("Output")));
-    tabs->addTab(m_locale.tr(QStringLiteral("Search")));
     tabs->addTab(m_locale.tr(QStringLiteral("Shell")));
 
     auto *stack = new QStackedWidget(container);
     stack->addWidget(new SenderPane(stack));
     stack->addWidget(new TransferPane(stack));
     stack->addWidget(new OutputPane(stack));
-    stack->addWidget(new SearchPane(stack));
     stack->addWidget(new ShellPane(stack));
 
     connect(tabs, &QTabBar::currentChanged, stack, &QStackedWidget::setCurrentIndex);
@@ -463,37 +548,88 @@ QWidget *MainWindow::createBottomTabs()
 
 void MainWindow::createStatusBar()
 {
-    // 原版 AppletBar 继承 StatusBar 并覆盖名（0x00526a7c）；gui.theme:493 AppletBar QToolButton
-    statusBar()->setObjectName(QStringLiteral("AppletBar"));
-    m_readyLabel = new QLabel(tr("Ready"), this);
-    statusBar()->addWidget(m_readyLabel);
-    statusBar()->addPermanentWidget(new QLabel(tr("Remote Mode"), this));
-    statusBar()->addPermanentWidget(new QLabel(tr("窗口 53×193"), this));
-    statusBar()->addPermanentWidget(new QLabel(tr("行 1 字符 1"), this));
-    statusBar()->addPermanentWidget(new QLabel(ThemeManager::instance().currentTheme(), this));
-    statusBar()->addPermanentWidget(new QLabel(tr("localhost"), this));
+    // 证据 0x00692766：主窗底栏 = StatusBar（objectName "StatusBar"），
+    // 内容来自 assets/config/uiconfigs/statusbar.config 的 7 个 applet（0x006933ea）。
+    statusBar()->setObjectName(QStringLiteral("StatusBar"));
 
+    // 证据: statusbar.config:2-25 模式按钮（Remote/Local）
+    m_modeButton = new QToolButton(this);
+    m_modeButton->setObjectName(QStringLiteral("ModeButton"));
+    m_modeButton->setAutoRaise(true);
+    m_modeButton->setText(m_locale.tr(m_localMode ? QStringLiteral("Local Mode") : QStringLiteral("Remote Mode")));
+    connect(m_modeButton, &QToolButton::clicked, this, [this]() {
+        m_localMode = !m_localMode;
+        m_modeButton->setText(m_locale.tr(m_localMode ? QStringLiteral("Local Mode") : QStringLiteral("Remote Mode")));
+        // shortcut: 终端 view keyMode 切换未接（terminal.activeView/keyModeChanged）, TerminalView 接入后同步
+    });
+    statusBar()->addPermanentWidget(m_modeButton);
+
+    // 证据: statusbar.config:26-43 Window %1×%2（骨架无终端 windowRows/Columns，按主窗 size() 更新）
+    m_windowSizeLabel = new QLabel(this);
+    m_windowSizeLabel->setObjectName(QStringLiteral("WindowSizeLabel"));
+    statusBar()->addPermanentWidget(m_windowSizeLabel);
+    updateWindowSizeLabel();
+
+    // 证据: statusbar.config:44-65 Ln/Ch（无终端 caret 数据前占位 1:1）
+    m_caretLabel = new QLabel(this);
+    m_caretLabel->setObjectName(QStringLiteral("CaretPositionLabel"));
+    m_caretLabel->setText(m_locale.tr(QStringLiteral("Ln %1 Ch %2")).arg(1).arg(1));
+    statusBar()->addPermanentWidget(m_caretLabel);
+
+    // 证据: statusbar.config:66-90 scheme 按钮（InstantPopup 菜单，选中仅更新 label）
+    m_schemeButton = new QToolButton(this);
+    m_schemeButton->setObjectName(QStringLiteral("SchemeButton"));
+    m_schemeButton->setAutoRaise(true);
+    m_schemeButton->setPopupMode(QToolButton::InstantPopup);
+    m_schemeButton->setText(ThemeManager::instance().currentTheme());
+    auto *schemeMenu = new QMenu(m_schemeButton);
+    // shortcut: SchemeManager 只暴露 color()、无 schemeNames() 枚举；暂以 themes/ 下含 scheme.theme 的主题名列举,
+    // 逆出终端 schemeNames 后改为 SchemeManager 列表
+    QDir themesDir(Assets::dir() + QStringLiteral("/themes"));
+    const QStringList schemes = themesDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+    for (const QString &scheme : schemes) {
+        if (!QFile::exists(themesDir.filePath(scheme + QStringLiteral("/scheme.theme"))))
+            continue;
+        QAction *action = schemeMenu->addAction(scheme);
+        connect(action, &QAction::triggered, this, [this, scheme]() {
+            m_schemeButton->setText(scheme);
+            // shortcut: 仅更新 label，未调用 setScheme 应用配色（原版 Terminal.SchemeList script）, 终端配色切换接入后补
+        });
+    }
+    m_schemeButton->setMenu(schemeMenu);
+    statusBar()->addPermanentWidget(m_schemeButton);
+
+    // 证据: statusbar.config:91-98 时钟（window.setInterval 2000ms，toLocaleString 等效）
     m_clockLabel = new QLabel(this);
+    m_clockLabel->setObjectName(QStringLiteral("ClockLabel"));
     statusBar()->addPermanentWidget(m_clockLabel);
 
-    auto *lockButton = new QPushButton(tr("锁屏"), this);
+    // 证据: statusbar.config:99-103 Issues 链接
+    auto *issuesLabel = new QLabel(this);
+    issuesLabel->setObjectName(QStringLiteral("IssuesLabel"));
+    issuesLabel->setTextFormat(Qt::RichText);
+    issuesLabel->setText(QStringLiteral(
+        "<a href=\"https://www.github.com/kingtoolbox/windterm/issues\" style=\"text-decoration:none;\">🐛 WindTerm Issues</a>"));
+    issuesLabel->setOpenExternalLinks(true);
+    statusBar()->addPermanentWidget(issuesLabel);
+
+    // 证据: statusbar.config:104-113 锁屏按钮
+    auto *lockButton = new QToolButton(this);
+    lockButton->setObjectName(QStringLiteral("LockScreenButton"));
+    lockButton->setAutoRaise(true);
+    lockButton->setText(QStringLiteral("🔒 ") + m_locale.tr(QStringLiteral("Lock Screen")));
+    connect(lockButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
     statusBar()->addPermanentWidget(lockButton);
-    connect(lockButton, &QPushButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
 
     m_clockTimer = new QTimer(this);
     connect(m_clockTimer, &QTimer::timeout, this, &MainWindow::updateClock);
-    m_clockTimer->start(1000);
+    m_clockTimer->start(2000);
     updateClock();
 }
 
 void MainWindow::initActionRegistry()
 {
-    ActionRegistry &registry = ActionRegistry::instance();
-    if (!registry.load(Assets::dir() + QStringLiteral("/config/wind.actions")))
-        return;
-
-    m_readyLabel->setText(m_readyLabel->text() + QStringLiteral(" · ")
-                          + QString::number(registry.actionIds().size()) + QStringLiteral(" actions"));
+    ActionRegistry::instance().load(Assets::dir() + QStringLiteral("/config/wind.actions"));
 }
 
 void MainWindow::onRestoreLayout()
@@ -529,9 +665,25 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
+// 证据: statusbar.config:29-31 Window %1×%2：无终端 screenSizeChanged，按主窗 resize 更新
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+    updateWindowSizeLabel();
+}
+
+void MainWindow::updateWindowSizeLabel()
+{
+    if (!m_windowSizeLabel)
+        return;
+    m_windowSizeLabel->setText(
+        m_locale.tr(QStringLiteral("Window %1×%2")).arg(size().width()).arg(size().height()));
+}
+
 void MainWindow::updateClock()
 {
-    m_clockLabel->setText(QTime::currentTime().toString(QStringLiteral("HH:mm:ss")));
+    // 证据: statusbar.config:95 date.toLocaleString() → system locale 短格式
+    m_clockLabel->setText(QLocale::system().toString(QDateTime::currentDateTime(), QLocale::ShortFormat));
 }
 
 void MainWindow::togglePane(QWidget *pane)
@@ -545,24 +697,24 @@ void MainWindow::togglePane(QWidget *pane)
             p->setVisible(true);
 }
 
-// 惰性创建：原版首次显示时才构建（0x0085ad2e）并 insertWidget 进中央底部区 QSplitter，
-// 排序键 [SearchPane, QuickBar, TransferBar] → bottomGroup 前插（index 0，骨架近似）
+// 懒建+插入（证据 0x85ad2e lazyCreateQuickBar、0x85a7a6 顺序：SearchPane 之后、TransferBar 之前）
 QuickBar *MainWindow::ensureQuickBar()
 {
-    if (m_quickBar)
-        return m_quickBar;
-    m_quickBar = new QuickBar(this);
-    if (auto *bottom = findChild<QSplitter *>(QStringLiteral("BottomPanes")))
-        bottom->insertWidget(0, m_quickBar);
-    // QSplitter::insertWidget 会自动显示新槽（PaneManager 同款坑）；原版创建时不可见，由首次 toggle 接管
-    m_quickBar->hide();
+    if (!m_quickBar) {
+        m_quickBar = new QuickBar;
+        m_quickBar->hide();
+        QWidget *central = centralWidget();
+        if (auto *vs = qobject_cast<QSplitter *>(central)) {
+            const int at = m_transferBar ? vs->indexOf(m_transferBar) : vs->indexOf(m_searchPane) + 1;
+            vs->insertWidget(at, m_quickBar);
+        }
+    }
     return m_quickBar;
 }
 
 void MainWindow::toggleQuickBar()
 {
     QuickBar *bar = ensureQuickBar();
-    // wind.actions state 勾选态与可见性同步；QSplitter 收养后 insertWidget 即显示
     bar->setVisible(bar->isHidden());
 }
 

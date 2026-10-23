@@ -26,7 +26,7 @@ public:
     void onAddSession();
 
 public:
-    // 标签行（tabBar+addBtn+menuBtn 容器，objectName=ViewGroup）：MainWindow 经
+    // 标签行（tabBar+scroll/add/list 按钮容器，objectName=ViewGroup）：MainWindow 经
     // KitGroup::setMenuWidget 挂其 menuWidget 槽（0x008bade2）
     QWidget *tabBarRow() const { return m_tabBarRow; }
 
@@ -36,7 +36,9 @@ private:
     QWidget *m_tabBarRow;
     QTabBar *m_tabBar;
     QStackedWidget *m_stack;
+    QToolButton *m_scrollLeftButton;
+    QToolButton *m_scrollRightButton;
     QToolButton *m_addButton;
-    QToolButton *m_menuButton;
+    QToolButton *m_listButton;
     bool m_confirmClose = true;
 };

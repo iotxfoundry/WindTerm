@@ -1,8 +1,14 @@
 #include "QuickBar.h"
 
 #include <QHBoxLayout>
+#include <QMenu>
+#include <QToolButton>
+
+#include "ActionIcons.h"
 
 #include "core/LocaleManager.h"
+#include "core/ThemeManager.h"
+#include "core/WindConfig.h"
 
 QuickBar::QuickBar(QWidget *parent)
     : QWidget(parent)
@@ -13,7 +19,62 @@ QuickBar::QuickBar(QWidget *parent)
     // 0x0056e26e: setAttribute(0x5d,1)=WA_StyledBackground，gui.theme 的 QuickBar 规则背景方可生效
     setAttribute(Qt::WA_StyledBackground, true);
 
-    // 空态占位布局；按钮构建挂账 0x0056e420/0x0056ce72（clicked→close），F4 接入时补
+    // quick 命令数据源：原版 CTerminalConfig+0xd8 的 quick.group/uuid/type/text。
+    // 已查 wind.config 与 ~/.wind/profiles/*/user.config：只有三个显示开关，无 quick 命令表 → 空态，
+    // 仅建 [QuickButton, ConfigButton, CloseButton]，不造假命令。
+    // shortcut: quick 命令数据源未确证(CTerminalConfig+0xd8,数据文件未定位), 定位后接
+    // 三个开关（wind.config:30-32 实际值 false/true/true），命令数据源定位后用于排序/分组显示
+    const bool showCommandsInOrder =
+        WindConfig::instance().valueToString(QStringLiteral("quickbar.showCommandsInOrder"),
+                                             QStringLiteral("false")) == QLatin1String("true");
+    const bool showGroupTitle =
+        WindConfig::instance().valueToString(QStringLiteral("quickbar.showGroupTitle"),
+                                             QStringLiteral("true")) == QLatin1String("true");
+    const bool showMultipleGroups =
+        WindConfig::instance().valueToString(QStringLiteral("quickbar.showMultipleGroups"),
+                                             QStringLiteral("true")) == QLatin1String("true");
+    Q_UNUSED(showCommandsInOrder)
+    Q_UNUSED(showGroupTitle)
+    Q_UNUSED(showMultipleGroups)
+
+    const QString theme = ThemeManager::instance().currentTheme();
+
+    // 内层 [QuickButton, 各分组 ActionButton…, ConfigButton, CloseButton]
+    auto *buttons = new QHBoxLayout;
+    buttons->setContentsMargins(0, 0, 0, 0);
+    buttons->setSpacing(0);
+
+    auto *quickButton = new QToolButton(this);
+    quickButton->setObjectName(QStringLiteral("QuickButton"));
+    quickButton->setText(LocaleManager::instance().tr(QStringLiteral("Quick Commands")));
+    quickButton->setPopupMode(QToolButton::InstantPopup);
+    // 空菜单：命令数据源定位后填（0x0056e420）
+    quickButton->setMenu(new QMenu(quickButton));
+    buttons->addWidget(quickButton);
+
+    auto *configButton = new QToolButton(this);
+    configButton->setObjectName(QStringLiteral("ConfigButton"));
+    configButton->setAutoRaise(true);
+    configButton->setIcon(ActionIcons::iconFor(QStringLiteral("ConfigButton"),
+                                               QStringLiteral("king::config"), theme));
+    buttons->addWidget(configButton);
+    // shortcut: ConfigButton 配置对话框挂账, QuickBar 配置页未实现(0x0056e540)
+
+    auto *closeButton = new QToolButton(this);
+    closeButton->setObjectName(QStringLiteral("CloseButton"));
+    closeButton->setAutoRaise(true);
+    closeButton->setIcon(ActionIcons::iconFor(QStringLiteral("CloseButton"),
+                                              QStringLiteral("king::close"), theme));
+    buttons->addWidget(closeButton);
+    connect(closeButton, &QToolButton::clicked, this, [this] {
+        emit closeRequested();
+        hide(); // 宿主接线前先隐藏本条（0x0056ce72）
+    });
+
+    // 0x0056d0ac：整条右对齐
     auto *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(4, 2, 4, 2);
+    layout->setSpacing(0);
+    layout->addStretch();
+    layout->addLayout(buttons);
 }
