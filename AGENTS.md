@@ -81,6 +81,12 @@ QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存
 
 机械化批量反哺（字面量指纹/调用者归属/vtable 槽位等无人工阅读的批）同样入表，前缀 `s_`/`_h`/`_vt` 区分证据等级，见 `tools/infer-names.py`。
 
+**receiver（this）恢复工具**（用户指令 2026-10-23）：Ghidra 反编译显示层不打印 C++ 成员调用的隐含 this（receiver=RDI）——"X::addWidget(w)" 读不出 X 是谁。信息在机器码层完整（call 前必有 `mov rdi,<src>`），**禁止因此下"父子关系无法确定"的结论**。恢复手段：
+```bash
+python3 tools/calls-with-receivers.py 0x<start> 0x<stop>   # 回溯区间内每个 call 的 receiver/arg1
+```
+输出如 `addWidget(receiver=0x58(%rbx), arg1=0x38(%rbx))`——receiver 的 `%reg+偏移` 对应上一层级对象成员偏移，与反编译里的 `*(param_1+0x58)` 对读即可钉死父子对（实例：0x008cd068 六对 addWidget 全部由此恢复）。子代理调查报告声称"receiver 丢失/父子读不出"时，先用此工具复核再下结论。
+
 ## 禁用素材（用户指令 2026-10-22）
 
 **不要参考 2020 年英文截图**（`WindTerm/images/screenshots/WindTerm.png`、`SplitView.png`、`WindTerm_DigeWhite_Theme.png`）——那是旧版行为（如菜单编号 "Session (1)"、"(&%1)"），与 2.7.0 不符，已两次误导布局/编号判断。
