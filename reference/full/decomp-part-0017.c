@@ -2138,7 +2138,7 @@ LAB_00534020:
 void FUN_005340f6(long param_1)
 
 {
-  FUN_005803da(*(undefined8 *)(param_1 + 0x38));
+  PaneHeader_titleWrap(*(undefined8 *)(param_1 + 0x38));
   return;
 }
 
@@ -23328,9 +23328,9 @@ void FUN_00551f94(long *param_1)
 }
 
 
-// ==== entry=00551fa6 name=FUN_00551fa6 size=45 ====
+// ==== entry=00551fa6 orig=FUN_00551fa6 size=45 name=PaneHeader_closeRequested_emit ====
 
-void FUN_00551fa6(int param_1,void *param_2)
+void PaneHeader_closeRequested_emit(int param_1,void *param_2)
 
 {
   if (param_1 == 0) {
@@ -23456,7 +23456,7 @@ void explorer_connectButtons(long param_1)
   local_40 = 0;
   puVar3 = operator_new(0x18);
   *puVar3 = 1;
-  *(code **)(puVar3 + 2) = FUN_00551fa6;
+  *(code **)(puVar3 + 2) = PaneHeader_closeRequested_emit;
   *(long *)(puVar3 + 4) = param_1;
   QObject::connectImpl
             (local_50,uVar1,&local_48,param_1,0,puVar3,0,0,&QAbstractButton::staticMetaObject);
@@ -23907,9 +23907,9 @@ LAB_00552f0c:
 }
 
 
-// ==== entry=00552f52 name=FUN_00552f52 size=86 ====
+// ==== entry=00552f52 orig=FUN_00552f52 size=86 name=PaneHeader_updateCloseVisibility ====
 
-void FUN_00552f52(long param_1,undefined1 param_2)
+void PaneHeader_updateCloseVisibility(long param_1,undefined1 param_2)
 
 {
   long *plVar1;
@@ -23945,7 +23945,7 @@ void FUN_00552fa8(long *param_1)
                     /* try { // try from 00552fdb to 00552fdf has its CatchHandler @ 00553001 */
   QEvent::QEvent(pQVar2,0xb);
   QCoreApplication::postEvent(*(QObject **)(*param_1 + 0x50),pQVar2,0);
-  FUN_00552f52(*param_1,0);
+  PaneHeader_updateCloseVisibility(*param_1,0);
   return;
 }
 
@@ -24068,12 +24068,12 @@ LAB_00553201:
 }
 
 
-// ==== entry=00553238 name=FUN_00553238 size=9 ====
+// ==== entry=00553238 orig=FUN_00553238 size=9 name=PaneHeader_buildText ====
 
-void FUN_00553238(long param_1)
+void PaneHeader_buildText(long param_1)
 
 {
-  FUN_005803da(*(undefined8 *)(param_1 + 0x40));
+  PaneHeader_titleWrap(*(undefined8 *)(param_1 + 0x40));
   return;
 }
 
@@ -24118,9 +24118,9 @@ void FUN_00553272(undefined8 *param_1)
 }
 
 
-// ==== entry=0055328c name=FUN_0055328c size=143 ====
+// ==== entry=0055328c orig=FUN_0055328c size=143 name=PaneHeader_delegateFactory ====
 
-void * FUN_0055328c(long param_1,undefined8 param_2,long param_3)
+void * PaneHeader_delegateFactory(long param_1,undefined8 param_2,long param_3)
 
 {
   long *plVar1;
@@ -24144,29 +24144,29 @@ void * FUN_0055328c(long param_1,undefined8 param_2,long param_3)
                     /* try { // try from 005532e2 to 005532e6 has its CatchHandler @ 0055331b */
   s_ExplorerEditor_552e88(pvVar3,uVar2,param_2);
   if (*(long *)(param_1 + 0x10) != 0) {
-    FUN_00553238(pvVar3);
+    PaneHeader_buildText(pvVar3);
   }
   return pvVar3;
 }
 
 
-// ==== entry=0055332c name=FUN_0055332c size=39 ====
+// ==== entry=0055332c orig=FUN_0055332c size=39 name=PaneHeader_enterEvent ====
 
-void FUN_0055332c(QEvent *param_1)
+void PaneHeader_enterEvent(QEvent *param_1)
 
 {
-  FUN_00552f52(param_1,1);
+  PaneHeader_updateCloseVisibility(param_1,1);
   QWidget::enterEvent(param_1);
   return;
 }
 
 
-// ==== entry=00553354 name=FUN_00553354 size=36 ====
+// ==== entry=00553354 orig=FUN_00553354 size=36 name=PaneHeader_leaveEvent ====
 
-void FUN_00553354(QEvent *param_1)
+void PaneHeader_leaveEvent(QEvent *param_1)
 
 {
-  FUN_00552f52(param_1,0);
+  PaneHeader_updateCloseVisibility(param_1,0);
   QWidget::leaveEvent(param_1);
   return;
 }
@@ -56470,9 +56470,9 @@ void widget_updateNow(long param_1,int param_2)
 }
 
 
-// ==== entry=005803da name=FUN_005803da size=16 ====
+// ==== entry=005803da orig=FUN_005803da size=16 name=PaneHeader_titleWrap ====
 
-void FUN_005803da(long param_1,long param_2)
+void PaneHeader_titleWrap(long param_1,long param_2)
 
 {
   if (*(long *)(param_1 + 0x40) != param_2) {
@@ -56896,7 +56896,7 @@ LAB_00580e9a:
 void FUN_00580f5e(long param_1)
 
 {
-  FUN_005803da(*(undefined8 *)(param_1 + 0x60));
+  PaneHeader_titleWrap(*(undefined8 *)(param_1 + 0x60));
   return;
 }
 

@@ -2614,7 +2614,7 @@ LAB_00589f12:
 void FUN_00589f66(long param_1)
 
 {
-  FUN_005803da(*(undefined8 *)(param_1 + 0x48));
+  PaneHeader_titleWrap(*(undefined8 *)(param_1 + 0x48));
   return;
 }
 
