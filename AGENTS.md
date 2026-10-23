@@ -87,6 +87,11 @@ python3 tools/calls-with-receivers.py 0x<start> 0x<stop>   # 回溯区间内每�
 ```
 输出如 `addWidget(receiver=0x58(%rbx), arg1=0x38(%rbx))`——receiver 的 `%reg+偏移` 对应上一层级对象成员偏移，与反编译里的 `*(param_1+0x58)` 对读即可钉死父子对（实例：0x008cd068 六对 addWidget 全部由此恢复）。子代理调查报告声称"receiver 丢失/父子读不出"时，先用此工具复核再下结论。
 
+**禁止对已标注项目跑 RecoverClassesFromRTTIScript**（用户指令 2026-10-23 实证）：官方 RTTI 类恢复（含 RTTIGccClassRecoverer）对**fresh 项目**才有价值；本项目已手工标注 12K+ 符号时该脚本是净退化——
+- 增益仅 690 ctor/1928 虚函数的 namespace 归属（dump 文本不体现，手工命名已覆盖）
+- 副作用：`operator new` 字节对象被误绑定 `bad_alloc*` 类型，扩散 27 文件 / 5,086 处，污染 Ghidra 项目且**无法精确回滚**（类型绑定非名字，RenameSymbols 清不掉）——唯一恢复手段是重建项目+重放 symbols.tsv（~40 分钟）
+thiscall 原型的正确做法：按需对**单个函数**用 Ghidra setSignature 注入类指针参数（或先在项目早期跑 RTTI 脚本再叠加手工符号）。
+
 ## 禁用素材（用户指令 2026-10-22）
 
 **不要参考 2020 年英文截图**（`WindTerm/images/screenshots/WindTerm.png`、`SplitView.png`、`WindTerm_DigeWhite_Theme.png`）——那是旧版行为（如菜单编号 "Session (1)"、"(&%1)"），与 2.7.0 不符，已两次误导布局/编号判断。
