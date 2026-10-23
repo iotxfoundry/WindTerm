@@ -5,14 +5,13 @@
 
 #include <QContextMenuEvent>
 #include <QCursor>
-#include <QDateTime>
+
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLabel>
 #include <QLineEdit>
-#include <QLocale>
 #include <QMenu>
 
 // 菜单图标列尺寸：原版无 QProxyStyle/PM 覆盖痕迹（rg 0 命中）→ 回退 Qt 默认 PM_SmallIconSize；
@@ -59,6 +58,7 @@
 #include "widgets/PaneHeader.h"
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
+#include "widgets/StatusBar.h"
 #include "widgets/TerminalView.h"
 #include "widgets/TransferBar.h"
 
@@ -595,7 +595,14 @@ void MainWindow::createCentral()
                 connect(view, &TerminalView::contextMenuRequested, this,
                         &MainWindow::onTerminalContextMenu, Qt::UniqueConnection);
         };
-        connect(muxStack, &QStackedWidget::currentChanged, this, [link](int) { link(); });
+        // statusbar.config JS 链：view 切换 → terminal.viewActivated 转发
+        // （0x8d9764 焦点终端链骨架等价；无 view 时发 nullptr——config JS 据 null 隐藏按钮）
+        connect(muxStack, &QStackedWidget::currentChanged, this, [this, link](int) {
+            link();
+            auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>();
+            QObject *view = stack ? stack->currentWidget() : nullptr;
+            emit viewSignalForScripts(view);
+        });
         link(); // 兜底：装配时若已有 view 立即连
     }
     muxRow->addWidget(m_muxPaneGroup);
@@ -720,78 +727,36 @@ QWidget *MainWindow::createBottomTabs()
 
 void MainWindow::createStatusBar()
 {
-    // 证据 0x00692766：主窗底栏 = StatusBar（objectName "StatusBar"），
-    // 内容来自 assets/config/uiconfigs/statusbar.config 的 7 个 applet（0x006933ea）。
-    statusBar()->setObjectName(QStringLiteral("StatusBar"));
+    // 证据 0x008c9f8c KitWindow_createStatusBar / 0x00692766：主窗底栏=StatusBar（QStatusBar 子类，
+    // objectName "StatusBar"/注册名 AppletBar）；内容=statusbar.config 7 applets 经 QJSEngine
+    // 真跑 JS init（0x006933ea populate singleShot(0) → 0x005a4432 applet_layout_widgets）。
+    // 骨架同构：StatusBar::populate(配置数组, &m_scriptHost)——模式按钮/窗口尺寸/LnCh/scheme/
+    // 时钟/Issues/锁屏全部由 statusbar.config JS 驱动（硬编码 Qt 手写代码已删）
+    m_statusBar = new StatusBar(this);
+    setStatusBar(m_statusBar);
 
-    // 证据: statusbar.config:2-25 模式按钮（Remote/Local）
-    m_modeButton = new QToolButton(this);
-    m_modeButton->setObjectName(QStringLiteral("ModeButton"));
-    m_modeButton->setAutoRaise(true);
-    m_modeButton->setText(m_locale.tr(m_localMode ? QStringLiteral("Local Mode") : QStringLiteral("Remote Mode")));
-    connect(m_modeButton, &QToolButton::clicked, this, [this]() {
-        m_localMode = !m_localMode;
-        m_modeButton->setText(m_locale.tr(m_localMode ? QStringLiteral("Local Mode") : QStringLiteral("Remote Mode")));
-        // shortcut: 终端 view keyMode 切换未接（terminal.activeView/keyModeChanged）, TerminalView 接入后同步
-    });
-    statusBar()->addPermanentWidget(m_modeButton);
-
-    // 证据: statusbar.config:26-43 Window %1×%2（骨架无终端 windowRows/Columns，按主窗 size() 更新）
-    m_windowSizeLabel = new QLabel(this);
-    m_windowSizeLabel->setObjectName(QStringLiteral("WindowSizeLabel"));
-    statusBar()->addPermanentWidget(m_windowSizeLabel);
-    updateWindowSizeLabel();
-
-    // 证据: statusbar.config:44-65 Ln/Ch（无终端 caret 数据前占位 1:1）
-    m_caretLabel = new QLabel(this);
-    m_caretLabel->setObjectName(QStringLiteral("CaretPositionLabel"));
-    m_caretLabel->setText(m_locale.tr(QStringLiteral("Ln %1 Ch %2")).arg(1).arg(1));
-    statusBar()->addPermanentWidget(m_caretLabel);
-
-    // 证据: statusbar.config:66-90 scheme 按钮（InstantPopup 菜单，选中仅更新 label）
-    m_schemeButton = new QToolButton(this);
-    m_schemeButton->setObjectName(QStringLiteral("SchemeButton"));
-    m_schemeButton->setAutoRaise(true);
-    m_schemeButton->setPopupMode(QToolButton::InstantPopup);
-    m_schemeButton->setText(ThemeManager::instance().currentTheme());
-    auto *schemeMenu = new QMenu(m_schemeButton);
-    const QStringList schemes = SchemeManager::instance().schemeNames();
-    for (const QString &scheme : schemes) {
-        QAction *action = schemeMenu->addAction(scheme);
-        connect(action, &QAction::triggered, this, [this, scheme]() {
-            m_schemeButton->setText(scheme);
-            // shortcut: 仅更新 label，未调用 setScheme 应用配色（原版 Terminal.SchemeList script）, 终端配色切换接入后补
-        });
+    QFile file(Assets::dir() + QStringLiteral("/config/uiconfigs/statusbar.config"));
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray data = file.readAll();
+        if (data.startsWith("\xEF\xBB\xBF"))
+            data.remove(0, 3);
+        // 0x008a5c98 statusbar 配置读取路径 → QVariant::toList（0x006933ea）
+        const QJsonDocument doc = QJsonDocument::fromJson(JsonText::stripLineComments(data));
+        if (doc.isArray()) {
+            // 0x006933ea：singleShot(0) 延迟 populate（等窗口装配完成）
+            const QVariantList applets = doc.toVariant().toList();
+            QTimer::singleShot(0, this, [this, applets] {
+                m_statusBar->populate(applets, &m_scriptHost);
+            });
+        }
     }
-    m_schemeButton->setMenu(schemeMenu);
-    statusBar()->addPermanentWidget(m_schemeButton);
 
-    // 证据: statusbar.config:91-98 时钟（window.setInterval 2000ms，toLocaleString 等效）
-    m_clockLabel = new QLabel(this);
-    m_clockLabel->setObjectName(QStringLiteral("ClockLabel"));
-    statusBar()->addPermanentWidget(m_clockLabel);
-
-    // 证据: statusbar.config:99-103 Issues 链接
-    auto *issuesLabel = new QLabel(this);
-    issuesLabel->setObjectName(QStringLiteral("IssuesLabel"));
-    issuesLabel->setTextFormat(Qt::RichText);
-    issuesLabel->setText(QStringLiteral(
-        "<a href=\"https://www.github.com/kingtoolbox/windterm/issues\" style=\"text-decoration:none;\">🐛 WindTerm Issues</a>"));
-    issuesLabel->setOpenExternalLinks(true);
-    statusBar()->addPermanentWidget(issuesLabel);
-
-    // 证据: statusbar.config:104-113 锁屏按钮
-    auto *lockButton = new QToolButton(this);
-    lockButton->setObjectName(QStringLiteral("LockScreenButton"));
-    lockButton->setAutoRaise(true);
-    lockButton->setText(QStringLiteral("🔒 ") + m_locale.tr(QStringLiteral("Lock Screen")));
-    connect(lockButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
-    statusBar()->addPermanentWidget(lockButton);
-
-    m_clockTimer = new QTimer(this);
-    connect(m_clockTimer, &QTimer::timeout, this, &MainWindow::updateClock);
-    m_clockTimer->start(2000);
-    updateClock();
+    // view 切换 → terminal.viewActivated / window.viewActivated 转发（createCentral stack
+    // currentChanged 处 emit viewSignalForScripts；此处接到脚本宿主）
+    connect(this, &MainWindow::viewSignalForScripts, this, [this](QObject *view) {
+        emit m_scriptHost.terminal()->viewActivated(view);
+        emit m_scriptHost.window()->viewActivated(view);
+    });
 }
 
 void MainWindow::initActionRegistry()
@@ -840,26 +805,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
-// 证据: statusbar.config:29-31 Window %1×%2：无终端 screenSizeChanged，按主窗 resize 更新
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    QMainWindow::resizeEvent(event);
-    updateWindowSizeLabel();
-}
-
-void MainWindow::updateWindowSizeLabel()
-{
-    if (!m_windowSizeLabel)
-        return;
-    m_windowSizeLabel->setText(
-        m_locale.tr(QStringLiteral("Window %1×%2")).arg(size().width()).arg(size().height()));
-}
-
-void MainWindow::updateClock()
-{
-    // 证据: statusbar.config:95 date.toLocaleString() → system locale 短格式
-    m_clockLabel->setText(QLocale::system().toString(QDateTime::currentDateTime(), QLocale::ShortFormat));
-}
+// 0x005a2e58 面移交 StatusBar（showMessageEx）；主窗 resize 不再驱动窗口尺寸 label
+// （statusbar.config JS screenSizeChanged 链驱动）——旧 updateWindowSizeLabel/resizeEvent
+// 挂钩随硬编码 applet 删除
 
 void MainWindow::togglePane(QWidget *pane)
 {
@@ -877,23 +825,14 @@ QuickBar *MainWindow::ensureQuickBar()
 {
     if (!m_quickBar) {
         m_quickBar = new QuickBar;
-        // 0x56d890：按 uuid 匹配 quick 命令，取 quick.text；仅已知类型 "Send Text" 写入当前终端
-        connect(m_quickBar, &QuickBar::commandTriggered, this, [this](const QString &uuid) {
+        // 0x0056d890 在 QuickBar 内聚（按 uuid 匹配+unescape），此处仅接终端写入宿主层
+        // （原版写焦点终端 0x8cabee 链；骨架写当前活动 view——仅宿主层差异，0x833db4 挂账）
+        connect(m_quickBar, &QuickBar::sendTextRequested, this, [this](const QString &text) {
             if (!m_muxPaneGroup)
                 return;
-            const QJsonArray commands = WindConfig::instance().quickCommands();
-            for (const QJsonValue &value : commands) {
-                const QJsonObject command = value.toObject();
-                if (command.value(QStringLiteral("quick.uuid")).toString() != uuid)
-                    continue;
-                // shortcut: 仅接 Send Text，其余 quick.type（Insert Text/Send Text+Enter 等）待原版类型表补
-                if (command.value(QStringLiteral("quick.type")).toString() != QStringLiteral("Send Text"))
-                    return;
-                auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>();
-                if (auto *view = stack ? qobject_cast<TerminalView *>(stack->currentWidget()) : nullptr)
-                    view->sendText(command.value(QStringLiteral("quick.text")).toString());
-                return;
-            }
+            auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>();
+            if (auto *view = stack ? qobject_cast<TerminalView *>(stack->currentWidget()) : nullptr)
+                view->sendText(text);
         });
         m_quickBar->hide();
         QWidget *central = centralWidget();

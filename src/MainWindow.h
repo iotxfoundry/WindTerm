@@ -5,24 +5,24 @@
 
 #include "core/LocaleManager.h"
 #include "core/MenuConfig.h"
+#include "core/ScriptHost.h"
 
 struct ToolbarEntry;
 
 class QCloseEvent;
 class QAction;
 class QEvent;
-class QLabel;
 class QLineEdit;
 class QMenu;
 class QResizeEvent;
 class QTabBar;
 class QTimer;
 class QToolBar;
-class QToolButton;
 class MuxPaneGroup;
 class QuickBar;
 class SearchPane;
 class SessionPane;
+class StatusBar;
 class TerminalView;
 class TransferBar;
 
@@ -35,13 +35,11 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event) override;
-    void resizeEvent(QResizeEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
 
 private slots:
     void onPlaceholderAction();
     void onRestoreLayout();
-    void updateClock();
     void togglePane(QWidget *pane);
     void onAddressBarReturn();
 
@@ -66,19 +64,18 @@ private:
     void connectSessionPane(SessionPane *pane);
     QuickBar *ensureQuickBar();
     void toggleQuickBar();
-    void updateWindowSizeLabel();
 
+signals:
+    // view 切换转发到 ScriptWindow/ScriptTerminal::viewActivated（createCentral stack 处 emit）
+    void viewSignalForScripts(QObject *view);
+
+private:
     LocaleManager &m_locale;
     MuxPaneGroup *m_muxPaneGroup;
     QToolBar *m_toolBar = nullptr;
-    QLineEdit *m_addressBar;
-    QLabel *m_windowSizeLabel = nullptr;
-    QLabel *m_caretLabel = nullptr;
-    QLabel *m_clockLabel = nullptr;
-    QTimer *m_clockTimer = nullptr;
-    QToolButton *m_modeButton = nullptr;
-    QToolButton *m_schemeButton = nullptr;
-    bool m_localMode = false;
+    QLineEdit *m_addressBar = nullptr;
+    StatusBar *m_statusBar = nullptr;
+    ScriptHost m_scriptHost; // 0x005a3106：原版 MainWindow+0x48 脚本宿主（沿父链取 QJSEngine）
     QTabBar *m_viewTabBar = nullptr; // MuxPaneGroup 标签条（无 objectName），"ViewTab Popup" 映射用
     QuickBar *m_quickBar = nullptr; // 懒建（0x85ad2e），toggleQuickBar 首次创建
     SearchPane *m_searchPane = nullptr;

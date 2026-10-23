@@ -7677,3 +7677,17 @@
 0x008bb3e6	TabGroup_loadTabList	tab 列表读(与 save 对称)
 0x008d2e46	KitPane_rebuildView	按 pageName 建视图+入 tab+vtbl[0x60](url);uuid 查不到标 Error/Discarded
 0x00833db4	TerminalView_openUrl	QUuid($uuid)→s_session_uuid_810056 查 user.sessions→写+0x1b0 投递打开信号(真重连非仅 UI)
+# —— 状态栏/QuickBar 深逆批（2026-10-23,逐行级,实现校准用）——
+0x005a333e	statusbar_buildApplet	type 分派:button→自定义QToolButton子类(vtable ToolButton,0x5d4e80,TextOnly+AutoRaise);label→QLabel(InteractionFlags 0xf+OpenExternalLinks+PointingHand);无objectName;addPermanentWidget(w,0);progressBar/slider 仅比较无实现
+0x005a3156	statusbar_runInit	QJSEngine 真跑 JS:evaluate("'use strict';"+init)→newQObject(widget,CppOwnership)→callWithInstance([widget]);错误静默
+0x005a3106	statusbar_scriptHost	沿父链 dynamic_cast<MainWindow>取+0x48 脚本宿主→QJSEngine*
+0x0064b102	QJSEngineHost_ctor	installExtensions(All,含TranslationExtension→qsTr)+newQMetaObject(King/MuxPane)+newQObject(application/window)+defineProperties(this,{editor,terminal})
+0x005a2e58	statusbar_showMessage	常驻状态文本label(sb+0x30,insertPermanentWidget(0,stretch=1)最左):设文本+timeout QTimer,超时恢复默认文本+messageLevel动态属性+king_refreshWidgetStyle
+0x0056f866	QuickBar_refresh	菜单重建(配置项/Quick组平铺/组集合字典序可勾选)+工具条重建(qFindChildren<QToolBar> deleteLater 后按+0x68组序重建);showMultipleGroups=false 可见组截断list[0]
+0x0056f5c5	QuickBar_toggleGroup	菜单组项点击:清空+0x68 再 append(单组模式=替换);不重建菜单
+0x0056e420	QuickBar_sortCommands	仅排序(showCommandsInOrder=true 时按 quick.label 升序区分大小写,无usage计数);不建控件
+0x0056e540	QuickBar_buildGroupBar	按 group 全局聚合(数组序线性收集)建 QToolBar(windowTitle=组名,无objectName,margins 0,TextBesideIcon);showGroupTitle→QLabel(组名)无objectName;ActionButton=widgetForAction 强转 setObjectName+AutoRaise+CustomContextMenu
+0x0056a10a	ActionButton_contextMenu	右键两项:编辑命令(定位uuid)/删除(king::close,0x570970 删+保存+刷新)
+0x007b8726	qstring_unescape	C 风格转义:\\0 \\\\ \\a \\b \\cX \\f \\m \\n \\r \\t \\xHH \\ooo \\uXXXX
+0x006d09f6	quick_type_check	仅与 "Send Text" 比较;2.7.0 唯一枚举(编辑对话框仅 insertItem 一次)
+0x0056d890	QuickBar_execCommand	线性扫描 uuid→type=="Send Text"→text 空返回→unescape→焦点终端(0x8cabee/8d9764 链)→termview_write_checked→setFocus(term)

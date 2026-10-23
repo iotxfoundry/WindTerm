@@ -50,4 +50,7 @@ inline QIcon iconFor(const QString &semanticName, const QString &theme) {
     return iconFor(semanticName, semanticName, theme);
 }
 
+// const 成员函数内取非 const this（原版 0x56be56 为 const 语义但创建子对象需 mutable 树）
+template <typename T> inline T *host(const T *self) { return const_cast<T *>(self); }
+
 } // namespace ActionIcons

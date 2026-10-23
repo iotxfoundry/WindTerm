@@ -11,8 +11,11 @@
 #include "core/Session.h"
 #include "core/SchemeManager.h"
 #include "core/ScreenModel.h"
+#include "core/ThemeManager.h"
 #include "core/VtParser.h"
 #include "core/WindConfig.h"
+
+#include <QApplication>
 
 namespace {
 
@@ -178,6 +181,32 @@ void TerminalView::sendText(const QString &text)
         m_session->write(text.toUtf8());
 }
 
+TerminalView *TerminalView::activeView()
+{
+    // 0x8d9764 焦点终端链骨架等价：焦点 widget 沿父链找 TerminalView
+    for (QWidget *w = QApplication::focusWidget(); w; w = w->parentWidget())
+        if (auto *view = qobject_cast<TerminalView *>(w))
+            return view;
+    return nullptr;
+}
+
+int TerminalView::caretLine() const
+{
+    // ScreenModel cursorY（0 基）；statusbar.config JS 侧 '+1'
+    return m_screen ? m_screen->cursorY() : 0;
+}
+
+int TerminalView::caretLineOffset() const
+{
+    return m_screen ? m_screen->cursorX() : 0;
+}
+
+QString TerminalView::scheme() const
+{
+    // SchemeManager 当前值（scheme.theme 全局单值；per-view 切换挂账）
+    return ThemeManager::instance().currentTheme();
+}
+
 void TerminalView::renderScreen()
 {
     QString html;
@@ -193,6 +222,7 @@ void TerminalView::renderScreen()
 
     m_main->document()->setHtml(html);
     m_main->verticalScrollBar()->setValue(m_main->verticalScrollBar()->maximum());
+    emit caretPositionChanged();
 }
 
 bool TerminalView::eventFilter(QObject *obj, QEvent *event)
@@ -232,8 +262,10 @@ void TerminalView::resizeEvent(QResizeEvent *event)
     QWidget::resizeEvent(event);
     if (m_session) {
         // TODO: 用字体 metrics 精确估算 rows/cols，F1 先固定 24x80
-        m_session->resize(24, 80);
+        m_session->resize(m_windowRows, m_windowColumns);
     }
+    // statusbar.config JS 面：screenSizeChanged 驱动 Window %1×%2 applet
+    emit screenSizeChanged();
 }
 
 // 0x84005a/0x834f2c：原版按事件位置 + 修饰键弹 pane 菜单，节名由 MainWindow 拼 "View Popup"

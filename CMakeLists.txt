@@ -16,6 +16,19 @@ else()
 endif()
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+# 任务二：statusbar.config 的 JS init 由 QJSEngine 真跑（0x005a3156 statusbar_runInit）。
+# 本机无法 apt 安装 qtdeclarative5-dev（无 root），Qt5Qml 开发文件由 fixer 预置在
+# /tmp/opencode/qt5qml/prefix（从 Ubuntu .deb 解包；缺失时自动降级=硬编码状态栏，见 StatusBar.cpp）
+find_package(Qt5Qml QUIET
+  PATHS /tmp/opencode/qt5qml/prefix/lib/x86_64-linux-gnu/cmake/Qt5Qml
+  NO_DEFAULT_PATH)
+if (TARGET Qt5::Qml)
+  set(WINDTERM_HAVE_QJSENGINE ON)
+  message(STATUS "Qt5Qml found: script statusbar enabled (/tmp/opencode/qt5qml/prefix)")
+else()
+  message(STATUS "Qt5Qml NOT found: script statusbar disabled (hardcoded fallback)")
+endif()
+
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp)
 file(GLOB_RECURSE PROJECT_HEADERS CONFIGURE_DEPENDS src/*.h)
 
@@ -28,3 +41,7 @@ endif()
 add_executable(WindTermGuiSkeleton ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 target_include_directories(WindTermGuiSkeleton PRIVATE src)
 target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CMAKE_DL_LIBS})
+if (WINDTERM_HAVE_QJSENGINE)
+  target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_QJSENGINE)
+  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt5::Qml)
+endif()
