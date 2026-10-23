@@ -128,9 +128,9 @@ void FUN_007cf526(long param_1)
 }
 
 
-// ==== entry=007cf5d0 name=FUN_007cf5d0 size=619 ====
+// ==== entry=007cf5d0 orig=FUN_007cf5d0 size=619 name=s_CursorShape_7cf5d0 ====
 
-void FUN_007cf5d0(long param_1)
+void s_CursorShape_7cf5d0(long param_1)
 
 {
   uint uVar1;
@@ -210,9 +210,9 @@ void FUN_007cf5d0(long param_1)
 }
 
 
-// ==== entry=007cf856 name=FUN_007cf856 size=332 ====
+// ==== entry=007cf856 orig=FUN_007cf856 size=332 name=s_StartPrompt_7cf856 ====
 
-void FUN_007cf856(long param_1)
+void s_StartPrompt_7cf856(long param_1)
 
 {
   undefined8 uVar1;
@@ -865,7 +865,7 @@ void FUN_007d0c56(long param_1,undefined4 param_2,bool *param_3)
 switchD_007d0c78_caseD_3:
     return;
   case 1:
-    FUN_007cbc46();
+    s_terminal_bellInterval_7cbc46();
     return;
   case 2:
     FUN_007cb69a();
@@ -914,9 +914,9 @@ int FUN_007d0d24(long param_1,long *param_2,char param_3)
 }
 
 
-// ==== entry=007d0d8a name=FUN_007d0d8a size=748 ====
+// ==== entry=007d0d8a orig=FUN_007d0d8a size=748 name=s_SuperCommander__processData_7d0d8a ====
 
-void FUN_007d0d8a(long *param_1,int param_2)
+void s_SuperCommander__processData_7d0d8a(long *param_1,int param_2)
 
 {
   undefined8 uVar1;
@@ -1051,8 +1051,9 @@ void FUN_007d10c5(int param_1,void *param_2)
   }
   else if (param_1 == 1) {
     QElapsedTimer::start();
-    FUN_007d0d8a(*(long *)((long)param_2 + 0x10),
-                 *(undefined4 *)(*(long *)((long)param_2 + 0x10) + 0xbc));
+    s_SuperCommander__processData_7d0d8a
+              (*(long *)((long)param_2 + 0x10),
+               *(undefined4 *)(*(long *)((long)param_2 + 0x10) + 0xbc));
     lVar2 = QElapsedTimer::elapsed();
     if (lVar2 < 1) {
       lVar2 = 1;
@@ -1084,16 +1085,16 @@ void FUN_007d11af(int param_1,void *param_2)
     return;
   }
   if (param_1 == 1) {
-    FUN_007d0d8a(*(undefined8 *)((long)param_2 + 0x10),0);
+    s_SuperCommander__processData_7d0d8a(*(undefined8 *)((long)param_2 + 0x10),0);
     return;
   }
   return;
 }
 
 
-// ==== entry=007d11da name=FUN_007d11da size=313 ====
+// ==== entry=007d11da orig=FUN_007d11da size=313 name=s_Session__write_7d11da ====
 
-void FUN_007d11da(long param_1,long *param_2)
+void s_Session__write_7d11da(long param_1,long *param_2)
 
 {
   undefined8 uVar1;
@@ -1151,9 +1152,9 @@ void FUN_007d11da(long param_1,long *param_2)
 }
 
 
-// ==== entry=007d1348 name=FUN_007d1348 size=684 ====
+// ==== entry=007d1348 orig=FUN_007d1348 size=684 name=SuperCommander_vt14 ====
 
-undefined8 FUN_007d1348(long *param_1,long param_2,long *param_3)
+undefined8 SuperCommander_vt14(long *param_1,long param_2,long *param_3)
 
 {
   long lVar1;
@@ -1235,7 +1236,7 @@ switchD_007d148e_caseD_46:
       goto switchD_007d148e_caseD_46;
     }
 LAB_007d1545:
-    FUN_007d11da(param_1,param_3);
+    s_Session__write_7d11da(param_1,param_3);
     local_48 = *param_3;
     qatomic_int_ref();
                     /* try { // try from 007d156b to 007d156f has its CatchHandler @ 007d15fc */
@@ -1264,7 +1265,7 @@ LAB_007d1545:
       local_40 = &DAT_00ca7bf1;
       FUN_007eeea2(param_2,&local_48,&local_58);
     }
-    FUN_007d11da(param_1,param_3);
+    s_Session__write_7d11da(param_1,param_3);
     local_48 = *param_3;
     qatomic_int_ref();
                     /* try { // try from 007d13d5 to 007d13d9 has its CatchHandler @ 007d15f4 */
@@ -1275,11 +1276,12 @@ LAB_007d1545:
 }
 
 
-// ==== entry=007d1606 name=FUN_007d1606 size=2292 ====
+// ==== entry=007d1606 orig=FUN_007d1606 size=2292 name=s_Session__doAction_7d1606 ====
 
 /* WARNING: Removing unreachable block (ram,0x007d1ec8) */
 
-void FUN_007d1606(undefined1 *param_1,int param_2,undefined8 param_3,undefined8 param_4,int param_5)
+void s_Session__doAction_7d1606
+               (undefined1 *param_1,int param_2,undefined8 param_3,undefined8 param_4,int param_5)
 
 {
   int iVar1;
@@ -1567,7 +1569,7 @@ LAB_007d1b63:
       if (local_99 == '\0') {
 LAB_007d1c26:
                     /* try { // try from 007d1c39 to 007d1c3d has its CatchHandler @ 007d1f02 */
-        std::string::insert((string *)&local_80,0,"[Not Supported]",0xf);
+        std::string::s_basic_string__insert_5fdc00((string *)&local_80,0,"[Not Supported]",0xf);
       }
 LAB_007d1c3e:
       uVar2 = DAT_011c1480;
@@ -1708,7 +1710,7 @@ void SuperCommander_writeSplitData(long param_1,long param_2,int param_3)
         qt_byte_array_unref(local_40);
         break;
       }
-      FUN_007d1606(param_1,param_2,lVar4,uVar5,iVar3);
+      s_Session__doAction_7d1606(param_1,param_2,lVar4,uVar5,iVar3);
       if ((*(char *)(param_1 + 0x101) != '\0') && (uVar7 < local_60)) {
         bVar1 = *(byte *)(param_2 + (ulong)((int)local_60 - 1));
         *(undefined1 *)(param_1 + 0x101) = 0;
@@ -1736,9 +1738,9 @@ void SuperCommander_writeSplitData(long param_1,long param_2,int param_3)
 }
 
 
-// ==== entry=007d2306 name=FUN_007d2306 size=493 ====
+// ==== entry=007d2306 orig=FUN_007d2306 size=493 name=SuperCommander_vt13 ====
 
-ulong FUN_007d2306(long param_1,long param_2,uint param_3)
+ulong SuperCommander_vt13(long param_1,long param_2,uint param_3)
 
 {
   byte *pbVar1;
@@ -1790,7 +1792,7 @@ ulong FUN_007d2306(long param_1,long param_2,uint param_3)
         if (iVar5 == -2) {
           return uVar7 & 0xffffffff;
         }
-        FUN_007d1606(param_1,param_2,lVar2,uVar6);
+        s_Session__doAction_7d1606(param_1,param_2,lVar2,uVar6);
         uVar10 = uVar8;
       } while (uVar8 < uVar9);
 LAB_007d24ae:
@@ -2495,7 +2497,7 @@ void FUN_007d2e02(int param_1,void *param_2)
       return;
     }
     UNRECOVERED_JUMPTABLE = *(code **)(**(long **)((long)param_2 + 0x10) + 0x78);
-    if (UNRECOVERED_JUMPTABLE != FUN_007dc922) {
+    if (UNRECOVERED_JUMPTABLE != SuperSession_vt15) {
                     /* WARNING: Could not recover jumptable at 0x007d2e3f. Too many branches */
                     /* WARNING: Treating indirect jump as call */
       (*UNRECOVERED_JUMPTABLE)();
@@ -2511,7 +2513,7 @@ void FUN_007d2e02(int param_1,void *param_2)
 void FUN_007d2e42(long *param_1)
 
 {
-  if (*(code **)(*param_1 + 0x70) == FUN_007dc920) {
+  if (*(code **)(*param_1 + 0x70) == SuperSession_vt14) {
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x007d2e53. Too many branches */
@@ -3034,9 +3036,9 @@ void FUN_007d377c(undefined8 param_1,QString *param_2,bool param_3)
 }
 
 
-// ==== entry=007d37e8 name=FUN_007d37e8 size=88 ====
+// ==== entry=007d37e8 orig=FUN_007d37e8 size=88 name=TerminalWidget_h7d37e8 ====
 
-void FUN_007d37e8(undefined8 param_1,QString *param_2)
+void TerminalWidget_h7d37e8(undefined8 param_1,QString *param_2)
 
 {
   QVariant aQStack_38 [16];
@@ -3865,9 +3867,9 @@ void FUN_007d48cc(void)
 }
 
 
-// ==== entry=007d48ce name=FUN_007d48ce size=700 ====
+// ==== entry=007d48ce orig=FUN_007d48ce size=700 name=s_session_protocol_7d48ce ====
 
-void * FUN_007d48ce(long param_1,undefined8 param_2)
+void * s_session_protocol_7d48ce(long param_1,undefined8 param_2)
 
 {
   int iVar1;
@@ -4334,11 +4336,11 @@ undefined8 * FUN_007d5422(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=007d5538 name=FUN_007d5538 size=546 ====
+// ==== entry=007d5538 orig=FUN_007d5538 size=546 name=s_ssh_identityFilePath_7d5538 ====
 
 /* WARNING: Removing unreachable block (ram,0x007d568d) */
 
-undefined8 * FUN_007d5538(undefined8 *param_1,long param_2,QByteArray *param_3)
+undefined8 * s_ssh_identityFilePath_7d5538(undefined8 *param_1,long param_2,QByteArray *param_3)
 
 {
   char cVar1;
@@ -4431,7 +4433,7 @@ void cfg_toByteArray(long *param_1,char *param_2)
   lVar1 = *param_1;
   QByteArray::QByteArray(local_40,param_2,-1);
                     /* try { // try from 007d57bf to 007d57c3 has its CatchHandler @ 007d5822 */
-  FUN_007d5538(local_38,lVar1,local_40);
+  s_ssh_identityFilePath_7d5538(local_38,lVar1,local_40);
   qt_byte_array_unref(local_40);
   if ((local_30 & 0x3fffffff) != 0) {
     plVar2 = *(long **)(*param_1 + 0x10);
@@ -4447,9 +4449,9 @@ void cfg_toByteArray(long *param_1,char *param_2)
 }
 
 
-// ==== entry=007d583a name=FUN_007d583a size=133 ====
+// ==== entry=007d583a orig=FUN_007d583a size=133 name=s_session_target_7d583a ====
 
-undefined8 FUN_007d583a(undefined8 param_1,long param_2)
+undefined8 s_session_target_7d583a(undefined8 param_1,long param_2)
 
 {
   QByteArray local_40 [8];
@@ -4463,7 +4465,7 @@ undefined8 FUN_007d583a(undefined8 param_1,long param_2)
                     /* try { // try from 007d587e to 007d5882 has its CatchHandler @ 007d58bf */
   QByteArray::QByteArray(local_40,"session.target",-1);
                     /* try { // try from 007d5891 to 007d5895 has its CatchHandler @ 007d58d7 */
-  FUN_007d5538(local_38,param_2,local_40);
+  s_ssh_identityFilePath_7d5538(local_38,param_2,local_40);
                     /* try { // try from 007d589c to 007d58a0 has its CatchHandler @ 007d58cf */
   QVariant::toString();
   QVariant::~QVariant(local_38);
@@ -4472,9 +4474,9 @@ undefined8 FUN_007d583a(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=007d58e0 name=FUN_007d58e0 size=97 ====
+// ==== entry=007d58e0 orig=FUN_007d58e0 size=97 name=s_ssh_authAgent_7d58e0 ====
 
-undefined4 FUN_007d58e0(undefined8 param_1)
+undefined4 s_ssh_authAgent_7d58e0(undefined8 param_1)
 
 {
   undefined4 uVar1;
@@ -4483,7 +4485,7 @@ undefined4 FUN_007d58e0(undefined8 param_1)
   
   QByteArray::QByteArray(local_30,"ssh.authAgent",-1);
                     /* try { // try from 007d5915 to 007d5919 has its CatchHandler @ 007d5941 */
-  FUN_007d5538(local_28,param_1,local_30);
+  s_ssh_identityFilePath_7d5538(local_28,param_1,local_30);
                     /* try { // try from 007d591d to 007d5921 has its CatchHandler @ 007d5949 */
   uVar1 = QVariant::toBool();
   QVariant::~QVariant(local_28);
@@ -4492,9 +4494,9 @@ undefined4 FUN_007d58e0(undefined8 param_1)
 }
 
 
-// ==== entry=007d5952 name=FUN_007d5952 size=97 ====
+// ==== entry=007d5952 orig=FUN_007d5952 size=97 name=s_ssh_authGssapiWithMic_7d5952 ====
 
-undefined4 FUN_007d5952(undefined8 param_1)
+undefined4 s_ssh_authGssapiWithMic_7d5952(undefined8 param_1)
 
 {
   undefined4 uVar1;
@@ -4503,7 +4505,7 @@ undefined4 FUN_007d5952(undefined8 param_1)
   
   QByteArray::QByteArray(local_30,"ssh.authGssapiWithMic",-1);
                     /* try { // try from 007d5987 to 007d598b has its CatchHandler @ 007d59b3 */
-  FUN_007d5538(local_28,param_1,local_30);
+  s_ssh_identityFilePath_7d5538(local_28,param_1,local_30);
                     /* try { // try from 007d598f to 007d5993 has its CatchHandler @ 007d59bb */
   uVar1 = QVariant::toBool();
   QVariant::~QVariant(local_28);
@@ -4512,9 +4514,9 @@ undefined4 FUN_007d5952(undefined8 param_1)
 }
 
 
-// ==== entry=007d59c4 name=FUN_007d59c4 size=97 ====
+// ==== entry=007d59c4 orig=FUN_007d59c4 size=97 name=s_ssh_authKeyboardInteractive_7d59c4 ====
 
-undefined4 FUN_007d59c4(undefined8 param_1)
+undefined4 s_ssh_authKeyboardInteractive_7d59c4(undefined8 param_1)
 
 {
   undefined4 uVar1;
@@ -4523,7 +4525,7 @@ undefined4 FUN_007d59c4(undefined8 param_1)
   
   QByteArray::QByteArray(local_30,"ssh.authKeyboardInteractive",-1);
                     /* try { // try from 007d59f9 to 007d59fd has its CatchHandler @ 007d5a25 */
-  FUN_007d5538(local_28,param_1,local_30);
+  s_ssh_identityFilePath_7d5538(local_28,param_1,local_30);
                     /* try { // try from 007d5a01 to 007d5a05 has its CatchHandler @ 007d5a2d */
   uVar1 = QVariant::toBool();
   QVariant::~QVariant(local_28);
@@ -4532,9 +4534,9 @@ undefined4 FUN_007d59c4(undefined8 param_1)
 }
 
 
-// ==== entry=007d5a36 name=FUN_007d5a36 size=97 ====
+// ==== entry=007d5a36 orig=FUN_007d5a36 size=97 name=s_ssh_authPassword_7d5a36 ====
 
-undefined4 FUN_007d5a36(undefined8 param_1)
+undefined4 s_ssh_authPassword_7d5a36(undefined8 param_1)
 
 {
   undefined4 uVar1;
@@ -4543,7 +4545,7 @@ undefined4 FUN_007d5a36(undefined8 param_1)
   
   QByteArray::QByteArray(local_30,"ssh.authPassword",-1);
                     /* try { // try from 007d5a6b to 007d5a6f has its CatchHandler @ 007d5a97 */
-  FUN_007d5538(local_28,param_1,local_30);
+  s_ssh_identityFilePath_7d5538(local_28,param_1,local_30);
                     /* try { // try from 007d5a73 to 007d5a77 has its CatchHandler @ 007d5a9f */
   uVar1 = QVariant::toBool();
   QVariant::~QVariant(local_28);
@@ -4552,9 +4554,9 @@ undefined4 FUN_007d5a36(undefined8 param_1)
 }
 
 
-// ==== entry=007d5aa8 name=FUN_007d5aa8 size=97 ====
+// ==== entry=007d5aa8 orig=FUN_007d5aa8 size=97 name=s_ssh_authPublicKey_7d5aa8 ====
 
-undefined4 FUN_007d5aa8(undefined8 param_1)
+undefined4 s_ssh_authPublicKey_7d5aa8(undefined8 param_1)
 
 {
   undefined4 uVar1;
@@ -4563,7 +4565,7 @@ undefined4 FUN_007d5aa8(undefined8 param_1)
   
   QByteArray::QByteArray(local_30,"ssh.authPublicKey",-1);
                     /* try { // try from 007d5add to 007d5ae1 has its CatchHandler @ 007d5b09 */
-  FUN_007d5538(local_28,param_1,local_30);
+  s_ssh_identityFilePath_7d5538(local_28,param_1,local_30);
                     /* try { // try from 007d5ae5 to 007d5ae9 has its CatchHandler @ 007d5b11 */
   uVar1 = QVariant::toBool();
   QVariant::~QVariant(local_28);
@@ -4572,9 +4574,9 @@ undefined4 FUN_007d5aa8(undefined8 param_1)
 }
 
 
-// ==== entry=007d5b1a name=FUN_007d5b1a size=228 ====
+// ==== entry=007d5b1a orig=FUN_007d5b1a size=228 name=s_session_target_7d5b1a ====
 
-long * FUN_007d5b1a(long *param_1,undefined8 param_2)
+long * s_session_target_7d5b1a(long *param_1,undefined8 param_2)
 
 {
   long lVar1;
@@ -4584,7 +4586,7 @@ long * FUN_007d5b1a(long *param_1,undefined8 param_2)
   
   QByteArray::QByteArray((QByteArray *)&local_40,"session.label",-1);
                     /* try { // try from 007d5b56 to 007d5b5a has its CatchHandler @ 007d5c1e */
-  FUN_007d5538(local_38,param_2,(QByteArray *)&local_40);
+  s_ssh_identityFilePath_7d5538(local_38,param_2,(QByteArray *)&local_40);
                     /* try { // try from 007d5b61 to 007d5b65 has its CatchHandler @ 007d5c0e */
   QVariant::toString();
   QVariant::~QVariant(local_38);
@@ -4595,7 +4597,7 @@ long * FUN_007d5b1a(long *param_1,undefined8 param_2)
                     /* try { // try from 007d5ba6 to 007d5baa has its CatchHandler @ 007d5bfe */
   QByteArray::QByteArray(aQStack_48,"session.target",-1);
                     /* try { // try from 007d5bb4 to 007d5bb8 has its CatchHandler @ 007d5c06 */
-  FUN_007d5538(local_38,param_2,aQStack_48);
+  s_ssh_identityFilePath_7d5538(local_38,param_2,aQStack_48);
                     /* try { // try from 007d5bbf to 007d5bc3 has its CatchHandler @ 007d5c16 */
   QVariant::toString();
   lVar1 = *param_1;
@@ -4608,9 +4610,9 @@ long * FUN_007d5b1a(long *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=007d5c26 name=FUN_007d5c26 size=122 ====
+// ==== entry=007d5c26 orig=FUN_007d5c26 size=122 name=s_ssh_autoLogin_7d5c26 ====
 
-uint FUN_007d5c26(undefined8 param_1)
+uint s_ssh_autoLogin_7d5c26(undefined8 param_1)
 
 {
   uint uVar1;
@@ -4620,7 +4622,7 @@ uint FUN_007d5c26(undefined8 param_1)
   
   QByteArray::QByteArray(local_40,"ssh.autoLogin",-1);
                     /* try { // try from 007d5c5b to 007d5c5f has its CatchHandler @ 007d5ca0 */
-  FUN_007d5538(local_28,param_1,local_40);
+  s_ssh_identityFilePath_7d5538(local_28,param_1,local_40);
                     /* try { // try from 007d5c6b to 007d5c6f has its CatchHandler @ 007d5cb0 */
   QVariant::toJsonObject();
   QVariant::~QVariant(local_28);
@@ -4632,9 +4634,9 @@ uint FUN_007d5c26(undefined8 param_1)
 }
 
 
-// ==== entry=007d5cb8 name=FUN_007d5cb8 size=97 ====
+// ==== entry=007d5cb8 orig=FUN_007d5cb8 size=97 name=s_ssh_verifyServerFingerprint_7d5cb8 ====
 
-undefined4 FUN_007d5cb8(undefined8 param_1)
+undefined4 s_ssh_verifyServerFingerprint_7d5cb8(undefined8 param_1)
 
 {
   undefined4 uVar1;
@@ -4643,7 +4645,7 @@ undefined4 FUN_007d5cb8(undefined8 param_1)
   
   QByteArray::QByteArray(local_30,"ssh.verifyServerFingerprint",-1);
                     /* try { // try from 007d5ced to 007d5cf1 has its CatchHandler @ 007d5d19 */
-  FUN_007d5538(local_28,param_1,local_30);
+  s_ssh_identityFilePath_7d5538(local_28,param_1,local_30);
                     /* try { // try from 007d5cf5 to 007d5cf9 has its CatchHandler @ 007d5d21 */
   uVar1 = QVariant::toBool();
   QVariant::~QVariant(local_28);
@@ -4652,9 +4654,9 @@ undefined4 FUN_007d5cb8(undefined8 param_1)
 }
 
 
-// ==== entry=007d5d2a name=FUN_007d5d2a size=104 ====
+// ==== entry=007d5d2a orig=FUN_007d5d2a size=104 name=s_session_protocol_7d5d2a ====
 
-undefined8 FUN_007d5d2a(undefined8 param_1,undefined8 param_2)
+undefined8 s_session_protocol_7d5d2a(undefined8 param_1,undefined8 param_2)
 
 {
   QByteArray local_40 [8];
@@ -4662,7 +4664,7 @@ undefined8 FUN_007d5d2a(undefined8 param_1,undefined8 param_2)
   
   QByteArray::QByteArray(local_40,"session.protocol",-1);
                     /* try { // try from 007d5d64 to 007d5d68 has its CatchHandler @ 007d5d92 */
-  FUN_007d5538(local_38,param_2,local_40);
+  s_ssh_identityFilePath_7d5538(local_38,param_2,local_40);
                     /* try { // try from 007d5d6f to 007d5d73 has its CatchHandler @ 007d5d9a */
   QVariant::toString();
   QVariant::~QVariant(local_38);
@@ -4683,7 +4685,7 @@ bool FUN_007d5da2(undefined8 param_1)
   undefined1 auStack_28 [8];
   undefined8 local_20;
   
-  FUN_007d5d2a(auStack_28,param_1);
+  s_session_protocol_7d5d2a(auStack_28,param_1);
   sVar2 = strlen("SSH");
                     /* try { // try from 007d5dd4 to 007d5dd8 has its CatchHandler @ 007d5e19 */
   local_20 = QString::fromAscii_helper("SSH",(int)sVar2);
@@ -4772,9 +4774,9 @@ undefined8 * FUN_007d5e68(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=007d5f7e name=FUN_007d5f7e size=228 ====
+// ==== entry=007d5f7e orig=FUN_007d5f7e size=228 name=s_session_uuid_7d5f7e ====
 
-undefined8 * FUN_007d5f7e(undefined8 *param_1,long param_2)
+undefined8 * s_session_uuid_7d5f7e(undefined8 *param_1,long param_2)
 
 {
   long lVar1;
@@ -4896,9 +4898,9 @@ void FUN_007d6122(QObject *param_1,int param_2)
 }
 
 
-// ==== entry=007d6232 name=FUN_007d6232 size=296 ====
+// ==== entry=007d6232 orig=FUN_007d6232 size=296 name=s_session_keepAlive_7d6232 ====
 
-void FUN_007d6232(long param_1,void *param_2)
+void s_session_keepAlive_7d6232(long param_1,void *param_2)
 
 {
   void *pvVar1;
@@ -4939,7 +4941,7 @@ void FUN_007d6232(long param_1,void *param_2)
   *(undefined1 *)(param_1 + 0x61) = 0;
   QByteArray::QByteArray(local_40,"session.keepAlive",-1);
                     /* try { // try from 007d6308 to 007d630c has its CatchHandler @ 007d6367 */
-  FUN_007d5538(local_38,param_1,local_40);
+  s_ssh_identityFilePath_7d5538(local_38,param_1,local_40);
                     /* try { // try from 007d6312 to 007d6316 has its CatchHandler @ 007d635f */
   uVar3 = QVariant::toInt((bool *)local_38);
   QVariant::~QVariant(local_38);
@@ -4963,9 +4965,9 @@ void FUN_007d6378(long param_1,long *param_2,undefined8 param_3)
 }
 
 
-// ==== entry=007d63c4 name=FUN_007d63c4 size=188 ====
+// ==== entry=007d63c4 orig=FUN_007d63c4 size=188 name=s_session_user_7d63c4 ====
 
-void FUN_007d63c4(long param_1,undefined8 param_2)
+void s_session_user_7d63c4(long param_1,undefined8 param_2)
 
 {
   long lVar1;
@@ -4994,9 +4996,9 @@ void FUN_007d63c4(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=007d649e name=FUN_007d649e size=360 ====
+// ==== entry=007d649e orig=FUN_007d649e size=360 name=s_ssh_autoLogin_7d649e ====
 
-undefined8 FUN_007d649e(long param_1)
+undefined8 s_ssh_autoLogin_7d649e(long param_1)
 
 {
   char cVar1;
@@ -5013,7 +5015,7 @@ undefined8 FUN_007d649e(long param_1)
     if (lVar2 != 0) {
       QByteArray::QByteArray((QByteArray *)local_58,"ssh.autoLogin",-1);
                     /* try { // try from 007d6507 to 007d650b has its CatchHandler @ 007d660e */
-      FUN_007d5538(local_48,param_1,(QByteArray *)local_58);
+      s_ssh_identityFilePath_7d5538(local_48,param_1,(QByteArray *)local_58);
                     /* try { // try from 007d6517 to 007d651b has its CatchHandler @ 007d6616 */
       QVariant::toJsonObject();
       QVariant::~QVariant(local_48);
@@ -5036,7 +5038,7 @@ undefined8 FUN_007d649e(long param_1)
           QJsonObject::QJsonObject(this,(QJsonObject *)local_68);
                     /* try { // try from 007d65b6 to 007d65c5 has its CatchHandler @ 007d6606 */
           FUN_00863dcc(lVar2,this);
-          FUN_007d63c4(param_1,&local_78);
+          s_session_user_7d63c4(param_1,&local_78);
           qt_byte_array_unref(&local_78);
           QJsonObject::~QJsonObject((QJsonObject *)local_68);
           return 1;
@@ -5051,9 +5053,9 @@ undefined8 FUN_007d649e(long param_1)
 }
 
 
-// ==== entry=007d663e name=FUN_007d663e size=123 ====
+// ==== entry=007d663e orig=FUN_007d663e size=123 name=s_ssh_autoLogin_7d663e ====
 
-void FUN_007d663e(undefined8 param_1,undefined8 param_2,QByteArray *param_3)
+void s_ssh_autoLogin_7d663e(undefined8 param_1,undefined8 param_2,QByteArray *param_3)
 
 {
   char cVar1;
@@ -5067,11 +5069,11 @@ void FUN_007d663e(undefined8 param_1,undefined8 param_2,QByteArray *param_3)
   FUN_007d6378(param_1,local_30,local_28);
   qt_byte_array_unref(local_30);
   QVariant::~QVariant(local_28);
-  cVar1 = FUN_007d5c26(param_1);
+  cVar1 = s_ssh_autoLogin_7d5c26(param_1);
   if (cVar1 == '\0') {
     return;
   }
-  FUN_007d649e(param_1);
+  s_ssh_autoLogin_7d649e(param_1);
   return;
 }
 
@@ -5146,7 +5148,7 @@ ulong FUN_007d6736(undefined8 param_1)
   undefined1 auStack_38 [8];
   undefined8 local_30 [2];
   
-  FUN_007d5d2a(auStack_38,param_1);
+  s_session_protocol_7d5d2a(auStack_38,param_1);
                     /* try { // try from 007d6754 to 007d677c has its CatchHandler @ 007d67d2 */
   iVar1 = FUN_007d6712(param_1);
   sVar3 = strlen("SSH");
@@ -5193,7 +5195,7 @@ QJsonObject * FUN_007d6814(QJsonObject *param_1,long param_2)
   if (*(long *)(param_2 + 0x10) != 0) {
     lVar1 = __dynamic_cast(*(long *)(param_2 + 0x10),&PTR_PTR_011a8050,&PTR_PTR_011a8f30,0);
     if (lVar1 != 0) {
-      FUN_00863ea0(param_1,lVar1);
+      s_ssh_serverFingerprint_863ea0(param_1,lVar1);
       return param_1;
     }
   }
@@ -5368,7 +5370,7 @@ void FUN_007d69ce(undefined8 param_1,undefined4 param_2,bool *param_3,undefined8
     QVariant::QVariant((QVariant *)&local_48,local_58);
     break;
   case 0x11:
-    FUN_007d583a(local_58,param_1);
+    s_session_target_7d583a(local_58,param_1);
                     /* try { // try from 007d6bd3 to 007d6bd7 has its CatchHandler @ 007d6cc5 */
     QVariant::QVariant((QVariant *)&local_48,local_58);
     break;
@@ -5625,11 +5627,11 @@ void FUN_007d6f30(undefined8 param_1,QString *param_2)
 }
 
 
-// ==== entry=007d7096 name=FUN_007d7096 size=3886 ====
+// ==== entry=007d7096 orig=FUN_007d7096 size=3886 name=SuperSession_h7d7096 ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_007d7096(long param_1)
+void SuperSession_h7d7096(long param_1)
 
 {
   long lVar1;
@@ -6339,9 +6341,9 @@ void FUN_007d7096(long param_1)
 }
 
 
-// ==== entry=007d7fc4 name=FUN_007d7fc4 size=162 ====
+// ==== entry=007d7fc4 orig=FUN_007d7fc4 size=162 name=SuperSession_h7d7fc4 ====
 
-void FUN_007d7fc4(long param_1)
+void SuperSession_h7d7fc4(long param_1)
 
 {
   char cVar1;
@@ -6385,8 +6387,8 @@ void FUN_007d7fc4(long param_1)
 void FUN_007d806c(undefined8 param_1)
 
 {
-  FUN_007d7096();
-  FUN_007d7fc4(param_1);
+  SuperSession_h7d7096();
+  SuperSession_h7d7fc4(param_1);
   return;
 }
 
@@ -6413,7 +6415,7 @@ void FUN_007d807e(QObject *param_1,undefined8 param_2,QObject *param_3)
                     /* try { // try from 007d80f2 to 007d8109 has its CatchHandler @ 007d8115 */
   FUN_007d4682(param_1);
   FUN_007d47ce(param_1);
-  FUN_007d6232(param_1,param_2);
+  s_session_keepAlive_7d6232(param_1,param_2);
   return;
 }
 
@@ -6559,9 +6561,9 @@ void FUN_007d82ed(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=007d846e name=FUN_007d846e size=3847 ====
+// ==== entry=007d846e orig=FUN_007d846e size=3847 name=s_session_proxyWorkingDirectory_7d846e ====
 
-undefined8 FUN_007d846e(long param_1)
+undefined8 s_session_proxyWorkingDirectory_7d846e(long param_1)
 
 {
   long *plVar1;
@@ -6621,7 +6623,7 @@ undefined8 FUN_007d846e(long param_1)
   *(undefined8 *)(param_1 + 0x10) = 0;
   QByteArray::QByteArray((QByteArray *)&local_58,"session.protocol",-1);
                     /* try { // try from 007d84c9 to 007d84cd has its CatchHandler @ 007d94cd */
-  FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d84de to 007d84e2 has its CatchHandler @ 007d94c5 */
   QVariant::toByteArray();
   QVariant::~QVariant((QVariant *)&local_48);
@@ -6683,7 +6685,7 @@ LAB_007d8547:
   uVar10 = *(undefined8 *)(param_1 + 0x10);
   local_d8 = FUN_00911e38;
   local_d0 = 0;
-  local_c8 = thunk_FUN_007db97e;
+  local_c8 = SuperSession_h7db97e;
   local_c0 = 0;
   puVar8 = operator_new(0x20);
   *puVar8 = 1;
@@ -6770,7 +6772,7 @@ LAB_007d8547:
   QMetaObject::Connection::~Connection(local_118);
   QByteArray::QByteArray((QByteArray *)&local_58,"session.proxy",-1);
                     /* try { // try from 007d8a20 to 007d8a24 has its CatchHandler @ 007d94ed */
-  FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d8a30 to 007d8a34 has its CatchHandler @ 007d9515 */
   QVariant::toString();
   QVariant::~QVariant((QVariant *)&local_48);
@@ -6807,7 +6809,7 @@ LAB_007d8ab4:
                     /* try { // try from 007d8ac6 to 007d8aca has its CatchHandler @ 007d950d */
     QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyPassword",-1);
                     /* try { // try from 007d8ad4 to 007d8ad8 has its CatchHandler @ 007d94dd */
-    FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+    s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d8ae1 to 007d8ae5 has its CatchHandler @ 007d94e5 */
     QVariant::toByteArray();
     QVariant::~QVariant((QVariant *)&local_48);
@@ -6883,7 +6885,7 @@ LAB_007d8ab4:
                     /* try { // try from 007d8b11 to 007d8b15 has its CatchHandler @ 007d951d */
       QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyDns",-1);
                     /* try { // try from 007d8b1f to 007d8b23 has its CatchHandler @ 007d948d */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d8b27 to 007d8b2b has its CatchHandler @ 007d9485 */
       uVar3 = QVariant::toBool();
       QVariant::~QVariant((QVariant *)&local_48);
@@ -6891,7 +6893,7 @@ LAB_007d8ab4:
                     /* try { // try from 007d8b52 to 007d8b56 has its CatchHandler @ 007d951d */
       QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyHost",-1);
                     /* try { // try from 007d8b60 to 007d8b64 has its CatchHandler @ 007d947d */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d8b6d to 007d8b71 has its CatchHandler @ 007d9475 */
       QVariant::toString();
       QVariant::~QVariant((QVariant *)&local_48);
@@ -6899,7 +6901,7 @@ LAB_007d8ab4:
                     /* try { // try from 007d8b94 to 007d8b98 has its CatchHandler @ 007d949d */
       QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyPort",-1);
                     /* try { // try from 007d8ba2 to 007d8ba6 has its CatchHandler @ 007d9495 */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d8bac to 007d8bb0 has its CatchHandler @ 007d94a5 */
       uVar4 = QVariant::toInt((bool *)&local_48);
       QVariant::~QVariant((QVariant *)&local_48);
@@ -6907,7 +6909,7 @@ LAB_007d8ab4:
                     /* try { // try from 007d8bd6 to 007d8bda has its CatchHandler @ 007d949d */
       QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyUser",-1);
                     /* try { // try from 007d8be4 to 007d8be8 has its CatchHandler @ 007d946d */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d8bef to 007d8bf3 has its CatchHandler @ 007d9465 */
       QVariant::toString();
       QVariant::~QVariant((QVariant *)&local_48);
@@ -6948,7 +6950,7 @@ LAB_007d8ab4:
     if (iVar5 == 0) {
       QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyCommand",-1);
                     /* try { // try from 007d91a5 to 007d91a9 has its CatchHandler @ 007d9425 */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d91b5 to 007d91b9 has its CatchHandler @ 007d93cd */
       QVariant::toString();
       QVariant::~QVariant((QVariant *)&local_48);
@@ -6956,7 +6958,7 @@ LAB_007d8ab4:
                     /* try { // try from 007d91dc to 007d91e0 has its CatchHandler @ 007d93ed */
       QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyWorkingDirectory",-1);
                     /* try { // try from 007d91ea to 007d91ee has its CatchHandler @ 007d93ad */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d91fa to 007d91fe has its CatchHandler @ 007d93a5 */
       QVariant::toString();
       QVariant::~QVariant((QVariant *)&local_48);
@@ -6964,7 +6966,7 @@ LAB_007d8ab4:
                     /* try { // try from 007d9221 to 007d9225 has its CatchHandler @ 007d939d */
       QByteArray::QByteArray((QByteArray *)&local_58,"session.proxyEnvironment",-1);
                     /* try { // try from 007d922f to 007d9233 has its CatchHandler @ 007d9395 */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d923a to 007d923e has its CatchHandler @ 007d938d */
       QVariant::toString();
       QVariant::~QVariant((QVariant *)&local_48);
@@ -7015,9 +7017,9 @@ LAB_007d8d84:
 }
 
 
-// ==== entry=007d952e name=FUN_007d952e size=231 ====
+// ==== entry=007d952e orig=FUN_007d952e size=231 name=s_session_target_7d952e ====
 
-void FUN_007d952e(undefined8 param_1)
+void s_session_target_7d952e(undefined8 param_1)
 
 {
   undefined2 uVar1;
@@ -7028,16 +7030,16 @@ void FUN_007d952e(undefined8 param_1)
   QVariant local_58 [16];
   QVariant local_48 [24];
   
-  lVar2 = FUN_007d846e();
+  lVar2 = s_session_proxyWorkingDirectory_7d846e();
   if (lVar2 != 0) {
     QByteArray::QByteArray(local_60,"session.port",-1);
                     /* try { // try from 007d957a to 007d957e has its CatchHandler @ 007d9615 */
-    FUN_007d5538(local_48,param_1,local_60);
+    s_ssh_identityFilePath_7d5538(local_48,param_1,local_60);
                     /* try { // try from 007d9584 to 007d95ab has its CatchHandler @ 007d9635 */
     uVar1 = QVariant::toUInt((bool *)local_48);
     QByteArray::QByteArray(local_70,"session.target",-1);
                     /* try { // try from 007d95ba to 007d95be has its CatchHandler @ 007d9625 */
-    FUN_007d5538(local_58,param_1,local_70);
+    s_ssh_identityFilePath_7d5538(local_58,param_1,local_70);
                     /* try { // try from 007d95ca to 007d95ce has its CatchHandler @ 007d962d */
     QVariant::toString();
                     /* try { // try from 007d95d9 to 007d95dd has its CatchHandler @ 007d961d */
@@ -7105,9 +7107,9 @@ void FUN_007d963e(long param_1,undefined8 param_2,undefined8 param_3,char param_
 }
 
 
-// ==== entry=007d9776 name=FUN_007d9776 size=1596 ====
+// ==== entry=007d9776 orig=FUN_007d9776 size=1596 name=s_session_protocol_7d9776 ====
 
-void FUN_007d9776(long param_1,QString *param_2,long *param_3,int param_4,int param_5)
+void s_session_protocol_7d9776(long param_1,QString *param_2,long *param_3,int param_4,int param_5)
 
 {
   char cVar1;
@@ -7135,7 +7137,7 @@ void FUN_007d9776(long param_1,QString *param_2,long *param_3,int param_4,int pa
                     /* try { // try from 007d97da to 007d97de has its CatchHandler @ 007d9dff */
   QByteArray::QByteArray((QByteArray *)&local_58,"session.protocol",-1);
                     /* try { // try from 007d97f5 to 007d97f9 has its CatchHandler @ 007d9df7 */
-  FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d980c to 007d9810 has its CatchHandler @ 007d9db2 */
   QVariant::toByteArray();
   QVariant::~QVariant((QVariant *)&local_48);
@@ -7261,7 +7263,7 @@ LAB_007d988e:
                     /* try { // try from 007d9d46 to 007d9d4a has its CatchHandler @ 007d9dca */
             QByteArray::QByteArray((QByteArray *)&local_58,"session.term",-1);
                     /* try { // try from 007d9d56 to 007d9d5a has its CatchHandler @ 007d9dd2 */
-            FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+            s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007d9d6d to 007d9d71 has its CatchHandler @ 007d9dc2 */
             QVariant::toByteArray();
             lVar4 = *param_3;
@@ -7565,7 +7567,7 @@ void FUN_007da228(long param_1,undefined8 param_2,long *param_3)
                     /* try { // try from 007da2dd to 007da2e1 has its CatchHandler @ 007da408 */
   QVariant::toString();
                     /* try { // try from 007da2ed to 007da2f1 has its CatchHandler @ 007da415 */
-  FUN_007d5b1a(local_58,param_1);
+  s_session_target_7d5b1a(local_58,param_1);
                     /* try { // try from 007da2fd to 007da301 has its CatchHandler @ 007da41d */
   FUN_007d4d9c(local_50,param_1);
                     /* try { // try from 007da307 to 007da30b has its CatchHandler @ 007da425 */
@@ -7604,9 +7606,10 @@ void FUN_007da228(long param_1,undefined8 param_2,long *param_3)
 }
 
 
-// ==== entry=007da43e name=FUN_007da43e size=1887 ====
+// ==== entry=007da43e orig=FUN_007da43e size=1887 name=s_terminal_eraseWithBackground_7da43e ====
 
-long * FUN_007da43e(long *param_1,long param_2,QObject *param_3,undefined8 param_4,int param_5)
+long * s_terminal_eraseWithBackground_7da43e
+                 (long *param_1,long param_2,QObject *param_3,undefined8 param_4,int param_5)
 
 {
   QString *pQVar1;
@@ -7697,7 +7700,7 @@ LAB_007da50f:
                     /* try { // try from 007daa24 to 007daa28 has its CatchHandler @ 007dabe5 */
       QByteArray::QByteArray((QByteArray *)&local_70,"session.term",-1);
                     /* try { // try from 007daa32 to 007daa36 has its CatchHandler @ 007dabdd */
-      FUN_007d5538((QVariant *)local_68,param_2,(QByteArray *)&local_70);
+      s_ssh_identityFilePath_7d5538((QVariant *)local_68,param_2,(QByteArray *)&local_70);
                     /* try { // try from 007daa47 to 007daa4b has its CatchHandler @ 007dabd5 */
       QVariant::toByteArray();
       QVariant::~QVariant((QVariant *)local_68);
@@ -7722,7 +7725,7 @@ LAB_007da50f:
                     /* try { // try from 007da628 to 007da62c has its CatchHandler @ 007dac25 */
     QByteArray::QByteArray((QByteArray *)&local_70,"terminal.formatOtherKeys",-1);
                     /* try { // try from 007da636 to 007da63a has its CatchHandler @ 007dac35 */
-    FUN_007d5538((QVariant *)local_68,param_2,(QByteArray *)&local_70);
+    s_ssh_identityFilePath_7d5538((QVariant *)local_68,param_2,(QByteArray *)&local_70);
                     /* try { // try from 007da640 to 007da644 has its CatchHandler @ 007dac15 */
     uVar5 = QVariant::toInt((bool *)local_68);
     QVariant::~QVariant((QVariant *)local_68);
@@ -7758,7 +7761,7 @@ LAB_007da50f:
       do {
         QString::toUtf8_helper(local_78);
                     /* try { // try from 007da764 to 007da768 has its CatchHandler @ 007dabf5 */
-        FUN_007d5538((QVariant *)local_68,param_2,local_78);
+        s_ssh_identityFilePath_7d5538((QVariant *)local_68,param_2,local_78);
         qt_byte_array_unref(local_78);
         if (((ulong)local_60 & 0x3fffffff) != 0) {
           if (*local_80 < 2) {
@@ -7818,10 +7821,10 @@ LAB_007da832:
       lVar8 = param_1[1];
     }
                     /* try { // try from 007da876 to 007da891 has its CatchHandler @ 007dabcd */
-    FUN_007e8cf8(lVar8,&local_80);
+    s_terminal_numericKeypadMode_7e8cf8(lVar8,&local_80);
     QByteArray::QByteArray((QByteArray *)&local_70,"terminal.eraseWithBackground",-1);
                     /* try { // try from 007da89b to 007da89f has its CatchHandler @ 007dabc5 */
-    FUN_007d5538((QVariant *)local_68,param_2,(QByteArray *)&local_70);
+    s_ssh_identityFilePath_7d5538((QVariant *)local_68,param_2,(QByteArray *)&local_70);
                     /* try { // try from 007da8a3 to 007da8a7 has its CatchHandler @ 007dabbd */
     uVar4 = QVariant::toBool();
     QVariant::~QVariant((QVariant *)local_68);
@@ -8031,9 +8034,9 @@ void FUN_007dae6e(undefined8 param_1,undefined8 param_2,long param_3)
 }
 
 
-// ==== entry=007daedc name=FUN_007daedc size=1803 ====
+// ==== entry=007daedc orig=FUN_007daedc size=1803 name=s_sftp_preserveOriginalFolderModifyTim_7daedc ====
 
-void FUN_007daedc(long param_1,QString *param_2)
+void s_sftp_preserveOriginalFolderModifyTim_7daedc(long param_1,QString *param_2)
 
 {
   uint *puVar1;
@@ -8066,7 +8069,7 @@ void FUN_007daedc(long param_1,QString *param_2)
   }
   QByteArray::QByteArray((QByteArray *)&local_58,"session.protocol",-1);
                     /* try { // try from 007daf3f to 007daf43 has its CatchHandler @ 007db66f */
-  FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007daf54 to 007daf58 has its CatchHandler @ 007db657 */
   QVariant::toByteArray();
   QVariant::~QVariant((QVariant *)&local_48);
@@ -8092,7 +8095,7 @@ void FUN_007daedc(long param_1,QString *param_2)
                     /* try { // try from 007db430 to 007db434 has its CatchHandler @ 007db64f */
       QByteArray::QByteArray((QByteArray *)&local_58,"session.system",-1);
                     /* try { // try from 007db43e to 007db442 has its CatchHandler @ 007db667 */
-      FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+      s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007db453 to 007db457 has its CatchHandler @ 007db65f */
       QVariant::toByteArray();
       QVariant::~QVariant((QVariant *)&local_48);
@@ -8103,7 +8106,7 @@ void FUN_007daedc(long param_1,QString *param_2)
                     /* try { // try from 007db4ce to 007db4d2 has its CatchHandler @ 007db62f */
         QByteArray::QByteArray((QByteArray *)&local_58,"process.arguments",-1);
                     /* try { // try from 007db4dc to 007db4e0 has its CatchHandler @ 007db607 */
-        FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+        s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007db4f1 to 007db4f5 has its CatchHandler @ 007db5f7 */
         QVariant::toString();
         QVariant::~QVariant((QVariant *)&local_48);
@@ -8158,7 +8161,7 @@ void FUN_007daedc(long param_1,QString *param_2)
   local_a0 = (QByteArray *)&local_60;
   QByteArray::QByteArray(local_a0,"sftp.fileCreationPermissions",-1);
                     /* try { // try from 007db0dc to 007db0e0 has its CatchHandler @ 007db68f */
-  FUN_007d5538((QVariant *)&local_48,param_1,local_a0);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,local_a0);
                     /* try { // try from 007db0e7 to 007db0eb has its CatchHandler @ 007db6a5 */
   QVariant::toByteArray();
                     /* try { // try from 007db101 to 007db105 has its CatchHandler @ 007db69c */
@@ -8169,7 +8172,7 @@ void FUN_007daedc(long param_1,QString *param_2)
                     /* try { // try from 007db138 to 007db13c has its CatchHandler @ 007db64f */
   QByteArray::QByteArray(local_a0,"sftp.folderCreationPermissions",-1);
                     /* try { // try from 007db148 to 007db14c has its CatchHandler @ 007db6c5 */
-  FUN_007d5538((QVariant *)&local_48,param_1,local_a0);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,local_a0);
                     /* try { // try from 007db153 to 007db157 has its CatchHandler @ 007db6bd */
   QVariant::toByteArray();
                     /* try { // try from 007db165 to 007db169 has its CatchHandler @ 007db6b5 */
@@ -8180,7 +8183,7 @@ void FUN_007daedc(long param_1,QString *param_2)
                     /* try { // try from 007db19a to 007db19e has its CatchHandler @ 007db64f */
   QByteArray::QByteArray((QByteArray *)&local_58,"sftp.fixInvalidPathCharacters",-1);
                     /* try { // try from 007db1a8 to 007db1ac has its CatchHandler @ 007db6ad */
-  FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007db1b0 to 007db1b4 has its CatchHandler @ 007db627 */
   bVar2 = QVariant::toBool();
   QVariant::~QVariant((QVariant *)&local_48);
@@ -8188,7 +8191,7 @@ void FUN_007daedc(long param_1,QString *param_2)
                     /* try { // try from 007db1db to 007db1df has its CatchHandler @ 007db64f */
   QByteArray::QByteArray((QByteArray *)&local_58,"sftp.preserveOriginalFileModifyTime",-1);
                     /* try { // try from 007db1e9 to 007db1ed has its CatchHandler @ 007db61f */
-  FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007db1f1 to 007db1f5 has its CatchHandler @ 007db617 */
   bVar3 = QVariant::toBool();
   QVariant::~QVariant((QVariant *)&local_48);
@@ -8196,7 +8199,7 @@ void FUN_007daedc(long param_1,QString *param_2)
                     /* try { // try from 007db21c to 007db220 has its CatchHandler @ 007db64f */
   QByteArray::QByteArray((QByteArray *)&local_58,"sftp.preserveOriginalFolderModifyTime",-1);
                     /* try { // try from 007db22a to 007db22e has its CatchHandler @ 007db60f */
-  FUN_007d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
+  s_ssh_identityFilePath_7d5538((QVariant *)&local_48,param_1,(QByteArray *)&local_58);
                     /* try { // try from 007db232 to 007db236 has its CatchHandler @ 007db67f */
   bVar4 = QVariant::toBool();
   QVariant::~QVariant((QVariant *)&local_48);
@@ -8371,7 +8374,7 @@ void FUN_007db8ee(long param_1,undefined8 param_2,char param_3)
   if (plVar1 != (long *)0x0) {
     lVar2 = FUN_007db6ce(param_1,plVar1);
     if (lVar2 != 0) {
-      FUN_007e58ce(lVar2,plVar1);
+      SuperTerm_h7e58ce(lVar2,plVar1);
     }
     FUN_007c1b92(plVar1);
     if ((param_3 == '\0') || ((*(byte *)((long)plVar1 + 0x19) & 4) == 0)) {
@@ -8386,9 +8389,9 @@ void FUN_007db8ee(long param_1,undefined8 param_2,char param_3)
 }
 
 
-// ==== entry=007db97e name=FUN_007db97e size=181 ====
+// ==== entry=007db97e orig=FUN_007db97e size=181 name=SuperSession_h7db97e ====
 
-void FUN_007db97e(long param_1)
+void SuperSession_h7db97e(long param_1)
 
 {
   uint *puVar1;
@@ -8417,9 +8420,9 @@ void FUN_007db97e(long param_1)
 }
 
 
-// ==== entry=007dba3c orig=FUN_007dba3c size=5 name=thunk_FUN_007db97e ====
+// ==== entry=007dba3c orig=FUN_007dba3c size=5 name=SuperSession_h7db97e ====
 
-void thunk_FUN_007db97e(long param_1)
+void SuperSession_h7db97e(long param_1)
 
 {
   uint *puVar1;
@@ -8462,8 +8465,8 @@ void SuperSession_dtor(QObject *param_1)
   char cVar8;
   
   *(undefined ***)param_1 = &SuperSession_vtable;
-  FUN_007d7096();
-  FUN_007d7fc4(param_1);
+  SuperSession_h7d7096();
+  SuperSession_h7d7fc4(param_1);
   if (*(long **)(param_1 + 0x10) != (long *)0x0) {
     (**(code **)(**(long **)(param_1 + 0x10) + 0x20))();
     *(undefined8 *)(param_1 + 0x10) = 0;
@@ -8472,7 +8475,7 @@ void SuperSession_dtor(QObject *param_1)
     (**(code **)(**(long **)(param_1 + 0x50) + 0x20))();
     *(undefined8 *)(param_1 + 0x50) = 0;
   }
-  FUN_007db97e(param_1);
+  SuperSession_h7db97e(param_1);
   cVar8 = qatomic_int_deref(*(undefined8 *)(param_1 + 0x40));
   if (cVar8 == '\0') {
     FUN_007df98a(*(undefined8 *)(param_1 + 0x40));
@@ -8841,19 +8844,19 @@ void session_applySetting(undefined8 param_1,undefined4 param_2,bool *param_3,un
   case 0x23:
     break;
   case 6:
-    FUN_007d649e();
+    s_ssh_autoLogin_7d649e();
     break;
   case 7:
     QVariant::toByteArray();
                     /* try { // try from 007dc56f to 007dc573 has its CatchHandler @ 007dc8f2 */
-    FUN_007d63c4(param_1,local_40);
+    s_session_user_7d63c4(param_1,local_40);
     goto LAB_007dc1ff;
   case 8:
     QVariant::toByteArray();
                     /* try { // try from 007dc190 to 007dc194 has its CatchHandler @ 007dc87d */
     QVariant::toString();
                     /* try { // try from 007dc19e to 007dc1a2 has its CatchHandler @ 007dc875 */
-    FUN_007d663e(param_1,local_48,local_40);
+    s_ssh_autoLogin_7d663e(param_1,local_48,local_40);
     qt_array_data_unref(local_48);
     qt_byte_array_unref(local_40);
     break;
@@ -8907,7 +8910,7 @@ void session_applySetting(undefined8 param_1,undefined4 param_2,bool *param_3,un
                     /* try { // try from 007dc69b to 007dc69f has its CatchHandler @ 007dc902 */
         QVariant::toString();
                     /* try { // try from 007dc6b7 to 007dc6bb has its CatchHandler @ 007dc8fa */
-        FUN_007d9776(param_1,local_48,local_40,uVar6,uVar7);
+        s_session_protocol_7d9776(param_1,local_48,local_40,uVar6,uVar7);
         qt_array_data_unref(local_48);
         qt_byte_array_unref(local_40);
         qt_byte_array_unref(&local_50);
@@ -8927,7 +8930,7 @@ void session_applySetting(undefined8 param_1,undefined4 param_2,bool *param_3,un
   case 0xe:
     QVariant::toString();
                     /* try { // try from 007dc385 to 007dc389 has its CatchHandler @ 007dc88d */
-    FUN_007daedc(param_1,local_40);
+    s_sftp_preserveOriginalFolderModifyTim_7daedc(param_1,local_40);
     goto LAB_007dc281;
   case 0xf:
     QVariant::toByteArray();
@@ -9048,18 +9051,18 @@ LAB_007dc1ff:
 }
 
 
-// ==== entry=007dc920 name=FUN_007dc920 size=1 ====
+// ==== entry=007dc920 orig=FUN_007dc920 size=1 name=SuperSession_vt14 ====
 
-void FUN_007dc920(void)
+void SuperSession_vt14(void)
 
 {
   return;
 }
 
 
-// ==== entry=007dc922 name=FUN_007dc922 size=1 ====
+// ==== entry=007dc922 orig=FUN_007dc922 size=1 name=SuperSession_vt15 ====
 
-void FUN_007dc922(void)
+void SuperSession_vt15(void)
 
 {
   return;
@@ -15241,7 +15244,7 @@ void FUN_007e353a(long param_1)
 
 {
   if ((*(char *)(param_1 + 0x12e) != '\0') && (*(char *)(param_1 + 0x13a) != '\0')) {
-    FUN_007cbc46(*(undefined8 *)(param_1 + 0x10));
+    s_terminal_bellInterval_7cbc46(*(undefined8 *)(param_1 + 0x10));
     return;
   }
   return;
@@ -16421,9 +16424,9 @@ void FUN_007e4482(long param_1)
 }
 
 
-// ==== entry=007e44c0 name=FUN_007e44c0 size=431 ====
+// ==== entry=007e44c0 orig=FUN_007e44c0 size=431 name=s_xmodem_packetSize_7e44c0 ====
 
-bool FUN_007e44c0(long param_1,int param_2)
+bool s_xmodem_packetSize_7e44c0(long param_1,int param_2)
 
 {
   undefined8 uVar1;
@@ -17932,9 +17935,9 @@ LAB_007e5709:
 }
 
 
-// ==== entry=007e58ce name=FUN_007e58ce size=293 ====
+// ==== entry=007e58ce orig=FUN_007e58ce size=293 name=SuperTerm_h7e58ce ====
 
-void FUN_007e58ce(long param_1,long param_2)
+void SuperTerm_h7e58ce(long param_1,long param_2)
 
 {
   ushort uVar1;
@@ -18659,9 +18662,9 @@ void FUN_007e62e4(long *param_1,int param_2,char param_3)
 }
 
 
-// ==== entry=007e6406 name=FUN_007e6406 size=688 ====
+// ==== entry=007e6406 orig=FUN_007e6406 size=688 name=s_window_mouseWheelScrollLines_7e6406 ====
 
-undefined8 FUN_007e6406(long param_1,long param_2)
+undefined8 s_window_mouseWheelScrollLines_7e6406(long param_1,long param_2)
 
 {
   undefined8 uVar1;
@@ -18877,7 +18880,7 @@ void FUN_007e6856(long param_1,undefined8 param_2,long *param_3)
   undefined1 local_30 [8];
   
   iVar4 = FUN_007e46a8(param_1,param_3);
-  cVar3 = FUN_007e44c0(param_1,iVar4);
+  cVar3 = s_xmodem_packetSize_7e44c0(param_1,iVar4);
   if (cVar3 != '\0') {
     plVar5 = *(long **)(param_1 + 0x200);
     if (iVar4 == 0) {
@@ -18910,7 +18913,7 @@ void FUN_007e6900(long param_1,undefined8 param_2,undefined8 param_3)
   undefined1 local_30 [16];
   
   uVar4 = FUN_007e46a8(param_1,param_3);
-  cVar3 = FUN_007e44c0(param_1,uVar4);
+  cVar3 = s_xmodem_packetSize_7e44c0(param_1,uVar4);
   if (cVar3 == '\0') {
     return;
   }
@@ -20173,9 +20176,9 @@ void FUN_007e87a2(undefined8 param_1)
 }
 
 
-// ==== entry=007e87c8 name=FUN_007e87c8 size=232 ====
+// ==== entry=007e87c8 orig=FUN_007e87c8 size=232 name=s_session_term_7e87c8 ====
 
-void FUN_007e87c8(long param_1,char param_2)
+void s_session_term_7e87c8(long param_1,char param_2)
 
 {
   undefined8 uVar1;
@@ -20215,7 +20218,7 @@ void FUN_007e87c8(long param_1,char param_2)
 void FUN_007e88d0(undefined8 param_1)
 
 {
-  FUN_007e87c8(param_1,1);
+  s_session_term_7e87c8(param_1,1);
   FUN_00913168(param_1);
   return;
 }
@@ -20226,7 +20229,7 @@ void FUN_007e88d0(undefined8 param_1)
 void FUN_007e88e8(undefined8 param_1)
 
 {
-  FUN_007e87c8(param_1,0);
+  s_session_term_7e87c8(param_1,0);
   FUN_00913178(param_1);
   return;
 }
@@ -20406,9 +20409,9 @@ int FUN_007e8ae6(long param_1,undefined8 param_2,long param_3,int param_4)
 }
 
 
-// ==== entry=007e8cf8 name=FUN_007e8cf8 size=924 ====
+// ==== entry=007e8cf8 orig=FUN_007e8cf8 size=924 name=s_terminal_numericKeypadMode_7e8cf8 ====
 
-void FUN_007e8cf8(long param_1,long *param_2)
+void s_terminal_numericKeypadMode_7e8cf8(long param_1,long *param_2)
 
 {
   long *plVar1;
@@ -22275,7 +22278,7 @@ void mouse_xterm_seq_build(long param_1,long *param_2,long *param_3,int param_4,
   uVar20 = (undefined4)((ulong)in_stack_fffffffffffffee8 >> 0x20);
   uVar7 = (undefined4)((ulong)in_stack_fffffffffffffef0 >> 0x20);
   uVar21 = (undefined4)((ulong)in_stack_fffffffffffffef8 >> 0x20);
-  cVar5 = FUN_007e6406(param_1,param_3);
+  cVar5 = s_window_mouseWheelScrollLines_7e6406(param_1,param_3);
   if ((cVar5 != '\0') || (cVar5 = FUN_007ebb56(param_1,param_2,param_4,param_5), cVar5 != '\0'))
   goto LAB_007ebe2b;
   if (param_2 == (long *)0x0) {
@@ -23368,7 +23371,7 @@ void FUN_007ededa(int param_1,void *param_2)
       do {
         lVar8 = lVar7;
         if (1 < *puVar4) {
-          FUN_007fa000(lVar7 + 0x1e0,*(undefined4 *)(*(long *)(lVar7 + 0x1e0) + 4));
+          SuperTerm_h7fa000(lVar7 + 0x1e0,*(undefined4 *)(*(long *)(lVar7 + 0x1e0) + 4));
           lVar8 = *(long *)((long)param_2 + 0x10);
         }
         plVar1 = *(long **)(*(long *)(lVar7 + 0x1e0) + 0x10 +
@@ -23381,7 +23384,7 @@ LAB_007edf67:
           uVar6 = puVar4[2];
           if ((int)(uVar5 - uVar6) <= iVar9) goto LAB_007edf7a;
           if (1 < *puVar4) {
-            FUN_007fa000(lVar8 + 0x1e0,*(undefined4 *)(*(long *)(lVar8 + 0x1e0) + 4));
+            SuperTerm_h7fa000(lVar8 + 0x1e0,*(undefined4 *)(*(long *)(lVar8 + 0x1e0) + 4));
           }
           pvVar2 = *(void **)(*(long *)(lVar8 + 0x1e0) + 0x10 +
                              (lVar10 + *(int *)(*(long *)(lVar8 + 0x1e0) + 8)) * 8);
@@ -23501,7 +23504,7 @@ undefined8 FUN_007ee082(long param_1,int param_2,undefined8 param_3)
   local_a8 = 0;
   local_a0 = 0;
                     /* try { // try from 007ee197 to 007ee19b has its CatchHandler @ 007ee77d */
-  FUN_007f71d2(&local_c8);
+  s_vector__reserve_7f71d2(&local_c8);
   pvVar3 = local_b0;
   if ((param_2 < 0) ||
      (uVar13 = (ulong)param_2, lVar14 = local_a8 - (long)local_b0 >> 2,
@@ -25937,9 +25940,9 @@ LAB_007f1a44:
 }
 
 
-// ==== entry=007f21a8 name=FUN_007f21a8 size=731 ====
+// ==== entry=007f21a8 orig=FUN_007f21a8 size=731 name=s_line_caret_remote_7f21a8 ====
 
-void FUN_007f21a8(long param_1,uint param_2,int param_3)
+void s_line_caret_remote_7f21a8(long param_1,uint param_2,int param_3)
 
 {
   long lVar1;
@@ -26110,7 +26113,7 @@ joined_r0x007f2709:
         iVar9 = qstrcmp((QByteArray *)(local_58 + 0x10 + (*(int *)(local_58 + 8) + lVar10) * 8),"?")
         ;
         if (iVar9 == 0) {
-          FUN_007f21a8(param_1,param_2,iVar4);
+          s_line_caret_remote_7f21a8(param_1,param_2,iVar4);
           goto joined_r0x007f2709;
         }
         if (param_2 == 4) {
@@ -26196,7 +26199,7 @@ LAB_007f2661:
         iVar6 = qstrcmp((QByteArray *)(local_58 + 0x10 + (long)*(int *)(local_58 + 8) * 8),"?");
         if (iVar6 == 0) {
                     /* try { // try from 007f28e5 to 007f2926 has its CatchHandler @ 007f296b */
-          FUN_007f21a8(param_1,param_2,0xffffffff);
+          s_line_caret_remote_7f21a8(param_1,param_2,0xffffffff);
           goto LAB_007f2570;
         }
       }
@@ -28026,7 +28029,7 @@ long * terminal_buildLinesSnapshot(long *param_1,long param_2)
   local_68 = 0;
   local_60 = 0;
                     /* try { // try from 007f5365 to 007f5369 has its CatchHandler @ 007f5715 */
-  FUN_007f71d2(&local_88);
+  s_vector__reserve_7f71d2(&local_88);
   if (*(long *)(param_2 + 0x88) == 0) {
     lVar9 = *(long *)(param_2 + 0x98);
     iVar4 = 0;
@@ -28076,7 +28079,7 @@ LAB_007f5560:
     local_38 = 0;
     local_30 = 0;
                     /* try { // try from 007f53f3 to 007f53f7 has its CatchHandler @ 007f570a */
-    FUN_007f71d2(&local_58);
+    s_vector__reserve_7f71d2(&local_58);
     lVar9 = *(long *)(param_2 + 0x98);
     if (*(int *)(*(long *)(param_2 + 0x88) + 0xc4) + 1 == local_78) {
                     /* try { // try from 007f557d to 007f563d has its CatchHandler @ 007f572d */
@@ -28249,19 +28252,19 @@ void SuperTerm_dtor(QObject *param_1)
   *(undefined ***)param_1 = &SuperTerm_vtable;
   pQVar1 = param_1 + 0x1e0;
   if (1 < **(uint **)(param_1 + 0x1e0)) {
-    FUN_007fa000(pQVar1,(*(uint **)(param_1 + 0x1e0))[1]);
+    SuperTerm_h7fa000(pQVar1,(*(uint **)(param_1 + 0x1e0))[1]);
   }
   puVar7 = *(uint **)(param_1 + 0x1e0);
   puVar8 = puVar7 + (long)(int)puVar7[2] * 2 + 4;
   if (1 < *puVar7) {
-    FUN_007fa000(pQVar1,puVar7[1]);
+    SuperTerm_h7fa000(pQVar1,puVar7[1]);
     puVar7 = *(uint **)(param_1 + 0x1e0);
   }
   uVar2 = puVar7[3];
   for (; puVar7 + (long)(int)uVar2 * 2 + 4 != puVar8; puVar8 = puVar8 + 2) {
     lVar3 = **(long **)puVar8;
     if (((lVar3 != 0) && (*(int *)(lVar3 + 4) != 0)) && ((*(long **)puVar8)[1] != 0)) {
-      FUN_007e58ce(param_1);
+      SuperTerm_h7e58ce(param_1);
     }
   }
   FUN_007e4482(param_1);
@@ -29186,9 +29189,9 @@ void FUN_007f6bc3(long param_1)
 }
 
 
-// ==== entry=007f6be6 name=FUN_007f6be6 size=29 ====
+// ==== entry=007f6be6 orig=FUN_007f6be6 size=29 name=Tmux_h7f6be6 ====
 
-void FUN_007f6be6(QRegularExpression *param_1)
+void Tmux_h7f6be6(QRegularExpression *param_1)
 
 {
   if (param_1 != (QRegularExpression *)0x0) {
@@ -29690,9 +29693,9 @@ void FUN_007f7194(undefined1 *param_1)
 }
 
 
-// ==== entry=007f71d2 name=FUN_007f71d2 size=1237 ====
+// ==== entry=007f71d2 orig=FUN_007f71d2 size=1237 name=s_vector__reserve_7f71d2 ====
 
-void FUN_007f71d2(long *param_1)
+void s_vector__reserve_7f71d2(long *param_1)
 
 {
   int iVar1;
@@ -32090,9 +32093,9 @@ LAB_007f9f82:
 }
 
 
-// ==== entry=007fa000 name=FUN_007fa000 size=90 ====
+// ==== entry=007fa000 orig=FUN_007fa000 size=90 name=SuperTerm_h7fa000 ====
 
-void FUN_007fa000(long *param_1)
+void SuperTerm_h7fa000(long *param_1)
 
 {
   int iVar1;
@@ -33019,9 +33022,9 @@ LAB_007fae82:
 }
 
 
-// ==== entry=007faf0a name=FUN_007faf0a size=288 ====
+// ==== entry=007faf0a orig=FUN_007faf0a size=288 name=Tmux_h7faf0a ====
 
-void FUN_007faf0a(undefined8 param_1,long *param_2,long *param_3)
+void Tmux_h7faf0a(undefined8 param_1,long *param_2,long *param_3)
 
 {
   void *pvVar1;
@@ -33158,9 +33161,9 @@ LAB_007fb0d4:
 }
 
 
-// ==== entry=007fb0e6 name=FUN_007fb0e6 size=9607 ====
+// ==== entry=007fb0e6 orig=FUN_007fb0e6 size=9607 name=Tmux_h7fb0e6 ====
 
-void FUN_007fb0e6(Data *param_1)
+void Tmux_h7fb0e6(Data *param_1)
 
 {
   int iVar1;
@@ -34222,46 +34225,46 @@ void Tmux_dtor(QObject *param_1)
   
   *(undefined ***)param_1 = &Tmux_vtable;
   if (*(long *)(param_1 + 0x240) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x238) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x230) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x228) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x220) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x218) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x210) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x208) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x200) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1f8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1f0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1e8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1e0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1d8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   this = *(QRegularExpression **)(param_1 + 0x1d0);
   if (this != (QRegularExpression *)0x0) {
@@ -34269,40 +34272,40 @@ void Tmux_dtor(QObject *param_1)
     operator_delete(this,8);
   }
   if (*(long *)(param_1 + 0x1c8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1c0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1b8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1b0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1a8) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x1a0) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x198) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 400) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x188) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x180) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x178) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   if (*(long *)(param_1 + 0x170) != 0) {
-    FUN_007f6be6();
+    Tmux_h7f6be6();
   }
   cVar11 = qatomic_int_deref(*(undefined8 *)(param_1 + 0x168));
   if (cVar11 == '\0') {
@@ -35207,7 +35210,7 @@ void Tmux_dtor(QObject *param_1)
     cVar11 = qatomic_int_deref(*(undefined8 *)(param_1 + 0x160));
   }
   if (cVar11 == '\0') {
-    FUN_007fb0e6(*(undefined8 *)(param_1 + 0x160));
+    Tmux_h7fb0e6(*(undefined8 *)(param_1 + 0x160));
     cVar11 = qatomic_int_deref(*(undefined8 *)(param_1 + 0x158));
   }
   else {
@@ -35239,7 +35242,7 @@ void Tmux_dtor(QObject *param_1)
   local_50 = *(undefined8 *)(param_1 + 0x110);
   local_48 = *(undefined8 *)(param_1 + 0x118);
   local_40 = *(undefined8 *)(param_1 + 0x120);
-  FUN_007faf0a(param_1 + 0xf8,&local_58,&local_78);
+  Tmux_h7faf0a(param_1 + 0xf8,&local_58,&local_78);
   pvVar13 = *(void **)(param_1 + 0xf8);
   if (pvVar13 != (void *)0x0) {
     lVar2 = *(long *)(param_1 + 0x140);
@@ -40615,9 +40618,9 @@ LAB_00805078:
 }
 
 
-// ==== entry=008051f2 name=FUN_008051f2 size=304 ====
+// ==== entry=008051f2 orig=FUN_008051f2 size=304 name=s_session_uuid_8051f2 ====
 
-undefined4 FUN_008051f2(long param_1,QString *param_2,undefined8 param_3)
+undefined4 s_session_uuid_8051f2(long param_1,QString *param_2,undefined8 param_3)
 
 {
   int iVar1;
@@ -40716,9 +40719,9 @@ LAB_00805406:
 }
 
 
-// ==== entry=0080542c name=FUN_0080542c size=1385 ====
+// ==== entry=0080542c orig=FUN_0080542c size=1385 name=s_application_masterPassword_80542c ====
 
-uint FUN_0080542c(long param_1,long *param_2)
+uint s_application_masterPassword_80542c(long param_1,long *param_2)
 
 {
   undefined8 *puVar1;
@@ -40902,9 +40905,10 @@ LAB_008056f6:
 }
 
 
-// ==== entry=00805a3e name=FUN_00805a3e size=195 ====
+// ==== entry=00805a3e orig=FUN_00805a3e size=195 name=s_session_group_805a3e ====
 
-QRegularExpression * FUN_00805a3e(QRegularExpression *param_1,long param_2,undefined8 param_3)
+QRegularExpression *
+s_session_group_805a3e(QRegularExpression *param_1,long param_2,undefined8 param_3)
 
 {
   undefined8 uVar1;
@@ -40973,7 +40977,7 @@ undefined8 FUN_00805b1a(long param_1,undefined8 param_2)
   if (-1 < iVar1) {
     do {
       uVar3 = json_valueAt(*(undefined8 *)(param_1 + 0xe0),iVar1);
-      FUN_00805a3e(auStack_48,param_1,uVar3);
+      s_session_group_805a3e(auStack_48,param_1,uVar3);
                     /* try { // try from 00805bc2 to 00805bc6 has its CatchHandler @ 00805c8b */
       qstring_assign_from_ascii(local_40,pcVar4);
       iVar2 = QString::compare(auStack_48,local_40,1);
@@ -40989,9 +40993,10 @@ undefined8 FUN_00805b1a(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00805c94 name=FUN_00805c94 size=569 ====
+// ==== entry=00805c94 orig=FUN_00805c94 size=569 name=s_session_protocol_805c94 ====
 
-QRegularExpression * FUN_00805c94(QRegularExpression *param_1,undefined8 param_2,undefined8 param_3)
+QRegularExpression *
+s_session_protocol_805c94(QRegularExpression *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   char cVar1;
@@ -41069,9 +41074,9 @@ QRegularExpression * FUN_00805c94(QRegularExpression *param_1,undefined8 param_2
 }
 
 
-// ==== entry=00805f2e name=FUN_00805f2e size=546 ====
+// ==== entry=00805f2e orig=FUN_00805f2e size=546 name=s_session_protocol_805f2e ====
 
-undefined8 FUN_00805f2e(long param_1)
+undefined8 s_session_protocol_805f2e(long param_1)
 
 {
   int iVar1;
@@ -41124,7 +41129,7 @@ undefined8 FUN_00805f2e(long param_1)
             json_value_destruct(local_98);
             if (*(int *)(local_a0 + 4) != 0) {
                     /* try { // try from 008060e5 to 008060e9 has its CatchHandler @ 00806190 */
-              FUN_00805c94(local_68,param_1,uVar3);
+              s_session_protocol_805c94(local_68,param_1,uVar3);
                     /* try { // try from 008060ff to 00806103 has its CatchHandler @ 00806198 */
               ssh_tunnelsText(DAT_011c1b00,&local_a0,local_68,&local_b0);
               qt_array_data_unref(local_68);
@@ -41143,9 +41148,10 @@ undefined8 FUN_00805f2e(long param_1)
 }
 
 
-// ==== entry=008061a0 name=FUN_008061a0 size=237 ====
+// ==== entry=008061a0 orig=FUN_008061a0 size=237 name=s_session_target_8061a0 ====
 
-undefined8 FUN_008061a0(undefined8 param_1,undefined8 param_2,undefined8 param_3,char param_4)
+undefined8
+s_session_target_8061a0(undefined8 param_1,undefined8 param_2,undefined8 param_3,char param_4)
 
 {
   int iVar1;
@@ -41179,9 +41185,10 @@ undefined8 FUN_008061a0(undefined8 param_1,undefined8 param_2,undefined8 param_3
 }
 
 
-// ==== entry=008062b6 name=FUN_008062b6 size=180 ====
+// ==== entry=008062b6 orig=FUN_008062b6 size=180 name=s_session_label_8062b6 ====
 
-long * FUN_008062b6(long *param_1,undefined8 param_2,undefined8 param_3,undefined1 param_4)
+long * s_session_label_8062b6
+                 (long *param_1,undefined8 param_2,undefined8 param_3,undefined1 param_4)
 
 {
   long lVar1;
@@ -41199,7 +41206,7 @@ long * FUN_008062b6(long *param_1,undefined8 param_2,undefined8 param_3,undefine
   json_value_destruct(auStack_98);
   if (*(int *)(*param_1 + 4) == 0) {
                     /* try { // try from 0080634b to 0080634f has its CatchHandler @ 0080636a */
-    FUN_008061a0(local_68,param_2,param_3,param_4);
+    s_session_target_8061a0(local_68,param_2,param_3,param_4);
     lVar1 = *param_1;
     *param_1 = local_68[0];
     local_68[0] = lVar1;
@@ -41331,9 +41338,9 @@ void * FUN_008065a2(long param_1)
 }
 
 
-// ==== entry=00806612 name=FUN_00806612 size=222 ====
+// ==== entry=00806612 orig=FUN_00806612 size=222 name=s_quick_uuid_806612 ====
 
-int FUN_00806612(undefined8 param_1,long *param_2)
+int s_quick_uuid_806612(undefined8 param_1,long *param_2)
 
 {
   long lVar1;
@@ -41494,9 +41501,9 @@ undefined1 SessionStore_saveFile(long param_1)
 }
 
 
-// ==== entry=008069b0 name=FUN_008069b0 size=211 ====
+// ==== entry=008069b0 orig=FUN_008069b0 size=211 name=s_session_uuid_8069b0 ====
 
-undefined4 FUN_008069b0(undefined8 param_1,undefined8 param_2,char param_3)
+undefined4 s_session_uuid_8069b0(undefined8 param_1,undefined8 param_2,char param_3)
 
 {
   char cVar1;
@@ -41519,7 +41526,7 @@ undefined4 FUN_008069b0(undefined8 param_1,undefined8 param_2,char param_3)
   }
   else {
                     /* try { // try from 00806a35 to 00806a7b has its CatchHandler @ 00806a83 */
-    cVar1 = FUN_008051f2(param_1,&local_a0,param_2);
+    cVar1 = s_session_uuid_8051f2(param_1,&local_a0,param_2);
     if (cVar1 == '\0') {
       FUN_00805398(param_1,param_2);
     }
@@ -41535,9 +41542,9 @@ undefined4 FUN_008069b0(undefined8 param_1,undefined8 param_2,char param_3)
 }
 
 
-// ==== entry=00806a9e name=FUN_00806a9e size=191 ====
+// ==== entry=00806a9e orig=FUN_00806a9e size=191 name=CTerminalConfig_h806a9e ====
 
-undefined4 FUN_00806a9e(long param_1)
+undefined4 CTerminalConfig_h806a9e(long param_1)
 
 {
   void *pvVar1;
@@ -41680,9 +41687,9 @@ FUN_00806ce4(undefined8 *param_1,undefined8 param_2,undefined8 param_3,undefined
 }
 
 
-// ==== entry=00806d9e name=FUN_00806d9e size=598 ====
+// ==== entry=00806d9e orig=FUN_00806d9e size=598 name=s_session_label_806d9e ====
 
-long * FUN_00806d9e(long *param_1,long param_2)
+long * s_session_label_806d9e(long *param_1,long param_2)
 
 {
   int iVar1;
@@ -41876,9 +41883,9 @@ undefined4 FUN_008071ee(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0080722e name=FUN_0080722e size=4409 ====
+// ==== entry=0080722e orig=FUN_0080722e size=4409 name=s_session_allowRemoteWriteClipboard_80722e ====
 
-undefined8 FUN_0080722e(long param_1)
+undefined8 s_session_allowRemoteWriteClipboard_80722e(long param_1)
 
 {
   char cVar1;
@@ -42570,7 +42577,7 @@ void FUN_008087a6(undefined8 param_1,undefined8 *param_2,string *param_3)
                     /* try { // try from 008087de to 008087ff has its CatchHandler @ 00808a53 */
   iVar4 = json_size_or_int_get(local_c8);
   if (iVar4 != 0) {
-    FUN_00af3a20(&local_e8,local_c8);
+    s_vector__reserve_af3a20(&local_e8,local_c8);
     if (local_e8 != local_e0) {
       uVar5 = 0;
       do {
@@ -43284,9 +43291,9 @@ undefined * FUN_00809d78(void)
 }
 
 
-// ==== entry=00809dfa name=FUN_00809dfa size=680 ====
+// ==== entry=00809dfa orig=FUN_00809dfa size=680 name=CTerminalConfig_vt7 ====
 
-void FUN_00809dfa(undefined8 *param_1)
+void CTerminalConfig_vt7(undefined8 *param_1)
 
 {
   int iVar1;
@@ -43401,12 +43408,12 @@ void FUN_00809dfa(undefined8 *param_1)
 }
 
 
-// ==== entry=0080a0a2 name=FUN_0080a0a2 size=23 ====
+// ==== entry=0080a0a2 orig=FUN_0080a0a2 size=23 name=CTerminalConfig_vt8 ====
 
-void FUN_0080a0a2(void *param_1)
+void CTerminalConfig_vt8(void *param_1)
 
 {
-  FUN_00809dfa();
+  CTerminalConfig_vt7();
   operator_delete(param_1,0x120);
   return;
 }
@@ -43417,7 +43424,7 @@ void FUN_0080a0a2(void *param_1)
 void FUN_0080a0ba(void)
 
 {
-  FUN_00809dfa();
+  CTerminalConfig_vt7();
   if (DAT_011c2340 != -1) {
     return;
   }
@@ -43478,7 +43485,7 @@ void * FUN_0080a14c(undefined8 param_1,string *param_2,undefined8 param_3)
     pvVar4 = (void *)0x0;
   }
   else {
-    FUN_00af3a20(&local_b8);
+    s_vector__reserve_af3a20(&local_b8);
     local_d8 = &QArrayData::shared_null;
     lVar2 = local_b0 - local_b8 >> 3;
     if (lVar2 != 0) {
@@ -43510,8 +43517,9 @@ void * FUN_0080a14c(undefined8 param_1,string *param_2,undefined8 param_3)
     local_108 = &local_d8;
     if (*(int *)((long)local_d8 + 4) != 0) {
                     /* try { // try from 0080a29b to 0080a2a9 has its CatchHandler @ 0080a331 */
-      std::string::insert(param_2,0,(char *)((long)local_d8 + local_d8[2]),
-                          (long)*(int *)((long)local_d8 + 4));
+      std::string::s_basic_string__insert_5fdc00
+                (param_2,0,(char *)((long)local_d8 + local_d8[2]),(long)*(int *)((long)local_d8 + 4)
+                );
     }
     pvVar4 = operator_new(0x60);
                     /* try { // try from 0080a2c5 to 0080a2c9 has its CatchHandler @ 0080a329 */
@@ -43570,7 +43578,7 @@ undefined4 FUN_0080a352(long param_1,undefined8 param_2,undefined8 param_3)
         else {
           uVar4 = xpr_charBitmap(lVar5,&local_d0);
         }
-        FUN_007a2732(lVar1,lVar5,uVar4);
+        SuperProtocol_h7a2732(lVar1,lVar5,uVar4);
         json_value_destruct(local_68);
       }
       if (local_d0 != &DAT_011c5338) {
@@ -44044,9 +44052,9 @@ LAB_0080b134:
 }
 
 
-// ==== entry=0080b1d8 name=FUN_0080b1d8 size=1215 ====
+// ==== entry=0080b1d8 orig=FUN_0080b1d8 size=1215 name=s_session_protocol_80b1d8 ====
 
-void FUN_0080b1d8(long param_1,QSize *param_2,long *param_3)
+void s_session_protocol_80b1d8(long param_1,QSize *param_2,long *param_3)
 
 {
   int iVar1;
@@ -44109,9 +44117,9 @@ void FUN_0080b1d8(long param_1,QSize *param_2,long *param_3)
         json_value_destruct(local_68);
         json_value_destruct(local_98);
                     /* try { // try from 0080b3c0 to 0080b3c4 has its CatchHandler @ 0080b6cf */
-        FUN_00805a3e(&local_a8,param_1,uVar4);
+        s_session_group_805a3e(&local_a8,param_1,uVar4);
                     /* try { // try from 0080b3e0 to 0080b3e4 has its CatchHandler @ 0080b6ef */
-        FUN_008062b6(&local_a0,param_1,uVar4,1);
+        s_session_label_8062b6(&local_a0,param_1,uVar4,1);
         if ((*(int *)(local_b8 + 4) != 0) && (*(int *)(local_a0 + 4) != 0)) {
           if (*(int *)(local_a8 + 4) != 0) {
                     /* try { // try from 0080b421 to 0080b425 has its CatchHandler @ 0080b6af */
@@ -44224,7 +44232,7 @@ long * sessions_group_by_group(long *param_1,long param_2)
       iVar12 = 0;
       do {
         uVar7 = json_valueAt(*(undefined8 *)(param_2 + 0xe0),iVar12);
-        FUN_00805a3e(local_40,param_2,uVar7);
+        s_session_group_805a3e(local_40,param_2,uVar7);
         if (*(int *)(local_40[0] + 4) != 0) {
                     /* try { // try from 0080b7b4 to 0080b7b8 has its CatchHandler @ 0080bc30 */
           qhash_insert_node(&local_60,local_40,&local_61);
@@ -44386,9 +44394,9 @@ LAB_0080bb53:
 }
 
 
-// ==== entry=0080bc66 name=FUN_0080bc66 size=534 ====
+// ==== entry=0080bc66 orig=FUN_0080bc66 size=534 name=s_SessionGroupComboBox_80bc66 ====
 
-void FUN_0080bc66(undefined8 param_1,QString *param_2)
+void s_SessionGroupComboBox_80bc66(undefined8 param_1,QString *param_2)
 
 {
   long lVar1;
@@ -44544,9 +44552,9 @@ void FUN_0080bebe(long *param_1,undefined8 *param_2,undefined8 param_3,undefined
 }
 
 
-// ==== entry=0080c102 name=FUN_0080c102 size=1529 ====
+// ==== entry=0080c102 orig=FUN_0080c102 size=1529 name=s_session_group_80c102 ====
 
-undefined8 * FUN_0080c102(undefined8 *param_1,long param_2,QString *param_3)
+undefined8 * s_session_group_80c102(undefined8 *param_1,long param_2,QString *param_3)
 
 {
   undefined8 *puVar1;
@@ -44580,7 +44588,7 @@ undefined8 * FUN_0080c102(undefined8 *param_1,long param_2,QString *param_3)
     iVar11 = 0;
     do {
       uVar7 = json_valueAt(*(undefined8 *)(param_2 + 0xe0),iVar11);
-      FUN_00805a3e(local_68,param_2,uVar7);
+      s_session_group_805a3e(local_68,param_2,uVar7);
                     /* try { // try from 0080c1b2 to 0080c1b6 has its CatchHandler @ 0080c75d */
       qhash_insert_node(&local_c0,local_68,&local_a0);
       qt_array_data_unref(local_68);
@@ -44672,7 +44680,7 @@ LAB_0080c31e:
       while( true ) {
                     /* try { // try from 0080c4b4 to 0080c4d0 has its CatchHandler @ 0080c765 */
         uVar7 = json_valueAt(*(undefined8 *)(param_2 + 0xe0),iVar11);
-        FUN_00805a3e(local_b0,param_2,uVar7);
+        s_session_group_805a3e(local_b0,param_2,uVar7);
         cVar5 = operator==(local_b0,param_3);
         if (cVar5 == '\0') break;
 LAB_0080c35a:
@@ -44805,9 +44813,9 @@ joined_r0x0080c87e:
 }
 
 
-// ==== entry=0080c8e6 name=FUN_0080c8e6 size=1020 ====
+// ==== entry=0080c8e6 orig=FUN_0080c8e6 size=1020 name=s_session_group_80c8e6 ====
 
-undefined8 FUN_0080c8e6(long param_1,long *param_2,QRegularExpression *param_3)
+undefined8 s_session_group_80c8e6(long param_1,long *param_2,QRegularExpression *param_3)
 
 {
   QString *pQVar1;
@@ -44851,7 +44859,7 @@ undefined8 FUN_0080c8e6(long param_1,long *param_2,QRegularExpression *param_3)
       json_value_destruct((QUuid *)&local_68);
       json_value_destruct(local_98);
                     /* try { // try from 0080ca08 to 0080ca0c has its CatchHandler @ 0080ccfd */
-      FUN_00805a3e(local_a0,param_1,uVar7);
+      s_session_group_805a3e(local_a0,param_1,uVar7);
       pNVar3 = (Node *)*param_2;
       plVar9 = *(long **)(pNVar3 + 8);
       if (*(int *)(pNVar3 + 0x20) != 0) {
@@ -44947,9 +44955,9 @@ LAB_0080cb9b:
 }
 
 
-// ==== entry=0080cd46 name=FUN_0080cd46 size=4564 ====
+// ==== entry=0080cd46 orig=FUN_0080cd46 size=4564 name=s_session_proxyCommand_80cd46 ====
 
-void FUN_0080cd46(undefined8 *param_1,undefined8 param_2,QVariant *param_3)
+void s_session_proxyCommand_80cd46(undefined8 *param_1,undefined8 param_2,QVariant *param_3)
 
 {
   undefined8 *puVar1;
@@ -45489,9 +45497,9 @@ _Rep * stdstring_repRef(_Rep *param_1,allocator *param_2)
 }
 
 
-// ==== entry=0080e250 name=FUN_0080e250 size=1717 ====
+// ==== entry=0080e250 orig=FUN_0080e250 size=1717 name=s_LineContinuation_80e250 ====
 
-char FUN_0080e250(long param_1,long *param_2,long *param_3)
+char s_LineContinuation_80e250(long param_1,long *param_2,long *param_3)
 
 {
   char cVar1;
@@ -45683,9 +45691,9 @@ char FUN_0080e250(long param_1,long *param_2,long *param_3)
 }
 
 
-// ==== entry=0080e9ae name=FUN_0080e9ae size=253 ====
+// ==== entry=0080e9ae orig=FUN_0080e9ae size=253 name=CTerminalConfig_h80e9ae ====
 
-void FUN_0080e9ae(undefined8 param_1)
+void CTerminalConfig_h80e9ae(undefined8 param_1)
 
 {
   int iVar1;
@@ -45714,7 +45722,7 @@ void FUN_0080e9ae(undefined8 param_1)
       lVar3 = lVar3 + 8) {
     QDir::absoluteFilePath((QString *)local_40);
                     /* try { // try from 0080ea6c to 0080ea70 has its CatchHandler @ 0080eab3 */
-    FUN_0080e250(param_1,(QString *)local_40,lVar3);
+    s_LineContinuation_80e250(param_1,(QString *)local_40,lVar3);
     qt_array_data_unref((QString *)local_40);
   }
   qt_shared_data_unref(&local_48);
@@ -45764,9 +45772,9 @@ void FUN_0080ead6(int param_1)
 }
 
 
-// ==== entry=0080eb6c name=FUN_0080eb6c size=720 ====
+// ==== entry=0080eb6c orig=FUN_0080eb6c size=720 name=s_RenamedTitle_80eb6c ====
 
-void FUN_0080eb6c(undefined8 param_1,QString *param_2,undefined8 param_3)
+void s_RenamedTitle_80eb6c(undefined8 param_1,QString *param_2,undefined8 param_3)
 
 {
   long lVar1;
@@ -45827,7 +45835,7 @@ LAB_0080ecd6:
           if (iVar3 == 1) goto LAB_0080ecd6;
         }
         if (cVar5 != '\0') {
-          FUN_008062b6((QString *)&local_50,param_1,param_3,1);
+          s_session_label_8062b6((QString *)&local_50,param_1,param_3,1);
           if (*(int *)(local_50 + 4) != 0) {
             local_48[0] = local_50;
             qatomic_int_ref();
@@ -45859,9 +45867,9 @@ LAB_0080ecd6:
 }
 
 
-// ==== entry=0080ee76 name=FUN_0080ee76 size=316 ====
+// ==== entry=0080ee76 orig=FUN_0080ee76 size=316 name=s_session_uuid_80ee76 ====
 
-undefined1 FUN_0080ee76(long param_1,QString *param_2)
+undefined1 s_session_uuid_80ee76(long param_1,QString *param_2)
 
 {
   char cVar1;
@@ -45893,7 +45901,7 @@ undefined1 FUN_0080ee76(long param_1,QString *param_2)
                     /* try { // try from 0080ef5f to 0080ef63 has its CatchHandler @ 0080efb2 */
           json_value_init_by_type(local_68,0);
                     /* try { // try from 0080ef6d to 0080ef82 has its CatchHandler @ 0080efca */
-          FUN_0080eb6c(param_1,local_a0,uVar4);
+          s_RenamedTitle_80eb6c(param_1,local_a0,uVar4);
           uVar2 = json_value_remove_take(*(undefined8 *)(param_1 + 0xe0),iVar6,local_68);
           json_value_destruct(local_68);
           qt_array_data_unref(local_a0);
@@ -45909,9 +45917,9 @@ undefined1 FUN_0080ee76(long param_1,QString *param_2)
 }
 
 
-// ==== entry=0080efd2 name=FUN_0080efd2 size=365 ====
+// ==== entry=0080efd2 orig=FUN_0080efd2 size=365 name=s_session_uuid_80efd2 ====
 
-uint FUN_0080efd2(long param_1,undefined8 param_2)
+uint s_session_uuid_80efd2(long param_1,undefined8 param_2)
 
 {
   int iVar1;
@@ -45935,7 +45943,7 @@ uint FUN_0080efd2(long param_1,undefined8 param_2)
       do {
         while( true ) {
           uVar4 = json_valueAt(*(undefined8 *)(param_1 + 0xe0),iVar1);
-          FUN_00805a3e(local_68,param_1,uVar4);
+          s_session_group_805a3e(local_68,param_1,uVar4);
           iVar2 = QString::compare(local_68,param_2,1);
           qt_array_data_unref(local_68);
           if (iVar2 != 0) break;
@@ -45950,7 +45958,7 @@ uint FUN_0080efd2(long param_1,undefined8 param_2)
           json_value_destruct(local_68);
           json_value_destruct(local_98);
                     /* try { // try from 0080f0f4 to 0080f10a has its CatchHandler @ 0080f157 */
-          FUN_0080eb6c(param_1,local_d0,uVar4);
+          s_RenamedTitle_80eb6c(param_1,local_d0,uVar4);
           uVar3 = json_value_remove_take(*(undefined8 *)(param_1 + 0xe0),iVar1,local_c8);
           uVar6 = uVar6 | uVar3;
           qt_array_data_unref(local_d0);
@@ -45969,9 +45977,9 @@ uint FUN_0080efd2(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0080f160 name=FUN_0080f160 size=2101 ====
+// ==== entry=0080f160 orig=FUN_0080f160 size=2101 name=s_ssh_identityFilePath_80f160 ====
 
-void FUN_0080f160(long *param_1)
+void s_ssh_identityFilePath_80f160(long *param_1)
 
 {
   undefined8 *puVar1;
@@ -46253,9 +46261,9 @@ LAB_0080f18b:
 }
 
 
-// ==== entry=0080fa56 name=FUN_0080fa56 size=419 ====
+// ==== entry=0080fa56 orig=FUN_0080fa56 size=419 name=CTerminalConfig_h80fa56 ====
 
-void FUN_0080fa56(undefined8 param_1)
+void CTerminalConfig_h80fa56(undefined8 param_1)
 
 {
   uint uVar1;
@@ -46311,9 +46319,9 @@ void FUN_0080fa56(undefined8 param_1)
 }
 
 
-// ==== entry=0080fc42 name=FUN_0080fc42 size=931 ====
+// ==== entry=0080fc42 orig=FUN_0080fc42 size=931 name=s_session_group_80fc42 ====
 
-long * FUN_0080fc42(long *param_1,long param_2,char param_3)
+long * s_session_group_80fc42(long *param_1,long param_2,char param_3)
 
 {
   QIcon *pQVar1;
@@ -46346,11 +46354,11 @@ long * FUN_0080fc42(long *param_1,long param_2,char param_3)
       do {
                     /* try { // try from 0080fe82 to 0080fe97 has its CatchHandler @ 0081004d */
         uVar7 = json_valueAt(*(undefined8 *)(param_2 + 0xe0),iVar10);
-        FUN_00805a3e((QString *)&local_c0,param_2,uVar7);
+        s_session_group_805a3e((QString *)&local_c0,param_2,uVar7);
         if (param_3 == '\0') {
 LAB_0080fcad:
                     /* try { // try from 0080fcbd to 0080fcc1 has its CatchHandler @ 0081003d */
-          FUN_008062b6((QIcon *)&local_b8,param_2,uVar7,1);
+          s_session_label_8062b6((QIcon *)&local_b8,param_2,uVar7,1);
           pQVar11 = (QIcon *)&local_b8;
           if (*(int *)(local_b8 + 4) != 0) {
                     /* try { // try from 0080fcdc to 0080fce0 has its CatchHandler @ 00810045 */
@@ -46465,9 +46473,9 @@ LAB_0080fcad:
 }
 
 
-// ==== entry=00810056 name=FUN_00810056 size=1408 ====
+// ==== entry=00810056 orig=FUN_00810056 size=1408 name=s_session_uuid_810056 ====
 
-long FUN_00810056(long param_1,QString *param_2,char param_3)
+long s_session_uuid_810056(long param_1,QString *param_2,char param_3)
 
 {
   char cVar1;
@@ -46690,9 +46698,9 @@ LAB_008102bd:
 }
 
 
-// ==== entry=00810606 name=FUN_00810606 size=879 ====
+// ==== entry=00810606 orig=FUN_00810606 size=879 name=s_session_label_810606 ====
 
-undefined8 * FUN_00810606(undefined8 *param_1,long param_2,undefined8 param_3)
+undefined8 * s_session_label_810606(undefined8 *param_1,long param_2,undefined8 param_3)
 
 {
   undefined1 *puVar1;
@@ -46716,11 +46724,11 @@ undefined8 * FUN_00810606(undefined8 *param_1,long param_2,undefined8 param_3)
   
   *param_1 = &QArrayData::shared_null;
                     /* try { // try from 00810631 to 00810656 has its CatchHandler @ 00810985 */
-  lVar6 = FUN_00810056(param_2,param_3,0);
+  lVar6 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar6 != 0) {
     json_value_copy_ctor(local_98,lVar6);
                     /* try { // try from 0081066f to 00810673 has its CatchHandler @ 0081097d */
-    FUN_008062b6(&local_c0,param_2,lVar6,1);
+    s_session_label_8062b6(&local_c0,param_2,lVar6,1);
     local_b8[0] = (QString)(undefined1)local_c0;
     local_b8[1] = (QString)local_c0._1_1_;
     local_b8[2] = (QString)local_c0._2_1_;
@@ -46737,7 +46745,7 @@ undefined8 * FUN_00810606(undefined8 *param_1,long param_2,undefined8 param_3)
       iVar10 = 0;
       do {
         uVar7 = json_valueAt(*(undefined8 *)(param_2 + 0xe0),iVar10);
-        FUN_008062b6(local_68,param_2,uVar7,1);
+        s_session_label_8062b6(local_68,param_2,uVar7,1);
                     /* try { // try from 0081070a to 0081070e has its CatchHandler @ 0081098d */
         qhash_insert_node(&local_b0,local_68);
         qt_array_data_unref(local_68);
@@ -46845,9 +46853,9 @@ undefined8 * FUN_008109c6(undefined8 *param_1,undefined8 param_2,undefined8 para
   
   *param_1 = &QArrayData::shared_null;
                     /* try { // try from 008109e6 to 00810a02 has its CatchHandler @ 00810a27 */
-  lVar2 = FUN_00810056(param_2,param_3,0);
+  lVar2 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar2 != 0) {
-    FUN_00805a3e(&local_20,param_2,lVar2);
+    s_session_group_805a3e(&local_20,param_2,lVar2);
     uVar1 = *param_1;
     *param_1 = local_20;
     local_20 = uVar1;
@@ -46869,9 +46877,9 @@ undefined8 * FUN_00810a30(undefined8 *param_1,undefined8 param_2,undefined8 *par
   *param_1 = *param_3;
   qatomic_int_ref();
                     /* try { // try from 00810a54 to 00810a75 has its CatchHandler @ 00810a9a */
-  lVar2 = FUN_00810056(param_2,param_3,0);
+  lVar2 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar2 != 0) {
-    FUN_008062b6(&local_20,param_2,lVar2,1);
+    s_session_label_8062b6(&local_20,param_2,lVar2,1);
     uVar1 = *param_1;
     *param_1 = local_20;
     local_20 = uVar1;
@@ -46893,9 +46901,9 @@ undefined8 * FUN_00810aa2(undefined8 *param_1,undefined8 param_2,undefined8 *par
   *param_1 = *param_3;
   qatomic_int_ref();
                     /* try { // try from 00810ac6 to 00810ae2 has its CatchHandler @ 00810b07 */
-  lVar2 = FUN_00810056(param_2,param_3,0);
+  lVar2 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar2 != 0) {
-    FUN_00805c94(&local_20,param_2,lVar2);
+    s_session_protocol_805c94(&local_20,param_2,lVar2);
     uVar1 = *param_1;
     *param_1 = local_20;
     local_20 = uVar1;
@@ -46913,7 +46921,7 @@ FUN_00810b10(undefined8 *param_1,undefined8 param_2,undefined8 param_3,undefined
 {
   long lVar1;
   
-  lVar1 = FUN_00810056(param_2,param_3,0);
+  lVar1 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar1 != 0) {
     FUN_00806ce4(param_1,param_2,lVar1,param_4);
     return param_1;
@@ -46924,15 +46932,15 @@ FUN_00810b10(undefined8 *param_1,undefined8 param_2,undefined8 param_3,undefined
 }
 
 
-// ==== entry=00810b5e name=FUN_00810b5e size=112 ====
+// ==== entry=00810b5e orig=FUN_00810b5e size=112 name=s_session_protocol_810b5e ====
 
-undefined8 * FUN_00810b5e(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+undefined8 * s_session_protocol_810b5e(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   long lVar1;
   QVariant aQStack_28 [16];
   
-  lVar1 = FUN_00810056(param_2,param_3,0);
+  lVar1 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar1 != 0) {
     FUN_00806ce4(aQStack_28,param_2,lVar1,"session.protocol");
                     /* try { // try from 00810b9f to 00810ba3 has its CatchHandler @ 00810bce */
@@ -46945,15 +46953,15 @@ undefined8 * FUN_00810b5e(undefined8 *param_1,undefined8 param_2,undefined8 para
 }
 
 
-// ==== entry=00810bd6 name=FUN_00810bd6 size=112 ====
+// ==== entry=00810bd6 orig=FUN_00810bd6 size=112 name=s_session_system_810bd6 ====
 
-undefined8 * FUN_00810bd6(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+undefined8 * s_session_system_810bd6(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   long lVar1;
   QVariant aQStack_28 [16];
   
-  lVar1 = FUN_00810056(param_2,param_3,0);
+  lVar1 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar1 != 0) {
     FUN_00806ce4(aQStack_28,param_2,lVar1,"session.system");
                     /* try { // try from 00810c17 to 00810c1b has its CatchHandler @ 00810c46 */
@@ -46981,7 +46989,7 @@ FUN_00810c4e(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8
   undefined1 local_98 [48];
   undefined1 local_68 [56];
   
-  lVar3 = FUN_00810056(param_1,param_2,0);
+  lVar3 = s_session_uuid_810056(param_1,param_2,0);
   if (lVar3 == 0) {
     uVar2 = 0;
   }
@@ -47005,7 +47013,7 @@ FUN_00810c4e(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8
         json_value_destruct(local_68);
       }
                     /* try { // try from 00810d08 to 00810d45 has its CatchHandler @ 00810d58 */
-      FUN_008069b0(param_1,local_c8,param_5);
+      s_session_uuid_8069b0(param_1,local_c8,param_5);
     }
     json_value_destruct(local_98);
     json_value_destruct(local_c8);
@@ -47014,9 +47022,10 @@ FUN_00810c4e(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8
 }
 
 
-// ==== entry=00810d6e name=FUN_00810d6e size=1760 ====
+// ==== entry=00810d6e orig=FUN_00810d6e size=1760 name=s_session_protocol_810d6e ====
 
-QString * FUN_00810d6e(QString *param_1,undefined8 param_2,undefined8 param_3,char param_4)
+QString * s_session_protocol_810d6e
+                    (QString *param_1,undefined8 param_2,undefined8 param_3,char param_4)
 
 {
   char *pcVar1;
@@ -47052,19 +47061,19 @@ QString * FUN_00810d6e(QString *param_1,undefined8 param_2,undefined8 param_3,ch
   
   local_d8 = &QArrayData::shared_null;
                     /* try { // try from 00810da2 to 00810dd2 has its CatchHandler @ 008114a0 */
-  lVar6 = FUN_00810056(param_2,param_3,0);
+  lVar6 = s_session_uuid_810056(param_2,param_3,0);
   if (lVar6 == 0) goto LAB_008112a6;
-  FUN_008062b6((QByteArray *)local_68,param_2,lVar6,1);
+  s_session_label_8062b6((QByteArray *)local_68,param_2,lVar6,1);
                     /* try { // try from 00810de3 to 00810de7 has its CatchHandler @ 0081150a */
   QString::toUtf8_helper((QString *)&local_d0);
   qt_array_data_unref((QByteArray *)local_68);
                     /* try { // try from 00810dfe to 00810e02 has its CatchHandler @ 0081148b */
-  FUN_008061a0((QByteArray *)local_68,param_2,lVar6,1);
+  s_session_target_8061a0((QByteArray *)local_68,param_2,lVar6,1);
                     /* try { // try from 00810e13 to 00810e17 has its CatchHandler @ 0081147b */
   QString::toUtf8_helper((QString *)&local_c8);
   qt_array_data_unref((QByteArray *)local_68);
                     /* try { // try from 00810e29 to 00810e2d has its CatchHandler @ 0081146e */
-  FUN_00805a3e((QByteArray *)local_68,param_2,lVar6);
+  s_session_group_805a3e((QByteArray *)local_68,param_2,lVar6);
                     /* try { // try from 00810e3e to 00810e42 has its CatchHandler @ 00811466 */
   QString::toUtf8_helper((QString *)&local_c0);
   qt_array_data_unref((QByteArray *)local_68);
@@ -47274,9 +47283,10 @@ LAB_008112a6:
 }
 
 
-// ==== entry=00811512 name=FUN_00811512 size=2772 ====
+// ==== entry=00811512 orig=FUN_00811512 size=2772 name=s_session_protocol_811512 ====
 
-undefined8 FUN_00811512(undefined8 param_1,long param_2,undefined8 param_3,char param_4)
+undefined8
+s_session_protocol_811512(undefined8 param_1,long param_2,undefined8 param_3,char param_4)
 
 {
   long lVar1;
@@ -47320,7 +47330,7 @@ undefined8 FUN_00811512(undefined8 param_1,long param_2,undefined8 param_3,char 
       json_value_destruct(local_68);
       json_value_destruct(local_98);
                     /* try { // try from 008115fb to 008115ff has its CatchHandler @ 0081209e */
-      FUN_00810d6e(local_98,param_2,&local_a0,0);
+      s_session_protocol_810d6e(local_98,param_2,&local_a0,0);
       iVar5 = QString::compare(local_98,param_3,0);
       if (iVar5 == 0) {
                     /* try { // try from 00811620 to 0081162f has its CatchHandler @ 008120be */
@@ -47848,9 +47858,9 @@ undefined4 CTerminalConfig_parse(long param_1,undefined8 param_2,undefined8 para
 }
 
 
-// ==== entry=008129e6 name=FUN_008129e6 size=419 ====
+// ==== entry=008129e6 orig=FUN_008129e6 size=419 name=CTerminalConfig_h8129e6 ====
 
-void FUN_008129e6(undefined8 param_1)
+void CTerminalConfig_h8129e6(undefined8 param_1)
 
 {
   uint uVar1;
@@ -48150,9 +48160,9 @@ void FUN_00812bd2(int *param_1,char *param_2)
 }
 
 
-// ==== entry=0081306a name=FUN_0081306a size=1546 ====
+// ==== entry=0081306a orig=FUN_0081306a size=1546 name=s_application_masterPassword_81306a ====
 
-undefined4 FUN_0081306a(long param_1,QString *param_2,QString *param_3)
+undefined4 s_application_masterPassword_81306a(long param_1,QString *param_2,QString *param_3)
 
 {
   long lVar1;
@@ -48201,7 +48211,7 @@ undefined4 FUN_0081306a(long param_1,QString *param_2,QString *param_3)
     (*local_58)(local_68,local_68,3);
   }
                     /* try { // try from 00813175 to 00813189 has its CatchHandler @ 0081368d */
-  uVar4 = FUN_0080542c(param_1,param_2);
+  uVar4 = s_application_masterPassword_80542c(param_1,param_2);
   if ((char)uVar4 == '\0') goto LAB_008134d4;
   uVar6 = qcoreapp_self_get();
   local_98 = 0;
@@ -48331,9 +48341,9 @@ LAB_008134d4:
 }
 
 
-// ==== entry=0081371e name=FUN_0081371e size=6208 ====
+// ==== entry=0081371e orig=FUN_0081371e size=6208 name=s_session_proxyJumpServer1_81371e ====
 
-byte FUN_0081371e(undefined8 param_1)
+byte s_session_proxyJumpServer1_81371e(undefined8 param_1)
 
 {
   long *plVar1;
@@ -48504,7 +48514,7 @@ byte FUN_0081371e(undefined8 param_1)
                     /* try { // try from 00813b71 to 00813b75 has its CatchHandler @ 008151f5 */
         qstring_assign_from_ascii((QString *)local_a8,"Openssh sessions");
                     /* try { // try from 00813b7c to 00813b80 has its CatchHandler @ 0081500a */
-        bVar7 = FUN_0080efd2(param_1,(QString *)local_a8);
+        bVar7 = s_session_uuid_80efd2(param_1,(QString *)local_a8);
         local_231 = local_231 | bVar7;
         qt_array_data_unref((QString *)local_a8);
                     /* try { // try from 00813bd6 to 00813bea has its CatchHandler @ 008151f5 */
@@ -48872,7 +48882,7 @@ LAB_008146e3:
           }
           else {
                     /* try { // try from 00813f1e to 00813f39 has its CatchHandler @ 0081501a */
-            FUN_0080f160(&local_108);
+            s_ssh_identityFilePath_80f160(&local_108);
             qstring_assign_from_ascii(local_d8,"label");
                     /* try { // try from 00813f43 to 00813f47 has its CatchHandler @ 00814ff2 */
             QRegularExpressionMatch::captured((QString *)local_a8);
@@ -48900,7 +48910,7 @@ LAB_00813f09:
           QRegularExpressionMatch::~QRegularExpressionMatch((QRegularExpressionMatch *)&local_1c0);
         }
                     /* try { // try from 008140a7 to 00814153 has its CatchHandler @ 008151f5 */
-        FUN_0080f160(&local_108);
+        s_ssh_identityFilePath_80f160(&local_108);
         if (1 < *local_1c8) {
                     /* try { // try from 008147b8 to 008147bc has its CatchHandler @ 008151f5 */
           qmap_detach6(&local_1c8);
@@ -48985,7 +48995,7 @@ LAB_008142bd:
               local_160 = *(QRegularExpression **)((long)local_2f0 + 0x18);
               qatomic_int_ref();
                     /* try { // try from 008143f8 to 008143fc has its CatchHandler @ 008151cd */
-              lVar15 = FUN_00810056(param_1,&local_160,0);
+              lVar15 = s_session_uuid_810056(param_1,&local_160,0);
               if (lVar15 != 0) {
                     /* try { // try from 008144af to 008144b3 has its CatchHandler @ 008151cd */
                 json_value_copy_ctor(local_d8,lVar15);
@@ -49038,7 +49048,7 @@ LAB_008142bd:
                           *(uint *)(local_168 + 0xc) != *(uint *)(local_168 + 8)));
                 }
                     /* try { // try from 00814659 to 0081465d has its CatchHandler @ 008151b5 */
-                FUN_008051f2(param_1,&local_160,local_d8);
+                s_session_uuid_8051f2(param_1,&local_160,local_d8);
                 json_value_destruct(local_d8);
               }
               qt_array_data_unref(&local_160);
@@ -49117,7 +49127,7 @@ undefined4 FUN_00815268(undefined8 param_1)
   if (cVar2 == '\0') {
     qstring_assign_from_ascii(local_48,"Putty sessions");
                     /* try { // try from 008152fd to 00815301 has its CatchHandler @ 00815465 */
-    uVar3 = FUN_0080efd2(param_1,local_48);
+    uVar3 = s_session_uuid_80efd2(param_1,local_48);
     qt_array_data_unref(local_48);
                     /* try { // try from 00815326 to 0081532a has its CatchHandler @ 00815485 */
     QDir::entryInfoList(&local_58,local_68,2,0xffffffff);
@@ -49145,7 +49155,7 @@ undefined4 FUN_00815268(undefined8 param_1)
                     /* try { // try from 008153ad to 008153b1 has its CatchHandler @ 0081546d */
         QFileInfo::completeBaseName();
                     /* try { // try from 008153bd to 008153c1 has its CatchHandler @ 0081548d */
-        FUN_0080cd46(&local_78,local_50,local_48);
+        s_session_proxyCommand_80cd46(&local_78,local_50,local_48);
         qt_array_data_unref(local_50);
         QSettings::~QSettings(local_48);
         QFileInfo::~QFileInfo(local_60);
@@ -49164,9 +49174,9 @@ undefined4 FUN_00815268(undefined8 param_1)
 }
 
 
-// ==== entry=0081549e orig=FUN_0081549e size=5 name=thunk_FUN_008aa6fc ====
+// ==== entry=0081549e orig=FUN_0081549e size=5 name=CTerminalConfig_vt5 ====
 
-undefined4 thunk_FUN_008aa6fc(long param_1)
+undefined4 CTerminalConfig_vt5(long param_1)
 
 {
   undefined4 uVar1;
@@ -49228,16 +49238,16 @@ LAB_008aa7ec:
 }
 
 
-// ==== entry=008154a4 name=FUN_008154a4 size=27 ====
+// ==== entry=008154a4 orig=FUN_008154a4 size=27 name=CTerminalConfig_vt6 ====
 
-uint FUN_008154a4(void)
+uint CTerminalConfig_vt6(void)
 
 {
   uint uVar1;
   uint uVar2;
   
   uVar1 = thunk_FUN_008aa8e4();
-  uVar2 = FUN_00782e0a(DAT_011c1e60);
+  uVar2 = s_terminal_commandHistory_storage_782e0a(DAT_011c1e60);
   return uVar2 & uVar1;
 }
 
@@ -49294,7 +49304,7 @@ long * CTerminalConfig_qt_metacall(long *param_1,undefined8 param_2,undefined1 p
         local_e8 = auVar8;
         cVar3 = QUuid::isNull();
         if (cVar3 != '\0') break;
-        lVar7 = FUN_00810056(param_2,plVar1,0);
+        lVar7 = s_session_uuid_810056(param_2,plVar1,0);
         if (lVar7 == 0) {
                     /* try { // try from 008157af to 008157ec has its CatchHandler @ 0081582d */
           FUN_008a5816(param_2,plVar1);
@@ -49305,7 +49315,7 @@ long * CTerminalConfig_qt_metacall(long *param_1,undefined8 param_2,undefined1 p
           }
           break;
         }
-        FUN_00810d6e(&local_108,param_2,plVar1,param_3);
+        s_session_protocol_810d6e(&local_108,param_2,plVar1,param_3);
                     /* try { // try from 008155c1 to 008155c5 has its CatchHandler @ 00815825 */
         json_value_assign_string(local_98,&DAT_00cb99b6);
                     /* try { // try from 008155db to 008155df has its CatchHandler @ 0081581d */
@@ -49367,9 +49377,9 @@ long * CTerminalConfig_qt_metacall(long *param_1,undefined8 param_2,undefined1 p
 }
 
 
-// ==== entry=00815836 name=FUN_00815836 size=3489 ====
+// ==== entry=00815836 orig=FUN_00815836 size=3489 name=s_process_workingDirectory_815836 ====
 
-undefined8 * FUN_00815836(undefined8 *param_1,undefined8 param_2)
+undefined8 * s_process_workingDirectory_815836(undefined8 *param_1,undefined8 param_2)
 
 {
   QVariant *pQVar1;
@@ -49840,11 +49850,11 @@ LAB_00815a6c:
 }
 
 
-// ==== entry=008166fe name=FUN_008166fe size=1305 ====
+// ==== entry=008166fe orig=FUN_008166fe size=1305 name=s_session_protocol_8166fe ====
 
 /* WARNING: Removing unreachable block (ram,0x00816914) */
 
-undefined1 FUN_008166fe(undefined8 param_1,char param_2)
+undefined1 s_session_protocol_8166fe(undefined8 param_1,char param_2)
 
 {
   long *plVar1;
@@ -49870,14 +49880,14 @@ undefined1 FUN_008166fe(undefined8 param_1,char param_2)
   QArrayData *local_68;
   undefined4 local_60;
   
-  FUN_00815836(&local_c8,param_1);
+  s_process_workingDirectory_815836(&local_c8,param_1);
   if ((local_c8[2] == local_c8[3]) || (param_2 != '\0')) {
     uVar5 = 0;
   }
   else {
     qstring_assign_from_ascii(&local_68,"Shell sessions");
                     /* try { // try from 00816bfc to 00816c00 has its CatchHandler @ 00816c17 */
-    uVar5 = FUN_0080efd2(param_1,&local_68);
+    uVar5 = s_session_uuid_80efd2(param_1,&local_68);
     qt_array_data_unref(&local_68);
   }
   if (1 < *local_c8) {
@@ -50025,9 +50035,9 @@ LAB_00816ad5:
 }
 
 
-// ==== entry=00816cae name=FUN_00816cae size=235 ====
+// ==== entry=00816cae orig=FUN_00816cae size=235 name=CTerminalConfig_h816cae ====
 
-uint FUN_00816cae(undefined8 param_1,undefined8 param_2)
+uint CTerminalConfig_h816cae(undefined8 param_1,undefined8 param_2)
 
 {
   char cVar1;
@@ -50040,7 +50050,7 @@ uint FUN_00816cae(undefined8 param_1,undefined8 param_2)
   uVar2 = QtPrivate::QStringList_contains(param_2,local_30,0);
   qt_array_data_unref(local_30);
   if ((char)uVar2 != '\0') {
-    uVar2 = FUN_0081371e(param_1);
+    uVar2 = s_session_proxyJumpServer1_81371e(param_1);
   }
   qstring_assign_from_ascii(local_30,"putty");
                     /* try { // try from 00816d07 to 00816d0b has its CatchHandler @ 00816d99 */
@@ -50055,7 +50065,7 @@ uint FUN_00816cae(undefined8 param_1,undefined8 param_2)
   cVar1 = QtPrivate::QStringList_contains(param_2,local_30,0);
   qt_array_data_unref(local_30);
   if (cVar1 != '\0') {
-    uVar3 = FUN_008166fe(param_1,0);
+    uVar3 = s_session_protocol_8166fe(param_1,0);
     uVar2 = uVar2 | uVar3;
   }
   if ((char)uVar2 == '\0') {
@@ -50078,14 +50088,14 @@ undefined8 CTerminalConfig_dtor(undefined8 param_1)
   undefined1 local_28 [8];
   undefined1 local_20 [8];
   
-  cVar1 = FUN_008a57d6();
+  cVar1 = CTerminalConfig_h8a57d6();
   if (cVar1 == '\0') {
-    FUN_0080722e(param_1);
-    FUN_0080fa56(param_1);
-    FUN_008129e6(param_1);
-    FUN_0080e9ae(param_1);
-    FUN_00806a9e(param_1);
-    FUN_00805f2e(param_1);
+    s_session_allowRemoteWriteClipboard_80722e(param_1);
+    CTerminalConfig_h80fa56(param_1);
+    CTerminalConfig_h8129e6(param_1);
+    CTerminalConfig_h80e9ae(param_1);
+    CTerminalConfig_h806a9e(param_1);
+    s_session_protocol_805f2e(param_1);
     if (*(char *)(DAT_011c1240 + 0x21) != '\0') {
       qstring_assign_from_ascii(local_38,"openssh");
       qstring_assign_from_ascii(local_30,"putty");
@@ -50093,7 +50103,7 @@ undefined8 CTerminalConfig_dtor(undefined8 param_1)
                     /* try { // try from 00816e57 to 00816e5b has its CatchHandler @ 00816e97 */
       qlist_appendRange(local_40,local_38,local_20);
                     /* try { // try from 00816e62 to 00816e66 has its CatchHandler @ 00816e9f */
-      FUN_00816cae(param_1,local_40);
+      CTerminalConfig_h816cae(param_1,local_40);
       qt_shared_data_unref(local_40);
       qt_array_data_unref(local_28);
       qt_array_data_unref(local_30);
@@ -51183,9 +51193,9 @@ void FUN_008174fc(undefined8 param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=0081751a name=FUN_0081751a size=17 ====
+// ==== entry=0081751a orig=FUN_0081751a size=17 name=CTerminalConfig_vt13 ====
 
-void FUN_0081751a(long param_1,char param_2)
+void CTerminalConfig_vt13(long param_1,char param_2)
 
 {
                     /* WARNING: Could not recover jumptable at 0x00817528. Too many branches */
@@ -51195,9 +51205,9 @@ void FUN_0081751a(long param_1,char param_2)
 }
 
 
-// ==== entry=0081752c name=FUN_0081752c size=17 ====
+// ==== entry=0081752c orig=FUN_0081752c size=17 name=CTerminalConfig_vt14 ====
 
-void FUN_0081752c(long param_1,char param_2)
+void CTerminalConfig_vt14(long param_1,char param_2)
 
 {
                     /* WARNING: Could not recover jumptable at 0x0081753a. Too many branches */
@@ -51207,9 +51217,9 @@ void FUN_0081752c(long param_1,char param_2)
 }
 
 
-// ==== entry=0081753e name=FUN_0081753e size=14 ====
+// ==== entry=0081753e orig=FUN_0081753e size=14 name=CTerminalConfig_vt15 ====
 
-bool FUN_0081753e(undefined8 param_1,char param_2,char param_3,char param_4)
+bool CTerminalConfig_vt15(undefined8 param_1,char param_2,char param_3,char param_4)
 
 {
   if (param_2 <= param_4) {

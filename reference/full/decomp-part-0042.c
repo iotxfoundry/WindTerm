@@ -5473,11 +5473,11 @@ LAB_00c72366:
 }
 
 
-// ==== entry=00c724a0 orig=FUN_00c724a0 size=8 name=what ====
+// ==== entry=00c724a0 orig=FUN_00c724a0 size=8 name=s_std__bad_typeid_c724a0 ====
 
 /* std::bad_typeid::what() const */
 
-char * std::bad_typeid::what(void)
+char * std::bad_typeid::s_std__bad_typeid_c724a0(void)
 
 {
   return "std::bad_typeid";
@@ -6639,9 +6639,9 @@ void FUN_00c74130(long *param_1,long param_2,char param_3)
 }
 
 
-// ==== entry=00c74150 name=FUN_00c74150 size=53 ====
+// ==== entry=00c74150 orig=FUN_00c74150 size=53 name=s_basic_string__replace_c74150 ====
 
-void FUN_00c74150(long *param_1,long param_2,ulong param_3,long param_4)
+void s_basic_string__replace_c74150(long *param_1,long param_2,ulong param_3,long param_4)
 
 {
   ulong uVar1;
@@ -6671,9 +6671,9 @@ long FUN_00c74190(long *param_1,long param_2)
 }
 
 
-// ==== entry=00c741c0 name=FUN_00c741c0 size=74 ====
+// ==== entry=00c741c0 orig=FUN_00c741c0 size=74 name=s_basic_string__replace_c741c0 ====
 
-void FUN_00c741c0(long *param_1,long param_2,long param_3,ulong *param_4)
+void s_basic_string__replace_c741c0(long *param_1,long param_2,long param_3,ulong *param_4)
 
 {
   ulong uVar1;
@@ -6697,9 +6697,10 @@ void FUN_00c741c0(long *param_1,long param_2,long param_3,ulong *param_4)
 }
 
 
-// ==== entry=00c74210 name=FUN_00c74210 size=67 ====
+// ==== entry=00c74210 orig=FUN_00c74210 size=67 name=s_basic_string__replace_c74210 ====
 
-void FUN_00c74210(long *param_1,long param_2,long param_3,ulong param_4,undefined8 param_5)
+void s_basic_string__replace_c74210
+               (long *param_1,long param_2,long param_3,ulong param_4,undefined8 param_5)
 
 {
   ulong uVar1;
@@ -6723,9 +6724,9 @@ void FUN_00c74210(long *param_1,long param_2,long param_3,ulong param_4,undefine
 }
 
 
-// ==== entry=00c74260 name=FUN_00c74260 size=116 ====
+// ==== entry=00c74260 orig=FUN_00c74260 size=116 name=s_basic_string__replace_c74260 ====
 
-void FUN_00c74260(long *param_1,long param_2,long param_3,char *param_4)
+void s_basic_string__replace_c74260(long *param_1,long param_2,long param_3,char *param_4)
 
 {
   char *pcVar1;
@@ -6760,35 +6761,10 @@ void FUN_00c742e0(long *param_1,long param_2,long param_3,char param_4)
 }
 
 
-// ==== entry=00c742f0 name=FUN_00c742f0 size=70 ====
+// ==== entry=00c742f0 orig=FUN_00c742f0 size=70 name=s_basic_string__replace_c742f0 ====
 
-void FUN_00c742f0(long *param_1,long param_2,long param_3,ulong param_4,long param_5)
-
-{
-  ulong uVar1;
-  ulong uVar2;
-  char *pcVar3;
-  
-  uVar1 = param_1[1];
-  uVar2 = param_2 - *param_1;
-  pcVar3 = (char *)(param_3 - param_2);
-  if ((char *)(uVar1 - uVar2) < (char *)(param_3 - param_2)) {
-    pcVar3 = (char *)(uVar1 - uVar2);
-  }
-  if (uVar2 <= uVar1) {
-    std::__cxx11::string::_M_replace((ulong)param_1,uVar2,pcVar3,param_4);
-    return;
-  }
-                    /* WARNING: Subroutine does not return */
-  std::__throw_out_of_range_fmt
-            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
-             uVar1,param_5 - param_4,uVar1,pcVar3);
-}
-
-
-// ==== entry=00c74340 name=FUN_00c74340 size=70 ====
-
-void FUN_00c74340(long *param_1,long param_2,long param_3,ulong param_4,long param_5)
+void s_basic_string__replace_c742f0
+               (long *param_1,long param_2,long param_3,ulong param_4,long param_5)
 
 {
   ulong uVar1;
@@ -6812,9 +6788,10 @@ void FUN_00c74340(long *param_1,long param_2,long param_3,ulong param_4,long par
 }
 
 
-// ==== entry=00c74390 name=FUN_00c74390 size=70 ====
+// ==== entry=00c74340 orig=FUN_00c74340 size=70 name=s_basic_string__replace_c74340 ====
 
-void FUN_00c74390(long *param_1,long param_2,long param_3,ulong param_4,long param_5)
+void s_basic_string__replace_c74340
+               (long *param_1,long param_2,long param_3,ulong param_4,long param_5)
 
 {
   ulong uVar1;
@@ -6838,9 +6815,37 @@ void FUN_00c74390(long *param_1,long param_2,long param_3,ulong param_4,long par
 }
 
 
-// ==== entry=00c743e0 name=FUN_00c743e0 size=70 ====
+// ==== entry=00c74390 orig=FUN_00c74390 size=70 name=s_basic_string__replace_c74390 ====
 
-void FUN_00c743e0(long *param_1,long param_2,long param_3,ulong param_4,long param_5)
+void s_basic_string__replace_c74390
+               (long *param_1,long param_2,long param_3,ulong param_4,long param_5)
+
+{
+  ulong uVar1;
+  ulong uVar2;
+  char *pcVar3;
+  
+  uVar1 = param_1[1];
+  uVar2 = param_2 - *param_1;
+  pcVar3 = (char *)(param_3 - param_2);
+  if ((char *)(uVar1 - uVar2) < (char *)(param_3 - param_2)) {
+    pcVar3 = (char *)(uVar1 - uVar2);
+  }
+  if (uVar2 <= uVar1) {
+    std::__cxx11::string::_M_replace((ulong)param_1,uVar2,pcVar3,param_4);
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  std::__throw_out_of_range_fmt
+            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
+             uVar1,param_5 - param_4,uVar1,pcVar3);
+}
+
+
+// ==== entry=00c743e0 orig=FUN_00c743e0 size=70 name=s_basic_string__replace_c743e0 ====
+
+void s_basic_string__replace_c743e0
+               (long *param_1,long param_2,long param_3,ulong param_4,long param_5)
 
 {
   ulong uVar1;
@@ -6907,9 +6912,9 @@ void FUN_00c744c0(long *param_1,long param_2,undefined8 param_3,undefined4 param
 }
 
 
-// ==== entry=00c744e0 name=FUN_00c744e0 size=61 ====
+// ==== entry=00c744e0 orig=FUN_00c744e0 size=61 name=s_basic_string__replace_c744e0 ====
 
-void FUN_00c744e0(long *param_1,long param_2,long param_3,long param_4)
+void s_basic_string__replace_c744e0(long *param_1,long param_2,long param_3,long param_4)
 
 {
   ulong uVar1;
@@ -6939,9 +6944,9 @@ long FUN_00c74520(long *param_1,long param_2,undefined4 param_3)
 }
 
 
-// ==== entry=00c74560 name=FUN_00c74560 size=82 ====
+// ==== entry=00c74560 orig=FUN_00c74560 size=82 name=s_basic_string__replace_c74560 ====
 
-void FUN_00c74560(long *param_1,long param_2,long param_3,undefined8 *param_4)
+void s_basic_string__replace_c74560(long *param_1,long param_2,long param_3,undefined8 *param_4)
 
 {
   ulong uVar1;
@@ -6965,9 +6970,10 @@ void FUN_00c74560(long *param_1,long param_2,long param_3,undefined8 *param_4)
 }
 
 
-// ==== entry=00c745c0 name=FUN_00c745c0 size=75 ====
+// ==== entry=00c745c0 orig=FUN_00c745c0 size=75 name=s_basic_string__replace_c745c0 ====
 
-void FUN_00c745c0(long *param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5)
+void s_basic_string__replace_c745c0
+               (long *param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5)
 
 {
   ulong uVar1;
@@ -6991,9 +6997,9 @@ void FUN_00c745c0(long *param_1,long param_2,long param_3,undefined8 param_4,und
 }
 
 
-// ==== entry=00c74610 name=FUN_00c74610 size=124 ====
+// ==== entry=00c74610 orig=FUN_00c74610 size=124 name=s_basic_string__replace_c74610 ====
 
-void FUN_00c74610(long *param_1,long param_2,long param_3,wchar_t *param_4)
+void s_basic_string__replace_c74610(long *param_1,long param_2,long param_3,wchar_t *param_4)
 
 {
   size_t sVar1;
@@ -7029,35 +7035,10 @@ void FUN_00c74690(long *param_1,long param_2,long param_3)
 }
 
 
-// ==== entry=00c746b0 name=FUN_00c746b0 size=82 ====
+// ==== entry=00c746b0 orig=FUN_00c746b0 size=82 name=s_basic_string__replace_c746b0 ====
 
-void FUN_00c746b0(long *param_1,long param_2,long param_3,long param_4,long param_5)
-
-{
-  ulong uVar1;
-  ulong uVar2;
-  ulong uVar3;
-  
-  uVar1 = param_1[1];
-  uVar2 = param_2 - *param_1 >> 2;
-  uVar3 = param_3 - param_2 >> 2;
-  if (uVar1 - uVar2 < uVar3) {
-    uVar3 = uVar1 - uVar2;
-  }
-  if (uVar2 <= uVar1) {
-    FUN_00c22de0(param_1,uVar2);
-    return;
-  }
-                    /* WARNING: Subroutine does not return */
-  std::__throw_out_of_range_fmt
-            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
-             uVar1,param_5 - param_4 >> 2,uVar1,uVar3);
-}
-
-
-// ==== entry=00c74710 name=FUN_00c74710 size=82 ====
-
-void FUN_00c74710(long *param_1,long param_2,long param_3,long param_4,long param_5)
+void s_basic_string__replace_c746b0
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
 
 {
   ulong uVar1;
@@ -7081,9 +7062,10 @@ void FUN_00c74710(long *param_1,long param_2,long param_3,long param_4,long para
 }
 
 
-// ==== entry=00c74770 name=FUN_00c74770 size=82 ====
+// ==== entry=00c74710 orig=FUN_00c74710 size=82 name=s_basic_string__replace_c74710 ====
 
-void FUN_00c74770(long *param_1,long param_2,long param_3,long param_4,long param_5)
+void s_basic_string__replace_c74710
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
 
 {
   ulong uVar1;
@@ -7107,9 +7089,37 @@ void FUN_00c74770(long *param_1,long param_2,long param_3,long param_4,long para
 }
 
 
-// ==== entry=00c747d0 name=FUN_00c747d0 size=82 ====
+// ==== entry=00c74770 orig=FUN_00c74770 size=82 name=s_basic_string__replace_c74770 ====
 
-void FUN_00c747d0(long *param_1,long param_2,long param_3,long param_4,long param_5)
+void s_basic_string__replace_c74770
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
+
+{
+  ulong uVar1;
+  ulong uVar2;
+  ulong uVar3;
+  
+  uVar1 = param_1[1];
+  uVar2 = param_2 - *param_1 >> 2;
+  uVar3 = param_3 - param_2 >> 2;
+  if (uVar1 - uVar2 < uVar3) {
+    uVar3 = uVar1 - uVar2;
+  }
+  if (uVar2 <= uVar1) {
+    FUN_00c22de0(param_1,uVar2);
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  std::__throw_out_of_range_fmt
+            ("%s: __pos (which is %zu) > this->size() (which is %zu)","basic_string::replace",uVar2,
+             uVar1,param_5 - param_4 >> 2,uVar1,uVar3);
+}
+
+
+// ==== entry=00c747d0 orig=FUN_00c747d0 size=82 name=s_basic_string__replace_c747d0 ====
+
+void s_basic_string__replace_c747d0
+               (long *param_1,long param_2,long param_3,long param_4,long param_5)
 
 {
   ulong uVar1;
@@ -9178,7 +9188,8 @@ joined_r0x00c77617:
 LAB_00c774e7:
       uVar8 = 4;
 LAB_00c774ec:
-      ios::clear((ios *)(this + *(long *)(*(long *)this + -0x18)),
+      ios::s_basic_ios__clear_c1bf70
+                ((ios *)(this + *(long *)(*(long *)this + -0x18)),
                  uVar8 | *(uint *)((ios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20));
     }
 LAB_00c7761d:
@@ -9436,7 +9447,8 @@ LAB_00c77a28:
 LAB_00c77a36:
         if (uVar2 == 0xffffffff) {
 LAB_00c779ec:
-          ios::clear((ios *)(this + *(long *)(*(long *)this + -0x18)),
+          ios::s_basic_ios__clear_c1bf70
+                    ((ios *)(this + *(long *)(*(long *)this + -0x18)),
                      *(uint *)((ios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20) | 2);
           goto LAB_00c77993;
         }
@@ -9604,7 +9616,8 @@ LAB_00c77de4:
   uVar11 = (-(uint)(lVar10 == 0) & 4) + 2;
   *(undefined8 *)(param_1 + *(long *)(lVar4 + -0x18) + 0x10) = 0;
 LAB_00c77d05:
-  ios::clear((ios *)(param_1 + *(long *)(lVar4 + -0x18)),
+  ios::s_basic_ios__clear_c1bf70
+            ((ios *)(param_1 + *(long *)(lVar4 + -0x18)),
              uVar11 | *(uint *)((ios *)(param_1 + *(long *)(lVar4 + -0x18)) + 0x20));
 LAB_00c77d14:
   if (local_40 != *(long *)(in_FS_OFFSET + 0x28)) {
@@ -9649,8 +9662,9 @@ joined_r0x00c78043:
     if (lVar2 == 0) {
       uVar6 = 4;
 LAB_00c77ed0:
-      wios::clear((wios *)(this + *(long *)(*(long *)this + -0x18)),
-                  uVar6 | *(uint *)((wios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20));
+      wios::s_basic_ios__clear_c1c9b0
+                ((wios *)(this + *(long *)(*(long *)this + -0x18)),
+                 uVar6 | *(uint *)((wios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20));
     }
     if (local_40 != *(long *)(in_FS_OFFSET + 0x28)) {
                     /* WARNING: Subroutine does not return */
@@ -9897,8 +9911,9 @@ LAB_00c78418:
 LAB_00c78426:
         if (wVar4 == L'\xffffffff') {
 LAB_00c783dc:
-          wios::clear((wios *)(this + *(long *)(*(long *)this + -0x18)),
-                      *(uint *)((wios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20) | 2);
+          wios::s_basic_ios__clear_c1c9b0
+                    ((wios *)(this + *(long *)(*(long *)this + -0x18)),
+                     *(uint *)((wios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20) | 2);
           goto LAB_00c78383;
         }
         if (param_2 != wVar4) goto LAB_00c78383;
@@ -10976,9 +10991,9 @@ undefined ** FUN_00c795d0(void)
 }
 
 
-// ==== entry=00c79650 name=FUN_00c79650 size=554 ====
+// ==== entry=00c79650 orig=FUN_00c79650 size=554 name=s_basic_string__append_c79650 ====
 
-void FUN_00c79650(undefined8 *param_1,long *param_2)
+void s_basic_string__append_c79650(undefined8 *param_1,long *param_2)
 
 {
   long *plVar1;
@@ -11075,9 +11090,9 @@ LAB_00c79763:
 }
 
 
-// ==== entry=00c798c0 name=FUN_00c798c0 size=595 ====
+// ==== entry=00c798c0 orig=FUN_00c798c0 size=595 name=s_basic_string__append_c798c0 ====
 
-void FUN_00c798c0(undefined8 *param_1,long *param_2,int *param_3)
+void s_basic_string__append_c798c0(undefined8 *param_1,long *param_2,int *param_3)
 
 {
   int iVar1;
@@ -11418,7 +11433,8 @@ LAB_00c7a000:
     *(undefined8 *)(this + 8) = 0x7fffffffffffffff;
   }
 LAB_00c7a013:
-  ios::clear((ios *)(this + *(long *)(*(long *)this + -0x18)),
+  ios::s_basic_ios__clear_c1bf70
+            ((ios *)(this + *(long *)(*(long *)this + -0x18)),
              *(uint *)((ios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20) | 2);
   goto LAB_00c79f7b;
 }
@@ -11532,8 +11548,9 @@ LAB_00c7a268:
     *(undefined8 *)(this + 8) = 0x7fffffffffffffff;
   }
 LAB_00c7a27b:
-  wios::clear((wios *)(this + *(long *)(*(long *)this + -0x18)),
-              *(uint *)((wios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20) | 2);
+  wios::s_basic_ios__clear_c1c9b0
+            ((wios *)(this + *(long *)(*(long *)this + -0x18)),
+             *(uint *)((wios *)(this + *(long *)(*(long *)this + -0x18)) + 0x20) | 2);
   goto LAB_00c7a1d3;
 }
 

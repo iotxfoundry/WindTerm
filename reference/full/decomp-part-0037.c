@@ -8729,7 +8729,8 @@ void FUN_00b21302(undefined8 *param_1,istream *param_2)
       local_30 = *(int *)(&DAT_011be940 + ((long)local_2c + (long)local_20 * 8) * 4);
       local_24 = (int)(char)(&DAT_011beb80)[(long)local_20 * 8 + (long)local_2c];
       if (0 < local_24) {
-        std::ios::clear((ios *)(param_2 + *(long *)(*(long *)param_2 + -0x18)),0);
+        std::ios::s_basic_ios__clear_c1bf70
+                  ((ios *)(param_2 + *(long *)(*(long *)param_2 + -0x18)),0);
         for (; 0 < local_24; local_24 = local_24 + -1) {
           iVar2 = FUN_00b21dc7();
           local_1c = local_1c + -1;
@@ -13772,7 +13773,7 @@ LAB_00b27e81:
     goto LAB_00b283fc;
   }
   if (*(int *)((long)param_3 + 0x14) == 2) {
-    std::string::erase(param_1,local_38,0xffffffffffffffff);
+    std::string::s_basic_string__erase_c29950(param_1,local_38,0xffffffffffffffff);
   }
   uVar5 = FUN_00b0dbb2();
   local_60 = FUN_00b0d95a(uVar5,param_2);
@@ -13903,7 +13904,7 @@ LAB_00b283fc:
       }
       uVar7 = std::string::size(param_1);
       if (local_48 < uVar7) {
-        std::string::erase(param_1,local_48 + 1,0xffffffffffffffff);
+        std::string::s_basic_string__erase_c29950(param_1,local_48 + 1,0xffffffffffffffff);
       }
     }
     if (*(int *)((long)param_3 + 0x1c) == -1) {
@@ -13913,12 +13914,12 @@ LAB_00b283fc:
         local_58 = local_30;
       }
       if (local_58 == 0xffffffffffffffff) {
-        std::string::erase(param_1,0,0xffffffffffffffff);
+        std::string::s_basic_string__erase_c29950(param_1,0,0xffffffffffffffff);
       }
       else {
         uVar7 = std::string::size(param_1);
         if (local_58 < uVar7) {
-          std::string::erase(param_1,local_58 + 1,0xffffffffffffffff);
+          std::string::s_basic_string__erase_c29950(param_1,local_58 + 1,0xffffffffffffffff);
         }
       }
     }
@@ -13929,13 +13930,13 @@ LAB_00b283fc:
         local_50 = local_30;
       }
       if (local_50 == 0xffffffffffffffff) {
-        std::string::erase(param_1,0,0xffffffffffffffff);
+        std::string::s_basic_string__erase_c29950(param_1,0,0xffffffffffffffff);
       }
       else {
         uVar7 = local_50 + 1;
         uVar8 = std::string::size(param_1);
         if (uVar7 < uVar8) {
-          std::string::erase(param_1,local_50 + 2,0xffffffffffffffff);
+          std::string::s_basic_string__erase_c29950(param_1,local_50 + 2,0xffffffffffffffff);
         }
       }
     }
@@ -14886,7 +14887,7 @@ string * FUN_00b2a74e(string *param_1,string *param_2,char param_3)
   undefined8 uVar1;
   string *psVar2;
   
-  uVar1 = std::string::append(param_2,1,param_3);
+  uVar1 = std::string::s_basic_string__append_c29ec0(param_2,1,param_3);
   psVar2 = (string *)FUN_00b08141(uVar1);
   std::string::string(param_1,psVar2);
   return param_1;

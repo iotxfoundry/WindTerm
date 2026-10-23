@@ -10364,7 +10364,7 @@ void FUN_004d11e8(void)
 
 {
   qt_array_data_unref();
-  FUN_005d4b56();
+  ScintillaEditWatcher_vt6();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -13696,7 +13696,7 @@ void FUN_004d2960(void)
   *unaff_RBX = &TextEdit_vtable;
   unaff_RBX[2] = &PTR_FUN_01197198;
   unaff_RBX[9] = &PTR_FUN_011971e8;
-  FUN_005d4b56();
+  ScintillaEditWatcher_vt6();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -13714,7 +13714,7 @@ void FUN_004d2972(void)
   *unaff_RBX = &TextEdit_vtable;
   unaff_RBX[2] = &PTR_FUN_01197198;
   unaff_RBX[9] = &PTR_FUN_011971e8;
-  FUN_005d4b56();
+  ScintillaEditWatcher_vt6();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
