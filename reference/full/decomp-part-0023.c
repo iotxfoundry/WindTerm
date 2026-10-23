@@ -11174,7 +11174,7 @@ LAB_00749a72:
   FUN_005ac652(*(undefined8 *)(param_1 + 0x40),0);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x40),1);
   pQVar3 = (QWidget *)QWidget::layout();
-  TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x40));
+  TabGroup_centralStack(*(undefined8 *)(param_1 + 0x40));
   QLayout::addWidget(pQVar3);
   pQVar3 = (QWidget *)QWidget::layout();
   QLayout::addWidget(pQVar3);
@@ -16175,7 +16175,7 @@ LAB_00750a22:
   pQVar4 = (QWidget *)QWidget::layout();
   QLayout::addWidget(pQVar4);
   pQVar4 = (QWidget *)QWidget::layout();
-  TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x48));
+  TabGroup_centralStack(*(undefined8 *)(param_1 + 0x48));
   QLayout::addWidget(pQVar4);
   return;
 }
@@ -33097,9 +33097,9 @@ void FUN_007662ce(long param_1,long param_2)
 }
 
 
-// ==== entry=007662e6 orig=FUN_007662e6 size=109 name=MainWindow_initUi ====
+// ==== entry=007662e6 orig=FUN_007662e6 size=109 name=QuickSwitcher_initUi ====
 
-void MainWindow_initUi(QWidget *param_1)
+void QuickSwitcher_initUi(QWidget *param_1)
 
 {
   void *pvVar1;
@@ -33197,9 +33197,9 @@ void FUN_00766466(undefined8 param_1,char param_2)
 }
 
 
-// ==== entry=007664a2 orig=FUN_007664a2 size=244 name=s_HistoryHints_7664a2 ====
+// ==== entry=007664a2 orig=FUN_007664a2 size=244 name=QuickSwitcher_addPage ====
 
-void s_HistoryHints_7664a2
+void QuickSwitcher_addPage
                (long param_1,undefined8 param_2,char param_3,QByteArray *param_4,int param_5)
 
 {
@@ -33248,7 +33248,7 @@ void FUN_007665ae(undefined8 param_1)
                     /* try { // try from 007665e1 to 007665e5 has its CatchHandler @ 00766630 */
   local_28 = QString::fromAscii_helper("Terminal",(int)sVar1);
                     /* try { // try from 00766603 to 00766607 has its CatchHandler @ 00766628 */
-  s_HistoryHints_7664a2(param_1,&local_28,0,&local_20,1);
+  QuickSwitcher_addPage(param_1,&local_28,0,&local_20,1);
   qt_array_data_unref(&local_28);
   qt_byte_array_unref(&local_20);
   return;
@@ -33634,7 +33634,7 @@ undefined8 pane_restore_state(QByteArray *param_1,uint param_2,QByteArray *param
       if ((param_4 & 4) == 0) {
         QObject::blockSignals(SUB81(*(undefined8 *)(param_1 + 0x58),0));
                     /* try { // try from 00766dd6 to 00766e0c has its CatchHandler @ 0076706d */
-        s_HistoryHints_7664a2
+        QuickSwitcher_addPage
                   (param_1,(QString *)&local_c0,local_c4 == iVar3,(QByteArray *)&local_b8,param_4);
       }
       else {
@@ -36626,7 +36626,7 @@ void mainWindow_connectSignals(long param_1)
   
   FUN_0076b9da();
   FUN_0076663e(param_1);
-  MainWindow_initUi(param_1);
+  QuickSwitcher_initUi(param_1);
   uVar1 = qcoreapp_self_get();
   local_58 = FUN_0090e018;
   local_50 = 0;

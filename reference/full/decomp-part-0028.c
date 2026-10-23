@@ -11959,7 +11959,7 @@ void FUN_008ca77c(long param_1,undefined8 param_2,undefined1 param_3,undefined8 
   if (param_5 == 0) {
     param_5 = kit_focus_widget_get(param_1,param_2,param_4);
     if (param_5 == 0) {
-      param_5 = s_tabbar_selectionBehaviorOnRemove_89f516(param_1,*(undefined1 *)(param_1 + 0x31));
+      param_5 = KitGroup_instantiate(param_1,*(undefined1 *)(param_1 + 0x31));
       QSplitter::addWidget(*(QWidget **)(param_1 + 0x48));
     }
   }
@@ -12758,7 +12758,7 @@ void FUN_008cb89a(long param_1)
   QWidget *pQVar1;
   
   pQVar1 = *(QWidget **)(param_1 + 0x48);
-  s_tabbar_selectionBehaviorOnRemove_89f516(param_1,*(undefined1 *)(param_1 + 0x31));
+  KitGroup_instantiate(param_1,*(undefined1 *)(param_1 + 0x31));
   QSplitter::addWidget(pQVar1);
   return;
 }
@@ -14881,7 +14881,7 @@ LAB_008cea78:
         local_78 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 008cece2 to 008ced3f has its CatchHandler @ 008cee81 */
         operator>>(local_58,(QByteArray *)&local_78);
-        uVar6 = s_tabbar_selectionBehaviorOnRemove_89f516(param_1,*(undefined1 *)(param_1 + 0x31));
+        uVar6 = KitGroup_instantiate(param_1,*(undefined1 *)(param_1 + 0x31));
         lVar9 = (long)local_a8;
         if (1 < *local_88) {
                     /* try { // try from 008cee02 to 008cee06 has its CatchHandler @ 008cee81 */
@@ -17454,8 +17454,7 @@ undefined1 s_kit_startupSessions_8d2f7e(long *param_1,QByteArray *param_2,uint p
                     /* try { // try from 008d3b60 to 008d3b8f has its CatchHandler @ 008d3ca2 */
             operator>>((QDataStream *)&local_78,(QByteArray *)&local_58);
             pQVar2 = (QWidget *)param_1[9];
-            s_tabbar_selectionBehaviorOnRemove_89f516(param_1,*(undefined1 *)((long)param_1 + 0x31))
-            ;
+            KitGroup_instantiate(param_1,*(undefined1 *)((long)param_1 + 0x31));
             QSplitter::addWidget(pQVar2);
             QSplitter::restoreState((QByteArray *)param_1[9]);
             qt_byte_array_unref((QDataStream *)&local_58);
@@ -17495,8 +17494,7 @@ undefined1 s_kit_startupSessions_8d2f7e(long *param_1,QByteArray *param_2,uint p
                   cVar7 = qstring_equals_utf8(local_e0,"LastSessions");
                   if (cVar7 == '\0') {
                     if (!bVar5) {
-                      uVar11 = s_tabbar_selectionBehaviorOnRemove_89f516
-                                         (param_1,*(undefined1 *)((long)param_1 + 0x31));
+                      uVar11 = KitGroup_instantiate(param_1,*(undefined1 *)((long)param_1 + 0x31));
                       plVar12 = (long *)(**(code **)(*param_1 + 0x1f0))(param_1);
                       pcVar13 = (char *)(**(code **)(*plVar12 + 8))(plVar12);
                       if ((pcVar13 == "Terminal") &&
@@ -17549,8 +17547,7 @@ undefined1 s_kit_startupSessions_8d2f7e(long *param_1,QByteArray *param_2,uint p
                   }
                   else {
                     /* try { // try from 008d3918 to 008d39c9 has its CatchHandler @ 008d3c5d */
-                    uVar11 = s_tabbar_selectionBehaviorOnRemove_89f516
-                                       (param_1,*(undefined1 *)((long)param_1 + 0x31));
+                    uVar11 = KitGroup_instantiate(param_1,*(undefined1 *)((long)param_1 + 0x31));
                     lVar17 = (long)local_108;
                     FUN_00856880(&local_e8);
                     QSplitter::addWidget((QWidget *)local_e8[*(int *)(local_e8 + 1) + lVar17 + 2]);
@@ -17736,7 +17733,7 @@ long mux_insertPaneSplitter(long param_1,uint param_2,long param_3,char param_4)
      (pQVar4 = (QSplitter *)__dynamic_cast(lVar5,&QObject::typeinfo,&QSplitter::typeinfo,0),
      pQVar4 != (QSplitter *)0x0)) {
     iVar8 = 2 - (uint)(param_2 < 2);
-    lVar5 = s_tabbar_selectionBehaviorOnRemove_89f516(param_1,*(undefined1 *)(param_1 + 0x31));
+    lVar5 = KitGroup_instantiate(param_1,*(undefined1 *)(param_1 + 0x31));
     iVar2 = QSplitter::count();
     if (iVar2 < 2) {
       QSplitter::setOrientation(pQVar4,iVar8);
@@ -22122,7 +22119,7 @@ LAB_008d9ecc:
   local_40 = 0;
   QLayout::setContentsMargins((QMargins *)this_00);
   QBoxLayout::setSpacing((int)this_00);
-  uVar3 = TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x30));
+  uVar3 = TabGroup_centralStack(*(undefined8 *)(param_1 + 0x30));
   QBoxLayout::addWidget(this_00,uVar3,0,0);
   QBoxLayout::addLayout((QLayout *)this_00,(int)this);
   QWidget::setLayout(param_1);
@@ -25944,7 +25941,7 @@ LAB_008deb3e:
   QLayout::setContentsMargins((QMargins *)this);
   QBoxLayout::setSpacing((int)this);
   QBoxLayout::addWidget(this,*(undefined8 *)(param_1 + 0x38),0,0);
-  uVar3 = TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x38));
+  uVar3 = TabGroup_centralStack(*(undefined8 *)(param_1 + 0x38));
   QBoxLayout::addWidget(this,uVar3,0,0);
   QWidget::setLayout(param_1);
   return;

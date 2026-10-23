@@ -56433,9 +56433,9 @@ LAB_0089f4e5:
 }
 
 
-// ==== entry=0089f516 orig=FUN_0089f516 size=2234 name=s_tabbar_selectionBehaviorOnRemove_89f516 ====
+// ==== entry=0089f516 orig=FUN_0089f516 size=2234 name=KitGroup_instantiate ====
 
-void * s_tabbar_selectionBehaviorOnRemove_89f516(long param_1,undefined1 param_2)
+void * KitGroup_instantiate(long param_1,undefined1 param_2)
 
 {
   int iVar1;
@@ -56664,7 +56664,7 @@ LAB_0089faa4:
                     /* try { // try from 0089fab1 to 0089fab5 has its CatchHandler @ 0089ff15 */
   pvVar6 = operator_new(0x48);
                     /* try { // try from 0089fac4 to 0089fac8 has its CatchHandler @ 0089ff3d */
-  FUN_008bb360(pvVar6,&local_e0,param_1);
+  KitGroup_ctor(pvVar6,&local_e0,param_1);
   *(undefined1 *)((long)pvVar6 + 0x40) = param_2;
                     /* try { // try from 0089fad8 to 0089fcc0 has its CatchHandler @ 0089ff15 */
   FUN_008b9b6e(pvVar6,uVar3);
@@ -75394,7 +75394,7 @@ LAB_008b7f03:
   QLayout::setContentsMargins((QMargins *)this);
   QBoxLayout::setSpacing((int)this);
   QBoxLayout::addWidget(this,*(undefined8 *)(param_1 + 0x30),0,0,in_R8,in_R9,uVar5,uVar6);
-  uVar5 = TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x30));
+  uVar5 = TabGroup_centralStack(*(undefined8 *)(param_1 + 0x30));
   QBoxLayout::addWidget(this,uVar5,0,0);
   QWidget::setLayout(param_1);
   return;
@@ -77744,11 +77744,11 @@ void FUN_008ba416(long param_1)
 }
 
 
-// ==== entry=008bade2 orig=FUN_008bade2 size=1286 name=KitWindow_setupBars ====
+// ==== entry=008bade2 orig=FUN_008bade2 size=1286 name=KitGroup_setupBars ====
 
 /* WARNING: Removing unreachable block (ram,0x008bb2de) */
 
-void KitWindow_setupBars(QWidget *param_1)
+void KitGroup_setupBars(QWidget *param_1)
 
 {
   uint *puVar1;
@@ -77810,7 +77810,7 @@ void KitWindow_setupBars(QWidget *param_1)
   thunk_FUN_005ad4a6(uVar11,*(undefined8 *)(param_1 + 0x38));
   FUN_005ab5b6(*(undefined8 *)(param_1 + 0x38),local_70);
   QMainWindow::setMenuWidget(param_1);
-  TabGroup_buildCentral(*(undefined8 *)(param_1 + 0x38));
+  TabGroup_centralStack(*(undefined8 *)(param_1 + 0x38));
   QMainWindow::setCentralWidget(param_1);
   lVar8 = widget_findAncestorPane(param_1);
   if (lVar8 != 0) {
@@ -77897,9 +77897,9 @@ LAB_008bb16c:
 }
 
 
-// ==== entry=008bb360 name=FUN_008bb360 size=126 ====
+// ==== entry=008bb360 orig=FUN_008bb360 size=126 name=KitGroup_ctor ====
 
-void FUN_008bb360(QMainWindow *param_1,undefined8 *param_2,undefined8 param_3)
+void KitGroup_ctor(QMainWindow *param_1,undefined8 *param_2,undefined8 param_3)
 
 {
   int *piVar1;
@@ -77918,7 +77918,7 @@ void FUN_008bb360(QMainWindow *param_1,undefined8 *param_2,undefined8 param_3)
                     /* try { // try from 008bb3aa to 008bb3d0 has its CatchHandler @ 008bb3de */
   QWidget::setFocusPolicy(param_1,0);
   QWidget::setAttribute(param_1,0x37,1);
-  KitWindow_setupBars(param_1);
+  KitGroup_setupBars(param_1);
   FUN_008ba416(param_1);
   return;
 }
