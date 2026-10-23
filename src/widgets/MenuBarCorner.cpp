@@ -3,6 +3,7 @@
 #include <QToolButton>
 
 #include "core/ThemeManager.h"
+#include "widgets/ActionIcons.h"
 #include "widgets/KingIcons.h"
 
 namespace {
