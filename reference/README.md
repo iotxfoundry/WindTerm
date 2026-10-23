@@ -85,14 +85,18 @@ Ghidra 项目 `/tmp/opencode/ghidra-proj WindTermRef` 可 -process 复用（免�
 
 已知教训：**禁止对已标注项目跑 RecoverClassesFromRTTIScript**（bad_alloc 误绑定扩散 5,086 处且不可精确回滚，2026-10-23 实证）——见 AGENTS.md。
 
-## BSim 参考库（/tmp/opencode/bsim-lab/splitter.hdb，可重建）
+## BSim 参考库（bsim-reference/，H2 库 /tmp/opencode/bsim-lab/splitter.hdb）
 
 ```bash
-# 1. 编译开源参考（仓库 /home/pana/go/src/github.com/kingtoolbox/WindTerm/src 可编译集）
-#    依赖：libboost-dev + qtbase5-private-dev（sudo apt install，版本 5.15.13 精确匹配）
-#    full.pro 见 /tmp/opencode/bsim-full/（Telnet/Cryptographic/ThreadLocal/PopupWidget/ScrollBar/Splitter；
-#    Pty 层开源 API 断裂 + PopupWidget 需 Qt private 均已解决）
+# 1. 编译开源参考：reference/bsim-reference/full.pro（Telnet/Cryptographic/ThreadLocal/
+#    PopupWidget/ScrollBar/Splitter；开源源码位置经 WINDTERM_SRC 环境变量可覆盖；
+#    依赖 libboost-dev + qtbase5-private-dev——版本须与系统 Qt 匹配 5.15.13）
+cd reference/bsim-reference && qmake full.pro && make -j4
+mkdir -p /tmp/opencode/bsim-lab/Public && cp -r Public /tmp/opencode/bsim-lab/
 # 2. import 编译产物 → BSimApply.java add → apply（两轮累计 2,780 名）
+analyzeHeadless /tmp/opencode/ghidra-proj WindTermRef -import <so 文件>
+analyzeHeadless … -process <so 程序> … -postScript BSimApply.java add file:/tmp/opencode/bsim-lab/splitter.hdb
+analyzeHeadless … -process WindTerm … -postScript BSimApply.java apply file:/tmp/opencode/bsim-lab/splitter.hdb 0.7 5.0
 ```
 
 规则汇总见 `docs/cracked-rules.md`（R1-R28）；各阶段证据链见 `docs/phase*.md`。
