@@ -59,6 +59,7 @@
 #include "widgets/PaneHeader.h"
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
+#include "widgets/TerminalView.h"
 #include "widgets/TransferBar.h"
 
 namespace {
@@ -503,7 +504,10 @@ void MainWindow::showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods)
         section = QStringLiteral("ViewTab Popup");
     } else {
         QString base = paneLike->objectName();
-        if (base.endsWith(QStringLiteral("Pane")))
+        // 原版 TerminalWidget pane 名 "View"(0x84005a 硬编码),重建 objectName TextView 特判
+        if (base == QStringLiteral("TextView"))
+            base = QStringLiteral("View");
+        else if (base.endsWith(QStringLiteral("Pane")))
             base.chop(4);
         QString mod;
         if (mods & Qt::ShiftModifier)
@@ -527,6 +531,14 @@ void MainWindow::showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods)
     // 条目动作走 makeAction：已接线的 Toggle 类生效，其余占位（与主菜单同限制）
     buildMenu(&menu, entries);
     menu.exec(QCursor::pos()); // 0x8ba130 同款
+}
+
+// 0x834f2c TerminalView contextMenuEvent → 0x8c3c6a pane_showPopupMenu；
+// 原版用事件位置弹菜单，此处与 0x8ba130 同用 QCursor::pos()
+void MainWindow::onTerminalContextMenu(const QPoint &globalPos, Qt::KeyboardModifiers mods)
+{
+    Q_UNUSED(globalPos);
+    showPopupMenu(qobject_cast<QWidget *>(sender()), mods);
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
@@ -574,6 +586,18 @@ void MainWindow::createCentral()
     muxRow->setObjectName(QStringLiteral("MuxRow"));
     muxRow->setChildrenCollapsible(false);
     m_muxPaneGroup = new MuxPaneGroup;
+    // 终端区右键（0x84005a TerminalWidget/0x834f2c TerminalView contextMenuEvent）：
+    // view 由 MuxPaneGroup::addPane 内部创建（addPane 私有、无 paneAdded 信号），故借 stack
+    // currentChanged 兜住每个新建/激活的 view；UniqueConnection 去重避免反复连
+    if (auto *muxStack = m_muxPaneGroup->findChild<QStackedWidget *>()) {
+        auto link = [this]() {
+            for (TerminalView *view : m_muxPaneGroup->findChildren<TerminalView *>())
+                connect(view, &TerminalView::contextMenuRequested, this,
+                        &MainWindow::onTerminalContextMenu, Qt::UniqueConnection);
+        };
+        connect(muxStack, &QStackedWidget::currentChanged, this, [link](int) { link(); });
+        link(); // 兜底：装配时若已有 view 立即连
+    }
     muxRow->addWidget(m_muxPaneGroup);
 
     // 中央列 = KitGroup（嵌套 QMainWindow，ctor 0x008bb360）：标签行占 menuWidget 槽、
@@ -853,6 +877,24 @@ QuickBar *MainWindow::ensureQuickBar()
 {
     if (!m_quickBar) {
         m_quickBar = new QuickBar;
+        // 0x56d890：按 uuid 匹配 quick 命令，取 quick.text；仅已知类型 "Send Text" 写入当前终端
+        connect(m_quickBar, &QuickBar::commandTriggered, this, [this](const QString &uuid) {
+            if (!m_muxPaneGroup)
+                return;
+            const QJsonArray commands = WindConfig::instance().quickCommands();
+            for (const QJsonValue &value : commands) {
+                const QJsonObject command = value.toObject();
+                if (command.value(QStringLiteral("quick.uuid")).toString() != uuid)
+                    continue;
+                // shortcut: 仅接 Send Text，其余 quick.type（Insert Text/Send Text+Enter 等）待原版类型表补
+                if (command.value(QStringLiteral("quick.type")).toString() != QStringLiteral("Send Text"))
+                    return;
+                auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>();
+                if (auto *view = stack ? qobject_cast<TerminalView *>(stack->currentWidget()) : nullptr)
+                    view->sendText(command.value(QStringLiteral("quick.text")).toString());
+                return;
+            }
+        });
         m_quickBar->hide();
         QWidget *central = centralWidget();
         if (auto *vs = qobject_cast<QSplitter *>(central)) {

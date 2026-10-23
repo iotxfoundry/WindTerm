@@ -1,5 +1,6 @@
 #include "TerminalView.h"
 
+#include <QContextMenuEvent>
 #include <QFont>
 #include <QHBoxLayout>
 #include <QKeyEvent>
@@ -98,6 +99,8 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
         edit->setFrameShape(QFrame::NoFrame);
         edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         edit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        // 右键交回 TerminalView::contextMenuEvent：NoContextMenu 使 QPlainTextEdit 不自弹标准菜单而冒泡到父
+        edit->setContextMenuPolicy(Qt::NoContextMenu);
     }
     // gui.theme:863（dige-black 默认主题）TextView > QAbstractScrollArea QScrollBar:vertical{width:16px}，原版终端区有滚动条
     m_main->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -169,6 +172,12 @@ TerminalView::~TerminalView()
     delete m_screen;
 }
 
+void TerminalView::sendText(const QString &text)
+{
+    if (m_session)
+        m_session->write(text.toUtf8());
+}
+
 void TerminalView::renderScreen()
 {
     QString html;
@@ -225,6 +234,13 @@ void TerminalView::resizeEvent(QResizeEvent *event)
         // TODO: 用字体 metrics 精确估算 rows/cols，F1 先固定 24x80
         m_session->resize(24, 80);
     }
+}
+
+// 0x84005a/0x834f2c：原版按事件位置 + 修饰键弹 pane 菜单，节名由 MainWindow 拼 "View Popup"
+void TerminalView::contextMenuEvent(QContextMenuEvent *event)
+{
+    emit contextMenuRequested(event->globalPos(), event->modifiers());
+    event->accept();
 }
 
 void TerminalView::appendSystemMessage(const QString &text)

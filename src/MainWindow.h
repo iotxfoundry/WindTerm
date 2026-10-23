@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QPoint>
 
 #include "core/LocaleManager.h"
 #include "core/MenuConfig.h"
@@ -22,6 +23,7 @@ class MuxPaneGroup;
 class QuickBar;
 class SearchPane;
 class SessionPane;
+class TerminalView;
 class TransferBar;
 
 class MainWindow : public QMainWindow
@@ -52,6 +54,8 @@ private:
     QWidget *paneHost(QWidget *pane);
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
     void showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods);
+    // TerminalView::contextMenuRequested 落点：sender() 即 view（UniqueConnection 去重连）
+    void onTerminalContextMenu(const QPoint &globalPos, Qt::KeyboardModifiers mods);
     QAction *makeAction(const QString &actionId);
     static QString displayActionText(const QString &en, const QString &translated);
     void createCentral();

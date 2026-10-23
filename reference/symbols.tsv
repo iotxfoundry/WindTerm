@@ -7670,3 +7670,10 @@
 0x005dd6fc	reopen_history_save	reopen.history 写(QFile WriteOnly);0x76073a 汇总每窗口 blob
 0x008d2f7e	KitWindow_restoreStartupSessions	启动恢复:settings "kit.startupSessions"=="LastSessions" 才按 blob 恢复各 view 标签/会话,否则默认窗口;损坏回退 0x75e3fe
 0x008cf0c8	KitWindow_saveStartupSessions	仅模式==LastSessions 时把视图/会话列表嵌入每窗口 blob(0x76073a 汇总)
+# —— reopen.history 布局持久化批（622B 真实样例逐字段对齐,2026-10-23）——
+0x007669b2	KitWindow_saveStateBlob	每窗口状态:pageCount+currentIndex+每页(pageName QString+pageBlob QBA);样例 539B
+0x008cf0c8	KitPane_savePageBlob	页 blob:innerMagic+docksBlob+rightBlob(BFS 树 marker 1=子splitter/2=tab组)+barsBlob(3 bool MenuBar/StatusBar/ToolBar)+子类尾块 5B(vtbl+0x248 钩子,语义未明)
+0x008bbab6	TabGroup_saveTabList	tab 列表:current+count+每 view(QString url "$<uuid>"+viewState+QColor+RenamedTitle);NoSessions 时为 null
+0x008bb3e6	TabGroup_loadTabList	tab 列表读(与 save 对称)
+0x008d2e46	KitPane_rebuildView	按 pageName 建视图+入 tab+vtbl[0x60](url);uuid 查不到标 Error/Discarded
+0x00833db4	TerminalView_openUrl	QUuid($uuid)→s_session_uuid_810056 查 user.sessions→写+0x1b0 投递打开信号(真重连非仅 UI)
