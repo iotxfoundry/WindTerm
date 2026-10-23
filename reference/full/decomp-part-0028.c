@@ -444,7 +444,7 @@ undefined4 FUN_008bbe50(long param_1,long *param_2,undefined1 param_3)
   FUN_0091b2a4(lVar5,local_48);
   QVariant::~QVariant(local_48);
                     /* try { // try from 008bbf31 to 008bbf45 has its CatchHandler @ 008bc15d */
-  FUN_005ab2cc(*(undefined8 *)(param_1 + 0x38),iVar4,1);
+  TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x38),iVar4,1);
   FUN_0089e148(local_58,param_1);
                     /* try { // try from 008bbf4c to 008bbf50 has its CatchHandler @ 008bc17d */
   QVariant::QVariant(local_48,local_68);
@@ -22181,7 +22181,7 @@ void FUN_008d9fe0(long param_1,QWidget *param_2)
   if (iVar1 == -1) {
     return;
   }
-  FUN_005ab2cc(*(undefined8 *)(param_1 + 0x30),iVar1,0);
+  TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x30),iVar1,0);
   QWidget::setParent(param_2);
   return;
 }
@@ -23963,7 +23963,7 @@ void FUN_008dc656(long param_1,int param_2,int param_3)
   undefined1 local_28 [8];
   
   if (*(char *)(param_1 + 0x48) == '\0') {
-    FUN_005ab2cc(*(undefined8 *)(param_1 + 0x30),param_3,1);
+    TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x30),param_3,1);
     return;
   }
   if (param_3 == -1) {
@@ -24475,7 +24475,7 @@ LAB_008dd466:
     if (iVar1 != 0x4000) {
       return;
     }
-    FUN_005ab2cc(*(undefined8 *)(param_1 + 0x30),param_2,1);
+    TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x30),param_2,1);
     return;
   }
   if (*(int *)(lVar2 + 0x50) == -1) {
@@ -24790,7 +24790,7 @@ LAB_008dd466:
     if (iVar1 != 0x4000) {
       return;
     }
-    FUN_005ab2cc(*(undefined8 *)(param_1 + 0x30),param_2,1);
+    TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x30),param_2,1);
     return;
   }
   if (*(int *)(lVar2 + 0x50) == -1) {
@@ -25998,7 +25998,7 @@ void FUN_008dedae(long param_1,QWidget *param_2)
   if (iVar1 == -1) {
     return;
   }
-  FUN_005ab2cc(*(undefined8 *)(param_1 + 0x38),iVar1,0);
+  TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x38),iVar1,0);
   QWidget::setParent(param_2);
   return;
 }
@@ -26645,7 +26645,7 @@ joined_r0x008df807:
   }
   iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x38),param_2);
   if (iVar1 != -1) {
-    FUN_005ab2cc(*(undefined8 *)(param_1 + 0x38),iVar1,1);
+    TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x38),iVar1,1);
   }
   iVar1 = FUN_005abbda(*(undefined8 *)(param_1 + 0x38));
   if (iVar1 != 0) {
@@ -27335,7 +27335,7 @@ void FUN_008e01b6(long param_1,long param_2)
 
 {
   if (param_2 != 0) {
-    FUN_005a29e6(*(undefined8 *)(param_1 + 0x70));
+    Splitter_cleanupEmptyTree(*(undefined8 *)(param_1 + 0x70));
     return;
   }
   return;

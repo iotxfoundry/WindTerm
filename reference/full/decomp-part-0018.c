@@ -18553,9 +18553,9 @@ void FUN_005a2314(QWidget *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=005a236c name=FUN_005a236c size=90 ====
+// ==== entry=005a236c orig=FUN_005a236c size=90 name=TabGroup_restoreFocus ====
 
-void FUN_005a236c(undefined8 param_1,long param_2)
+void TabGroup_restoreFocus(undefined8 param_1,long param_2)
 
 {
   long lVar1;
@@ -18617,10 +18617,10 @@ void FUN_005a23d0(undefined8 param_1,long param_2,long param_3)
   QSplitter::replaceWidget((int)pQVar3,(QWidget *)(ulong)uVar1);
   QSplitter::replaceWidget((int)pQVar4,(QWidget *)(ulong)uVar2);
   if (param_2 == lVar5) {
-    FUN_005a236c(param_1,param_2);
+    TabGroup_restoreFocus(param_1,param_2);
   }
   else if (param_3 == lVar5) {
-    FUN_005a236c(param_1,param_3);
+    TabGroup_restoreFocus(param_1,param_3);
   }
                     /* WARNING: Could not recover jumptable at 0x005a24cb. Too many branches */
                     /* WARNING: Treating indirect jump as call */
@@ -18716,7 +18716,7 @@ void FUN_005a2518(long param_1,long *param_2,char param_3)
     }
   }
                     /* try { // try from 005a2602 to 005a2606 has its CatchHandler @ 005a2769 */
-  FUN_005a236c(param_1,param_2);
+  TabGroup_restoreFocus(param_1,param_2);
   if (local_58 != '\0') {
     if (local_40 == (code *)0x0) {
                     /* WARNING: Subroutine does not return */
@@ -18805,7 +18805,7 @@ void King__insertPane(undefined8 param_1,long param_2,long param_3,uint param_4)
         *puVar5 = local_40[0][(lVar7 + (int)uVar1) * 2 + 4];
       }
       QSplitter::setSizes(pQVar4);
-      FUN_005a236c(param_1,param_3);
+      TabGroup_restoreFocus(param_1,param_3);
       qlist_unref_dispose(local_40);
     }
     return;
@@ -18814,9 +18814,9 @@ void King__insertPane(undefined8 param_1,long param_2,long param_3,uint param_4)
 }
 
 
-// ==== entry=005a29e6 name=FUN_005a29e6 size=690 ====
+// ==== entry=005a29e6 orig=FUN_005a29e6 size=690 name=Splitter_cleanupEmptyTree ====
 
-void FUN_005a29e6(QWidget *param_1,QWidget *param_2)
+void Splitter_cleanupEmptyTree(QWidget *param_1,QWidget *param_2)
 
 {
   char cVar1;
@@ -18845,7 +18845,7 @@ void FUN_005a29e6(QWidget *param_1,QWidget *param_2)
         (**(code **)(*(long *)param_2 + 0x20))(param_2);
         iVar3 = QSplitter::count();
         if (iVar3 == 0) {
-          FUN_005a29e6(param_1,pQVar5);
+          Splitter_cleanupEmptyTree(param_1,pQVar5);
         }
         else {
           iVar3 = QSplitter::count();
@@ -18855,14 +18855,14 @@ void FUN_005a29e6(QWidget *param_1,QWidget *param_2)
                (pQVar6 = (QWidget *)
                          __dynamic_cast(*(long *)(*(long *)(pQVar5 + 8) + 0x10),&QObject::typeinfo,
                                         &QSplitter::typeinfo,0), pQVar6 == (QWidget *)0x0)) {
-              FUN_005a236c(param_1,pQVar5);
+              TabGroup_restoreFocus(param_1,pQVar5);
             }
             else {
               uVar7 = QSplitter::widget(iVar8);
               uVar4 = QSplitter::indexOf(pQVar6);
               QSplitter::replaceWidget((int)pQVar6,(QWidget *)(ulong)uVar4);
               QObject::deleteLater();
-              FUN_005a236c(param_1,uVar7);
+              TabGroup_restoreFocus(param_1,uVar7);
             }
           }
           else {
@@ -18903,7 +18903,7 @@ void FUN_005a29e6(QWidget *param_1,QWidget *param_2)
               QListData::remove((int)local_40);
             }
             QSplitter::setSizes(pQVar5);
-            FUN_005a236c(param_1,uVar7);
+            TabGroup_restoreFocus(param_1,uVar7);
           }
         }
       }
@@ -25072,9 +25072,9 @@ void FUN_005ab2c2(long param_1,int param_2)
 }
 
 
-// ==== entry=005ab2cc name=FUN_005ab2cc size=73 ====
+// ==== entry=005ab2cc orig=FUN_005ab2cc size=73 name=TabGroup_closeAndRemoveView ====
 
-void FUN_005ab2cc(long param_1,undefined8 param_2,char param_3)
+void TabGroup_closeAndRemoveView(long param_1,undefined8 param_2,char param_3)
 
 {
   long lVar1;
@@ -26519,17 +26519,17 @@ void FUN_005ac998(undefined8 param_1)
   while( true ) {
     iVar1 = FUN_005abbda(param_1);
     if (iVar1 == 0) break;
-    FUN_005ab2cc(param_1,0,1);
+    TabGroup_closeAndRemoveView(param_1,0,1);
   }
   return;
 }
 
 
-// ==== entry=005ac9bc name=FUN_005ac9bc size=205 ====
+// ==== entry=005ac9bc orig=FUN_005ac9bc size=205 name=TabGroup_closeWithConfirm ====
 
 /* WARNING: Removing unreachable block (ram,0x005aca7f) */
 
-undefined8 * FUN_005ac9bc(undefined8 *param_1,long param_2,undefined4 param_3)
+undefined8 * TabGroup_closeWithConfirm(undefined8 *param_1,long param_2,undefined4 param_3)
 
 {
   QArrayData *pQVar1;

@@ -28521,12 +28521,12 @@ LAB_0090a617:
     s_TabTargetTitle_738346(param_1,&local_28);
     goto LAB_0090a3ca;
   case 0xe:
-    FUN_007371c0(param_1,param_4[1]);
+    Session_requestStopAndWait(param_1,param_4[1]);
     break;
   case 0xf:
     local_28 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0090a3c5 to 0090a3c9 has its CatchHandler @ 0090a739 */
-    FUN_007371c0(param_1,&local_28);
+    Session_requestStopAndWait(param_1,&local_28);
 LAB_0090a3ca:
     if (*(int *)local_28 != 0) {
       if (*(int *)local_28 == -1) {

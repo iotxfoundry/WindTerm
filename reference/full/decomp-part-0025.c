@@ -41482,9 +41482,9 @@ undefined8 FUN_00806904(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00806958 name=FUN_00806958 size=80 ====
+// ==== entry=00806958 orig=FUN_00806958 size=80 name=SessionStore_saveFile ====
 
-undefined1 FUN_00806958(long param_1)
+undefined1 SessionStore_saveFile(long param_1)
 
 {
   undefined1 uVar1;
@@ -41534,7 +41534,7 @@ undefined4 s_session_uuid_8069b0(undefined8 param_1,undefined8 param_2,char para
       uVar2 = 1;
     }
     else {
-      uVar2 = FUN_00806958(param_1);
+      uVar2 = SessionStore_saveFile(param_1);
     }
   }
   qt_array_data_unref(&local_a0);
@@ -44947,7 +44947,7 @@ LAB_0080cb9b:
       local_dc = local_dc + 1;
     } while (iVar6 != local_dc);
     if (local_a9 != '\0') {
-      uVar7 = FUN_00806958(param_1);
+      uVar7 = SessionStore_saveFile(param_1);
       return uVar7;
     }
   }
@@ -48307,7 +48307,7 @@ undefined4 s_application_masterPassword_81306a(long param_1,QString *param_2,QSt
             iVar7 = iVar7 + 1;
           } while (iVar5 != iVar7);
         }
-        uVar4 = FUN_00806958(local_e8);
+        uVar4 = SessionStore_saveFile(local_e8);
         if ((char)uVar4 == '\0') {
           json_value_copy_ctor(local_68,(QVariant *)&local_98);
                     /* try { // try from 008135d0 to 008135d4 has its CatchHandler @ 00813674 */
@@ -50071,7 +50071,7 @@ uint CTerminalConfig_h816cae(undefined8 param_1,undefined8 param_2)
   if ((char)uVar2 == '\0') {
     return uVar2;
   }
-  FUN_00806958(param_1);
+  SessionStore_saveFile(param_1);
   return uVar2;
 }
 

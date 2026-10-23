@@ -75572,7 +75572,7 @@ void FUN_008b83dc(long param_1,int param_2)
   if (param_2 == -1) {
     return;
   }
-  FUN_005ab2cc(*(undefined8 *)(param_1 + 0x30),param_2,0);
+  TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x30),param_2,0);
   return;
 }
 
@@ -77225,7 +77225,7 @@ void FUN_008b9d66(long param_1,undefined8 param_2)
   if (iVar2 == -1) {
     return;
   }
-  FUN_005ab2cc(*(undefined8 *)(param_1 + 0x38),iVar2,0);
+  TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x38),iVar2,0);
   uVar1 = widget_findAncestorPane(param_1);
   FUN_0089e148(local_38,param_1);
                     /* try { // try from 008b9dbc to 008b9dc0 has its CatchHandler @ 008b9dea */

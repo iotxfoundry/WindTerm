@@ -57,3 +57,9 @@
 - ConnectDialog + 地址栏 `ssh [user@]host[:port]` 解析接线
 - Session 基类解耦（Local/Ssh 共用 TerminalView）
 - 已知缺口（F4 处理）：首连不验证主机密钥（MITM 窗口）；connect/auth 阻塞 GUI ≤5s；关标签不销毁会话；仅密码认证
+
+## F4 完成记录（2026-10-23）
+- 关标签销毁链：确认框(0x008df6c0)→view close+deleteLater(0x005ab2cc)→Session::close()（LocalSession=pty stop；SshSession=channel/ssh teardown）→session deleteLater；焦点恢复；组保留无空态
+- user.sessions 只读：SessionStore（启动读 ~/.wind profile，写盘挂账+profile 隔离决策）；SessionPane 分组树+双击连 SSH（真数据验证）
+- selfcheck：开标签→关标签→QPointer 失效断言
+- 缺口：新建/编辑会话（写盘）、reopen.history 二进制格式（Qt 序列化，后续）、tmux 面板 kill-pane 分支

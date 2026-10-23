@@ -60690,9 +60690,9 @@ void FUN_007357ba(undefined8 param_1,int param_2)
 }
 
 
-// ==== entry=00735858 name=FUN_00735858 size=188 ====
+// ==== entry=00735858 orig=FUN_00735858 size=188 name=TabBar_sessionFromTabData ====
 
-undefined8 FUN_00735858(long param_1,int param_2)
+undefined8 TabBar_sessionFromTabData(long param_1,int param_2)
 
 {
   int iVar1;
@@ -60745,7 +60745,7 @@ void SenderPane_dtor(QWidget *param_1)
     if (0 < iVar1) {
       iVar3 = 0;
       do {
-        lVar2 = FUN_00735858(param_1,iVar3);
+        lVar2 = TabBar_sessionFromTabData(param_1,iVar3);
         if (lVar2 != 0) {
           *(undefined1 *)(lVar2 + 0x30) = 1;
           QThread::wait(lVar2,0x7fffffffffffffff,0x100000000);
@@ -60804,7 +60804,7 @@ bool FUN_007359e8(undefined8 param_1)
   if (iVar1 == -1) {
     return false;
   }
-  lVar2 = FUN_00735858(param_1,iVar1);
+  lVar2 = TabBar_sessionFromTabData(param_1,iVar1);
   return lVar2 != 0;
 }
 
@@ -61566,16 +61566,16 @@ LAB_0073719c:
 }
 
 
-// ==== entry=007371c0 name=FUN_007371c0 size=75 ====
+// ==== entry=007371c0 orig=FUN_007371c0 size=75 name=Session_requestStopAndWait ====
 
-void FUN_007371c0(undefined8 param_1)
+void Session_requestStopAndWait(undefined8 param_1)
 
 {
   undefined4 uVar1;
   long lVar2;
   
   uVar1 = FUN_00735686();
-  lVar2 = FUN_00735858(param_1,uVar1);
+  lVar2 = TabBar_sessionFromTabData(param_1,uVar1);
   if (lVar2 != 0) {
     *(undefined1 *)(lVar2 + 0x30) = 1;
     QThread::wait(lVar2,0x7fffffffffffffff,0x100000000);
@@ -61613,9 +61613,9 @@ void FUN_0073720c(long param_1,undefined8 param_2)
       if (iVar5 == 0x10000) {
         return;
       }
-      FUN_007371c0(param_1,param_2);
+      Session_requestStopAndWait(param_1,param_2);
     }
-    FUN_005ab2cc(*(undefined8 *)(param_1 + 0x48),iVar4,1);
+    TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x48),iVar4,1);
     plVar1 = *(long **)(param_1 + 0x48);
     pcVar2 = *(code **)(*plVar1 + 0x68);
     iVar4 = FUN_005abbda(plVar1);
@@ -62037,7 +62037,7 @@ void s_TabTargetTitle_738000(int param_1,void *param_2)
     if (0 < iVar2) {
       iVar5 = 0;
       do {
-        lVar3 = FUN_00735858(*(undefined8 *)((long)param_2 + 0x10),iVar5);
+        lVar3 = TabBar_sessionFromTabData(*(undefined8 *)((long)param_2 + 0x10),iVar5);
         if (lVar3 == *(long *)((long)param_2 + 0x18)) {
           lVar3 = FUN_005abbd0(*(undefined8 *)(*(long *)((long)param_2 + 0x10) + 0x48),iVar5);
           if ((lVar3 != 0) &&

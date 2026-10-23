@@ -34576,7 +34576,7 @@ LAB_006a808c:
     }
     if (bVar22 != 0) {
                     /* try { // try from 006a7f9d to 006a7fa1 has its CatchHandler @ 006a81c2 */
-      FUN_00806958(DAT_011c2200);
+      SessionStore_saveFile(DAT_011c2200);
     }
   }
   if (*local_88 == 0) {
@@ -52394,7 +52394,7 @@ LAB_006c0f1a:
         iVar16 = iVar16 + 1;
       } while (iVar4 != iVar16);
       if (local_9d != 0) {
-        FUN_00806958(DAT_011c2200);
+        SessionStore_saveFile(DAT_011c2200);
       }
     }
   }

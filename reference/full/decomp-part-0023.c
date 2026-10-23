@@ -5506,7 +5506,7 @@ LAB_00740758:
     if (cVar9 != '\0') {
                     /* try { // try from 00740780 to 00740796 has its CatchHandler @ 0074108d */
       QTreeView::sortByColumn(*(undefined8 *)(param_1 + 0x48),0,0);
-      FUN_00806958(DAT_011c2200);
+      SessionStore_saveFile(DAT_011c2200);
       pNVar14 = local_160;
     }
   }
@@ -5950,7 +5950,7 @@ LAB_00741b29:
         } while (pNVar4 != pNVar10);
         if (cVar6 != '\0') {
           sessions_move_to_group(param_1);
-          FUN_00806958(DAT_011c2200);
+          SessionStore_saveFile(DAT_011c2200);
         }
       }
     }
@@ -16448,7 +16448,7 @@ LAB_00750e69:
     puVar4 = *(uint **)(param_1 + 0x58);
   }
 LAB_00750e50:
-  FUN_005ab2cc(*(undefined8 *)(param_1 + 0x48),param_2,1);
+  TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x48),param_2,1);
   return;
 }
 

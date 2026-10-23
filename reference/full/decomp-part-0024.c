@@ -34326,9 +34326,9 @@ void FUN_007c7e7a(long param_1)
 }
 
 
-// ==== entry=007c7e8e name=FUN_007c7e8e size=83 ====
+// ==== entry=007c7e8e orig=FUN_007c7e8e size=83 name=SessionThread_stop ====
 
-void FUN_007c7e8e(long param_1)
+void SessionThread_stop(long param_1)
 
 {
   char cVar1;
@@ -34357,7 +34357,7 @@ void SessionThread_dtor(QObject *param_1)
     QObject::deleteLater();
     *(undefined8 *)(param_1 + 0x10) = 0;
   }
-  FUN_007c7e8e(param_1);
+  SessionThread_stop(param_1);
   if (*(long *)(param_1 + 0x18) != 0) {
     QObject::deleteLater();
     *(undefined8 *)(param_1 + 0x18) = 0;
@@ -34394,7 +34394,7 @@ void FUN_007c7f4a(QObject *param_1,QThread *param_2)
   undefined8 local_40;
   
   if (*(QThread **)(param_1 + 0x10) != param_2) {
-    FUN_007c7e8e();
+    SessionThread_stop();
     if (*(long *)(param_1 + 0x10) != 0) {
       QObject::deleteLater();
     }
