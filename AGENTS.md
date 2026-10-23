@@ -115,3 +115,7 @@ thiscall 原型的正确做法：按需对**单个函数**用 Ghidra setSignatur
 
 21. **dlopen 调 C++ 成员/构造函数的 ABI**：构造函数隐含 this（RDI）——须预分配对象内存显式传 this；按普通函数指针调用会把对象写进参数内存段错误。
 22. dlsym 的 mangled 名逐字符计数易错（elementExists=13、boundsOnElement=15、QRectF=6QRectF）——务必 nm 校验。
+
+## 实现对齐铁律（用户指令 2026-10-23）
+- **禁止语义近似自造**：界面/行为实现前，必须先逐函数逆明原版对应实现（控件创建顺序、连接时序、数据流、分支分派），按逆明结构照搬；"语义等效""合理近似"不允许。
+- 逆明深度不足的项（如 statusbar applet、QuickBar 渲染链、view 连接时序、pane 工具栏时序）标记为未对齐，优先补逆再改码。
