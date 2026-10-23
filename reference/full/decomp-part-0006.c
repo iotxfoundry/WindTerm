@@ -2917,7 +2917,7 @@ void FUN_004d4a06(void)
 
 {
   qt_shared_data_unref();
-  RemoteFileSystemModel_h626248();
+  FUN_00626248();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }

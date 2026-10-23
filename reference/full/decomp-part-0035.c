@@ -294,11 +294,11 @@ undefined8 FUN_00a836f8(long param_1,undefined1 param_2)
 }
 
 
-// ==== entry=00a83710 orig=FUN_00a83710 size=76 name=CGlobalConfig_ha83710 ====
+// ==== entry=00a83710 name=FUN_00a83710 size=76 ====
 
 /* WARNING: Removing unreachable block (ram,0x00a8374e) */
 
-void CGlobalConfig_ha83710(void)
+void FUN_00a83710(void)
 
 {
   int iVar1;
@@ -1209,10 +1209,9 @@ FUN_00a84376(undefined8 param_1,undefined8 param_2,undefined4 param_3,undefined8
       puVar5 = (uint *)((long)puVar4 + 6);
       uVar3 = uVar3 >> 0x10;
     }
-    std::string::s_basic_string__assign_65a9ea
-              (param_6,(char *)local_98,
-               (ulong)((long)puVar5 +
-                      ((-3 - (ulong)CARRY1((byte)uVar3,(byte)uVar3)) - (long)local_98)));
+    std::string::assign(param_6,(char *)local_98,
+                        (ulong)((long)puVar5 +
+                               ((-3 - (ulong)CARRY1((byte)uVar3,(byte)uVar3)) - (long)local_98)));
     uVar6 = 0;
   }
   pthread_mutex_unlock((pthread_mutex_t *)&DAT_011c2920);
@@ -1236,7 +1235,7 @@ FUN_00a84492(undefined8 *param_1,undefined8 param_2,undefined8 param_3,undefined
                     /* try { // try from 00a844c6 to 00a844ca has its CatchHandler @ 00a84504 */
   puVar2 = operator_new(0x20);
   puVar2[1] = 0x100000001;
-  *puVar2 = &PTR_Uint32Bimap_vt15_011b0b70;
+  *puVar2 = &PTR_FUN_011b0b70;
   puVar2[2] = thunk_FUN_00b39640;
   puVar2[3] = uVar1;
   param_1[1] = puVar2;
@@ -1394,8 +1393,7 @@ FUN_00a84740(char *param_1,long param_2,int param_3,int *param_4,undefined8 para
       if (*(long *)(*(long *)(*param_6 + 8) + (long)local_4c * 8) != -1) {
         std::string::string((string *)local_40,param_1,&local_4d);
                     /* try { // try from 00a84832 to 00a84836 has its CatchHandler @ 00a848c1 */
-        std::string::s_basic_string__basic_string_5fac8a
-                  ((string *)&local_48,(string *)local_40,0,param_2 - (long)param_1);
+        std::string::string((string *)&local_48,(string *)local_40,0,param_2 - (long)param_1);
         if (local_40[0] != &DAT_011c5338) {
           string_rep_release3();
         }
@@ -1477,8 +1475,7 @@ FUN_00a849a5(char *param_1,long param_2,int param_3,undefined4 *param_4,undefine
   
   std::string::string((string *)local_40,param_1,&local_49);
                     /* try { // try from 00a849ef to 00a849f3 has its CatchHandler @ 00a84ad5 */
-  std::string::s_basic_string__basic_string_5fac8a
-            ((string *)&local_48,(string *)local_40,0,param_2 - (long)param_1);
+  std::string::string((string *)&local_48,(string *)local_40,0,param_2 - (long)param_1);
   if (local_40[0] != &DAT_011c5338) {
     string_rep_release3();
   }
@@ -1667,12 +1664,11 @@ LAB_00a84cb0:
             pcVar20 = pcVar14 + 2;
                     /* try { // try from 00a84cb3 to 00a84d59 has its CatchHandler @ 00a8510d */
             std::string::_M_leak((string *)local_98);
-            std::string::s_basic_string__replace_52baa6
+            std::string::replace
                       ((string *)local_98,*(ulong *)(local_98[0] + -0x18),0,pcVar18,
                        (long)pcVar14 - (long)pcVar18);
             std::string::_M_leak((string *)local_98);
-            std::string::s_basic_string__replace_52baa6
-                      ((string *)local_98,*(ulong *)(local_98[0] + -0x18),0,"",0);
+            std::string::replace((string *)local_98,*(ulong *)(local_98[0] + -0x18),0,"",0);
             pcVar13 = (char *)(*(long *)param_2 + *(long *)(*(long *)param_2 + -0x18));
             pcVar11 = pcVar20;
             if (pcVar13 != pcVar20) {
@@ -1693,7 +1689,7 @@ LAB_00a84cb0:
               } while( true );
             }
             std::string::_M_leak((string *)local_98);
-            std::string::s_basic_string__replace_52baa6
+            std::string::replace
                       ((string *)local_98,*(ulong *)(local_98[0] + -0x18),0,pcVar20,
                        (long)pcVar11 - (long)pcVar20);
             goto LAB_00a84d5a;
@@ -2040,9 +2036,9 @@ void FUN_00a855d2(long param_1)
 }
 
 
-// ==== entry=00a855dc orig=FUN_00a855dc size=1 name=Uint32Bimap_vt15 ====
+// ==== entry=00a855dc name=FUN_00a855dc size=1 ====
 
-void Uint32Bimap_vt15(void)
+void FUN_00a855dc(void)
 
 {
   return;
@@ -4016,7 +4012,7 @@ void FUN_00a87ade(undefined8 *param_1,string *param_2,undefined8 param_3)
       if ((char)puVar9[3] != ':') {
         FUN_00a8783c(local_40,param_2,puVar9,param_3);
                     /* try { // try from 00a87bae to 00a87c49 has its CatchHandler @ 00a87d69 */
-        std::string::s_basic_string__replace_52baa6
+        std::string::replace
                   (param_2,*puVar9,puVar9[1] - *puVar9,local_40[0],*(ulong *)(local_40[0] + -0x18));
         lVar6 = *(long *)(local_40[0] + -0x18);
         lVar8 = uVar10 - 1;
@@ -4092,13 +4088,13 @@ joined_r0x00a87c23:
 }
 
 
-// ==== entry=00a87d72 orig=FUN_00a87d72 size=1685 name=s_basic_string__substr_a87d72 ====
+// ==== entry=00a87d72 name=FUN_00a87d72 size=1685 ====
 
 /* WARNING: Removing unreachable block (ram,0x00a88382) */
 /* WARNING: Removing unreachable block (ram,0x00a8838d) */
 /* WARNING: Removing unreachable block (ram,0x00a8832b) */
 
-ulong * s_basic_string__substr_a87d72(ulong *param_1,long *param_2,ulong param_3,ulong param_4)
+ulong * FUN_00a87d72(ulong *param_1,long *param_2,ulong param_3,ulong param_4)
 
 {
   int *piVar1;
@@ -5161,8 +5157,8 @@ LAB_00a892c1:
   }
 LAB_00a88da5:
                     /* try { // try from 00a88dca to 00a88dce has its CatchHandler @ 00a898dd */
-  std::string::s_basic_string__insert_5fdc00
-            ((string *)local_d8,(local_1b0 - *plVar13) + *puVar25,(char *)local_58,local_58[-3]);
+  std::string::insert((string *)local_d8,(local_1b0 - *plVar13) + *puVar25,(char *)local_58,
+                      local_58[-3]);
   local_1b0 = local_1b0 + local_58[-3];
   if (local_58 + -3 != &std::string::_Rep::_S_empty_rep_storage) {
     LOCK();
@@ -5733,7 +5729,7 @@ void FUN_00a8a857(long param_1,long param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=00a8a99e orig=FUN_00a8a99e size=2081 name=s_basic_string__erase_a8a99e ====
+// ==== entry=00a8a99e name=FUN_00a8a99e size=2081 ====
 
 /* WARNING: Removing unreachable block (ram,0x00a8ad6d) */
 /* WARNING: Removing unreachable block (ram,0x00a8b141) */
@@ -5742,7 +5738,7 @@ void FUN_00a8a857(long param_1,long param_2,undefined8 param_3,long param_4)
 /* WARNING: Removing unreachable block (ram,0x00a8b14b) */
 /* WARNING: Removing unreachable block (ram,0x00a8b0f5) */
 
-void s_basic_string__erase_a8a99e(string *param_1)
+void FUN_00a8a99e(string *param_1)
 
 {
   int *piVar1;
@@ -5834,7 +5830,7 @@ LAB_00a8aadc:
             }
 LAB_00a8ac3e:
             if (uVar13 == 0xffffffffffffffff) goto LAB_00a8acef;
-            s_basic_string__substr_a87d72(&local_b8,param_1,uVar13,uVar14);
+            FUN_00a87d72(&local_b8,param_1,uVar13,uVar14);
             local_a8 = (void *)(((long)local_68 - (long)local_78 >> 3) +
                                (((long)local_40 - (long)local_60 >> 3) + -1) * 0x40 +
                                ((long)local_58 - (long)local_50 >> 3));
@@ -6123,7 +6119,7 @@ void FUN_00a8b1dc(undefined8 *param_1,undefined8 *param_2)
   param_1[3] = 0;
   param_1[4] = 0;
                     /* try { // try from 00a8b22d to 00a8b239 has its CatchHandler @ 00a8b2dd */
-  s_basic_string__erase_a8a99e(param_1);
+  FUN_00a8a99e(param_1);
   FUN_00a88430(param_1);
   return;
 }
@@ -9474,7 +9470,7 @@ LAB_00a8f2ed:
         }
       }
       gapbuf_styleRange(&local_58,local_6c,lVar10,lVar8);
-      Uint8RunStyles_vt15(*(undefined8 *)(lVar2 + 0x20),lVar13,lVar7);
+      FUN_0088f430(*(undefined8 *)(lVar2 + 0x20),lVar13,lVar7);
       lVar8 = (*(long *)(lVar2 + 0x10) - lVar7) * 2;
       lVar7 = lVar8 >> 1;
       *(int *)(lVar2 + 0x10) = (int)lVar7;
@@ -11638,9 +11634,9 @@ void FUN_00a92656(undefined8 *param_1,long *param_2)
 }
 
 
-// ==== entry=00a9267a orig=FUN_00a9267a size=326 name=CSuperBufferBase_ha9267a ====
+// ==== entry=00a9267a name=FUN_00a9267a size=326 ====
 
-void CSuperBufferBase_ha9267a(undefined8 *param_1,long param_2,char param_3)
+void FUN_00a9267a(undefined8 *param_1,long param_2,char param_3)
 
 {
   long lVar1;
@@ -11804,9 +11800,9 @@ undefined8 bytestream_nextChar(undefined8 *param_1)
 }
 
 
-// ==== entry=00a9296c orig=FUN_00a9296c size=272 name=CSuperBufferBase_ha9296c ====
+// ==== entry=00a9296c name=FUN_00a9296c size=272 ====
 
-undefined8 CSuperBufferBase_ha9296c(undefined8 *param_1)
+undefined8 FUN_00a9296c(undefined8 *param_1)
 
 {
   long lVar1;
@@ -56949,11 +56945,11 @@ LAB_00ae13fe:
                     /* try { // try from 00ae1439 to 00ae143d has its CatchHandler @ 00ae194d */
     std::string::string((string *)&local_c0,(char *)local_b8,&local_c2);
                     /* try { // try from 00ae144f to 00ae1453 has its CatchHandler @ 00ae1945 */
-    plVar6 = (long *)std::string::s_basic_string__insert_5fdc00((string *)&local_c0,0,"* ",2);
+    plVar6 = (long *)std::string::insert((string *)&local_c0,0,"* ",2);
     local_b8[0] = (undefined1 *)*plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae1472 to 00ae1476 has its CatchHandler @ 00ae193d */
-    plVar6 = (long *)std::string::s_basic_string__append_5fd166((string *)local_b8,"\n",1);
+    plVar6 = (long *)std::string::append((string *)local_b8,"\n",1);
     local_78[0] = *plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae148e to 00ae1492 has its CatchHandler @ 00ae1985 */
@@ -56993,10 +56989,10 @@ LAB_00ae13fe:
     local_b8[0] = &DAT_011c5338;
                     /* try { // try from 00ae14f3 to 00ae1518 has its CatchHandler @ 00ae197d */
     std::string::reserve((string *)local_b8,*(long *)(*(long *)(lVar13 + 0x18) + -0x18) + 2);
-    std::string::s_basic_string__append_5fd166((string *)local_b8,"  ",2);
+    std::string::append((string *)local_b8,"  ",2);
     std::string::append((string *)local_b8,(string *)(lVar13 + 0x18));
                     /* try { // try from 00ae1528 to 00ae152c has its CatchHandler @ 00ae1975 */
-    plVar6 = (long *)std::string::s_basic_string__append_5fd166((string *)local_b8,"\n",1);
+    plVar6 = (long *)std::string::append((string *)local_b8,"\n",1);
     local_78[0] = *plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae1544 to 00ae1548 has its CatchHandler @ 00ae196d */
@@ -57066,13 +57062,11 @@ LAB_00ae15dd:
                     /* try { // try from 00ae1618 to 00ae161c has its CatchHandler @ 00ae194d */
       std::string::string((string *)&local_c0,(char *)local_78,&local_c1);
                     /* try { // try from 00ae162e to 00ae1632 has its CatchHandler @ 00ae1955 */
-      puVar8 = (undefined8 *)
-               std::string::s_basic_string__insert_5fdc00((string *)&local_c0,0,"See ",4);
+      puVar8 = (undefined8 *)std::string::insert((string *)&local_c0,0,"See ",4);
       local_b8[0] = (undefined1 *)*puVar8;
       *puVar8 = &DAT_011c5338;
                     /* try { // try from 00ae1651 to 00ae1655 has its CatchHandler @ 00ae1965 */
-      plVar6 = (long *)std::string::s_basic_string__append_5fd166
-                                 ((string *)local_b8," for detail.\n",0xd);
+      plVar6 = (long *)std::string::append((string *)local_b8," for detail.\n",0xd);
       local_78[0] = *plVar6;
       *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae166d to 00ae1671 has its CatchHandler @ 00ae195d */
@@ -57992,11 +57986,11 @@ LAB_00ae284e:
                     /* try { // try from 00ae2889 to 00ae288d has its CatchHandler @ 00ae2d9d */
     std::string::string((string *)&local_c0,(char *)local_b8,&local_c2);
                     /* try { // try from 00ae289f to 00ae28a3 has its CatchHandler @ 00ae2d95 */
-    plVar6 = (long *)std::string::s_basic_string__insert_5fdc00((string *)&local_c0,0,"* ",2);
+    plVar6 = (long *)std::string::insert((string *)&local_c0,0,"* ",2);
     local_b8[0] = (undefined1 *)*plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae28c2 to 00ae28c6 has its CatchHandler @ 00ae2d8d */
-    plVar6 = (long *)std::string::s_basic_string__append_5fd166((string *)local_b8,"\n",1);
+    plVar6 = (long *)std::string::append((string *)local_b8,"\n",1);
     local_78[0] = *plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae28de to 00ae28e2 has its CatchHandler @ 00ae2dd5 */
@@ -58036,10 +58030,10 @@ LAB_00ae284e:
     local_b8[0] = &DAT_011c5338;
                     /* try { // try from 00ae2943 to 00ae2968 has its CatchHandler @ 00ae2dcd */
     std::string::reserve((string *)local_b8,*(long *)(*(long *)(lVar13 + 0x18) + -0x18) + 2);
-    std::string::s_basic_string__append_5fd166((string *)local_b8,"  ",2);
+    std::string::append((string *)local_b8,"  ",2);
     std::string::append((string *)local_b8,(string *)(lVar13 + 0x18));
                     /* try { // try from 00ae2978 to 00ae297c has its CatchHandler @ 00ae2dc5 */
-    plVar6 = (long *)std::string::s_basic_string__append_5fd166((string *)local_b8,"\n",1);
+    plVar6 = (long *)std::string::append((string *)local_b8,"\n",1);
     local_78[0] = *plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae2994 to 00ae2998 has its CatchHandler @ 00ae2dbd */
@@ -58109,13 +58103,11 @@ LAB_00ae2a2d:
                     /* try { // try from 00ae2a68 to 00ae2a6c has its CatchHandler @ 00ae2d9d */
       std::string::string((string *)&local_c0,(char *)local_78,&local_c1);
                     /* try { // try from 00ae2a7e to 00ae2a82 has its CatchHandler @ 00ae2da5 */
-      puVar8 = (undefined8 *)
-               std::string::s_basic_string__insert_5fdc00((string *)&local_c0,0,"See ",4);
+      puVar8 = (undefined8 *)std::string::insert((string *)&local_c0,0,"See ",4);
       local_b8[0] = (undefined1 *)*puVar8;
       *puVar8 = &DAT_011c5338;
                     /* try { // try from 00ae2aa1 to 00ae2aa5 has its CatchHandler @ 00ae2db5 */
-      plVar6 = (long *)std::string::s_basic_string__append_5fd166
-                                 ((string *)local_b8," for detail.\n",0xd);
+      plVar6 = (long *)std::string::append((string *)local_b8," for detail.\n",0xd);
       local_78[0] = *plVar6;
       *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae2abd to 00ae2ac1 has its CatchHandler @ 00ae2dad */
@@ -58587,7 +58579,7 @@ ulong jsoncpp_readBuilder(long param_1,undefined1 *param_2)
     string_rep_dispose((undefined8 *)(local_98[0] + -0x18),&local_e8);
   }
                     /* try { // try from 00ae3825 to 00ae3829 has its CatchHandler @ 00ae3c7a */
-  s_vector__reserve_af3a20(&local_e8,param_1 + 8);
+  FUN_00af3a20(&local_e8,param_1 + 8);
   lVar16 = (long)local_e0 - (long)local_e8 >> 3;
   if (lVar16 != 0) {
     lVar12 = 0;
@@ -59145,12 +59137,11 @@ undefined4 json_parse_number(undefined8 param_1,long param_2,undefined8 param_3)
       }
     }
                     /* try { // try from 00ae472c to 00ae4730 has its CatchHandler @ 00ae49d5 */
-    plVar6 = (long *)std::string::s_basic_string__insert_5fdc00((string *)&local_1e8,0,"\'",1);
+    plVar6 = (long *)std::string::insert((string *)&local_1e8,0,"\'",1);
     local_1e0 = *plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae474f to 00ae4753 has its CatchHandler @ 00ae49bd */
-    plVar6 = (long *)std::string::s_basic_string__append_5fd166
-                               ((string *)&local_1e0,"\' is not a number.",0x12);
+    plVar6 = (long *)std::string::append((string *)&local_1e0,"\' is not a number.",0x12);
     local_1d8[0] = *plVar6;
     *plVar6 = (long)&DAT_011c5338;
                     /* try { // try from 00ae4772 to 00ae4776 has its CatchHandler @ 00ae49c5 */
@@ -59670,7 +59661,7 @@ LAB_00ae5358:
         }
         local_40[0] = &DAT_011c5338;
         if (local_4c < 0x80) {
-          std::string::s_basic_string__resize_c29f70((string *)local_40,1,'\0');
+          std::string::resize((string *)local_40,1,'\0');
 LAB_00ae56d9:
           bVar8 = (byte)uVar9;
           if (-1 < *(int *)(local_40[0] + -8)) goto LAB_00ae56aa;
@@ -59679,7 +59670,7 @@ LAB_00ae56d9:
         else {
           bVar8 = (byte)local_4c;
           if (local_4c < 0x800) {
-            std::string::s_basic_string__resize_c29f70((string *)local_40,2,'\0');
+            std::string::resize((string *)local_40,2,'\0');
             if (-1 < *(int *)(local_40[0] + -8)) {
               std::string::_M_leak_hard((string *)local_40);
             }
@@ -59691,7 +59682,7 @@ LAB_00ae565b:
           }
           else if (local_4c < 0x10000) {
                     /* try { // try from 00ae5602 to 00ae56d8 has its CatchHandler @ 00ae5829 */
-            std::string::s_basic_string__resize_c29f70((string *)local_40,3,'\0');
+            std::string::resize((string *)local_40,3,'\0');
             if (-1 < *(int *)(local_40[0] + -8)) {
               std::string::_M_leak_hard((string *)local_40);
             }
@@ -59708,7 +59699,7 @@ LAB_00ae56aa:
             *local_40[0] = bVar8;
           }
           else if (local_4c < 0x110000) {
-            std::string::s_basic_string__resize_c29f70((string *)local_40,4,'\0');
+            std::string::resize((string *)local_40,4,'\0');
             if (-1 < *(int *)(local_40[0] + -8)) {
               std::string::_M_leak_hard((string *)local_40);
             }
@@ -60628,7 +60619,7 @@ ulong json_read_value(long param_1)
       lVar3 = *(long *)(*(long *)(param_1 + 0x48) + -8) + 0x200;
     }
     FUN_00af00f0(*(undefined8 *)(lVar3 + -8),(string *)(param_1 + 0xd0),0);
-    std::string::s_basic_string__assign_65a9ea((string *)(param_1 + 0xd0),"",0);
+    std::string::assign((string *)(param_1 + 0xd0),"",0);
   }
   switch(local_68[0]) {
   default:
@@ -60842,7 +60833,7 @@ LAB_00ae7ae8:
     }
     if ((char)uVar7 == '\0') goto LAB_00ae7ae8;
     if ((local_b8[0] == 2) && (*(long *)(local_c8 + -0x18) == 0)) goto LAB_00ae79c8;
-    std::string::s_basic_string__assign_65a9ea((string *)&local_c8,"",0);
+    std::string::assign((string *)&local_c8,"",0);
     if (local_b8[0] == 5) {
       cVar6 = jsoncpp_readString(param_1,local_b8,&local_c8);
       if (cVar6 != '\0') goto LAB_00ae78d0;
@@ -61025,7 +61016,7 @@ FUN_00ae7cc0(long param_1,short *param_2,long param_3,undefined8 param_4,undefin
   *(undefined8 *)(param_1 + 200) = 0;
   *(short **)(param_1 + 0xa8) = param_2;
   *(long *)(param_1 + 0xb0) = param_3;
-  std::string::s_basic_string__assign_65a9ea((string *)(param_1 + 0xd0),"",0);
+  std::string::assign((string *)(param_1 + 0xd0),"",0);
   lVar4 = *(long *)(param_1 + 0x60);
   lVar5 = *(long *)(param_1 + 0x70);
   plVar6 = *(long **)(param_1 + 0x98);
@@ -61568,12 +61559,11 @@ LAB_00ae8e8e:
     }
   }
                     /* try { // try from 00ae8bfc to 00ae8c00 has its CatchHandler @ 00ae8e98 */
-  plVar3 = (long *)std::string::s_basic_string__insert_5fdc00((string *)&local_78,0,"\'",1);
+  plVar3 = (long *)std::string::insert((string *)&local_78,0,"\'",1);
   local_70 = *plVar3;
   *plVar3 = (long)&DAT_011c5338;
                     /* try { // try from 00ae8c1f to 00ae8c23 has its CatchHandler @ 00ae8ea0 */
-  plVar3 = (long *)std::string::s_basic_string__append_5fd166
-                             ((string *)&local_70,"\' is not a number.",0x12);
+  plVar3 = (long *)std::string::append((string *)&local_70,"\' is not a number.",0x12);
   local_68[0] = *plVar3;
   *plVar3 = (long)&DAT_011c5338;
                     /* try { // try from 00ae8c43 to 00ae8c47 has its CatchHandler @ 00ae8eb0 */
@@ -62067,7 +62057,7 @@ LAB_00ae97b8:
         }
         local_40[0] = &DAT_011c5338;
         if (local_4c < 0x80) {
-          std::string::s_basic_string__resize_c29f70((string *)local_40,1,'\0');
+          std::string::resize((string *)local_40,1,'\0');
 LAB_00ae9b39:
           bVar8 = (byte)uVar9;
           if (-1 < *(int *)(local_40[0] + -8)) goto LAB_00ae9b0a;
@@ -62076,7 +62066,7 @@ LAB_00ae9b39:
         else {
           bVar8 = (byte)local_4c;
           if (local_4c < 0x800) {
-            std::string::s_basic_string__resize_c29f70((string *)local_40,2,'\0');
+            std::string::resize((string *)local_40,2,'\0');
             if (-1 < *(int *)(local_40[0] + -8)) {
               std::string::_M_leak_hard((string *)local_40);
             }
@@ -62088,7 +62078,7 @@ LAB_00ae9abb:
           }
           else if (local_4c < 0x10000) {
                     /* try { // try from 00ae9a62 to 00ae9b38 has its CatchHandler @ 00ae9c89 */
-            std::string::s_basic_string__resize_c29f70((string *)local_40,3,'\0');
+            std::string::resize((string *)local_40,3,'\0');
             if (-1 < *(int *)(local_40[0] + -8)) {
               std::string::_M_leak_hard((string *)local_40);
             }
@@ -62105,7 +62095,7 @@ LAB_00ae9b0a:
             *local_40[0] = bVar8;
           }
           else if (local_4c < 0x110000) {
-            std::string::s_basic_string__resize_c29f70((string *)local_40,4,'\0');
+            std::string::resize((string *)local_40,4,'\0');
             if (-1 < *(int *)(local_40[0] + -8)) {
               std::string::_M_leak_hard((string *)local_40);
             }
@@ -62638,7 +62628,7 @@ ulong jsoncpp_readValue(long param_1)
       lVar3 = *(long *)(*(long *)(param_1 + 0x48) + -8) + 0x200;
     }
     FUN_00af00f0(*(undefined8 *)(lVar3 + -8),(string *)(param_1 + 0xd0),0);
-    std::string::s_basic_string__assign_65a9ea((string *)(param_1 + 0xd0),"",0);
+    std::string::assign((string *)(param_1 + 0xd0),"",0);
   }
   switch(local_68[0]) {
   default:
@@ -62914,7 +62904,7 @@ LAB_00aeb540:
     }
     if ((char)uVar7 == '\0') goto LAB_00aeb540;
     if ((local_b8[0] == 2) && (*(long *)(local_c8 + -0x18) == 0)) goto LAB_00aeb408;
-    std::string::s_basic_string__assign_65a9ea((string *)&local_c8,"",0);
+    std::string::assign((string *)&local_c8,"",0);
     if (local_b8[0] == 5) {
       cVar6 = FUN_00ae95d0(param_1,local_b8,&local_c8);
       if (cVar6 != '\0') goto LAB_00aeb2c3;
@@ -62985,10 +62975,10 @@ LAB_00aeb2c3:
         local_48[0] = &DAT_011c5338;
                     /* try { // try from 00aeb6f0 to 00aeb713 has its CatchHandler @ 00aeb7be */
         std::string::reserve((string *)local_48,*(long *)(local_c8 + -0x18) + 0x10);
-        std::string::s_basic_string__append_5fd166((string *)local_48,"Duplicate key: \'",0x10);
+        std::string::append((string *)local_48,"Duplicate key: \'",0x10);
         std::string::append((string *)local_48,(string *)&local_c8);
                     /* try { // try from 00aeb721 to 00aeb725 has its CatchHandler @ 00aeb7d6 */
-        plVar9 = (long *)std::string::s_basic_string__append_5fd166((string *)local_48,"\'",1);
+        plVar9 = (long *)std::string::append((string *)local_48,"\'",1);
         local_c0 = *plVar9;
         *plVar9 = (long)&DAT_011c5338;
         if ((undefined8 *)(local_48[0] + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -63106,7 +63096,7 @@ json_readerParse(long param_1,undefined8 param_2,undefined8 param_3,ulong param_
   *(undefined8 *)(param_1 + 0xb8) = param_2;
   *(undefined8 *)(param_1 + 0xa8) = param_2;
   *(undefined8 *)(param_1 + 0xb0) = param_3;
-  std::string::s_basic_string__assign_65a9ea((string *)(param_1 + 0xd0),"",0);
+  std::string::assign((string *)(param_1 + 0xd0),"",0);
   uVar1 = *(undefined8 *)(param_1 + 0x60);
   local_58 = *(ulong *)(param_1 + 0x60);
   uStack_50 = *(undefined8 *)(param_1 + 0x68);
@@ -63273,13 +63263,13 @@ undefined4 FUN_00aebbc0(long *param_1,long *param_2,undefined8 param_3,string *p
   }
   else if ((ulong)local_178._0_8_ < (ulong)local_168._0_8_) {
                     /* try { // try from 00aebe5d to 00aebe61 has its CatchHandler @ 00aebf6f */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1a8,0,*(ulong *)(local_1a8 + -0x18),(char *)local_178._8_8_,
                local_168._0_8_ - local_178._8_8_);
   }
   else {
                     /* try { // try from 00aebd0e to 00aebd12 has its CatchHandler @ 00aebf6f */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1a8,0,*(ulong *)(local_1a8 + -0x18),(char *)local_178._8_8_,
                local_178._0_8_ - local_178._8_8_);
   }
@@ -63411,13 +63401,13 @@ long * json_readerLogError(long *param_1,undefined8 param_2)
   }
   else if ((ulong)local_178._0_8_ < (ulong)local_168._0_8_) {
                     /* try { // try from 00aec28d to 00aec291 has its CatchHandler @ 00aec416 */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1d8,0,*(ulong *)(local_1d8 + -0x18),(char *)local_178._8_8_,
                local_168._0_8_ - local_178._8_8_);
   }
   else {
                     /* try { // try from 00aec106 to 00aec10a has its CatchHandler @ 00aec416 */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1d8,0,*(ulong *)(local_1d8 + -0x18),(char *)local_178._8_8_,
                local_178._0_8_ - local_178._8_8_);
   }
@@ -69497,7 +69487,7 @@ void FUN_00af39b0(long param_1,undefined8 param_2,long param_3,long *param_4,int
 }
 
 
-// ==== entry=00af3a20 orig=FUN_00af3a20 size=1119 name=s_vector__reserve_af3a20 ====
+// ==== entry=00af3a20 name=FUN_00af3a20 size=1119 ====
 
 /* WARNING: Removing unreachable block (ram,0x00af3e00) */
 /* WARNING: Removing unreachable block (ram,0x00af3e40) */
@@ -69513,7 +69503,7 @@ void FUN_00af39b0(long param_1,undefined8 param_2,long param_3,long *param_4,int
 /* WARNING: Removing unreachable block (ram,0x00af3d2f) */
 /* WARNING: Removing unreachable block (ram,0x00af3cd2) */
 
-undefined1 (*) [16] s_vector__reserve_af3a20(undefined1 (*param_1) [16],long *param_2)
+undefined1 (*) [16] FUN_00af3a20(undefined1 (*param_1) [16],long *param_2)
 
 {
   int *piVar1;
@@ -73267,9 +73257,9 @@ void FUN_00af8a00(long param_1)
 void FUN_00af8a90(long param_1)
 
 {
-  std::string::s_basic_string__resize_c29f70
-            ((string *)(param_1 + 0x28),
-             *(long *)(*(long *)(param_1 + 0x28) + -0x18) - (ulong)*(uint *)(param_1 + 0x34),'\0');
+  std::string::resize((string *)(param_1 + 0x28),
+                      *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
+                      (ulong)*(uint *)(param_1 + 0x34),'\0');
   return;
 }
 
@@ -73295,7 +73285,7 @@ void FUN_00af8ab0(long param_1,undefined8 param_2)
   cVar7 = slot_nonnull_at(param_2,0);
   if (cVar7 != '\0') {
     this = (string *)(param_1 + 0x20);
-    std::string::s_basic_string__append_5fd166(this,"\n",1);
+    std::string::append(this,"\n",1);
     FUN_00af8860(param_1);
     FUN_00aef830(local_40,param_2,0);
     pcVar8 = local_40[0];
@@ -73328,7 +73318,7 @@ void FUN_00af8ab0(long param_1,undefined8 param_2)
       } while (local_40[0] + *(long *)(local_40[0] + -0x18) != pcVar8);
     }
 LAB_00af8bb8:
-    std::string::s_basic_string__append_5fd166(this,"\n",1);
+    std::string::append(this,"\n",1);
     if ((allocator *)(local_40[0] + -0x18) != (allocator *)&std::string::_Rep::_S_empty_rep_storage)
     {
       LOCK();
@@ -73366,7 +73356,7 @@ void FUN_00af8c40(long param_1,undefined8 param_2)
   if (cVar3 != '\0') {
     FUN_00aef830(&local_28,param_2,1);
                     /* try { // try from 00af8c80 to 00af8c84 has its CatchHandler @ 00af8e1b */
-    plVar4 = (long *)std::string::s_basic_string__insert_5fdc00((string *)&local_28,0," ",1);
+    plVar4 = (long *)std::string::insert((string *)&local_28,0," ",1);
     local_20[0] = *plVar4;
     *plVar4 = (long)&DAT_011c5338;
                     /* try { // try from 00af8c9d to 00af8ca1 has its CatchHandler @ 00af8e23 */
@@ -73396,7 +73386,7 @@ void FUN_00af8c40(long param_1,undefined8 param_2)
   cVar3 = slot_nonnull_at(param_2,2);
   if (cVar3 != '\0') {
     this = (string *)(param_1 + 0x20);
-    std::string::s_basic_string__append_5fd166(this,"\n",1);
+    std::string::append(this,"\n",1);
     FUN_00aef830(local_20,param_2,2);
                     /* try { // try from 00af8d20 to 00af8d24 has its CatchHandler @ 00af8e13 */
     std::string::append(this,(string *)local_20);
@@ -73411,7 +73401,7 @@ void FUN_00af8c40(long param_1,undefined8 param_2)
         std::string::_Rep::_M_destroy((allocator *)(local_20[0] + -0x18));
       }
     }
-    std::string::s_basic_string__append_5fd166(this,"\n",1);
+    std::string::append(this,"\n",1);
     return;
   }
   return;
@@ -73493,10 +73483,9 @@ void FUN_00af8f10(long param_1)
 void FUN_00af8f20(long param_1)
 
 {
-  std::string::s_basic_string__resize_c29f70
-            ((string *)(param_1 + 0x20),
-             *(long *)(*(long *)(param_1 + 0x20) + -0x18) -
-             *(long *)(*(long *)(param_1 + 0x30) + -0x18),'\0');
+  std::string::resize((string *)(param_1 + 0x20),
+                      *(long *)(*(long *)(param_1 + 0x20) + -0x18) -
+                      *(long *)(*(long *)(param_1 + 0x30) + -0x18),'\0');
   return;
 }
 
@@ -73714,10 +73703,9 @@ void FUN_00af9310(long param_1)
 void FUN_00af9320(long param_1)
 
 {
-  std::string::s_basic_string__resize_c29f70
-            ((string *)(param_1 + 0x28),
-             *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
-             *(long *)(*(long *)(param_1 + 0x38) + -0x18),'\0');
+  std::string::resize((string *)(param_1 + 0x28),
+                      *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
+                      *(long *)(*(long *)(param_1 + 0x38) + -0x18),'\0');
   return;
 }
 
@@ -73816,7 +73804,7 @@ void FUN_00af94a0(long param_1,undefined8 param_2)
       poVar7 = *(ostream **)(param_1 + 8);
       FUN_00aef830(&local_30,param_2,1);
                     /* try { // try from 00af94f9 to 00af94fd has its CatchHandler @ 00af969f */
-      puVar6 = (undefined8 *)std::string::s_basic_string__insert_5fdc00(&local_30,0," ",1);
+      puVar6 = (undefined8 *)std::string::insert(&local_30,0," ",1);
       pcVar4 = (char *)*puVar6;
       *puVar6 = &DAT_011c5338;
                     /* try { // try from 00af9513 to 00af9517 has its CatchHandler @ 00af96a7 */
@@ -74120,17 +74108,17 @@ void * json_settingsFromMap(long param_1)
   if (cVar2 == '\0') {
     if (*(long *)(local_60 + -0x18) == 0) {
                     /* try { // try from 00af9c16 to 00af9c32 has its CatchHandler @ 00af9dde */
-      std::string::s_basic_string__assign_65a9ea((string *)&local_50,":",1);
+      std::string::assign((string *)&local_50,":",1);
     }
   }
   else {
-    std::string::s_basic_string__assign_65a9ea((string *)&local_50,": ",2);
+    std::string::assign((string *)&local_50,": ",2);
   }
                     /* try { // try from 00af9b2f to 00af9b33 has its CatchHandler @ 00af9dde */
   std::string::string((string *)&local_48,"null",(allocator *)local_40);
   if ((char)uVar4 != '\0') {
                     /* try { // try from 00af9c4b to 00af9c4f has its CatchHandler @ 00af9dce */
-    std::string::s_basic_string__assign_65a9ea((string *)&local_48,"",0);
+    std::string::assign((string *)&local_48,"",0);
   }
   uVar4 = 0x11;
   if (uVar5 < 0x12) {
@@ -74279,13 +74267,11 @@ string * jsoncpp_quoteStr(string *param_1,char *param_2)
           std::string::string((string *)&local_1a0,"\"",&local_1a9);
           sVar8 = strlen(param_2);
                     /* try { // try from 00afa2f5 to 00afa2f9 has its CatchHandler @ 00afa56b */
-          plVar9 = (long *)std::string::s_basic_string__append_5fd166
-                                     ((string *)&local_1a0,param_2,sVar8);
+          plVar9 = (long *)std::string::append((string *)&local_1a0,param_2,sVar8);
           local_198 = (undefined **)*plVar9;
           *plVar9 = (long)&DAT_011c5338;
                     /* try { // try from 00afa318 to 00afa31c has its CatchHandler @ 00afa563 */
-          puVar10 = (undefined8 *)
-                    std::string::s_basic_string__append_5fd166((string *)&local_198,"\"",1);
+          puVar10 = (undefined8 *)std::string::append((string *)&local_198,"\"",1);
           *(undefined8 *)param_1 = *puVar10;
           *puVar10 = &DAT_011c5338;
           if ((allocator *)((long)local_198 + -0x18) !=
@@ -74321,7 +74307,7 @@ string * jsoncpp_quoteStr(string *param_1,char *param_2)
     local_1a8 = &DAT_011c5338;
                     /* try { // try from 00af9ee1 to 00af9ef9 has its CatchHandler @ 00afa57b */
     std::string::reserve((string *)&local_1a8,sVar8 * 2 + 3);
-    std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\"",1);
+    std::string::append((string *)&local_1a8,"\"",1);
     cVar12 = *param_2;
     if (cVar12 != '\0') {
 LAB_00af9f0f:
@@ -74331,13 +74317,13 @@ LAB_00af9f0f:
       do {
         if (bVar13 || SBORROW1(cVar12,'\f') != cVar6 < '\0') {
           if (cVar12 == '\t') {
-            std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\t",2);
+            std::string::append((string *)&local_1a8,"\\t",2);
           }
           else if (cVar12 == '\n') {
-            std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\n",2);
+            std::string::append((string *)&local_1a8,"\\n",2);
           }
           else if (cVar12 == '\b') {
-            std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\b",2);
+            std::string::append((string *)&local_1a8,"\\b",2);
           }
           else {
 LAB_00af9f44:
@@ -74357,14 +74343,14 @@ LAB_00af9f44:
           }
         }
         else if (cVar12 == '\"') {
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\\"",2);
+          std::string::append((string *)&local_1a8,"\\\"",2);
         }
         else if (cVar12 == '\\') {
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\\\",2);
+          std::string::append((string *)&local_1a8,"\\\\",2);
         }
         else {
           if (cVar12 != '\r') goto LAB_00af9f44;
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\r",2);
+          std::string::append((string *)&local_1a8,"\\r",2);
         }
         while( true ) {
           param_2 = param_2 + 1;
@@ -74374,13 +74360,13 @@ LAB_00af9f44:
           bVar13 = cVar6 == '\0';
           if (!bVar13) break;
 LAB_00afa1ff:
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\f",2);
+          std::string::append((string *)&local_1a8,"\\f",2);
         }
       } while( true );
     }
 LAB_00afa180:
                     /* try { // try from 00afa18f to 00afa2a3 has its CatchHandler @ 00afa57b */
-    std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\"",1);
+    std::string::append((string *)&local_1a8,"\"",1);
     *(undefined1 **)param_1 = local_1a8;
   }
   return param_1;
@@ -74439,13 +74425,13 @@ code_r0x00af9f51:
   }
   else if ((ulong)local_178._0_8_ < (ulong)local_168._0_8_) {
                     /* try { // try from 00afa40d to 00afa411 has its CatchHandler @ 00afa55b */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1a0,0,*(ulong *)(local_1a0 + -0x18),(char *)local_178._8_8_,
                local_168._0_8_ - local_178._8_8_);
   }
   else {
                     /* try { // try from 00afa0c7 to 00afa0cb has its CatchHandler @ 00afa55b */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1a0,0,*(ulong *)(local_1a0 + -0x18),(char *)local_178._8_8_,
                local_178._0_8_ - local_178._8_8_);
   }
@@ -74541,13 +74527,13 @@ string * FUN_00afa5a0(string *param_1,long *param_2,undefined8 param_3)
     std::string::assign(param_1,(string *)&local_138);
   }
   else if ((ulong)local_168._0_8_ < (ulong)local_158._0_8_) {
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               (param_1,0,*(ulong *)(*(long *)param_1 + -0x18),(char *)local_168._8_8_,
                local_158._0_8_ - local_168._8_8_);
   }
   else {
                     /* try { // try from 00afa6db to 00afa798 has its CatchHandler @ 00afa7fb */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               (param_1,0,*(ulong *)(*(long *)param_1 + -0x18),(char *)local_168._8_8_,
                local_168._0_8_ - local_168._8_8_);
   }
@@ -74644,13 +74630,11 @@ LAB_00afad87:
       std::string::string((string *)&local_1a0,"\"",&local_1a9);
       sVar8 = strlen((char *)param_2);
                     /* try { // try from 00afadae to 00afadb2 has its CatchHandler @ 00afaf06 */
-      plVar9 = (long *)std::string::s_basic_string__append_5fd166
-                                 ((string *)&local_1a0,(char *)param_2,sVar8);
+      plVar9 = (long *)std::string::append((string *)&local_1a0,(char *)param_2,sVar8);
       local_198 = (undefined **)*plVar9;
       *plVar9 = (long)&DAT_011c5338;
                     /* try { // try from 00afadd1 to 00afadd5 has its CatchHandler @ 00afaf0e */
-      puVar10 = (undefined8 *)
-                std::string::s_basic_string__append_5fd166((string *)&local_198,"\"",1);
+      puVar10 = (undefined8 *)std::string::append((string *)&local_198,"\"",1);
       *(undefined8 *)param_1 = *puVar10;
       *puVar10 = &DAT_011c5338;
       if ((allocator *)((long)local_198 + -0x18) !=
@@ -74690,7 +74674,7 @@ LAB_00afa89a:
     local_1a8 = &DAT_011c5338;
                     /* try { // try from 00afa8ac to 00afa8c4 has its CatchHandler @ 00afaf36 */
     std::string::reserve((string *)&local_1a8,(ulong)(param_3 * 2 + 3));
-    std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\"",1);
+    std::string::append((string *)&local_1a8,"\"",1);
     if (param_2 != pbVar12) {
 LAB_00afa8d6:
       bVar14 = *param_2;
@@ -74700,13 +74684,13 @@ LAB_00afa8d6:
       do {
         if (bVar15 || SBORROW1(bVar14,'\f') != cVar6 < '\0') {
           if (bVar14 == 9) {
-            std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\t",2);
+            std::string::append((string *)&local_1a8,"\\t",2);
           }
           else if (bVar14 == 10) {
-            std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\n",2);
+            std::string::append((string *)&local_1a8,"\\n",2);
           }
           else if (bVar14 == 8) {
-            std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\b",2);
+            std::string::append((string *)&local_1a8,"\\b",2);
           }
           else {
 LAB_00afa90c:
@@ -74726,14 +74710,14 @@ LAB_00afa90c:
           }
         }
         else if (bVar14 == 0x22) {
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\\"",2);
+          std::string::append((string *)&local_1a8,"\\\"",2);
         }
         else if (bVar14 == 0x5c) {
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\\\",2);
+          std::string::append((string *)&local_1a8,"\\\\",2);
         }
         else {
           if (bVar14 != 0xd) goto LAB_00afa90c;
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\r",2);
+          std::string::append((string *)&local_1a8,"\\r",2);
         }
         while( true ) {
           param_2 = param_2 + 1;
@@ -74743,13 +74727,13 @@ LAB_00afa90c:
           bVar15 = cVar6 == '\0';
           if (!bVar15) break;
 LAB_00afabc7:
-          std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\\f",2);
+          std::string::append((string *)&local_1a8,"\\f",2);
         }
       } while( true );
     }
 LAB_00afab48:
                     /* try { // try from 00afab57 to 00afac73 has its CatchHandler @ 00afaf36 */
-    std::string::s_basic_string__append_5fd166((string *)&local_1a8,"\"",1);
+    std::string::append((string *)&local_1a8,"\"",1);
     *(undefined1 **)param_1 = local_1a8;
   }
   return param_1;
@@ -74808,13 +74792,13 @@ code_r0x00afa916:
   }
   else if ((ulong)local_178._0_8_ < (ulong)local_168._0_8_) {
                     /* try { // try from 00afaa8f to 00afaa93 has its CatchHandler @ 00afaf2e */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1a0,0,*(ulong *)(local_1a0 + -0x18),(char *)local_178._8_8_,
                local_168._0_8_ - local_178._8_8_);
   }
   else {
                     /* try { // try from 00afac8a to 00afac8e has its CatchHandler @ 00afaf2e */
-    std::string::s_basic_string__replace_52baa6
+    std::string::replace
               ((string *)&local_1a0,0,*(ulong *)(local_1a0 + -0x18),(char *)local_178._8_8_,
                local_178._0_8_ - local_178._8_8_);
   }
@@ -74896,7 +74880,7 @@ void jsoncpp_writeValue(long param_1,undefined8 param_2)
   switch(uVar9) {
   case 0:
     if (*(char *)(param_1 + 0x11) == '\0') {
-      std::string::s_basic_string__append_5fd166((string *)(param_1 + 8),"null",4);
+      std::string::append((string *)(param_1 + 8),"null",4);
     }
     break;
   case 1:
@@ -75039,7 +75023,7 @@ LAB_00afb293:
     break;
   case 7:
     psVar1 = (string *)(param_1 + 8);
-    s_vector__reserve_af3a20(&local_58,param_2);
+    FUN_00af3a20(&local_58,param_2);
     lVar4 = *(long *)(param_1 + 8);
     lVar5 = *(long *)(lVar4 + -0x18);
     uVar12 = lVar5 + 1;
@@ -75076,8 +75060,7 @@ LAB_00afb293:
           pcVar13 = ":";
         }
                     /* try { // try from 00afb1ab to 00afb207 has its CatchHandler @ 00afb6c8 */
-        std::string::s_basic_string__append_5fd166
-                  (psVar1,pcVar13,2 - (ulong)(*(char *)(param_1 + 0x10) == '\0'));
+        std::string::append(psVar1,pcVar13,2 - (ulong)(*(char *)(param_1 + 0x10) == '\0'));
         uVar11 = FUN_00af34a0(param_2,plVar16);
         jsoncpp_writeValue(param_1,uVar11);
         plVar16 = plVar16 + 1;
@@ -75144,10 +75127,10 @@ string * FUN_00afb6d0(string *param_1,long param_2,undefined8 param_3)
   string *this;
   
   this = (string *)(param_2 + 8);
-  std::string::s_basic_string__assign_65a9ea(this,"",0);
+  std::string::assign(this,"",0);
   jsoncpp_writeValue(param_2,param_3);
   if (*(char *)(param_2 + 0x12) == '\0') {
-    std::string::s_basic_string__append_5fd166(this,"\n",1);
+    std::string::append(this,"\n",1);
   }
   std::string::string(param_1,this);
   return param_1;
@@ -75458,7 +75441,7 @@ LAB_00afbdfe:
     FUN_00afc4f0(param_1,param_2);
     return;
   case 7:
-    s_vector__reserve_af3a20(&local_58,param_2);
+    FUN_00af3a20(&local_58,param_2);
     if (local_58 == local_50) {
                     /* try { // try from 00afbfd8 to 00afbfdc has its CatchHandler @ 00afc187 */
       std::string::string((string *)&local_60,"{}",&local_69);
@@ -75518,7 +75501,7 @@ LAB_00afbdfe:
           }
         }
                     /* try { // try from 00afb9e4 to 00afba5e has its CatchHandler @ 00afc187 */
-        std::string::s_basic_string__append_5fd166(psVar1," : ",3);
+        std::string::append(psVar1," : ",3);
         json_toStream(param_1,uVar11);
         plVar14 = plVar14 + 1;
         if (plVar14 == local_50) break;
@@ -75540,10 +75523,9 @@ LAB_00afbdfe:
       }
                     /* try { // try from 00afbc26 to 00afbc55 has its CatchHandler @ 00afc187 */
       FUN_00af8c40(param_1,uVar11);
-      std::string::s_basic_string__resize_c29f70
-                ((string *)(param_1 + 0x28),
-                 *(long *)(*(long *)(param_1 + 0x28) + -0x18) - (ulong)*(uint *)(param_1 + 0x34),
-                 '\0');
+      std::string::resize((string *)(param_1 + 0x28),
+                          *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
+                          (ulong)*(uint *)(param_1 + 0x34),'\0');
       std::string::string((string *)&local_60,"}",&local_69);
                     /* try { // try from 00afbc59 to 00afbc68 has its CatchHandler @ 00afc177 */
       FUN_00af8860(param_1);
@@ -75590,13 +75572,13 @@ string * FUN_00afc1b0(string *param_1,long param_2,undefined8 param_3)
   string *this;
   
   this = (string *)(param_2 + 0x20);
-  std::string::s_basic_string__assign_65a9ea(this,"",0);
+  std::string::assign(this,"",0);
   *(undefined1 *)(param_2 + 0x38) = 0;
-  std::string::s_basic_string__assign_65a9ea((string *)(param_2 + 0x28),"",0);
+  std::string::assign((string *)(param_2 + 0x28),"",0);
   FUN_00af8ab0(param_2,param_3);
   json_toStream(param_2,param_3);
   FUN_00af8c40(param_2,param_3);
-  std::string::s_basic_string__append_5fd166(this,"\n",1);
+  std::string::append(this,"\n",1);
   std::string::string(param_1,this);
   return param_1;
 }
@@ -75654,7 +75636,7 @@ undefined4 FUN_00afc240(long param_1,undefined8 param_2)
   }
   if ((uVar8 == 0) || (uVar12 <= uVar8 * 3)) {
     if (uVar8 * 3 < uVar12) {
-      s_vector__reserve_aff900(param_1 + 8,uVar8);
+      FUN_00aff900(param_1 + 8,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(undefined1 *)(param_1 + 0x38) = 0;
 LAB_00afc49e:
@@ -75675,7 +75657,7 @@ LAB_00afc49e:
     } while (!bVar6);
     if (!bVar14) {
       uVar13 = 0;
-      s_vector__reserve_aff900(param_1 + 8,uVar8);
+      FUN_00aff900(param_1 + 8,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(undefined1 *)(param_1 + 0x38) = 1;
       bVar14 = false;
@@ -75747,14 +75729,14 @@ void FUN_00afc4f0(long param_1,undefined8 param_2)
     cVar10 = FUN_00afc240(param_1,param_2);
     if (cVar10 == '\0') {
       psVar9 = (string *)(param_1 + 0x20);
-      std::string::s_basic_string__append_5fd166(psVar9,"[ ",2);
+      std::string::append(psVar9,"[ ",2);
       for (uVar13 = 0; std::string::append(psVar9,(string *)(*(long *)(param_1 + 8) + uVar13 * 8)),
           iVar11 - 1 != uVar13; uVar13 = uVar13 + 1) {
         if ((int)uVar13 != -1) {
-          std::string::s_basic_string__append_5fd166(psVar9,", ",2);
+          std::string::append(psVar9,", ",2);
         }
       }
-      std::string::s_basic_string__append_5fd166(psVar9," ]",2);
+      std::string::append(psVar9," ]",2);
       return;
     }
     std::string::string((string *)local_40,"[",local_42);
@@ -75808,10 +75790,9 @@ void FUN_00afc4f0(long param_1,undefined8 param_2)
       FUN_00af8c40(param_1,uVar12);
     }
     FUN_00af8c40(param_1,uVar12);
-    std::string::s_basic_string__resize_c29f70
-              ((string *)(param_1 + 0x28),
-               *(long *)(*(long *)(param_1 + 0x28) + -0x18) - (ulong)*(uint *)(param_1 + 0x34),'\0')
-    ;
+    std::string::resize((string *)(param_1 + 0x28),
+                        *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
+                        (ulong)*(uint *)(param_1 + 0x34),'\0');
     std::string::string((string *)local_40,"]",local_42);
                     /* try { // try from 00afc6f3 to 00afc704 has its CatchHandler @ 00afc86e */
     FUN_00af8860(param_1);
@@ -76076,7 +76057,7 @@ LAB_00afcf98:
     FUN_00afd5f0(param_1,param_2);
     return;
   case 7:
-    s_vector__reserve_af3a20(&local_58,param_2);
+    FUN_00af3a20(&local_58,param_2);
     if (local_58 == local_50) {
                     /* try { // try from 00afd0d8 to 00afd0dc has its CatchHandler @ 00afd24d */
       std::string::string((string *)&local_60,"{}",&local_69);
@@ -76171,10 +76152,9 @@ LAB_00afcf98:
       }
                     /* try { // try from 00afcc66 to 00afcc98 has its CatchHandler @ 00afd24d */
       FUN_00af94a0(param_1,uVar10);
-      std::string::s_basic_string__resize_c29f70
-                ((string *)(param_1 + 0x28),
-                 *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
-                 *(long *)(*(long *)(param_1 + 0x38) + -0x18),'\0');
+      std::string::resize((string *)(param_1 + 0x28),
+                          *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
+                          *(long *)(*(long *)(param_1 + 0x38) + -0x18),'\0');
       std::string::string((string *)&local_60,"}",&local_6a);
       poVar12 = *(ostream **)(param_1 + 8);
       if (((*(byte *)(param_1 + 0x60) & 2) == 0) &&
@@ -76235,7 +76215,7 @@ undefined8 FUN_00afd280(long param_1,undefined8 param_2,undefined8 param_3)
   
   *(undefined8 *)(param_1 + 8) = param_3;
   *(byte *)(param_1 + 0x60) = *(byte *)(param_1 + 0x60) & 0xfc | 2;
-  std::string::s_basic_string__assign_65a9ea((string *)(param_1 + 0x28),"",0);
+  std::string::assign((string *)(param_1 + 0x28),"",0);
   FUN_00af9340(param_1,param_2);
   if (((*(byte *)(param_1 + 0x60) & 2) == 0) && (*(long *)(*(long *)(param_1 + 0x38) + -0x18) != 0))
   {
@@ -76308,7 +76288,7 @@ undefined4 FUN_00afd340(long param_1,undefined8 param_2)
   }
   if ((uVar8 == 0) || (uVar12 <= uVar8 * 3)) {
     if (uVar8 * 3 < uVar12) {
-      s_vector__reserve_aff900(param_1 + 0x10,uVar8);
+      FUN_00aff900(param_1 + 0x10,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 0x60) = *(byte *)(param_1 + 0x60) & 0xfe;
 LAB_00afd59e:
@@ -76329,7 +76309,7 @@ LAB_00afd59e:
     } while (!bVar6);
     if (!bVar14) {
       uVar13 = 0;
-      s_vector__reserve_aff900(param_1 + 0x10,uVar8);
+      FUN_00aff900(param_1 + 0x10,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 0x60) = *(byte *)(param_1 + 0x60) | 1;
       bVar14 = false;
@@ -76500,10 +76480,9 @@ void FUN_00afd5f0(long param_1,undefined8 param_2)
       FUN_00af94a0(param_1,uVar10);
     }
     FUN_00af94a0(param_1,uVar10);
-    std::string::s_basic_string__resize_c29f70
-              ((string *)(param_1 + 0x28),
-               *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
-               *(long *)(*(long *)(param_1 + 0x38) + -0x18),'\0');
+    std::string::resize((string *)(param_1 + 0x28),
+                        *(long *)(*(long *)(param_1 + 0x28) + -0x18) -
+                        *(long *)(*(long *)(param_1 + 0x38) + -0x18),'\0');
     std::string::string(&local_40,"]",&local_43);
     poVar11 = *(ostream **)(param_1 + 8);
     if (((*(byte *)(param_1 + 0x60) & 2) == 0) &&
@@ -76778,7 +76757,7 @@ LAB_00afe118:
     json_writeArray2(param_1,param_2);
     return;
   case 7:
-    s_vector__reserve_af3a20(&local_58,param_2);
+    FUN_00af3a20(&local_58,param_2);
     if (local_58 == local_50) {
                     /* try { // try from 00afe238 to 00afe23c has its CatchHandler @ 00afe412 */
       std::string::string((string *)&local_60,"{}",&local_69);
@@ -76870,10 +76849,9 @@ LAB_00afe118:
       }
                     /* try { // try from 00afde96 to 00afdec8 has its CatchHandler @ 00afe412 */
       FUN_00af9080(param_1,uVar9);
-      std::string::s_basic_string__resize_c29f70
-                ((string *)(param_1 + 0x20),
-                 *(long *)(*(long *)(param_1 + 0x20) + -0x18) -
-                 *(long *)(*(long *)(param_1 + 0x30) + -0x18),'\0');
+      std::string::resize((string *)(param_1 + 0x20),
+                          *(long *)(*(long *)(param_1 + 0x20) + -0x18) -
+                          *(long *)(*(long *)(param_1 + 0x30) + -0x18),'\0');
       std::string::string((string *)&local_60,"}",&local_6a);
       poVar11 = *(ostream **)(param_1 + 0x18);
       if ((*(byte *)(param_1 + 0x38) & 2) == 0) {
@@ -76933,7 +76911,7 @@ void FUN_00afe450(long param_1,undefined8 param_2,undefined8 param_3)
   
   *(byte *)(param_1 + 0x38) = *(byte *)(param_1 + 0x38) & 0xfe;
   *(undefined8 *)(param_1 + 0x18) = param_2;
-  std::string::s_basic_string__assign_65a9ea((string *)(param_1 + 0x20),"",0);
+  std::string::assign((string *)(param_1 + 0x20),"",0);
   *(byte *)(param_1 + 0x38) = *(byte *)(param_1 + 0x38) | 2;
   FUN_00af8f40(param_1,param_3);
   if ((*(byte *)(param_1 + 0x38) & 2) == 0) {
@@ -77004,7 +76982,7 @@ undefined4 FUN_00afe500(long *param_1,undefined8 param_2)
   }
   if ((uVar8 == 0) || (uVar12 <= uVar8 * 3)) {
     if (uVar8 * 3 < uVar12) {
-      s_vector__reserve_aff900(param_1,uVar8);
+      FUN_00aff900(param_1,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 7) = *(byte *)(param_1 + 7) & 0xfe;
 LAB_00afe75e:
@@ -77025,7 +77003,7 @@ LAB_00afe75e:
     } while (!bVar6);
     if (!bVar14) {
       uVar13 = 0;
-      s_vector__reserve_aff900(param_1,uVar8);
+      FUN_00aff900(param_1,uVar8);
       local_50 = uVar8 * 2 + 2;
       *(byte *)(param_1 + 7) = *(byte *)(param_1 + 7) | 1;
       bVar14 = false;
@@ -77186,9 +77164,8 @@ void json_writeArray2(long *param_1,undefined8 param_2)
       FUN_00af9080(param_1,uVar10);
     }
     FUN_00af9080(param_1,uVar10);
-    std::string::s_basic_string__resize_c29f70
-              ((string *)(param_1 + 4),*(long *)(param_1[4] + -0x18) - *(long *)(param_1[6] + -0x18)
-               ,'\0');
+    std::string::resize((string *)(param_1 + 4),
+                        *(long *)(param_1[4] + -0x18) - *(long *)(param_1[6] + -0x18),'\0');
     std::string::string(&local_40,"]",&local_43);
     poVar11 = (ostream *)param_1[3];
     if ((*(byte *)(param_1 + 7) & 2) == 0) {
@@ -77371,7 +77348,7 @@ ulong jsoncpp_writeSettings(long param_1,undefined1 *param_2)
   }
   local_100 = &local_e8;
                     /* try { // try from 00afede8 to 00afedec has its CatchHandler @ 00aff2d4 */
-  s_vector__reserve_af3a20(local_100,param_1 + 8);
+  FUN_00af3a20(local_100,param_1 + 8);
   lVar16 = (long)local_e0 - (long)local_e8 >> 3;
   if (lVar16 != 0) {
     lVar12 = 0;
@@ -77751,7 +77728,7 @@ void FUN_00aff680(undefined8 *param_1)
 }
 
 
-// ==== entry=00aff900 orig=FUN_00aff900 size=400 name=s_vector__reserve_aff900 ====
+// ==== entry=00aff900 name=FUN_00aff900 size=400 ====
 
 /* WARNING: Removing unreachable block (ram,0x00affa18) */
 /* WARNING: Removing unreachable block (ram,0x00affa60) */
@@ -77759,7 +77736,7 @@ void FUN_00aff680(undefined8 *param_1)
 /* WARNING: Removing unreachable block (ram,0x00affa29) */
 /* WARNING: Removing unreachable block (ram,0x00affa32) */
 
-void s_vector__reserve_aff900(undefined8 *param_1,ulong param_2)
+void FUN_00aff900(undefined8 *param_1,ulong param_2)
 
 {
   allocator *paVar1;
@@ -77922,7 +77899,7 @@ undefined8 FUN_00affba5(string *param_1)
   if (cVar1 == '\0') {
     pcVar2 = (char *)std::string::operator[](param_1,0);
     local_19 = FUN_00affacb((int)*pcVar2);
-    std::string::s_basic_string__substr_c2a2d0((ulong)local_28,(ulong)param_1);
+    std::string::substr((ulong)local_28,(ulong)param_1);
                     /* try { // try from 00affc3a to 00affc53 has its CatchHandler @ 00affc74 */
     if ((local_19 == '\0') ||
        ((cVar1 = FUN_00b00128(local_28,FUN_00affaa8), cVar1 == '\0' &&

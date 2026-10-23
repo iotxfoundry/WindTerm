@@ -6496,7 +6496,7 @@ void FUN_004e3e64(void)
   QWidget *unaff_R12;
   
   qt_array_data_unref();
-  *(undefined ***)unaff_R12 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
+  *(undefined ***)unaff_R12 = &PTR_FUN_011a47f0;
   *(undefined **)(unaff_R12 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(unaff_R12);
   operator_delete(unaff_R12,0x48);
@@ -6514,7 +6514,7 @@ void FUN_004e3ead(void)
   QWidget *unaff_R12;
   
   qt_array_data_unref();
-  *(undefined ***)unaff_R12 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
+  *(undefined ***)unaff_R12 = &PTR_FUN_011a47f0;
   *(undefined **)(unaff_R12 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(unaff_R12);
   operator_delete(unaff_R12,0x60);
@@ -6532,7 +6532,7 @@ void FUN_004e3ee6(void)
   QWidget *unaff_R12;
   
   qt_array_data_unref();
-  *(undefined ***)unaff_R12 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
+  *(undefined ***)unaff_R12 = &PTR_FUN_011a47f0;
   *(undefined **)(unaff_R12 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(unaff_R12);
   operator_delete(unaff_R12,0x40);
@@ -6550,7 +6550,7 @@ void FUN_004e3f22(void)
   QWidget *unaff_R12;
   
   qt_array_data_unref();
-  *(undefined ***)unaff_R12 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
+  *(undefined ***)unaff_R12 = &PTR_FUN_011a47f0;
   *(undefined **)(unaff_R12 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(unaff_R12);
   operator_delete(unaff_R12,0x58);
@@ -6603,7 +6603,7 @@ void FUN_004e3fbf(void)
   QWidget *unaff_R12;
   
   qt_array_data_unref();
-  *(undefined ***)unaff_R12 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
+  *(undefined ***)unaff_R12 = &PTR_FUN_011a47f0;
   *(undefined **)(unaff_R12 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(unaff_R12);
   operator_delete(unaff_R12,0x68);
@@ -6621,7 +6621,7 @@ void FUN_004e3ffb(void)
   QWidget *unaff_R12;
   
   qt_array_data_unref();
-  *(undefined ***)unaff_R12 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
+  *(undefined ***)unaff_R12 = &PTR_FUN_011a47f0;
   *(undefined **)(unaff_R12 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(unaff_R12);
   operator_delete(unaff_R12,0x50);
@@ -6639,7 +6639,7 @@ void FUN_004e4037(void)
   QWidget *unaff_R12;
   
   qt_array_data_unref();
-  *(undefined ***)unaff_R12 = &PTR_ConnectionTriggerPage_vt0_011a47f0;
+  *(undefined ***)unaff_R12 = &PTR_FUN_011a47f0;
   *(undefined **)(unaff_R12 + 0x10) = &DAT_011a49b0;
   QWidget::~QWidget(unaff_R12);
   operator_delete(unaff_R12,0x60);

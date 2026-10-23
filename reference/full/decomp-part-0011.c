@@ -17538,7 +17538,7 @@ void FUN_004fb1e0(void)
     FUN_00842110(pvVar1);
     operator_delete(pvVar1,0x38);
   }
-  ScintillaEditWatcher_vt6();
+  FUN_005d4b56();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }

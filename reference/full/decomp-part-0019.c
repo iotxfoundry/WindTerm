@@ -1462,11 +1462,11 @@ LAB_005cc85f:
 }
 
 
-// ==== entry=005cc884 orig=FUN_005cc884 size=185 name=s_TextEdit_5cc884 ====
+// ==== entry=005cc884 name=FUN_005cc884 size=185 ====
 
 /* WARNING: Removing unreachable block (ram,0x005cc939) */
 
-void s_TextEdit_5cc884(QString *param_1,undefined8 param_2)
+void FUN_005cc884(QString *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -7072,9 +7072,9 @@ LAB_005d4258:
 }
 
 
-// ==== entry=005d4b56 orig=FUN_005d4b56 size=242 name=ScintillaEditWatcher_vt6 ====
+// ==== entry=005d4b56 name=FUN_005d4b56 size=242 ====
 
-void ScintillaEditWatcher_vt6(QWidget *param_1)
+void FUN_005d4b56(QWidget *param_1)
 
 {
   int *piVar1;
@@ -7138,7 +7138,7 @@ LAB_005d4c30:
 void FUN_005d4c48(long param_1)
 
 {
-  ScintillaEditWatcher_vt6(param_1 + -0x10);
+  FUN_005d4b56(param_1 + -0x10);
   return;
 }
 
@@ -7148,17 +7148,17 @@ void FUN_005d4c48(long param_1)
 void FUN_005d4c51(long param_1)
 
 {
-  ScintillaEditWatcher_vt6(param_1 + -0x48);
+  FUN_005d4b56(param_1 + -0x48);
   return;
 }
 
 
-// ==== entry=005d4c5a orig=FUN_005d4c5a size=23 name=ScintillaEditWatcher_vt7 ====
+// ==== entry=005d4c5a name=FUN_005d4c5a size=23 ====
 
-void ScintillaEditWatcher_vt7(void *param_1)
+void FUN_005d4c5a(void *param_1)
 
 {
-  ScintillaEditWatcher_vt6();
+  FUN_005d4b56();
   operator_delete(param_1,0x100);
   return;
 }
@@ -7581,9 +7581,9 @@ LAB_005d5385:
 }
 
 
-// ==== entry=005d5588 orig=FUN_005d5588 size=229 name=ToolButton_vt14 ====
+// ==== entry=005d5588 name=FUN_005d5588 size=229 ====
 
-ulong ToolButton_vt14(QStyleOptionToolButton *param_1)
+ulong FUN_005d5588(QStyleOptionToolButton *param_1)
 
 {
   int iVar1;
@@ -7637,9 +7637,9 @@ void FUN_005d5676(QStyledItemDelegate *param_1,undefined8 param_2,QObject *param
 }
 
 
-// ==== entry=005d56a4 orig=FUN_005d56a4 size=12 name=CheckDelegate_vt14 ====
+// ==== entry=005d56a4 name=FUN_005d56a4 size=12 ====
 
-void CheckDelegate_vt14(long *param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4)
+void FUN_005d56a4(long *param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4)
 
 {
                     /* WARNING: Could not recover jumptable at 0x005d56aa. Too many branches */
@@ -7649,9 +7649,9 @@ void CheckDelegate_vt14(long *param_1,undefined8 param_2,undefined8 param_3,unde
 }
 
 
-// ==== entry=005d56b0 orig=FUN_005d56b0 size=62 name=CheckDelegate_vt12 ====
+// ==== entry=005d56b0 name=FUN_005d56b0 size=62 ====
 
-void CheckDelegate_vt12(undefined8 param_1,QRect *param_2,long param_3)
+void FUN_005d56b0(undefined8 param_1,QRect *param_2,long param_3)
 
 {
   if ((*(uint *)(param_3 + 8) & 0xa000) == 0) {
@@ -8814,9 +8814,9 @@ void FUN_005d6e38(int param_1,void *param_2)
 }
 
 
-// ==== entry=005d6e6e orig=FUN_005d6e6e size=264 name=CheckList_vt6 ====
+// ==== entry=005d6e6e name=FUN_005d6e6e size=264 ====
 
-undefined8 CheckList_vt6(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 FUN_005d6e6e(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   int iVar1;
@@ -9778,9 +9778,9 @@ LAB_005d7ef6:
 }
 
 
-// ==== entry=005d7f8e orig=FUN_005d7f8e size=782 name=s_wind_config_5d7f8e ====
+// ==== entry=005d7f8e name=FUN_005d7f8e size=782 ====
 
-undefined8 s_wind_config_5d7f8e(long param_1)
+undefined8 FUN_005d7f8e(long param_1)
 
 {
   char cVar1;
@@ -9944,9 +9944,9 @@ LAB_005d7fff:
 }
 
 
-// ==== entry=005d82ce orig=FUN_005d82ce size=590 name=s_wind_variables_5d82ce ====
+// ==== entry=005d82ce name=FUN_005d82ce size=590 ====
 
-undefined8 s_wind_variables_5d82ce(long param_1)
+undefined8 FUN_005d82ce(long param_1)
 
 {
   void *pvVar1;
@@ -10067,9 +10067,9 @@ LAB_005d847f:
 }
 
 
-// ==== entry=005d8546 orig=FUN_005d8546 size=451 name=s_profile_config_5d8546 ====
+// ==== entry=005d8546 name=FUN_005d8546 size=451 ====
 
-undefined4 s_profile_config_5d8546(long param_1)
+undefined4 FUN_005d8546(long param_1)
 
 {
   QArrayData *pQVar1;
@@ -10145,9 +10145,9 @@ LAB_005d866a:
 }
 
 
-// ==== entry=005d8732 orig=FUN_005d8732 size=707 name=s_profiles_config_5d8732 ====
+// ==== entry=005d8732 name=FUN_005d8732 size=707 ====
 
-QString * s_profiles_config_5d8732(QString *param_1)
+QString * FUN_005d8732(QString *param_1)
 
 {
   int iVar1;
@@ -10278,7 +10278,7 @@ undefined8 * FUN_005d8a36(undefined8 *param_1,long param_2)
   
   piVar4 = *(int **)(param_2 + 0x30);
   if (piVar4[1] != 0) goto LAB_005d8aa4;
-  s_profiles_config_5d8732(local_40);
+  FUN_005d8732(local_40);
   pQVar5 = *(QArrayData **)(param_2 + 0x30);
   *(QArrayData **)(param_2 + 0x30) = local_40[0];
   local_40[0] = pQVar5;
@@ -10365,11 +10365,11 @@ uint FUN_005d8c04(undefined8 param_1)
 }
 
 
-// ==== entry=005d8c30 orig=FUN_005d8c30 size=979 name=s_profiles_config_5d8c30 ====
+// ==== entry=005d8c30 name=FUN_005d8c30 size=979 ====
 
 /* WARNING: Removing unreachable block (ram,0x005d8fec) */
 
-void s_profiles_config_5d8c30(long param_1,QString *param_2)
+void FUN_005d8c30(long param_1,QString *param_2)
 
 {
   int *piVar1;
@@ -11066,7 +11066,7 @@ void CGlobalConfig_metaObject(undefined8 *param_1)
   QArrayData *pQVar4;
   
   *param_1 = &CGlobalConfig_vtable;
-  CGlobalConfig_ha83710();
+  FUN_00a83710();
   pvVar2 = (void *)param_1[0xb];
   if (pvVar2 != (void *)0x0) {
     pvVar3 = *(void **)((long)pvVar2 + 0x28);
@@ -11237,12 +11237,12 @@ void FUN_005d9d70(void)
 }
 
 
-// ==== entry=005d9d98 orig=FUN_005d9d98 size=576 name=s_wind_tools_5d9d98 ====
+// ==== entry=005d9d98 name=FUN_005d9d98 size=576 ====
 
 /* WARNING: Removing unreachable block (ram,0x005d9fc2) */
 /* WARNING: Removing unreachable block (ram,0x005d9fcd) */
 
-uint s_wind_tools_5d9d98(undefined8 param_1)
+uint FUN_005d9d98(undefined8 param_1)
 
 {
   int *piVar1;
@@ -12969,11 +12969,11 @@ uint FUN_005dc090(undefined8 param_1)
   uint uVar4;
   uint uVar5;
   
-  uVar1 = s_profile_config_5d8546();
-  uVar2 = s_wind_config_5d7f8e(param_1);
+  uVar1 = FUN_005d8546();
+  uVar2 = FUN_005d7f8e(param_1);
   uVar3 = palettes_dir_list(param_1);
-  uVar4 = s_wind_tools_5d9d98(param_1);
-  uVar5 = s_wind_variables_5d82ce(param_1);
+  uVar4 = FUN_005d9d98(param_1);
+  uVar5 = FUN_005d82ce(param_1);
   return uVar5 & uVar1 & uVar2 & uVar3 & uVar4;
 }
 
@@ -13975,9 +13975,9 @@ void CGlobalConfig_dtor_deleting(void)
 }
 
 
-// ==== entry=005dd810 orig=FUN_005dd810 size=10 name=CGlobalConfig_vt5 ====
+// ==== entry=005dd810 name=FUN_005dd810 size=10 ====
 
-void CGlobalConfig_vt5(void *param_1)
+void FUN_005dd810(void *param_1)
 
 {
   operator_delete(param_1,0x40);
@@ -13985,9 +13985,9 @@ void CGlobalConfig_vt5(void *param_1)
 }
 
 
-// ==== entry=005dd820 orig=FUN_005dd820 size=53 name=CGlobalConfig_vt8 ====
+// ==== entry=005dd820 name=FUN_005dd820 size=53 ====
 
-long CGlobalConfig_vt8(long param_1,undefined *param_2)
+long FUN_005dd820(long param_1,undefined *param_2)
 
 {
   char *__s1;
@@ -14006,9 +14006,9 @@ LAB_005dd84b:
 }
 
 
-// ==== entry=005dd856 orig=FUN_005dd856 size=5 name=CGlobalConfig_vt7 ====
+// ==== entry=005dd856 orig=FUN_005dd856 size=5 name=operator.delete ====
 
-void CGlobalConfig_vt7(void *param_1)
+void operator_delete(void *param_1)
 
 {
   free(param_1);
@@ -14016,9 +14016,9 @@ void CGlobalConfig_vt7(void *param_1)
 }
 
 
-// ==== entry=005dd860 orig=FUN_005dd860 size=149 name=CGlobalConfig_vt6 ====
+// ==== entry=005dd860 name=FUN_005dd860 size=149 ====
 
-void CGlobalConfig_vt6(long param_1)
+void FUN_005dd860(long param_1)
 
 {
   QArrayData *pQVar1;
@@ -15843,9 +15843,9 @@ LAB_005df9f6:
 }
 
 
-// ==== entry=005dfaae orig=FUN_005dfaae size=317 name=CEditorConfig_vt7 ====
+// ==== entry=005dfaae name=FUN_005dfaae size=317 ====
 
-void CEditorConfig_vt7(undefined8 *param_1)
+void FUN_005dfaae(undefined8 *param_1)
 
 {
   void *pvVar1;
@@ -15902,12 +15902,12 @@ LAB_005dfb95:
 }
 
 
-// ==== entry=005dfbec orig=FUN_005dfbec size=23 name=CEditorConfig_vt8 ====
+// ==== entry=005dfbec name=FUN_005dfbec size=23 ====
 
-void CEditorConfig_vt8(void *param_1)
+void FUN_005dfbec(void *param_1)
 
 {
-  CEditorConfig_vt7();
+  FUN_005dfaae();
   operator_delete(param_1,0xb0);
   return;
 }
@@ -15918,7 +15918,7 @@ void CEditorConfig_vt8(void *param_1)
 void FUN_005dfc04(void)
 
 {
-  CEditorConfig_vt7();
+  FUN_005dfaae();
   if (DAT_011c13b0 != -1) {
     return;
   }
@@ -16337,7 +16337,7 @@ LAB_005e067b:
 }
 
 
-// ==== entry=005e0784 orig=FUN_005e0784 size=3693 name=s_text_useTabPosition_5e0784 ====
+// ==== entry=005e0784 name=FUN_005e0784 size=3693 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e15bb) */
 /* WARNING: Removing unreachable block (ram,0x005e15d7) */
@@ -16354,7 +16354,7 @@ LAB_005e067b:
 /* WARNING: Removing unreachable block (ram,0x005e15c9) */
 /* WARNING: Removing unreachable block (ram,0x005e1567) */
 
-char s_text_useTabPosition_5e0784(long param_1,long *param_2,long *param_3)
+char FUN_005e0784(long param_1,long *param_2,long *param_3)
 
 {
   ulong *puVar1;
@@ -16846,9 +16846,9 @@ LAB_005e089d:
 }
 
 
-// ==== entry=005e1732 orig=FUN_005e1732 size=472 name=CEditorConfig_h5e1732 ====
+// ==== entry=005e1732 name=FUN_005e1732 size=472 ====
 
-void CEditorConfig_h5e1732(undefined8 param_1)
+void FUN_005e1732(undefined8 param_1)
 
 {
   int iVar1;
@@ -16890,7 +16890,7 @@ joined_r0x005e17fc:
                     /* try { // try from 005e1825 to 005e1829 has its CatchHandler @ 005e190a */
       QDir::absoluteFilePath((QString *)local_40);
                     /* try { // try from 005e1833 to 005e1837 has its CatchHandler @ 005e192a */
-      s_text_useTabPosition_5e0784(param_1,(QString *)local_40,puVar3);
+      FUN_005e0784(param_1,(QString *)local_40,puVar3);
       if (*(int *)local_40[0] == 0) {
         QArrayData::deallocate(local_40[0],2,8);
       }
@@ -16934,17 +16934,17 @@ undefined8 CEditorConfig_dtor(undefined8 param_1)
 {
   char cVar1;
   
-  cVar1 = CTerminalConfig_h8a57d6();
+  cVar1 = FUN_008a57d6();
   if (cVar1 == '\0') {
-    CEditorConfig_h5e1732(param_1);
+    FUN_005e1732(param_1);
   }
   return 1;
 }
 
 
-// ==== entry=005e194e orig=FUN_005e194e size=5 name=CEditorConfig_vt5 ====
+// ==== entry=005e194e orig=FUN_005e194e size=5 name=thunk_FUN_008aa6fc ====
 
-undefined4 CEditorConfig_vt5(long param_1)
+undefined4 thunk_FUN_008aa6fc(long param_1)
 
 {
   undefined4 uVar1;
@@ -17006,9 +17006,9 @@ LAB_008aa7ec:
 }
 
 
-// ==== entry=005e1954 orig=FUN_005e1954 size=5 name=CEditorConfig_vt6 ====
+// ==== entry=005e1954 orig=FUN_005e1954 size=5 name=thunk_FUN_008aa8e4 ====
 
-undefined4 CEditorConfig_vt6(long param_1)
+undefined4 thunk_FUN_008aa8e4(long param_1)
 
 {
   undefined4 uVar1;
@@ -17399,11 +17399,11 @@ LAB_005e1e0d:
 }
 
 
-// ==== entry=005e1e36 orig=FUN_005e1e36 size=765 name=s_FileLoadProgressBar_5e1e36 ====
+// ==== entry=005e1e36 name=FUN_005e1e36 size=765 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e20c8) */
 
-void s_FileLoadProgressBar_5e1e36(undefined8 param_1,long param_2,long param_3)
+void FUN_005e1e36(undefined8 param_1,long param_2,long param_3)
 
 {
   int iVar1;
@@ -17596,7 +17596,7 @@ uint FUN_005e22de(long param_1)
   uint uVar3;
   QArrayData *local_20 [2];
   
-  KitView_vt15(local_20,param_1 + 0x100);
+  FUN_008c55bc(local_20,param_1 + 0x100);
   if (*(int *)(local_20[0] + 4) == 0) {
                     /* try { // try from 005e230a to 005e2360 has its CatchHandler @ 005e236d */
     cVar2 = FUN_005b6288(param_1);
@@ -17639,9 +17639,9 @@ void FUN_005e2375(long param_1)
 }
 
 
-// ==== entry=005e2382 orig=FUN_005e2382 size=632 name=s_text_trimTrailingWhitespaceOnSave_5e2382 ====
+// ==== entry=005e2382 name=FUN_005e2382 size=632 ====
 
-undefined8 * s_text_trimTrailingWhitespaceOnSave_5e2382(undefined8 *param_1,long *param_2)
+undefined8 * FUN_005e2382(undefined8 *param_1,long *param_2)
 
 {
   long *plVar1;
@@ -17654,7 +17654,7 @@ undefined8 * s_text_trimTrailingWhitespaceOnSave_5e2382(undefined8 *param_1,long
   QArrayData *local_48 [3];
   
   plVar1 = param_2 + 0x20;
-  KitView_vt15();
+  FUN_008c55bc();
                     /* try { // try from 005e23a8 to 005e23cd has its CatchHandler @ 005e261d */
   cVar4 = FUN_008c56f2(plVar1);
   if (cVar4 != '\0') {
@@ -17714,7 +17714,7 @@ LAB_005e25bb:
   cVar4 = FUN_008c56f2(plVar1);
   if ((cVar4 != '\0') && (cVar4 = FUN_005b7e2c(param_2), cVar4 != '\0')) goto LAB_005e24f2;
                     /* try { // try from 005e255f to 005e2563 has its CatchHandler @ 005e261d */
-  KitView_vt15((QString *)local_48,plVar1);
+  FUN_008c55bc((QString *)local_48,plVar1);
                     /* try { // try from 005e2567 to 005e256b has its CatchHandler @ 005e2605 */
   cVar4 = QFile::exists((QString *)local_48);
   if (*(int *)local_48[0] == 0) {
@@ -17804,7 +17804,7 @@ void FUN_005e269e(QObject *param_1,uint param_2)
   undefined8 local_30;
   
   if ((param_2 & 0x10) == 0) goto LAB_005e26b4;
-  KitView_vt15(&local_38,param_1 + 0x100);
+  FUN_008c55bc(&local_38,param_1 + 0x100);
   iVar1 = *(int *)(local_38 + 4);
   if (*(int *)local_38 == 0) {
 LAB_005e2716:
@@ -17973,14 +17973,14 @@ char warn_showQuoted(long *param_1)
                     /* try { // try from 005e29e3 to 005e29e7 has its CatchHandler @ 005e2cfd */
   QMetaObject::tr((char *)&local_a8,(char *)&PTR_PTR_0119ede0,0xc8c6e0);
                     /* try { // try from 005e29f3 to 005e29f7 has its CatchHandler @ 005e2d05 */
-  KitView_vt15(&local_b8,plVar1);
+  FUN_008c55bc(&local_b8,plVar1);
   if (*(int *)(local_b8 + 4) == 0) {
                     /* try { // try from 005e2a1c to 005e2a21 has its CatchHandler @ 005e2cdd */
     (**(code **)(*param_1 + 0x418))(&local_b0,param_1);
   }
   else {
                     /* try { // try from 005e2c71 to 005e2c75 has its CatchHandler @ 005e2cdd */
-    KitView_vt15(&local_b0,plVar1);
+    FUN_008c55bc(&local_b0,plVar1);
   }
   local_70 = (long)*(int *)(local_a8 + 4);
   local_68 = local_a8 + *(long *)(local_a8 + 0x10);
@@ -18075,7 +18075,7 @@ LAB_005e2c34:
   QArrayData::deallocate(pQVar6,2,8);
 LAB_005e2b98:
   if (iVar4 == 0x800) {
-    s_text_trimTrailingWhitespaceOnSave_5e2382(&local_58,param_1);
+    FUN_005e2382(&local_58,param_1);
     if (*(int *)(CONCAT71(uStack_57,local_58) + 4) == 0) {
       qt_array_data_unref(&local_58);
       cVar3 = '\0';
@@ -18168,7 +18168,7 @@ undefined8 FUN_005e2dfe(undefined8 param_1,long param_2)
   QArrayData *local_38;
   QFileInfo local_30 [16];
   
-  KitView_vt15(&local_40,param_2 + 0x100);
+  FUN_008c55bc(&local_40,param_2 + 0x100);
   if (*(int *)(local_40 + 4) == 0) {
                     /* try { // try from 005e2e34 to 005e2e38 has its CatchHandler @ 005e2f0d */
     QWidget::windowFilePath();
@@ -18243,7 +18243,7 @@ void kit_titleFromBufferText(QString *param_1)
   QArrayData *local_48;
   uint local_40;
   
-  KitView_vt15(&local_a0,param_1 + 0x100);
+  FUN_008c55bc(&local_a0,param_1 + 0x100);
   local_88 = (QArrayData *)0x0;
   local_80 = 0x80000000;
   iVar2 = *(int *)(local_a0 + 4);
@@ -18532,11 +18532,11 @@ void FUN_005e35ac(undefined8 param_1,QObject *param_2)
 }
 
 
-// ==== entry=005e35f2 orig=FUN_005e35f2 size=419 name=s_FileLoadProgressBar_5e35f2 ====
+// ==== entry=005e35f2 name=FUN_005e35f2 size=419 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e3764) */
 
-void s_FileLoadProgressBar_5e35f2(long *param_1)
+void FUN_005e35f2(long *param_1)
 
 {
   long *plVar1;
@@ -18552,7 +18552,7 @@ void s_FileLoadProgressBar_5e35f2(long *param_1)
   if (*(code **)(*param_1 + 0x3d0) != FUN_005e1d20) {
     uVar3 = (**(code **)(*param_1 + 0x3d0))(param_1);
   }
-  KitView_vt15(local_30,plVar1);
+  FUN_008c55bc(local_30,plVar1);
                     /* try { // try from 005e365c to 005e3660 has its CatchHandler @ 005e379d */
   FUN_008a5816(uVar3);
   if (*(int *)local_30[0] == 0) {
@@ -18582,7 +18582,7 @@ LAB_005e3770:
   uVar3 = qcoreapp_self_get();
   lVar4 = FUN_0075cad2(uVar3);
   if (lVar4 != 0) {
-    KitView_vt15(local_30,plVar1);
+    FUN_008c55bc(local_30,plVar1);
                     /* try { // try from 005e36f8 to 005e36fc has its CatchHandler @ 005e3795 */
     FUN_0062c176(lVar4,local_30);
     if (*(int *)local_30[0] == 0) {
@@ -18601,11 +18601,11 @@ LAB_005e3723:
 }
 
 
-// ==== entry=005e37ae orig=FUN_005e37ae size=1874 name=s_FileErrorMessage_5e37ae ====
+// ==== entry=005e37ae name=FUN_005e37ae size=1874 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e3ef6) */
 
-void s_FileErrorMessage_5e37ae(long param_1,char param_2)
+void FUN_005e37ae(long param_1,char param_2)
 
 {
   size_t sVar1;
@@ -18640,7 +18640,7 @@ LAB_005e3ee2:
   uVar2 = qcoreapp_self_get();
   lVar3 = FUN_0075cad2(uVar2);
   if (lVar3 != 0) {
-    KitView_vt15((QVariant *)&local_48,lVar4);
+    FUN_008c55bc((QVariant *)&local_48,lVar4);
                     /* try { // try from 005e3857 to 005e385b has its CatchHandler @ 005e3f20 */
     FUN_0062b686(lVar3,(QVariant *)&local_48);
     if (*(int *)local_48 == 0) {
@@ -18659,11 +18659,11 @@ LAB_005e3e75:
   lVar3 = FUN_005e34be(param_1);
 joined_r0x005e3885:
   if (lVar3 == 0) {
-    KitView_vt15((QVariant *)&local_48,lVar4);
+    FUN_008c55bc((QVariant *)&local_48,lVar4);
                     /* try { // try from 005e3ea5 to 005e3ea9 has its CatchHandler @ 005e3f18 */
     pvVar6 = operator_new(0x30);
                     /* try { // try from 005e3ec0 to 005e3ec4 has its CatchHandler @ 005e3f10 */
-    s_text_detectIndentation_647b2c(pvVar6,(QVariant *)&local_48,0,0,7,0);
+    FUN_00647b2c(pvVar6,(QVariant *)&local_48,0,0,7,0);
                     /* try { // try from 005e3ecb to 005e3ecf has its CatchHandler @ 005e3f18 */
     FUN_005e35ac(param_1,pvVar6);
     qt_array_data_unref((QVariant *)&local_48);
@@ -18672,7 +18672,7 @@ joined_r0x005e3885:
   if (lVar4 != 0) {
     local_58 = FUN_009030c8;
     local_50 = 0;
-    local_48 = (QArrayData *)s_FileErrorMessage_5e3f28;
+    local_48 = (QArrayData *)FUN_005e3f28;
     local_40 = 0;
     puVar5 = operator_new(0x20);
     *puVar5 = 1;
@@ -18750,7 +18750,7 @@ joined_r0x005e3885:
     QMetaObject::Connection::~Connection((Connection *)&local_68);
     local_58 = QThread::finished;
     local_50 = 0;
-    local_48 = (QArrayData *)s_FileLoadProgressBar_5e35f2;
+    local_48 = (QArrayData *)FUN_005e35f2;
     local_40 = 0;
     puVar5 = operator_new(0x20);
     *puVar5 = 1;
@@ -18776,7 +18776,7 @@ joined_r0x005e3885:
     QMetaObject::Connection::~Connection((Connection *)&local_68);
     local_58 = FUN_00903250;
     local_50 = 0;
-    local_48 = (QArrayData *)s_FileLoadProgressBar_5e1e36;
+    local_48 = (QArrayData *)FUN_005e1e36;
     local_40 = 0;
     puVar5 = operator_new(0x20);
     *puVar5 = 1;
@@ -18795,10 +18795,10 @@ joined_r0x005e3885:
     *(byte *)(param_1 + 0x130) = *(byte *)(param_1 + 0x130) | 1;
     FUN_005cabbe(param_1,"Reload File");
     FUN_005b672c(param_1);
-    s_editor_hugeFileThreshold_64956c(lVar4);
+    FUN_0064956c(lVar4);
     FUN_005cb4d8(param_1);
     *(byte *)(param_1 + 0x130) = *(byte *)(param_1 + 0x130) & 0xfe;
-    s_FileLoadProgressBar_5e35f2(param_1);
+    FUN_005e35f2(param_1);
     local_58 = (code *)0x0;
     local_50 = CONCAT44(local_50._4_4_,0x80000000);
     local_68 = 0;
@@ -18815,12 +18815,12 @@ joined_r0x005e3885:
 }
 
 
-// ==== entry=005e3f28 orig=FUN_005e3f28 size=786 name=s_FileErrorMessage_5e3f28 ====
+// ==== entry=005e3f28 name=FUN_005e3f28 size=786 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e4207) */
 /* WARNING: Removing unreachable block (ram,0x005e4211) */
 
-void s_FileErrorMessage_5e3f28(long param_1,long *param_2)
+void FUN_005e3f28(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -18860,7 +18860,7 @@ LAB_005e4162:
   }
   pQVar4 = (QArrayData *)QString::fromAscii_helper("%1\n%2",5);
                     /* try { // try from 005e3fdb to 005e3fdf has its CatchHandler @ 005e423a */
-  KitView_vt15(&local_a8,lVar1);
+  FUN_008c55bc(&local_a8,lVar1);
   local_68 = *param_2;
   local_70 = (long)*(int *)(local_68 + 4);
   local_68 = local_68 + *(long *)(local_68 + 0x10);
@@ -19117,14 +19117,13 @@ void FUN_005e4490(long *param_1)
   QArrayData *local_48 [3];
   
   lVar1 = *param_1;
-  KitView_vt15((QVariant *)local_48,lVar1 + 0x100);
+  FUN_008c55bc((QVariant *)local_48,lVar1 + 0x100);
                     /* try { // try from 005e44bb to 005e44dd has its CatchHandler @ 005e4675 */
   uVar4 = FUN_005e42ce(*param_1);
   cVar3 = FUN_005b6bde(*param_1);
   pvVar5 = operator_new(0x30);
                     /* try { // try from 005e44f5 to 005e44f9 has its CatchHandler @ 005e4665 */
-  s_text_detectIndentation_647b2c(pvVar5,(QVariant *)local_48,uVar4,~-(uint)(cVar3 == '\0') + 2,3,0)
-  ;
+  FUN_00647b2c(pvVar5,(QVariant *)local_48,uVar4,~-(uint)(cVar3 == '\0') + 2,3,0);
                     /* try { // try from 005e4500 to 005e4504 has its CatchHandler @ 005e4675 */
   FUN_005e35ac(lVar1,pvVar5);
   if (*(int *)local_48[0] == 0) {
@@ -19142,9 +19141,9 @@ LAB_005e4616:
     cVar3 = FUN_005b7c7c(*param_1);
   }
   if (cVar3 == '\0') {
-    KitView_vt9((QVariant *)local_48,*param_1 + 0x100);
+    FUN_008c4ec8((QVariant *)local_48,*param_1 + 0x100);
                     /* try { // try from 005e45bf to 005e45d7 has its CatchHandler @ 005e465d */
-    s_FileErrorMessage_5e37ae(*param_1,1);
+    FUN_005e37ae(*param_1,1);
     (**(code **)(*(long *)*param_1 + 0x3f8))((long *)*param_1,(QVariant *)local_48,1);
     if (*(int *)local_48[0] != 0) {
       if (*(int *)local_48[0] == -1) {
@@ -19161,7 +19160,7 @@ LAB_005e4616:
     return;
   }
   pcVar2 = (char *)*param_1;
-  KitView_vt9((QByteArray *)&local_50,pcVar2 + 0x100);
+  FUN_008c4ec8((QByteArray *)&local_50,pcVar2 + 0x100);
                     /* try { // try from 005e454c to 005e4550 has its CatchHandler @ 005e466d */
   QVariant::QVariant((QVariant *)local_48,(QByteArray *)&local_50);
                     /* try { // try from 005e4561 to 005e4565 has its CatchHandler @ 005e467d */
@@ -19170,7 +19169,7 @@ LAB_005e4616:
   if (*(int *)local_50 == 0) {
 LAB_005e463f:
     QArrayData::deallocate(local_50,1,8);
-    s_FileErrorMessage_5e37ae(*param_1,0);
+    FUN_005e37ae(*param_1,0);
   }
   else {
     if (*(int *)local_50 != -1) {
@@ -19179,17 +19178,17 @@ LAB_005e463f:
       UNLOCK();
       if (*(int *)local_50 == 0) goto LAB_005e463f;
     }
-    s_FileErrorMessage_5e37ae(*param_1,0);
+    FUN_005e37ae(*param_1,0);
   }
   return;
 }
 
 
-// ==== entry=005e4685 orig=FUN_005e4685 size=205 name=s_FileReloadMessage_5e4685 ====
+// ==== entry=005e4685 name=FUN_005e4685 size=205 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e4724) */
 
-void s_FileReloadMessage_5e4685(int param_1,void *param_2,undefined8 param_3,long param_4)
+void FUN_005e4685(int param_1,void *param_2,undefined8 param_3,long param_4)
 
 {
   int iVar1;
@@ -19333,11 +19332,11 @@ void FUN_005e48be(long param_1)
 }
 
 
-// ==== entry=005e48c8 orig=FUN_005e48c8 size=165 name=s_FileErrorMessage_5e48c8 ====
+// ==== entry=005e48c8 name=FUN_005e48c8 size=165 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e4966) */
 
-void s_FileErrorMessage_5e48c8(long param_1)
+void FUN_005e48c8(long param_1)
 
 {
   size_t sVar1;
@@ -19376,7 +19375,7 @@ undefined8 FUN_005e4976(long param_1,long *param_2)
   size_t sVar3;
   QArrayData *local_30;
   
-  s_FileErrorMessage_5e48c8();
+  FUN_005e48c8();
   lVar1 = param_1 + 0x100;
   QDir::toNativeSeparators((QString *)&local_30);
                     /* try { // try from 005e49aa to 005e49ae has its CatchHandler @ 005e4aa5 */
@@ -19413,7 +19412,7 @@ LAB_005e4a89:
     FUN_008c65f6(lVar1,1,1);
   }
   else {
-    s_FileErrorMessage_5e37ae(param_1,0);
+    FUN_005e37ae(param_1,0);
   }
   return 1;
 }
@@ -19534,9 +19533,9 @@ void FUN_005e4ce5(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=005e4cf2 orig=FUN_005e4cf2 size=1015 name=s_king__copy_5e4cf2 ====
+// ==== entry=005e4cf2 name=FUN_005e4cf2 size=1015 ====
 
-void s_king__copy_5e4cf2(undefined8 *param_1,undefined8 param_2,QString *param_3,char param_4)
+void FUN_005e4cf2(undefined8 *param_1,undefined8 param_2,QString *param_3,char param_4)
 
 {
   undefined8 uVar1;
@@ -19711,7 +19710,7 @@ QWidget * fsitem_infoWidget(long param_1)
   local_58 = param_1;
   QMetaObject::tr((char *)&local_a8,(char *)&PTR_PTR_0119ede0,0xca0371);
                     /* try { // try from 005e51fe to 005e5202 has its CatchHandler @ 005e58e2 */
-  KitView_vt15((QString *)&local_60,param_1 + 0x100);
+  FUN_008c55bc((QString *)&local_60,param_1 + 0x100);
                     /* try { // try from 005e5213 to 005e5217 has its CatchHandler @ 005e5922 */
   QFileInfo::QFileInfo(local_a0,(QString *)&local_60);
   qt_array_data_unref((QString *)&local_60);
@@ -19740,7 +19739,7 @@ QWidget * fsitem_infoWidget(long param_1)
                     /* try { // try from 005e5278 to 005e527c has its CatchHandler @ 005e5892 */
   local_60 = QString::fromAscii_helper("Disk Path:",10);
                     /* try { // try from 005e52a0 to 005e52a4 has its CatchHandler @ 005e5912 */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,&local_90,1);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,&local_90,1);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref(&local_90);
   if (cVar6 != '\0') {
@@ -19757,7 +19756,7 @@ QWidget * fsitem_infoWidget(long param_1)
                     /* try { // try from 005e531e to 005e5322 has its CatchHandler @ 005e58d2 */
   local_60 = QString::fromAscii_helper("Disk Size:",10);
                     /* try { // try from 005e5338 to 005e533c has its CatchHandler @ 005e58b2 */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,uVar4,0);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,uVar4,0);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref((QString *)&local_70);
   if (cVar1 == '\0') {
@@ -19777,7 +19776,7 @@ QWidget * fsitem_infoWidget(long param_1)
                     /* try { // try from 005e5386 to 005e538a has its CatchHandler @ 005e58f2 */
   local_60 = QString::fromAscii_helper("Created Time:",0xd);
                     /* try { // try from 005e53a3 to 005e53a7 has its CatchHandler @ 005e5972 */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,&local_88,1);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,&local_88,1);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref(&local_88);
   if (cVar6 != '\0') {
@@ -19800,7 +19799,7 @@ QWidget * fsitem_infoWidget(long param_1)
                     /* try { // try from 005e53fa to 005e53fe has its CatchHandler @ 005e590a */
   local_60 = QString::fromAscii_helper("Modified Time:",0xe);
                     /* try { // try from 005e5417 to 005e541b has its CatchHandler @ 005e58ca */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,&local_80,1);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,&local_80,1);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref(&local_80);
   if (cVar6 != '\0') {
@@ -19823,7 +19822,7 @@ QWidget * fsitem_infoWidget(long param_1)
                     /* try { // try from 005e5469 to 005e546d has its CatchHandler @ 005e58aa */
   local_60 = QString::fromAscii_helper("Accessed Time:",0xe);
                     /* try { // try from 005e5486 to 005e548a has its CatchHandler @ 005e592a */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,(QString *)&local_70,1);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,(QString *)&local_70,1);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref((QString *)&local_70);
   if (cVar6 != '\0') {
@@ -19842,7 +19841,7 @@ QWidget * fsitem_infoWidget(long param_1)
                     /* try { // try from 005e54e9 to 005e54ed has its CatchHandler @ 005e596a */
   local_60 = QString::fromAscii_helper("Owner:",6);
                     /* try { // try from 005e5503 to 005e5507 has its CatchHandler @ 005e589a */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,(QString *)&local_68,0);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,(QString *)&local_68,0);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref((QString *)&local_68);
   qt_array_data_unref((QString *)&local_70);
@@ -19862,7 +19861,7 @@ QWidget * fsitem_infoWidget(long param_1)
   }
   local_60 = QString::fromAscii_helper("Permissions:",0xc);
                     /* try { // try from 005e5606 to 005e560a has its CatchHandler @ 005e58da */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,&local_78,0);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,&local_78,0);
   qt_array_data_unref((QString *)&local_60);
                     /* try { // try from 005e5618 to 005e561c has its CatchHandler @ 005e591a */
   pQVar5 = operator_new(0x30);
@@ -19879,7 +19878,7 @@ QWidget * fsitem_infoWidget(long param_1)
   uVar4 = QString::setNum((longlong)&local_68,iVar7);
   local_60 = QString::fromAscii_helper("Buffer Lines:",0xd);
                     /* try { // try from 005e56c6 to 005e56ca has its CatchHandler @ 005e593a */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,uVar4,0);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,uVar4,0);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref((QString *)&local_68);
                     /* try { // try from 005e56de to 005e56e2 has its CatchHandler @ 005e591a */
@@ -19895,7 +19894,7 @@ QWidget * fsitem_infoWidget(long param_1)
                     /* try { // try from 005e5731 to 005e5735 has its CatchHandler @ 005e597a */
   local_60 = QString::fromAscii_helper("Buffer Characters:",0x12);
                     /* try { // try from 005e5749 to 005e574d has its CatchHandler @ 005e5982 */
-  s_king__copy_5e4cf2(&local_58,(QString *)&local_60,uVar4,0);
+  FUN_005e4cf2(&local_58,(QString *)&local_60,uVar4,0);
   qt_array_data_unref((QString *)&local_60);
   qt_array_data_unref((QString *)&local_68);
   QLocale::~QLocale((QLocale *)&local_70);
@@ -20014,11 +20013,11 @@ void FUN_005e5ba9(long param_1)
 }
 
 
-// ==== entry=005e5bb6 orig=FUN_005e5bb6 size=451 name=s_EditorView_5e5bb6 ====
+// ==== entry=005e5bb6 name=FUN_005e5bb6 size=451 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e5d72) */
 
-void s_EditorView_5e5bb6(QString *param_1)
+void FUN_005e5bb6(QString *param_1)
 
 {
   QString *pQVar1;
@@ -20033,7 +20032,7 @@ void s_EditorView_5e5bb6(QString *param_1)
   QArrayData *local_38;
   undefined8 local_30;
   
-  s_TextEdit_5cc884();
+  FUN_005cc884();
   pQVar1 = param_1 + 0x100;
                     /* try { // try from 005e5bd4 to 005e5bd8 has its CatchHandler @ 005e5d95 */
   FUN_008c51e8(pQVar1);
@@ -20107,7 +20106,7 @@ void EditorView_dtor(QWidget *param_1)
     uVar4 = qcoreapp_self_get();
     lVar5 = FUN_0075cad2(uVar4);
     if (lVar5 != 0) {
-      KitView_vt15(local_30,pQVar1);
+      FUN_008c55bc(local_30,pQVar1);
       FUN_0062b686(lVar5,local_30);
       if (*(int *)local_30[0] == 0) {
 LAB_005e5f46:
@@ -20307,15 +20306,14 @@ void FUN_005e610d(long param_1)
 }
 
 
-// ==== entry=005e611a orig=FUN_005e611a size=1028 name=s_FileReloadMessage_5e611a ====
+// ==== entry=005e611a name=FUN_005e611a size=1028 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e650a) */
 /* WARNING: Removing unreachable block (ram,0x005e64f6) */
 /* WARNING: Removing unreachable block (ram,0x005e6514) */
 /* WARNING: Removing unreachable block (ram,0x005e6500) */
 
-undefined8 *
-s_FileReloadMessage_5e611a(undefined8 *param_1,long *param_2,undefined8 param_3,uint param_4)
+undefined8 * FUN_005e611a(undefined8 *param_1,long *param_2,undefined8 param_3,uint param_4)
 
 {
   size_t sVar1;
@@ -20380,7 +20378,7 @@ LAB_005e64b0:
   }
   QVariant::~QVariant((QVariant *)&local_48);
                     /* try { // try from 005e627e to 005e6282 has its CatchHandler @ 005e6576 */
-  KitView_vt15(&local_68,*param_2 + 0x100);
+  FUN_008c55bc(&local_68,*param_2 + 0x100);
                     /* try { // try from 005e6294 to 005e6298 has its CatchHandler @ 005e6526 */
   QString::arg(&local_60,param_3,&local_68,0,0x20);
                     /* try { // try from 005e62a8 to 005e62ac has its CatchHandler @ 005e653e */
@@ -20505,7 +20503,7 @@ void FUN_005e657e(long param_1,QString *param_2)
   undefined8 local_40;
   
   lVar1 = param_1 + 0x100;
-  KitView_vt15((QVariant *)&local_48,lVar1);
+  FUN_008c55bc((QVariant *)&local_48,lVar1);
                     /* try { // try from 005e65bd to 005e65c1 has its CatchHandler @ 005e6c7a */
   QDir::toNativeSeparators((QString *)&local_58);
   cVar5 = operator==((QString *)&local_58,(QString *)&local_48);
@@ -20551,18 +20549,18 @@ LAB_005e65f7:
   local_a0 = param_1;
                     /* try { // try from 005e669d to 005e66b9 has its CatchHandler @ 005e6c72 */
   cVar5 = QFile::exists(param_2);
-  KitView_vt15((QVariant *)&local_48,lVar1);
+  FUN_008c55bc((QVariant *)&local_48,lVar1);
                     /* try { // try from 005e66c0 to 005e66c4 has its CatchHandler @ 005e6c6a */
   FUN_0062bf98(lVar7);
   qt_array_data_unref((QVariant *)&local_48);
   if (cVar5 == '\0') {
                     /* try { // try from 005e66e6 to 005e66ea has its CatchHandler @ 005e6c72 */
-    KitView_vt15((QVariant *)&local_48,lVar1);
+    FUN_008c55bc((QVariant *)&local_48,lVar1);
                     /* try { // try from 005e66f1 to 005e66f5 has its CatchHandler @ 005e6c5a */
     FUN_0062b686(lVar7,(QVariant *)&local_48);
     qt_array_data_unref((QVariant *)&local_48);
                     /* try { // try from 005e670e to 005e6712 has its CatchHandler @ 005e6c72 */
-    KitView_vt15((QVariant *)&local_48,lVar1);
+    FUN_008c55bc((QVariant *)&local_48,lVar1);
                     /* try { // try from 005e6719 to 005e671d has its CatchHandler @ 005e6c52 */
     FUN_0062c176(lVar7,(QVariant *)&local_48);
     qt_array_data_unref((QVariant *)&local_48);
@@ -20572,9 +20570,9 @@ LAB_005e65f7:
     local_98 = local_68;
     local_68 = puVar4;
     qt_array_data_unref(&local_68);
-    s_FileReloadMessage_5e611a((QVariant *)&local_48,&local_a8,&local_98,0);
+    FUN_005e611a((QVariant *)&local_48,&local_a8,&local_98,0);
                     /* try { // try from 005e67a8 to 005e67ac has its CatchHandler @ 005e6c62 */
-    s_SessionNotificationMessage_8c6f48(&local_60,lVar1,(QVariant *)&local_48);
+    FUN_008c6f48(&local_60,lVar1,(QVariant *)&local_48);
     qlist_ref_release(&local_60);
     qmap_freetree_variant_nodes((QVariant *)&local_48);
                     /* try { // try from 005e67c0 to 005e67e2 has its CatchHandler @ 005e6c72 */
@@ -20610,9 +20608,9 @@ LAB_005e65f7:
         local_90 = puVar4;
         qt_array_data_unref(&local_90);
       }
-      s_FileReloadMessage_5e611a((QVariant *)&local_48,&local_a8,&local_98,0);
+      FUN_005e611a((QVariant *)&local_48,&local_a8,&local_98,0);
                     /* try { // try from 005e6911 to 005e6915 has its CatchHandler @ 005e6c3a */
-      s_SessionNotificationMessage_8c6f48(local_80,lVar1,(QVariant *)&local_48);
+      FUN_008c6f48(local_80,lVar1,(QVariant *)&local_48);
       qlist_ref_release(local_80);
       qmap_freetree_variant_nodes((QVariant *)&local_48);
                     /* try { // try from 005e692b to 005e69a7 has its CatchHandler @ 005e6c72 */
@@ -20629,9 +20627,9 @@ LAB_005e65f7:
   local_98 = local_78;
   local_78 = puVar4;
   qt_array_data_unref(&local_78);
-  s_FileReloadMessage_5e611a((QVariant *)&local_48,&local_a8,&local_98);
+  FUN_005e611a((QVariant *)&local_48,&local_a8,&local_98);
                     /* try { // try from 005e69be to 005e69c2 has its CatchHandler @ 005e6c42 */
-  s_SessionNotificationMessage_8c6f48(&local_60,lVar1,(QVariant *)&local_48);
+  FUN_008c6f48(&local_60,lVar1,(QVariant *)&local_48);
   qmap_freetree_variant_nodes((QVariant *)&local_48);
   iVar12 = (int)&local_60;
   if (1 < *local_60) {
@@ -20686,7 +20684,7 @@ LAB_005e6c2d:
       local_40 = 0;
       puVar8 = operator_new(0x20);
       *puVar8 = 1;
-      *(code **)(puVar8 + 2) = s_FileReloadMessage_5e4685;
+      *(code **)(puVar8 + 2) = FUN_005e4685;
       *(long *)(puVar8 + 4) = param_1;
       *(long *)(puVar8 + 6) = lVar7;
       QObject::connectImpl
@@ -20710,11 +20708,11 @@ LAB_005e67fb:
 }
 
 
-// ==== entry=005e6c92 orig=FUN_005e6c92 size=1273 name=s_FileReloadMessage_5e6c92 ====
+// ==== entry=005e6c92 name=FUN_005e6c92 size=1273 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e6e9a) */
 
-void s_FileReloadMessage_5e6c92(char *param_1,undefined8 *param_2,char param_3)
+void FUN_005e6c92(char *param_1,undefined8 *param_2,char param_3)
 
 {
   char *pcVar1;
@@ -20736,7 +20734,7 @@ void s_FileReloadMessage_5e6c92(char *param_1,undefined8 *param_2,char param_3)
   undefined4 local_40;
   
   pcVar1 = param_1 + 0x100;
-  KitView_vt15((QString *)&local_48,pcVar1);
+  FUN_008c55bc((QString *)&local_48,pcVar1);
   iVar4 = *(int *)(local_48 + 4);
   if (*(int *)local_48 != 0) {
     if (*(int *)local_48 == -1) goto joined_r0x005e6ebb;
@@ -20809,7 +20807,7 @@ joined_r0x005e6ebb:
     qt_array_data_unref(local_60);
     QVariant::~QVariant((QVariant *)&local_58);
                     /* try { // try from 005e70b0 to 005e70b4 has its CatchHandler @ 005e7202 */
-    s_SessionNotificationMessage_8c6f48((QString *)&local_48,pcVar1,&local_70);
+    FUN_008c6f48((QString *)&local_48,pcVar1,&local_70);
     qlist_ref_release((QString *)&local_48);
     qmap_freetree_variant_nodes(&local_70);
     return;
@@ -20858,22 +20856,22 @@ joined_r0x005e6ebb:
     }
     uVar10 = 2;
   }
-  KitView_vt9((QByteArray *)&local_58,pcVar1);
+  FUN_008c4ec8((QByteArray *)&local_58,pcVar1);
                     /* try { // try from 005e6db8 to 005e6dbc has its CatchHandler @ 005e71f2 */
   QVariant::QVariant((QVariant *)&local_48,(QByteArray *)&local_58);
                     /* try { // try from 005e6dcd to 005e6dd1 has its CatchHandler @ 005e71cd */
   QObject::setProperty(param_1,(QVariant *)0xc9e544);
   QVariant::~QVariant((QVariant *)&local_48);
   qt_byte_array_unref((QByteArray *)&local_58);
-  KitView_vt15((QString *)&local_48,pcVar1);
+  FUN_008c55bc((QString *)&local_48,pcVar1);
                     /* try { // try from 005e6df2 to 005e6df6 has its CatchHandler @ 005e71e2 */
   pvVar8 = operator_new(0x30);
                     /* try { // try from 005e6e0c to 005e6e10 has its CatchHandler @ 005e71bd */
-  s_text_detectIndentation_647b2c(pvVar8,(QString *)&local_48,lVar6,uVar10,0,0);
+  FUN_00647b2c(pvVar8,(QString *)&local_48,lVar6,uVar10,0,0);
                     /* try { // try from 005e6e17 to 005e6e1b has its CatchHandler @ 005e71e2 */
   FUN_005e35ac(param_1,pvVar8);
   qt_array_data_unref((QString *)&local_48);
-  s_FileErrorMessage_5e37ae(param_1,0);
+  FUN_005e37ae(param_1,0);
   return;
 }
 
@@ -20897,7 +20895,7 @@ void FUN_005e721a(undefined8 param_1,int param_2)
     UNLOCK();
   }
                     /* try { // try from 005e7261 to 005e7265 has its CatchHandler @ 005e72c5 */
-  s_FileReloadMessage_5e6c92(param_1,&local_20,1);
+  FUN_005e6c92(param_1,&local_20,1);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_005e727c;
     LOCK();
@@ -20998,11 +20996,11 @@ void FUN_005e7438(long param_1)
 }
 
 
-// ==== entry=005e7442 orig=FUN_005e7442 size=1790 name=s_FileErrorMessage_5e7442 ====
+// ==== entry=005e7442 name=FUN_005e7442 size=1790 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e7a4d) */
 
-long s_FileErrorMessage_5e7442(QObject *param_1,QString *param_2,long param_3)
+long FUN_005e7442(QObject *param_1,QString *param_2,long param_3)
 
 {
   QArrayData *pQVar1;
@@ -21280,10 +21278,9 @@ void FUN_005e7bf7(long param_1)
 }
 
 
-// ==== entry=005e7c00 orig=FUN_005e7c00 size=2300 name=s_text_trimTrailingWhitespaceOnSave_5e7c00 ====
+// ==== entry=005e7c00 name=FUN_005e7c00 size=2300 ====
 
-long * s_text_trimTrailingWhitespaceOnSave_5e7c00
-                 (long *param_1,long param_2,QString *param_3,char param_4,char param_5)
+long * FUN_005e7c00(long *param_1,long param_2,QString *param_3,char param_4,char param_5)
 
 {
   long lVar1;
@@ -21422,7 +21419,7 @@ LAB_005e7fdc:
     uVar9 = qcoreapp_self_get();
     lVar10 = FUN_0075cad2(uVar9);
     if (lVar10 != 0) {
-      KitView_vt15((QString *)&local_58,lVar1);
+      FUN_008c55bc((QString *)&local_58,lVar1);
                     /* try { // try from 005e7d26 to 005e7d2a has its CatchHandler @ 005e85dd */
       FUN_0062b686(lVar10,(QString *)&local_58);
       qt_array_data_unref((QString *)&local_58);
@@ -21502,7 +21499,7 @@ LAB_005e7fdc:
     if (param_5 == '\0') goto LAB_005e7f88;
                     /* try { // try from 005e8152 to 005e8163 has its CatchHandler @ 005e8535 */
     FUN_005be404(param_2);
-    KitView_vt15((QString *)&local_58,lVar1);
+    FUN_008c55bc((QString *)&local_58,lVar1);
                     /* try { // try from 005e8174 to 005e8178 has its CatchHandler @ 005e850d */
     QString::trimmed_helper((QString *)&local_b0);
     cVar8 = operator==((QString *)&local_b0,(QString *)&local_58);
@@ -21570,13 +21567,13 @@ LAB_005e7fdc:
   uVar9 = qcoreapp_self_get();
   lVar10 = FUN_0075cad2(uVar9);
   if (lVar10 != 0) {
-    KitView_vt15((QString *)&local_58,lVar1);
+    FUN_008c55bc((QString *)&local_58,lVar1);
                     /* try { // try from 005e8203 to 005e8207 has its CatchHandler @ 005e85bd */
     FUN_0062c176(lVar10,(QString *)&local_58);
     qt_array_data_unref((QString *)&local_58);
   }
                     /* try { // try from 005e8218 to 005e821c has its CatchHandler @ 005e8535 */
-  KitView_vt15((QString *)&local_58,lVar1);
+  FUN_008c55bc((QString *)&local_58,lVar1);
                     /* try { // try from 005e8223 to 005e8227 has its CatchHandler @ 005e85fd */
   FUN_008fbe3a(param_2,(QString *)&local_58);
   qt_array_data_unref((QString *)&local_58);
@@ -21667,7 +21664,7 @@ undefined8 FUN_005e8736(undefined8 param_1,long param_2)
   QArrayData *local_48;
   QArrayData *local_40 [2];
   
-  s_tabbar_thumbnailRatio_8c761e(param_1,param_2 + 0x100);
+  FUN_008c761e(param_1,param_2 + 0x100);
   sVar2 = strlen(
                 "<tr><td style=\"text-align:right;white-space: nowrap;\">%1: </td><td><b>%2</b></td></tr>"
                 );
@@ -22693,11 +22690,11 @@ LAB_005e965c:
 }
 
 
-// ==== entry=005e96ac orig=FUN_005e96ac size=187 name=s_EditorWindow_5e96ac ====
+// ==== entry=005e96ac name=FUN_005e96ac size=187 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e9763) */
 
-void s_EditorWindow_5e96ac(QString *param_1)
+void FUN_005e96ac(QString *param_1)
 
 {
   size_t sVar1;
@@ -22814,11 +22811,11 @@ void FUN_005e97fa(QWidget *param_1)
 }
 
 
-// ==== entry=005e9854 orig=FUN_005e9854 size=1069 name=s_SearchPane_5e9854 ====
+// ==== entry=005e9854 name=FUN_005e9854 size=1069 ====
 
 /* WARNING: Removing unreachable block (ram,0x005e9c5e) */
 
-long s_SearchPane_5e9854(long param_1)
+long FUN_005e9854(long param_1)
 
 {
   size_t sVar1;
@@ -22837,7 +22834,7 @@ long s_SearchPane_5e9854(long param_1)
   sVar1 = strlen("SearchPane");
   local_48 = (QArrayData *)QString::fromAscii_helper("SearchPane",(int)sVar1);
                     /* try { // try from 005e98a7 to 005e98ab has its CatchHandler @ 005e9c89 */
-  lVar2 = s_ExplorerPane_89eed8(&local_48,param_1);
+  lVar2 = FUN_0089eed8(&local_48,param_1);
   uVar3 = 0;
   if (lVar2 != 0) {
     uVar3 = __dynamic_cast(lVar2,&PTR_PTR_011ab690,&PTR_PTR_011a6170,0);
@@ -22896,7 +22893,7 @@ LAB_005e9936:
   uVar3 = *(undefined8 *)(param_1 + 0xc0);
   local_58 = FUN_0090b492;
   local_50 = 0;
-  local_48 = (QArrayData *)s_grep_trailingContextLines_5eac66;
+  local_48 = (QArrayData *)FUN_005eac66;
   local_40 = 0;
   puVar4 = operator_new(0x20);
   *puVar4 = 1;
@@ -22933,9 +22930,9 @@ LAB_005e9936:
 }
 
 
-// ==== entry=005e9c96 orig=FUN_005e9c96 size=304 name=s_ReplaceInFilesPane_5e9c96 ====
+// ==== entry=005e9c96 name=FUN_005e9c96 size=304 ====
 
-ulong s_ReplaceInFilesPane_5e9c96(void)
+ulong FUN_005e9c96(void)
 
 {
   int iVar1;
@@ -22984,9 +22981,9 @@ LAB_005e9d21:
 }
 
 
-// ==== entry=005e9dce orig=FUN_005e9dce size=695 name=s_ReplaceInFilesPane_5e9dce ====
+// ==== entry=005e9dce name=FUN_005e9dce size=695 ====
 
-void s_ReplaceInFilesPane_5e9dce(long param_1,undefined8 param_2,undefined8 *param_3)
+void FUN_005e9dce(long param_1,undefined8 param_2,undefined8 *param_3)
 
 {
   int iVar1;
@@ -23000,7 +22997,7 @@ void s_ReplaceInFilesPane_5e9dce(long param_1,undefined8 param_2,undefined8 *par
   byte bVar8;
   QArrayData *local_40 [2];
   
-  pQVar6 = (QWidget *)s_SearchPane_5e9854();
+  pQVar6 = (QWidget *)FUN_005e9854();
   if (pQVar6 == (QWidget *)0x0) {
     return;
   }
@@ -23525,14 +23522,14 @@ LAB_005ea8df:
 }
 
 
-// ==== entry=005ea91a orig=FUN_005ea91a size=321 name=s_ExplorerPane_5ea91a ====
+// ==== entry=005ea91a name=FUN_005ea91a size=321 ====
 
 /* WARNING: Removing unreachable block (ram,0x005eaa47) */
 /* WARNING: Removing unreachable block (ram,0x005eaa33) */
 /* WARNING: Removing unreachable block (ram,0x005eaa51) */
 /* WARNING: Removing unreachable block (ram,0x005eaa3d) */
 
-undefined8 s_ExplorerPane_5ea91a(undefined8 param_1)
+undefined8 FUN_005ea91a(undefined8 param_1)
 
 {
   int iVar1;
@@ -23675,11 +23672,11 @@ LAB_005eab54:
 }
 
 
-// ==== entry=005eac66 orig=FUN_005eac66 size=2057 name=s_grep_trailingContextLines_5eac66 ====
+// ==== entry=005eac66 name=FUN_005eac66 size=2057 ====
 
 /* WARNING: Removing unreachable block (ram,0x005eb3f7) */
 
-void s_grep_trailingContextLines_5eac66(undefined8 param_1,long param_2)
+void FUN_005eac66(undefined8 param_1,long param_2)
 
 {
   code *pcVar1;
@@ -23716,7 +23713,7 @@ void s_grep_trailingContextLines_5eac66(undefined8 param_1,long param_2)
     if (lVar10 == 0) {
       return;
     }
-    s_SearchPane_5bdda6(lVar10,param_2);
+    FUN_005bdda6(lVar10,param_2);
     return;
   }
   local_b0 = (_func_void_Node_ptr_void_ptr *)&QHashData::shared_null;
@@ -23754,7 +23751,7 @@ LAB_005ead52:
         puVar14 = puVar14 + 2;
         if (puVar2 == puVar14) goto LAB_005eae33;
       }
-      KitView_vt15(&local_58,uVar3);
+      FUN_008c55bc(&local_58,uVar3);
                     /* try { // try from 005ead85 to 005ead89 has its CatchHandler @ 005eb487 */
       QString::toLower_helper((QString *)&local_48);
       p_Var12 = local_b0;
@@ -24003,7 +24000,7 @@ LAB_005eb5ac:
     uVar3 = 0xffffffffffffffff;
   }
   else if (local_60 == 1) {
-    uVar3 = s_FileErrorMessage_5e7442(lVar2,&local_a0,0);
+    uVar3 = FUN_005e7442(lVar2,&local_a0,0);
   }
   else {
     if (local_60 == 0) {
@@ -24014,7 +24011,7 @@ LAB_005eb5ac:
                     /* try { // try from 005eb5e2 to 005eb62f has its CatchHandler @ 005eb63e */
       uVar3 = FUN_005b83b8(lVar2);
     }
-    uVar3 = s_FileErrorMessage_5e7442(lVar2,&local_a0,uVar3);
+    uVar3 = FUN_005e7442(lVar2,&local_a0,uVar3);
   }
   if (*(int *)local_a0 != 0) {
     if (*(int *)local_a0 == -1) goto LAB_005eb562;
@@ -24091,7 +24088,7 @@ LAB_005eb8d4:
         puVar7 = (undefined8 *)FUN_005ec8e8(&local_58,local_40,0);
         if ((_func_void_Node_ptr_void_ptr *****)*puVar7 ==
             (_func_void_Node_ptr_void_ptr *****)local_58) {
-          s_text_trimTrailingWhitespaceOnSave_5e2382(&local_48,lVar6);
+          FUN_005e2382(&local_48,lVar6);
           if (*(int *)(local_48 + 4) == 0) {
             if (*(int *)local_48 != 0) {
               if (*(int *)local_48 == -1) break;
@@ -24188,9 +24185,9 @@ LAB_005eb908:
 }
 
 
-// ==== entry=005eba10 orig=FUN_005eba10 size=301 name=s_ReplaceInFilesPane_5eba10 ====
+// ==== entry=005eba10 name=FUN_005eba10 size=301 ====
 
-ulong s_ReplaceInFilesPane_5eba10(long param_1,long *param_2)
+ulong FUN_005eba10(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -24200,7 +24197,7 @@ ulong s_ReplaceInFilesPane_5eba10(long param_1,long *param_2)
   int iVar5;
   ulong uVar6;
   
-  cVar3 = s_ReplaceInFilesPane_5e9c96();
+  cVar3 = FUN_005e9c96();
   if (cVar3 == '\0') {
     uVar6 = FUN_008ca604(param_1,param_2);
     return uVar6;
@@ -24254,21 +24251,21 @@ ulong FUN_005ebb3e(undefined8 param_1,undefined8 param_2)
   uint uVar2;
   ulong uVar3;
   
-  cVar1 = s_ReplaceInFilesPane_5e9c96();
+  cVar1 = FUN_005e9c96();
   if (cVar1 == '\0') {
     uVar3 = FUN_008cdffa();
     return uVar3;
   }
-  uVar2 = s_ReplaceInFilesPane_5eba10(param_1,param_2);
+  uVar2 = FUN_005eba10(param_1,param_2);
   return (ulong)(uVar2 ^ 1);
 }
 
 
-// ==== entry=005ebb74 orig=FUN_005ebb74 size=128 name=s_SearchPane_5ebb74 ====
+// ==== entry=005ebb74 name=FUN_005ebb74 size=128 ====
 
 /* WARNING: Removing unreachable block (ram,0x005ebbed) */
 
-void s_SearchPane_5ebb74(undefined8 param_1)
+void FUN_005ebb74(undefined8 param_1)
 
 {
   size_t sVar1;
@@ -24301,18 +24298,18 @@ void FUN_005ebbfc(undefined8 param_1,undefined8 param_2,char param_3)
   char cVar1;
   QArrayData *local_20;
   
-  cVar1 = s_ReplaceInFilesPane_5e9c96();
+  cVar1 = FUN_005e9c96();
   if (cVar1 == '\0') {
     FUN_008d0676(param_1,param_2,param_3);
     return;
   }
   if (param_3 == '\0') {
-    s_SearchPane_5ebb74(param_1);
+    FUN_005ebb74(param_1);
   }
   else {
     local_20 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 005ebc35 to 005ebc39 has its CatchHandler @ 005ebc96 */
-    s_ReplaceInFilesPane_5e9dce(param_1,param_2,&local_20);
+    FUN_005e9dce(param_1,param_2,&local_20);
     if (*(int *)local_20 == 0) {
 LAB_005ebc55:
       QArrayData::deallocate(local_20,2,8);
@@ -24329,14 +24326,14 @@ LAB_005ebc55:
 }
 
 
-// ==== entry=005ebc9e orig=FUN_005ebc9e size=543 name=s_ExplorerPane_5ebc9e ====
+// ==== entry=005ebc9e name=FUN_005ebc9e size=543 ====
 
 /* WARNING: Removing unreachable block (ram,0x005ebe5f) */
 /* WARNING: Removing unreachable block (ram,0x005ebe2e) */
 /* WARNING: Removing unreachable block (ram,0x005ebeb3) */
 /* WARNING: Removing unreachable block (ram,0x005ebea9) */
 
-void s_ExplorerPane_5ebc9e(undefined8 param_1)
+void FUN_005ebc9e(undefined8 param_1)
 
 {
   size_t sVar1;
@@ -24592,7 +24589,7 @@ undefined8 FUN_005ec2dc(undefined8 param_1,long *param_2)
     if (lVar6 != 0) {
       lVar6 = __dynamic_cast(lVar6,&PTR_PTR_011925c8,&PTR_PTR_0119e610,0x100);
       if (lVar6 != 0) {
-        s_text_trimTrailingWhitespaceOnSave_5e2382(&local_38,lVar6);
+        FUN_005e2382(&local_38,lVar6);
         if (*(int *)local_38 == 0) {
 LAB_005ec452:
           QArrayData::deallocate(local_38,2,8);
@@ -25351,13 +25348,13 @@ void ForwardingCenter_dtor(QObject *param_1)
     lVar2 = *(long *)(puVar3 + 8);
     local_30 = lVar2 + 0x10 + (long)*(int *)(lVar2 + 0xc) * 8;
     local_38 = lVar2 + 0x10 + (long)*(int *)(lVar2 + 8) * 8;
-    ForwardingCenter_h5ee303(&local_38,&local_30);
+    FUN_005ee303(&local_38,&local_30);
     puVar3 = (uint *)QMapNodeBase::nextNode();
     puVar5 = *(uint **)(param_1 + 0x18);
   }
   if (*puVar5 == 0) {
 LAB_005ecdff:
-    ForwardingCenter_h5ee52a(puVar5);
+    FUN_005ee52a(puVar5);
     pQVar4 = *(QMapNodeBase **)(param_1 + 0x10);
     iVar1 = *(int *)pQVar4;
   }
@@ -25886,9 +25883,9 @@ LAB_005ecf1c:
 }
 
 
-// ==== entry=005eda26 orig=FUN_005eda26 size=695 name=ForwardingHandler_h5eda26 ====
+// ==== entry=005eda26 name=FUN_005eda26 size=695 ====
 
-void ForwardingHandler_h5eda26(long param_1,long param_2)
+void FUN_005eda26(long param_1,long param_2)
 
 {
   char cVar1;
@@ -26095,7 +26092,7 @@ LAB_005edd02:
           lVar2 = *(long *)(puVar6 + 8);
           local_48.tv_sec = lVar2 + 0x10 + (long)*(int *)(lVar2 + 0xc) * 8;
           local_50 = lVar2 + 0x10 + (long)*(int *)(lVar2 + 8) * 8;
-          ForwardingCenter_h5ee303(&local_50,&local_48);
+          FUN_005ee303(&local_50,&local_48);
           puVar6 = (uint *)FUN_005ef8f0(lVar1,puVar6);
         }
         puVar7 = *(uint **)(param_1 + 0x18);
@@ -26360,9 +26357,9 @@ undefined8 * FUN_005ee2f4(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=005ee303 orig=FUN_005ee303 size=154 name=ForwardingCenter_h5ee303 ====
+// ==== entry=005ee303 name=FUN_005ee303 size=154 ====
 
-void ForwardingCenter_h5ee303(long *param_1,long *param_2)
+void FUN_005ee303(long *param_1,long *param_2)
 
 {
   int iVar1;
@@ -26515,9 +26512,9 @@ void ForwardingCenter_list_nodes_destroy(long param_1)
 }
 
 
-// ==== entry=005ee52a orig=FUN_005ee52a size=4449 name=ForwardingCenter_h5ee52a ====
+// ==== entry=005ee52a name=FUN_005ee52a size=4449 ====
 
-void ForwardingCenter_h5ee52a(QMapNodeBase *param_1)
+void FUN_005ee52a(QMapNodeBase *param_1)
 
 {
   long lVar1;
@@ -27566,7 +27563,7 @@ void FUN_005ef878(long *param_1)
     UNLOCK();
     if (*piVar3 != 0) goto LAB_005ef8c7;
   }
-  ForwardingCenter_h5ee52a(*param_1);
+  FUN_005ee52a(*param_1);
 LAB_005ef8c7:
   *param_1 = lVar1;
   QMapDataBase::recalcMostLeftNode();
@@ -28946,7 +28943,7 @@ void ForwardingHandler_dtor(QObject *param_1)
   Data *pDVar5;
   
   *(undefined ***)param_1 = &ForwardingHandler_vtable;
-  ForwardingHandler_h5eda26(DAT_011c13e0,param_1);
+  FUN_005eda26(DAT_011c13e0,param_1);
   if (1 < **(uint **)(param_1 + 0x18)) {
     FUN_005f2480(param_1 + 0x18,(*(uint **)(param_1 + 0x18))[1]);
   }
@@ -38047,13 +38044,11 @@ undefined8 * stream_queue_push_back(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=005fac8a orig=FUN_005fac8a size=127 name=s_basic_string__basic_string_5fac8a ====
+// ==== entry=005fac8a orig=FUN_005fac8a size=127 name=string ====
 
 /* std::string::string(std::string const&, unsigned long, unsigned long) */
 
-void __thiscall
-std::string::s_basic_string__basic_string_5fac8a
-          (string *this,string *param_1,ulong param_2,ulong param_3)
+void __thiscall std::string::string(string *this,string *param_1,ulong param_2,ulong param_3)
 
 {
   ulong uVar1;
@@ -39196,12 +39191,11 @@ LAB_005fc099:
 }
 
 
-// ==== entry=005fd166 orig=FUN_005fd166 size=246 name=s_basic_string__append_5fd166 ====
+// ==== entry=005fd166 orig=FUN_005fd166 size=246 name=append ====
 
 /* std::string::append(char const*, unsigned long) */
 
-string * __thiscall
-std::string::s_basic_string__append_5fd166(string *this,char *param_1,ulong param_2)
+string * __thiscall std::string::append(string *this,char *param_1,ulong param_2)
 
 {
   undefined1 *puVar1;
@@ -39273,7 +39267,7 @@ char * std::operator+(char *param_1,string *param_2)
   *(undefined1 **)param_1 = &DAT_011c5338;
                     /* try { // try from 005fd294 to 005fd2ce has its CatchHandler @ 005fd322 */
   string::reserve((string *)param_1,*(long *)(*in_RDX + -0x18) + sVar2);
-  string::s_basic_string__append_5fd166((string *)param_1,(char *)param_2,sVar2);
+  string::append((string *)param_1,(char *)param_2,sVar2);
   sVar2 = *(size_t *)(*in_RDX + -0x18);
   if (sVar2 != 0) {
     lVar1 = *(long *)param_1;
@@ -39648,12 +39642,11 @@ long * FUN_005fd850(long *param_1,long param_2,string *param_3)
 }
 
 
-// ==== entry=005fdc00 orig=FUN_005fdc00 size=389 name=s_basic_string__insert_5fdc00 ====
+// ==== entry=005fdc00 orig=FUN_005fdc00 size=389 name=insert ====
 
 /* std::string::insert(unsigned long, char const*, unsigned long) */
 
-string * __thiscall
-std::string::s_basic_string__insert_5fdc00(string *this,ulong param_1,char *param_2,ulong param_3)
+string * __thiscall std::string::insert(string *this,ulong param_1,char *param_2,ulong param_3)
 
 {
   undefined1 *__src;
@@ -39737,7 +39730,7 @@ undefined8 * FUN_005fdd85(undefined8 *param_1,char *param_2,string *param_3)
   undefined8 *puVar2;
   
   sVar1 = strlen(param_2);
-  puVar2 = (undefined8 *)std::string::s_basic_string__insert_5fdc00(param_3,0,param_2,sVar1);
+  puVar2 = (undefined8 *)std::string::insert(param_3,0,param_2,sVar1);
   *param_1 = *puVar2;
   *puVar2 = &DAT_011c5338;
   return param_1;
@@ -52807,13 +52800,12 @@ void FUN_00611c00(undefined8 *param_1,undefined8 *param_2,undefined4 param_3)
                     /* try { // try from 00611c8d to 00611c8f has its CatchHandler @ 00612026 */
   (**(code **)(*plVar1 + 0x18))((string *)&local_190,plVar1,param_3);
                     /* try { // try from 00611ca1 to 00611ca5 has its CatchHandler @ 00612012 */
-  puVar2 = (undefined8 *)std::string::s_basic_string__insert_5fdc00((string *)&local_190,0,": ",2);
+  puVar2 = (undefined8 *)std::string::insert((string *)&local_190,0,": ",2);
   local_188 = (undefined1 *)*puVar2;
   *puVar2 = &DAT_011c5338;
   sVar3 = strlen(pcVar4);
                     /* try { // try from 00611cce to 00611cd2 has its CatchHandler @ 00611fbc */
-  puVar2 = (undefined8 *)
-           std::string::s_basic_string__insert_5fdc00((string *)&local_188,0,pcVar4,sVar3);
+  puVar2 = (undefined8 *)std::string::insert((string *)&local_188,0,pcVar4,sVar3);
   local_180 = (undefined1 *)*puVar2;
   *puVar2 = &DAT_011c5338;
                     /* try { // try from 00611cf7 to 00611cfb has its CatchHandler @ 00611fb7 */
@@ -53032,7 +53024,7 @@ LAB_0061237a:
       pvVar4 = memchr(&DAT_00c8ce90,(int)*(char *)(lVar10 + uVar11),1);
       if (pvVar4 != (void *)0x0) {
                     /* try { // try from 00612771 to 00612775 has its CatchHandler @ 00612883 */
-        std::string::s_basic_string__basic_string_5fac8a((string *)&local_d8,local_f0,0,uVar11);
+        std::string::string((string *)&local_d8,local_f0,0,uVar11);
         goto LAB_006123e0;
       }
       uVar11 = uVar11 - 1;
@@ -53061,7 +53053,7 @@ code_r0x00612453:
   if (uVar11 <= uVar12) {
 LAB_00612468:
                     /* try { // try from 00612475 to 00612479 has its CatchHandler @ 00612879 */
-    std::string::s_basic_string__basic_string_5fac8a((string *)&local_d0,local_108,0,uVar11);
+    std::string::string((string *)&local_d0,local_108,0,uVar11);
     pcVar13 = local_d0;
     if (*(long *)(local_d0 + -0x18) != 0) goto LAB_00612647;
 joined_r0x00612495:
@@ -53147,9 +53139,7 @@ LAB_006125db:
         FUN_005fdd85((string *)&local_d0,"Failed opening file ",&local_d8);
         sVar8 = strlen(" for writing");
                     /* try { // try from 00612626 to 0061262a has its CatchHandler @ 006128d2 */
-        puVar9 = (undefined8 *)
-                 std::string::s_basic_string__append_5fd166
-                           ((string *)&local_d0," for writing",sVar8);
+        puVar9 = (undefined8 *)std::string::append((string *)&local_d0," for writing",sVar8);
         local_c8.st_dev = *puVar9;
         *puVar9 = &DAT_011c5338;
         pcVar13 = (char *)(ulong)uVar1;
@@ -53433,9 +53423,7 @@ LAB_00612c10:
                     /* try { // try from 00612eb4 to 00612eb8 has its CatchHandler @ 00613095 */
         std::operator+((char *)&local_58,(string *)"logger with name \'");
                     /* try { // try from 00612ecf to 00612f16 has its CatchHandler @ 00613014 */
-        puVar13 = (undefined8 *)
-                  std::string::s_basic_string__append_5fd166
-                            ((string *)&local_58,"\' already exists",0x10);
+        puVar13 = (undefined8 *)std::string::append((string *)&local_58,"\' already exists",0x10);
         uVar14 = *puVar13;
         *puVar13 = &DAT_011c5338;
         puVar13 = (undefined8 *)__cxa_allocate_exception(0x10);
@@ -55675,9 +55663,9 @@ QMessageBox * msgbox_buildRich(undefined8 *param_1,char param_2)
 }
 
 
-// ==== entry=00616110 orig=FUN_00616110 size=372 name=s_transfer_download_616110 ====
+// ==== entry=00616110 name=FUN_00616110 size=372 ====
 
-undefined8 s_transfer_download_616110(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+undefined8 FUN_00616110(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   undefined8 uVar1;
@@ -56206,7 +56194,7 @@ undefined4 FUN_00616f0a(undefined8 *param_1)
   QStringList local_30 [16];
   
   uVar2 = qcoreapp_self_get();
-  s_filer_defaultEditor_75ccbe((QString *)&local_40,uVar2);
+  FUN_0075ccbe((QString *)&local_40,uVar2);
   if (*(int *)(local_40 + 4) == 0) {
     uVar1 = 0;
   }
@@ -56529,9 +56517,9 @@ LAB_0061759b:
 }
 
 
-// ==== entry=00617702 orig=FUN_00617702 size=871 name=s_transfer_currentItemType_617702 ====
+// ==== entry=00617702 name=FUN_00617702 size=871 ====
 
-QIcon * s_transfer_currentItemType_617702(QIcon *param_1,undefined8 param_2,undefined8 *param_3)
+QIcon * FUN_00617702(QIcon *param_1,undefined8 param_2,undefined8 *param_3)
 
 {
   undefined8 uVar1;
@@ -56650,7 +56638,7 @@ QIcon * s_transfer_currentItemType_617702(QIcon *param_1,undefined8 param_2,unde
     qt_array_data_unref((QIcon *)&local_60);
     QVariant::~QVariant((QVariant *)&local_58);
                     /* try { // try from 0061796c to 00617970 has its CatchHandler @ 00617a75 */
-    s_transfer_download_616110((QVariant *)local_48,param_2,&local_68);
+    FUN_00616110((QVariant *)local_48,param_2,&local_68);
     uVar1 = *(undefined8 *)param_1;
     *(undefined8 *)param_1 = local_48[0];
     local_48[0] = uVar1;
@@ -56661,9 +56649,9 @@ QIcon * s_transfer_currentItemType_617702(QIcon *param_1,undefined8 param_2,unde
 }
 
 
-// ==== entry=00617aea orig=FUN_00617aea size=2052 name=s_transfer_targetDirectory_617aea ====
+// ==== entry=00617aea name=FUN_00617aea size=2052 ====
 
-QString * s_transfer_targetDirectory_617aea(QString *param_1,undefined8 param_2,undefined8 *param_3)
+QString * FUN_00617aea(QString *param_1,undefined8 param_2,undefined8 *param_3)
 
 {
   int iVar1;
@@ -56989,9 +56977,9 @@ undefined4 FUN_006184ca(void)
 }
 
 
-// ==== entry=006184e2 orig=FUN_006184e2 size=255 name=s_transfer_targetDirectory_6184e2 ====
+// ==== entry=006184e2 name=FUN_006184e2 size=255 ====
 
-undefined4 s_transfer_targetDirectory_6184e2(void)
+undefined4 FUN_006184e2(void)
 
 {
   undefined4 uVar1;
@@ -57039,9 +57027,9 @@ undefined4 s_transfer_targetDirectory_6184e2(void)
 }
 
 
-// ==== entry=0061860e orig=FUN_0061860e size=599 name=s_transfer_targetDirectory_61860e ====
+// ==== entry=0061860e name=FUN_0061860e size=599 ====
 
-void s_transfer_targetDirectory_61860e(void)
+void FUN_0061860e(void)
 
 {
   int iVar1;
@@ -57129,7 +57117,7 @@ void s_transfer_targetDirectory_61860e(void)
       local_48[0] = *puVar5;
       qatomic_int_ref();
                     /* try { // try from 006187fc to 00618800 has its CatchHandler @ 006188b5 */
-      s_ShowFolders_75d22e(uVar4,(QVariant *)local_48,0);
+      FUN_0075d22e(uVar4,(QVariant *)local_48,0);
       qt_array_data_unref((QVariant *)local_48);
     }
     qt_array_data_unref(local_68);
@@ -57140,9 +57128,9 @@ void s_transfer_targetDirectory_61860e(void)
 }
 
 
-// ==== entry=006188d2 orig=FUN_006188d2 size=247 name=s_transfer_pointer_6188d2 ====
+// ==== entry=006188d2 name=FUN_006188d2 size=247 ====
 
-undefined8 s_transfer_pointer_6188d2(undefined8 param_1)
+undefined8 FUN_006188d2(undefined8 param_1)
 
 {
   char cVar1;
@@ -57199,7 +57187,7 @@ bool FUN_006189f6(void)
 {
   long lVar1;
   
-  lVar1 = s_transfer_pointer_6188d2();
+  lVar1 = FUN_006188d2();
   return lVar1 != 0;
 }
 
@@ -58232,9 +58220,9 @@ void FUN_00619f98(void)
 }
 
 
-// ==== entry=00619fc0 orig=FUN_00619fc0 size=1321 name=s_transfer_useDefaultEditor_619fc0 ====
+// ==== entry=00619fc0 name=FUN_00619fc0 size=1321 ====
 
-void s_transfer_useDefaultEditor_619fc0(long param_1,undefined8 param_2,undefined8 *param_3)
+void FUN_00619fc0(long param_1,undefined8 param_2,undefined8 *param_3)
 
 {
   undefined1 uVar1;
@@ -58926,7 +58914,7 @@ void FUN_0061b176(undefined8 param_1,QString *param_2)
   undefined8 local_28;
   undefined4 local_20;
   
-  lVar1 = s_transfer_pointer_6188d2();
+  lVar1 = FUN_006188d2();
   if (lVar1 != 0) {
     recent_map_update(param_1,param_2,2);
     local_28 = 0;
@@ -58952,7 +58940,7 @@ void FUN_0061b206(undefined8 param_1,QString *param_2)
   undefined8 local_28;
   undefined4 local_20;
   
-  lVar1 = s_transfer_pointer_6188d2();
+  lVar1 = FUN_006188d2();
   if (lVar1 != 0) {
     recent_map_update(param_1,param_2,5);
     local_28 = 0;
@@ -58980,7 +58968,7 @@ void FUN_0061b2a8(undefined8 param_1,QString *param_2)
   undefined8 local_28;
   undefined4 local_20;
   
-  lVar1 = s_transfer_pointer_6188d2();
+  lVar1 = FUN_006188d2();
   if (lVar1 != 0) {
     recent_map_update(param_1,param_2,4);
     local_28 = 0;
@@ -59270,9 +59258,9 @@ LAB_0061b732:
 }
 
 
-// ==== entry=0061b8b6 orig=FUN_0061b8b6 size=839 name=s_transfer_weightPercent_61b8b6 ====
+// ==== entry=0061b8b6 name=FUN_0061b8b6 size=839 ====
 
-void s_transfer_weightPercent_61b8b6(long param_1,QMap *param_2)
+void FUN_0061b8b6(long param_1,QMap *param_2)
 
 {
   code *pcVar1;
@@ -59310,7 +59298,7 @@ void s_transfer_weightPercent_61b8b6(long param_1,QMap *param_2)
                     /* try { // try from 0061b94c to 0061b950 has its CatchHandler @ 0061bc72 */
   plVar4 = (long *)FUN_00616d52(param_1,local_68);
   if (plVar4 == (long *)0x0) {
-    s_transfer_currentItemType_617702((QVariant *)&local_58,param_1,param_2);
+    FUN_00617702((QVariant *)&local_58,param_1,param_2);
                     /* try { // try from 0061ba46 to 0061ba4a has its CatchHandler @ 0061bc2d */
     this = operator_new(0x10);
                     /* try { // try from 0061ba54 to 0061ba58 has its CatchHandler @ 0061bc35 */
@@ -59380,7 +59368,7 @@ void s_transfer_weightPercent_61b8b6(long param_1,QMap *param_2)
       QVariant::~QVariant((QVariant *)&local_58);
       if (iVar2 == 1) {
                     /* try { // try from 0061bb99 to 0061bb9d has its CatchHandler @ 0061bc72 */
-        s_transfer_currentItemType_617702((QVariant *)&local_58,param_1,param_2);
+        FUN_00617702((QVariant *)&local_58,param_1,param_2);
         pcVar1 = *(code **)(*plVar4 + 0x18);
                     /* try { // try from 0061bbab to 0061bbaf has its CatchHandler @ 0061bc0d */
         QIcon::operator_cast_to_QVariant((QIcon *)local_48);
@@ -63200,7 +63188,7 @@ transfermodel_data_directory(QModelIndex *param_1,int param_2,long param_3,int p
   QVariant::toMap();
   QVariant::~QVariant((QVariant *)&local_48);
                     /* try { // try from 0062033c to 00620340 has its CatchHandler @ 00621a2e */
-  s_transfer_targetDirectory_617aea((QVariant *)&local_48,DAT_011c1680,&local_50);
+  FUN_00617aea((QVariant *)&local_48,DAT_011c1680,&local_50);
                     /* try { // try from 00620347 to 0062034b has its CatchHandler @ 00621a26 */
   QVariant::QVariant((QVariant *)param_1,(QString *)&local_48);
   if (*(int *)local_48 == 0) {
@@ -66788,7 +66776,7 @@ void RemoteFileSystemModel_dtor(undefined8 *param_1)
 
 {
   *param_1 = &RemoteFileSystemModel_vtable;
-  RemoteFileSystemModel_h626248();
+  FUN_00626248();
   return;
 }
 
@@ -66799,7 +66787,7 @@ void RemoteFileSystemModel_dtor_deleting(undefined8 *param_1)
 
 {
   *param_1 = &RemoteFileSystemModel_vtable;
-  RemoteFileSystemModel_h626248();
+  FUN_00626248();
   operator_delete(param_1,0x38);
   return;
 }

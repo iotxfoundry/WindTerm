@@ -12,7 +12,7 @@ ulong TransferLabel_qt_metacall
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-      TransferLabel_h8f17d8(param_1,param_2,uVar2 & 0xffffffff,param_4);
+      FUN_008f17d8(param_1,param_2,uVar2 & 0xffffffff,param_4);
       return (ulong)(iVar1 - 1);
     }
     if ((((param_2 == 4) || (param_2 == 5)) || (param_2 == 6)) || ((param_2 == 7 || (param_2 == 8)))
@@ -159,9 +159,9 @@ undefined ** TransferBar_metaObject(long param_1)
 }
 
 
-// ==== entry=008f1b18 orig=FUN_008f1b18 size=16 name=TransferBar_h8f1b18 ====
+// ==== entry=008f1b18 name=FUN_008f1b18 size=16 ====
 
-void TransferBar_h8f1b18(QObject *param_1)
+void FUN_008f1b18(QObject *param_1)
 
 {
   QMetaObject::activate(param_1,(QMetaObject *)&PTR_staticMetaObject_011967a0,0,(void **)0x0);
@@ -176,11 +176,11 @@ void FUN_008f1b28(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 {
   if (param_2 == 0) {
     if (param_3 == 0) {
-      TransferBar_h8f1b18();
+      FUN_008f1b18();
       return;
     }
   }
-  else if (((param_2 == 10) && (*(code **)param_4[1] == TransferBar_h8f1b18)) &&
+  else if (((param_2 == 10) && (*(code **)param_4[1] == FUN_008f1b18)) &&
           (((long *)param_4[1])[1] == 0)) {
     *(undefined4 *)*param_4 = 0;
     return;
@@ -222,7 +222,7 @@ ulong TransferBar_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 == 0) {
-        TransferBar_h8f1b18(param_1);
+        FUN_008f1b18(param_1);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -361,9 +361,9 @@ void FUN_008f1d60(void)
 }
 
 
-// ==== entry=008f1d62 orig=FUN_008f1d62 size=24 name=TreeItemDelegate_vt0 ====
+// ==== entry=008f1d62 name=FUN_008f1d62 size=24 ====
 
-undefined ** TreeItemDelegate_vt0(long param_1)
+undefined ** FUN_008f1d62(long param_1)
 
 {
   undefined **ppuVar1;
@@ -391,7 +391,7 @@ undefined8 EditDelegate_dtor(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_EditDelegate_8f993c(param_1,param_2);
+  uVar2 = FUN_008f993c(param_1,param_2);
   return uVar2;
 }
 
@@ -750,9 +750,9 @@ void FUN_008f2236(QObject *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008f227a orig=FUN_008f227a size=85 name=SciScrollbar_h8f227a ====
+// ==== entry=008f227a name=FUN_008f227a size=85 ====
 
-void SciScrollbar_h8f227a(undefined8 param_1,int param_2,long param_3)
+void FUN_008f227a(undefined8 param_1,int param_2,long param_3)
 
 {
   if (param_2 == 1) {
@@ -788,7 +788,7 @@ void FUN_008f22d0(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *
   code *pcVar3;
   
   if (param_2 == 0) {
-    SciScrollbar_h8f227a(param_1,param_3,param_4);
+    FUN_008f227a(param_1,param_3,param_4);
     return;
   }
   if (param_2 == 10) {
@@ -849,7 +849,7 @@ ulong ScrollBar_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,un
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 4) {
-        SciScrollbar_h8f227a(param_1,uVar2 & 0xffffffff,param_4);
+        FUN_008f227a(param_1,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -932,9 +932,9 @@ undefined ** FUN_008f2490(long param_1)
 }
 
 
-// ==== entry=008f24a8 orig=FUN_008f24a8 size=56 name=StatusBar_h8f24a8 ====
+// ==== entry=008f24a8 name=FUN_008f24a8 size=56 ====
 
-void StatusBar_h8f24a8(undefined8 param_1,int param_2,int param_3,long param_4)
+void FUN_008f24a8(undefined8 param_1,int param_2,int param_3,long param_4)
 
 {
   if (param_2 == 0) {
@@ -955,9 +955,9 @@ void StatusBar_h8f24a8(undefined8 param_1,int param_2,int param_3,long param_4)
 }
 
 
-// ==== entry=008f24e0 orig=FUN_008f24e0 size=66 name=StatusBar_h8f24e0 ====
+// ==== entry=008f24e0 name=FUN_008f24e0 size=66 ====
 
-char * StatusBar_h8f24e0(char *param_1,char *param_2)
+char * FUN_008f24e0(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -988,7 +988,7 @@ ulong FUN_008f2522(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        StatusBar_h8f24a8(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f24a8(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -1056,9 +1056,9 @@ void FUN_008f25ed(undefined8 *param_1)
 }
 
 
-// ==== entry=008f2620 orig=FUN_008f2620 size=24 name=TextEdit_vt0 ====
+// ==== entry=008f2620 name=FUN_008f2620 size=24 ====
 
-undefined ** TextEdit_vt0(long param_1)
+undefined ** FUN_008f2620(long param_1)
 
 {
   undefined **ppuVar1;
@@ -1091,9 +1091,9 @@ undefined8 TextView_dtor(undefined8 param_1,char *param_2)
 }
 
 
-// ==== entry=008f267a orig=FUN_008f267a size=1263 name=TextView_h8f267a ====
+// ==== entry=008f267a name=FUN_008f267a size=1263 ====
 
-void TextView_h8f267a(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
+void FUN_008f267a(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   undefined8 *puVar1;
@@ -1355,12 +1355,12 @@ ulong TextView_dtor_deleting(undefined8 param_1,int param_2,undefined8 param_3,u
   int iVar1;
   ulong uVar2;
   
-  uVar2 = TerminalWidget_h8f64ce();
+  uVar2 = FUN_008f64ce();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x42) {
-        TextView_h8f267a(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f267a(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -1440,7 +1440,7 @@ void TextEdit_dtor(undefined8 *param_1)
   *param_1 = &TextEdit_vtable;
   param_1[2] = &PTR_FUN_01197198;
   param_1[9] = &PTR_FUN_011971e8;
-  ScintillaEditWatcher_vt6();
+  FUN_005d4b56();
   return;
 }
 
@@ -1453,7 +1453,7 @@ void FUN_008f2c04(undefined8 *param_1)
   param_1[-9] = &TextEdit_vtable;
   param_1[-7] = &PTR_FUN_01197198;
   *param_1 = &PTR_FUN_011971e8;
-  ScintillaEditWatcher_vt6(param_1 + -9);
+  FUN_005d4b56(param_1 + -9);
   return;
 }
 
@@ -1466,7 +1466,7 @@ void FUN_008f2c30(undefined8 *param_1)
   param_1[-2] = &TextEdit_vtable;
   *param_1 = &PTR_FUN_01197198;
   param_1[7] = &PTR_FUN_011971e8;
-  ScintillaEditWatcher_vt6(param_1 + -2);
+  FUN_005d4b56(param_1 + -2);
   return;
 }
 
@@ -1479,7 +1479,7 @@ void TextEdit_dtor_deleting(undefined8 *param_1)
   *param_1 = &TextEdit_vtable;
   param_1[2] = &PTR_FUN_01197198;
   param_1[9] = &PTR_FUN_011971e8;
-  ScintillaEditWatcher_vt6();
+  FUN_005d4b56();
   operator_delete(param_1,0x100);
   return;
 }
@@ -1493,7 +1493,7 @@ void FUN_008f2c96(undefined8 *param_1)
   param_1[-9] = &TextEdit_vtable;
   param_1[-7] = &PTR_FUN_01197198;
   *param_1 = &PTR_FUN_011971e8;
-  ScintillaEditWatcher_vt6(param_1 + -9);
+  FUN_005d4b56(param_1 + -9);
   operator_delete(param_1 + -9,0x100);
   return;
 }
@@ -1507,7 +1507,7 @@ void FUN_008f2cd4(undefined8 *param_1)
   param_1[-2] = &TextEdit_vtable;
   *param_1 = &PTR_FUN_01197198;
   param_1[7] = &PTR_FUN_011971e8;
-  ScintillaEditWatcher_vt6(param_1 + -2);
+  FUN_005d4b56(param_1 + -2);
   operator_delete(param_1 + -2,0x100);
   return;
 }
@@ -2664,7 +2664,7 @@ long ScintillaEditWatcher_dtor_deleting(long param_1,byte *param_2)
   if ((!bVar5 && !bVar6) == bVar5) {
     return param_1 + 0x48;
   }
-  lVar2 = s_MuxPane_91de9a(param_1,param_2);
+  lVar2 = FUN_0091de9a(param_1,param_2);
   return lVar2;
 }
 
@@ -4271,7 +4271,7 @@ LAB_008f4d02:
       if (param_3 != 5) {
         return;
       }
-      s_editor_commandModeEnabled_5bd926(param_1,*(undefined4 *)puVar4);
+      FUN_005bd926(param_1,*(undefined4 *)puVar4);
       return;
     }
     FUN_005be68c(param_1,*puVar4);
@@ -4624,9 +4624,9 @@ LAB_008f4645:
 }
 
 
-// ==== entry=008f64ce orig=FUN_008f64ce size=182 name=TerminalWidget_h8f64ce ====
+// ==== entry=008f64ce name=FUN_008f64ce size=182 ====
 
-ulong TerminalWidget_h8f64ce(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
+ulong FUN_008f64ce(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
 {
   int iVar1;
@@ -4742,9 +4742,9 @@ void FUN_008f6608(QObject *param_1)
 }
 
 
-// ==== entry=008f6618 orig=FUN_008f6618 size=153 name=TabBar_h8f6618 ====
+// ==== entry=008f6618 name=FUN_008f6618 size=153 ====
 
-void TabBar_h8f6618(long param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f6618(long param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 uVar1;
@@ -4840,7 +4840,7 @@ ulong TabBar_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,undef
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          TabBar_h8f6618(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          FUN_008f6618(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 3);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -4859,9 +4859,9 @@ ulong TabBar_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,undef
 }
 
 
-// ==== entry=008f67a0 orig=FUN_008f67a0 size=92 name=TabBar_h8f67a0 ====
+// ==== entry=008f67a0 name=FUN_008f67a0 size=92 ====
 
-void TabBar_h8f67a0(undefined8 *param_1)
+void FUN_008f67a0(undefined8 *param_1)
 
 {
   int iVar1;
@@ -4893,9 +4893,9 @@ LAB_008f67c0:
 }
 
 
-// ==== entry=008f67fc orig=FUN_008f67fc size=256 name=TabBar_h8f67fc ====
+// ==== entry=008f67fc name=FUN_008f67fc size=256 ====
 
-void TabBar_h8f67fc(undefined8 *param_1)
+void FUN_008f67fc(undefined8 *param_1)
 
 {
   int iVar1;
@@ -4973,9 +4973,9 @@ void TabBar_dtor(QTabBar *param_1)
   
   *(undefined ***)param_1 = &TabBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197ef0;
-  TabBar_h8f67fc(param_1 + 0x70);
+  FUN_008f67fc(param_1 + 0x70);
   qt_shared_data_unref(param_1 + 0x68);
-  TabBar_h8f67a0(param_1 + 0x60);
+  FUN_008f67a0(param_1 + 0x60);
   pQVar1 = *(QArrayData **)(param_1 + 0x38);
   if (*(int *)pQVar1 == 0) {
 LAB_008f6955:
@@ -5006,9 +5006,9 @@ void FUN_008f696d(undefined8 *param_1)
   
   param_1[-2] = &TabBar_vtable;
   *param_1 = &PTR_FUN_01197ef0;
-  TabBar_h8f67fc(param_1 + 0xc);
+  FUN_008f67fc(param_1 + 0xc);
   qt_shared_data_unref(param_1 + 0xb);
-  TabBar_h8f67a0(param_1 + 10);
+  FUN_008f67a0(param_1 + 10);
   pQVar1 = (QArrayData *)param_1[5];
   if (*(int *)pQVar1 == 0) {
 LAB_008f69c7:
@@ -5039,9 +5039,9 @@ void FUN_008f69e0(undefined8 *param_1)
   
   param_1[-2] = &TabBar_vtable;
   *param_1 = &PTR_FUN_01197ef0;
-  TabBar_h8f67fc(param_1 + 0xc);
+  FUN_008f67fc(param_1 + 0xc);
   qt_shared_data_unref(param_1 + 0xb);
-  TabBar_h8f67a0(param_1 + 10);
+  FUN_008f67a0(param_1 + 10);
   pQVar1 = (QArrayData *)param_1[5];
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_008f6a35;
@@ -5068,9 +5068,9 @@ void TabBar_dtor_deleting(QTabBar *param_1)
   
   *(undefined ***)param_1 = &TabBar_vtable;
   *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197ef0;
-  TabBar_h8f67fc(param_1 + 0x70);
+  FUN_008f67fc(param_1 + 0x70);
   qt_shared_data_unref(param_1 + 0x68);
-  TabBar_h8f67a0(param_1 + 0x60);
+  FUN_008f67a0(param_1 + 0x60);
   pQVar1 = *(QArrayData **)(param_1 + 0x38);
   if (*(int *)pQVar1 != 0) {
     if (*(int *)pQVar1 == -1) goto LAB_008f6ab2;
@@ -5137,9 +5137,9 @@ void FUN_008f6b2c(QObject *param_1,undefined4 param_2)
 }
 
 
-// ==== entry=008f6b62 orig=FUN_008f6b62 size=98 name=Splitter_h8f6b62 ====
+// ==== entry=008f6b62 name=FUN_008f6b62 size=98 ====
 
-void Splitter_h8f6b62(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f6b62(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -5205,7 +5205,7 @@ ulong Splitter_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        Splitter_h8f6b62(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f6b62(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -5369,9 +5369,9 @@ void FUN_008f6d98(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=008f6dd0 orig=FUN_008f6dd0 size=94 name=SafeEdit_h8f6dd0 ====
+// ==== entry=008f6dd0 name=FUN_008f6dd0 size=94 ====
 
-void SafeEdit_h8f6dd0(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f6dd0(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -5402,9 +5402,9 @@ void SafeEdit_h8f6dd0(undefined8 param_1,int param_2,int param_3,undefined8 *par
 }
 
 
-// ==== entry=008f6e2e orig=FUN_008f6e2e size=66 name=s_LineEdit_8f6e2e ====
+// ==== entry=008f6e2e name=FUN_008f6e2e size=66 ====
 
-char * s_LineEdit_8f6e2e(char *param_1,char *param_2)
+char * FUN_008f6e2e(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -5422,9 +5422,9 @@ char * s_LineEdit_8f6e2e(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008f6e70 orig=FUN_008f6e70 size=93 name=BreadEdit_h8f6e70 ====
+// ==== entry=008f6e70 name=FUN_008f6e70 size=93 ====
 
-ulong BreadEdit_h8f6e70(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
+ulong FUN_008f6e70(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
 {
   int iVar1;
@@ -5435,7 +5435,7 @@ ulong BreadEdit_h8f6e70(undefined8 param_1,int param_2,undefined8 param_3,undefi
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        SafeEdit_h8f6dd0(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f6dd0(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -5794,9 +5794,9 @@ void FUN_008f7258(QObject *param_1)
 }
 
 
-// ==== entry=008f726c orig=FUN_008f726c size=86 name=LoginWizard_h8f726c ====
+// ==== entry=008f726c name=FUN_008f726c size=86 ====
 
-void LoginWizard_h8f726c(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f726c(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -5862,7 +5862,7 @@ ulong LoginWizard_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        LoginWizard_h8f726c(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f726c(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -6220,7 +6220,7 @@ ulong ListPanel_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,un
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x11) {
-        ButtonBarPanel_h8ef9ea(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008ef9ea(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -6424,9 +6424,9 @@ void FUN_008f781c(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008f7844 orig=FUN_008f7844 size=95 name=LockScreen_h8f7844 ====
+// ==== entry=008f7844 name=FUN_008f7844 size=95 ====
 
-void LockScreen_h8f7844(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f7844(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -6490,7 +6490,7 @@ ulong LockScreen_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        LockScreen_h8f7844(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f7844(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -6573,9 +6573,9 @@ undefined ** Menu_metaObject(long param_1)
 }
 
 
-// ==== entry=008f7a08 orig=FUN_008f7a08 size=121 name=Menu_h8f7a08 ====
+// ==== entry=008f7a08 name=FUN_008f7a08 size=121 ====
 
-void Menu_h8f7a08(QIcon *param_1,undefined4 param_2,long *param_3)
+void FUN_008f7a08(QIcon *param_1,undefined4 param_2,long *param_3)
 
 {
   undefined8 uVar1;
@@ -6617,11 +6617,11 @@ void Menu_h8f7a08(QIcon *param_1,undefined4 param_2,long *param_3)
 }
 
 
-// ==== entry=008f7a82 orig=FUN_008f7a82 size=566 name=Menu_h8f7a82 ====
+// ==== entry=008f7a82 name=FUN_008f7a82 size=566 ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void Menu_h8f7a82(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f7a82(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   int *piVar1;
@@ -6634,7 +6634,7 @@ void Menu_h8f7a82(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
   QArrayData *local_30;
   
   if (param_2 == 0) {
-    Menu_h8f7a08(param_1,param_3,param_4);
+    FUN_008f7a08(param_1,param_3,param_4);
     return;
   }
   if (param_2 != 0xc) {
@@ -6745,7 +6745,7 @@ ulong Menu_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,undefin
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 5) {
-        Menu_h8f7a08(param_1,uVar2 & 0xffffffff,param_4);
+        FUN_008f7a08(param_1,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -6754,7 +6754,7 @@ ulong Menu_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,undefin
         return uVar2;
       }
       if (iVar1 < 5) {
-        Menu_h8f7a82(param_1,0xc,uVar2 & 0xffffffff,param_4);
+        FUN_008f7a82(param_1,0xc,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -6848,9 +6848,9 @@ void FUN_008f7e38(QObject *param_1,undefined4 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008f7e70 orig=FUN_008f7e70 size=175 name=MessageBar_h8f7e70 ====
+// ==== entry=008f7e70 name=FUN_008f7e70 size=175 ====
 
-void MessageBar_h8f7e70(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f7e70(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   QArrayData *local_20 [2];
@@ -6919,7 +6919,7 @@ ulong MessageBar_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        MessageBar_h8f7e70(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f7e70(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -7161,9 +7161,9 @@ void FUN_008f826e(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=008f82a6 orig=FUN_008f82a6 size=305 name=BreadCrumb_h8f82a6 ====
+// ==== entry=008f82a6 name=FUN_008f82a6 size=305 ====
 
-void BreadCrumb_h8f82a6(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *param_4)
+void FUN_008f82a6(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -7261,7 +7261,7 @@ ulong BreadCrumb_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 8) {
-        BreadCrumb_h8f82a6(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f82a6(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -7379,9 +7379,9 @@ void FUN_008f8512(QObject *param_1,undefined8 param_2,undefined4 param_3,undefin
 }
 
 
-// ==== entry=008f855c orig=FUN_008f855c size=134 name=BreadEdit_h8f855c ====
+// ==== entry=008f855c name=FUN_008f855c size=134 ====
 
-void BreadEdit_h8f855c(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f855c(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -7498,7 +7498,7 @@ undefined8 BreadEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
+  uVar2 = FUN_008f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -7511,12 +7511,12 @@ ulong BreadEdit_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,un
   int iVar1;
   ulong uVar2;
   
-  uVar2 = BreadEdit_h8f6e70();
+  uVar2 = FUN_008f6e70();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        BreadEdit_h8f855c(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f855c(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -8090,9 +8090,9 @@ void FUN_008f8cf8(QObject *param_1,undefined4 param_2)
 }
 
 
-// ==== entry=008f8d2e orig=FUN_008f8d2e size=150 name=ListView_h8f8d2e ====
+// ==== entry=008f8d2e name=FUN_008f8d2e size=150 ====
 
-void ListView_h8f8d2e(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f8d2e(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -8173,14 +8173,14 @@ ulong ListView_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        ListView_h8f8d2e(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f8d2e(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          ListView_h8f8d2e(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          FUN_008f8d2e(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 1);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -8238,7 +8238,7 @@ undefined8 ListItemDelegate_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_EditDelegate_8f993c(param_1,param_2);
+  uVar2 = FUN_008f993c(param_1,param_2);
   return uVar2;
 }
 
@@ -8406,9 +8406,9 @@ void FUN_008f9060(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008f908a orig=FUN_008f908a size=138 name=Completer_h8f908a ====
+// ==== entry=008f908a name=FUN_008f908a size=138 ====
 
-void Completer_h8f908a(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f908a(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -8483,7 +8483,7 @@ ulong Completer_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,un
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        Completer_h8f908a(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f908a(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -8581,7 +8581,7 @@ undefined8 FilterEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
+  uVar2 = FUN_008f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -8622,9 +8622,9 @@ void FUN_008f92e2(QObject *param_1,undefined1 param_2,undefined4 param_3)
 }
 
 
-// ==== entry=008f9328 orig=FUN_008f9328 size=106 name=FilterEdit_h8f9328 ====
+// ==== entry=008f9328 name=FUN_008f9328 size=106 ====
 
-void FilterEdit_h8f9328(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f9328(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -8663,12 +8663,12 @@ ulong FilterEdit_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   int iVar1;
   ulong uVar2;
   
-  uVar2 = BreadEdit_h8f6e70();
+  uVar2 = FUN_008f6e70();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        FilterEdit_h8f9328(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f9328(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -8859,9 +8859,9 @@ void FUN_008f95c0(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f961e orig=FUN_008f961e size=66 name=ComboBox_h8f961e ====
+// ==== entry=008f961e name=FUN_008f961e size=66 ====
 
-char * ComboBox_h8f961e(char *param_1,char *param_2)
+char * FUN_008f961e(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -9139,9 +9139,9 @@ void FUN_008f98f6(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008f993c orig=FUN_008f993c size=66 name=s_EditDelegate_8f993c ====
+// ==== entry=008f993c name=FUN_008f993c size=66 ====
 
-char * s_EditDelegate_8f993c(char *param_1,char *param_2)
+char * FUN_008f993c(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -9257,7 +9257,7 @@ undefined8 FileTree_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_TreeView_8fb430(param_1,param_2);
+  uVar2 = FUN_008fb430(param_1,param_2);
   return uVar2;
 }
 
@@ -9270,7 +9270,7 @@ ulong FileTree_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
   int iVar1;
   ulong uVar2;
   
-  uVar2 = FileTree_h8fb472();
+  uVar2 = FUN_008fb472();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
@@ -9416,9 +9416,9 @@ void FUN_008f9c30(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=008f9c68 orig=FUN_008f9c68 size=183 name=FileView_h8f9c68 ====
+// ==== entry=008f9c68 name=FUN_008f9c68 size=183 ====
 
-void FileView_h8f9c68(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008f9c68(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -9505,7 +9505,7 @@ ulong FileView_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 4) {
-        FileView_h8f9c68(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f9c68(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -10403,7 +10403,7 @@ undefined8 PathEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
+  uVar2 = FUN_008f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -10446,7 +10446,7 @@ ulong PathEdit_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
   int iVar1;
   ulong uVar2;
   
-  uVar2 = BreadEdit_h8f6e70();
+  uVar2 = FUN_008f6e70();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
@@ -10606,7 +10606,7 @@ undefined8 SafeEdit_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_LineEdit_8f6e2e(param_1,param_2);
+  uVar2 = FUN_008f6e2e(param_1,param_2);
   return uVar2;
 }
 
@@ -10624,7 +10624,7 @@ ulong SafeEdit_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        SafeEdit_h8f6dd0(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008f6dd0(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -10845,9 +10845,9 @@ void FUN_008faeac(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=008faee4 orig=FUN_008faee4 size=460 name=SlipButton_h8faee4 ====
+// ==== entry=008faee4 name=FUN_008faee4 size=460 ====
 
-void SlipButton_h8faee4(long param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008faee4(long param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined2 uVar1;
@@ -10987,14 +10987,14 @@ ulong SlipButton_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        SlipButton_h8faee4(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008faee4(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          SlipButton_h8faee4(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          FUN_008faee4(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 5);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -11037,9 +11037,9 @@ undefined ** FUN_008fb1a4(long param_1)
 }
 
 
-// ==== entry=008fb1bc orig=FUN_008fb1bc size=66 name=s_TablePanel_8fb1bc ====
+// ==== entry=008fb1bc name=FUN_008fb1bc size=66 ====
 
-undefined8 s_TablePanel_8fb1bc(undefined8 param_1,char *param_2)
+undefined8 FUN_008fb1bc(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -11071,7 +11071,7 @@ ulong ButtonBarPanel_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x11) {
-        ButtonBarPanel_h8ef9ea(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008ef9ea(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -11139,9 +11139,9 @@ void FUN_008fb271(undefined8 *param_1)
 }
 
 
-// ==== entry=008fb2b0 orig=FUN_008fb2b0 size=24 name=CategoryTree_vt0 ====
+// ==== entry=008fb2b0 name=FUN_008fb2b0 size=24 ====
 
-undefined ** CategoryTree_vt0(long param_1)
+undefined ** FUN_008fb2b0(long param_1)
 
 {
   undefined **ppuVar1;
@@ -11247,9 +11247,9 @@ void FUN_008fb302(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008fb430 orig=FUN_008fb430 size=66 name=s_TreeView_8fb430 ====
+// ==== entry=008fb430 name=FUN_008fb430 size=66 ====
 
-char * s_TreeView_8fb430(char *param_1,char *param_2)
+char * FUN_008fb430(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -11267,9 +11267,9 @@ char * s_TreeView_8fb430(char *param_1,char *param_2)
 }
 
 
-// ==== entry=008fb472 orig=FUN_008fb472 size=176 name=FileTree_h8fb472 ====
+// ==== entry=008fb472 name=FUN_008fb472 size=176 ====
 
-ulong FileTree_h8fb472(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
+ulong FUN_008fb472(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
 {
   int iVar1;
@@ -11460,9 +11460,9 @@ void FUN_008fb690(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=008fb6c8 orig=FUN_008fb6c8 size=534 name=TabGroup_h8fb6c8 ====
+// ==== entry=008fb6c8 name=FUN_008fb6c8 size=534 ====
 
-void TabGroup_h8fb6c8(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008fb6c8(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -11616,14 +11616,14 @@ ulong TabGroup_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 10) {
-        TabGroup_h8fb6c8(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fb6c8(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          TabGroup_h8fb6c8(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          FUN_008fb6c8(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 2);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -11657,9 +11657,9 @@ undefined ** ToolButton_metaObject(long param_1)
 }
 
 
-// ==== entry=008fb9e8 orig=FUN_008fb9e8 size=196 name=ToolButton_h8fb9e8 ====
+// ==== entry=008fb9e8 name=FUN_008fb9e8 size=196 ====
 
-void ToolButton_h8fb9e8(long param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008fb9e8(long param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   int iVar1;
@@ -11742,7 +11742,7 @@ ulong ToolButton_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-      ToolButton_h8fb9e8(param_1,param_2,uVar2 & 0xffffffff,param_4);
+      FUN_008fb9e8(param_1,param_2,uVar2 & 0xffffffff,param_4);
       return (ulong)(iVar1 - 3);
     }
     if ((((param_2 == 4) || (param_2 == 5)) || (param_2 == 6)) || ((param_2 == 7 || (param_2 == 8)))
@@ -11828,9 +11828,9 @@ undefined ** FUN_008fbc08(long param_1)
 }
 
 
-// ==== entry=008fbc20 orig=FUN_008fbc20 size=66 name=s_WidgetDelegate_8fbc20 ====
+// ==== entry=008fbc20 name=FUN_008fbc20 size=66 ====
 
-char * s_WidgetDelegate_8fbc20(char *param_1,char *param_2)
+char * FUN_008fbc20(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -11933,9 +11933,9 @@ void FUN_008fbcce(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 }
 
 
-// ==== entry=008fbd2e orig=FUN_008fbd2e size=66 name=s_WidgetList_8fbd2e ====
+// ==== entry=008fbd2e name=FUN_008fbd2e size=66 ====
 
-char * s_WidgetList_8fbd2e(char *param_1,char *param_2)
+char * FUN_008fbd2e(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -12045,9 +12045,9 @@ void FUN_008fbe3a(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008fbe64 orig=FUN_008fbe64 size=928 name=EditorView_h8fbe64 ====
+// ==== entry=008fbe64 name=FUN_008fbe64 size=928 ====
 
-void EditorView_h8fbe64(long param_1,int param_2,uint param_3,long *param_4)
+void FUN_008fbe64(long param_1,int param_2,uint param_3,long *param_4)
 
 {
   undefined4 *puVar1;
@@ -12126,7 +12126,7 @@ void EditorView_h8fbe64(long param_1,int param_2,uint param_3,long *param_4)
     }
     break;
   case 9:
-    KitView_vt15(local_20,param_1 + 0x100);
+    FUN_008c55bc(local_20,param_1 + 0x100);
     puVar5 = (undefined8 *)*param_4;
     goto joined_r0x008fbff0;
   case 10:
@@ -12136,7 +12136,7 @@ void EditorView_h8fbe64(long param_1,int param_2,uint param_3,long *param_4)
     FUN_008c5e56(param_1 + 0x100,param_4[1]);
     break;
   case 0xc:
-    s_SessionNotificationMessage_8c6f48(&local_28,param_1 + 0x100,param_4[1]);
+    FUN_008c6f48(&local_28,param_1 + 0x100,param_4[1]);
     puVar6 = local_28;
     puVar5 = (undefined8 *)*param_4;
     if (puVar5 != (undefined8 *)0x0) {
@@ -12188,7 +12188,7 @@ joined_r0x008fbff0:
     QArrayData::deallocate(local_20[0],2,8);
     break;
   case 0x11:
-    uVar8 = s_FileErrorMessage_5e7442(param_1,param_4[1],*(undefined8 *)param_4[2]);
+    uVar8 = FUN_005e7442(param_1,param_4[1],*(undefined8 *)param_4[2]);
     if ((undefined8 *)*param_4 != (undefined8 *)0x0) {
       *(undefined8 *)*param_4 = uVar8;
     }
@@ -12202,7 +12202,7 @@ joined_r0x008fbff0:
       UNLOCK();
     }
                     /* try { // try from 008fc1e8 to 008fc1ec has its CatchHandler @ 008fc204 */
-    s_FileReloadMessage_5e6c92(param_1,local_20,uVar7);
+    FUN_005e6c92(param_1,local_20,uVar7);
     goto LAB_008fbf2d;
   case 0x13:
     local_20[0] = *(QArrayData **)param_4[1];
@@ -12212,7 +12212,7 @@ joined_r0x008fbff0:
       UNLOCK();
     }
                     /* try { // try from 008fbf28 to 008fbf2c has its CatchHandler @ 008fc20c */
-    s_FileReloadMessage_5e6c92(param_1,local_20,1);
+    FUN_005e6c92(param_1,local_20,1);
 LAB_008fbf2d:
     if (*(int *)local_20[0] != 0) {
       if (*(int *)local_20[0] == -1) {
@@ -12289,7 +12289,7 @@ ulong EditorView_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x15) {
-        EditorView_h8fbe64(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fbe64(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -12307,9 +12307,9 @@ ulong EditorView_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
 }
 
 
-// ==== entry=008fc2e0 orig=FUN_008fc2e0 size=24 name=EditorWindow_vt0 ====
+// ==== entry=008fc2e0 name=FUN_008fc2e0 size=24 ====
 
-undefined ** EditorWindow_vt0(long param_1)
+undefined ** FUN_008fc2e0(long param_1)
 
 {
   undefined **ppuVar1;
@@ -12360,9 +12360,9 @@ void FUN_008fc332(QObject *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008fc36e orig=FUN_008fc36e size=480 name=KitWindow_h8fc36e ====
+// ==== entry=008fc36e name=FUN_008fc36e size=480 ====
 
-void KitWindow_h8fc36e(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
+void FUN_008fc36e(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   long *plVar1;
@@ -12483,7 +12483,7 @@ undefined8 KitWindow_dtor(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitWindow_91d250(param_1,param_2);
+  uVar2 = FUN_0091d250(param_1,param_2);
   return uVar2;
 }
 
@@ -12496,12 +12496,12 @@ ulong KitWindow_dtor_deleting(undefined8 param_1,int param_2,undefined8 param_3,
   int iVar1;
   ulong uVar2;
   
-  uVar2 = KitWindow_h91d292();
+  uVar2 = FUN_0091d292();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 8) {
-        KitWindow_h8fc36e(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fc36e(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -12591,9 +12591,9 @@ void FUN_008fc69c(QObject *param_1,undefined8 param_2,undefined4 param_3)
 }
 
 
-// ==== entry=008fc6d8 orig=FUN_008fc6d8 size=159 name=TransferCenter_h8fc6d8 ====
+// ==== entry=008fc6d8 name=FUN_008fc6d8 size=159 ====
 
-void TransferCenter_h8fc6d8(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008fc6d8(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -12671,7 +12671,7 @@ ulong TransferCenter_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        TransferCenter_h8fc6d8(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fc6d8(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -12793,9 +12793,9 @@ void FUN_008fc90e(QObject *param_1,undefined8 param_2,undefined4 param_3,undefin
 }
 
 
-// ==== entry=008fc94e orig=FUN_008fc94e size=128 name=ForwardingCenter_h8fc94e ====
+// ==== entry=008fc94e name=FUN_008fc94e size=128 ====
 
-void ForwardingCenter_h8fc94e(undefined8 param_1,int param_2,long param_3)
+void FUN_008fc94e(undefined8 param_1,int param_2,long param_3)
 
 {
   if (param_2 == 1) {
@@ -12834,7 +12834,7 @@ void FUN_008fc9ce(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *
   code *pcVar3;
   
   if (param_2 == 0) {
-    ForwardingCenter_h8fc94e(param_1,param_3,param_4);
+    FUN_008fc94e(param_1,param_3,param_4);
     return;
   }
   if (param_2 == 10) {
@@ -12896,7 +12896,7 @@ ulong ForwardingCenter_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 4) {
-        ForwardingCenter_h8fc94e(param_1,uVar2 & 0xffffffff,param_4);
+        FUN_008fc94e(param_1,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -12970,9 +12970,9 @@ void FUN_008fcb32(QObject *param_1,undefined8 param_2,undefined8 param_3,undefin
 }
 
 
-// ==== entry=008fcb80 orig=FUN_008fcb80 size=120 name=ProxyServer_h8fcb80 ====
+// ==== entry=008fcb80 name=FUN_008fcb80 size=120 ====
 
-void ProxyServer_h8fcb80(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008fcb80(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -13037,7 +13037,7 @@ ulong ProxyServer_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        ProxyServer_h8fcb80(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fcb80(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -13227,11 +13227,11 @@ void FUN_008fce2c(QObject *param_1,undefined8 param_2,undefined8 param_3,undefin
 }
 
 
-// ==== entry=008fceb0 orig=FUN_008fceb0 size=740 name=ForwardingHandler_h8fceb0 ====
+// ==== entry=008fceb0 name=FUN_008fceb0 size=740 ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void ForwardingHandler_h8fceb0(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008fceb0(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -13377,7 +13377,7 @@ ulong ForwardingHandler_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        ForwardingHandler_h8fceb0(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fceb0(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -13386,7 +13386,7 @@ ulong ForwardingHandler_qt_metacall
         return uVar2;
       }
       if (iVar1 < 2) {
-        ForwardingHandler_h8fceb0(param_1,0xc,uVar2 & 0xffffffff,param_4);
+        FUN_008fceb0(param_1,0xc,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -13621,9 +13621,9 @@ void FUN_008fd456(QObject *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008fd486 orig=FUN_008fd486 size=102 name=Tools_h8fd486 ====
+// ==== entry=008fd486 name=FUN_008fd486 size=102 ====
 
-void Tools_h8fd486(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008fd486(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -13656,9 +13656,9 @@ void Tools_h8fd486(undefined8 param_1,int param_2,int param_3,undefined8 *param_
 }
 
 
-// ==== entry=008fd4ec orig=FUN_008fd4ec size=132 name=ToolRunner_h8fd4ec ====
+// ==== entry=008fd4ec name=FUN_008fd4ec size=132 ====
 
-void ToolRunner_h8fd4ec(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_008fd4ec(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -13754,7 +13754,7 @@ ulong Tools_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,undefi
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        Tools_h8fd486(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fd486(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -13805,7 +13805,7 @@ ulong ToolRunner_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        ToolRunner_h8fd4ec(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_008fd4ec(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -13823,12 +13823,12 @@ ulong ToolRunner_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
 }
 
 
-// ==== entry=008fd6e0 orig=FUN_008fd6e0 size=279 name=Tools_h8fd6e0 ====
+// ==== entry=008fd6e0 name=FUN_008fd6e0 size=279 ====
 
 /* WARNING: Removing unreachable block (ram,0x008fd777) */
 /* WARNING: Removing unreachable block (ram,0x008fd7d7) */
 
-void Tools_h8fd6e0(undefined8 *param_1)
+void FUN_008fd6e0(undefined8 *param_1)
 
 {
   long *plVar1;
@@ -13903,7 +13903,7 @@ void Tools_dtor(QObject *param_1)
 
 {
   *(undefined ***)param_1 = &Tools_vtable;
-  Tools_h8fd6e0(param_1 + 0x10);
+  FUN_008fd6e0(param_1 + 0x10);
   QObject::~QObject(param_1);
   return;
 }
@@ -13915,7 +13915,7 @@ void Tools_dtor_deleting(QObject *param_1)
 
 {
   *(undefined ***)param_1 = &Tools_vtable;
-  Tools_h8fd6e0(param_1 + 0x10);
+  FUN_008fd6e0(param_1 + 0x10);
   QObject::~QObject(param_1);
   operator_delete(param_1,0x18);
   return;
@@ -15227,16 +15227,16 @@ void FUN_008ff020(undefined8 param_1,int param_2,int param_3)
 
 {
   if (param_3 == 0 && param_2 == 0) {
-    SortFilterProxyModel_h663faa();
+    FUN_00663faa();
     return;
   }
   return;
 }
 
 
-// ==== entry=008ff02a orig=FUN_008ff02a size=24 name=CheckListSortFilterProxyModel_vt0 ====
+// ==== entry=008ff02a name=FUN_008ff02a size=24 ====
 
-undefined ** CheckListSortFilterProxyModel_vt0(long param_1)
+undefined ** FUN_008ff02a(long param_1)
 
 {
   undefined **ppuVar1;
@@ -15283,7 +15283,7 @@ ulong SortFilterProxyModel_dtor_deleting
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 == 0) {
-        SortFilterProxyModel_h663faa(param_1);
+        FUN_00663faa(param_1);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -15306,7 +15306,7 @@ ulong SortFilterProxyModel_dtor_deleting
 void FUN_008ff0d8(QSortFilterProxyModel *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_CheckListSortFilterProxyModel_vt0_0119fa98;
+  *(undefined ***)param_1 = &PTR_FUN_0119fa98;
   if (*(void **)(param_1 + 0x30) != (void *)0x0) {
     operator_delete(*(void **)(param_1 + 0x30));
   }
@@ -15320,7 +15320,7 @@ void FUN_008ff0d8(QSortFilterProxyModel *param_1)
 void FUN_008ff102(QSortFilterProxyModel *param_1)
 
 {
-  *(undefined ***)param_1 = &PTR_CheckListSortFilterProxyModel_vt0_0119fa98;
+  *(undefined ***)param_1 = &PTR_FUN_0119fa98;
   if (*(void **)(param_1 + 0x30) != (void *)0x0) {
     operator_delete(*(void **)(param_1 + 0x30));
   }
@@ -15339,9 +15339,9 @@ void FUN_008ff138(void)
 }
 
 
-// ==== entry=008ff13a orig=FUN_008ff13a size=24 name=AddressListModel_vt0 ====
+// ==== entry=008ff13a name=FUN_008ff13a size=24 ====
 
-undefined ** AddressListModel_vt0(long param_1)
+undefined ** FUN_008ff13a(long param_1)
 
 {
   undefined **ppuVar1;
@@ -15392,7 +15392,7 @@ void FUN_008ff19a(QAbstractListModel *param_1)
   void *pvVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_AddressListModel_vt0_0119fcb8;
+  *(undefined ***)param_1 = &PTR_FUN_0119fcb8;
   pQVar2 = *(QArrayData **)(param_1 + 0x20);
   if (*(int *)pQVar2 != 0) {
     if (*(int *)pQVar2 == -1) goto LAB_008ff1c6;
@@ -15422,7 +15422,7 @@ void FUN_008ff208(QAbstractListModel *param_1)
   void *pvVar1;
   QArrayData *pQVar2;
   
-  *(undefined ***)param_1 = &PTR_AddressListModel_vt0_0119fcb8;
+  *(undefined ***)param_1 = &PTR_FUN_0119fcb8;
   pQVar2 = *(QArrayData **)(param_1 + 0x20);
   if (*(int *)pQVar2 != 0) {
     if (*(int *)pQVar2 == -1) goto LAB_008ff234;
@@ -19296,9 +19296,9 @@ void FUN_00902b00(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00902b2a orig=FUN_00902b2a size=94 name=FileWatcher_h902b2a ====
+// ==== entry=00902b2a name=FUN_00902b2a size=94 ====
 
-void FileWatcher_h902b2a(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_00902b2a(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -19364,7 +19364,7 @@ ulong FileWatcher_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        FileWatcher_h902b2a(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_00902b2a(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -19656,9 +19656,9 @@ void FUN_00902ec0(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00902eea orig=FUN_00902eea size=94 name=TransferTask_h902eea ====
+// ==== entry=00902eea name=FUN_00902eea size=94 ====
 
-void TransferTask_h902eea(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_00902eea(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -19725,7 +19725,7 @@ ulong TransferTask_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        TransferTask_h902eea(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_00902eea(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -19752,9 +19752,9 @@ void FUN_00902fe8(void)
 }
 
 
-// ==== entry=00902fea orig=FUN_00902fea size=24 name=TreeModel_vt0 ====
+// ==== entry=00902fea name=FUN_00902fea size=24 ====
 
-undefined ** TreeModel_vt0(long param_1)
+undefined ** FUN_00902fea(long param_1)
 
 {
   undefined **ppuVar1;
@@ -19767,9 +19767,9 @@ undefined ** TreeModel_vt0(long param_1)
 }
 
 
-// ==== entry=00903002 orig=FUN_00903002 size=66 name=s_TreeModel_903002 ====
+// ==== entry=00903002 name=FUN_00903002 size=66 ====
 
-char * s_TreeModel_903002(char *param_1,char *param_2)
+char * FUN_00903002(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -19787,9 +19787,9 @@ char * s_TreeModel_903002(char *param_1,char *param_2)
 }
 
 
-// ==== entry=00903044 orig=FUN_00903044 size=5 name=TreeModel_vt2 ====
+// ==== entry=00903044 orig=FUN_00903044 size=5 name=qt_metacall ====
 
-void QAbstractItemModel::TreeModel_vt2(void)
+void QAbstractItemModel::qt_metacall(void)
 
 {
   qt_metacall();
@@ -19806,9 +19806,9 @@ void FUN_0090304a(void)
 }
 
 
-// ==== entry=0090304c orig=FUN_0090304c size=24 name=FileSystemItem_vt10 ====
+// ==== entry=0090304c name=FUN_0090304c size=24 ====
 
-undefined ** FileSystemItem_vt10(long param_1)
+undefined ** FUN_0090304c(long param_1)
 
 {
   undefined **ppuVar1;
@@ -20042,9 +20042,9 @@ void FUN_00903294(QObject *param_1,undefined8 param_2,undefined1 param_3,undefin
 }
 
 
-// ==== entry=009032ee orig=FUN_009032ee size=454 name=FileReader_h9032ee ====
+// ==== entry=009032ee name=FUN_009032ee size=454 ====
 
-void FileReader_h9032ee(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *param_4)
+void FUN_009032ee(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -20156,7 +20156,7 @@ ulong FileReader_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 8) {
-        FileReader_h9032ee(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_009032ee(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -20416,9 +20416,9 @@ void FUN_00903762(QObject *param_1,undefined8 param_2,undefined1 param_3)
 }
 
 
-// ==== entry=009037a8 orig=FUN_009037a8 size=158 name=SyncInputCenter_h9037a8 ====
+// ==== entry=009037a8 name=FUN_009037a8 size=158 ====
 
-void SyncInputCenter_h9037a8(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_009037a8(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -20494,7 +20494,7 @@ ulong SyncInputCenter_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        SyncInputCenter_h9037a8(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_009037a8(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -20840,9 +20840,9 @@ void FUN_00903d60(QObject *param_1,undefined8 param_2,undefined1 param_3)
 }
 
 
-// ==== entry=00903d9c orig=FUN_00903d9c size=301 name=TunnelCenter_h903d9c ====
+// ==== entry=00903d9c name=FUN_00903d9c size=301 ====
 
-void TunnelCenter_h903d9c(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *param_4)
+void FUN_00903d9c(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -20937,7 +20937,7 @@ ulong TunnelCenter_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 6) {
-        TunnelCenter_h903d9c(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_00903d9c(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -21118,9 +21118,9 @@ void FUN_00904100(QObject *param_1,undefined4 param_2)
 }
 
 
-// ==== entry=00904136 orig=FUN_00904136 size=96 name=XServerCenter_h904136 ====
+// ==== entry=00904136 name=FUN_00904136 size=96 ====
 
-void XServerCenter_h904136(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_00904136(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   long *plVar1;
@@ -21185,7 +21185,7 @@ ulong XServerCenter_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        XServerCenter_h904136(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_00904136(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -22274,9 +22274,9 @@ void FUN_00904d62(QObject *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00904d8e orig=FUN_00904d8e size=140 name=SessionDialog_h904d8e ====
+// ==== entry=00904d8e name=FUN_00904d8e size=140 ====
 
-void SessionDialog_h904d8e(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_00904d8e(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -22352,7 +22352,7 @@ ulong SessionDialog_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        SessionDialog_h904d8e(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_00904d8e(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -23115,9 +23115,9 @@ undefined ** QuickDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00905708 orig=FUN_00905708 size=44 name=QuickDialog_h905708 ====
+// ==== entry=00905708 name=FUN_00905708 size=44 ====
 
-void QuickDialog_h905708(QObject *param_1,undefined8 param_2,undefined8 param_3)
+void FUN_00905708(QObject *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   void *local_28;
@@ -23139,11 +23139,11 @@ void FUN_00905734(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
 {
   if (param_2 == 0) {
     if (param_3 == 0) {
-      QuickDialog_h905708(param_1,param_4[1],param_4[2]);
+      FUN_00905708(param_1,param_4[1],param_4[2]);
       return;
     }
   }
-  else if (((param_2 == 10) && (*(code **)param_4[1] == QuickDialog_h905708)) &&
+  else if (((param_2 == 10) && (*(code **)param_4[1] == FUN_00905708)) &&
           (((long *)param_4[1])[1] == 0)) {
     *(undefined4 *)*param_4 = 0;
     return;
@@ -23185,7 +23185,7 @@ ulong QuickDialog_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 == 0) {
-        QuickDialog_h905708(param_1,param_4[1],param_4[2]);
+        FUN_00905708(param_1,param_4[1],param_4[2]);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -26967,9 +26967,9 @@ void FUN_00909060(void)
 }
 
 
-// ==== entry=00909062 orig=FUN_00909062 size=24 name=ConnectionTriggerPage_vt0 ====
+// ==== entry=00909062 name=FUN_00909062 size=24 ====
 
-undefined ** ConnectionTriggerPage_vt0(long param_1)
+undefined ** FUN_00909062(long param_1)
 
 {
   undefined **ppuVar1;
@@ -27074,9 +27074,9 @@ void FUN_00909101(void)
 }
 
 
-// ==== entry=0090926a orig=FUN_0090926a size=66 name=s_TriggerPage_90926a ====
+// ==== entry=0090926a name=FUN_0090926a size=66 ====
 
-char * s_TriggerPage_90926a(char *param_1,char *param_2)
+char * FUN_0090926a(char *param_1,char *param_2)
 
 {
   int iVar1;
@@ -27094,10 +27094,9 @@ char * s_TriggerPage_90926a(char *param_1,char *param_2)
 }
 
 
-// ==== entry=009092ac orig=FUN_009092ac size=96 name=ConnectionTriggerPage_vt2 ====
+// ==== entry=009092ac name=FUN_009092ac size=96 ====
 
-ulong ConnectionTriggerPage_vt2
-                (undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
+ulong FUN_009092ac(undefined8 param_1,int param_2,undefined8 param_3,undefined8 *param_4)
 
 {
   int iVar1;
@@ -27444,9 +27443,9 @@ void QDialog::TunnelDialog_qt_metacall(void)
 }
 
 
-// ==== entry=009097b0 orig=FUN_009097b0 size=535 name=TunnelDialog_h9097b0 ====
+// ==== entry=009097b0 name=FUN_009097b0 size=535 ====
 
-void TunnelDialog_h9097b0(QArrayData *param_1)
+void FUN_009097b0(QArrayData *param_1)
 
 {
   int iVar1;
@@ -27582,7 +27581,7 @@ void TunnelDialog_dtor_deleting(QDialog *param_1)
     if (*piVar1 != 0) goto LAB_009099fc;
     piVar1 = *(int **)(param_1 + 0xb8);
   }
-  TunnelDialog_h9097b0(piVar1);
+  FUN_009097b0(piVar1);
 LAB_009099fc:
   QDialog::~QDialog(param_1);
   operator_delete(param_1,0xc0);
@@ -27608,7 +27607,7 @@ void FUN_00909a20(undefined8 *param_1)
     if (*piVar1 != 0) goto LAB_00909a55;
     piVar1 = (int *)param_1[0x15];
   }
-  TunnelDialog_h9097b0(piVar1);
+  FUN_009097b0(piVar1);
 LAB_00909a55:
   QDialog::~QDialog((QDialog *)(param_1 + -2));
   operator_delete((QDialog *)(param_1 + -2),0xc0);
@@ -27628,7 +27627,7 @@ void TunnelDialog_dtor(QDialog *param_1)
   piVar1 = *(int **)(param_1 + 0xb8);
   if (*piVar1 == 0) {
 LAB_00909ac0:
-    TunnelDialog_h9097b0(piVar1);
+    FUN_009097b0(piVar1);
     QDialog::~QDialog(param_1);
     return;
   }
@@ -27658,7 +27657,7 @@ void FUN_00909ace(undefined8 *param_1)
   piVar1 = (int *)param_1[0x15];
   if (*piVar1 == 0) {
 LAB_00909b13:
-    TunnelDialog_h9097b0(piVar1);
+    FUN_009097b0(piVar1);
     QDialog::~QDialog((QDialog *)(param_1 + -2));
     return;
   }
@@ -27685,9 +27684,9 @@ void FUN_00909b22(void)
 }
 
 
-// ==== entry=00909b24 orig=FUN_00909b24 size=24 name=ExplorerPane_vt0 ====
+// ==== entry=00909b24 name=FUN_00909b24 size=24 ====
 
-undefined ** ExplorerPane_vt0(long param_1)
+undefined ** FUN_00909b24(long param_1)
 
 {
   undefined **ppuVar1;
@@ -27715,7 +27714,7 @@ undefined8 KitPane_dtor(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -27733,7 +27732,7 @@ ulong KitPane_dtor_deleting(undefined8 param_1,int param_2,undefined8 param_3,un
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        KitPane_h91d38c(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0091d38c(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -27831,14 +27830,14 @@ undefined8 TransferPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
 
-// ==== entry=00909c8a orig=FUN_00909c8a size=90 name=TransferPane_h909c8a ====
+// ==== entry=00909c8a name=FUN_00909c8a size=90 ====
 
-void TransferPane_h909c8a(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
+void FUN_00909c8a(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   undefined1 uVar1;
@@ -27888,12 +27887,12 @@ ulong TransferPane_qt_metacall
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 6) {
-        TransferPane_h909c8a(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_00909c8a(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -27976,9 +27975,9 @@ undefined ** OutputPane_metaObject(long param_1)
 }
 
 
-// ==== entry=00909e08 orig=FUN_00909e08 size=414 name=OutputPane_h909e08 ====
+// ==== entry=00909e08 name=FUN_00909e08 size=414 ====
 
-void OutputPane_h909e08(undefined8 param_1,int param_2,uint param_3,long *param_4)
+void FUN_00909e08(undefined8 param_1,int param_2,uint param_3,long *param_4)
 
 {
   QArrayData *pQVar1;
@@ -28083,7 +28082,7 @@ undefined8 OutputPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -28096,12 +28095,12 @@ ulong OutputPane_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 9) {
-        OutputPane_h909e08(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_00909e08(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -28149,14 +28148,14 @@ undefined8 SessionPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
 
-// ==== entry=0090a0aa orig=FUN_0090a0aa size=413 name=SessionPane_h90a0aa ====
+// ==== entry=0090a0aa name=FUN_0090a0aa size=413 ====
 
-void SessionPane_h90a0aa(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
+void FUN_0090a0aa(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   long lVar1;
@@ -28260,12 +28259,12 @@ ulong SessionPane_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 10) {
-        SessionPane_h90a0aa(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0090a0aa(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -28348,9 +28347,9 @@ undefined ** SenderPane_metaObject(long param_1)
 }
 
 
-// ==== entry=0090a378 orig=FUN_0090a378 size=953 name=SenderPane_h90a378 ====
+// ==== entry=0090a378 name=FUN_0090a378 size=953 ====
 
-void SenderPane_h90a378(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
+void FUN_0090a378(undefined8 param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   QArrayData *pQVar1;
@@ -28513,12 +28512,12 @@ LAB_0090a617:
     }
     break;
   case 0xc:
-    s_TabTargetTitle_738346(param_1,param_4[1]);
+    FUN_00738346(param_1,param_4[1]);
     break;
   case 0xd:
     local_28 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0090a6ca to 0090a6ce has its CatchHandler @ 0090a741 */
-    s_TabTargetTitle_738346(param_1,&local_28);
+    FUN_00738346(param_1,&local_28);
     goto LAB_0090a3ca;
   case 0xe:
     Session_requestStopAndWait(param_1,param_4[1]);
@@ -28563,7 +28562,7 @@ undefined8 SenderPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -28576,12 +28575,12 @@ ulong SenderPane_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x10) {
-        SenderPane_h90a378(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0090a378(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -28629,14 +28628,14 @@ undefined8 FilerPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
 
-// ==== entry=0090a86a orig=FUN_0090a86a size=823 name=FilerPane_h90a86a ====
+// ==== entry=0090a86a name=FUN_0090a86a size=823 ====
 
-void FilerPane_h90a86a(undefined8 param_1,uint param_2,long *param_3)
+void FUN_0090a86a(undefined8 param_1,uint param_2,long *param_3)
 
 {
   undefined8 *puVar1;
@@ -28801,16 +28800,16 @@ joined_r0x0090a8bf:
 }
 
 
-// ==== entry=0090aba2 orig=FUN_0090aba2 size=79 name=FilerPane_h90aba2 ====
+// ==== entry=0090aba2 name=FUN_0090aba2 size=79 ====
 
-void FilerPane_h90aba2(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_0090aba2(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined1 *puVar1;
   undefined1 uVar2;
   
   if (param_2 == 0) {
-    FilerPane_h90a86a(param_1,param_3,param_4);
+    FUN_0090a86a(param_1,param_3,param_4);
     return;
   }
   if (param_2 != 1) {
@@ -28842,19 +28841,19 @@ ulong FilerPane_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,un
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x23) {
-        FilerPane_h90a86a(param_1,uVar2 & 0xffffffff,param_4);
+        FUN_0090a86a(param_1,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          FilerPane_h90aba2(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          FUN_0090aba2(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 2);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -29005,14 +29004,14 @@ undefined8 OutlinePane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
 
-// ==== entry=0090ae9a orig=FUN_0090ae9a size=279 name=OutlinePane_h90ae9a ====
+// ==== entry=0090ae9a name=FUN_0090ae9a size=279 ====
 
-void OutlinePane_h90ae9a(undefined8 param_1,undefined4 param_2,long *param_3)
+void FUN_0090ae9a(undefined8 param_1,undefined4 param_2,long *param_3)
 
 {
   QArrayData *pQVar1;
@@ -29060,7 +29059,7 @@ LAB_0090af2b:
     FUN_00746bfe();
     break;
   case 6:
-    s_SenderPane_746ce4();
+    FUN_00746ce4();
     break;
   case 7:
     FUN_00748510();
@@ -29087,7 +29086,7 @@ void FUN_0090afb2(undefined8 param_1,int param_2,undefined4 param_3,undefined8 p
 
 {
   if (param_2 == 0) {
-    OutlinePane_h90ae9a(param_1,param_3,param_4);
+    FUN_0090ae9a(param_1,param_3,param_4);
     return;
   }
   return;
@@ -29102,12 +29101,12 @@ ulong OutlinePane_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 10) {
-        OutlinePane_h90ae9a(param_1,uVar2 & 0xffffffff,param_4);
+        FUN_0090ae9a(param_1,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -29397,7 +29396,7 @@ undefined8 SearchPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
@@ -29439,9 +29438,9 @@ void FUN_0090b492(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0090b4c6 orig=FUN_0090b4c6 size=147 name=SearchPane_h90b4c6 ====
+// ==== entry=0090b4c6 name=FUN_0090b4c6 size=147 ====
 
-void SearchPane_h90b4c6(undefined8 param_1,undefined4 param_2,long param_3)
+void FUN_0090b4c6(undefined8 param_1,undefined4 param_2,long param_3)
 
 {
   switch(param_2) {
@@ -29488,7 +29487,7 @@ void FUN_0090b55a(undefined8 param_1,int param_2,undefined4 param_3,undefined8 *
   code *pcVar3;
   
   if (param_2 == 0) {
-    SearchPane_h90b4c6(param_1,param_3,param_4);
+    FUN_0090b4c6(param_1,param_3,param_4);
     return;
   }
   if (param_2 == 10) {
@@ -29522,12 +29521,12 @@ ulong SearchPane_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 8) {
-        SearchPane_h90b4c6(param_1,uVar2 & 0xffffffff,param_4);
+        FUN_0090b4c6(param_1,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -29821,21 +29820,21 @@ undefined8 ShellPane_qt_metacast(undefined8 param_1,char *param_2)
   if (iVar1 == 0) {
     return param_1;
   }
-  uVar2 = s_KitPane_91d3e2(param_1,param_2);
+  uVar2 = FUN_0091d3e2(param_1,param_2);
   return uVar2;
 }
 
 
-// ==== entry=0090ba9a orig=FUN_0090ba9a size=56 name=ShellPane_h90ba9a ====
+// ==== entry=0090ba9a name=FUN_0090ba9a size=56 ====
 
-void ShellPane_h90ba9a(undefined8 param_1,int param_2,int param_3,long *param_4)
+void FUN_0090ba9a(undefined8 param_1,int param_2,int param_3,long *param_4)
 
 {
   undefined4 uVar1;
   
   if (param_2 == 0) {
     if (param_3 == 0) {
-      uVar1 = s_session_color_7503a0(param_1,param_4[1]);
+      uVar1 = FUN_007503a0(param_1,param_4[1]);
       if ((undefined4 *)*param_4 != (undefined4 *)0x0) {
         *(undefined4 *)*param_4 = uVar1;
       }
@@ -29860,12 +29859,12 @@ ulong ShellPane_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,un
   int iVar1;
   ulong uVar2;
   
-  uVar2 = OutlinePane_h91d424();
+  uVar2 = FUN_0091d424();
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 2) {
-        ShellPane_h90ba9a(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0090ba9a(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -30059,9 +30058,9 @@ void QObject::ApplicationTheme_qt_metacall(void)
 }
 
 
-// ==== entry=0090bdc0 orig=FUN_0090bdc0 size=5105 name=ApplicationPalette_h90bdc0 ====
+// ==== entry=0090bdc0 name=FUN_0090bdc0 size=5105 ====
 
-void ApplicationPalette_h90bdc0(long param_1,int param_2,uint param_3,undefined8 *param_4)
+void FUN_0090bdc0(long param_1,int param_2,uint param_3,undefined8 *param_4)
 
 {
   undefined8 uVar1;
@@ -30852,7 +30851,7 @@ ulong ApplicationPalette_qt_metacall
   iVar1 = (int)uVar2;
   if (-1 < iVar1) {
     if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-      ApplicationPalette_h90bdc0(param_1,param_2,uVar2 & 0xffffffff,param_4);
+      FUN_0090bdc0(param_1,param_2,uVar2 & 0xffffffff,param_4);
       return (ulong)(iVar1 - 0x3c);
     }
     if ((((param_2 == 4) || (param_2 == 5)) || (param_2 == 6)) || ((param_2 == 7 || (param_2 == 8)))
@@ -30974,11 +30973,11 @@ void FUN_0090d3f8(QObject *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=0090d42c orig=FUN_0090d42c size=2683 name=MainWindow_h90d42c ====
+// ==== entry=0090d42c name=FUN_0090d42c size=2683 ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void MainWindow_h90d42c(long param_1,int param_2,int param_3,long *param_4)
+void FUN_0090d42c(long param_1,int param_2,int param_3,long *param_4)
 
 {
   int *piVar1;
@@ -31483,14 +31482,14 @@ ulong MainWindow_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x22) {
-        MainWindow_h90d42c(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0090d42c(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          MainWindow_h90d42c(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          FUN_0090d42c(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 0xb);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -31500,7 +31499,7 @@ ulong MainWindow_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
         return (ulong)(iVar1 - 0xb);
       }
       if (iVar1 < 0x22) {
-        MainWindow_h90d42c(param_1,0xc,uVar2 & 0xffffffff,param_4);
+        FUN_0090d42c(param_1,0xc,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -31576,9 +31575,9 @@ void FUN_0090e084(QObject *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=0090e0b4 orig=FUN_0090e0b4 size=1425 name=SuperApplication_h90e0b4 ====
+// ==== entry=0090e0b4 name=FUN_0090e0b4 size=1425 ====
 
-void SuperApplication_h90e0b4(long param_1,int param_2,undefined4 param_3,long *param_4)
+void FUN_0090e0b4(long param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   undefined4 *puVar1;
@@ -31718,7 +31717,7 @@ joined_r0x0090e19a:
       UNLOCK();
     }
                     /* try { // try from 0090e311 to 0090e315 has its CatchHandler @ 0090e645 */
-    s_ShowFolders_75d22e(param_1,&local_20,uVar8);
+    FUN_0075d22e(param_1,&local_20,uVar8);
     if (*(int *)local_20 != 0) {
       if (*(int *)local_20 == -1) {
         return;
@@ -31830,7 +31829,7 @@ LAB_0090e618:
     QMapDataBase::freeData((QMapDataBase *)pQVar7);
     break;
   case 0x15:
-    s_application_searchEngines_75dc4c(&local_28,param_1);
+    FUN_0075dc4c(&local_28,param_1);
     puVar6 = (undefined8 *)*param_4;
     pQVar7 = local_28;
 joined_r0x0090e4e3:
@@ -31844,7 +31843,7 @@ joined_r0x0090e4e3:
     qt_shared_data_unref(&local_28);
     break;
   case 0x16:
-    s_application_searchEngines_75e56a(param_1,param_4[1],param_4[2]);
+    FUN_0075e56a(param_1,param_4[1],param_4[2]);
     break;
   case 0x17:
     FUN_0075debe(param_1,param_4[1]);
@@ -31859,13 +31858,13 @@ joined_r0x0090e4e3:
     FUN_0075d78c(param_1,param_4[1],param_4[2]);
     break;
   case 0x1b:
-    s_application_windowOpacity_75d79c(*(undefined8 *)param_4[1],param_1,*(undefined1 *)param_4[2]);
+    FUN_0075d79c(*(undefined8 *)param_4[1],param_1,*(undefined1 *)param_4[2]);
     break;
   case 0x1c:
-    s_application_windowOpacity_75d79c(*(undefined8 *)param_4[1],param_1,1);
+    FUN_0075d79c(*(undefined8 *)param_4[1],param_1,1);
     break;
   case 0x1d:
-    s_application_windowOpacity_75d79c(0,param_1,1);
+    FUN_0075d79c(0,param_1,1);
     break;
   case 0x1e:
     FUN_0075d956();
@@ -31911,7 +31910,7 @@ ulong SuperApplication_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x1f) {
-        SuperApplication_h90e0b4(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0090e0b4(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -32060,9 +32059,9 @@ void CommanderRobot_dtor_deleting(QObject *param_1)
 }
 
 
-// ==== entry=0090e870 orig=FUN_0090e870 size=24 name=XYModem_vt0 ====
+// ==== entry=0090e870 name=FUN_0090e870 size=24 ====
 
-undefined ** XYModem_vt0(long param_1)
+undefined ** FUN_0090e870(long param_1)
 
 {
   undefined **ppuVar1;
@@ -32122,9 +32121,9 @@ void FUN_0090e8e6(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0090e910 orig=FUN_0090e910 size=133 name=Modem_h90e910 ====
+// ==== entry=0090e910 name=FUN_0090e910 size=133 ====
 
-void Modem_h90e910(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
+void FUN_0090e910(undefined8 param_1,int param_2,int param_3,undefined8 *param_4)
 
 {
   undefined4 *puVar1;
@@ -32199,7 +32198,7 @@ ulong Modem_dtor_deleting(undefined8 param_1,int param_2,undefined8 param_3,unde
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 3) {
-        Modem_h90e910(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0090e910(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -32716,9 +32715,9 @@ void FUN_0090eed6(QObject *param_1,undefined4 param_2,undefined8 param_3,undefin
 }
 
 
-// ==== entry=0090ef1c orig=FUN_0090ef1c size=5928 name=TcpCommander_h90ef1c ====
+// ==== entry=0090ef1c name=FUN_0090ef1c size=5928 ====
 
-void TcpCommander_h90ef1c(long param_1,int param_2,undefined4 param_3,long *param_4)
+void FUN_0090ef1c(long param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   undefined4 *puVar1;
@@ -32807,7 +32806,7 @@ switchD_0090ef41_default:
     }
     break;
   case 7:
-    s_terminal_answerBack_7cbb60();
+    FUN_007cbb60();
     break;
   case 8:
     FUN_007ca8d4(param_1,*(undefined4 *)param_4[1],param_4[2]);
@@ -32819,7 +32818,7 @@ switchD_0090ef41_default:
     FUN_007cad8a();
     break;
   case 0xb:
-    s_terminal_bellInterval_7cbc46();
+    FUN_007cbc46();
     break;
   case 0xc:
     uVar6 = FUN_007cad96();
@@ -33168,13 +33167,13 @@ switchD_0090ef41_default:
     FUN_007c9e90(param_1,param_4[1]);
     break;
   case 0x6f:
-    s_StartPrompt_7cf856(param_1,param_4[1]);
+    FUN_007cf856(param_1,param_4[1]);
     break;
   case 0x70:
     FUN_007cf526(param_1,param_4[1]);
     break;
   case 0x71:
-    s_CursorShape_7cf5d0(param_1,param_4[1]);
+    FUN_007cf5d0(param_1,param_4[1]);
     break;
   case 0x72:
     local_28 = *(QArrayData **)param_4[2];
@@ -33901,7 +33900,7 @@ ulong SuperCommander_qt_metacall
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x108) {
-        TcpCommander_h90ef1c(param_1,0,uVar2 & 0xffffffff,param_4);
+        FUN_0090ef1c(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
@@ -33919,9 +33918,9 @@ ulong SuperCommander_qt_metacall
 }
 
 
-// ==== entry=00910762 orig=FUN_00910762 size=1 name=SuperCommander_vt12 ====
+// ==== entry=00910762 name=FUN_00910762 size=1 ====
 
-void SuperCommander_vt12(void)
+void FUN_00910762(void)
 
 {
   return;
