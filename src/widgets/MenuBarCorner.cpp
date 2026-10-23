@@ -48,8 +48,11 @@ MenuBarCorner::MenuBarCorner(QWidget *parent, bool terminal)
                         KingIcons::icon(QStringLiteral("tunnelSmall"), theme),
                         QStringLiteral("Tunnels"));
         // shortcut: 隧道列表弹出行为未逆完, 接线时补
-        addCornerButton(this, QStringLiteral("XServerButton"), QIcon(),
+        addCornerButton(this, QStringLiteral("XServerButton"),
+                        ActionIcons::iconFor(QStringLiteral("XServerButton"),
+                                             QStringLiteral("king::xServerSmall"),
+                                             ThemeManager::instance().currentTheme()),
                         QStringLiteral("X Server"));
-        // shortcut: XServer 图标名未确证(0x85d99e 未逆完), 逆出后补
+        // king::xServerSmall：king.svg id="xServerSmall" 实存（0x85d99e TerminalWindow 版追加项）
     }
 }
