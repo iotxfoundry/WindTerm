@@ -9,10 +9,12 @@ struct ToolbarEntry;
 
 class QCloseEvent;
 class QAction;
+class QEvent;
 class QLabel;
 class QLineEdit;
 class QMenu;
 class QResizeEvent;
+class QTabBar;
 class QTimer;
 class QToolBar;
 class QToolButton;
@@ -32,6 +34,7 @@ public:
 protected:
     void closeEvent(QCloseEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private slots:
     void onPlaceholderAction();
@@ -48,6 +51,7 @@ private:
     void installPaneToolBar(QWidget *pane);
     QWidget *paneHost(QWidget *pane);
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
+    void showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods);
     QAction *makeAction(const QString &actionId);
     static QString displayActionText(const QString &en, const QString &translated);
     void createCentral();
@@ -71,6 +75,7 @@ private:
     QToolButton *m_modeButton = nullptr;
     QToolButton *m_schemeButton = nullptr;
     bool m_localMode = false;
+    QTabBar *m_viewTabBar = nullptr; // MuxPaneGroup 标签条（无 objectName），"ViewTab Popup" 映射用
     QuickBar *m_quickBar = nullptr; // 懒建（0x85ad2e），toggleQuickBar 首次创建
     SearchPane *m_searchPane = nullptr;
     TransferBar *m_transferBar = nullptr; // shortcut: 懒建点挂账（0x85af56 传输启动时建），传输功能实现时接入

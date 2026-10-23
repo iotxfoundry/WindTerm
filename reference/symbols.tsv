@@ -7662,3 +7662,11 @@
 0x0056e540	QuickBar_groupButtons	按 quick.group 分组建 ActionButton 组(showGroupTitle/showMultipleGroups 控制分组渲染)
 0x0056be56	QuickBar_readCommand	读单条命令对象:quick.uuid/group/label/icon/text/type
 0x0056d890	QuickBar_execCommand	按 uuid 匹配+quick.type 分派执行 text(已知类型 "Send Text")
+# —— popup 挂载点批（2026-10-23 反汇编,菜单上下文右键体系）——
+0x008c3c6a	pane_showPopupMenu	通用右键菜单:节名"%1 %2Popup"(%1=pane objectName 去 Pane 后缀 0x8c3684,%2=修饰键串 Shift/Ctrl/Alt/Meta,rodata 0xcb76d1);挂各 pane vtable+0x110 contextMenuEvent
+0x008ba130	ViewTab_popup	视图标签条 QTabBar customContextMenuRequested→"ViewTab Popup" mapToGlobal+QMenu exec
+0x008ca002	TabGroupButton_popup	QuickBar TabGroupButton 点击下拉"TabGroup Popup"(Signal TabGroup#5,非标签右键)
+0x005dd560	reopen_history_load	profile/global/reopen.history 读(QFile::readAll,magic 0xB9E7E626 QDataStream);LastSessions 恢复数据源
+0x005dd6fc	reopen_history_save	reopen.history 写(QFile WriteOnly);0x76073a 汇总每窗口 blob
+0x008d2f7e	KitWindow_restoreStartupSessions	启动恢复:settings "kit.startupSessions"=="LastSessions" 才按 blob 恢复各 view 标签/会话,否则默认窗口;损坏回退 0x75e3fe
+0x008cf0c8	KitWindow_saveStartupSessions	仅模式==LastSessions 时把视图/会话列表嵌入每窗口 blob(0x76073a 汇总)

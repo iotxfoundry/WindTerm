@@ -3,6 +3,8 @@
 #include <QAction>
 #include <QCloseEvent>
 
+#include <QContextMenuEvent>
+#include <QCursor>
 #include <QDateTime>
 #include <QFile>
 #include <QJsonArray>
@@ -489,6 +491,54 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
     }
 }
 
+// 原版 pane_showPopupMenu 0x8c3c6a：节名 "%1 %2Popup"，%1=pane objectName 去 "Pane" 后缀（0x8c3684），
+// %2=修饰键串（无修饰键为空）；挂各 pane 的 contextMenuEvent。ViewTab Popup 走标签条 0x8ba130。
+void MainWindow::showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods)
+{
+    if (!paneLike)
+        return;
+
+    QString section;
+    if (paneLike == m_viewTabBar) {
+        section = QStringLiteral("ViewTab Popup");
+    } else {
+        QString base = paneLike->objectName();
+        if (base.endsWith(QStringLiteral("Pane")))
+            base.chop(4);
+        QString mod;
+        if (mods & Qt::ShiftModifier)
+            mod = QStringLiteral("Shift ");
+        else if (mods & Qt::ControlModifier)
+            mod = QStringLiteral("Ctrl ");
+        else if (mods & Qt::AltModifier)
+            mod = QStringLiteral("Alt ");
+        else if (mods & Qt::MetaModifier)
+            mod = QStringLiteral("Meta ");
+        section = QStringLiteral("%1 %2Popup").arg(base, mod);
+    }
+
+    QVector<MenuEntry> entries = MenuConfig::instance().menu(section);
+    if (entries.isEmpty())
+        entries = menuSection(section); // popup 节不在 MenuConfig（只收 Kit 菜单），按同名顶层节补取
+    if (entries.isEmpty())
+        return; // 原版空节不弹项
+
+    QMenu menu(this);
+    // 条目动作走 makeAction：已接线的 Toggle 类生效，其余占位（与主菜单同限制）
+    buildMenu(&menu, entries);
+    menu.exec(QCursor::pos()); // 0x8ba130 同款
+}
+
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if (event->type() == QEvent::ContextMenu) {
+        auto *context = static_cast<QContextMenuEvent *>(event);
+        showPopupMenu(qobject_cast<QWidget *>(watched), context->modifiers());
+        return true;
+    }
+    return QMainWindow::eventFilter(watched, event);
+}
+
 void MainWindow::createCentral()
 {
     // 0x008cd068 显式装配：0x38/0x40/0x48/0x50 为裸 QSplitter，0x58/0x60/0x68 为 Splitter 子类。
@@ -531,8 +581,13 @@ void MainWindow::createCentral()
     // 的堆栈（对应 setupBars 0x008bade2：setMenuWidget 0x008bb044 → TabGroup_buildCentral
     // 0x005ab6e8 return +0x60 → addToolBar 0x008bb07d）
     auto *kitGroup = new KitGroup;
-    if (m_muxPaneGroup->tabBarRow())
+    if (m_muxPaneGroup->tabBarRow()) {
         kitGroup->setMenuWidget(m_muxPaneGroup->tabBarRow());
+        // 原版 ViewTab Popup：标签条 customContextMenuRequested（0x8ba130）；标签条无 objectName，存指针特判
+        m_viewTabBar = m_muxPaneGroup->findChild<QTabBar *>();
+        if (m_viewTabBar)
+            m_viewTabBar->installEventFilter(this);
+    }
     if (m_toolBar) {
         m_toolBar->setParent(kitGroup); // 脱离 MainWindow，改挂 KitGroup；objectName ToolBar 保持主题规则
         kitGroup->addToolBar(m_toolBar);
@@ -596,6 +651,12 @@ void MainWindow::createCentral()
         if (QWidget *pane = findChild<QWidget *>(QString::fromLatin1(name)))
             installPaneToolBar(pane);
     }
+    // 右键上下文菜单管线（pane_showPopupMenu 0x8c3c6a）：五 pane 的 ContextMenu → 本窗 eventFilter
+    for (const char *name : {"ExplorerPane", "FilerPane", "OutlinePane", "SessionPane", "TransferPane"}) {
+        if (QWidget *pane = findChild<QWidget *>(QString::fromLatin1(name)))
+            pane->installEventFilter(this);
+    }
+    // shortcut: View Popup 终端区右键挂账,TerminalView 属独立组件文件,下批接入(0x84005a)
     // 移动分割条即持久化；所有具名 splitter（含 PaneManager 动态嵌套）统一接入
     for (QSplitter *splitter : findChildren<QSplitter *>()) {
         if (splitter->objectName().isEmpty())
