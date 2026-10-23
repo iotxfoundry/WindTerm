@@ -4,7 +4,6 @@
 #include <QCloseEvent>
 
 #include <QDateTime>
-#include <QDir>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -120,7 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_addressBar(nullptr)
 {
     setWindowTitle(tr("WindTerm"));
-    // 原版 TerminalWindow（QSS #CategoryLabel 前缀，gui.theme:447）
+    // 原版 TerminalWindow（QSS #CategoryLabel 前缀，dige-black gui.theme:472）
     setObjectName(QStringLiteral("TerminalWindow"));
     resize(1200, 800);
     setAttribute(Qt::WA_DeleteOnClose);
@@ -197,6 +196,53 @@ void MainWindow::createFallbackMenus()
     addMenu(QStringLiteral("&Help"), 0, {QStringLiteral("Help"), QStringLiteral("About")});
 }
 
+void MainWindow::addToolBarEntry(QToolBar *toolBar, const ToolbarEntry &entry)
+{
+    switch (entry.type) {
+    case ToolbarEntry::Action: {
+        QAction *action = makeAction(entry.actionId);
+        if (entry.menu.isEmpty()) {
+            toolBar->addAction(action);
+            break;
+        }
+        // 0x00694276：type3=QToolButton（defaultAction）+ 可选 popup menu（toolbar.config "Menu" 字段）。
+        // popup 语义未细逆，取 MenuButtonPopup：主区触发 action，箭头展开 menu.config 同名节
+        auto *button = new QToolButton(toolBar);
+        button->setDefaultAction(action);
+        button->setPopupMode(QToolButton::MenuButtonPopup);
+        auto *menu = new QMenu(button);
+        buildMenu(menu, menuSection(entry.menu));
+        button->setMenu(menu);
+        toolBar->addWidget(button);
+        break;
+    }
+    case ToolbarEntry::AddressBar: {
+        m_addressBar = new QLineEdit(toolBar);
+        m_addressBar->setObjectName(QStringLiteral("AddressBarEdit"));
+        // dige-black gui.theme:492 AddressBar > QLineEdit{...}：骨架地址栏无 BreadCrumb 容器，后代选择器不命中，
+        // 内联同值复刻；多主题支持时移入 ThemeManager 适配段（shortcut）
+        m_addressBar->setStyleSheet(QStringLiteral(
+            "padding:4px;border:1px solid silver;background-color:white;"));
+        m_addressBar->setPlaceholderText(QStringLiteral("ssh user@host"));
+        m_addressBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        connect(m_addressBar, &QLineEdit::returnPressed, this, &MainWindow::onAddressBarReturn);
+        toolBar->addWidget(m_addressBar);
+        break;
+    }
+    case ToolbarEntry::FilterEdit: {
+        auto *filter = new QLineEdit(toolBar);
+        filter->setObjectName(QStringLiteral("FilterEdit"));
+        filter->setPlaceholderText(m_locale.tr(QStringLiteral("Filter")));
+        filter->setFixedWidth(150);
+        toolBar->addWidget(filter);
+        break;
+    }
+    case ToolbarEntry::Separator:
+        toolBar->addSeparator();
+        break;
+    }
+}
+
 void MainWindow::createToolBar()
 {
     ToolbarConfig &config = ToolbarConfig::instance();
@@ -217,29 +263,8 @@ void MainWindow::createToolBar()
     toolBar->setMovable(false);
     m_toolBar = toolBar;
 
-    for (const ToolbarEntry &entry : config.entries(name)) {
-        switch (entry.type) {
-        case ToolbarEntry::Action:
-            toolBar->addAction(makeAction(entry.actionId));
-            break;
-        case ToolbarEntry::AddressBar: {
-            m_addressBar = new QLineEdit(toolBar);
-            m_addressBar->setObjectName(QStringLiteral("AddressBarEdit"));
-            // gui.theme:467 AddressBar > QLineEdit{...}：骨架地址栏无 BreadCrumb 容器，后代选择器不命中，
-            // 内联同值复刻；多主题支持时移入 ThemeManager 适配段（shortcut）
-            m_addressBar->setStyleSheet(QStringLiteral(
-                "padding:4px;border:1px solid silver;background-color:white;"));
-            m_addressBar->setPlaceholderText(QStringLiteral("ssh user@host"));
-            m_addressBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-            connect(m_addressBar, &QLineEdit::returnPressed, this, &MainWindow::onAddressBarReturn);
-            toolBar->addWidget(m_addressBar);
-            break;
-        }
-        case ToolbarEntry::Separator:
-            toolBar->addSeparator();
-            break;
-        }
-    }
+    for (const ToolbarEntry &entry : config.entries(name))
+        addToolBarEntry(toolBar, entry);
 }
 
 void MainWindow::onAddressBarReturn()
@@ -367,6 +392,56 @@ QAction *MainWindow::makeAction(const QString &actionId)
     return action;
 }
 
+// A6（0x008c40a6/0x008c442e）：按 pane 自身 objectName 读 toolbar.config 同名节建 pane 内工具栏
+// （原版首次 show 建；骨架无 pane 生命周期钩子，createCentral 装配完成后一次建齐）
+void MainWindow::installPaneToolBar(QWidget *pane)
+{
+    const QVector<ToolbarEntry> entries = ToolbarConfig::instance().entries(pane->objectName());
+    if (entries.isEmpty())
+        return;
+
+    // item view 类 pane（SessionPane/OutlinePane/OutputPane）自带 scrollarea 布局，工具栏挂在 PaneHost 容器布局上
+    QWidget *host = pane;
+    if (QWidget *parent = pane->parentWidget();
+        parent && parent->objectName() == QStringLiteral("PaneHost"))
+        host = parent;
+
+    auto *box = qobject_cast<QBoxLayout *>(host->layout());
+    if (!box) {
+        // shortcut: pane 无 QBoxLayout 挂点, 待 pane 改为 KitPane QWidget 容器后补
+        return;
+    }
+
+    auto *toolBar = new QToolBar(host);
+    // 原版 toolbar_build 产物 objectName="ToolBar"（每 pane 一个同名实例，主题 #ToolBar 全命中）
+    toolBar->setObjectName(QStringLiteral("ToolBar"));
+    toolBar->setMovable(false);
+    for (const ToolbarEntry &entry : entries) {
+        // ExplorerPane 已有自带 FilterEdit，避免出现两行过滤框
+        if (entry.type == ToolbarEntry::FilterEdit
+            && pane->findChild<QLineEdit *>(QStringLiteral("FilterEdit")))
+            continue;
+        addToolBarEntry(toolBar, entry);
+    }
+    if (toolBar->actions().isEmpty()) {
+        delete toolBar; // 条目全被跳过（如 ExplorerPane 自带 FilterEdit）则不占位
+        return;
+    }
+    box->insertWidget(0, toolBar);
+}
+
+QWidget *MainWindow::paneHost(QWidget *pane)
+{
+    // 原版 KitPane 本身是 QWidget 容器（0x008c3bbe）；骨架 item view 类 pane 无法直接插布局，补一层同名容器
+    auto *host = new QWidget;
+    host->setObjectName(QStringLiteral("PaneHost"));
+    auto *layout = new QVBoxLayout(host);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    layout->addWidget(pane);
+    return host;
+}
+
 QString MainWindow::displayActionText(const QString &en, const QString &translated)
 {
     if (translated.isEmpty())
@@ -432,7 +507,7 @@ void MainWindow::createCentral()
     tabsGroup->setObjectName(QStringLiteral("ExplorerTabs"));
     tabsGroup->addTab(new ExplorerPane(tabsGroup), m_locale.tr(QStringLiteral("Explorer")));
     auto *sessionPane = new SessionPane(tabsGroup);
-    tabsGroup->addTab(sessionPane, m_locale.tr(QStringLiteral("Session")));
+    tabsGroup->addTab(paneHost(sessionPane), m_locale.tr(QStringLiteral("Session")));
     connectSessionPane(sessionPane);
 
     auto *filerPane = new FilerPane;
@@ -464,12 +539,17 @@ void MainWindow::createCentral()
     }
     kitGroup->setCentralWidget(muxRow);
 
+    // 证据 0x008cd068：0x60 纵向 splitter 包住 0x48（KitGroup 容器）再入 0x58 主行；
+    // 上方预留纵向空间供 showPane 动态插入，单子件不 setSizes
+    auto *kitColumn = new QSplitter(Qt::Vertical);
+    kitColumn->addWidget(kitGroup);
+
     auto *right = new QSplitter(Qt::Vertical);
     right->setObjectName(QStringLiteral("RightPanes"));
 
     auto *outlineTabs = new QTabWidget;
     outlineTabs->setObjectName(QStringLiteral("OutlineTabs"));
-    outlineTabs->addTab(new OutlinePane(outlineTabs), m_locale.tr(QStringLiteral("Outline")));
+    outlineTabs->addTab(paneHost(new OutlinePane(outlineTabs)), m_locale.tr(QStringLiteral("Outline")));
     right->addWidget(outlineTabs);
 
     auto *bottom = new QSplitter(Qt::Horizontal);
@@ -480,7 +560,7 @@ void MainWindow::createCentral()
     bottomGroup->hide();
 
     col->addWidget(left);
-    col->addWidget(kitGroup);
+    col->addWidget(kitColumn);
     col->addWidget(right);
     root->addWidget(col);
     root->addWidget(bottom);
@@ -509,6 +589,13 @@ void MainWindow::createCentral()
     // childrenCollapsible(false) 语义不变，运行时无需预分配份额）
     root->setSizes({4000, 2000});
 
+    // A6（0x008c40a6/0x008c442e）：pane 工具栏按 toolbar.config 同名节建；pane 装配完成后一次建齐
+    // （原版首次 show 建，骨架无 pane 生命周期钩子，提前建等价且免 Show 序依赖）
+    for (const char *name : {"ExplorerPane", "SessionPane", "FilerPane", "OutlinePane",
+                             "OutputPane", "SenderPane"}) {
+        if (QWidget *pane = findChild<QWidget *>(QString::fromLatin1(name)))
+            installPaneToolBar(pane);
+    }
     // 移动分割条即持久化；所有具名 splitter（含 PaneManager 动态嵌套）统一接入
     for (QSplitter *splitter : findChildren<QSplitter *>()) {
         if (splitter->objectName().isEmpty())
@@ -536,7 +623,7 @@ QWidget *MainWindow::createBottomTabs()
     auto *stack = new QStackedWidget(container);
     stack->addWidget(new SenderPane(stack));
     stack->addWidget(new TransferPane(stack));
-    stack->addWidget(new OutputPane(stack));
+    stack->addWidget(paneHost(new OutputPane(stack)));
     stack->addWidget(new ShellPane(stack));
 
     connect(tabs, &QTabBar::currentChanged, stack, &QStackedWidget::setCurrentIndex);
@@ -583,13 +670,8 @@ void MainWindow::createStatusBar()
     m_schemeButton->setPopupMode(QToolButton::InstantPopup);
     m_schemeButton->setText(ThemeManager::instance().currentTheme());
     auto *schemeMenu = new QMenu(m_schemeButton);
-    // shortcut: SchemeManager 只暴露 color()、无 schemeNames() 枚举；暂以 themes/ 下含 scheme.theme 的主题名列举,
-    // 逆出终端 schemeNames 后改为 SchemeManager 列表
-    QDir themesDir(Assets::dir() + QStringLiteral("/themes"));
-    const QStringList schemes = themesDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+    const QStringList schemes = SchemeManager::instance().schemeNames();
     for (const QString &scheme : schemes) {
-        if (!QFile::exists(themesDir.filePath(scheme + QStringLiteral("/scheme.theme"))))
-            continue;
         QAction *action = schemeMenu->addAction(scheme);
         connect(action, &QAction::triggered, this, [this, scheme]() {
             m_schemeButton->setText(scheme);
@@ -655,7 +737,15 @@ void MainWindow::onRestoreLayout()
         col->hideIndex(2);
     }
 
-    Q_UNIMPLEMENTED();
+    // B6：terminal.startupSessions（wind.config:69 当前 LastSessions）。
+    // 自动恢复会话需先逆上次会话集存储位置；实现期只读不连，避免自动外连用户真机会话
+    const QString startupSessions = WindConfig::instance().valueToString(
+        QStringLiteral("terminal.startupSessions"), QStringLiteral("NoSessions"));
+    if (startupSessions == QStringLiteral("LastSessions")) {
+        // shortcut: LastSessions 自动恢复会话挂账,需先逆上次会话集存储位置;避免实现期自动外连用户真机会话
+    } else if (!startupSessions.isEmpty() && startupSessions != QStringLiteral("NoSessions")) {
+        // shortcut: startupSessions 其他取值语义未逆, 逆出会话集存储/启动策略后补
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

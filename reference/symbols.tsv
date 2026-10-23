@@ -7654,3 +7654,11 @@
 0x008c40a6	KitPane_buildToolbar	pane首次show(经0x8c442e)按pane自身objectName读toolbar.config(ExplorerPane/FilerPane/OutlinePane/OutputPane/SenderPane/SessionPane)建pane工具栏入+0x38布局
 0x006933ea	StatusBar_populate	singleShot(0)延迟以applet_layout_widgets(0x5a4432)填statusbar.config的button/label表
 0x005bf49e	KitPane_ensureAppletBar	在widget的QVBoxLayout找/建AppletBar(pane内部applet条,StatusBar子类改名),非主窗底栏
+# —— quickbar.config 数据管线批（strace 原版实测+反汇编,2026-10-23）——
+0x0080647e	QuickBar_configPath	路径拼接"/quickbar.config"经cfg_ensureProfileDir(0x5d7dae)落 profiles/<profile>/terminal/quickbar.config;strace 实测唯一 open 点
+0x008064d2	QuickBar_configLoad	yaml_loadFile 读 quickbar.config 整份替换 CTerminalConfig+0xd8
+0x008065a2	QuickBar_configLazy	懒加载 getter;文件缺失 json 空数组兜底(安装包不预置,QuickBar 初始空=原版默认)
+0x00806700	QuickBar_configSave	config_saveFile 写回同路径(增删改后整份回写 0x570970/0x6d36be 调用)
+0x0056e540	QuickBar_groupButtons	按 quick.group 分组建 ActionButton 组(showGroupTitle/showMultipleGroups 控制分组渲染)
+0x0056be56	QuickBar_readCommand	读单条命令对象:quick.uuid/group/label/icon/text/type
+0x0056d890	QuickBar_execCommand	按 uuid 匹配+quick.type 分派执行 text(已知类型 "Send Text")

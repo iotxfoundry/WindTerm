@@ -22,7 +22,9 @@ QuickBar::QuickBar(QWidget *parent)
     // quick 命令数据源：原版 CTerminalConfig+0xd8 的 quick.group/uuid/type/text。
     // 已查 wind.config 与 ~/.wind/profiles/*/user.config：只有三个显示开关，无 quick 命令表 → 空态，
     // 仅建 [QuickButton, ConfigButton, CloseButton]，不造假命令。
-    // shortcut: quick 命令数据源未确证(CTerminalConfig+0xd8,数据文件未定位), 定位后接
+    // 数据源确证（2026-10-23 strace+反汇编）：~/.wind/profiles/<profile>/terminal/quickbar.config，
+    // JSON 顶层数组、每命令 {quick.uuid/group/label/icon/text/type}；安装包不预置（原版默认空数组），
+    // 本空态即原版默认。加载 0x8064d2/懒加载 0x8065a2/保存 0x806700——命令渲染接入时实现读写。
     // 三个开关（wind.config:30-32 实际值 false/true/true），命令数据源定位后用于排序/分组显示
     const bool showCommandsInOrder =
         WindConfig::instance().valueToString(QStringLiteral("quickbar.showCommandsInOrder"),

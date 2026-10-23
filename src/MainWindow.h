@@ -5,6 +5,8 @@
 #include "core/LocaleManager.h"
 #include "core/MenuConfig.h"
 
+struct ToolbarEntry;
+
 class QCloseEvent;
 class QAction;
 class QLabel;
@@ -42,6 +44,9 @@ private:
     void createMenus();
     void createFallbackMenus();
     void createToolBar();
+    void addToolBarEntry(QToolBar *toolBar, const ToolbarEntry &entry);
+    void installPaneToolBar(QWidget *pane);
+    QWidget *paneHost(QWidget *pane);
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
     QAction *makeAction(const QString &actionId);
     static QString displayActionText(const QString &en, const QString &translated);

@@ -38,12 +38,14 @@ bool SchemeManager::load(const QString &path)
         return false;
 
     m_colors.clear();
+    m_names.clear();
     const QJsonArray styles = doc.object().value(QStringLiteral("styles")).toArray();
     for (const QJsonValue &value : styles) {
         const QJsonObject style = value.toObject();
         const QString name = style.value(QStringLiteral("name")).toString();
         if (name.isEmpty())
             continue;
+        m_names.append(name);
 
         const QJsonObject colors = style.value(QStringLiteral("style")).toObject();
         QString text = colors.value(QStringLiteral("background")).toString();

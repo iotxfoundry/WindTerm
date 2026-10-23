@@ -31,7 +31,7 @@ public:
     QWidget *tabBarRow() const { return m_tabBarRow; }
 
 private:
-    void addPane(const QString &title, const QColor &color);
+    void addPane(Session *session, const QString &title, const QColor &color);
 
     QWidget *m_tabBarRow;
     QTabBar *m_tabBar;

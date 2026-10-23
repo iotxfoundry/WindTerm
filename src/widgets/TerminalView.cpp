@@ -99,7 +99,7 @@ TerminalView::TerminalView(const QString &sessionName, QWidget *parent)
         edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         edit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }
-    // gui.theme:851 TextView > QAbstractScrollArea QScrollBar:vertical{width:16px}，原版终端区有滚动条
+    // gui.theme:863（dige-black 默认主题）TextView > QAbstractScrollArea QScrollBar:vertical{width:16px}，原版终端区有滚动条
     m_main->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     // wind.config text.margins（L111-116）：timestamp width 10 leftPadding 4 / number width 10 leftPadding 4
     // 两列合成当前 gutter；宽度按等宽字符数换算，padding 左右各 4 -> 共 8px

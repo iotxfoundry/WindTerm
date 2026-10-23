@@ -55,7 +55,9 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     // 骨架标签行容器实挂 "ViewGroup"（0x008bade2: 0x008baf26 setObjectName("ViewGroup")），
     // 供 gui.theme 改写后的 #ViewGroup 规则命中
     m_tabBar->setExpanding(false);
-    m_tabBar->setUsesScrollButtons(true);
+    // 原版 TabBar_ctor(0x005ac522) setUsesScrollButtons(false)：滚动由自定义
+    // TabScrollLeft/RightButton 接管，Qt 内置箭头不得并存（溢出双箭头）
+    m_tabBar->setUsesScrollButtons(false);
     m_tabBar->setElideMode(Qt::ElideRight);
     m_tabBar->setMovable(true);
     m_tabBar->setTabsClosable(true);
@@ -120,10 +122,15 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     // profile terminal.startupSessions=NoSessions：原版启动无标签（空 tabBar 仅按钮组）
 }
 
-void MuxPaneGroup::addPane(const QString &title, const QColor &color)
+void MuxPaneGroup::addPane(Session *session, const QString &title, const QColor &color)
 {
-    m_tabBar->addTab(dotIcon(color), title);
-    m_stack->addWidget(new TerminalView(title, m_stack));
+    auto *view = new TerminalView(title, m_stack);
+    view->attachSession(session);
+
+    const int index = m_tabBar->addTab(dotIcon(color), title);
+    m_stack->addWidget(view);
+    m_tabBar->setCurrentIndex(index);
+    m_stack->setCurrentWidget(view);
 }
 
 void MuxPaneGroup::onTabCloseRequested(int index)
@@ -153,25 +160,13 @@ void MuxPaneGroup::onTabCloseRequested(int index)
 
 void MuxPaneGroup::openSession(Session *session, const QString &title, const QColor &color)
 {
-    auto *view = new TerminalView(title, m_stack);
-    view->attachSession(session);
-
-    const int index = m_tabBar->addTab(dotIcon(color), title);
-    m_stack->addWidget(view);
-    m_tabBar->setCurrentIndex(index);
-    m_stack->setCurrentWidget(view);
+    addPane(session, title, color);
 }
 
 void MuxPaneGroup::onAddSession()
 {
     auto *session = new LocalSession(24, 80, this);
-    auto *view = new TerminalView(tr("Local"), this);
-    view->attachSession(session);
-
-    const int index = m_tabBar->addTab(dotIcon(Qt::gray), tr("Local"));
-    m_stack->addWidget(view);
-    m_tabBar->setCurrentIndex(index);
-    m_stack->setCurrentWidget(view);
+    addPane(session, tr("Local"), Qt::gray);
 
     session->start();
 }
