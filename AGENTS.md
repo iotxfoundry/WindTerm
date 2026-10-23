@@ -60,6 +60,27 @@ QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存
 3. **记录**：在 `docs/cracked-rules.md` 增加一行（规则→证据函数→代码落点），大发现另开 `docs/phase<N>-findings.md`
 参照库索引见 `reference/README.md`——先查参照库，已破解的不再重复反汇编。
 
+## 调查分析反哺机制（用户指令 2026-10-23，破解留痕第四步）
+
+**每次实现某功能时经反汇编查证获得的新知识（函数语义/对象树/数据格式），必须回填参照库——调查不止服务于当次实现，知识沉淀是反向交付。**
+
+反哺触发时机（满足其一即回填）：
+- 实现过程中定位到的函数职责已明确（哪怕是间接：rg 字面量→宿主函数→读函数体推断）
+- explorer/子代理在调查中给出带地址的结构结论（对象树、调用链、属性键）
+- 骨架实现**成功生效**反证了语义（如 gui.theme 类名规则在骨架上实际命中 = 类名语义双向确证）
+
+反哺形式（每次实现 commit 的伴随动作，与破解留痕第 3 步同一批提交）：
+1. **符号回填** `reference/symbols.tsv` 追加：`0x<地址>\t<语义名>\t<证据一句话>`。命名：snake_case 动宾（`build_session_tree`）或 `<类>_方法`（`KitBar_ctor`/`Theme_loadGuiTheme`）；不确定的写 `_helper`/`_callback_<addr6>` + 证据注明"功能未定位"；弱名升级：字面量指纹名（`s_xxx`）被实现确证职责后**覆盖**为职责名（`s_TabGroup_5af896`→`TabGroup_initUi`），追加即可（Ghidra 管线后应用者胜）。
+2. **应用管线**（与改名同批）：`RenameSymbols.java`（tools/）→ `DecompileAll.java` 全量重 dump（~3min）→ orig= 标注脚本 → commit。这样函数体内调用点直接显示真名，后来者无需重新考证。
+3. **规则沉淀** `docs/cracked-rules.md` 增补（R 编号接续）：一条规则=机制性知识（非单函数），含证据函数地址与代码落点。
+
+禁止项：
+- **禁止推测性命名入表**——反哺名必须来自本次查证的证据（字面量/调用结构/实现确证），"看名字像"不算证据；功能未定位的用 `_helper`/`_callback` + 地址后缀，宁缺毋滥。
+- **禁止只调查不反哺**——explorer/子代理报告中的带地址结论若未回填，视为该轮工作未完成（产出物=src 代码 + symbols.tsv 增量 + cracked-rules 行，三者齐）。
+- 无证据/静态不可达的值（如动态派发的 rect 尺寸）**不入 symbols**——在 src 用 shortcut 注释挂账并写升级条件（例：`King::iconFactory` 渲染 rect 静态不可达挂账）。
+
+机械化批量反哺（字面量指纹/调用者归属/vtable 槽位等无人工阅读的批）同样入表，前缀 `s_`/`_h`/`_vt` 区分证据等级，见 `tools/infer-names.py`。
+
 ## 禁用素材（用户指令 2026-10-22）
 
 **不要参考 2020 年英文截图**（`WindTerm/images/screenshots/WindTerm.png`、`SplitView.png`、`WindTerm_DigeWhite_Theme.png`）——那是旧版行为（如菜单编号 "Session (1)"、"(&%1)"），与 2.7.0 不符，已两次误导布局/编号判断。
