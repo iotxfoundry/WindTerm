@@ -7646,3 +7646,11 @@
 0x00c86ab0	BSim_QList_int_::node_destruct	BSim 匹配(开源参考库 windtermopen/windtermopen2)
 0x00c88fb0	BSim_QList_int_::node_destruct	BSim 匹配(开源参考库 windtermopen/windtermopen2)
 0x00c88fc0	BSim_QTypedArrayData_char_::deallocate	BSim 匹配(开源参考库 windtermopen/windtermopen2)
+# —— 界面布局审计批（2026-10-23 对照调查，反汇编实锤，见 docs/layout-audit.md）——
+0x008a1106	King_title	更正phase2误名registerBarsAndPanes:实为name→tr(title)查找表16对(AppletBar..ShellPane),无控件创建;调用者=各bar/pane构造的setWindowTitle链
+0x005acc3e	QuickBar_ButtonFactory	通用按钮工厂:内建6项表(CloseButton/king::close,ConfigButton/king::config,ExpandButton/king::shrink,TabGroupButton,TabAddButton/king::addTab,TabListButton/king::listTab)
+0x0085a7a6	TerminalWindow_insertBottomBar	底部条按[SearchPane,QuickBar,TransferBar]顺序insertWidget进+0xc8竖splitter
+0x0085d080	TerminalWindow_toggleBar	vt[0x1d0]名字分发显隐:name==QuickBar→show=lazyCreateQuickBar/hide=0x8595c8
+0x008c40a6	KitPane_buildToolbar	pane首次show(经0x8c442e)按pane自身objectName读toolbar.config(ExplorerPane/FilerPane/OutlinePane/OutputPane/SenderPane/SessionPane)建pane工具栏入+0x38布局
+0x006933ea	StatusBar_populate	singleShot(0)延迟以applet_layout_widgets(0x5a4432)填statusbar.config的button/label表
+0x005bf49e	KitPane_ensureAppletBar	在widget的QVBoxLayout找/建AppletBar(pane内部applet条,StatusBar子类改名),非主窗底栏
