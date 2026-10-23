@@ -17,14 +17,11 @@ endif()
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 # 任务二：statusbar.config 的 JS init 由 QJSEngine 真跑（0x005a3156 statusbar_runInit）。
-# 本机无法 apt 安装 qtdeclarative5-dev（无 root），Qt5Qml 开发文件由 fixer 预置在
-# /tmp/opencode/qt5qml/prefix（从 Ubuntu .deb 解包；缺失时自动降级=硬编码状态栏，见 StatusBar.cpp）
-find_package(Qt5Qml QUIET
-  PATHS /tmp/opencode/qt5qml/prefix/lib/x86_64-linux-gnu/cmake/Qt5Qml
-  NO_DEFAULT_PATH)
+# Qt5Qml（QJSEngine 跑 statusbar.config 的 JS；qtdeclarative5-dev 系统安装）
+find_package(Qt5 QUIET COMPONENTS Qml)
 if (TARGET Qt5::Qml)
   set(WINDTERM_HAVE_QJSENGINE ON)
-  message(STATUS "Qt5Qml found: script statusbar enabled (/tmp/opencode/qt5qml/prefix)")
+  message(STATUS "Qt5Qml found: script statusbar enabled")
 else()
   message(STATUS "Qt5Qml NOT found: script statusbar disabled (hardcoded fallback)")
 endif()
