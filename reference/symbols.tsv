@@ -3083,3 +3083,11 @@
 0x00735858	TabBar_sessionFromTabData	生命周期:tabData→QMetaObject cast 取会话对象
 0x007371c0	Session_requestStopAndWait	生命周期:obj+0x30=1 停止标志+QThread wait
 0x005a236c	TabGroup_restoreFocus	生命周期:关闭后焦点恢复
+
+# —— KitGroup 嵌套机制反哺批（原文钉死：menuWidget/toolBar/central 三槽同挂嵌入 QMainWindow）——
+0x008bade2	KitGroup_setupBars	行序机制修正:唯一调用者=KitGroup_ctor(0x008bb360)——上批误名 KitWindow_setupBars,改名(覆盖)
+0x008bb360	KitGroup_ctor	行序机制:QMainWindow 子类构造,嵌入 root splitter 中部单元
+0x0089f516	KitGroup_instantiate	行序机制:new KitGroup 创建点(弱名升级,字面量另证 tab 行为)
+0x007662e6	QuickSwitcher_initUi	行序机制修正:addToolBar+QStackedWidget+末尾 hide()=隐藏 quick-switcher 宿主,非可见主窗(上批误名 MainWindow_initUi,覆盖)
+0x007664a2	QuickSwitcher_addPage	行序机制:外层栈装页+quickswitcher_buttons_build(KitBar)(升级弱名 HistoryHints)
+0x005ab6e8	TabGroup_centralStack	行序机制修正:5 字节 return +0x60(QStackedWidget)——buildCentral 语义确证(覆盖)

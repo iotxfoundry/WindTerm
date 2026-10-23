@@ -58,3 +58,9 @@
 |---|---|---|---|
 | R24 | 行序：标签条(TabGroup)经 QMainWindow::setMenuWidget **占菜单槽** → 标签行在工具栏行之上；AddressBar 非 pane 子件，是 toolbar_build(0x00694276) 按 toolbar.config 类型码(AddressBar=5)装入 KitBar QToolBar 的构件 | 0x008bade2 / 0x00694276 / toolbar.config | `createCentral` VBox[标签行,KitBar 行,root] |
 | R25 | bars/panes 注册系统：registerBarsAndPanes(0x008a1106)=7 bars(Applet/Kit/Menu/Quick/Status/Tool/Transfer)+9 panes(Explorer/Filer/Outline/Output/Sender/Session/Transfer/Search/Shell)；底部命令条=SenderPane（无 SenderBar 类），动作 Window.ShowPaneSender/TogglePaneSender/Dock.TogglePaneSender；TransferBar 懒创建 | 0x008a1106 + wind.actions:2484-2665 | 面板显隐动作映射 |
+
+## 双层 QMainWindow 嵌套（KitGroup 机制反哺）
+| # | 规则 | 证据 | 代码落点 |
+|---|---|---|---|
+| R26 | 主窗=双层 QMainWindow：顶层 KitWindow(menuBar/statusBar/central=root splitter 树) + 中部单元嵌入 **KitGroup(QMainWindow 子类, 0x008bb360)**——其 menuWidget 槽=标签行 TabGroup(**objectName="ViewGroup"** 0x008baf26)、toolBar 区=toolbar_build(0x00694276，Kit/Standard，含 AddressBar)、central=TabGroup 的 QStackedWidget(0x005ab6e8)。QToolBar 只占 KitGroup 宽→地址栏不横跨侧栏 | 0x008bade2 逐条+调用者 0x008bb360 | `KitGroup` 类 / `createCentral` 装配 |
+| R27 | 0x007662e6 的 MainWindow=隐藏 quick-switcher 宿主（addToolBar+stack+末尾 hide()），**非可见主窗**——可见树全在 KitWindow 内（修此前误读） | 0x007662e6 末段 hide | 骨架不做 |
