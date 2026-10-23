@@ -9710,6 +9710,8 @@ void FUN_00506d82(void)
 
 // ==== entry=00506d8e name=FUN_00506d8e size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_00506d8e(void)
 
 {
@@ -10358,7 +10360,7 @@ void FUN_005071a8(void)
 
 {
   FUN_0096bd50();
-  FUN_0096bb02(&stack0x00000000);
+  BSim_QList_int___node_destruct(&stack0x00000000);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -13486,6 +13488,8 @@ void FUN_00508184(void)
 
 // ==== entry=0050819c name=FUN_0050819c size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_0050819c(void)
 
 {
@@ -13713,6 +13717,8 @@ void FUN_00508336(void)
 
 // ==== entry=00508342 name=FUN_00508342 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_00508342(void)
 
 {
@@ -13722,6 +13728,8 @@ void FUN_00508342(void)
 
 
 // ==== entry=00508358 name=FUN_00508358 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_00508358(void)
 
@@ -13755,6 +13763,8 @@ void FUN_0050837e(void)
 
 // ==== entry=0050838e name=FUN_0050838e size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_0050838e(void)
 
 {
@@ -13775,6 +13785,8 @@ void FUN_005083a4(void)
 
 
 // ==== entry=005083b4 name=FUN_005083b4 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_005083b4(void)
 
@@ -13797,6 +13809,8 @@ void FUN_005083ca(void)
 
 // ==== entry=005083da name=FUN_005083da size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_005083da(void)
 
 {
@@ -13806,6 +13820,8 @@ void FUN_005083da(void)
 
 
 // ==== entry=005083f0 name=FUN_005083f0 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_005083f0(void)
 
@@ -13839,6 +13855,8 @@ void FUN_00508416(void)
 
 // ==== entry=00508426 name=FUN_00508426 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_00508426(void)
 
 {
@@ -13848,6 +13866,8 @@ void FUN_00508426(void)
 
 
 // ==== entry=0050843c name=FUN_0050843c size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_0050843c(void)
 
@@ -13895,6 +13915,8 @@ void FUN_00508472(void)
 
 // ==== entry=0050848c name=FUN_0050848c size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_0050848c(void)
 
 {
@@ -13904,6 +13926,8 @@ void FUN_0050848c(void)
 
 
 // ==== entry=005084a2 name=FUN_005084a2 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_005084a2(void)
 
@@ -13937,6 +13961,8 @@ void FUN_005084c8(void)
 
 // ==== entry=005084d8 name=FUN_005084d8 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_005084d8(void)
 
 {
@@ -13946,6 +13972,8 @@ void FUN_005084d8(void)
 
 
 // ==== entry=005084ee name=FUN_005084ee size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_005084ee(void)
 
@@ -13979,6 +14007,8 @@ void FUN_00508514(void)
 
 // ==== entry=00508524 name=FUN_00508524 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_00508524(void)
 
 {
@@ -13988,6 +14018,8 @@ void FUN_00508524(void)
 
 
 // ==== entry=0050853a name=FUN_0050853a size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_0050853a(void)
 
@@ -14046,6 +14078,8 @@ void FUN_00508586(void)
 
 
 // ==== entry=0050859c name=FUN_0050859c size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_0050859c(void)
 
@@ -14431,8 +14465,8 @@ void FUN_005087bc(void)
 void FUN_005087cc(void)
 
 {
-  FUN_0096bb02();
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14443,7 +14477,7 @@ void FUN_005087cc(void)
 void FUN_005087e4(void)
 
 {
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14456,9 +14490,9 @@ void FUN_005087f4(void)
 {
   char unaff_R15B;
   
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
   if (unaff_R15B != '\0') {
-    FUN_0096bb02();
+    BSim_QList_int___node_destruct();
   }
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -14470,7 +14504,7 @@ void FUN_005087f4(void)
 void FUN_00508809(void)
 
 {
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14597,7 +14631,7 @@ void FUN_005088ed(void)
 void FUN_00508905(void)
 
 {
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14608,7 +14642,7 @@ void FUN_00508905(void)
 void FUN_00508915(void)
 
 {
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -14951,7 +14985,7 @@ void FUN_00508b24(void)
 void FUN_00508b41(void)
 
 {
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -15015,7 +15049,7 @@ void FUN_00508b88(void)
 void FUN_00508ba4(void)
 
 {
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -15061,7 +15095,7 @@ void FUN_00508be4(void)
 void FUN_00508bf4(void)
 
 {
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
 }
@@ -15076,7 +15110,7 @@ void FUN_00508c04(void)
   undefined8 in_stack_00000018;
   
   qt_array_data_unref();
-  FUN_0096bb02();
+  BSim_QList_int___node_destruct();
   qt_byte_array_unref(in_stack_00000018);
   qt_array_data_unref(in_stack_00000010);
                     /* WARNING: Subroutine does not return */

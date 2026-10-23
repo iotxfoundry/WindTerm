@@ -15329,7 +15329,7 @@ void FUN_004d343c(undefined8 param_1,undefined8 param_2,long param_3)
                     /* try { // try from 004d344e to 004d3452 has its CatchHandler @ 004d3465 */
   ssh_disconnectMsg(*(undefined8 *)(unaff_RBP + 0x20),uVar3);
   __cxa_end_catch();
-  FUN_0086247e(*(undefined8 *)(unaff_RBP + 0x20),unaff_RBX + 2);
+  BSim_QBasicAtomicInteger_int___deref(*(undefined8 *)(unaff_RBP + 0x20),unaff_RBX + 2);
   FUN_008fc838(DAT_011c13e0);
   pQVar4 = (QArrayData *)unaff_RBX[5];
   if (*(int *)pQVar4 == 0) {
@@ -15408,7 +15408,7 @@ void FUN_004d34a6(void)
                     /* try { // try from 004d34c8 to 004d34e2 has its CatchHandler @ 004d34f5 */
     ssh_disconnectMsg(*(undefined8 *)(unaff_RBX + 0x20),uVar1);
     QObject::deleteLater();
-    FUN_0086247e(*(undefined8 *)(unaff_RBX + 0x20),&stack0x00000010);
+    BSim_QBasicAtomicInteger_int___deref(*(undefined8 *)(unaff_RBX + 0x20),&stack0x00000010);
     __cxa_end_catch();
     return;
   }

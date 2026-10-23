@@ -1279,6 +1279,7 @@ void FUN_004fbf6a(void)
 /* WARNING: Removing unreachable block (ram,0x004fbffc) */
 /* WARNING: Removing unreachable block (ram,0x004fc020) */
 /* WARNING: Removing unreachable block (ram,0x004fc031) */
+/* BSim sim=0.8325504129291179 sig=6.411880215434648 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004fbf7c(void)
 
@@ -3784,7 +3785,7 @@ undefined8 FUN_004fd194(undefined8 param_1,undefined8 param_2,long param_3)
   }
   __cxa_begin_catch();
                     /* try { // try from 004fd1af to 004fd1be has its CatchHandler @ 004fd1ce */
-  FUN_0086247e();
+  BSim_QBasicAtomicInteger_int___deref();
   ssh_disconnectMsg();
   __cxa_end_catch();
   return in_stack_00000008;
@@ -4020,7 +4021,7 @@ undefined8 FUN_004fd31a(undefined8 param_1,undefined8 param_2,long param_3)
   }
   __cxa_begin_catch();
                     /* try { // try from 004fd335 to 004fd344 has its CatchHandler @ 004fd354 */
-  FUN_0086247e();
+  BSim_QBasicAtomicInteger_int___deref();
   ssh_disconnectMsg();
   __cxa_end_catch();
   return in_stack_00000008;
@@ -4041,7 +4042,7 @@ undefined8 FUN_004fd364(undefined8 param_1,undefined8 param_2,long param_3)
   __cxa_begin_catch();
                     /* try { // try from 004fd37a to 004fd38b has its CatchHandler @ 004fd39b */
   ssh_disconnectMsg();
-  FUN_0086247e();
+  BSim_QBasicAtomicInteger_int___deref();
   __cxa_end_catch();
   return in_stack_00000008;
 }
@@ -10466,6 +10467,8 @@ int FUN_005003f4(undefined8 param_1,undefined8 param_2,long param_3)
 
 // ==== entry=00500416 name=FUN_00500416 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_00500416(void)
 
 {
@@ -10499,6 +10502,8 @@ void FUN_0050043c(void)
 
 
 // ==== entry=00500448 name=FUN_00500448 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_00500448(void)
 

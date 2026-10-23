@@ -64,3 +64,8 @@
 |---|---|---|---|
 | R26 | 主窗=双层 QMainWindow：顶层 KitWindow(menuBar/statusBar/central=root splitter 树) + 中部单元嵌入 **KitGroup(QMainWindow 子类, 0x008bb360)**——其 menuWidget 槽=标签行 TabGroup(**objectName="ViewGroup"** 0x008baf26)、toolBar 区=toolbar_build(0x00694276，Kit/Standard，含 AddressBar)、central=TabGroup 的 QStackedWidget(0x005ab6e8)。QToolBar 只占 KitGroup 宽→地址栏不横跨侧栏 | 0x008bade2 逐条+调用者 0x008bb360 | `KitGroup` 类 / `createCentral` 装配 |
 | R27 | 0x007662e6 的 MainWindow=隐藏 quick-switcher 宿主（addToolBar+stack+末尾 hide()），**非可见主窗**——可见树全在 KitWindow 内（修此前误读） | 0x007662e6 末段 hide | 骨架不做 |
+
+## BSim 函数特征匹配（开源参考库管线）
+| # | 规则 | 证据 | 代码落点 |
+|---|---|---|---|
+| R28 | BSim 管线：开源仓库 src（Protocols/Utility/Widgets）qmake 编译带符号 so → import → BSimApply.java add 入 H2 库 → apply（sim≥0.7 sig≥5.0 唯一最佳，前缀 BSim_ 保诚实）→ 运行时 stub 黑名单滤除；单文件 87 签名解锁 1658 名、全量 315 签名累计 1762 净真名（Qt/std 内联同源 + Splitter/Telnet 真身） | libwindtermopen.so 89 符号 + splitter.hdb | tools/BSimApply.java |

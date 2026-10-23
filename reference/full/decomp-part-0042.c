@@ -4492,7 +4492,7 @@ istream * std::getline<char,std::char_traits<char>,std::allocator<char>>
     if (this[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this);
       cVar1 = (ctype<char>)0xa;
-      if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this + 0x30) != ::BSim_QList_int___Node__t) {
         cVar1 = (ctype<char>)(**(code **)(*(long *)this + 0x30))(this,10);
       }
     }
@@ -10826,9 +10826,12 @@ LAB_00c79378:
 }
 
 
-// ==== entry=00c793f0 name=FUN_00c793f0 size=8 ====
+// ==== entry=00c793f0 orig=FUN_00c793f0 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00c793f0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "iostream";
@@ -21436,9 +21439,11 @@ undefined8 FUN_00c86910(long param_1,uint *param_2)
 }
 
 
-// ==== entry=00c86930 name=FUN_00c86930 size=8 ====
+// ==== entry=00c86930 orig=FUN_00c86930 size=8 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00c86930(long param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 
 {
   *(undefined8 *)(param_1 + 0x98) = param_2;
@@ -21562,9 +21567,11 @@ LAB_00c86a51:
 }
 
 
-// ==== entry=00c86ab0 name=FUN_00c86ab0 size=1 ====
+// ==== entry=00c86ab0 orig=FUN_00c86ab0 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00c86ab0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -21725,7 +21732,7 @@ undefined8 FUN_00c86ac0(undefined8 *param_1,undefined8 param_2,undefined8 param_
         uVar2 = FUN_00c864a0(param_1,&local_2b8,local_1c8);
         if ((int)uVar2 == 7) {
           FUN_00c86680(&local_3a8,&local_2b8);
-          lVar3 = FUN_00c86ab0(local_228,uStack_220);
+          lVar3 = BSim_QList_int___node_destruct(local_228,uStack_220);
           *(undefined8 *)(&stack0x00000000 + lVar3) = uStack_220;
           return local_40;
         }
@@ -21853,7 +21860,7 @@ undefined8 FUN_00c86dd0(long param_1,undefined8 param_2,undefined8 param_3)
     return uVar1;
   }
   FUN_00c86680(&local_228,&local_138);
-  lVar2 = FUN_00c86ab0(local_a8,uStack_a0);
+  lVar2 = BSim_QList_int___node_destruct(local_a8,uStack_a0);
   *(undefined8 *)(&stack0x00000000 + lVar2) = uStack_a0;
   return local_40;
 }
@@ -21973,7 +21980,7 @@ undefined1  [16] cxa_throw_exception(long param_1,undefined8 param_2,undefined8 
   }
   if (iVar1 == 7) {
     FUN_00c86680(&local_228,&local_138);
-    auVar2 = FUN_00c86ab0(local_a8,uStack_a0);
+    auVar2 = BSim_QList_int___node_destruct(local_a8,uStack_a0);
     *(long *)(&stack0x00000000 + auVar2._0_8_) = auVar2._8_8_;
     auVar2._8_8_ = local_38;
     auVar2._0_8_ = local_40;
@@ -22098,7 +22105,7 @@ undefined1  [16] FUN_00c87100(long param_1,undefined8 param_2,undefined8 param_3
   iVar1 = FUN_00c86570(param_1,&local_138,local_230);
   if (iVar1 == 7) {
     FUN_00c86680(&local_228,&local_138);
-    lVar2 = FUN_00c86ab0(local_a8,uStack_a0);
+    lVar2 = BSim_QList_int___node_destruct(local_a8,uStack_a0);
     *(undefined8 *)(&stack0x00000000 + lVar2) = uStack_a0;
     auVar3._8_8_ = local_38;
     auVar3._0_8_ = local_40;
@@ -23568,20 +23575,24 @@ void FUN_00c88f40(EVP_PKEY_CTX *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00c88fb0 name=FUN_00c88fb0 size=2 ====
+// ==== entry=00c88fb0 orig=FUN_00c88fb0 size=2 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00c88fb0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00c88fc0 name=FUN_00c88fc0 size=26 ====
+// ==== entry=00c88fc0 orig=FUN_00c88fc0 size=26 name=BSim_QTypedArrayData_char_::deallocate ====
 
 /* WARNING: Removing unreachable block (ram,0x00c88fd6) */
+/* BSim sim=1.0 sig=10.055904525706838
+   ref=libwindtermopen.so.1.0.0::QTypedArrayData<char>::deallocate */
 
-void FUN_00c88fc0(undefined8 param_1)
+void BSim_QTypedArrayData_char___deallocate(undefined8 param_1)
 
 {
   __cxa_atexit(param_1,0,0);

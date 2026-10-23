@@ -2263,7 +2263,7 @@ long * std::time_put<char,std::ostreambuf_iterator<char,std::char_traits<char>>>
   if (this[0x38] == (ctype)0x0) {
     ctype<char>::_M_widen_init((ctype<char> *)this);
     local_cc = (ctype)0x25;
-    if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+    if (*(code **)(*(long *)this + 0x30) != ::BSim_QList_int___Node__t) {
       local_cc = (ctype)(**(code **)(*(long *)this + 0x30))(this,0x25);
     }
   }
@@ -3460,7 +3460,7 @@ void FUN_00c310c0(long param_1,char param_2,ctype *param_3,ctype *param_4,long p
     if (pcVar4[0x38] == (ctype)0x0) {
       std::ctype<char>::_M_widen_init((ctype<char> *)pcVar4);
       cVar2 = (ctype)0x2d;
-      if (*(code **)(*(long *)pcVar4 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)pcVar4 + 0x30) != BSim_QList_int___Node__t) {
         cVar2 = (ctype)(**(code **)(*(long *)pcVar4 + 0x30))(pcVar4,0x2d);
       }
       cVar1 = *param_4;
@@ -3468,7 +3468,7 @@ void FUN_00c310c0(long param_1,char param_2,ctype *param_3,ctype *param_4,long p
         if (pcVar4[0x38] != (ctype)0x0) goto LAB_00c311fe;
         std::ctype<char>::_M_widen_init((ctype<char> *)pcVar4);
         cVar2 = (ctype)0x2b;
-        if (*(code **)(*(long *)pcVar4 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)pcVar4 + 0x30) != BSim_QList_int___Node__t) {
           cVar2 = (ctype)(**(code **)(*(long *)pcVar4 + 0x30))(pcVar4,0x2b);
         }
         cVar1 = *param_4;
@@ -3476,14 +3476,14 @@ void FUN_00c310c0(long param_1,char param_2,ctype *param_3,ctype *param_4,long p
           if (pcVar4[0x38] != (ctype)0x0) goto LAB_00c31120;
           std::ctype<char>::_M_widen_init((ctype<char> *)pcVar4);
           cVar2 = (ctype)0x30;
-          if (*(code **)(*(long *)pcVar4 + 0x30) != FUN_00816ea8) {
+          if (*(code **)(*(long *)pcVar4 + 0x30) != BSim_QList_int___Node__t) {
             cVar2 = (ctype)(**(code **)(*(long *)pcVar4 + 0x30))(pcVar4,0x30);
           }
           if ((*param_4 != cVar2) || ((long)param_6 < 2)) goto LAB_00c310fe;
           if (pcVar4[0x38] != (ctype)0x0) goto LAB_00c3112b;
           std::ctype<char>::_M_widen_init((ctype<char> *)pcVar4);
           cVar2 = (ctype)0x78;
-          if (*(code **)(*(long *)pcVar4 + 0x30) != FUN_00816ea8) {
+          if (*(code **)(*(long *)pcVar4 + 0x30) != BSim_QList_int___Node__t) {
             cVar2 = (ctype)(**(code **)(*(long *)pcVar4 + 0x30))(pcVar4,0x78);
           }
           cVar1 = param_4[1];
@@ -5961,7 +5961,7 @@ long * FUN_00c34820(undefined8 param_1,undefined8 param_2,undefined8 param_3,lon
   if (this[0x38] == (ctype)0x0) {
     std::ctype<char>::_M_widen_init((ctype<char> *)this);
     local_44 = (ctype)0x25;
-    if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+    if (*(code **)(*(long *)this + 0x30) != BSim_QList_int___Node__t) {
       local_44 = (ctype)(**(code **)(*(long *)this + 0x30))(this,0x25);
     }
   }
@@ -12188,7 +12188,7 @@ FUN_00c3a280(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8
   if (this[0x38] == (ctype)0x0) {
     std::ctype<char>::_M_widen_init((ctype<char> *)this);
     local_44 = (ctype)0x25;
-    if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+    if (*(code **)(*(long *)this + 0x30) != BSim_QList_int___Node__t) {
       local_44 = (ctype)(**(code **)(*(long *)this + 0x30))(this,0x25);
     }
   }
@@ -13858,7 +13858,7 @@ LAB_00c3c247:
     if (pcVar11[0x38] == (ctype)0x0) {
       std::ctype<char>::_M_widen_init((ctype<char> *)pcVar11);
       cVar6 = (ctype)0x25;
-      if (*(code **)(*(long *)pcVar11 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)pcVar11 + 0x30) != BSim_QList_int___Node__t) {
         cVar6 = (ctype)(**(code **)(*(long *)pcVar11 + 0x30))(pcVar11,0x25);
       }
     }
@@ -14170,18 +14170,24 @@ void thunk_FUN_00c3cbc0(ulong *param_1,uint param_2)
 }
 
 
-// ==== entry=00c3ccb0 name=FUN_00c3ccb0 size=3 ====
+// ==== entry=00c3ccb0 orig=FUN_00c3ccb0 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00c3ccb0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
 }
 
 
-// ==== entry=00c3ccc0 name=FUN_00c3ccc0 size=6 ====
+// ==== entry=00c3ccc0 orig=FUN_00c3ccc0 size=6 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00c3ccc0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0xffffffff;
@@ -15671,7 +15677,7 @@ void __thiscall std::istream::getline(istream *this,char *param_1,long param_2)
     if (this_00[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this_00);
       cVar1 = (ctype<char>)0xa;
-      if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
         cVar1 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,10);
       }
     }
@@ -16373,7 +16379,7 @@ void __thiscall std::istream::get(istream *this,char *param_1,long param_2)
     if (this_00[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this_00);
       cVar1 = (ctype<char>)0xa;
-      if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
         cVar1 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,10);
       }
     }
@@ -16483,7 +16489,7 @@ void __thiscall std::istream::get(istream *this,streambuf *param_1)
     if (this_00[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this_00);
       cVar1 = (ctype<char>)0xa;
-      if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
         cVar1 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,10);
       }
     }
@@ -17417,7 +17423,7 @@ istream * std::operator>>(istream *param_1,istream param_2)
     }
     if (this[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this);
-      if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this + 0x30) != ::BSim_QList_int___Node__t) {
         (**(code **)(*(long *)this + 0x30))(this,0x20);
       }
     }
@@ -25673,9 +25679,13 @@ LAB_00c4a882:
 }
 
 
-// ==== entry=00c4a8b0 name=FUN_00c4a8b0 size=8 ====
+// ==== entry=00c4a8b0 orig=FUN_00c4a8b0 size=8 name=BSim_std::vector_TelnetOption__std::allocator_TelnetOption___::clear ====
 
-void FUN_00c4a8b0(filebuf *param_1,undefined8 *param_2)
+/* BSim sim=0.9999999999999998 sig=11.017834412421333
+   ref=libwindtermopen.so.1.0.0::std::vector<TelnetOption,_std::allocator<TelnetOption>_>::clear */
+
+void BSim_std__vector_TelnetOption__std__allocator_TelnetOption_____clear
+               (filebuf *param_1,undefined8 *param_2)
 
 {
   std::filebuf::open(param_1,*param_2);
@@ -27297,9 +27307,13 @@ LAB_00c4d152:
 }
 
 
-// ==== entry=00c4d180 name=FUN_00c4d180 size=8 ====
+// ==== entry=00c4d180 orig=FUN_00c4d180 size=8 name=BSim_std::vector_TelnetOption__std::allocator_TelnetOption___::clear ====
 
-void FUN_00c4d180(wfilebuf *param_1,undefined8 *param_2)
+/* BSim sim=0.9999999999999998 sig=11.017834412421333
+   ref=libwindtermopen.so.1.0.0::std::vector<TelnetOption,_std::allocator<TelnetOption>_>::clear */
+
+void BSim_std__vector_TelnetOption__std__allocator_TelnetOption_____clear
+               (wfilebuf *param_1,undefined8 *param_2)
 
 {
   std::wfilebuf::open(param_1,*param_2);
@@ -45898,9 +45912,12 @@ void __thiscall std::wiostream::~wiostream(wiostream *this)
 }
 
 
-// ==== entry=00c60850 name=FUN_00c60850 size=3 ====
+// ==== entry=00c60850 orig=FUN_00c60850 size=3 name=BSim_QList_int_::Node::t ====
 
-undefined4 FUN_00c60850(undefined4 param_1)
+/* BSim sim=1.0000000000000002 sig=8.572937275767773 ref=libsplitter.so.1.0.0::QList<int>::Node::t
+    */
+
+undefined4 BSim_QList_int___Node__t(undefined4 param_1)
 
 {
   return param_1;
@@ -46204,9 +46221,12 @@ void FUN_00c60eb0(long *param_1,long *param_2)
 }
 
 
-// ==== entry=00c60f70 name=FUN_00c60f70 size=3 ====
+// ==== entry=00c60f70 orig=FUN_00c60f70 size=3 name=BSim_QList_int_::Node::t ====
 
-undefined4 FUN_00c60f70(undefined4 param_1)
+/* BSim sim=1.0000000000000002 sig=8.572937275767773 ref=libsplitter.so.1.0.0::QList<int>::Node::t
+    */
+
+undefined4 BSim_QList_int___Node__t(undefined4 param_1)
 
 {
   return param_1;
@@ -46680,9 +46700,12 @@ void FUN_00c61880(undefined8 *param_1)
 }
 
 
-// ==== entry=00c618a0 name=FUN_00c618a0 size=3 ====
+// ==== entry=00c618a0 orig=FUN_00c618a0 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00c618a0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
@@ -53880,9 +53903,15 @@ void FUN_00c6bac0(long *param_1)
 }
 
 
-// ==== entry=00c6bad0 name=FUN_00c6bad0 size=4 ====
+// ==== entry=00c6bad0 orig=FUN_00c6bad0 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c6bad0(undefined8 param_1,undefined8 *param_2)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 param_1,undefined8 *param_2)
 
 {
   return *param_2;
@@ -53981,9 +54010,13 @@ void FUN_00c6bb00(undefined8 *param_1,byte *param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00c6bc10 name=FUN_00c6bc10 size=8 ====
+// ==== entry=00c6bc10 orig=FUN_00c6bc10 size=8 name=BSim_std::vector_TelnetOption__std::allocator_TelnetOption___::clear ====
 
-void FUN_00c6bc10(undefined8 param_1,undefined8 *param_2)
+/* BSim sim=0.9999999999999998 sig=11.017834412421333
+   ref=libwindtermopen.so.1.0.0::std::vector<TelnetOption,_std::allocator<TelnetOption>_>::clear */
+
+void BSim_std__vector_TelnetOption__std__allocator_TelnetOption_____clear
+               (undefined8 param_1,undefined8 *param_2)
 
 {
   FUN_00c6bb00(param_1,*param_2);

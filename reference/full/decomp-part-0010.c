@@ -3749,6 +3749,8 @@ void FUN_004eead4(void)
 
 // ==== entry=004eeb3c name=FUN_004eeb3c size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004eeb3c(void)
 
 {
@@ -6393,7 +6395,7 @@ void FUN_004ef932(void)
   
   qt_byte_array_unref(in_stack_00000010);
   qt_byte_array_unref();
-  FUN_00a94052(in_stack_00000008);
+  BSim_QList_int___iterator__operator_(in_stack_00000008);
   QFile::~QFile(unaff_R12);
   qt_array_data_unref();
   qt_byte_array_unref();
@@ -6585,7 +6587,7 @@ void FUN_004efa74(void)
   QFile::~QFile(unaff_RBP);
   qt_array_data_unref(in_stack_00000008);
   qt_array_data_unref(in_stack_00000010);
-  FUN_00a94052();
+  BSim_QList_int___iterator__operator_();
   qt_byte_array_unref(in_stack_00000020);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -6626,7 +6628,7 @@ void FUN_004efae2(void)
   QFile::~QFile(unaff_RBP);
   qt_array_data_unref(in_stack_00000008);
   qt_array_data_unref(in_stack_00000010);
-  FUN_00a94052();
+  BSim_QList_int___iterator__operator_();
   qt_byte_array_unref(in_stack_00000020);
                     /* WARNING: Subroutine does not return */
   cxa_throw_exception();
@@ -10026,6 +10028,8 @@ void FUN_004f111e(void)
 
 // ==== entry=004f112a name=FUN_004f112a size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004f112a(void)
 
 {
@@ -10060,6 +10064,8 @@ void FUN_004f1150(void)
 
 // ==== entry=004f115c name=FUN_004f115c size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004f115c(void)
 
 {
@@ -10080,6 +10086,8 @@ void FUN_004f1172(void)
 
 
 // ==== entry=004f1182 name=FUN_004f1182 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004f1182(void)
 
@@ -16005,6 +16013,7 @@ void FUN_004f3399(void)
 // ==== entry=004f33a0 name=FUN_004f33a0 size=4 ====
 
 /* WARNING: Removing unreachable block (ram,0x004f3380) */
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004f33a0(void)
 

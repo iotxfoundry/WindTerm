@@ -297,8 +297,8 @@ undefined8 FUN_00a2072a(long param_1)
     lVar4 = 0;
     do {
       uVar2 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar4,0);
-      uVar3 = FUN_0096c1a4(uVar2);
-      uVar2 = FUN_0096c18e(uVar2);
+      uVar3 = BSim_Splitter__createHandle(uVar2);
+      uVar2 = BSim_Splitter__createHandle(uVar2);
       uVar2 = FUN_00a2071e(param_1,uVar2,uVar3);
       if ((char)uVar2 != '\0') {
         return uVar2;
@@ -375,7 +375,7 @@ void FUN_00a208a4(long param_1,undefined8 param_2)
   local_3c = 1;
   editctx_beginIter(local_38,param_1,&local_3c);
                     /* try { // try from 00a208d9 to 00a208dd has its CatchHandler @ 00a208ef */
-  FUN_00a166da(*(undefined8 *)(param_1 + 0x10c8),param_2);
+  BSim_QList_int___iterator__operator__(*(undefined8 *)(param_1 + 0x10c8),param_2);
   FUN_00a161d8(local_38);
   return;
 }
@@ -424,7 +424,7 @@ void FUN_00a20990(long param_1,undefined8 param_2)
   local_3c = 8;
   editctx_beginIter(local_38,param_1,&local_3c);
                     /* try { // try from 00a209c5 to 00a209c9 has its CatchHandler @ 00a209db */
-  FUN_00a166da(*(undefined8 *)(param_1 + 0x10c8),param_2);
+  BSim_QList_int___iterator__operator__(*(undefined8 *)(param_1 + 0x10c8),param_2);
   FUN_00a161d8(local_38);
   return;
 }
@@ -601,7 +601,7 @@ LAB_00a20d46:
         *param_1 = local_48;
         param_1[1] = local_40;
         param_1[2] = local_38;
-        FUN_0096bb02(&local_48);
+        BSim_QList_int___node_destruct(&local_48);
         return param_1;
       }
       cVar1 = FUN_00a20b94(param_2);
@@ -613,7 +613,7 @@ LAB_00a20d46:
         iVar2 = qstrdata_length_get(param_3);
         iVar3 = qstrdata_length_get(&local_48);
         if (iVar3 < iVar2) goto LAB_00a20d46;
-        FUN_0096bb02(&local_48);
+        BSim_QList_int___node_destruct(&local_48);
       }
     }
     else {
@@ -647,7 +647,7 @@ undefined8 * FUN_00a20d7e(undefined8 *param_1,long param_2,undefined8 *param_3,i
   *param_3 = local_58;
   param_3[1] = local_50;
   param_3[2] = local_48;
-  FUN_0096bb02(&local_58);
+  BSim_QList_int___node_destruct(&local_58);
   iVar1 = qstrdata_length_get(param_3);
   if (iVar1 == 0) {
     local_58 = FUN_0096bbc0(param_3);
@@ -664,8 +664,8 @@ undefined8 * FUN_00a20d7e(undefined8 *param_1,long param_2,undefined8 *param_3,i
   *param_3 = local_58;
   param_3[1] = local_50;
   param_3[2] = local_48;
-  FUN_0096bb02(&local_58);
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_58);
+  BSim_QList_int___node_destruct(&local_78);
   *param_1 = *param_3;
   param_1[1] = param_3[1];
   param_1[2] = param_3[2];
@@ -695,12 +695,12 @@ void FUN_00a20eb2(long param_1,undefined8 *param_2,undefined8 *param_3,undefined
   *param_2 = local_98;
   param_2[1] = local_90;
   param_2[2] = local_88;
-  FUN_0096bb02(&local_98);
+  BSim_QList_int___node_destruct(&local_98);
   FUN_00a20bb8(&local_78,param_1,param_3);
   *param_3 = CONCAT44(uStack_74,local_78);
   param_3[1] = local_70;
   param_3[2] = local_68;
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
   uVar1 = *(undefined8 *)(param_1 + 0x1038);
   FUN_0096be24(&local_78,param_2,param_3,param_4);
                     /* try { // try from 00a20f79 to 00a20f7d has its CatchHandler @ 00a20fa8 */
@@ -737,8 +737,8 @@ void FUN_00a20fb0(undefined8 param_1,undefined8 param_2)
   local_58 = puVar2[2];
                     /* try { // try from 00a21021 to 00a21025 has its CatchHandler @ 00a2104e */
   FUN_00a20eb2(param_1,&local_68,&local_48,uVar1);
-  FUN_0096bb02(&local_68);
-  FUN_0096bb02(&local_48);
+  BSim_QList_int___node_destruct(&local_68);
+  BSim_QList_int___node_destruct(&local_48);
   return;
 }
 
@@ -763,7 +763,7 @@ void FUN_00a21056(long param_1,undefined8 *param_2,undefined1 param_3)
   *param_2 = CONCAT44(uStack_44,local_48);
   param_2[1] = local_40;
   param_2[2] = local_38;
-  FUN_0096bb02(&local_48);
+  BSim_QList_int___node_destruct(&local_48);
   puVar1 = (undefined8 *)doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
   *puVar1 = *param_2;
   puVar1[1] = param_2[1];
@@ -794,7 +794,7 @@ void FUN_00a21110(long param_1,undefined8 *param_2,undefined1 param_3)
   *param_2 = CONCAT44(uStack_64,local_68);
   param_2[1] = local_60;
   param_2[2] = local_58;
-  FUN_0096bb02(&local_68);
+  BSim_QList_int___node_destruct(&local_68);
   uVar1 = *(undefined8 *)(param_1 + 0x1038);
   FUN_0096be24(&local_68,param_2,param_2,param_3);
                     /* try { // try from 00a21193 to 00a21197 has its CatchHandler @ 00a211bd */
@@ -827,12 +827,12 @@ void FUN_00a211c6(long param_1,undefined8 *param_2,undefined8 *param_3,undefined
   *param_2 = local_98;
   param_2[1] = local_90;
   param_2[2] = local_88;
-  FUN_0096bb02(&local_98);
+  BSim_QList_int___node_destruct(&local_98);
   FUN_00a20bb8(&local_78,param_1,param_3);
   *param_3 = CONCAT44(uStack_74,local_78);
   param_3[1] = local_70;
   param_3[2] = local_68;
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
   uVar1 = *(undefined8 *)(param_1 + 0x1038);
   FUN_0096be24(&local_78,param_2,param_3,param_4);
                     /* try { // try from 00a2128d to 00a21291 has its CatchHandler @ 00a212bc */
@@ -869,8 +869,8 @@ void FUN_00a212c4(undefined8 param_1,undefined8 param_2)
   local_58 = puVar2[2];
                     /* try { // try from 00a21335 to 00a21339 has its CatchHandler @ 00a21362 */
   FUN_00a211c6(param_1,&local_68,&local_48,uVar1);
-  FUN_0096bb02(&local_68);
-  FUN_0096bb02(&local_48);
+  BSim_QList_int___node_destruct(&local_68);
+  BSim_QList_int___node_destruct(&local_48);
   return;
 }
 
@@ -895,8 +895,8 @@ void FUN_00a2136a(undefined8 param_1,undefined8 *param_2,undefined1 param_3)
   local_28 = local_48;
                     /* try { // try from 00a213ab to 00a213af has its CatchHandler @ 00a213c9 */
   FUN_00a211c6(param_1,&local_58,&local_38,param_3);
-  FUN_0096bb02(&local_58);
-  FUN_0096bb02(&local_38);
+  BSim_QList_int___node_destruct(&local_58);
+  BSim_QList_int___node_destruct(&local_38);
   return;
 }
 
@@ -923,12 +923,12 @@ void FUN_00a213d2(long param_1,undefined8 *param_2,undefined8 *param_3,undefined
   *param_2 = local_98;
   param_2[1] = local_90;
   param_2[2] = local_88;
-  FUN_0096bb02(&local_98);
+  BSim_QList_int___node_destruct(&local_98);
   FUN_00a20bb8(&local_78,param_1,param_3);
   *param_3 = CONCAT44(uStack_74,local_78);
   param_3[1] = local_70;
   param_3[2] = local_68;
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
   uVar1 = *(undefined8 *)(param_1 + 0x1038);
   FUN_0096be24(&local_78,param_2,param_3,param_4);
                     /* try { // try from 00a21499 to 00a2149d has its CatchHandler @ 00a214c8 */
@@ -965,8 +965,8 @@ void FUN_00a214d0(undefined8 param_1,undefined8 param_2)
   local_58 = puVar2[2];
                     /* try { // try from 00a21541 to 00a21545 has its CatchHandler @ 00a2156e */
   FUN_00a213d2(param_1,&local_68,&local_48,uVar1);
-  FUN_0096bb02(&local_68);
-  FUN_0096bb02(&local_48);
+  BSim_QList_int___node_destruct(&local_68);
+  BSim_QList_int___node_destruct(&local_48);
   return;
 }
 
@@ -1119,7 +1119,7 @@ void FUN_00a2168a(long *param_1)
     FUN_00a161d8(local_48);
   }
   cVar5 = FUN_0095809e(param_1[0x214]);
-  if ((cVar5 == '\0') && (*(code **)(*param_1 + 0x188) != FUN_00a4b448)) {
+  if ((cVar5 == '\0') && (*(code **)(*param_1 + 0x188) != BSim_std____is_constant_evaluated)) {
     (**(code **)(*param_1 + 0x188))(param_1,1);
   }
   return;
@@ -1322,8 +1322,8 @@ void FUN_00a21b6a(long param_1,int param_2)
         *puVar3 = local_58;
         puVar3[1] = local_50;
         puVar3[2] = local_48;
-        FUN_0096bb02(&local_58);
-        FUN_0096bb02(&local_78);
+        BSim_QList_int___node_destruct(&local_58);
+        BSim_QList_int___node_destruct(&local_78);
         puVar3 = (undefined8 *)FUN_0096bfce(uVar2);
         local_78 = *puVar3;
         local_70 = puVar3[1];
@@ -1335,8 +1335,8 @@ void FUN_00a21b6a(long param_1,int param_2)
         *puVar3 = local_58;
         puVar3[1] = local_50;
         puVar3[2] = local_48;
-        FUN_0096bb02(&local_58);
-        FUN_0096bb02(&local_78);
+        BSim_QList_int___node_destruct(&local_58);
+        BSim_QList_int___node_destruct(&local_78);
         lVar4 = lVar4 + 1;
       } while (lVar1 != lVar4);
     }
@@ -1372,12 +1372,12 @@ void FUN_00a21d26(long param_1,undefined8 param_2,undefined8 param_3,int param_4
     runstyles_runnode_init(auStack_58,uVar3,0,0);
                     /* try { // try from 00a21d9e to 00a21da2 has its CatchHandler @ 00a21e6f */
     lVar5 = FUN_009587cc(uVar1,auStack_58);
-    FUN_0096bb02(auStack_58);
+    BSim_QList_int___node_destruct(auStack_58);
     uVar3 = *(undefined8 *)(param_1 + 0x10a0);
     runstyles_runnode_init(auStack_58,uVar4,0,0);
                     /* try { // try from 00a21dcb to 00a21dcf has its CatchHandler @ 00a21e87 */
     lVar6 = FUN_009587cc(uVar3,auStack_58);
-    FUN_0096bb02(auStack_58);
+    BSim_QList_int___node_destruct(auStack_58);
     FUN_00a21a02(param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
     uVar3 = *(undefined8 *)(param_1 + 0x1098);
     FUN_00927a08(uVar3,&DAT_00cb99b6);
@@ -1388,7 +1388,7 @@ void FUN_00a21d26(long param_1,undefined8 param_2,undefined8 param_3,int param_4
         runstyles_runnode_init(auStack_58,uVar4,0,0);
                     /* try { // try from 00a21e2a to 00a21e2e has its CatchHandler @ 00a21e77 */
         lVar6 = FUN_009587cc(uVar1,auStack_58);
-        FUN_0096bb02(auStack_58);
+        BSim_QList_int___node_destruct(auStack_58);
         lVar5 = lVar5 + 1;
       } while (lVar5 <= lVar6);
     }
@@ -1410,9 +1410,12 @@ int FUN_00a21e90(long param_1,int param_2,int param_3)
 }
 
 
-// ==== entry=00a21ea8 name=FUN_00a21ea8 size=17 ====
+// ==== entry=00a21ea8 orig=FUN_00a21ea8 size=17 name=BSim_QBasicAtomicInteger_int_::deref ====
 
-void FUN_00a21ea8(undefined8 param_1,char *param_2)
+/* BSim sim=1.0000000000000002 sig=9.718999026504616
+   ref=libsplitter.so.1.0.0::QBasicAtomicInteger<int>::deref */
+
+void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1,char *param_2)
 
 {
   strlen(param_2);
@@ -1648,9 +1651,12 @@ LAB_00a2236b:
 }
 
 
-// ==== entry=00a223e8 name=FUN_00a223e8 size=3 ====
+// ==== entry=00a223e8 orig=FUN_00a223e8 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00a223e8(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
@@ -1821,7 +1827,7 @@ undefined1  [16] FUN_00a2267c(undefined8 param_1,double param_2,long param_3,und
   runstyles_runnode_init(local_38,param_4,0,0);
                     /* try { // try from 00a226a1 to 00a226a5 has its CatchHandler @ 00a22706 */
   dVar1 = (double)FUN_00a225be(param_3,local_38);
-  FUN_0096bb02(local_38);
+  BSim_QList_int___node_destruct(local_38);
   dVar2 = (double)FUN_00a2240a(param_3,param_4);
   auVar3._4_4_ = (int)param_2;
   auVar3._0_4_ = (int)dVar1;
@@ -1961,8 +1967,8 @@ LAB_00a2291b:
     runstyles_runnode_init(local_b8,uVar4,0,0);
                     /* try { // try from 00a2296e to 00a22972 has its CatchHandler @ 00a22c17 */
     FUN_00a2270e(local_58,param_1,local_b8,local_98);
-    FUN_0096bb02(local_b8);
-    FUN_0096bb02(local_98);
+    BSim_QList_int___node_destruct(local_b8);
+    BSim_QList_int___node_destruct(local_98);
     local_60 = local_40;
     local_70 = local_50;
     if (*(int *)((long)param_1 + 0xd04) < (int)param_1[0x168]) {
@@ -2093,8 +2099,8 @@ undefined4 editor_matchBracket(long *param_1,undefined8 param_2,undefined8 param
   runstyles_runnode_init(local_98,uVar3,0,0);
                     /* try { // try from 00a22d9c to 00a22da0 has its CatchHandler @ 00a22e3f */
   FUN_0096be24(local_78,local_98,local_b8,0);
-  FUN_0096bb02(local_98);
-  FUN_0096bb02(local_b8);
+  BSim_QList_int___node_destruct(local_98);
+  BSim_QList_int___node_destruct(local_b8);
                     /* try { // try from 00a22dba to 00a22e34 has its CatchHandler @ 00a22e37 */
   uVar2 = FUN_0096c50e(local_78,param_2,param_3);
   if ((char)uVar2 != '\0') {
@@ -2149,8 +2155,8 @@ undefined1 FUN_00a22e92(long param_1,long param_2,long param_3)
     runstyles_runnode_init(local_68,uVar4,0,0);
                     /* try { // try from 00a22f20 to 00a22f24 has its CatchHandler @ 00a22f51 */
     uVar1 = editor_matchBracket(param_1,local_68,local_48);
-    FUN_0096bb02(local_68);
-    FUN_0096bb02(local_48);
+    BSim_QList_int___node_destruct(local_68);
+    BSim_QList_int___node_destruct(local_48);
     return uVar1;
   }
   return 0;
@@ -2170,8 +2176,8 @@ void FUN_00a22f5a(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   runstyles_runnode_init(auStack_68,param_2,0,0);
                     /* try { // try from 00a22f99 to 00a22f9d has its CatchHandler @ 00a22fc1 */
   editor_matchBracket(param_1,auStack_68,local_48);
-  FUN_0096bb02(auStack_68);
-  FUN_0096bb02(local_48);
+  BSim_QList_int___node_destruct(auStack_68);
+  BSim_QList_int___node_destruct(local_48);
   return;
 }
 
@@ -2196,7 +2202,7 @@ void FUN_00a22fca(long param_1)
     FUN_00a20680(local_48,param_1);
                     /* try { // try from 00a2301b to 00a2301f has its CatchHandler @ 00a230c4 */
     lVar2 = FUN_0096bbc0(local_48);
-    FUN_0096bb02(local_48);
+    BSim_QList_int___node_destruct(local_48);
     iVar4 = FUN_00926b6c(*(undefined8 *)(param_1 + 0x1098),uVar1);
     do {
       uVar5 = FUN_00926b80(*(undefined8 *)(param_1 + 0x1098),iVar4);
@@ -2208,8 +2214,8 @@ void FUN_00a22fca(long param_1)
         runstyles_runnode_init(auStack_68,uVar1,0);
                     /* try { // try from 00a23094 to 00a23098 has its CatchHandler @ 00a230d5 */
         editor_matchBracket(param_1,auStack_68,local_48);
-        FUN_0096bb02(auStack_68);
-        FUN_0096bb02(local_48);
+        BSim_QList_int___node_destruct(auStack_68);
+        BSim_QList_int___node_destruct(local_48);
       }
       iVar4 = iVar4 + 1;
       lVar6 = FUN_00926b94(*(undefined8 *)(param_1 + 0x1098),iVar4);
@@ -2238,12 +2244,12 @@ void FUN_00a230de(long param_1,undefined8 param_2,undefined8 param_3)
     runstyles_runnode_init(local_58,param_2,0,0);
                     /* try { // try from 00a23184 to 00a23188 has its CatchHandler @ 00a231e0 */
     uVar2 = FUN_009587cc(uVar1,local_58);
-    FUN_0096bb02(local_58);
+    BSim_QList_int___node_destruct(local_58);
     uVar1 = *(undefined8 *)(param_1 + 0x10a0);
     runstyles_runnode_init(local_58,param_3,0,0);
                     /* try { // try from 00a231b0 to 00a231b4 has its CatchHandler @ 00a231e8 */
     lVar3 = FUN_009587cc(uVar1,local_58);
-    FUN_0096bb02(local_58);
+    BSim_QList_int___node_destruct(local_58);
     FUN_00959890(*(undefined8 *)(param_1 + 0x10a0),uVar2,lVar3 + 1);
     FUN_00a2168a(param_1);
   }
@@ -2253,8 +2259,8 @@ void FUN_00a230de(long param_1,undefined8 param_2,undefined8 param_3)
   runstyles_runnode_init(auStack_78,param_2,0,0);
                     /* try { // try from 00a2313f to 00a23143 has its CatchHandler @ 00a231f5 */
   editor_matchBracket(param_1,auStack_78,local_58);
-  FUN_0096bb02(auStack_78);
-  FUN_0096bb02(local_58);
+  BSim_QList_int___node_destruct(auStack_78);
+  BSim_QList_int___node_destruct(local_58);
   return;
 }
 
@@ -2284,7 +2290,7 @@ undefined8 FUN_00a23206(long param_1,undefined8 param_2,undefined1 param_3,char 
     if ((lVar4 < lVar3) || (lVar4 = FUN_0092801a(*(undefined8 *)(param_1 + 0x1098)), lVar3 == lVar4)
        ) {
       if (param_4 != '\0') {
-        FUN_0096bc1a(&DAT_bff0000000000000,param_2);
+        BSim_Splitter__setMainIndex(&DAT_bff0000000000000,param_2);
       }
       dVar5 = (double)FUN_00a202fa(param_1,param_2);
       lVar3 = FUN_00a224f0(param_1);
@@ -2316,7 +2322,7 @@ void FUN_00a2333a(long param_1)
   local_28 = *(undefined8 *)(param_1 + 0x1078);
                     /* try { // try from 00a23375 to 00a23379 has its CatchHandler @ 00a233b0 */
   cVar1 = FUN_00a23206(param_1,&local_38,0,1);
-  FUN_0096bb02(&local_38);
+  BSim_QList_int___node_destruct(&local_38);
   if (cVar1 != '\0') {
     return;
   }
@@ -2357,7 +2363,7 @@ void FUN_00a233b8(long param_1)
                     /* try { // try from 00a23424 to 00a23428 has its CatchHandler @ 00a235c5 */
   cVar1 = FUN_00a23206(param_1,&local_58,0,1);
   if (cVar1 == '\0') {
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     local_58 = CONCAT44(local_58._4_4_,8);
     editor_selCtor(local_98,param_1,&local_58);
                     /* try { // try from 00a2345a to 00a234f3 has its CatchHandler @ 00a235b8 */
@@ -2373,7 +2379,7 @@ void FUN_00a233b8(long param_1)
       *puVar3 = local_78;
       puVar3[1] = local_70;
       puVar3[2] = local_68;
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_78);
     }
     else {
       lVar6 = FUN_00a20604(param_1,0);
@@ -2385,7 +2391,7 @@ void FUN_00a233b8(long param_1)
         *puVar3 = local_58;
         puVar3[1] = local_50;
         puVar3[2] = local_48;
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
       }
     }
     local_58 = *puVar3;
@@ -2393,11 +2399,11 @@ void FUN_00a233b8(long param_1)
     local_48 = puVar3[2];
                     /* try { // try from 00a2351c to 00a23520 has its CatchHandler @ 00a235b0 */
     FUN_00a21110(param_1,&local_58,0);
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     FUN_00974856(local_98);
     return;
   }
-  FUN_0096bb02(&local_58);
+  BSim_QList_int___node_destruct(&local_58);
   return;
 }
 
@@ -2430,7 +2436,7 @@ void FUN_00a235ce(long param_1,long param_2,undefined1 param_3)
         local_48 = puVar4[2];
                     /* try { // try from 00a2370b to 00a2370f has its CatchHandler @ 00a23732 */
         cVar1 = FUN_00a23206(param_1,&local_58,0,1);
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
         if (cVar1 != '\0') {
           return;
         }
@@ -2651,7 +2657,7 @@ void FUN_00a23a3e(long *param_1,char param_2,int param_3)
     return;
   }
   editor_selMake(local_48,param_1,&DAT_00cb99b6,8,1);
-  if (*(code **)(*param_1 + 0x148) != FUN_00a1e438) {
+  if (*(code **)(*param_1 + 0x148) != BSim_QList_int___node_destruct) {
                     /* try { // try from 00a23b40 to 00a23b41 has its CatchHandler @ 00a23b47 */
     (**(code **)(*param_1 + 0x148))(param_1);
   }
@@ -2724,7 +2730,7 @@ void FUN_00a23bc4(long *param_1,undefined4 param_2,undefined8 param_3,undefined8
   pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a23bee to 00a23bf2 has its CatchHandler @ 00a23c62 */
   puVar2 = operator_new(0x38);
-  *(code **)(puVar2 + 2) = FUN_00a4b44d;
+  *(code **)(puVar2 + 2) = BSim_QList_int___node_destruct;
   puVar2[1] = 1;
   *puVar2 = 1;
                     /* try { // try from 00a23c1f to 00a23c23 has its CatchHandler @ 00a23c72 */
@@ -2756,7 +2762,7 @@ void FUN_00a23c7a(long *param_1)
   uVar2 = FUN_00950294(param_1 + 8);
                     /* try { // try from 00a23ca4 to 00a23ca8 has its CatchHandler @ 00a23d0c */
   puVar3 = operator_new(0x28);
-  *(code **)(puVar3 + 2) = FUN_00a4b454;
+  *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
   puVar3[1] = 1;
   *puVar3 = 1;
                     /* try { // try from 00a23cce to 00a23cd2 has its CatchHandler @ 00a23d1c */
@@ -2818,7 +2824,7 @@ void FUN_00a23d46(long *param_1,uint param_2,double *param_3,undefined8 param_4,
     local_50 = (int)*param_3;
                     /* try { // try from 00a23dc9 to 00a23dcd has its CatchHandler @ 00a23e50 */
     puVar3 = operator_new(0x38);
-    *(code **)(puVar3 + 2) = FUN_00a4b44e;
+    *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
     puVar3[1] = 1;
     *puVar3 = 1;
                     /* try { // try from 00a23e04 to 00a23e08 has its CatchHandler @ 00a23e58 */
@@ -2862,7 +2868,7 @@ void thunk_FUN_00a23d46(long *param_1,uint param_2,double *param_3,undefined8 pa
     iStack_4c = (int)param_3[1];
     iStack_50 = (int)*param_3;
     puVar3 = operator_new(0x38);
-    *(code **)(puVar3 + 2) = FUN_00a4b44e;
+    *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
     puVar3[1] = 1;
     *puVar3 = 1;
     FUN_00a1c6c0(puVar3 + 4,param_2 & 0xffff,&iStack_50,param_4,param_5);
@@ -2912,7 +2918,7 @@ void FUN_00a23ebe(long *param_1)
     pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a23ef3 to 00a23ef7 has its CatchHandler @ 00a23f57 */
     puVar3 = operator_new(0x28);
-    *(code **)(puVar3 + 2) = FUN_00a4b450;
+    *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
     puVar3[1] = 1;
     *puVar3 = 1;
                     /* try { // try from 00a23f1b to 00a23f1f has its CatchHandler @ 00a23f5f */
@@ -2947,7 +2953,7 @@ void FUN_00a23f70(long *param_1,undefined8 param_2,undefined8 param_3)
     pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a23fb8 to 00a23fbc has its CatchHandler @ 00a24026 */
     puVar3 = operator_new(0x38);
-    *(code **)(puVar3 + 2) = FUN_00a4b451;
+    *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
     puVar3[1] = 1;
     *puVar3 = 1;
                     /* try { // try from 00a23fe6 to 00a23fea has its CatchHandler @ 00a2402e */
@@ -2982,7 +2988,7 @@ void FUN_00a2403e(long *param_1,int param_2,undefined8 param_3,undefined4 param_
     pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a2408d to 00a24091 has its CatchHandler @ 00a24116 */
     puVar3 = operator_new(0x38);
-    *(code **)(puVar3 + 2) = FUN_00a4b452;
+    *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
     puVar3[1] = 1;
     *puVar3 = 1;
                     /* try { // try from 00a240c2 to 00a240c6 has its CatchHandler @ 00a2411e */
@@ -3047,8 +3053,8 @@ void FUN_00a24158(long param_1)
   runstyles_runnode_init(auStack_58,0,0,0);
                     /* try { // try from 00a2419d to 00a241a1 has its CatchHandler @ 00a241c3 */
   editor_matchBracket(param_1,auStack_58,local_38);
-  FUN_0096bb02(auStack_58);
-  FUN_0096bb02(local_38);
+  BSim_QList_int___node_destruct(auStack_58);
+  BSim_QList_int___node_destruct(local_38);
   return;
 }
 
@@ -3124,7 +3130,7 @@ void FUN_00a241fa(long *param_1,uint param_2,undefined8 param_3,undefined8 param
     pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a242cf to 00a242d3 has its CatchHandler @ 00a24391 */
     puVar3 = operator_new(0x48);
-    *(code **)(puVar3 + 2) = FUN_00a4b455;
+    *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
     puVar3[1] = 1;
     *puVar3 = 1;
                     /* try { // try from 00a24300 to 00a24304 has its CatchHandler @ 00a243a5 */
@@ -3237,7 +3243,7 @@ void FUN_00a24452(long *param_1,int *param_2,int *param_3)
   pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a244ee to 00a244f2 has its CatchHandler @ 00a245a1 */
   puVar3 = operator_new(0x38);
-  *(code **)(puVar3 + 2) = FUN_00a4b44b;
+  *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
   puVar3[1] = 1;
   *puVar3 = 1;
                     /* try { // try from 00a2451e to 00a24522 has its CatchHandler @ 00a245bd */
@@ -3325,8 +3331,8 @@ void FUN_00a24660(long param_1,char param_2)
       local_50 = puVar4[5];
       local_48 = puVar4[6];
                     /* try { // try from 00a247a1 to 00a2484a has its CatchHandler @ 00a24858 */
-      lVar5 = FUN_0096c18e(puVar4);
-      lVar6 = FUN_0096c1a4(puVar4);
+      lVar5 = BSim_Splitter__createHandle(puVar4);
+      lVar6 = BSim_Splitter__createHandle(puVar4);
       if (lVar5 == lVar6) {
         iVar2 = FUN_0096bff4(puVar4);
         if (iVar2 < 1) {
@@ -3443,7 +3449,7 @@ void editor_checkAutoFormat(long param_1)
           *puVar11 = *puVar10;
           puVar11[1] = puVar10[1];
           puVar11[2] = puVar10[2];
-          FUN_0096bb02(&local_58);
+          BSim_QList_int___node_destruct(&local_58);
         }
         else {
           uVar5 = FUN_0096bfe0(uVar4);
@@ -3454,7 +3460,7 @@ void editor_checkAutoFormat(long param_1)
                     /* try { // try from 00a24a61 to 00a24a75 has its CatchHandler @ 00a24c16 */
             uVar5 = FUN_0096bfc8(uVar4);
             cVar1 = editor_posCmp(uVar5,&local_58);
-            FUN_0096bb02(&local_58);
+            BSim_QList_int___node_destruct(&local_58);
             if (cVar1 != '\0') {
                     /* try { // try from 00a24bc2 to 00a24bc6 has its CatchHandler @ 00a24c06 */
               runstyles_runnode_init(&local_58,uVar9,0,0);
@@ -3463,14 +3469,14 @@ void editor_checkAutoFormat(long param_1)
               *puVar10 = local_58;
               puVar10[1] = local_50;
               puVar10[2] = local_48;
-              FUN_0096bb02(&local_58);
+              BSim_QList_int___node_destruct(&local_58);
             }
                     /* try { // try from 00a24a9b to 00a24a9f has its CatchHandler @ 00a24c06 */
             runstyles_runnode_init(&local_58,uVar9,0,0);
                     /* try { // try from 00a24aa3 to 00a24ab7 has its CatchHandler @ 00a24c0e */
             uVar5 = FUN_0096bfce(uVar4);
             cVar1 = editor_posCmp(uVar5,&local_58);
-            FUN_0096bb02(&local_58);
+            BSim_QList_int___node_destruct(&local_58);
             if (cVar1 != '\0') {
                     /* try { // try from 00a24add to 00a24ae1 has its CatchHandler @ 00a24c06 */
               runstyles_runnode_init(&local_58,uVar9,0,0);
@@ -3479,7 +3485,7 @@ void editor_checkAutoFormat(long param_1)
               *puVar10 = local_58;
               puVar10[1] = local_50;
               puVar10[2] = local_48;
-              FUN_0096bb02(&local_58);
+              BSim_QList_int___node_destruct(&local_58);
             }
           }
         }
@@ -3523,7 +3529,7 @@ void FUN_00a24c26(long param_1,long param_2)
   editor_selMake(local_48,param_1,"Auto Format",0,2);
   uVar7 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a24c93 to 00a24dfa has its CatchHandler @ 00a24e67 */
-  uVar2 = FUN_0096c18e(*(undefined8 *)(param_2 + 0x10));
+  uVar2 = BSim_Splitter__createHandle(*(undefined8 *)(param_2 + 0x10));
   lVar3 = FUN_0092522a(uVar7,uVar2);
   uVar7 = *(undefined8 *)(param_1 + 0x1098);
   lVar4 = *(long *)(param_2 + 0x30) - *(long *)(param_2 + 0x38) >> 3;
@@ -3543,7 +3549,7 @@ LAB_00a24e57:
   }
   lVar4 = *(long *)(*(long *)(param_2 + 0x48) + uVar5 * 8) + (lVar9 - lVar8 * uVar5) * 0x38;
 LAB_00a24d28:
-  uVar2 = FUN_0096c1a4(lVar4);
+  uVar2 = BSim_Splitter__createHandle(lVar4);
   lVar4 = FUN_0092522a(uVar7,uVar2);
   if (lVar4 - lVar3 < 0xc351) {
     lVar3 = *(long *)(param_2 + 0x30);
@@ -3557,14 +3563,14 @@ LAB_00a24d28:
         if (lVar4 == lVar3) {
           lVar8 = (local_60 - lVar4) + *(long *)(local_58 + -8);
         }
-        uVar2 = FUN_0096c18e(lVar8 + -0x38);
+        uVar2 = BSim_Splitter__createHandle(lVar8 + -0x38);
         uVar2 = FUN_0092522a(uVar7,uVar2);
         uVar7 = *(undefined8 *)(param_1 + 0x1098);
         lVar8 = lVar3;
         if (lVar4 == lVar3) {
           lVar8 = (local_60 - lVar4) + *(long *)(local_58 + -8);
         }
-        uVar6 = FUN_0096c1a4(lVar8 + -0x38);
+        uVar6 = BSim_Splitter__createHandle(lVar8 + -0x38);
         uVar7 = FUN_0092522a(uVar7,uVar6);
         FUN_00a24866(param_1,uVar2,uVar7,2000);
         if (lVar4 == lVar3) {
@@ -3584,9 +3590,11 @@ LAB_00a24d28:
 }
 
 
-// ==== entry=00a24e70 name=FUN_00a24e70 size=1 ====
+// ==== entry=00a24e70 orig=FUN_00a24e70 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a24e70(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -3678,7 +3686,7 @@ void FUN_00a24f84(long param_1,undefined8 param_2,long param_3,char param_4)
                     /* try { // try from 00a24fde to 00a24fe2 has its CatchHandler @ 00a25092 */
       uVar1 = FUN_009587cc(uVar1,auStack_48);
       *(undefined8 *)(param_3 + 0x30) = uVar1;
-      FUN_0096bb02(auStack_48);
+      BSim_QList_int___node_destruct(auStack_48);
       *(undefined8 *)(param_3 + 0x38) = 0xffffffffffffffff;
       lVar2 = *(long *)(param_3 + 0x20);
       if (lVar2 == -1) {
@@ -3690,7 +3698,7 @@ LAB_00a25001:
                     /* try { // try from 00a2501a to 00a2501e has its CatchHandler @ 00a2508a */
       uVar1 = FUN_009587cc(uVar1,auStack_48);
       *(undefined8 *)(param_3 + 0x38) = uVar1;
-      FUN_0096bb02(auStack_48);
+      BSim_QList_int___node_destruct(auStack_48);
       return;
     }
     uVar1 = FUN_0092522a(*(undefined8 *)(param_1 + 0x1098));
@@ -3841,7 +3849,7 @@ void FUN_00a252fe(long param_1,long *param_2,char param_3)
         *param_2 = local_48;
         param_2[1] = local_40;
         param_2[2] = local_38;
-        FUN_0096bb02(&local_48);
+        BSim_QList_int___node_destruct(&local_48);
         return;
       }
     }
@@ -3901,12 +3909,12 @@ editor_replace_range
   undefined1 *local_40;
   
   if (param_4 == -1) {
-    iVar3 = FUN_00a21ea8(param_1,param_3);
+    iVar3 = BSim_QBasicAtomicInteger_int___deref(param_1,param_3);
     param_4 = (long)iVar3;
   }
   uVar4 = pos_min(param_2);
   FUN_00a25284(param_1,uVar4);
-  lVar5 = FUN_0096c18e(param_2);
+  lVar5 = BSim_Splitter__createHandle(param_2);
   if (param_6 == '\0') {
     if ((*(char *)(param_1 + 0xec3) != '\0') && (cVar1 = FUN_0096be72(param_2,1), cVar1 != '\0')) {
       plVar11 = (long *)FUN_0096c0ea(param_2);
@@ -3922,11 +3930,11 @@ editor_replace_range
         *plVar11 = local_68;
         plVar11[1] = local_60;
         plVar11[2] = local_58;
-        FUN_0096bb02(&local_68);
+        BSim_QList_int___node_destruct(&local_68);
       }
     }
     uVar4 = *(undefined8 *)(param_1 + 0x1098);
-    lVar6 = FUN_0096c1a4(param_2);
+    lVar6 = BSim_Splitter__createHandle(param_2);
     uVar2 = editor_undoBegin(uVar4,lVar5,param_4,param_3,lVar6 - lVar5);
   }
   else {
@@ -3956,10 +3964,10 @@ editor_replace_range
       *puVar8 = local_88;
       puVar8[1] = local_80;
       puVar8[2] = local_78;
-      FUN_0096bb02(&local_88);
+      BSim_QList_int___node_destruct(&local_88);
     }
     uVar4 = *(undefined8 *)(param_1 + 0x1098);
-    lVar6 = FUN_0096c1a4(param_2);
+    lVar6 = BSim_Splitter__createHandle(param_2);
     uVar2 = editor_undoBegin(uVar4,local_58,*(undefined8 *)(local_40 + -0x18),local_40,
                              lVar6 - local_58);
     if (local_40 != &DAT_011c5338) {
@@ -3977,7 +3985,7 @@ editor_replace_range
       *plVar11 = local_68;
       plVar11[1] = local_60;
       plVar11[2] = local_58;
-      FUN_0096bb02(&local_68);
+      BSim_QList_int___node_destruct(&local_68);
     }
   }
   return uVar2;
@@ -3985,6 +3993,8 @@ editor_replace_range
 
 
 // ==== entry=00a257f4 name=FUN_00a257f4 size=19 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_00a257f4(void)
 
@@ -4008,7 +4018,7 @@ void FUN_00a25808(long param_1,long param_2,long param_3,undefined1 param_4)
   if (param_2 != 0) {
     editor_selMake(local_48,param_1,"Replace Text",0xc,2);
     if (param_3 == -1) {
-      iVar1 = FUN_00a21ea8(param_1,param_2);
+      iVar1 = BSim_QBasicAtomicInteger_int___deref(param_1,param_2);
       param_3 = (long)iVar1;
     }
                     /* try { // try from 00a25860 to 00a258c3 has its CatchHandler @ 00a258ca */
@@ -4072,7 +4082,7 @@ void replace_text_apply(long param_1,char *param_2,long param_3)
     editor_selMake(local_68,param_1,"Replace Text",0xc,2);
     if (param_3 == -1) {
                     /* try { // try from 00a25bf9 to 00a25bfd has its CatchHandler @ 00a25dd3 */
-      iVar3 = FUN_00a21ea8(param_1,param_2);
+      iVar3 = BSim_QBasicAtomicInteger_int___deref(param_1,param_2);
       local_c0 = (long)iVar3;
     }
     else {
@@ -4190,7 +4200,7 @@ LAB_00a25c38:
           runstyles_runnode_init(local_58,lVar6,0,0);
                     /* try { // try from 00a25ce4 to 00a25ce8 has its CatchHandler @ 00a25e42 */
           FUN_0096c0a8(uVar5,local_58);
-          FUN_0096bb02(local_58);
+          BSim_QList_int___node_destruct(local_58);
                     /* try { // try from 00a25cf8 to 00a25d1d has its CatchHandler @ 00a25e1d */
           lVar7 = FUN_0092801a(*(undefined8 *)(param_1 + 0x1098));
           lVar10 = *(int *)(local_88 + 4) + lVar6;
@@ -4200,7 +4210,7 @@ LAB_00a25c38:
           runstyles_runnode_init(local_58,lVar10,0,0);
                     /* try { // try from 00a25d24 to 00a25d28 has its CatchHandler @ 00a25e4a */
           FUN_0096c056(uVar5,local_58);
-          FUN_0096bb02(local_58);
+          BSim_QList_int___node_destruct(local_58);
                     /* try { // try from 00a25d4a to 00a25d80 has its CatchHandler @ 00a25e1d */
           editor_replace_range
                     (param_1,uVar5,local_88 + *(long *)(local_88 + 0x10),
@@ -4215,7 +4225,7 @@ LAB_00a25c38:
                     /* try { // try from 00a25d87 to 00a25d96 has its CatchHandler @ 00a25e52 */
             FUN_0096c0a8(uVar5,local_58);
             FUN_0096c056(uVar5,local_58);
-            FUN_0096bb02(local_58);
+            BSim_QList_int___node_destruct(local_58);
           }
         }
         if (*(int *)local_88 == 0) {
@@ -4326,7 +4336,7 @@ void FUN_00a25f72(long *param_1)
           *puVar6 = local_58;
           puVar6[1] = local_50;
           puVar6[2] = local_48;
-          FUN_0096bb02(&local_58);
+          BSim_QList_int___node_destruct(&local_58);
                     /* try { // try from 00a26093 to 00a260a6 has its CatchHandler @ 00a2610f */
           uVar4 = FUN_00958498(param_1[0x214],lVar5 + 1);
           runstyles_runnode_init(&local_58,uVar4,0);
@@ -4335,7 +4345,7 @@ void FUN_00a25f72(long *param_1)
           *puVar6 = local_58;
           puVar6[1] = local_50;
           puVar6[2] = local_48;
-          FUN_0096bb02(&local_58);
+          BSim_QList_int___node_destruct(&local_58);
           lVar7 = lVar7 + 1;
         } while (lVar2 != lVar7);
       }
@@ -4400,7 +4410,7 @@ void FUN_00a26118(long param_1,char param_2)
         *puVar8 = local_58;
         puVar8[1] = local_50;
         puVar8[2] = local_48;
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
         if (lVar5 < lVar6) {
                     /* try { // try from 00a26347 to 00a2635a has its CatchHandler @ 00a263f8 */
           uVar7 = FUN_00958498(*(undefined8 *)(param_1 + 0x10a0),lVar6);
@@ -4409,10 +4419,10 @@ void FUN_00a26118(long param_1,char param_2)
           uVar7 = FUN_0096c0ea(uVar3);
           cVar1 = pos_equal(uVar7,&local_58);
           if (cVar1 == '\0') {
-            FUN_0096bb02(&local_58);
+            BSim_QList_int___node_destruct(&local_58);
             goto LAB_00a2625c;
           }
-          FUN_0096bb02(&local_58);
+          BSim_QList_int___node_destruct(&local_58);
         }
         else {
 LAB_00a2625c:
@@ -4426,7 +4436,7 @@ LAB_00a2625c:
         *puVar8 = local_58;
         puVar8[1] = local_50;
         puVar8[2] = local_48;
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
         lVar11 = lVar11 + 1;
         if (lVar2 == lVar11) goto LAB_00a262b7;
       }
@@ -4446,7 +4456,7 @@ LAB_00a2631a:
         *puVar9 = *puVar8;
         puVar9[1] = puVar8[1];
         puVar9[2] = puVar8[2];
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
       }
       else if (param_2 == '\x01') {
                     /* try { // try from 00a26389 to 00a2639c has its CatchHandler @ 00a263f8 */
@@ -4510,8 +4520,8 @@ void FUN_00a26428(long param_1,char param_2)
       while( true ) {
         uVar3 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar10,0);
         if (param_2 != '\x02') break;
-        lVar4 = FUN_0096c18e(uVar3);
-        lVar5 = FUN_0096c1a4(uVar3);
+        lVar4 = BSim_Splitter__createHandle(uVar3);
+        lVar5 = BSim_Splitter__createHandle(uVar3);
         cVar1 = FUN_0092884a(*(undefined8 *)(param_1 + 0x1098),lVar4);
         if (cVar1 == '\0') {
           lVar4 = FUN_0092ad80(*(undefined8 *)(param_1 + 0x1098),lVar4,0xffffffff,0);
@@ -4522,7 +4532,7 @@ void FUN_00a26428(long param_1,char param_2)
         *puVar6 = local_58;
         puVar6[1] = local_50;
         puVar6[2] = local_48;
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
                     /* try { // try from 00a2656a to 00a265bf has its CatchHandler @ 00a26735 */
         cVar1 = FUN_0092792e(*(undefined8 *)(param_1 + 0x1098),lVar4);
         if (cVar1 == '\0') {
@@ -4555,7 +4565,7 @@ LAB_00a265c8:
         *puVar6 = local_58;
         puVar6[1] = local_50;
         puVar6[2] = local_48;
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
         lVar10 = lVar10 + 1;
         if (lVar2 == lVar10) goto LAB_00a265f9;
       }
@@ -4618,8 +4628,8 @@ void FUN_00a26756(long param_1)
   runstyles_runnode_init(local_a8,0,0,0);
                     /* try { // try from 00a267eb to 00a267ef has its CatchHandler @ 00a26868 */
   FUN_0096be24(local_68,local_a8,local_88,0);
-  FUN_0096bb02(local_a8);
-  FUN_0096bb02(local_88);
+  BSim_QList_int___node_destruct(local_a8);
+  BSim_QList_int___node_destruct(local_88);
                     /* try { // try from 00a26815 to 00a26837 has its CatchHandler @ 00a26870 */
   editor_replace_range(param_1,local_68,&DAT_00cb99b6,0,0,0);
   *(undefined8 *)(param_1 + 0xfc0) = 0;
@@ -4697,10 +4707,10 @@ void FUN_00a269c8(long param_1,undefined8 param_2,undefined8 param_3,char param_
   undefined1 *local_40 [2];
   
   FUN_0096bf4a(param_2,1);
-  lVar1 = FUN_0096c18e(param_2);
-  lVar2 = FUN_0096c1a4(param_2);
-  lVar3 = FUN_0096c18e(param_3);
-  lVar4 = FUN_0096c1a4(param_3);
+  lVar1 = BSim_Splitter__createHandle(param_2);
+  lVar2 = BSim_Splitter__createHandle(param_2);
+  lVar3 = BSim_Splitter__createHandle(param_3);
+  lVar4 = BSim_Splitter__createHandle(param_3);
   if ((lVar1 == lVar4) || (lVar2 == lVar3)) {
     buf_substr(local_40,*(undefined8 *)(param_1 + 0x1098),lVar3,lVar4);
                     /* try { // try from 00a26a5f to 00a26a8b has its CatchHandler @ 00a26c5d */
@@ -4788,7 +4798,7 @@ undefined8 * FUN_00a26c74(undefined8 *param_1,long param_2,undefined8 *param_3,c
     *param_3 = local_58;
     param_3[1] = local_50;
     param_3[2] = local_48;
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     cVar1 = *(char *)(param_2 + 0x1128);
   }
   else {
@@ -4796,7 +4806,7 @@ undefined8 * FUN_00a26c74(undefined8 *param_1,long param_2,undefined8 *param_3,c
     *param_3 = local_58;
     param_3[1] = local_50;
     param_3[2] = local_48;
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     cVar1 = *(char *)(param_2 + 0x1128);
   }
   if ((((cVar1 == '\0') && (cVar1 = FUN_00a20b94(param_2), cVar1 != '\0')) &&
@@ -4834,8 +4844,8 @@ void FUN_00a26df4(long param_1)
                     /* try { // try from 00a26e70 to 00a26e74 has its CatchHandler @ 00a26ead */
   FUN_00a20fb0(param_1,local_68);
   FUN_0096bd50(local_68);
-  FUN_0096bb02(local_a8);
-  FUN_0096bb02(local_88);
+  BSim_QList_int___node_destruct(local_a8);
+  BSim_QList_int___node_destruct(local_88);
   FUN_00974856(auStack_c8);
   return;
 }
@@ -4854,7 +4864,7 @@ void FUN_00a26ec6(long param_1,undefined8 param_2,char param_3)
   runstyles_runnode_init(auStack_48,uVar1,0,0);
                     /* try { // try from 00a26f11 to 00a26f15 has its CatchHandler @ 00a26f29 */
   FUN_00a21110(param_1,auStack_48,0);
-  FUN_0096bb02(auStack_48);
+  BSim_QList_int___node_destruct(auStack_48);
   return;
 }
 
@@ -4873,17 +4883,17 @@ void FUN_00a26f32(undefined8 param_1,long param_2)
   runstyles_runnode_init(auStack_48,param_2,0,0);
                     /* try { // try from 00a26f64 to 00a26f68 has its CatchHandler @ 00a26fcc */
   cVar1 = FUN_00a23206(param_1,auStack_48,0,1);
-  FUN_0096bb02(auStack_48);
+  BSim_QList_int___node_destruct(auStack_48);
   if (cVar1 == '\0') {
     runstyles_runnode_init(auStack_48,param_2,0,0);
                     /* try { // try from 00a26f90 to 00a26f94 has its CatchHandler @ 00a26fd4 */
     FUN_00a209e4(param_1,auStack_48,0);
-    FUN_0096bb02(auStack_48);
+    BSim_QList_int___node_destruct(auStack_48);
   }
   runstyles_runnode_init(auStack_48,param_2,0,0);
                     /* try { // try from 00a26fb4 to 00a26fb8 has its CatchHandler @ 00a26fdc */
   FUN_00a21110(param_1,auStack_48,0);
-  FUN_0096bb02(auStack_48);
+  BSim_QList_int___node_destruct(auStack_48);
   return;
 }
 
@@ -4993,7 +5003,7 @@ FUN_00a271b6(undefined8 param_1,long param_2,undefined8 *param_3,char param_4,un
   local_28 = param_3[2];
                     /* try { // try from 00a271ec to 00a271f0 has its CatchHandler @ 00a27203 */
   FUN_00a557b0(param_1,*(undefined8 *)(param_2 + 0x10b0),&local_38,(int)param_4,param_5,param_6);
-  FUN_0096bb02(&local_38);
+  BSim_QList_int___node_destruct(&local_38);
   return param_1;
 }
 
@@ -5023,8 +5033,8 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
   undefined8 local_50;
   undefined8 local_48;
   
-  lVar2 = FUN_0096c18e(param_2);
-  local_110 = FUN_0096c1a4(param_2);
+  lVar2 = BSim_Splitter__createHandle(param_2);
+  local_110 = BSim_Splitter__createHandle(param_2);
   if (*(char *)*param_1 == '\0') {
     lVar3 = *(long *)param_1[1];
     if (lVar3 < 1) {
@@ -5050,8 +5060,8 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a27796 to 00a2779a has its CatchHandler @ 00a27a20 */
           local_110 = FUN_0096bbc0(&local_78);
         }
-        FUN_0096bb02(&local_78);
-        FUN_0096bb02(local_b8);
+        BSim_QList_int___node_destruct(&local_78);
+        BSim_QList_int___node_destruct(local_b8);
         lVar4 = param_1[2];
         lVar3 = *(long *)param_1[1];
       }
@@ -5061,16 +5071,16 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
       FUN_00a271b6(local_108,lVar4,local_b8,1,lVar3 + 1,0);
                     /* try { // try from 00a272b7 to 00a272bb has its CatchHandler @ 00a279f0 */
       lVar3 = FUN_0096bbc0(local_108);
-      FUN_0096bb02(local_108);
-      FUN_0096bb02(local_b8);
+      BSim_QList_int___node_destruct(local_108);
+      BSim_QList_int___node_destruct(local_b8);
       uVar5 = param_1[2];
       runstyles_runnode_init(local_b8,lVar3,0,0);
                     /* try { // try from 00a27304 to 00a27308 has its CatchHandler @ 00a279e0 */
       FUN_00a271b6(local_108,uVar5,local_b8,1,0xffffffffffffffff,0);
                     /* try { // try from 00a27311 to 00a27315 has its CatchHandler @ 00a279d8 */
       lVar4 = FUN_0096bbc0(local_108);
-      FUN_0096bb02(local_108);
-      FUN_0096bb02(local_b8);
+      BSim_QList_int___node_destruct(local_108);
+      BSim_QList_int___node_destruct(local_b8);
     }
     else {
       lVar3 = FUN_0092801a(*(undefined8 *)(param_1[2] + 0x1098));
@@ -5085,8 +5095,8 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
           FUN_00a271b6(&local_78,uVar5,local_b8,1,1,0);
                     /* try { // try from 00a27719 to 00a2771d has its CatchHandler @ 00a279e8 */
           local_110 = FUN_0096bbc0(&local_78);
-          FUN_0096bb02(&local_78);
-          FUN_0096bb02(local_b8);
+          BSim_QList_int___node_destruct(&local_78);
+          BSim_QList_int___node_destruct(local_b8);
         }
         else {
           uVar5 = param_1[2];
@@ -5095,8 +5105,8 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
           FUN_00a271b6(&local_78,uVar5,local_b8,1,0xffffffffffffffff,0);
                     /* try { // try from 00a2792a to 00a2792e has its CatchHandler @ 00a279b0 */
           lVar2 = FUN_0096bbc0(&local_78);
-          FUN_0096bb02(&local_78);
-          FUN_0096bb02(local_b8);
+          BSim_QList_int___node_destruct(&local_78);
+          BSim_QList_int___node_destruct(local_b8);
         }
       }
       local_108 = &local_78;
@@ -5107,16 +5117,16 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
       FUN_00a271b6(local_108,uVar5,local_b8,1,lVar3 + -1,0);
                     /* try { // try from 00a273bc to 00a273c0 has its CatchHandler @ 00a279c8 */
       lVar4 = FUN_0096bbc0(local_108);
-      FUN_0096bb02(local_108);
-      FUN_0096bb02(local_b8);
+      BSim_QList_int___node_destruct(local_108);
+      BSim_QList_int___node_destruct(local_b8);
       uVar5 = param_1[2];
       runstyles_runnode_init(local_b8,lVar4,0,0);
                     /* try { // try from 00a27408 to 00a2740c has its CatchHandler @ 00a279c0 */
       FUN_00a271b6(local_108,uVar5,local_b8,1,1,0);
                     /* try { // try from 00a27415 to 00a27419 has its CatchHandler @ 00a27a18 */
       lVar3 = FUN_0096bbc0(local_108);
-      FUN_0096bb02(local_108);
-      FUN_0096bb02(local_b8);
+      BSim_QList_int___node_destruct(local_108);
+      BSim_QList_int___node_destruct(local_b8);
     }
     goto LAB_00a2732b;
   }
@@ -5223,8 +5233,8 @@ LAB_00a2732b:
     FUN_00a269c8(uVar5,&local_78,local_b8,0 < lVar2);
     FUN_0096bd50(&local_78);
     FUN_0096bd50(local_b8);
-    FUN_0096bb02(local_f8);
-    FUN_0096bb02(local_d8);
+    BSim_QList_int___node_destruct(local_f8);
+    BSim_QList_int___node_destruct(local_d8);
     return 1;
   }
   return 1;
@@ -5395,7 +5405,7 @@ void FUN_00a27a68(long param_1,ulong *param_2,undefined1 param_3,ulong param_4)
                     /* try { // try from 00a27bd1 to 00a27bd5 has its CatchHandler @ 00a28208 */
     FUN_0096c056(param_2,puVar7);
 LAB_00a27bd6:
-    FUN_0096bb02(puVar7);
+    BSim_QList_int___node_destruct(puVar7);
     break;
   case 4:
                     /* try { // try from 00a28096 to 00a281a5 has its CatchHandler @ 00a28230 */
@@ -5472,12 +5482,12 @@ LAB_00a27bd6:
                     /* try { // try from 00a27d43 to 00a27d47 has its CatchHandler @ 00a28250 */
       FUN_00a211c6(param_1,&local_b8,&local_78,cVar1);
     }
-    FUN_0096bb02(&local_b8);
-    FUN_0096bb02(&local_78);
+    BSim_QList_int___node_destruct(&local_b8);
+    BSim_QList_int___node_destruct(&local_78);
   }
   else {
                     /* try { // try from 00a27d59 to 00a27d7e has its CatchHandler @ 00a28230 */
-    uVar6 = FUN_00975bdc(*(undefined8 *)(param_1 + 0x1038));
+    uVar6 = BSim_Splitter__createHandle(*(undefined8 *)(param_1 + 0x1038));
     cVar2 = FUN_0096bb76(uVar6,&local_298);
     if (cVar2 == '\0') {
       puVar5 = (ulong *)pos_min();
@@ -5496,11 +5506,11 @@ LAB_00a27bd6:
                     /* try { // try from 00a27df1 to 00a27df5 has its CatchHandler @ 00a28218 */
       FUN_00a21056(param_1,&local_78,cVar1);
     }
-    FUN_0096bb02(&local_78);
+    BSim_QList_int___node_destruct(&local_78);
   }
                     /* try { // try from 00a27cb0 to 00a27cdb has its CatchHandler @ 00a28230 */
   FUN_00a20a56(param_1,param_2,1,1);
-  FUN_0096bb02(&local_298);
+  BSim_QList_int___node_destruct(&local_298);
   FUN_00974856(local_2b8);
   return;
 }
@@ -5592,7 +5602,7 @@ void FUN_00a282b8(long param_1)
   uVar2 = FUN_0096bbc0(auStack_48);
   uVar3 = FUN_00a20666(param_1);
   FUN_00930226(uVar1,uVar3,uVar2);
-  FUN_0096bb02(auStack_48);
+  BSim_QList_int___node_destruct(auStack_48);
   return;
 }
 
@@ -5613,7 +5623,7 @@ void FUN_00a28316(long param_1,char param_2,undefined8 param_3)
   uVar2 = FUN_0096bbc0(auStack_58);
   uVar3 = FUN_00a20666(param_1);
   FUN_0092e5e8(uVar1,(int)param_2,param_3,uVar3,uVar2);
-  FUN_0096bb02(auStack_58);
+  BSim_QList_int___node_destruct(auStack_58);
   return;
 }
 
@@ -5677,7 +5687,7 @@ void FUN_00a28424(long param_1,char param_2)
     FUN_00a1ff9c(local_48,param_1,0xffffffff);
                     /* try { // try from 00a284ae to 00a284b2 has its CatchHandler @ 00a28505 */
     uVar4 = FUN_0096bbc0(local_48);
-    FUN_0096bb02(local_48);
+    BSim_QList_int___node_destruct(local_48);
   }
   lVar1 = FUN_00a1fc2e(param_1);
   uVar5 = 0xffffffffffffffff;
@@ -5685,7 +5695,7 @@ void FUN_00a28424(long param_1,char param_2)
     FUN_00a20050(local_48,param_1,0xffffffff);
                     /* try { // try from 00a284d6 to 00a284da has its CatchHandler @ 00a2850d */
     uVar5 = FUN_0096bbc0(local_48);
-    FUN_0096bb02(local_48);
+    BSim_QList_int___node_destruct(local_48);
   }
   uVar2 = handler_lookup_by_tag(*(undefined8 *)(param_1 + 0x1098),(int)param_2,0);
   if (param_2 == '\x05') {
@@ -5807,16 +5817,16 @@ void FUN_00a286a2(long param_1,char param_2)
       local_50 = puVar4[1];
       local_48 = puVar4[2];
                     /* try { // try from 00a28754 to 00a2878d has its CatchHandler @ 00a287e7 */
-      FUN_0096bc1a(&DAT_bff0000000000000,&local_58);
+      BSim_Splitter__setMainIndex(&DAT_bff0000000000000,&local_58);
       uVar1 = *(undefined8 *)(param_1 + 0x1098);
-      uVar5 = FUN_0096c1a4(uVar3);
-      uVar6 = FUN_0096c18e(uVar3);
+      uVar5 = BSim_Splitter__createHandle(uVar3);
+      uVar6 = BSim_Splitter__createHandle(uVar3);
       FUN_0092c628(uVar1,param_2,uVar6,uVar5);
       puVar4 = (undefined8 *)pos_min(uVar3);
       *puVar4 = local_58;
       puVar4[1] = local_50;
       puVar4[2] = local_48;
-      FUN_0096bb02(&local_58);
+      BSim_QList_int___node_destruct(&local_58);
       lVar8 = lVar8 + 1;
     } while (lVar2 != lVar8);
   }
@@ -5846,12 +5856,12 @@ void FUN_00a287f8(long param_1,long param_2,undefined8 param_3,undefined8 param_
         uVar2 = FUN_00975d98(*(undefined8 *)(param_1 + 0x1038),0);
         cVar3 = pos_equal(uVar2,local_48);
         if (cVar3 == '\0') {
-          FUN_0096bb02(local_48);
+          BSim_QList_int___node_destruct(local_48);
           local_4c = 0;
           editor_selCtor(local_48,param_1,&local_4c);
         }
         else {
-          FUN_0096bb02(local_48);
+          BSim_QList_int___node_destruct(local_48);
           local_4c = 2;
           editor_selCtor(local_48,param_1,&local_4c);
         }
@@ -5914,7 +5924,7 @@ void FUN_00a289b6(undefined8 param_1,undefined8 *param_2,undefined8 param_3,unde
     local_38 = param_2[2];
                     /* try { // try from 00a28a25 to 00a28a29 has its CatchHandler @ 00a28a5f */
     FUN_00a21110(param_1,&local_48,0);
-    FUN_0096bb02(&local_48);
+    BSim_QList_int___node_destruct(&local_48);
   }
                     /* try { // try from 00a28a3d to 00a28a41 has its CatchHandler @ 00a28a57 */
   FUN_00a25808(param_1,param_3,param_4,0);
@@ -5933,7 +5943,7 @@ void FUN_00a28a68(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   runstyles_runnode_init(auStack_48,0xffffffffffffffff,0,0);
                     /* try { // try from 00a28a9d to 00a28aa1 has its CatchHandler @ 00a28ab5 */
   FUN_00a289b6(param_1,auStack_48,param_2,param_3);
-  FUN_0096bb02(auStack_48);
+  BSim_QList_int___node_destruct(auStack_48);
   return;
 }
 
@@ -5952,9 +5962,12 @@ void FUN_00a28abe(long param_1,int param_2)
 }
 
 
-// ==== entry=00a28ae0 name=FUN_00a28ae0 size=9 ====
+// ==== entry=00a28ae0 orig=FUN_00a28ae0 size=9 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00a28ae0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0x4010000000000000;
@@ -6004,7 +6017,7 @@ void FUN_00a28b8c(long param_1)
     iVar1 = *(int *)(param_1 + 0x1118);
     dVar5 = *(double *)(param_1 + 0xd20);
     iVar2 = *(int *)(param_1 + 0x1124);
-    dVar4 = (double)FUN_00a28ae0();
+    dVar4 = (double)BSim_std____is_constant_evaluated();
     *(double *)(param_1 + 0x1130) =
          dVar4 * *(double *)(param_1 + 0xd38) + (double)iVar1 * dVar5 * (double)iVar2;
     if (0 < *(int *)(param_1 + 0x1118)) {
@@ -6014,7 +6027,7 @@ void FUN_00a28b8c(long param_1)
                     /* try { // try from 00a28c2d to 00a28c31 has its CatchHandler @ 00a28c67 */
         dVar5 = (double)FUN_00a28aea(param_1,local_38);
         *(double *)(param_1 + 0x1130) = dVar5 + *(double *)(param_1 + 0x1130);
-        FUN_0096bb02(local_38);
+        BSim_QList_int___node_destruct(local_38);
         lVar3 = lVar3 + 1;
       } while ((int)lVar3 < *(int *)(param_1 + 0x1118));
     }
@@ -6353,7 +6366,7 @@ void FUN_00a29070(long param_1)
                     /* try { // try from 00a290a0 to 00a290b0 has its CatchHandler @ 00a290c0 */
   FUN_00a1fb76(param_1,auStack_38);
   FUN_00a52f92(*(undefined8 *)(param_1 + 0x10c0));
-  FUN_0096bb02(auStack_38);
+  BSim_QList_int___node_destruct(auStack_38);
   return;
 }
 
@@ -6430,11 +6443,11 @@ undefined8 FUN_00a2919c(undefined8 param_1,long param_2)
   FUN_00a1ff9c(local_78,param_2,0xffffffff);
                     /* try { // try from 00a291c5 to 00a291c9 has its CatchHandler @ 00a2934a */
   lVar2 = FUN_0096bbc0(local_78);
-  FUN_0096bb02(local_78);
+  BSim_QList_int___node_destruct(local_78);
   FUN_00a20050(local_78,param_2,0xffffffff);
                     /* try { // try from 00a291e8 to 00a291ec has its CatchHandler @ 00a2933a */
   lVar3 = FUN_0096bbc0(local_78);
-  FUN_0096bb02(local_78);
+  BSim_QList_int___node_destruct(local_78);
   cVar1 = caret_isBlockStyle(param_2);
   if (cVar1 == '\0') {
 LAB_00a292c9:
@@ -6442,8 +6455,8 @@ LAB_00a292c9:
       uVar4 = FUN_00a1fc3a(param_2,0xffffffff);
       FUN_00a27a50(local_78,param_2,2,uVar4);
                     /* try { // try from 00a292f5 to 00a29316 has its CatchHandler @ 00a2932a */
-      lVar2 = FUN_0096c18e(local_78);
-      lVar3 = FUN_0096c1a4(local_78);
+      lVar2 = BSim_Splitter__createHandle(local_78);
+      lVar3 = BSim_Splitter__createHandle(local_78);
       cVar1 = FUN_0092792e(*(undefined8 *)(param_2 + 0x1098),lVar2);
       if (cVar1 != '\0') {
         lVar2 = lVar3;
@@ -6469,8 +6482,8 @@ LAB_00a29236:
     FUN_00a207ca(local_78,param_2,auStack_98,1,1);
                     /* try { // try from 00a2926d to 00a29271 has its CatchHandler @ 00a29332 */
     lVar3 = FUN_0096bbc0(local_78);
-    FUN_0096bb02(local_78);
-    FUN_0096bb02(auStack_98);
+    BSim_QList_int___node_destruct(local_78);
+    BSim_QList_int___node_destruct(auStack_98);
   }
   buf_substr(param_1,*(undefined8 *)(param_2 + 0x1098),lVar2,lVar3);
   return param_1;
@@ -6531,7 +6544,7 @@ void s_pair_highlightUnmatched_a29352(long param_1,long param_2)
   FUN_00a20680(local_78,param_1);
                     /* try { // try from 00a29430 to 00a29434 has its CatchHandler @ 00a29785 */
   lVar7 = FUN_0096bbc0(local_78);
-  FUN_0096bb02(local_78);
+  BSim_QList_int___node_destruct(local_78);
   lVar11 = *(long *)(param_1 + 0x10e0);
   plVar13 = *(long **)(lVar11 + 0x10);
   if (*(int *)(param_1 + 0xfd4) == -1) {
@@ -6546,8 +6559,8 @@ LAB_00a294a4:
           runstyles_runnode_init(local_78,*plVar13,0);
                     /* try { // try from 00a294f8 to 00a294fc has its CatchHandler @ 00a29779 */
           editor_matchBracket(param_1,local_78,local_d8);
-          FUN_0096bb02(local_78);
-          FUN_0096bb02(local_d8);
+          BSim_QList_int___node_destruct(local_78);
+          BSim_QList_int___node_destruct(local_d8);
           plVar13 = plVar13 + 3;
           if (local_118 == plVar13) goto LAB_00a29519;
         }
@@ -6566,8 +6579,8 @@ LAB_00a294a4:
     runstyles_runnode_init(local_78,lVar11,0,0);
                     /* try { // try from 00a29712 to 00a29716 has its CatchHandler @ 00a297a5 */
     editor_matchBracket(param_1,local_78,local_f8);
-    FUN_0096bb02(local_78);
-    FUN_0096bb02(local_f8);
+    BSim_QList_int___node_destruct(local_78);
+    BSim_QList_int___node_destruct(local_f8);
   }
 LAB_00a29519:
   *(undefined4 *)(param_1 + 0xfd4) = 0xffffffff;
@@ -6604,8 +6617,8 @@ LAB_00a29519:
       runstyles_runnode_init(local_78,uVar5,0,0);
                     /* try { // try from 00a29757 to 00a2975b has its CatchHandler @ 00a297b5 */
       editor_matchBracket(param_1,local_78,local_b8);
-      FUN_0096bb02(local_78);
-      FUN_0096bb02(local_b8);
+      BSim_QList_int___node_destruct(local_78);
+      BSim_QList_int___node_destruct(local_b8);
       goto LAB_00a295af;
     }
     *(undefined4 *)(param_1 + 0xfd4) = 0xffffffff;
@@ -6624,8 +6637,8 @@ LAB_00a295af:
         runstyles_runnode_init(local_78,*plVar13,0);
                     /* try { // try from 00a296c6 to 00a296ca has its CatchHandler @ 00a29795 */
         editor_matchBracket(param_1,local_78,local_98);
-        FUN_0096bb02(local_78);
-        FUN_0096bb02(local_98);
+        BSim_QList_int___node_destruct(local_78);
+        BSim_QList_int___node_destruct(local_98);
       }
       plVar13 = plVar13 + 3;
     } while (plVar3 != plVar13);
@@ -6821,7 +6834,7 @@ LAB_00a29aa3:
         local_48 = plVar6[2];
                     /* try { // try from 00a29df1 to 00a29df5 has its CatchHandler @ 00a29ea5 */
         cVar3 = FUN_00a23206(param_1,&local_58,0,1);
-        FUN_0096bb02(&local_58);
+        BSim_QList_int___node_destruct(&local_58);
         if (cVar3 != '\0') goto LAB_00a29c89;
         lVar8 = lVar8 + 1;
       } while (lVar5 != lVar8);
@@ -6832,7 +6845,7 @@ LAB_00a29aa3:
     local_48 = param_1[0x20f];
                     /* try { // try from 00a29d07 to 00a29d0b has its CatchHandler @ 00a29e8d */
     cVar3 = FUN_00a23206(param_1,&local_58,0,1);
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     if (cVar3 == '\0') {
                     /* try { // try from 00a29e1d to 00a29e3f has its CatchHandler @ 00a29ead */
       uVar7 = FUN_00a20580(param_1);
@@ -6841,7 +6854,7 @@ LAB_00a29aa3:
       local_78 = local_58;
       local_70 = local_50;
       local_68 = local_48;
-      FUN_0096bb02(&local_58);
+      BSim_QList_int___node_destruct(&local_58);
     }
     else {
       local_78 = param_1[0x20d];
@@ -6853,8 +6866,8 @@ LAB_00a29aa3:
     local_48 = local_68;
                     /* try { // try from 00a29d69 to 00a29d6d has its CatchHandler @ 00a29e6b */
     FUN_00a21110(param_1,&local_58,0);
-    FUN_0096bb02(&local_58);
-    FUN_0096bb02(&local_78);
+    BSim_QList_int___node_destruct(&local_58);
+    BSim_QList_int___node_destruct(&local_78);
   }
   else {
     FUN_00a167ac(param_1[0x219],0x7fffffffffffffff);
@@ -6863,7 +6876,7 @@ LAB_00a29aa3:
     local_48 = param_1[0x20f];
                     /* try { // try from 00a29c38 to 00a29c3c has its CatchHandler @ 00a29e85 */
     cVar3 = FUN_00a23206(param_1,&local_58,0,1);
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     if (cVar3 == '\0') {
       FUN_00a2333a(param_1);
     }
@@ -6872,7 +6885,7 @@ LAB_00a29aa3:
     local_48 = param_1[0x20f];
                     /* try { // try from 00a29c7c to 00a29c80 has its CatchHandler @ 00a29e9d */
     FUN_00a21110(param_1,&local_58,0);
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
   }
 LAB_00a29c89:
   *(undefined1 *)((long)param_1 + 0x1083) = 0;
@@ -7161,8 +7174,8 @@ void FUN_00a2a232(long param_1,long param_2)
     *(ulong *)(param_1 + 0x1068) = CONCAT44(uStack_64,local_68);
     *(undefined8 *)(param_1 + 0x1070) = local_60;
     *(undefined8 *)(param_1 + 0x1078) = local_58;
-    FUN_0096bb02(&local_68);
-    FUN_0096bb02(local_88);
+    BSim_QList_int___node_destruct(&local_68);
+    BSim_QList_int___node_destruct(local_88);
   }
   *(undefined1 *)(param_1 + 0x1139) = 1;
   return;
@@ -7190,7 +7203,7 @@ void FUN_00a2a44a(long param_1)
     runstyles_runnode_init(auStack_48,uVar4,0,0);
                     /* try { // try from 00a2a4a4 to 00a2a4a8 has its CatchHandler @ 00a2a4fb */
     lVar5 = FUN_009587cc(uVar1,auStack_48);
-    FUN_0096bb02(auStack_48);
+    BSim_QList_int___node_destruct(auStack_48);
     if (2 < lVar3) {
       if (lVar5 < 3) {
         bVar6 = false;
@@ -7328,8 +7341,8 @@ void FUN_00a2a7aa(long param_1,char param_2)
          ((lVar6 = FUN_00a29ff6(param_1), lVar7 < lVar6 && (lVar6 != 0x7fffffffffffffff)))) {
         lVar7 = lVar6;
       }
-      lVar6 = FUN_0096c18e(uVar4);
-      if ((lVar7 <= lVar6) && (lVar7 = FUN_0096c1a4(uVar4), lVar7 <= lVar2)) {
+      lVar6 = BSim_Splitter__createHandle(uVar4);
+      if ((lVar7 <= lVar6) && (lVar7 = BSim_Splitter__createHandle(uVar4), lVar7 <= lVar2)) {
         *(undefined1 *)(param_1 + 0x1083) = 1;
       }
     }
@@ -7490,7 +7503,7 @@ void FUN_00a2aa74(long *param_1,undefined8 param_2,undefined8 param_3,undefined8
     pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a2aab7 to 00a2aabb has its CatchHandler @ 00a2ab25 */
     puVar3 = operator_new(0x38);
-    *(code **)(puVar3 + 2) = FUN_00a4b456;
+    *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
     puVar3[1] = 1;
     *puVar3 = 1;
                     /* try { // try from 00a2aae5 to 00a2aae9 has its CatchHandler @ 00a2ab2d */
@@ -7557,7 +7570,7 @@ void FUN_00a2ab3e(long *param_1)
       pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a2ac41 to 00a2ac45 has its CatchHandler @ 00a2acc3 */
       puVar9 = operator_new(0x40);
-      *(code **)(puVar9 + 2) = FUN_00a4b457;
+      *(code **)(puVar9 + 2) = BSim_QList_int___node_destruct;
       puVar9[1] = 1;
       *puVar9 = 1;
                     /* try { // try from 00a2ac77 to 00a2ac7b has its CatchHandler @ 00a2acd3 */
@@ -7901,11 +7914,11 @@ LAB_00a2b471:
 LAB_00a2b2e8:
     FUN_00a1fbaa(local_88,&local_78,param_4,lVar3,(int)param_6,param_7);
                     /* try { // try from 00a2b314 to 00a2b318 has its CatchHandler @ 00a2b4c7 */
-    FUN_0096bc1a(&DAT_bff0000000000000,&local_78);
+    BSim_Splitter__setMainIndex(&DAT_bff0000000000000,&local_78);
     *param_3 = local_78;
     param_3[1] = local_70;
     param_3[2] = local_68;
-    FUN_0096bb02(&local_78);
+    BSim_QList_int___node_destruct(&local_78);
   }
   else {
     FUN_00a1f7e2(&local_58,param_4);
@@ -7981,7 +7994,7 @@ undefined1  [16] FUN_00a2b4d0(long param_1,long param_2)
   uVar10 = (ulong)((uVar7 - 1) + (int)dVar1);
   uVar8 = (ulong)(iVar4 + -1 + uVar3);
 LAB_00a2b560:
-  FUN_0096bb02(auStack_48);
+  BSim_QList_int___node_destruct(auStack_48);
   auVar11._8_8_ = uVar10 | uVar8 << 0x20;
   auVar11._0_8_ = (ulong)uVar7 | uVar6 << 0x20;
   return auVar11;
@@ -8032,7 +8045,7 @@ LAB_00a2b683:
       uVar4 = FUN_0096bbc0(local_58);
                     /* try { // try from 00a2b6aa to 00a2b6ae has its CatchHandler @ 00a2b7a8 */
       puVar5 = operator_new(0x40);
-      *(code **)(puVar5 + 2) = FUN_00a4b453;
+      *(code **)(puVar5 + 2) = BSim_QList_int___node_destruct;
       puVar5[1] = 1;
       *puVar5 = 1;
                     /* try { // try from 00a2b6e3 to 00a2b6e7 has its CatchHandler @ 00a2b7a0 */
@@ -8045,7 +8058,7 @@ LAB_00a2b683:
       if (local_60 != (undefined4 *)0x0) {
         sharedptr_release();
       }
-      FUN_0096bb02(local_58);
+      BSim_QList_int___node_destruct(local_58);
       return;
     }
   }
@@ -8087,7 +8100,7 @@ undefined4 FUN_00a2b7fc(undefined8 param_1,int *param_2)
   editor_hitTest((double)*param_2,(double)param_2[1],auStack_38,param_1,0,0,1);
                     /* try { // try from 00a2b834 to 00a2b838 has its CatchHandler @ 00a2b84c */
   uVar1 = FUN_00a2a0ea(param_1,auStack_38);
-  FUN_0096bb02(auStack_38);
+  BSim_QList_int___node_destruct(auStack_38);
   return uVar1;
 }
 
@@ -8102,7 +8115,7 @@ undefined8 FUN_00a2b854(undefined8 param_1,undefined8 param_2,int *param_3,char 
   editor_hitTest((double)*param_3,(double)param_3[1],auStack_38,param_2,0,(int)param_4,1);
                     /* try { // try from 00a2b895 to 00a2b899 has its CatchHandler @ 00a2b8ae */
   FUN_00a2a15e(param_1,param_2,auStack_38);
-  FUN_0096bb02(auStack_38);
+  BSim_QList_int___node_destruct(auStack_38);
   return param_1;
 }
 
@@ -8149,9 +8162,9 @@ undefined4 FUN_00a2b8b6(long param_1,undefined8 *param_2)
                     /* try { // try from 00a2b9aa to 00a2b9ae has its CatchHandler @ 00a2b9e4 */
     uVar1 = FUN_0096bb88(auStack_78,local_58);
   }
-  FUN_0096bb02(local_58);
+  BSim_QList_int___node_destruct(local_58);
 LAB_00a2b979:
-  FUN_0096bb02(auStack_78);
+  BSim_QList_int___node_destruct(auStack_78);
   return uVar1;
 }
 
@@ -8170,7 +8183,7 @@ undefined4 FUN_00a2b9f6(undefined8 param_1,undefined8 *param_2)
   if ((char)uVar1 != '\0') {
     uVar1 = FUN_00a2a8b8(param_1,auStack_38);
   }
-  FUN_0096bb02(auStack_38);
+  BSim_QList_int___node_destruct(auStack_38);
   return uVar1;
 }
 
@@ -8203,7 +8216,7 @@ undefined4 FUN_00a2ba5c(double param_1,undefined8 param_2,long param_3,long para
   if (param_1 <= dVar5) {
     uVar1 = 0;
 LAB_00a2bad0:
-    FUN_0096bb02(&local_68);
+    BSim_QList_int___node_destruct(&local_68);
     return uVar1;
   }
   iVar2 = qstrdata_length_get(&local_68);
@@ -8218,7 +8231,7 @@ LAB_00a2bad0:
         *puVar4 = local_48;
         puVar4[1] = local_40;
         puVar4[2] = local_38;
-        FUN_0096bb02(&local_48);
+        BSim_QList_int___node_destruct(&local_48);
                     /* try { // try from 00a2bb69 to 00a2bb6d has its CatchHandler @ 00a2bba4 */
         puVar4 = (undefined8 *)FUN_0096bfce(param_4);
         *puVar4 = local_68;
@@ -8228,7 +8241,7 @@ LAB_00a2bad0:
       goto LAB_00a2bad0;
     }
   }
-  FUN_0096bb02(&local_68);
+  BSim_QList_int___node_destruct(&local_68);
   return 0;
 }
 
@@ -8289,11 +8302,11 @@ void editor_getSelRange(long param_1)
       cVar3 = FUN_0096be72(&local_78,1);
       if (cVar3 == '\0') {
                     /* try { // try from 00a2be42 to 00a2bf2b has its CatchHandler @ 00a2bf47 */
-        lVar11 = FUN_0096c18e(&local_78);
-        lVar9 = FUN_0096c1a4(&local_78);
+        lVar11 = BSim_Splitter__createHandle(&local_78);
+        lVar9 = BSim_Splitter__createHandle(&local_78);
 LAB_00a2bdb0:
-        if (((lVar11 != lVar9) && (lVar8 = FUN_0096c18e(&local_78), lVar11 <= lVar8)) &&
-           (lVar8 = FUN_0096c1a4(&local_78), lVar8 <= lVar9)) {
+        if (((lVar11 != lVar9) && (lVar8 = BSim_Splitter__createHandle(&local_78), lVar11 <= lVar8))
+           && (lVar8 = BSim_Splitter__createHandle(&local_78), lVar8 <= lVar9)) {
           lVar8 = FUN_00930e4e(*(undefined8 *)(param_1 + 0x1098),lVar11,0);
           if (((lVar8 == 0) || (plVar1 = *(long **)(lVar8 + 0x100), plVar1 == (long *)0x0)) ||
              ((plVar1[1] == *plVar1 ||
@@ -8414,7 +8427,7 @@ void FUN_00a2bf50(undefined8 *param_1)
     }
     operator_delete(puVar3,0x18);
   }
-  FUN_0096bb02(param_1 + 0x21e);
+  BSim_QList_int___node_destruct(param_1 + 0x21e);
   pvVar2 = (void *)param_1[0x21a];
   if (pvVar2 != (void *)0x0) {
     FUN_00a634ba(pvVar2);
@@ -8442,7 +8455,7 @@ void FUN_00a2bf50(undefined8 *param_1)
   }
   pvVar2 = (void *)param_1[0x217];
   if (pvVar2 != (void *)0x0) {
-    FUN_00a5e8ba(pvVar2);
+    BSim_QList_int___node_destruct(pvVar2);
     operator_delete(pvVar2,0x18);
   }
   pvVar2 = (void *)param_1[0x216];
@@ -8463,7 +8476,7 @@ void FUN_00a2bf50(undefined8 *param_1)
     std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release
               ((_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)param_1[0x212]);
   }
-  FUN_0096bb02(param_1 + 0x20d);
+  BSim_QList_int___node_destruct(param_1 + 0x20d);
   pvVar2 = (void *)param_1[0x207];
   if (pvVar2 != (void *)0x0) {
     FUN_00974b40(pvVar2);
@@ -8476,9 +8489,9 @@ void FUN_00a2bf50(undefined8 *param_1)
     FUN_0096bd50(pvVar2);
     operator_delete(pvVar2,0x88);
   }
-  FUN_0096bb02(param_1 + 500);
-  FUN_0096bb02(param_1 + 0x1f1);
-  FUN_0096bb02(param_1 + 0x1ee);
+  BSim_QList_int___node_destruct(param_1 + 500);
+  BSim_QList_int___node_destruct(param_1 + 0x1f1);
+  BSim_QList_int___node_destruct(param_1 + 0x1ee);
   if ((void *)param_1[0x1de] != (void *)0x0) {
     operator_delete((void *)param_1[0x1de],4);
   }
@@ -8526,7 +8539,7 @@ void FUN_00a2c222(long *param_1,long *param_2)
   if (param_2 == (long *)0x0) {
     puVar7 = operator_new(0x2f0);
     puVar7[1] = 0x100000001;
-    *puVar7 = &PTR_FUN_011afcd0;
+    *puVar7 = &PTR_BSim_QList_int___node_destruct_011afcd0;
     puVar8 = puVar7 + 2;
                     /* try { // try from 00a2c47e to 00a2c482 has its CatchHandler @ 00a2c532 */
     editor_engineCtor(puVar8);
@@ -8576,7 +8589,7 @@ void FUN_00a2c222(long *param_1,long *param_2)
     }
   }
   param_1[0x213] = (long)puVar8;
-  FUN_00950212(param_1 + 8,puVar8);
+  BSim_Splitter__setMainIndex(param_1 + 8,puVar8);
   pvVar6 = operator_new(0x198);
                     /* try { // try from 00a2c2bf to 00a2c2c3 has its CatchHandler @ 00a2c52a */
   FUN_009585a2(pvVar6,param_1);
@@ -8618,7 +8631,7 @@ void FUN_00a2c222(long *param_1,long *param_2)
   pvVar4 = (void *)param_1[0x217];
   param_1[0x217] = (long)pvVar6;
   if (pvVar4 != (void *)0x0) {
-    FUN_00a5e8ba(pvVar4);
+    BSim_QList_int___node_destruct(pvVar4);
     operator_delete(pvVar4,0x18);
   }
   pvVar6 = operator_new(0x58);
@@ -8852,7 +8865,7 @@ void s_pair_highlightUnmatched_a2c670(undefined8 *param_1)
   *(undefined2 *)(param_1 + 0x201) = 0;
   puVar9 = operator_new(0x2f0);
   puVar9[1] = 0x100000001;
-  *puVar9 = &PTR_FUN_011afcd0;
+  *puVar9 = &PTR_BSim_QList_int___node_destruct_011afcd0;
   puVar8 = puVar9 + 2;
                     /* try { // try from 00a2cac7 to 00a2cacb has its CatchHandler @ 00a2ce9f */
   editor_engineCtor(puVar8);
@@ -8884,7 +8897,7 @@ void s_pair_highlightUnmatched_a2c670(undefined8 *param_1)
   param_1[0x213] = puVar8;
                     /* try { // try from 00a2cb17 to 00a2cb34 has its CatchHandler @ 00a2ce7f */
   FUN_0092b504(puVar8,param_1);
-  FUN_00950212(param_1 + 8,param_1[0x213]);
+  BSim_Splitter__setMainIndex(param_1 + 8,param_1[0x213]);
   pvVar10 = operator_new(0x198);
                     /* try { // try from 00a2cb3e to 00a2cb42 has its CatchHandler @ 00a2ce97 */
   FUN_009585a2(pvVar10,param_1);
@@ -8910,7 +8923,7 @@ void s_pair_highlightUnmatched_a2c670(undefined8 *param_1)
   pvVar3 = (void *)param_1[0x217];
   param_1[0x217] = pvVar10;
   if (pvVar3 != (void *)0x0) {
-    FUN_00a5e8ba(pvVar3);
+    BSim_QList_int___node_destruct(pvVar3);
     operator_delete(pvVar3,0x18);
   }
                     /* try { // try from 00a2cbe5 to 00a2cbe9 has its CatchHandler @ 00a2ce7f */
@@ -9054,14 +9067,14 @@ void FUN_00a2cea8(long *param_1)
               local_118 = local_98;
               local_110 = local_90;
               local_108 = local_88;
-              FUN_0096bb02(&local_98);
+              BSim_QList_int___node_destruct(&local_98);
               lVar7 = FUN_00a224f0(param_1);
               FUN_00a1fbaa((local_48 - local_58[0]) + (double)lVar7,&local_78,param_1,local_120,1,1)
               ;
               local_f8 = local_78;
               local_f0 = local_70;
               local_e8 = local_68;
-              FUN_0096bb02(&local_78);
+              BSim_QList_int___node_destruct(&local_78);
               iVar2 = qstrdata_length_get(&local_f8);
               if (0 < iVar2) {
                 lVar7 = FUN_0096bbc0(&local_f8);
@@ -9082,13 +9095,13 @@ void FUN_00a2cea8(long *param_1)
               local_118 = local_d8;
               local_110 = local_d0;
               local_108 = local_c8;
-              FUN_0096bb02(&local_d8);
+              BSim_QList_int___node_destruct(&local_d8);
               uVar4 = editor_lineEndIdx(param_1[0x214],local_120);
               runstyles_runnode_init(&local_b8,uVar4,0);
               local_f8 = local_b8;
               local_f0 = local_b0;
               local_e8 = local_a8;
-              FUN_0096bb02(&local_b8);
+              BSim_QList_int___node_destruct(&local_b8);
             }
             local_78 = local_f8;
             local_70 = local_f0;
@@ -9098,8 +9111,8 @@ void FUN_00a2cea8(long *param_1)
             local_88 = local_108;
                     /* try { // try from 00a2d1c0 to 00a2d1c4 has its CatchHandler @ 00a2d3ad */
             cVar1 = FUN_009780ce(param_1[0x207],&local_98,&local_78);
-            FUN_0096bb02(&local_98);
-            FUN_0096bb02(&local_78);
+            BSim_QList_int___node_destruct(&local_98);
+            BSim_QList_int___node_destruct(&local_78);
             if (cVar1 != '\0') {
               lVar7 = param_1[0x228];
               plVar3 = *(long **)(lVar7 + 8);
@@ -9114,8 +9127,8 @@ void FUN_00a2cea8(long *param_1)
             local_120 = local_120 + 1;
           } while (local_120 <= lVar6);
         }
-        FUN_0096bb02(&local_f8);
-        FUN_0096bb02(&local_118);
+        BSim_QList_int___node_destruct(&local_f8);
+        BSim_QList_int___node_destruct(&local_118);
         plVar3 = (long *)param_1[0x228];
       }
       puVar9 = (undefined8 *)*plVar3;
@@ -9129,8 +9142,8 @@ void FUN_00a2cea8(long *param_1)
           runstyles_runnode_init(&local_78,uVar4,0);
                     /* try { // try from 00a2cf94 to 00a2cf98 has its CatchHandler @ 00a2d393 */
           editor_matchBracket(param_1,&local_78,local_58);
-          FUN_0096bb02(&local_78);
-          FUN_0096bb02(local_58);
+          BSim_QList_int___node_destruct(&local_78);
+          BSim_QList_int___node_destruct(local_58);
           puVar9 = puVar9 + 1;
         } while (puVar5 != puVar9);
       }
@@ -9142,7 +9155,7 @@ void FUN_00a2cea8(long *param_1)
   else {
     editor_matchBracket(param_1,plVar3,plVar3);
   }
-  if (*(code **)(*param_1 + 0xb8) != FUN_00a1e438) {
+  if (*(code **)(*param_1 + 0xb8) != BSim_QList_int___node_destruct) {
     (**(code **)(*param_1 + 0xb8))(param_1);
   }
   return;
@@ -9272,7 +9285,7 @@ void FUN_00a2d544(long *param_1,undefined1 param_2)
     FUN_00a2d3be(param_1);
     return;
   }
-  if (*(code **)(*param_1 + 0x148) != FUN_00a1e438) {
+  if (*(code **)(*param_1 + 0x148) != BSim_QList_int___node_destruct) {
     (**(code **)(*param_1 + 0x148))(param_1);
   }
   if (*(char *)((long)param_1 + 0x1067) != '\x01') {
@@ -9375,8 +9388,8 @@ void FUN_00a2d672(long *param_1,long *param_2)
       *param_2 = local_48;
       param_2[1] = local_40;
       param_2[2] = local_38;
-      FUN_0096bb02(&local_48);
-      FUN_0096bb02(&local_68);
+      BSim_QList_int___node_destruct(&local_48);
+      BSim_QList_int___node_destruct(&local_68);
     }
     else {
       doc_length_set(param_2,0,1);
@@ -9478,12 +9491,12 @@ void FUN_00a2d794(long *param_1)
             local_60 = dVar8;
             if (lVar5 < lVar6) {
               *(byte *)(param_1[0x219] + 0x50) = *(byte *)(param_1[0x219] + 0x50) | 1;
-              FUN_0096bb02(local_58);
+              BSim_QList_int___node_destruct(local_58);
               lVar7 = param_1[0x219];
               goto LAB_00a2d82b;
             }
             lVar4 = lVar4 + 1;
-            FUN_0096bb02(local_58);
+            BSim_QList_int___node_destruct(local_58);
           } while (lVar4 != lVar7);
           lVar7 = param_1[0x219];
         }
@@ -9612,8 +9625,8 @@ void FUN_00a2dada(long param_1)
           runstyles_runnode_init(local_78,uVar11,0,0);
                     /* try { // try from 00a2dcbd to 00a2dcc1 has its CatchHandler @ 00a2dd8d */
           editor_matchBracket(param_1,local_78,local_58);
-          FUN_0096bb02(local_78);
-          FUN_0096bb02(local_58);
+          BSim_QList_int___node_destruct(local_78);
+          BSim_QList_int___node_destruct(local_58);
           uVar10 = uVar10 + 1;
         } while (uVar10 < uVar13);
       }
@@ -9711,7 +9724,7 @@ LAB_00a2e3c6:
           lVar9 = *(long *)(*(long *)(lVar4 + 0x28) + uVar3 * 8) + (uVar11 - lVar8 * uVar3) * 0x38;
         }
 LAB_00a2df3b:
-        lVar2 = FUN_0096c18e(lVar9);
+        lVar2 = BSim_Splitter__createHandle(lVar9);
         lVar8 = *(long *)*param_1;
         lVar9 = *(long *)(lVar8 + 0x10);
         local_88 = lVar2;
@@ -9743,7 +9756,7 @@ LAB_00a2e3b6:
           lVar9 = *(long *)(*(long *)(lVar8 + 0x28) + uVar3 * 8) + (uVar11 - lVar4 * uVar3) * 0x38;
         }
 LAB_00a2dffb:
-        local_80 = FUN_0096c1a4(lVar9);
+        local_80 = BSim_Splitter__createHandle(lVar9);
         cVar6 = *(char *)param_1[1];
         plVar5 = &local_90;
         if (cVar6 == '\0') {
@@ -9790,8 +9803,8 @@ LAB_00a2e159:
                 runstyles_runnode_init(local_78,local_e0,0,0);
                     /* try { // try from 00a2e197 to 00a2e19b has its CatchHandler @ 00a2e4dd */
                 FUN_00a20eb2(lVar2,local_78,local_a0,1);
-                FUN_0096bb02(local_78);
-                FUN_0096bb02(local_a0);
+                BSim_QList_int___node_destruct(local_78);
+                BSim_QList_int___node_destruct(local_a0);
                 FUN_00a235ce(param_1[3],0xffffffffffffffff,0);
                 if (local_e0 != -1) {
                   return local_e0;
@@ -9811,7 +9824,7 @@ LAB_00a2e159:
                 lVar8 = FUN_0096bbc0(local_78);
                 if (local_e0 < lVar8) {
 LAB_00a2e137:
-                  FUN_0096bb02(local_78);
+                  BSim_QList_int___node_destruct(local_78);
                   lVar8 = *(long *)param_1[6];
                   lVar2 = param_1[3];
                   local_a0 = local_58;
@@ -9824,8 +9837,8 @@ LAB_00a2e137:
                   if (lVar8 <= local_c8) goto LAB_00a2e406;
 LAB_00a2e2ed:
                   local_a0 = local_c0;
-                  FUN_0096bb02(local_c0);
-                  FUN_0096bb02(local_78);
+                  BSim_QList_int___node_destruct(local_c0);
+                  BSim_QList_int___node_destruct(local_78);
                   lVar8 = *(long *)param_1[6];
                   lVar2 = param_1[3];
                 }
@@ -9842,8 +9855,8 @@ LAB_00a2e2ed:
               lVar8 = FUN_0096bbc0(local_c0);
               if (lVar8 < local_c8) goto LAB_00a2e2ed;
 LAB_00a2e406:
-              FUN_0096bb02(local_c0);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_c0);
+              BSim_QList_int___node_destruct(local_78);
               cVar6 = *(char *)param_1[1];
               if (local_cc == 1) goto LAB_00a2e1cd;
               lVar2 = FUN_00925304(*(undefined8 *)(param_1[3] + 0x1098),local_c8,
@@ -10346,7 +10359,7 @@ undefined4 FUN_00a2eee0(undefined8 param_1)
     FUN_00a1fda6(local_58,param_1,0xffffffff);
                     /* try { // try from 00a2ef2e to 00a2ef32 has its CatchHandler @ 00a2f092 */
     uVar3 = FUN_0096bbc0(local_58);
-    FUN_0096bb02(local_58);
+    BSim_QList_int___node_destruct(local_58);
     pvVar4 = (void *)FUN_00a28f98(param_1,uVar3,1);
     if (pvVar4 != (void *)0x0) {
       puVar7 = *(undefined8 **)((long)pvVar4 + 0x30);
@@ -10440,7 +10453,7 @@ undefined8 snippet_expand(long *param_1,string *param_2)
       FUN_00a1fda6((QVariant *)&local_58,param_1,0xffffffff);
                     /* try { // try from 00a2f265 to 00a2f269 has its CatchHandler @ 00a2f5db */
       uVar12 = FUN_0096bbc0((QVariant *)&local_58);
-      FUN_0096bb02((QVariant *)&local_58);
+      BSim_QList_int___node_destruct((QVariant *)&local_58);
                     /* try { // try from 00a2f284 to 00a2f288 has its CatchHandler @ 00a2f5e3 */
       pvVar9 = (void *)FUN_00a28f98(param_1,uVar12,1);
       if (pvVar9 != (void *)0x0) {
@@ -10467,7 +10480,7 @@ undefined8 snippet_expand(long *param_1,string *param_2)
                 *puVar10 = local_58;
                 puVar10[1] = local_50;
                 puVar10[2] = local_48;
-                FUN_0096bb02((QVariant *)&local_58);
+                BSim_QList_int___node_destruct((QVariant *)&local_58);
                 lVar4 = lVar4 + 1;
               } while (lVar13 != lVar4);
             }
@@ -10572,8 +10585,8 @@ LAB_00a2f0e3:
       do {
         while( true ) {
           uVar12 = scintilla_get_text_range(param_1[0x207],lVar13,0);
-          lVar5 = FUN_0096c18e(uVar12);
-          uVar12 = FUN_0096c1a4(uVar12);
+          lVar5 = BSim_Splitter__createHandle(uVar12);
+          uVar12 = BSim_Splitter__createHandle(uVar12);
           lVar6 = FUN_00925570(param_1[0x213]);
           FUN_0092aae0(param_1[0x213],lVar5,uVar12,param_2,lVar13 != 0);
           lVar7 = FUN_00925570(param_1[0x213]);
@@ -10626,7 +10639,7 @@ void FUN_00a2f5ec(long param_1)
     editor_selMake(local_68,param_1,"Insert New Line",0xc,2);
                     /* try { // try from 00a2f65a to 00a2f706 has its CatchHandler @ 00a2f811 */
     pcVar3 = (char *)FUN_00a21a02(param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
-    iVar2 = FUN_00a21ea8(param_1,pcVar3);
+    iVar2 = BSim_QBasicAtomicInteger_int___deref(param_1,pcVar3);
     lVar4 = FUN_00975682(*(undefined8 *)(param_1 + 0x1038));
     if (lVar4 != 0) {
       lVar7 = 0;
@@ -11228,7 +11241,7 @@ void FUN_00a30638(long param_1,undefined8 param_2)
   runstyles_runnode_init(auStack_58,param_2,0,0);
                     /* try { // try from 00a3069a to 00a3069e has its CatchHandler @ 00a306ec */
   lVar5 = FUN_009587cc(uVar1,auStack_58);
-  FUN_0096bb02(auStack_58);
+  BSim_QList_int___node_destruct(auStack_58);
   if ((lVar4 <= lVar5) && (lVar5 <= iVar3 + lVar4)) {
     lVar6 = lVar5 + -1;
     if (lVar6 < 0) {
@@ -11293,7 +11306,7 @@ joined_r0x00a30948:
       runstyles_runnode_init(local_78,lVar3,0,0);
                     /* try { // try from 00a30971 to 00a30975 has its CatchHandler @ 00a30ac2 */
       lVar3 = FUN_009587cc(lVar6,local_78);
-      FUN_0096bb02(local_78);
+      BSim_QList_int___node_destruct(local_78);
       lVar3 = lVar3 + -1;
       if (lVar3 < 0) {
         lVar3 = 0;
@@ -11328,8 +11341,8 @@ joined_r0x00a30948:
                     /* try { // try from 00a309fd to 00a30a01 has its CatchHandler @ 00a30aba */
     FUN_00a2af1c(param_1,local_78);
     FUN_0096bd50(local_78);
-    FUN_0096bb02(local_b8);
-    FUN_0096bb02(local_98);
+    BSim_QList_int___node_destruct(local_b8);
+    BSim_QList_int___node_destruct(local_98);
   }
   else if ((int)param_1[0x1fc] == 0) {
     lVar3 = param_1[0x213];
@@ -11340,12 +11353,12 @@ joined_r0x00a30948:
                     /* try { // try from 00a30a38 to 00a30a3c has its CatchHandler @ 00a30ada */
       lVar7 = FUN_0096bbc0(local_78);
       if (lVar3 == lVar7) {
-        FUN_0096bb02(local_78);
+        BSim_QList_int___node_destruct(local_78);
                     /* try { // try from 00a30a63 to 00a30a68 has its CatchHandler @ 00a30aca */
         (**(code **)(*param_1 + 0xa0))(param_1);
         goto LAB_00a307f8;
       }
-      FUN_0096bb02(local_78);
+      BSim_QList_int___node_destruct(local_78);
       lVar3 = param_1[0x213];
     }
     lVar3 = FUN_0092801a(lVar3);
@@ -11365,21 +11378,21 @@ joined_r0x00a30948:
       runstyles_runnode_init(local_98,lVar6,0,0);
                     /* try { // try from 00a30890 to 00a30894 has its CatchHandler @ 00a30a9a */
       cVar1 = editor_matchBracket(param_1,local_98,local_78);
-      FUN_0096bb02(local_98);
-      FUN_0096bb02(local_78);
+      BSim_QList_int___node_destruct(local_98);
+      BSim_QList_int___node_destruct(local_78);
       if (cVar1 != '\0') {
         lVar5 = param_1[0x214];
                     /* try { // try from 00a308c2 to 00a308c6 has its CatchHandler @ 00a30aca */
         runstyles_runnode_init(local_78,lVar6,0,0);
                     /* try { // try from 00a308cd to 00a308d1 has its CatchHandler @ 00a30a92 */
         lVar3 = FUN_009587cc(lVar5,local_78);
-        FUN_0096bb02(local_78);
+        BSim_QList_int___node_destruct(local_78);
         lVar5 = param_1[0x214];
                     /* try { // try from 00a308f0 to 00a308f4 has its CatchHandler @ 00a30aca */
         runstyles_runnode_init(local_78,local_e8,0,0);
                     /* try { // try from 00a308fb to 00a308ff has its CatchHandler @ 00a30aa2 */
         lVar5 = FUN_009587cc(lVar5,local_78);
-        FUN_0096bb02(local_78);
+        BSim_QList_int___node_destruct(local_78);
                     /* try { // try from 00a30917 to 00a30968 has its CatchHandler @ 00a30aca */
         line_rect_compute(param_1,lVar3,lVar5 - lVar3);
       }
@@ -12176,7 +12189,7 @@ LAB_00a31e5e:
   pcVar1 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a31e75 to 00a31e79 has its CatchHandler @ 00a32063 */
   puVar4 = operator_new(0x28);
-  *(code **)(puVar4 + 2) = FUN_00a4b44f;
+  *(code **)(puVar4 + 2) = BSim_QList_int___node_destruct;
   puVar4[1] = 1;
   *puVar4 = 1;
                     /* try { // try from 00a31ea3 to 00a31ea7 has its CatchHandler @ 00a3206b */
@@ -12420,7 +12433,7 @@ LAB_00a3265c:
                 if (*(long *)(param_1[0x219] + 0x40) < (long)dVar15) {
                   FUN_00a16ac0();
                 }
-                FUN_0096bb02((QColor *)&local_58);
+                BSim_QList_int___node_destruct((QColor *)&local_58);
               }
             }
             goto LAB_00a32666;
@@ -12613,8 +12626,8 @@ int editor_replaceAll(long param_1,long param_2)
     }
     local_170 = &local_88;
     FUN_0096bd50(&local_c8);
-    FUN_0096bb02(local_148);
-    FUN_0096bb02(local_128);
+    BSim_QList_int___node_destruct(local_148);
+    BSim_QList_int___node_destruct(local_128);
                     /* try { // try from 00a32f3d to 00a32f41 has its CatchHandler @ 00a335f5 */
     editor_clearSelectState(param_1,*(uint *)(param_2 + 0xc) >> 4 & 1);
     plVar11 = local_170;
@@ -12650,8 +12663,8 @@ int editor_replaceAll(long param_1,long param_2)
       local_1b0 = (void *)0x0;
       do {
                     /* try { // try from 00a32fcc to 00a330e5 has its CatchHandler @ 00a335cd */
-        lVar8 = FUN_0096c18e(local_1a0);
-        local_1f8 = FUN_0096c1a4(local_1a0);
+        lVar8 = BSim_Splitter__createHandle(local_1a0);
+        local_1f8 = BSim_Splitter__createHandle(local_1a0);
         uVar5 = *(undefined8 *)(param_1 + 0x1098);
 LAB_00a32fe7:
         if (cVar2 == '\0') goto LAB_00a33081;
@@ -12749,8 +12762,8 @@ LAB_00a330bf:
                     /* try { // try from 00a3310a to 00a3310e has its CatchHandler @ 00a335e5 */
                 FUN_00a211c6(param_1,&local_e8,&local_c8,1);
               }
-              FUN_0096bb02(&local_e8);
-              FUN_0096bb02(&local_c8);
+              BSim_QList_int___node_destruct(&local_e8);
+              BSim_QList_int___node_destruct(&local_c8);
             }
           } while( true );
         }
@@ -12925,8 +12938,8 @@ long editor_replaceText(long param_1,long param_2)
       local_58 = local_58 + 7;
     }
     FUN_0096bd50(&local_c8);
-    FUN_0096bb02(local_168);
-    FUN_0096bb02(&local_108);
+    BSim_QList_int___node_destruct(local_168);
+    BSim_QList_int___node_destruct(&local_108);
     local_168[0] = local_1d0;
                     /* try { // try from 00a338cf to 00a33940 has its CatchHandler @ 00a33f46 */
     editor_clearSelectState(param_1,*(uint *)(local_1a0[0] + 0xc) >> 4 & 1);
@@ -12947,12 +12960,12 @@ long editor_replaceText(long param_1,long param_2)
       FUN_00a1ff9c(&local_c8,param_1,0xffffffff);
                     /* try { // try from 00a33b51 to 00a33b55 has its CatchHandler @ 00a33f3e */
       local_1e0 = FUN_0096bbc0(&local_c8);
-      FUN_0096bb02(&local_c8);
+      BSim_QList_int___node_destruct(&local_c8);
                     /* try { // try from 00a33b6e to 00a33b72 has its CatchHandler @ 00a33f46 */
       FUN_00a20050(&local_c8,param_1,0xffffffff);
                     /* try { // try from 00a33b76 to 00a33b7a has its CatchHandler @ 00a33eee */
       lVar11 = FUN_0096bbc0(&local_c8);
-      FUN_0096bb02(&local_c8);
+      BSim_QList_int___node_destruct(&local_c8);
       lVar10 = local_168[0][2];
       lVar17 = local_168[0][4];
       lVar14 = local_168[0][5];
@@ -12960,8 +12973,8 @@ long editor_replaceText(long param_1,long param_2)
       lVar4 = local_168[0][3];
       while (lVar10 != lVar2) {
                     /* try { // try from 00a33bcb to 00a33bda has its CatchHandler @ 00a33f46 */
-        lVar12 = FUN_0096c18e(lVar10);
-        lVar13 = FUN_0096c1a4(lVar10);
+        lVar12 = BSim_Splitter__createHandle(lVar10);
+        lVar13 = BSim_Splitter__createHandle(lVar10);
         if ((lVar12 <= local_1e0) && (lVar11 <= lVar13)) {
                     /* try { // try from 00a33d77 to 00a33df9 has its CatchHandler @ 00a33f46 */
           lVar17 = FUN_009253ee(*(undefined8 *)(param_1 + 0x1098),local_1e0,lVar11,&local_188);
@@ -12993,7 +13006,7 @@ long editor_replaceText(long param_1,long param_2)
               runstyles_runnode_init(&local_c8,local_1e0,0,0);
                     /* try { // try from 00a33ec4 to 00a33ec8 has its CatchHandler @ 00a33f56 */
               FUN_0096c334(uVar8,&local_c8,lVar14,lVar17);
-              FUN_0096bb02(&local_c8);
+              BSim_QList_int___node_destruct(&local_c8);
             }
             if (local_18a != 0) {
               local_1e0 = local_1e0 + lVar14;
@@ -13002,7 +13015,7 @@ long editor_replaceText(long param_1,long param_2)
             runstyles_runnode_init(&local_c8,local_1e0,0,0);
                     /* try { // try from 00a33e60 to 00a33e64 has its CatchHandler @ 00a33f36 */
             FUN_00a21110(param_1,&local_c8,0);
-            FUN_0096bb02(&local_c8);
+            BSim_QList_int___node_destruct(&local_c8);
           }
           break;
         }
@@ -13031,7 +13044,7 @@ long editor_replaceText(long param_1,long param_2)
                     /* try { // try from 00a33a97 to 00a33a9b has its CatchHandler @ 00a33ede */
         uVar8 = FUN_0096bbc0(pplVar16);
       }
-      FUN_0096bb02(pplVar16);
+      BSim_QList_int___node_destruct(pplVar16);
     }
     else {
                     /* try { // try from 00a33c1a to 00a33c79 has its CatchHandler @ 00a33efe */
@@ -13043,7 +13056,7 @@ long editor_replaceText(long param_1,long param_2)
       local_a8 = plVar15[4];
       local_a0 = plVar15[5];
       local_98 = plVar15[6];
-      uVar8 = FUN_0096c18e(&local_c8);
+      uVar8 = BSim_Splitter__createHandle(&local_c8);
     }
                     /* try { // try from 00a33990 to 00a33994 has its CatchHandler @ 00a33efe */
     lVar10 = FUN_00a2de1c(&local_108,uVar8,0);
@@ -14308,11 +14321,11 @@ LAB_00a35d95:
                     /* try { // try from 00a360a5 to 00a360a9 has its CatchHandler @ 00a3640e */
           FUN_00a269c8(uVar10,&local_c8,&local_88,1);
           FUN_0096bd50(&local_c8);
-          FUN_0096bb02(local_168);
-          FUN_0096bb02(local_148);
+          BSim_QList_int___node_destruct(local_168);
+          BSim_QList_int___node_destruct(local_148);
           FUN_0096bd50(&local_88);
-          FUN_0096bb02(local_128);
-          FUN_0096bb02(local_108);
+          BSim_QList_int___node_destruct(local_128);
+          BSim_QList_int___node_destruct(local_108);
         }
         uVar10 = param_1[1];
         runstyles_runnode_init(local_108,lVar11,0,0);
@@ -14329,11 +14342,11 @@ LAB_00a35d95:
                     /* try { // try from 00a35ebb to 00a35ebf has its CatchHandler @ 00a363fe */
         FUN_00a269c8(uVar10,&local_c8,&local_88,1);
         FUN_0096bd50(&local_c8);
-        FUN_0096bb02(local_168);
-        FUN_0096bb02(local_148);
+        BSim_QList_int___node_destruct(local_168);
+        BSim_QList_int___node_destruct(local_148);
         FUN_0096bd50(&local_88);
-        FUN_0096bb02(local_128);
-        FUN_0096bb02(local_108);
+        BSim_QList_int___node_destruct(local_128);
+        BSim_QList_int___node_destruct(local_108);
         lVar8 = FUN_00975682(*(undefined8 *)(param_1[1] + 0x1038));
         if (lVar8 != 0) {
           lVar9 = 0;
@@ -14422,11 +14435,11 @@ LAB_00a35d95:
                     /* try { // try from 00a3632b to 00a3632f has its CatchHandler @ 00a3638e */
           FUN_00a269c8(uVar2,local_108,&local_c8,0);
           FUN_0096bd50(local_108);
-          FUN_0096bb02(local_188);
-          FUN_0096bb02(local_168);
+          BSim_QList_int___node_destruct(local_188);
+          BSim_QList_int___node_destruct(local_168);
           FUN_0096bd50(&local_c8);
-          FUN_0096bb02(local_148);
-          FUN_0096bb02(local_128);
+          BSim_QList_int___node_destruct(local_148);
+          BSim_QList_int___node_destruct(local_128);
           local_1a8 = local_1a8 + (lVar9 - lVar8);
         }
         local_1c0 = &local_88;
@@ -14446,11 +14459,11 @@ LAB_00a35d95:
                     /* try { // try from 00a35c3c to 00a35c40 has its CatchHandler @ 00a3637e */
         FUN_00a269c8(uVar2,local_108,&local_c8,0);
         FUN_0096bd50(local_108);
-        FUN_0096bb02(local_188);
-        FUN_0096bb02(local_168);
+        BSim_QList_int___node_destruct(local_188);
+        BSim_QList_int___node_destruct(local_168);
         FUN_0096bd50(&local_c8);
-        FUN_0096bb02(local_148);
-        FUN_0096bb02(local_128);
+        BSim_QList_int___node_destruct(local_148);
+        BSim_QList_int___node_destruct(local_128);
         puVar4 = local_58;
         puVar3 = local_70;
         puVar16 = local_68;
@@ -14771,8 +14784,8 @@ LAB_00a36bee:
         }
 LAB_00a36a69:
         uVar10 = *(undefined8 *)(param_1 + 0x1098);
-        uVar11 = FUN_0096c1a4(lVar12);
-        uVar16 = FUN_0096c18e(lVar12);
+        uVar11 = BSim_Splitter__createHandle(lVar12);
+        uVar16 = BSim_Splitter__createHandle(lVar12);
         lVar17 = FUN_0092b300(uVar10,lVar18,uVar16,uVar11);
         if ((lVar17 == 0) && (cVar5 = utf8_is_continuation(lVar12), cVar5 != '\0')) {
           sVar19 = strlen(__s);
@@ -15156,8 +15169,8 @@ LAB_00a373f2:
                 runstyles_runnode_init(&local_138,param_3 + lVar12,0,0);
                     /* try { // try from 00a3744f to 00a37453 has its CatchHandler @ 00a38046 */
                 FUN_0096be24(pvVar2,&local_88,&local_138,0);
-                FUN_0096bb02(&local_138);
-                FUN_0096bb02(&local_88);
+                BSim_QList_int___node_destruct(&local_138);
+                BSim_QList_int___node_destruct(&local_88);
                 local_a8 = local_118;
                 local_a0 = local_110;
                 local_98 = local_108;
@@ -15175,8 +15188,8 @@ LAB_00a373f2:
                 runstyles_runnode_init(&local_88,param_3 + lVar12,0,0);
                     /* try { // try from 00a3738f to 00a37393 has its CatchHandler @ 00a38056 */
                 FUN_0096be24(pvVar2,local_198,&local_88,0);
-                FUN_0096bb02(&local_88);
-                FUN_0096bb02(local_198);
+                BSim_QList_int___node_destruct(&local_88);
+                BSim_QList_int___node_destruct(local_198);
                 local_a8 = (void *)((long)local_a8 + 0x38);
               }
                     /* try { // try from 00a373bb to 00a37423 has its CatchHandler @ 00a3802e */
@@ -15297,7 +15310,7 @@ LAB_00a378ac:
       FUN_00975224(param_1[0x207]);
       lVar12 = param_1[0x207];
       uVar9 = qref_flagsMask(&local_118);
-      FUN_0096c1e6(&local_118);
+      BSim_Splitter__createHandle(&local_118);
       FUN_00979966(lVar12,lVar10,lVar11,uVar9);
       local_258 = FUN_00975682(param_1[0x207]);
       FUN_0096bd50(&local_118);
@@ -15423,8 +15436,8 @@ LAB_00a3799b:
           runstyles_runnode_init(&local_118,uVar15,0,0);
                     /* try { // try from 00a379fc to 00a37a00 has its CatchHandler @ 00a38036 */
           FUN_0096be24(pvVar2,local_158,&local_118,0);
-          FUN_0096bb02(&local_118);
-          FUN_0096bb02(local_158);
+          BSim_QList_int___node_destruct(&local_118);
+          BSim_QList_int___node_destruct(local_158);
           local_a8 = local_138;
           local_a0 = local_130;
           local_98 = local_128;
@@ -15442,8 +15455,8 @@ LAB_00a3799b:
           runstyles_runnode_init(&local_118,uVar15,0,0);
                     /* try { // try from 00a37949 to 00a3794d has its CatchHandler @ 00a38019 */
           FUN_0096be24(pvVar2,local_178,&local_118,0);
-          FUN_0096bb02(&local_118);
-          FUN_0096bb02(local_178);
+          BSim_QList_int___node_destruct(&local_118);
+          BSim_QList_int___node_destruct(local_178);
           local_a8 = (void *)((long)local_a8 + 0x38);
         }
                     /* try { // try from 00a3796f to 00a379d4 has its CatchHandler @ 00a38009 */
@@ -15547,12 +15560,12 @@ LAB_00a382c1:
   local_68 = *(undefined8 *)(param_1 + 0x1100);
                     /* try { // try from 00a38149 to 00a3814d has its CatchHandler @ 00a382fd */
   FUN_00a21110(param_1,&local_78,0);
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
                     /* try { // try from 00a38164 to 00a38168 has its CatchHandler @ 00a382f5 */
   runstyles_runnode_init(&local_78,0xffffffffffffffff,0,0);
                     /* try { // try from 00a3816f to 00a38173 has its CatchHandler @ 00a382ed */
   FUN_00a2d672(param_1,&local_78);
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
                     /* try { // try from 00a38197 to 00a381c1 has its CatchHandler @ 00a382f5 */
   clipboard_paste_expand(param_1,param_3,(long)param_4,0,param_6,1);
   FUN_00963b22(local_88);
@@ -16025,10 +16038,10 @@ void editor_uncomment_selection(long param_1)
     do {
       uVar9 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar20,0);
       uVar7 = *(undefined8 *)(param_1 + 0x1098);
-      uVar10 = FUN_0096c18e(uVar9);
+      uVar10 = BSim_Splitter__createHandle(uVar9);
       lVar11 = FUN_0092522a(uVar7,uVar10);
       uVar7 = *(undefined8 *)(param_1 + 0x1098);
-      uVar10 = FUN_0096c1a4(uVar9);
+      uVar10 = BSim_Splitter__createHandle(uVar9);
       lVar12 = FUN_0092522a(uVar7,uVar10);
       uVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar11);
       uVar10 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar12 + 1);
@@ -16038,45 +16051,45 @@ void editor_uncomment_selection(long param_1)
         lVar18 = *(long *)(*(long *)(lVar13 + 0x60) + -0x18);
         if ((lVar18 != 0) && (lVar19 = *(long *)(*(long *)(lVar13 + 0x70) + -0x18), lVar19 != 0)) {
           uVar7 = *(undefined8 *)(param_1 + 0x1098);
-          uVar10 = FUN_0096c18e(uVar9);
-          lVar17 = FUN_0096c18e(uVar9);
+          uVar10 = BSim_Splitter__createHandle(uVar9);
+          lVar17 = BSim_Splitter__createHandle(uVar9);
           cVar2 = FUN_0092808e(uVar7,lVar17 - lVar18,uVar10,lVar13 + 0x60);
           uVar7 = *(undefined8 *)(param_1 + 0x1098);
-          lVar17 = FUN_0096c18e(uVar9);
-          uVar10 = FUN_0096c18e(uVar9);
+          lVar17 = BSim_Splitter__createHandle(uVar9);
+          uVar10 = BSim_Splitter__createHandle(uVar9);
           cVar3 = FUN_0092808e(uVar7,uVar10,lVar18 + lVar17,lVar13 + 0x60);
           uVar7 = *(undefined8 *)(param_1 + 0x1098);
-          uVar10 = FUN_0096c1a4(uVar9);
-          lVar17 = FUN_0096c1a4(uVar9);
+          uVar10 = BSim_Splitter__createHandle(uVar9);
+          lVar17 = BSim_Splitter__createHandle(uVar9);
           cVar4 = FUN_0092808e(uVar7,lVar17 - lVar19,uVar10,lVar13 + 0x70);
           uVar7 = *(undefined8 *)(param_1 + 0x1098);
-          lVar17 = FUN_0096c1a4(uVar9);
-          uVar10 = FUN_0096c1a4(uVar9);
+          lVar17 = BSim_Splitter__createHandle(uVar9);
+          uVar10 = BSim_Splitter__createHandle(uVar9);
           cVar5 = FUN_0092808e(uVar7,uVar10,lVar19 + lVar17,lVar13 + 0x70);
           if ((cVar2 != '\0') || (cVar3 != '\0')) {
             if (cVar4 == '\0') {
               if (cVar5 == '\0') goto LAB_00a38e19;
               uVar7 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a39585 to 00a395a8 has its CatchHandler @ 00a3976f */
-              uVar10 = FUN_0096c1a4(uVar9);
+              uVar10 = BSim_Splitter__createHandle(uVar9);
               editor_insert_text(uVar7,uVar10,lVar19);
             }
             else {
               uVar7 = *(undefined8 *)(param_1 + 0x1098);
-              lVar17 = FUN_0096c1a4(uVar9);
+              lVar17 = BSim_Splitter__createHandle(uVar9);
               editor_insert_text(uVar7,lVar17 - lVar19);
             }
             if (cVar2 == '\0') {
               if (cVar3 != '\0') {
                 uVar7 = *(undefined8 *)(param_1 + 0x1098);
-                uVar9 = FUN_0096c18e(uVar9);
+                uVar9 = BSim_Splitter__createHandle(uVar9);
                 editor_insert_text(uVar7,uVar9,lVar18);
               }
               lVar18 = *(long *)(*(long *)(lVar13 + 0x68) + -0x18);
             }
             else {
               uVar7 = *(undefined8 *)(param_1 + 0x1098);
-              lVar19 = FUN_0096c18e(uVar9);
+              lVar19 = BSim_Splitter__createHandle(uVar9);
               editor_insert_text(uVar7,lVar19 - lVar18);
               lVar18 = *(long *)(*(long *)(lVar13 + 0x68) + -0x18);
             }
@@ -16342,8 +16355,8 @@ void editor_commentSel(long param_1,char param_2)
       while( true ) {
         uVar8 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar18,0);
         uVar7 = *(undefined8 *)(param_1 + 0x1098);
-        uVar16 = FUN_0096c1a4(uVar8);
-        uVar8 = FUN_0096c18e(uVar8);
+        uVar16 = BSim_Splitter__createHandle(uVar8);
+        uVar8 = BSim_Splitter__createHandle(uVar8);
         cVar2 = FUN_009299b2(uVar7,uVar8,uVar16);
         if (cVar2 == '\0') break;
         if ((*local_90 < 2) && (*(long *)(local_90 + 4) == 0x18)) {
@@ -16378,7 +16391,7 @@ LAB_00a398b9:
       while( true ) {
         uVar7 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar19,0);
         uVar5 = *(undefined8 *)(param_1 + 0x1098);
-        uVar8 = FUN_0096c18e(uVar7);
+        uVar8 = BSim_Splitter__createHandle(uVar7);
         lVar9 = FUN_00930e4e(uVar5,uVar8,0);
         if (lVar9 != 0) break;
 LAB_00a3996d:
@@ -16386,13 +16399,13 @@ LAB_00a3996d:
         if (lVar6 == lVar19) goto LAB_00a39c15;
       }
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
-      uVar8 = FUN_0096c18e(uVar7);
+      uVar8 = BSim_Splitter__createHandle(uVar7);
       lVar10 = FUN_0092522a(uVar5,uVar8);
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
-      uVar8 = FUN_0096c1a4(uVar7);
+      uVar8 = BSim_Splitter__createHandle(uVar7);
       lVar11 = FUN_0092522a(uVar5,uVar8);
       lVar12 = FUN_0092814a(*(undefined8 *)(param_1 + 0x1098));
-      lVar13 = FUN_0096c1a4(uVar7);
+      lVar13 = BSim_Splitter__createHandle(uVar7);
       cVar2 = '\x01';
       if (lVar13 <= lVar12) {
         cVar2 = param_2;
@@ -16405,7 +16418,7 @@ LAB_00a39e13:
         lVar10 = lVar10 + 1;
         if (lVar10 < lVar11) {
 LAB_00a39e22:
-          lVar9 = FUN_0096c1a4(uVar7);
+          lVar9 = BSim_Splitter__createHandle(uVar7);
           lVar12 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar11);
           lVar18 = lVar11;
           if (lVar9 == lVar12) {
@@ -16426,18 +16439,18 @@ LAB_00a39964:
         cVar2 = FUN_0096be72(uVar7,0);
         if (cVar2 == '\0') {
           uVar5 = *(undefined8 *)(param_1 + 0x1098);
-          uVar8 = FUN_0096c18e(uVar7);
+          uVar8 = BSim_Splitter__createHandle(uVar7);
           uVar8 = FUN_0092522a(uVar5,uVar8);
           uVar5 = *(undefined8 *)(param_1 + 0x1098);
-          uVar16 = FUN_0096c1a4(uVar7);
+          uVar16 = BSim_Splitter__createHandle(uVar7);
           uVar5 = FUN_0092522a(uVar5,uVar16);
-          lVar18 = FUN_0096c18e(uVar7);
+          lVar18 = BSim_Splitter__createHandle(uVar7);
           lVar12 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),uVar8);
           if (lVar18 == lVar12) {
-            lVar18 = FUN_0096c1a4(uVar7);
+            lVar18 = BSim_Splitter__createHandle(uVar7);
             lVar12 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),uVar5);
             if (lVar18 != lVar12) {
-              lVar18 = FUN_0096c1a4(uVar7);
+              lVar18 = BSim_Splitter__createHandle(uVar7);
               lVar12 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),uVar5);
               if (lVar18 != lVar12) goto LAB_00a39a5d;
             }
@@ -16463,7 +16476,7 @@ LAB_00a39a85:
       local_68 = puVar14[2];
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a39ad0 to 00a39bf4 has its CatchHandler @ 00a3a082 */
-      uVar8 = FUN_0096c1a4(uVar7);
+      uVar8 = BSim_Splitter__createHandle(uVar7);
       FUN_0092c136(uVar5,uVar8,lVar9 + 0x70);
       puVar14 = (undefined8 *)FUN_0096c0ea(uVar7);
       *puVar14 = local_78;
@@ -16500,9 +16513,9 @@ LAB_00a39b84:
       uVar5 = pos_min(uVar7);
       FUN_00a25284(param_1,uVar5);
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
-      uVar7 = FUN_0096c18e(uVar7);
+      uVar7 = BSim_Splitter__createHandle(uVar7);
       FUN_0092c136(uVar5,uVar7,lVar9 + 0x60);
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_78);
       lVar18 = -1;
       lVar19 = lVar19 + 1;
     } while (lVar6 != lVar19);
@@ -17210,12 +17223,12 @@ void editor_duplicateLines(long param_1,char param_2)
         do {
           uVar5 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar12,0);
           uVar4 = *(undefined8 *)(param_1 + 0x1098);
-          uVar8 = FUN_0096c1a4(uVar5);
-          uVar9 = FUN_0096c18e(uVar5);
+          uVar8 = BSim_Splitter__createHandle(uVar5);
+          uVar9 = BSim_Splitter__createHandle(uVar5);
           buf_substr(local_78,uVar4,uVar9,uVar8);
           uVar4 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a3b1b6 to 00a3b1c8 has its CatchHandler @ 00a3b351 */
-          uVar5 = FUN_0096c18e(uVar5);
+          uVar5 = BSim_Splitter__createHandle(uVar5);
           FUN_0092c136(uVar4,uVar5,local_78);
           if (local_78[0] != &DAT_011c5338) {
             refcount_delete_offset10_c();
@@ -17371,7 +17384,8 @@ editor_cmd_dispatch(undefined8 *param_1,long *param_2,uint param_3,bool *param_4
         if (param_3 == 0x914) {
           FUN_00a2d530(param_2);
         }
-        else if ((param_3 == 0x915) && (*(code **)(*param_2 + 0x148) != FUN_00a1e438)) {
+        else if ((param_3 == 0x915) &&
+                (*(code **)(*param_2 + 0x148) != BSim_QList_int___node_destruct)) {
           (**(code **)(*param_2 + 0x148))(param_2);
         }
       }
@@ -17761,7 +17775,7 @@ undefined8 FUN_00a3beb8(undefined8 param_1,undefined8 *param_2)
   editor_hitTest(*param_2,param_2[1],auStack_38,param_1,1,0,1);
                     /* try { // try from 00a3beea to 00a3beee has its CatchHandler @ 00a3bf1f */
   lVar1 = FUN_0096bbc0(auStack_38);
-  FUN_0096bb02(auStack_38);
+  BSim_QList_int___node_destruct(auStack_38);
   if (lVar1 != -1) {
     uVar2 = s_TerminalLink_a3bc2c(param_1,lVar1);
     return uVar2;
@@ -17815,7 +17829,7 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
   param_3[500] = local_b8;
   param_3[0x1f5] = local_b0;
   param_3[0x1f6] = local_a8;
-  FUN_0096bb02(&local_b8);
+  BSim_QList_int___node_destruct(&local_b8);
   if ((char)param_3[0x225] == '\0') {
     uVar9 = doc_instance_get(param_3[0x207]);
     iVar6 = FUN_0096bbc0(uVar9);
@@ -17833,11 +17847,11 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
   param_3[500] = local_98;
   param_3[0x1f5] = local_90;
   param_3[0x1f6] = local_88;
-  FUN_0096bb02(&local_98);
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_98);
+  BSim_QList_int___node_destruct(&local_78);
   plVar1 = param_3 + 500;
                     /* try { // try from 00a3c0ba to 00a3c249 has its CatchHandler @ 00a3c64d */
-  FUN_0096bc1a(&DAT_bff0000000000000,plVar1);
+  BSim_Splitter__setMainIndex(&DAT_bff0000000000000,plVar1);
   if ((int)param_3[0x1ec] == 1) {
     *(undefined4 *)(param_3 + 0x1ec) = 0;
                     /* try { // try from 00a3c309 to 00a3c31d has its CatchHandler @ 00a3c64d */
@@ -17847,7 +17861,7 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
       local_68 = param_3[0x1f6];
                     /* try { // try from 00a3c370 to 00a3c374 has its CatchHandler @ 00a3c63d */
       FUN_00a21110(param_3,&local_78,0);
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_78);
     }
     else {
       local_f8 = FUN_00975682(param_3[0x207]);
@@ -17882,12 +17896,12 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
       local_b8 = local_78;
       local_b0 = local_70;
       local_a8 = local_68;
-      FUN_0096bb02(&local_78);
-      FUN_0096bb02(&local_98);
+      BSim_QList_int___node_destruct(&local_78);
+      BSim_QList_int___node_destruct(&local_98);
                     /* try { // try from 00a3c2c4 to 00a3c2e0 has its CatchHandler @ 00a3c65d */
       uVar9 = FUN_0096bbc0(&local_b8);
       thunk_FUN_00a23d46(param_3,0x3fd,&local_e8,uVar9,param_5);
-      FUN_0096bb02(&local_b8);
+      BSim_QList_int___node_destruct(&local_b8);
     }
   }
   cVar5 = (**(code **)(*param_3 + 0x198))(param_3);
@@ -17925,7 +17939,7 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
           local_88 = param_3[0x1f6];
                     /* try { // try from 00a3c563 to 00a3c567 has its CatchHandler @ 00a3c66d */
           FUN_00a21056(param_3,&local_98,uVar4);
-          FUN_0096bb02(&local_98);
+          BSim_QList_int___node_destruct(&local_98);
                     /* try { // try from 00a3c573 to 00a3c5aa has its CatchHandler @ 00a3c655 */
           cVar5 = caret_isBlockStyle(param_3);
           if ((cVar5 != '\0') &&
@@ -17940,8 +17954,8 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
             local_88 = param_3[0x20f];
                     /* try { // try from 00a3c608 to 00a3c60c has its CatchHandler @ 00a3c665 */
             FUN_00a20eb2(param_3,&local_98,&local_b8,uVar4);
-            FUN_0096bb02(&local_98);
-            FUN_0096bb02(&local_b8);
+            BSim_QList_int___node_destruct(&local_98);
+            BSim_QList_int___node_destruct(&local_b8);
           }
         }
       }
@@ -17957,8 +17971,8 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
         local_a8 = puVar13[2];
                     /* try { // try from 00a3c4ff to 00a3c503 has its CatchHandler @ 00a3c622 */
         FUN_00a20eb2(param_3,&local_b8,&local_98,1);
-        FUN_0096bb02(&local_b8);
-        FUN_0096bb02(&local_98);
+        BSim_QList_int___node_destruct(&local_b8);
+        BSim_QList_int___node_destruct(&local_98);
       }
       FUN_0096bd50(&local_78);
     }
@@ -18030,7 +18044,7 @@ void editor_mousePress(long *param_1,double *param_2,int param_3,ulong param_4)
   param_1[0x1ee] = local_78;
   param_1[0x1ef] = local_70;
   param_1[0x1f0] = local_68;
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
   iVar7 = -1;
   if ((char)param_1[0x225] == '\0') {
     uVar10 = doc_instance_get(param_1[0x207]);
@@ -18046,10 +18060,10 @@ void editor_mousePress(long *param_1,double *param_2,int param_3,ulong param_4)
   param_1[0x1ee] = local_78;
   param_1[0x1ef] = local_70;
   param_1[0x1f0] = local_68;
-  FUN_0096bb02(&local_78);
-  FUN_0096bb02(&local_b8);
+  BSim_QList_int___node_destruct(&local_78);
+  BSim_QList_int___node_destruct(&local_b8);
   plVar1 = param_1 + 0x1ee;
-  FUN_0096bc1a(&DAT_bff0000000000000,plVar1);
+  BSim_Splitter__setMainIndex(&DAT_bff0000000000000,plVar1);
   editor_hitTest(*param_2,param_2[1],&local_d8,param_1,0,0,0);
   local_b8 = local_d8;
   local_b0 = local_d0;
@@ -18059,8 +18073,8 @@ void editor_mousePress(long *param_1,double *param_2,int param_3,ulong param_4)
   local_d8 = local_78;
   local_d0 = local_70;
   local_c8 = local_68;
-  FUN_0096bb02(&local_78);
-  FUN_0096bb02(&local_b8);
+  BSim_QList_int___node_destruct(&local_78);
+  BSim_QList_int___node_destruct(&local_b8);
   *(undefined4 *)(param_1 + 0x1ec) = 0;
                     /* try { // try from 00a3c87d to 00a3cabc has its CatchHandler @ 00a3ce86 */
   iVar7 = FUN_00a2a8c4(param_1,param_2);
@@ -18101,7 +18115,7 @@ LAB_00a3caaa:
         runstyles_runnode_init(&local_78,0xffffffffffffffff,0,0);
                     /* try { // try from 00a3cac3 to 00a3cac7 has its CatchHandler @ 00a3ce76 */
         FUN_00a2d672(param_1,&local_78);
-        FUN_0096bb02(&local_78);
+        BSim_QList_int___node_destruct(&local_78);
         goto LAB_00a3cad0;
       }
     }
@@ -18128,7 +18142,7 @@ LAB_00a3caaa:
     }
   }
   else {
-    cVar6 = FUN_00944b26();
+    cVar6 = BSim_std____is_constant_evaluated();
     if ((cVar6 == '\0') || ((int)param_1[0x1e8] != param_3)) {
       if (((param_4 & 0x2000000) == 0) && ((param_4 & 0x4000000) != 0)) {
                     /* try { // try from 00a3cdd9 to 00a3cded has its CatchHandler @ 00a3ce86 */
@@ -18191,8 +18205,8 @@ LAB_00a3caaa:
         else {
           lVar3 = param_1[0x217];
                     /* try { // try from 00a3cd2a to 00a3cd49 has its CatchHandler @ 00a3ce6e */
-          uVar10 = FUN_0096c1a4(&local_78);
-          uVar11 = FUN_0096c18e(&local_78);
+          uVar10 = BSim_Splitter__createHandle(&local_78);
+          uVar11 = BSim_Splitter__createHandle(&local_78);
           FUN_00a5ec52(lVar3,uVar11,uVar10);
           *(undefined1 *)((long)param_1 + 0xf4d) = 6;
           FUN_0096bd50(&local_78);
@@ -18240,7 +18254,7 @@ LAB_00a3cad0:
   param_1[0x1e7] = (long)dVar2;
   *(undefined1 *)((long)param_1 + 0x1139) = 0;
 LAB_00a3c9e0:
-  FUN_0096bb02(&local_d8);
+  BSim_QList_int___node_destruct(&local_d8);
   return;
 }
 
@@ -19001,7 +19015,7 @@ LAB_00a3e3e3:
       puVar10 = (undefined1 *)0xffffffffffffffff;
     }
 LAB_00a3e1b5:
-    FUN_0096bb02(local_58);
+    BSim_QList_int___node_destruct(local_58);
     puVar7 = *(undefined1 **)(param_1 + 0x1048);
     puVar13 = puVar10;
     if (puVar7 != puVar10) goto LAB_00a3e1cd;
@@ -19017,8 +19031,8 @@ LAB_00a3e1cd:
     runstyles_runnode_init(local_78,*(undefined8 *)(param_1 + 0x1048),0,0);
                     /* try { // try from 00a3e20c to 00a3e210 has its CatchHandler @ 00a3e55d */
     editor_matchBracket(param_1,local_78,local_58);
-    FUN_0096bb02(local_78);
-    FUN_0096bb02(local_58);
+    BSim_QList_int___node_destruct(local_78);
+    BSim_QList_int___node_destruct(local_58);
   }
   *(undefined1 **)(param_1 + 0x1048) = puVar13;
   *(undefined1 **)(param_1 + 0x1050) = puVar12;
@@ -19028,8 +19042,8 @@ LAB_00a3e1cd:
     runstyles_runnode_init(local_78,*(undefined8 *)(param_1 + 0x1048),0,0);
                     /* try { // try from 00a3e26a to 00a3e26e has its CatchHandler @ 00a3e56d */
     editor_matchBracket(param_1,local_78,local_58);
-    FUN_0096bb02(local_78);
-    FUN_0096bb02(local_58);
+    BSim_QList_int___node_destruct(local_78);
+    BSim_QList_int___node_destruct(local_58);
   }
   return;
 }
@@ -19100,7 +19114,7 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
   param_1[0x1f1] = (long)local_78;
   param_1[0x1f2] = (long)local_70;
   param_1[499] = local_68;
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
   iVar6 = -1;
   if ((char)param_1[0x225] == '\0') {
     uVar9 = doc_instance_get(param_1[0x207]);
@@ -19116,8 +19130,8 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
   param_1[0x1f1] = (long)local_78;
   param_1[0x1f2] = (long)local_70;
   param_1[499] = local_68;
-  FUN_0096bb02(&local_78);
-  FUN_0096bb02(&local_98);
+  BSim_QList_int___node_destruct(&local_78);
+  BSim_QList_int___node_destruct(&local_98);
   if ((int)param_1[0x1ec] == 1) {
     cVar4 = (**(code **)(*param_1 + 0x168))
                       (param_1[0x1ea],param_1[0x1eb],*param_2,param_2[1],param_1);
@@ -19130,12 +19144,12 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
     local_68 = param_1[499];
                     /* try { // try from 00a3e95e to 00a3e962 has its CatchHandler @ 00a3f057 */
     FUN_00a2d672(param_1,&local_78);
-    FUN_0096bb02(&local_78);
+    BSim_QList_int___node_destruct(&local_78);
     local_78 = &QArrayData::shared_null;
                     /* try { // try from 00a3e989 to 00a3e98d has its CatchHandler @ 00a3f07f */
     FUN_00a3663e(param_1,param_1 + 0x202,&local_78,0);
     qt_byte_array_unref(&local_78);
-    if (*(code **)(*param_1 + 0x170) == FUN_00a1e438) {
+    if (*(code **)(*param_1 + 0x170) == BSim_QList_int___node_destruct) {
       return;
     }
     (**(code **)(*param_1 + 0x170))(param_1);
@@ -19179,13 +19193,13 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
         local_68 = param_1[499];
                     /* try { // try from 00a3eeba to 00a3eebe has its CatchHandler @ 00a3f02f */
         FUN_00a271b6(local_b8,param_1,&local_78,2,local_108,0);
-        FUN_0096bb02(&local_78);
+        BSim_QList_int___node_destruct(&local_78);
         local_78 = (undefined8 *)param_1[0x1f1];
         local_70 = (double)param_1[0x1f2];
         local_68 = param_1[499];
                     /* try { // try from 00a3ef0a to 00a3ef0e has its CatchHandler @ 00a3f027 */
         FUN_00a271b6(&local_98,param_1,&local_78,3,local_108,0);
-        FUN_0096bb02(&local_78);
+        BSim_QList_int___node_destruct(&local_78);
         if (local_fc == 1) {
                     /* try { // try from 00a3f01d to 00a3f021 has its CatchHandler @ 00a3f047 */
           cVar4 = editor_posCmp(&local_98,local_b8);
@@ -19201,8 +19215,8 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
         param_1[0x1f1] = *plVar12;
         param_1[0x1f2] = plVar12[1];
         param_1[499] = plVar12[2];
-        FUN_0096bb02(&local_98);
-        FUN_0096bb02(local_b8);
+        BSim_QList_int___node_destruct(&local_98);
+        BSim_QList_int___node_destruct(local_b8);
       }
       else if (*(char *)((long)param_1 + 0xf4d) == '\x02') {
                     /* try { // try from 00a3ef7c to 00a3ef9e has its CatchHandler @ 00a3f037 */
@@ -19212,7 +19226,7 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
         param_1[0x1f1] = local_98;
         param_1[0x1f2] = local_90;
         param_1[499] = local_88;
-        FUN_0096bb02(&local_98);
+        BSim_QList_int___node_destruct(&local_98);
       }
                     /* try { // try from 00a3ea9d to 00a3eaa1 has its CatchHandler @ 00a3f037 */
       FUN_0096be24(&local_78,local_d8,plVar10,0);
@@ -19234,7 +19248,7 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
         FUN_00a2a7aa(param_1,0);
       }
       FUN_0096bd50(&local_78);
-      FUN_0096bb02(local_d8);
+      BSim_QList_int___node_destruct(local_d8);
       FUN_00974856(local_f8);
     }
     else {
@@ -19243,7 +19257,7 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
       local_68 = param_1[499];
                     /* try { // try from 00a3ecf7 to 00a3ecfb has its CatchHandler @ 00a3f04f */
       FUN_00a2d672(param_1,&local_78);
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_78);
     }
     local_128 = param_1 + 0x1f1;
     if (*(code **)(*param_1 + 0x88) == FUN_00a1e708) {
@@ -19281,8 +19295,8 @@ LAB_00a3ec0f:
     editor_hitTest(*param_2,param_2[1],local_b8,param_1,1,0,1);
                     /* try { // try from 00a3ec7a to 00a3ec7e has its CatchHandler @ 00a3f087 */
     cVar4 = FUN_0096bb1c(local_b8,&local_98);
-    FUN_0096bb02(local_b8);
-    FUN_0096bb02(&local_98);
+    BSim_QList_int___node_destruct(local_b8);
+    BSim_QList_int___node_destruct(&local_98);
     if (cVar4 == '\0') {
       return;
     }
@@ -20969,7 +20983,7 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                     /* try { // try from 00a4612a to 00a46139 has its CatchHandler @ 00a4ad85 */
               lVar21 = FUN_0096bbc0(local_78);
               QVariant::QVariant(param_1,lVar21);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             if (param_3 < 0x7e8) {
@@ -20990,7 +21004,7 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                     /* try { // try from 00a44c0f to 00a44c1e has its CatchHandler @ 00a4b3af */
                 lVar21 = FUN_0096bbc0(local_78);
                 QVariant::QVariant(param_1,lVar21);
-                FUN_0096bb02(local_78);
+                BSim_QList_int___node_destruct(local_78);
                 return param_1;
               }
             }
@@ -21067,7 +21081,7 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
           if (param_3 == 0x867) {
             uVar10 = QVariant::toBool();
             uVar23 = QVariant::toULongLong(param_5);
-            iVar16 = FUN_00a223e8(param_2,uVar10,uVar23);
+            iVar16 = BSim_std____is_constant_evaluated(param_2,uVar10,uVar23);
             QVariant::QVariant(param_1,iVar16);
             return param_1;
           }
@@ -21249,7 +21263,7 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                   runstyles_runnode_init(local_78,lVar31,0,0);
                     /* try { // try from 00a49426 to 00a4942a has its CatchHandler @ 00a4afaf */
                   dVar49 = (double)FUN_00a225be(param_2,local_78);
-                  FUN_0096bb02(local_78);
+                  BSim_QList_int___node_destruct(local_78);
                   QVariant::QVariant(param_1,(dVar49 - (double)*(int *)((long)param_2 + 0xd7c)) +
                                              (double)*(int *)((long)param_2 + 0xd74));
                   return param_1;
@@ -21277,8 +21291,8 @@ LAB_00a453f0:
                   runstyles_runnode_init(local_b8,lVar31,0,0);
                     /* try { // try from 00a45c1e to 00a45c22 has its CatchHandler @ 00a4ae07 */
                   FUN_00a20eb2(param_2,local_b8,local_78,1);
-                  FUN_0096bb02(local_b8);
-                  FUN_0096bb02(local_78);
+                  BSim_QList_int___node_destruct(local_b8);
+                  BSim_QList_int___node_destruct(local_78);
                   FUN_00974856(local_d8);
                 }
                 else if ((param_3 == 0x873) &&
@@ -21298,7 +21312,7 @@ LAB_00a453f0:
                     /* try { // try from 00a45665 to 00a45674 has its CatchHandler @ 00a4ad4d */
                     lVar21 = FUN_009587cc(lVar31,local_78);
                     QVariant::QVariant(param_1,lVar21);
-                    FUN_0096bb02(local_78);
+                    BSim_QList_int___node_destruct(local_78);
                     return param_1;
                   }
                   lVar31 = param_2[0x213];
@@ -21313,7 +21327,7 @@ LAB_00a453f0:
                     runstyles_runnode_init(local_78,lVar31,0,0);
                     /* try { // try from 00a453c6 to 00a453ca has its CatchHandler @ 00a4b397 */
                     FUN_00a225be(param_2,local_78);
-                    FUN_0096bb02(local_78);
+                    BSim_QList_int___node_destruct(local_78);
                     QVariant::QVariant(param_1,extraout_XMM1_Qa);
                     return param_1;
                   }
@@ -21417,7 +21431,7 @@ LAB_00a45135:
               runstyles_runnode_init(local_78,0,0,0);
                     /* try { // try from 00a4739d to 00a473a1 has its CatchHandler @ 00a4b285 */
               FUN_00a21110(param_2,local_78,0);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
                     /* try { // try from 00a473af to 00a473e5 has its CatchHandler @ 00a4b2a5 */
               uVar23 = QVariant::toULongLong(param_4);
               uVar24 = QVariant::toLongLong(param_5);
@@ -21462,7 +21476,7 @@ LAB_00a45135:
                   lVar31 = param_2[0x214];
                   uVar23 = QVariant::toLongLong(param_5);
                   uVar24 = QVariant::toLongLong(param_4);
-                  FUN_00958416(lVar31,uVar24,uVar23,1);
+                  BSim_QList_int___node_destruct(lVar31,uVar24,uVar23,1);
                   FUN_00a239ee(param_2);
                   (**(code **)(*param_2 + 0xa0))(param_2);
                 }
@@ -21470,7 +21484,7 @@ LAB_00a45135:
                   lVar31 = param_2[0x214];
                   uVar23 = QVariant::toLongLong(param_5);
                   uVar24 = QVariant::toLongLong(param_4);
-                  FUN_00958416(lVar31,uVar24,uVar23,0);
+                  BSim_QList_int___node_destruct(lVar31,uVar24,uVar23,0);
                   FUN_00a239ee(param_2);
                   (**(code **)(*param_2 + 0xa0))(param_2);
                 }
@@ -21546,7 +21560,7 @@ LAB_00a45135:
         }
         else {
           if (param_3 == 0x936) {
-            if (*(code **)(*param_2 + 0x148) != FUN_00a1e438) {
+            if (*(code **)(*param_2 + 0x148) != BSim_QList_int___node_destruct) {
               (**(code **)(*param_2 + 0x148))(param_2);
             }
             QVariant::toULongLong(param_4);
@@ -21724,8 +21738,8 @@ LAB_00a44269:
         runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a45974 to 00a45978 has its CatchHandler @ 00a4ad75 */
         FUN_00a1fdd8(param_2,uVar18,local_78);
-        FUN_0096bb02(local_78);
-        FUN_0096bb02(local_b8);
+        BSim_QList_int___node_destruct(local_78);
+        BSim_QList_int___node_destruct(local_b8);
       }
       else if (param_3 < 0xa11) {
         if (param_3 == 0x9e1) {
@@ -21826,7 +21840,7 @@ LAB_00a44269:
                     /* try { // try from 00a47df3 to 00a47e02 has its CatchHandler @ 00a4b02f */
             lVar21 = FUN_0096bbc0(local_78);
             QVariant::QVariant(param_1,lVar21);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             return param_1;
           }
           if (param_3 < 0xa02) {
@@ -21868,7 +21882,7 @@ LAB_00a44269:
               runstyles_runnode_init(local_78,uVar23,0,0);
                     /* try { // try from 00a476c8 to 00a476cc has its CatchHandler @ 00a4ae3f */
               FUN_00a21110(param_2,local_78,0);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
             }
             else if (param_3 == 0x9e5) {
               lVar31 = param_2[0x213];
@@ -21896,8 +21910,8 @@ LAB_00a44269:
                     /* try { // try from 00a4789e to 00a478a2 has its CatchHandler @ 00a4b3f7 */
             FUN_00a20fb0(param_2,local_78);
             FUN_0096bd50(local_78);
-            FUN_0096bb02(local_d8);
-            FUN_0096bb02(local_b8);
+            BSim_QList_int___node_destruct(local_d8);
+            BSim_QList_int___node_destruct(local_b8);
           }
           else if (param_3 < 0xa0d) {
             if (param_3 == 0xa02) {
@@ -21908,7 +21922,7 @@ LAB_00a44269:
                     /* try { // try from 00a45faa to 00a45fb9 has its CatchHandler @ 00a4afc7 */
               lVar21 = FUN_0096bbc0(local_78);
               QVariant::QVariant(param_1,lVar21);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             if (param_3 == 0xa0a) {
@@ -21937,8 +21951,8 @@ LAB_00a44269:
                     /* try { // try from 00a43f77 to 00a43f7b has its CatchHandler @ 00a4b3df */
             FUN_00a212c4(param_2,local_78);
             FUN_0096bd50(local_78);
-            FUN_0096bb02(local_d8);
-            FUN_0096bb02(local_b8);
+            BSim_QList_int___node_destruct(local_d8);
+            BSim_QList_int___node_destruct(local_b8);
           }
         }
       }
@@ -21955,8 +21969,8 @@ LAB_00a44269:
         runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a458f1 to 00a458f5 has its CatchHandler @ 00a4ad6d */
         FUN_00a20082(param_2,uVar18,local_78);
-        FUN_0096bb02(local_78);
-        FUN_0096bb02(local_b8);
+        BSim_QList_int___node_destruct(local_78);
+        BSim_QList_int___node_destruct(local_b8);
       }
       else if (param_3 < 0xa1f) {
         if (param_3 == 0xa17) {
@@ -21969,7 +21983,7 @@ LAB_00a44269:
                     /* try { // try from 00a4586b to 00a45879 has its CatchHandler @ 00a4b1dd */
           iVar16 = qstrdata_length_get(local_78);
           QVariant::QVariant(param_1,iVar16);
-          FUN_0096bb02(local_78);
+          BSim_QList_int___node_destruct(local_78);
           return param_1;
         }
         if (param_3 < 0xa18) {
@@ -21983,7 +21997,7 @@ LAB_00a44269:
                     /* try { // try from 00a4581e to 00a4582d has its CatchHandler @ 00a4b1c5 */
             lVar21 = FUN_0096bbc0(local_78);
             QVariant::QVariant(param_1,lVar21);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             return param_1;
           }
           if (param_3 < 0xa14) {
@@ -21997,7 +22011,7 @@ LAB_00a44269:
                     /* try { // try from 00a49356 to 00a49365 has its CatchHandler @ 00a4adaf */
               lVar21 = FUN_0096bbc0(local_78);
               QVariant::QVariant(param_1,lVar21);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             if (param_3 == 0xa12) {
@@ -22013,8 +22027,8 @@ LAB_00a44269:
               runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a41c4e to 00a41c52 has its CatchHandler @ 00a4b307 */
               FUN_00a1fe8c(param_2,uVar18,local_78);
-              FUN_0096bb02(local_78);
-              FUN_0096bb02(local_b8);
+              BSim_QList_int___node_destruct(local_78);
+              BSim_QList_int___node_destruct(local_b8);
             }
           }
           else {
@@ -22028,7 +22042,7 @@ LAB_00a44269:
                     /* try { // try from 00a455b8 to 00a455c6 has its CatchHandler @ 00a4af3f */
               iVar16 = qstrdata_length_get(local_78);
               QVariant::QVariant(param_1,iVar16);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             if (param_3 < 0xa16) {
@@ -22044,8 +22058,8 @@ LAB_00a44269:
               runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a41aa6 to 00a41aaa has its CatchHandler @ 00a4b327 */
               FUN_00a1fdd8(param_2,uVar18,local_78);
-              FUN_0096bb02(local_78);
-              FUN_0096bb02(local_b8);
+              BSim_QList_int___node_destruct(local_78);
+              BSim_QList_int___node_destruct(local_b8);
             }
             else {
               cVar9 = QVariant::canConvert(iVar16);
@@ -22060,8 +22074,8 @@ LAB_00a44269:
               runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a4556e to 00a45572 has its CatchHandler @ 00a4b417 */
               FUN_00a1fe8c(param_2,uVar18,local_78);
-              FUN_0096bb02(local_78);
-              FUN_0096bb02(local_b8);
+              BSim_QList_int___node_destruct(local_78);
+              BSim_QList_int___node_destruct(local_b8);
             }
           }
         }
@@ -22078,8 +22092,8 @@ LAB_00a44269:
           runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a493dc to 00a493e0 has its CatchHandler @ 00a4af9f */
           FUN_00a20082(param_2,uVar18,local_78);
-          FUN_0096bb02(local_78);
-          FUN_0096bb02(local_b8);
+          BSim_QList_int___node_destruct(local_78);
+          BSim_QList_int___node_destruct(local_b8);
         }
         else if (param_3 < 0xa1b) {
           if (param_3 == 0xa18) {
@@ -22095,8 +22109,8 @@ LAB_00a44269:
             runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a495c0 to 00a495c4 has its CatchHandler @ 00a4b0a5 */
             FUN_00a1ffce(param_2,uVar18,local_78);
-            FUN_0096bb02(local_78);
-            FUN_0096bb02(local_b8);
+            BSim_QList_int___node_destruct(local_78);
+            BSim_QList_int___node_destruct(local_b8);
           }
           else if (param_3 == 0xa19) {
             cVar9 = QVariant::canConvert(iVar16);
@@ -22108,7 +22122,7 @@ LAB_00a44269:
                     /* try { // try from 00a41d93 to 00a41da2 has its CatchHandler @ 00a4b337 */
             lVar21 = FUN_0096bbc0(local_78);
             QVariant::QVariant(param_1,lVar21);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             return param_1;
           }
         }
@@ -22124,7 +22138,7 @@ LAB_00a44269:
                     /* try { // try from 00a41cbe to 00a41ccd has its CatchHandler @ 00a4b317 */
               lVar21 = FUN_0096bbc0(local_78);
               QVariant::QVariant(param_1,lVar21);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             cVar9 = QVariant::canConvert(iVar16);
@@ -22136,7 +22150,7 @@ LAB_00a44269:
                     /* try { // try from 00a49cea to 00a49cf8 has its CatchHandler @ 00a4ae1f */
             iVar16 = qstrdata_length_get(local_78);
             QVariant::QVariant(param_1,iVar16);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             return param_1;
           }
           cVar9 = QVariant::canConvert(iVar16);
@@ -22151,8 +22165,8 @@ LAB_00a44269:
           runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a49d70 to 00a49d74 has its CatchHandler @ 00a4ae37 */
           FUN_00a1ffce(param_2,uVar18,local_78);
-          FUN_0096bb02(local_78);
-          FUN_0096bb02(local_b8);
+          BSim_QList_int___node_destruct(local_78);
+          BSim_QList_int___node_destruct(local_b8);
         }
       }
       else {
@@ -22173,7 +22187,7 @@ LAB_00a44269:
             if (cVar9 != '\0') {
               uVar18 = QVariant::toInt(param_4);
             }
-            bVar13 = FUN_00a1ff0e(param_2,uVar18);
+            bVar13 = BSim_Splitter__createHandle(param_2,uVar18);
             QVariant::QVariant(param_1,(uint)bVar13);
             return param_1;
           }
@@ -22188,7 +22202,7 @@ LAB_00a44269:
                     /* try { // try from 00a47650 to 00a4765e has its CatchHandler @ 00a4b377 */
               iVar16 = qstrdata_length_get(local_78);
               QVariant::QVariant(param_1,iVar16);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             if (param_3 == 0xa20) {
@@ -22210,7 +22224,7 @@ LAB_00a44269:
             if (param_3 == 0xa3e) {
               pcVar2 = *(code **)(*param_2 + 0x130);
               uVar18 = QVariant::toInt(param_4);
-              if (pcVar2 == FUN_00a1e43a) {
+              if (pcVar2 == BSim_Splitter__setMainIndex) {
                 *(undefined4 *)(param_2 + 0x21b) = uVar18;
               }
               else {
@@ -23019,7 +23033,7 @@ joined_r0x00a4631d:
             runstyles_runnode_init(local_78,lVar27,0,0);
                     /* try { // try from 00a43aed to 00a43af1 has its CatchHandler @ 00a4b3ff */
             FUN_00a289b6(param_2,local_78,(undefined1 *)(local_b8[0]._0_8_ + lVar31),(long)iVar16);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             qt_byte_array_unref(local_b8);
           }
           else {
@@ -23036,8 +23050,8 @@ joined_r0x00a4631d:
             runstyles_runnode_init(local_b8,uVar23,0,0);
                     /* try { // try from 00a48ec8 to 00a48ecc has its CatchHandler @ 00a4afd7 */
             FUN_00a20eb2(param_2,local_b8,local_78,1);
-            FUN_0096bb02(local_b8);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_b8);
+            BSim_QList_int___node_destruct(local_78);
                     /* try { // try from 00a48ef2 to 00a48ef6 has its CatchHandler @ 00a4afe7 */
             FUN_00a25808(param_2,(long)local_f8[0] + local_f8[0][2],
                          (long)*(int *)((long)local_f8[0] + 4),0);
@@ -23069,7 +23083,7 @@ joined_r0x00a4631d:
                     /* try { // try from 00a47682 to 00a47691 has its CatchHandler @ 00a4b155 */
           lVar21 = FUN_0096bbc0(local_78);
           QVariant::QVariant(param_1,lVar21);
-          FUN_0096bb02(local_78);
+          BSim_QList_int___node_destruct(local_78);
           return param_1;
         }
         if (param_3 < 0x755f) {
@@ -23376,7 +23390,7 @@ joined_r0x00a4631d:
             runstyles_runnode_init(local_78,uVar23,0,0);
                     /* try { // try from 00a49608 to 00a4960c has its CatchHandler @ 00a4b09d */
             bVar11 = (bool)FUN_0095c92c(lVar31,local_78);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             if (bVar11 != false) {
               (**(code **)(*param_2 + 0xa0))(param_2);
             }
@@ -24067,7 +24081,7 @@ LAB_00a42965:
             uVar24 = FUN_00a20666(param_2);
             uVar29 = QVariant::toLongLong(param_4);
             FUN_009301a8(lVar31,uVar29,uVar24,uVar23);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
           }
           else if (param_3 < 0x75cc) {
             if (param_3 == 0x75c9) {
@@ -24103,7 +24117,7 @@ LAB_00a42965:
                     /* try { // try from 00a423cf to 00a423d3 has its CatchHandler @ 00a4b38f */
             FUN_0092fb40(lVar31,local_b8,uVar24,uVar23);
             qatomic_unref_call_deleter(local_b8);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
           }
         }
         else {
@@ -24160,7 +24174,7 @@ LAB_00a42965:
                     /* try { // try from 00a44a1c to 00a44a2b has its CatchHandler @ 00a4b42f */
             lVar21 = FUN_009587cc(lVar31,local_78);
             QVariant::QVariant(param_1,lVar21);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             return param_1;
           }
         }
@@ -24366,7 +24380,7 @@ LAB_00a42965:
                     /* try { // try from 00a46532 to 00a46536 has its CatchHandler @ 00a4b0bd */
             QVariant::QVariant(param_1,(QString *)local_b8);
             qt_array_data_unref((QString *)local_b8);
-            FUN_0096bb02(local_78);
+            BSim_QList_int___node_destruct(local_78);
             return param_1;
           }
           if (param_3 < 0x75ef) {
@@ -24376,7 +24390,7 @@ LAB_00a42965:
                     /* try { // try from 00a48981 to 00a4898f has its CatchHandler @ 00a4b047 */
               iVar16 = FUN_00a2a0ea(param_2,local_78);
               QVariant::QVariant(param_1,iVar16);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             if (param_3 == 0x75ed) {
@@ -24773,7 +24787,7 @@ LAB_00a42965:
               uVar29 = FUN_0096bbc0(local_78);
               uVar36 = FUN_00a20666(param_2);
               s_text_backgroundColor_92fe4a(lVar31,uVar23,uVar24,local_b8,uVar36,uVar29);
-              FUN_0096bb02(local_78);
+              BSim_QList_int___node_destruct(local_78);
               qt_array_data_unref(local_b8);
             }
           }
@@ -24837,8 +24851,8 @@ LAB_00a42965:
                     /* try { // try from 00a49943 to 00a49947 has its CatchHandler @ 00a4ad15 */
           FUN_00a58d66(local_b8,lVar31,7,local_78);
           FUN_0096bd50(local_78);
-          FUN_0096bb02(local_f8);
-          FUN_0096bb02(local_d8);
+          BSim_QList_int___node_destruct(local_f8);
+          BSim_QList_int___node_destruct(local_d8);
                     /* try { // try from 00a4996c to 00a499e3 has its CatchHandler @ 00a4ad0b */
           cVar9 = FUN_0096beb4(local_b8);
           if ((cVar9 == '\0') && (uVar20 = QVariant::toUInt(param_5), uVar19 < uVar20)) {
@@ -24857,14 +24871,14 @@ LAB_00a42965:
               pauVar44 = (undefined1 (*) [16])((long)pauVar44 + (ulong)bVar13 * -8 + 4);
             }
             FUN_0096bd50(local_78);
-            FUN_0096bb02(local_f8);
-            FUN_0096bb02(local_d8);
+            BSim_QList_int___node_destruct(local_f8);
+            BSim_QList_int___node_destruct(local_d8);
           }
           cVar9 = FUN_0096beb4(local_b8);
           if (cVar9 != '\0') {
             lVar31 = param_2[0x213];
-            uVar23 = FUN_0096c1a4(local_b8);
-            uVar24 = FUN_0096c18e(local_b8);
+            uVar23 = BSim_Splitter__createHandle(local_b8);
+            uVar24 = BSim_Splitter__createHandle(local_b8);
             buf_substr(local_78,lVar31,uVar24,uVar23);
                     /* try { // try from 00a499f6 to 00a499fa has its CatchHandler @ 00a4ad03 */
             FUN_0092777c(local_d8,param_2[0x213],local_78);
@@ -25416,135 +25430,166 @@ LAB_00a41e00:
 }
 
 
-// ==== entry=00a4b448 name=FUN_00a4b448 size=3 ====
+// ==== entry=00a4b448 orig=FUN_00a4b448 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00a4b448(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
 }
 
 
-// ==== entry=00a4b44b name=FUN_00a4b44b size=1 ====
+// ==== entry=00a4b44b orig=FUN_00a4b44b size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b44b(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=00a4b44c name=FUN_00a4b44c size=1 ====
-
-void FUN_00a4b44c(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a4b44d name=FUN_00a4b44d size=1 ====
+// ==== entry=00a4b44c orig=FUN_00a4b44c size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b44d(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=00a4b44e name=FUN_00a4b44e size=1 ====
-
-void FUN_00a4b44e(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a4b44f name=FUN_00a4b44f size=1 ====
+// ==== entry=00a4b44d orig=FUN_00a4b44d size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b44f(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=00a4b450 name=FUN_00a4b450 size=1 ====
-
-void FUN_00a4b450(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a4b451 name=FUN_00a4b451 size=1 ====
+// ==== entry=00a4b44e orig=FUN_00a4b44e size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b451(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=00a4b452 name=FUN_00a4b452 size=1 ====
-
-void FUN_00a4b452(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a4b453 name=FUN_00a4b453 size=1 ====
+// ==== entry=00a4b44f orig=FUN_00a4b44f size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b453(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=00a4b454 name=FUN_00a4b454 size=1 ====
-
-void FUN_00a4b454(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a4b455 name=FUN_00a4b455 size=1 ====
+// ==== entry=00a4b450 orig=FUN_00a4b450 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b455(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=00a4b456 name=FUN_00a4b456 size=1 ====
-
-void FUN_00a4b456(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a4b457 name=FUN_00a4b457 size=1 ====
+// ==== entry=00a4b451 orig=FUN_00a4b451 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b457(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a4b458 name=FUN_00a4b458 size=1 ====
+// ==== entry=00a4b452 orig=FUN_00a4b452 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a4b458(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=00a4b453 orig=FUN_00a4b453 size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=00a4b454 orig=FUN_00a4b454 size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=00a4b455 orig=FUN_00a4b455 size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=00a4b456 orig=FUN_00a4b456 size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=00a4b457 orig=FUN_00a4b457 size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=00a4b458 orig=FUN_00a4b458 size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -28090,7 +28135,7 @@ void FUN_00a4f69e(undefined8 *param_1)
   param_1[0x247] = 0;
   param_1[0x248] = 0;
                     /* try { // try from 00a4f6e4 to 00a4f6e8 has its CatchHandler @ 00a4f6f6 */
-  FUN_00a73fe4(param_1 + 0x229,param_1 + 8);
+  BSim_Splitter__setMainIndex(param_1 + 0x229,param_1 + 8);
   return;
 }
 
@@ -28173,7 +28218,7 @@ void FUN_00a4f7b4(long *param_1)
   pcVar3 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a4f7ec to 00a4f7f0 has its CatchHandler @ 00a4f94d */
   piVar5 = operator_new(0x50);
-  *(code **)(piVar5 + 2) = FUN_00a524cd;
+  *(code **)(piVar5 + 2) = BSim_QList_int___node_destruct;
   piVar5[1] = 1;
   *piVar5 = 1;
   local_50 = (QArrayData *)&QArrayData::shared_null;
@@ -28388,7 +28433,7 @@ LAB_00a4fb46:
   pcVar2 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a4fb6c to 00a4fb70 has its CatchHandler @ 00a4fc9e */
   piVar6 = operator_new(0x50);
-  *(code **)(piVar6 + 2) = FUN_00a524cd;
+  *(code **)(piVar6 + 2) = BSim_QList_int___node_destruct;
   piVar6[1] = 1;
   *piVar6 = 1;
   local_50 = (QArrayData *)&QArrayData::shared_null;
@@ -28461,7 +28506,7 @@ void FUN_00a4fcae(long *param_1)
     pcVar2 = *(code **)(*param_1 + 0x140);
                     /* try { // try from 00a4fce3 to 00a4fce7 has its CatchHandler @ 00a4fd65 */
     piVar4 = operator_new(0x28);
-    *(code **)(piVar4 + 2) = FUN_00a524ce;
+    *(code **)(piVar4 + 2) = BSim_QList_int___node_destruct;
     piVar4[1] = 1;
     *piVar4 = 1;
                     /* try { // try from 00a4fd11 to 00a4fd15 has its CatchHandler @ 00a4fd6d */
@@ -28862,7 +28907,7 @@ void s_text_default_a50430(long *param_1)
     runstyles_runnode_init(&local_58,lVar6,0,0);
                     /* try { // try from 00a5049c to 00a504a0 has its CatchHandler @ 00a50826 */
     cVar3 = FUN_00a23206(param_1,&local_58,1,1);
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     if (cVar3 == '\0') {
       FUN_00a4f7b4(param_1);
     }
@@ -28871,7 +28916,7 @@ void s_text_default_a50430(long *param_1)
       runstyles_runnode_init(&local_58,lVar6 - iVar4,0,0);
                     /* try { // try from 00a504db to 00a504df has its CatchHandler @ 00a5082e */
       local_c8 = FUN_00a225be(param_1,&local_58);
-      FUN_0096bb02(&local_58);
+      BSim_QList_int___node_destruct(&local_58);
       plVar1 = param_1 + 1;
       FUN_0094494c(local_c8._0_8_,local_c8._8_8_,local_98,plVar1);
       local_e8 = local_90;
@@ -29213,7 +29258,7 @@ LAB_00a50fe0:
   QString::toUtf8_helper((QString *)&local_80);
                     /* try { // try from 00a50d67 to 00a50d6b has its CatchHandler @ 00a51709 */
   piVar11 = operator_new(0x50);
-  *(code **)(piVar11 + 2) = FUN_00a524cd;
+  *(code **)(piVar11 + 2) = BSim_QList_int___node_destruct;
   piVar11[1] = 1;
   *piVar11 = 1;
   lVar21 = param_1[0x247];
@@ -29343,7 +29388,7 @@ LAB_00a51042:
         *puVar14 = local_58;
         puVar14[1] = local_50;
         puVar14[2] = local_48;
-        FUN_0096bb02((QVariant *)&local_58);
+        BSim_QList_int___node_destruct((QVariant *)&local_58);
                     /* try { // try from 00a51358 to 00a51375 has its CatchHandler @ 00a51778 */
         lVar15 = FUN_0096bfe0(uVar12);
         runstyles_runnode_init((QVariant *)&local_58,(local_a8 - lVar9) + lVar15,0);
@@ -29352,7 +29397,7 @@ LAB_00a51042:
         *puVar14 = local_58;
         puVar14[1] = local_50;
         puVar14[2] = local_48;
-        FUN_0096bb02((QVariant *)&local_58);
+        BSim_QList_int___node_destruct((QVariant *)&local_58);
         lVar22 = lVar22 + 1;
       } while (lVar21 != lVar22);
     }
@@ -29445,7 +29490,7 @@ LAB_00a510f4:
           *puVar14 = local_58;
           puVar14[1] = local_50;
           puVar14[2] = local_48;
-          FUN_0096bb02((QVariant *)&local_58);
+          BSim_QList_int___node_destruct((QVariant *)&local_58);
                     /* try { // try from 00a511b6 to 00a511d3 has its CatchHandler @ 00a51721 */
           lVar13 = FUN_0096bfe0(uVar12);
           runstyles_runnode_init((QVariant *)&local_58,(local_a8 - lVar9) + lVar13,0);
@@ -29454,7 +29499,7 @@ LAB_00a510f4:
           *puVar14 = local_58;
           puVar14[1] = local_50;
           puVar14[2] = local_48;
-          FUN_0096bb02((QVariant *)&local_58);
+          BSim_QList_int___node_destruct((QVariant *)&local_58);
           lVar22 = lVar22 + 1;
         } while (lVar10 != lVar22);
       }
@@ -29478,7 +29523,7 @@ LAB_00a510f4:
           *puVar14 = local_58;
           puVar14[1] = local_50;
           puVar14[2] = local_48;
-          FUN_0096bb02((QVariant *)&local_58);
+          BSim_QList_int___node_destruct((QVariant *)&local_58);
                     /* try { // try from 00a514e8 to 00a514f7 has its CatchHandler @ 00a51729 */
           puVar14 = (undefined8 *)FUN_0096bfce(uVar12);
           puVar16 = (undefined8 *)FUN_0096bfc8(uVar12);
@@ -29631,7 +29676,7 @@ LAB_00a51b45:
   QString::toUtf8_helper((QString *)&local_78);
                     /* try { // try from 00a518c7 to 00a518cb has its CatchHandler @ 00a51c44 */
   piVar6 = operator_new(0x50);
-  *(code **)(piVar6 + 2) = FUN_00a524cd;
+  *(code **)(piVar6 + 2) = BSim_QList_int___node_destruct;
   piVar6[1] = 1;
   *piVar6 = 1;
   lVar8 = param_1[0x247];
@@ -29771,11 +29816,11 @@ void Editor_vt14(long *param_1)
   long lVar1;
   
   lVar1 = *param_1;
-  if (*(code **)(lVar1 + 0x188) != FUN_00a4b448) {
+  if (*(code **)(lVar1 + 0x188) != BSim_std____is_constant_evaluated) {
     (**(code **)(lVar1 + 0x188))(param_1,0);
     lVar1 = *param_1;
   }
-  if (*(code **)(lVar1 + 0x148) == FUN_00a1e438) {
+  if (*(code **)(lVar1 + 0x148) == BSim_QList_int___node_destruct) {
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x00a1ec76. Too many branches */
@@ -29819,7 +29864,7 @@ LAB_00a51ebf:
           FUN_00a1fda6(local_58,param_2,0xffffffff);
                     /* try { // try from 00a51fcb to 00a51fcf has its CatchHandler @ 00a52038 */
           lVar4 = FUN_0096bbc0(local_58);
-          FUN_0096bb02(local_58);
+          BSim_QList_int___node_destruct(local_58);
           if (cVar1 == '\n') {
             lVar5 = FUN_00925236(*(undefined8 *)(param_2 + 0x1098));
           }
@@ -29884,7 +29929,7 @@ void FUN_00a52040(long param_1)
 {
   FUN_00a4f7b4();
   FUN_00a74088(param_1 + 0x1148);
-  FUN_00a1e438(param_1);
+  BSim_QList_int___node_destruct(param_1);
   return;
 }
 
@@ -30036,7 +30081,7 @@ LAB_00a520c4:
                     /* try { // try from 00a52301 to 00a52310 has its CatchHandler @ 00a524c5 */
       FUN_00a225be(param_2,local_48);
       s_calltip_text_a50850(param_2);
-      FUN_0096bb02(local_48);
+      BSim_QList_int___node_destruct(local_48);
     }
     else if (param_3 == 0x8a5) {
       QVariant::toBool();
@@ -30052,7 +30097,7 @@ LAB_00a520c4:
       else {
         if (param_3 != 0x8a4) goto LAB_00a520c4;
         QVariant::toInt(param_4);
-        FUN_00a740c4(param_2 + 0x1148);
+        BSim_Splitter__setMainIndex(param_2 + 0x1148);
         session_view_soft_reset(param_2);
       }
     }
@@ -30076,18 +30121,22 @@ LAB_00a52163:
 }
 
 
-// ==== entry=00a524cd name=FUN_00a524cd size=1 ====
+// ==== entry=00a524cd orig=FUN_00a524cd size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a524cd(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a524ce name=FUN_00a524ce size=1 ====
+// ==== entry=00a524ce orig=FUN_00a524ce size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a524ce(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -30297,7 +30346,7 @@ undefined1  [16] FUN_00a526ac(undefined8 param_1,double param_2,long *param_3)
   if (local_30 <= 0.0) {
     dVar7 = 0.0;
   }
-  FUN_0096bb02(local_68);
+  BSim_QList_int___node_destruct(local_68);
   auVar2._8_8_ = dVar7;
   auVar2._0_8_ = dVar8;
   return auVar2;
@@ -30333,20 +30382,20 @@ void FUN_00a52806(long *param_1)
         FUN_00a1fbaa(*(undefined8 *)(lVar2 + 0x10),local_58,lVar5,*(long *)(lVar2 + 8) + lVar1,1,1);
                     /* try { // try from 00a5292c to 00a52930 has its CatchHandler @ 00a52965 */
         FUN_00a209e4(lVar5,local_58,1);
-        FUN_0096bb02(local_58);
+        BSim_QList_int___node_destruct(local_58);
         lVar5 = *param_1;
         lVar4 = *(long *)(lVar3 + 8) + lVar1;
       }
       FUN_00a1fbaa(*(undefined8 *)(lVar3 + 0x10),local_58,lVar5,lVar4,1,1);
                     /* try { // try from 00a528c6 to 00a528ca has its CatchHandler @ 00a52952 */
       FUN_00a209e4(lVar5,local_58,1);
-      FUN_0096bb02(local_58);
+      BSim_QList_int___node_destruct(local_58);
     }
     else {
                     /* try { // try from 00a5294b to 00a5294f has its CatchHandler @ 00a5295a */
       FUN_00a208f8(lVar5);
     }
-    FUN_0096bb02(auStack_78);
+    BSim_QList_int___node_destruct(auStack_78);
     return;
   }
   FUN_00a2913a(*param_1,0xffffffff);
@@ -30397,7 +30446,7 @@ void FUN_00a52974(long *param_1)
       else {
         (**(code **)(*(long *)*param_1 + 0xa0))();
       }
-      FUN_0096bb02(local_58);
+      BSim_QList_int___node_destruct(local_58);
     }
   }
   return;
@@ -30437,9 +30486,11 @@ ulong FUN_00a52a84(long param_1)
 }
 
 
-// ==== entry=00a52aa4 name=FUN_00a52aa4 size=4 ====
+// ==== entry=00a52aa4 orig=FUN_00a52aa4 size=4 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00a52aa4(long param_1,undefined4 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined4 param_2)
 
 {
   *(undefined4 *)(param_1 + 0x10) = param_2;
@@ -30567,7 +30618,7 @@ void FUN_00a52b28(long *param_1)
   else {
     (**(code **)(*plVar3 + 0xa0))(plVar3);
   }
-  FUN_0096bb02(local_78);
+  BSim_QList_int___node_destruct(local_78);
   return;
 }
 
@@ -31514,7 +31565,7 @@ FUN_00a540c0(undefined8 *param_1,undefined8 *param_2,undefined8 *param_3,long pa
       *param_3 = local_48;
       param_3[1] = local_40;
       param_3[2] = local_38;
-      FUN_0096bb02(&local_48);
+      BSim_QList_int___node_destruct(&local_48);
     }
   }
   *param_1 = *param_3;
@@ -31566,7 +31617,7 @@ undefined8 FUN_00a54250(undefined8 param_1,undefined8 *param_2,undefined8 *param
   local_28 = param_3[2];
                     /* try { // try from 00a54280 to 00a54284 has its CatchHandler @ 00a54297 */
   FUN_00a26c74(param_1,*param_2,&local_38,1);
-  FUN_0096bb02(&local_38);
+  BSim_QList_int___node_destruct(&local_38);
   return param_1;
 }
 
@@ -31585,7 +31636,7 @@ undefined8 FUN_00a542a0(undefined8 param_1,undefined8 *param_2,undefined8 *param
   local_28 = param_3[2];
                     /* try { // try from 00a542cd to 00a542d1 has its CatchHandler @ 00a542e4 */
   FUN_00a26c74(param_1,*param_2,&local_38,0);
-  FUN_0096bb02(&local_38);
+  BSim_QList_int___node_destruct(&local_38);
   return param_1;
 }
 
@@ -31616,8 +31667,8 @@ FUN_00a542ec(undefined8 *param_1,undefined8 *param_2,undefined8 *param_3,long pa
     *param_3 = local_48;
     param_3[1] = local_40;
     param_3[2] = local_38;
-    FUN_0096bb02(&local_48);
-    FUN_0096bb02(&local_68);
+    BSim_QList_int___node_destruct(&local_48);
+    BSim_QList_int___node_destruct(&local_68);
   }
   *param_1 = *param_3;
   param_1[1] = param_3[1];
@@ -31679,8 +31730,8 @@ FUN_00a5440a(undefined8 *param_1,undefined8 *param_2,undefined8 *param_3,long pa
       *param_3 = local_58;
       param_3[1] = local_50;
       param_3[2] = local_48;
-      FUN_0096bb02(&local_58);
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_58);
+      BSim_QList_int___node_destruct(&local_78);
       goto LAB_00a544e5;
     }
     uVar4 = *param_2;
@@ -31690,7 +31741,7 @@ FUN_00a5440a(undefined8 *param_1,undefined8 *param_2,undefined8 *param_3,long pa
   *param_3 = local_58;
   param_3[1] = local_50;
   param_3[2] = local_48;
-  FUN_0096bb02(&local_58);
+  BSim_QList_int___node_destruct(&local_58);
 LAB_00a544e5:
   *param_1 = *param_3;
   param_1[1] = param_3[1];
@@ -31773,7 +31824,7 @@ LAB_00a54675:
       runstyles_runnode_init(&local_58,uVar4,0,0);
                     /* try { // try from 00a546b9 to 00a546bd has its CatchHandler @ 00a54781 */
       lVar3 = FUN_009587cc(uVar1,&local_58);
-      FUN_0096bb02(&local_58);
+      BSim_QList_int___node_destruct(&local_58);
       local_78 = *param_3;
       local_70 = param_3[1];
       local_68 = param_3[2];
@@ -31782,8 +31833,8 @@ LAB_00a54675:
       *param_3 = local_58;
       param_3[1] = local_50;
       param_3[2] = local_48;
-      FUN_0096bb02(&local_58);
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_58);
+      BSim_QList_int___node_destruct(&local_78);
       *param_1 = *param_3;
       param_1[1] = param_3[1];
       param_1[2] = param_3[2];
@@ -31864,7 +31915,7 @@ undefined8 * FUN_00a54802(undefined8 *param_1,long param_2,undefined8 *param_3,c
                     /* try { // try from 00a549c2 to 00a549c6 has its CatchHandler @ 00a54a6a */
     puVar11 = operator_new(0x18);
     puVar11[1] = 0x100000001;
-    *puVar11 = &PTR_FUN_011aff08;
+    *puVar11 = &PTR_BSim_QList_int___node_destruct_011aff08;
     puVar11[2] = plVar9;
     *(long **)(param_2 + 0x20) = plVar9;
     plVar4 = *(long **)(param_2 + 0x28);
@@ -31923,7 +31974,7 @@ LAB_00a54876:
       *param_3 = local_58;
       param_3[1] = local_50;
       param_3[2] = local_48;
-      FUN_0096bb02(&local_58);
+      BSim_QList_int___node_destruct(&local_58);
       goto LAB_00a548f6;
     }
   }
@@ -31937,7 +31988,7 @@ LAB_00a54876:
   *param_3 = local_58;
   param_3[1] = local_50;
   param_3[2] = local_48;
-  FUN_0096bb02(&local_58);
+  BSim_QList_int___node_destruct(&local_58);
 LAB_00a548f6:
   *param_1 = *param_3;
   param_1[1] = param_3[1];
@@ -31982,7 +32033,7 @@ undefined8 * FUN_00a54ab0(undefined8 *param_1,long param_2,undefined8 *param_3,u
     *param_3 = local_48;
     param_3[1] = local_40;
     param_3[2] = local_38;
-    FUN_0096bb02(&local_48);
+    BSim_QList_int___node_destruct(&local_48);
   }
   *param_1 = *param_3;
   param_1[1] = param_3[1];
@@ -32042,10 +32093,10 @@ undefined8 FUN_00a54bae(undefined8 param_1,long param_2,undefined8 param_3)
   undefined1 local_48 [32];
   
   uVar8 = *(undefined8 *)(param_2 + 8);
-  uVar5 = FUN_0096c18e(param_3);
+  uVar5 = BSim_Splitter__createHandle(param_3);
   lVar6 = FUN_009252f4(uVar8,uVar5,0xffffffff,1);
   uVar8 = *(undefined8 *)(param_2 + 8);
-  uVar5 = FUN_0096c1a4(param_3);
+  uVar5 = BSim_Splitter__createHandle(param_3);
   lVar7 = FUN_009252f4(uVar8,uVar5,0xffffffff,1);
   bVar1 = FUN_0092884a(*(undefined8 *)(param_2 + 8),lVar6);
   cVar2 = FUN_0092884a(*(undefined8 *)(param_2 + 8),lVar7);
@@ -32078,8 +32129,8 @@ LAB_00a54c55:
   runstyles_runnode_init(auStack_68,lVar6,0,0);
                     /* try { // try from 00a54c89 to 00a54c8d has its CatchHandler @ 00a54d1f */
   FUN_0096be24(param_1,auStack_68,local_48,1);
-  FUN_0096bb02(auStack_68);
-  FUN_0096bb02(local_48);
+  BSim_QList_int___node_destruct(auStack_68);
+  BSim_QList_int___node_destruct(local_48);
   return param_1;
 }
 
@@ -32098,10 +32149,10 @@ undefined8 FUN_00a54d28(undefined8 param_1,long param_2,undefined8 param_3,char 
   
   if (param_4 == '\0') {
     uVar4 = *(undefined8 *)(param_2 + 8);
-    uVar1 = FUN_0096c18e(param_3);
+    uVar1 = BSim_Splitter__createHandle(param_3);
     uVar1 = FUN_0092522a(uVar4,uVar1);
     uVar4 = *(undefined8 *)(param_2 + 8);
-    uVar2 = FUN_0096c1a4(param_3);
+    uVar2 = BSim_Splitter__createHandle(param_3);
     lVar3 = FUN_0092522a(uVar4,uVar2);
     uVar4 = FUN_00925200(*(undefined8 *)(param_2 + 8),uVar1);
     uVar1 = FUN_00925200(*(undefined8 *)(param_2 + 8),lVar3 + 1);
@@ -32121,8 +32172,8 @@ undefined8 FUN_00a54d28(undefined8 param_1,long param_2,undefined8 param_3,char 
   runstyles_runnode_init(auStack_68,uVar4,0,0);
                     /* try { // try from 00a54dc9 to 00a54dcd has its CatchHandler @ 00a54e43 */
   FUN_0096be24(param_1,auStack_68,local_48,1);
-  FUN_0096bb02(auStack_68);
-  FUN_0096bb02(local_48);
+  BSim_QList_int___node_destruct(auStack_68);
+  BSim_QList_int___node_destruct(local_48);
   return param_1;
 }
 
@@ -32139,8 +32190,8 @@ undefined8 FUN_00a54e56(undefined8 param_1,long param_2,undefined8 param_3)
   undefined1 auStack_68 [32];
   undefined1 local_48 [32];
   
-  uVar2 = FUN_0096c18e(param_3);
-  uVar3 = FUN_0096c1a4(param_3);
+  uVar2 = BSim_Splitter__createHandle(param_3);
+  uVar3 = BSim_Splitter__createHandle(param_3);
   uVar4 = FUN_0092522a(*(undefined8 *)(param_2 + 8),uVar2);
   cVar1 = FUN_009297c0(*(undefined8 *)(param_2 + 8),uVar4,0xffffffff);
   if (cVar1 == '\0') {
@@ -32155,8 +32206,8 @@ undefined8 FUN_00a54e56(undefined8 param_1,long param_2,undefined8 param_3)
   runstyles_runnode_init(auStack_68,uVar2,0,0);
                     /* try { // try from 00a54efe to 00a54f02 has its CatchHandler @ 00a54f30 */
   FUN_0096be24(param_1,auStack_68,local_48,1);
-  FUN_0096bb02(auStack_68);
-  FUN_0096bb02(local_48);
+  BSim_QList_int___node_destruct(auStack_68);
+  BSim_QList_int___node_destruct(local_48);
   return param_1;
 }
 
@@ -32176,8 +32227,8 @@ undefined8 FUN_00a54f40(undefined8 param_1,long param_2,undefined8 param_3)
   undefined1 auStack_68 [32];
   undefined1 local_48 [32];
   
-  uVar2 = FUN_0096c18e(param_3);
-  lVar3 = FUN_0096c1a4(param_3);
+  uVar2 = BSim_Splitter__createHandle(param_3);
+  lVar3 = BSim_Splitter__createHandle(param_3);
   lVar4 = FUN_0092801a(*(undefined8 *)(param_2 + 8));
   cVar1 = FUN_00935556(*(undefined8 *)(param_2 + 8),uVar2);
   if (cVar1 == '\0') {
@@ -32198,8 +32249,8 @@ undefined8 FUN_00a54f40(undefined8 param_1,long param_2,undefined8 param_3)
   runstyles_runnode_init(auStack_68,uVar2,0,0);
                     /* try { // try from 00a54fc0 to 00a54fc4 has its CatchHandler @ 00a55036 */
   FUN_0096be24(param_1,auStack_68,local_48,1);
-  FUN_0096bb02(auStack_68);
-  FUN_0096bb02(local_48);
+  BSim_QList_int___node_destruct(auStack_68);
+  BSim_QList_int___node_destruct(local_48);
   return param_1;
 }
 
@@ -32223,10 +32274,10 @@ undefined8 FUN_00a55046(undefined8 param_1,long param_2,undefined8 param_3)
   undefined1 local_58 [40];
   
   uVar7 = *(undefined8 *)(param_2 + 8);
-  uVar4 = FUN_0096c18e(param_3);
+  uVar4 = BSim_Splitter__createHandle(param_3);
   lVar5 = FUN_0092522a(uVar7,uVar4);
   uVar7 = *(undefined8 *)(param_2 + 8);
-  uVar4 = FUN_0096c1a4(param_3);
+  uVar4 = BSim_Splitter__createHandle(param_3);
   lVar6 = FUN_0092522a(uVar7,uVar4);
   cVar1 = doc_range_pair_set(*(undefined8 *)(param_2 + 8),lVar6);
   if (cVar1 == '\0') {
@@ -32293,8 +32344,8 @@ LAB_00a55176:
   runstyles_runnode_init(local_78,uVar7,0,0);
                     /* try { // try from 00a551ee to 00a551f2 has its CatchHandler @ 00a55254 */
   FUN_0096be24(param_1,local_78,local_58,1);
-  FUN_0096bb02(local_78);
-  FUN_0096bb02(local_58);
+  BSim_QList_int___node_destruct(local_78);
+  BSim_QList_int___node_destruct(local_58);
   return param_1;
 }
 
@@ -32310,8 +32361,8 @@ undefined8 FUN_00a55266(undefined8 param_1,long param_2,undefined8 param_3)
   undefined1 auStack_68 [32];
   undefined1 local_48 [40];
   
-  uVar2 = FUN_0096c18e(param_3);
-  uVar3 = FUN_0096c1a4(param_3);
+  uVar2 = BSim_Splitter__createHandle(param_3);
+  uVar3 = BSim_Splitter__createHandle(param_3);
   cVar1 = FUN_00930d3e(*(undefined8 *)(param_2 + 8),uVar2);
   if (cVar1 == '\0') {
     uVar2 = FUN_00930dc2(*(undefined8 *)(param_2 + 8),uVar2,0xffffffff);
@@ -32322,8 +32373,8 @@ undefined8 FUN_00a55266(undefined8 param_1,long param_2,undefined8 param_3)
   runstyles_runnode_init(auStack_68,uVar2,0,0);
                     /* try { // try from 00a552e4 to 00a552e8 has its CatchHandler @ 00a5531d */
   FUN_0096be24(param_1,auStack_68,local_48,1);
-  FUN_0096bb02(auStack_68);
-  FUN_0096bb02(local_48);
+  BSim_QList_int___node_destruct(auStack_68);
+  BSim_QList_int___node_destruct(local_48);
   return param_1;
 }
 
@@ -32343,8 +32394,8 @@ undefined8 FUN_00a5532e(undefined8 param_1,long param_2)
   runstyles_runnode_init(auStack_58,0,0,0);
                     /* try { // try from 00a55375 to 00a55379 has its CatchHandler @ 00a5539e */
   FUN_0096be24(param_1,auStack_58,local_38,1);
-  FUN_0096bb02(auStack_58);
-  FUN_0096bb02(local_38);
+  BSim_QList_int___node_destruct(auStack_58);
+  BSim_QList_int___node_destruct(local_38);
   return param_1;
 }
 
@@ -32395,7 +32446,7 @@ bool FUN_00a553e4(long *param_1,char param_2,char param_3,undefined8 param_4)
   runstyles_runnode_init(local_38,uVar3,0,0);
                     /* try { // try from 00a55492 to 00a55496 has its CatchHandler @ 00a554b1 */
   uVar1 = pos_equal(param_4,local_38);
-  FUN_0096bb02(local_38);
+  BSim_QList_int___node_destruct(local_38);
   return (bool)uVar1;
 }
 
@@ -32517,7 +32568,7 @@ LAB_00a55697:
   *param_3 = local_78;
   param_3[1] = local_70;
   param_3[2] = local_68;
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
   goto LAB_00a556d6;
 code_r0x00a5574d:
   puVar6 = (undefined8 *)FUN_00a5a7cc(&local_50);
@@ -32633,7 +32684,7 @@ FUN_00a557b0(undefined8 *param_1,long *param_2,undefined8 *param_3,char param_4,
           *param_3 = local_58;
           param_3[1] = local_50;
           param_3[2] = local_48;
-          FUN_0096bb02(&local_58);
+          BSim_QList_int___node_destruct(&local_58);
           puVar7 = &local_78;
           goto LAB_00a560e9;
         }
@@ -32645,8 +32696,8 @@ FUN_00a557b0(undefined8 *param_1,long *param_2,undefined8 *param_3,char param_4,
         *param_3 = local_58;
         param_3[1] = local_50;
         param_3[2] = local_48;
-        FUN_0096bb02(&local_58);
-        FUN_0096bb02(&local_98);
+        BSim_QList_int___node_destruct(&local_58);
+        BSim_QList_int___node_destruct(&local_98);
         goto LAB_00a559e4;
       case '\x02':
         lVar6 = *param_2;
@@ -32726,7 +32777,7 @@ LAB_00a55a09:
         *param_3 = local_238;
         param_3[1] = local_230;
         param_3[2] = local_228;
-        FUN_0096bb02(&local_238);
+        BSim_QList_int___node_destruct(&local_238);
         goto LAB_00a558c2;
       case '\b':
         if (*(char *)(*param_2 + 0x1128) == '\0') {
@@ -32738,7 +32789,7 @@ LAB_00a55a09:
           *param_3 = local_58;
           param_3[1] = local_50;
           param_3[2] = local_48;
-          FUN_0096bb02(&local_58);
+          BSim_QList_int___node_destruct(&local_58);
           puVar7 = &local_78;
           goto LAB_00a558c2;
         }
@@ -32750,8 +32801,8 @@ LAB_00a55a09:
         *param_3 = local_58;
         param_3[1] = local_50;
         param_3[2] = local_48;
-        FUN_0096bb02(&local_58);
-        FUN_0096bb02(&local_98);
+        BSim_QList_int___node_destruct(&local_58);
+        BSim_QList_int___node_destruct(&local_98);
         goto LAB_00a558c7;
       case '\t':
         local_58 = uVar3;
@@ -32762,7 +32813,7 @@ LAB_00a55a09:
         *param_3 = local_218;
         param_3[1] = local_210;
         param_3[2] = local_208;
-        FUN_0096bb02(&local_218);
+        BSim_QList_int___node_destruct(&local_218);
         goto LAB_00a558c2;
       case '\n':
         local_58 = uVar3;
@@ -32773,7 +32824,7 @@ LAB_00a55a09:
         *param_3 = local_1f8;
         param_3[1] = local_1f0;
         param_3[2] = local_1e8;
-        FUN_0096bb02(&local_1f8);
+        BSim_QList_int___node_destruct(&local_1f8);
         goto LAB_00a558c2;
       case '\v':
         local_58 = uVar3;
@@ -32784,7 +32835,7 @@ LAB_00a55a09:
         *param_3 = local_1d8;
         param_3[1] = local_1d0;
         param_3[2] = local_1c8;
-        FUN_0096bb02(&local_1d8);
+        BSim_QList_int___node_destruct(&local_1d8);
         goto LAB_00a558c2;
       case '\f':
         lVar6 = *param_2;
@@ -32797,7 +32848,7 @@ LAB_00a55a09:
         *param_3 = local_1b8;
         param_3[1] = local_1b0;
         param_3[2] = local_1a8;
-        FUN_0096bb02(&local_1b8);
+        BSim_QList_int___node_destruct(&local_1b8);
         goto LAB_00a560e9;
       case '\r':
         local_300 = &local_198;
@@ -32901,7 +32952,7 @@ LAB_00a55a09:
           *param_3 = local_b8;
           param_3[1] = local_b0;
           param_3[2] = local_a8;
-          FUN_0096bb02(&local_b8);
+          BSim_QList_int___node_destruct(&local_b8);
           goto LAB_00a558c2;
         }
         uVar4 = 0;
@@ -32916,7 +32967,7 @@ LAB_00a55a09:
         *param_3 = local_98;
         param_3[1] = local_90;
         param_3[2] = local_88;
-        FUN_0096bb02(&local_98);
+        BSim_QList_int___node_destruct(&local_98);
         goto LAB_00a560e9;
       case '\x17':
       case '\x18':
@@ -32928,7 +32979,7 @@ LAB_00a55a09:
         param_3[2] = local_68;
         puVar7 = &local_78;
 LAB_00a558c2:
-        FUN_0096bb02(puVar7);
+        BSim_QList_int___node_destruct(puVar7);
 LAB_00a558c7:
         lVar6 = *param_2;
         uVar4 = 0;
@@ -32939,9 +32990,9 @@ LAB_00a558c7:
         goto LAB_00a558d9;
       }
       param_3[2] = uVar3;
-      FUN_0096bb02(local_300);
+      BSim_QList_int___node_destruct(local_300);
 LAB_00a560e9:
-      FUN_0096bb02(puVar7);
+      BSim_QList_int___node_destruct(puVar7);
 LAB_00a559e4:
       lVar6 = *param_2;
       uVar4 = param_5 & 0xffffffff;
@@ -32957,16 +33008,16 @@ LAB_00a558d9:
       *param_3 = local_58;
       param_3[1] = local_50;
       param_3[2] = local_48;
-      FUN_0096bb02(&local_58);
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_58);
+      BSim_QList_int___node_destruct(&local_78);
                     /* try { // try from 00a55939 to 00a5593d has its CatchHandler @ 00a56341 */
       cVar1 = pos_equal(param_3,&local_2f8);
       if ((cVar1 != '\0') || (param_5 == 0)) {
-        FUN_0096bb02(&local_2f8);
+        BSim_QList_int___node_destruct(&local_2f8);
         break;
       }
       param_5 = ((ulong)(-(uint)(local_30a == false) & 2) - 1) + param_5;
-      FUN_0096bb02(&local_2f8);
+      BSim_QList_int___node_destruct(&local_2f8);
     } while (param_5 != 0);
   }
   *param_1 = *param_3;
@@ -33077,8 +33128,8 @@ LAB_00a564f0:
             *puVar11 = CONCAT44(uStack_54,local_58);
             puVar11[1] = local_50;
             puVar11[2] = local_48;
-            FUN_0096bb02(&local_58);
-            FUN_0096bb02(&local_78);
+            BSim_QList_int___node_destruct(&local_58);
+            BSim_QList_int___node_destruct(&local_78);
             if (param_2 == '\x0e') goto LAB_00a566e2;
 LAB_00a565cd:
             if (param_2 == '\x12') goto LAB_00a566e2;
@@ -33121,7 +33172,7 @@ LAB_00a565cd:
                 *puVar11 = CONCAT44(uStack_54,local_58);
                 puVar11[1] = local_50;
                 puVar11[2] = local_48;
-                FUN_0096bb02(&local_58);
+                BSim_QList_int___node_destruct(&local_58);
               }
             }
             if (lVar9 != param_3) goto LAB_00a564f0;
@@ -33142,7 +33193,7 @@ LAB_00a566e2:
                   *puVar11 = CONCAT44(uStack_54,local_58);
                   puVar11[1] = local_50;
                   puVar11[2] = local_48;
-                  FUN_0096bb02(&local_58);
+                  BSim_QList_int___node_destruct(&local_58);
                   break;
                 }
                 lVar16 = lVar16 + 1;
@@ -33176,7 +33227,7 @@ LAB_00a566e2:
             *puVar11 = CONCAT44(uStack_54,local_58);
             puVar11[1] = local_50;
             puVar11[2] = local_48;
-            FUN_0096bb02(&local_58);
+            BSim_QList_int___node_destruct(&local_58);
           }
         }
 LAB_00a56647:
@@ -33305,7 +33356,7 @@ LAB_00a56e40:
                 *puVar15 = local_78;
                 puVar15[1] = local_70;
                 puVar15[2] = local_68;
-                FUN_0096bb02(&local_78);
+                BSim_QList_int___node_destruct(&local_78);
                 puVar17 = puVar17 + 3;
               } while (puVar14 != puVar17);
 LAB_00a56e96:
@@ -33329,8 +33380,8 @@ LAB_00a56e96:
           *puVar14 = CONCAT44(uStack_54,local_58);
           puVar14[1] = local_50;
           puVar14[2] = local_48;
-          FUN_0096bb02(&local_58);
-          FUN_0096bb02(&local_78);
+          BSim_QList_int___node_destruct(&local_58);
+          BSim_QList_int___node_destruct(&local_78);
           if (*(char *)(*param_1 + 0x1128) != '\0') {
                     /* try { // try from 00a56c7d to 00a56cea has its CatchHandler @ 00a571a7 */
             FUN_00975584(param_1[3],uVar11,0 < param_4);
@@ -33367,7 +33418,7 @@ LAB_00a56d4d:
               cVar7 = FUN_0096bb88(uVar12,local_98);
               bVar9 = bVar9 & 7;
               if (cVar7 == '\0') {
-                FUN_0096bb02(local_98);
+                BSim_QList_int___node_destruct(local_98);
                 if (lVar13 != lVar16) {
 LAB_00a57031:
                   if (bVar9 == 3) {
@@ -33379,7 +33430,7 @@ LAB_00a57058:
                     *puVar14 = local_78;
                     puVar14[1] = local_70;
                     puVar14[2] = local_68;
-                    FUN_0096bb02(&local_78);
+                    BSim_QList_int___node_destruct(&local_78);
                   }
                 }
               }
@@ -33389,8 +33440,8 @@ LAB_00a57058:
                     /* try { // try from 00a570e5 to 00a570f6 has its CatchHandler @ 00a57165 */
                 uVar12 = FUN_0096bfce(uVar11);
                 cVar7 = FUN_0096bb76(uVar12,&local_78);
-                FUN_0096bb02(&local_78);
-                FUN_0096bb02(local_98);
+                BSim_QList_int___node_destruct(&local_78);
+                BSim_QList_int___node_destruct(local_98);
                 if (lVar13 != lVar16) {
                   if (cVar7 == '\0') goto LAB_00a57031;
                   if (bVar9 == 1) {
@@ -33427,7 +33478,7 @@ LAB_00a57058:
               *puVar14 = local_78;
               puVar14[1] = local_70;
               puVar14[2] = local_68;
-              FUN_0096bb02(&local_78);
+              BSim_QList_int___node_destruct(&local_78);
             }
             if (local_50 != (undefined8 *)0x0) {
               operator_delete(local_50);
@@ -33524,8 +33575,8 @@ undefined8 FUN_00a571c0(undefined8 param_1,long param_2,undefined8 param_3)
   undefined8 local_80;
   undefined1 local_78 [72];
   
-  lVar3 = FUN_0096c18e(param_3);
-  lVar4 = FUN_0096c1a4(param_3);
+  lVar3 = BSim_Splitter__createHandle(param_3);
+  lVar4 = BSim_Splitter__createHandle(param_3);
   local_a0[0] = 0;
   local_98 = 0;
   local_90 = (_Rb_tree_node_base *)local_a0;
@@ -33621,8 +33672,8 @@ LAB_00a57ebe:
                     /* try { // try from 00a58249 to 00a5824d has its CatchHandler @ 00a58515 */
                 stdmap_upperBound(local_a8,local_78);
                 FUN_0096bd50(local_78);
-                FUN_0096bb02(local_c8);
-                FUN_0096bb02(local_e8);
+                BSim_QList_int___node_destruct(local_c8);
+                BSim_QList_int___node_destruct(local_e8);
                 plVar6 = local_1a8 + lVar12 * 3;
                 goto LAB_00a57b5c;
               }
@@ -33640,8 +33691,8 @@ LAB_00a57b5c:
                     /* try { // try from 00a57bb0 to 00a57bb4 has its CatchHandler @ 00a585b5 */
           stdmap_upperBound(local_a8,local_78);
           FUN_0096bd50(local_78);
-          FUN_0096bb02(local_c8);
-          FUN_0096bb02(local_e8);
+          BSim_QList_int___node_destruct(local_c8);
+          BSim_QList_int___node_destruct(local_e8);
         }
 joined_r0x00a57f06:
         if (local_1a8 == (long *)0x0) goto LAB_00a57bdb;
@@ -33744,8 +33795,8 @@ LAB_00a57f53:
                     /* try { // try from 00a58199 to 00a5819d has its CatchHandler @ 00a584f5 */
                 stdmap_upperBound(local_a8,local_78);
                 FUN_0096bd50(local_78);
-                FUN_0096bb02(local_c8);
-                FUN_0096bb02(local_e8);
+                BSim_QList_int___node_destruct(local_c8);
+                BSim_QList_int___node_destruct(local_e8);
                 plVar6 = local_188 + (lVar9 + -1) * 3;
                 goto LAB_00a578c2;
               }
@@ -33763,8 +33814,8 @@ LAB_00a578c2:
                     /* try { // try from 00a57916 to 00a5791a has its CatchHandler @ 00a584b5 */
           stdmap_upperBound(local_a8,local_78);
           FUN_0096bd50(local_78);
-          FUN_0096bb02(local_c8);
-          FUN_0096bb02(local_e8);
+          BSim_QList_int___node_destruct(local_c8);
+          BSim_QList_int___node_destruct(local_e8);
         }
 joined_r0x00a57f9b:
         if (local_188 == (long *)0x0) goto LAB_00a57941;
@@ -33875,8 +33926,8 @@ LAB_00a57ffe:
                     /* try { // try from 00a58340 to 00a58344 has its CatchHandler @ 00a5851d */
                   stdmap_upperBound(local_a8,local_78);
                   FUN_0096bd50(local_78);
-                  FUN_0096bb02(local_c8);
-                  FUN_0096bb02(local_108);
+                  BSim_QList_int___node_destruct(local_c8);
+                  BSim_QList_int___node_destruct(local_108);
                   plVar6 = local_168 + lVar12 * 3;
                   goto LAB_00a57de3;
                 }
@@ -33895,8 +33946,8 @@ LAB_00a57de3:
                     /* try { // try from 00a57e39 to 00a57e3d has its CatchHandler @ 00a58525 */
             stdmap_upperBound(local_a8,local_78);
             FUN_0096bd50(local_78);
-            FUN_0096bb02(local_c8);
-            FUN_0096bb02(local_1b0);
+            BSim_QList_int___node_destruct(local_c8);
+            BSim_QList_int___node_destruct(local_1b0);
           }
 joined_r0x00a58049:
           if (local_168 == (long *)0x0) goto LAB_00a57e65;
@@ -34001,8 +34052,8 @@ LAB_00a5809b:
                     /* try { // try from 00a583ea to 00a583ee has its CatchHandler @ 00a584fd */
               stdmap_upperBound(local_a8,local_78);
               FUN_0096bd50(local_78);
-              FUN_0096bb02(local_e8);
-              FUN_0096bb02(local_108);
+              BSim_QList_int___node_destruct(local_e8);
+              BSim_QList_int___node_destruct(local_108);
               plVar6 = local_148 + (lVar12 + -1) * 3;
               goto LAB_00a575d6;
             }
@@ -34021,8 +34072,8 @@ LAB_00a575d6:
                     /* try { // try from 00a5762a to 00a5762e has its CatchHandler @ 00a5859d */
         stdmap_upperBound(local_a8,local_78);
         FUN_0096bd50(local_78);
-        FUN_0096bb02(local_e8);
-        FUN_0096bb02(local_1b0);
+        BSim_QList_int___node_destruct(local_e8);
+        BSim_QList_int___node_destruct(local_1b0);
       }
 joined_r0x00a580e9:
       if (local_148 == (long *)0x0) goto LAB_00a57659;
@@ -34042,8 +34093,8 @@ LAB_00a57278:
   runstyles_runnode_init(local_e8,lVar3,0,0);
                     /* try { // try from 00a572b6 to 00a572ba has its CatchHandler @ 00a5856d */
   FUN_0096be24(local_78,local_e8,local_1c0,0);
-  FUN_0096bb02(local_e8);
-  FUN_0096bb02(local_1c0);
+  BSim_QList_int___node_destruct(local_e8);
+  BSim_QList_int___node_destruct(local_1c0);
   p_Var5 = (_Rb_tree_node_base *)local_a0;
   if (local_90 != p_Var5) {
     do {
@@ -34052,8 +34103,8 @@ LAB_00a57278:
                     /* try { // try from 00a5730b to 00a5733d has its CatchHandler @ 00a5857d */
       cVar2 = FUN_0096c4c8(lVar12,local_78);
       if (cVar2 != '\0') {
-        lVar3 = FUN_0096c18e(lVar12);
-        lVar4 = FUN_0096c1a4(lVar12);
+        lVar3 = BSim_Splitter__createHandle(lVar12);
+        lVar4 = BSim_Splitter__createHandle(lVar12);
         goto LAB_00a5732a;
       }
       p_Var5 = (_Rb_tree_node_base *)std::_Rb_tree_decrement(p_Var5);
@@ -34061,11 +34112,11 @@ LAB_00a57278:
     for (; p_Var5 != (_Rb_tree_node_base *)local_a0;
         p_Var5 = (_Rb_tree_node_base *)std::_Rb_tree_increment(p_Var5)) {
                     /* try { // try from 00a57692 to 00a576a5 has its CatchHandler @ 00a5857d */
-      lVar12 = FUN_0096c18e(p_Var5 + 0x20);
+      lVar12 = BSim_Splitter__createHandle(p_Var5 + 0x20);
       if (lVar12 < lVar3) {
         lVar3 = lVar12;
       }
-      lVar12 = FUN_0096c1a4(p_Var5 + 0x20);
+      lVar12 = BSim_Splitter__createHandle(p_Var5 + 0x20);
       if (lVar4 < lVar12) {
         lVar4 = lVar12;
       }
@@ -34077,8 +34128,8 @@ LAB_00a5732a:
   runstyles_runnode_init(local_e8,lVar3,0,0);
                     /* try { // try from 00a5735d to 00a57361 has its CatchHandler @ 00a58565 */
   FUN_0096be24(param_1,local_e8,local_1c0,1);
-  FUN_0096bb02(local_e8);
-  FUN_0096bb02(local_1c0);
+  BSim_QList_int___node_destruct(local_e8);
+  BSim_QList_int___node_destruct(local_1c0);
   FUN_0096bd50(local_78);
   FUN_00a53800(local_a8,local_98);
   return param_1;
@@ -34132,8 +34183,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
   undefined8 local_60;
   undefined8 local_58;
   
-  lVar2 = FUN_0096c18e(param_3);
-  lVar3 = FUN_0096c1a4(param_3);
+  lVar2 = BSim_Splitter__createHandle(param_3);
+  lVar3 = BSim_Splitter__createHandle(param_3);
   local_1a0[0] = 0;
   local_198 = 0;
   local_190 = (_Rb_tree_node_base *)local_1a0;
@@ -34152,8 +34203,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a586e1 to 00a586e5 has its CatchHandler @ 00a58d25 */
       FUN_00a5a88e(local_1a8,local_78);
       FUN_0096bd50(local_78);
-      FUN_0096bb02(local_b8);
-      FUN_0096bb02(local_288);
+      BSim_QList_int___node_destruct(local_b8);
+      BSim_QList_int___node_destruct(local_288);
     }
                     /* try { // try from 00a58712 to 00a58716 has its CatchHandler @ 00a58d4d */
     runstyles_runnode_init(local_2a8,local_128,0,0);
@@ -34164,8 +34215,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a58753 to 00a58757 has its CatchHandler @ 00a58d35 */
     FUN_00a5a88e(local_1a8,local_78);
     FUN_0096bd50(local_78);
-    FUN_0096bb02(local_b8);
-    FUN_0096bb02(local_2a8);
+    BSim_QList_int___node_destruct(local_b8);
+    BSim_QList_int___node_destruct(local_2a8);
   }
                     /* try { // try from 00a5877b to 00a587cd has its CatchHandler @ 00a58d4d */
   FUN_00a0cd3e(local_f8);
@@ -34180,8 +34231,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a5880a to 00a5880e has its CatchHandler @ 00a58d0d */
       FUN_00a5a88e(local_1a8,local_78);
       FUN_0096bd50(local_78);
-      FUN_0096bb02(local_b8);
-      FUN_0096bb02(local_248);
+      BSim_QList_int___node_destruct(local_b8);
+      BSim_QList_int___node_destruct(local_248);
     }
                     /* try { // try from 00a5883b to 00a5883f has its CatchHandler @ 00a58d4d */
     runstyles_runnode_init(local_268,local_e8,0,0);
@@ -34192,8 +34243,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a5887c to 00a58880 has its CatchHandler @ 00a58d55 */
     FUN_00a5a88e(local_1a8,local_78);
     FUN_0096bd50(local_78);
-    FUN_0096bb02(local_b8);
-    FUN_0096bb02(local_268);
+    BSim_QList_int___node_destruct(local_b8);
+    BSim_QList_int___node_destruct(local_268);
   }
   if (lVar2 != lVar3) {
                     /* try { // try from 00a588af to 00a588fc has its CatchHandler @ 00a58d4d */
@@ -34209,8 +34260,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a58931 to 00a58935 has its CatchHandler @ 00a58c85 */
         FUN_00a5a88e(local_1a8,local_78);
         FUN_0096bd50(local_78);
-        FUN_0096bb02(local_f8);
-        FUN_0096bb02(local_208);
+        BSim_QList_int___node_destruct(local_f8);
+        BSim_QList_int___node_destruct(local_208);
       }
                     /* try { // try from 00a58965 to 00a58969 has its CatchHandler @ 00a58d4d */
       runstyles_runnode_init(local_228,local_a8,0,0);
@@ -34221,8 +34272,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a5899e to 00a589a2 has its CatchHandler @ 00a58c9d */
       FUN_00a5a88e(local_1a8,local_78);
       FUN_0096bd50(local_78);
-      FUN_0096bb02(local_f8);
-      FUN_0096bb02(local_228);
+      BSim_QList_int___node_destruct(local_f8);
+      BSim_QList_int___node_destruct(local_228);
     }
                     /* try { // try from 00a589be to 00a58a0e has its CatchHandler @ 00a58d4d */
     FUN_00a0cd3e(local_78);
@@ -34237,8 +34288,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a58a3b to 00a58a3f has its CatchHandler @ 00a58cb5 */
         FUN_00a5a88e(local_1a8,local_b8);
         FUN_0096bd50(local_b8);
-        FUN_0096bb02(local_f8);
-        FUN_0096bb02(local_1c8);
+        BSim_QList_int___node_destruct(local_f8);
+        BSim_QList_int___node_destruct(local_1c8);
       }
                     /* try { // try from 00a58a6f to 00a58a73 has its CatchHandler @ 00a58d4d */
       runstyles_runnode_init(local_1e8,local_68,0,0);
@@ -34249,8 +34300,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a58aa0 to 00a58aa4 has its CatchHandler @ 00a58ccd */
       FUN_00a5a88e(local_1a8,local_b8);
       FUN_0096bd50(local_b8);
-      FUN_0096bb02(local_f8);
-      FUN_0096bb02(local_1e8);
+      BSim_QList_int___node_destruct(local_f8);
+      BSim_QList_int___node_destruct(local_1e8);
     }
   }
                     /* try { // try from 00a58ac7 to 00a58acb has its CatchHandler @ 00a58d4d */
@@ -34259,8 +34310,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
   runstyles_runnode_init(local_b8,lVar2,0,0);
                     /* try { // try from 00a58afd to 00a58b01 has its CatchHandler @ 00a58cdd */
   FUN_0096be24(local_178,local_b8,local_78,0);
-  FUN_0096bb02(local_b8);
-  FUN_0096bb02(local_78);
+  BSim_QList_int___node_destruct(local_b8);
+  BSim_QList_int___node_destruct(local_78);
   p_Var4 = (_Rb_tree_node_base *)local_1a0;
   if (local_190 != p_Var4) {
     do {
@@ -34269,8 +34320,8 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
                     /* try { // try from 00a58b57 to 00a58b8f has its CatchHandler @ 00a58ce5 */
       cVar1 = FUN_0096c4c8(lVar5,local_178);
       if (cVar1 != '\0') {
-        lVar6 = FUN_0096c18e(lVar5);
-        lVar3 = FUN_0096c1a4(lVar5);
+        lVar6 = BSim_Splitter__createHandle(lVar5);
+        lVar3 = BSim_Splitter__createHandle(lVar5);
         goto joined_r0x00a58c55;
       }
       p_Var4 = (_Rb_tree_node_base *)std::_Rb_tree_decrement(p_Var4);
@@ -34279,11 +34330,11 @@ undefined8 FUN_00a585d6(undefined8 param_1,long *param_2,undefined8 param_3)
     if (p_Var4 != (_Rb_tree_node_base *)local_1a0) {
       do {
                     /* try { // try from 00a58c23 to 00a58c36 has its CatchHandler @ 00a58ce5 */
-        lVar5 = FUN_0096c18e(p_Var4 + 0x20);
+        lVar5 = BSim_Splitter__createHandle(p_Var4 + 0x20);
         if (lVar5 < lVar6) {
           lVar6 = lVar5;
         }
-        lVar5 = FUN_0096c1a4(p_Var4 + 0x20);
+        lVar5 = BSim_Splitter__createHandle(p_Var4 + 0x20);
         if (lVar3 < lVar5) {
           lVar3 = lVar5;
         }
@@ -34302,8 +34353,8 @@ LAB_00a58b81:
   runstyles_runnode_init(local_b8,lVar5,0,0);
                     /* try { // try from 00a58baf to 00a58bb3 has its CatchHandler @ 00a58cf5 */
   FUN_0096be24(param_1,local_b8,local_78,1);
-  FUN_0096bb02(local_b8);
-  FUN_0096bb02(local_78);
+  BSim_QList_int___node_destruct(local_b8);
+  BSim_QList_int___node_destruct(local_78);
   FUN_0096bd50(local_178);
   FUN_00a5a850(local_1a8,local_198);
   return param_1;
@@ -35223,8 +35274,8 @@ switchD_00a59682_caseD_7d:
                     /* try { // try from 00a59b29 to 00a59b2d has its CatchHandler @ 00a5a42b */
     param_2 = FUN_0096bbc0((QVariant *)local_58);
   }
-  FUN_0096bb02((QVariant *)local_58);
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct((QVariant *)local_58);
+  BSim_QList_int___node_destruct(&local_78);
 LAB_00a595e1:
   if (plVar7 != (long *)0x0) {
 LAB_00a595e6:
@@ -35286,18 +35337,23 @@ void FUN_00a5a621(void)
 }
 
 
-// ==== entry=00a5a78a name=FUN_00a5a78a size=1 ====
+// ==== entry=00a5a78a orig=FUN_00a5a78a size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a5a78a(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a5a78c name=FUN_00a5a78c size=3 ====
+// ==== entry=00a5a78c orig=FUN_00a5a78c size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00a5a78c(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
@@ -35557,9 +35613,14 @@ void FUN_00a5aaf6(undefined8 *param_1)
 }
 
 
-// ==== entry=00a5ab18 name=FUN_00a5ab18 size=54 ====
+// ==== entry=00a5ab18 orig=FUN_00a5ab18 size=54 name=BSim_std::_Vector_base_TelnetOption__std::allocator_TelnetOption___::_Vector_impl_data::_Vector_impl_data ====
 
-void FUN_00a5ab18(undefined8 *param_1)
+/* BSim sim=0.789666397742684 sig=6.218550101757746
+   ref=libwindtermopen.so.1.0.0::std::_Vector_base<TelnetOption,_std::allocator<TelnetOption>_>::_Vector_impl_data::_Vector_impl_data
+    */
+
+void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______Vector_impl_data___Vector_impl_data
+               (undefined8 *param_1)
 
 {
   *param_1 = 0xffffffffffffffff;
@@ -36264,7 +36325,7 @@ double s_text_folded_a5b9fc(long param_1,undefined4 param_2,uint param_3)
                     /* try { // try from 00a5baa8 to 00a5baac has its CatchHandler @ 00a5bb77 */
   uVar5 = FUN_0095021a(uVar5,(string *)local_30);
   FUN_00a5aa04(local_30[0] + -0x18);
-  dVar6 = (double)FUN_0094a8b6(uVar5);
+  dVar6 = (double)BSim_std____is_constant_evaluated(uVar5);
   lVar4 = *(long *)(param_1 + 0x38);
   dVar7 = (double)textwidth_hash_get(uVar5,lVar4 + *(long *)(lVar4 + 0x10),
                                      *(undefined4 *)(lVar4 + 4));
@@ -37164,7 +37225,8 @@ void FUN_00a5cd64(long *param_1,long param_2,undefined1 param_3)
   param_1[0xb] = (long)&DAT_bff0000000000000;
                     /* try { // try from 00a5cdbf to 00a5cdd2 has its CatchHandler @ 00a5cebf */
   FUN_00a5aaf6(param_1 + 0xc);
-  FUN_00a5ab18(param_1 + 0x12);
+  BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______Vector_impl_data___Vector_impl_data
+            (param_1 + 0x12);
                     /* try { // try from 00a5cdd8 to 00a5cddc has its CatchHandler @ 00a5cecf */
   puVar1 = operator_new(0x20);
   *puVar1 = &PTR_FUN_011922a8;
@@ -38143,9 +38205,11 @@ void FUN_00a5e8a0(long *param_1,long param_2)
 }
 
 
-// ==== entry=00a5e8ba name=FUN_00a5e8ba size=1 ====
+// ==== entry=00a5e8ba orig=FUN_00a5e8ba size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a5e8ba(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -38165,7 +38229,7 @@ void FUN_00a5e8bc(undefined8 *param_1,long param_2)
     FUN_00a1fda6(auStack_38,*param_1,0xffffffff);
                     /* try { // try from 00a5e913 to 00a5e917 has its CatchHandler @ 00a5e949 */
     param_2 = FUN_009587cc(param_1[2],auStack_38);
-    FUN_0096bb02(auStack_38);
+    BSim_QList_int___node_destruct(auStack_38);
     cVar1 = FUN_00a206e8(*param_1,param_2);
   }
   else {
@@ -38246,8 +38310,8 @@ LAB_00a5ea24:
           *puVar3 = local_78;
           puVar3[1] = local_70;
           puVar3[2] = local_68;
-          FUN_0096bb02(&local_78);
-          FUN_0096bb02(&local_58);
+          BSim_QList_int___node_destruct(&local_78);
+          BSim_QList_int___node_destruct(&local_58);
         }
       }
       lVar5 = FUN_0096bbc0(puVar4);
@@ -38263,8 +38327,8 @@ LAB_00a5ea24:
           *puVar4 = local_58;
           puVar4[1] = local_50;
           puVar4[2] = local_48;
-          FUN_0096bb02(&local_58);
-          FUN_0096bb02(&local_78);
+          BSim_QList_int___node_destruct(&local_58);
+          BSim_QList_int___node_destruct(&local_78);
           lVar6 = lVar6 + 1;
           if (lVar1 == lVar6) break;
           goto LAB_00a5ea24;
@@ -38537,7 +38601,7 @@ LAB_00a5ee16:
   runstyles_runnode_init(&local_78,uVar3,0,0);
                     /* try { // try from 00a5ee2d to 00a5ee31 has its CatchHandler @ 00a5f120 */
   uVar3 = FUN_009587cc(uVar6,&local_78);
-  FUN_0096bb02(&local_78);
+  BSim_QList_int___node_destruct(&local_78);
   FUN_00a5e8bc(param_1,uVar3);
   return 1;
 }
@@ -42063,7 +42127,7 @@ LAB_00a63b4a:
               );
   }
   for (; puVar6 != puVar3; puVar6 = puVar6 + 4) {
-    FUN_0096bb02(puVar6 + 1);
+    BSim_QList_int___node_destruct(puVar6 + 1);
   }
   if (puVar2 != (undefined8 *)0x0) {
     operator_delete(puVar2);
@@ -42360,7 +42424,7 @@ bool FUN_00a6430e(undefined8 param_1,long param_2,long param_3,long param_4)
         runstyles_runnode_init(local_48,param_4,0,0);
                     /* try { // try from 00a64456 to 00a6445a has its CatchHandler @ 00a64471 */
         uVar2 = FUN_00a75a4e(param_3,local_48);
-        FUN_0096bb02(local_48);
+        BSim_QList_int___node_destruct(local_48);
         return (bool)uVar2;
       }
       if (iVar1 == 2) {
@@ -42643,7 +42707,7 @@ void caret_rect_render(undefined8 param_1,long *param_2,long param_3,long param_
         local_c9 = *(char *)(lVar8 + 0x3c);
       }
       local_48 = uVar16;
-      FUN_0096bb02(&local_98);
+      BSim_QList_int___node_destruct(&local_98);
       if (*(int *)local_a0 == 0) {
 LAB_00a64c76:
         QArrayData::deallocate(local_a0,2,8);
@@ -42742,7 +42806,7 @@ void editor_paint_line_colors
                     /* try { // try from 00a64d91 to 00a64da0 has its CatchHandler @ 00a65cb6 */
   uVar4 = pos_min(param_5);
   cVar2 = editor_posCmp(uVar4,local_218);
-  FUN_0096bb02(local_218);
+  BSim_QList_int___node_destruct(local_218);
   if (cVar2 == '\0') {
     local_378 = &DAT_bff0000000000000;
     local_388 = &DAT_bff0000000000000;
@@ -42771,7 +42835,7 @@ void editor_paint_line_colors
       uVar4 = FUN_0096c0ea(&local_358);
       dVar10 = (double)FUN_00a75e9a(local_218,uVar4,uVar1);
       local_378 = (undefined1 *)(dVar10 - (double)param_1[3]);
-      dVar10 = (double)FUN_0096c1a4(&local_358);
+      dVar10 = (double)BSim_Splitter__createHandle(&local_358);
       if (local_218[0xe] == dVar10) {
                     /* try { // try from 00a65af3 to 00a65aff has its CatchHandler @ 00a65c96 */
         uVar4 = FUN_0096c0ea(&local_358);
@@ -42814,7 +42878,7 @@ void editor_paint_line_colors
   local_3a8 = local_3a8 - (double)param_1[3];
                     /* try { // try from 00a657eb to 00a65ad8 has its CatchHandler @ 00a65cc6 */
   if ((*(char *)(*param_1 + 0x1128) == '\0') &&
-     (lVar5 = FUN_0096c1a4(local_2d8), *(long *)(param_4 + 0x70) == lVar5)) {
+     (lVar5 = BSim_Splitter__createHandle(local_2d8), *(long *)(param_4 + 0x70) == lVar5)) {
     uVar4 = FUN_0096c0ea(local_2d8);
     cVar3 = FUN_0096bc20(uVar4);
     if ((cVar3 == '\0') && (*(long *)(param_4 + 0x28) < lVar6)) {
@@ -42828,13 +42892,13 @@ void editor_paint_line_colors
   uVar4 = thunk_FUN_0096c0ea(param_5);
   local_35a = FUN_0096bb88(uVar4,local_218);
   if ((local_35a == '\0') || (lVar6 <= *(long *)(param_4 + 0x28))) {
-    FUN_0096bb02(local_218);
+    BSim_QList_int___node_destruct(local_218);
     local_368 = &DAT_bff0000000000000;
     local_370 = &DAT_bff0000000000000;
     local_35a = '\0';
   }
   else {
-    FUN_0096bb02(local_218);
+    BSim_QList_int___node_destruct(local_218);
                     /* try { // try from 00a64f3d to 00a64f41 has its CatchHandler @ 00a65cc6 */
     FUN_00a76608(local_218,*param_1,param_2,param_3,*(long *)(param_4 + 0x28) + 1);
                     /* try { // try from 00a64f56 to 00a6505a has its CatchHandler @ 00a65c9e */
@@ -42855,7 +42919,7 @@ void editor_paint_line_colors
       uVar4 = FUN_0096c0ea(&local_318);
       dVar11 = (double)FUN_00a75e9a(local_218,uVar4,uVar1);
       local_368 = (undefined1 *)(dVar11 - (double)param_1[3]);
-      dVar11 = (double)FUN_0096c1a4(&local_318);
+      dVar11 = (double)BSim_Splitter__createHandle(&local_318);
       if (local_218[0xe] == dVar11) {
         uVar4 = FUN_0096c0ea(&local_318);
         cVar3 = FUN_0096bc20(uVar4);
@@ -43123,8 +43187,8 @@ void FUN_00a65cce(long param_1,undefined8 param_2,long param_3,long param_4,unde
     return;
   }
   uVar5 = *(undefined8 *)(param_1 + 0x10);
-  uVar3 = FUN_0096c1a4(param_5);
-  uVar4 = FUN_0096c18e(param_5);
+  uVar3 = BSim_Splitter__createHandle(param_5);
+  uVar4 = BSim_Splitter__createHandle(param_5);
   cVar1 = FUN_00958274(uVar5,uVar4,uVar3);
   if (cVar1 != '\0') {
     return;
@@ -43575,7 +43639,7 @@ LAB_00a6642a:
 joined_r0x00a6648a:
     for (; pbVar5 = local_70, bVar3 = local_70 != pbVar1, local_70 = pbVar4, bVar3;
         pbVar1 = pbVar1 + 0x20) {
-      FUN_0096bb02(pbVar1 + 8);
+      BSim_QList_int___node_destruct(pbVar1 + 8);
       pbVar4 = local_70;
       local_70 = pbVar5;
     }
@@ -43651,7 +43715,7 @@ void line_marker_fill(long *param_1,char param_2,int param_3,char *param_4)
   uVar4 = FUN_009275ec(uVar9,lVar6,uVar10);
   iVar5 = FUN_009275ae(*(undefined8 *)(*param_1 + 8),lVar6,uVar4);
   if (iVar5 == -1) {
-    FUN_0096bb02(&local_58);
+    BSim_QList_int___node_destruct(&local_58);
     return;
   }
   if (param_2 == '\x06') {
@@ -43692,7 +43756,7 @@ LAB_00a66e1f:
     goto LAB_00a66e1f;
   }
   auVar15 = FUN_00927472(*(undefined8 *)(*param_1 + 8),lVar6,0,uVar4);
-  FUN_0096bb02(&local_58);
+  BSim_QList_int___node_destruct(&local_58);
 LAB_00a66b91:
   if (auVar15._0_8_ == -1) {
     return;
@@ -43716,12 +43780,12 @@ LAB_00a66b91:
     runstyles_runnode_init((QColor *)&local_58,auVar15._0_8_,0,0);
                     /* try { // try from 00a66bce to 00a66bd2 has its CatchHandler @ 00a66eff */
     lVar7 = FUN_009587cc(uVar9,(QColor *)&local_58);
-    FUN_0096bb02((QColor *)&local_58);
+    BSim_QList_int___node_destruct((QColor *)&local_58);
     uVar9 = *(undefined8 *)(*param_1 + 0x10);
     runstyles_runnode_init((QColor *)&local_58,auVar15._8_8_,0,0);
                     /* try { // try from 00a66bfa to 00a66bfe has its CatchHandler @ 00a66f07 */
     lVar8 = FUN_009587cc(uVar9,(QColor *)&local_58);
-    FUN_0096bb02((QColor *)&local_58);
+    BSim_QList_int___node_destruct((QColor *)&local_58);
     puVar2 = (undefined8 *)param_1[3];
     local_40 = *(double *)*puVar2;
     dVar13 = ((double)lVar7 * local_40) / (double)*(long *)puVar2[1];
@@ -44204,6 +44268,8 @@ LAB_00a677f7:
 
 // ==== entry=00a67e56 name=FUN_00a67e56 size=11 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_00a67e56(void)
 
 {
@@ -44551,7 +44617,7 @@ void s_text_default_a68516
       lVar6 = lVar6 + 1;
     } while (lVar4 != lVar6);
 LAB_00a6877e:
-    FUN_0096bb02(local_258);
+    BSim_QList_int___node_destruct(local_258);
   }
   return;
 }
@@ -45766,7 +45832,7 @@ void s_grep_mark_a6afa2(undefined8 *param_1,undefined8 param_2)
       std::string::string((string *)local_40,"grep.mark",&local_41);
                     /* try { // try from 00a6b0d5 to 00a6b10c has its CatchHandler @ 00a6b15a */
       cVar2 = FUN_0094a5ee(uVar3);
-      uVar3 = FUN_0096c18e(uVar4);
+      uVar3 = BSim_Splitter__createHandle(uVar4);
       FUN_0092671c(uVar1,uVar5,uVar3,uVar6,(int)cVar2,2,(string *)local_40,0);
       if (local_40[0] != &DAT_011c5338) {
         FUN_00a63a70();
@@ -46653,10 +46719,11 @@ LAB_00a6c6c9:
                                  (uVar27 - lVar36 * uVar23) * 0x38;
                       }
 LAB_00a6c0c9:
-                      lVar36 = FUN_0096c18e(lVar26);
-                      if ((lVar36 <= local_90) && (lVar36 = FUN_0096c1a4(lVar26), lVar18 <= lVar36))
+                      lVar36 = BSim_Splitter__createHandle(lVar26);
+                      if ((lVar36 <= local_90) &&
+                         (lVar36 = BSim_Splitter__createHandle(lVar26), lVar18 <= lVar36))
                       goto LAB_00a6bd0b;
-                      lVar26 = FUN_0096c1a4(lVar26);
+                      lVar26 = BSim_Splitter__createHandle(lVar26);
                       if (lVar18 < lVar26) goto LAB_00a6bd88;
                       local_168 = local_168 + 1;
                     } while (local_170 != local_168);
@@ -47460,8 +47527,8 @@ LAB_00a6d1b1:
     FUN_00a65cce(param_1,param_2,param_3,param_4,local_78,(int)cVar10,local_d8,(string *)local_c8,
                  param_5);
     FUN_0096bd50(local_78);
-    FUN_0096bb02(local_b8);
-    FUN_0096bb02(local_98);
+    BSim_QList_int___node_destruct(local_b8);
+    BSim_QList_int___node_destruct(local_98);
     goto LAB_00a6d2d4;
   }
   if ((cVar10 == '\x01') ||
@@ -47515,8 +47582,8 @@ LAB_00a6d419:
                     /* try { // try from 00a6d55d to 00a6d561 has its CatchHandler @ 00a6e83d */
     FUN_00a65cce(param_1,param_2,param_3,param_4,local_78,(int)cVar10,uVar16,uVar18,param_5);
     FUN_0096bd50(local_78);
-    FUN_0096bb02(local_b8);
-    FUN_0096bb02(local_98);
+    BSim_QList_int___node_destruct(local_b8);
+    BSim_QList_int___node_destruct(local_98);
   }
   if (local_c8[0] != &DAT_011c5338) {
     FUN_00a63a70();
@@ -47701,7 +47768,7 @@ LAB_00a6ea31:
           runstyles_runnode_init(local_58,local_68.tv_sec,0,0);
                     /* try { // try from 00a6eab3 to 00a6eab7 has its CatchHandler @ 00a7017a */
           cVar9 = FUN_00a759dc(param_4,local_58);
-          FUN_0096bb02(local_58);
+          BSim_QList_int___node_destruct(local_58);
           if (cVar9 != '\0') break;
 LAB_00a6ea7e:
           iVar12 = iVar12 + 1;
@@ -49086,7 +49153,7 @@ LAB_00a71acc:
         runstyles_runnode_init(local_118,lVar16,0,0);
                     /* try { // try from 00a7172b to 00a7172f has its CatchHandler @ 00a72255 */
         FUN_0096be24(&local_78,local_118,&local_138,0);
-        FUN_0096bb02(local_118);
+        BSim_QList_int___node_destruct(local_118);
                     /* try { // try from 00a71755 to 00a71759 has its CatchHandler @ 00a7224a */
         s_text_folded_a67276(param_1,param_2,param_3,param_4,&local_78);
         FUN_0096bd50(&local_78);
@@ -49274,7 +49341,7 @@ LAB_00a71031:
     local_158 = local_138;
     local_150 = local_130;
     local_148 = local_128;
-    FUN_0096bb02(&local_138);
+    BSim_QList_int___node_destruct(&local_138);
     qt_array_data_unref(&local_170);
   }
   uVar38 = uVar38 + 1;
@@ -49287,7 +49354,7 @@ LAB_00a71031:
     }
 LAB_00a7111e:
     local_220 = &local_158;
-    FUN_0096bb02(local_220);
+    BSim_QList_int___node_destruct(local_220);
     return;
   }
   lVar16 = *(long *)(param_4 + 0x150);
@@ -49296,6 +49363,8 @@ LAB_00a7111e:
 
 
 // ==== entry=00a72266 name=FUN_00a72266 size=11 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_00a72266(void)
 
@@ -50335,9 +50404,11 @@ void FUN_00a73f6c(long param_1)
 }
 
 
-// ==== entry=00a73fe4 name=FUN_00a73fe4 size=8 ====
+// ==== entry=00a73fe4 orig=FUN_00a73fe4 size=8 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00a73fe4(long param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 
 {
   *(undefined8 *)(param_1 + 0xe8) = param_2;
@@ -50425,9 +50496,11 @@ void FUN_00a740a0(int *param_1,int param_2,int param_3)
 }
 
 
-// ==== entry=00a740c4 name=FUN_00a740c4 size=4 ====
+// ==== entry=00a740c4 orig=FUN_00a740c4 size=4 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00a740c4(long param_1,undefined4 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined4 param_2)
 
 {
   *(undefined4 *)(param_1 + 0x68) = param_2;
@@ -51040,7 +51113,7 @@ bool FUN_00a754b8(long *param_1,long *param_2)
   
   lVar4 = 0;
   if (*param_1 != 0) {
-    dVar6 = (double)FUN_0094a560();
+    dVar6 = (double)BSim_QByteArray__length();
     if (dVar6 != 0.0) {
       return false;
     }
@@ -51143,7 +51216,7 @@ void FUN_00a75688(long param_1)
     while( true ) {
       pvVar8 = *(void **)(lVar4 + lVar5 * 8);
       if (pvVar8 != (void *)0x0) {
-        FUN_0096bb02((long)pvVar8 + 0x18);
+        BSim_QList_int___node_destruct((long)pvVar8 + 0x18);
         pQVar3 = *(QArrayData **)((long)pvVar8 + 0x10);
         if (*(int *)pQVar3 == 0) {
           QArrayData::deallocate(pQVar3,2,8);
@@ -51171,7 +51244,7 @@ void FUN_00a75688(long param_1)
     while( true ) {
       pvVar8 = *(void **)(lVar4 + lVar5 * 8);
       if (pvVar8 != (void *)0x0) {
-        FUN_0096bb02((long)pvVar8 + 0x18);
+        BSim_QList_int___node_destruct((long)pvVar8 + 0x18);
         pQVar3 = *(QArrayData **)((long)pvVar8 + 0x10);
         if (*(int *)pQVar3 == 0) {
           QArrayData::deallocate(pQVar3,2,8);
@@ -51199,7 +51272,7 @@ void FUN_00a75688(long param_1)
     while( true ) {
       pvVar8 = *(void **)(lVar4 + lVar5 * 8);
       if (pvVar8 != (void *)0x0) {
-        FUN_0096bb02((long)pvVar8 + 0x18);
+        BSim_QList_int___node_destruct((long)pvVar8 + 0x18);
         pQVar3 = *(QArrayData **)((long)pvVar8 + 0x10);
         if (*(int *)pQVar3 == 0) {
           QArrayData::deallocate(pQVar3,2,8);
@@ -51264,8 +51337,8 @@ LAB_00a758b8:
     operator_delete(pvVar8);
   }
   FUN_0096bd50(param_1 + 0xb8);
-  FUN_0096bb02(param_1 + 0xa0);
-  FUN_0096bb02(param_1 + 0x88);
+  BSim_QList_int___node_destruct(param_1 + 0xa0);
+  BSim_QList_int___node_destruct(param_1 + 0x88);
   return;
 }
 
@@ -51424,7 +51497,7 @@ double FUN_00a75b78(undefined8 *param_1)
   dVar1 = (double)param_1[0xc];
   dVar3 = (double)FUN_00a28b8c(*param_1);
   dVar2 = *(double *)(param_1[2] + 0xcf8);
-  dVar4 = (double)FUN_00a28ae0(*param_1);
+  dVar4 = (double)BSim_std____is_constant_evaluated(*param_1);
   return (dVar1 + dVar3) - dVar4 * dVar2 * 0.5;
 }
 
@@ -51633,12 +51706,12 @@ undefined1 * FUN_00a75e9a(long *param_1,undefined8 param_2,undefined1 param_3)
                     /* try { // try from 00a75fbf to 00a75fc3 has its CatchHandler @ 00a76087 */
               dVar7 = (double)FUN_00a75d66(param_1,local_48);
               local_70 = (undefined1 *)(dVar7 + (double)local_70);
-              FUN_0096bb02(local_48);
+              BSim_QList_int___node_destruct(local_48);
               lVar5 = lVar5 + -1;
             } while (param_1[0xf] <= lVar5);
           }
         }
-        FUN_0096bb02(local_68);
+        BSim_QList_int___node_destruct(local_68);
       }
     }
     puVar1 = (undefined1 *)0xc0e0000000000000;
@@ -51663,7 +51736,7 @@ undefined8 FUN_00a76098(long param_1)
   ;
                     /* try { // try from 00a760c5 to 00a760c9 has its CatchHandler @ 00a760e5 */
   uVar1 = FUN_00a75e9a(param_1,local_38,1);
-  FUN_0096bb02(local_38);
+  BSim_QList_int___node_destruct(local_38);
   return uVar1;
 }
 
@@ -51708,7 +51781,7 @@ undefined8 FUN_00a760ee(undefined8 param_1,long param_2,undefined8 param_3)
       local_b8 = local_78;
       local_b0 = local_70;
       local_a8 = local_68;
-      FUN_0096bb02(&local_78);
+      BSim_QList_int___node_destruct(&local_78);
     }
     else {
       lVar4 = FUN_0096bbc0(&local_b8);
@@ -51732,7 +51805,7 @@ undefined8 FUN_00a760ee(undefined8 param_1,long param_2,undefined8 param_3)
       local_98 = local_58;
       local_90 = local_50;
       local_88 = local_48;
-      FUN_0096bb02(&local_58);
+      BSim_QList_int___node_destruct(&local_58);
     }
     lVar4 = FUN_0096bbc0(&local_98);
     if (lVar4 < *(long *)(param_2 + 0x68)) {
@@ -51742,8 +51815,8 @@ undefined8 FUN_00a760ee(undefined8 param_1,long param_2,undefined8 param_3)
   }
   uVar2 = FUN_0096c674(param_3);
   FUN_0096be24(param_1,&local_b8,&local_98,uVar2);
-  FUN_0096bb02(&local_98);
-  FUN_0096bb02(&local_b8);
+  BSim_QList_int___node_destruct(&local_98);
+  BSim_QList_int___node_destruct(&local_b8);
   return param_1;
 }
 
@@ -51789,8 +51862,8 @@ undefined8 FUN_00a7631c(undefined8 param_1,long param_2,undefined8 param_3)
   runstyles_runnode_init(auStack_68,lVar2,0,0);
                     /* try { // try from 00a76387 to 00a7638b has its CatchHandler @ 00a763b2 */
   FUN_0096be24(param_1,auStack_68,local_48,0);
-  FUN_0096bb02(auStack_68);
-  FUN_0096bb02(local_48);
+  BSim_QList_int___node_destruct(auStack_68);
+  BSim_QList_int___node_destruct(local_48);
   return param_1;
 }
 
@@ -52047,25 +52120,25 @@ void FUN_00a76608(long *param_1,long param_2,long param_3,long param_4,long para
     param_1[0x11] = local_108;
     param_1[0x12] = local_100;
     param_1[0x13] = local_f8;
-    FUN_0096bb02(&local_108);
+    BSim_QList_int___node_destruct(&local_108);
     local_88 = (void *)(((double)param_1[9] - (double)param_1[7]) + (double)local_88);
     editor_index_from_x(&local_e8,param_1[4],param_1[5],&local_88,1);
     param_1[0x14] = local_e8;
     param_1[0x15] = local_e0;
     param_1[0x16] = local_d8;
-    FUN_0096bb02(&local_e8);
+    BSim_QList_int___node_destruct(&local_e8);
   }
   else {
     runstyles_runnode_init(&local_148,param_1[0xd],0,0);
     param_1[0x11] = local_148;
     param_1[0x12] = local_140;
     param_1[0x13] = local_138;
-    FUN_0096bb02(&local_148);
+    BSim_QList_int___node_destruct(&local_148);
     runstyles_runnode_init(&local_128,param_1[0xf],0,0);
     param_1[0x14] = local_128;
     param_1[0x15] = local_120;
     param_1[0x16] = local_118;
-    FUN_0096bb02(&local_128);
+    BSim_QList_int___node_destruct(&local_128);
   }
   uVar19 = *(undefined8 *)(*param_1 + 0x1038);
   uVar13 = FUN_0096bbc0(plVar2);
@@ -52274,8 +52347,8 @@ LAB_00a76ea9:
       return;
     }
 LAB_00a76f47:
-    lVar12 = FUN_0096c18e(plVar25);
-    lVar27 = FUN_0096c1a4(plVar25);
+    lVar12 = BSim_Splitter__createHandle(plVar25);
+    lVar27 = BSim_Splitter__createHandle(plVar25);
     lVar16 = FUN_0096bbc0(plVar1);
     if ((lVar27 < lVar16) || (lVar16 = FUN_0096bbc0(plVar2), lVar16 < lVar12)) {
 LAB_00a76f72:
@@ -52441,7 +52514,7 @@ LAB_00a76f0d:
           lVar16 = param_1[0xf];
           if (lVar16 == lVar12) {
             lVar12 = param_1[0x10];
-            iVar11 = FUN_0096c1ba(plVar25);
+            iVar11 = BSim_Splitter__createHandle(plVar25);
             if (iVar11 <= (int)lVar12) {
               iVar11 = (int)lVar12;
             }
@@ -52451,7 +52524,7 @@ LAB_00a76f0d:
 LAB_00a76f25:
           if (lVar27 == lVar16) {
             lVar12 = param_1[0x10];
-            iVar10 = FUN_0096c1d0(plVar25);
+            iVar10 = BSim_Splitter__createHandle(plVar25);
             iVar11 = (int)lVar12;
             if ((int)lVar12 < iVar10) {
               iVar11 = iVar10;
@@ -52620,7 +52693,7 @@ void s_text_controlChar_a77836(long *param_1)
         dVar14 = (double)FUN_00a21eba(*param_1,&local_118,local_140 + 0x10);
         pQVar7 = local_140;
         if (*(int *)(*(long *)(local_140 + 0x10) + 4) != 0) break;
-        FUN_0096bb02(local_140 + 0x18);
+        BSim_QList_int___node_destruct(local_140 + 0x18);
         pQVar9 = *(QArrayData **)(pQVar7 + 0x10);
         if (*(int *)pQVar9 == 0) {
 LAB_00a77e8d:
@@ -52700,13 +52773,13 @@ LAB_00a77eda:
       *(undefined8 *)(local_140 + 0x18) = local_118;
       *(undefined8 *)(local_140 + 0x20) = local_110;
       *(undefined8 *)(local_140 + 0x28) = local_108;
-      FUN_0096bc1a(dVar14 + *(double *)(local_140 + 0x30),local_140 + 0x18);
+      BSim_Splitter__setMainIndex(dVar14 + *(double *)(local_140 + 0x30),local_140 + 0x18);
       dVar15 = (double)FUN_00a28aea(*param_1,&local_118);
       local_178 = dVar15 + local_178 + dVar14;
       dVar14 = (double)FUN_0096bc14(local_140 + 0x18);
     } while (dVar14 < (double)param_1[9] || dVar14 == (double)param_1[9]);
 LAB_00a77a0e:
-    FUN_0096bb02(&local_118);
+    BSim_QList_int___node_destruct(&local_118);
     runstyles_runnode_init(&local_118,param_1[0xd],0,0);
                     /* try { // try from 00a77a29 to 00a77a76 has its CatchHandler @ 00a788cd */
     local_178 = (double)FUN_00a28b8c(*param_1);
@@ -52744,7 +52817,7 @@ LAB_00a77a0e:
         dVar14 = (double)FUN_00a22016(*param_1,&local_118,local_140 + 0x10);
         pQVar7 = local_140;
         if (*(int *)(*(long *)(local_140 + 0x10) + 4) != 0) break;
-        FUN_0096bb02(local_140 + 0x18);
+        BSim_QList_int___node_destruct(local_140 + 0x18);
         pQVar9 = *(QArrayData **)(pQVar7 + 0x10);
         if (*(int *)pQVar9 == 0) {
 LAB_00a77ea5:
@@ -52825,12 +52898,12 @@ LAB_00a77f43:
       *(undefined8 *)(local_140 + 0x18) = local_118;
       *(undefined8 *)(local_140 + 0x20) = local_110;
       *(undefined8 *)(local_140 + 0x28) = local_108;
-      FUN_0096bc1a(dVar14 + *(double *)(local_140 + 0x30),local_140 + 0x18);
+      BSim_Splitter__setMainIndex(dVar14 + *(double *)(local_140 + 0x30),local_140 + 0x18);
       local_178 = local_178 + dVar14;
       dVar14 = (double)FUN_0096bc14(local_140 + 0x18);
     } while (dVar14 < (double)param_1[9] || dVar14 == (double)param_1[9]);
 LAB_00a77bb0:
-    FUN_0096bb02(&local_118);
+    BSim_QList_int___node_destruct(&local_118);
     lVar6 = *param_1;
     goto LAB_00a77bbb;
   }
@@ -52956,8 +53029,8 @@ LAB_00a7844c:
       local_148[3] = (long)local_138;
       local_148[4] = local_130;
       local_148[5] = local_128;
-      FUN_0096bb02((string *)&local_138);
-      FUN_0096bc1a((dVar14 + (double)local_148[6]) - local_178,local_148 + 3);
+      BSim_QList_int___node_destruct((string *)&local_138);
+      BSim_Splitter__setMainIndex((dVar14 + (double)local_148[6]) - local_178,local_148 + 3);
       if ((char)local_148[7] == '\x02') {
         puVar2 = (undefined8 *)param_1[0x39];
         if (puVar2 == (undefined8 *)param_1[0x3a]) {
@@ -53038,7 +53111,7 @@ LAB_00a77dcf:
       }
       local_140[0x38] = (QArrayData)0x1;
                     /* try { // try from 00a77d16 to 00a77d41 has its CatchHandler @ 00a7886d */
-      FUN_0096bc1a(dVar14 - local_178,local_140 + 0x18);
+      BSim_Splitter__setMainIndex(dVar14 - local_178,local_140 + 0x18);
       pQVar7 = local_d8;
       local_178 = dVar14;
     } while ((long)local_d8 < param_1[0xe]);
@@ -53112,7 +53185,8 @@ LAB_00a77bbb:
             dVar15 = *(double *)(pQVar13 + 0x10);
             *(double *)(local_138 + 0x30) = dVar14 + dVar15;
                     /* try { // try from 00a7873a to 00a78746 has its CatchHandler @ 00a788a5 */
-            FUN_0096bc1a(dVar14 + dVar15 + *(double *)(pQVar13 + 0x18),local_138 + 0x18);
+            BSim_Splitter__setMainIndex
+                      (dVar14 + dVar15 + *(double *)(pQVar13 + 0x18),local_138 + 0x18);
             iVar5 = FUN_00a1fade(*param_1);
             if (iVar5 == lVar6) {
               *(int *)(param_1 + 0x37) = (int)(param_1[0x31] - param_1[0x30] >> 3) + -1;
@@ -53122,7 +53196,7 @@ LAB_00a77bbb:
         } while (lVar6 != lVar12);
       }
     }
-    FUN_0096bb02(&local_118);
+    BSim_QList_int___node_destruct(&local_118);
   }
   *(undefined1 *)(param_1 + 0x29) = 0;
   if (*(uint *)local_140 != 0) {
@@ -53401,9 +53475,11 @@ LAB_00a78d4e:
 }
 
 
-// ==== entry=00a78e36 name=FUN_00a78e36 size=1 ====
+// ==== entry=00a78e36 orig=FUN_00a78e36 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a78e36(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -53590,7 +53666,7 @@ LAB_00a79260:
         }
         if (lVar1 == 0) {
           puVar4 = operator_new(0x20);
-          *puVar4 = &PTR_FUN_011b0460;
+          *puVar4 = &PTR_BSim_QList_int___node_destruct_011b0460;
                     /* try { // try from 00a7913e to 00a79142 has its CatchHandler @ 00a792be */
           UniversalChardet_ha79820(puVar4);
           *(undefined8 **)(param_1 + 0x38) = puVar4;
@@ -53894,7 +53970,7 @@ LAB_00a79260:
         }
         if (lVar1 == 0) {
           puVar4 = operator_new(0x20);
-          *puVar4 = &PTR_FUN_011b0460;
+          *puVar4 = &PTR_BSim_QList_int___node_destruct_011b0460;
           UniversalChardet_ha79820(puVar4);
           *(undefined8 **)(param_1 + 0x38) = puVar4;
         }
@@ -54185,9 +54261,12 @@ undefined4 FUN_00a79800(long param_1)
 }
 
 
-// ==== entry=00a79810 name=FUN_00a79810 size=9 ====
+// ==== entry=00a79810 orig=FUN_00a79810 size=9 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00a79810(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0x3f7d70a4;
@@ -54283,18 +54362,23 @@ void FUN_00a79960(long param_1)
 }
 
 
-// ==== entry=00a799e0 name=FUN_00a799e0 size=1 ====
+// ==== entry=00a799e0 orig=FUN_00a799e0 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a799e0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a799f0 name=FUN_00a799f0 size=8 ====
+// ==== entry=00a799f0 orig=FUN_00a799f0 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00a799f0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "windows-1252";
@@ -54817,14 +54901,14 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   *param_1 = &PTR_FUN_011b0550;
   puVar2 = operator_new(0x40);
   *(undefined1 *)(puVar2 + 3) = 0;
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   puVar2[7] = 0;
   puVar2[2] = &PTR_DAT_011810a0;
                     /* try { // try from 00a7a3c3 to 00a7a3c7 has its CatchHandler @ 00a7a78a */
   FUN_00a7a8b0(puVar2);
   param_1[2] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_011810c0;
   puVar2[7] = 0;
@@ -54832,7 +54916,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[3] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01181080;
   puVar2[7] = 0;
@@ -54840,7 +54924,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[4] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01181060;
   puVar2[7] = 0;
@@ -54848,7 +54932,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[5] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01181040;
   puVar2[7] = 0;
@@ -54856,7 +54940,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[6] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01181020;
   puVar2[7] = 0;
@@ -54864,7 +54948,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[7] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01181100;
   puVar2[7] = 0;
@@ -54872,7 +54956,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[8] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_011810e0;
   puVar2[7] = 0;
@@ -54880,7 +54964,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[9] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01181000;
   puVar2[7] = 0;
@@ -54888,7 +54972,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[10] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01180fe0;
   puVar2[7] = 0;
@@ -54896,7 +54980,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar2);
   param_1[0xb] = puVar2;
   puVar2 = operator_new(0x40);
-  *puVar2 = &PTR_FUN_011b05b0;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   *(undefined1 *)(puVar2 + 3) = 0;
   puVar2[2] = &PTR_DAT_01181140;
   puVar2[7] = 0;
@@ -54906,12 +54990,12 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   puVar2 = operator_new(0x28);
   puVar2[3] = 0;
   puVar2[4] = 0;
-  *puVar2 = &PTR_FUN_011b0a50;
+  *puVar2 = &PTR_BSim_QList_int___node_destruct_011b0a50;
                     /* try { // try from 00a7a655 to 00a7a659 has its CatchHandler @ 00a7a732 */
   FUN_00a7c930(puVar2);
   param_1[0xd] = puVar2;
   puVar3 = operator_new(0x40);
-  *puVar3 = &PTR_FUN_011b05b0;
+  *puVar3 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   puVar3[2] = &PTR_DAT_01181120;
   *(undefined1 *)(puVar3 + 3) = 0;
   puVar3[7] = puVar2;
@@ -54919,7 +55003,7 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
   FUN_00a7a8b0(puVar3);
   param_1[0xe] = puVar3;
   puVar3 = operator_new(0x40);
-  *puVar3 = &PTR_FUN_011b05b0;
+  *puVar3 = &PTR_BSim_QList_int___node_destruct_011b05b0;
   puVar3[2] = &PTR_DAT_01181120;
   *(undefined1 *)(puVar3 + 3) = 1;
   puVar3[7] = puVar2;
@@ -55083,9 +55167,11 @@ undefined4 FUN_00a7a980(long param_1)
 }
 
 
-// ==== entry=00a7a990 name=FUN_00a7a990 size=1 ====
+// ==== entry=00a7a990 orig=FUN_00a7a990 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a7a990(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -55125,7 +55211,7 @@ float FUN_00a7a9f0(long param_1)
   float fVar1;
   float fVar2;
   
-  fVar1 = (float)FUN_00a7b620(param_1 + 0x18);
+  fVar1 = (float)BSim_QList_int___node_destruct(param_1 + 0x18);
   fVar2 = (float)FUN_00a7b0c0(param_1 + 0x50);
   if (fVar1 <= fVar2) {
     fVar1 = fVar2;
@@ -55302,9 +55388,12 @@ LAB_00a7ab9c:
 }
 
 
-// ==== entry=00a7ae00 name=FUN_00a7ae00 size=8 ====
+// ==== entry=00a7ae00 orig=FUN_00a7ae00 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00a7ae00(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "Shift_JIS";
@@ -55467,9 +55556,12 @@ float FUN_00a7b000(long param_1)
 }
 
 
-// ==== entry=00a7b050 name=FUN_00a7b050 size=8 ====
+// ==== entry=00a7b050 orig=FUN_00a7b050 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00a7b050(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "UTF-8";
@@ -55815,9 +55907,11 @@ void FUN_00a7b5e0(long param_1,char param_2)
 }
 
 
-// ==== entry=00a7b620 name=FUN_00a7b620 size=44 ====
+// ==== entry=00a7b620 orig=FUN_00a7b620 size=44 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a7b620(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -56199,7 +56293,7 @@ float FUN_00a7bc30(long param_1)
   float fVar1;
   float fVar2;
   
-  fVar1 = (float)FUN_00a7b620(param_1 + 0x18);
+  fVar1 = (float)BSim_QList_int___node_destruct(param_1 + 0x18);
   fVar2 = (float)FUN_00a7b0c0(param_1 + 0x50);
   if (fVar1 <= fVar2) {
     fVar1 = fVar2;
@@ -56342,9 +56436,12 @@ LAB_00a7bdd9:
 }
 
 
-// ==== entry=00a7bfc0 name=FUN_00a7bfc0 size=8 ====
+// ==== entry=00a7bfc0 orig=FUN_00a7bfc0 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00a7bfc0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "EUC-JP";
@@ -56500,9 +56597,12 @@ LAB_00a7c187:
 }
 
 
-// ==== entry=00a7c2a0 name=FUN_00a7c2a0 size=8 ====
+// ==== entry=00a7c2a0 orig=FUN_00a7c2a0 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00a7c2a0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "EUC-KR";
@@ -56658,9 +56758,12 @@ LAB_00a7c467:
 }
 
 
-// ==== entry=00a7c580 name=FUN_00a7c580 size=8 ====
+// ==== entry=00a7c580 orig=FUN_00a7c580 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00a7c580(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "EUC-TW";
@@ -56818,9 +56921,12 @@ LAB_00a7c723:
 }
 
 
-// ==== entry=00a7c840 name=FUN_00a7c840 size=8 ====
+// ==== entry=00a7c840 orig=FUN_00a7c840 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00a7c840(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "gb18030";
@@ -57003,18 +57109,23 @@ LAB_00a7ca5f:
 }
 
 
-// ==== entry=00a7cab0 name=FUN_00a7cab0 size=1 ====
+// ==== entry=00a7cab0 orig=FUN_00a7cab0 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00a7cab0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=00a7cac0 name=FUN_00a7cac0 size=5 ====
+// ==== entry=00a7cac0 orig=FUN_00a7cac0 size=5 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00a7cac0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
@@ -60444,9 +60555,12 @@ void FUN_00a80b80(undefined8 *param_1,undefined8 param_2,byte param_3,undefined8
 }
 
 
-// ==== entry=00a80ba6 name=FUN_00a80ba6 size=8 ====
+// ==== entry=00a80ba6 orig=FUN_00a80ba6 size=8 name=BSim_QList_int_::iterator::operator_ ====
 
-void FUN_00a80ba6(undefined8 *param_1)
+/* BSim sim=0.9999999999999998 sig=11.017834412421333
+   ref=libsplitter.so.1.0.0::QList<int>::iterator::operator* */
+
+void BSim_QList_int___iterator__operator_(undefined8 *param_1)
 
 {
   free((void *)*param_1);
@@ -60459,7 +60573,7 @@ void FUN_00a80ba6(undefined8 *param_1)
 void FUN_00a80bae(void *param_1)
 
 {
-  FUN_00a80ba6();
+  BSim_QList_int___iterator__operator_();
   operator_delete(param_1,0x20);
   return;
 }
@@ -61165,9 +61279,12 @@ bool FUN_00a81584(long *param_1)
 }
 
 
-// ==== entry=00a8158c name=FUN_00a8158c size=29 ====
+// ==== entry=00a8158c orig=FUN_00a8158c size=29 name=BSim_QList_int_::iterator::operator_ ====
 
-void FUN_00a8158c(undefined8 *param_1)
+/* BSim sim=0.9999999999999998 sig=11.017834412421333
+   ref=libsplitter.so.1.0.0::QList<int>::iterator::operator* */
+
+void BSim_QList_int___iterator__operator_(undefined8 *param_1)
 
 {
   FUN_00ad74a0(*param_1);
@@ -62216,8 +62333,9 @@ LAB_00a8293e:
         }
         *(byte *)((long)puVar9 + lVar11) = (byte)uVar12;
         lVar11 = CONCAT44(uStack_3c,local_40);
-        iVar3 = FUN_00a8158c(param_1,lVar11 + *(long *)(lVar11 + 0x10),(long)*(int *)(lVar11 + 4),0,
-                             0x24,uVar8);
+        iVar3 = BSim_QList_int___iterator__operator_
+                          (param_1,lVar11 + *(long *)(lVar11 + 0x10),(long)*(int *)(lVar11 + 4),0,
+                           0x24,uVar8);
         if ((0 < iVar3) || (iVar3 == -2)) {
           if ((*(uint *)local_58 < 2) && (*(long *)(local_58 + 0x10) == 0x18)) {
             lVar11 = 0x18;
@@ -62713,9 +62831,12 @@ LAB_00a831be:
 }
 
 
-// ==== entry=00a83220 name=FUN_00a83220 size=14 ====
+// ==== entry=00a83220 orig=FUN_00a83220 size=14 name=BSim_QAtomicInt::QAtomicInt ====
 
-void FUN_00a83220(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999998 sig=10.04919264536635
+   ref=libwindtermopen.so.1.0.0::QAtomicInt::QAtomicInt */
+
+void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 
 {
   FUN_00881600(param_2,param_1);
@@ -62974,9 +63095,11 @@ void FUN_00a8343c(long param_1)
 }
 
 
-// ==== entry=00a83470 name=FUN_00a83470 size=4 ====
+// ==== entry=00a83470 orig=FUN_00a83470 size=4 name=BSim_QList_int_::iterator::iterator ====
 
-void FUN_00a83470(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.126636685767775 ref=libsplitter.so.1.0.0::QList<int>::iterator::iterator */
+
+void BSim_QList_int___iterator__iterator(undefined8 *param_1,undefined8 param_2)
 
 {
   *param_1 = param_2;
@@ -62984,9 +63107,11 @@ void FUN_00a83470(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00a83474 name=FUN_00a83474 size=5 ====
+// ==== entry=00a83474 orig=FUN_00a83474 size=5 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00a83474(long param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 
 {
   *(undefined8 *)(param_1 + 0x28) = param_2;

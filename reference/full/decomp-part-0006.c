@@ -3750,6 +3750,8 @@ void FUN_004d4fcc(void)
 
 // ==== entry=004d4fde name=FUN_004d4fde size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d4fde(void)
 
 {
@@ -3770,6 +3772,8 @@ void FUN_004d4ff4(void)
 
 
 // ==== entry=004d5004 name=FUN_004d5004 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d5004(void)
 
@@ -3803,6 +3807,8 @@ void FUN_004d502a(void)
 
 // ==== entry=004d503a name=FUN_004d503a size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d503a(void)
 
 {
@@ -3823,6 +3829,8 @@ void FUN_004d5050(void)
 
 
 // ==== entry=004d5060 name=FUN_004d5060 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d5060(void)
 
@@ -3845,6 +3853,8 @@ void FUN_004d5076(void)
 
 // ==== entry=004d5086 name=FUN_004d5086 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d5086(void)
 
 {
@@ -3865,6 +3875,8 @@ void FUN_004d509c(void)
 
 
 // ==== entry=004d50ac name=FUN_004d50ac size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d50ac(void)
 
@@ -3887,6 +3899,8 @@ void FUN_004d50c2(void)
 
 // ==== entry=004d50d2 name=FUN_004d50d2 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d50d2(void)
 
 {
@@ -3907,6 +3921,8 @@ void FUN_004d50e8(void)
 
 
 // ==== entry=004d50f8 name=FUN_004d50f8 size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d50f8(void)
 
@@ -3929,6 +3945,8 @@ void FUN_004d510e(void)
 
 // ==== entry=004d511e name=FUN_004d511e size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d511e(void)
 
 {
@@ -3950,6 +3968,8 @@ void FUN_004d5134(void)
 
 // ==== entry=004d5144 name=FUN_004d5144 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d5144(void)
 
 {
@@ -3960,6 +3980,8 @@ void FUN_004d5144(void)
 
 
 // ==== entry=004d515a name=FUN_004d515a size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d515a(void)
 
@@ -3994,6 +4016,8 @@ void FUN_004d5175(void)
 
 
 // ==== entry=004d518e name=FUN_004d518e size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d518e(void)
 
@@ -4053,6 +4077,8 @@ void FUN_004d51c3(void)
 
 // ==== entry=004d520e name=FUN_004d520e size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d520e(void)
 
 {
@@ -4110,6 +4136,8 @@ void FUN_004d5243(void)
 
 
 // ==== entry=004d528e name=FUN_004d528e size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d528e(void)
 
@@ -4231,6 +4259,8 @@ void FUN_004d5364(void)
 
 // ==== entry=004d5384 name=FUN_004d5384 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004d5384(void)
 
 {
@@ -4241,6 +4271,8 @@ void FUN_004d5384(void)
 
 
 // ==== entry=004d539a name=FUN_004d539a size=22 ====
+
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d539a(void)
 
@@ -9776,6 +9808,7 @@ void FUN_004d76b2(void)
 // ==== entry=004d76c5 name=FUN_004d76c5 size=5 ====
 
 /* WARNING: Removing unreachable block (ram,0x004d76dc) */
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d76c5(void)
 
@@ -9853,6 +9886,7 @@ void FUN_004d7732(void)
 // ==== entry=004d7745 name=FUN_004d7745 size=5 ====
 
 /* WARNING: Removing unreachable block (ram,0x004d775c) */
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004d7745(void)
 

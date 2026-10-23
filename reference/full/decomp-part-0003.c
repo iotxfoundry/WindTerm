@@ -7771,6 +7771,8 @@ void FUN_004c3896(void)
 
 // ==== entry=004c38a6 name=FUN_004c38a6 size=22 ====
 
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
+
 void FUN_004c38a6(void)
 
 {

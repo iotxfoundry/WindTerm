@@ -4072,9 +4072,11 @@ void FUN_00c15280(streambuf *param_1,streambuf *param_2)
 }
 
 
-// ==== entry=00c152d0 name=FUN_00c152d0 size=1 ====
+// ==== entry=00c152d0 orig=FUN_00c152d0 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00c152d0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -6356,9 +6358,11 @@ void FUN_00c18d90(wstreambuf *param_1,wstreambuf *param_2)
 }
 
 
-// ==== entry=00c18de0 name=FUN_00c18de0 size=1 ====
+// ==== entry=00c18de0 orig=FUN_00c18de0 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00c18de0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -8112,18 +8116,18 @@ void FUN_00c1bcd0(void)
   int iVar1;
   
   if (DAT_011c5138 != '\0') {
-    FUN_00c88fc0(FUN_00c1bc70);
+    BSim_QTypedArrayData_char___deallocate(FUN_00c1bc70);
     return;
   }
   iVar1 = __cxa_guard_acquire(&DAT_011c5138);
   if (iVar1 == 0) {
-    FUN_00c88fc0(FUN_00c1bc70);
+    BSim_QTypedArrayData_char___deallocate(FUN_00c1bc70);
     return;
   }
   pthread_key_create(&DAT_011c5144,FUN_00c1bc40);
   __cxa_guard_release(&DAT_011c5138);
   __cxa_atexit(FUN_00c1bcc0,&DAT_011c5140,&DAT_00c89008);
-  FUN_00c88fc0(FUN_00c1bc70);
+  BSim_QTypedArrayData_char___deallocate(FUN_00c1bc70);
   return;
 }
 
@@ -8532,7 +8536,7 @@ ulong __thiscall std::ios::fill(ios *this)
     if (this_00[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this_00);
       uVar1 = 0x20;
-      if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
         uVar1 = (**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
       }
     }
@@ -8569,7 +8573,7 @@ ulong __thiscall std::ios::fill(ios *this,char param_1)
     if (this_00[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this_00);
       uVar2 = 0x20;
-      if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
         uVar2 = (**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
       }
     }
@@ -8640,7 +8644,7 @@ ulong __thiscall std::ios::widen(ios *this,char param_1)
   uVar1 = CONCAT71(in_register_00000031,param_1) & 0xffffffff;
   if (this_00[0x38] == (ctype<char>)0x0) {
     ctype<char>::_M_widen_init(this_00);
-    if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+    if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
                     /* WARNING: Could not recover jumptable at 0x00c1c247. Too many branches */
                     /* WARNING: Treating indirect jump as call */
       uVar1 = (**(code **)(*(long *)this_00 + 0x30))(this_00,(int)(char)uVar1);
@@ -8673,9 +8677,11 @@ void __thiscall std::ios::ios(ios *this)
 }
 
 
-// ==== entry=00c1c2b0 name=FUN_00c1c2b0 size=8 ====
+// ==== entry=00c1c2b0 orig=FUN_00c1c2b0 size=8 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00c1c2b0(long param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 
 {
   *(undefined8 *)(param_1 + 0xe8) = param_2;
@@ -8809,7 +8815,7 @@ LAB_00c1c3a1:
     if (pcVar4[0x38] == (ctype<char>)0x0) {
       cVar6 = (ctype<char>)0x20;
       ctype<char>::_M_widen_init(pcVar4);
-      if (*(code **)(*(long *)pcVar4 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)pcVar4 + 0x30) != ::BSim_QList_int___Node__t) {
         cVar6 = (ctype<char>)(**(code **)(*(long *)pcVar4 + 0x30))(pcVar4,0x20);
       }
     }
@@ -8833,7 +8839,7 @@ LAB_00c1c632:
     }
     if (pcVar4[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(pcVar4);
-      if (*(code **)(*(long *)pcVar4 + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)pcVar4 + 0x30) != ::BSim_QList_int___Node__t) {
         (**(code **)(*(long *)pcVar4 + 0x30))(pcVar4,0x20);
       }
     }
@@ -9311,9 +9317,11 @@ void __thiscall std::wios::wios(wios *this)
 }
 
 
-// ==== entry=00c1cc00 name=FUN_00c1cc00 size=8 ====
+// ==== entry=00c1cc00 orig=FUN_00c1cc00 size=8 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00c1cc00(long param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 
 {
   *(undefined8 *)(param_1 + 0xe8) = param_2;
@@ -10384,7 +10392,7 @@ ostream * std::endl<char,std::char_traits<char>>(ostream *param_1)
     if (this[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this);
       cVar1 = (ctype<char>)0xa;
-      if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this + 0x30) != ::BSim_QList_int___Node__t) {
         cVar1 = (ctype<char>)(**(code **)(*(long *)this + 0x30))(this);
       }
     }
@@ -10459,7 +10467,7 @@ ostream * std::operator<<(ostream *param_1,ostream param_2)
     }
     if (this[0x38] == (ctype<char>)0x0) {
       ctype<char>::_M_widen_init(this);
-      if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this + 0x30) != ::BSim_QList_int___Node__t) {
         (**(code **)(*(long *)this + 0x30))(this,0x20);
       }
     }
@@ -10590,7 +10598,7 @@ LAB_00c1e4af:
           if (pcVar3[0x38] == (ctype<char>)0x0) {
             ctype<char>::_M_widen_init(pcVar3);
             iVar4 = (ios)0x20;
-            if (*(code **)(*(long *)pcVar3 + 0x30) != FUN_00816ea8) {
+            if (*(code **)(*(long *)pcVar3 + 0x30) != ::BSim_QList_int___Node__t) {
               iVar4 = (ios)(**(code **)(*(long *)pcVar3 + 0x30))(pcVar3,0x20);
             }
           }
@@ -10650,7 +10658,7 @@ LAB_00c1e4af:
             if (pcVar3[0x38] == (ctype<char>)0x0) {
               ctype<char>::_M_widen_init(pcVar3);
               iVar4 = (ios)0x20;
-              if (*(code **)(*(long *)pcVar3 + 0x30) != FUN_00816ea8) {
+              if (*(code **)(*(long *)pcVar3 + 0x30) != ::BSim_QList_int___Node__t) {
                 iVar4 = (ios)(**(code **)(*(long *)pcVar3 + 0x30))(pcVar3,0x20);
               }
             }
@@ -10880,7 +10888,7 @@ ostream * __thiscall std::ostream::_M_insert<long>(ostream *this,long param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -10953,7 +10961,7 @@ ostream * __thiscall std::ostream::operator<<(ostream *this,long param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11059,7 +11067,7 @@ ostream * __thiscall std::ostream::_M_insert<unsigned_long>(ostream *this,ulong 
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11132,7 +11140,7 @@ ostream * __thiscall std::ostream::operator<<(ostream *this,ulong param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11228,7 +11236,7 @@ ostream * __thiscall std::ostream::_M_insert<bool>(ostream *this,bool param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11314,7 +11322,7 @@ ostream * __thiscall std::ostream::_M_insert<long_long>(ostream *this,longlong p
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11387,7 +11395,7 @@ ostream * __thiscall std::ostream::operator<<(ostream *this,longlong param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11459,7 +11467,7 @@ ostream * __thiscall std::ostream::_M_insert<unsigned_long_long>(ostream *this,u
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11532,7 +11540,7 @@ ostream * __thiscall std::ostream::operator<<(ostream *this,ulonglong param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11604,7 +11612,7 @@ ostream * __thiscall std::ostream::_M_insert<double>(ostream *this,double param_
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11677,7 +11685,7 @@ ostream * __thiscall std::ostream::operator<<(ostream *this,double param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11764,7 +11772,7 @@ ostream * std::ostream::_M_insert<long_double>(longdouble param_1)
         ctype<char>::_M_widen_init(this);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this + 0x30))(this,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11841,7 +11849,7 @@ ostream * __thiscall std::ostream::operator<<(ostream *this,longdouble param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11915,7 +11923,7 @@ ostream * __thiscall std::ostream::_M_insert<void_const*>(ostream *this,void *pa
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -11988,7 +11996,7 @@ ostream * __thiscall std::ostream::operator<<(ostream *this,void *param_1)
         ctype<char>::_M_widen_init(this_00);
         iVar5 = 0x20;
         cVar3 = (ctype<char>)0x20;
-        if (*(code **)(*(long *)this_00 + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this_00 + 0x30) != ::BSim_QList_int___Node__t) {
           cVar3 = (ctype<char>)(**(code **)(*(long *)this_00 + 0x30))(this_00,0x20);
           iVar5 = (int)(char)cVar3;
         }
@@ -14064,9 +14072,11 @@ wostream * __thiscall std::wostream::operator<<(wostream *this,void *param_1)
 }
 
 
-// ==== entry=00c21c50 name=FUN_00c21c50 size=4 ====
+// ==== entry=00c21c50 orig=FUN_00c21c50 size=4 name=BSim_QList_int_::iterator::iterator ====
 
-void FUN_00c21c50(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.126636685767775 ref=libsplitter.so.1.0.0::QList<int>::iterator::iterator */
+
+void BSim_QList_int___iterator__iterator(undefined8 *param_1,undefined8 param_2)
 
 {
   *param_1 = param_2;
@@ -14074,9 +14084,11 @@ void FUN_00c21c50(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c21c60 name=FUN_00c21c60 size=5 ====
+// ==== entry=00c21c60 orig=FUN_00c21c60 size=5 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00c21c60(long param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 
 {
   *(undefined8 *)(param_1 + 8) = param_2;
@@ -14084,9 +14096,15 @@ void FUN_00c21c60(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c21c70 name=FUN_00c21c70 size=4 ====
+// ==== entry=00c21c70 orig=FUN_00c21c70 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c21c70(undefined8 *param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
 
 {
   return *param_1;
@@ -14111,9 +14129,11 @@ long FUN_00c21c90(long param_1)
 }
 
 
-// ==== entry=00c21ca0 name=FUN_00c21ca0 size=5 ====
+// ==== entry=00c21ca0 orig=FUN_00c21ca0 size=5 name=BSim_Splitter::setMainIndex ====
 
-void FUN_00c21ca0(long param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.822893238850593 ref=libsplitter.so.1.0.0::Splitter::setMainIndex */
+
+void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 
 {
   *(undefined8 *)(param_1 + 0x10) = param_2;
@@ -14180,9 +14200,12 @@ void FUN_00c21d30(undefined8 *param_1)
 }
 
 
-// ==== entry=00c21d50 name=FUN_00c21d50 size=8 ====
+// ==== entry=00c21d50 orig=FUN_00c21d50 size=8 name=BSim_QList_int_::iterator::operator_ ====
 
-void FUN_00c21d50(undefined8 *param_1)
+/* BSim sim=0.9999999999999998 sig=11.017834412421333
+   ref=libsplitter.so.1.0.0::QList<int>::iterator::operator* */
+
+void BSim_QList_int___iterator__operator_(undefined8 *param_1)
 
 {
   operator_delete((void *)*param_1);
@@ -14254,18 +14277,24 @@ void thunk_FUN_00c21d60(undefined8 *param_1,ulong param_2,wchar_t param_3)
 }
 
 
-// ==== entry=00c21df0 name=FUN_00c21df0 size=4 ====
+// ==== entry=00c21df0 orig=FUN_00c21df0 size=4 name=BSim_QList_int_::Node::t ====
 
-undefined8 FUN_00c21df0(undefined8 param_1)
+/* BSim sim=1.0000000000000002 sig=8.572937275767773 ref=libsplitter.so.1.0.0::QList<int>::Node::t
+    */
+
+undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 
 {
   return param_1;
 }
 
 
-// ==== entry=00c21e00 name=FUN_00c21e00 size=4 ====
+// ==== entry=00c21e00 orig=FUN_00c21e00 size=4 name=BSim_QList_int_::Node::t ====
 
-undefined8 FUN_00c21e00(undefined8 param_1)
+/* BSim sim=1.0000000000000002 sig=8.572937275767773 ref=libsplitter.so.1.0.0::QList<int>::Node::t
+    */
+
+undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 
 {
   return param_1;
@@ -14794,18 +14823,30 @@ LAB_00c22458:
 }
 
 
-// ==== entry=00c224c0 name=FUN_00c224c0 size=4 ====
+// ==== entry=00c224c0 orig=FUN_00c224c0 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c224c0(undefined8 *param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
 
 {
   return *param_1;
 }
 
 
-// ==== entry=00c224d0 name=FUN_00c224d0 size=4 ====
+// ==== entry=00c224d0 orig=FUN_00c224d0 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c224d0(undefined8 *param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
 
 {
   return *param_1;
@@ -14870,9 +14911,15 @@ undefined8 * FUN_00c22550(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00c22560 name=FUN_00c22560 size=4 ====
+// ==== entry=00c22560 orig=FUN_00c22560 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c22560(undefined8 *param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
 
 {
   return *param_1;
@@ -14926,9 +14973,12 @@ undefined8 FUN_00c225c0(long param_1)
 }
 
 
-// ==== entry=00c225d0 name=FUN_00c225d0 size=11 ====
+// ==== entry=00c225d0 orig=FUN_00c225d0 size=11 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00c225d0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0x1fffffffffffffff;
@@ -15051,18 +15101,28 @@ bool FUN_00c22780(long param_1)
 }
 
 
-// ==== entry=00c22790 name=FUN_00c22790 size=8 ====
+// ==== entry=00c22790 orig=FUN_00c22790 size=8 name=BSim_std::vector_TelnetOption__std::allocator_TelnetOption___::operator__ ====
 
-long FUN_00c22790(long *param_1,long param_2)
+/* BSim sim=1.0 sig=12.200906554696804
+   ref=libwindtermopen.so.1.0.0::std::vector<TelnetOption,_std::allocator<TelnetOption>_>::operator[]
+    */
+
+long BSim_std__vector_TelnetOption__std__allocator_TelnetOption_____operator__
+               (long *param_1,long param_2)
 
 {
   return *param_1 + param_2 * 4;
 }
 
 
-// ==== entry=00c227a0 name=FUN_00c227a0 size=8 ====
+// ==== entry=00c227a0 orig=FUN_00c227a0 size=8 name=BSim_std::vector_TelnetOption__std::allocator_TelnetOption___::operator__ ====
 
-long FUN_00c227a0(long *param_1,long param_2)
+/* BSim sim=1.0 sig=12.200906554696804
+   ref=libwindtermopen.so.1.0.0::std::vector<TelnetOption,_std::allocator<TelnetOption>_>::operator[]
+    */
+
+long BSim_std__vector_TelnetOption__std__allocator_TelnetOption_____operator__
+               (long *param_1,long param_2)
 
 {
   return *param_1 + param_2 * 4;
@@ -15097,18 +15157,30 @@ long FUN_00c227d0(long *param_1,ulong param_2)
 }
 
 
-// ==== entry=00c227f0 name=FUN_00c227f0 size=4 ====
+// ==== entry=00c227f0 orig=FUN_00c227f0 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c227f0(undefined8 *param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
 
 {
   return *param_1;
 }
 
 
-// ==== entry=00c22800 name=FUN_00c22800 size=4 ====
+// ==== entry=00c22800 orig=FUN_00c22800 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c22800(undefined8 *param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
 
 {
   return *param_1;
@@ -16428,27 +16500,42 @@ LAB_00c23aa9:
 }
 
 
-// ==== entry=00c23c00 name=FUN_00c23c00 size=4 ====
+// ==== entry=00c23c00 orig=FUN_00c23c00 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c23c00(undefined8 *param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
 
-{
-  return *param_1;
-}
-
-
-// ==== entry=00c23c10 name=FUN_00c23c10 size=4 ====
-
-undefined8 FUN_00c23c10(undefined8 *param_1)
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
 
 {
   return *param_1;
 }
 
 
-// ==== entry=00c23c20 name=FUN_00c23c20 size=4 ====
+// ==== entry=00c23c10 orig=FUN_00c23c10 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c23c20(undefined8 param_1)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 *param_1)
+
+{
+  return *param_1;
+}
+
+
+// ==== entry=00c23c20 orig=FUN_00c23c20 size=4 name=BSim_QList_int_::Node::t ====
+
+/* BSim sim=1.0000000000000002 sig=8.572937275767773 ref=libsplitter.so.1.0.0::QList<int>::Node::t
+    */
+
+undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 
 {
   return param_1;
@@ -17161,9 +17248,11 @@ ulong s_basic_string__compare_c244d0
 }
 
 
-// ==== entry=00c24560 name=FUN_00c24560 size=4 ====
+// ==== entry=00c24560 orig=FUN_00c24560 size=4 name=BSim_QList_int_::iterator::iterator ====
 
-void FUN_00c24560(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.126636685767775 ref=libsplitter.so.1.0.0::QList<int>::iterator::iterator */
+
+void BSim_QList_int___iterator__iterator(undefined8 *param_1,undefined8 param_2)
 
 {
   *param_1 = param_2;
@@ -17171,9 +17260,11 @@ void FUN_00c24560(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c24570 name=FUN_00c24570 size=4 ====
+// ==== entry=00c24570 orig=FUN_00c24570 size=4 name=BSim_QList_int_::iterator::iterator ====
 
-void FUN_00c24570(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.126636685767775 ref=libsplitter.so.1.0.0::QList<int>::iterator::iterator */
+
+void BSim_QList_int___iterator__iterator(undefined8 *param_1,undefined8 param_2)
 
 {
   *param_1 = param_2;
@@ -18211,18 +18302,24 @@ LAB_00c25d8b:
 }
 
 
-// ==== entry=00c25e10 name=FUN_00c25e10 size=8 ====
+// ==== entry=00c25e10 orig=FUN_00c25e10 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00c25e10(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "generic";
 }
 
 
-// ==== entry=00c25e20 name=FUN_00c25e20 size=8 ====
+// ==== entry=00c25e20 orig=FUN_00c25e20 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00c25e20(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "system";
@@ -19786,9 +19883,12 @@ void FUN_00c27980(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c27a10 name=FUN_00c27a10 size=21 ====
+// ==== entry=00c27a10 orig=FUN_00c27a10 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c27a10(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -19804,15 +19904,18 @@ void FUN_00c27a10(void)
 void FUN_00c27a30(void *param_1)
 
 {
-  FUN_00c27a10();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
 
 
-// ==== entry=00c27a50 name=FUN_00c27a50 size=21 ====
+// ==== entry=00c27a50 orig=FUN_00c27a50 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c27a50(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -19875,9 +19978,12 @@ void FUN_00c27b00(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c27b90 name=FUN_00c27b90 size=21 ====
+// ==== entry=00c27b90 orig=FUN_00c27b90 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c27b90(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -19893,7 +19999,7 @@ void FUN_00c27b90(void)
 void FUN_00c27bb0(void *param_1)
 
 {
-  FUN_00c27b90();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
@@ -19951,9 +20057,12 @@ void FUN_00c27c60(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c27cf0 name=FUN_00c27cf0 size=21 ====
+// ==== entry=00c27cf0 orig=FUN_00c27cf0 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c27cf0(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -19969,7 +20078,7 @@ void FUN_00c27cf0(void)
 void FUN_00c27d10(void *param_1)
 
 {
-  FUN_00c27cf0();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
@@ -20027,9 +20136,12 @@ void FUN_00c27dc0(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c27e50 name=FUN_00c27e50 size=21 ====
+// ==== entry=00c27e50 orig=FUN_00c27e50 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c27e50(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -20045,7 +20157,7 @@ void FUN_00c27e50(void)
 void FUN_00c27e70(void *param_1)
 
 {
-  FUN_00c27e50();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
@@ -20103,9 +20215,12 @@ void FUN_00c27f20(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c27fb0 name=FUN_00c27fb0 size=21 ====
+// ==== entry=00c27fb0 orig=FUN_00c27fb0 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c27fb0(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -20121,7 +20236,7 @@ void FUN_00c27fb0(void)
 void FUN_00c27fd0(void *param_1)
 
 {
-  FUN_00c27fb0();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
@@ -20179,9 +20294,12 @@ void FUN_00c28080(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c28110 name=FUN_00c28110 size=21 ====
+// ==== entry=00c28110 orig=FUN_00c28110 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c28110(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -20197,15 +20315,18 @@ void FUN_00c28110(void)
 void FUN_00c28130(void *param_1)
 
 {
-  FUN_00c28110();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
 
 
-// ==== entry=00c28150 name=FUN_00c28150 size=21 ====
+// ==== entry=00c28150 orig=FUN_00c28150 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c28150(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -20268,9 +20389,12 @@ void FUN_00c28200(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c28290 name=FUN_00c28290 size=21 ====
+// ==== entry=00c28290 orig=FUN_00c28290 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c28290(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -20286,7 +20410,7 @@ void FUN_00c28290(void)
 void FUN_00c282b0(void *param_1)
 
 {
-  FUN_00c28290();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
@@ -20344,9 +20468,12 @@ void FUN_00c28360(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c283f0 name=FUN_00c283f0 size=21 ====
+// ==== entry=00c283f0 orig=FUN_00c283f0 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c283f0(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -20362,7 +20489,7 @@ void FUN_00c283f0(void)
 void FUN_00c28410(void *param_1)
 
 {
-  FUN_00c283f0();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
@@ -20420,9 +20547,12 @@ void FUN_00c284c0(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c28550 name=FUN_00c28550 size=21 ====
+// ==== entry=00c28550 orig=FUN_00c28550 size=21 name=BSim_Splitter::createHandle ====
 
-void FUN_00c28550(void)
+/* BSim sim=0.7743244481897356 sig=10.732071611610612
+   ref=libsplitter.so.1.0.0::Splitter::createHandle */
+
+void BSim_Splitter__createHandle(void)
 
 {
   undefined8 uVar1;
@@ -20438,7 +20568,7 @@ void FUN_00c28550(void)
 void FUN_00c28570(void *param_1)
 
 {
-  FUN_00c28550();
+  BSim_Splitter__createHandle();
   delete(param_1);
   return;
 }
@@ -25518,7 +25648,7 @@ ulong FUN_00c2baf0(ctype<char> *param_1,uint param_2)
   ulong uVar1;
   
   std::ctype<char>::_M_widen_init(param_1);
-  if (*(code **)(*(long *)param_1 + 0x30) == FUN_00816ea8) {
+  if (*(code **)(*(long *)param_1 + 0x30) == BSim_QList_int___Node__t) {
     return (ulong)param_2;
   }
                     /* WARNING: Could not recover jumptable at 0x00c2bb2d. Too many branches */

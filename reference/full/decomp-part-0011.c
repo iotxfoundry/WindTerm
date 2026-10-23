@@ -4385,6 +4385,7 @@ void FUN_004f6436(void)
 
 /* WARNING: Removing unreachable block (ram,0x004f64a7) */
 /* WARNING: Removing unreachable block (ram,0x004f64b3) */
+/* BSim sim=1.0 sig=9.202545620147434 ref=libsplitter.so.1.0.0::_init */
 
 void FUN_004f6453(void)
 
@@ -10617,7 +10618,7 @@ void FUN_004f896a(void)
   qt_shared_data_unref(in_stack_00000058);
   QDir::~QDir(in_stack_00000050);
   qt_array_data_unref(in_stack_00000048);
-  FUN_00a94052();
+  BSim_QList_int___iterator__operator_();
   qt_byte_array_unref(in_stack_00000018);
   qt_byte_array_unref(in_stack_00000038);
   stdfunction_state_destroy(&stack0x000000d0);
@@ -10646,7 +10647,7 @@ void FUN_004f89ba(void)
   qt_shared_data_unref(in_stack_00000058);
   QDir::~QDir(in_stack_00000050);
   qt_array_data_unref(in_stack_00000048);
-  FUN_00a94052();
+  BSim_QList_int___iterator__operator_();
   qt_byte_array_unref(in_stack_00000018);
   qt_byte_array_unref(in_stack_00000038);
   stdfunction_state_destroy(&stack0x000000d0);

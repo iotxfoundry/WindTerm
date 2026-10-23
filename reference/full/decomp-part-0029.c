@@ -352,9 +352,11 @@ LAB_008f1d48:
 }
 
 
-// ==== entry=008f1d60 name=FUN_008f1d60 size=1 ====
+// ==== entry=008f1d60 orig=FUN_008f1d60 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f1d60(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -1006,9 +1008,12 @@ ulong FUN_008f2522(undefined8 param_1,int param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=008f2580 name=FUN_008f2580 size=29 ====
+// ==== entry=008f2580 orig=FUN_008f2580 size=29 name=BSim_Splitter::_Splitter ====
 
-void FUN_008f2580(QStatusBar *param_1)
+/* BSim sim=1.0000000000000002 sig=13.184771567266093 ref=libsplitter.so.1.0.0::Splitter::~Splitter
+    */
+
+void BSim_Splitter___Splitter(QStatusBar *param_1)
 
 {
   *(undefined ***)param_1 = &PTR_FUN_01196b78;
@@ -1378,54 +1383,66 @@ ulong TextView_dtor_deleting(undefined8 param_1,int param_2,undefined8 param_3,u
 }
 
 
-// ==== entry=008f2bd0 name=FUN_008f2bd0 size=1 ====
+// ==== entry=008f2bd0 orig=FUN_008f2bd0 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f2bd0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=008f2bd2 name=FUN_008f2bd2 size=1 ====
-
-void FUN_008f2bd2(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=008f2bd4 name=FUN_008f2bd4 size=1 ====
+// ==== entry=008f2bd2 orig=FUN_008f2bd2 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f2bd4(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
 
-{
-  return;
-}
-
-
-// ==== entry=008f2bd6 name=FUN_008f2bd6 size=1 ====
-
-void FUN_008f2bd6(void)
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=008f2bd8 name=FUN_008f2bd8 size=1 ====
+// ==== entry=008f2bd4 orig=FUN_008f2bd4 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f2bd8(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
 }
 
 
-// ==== entry=008f2bda name=FUN_008f2bda size=1 ====
+// ==== entry=008f2bd6 orig=FUN_008f2bd6 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f2bda(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=008f2bd8 orig=FUN_008f2bd8 size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
+
+{
+  return;
+}
+
+
+// ==== entry=008f2bda orig=FUN_008f2bda size=1 name=BSim_QList_int_::node_destruct ====
+
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -4045,7 +4062,7 @@ LAB_008f4d02:
       FUN_005c10da(param_1,*(undefined8 *)param_4[1],*(undefined8 *)param_4[2]);
       return;
     case 0xce:
-      FUN_005c1156(param_1,param_4[1]);
+      BSim_QList_int___node_destruct(param_1,param_4[1]);
       return;
     case 0xcf:
       FUN_005c11f0(param_1,*(undefined4 *)param_4[1]);
@@ -4664,9 +4681,11 @@ ulong ScintillaEditWatcher_vt5
 }
 
 
-// ==== entry=008f6584 name=FUN_008f6584 size=1 ====
+// ==== entry=008f6584 orig=FUN_008f6584 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f6584(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -5224,9 +5243,11 @@ ulong Splitter_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=008f6c64 name=FUN_008f6c64 size=1 ====
+// ==== entry=008f6c64 orig=FUN_008f6c64 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f6c64(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -5552,9 +5573,11 @@ void FUN_008f6fcc(QLineEdit *param_1)
 }
 
 
-// ==== entry=008f7024 name=FUN_008f7024 size=1 ====
+// ==== entry=008f7024 orig=FUN_008f7024 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f7024(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -5591,9 +5614,11 @@ undefined ** SideSeparator_metaObject(long param_1)
 }
 
 
-// ==== entry=008f7056 name=FUN_008f7056 size=1 ====
+// ==== entry=008f7056 orig=FUN_008f7056 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f7056(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -5881,9 +5906,11 @@ ulong LoginWizard_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
 }
 
 
-// ==== entry=008f7362 name=FUN_008f7362 size=1 ====
+// ==== entry=008f7362 orig=FUN_008f7362 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f7362(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -5985,9 +6012,11 @@ void FUN_008f7431(undefined8 *param_1)
 }
 
 
-// ==== entry=008f7464 name=FUN_008f7464 size=1 ====
+// ==== entry=008f7464 orig=FUN_008f7464 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f7464(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -6024,9 +6053,11 @@ undefined ** HtmlList_metaObject(long param_1)
 }
 
 
-// ==== entry=008f7496 name=FUN_008f7496 size=1 ====
+// ==== entry=008f7496 orig=FUN_008f7496 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f7496(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -6164,9 +6195,11 @@ void FUN_008f75bb(undefined8 *param_1)
 }
 
 
-// ==== entry=008f75ee name=FUN_008f75ee size=1 ====
+// ==== entry=008f75ee orig=FUN_008f75ee size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f75ee(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -6664,7 +6697,8 @@ void Menu_h8f7a82(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
     cVar2 = QByteArray::append((char *)&local_30);
     QByteArray::append(cVar2);
     iVar3 = QMetaType::registerNormalizedType
-                      (&local_30,FUN_00532c15,FUN_00532c16,8,0x10c,&QAction::staticMetaObject);
+                      (&local_30,BSim_QList_int___node_destruct,FUN_00532c16,8,0x10c,
+                       &QAction::staticMetaObject);
   }
   else {
     if ((param_3 != 2) || (*(int *)param_4[1] != 0)) {
@@ -6692,7 +6726,8 @@ LAB_008f7aca:
     cVar2 = QByteArray::append((char *)&local_30);
     QByteArray::append(cVar2);
     iVar3 = QMetaType::registerNormalizedType
-                      (&local_30,FUN_00770202,FUN_00770203,8,0x10c,&PTR_staticMetaObject_0119a080);
+                      (&local_30,BSim_QList_int___node_destruct,FUN_00770203,8,0x10c,
+                       &PTR_staticMetaObject_0119a080);
   }
   *piVar7 = iVar3;
   if (*(int *)local_30 != 0) {
@@ -7280,9 +7315,11 @@ ulong BreadCrumb_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
 }
 
 
-// ==== entry=008f8480 name=FUN_008f8480 size=1 ====
+// ==== entry=008f8480 orig=FUN_008f8480 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f8480(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -7415,9 +7452,11 @@ void BreadEdit_h8f855c(undefined8 param_1,int param_2,int param_3,undefined8 *pa
 }
 
 
-// ==== entry=008f85e2 name=FUN_008f85e2 size=1 ====
+// ==== entry=008f85e2 orig=FUN_008f85e2 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f85e2(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -7891,9 +7930,11 @@ void AddressBar_dtor(QWidget *param_1)
 }
 
 
-// ==== entry=008f8b6c name=FUN_008f8b6c size=1 ====
+// ==== entry=008f8b6c orig=FUN_008f8b6c size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f8b6c(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -7995,9 +8036,11 @@ void FUN_008f8c3b(undefined8 *param_1)
 }
 
 
-// ==== entry=008f8c6e name=FUN_008f8c6e size=1 ====
+// ==== entry=008f8c6e orig=FUN_008f8c6e size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f8c6e(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -8200,9 +8243,11 @@ ulong ListView_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=008f8eb8 name=FUN_008f8eb8 size=1 ====
+// ==== entry=008f8eb8 orig=FUN_008f8eb8 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f8eb8(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -9005,9 +9050,11 @@ void FUN_008f97a2(QComboBox *param_1)
 }
 
 
-// ==== entry=008f97e4 name=FUN_008f97e4 size=1 ====
+// ==== entry=008f97e4 orig=FUN_008f97e4 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008f97e4(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -9576,7 +9623,7 @@ void FileView_dtor(QWidget *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -9652,7 +9699,7 @@ void FUN_008f9ef4(undefined8 *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -9728,7 +9775,7 @@ void FUN_008fa020(undefined8 *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -9805,7 +9852,7 @@ void FileView_dtor_deleting(QWidget *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -9830,9 +9877,11 @@ void FileView_dtor_deleting(QWidget *param_1)
 }
 
 
-// ==== entry=008fa2a4 name=FUN_008fa2a4 size=1 ====
+// ==== entry=008fa2a4 orig=FUN_008fa2a4 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008fa2a4(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -9996,9 +10045,11 @@ LAB_008fa458:
 }
 
 
-// ==== entry=008fa470 name=FUN_008fa470 size=1 ====
+// ==== entry=008fa470 orig=FUN_008fa470 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008fa470(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -10568,9 +10619,11 @@ void PathEdit_dtor(QLineEdit *param_1)
 }
 
 
-// ==== entry=008fab7a name=FUN_008fab7a size=1 ====
+// ==== entry=008fab7a orig=FUN_008fab7a size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008fab7a(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -11014,9 +11067,11 @@ ulong SlipButton_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
 }
 
 
-// ==== entry=008fb1a2 name=FUN_008fb1a2 size=1 ====
+// ==== entry=008fb1a2 orig=FUN_008fb1a2 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008fb1a2(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -11090,9 +11145,12 @@ ulong ButtonBarPanel_qt_metacall
 }
 
 
-// ==== entry=008fb204 name=FUN_008fb204 size=29 ====
+// ==== entry=008fb204 orig=FUN_008fb204 size=29 name=BSim_Splitter::_Splitter ====
 
-void FUN_008fb204(QFrame *param_1)
+/* BSim sim=1.0000000000000002 sig=13.184771567266093 ref=libsplitter.so.1.0.0::Splitter::~Splitter
+    */
+
+void BSim_Splitter___Splitter(QFrame *param_1)
 
 {
   *(undefined ***)param_1 = &ButtonBarPanel_vtable;
@@ -11698,7 +11756,7 @@ void ToolButton_h8fb9e8(long param_1,int param_2,int param_3,undefined8 *param_4
   }
   else if (param_2 == 2) {
     if (param_3 == 1) {
-      FUN_005d4f8a(param_1,*(undefined8 *)*param_4);
+      BSim_QBasicAtomicInteger_int___deref(param_1,*(undefined8 *)*param_4);
     }
     else if (param_3 == 2) {
       FUN_005d4f90();
@@ -11805,9 +11863,11 @@ void FUN_008fbbd3(undefined8 *param_1)
 }
 
 
-// ==== entry=008fbc06 name=FUN_008fbc06 size=1 ====
+// ==== entry=008fbc06 orig=FUN_008fbc06 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008fbc06(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -13297,7 +13357,8 @@ void ForwardingHandler_h8fceb0(undefined8 param_1,int param_2,int param_3,undefi
     cVar3 = QByteArray::append((char *)&local_30);
     QByteArray::append(cVar3);
     iVar4 = QMetaType::registerNormalizedType
-                      (&local_30,FUN_005f1e26,FUN_005f1e27,8,0x10c,&PTR_staticMetaObject_0119f400);
+                      (&local_30,BSim_QList_int___node_destruct,FUN_005f1e27,8,0x10c,
+                       &PTR_staticMetaObject_0119f400);
   }
   else {
     if ((param_3 != 1) || (*(int *)param_4[1] != 0)) {
@@ -13323,7 +13384,8 @@ LAB_008fcf81:
     cVar3 = QByteArray::append((char *)&local_30);
     QByteArray::append(cVar3);
     iVar4 = QMetaType::registerNormalizedType
-                      (&local_30,FUN_005f1e26,FUN_005f1e27,8,0x10c,&PTR_staticMetaObject_0119f400);
+                      (&local_30,BSim_QList_int___node_destruct,FUN_005f1e27,8,0x10c,
+                       &PTR_staticMetaObject_0119f400);
   }
   DAT_011c1454 = iVar4;
   if (*(int *)local_30 != 0) {
@@ -13860,7 +13922,7 @@ LAB_008fd716:
           *(int *)plVar1 = (int)*plVar1 + -1;
           UNLOCK();
           if ((int)lVar8 == 1) {
-            if (*(code **)(*plVar6 + 0x10) != FUN_00575d12) {
+            if (*(code **)(*plVar6 + 0x10) != BSim_QList_int___node_destruct) {
               (**(code **)(*plVar6 + 0x10))(plVar6);
             }
             LOCK();
@@ -13923,9 +13985,11 @@ void Tools_dtor_deleting(QObject *param_1)
 }
 
 
-// ==== entry=008fd84e name=FUN_008fd84e size=1 ====
+// ==== entry=008fd84e orig=FUN_008fd84e size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008fd84e(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -14134,9 +14198,11 @@ LAB_008fda5c:
 }
 
 
-// ==== entry=008fda74 name=FUN_008fda74 size=1 ====
+// ==== entry=008fda74 orig=FUN_008fda74 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008fda74(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -15331,9 +15397,11 @@ void FUN_008ff102(QSortFilterProxyModel *param_1)
 }
 
 
-// ==== entry=008ff138 name=FUN_008ff138 size=1 ====
+// ==== entry=008ff138 orig=FUN_008ff138 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008ff138(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -15446,9 +15514,11 @@ LAB_008ff234:
 }
 
 
-// ==== entry=008ff282 name=FUN_008ff282 size=1 ====
+// ==== entry=008ff282 orig=FUN_008ff282 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_008ff282(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -19383,9 +19453,11 @@ ulong FileWatcher_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
 }
 
 
-// ==== entry=00902c28 name=FUN_00902c28 size=1 ====
+// ==== entry=00902c28 orig=FUN_00902c28 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00902c28(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -19744,9 +19816,11 @@ ulong TransferTask_qt_metacall
 }
 
 
-// ==== entry=00902fe8 name=FUN_00902fe8 size=1 ====
+// ==== entry=00902fe8 orig=FUN_00902fe8 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00902fe8(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -19798,9 +19872,11 @@ void QAbstractItemModel::TreeModel_vt2(void)
 }
 
 
-// ==== entry=0090304a name=FUN_0090304a size=1 ====
+// ==== entry=0090304a orig=FUN_0090304a size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090304a(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -20175,9 +20251,11 @@ ulong FileReader_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
 }
 
 
-// ==== entry=00903554 name=FUN_00903554 size=1 ====
+// ==== entry=00903554 orig=FUN_00903554 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00903554(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -20289,9 +20367,11 @@ LAB_00903643:
 }
 
 
-// ==== entry=0090366c name=FUN_0090366c size=1 ====
+// ==== entry=0090366c orig=FUN_0090366c size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090366c(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -20956,9 +21036,11 @@ ulong TunnelCenter_qt_metacall
 }
 
 
-// ==== entry=00903f6e name=FUN_00903f6e size=1 ====
+// ==== entry=00903f6e orig=FUN_00903f6e size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00903f6e(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -21228,7 +21310,7 @@ void XServerCenter_dtor(QObject *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -21276,7 +21358,7 @@ void XServerCenter_dtor_deleting(QObject *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -21301,9 +21383,11 @@ void XServerCenter_dtor_deleting(QObject *param_1)
 }
 
 
-// ==== entry=009043a4 name=FUN_009043a4 size=1 ====
+// ==== entry=009043a4 orig=FUN_009043a4 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_009043a4(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -21405,9 +21489,11 @@ void FUN_00904473(undefined8 *param_1)
 }
 
 
-// ==== entry=009044a6 name=FUN_009044a6 size=1 ====
+// ==== entry=009044a6 orig=FUN_009044a6 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_009044a6(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -21509,9 +21595,11 @@ void FUN_00904575(undefined8 *param_1)
 }
 
 
-// ==== entry=009045a8 name=FUN_009045a8 size=1 ====
+// ==== entry=009045a8 orig=FUN_009045a8 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_009045a8(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -21675,9 +21763,11 @@ LAB_00904749:
 }
 
 
-// ==== entry=00904774 name=FUN_00904774 size=1 ====
+// ==== entry=00904774 orig=FUN_00904774 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00904774(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -21841,9 +21931,11 @@ LAB_00904928:
 }
 
 
-// ==== entry=00904940 name=FUN_00904940 size=1 ====
+// ==== entry=00904940 orig=FUN_00904940 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00904940(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -21949,9 +22041,11 @@ void FUN_00904a44(undefined8 *param_1)
 }
 
 
-// ==== entry=00904a84 name=FUN_00904a84 size=1 ====
+// ==== entry=00904a84 orig=FUN_00904a84 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00904a84(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -22003,9 +22097,11 @@ void QDialog::PasswordDialog_qt_metacall(void)
 }
 
 
-// ==== entry=00904ae6 name=FUN_00904ae6 size=1 ====
+// ==== entry=00904ae6 orig=FUN_00904ae6 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00904ae6(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -22042,9 +22138,11 @@ undefined ** PlaySoundDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=00904b18 name=FUN_00904b18 size=1 ====
+// ==== entry=00904b18 orig=FUN_00904b18 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00904b18(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -22371,9 +22469,11 @@ ulong SessionDialog_qt_metacall
 }
 
 
-// ==== entry=00904ebe name=FUN_00904ebe size=1 ====
+// ==== entry=00904ebe orig=FUN_00904ebe size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00904ebe(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -22450,7 +22550,7 @@ void RemoteFileDialog_dtor(QDialog *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -22499,7 +22599,7 @@ void FUN_00904fd4(undefined8 *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -22548,7 +22648,7 @@ void FUN_00905090(undefined8 *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -22598,7 +22698,7 @@ void RemoteFileDialog_dtor_deleting(QDialog *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -22623,9 +22723,11 @@ void RemoteFileDialog_dtor_deleting(QDialog *param_1)
 }
 
 
-// ==== entry=00905214 name=FUN_00905214 size=1 ====
+// ==== entry=00905214 orig=FUN_00905214 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905214(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -22727,9 +22829,11 @@ void FUN_009052e3(undefined8 *param_1)
 }
 
 
-// ==== entry=00905316 name=FUN_00905316 size=1 ====
+// ==== entry=00905316 orig=FUN_00905316 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905316(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -22831,9 +22935,11 @@ void FUN_009053e5(undefined8 *param_1)
 }
 
 
-// ==== entry=00905418 name=FUN_00905418 size=1 ====
+// ==== entry=00905418 orig=FUN_00905418 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905418(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -22870,9 +22976,11 @@ undefined ** FocusModeDialog_metaObject(long param_1)
 }
 
 
-// ==== entry=0090544a name=FUN_0090544a size=1 ====
+// ==== entry=0090544a orig=FUN_0090544a size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090544a(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -23310,9 +23418,11 @@ LAB_00905971:
 }
 
 
-// ==== entry=009059a6 name=FUN_009059a6 size=1 ====
+// ==== entry=009059a6 orig=FUN_009059a6 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_009059a6(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -23476,9 +23586,11 @@ LAB_00905b5a:
 }
 
 
-// ==== entry=00905b72 name=FUN_00905b72 size=1 ====
+// ==== entry=00905b72 orig=FUN_00905b72 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905b72(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -23530,9 +23642,11 @@ void QDialog::ProfileDialog_qt_metacall(void)
 }
 
 
-// ==== entry=00905bd4 name=FUN_00905bd4 size=1 ====
+// ==== entry=00905bd4 orig=FUN_00905bd4 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905bd4(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -23584,9 +23698,11 @@ void QDialog::RunToolDialog_qt_metacall(void)
 }
 
 
-// ==== entry=00905c36 name=FUN_00905c36 size=1 ====
+// ==== entry=00905c36 orig=FUN_00905c36 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905c36(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -23638,9 +23754,11 @@ void QWidget::MaskDialog_qt_metacall(void)
 }
 
 
-// ==== entry=00905c98 name=FUN_00905c98 size=1 ====
+// ==== entry=00905c98 orig=FUN_00905c98 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905c98(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -23692,9 +23810,11 @@ void QDialog::InsertFileDialog_qt_metacall(void)
 }
 
 
-// ==== entry=00905cfa name=FUN_00905cfa size=1 ====
+// ==== entry=00905cfa orig=FUN_00905cfa size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905cfa(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -23796,9 +23916,11 @@ void FUN_00905dc9(undefined8 *param_1)
 }
 
 
-// ==== entry=00905dfc name=FUN_00905dfc size=1 ====
+// ==== entry=00905dfc orig=FUN_00905dfc size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00905dfc(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -26689,9 +26811,11 @@ LAB_0090771e:
 }
 
 
-// ==== entry=00908d8e name=FUN_00908d8e size=1 ====
+// ==== entry=00908d8e orig=FUN_00908d8e size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00908d8e(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -26855,9 +26979,11 @@ LAB_00908f42:
 }
 
 
-// ==== entry=00908f5a name=FUN_00908f5a size=1 ====
+// ==== entry=00908f5a orig=FUN_00908f5a size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00908f5a(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -26959,9 +27085,11 @@ void FUN_00909029(undefined8 *param_1)
 }
 
 
-// ==== entry=00909060 name=FUN_00909060 size=1 ====
+// ==== entry=00909060 orig=FUN_00909060 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00909060(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -27391,9 +27519,11 @@ LAB_009096ab:
 }
 
 
-// ==== entry=0090974e name=FUN_0090974e size=1 ====
+// ==== entry=0090974e orig=FUN_0090974e size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090974e(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -27677,9 +27807,11 @@ LAB_00909b13:
 }
 
 
-// ==== entry=00909b22 name=FUN_00909b22 size=1 ====
+// ==== entry=00909b22 orig=FUN_00909b22 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00909b22(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -29151,7 +29283,7 @@ void OutlinePane_dtor(QWidget *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar3 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar3 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar3 + 0x10))(plVar3);
       }
       LOCK();
@@ -29211,7 +29343,7 @@ void FUN_0090b114(undefined8 *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar3 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar3 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar3 + 0x10))(plVar3);
       }
       LOCK();
@@ -29271,7 +29403,7 @@ void FUN_0090b200(undefined8 *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar3 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar3 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar3 + 0x10))(plVar3);
       }
       LOCK();
@@ -29332,7 +29464,7 @@ void OutlinePane_dtor_deleting(QWidget *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar3 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar3 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar3 + 0x10))(plVar3);
       }
       LOCK();
@@ -30006,9 +30138,11 @@ LAB_0090bd0a:
 }
 
 
-// ==== entry=0090bd54 name=FUN_0090bd54 size=1 ====
+// ==== entry=0090bd54 orig=FUN_0090bd54 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090bd54(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -31110,7 +31244,8 @@ void MainWindow_h90d42c(long param_1,int param_2,int param_3,long *param_4)
       cVar4 = QByteArray::append((char *)&local_38);
       QByteArray::append(cVar4);
       iVar7 = QMetaType::registerNormalizedType
-                        (&local_38,FUN_005441e4,FUN_005441e5,8,0x10c,&QWidget::staticMetaObject);
+                        (&local_38,BSim_QList_int___node_destruct,FUN_005441e5,8,0x10c,
+                         &QWidget::staticMetaObject);
       goto LAB_0090d510;
     case 8:
       if (*(int *)param_4[1] != 0) goto switchD_0090d5b1_caseD_9;
@@ -31132,7 +31267,8 @@ void MainWindow_h90d42c(long param_1,int param_2,int param_3,long *param_4)
       cVar4 = QByteArray::append((char *)&local_38);
       QByteArray::append(cVar4);
       iVar7 = QMetaType::registerNormalizedType
-                        (&local_38,FUN_005441e4,FUN_005441e5,8,0x10c,&QWidget::staticMetaObject);
+                        (&local_38,BSim_QList_int___node_destruct,FUN_005441e5,8,0x10c,
+                         &QWidget::staticMetaObject);
 LAB_0090d510:
       DAT_011c0b1c = iVar7;
       if (*(int *)local_38 != 0) {
@@ -31699,7 +31835,7 @@ joined_r0x0090e19a:
     }
     break;
   case 0xe:
-    uVar8 = FUN_0075d0a4(param_1,*(undefined4 *)param_4[1]);
+    uVar8 = BSim_QBasicAtomicInteger_int___deref(param_1,*(undefined4 *)param_4[1]);
     if ((undefined1 *)*param_4 != (undefined1 *)0x0) {
       *(undefined1 *)*param_4 = uVar8;
     }
@@ -32423,9 +32559,11 @@ ulong ModemProcess_qt_metacall
 }
 
 
-// ==== entry=0090ec82 name=FUN_0090ec82 size=1 ====
+// ==== entry=0090ec82 orig=FUN_0090ec82 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090ec82(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -32500,9 +32638,11 @@ void TerminalKeyboard_dtor_deleting(QObject *param_1)
 }
 
 
-// ==== entry=0090ed1e name=FUN_0090ed1e size=1 ====
+// ==== entry=0090ed1e orig=FUN_0090ed1e size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090ed1e(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -32554,9 +32694,11 @@ void QObject::SessionConnector_qt_metacall(void)
 }
 
 
-// ==== entry=0090ed80 name=FUN_0090ed80 size=1 ====
+// ==== entry=0090ed80 orig=FUN_0090ed80 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_0090ed80(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -33929,18 +34071,23 @@ void SuperCommander_vt12(void)
 }
 
 
-// ==== entry=00910764 name=FUN_00910764 size=3 ====
+// ==== entry=00910764 orig=FUN_00910764 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00910764(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
 }
 
 
-// ==== entry=00910768 name=FUN_00910768 size=1 ====
+// ==== entry=00910768 orig=FUN_00910768 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00910768(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;

@@ -2474,7 +2474,7 @@ LAB_00be832b:
   puVar3 = operator_new(0x18);
   _DAT_011c3900 = puVar2 + 6;
   puVar3[1] = 0x100000001;
-  *puVar3 = &PTR_FUN_01182c60;
+  *puVar3 = &PTR_BSim_QList_int___node_destruct_01182c60;
   puVar3[2] = puVar2;
   LOCK();
   DAT_011c3908 = puVar3;
@@ -2580,7 +2580,7 @@ LAB_00be861b:
   puVar3 = operator_new(0x18);
   _DAT_011c38e0 = puVar2 + 6;
   puVar3[1] = 0x100000001;
-  *puVar3 = &PTR_FUN_01182ca8;
+  *puVar3 = &PTR_BSim_QList_int___node_destruct_01182ca8;
   puVar3[2] = puVar2;
   LOCK();
   DAT_011c38e8 = puVar3;
@@ -4107,7 +4107,7 @@ LAB_00bea000:
 LAB_00be9d90:
       FUN_00c868a0(param_5,0,param_4);
       FUN_00c868a0(param_5,1,(long)(int)uVar16);
-      FUN_00c86930(param_5,ppuVar11);
+      BSim_Splitter__setMainIndex(param_5,ppuVar11);
       uVar5 = 7;
       goto LAB_00be9dc5;
     }
@@ -4184,18 +4184,24 @@ LAB_00bea382:
 }
 
 
-// ==== entry=00bea3e0 name=FUN_00bea3e0 size=8 ====
+// ==== entry=00bea3e0 orig=FUN_00bea3e0 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00bea3e0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "__gnu_cxx::__concurrence_lock_error";
 }
 
 
-// ==== entry=00bea3f0 name=FUN_00bea3f0 size=8 ====
+// ==== entry=00bea3f0 orig=FUN_00bea3f0 size=8 name=BSim_std::__is_constant_evaluated ====
 
-char * FUN_00bea3f0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+char * BSim_std____is_constant_evaluated(void)
 
 {
   return "__gnu_cxx::__concurrence_unlock_error";
@@ -4586,18 +4592,18 @@ void FUN_00bea9b0(void)
   int iVar1;
   
   if (DAT_011c39e8 != '\0') {
-    FUN_00c88fc0(FUN_00bea960);
+    BSim_QTypedArrayData_char___deallocate(FUN_00bea960);
     return;
   }
   iVar1 = __cxa_guard_acquire(&DAT_011c39e8);
   if (iVar1 == 0) {
-    FUN_00c88fc0(FUN_00bea960);
+    BSim_QTypedArrayData_char___deallocate(FUN_00bea960);
     return;
   }
   pthread_key_create(&DAT_011c3a00,FUN_00bea910);
   __cxa_guard_release(&DAT_011c39e8);
   __cxa_atexit(FUN_00bea900,&DAT_011c39f0,&DAT_00c89008);
-  FUN_00c88fc0(FUN_00bea960);
+  BSim_QTypedArrayData_char___deallocate(FUN_00bea960);
   return;
 }
 
@@ -4928,9 +4934,11 @@ void __thiscall std::bad_exception::~bad_exception(bad_exception *this)
 }
 
 
-// ==== entry=00beaf00 name=FUN_00beaf00 size=1 ====
+// ==== entry=00beaf00 orig=FUN_00beaf00 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00beaf00(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -4942,15 +4950,17 @@ void FUN_00beaf00(void)
 void FUN_00beaf10(void *param_1)
 
 {
-  FUN_00beaf00();
+  BSim_QList_int___node_destruct();
   operator_delete(param_1,8);
   return;
 }
 
 
-// ==== entry=00beaf30 name=FUN_00beaf30 size=1 ====
+// ==== entry=00beaf30 orig=FUN_00beaf30 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00beaf30(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -4962,15 +4972,17 @@ void FUN_00beaf30(void)
 void FUN_00beaf40(void *param_1)
 
 {
-  FUN_00beaf30();
+  BSim_QList_int___node_destruct();
   operator_delete(param_1,8);
   return;
 }
 
 
-// ==== entry=00beaf60 name=FUN_00beaf60 size=1 ====
+// ==== entry=00beaf60 orig=FUN_00beaf60 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00beaf60(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -4986,9 +4998,11 @@ char * std::exception::s_std__exception_beaf70(void)
 }
 
 
-// ==== entry=00beaf80 name=FUN_00beaf80 size=1 ====
+// ==== entry=00beaf80 orig=FUN_00beaf80 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00beaf80(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -14066,9 +14080,11 @@ void FUN_00bf4da0(runtime_error *param_1,ulong param_2,long *param_3,char *param
 }
 
 
-// ==== entry=00bf4fe0 name=FUN_00bf4fe0 size=1 ====
+// ==== entry=00bf4fe0 orig=FUN_00bf4fe0 size=1 name=BSim_QList_int_::node_destruct ====
 
-void FUN_00bf4fe0(void)
+/* BSim sim=1.0 sig=8.379975367083091 ref=libsplitter.so.1.0.0::QList<int>::node_destruct */
+
+void BSim_QList_int___node_destruct(void)
 
 {
   return;
@@ -14080,7 +14096,7 @@ void FUN_00bf4fe0(void)
 void FUN_00bf4ff0(void *param_1)
 
 {
-  FUN_00bf4fe0();
+  BSim_QList_int___node_destruct();
   operator_delete(param_1);
   return;
 }
@@ -14225,7 +14241,7 @@ undefined8 FUN_00bf5120(long *param_1)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -14280,7 +14296,7 @@ void FUN_00bf51f0(pthread_t *param_1,undefined8 *param_2)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)lVar6 == 1) {
-      if (*(code **)(*plVar4 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*plVar4 + 0x10) != BSim_QList_int___node_destruct) {
         (**(code **)(*plVar4 + 0x10))(plVar4);
       }
       LOCK();
@@ -14345,7 +14361,7 @@ void __thiscall std::thread::_M_start_thread(thread *this,undefined8 *param_2)
     *(int *)plVar1 = (int)*plVar1 + -1;
     UNLOCK();
     if ((int)*plVar1 == 0) {
-      if (*(code **)(*local_30 + 0x10) != FUN_00575d12) {
+      if (*(code **)(*local_30 + 0x10) != ::BSim_QList_int___node_destruct) {
         (**(code **)(*local_30 + 0x10))(local_30);
       }
       LOCK();
@@ -17562,9 +17578,12 @@ void FUN_00bf9280(undefined8 *param_1)
 }
 
 
-// ==== entry=00bf92a0 name=FUN_00bf92a0 size=3 ====
+// ==== entry=00bf92a0 orig=FUN_00bf92a0 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00bf92a0(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
@@ -24945,9 +24964,15 @@ void FUN_00c03b20(long *param_1)
 }
 
 
-// ==== entry=00c03b30 name=FUN_00c03b30 size=4 ====
+// ==== entry=00c03b30 orig=FUN_00c03b30 size=4 name=BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData___::operator__ ====
 
-undefined8 FUN_00c03b30(undefined8 param_1,undefined8 *param_2)
+/* BSim sim=1.0 sig=9.457680526306978
+   ref=libsplitter.so.1.0.0::QScopedPointer<QObjectData,_QScopedPointerDeleter<QObjectData>_>::operator->
+    */
+
+undefined8
+BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__
+          (undefined8 param_1,undefined8 *param_2)
 
 {
   return *param_2;
@@ -25046,9 +25071,13 @@ void FUN_00c03b60(undefined8 *param_1,byte *param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00c03c70 name=FUN_00c03c70 size=8 ====
+// ==== entry=00c03c70 orig=FUN_00c03c70 size=8 name=BSim_std::vector_TelnetOption__std::allocator_TelnetOption___::clear ====
 
-void FUN_00c03c70(undefined8 param_1,undefined8 *param_2)
+/* BSim sim=0.9999999999999998 sig=11.017834412421333
+   ref=libwindtermopen.so.1.0.0::std::vector<TelnetOption,_std::allocator<TelnetOption>_>::clear */
+
+void BSim_std__vector_TelnetOption__std__allocator_TelnetOption_____clear
+               (undefined8 param_1,undefined8 *param_2)
 
 {
   FUN_00c03b60(param_1,*param_2);
@@ -26341,7 +26370,7 @@ long * FUN_00c05de0(undefined8 param_1,undefined8 param_2,undefined8 param_3,lon
   if (this[0x38] == (ctype)0x0) {
     std::ctype<char>::_M_widen_init((ctype<char> *)this);
     local_44 = (ctype)0x25;
-    if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+    if (*(code **)(*(long *)this + 0x30) != BSim_QList_int___Node__t) {
       local_44 = (ctype)(**(code **)(*(long *)this + 0x30))(this,0x25);
     }
   }
@@ -26412,7 +26441,7 @@ long * FUN_00c06020(long *param_1,undefined8 param_2,undefined8 param_3,long *pa
     if (this[0x38] == (ctype)0x0) {
       std::ctype<char>::_M_widen_init((ctype<char> *)this);
       local_44 = (ctype)0x25;
-      if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+      if (*(code **)(*(long *)this + 0x30) != BSim_QList_int___Node__t) {
         local_44 = (ctype)(**(code **)(*(long *)this + 0x30))(this,0x25);
       }
     }
@@ -26755,7 +26784,7 @@ LAB_00c064ef:
       if (this[0x38] == (ctype)0x0) {
         std::ctype<char>::_M_widen_init((ctype<char> *)this);
         cVar6 = (ctype)0x25;
-        if (*(code **)(*(long *)this + 0x30) != FUN_00816ea8) {
+        if (*(code **)(*(long *)this + 0x30) != BSim_QList_int___Node__t) {
           cVar6 = (ctype)(**(code **)(*(long *)this + 0x30))(this,0x25);
         }
       }
@@ -35615,27 +35644,36 @@ FUN_00c10630(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8
 }
 
 
-// ==== entry=00c10640 name=FUN_00c10640 size=3 ====
+// ==== entry=00c10640 orig=FUN_00c10640 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00c10640(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
 
-{
-  return 0;
-}
-
-
-// ==== entry=00c10650 name=FUN_00c10650 size=3 ====
-
-undefined8 FUN_00c10650(void)
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 0;
 }
 
 
-// ==== entry=00c10660 name=FUN_00c10660 size=6 ====
+// ==== entry=00c10650 orig=FUN_00c10650 size=3 name=BSim_std::__is_constant_evaluated ====
 
-undefined8 FUN_00c10660(void)
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
+
+{
+  return 0;
+}
+
+
+// ==== entry=00c10660 orig=FUN_00c10660 size=6 name=BSim_std::__is_constant_evaluated ====
+
+/* BSim sim=0.9999999999999998 sig=8.22891889426856
+   ref=libsplitter.so.1.0.0::std::__is_constant_evaluated */
+
+undefined8 BSim_std____is_constant_evaluated(void)
 
 {
   return 4;
