@@ -36,4 +36,26 @@ rg -A 20 'entry=008cd068' reference/full/     # 定位已知函数
 rg -l 'QSvgRenderer' reference/full/          # 语义搜索
 ```
 
-规则汇总见 `docs/cracked-rules.md`；各阶段证据链见 `docs/phase*.md`。
+## 符号库（累计 3,072 条 / 具名函数头 12,232）
+
+| 文件 | 来源 | 证据等级 |
+|---|---|---|
+| `symbols.tsv` | 人工破解 + **反哺批**（界面还原/排版树/bars/QuickBar/生命周期五节） | 实锤（字面量/调用结构/实现确证），弱名升级覆盖 |
+| `symbols-inferred.tsv` | `tools/infer-names.py` 机械批：字符串指纹 789 + 调用者归属 4 | `s_<slug>`（引用了某字面量）/`_h`（调用者同类前缀） |
+| `symbols-inferred2.tsv` | 同工具 v2：vtable 全槽位 1,653 + 字面量放宽 1,038 + 归属放宽 207 | `_vt<N>`（位置事实，零猜测） |
+
+AI 理解批（fixer 阅读函数体命名 1,303 条）已并入 `symbols.tsv` 的 "AI 理解批" 节，
+证据列为一句依据。命名前缀即证据等级：无前缀=实锤 / `s_`、`_h`、`_vt`=推断 / `_helper`、`_callback`=未定位挂账。
+
+**反哺管线**（AGENTS.md 第四步，与实现同批提交）：
+```bash
+# 1. symbols.tsv 追加：0x<地址>\t<名>\t<证据>
+# 2. 应用+重 dump（调用点烧真名）+ orig= 标注：
+analyzeHeadless /tmp/opencode/ghidra-proj WindTermRef -process WindTerm -noanalysis \
+  -scriptPath tools -postScript RenameSymbols.java reference/symbols.tsv
+analyzeHeadless … -scriptPath /tmp/opencode/gscripts -postScript DecompileAll.java /tmp/opencode/decomp-full<N>
+# 3. cp -r → reference/full → orig= 标注脚本（见 git log "symbols:" 提交）→ commit
+```
+Ghidra 项目 `/tmp/opencode/ghidra-proj WindTermRef` 可 -process 复用（免重分析）。
+
+规则汇总见 `docs/cracked-rules.md`（R1-R25）；各阶段证据链见 `docs/phase*.md`。
