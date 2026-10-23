@@ -3091,3 +3091,12 @@
 0x007662e6	QuickSwitcher_initUi	行序机制修正:addToolBar+QStackedWidget+末尾 hide()=隐藏 quick-switcher 宿主,非可见主窗(上批误名 MainWindow_initUi,覆盖)
 0x007664a2	QuickSwitcher_addPage	行序机制:外层栈装页+quickswitcher_buttons_build(KitBar)(升级弱名 HistoryHints)
 0x005ab6e8	TabGroup_centralStack	行序机制修正:5 字节 return +0x60(QStackedWidget)——buildCentral 语义确证(覆盖)
+
+# —— PaneHeader 组件反哺批 ——
+0x0055332c	PaneHeader_enterEvent	组件:hover 进入→显 CloseButton
+0x00553354	PaneHeader_leaveEvent	组件:hover 离开→隐 CloseButton
+0x00552f52	PaneHeader_updateCloseVisibility	组件:显隐刷新
+0x00551fa6	PaneHeader_closeRequested_emit	组件:CloseButton clicked→发 closeRequested(经 ExplorerEditor metaObject 信号#0)
+0x005803da	PaneHeader_titleWrap	组件:标题文本换行处理
+0x0055328c	PaneHeader_delegateFactory	组件:delegate 工厂按视图创建头部(parent 传入)
+0x00553238	PaneHeader_buildText	组件:标题文本构建

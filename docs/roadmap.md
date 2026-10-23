@@ -63,3 +63,4 @@
 - user.sessions 只读：SessionStore（启动读 ~/.wind profile，写盘挂账+profile 隔离决策）；SessionPane 分组树+双击连 SSH（真数据验证）
 - selfcheck：开标签→关标签→QPointer 失效断言
 - 缺口：新建/编辑会话（写盘）、reopen.history 二进制格式（Qt 序列化，后续）、tmux 面板 kill-pane 分支
+- 挂账撤销：侧栏左窄图标列经像素裁剪证明不存在（docs/imgs 裁剪 x0-60 全内容），上轮 explorer"AppletBar 图标列"措辞误读，挂账撤销。

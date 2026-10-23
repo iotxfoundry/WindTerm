@@ -45,6 +45,7 @@
 #include "widgets/ActionIcons.h"
 #include "widgets/KitGroup.h"
 #include "widgets/MuxPaneGroup.h"
+#include "widgets/PaneHeader.h"
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
 
@@ -364,6 +365,8 @@ void MainWindow::createCentral()
     connectSessionPane(sessionPane);
 
     auto *filerPane = new FilerPane;
+    // PaneHeader closeRequested → hide pane（对齐 Dock.TogglePaneFiler toggle 语义）
+    connect(filerPane, &FilerPane::closeRequested, this, [this, filerPane]() { togglePane(filerPane); });
     left->addWidget(tabsGroup);
     left->addWidget(filerPane);
     // shortcut: 原版运行时按均分插入，此处按实机侧栏截图约 2:1 定格；动态插入改走 PaneManager 时恢复均分
