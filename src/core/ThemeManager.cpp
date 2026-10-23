@@ -44,9 +44,13 @@ bool ThemeManager::loadTheme(const QString &name)
 void ThemeManager::apply() const
 {
     // Qt QSS 类型选择器只匹配 C++ 类名（Qt5/6 实测），原版自定义类是 objectName：
-    // 把原版类名改写成 #objectName 才能命中 gui.theme 的 TextView/TabGroup/KitBar 等规则
+    // 把原版类名改写成 #objectName 才能命中 gui.theme 的 TextView/ViewGroup/KitBar 等规则
+    // （原版 TabGroup 类的标签行实例 objectName=ViewGroup，0x008baf26）
     QString qss = m_qss;
-    for (const char *name : {"TextView", "TabGroup", "KitBar", "AppletBar", "TerminalWindow"}) {
+    // "TabGroup"→"#ViewGroup"：类名与实例名不同名，非 token 循环能表达的映射
+    qss.replace(QLatin1String("TabGroup"), QStringLiteral("#ViewGroup"));
+    // 子串安全：TabGroup/ViewGroup/KitBar… 均非其他 QSS 标识符的子串（gui.theme 全量 rg 核过）
+    for (const char *name : {"TextView", "KitBar", "AppletBar", "TerminalWindow"}) {
         const QLatin1String token(name);
         qss.replace(token, QStringLiteral("#") + token);
     }

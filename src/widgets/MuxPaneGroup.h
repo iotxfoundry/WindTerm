@@ -26,8 +26,8 @@ public:
     void onAddSession();
 
 public:
-    // 标签行（tabBar+addBtn+menuBtn 容器）：MainWindow 将其提升到 central VBox 顶行，
-    // 模拟原版 TabGroup 经 setMenuWidget 占菜单槽（全宽，位于工具栏行之上）
+    // 标签行（tabBar+addBtn+menuBtn 容器，objectName=ViewGroup）：MainWindow 经
+    // KitGroup::setMenuWidget 挂其 menuWidget 槽（0x008bade2）
     QWidget *tabBarRow() const { return m_tabBarRow; }
 
 private:

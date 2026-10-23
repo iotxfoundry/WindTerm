@@ -41,7 +41,8 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     , m_menuButton(new QToolButton(this))
 {
     // 原版 TabGroup（QFrame：标签条+右侧按钮，0x005af896）以类名挂 objectName；
-    // 标签行容器同挂 TabGroup 供 gui.theme 命中（MuxPaneGroup 自身不再是标签行）
+    // 骨架标签行容器实挂 "ViewGroup"（0x008bade2: 0x008baf26 setObjectName("ViewGroup")），
+    // 供 gui.theme 改写后的 #ViewGroup 规则命中
     m_tabBar->setExpanding(false);
     m_tabBar->setUsesScrollButtons(true);
     m_tabBar->setElideMode(Qt::ElideRight);
@@ -66,7 +67,9 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     tabRow->addWidget(m_addButton);
     tabRow->addWidget(m_menuButton);
     m_tabBarRow = new QWidget(this);
-    m_tabBarRow->setObjectName(QStringLiteral("TabGroup"));
+    // 原版 setObjectName="ViewGroup"（KitWindow_setupBars 0x008bade2，0x008baf26，
+    // 此前误记 TabGroup）；QMainWindow::setMenuWidget 挂 KitGroup 的 menuWidget 槽
+    m_tabBarRow->setObjectName(QStringLiteral("ViewGroup"));
     m_tabBarRow->setLayout(tabRow);
 
     auto *layout = new QVBoxLayout(this);

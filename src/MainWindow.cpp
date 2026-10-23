@@ -43,14 +43,17 @@
 #include "panes/ShellPane.h"
 #include "panes/TransferPane.h"
 #include "widgets/ActionIcons.h"
+#include "widgets/KitGroup.h"
 #include "widgets/MuxPaneGroup.h"
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
 
 namespace {
 
-// v3：中央区由动态插入改为显式原版树，v2 的 RootSplitter/CenterSplitter 旧状态必须失效
-const QString LAYOUT_VERSION = QStringLiteral("v3");
+// v5：中部单元改为嵌套 QMainWindow（KitGroup，ctor 0x008bb360）——标签行=menuWidget、
+// KitBar=addToolBar、MuxPaneGroup=central（setupBars 0x008bade2）；v4 的 CenterGroup
+// VBox 旧状态必须失效
+const QString LAYOUT_VERSION = QStringLiteral("v5");
 
 QString splitterSettingsKey(const QString &objectName)
 {
@@ -153,8 +156,9 @@ void MainWindow::createToolBar()
     if (name.isEmpty())
         return;
 
-    // 原版 KitBar 在工具栏行（标签行之下、内容之上）。QMainWindow addToolBar 会插到 menuWidget
-    // 之上（行序颠倒）→ 改为普通 widget 挂 m_toolRow，由 createCentral 编排（单层 QMainWindow 模拟）
+    // 原版 KitBar 在 KitGroup 的 toolBar 区（工具栏行：标签行之下、终端之上，只占中部宽）。
+    // 经 KitGroup::addToolBar 挂入（setupBars 0x008bade2 → QMainWindow::addToolBar 0x008bb07d）；
+    // createCentral 里装配
     auto *toolBar = new QToolBar(name, this);
     // 原版工具栏类 KitBar（QToolBar 子类，0x008b31b6）；gui.theme:583 qproperty-iconSize:20px
     toolBar->setObjectName(QStringLiteral("KitBar"));
@@ -345,8 +349,6 @@ void MainWindow::createCentral()
     auto *root = new Splitter(this);
     root->setOrientation(Qt::Vertical);
     root->setObjectName(QStringLiteral("RootSplitter"));
-    root->setOrientation(Qt::Vertical);
-    root->setObjectName(QStringLiteral("RootSplitter"));
 
     auto *col = new Splitter;
     col->setObjectName(QStringLiteral("CenterColumn")); // 0x58：未 setOrientation，默认 H（左中右三列）
@@ -367,16 +369,26 @@ void MainWindow::createCentral()
     // shortcut: 原版运行时按均分插入，此处按实机侧栏截图约 2:1 定格；动态插入改走 PaneManager 时恢复均分
     left->setSizes({2000, 1000});
 
-    auto *center = new Splitter;
-    center->setOrientation(Qt::Vertical);
-    center->setObjectName(QStringLiteral("CenterSplitter"));
-
+    // 原版 root 中央单元 0x60=QSplitter 子类 H（childrenCollapsible(false)），
+    // 内装 TabGroup_buildCentral(0x005ab6e8) 的返回件（原版 return +0x60 = 该 splitter）
     auto *muxRow = new QSplitter(Qt::Horizontal);
     muxRow->setObjectName(QStringLiteral("MuxRow"));
     muxRow->setChildrenCollapsible(false);
     m_muxPaneGroup = new MuxPaneGroup;
     muxRow->addWidget(m_muxPaneGroup);
-    center->addWidget(muxRow);
+
+    // 中央列 = KitGroup（嵌套 QMainWindow，ctor 0x008bb360）：标签行占 menuWidget 槽、
+    // KitBar 占 toolBar 区（QToolBar 只占中部宽，不横跨侧栏）、central=MuxPaneGroup
+    // 的堆栈（对应 setupBars 0x008bade2：setMenuWidget 0x008bb044 → TabGroup_buildCentral
+    // 0x005ab6e8 return +0x60 → addToolBar 0x008bb07d）
+    auto *kitGroup = new KitGroup;
+    if (m_muxPaneGroup->tabBarRow())
+        kitGroup->setMenuWidget(m_muxPaneGroup->tabBarRow());
+    if (m_toolBar) {
+        m_toolBar->setParent(kitGroup); // 脱离 MainWindow，改挂 KitGroup；objectName KitBar 保持主题规则
+        kitGroup->addToolBar(m_toolBar);
+    }
+    kitGroup->setCentralWidget(muxRow);
 
     auto *right = new QSplitter(Qt::Vertical);
     right->setObjectName(QStringLiteral("RightPanes"));
@@ -394,29 +406,17 @@ void MainWindow::createCentral()
     bottomGroup->hide();
 
     col->addWidget(left);
-    col->addWidget(center);
+    col->addWidget(kitGroup);
     col->addWidget(right);
     root->addWidget(col);
     root->addWidget(bottom);
 
-    // 实机行序（menuWidget 槽 0x008bade2 链）：菜单栏→标签行(全宽)→工具栏行(含地址栏)→内容
-    auto *centralLayout = new QVBoxLayout;
-    centralLayout->setContentsMargins(0, 0, 0, 0);
-    centralLayout->setSpacing(0);
-    if (m_muxPaneGroup)
-        centralLayout->addWidget(m_muxPaneGroup->tabBarRow());
-    if (m_toolBar) {
-        m_toolBar->setParent(this); // 脱离 addToolBar 路径后重挂；objectName KitBar 保持主题规则
-        centralLayout->addWidget(m_toolBar);
-    }
-    centralLayout->addWidget(root, 1);
-
-    auto *central = new QWidget;
-    central->setLayout(centralLayout);
-    setCentralWidget(central);
+    // v5：中央 widget 即 root splitter（中部单元=KitGroup 嵌套窗口，标签行/工具栏不横跨侧栏）
+    setCentralWidget(root);
 
     col->setSizes({1000, 4000, 1000});
-    center->setSizes({4000, 2000});
+    // 原 CenterGroup VBox 期 setSizes({4000,2000}) 双值随 KitGroup 化失效移除（muxRow 内部
+    // childrenCollapsible(false) 语义不变，运行时无需预分配份额）
     root->setSizes({4000, 2000});
 
     // 移动分割条即持久化；所有具名 splitter（含 PaneManager 动态嵌套）统一接入
