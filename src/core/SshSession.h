@@ -25,7 +25,8 @@ public:
 
     void write(const QByteArray &data) override;
     void resize(int rows, int columns) override;
-    void close();
+    // teardown() 已含 notifier 断开+deleteLater、channel close/free、ssh_free/disconnect
+    void close() override;
 
     bool isConnected() const;
 

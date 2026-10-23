@@ -14,6 +14,7 @@ class QTimer;
 class QToolBar;
 class MuxPaneGroup;
 class QuickBar;
+class SessionPane;
 
 class MainWindow : public QMainWindow
 {
@@ -44,6 +45,7 @@ private:
     QWidget *createBottomTabs();
     QString makeMenuTitle(const QString &base, int n) const;
     void initActionRegistry();
+    void connectSessionPane(SessionPane *pane);
     QuickBar *ensureQuickBar();
     void toggleQuickBar();
 

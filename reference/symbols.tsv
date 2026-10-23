@@ -3073,3 +3073,13 @@
 0x0056e420	QuickBar_buildCommands	bars系统:按配置命令列表构建内容(quickbar.showCommandsInOrder等)
 0x0056ce72	QuickBar_onButtonClicked	bars系统:命令按钮 clicked→QWidget::close
 0x0085ad2e	KitWindow_lazyCreateQuickBar	bars系统:首次显示惰性创建并 insertWidget 底部区排序[SearchPane,QuickBar,TransferBar]
+
+# —— 会话生命周期反哺批（F4 关标签/user.sessions）——
+0x005ab2cc	TabGroup_closeAndRemoveView	生命周期:currentWidget close()+deleteLater()→removeWidget(idx)
+0x005a29e6	Splitter_cleanupEmptyTree	生命周期:递归清理空QSplitter(删空组,单子replaceWidget+deleteLater)
+0x005ac9bc	TabGroup_closeWithConfirm	生命周期:菜单/按钮关闭入口(question确认→停线程wait→closeAndRemove)
+0x00806958	SessionStore_saveFile	持久化:user.sessions 写盘(config_saveFile)
+0x007c7e8e	SessionThread_stop	生命周期:requestInterruption+quit+wait
+0x00735858	TabBar_sessionFromTabData	生命周期:tabData→QMetaObject cast 取会话对象
+0x007371c0	Session_requestStopAndWait	生命周期:obj+0x30=1 停止标志+QThread wait
+0x005a236c	TabGroup_restoreFocus	生命周期:关闭后焦点恢复

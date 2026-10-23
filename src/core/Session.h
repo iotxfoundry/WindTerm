@@ -18,6 +18,8 @@ public:
 
     virtual void write(const QByteArray &data) = 0;
     virtual void resize(int rows, int columns) = 0;
+    // 原版停止=置标志+wait（SessionThread 0x007c7e8e）；默认空实现供未启动会话
+    virtual void close() {}
 
 signals:
     void output(const QByteArray &data);

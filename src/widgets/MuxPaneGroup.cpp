@@ -2,6 +2,7 @@
 
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QMessageBox>
 #include <QPainter>
 #include <QPixmap>
 #include <QStackedWidget>
@@ -88,9 +89,29 @@ void MuxPaneGroup::addPane(const QString &title, const QColor &color)
     m_stack->addWidget(new TerminalView(title, m_stack));
 }
 
-void MuxPaneGroup::onTabCloseRequested()
+void MuxPaneGroup::onTabCloseRequested(int index)
 {
-    Q_UNIMPLEMENTED();
+    // 原版 pane_confirmClose(0x008df6c0) 有确认框；zh-CN.locale 有 "关闭会话" 键
+    if (m_confirmClose
+        && QMessageBox::question(this, tr("Close Session"), tr("Close this session?"))
+               != QMessageBox::Yes)
+        return;
+
+    // 原版链：确认 → close+deleteLater → removeWidget（0x005ab2cc）
+    auto *view = qobject_cast<TerminalView *>(m_stack->widget(index));
+    if (view && view->session()) {
+        view->session()->close();
+        // 会话父挂 MuxPaneGroup，不随 view 销毁——显式 deleteLater 修泄漏
+        view->session()->deleteLater();
+    }
+    if (view)
+        view->deleteLater();
+    m_tabBar->removeTab(index);
+    m_stack->removeWidget(view);
+
+    // 原版关闭后回焦相邻标签（FUN_005a236c）——最小实现：聚焦前一标签
+    m_tabBar->setCurrentIndex(qMax(0, index - 1));
+    // 组保留（原版 MuxDesktop 布局 0x008d9be0）：最后一个标签关闭后仅空栈，无占位
 }
 
 void MuxPaneGroup::openSession(Session *session, const QString &title, const QColor &color)

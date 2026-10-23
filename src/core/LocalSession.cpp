@@ -6,7 +6,6 @@
 #ifdef Q_OS_UNIX
 #include "pty/UnixPty.h"
 #endif
-
 LocalSession::LocalSession(int rows, int columns, QObject *parent)
     : Session(parent)
 #ifdef Q_OS_UNIX
@@ -56,5 +55,13 @@ void LocalSession::resize(int rows, int columns)
 #else
     Q_UNUSED(rows);
     Q_UNUSED(columns);
+#endif
+}
+
+void LocalSession::close()
+{
+#ifdef Q_OS_UNIX
+    delete m_pty; // UnixPty::~UnixPty → stop()：terminate→kill -9、断 notifier、关 fd
+    m_pty = nullptr;
 #endif
 }

@@ -16,6 +16,7 @@ public:
     ~TerminalView() override;
 
     void attachSession(Session *session);
+    Session *session() const { return m_session; }
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

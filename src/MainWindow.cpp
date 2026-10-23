@@ -27,6 +27,7 @@
 #include "core/KeymapConfig.h"
 #include "core/Assets.h"
 #include "core/SchemeManager.h"
+#include "core/SessionStore.h"
 #include "core/SshSession.h"
 #include "core/ThemeManager.h"
 #include "core/ToolbarConfig.h"
@@ -208,6 +209,27 @@ void MainWindow::onAddressBarReturn()
     session->start(dialog.host(), dialog.user(), dialog.password(), dialog.port());
 }
 
+// user.sessions 双击接入（原版编辑即写 0x00806958，骨架只读）：user 无键 → user 留空
+void MainWindow::connectSessionPane(SessionPane *pane)
+{
+    connect(pane, &SessionPane::sessionActivated, this,
+            [this](const QString &host, int port, const QString &label) {
+        if (!m_muxPaneGroup)
+            return;
+        ConnectDialog dialog(this);
+        dialog.setSpec(QString(), host, port > 0 ? port : 22);
+        if (dialog.exec() != QDialog::Accepted || dialog.host().isEmpty())
+            return;
+
+        auto *session = new SshSession(24, 80, m_muxPaneGroup);
+        m_muxPaneGroup->openSession(session, label.isEmpty()
+                                                ? QStringLiteral("ssh %1").arg(dialog.host())
+                                                : label,
+                                    Qt::red);
+        session->start(dialog.host(), dialog.user(), dialog.password(), dialog.port());
+    });
+}
+
 QAction *MainWindow::makeAction(const QString &actionId)
 {
     QString en = ActionRegistry::instance().actionText(actionId);
@@ -335,7 +357,9 @@ void MainWindow::createCentral()
     auto *tabsGroup = new QTabWidget;
     tabsGroup->setObjectName(QStringLiteral("ExplorerTabs"));
     tabsGroup->addTab(new ExplorerPane(tabsGroup), m_locale.tr(QStringLiteral("Explorer")));
-    tabsGroup->addTab(new SessionPane(tabsGroup), m_locale.tr(QStringLiteral("Session")));
+    auto *sessionPane = new SessionPane(tabsGroup);
+    tabsGroup->addTab(sessionPane, m_locale.tr(QStringLiteral("Session")));
+    connectSessionPane(sessionPane);
 
     auto *filerPane = new FilerPane;
     left->addWidget(tabsGroup);

@@ -2,11 +2,18 @@
 #include <QApplication>
 #include <QDebug>
 #include <QPixmap>
+#include <QPointer>
+#include <QTabBar>
 #include <QTimer>
 
 #include "MainWindow.h"
 #include "core/ActionRegistry.h"
+#include "core/LocalSession.h"
+#include "core/Session.h"
+#include "core/SessionStore.h"
+#include "widgets/MuxPaneGroup.h"
 #include "widgets/QuickBar.h"
+#include "widgets/TerminalView.h"
 
 int main(int argc, char *argv[])
 {
@@ -66,6 +73,36 @@ int main(int argc, char *argv[])
                     quickToggle->trigger();
                 check2(bar2 && !bar2->isVisible(), "QuickBar hidden after second toggle");
                 check2(quickToggle && !quickToggle->isChecked(), "action unchecked while hidden");
+
+                // F4：标签关闭销毁会话（close→deleteLater→removeWidget 顺序，0x008df6c0 链）
+                MuxPaneGroup *mux = window->findChild<MuxPaneGroup *>();
+                check2(mux, "MuxPaneGroup exists");
+                if (mux) {
+                    auto *local = new LocalSession(24, 80, mux);
+                    check2(local->start(), "local session started");
+                    QPointer<Session> guard = local;
+                    mux->setConfirmClose(false); // selfcheck 跳过 QMessageBox
+                    mux->openSession(local, QStringLiteral("selfcheck"), Qt::gray);
+                    auto *tabBar = mux->tabBarRow()->findChild<QTabBar *>();
+                    check2(tabBar && tabBar->count() >= 1, "tab added");
+                    mux->onTabCloseRequested(0);
+                    check2(tabBar && tabBar->count() == 0, "tab removed after close");
+                    QApplication::processEvents();
+                    // deleteLater 的 DeferredDelete 不被 processEvents 派发（loopLevel 相同），显式派发
+                    QCoreApplication::sendPostedEvents(nullptr, QEvent::DeferredDelete);
+                    check2(!guard, "session destroyed after close (QPointer null)");
+                }
+
+                // F4：user.sessions 只读接入——本机有真数据，条目数>0 且首条字段完整
+                const QVector<SessionEntry> entries = SessionStore::load();
+                check2(!entries.isEmpty(), "user.sessions loaded entries > 0");
+                if (!entries.isEmpty()) {
+                    const SessionEntry &e = entries.first();
+                    check2(!e.uuid.isEmpty() && !e.group.isEmpty() && !e.label.isEmpty()
+                               && !e.protocol.isEmpty() && !e.target.isEmpty() && e.port > 0,
+                           "first entry fields complete");
+                }
+
                 failed += inner;
                 qInfo() << "SELFCHECK" << (failed == 0 ? "PASSED" : "FAILED") << "(" << failed << "failures)";
                 app.exit(failed == 0 ? 0 : 1);
