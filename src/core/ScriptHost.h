@@ -63,6 +63,15 @@ public:
         if (auto *a = qobject_cast<QAction *>(action))
             QMenu::addAction(a);
     }
+    // 0x76cb16：ScriptMenu 同主菜单挂 aboutToShow（scheme 按钮菜单 Terminal.SchemeList
+    // 子项状态刷新链；createMenu 返回后由调用方逐 action 补 state 属性，挂账）
+    void hookUpdate()
+    {
+        connect(this, &QMenu::aboutToShow, this, [this] {
+            for (QAction *action : actions())
+                emit action->changed(); // 无 state 属性时为空操作；刷新文本由 ScriptWindow 链挂账
+        });
+    }
 };
 
 // terminal 脚本终端代理（0x0064b102 defineProperties(this,{terminal:get window.terminal})——
@@ -103,6 +112,10 @@ public:
     // 原版静默）
     void runInit(QObject *widget, const QString &init);
 
+    // 0x669086：action property("state")（wind.actions state JS 串）求值缓存 + callWithInstance
+    // ([action])——JS 闭包内直接改 action.checked/checkable/enabled
+    Q_INVOKABLE void updateActionState(QObject *action);
+
 private:
     QJSEngine m_engine;
     ScriptWindow *m_window;
@@ -140,6 +153,8 @@ public:
     ScriptWindow *window() const { return &m_window; }
     ScriptTerminal *terminal() const { return &m_terminal; }
     void runInit(QObject *widget, const QString &init) { Q_UNIMPLEMENTED(); }
+    // 降级无引擎：0x669086 面保留空实现（签名对齐，行为挂账）
+    Q_INVOKABLE void updateActionState(QObject *) {}
 private:
     ScriptWindow m_window;
     ScriptTerminal m_terminal;

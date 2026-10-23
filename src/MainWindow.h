@@ -51,6 +51,8 @@ private:
     void installPaneToolBar(QWidget *pane);
     QWidget *paneHost(QWidget *pane);
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
+    // 0x76cb16/0x76c3ee：每 QMenu 挂 aboutToShow→动态更新 / aboutToHide→dynamic 动作清理
+    void hookMenuUpdate(QMenu *menu);
     void showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods);
     // TerminalView::contextMenuRequested 落点：sender() 即 view（UniqueConnection 去重连）
     void onTerminalContextMenu(const QPoint &globalPos, Qt::KeyboardModifiers mods);

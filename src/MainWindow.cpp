@@ -328,6 +328,12 @@ QAction *MainWindow::makeAction(const QString &actionId)
     auto *action = new QAction(this);
     action->setText(displayActionText(en, m_locale.tr(key)));
 
+    // 0x66613a：wind.actions "state" JS 串存 property("state")，菜单 aboutToShow 时求值驱动
+    // checked/checkable/enabled（ScriptHost::updateActionState 0x669086）
+    const QString state = ActionRegistry::instance().actionState(actionId);
+    if (!state.isEmpty())
+        action->setProperty("state", state);
+
     // 原版行为：带 icon 字段的动作用 king.svg 矢量（其余纯文字，docs/phase12）
     const QIcon ic = ActionIcons::iconFor(actionId, ActionRegistry::instance().actionIcon(actionId),
                                           ThemeManager::instance().currentTheme());
@@ -430,6 +436,10 @@ void MainWindow::installPaneToolBar(QWidget *pane)
         delete toolBar; // 条目全被跳过（如 ExplorerPane 自带 FilterEdit）则不占位
         return;
     }
+    // 0x8c40a6：toolbar_build 产物逐个 hbox->addWidget(w,0,0) 后对工具栏子 widget
+    // installEventFilter(pane)（右键 popup 过滤链）——骨架对每个子件挂本窗过滤器
+    for (QWidget *child : toolBar->findChildren<QWidget *>())
+        child->installEventFilter(this);
     box->insertWidget(0, toolBar);
 }
 
@@ -438,11 +448,55 @@ QWidget *MainWindow::paneHost(QWidget *pane)
     // 原版 KitPane 本身是 QWidget 容器（0x008c3bbe）；骨架 item view 类 pane 无法直接插布局，补一层同名容器
     auto *host = new QWidget;
     host->setObjectName(QStringLiteral("PaneHost"));
+    // 0x8c3a70：换新 VBox margins 0/spacing 0（+0x38 null 才建 HBox→toolbar_build 产物
+    // addWidget(w,0,0)→addLayout 到 VBox 末尾=内容 addWidget 之前，视觉顶部）。
+    // 重建在构造期建齐（原版子类初始化期开头 onShown(true)→visible 门卫→每次 show 换新 VBox，
+    // 0x8c442e）——均为内容之前插入，结构/视觉等价，保留构造期+两版证据注释
     auto *layout = new QVBoxLayout(host);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addWidget(pane);
     return host;
+}
+
+// 0x76cb16 菜单动态更新 + 0x76c3ee aboutToHide 清理。update：①文本刷新（"text\tshortcut"
+// 拼接，当前 text 无 \t 时重建）②逐 action 调 scriptHost.updateActionState（0x669086，
+// property("state") JS 求值驱动 checked/checkable/enabled）③递归子菜单。
+// 0x76c3ee dynamic 清理：本项目暂无动态项（ExternalToolList/SchemeToolList 类重建挂账），
+// 空实现占位
+void MainWindow::hookMenuUpdate(QMenu *menu)
+{
+    connect(menu, &QMenu::aboutToShow, this, [menu, this] {
+        for (QAction *action : menu->actions()) {
+            if (QMenu *sub = action->menu())
+                emit sub->aboutToShow(); // 子菜单同处理（原版逐级递归 update）
+            const QString id = action->data().toString();
+            if (id.isEmpty())
+                continue;
+            // ①文本刷新：ActionRegistry actionText 重建 "text\tshortcut"（原版比对后 setText+
+            // property("oldText") 缓存；简化：当前无 \t 才 setText，比对语义不变）
+            QString text = ActionRegistry::instance().actionText(id);
+            if (text.isEmpty())
+                continue;
+            QString key = text;
+            key.remove(QLatin1Char('&'));
+            if (key.endsWith(QStringLiteral("...")))
+                key.chop(3);
+            text = displayActionText(text, m_locale.tr(key));
+            const QString keys = KeymapConfig::instance().shortcut(id);
+            if (!keys.isEmpty())
+                text += QLatin1Char('\t') + keys;
+            if (!action->text().contains(QLatin1Char('\t')) && action->text() != text)
+                action->setText(text);
+            // ②状态刷新：property("state") JS 求值（0x669086）
+            m_scriptHost.updateActionState(action);
+        }
+    });
+    // 0x76c3ee：property("dynamic") 非空→deleteLater。骨架无动态项（menu 类
+    // ExternalToolList/SchemeToolList 动态重建挂账）
+    connect(menu, &QMenu::aboutToHide, menu, []() {
+        // 挂账 0x76c3ee：dynamic 动作清理待 ExternalToolList/SchemeToolList 接入
+    });
 }
 
 QString MainWindow::displayActionText(const QString &en, const QString &translated)
@@ -461,6 +515,8 @@ QString MainWindow::displayActionText(const QString &en, const QString &translat
 
 void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
 {
+    // 0x76cb16：每个 QMenu（含子菜单）创建后连 aboutToShow→update/aboutToHide→清理
+    hookMenuUpdate(menu);
     for (const MenuEntry &entry : entries) {
         switch (entry.type) {
         case MenuEntry::Action:
@@ -676,7 +732,9 @@ void MainWindow::createCentral()
     root->setSizes({4000, 2000});
 
     // A6（0x008c40a6/0x008c442e）：pane 工具栏按 toolbar.config 同名节建；pane 装配完成后一次建齐
-    // （原版首次 show 建，骨架无 pane 生命周期钩子，提前建等价且免 Show 序依赖）
+    // （原版子类初始化期开头 onShown(true) 建——0x8c442e/0x8c3a70/0x8c40a6：visible 门卫→新
+    // VBox(0/0)→HBox→toolbar_build→子件装过滤→addLayout 先于内容；重建保留构造期建齐，时序
+    // 语义等价：工具栏先于内容，两版证据见 installPaneToolBar/paneHost 注释）
     for (const char *name : {"ExplorerPane", "SessionPane", "FilerPane", "OutlinePane",
                              "OutputPane", "SenderPane"}) {
         if (QWidget *pane = findChild<QWidget *>(QString::fromLatin1(name)))

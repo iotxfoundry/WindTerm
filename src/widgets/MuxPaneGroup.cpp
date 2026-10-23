@@ -8,6 +8,7 @@
 #include <QStackedWidget>
 #include <QTabBar>
 
+#include <QAction>
 #include <QToolButton>
 #include <QVBoxLayout>
 
@@ -18,6 +19,7 @@
 #include "core/Session.h"
 #include "core/ThemeManager.h"
 
+// 原版无 icon 缺失回退（0x5acaba：icon 缺失=空按钮），iconOrText 回退按逆明删除
 namespace {
 
 QIcon dotIcon(const QColor &color)
@@ -30,14 +32,6 @@ QIcon dotIcon(const QColor &color)
     painter.setBrush(color);
     painter.drawEllipse(0, 0, 9, 9);
     return QIcon(pixmap);
-}
-
-// king.svg 元素缺失时回退纯文字，避免零尺寸空按钮
-void setIconOrText(QToolButton *button, const QIcon &icon, const QString &text)
-{
-    button->setIcon(icon);
-    button->setText(icon.isNull() ? text : QString());
-    button->setToolButtonStyle(icon.isNull() ? Qt::ToolButtonTextOnly : Qt::ToolButtonIconOnly);
 }
 
 } // namespace
@@ -66,30 +60,55 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
 
     m_addButton->setObjectName(QStringLiteral("TabAddButton"));
     // king::addTab（0x005acc3e TabAddButton）
-    setIconOrText(m_addButton, ActionIcons::iconFor(QStringLiteral("TabAddButton"),
-                                                   QStringLiteral("king::addTab"),
-                                                   ThemeManager::instance().currentTheme()),
-                  QStringLiteral("+"));
+    m_addButton->setIcon(ActionIcons::iconFor(QStringLiteral("TabAddButton"),
+                                              QStringLiteral("king::addTab"),
+                                              ThemeManager::instance().currentTheme()));
     // TabGroupButton（组切换）本场景无组概念
     // shortcut: TabGroupButton 组切换挂账, MuxPaneGroup 多组模式未实现(0x8bade2 工厂第4项)
     // 按钮无显式尺寸：gui.theme TabGroup QToolButton 无尺寸规则，TabBar_ctor(0x005a859a) 无尺寸常量 → 内容自适应
     m_listButton->setObjectName(QStringLiteral("TabListButton"));
-    setIconOrText(m_listButton, ActionIcons::iconFor(QStringLiteral("TabListButton"),
-                                                    QStringLiteral("king::listTab"),
-                                                    ThemeManager::instance().currentTheme()),
-                  QStringLiteral("\u2261"));
+    m_listButton->setIcon(ActionIcons::iconFor(QStringLiteral("TabListButton"),
+                                               QStringLiteral("king::listTab"),
+                                               ThemeManager::instance().currentTheme()));
     // 两个滚动按钮行为挂账：滚动动画未实现
     // shortcut: TabScrollLeft/RightButton 行为挂账, 标签滚动动画未实现(0x005aec28)
+    // 0x5acaba：scroll 按钮=内部 QAction（text=tooltip 同串、icon king::arrowLeft/Right、
+    // property("iconFile")）+setDefaultAction+IconOnly+AutoRaise+SizePolicy(Preferred, Fixed)；
+    // 原版无 icon 缺失文字回退，icon 缺失=空按钮
+    auto makeScrollAction = [](const QString &text, const QIcon &icon, const QString &iconFile) {
+        auto *action = new QAction(text, nullptr);
+        action->setIcon(icon);
+        action->setProperty("iconFile", iconFile);
+        return action;
+    };
     m_scrollLeftButton->setObjectName(QStringLiteral("TabScrollLeftButton"));
-    setIconOrText(m_scrollLeftButton, ActionIcons::iconFor(QStringLiteral("TabScrollLeftButton"),
-                                                          QStringLiteral("king::arrowLeft"),
-                                                          ThemeManager::instance().currentTheme()),
-                  QString());
+    m_scrollLeftButton->setDefaultAction(makeScrollAction(
+        QStringLiteral("TabScrollLeftButton"),
+        ActionIcons::iconFor(QStringLiteral("TabScrollLeftButton"),
+                             QStringLiteral("king::arrowLeft"),
+                             ThemeManager::instance().currentTheme()),
+        QStringLiteral("king::arrowLeft")));
     m_scrollRightButton->setObjectName(QStringLiteral("TabScrollRightButton"));
-    setIconOrText(m_scrollRightButton, ActionIcons::iconFor(QStringLiteral("TabScrollRightButton"),
-                                                           QStringLiteral("king::arrowRight"),
-                                                           ThemeManager::instance().currentTheme()),
-                  QString());
+    m_scrollRightButton->setDefaultAction(makeScrollAction(
+        QStringLiteral("TabScrollRightButton"),
+        ActionIcons::iconFor(QStringLiteral("TabScrollRightButton"),
+                             QStringLiteral("king::arrowRight"),
+                             ThemeManager::instance().currentTheme()),
+        QStringLiteral("king::arrowRight")));
+    for (auto *button : {m_scrollLeftButton, m_scrollRightButton}) {
+        button->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        button->setAutoRaise(true);
+        button->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    }
+    // 0x5aee00：AutoRepeat 仅 btnL/btnR 单独设；初始隐藏禁用（无溢出时）
+    m_scrollLeftButton->hide();
+    m_scrollLeftButton->setEnabled(false);
+    m_scrollLeftButton->setAutoRepeat(true);
+    m_scrollRightButton->hide();
+    m_scrollRightButton->setEnabled(false);
+    m_scrollRightButton->setAutoRepeat(true);
+    // QTabBar 内建箭头证据冲突（0x5ac522 setUsesScrollButtons(false) vs 0x5aec28 分拣内建
+    // 箭头）——保持现状 false，两处证据冲突待裁
 
     auto *tabRow = new QHBoxLayout;
     tabRow->setContentsMargins(0, 0, 0, 0);

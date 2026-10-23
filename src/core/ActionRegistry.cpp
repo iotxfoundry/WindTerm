@@ -36,6 +36,8 @@ bool ActionRegistry::load(const QString &path)
             Action action;
             action.text = object.value(QStringLiteral("text")).toString();
             action.icon = object.value(QStringLiteral("icon")).toString();
+            // 0x66613a：state（JS 串）随 text/icon 同点读出；正则校验略（原版直接存）
+            action.state = object.value(QStringLiteral("state")).toString();
             m_actions.insert(it.key(), action);
         }
     } else {
@@ -54,6 +56,11 @@ QString ActionRegistry::actionText(const QString &id) const
 QString ActionRegistry::actionIcon(const QString &id) const
 {
     return m_actions.value(id).icon;
+}
+
+QString ActionRegistry::actionState(const QString &id) const
+{
+    return m_actions.value(id).state;
 }
 
 QMap<QString, QStringList> ActionRegistry::groups() const

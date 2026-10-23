@@ -59,7 +59,9 @@ QObject *ScriptWindow::findAction(const QString &name)
 QObject *ScriptWindow::createMenu(QObject *button)
 {
     // 0x0064b102：createMenu → Menu*(parent QWidget*)；ScriptMenu is-a QMenu 挂 button
-    return new ScriptMenu(qobject_cast<QWidget *>(button));
+    auto *menu = new ScriptMenu(qobject_cast<QWidget *>(button));
+    menu->hookUpdate(); // 0x76cb16 aboutToShow 链同主菜单
+    return menu;
 }
 
 void ScriptWindow::lockScreen()
@@ -137,6 +139,39 @@ void ScriptHost::runInit(QObject *widget, const QString &init)
     QJSValue result = callable.callWithInstance(QJSValue(QJSValue::UndefinedValue), args);
     if (result.isError())
         qWarning() << "statusbar init error:" << result.toString();
+}
+
+// 0x669086 updateActionState：读 action property("state")；空返回。QString→engine->evaluate
+// （isError→qWarning 一次+清 property）；结果 QJSValue 缓存回写 property；再 callWithInstance
+// (undefined,[action])——JS 闭包内直接改 action.checked/checkable/enabled
+void ScriptHost::updateActionState(QObject *action)
+{
+    if (!action)
+        return;
+    const QVariant state = action->property("state");
+    if (state.isNull() || !state.isValid())
+        return;
+
+    QJSValue value;
+    if (state.canConvert<QString>()) {
+        value = m_engine.evaluate(state.toString());
+        if (value.isError()) {
+            qWarning() << "action state error:" << value.toString();
+            action->setProperty("state", QVariant());
+            return;
+        }
+        action->setProperty("state", QVariant::fromValue(value));
+    } else {
+        value = state.value<QJSValue>();
+    }
+    if (!value.isCallable())
+        return;
+
+    QJSValueList args;
+    args.append(m_engine.newQObject(action));
+    QJSValue result = value.callWithInstance(QJSValue(QJSValue::UndefinedValue), args);
+    if (result.isError())
+        qWarning() << "action state error:" << result.toString();
 }
 
 #else // !WINDTERM_HAVE_QJSENGINE
