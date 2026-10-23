@@ -49,8 +49,10 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     // 骨架标签行容器实挂 "ViewGroup"（0x008bade2: 0x008baf26 setObjectName("ViewGroup")），
     // 供 gui.theme 改写后的 #ViewGroup 规则命中
     m_tabBar->setExpanding(false);
-    // 原版 TabBar_ctor(0x005ac522) setUsesScrollButtons(false)：滚动由自定义
-    // TabScrollLeft/RightButton 接管，Qt 内置箭头不得并存（溢出双箭头）
+    // 0x5ac522 裁定（2026-10-24）：setUsesScrollButtons(false) 无条件调用；param_2 是
+    // 自定义滚动层开关(+0x68)——KitGroup(ViewGroup) 场景 param_2=1 启用自定义 btnL/btnR，
+    // MuxPaneGroup(0x8de936→param_2=0) 不启用：按钮保持初始 hide+disable（本类现状即对），
+    // Qt 内置箭头两场景均不出现
     m_tabBar->setUsesScrollButtons(false);
     m_tabBar->setElideMode(Qt::ElideRight);
     m_tabBar->setMovable(true);
@@ -107,8 +109,9 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     m_scrollRightButton->hide();
     m_scrollRightButton->setEnabled(false);
     m_scrollRightButton->setAutoRepeat(true);
-    // QTabBar 内建箭头证据冲突（0x5ac522 setUsesScrollButtons(false) vs 0x5aec28 分拣内建
-    // 箭头）——保持现状 false，两处证据冲突待裁
+    // QTabBar 内建箭头冲突已裁定（0x5ac522 逐行）：setupUi 末尾与 MuxPaneGroup 均
+    // param_2=0——内建箭头永不出现（setUsesScrollButtons(false) 无条件），前证据 B 的
+    // 分拣过滤器在无箭头状态下白装；保持 false 正确
 
     auto *tabRow = new QHBoxLayout;
     tabRow->setContentsMargins(0, 0, 0, 0);

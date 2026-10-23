@@ -35,6 +35,7 @@
 #include "core/KeymapConfig.h"
 #include "core/Assets.h"
 #include "core/JsonText.h"
+#include "core/ReopenHistory.h"
 #include "core/SchemeManager.h"
 #include "core/SessionStore.h"
 #include "core/SshSession.h"
@@ -850,9 +851,35 @@ void MainWindow::onRestoreLayout()
     const QString startupSessions = WindConfig::instance().valueToString(
         QStringLiteral("terminal.startupSessions"), QStringLiteral("NoSessions"));
     if (startupSessions == QStringLiteral("LastSessions")) {
-        // shortcut: LastSessions 自动恢复会话挂账,需先逆上次会话集存储位置;避免实现期自动外连用户真机会话
+        // shortcut: LastSessions 真重连挂账, 需 uuid 重连(0x8d2e46/0x833db4); 避免实现期自动外连用户真机会话
     } else if (!startupSessions.isEmpty() && startupSessions != QStringLiteral("NoSessions")) {
         // shortcut: startupSessions 其他取值语义未逆, 逆出会话集存储/启动策略后补
+    }
+
+    // reopen.history 读侧（0x75ffcc：窗口几何+布局**无条件**恢复，不受 startupSessions 约束；
+    // 仅会话重连受 kit.startupSessions 约束——上面 QSettings 恢复保留并存，本块叠加）。
+    // 只消费 geometry/maximized/bars/currentIndex/tabList；docks/right 在 ReopenHistory::load
+    // 内读入即弃，splitter 树持久化仍归 QSettings layout.v5（两体系并存挂账）
+    ReopenState st;
+    if (ReopenHistory::load(ReopenHistory::defaultPath(), st)) {
+        restoreGeometry(st.geometry);
+        if (st.maximized)
+            showMaximized();
+        // bars 恢复挂账（0x8d2f7e 应用条件未逆明,真样例 00 00 00 与实机显示矛盾——语义存疑）
+        // menuBar()->setVisible(st.menuBarVisible); statusBar()->setVisible(st.statusBarVisible);
+        if (m_toolBar)
+            // m_toolBar->setVisible(st.toolBarVisible);  // 同上挂账
+        // LastSessions 恢复挂账：只取 uuid 列表+计数告警；真重连（0x8d2e46 按 pageName 建
+        // 视图→vtbl[0x60](url)→0x833db4 QUuid 查 user.sessions 重连）避免实现期自动外连
+        // 用户真机会话
+        QStringList uuids;
+        for (const ReopenTabEntry &t : st.tabs) {
+            if (t.url.startsWith(QStringLiteral("$")))
+                uuids.append(t.url.mid(1));
+        }
+        if (!uuids.isEmpty())
+            qWarning() << "reopen.history:" << uuids.size()
+                       << "session(s) pending restore (LastSessions 重连挂账 0x8d2e46/0x833db4)";
     }
 }
 
@@ -860,6 +887,30 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     QSettings settings;
     settings.setValue(QStringLiteral("application/windowGeometry"), saveGeometry());
+
+    // reopen.history（原版 global/reopen.history 体系）：接管窗口几何+bars 可见性+tabList；
+    // 上面 QSettings windowGeometry 与 splitter_*=layout.v5 体系保留并存（splitter 树持久化
+    // 仍是 layout.v5——两体系并存挂账，docs/reopen-history.md 挂账节）
+    ReopenState st;
+    st.geometry = saveGeometry(); // 0x76073a：QWidget::saveGeometry 透传
+    st.maximized = isMaximized();
+    st.menuBarVisible = menuBar()->isVisible();
+    st.statusBarVisible = statusBar()->isVisible();
+    // 0x8cf0c8 barsBlob 第三位=ToolBar 可见性；骨架 ToolBar 挂 KitGroup（可能未建）
+    st.toolBarVisible = m_toolBar ? m_toolBar->isVisible() : false;
+    if (m_muxPaneGroup) {
+        // 会话 uuid：MuxPaneGroup 无公开标签列表 → findChildren<TerminalView*> 取
+        // session()→uuid。挂账: Session 基类无 uuid 暴露（LocalSession/SshSession 均未携带）——
+        // url 留空（0x833db4 真重连需 "$<uuid>"），uuid 接入后回填
+        const auto views = m_muxPaneGroup->findChildren<TerminalView *>();
+        st.tabs.reserve(views.size());
+        for (TerminalView *view : views)
+            st.tabs.append(ReopenTabEntry{}); // url 挂账：Session 无 uuid 接口（见上）
+        if (auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>())
+            st.currentIndex = stack->currentIndex();
+    }
+    ReopenHistory::save(ReopenHistory::defaultPath(), st);
+
     QMainWindow::closeEvent(event);
 }
 

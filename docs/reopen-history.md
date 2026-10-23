@@ -58,3 +58,8 @@ i32 current; i32 count;
 
 - 重建侧布局持久化现用 QSettings("layout.v5/...")，未切到 reopen.history 体系（实现成本：docksBlob/rightBlob/splitter state 全透传+tabList 恢复+uuid 重连）。
 - 子类尾块 5B 语义未明；`kit.startupSessions` 与 `terminal.startupSessions` 双键作用域差异未细究。
+
+## 勘误（2026-10-24 真样例实证）
+
+- **barsBlob「3 bool=MenuBar/StatusBar/ToolBar 可见性」语义存疑**：真样例读出 `00 00 00`，但原版实机明明显示三栏——保存侧对称推定有误，恢复侧 0x8d2f7e 的应用条件（可能仅显式隐藏才动 / 或另有 flag 前缀）未逆明。重建读侧已挂账不应用。
+- **rightBlob BFS 结构与本文描述不符**：真样例 `flag=01 idx=31 cc=255 sp=1B`——idx/cc 离谱（非 0/1）。0x8cf0c8 写侧 param&1 分支的真实序列待重逆；tabList 解析在真样例上不成立（骨架自写自读自洽）。
