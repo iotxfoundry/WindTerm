@@ -15368,7 +15368,8 @@ void FUN_0052145e(undefined8 param_1,int *param_2)
   QVariant::toString();
   QVariant::~QVariant((QVariant *)&local_38);
                     /* try { // try from 00521500 to 00521516 has its CatchHandler @ 00521562 */
-  FUN_0054886e(param_1,&local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (param_1,&local_40);
   FUN_0054867c(param_1,*(undefined4 *)(local_40 + 4),0);
   if (*(int *)local_40 != 0) {
     if (*(int *)local_40 == -1) {
@@ -15434,13 +15435,15 @@ void FUN_0052157a(undefined8 param_1,int *param_2)
   QArrayData::deallocate(local_38,2,8);
 LAB_0052164c:
   if (cVar3 == '\0') {
-    FUN_0054886e(param_1,(QString *)&local_40);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,(QString *)&local_40);
     FUN_0054867c(param_1,*(undefined4 *)(local_40 + 4),0);
   }
   else {
     lVar4 = FUN_00548126(param_1);
     if (lVar4 != 0) {
-      FUN_005519e0(lVar4);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (lVar4);
     }
   }
   if (*(int *)local_40 != 0) {

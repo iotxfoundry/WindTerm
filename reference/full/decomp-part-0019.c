@@ -7081,8 +7081,8 @@ void ScintillaEditWatcher_vt6(QWidget *param_1)
   QArrayData *pQVar2;
   
   *(undefined ***)param_1 = &PTR_ScintillaEditWatcher_dtor_01197468;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197828;
-  *(undefined ***)(param_1 + 0x48) = &PTR_FUN_01197878;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_01197828;
+  *(undefined ***)(param_1 + 0x48) = &PTR_BSim_QMouseEvent__globalPos_01197878;
   qmap_freetree_variant_nodes(param_1 + 0xf8);
   piVar1 = *(int **)(param_1 + 0x98);
   if (piVar1 != (int *)0x0) {
@@ -7133,9 +7133,12 @@ LAB_005d4c30:
 }
 
 
-// ==== entry=005d4c48 name=FUN_005d4c48 size=9 ====
+// ==== entry=005d4c48 orig=FUN_005d4c48 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005d4c48(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   ScintillaEditWatcher_vt6(param_1 + -0x10);
@@ -7143,9 +7146,12 @@ void FUN_005d4c48(long param_1)
 }
 
 
-// ==== entry=005d4c51 name=FUN_005d4c51 size=9 ====
+// ==== entry=005d4c51 orig=FUN_005d4c51 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005d4c51(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   ScintillaEditWatcher_vt6(param_1 + -0x48);
@@ -7173,8 +7179,8 @@ void FUN_005d4c71(undefined8 *param_1)
   QArrayData *pQVar2;
   
   param_1[-9] = &PTR_ScintillaEditWatcher_dtor_01197468;
-  param_1[-7] = &PTR_FUN_01197828;
-  *param_1 = &PTR_FUN_01197878;
+  param_1[-7] = &PTR_BSim_QMouseEvent__globalPos_01197828;
+  *param_1 = &PTR_BSim_QMouseEvent__globalPos_01197878;
   qmap_freetree_variant_nodes(param_1 + 0x16);
   piVar1 = (int *)param_1[10];
   if (piVar1 != (int *)0x0) {
@@ -7230,8 +7236,8 @@ void FUN_005d4d76(undefined8 *param_1)
   QArrayData *pQVar2;
   
   param_1[-2] = &PTR_ScintillaEditWatcher_dtor_01197468;
-  *param_1 = &PTR_FUN_01197828;
-  param_1[7] = &PTR_FUN_01197878;
+  *param_1 = &PTR_BSim_QMouseEvent__globalPos_01197828;
+  param_1[7] = &PTR_BSim_QMouseEvent__globalPos_01197878;
   qmap_freetree_variant_nodes(param_1 + 0x1d);
   piVar1 = (int *)param_1[0x11];
   if (piVar1 != (int *)0x0) {
@@ -7860,7 +7866,7 @@ void FUN_005d59b0(QListView *param_1,QWidget *param_2)
   
   QListView::QListView(param_1,param_2);
   *(undefined ***)param_1 = &PTR_FUN_0119e298;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119e5a0;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119e5a0;
                     /* try { // try from 005d59dd to 005d59e1 has its CatchHandler @ 005d5b10 */
   pvVar1 = operator_new(0xb0);
                     /* try { // try from 005d59ed to 005d59f1 has its CatchHandler @ 005d5b20 */
@@ -7912,7 +7918,7 @@ void qlistview_dtor_completer(QListView *param_1)
   Data *pDVar8;
   
   *(undefined ***)param_1 = &PTR_FUN_0119e298;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119e5a0;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119e5a0;
   plVar4 = *(long **)(param_1 + 0x30);
   if (plVar4 != (long *)0x0) {
     if ((void *)plVar4[0x13] != (void *)0x0) {
@@ -8058,9 +8064,12 @@ LAB_005d5c57:
 }
 
 
-// ==== entry=005d5dcc name=FUN_005d5dcc size=9 ====
+// ==== entry=005d5dcc orig=FUN_005d5dcc size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005d5dcc(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   qlistview_dtor_completer(param_1 + -0x10);
@@ -8079,9 +8088,12 @@ void FUN_005d5dd6(void *param_1)
 }
 
 
-// ==== entry=005d5ded name=FUN_005d5ded size=6 ====
+// ==== entry=005d5ded orig=FUN_005d5ded size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005d5ded(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005d5dd6(param_1 + -0x10);
@@ -9603,9 +9615,14 @@ LAB_005d7bbc:
 }
 
 
-// ==== entry=005d7c1e name=FUN_005d7c1e size=9 ====
+// ==== entry=005d7c1e orig=FUN_005d7c1e size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005d7c1e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a8086a(*(undefined8 *)(param_1 + 0x58));
@@ -10371,7 +10388,8 @@ uint FUN_005d8c04(undefined8 param_1)
   uint uVar3;
   
   uVar1 = FUN_005d7b56();
-  uVar2 = FUN_005d7c1e(param_1);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1);
   uVar3 = BSim_std____is_constant_evaluated(param_1);
   return uVar3 & uVar1 & uVar2;
 }
@@ -10707,9 +10725,11 @@ QIcon * FUN_005d936a(QIcon *param_1)
 }
 
 
-// ==== entry=005d9378 name=FUN_005d9378 size=5 ====
+// ==== entry=005d9378 orig=FUN_005d9378 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_005d9378(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x48);
@@ -16988,7 +17008,7 @@ LAB_008aa820:
   QDataStream::QDataStream((QDataStream *)apQStack_58,(QIODevice *)aQStack_68);
   FUN_008afa6d((QDataStream *)apQStack_58,param_1 + 0x98);
   QByteArray::QByteArray((QByteArray *)&pQStack_70,"recent",-1);
-  uVar2 = FUN_008a580a(param_1,(QByteArray *)&pQStack_70,0xffffffff);
+  uVar2 = BSim_QMouseEvent__globalPos(param_1,(QByteArray *)&pQStack_70,0xffffffff);
   FUN_008ace64(uVar2,999);
   if (*(int *)pQStack_70 == 0) {
 LAB_008aa84e:
@@ -17299,9 +17319,12 @@ LAB_005e1c2b:
 }
 
 
-// ==== entry=005e1d20 name=FUN_005e1d20 size=11 ====
+// ==== entry=005e1d20 orig=FUN_005e1d20 size=11 name=BSim_QCoreApplication::instance ====
 
-undefined8 FUN_005e1d20(void)
+/* BSim sim=1.0000000000000002 sig=8.572937275767773
+   ref=libwindtermopen2.so.1.0.0::QCoreApplication::instance */
+
+undefined8 BSim_QCoreApplication__instance(void)
 
 {
   return DAT_011c12e0;
@@ -17645,9 +17668,12 @@ joined_r0x005e2343:
 }
 
 
-// ==== entry=005e2375 name=FUN_005e2375 size=12 ====
+// ==== entry=005e2375 orig=FUN_005e2375 size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e2375(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e22de(param_1 + -0x100);
@@ -17859,9 +17885,12 @@ LAB_005e26b4:
 }
 
 
-// ==== entry=005e27e1 name=FUN_005e27e1 size=9 ====
+// ==== entry=005e27e1 orig=FUN_005e27e1 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e27e1(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e269e(param_1 + -0x48);
@@ -17923,9 +17952,12 @@ LAB_005e2865:
 }
 
 
-// ==== entry=005e2951 name=FUN_005e2951 size=9 ====
+// ==== entry=005e2951 orig=FUN_005e2951 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e2951(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e27ea(param_1 + -0x48);
@@ -17943,9 +17975,12 @@ void thunk_FUN_008fbde8(QObject *param_1)
 }
 
 
-// ==== entry=005e295f name=FUN_005e295f size=9 ====
+// ==== entry=005e295f orig=FUN_005e295f size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e295f(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   thunk_FUN_008fbde8(param_1 + -0x100);
@@ -18107,9 +18142,12 @@ LAB_005e2b98:
 }
 
 
-// ==== entry=005e2d0d name=FUN_005e2d0d size=12 ====
+// ==== entry=005e2d0d orig=FUN_005e2d0d size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e2d0d(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   warn_showQuoted(param_1 + -0x100);
@@ -18117,9 +18155,12 @@ void FUN_005e2d0d(long param_1)
 }
 
 
-// ==== entry=005e2d19 name=FUN_005e2d19 size=11 ====
+// ==== entry=005e2d19 orig=FUN_005e2d19 size=11 name=BSim_QCoreApplication::instance ====
 
-undefined8 FUN_005e2d19(void)
+/* BSim sim=1.0000000000000002 sig=8.572937275767773
+   ref=libwindtermopen2.so.1.0.0::QCoreApplication::instance */
+
+undefined8 BSim_QCoreApplication__instance(void)
 
 {
   return DAT_011c12e0;
@@ -18399,9 +18440,12 @@ LAB_005e2fd8:
 }
 
 
-// ==== entry=005e33e5 name=FUN_005e33e5 size=12 ====
+// ==== entry=005e33e5 orig=FUN_005e33e5 size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e33e5(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   kit_titleFromBufferText(param_1 + -0x100);
@@ -18431,9 +18475,12 @@ void * thunk_FUN_005bf6ee(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=005e33f7 name=FUN_005e33f7 size=9 ====
+// ==== entry=005e33f7 orig=FUN_005e33f7 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e33f7(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   thunk_FUN_005bf6ee(param_1 + -0x100);
@@ -18567,7 +18614,7 @@ void s_FileLoadProgressBar_5e35f2(long *param_1)
   FUN_008c65f6(plVar1,1,1);
   FUN_005e35ac(param_1,0);
   uVar3 = DAT_011c12e0;
-  if (*(code **)(*param_1 + 0x3d0) != FUN_005e1d20) {
+  if (*(code **)(*param_1 + 0x3d0) != BSim_QCoreApplication__instance) {
     uVar3 = (**(code **)(*param_1 + 0x3d0))(param_1);
   }
   KitView_vt15(local_30,plVar1);
@@ -19341,9 +19388,12 @@ void FUN_005e48ac(undefined8 param_1)
 }
 
 
-// ==== entry=005e48be name=FUN_005e48be size=9 ====
+// ==== entry=005e48be orig=FUN_005e48be size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e48be(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e48ac(param_1 + -0x100);
@@ -19437,9 +19487,12 @@ LAB_005e4a89:
 }
 
 
-// ==== entry=005e4ab5 name=FUN_005e4ab5 size=12 ====
+// ==== entry=005e4ab5 orig=FUN_005e4ab5 size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e4ab5(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e4976(param_1 + -0x100);
@@ -19927,9 +19980,12 @@ QWidget * fsitem_infoWidget(long param_1)
 }
 
 
-// ==== entry=005e598a name=FUN_005e598a size=12 ====
+// ==== entry=005e598a orig=FUN_005e598a size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e598a(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   fsitem_infoWidget(param_1 + -0x100);
@@ -20024,9 +20080,12 @@ void FUN_005e5996(long param_1,long param_2)
 }
 
 
-// ==== entry=005e5ba9 name=FUN_005e5ba9 size=12 ====
+// ==== entry=005e5ba9 orig=FUN_005e5ba9 size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e5ba9(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e5996(param_1 + -0x100);
@@ -20056,11 +20115,11 @@ void s_EditorView_5e5bb6(QString *param_1)
   s_TextEdit_5cc884();
   pQVar1 = param_1 + 0x100;
                     /* try { // try from 005e5bd4 to 005e5bd8 has its CatchHandler @ 005e5d95 */
-  FUN_008c51e8(pQVar1);
+  BSim_QMargins__QMargins(pQVar1);
   *(undefined ***)param_1 = &EditorView_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119eaa0;
-  *(undefined ***)(param_1 + 0x48) = &PTR_FUN_0119eaf0;
-  *(undefined ***)(param_1 + 0x100) = &PTR_FUN_0119ece8;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119eaa0;
+  *(undefined ***)(param_1 + 0x48) = &PTR_BSim_QMouseEvent__globalPos_0119eaf0;
+  *(undefined ***)(param_1 + 0x100) = &PTR_BSim_QMouseEvent__globalPos_0119ece8;
   param_1[0x130] = (QString)((byte)param_1[0x130] & 0xf8);
   *(undefined8 *)(param_1 + 0x138) = 0;
   sVar2 = strlen("EditorView");
@@ -20118,9 +20177,9 @@ void EditorView_dtor(QWidget *param_1)
   QArrayData *local_30 [2];
   
   *(undefined ***)param_1 = &EditorView_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119eaa0;
-  *(undefined ***)(param_1 + 0x48) = &PTR_FUN_0119eaf0;
-  *(undefined ***)(param_1 + 0x100) = &PTR_FUN_0119ece8;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119eaa0;
+  *(undefined ***)(param_1 + 0x48) = &PTR_BSim_QMouseEvent__globalPos_0119eaf0;
+  *(undefined ***)(param_1 + 0x100) = &PTR_BSim_QMouseEvent__globalPos_0119ece8;
   pQVar1 = param_1 + 0x100;
   cVar3 = FUN_008c67cc(pQVar1);
   if (cVar3 == '\0') {
@@ -20143,8 +20202,8 @@ LAB_005e5f46:
   }
   FUN_008c5220(pQVar1);
   *(undefined ***)param_1 = &PTR_ScintillaEditWatcher_dtor_01197468;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197828;
-  *(undefined ***)(param_1 + 0x48) = &PTR_FUN_01197878;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_01197828;
+  *(undefined ***)(param_1 + 0x48) = &PTR_BSim_QMouseEvent__globalPos_01197878;
   qmap_freetree_variant_nodes(param_1 + 0xf8);
   piVar2 = *(int **)(param_1 + 0x98);
   if (piVar2 != (int *)0x0) {
@@ -20190,9 +20249,12 @@ LAB_005e5e9c:
 }
 
 
-// ==== entry=005e5f5a name=FUN_005e5f5a size=9 ====
+// ==== entry=005e5f5a orig=FUN_005e5f5a size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e5f5a(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorView_dtor(param_1 + -0x48);
@@ -20200,9 +20262,12 @@ void FUN_005e5f5a(long param_1)
 }
 
 
-// ==== entry=005e5f63 name=FUN_005e5f63 size=9 ====
+// ==== entry=005e5f63 orig=FUN_005e5f63 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e5f63(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorView_dtor(param_1 + -0x10);
@@ -20210,9 +20275,12 @@ void FUN_005e5f63(long param_1)
 }
 
 
-// ==== entry=005e5f6c name=FUN_005e5f6c size=12 ====
+// ==== entry=005e5f6c orig=FUN_005e5f6c size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e5f6c(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorView_dtor(param_1 + -0x100);
@@ -20231,9 +20299,12 @@ void EditorView_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=005e5f8f name=FUN_005e5f8f size=9 ====
+// ==== entry=005e5f8f orig=FUN_005e5f8f size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e5f8f(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorView_dtor_deleting(param_1 + -0x100);
@@ -20241,9 +20312,12 @@ void FUN_005e5f8f(long param_1)
 }
 
 
-// ==== entry=005e5f98 name=FUN_005e5f98 size=6 ====
+// ==== entry=005e5f98 orig=FUN_005e5f98 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e5f98(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorView_dtor_deleting(param_1 + -0x48);
@@ -20251,9 +20325,12 @@ void FUN_005e5f98(long param_1)
 }
 
 
-// ==== entry=005e5f9e name=FUN_005e5f9e size=6 ====
+// ==== entry=005e5f9e orig=FUN_005e5f9e size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e5f9e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorView_dtor_deleting(param_1 + -0x10);
@@ -20317,9 +20394,12 @@ LAB_005e60cd:
 }
 
 
-// ==== entry=005e610d name=FUN_005e610d size=12 ====
+// ==== entry=005e610d orig=FUN_005e610d size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e610d(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e5fa4(param_1 + -0x100);
@@ -20943,9 +21023,12 @@ LAB_005e727c:
 }
 
 
-// ==== entry=005e72cd name=FUN_005e72cd size=12 ====
+// ==== entry=005e72cd orig=FUN_005e72cd size=12 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e72cd(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e721a(param_1 + -0x100);
@@ -21008,9 +21091,12 @@ undefined1 FUN_005e73d0(long param_1,QString *param_2)
 }
 
 
-// ==== entry=005e7438 name=FUN_005e7438 size=9 ====
+// ==== entry=005e7438 orig=FUN_005e7438 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e7438(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e73d0(param_1 + -0x100);
@@ -21290,9 +21376,12 @@ void FUN_005e7bba(long param_1,undefined8 param_2,undefined8 param_3,undefined8 
 }
 
 
-// ==== entry=005e7bf7 name=FUN_005e7bf7 size=9 ====
+// ==== entry=005e7bf7 orig=FUN_005e7bf7 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e7bf7(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005e7bba(param_1 + -0x100);
@@ -22731,7 +22820,7 @@ void s_EditorWindow_5e96ac(QString *param_1)
   
   KitWindow_ctor();
   *(undefined ***)param_1 = &EditorWindow_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119f0a0;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119f0a0;
   *(undefined8 *)(param_1 + 0xb8) = 0;
   *(undefined8 *)(param_1 + 0xc0) = 0;
   param_1[200] = (QString)0x0;
@@ -22761,15 +22850,18 @@ void EditorWindow_dtor(undefined8 *param_1)
 
 {
   *param_1 = &EditorWindow_vtable;
-  param_1[2] = &PTR_FUN_0119f0a0;
+  param_1[2] = &PTR_BSim_QMouseEvent__globalPos_0119f0a0;
   FUN_008cc770();
   return;
 }
 
 
-// ==== entry=005e9795 name=FUN_005e9795 size=6 ====
+// ==== entry=005e9795 orig=FUN_005e9795 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e9795(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorWindow_dtor(param_1 + -0x10);
@@ -22788,9 +22880,12 @@ void EditorWindow_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=005e97b3 name=FUN_005e97b3 size=6 ====
+// ==== entry=005e97b3 orig=FUN_005e97b3 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005e97b3(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   EditorWindow_dtor_deleting(param_1 + -0x10);
@@ -31088,9 +31183,11 @@ void FUN_005f4470(int *param_1,char param_2)
 }
 
 
-// ==== entry=005f44a2 name=FUN_005f44a2 size=5 ====
+// ==== entry=005f44a2 orig=FUN_005f44a2 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_005f44a2(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 8);
@@ -33066,9 +33163,14 @@ void FUN_005f4b4e(runtime_error *param_1)
 }
 
 
-// ==== entry=005f4b74 name=FUN_005f4b74 size=9 ====
+// ==== entry=005f4b74 orig=FUN_005f4b74 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005f4b74(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   fflush(*(FILE **)(param_1 + 0x48));
@@ -33256,7 +33358,9 @@ void FUN_005f4e20(long *param_1)
   
   iVar1 = pthread_mutex_lock((pthread_mutex_t *)(param_1 + 3));
   if (iVar1 == 0) {
-    if (*(code **)(*param_1 + 0x38) == FUN_005f4b74) {
+    if (*(code **)(*param_1 + 0x38) ==
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+       ) {
                     /* try { // try from 005f4e57 to 005f4e76 has its CatchHandler @ 005f4e85 */
       fflush((FILE *)param_1[9]);
     }
@@ -40075,7 +40179,9 @@ void FUN_005fdff0(long param_1)
                     /* try { // try from 005fe0b0 to 005fe0b4 has its CatchHandler @ 005fe0b5 */
       std::__throw_system_error(iVar3);
     }
-    if (*(code **)(*plVar2 + 0x38) == FUN_005f4b74) {
+    if (*(code **)(*plVar2 + 0x38) ==
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+       ) {
                     /* try { // try from 005fe060 to 005fe064 has its CatchHandler @ 005fe0ba */
       fflush((FILE *)plVar2[9]);
     }
@@ -57460,7 +57566,7 @@ void FUN_00618a0a(QObject *param_1,QObject *param_2)
                     /* try { // try from 00618a5a to 00618a5e has its CatchHandler @ 00618a8b */
   pvVar1 = operator_new(0x10);
                     /* try { // try from 00618a68 to 00618a6c has its CatchHandler @ 00618a93 */
-  FUN_006202a0(pvVar1,param_1);
+  BSim_std__bad_alloc__bad_alloc(pvVar1,param_1);
   *(void **)(param_1 + 0x18) = pvVar1;
                     /* try { // try from 00618a79 to 00618a85 has its CatchHandler @ 00618a8b */
   QStandardItemModel::setColumnCount((int)pvVar1);
@@ -63392,9 +63498,11 @@ void FUN_00620214(long *param_1)
 }
 
 
-// ==== entry=006202a0 name=FUN_006202a0 size=25 ====
+// ==== entry=006202a0 orig=FUN_006202a0 size=25 name=BSim_std::bad_alloc::bad_alloc ====
 
-void FUN_006202a0(QStandardItemModel *param_1,QObject *param_2)
+/* BSim sim=1.0 sig=11.271298610603214 ref=libwindtermopen2.so.1.0.0::std::bad_alloc::bad_alloc */
+
+void BSim_std__bad_alloc__bad_alloc(QStandardItemModel *param_1,QObject *param_2)
 
 {
   QStandardItemModel::QStandardItemModel(param_1,param_2);
@@ -67202,9 +67310,11 @@ undefined8 FUN_00624c28(long param_1)
 }
 
 
-// ==== entry=00624c42 name=FUN_00624c42 size=5 ====
+// ==== entry=00624c42 orig=FUN_00624c42 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_00624c42(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 8);

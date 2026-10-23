@@ -3730,7 +3730,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -3854,7 +3854,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -3978,7 +3978,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -4102,7 +4102,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -4226,7 +4226,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -4350,7 +4350,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -4474,7 +4474,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -4598,7 +4598,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));
@@ -4722,7 +4722,7 @@ LAB_005133fc:
   BSim_QList_int___node_destruct();
   pvVar3 = *(void **)(unaff_RBX + 0x1038);
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
   free(*(void **)(unaff_RBX + 0x1020));

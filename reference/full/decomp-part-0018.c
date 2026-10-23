@@ -2411,7 +2411,8 @@ void FUN_00589a1e(long *param_1)
   long lVar3;
   
   lVar3 = QHashData::detach_helper
-                    ((_func_void_Node_ptr_void_ptr *)*param_1,FUN_0058ad28,0x58ad26,0x40);
+                    ((_func_void_Node_ptr_void_ptr *)*param_1,BSim_boost__exception__exception,
+                     0x58ad26,0x40);
   piVar1 = (int *)(*param_1 + 0x10);
   iVar2 = *(int *)(*param_1 + 0x10);
   if (iVar2 != 0) {
@@ -2609,9 +2610,14 @@ LAB_00589f12:
 }
 
 
-// ==== entry=00589f66 name=FUN_00589f66 size=9 ====
+// ==== entry=00589f66 orig=FUN_00589f66 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00589f66(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   PaneHeader_titleWrap(*(undefined8 *)(param_1 + 0x48));
@@ -3163,9 +3169,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=0058ad28 name=FUN_0058ad28 size=62 ====
+// ==== entry=0058ad28 orig=FUN_0058ad28 size=62 name=BSim_boost::exception::exception ====
 
-void FUN_0058ad28(long param_1,undefined8 *param_2)
+/* BSim sim=0.7203319720086635 sig=12.779863355904467
+   ref=libwindtermopen2.so.1.0.0::boost::exception::exception */
+
+void BSim_boost__exception__exception(long param_1,undefined8 *param_2)
 
 {
   undefined4 uVar1;
@@ -3730,7 +3739,7 @@ void categorytree_dtor(QTreeView *param_1)
   Data *pDVar8;
   
   *(undefined ***)param_1 = &PTR_CategoryTree_vt0_0119d8d8;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119dbe8;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119dbe8;
   this = *(QRegularExpression **)(param_1 + 0x50);
   if (this != (QRegularExpression *)0x0) {
     QRegularExpression::~QRegularExpression(this);
@@ -3871,9 +3880,12 @@ LAB_0058b8d9:
 }
 
 
-// ==== entry=0058ba3e name=FUN_0058ba3e size=9 ====
+// ==== entry=0058ba3e orig=FUN_0058ba3e size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_0058ba3e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   categorytree_dtor(param_1 + -0x10);
@@ -3892,9 +3904,12 @@ void FUN_0058ba48(void *param_1)
 }
 
 
-// ==== entry=0058ba5f name=FUN_0058ba5f size=6 ====
+// ==== entry=0058ba5f orig=FUN_0058ba5f size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_0058ba5f(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_0058ba48(param_1 + -0x10);
@@ -4245,7 +4260,8 @@ void FUN_0058c152(long param_1,uint param_2,long param_3)
     lVar1 = __dynamic_cast(param_3,&QAbstractItemDelegate::typeinfo,&PTR_PTR_011967d0,0);
     *(long *)(param_1 + 0x58) = lVar1;
     if (lVar1 != 0) {
-      FUN_00589f66(lVar1,*(undefined8 *)(param_1 + 0x70));
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (lVar1,*(undefined8 *)(param_1 + 0x70));
     }
   }
   lVar1 = QAbstractItemView::itemDelegateForColumn((int)param_1);
@@ -4367,7 +4383,7 @@ void s_TreeView_58c362(QTreeView *param_1,byte param_2,byte param_3,QWidget *par
   
   QTreeView::QTreeView(param_1,param_4);
   *(undefined ***)param_1 = &PTR_CategoryTree_vt0_0119d8d8;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119dbe8;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119dbe8;
   param_1[0x30] =
        (QTreeView)((byte)param_1[0x30] & 0xf8 | (param_3 & 1) * '\x02' | (param_2 & 1) << 2);
   *(undefined4 *)(param_1 + 0x34) = 0;
@@ -5893,9 +5909,12 @@ void FUN_0058e194(void)
 }
 
 
-// ==== entry=0058e19e name=FUN_0058e19e size=9 ====
+// ==== entry=0058e19e orig=FUN_0058e19e size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_0058e19e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00545fca(param_1 + 0x50);
@@ -5919,7 +5938,7 @@ void FUN_0058e1a8(long param_1,undefined8 *param_2)
   uint *puVar9;
   uint *puVar10;
   
-  FUN_0058e19e();
+  BSim_QMouseEvent__globalPos();
   lVar1 = param_1 + 0x50;
   if (1 < **(uint **)(param_1 + 0x50)) {
     qlist_copyRefs(lVar1,(*(uint **)(param_1 + 0x50))[1]);
@@ -7722,7 +7741,8 @@ LAB_005902f4:
     if (*(int *)local_48 == 0) goto LAB_005902f4;
   }
   if (iVar13 == 0) {
-    FUN_005ab5d4(param_2,uVar12);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_2,uVar12);
   }
   plVar1 = (long *)param_1[3];
   lVar16 = *plVar1;
@@ -9207,7 +9227,7 @@ void LoginWizard_dtor(QWidget *param_1)
   QArrayData *pQVar2;
   
   *(undefined ***)param_1 = &LoginWizard_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198d28;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_01198d28;
   pQVar2 = *(QArrayData **)(param_1 + 0xa8);
   if (*(int *)pQVar2 != 0) {
     if (*(int *)pQVar2 == -1) goto LAB_0059376e;
@@ -9244,9 +9264,12 @@ LAB_0059376e:
 }
 
 
-// ==== entry=005937e9 name=FUN_005937e9 size=9 ====
+// ==== entry=005937e9 orig=FUN_005937e9 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005937e9(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   LoginWizard_dtor(param_1 + -0x10);
@@ -9265,9 +9288,12 @@ void LoginWizard_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=00593809 name=FUN_00593809 size=6 ====
+// ==== entry=00593809 orig=FUN_00593809 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00593809(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   LoginWizard_dtor_deleting(param_1 + -0x10);
@@ -9287,7 +9313,7 @@ void LoginWizard_initUi(QString *param_1,undefined8 param_2,undefined8 param_3)
   
   QWidget::QWidget((QWidget *)param_1,param_3,0);
   *(undefined ***)param_1 = &LoginWizard_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01198d28;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_01198d28;
   param_1[0x30] = (QString)0x0;
   *(undefined8 **)(param_1 + 0x38) = &QListData::shared_null;
   *(undefined4 *)(param_1 + 0x40) = 0;
@@ -10055,7 +10081,8 @@ LAB_005950f0:
     if (bVar12) {
                     /* try { // try from 00594ce5 to 00594d3e has its CatchHandler @ 0059514a */
       iVar5 = FUN_005abbda(pQVar6);
-      FUN_005ab5d4(pQVar6,iVar5 + -1);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (pQVar6,iVar5 + -1);
     }
     FUN_005ac8c2(pQVar6,1);
   }
@@ -17248,7 +17275,7 @@ void PopupWidget_dtor(QFrame *param_1)
   long lVar2;
   
   *(undefined ***)param_1 = &PopupWidget_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119b328;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119b328;
   lVar2 = *(long *)(*(long *)(param_1 + 8) + 0x10);
   if (lVar2 != 0) {
     lVar1 = __dynamic_cast(lVar2,&QObject::typeinfo,&QAbstractButton::typeinfo,0);
@@ -17269,9 +17296,12 @@ void PopupWidget_dtor(QFrame *param_1)
 }
 
 
-// ==== entry=005a09a7 name=FUN_005a09a7 size=9 ====
+// ==== entry=005a09a7 orig=FUN_005a09a7 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005a09a7(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   PopupWidget_dtor(param_1 + -0x10);
@@ -17290,9 +17320,12 @@ void PopupWidget_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=005a09c7 name=FUN_005a09c7 size=6 ====
+// ==== entry=005a09c7 orig=FUN_005a09c7 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005a09c7(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   PopupWidget_dtor_deleting(param_1 + -0x10);
@@ -17300,9 +17333,11 @@ void FUN_005a09c7(long param_1)
 }
 
 
-// ==== entry=005a09ce name=FUN_005a09ce size=57 ====
+// ==== entry=005a09ce orig=FUN_005a09ce size=57 name=BSim_PopupWidget::createLayout ====
 
-void FUN_005a09ce(QLayout *param_1)
+/* BSim sim=1.0 sig=17.589393513448996 ref=libwindtermopen2.so.1.0.0::PopupWidget::createLayout */
+
+void BSim_PopupWidget__createLayout(QLayout *param_1)
 
 {
   QVBoxLayout *this;
@@ -17323,7 +17358,7 @@ void FUN_005a0a10(QFrame *param_1,undefined8 param_2)
 {
   QFrame::QFrame(param_1,param_2,0);
   *(undefined ***)param_1 = &PopupWidget_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119b328;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119b328;
                     /* try { // try from 005a0a40 to 005a0aab has its CatchHandler @ 005a0ab3 */
   QWidget::setWindowFlags(param_1,0x240c0b);
   QWidget::setAttribute(param_1,0x62,1);
@@ -17332,7 +17367,7 @@ void FUN_005a0a10(QFrame *param_1,undefined8 param_2)
   QWidget::setFocusPolicy(param_1,0);
   QFrame::setFrameShape(param_1,6);
   QWidget::setAttribute(param_1,2,1);
-  FUN_005a09ce(param_1);
+  BSim_PopupWidget__createLayout(param_1);
   return;
 }
 
@@ -17817,9 +17852,11 @@ LAB_005a168a:
 }
 
 
-// ==== entry=005a16d0 name=FUN_005a16d0 size=25 ====
+// ==== entry=005a16d0 orig=FUN_005a16d0 size=25 name=BSim_std::bad_alloc::bad_alloc ====
 
-void FUN_005a16d0(QProxyStyle *param_1,QString *param_2)
+/* BSim sim=1.0 sig=11.271298610603214 ref=libwindtermopen2.so.1.0.0::std::bad_alloc::bad_alloc */
+
+void BSim_std__bad_alloc__bad_alloc(QProxyStyle *param_1,QString *param_2)
 
 {
   QProxyStyle::QProxyStyle(param_1,param_2);
@@ -18126,9 +18163,12 @@ void Splitter_dtor(QSplitter *param_1)
 }
 
 
-// ==== entry=005a1c47 name=FUN_005a1c47 size=6 ====
+// ==== entry=005a1c47 orig=FUN_005a1c47 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005a1c47(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   Splitter_dtor(param_1 + -0x10);
@@ -18147,9 +18187,12 @@ void Splitter_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=005a1c65 name=FUN_005a1c65 size=6 ====
+// ==== entry=005a1c65 orig=FUN_005a1c65 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005a1c65(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   Splitter_dtor_deleting(param_1 + -0x10);
@@ -18510,9 +18553,14 @@ void FUN_005a2251(undefined8 *param_1)
 }
 
 
-// ==== entry=005a225c name=FUN_005a225c size=9 ====
+// ==== entry=005a225c orig=FUN_005a225c size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005a225c(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   QSplitter::addWidget(*(QWidget **)(param_1 + 0x30));
@@ -24469,9 +24517,14 @@ LAB_005aa5ff:
 }
 
 
-// ==== entry=005aa720 name=FUN_005aa720 size=9 ====
+// ==== entry=005aa720 orig=FUN_005aa720 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005aa720(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a7db8(*(undefined8 *)(param_1 + 0x58));
@@ -25241,9 +25294,14 @@ void FUN_005ab5a8(long param_1,undefined1 param_2)
 }
 
 
-// ==== entry=005ab5b6 name=FUN_005ab5b6 size=9 ====
+// ==== entry=005ab5b6 orig=FUN_005ab5b6 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005ab5b6(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a73c2(*(undefined8 *)(param_1 + 0x58));
@@ -25251,9 +25309,14 @@ void FUN_005ab5b6(long param_1)
 }
 
 
-// ==== entry=005ab5c0 name=FUN_005ab5c0 size=9 ====
+// ==== entry=005ab5c0 orig=FUN_005ab5c0 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005ab5c0(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a6bec(*(undefined8 *)(param_1 + 0x58));
@@ -25271,9 +25334,14 @@ void tabbar_currentIndex(void)
 }
 
 
-// ==== entry=005ab5d4 name=FUN_005ab5d4 size=9 ====
+// ==== entry=005ab5d4 orig=FUN_005ab5d4 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005ab5d4(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a6bcc(*(undefined8 *)(param_1 + 0x58));
@@ -25294,7 +25362,8 @@ void FUN_005ab5dd(int param_1,void *param_2)
     return;
   }
   if (param_1 == 1) {
-    FUN_005ab5d4(*(undefined8 *)((long)param_2 + 0x10),*(undefined4 *)((long)param_2 + 0x18));
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (*(undefined8 *)((long)param_2 + 0x10),*(undefined4 *)((long)param_2 + 0x18));
     return;
   }
   return;
@@ -25338,9 +25407,14 @@ int FUN_005ab60a(long param_1,QString *param_2)
 }
 
 
-// ==== entry=005ab6c2 name=FUN_005ab6c2 size=9 ====
+// ==== entry=005ab6c2 orig=FUN_005ab6c2 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005ab6c2(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   QStackedWidget::indexOf(*(QWidget **)(param_1 + 0x60));
@@ -25357,15 +25431,18 @@ void FUN_005ab6cc(long param_1)
   undefined4 uVar2;
   
   uVar1 = *(undefined8 *)(param_1 + 0x58);
-  uVar2 = FUN_005ab6c2();
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   FUN_005a6bcc(uVar1,uVar2);
   return;
 }
 
 
-// ==== entry=005ab6e2 name=FUN_005ab6e2 size=5 ====
+// ==== entry=005ab6e2 orig=FUN_005ab6e2 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_005ab6e2(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x58);
@@ -25510,9 +25587,11 @@ void FUN_005ab814(long param_1)
 }
 
 
-// ==== entry=005ab886 name=FUN_005ab886 size=4 ====
+// ==== entry=005ab886 orig=FUN_005ab886 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_005ab886(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x50);
@@ -25660,9 +25739,11 @@ bool FUN_005aba12(long param_1)
 }
 
 
-// ==== entry=005aba1c name=FUN_005aba1c size=4 ====
+// ==== entry=005aba1c orig=FUN_005aba1c size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_005aba1c(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x54);
@@ -25702,9 +25783,14 @@ undefined8 FUN_005aba32(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=005aba44 name=FUN_005aba44 size=9 ====
+// ==== entry=005aba44 orig=FUN_005aba44 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005aba44(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a7b66(*(undefined8 *)(param_1 + 0x58));
@@ -25777,9 +25863,14 @@ LAB_005abb6b:
 }
 
 
-// ==== entry=005abbc6 name=FUN_005abbc6 size=9 ====
+// ==== entry=005abbc6 orig=FUN_005abbc6 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005abbc6(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   QTabBar::setSelectionBehaviorOnRemove(*(undefined8 *)(param_1 + 0x58));
@@ -25855,7 +25946,8 @@ void FUN_005abbe4(long param_1,long param_2)
       }
       cVar1 = QTabBar::isTabEnabled((int)*(undefined8 *)(param_1 + 0x58));
       if (cVar1 != '\0') {
-        FUN_005ab5d4(param_1,iVar5);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_1,iVar5);
         break;
       }
       iVar9 = iVar9 + 1;
@@ -26261,9 +26353,14 @@ void FUN_005ac4f4(void)
 }
 
 
-// ==== entry=005ac4fe name=FUN_005ac4fe size=9 ====
+// ==== entry=005ac4fe orig=FUN_005ac4fe size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005ac4fe(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   QTabBar::setIconSize(*(QSize **)(param_1 + 0x58));
@@ -26283,9 +26380,14 @@ void FUN_005ac508(void)
 }
 
 
-// ==== entry=005ac512 name=FUN_005ac512 size=9 ====
+// ==== entry=005ac512 orig=FUN_005ac512 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005ac512(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   QTabBar::setElideMode(*(undefined8 *)(param_1 + 0x58));
@@ -26601,9 +26703,14 @@ LAB_005aca69:
 }
 
 
-// ==== entry=005aca9a name=FUN_005aca9a size=9 ====
+// ==== entry=005aca9a orig=FUN_005aca9a size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005aca9a(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a8818(*(undefined8 *)(param_1 + 0x58));
@@ -26611,9 +26718,14 @@ void FUN_005aca9a(long param_1)
 }
 
 
-// ==== entry=005acaa4 name=FUN_005acaa4 size=9 ====
+// ==== entry=005acaa4 orig=FUN_005acaa4 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005acaa4(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a6f96(*(undefined8 *)(param_1 + 0x58));
@@ -27046,7 +27158,7 @@ void TabGroup_dtor(QFrame *param_1)
   QArrayData *pQVar8;
   
   *(undefined ***)param_1 = &TabGroup_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119de48;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119de48;
   pQVar7 = *(QMapNodeBase **)(param_1 + 0x38);
   if (*(int *)pQVar7 != 0) {
     if (*(int *)pQVar7 == -1) goto LAB_005ad602;
@@ -28377,9 +28489,12 @@ LAB_005ad602:
 }
 
 
-// ==== entry=005aec01 name=FUN_005aec01 size=9 ====
+// ==== entry=005aec01 orig=FUN_005aec01 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005aec01(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   TabGroup_dtor(param_1 + -0x10);
@@ -28398,9 +28513,12 @@ void TabGroup_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=005aec21 name=FUN_005aec21 size=6 ====
+// ==== entry=005aec21 orig=FUN_005aec21 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005aec21(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   TabGroup_dtor_deleting(param_1 + -0x10);
@@ -28545,7 +28663,9 @@ LAB_005af782:
   uVar6 = *(undefined8 *)(param_1 + 0x60);
   local_68 = (QArrayData *)QStackedWidget::widgetRemoved;
   local_60 = 0;
-  local_58 = (QArrayData *)FUN_005aa720;
+  local_58 = (QArrayData *)
+             BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+  ;
   local_50 = (QArrayData *)0x0;
   puVar7 = operator_new(0x20);
   *puVar7 = 1;
@@ -28770,7 +28890,7 @@ void TabGroup_initUi(QString *param_1,undefined8 param_2)
   
   QFrame::QFrame((QFrame *)param_1,param_2,0);
   *(undefined ***)param_1 = &TabGroup_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_0119de48;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_0119de48;
   param_1[0x30] = (QString)0x0;
   *(undefined8 **)(param_1 + 0x38) = &QMapDataBase::shared_null;
   *(undefined4 *)(param_1 + 0x40) = 0xffffffff;
@@ -31771,7 +31891,8 @@ void FUN_005b3aa6(long *param_1)
   long lVar3;
   
   lVar3 = QHashData::detach_helper
-                    ((_func_void_Node_ptr_void_ptr *)*param_1,FUN_005c9fbe,0x5c9fbc,0x18);
+                    ((_func_void_Node_ptr_void_ptr *)*param_1,BSim_boost__exception__exception,
+                     0x5c9fbc,0x18);
   piVar1 = (int *)(*param_1 + 0x10);
   iVar2 = *(int *)(*param_1 + 0x10);
   if (iVar2 != 0) {
@@ -31989,9 +32110,14 @@ void FUN_005b3e04(long param_1)
 }
 
 
-// ==== entry=005b3e3c name=FUN_005b3e3c size=9 ====
+// ==== entry=005b3e3c orig=FUN_005b3e3c size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_005b3e3c(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00945ad2(*(undefined8 *)(param_1 + 0x58));
@@ -32104,9 +32230,12 @@ void FUN_005b3f72(QMetaMethod *param_1,undefined4 param_2)
 }
 
 
-// ==== entry=005b4009 name=FUN_005b4009 size=9 ====
+// ==== entry=005b4009 orig=FUN_005b4009 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4009(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b3f72(param_1 + -0x48);
@@ -32145,9 +32274,12 @@ void FUN_005b4012(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=005b40b7 name=FUN_005b40b7 size=9 ====
+// ==== entry=005b40b7 orig=FUN_005b40b7 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b40b7(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4012(param_1 + -0x48);
@@ -32186,9 +32318,12 @@ void FUN_005b40c0(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b4171 name=FUN_005b4171 size=9 ====
+// ==== entry=005b4171 orig=FUN_005b4171 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4171(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b40c0(param_1 + -0x48);
@@ -32227,9 +32362,12 @@ void FUN_005b417a(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b422b name=FUN_005b422b size=9 ====
+// ==== entry=005b422b orig=FUN_005b422b size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b422b(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b417a(param_1 + -0x48);
@@ -32268,9 +32406,12 @@ void FUN_005b4234(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b42e5 name=FUN_005b42e5 size=9 ====
+// ==== entry=005b42e5 orig=FUN_005b42e5 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b42e5(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4234(param_1 + -0x48);
@@ -32309,9 +32450,12 @@ void FUN_005b42ee(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005b437e name=FUN_005b437e size=9 ====
+// ==== entry=005b437e orig=FUN_005b437e size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b437e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b42ee(param_1 + -0x48);
@@ -32350,9 +32494,12 @@ void FUN_005b4388(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005b4418 name=FUN_005b4418 size=9 ====
+// ==== entry=005b4418 orig=FUN_005b4418 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4418(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4388(param_1 + -0x48);
@@ -32391,9 +32538,12 @@ void FUN_005b4422(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b44d3 name=FUN_005b44d3 size=9 ====
+// ==== entry=005b44d3 orig=FUN_005b44d3 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b44d3(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4422(param_1 + -0x48);
@@ -32432,9 +32582,12 @@ void FUN_005b44dc(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b458d name=FUN_005b458d size=9 ====
+// ==== entry=005b458d orig=FUN_005b458d size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b458d(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b44dc(param_1 + -0x48);
@@ -32500,9 +32653,12 @@ LAB_005b467f:
 }
 
 
-// ==== entry=005b46ce name=FUN_005b46ce size=9 ====
+// ==== entry=005b46ce orig=FUN_005b46ce size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b46ce(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4596(param_1 + -0x48);
@@ -32541,9 +32697,12 @@ void FUN_005b46d8(QMetaMethod *param_1,undefined4 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b4787 name=FUN_005b4787 size=9 ====
+// ==== entry=005b4787 orig=FUN_005b4787 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4787(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b46d8(param_1 + -0x48);
@@ -32582,9 +32741,12 @@ void FUN_005b4790(QMetaMethod *param_1,undefined4 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b483f name=FUN_005b483f size=9 ====
+// ==== entry=005b483f orig=FUN_005b483f size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b483f(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4790(param_1 + -0x48);
@@ -32623,9 +32785,12 @@ void FUN_005b4848(QMetaMethod *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=005b48e1 name=FUN_005b48e1 size=9 ====
+// ==== entry=005b48e1 orig=FUN_005b48e1 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b48e1(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4848(param_1 + -0x48);
@@ -32664,9 +32829,12 @@ void FUN_005b48ea(QMetaMethod *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=005b4983 name=FUN_005b4983 size=9 ====
+// ==== entry=005b4983 orig=FUN_005b4983 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4983(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b48ea(param_1 + -0x48);
@@ -32705,9 +32873,12 @@ void FUN_005b498c(QMetaMethod *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=005b4a25 name=FUN_005b4a25 size=9 ====
+// ==== entry=005b4a25 orig=FUN_005b4a25 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4a25(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b498c(param_1 + -0x48);
@@ -32746,9 +32917,12 @@ void FUN_005b4a2e(QMetaMethod *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=005b4ac7 name=FUN_005b4ac7 size=9 ====
+// ==== entry=005b4ac7 orig=FUN_005b4ac7 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4ac7(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4a2e(param_1 + -0x48);
@@ -32787,9 +32961,12 @@ void FUN_005b4ad0(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b4b81 name=FUN_005b4b81 size=9 ====
+// ==== entry=005b4b81 orig=FUN_005b4b81 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4b81(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4ad0(param_1 + -0x48);
@@ -32828,9 +33005,12 @@ void FUN_005b4b8a(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b4c3b name=FUN_005b4c3b size=9 ====
+// ==== entry=005b4c3b orig=FUN_005b4c3b size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4c3b(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4b8a(param_1 + -0x48);
@@ -32869,9 +33049,12 @@ void FUN_005b4c44(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b4cf5 name=FUN_005b4cf5 size=9 ====
+// ==== entry=005b4cf5 orig=FUN_005b4cf5 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4cf5(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4c44(param_1 + -0x48);
@@ -32910,9 +33093,12 @@ void FUN_005b4cfe(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b4daf name=FUN_005b4daf size=9 ====
+// ==== entry=005b4daf orig=FUN_005b4daf size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4daf(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4cfe(param_1 + -0x48);
@@ -32951,9 +33137,12 @@ void FUN_005b4db8(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005b4e48 name=FUN_005b4e48 size=9 ====
+// ==== entry=005b4e48 orig=FUN_005b4e48 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4e48(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4db8(param_1 + -0x48);
@@ -32992,9 +33181,12 @@ void FUN_005b4e52(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=005b4ef7 name=FUN_005b4ef7 size=9 ====
+// ==== entry=005b4ef7 orig=FUN_005b4ef7 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4ef7(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4e52(param_1 + -0x48);
@@ -33033,9 +33225,12 @@ void FUN_005b4f00(QMetaMethod *param_1,undefined1 param_2)
 }
 
 
-// ==== entry=005b4f99 name=FUN_005b4f99 size=9 ====
+// ==== entry=005b4f99 orig=FUN_005b4f99 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b4f99(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4f00(param_1 + -0x48);
@@ -33074,9 +33269,12 @@ void FUN_005b4fa2(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=005b5047 name=FUN_005b5047 size=9 ====
+// ==== entry=005b5047 orig=FUN_005b5047 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b5047(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b4fa2(param_1 + -0x48);
@@ -33115,9 +33313,12 @@ void FUN_005b5050(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=005b50f5 name=FUN_005b50f5 size=9 ====
+// ==== entry=005b50f5 orig=FUN_005b50f5 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b50f5(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b5050(param_1 + -0x48);
@@ -33156,9 +33357,12 @@ void FUN_005b50fe(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=005b51a3 name=FUN_005b51a3 size=9 ====
+// ==== entry=005b51a3 orig=FUN_005b51a3 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b51a3(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b50fe(param_1 + -0x48);
@@ -33198,9 +33402,12 @@ void FUN_005b51ac(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b5269 name=FUN_005b5269 size=9 ====
+// ==== entry=005b5269 orig=FUN_005b5269 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b5269(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b51ac(param_1 + -0x48);
@@ -33239,9 +33446,12 @@ void FUN_005b5272(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=005b5317 name=FUN_005b5317 size=9 ====
+// ==== entry=005b5317 orig=FUN_005b5317 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b5317(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b5272(param_1 + -0x48);
@@ -33281,9 +33491,12 @@ void FUN_005b5320(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b53f8 name=FUN_005b53f8 size=9 ====
+// ==== entry=005b53f8 orig=FUN_005b53f8 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b53f8(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b5320(param_1 + -0x48);
@@ -33322,9 +33535,12 @@ void FUN_005b5402(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005b5492 name=FUN_005b5492 size=9 ====
+// ==== entry=005b5492 orig=FUN_005b5492 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b5492(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b5402(param_1 + -0x48);
@@ -33363,9 +33579,12 @@ void FUN_005b549c(QMetaMethod *param_1,undefined4 param_2)
 }
 
 
-// ==== entry=005b5533 name=FUN_005b5533 size=9 ====
+// ==== entry=005b5533 orig=FUN_005b5533 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b5533(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b549c(param_1 + -0x48);
@@ -33404,9 +33623,12 @@ void FUN_005b553c(QMetaMethod *param_1,undefined4 param_2)
 }
 
 
-// ==== entry=005b55d3 name=FUN_005b55d3 size=9 ====
+// ==== entry=005b55d3 orig=FUN_005b55d3 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b55d3(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b553c(param_1 + -0x48);
@@ -33446,9 +33668,12 @@ void FUN_005b55dc(QMetaMethod *param_1,undefined4 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005b5697 name=FUN_005b5697 size=9 ====
+// ==== entry=005b5697 orig=FUN_005b5697 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b5697(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b55dc(param_1 + -0x48);
@@ -33472,7 +33697,7 @@ void FUN_005b56a6(long param_1)
 
 {
   if (*(long *)(param_1 + 0x58) != 0) {
-    FUN_009468a0();
+    BSim_QWidget__height();
     return;
   }
   return;
@@ -33775,7 +34000,7 @@ int FUN_005b5c88(long param_1)
   int iVar4;
   double dVar5;
   
-  lVar2 = FUN_00945b16(*(undefined8 *)(param_1 + 0x58));
+  lVar2 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x58));
   if (lVar2 == 0) {
     plVar3 = (long *)QWidget::style();
     iVar4 = (**(code **)(*plVar3 + 0xe0))(plVar3,9,0,0);
@@ -35009,9 +35234,12 @@ void FUN_005b74c2(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005b76dd name=FUN_005b76dd size=9 ====
+// ==== entry=005b76dd orig=FUN_005b76dd size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b76dd(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b74c2(param_1 + -0x48);
@@ -36155,9 +36383,12 @@ undefined8 FUN_005b8f32(undefined8 param_1)
 }
 
 
-// ==== entry=005b8fc3 name=FUN_005b8fc3 size=9 ====
+// ==== entry=005b8fc3 orig=FUN_005b8fc3 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b8fc3(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b8f32(param_1 + -0x48);
@@ -36191,9 +36422,12 @@ undefined4 FUN_005b8fcc(undefined8 param_1,longlong param_2)
 }
 
 
-// ==== entry=005b9065 name=FUN_005b9065 size=9 ====
+// ==== entry=005b9065 orig=FUN_005b9065 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b9065(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b8fcc(param_1 + -0x48);
@@ -36227,9 +36461,12 @@ undefined8 FUN_005b906e(undefined8 param_1,uint param_2)
 }
 
 
-// ==== entry=005b9107 name=FUN_005b9107 size=9 ====
+// ==== entry=005b9107 orig=FUN_005b9107 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b9107(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b906e(param_1 + -0x48);
@@ -36287,9 +36524,12 @@ void FUN_005b91a8(undefined8 param_1,uint param_2)
 }
 
 
-// ==== entry=005b924d name=FUN_005b924d size=9 ====
+// ==== entry=005b924d orig=FUN_005b924d size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b924d(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b91a8(param_1 + -0x48);
@@ -36308,9 +36548,12 @@ void FUN_005b9256(undefined8 param_1)
 }
 
 
-// ==== entry=005b926d name=FUN_005b926d size=6 ====
+// ==== entry=005b926d orig=FUN_005b926d size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005b926d(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005b9256(param_1 + -0x48);
@@ -37921,9 +38164,12 @@ void FUN_005bb55a(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005bb666 name=FUN_005bb666 size=9 ====
+// ==== entry=005bb666 orig=FUN_005bb666 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005bb666(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005bb55a(param_1 + -0x48);
@@ -37991,9 +38237,12 @@ void FUN_005bb70a(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005bb79f name=FUN_005bb79f size=9 ====
+// ==== entry=005bb79f orig=FUN_005bb79f size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005bb79f(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005bb70a(param_1 + -0x48);
@@ -39027,9 +39276,12 @@ void FUN_005bcda6(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005bce3d name=FUN_005bce3d size=9 ====
+// ==== entry=005bce3d orig=FUN_005bce3d size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005bce3d(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005bcda6(param_1 + -0x48);
@@ -40124,9 +40376,12 @@ LAB_005be227:
 }
 
 
-// ==== entry=005be2ee name=FUN_005be2ee size=9 ====
+// ==== entry=005be2ee orig=FUN_005be2ee size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005be2ee(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   s_text_zoomFactor_5be1c2(param_1 + -0x48);
@@ -41341,9 +41596,12 @@ void FUN_005bf9de(QMetaMethod *param_1,undefined4 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005bfc75 name=FUN_005bfc75 size=9 ====
+// ==== entry=005bfc75 orig=FUN_005bfc75 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005bfc75(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005bf9de(param_1 + -0x48);
@@ -41383,9 +41641,12 @@ void FUN_005bfc7e(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005bfd18 name=FUN_005bfd18 size=9 ====
+// ==== entry=005bfd18 orig=FUN_005bfd18 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005bfd18(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005bfc7e(param_1 + -0x48);
@@ -41547,9 +41808,12 @@ void FUN_005bffe8(QObject *param_1)
 }
 
 
-// ==== entry=005c00f8 name=FUN_005c00f8 size=9 ====
+// ==== entry=005c00f8 orig=FUN_005c00f8 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c00f8(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005bffe8(param_1 + -0x48);
@@ -41592,9 +41856,12 @@ void FUN_005c0102(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005c01aa name=FUN_005c01aa size=9 ====
+// ==== entry=005c01aa orig=FUN_005c01aa size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c01aa(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005c0102(param_1 + -0x48);
@@ -41801,9 +42068,12 @@ LAB_005c03ad:
 }
 
 
-// ==== entry=005c0766 name=FUN_005c0766 size=9 ====
+// ==== entry=005c0766 orig=FUN_005c0766 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c0766(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   widget_signal_state_refresh(param_1 + -0x48);
@@ -41954,9 +42224,12 @@ void FUN_005c0a2a(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005c0abf name=FUN_005c0abf size=9 ====
+// ==== entry=005c0abf orig=FUN_005c0abf size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c0abf(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005c0a2a(param_1 + -0x48);
@@ -41996,9 +42269,12 @@ void FUN_005c0ac8(QMetaMethod *param_1)
 }
 
 
-// ==== entry=005c0b5d name=FUN_005c0b5d size=9 ====
+// ==== entry=005c0b5d orig=FUN_005c0b5d size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c0b5d(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005c0ac8(param_1 + -0x48);
@@ -42039,9 +42315,12 @@ void FUN_005c0b66(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,und
 }
 
 
-// ==== entry=005c0c28 name=FUN_005c0c28 size=9 ====
+// ==== entry=005c0c28 orig=FUN_005c0c28 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c0c28(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005c0b66(param_1 + -0x48);
@@ -43539,7 +43818,8 @@ void FUN_005c3320(undefined8 param_1)
   *(long **)(puVar2 + 6) = plVar1;
   QObject::connectImpl(local_40,plVar1,&local_38,param_1,0,puVar2,0,0,&QDialog::staticMetaObject);
   QMetaObject::Connection::~Connection(local_40);
-  FUN_006b6cbe(plVar1,local_48);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (plVar1,local_48);
   (**(code **)(*plVar1 + 0x1a0))(plVar1);
   qatomic_unref_call_deleter(local_48);
   return;
@@ -44973,9 +45253,12 @@ void FUN_005c5a96(QMetaMethod *param_1,undefined8 param_2,undefined8 param_3,uin
 }
 
 
-// ==== entry=005c5da0 name=FUN_005c5da0 size=9 ====
+// ==== entry=005c5da0 orig=FUN_005c5da0 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c5da0(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_005c5a96(param_1 + -0x48);
@@ -45111,9 +45394,12 @@ void marker_showTooltip(QMetaMethod *param_1,undefined8 param_2,undefined8 param
 }
 
 
-// ==== entry=005c61ce name=FUN_005c61ce size=9 ====
+// ==== entry=005c61ce orig=FUN_005c61ce size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_005c61ce(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   marker_showTooltip(param_1 + -0x48);
@@ -45601,8 +45887,8 @@ void TextView_ctor(QString *param_1,undefined8 param_2,undefined4 param_3,undefi
   
   MuxPane_ctor(param_1,param_2,param_4);
   *(undefined ***)param_1 = &PTR_ScintillaEditWatcher_dtor_01197468;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_01197828;
-  *(undefined ***)(param_1 + 0x48) = &PTR_FUN_01197878;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_01197828;
+  *(undefined ***)(param_1 + 0x48) = &PTR_BSim_QMouseEvent__globalPos_01197878;
   *(undefined8 **)(param_1 + 0x50) = &QArrayData::shared_null;
   *(undefined8 *)(param_1 + 0x58) = 0;
   param_1[0x60] = (QString)((byte)param_1[0x60] | 3);
@@ -47266,9 +47552,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=005c9fbe name=FUN_005c9fbe size=28 ====
+// ==== entry=005c9fbe orig=FUN_005c9fbe size=28 name=BSim_boost::exception::exception ====
 
-void FUN_005c9fbe(long param_1,undefined8 *param_2)
+/* BSim sim=0.7099356226858499 sig=11.32110174100946
+   ref=libwindtermopen2.so.1.0.0::boost::exception::exception */
+
+void BSim_boost__exception__exception(long param_1,undefined8 *param_2)
 
 {
   undefined4 uVar1;

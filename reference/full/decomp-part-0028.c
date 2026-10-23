@@ -145,10 +145,12 @@ LAB_008bb5f6:
         if (unaff_R14 != 0) {
           uVar2 = widget_type_index_find(param_1,unaff_R14);
           if (((int)local_78 != 0) && (iVar3 = QColor::alpha(), 0 < iVar3)) {
-            FUN_008b9b3e(param_1,uVar2,(QColor *)&local_78);
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1,uVar2,(QColor *)&local_78);
           }
           if (*(int *)((long)local_80 + 4) != 0) {
-            FUN_008b9bbc(param_1,uVar2,(QString *)&local_80);
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1,uVar2,(QString *)&local_80);
             QVariant::QVariant((QVariant *)local_68,(QString *)&local_80);
                     /* try { // try from 008bb673 to 008bb677 has its CatchHandler @ 008bba83 */
             FUN_008c5734(unaff_R14,"RenamedTitle",(QVariant *)local_68,0);
@@ -250,8 +252,10 @@ undefined8 * s_RenamedTitle_8bbab6(undefined8 *param_1,undefined8 param_2)
   local_80 = (uint *)&QListData::shared_null;
                     /* try { // try from 008bbb07 to 008bbb88 has its CatchHandler @ 008bbe10 */
   pcVar7 = (char *)FUN_008ba210(param_2);
-  iVar4 = FUN_008b9b34(param_2);
-  iVar5 = FUN_008b9b2a(param_2);
+  iVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_2);
+  iVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_2);
   if (0 < iVar5) {
     iVar8 = 0;
     do {
@@ -405,7 +409,7 @@ undefined4 FUN_008bbe50(long param_1,long *param_2,undefined1 param_3)
                     /* try { // try from 008bc0b9 to 008bc0bd has its CatchHandler @ 008bc1c7 */
         QByteArray::QByteArray((QByteArray *)local_58,"recent",-1);
                     /* try { // try from 008bc0cb to 008bc0dd has its CatchHandler @ 008bc18d */
-        uVar8 = FUN_008a580a(lVar5,(QByteArray *)local_58,0xffffffff);
+        uVar8 = BSim_QMouseEvent__globalPos(lVar5,(QByteArray *)local_58,0xffffffff);
         property_to_string(local_48,param_2);
                     /* try { // try from 008bc0e9 to 008bc0ed has its CatchHandler @ 008bc185 */
         FUN_008af500(uVar8,local_48,&local_70);
@@ -488,7 +492,9 @@ undefined8 * FUN_008bc1d0(undefined8 *param_1,undefined8 param_2,undefined8 para
                     /* try { // try from 008bc203 to 008bc280 has its CatchHandler @ 008bc31f */
   cVar1 = QRegularExpression::isValid();
   if (cVar1 != '\0') {
-    for (iVar4 = 0; iVar2 = FUN_008b9b2a(param_2), iVar4 < iVar2; iVar4 = iVar4 + 1) {
+    for (iVar4 = 0;
+        iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_2), iVar4 < iVar2; iVar4 = iVar4 + 1) {
       lVar3 = FUN_008b9890(param_2,iVar4);
       if (lVar3 != 0) {
         __dynamic_cast(lVar3,&PTR_PTR_011925c8,&QWidget::typeinfo,0xfffffffffffffffe);
@@ -537,7 +543,8 @@ undefined8 * FUN_008bc328(undefined8 *param_1,undefined8 param_2,long *param_3,c
   *param_1 = &QListData::shared_null;
   iVar3 = 0;
   do {
-    iVar2 = FUN_008b9b2a(param_2);
+    iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_2);
     if (iVar2 <= iVar3) {
       return param_1;
     }
@@ -735,7 +742,8 @@ undefined4 FUN_008bc7ac(long param_1,long param_2)
       FUN_008bc328(&local_b0,param_2,(QVariant *)&local_68,0);
       qt_array_data_unref((QVariant *)&local_68);
                     /* try { // try from 008bc829 to 008bc82d has its CatchHandler @ 008bca95 */
-      uVar4 = FUN_008b9b34(param_2);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_2);
       local_90 = FUN_008b969e;
       local_98 = FUN_008b9620;
       local_68 = (undefined8 *)CONCAT71(local_68._1_7_,1);
@@ -896,9 +904,11 @@ void s_PropertyPopup_8bcba8(undefined8 param_1,long param_2,uint param_3,QString
      (lVar4 = __dynamic_cast(lVar4,&QObject::typeinfo,&PTR_PTR_0119ac90,0), lVar4 != 0)) {
     pcVar5 = (char *)FUN_008ba210(param_1);
     if (param_3 < 3) {
-      lVar10 = FUN_00548626(lVar4);
+      lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (lVar4);
       if (lVar10 == param_2) {
-        FUN_005485f6(lVar4);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (lVar4);
       }
       else {
         if (pcVar5 == "Editor") {
@@ -932,7 +942,8 @@ void s_PropertyPopup_8bcba8(undefined8 param_1,long param_2,uint param_3,QString
                     ((Connection *)&local_60,lVar10,&local_58,param_1,&local_48,puVar11,0,0,
                      &QMenu::staticMetaObject);
           QMetaObject::Connection::~Connection((Connection *)&local_60);
-          FUN_00548cd2(lVar4);
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (lVar4);
         }
       }
     }
@@ -1219,7 +1230,8 @@ LAB_008bd45d:
           qt_array_data_unref(local_48);
         }
       }
-      FUN_00548668(lVar2,uVar9);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (lVar2,uVar9);
       puVar8 = puVar8 + 2;
     } while (puVar1 != puVar8);
   }
@@ -1287,7 +1299,8 @@ void FUN_008bd632(undefined8 param_1)
       if (plVar4 != (long *)0x0) break;
       local_40[0] = &QArrayData::shared_null;
                     /* try { // try from 008bd710 to 008bd714 has its CatchHandler @ 008bd7c1 */
-      FUN_0054886e(uVar2);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (uVar2);
 LAB_008bd715:
       qt_array_data_unref(local_40);
       puVar5 = puVar5 + 2;
@@ -1298,7 +1311,8 @@ LAB_008bd715:
                     /* try { // try from 008bd749 to 008bd74b has its CatchHandler @ 008bd7a1 */
       (**(code **)(*plVar4 + 0x78))(local_40,plVar4);
                     /* try { // try from 008bd752 to 008bd756 has its CatchHandler @ 008bd7b1 */
-      FUN_00548672(uVar2);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (uVar2);
       goto LAB_008bd715;
     }
     if (pcVar3 == "Terminal") {
@@ -1342,7 +1356,8 @@ void FUN_008bd7c9(int param_1,void *param_2,undefined8 param_3,long param_4)
     cVar1 = QWidget::isAncestorOf(*(QWidget **)((long)param_2 + 0x10));
     uVar4 = *(undefined8 *)((long)param_2 + 0x10);
     if (cVar1 == '\0') {
-      iVar2 = FUN_008b9b2a(uVar4);
+      iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar4);
       if (iVar2 != 0) goto LAB_008bd83a;
       uVar4 = *(undefined8 *)((long)param_2 + 0x10);
     }
@@ -1449,16 +1464,19 @@ void KitView_h8bd934(undefined8 param_1,long *param_2)
       QVariant::~QVariant(local_48);
     }
     if (local_58 != 0) {
-      FUN_008b9b3e(param_1,iVar2,&local_58);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (param_1,iVar2,&local_58);
     }
     (**(code **)(*param_2 + 0x80))((QIcon *)&local_38,param_2);
                     /* try { // try from 008bda2a to 008bda2e has its CatchHandler @ 008bdb36 */
-    FUN_008b9bbc(param_1,iVar2,(QIcon *)&local_38);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,iVar2,(QIcon *)&local_38);
     qt_array_data_unref((QIcon *)&local_38);
     __dynamic_cast(param_2,&PTR_PTR_011925c8,&QWidget::typeinfo,0xfffffffffffffffe);
     QWidget::windowIcon();
                     /* try { // try from 008bda68 to 008bda6c has its CatchHandler @ 008bdb3e */
-    FUN_008b9b8e(param_1,iVar2,(QIcon *)&local_38);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,iVar2,(QIcon *)&local_38);
     QIcon::~QIcon((QIcon *)&local_38);
     uVar4 = widget_findAncestorPane(param_1);
     FUN_008a067e((QIcon *)&local_38,param_2);
@@ -1563,9 +1581,11 @@ bool FUN_008bdd0e(long param_1,int param_2)
   int iVar1;
   
   if (-1 < param_2) {
-    iVar1 = FUN_008b9b2a();
+    iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      ();
     if (param_2 < iVar1) {
-      FUN_005ab5d4(*(undefined8 *)(param_1 + 0x38),param_2);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (*(undefined8 *)(param_1 + 0x38),param_2);
       FUN_008bdc46(param_1,3);
     }
     return param_2 < iVar1;
@@ -7371,9 +7391,12 @@ LAB_008c5196:
 }
 
 
-// ==== entry=008c51e8 name=FUN_008c51e8 size=56 ====
+// ==== entry=008c51e8 orig=FUN_008c51e8 size=56 name=BSim_QMargins::QMargins ====
 
-void FUN_008c51e8(undefined8 *param_1)
+/* BSim sim=0.7347736388568444 sig=9.652202843440412
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *param_1 = &KitView_vtable;
@@ -8101,7 +8124,7 @@ undefined4 FUN_008c5d90(long param_1)
   uVar1 = QWidget::isAncestorOf(pQVar2);
   if ((char)uVar1 == '\0') {
     uVar3 = FUN_008c5438(param_1);
-    FUN_008cac20(aQStack_28,uVar3);
+    BSim_QVector_QPoint___operator__(aQStack_28,uVar3);
                     /* try { // try from 008c5df2 to 008c5df6 has its CatchHandler @ 008c5e1b */
     lVar4 = qmetatype_register(aQStack_28);
     if (param_1 != lVar4) {
@@ -11808,7 +11831,8 @@ void FUN_008ca404(long *param_1,undefined8 param_2,long param_3)
     }
     FUN_008b85ba(param_3,param_2);
   }
-  iVar2 = FUN_008b85ce(param_3);
+  iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3);
   if (iVar2 == 0) {
     FUN_008b86e4(param_3);
     lVar4 = *(long *)(*(long *)(param_3 + 8) + 0x10);
@@ -12119,7 +12143,8 @@ void s_RenamedTitle_8ca950(undefined8 param_1,long *param_2,QString *param_3)
       }
     }
     local_80 = (QVariant *)&local_48;
-    FUN_008b9bbc(lVar4,iVar3,param_3);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (lVar4,iVar3,param_3);
     (**(code **)(*param_2 + 0x80))(local_50,param_2);
     cVar2 = operator==(param_3,local_50);
     if (cVar2 == '\0') {
@@ -12182,9 +12207,12 @@ void FUN_008cabee(long param_1)
 }
 
 
-// ==== entry=008cac20 name=FUN_008cac20 size=28 ====
+// ==== entry=008cac20 orig=FUN_008cac20 size=28 name=BSim_QVector_QPoint_::operator__ ====
 
-undefined8 FUN_008cac20(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::operator<< */
+
+undefined8 BSim_QVector_QPoint___operator__(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -12220,7 +12248,8 @@ void FUN_008cac4c(undefined8 param_1,int param_2)
   lVar1 = kit_focus_widget_get();
   if (lVar1 != 0) {
     if (param_2 == 0) {
-      param_2 = FUN_008b9b2a(lVar1);
+      param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar1);
     }
     lVar1 = FUN_008b9890(lVar1,param_2 + -1);
     if (lVar1 != 0) {
@@ -12262,7 +12291,8 @@ void FUN_008cacd0(undefined8 param_1)
   uVar1 = FUN_008cabee();
   uVar4 = kit_focus_widget_get(param_1);
   iVar2 = widget_type_index_find(uVar4,uVar1);
-  iVar3 = FUN_008b9b2a(uVar4);
+  iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar4);
   iVar3 = iVar3 + -1;
   if (iVar2 < iVar3) {
     do {
@@ -12364,7 +12394,8 @@ void FUN_008cae58(undefined8 param_1,undefined8 param_2,int *param_3)
             return;
           }
         }
-        FUN_008b9b3e(lVar3,iVar1,param_3);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (lVar3,iVar1,param_3);
       }
     }
   }
@@ -12396,8 +12427,8 @@ void FUN_008caf82(long *param_1)
   uVar1 = (**(code **)(*param_1 + 0x1f0))();
   QByteArray::QByteArray(local_20,"recent",-1);
                     /* try { // try from 008cafbb to 008cafc7 has its CatchHandler @ 008cafd7 */
-  uVar1 = FUN_008a580a(uVar1,local_20,0xffffffff);
-  FUN_008af182(uVar1);
+  uVar1 = BSim_QMouseEvent__globalPos(uVar1,local_20,0xffffffff);
+  BSim_QMouseEvent__globalPos(uVar1);
   qt_byte_array_unref(local_20);
   return;
 }
@@ -13422,9 +13453,12 @@ void FUN_008cc770(QMainWindow *param_1)
 }
 
 
-// ==== entry=008cc7cc name=FUN_008cc7cc size=6 ====
+// ==== entry=008cc7cc orig=FUN_008cc7cc size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_008cc7cc(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_008cc770(param_1 + -0x10);
@@ -13443,9 +13477,12 @@ void FUN_008cc7d2(void *param_1)
 }
 
 
-// ==== entry=008cc7e9 name=FUN_008cc7e9 size=6 ====
+// ==== entry=008cc7e9 orig=FUN_008cc7e9 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_008cc7e9(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_008cc7d2(param_1 + -0x10);
@@ -14696,8 +14733,10 @@ long FUN_008ce784(undefined8 param_1,char param_2)
   
   lVar2 = kit_focus_widget_get();
   if (lVar2 != 0) {
-    iVar1 = FUN_008b9b34(lVar2);
-    FUN_008b9b2a(lVar2);
+    iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (lVar2);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (lVar2);
     lVar2 = FUN_008b9890(lVar2,(-(uint)(param_2 == '\0') | 1) + iVar1);
     while( true ) {
       if (lVar2 != 0) {
@@ -14706,7 +14745,8 @@ long FUN_008ce784(undefined8 param_1,char param_2)
       lVar2 = FUN_008ce618(param_1,param_2);
       if (lVar2 == 0) break;
       if (param_2 == '\0') {
-        iVar1 = FUN_008b9b2a(lVar2);
+        iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar2);
         iVar1 = iVar1 + -1;
       }
       else {
@@ -14774,7 +14814,8 @@ void FUN_008ce854(undefined8 param_1,undefined4 param_2)
   for (; puVar3 != local_30[0] + (long)(int)uVar1 * 2 + 4; puVar3 = puVar3 + 2) {
                     /* try { // try from 008ce8a3 to 008ce8e6 has its CatchHandler @ 008ce8ee */
     uVar2 = FUN_0089ff5a(*(undefined8 *)puVar3);
-    FUN_008b9b6e(uVar2,param_2);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (uVar2,param_2);
   }
   qatomic_unref_call_deleter(local_30);
   return;
@@ -15709,7 +15750,9 @@ void FUN_008d0270(long param_1,QString *param_2,long param_3)
           FUN_008bdc46(lVar5,3);
         }
         lVar5 = widget_findAncestorPane(lVar4);
-        if ((lVar5 != 0) && (iVar3 = FUN_008b9b2a(lVar4), iVar3 == 0)) {
+        if ((lVar5 != 0) &&
+           (iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (lVar4), iVar3 == 0)) {
           FUN_008cc99c(lVar5,lVar4);
         }
       }
@@ -15765,7 +15808,8 @@ void KitWindow_insertPaneEvenly(undefined8 param_1,undefined8 *param_2,int param
       lVar7 = QSplitter::widget((int)pQVar6);
       if (((lVar7 != 0) &&
           (lVar7 = __dynamic_cast(lVar7,&QWidget::typeinfo,&PTR_PTR_011aaed0,0), lVar7 != 0)) &&
-         (iVar2 = FUN_008b85ce(lVar7), iVar2 == 0)) goto LAB_008d0480;
+         (iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar7), iVar2 == 0)) goto LAB_008d0480;
     }
     uVar8 = s_tabbar_selectionBehaviorOnRemove_89d860(param_1,param_3 == 8);
     QSplitter::addWidget(pQVar6);
@@ -15870,7 +15914,8 @@ joined_r0x008d07ce:
       }
       goto joined_r0x008d07ce;
     }
-    iVar2 = FUN_008b8424(lVar5,lVar4);
+    iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (lVar5,lVar4);
     if (param_3 != '\0') {
       lVar6 = *(long *)(*(long *)(lVar5 + 8) + 0x10);
       if ((lVar6 == 0) ||
@@ -16169,7 +16214,8 @@ void FUN_008d0e5d(int param_1,void *param_2)
     else {
       uVar5 = *(undefined8 *)((long)param_2 + 0x20);
     }
-    iVar2 = FUN_008b9b2a(uVar5);
+    iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar5);
     if (iVar2 == 0) {
       if ((*(long *)((long)param_2 + 0x18) == 0) ||
          (*(int *)(*(long *)((long)param_2 + 0x18) + 4) == 0)) {
@@ -16644,7 +16690,8 @@ void s_tabbar_selectionBehaviorOnRemove_8d1835(undefined8 param_1,undefined8 *pa
   ;
   for (; puVar9 != puVar1; puVar9 = puVar9 + 2) {
                     /* try { // try from 008d1a1f to 008d1a23 has its CatchHandler @ 008d1c15 */
-    FUN_005abbc6(*(undefined8 *)puVar9,uVar5);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (*(undefined8 *)puVar9,uVar5);
   }
   FUN_008d60c0(local_48);
   return;
@@ -16759,7 +16806,8 @@ void s_tabbar_textElideMode_8d1ca5(undefined8 param_1,undefined8 *param_2)
   ;
   for (; puVar9 != puVar1; puVar9 = puVar9 + 2) {
                     /* try { // try from 008d1e8f to 008d1e93 has its CatchHandler @ 008d2085 */
-    FUN_005ac512(*(undefined8 *)puVar9,uVar5);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (*(undefined8 *)puVar9,uVar5);
   }
   FUN_008d60c0(local_48);
   return;
@@ -16811,7 +16859,8 @@ void s_ViewGroup_8d2115(undefined8 param_1,undefined8 *param_2)
                     /* try { // try from 008d21fe to 008d2202 has its CatchHandler @ 008d22ae */
       QVariant::toString();
                     /* try { // try from 008d2209 to 008d220d has its CatchHandler @ 008d22a6 */
-      FUN_005ab5b6(uVar3,&local_48);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (uVar3,&local_48);
       if (*(int *)local_48 != 0) break;
       QArrayData::deallocate(local_48,2,8);
 LAB_008d2228:
@@ -17244,7 +17293,7 @@ long * FUN_008d2d5e(long *param_1,undefined8 param_2,long *param_3)
   *(undefined4 *)(param_1 + 1) = 0x80000000;
   if (*(int *)(*param_3 + 4) == 0) {
                     /* try { // try from 008d2d87 to 008d2dc0 has its CatchHandler @ 008d2e3e */
-    FUN_008cac20();
+    BSim_QVector_QPoint___operator__();
     lVar1 = *param_1;
     lVar2 = param_1[1];
     *param_1 = local_48;
@@ -17914,7 +17963,8 @@ undefined8 FUN_008d42e8(undefined8 param_1,undefined8 param_2,undefined4 param_3
   
   if ((((param_4 == 0) && (param_4 = FUN_008cabee(param_2), param_4 == 0)) ||
       (lVar2 = find_ancestor_type(param_4), lVar2 == 0)) ||
-     ((iVar1 = FUN_008b9b2a(lVar2), iVar1 < 2 ||
+     ((iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (lVar2), iVar1 < 2 ||
       (lVar3 = mux_insertPaneSplitter(param_2,param_3,lVar2,0), lVar3 == 0)))) {
     lVar3 = 0;
   }
@@ -18027,7 +18077,7 @@ LAB_008d45e0:
     uVar9 = (*pcVar15)(param_2);
     QByteArray::QByteArray((QByteArray *)local_48,"recent",-1);
                     /* try { // try from 008d460f to 008d4613 has its CatchHandler @ 008d4c47 */
-    uVar9 = FUN_008a580a(uVar9,(QByteArray *)local_48,0xffffffff);
+    uVar9 = BSim_QMouseEvent__globalPos(uVar9,(QByteArray *)local_48,0xffffffff);
     qt_byte_array_unref((QByteArray *)local_48);
                     /* try { // try from 008d4622 to 008d464f has its CatchHandler @ 008d4bad */
     iVar6 = FUN_008ace58(uVar9);
@@ -18274,7 +18324,8 @@ void kit_paths_add_numbered(undefined8 param_1,long *param_2,long param_3)
   
   if ((*(int *)(*param_2 + 8) != *(int *)(*param_2 + 0xc)) &&
      ((local_98 = param_3, param_3 != 0 || (local_98 = kit_focus_widget_get(), local_98 != 0)))) {
-    local_7c = FUN_008b9b34(local_98);
+    local_7c = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (local_98);
     qlist_detach_copy_refs(param_2);
     lVar13 = *param_2;
     iVar1 = *(int *)(lVar13 + 8);
@@ -18764,7 +18815,8 @@ LAB_008d5719:
     if (lVar13 != 0) {
       QByteArray::QByteArray((QByteArray *)&local_58,local_e0,-1);
                     /* try { // try from 008d574d to 008d5751 has its CatchHandler @ 008d5bbd */
-      lVar14 = FUN_00767b36(lVar13,(QByteArray *)&local_58);
+      lVar14 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (lVar13,(QByteArray *)&local_58);
       qt_byte_array_unref((QByteArray *)&local_58);
       if (lVar14 != 0) {
                     /* try { // try from 008d5773 to 008d5793 has its CatchHandler @ 008d5bb5 */
@@ -21967,7 +22019,8 @@ LAB_008d97ff:
   sVar2 = strlen(__s);
   local_40[0] = (QArrayData *)QString::fromAscii_helper(__s,(int)sVar2);
                     /* try { // try from 008d982d to 008d9831 has its CatchHandler @ 008d98b3 */
-  FUN_005aca9a(uVar3,uVar1,local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar3,uVar1,local_40);
   if (*(int *)local_40[0] == 0) {
 LAB_008d9895:
     QArrayData::deallocate(local_40[0],2,8);
@@ -22192,9 +22245,14 @@ QString * FUN_008d9f66(QString *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008d9fa4 name=FUN_008d9fa4 size=9 ====
+// ==== entry=008d9fa4 orig=FUN_008d9fa4 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_008d9fa4(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   tabbar_currentIndex(*(undefined8 *)(param_1 + 0x30));
@@ -22222,7 +22280,8 @@ void FUN_008d9fe0(long param_1,QWidget *param_2)
 {
   int iVar1;
   
-  iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x30));
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x30));
   if (iVar1 == -1) {
     return;
   }
@@ -22309,7 +22368,8 @@ LAB_008da0f7:
   sVar2 = strlen(__s);
   local_40[0] = (QArrayData *)QString::fromAscii_helper(__s,(int)sVar2);
                     /* try { // try from 008da126 to 008da12a has its CatchHandler @ 008da1ac */
-  FUN_005aca9a(uVar3,uVar1,local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar3,uVar1,local_40);
   if (*(int *)local_40[0] == 0) {
 LAB_008da18e:
     QArrayData::deallocate(local_40[0],2,8);
@@ -22332,7 +22392,8 @@ void FUN_008da1bc(long param_1,undefined8 param_2,undefined4 param_3)
 {
   int iVar1;
   
-  iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x30));
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x30));
   if (iVar1 == -1) {
     return;
   }
@@ -22406,7 +22467,8 @@ void FUN_008da296(long param_1,undefined8 param_2,undefined8 param_3)
 {
   int iVar1;
   
-  iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x30));
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x30));
   if (iVar1 == -1) {
     return;
   }
@@ -22416,12 +22478,18 @@ void FUN_008da296(long param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008da2e8 name=FUN_008da2e8 size=9 ====
+// ==== entry=008da2e8 orig=FUN_008da2e8 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_008da2e8(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
-  FUN_005ab5d4(*(undefined8 *)(param_1 + 0x30));
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (*(undefined8 *)(param_1 + 0x30));
   return;
 }
 
@@ -22454,7 +22522,8 @@ void FUN_008da2f2(long param_1,QString *param_2)
         }
       }
       if (cVar1 != '\0') {
-        FUN_008da2e8(param_1,iVar3);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_1,iVar3);
         return;
       }
       iVar3 = iVar3 + 1;
@@ -22484,7 +22553,8 @@ void FUN_008da3aa(long param_1)
   if (iVar2 == iVar3) {
     iVar2 = 0;
   }
-  FUN_005ab5d4(uVar1,iVar2);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar1,iVar2);
   return;
 }
 
@@ -22504,11 +22574,13 @@ void FUN_008da3f6(long param_1)
   iVar2 = tabbar_currentIndex(*(undefined8 *)(param_1 + 0x30));
   uVar1 = *(undefined8 *)(param_1 + 0x30);
   if (-1 < iVar2 + -1) {
-    FUN_005ab5d4(uVar1);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (uVar1);
     return;
   }
   iVar2 = FUN_005abbda(uVar1,iVar2 + -1);
-  FUN_005ab5d4(uVar1,iVar2 + -1);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar1,iVar2 + -1);
   return;
 }
 
@@ -22780,9 +22852,11 @@ joined_r0x008da9b7:
   if (lVar4 == 0) goto LAB_008daa07;
   lVar7 = __dynamic_cast(lVar4,&QObject::typeinfo,&PTR_PTR_011ac070,0);
   if (lVar7 != 0) {
-    iVar6 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x30),lVar7);
+    iVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 0x30),lVar7);
     if (iVar6 != -1) {
-      FUN_008da2e8(param_1,iVar6);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (param_1,iVar6);
       FUN_008e034a(lVar7,lVar3,1,0xffffffff);
     }
     goto LAB_008daa07;
@@ -24722,7 +24796,8 @@ void FUN_008dd8f0(long param_1)
 {
   int iVar1;
   
-  iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x30));
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x30));
   if (iVar1 == -1) {
     return;
   }
@@ -25747,7 +25822,8 @@ LAB_008de48d:
                     /* try { // try from 008de4a9 to 008de4ad has its CatchHandler @ 008de56d */
   local_40[0] = (QArrayData *)QString::fromAscii_helper(__s,(int)sVar3);
                     /* try { // try from 008de4bc to 008de4c0 has its CatchHandler @ 008de55d */
-  FUN_005aca9a(uVar4,uVar2,local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar4,uVar2,local_40);
   if (*(int *)local_40[0] != 0) {
     if (*(int *)local_40[0] == -1) goto LAB_008de4d7;
     LOCK();
@@ -25782,9 +25858,14 @@ void FUN_008de576(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008de59c name=FUN_008de59c size=9 ====
+// ==== entry=008de59c orig=FUN_008de59c size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_008de59c(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005abbda(*(undefined8 *)(param_1 + 0x38));
@@ -26045,7 +26126,8 @@ void FUN_008dedae(long param_1,QWidget *param_2)
 {
   int iVar1;
   
-  iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x38));
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x38));
   if (iVar1 == -1) {
     return;
   }
@@ -26098,7 +26180,8 @@ LAB_008dee71:
   sVar2 = strlen(__s);
   local_40[0] = (QArrayData *)QString::fromAscii_helper(__s,(int)sVar2);
                     /* try { // try from 008deea0 to 008deea4 has its CatchHandler @ 008def26 */
-  FUN_005aca9a(uVar3,uVar1,local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar3,uVar1,local_40);
   if (*(int *)local_40[0] == 0) {
 LAB_008def08:
     QArrayData::deallocate(local_40[0],2,8);
@@ -26126,7 +26209,8 @@ undefined8 FUN_008def36(long param_1)
   do {
     lVar1 = __dynamic_cast(param_1,&QObject::typeinfo,&PTR_PTR_011ac070,0);
     if (lVar1 != 0) {
-      uVar2 = FUN_008e01a2(lVar1);
+      uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (lVar1);
       return uVar2;
     }
     param_1 = *(long *)(*(long *)(param_1 + 8) + 0x10);
@@ -26220,7 +26304,8 @@ void FUN_008df06e(long param_1,undefined8 param_2,undefined8 param_3)
 {
   int iVar1;
   
-  iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x38));
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x38));
   if (iVar1 == -1) {
     return;
   }
@@ -26550,7 +26635,8 @@ void FUN_008df5f8(long param_1)
       return;
     }
   }
-  bVar1 = FUN_008e01a2(lVar2);
+  bVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (lVar2);
   if (*(char *)(param_1 + 0x30) == '\0') {
     uVar3 = FUN_008de3b2(param_1);
     tab_label_update(lVar2,uVar3,bVar1 ^ 1);
@@ -26587,7 +26673,8 @@ void thunk_FUN_008df5f8(long param_1)
       return;
     }
   }
-  bVar1 = FUN_008e01a2(lVar2);
+  bVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (lVar2);
   if (*(char *)(param_1 + 0x30) == '\0') {
     uVar3 = FUN_008de3b2(param_1);
     tab_label_update(lVar2,uVar3,bVar1 ^ 1);
@@ -26694,7 +26781,8 @@ joined_r0x008df807:
     }
     return;
   }
-  iVar1 = FUN_005ab6c2(*(undefined8 *)(param_1 + 0x38),param_2);
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x38),param_2);
   if (iVar1 != -1) {
     TabGroup_closeAndRemoveView(*(undefined8 *)(param_1 + 0x38),iVar1,1);
   }
@@ -27361,9 +27449,14 @@ LAB_008e0181:
 }
 
 
-// ==== entry=008e01a2 name=FUN_008e01a2 size=9 ====
+// ==== entry=008e01a2 orig=FUN_008e01a2 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_008e01a2(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_005a23c6(*(undefined8 *)(param_1 + 0x70));
@@ -27449,7 +27542,8 @@ void FUN_008e01c6(undefined8 param_1,long param_2)
   }
                     /* try { // try from 008e02de to 008e02f9 has its CatchHandler @ 008e0341 */
   FUN_008dedae(lVar4,param_2);
-  iVar3 = FUN_008de59c(lVar4);
+  iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (lVar4);
   if (iVar3 == 0) {
     FUN_008e01b6(param_1,lVar4);
   }
@@ -27515,9 +27609,14 @@ void FUN_008e03e4(long param_1,QString *param_2)
 }
 
 
-// ==== entry=008e041e name=FUN_008e041e size=9 ====
+// ==== entry=008e041e orig=FUN_008e041e size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_008e041e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   King__insertPane(*(undefined8 *)(param_1 + 0x70));
@@ -28551,9 +28650,11 @@ LAB_008e1b71:
 }
 
 
-// ==== entry=008e1bf0 name=FUN_008e1bf0 size=25 ====
+// ==== entry=008e1bf0 orig=FUN_008e1bf0 size=25 name=BSim_std::bad_alloc::bad_alloc ====
 
-void FUN_008e1bf0(QObject *param_1,QObject *param_2)
+/* BSim sim=1.0 sig=11.271298610603214 ref=libwindtermopen2.so.1.0.0::std::bad_alloc::bad_alloc */
+
+void BSim_std__bad_alloc__bad_alloc(QObject *param_1,QObject *param_2)
 
 {
   QObject::QObject(param_1,param_2);
@@ -28579,9 +28680,12 @@ undefined8 FUN_008e1c10(long param_1)
 }
 
 
-// ==== entry=008e1c26 name=FUN_008e1c26 size=9 ====
+// ==== entry=008e1c26 orig=FUN_008e1c26 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_008e1c26(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   QFile::remove((QString *)(param_1 + 0x30));
@@ -28886,9 +28990,12 @@ LAB_008e219c:
 }
 
 
-// ==== entry=008e21ca name=FUN_008e21ca size=12 ====
+// ==== entry=008e21ca orig=FUN_008e21ca size=12 name=BSim_boost::system::error_condition::error_condition ====
 
-void FUN_008e21ca(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.187698229212263
+   ref=libwindtermopen2.so.1.0.0::boost::system::error_condition::error_condition */
+
+void BSim_boost__system__error_condition__error_condition(undefined8 *param_1,undefined8 param_2)
 
 {
   *param_1 = param_2;
@@ -29131,7 +29238,7 @@ void * FUN_008e24d0(long param_1,long param_2)
   }
   pvVar2 = operator_new(0x10);
                     /* try { // try from 008e254b to 008e254f has its CatchHandler @ 008e25b3 */
-  FUN_008e21ca(pvVar2,param_2);
+  BSim_boost__system__error_condition__error_condition(pvVar2,param_2);
   *(undefined8 **)((long)pvVar2 + 8) = puVar1;
   *(undefined4 *)puVar1 = *(undefined4 *)(param_1 + 0x54);
   puVar1[0x10] = *(undefined8 *)(param_1 + 0x70);
@@ -29462,7 +29569,7 @@ ulong thunk_FUN_008ea07a(long *param_1)
 void FUN_008e2a42(long *param_1)
 
 {
-  if (*(code **)(*param_1 + 0x80) == FUN_008e1c26) {
+  if (*(code **)(*param_1 + 0x80) == BSim_QMouseEvent__globalPos) {
     QFile::remove((QString *)(param_1 + 6));
     return;
   }
@@ -34272,12 +34379,12 @@ undefined8 * FUN_008e7c0c(undefined8 *param_1,long param_2,undefined4 param_3)
     return param_1;
   }
                     /* try { // try from 008e7c39 to 008e7c8f has its CatchHandler @ 008e7d96 */
-  lVar4 = FUN_006284ce();
+  lVar4 = BSim_QPoint__y();
   if (lVar4 == 0) {
     return param_1;
   }
   local_40 = (char *)0x0;
-  uVar5 = FUN_006284ce(*(undefined8 *)(param_2 + 0x80));
+  uVar5 = BSim_QPoint__y(*(undefined8 *)(param_2 + 0x80));
   iVar3 = ssh_options_get(uVar5,param_3,&local_40);
   if (iVar3 == -1) goto LAB_008e7d48;
   QByteArray::QByteArray((QByteArray *)&local_38,local_40,-1);

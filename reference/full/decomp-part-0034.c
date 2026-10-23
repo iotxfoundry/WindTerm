@@ -32,9 +32,14 @@ undefined4 FUN_00a20390(long param_1,undefined4 param_2)
 }
 
 
-// ==== entry=00a203be name=FUN_00a203be size=12 ====
+// ==== entry=00a203be orig=FUN_00a203be size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a203be(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00975328(*(undefined8 *)(param_1 + 0x1038));
@@ -74,9 +79,11 @@ double FUN_00a2041e(long param_1)
 }
 
 
-// ==== entry=00a20430 name=FUN_00a20430 size=7 ====
+// ==== entry=00a20430 orig=FUN_00a20430 size=7 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a20430(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0xd04);
@@ -142,9 +149,14 @@ void FUN_00a204a0(double param_1,long param_2)
 }
 
 
-// ==== entry=00a20580 name=FUN_00a20580 size=12 ====
+// ==== entry=00a20580 orig=FUN_00a20580 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a20580(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a17428(*(undefined8 *)(param_1 + 0x10c8));
@@ -162,7 +174,8 @@ undefined8 FUN_00a2058c(long param_1)
   if (*(long *)(param_1 + 0x28) != 0) {
     return 0;
   }
-  uVar1 = FUN_00a20580();
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   return uVar1;
 }
 
@@ -177,7 +190,8 @@ long FUN_00a2059c(undefined8 param_1,double param_2,long param_3,char param_4)
   long lVar3;
   
   iVar1 = *(int *)(param_3 + 0xd04);
-  lVar2 = FUN_00a20580();
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   lVar2 = (long)((double)lVar2 + param_2 / (double)iVar1);
   if (param_4 != '\0') {
     lVar3 = editor_textLength(*(undefined8 *)(param_3 + 0x10a0));
@@ -199,7 +213,8 @@ long FUN_00a20604(long param_1,undefined1 param_2)
   long lVar3;
   
   lVar2 = editor_textLength(*(undefined8 *)(param_1 + 0x10a0));
-  lVar3 = FUN_00a20580(param_1);
+  lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1);
   iVar1 = visible_line_count(param_1,param_2);
   if (iVar1 + lVar3 <= lVar2) {
     lVar2 = iVar1 + lVar3;
@@ -219,7 +234,8 @@ void FUN_00a20666(long param_1)
 {
   undefined8 uVar1;
   
-  uVar1 = FUN_00a20580();
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   FUN_00958498(*(undefined8 *)(param_1 + 0x10a0),uVar1);
   return;
 }
@@ -246,9 +262,14 @@ undefined8 FUN_00a20680(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00a206dc name=FUN_00a206dc size=12 ====
+// ==== entry=00a206dc orig=FUN_00a206dc size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a206dc(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a167ac(*(undefined8 *)(param_1 + 0x10c8));
@@ -263,7 +284,8 @@ bool FUN_00a206e8(undefined8 param_1,long param_2)
 {
   long lVar1;
   
-  lVar1 = FUN_00a20580();
+  lVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   if (param_2 < lVar1) {
     return false;
   }
@@ -272,9 +294,14 @@ bool FUN_00a206e8(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00a2071e name=FUN_00a2071e size=12 ====
+// ==== entry=00a2071e orig=FUN_00a2071e size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a2071e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_009290e8(*(undefined8 *)(param_1 + 0x1098));
@@ -299,7 +326,8 @@ undefined8 FUN_00a2072a(long param_1)
       uVar2 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar4,0);
       uVar3 = BSim_Splitter__createHandle(uVar2);
       uVar2 = BSim_Splitter__createHandle(uVar2);
-      uVar2 = FUN_00a2071e(param_1,uVar2,uVar3);
+      uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar2,uVar3);
       if ((char)uVar2 != '\0') {
         return uVar2;
       }
@@ -343,9 +371,9 @@ FUN_00a207ca(undefined8 *param_1,long param_2,undefined8 *param_3,int param_4,un
   if (iVar2 == 0) {
     if (*(char *)(param_2 + 0x1128) == '\0') {
       uVar1 = *(undefined8 *)(param_2 + 0x1098);
-      uVar3 = FUN_0096bbc0(param_3);
+      uVar3 = BSim_QPoint__y(param_3);
       lVar4 = FUN_009252f4(uVar1,uVar3,param_4,param_5);
-      lVar5 = FUN_0096bbc0(param_3);
+      lVar5 = BSim_QPoint__y(param_3);
       if (lVar4 != lVar5) {
         FUN_0096bbc6(param_3,lVar4,1);
       }
@@ -529,7 +557,8 @@ void session_view_soft_reset(long *param_1)
 {
   param_1[0x226] = (long)&DAT_bff0000000000000;
   FUN_00a20b26();
-  FUN_00a1fb3a(param_1);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (param_1);
   FUN_00a1f7be(param_1);
                     /* WARNING: Could not recover jumptable at 0x00a20b91. Too many branches */
                     /* WARNING: Treating indirect jump as call */
@@ -574,12 +603,12 @@ undefined8 * FUN_00a20bb8(undefined8 *param_1,long param_2,undefined8 *param_3)
   undefined8 local_40;
   undefined8 local_38;
   
-  lVar4 = FUN_0096bbc0(param_3);
+  lVar4 = BSim_QPoint__y(param_3);
   if (lVar4 < 0) {
     runstyles_runnode_init(param_1,0,0,0);
     return param_1;
   }
-  lVar4 = FUN_0096bbc0(param_3);
+  lVar4 = BSim_QPoint__y(param_3);
   lVar5 = FUN_0092801a(*(undefined8 *)(param_2 + 0x1098));
   if (lVar5 < lVar4) {
 LAB_00a20bf9:
@@ -617,7 +646,7 @@ LAB_00a20d46:
       }
     }
     else {
-      lVar4 = FUN_0096bbc0(param_3);
+      lVar4 = BSim_QPoint__y(param_3);
       lVar5 = FUN_0092801a(*(undefined8 *)(param_2 + 0x1098));
       if (lVar4 == lVar5) goto LAB_00a20bf9;
     }
@@ -650,7 +679,7 @@ undefined8 * FUN_00a20d7e(undefined8 *param_1,long param_2,undefined8 *param_3,i
   BSim_QList_int___node_destruct(&local_58);
   iVar1 = qstrdata_length_get(param_3);
   if (iVar1 == 0) {
-    local_58 = FUN_0096bbc0(param_3);
+    local_58 = BSim_QPoint__y(param_3);
     uVar2 = FUN_00957926(*(undefined8 *)(param_2 + 0x10a0),&local_58,0 < param_4,1);
     if ((uVar2 & 0x1c000) != 0) {
       FUN_0096bbc6(param_3,local_58,1);
@@ -1115,7 +1144,8 @@ void FUN_00a2168a(long *param_1)
     else if (iVar7 < 1) {
       local_60 = &DAT_bff0000000000000;
     }
-    FUN_00a1fb5e(local_60,param_1);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (local_60,param_1);
     FUN_00a161d8(local_48);
   }
   cVar5 = FUN_0095809e(param_1[0x214]);
@@ -1155,14 +1185,18 @@ void FUN_00a218f6(long param_1,undefined8 param_2,undefined8 param_3)
   long lVar4;
   bool bVar5;
   
-  lVar4 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098));
-  lVar3 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),param_3);
-  cVar2 = FUN_00a2071e(param_1,lVar4,lVar3);
+  lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
+  lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098),param_3);
+  cVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,lVar4,lVar3);
   if (cVar2 != '\0') {
     return;
   }
   uVar1 = *(undefined8 *)(param_1 + 0x1098);
-  FUN_00927a08(uVar1,&DAT_00cb99b6);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar1,&DAT_00cb99b6);
   bVar5 = true;
   if (lVar4 < lVar3) {
     do {
@@ -1190,9 +1224,14 @@ LAB_00a219e5:
 }
 
 
-// ==== entry=00a21a02 name=FUN_00a21a02 size=12 ====
+// ==== entry=00a21a02 orig=FUN_00a21a02 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a21a02(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_009253ca(*(undefined8 *)(param_1 + 0x1098));
@@ -1216,8 +1255,10 @@ undefined8 * FUN_00a21a0e(undefined8 *param_1,long param_2,long param_3)
   if (param_3 != -1) {
     uVar1 = *(undefined8 *)(param_2 + 0x1098);
                     /* try { // try from 00a21a44 to 00a21a6d has its CatchHandler @ 00a21b0d */
-    uVar2 = FUN_0092520c(uVar1,param_3);
-    uVar3 = FUN_00925200(*(undefined8 *)(param_2 + 0x1098),param_3 + 1);
+    uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar1,param_3);
+    uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_2 + 0x1098),param_3 + 1);
     buf_substr(&local_38,uVar1,uVar3,uVar2);
                     /* try { // try from 00a21a7d to 00a21a81 has its CatchHandler @ 00a21b15 */
     QByteArray::QByteArray((QByteArray *)&local_30,local_38,*(int *)(local_38 + -0x18));
@@ -1361,9 +1402,12 @@ void FUN_00a21d26(long param_1,undefined8 param_2,undefined8 param_3,int param_4
   long lVar6;
   undefined1 auStack_58 [40];
   
-  uVar3 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098));
-  uVar4 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),param_3);
-  cVar2 = FUN_00a2071e(param_1,uVar3,uVar4);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098),param_3);
+  cVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar3,uVar4);
   if (cVar2 == '\0') {
     if (param_4 == 0) {
       FUN_00a1f7e2(auStack_58,param_1);
@@ -1378,9 +1422,11 @@ void FUN_00a21d26(long param_1,undefined8 param_2,undefined8 param_3,int param_4
                     /* try { // try from 00a21dcb to 00a21dcf has its CatchHandler @ 00a21e87 */
     lVar6 = FUN_009587cc(uVar3,auStack_58);
     BSim_QList_int___node_destruct(auStack_58);
-    FUN_00a21a02(param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
     uVar3 = *(undefined8 *)(param_1 + 0x1098);
-    FUN_00927a08(uVar3,&DAT_00cb99b6);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (uVar3,&DAT_00cb99b6);
     if (lVar5 <= lVar6) {
       do {
         uVar1 = *(undefined8 *)(param_1 + 0x10a0);
@@ -1437,7 +1483,7 @@ undefined8 FUN_00a21eba(long param_1,undefined8 param_2,undefined8 *param_3)
   long local_48;
   undefined8 local_40 [2];
   
-  uVar4 = FUN_0096bbc0(param_2);
+  uVar4 = BSim_QPoint__y(param_2);
   iVar2 = qstrdata_length_get(param_2);
   lVar6 = (long)(*(int *)(param_1 + 0x1124) + -1) - (long)iVar2;
   uVar5 = editor_styleFont(param_1 + 0x40,uVar4);
@@ -1487,7 +1533,7 @@ undefined8 FUN_00a22016(long param_1,undefined8 param_2,QString *param_3)
   undefined8 *local_48;
   undefined8 *local_40 [2];
   
-  lVar4 = FUN_0096bbc0(param_2);
+  lVar4 = BSim_QPoint__y(param_2);
   qstrdata_length_get(param_2);
   local_48 = &QArrayData::shared_null;
                     /* try { // try from 00a22059 to 00a2218d has its CatchHandler @ 00a22190 */
@@ -1499,8 +1545,10 @@ undefined8 FUN_00a22016(long param_1,undefined8 param_2,QString *param_3)
     lVar4 = 1;
   }
   else {
-    local_4c = FUN_00927874(*(undefined8 *)(param_1 + 0x1098),lVar4);
-    iVar3 = FUN_009252bc(*(undefined8 *)(param_1 + 0x1098),lVar4);
+    local_4c = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (*(undefined8 *)(param_1 + 0x1098),lVar4);
+    iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 0x1098),lVar4);
     cVar2 = QChar::isPrint(local_4c);
     if (cVar2 == '\0') {
       local_4c = 0x2e;
@@ -1709,9 +1757,14 @@ LAB_00a2249e:
 }
 
 
-// ==== entry=00a224cc name=FUN_00a224cc size=12 ====
+// ==== entry=00a224cc orig=FUN_00a224cc size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a224cc(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a16a7a(*(undefined8 *)(param_1 + 0x10c8));
@@ -1719,9 +1772,14 @@ void FUN_00a224cc(long param_1)
 }
 
 
-// ==== entry=00a224d8 name=FUN_00a224d8 size=12 ====
+// ==== entry=00a224d8 orig=FUN_00a224d8 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a224d8(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a17454(*(undefined8 *)(param_1 + 0x10c8));
@@ -1779,7 +1837,8 @@ undefined1  [16] FUN_00a22508(long *param_1,double *param_2)
   }
   lVar3 = FUN_00a224f0();
   auVar5._0_8_ = (double)lVar3 + dVar1;
-  lVar3 = FUN_00a20580(param_1);
+  lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1);
   auVar5._8_8_ = (double)(*(int *)((long)param_1 + 0xd04) * lVar3) + dVar2;
   return auVar5;
 }
@@ -1796,12 +1855,13 @@ undefined1  [16] FUN_00a225be(long param_1,undefined8 param_2)
   double dVar4;
   undefined1 auVar5 [16];
   
-  lVar2 = FUN_0096bbc0(param_2);
+  lVar2 = BSim_QPoint__y(param_2);
   if (-1 < lVar2) {
     lVar3 = FUN_0092801a(*(undefined8 *)(param_1 + 0x1098));
     if (lVar2 <= lVar3) {
       lVar2 = FUN_009587cc(*(undefined8 *)(param_1 + 0x10a0),param_2);
-      lVar3 = FUN_00a20580(param_1);
+      lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
       auVar5._8_8_ = (double)((lVar2 - lVar3) * (long)*(int *)(param_1 + 0xd04));
       dVar4 = (double)position_to_x(*(undefined8 *)(param_1 + 0x10a0),param_2);
       iVar1 = *(int *)(param_1 + 0xd7c);
@@ -2018,7 +2078,8 @@ void FUN_00a22c20(undefined8 param_1)
   int iVar2;
   
   iVar2 = visible_line_count(param_1,0);
-  uVar1 = FUN_00a20580(param_1);
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1);
   line_rect_compute(param_1,uVar1,(long)iVar2);
   return;
 }
@@ -2145,7 +2206,8 @@ undefined1 FUN_00a22e92(long param_1,long param_2,long param_3)
   undefined1 local_68 [32];
   undefined1 local_48 [40];
   
-  lVar2 = FUN_00a20580();
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   lVar3 = FUN_00a20604(param_1,1);
   if ((lVar2 <= param_3) && (param_2 <= lVar3)) {
     uVar4 = editor_lineEndIdx(*(undefined8 *)(param_1 + 0x10a0),param_3);
@@ -2201,7 +2263,7 @@ void FUN_00a22fca(long param_1)
     uVar1 = FUN_00a20666(param_1);
     FUN_00a20680(local_48,param_1);
                     /* try { // try from 00a2301b to 00a2301f has its CatchHandler @ 00a230c4 */
-    lVar2 = FUN_0096bbc0(local_48);
+    lVar2 = BSim_QPoint__y(local_48);
     BSim_QList_int___node_destruct(local_48);
     iVar4 = FUN_00926b6c(*(undefined8 *)(param_1 + 0x1098),uVar1);
     do {
@@ -2279,14 +2341,15 @@ undefined8 FUN_00a23206(long param_1,undefined8 param_2,undefined1 param_3,char 
   double local_38;
   
   uVar1 = *(undefined8 *)(param_1 + 0x10a0);
-  uVar2 = FUN_00a20580();
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   lVar3 = FUN_00958498(uVar1,uVar2);
-  lVar4 = FUN_0096bbc0(param_2);
+  lVar4 = BSim_QPoint__y(param_2);
   if (lVar3 <= lVar4) {
     uVar1 = *(undefined8 *)(param_1 + 0x10a0);
     lVar3 = FUN_00a20604(param_1,param_3);
     lVar3 = FUN_00958498(uVar1,lVar3 + 1);
-    lVar4 = FUN_0096bbc0(param_2);
+    lVar4 = BSim_QPoint__y(param_2);
     if ((lVar4 < lVar3) || (lVar4 = FUN_0092801a(*(undefined8 *)(param_1 + 0x1098)), lVar3 == lVar4)
        ) {
       if (param_4 != '\0') {
@@ -2371,10 +2434,12 @@ void FUN_00a233b8(long param_1)
     uVar7 = *(undefined8 *)(param_1 + 0x10a0);
     uVar4 = doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
     lVar5 = FUN_009587cc(uVar7,uVar4);
-    lVar6 = FUN_00a20580(param_1);
+    lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1);
     if (lVar5 < lVar6) {
       uVar2 = FUN_00a20390();
-      uVar7 = FUN_00a20580(param_1);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
       FUN_00a1fbaa(uVar8,&local_78,param_1,uVar7,2,uVar2);
       *puVar3 = local_78;
       puVar3[1] = local_70;
@@ -2443,7 +2508,7 @@ void FUN_00a235ce(long param_1,long param_2,undefined1 param_3)
         lVar5 = lVar5 + 1;
       } while (lVar3 != lVar5);
     }
-    param_2 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+    param_2 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
     uVar2 = *(undefined8 *)(param_1 + 0x1038);
   }
   uVar2 = scintilla_get_text_range(uVar2,param_2,1);
@@ -2475,7 +2540,7 @@ void FUN_00a2373a(long param_1,int param_2)
   editor_selCtor(local_38,param_1,&local_3c);
                     /* try { // try from 00a2376e to 00a2378b has its CatchHandler @ 00a2379d */
   FUN_009756a6(*(undefined8 *)(param_1 + 0x1038),(long)param_2);
-  uVar1 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+  uVar1 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
   FUN_00a235ce(param_1,uVar1,0);
   FUN_00974856(local_38);
   return;
@@ -2495,7 +2560,7 @@ void FUN_00a237a6(long param_1)
   editor_selCtor(local_38,param_1,&local_3c);
                     /* try { // try from 00a237d3 to 00a237f0 has its CatchHandler @ 00a23800 */
   FUN_009757e6(*(undefined8 *)(param_1 + 0x1038));
-  uVar1 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+  uVar1 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
   FUN_00a235ce(param_1,uVar1,0);
   FUN_00974856(local_38);
   return;
@@ -2515,7 +2580,7 @@ void FUN_00a23808(long param_1)
   editor_selCtor(local_38,param_1,&local_3c);
                     /* try { // try from 00a23835 to 00a23852 has its CatchHandler @ 00a23862 */
   FUN_00975712(*(undefined8 *)(param_1 + 0x1038));
-  uVar1 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+  uVar1 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
   FUN_00a235ce(param_1,uVar1,0);
   FUN_00974856(local_38);
   return;
@@ -2530,7 +2595,7 @@ void FUN_00a2386a(long param_1)
   undefined8 uVar1;
   
   FUN_0097881e(*(undefined8 *)(param_1 + 0x1038));
-  uVar1 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+  uVar1 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
   FUN_00a235ce(param_1,uVar1,0);
   return;
 }
@@ -2550,14 +2615,14 @@ void FUN_00a23894(long param_1,int param_2)
   editor_selCtor(local_48,param_1,&local_4c);
   uVar1 = *(undefined8 *)(param_1 + 0x1038);
   if (param_2 < 1) {
-    lVar2 = FUN_00975316(uVar1);
+    lVar2 = BSim_QPoint__y(uVar1);
   }
   else {
     lVar2 = (long)param_2;
   }
                     /* try { // try from 00a238d1 to 00a23909 has its CatchHandler @ 00a2390f */
   FUN_00976b00(uVar1,lVar2);
-  uVar1 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+  uVar1 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
   FUN_00a235ce(param_1,uVar1,0);
   FUN_00974856(local_48);
   return;
@@ -2604,9 +2669,14 @@ void FUN_00a2398e(long param_1,char param_2)
 }
 
 
-// ==== entry=00a239e2 name=FUN_00a239e2 size=12 ====
+// ==== entry=00a239e2 orig=FUN_00a239e2 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a239e2(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a169cc(*(undefined8 *)(param_1 + 0x10c8));
@@ -2614,9 +2684,14 @@ void FUN_00a239e2(long param_1)
 }
 
 
-// ==== entry=00a239ee name=FUN_00a239ee size=12 ====
+// ==== entry=00a239ee orig=FUN_00a239ee size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a239ee(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a16bda(*(undefined8 *)(param_1 + 0x10c8));
@@ -2665,15 +2740,17 @@ void FUN_00a23a3e(long *param_1,char param_2,int param_3)
   iVar2 = 0;
   do {
     if (param_2 == '\0') {
-      cVar1 = FUN_00927a40();
+      cVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        ();
     }
     else {
                     /* try { // try from 00a23aba to 00a23b35 has its CatchHandler @ 00a23b4f */
-      cVar1 = FUN_00927a4c(param_1[0x213]);
+      cVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[0x213]);
     }
     if (cVar1 == '\0') break;
     if (iVar2 == 0) {
-      FUN_0097565a(param_1[0x207]);
+      BSim_boost__exception__exception(param_1[0x207]);
       FUN_0096bb9a(param_1 + 0x21e);
     }
     theme_style_apply(param_1[0x213],param_2,param_1,param_3 + -1 == iVar2);
@@ -2692,7 +2769,8 @@ void FUN_00a23b58(long param_1,undefined4 param_2)
 {
   char cVar1;
   
-  cVar1 = FUN_00927a40(*(undefined8 *)(param_1 + 0x1098));
+  cVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   if (cVar1 == '\0') {
     return;
   }
@@ -2708,7 +2786,8 @@ void FUN_00a23b8c(long param_1,undefined4 param_2)
 {
   char cVar1;
   
-  cVar1 = FUN_00927a4c(*(undefined8 *)(param_1 + 0x1098));
+  cVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   if (cVar1 == '\0') {
     return;
   }
@@ -2759,7 +2838,8 @@ void FUN_00a23c7a(long *param_1)
   undefined4 *local_30;
   
   pcVar1 = *(code **)(*param_1 + 0x140);
-  uVar2 = FUN_00950294(param_1 + 8);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1 + 8);
                     /* try { // try from 00a23ca4 to 00a23ca8 has its CatchHandler @ 00a23d0c */
   puVar3 = operator_new(0x28);
   *(code **)(puVar3 + 2) = BSim_QList_int___node_destruct;
@@ -2893,7 +2973,8 @@ void FUN_00a23e6e(long param_1,undefined4 param_2,undefined8 param_3,undefined8 
 {
   char cVar1;
   
-  cVar1 = FUN_00925860(*(undefined8 *)(param_1 + 0x1098),param_4);
+  cVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098),param_4);
   if (cVar1 == '\0') {
     return;
   }
@@ -3286,7 +3367,8 @@ void FUN_00a245c6(long param_1,int param_2,int param_3)
     iVar1 = 10000;
   }
   FUN_00958418(*(undefined8 *)(param_1 + 0x10a0),iVar1);
-  FUN_00a239e2(param_1,0);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (param_1,0);
   FUN_00a243ae(param_1,1);
   session_view_soft_reset(param_1);
   return;
@@ -3334,9 +3416,9 @@ void FUN_00a24660(long param_1,char param_2)
       lVar5 = BSim_Splitter__createHandle(puVar4);
       lVar6 = BSim_Splitter__createHandle(puVar4);
       if (lVar5 == lVar6) {
-        iVar2 = FUN_0096bff4(puVar4);
+        iVar2 = BSim_QMouseEvent__globalPos(puVar4);
         if (iVar2 < 1) {
-          iVar2 = FUN_0096bffe(puVar4);
+          iVar2 = BSim_QMouseEvent__globalPos(puVar4);
           if (iVar2 < 1) {
             lVar5 = FUN_0092ad80(*(undefined8 *)(param_1 + 0x1098),lVar5,0xffffffff,1);
             lVar6 = FUN_0092ad80(*(undefined8 *)(param_1 + 0x1098),lVar6,1,1);
@@ -3426,19 +3508,24 @@ void editor_checkAutoFormat(long param_1)
     do {
       uVar4 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar12,0);
       uVar9 = *(undefined8 *)(param_1 + 0x1098);
-      uVar5 = FUN_0096bfe0(uVar4);
-      lVar6 = FUN_0092522a(uVar9,uVar5);
+      uVar5 = BSim_QMouseEvent__globalPos(uVar4);
+      lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar9,uVar5);
       uVar9 = *(undefined8 *)(param_1 + 0x1098);
-      uVar5 = FUN_0096bfea(uVar4);
-      lVar7 = FUN_0092522a(uVar9,uVar5);
+      uVar5 = BSim_QMouseEvent__globalPos(uVar4);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar9,uVar5);
       if (lVar6 == lVar7) {
-        lVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar6);
-        lVar8 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),lVar6);
+        lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 0x1098),lVar6);
+        lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 0x1098),lVar6);
         uVar9 = *(undefined8 *)(param_1 + 0x1098);
         if (lVar7 == lVar8) {
                     /* try { // try from 00a24b35 to 00a24b60 has its CatchHandler @ 00a24c06 */
           uVar2 = FUN_0092d7d6(uVar9,lVar6,200);
-          uVar9 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar6);
+          uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x1098),lVar6);
           runstyles_runnode_init(&local_58,uVar9,uVar2,0);
                     /* try { // try from 00a24b64 to 00a24b8e has its CatchHandler @ 00a24bfe */
           puVar10 = (undefined8 *)FUN_0096bfc8(uVar4);
@@ -3452,7 +3539,7 @@ void editor_checkAutoFormat(long param_1)
           BSim_QList_int___node_destruct(&local_58);
         }
         else {
-          uVar5 = FUN_0096bfe0(uVar4);
+          uVar5 = BSim_QMouseEvent__globalPos(uVar4);
           cVar1 = FUN_0092d76e(uVar9,uVar5);
           if (cVar1 != '\0') {
             uVar9 = FUN_00928404(*(undefined8 *)(param_1 + 0x1098),lVar6);
@@ -3530,7 +3617,8 @@ void FUN_00a24c26(long param_1,long param_2)
   uVar7 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a24c93 to 00a24dfa has its CatchHandler @ 00a24e67 */
   uVar2 = BSim_Splitter__createHandle(*(undefined8 *)(param_2 + 0x10));
-  lVar3 = FUN_0092522a(uVar7,uVar2);
+  lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar7,uVar2);
   uVar7 = *(undefined8 *)(param_1 + 0x1098);
   lVar4 = *(long *)(param_2 + 0x30) - *(long *)(param_2 + 0x38) >> 3;
   lVar8 = (*(long *)(param_2 + 0x40) - *(long *)(param_2 + 0x38) >> 3) * 0x6db6db6db6db6db7;
@@ -3550,7 +3638,8 @@ LAB_00a24e57:
   lVar4 = *(long *)(*(long *)(param_2 + 0x48) + uVar5 * 8) + (lVar9 - lVar8 * uVar5) * 0x38;
 LAB_00a24d28:
   uVar2 = BSim_Splitter__createHandle(lVar4);
-  lVar4 = FUN_0092522a(uVar7,uVar2);
+  lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar7,uVar2);
   if (lVar4 - lVar3 < 0xc351) {
     lVar3 = *(long *)(param_2 + 0x30);
     lVar4 = *(long *)(param_2 + 0x38);
@@ -3564,14 +3653,16 @@ LAB_00a24d28:
           lVar8 = (local_60 - lVar4) + *(long *)(local_58 + -8);
         }
         uVar2 = BSim_Splitter__createHandle(lVar8 + -0x38);
-        uVar2 = FUN_0092522a(uVar7,uVar2);
+        uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (uVar7,uVar2);
         uVar7 = *(undefined8 *)(param_1 + 0x1098);
         lVar8 = lVar3;
         if (lVar4 == lVar3) {
           lVar8 = (local_60 - lVar4) + *(long *)(local_58 + -8);
         }
         uVar6 = BSim_Splitter__createHandle(lVar8 + -0x38);
-        uVar7 = FUN_0092522a(uVar7,uVar6);
+        uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (uVar7,uVar6);
         FUN_00a24866(param_1,uVar2,uVar7,2000);
         if (lVar4 == lVar3) {
           local_60 = local_60 - lVar4;
@@ -3610,9 +3701,14 @@ long FUN_00a24e72(long param_1)
 }
 
 
-// ==== entry=00a24e7e name=FUN_00a24e7e size=12 ====
+// ==== entry=00a24e7e orig=FUN_00a24e7e size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a24e7e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00957b70(*(undefined8 *)(param_1 + 0x10a0));
@@ -3638,9 +3734,12 @@ ulong FUN_00a24e8a(long param_1,long param_2,char param_3)
   }
   else {
     if (param_3 == '\0') {
-      uVar3 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),param_2);
-      uVar4 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),param_2 + 1);
-      uVar5 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+      uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),param_2);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),param_2 + 1);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098));
       uVar6 = FUN_00926dac(*(undefined8 *)(param_1 + 0x1098),param_2,uVar3,uVar4,uVar5);
       return uVar6;
     }
@@ -3701,14 +3800,16 @@ LAB_00a25001:
       BSim_QList_int___node_destruct(auStack_48);
       return;
     }
-    uVar1 = FUN_0092522a(*(undefined8 *)(param_1 + 0x1098));
+    uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 0x1098));
     *(undefined8 *)(param_3 + 0x30) = uVar1;
     *(undefined8 *)(param_3 + 0x38) = 0xffffffffffffffff;
     if (*(long *)(param_3 + 0x20) == -1) {
       return;
     }
   }
-  uVar1 = FUN_0092522a(*(undefined8 *)(param_1 + 0x1098));
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   *(undefined8 *)(param_3 + 0x38) = uVar1;
   return;
 }
@@ -3730,7 +3831,7 @@ void FUN_00a2509a(long param_1,long param_2,undefined1 param_3)
       *(undefined1 *)(param_1 + 0xec0) = param_3;
       if (param_2 == -1) {
         uVar1 = doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
-        uVar1 = FUN_0096bbc0(uVar1);
+        uVar1 = BSim_QPoint__y(uVar1);
         FUN_00a0cd3e(auStack_58);
         FUN_00a24f84(param_1,uVar1,auStack_58,1);
         FUN_00a22c6a(param_1,auStack_58);
@@ -3807,7 +3908,7 @@ ulong FUN_00a25284(long param_1,undefined8 param_2)
   if ((0 < (int)uVar4) && (*(char *)(param_1 + 0x1128) == '\0')) {
     uVar1 = *(undefined8 *)(param_1 + 0x1098);
     uVar2 = qstrdata_length_get(param_2);
-    uVar5 = FUN_0096bbc0(param_2);
+    uVar5 = BSim_QPoint__y(param_2);
     uVar3 = FUN_0092cac6(uVar1,uVar5,uVar2);
     FUN_00975426(*(undefined8 *)(param_1 + 0x1038),param_2);
     return (ulong)uVar3;
@@ -3839,8 +3940,9 @@ void FUN_00a252fe(long param_1,long *param_2,char param_3)
       return;
     }
     if (*(char *)(*(long *)(param_1 + 0x1098) + 0x279) != '\0') {
-      lVar3 = FUN_0096bbc0(param_2);
-      uVar5 = FUN_0092522a(*(undefined8 *)(param_1 + 0x1098),lVar3);
+      lVar3 = BSim_QPoint__y(param_2);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),lVar3);
       lVar6 = FUN_00925256(*(undefined8 *)(param_1 + 0x1098),lVar3);
       if ((lVar6 < lVar3) &&
          (cVar1 = FUN_009295cc(*(undefined8 *)(param_1 + 0x1098),lVar6,lVar3), cVar1 != '\0')) {
@@ -3853,7 +3955,7 @@ void FUN_00a252fe(long param_1,long *param_2,char param_3)
         return;
       }
     }
-    lVar3 = FUN_0096bbc0(param_2);
+    lVar3 = BSim_QPoint__y(param_2);
     local_48 = lVar3;
     if (0 < lVar3) {
       local_48 = lVar3 + -1;
@@ -3861,7 +3963,7 @@ void FUN_00a252fe(long param_1,long *param_2,char param_3)
   }
   else {
     FUN_00a25284();
-    lVar3 = FUN_0096bbc0(param_2);
+    lVar3 = BSim_QPoint__y(param_2);
     local_48 = lVar3;
   }
   uVar4 = FUN_00957926(*(undefined8 *)(param_1 + 0x10a0),&local_48,param_3,0);
@@ -3918,14 +4020,15 @@ editor_replace_range
   if (param_6 == '\0') {
     if ((*(char *)(param_1 + 0xec3) != '\0') && (cVar1 = FUN_0096be72(param_2,1), cVar1 != '\0')) {
       plVar11 = (long *)FUN_0096c0ea(param_2);
-      lVar6 = FUN_0096bbc0(plVar11);
+      lVar6 = BSim_QPoint__y(plVar11);
       uVar4 = *(undefined8 *)(param_1 + 0x1098);
-      uVar10 = FUN_0096bbc0(plVar11);
+      uVar10 = BSim_QPoint__y(plVar11);
       lVar7 = FUN_00925236(uVar4,uVar10);
       if (lVar6 < lVar7) {
         uVar4 = *(undefined8 *)(param_1 + 0x1098);
-        uVar10 = FUN_0096bbc0(plVar11);
-        uVar4 = FUN_00925304(uVar4,uVar10,1);
+        uVar10 = BSim_QPoint__y(plVar11);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (uVar4,uVar10,1);
         runstyles_runnode_init(&local_68,uVar4,0,0);
         *plVar11 = local_68;
         plVar11[1] = local_60;
@@ -4097,8 +4200,8 @@ void replace_text_apply(long param_1,char *param_2,long param_3)
     if (lVar4 != 0) {
       do {
         uVar5 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),local_e8,0);
-        lVar6 = FUN_0096bfea(uVar5);
-        iVar3 = FUN_0096bffe(uVar5);
+        lVar6 = BSim_QMouseEvent__globalPos(uVar5);
+        iVar3 = BSim_QMouseEvent__globalPos(uVar5);
         uVar8 = (ulong)(iVar3 + local_c0) % (ulong)(long)*(int *)(param_1 + 0x1124);
         cVar1 = FUN_0096be72(uVar5,1);
         if (cVar1 == '\0') {
@@ -4216,7 +4319,7 @@ LAB_00a25c38:
                     (param_1,uVar5,local_88 + *(long *)(local_88 + 0x10),
                      (long)*(int *)(local_88 + 4),0,0);
           if (uVar8 != 0) {
-            lVar6 = FUN_0096bfe0(uVar5);
+            lVar6 = BSim_QMouseEvent__globalPos(uVar5);
             lVar6 = lVar6 + -1;
             if (lVar6 < 0) {
               lVar6 = 0;
@@ -4275,8 +4378,8 @@ void FUN_00a25e5a(long param_1)
     do {
       while( true ) {
         uVar6 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar8,0);
-        lVar1 = FUN_0096bfe0(uVar6);
-        lVar2 = FUN_0096bfea(uVar6);
+        lVar1 = BSim_QMouseEvent__globalPos(uVar6);
+        lVar2 = BSim_QMouseEvent__globalPos(uVar6);
         if (lVar1 != lVar2) break;
         puVar3 = (undefined8 *)pos_min(uVar6);
         puVar7 = (undefined8 *)FUN_0096c0ea(uVar6);
@@ -4574,7 +4677,7 @@ LAB_00a265c8:
         if (param_2 == '\0') {
           uVar7 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a26677 to 00a2669c has its CatchHandler @ 00a26735 */
-          uVar8 = FUN_0096bfe0(uVar3);
+          uVar8 = BSim_QMouseEvent__globalPos(uVar3);
           uVar7 = FUN_0092ad80(uVar7,uVar8,0xffffffff,0);
           runstyles_runnode_init(&local_58,uVar7,0);
                     /* try { // try from 00a266a0 to 00a266a4 has its CatchHandler @ 00a26745 */
@@ -4584,7 +4687,7 @@ LAB_00a265c8:
           if (param_2 != '\x01') goto LAB_00a264b6;
           uVar7 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a266ed to 00a26712 has its CatchHandler @ 00a26735 */
-          uVar8 = FUN_0096bfe0(uVar3);
+          uVar8 = BSim_QMouseEvent__globalPos(uVar3);
           uVar7 = FUN_0092ad80(uVar7,uVar8,1,0);
           runstyles_runnode_init(&local_58,uVar7,0);
                     /* try { // try from 00a26716 to 00a2671a has its CatchHandler @ 00a26728 */
@@ -4859,7 +4962,8 @@ void FUN_00a26ec6(long param_1,undefined8 param_2,char param_3)
   undefined8 uVar1;
   undefined1 auStack_48 [40];
   
-  uVar1 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098));
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   FUN_00a20928(param_1,param_2,0,(int)param_3);
   runstyles_runnode_init(auStack_48,uVar1,0,0);
                     /* try { // try from 00a26f11 to 00a26f15 has its CatchHandler @ 00a26f29 */
@@ -4948,10 +5052,12 @@ void FUN_00a26ff6(long param_1,char param_2)
         uVar3 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar10,0);
         if (param_2 == '\0') {
           uVar5 = *(undefined8 *)(param_1 + 0x1098);
-          uVar4 = FUN_0096bfe0(uVar3);
-          uVar5 = FUN_0092522a(uVar5,uVar4);
-          lVar6 = FUN_0096bfe0(uVar3);
-          lVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),uVar5);
+          uVar4 = BSim_QMouseEvent__globalPos(uVar3);
+          uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (uVar5,uVar4);
+          lVar6 = BSim_QMouseEvent__globalPos(uVar3);
+          lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x1098),uVar5);
           if (lVar6 != lVar7) goto LAB_00a270e6;
         }
         else {
@@ -5050,7 +5156,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a27989 to 00a2798d has its CatchHandler @ 00a27a38 */
           FUN_00a271b6(&local_78,uVar5,local_b8,1,0xffffffffffffffff,0);
                     /* try { // try from 00a27991 to 00a27995 has its CatchHandler @ 00a27a28 */
-          lVar2 = FUN_0096bbc0(&local_78);
+          lVar2 = BSim_QPoint__y(&local_78);
         }
         else {
           uVar5 = param_1[2];
@@ -5058,7 +5164,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a2778e to 00a27792 has its CatchHandler @ 00a27a30 */
           FUN_00a271b6(&local_78,uVar5,local_b8,1,1,0);
                     /* try { // try from 00a27796 to 00a2779a has its CatchHandler @ 00a27a20 */
-          local_110 = FUN_0096bbc0(&local_78);
+          local_110 = BSim_QPoint__y(&local_78);
         }
         BSim_QList_int___node_destruct(&local_78);
         BSim_QList_int___node_destruct(local_b8);
@@ -5070,7 +5176,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a272af to 00a272b3 has its CatchHandler @ 00a279a8 */
       FUN_00a271b6(local_108,lVar4,local_b8,1,lVar3 + 1,0);
                     /* try { // try from 00a272b7 to 00a272bb has its CatchHandler @ 00a279f0 */
-      lVar3 = FUN_0096bbc0(local_108);
+      lVar3 = BSim_QPoint__y(local_108);
       BSim_QList_int___node_destruct(local_108);
       BSim_QList_int___node_destruct(local_b8);
       uVar5 = param_1[2];
@@ -5078,7 +5184,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a27304 to 00a27308 has its CatchHandler @ 00a279e0 */
       FUN_00a271b6(local_108,uVar5,local_b8,1,0xffffffffffffffff,0);
                     /* try { // try from 00a27311 to 00a27315 has its CatchHandler @ 00a279d8 */
-      lVar4 = FUN_0096bbc0(local_108);
+      lVar4 = BSim_QPoint__y(local_108);
       BSim_QList_int___node_destruct(local_108);
       BSim_QList_int___node_destruct(local_b8);
     }
@@ -5094,7 +5200,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a27711 to 00a27715 has its CatchHandler @ 00a279f8 */
           FUN_00a271b6(&local_78,uVar5,local_b8,1,1,0);
                     /* try { // try from 00a27719 to 00a2771d has its CatchHandler @ 00a279e8 */
-          local_110 = FUN_0096bbc0(&local_78);
+          local_110 = BSim_QPoint__y(&local_78);
           BSim_QList_int___node_destruct(&local_78);
           BSim_QList_int___node_destruct(local_b8);
         }
@@ -5104,7 +5210,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a27922 to 00a27926 has its CatchHandler @ 00a279b8 */
           FUN_00a271b6(&local_78,uVar5,local_b8,1,0xffffffffffffffff,0);
                     /* try { // try from 00a2792a to 00a2792e has its CatchHandler @ 00a279b0 */
-          lVar2 = FUN_0096bbc0(&local_78);
+          lVar2 = BSim_QPoint__y(&local_78);
           BSim_QList_int___node_destruct(&local_78);
           BSim_QList_int___node_destruct(local_b8);
         }
@@ -5116,7 +5222,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a273b4 to 00a273b8 has its CatchHandler @ 00a279d0 */
       FUN_00a271b6(local_108,uVar5,local_b8,1,lVar3 + -1,0);
                     /* try { // try from 00a273bc to 00a273c0 has its CatchHandler @ 00a279c8 */
-      lVar4 = FUN_0096bbc0(local_108);
+      lVar4 = BSim_QPoint__y(local_108);
       BSim_QList_int___node_destruct(local_108);
       BSim_QList_int___node_destruct(local_b8);
       uVar5 = param_1[2];
@@ -5124,7 +5230,7 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
                     /* try { // try from 00a27408 to 00a2740c has its CatchHandler @ 00a279c0 */
       FUN_00a271b6(local_108,uVar5,local_b8,1,1,0);
                     /* try { // try from 00a27415 to 00a27419 has its CatchHandler @ 00a27a18 */
-      lVar3 = FUN_0096bbc0(local_108);
+      lVar3 = BSim_QPoint__y(local_108);
       BSim_QList_int___node_destruct(local_108);
       BSim_QList_int___node_destruct(local_b8);
     }
@@ -5139,7 +5245,8 @@ undefined8 FUN_00a2720c(undefined8 *param_1,undefined8 *param_2)
     if (lVar3 < 1) {
       while ((lVar3 = FUN_0092801a(uVar5), lVar2 < lVar3 &&
              (cVar1 = FUN_009279da(*(undefined8 *)(param_1[2] + 0x1098),lVar2), cVar1 == '\0'))) {
-        lVar2 = FUN_00925304(*(undefined8 *)(param_1[2] + 0x1098),lVar2,1);
+        lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1[2] + 0x1098),lVar2,1);
         uVar5 = *(undefined8 *)(param_1[2] + 0x1098);
       }
 LAB_00a27810:
@@ -5151,8 +5258,9 @@ LAB_00a27810:
     local_110 = lVar2;
     if (0 < lVar2) {
       while ((cVar1 = FUN_009279da(uVar5,lVar2 + -1), cVar1 == '\0' &&
-             (lVar2 = FUN_00925304(*(undefined8 *)(param_1[2] + 0x1098),lVar2,0xffffffff), 0 < lVar2
-             ))) {
+             (lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_1[2] + 0x1098),lVar2,0xffffffff), 0 < lVar2))
+            ) {
         uVar5 = *(undefined8 *)(param_1[2] + 0x1098);
       }
       goto LAB_00a27810;
@@ -5186,7 +5294,8 @@ LAB_00a276a1:
       uVar7 = (ulong)uVar6;
       uVar5 = *(undefined8 *)(param_1[2] + 0x1098);
       if (uVar6 == 0) break;
-      lVar3 = FUN_00925304(uVar5,lVar3,0xffffffff);
+      lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar5,lVar3,0xffffffff);
       uVar5 = *(undefined8 *)(param_1[2] + 0x1098);
     }
     lVar4 = FUN_0092ad80(uVar5,lVar3,0xffffffff,1);
@@ -5201,7 +5310,8 @@ LAB_00a276a1:
       uVar7 = (ulong)uVar6;
       uVar5 = *(undefined8 *)(param_1[2] + 0x1098);
       if (uVar6 == 0) break;
-      lVar4 = FUN_00925304(uVar5,lVar4,1);
+      lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar5,lVar4,1);
       uVar5 = *(undefined8 *)(param_1[2] + 0x1098);
     }
     lVar3 = FUN_0092ad80(uVar5,lVar4,1,1);
@@ -5376,8 +5486,8 @@ void FUN_00a27a68(long param_1,ulong *param_2,undefined1 param_3,ulong param_4)
     param_2[5] = local_150;
     param_2[6] = local_148;
     FUN_0096bd50(&local_178);
-    if ((*(char *)(param_1 + 0x1067) != '\x02') || (lVar4 = FUN_0096bfe0(param_2), lVar4 < 1))
-    break;
+    if ((*(char *)(param_1 + 0x1067) != '\x02') ||
+       (lVar4 = BSim_QMouseEvent__globalPos(param_2), lVar4 < 1)) break;
     cVar1 = FUN_009284aa(*(undefined8 *)(param_1 + 0x1098),lVar4 + -1);
     if (cVar1 != '\n') break;
     puVar7 = local_258;
@@ -5396,8 +5506,8 @@ void FUN_00a27a68(long param_1,ulong *param_2,undefined1 param_3,ulong param_4)
     param_2[5] = local_190;
     param_2[6] = local_188;
     FUN_0096bd50(&local_1b8);
-    if ((*(char *)(param_1 + 0x1067) != '\x02') || (lVar4 = FUN_0096bfe0(param_2), lVar4 < 1))
-    break;
+    if ((*(char *)(param_1 + 0x1067) != '\x02') ||
+       (lVar4 = BSim_QMouseEvent__globalPos(param_2), lVar4 < 1)) break;
     cVar1 = FUN_009284aa(*(undefined8 *)(param_1 + 0x1098),lVar4 + -1);
     if (cVar1 != '\n') break;
     puVar7 = local_278;
@@ -5536,9 +5646,14 @@ void FUN_00a28268(long param_1,undefined8 param_2,undefined1 param_3)
 }
 
 
-// ==== entry=00a28278 name=FUN_00a28278 size=12 ====
+// ==== entry=00a28278 orig=FUN_00a28278 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a28278(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0092884a(*(undefined8 *)(param_1 + 0x1098));
@@ -5546,9 +5661,14 @@ void FUN_00a28278(long param_1)
 }
 
 
-// ==== entry=00a28284 name=FUN_00a28284 size=12 ====
+// ==== entry=00a28284 orig=FUN_00a28284 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a28284(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0092b076(*(undefined8 *)(param_1 + 0x1098));
@@ -5556,9 +5676,14 @@ void FUN_00a28284(long param_1)
 }
 
 
-// ==== entry=00a28290 name=FUN_00a28290 size=12 ====
+// ==== entry=00a28290 orig=FUN_00a28290 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a28290(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0092b080(*(undefined8 *)(param_1 + 0x1098));
@@ -5566,9 +5691,14 @@ void FUN_00a28290(long param_1)
 }
 
 
-// ==== entry=00a2829c name=FUN_00a2829c size=12 ====
+// ==== entry=00a2829c orig=FUN_00a2829c size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a2829c(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0092b088(*(undefined8 *)(param_1 + 0x1098));
@@ -5599,7 +5729,7 @@ void FUN_00a282b8(long param_1)
   uVar1 = *(undefined8 *)(param_1 + 0x1098);
   FUN_00a20680(auStack_48,param_1);
                     /* try { // try from 00a282dd to 00a282fa has its CatchHandler @ 00a2830e */
-  uVar2 = FUN_0096bbc0(auStack_48);
+  uVar2 = BSim_QPoint__y(auStack_48);
   uVar3 = FUN_00a20666(param_1);
   FUN_00930226(uVar1,uVar3,uVar2);
   BSim_QList_int___node_destruct(auStack_48);
@@ -5620,7 +5750,7 @@ void FUN_00a28316(long param_1,char param_2,undefined8 param_3)
   uVar1 = *(undefined8 *)(param_1 + 0x1098);
   FUN_00a20680(auStack_58,param_1);
                     /* try { // try from 00a28344 to 00a28368 has its CatchHandler @ 00a28380 */
-  uVar2 = FUN_0096bbc0(auStack_58);
+  uVar2 = BSim_QPoint__y(auStack_58);
   uVar3 = FUN_00a20666(param_1);
   FUN_0092e5e8(uVar1,(int)param_2,param_3,uVar3,uVar2);
   BSim_QList_int___node_destruct(auStack_58);
@@ -5638,9 +5768,14 @@ void FUN_00a28388(long param_1,char param_2)
 }
 
 
-// ==== entry=00a28398 name=FUN_00a28398 size=12 ====
+// ==== entry=00a28398 orig=FUN_00a28398 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a28398(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00927426(*(undefined8 *)(param_1 + 0x1098));
@@ -5681,20 +5816,22 @@ void FUN_00a28424(long param_1,char param_2)
   undefined8 uVar5;
   undefined1 local_48 [32];
   
-  lVar1 = FUN_00a1fc2e();
+  lVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   uVar4 = 0xffffffffffffffff;
   if (lVar1 == 1) {
     FUN_00a1ff9c(local_48,param_1,0xffffffff);
                     /* try { // try from 00a284ae to 00a284b2 has its CatchHandler @ 00a28505 */
-    uVar4 = FUN_0096bbc0(local_48);
+    uVar4 = BSim_QPoint__y(local_48);
     BSim_QList_int___node_destruct(local_48);
   }
-  lVar1 = FUN_00a1fc2e(param_1);
+  lVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1);
   uVar5 = 0xffffffffffffffff;
   if (lVar1 == 1) {
     FUN_00a20050(local_48,param_1,0xffffffff);
                     /* try { // try from 00a284d6 to 00a284da has its CatchHandler @ 00a2850d */
-    uVar5 = FUN_0096bbc0(local_48);
+    uVar5 = BSim_QPoint__y(local_48);
     BSim_QList_int___node_destruct(local_48);
   }
   uVar2 = handler_lookup_by_tag(*(undefined8 *)(param_1 + 0x1098),(int)param_2,0);
@@ -5984,7 +6121,7 @@ ulong FUN_00a28aea(long param_1,undefined8 param_2)
   uint uVar3;
   ulong uVar4;
   
-  lVar1 = FUN_0096bbc0(param_2);
+  lVar1 = BSim_QPoint__y(param_2);
   uVar2 = lVar1 / (long)*(int *)(param_1 + 0x1118);
   uVar4 = lVar1 % (long)*(int *)(param_1 + 0x1118);
   if (0 < (long)uVar4) {
@@ -6058,10 +6195,10 @@ void FUN_00a28c70(long param_1)
     do {
       while( true ) {
         uVar4 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar5,0);
-        iVar2 = FUN_0096bff4(uVar4);
+        iVar2 = BSim_QMouseEvent__globalPos(uVar4);
         if (iVar2 <= iVar1) break;
         FUN_0096c040(uVar4,iVar1,1);
-        iVar2 = FUN_0096bffe(uVar4);
+        iVar2 = BSim_QMouseEvent__globalPos(uVar4);
         if (iVar2 <= iVar1) goto LAB_00a28cb4;
 LAB_00a28cfb:
         FUN_0096c092(uVar4,iVar1,1);
@@ -6070,7 +6207,7 @@ LAB_00a28cfb:
           return;
         }
       }
-      iVar2 = FUN_0096bffe(uVar4);
+      iVar2 = BSim_QMouseEvent__globalPos(uVar4);
       if (iVar1 < iVar2) goto LAB_00a28cfb;
 LAB_00a28cb4:
       lVar5 = lVar5 + 1;
@@ -6105,14 +6242,14 @@ undefined1 FUN_00a28d1e(long param_1,long *param_2)
     lVar6 = 0;
     do {
       uVar4 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar6,0);
-      lVar5 = FUN_0096bfe0(uVar4);
+      lVar5 = BSim_QMouseEvent__globalPos(uVar4);
       if (lVar2 < lVar5) {
 LAB_00a28dc0:
         FUN_00978f7c(local_40,*(undefined8 *)(param_1 + 0x1038));
         uVar1 = 0;
         goto LAB_00a28dd2;
       }
-      lVar5 = FUN_0096bfea(uVar4);
+      lVar5 = BSim_QMouseEvent__globalPos(uVar4);
       if (lVar2 < lVar5) goto LAB_00a28dc0;
       lVar6 = lVar6 + 1;
     } while (lVar3 != lVar6);
@@ -6151,14 +6288,14 @@ undefined1 Editor_vt10(long param_1,long *param_2)
     lVar6 = 0;
     do {
       uVar4 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar6,0);
-      lVar5 = FUN_0096bfe0(uVar4);
+      lVar5 = BSim_QMouseEvent__globalPos(uVar4);
       if (lVar2 < lVar5) {
 LAB_00a28dc0:
         FUN_00978f7c(auStack_40,*(undefined8 *)(param_1 + 0x1038));
         uVar1 = 0;
         goto LAB_00a28dd2;
       }
-      lVar5 = FUN_0096bfea(uVar4);
+      lVar5 = BSim_QMouseEvent__globalPos(uVar4);
       if (lVar2 < lVar5) goto LAB_00a28dc0;
       lVar6 = lVar6 + 1;
     } while (lVar3 != lVar6);
@@ -6273,9 +6410,14 @@ void FUN_00a28f98(long param_1,undefined8 param_2,undefined1 param_3)
 }
 
 
-// ==== entry=00a28fa8 name=FUN_00a28fa8 size=12 ====
+// ==== entry=00a28fa8 orig=FUN_00a28fa8 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a28fa8(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00926eb0(*(undefined8 *)(param_1 + 0x1098));
@@ -6364,7 +6506,8 @@ void FUN_00a29070(long param_1)
   }
   FUN_00a29014(auStack_38,param_1);
                     /* try { // try from 00a290a0 to 00a290b0 has its CatchHandler @ 00a290c0 */
-  FUN_00a1fb76(param_1,auStack_38);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (param_1,auStack_38);
   FUN_00a52f92(*(undefined8 *)(param_1 + 0x10c0));
   BSim_QList_int___node_destruct(auStack_38);
   return;
@@ -6442,11 +6585,11 @@ undefined8 FUN_00a2919c(undefined8 param_1,long param_2)
   
   FUN_00a1ff9c(local_78,param_2,0xffffffff);
                     /* try { // try from 00a291c5 to 00a291c9 has its CatchHandler @ 00a2934a */
-  lVar2 = FUN_0096bbc0(local_78);
+  lVar2 = BSim_QPoint__y(local_78);
   BSim_QList_int___node_destruct(local_78);
   FUN_00a20050(local_78,param_2,0xffffffff);
                     /* try { // try from 00a291e8 to 00a291ec has its CatchHandler @ 00a2933a */
-  lVar3 = FUN_0096bbc0(local_78);
+  lVar3 = BSim_QPoint__y(local_78);
   BSim_QList_int___node_destruct(local_78);
   cVar1 = caret_isBlockStyle(param_2);
   if (cVar1 == '\0') {
@@ -6466,12 +6609,14 @@ LAB_00a292c9:
     }
   }
   else if (lVar2 == lVar3) {
-    lVar2 = FUN_0096bbc0(param_2 + 0x1068);
-    lVar3 = FUN_0096bbc0(param_2 + 0x1068);
+    lVar2 = BSim_QPoint__y(param_2 + 0x1068);
+    lVar3 = BSim_QPoint__y(param_2 + 0x1068);
     goto LAB_00a292c9;
   }
-  uVar4 = FUN_0092522a(*(undefined8 *)(param_2 + 0x1098),lVar2);
-  lVar5 = FUN_0092520c(*(undefined8 *)(param_2 + 0x1098),uVar4);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x1098),lVar2);
+  lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x1098),uVar4);
   if (lVar5 < lVar3) {
     lVar3 = lVar2;
   }
@@ -6481,7 +6626,7 @@ LAB_00a29236:
                     /* try { // try from 00a29265 to 00a29269 has its CatchHandler @ 00a29342 */
     FUN_00a207ca(local_78,param_2,auStack_98,1,1);
                     /* try { // try from 00a2926d to 00a29271 has its CatchHandler @ 00a29332 */
-    lVar3 = FUN_0096bbc0(local_78);
+    lVar3 = BSim_QPoint__y(local_78);
     BSim_QList_int___node_destruct(local_78);
     BSim_QList_int___node_destruct(auStack_98);
   }
@@ -6525,11 +6670,11 @@ void s_pair_highlightUnmatched_a29352(long param_1,long param_2)
     if (((*(char *)(param_1 + 0x1067) == '\x02') &&
         (cVar4 = caret_isBlockStyle(param_1), cVar4 != '\0')) &&
        (*(char *)(param_1 + 0x1139) != '\0')) {
-      param_2 = FUN_0096bbc0(param_1 + 0x1068);
+      param_2 = BSim_QPoint__y(param_1 + 0x1068);
     }
     else {
       uVar5 = doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
-      param_2 = FUN_0096bbc0(uVar5);
+      param_2 = BSim_QPoint__y(uVar5);
     }
   }
   FUN_00a10c7a(local_58);
@@ -6543,7 +6688,7 @@ void s_pair_highlightUnmatched_a29352(long param_1,long param_2)
   lVar6 = FUN_00a20666(param_1);
   FUN_00a20680(local_78,param_1);
                     /* try { // try from 00a29430 to 00a29434 has its CatchHandler @ 00a29785 */
-  lVar7 = FUN_0096bbc0(local_78);
+  lVar7 = BSim_QPoint__y(local_78);
   BSim_QList_int___node_destruct(local_78);
   lVar11 = *(long *)(param_1 + 0x10e0);
   plVar13 = *(long **)(lVar11 + 0x10);
@@ -6795,7 +6940,7 @@ void caret_changeShape(long *param_1,int param_2)
   if (param_2 == 4) {
     puVar4 = operator_new(4);
                     /* try { // try from 00a29b46 to 00a29b4a has its CatchHandler @ 00a29e7b */
-    FUN_00a1f62e(puVar4);
+    BSim_QFlags_Qt__WindowType___QFlags(puVar4);
     pvVar1 = (void *)param_1[0x1de];
     param_1[0x1de] = (long)puVar4;
     if (pvVar1 != (void *)0x0) {
@@ -6848,7 +6993,8 @@ LAB_00a29aa3:
     BSim_QList_int___node_destruct(&local_58);
     if (cVar3 == '\0') {
                     /* try { // try from 00a29e1d to 00a29e3f has its CatchHandler @ 00a29ead */
-      uVar7 = FUN_00a20580(param_1);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
       uVar7 = FUN_00958498(param_1[0x214],uVar7);
       runstyles_runnode_init(&local_58,uVar7,0,0);
       local_78 = local_58;
@@ -6946,7 +7092,8 @@ undefined8 FUN_00a29f4e(long param_1,int param_2)
   if (param_2 == 0) {
     return *(undefined8 *)(*(long *)(param_1 + 0x1098) + 0x150);
   }
-  uVar1 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),uVar1);
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098),uVar1);
   return uVar1;
 }
 
@@ -6988,9 +7135,14 @@ int FUN_00a29fa8(long param_1,int *param_2)
 }
 
 
-// ==== entry=00a29ff6 name=FUN_00a29ff6 size=12 ====
+// ==== entry=00a29ff6 orig=FUN_00a29ff6 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a29ff6(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_009347b6(*(undefined8 *)(param_1 + 0x1098));
@@ -7080,11 +7232,13 @@ char * FUN_00a2a15e(char *param_1,long param_2,undefined8 param_3)
   char *local_30 [2];
   
   uVar3 = *(undefined8 *)(param_2 + 0x1098);
-  uVar2 = FUN_0096bbc0(param_3);
-  uVar3 = FUN_0092522a(uVar3,uVar2);
-  uVar2 = FUN_00925200(*(undefined8 *)(param_2 + 0x1098),uVar3);
+  uVar2 = BSim_QPoint__y(param_3);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar3,uVar2);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x1098),uVar3);
   uVar3 = *(undefined8 *)(param_2 + 0x1098);
-  uVar4 = FUN_0096bbc0(param_3);
+  uVar4 = BSim_QPoint__y(param_3);
   buf_substr(local_30,uVar3,uVar2,uVar4);
   pcVar1 = local_30[0];
   if ((int)*(undefined8 *)(local_30[0] + -0x18) == -1) {
@@ -7135,7 +7289,8 @@ void FUN_00a2a232(long param_1,long param_2)
     iVar4 = iVar4 + *(int *)(param_2 + 0x1c);
   }
   uVar1 = FUN_00a29f32(param_1,iVar4);
-  lVar2 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),uVar1);
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098),uVar1);
   lVar3 = FUN_00a29f4e(param_1,iVar4);
   lVar3 = *(int *)(param_2 + 0xc) + lVar3;
   if (lVar2 < lVar3) {
@@ -7199,7 +7354,7 @@ void FUN_00a2a44a(long param_1)
   if (cVar2 == '\0') {
     lVar3 = FUN_00a29f32(param_1,0);
     uVar1 = *(undefined8 *)(param_1 + 0x10a0);
-    uVar4 = FUN_0096bbc0(param_1 + 0x1068);
+    uVar4 = BSim_QPoint__y(param_1 + 0x1068);
     runstyles_runnode_init(auStack_48,uVar4,0,0);
                     /* try { // try from 00a2a4a4 to 00a2a4a8 has its CatchHandler @ 00a2a4fb */
     lVar5 = FUN_009587cc(uVar1,auStack_48);
@@ -7269,7 +7424,8 @@ void FUN_00a2a504(long param_1,long *param_2)
     editor_undoBegin(*(undefined8 *)(param_1 + 0x1098),uVar1,lVar2,
                      *param_2 + *(long *)(*param_2 + 0x10),0);
     FUN_0092bd78(*(undefined8 *)(param_1 + 0x1098));
-    FUN_0092720a(*(undefined8 *)(param_1 + 0x1098),uVar1,lVar2,0);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (*(undefined8 *)(param_1 + 0x1098),uVar1,lVar2,0);
     stdfunction_state_destroy(local_68);
     FUN_009cff96(local_f8);
     FUN_00974856(local_c8);
@@ -7294,8 +7450,10 @@ FUN_00a2a6e6(undefined8 *param_1,long param_2,undefined8 param_3,undefined1 para
   if (*(char *)(param_2 + 0x1067) == '\x02') {
                     /* try { // try from 00a2a72f to 00a2a79d has its CatchHandler @ 00a2a7a2 */
     lVar1 = FUN_009588b8(*(undefined8 *)(param_2 + 0x10a0),param_3);
-    uVar2 = FUN_00925200(*(undefined8 *)(param_2 + 0x1098),lVar1);
-    uVar3 = FUN_00925200(*(undefined8 *)(param_2 + 0x1098),lVar1 + 1);
+    uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_2 + 0x1098),lVar1);
+    uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_2 + 0x1098),lVar1 + 1);
     if (param_5 == '\0') {
       FUN_009273f2();
     }
@@ -7326,19 +7484,25 @@ void FUN_00a2a7aa(long param_1,char param_2)
   
   *(undefined1 *)(param_1 + 0x1083) = 0;
   cVar3 = caret_isBlockStyle();
-  if ((cVar3 != '\0') && (lVar7 = FUN_00a1fc2e(param_1), lVar7 == 1)) {
+  if ((cVar3 != '\0') &&
+     (lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1), lVar7 == 1)) {
     uVar4 = FUN_00975bb8(*(undefined8 *)(param_1 + 0x1038));
     cVar3 = FUN_0096be72(uVar4,0);
     if ((cVar3 == '\0') &&
        ((cVar3 = FUN_00929120(*(undefined8 *)(param_1 + 0x1098)), cVar3 == '\0' ||
         (cVar3 = FUN_0096c674(uVar4), cVar3 == '\x02')))) {
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
-      uVar1 = FUN_0096bbc0(param_1 + 0x1068);
-      uVar5 = FUN_0092522a(uVar5,uVar1);
-      lVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),uVar5);
-      lVar2 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),uVar5);
+      uVar1 = BSim_QPoint__y(param_1 + 0x1068);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar5,uVar1);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),uVar5);
+      lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),uVar5);
       if ((param_2 == '\0') &&
-         ((lVar6 = FUN_00a29ff6(param_1), lVar7 < lVar6 && (lVar6 != 0x7fffffffffffffff)))) {
+         ((lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (param_1), lVar7 < lVar6 && (lVar6 != 0x7fffffffffffffff)))) {
         lVar7 = lVar6;
       }
       lVar6 = BSim_Splitter__createHandle(uVar4);
@@ -7360,9 +7524,14 @@ long FUN_00a2a8b0(long param_1)
 }
 
 
-// ==== entry=00a2a8b8 name=FUN_00a2a8b8 size=12 ====
+// ==== entry=00a2a8b8 orig=FUN_00a2a8b8 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a2a8b8(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00977bde(*(undefined8 *)(param_1 + 0x1038));
@@ -7423,9 +7592,14 @@ byte FUN_00a2a982(long param_1)
 }
 
 
-// ==== entry=00a2a9ae name=FUN_00a2a9ae size=12 ====
+// ==== entry=00a2a9ae orig=FUN_00a2a9ae size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a2a9ae(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0097751e(*(undefined8 *)(param_1 + 0x1038));
@@ -7542,15 +7716,17 @@ void FUN_00a2ab3e(long *param_1)
   undefined4 *local_40;
   
   uVar4 = doc_instance_get(param_1[0x207]);
-  lVar5 = FUN_0096bbc0(uVar4);
+  lVar5 = BSim_QPoint__y(uVar4);
   if (*(long *)(param_1[0x213] + 0x238) != lVar5) {
-    lVar6 = FUN_00a20580(param_1);
+    lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1);
     iVar3 = visible_line_count(param_1,0);
     if (iVar3 < 0xc) {
       iVar3 = 0xc;
     }
     lVar10 = (long)iVar3;
-    lVar7 = FUN_0092522a(param_1[0x213],lVar5);
+    lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[0x213],lVar5);
     lVar11 = (lVar10 >> 2) + lVar7;
     if (lVar11 < lVar6 + lVar10) {
       lVar11 = lVar6 + lVar10;
@@ -7562,8 +7738,10 @@ void FUN_00a2ab3e(long *param_1)
     if (lVar6 <= lVar7) {
       lVar6 = lVar7;
     }
-    uVar4 = FUN_00925200(param_1[0x213],lVar6);
-    uVar8 = FUN_00925200(param_1[0x213],lVar11 + 1);
+    uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[0x213],lVar6);
+    uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[0x213],lVar11 + 1);
     *(long *)(param_1[0x213] + 0x238) = lVar5;
     cVar2 = FUN_00a23d3a(param_1,0x20000000);
     if (cVar2 != '\0') {
@@ -7599,7 +7777,8 @@ void FUN_00a2acdc(long param_1)
   long lVar2;
   double in_stack_00000020;
   
-  lVar1 = FUN_00a20580();
+  lVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   lVar2 = (long)((in_stack_00000020 - 1.0) / (double)*(int *)(param_1 + 0xd04) + (double)lVar1 + 1.0
                 );
   lVar1 = editor_textLength(*(undefined8 *)(param_1 + 0x10a0));
@@ -7749,9 +7928,14 @@ void FUN_00a2af1c(long *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00a2b01e name=FUN_00a2b01e size=12 ====
+// ==== entry=00a2b01e orig=FUN_00a2b01e size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a2b01e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0095c92c(*(undefined8 *)(param_1 + 0x10a0));
@@ -7770,13 +7954,15 @@ uint FUN_00a2b02a(undefined8 param_1,undefined8 param_2)
   undefined8 uVar4;
   
   uVar4 = FUN_0096bfd4(param_2);
-  uVar2 = FUN_00a2b01e(param_1,uVar4);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar4);
   cVar1 = FUN_0096be72(param_2,0);
   if (cVar1 != '\0') {
     return uVar2;
   }
   uVar4 = FUN_0096bfda(param_2);
-  uVar3 = FUN_00a2b01e(param_1,uVar4);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar4);
   return uVar2 | uVar3;
 }
 
@@ -7789,7 +7975,9 @@ bool FUN_00a2b07a(long param_1)
   undefined **ppuVar1;
   
   if (*(long *)(param_1 + 0x1098) != 0) {
-    ppuVar1 = (undefined **)FUN_00927600();
+    ppuVar1 = (undefined **)
+              BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        ();
     return ppuVar1 == &PTR_FUN_011bf0e0;
   }
   return false;
@@ -7822,7 +8010,8 @@ void FUN_00a2b0a2(long param_1)
     *(undefined1 *)(param_1 + 0x38) = 1;
     if (*(long *)(param_1 + 0x10) == 0) {
                     /* try { // try from 00a2b21f to 00a2b223 has its CatchHandler @ 00a2b22e */
-      FUN_00a239ee();
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                ();
       plVar3 = (long *)0x0;
     }
     else {
@@ -7857,7 +8046,8 @@ void FUN_00a2b0a2(long param_1)
         stdfunction_state_destroy(local_58);
       }
                     /* try { // try from 00a2b1db to 00a2b1ff has its CatchHandler @ 00a2b226 */
-      FUN_00a239ee(param_1);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (param_1);
     }
     FUN_00a2168a(param_1);
     FUN_0095a5ea(*(undefined8 *)(param_1 + 0x10a0));
@@ -7976,7 +8166,7 @@ undefined1  [16] FUN_00a2b4d0(long param_1,long param_2)
   if (cVar2 != '\0') {
     iVar4 = qstrdata_length_get(auStack_48);
     if (iVar4 == 0) {
-      uVar5 = FUN_0096bbc0(auStack_48);
+      uVar5 = BSim_QPoint__y(auStack_48);
       auVar11 = FUN_00a2267c(param_1,uVar5);
       uVar7 = auVar11._0_4_;
       uVar6 = auVar11._0_8_ >> 0x20;
@@ -8042,7 +8232,7 @@ LAB_00a2b683:
       pcVar1 = *(code **)(*param_3 + 0x140);
                     /* try { // try from 00a2b690 to 00a2b69f has its CatchHandler @ 00a2b790 */
       iVar3 = qstrdata_length_get(local_58);
-      uVar4 = FUN_0096bbc0(local_58);
+      uVar4 = BSim_QPoint__y(local_58);
                     /* try { // try from 00a2b6aa to 00a2b6ae has its CatchHandler @ 00a2b7a8 */
       puVar5 = operator_new(0x40);
       *(code **)(puVar5 + 2) = BSim_QList_int___node_destruct;
@@ -8142,14 +8332,17 @@ undefined4 FUN_00a2b8b6(long param_1,undefined8 *param_2)
                     /* try { // try from 00a2b914 to 00a2b9a3 has its CatchHandler @ 00a2b9dc */
   uVar1 = FUN_00929120(*(undefined8 *)(param_1 + 0x1098));
   if ((char)uVar1 == '\0') {
-    lVar2 = FUN_00a29ff6(param_1);
+    lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1);
     if (lVar2 == 0x7fffffffffffffff) goto LAB_00a2b979;
     uVar6 = *(undefined8 *)(param_1 + 0x1098);
-    uVar3 = FUN_0096bbc0(auStack_78);
-    lVar4 = FUN_0092522a(uVar6,uVar3);
+    uVar3 = BSim_QPoint__y(auStack_78);
+    lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar6,uVar3);
     uVar6 = *(undefined8 *)(param_1 + 0x1098);
-    uVar3 = FUN_0096bbc0(param_1 + 0x1068);
-    lVar5 = FUN_0092522a(uVar6,uVar3);
+    uVar3 = BSim_QPoint__y(param_1 + 0x1068);
+    lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar6,uVar3);
     if (lVar4 != lVar5) goto LAB_00a2b979;
                     /* try { // try from 00a2b9ca to 00a2b9ce has its CatchHandler @ 00a2b9dc */
     runstyles_runnode_init(local_58,lVar2,0,0);
@@ -8181,7 +8374,8 @@ undefined4 FUN_00a2b9f6(undefined8 param_1,undefined8 *param_2)
                     /* try { // try from 00a2ba28 to 00a2ba3d has its CatchHandler @ 00a2ba53 */
   uVar1 = FUN_0096bbb4(auStack_38);
   if ((char)uVar1 != '\0') {
-    uVar1 = FUN_00a2a8b8(param_1,auStack_38);
+    uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1,auStack_38);
   }
   BSim_QList_int___node_destruct(auStack_38);
   return uVar1;
@@ -8221,7 +8415,7 @@ LAB_00a2bad0:
   }
   iVar2 = qstrdata_length_get(&local_68);
   if (iVar2 == 0) {
-    local_70 = FUN_0096bbc0(&local_68);
+    local_70 = BSim_QPoint__y(&local_68);
     uVar3 = FUN_00957926(*(undefined8 *)(param_3 + 0x10a0),&local_70,1,0);
     if ((uVar3 & 0x1c000) != 0) {
       if (param_4 != 0) {
@@ -8296,8 +8490,8 @@ void editor_getSelRange(long param_1)
     local_50 = puVar7[5];
     local_48 = puVar7[6];
                     /* try { // try from 00a2bc76 to 00a2be17 has its CatchHandler @ 00a2bf47 */
-    iVar4 = FUN_0096bff4(&local_78);
-    if (((iVar4 < 1) && (iVar4 = FUN_0096bffe(&local_78), iVar4 < 1)) &&
+    iVar4 = BSim_QMouseEvent__globalPos(&local_78);
+    if (((iVar4 < 1) && (iVar4 = BSim_QMouseEvent__globalPos(&local_78), iVar4 < 1)) &&
        (cVar3 = FUN_00974d9e(*(undefined8 *)(param_1 + 0x1038),&local_78), cVar3 != '\0')) {
       cVar3 = FUN_0096be72(&local_78,1);
       if (cVar3 == '\0') {
@@ -8326,7 +8520,8 @@ LAB_00a2be20:
             for (puVar14 = (undefined8 *)**(undefined8 **)(lVar8 + 0x100); puVar7 != puVar14;
                 puVar14 = puVar14 + 1) {
               puVar2 = (undefined4 *)*puVar14;
-              cVar3 = FUN_00a0ff36(uVar13,uVar6,*puVar2,uVar5);
+              cVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (uVar13,uVar6,*puVar2,uVar5);
               if (((cVar3 != '\0') &&
                   (lVar8 = FUN_009253ee(*(undefined8 *)(param_1 + 0x1098),lVar11,lVar9,puVar2 + 2),
                   lVar8 != -1)) && (lVar8 + lVar11 == lVar9)) goto LAB_00a2be20;
@@ -8335,7 +8530,7 @@ LAB_00a2be20:
         }
       }
       else {
-        lVar8 = FUN_0096bfe0();
+        lVar8 = BSim_QMouseEvent__globalPos();
         lVar15 = lVar8 + -0x100;
         lVar9 = lVar8;
         if (lVar15 < 0) {
@@ -8344,7 +8539,8 @@ LAB_00a2be20:
         do {
           lVar11 = lVar9;
           if (lVar11 <= lVar15) break;
-          lVar9 = FUN_00925304(*(undefined8 *)(param_1 + 0x1098),lVar11,0xffffffff);
+          lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x1098),lVar11,0xffffffff);
           uVar12 = *(undefined8 *)(param_1 + 0x1098);
           lVar10 = lVar9 - lVar11;
           if (lVar10 < 0) {
@@ -8365,7 +8561,8 @@ LAB_00a2bd29:
           do {
             lVar9 = lVar8;
             if (lVar15 <= lVar9) break;
-            lVar8 = FUN_00925304(*(undefined8 *)(param_1 + 0x1098),lVar9,1);
+            lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (*(undefined8 *)(param_1 + 0x1098),lVar9,1);
             uVar12 = *(undefined8 *)(param_1 + 0x1098);
             lVar10 = lVar8 - lVar9;
             if (lVar10 < 0) {
@@ -8479,7 +8676,7 @@ void FUN_00a2bf50(undefined8 *param_1)
   BSim_QList_int___node_destruct(param_1 + 0x20d);
   pvVar2 = (void *)param_1[0x207];
   if (pvVar2 != (void *)0x0) {
-    FUN_00974b40(pvVar2);
+    BSim_QMouseEvent__globalPos(pvVar2);
     operator_delete(pvVar2,0xa0);
   }
   free((void *)param_1[0x204]);
@@ -8613,7 +8810,7 @@ void FUN_00a2c222(long *param_1,long *param_2)
   pvVar4 = (void *)param_1[0x207];
   param_1[0x207] = (long)pvVar6;
   if (pvVar4 != (void *)0x0) {
-    FUN_00974b40(pvVar4);
+    BSim_QMouseEvent__globalPos(pvVar4);
     operator_delete(pvVar4,0xa0);
   }
   pvVar6 = operator_new(0x30);
@@ -8775,7 +8972,7 @@ void s_pair_highlightUnmatched_a2c670(undefined8 *param_1)
   param_1[0x1d7] = 0;
   *(undefined1 *)((long)param_1 + 0xec3) = 0;
                     /* try { // try from 00a2c6ff to 00a2c703 has its CatchHandler @ 00a2ce17 */
-  FUN_00a1f62e(param_1 + 0x1db);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 0x1db);
   *(undefined8 *)((long)param_1 + 0xedc) = 0xffff00000000;
   *(undefined4 *)((long)param_1 + 0xee4) = 0;
   *(undefined2 *)(param_1 + 0x1dd) = 0;
@@ -8933,7 +9130,7 @@ void s_pair_highlightUnmatched_a2c670(undefined8 *param_1)
   pvVar3 = (void *)param_1[0x207];
   param_1[0x207] = pvVar10;
   if (pvVar3 != (void *)0x0) {
-    FUN_00974b40(pvVar3);
+    BSim_QMouseEvent__globalPos(pvVar3);
     operator_delete(pvVar3,0xa0);
   }
                     /* try { // try from 00a2cc25 to 00a2cc29 has its CatchHandler @ 00a2ce7f */
@@ -8949,7 +9146,7 @@ void s_pair_highlightUnmatched_a2c670(undefined8 *param_1)
                     /* try { // try from 00a2cc65 to 00a2cc69 has its CatchHandler @ 00a2ce7f */
   pvVar10 = operator_new(0x30);
                     /* try { // try from 00a2cc73 to 00a2cc77 has its CatchHandler @ 00a2ce8f */
-  FUN_00a52590(pvVar10,param_1);
+  BSim_boost__system__error_condition__error_condition(pvVar10,param_1);
   pvVar3 = (void *)param_1[0x218];
   param_1[0x218] = pvVar10;
   if (pvVar3 != (void *)0x0) {
@@ -9034,7 +9231,8 @@ void FUN_00a2cea8(long *param_1)
   plVar3 = param_1 + 0x21e;
   cVar1 = FUN_0096bbb4(plVar3);
   if (cVar1 == '\0') {
-    FUN_00a1fb0e(param_1);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1);
     cVar1 = caret_isBlockStyle(param_1);
     if (cVar1 == '\0') {
       plVar3 = (long *)param_1[0x228];
@@ -9057,7 +9255,8 @@ void FUN_00a2cea8(long *param_1)
                     /* try { // try from 00a2d07e to 00a2d082 has its CatchHandler @ 00a2d3b5 */
         runstyles_runnode_init(&local_f8,0xffffffffffffffff,0,0);
                     /* try { // try from 00a2d086 to 00a2d135 has its CatchHandler @ 00a2d3a5 */
-        local_120 = FUN_00a20580(param_1);
+        local_120 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (param_1);
         if (local_120 <= lVar6) {
           do {
             if ((char)param_1[0x225] == '\0') {
@@ -9077,11 +9276,11 @@ void FUN_00a2cea8(long *param_1)
               BSim_QList_int___node_destruct(&local_78);
               iVar2 = qstrdata_length_get(&local_f8);
               if (0 < iVar2) {
-                lVar7 = FUN_0096bbc0(&local_f8);
+                lVar7 = BSim_QPoint__y(&local_f8);
                 lVar8 = editor_lineEndIdx(param_1[0x214],local_120);
                 if (lVar7 == lVar8) {
                   lVar8 = FUN_00958498(param_1[0x214],local_120 + 1);
-                  lVar7 = FUN_0096bbc0(&local_f8);
+                  lVar7 = BSim_QPoint__y(&local_f8);
                   if (lVar7 <= lVar8 + -1) {
                     lVar7 = lVar8 + -1;
                   }
@@ -9465,7 +9664,8 @@ void FUN_00a2d794(long *param_1)
     else {
       *(byte *)(lVar7 + 0x50) = *(byte *)(lVar7 + 0x50) & 0xfe;
       if ((char)param_1[0x225] == '\0') {
-        lVar4 = FUN_00a20580(param_1);
+        lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1);
         lVar5 = editor_textLength(param_1[0x214]);
         iVar2 = visible_line_count(param_1,0);
         lVar7 = iVar2 + lVar4;
@@ -9487,7 +9687,7 @@ void FUN_00a2d794(long *param_1)
             if (dVar8 <= local_60) {
               dVar8 = local_60;
             }
-            lVar5 = FUN_0096bbc0(local_58);
+            lVar5 = BSim_QPoint__y(local_58);
             local_60 = dVar8;
             if (lVar5 < lVar6) {
               *(byte *)(param_1[0x219] + 0x50) = *(byte *)(param_1[0x219] + 0x50) | 1;
@@ -9555,15 +9755,16 @@ void FUN_00a2dada(long param_1)
   undefined1 local_78 [32];
   long local_58 [5];
   
-  lVar4 = FUN_00a20580();
+  lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   lVar5 = FUN_00a20604(param_1,1);
   lVar6 = FUN_00958498(*(undefined8 *)(param_1 + 0x10a0),lVar4);
   lVar7 = editor_lineEndIdx(*(undefined8 *)(param_1 + 0x10a0),lVar5);
   cVar3 = caret_isBlockStyle(param_1);
   if (cVar3 != '\0') {
     lVar2 = param_1 + 0x1068;
-    lVar12 = FUN_0096bbc0(lVar2);
-    if ((lVar6 <= lVar12) && (lVar12 = FUN_0096bbc0(lVar2), lVar12 <= lVar7)) {
+    lVar12 = BSim_QPoint__y(lVar2);
+    if ((lVar6 <= lVar12) && (lVar12 = BSim_QPoint__y(lVar2), lVar12 <= lVar7)) {
       uVar11 = FUN_009587cc(*(undefined8 *)(param_1 + 0x10a0),lVar2);
       line_rect_compute(param_1,uVar11,1);
       FUN_00a2cea8(param_1);
@@ -9635,7 +9836,8 @@ void FUN_00a2dada(long param_1)
       }
     }
   }
-  FUN_00a1fb1a(param_1);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (param_1);
   FUN_00a243ae(param_1,0x20);
   return;
 }
@@ -9821,7 +10023,7 @@ LAB_00a2e159:
                     /* try { // try from 00a2e2a7 to 00a2e2ab has its CatchHandler @ 00a2e4a5 */
                 FUN_00a1ff9c(local_78,param_1[3],0xffffffff);
                     /* try { // try from 00a2e2af to 00a2e2b3 has its CatchHandler @ 00a2e49b */
-                lVar8 = FUN_0096bbc0(local_78);
+                lVar8 = BSim_QPoint__y(local_78);
                 if (local_e0 < lVar8) {
 LAB_00a2e137:
                   BSim_QList_int___node_destruct(local_78);
@@ -9833,7 +10035,7 @@ LAB_00a2e137:
                     /* try { // try from 00a2e2d5 to 00a2e2d9 has its CatchHandler @ 00a2e4ad */
                   FUN_00a20050(local_c0,param_1[3],0xffffffff);
                     /* try { // try from 00a2e2dd to 00a2e2e1 has its CatchHandler @ 00a2e4bd */
-                  lVar8 = FUN_0096bbc0(local_c0);
+                  lVar8 = BSim_QPoint__y(local_c0);
                   if (lVar8 <= local_c8) goto LAB_00a2e406;
 LAB_00a2e2ed:
                   local_a0 = local_c0;
@@ -9847,20 +10049,21 @@ LAB_00a2e2ed:
                     /* try { // try from 00a2e11d to 00a2e121 has its CatchHandler @ 00a2e4b5 */
               FUN_00a1ff9c(local_78,param_1[3],0xffffffff);
                     /* try { // try from 00a2e127 to 00a2e12b has its CatchHandler @ 00a2e4cd */
-              lVar8 = FUN_0096bbc0(local_78);
+              lVar8 = BSim_QPoint__y(local_78);
               if (lVar8 < local_e0) goto LAB_00a2e137;
                     /* try { // try from 00a2e3ec to 00a2e3f0 has its CatchHandler @ 00a2e4cd */
               FUN_00a20050(local_c0,param_1[3],0xffffffff);
                     /* try { // try from 00a2e3f6 to 00a2e3fa has its CatchHandler @ 00a2e4c5 */
-              lVar8 = FUN_0096bbc0(local_c0);
+              lVar8 = BSim_QPoint__y(local_c0);
               if (lVar8 < local_c8) goto LAB_00a2e2ed;
 LAB_00a2e406:
               BSim_QList_int___node_destruct(local_c0);
               BSim_QList_int___node_destruct(local_78);
               cVar6 = *(char *)param_1[1];
               if (local_cc == 1) goto LAB_00a2e1cd;
-              lVar2 = FUN_00925304(*(undefined8 *)(param_1[3] + 0x1098),local_c8,
-                                   -(uint)(cVar6 == '\0') | 1);
+              lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_1[3] + 0x1098),local_c8,
+                                 -(uint)(cVar6 == '\0') | 1);
               cVar6 = *(char *)param_1[1];
               local_cc = 1;
             }
@@ -9871,8 +10074,10 @@ LAB_00a2e406:
 LAB_00a2e07d:
               lVar8 = FUN_0092547e(uVar10,lVar2,lVar4,param_1[4],lVar8);
               if (lVar8 != -1) {
-                local_e0 = FUN_00925540(*(undefined8 *)(param_1[3] + 0x1098),0);
-                local_c8 = FUN_0092554c(*(undefined8 *)(param_1[3] + 0x1098),0);
+                local_e0 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (*(undefined8 *)(param_1[3] + 0x1098),0);
+                local_c8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (*(undefined8 *)(param_1[3] + 0x1098),0);
                 goto LAB_00a2e0c1;
               }
 LAB_00a2e1c6:
@@ -10239,15 +10444,15 @@ char FUN_00a2eb22(long param_1,char param_2,char param_3)
       do {
         uVar7 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar15,0);
         uVar9 = *(undefined8 *)(param_1 + 0x1098);
-        uVar8 = FUN_0096bfe0(uVar7);
+        uVar8 = BSim_QMouseEvent__globalPos(uVar7);
         iVar4 = FUN_00930f62(uVar9,uVar8,0);
         local_58 = &DAT_011c5338;
                     /* try { // try from 00a2ec20 to 00a2ed4a has its CatchHandler @ 00a2eecf */
-        uVar9 = FUN_0096bfe0(uVar7);
+        uVar9 = BSim_QMouseEvent__globalPos(uVar7);
         uVar8 = FUN_00a282a8(param_1,uVar9,-(uint)(param_2 == '\0') | 1,1);
         uVar9 = *(undefined8 *)(param_1 + 0x1098);
         if (param_2 == '\0') {
-          uVar7 = FUN_0096bfe0(uVar7);
+          uVar7 = BSim_QMouseEvent__globalPos(uVar7);
           buf_substr((locale *)&local_48,uVar9,uVar8,uVar7);
           std::string::swap((string *)&local_58,(string *)&local_48);
           if (local_48 == &DAT_011c5338) goto LAB_00a2ec90;
@@ -10260,7 +10465,7 @@ LAB_00a2ed3c:
           local_6c = iVar4;
         }
         else {
-          uVar7 = FUN_0096bfe0(uVar7);
+          uVar7 = BSim_QMouseEvent__globalPos(uVar7);
           buf_substr((string *)&local_50,uVar9,uVar7,uVar8);
           std::string::swap((string *)&local_58,(string *)&local_50);
           if (local_50 != &DAT_011c5338) goto LAB_00a2ed2e;
@@ -10358,7 +10563,7 @@ undefined4 FUN_00a2eee0(undefined8 param_1)
   if ((char)uVar2 != '\0') {
     FUN_00a1fda6(local_58,param_1,0xffffffff);
                     /* try { // try from 00a2ef2e to 00a2ef32 has its CatchHandler @ 00a2f092 */
-    uVar3 = FUN_0096bbc0(local_58);
+    uVar3 = BSim_QPoint__y(local_58);
     BSim_QList_int___node_destruct(local_58);
     pvVar4 = (void *)FUN_00a28f98(param_1,uVar3,1);
     if (pvVar4 != (void *)0x0) {
@@ -10452,7 +10657,7 @@ undefined8 snippet_expand(long *param_1,string *param_2)
     if (cVar3 != '\0') {
       FUN_00a1fda6((QVariant *)&local_58,param_1,0xffffffff);
                     /* try { // try from 00a2f265 to 00a2f269 has its CatchHandler @ 00a2f5db */
-      uVar12 = FUN_0096bbc0((QVariant *)&local_58);
+      uVar12 = BSim_QPoint__y((QVariant *)&local_58);
       BSim_QList_int___node_destruct((QVariant *)&local_58);
                     /* try { // try from 00a2f284 to 00a2f288 has its CatchHandler @ 00a2f5e3 */
       pvVar9 = (void *)FUN_00a28f98(param_1,uVar12,1);
@@ -10472,7 +10677,7 @@ undefined8 snippet_expand(long *param_1,string *param_2)
             if (lVar13 != 0) {
               do {
                 uVar12 = scintilla_get_text_range(param_1[0x207],lVar4,0);
-                lVar5 = FUN_0096bfe0(uVar12);
+                lVar5 = BSim_QMouseEvent__globalPos(uVar12);
                 runstyles_runnode_init((QVariant *)&local_58,lVar5 - *(int *)((long)pvVar9 + 8),0,0)
                 ;
                     /* try { // try from 00a2f542 to 00a2f546 has its CatchHandler @ 00a2f5be */
@@ -10587,16 +10792,19 @@ LAB_00a2f0e3:
           uVar12 = scintilla_get_text_range(param_1[0x207],lVar13,0);
           lVar5 = BSim_Splitter__createHandle(uVar12);
           uVar12 = BSim_Splitter__createHandle(uVar12);
-          lVar6 = FUN_00925570(param_1[0x213]);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_1[0x213]);
           FUN_0092aae0(param_1[0x213],lVar5,uVar12,param_2,lVar13 != 0);
-          lVar7 = FUN_00925570(param_1[0x213]);
+          lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_1[0x213]);
           cVar3 = FUN_00930ec0(param_1[0x213],lVar5);
           if (cVar3 != '\0') break;
 LAB_00a2f100:
           lVar13 = lVar13 + 1;
           if (lVar4 == lVar13) goto LAB_00a2f1f8;
         }
-        lVar8 = FUN_0092522a(param_1[0x213],lVar5);
+        lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1[0x213],lVar5);
         lVar6 = (lVar7 + lVar8) - lVar6;
         lVar7 = FUN_00928404(param_1[0x213],lVar8);
         if (lVar7 < lVar5) {
@@ -10638,7 +10846,8 @@ void FUN_00a2f5ec(long param_1)
   if ((cVar1 == '\0') && (*(char *)(param_1 + 0x1128) == '\0')) {
     editor_selMake(local_68,param_1,"Insert New Line",0xc,2);
                     /* try { // try from 00a2f65a to 00a2f706 has its CatchHandler @ 00a2f811 */
-    pcVar3 = (char *)FUN_00a21a02(param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
+    pcVar3 = (char *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
     iVar2 = BSim_QBasicAtomicInteger_int___deref(param_1,pcVar3);
     lVar4 = FUN_00975682(*(undefined8 *)(param_1 + 0x1038));
     if (lVar4 != 0) {
@@ -10651,7 +10860,7 @@ void FUN_00a2f5ec(long param_1)
     }
     FUN_00a25808(param_1,pcVar3,(long)iVar2,0);
     uVar5 = doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
-    lVar4 = FUN_0096bbc0(uVar5);
+    lVar4 = BSim_QPoint__y(uVar5);
     FUN_00a23bc4(param_1,(int)*pcVar3,lVar4 - iVar2);
     if (*(char *)(param_1 + 0x1040) != '\0') {
       puVar6 = (undefined8 *)std::string::_Rep::_S_create(3,0,(allocator *)local_48);
@@ -10990,7 +11199,8 @@ double FUN_00a2ffb6(long param_1,undefined8 param_2,undefined8 param_3,int *para
       } while ((int)lVar2 < iVar6);
       std::string::string((string *)&local_48,*(char **)(param_4 + 4),&local_49);
                     /* try { // try from 00a3003f to 00a30063 has its CatchHandler @ 00a3012d */
-      uVar3 = FUN_0095021a(param_3,(string *)&local_48);
+      uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_3,(string *)&local_48);
       FUN_009277a8(local_40,*(undefined8 *)(param_1 + 0x1098),*(long *)(param_4 + 2) + (long)iVar5,
                    iVar4 - iVar5);
                     /* try { // try from 00a3006f to 00a30073 has its CatchHandler @ 00a30135 */
@@ -11043,7 +11253,8 @@ void FUN_00a3013e(long param_1,long *param_2,long param_3,long param_4,long para
   
   std::string::string((string *)local_40,*(char **)(param_4 + 0x10),&local_41);
                     /* try { // try from 00a30180 to 00a30184 has its CatchHandler @ 00a30285 */
-  uVar3 = FUN_0095021a(param_3,(string *)local_40);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     refcount_delete_offset10_c();
   }
@@ -11072,7 +11283,8 @@ undefined8 FUN_00a3028e(long param_1,char *param_2,undefined8 param_3)
   
   std::string::string((string *)&local_20,param_2,&local_21);
                     /* try { // try from 00a302b5 to 00a302c7 has its CatchHandler @ 00a302f6 */
-  uVar1 = FUN_0095021a(param_1 + 0x40,(string *)&local_20);
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1 + 0x40,(string *)&local_20);
   uVar1 = FUN_00a223ec(param_1,uVar1,param_3);
   if (local_20 != &DAT_011c5338) {
     refcount_delete_offset10_c();
@@ -11112,7 +11324,8 @@ LAB_00a3032c:
       }
       if ((int)lVar5 == -1) {
         if (*(char *)(param_1 + 0x1128) == '\0') {
-          lVar5 = FUN_00925570();
+          lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            ();
           if (*(char *)(param_1 + 0x1067) == '\x02') {
             iVar7 = visible_line_count(param_1,1);
             lVar5 = lVar5 + iVar7;
@@ -11235,7 +11448,8 @@ void FUN_00a30638(long param_1,undefined8 param_2)
   if (cVar2 == '\0') {
     return;
   }
-  lVar4 = FUN_00a20580(param_1);
+  lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1);
   iVar3 = visible_line_count(param_1,0);
   uVar1 = *(undefined8 *)(param_1 + 0x10a0);
   runstyles_runnode_init(auStack_58,param_2,0,0);
@@ -11325,7 +11539,8 @@ joined_r0x00a30948:
   }
   if (lVar5 != lVar2) {
     s_margin_number_a302fe(param_1);
-    FUN_00a239ee(param_1);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1);
   }
   FUN_00a30638(param_1,lVar6);
   (**(code **)(*param_1 + 0xd0))(param_1);
@@ -11351,7 +11566,7 @@ joined_r0x00a30948:
       lVar3 = FUN_0092801a(lVar3);
       FUN_00a20680(local_78,param_1);
                     /* try { // try from 00a30a38 to 00a30a3c has its CatchHandler @ 00a30ada */
-      lVar7 = FUN_0096bbc0(local_78);
+      lVar7 = BSim_QPoint__y(local_78);
       if (lVar3 == lVar7) {
         BSim_QList_int___node_destruct(local_78);
                     /* try { // try from 00a30a63 to 00a30a68 has its CatchHandler @ 00a30aca */
@@ -11708,7 +11923,7 @@ void FUN_00a31036(long param_1,ushort *param_2,uint param_3)
                     /* try { // try from 00a310cb to 00a3111d has its CatchHandler @ 00a31199 */
   replace_text_apply(param_1,param_2,uVar5);
   uVar2 = doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
-  lVar3 = FUN_0096bbc0(uVar2);
+  lVar3 = BSim_QPoint__y(uVar2);
   FUN_00a23bc4(param_1,*param_2 << 8 | *param_2 >> 8,lVar3 - uVar5);
   if (*(char *)(param_1 + 0x1040) != '\0') {
     local_60 = std::string::_S_construct<char_const*>
@@ -11788,13 +12003,13 @@ void FUN_00a311be(long param_1,ushort *param_2,uint param_3,char param_4)
         }
       }
       uVar4 = doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
-      lVar5 = FUN_0096bbc0(uVar4);
+      lVar5 = BSim_QPoint__y(uVar4);
       FUN_00a23bc4(param_1,uVar6,lVar5 - uVar7);
     }
     else {
                     /* try { // try from 00a313c2 to 00a313eb has its CatchHandler @ 00a3143d */
       uVar4 = doc_instance_get(*(undefined8 *)(param_1 + 0x1038));
-      lVar5 = FUN_0096bbc0(uVar4);
+      lVar5 = BSim_QPoint__y(uVar4);
       FUN_00a23bc4(param_1,*param_2 << 8 | *param_2 >> 8,lVar5 - uVar7);
     }
     if (*(char *)(param_1 + 0x1040) != '\0') {
@@ -11845,7 +12060,8 @@ void FUN_00a31446(long *param_1,QString *param_2)
                        ("\nDocument lines: %1, Display lines: %2, Screen lines: %3, Top line: %4, Scrollback lines: %5\nPrompt document line: %6, display line: %7, column: %8"
                         ,0x93);
                     /* try { // try from 00a31481 to 00a314af has its CatchHandler @ 00a31701 */
-  uVar2 = FUN_00925570(*(undefined8 *)(*param_1 + 0x1098));
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(*param_1 + 0x1098));
   puVar5 = local_78;
   QString::arg(puVar5,&local_80,uVar2,0,10,0x20,puVar5);
                     /* try { // try from 00a314ba to 00a314e8 has its CatchHandler @ 00a31755 */
@@ -11857,22 +12073,24 @@ void FUN_00a31446(long *param_1,QString *param_2)
   puVar7 = local_68;
   QString::arg(puVar7,puVar6,(long)iVar1,0,10,0x20,puVar5,puVar6,puVar7);
                     /* try { // try from 00a31524 to 00a3154e has its CatchHandler @ 00a31745 */
-  uVar2 = FUN_00a20580(*param_1);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*param_1);
   QString::arg(local_60,puVar7,uVar2,0,10,0x20);
                     /* try { // try from 00a31554 to 00a31579 has its CatchHandler @ 00a3173d */
   uVar2 = FUN_00a29f32(*param_1,0);
   QString::arg(local_58,local_60,uVar2,0,10,0x20);
   uVar2 = *(undefined8 *)(*param_1 + 0x1098);
                     /* try { // try from 00a3158b to 00a315bb has its CatchHandler @ 00a31735 */
-  uVar3 = FUN_0096bbc0(*param_1 + 0x1068);
-  uVar2 = FUN_0092522a(uVar2,uVar3);
+  uVar3 = BSim_QPoint__y(*param_1 + 0x1068);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar2,uVar3);
   QString::arg(local_50,local_58,uVar2,0,10,0x20);
                     /* try { // try from 00a315cd to 00a315f2 has its CatchHandler @ 00a3172d */
   uVar2 = FUN_009587cc(*(undefined8 *)(*param_1 + 0x10a0),*param_1 + 0x1068);
   QString::arg(&local_48,local_50,uVar2,0,10,0x20);
   uVar2 = *(undefined8 *)(*param_1 + 0x1098);
                     /* try { // try from 00a31604 to 00a31634 has its CatchHandler @ 00a31725 */
-  uVar3 = FUN_0096bbc0(*param_1 + 0x1068);
+  uVar3 = BSim_QPoint__y(*param_1 + 0x1068);
   uVar2 = FUN_00928624(uVar2,uVar3);
   QString::arg((QString *)local_40,&local_48,uVar2,0,10,0x20);
                     /* try { // try from 00a3163d to 00a31641 has its CatchHandler @ 00a3171d */
@@ -11923,9 +12141,11 @@ void FUN_00a3175e(char *param_1)
   undefined1 local_68 [56];
   
   uVar1 = FUN_0092801a(*(undefined8 *)(param_1 + 0x1098));
-  lVar2 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   lVar5 = *(long *)(*(long *)(param_1 + 0x1098) + 0x158);
-  pcVar3 = (char *)FUN_00a21a02(param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
+  pcVar3 = (char *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
   QByteArray::QByteArray(local_b0,pcVar3,-1);
   local_70 = FUN_00a1eb3c;
   local_78 = FUN_00a1e5e1;
@@ -11960,7 +12180,8 @@ void FUN_00a3175e(char *param_1)
   uVar1 = *(undefined8 *)(param_1 + 0x1098);
                     /* try { // try from 00a318e7 to 00a3191c has its CatchHandler @ 00a3195e */
   uVar4 = FUN_0092801a(uVar1);
-  lVar2 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   lVar5 = (lVar2 - lVar5) + -1;
   if (lVar5 < 0) {
     lVar5 = 0;
@@ -12001,16 +12222,20 @@ select_range_expand(undefined8 *param_1,long param_2,undefined8 param_3,long par
   
   *param_1 = &QListData::shared_null;
                     /* try { // try from 00a3199e to 00a319f1 has its CatchHandler @ 00a31dd7 */
-  uVar3 = FUN_009276e2(*(undefined8 *)(param_2 + 0x1098));
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x1098));
   cVar1 = FUN_0089a756(param_3,uVar3);
   if (cVar1 == '\0') {
     cVar1 = param_5 < param_4;
   }
-  uVar3 = FUN_00927600(*(undefined8 *)(param_2 + 0x1098));
-  uVar4 = FUN_009276e2(*(undefined8 *)(param_2 + 0x1098));
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x1098));
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x1098));
   codec_canEncode(&local_98,param_3,uVar4,uVar3);
                     /* try { // try from 00a319f9 to 00a31a10 has its CatchHandler @ 00a31ddf */
-  uVar3 = FUN_009276e2(*(undefined8 *)(param_2 + 0x1098));
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x1098));
   FUN_0089a0a0(&local_88,param_3,uVar3);
   iVar2 = ((param_4 <= param_5) - 1) + (uint)(param_4 <= param_5);
                     /* try { // try from 00a31a2f to 00a31c1a has its CatchHandler @ 00a31dcf */
@@ -12068,13 +12293,15 @@ LAB_00a31cfa:
       uVar8 = *(undefined8 *)(param_2 + 0x1098);
       if (param_6 == 1) goto LAB_00a31bcf;
       if (param_5 < param_4) {
-        lVar6 = FUN_00925540();
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          ();
         if (0 < lVar6) {
           lVar6 = FUN_009252f4(*(undefined8 *)(param_2 + 0x1098),lVar6 + -1,0xffffffff,1);
         }
       }
       else {
-        lVar6 = FUN_0092554c(uVar8,0);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (uVar8,0);
       }
       if (lVar5 == lVar6) {
         lVar6 = FUN_009252f4(*(undefined8 *)(param_2 + 0x1098),iVar2 + lVar5,iVar2,1);
@@ -12083,16 +12310,19 @@ LAB_00a31cfa:
     if (lVar6 != -1) {
       uVar8 = *(undefined8 *)(param_2 + 0x1098);
 LAB_00a31bcf:
-      iVar2 = FUN_00925534(uVar8);
+      iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar8);
       if (0 < iVar2) {
         iVar9 = 0;
         do {
-          lVar7 = FUN_00925540(*(undefined8 *)(param_2 + 0x1098),iVar9);
+          lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_2 + 0x1098),iVar9);
           local_68 = QString::fromAscii_helper("start",5);
                     /* try { // try from 00a31c28 to 00a31c2c has its CatchHandler @ 00a31dc7 */
           QVariant::QVariant(local_60,lVar7);
                     /* try { // try from 00a31c37 to 00a31c51 has its CatchHandler @ 00a31dcf */
-          lVar7 = FUN_0092554c(*(undefined8 *)(param_2 + 0x1098),iVar9);
+          lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_2 + 0x1098),iVar9);
           local_50 = QString::fromAscii_helper("end",3);
                     /* try { // try from 00a31c63 to 00a31c67 has its CatchHandler @ 00a31e27 */
           QVariant::QVariant(local_48,lVar7);
@@ -12176,7 +12406,7 @@ undefined8 FUN_00a31e30(long *param_1)
     else {
       lVar2 = param_1[0x213];
       uVar6 = doc_instance_get(param_1[0x207]);
-      uVar6 = FUN_0096bbc0(uVar6);
+      uVar6 = BSim_QPoint__y(uVar6);
       cVar3 = FUN_00930b30(lVar2,uVar6);
       if (cVar3 != '\0') goto LAB_00a31e5e;
       *(undefined1 *)(param_1[0x213] + 0x230) = 0;
@@ -12252,7 +12482,8 @@ void FUN_00a3207c(long *param_1,long *param_2,undefined8 param_3,undefined8 para
   double local_48;
   double local_40;
   
-  lVar6 = FUN_00a20580();
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   uVar4 = visible_line_count(param_1,0);
   cVar2 = FUN_00a30538(param_1,lVar6,uVar4);
   if (cVar2 != '\0') {
@@ -12340,7 +12571,8 @@ void FUN_00a3207c(long *param_1,long *param_2,undefined8 param_3,undefined8 para
     local_58 = 0.0;
     if (((0.0 < param_9) && (param_7 < local_48)) && (param_8 < param_10)) {
       pcVar1 = *(code **)(*param_2 + 0x78);
-      uVar9 = FUN_009502c6(param_1 + 8,(int)*(char *)((long)param_1 + 0x1067));
+      uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1 + 8,(int)*(char *)((long)param_1 + 0x1067));
       (*pcVar1)(param_2,uVar9);
       goto LAB_00a328ce;
     }
@@ -12355,7 +12587,8 @@ void FUN_00a3207c(long *param_1,long *param_2,undefined8 param_3,undefined8 para
     if ((((local_58 < param_9) && (param_7 < local_d0)) && (local_b8 < param_10)) &&
        (param_8 < local_b0)) {
       pcVar1 = *(code **)(*param_2 + 0x78);
-      uVar9 = FUN_009502c6(param_1 + 8,(int)*(char *)((long)param_1 + 0x1067));
+      uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1 + 8,(int)*(char *)((long)param_1 + 0x1067));
       (*pcVar1)(param_2,uVar9);
     }
 LAB_00a328ce:
@@ -12401,7 +12634,8 @@ LAB_00a32589:
           local_48 = local_e8;
           pcVar1 = *(code **)(*plVar14 + 0x78);
           local_40 = dVar15;
-          uVar9 = FUN_009502c6(param_1 + 8,(int)*(char *)((long)param_1 + 0x1067));
+          uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_1 + 8,(int)*(char *)((long)param_1 + 0x1067));
           local_58 = local_e8 - 1.0;
           (*pcVar1)(plVar14,uVar9);
         }
@@ -12566,13 +12800,17 @@ int editor_replaceAll(long param_1,long param_2)
   long local_48;
   undefined8 local_40;
   
-  uVar5 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   cVar2 = FUN_0089a756(param_2,uVar5);
-  uVar5 = FUN_00927600(*(undefined8 *)(param_1 + 0x1098));
-  uVar6 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
+  uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   codec_canEncode(&local_168,param_2,uVar6,uVar5);
                     /* try { // try from 00a32d3c to 00a32d5b has its CatchHandler @ 00a335bd */
-  uVar5 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   FUN_0089a0a0(&local_158,param_2,uVar5);
   lVar7 = local_158;
   if (cVar2 != '\0') {
@@ -12583,7 +12821,8 @@ int editor_replaceAll(long param_1,long param_2)
   }
   else {
                     /* try { // try from 00a32d7b to 00a32d9c has its CatchHandler @ 00a335ed */
-    uVar5 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+    uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 0x1098));
     lVar7 = FUN_0089ab22(param_2,uVar5,&local_168);
     iVar4 = FUN_00899316(lVar7);
     local_1d0 = (long)iVar4;
@@ -12671,8 +12910,10 @@ LAB_00a32fe7:
 LAB_00a32ff2:
         lVar8 = FUN_0092547e(uVar5,lVar8,local_1f8,&local_168,local_1f8);
         if (lVar8 != -1) {
-          lVar8 = FUN_00925540(*(undefined8 *)(param_1 + 0x1098),0);
-          lVar9 = FUN_0092554c(*(undefined8 *)(param_1 + 0x1098),0);
+          lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x1098),0);
+          lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x1098),0);
           lVar13 = lVar9 - lVar8;
           iVar4 = iVar4 + 1;
           *(int *)(param_2 + 0x3c) = *(int *)(param_2 + 0x3c) + 1;
@@ -12727,7 +12968,8 @@ LAB_00a3341e:
             while( true ) {
               uVar5 = *(undefined8 *)(param_1 + 0x1098);
               if (lVar13 != 0) goto LAB_00a32fe7;
-              lVar8 = FUN_00925304(uVar5,lVar8,1);
+              lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (uVar5,lVar8,1);
               uVar5 = *(undefined8 *)(param_1 + 0x1098);
               if (cVar2 != '\0') goto LAB_00a32ff2;
 LAB_00a33081:
@@ -12871,18 +13113,22 @@ long editor_replaceText(long param_1,long param_2)
   bVar1 = *(byte *)(param_2 + 0x10);
   local_18a = (bVar1 & 0xfd) == 1;
   local_1a0[0] = param_2;
-  uVar8 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+  uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   local_189 = FUN_0089a756(param_2,uVar8);
   lVar10 = local_1a0[0];
   if (local_189 == 0) {
     local_189 = local_18a ^ 1;
   }
-  uVar8 = FUN_00927600(*(undefined8 *)(param_1 + 0x1098));
-  uVar9 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+  uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
+  uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   codec_canEncode(&local_188,lVar10,uVar9,uVar8);
   lVar10 = local_1a0[0];
                     /* try { // try from 00a336aa to 00a336c1 has its CatchHandler @ 00a33ee6 */
-  uVar8 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+  uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   FUN_0089a0a0(&local_178,lVar10,uVar8);
   if (local_189 != 0) {
     local_178 = local_188;
@@ -12959,12 +13205,12 @@ long editor_replaceText(long param_1,long param_2)
                     /* try { // try from 00a33b49 to 00a33b4d has its CatchHandler @ 00a33f46 */
       FUN_00a1ff9c(&local_c8,param_1,0xffffffff);
                     /* try { // try from 00a33b51 to 00a33b55 has its CatchHandler @ 00a33f3e */
-      local_1e0 = FUN_0096bbc0(&local_c8);
+      local_1e0 = BSim_QPoint__y(&local_c8);
       BSim_QList_int___node_destruct(&local_c8);
                     /* try { // try from 00a33b6e to 00a33b72 has its CatchHandler @ 00a33f46 */
       FUN_00a20050(&local_c8,param_1,0xffffffff);
                     /* try { // try from 00a33b76 to 00a33b7a has its CatchHandler @ 00a33eee */
-      lVar11 = FUN_0096bbc0(&local_c8);
+      lVar11 = BSim_QPoint__y(&local_c8);
       BSim_QList_int___node_destruct(&local_c8);
       lVar10 = local_168[0][2];
       lVar17 = local_168[0][4];
@@ -12980,7 +13226,8 @@ long editor_replaceText(long param_1,long param_2)
           lVar17 = FUN_009253ee(*(undefined8 *)(param_1 + 0x1098),local_1e0,lVar11,&local_188);
           lVar10 = local_1a0[0];
           if (lVar11 - local_1e0 == lVar17) {
-            uVar8 = FUN_009276e2(*(undefined8 *)(param_1 + 0x1098));
+            uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (*(undefined8 *)(param_1 + 0x1098));
             lVar10 = FUN_0089ab22(lVar10,uVar8,&local_188);
             iVar7 = FUN_00899316(lVar10);
             cVar5 = FUN_008990b2(lVar10);
@@ -13035,14 +13282,14 @@ long editor_replaceText(long param_1,long param_2)
                     /* try { // try from 00a33970 to 00a33974 has its CatchHandler @ 00a33ede */
         FUN_00a1ff9c(pplVar16,param_1,0xffffffff);
                     /* try { // try from 00a33978 to 00a3397c has its CatchHandler @ 00a33f1e */
-        uVar8 = FUN_0096bbc0(pplVar16);
+        uVar8 = BSim_QPoint__y(pplVar16);
       }
       else {
         pplVar16 = local_148;
                     /* try { // try from 00a33a8f to 00a33a93 has its CatchHandler @ 00a33f0e */
         FUN_00a20050(pplVar16,param_1,0xffffffff);
                     /* try { // try from 00a33a97 to 00a33a9b has its CatchHandler @ 00a33ede */
-        uVar8 = FUN_0096bbc0(pplVar16);
+        uVar8 = BSim_QPoint__y(pplVar16);
       }
       BSim_QList_int___node_destruct(pplVar16);
     }
@@ -13801,7 +14048,9 @@ void FUN_00a34dee(undefined8 *param_1,long *param_2,int param_3,int param_4)
       lVar11 = lVar10 + lVar18;
       plVar3 = *(long **)(lVar2 + 0x20);
       local_58 = lVar2;
-      if (*(code **)(*plVar3 + 0x28) == FUN_008897ae) {
+      if (*(code **)(*plVar3 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         local_6c = runstyles_fill_range(plVar3[1],lVar18);
       }
       else {
@@ -13817,7 +14066,9 @@ void FUN_00a34dee(undefined8 *param_1,long *param_2,int param_3,int param_4)
       lVar13 = lVar18;
       if (local_60 < lVar11) {
         plVar3 = *(long **)(lVar2 + 0x20);
-        if (*(code **)(*plVar3 + 0x28) == FUN_008897ae) {
+        if (*(code **)(*plVar3 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           local_70 = runstyles_fill_range(plVar3[1],lVar11);
         }
         else {
@@ -14146,8 +14397,10 @@ void editor_trimLineBlanks(long param_1,char param_2,long param_3,long param_4)
             if (lVar7 < lVar3) {
               do {
                 while( true ) {
-                  lVar4 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar7);
-                  lVar5 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),lVar7);
+                  lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                    (*(undefined8 *)(param_1 + 0x1098),lVar7);
+                  lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                    (*(undefined8 *)(param_1 + 0x1098),lVar7);
                   if (lVar4 < lVar5) break;
 LAB_00a358e0:
                   lVar7 = lVar7 + 1;
@@ -14180,13 +14433,15 @@ LAB_00a357ce:
   else {
     uVar8 = *(undefined8 *)(param_1 + 0x1098);
     if (param_4 == -1) {
-      param_4 = FUN_00925570(uVar8);
+      param_4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (uVar8);
       param_4 = param_4 + -1;
       goto LAB_00a357ce;
     }
   }
                     /* try { // try from 00a356bd to 00a357f3 has its CatchHandler @ 00a359bd */
-  lVar3 = FUN_00925570(uVar8);
+  lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar8);
   lVar7 = lVar3 + -1;
   if (param_3 < lVar3 + -1) {
     lVar7 = param_3;
@@ -14194,7 +14449,8 @@ LAB_00a357ce:
   if (lVar7 < 0) {
     lVar7 = 0;
   }
-  lVar4 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+  lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   lVar3 = lVar4 + -1;
   if (param_4 < lVar4 + -1) {
     lVar3 = param_4;
@@ -14209,8 +14465,10 @@ LAB_00a357ce:
   }
   do {
     while( true ) {
-      lVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar4);
-      lVar5 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),lVar4);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),lVar4);
+      lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),lVar4);
       if (lVar7 < lVar5) break;
 LAB_00a3572e:
       lVar4 = lVar4 + 1;
@@ -14296,16 +14554,22 @@ LAB_00a35d95:
     else {
       lVar9 = (**(code **)(*plVar1 + 0x40))(plVar1,param_2);
     }
-    uVar10 = FUN_00925200(*(undefined8 *)(param_1[1] + 0x1098),lVar8);
-    lVar11 = FUN_00925200(*(undefined8 *)(param_1[1] + 0x1098),lVar9);
+    uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (*(undefined8 *)(param_1[1] + 0x1098),lVar8);
+    lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (*(undefined8 *)(param_1[1] + 0x1098),lVar9);
     if (*(long *)param_1[2] < 1) {
       if (lVar8 != 0) {
-        lVar13 = FUN_00925570(*(undefined8 *)(param_1[1] + 0x1098));
-        lVar14 = FUN_00925200(*(undefined8 *)(param_1[1] + 0x1098),lVar8 + -1);
-        lVar15 = FUN_00925200(*(undefined8 *)(param_1[1] + 0x1098),lVar8);
+        lVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1[1] + 0x1098));
+        lVar14 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1[1] + 0x1098),lVar8 + -1);
+        lVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1[1] + 0x1098),lVar8);
         local_1a8 = lVar15;
         if (lVar9 == lVar13) {
-          local_1a8 = FUN_0092520c(*(undefined8 *)(param_1[1] + 0x1098),lVar8 + -1);
+          local_1a8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_1[1] + 0x1098),lVar8 + -1);
           uVar10 = param_1[1];
           runstyles_runnode_init(local_108,lVar11,0,0);
                     /* try { // try from 00a3601f to 00a36023 has its CatchHandler @ 00a36436 */
@@ -14352,13 +14616,13 @@ LAB_00a35d95:
           lVar9 = 0;
           do {
             uVar10 = scintilla_get_text_range(*(undefined8 *)(param_1[1] + 0x1038),lVar9,0);
-            lVar13 = FUN_0096bfea(uVar10);
+            lVar13 = BSim_QMouseEvent__globalPos(uVar10);
             if (lVar11 == lVar13) {
               FUN_0096c06e(uVar10,lVar14 - lVar15,1);
-              lVar13 = FUN_0096bfe0(uVar10);
+              lVar13 = BSim_QMouseEvent__globalPos(uVar10);
             }
             else {
-              lVar13 = FUN_0096bfe0(uVar10);
+              lVar13 = BSim_QMouseEvent__globalPos(uVar10);
             }
             if (lVar11 == lVar13) {
               FUN_0096c01c(uVar10,lVar14 - lVar15,1);
@@ -14370,11 +14634,15 @@ LAB_00a35d95:
       }
     }
     else {
-      lVar8 = FUN_00925570(*(undefined8 *)(param_1[1] + 0x1098));
+      lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1[1] + 0x1098));
       if (lVar9 != lVar8) {
-        lVar8 = FUN_00925570(*(undefined8 *)(param_1[1] + 0x1098));
-        lVar11 = FUN_00925200(*(undefined8 *)(param_1[1] + 0x1098),lVar9);
-        lVar13 = FUN_00925200(*(undefined8 *)(param_1[1] + 0x1098),lVar9 + 1);
+        lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1[1] + 0x1098));
+        lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1[1] + 0x1098),lVar9);
+        lVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1[1] + 0x1098),lVar9 + 1);
         local_1a8 = lVar13 - lVar11;
         local_88 = 0;
         local_80 = 0;
@@ -14388,8 +14656,10 @@ LAB_00a35d95:
         local_40 = 0;
         if (lVar8 + -1 == lVar9) {
                     /* try { // try from 00a360ff to 00a362a1 has its CatchHandler @ 00a36376 */
-          lVar8 = FUN_0092520c(*(undefined8 *)(param_1[1] + 0x1098),lVar8 + -2);
-          lVar9 = FUN_00925200(*(undefined8 *)(param_1[1] + 0x1098),lVar9);
+          lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1[1] + 0x1098),lVar8 + -2);
+          lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1[1] + 0x1098),lVar9);
           lVar14 = FUN_00975682(*(undefined8 *)(param_1[1] + 0x1038));
           if (lVar14 != 0) {
             lVar15 = 0;
@@ -14397,8 +14667,9 @@ LAB_00a35d95:
               local_1c0 = &local_88;
               puVar17 = (undefined8 *)
                         scintilla_get_text_range(*(undefined8 *)(param_1[1] + 0x1038),lVar15,0);
-              lVar18 = FUN_0096bfea(puVar17);
-              if ((lVar8 == lVar18) || (lVar18 = FUN_0096bfe0(puVar17), lVar8 == lVar18)) {
+              lVar18 = BSim_QMouseEvent__globalPos(puVar17);
+              if ((lVar8 == lVar18) ||
+                 (lVar18 = BSim_QMouseEvent__globalPos(puVar17), lVar8 == lVar18)) {
                 if ((local_88 == 0) || (local_58 == (undefined8 *)(local_48 + -0x38))) {
                   local_c8 = local_58;
                   local_c0 = local_50;
@@ -14662,7 +14933,8 @@ long FUN_00a3663e(long param_1,long param_2,long *param_3,char param_4)
   undefined8 local_48;
   undefined8 local_40;
   
-  __s = (char *)FUN_00a21a02(param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
+  __s = (char *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,*(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210));
   if (param_2 != 0) {
     FUN_00a2c55a(param_2);
   }
@@ -15111,7 +15383,8 @@ void clipboard_paste_expand
                     /* try { // try from 00a37123 to 00a37127 has its CatchHandler @ 00a3808b */
   editor_selMake(local_1a8,param_1,"Paste",0xc,2);
                     /* try { // try from 00a37138 to 00a3717e has its CatchHandler @ 00a38076 */
-  __s = (char *)FUN_00a21a02(param_1,*(undefined4 *)(param_1[0x213] + 0x210));
+  __s = (char *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,*(undefined4 *)(param_1[0x213] + 0x210));
   lVar10 = param_1[0x207];
   if (param_4 != '\0') {
     cVar3 = *(char *)(param_2 + -1 + param_3);
@@ -15148,7 +15421,8 @@ void clipboard_paste_expand
           }
           while (lVar11 = lVar11 + -1, lVar10 <= lVar11) {
             while( true ) {
-              lVar12 = FUN_00925200(param_1[0x213],lVar11);
+              lVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_1[0x213],lVar11);
               bVar5 = FUN_0092c146(param_1[0x213],lVar12,param_2,param_3);
               pvVar2 = local_a8;
               if (cVar3 != '\r' && cVar3 != '\n') {
@@ -15423,8 +15697,8 @@ LAB_00a37bec:
 LAB_00a377a0:
       cVar7 = editor_replace_range(param_1,uVar14,local_248,lVar18,param_6,0);
       if (cVar7 != '\0') {
-        uVar15 = FUN_0096bfe0(uVar14);
-        lVar16 = FUN_0096bfe0(uVar14);
+        uVar15 = BSim_QMouseEvent__globalPos(uVar14);
+        lVar16 = BSim_QMouseEvent__globalPos(uVar14);
         pvVar2 = local_a8;
         if (local_d8 == 0) {
           FUN_0097c5a4(local_228,0);
@@ -15460,7 +15734,7 @@ LAB_00a3799b:
           local_a8 = (void *)((long)local_a8 + 0x38);
         }
                     /* try { // try from 00a3796f to 00a379d4 has its CatchHandler @ 00a38009 */
-        lVar16 = FUN_0096bfe0(uVar14);
+        lVar16 = BSim_QMouseEvent__globalPos(uVar14);
         FUN_00a2aa74(param_1,lVar16 - lVar12,local_248,lVar12);
       }
       lVar11 = lVar11 + 1;
@@ -15812,7 +16086,8 @@ joined_r0x00a386b2:
           plVar2 = local_90;
           if ((long)puVar4 < (long)puVar5) {
             do {
-              uVar6 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),puVar4);
+              uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_1 + 0x1098),puVar4);
               uVar7 = FUN_00928404(*(undefined8 *)(param_1 + 0x1098),puVar4);
               FUN_0092c628(*(undefined8 *)(param_1 + 0x1098),param_2,uVar6,uVar7);
               puVar4 = puVar4 + 1;
@@ -16024,7 +16299,8 @@ void editor_uncomment_selection(long param_1)
   
   editor_selMake(local_a8,param_1,"Uncomment Selection",4,2);
                     /* try { // try from 00a38c9e to 00a38cef has its CatchHandler @ 00a39747 */
-  uVar7 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+  uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   local_58 = &PTR_FUN_011922a8;
   local_50 = (long *)0x0;
   local_48 = (long *)0x0;
@@ -16039,12 +16315,16 @@ void editor_uncomment_selection(long param_1)
       uVar9 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),lVar20,0);
       uVar7 = *(undefined8 *)(param_1 + 0x1098);
       uVar10 = BSim_Splitter__createHandle(uVar9);
-      lVar11 = FUN_0092522a(uVar7,uVar10);
+      lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (uVar7,uVar10);
       uVar7 = *(undefined8 *)(param_1 + 0x1098);
       uVar10 = BSim_Splitter__createHandle(uVar9);
-      lVar12 = FUN_0092522a(uVar7,uVar10);
-      uVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar11);
-      uVar10 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar12 + 1);
+      lVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (uVar7,uVar10);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),lVar11);
+      uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (*(undefined8 *)(param_1 + 0x1098),lVar12 + 1);
       cVar2 = FUN_009299b2(*(undefined8 *)(param_1 + 0x1098),uVar7,uVar10);
       if ((cVar2 != '\0') &&
          (lVar13 = FUN_00930e4e(*(undefined8 *)(param_1 + 0x1098),uVar7,0), lVar13 != 0)) {
@@ -16227,7 +16507,8 @@ LAB_00a38eba:
       lVar8 = lVar8 + 1;
       lVar11 = runstyles_run_start_at(local_50,lVar8);
       uVar7 = *(undefined8 *)(param_1 + 0x1098);
-      uVar9 = FUN_00925200(uVar7,lVar20);
+      uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar7,lVar20);
       lVar12 = FUN_00930e4e(uVar7,uVar9,0);
       if ((lVar12 != 0) && (*(long *)(*(long *)(lVar12 + 0x58) + -0x18) != 0)) {
         std::locale::locale(local_b0);
@@ -16346,7 +16627,8 @@ void editor_commentSel(long param_1,char param_2)
   editor_selMake(local_88,param_1,"Comment Selection",4,2);
   local_90 = (uint *)&QArrayData::shared_null;
                     /* try { // try from 00a397d8 to 00a39907 has its CatchHandler @ 00a3a095 */
-  uVar5 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x1098));
   QBitArray::resize((int)&local_90);
   lVar6 = FUN_00975682(*(undefined8 *)(param_1 + 0x1038));
   lVar18 = 0;
@@ -16400,10 +16682,12 @@ LAB_00a3996d:
       }
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
       uVar8 = BSim_Splitter__createHandle(uVar7);
-      lVar10 = FUN_0092522a(uVar5,uVar8);
+      lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (uVar5,uVar8);
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
       uVar8 = BSim_Splitter__createHandle(uVar7);
-      lVar11 = FUN_0092522a(uVar5,uVar8);
+      lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (uVar5,uVar8);
       lVar12 = FUN_0092814a(*(undefined8 *)(param_1 + 0x1098));
       lVar13 = BSim_Splitter__createHandle(uVar7);
       cVar2 = '\x01';
@@ -16419,7 +16703,8 @@ LAB_00a39e13:
         if (lVar10 < lVar11) {
 LAB_00a39e22:
           lVar9 = BSim_Splitter__createHandle(uVar7);
-          lVar12 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar11);
+          lVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (*(undefined8 *)(param_1 + 0x1098),lVar11);
           lVar18 = lVar11;
           if (lVar9 == lVar12) {
             lVar11 = lVar11 + -1;
@@ -16440,18 +16725,23 @@ LAB_00a39964:
         if (cVar2 == '\0') {
           uVar5 = *(undefined8 *)(param_1 + 0x1098);
           uVar8 = BSim_Splitter__createHandle(uVar7);
-          uVar8 = FUN_0092522a(uVar5,uVar8);
+          uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (uVar5,uVar8);
           uVar5 = *(undefined8 *)(param_1 + 0x1098);
           uVar16 = BSim_Splitter__createHandle(uVar7);
-          uVar5 = FUN_0092522a(uVar5,uVar16);
+          uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (uVar5,uVar16);
           lVar18 = BSim_Splitter__createHandle(uVar7);
-          lVar12 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),uVar8);
+          lVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (*(undefined8 *)(param_1 + 0x1098),uVar8);
           if (lVar18 == lVar12) {
             lVar18 = BSim_Splitter__createHandle(uVar7);
-            lVar12 = FUN_0092520c(*(undefined8 *)(param_1 + 0x1098),uVar5);
+            lVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (*(undefined8 *)(param_1 + 0x1098),uVar5);
             if (lVar18 != lVar12) {
               lVar18 = BSim_Splitter__createHandle(uVar7);
-              lVar12 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),uVar5);
+              lVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (*(undefined8 *)(param_1 + 0x1098),uVar5);
               if (lVar18 != lVar12) goto LAB_00a39a5d;
             }
           }
@@ -16580,7 +16870,8 @@ LAB_00a39c59:
       lVar6 = lVar6 + 1;
       lVar19 = runstyles_run_start_at(local_50,lVar6);
       uVar5 = *(undefined8 *)(param_1 + 0x1098);
-      uVar7 = FUN_00925200(uVar5,lVar18);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar5,lVar18);
       lVar9 = FUN_00930e4e(uVar5,uVar7,0);
       if (((lVar9 != 0) && (*(long *)(*(long *)(lVar9 + 0x58) + -0x18) != 0)) &&
          (lVar18 <= lVar19 + -1)) {
@@ -16875,7 +17166,8 @@ LAB_00a3a529:
       goto LAB_00a3a529;
     }
                     /* try { // try from 00a3aa62 to 00a3aa66 has its CatchHandler @ 00a3ae82 */
-    uVar16 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+    uVar16 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (*(undefined8 *)(param_1 + 0x1098));
                     /* try { // try from 00a3aa6f to 00a3aa73 has its CatchHandler @ 00a3ae8a */
     plVar13 = operator_new(0x20);
     *plVar13 = (long)&PTR_FUN_011922a8;
@@ -17050,7 +17342,8 @@ LAB_00a3acfe:
             }
           }
           else if (param_2 == "unique") {
-            local_110 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+            local_110 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                  (*(undefined8 *)(param_1 + 0x1098));
             local_110 = local_110 + -1;
             local_70[0] = 0;
             local_68 = (_Rb_tree_node_base *)0x0;
@@ -17138,12 +17431,15 @@ LAB_00a3ad9d:
                     }
                     goto LAB_00a3adbb;
                   }
-                  lVar9 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),local_160);
-                  lVar11 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),local_160 + 1);
+                  lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                    (*(undefined8 *)(param_1 + 0x1098),local_160);
+                  lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (*(undefined8 *)(param_1 + 0x1098),local_160 + 1);
                   uVar16 = *(undefined8 *)(param_1 + 0x1098);
                   if ((local_110 == local_160) && (0 < local_110)) {
                     /* try { // try from 00a3ad71 to 00a3ad75 has its CatchHandler @ 00a3ae92 */
-                    lVar9 = FUN_0092520c(uVar16,local_110 + -1);
+                    lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                      (uVar16,local_110 + -1);
                     uVar16 = *(undefined8 *)(param_1 + 0x1098);
                   }
                   editor_insert_text(uVar16,lVar9,lVar11 - lVar9);
@@ -17214,7 +17510,8 @@ void editor_duplicateLines(long param_1,char param_2)
   uVar1 = *(undefined4 *)(*(long *)(param_1 + 0x1098) + 0x210);
   if (cVar2 == '\0') {
                     /* try { // try from 00a3b13d to 00a3b1ab has its CatchHandler @ 00a3b349 */
-    local_b0 = (char *)FUN_00a21a02(param_1,uVar1);
+    local_b0 = (char *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_1,uVar1);
     uVar4 = *(undefined8 *)(param_1 + 0x1038);
     if (param_2 == '\0') {
       lVar7 = FUN_00975682(uVar4);
@@ -17240,7 +17537,8 @@ void editor_duplicateLines(long param_1,char param_2)
     }
   }
   else {
-    local_b0 = (char *)FUN_00a21a02(param_1,uVar1);
+    local_b0 = (char *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_1,uVar1);
     uVar4 = *(undefined8 *)(param_1 + 0x1038);
   }
   cursor_reset((string *)local_78);
@@ -17413,7 +17711,8 @@ editor_cmd_dispatch(undefined8 *param_1,long *param_2,uint param_3,bool *param_4
         pcVar1 = *(code **)(*param_2 + 0x1a8);
         QVariant::QVariant(local_58,0);
                     /* try { // try from 00a3b662 to 00a3b676 has its CatchHandler @ 00a3b867 */
-        iVar3 = FUN_00950294(param_2 + 8);
+        iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_2 + 8);
         QVariant::QVariant(local_68,iVar3 + -1);
                     /* try { // try from 00a3b68d to 00a3b68f has its CatchHandler @ 00a3b85f */
         (*pcVar1)(local_48,param_2,0x945,local_68,local_58);
@@ -17427,7 +17726,8 @@ editor_cmd_dispatch(undefined8 *param_1,long *param_2,uint param_3,bool *param_4
         pcVar1 = *(code **)(*param_2 + 0x1a8);
         QVariant::QVariant(local_58,0);
                     /* try { // try from 00a3b54e to 00a3b562 has its CatchHandler @ 00a3b877 */
-        iVar3 = FUN_00950294(param_2 + 8);
+        iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_2 + 8);
         QVariant::QVariant(local_68,iVar3 + 1);
                     /* try { // try from 00a3b579 to 00a3b57b has its CatchHandler @ 00a3b86f */
         (*pcVar1)(local_48,param_2,0x945,local_68,local_58);
@@ -17677,7 +17977,8 @@ undefined8 s_TerminalLink_a3bc2c(long param_1,undefined8 param_2)
   uVar4 = *(undefined8 *)(param_1 + 0x1098);
   std::string::string((string *)local_40,"TerminalLink",&local_41);
                     /* try { // try from 00a3bc69 to 00a3bc6d has its CatchHandler @ 00a3bea2 */
-  lVar2 = FUN_009256fe(uVar4,(string *)local_40);
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar4,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     refcount_delete_offset10_c();
   }
@@ -17774,7 +18075,7 @@ undefined8 FUN_00a3beb8(undefined8 param_1,undefined8 *param_2)
   
   editor_hitTest(*param_2,param_2[1],auStack_38,param_1,1,0,1);
                     /* try { // try from 00a3beea to 00a3beee has its CatchHandler @ 00a3bf1f */
-  lVar1 = FUN_0096bbc0(auStack_38);
+  lVar1 = BSim_QPoint__y(auStack_38);
   BSim_QList_int___node_destruct(auStack_38);
   if (lVar1 != -1) {
     uVar2 = s_TerminalLink_a3bc2c(param_1,lVar1);
@@ -17832,8 +18133,8 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
   BSim_QList_int___node_destruct(&local_b8);
   if ((char)param_3[0x225] == '\0') {
     uVar9 = doc_instance_get(param_3[0x207]);
-    iVar6 = FUN_0096bbc0(uVar9);
-    iVar7 = FUN_0096bbc0(param_3 + 500);
+    iVar6 = BSim_QPoint__y(uVar9);
+    iVar7 = BSim_QPoint__y(param_3 + 500);
     iVar6 = iVar6 - iVar7;
   }
   else {
@@ -17870,8 +18171,9 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
         do {
           uVar9 = scintilla_get_text_range(param_3[0x207],uVar14,0);
           if ((((param_5 & 0x2000000) == 0) ||
-              (uVar10 = FUN_00975316(param_3[0x207]), uVar10 != uVar14)) &&
-             (cVar5 = FUN_00a2a9ae(param_3,uVar9,plVar1), cVar5 != '\0')) {
+              (uVar10 = BSim_QPoint__y(param_3[0x207]), uVar10 != uVar14)) &&
+             (cVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (param_3,uVar9,plVar1), cVar5 != '\0')) {
             FUN_00976b00(param_3[0x207],uVar14);
             local_f8 = local_f8 - 1;
           }
@@ -17899,7 +18201,7 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
       BSim_QList_int___node_destruct(&local_78);
       BSim_QList_int___node_destruct(&local_98);
                     /* try { // try from 00a3c2c4 to 00a3c2e0 has its CatchHandler @ 00a3c65d */
-      uVar9 = FUN_0096bbc0(&local_b8);
+      uVar9 = BSim_QPoint__y(&local_b8);
       thunk_FUN_00a23d46(param_3,0x3fd,&local_e8,uVar9,param_5);
       BSim_QList_int___node_destruct(&local_b8);
     }
@@ -17919,9 +18221,9 @@ void FUN_00a3bf28(long param_1,long param_2,long *param_3,undefined4 param_4,uin
     param_3[0x1ea] = local_e8;
     param_3[0x1eb] = local_e0;
     (**(code **)(*param_3 + 400))(param_3,0);
-    uVar9 = FUN_0096bbc0(plVar1);
+    uVar9 = BSim_QPoint__y(plVar1);
     FUN_00a23d46(param_3,0x409,&local_e8,uVar9,param_5);
-    uVar9 = FUN_0096bbc0(plVar1);
+    uVar9 = BSim_QPoint__y(plVar1);
     FUN_00a23e6e(param_3,0x3f3,&local_e8,uVar9,param_5);
     if (*(char *)((long)param_3 + 0xf4d) == '\0') {
       cursor_reset(&local_78);
@@ -18048,8 +18350,8 @@ void editor_mousePress(long *param_1,double *param_2,int param_3,ulong param_4)
   iVar7 = -1;
   if ((char)param_1[0x225] == '\0') {
     uVar10 = doc_instance_get(param_1[0x207]);
-    iVar7 = FUN_0096bbc0(uVar10);
-    iVar9 = FUN_0096bbc0(param_1 + 0x1ee);
+    iVar7 = BSim_QPoint__y(uVar10);
+    iVar9 = BSim_QPoint__y(param_1 + 0x1ee);
     iVar7 = iVar7 - iVar9;
   }
   local_b8 = param_1[0x1ee];
@@ -18083,8 +18385,9 @@ void editor_mousePress(long *param_1,double *param_2,int param_3,ulong param_4)
   }
   else {
     lVar3 = param_1[0x213];
-    uVar10 = FUN_0096bbc0(plVar1);
-    uVar10 = FUN_0092522a(lVar3,uVar10);
+    uVar10 = BSim_QPoint__y(plVar1);
+    uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (lVar3,uVar10);
     FUN_00a2403e(param_1,iVar7,uVar10,uVar14);
     if ((*(byte *)(param_1[0x1ab] + (long)iVar7 * 0x18 + 10) & 0xf) == 2) {
                     /* try { // try from 00a3cbf3 to 00a3cc49 has its CatchHandler @ 00a3ce86 */
@@ -18121,15 +18424,15 @@ LAB_00a3caaa:
     }
     else {
       *(undefined1 *)((long)param_1 + 0xf4d) = 0;
-      uVar10 = FUN_0096bbc0(&local_d8);
+      uVar10 = BSim_QPoint__y(&local_d8);
       FUN_00a23d46(param_1,0x408,param_2,uVar10,uVar14);
-      uVar10 = FUN_0096bbc0(&local_d8);
+      uVar10 = BSim_QPoint__y(&local_d8);
       FUN_00a23e6e(param_1,0x3f2,param_2,uVar10,uVar14);
       cVar6 = FUN_00a3beb8(param_1,param_2);
       if (cVar6 != '\0') {
-        uVar10 = FUN_0096bbc0(&local_d8);
+        uVar10 = BSim_QPoint__y(&local_d8);
         thunk_FUN_00a23d46(param_1,0x3fc,param_2,uVar10,uVar14);
-        uVar8 = FUN_0096bbc0(&local_d8);
+        uVar8 = BSim_QPoint__y(&local_d8);
         *(undefined4 *)(param_1 + 0x1ed) = uVar8;
       }
       if ((param_4 & 0x2000000) != 0) goto LAB_00a3c99b;
@@ -18179,7 +18482,7 @@ LAB_00a3caaa:
         cVar6 = FUN_00a2ba5c(*param_2,param_2[1],param_1,&local_78);
         if (cVar6 == '\0') {
           lVar3 = param_1[0x213];
-          uVar10 = FUN_0096bbc0(plVar1);
+          uVar10 = BSim_QPoint__y(plVar1);
           cVar6 = FUN_00926d8c(lVar3,uVar10);
           if (cVar6 == '\0') {
             if (*(char *)((long)param_1 + 0xf4d) != '\0') {
@@ -18212,14 +18515,14 @@ LAB_00a3caaa:
           FUN_0096bd50(&local_78);
         }
                     /* try { // try from 00a3cca2 to 00a3cd15 has its CatchHandler @ 00a3ce86 */
-        uVar10 = FUN_0096bbc0(&local_d8);
+        uVar10 = BSim_QPoint__y(&local_d8);
         FUN_00a23d46(param_1,0x407,param_2,uVar10,uVar14);
-        uVar10 = FUN_0096bbc0(&local_d8);
+        uVar10 = BSim_QPoint__y(&local_d8);
         FUN_00a23e6e(param_1,0x3f1,param_2,uVar10,uVar14);
-        uVar10 = FUN_0096bbc0(&local_d8);
+        uVar10 = BSim_QPoint__y(&local_d8);
         cVar6 = s_TerminalLink_a3bc2c(param_1,uVar10);
         if (cVar6 != '\0') {
-          uVar10 = FUN_0096bbc0(&local_d8);
+          uVar10 = BSim_QPoint__y(&local_d8);
           thunk_FUN_00a23d46(param_1,0x3fb,param_2,uVar10,uVar14);
         }
       }
@@ -18398,7 +18701,9 @@ LAB_00a3cf42:
   else {
     *plVar13 = *(long *)(*(long *)(param_1 + 0x28) + 8);
     plVar15 = *(long **)(param_1 + 0x20);
-    if (*(code **)(*plVar15 + 0x28) == FUN_007a9c50) {
+    if (*(code **)(*plVar15 + 0x28) ==
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+       ) {
       iVar9 = runstyles_fill_range(plVar15[1],param_2);
     }
     else {
@@ -18687,7 +18992,8 @@ LAB_00a3d798:
                     /* try { // try from 00a3d9d2 to 00a3d9d6 has its CatchHandler @ 00a3e0c3 */
   std::string::string((string *)&local_58,"TerminalLink",(allocator *)local_68);
                     /* try { // try from 00a3d9df to 00a3d9e3 has its CatchHandler @ 00a3e0d5 */
-  lVar6 = FUN_009256fe(uVar1,(string *)&local_58);
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar1,(string *)&local_58);
   if (local_58 != (undefined8 *)&DAT_011c5338) {
     refcount_delete_offset10_c();
   }
@@ -18719,7 +19025,8 @@ LAB_00a3dbfb:
       uVar5 = *(undefined4 *)(*(long *)(lVar6 + 8) + (long)(int)uVar7 * 4);
     }
 LAB_00a3da57:
-    iVar4 = FUN_009256ba(*(undefined8 *)(param_2 + 0x1098),uVar5);
+    iVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_2 + 0x1098),uVar5);
     if (iVar4 != 0) {
       qstring_assign_from_ascii(&local_70,"%1://%2");
                     /* try { // try from 00a3daaf to 00a3dab3 has its CatchHandler @ 00a3e11d */
@@ -18766,8 +19073,10 @@ LAB_00a3db71:
             puVar9 = local_58;
             do {
                     /* try { // try from 00a3dfb6 to 00a3dfcf has its CatchHandler @ 00a3e096 */
-              lVar6 = FUN_00925540(*(undefined8 *)(param_2 + 0x1098),*(undefined4 *)(puVar9 + 1));
-              lVar8 = FUN_0092554c(*(undefined8 *)(param_2 + 0x1098),*(undefined4 *)(puVar9 + 1));
+              lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_2 + 0x1098),*(undefined4 *)(puVar9 + 1));
+              lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_2 + 0x1098),*(undefined4 *)(puVar9 + 1));
               local_78 = &QArrayData::shared_null;
               if (lVar6 < lVar8) {
                     /* try { // try from 00a3dffb to 00a3e036 has its CatchHandler @ 00a3e0bb */
@@ -18919,11 +19228,12 @@ void s_TerminalLink_a3e15e(long param_1,undefined8 *param_2)
     iVar3 = qstrdata_length_get(local_58);
     if (iVar3 == 0) {
                     /* try { // try from 00a3e291 to 00a3e2c4 has its CatchHandler @ 00a3e57d */
-      uVar5 = FUN_0096bbc0(local_58);
+      uVar5 = BSim_QPoint__y(local_58);
       uVar1 = *(undefined8 *)(param_1 + 0x1098);
       std::string::string((string *)local_78,"TerminalLink",(allocator *)&local_80);
                     /* try { // try from 00a3e2cb to 00a3e2cf has its CatchHandler @ 00a3e575 */
-      plVar6 = (long *)FUN_009256fe(uVar1,(string *)local_78);
+      plVar6 = (long *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (uVar1,(string *)local_78);
       if (local_78[0] != &DAT_011c5338) {
         refcount_delete_offset10_c();
       }
@@ -19118,8 +19428,8 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
   iVar6 = -1;
   if ((char)param_1[0x225] == '\0') {
     uVar9 = doc_instance_get(param_1[0x207]);
-    iVar6 = FUN_0096bbc0(uVar9);
-    iVar5 = FUN_0096bbc0(param_1 + 0x1f1);
+    iVar6 = BSim_QPoint__y(uVar9);
+    iVar5 = BSim_QPoint__y(param_1 + 0x1f1);
     iVar6 = iVar6 - iVar5;
   }
   local_98 = param_1[0x1f1];
@@ -19280,7 +19590,8 @@ void editor_caret_geometry_update(long *param_1,double *param_2,uint param_3)
       lVar11 = (lVar11 - iVar6) + 1;
     }
     else if (dVar1 - dVar13 <= param_2[1]) goto LAB_00a3ec0f;
-    FUN_00a206dc(param_1,lVar11);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,lVar11);
     (**(code **)(*param_1 + 0xa0))(param_1);
 LAB_00a3ec0f:
     if ((param_1[0x209] != -1) && (cVar4 = FUN_00a3beb8(param_1,param_2), cVar4 == '\0')) {
@@ -19313,7 +19624,7 @@ LAB_00a3ec0f:
         uVar8 = FUN_00a2516a(*param_2,param_2[1],param_1);
         if (((uVar8 & 0xf) == 0) && ((char)param_1[0x1d8] != '\0')) {
           uVar9 = doc_instance_get(param_1[0x207]);
-          uVar9 = FUN_0096bbc0(uVar9);
+          uVar9 = BSim_QPoint__y(uVar9);
           FUN_00a2509a(param_1,uVar9,0);
         }
         pcVar2 = *(code **)(*param_1 + 0x160);
@@ -19328,7 +19639,7 @@ LAB_00a3ec0f:
       else {
         if ((char)param_1[0x1d8] != '\0') {
           uVar9 = doc_instance_get(param_1[0x207]);
-          uVar9 = FUN_0096bbc0(uVar9);
+          uVar9 = BSim_QPoint__y(uVar9);
           FUN_00a2509a(param_1,uVar9,0);
         }
         pcVar2 = *(code **)(*param_1 + 0x160);
@@ -19339,7 +19650,7 @@ LAB_00a3ec0f:
     }
     if ((char)param_1[0x1d8] != '\0') {
       uVar9 = doc_instance_get(param_1[0x207]);
-      uVar9 = FUN_0096bbc0(uVar9);
+      uVar9 = BSim_QPoint__y(uVar9);
       FUN_00a2509a(param_1,uVar9,0);
     }
   }
@@ -19550,7 +19861,9 @@ LAB_00a3f2eb:
       else {
         *local_98 = *(long *)(*(long *)(lVar7 + 0x28) + 8);
         plVar12 = *(long **)(lVar7 + 0x20);
-        if (*(code **)(*plVar12 + 0x28) == FUN_007a9c74) {
+        if (*(code **)(*plVar12 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           iVar6 = runstyles_fill_range(plVar12[1],uVar20);
         }
         else {
@@ -19838,7 +20151,8 @@ void FUN_00a3fbd6(long *param_1,long param_2,long param_3,long param_4,long *par
   long local_40 [2];
   
   if (param_5 == (long *)0x0) {
-    FUN_0092720a(*(undefined8 *)(*param_1 + 0x1098),param_2 + param_3,param_4,0);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (*(undefined8 *)(*param_1 + 0x1098),param_2 + param_3,param_4,0);
   }
   else {
     param_4 = param_4 + param_3;
@@ -19980,7 +20294,9 @@ LAB_00a3fea3:
         else {
           *local_b8 = *(long *)(*(long *)(lVar8 + 0x28) + 8);
           plVar12 = *(long **)(lVar8 + 0x20);
-          if (*(code **)(*plVar12 + 0x28) == FUN_007a9c74) {
+          if (*(code **)(*plVar12 + 0x28) ==
+              BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+             ) {
             iVar7 = runstyles_fill_range(plVar12[1],uVar21);
           }
           else {
@@ -20232,7 +20548,8 @@ LAB_00a3fcc2:
           if (param_4 <= local_d0) {
             lVar9 = param_4;
           }
-          FUN_0092720a(*(undefined8 *)(*param_1 + 0x1098),lVar8 + param_2,lVar9 - lVar8,lVar11);
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(*param_1 + 0x1098),lVar8 + param_2,lVar9 - lVar8,lVar11);
         }
         local_50 = iVar20;
       } while (iVar20 + 1 < local_c4);
@@ -20497,7 +20814,7 @@ void s_Editor__terminalSnapshotText_a40c78(long param_1,long param_2)
     FUN_009cff30(local_140,uVar11,&DAT_00cb99b6,local_a8);
     lVar6 = *(long *)(*(long *)(param_1 + 0x1098) + 0x150);
                     /* try { // try from 00a410b4 to 00a4118d has its CatchHandler @ 00a41531 */
-    plVar7 = (long *)FUN_007bace6(param_2 + 0x28);
+    plVar7 = (long *)BSim_QPoint__y(param_2 + 0x28);
     if (plVar7 == (long *)0x0) {
       lVar6 = *(long *)(param_2 + 0x58);
       lVar9 = (long)*(int *)(lVar6 + 0xc);
@@ -20533,11 +20850,13 @@ LAB_00a40e9a:
             piVar2 = (int *)*local_1b8;
             lVar6 = FUN_00a29f32(param_1,*piVar2);
             lVar9 = FUN_00a29f4e(param_1,*piVar2);
-            lVar10 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+            lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (*(undefined8 *)(param_1 + 0x1098));
             uVar11 = *(undefined8 *)(param_1 + 0x1098);
             if (lVar10 <= lVar6) {
                     /* try { // try from 00a41273 to 00a412a3 has its CatchHandler @ 00a41531 */
-              lVar10 = FUN_00925570(uVar11);
+              lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (uVar11);
               lVar10 = (lVar6 - lVar10) + 1;
               uVar11 = *(undefined8 *)(piVar2 + 8);
               QByteArray::QByteArray((QByteArray *)local_88,(int)lVar10,'\n');
@@ -20562,7 +20881,8 @@ LAB_00a40e9a:
             }
             if (*piVar2 + piVar2[1] < *(int *)(param_2 + 0x20)) {
                     /* try { // try from 00a40ef4 to 00a40f17 has its CatchHandler @ 00a41531 */
-              lVar6 = FUN_00925200(uVar11,piVar2[1] + lVar6);
+              lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (uVar11,piVar2[1] + lVar6);
             }
             else {
               lVar6 = FUN_0092801a();
@@ -20601,9 +20921,11 @@ LAB_00a40e9a:
   if ((cVar4 != '\0') && (0 < *(int *)(param_2 + 0x18))) {
                     /* try { // try from 00a413e9 to 00a41441 has its CatchHandler @ 00a41531 */
     lVar6 = FUN_00a29f32(param_1,*(undefined4 *)(param_2 + 0x20));
-    lVar9 = FUN_00925570(*(undefined8 *)(param_1 + 0x1098));
+    lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 0x1098));
     if (lVar6 < lVar9) {
-      lVar9 = FUN_00925200(*(undefined8 *)(param_1 + 0x1098),lVar6);
+      lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x1098),lVar6);
       lVar10 = FUN_0092801a(*(undefined8 *)(param_1 + 0x1098));
       if (lVar6 < lVar10) {
         editor_insert_text(*(undefined8 *)(param_1 + 0x1098),lVar9,lVar10 - lVar9);
@@ -20753,7 +21075,8 @@ undefined8 FUN_00a4186e(undefined8 param_1,undefined8 param_2,undefined8 param_3
   undefined8 uVar1;
   long lVar2;
   
-  uVar1 = FUN_00a20580(param_3);
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3);
   lVar2 = FUN_00a20604(param_3,1);
   FUN_00a41552(param_1,param_2,param_3,uVar1,lVar2 + 1,0xffffffff);
   return param_2;
@@ -20926,7 +21249,8 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
             }
             else {
               if (param_3 == 0x7e0) {
-                cVar9 = FUN_00927a4c(param_2[0x213]);
+                cVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                  (param_2[0x213]);
                 if (cVar9 == '\0') {
                   bVar13 = false;
                 }
@@ -20954,7 +21278,8 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                     QVariant::QVariant(param_1,iVar16);
                     return param_1;
                   }
-                  bVar11 = (bool)FUN_00927a24(param_2[0x213]);
+                  bVar11 = (bool)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                           (param_2[0x213]);
                   QVariant::QVariant(param_1,bVar11);
                   return param_1;
                 }
@@ -20981,7 +21306,7 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
               iVar16 = FUN_0095019c(param_2 + 8);
               editor_hitTest(dVar49 - (double)iVar16,uVar23,local_78,param_2,1,2,1);
                     /* try { // try from 00a4612a to 00a46139 has its CatchHandler @ 00a4ad85 */
-              lVar21 = FUN_0096bbc0(local_78);
+              lVar21 = BSim_QPoint__y(local_78);
               QVariant::QVariant(param_1,lVar21);
               BSim_QList_int___node_destruct(local_78);
               return param_1;
@@ -21002,7 +21327,7 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                 iVar16 = FUN_0095019c(param_2 + 8);
                 editor_hitTest(dVar49 - (double)iVar16,uVar23,local_78,param_2,0,2,1);
                     /* try { // try from 00a44c0f to 00a44c1e has its CatchHandler @ 00a4b3af */
-                lVar21 = FUN_0096bbc0(local_78);
+                lVar21 = BSim_QPoint__y(local_78);
                 QVariant::QVariant(param_1,lVar21);
                 BSim_QList_int___node_destruct(local_78);
                 return param_1;
@@ -21035,7 +21360,7 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                 lVar31 = param_2[0x213];
                 uVar18 = QVariant::toInt(param_5);
                 uVar23 = QVariant::toLongLong(param_4);
-                iVar16 = FUN_009251ea(lVar31,uVar23,uVar18);
+                iVar16 = BSim_QMouseEvent__globalPos(lVar31,uVar23,uVar18);
                 QVariant::QVariant(param_1,iVar16);
                 return param_1;
               }
@@ -21100,7 +21425,8 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
               else if (param_3 < 0x84f) {
                 if (param_3 == 0x81e) {
                   uVar23 = QVariant::toULongLong(param_4);
-                  FUN_00927a08(param_2[0x213],uVar23);
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_2[0x213],uVar23);
                 }
                 else if (param_3 == 0x81f) {
                   FUN_00927a14(param_2[0x213],1);
@@ -21155,7 +21481,8 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                 if ((char)param_2[0x225] == '\0') {
                   lVar31 = param_2[0x213];
                   uVar23 = QVariant::toLongLong(param_4);
-                  lVar21 = FUN_0092520c(lVar31,uVar23);
+                  lVar21 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (lVar31,uVar23);
                 }
                 else {
                   lVar31 = param_2[0x214];
@@ -21208,11 +21535,14 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                   if (lVar31 == -1) {
                     lVar31 = param_2[0x213];
                     uVar23 = doc_instance_get(param_2[0x207]);
-                    uVar23 = FUN_0096bbc0(uVar23);
-                    lVar31 = FUN_0092522a(lVar31,uVar23);
+                    uVar23 = BSim_QPoint__y(uVar23);
+                    lVar31 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                       (lVar31,uVar23);
                   }
-                  uVar23 = FUN_00925200(param_2[0x213],lVar31);
-                  FUN_00925200(param_2[0x213],lVar31 + 1);
+                  uVar23 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (param_2[0x213],lVar31);
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_2[0x213],lVar31 + 1);
                   buf_substr(local_78,param_2[0x213],uVar23);
                     /* try { // try from 00a497f1 to 00a49804 has its CatchHandler @ 00a4ade7 */
                   iVar16 = FUN_00a4b6df();
@@ -21225,7 +21555,8 @@ s_line_caret_remote_a418c4(QVariant *param_1,long *param_2,uint param_3,bool *pa
                 }
                 if (param_3 == 0x86a) {
                   if ((char)param_2[0x225] == '\0') {
-                    lVar31 = FUN_00925570(param_2[0x213]);
+                    lVar31 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                       (param_2[0x213]);
                   }
                   else {
                     lVar31 = editor_textLength(param_2[0x214]);
@@ -21317,7 +21648,8 @@ LAB_00a453f0:
                   }
                   lVar31 = param_2[0x213];
                   uVar23 = QVariant::toLongLong(param_4);
-                  lVar21 = FUN_0092522a(lVar31,uVar23);
+                  lVar21 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (lVar31,uVar23);
                   QVariant::QVariant(param_1,lVar21);
                   return param_1;
                 }
@@ -21337,7 +21669,8 @@ LAB_00a453f0:
                   if ((char)param_2[0x225] == '\0') {
                     lVar31 = param_2[0x213];
                     uVar23 = QVariant::toLongLong(param_4);
-                    lVar21 = FUN_00925200(lVar31,uVar23);
+                    lVar21 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                       (lVar31,uVar23);
                   }
                   else {
                     lVar31 = param_2[0x214];
@@ -21395,7 +21728,8 @@ LAB_00a45135:
               }
               else {
                 if (param_3 == 0x87e) {
-                  cVar9 = FUN_00927a40(param_2[0x213]);
+                  cVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                    (param_2[0x213]);
                   if (cVar9 == '\0') {
                     bVar13 = false;
                   }
@@ -21477,7 +21811,8 @@ LAB_00a45135:
                   uVar23 = QVariant::toLongLong(param_5);
                   uVar24 = QVariant::toLongLong(param_4);
                   BSim_QList_int___node_destruct(lVar31,uVar24,uVar23,1);
-                  FUN_00a239ee(param_2);
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_2);
                   (**(code **)(*param_2 + 0xa0))(param_2);
                 }
                 else if (param_3 == 0x8b3) {
@@ -21485,7 +21820,8 @@ LAB_00a45135:
                   uVar23 = QVariant::toLongLong(param_5);
                   uVar24 = QVariant::toLongLong(param_4);
                   BSim_QList_int___node_destruct(lVar31,uVar24,uVar23,0);
-                  FUN_00a239ee(param_2);
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_2);
                   (**(code **)(*param_2 + 0xa0))(param_2);
                 }
               }
@@ -21661,7 +21997,8 @@ LAB_00a44269:
                 session_view_soft_reset(param_2);
               }
               else if (param_3 == 0x946) {
-                iVar16 = FUN_00950294(param_2 + 8);
+                iVar16 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                   (param_2 + 8);
                 QVariant::QVariant(param_1,iVar16);
                 return param_1;
               }
@@ -21838,7 +22175,7 @@ LAB_00a44269:
             iVar16 = FUN_0095019c(param_2 + 8);
             editor_hitTest(dVar49 - (double)iVar16,uVar23,local_78,param_2,0,1,1);
                     /* try { // try from 00a47df3 to 00a47e02 has its CatchHandler @ 00a4b02f */
-            lVar21 = FUN_0096bbc0(local_78);
+            lVar21 = BSim_QPoint__y(local_78);
             QVariant::QVariant(param_1,lVar21);
             BSim_QList_int___node_destruct(local_78);
             return param_1;
@@ -21920,13 +22257,14 @@ LAB_00a44269:
               iVar16 = FUN_0095019c(param_2 + 8);
               editor_hitTest(dVar49 - (double)iVar16,uVar23,local_78,param_2,1,1,1);
                     /* try { // try from 00a45faa to 00a45fb9 has its CatchHandler @ 00a4afc7 */
-              lVar21 = FUN_0096bbc0(local_78);
+              lVar21 = BSim_QPoint__y(local_78);
               QVariant::QVariant(param_1,lVar21);
               BSim_QList_int___node_destruct(local_78);
               return param_1;
             }
             if (param_3 == 0xa0a) {
-              uVar19 = FUN_00a1fc2e(param_2);
+              uVar19 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_2);
               QVariant::QVariant(param_1,uVar19);
               return param_1;
             }
@@ -21937,7 +22275,8 @@ LAB_00a44269:
           }
           else {
             if (0xa0e < param_3) {
-              iVar16 = FUN_00a1fd76(param_2);
+              iVar16 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_2);
               QVariant::QVariant(param_1,iVar16);
               return param_1;
             }
@@ -21965,7 +22304,7 @@ LAB_00a44269:
         uVar15 = QVariant::toInt(param_5);
         FUN_00a20050(local_b8,param_2,uVar18);
                     /* try { // try from 00a458cb to 00a458e7 has its CatchHandler @ 00a4af37 */
-        uVar23 = FUN_0096bbc0(local_b8);
+        uVar23 = BSim_QPoint__y(local_b8);
         runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a458f1 to 00a458f5 has its CatchHandler @ 00a4ad6d */
         FUN_00a20082(param_2,uVar18,local_78);
@@ -21995,7 +22334,7 @@ LAB_00a44269:
             }
             FUN_00a1fe5a(local_78,param_2,uVar18);
                     /* try { // try from 00a4581e to 00a4582d has its CatchHandler @ 00a4b1c5 */
-            lVar21 = FUN_0096bbc0(local_78);
+            lVar21 = BSim_QPoint__y(local_78);
             QVariant::QVariant(param_1,lVar21);
             BSim_QList_int___node_destruct(local_78);
             return param_1;
@@ -22009,7 +22348,7 @@ LAB_00a44269:
               }
               FUN_00a1fda6(local_78,param_2,uVar18);
                     /* try { // try from 00a49356 to 00a49365 has its CatchHandler @ 00a4adaf */
-              lVar21 = FUN_0096bbc0(local_78);
+              lVar21 = BSim_QPoint__y(local_78);
               QVariant::QVariant(param_1,lVar21);
               BSim_QList_int___node_destruct(local_78);
               return param_1;
@@ -22054,7 +22393,7 @@ LAB_00a44269:
               uVar15 = QVariant::toInt(param_5);
               FUN_00a1fda6(local_b8,param_2,uVar18);
                     /* try { // try from 00a41a80 to 00a41a9c has its CatchHandler @ 00a4b32f */
-              uVar23 = FUN_0096bbc0(local_b8);
+              uVar23 = BSim_QPoint__y(local_b8);
               runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a41aa6 to 00a41aaa has its CatchHandler @ 00a4b327 */
               FUN_00a1fdd8(param_2,uVar18,local_78);
@@ -22070,7 +22409,7 @@ LAB_00a44269:
               uVar15 = QVariant::toInt(param_5);
               FUN_00a1fe5a(local_b8,param_2,uVar18);
                     /* try { // try from 00a45548 to 00a45564 has its CatchHandler @ 00a4b3d7 */
-              uVar23 = FUN_0096bbc0(local_b8);
+              uVar23 = BSim_QPoint__y(local_b8);
               runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a4556e to 00a45572 has its CatchHandler @ 00a4b417 */
               FUN_00a1fe8c(param_2,uVar18,local_78);
@@ -22120,7 +22459,7 @@ LAB_00a44269:
             }
             FUN_00a1ff9c(local_78,param_2,uVar18);
                     /* try { // try from 00a41d93 to 00a41da2 has its CatchHandler @ 00a4b337 */
-            lVar21 = FUN_0096bbc0(local_78);
+            lVar21 = BSim_QPoint__y(local_78);
             QVariant::QVariant(param_1,lVar21);
             BSim_QList_int___node_destruct(local_78);
             return param_1;
@@ -22136,7 +22475,7 @@ LAB_00a44269:
               }
               FUN_00a20050(local_78,param_2,uVar18);
                     /* try { // try from 00a41cbe to 00a41ccd has its CatchHandler @ 00a4b317 */
-              lVar21 = FUN_0096bbc0(local_78);
+              lVar21 = BSim_QPoint__y(local_78);
               QVariant::QVariant(param_1,lVar21);
               BSim_QList_int___node_destruct(local_78);
               return param_1;
@@ -22161,7 +22500,7 @@ LAB_00a44269:
           uVar15 = QVariant::toInt(param_5);
           FUN_00a1ff9c(local_b8,param_2,uVar18);
                     /* try { // try from 00a49d4a to 00a49d66 has its CatchHandler @ 00a4ada7 */
-          uVar23 = FUN_0096bbc0(local_b8);
+          uVar23 = BSim_QPoint__y(local_b8);
           runstyles_runnode_init(local_78,uVar23,uVar15,0);
                     /* try { // try from 00a49d70 to 00a49d74 has its CatchHandler @ 00a4ae37 */
           FUN_00a1ffce(param_2,uVar18,local_78);
@@ -22171,7 +22510,7 @@ LAB_00a44269:
       }
       else {
         if (param_3 == 0xa3f) {
-          if (*(code **)(*param_2 + 0x138) == FUN_00a1814e) {
+          if (*(code **)(*param_2 + 0x138) == BSim_QPoint__y) {
             iVar16 = (int)param_2[0x21b];
           }
           else {
@@ -22217,7 +22556,8 @@ LAB_00a44269:
           }
           else {
             if (param_3 == 0xa25) {
-              bVar11 = (bool)FUN_00a203be(param_2);
+              bVar11 = (bool)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                       (param_2);
               QVariant::QVariant(param_1,bVar11);
               return param_1;
             }
@@ -22322,11 +22662,13 @@ LAB_00a44269:
           else {
             if (param_3 != 0x4ecb) {
               if (param_3 < 0x4ecc) {
-                bVar11 = (bool)FUN_00a2022c(param_2);
+                bVar11 = (bool)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                         (param_2);
                 QVariant::QVariant(param_1,bVar11);
                 return param_1;
               }
-              bVar11 = (bool)FUN_00a2025a(param_2);
+              bVar11 = (bool)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                       (param_2);
               QVariant::QVariant(param_1,bVar11);
               return param_1;
             }
@@ -22382,7 +22724,8 @@ LAB_00a44269:
         lVar31 = param_2[0x213];
         variant_convertRegistered3(local_78,param_4);
                     /* try { // try from 00a451d3 to 00a451d7 has its CatchHandler @ 00a4b407 */
-        FUN_009257a8(lVar31,local_78);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (lVar31,local_78);
         if (local_78 != (undefined1  [8])&DAT_011c5338) {
           refcount_delete_offset10_c();
         }
@@ -22542,7 +22885,8 @@ LAB_00a44269:
       goto LAB_00a41e00;
     }
     if (param_3 == 0x4ebc) {
-      uVar34 = FUN_009276e2(param_2[0x213]);
+      uVar34 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (param_2[0x213]);
       QVariant::QVariant(param_1,uVar34);
       return param_1;
     }
@@ -22566,7 +22910,8 @@ LAB_00a44269:
     }
     if (param_3 != 0x4eba) {
       if (param_3 == 0x4ebb) {
-        uVar34 = FUN_00927600(param_2[0x213]);
+        uVar34 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_2[0x213]);
         QVariant::QVariant(param_1,uVar34);
         return param_1;
       }
@@ -22574,7 +22919,8 @@ LAB_00a44269:
     }
     lVar31 = param_2[0x213];
     uVar23 = QVariant::toULongLong(param_4);
-    local_158 = FUN_009276d6(lVar31,uVar23);
+    local_158 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar31,uVar23);
 joined_r0x00a4631d:
     if (local_158 != '\0') {
       session_view_soft_reset(param_2);
@@ -22604,19 +22950,24 @@ joined_r0x00a4631d:
   }
   if (param_3 < 0x7592) {
     if (param_3 == 0x7558) {
-      cVar9 = FUN_00927a24(param_2[0x213]);
+      cVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_2[0x213]);
       if (cVar9 == '\0') {
         FUN_00927dbe();
         FUN_00a26756(param_2);
-        FUN_00927ebc(param_2[0x213]);
-        FUN_00927be6(param_2[0x213]);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_2[0x213]);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_2[0x213]);
       }
       else {
         FUN_00927a30(param_2[0x213],0);
         FUN_00927dbe(param_2[0x213]);
         FUN_00a26756(param_2);
-        FUN_00927ebc(param_2[0x213]);
-        FUN_00927be6(param_2[0x213]);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_2[0x213]);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_2[0x213]);
         FUN_00927a30(param_2[0x213],1);
       }
       goto LAB_00a41e00;
@@ -23081,7 +23432,7 @@ joined_r0x00a4631d:
         if (param_3 == 0x755e) {
           FUN_00a29014(local_78,param_2);
                     /* try { // try from 00a47682 to 00a47691 has its CatchHandler @ 00a4b155 */
-          lVar21 = FUN_0096bbc0(local_78);
+          lVar21 = BSim_QPoint__y(local_78);
           QVariant::QVariant(param_1,lVar21);
           BSim_QList_int___node_destruct(local_78);
           return param_1;
@@ -23430,8 +23781,10 @@ joined_r0x00a4631d:
         if (param_3 < 0x7580) {
           if (param_3 == 0x757d) {
             lVar31 = QVariant::toLongLong(param_4);
-            lVar27 = FUN_00925200(param_2[0x213],lVar31);
-            lVar32 = FUN_0092520c(param_2[0x213],lVar31);
+            lVar27 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_2[0x213],lVar31);
+            lVar32 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_2[0x213],lVar31);
             cVar9 = FUN_009284aa(param_2[0x213],lVar27);
             if (cVar9 == ' ') {
               lVar46 = lVar27;
@@ -23454,7 +23807,8 @@ LAB_00a4a1c6:
               lVar27 = lVar27 + -1;
               if (0 < lVar31) {
                 do {
-                  uVar23 = FUN_00925200(param_2[0x213],lVar32);
+                  uVar23 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (param_2[0x213],lVar32);
                   cVar9 = FUN_009284aa(param_2[0x213],uVar23);
                   if (cVar9 != ' ') break;
                   lVar32 = lVar32 + -1;
@@ -23979,7 +24333,8 @@ LAB_00a46613:
           } while( true );
         }
         lVar31 = param_2[0x213];
-        uVar23 = FUN_00925570(lVar31);
+        uVar23 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (lVar31);
         FUN_00927c16(lVar31,0,uVar23);
       }
       goto LAB_00a41e00;
@@ -24077,7 +24432,7 @@ LAB_00a42965:
             lVar31 = param_2[0x213];
             FUN_00a20680(local_78,param_2);
                     /* try { // try from 00a45d6c to 00a45d99 has its CatchHandler @ 00a4adcf */
-            uVar23 = FUN_0096bbc0(local_78);
+            uVar23 = BSim_QPoint__y(local_78);
             uVar24 = FUN_00a20666(param_2);
             uVar29 = QVariant::toLongLong(param_4);
             FUN_009301a8(lVar31,uVar29,uVar24,uVar23);
@@ -24111,7 +24466,7 @@ LAB_00a42965:
             lVar31 = param_2[0x213];
             FUN_00a20680(local_78,param_2);
                     /* try { // try from 00a4239b to 00a423c0 has its CatchHandler @ 00a4b40f */
-            uVar23 = FUN_0096bbc0(local_78);
+            uVar23 = BSim_QPoint__y(local_78);
             uVar24 = FUN_00a20666(param_2);
             QVariant::toList();
                     /* try { // try from 00a423cf to 00a423d3 has its CatchHandler @ 00a4b38f */
@@ -24182,8 +24537,9 @@ LAB_00a42965:
       else {
         if (param_3 == 0x75dd) {
           lVar31 = param_2[0x213];
-          uVar23 = FUN_0096bbc0(param_2 + 0x20d);
-          lVar21 = FUN_0092522a(lVar31,uVar23);
+          uVar23 = BSim_QPoint__y(param_2 + 0x20d);
+          lVar21 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (lVar31,uVar23);
           QVariant::QVariant(param_1,lVar21);
           return param_1;
         }
@@ -24216,7 +24572,7 @@ LAB_00a42965:
           else {
             if (0x75db < param_3) {
               lVar31 = param_2[0x213];
-              uVar23 = FUN_0096bbc0(param_2 + 0x20d);
+              uVar23 = BSim_QPoint__y(param_2 + 0x20d);
               lVar31 = FUN_00928624(lVar31,uVar23);
               iVar16 = qstrdata_length_get(param_2 + 0x20d);
               QVariant::QVariant(param_1,iVar16 + lVar31);
@@ -24270,7 +24626,7 @@ LAB_00a42965:
         }
         else if (param_3 < 0x75e1) {
           if (param_3 == 0x75de) {
-            lVar21 = FUN_0096bbc0(param_2 + 0x20d);
+            lVar21 = BSim_QPoint__y(param_2 + 0x20d);
             QVariant::QVariant(param_1,lVar21);
             return param_1;
           }
@@ -24325,7 +24681,8 @@ LAB_00a42965:
               return param_1;
             }
             if (param_3 < 0x75ea) {
-              lVar21 = FUN_00a29ff6(param_2);
+              lVar21 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_2);
               QVariant::QVariant(param_1,lVar21);
               return param_1;
             }
@@ -24349,7 +24706,8 @@ LAB_00a42965:
                     /* try { // try from 00a4a09e to 00a4a0a2 has its CatchHandler @ 00a4b3c7 */
               std::string::string((string *)local_78,pcVar22,(allocator *)local_d8);
                     /* try { // try from 00a4a0a9 to 00a4a0c2 has its CatchHandler @ 00a4b33f */
-              uVar23 = FUN_0095021a(param_2 + 8,(string *)local_78);
+              uVar23 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_2 + 8,(string *)local_78);
               editor_styleAt(uVar23,0);
               QColor::operator_cast_to_QVariant((QColor *)param_1);
               if (local_78 == (undefined1  [8])&DAT_011c5338) {
@@ -24361,7 +24719,8 @@ LAB_00a42965:
                     /* try { // try from 00a41b22 to 00a41b26 has its CatchHandler @ 00a4af87 */
             std::string::string((string *)local_b8,pcVar22,(allocator *)local_f8);
                     /* try { // try from 00a41b2d to 00a41b46 has its CatchHandler @ 00a4b3c7 */
-            uVar23 = FUN_0095021a(param_2 + 8,(string *)local_b8);
+            uVar23 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_2 + 8,(string *)local_b8);
             FUN_0094a576(uVar23,0);
             QColor::operator_cast_to_QVariant((QColor *)param_1);
             if ((undefined1 *)local_b8[0]._0_8_ == &DAT_011c5338) {
@@ -24573,7 +24932,8 @@ LAB_00a42965:
       }
       if (param_3 < 0x75b4) {
         if (param_3 == 0x75af) {
-          bVar11 = (bool)FUN_00a28398(param_2);
+          bVar11 = (bool)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                   (param_2);
           QVariant::QVariant(param_1,bVar11);
           return param_1;
         }
@@ -24615,7 +24975,7 @@ LAB_00a42965:
         }
         if (param_3 == 0x75ae) {
           FUN_00a2b0a2(param_2);
-          iVar16 = FUN_00a20430(param_2);
+          iVar16 = BSim_QPoint__y(param_2);
           QVariant::QVariant(param_1,iVar16);
           return param_1;
         }
@@ -24715,7 +25075,8 @@ LAB_00a42965:
         }
         else {
           if (param_3 == 0x75bf) {
-            bVar11 = (bool)FUN_00a28fa8(param_2);
+            bVar11 = (bool)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (param_2);
             QVariant::QVariant(param_1,bVar11);
             return param_1;
           }
@@ -24784,7 +25145,7 @@ LAB_00a42965:
                     /* try { // try from 00a4950f to 00a49513 has its CatchHandler @ 00a4ad25 */
               FUN_00a20680(local_78,param_2);
                     /* try { // try from 00a49517 to 00a49541 has its CatchHandler @ 00a4ad1d */
-              uVar29 = FUN_0096bbc0(local_78);
+              uVar29 = BSim_QPoint__y(local_78);
               uVar36 = FUN_00a20666(param_2);
               s_text_backgroundColor_92fe4a(lVar31,uVar23,uVar24,local_b8,uVar36,uVar29);
               BSim_QList_int___node_destruct(local_78);
@@ -24824,8 +25185,9 @@ LAB_00a42965:
           lVar31 = QVariant::toLongLong(param_4);
           if (lVar31 == -1) {
             uVar23 = doc_instance_get(param_2[0x207]);
-            lVar27 = FUN_0096bbc0(uVar23);
-            uVar23 = FUN_0092522a(param_2[0x213],lVar27);
+            lVar27 = BSim_QPoint__y(uVar23);
+            uVar23 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_2[0x213],lVar27);
             lVar31 = FUN_00928404(param_2[0x213],uVar23);
             if (lVar31 <= lVar27) {
               lVar31 = lVar27;
@@ -25627,9 +25989,12 @@ LAB_00a4b49b:
 }
 
 
-// ==== entry=00a4b4a6 name=FUN_00a4b4a6 size=9 ====
+// ==== entry=00a4b4a6 orig=FUN_00a4b4a6 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a4b4a6(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   session_dtor_full(param_1 + 0x10);
@@ -27796,7 +28161,7 @@ void margin_timestamps_render
       pQVar10 = (QArrayData *)(double)(int)((((double)pQVar10 + dVar16) - dVar14) * 0.5);
       local_e8 = (QArrayData *)(dVar14 + (double)pQVar10);
       pcVar3 = *(code **)(*param_2 + 0x98);
-      uVar5 = FUN_0095277c();
+      uVar5 = BSim_QPoint__y();
       local_f8 = pQVar10;
       local_f0 = dVar13;
       (*pcVar3)(param_2,*(undefined4 *)(*(long *)(param_1 + 0x14) + 0xc),
@@ -28575,7 +28940,8 @@ void editor_clearSel(long param_1,long *param_2)
   long local_48;
   long *local_40;
   
-  uVar6 = FUN_00a1fc2e();
+  uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   if (uVar6 < 2) {
     plVar10 = *(long **)(param_1 + 0x1240);
     if (param_2 == (long *)0x0) {
@@ -28898,11 +29264,11 @@ void s_text_default_a50430(long *param_1)
   if (cVar3 != '\0') {
     if (*(char *)((long)param_1 + 0x1067) == '\x02') {
       uVar5 = FUN_00a29f8c(param_1);
-      lVar6 = FUN_0096bbc0(uVar5);
+      lVar6 = BSim_QPoint__y(uVar5);
     }
     else {
       uVar5 = doc_instance_get(param_1[0x207]);
-      lVar6 = FUN_0096bbc0(uVar5);
+      lVar6 = BSim_QPoint__y(uVar5);
     }
     runstyles_runnode_init(&local_58,lVar6,0,0);
                     /* try { // try from 00a5049c to 00a504a0 has its CatchHandler @ 00a50826 */
@@ -28926,14 +29292,16 @@ void s_text_default_a50430(long *param_1)
         local_e8 = local_70;
         local_f0 = local_60;
       }
-      iVar4 = FUN_0095508a();
+      iVar4 = BSim_QCoreApplication__instance();
       if (param_1[5] != 0) {
         auVar10 = (**(code **)(*param_1 + 0x80))(param_1);
         local_c8._8_8_ = auVar10._8_8_ + (double)local_c8._8_8_;
         local_c8._0_8_ = auVar10._0_8_ + (double)local_c8._0_8_;
       }
       lVar6 = param_1[0x248];
-      local_b8 = (undefined **)FUN_009447ae(plVar1,local_c8);
+      local_b8 = (undefined **)
+                 BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (plVar1,local_c8);
       FUN_009550ea(&local_58,lVar6,(string *)&local_b8);
       dVar8 = local_40 - local_50;
       iVar7 = (int)(local_48 - local_58);
@@ -28943,7 +29311,8 @@ void s_text_default_a50430(long *param_1)
       if (*(int *)((long)param_1 + 0x123c) != 0) {
         std::string::string((string *)&local_b8,"text.default",&local_c9);
                     /* try { // try from 00a50637 to 00a50643 has its CatchHandler @ 00a50816 */
-        uVar5 = FUN_0095021a(param_1 + 8,(string *)&local_b8);
+        uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1 + 8,(string *)&local_b8);
         dVar9 = (double)FUN_0094a8a2(uVar5);
         if ((undefined8 *)((long)local_b8 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
           LOCK();
@@ -29044,11 +29413,12 @@ void s_calltip_text_a50850(double param_1,double param_2,long *param_3,undefined
   bVar5 = FUN_00a2b07a(param_3);
   std::string::string((string *)&local_58,"calltip.text",&local_79);
                     /* try { // try from 00a50901 to 00a50967 has its CatchHandler @ 00a50b12 */
-  uVar8 = FUN_0095021a(param_3 + 8,(string *)&local_58);
+  uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3 + 8,(string *)&local_58);
   uVar8 = deref_first(uVar8);
   uVar2 = *(undefined4 *)((long)param_3 + 0xd04);
   uVar9 = doc_instance_get(param_3[0x207]);
-  uVar6 = FUN_0096bbc0(uVar9);
+  uVar6 = BSim_QPoint__y(uVar9);
   FUN_00a7510c(local_a8,local_a0,local_78,param_3 + 0x229,uVar6,uVar2,param_4,uVar8,
                CONCAT44(uVar11,(uint)bVar5),CONCAT44(uVar12,(int)lVar3),param_3 + 1);
   if ((undefined8 *)(local_58 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -29101,7 +29471,8 @@ void s_text_default_a50b1a(long param_1,undefined8 param_2)
   if (lVar3 != 0) {
     std::string::string((string *)&local_20,"text.default",&local_21);
                     /* try { // try from 00a50b6e to 00a50b85 has its CatchHandler @ 00a50be9 */
-    uVar5 = FUN_0095021a(param_1 + 0x40,(string *)&local_20);
+    uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1 + 0x40,(string *)&local_20);
     uVar5 = deref_first(uVar5);
     FUN_0095556e(lVar3,uVar5);
     if ((undefined8 *)(local_20 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -29114,7 +29485,7 @@ void s_text_default_a50b1a(long param_1,undefined8 param_2)
         operator_delete((undefined8 *)(local_20 + -0x18));
       }
     }
-    uVar4 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+    uVar4 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
     FUN_00a2913a(param_1,uVar4);
     FUN_00a50836(param_1);
   }
@@ -29381,7 +29752,7 @@ LAB_00a51042:
     if (lVar21 != 0) {
       do {
         uVar12 = scintilla_get_text_range(param_1[0x207],lVar22,0);
-        lVar15 = FUN_0096bfe0(uVar12);
+        lVar15 = BSim_QMouseEvent__globalPos(uVar12);
         runstyles_runnode_init((QVariant *)&local_58,lVar15 - (lVar9 - lVar10),0,0);
                     /* try { // try from 00a51325 to 00a51329 has its CatchHandler @ 00a51719 */
         puVar14 = (undefined8 *)FUN_0096bfce(uVar12);
@@ -29390,7 +29761,7 @@ LAB_00a51042:
         puVar14[2] = local_48;
         BSim_QList_int___node_destruct((QVariant *)&local_58);
                     /* try { // try from 00a51358 to 00a51375 has its CatchHandler @ 00a51778 */
-        lVar15 = FUN_0096bfe0(uVar12);
+        lVar15 = BSim_QMouseEvent__globalPos(uVar12);
         runstyles_runnode_init((QVariant *)&local_58,(local_a8 - lVar9) + lVar15,0);
                     /* try { // try from 00a51379 to 00a5137d has its CatchHandler @ 00a51701 */
         puVar14 = (undefined8 *)FUN_0096bfc8(uVar12);
@@ -29483,7 +29854,7 @@ LAB_00a510f4:
       if (lVar10 != 0) {
         do {
           uVar12 = scintilla_get_text_range(param_1[0x207],lVar22,0);
-          lVar13 = FUN_0096bfe0(uVar12);
+          lVar13 = BSim_QMouseEvent__globalPos(uVar12);
           runstyles_runnode_init((QVariant *)&local_58,lVar13 - (lVar9 - lVar15),0,0);
                     /* try { // try from 00a51183 to 00a51187 has its CatchHandler @ 00a51750 */
           puVar14 = (undefined8 *)FUN_0096bfce(uVar12);
@@ -29492,7 +29863,7 @@ LAB_00a510f4:
           puVar14[2] = local_48;
           BSim_QList_int___node_destruct((QVariant *)&local_58);
                     /* try { // try from 00a511b6 to 00a511d3 has its CatchHandler @ 00a51721 */
-          lVar13 = FUN_0096bfe0(uVar12);
+          lVar13 = BSim_QMouseEvent__globalPos(uVar12);
           runstyles_runnode_init((QVariant *)&local_58,(local_a8 - lVar9) + lVar13,0);
                     /* try { // try from 00a511d7 to 00a511db has its CatchHandler @ 00a51711 */
           puVar14 = (undefined8 *)FUN_0096bfc8(uVar12);
@@ -29516,7 +29887,7 @@ LAB_00a510f4:
         lVar21 = 0;
         do {
           uVar12 = scintilla_get_text_range(param_1[0x207],lVar21,0);
-          lVar22 = FUN_0096bfe0(uVar12);
+          lVar22 = BSim_QMouseEvent__globalPos(uVar12);
           runstyles_runnode_init((QVariant *)&local_58,(local_a8 - lVar9) + lVar22,0,0);
                     /* try { // try from 00a514b5 to 00a514b9 has its CatchHandler @ 00a51731 */
           puVar14 = (undefined8 *)FUN_0096bfce(uVar12);
@@ -29863,7 +30234,7 @@ LAB_00a51ebf:
         case '\x18':
           FUN_00a1fda6(local_58,param_2,0xffffffff);
                     /* try { // try from 00a51fcb to 00a51fcf has its CatchHandler @ 00a52038 */
-          lVar4 = FUN_0096bbc0(local_58);
+          lVar4 = BSim_QPoint__y(local_58);
           BSim_QList_int___node_destruct(local_58);
           if (cVar1 == '\n') {
             lVar5 = FUN_00925236(*(undefined8 *)(param_2 + 0x1098));
@@ -29902,7 +30273,7 @@ LAB_00a51ece:
     if ((param_3 != 0x916) && (param_3 != 0x928)) goto LAB_00a51e15;
 LAB_00a51ed6:
     uVar2 = doc_instance_get(*(undefined8 *)(param_2 + 0x1038));
-    lVar3 = FUN_0096bbc0(uVar2);
+    lVar3 = BSim_QPoint__y(uVar2);
     if (*(long *)(param_2 + 0x11f0) < lVar3) goto LAB_00a51e15;
   }
   else {
@@ -30048,7 +30419,7 @@ props_getValueById(QVariant *param_1,long param_2,uint param_3,bool *param_4,boo
               iVar3 = 0;
             }
             else {
-              iVar3 = FUN_00955094();
+              iVar3 = BSim_QPoint__y();
             }
 LAB_00a521df:
             QVariant::QVariant(param_1,iVar3);
@@ -30204,9 +30575,12 @@ LAB_00a52561:
 }
 
 
-// ==== entry=00a52590 name=FUN_00a52590 size=40 ====
+// ==== entry=00a52590 orig=FUN_00a52590 size=40 name=BSim_boost::system::error_condition::error_condition ====
 
-void FUN_00a52590(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=0.7674887516075607 sig=5.979246906688096
+   ref=libwindtermopen2.so.1.0.0::boost::system::error_condition::error_condition */
+
+void BSim_boost__system__error_condition__error_condition(undefined8 *param_1,undefined8 param_2)
 
 {
   *param_1 = param_2;
@@ -30311,7 +30685,8 @@ undefined1  [16] FUN_00a526ac(undefined8 param_1,double param_2,long *param_3)
   
   FUN_00a29014(local_68,*param_3);
                     /* try { // try from 00a526d1 to 00a527d7 has its CatchHandler @ 00a527fd */
-  lVar3 = FUN_00a1fb9e(*param_3,local_68);
+  lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*param_3,local_68);
   local_80 = (double)FUN_00a225be(*param_3,local_68);
   local_78 = param_2;
   if (*(int *)(param_3[1] + 4) == 0) {
@@ -30326,7 +30701,8 @@ undefined1  [16] FUN_00a526ac(undefined8 param_1,double param_2,long *param_3)
       lVar5 = FUN_00a224f0(lVar5);
       local_80 = (double)(iVar1 - lVar5) + local_80;
       lVar4 = *(long *)(lVar4 + 8);
-      lVar6 = FUN_00a20580(*param_3);
+      lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*param_3);
       lVar5 = *param_3;
       local_78 = (double)(((lVar3 + lVar4) - lVar6) * (long)*(int *)(lVar5 + 0xd04));
     }
@@ -30369,7 +30745,8 @@ void FUN_00a52806(long *param_1)
   if (*(int *)(param_1[1] + 4) != 0) {
     FUN_00a29014(auStack_78,*param_1);
                     /* try { // try from 00a52852 to 00a528ba has its CatchHandler @ 00a5295a */
-    lVar1 = FUN_00a1fb9e(*param_1,auStack_78);
+    lVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*param_1,auStack_78);
     lVar2 = editor_textLength(*(undefined8 *)(*param_1 + 0x10a0));
     lVar3 = FUN_00a525e2(param_1);
     lVar4 = *(long *)(lVar3 + 8) + lVar1;
@@ -30437,7 +30814,8 @@ void FUN_00a52974(long *param_1)
     if (dVar1 <= (local_28 - local_38[0]) + (double)lVar3) {
       FUN_00a29014(local_58,*param_1);
                     /* try { // try from 00a52a1e to 00a52a61 has its CatchHandler @ 00a52a64 */
-      lVar3 = FUN_00a1fb9e(*param_1,local_58);
+      lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*param_1,local_58);
       lVar3 = lVar3 + *(long *)(lVar2 + 8);
       lVar2 = editor_textLength(*(undefined8 *)(*param_1 + 0x10a0));
       if (lVar3 < lVar2) {
@@ -30508,7 +30886,8 @@ undefined8 FUN_00a52aa8(long *param_1,long *param_2)
   QFont *pQVar3;
   QFontMetricsF local_20 [16];
   
-  uVar2 = FUN_009502ae(*param_1 + 0x40);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*param_1 + 0x40);
   lVar1 = *param_2;
   if (*(int *)(lVar1 + 4) != 1) {
     pQVar3 = (QFont *)deref_first(uVar2);
@@ -30582,7 +30961,8 @@ void FUN_00a52b28(long *param_1)
   }
   FUN_00a29014(local_78,*param_1);
                     /* try { // try from 00a52c66 to 00a52cd5 has its CatchHandler @ 00a52da7 */
-  lVar7 = FUN_00a1fb9e(*param_1,local_78);
+  lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*param_1,local_78);
   lVar6 = editor_textLength(*(undefined8 *)(*param_1 + 0x10a0));
   puVar4 = (uint *)param_1[1];
   if (1 < *puVar4) {
@@ -31349,12 +31729,12 @@ undefined8 * FUN_00a53c04(undefined8 *param_1,long *param_2,undefined8 *param_3,
   if (*(char *)(*param_2 + 0x1128) == '\0') {
     iVar2 = qstrdata_length_get(param_3);
     if (iVar2 < 1) {
-      lVar3 = FUN_0096bbc0(param_3);
+      lVar3 = BSim_QPoint__y(param_3);
       if (0 < lVar3) {
         lVar3 = FUN_009587cc(param_2[2],param_3);
         lVar4 = FUN_00958498(param_2[2],lVar3);
         FUN_0096bc44(param_3,0xffffffffffffffff,1);
-        lVar5 = FUN_0096bbc0(param_3);
+        lVar5 = BSim_QPoint__y(param_3);
         if ((lVar4 == lVar5) && (0 < lVar3)) {
           cVar1 = FUN_00958078(param_2[2],lVar3 + -1);
           if (cVar1 != '\0') {
@@ -31372,7 +31752,7 @@ undefined8 * FUN_00a53c04(undefined8 *param_1,long *param_2,undefined8 *param_3,
   else {
     iVar2 = qstrdata_length_get(param_3);
     if (iVar2 < 1) {
-      lVar3 = FUN_0096bbc0(param_3);
+      lVar3 = BSim_QPoint__y(param_3);
       if (0 < lVar3) {
         FUN_0096bc44(param_3,0xffffffffffffffff,1);
         doc_length_set(param_3,*(int *)(*param_2 + 0x1124) + -1,1);
@@ -31406,10 +31786,10 @@ undefined8 * FUN_00a53d50(undefined8 *param_1,long *param_2,undefined8 *param_3,
       if (iVar2 < 1) {
         uVar3 = FUN_009587cc(param_2[2],param_3);
         lVar4 = editor_lineEndIdx(param_2[2],uVar3);
-        lVar5 = FUN_0096bbc0(param_3);
+        lVar5 = BSim_QPoint__y(param_3);
         if (lVar4 != lVar5) {
           FUN_0096bc44(param_3,1,1);
-          lVar5 = FUN_0096bbc0(param_3);
+          lVar5 = BSim_QPoint__y(param_3);
           if ((lVar4 == lVar5) && (cVar1 = FUN_00958078(param_2[2],uVar3), cVar1 != '\0')) {
             FUN_0096bc28(param_3,1);
           }
@@ -31444,7 +31824,7 @@ undefined8 * FUN_00a53e68(undefined8 *param_1,long param_2,undefined8 *param_3,c
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_0092b076(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   FUN_0096bbc6(param_3,uVar2,1);
   doc_length_set(param_3,0,1);
@@ -31464,7 +31844,7 @@ undefined8 * FUN_00a53ee0(undefined8 *param_1,long param_2,undefined8 *param_3,c
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_0092b080(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   FUN_0096bbc6(param_3,uVar2,1);
   doc_length_set(param_3,0,1);
@@ -31484,7 +31864,7 @@ undefined8 * FUN_00a53f58(undefined8 *param_1,long param_2,undefined8 *param_3,c
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_0092b088(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   FUN_0096bbc6(param_3,uVar2,1);
   doc_length_set(param_3,0,1);
@@ -31504,7 +31884,7 @@ undefined8 * FUN_00a53fd0(undefined8 *param_1,long param_2,undefined8 *param_3,c
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_009283f2(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   FUN_0096bbc6(param_3,uVar2,1);
   doc_length_set(param_3,0,1);
@@ -31524,7 +31904,7 @@ undefined8 * FUN_00a54048(undefined8 *param_1,long param_2,undefined8 *param_3,c
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_009283fa(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   FUN_0096bbc6(param_3,uVar2,1);
   doc_length_set(param_3,0,1);
@@ -31594,7 +31974,7 @@ undefined8 FUN_00a5419e(undefined8 param_1,long param_2,undefined8 param_3)
          )) {
     lVar5 = FUN_009252f4(*(undefined8 *)(param_2 + 8),lVar5 + 1,1,1);
   }
-  lVar4 = FUN_0096bbc0(param_3);
+  lVar4 = BSim_QPoint__y(param_3);
   if (lVar4 != lVar5) {
     lVar3 = lVar5;
   }
@@ -31686,7 +32066,7 @@ undefined8 FUN_00a543ca(undefined8 param_1,long param_2,undefined8 param_3,char 
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_0092964a(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   runstyles_runnode_init(param_1,uVar2,0,0);
   return param_1;
@@ -31714,10 +32094,12 @@ FUN_00a5440a(undefined8 *param_1,undefined8 *param_2,undefined8 *param_3,long pa
   
   lVar1 = FUN_009587cc(param_2[2],param_3);
   uVar5 = FUN_00a202fa(*param_2,param_3);
-  lVar2 = FUN_00a20580(*param_2);
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*param_2);
   uVar4 = *param_2;
   if ((lVar2 < lVar1) && (param_4 < 0)) {
-    uVar3 = FUN_00a20580(uVar4);
+    uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar4);
   }
   else {
     lVar2 = FUN_00a20604(uVar4,0);
@@ -31759,7 +32141,7 @@ undefined8 FUN_00a54596(undefined8 param_1,long param_2,undefined8 param_3,char 
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_00929820(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   runstyles_runnode_init(param_1,uVar2,0,0);
   return param_1;
@@ -31795,11 +32177,13 @@ FUN_00a545d6(undefined8 *param_1,long param_2,undefined8 *param_3,char param_4,u
     lVar7 = 1;
     iVar6 = 1;
   }
-  lVar3 = FUN_00925570(*(undefined8 *)(param_2 + 8));
+  lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 8));
   lVar3 = lVar3 + -1;
   uVar1 = *(undefined8 *)(param_2 + 8);
-  uVar4 = FUN_0096bbc0(param_3);
-  lVar5 = FUN_0092522a(uVar1,uVar4);
+  uVar4 = BSim_QPoint__y(param_3);
+  lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar1,uVar4);
   lVar8 = lVar5 + lVar7;
   if (lVar3 < lVar5 + lVar7) {
     lVar8 = lVar3;
@@ -31816,10 +32200,12 @@ LAB_00a54675:
       lVar7 = FUN_009587cc(*(undefined8 *)(param_2 + 0x10),param_3);
       uVar1 = *(undefined8 *)(param_2 + 0x10);
       if (param_4 == '\0') {
-        uVar4 = FUN_00925200(*(undefined8 *)(param_2 + 8),lVar8);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_2 + 8),lVar8);
       }
       else {
-        uVar4 = FUN_0092520c();
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          ();
       }
       runstyles_runnode_init(&local_58,uVar4,0,0);
                     /* try { // try from 00a546b9 to 00a546bd has its CatchHandler @ 00a54781 */
@@ -31858,7 +32244,7 @@ undefined8 FUN_00a5478a(undefined8 param_1,long param_2,undefined8 param_3,char 
   
   uVar3 = *(undefined8 *)(param_2 + 8);
   if (param_4 == '\0') {
-    uVar1 = FUN_0096bbc0(param_3);
+    uVar1 = BSim_QPoint__y(param_3);
     lVar2 = FUN_00925256(uVar3,uVar1);
     lVar2 = lVar2 + -1;
     if (lVar2 < 0) {
@@ -31868,7 +32254,7 @@ undefined8 FUN_00a5478a(undefined8 param_1,long param_2,undefined8 param_3,char 
     uVar1 = 0xffffffff;
   }
   else {
-    uVar1 = FUN_0096bbc0(param_3);
+    uVar1 = BSim_QPoint__y(param_3);
     lVar2 = FUN_00925236(uVar3,uVar1);
     uVar3 = *(undefined8 *)(param_2 + 8);
     uVar1 = 1;
@@ -31949,7 +32335,7 @@ LAB_00a54876:
       lVar6 = FUN_0092934c(*(undefined8 *)(param_2 + 8),*puVar11,puVar11[1],1);
       lVar5 = lVar12;
       if (param_4 == '\0') {
-        lVar7 = FUN_0096bbc0(param_3);
+        lVar7 = BSim_QPoint__y(param_3);
         if ((lVar6 < lVar7) && (lVar5 = lVar6, lVar12 != -1)) {
           if (lVar12 < lVar6) {
             lVar12 = lVar6;
@@ -31960,7 +32346,7 @@ LAB_00a54876:
         }
       }
       else {
-        lVar7 = FUN_0096bbc0(param_3);
+        lVar7 = BSim_QPoint__y(param_3);
         if (((lVar7 < lVar6) && (lVar5 = lVar6, lVar12 != -1)) && (lVar5 = lVar12, lVar6 < lVar12))
         {
           lVar5 = lVar6;
@@ -32006,7 +32392,7 @@ undefined8 FUN_00a54a70(undefined8 param_1,long param_2,undefined8 param_3,char 
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_00929928(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   runstyles_runnode_init(param_1,uVar2,0,0);
   return param_1;
@@ -32026,7 +32412,7 @@ undefined8 * FUN_00a54ab0(undefined8 *param_1,long param_2,undefined8 *param_3,u
   undefined8 local_38;
   
   uVar1 = *(undefined8 *)(param_2 + 8);
-  uVar2 = FUN_0096bbc0(param_3);
+  uVar2 = BSim_QPoint__y(param_3);
   FUN_00926d40(local_68,uVar1,uVar2,param_4);
   if (local_68[0] != -1) {
     runstyles_runnode_init(&local_48,local_68[0],0,0);
@@ -32051,7 +32437,7 @@ undefined8 FUN_00a54b44(undefined8 param_1,long param_2,undefined8 param_3,char 
   undefined8 uVar2;
   
   uVar2 = *(undefined8 *)(param_2 + 8);
-  uVar1 = FUN_0096bbc0(param_3);
+  uVar1 = BSim_QPoint__y(param_3);
   uVar2 = FUN_00930dc2(uVar2,uVar1,-(uint)(param_4 == '\0') | 1);
   runstyles_runnode_init(param_1,uVar2,0,0);
   return param_1;
@@ -32115,9 +32501,11 @@ LAB_00a54d00:
       goto LAB_00a54c55;
     }
     if ((lVar6 == lVar7) && (0 < lVar6)) {
-      uVar3 = FUN_00927828(uVar8,lVar6);
+      uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar8,lVar6);
       if ((uVar3 & 0xfffffffb) == 8) goto LAB_00a54cc5;
-      iVar4 = FUN_00927828(*(undefined8 *)(param_2 + 8),lVar6 + -1);
+      iVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_2 + 8),lVar6 + -1);
       uVar8 = *(undefined8 *)(param_2 + 8);
       if (iVar4 != 0) goto LAB_00a54d00;
     }
@@ -32150,12 +32538,16 @@ undefined8 FUN_00a54d28(undefined8 param_1,long param_2,undefined8 param_3,char 
   if (param_4 == '\0') {
     uVar4 = *(undefined8 *)(param_2 + 8);
     uVar1 = BSim_Splitter__createHandle(param_3);
-    uVar1 = FUN_0092522a(uVar4,uVar1);
+    uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar4,uVar1);
     uVar4 = *(undefined8 *)(param_2 + 8);
     uVar2 = BSim_Splitter__createHandle(param_3);
-    lVar3 = FUN_0092522a(uVar4,uVar2);
-    uVar4 = FUN_00925200(*(undefined8 *)(param_2 + 8),uVar1);
-    uVar1 = FUN_00925200(*(undefined8 *)(param_2 + 8),lVar3 + 1);
+    lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar4,uVar2);
+    uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_2 + 8),uVar1);
+    uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_2 + 8),lVar3 + 1);
   }
   else {
     uVar4 = *(undefined8 *)(param_2 + 0x10);
@@ -32192,13 +32584,15 @@ undefined8 FUN_00a54e56(undefined8 param_1,long param_2,undefined8 param_3)
   
   uVar2 = BSim_Splitter__createHandle(param_3);
   uVar3 = BSim_Splitter__createHandle(param_3);
-  uVar4 = FUN_0092522a(*(undefined8 *)(param_2 + 8),uVar2);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 8),uVar2);
   cVar1 = FUN_009297c0(*(undefined8 *)(param_2 + 8),uVar4,0xffffffff);
   if (cVar1 == '\0') {
     uVar2 = FUN_00929820(*(undefined8 *)(param_2 + 8),uVar2,0xffffffff);
   }
   else {
-    uVar2 = FUN_00925200(*(undefined8 *)(param_2 + 8),uVar4);
+    uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_2 + 8),uVar4);
   }
   uVar3 = FUN_00929820(*(undefined8 *)(param_2 + 8),uVar3,1);
   runstyles_runnode_init(local_48,uVar3,0,0);
@@ -32275,10 +32669,12 @@ undefined8 FUN_00a55046(undefined8 param_1,long param_2,undefined8 param_3)
   
   uVar7 = *(undefined8 *)(param_2 + 8);
   uVar4 = BSim_Splitter__createHandle(param_3);
-  lVar5 = FUN_0092522a(uVar7,uVar4);
+  lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar7,uVar4);
   uVar7 = *(undefined8 *)(param_2 + 8);
   uVar4 = BSim_Splitter__createHandle(param_3);
-  lVar6 = FUN_0092522a(uVar7,uVar4);
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar7,uVar4);
   cVar1 = doc_range_pair_set(*(undefined8 *)(param_2 + 8),lVar6);
   if (cVar1 == '\0') {
     iVar2 = indent_column_at(*(undefined8 *)(param_2 + 8),lVar6);
@@ -32299,7 +32695,8 @@ LAB_00a550ca:
     iVar9 = iVar3;
   }
 LAB_00a550dd:
-  FUN_00925570(*(undefined8 *)(param_2 + 8));
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (*(undefined8 *)(param_2 + 8));
   iVar2 = (int)lVar5;
   lVar8 = lVar5;
   if (0 < lVar5) {
@@ -32314,7 +32711,8 @@ LAB_00a550dd:
     } while (lVar5 != 0);
   }
   lVar8 = (long)iVar2;
-  lVar5 = FUN_00925570(*(undefined8 *)(param_2 + 8));
+  lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 8));
   if (lVar6 < lVar5) {
     do {
       lVar10 = lVar6;
@@ -32337,10 +32735,12 @@ LAB_00a55176:
   if (iVar2 < iVar9) {
     lVar8 = lVar8 + 1;
   }
-  uVar7 = FUN_00925200(*(undefined8 *)(param_2 + 8),(long)(int)lVar6);
+  uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 8),(long)(int)lVar6);
   runstyles_runnode_init(local_58,uVar7,0,0);
                     /* try { // try from 00a551c5 to 00a551dd has its CatchHandler @ 00a5525c */
-  uVar7 = FUN_00925200(*(undefined8 *)(param_2 + 8),lVar8);
+  uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 8),lVar8);
   runstyles_runnode_init(local_78,uVar7,0,0);
                     /* try { // try from 00a551ee to 00a551f2 has its CatchHandler @ 00a55254 */
   FUN_0096be24(param_1,local_78,local_58,1);
@@ -32411,7 +32811,8 @@ void FUN_00a553a6(undefined8 *param_1,char param_2,long param_3)
     return;
   }
   iVar1 = visible_line_count(*param_1,0);
-  FUN_00a224d8(*param_1,iVar1 * param_3 + -1 + (ulong)(0 < param_3) * 2);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (*param_1,iVar1 * param_3 + -1 + (ulong)(0 < param_3) * 2);
   return;
 }
 
@@ -32435,7 +32836,7 @@ bool FUN_00a553e4(long *param_1,char param_2,char param_3,undefined8 param_4)
     if ((*(char *)(*param_1 + 0x1128) != '\0') &&
        (iVar2 = qstrdata_length_get(param_4), iVar2 == *(int *)(*param_1 + 0x1124) + -1)) {
       uVar3 = FUN_009587cc(param_1[2],param_4);
-      lVar4 = FUN_0096bbc0(param_4);
+      lVar4 = BSim_QPoint__y(param_4);
       lVar5 = editor_lineEndIdx(param_1[2],uVar3);
       return lVar4 + 1 == lVar5;
     }
@@ -32489,7 +32890,7 @@ undefined8 * FUN_00a554d2(undefined8 *param_1,long param_2,undefined8 *param_3,c
   FUN_00a10c7a(local_58);
   uVar2 = *(undefined8 *)(param_2 + 8);
                     /* try { // try from 00a5550b to 00a556ab has its CatchHandler @ 00a557a8 */
-  uVar4 = FUN_0096bbc0(param_3);
+  uVar4 = BSim_QPoint__y(param_3);
   FUN_00926d26(uVar2,uVar4,local_58);
   lVar7 = (long)local_48 - (long)local_50 >> 3;
   uVar1 = lVar7 * 0xaaaaaaab + (lVar7 * 0x55555555 << 0x21);
@@ -32508,7 +32909,7 @@ LAB_00a556d6:
   do {
     uVar10 = uVar3;
     lVar7 = local_50[uVar10 * 3];
-    lVar5 = FUN_0096bbc0(param_3);
+    lVar5 = BSim_QPoint__y(param_3);
     if (lVar5 < lVar7) break;
     uVar3 = uVar10 + 1;
     uVar8 = uVar10;
@@ -32547,11 +32948,11 @@ LAB_00a55640:
       do {
         lVar7 = local_50[uVar8 * 3];
         if (param_4 == '\0') {
-          lVar5 = FUN_0096bbc0(param_3);
+          lVar5 = BSim_QPoint__y(param_3);
           if (lVar7 < lVar5) goto LAB_00a55692;
         }
         else {
-          lVar5 = FUN_0096bbc0(param_3);
+          lVar5 = BSim_QPoint__y(param_3);
           if (lVar5 < lVar7) {
 LAB_00a55692:
             puVar6 = local_50 + uVar8 * 3;
@@ -33152,8 +33553,8 @@ LAB_00a565cd:
             else {
                     /* try { // try from 00a5684e to 00a568e7 has its CatchHandler @ 00a56a55 */
               FUN_00a20358(*param_1,uVar10);
-              dVar20 = (double)FUN_0096c008(uVar10);
-              local_f0 = (double)FUN_0096c012(uVar10);
+              dVar20 = (double)BSim_QMouseEvent__globalPos(uVar10);
+              local_f0 = (double)BSim_QMouseEvent__globalPos(uVar10);
               if (param_3 < 1) {
                 if (dVar20 <= local_f0) {
                   local_f0 = dVar20;
@@ -33179,10 +33580,12 @@ LAB_00a565cd:
             if (param_2 != '\x0e') goto LAB_00a565cd;
 LAB_00a566e2:
             uVar14 = param_1[1];
-            uVar13 = FUN_0096bfe0(uVar10);
-            uVar14 = FUN_0092522a(uVar14,uVar13);
-            lVar15 = FUN_0092520c(param_1[1],uVar14);
-            lVar16 = FUN_0096bfe0(uVar10);
+            uVar13 = BSim_QMouseEvent__globalPos(uVar10);
+            uVar14 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (uVar14,uVar13);
+            lVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_1[1],uVar14);
+            lVar16 = BSim_QMouseEvent__globalPos(uVar10);
             if (lVar16 < lVar15) {
               do {
                 cVar5 = FUN_0092792e(param_1[1],lVar16);
@@ -33324,12 +33727,12 @@ void FUN_00a56a5e(long *param_1,char param_2,char param_3,long param_4)
             cVar7 = FUN_00a553e4(param_1,(int)param_3,0 < param_4,uVar12);
             if (cVar7 != '\0') goto LAB_00a56b31;
           }
-          lVar13 = FUN_0096bfe0(uVar11);
+          lVar13 = BSim_QMouseEvent__globalPos(uVar11);
           if ((byte)(param_3 - 0x13U) < 3) {
             FUN_00a10c7a(&local_58);
             lVar16 = param_1[1];
                     /* try { // try from 00a56dc8 to 00a56e54 has its CatchHandler @ 00a57185 */
-            uVar12 = FUN_0096bfe0(uVar11);
+            uVar12 = BSim_QMouseEvent__globalPos(uVar11);
             FUN_00926d26(lVar16,uVar12,&local_58);
             puVar14 = local_48;
             local_128 = local_48;
@@ -33338,7 +33741,7 @@ void FUN_00a56a5e(long *param_1,char param_2,char param_3,long param_4)
               do {
                 while ((uVar4 = *(undefined4 *)(puVar17 + 2),
                        ((byte)((uint)uVar4 >> 0x10) & 0xe0) == 0x80 ||
-                       (lVar16 = FUN_0096bfe0(uVar11), puVar17[1] != lVar16))) {
+                       (lVar16 = BSim_QMouseEvent__globalPos(uVar11), puVar17[1] != lVar16))) {
 LAB_00a56df9:
                   puVar17 = puVar17 + 3;
                   if (puVar14 == puVar17) goto LAB_00a56e96;
@@ -33388,7 +33791,7 @@ LAB_00a56e96:
           }
           if ((byte)(param_3 - 0x13U) < 3) {
             lVar16 = param_1[1];
-            uVar12 = FUN_0096bfe0(uVar11);
+            uVar12 = BSim_QMouseEvent__globalPos(uVar11);
             FUN_00926d68(local_b8,lVar16,uVar12);
             lVar16 = local_b0;
             bVar9 = (byte)((uint)local_a8 >> 0x10) & 0xe0;
@@ -33397,7 +33800,7 @@ LAB_00a56e96:
             FUN_00a10c7a(&local_58);
             lVar5 = param_1[1];
                     /* try { // try from 00a56cf2 to 00a56d06 has its CatchHandler @ 00a571a5 */
-            uVar12 = FUN_0096bfe0(uVar11);
+            uVar12 = BSim_QMouseEvent__globalPos(uVar11);
             FUN_00926d26(lVar5,uVar12,&local_58);
             puVar17 = local_48;
             for (puVar14 = local_50; puVar14 != puVar17; puVar14 = puVar14 + 3) {
@@ -33457,7 +33860,7 @@ LAB_00a57058:
             if (param_3 == '\x13') {
               if (param_4 < 1) {
                     /* try { // try from 00a57088 to 00a570ac has its CatchHandler @ 00a571a5 */
-                lVar16 = FUN_0096bfe0(uVar11);
+                lVar16 = BSim_QMouseEvent__globalPos(uVar11);
                 if (lVar16 < lVar13) {
                   lVar13 = lVar16;
                 }
@@ -33467,7 +33870,7 @@ LAB_00a57058:
               }
               else {
                     /* try { // try from 00a56f85 to 00a56fa9 has its CatchHandler @ 00a571a5 */
-                lVar16 = FUN_0096bfe0(uVar11);
+                lVar16 = BSim_QMouseEvent__globalPos(uVar11);
                 if (lVar13 < lVar16) {
                   lVar13 = lVar16;
                 }
@@ -34736,8 +35139,10 @@ LAB_00a596a2:
                     /* try { // try from 00a5955b to 00a5955f has its CatchHandler @ 00a5a485 */
   QRegularExpressionMatch::captured((int)(QString *)&local_98);
                     /* try { // try from 00a59567 to 00a59579 has its CatchHandler @ 00a5a47d */
-  lVar5 = FUN_0092522a(param_1[1],param_2);
-  lVar6 = FUN_00925570(param_1[1]);
+  lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1[1],param_2);
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1[1]);
   iVar3 = *(int *)(local_98 + 4);
   if ((iVar3 != 0) && (((uVar1 & 0xffdf) == 0x46 || ((uVar1 & 0xffdf) == 0x54)))) {
                     /* try { // try from 00a5963e to 00a59642 has its CatchHandler @ 00a5a45d */
@@ -34768,7 +35173,8 @@ LAB_00a596a2:
       goto switchD_00a59682_caseD_45;
     case 0x46:
                     /* try { // try from 00a59ec1 to 00a59f01 has its CatchHandler @ 00a5a601 */
-      uVar8 = FUN_00925200(param_1[1],lVar5);
+      uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[1],lVar5);
       uVar9 = FUN_009252f4(param_1[1],param_2 + -1,0xffffffff,1);
       select_range_expand(&local_90,*param_1,plVar7,uVar9,uVar8,uVar10 & 0xffffffff);
       if (local_90[3] != local_90[2]) {
@@ -34820,7 +35226,8 @@ LAB_00a5a2f6:
       goto switchD_00a59682_caseD_4d;
     case 0x54:
       if (plVar7 == (long *)0x0) goto switchD_00a595c2_caseD_46;
-      uVar8 = FUN_00925200(param_1[1],lVar5);
+      uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[1],lVar5);
       uVar9 = FUN_009252f4(param_1[1],param_2,0xffffffff,1);
       select_range_expand(&local_90,*param_1,plVar7,uVar9,uVar8,uVar10 & 0xffffffff);
       if (local_90[3] == local_90[2]) break;
@@ -34871,7 +35278,8 @@ LAB_00a5a3ca:
       goto switchD_00a59682_caseD_65;
     case 0x66:
                     /* try { // try from 00a59fd6 to 00a5a016 has its CatchHandler @ 00a5a601 */
-      uVar8 = FUN_0092520c(param_1[1],lVar5);
+      uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[1],lVar5);
       uVar9 = FUN_009252f4(param_1[1],param_2 + 1,1,1);
       select_range_expand(&local_90,*param_1,plVar7,uVar9,uVar8,uVar10 & 0xffffffff);
       if (local_90[3] != local_90[2]) {
@@ -34912,7 +35320,8 @@ LAB_00a5a3ca:
       goto switchD_00a59682_caseD_6c;
     case 0x74:
                     /* try { // try from 00a5a0b5 to 00a5a0f5 has its CatchHandler @ 00a5a601 */
-      uVar8 = FUN_0092520c(param_1[1],lVar5);
+      uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[1],lVar5);
       uVar9 = FUN_009252f4(param_1[1],param_2 + 1,1,1);
       select_range_expand(&local_90,*param_1,plVar7,uVar9,uVar8,uVar10 & 0xffffffff);
       if (local_90[3] != local_90[2]) {
@@ -34974,7 +35383,8 @@ LAB_00a5a355:
     plVar7 = (long *)0x0;
 switchD_00a59682_caseD_24:
                     /* try { // try from 00a595d9 to 00a595dd has its CatchHandler @ 00a5a601 */
-    param_2 = FUN_0092520c(param_1[1],lVar5 + -1 + uVar10);
+    param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[1],lVar5 + -1 + uVar10);
     goto LAB_00a595e1;
   default:
     param_2 = -1;
@@ -34987,7 +35397,7 @@ switchD_00a59682_caseD_28:
                     /* try { // try from 00a59c40 to 00a59c44 has its CatchHandler @ 00a5a4c5 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,0xc,-uVar10,0);
                     /* try { // try from 00a59c48 to 00a59c4c has its CatchHandler @ 00a5a4bd */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x29:
     plVar7 = (long *)0x0;
@@ -34996,7 +35406,7 @@ switchD_00a59682_caseD_29:
                     /* try { // try from 00a59bf7 to 00a59bfb has its CatchHandler @ 00a5a445 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,0xc,uVar10,0);
                     /* try { // try from 00a59bff to 00a59c03 has its CatchHandler @ 00a5a43d */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x2b:
     plVar7 = (long *)0x0;
@@ -35024,7 +35434,8 @@ switchD_00a59682_caseD_2d:
     plVar7 = (long *)0x0;
 switchD_00a59682_caseD_30:
                     /* try { // try from 00a59ca7 to 00a59cd2 has its CatchHandler @ 00a5a601 */
-    param_2 = FUN_00925200(param_1[1],lVar5);
+    param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[1],lVar5);
     goto LAB_00a595e1;
   case 0x42:
     plVar7 = (long *)0x0;
@@ -35034,7 +35445,7 @@ switchD_00a59682_caseD_42:
                     /* try { // try from 00a59c89 to 00a59c8d has its CatchHandler @ 00a5a423 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,6,-uVar10,0);
                     /* try { // try from 00a59c91 to 00a59c95 has its CatchHandler @ 00a5a41b */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x45:
     plVar7 = (long *)0x0;
@@ -35043,7 +35454,7 @@ switchD_00a59682_caseD_45:
                     /* try { // try from 00a59ae3 to 00a59ae7 has its CatchHandler @ 00a5a495 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,5,uVar10,0);
                     /* try { // try from 00a59aeb to 00a59aef has its CatchHandler @ 00a5a48d */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x46:
   case 0x54:
@@ -35079,7 +35490,8 @@ LAB_00a5a2dd:
   case 0x48:
     plVar7 = (long *)0x0;
 switchD_00a59682_caseD_48:
-    lVar6 = FUN_00a20580(*param_1);
+    lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*param_1);
     lVar6 = lVar6 + -1 + uVar10;
     uVar8 = param_1[2];
     lVar5 = editor_textLength(uVar8);
@@ -35095,7 +35507,8 @@ switchD_00a59682_caseD_4c:
                     /* try { // try from 00a59d0e to 00a59dc4 has its CatchHandler @ 00a5a601 */
     lVar5 = FUN_00a20604(*param_1,0);
     lVar5 = lVar5 - (uVar10 - 1);
-    lVar6 = FUN_00a20580(*param_1);
+    lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*param_1);
     if (lVar6 <= lVar5) {
       lVar6 = lVar5;
     }
@@ -35106,7 +35519,8 @@ switchD_00a59682_caseD_4c:
 switchD_00a59682_caseD_4d:
     uVar8 = param_1[2];
                     /* try { // try from 00a59b3d to 00a59be1 has its CatchHandler @ 00a5a601 */
-    lVar6 = FUN_00a20580(*param_1);
+    lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*param_1);
     lVar5 = FUN_00a20604(*param_1,0);
     param_2 = FUN_00958498(uVar8,(lVar5 + lVar6) / 2);
     goto LAB_00a595e1;
@@ -35117,7 +35531,7 @@ switchD_00a59682_caseD_57:
                     /* try { // try from 00a59830 to 00a59834 has its CatchHandler @ 00a5a5e9 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,6,uVar10,0);
                     /* try { // try from 00a59838 to 00a5983c has its CatchHandler @ 00a5a5e1 */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x5e:
     plVar7 = (long *)0x0;
@@ -35132,7 +35546,7 @@ switchD_00a59682_caseD_62:
                     /* try { // try from 00a59ce8 to 00a59cec has its CatchHandler @ 00a5a4a5 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,2,-uVar10,0);
                     /* try { // try from 00a59cf0 to 00a59cf4 has its CatchHandler @ 00a5a49d */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x65:
     plVar7 = (long *)0x0;
@@ -35142,7 +35556,7 @@ switchD_00a59682_caseD_65:
                     /* try { // try from 00a597df to 00a597e3 has its CatchHandler @ 00a5a4d5 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,3,uVar10,0);
                     /* try { // try from 00a597e7 to 00a597eb has its CatchHandler @ 00a5a4cd */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x66:
     goto switchD_00a595c2_caseD_66;
@@ -35157,7 +35571,7 @@ LAB_00a5999c:
                     /* try { // try from 00a599f3 to 00a599f7 has its CatchHandler @ 00a5a4ed */
       FUN_00a557b0((QVariant *)local_58,param_1,&local_78,3,-uVar10,0);
                     /* try { // try from 00a599fb to 00a599ff has its CatchHandler @ 00a5a609 */
-      param_2 = FUN_0096bbc0((QVariant *)local_58);
+      param_2 = BSim_QPoint__y((QVariant *)local_58);
     }
     else {
                     /* try { // try from 00a5a2a9 to 00a5a328 has its CatchHandler @ 00a5a601 */
@@ -35175,7 +35589,7 @@ LAB_00a5999c:
                     /* try { // try from 00a5a33e to 00a5a342 has its CatchHandler @ 00a5a505 */
       FUN_00a557b0((QVariant *)local_58,param_1,&local_78,5,-uVar10,0);
                     /* try { // try from 00a5a346 to 00a5a34a has its CatchHandler @ 00a5a4fd */
-      param_2 = FUN_0096bbc0((QVariant *)local_58);
+      param_2 = BSim_QPoint__y((QVariant *)local_58);
     }
     break;
   case 0x68:
@@ -35186,7 +35600,7 @@ switchD_00a59682_caseD_68:
                     /* try { // try from 00a59987 to 00a5998b has its CatchHandler @ 00a5a5c9 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,1,-uVar10,0);
                     /* try { // try from 00a5998f to 00a59993 has its CatchHandler @ 00a5a5c1 */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x6a:
     plVar7 = (long *)0x0;
@@ -35196,7 +35610,7 @@ switchD_00a59682_caseD_6a:
                     /* try { // try from 00a598b7 to 00a598bb has its CatchHandler @ 00a5a5d9 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,7,uVar10,0);
                     /* try { // try from 00a598bf to 00a598c3 has its CatchHandler @ 00a5a5d1 */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x6b:
     plVar7 = (long *)0x0;
@@ -35206,7 +35620,7 @@ switchD_00a59682_caseD_6b:
                     /* try { // try from 00a59879 to 00a5987d has its CatchHandler @ 00a5a5b9 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,7,-uVar10,0);
                     /* try { // try from 00a59881 to 00a59885 has its CatchHandler @ 00a5a5b1 */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x6c:
     plVar7 = (long *)0x0;
@@ -35216,7 +35630,7 @@ switchD_00a59682_caseD_6c:
                     /* try { // try from 00a5993e to 00a59942 has its CatchHandler @ 00a5a5f9 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,1,uVar10,0);
                     /* try { // try from 00a59946 to 00a5994a has its CatchHandler @ 00a5a5f1 */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x77:
     plVar7 = (long *)0x0;
@@ -35226,7 +35640,7 @@ switchD_00a59682_caseD_77:
                     /* try { // try from 00a59a31 to 00a59a35 has its CatchHandler @ 00a5a4b5 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,2,uVar10,0);
                     /* try { // try from 00a59a39 to 00a59a3d has its CatchHandler @ 00a5a4ad */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x7a:
     plVar7 = (long *)0x0;
@@ -35239,7 +35653,7 @@ LAB_00a59742:
                     /* try { // try from 00a5978e to 00a59792 has its CatchHandler @ 00a5a557 */
       FUN_00a557b0((QVariant *)local_58,param_1,&local_78,0x11,uVar10,0);
                     /* try { // try from 00a59796 to 00a5979a has its CatchHandler @ 00a5a50d */
-      param_2 = FUN_0096bbc0((QVariant *)local_58);
+      param_2 = BSim_QPoint__y((QVariant *)local_58);
     }
     else {
                     /* try { // try from 00a5a238 to 00a5a263 has its CatchHandler @ 00a5a601 */
@@ -35251,7 +35665,7 @@ LAB_00a59742:
                     /* try { // try from 00a5a279 to 00a5a27d has its CatchHandler @ 00a5a619 */
       FUN_00a557b0((QVariant *)local_58,param_1,&local_78,0x11,-uVar10,0);
                     /* try { // try from 00a5a281 to 00a5a285 has its CatchHandler @ 00a5a611 */
-      param_2 = FUN_0096bbc0((QVariant *)local_58);
+      param_2 = BSim_QPoint__y((QVariant *)local_58);
     }
     break;
   case 0x7b:
@@ -35262,7 +35676,7 @@ switchD_00a59682_caseD_7b:
                     /* try { // try from 00a59900 to 00a59904 has its CatchHandler @ 00a5a4e5 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,0xe,-uVar10,0);
                     /* try { // try from 00a59908 to 00a5990c has its CatchHandler @ 00a5a4dd */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
     break;
   case 0x7d:
     plVar7 = (long *)0x0;
@@ -35272,7 +35686,7 @@ switchD_00a59682_caseD_7d:
                     /* try { // try from 00a59b21 to 00a59b25 has its CatchHandler @ 00a5a435 */
     FUN_00a557b0((QVariant *)local_58,param_1,&local_78,0xe,uVar10,0);
                     /* try { // try from 00a59b29 to 00a59b2d has its CatchHandler @ 00a5a42b */
-    param_2 = FUN_0096bbc0((QVariant *)local_58);
+    param_2 = BSim_QPoint__y((QVariant *)local_58);
   }
   BSim_QList_int___node_destruct((QVariant *)local_58);
   BSim_QList_int___node_destruct(&local_78);
@@ -35598,9 +36012,12 @@ void FUN_00a5aa96(long *param_1)
 }
 
 
-// ==== entry=00a5aaf6 name=FUN_00a5aaf6 size=34 ====
+// ==== entry=00a5aaf6 orig=FUN_00a5aaf6 size=34 name=BSim_QMargins::QMargins ====
 
-void FUN_00a5aaf6(undefined8 *param_1)
+/* BSim sim=0.7441522013126105 sig=9.725317308403922
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *param_1 = 0xffffffffffffffff;
@@ -35750,7 +36167,8 @@ undefined8 s_text_controlChar_a5ac50(long param_1)
     uVar1 = *(undefined8 *)(param_1 + 0x10);
     std::string::string((string *)local_20,"text.controlChar",&local_21);
                     /* try { // try from 00a5ac93 to 00a5ac97 has its CatchHandler @ 00a5acec */
-    uVar1 = FUN_0095021a(uVar1,(string *)local_20);
+    uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar1,(string *)local_20);
   }
   else {
     if (*(char *)(param_1 + 0x50) != '\x04') {
@@ -35759,7 +36177,8 @@ undefined8 s_text_controlChar_a5ac50(long param_1)
     uVar1 = *(undefined8 *)(param_1 + 0x10);
     std::string::string((string *)local_20,"text.folded",&local_21);
                     /* try { // try from 00a5acdd to 00a5ace1 has its CatchHandler @ 00a5ace4 */
-    uVar1 = FUN_0095021a(uVar1,(string *)local_20);
+    uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar1,(string *)local_20);
   }
   FUN_00a5aa04(local_20[0] + -0x18);
   return uVar1;
@@ -35792,7 +36211,8 @@ undefined8 s_text_controlChar_a5acf6(long param_1,undefined4 param_2)
   uVar3 = *(undefined8 *)(param_1 + 0x10);
   std::string::string((string *)&local_20,"text.controlChar",&local_21);
                     /* try { // try from 00a5ad34 to 00a5ad43 has its CatchHandler @ 00a5adba */
-  uVar3 = FUN_0095021a(uVar3,(string *)&local_20);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar3,(string *)&local_20);
   uVar3 = charwidth_cache_fill(uVar3,param_2);
   FUN_00a5aa04(local_20 + -0x18);
   return uVar3;
@@ -36134,7 +36554,8 @@ LAB_00a5ae4b:
           else {
             iVar16 = 1;
           }
-          uVar7 = FUN_0092784c(*(undefined8 *)(param_2 + 8),uVar14);
+          uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_2 + 8),uVar14);
           if ((char)uVar7 == '\0') {
             if (uVar18 < 0x7f) {
               if (uVar18 < 0x21) {
@@ -36219,7 +36640,8 @@ LAB_00a5ae4b:
               else {
                 iVar16 = 1;
               }
-              cVar4 = FUN_0092784c(*(undefined8 *)(param_2 + 8),uVar18);
+              cVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_2 + 8),uVar18);
             } while (cVar4 != '\0');
             uVar13 = *(undefined8 *)(param_2 + 0x48);
             if (*(char *)(param_2 + 0x18) == '\0') {
@@ -36323,7 +36745,8 @@ double s_text_folded_a5b9fc(long param_1,undefined4 param_2,uint param_3)
   uVar5 = *(undefined8 *)(param_1 + 0x10);
   std::string::string((string *)local_30,"text.folded",&local_31);
                     /* try { // try from 00a5baa8 to 00a5baac has its CatchHandler @ 00a5bb77 */
-  uVar5 = FUN_0095021a(uVar5,(string *)local_30);
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar5,(string *)local_30);
   FUN_00a5aa04(local_30[0] + -0x18);
   dVar6 = (double)BSim_std____is_constant_evaluated(uVar5);
   lVar4 = *(long *)(param_1 + 0x38);
@@ -36802,7 +37225,9 @@ void FUN_00a5c308(undefined8 *param_1,long *param_2,int param_3,int param_4)
     if (((-1 < lVar7) && (lVar7 < *(long *)(lVar1 + 0x10) * 2 >> 1)) && (0 < lVar8)) {
       plVar2 = *(long **)(lVar1 + 0x20);
       local_48 = lVar1;
-      if (*(code **)(*plVar2 + 0x28) == FUN_008897ae) {
+      if (*(code **)(*plVar2 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         local_64 = runstyles_fill_range(plVar2[1],lVar7);
       }
       else {
@@ -36819,7 +37244,9 @@ void FUN_00a5c308(undefined8 *param_1,long *param_2,int param_3,int param_4)
       lVar6 = lVar7;
       if (local_50 < local_58) {
         plVar2 = *(long **)(lVar1 + 0x20);
-        if (*(code **)(*plVar2 + 0x28) == FUN_008897ae) {
+        if (*(code **)(*plVar2 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           local_68 = runstyles_fill_range(plVar2[1],lVar8 + lVar7);
         }
         else {
@@ -37002,7 +37429,9 @@ void FUN_00a5c784(undefined8 *param_1,long *param_2,int param_3,int param_4)
     if (((-1 < lVar7) && (lVar7 < *(long *)(lVar1 + 0x10) * 2 >> 1)) && (0 < lVar8)) {
       plVar2 = *(long **)(lVar1 + 0x20);
       local_40[0] = lVar1;
-      if (*(code **)(*plVar2 + 0x28) == FUN_007a9c50) {
+      if (*(code **)(*plVar2 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         iVar4 = runstyles_fill_range(plVar2[1],lVar7);
       }
       else {
@@ -37020,7 +37449,9 @@ void FUN_00a5c784(undefined8 *param_1,long *param_2,int param_3,int param_4)
       iVar5 = iVar4;
       if (local_50 < local_58) {
         plVar2 = *(long **)(lVar1 + 0x20);
-        if (*(code **)(*plVar2 + 0x28) == FUN_007a9c50) {
+        if (*(code **)(*plVar2 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           iVar5 = runstyles_fill_range(plVar2[1],lVar8 + lVar7);
         }
         else {
@@ -37153,12 +37584,14 @@ void s_text_hotSpot_a5cb64(long *param_1,int param_2,undefined8 param_3)
   if (bVar2 == 6) {
     std::string::string((string *)&local_30,"text.hotSpot",&local_31);
                     /* try { // try from 00a5cc6a to 00a5cc6e has its CatchHandler @ 00a5ccf5 */
-    lVar3 = FUN_0095021a(lVar3,(string *)&local_30);
+    lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (lVar3,(string *)&local_30);
   }
   else if (bVar2 == 7) {
     std::string::string((string *)&local_30,"text.link",&local_31);
                     /* try { // try from 00a5ccd2 to 00a5ccd6 has its CatchHandler @ 00a5cd05 */
-    lVar3 = FUN_0095021a(lVar3,(string *)&local_30);
+    lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (lVar3,(string *)&local_30);
   }
   else {
     if (bVar2 != 5) {
@@ -37169,7 +37602,8 @@ void s_text_hotSpot_a5cb64(long *param_1,int param_2,undefined8 param_3)
     }
     std::string::string((string *)&local_30,*(char **)(*param_1 + 0xfd8),&local_31);
                     /* try { // try from 00a5cca9 to 00a5ccad has its CatchHandler @ 00a5ccfd */
-    lVar3 = FUN_0095021a(lVar3,(string *)&local_30);
+    lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (lVar3,(string *)&local_30);
   }
   param_1[9] = lVar3;
   FUN_00a5aa04(local_30 + -0x18);
@@ -37224,7 +37658,7 @@ void FUN_00a5cd64(long *param_1,long param_2,undefined1 param_3)
   *(undefined1 *)(param_1 + 10) = 0;
   param_1[0xb] = (long)&DAT_bff0000000000000;
                     /* try { // try from 00a5cdbf to 00a5cdd2 has its CatchHandler @ 00a5cebf */
-  FUN_00a5aaf6(param_1 + 0xc);
+  BSim_QMargins__QMargins(param_1 + 0xc);
   BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______Vector_impl_data___Vector_impl_data
             (param_1 + 0x12);
                     /* try { // try from 00a5cdd8 to 00a5cddc has its CatchHandler @ 00a5cecf */
@@ -37325,7 +37759,8 @@ ulong FUN_00a5cf6c(double param_1,long *param_2,long param_3,long param_4)
   }
   else {
     param_2[0xc] = param_3;
-    uVar5 = FUN_00a24e7e(*param_2,param_3,param_2 + 0xd);
+    uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*param_2,param_3,param_2 + 0xd);
     *(uint *)(param_2 + 0xe) = uVar5;
   }
   if ((uVar5 & 0x1c000) != 0) {
@@ -37510,7 +37945,8 @@ ulong FUN_00a5cf6c(double param_1,long *param_2,long param_3,long param_4)
   *(char *)(param_2 + 10) = cVar1;
   if (0x7f < uVar5) {
 LAB_00a5d5bd:
-    iVar19 = FUN_009252c8(param_2[1],pcVar17,(int)param_4 - (int)param_3);
+    iVar19 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (param_2[1],pcVar17,(int)param_4 - (int)param_3);
     *(undefined4 *)(param_2 + 6) = 0xffffffff;
     FUN_009277a8(&local_58,param_2[1],pcVar17,iVar19);
     plVar9 = (long *)param_2[7];
@@ -37683,7 +38119,8 @@ joined_r0x00a5d9cd:
         }
         else {
           param_2[0xc] = param_3;
-          uVar24 = FUN_00a24e7e(*param_2,param_3,param_2 + 0xd);
+          uVar24 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (*param_2,param_3,param_2 + 0xd);
           *(uint *)(param_2 + 0xe) = uVar24;
         }
         if ((uVar24 & 0x1c000) == 0) break;
@@ -38224,7 +38661,8 @@ void FUN_00a5e8bc(undefined8 *param_1,long param_2)
   char cVar1;
   undefined1 auStack_38 [32];
   
-  FUN_00a239ee(*param_1);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (*param_1);
   if (param_2 == -1) {
     FUN_00a1fda6(auStack_38,*param_1,0xffffffff);
                     /* try { // try from 00a5e913 to 00a5e917 has its CatchHandler @ 00a5e949 */
@@ -38296,9 +38734,9 @@ LAB_00a5ea24:
       uVar2 = scintilla_get_text_range(*(undefined8 *)(*param_1 + 0x1038),lVar6,0);
       puVar3 = (ulong *)FUN_0096bfc8(uVar2);
       puVar4 = (ulong *)FUN_0096bfce(uVar2);
-      lVar5 = FUN_0096bbc0(puVar3);
+      lVar5 = BSim_QPoint__y(puVar3);
       if (param_2 < lVar5) {
-        lVar5 = FUN_0096bbc0(puVar3);
+        lVar5 = BSim_QPoint__y(puVar3);
         if (lVar5 < param_3) {
                     /* try { // try from 00a5eb30 to 00a5eb34 has its CatchHandler @ 00a5eb98 */
           doc_length_set(puVar3,0,1);
@@ -38314,9 +38752,9 @@ LAB_00a5ea24:
           BSim_QList_int___node_destruct(&local_58);
         }
       }
-      lVar5 = FUN_0096bbc0(puVar4);
+      lVar5 = BSim_QPoint__y(puVar4);
       if (param_2 < lVar5) {
-        lVar5 = FUN_0096bbc0(puVar4);
+        lVar5 = BSim_QPoint__y(puVar4);
         if (lVar5 < param_3) {
           doc_length_set(puVar4,0,1);
           local_78 = *puVar4;
@@ -38356,7 +38794,8 @@ void FUN_00a5ebb0(undefined8 *param_1)
     if (cVar1 != '\0') {
       uVar2 = FUN_0092801a(param_1[1]);
       FUN_00a5e9ac(param_1,0,uVar2);
-      FUN_00a239ee(*param_1);
+      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                (*param_1);
                     /* WARNING: Could not recover jumptable at 0x00a5ebfe. Too many branches */
                     /* WARNING: Treating indirect jump as call */
       (**(code **)(*(long *)*param_1 + 0xa0))();
@@ -38401,7 +38840,8 @@ undefined4 FUN_00a5ec52(undefined8 *param_1,undefined8 param_2,undefined8 param_
     return uVar1;
   }
   FUN_00a5e9ac(param_1,param_2,param_3);
-  FUN_00a239ee(*param_1);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (*param_1);
   (**(code **)(*(long *)*param_1 + 0xa0))();
   return uVar1;
 }
@@ -38442,7 +38882,8 @@ uint FUN_00a5ecb2(undefined8 *param_1,long param_2,char param_3)
   uVar3 = FUN_00958498(param_1[2],param_2 + 1);
   uVar4 = FUN_00958498(param_1[2],param_2);
   FUN_00a5e9ac(param_1,uVar4,uVar3);
-  FUN_00a239ee(*param_1);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (*param_1);
   (**(code **)(*(long *)*param_1 + 0xa0))();
   return uVar5;
 }
@@ -39743,7 +40184,9 @@ LAB_00a605cf:
   else {
     *plVar13 = *(long *)(*(long *)(lVar4 + 0x28) + 8);
     plVar5 = *(long **)(lVar4 + 0x20);
-    if (*(code **)(*plVar5 + 0x28) == FUN_00983a74) {
+    if (*(code **)(*plVar5 + 0x28) ==
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+       ) {
       iVar9 = runstyles_fill_range(plVar5[1],param_2);
     }
     else {
@@ -40040,7 +40483,9 @@ LAB_00a60c48:
   else {
     *plVar13 = *(long *)(*(long *)(lVar22 + 0x28) + 8);
     plVar2 = *(long **)(lVar22 + 0x20);
-    if (*(code **)(*plVar2 + 0x28) == FUN_00983a74) {
+    if (*(code **)(*plVar2 + 0x28) ==
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+       ) {
       iVar5 = runstyles_fill_range(plVar2[1],param_2);
     }
     else {
@@ -40294,7 +40739,9 @@ LAB_00a612cb:
             else {
               *local_a0 = *(long *)(*(long *)(lVar22 + 0x28) + 8);
               plVar13 = *(long **)(lVar22 + 0x20);
-              if (*(code **)(*plVar13 + 0x28) == FUN_00983a74) {
+              if (*(code **)(*plVar13 + 0x28) ==
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                 ) {
                 iVar5 = runstyles_fill_range(plVar13[1],lVar9);
               }
               else {
@@ -40644,7 +41091,9 @@ LAB_00a61dea:
     else {
       *plVar11 = *(long *)(*(long *)(lVar21 + 0x28) + 8);
       plVar4 = *(long **)(lVar21 + 0x20);
-      if (*(code **)(*plVar4 + 0x28) == FUN_00983a74) {
+      if (*(code **)(*plVar4 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         iVar19 = runstyles_fill_range(plVar4[1],param_2);
       }
       else {
@@ -40917,7 +41366,9 @@ LAB_00a621a9:
             else {
               *plVar11 = *(long *)(*(long *)(lVar21 + 0x28) + 8);
               plVar4 = *(long **)(lVar21 + 0x20);
-              if (*(code **)(*plVar4 + 0x28) == FUN_00983a74) {
+              if (*(code **)(*plVar4 + 0x28) ==
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                 ) {
                 iVar19 = runstyles_fill_range(plVar4[1],param_2);
               }
               else {
@@ -42368,13 +42819,15 @@ bool FUN_00a64254(long *param_1,undefined8 param_2)
     return (bool)uVar2;
   }
   uVar3 = FUN_009588b8();
-  lVar4 = FUN_00925200(param_1[1],uVar3);
-  lVar5 = FUN_0092520c(param_1[1],uVar3);
-  lVar6 = FUN_0096bbc0(*param_1 + 0x1068);
+  lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1[1],uVar3);
+  lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1[1],uVar3);
+  lVar6 = BSim_QPoint__y(*param_1 + 0x1068);
   if (lVar6 < lVar4) {
     return false;
   }
-  lVar4 = FUN_0096bbc0(*param_1 + 0x1068);
+  lVar4 = BSim_QPoint__y(*param_1 + 0x1068);
   return lVar4 <= lVar5;
 }
 
@@ -42414,7 +42867,7 @@ bool FUN_00a6430e(undefined8 param_1,long param_2,long param_3,long param_4)
       }
     }
     if (1 < (byte)(*(char *)(lVar4 + 0x38) - 1U)) {
-      lVar4 = FUN_0096bbc0(param_3 + 0x88);
+      lVar4 = BSim_QPoint__y(param_3 + 0x88);
       param_4 = param_4 + lVar4;
       iVar1 = *(int *)(param_2 + 0xd40);
       if (iVar1 == 1) {
@@ -42461,7 +42914,8 @@ double FUN_00a64488(undefined8 param_1,undefined8 param_2,int param_3)
   double dVar3;
   double dVar4;
   
-  iVar1 = FUN_00950294(param_2);
+  iVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_2);
   iVar2 = iVar1;
   if (iVar1 < 0) {
     iVar2 = -iVar1;
@@ -42642,7 +43096,8 @@ void caret_rect_render(undefined8 param_1,long *param_2,long param_3,long param_
   local_50 = local_70;
   local_48 = local_68;
   local_40 = local_60;
-  uVar7 = FUN_009502ae(param_3);
+  uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3);
   local_58 = 0.0;
   local_48 = 0;
   dVar15 = (double)*(int *)(param_3 + 0xcd8) + dVar1;
@@ -42680,7 +43135,7 @@ void caret_rect_render(undefined8 param_1,long *param_2,long param_3,long param_
         uVar13 = uVar5;
       }
       local_100 = *(double *)(lVar8 + 0x30);
-      uVar16 = FUN_0096bc14(&local_98);
+      uVar16 = BSim_QPoint__y(&local_98);
       if ((uVar13 == 0) && (0.0 < *(double *)(lVar8 + 0x30))) {
         local_100 = local_100 - 1.0;
       }
@@ -42860,10 +43315,10 @@ void editor_paint_line_colors
   if (*(char *)(*param_1 + 0x1128) != '\0') {
     uVar4 = FUN_0096c0ea(local_2d8);
     lVar6 = *(long *)(param_4 + 0x78);
-    lVar5 = FUN_0096bbc0(uVar4);
+    lVar5 = BSim_QPoint__y(uVar4);
     if (lVar6 == lVar5) {
       lVar6 = *(long *)(param_4 + 0x68);
-      lVar5 = FUN_0096bbc0(uVar4);
+      lVar5 = BSim_QPoint__y(uVar4);
       bVar9 = lVar6 != lVar5;
     }
     else {
@@ -43302,7 +43757,8 @@ LAB_00a65fb7:
 LAB_00a65fbc:
   std::string::string((string *)&local_20,pcVar4,&local_21);
                     /* try { // try from 00a65fd4 to 00a65fe2 has its CatchHandler @ 00a6605a */
-  uVar2 = FUN_0095021a(param_2,(string *)&local_20);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_2,(string *)&local_20);
   lVar3 = FUN_0094a576(uVar2,0);
   if (local_20 != &DAT_011c5338) {
     FUN_00a63a70();
@@ -43363,8 +43819,8 @@ void FUN_00a661a0(undefined8 *param_1,undefined8 param_2,long param_3,long param
       local_38 = *(double *)(param_4 + 0x48);
       local_30 = *(undefined8 *)(param_4 + 0x50);
       local_40 = *(double *)(param_4 + 0x40) + 1.0;
-      local_48 = (double)FUN_0096bc14(*(long *)(*(long *)(param_4 + 0x180) + (long)iVar1 * 8) + 0x18
-                                     );
+      local_48 = (double)BSim_QPoint__y(*(long *)(*(long *)(param_4 + 0x180) + (long)iVar1 * 8) +
+                                        0x18);
       local_38 = local_48 + *(double *)(param_3 + 0xd98);
       FUN_00a66062(param_1,param_2,param_3,&local_48,1,1);
       return;
@@ -43562,7 +44018,7 @@ LAB_00a664f0:
           }
           if (local_b8 - 1U < 2) {
             if (local_b8 == 1) {
-              lVar9 = FUN_0096bbc0(pbVar1);
+              lVar9 = BSim_QPoint__y(pbVar1);
               local_b8 = 1;
               if (lVar9 < *(long *)(param_4 + 0x78)) goto LAB_00a6630b;
             }
@@ -43592,7 +44048,8 @@ LAB_00a664f0:
             goto LAB_00a664f0;
           }
           if (((*(char *)(*param_1 + 0xec3) == '\0') || ((*pbVar16 & 2) == 0)) ||
-             (lVar9 = FUN_0096bbc0(pbVar1), *(long *)(param_4 + 0x78) <= lVar9)) goto LAB_00a665b8;
+             (lVar9 = BSim_QPoint__y(pbVar1), *(long *)(param_4 + 0x78) <= lVar9))
+          goto LAB_00a665b8;
           if (bVar7 == 0) {
             local_b8 = 3;
             goto LAB_00a664f0;
@@ -43600,7 +44057,7 @@ LAB_00a664f0:
         }
         dVar20 = (double)FUN_00a75d66(param_4,pbVar1);
         if (dVar20 < 3.0) {
-          lVar9 = FUN_0096bbc0(pbVar1);
+          lVar9 = BSim_QPoint__y(pbVar1);
           if (*(long *)(param_4 + 0x78) == lVar9) {
             dVar20 = *(double *)(param_3 + 0xcf8);
           }
@@ -43711,7 +44168,7 @@ void line_marker_fill(long *param_1,char param_2,int param_3,char *param_4)
   FUN_00a1fda6(&local_58,*(undefined8 *)*param_1,0xffffffff);
   uVar9 = *(undefined8 *)(*param_1 + 8);
                     /* try { // try from 00a66d22 to 00a66d7d has its CatchHandler @ 00a66ef7 */
-  uVar10 = FUN_0096bbc0(&local_58);
+  uVar10 = BSim_QPoint__y(&local_58);
   uVar4 = FUN_009275ec(uVar9,lVar6,uVar10);
   iVar5 = FUN_009275ae(*(undefined8 *)(*param_1 + 8),lVar6,uVar4);
   if (iVar5 == -1) {
@@ -43720,7 +44177,8 @@ void line_marker_fill(long *param_1,char param_2,int param_3,char *param_4)
   }
   if (param_2 == '\x06') {
                     /* try { // try from 00a66e1a to 00a66e69 has its CatchHandler @ 00a66ef7 */
-    piVar12 = (int *)FUN_00926b1c(*(undefined8 *)(*param_1 + 8),iVar5);
+    piVar12 = (int *)BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (*(undefined8 *)(*param_1 + 8),iVar5);
 LAB_00a66e1f:
     if (piVar12 != (int *)0x0) {
       local_68 = piVar12[4];
@@ -43765,7 +44223,8 @@ LAB_00a66b91:
     lVar7 = param_1[2];
     std::string::string((string *)&local_58,param_4,(allocator *)&local_68);
                     /* try { // try from 00a66db7 to 00a66dc5 has its CatchHandler @ 00a66eef */
-    uVar9 = FUN_0095021a(lVar7,(string *)&local_58);
+    uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (lVar7,(string *)&local_58);
     pQVar11 = (QColor *)editor_styleAt(uVar9,0);
     QColor::operator=((QColor *)local_78,pQVar11);
     if (local_58 != &DAT_011c5338) {
@@ -43835,7 +44294,8 @@ void s_text_controlChar_a66f10
   
   std::string::string((string *)&local_58,"text.controlChar",local_68);
                     /* try { // try from 00a66f77 to 00a66f83 has its CatchHandler @ 00a67104 */
-  uVar2 = FUN_0095021a(param_3,(string *)&local_58);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3,(string *)&local_58);
   uVar2 = deref_first(uVar2);
   if (local_58 != &DAT_011c5338) {
     FUN_00a63a70();
@@ -43886,7 +44346,7 @@ void FUN_00a6710c(undefined8 param_1,undefined8 param_2,long param_3,long param_
       puVar1 = *(undefined8 **)(lVar4 + lVar7 * 8);
       uVar2 = *(undefined8 *)(param_4 + 0x40);
       uVar3 = *(undefined8 *)(param_4 + 0x50);
-      dVar9 = (double)FUN_0096bc14(puVar1 + 3);
+      dVar9 = (double)BSim_QPoint__y(puVar1 + 3);
       if (*(double *)(param_4 + 0x48) <= local_80 && local_80 != *(double *)(param_4 + 0x48)) break;
       if (*(double *)(param_4 + 0x38) <= dVar9 + local_80) {
         uVar5 = FUN_0094a576(*puVar1,0);
@@ -43895,7 +44355,7 @@ void FUN_00a6710c(undefined8 param_1,undefined8 param_2,long param_3,long param_
                   (param_1,param_2,param_3,puVar1 + 2,uVar6,uVar5,local_80,uVar2,dVar9 + local_80,
                    uVar3);
       }
-      dVar9 = (double)FUN_0096bc14(puVar1 + 3);
+      dVar9 = (double)BSim_QPoint__y(puVar1 + 3);
       local_80 = dVar9 + local_80;
       lVar7 = lVar7 + 1;
       if (lVar8 == lVar7) {
@@ -43925,7 +44385,8 @@ void s_text_folded_a67276
   
   std::string::string((string *)local_40,"text.folded",&local_41);
                     /* try { // try from 00a672b9 to 00a672bd has its CatchHandler @ 00a67344 */
-  uVar2 = FUN_0095021a(param_3,(string *)local_40);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     FUN_00a63a70();
   }
@@ -43968,7 +44429,8 @@ void s_line_highlight_a6734c(undefined8 param_1,long *param_2,long param_3,long 
   if (cVar4 != '\0') {
     std::string::string((string *)&local_58,"line.highlight",(allocator *)&local_60);
                     /* try { // try from 00a673b0 to 00a673bc has its CatchHandler @ 00a674b4 */
-    uVar5 = FUN_0095021a(param_3,(string *)&local_58);
+    uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)&local_58);
     cVar4 = FUN_0094a7f8(uVar5);
     if (local_58 != &DAT_011c5338) {
       FUN_00a63a70();
@@ -43983,7 +44445,8 @@ void s_line_highlight_a6734c(undefined8 param_1,long *param_2,long param_3,long 
       pcVar3 = *(code **)(*param_2 + 0x78);
       std::string::string((string *)&local_60,"line.highlight",&local_61);
                     /* try { // try from 00a67434 to 00a67480 has its CatchHandler @ 00a674bc */
-      uVar5 = FUN_0095021a(param_3,(string *)&local_60);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_3,(string *)&local_60);
       uVar5 = editor_styleAt(uVar5,*(undefined8 *)(param_4 + 0x28));
       local_58 = (undefined1 *)(dVar1 - (double)iVar2);
       (*pcVar3)(param_2,uVar5);
@@ -44043,7 +44506,7 @@ void s_line_columnMarker_a674c4(long *param_1,long *param_2,long param_3,long pa
   lVar8 = *param_1;
   local_110 = param_2;
   if (*(char *)(lVar8 + 0x1128) == '\0') {
-    local_170 = FUN_0096bbc0(param_4 + 0x88);
+    local_170 = BSim_QPoint__y(param_4 + 0x88);
     lVar8 = *param_1;
   }
   else {
@@ -44078,12 +44541,13 @@ void s_line_columnMarker_a674c4(long *param_1,long *param_2,long param_3,long pa
       if (*(char *)(puVar3 + 10) == param_5) {
         local_b8 = puVar3[6];
         puVar1 = puVar3 + 3;
-        local_a8 = FUN_0096bc14(puVar1);
+        local_a8 = BSim_QPoint__y(puVar1);
         if (((*(char *)(param_3 + 0xd58) != '\0') && (*(int *)(param_3 + 0xd5c) == 1)) &&
            (lVar8 = FUN_00a75c3e(param_4), lVar8 <= local_170)) {
           std::string::string((string *)&local_78,"line.columnMarker",(allocator *)&local_e8);
                     /* try { // try from 00a67b88 to 00a67b94 has its CatchHandler @ 00a67e2d */
-          uVar10 = FUN_0095021a(param_3,(string *)&local_78);
+          uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (param_3,(string *)&local_78);
           cVar6 = FUN_0094a7f8(uVar10);
           if (cVar6 == '\0') {
             if ((undefined1 *)CONCAT44(uStack_74,local_78) != &DAT_011c5338) goto LAB_00a67c18;
@@ -44094,7 +44558,8 @@ void s_line_columnMarker_a674c4(long *param_1,long *param_2,long param_3,long pa
             }
             std::string::string((string *)&local_78,"line.columnMarker",(allocator *)&local_e8);
                     /* try { // try from 00a67bdd to 00a67bfd has its CatchHandler @ 00a67e25 */
-            uVar10 = FUN_0095021a(param_3,(string *)&local_78);
+            uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_3,(string *)&local_78);
             uVar10 = editor_styleAt(uVar10,0);
             FUN_00a638c4(&local_d8,&local_b8,uVar10);
             if ((undefined1 *)CONCAT44(uStack_74,local_78) != &DAT_011c5338) {
@@ -44127,7 +44592,8 @@ LAB_00a679a0:
         if (iVar2 != 0) {
           std::string::string((string *)&local_78,"text.whiteSpace",(allocator *)&local_e8);
                     /* try { // try from 00a678eb to 00a678f7 has its CatchHandler @ 00a67e35 */
-          uVar10 = FUN_0095021a(param_3,(string *)&local_78);
+          uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (param_3,(string *)&local_78);
           cVar6 = FUN_0094a7f8(uVar10);
           if (cVar6 == '\0') {
             if ((undefined1 *)CONCAT44(uStack_74,local_78) != &DAT_011c5338) {
@@ -44143,7 +44609,8 @@ LAB_00a67a29:
             if (cVar6 != '\0') {
               std::string::string((string *)&local_78,"text.whiteSpace",(allocator *)&local_e8);
                     /* try { // try from 00a67959 to 00a6797c has its CatchHandler @ 00a67e1a */
-              uVar10 = FUN_0095021a(param_3,(string *)&local_78);
+              uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_3,(string *)&local_78);
               uVar10 = editor_styleAt(uVar10,local_158);
               FUN_00a638c4(&local_d8,&local_b8,uVar10);
               if ((undefined1 *)CONCAT44(uStack_74,local_78) != &DAT_011c5338) goto LAB_00a67a29;
@@ -44157,13 +44624,14 @@ LAB_00a67a29:
           if (*(char *)(*param_1 + 0x1128) != '\0') {
             if (*(char *)(puVar3 + 10) == '\0') {
               if (*(char *)(param_3 + 0xd4e) != '\0') {
-                lVar11 = FUN_0096bbc0(puVar1);
+                lVar11 = BSim_QPoint__y(puVar1);
                 lVar8 = *(long *)(param_4 + 0x68);
                 iVar7 = qstrdata_length_get(puVar1);
                 iVar2 = *(int *)(*param_1 + 0x1124);
                 std::string::string((string *)&local_78,"hex.column",(allocator *)&local_100);
                     /* try { // try from 00a67d3d to 00a67d4e has its CatchHandler @ 00a67e3d */
-                uVar10 = FUN_0095021a(param_3,(string *)&local_78);
+                uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                   (param_3,(string *)&local_78);
                 pQVar9 = (QColor *)
                          editor_styleAt(uVar10,(ulong)(iVar7 % iVar2 == 0) + (lVar11 - lVar8));
                 QColor::operator=((QColor *)&local_e8,pQVar9);
@@ -44179,7 +44647,8 @@ LAB_00a67a29:
               if (cVar6 != '\0') {
                 std::string::string((string *)&local_100,"text.selection",&local_101);
                     /* try { // try from 00a67a90 to 00a67a9e has its CatchHandler @ 00a67e4d */
-                uVar10 = FUN_0095021a(param_3,(string *)&local_100);
+                uVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                   (param_3,(string *)&local_100);
                 pQVar9 = (QColor *)FUN_0094a806(uVar10,0);
                 QColor::operator=((QColor *)&local_e8,pQVar9);
                 if (local_100 != &DAT_011c5338) {
@@ -44231,7 +44700,7 @@ LAB_00a67a29:
             FUN_00a638c4(&local_d8,&local_b8,(QColor *)&local_e8);
           }
         }
-        local_170 = FUN_0096bbc0(puVar1);
+        local_170 = BSim_QPoint__y(puVar1);
       }
       if (lVar13 + 1 == lVar12) goto LAB_00a677f7;
       lVar13 = lVar13 + 1;
@@ -44249,7 +44718,7 @@ LAB_00a67c36:
       local_b8 = *(undefined8 *)(param_4 + 0x38);
     }
     else {
-      local_b8 = FUN_0096bc14(*(long *)(*(long *)(param_4 + 0x150) + -8 + lVar12 * 8) + 0x18);
+      local_b8 = BSim_QPoint__y(*(long *)(*(long *)(param_4 + 0x150) + -8 + lVar12 * 8) + 0x18);
     }
     local_a8 = *(undefined8 *)(param_4 + 0x48);
     uVar10 = FUN_0094a806(uVar10,*(undefined8 *)(param_4 + 0x28));
@@ -44320,7 +44789,8 @@ void s_text_selection_a67e62(undefined8 *param_1,undefined8 param_2,undefined8 p
         while (cVar2 = FUN_0096beb4(lVar8), cVar2 != '\0') {
           std::string::string((string *)&local_48,"text.selection",(allocator *)&local_58);
                     /* try { // try from 00a67f1b to 00a67f1f has its CatchHandler @ 00a680bd */
-          uVar6 = FUN_0095021a(param_3,(string *)&local_48);
+          uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_3,(string *)&local_48);
           if ((undefined1 *)CONCAT44(uStack_44,local_48) != &DAT_011c5338) {
             FUN_00a63a70();
           }
@@ -44407,7 +44877,8 @@ void s_text_selection_a680c6(long *param_1,undefined8 param_2,undefined8 param_3
   }
   std::string::string((string *)&local_48,"text.selection",(allocator *)&local_58);
                     /* try { // try from 00a68119 to 00a6811d has its CatchHandler @ 00a682da */
-  uVar3 = FUN_0095021a(param_3,(string *)&local_48);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_3,(string *)&local_48);
   if ((undefined1 *)CONCAT44(uStack_44,local_48) != &DAT_011c5338) {
     FUN_00a63a70();
   }
@@ -44492,7 +44963,8 @@ void s_line_columnMarker_a682e6(undefined8 *param_1,long *param_2,long param_3,d
   if ((*(char *)(param_3 + 0xd58) != '\0') && (*(int *)(param_3 + 0xd5c) == 0)) {
     std::string::string((string *)&local_58,"line.columnMarker",(allocator *)&local_60);
                     /* try { // try from 00a68346 to 00a68352 has its CatchHandler @ 00a68505 */
-    uVar4 = FUN_0095021a(param_3,(string *)&local_58);
+    uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)&local_58);
     cVar3 = FUN_0094a7f8(uVar4);
     if (cVar3 == '\0') {
       if (local_58 != &DAT_011c5338) {
@@ -44525,7 +44997,8 @@ void s_line_columnMarker_a682e6(undefined8 *param_1,long *param_2,long param_3,d
             local_58 = (undefined1 *)dVar9;
             std::string::string((string *)&local_60,"line.columnMarker",&local_61);
                     /* try { // try from 00a68454 to 00a684a0 has its CatchHandler @ 00a6850d */
-            uVar4 = FUN_0095021a(param_3,(allocator *)&local_60);
+            uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (param_3,(allocator *)&local_60);
             iVar7 = iVar8 + 1;
             uVar4 = editor_styleAt(uVar4,(long)iVar8);
             (*pcVar2)(param_2,uVar4);
@@ -44570,14 +45043,16 @@ void s_text_default_a68516
                     /* try { // try from 00a685fb to 00a685ff has its CatchHandler @ 00a687b7 */
     std::string::string((string *)local_218,"text.default",local_258);
                     /* try { // try from 00a68606 to 00a68614 has its CatchHandler @ 00a687a7 */
-    uVar3 = FUN_0095021a(param_3,(string *)local_218);
+    uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)local_218);
     uVar3 = editor_styleAt(uVar3,0);
   }
   else {
                     /* try { // try from 00a6855c to 00a68560 has its CatchHandler @ 00a687c7 */
     std::string::string((string *)&local_238,"text.default",&local_259);
                     /* try { // try from 00a68567 to 00a68575 has its CatchHandler @ 00a687b7 */
-    uVar3 = FUN_0095021a(param_3,(string *)&local_238);
+    uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)&local_238);
     uVar3 = FUN_0094a576(uVar3,0);
     local_218[0] = local_238;
   }
@@ -44590,7 +45065,8 @@ void s_text_default_a68516
     s_line_columnMarker_a682e6(param_1,param_2,param_3,param_4);
     lVar6 = *param_1;
   }
-  iVar2 = FUN_00a1fb02(lVar6);
+  iVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (lVar6);
   if (1 < iVar2) {
     FUN_00a1fda6(local_258,*param_1,0xffffffff);
                     /* try { // try from 00a6866b to 00a6873c has its CatchHandler @ 00a687af */
@@ -44654,7 +45130,8 @@ void s_line_wrapSymbol_a687d0
     local_38 = local_48 + *(double *)(param_3 + 0xcf8);
     std::string::string((string *)&local_50,"line.wrapSymbol",&local_51);
                     /* try { // try from 00a68872 to 00a688c6 has its CatchHandler @ 00a688eb */
-    uVar2 = FUN_0095021a(param_3,(string *)&local_50);
+    uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)&local_50);
     uVar2 = FUN_0094a576(uVar2,0);
     FUN_00a63fd6(param_1,param_2,1,uVar2,param_5,param_6,local_48,local_40,local_38,local_30);
     if (local_50 != &DAT_011c5338) {
@@ -44697,14 +45174,16 @@ void s_pair_highlightMatched_a688f6
   }
   std::string::string((string *)&local_58,pcVar3,(allocator *)&local_78);
                     /* try { // try from 00a6895e to 00a6896c has its CatchHandler @ 00a68b07 */
-  uVar1 = FUN_0095021a(param_4,(string *)&local_58);
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_4,(string *)&local_58);
   uVar1 = FUN_0094a576(uVar1,0);
   if (local_58 != &DAT_011c5338) {
     FUN_00a63a70();
   }
   std::string::string((string *)&local_58,pcVar3,(allocator *)&local_78);
                     /* try { // try from 00a6899c to 00a689aa has its CatchHandler @ 00a68b0f */
-  uVar2 = FUN_0095021a(param_4,(string *)&local_58);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_4,(string *)&local_58);
   uVar2 = editor_styleAt(uVar2,0);
   if (local_58 != &DAT_011c5338) {
     FUN_00a63a70();
@@ -44769,9 +45248,11 @@ void FUN_00a68b18(long *param_1,undefined8 param_2,long param_3,long param_4)
     lVar8 = *(long *)(lVar10 + 0x10) - (long)*(undefined8 **)(lVar10 + 8) >> 3;
     if (1 < (ulong)(lVar8 * 0xaaaaaaab + (lVar8 * 0x55555555 << 0x21))) {
       uVar1 = *(undefined8 *)(*(long *)(lVar10 + 0x10) + -0x18);
-      lVar10 = FUN_0092522a(param_1[1],**(undefined8 **)(lVar10 + 8));
+      lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (param_1[1],**(undefined8 **)(lVar10 + 8));
       if (lVar10 < lVar7) {
-        lVar8 = FUN_0092522a(param_1[1],uVar1);
+        lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1[1],uVar1);
         lVar10 = *param_1;
         if ((lVar7 < lVar8) && (iVar4 < *(int *)(lVar10 + 0xfd4))) {
           iVar4 = *(int *)(lVar10 + 0xfd4);
@@ -44791,7 +45272,8 @@ LAB_00a68d00:
   if (iVar5 < 0) {
     iVar5 = 0;
   }
-  iVar6 = FUN_00925570(param_1[1]);
+  iVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1[1]);
   iVar9 = iVar9 + (int)lVar7;
   if (iVar6 < iVar9) {
     iVar9 = iVar6;
@@ -44891,11 +45373,11 @@ void s_hex_division_a68ec6(long *param_1,long *param_2,long param_3,long param_4
         lVar6 = lVar6 + 0x18;
         iVar2 = qstrdata_length_get(lVar6);
         if (iVar2 == 0) {
-          lVar3 = FUN_0096bbc0(lVar6);
+          lVar3 = BSim_QPoint__y(lVar6);
           lVar3 = lVar3 - *(long *)(param_4 + 0x68);
           if (lVar3 % (long)*(int *)(param_3 + 0xd54) == 0) {
             if (lVar3 % (long)*(int *)(*param_1 + 0x1118) != 0) {
-              dVar8 = (double)FUN_0096bc14(lVar6);
+              dVar8 = (double)BSim_QPoint__y(lVar6);
               dVar9 = (double)FUN_00a28aea(*param_1,lVar6);
               dVar8 = dVar9 * 0.5 + dVar8;
               if ((*(double *)(param_4 + 0x38) <= dVar8) && (dVar8 <= *(double *)(param_4 + 0x48)))
@@ -44919,7 +45401,8 @@ void s_hex_division_a68ec6(long *param_1,long *param_2,long param_3,long param_4
     pcVar1 = *(code **)(*param_2 + 0x78);
     std::string::string((string *)&local_60,"hex.division",&local_61);
                     /* try { // try from 00a69067 to 00a690a4 has its CatchHandler @ 00a690c5 */
-    uVar4 = FUN_0095021a(param_3,(string *)&local_60);
+    uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)&local_60);
     uVar4 = FUN_0094a576(uVar4,0);
     (*pcVar1)(param_2,uVar4);
     if (local_60 != &DAT_011c5338) {
@@ -44953,7 +45436,8 @@ void FUN_00a690ce(undefined8 param_1,long *param_2,undefined8 param_3,long param
     pcVar2 = (char *)s_margin_timestamp_94fcc4(param_4);
     std::string::string((string *)&local_48,pcVar2,&local_49);
                     /* try { // try from 00a6912a to 00a69138 has its CatchHandler @ 00a69285 */
-    uVar3 = FUN_0095021a(param_3,(string *)&local_48);
+    uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)&local_48);
     uVar3 = FUN_0094a576(uVar3,0);
     if (local_48 != &DAT_011c5338) {
       FUN_00a63a70();
@@ -45016,7 +45500,8 @@ void s_line_highlight_a6928e
   }
   else {
     lVar8 = FUN_009588b8(param_1[2],param_5 + 1);
-    lVar9 = FUN_00925200(param_1[1],lVar8);
+    lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[1],lVar8);
     lVar10 = FUN_00958498(param_1[2],param_5 + 1);
     if (lVar9 < lVar10) {
       lVar8 = lVar8 + 1;
@@ -45047,7 +45532,8 @@ LAB_00a6939d:
     if (pcVar11 != (char *)0x0) {
       std::string::string((string *)&local_58,pcVar11,(allocator *)&local_60);
                     /* try { // try from 00a693c6 to 00a693d2 has its CatchHandler @ 00a696ad */
-      uVar7 = FUN_0095021a(param_3,(string *)&local_58);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_3,(string *)&local_58);
       cVar5 = FUN_0094a7f8(uVar7);
       if (cVar5 == '\0') {
         if (local_58 != &DAT_011c5338) goto LAB_00a694f3;
@@ -45065,7 +45551,8 @@ LAB_00a6939d:
         pcVar3 = *(code **)(*param_2 + 0x78);
         std::string::string((string *)&local_60,pcVar11,&local_61);
                     /* try { // try from 00a69491 to 00a694e2 has its CatchHandler @ 00a69695 */
-        uVar7 = FUN_0095021a(param_3,(string *)&local_60);
+        uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_3,(string *)&local_60);
         uVar7 = editor_styleAt(uVar7,param_5);
         local_58 = (undefined1 *)((double)(uVar1 >> 6) + param_7);
         local_48 = param_9 - (double)(uVar2 >> 0xc & 0x3ff);
@@ -45082,7 +45569,8 @@ LAB_00a692c5:
   if ((((bVar4 & 0x40) != 0) && (param_6 != '\0')) && (*(char *)(param_3 + 0xd4f) != '\0')) {
     std::string::string((string *)&local_58,"line.highlight",(allocator *)&local_60);
                     /* try { // try from 00a6952d to 00a69539 has its CatchHandler @ 00a696a5 */
-    uVar7 = FUN_0095021a(param_3,(string *)&local_58);
+    uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_3,(string *)&local_58);
     cVar5 = FUN_0094a7f8(uVar7);
     if (cVar5 == '\0') {
       if (local_58 == &DAT_011c5338) {
@@ -45096,7 +45584,8 @@ LAB_00a692c5:
       pcVar3 = *(code **)(*param_2 + 0x78);
       std::string::string((string *)&local_58,"line.highlight",(allocator *)&local_60);
                     /* try { // try from 00a6957d to 00a695ca has its CatchHandler @ 00a6969d */
-      uVar7 = FUN_0095021a(param_3,(string *)&local_58);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_3,(string *)&local_58);
       uVar7 = editor_styleAt(uVar7,param_5);
       (*pcVar3)(param_2,uVar7);
       if (local_58 == &DAT_011c5338) {
@@ -45196,7 +45685,8 @@ void s_margin_timestamp_a696b6
                     /* try { // try from 00a69ed7 to 00a69edb has its CatchHandler @ 00a6a51d */
           std::string::string((string *)&local_58,"margin.number",(allocator *)&local_88);
                     /* try { // try from 00a69ee4 to 00a69ee8 has its CatchHandler @ 00a6a535 */
-          local_118 = FUN_0095021a(param_3,(string *)&local_58);
+          local_118 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (param_3,(string *)&local_58);
           if (local_58 != &DAT_011c5338) {
             FUN_00a63a70();
           }
@@ -45258,7 +45748,8 @@ LAB_00a69a80:
           if (cVar8 != '\0') {
             std::string::string((string *)&local_90,"line.highlight",&local_99);
                     /* try { // try from 00a69faa to 00a69fb6 has its CatchHandler @ 00a6a545 */
-            uVar15 = FUN_0095021a(param_3,(string *)&local_90);
+            uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_3,(string *)&local_90);
             cVar9 = FUN_0094a786(uVar15);
             if (cVar9 == '\0') {
               if (local_90 != (undefined8 *)&DAT_011c5338) goto LAB_00a6a037;
@@ -45270,7 +45761,8 @@ LAB_00a69a80:
                     /* try { // try from 00a69fe7 to 00a69feb has its CatchHandler @ 00a6a51d */
               std::string::string((string *)&local_90,"line.highlight",&local_99);
                     /* try { // try from 00a69ff4 to 00a6a005 has its CatchHandler @ 00a6a55d */
-              uVar15 = FUN_0095021a(param_3,(string *)&local_90);
+              uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_3,(string *)&local_90);
               pQVar17 = (QColor *)FUN_0094a576(uVar15,param_4);
               QColor::operator=(local_110,pQVar17);
               if (local_90 != (undefined8 *)&DAT_011c5338) {
@@ -45311,7 +45803,8 @@ LAB_00a69bf1:
                     /* try { // try from 00a69a3e to 00a69a42 has its CatchHandler @ 00a6a52d */
             std::string::string((string *)&local_58,"margin.timestamp",(allocator *)&local_90);
                     /* try { // try from 00a69a4b to 00a69a4f has its CatchHandler @ 00a6a525 */
-            local_118 = FUN_0095021a(param_3,(string *)&local_58);
+            local_118 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                  (param_3,(string *)&local_58);
             if (local_58 != &DAT_011c5338) {
               FUN_00a63a70();
             }
@@ -45355,7 +45848,8 @@ LAB_00a69bf1:
                   bVar1 = *(byte *)(lVar20 + 10);
                   std::string::string((string *)&local_58,"margin.number",(allocator *)&local_88);
                     /* try { // try from 00a6a418 to 00a6a44f has its CatchHandler @ 00a6a50a */
-                  uVar15 = FUN_0095021a(param_3,(string *)&local_58);
+                  uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (param_3,(string *)&local_58);
                   uVar15 = deref_first(uVar15);
                   uVar26 = CONCAT44(uVar27,uVar2);
                   margin_timestamps_render
@@ -45371,7 +45865,8 @@ LAB_00a69bf1:
                   bVar1 = *(byte *)(lVar20 + 10);
                   std::string::string((string *)&local_58,"margin.number",(allocator *)&local_88);
                     /* try { // try from 00a6a362 to 00a6a399 has its CatchHandler @ 00a6a575 */
-                  uVar15 = FUN_0095021a(param_3,(string *)&local_58);
+                  uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (param_3,(string *)&local_58);
                   uVar15 = deref_first(uVar15);
                   uVar26 = CONCAT44(uVar27,uVar2);
                   margin_timestamps_render
@@ -45389,7 +45884,8 @@ LAB_00a69bf1:
                   bVar10 = *(byte *)(lVar20 + 10);
                   std::string::string((string *)&local_58,"margin.number",(allocator *)&local_88);
                     /* try { // try from 00a6a1a2 to 00a6a1d5 has its CatchHandler @ 00a6a565 */
-                  uVar15 = FUN_0095021a(param_3,(string *)&local_58);
+                  uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (param_3,(string *)&local_58);
                   uVar15 = deref_first(uVar15);
                   margin_timestamps_render
                             (param_3 + 0xb08 + (long)iVar11 * 0x58,param_2,&local_78,uVar15,
@@ -45415,7 +45911,8 @@ LAB_00a69bf1:
                   bVar10 = *(byte *)(lVar20 + 10);
                   std::string::string((string *)&local_58,"margin.number",(allocator *)&local_88);
                     /* try { // try from 00a6995b to 00a6998e has its CatchHandler @ 00a6a56d */
-                  uVar15 = FUN_0095021a(param_3,(string *)&local_58);
+                  uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                     (param_3,(string *)&local_58);
                   uVar15 = deref_first(uVar15);
                   pcVar25 = (char *)CONCAT44(uVar27,uVar2);
                   margin_timestamps_render
@@ -45435,7 +45932,8 @@ LAB_00a69bf1:
             if (local_50 != 0.0) {
               std::string::string((string *)&local_88,local_48,(allocator *)&local_90);
                     /* try { // try from 00a69cca to 00a69cd6 has its CatchHandler @ 00a6a515 */
-              uVar15 = FUN_0095021a(param_3,(string *)&local_88);
+              uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_3,(string *)&local_88);
               cVar9 = FUN_0094a7f8(uVar15);
               if ((undefined1 *)CONCAT44(uStack_84,local_88) != &DAT_011c5338) {
                 FUN_00a63a70();
@@ -45444,7 +45942,8 @@ LAB_00a69bf1:
                 pcVar4 = *(code **)(*param_2 + 0x78);
                 std::string::string((string *)&local_88,local_48,(allocator *)&local_90);
                     /* try { // try from 00a69d26 to 00a69d73 has its CatchHandler @ 00a6a53d */
-                uVar15 = FUN_0095021a(param_3,(string *)&local_88);
+                uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                   (param_3,(string *)&local_88);
                 uVar15 = editor_styleAt(uVar15,param_4);
                 (*pcVar4)(param_2,uVar15);
                 if ((undefined1 *)CONCAT44(uStack_84,local_88) != &DAT_011c5338) {
@@ -45547,7 +46046,8 @@ void view_ensure_visible(long *param_1,long *param_2,long param_3,double *param_
             dVar10 = local_90;
           }
           pcVar1 = *(code **)(*plVar7 + 0x78);
-          uVar3 = FUN_009502c6(param_3,(int)*(char *)(lVar5 + 0x1067));
+          uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (param_3,(int)*(char *)(lVar5 + 0x1067));
           local_98 = 0;
           local_90 = dVar10;
           local_88 = dVar12;
@@ -45569,7 +46069,8 @@ void view_ensure_visible(long *param_1,long *param_2,long param_3,double *param_
                 pcVar4 = (char *)s_margin_timestamp_94fcc4(lVar5);
                 std::string::string((string *)&local_58,pcVar4,&local_99);
                     /* try { // try from 00a6a800 to 00a6a804 has its CatchHandler @ 00a6aadb */
-                uVar3 = FUN_0095021a(param_3,(string *)&local_58);
+                uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                  (param_3,(string *)&local_58);
                 if (local_58 != &DAT_011c5338) {
                   FUN_00a63a70();
                 }
@@ -45638,13 +46139,15 @@ void s_text_hotSpot_a6aae6(long *param_1,undefined8 param_2)
   lVar1 = param_1[1];
   std::string::string((string *)local_40,"HotSpot",&local_41);
                     /* try { // try from 00a6ab26 to 00a6ab2a has its CatchHandler @ 00a6acb5 */
-  FUN_009257a8(lVar1,(string *)local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (lVar1,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     FUN_00a63a70();
   }
   std::string::string((string *)local_40,"text.hotSpot",&local_41);
                     /* try { // try from 00a6ab5f to 00a6ab63 has its CatchHandler @ 00a6acad */
-  uVar5 = FUN_0095021a(param_2,(string *)local_40);
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_2,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     FUN_00a63a70();
   }
@@ -45805,13 +46308,15 @@ void s_grep_mark_a6afa2(undefined8 *param_1,undefined8 param_2)
   uVar3 = param_1[1];
   std::string::string((string *)local_40,"Spotlight",&local_41);
                     /* try { // try from 00a6afe2 to 00a6afe6 has its CatchHandler @ 00a6b175 */
-  FUN_009257a8(uVar3,(string *)local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar3,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     FUN_00a63a70();
   }
   std::string::string((string *)local_40,"grep.mark",&local_41);
                     /* try { // try from 00a6b01b to 00a6b01f has its CatchHandler @ 00a6b16d */
-  uVar3 = FUN_0095021a(param_2,(string *)local_40);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_2,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     FUN_00a63a70();
   }
@@ -45862,7 +46367,8 @@ void FUN_00a6b17e(long param_1,undefined8 param_2,long param_3)
   uVar6 = *(undefined8 *)(param_1 + 8);
   std::string::string((string *)local_40,"Style",&local_41);
                     /* try { // try from 00a6b1c8 to 00a6b1cc has its CatchHandler @ 00a6b375 */
-  FUN_009257a8(uVar6,(string *)local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar6,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     FUN_00a63a70();
   }
@@ -45875,10 +46381,10 @@ void FUN_00a6b17e(long param_1,undefined8 param_2,long param_3)
   }
   if (lVar4 != 0) {
     uVar6 = *(undefined8 *)(param_1 + 8);
-    uVar5 = FUN_0096bbc0(param_3 + 0x88);
+    uVar5 = BSim_QPoint__y(param_3 + 0x88);
     iVar2 = FUN_00926cb8(uVar6,uVar5);
     uVar6 = *(undefined8 *)(param_1 + 8);
-    uVar5 = FUN_0096bbc0(param_3 + 0xa0);
+    uVar5 = BSim_QPoint__y(param_3 + 0xa0);
     iVar3 = FUN_00926cb8(uVar6,uVar5);
     for (; iVar2 <= iVar3; iVar2 = iVar2 + 1) {
       local_40[0] = (undefined1 *)FUN_00926ce0(*(undefined8 *)(param_1 + 8),iVar2);
@@ -45892,7 +46398,8 @@ void FUN_00a6b17e(long param_1,undefined8 param_2,long param_3)
       if (cVar1 == '\0') {
         lVar7 = FUN_00928164(*(undefined8 *)(param_1 + 8),iVar2);
         uVar5 = *(undefined8 *)(param_1 + 8);
-        uVar8 = FUN_009502ee(param_2,uVar6);
+        uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_2,uVar6);
         cVar1 = FUN_0094a5ee(uVar6);
         FUN_0092671c(uVar5,lVar4,local_40[0],lVar7 - (long)local_40[0],(int)cVar1,2,uVar8,0);
       }
@@ -45961,7 +46468,8 @@ LAB_00a6b45e:
                     /* try { // try from 00a6b484 to 00a6b488 has its CatchHandler @ 00a6b6f5 */
   std::string::string((string *)local_40,"Pair",&local_41);
                     /* try { // try from 00a6b48f to 00a6b493 has its CatchHandler @ 00a6b6e5 */
-  FUN_009257a8(lVar5,(string *)local_40);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (lVar5,(string *)local_40);
   if (local_40[0] != &DAT_011c5338) {
     FUN_00a63a70();
   }
@@ -45976,7 +46484,8 @@ LAB_00a6b45e:
                     /* try { // try from 00a6b51f to 00a6b523 has its CatchHandler @ 00a6b6f5 */
     std::string::string((string *)local_40,*(char **)(*param_1 + 0xfd8),&local_41);
                     /* try { // try from 00a6b52a to 00a6b52e has its CatchHandler @ 00a6b6fd */
-    uVar7 = FUN_0095021a(param_2,(string *)local_40);
+    uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_2,(string *)local_40);
     if (local_40[0] != &DAT_011c5338) {
       FUN_00a63a70();
     }
@@ -45996,9 +46505,9 @@ LAB_00a6b45e:
         lVar2 = *plVar12;
         lVar3 = plVar12[1];
                     /* try { // try from 00a6b616 to 00a6b653 has its CatchHandler @ 00a6b6f5 */
-        lVar9 = FUN_0096bbc0(param_3 + 0x88);
+        lVar9 = BSim_QPoint__y(param_3 + 0x88);
         if (lVar9 <= lVar3) {
-          lVar9 = FUN_0096bbc0(param_3 + 0xa0);
+          lVar9 = BSim_QPoint__y(param_3 + 0xa0);
           if (lVar9 < lVar2) break;
           lVar9 = param_1[1];
           std::string::string((string *)local_40,*(char **)(*param_1 + 0xfd8),&local_41);
@@ -46241,7 +46750,8 @@ LAB_00a6c4e0:
                     /* try { // try from 00a6c821 to 00a6c825 has its CatchHandler @ 00a6d03d */
               std::string::string((string *)&local_78,"MarkFont",(allocator *)&local_80);
                     /* try { // try from 00a6c82c to 00a6c830 has its CatchHandler @ 00a6d02d */
-              FUN_009257a8(lVar18,(string *)&local_78);
+              BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (lVar18,(string *)&local_78);
               if ((undefined1 *)CONCAT44(uStack_74,local_78) != &DAT_011c5338) {
                 FUN_00a63a70();
               }
@@ -46249,7 +46759,8 @@ LAB_00a6c4e0:
                     /* try { // try from 00a6c864 to 00a6c868 has its CatchHandler @ 00a6d03d */
               std::string::string((string *)&local_78,"MarkLine",(allocator *)&local_80);
                     /* try { // try from 00a6c86f to 00a6c873 has its CatchHandler @ 00a6cffa */
-              FUN_009257a8(lVar18,(string *)&local_78);
+              BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (lVar18,(string *)&local_78);
 LAB_00a6c874:
               if ((undefined1 *)CONCAT44(uStack_74,local_78) != &DAT_011c5338) {
                 FUN_00a63a70();
@@ -46271,7 +46782,8 @@ LAB_00a6c874:
                       std::string::string((string *)&local_78,"TriggerHighlightTextFont",
                                           (allocator *)&local_80);
                     /* try { // try from 00a6cabd to 00a6cac1 has its CatchHandler @ 00a6cfe5 */
-                      FUN_009257a8(lVar18,(string *)&local_78);
+                      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (lVar18,(string *)&local_78);
                       if ((undefined1 *)CONCAT44(uStack_74,local_78) != &DAT_011c5338) {
                         FUN_00a63a70();
                       }
@@ -46280,7 +46792,8 @@ LAB_00a6c874:
                       std::string::string((string *)&local_78,"TriggerHighlightTextLine",
                                           (allocator *)&local_80);
                     /* try { // try from 00a6cb00 to 00a6cb04 has its CatchHandler @ 00a6d025 */
-                      FUN_009257a8(lVar18,(string *)&local_78);
+                      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (lVar18,(string *)&local_78);
                       goto LAB_00a6c874;
                     }
                     goto LAB_00a6bb72;
@@ -46302,23 +46815,25 @@ LAB_00a6bb72:
             lVar18 = *(long *)(local_a8 + -0x18);
           }
           if (lVar18 != 0) {
-            FUN_009257a8(param_1[1],&local_a8);
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[1],&local_a8);
           }
           if ((*(long *)(local_a0 + -0x18) == 0) ||
-             (lVar18 = FUN_0095021a(param_2,&local_a0), lVar18 == 0)) {
+             (lVar18 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_2,&local_a0), lVar18 == 0)) {
             local_102 = '\0';
           }
           else {
             local_102 = FUN_0094a5ee(lVar18);
           }
           lVar18 = param_1[1];
-          uVar15 = FUN_0096bbc0(param_3 + 0xa0);
-          uVar19 = FUN_0096bbc0(param_3 + 0x88);
+          uVar15 = BSim_QPoint__y(param_3 + 0xa0);
+          uVar19 = BSim_QPoint__y(param_3 + 0x88);
           FUN_009275c4(&local_98,lVar18,lVar5,uVar19,uVar15);
           plVar24 = local_98;
           pcVar6 = *(code **)(*local_98 + 0x28);
                     /* try { // try from 00a6bc1a to 00a6c2b5 has its CatchHandler @ 00a6d055 */
-          uVar15 = FUN_0096bbc0(param_3 + 0x88);
+          uVar15 = BSim_QPoint__y(param_3 + 0x88);
           if (pcVar6 == Uint32RunStyles_vt5) {
             iVar11 = runstyles_fill_range(plVar24[1],uVar15);
           }
@@ -46328,7 +46843,7 @@ LAB_00a6bb72:
           }
           plVar24 = local_98;
           pcVar6 = *(code **)(*local_98 + 0x28);
-          uVar15 = FUN_0096bbc0(param_3 + 0xa0);
+          uVar15 = BSim_QPoint__y(param_3 + 0xa0);
           if (pcVar6 == Uint32RunStyles_vt5) {
             iVar12 = runstyles_fill_range(plVar24[1],uVar15);
           }
@@ -46497,7 +47012,9 @@ LAB_00a6cba5:
                   else {
                     *local_158 = *(long *)(*(long *)(lVar18 + 0x28) + 8);
                     plVar24 = *(long **)(lVar18 + 0x20);
-                    if (*(code **)(*plVar24 + 0x28) == FUN_007a9c50) {
+                    if (*(code **)(*plVar24 + 0x28) ==
+                        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       ) {
                       iVar13 = runstyles_fill_range(plVar24[1],lVar36);
                     }
                     else {
@@ -46740,7 +47257,8 @@ LAB_00a6bd0b:
                     lVar26 = param_1[1];
                     if (cVar3 == '\x06') {
                     /* try { // try from 00a6ce42 to 00a6ced2 has its CatchHandler @ 00a6d055 */
-                      uVar27 = FUN_00926b1c(lVar26,iVar13);
+                      uVar27 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                         (lVar26,iVar13);
                       if (uVar27 != 0) {
                         FUN_00a6acbe(&local_f0,&local_e0,"MarkLine",&local_e8,"MarkFont",local_90,
                                      lVar18,uVar27);
@@ -46797,7 +47315,8 @@ LAB_00a6bd0b:
                     /* try { // try from 00a6c9fe to 00a6ca02 has its CatchHandler @ 00a6d055 */
                             std::string::string((string *)&local_88,"text.hotSpot",&local_f2);
                     /* try { // try from 00a6ca10 to 00a6ca1e has its CatchHandler @ 00a6d04d */
-                            uVar15 = FUN_0095021a(param_2,(string *)&local_88);
+                            uVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                               (param_2,(string *)&local_88);
                             local_128 = (int *)FUN_0094a576(uVar15,0);
                             iVar13 = *(int *)(uVar27 + 0x30);
                             if ((iVar13 != 0) && (*local_128 != 0)) {
@@ -46933,7 +47452,8 @@ void style_applier_build_map
   timespec local_98 [2];
   timespec local_78 [4];
   
-  lVar15 = FUN_0092570a(param_1[1]);
+  lVar15 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     (param_1[1]);
   local_180 = *(long **)(lVar15 + 0x10);
   local_148 = *(long **)(lVar15 + 0x20);
   local_128 = *(undefined8 **)(lVar15 + 0x28);
@@ -46945,7 +47465,7 @@ void style_applier_build_map
       }
       plVar4 = (long *)*local_180;
       pcVar5 = *(code **)(*plVar4 + 0x28);
-      uVar16 = FUN_0096bbc0(param_4 + 0x88);
+      uVar16 = BSim_QPoint__y(param_4 + 0x88);
       if (pcVar5 == Uint32SkipRunStyles_vt5) {
         iVar12 = skiprunstyles_style_at(plVar4[1],uVar16);
       }
@@ -46953,7 +47473,7 @@ void style_applier_build_map
         iVar12 = (*pcVar5)(plVar4,uVar16);
       }
       pcVar5 = *(code **)(*plVar4 + 0x28);
-      uVar16 = FUN_0096bbc0(param_4 + 0xa0);
+      uVar16 = BSim_QPoint__y(param_4 + 0xa0);
       if (pcVar5 == Uint32SkipRunStyles_vt5) {
         local_138 = skiprunstyles_style_at(plVar4[1],uVar16);
       }
@@ -47081,7 +47601,9 @@ LAB_00a6d755:
              (local_170[5] <= lVar15)) {
             *local_170 = *(long *)(*(long *)(lVar17 + 0x28) + 8);
             plVar21 = *(long **)(lVar17 + 0x20);
-            if (*(code **)(*plVar21 + 0x28) == FUN_007a9c50) {
+            if (*(code **)(*plVar21 + 0x28) ==
+                BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               ) {
               iVar14 = runstyles_fill_range(plVar21[1],lVar15);
             }
             else {
@@ -47513,8 +48035,10 @@ LAB_00a6d1b1:
   else {
     lVar15 = (**(code **)(*plVar4 + 0x40))(plVar4,iVar12);
   }
-  cVar10 = FUN_00925716(param_1[1],iVar14);
-  iVar13 = FUN_009256c6(param_1[1],iVar14);
+  cVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     (param_1[1],iVar14);
+  iVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     (param_1[1],iVar14);
   if (iVar13 == 4) {
     FUN_009256d2(local_d8,param_1[1],iVar14);
     FUN_009256a4((string *)local_c8,param_1[1],iVar14);
@@ -47564,7 +48088,9 @@ LAB_00a6d419:
     lVar17 = *(long *)(local_c8[0] + -0x18);
   }
                     /* try { // try from 00a6d44d to 00a6d4f2 has its CatchHandler @ 00a6e875 */
-  if ((lVar17 != 0) && (lVar17 = FUN_0095021a(param_3,(string *)local_c8), lVar17 != 0)) {
+  if ((lVar17 != 0) &&
+     (lVar17 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (param_3,(string *)local_c8), lVar17 != 0)) {
     cVar10 = FUN_0094a5ee(lVar17);
     cVar11 = FUN_0094a664(lVar17);
     if (((cVar11 != '\0') || (cVar11 = FUN_0094a684(lVar17), cVar11 != '\0')) &&
@@ -47711,7 +48237,8 @@ void s_line_background_a6e89e(undefined8 *param_1,long *param_2,int *param_3,lon
     pcVar2 = *(code **)(*param_2 + 0x78);
     std::string::string((string *)local_58,"line.background",(allocator *)&local_68);
                     /* try { // try from 00a6e91c to 00a6e966 has its CatchHandler @ 00a7016d */
-    uVar17 = FUN_0095021a(param_3,local_58);
+    uVar17 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (param_3,local_58);
     if (*(char *)((long)param_3 + 0xd4d) == '\0') {
       uVar32 = 0;
     }
@@ -47789,7 +48316,8 @@ LAB_00a6ea7e:
     }
   }
 LAB_00a6eb60:
-  lVar18 = FUN_0092570a(param_1[1]);
+  lVar18 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     (param_1[1]);
   local_108 = *(long **)(lVar18 + 0x10);
   local_d8 = *(long **)(lVar18 + 0x20);
   local_c8 = *(undefined8 **)(lVar18 + 0x28);
@@ -47937,7 +48465,9 @@ LAB_00a6eeeb:
              (local_100[5] <= lVar28)) {
             *local_100 = *(long *)(*(long *)(lVar18 + 0x28) + 8);
             plVar20 = *(long **)(lVar18 + 0x20);
-            if (*(code **)(*plVar20 + 0x28) == FUN_007a9c50) {
+            if (*(code **)(*plVar20 + 0x28) ==
+                BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               ) {
               iVar14 = runstyles_fill_range(plVar20[1],lVar28);
             }
             else {
@@ -48351,7 +48881,8 @@ LAB_00a6f0c6:
     QReadWriteLock::unlock();
   }
 LAB_00a6ec24:
-  cVar9 = FUN_00925716(param_1[1],uVar10);
+  cVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1[1],uVar10);
   if ((cVar9 != '\r') || (*(long *)(param_4 + 0x70) <= local_70)) goto joined_r0x00a6edc5;
   if (*(code **)(*plVar4 + 0x40) == Uint32SkipRunStyles_vt8) {
     lVar18 = skiprunstyles_run_lookup(plVar4[1],(long)(iVar13 + 1));
@@ -48391,7 +48922,8 @@ LAB_00a6f22d:
   if (lVar18 != 0) {
     pcVar2 = *(code **)(*param_2 + 0x78);
                     /* try { // try from 00a6f276 to 00a6f2b4 has its CatchHandler @ 00a70165 */
-    uVar17 = FUN_0095021a(param_3,&local_68);
+    uVar17 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (param_3,&local_68);
     uVar17 = FUN_0094a806(uVar17,*(undefined8 *)(param_4 + 0x28));
     (*pcVar2)(param_2,uVar17);
   }
@@ -48550,10 +49082,11 @@ void s_text_whiteSpace_a70196(long *param_1,long *param_2,long param_3,long para
   double local_68;
   double local_60;
   
-  lVar16 = FUN_0096bbc0(param_4 + 0x88);
-  lVar17 = FUN_0096bbc0(param_4 + 0xa0);
+  lVar16 = BSim_QPoint__y(param_4 + 0x88);
+  lVar17 = BSim_QPoint__y(param_4 + 0xa0);
   uVar18 = *(long *)(param_4 + 0x158) - *(long *)(param_4 + 0x150) >> 3;
-  lVar19 = FUN_0092570a(param_1[1]);
+  lVar19 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     (param_1[1]);
   local_238 = *(QColor **)(lVar19 + 0x10);
   local_1c0 = *(long **)(lVar19 + 0x20);
   local_1d0 = *(undefined8 **)(lVar19 + 0x28);
@@ -48731,7 +49264,9 @@ LAB_00a705c5:
             else {
               *plVar22 = *(long *)(*(long *)(lVar19 + 0x28) + 8);
               plVar23 = *(long **)(lVar19 + 0x20);
-              if (*(code **)(*plVar23 + 0x28) == FUN_007a9c50) {
+              if (*(code **)(*plVar23 + 0x28) ==
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                 ) {
                 iVar34 = runstyles_fill_range(plVar23[1],local_240);
               }
               else {
@@ -48962,7 +49497,8 @@ LAB_00a7053d:
             uVar33 = 0;
           }
 LAB_00a70327:
-          cVar10 = FUN_00925716(param_1[1],uVar33);
+          cVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (param_1[1],uVar33);
           if ((cVar10 == '\x14') &&
              (FUN_009256d2((QColor *)&local_78,param_1[1],uVar33), (int)local_78 != 0)) {
             dVar43 = local_228;
@@ -48973,7 +49509,7 @@ LAB_00a70327:
             for (uVar38 = (ulong)local_1ec; local_1ec = iVar34, uVar38 < uVar18; uVar38 = uVar38 + 1
                 ) {
               while( true ) {
-                lVar19 = FUN_0096bbc0(*(long *)(*(long *)(param_4 + 0x150) + uVar38 * 8) + 0x18);
+                lVar19 = BSim_QPoint__y(*(long *)(*(long *)(param_4 + 0x150) + uVar38 * 8) + 0x18);
                 local_1ec = iVar34;
                 if ((long)dVar43 < lVar19) goto LAB_00a7033f;
                 local_1ec = (int)uVar38 + 1;
@@ -49013,7 +49549,7 @@ LAB_00a70c37:
     local_130 = puVar7[4];
     local_128 = puVar7[5];
                     /* try { // try from 00a70c9c to 00a71030 has its CatchHandler @ 00a72235 */
-    lVar16 = FUN_0096bbc0(&local_158);
+    lVar16 = BSim_QPoint__y(&local_158);
     cVar11 = FUN_00a290c8(*param_1,param_3);
     cVar12 = '\0';
     if (cVar11 != '\0') {
@@ -49119,7 +49655,7 @@ LAB_00a71acc:
     }
     local_238 = (QColor *)&local_168;
     dVar44 = (double)puVar7[6];
-    dVar41 = (double)FUN_0096bc14(&local_138);
+    dVar41 = (double)BSim_QPoint__y(&local_138);
     iVar14 = FUN_00a63e3e(param_1,param_3);
     if ((iVar14 == 1) && (cVar12 != '\0')) {
                     /* try { // try from 00a71367 to 00a71416 has its CatchHandler @ 00a72235 */
@@ -49131,7 +49667,8 @@ LAB_00a71acc:
       (**(code **)(*param_2 + 0x78))(param_2,uVar25);
       std::string::string((string *)&local_78,"text.default",local_118);
                     /* try { // try from 00a7141d to 00a7142b has its CatchHandler @ 00a7222d */
-      uVar25 = FUN_0095021a(param_3,(string *)&local_78);
+      uVar25 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (param_3,(string *)&local_78);
       pQVar26 = (QColor *)editor_styleAt(uVar25,0);
       QColor::operator=(local_238,pQVar26);
       if (local_78 != &DAT_011c5338) {
@@ -49271,7 +49808,8 @@ LAB_00a71031:
     if (*(int *)(param_3 + 0xd40) != 0) {
       std::string::string((string *)&local_78,"text.whiteSpace",local_118);
                     /* try { // try from 00a714be to 00a714ca has its CatchHandler @ 00a72215 */
-      uVar25 = FUN_0095021a(param_3,(string *)&local_78);
+      uVar25 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (param_3,(string *)&local_78);
       cVar12 = FUN_0094a786(uVar25);
       if (cVar12 == '\0') {
         if (local_78 != &DAT_011c5338) {
@@ -49287,7 +49825,8 @@ LAB_00a71031:
         if (cVar12 != '\0') {
           std::string::string((string *)&local_78,"text.whiteSpace",local_118);
                     /* try { // try from 00a71527 to 00a71535 has its CatchHandler @ 00a7221d */
-          uVar25 = FUN_0095021a(param_3,(string *)&local_78);
+          uVar25 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (param_3,(string *)&local_78);
           pQVar26 = (QColor *)FUN_0094a576(uVar25,0);
           QColor::operator=(local_238,pQVar26);
           if (local_78 != &DAT_011c5338) {
@@ -49399,14 +49938,15 @@ void s_PairColor_a72272(long param_1,undefined8 param_2,long param_3)
   undefined4 uStack_40;
   undefined2 local_3c;
   
-  lVar4 = FUN_0096bbc0(param_3 + 0x88);
-  uVar5 = FUN_0096bbc0(param_3 + 0xa0);
+  lVar4 = BSim_QPoint__y(param_3 + 0x88);
+  uVar5 = BSim_QPoint__y(param_3 + 0xa0);
   FUN_00935584(&local_60,*(undefined8 *)(param_1 + 8),lVar4,uVar5);
   uVar5 = *(undefined8 *)(param_1 + 8);
                     /* try { // try from 00a722e8 to 00a722ec has its CatchHandler @ 00a7266b */
   std::string::string((string *)&local_48,"PairColor",local_58);
                     /* try { // try from 00a722f3 to 00a722f7 has its CatchHandler @ 00a72675 */
-  FUN_009257a8(uVar5,(string *)&local_48);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar5,(string *)&local_48);
   if ((undefined1 *)CONCAT44(uStack_44,local_48) != &DAT_011c5338) {
     FUN_00a63a70();
   }
@@ -49594,7 +50134,8 @@ QPixmap * FUN_00a728fc(QPixmap *param_1,long *param_2,long *param_3,undefined8 p
   }
   else {
     QPixmap::rect();
-    FUN_009502c6(param_4,(int)*(char *)(*param_2 + 0x1067));
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_4,(int)*(char *)(*param_2 + 0x1067));
     QPixmap::fill(pQVar1);
     if (param_5 < param_6) {
       do {
@@ -49701,7 +50242,8 @@ QPixmap * s_line_modified_a72ad6(QPixmap *param_1,long *param_2,undefined8 param
     QPainter::QPainter(local_158,(QPaintDevice *)param_1);
                     /* try { // try from 00a72bbd to 00a72d4c has its CatchHandler @ 00a73696 */
     local_150 = editor_textLength(param_2[2]);
-    lVar3 = FUN_00925570(param_2[1]);
+    lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_2[1]);
     iVar11 = visible_line_count(*param_2,0);
     lVar8 = (long)iVar11;
     if (iVar11 < local_150) {
@@ -49730,7 +50272,8 @@ QPixmap * s_line_modified_a72ad6(QPixmap *param_1,long *param_2,undefined8 param
       auVar18 = FUN_00927a78(param_2[1],0,&local_167);
       std::string::string((string *)&local_b8,"line.saved",(allocator *)&local_f8);
                     /* try { // try from 00a72d56 to 00a72d62 has its CatchHandler @ 00a7369e */
-      uVar4 = FUN_0095021a(param_3,(string *)&local_b8);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_3,(string *)&local_b8);
       cVar1 = FUN_0094a7f8(uVar4);
       if (cVar1 == '\0') {
         local_118 = 0;
@@ -49741,7 +50284,8 @@ QPixmap * s_line_modified_a72ad6(QPixmap *param_1,long *param_2,undefined8 param
                     /* try { // try from 00a7349e to 00a734a2 has its CatchHandler @ 00a7369e */
         std::string::string((string *)&local_d8,"line.saved",(allocator *)&local_108);
                     /* try { // try from 00a734aa to 00a734b8 has its CatchHandler @ 00a736c5 */
-        uVar4 = FUN_0095021a(param_3,(string *)&local_d8);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_3,(string *)&local_d8);
         piVar9 = (int *)editor_styleAt(uVar4,0);
         local_118 = *piVar9;
         local_114 = *(undefined8 *)(piVar9 + 1);
@@ -49756,7 +50300,8 @@ QPixmap * s_line_modified_a72ad6(QPixmap *param_1,long *param_2,undefined8 param
                     /* try { // try from 00a72dc2 to 00a72dc6 has its CatchHandler @ 00a73696 */
       std::string::string((string *)&local_b8,"line.unsaved",(allocator *)&local_f8);
                     /* try { // try from 00a72dd0 to 00a72ddc has its CatchHandler @ 00a736bd */
-      uVar4 = FUN_0095021a(param_3,(string *)&local_b8);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_3,(string *)&local_b8);
       cVar1 = FUN_0094a7f8(uVar4);
       if (cVar1 == '\0') {
         local_108 = 0;
@@ -49767,7 +50312,8 @@ QPixmap * s_line_modified_a72ad6(QPixmap *param_1,long *param_2,undefined8 param
                     /* try { // try from 00a73601 to 00a73605 has its CatchHandler @ 00a736bd */
         std::string::string((string *)&local_d8,"line.unsaved",(allocator *)&local_120);
                     /* try { // try from 00a7360f to 00a7361d has its CatchHandler @ 00a736b5 */
-        uVar4 = FUN_0095021a(param_3,(string *)&local_d8);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_3,(string *)&local_d8);
         piVar9 = (int *)editor_styleAt(uVar4,0);
         local_108 = *piVar9;
         local_104 = *(undefined8 *)(piVar9 + 1);
@@ -49783,7 +50329,8 @@ QPixmap * s_line_modified_a72ad6(QPixmap *param_1,long *param_2,undefined8 param
                     /* try { // try from 00a72e44 to 00a72e48 has its CatchHandler @ 00a73696 */
       std::string::string((string *)&local_b8,"line.modified",local_1a8);
                     /* try { // try from 00a72e52 to 00a72e5e has its CatchHandler @ 00a736cd */
-      uVar4 = FUN_0095021a(param_3,(string *)&local_b8);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_3,(string *)&local_b8);
       cVar1 = FUN_0094a7f8(uVar4);
       if (cVar1 == '\0') {
         local_f8 = 0;
@@ -49794,7 +50341,8 @@ QPixmap * s_line_modified_a72ad6(QPixmap *param_1,long *param_2,undefined8 param
                     /* try { // try from 00a73582 to 00a73586 has its CatchHandler @ 00a736cd */
         std::string::string((string *)&local_d8,"line.modified",(allocator *)&local_128);
                     /* try { // try from 00a73590 to 00a7359e has its CatchHandler @ 00a736d5 */
-        uVar4 = FUN_0095021a(param_3,(string *)&local_d8);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_3,(string *)&local_d8);
         puVar10 = (undefined4 *)editor_styleAt(uVar4,0);
         local_f8 = *puVar10;
         local_f4 = *(undefined8 *)(puVar10 + 1);
@@ -49897,7 +50445,8 @@ joined_r0x00a72ee1:
                      FUN_00a65f12(pQVar13,pQVar13 + *(int *)(local_128 + 4),&local_165);
         }
                     /* try { // try from 00a7323c to 00a73240 has its CatchHandler @ 00a736ed */
-        lVar8 = FUN_0095021a(param_3,(QColor *)&local_b8);
+        lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_3,(QColor *)&local_b8);
         if (local_b8 != &DAT_011c5338) {
           FUN_00a63a70();
         }
@@ -50127,7 +50676,7 @@ void s_TextPreview_a738f0(QString *param_1,long param_2)
   
   QFrame::QFrame((QFrame *)param_1,param_2,0xc0d);
   *(undefined ***)param_1 = &SciPreview_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011b0298;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_011b0298;
   *(undefined8 *)(param_1 + 0x38) = 0;
                     /* try { // try from 00a73931 to 00a73935 has its CatchHandler @ 00a73a15 */
   QPixmap::QPixmap((QPixmap *)(param_1 + 0x40));
@@ -50165,16 +50714,19 @@ void SciPreview_dtor(QFrame *param_1)
 
 {
   *(undefined ***)param_1 = &SciPreview_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011b0298;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_011b0298;
   QPixmap::~QPixmap((QPixmap *)(param_1 + 0x40));
   QFrame::~QFrame(param_1);
   return;
 }
 
 
-// ==== entry=00a73a54 name=FUN_00a73a54 size=6 ====
+// ==== entry=00a73a54 orig=FUN_00a73a54 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a73a54(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   SciPreview_dtor(param_1 + -0x10);
@@ -50193,9 +50745,12 @@ void SciPreview_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=00a73a71 name=FUN_00a73a71 size=6 ====
+// ==== entry=00a73a71 orig=FUN_00a73a71 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a73a71(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   SciPreview_dtor_deleting(param_1 + -0x10);
@@ -50622,7 +51177,8 @@ LAB_00a7417b:
           uVar12 = *(undefined8 *)(param_1 + 0xe8);
           std::string::string((string *)&local_68,"calltip.text",(allocator *)&local_b8);
                     /* try { // try from 00a743c9 to 00a7445b has its CatchHandler @ 00a74b75 */
-          uVar12 = FUN_0095021a(uVar12,(string *)&local_68);
+          uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (uVar12,(string *)&local_68);
           uVar12 = editor_styleAt(uVar12,0);
           (*pcVar7)(param_2,uVar12);
           if ((undefined8 *)((long)local_68 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -50643,7 +51199,8 @@ LAB_00a7417b:
           uVar12 = *(undefined8 *)(param_1 + 0xe8);
           std::string::string((string *)&local_68,"calltip.text",(allocator *)&local_c0);
                     /* try { // try from 00a74518 to 00a7456b has its CatchHandler @ 00a74bad */
-          uVar12 = FUN_0095021a(uVar12,(string *)&local_68);
+          uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (uVar12,(string *)&local_68);
           uVar12 = FUN_0094a576(uVar12,0);
           (*pcVar7)(param_2,uVar12);
           if ((undefined8 *)((long)local_68 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -50667,12 +51224,14 @@ LAB_00a7417b:
             local_50 = local_60;
             std::string::string((string *)&local_c0,"calltip.text",&local_c9);
                     /* try { // try from 00a74993 to 00a749cc has its CatchHandler @ 00a74b8d */
-            uVar12 = FUN_0095021a(uVar12,(string *)&local_c0);
+            uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (uVar12,(string *)&local_c0);
             uVar11 = editor_styleAt(uVar12,0);
             uVar12 = *(undefined8 *)(param_1 + 0xe8);
             std::string::string((string *)&local_c8,"calltip.text",&local_ca);
                     /* try { // try from 00a749d7 to 00a74a02 has its CatchHandler @ 00a74b95 */
-            uVar12 = FUN_0095021a(uVar12,(string *)&local_c8);
+            uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (uVar12,(string *)&local_c8);
             uVar12 = editor_styleAt(uVar12,0);
             (*pcVar7)(param_2,(string *)&local_68,3,uVar12,uVar11);
           }
@@ -50682,12 +51241,14 @@ LAB_00a7417b:
             local_50 = local_60;
             std::string::string((string *)&local_c0,"calltip.text",&local_c9);
                     /* try { // try from 00a74654 to 00a7468d has its CatchHandler @ 00a74ba5 */
-            uVar12 = FUN_0095021a(uVar12,(string *)&local_c0);
+            uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (uVar12,(string *)&local_c0);
             uVar11 = editor_styleAt(uVar12,0);
             uVar12 = *(undefined8 *)(param_1 + 0xe8);
             std::string::string((string *)&local_c8,"calltip.text",&local_ca);
                     /* try { // try from 00a74698 to 00a746c3 has its CatchHandler @ 00a74b7d */
-            uVar12 = FUN_0095021a(uVar12,(string *)&local_c8);
+            uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (uVar12,(string *)&local_c8);
             uVar12 = editor_styleAt(uVar12,0);
             (*pcVar7)(param_2,(string *)&local_68,3,uVar12,uVar11);
           }
@@ -50742,7 +51303,8 @@ LAB_00a7417b:
                     /* try { // try from 00a74a25 to 00a74a29 has its CatchHandler @ 00a74b65 */
               std::string::string((string *)&local_68,"calltip.text",(allocator *)&local_c8);
                     /* try { // try from 00a74a32 to 00a74a40 has its CatchHandler @ 00a74b85 */
-              uVar12 = FUN_0095021a(uVar12,(string *)&local_68);
+              uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (uVar12,(string *)&local_68);
               uVar12 = editor_styleAt(uVar12,0);
               cVar8 = param_13;
             }
@@ -50750,7 +51312,8 @@ LAB_00a7417b:
                     /* try { // try from 00a747dd to 00a747e1 has its CatchHandler @ 00a74b9d */
               std::string::string((string *)&local_b8,"calltip.highlight",&local_c9);
                     /* try { // try from 00a747ec to 00a747fa has its CatchHandler @ 00a74b65 */
-              uVar12 = FUN_0095021a(uVar12,(string *)&local_b8);
+              uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (uVar12,(string *)&local_b8);
               uVar12 = editor_styleAt(uVar12,0);
               cVar8 = '\0';
             }
@@ -50932,7 +51495,8 @@ void s_calltip_text_a74ec0(long param_1,long *param_2)
     uVar4 = *(undefined8 *)(param_1 + 0xe8);
     std::string::string((string *)&local_80,"calltip.text",&local_81);
                     /* try { // try from 00a74f79 to 00a74fb7 has its CatchHandler @ 00a75104 */
-    uVar4 = FUN_0095021a(uVar4,(string *)&local_80);
+    uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar4,(string *)&local_80);
     uVar4 = editor_styleAt(uVar4,0);
     (*pcVar3)(param_2,uVar4);
     if ((undefined8 *)(local_80 + -0x18) != &std::string::_Rep::_S_empty_rep_storage) {
@@ -51378,7 +51942,7 @@ bool FUN_00a759dc(undefined8 *param_1,undefined8 param_2)
   long lVar3;
   bool bVar4;
   
-  lVar2 = FUN_0096bbc0(param_2);
+  lVar2 = BSim_QPoint__y(param_2);
   if (lVar2 <= (long)param_1[0xd]) {
     return param_1[0xd] == lVar2;
   }
@@ -51528,7 +52092,8 @@ void FUN_00a75c04(long param_1)
   if (*(long *)(param_1 + 0x1a0) != -1) {
     return;
   }
-  uVar1 = FUN_0092520c(*(undefined8 *)(param_1 + 0x18),*(undefined8 *)(param_1 + 0x30));
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x18),*(undefined8 *)(param_1 + 0x30));
   uVar1 = FUN_0092934c(*(undefined8 *)(param_1 + 0x18),uVar1,*(undefined8 *)(param_1 + 0x68),0);
   *(undefined8 *)(param_1 + 0x1a0) = uVar1;
   return;
@@ -51598,7 +52163,7 @@ undefined8 FUN_00a75d66(undefined8 *param_1,undefined8 param_2)
   QArrayData *local_d0;
   undefined1 local_78 [80];
   
-  lVar2 = FUN_0096bbc0(param_2);
+  lVar2 = BSim_QPoint__y(param_2);
   if (lVar2 < (long)param_1[0xf]) {
 LAB_00a75dce:
     FUN_00a5cd64(local_108,*param_1,0);
@@ -51654,7 +52219,7 @@ undefined1 * FUN_00a75e9a(long *param_1,undefined8 param_2,undefined1 param_3)
   undefined1 local_68 [32];
   undefined1 local_48 [32];
   
-  lVar5 = FUN_0096bbc0(param_2);
+  lVar5 = BSim_QPoint__y(param_2);
   if (lVar5 < param_1[0xd]) {
     local_70 = &DAT_bff0000000000000;
     puVar1 = local_70;
@@ -51665,7 +52230,7 @@ undefined1 * FUN_00a75e9a(long *param_1,undefined8 param_2,undefined1 param_3)
   }
   else {
     iVar4 = qstrdata_length_get(param_1 + 0x14);
-    if ((iVar4 == 0) && (lVar6 = FUN_0096bbc0(param_1 + 0x14), lVar6 < lVar5)) {
+    if ((iVar4 == 0) && (lVar6 = BSim_QPoint__y(param_1 + 0x14), lVar6 < lVar5)) {
       local_70 = (undefined1 *)((double)param_1[9] + 1.0);
     }
     else {
@@ -51775,7 +52340,7 @@ undefined8 FUN_00a760ee(undefined8 param_1,long param_2,undefined8 param_3)
                     /* try { // try from 00a76156 to 00a762c4 has its CatchHandler @ 00a762da */
   cVar1 = FUN_0096bbb4(&local_b8);
   if (cVar1 != '\0') {
-    lVar4 = FUN_0096bbc0(&local_b8);
+    lVar4 = BSim_QPoint__y(&local_b8);
     if (lVar4 < *(long *)(param_2 + 0x68)) {
       runstyles_runnode_init(&local_78,*(long *)(param_2 + 0x68),0,0);
       local_b8 = local_78;
@@ -51784,12 +52349,12 @@ undefined8 FUN_00a760ee(undefined8 param_1,long param_2,undefined8 param_3)
       BSim_QList_int___node_destruct(&local_78);
     }
     else {
-      lVar4 = FUN_0096bbc0(&local_b8);
+      lVar4 = BSim_QPoint__y(&local_b8);
       if (*(long *)(param_2 + 0x68) == lVar4) {
         FUN_0096bc28(&local_b8,0);
       }
       else {
-        lVar4 = FUN_0096bbc0(&local_b8);
+        lVar4 = BSim_QPoint__y(&local_b8);
         if (*(long *)(param_2 + 0x70) < lVar4) {
           FUN_0096bb9a(&local_b8);
           FUN_0096bb9a(&local_98);
@@ -51799,7 +52364,7 @@ undefined8 FUN_00a760ee(undefined8 param_1,long param_2,undefined8 param_3)
   }
   cVar1 = FUN_0096bbb4(&local_98);
   if (cVar1 != '\0') {
-    lVar4 = FUN_0096bbc0(&local_98);
+    lVar4 = BSim_QPoint__y(&local_98);
     if (*(long *)(param_2 + 0x70) < lVar4) {
       runstyles_runnode_init(&local_58,*(long *)(param_2 + 0x70),0,0);
       local_98 = local_58;
@@ -51807,7 +52372,7 @@ undefined8 FUN_00a760ee(undefined8 param_1,long param_2,undefined8 param_3)
       local_88 = local_48;
       BSim_QList_int___node_destruct(&local_58);
     }
-    lVar4 = FUN_0096bbc0(&local_98);
+    lVar4 = BSim_QPoint__y(&local_98);
     if (lVar4 < *(long *)(param_2 + 0x68)) {
       FUN_0096bb9a(&local_b8);
       FUN_0096bb9a(&local_98);
@@ -51888,7 +52453,7 @@ uint FUN_00a763ba(long *param_1,undefined8 param_2,char param_3)
   if ((char)uVar4 == '\0') {
     bVar1 = *(byte *)(*param_1 + 0x1128);
     if (bVar1 != 0) {
-      uVar5 = FUN_0096bbc0(param_2);
+      uVar5 = BSim_QPoint__y(param_2);
       FUN_00a7631c(local_78,param_1,uVar5);
       lVar7 = param_1[0x21];
       lVar8 = param_1[0x23];
@@ -52141,8 +52706,8 @@ void FUN_00a76608(long *param_1,long param_2,long param_3,long param_4,long para
     BSim_QList_int___node_destruct(&local_128);
   }
   uVar19 = *(undefined8 *)(*param_1 + 0x1038);
-  uVar13 = FUN_0096bbc0(plVar2);
-  uVar14 = FUN_0096bbc0(plVar1);
+  uVar13 = BSim_QPoint__y(plVar2);
+  uVar14 = BSim_QPoint__y(plVar1);
   doc_range_from_positions(&local_88,uVar19,uVar14,uVar13);
   lVar12 = param_1[0x25];
   lVar27 = param_1[0x21];
@@ -52349,8 +52914,8 @@ LAB_00a76ea9:
 LAB_00a76f47:
     lVar12 = BSim_Splitter__createHandle(plVar25);
     lVar27 = BSim_Splitter__createHandle(plVar25);
-    lVar16 = FUN_0096bbc0(plVar1);
-    if ((lVar27 < lVar16) || (lVar16 = FUN_0096bbc0(plVar2), lVar16 < lVar12)) {
+    lVar16 = BSim_QPoint__y(plVar1);
+    if ((lVar27 < lVar16) || (lVar16 = BSim_QPoint__y(plVar2), lVar16 < lVar12)) {
 LAB_00a76f72:
       plVar26 = plVar25 + 7;
       plVar22 = plVar31;
@@ -52662,7 +53227,7 @@ void s_text_controlChar_a77836(long *param_1)
     do {
       while( true ) {
                     /* try { // try from 00a778a7 to 00a778bf has its CatchHandler @ 00a7890d */
-        lVar6 = FUN_0096bbc0(&local_118);
+        lVar6 = BSim_QPoint__y(&local_118);
         if (param_1[0xf] <= lVar6) goto LAB_00a77a0e;
         pQVar7 = operator_new(0x58);
                     /* try { // try from 00a778c6 to 00a778ca has its CatchHandler @ 00a78915 */
@@ -52679,12 +53244,12 @@ void s_text_controlChar_a77836(long *param_1)
         }
         lVar6 = param_1[2];
                     /* try { // try from 00a778f9 to 00a77a02 has its CatchHandler @ 00a7890d */
-        uVar8 = FUN_0096bbc0(&local_118);
+        uVar8 = BSim_QPoint__y(&local_118);
         pQVar7 = local_140;
         uVar8 = editor_styleFont(lVar6,uVar8);
         *(undefined8 *)pQVar7 = uVar8;
         lVar6 = param_1[3];
-        uVar8 = FUN_0096bbc0(&local_118);
+        uVar8 = BSim_QPoint__y(&local_118);
         pQVar7 = local_140;
         uVar8 = FUN_00926b40(lVar6,uVar8);
         *(undefined8 *)(pQVar7 + 8) = uVar8;
@@ -52716,7 +53281,8 @@ LAB_00a77e8d:
         lVar6 = param_1[2];
         std::string::string((string *)&local_138,"text.folded",(allocator *)&local_148);
                     /* try { // try from 00a77ed5 to 00a77ed9 has its CatchHandler @ 00a788dd */
-        lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar6,(string *)&local_138);
 LAB_00a77eda:
         if (local_138 + -0x18 != (QArrayData *)&std::string::_Rep::_S_empty_rep_storage) {
           LOCK();
@@ -52743,14 +53309,16 @@ LAB_00a77eda:
           std::string::string((string *)&local_138,*(char **)(*param_1 + 0xfd8),
                               (allocator *)&local_148);
                     /* try { // try from 00a77fcd to 00a77fd1 has its CatchHandler @ 00a788b5 */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77eda;
         }
         if (QVar1 == (QArrayData)0x4) {
           lVar6 = param_1[2];
           std::string::string((string *)&local_138,"text.hotSpot",(allocator *)&local_148);
                     /* try { // try from 00a78080 to 00a78084 has its CatchHandler @ 00a788ed */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77eda;
         }
         if (QVar1 == (QArrayData)0x5) {
@@ -52758,7 +53326,8 @@ LAB_00a77eda:
                     /* try { // try from 00a78102 to 00a78106 has its CatchHandler @ 00a7890d */
           std::string::string((string *)&local_138,"text.link",(allocator *)&local_148);
                     /* try { // try from 00a7810d to 00a78111 has its CatchHandler @ 00a78905 */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77eda;
         }
         if (QVar1 == (QArrayData)0x1) {
@@ -52766,7 +53335,8 @@ LAB_00a77eda:
                     /* try { // try from 00a77feb to 00a77fef has its CatchHandler @ 00a7890d */
           std::string::string((string *)&local_138,"text.controlChar",(allocator *)&local_148);
                     /* try { // try from 00a77ff6 to 00a77ffa has its CatchHandler @ 00a788bd */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77eda;
         }
       }
@@ -52776,7 +53346,7 @@ LAB_00a77eda:
       BSim_Splitter__setMainIndex(dVar14 + *(double *)(local_140 + 0x30),local_140 + 0x18);
       dVar15 = (double)FUN_00a28aea(*param_1,&local_118);
       local_178 = dVar15 + local_178 + dVar14;
-      dVar14 = (double)FUN_0096bc14(local_140 + 0x18);
+      dVar14 = (double)BSim_QPoint__y(local_140 + 0x18);
     } while (dVar14 < (double)param_1[9] || dVar14 == (double)param_1[9]);
 LAB_00a77a0e:
     BSim_QList_int___node_destruct(&local_118);
@@ -52786,7 +53356,7 @@ LAB_00a77a0e:
     local_178 = local_178 + 0.0;
     do {
       while( true ) {
-        lVar6 = FUN_0096bbc0(&local_118);
+        lVar6 = BSim_QPoint__y(&local_118);
         if (param_1[0xf] <= lVar6) goto LAB_00a77bb0;
         pQVar7 = operator_new(0x58);
                     /* try { // try from 00a77a7d to 00a77a81 has its CatchHandler @ 00a788d5 */
@@ -52803,12 +53373,12 @@ LAB_00a77a0e:
         }
         lVar6 = param_1[2];
                     /* try { // try from 00a77ab0 to 00a77ba4 has its CatchHandler @ 00a788cd */
-        uVar8 = FUN_0096bbc0(&local_118);
+        uVar8 = BSim_QPoint__y(&local_118);
         pQVar7 = local_140;
         uVar8 = editor_styleFont(lVar6,uVar8);
         *(undefined8 *)pQVar7 = uVar8;
         lVar6 = param_1[3];
-        uVar8 = FUN_0096bbc0(&local_118);
+        uVar8 = BSim_QPoint__y(&local_118);
         pQVar7 = local_140;
         uVar8 = FUN_00926b40(lVar6,uVar8);
         *(undefined8 *)(pQVar7 + 8) = uVar8;
@@ -52841,7 +53411,8 @@ LAB_00a77ea5:
                     /* try { // try from 00a77f33 to 00a77f37 has its CatchHandler @ 00a788cd */
         std::string::string((string *)&local_138,"text.folded",(allocator *)&local_148);
                     /* try { // try from 00a77f3e to 00a77f42 has its CatchHandler @ 00a788e5 */
-        lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar6,(string *)&local_138);
 LAB_00a77f43:
         if (local_138 + -0x18 != (QArrayData *)&std::string::_Rep::_S_empty_rep_storage) {
           LOCK();
@@ -52867,7 +53438,8 @@ LAB_00a77f43:
           std::string::string((string *)&local_138,*(char **)(*param_1 + 0xfd8),
                               (allocator *)&local_148);
                     /* try { // try from 00a77fa7 to 00a77fab has its CatchHandler @ 00a788ad */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77f43;
         }
         if (QVar1 == (QArrayData)0x4) {
@@ -52875,7 +53447,8 @@ LAB_00a77f43:
                     /* try { // try from 00a7809e to 00a780a2 has its CatchHandler @ 00a788cd */
           std::string::string((string *)&local_138,"text.hotSpot",(allocator *)&local_148);
                     /* try { // try from 00a780a9 to 00a780ad has its CatchHandler @ 00a788f5 */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77f43;
         }
         if (QVar1 == (QArrayData)0x5) {
@@ -52883,7 +53456,8 @@ LAB_00a77f43:
                     /* try { // try from 00a780d9 to 00a780dd has its CatchHandler @ 00a788cd */
           std::string::string((string *)&local_138,"text.link",(allocator *)&local_148);
                     /* try { // try from 00a780e4 to 00a780e8 has its CatchHandler @ 00a788fd */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77f43;
         }
         if (QVar1 == (QArrayData)0x1) {
@@ -52891,7 +53465,8 @@ LAB_00a77f43:
                     /* try { // try from 00a78014 to 00a78018 has its CatchHandler @ 00a788cd */
           std::string::string((string *)&local_138,"text.controlChar",(allocator *)&local_148);
                     /* try { // try from 00a7801f to 00a78023 has its CatchHandler @ 00a788c5 */
-          lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,(string *)&local_138);
           goto LAB_00a77f43;
         }
       }
@@ -52900,7 +53475,7 @@ LAB_00a77f43:
       *(undefined8 *)(local_140 + 0x28) = local_108;
       BSim_Splitter__setMainIndex(dVar14 + *(double *)(local_140 + 0x30),local_140 + 0x18);
       local_178 = local_178 + dVar14;
-      dVar14 = (double)FUN_0096bc14(local_140 + 0x18);
+      dVar14 = (double)BSim_QPoint__y(local_140 + 0x18);
     } while (dVar14 < (double)param_1[9] || dVar14 == (double)param_1[9]);
 LAB_00a77bb0:
     BSim_QList_int___node_destruct(&local_118);
@@ -52908,9 +53483,9 @@ LAB_00a77bb0:
     goto LAB_00a77bbb;
   }
   local_178 = (double)param_1[0xb];
-  pQVar7 = (QArrayData *)FUN_0096bbc0(param_1 + 0x11);
+  pQVar7 = (QArrayData *)BSim_QPoint__y(param_1 + 0x11);
   lVar6 = param_1[3];
-  lVar10 = FUN_0096bbc0(param_1 + 0x14);
+  lVar10 = BSim_QPoint__y(param_1 + 0x14);
   lVar6 = FUN_009252f4(lVar6,lVar10 + 1,1,0);
   if (param_1[0xf] <= lVar6) {
     lVar6 = param_1[0xf];
@@ -52970,14 +53545,16 @@ LAB_00a785a1:
                     /* try { // try from 00a7858c to 00a78590 has its CatchHandler @ 00a78885 */
         std::string::string((string *)&local_138,"text.controlChar",(allocator *)&local_140);
                     /* try { // try from 00a78597 to 00a7859b has its CatchHandler @ 00a7888d */
-        lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar6,(string *)&local_138);
         break;
       case 4:
         *(undefined1 *)(local_148 + 7) = 2;
         lVar6 = param_1[2];
         std::string::string((string *)&local_138,"text.folded",(allocator *)&local_140);
                     /* try { // try from 00a78411 to 00a78415 has its CatchHandler @ 00a78875 */
-        lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar6,(string *)&local_138);
         break;
       case 5:
         *(undefined1 *)(local_148 + 7) = 3;
@@ -52986,14 +53563,16 @@ LAB_00a785a1:
         std::string::string((string *)&local_138,*(char **)(*param_1 + 0xfd8),
                             (allocator *)&local_140);
                     /* try { // try from 00a7853d to 00a78541 has its CatchHandler @ 00a78851 */
-        lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar6,(string *)&local_138);
         break;
       case 6:
         *(undefined1 *)(local_148 + 7) = 4;
         lVar6 = param_1[2];
         std::string::string((string *)&local_138,"text.hotSpot",(allocator *)&local_140);
                     /* try { // try from 00a78510 to 00a78514 has its CatchHandler @ 00a78859 */
-        lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar6,(string *)&local_138);
         break;
       case 7:
         *(undefined1 *)(local_148 + 7) = 5;
@@ -53001,7 +53580,8 @@ LAB_00a785a1:
                     /* try { // try from 00a7855f to 00a78563 has its CatchHandler @ 00a78885 */
         std::string::string((string *)&local_138,"text.link",(allocator *)&local_140);
                     /* try { // try from 00a7856a to 00a7856e has its CatchHandler @ 00a78895 */
-        lVar6 = FUN_0095021a(lVar6,(string *)&local_138);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (lVar6,(string *)&local_138);
         break;
       default:
         *(undefined1 *)(local_148 + 7) = 0;
@@ -53044,7 +53624,7 @@ LAB_00a7844c:
         }
       }
       local_158 = local_140;
-      dVar15 = (double)FUN_0096bc14(local_148 + 3);
+      dVar15 = (double)BSim_QPoint__y(local_148 + 3);
       local_178 = dVar14;
     } while (dVar15 < (double)param_1[9] || dVar15 == (double)param_1[9]);
 LAB_00a78610:
@@ -53129,11 +53709,13 @@ LAB_00a7882a:
   }
   lVar6 = *param_1;
 LAB_00a77bbb:
-  uVar8 = FUN_00a1faf6(lVar6);
+  uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (lVar6);
   FUN_00a78a8a(&local_140,uVar8);
   *(undefined4 *)(param_1 + 0x37) = 0xffffffff;
                     /* try { // try from 00a77bdd to 00a77be1 has its CatchHandler @ 00a7891d */
-  cVar4 = FUN_00a1fb46(*param_1);
+  cVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*param_1);
   if ((cVar4 != '\0') && (*(uint *)(local_140 + 4) != 0)) {
                     /* try { // try from 00a78176 to 00a7817a has its CatchHandler @ 00a7891d */
     FUN_00a29014(&local_118,*param_1);
@@ -53187,7 +53769,8 @@ LAB_00a77bbb:
                     /* try { // try from 00a7873a to 00a78746 has its CatchHandler @ 00a788a5 */
             BSim_Splitter__setMainIndex
                       (dVar14 + dVar15 + *(double *)(pQVar13 + 0x18),local_138 + 0x18);
-            iVar5 = FUN_00a1fade(*param_1);
+            iVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (*param_1);
             if (iVar5 == lVar6) {
               *(int *)(param_1 + 0x37) = (int)(param_1[0x31] - param_1[0x30] >> 3) + -1;
             }
@@ -54252,9 +54835,11 @@ undefined8 UniversalChardet_vt15(long param_1)
 }
 
 
-// ==== entry=00a79800 name=FUN_00a79800 size=4 ====
+// ==== entry=00a79800 orig=FUN_00a79800 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a79800(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x2c);
@@ -54385,9 +54970,11 @@ char * BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00a79a00 name=FUN_00a79a00 size=4 ====
+// ==== entry=00a79a00 orig=FUN_00a79a00 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a79a00(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 8);
@@ -54627,7 +55214,7 @@ void UniversalChardet_ha79d20(undefined8 *param_1,uint param_2)
                     /* try { // try from 00a79eea to 00a79f35 has its CatchHandler @ 00a7a08b */
     FUN_00a7b5e0(puVar1 + 3,0);
     puVar1[3] = &SJISContextAnalysis_vtable;
-    FUN_00a7b260(puVar1 + 10);
+    BSim_QMargins__QMargins(puVar1 + 10);
     *(bool *)((long)puVar1 + 0x7a) = param_2 == 4;
     puVar2 = operator_new(0x18);
     *puVar2 = 0;
@@ -54641,7 +55228,7 @@ void UniversalChardet_ha79d20(undefined8 *param_1,uint param_2)
                     /* try { // try from 00a79f66 to 00a79fb1 has its CatchHandler @ 00a7a093 */
     FUN_00a7b5e0(puVar1 + 3,0);
     puVar1[3] = &EUCJPContextAnalysis_vtable;
-    FUN_00a7b2b0(puVar1 + 10);
+    BSim_QMargins__QMargins(puVar1 + 10);
     *(bool *)((long)puVar1 + 0x7a) = param_2 == 4;
     puVar2 = operator_new(0x18);
     *puVar2 = 0;
@@ -54654,7 +55241,7 @@ void UniversalChardet_ha79d20(undefined8 *param_1,uint param_2)
     puVar1 = operator_new(0x48);
     *puVar1 = &PTR_FUN_011b09f0;
                     /* try { // try from 00a79fe8 to 00a7a019 has its CatchHandler @ 00a7a0a3 */
-    FUN_00a7b1c0(puVar1 + 3);
+    BSim_QMargins__QMargins(puVar1 + 3);
     *(bool *)((long)puVar1 + 0x42) = param_2 == 1;
     puVar2 = operator_new(0x18);
     *puVar2 = 0;
@@ -54667,7 +55254,7 @@ void UniversalChardet_ha79d20(undefined8 *param_1,uint param_2)
     puVar1 = operator_new(0x48);
     *puVar1 = &PTR_FUN_011b0930;
                     /* try { // try from 00a7a050 to 00a7a081 has its CatchHandler @ 00a7a09b */
-    FUN_00a7b170(puVar1 + 3);
+    BSim_QMargins__QMargins(puVar1 + 3);
     *(bool *)((long)puVar1 + 0x42) = param_2 == 8;
     puVar2 = operator_new(0x18);
     *puVar2 = 0;
@@ -54680,7 +55267,7 @@ void UniversalChardet_ha79d20(undefined8 *param_1,uint param_2)
     puVar1 = operator_new(0x48);
     *puVar1 = &PTR_SJISContextAnalysis_vt11_011b0870;
                     /* try { // try from 00a79e14 to 00a79e45 has its CatchHandler @ 00a7a0bb */
-    FUN_00a7b210(puVar1 + 3);
+    BSim_QMargins__QMargins(puVar1 + 3);
     *(bool *)((long)puVar1 + 0x42) = param_2 == 2;
     puVar2 = operator_new(0x18);
     *puVar2 = 0;
@@ -54691,7 +55278,7 @@ void UniversalChardet_ha79d20(undefined8 *param_1,uint param_2)
     puVar1 = operator_new(0x48);
     *puVar1 = &PTR_FUN_011b0990;
                     /* try { // try from 00a79e6a to 00a79e99 has its CatchHandler @ 00a7a0b3 */
-    FUN_00a7b120(puVar1 + 3);
+    BSim_QMargins__QMargins(puVar1 + 3);
     *(bool *)((long)puVar1 + 0x42) = param_2 == 2;
     puVar2 = operator_new(0x18);
     *puVar2 = 0;
@@ -55032,9 +55619,11 @@ void UniversalChardet_ha7a370(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7a7a0 name=FUN_00a7a7a0 size=4 ====
+// ==== entry=00a7a7a0 orig=FUN_00a7a7a0 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7a7a0(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 8);
@@ -55158,9 +55747,11 @@ undefined8 FUN_00a7a950(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00a7a980 name=FUN_00a7a980 size=4 ====
+// ==== entry=00a7a980 orig=FUN_00a7a980 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7a980(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 8);
@@ -55400,9 +55991,11 @@ char * BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00a7ae10 name=FUN_00a7ae10 size=4 ====
+// ==== entry=00a7ae10 orig=FUN_00a7ae10 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7ae10(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -55568,9 +56161,11 @@ char * BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00a7b060 name=FUN_00a7b060 size=4 ====
+// ==== entry=00a7b060 orig=FUN_00a7b060 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7b060(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -55630,9 +56225,12 @@ undefined8 FUN_00a7b0c0(long param_1)
 }
 
 
-// ==== entry=00a7b120 name=FUN_00a7b120 size=65 ====
+// ==== entry=00a7b120 orig=FUN_00a7b120 size=65 name=BSim_QMargins::QMargins ====
 
-void FUN_00a7b120(undefined8 *param_1)
+/* BSim sim=0.7331183759415728 sig=9.867593839039849
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *(undefined1 *)(param_1 + 1) = 0;
@@ -55645,9 +56243,12 @@ void FUN_00a7b120(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7b170 name=FUN_00a7b170 size=65 ====
+// ==== entry=00a7b170 orig=FUN_00a7b170 size=65 name=BSim_QMargins::QMargins ====
 
-void FUN_00a7b170(undefined8 *param_1)
+/* BSim sim=0.7331183759415728 sig=9.867593839039849
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *(undefined1 *)(param_1 + 1) = 0;
@@ -55660,9 +56261,12 @@ void FUN_00a7b170(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7b1c0 name=FUN_00a7b1c0 size=65 ====
+// ==== entry=00a7b1c0 orig=FUN_00a7b1c0 size=65 name=BSim_QMargins::QMargins ====
 
-void FUN_00a7b1c0(undefined8 *param_1)
+/* BSim sim=0.7331183759415728 sig=9.867593839039849
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *(undefined1 *)(param_1 + 1) = 0;
@@ -55675,9 +56279,12 @@ void FUN_00a7b1c0(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7b210 name=FUN_00a7b210 size=65 ====
+// ==== entry=00a7b210 orig=FUN_00a7b210 size=65 name=BSim_QMargins::QMargins ====
 
-void FUN_00a7b210(undefined8 *param_1)
+/* BSim sim=0.7331183759415728 sig=9.867593839039849
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *(undefined1 *)(param_1 + 1) = 0;
@@ -55690,9 +56297,12 @@ void FUN_00a7b210(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7b260 name=FUN_00a7b260 size=65 ====
+// ==== entry=00a7b260 orig=FUN_00a7b260 size=65 name=BSim_QMargins::QMargins ====
 
-void FUN_00a7b260(undefined8 *param_1)
+/* BSim sim=0.7331183759415728 sig=9.867593839039849
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *(undefined1 *)(param_1 + 1) = 0;
@@ -55705,9 +56315,12 @@ void FUN_00a7b260(undefined8 *param_1)
 }
 
 
-// ==== entry=00a7b2b0 name=FUN_00a7b2b0 size=65 ====
+// ==== entry=00a7b2b0 orig=FUN_00a7b2b0 size=65 name=BSim_QMargins::QMargins ====
 
-void FUN_00a7b2b0(undefined8 *param_1)
+/* BSim sim=0.7331183759415728 sig=9.867593839039849
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *(undefined1 *)(param_1 + 1) = 0;
@@ -56448,9 +57061,11 @@ char * BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00a7bfd0 name=FUN_00a7bfd0 size=4 ====
+// ==== entry=00a7bfd0 orig=FUN_00a7bfd0 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7bfd0(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -56494,9 +57109,12 @@ void FUN_00a7c030(long param_1)
 }
 
 
-// ==== entry=00a7c060 name=FUN_00a7c060 size=9 ====
+// ==== entry=00a7c060 orig=FUN_00a7c060 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a7c060(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00a7b0c0(param_1 + 0x18);
@@ -56578,7 +57196,7 @@ LAB_00a7c187:
       iVar5 = (int)param_1[2];
       *(byte *)(param_1 + 8) = param_2[uVar9];
       if ((iVar5 == 0) && (0x400 < *(uint *)(param_1 + 5))) {
-        if (*(code **)(*param_1 + 0x30) == FUN_00a7c060) {
+        if (*(code **)(*param_1 + 0x30) == BSim_QMouseEvent__globalPos) {
           fVar10 = (float)FUN_00a7b0c0(param_1 + 3);
         }
         else {
@@ -56609,9 +57227,11 @@ char * BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00a7c2b0 name=FUN_00a7c2b0 size=4 ====
+// ==== entry=00a7c2b0 orig=FUN_00a7c2b0 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7c2b0(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -56655,9 +57275,12 @@ void FUN_00a7c310(long param_1)
 }
 
 
-// ==== entry=00a7c340 name=FUN_00a7c340 size=9 ====
+// ==== entry=00a7c340 orig=FUN_00a7c340 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a7c340(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00a7b0c0(param_1 + 0x18);
@@ -56739,7 +57362,7 @@ LAB_00a7c467:
       iVar5 = (int)param_1[2];
       *(byte *)(param_1 + 8) = param_2[uVar9];
       if ((iVar5 == 0) && (0x400 < *(uint *)(param_1 + 5))) {
-        if (*(code **)(*param_1 + 0x30) == FUN_00a7c340) {
+        if (*(code **)(*param_1 + 0x30) == BSim_QMouseEvent__globalPos) {
           fVar10 = (float)FUN_00a7b0c0(param_1 + 3);
         }
         else {
@@ -56770,9 +57393,11 @@ char * BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00a7c590 name=FUN_00a7c590 size=4 ====
+// ==== entry=00a7c590 orig=FUN_00a7c590 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7c590(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -56816,9 +57441,12 @@ void FUN_00a7c5f0(long param_1)
 }
 
 
-// ==== entry=00a7c620 name=FUN_00a7c620 size=9 ====
+// ==== entry=00a7c620 orig=FUN_00a7c620 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a7c620(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00a7b0c0(param_1 + 0x18);
@@ -56902,7 +57530,7 @@ LAB_00a7c723:
       iVar6 = (int)param_1[2];
       *(byte *)(param_1 + 8) = param_2[uVar10];
       if ((iVar6 == 0) && (0x400 < *(uint *)(param_1 + 5))) {
-        if (*(code **)(*param_1 + 0x30) == FUN_00a7c620) {
+        if (*(code **)(*param_1 + 0x30) == BSim_QMouseEvent__globalPos) {
           fVar11 = (float)FUN_00a7b0c0(param_1 + 3);
         }
         else {
@@ -56933,9 +57561,11 @@ char * BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00a7c850 name=FUN_00a7c850 size=4 ====
+// ==== entry=00a7c850 orig=FUN_00a7c850 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a7c850(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -59060,7 +59690,7 @@ undefined8 json_parse_string(undefined8 param_1,long *param_2,undefined8 *param_
   
   json_value_init_by_type(param_1,0);
                     /* try { // try from 00a7e89b to 00a7e8b6 has its CatchHandler @ 00a7ecd6 */
-  FUN_00ae07f0(local_154);
+  BSim_QFlags_Qt__WindowType___QFlags(local_154);
   local_154[0] = 0x101;
   FUN_00ae3df0(local_118,local_154);
   lVar14 = *param_2;

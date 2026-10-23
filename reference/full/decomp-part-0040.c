@@ -14955,18 +14955,22 @@ undefined8 * FUN_00c225a0(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00c225b0 name=FUN_00c225b0 size=5 ====
+// ==== entry=00c225b0 orig=FUN_00c225b0 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c225b0(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 8);
 }
 
 
-// ==== entry=00c225c0 name=FUN_00c225c0 size=5 ====
+// ==== entry=00c225c0 orig=FUN_00c225c0 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c225c0(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 8);
@@ -19562,9 +19566,12 @@ void FUN_00c27620(undefined8 param_1,long *param_2)
 }
 
 
-// ==== entry=00c27630 name=FUN_00c27630 size=15 ====
+// ==== entry=00c27630 orig=FUN_00c27630 size=15 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00c27630(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = &DAT_011c5338;

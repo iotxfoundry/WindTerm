@@ -5203,7 +5203,7 @@ void * operator_new__(ulong param_1,nothrow_t *param_2)
     if (pvVar1 != (void *)0x0) {
       return pvVar1;
     }
-    pcVar2 = (code *)FUN_00beb5c0();
+    pcVar2 = (code *)BSim_QCoreApplication__instance();
     if (pcVar2 == (code *)0x0) break;
     (*pcVar2)();
   }
@@ -21388,9 +21388,11 @@ undefined8 * FUN_00c86840(long param_1,int param_2)
 }
 
 
-// ==== entry=00c86890 name=FUN_00c86890 size=8 ====
+// ==== entry=00c86890 orig=FUN_00c86890 size=8 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c86890(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x90);
@@ -21420,9 +21422,11 @@ void FUN_00c868a0(long param_1,int param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00c86900 name=FUN_00c86900 size=8 ====
+// ==== entry=00c86900 orig=FUN_00c86900 size=8 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c86900(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x98);
@@ -21451,18 +21455,22 @@ void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00c86940 name=FUN_00c86940 size=8 ====
+// ==== entry=00c86940 orig=FUN_00c86940 size=8 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c86940(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0xa0);
 }
 
 
-// ==== entry=00c86950 name=FUN_00c86950 size=8 ====
+// ==== entry=00c86950 orig=FUN_00c86950 size=8 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c86950(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0xb8);
@@ -21488,18 +21496,22 @@ undefined8 FUN_00c86960(long param_1)
 }
 
 
-// ==== entry=00c86980 name=FUN_00c86980 size=8 ====
+// ==== entry=00c86980 orig=FUN_00c86980 size=8 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c86980(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0xb0);
 }
 
 
-// ==== entry=00c86990 name=FUN_00c86990 size=8 ====
+// ==== entry=00c86990 orig=FUN_00c86990 size=8 name=BSim_QPoint::y ====
 
-undefined8 FUN_00c86990(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0xa8);

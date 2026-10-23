@@ -14797,9 +14797,11 @@ void FUN_00c3d450(void *param_1)
 }
 
 
-// ==== entry=00c3d470 name=FUN_00c3d470 size=25 ====
+// ==== entry=00c3d470 orig=FUN_00c3d470 size=25 name=BSim_std::bad_alloc::bad_alloc ====
 
-void FUN_00c3d470(filebuf *param_1)
+/* BSim sim=1.0 sig=11.229349352026404 ref=libwindtermopen2.so.1.0.0::std::bad_alloc::bad_alloc */
+
+void BSim_std__bad_alloc__bad_alloc(filebuf *param_1)
 
 {
   std::filebuf::filebuf(param_1);
@@ -14967,9 +14969,12 @@ void thunk_FUN_00c463b0(long param_1,long param_2)
 }
 
 
-// ==== entry=00c3d620 name=FUN_00c3d620 size=9 ====
+// ==== entry=00c3d620 orig=FUN_00c3d620 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00c3d620(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   std::__basic_file<char>::fd((__basic_file<char> *)(param_1 + 0x68));
@@ -14977,9 +14982,12 @@ void FUN_00c3d620(long param_1)
 }
 
 
-// ==== entry=00c3d630 name=FUN_00c3d630 size=9 ====
+// ==== entry=00c3d630 orig=FUN_00c3d630 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00c3d630(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   std::__basic_file<char>::file((__basic_file<char> *)(param_1 + 0x68));
@@ -15106,9 +15114,11 @@ __gnu_cxx::stdio_sync_filebuf<char,std::char_traits<char>>::file
 }
 
 
-// ==== entry=00c3d860 name=FUN_00c3d860 size=25 ====
+// ==== entry=00c3d860 orig=FUN_00c3d860 size=25 name=BSim_std::bad_alloc::bad_alloc ====
 
-void FUN_00c3d860(wfilebuf *param_1)
+/* BSim sim=1.0 sig=11.229349352026404 ref=libwindtermopen2.so.1.0.0::std::bad_alloc::bad_alloc */
+
+void BSim_std__bad_alloc__bad_alloc(wfilebuf *param_1)
 
 {
   std::wfilebuf::wfilebuf(param_1);
@@ -15276,9 +15286,12 @@ void thunk_FUN_00c481b0(long param_1,long param_2)
 }
 
 
-// ==== entry=00c3da10 name=FUN_00c3da10 size=9 ====
+// ==== entry=00c3da10 orig=FUN_00c3da10 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00c3da10(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   std::__basic_file<char>::fd((__basic_file<char> *)(param_1 + 0x68));
@@ -15286,9 +15299,12 @@ void FUN_00c3da10(long param_1)
 }
 
 
-// ==== entry=00c3da20 name=FUN_00c3da20 size=9 ====
+// ==== entry=00c3da20 orig=FUN_00c3da20 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00c3da20(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   std::__basic_file<char>::file((__basic_file<char> *)(param_1 + 0x68));

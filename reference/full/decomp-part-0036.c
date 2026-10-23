@@ -37,9 +37,14 @@ void FUN_00b02a84(undefined8 param_1)
 }
 
 
-// ==== entry=00b02aac name=FUN_00b02aac size=55 ====
+// ==== entry=00b02aac orig=FUN_00b02aac size=55 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::sp_counted_impl_p ====
 
-void FUN_00b02aac(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=13.82767846233721
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::sp_counted_impl_p
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______sp_counted_impl_p
+               (undefined8 *param_1,undefined8 param_2)
 
 {
   BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______Vector_impl_data___Vector_impl_data
@@ -62,9 +67,12 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b02af2 name=FUN_00b02af2 size=30 ====
+// ==== entry=00b02af2 orig=FUN_00b02af2 size=30 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b02af2(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1 + 0x20);
@@ -85,9 +93,13 @@ void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b02b36 name=FUN_00b02b36 size=46 ====
+// ==== entry=00b02b36 orig=FUN_00b02b36 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b02b36(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -95,9 +107,14 @@ void FUN_00b02b36(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00b02b64 name=FUN_00b02b64 size=55 ====
+// ==== entry=00b02b64 orig=FUN_00b02b64 size=55 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::sp_counted_impl_p ====
 
-void FUN_00b02b64(undefined8 *param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=13.82767846233721
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::sp_counted_impl_p
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______sp_counted_impl_p
+               (undefined8 *param_1,undefined8 param_2)
 
 {
   BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______Vector_impl_data___Vector_impl_data
@@ -116,7 +133,7 @@ void FUN_00b02b64(undefined8 *param_1,undefined8 param_2)
 void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 
 {
-  FUN_00b0245e(param_1);
+  BSim_QMouseEvent__globalPos(param_1);
   return;
 }
 
@@ -138,7 +155,7 @@ bool FUN_00b02bb6(undefined8 param_1,ulong param_2,ulong param_3)
 void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 
 {
-  FUN_00b0245e(param_1);
+  BSim_QMouseEvent__globalPos(param_1);
   return;
 }
 
@@ -183,9 +200,11 @@ undefined8 FUN_00b02c52(undefined8 *param_1)
 }
 
 
-// ==== entry=00b02c7a name=FUN_00b02c7a size=18 ====
+// ==== entry=00b02c7a orig=FUN_00b02c7a size=18 name=BSim_QPoint::y ====
 
-undefined8 FUN_00b02c7a(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x28);
@@ -392,7 +411,7 @@ void FUN_00b02ea8(undefined8 *param_1)
   local_10 = (undefined8 *)*param_1;
   while (local_10 != param_1) {
     puVar1 = (undefined8 *)*local_10;
-    uVar2 = FUN_00b0314e(local_10);
+    uVar2 = BSim_QMouseEvent__globalPos(local_10);
     uVar3 = BSim_QList_int___Node__t(param_1);
     BSim_QAtomicInt__QAtomicInt(uVar3,uVar2);
     FUN_00b031a0(param_1,local_10);
@@ -463,7 +482,7 @@ void FUN_00b02f98(undefined8 param_1,undefined8 param_2,undefined8 param_3)
   
   identity_forward(0x30,param_2);
   uVar1 = BSim_QList_int___Node__t(param_3);
-  uVar2 = FUN_00b0295c(param_2);
+  uVar2 = BSim_QMouseEvent__globalPos(param_2);
   uVar3 = BSim_QList_int___Node__t(param_1);
                     /* try { // try from 00b02ff3 to 00b02ff7 has its CatchHandler @ 00b02ffa */
   FUN_00b03204(uVar3,uVar2,uVar1);
@@ -519,7 +538,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 
 {
   if (param_2 != 0) {
-    FUN_00b03249(param_1,param_2,param_3);
+    BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   }
   return;
 }
@@ -562,7 +581,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 
 {
   if (param_2 != 0) {
-    FUN_00b03291(param_1,param_2,param_3);
+    BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   }
   return;
 }
@@ -592,9 +611,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b0314e name=FUN_00b0314e size=30 ====
+// ==== entry=00b0314e orig=FUN_00b0314e size=30 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b0314e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1 + 0x10);
@@ -632,7 +654,7 @@ void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 void FUN_00b031a0(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b032f7(param_1,param_2,1);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,1);
   return;
 }
 
@@ -683,9 +705,13 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b03249 name=FUN_00b03249 size=46 ====
+// ==== entry=00b03249 orig=FUN_00b03249 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b03249(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -715,9 +741,13 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b03291 name=FUN_00b03291 size=46 ====
+// ==== entry=00b03291 orig=FUN_00b03291 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b03291(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -760,9 +790,13 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b032f7 name=FUN_00b032f7 size=46 ====
+// ==== entry=00b032f7 orig=FUN_00b032f7 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b032f7(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -787,13 +821,18 @@ void FUN_00b03326(undefined8 param_1,ulong param_2)
 }
 
 
-// ==== entry=00b03372 name=FUN_00b03372 size=60 ====
+// ==== entry=00b03372 orig=FUN_00b03372 size=60 name=BSim_boost::shared_ptr_const_boost::exception_detail::clone_base_::shared_ptr ====
 
-void FUN_00b03372(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=1.0 sig=13.964046923913614
+   ref=libwindtermopen2.so.1.0.0::boost::shared_ptr<const_boost::exception_detail::clone_base>::shared_ptr
+    */
+
+void BSim_boost__shared_ptr_const_boost__exception_detail__clone_base___shared_ptr
+               (undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
-  FUN_00b013fc(param_1 + 1,param_2 + 1);
+  BSim_boost__detail__shared_count__shared_count(param_1 + 1,param_2 + 1);
   return;
 }
 
@@ -806,7 +845,7 @@ void FUN_00b03372(undefined8 *param_1,undefined8 *param_2)
 void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b03372(param_1,param_2);
+  BSim_boost__shared_ptr_const_boost__exception_detail__clone_base___shared_ptr(param_1,param_2);
   return;
 }
 
@@ -895,7 +934,7 @@ void FUN_00b034aa(undefined8 *param_1)
 
 {
   *param_1 = &PTR_FUN_00d39d70;
-  FUN_00b01fea(param_1);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1);
   return;
 }
 
@@ -917,7 +956,7 @@ void FUN_00b034f8(undefined8 *param_1)
 
 {
   *param_1 = &PTR_FUN_00d39da8;
-  FUN_00b01fea(param_1);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1);
   return;
 }
 
@@ -939,7 +978,7 @@ void FUN_00b03546(undefined8 *param_1)
 
 {
   *param_1 = &PTR_FUN_00d39de0;
-  FUN_00b01fea(param_1);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1);
   return;
 }
 
@@ -1341,7 +1380,7 @@ LAB_00b03b75:
       bVar1 = true;
     }
     if (bVar1) {
-      FUN_00b04e98(local_20,&local_30);
+      BSim_boost__detail__shared_count__swap(local_20,&local_30);
       FUN_00b04eb6(param_1 + 0x68,local_20[0]);
     }
   } while( true );
@@ -1484,7 +1523,8 @@ void FUN_00b03e96(long param_1,undefined8 param_2)
     __cxa_throw(uVar1,&PTR_PTR_00d39b58,FUN_00b00c56);
   }
   local_20 = param_2;
-  FUN_00b05268(param_1 + 0x30,&local_20);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1 + 0x30,&local_20);
   return;
 }
 
@@ -1634,7 +1674,7 @@ undefined8 FUN_00b0424c(long param_1,undefined8 param_2)
       puVar3 = (undefined8 *)BSim_QList_int___iterator__operator_(&local_48);
       cVar1 = BSim_QAtomicInt__QAtomicInt(*puVar3,param_2);
       if (cVar1 != '\0') {
-        FUN_00b04e98(&local_30,&local_48);
+        BSim_boost__detail__shared_count__swap(&local_30,&local_48);
         FUN_00b04eb6(param_1 + 0x68,local_30);
       }
     }
@@ -2056,9 +2096,14 @@ void BSim_std____invoke_impl_void__TelnetProtocol__GetOptionVector_____lambda___
 }
 
 
-// ==== entry=00b04b0c name=FUN_00b04b0c size=49 ====
+// ==== entry=00b04b0c orig=FUN_00b04b0c size=49 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b04b0c(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -2111,7 +2156,8 @@ void BSim_QList_int___begin(undefined8 param_1,undefined8 param_2)
   
   rbtree_clear_recursive(param_1);
   uVar1 = BSim_QBasicAtomicInteger_int___deref(param_1);
-  FUN_00b04b0c(uVar1,param_2);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (uVar1,param_2);
   return;
 }
 
@@ -2216,7 +2262,7 @@ undefined8 * FUN_00b04c8a(undefined8 *param_1)
 void BSim_QList_int___iterator__operator_(undefined8 *param_1)
 
 {
-  FUN_00b056c0(*param_1);
+  BSim_QMouseEvent__globalPos(*param_1);
   return;
 }
 
@@ -2390,14 +2436,17 @@ undefined8 FUN_00b04e50(undefined8 param_1,undefined8 param_2)
 void BSim_QList_int___iterator__operator_(undefined8 *param_1)
 
 {
-  FUN_00b0314e(*param_1);
+  BSim_QMouseEvent__globalPos(*param_1);
   return;
 }
 
 
-// ==== entry=00b04e98 name=FUN_00b04e98 size=29 ====
+// ==== entry=00b04e98 orig=FUN_00b04e98 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b04e98(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -2430,9 +2479,9 @@ void FUN_00b04f00(undefined4 *param_1)
 
 {
   *param_1 = 0;
-  FUN_00b058a8(param_1 + 2);
-  FUN_00b058be(param_1 + 4);
-  FUN_00b058be(param_1 + 6);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 2);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 4);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 6);
   return;
 }
 
@@ -2446,7 +2495,7 @@ undefined8 FUN_00b04f4a(undefined8 *param_1)
   undefined8 local_10;
   
   local_10 = *param_1;
-  FUN_00b058d4(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -2458,8 +2507,8 @@ void FUN_00b04f7a(undefined4 *param_1,undefined8 param_2)
 {
   *param_1 = 1;
   *(undefined8 *)(param_1 + 2) = param_2;
-  FUN_00b058be(param_1 + 4);
-  FUN_00b058be(param_1 + 6);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 4);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 6);
   return;
 }
 
@@ -2473,7 +2522,7 @@ undefined8 FUN_00b04fc4(undefined8 *param_1)
   undefined8 local_10;
   
   local_10 = *param_1;
-  FUN_00b058f2(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -2487,7 +2536,7 @@ undefined8 FUN_00b04ff4(long param_1)
   undefined8 local_10;
   
   local_10 = *(undefined8 *)(param_1 + 8);
-  FUN_00b058f2(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -2500,7 +2549,7 @@ void FUN_00b05026(undefined4 *param_1,undefined8 param_2,undefined8 param_3)
   undefined8 uVar1;
   
   *param_1 = 2;
-  FUN_00b058a8(param_1 + 2);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 2);
   *(undefined8 *)(param_1 + 4) = param_2;
   *(undefined8 *)(param_1 + 6) = param_3;
   uVar1 = FUN_00b05910(param_1,*(undefined8 *)(param_1 + 4));
@@ -2515,9 +2564,9 @@ void FUN_00b05094(undefined4 *param_1)
 
 {
   *param_1 = 0;
-  FUN_00b0597a(param_1 + 2);
-  FUN_00b05990(param_1 + 4);
-  FUN_00b05990(param_1 + 6);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 2);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 4);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 6);
   return;
 }
 
@@ -2529,7 +2578,7 @@ undefined8 FUN_00b050de(undefined8 param_1)
 {
   undefined8 local_10;
   
-  FUN_00b059a6(&local_10,param_1);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1);
   return local_10;
 }
 
@@ -2541,8 +2590,8 @@ void FUN_00b05104(undefined4 *param_1,undefined8 param_2)
 {
   *param_1 = 1;
   *(undefined8 *)(param_1 + 2) = param_2;
-  FUN_00b05990(param_1 + 4);
-  FUN_00b05990(param_1 + 6);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 4);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 6);
   return;
 }
 
@@ -2554,7 +2603,7 @@ undefined8 FUN_00b0514e(undefined8 param_1)
 {
   undefined8 local_10;
   
-  FUN_00b059c4(&local_10,param_1);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1);
   return local_10;
 }
 
@@ -2566,7 +2615,7 @@ undefined8 FUN_00b05174(long param_1)
 {
   undefined8 local_10;
   
-  FUN_00b059c4(&local_10,param_1 + 8);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1 + 8);
   return local_10;
 }
 
@@ -2579,7 +2628,7 @@ void FUN_00b0519e(undefined4 *param_1,undefined8 param_2,undefined8 param_3)
   undefined8 uVar1;
   
   *param_1 = 2;
-  FUN_00b0597a(param_1 + 2);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 2);
   *(undefined8 *)(param_1 + 4) = param_2;
   *(undefined8 *)(param_1 + 6) = param_3;
   uVar1 = FUN_00b059e2(param_1,*(undefined8 *)(param_1 + 4));
@@ -2597,7 +2646,7 @@ undefined8 FUN_00b0520c(long param_1)
   undefined8 local_10;
   
   local_10 = *(undefined8 *)(param_1 + 8);
-  FUN_00b058d4(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -2609,14 +2658,19 @@ undefined8 FUN_00b0523e(long param_1)
 {
   undefined8 local_10;
   
-  FUN_00b059a6(&local_10,param_1 + 8);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1 + 8);
   return local_10;
 }
 
 
-// ==== entry=00b05268 name=FUN_00b05268 size=49 ====
+// ==== entry=00b05268 orig=FUN_00b05268 size=49 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b05268(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -2909,9 +2963,12 @@ undefined8 FUN_00b05696(long param_1)
 }
 
 
-// ==== entry=00b056c0 name=FUN_00b056c0 size=30 ====
+// ==== entry=00b056c0 orig=FUN_00b056c0 size=30 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b056c0(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1 + 0x20);
@@ -2926,7 +2983,7 @@ void FUN_00b056de(long param_1)
 {
   undefined8 uVar1;
   
-  uVar1 = FUN_00b01692(param_1);
+  uVar1 = BSim_QPoint__y(param_1);
   FUN_00528980(param_1,uVar1);
   FUN_00b00f32(param_1 + 8);
   return;
@@ -3031,7 +3088,7 @@ void FUN_00b05808(undefined8 param_1,_List_node_base *param_2)
   
   BSim_QList_int___node_destruct(param_1,1);
   std::__detail::_List_node_base::_M_unhook(param_2);
-  uVar1 = FUN_00b0314e(param_2);
+  uVar1 = BSim_QMouseEvent__globalPos(param_2);
   uVar2 = BSim_QList_int___Node__t(param_1);
   BSim_QAtomicInt__QAtomicInt(uVar2,uVar1);
   FUN_00b031a0(param_1,param_2);
@@ -3051,19 +3108,12 @@ undefined8 FUN_00b05880(undefined8 *param_1)
 }
 
 
-// ==== entry=00b058a8 name=FUN_00b058a8 size=22 ====
+// ==== entry=00b058a8 orig=FUN_00b058a8 size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b058a8(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
 
-{
-  *param_1 = 0;
-  return;
-}
-
-
-// ==== entry=00b058be name=FUN_00b058be size=22 ====
-
-void FUN_00b058be(undefined8 *param_1)
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = 0;
@@ -3071,9 +3121,25 @@ void FUN_00b058be(undefined8 *param_1)
 }
 
 
-// ==== entry=00b058d4 name=FUN_00b058d4 size=29 ====
+// ==== entry=00b058be orig=FUN_00b058be size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b058d4(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
+
+{
+  *param_1 = 0;
+  return;
+}
+
+
+// ==== entry=00b058d4 orig=FUN_00b058d4 size=29 name=BSim_boost::detail::shared_count::swap ====
+
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -3081,9 +3147,12 @@ void FUN_00b058d4(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00b058f2 name=FUN_00b058f2 size=29 ====
+// ==== entry=00b058f2 orig=FUN_00b058f2 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b058f2(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -3122,19 +3191,12 @@ LAB_00b0595c:
 }
 
 
-// ==== entry=00b0597a name=FUN_00b0597a size=22 ====
+// ==== entry=00b0597a orig=FUN_00b0597a size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b0597a(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
 
-{
-  *param_1 = 0;
-  return;
-}
-
-
-// ==== entry=00b05990 name=FUN_00b05990 size=22 ====
-
-void FUN_00b05990(undefined8 *param_1)
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = 0;
@@ -3142,9 +3204,25 @@ void FUN_00b05990(undefined8 *param_1)
 }
 
 
-// ==== entry=00b059a6 name=FUN_00b059a6 size=29 ====
+// ==== entry=00b05990 orig=FUN_00b05990 size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b059a6(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
+
+{
+  *param_1 = 0;
+  return;
+}
+
+
+// ==== entry=00b059a6 orig=FUN_00b059a6 size=29 name=BSim_boost::detail::shared_count::swap ====
+
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -3152,9 +3230,12 @@ void FUN_00b059a6(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00b059c4 name=FUN_00b059c4 size=29 ====
+// ==== entry=00b059c4 orig=FUN_00b059c4 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b059c4(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -3287,7 +3368,7 @@ undefined8 FUN_00b05b90(undefined8 *param_1)
   undefined8 local_10;
   
   local_10 = *param_1;
-  FUN_00b058f2(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -3316,7 +3397,7 @@ undefined8 FUN_00b05c00(long *param_1,long param_2)
   long local_10;
   
   local_10 = *param_1 + param_2 * 0x10;
-  FUN_00b059c4(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -3886,7 +3967,7 @@ void FUN_00b067ef(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   
   uVar1 = FUN_00b06d89(param_2);
   uVar2 = FUN_00b06d89(param_1);
-  FUN_00b06dae(uVar2,uVar1,param_3,param_4);
+  BSim_boost__system__detail__generic_error_category__message(uVar2,uVar1,param_3,param_4);
   return;
 }
 
@@ -3908,7 +3989,7 @@ undefined8 FUN_00b06844(undefined8 param_1,undefined8 param_2,undefined8 param_3
   FUN_00b06e00(local_38,local_28,local_20);
   uVar1 = BSim_QList_int___Node__t(param_3);
   uVar2 = BSim_QList_int___Node__t(param_2);
-  uVar3 = FUN_00b0314e(local_20);
+  uVar3 = BSim_QMouseEvent__globalPos(local_20);
                     /* try { // try from 00b068cc to 00b068d0 has its CatchHandler @ 00b068f7 */
   FUN_00b06e75(local_28,uVar3,uVar2,uVar1);
   FUN_00b06ec8(local_38,0);
@@ -4159,7 +4240,7 @@ void FUN_00b06bc2(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   
   uVar1 = FUN_00b06f8c(param_2);
   uVar2 = FUN_00b06f8c(param_1);
-  FUN_00b06fb1(uVar2,uVar1,param_3,param_4);
+  BSim_boost__system__detail__generic_error_category__message(uVar2,uVar1,param_3,param_4);
   return;
 }
 
@@ -4203,8 +4284,8 @@ undefined8 FUN_00b06c4a(undefined8 param_1,undefined8 param_2,undefined8 param_3
   uVar1 = FUN_00b06ff1(param_3);
   uVar2 = FUN_00b06ff1(param_2);
   uVar3 = FUN_00b06ff1(param_1);
-  local_20 = FUN_00b0700e(uVar3,uVar2,uVar1);
-  FUN_00b059c4(&local_28,&local_20);
+  local_20 = BSim_boost__system__detail__generic_error_category__message(uVar3,uVar2,uVar1);
+  BSim_boost__detail__shared_count__swap(&local_28,&local_20);
   return local_28;
 }
 
@@ -4289,12 +4370,16 @@ undefined8 FUN_00b06d89(undefined8 param_1)
 }
 
 
-// ==== entry=00b06dae name=FUN_00b06dae size=49 ====
+// ==== entry=00b06dae orig=FUN_00b06dae size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b06dae(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
-  FUN_00b070c4(param_1,param_2,param_3);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   return;
 }
 
@@ -4329,7 +4414,7 @@ void FUN_00b06e3a(undefined8 *param_1)
 
 {
   if (param_1[1] != 0) {
-    FUN_00b032f7(*param_1,param_1[1],1);
+    BSim_boost__system__detail__generic_error_category__message(*param_1,param_1[1],1);
   }
   return;
 }
@@ -4443,12 +4528,16 @@ undefined8 FUN_00b06f8c(undefined8 param_1)
 }
 
 
-// ==== entry=00b06fb1 name=FUN_00b06fb1 size=49 ====
+// ==== entry=00b06fb1 orig=FUN_00b06fb1 size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b06fb1(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
-  FUN_00b07214(param_1,param_2,param_3);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   return;
 }
 
@@ -4478,9 +4567,13 @@ undefined8 FUN_00b06ff1(undefined8 param_1)
 }
 
 
-// ==== entry=00b0700e name=FUN_00b0700e size=49 ====
+// ==== entry=00b0700e orig=FUN_00b0700e size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b0700e(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   FUN_00b07253(param_1,param_2,param_3);
@@ -4542,9 +4635,13 @@ void BSim_QList_int___iterator__iterator(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b070c4 name=FUN_00b070c4 size=49 ====
+// ==== entry=00b070c4 orig=FUN_00b070c4 size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b070c4(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   FUN_00b072c8(param_1,param_2,param_3);
@@ -4645,12 +4742,16 @@ void BSim_QList_int___iterator__iterator(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b07214 name=FUN_00b07214 size=49 ====
+// ==== entry=00b07214 orig=FUN_00b07214 size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b07214(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
-  FUN_00b073cc(param_1,param_2,param_3);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   return;
 }
 
@@ -4760,9 +4861,13 @@ undefined8 BSim_std____is_constant_evaluated(void)
 }
 
 
-// ==== entry=00b073cc name=FUN_00b073cc size=45 ====
+// ==== entry=00b073cc orig=FUN_00b073cc size=45 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b073cc(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   FUN_00b07516(param_1,param_2,param_3);
@@ -4943,7 +5048,7 @@ void BSim_std____relocate_a_TelnetOption___TelnetOption___std__allocator_TelnetO
   uVar1 = BSim_QList_int___Node__t(param_3);
   uVar2 = BSim_QList_int___Node__t(param_2);
   uVar3 = BSim_QList_int___Node__t(param_1);
-  FUN_00b07655(uVar3,uVar2,uVar1);
+  BSim_boost__system__detail__generic_error_category__message(uVar3,uVar2,uVar1);
   return;
 }
 
@@ -5002,9 +5107,13 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b07655 name=FUN_00b07655 size=49 ====
+// ==== entry=00b07655 orig=FUN_00b07655 size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b07655(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   FUN_00b07686(param_1,param_2,param_3);
@@ -5194,7 +5303,8 @@ undefined8 FUN_00b07c10(undefined8 param_1,undefined8 param_2)
     if (cVar1 == '\x01') {
       FUN_00b24352(local_48,local_c8);
                     /* try { // try from 00b07ca9 to 00b07cad has its CatchHandler @ 00b07ce7 */
-      FUN_00b08110(param_1,local_48);
+      BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+                (param_1,local_48);
       refcounted_pair_release(local_48);
     }
     FUN_00b242c4(local_c8);
@@ -5272,9 +5382,12 @@ void FUN_00b07e4a(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b07f68 name=FUN_00b07f68 size=31 ====
+// ==== entry=00b07f68 orig=FUN_00b07f68 size=31 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b07f68(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_std____cxx11__basic_string_char__std__char_traits_char___std__allocator_char______M_construct_char_const_____Guard____Guard
@@ -5304,7 +5417,7 @@ void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 
 {
-  FUN_00b07f68(param_1);
+  BSim_QMouseEvent__globalPos(param_1);
   return;
 }
 
@@ -5414,9 +5527,14 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b08110 name=FUN_00b08110 size=49 ====
+// ==== entry=00b08110 orig=FUN_00b08110 size=49 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b08110(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -5448,7 +5566,7 @@ void BSim_Protocol__Protocol(undefined8 *param_1)
 
 {
   *param_1 = 0;
-  FUN_00b082e2(param_1 + 1);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1 + 1);
   return;
 }
 
@@ -5543,9 +5661,12 @@ void FUN_00b08248(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b082e2 name=FUN_00b082e2 size=22 ====
+// ==== entry=00b082e2 orig=FUN_00b082e2 size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b082e2(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = 0;
@@ -5577,7 +5698,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 
 {
   if (param_2 != 0) {
-    FUN_00b08689(param_1,param_2,param_3);
+    BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   }
   return;
 }
@@ -5591,7 +5712,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b086c5(param_1,param_2);
+  BSim_QVector_QPoint___destruct(param_1,param_2);
   return;
 }
 
@@ -5629,7 +5750,7 @@ undefined8 FUN_00b083e8(long param_1)
 {
   undefined8 local_10;
   
-  FUN_00b08788(&local_10,param_1 + 8);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1 + 8);
   return local_10;
 }
 
@@ -5693,9 +5814,13 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b08689 name=FUN_00b08689 size=46 ====
+// ==== entry=00b08689 orig=FUN_00b08689 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b08689(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -5715,9 +5840,12 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b086c5 name=FUN_00b086c5 size=56 ====
+// ==== entry=00b086c5 orig=FUN_00b086c5 size=56 name=BSim_QVector_QPoint_::destruct ====
 
-void FUN_00b086c5(long param_1,long param_2)
+/* BSim sim=0.7660692606960814 sig=13.27485060551793
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::destruct */
+
+void BSim_QVector_QPoint___destruct(long param_1,long param_2)
 
 {
   undefined8 uVar1;
@@ -5760,9 +5888,12 @@ void FUN_00b0871a(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00b08788 name=FUN_00b08788 size=29 ====
+// ==== entry=00b08788 orig=FUN_00b08788 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b08788(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -5814,7 +5945,7 @@ undefined8 FUN_00b08870(undefined8 param_1)
 {
   undefined8 local_10;
   
-  FUN_00b08788(&local_10,param_1);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1);
   return local_10;
 }
 
@@ -5873,7 +6004,7 @@ void FUN_00b08928(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   
   uVar1 = BSim_QList_int___Node__t(param_2);
   uVar2 = BSim_QList_int___Node__t(param_1);
-  FUN_00b08a7a(uVar2,uVar1,param_3,param_4);
+  BSim_boost__system__detail__generic_error_category__message(uVar2,uVar1,param_3,param_4);
   return;
 }
 
@@ -5980,12 +6111,16 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b08a7a name=FUN_00b08a7a size=49 ====
+// ==== entry=00b08a7a orig=FUN_00b08a7a size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b08a7a(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
-  FUN_00b08b40(param_1,param_2,param_3);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   return;
 }
 
@@ -6045,9 +6180,13 @@ void FUN_00b08af4(undefined8 param_1,ulong param_2)
 }
 
 
-// ==== entry=00b08b40 name=FUN_00b08b40 size=49 ====
+// ==== entry=00b08b40 orig=FUN_00b08b40 size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b08b40(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_std____relocate_a_1_TelnetOption___TelnetOption___std__allocator_TelnetOption___
@@ -6693,7 +6832,7 @@ undefined8 FUN_00b09ffe(undefined8 *param_1)
   undefined8 local_10;
   
   local_10 = *param_1;
-  FUN_00b0a5a0(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -6707,7 +6846,7 @@ undefined8 FUN_00b0a02e(long param_1)
   undefined8 local_10;
   
   local_10 = *(undefined8 *)(param_1 + 8);
-  FUN_00b0a5a0(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -7115,7 +7254,7 @@ long FUN_00b0a4a8(undefined8 param_1,undefined8 param_2)
 LAB_00b0a535:
   if (bVar1) {
     BSim_QAtomicInt__QAtomicInt(local_28,param_2);
-    FUN_00b0a9a4(local_20,&local_40);
+    BSim_boost__detail__shared_count__swap(local_20,&local_40);
     local_40 = FUN_00b0a9ec(param_1,local_20[0],&DAT_00d3b390,local_28,&local_29);
   }
   lVar4 = BSim_QList_int___iterator__operator_(&local_40);
@@ -7123,9 +7262,12 @@ LAB_00b0a535:
 }
 
 
-// ==== entry=00b0a5a0 name=FUN_00b0a5a0 size=29 ====
+// ==== entry=00b0a5a0 orig=FUN_00b0a5a0 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b0a5a0(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -7151,7 +7293,7 @@ void FUN_00b0a5cc(undefined8 param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1);
-  FUN_00b0ab20(param_1);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1);
   return;
 }
 
@@ -7201,7 +7343,7 @@ void FUN_00b0a65a(undefined8 param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1);
-  FUN_00b0ab86(param_1);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1);
   return;
 }
 
@@ -7245,9 +7387,12 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b0a6d2 name=FUN_00b0a6d2 size=31 ====
+// ==== entry=00b0a6d2 orig=FUN_00b0a6d2 size=31 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b0a6d2(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1 + 0x10);
@@ -7261,7 +7406,7 @@ void FUN_00b0a6f2(undefined8 param_1,void *param_2)
 
 {
   if (param_2 != (void *)0x0) {
-    FUN_00b0a6d2(param_2);
+    BSim_QMouseEvent__globalPos(param_2);
     operator_delete(param_2);
   }
   return;
@@ -7366,7 +7511,7 @@ undefined8 FUN_00b0a818(undefined8 param_1,undefined8 param_2)
   undefined8 local_20 [2];
   
   uVar2 = FUN_00b0ac74(param_1);
-  uVar3 = FUN_00b0ac62(param_1);
+  uVar3 = BSim_QPoint__y(param_1);
   local_28 = FUN_00b0ac86(param_1,uVar3,uVar2,param_2);
   local_20[0] = FUN_00b0a8c8(param_1);
   cVar1 = FUN_00b0a918(&local_28,local_20);
@@ -7436,7 +7581,7 @@ undefined4 FUN_00b0a93a(undefined8 param_1)
 void BSim_QList_int___iterator__operator_(undefined8 *param_1)
 
 {
-  FUN_00b0adba(*param_1);
+  BSim_QMouseEvent__globalPos(*param_1);
   return;
 }
 
@@ -7454,9 +7599,12 @@ void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2,undefined
 }
 
 
-// ==== entry=00b0a9a4 name=FUN_00b0a9a4 size=29 ====
+// ==== entry=00b0a9a4 orig=FUN_00b0a9a4 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b0a9a4(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -7545,9 +7693,12 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b0ab20 name=FUN_00b0ab20 size=22 ====
+// ==== entry=00b0ab20 orig=FUN_00b0ab20 size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b0ab20(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = 0;
@@ -7594,9 +7745,12 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b0ab86 name=FUN_00b0ab86 size=22 ====
+// ==== entry=00b0ab86 orig=FUN_00b0ab86 size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b0ab86(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = 0;
@@ -7650,7 +7804,7 @@ void FUN_00b0abec(undefined8 param_1)
 {
   undefined8 uVar1;
   
-  uVar1 = FUN_00b0ac62(param_1);
+  uVar1 = BSim_QPoint__y(param_1);
   FUN_00b0b496(param_1,uVar1);
   BSim_QBasicAtomicInteger_int___deref(param_1);
   return;
@@ -7681,9 +7835,11 @@ undefined8 FUN_00b0ac44(undefined8 param_1)
 }
 
 
-// ==== entry=00b0ac62 name=FUN_00b0ac62 size=18 ====
+// ==== entry=00b0ac62 orig=FUN_00b0ac62 size=18 name=BSim_QPoint::y ====
 
-undefined8 FUN_00b0ac62(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x10);
@@ -7716,11 +7872,11 @@ undefined8 FUN_00b0ac86(undefined8 param_1,long param_2,long param_3,undefined8 
     uVar2 = FUN_00b0b2ce(local_38);
     cVar1 = BSim_QAtomicInt__QAtomicInt(param_1,uVar2,param_4);
     if (cVar1 == '\x01') {
-      local_38 = FUN_00b0b541(local_38);
+      local_38 = BSim_QPoint__y(local_38);
     }
     else {
       local_40 = local_38;
-      local_38 = FUN_00b0b52f(local_38);
+      local_38 = BSim_QPoint__y(local_38);
     }
   }
   BSim_QList_int___iterator__iterator(local_20,local_40);
@@ -7763,7 +7919,7 @@ void FUN_00b0ad64(undefined8 param_1,undefined8 param_2)
   undefined8 uVar2;
   
   uVar1 = FUN_00b0ac74(param_1);
-  uVar2 = FUN_00b0ac62(param_1);
+  uVar2 = BSim_QPoint__y(param_1);
   FUN_00b0ac86(param_1,uVar2,uVar1,param_2);
   return;
 }
@@ -7780,9 +7936,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b0adba name=FUN_00b0adba size=30 ====
+// ==== entry=00b0adba orig=FUN_00b0adba size=30 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b0adba(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1 + 0x20);
@@ -7878,7 +8037,7 @@ undefined8 FUN_00b0ae7c(undefined8 param_1,undefined8 param_2,undefined8 param_3
       uVar6 = FUN_00b0ad1c(*puVar5);
       cVar2 = BSim_QAtomicInt__QAtomicInt(uVar7,uVar6,param_3);
       if (cVar2 != '\0') {
-        lVar3 = FUN_00b0b541(local_f8);
+        lVar3 = BSim_QPoint__y(local_f8);
         if (lVar3 == 0) {
           local_a0 = 0;
           FUN_00b0247c(local_b8,&local_a0,&local_f8);
@@ -7914,7 +8073,7 @@ undefined8 FUN_00b0ae7c(undefined8 param_1,undefined8 param_2,undefined8 param_3
       uVar7 = FUN_00b0b732(local_110,param_3);
       return uVar7;
     }
-    lVar3 = FUN_00b0b541(local_f0);
+    lVar3 = BSim_QPoint__y(local_f0);
     if (lVar3 == 0) {
       local_50 = 0;
       FUN_00b0247c(local_68,&local_50,&local_f0);
@@ -7923,7 +8082,7 @@ undefined8 FUN_00b0ae7c(undefined8 param_1,undefined8 param_2,undefined8 param_3
     FUN_00b024b8(local_48,&local_100,&local_100);
     return local_48[0];
   }
-  lVar3 = FUN_00b0b6bc(local_110);
+  lVar3 = BSim_QPoint__y(local_110);
   uVar7 = local_110;
   if (lVar3 != 0) {
     puVar5 = (undefined8 *)FUN_00b0b6ce(local_110);
@@ -8106,9 +8265,9 @@ void FUN_00b0b496(undefined8 param_1,long param_2)
   
   local_28 = param_2;
   while (local_28 != 0) {
-    uVar1 = FUN_00b0b541(local_28);
+    uVar1 = BSim_QPoint__y(local_28);
     FUN_00b0b496(param_1,uVar1);
-    lVar2 = FUN_00b0b52f(local_28);
+    lVar2 = BSim_QPoint__y(local_28);
     FUN_00b0b3c0(param_1,local_28);
     local_28 = lVar2;
   }
@@ -8142,18 +8301,22 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b0b52f name=FUN_00b0b52f size=18 ====
+// ==== entry=00b0b52f orig=FUN_00b0b52f size=18 name=BSim_QPoint::y ====
 
-undefined8 FUN_00b0b52f(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x10);
 }
 
 
-// ==== entry=00b0b541 name=FUN_00b0b541 size=18 ====
+// ==== entry=00b0b541 orig=FUN_00b0b541 size=18 name=BSim_QPoint::y ====
 
-undefined8 FUN_00b0b541(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x18);
@@ -8168,7 +8331,7 @@ undefined8 FUN_00b0b541(long param_1)
 void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 
 {
-  FUN_00b0ba4a(param_1);
+  BSim_QMouseEvent__globalPos(param_1);
   return;
 }
 
@@ -8227,7 +8390,7 @@ void FUN_00b0b5c2(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   uVar1 = BSim_QList_int___Node__t(param_5);
   uVar2 = BSim_QList_int___Node__t(param_4);
   uVar3 = BSim_QList_int___Node__t(param_3);
-  uVar4 = FUN_00b0adba(param_2);
+  uVar4 = BSim_QMouseEvent__globalPos(param_2);
   uVar5 = BSim_QList_int___Node__t(param_1);
                     /* try { // try from 00b0b64d to 00b0b651 has its CatchHandler @ 00b0b654 */
   BSim_std____relocate_a_TelnetOption___TelnetOption___std__allocator_TelnetOption___
@@ -8248,9 +8411,11 @@ undefined8 FUN_00b0b694(undefined8 *param_1)
 }
 
 
-// ==== entry=00b0b6bc name=FUN_00b0b6bc size=18 ====
+// ==== entry=00b0b6bc orig=FUN_00b0b6bc size=18 name=BSim_QPoint::y ====
 
-undefined8 FUN_00b0b6bc(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x28);
@@ -8314,7 +8479,7 @@ undefined1  [16] FUN_00b0b732(undefined8 param_1,undefined8 param_2)
   undefined8 local_28;
   char local_19;
   
-  local_68 = FUN_00b0ac62(param_1);
+  local_68 = BSim_QPoint__y(param_1);
   local_70 = FUN_00b0ac74(param_1);
   local_19 = '\x01';
   while (local_68 != 0) {
@@ -8322,10 +8487,10 @@ undefined1  [16] FUN_00b0b732(undefined8 param_1,undefined8 param_2)
     uVar2 = FUN_00b0b2ce(local_68);
     local_19 = BSim_QAtomicInt__QAtomicInt(param_1,param_2,uVar2);
     if (local_19 == '\0') {
-      local_68 = FUN_00b0b541(local_68);
+      local_68 = BSim_QPoint__y(local_68);
     }
     else {
-      local_68 = FUN_00b0b52f(local_68);
+      local_68 = BSim_QPoint__y(local_68);
     }
   }
   BSim_QList_int___iterator__iterator(&local_78,local_70);
@@ -8401,7 +8566,7 @@ undefined8 * FUN_00b0b8e6(undefined8 *param_1)
 void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 
 {
-  FUN_00b0ba4a(param_1);
+  BSim_QMouseEvent__globalPos(param_1);
   return;
 }
 
@@ -8414,7 +8579,7 @@ void FUN_00b0b92c(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   undefined8 uVar2;
   
-  uVar1 = FUN_00b0adba(param_2);
+  uVar1 = BSim_QMouseEvent__globalPos(param_2);
   uVar2 = BSim_QList_int___Node__t(param_1);
   BSim_QAtomicInt__QAtomicInt(uVar2,uVar1);
   return;
@@ -8429,7 +8594,7 @@ void FUN_00b0b96c(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   
   uVar1 = BSim_QList_int___Node__t(param_1);
-  FUN_00b0bb69(uVar1,param_2,1);
+  BSim_boost__system__detail__generic_error_category__message(uVar1,param_2,1);
   return;
 }
 
@@ -8523,9 +8688,12 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b0ba4a name=FUN_00b0ba4a size=30 ====
+// ==== entry=00b0ba4a orig=FUN_00b0ba4a size=30 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b0ba4a(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1 + 0x20);
@@ -8615,9 +8783,13 @@ void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b0bb69 name=FUN_00b0bb69 size=46 ====
+// ==== entry=00b0bb69 orig=FUN_00b0bb69 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b0bb69(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -8759,7 +8931,8 @@ void FUN_00b0bca8(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   BSim_QList_int___Node__t(param_5);
   uVar1 = identity_forward(0x10,param_2);
                     /* try { // try from 00b0bd1d to 00b0bd21 has its CatchHandler @ 00b0bd24 */
-  FUN_00b0be5c(uVar1,local_38);
+  BSim_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc_____clone_impl
+            (uVar1,local_38);
   return;
 }
 
@@ -8916,9 +9089,14 @@ void FUN_00b0be20(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b0be5c name=FUN_00b0be5c size=42 ====
+// ==== entry=00b0be5c orig=FUN_00b0be5c size=42 name=BSim_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc__::_clone_impl ====
 
-void FUN_00b0be5c(undefined8 param_1,undefined8 param_2)
+/* BSim sim=1.0 sig=10.82934771496495
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>::~clone_impl
+    */
+
+void BSim_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc_____clone_impl
+               (undefined8 param_1,undefined8 param_2)
 
 {
   FUN_00b0beba(param_1,param_2,&stack0x00000008);
@@ -9121,7 +9299,7 @@ void yaml_scan_token(long param_1)
     FUN_00b0c9e6(param_1);
     return;
   }
-  iVar3 = FUN_00b0d7c0(param_1);
+  iVar3 = BSim_QPoint__y(param_1);
   if ((iVar3 == 0) && (cVar2 = yaml_read_byte(param_1), cVar2 == '%')) {
     bVar1 = true;
   }
@@ -9132,7 +9310,7 @@ void yaml_scan_token(long param_1)
     FUN_00b15394(param_1);
     return;
   }
-  iVar3 = FUN_00b0d7c0(param_1);
+  iVar3 = BSim_QPoint__y(param_1);
   if (iVar3 == 0) {
     uVar4 = FUN_00b0dda4();
     cVar2 = FUN_00b0d930(uVar4,param_1);
@@ -9147,7 +9325,7 @@ LAB_00b0c327:
     FUN_00b156d4(param_1);
     return;
   }
-  iVar3 = FUN_00b0d7c0(param_1);
+  iVar3 = BSim_QPoint__y(param_1);
   if (iVar3 == 0) {
     uVar4 = FUN_00b0df2f();
     cVar2 = FUN_00b0d930(uVar4,param_1);
@@ -9192,7 +9370,7 @@ LAB_00b0c378:
   uVar4 = FUN_00b0e0ba();
   cVar2 = FUN_00b0d930(uVar4,param_1);
   if (cVar2 == '\0') {
-    cVar2 = FUN_00b0ee1e(param_1);
+    cVar2 = BSim_QMouseEvent__globalPos(param_1);
     if (cVar2 == '\0') {
       uVar4 = FUN_00b0e2b4();
     }
@@ -9223,7 +9401,7 @@ LAB_00b0c378:
         FUN_00b1693a(param_1);
         return;
       }
-      cVar2 = FUN_00b0ee1e(param_1);
+      cVar2 = BSim_QMouseEvent__globalPos(param_1);
       if ((cVar2 == '\0') ||
          ((cVar2 = yaml_read_byte(param_1), cVar2 != '|' &&
           (cVar2 = yaml_read_byte(param_1), cVar2 != '>')))) {
@@ -9244,7 +9422,7 @@ LAB_00b0c378:
           FUN_00b16dac(param_1);
         }
         else {
-          cVar2 = FUN_00b0ee1e(param_1);
+          cVar2 = BSim_QMouseEvent__globalPos(param_1);
           if (cVar2 == '\0') {
             uVar4 = FUN_00b0ea5d();
           }
@@ -9305,7 +9483,7 @@ LAB_00b0c721:
       bVar1 = true;
     }
     if (bVar1) {
-      cVar2 = FUN_00b0ee1e(param_1);
+      cVar2 = BSim_QMouseEvent__globalPos(param_1);
       if (cVar2 == '\0') {
 LAB_00b0c75c:
         bVar1 = false;
@@ -9325,7 +9503,7 @@ LAB_00b0c75c:
     FUN_00b0e6c4(local_48);
                     /* try { // try from 00b0c7a0 to 00b0c7a4 has its CatchHandler @ 00b0c884 */
     cVar2 = FUN_00b0d930(local_48,param_1);
-    FUN_00b0d994(local_48);
+    BSim_QMouseEvent__globalPos(local_48);
     if (cVar2 != '\0') {
       do {
         cVar2 = FUN_00b215d8(param_1);
@@ -9352,7 +9530,7 @@ LAB_00b0c7ec:
     local_1c = FUN_00b0d95a(uVar3,param_1);
     FUN_00b2174c(param_1,local_1c);
     FUN_00b1a946(param_1);
-    cVar2 = FUN_00b0ee1e(param_1);
+    cVar2 = BSim_QMouseEvent__globalPos(param_1);
     if (cVar2 != '\0') {
       *(undefined1 *)(param_1 + 0xd2) = 1;
     }
@@ -9387,7 +9565,7 @@ void FUN_00b0c8d4(long param_1)
 {
   char cVar1;
   
-  cVar1 = FUN_00b0ee1e(param_1);
+  cVar1 = BSim_QMouseEvent__globalPos(param_1);
   if (cVar1 == '\0') {
     if (*(char *)(param_1 + 0xd3) == '\0') {
       FUN_00b0e4ae();
@@ -9420,10 +9598,12 @@ void FUN_00b0c914(long param_1)
   BSim_QAtomicInt__QAtomicInt(local_28,pvVar1);
   uVar2 = BSim_QList_int___Node__t(local_28);
                     /* try { // try from 00b0c982 to 00b0c9b6 has its CatchHandler @ 00b0c9c5 */
-  FUN_00b0f462(param_1 + 0x178,uVar2);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1 + 0x178,uVar2);
   local_20[0] = BSim_std____invoke_impl_void__TelnetProtocol__GetOptionVector_____lambda_____
                           (param_1 + 0x178);
-  FUN_00b0f4c6(param_1 + 0x128,local_20);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1 + 0x128,local_20);
   FUN_00b0f40a(local_28);
   return;
 }
@@ -9436,7 +9616,7 @@ void FUN_00b0c9e6(long param_1)
 {
   int iVar1;
   
-  iVar1 = FUN_00b0d7c0(param_1);
+  iVar1 = BSim_QPoint__y(param_1);
   if (0 < iVar1) {
     FUN_00b0d7d2(param_1);
   }
@@ -9459,7 +9639,8 @@ void FUN_00b0ca44(long param_1,undefined4 param_2)
   local_24 = FUN_00b0d79a(param_1);
   FUN_00b0ed54(local_68,param_2,local_24);
                     /* try { // try from 00b0ca99 to 00b0ca9d has its CatchHandler @ 00b0cabc */
-  FUN_00b0f508(param_1 + 0x80,local_68);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1 + 0x80,local_68);
   yaml_token_dtor(local_68);
   BSim_QBasicAtomicInteger_int___deref(param_1 + 0x80);
   return;
@@ -9530,9 +9711,11 @@ undefined8 FUN_00b0cb42(long param_1,undefined4 param_2,undefined4 param_3)
       uVar5 = FUN_00b0ca44(param_1,uVar2);
       *(undefined8 *)(local_20 + 4) = uVar5;
       local_30 = local_20;
-      FUN_00b0f4c6(param_1 + 0x128,&local_30);
+      BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+                (param_1 + 0x128,&local_30);
       uVar5 = BSim_QList_int___Node__t(local_38);
-      FUN_00b0f462(param_1 + 0x178,uVar5);
+      BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+                (param_1 + 0x178,uVar5);
       uVar5 = BSim_std____invoke_impl_void__TelnetProtocol__GetOptionVector_____lambda_____
                         (param_1 + 0x178);
     }
@@ -9565,10 +9748,10 @@ void FUN_00b0ccc6(long param_1)
       puVar6 = (undefined8 *)BSim_QBasicAtomicInteger_int___deref(param_1 + 0x128);
       piVar2 = (int *)*puVar6;
       iVar1 = *piVar2;
-      iVar5 = FUN_00b0d7c0(param_1);
+      iVar5 = BSim_QPoint__y(param_1);
       if (iVar1 < iVar5) break;
       iVar1 = *piVar2;
-      iVar5 = FUN_00b0d7c0(param_1);
+      iVar5 = BSim_QPoint__y(param_1);
       if (iVar1 == iVar5) {
         if (piVar2[1] == 1) {
           uVar7 = FUN_00b0e0ba();
@@ -9642,14 +9825,16 @@ void FUN_00b0ce64(long param_1)
       local_84 = FUN_00b0d79a(param_1);
       FUN_00b0ed54(local_c8,5,local_84);
                     /* try { // try from 00b0cf24 to 00b0cf28 has its CatchHandler @ 00b0cfaa */
-      FUN_00b0f508(param_1 + 0x80,local_c8);
+      BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+                (param_1 + 0x80,local_c8);
       yaml_token_dtor(local_c8);
     }
     else if (*(int *)(local_20 + 4) == 0) {
       local_2c = FUN_00b0d79a(param_1);
       FUN_00b0ed54(local_78,6,local_2c);
                     /* try { // try from 00b0cf97 to 00b0cf9b has its CatchHandler @ 00b0cfc7 */
-      FUN_00b0f508(param_1 + 0x80,local_78);
+      BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+                (param_1 + 0x80,local_78);
       yaml_token_dtor(local_78);
     }
   }
@@ -9903,9 +10088,11 @@ undefined1  [16] FUN_00b0d79a(long param_1)
 }
 
 
-// ==== entry=00b0d7c0 name=FUN_00b0d7c0 size=17 ====
+// ==== entry=00b0d7c0 orig=FUN_00b0d7c0 size=17 name=BSim_QPoint::y ====
 
-undefined4 FUN_00b0d7c0(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -10029,9 +10216,12 @@ void FUN_00b0d95a(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b0d994 name=FUN_00b0d994 size=31 ====
+// ==== entry=00b0d994 orig=FUN_00b0d994 size=31 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b0d994(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00b0efa0(param_1 + 8);
@@ -10065,7 +10255,7 @@ undefined * FUN_00b0da0c(void)
                     /* try { // try from 00b0da46 to 00b0da4a has its CatchHandler @ 00b0da70 */
       onig_nodeInitAlt(&DAT_011c2c20,0x20);
       __cxa_guard_release(&DAT_011c2c40);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2c20,&DAT_00c89008);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2c20,&DAT_00c89008);
     }
   }
   return &DAT_011c2c20;
@@ -10085,7 +10275,7 @@ undefined * FUN_00b0da92(void)
                     /* try { // try from 00b0dacc to 00b0dad0 has its CatchHandler @ 00b0daf6 */
       onig_nodeInitAlt(&DAT_011c2c60,9);
       __cxa_guard_release(&DAT_011c2c80);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2c60,&DAT_00c89008);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2c60,&DAT_00c89008);
     }
   }
   return &DAT_011c2c60;
@@ -10109,7 +10299,7 @@ undefined * FUN_00b0db18(void)
       uVar3 = FUN_00b0da0c();
       FUN_00b26d8c(&DAT_011c2ca0,uVar3,uVar2);
       __cxa_guard_release(&DAT_011c2cc0);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2ca0,&DAT_00c89008);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2ca0,&DAT_00c89008);
     }
   }
   return &DAT_011c2ca0;
@@ -10140,9 +10330,9 @@ undefined * FUN_00b0dbb2(void)
                     /* try { // try from 00b0dc4b to 00b0dc4f has its CatchHandler @ 00b0dca5 */
       FUN_00b26d8c(&DAT_011c2ce0,local_38,local_68);
       __cxa_guard_release(&DAT_011c2d00);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2ce0,&DAT_00c89008);
-      FUN_00b0d994(local_38);
-      FUN_00b0d994(local_68);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2ce0,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_38);
+      BSim_QMouseEvent__globalPos(local_68);
       std::string::~string(local_48);
       std::allocator<char>::~allocator((allocator<char> *)&local_39);
     }
@@ -10168,7 +10358,7 @@ undefined * yaml_getSingleton(void)
       uVar3 = FUN_00b0db18();
       FUN_00b26d8c(&DAT_011c2d20,uVar3,uVar2);
       __cxa_guard_release(&DAT_011c2d40);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2d20,&DAT_00c89008);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2d20,&DAT_00c89008);
     }
   }
   return &DAT_011c2d20;
@@ -10204,12 +10394,12 @@ undefined * FUN_00b0dda4(void)
                     /* try { // try from 00b0de53 to 00b0de57 has its CatchHandler @ 00b0deb9 */
       onig_nodeAdd2(&DAT_011c2d60,local_48,local_88);
       __cxa_guard_release(&DAT_011c2d80);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2d60,&DAT_00c89008);
-      FUN_00b0d994(local_48);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2d60,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_48);
       std::string::~string(local_28);
       std::allocator<char>::~allocator((allocator<char> *)&local_19);
-      FUN_00b0d994(local_88);
-      FUN_00b0d994(local_68);
+      BSim_QMouseEvent__globalPos(local_88);
+      BSim_QMouseEvent__globalPos(local_68);
     }
   }
   return &DAT_011c2d60;
@@ -10245,12 +10435,12 @@ undefined * FUN_00b0df2f(void)
                     /* try { // try from 00b0dfde to 00b0dfe2 has its CatchHandler @ 00b0e044 */
       onig_nodeAdd2(&DAT_011c2da0,local_48,local_88);
       __cxa_guard_release(&DAT_011c2dc0);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2da0,&DAT_00c89008);
-      FUN_00b0d994(local_48);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2da0,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_48);
       std::string::~string(local_28);
       std::allocator<char>::~allocator((allocator<char> *)&local_19);
-      FUN_00b0d994(local_88);
-      FUN_00b0d994(local_68);
+      BSim_QMouseEvent__globalPos(local_88);
+      BSim_QMouseEvent__globalPos(local_68);
     }
   }
   return &DAT_011c2da0;
@@ -10281,10 +10471,10 @@ undefined * FUN_00b0e0ba(void)
                     /* try { // try from 00b0e141 to 00b0e145 has its CatchHandler @ 00b0e18f */
       onig_nodeAdd2(&DAT_011c2de0,local_38,local_78);
       __cxa_guard_release(&DAT_011c2e00);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2de0,&DAT_00c89008);
-      FUN_00b0d994(local_38);
-      FUN_00b0d994(local_78);
-      FUN_00b0d994(local_58);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2de0,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_38);
+      BSim_QMouseEvent__globalPos(local_78);
+      BSim_QMouseEvent__globalPos(local_58);
     }
   }
   return &DAT_011c2de0;
@@ -10309,8 +10499,8 @@ undefined * FUN_00b0e1e8(void)
                     /* try { // try from 00b0e247 to 00b0e24b has its CatchHandler @ 00b0e27d */
       onig_nodeAdd2(&DAT_011c2e20,local_38,uVar2);
       __cxa_guard_release(&DAT_011c2e40);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2e20,&DAT_00c89008);
-      FUN_00b0d994(local_38);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2e20,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_38);
     }
   }
   return &DAT_011c2e20;
@@ -10335,8 +10525,8 @@ undefined * FUN_00b0e2b4(void)
                     /* try { // try from 00b0e313 to 00b0e317 has its CatchHandler @ 00b0e349 */
       onig_nodeAdd2(&DAT_011c2e60,local_38,uVar2);
       __cxa_guard_release(&DAT_011c2e80);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2e60,&DAT_00c89008);
-      FUN_00b0d994(local_38);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2e60,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_38);
     }
   }
   return &DAT_011c2e60;
@@ -10367,10 +10557,10 @@ undefined * FUN_00b0e380(void)
                     /* try { // try from 00b0e407 to 00b0e40b has its CatchHandler @ 00b0e455 */
       onig_nodeAdd2(&DAT_011c2ea0,local_38,local_78);
       __cxa_guard_release(&DAT_011c2ec0);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2ea0,&DAT_00c89008);
-      FUN_00b0d994(local_38);
-      FUN_00b0d994(local_78);
-      FUN_00b0d994(local_58);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2ea0,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_38);
+      BSim_QMouseEvent__globalPos(local_78);
+      BSim_QMouseEvent__globalPos(local_58);
     }
   }
   return &DAT_011c2ea0;
@@ -10406,10 +10596,10 @@ undefined * FUN_00b0e4ae(void)
                     /* try { // try from 00b0e562 to 00b0e566 has its CatchHandler @ 00b0e5c8 */
       onig_nodeAdd2(&DAT_011c2ee0,local_38,local_88);
       __cxa_guard_release(&DAT_011c2f00);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2ee0,&DAT_00c89008);
-      FUN_00b0d994(local_38);
-      FUN_00b0d994(local_88);
-      FUN_00b0d994(local_68);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2ee0,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_38);
+      BSim_QMouseEvent__globalPos(local_88);
+      BSim_QMouseEvent__globalPos(local_68);
       std::string::~string(local_48);
       std::allocator<char>::~allocator((allocator<char> *)&local_39);
     }
@@ -10431,7 +10621,7 @@ undefined * FUN_00b0e63e(void)
                     /* try { // try from 00b0e678 to 00b0e67c has its CatchHandler @ 00b0e6a2 */
       onig_nodeInitAlt(&DAT_011c2f20,0x3a);
       __cxa_guard_release(&DAT_011c2f40);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2f20,&DAT_00c89008);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2f20,&DAT_00c89008);
     }
   }
   return &DAT_011c2f20;
@@ -10451,7 +10641,7 @@ undefined8 FUN_00b0e6c4(undefined8 param_1)
                     /* try { // try from 00b0e706 to 00b0e70a has its CatchHandler @ 00b0e73c */
       onig_nodeInitAlt(&DAT_011c2f60,0x23);
       __cxa_guard_release(&DAT_011c2f80);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2f60,&DAT_00c89008);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2f60,&DAT_00c89008);
     }
   }
   FUN_00b0d9b4(param_1,&DAT_011c2f60);
@@ -10506,18 +10696,18 @@ undefined * FUN_00b0e766(void)
                     /* try { // try from 00b0e8b4 to 00b0e8b8 has its CatchHandler @ 00b0e974 */
       FUN_00b26d2c(&DAT_011c2fa0,local_118);
       __cxa_guard_release(&DAT_011c2fc0);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2fa0,&DAT_00c89008);
-      FUN_00b0d994(local_118);
-      FUN_00b0d994(local_68);
-      FUN_00b0d994(local_48);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2fa0,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_118);
+      BSim_QMouseEvent__globalPos(local_68);
+      BSim_QMouseEvent__globalPos(local_48);
       std::string::~string(local_28);
       std::allocator<char>::~allocator((allocator<char> *)&local_19);
-      FUN_00b0d994(local_f8);
-      FUN_00b0d994(local_98);
+      BSim_QMouseEvent__globalPos(local_f8);
+      BSim_QMouseEvent__globalPos(local_98);
       std::string::~string(local_78);
       std::allocator<char>::~allocator((allocator<char> *)&local_69);
-      FUN_00b0d994(local_d8);
-      FUN_00b0d994(local_b8);
+      BSim_QMouseEvent__globalPos(local_d8);
+      BSim_QMouseEvent__globalPos(local_b8);
     }
   }
   return &DAT_011c2fa0;
@@ -10571,18 +10761,18 @@ undefined * FUN_00b0ea5d(void)
                     /* try { // try from 00b0ebab to 00b0ebaf has its CatchHandler @ 00b0ec6b */
       FUN_00b26d2c(&DAT_011c2fe0,local_118);
       __cxa_guard_release(&DAT_011c3000);
-      __cxa_atexit(FUN_00b0d994,&DAT_011c2fe0,&DAT_00c89008);
-      FUN_00b0d994(local_118);
-      FUN_00b0d994(local_68);
-      FUN_00b0d994(local_48);
+      __cxa_atexit(BSim_QMouseEvent__globalPos,&DAT_011c2fe0,&DAT_00c89008);
+      BSim_QMouseEvent__globalPos(local_118);
+      BSim_QMouseEvent__globalPos(local_68);
+      BSim_QMouseEvent__globalPos(local_48);
       std::string::~string(local_28);
       std::allocator<char>::~allocator((allocator<char> *)&local_19);
-      FUN_00b0d994(local_f8);
-      FUN_00b0d994(local_98);
+      BSim_QMouseEvent__globalPos(local_f8);
+      BSim_QMouseEvent__globalPos(local_98);
       std::string::~string(local_78);
       std::allocator<char>::~allocator((allocator<char> *)&local_69);
-      FUN_00b0d994(local_d8);
-      FUN_00b0d994(local_b8);
+      BSim_QMouseEvent__globalPos(local_d8);
+      BSim_QMouseEvent__globalPos(local_b8);
     }
   }
   return &DAT_011c2fe0;
@@ -10630,9 +10820,12 @@ uint FUN_00b0edfa(long param_1)
 }
 
 
-// ==== entry=00b0ee1e name=FUN_00b0ee1e size=32 ====
+// ==== entry=00b0ee1e orig=FUN_00b0ee1e size=32 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00b0ee1e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1 + 400);
@@ -10805,7 +10998,7 @@ void FUN_00b0efe4(undefined8 *param_1,undefined8 param_2)
   uVar3 = FUN_00b0f926(param_2);
   uVar4 = FUN_00b0f8f6(param_2);
                     /* try { // try from 00b0f085 to 00b0f089 has its CatchHandler @ 00b0f0b1 */
-  uVar1 = FUN_00b0f957(uVar4,uVar3,uVar1,uVar2);
+  uVar1 = BSim_boost__system__detail__generic_error_category__message(uVar4,uVar3,uVar1,uVar2);
   param_1[1] = uVar1;
   return;
 }
@@ -11058,15 +11251,21 @@ void FUN_00b0f40a(undefined8 param_1)
 }
 
 
-// ==== entry=00b0f462 name=FUN_00b0f462 size=52 ====
+// ==== entry=00b0f462 orig=FUN_00b0f462 size=52 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b0f462(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
   
   uVar1 = BSim_QList_int___Node__t(param_2);
-  FUN_00b10272(param_1,uVar1);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1,uVar1);
   return;
 }
 
@@ -11101,15 +11300,21 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b0f4c6 name=FUN_00b0f4c6 size=52 ====
+// ==== entry=00b0f4c6 orig=FUN_00b0f4c6 size=52 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b0f4c6(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
   
   uVar1 = BSim_QList_int___Node__t(param_2);
-  FUN_00b102fe(param_1,uVar1);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1,uVar1);
   return;
 }
 
@@ -11126,15 +11331,21 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b0f508 name=FUN_00b0f508 size=52 ====
+// ==== entry=00b0f508 orig=FUN_00b0f508 size=52 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b0f508(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
   
   uVar1 = BSim_QList_int___Node__t(param_2);
-  FUN_00b10330(param_1,uVar1);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1,uVar1);
   return;
 }
 
@@ -11424,7 +11635,7 @@ undefined8 FUN_00b0f8f6(undefined8 *param_1)
   undefined8 local_10;
   
   local_10 = *param_1;
-  FUN_00b109d4(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -11438,17 +11649,21 @@ undefined8 FUN_00b0f926(long param_1)
   undefined8 local_10;
   
   local_10 = *(undefined8 *)(param_1 + 8);
-  FUN_00b109d4(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
 
-// ==== entry=00b0f957 name=FUN_00b0f957 size=49 ====
+// ==== entry=00b0f957 orig=FUN_00b0f957 size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b0f957(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
-  FUN_00b109f1(param_1,param_2,param_3);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   return;
 }
 
@@ -12069,9 +12284,14 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1,void *param_2)
 }
 
 
-// ==== entry=00b10272 name=FUN_00b10272 size=49 ====
+// ==== entry=00b10272 orig=FUN_00b10272 size=49 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b10272(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -12110,9 +12330,14 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b102fe name=FUN_00b102fe size=49 ====
+// ==== entry=00b102fe orig=FUN_00b102fe size=49 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b102fe(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -12123,9 +12348,14 @@ void FUN_00b102fe(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00b10330 name=FUN_00b10330 size=49 ====
+// ==== entry=00b10330 orig=FUN_00b10330 size=49 name=BSim_boost::exception_detail::set_info_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____boost::throw_file___char_const__ ====
 
-void FUN_00b10330(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::boost::exception_detail::set_info<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>,_boost::throw_file_,_char_const*>
+    */
+
+void BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+               (undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -12471,7 +12701,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 
 {
   if (param_2 != 0) {
-    FUN_00b118be(param_1,param_2,param_3);
+    BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   }
   return;
 }
@@ -12485,7 +12715,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b118fa(param_1,param_2);
+  BSim_QVector_QPoint___destruct(param_1,param_2);
   return;
 }
 
@@ -12554,9 +12784,12 @@ void FUN_00b1097a(long *param_1,long param_2)
 }
 
 
-// ==== entry=00b109d4 name=FUN_00b109d4 size=29 ====
+// ==== entry=00b109d4 orig=FUN_00b109d4 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b109d4(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -12564,9 +12797,13 @@ void FUN_00b109d4(undefined8 *param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00b109f1 name=FUN_00b109f1 size=49 ====
+// ==== entry=00b109f1 orig=FUN_00b109f1 size=49 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b109f1(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   FUN_00b11975(param_1,param_2,param_3);
@@ -12611,7 +12848,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 
 {
   if (param_2 != 0) {
-    FUN_00b11a49(param_1,param_2,param_3);
+    BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   }
   return;
 }
@@ -12625,7 +12862,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b11a85(param_1,param_2);
+  BSim_QVector_QPoint___destruct(param_1,param_2);
   return;
 }
 
@@ -12685,8 +12922,8 @@ void FUN_00b10baa(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 {
   undefined1 local_9;
   
-  FUN_00b11d08(&local_9,param_1);
-  FUN_00b11d57(&local_9,param_2,param_3);
+  BSim_QVector_QPoint___operator__(&local_9,param_1);
+  BSim_boost__system__detail__generic_error_category__message(&local_9,param_2,param_3);
   BSim_QBasicAtomicInteger_int___deref(&local_9);
   return;
 }
@@ -12770,8 +13007,8 @@ void FUN_00b10db8(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 {
   undefined1 local_9;
   
-  FUN_00b12000(&local_9,param_1);
-  FUN_00b1204f(&local_9,param_2,param_3);
+  BSim_QVector_QPoint___operator__(&local_9,param_1);
+  BSim_boost__system__detail__generic_error_category__message(&local_9,param_2,param_3);
   BSim_QBasicAtomicInteger_int___deref(&local_9);
   return;
 }
@@ -12823,8 +13060,8 @@ void FUN_00b10eb6(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 {
   undefined1 local_9;
   
-  FUN_00b122b8(&local_9,param_1);
-  FUN_00b12307(&local_9,param_2,param_3);
+  BSim_QVector_QPoint___operator__(&local_9,param_1);
+  BSim_boost__system__detail__generic_error_category__message(&local_9,param_2,param_3);
   BSim_QBasicAtomicInteger_int___deref(&local_9);
   return;
 }
@@ -12867,7 +13104,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 
 {
   if (param_2 != 0) {
-    FUN_00b1237f(param_1,param_2,param_3);
+    BSim_boost__system__detail__generic_error_category__message(param_1,param_2,param_3);
   }
   return;
 }
@@ -12881,7 +13118,7 @@ void BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______M_dea
 void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b123bb(param_1,param_2);
+  BSim_QVector_QPoint___destruct(param_1,param_2);
   return;
 }
 
@@ -12932,8 +13169,8 @@ void FUN_00b11048(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 {
   undefined1 local_9;
   
-  FUN_00b1262e(&local_9,param_1);
-  FUN_00b1267d(&local_9,param_2,param_3);
+  BSim_QVector_QPoint___operator__(&local_9,param_1);
+  BSim_boost__system__detail__generic_error_category__message(&local_9,param_2,param_3);
   BSim_QBasicAtomicInteger_int___deref(&local_9);
   return;
 }
@@ -13074,7 +13311,7 @@ undefined8 FUN_00b11262(long param_1)
 {
   undefined8 local_10;
   
-  FUN_00b129f2(&local_10,param_1 + 8);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1 + 8);
   return local_10;
 }
 
@@ -13088,7 +13325,7 @@ undefined8 FUN_00b1128c(long *param_1,long param_2)
   long local_10;
   
   local_10 = *param_1 + param_2 * -8;
-  FUN_00b129f2(&local_18,&local_10);
+  BSim_boost__detail__shared_count__swap(&local_18,&local_10);
   return local_18;
 }
 
@@ -13461,9 +13698,13 @@ void FUN_00b1187c(undefined8 param_1)
 }
 
 
-// ==== entry=00b118be name=FUN_00b118be size=46 ====
+// ==== entry=00b118be orig=FUN_00b118be size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b118be(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -13483,9 +13724,12 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b118fa name=FUN_00b118fa size=56 ====
+// ==== entry=00b118fa orig=FUN_00b118fa size=56 name=BSim_QVector_QPoint_::destruct ====
 
-void FUN_00b118fa(long param_1,long param_2)
+/* BSim sim=0.7660692606960814 sig=13.27485060551793
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::destruct */
+
+void BSim_QVector_QPoint___destruct(long param_1,long param_2)
 
 {
   undefined8 uVar1;
@@ -13581,9 +13825,13 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b11a49 name=FUN_00b11a49 size=46 ====
+// ==== entry=00b11a49 orig=FUN_00b11a49 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b11a49(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -13603,9 +13851,12 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b11a85 name=FUN_00b11a85 size=56 ====
+// ==== entry=00b11a85 orig=FUN_00b11a85 size=56 name=BSim_QVector_QPoint_::destruct ====
 
-void FUN_00b11a85(long param_1,long param_2)
+/* BSim sim=0.7660692606960814 sig=13.27485060551793
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::destruct */
+
+void BSim_QVector_QPoint___destruct(long param_1,long param_2)
 
 {
   undefined8 uVar1;
@@ -13705,14 +13956,17 @@ void FUN_00b11cd4(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   
   uVar1 = FUN_00b0d748(0x40);
-  FUN_00b13029(param_1,param_2,uVar1);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,uVar1);
   return;
 }
 
 
-// ==== entry=00b11d08 name=FUN_00b11d08 size=52 ====
+// ==== entry=00b11d08 orig=FUN_00b11d08 size=52 name=BSim_QVector_QPoint_::operator__ ====
 
-undefined8 FUN_00b11d08(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::operator<< */
+
+undefined8 BSim_QVector_QPoint___operator__(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -13736,9 +13990,13 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b11d57 name=FUN_00b11d57 size=46 ====
+// ==== entry=00b11d57 orig=FUN_00b11d57 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b11d57(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -13845,14 +14103,17 @@ void FUN_00b11fcc(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   
   uVar1 = FUN_00b0d748(0x30);
-  FUN_00b13281(param_1,param_2,uVar1);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,uVar1);
   return;
 }
 
 
-// ==== entry=00b12000 name=FUN_00b12000 size=52 ====
+// ==== entry=00b12000 orig=FUN_00b12000 size=52 name=BSim_QVector_QPoint_::operator__ ====
 
-undefined8 FUN_00b12000(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::operator<< */
+
+undefined8 BSim_QVector_QPoint___operator__(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -13876,9 +14137,13 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b1204f name=FUN_00b1204f size=46 ====
+// ==== entry=00b1204f orig=FUN_00b1204f size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b1204f(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -13957,14 +14222,17 @@ void FUN_00b12284(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   
   uVar1 = FUN_00b0d748(8);
-  FUN_00b13455(param_1,param_2,uVar1);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,uVar1);
   return;
 }
 
 
-// ==== entry=00b122b8 name=FUN_00b122b8 size=52 ====
+// ==== entry=00b122b8 orig=FUN_00b122b8 size=52 name=BSim_QVector_QPoint_::operator__ ====
 
-undefined8 FUN_00b122b8(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::operator<< */
+
+undefined8 BSim_QVector_QPoint___operator__(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -13988,9 +14256,13 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b12307 name=FUN_00b12307 size=46 ====
+// ==== entry=00b12307 orig=FUN_00b12307 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b12307(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -14022,9 +14294,13 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00b1237f name=FUN_00b1237f size=46 ====
+// ==== entry=00b1237f orig=FUN_00b1237f size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b1237f(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -14044,9 +14320,12 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b123bb name=FUN_00b123bb size=56 ====
+// ==== entry=00b123bb orig=FUN_00b123bb size=56 name=BSim_QVector_QPoint_::destruct ====
 
-void FUN_00b123bb(long param_1,long param_2)
+/* BSim sim=0.7660692606960814 sig=13.27485060551793
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::destruct */
+
+void BSim_QVector_QPoint___destruct(long param_1,long param_2)
 
 {
   undefined8 uVar1;
@@ -14131,14 +14410,17 @@ void FUN_00b125fa(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   
   uVar1 = FUN_00b0d748(4);
-  FUN_00b136d5(param_1,param_2,uVar1);
+  BSim_boost__system__detail__generic_error_category__message(param_1,param_2,uVar1);
   return;
 }
 
 
-// ==== entry=00b1262e name=FUN_00b1262e size=52 ====
+// ==== entry=00b1262e orig=FUN_00b1262e size=52 name=BSim_QVector_QPoint_::operator__ ====
 
-undefined8 FUN_00b1262e(undefined8 param_1,undefined8 param_2)
+/* BSim sim=0.9999999999999999 sig=12.889653121480183
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::operator<< */
+
+undefined8 BSim_QVector_QPoint___operator__(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -14162,9 +14444,13 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b1267d name=FUN_00b1267d size=46 ====
+// ==== entry=00b1267d orig=FUN_00b1267d size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b1267d(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -14209,7 +14495,7 @@ void FUN_00b1271e(undefined8 param_1)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1);
-  FUN_00b1378e(param_1);
+  BSim_QFlags_Qt__WindowType___QFlags(param_1);
   return;
 }
 
@@ -14301,9 +14587,12 @@ void FUN_00b127b2(long *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=00b129f2 name=FUN_00b129f2 size=29 ====
+// ==== entry=00b129f2 orig=FUN_00b129f2 size=29 name=BSim_boost::detail::shared_count::swap ====
 
-void FUN_00b129f2(undefined8 *param_1,undefined8 *param_2)
+/* BSim sim=0.8199105375230661 sig=7.26958805010804
+   ref=libwindtermopen2.so.1.0.0::boost::detail::shared_count::swap */
+
+void BSim_boost__detail__shared_count__swap(undefined8 *param_1,undefined8 *param_2)
 
 {
   *param_1 = *param_2;
@@ -14529,7 +14818,7 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1,void *param_2)
 void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 
 {
-  FUN_00b0d994(param_1);
+  BSim_QMouseEvent__globalPos(param_1);
   return;
 }
 
@@ -14648,7 +14937,7 @@ undefined8 FUN_00b12f38(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   undefined1 local_19 [9];
   
-  FUN_00b11d08(local_19,param_1);
+  BSim_QVector_QPoint___operator__(local_19,param_1);
                     /* try { // try from 00b12f6a to 00b12f6e has its CatchHandler @ 00b12f84 */
   uVar1 = FUN_00b13cb7(local_19,param_2);
   BSim_QBasicAtomicInteger_int___deref(local_19);
@@ -14673,9 +14962,13 @@ void FUN_00b12fa6(undefined8 param_1,undefined8 *param_2,undefined8 *param_3)
 }
 
 
-// ==== entry=00b13029 name=FUN_00b13029 size=46 ====
+// ==== entry=00b13029 orig=FUN_00b13029 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b13029(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -14740,7 +15033,7 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1,void *param_2)
 void BSim_QAtomicInt__QAtomicInt(undefined8 param_1,undefined8 param_2)
 
 {
-  FUN_00b13d1f(param_1,param_2);
+  BSim_QVector_QPoint___destruct(param_1,param_2);
   return;
 }
 
@@ -14784,7 +15077,7 @@ undefined8 FUN_00b13132(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   undefined1 local_19 [9];
   
-  FUN_00b12000(local_19,param_1);
+  BSim_QVector_QPoint___operator__(local_19,param_1);
                     /* try { // try from 00b13164 to 00b13168 has its CatchHandler @ 00b1317e */
   uVar1 = FUN_00b13d63(local_19,param_2);
   BSim_QBasicAtomicInteger_int___deref(local_19);
@@ -14827,9 +15120,13 @@ void FUN_00b13224(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00b13281 name=FUN_00b13281 size=46 ====
+// ==== entry=00b13281 orig=FUN_00b13281 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b13281(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -14925,7 +15222,7 @@ undefined8 FUN_00b13364(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   undefined1 local_19 [9];
   
-  FUN_00b122b8(local_19,param_1);
+  BSim_QVector_QPoint___operator__(local_19,param_1);
                     /* try { // try from 00b13396 to 00b1339a has its CatchHandler @ 00b133b0 */
   uVar1 = FUN_00b13e03(local_19,param_2);
   BSim_QBasicAtomicInteger_int___deref(local_19);
@@ -14950,9 +15247,13 @@ void FUN_00b133d2(undefined8 param_1,undefined8 *param_2,undefined8 *param_3)
 }
 
 
-// ==== entry=00b13455 name=FUN_00b13455 size=46 ====
+// ==== entry=00b13455 orig=FUN_00b13455 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b13455(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -15087,7 +15388,7 @@ undefined8 FUN_00b13592(undefined8 param_1,undefined8 param_2)
   undefined8 uVar1;
   undefined1 local_19 [9];
   
-  FUN_00b1262e(local_19,param_1);
+  BSim_QVector_QPoint___operator__(local_19,param_1);
                     /* try { // try from 00b135c4 to 00b135c8 has its CatchHandler @ 00b135de */
   uVar1 = FUN_00b13e75(local_19,param_2);
   BSim_QBasicAtomicInteger_int___deref(local_19);
@@ -15130,9 +15431,13 @@ void FUN_00b13684(long param_1,undefined8 *param_2)
 }
 
 
-// ==== entry=00b136d5 name=FUN_00b136d5 size=46 ====
+// ==== entry=00b136d5 orig=FUN_00b136d5 size=46 name=BSim_boost::system::detail::generic_error_category::message ====
 
-void FUN_00b136d5(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999998 sig=10.13309116188213
+   ref=libwindtermopen2.so.1.0.0::boost::system::detail::generic_error_category::message */
+
+void BSim_boost__system__detail__generic_error_category__message
+               (undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 {
   BSim_QBasicAtomicInteger_int___deref(param_1,param_2,param_3);
@@ -15217,9 +15522,12 @@ void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1)
 }
 
 
-// ==== entry=00b1378e name=FUN_00b1378e size=22 ====
+// ==== entry=00b1378e orig=FUN_00b1378e size=22 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00b1378e(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = 0;
@@ -15312,7 +15620,7 @@ undefined8 FUN_00b138ea(undefined8 param_1)
 {
   undefined8 local_10;
   
-  FUN_00b129f2(&local_10,param_1);
+  BSim_boost__detail__shared_count__swap(&local_10,param_1);
   return local_10;
 }
 
@@ -15371,7 +15679,7 @@ void FUN_00b13992(undefined8 param_1,undefined8 param_2,undefined8 param_3,undef
   
   uVar1 = FUN_00b13fef(param_2);
   uVar2 = FUN_00b13fef(param_1);
-  FUN_00b14014(uVar2,uVar1,param_3,param_4);
+  BSim_boost__system__detail__generic_error_category__message(uVar2,uVar1,param_3,param_4);
   return;
 }
 
@@ -15453,7 +15761,8 @@ void FUN_00b13af0(undefined4 *param_1,undefined4 *param_2)
   *(undefined8 *)(param_1 + 2) = *(undefined8 *)(param_2 + 2);
   param_1[4] = param_2[4];
   std::string::string((string *)(param_1 + 6),(string *)(param_2 + 6));
-  FUN_00b142d8(param_1 + 8,param_2 + 8);
+  BSim_boost__exception_detail__set_info_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc____boost__throw_file___char_const__
+            (param_1 + 8,param_2 + 8);
   param_1[0xe] = param_2[0xe];
   return;
 }
@@ -15603,9 +15912,12 @@ undefined8 BSim_QList_int___Node__t(undefined8 param_1)
 }
 
 
-// ==== entry=00b13d1f name=FUN_00b13d1f size=56 ====
+// ==== entry=00b13d1f orig=FUN_00b13d1f size=56 name=BSim_QVector_QPoint_::destruct ====
 
-void FUN_00b13d1f(long param_1,long param_2)
+/* BSim sim=0.7660692606960814 sig=13.27485060551793
+   ref=libwindtermopen2.so.1.0.0::QVector<QPoint>::destruct */
+
+void BSim_QVector_QPoint___destruct(long param_1,long param_2)
 
 {
   undefined8 uVar1;

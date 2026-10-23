@@ -1,7 +1,9 @@
 // Ghidra 12.1.4 decompiled — WindTerm 2.7.0 (sha256 9491b87e…) part 20
-// ==== entry=00624cc0 name=FUN_00624cc0 size=4 ====
+// ==== entry=00624cc0 orig=FUN_00624cc0 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_00624cc0(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x20);
@@ -640,7 +642,7 @@ LAB_00625632:
       }
     }
                     /* try { // try from 00625520 to 00625541 has its CatchHandler @ 006256a9 */
-    lVar5 = FUN_00624c42(param_3);
+    lVar5 = BSim_QPoint__y(param_3);
     if (*(long *)(lVar5 + 0x10) == 0) {
       local_48.tv_sec = (__time_t)&QListData::shared_null;
     }
@@ -3018,9 +3020,12 @@ undefined8 * FUN_00627970(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=00627992 name=FUN_00627992 size=8 ====
+// ==== entry=00627992 orig=FUN_00627992 size=8 name=BSim_QPoint::QPoint ====
 
-void FUN_00627992(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+/* BSim sim=0.9999999999999999 sig=12.376592648850593 ref=libwindtermopen2.so.1.0.0::QPoint::QPoint
+    */
+
+void BSim_QPoint__QPoint(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
 
 {
   *param_1 = param_3;
@@ -3269,9 +3274,11 @@ void FUN_00627ca2(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=00627cb4 name=FUN_00627cb4 size=5 ====
+// ==== entry=00627cb4 orig=FUN_00627cb4 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_00627cb4(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 8);
@@ -3797,9 +3804,11 @@ bool FUN_006284b4(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=006284ce name=FUN_006284ce size=5 ====
+// ==== entry=006284ce orig=FUN_006284ce size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_006284ce(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 8);
@@ -4246,7 +4255,7 @@ ulong FUN_00628a8c(undefined8 *param_1,undefined4 param_2,undefined4 param_3)
   }
   uVar3 = __cxa_allocate_exception(0x10);
                     /* try { // try from 00628add to 00628aec has its CatchHandler @ 00628af2 */
-  uVar4 = FUN_00627cb4(param_1);
+  uVar4 = BSim_QPoint__y(param_1);
   ssh_errorToStruct(uVar3,uVar4);
   uVar5 = FUN_004d50d2();
   return uVar5;
@@ -4272,7 +4281,7 @@ undefined8 FUN_00628afa(undefined8 *param_1,undefined8 param_2,undefined4 param_
   }
   uVar2 = __cxa_allocate_exception(0x10);
                     /* try { // try from 00628b40 to 00628b4f has its CatchHandler @ 00628b55 */
-  uVar3 = FUN_00627cb4(param_1);
+  uVar3 = BSim_QPoint__y(param_1);
   ssh_errorToStruct(uVar2,uVar3);
   uVar2 = FUN_004d50f8();
   return uVar2;
@@ -4297,7 +4306,7 @@ undefined8 FUN_00628b5e(undefined8 *param_1,undefined8 param_2)
     if ((int)uVar2 == -1) {
       uVar2 = __cxa_allocate_exception(0x10);
                     /* try { // try from 00628ba2 to 00628bb1 has its CatchHandler @ 00628bb7 */
-      uVar3 = FUN_00627cb4(param_1);
+      uVar3 = BSim_QPoint__y(param_1);
       ssh_errorToStruct(uVar2,uVar3);
       uVar2 = FUN_004d511e();
       return uVar2;
@@ -4423,7 +4432,7 @@ ulong FUN_00628d1e(long param_1,undefined8 param_2,undefined4 param_3)
     if (uVar1 == 0xffffffff) {
       uVar3 = __cxa_allocate_exception(0x10);
                     /* try { // try from 00628e61 to 00628e70 has its CatchHandler @ 00628e7b */
-      uVar4 = FUN_00627cb4(param_1);
+      uVar4 = BSim_QPoint__y(param_1);
       ssh_errorToStruct(uVar3,uVar4);
       uVar5 = FUN_004d518e();
       return uVar5;
@@ -4491,7 +4500,7 @@ ulong FUN_00628e96(long param_1,undefined8 param_2,undefined4 param_3,undefined8
     if (uVar1 == 0xffffffff) {
       uVar3 = __cxa_allocate_exception(0x10);
                     /* try { // try from 00628fe3 to 00628ff2 has its CatchHandler @ 00628ffd */
-      uVar4 = FUN_00627cb4(param_1);
+      uVar4 = BSim_QPoint__y(param_1);
       ssh_errorToStruct(uVar3,uVar4);
       uVar5 = FUN_004d520e();
       return uVar5;
@@ -4560,7 +4569,7 @@ ulong FUN_00629016(undefined8 *param_1,undefined8 param_2,undefined4 param_3,und
     if (uVar1 == 0xffffffff) {
       uVar3 = __cxa_allocate_exception(0x10);
                     /* try { // try from 0062916c to 0062917b has its CatchHandler @ 00629186 */
-      uVar4 = FUN_00627cb4(param_1);
+      uVar4 = BSim_QPoint__y(param_1);
       ssh_errorToStruct(uVar3,uVar4);
       uVar5 = FUN_004d528e();
       return uVar5;
@@ -4714,7 +4723,7 @@ long * FUN_006293dc(long *param_1,undefined8 *param_2)
        (iVar2 = ssh_channel_read_nonblocking(*param_2,local_1028,0x1000,0), iVar2 == -1)) {
       uVar5 = __cxa_allocate_exception(0x10);
                     /* try { // try from 00629546 to 00629555 has its CatchHandler @ 0062957d */
-      uVar6 = FUN_00627cb4(param_2);
+      uVar6 = BSim_QPoint__y(param_2);
       ssh_errorToStruct(uVar5,uVar6);
       plVar7 = (long *)FUN_004d539a();
       return plVar7;
@@ -4753,7 +4762,7 @@ long * FUN_006293dc(long *param_1,undefined8 *param_2)
   }
   uVar5 = __cxa_allocate_exception(0x10);
                     /* try { // try from 00629521 to 00629530 has its CatchHandler @ 00629575 */
-  uVar6 = FUN_00627cb4(param_2);
+  uVar6 = BSim_QPoint__y(param_2);
   ssh_errorToStruct(uVar5,uVar6);
   plVar7 = (long *)FUN_004d5384();
   return plVar7;
@@ -5035,7 +5044,7 @@ void * FUN_0062998a(undefined8 param_1,undefined8 param_2)
   
   pvVar1 = operator_new(0x10);
                     /* try { // try from 006299aa to 006299ae has its CatchHandler @ 006299b7 */
-  FUN_00627992(pvVar1,param_1,param_2);
+  BSim_QPoint__QPoint(pvVar1,param_1,param_2);
   return pvVar1;
 }
 
@@ -9934,9 +9943,14 @@ LAB_0062fb41:
 }
 
 
-// ==== entry=0062fc46 name=FUN_0062fc46 size=9 ====
+// ==== entry=0062fc46 orig=FUN_0062fc46 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_0062fc46(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0062f996(*(undefined8 *)(param_1 + 0x10));
@@ -23443,9 +23457,12 @@ void FUN_0064233a(long param_1)
 }
 
 
-// ==== entry=00642416 name=FUN_00642416 size=9 ====
+// ==== entry=00642416 orig=FUN_00642416 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00642416(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_0063b1ba(param_1 + 0x10);
@@ -24618,9 +24635,11 @@ int * TreeModel_vt12(int *param_1,long param_2,int param_3,uint param_4,int *par
 }
 
 
-// ==== entry=00643e32 name=FUN_00643e32 size=5 ====
+// ==== entry=00643e32 orig=FUN_00643e32 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_00643e32(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x10);
@@ -26745,9 +26764,12 @@ LAB_00647015:
 }
 
 
-// ==== entry=0064701e name=FUN_0064701e size=9 ====
+// ==== entry=0064701e orig=FUN_0064701e size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_0064701e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00647000(param_1 + 0x30);
@@ -29915,9 +29937,11 @@ LAB_0064a9a3:
 }
 
 
-// ==== entry=0064a9d0 name=FUN_0064a9d0 size=25 ====
+// ==== entry=0064a9d0 orig=FUN_0064a9d0 size=25 name=BSim_std::bad_alloc::bad_alloc ====
 
-void FUN_0064a9d0(QFileSystemModel *param_1,QObject *param_2)
+/* BSim sim=1.0 sig=11.271298610603214 ref=libwindtermopen2.so.1.0.0::std::bad_alloc::bad_alloc */
+
+void BSim_std__bad_alloc__bad_alloc(QFileSystemModel *param_1,QObject *param_2)
 
 {
   QFileSystemModel::QFileSystemModel(param_1,param_2);
@@ -61786,9 +61810,11 @@ void FUN_006741a0(undefined8 *param_1)
 }
 
 
-// ==== entry=006741d8 name=FUN_006741d8 size=4 ====
+// ==== entry=006741d8 orig=FUN_006741d8 size=4 name=BSim_QPoint::y ====
 
-undefined4 FUN_006741d8(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10);
@@ -70219,9 +70245,12 @@ void actionhandler_exception_dtor(runtime_error *param_1)
 }
 
 
-// ==== entry=0067d03a name=FUN_0067d03a size=9 ====
+// ==== entry=0067d03a orig=FUN_0067d03a size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_0067d03a(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   actionhandler_exception_dtor(param_1 + -0x10);

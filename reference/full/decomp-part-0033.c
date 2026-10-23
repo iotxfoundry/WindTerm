@@ -1232,7 +1232,7 @@ LAB_009d4fb1:
   }
   pvVar5 = operator_new(8);
                     /* try { // try from 009d4fde to 009d4fe2 has its CatchHandler @ 009d5325 */
-  FUN_00a0c6a4(pvVar5);
+  BSim_QFlags_Qt__WindowType___QFlags(pvVar5);
   pvVar1 = *(void **)(param_1 + 0xd8);
   *(void **)(param_1 + 0xd8) = pvVar5;
   if (pvVar1 != (void *)0x0) {
@@ -5049,7 +5049,7 @@ s_prompt_line_9db11c
                     /* try { // try from 009db254 to 009db258 has its CatchHandler @ 009dc175 */
   local_1c8 = operator_new(0x88);
                     /* try { // try from 009db261 to 009db265 has its CatchHandler @ 009dc16d */
-  FUN_00a1113e(local_1c8);
+  BSim_QMargins__QMargins(local_1c8);
   local_140 = &DAT_011c5338;
   local_138 = &DAT_011c5338;
                     /* try { // try from 009db28d to 009db2b8 has its CatchHandler @ 009dc17d */
@@ -13565,7 +13565,8 @@ void FUN_009e78f6(long *param_1)
   long lVar2;
   
   lVar2 = QHashData::detach_helper
-                    ((_func_void_Node_ptr_void_ptr *)*param_1,FUN_009eee08,0x9eee06,0x20);
+                    ((_func_void_Node_ptr_void_ptr *)*param_1,BSim_boost__exception__exception,
+                     0x9eee06,0x20);
   cVar1 = qatomic_int_deref(*param_1 + 0x10);
   if (cVar1 != '\0') {
     *param_1 = lVar2;
@@ -13705,9 +13706,14 @@ void FUN_009e7a16(undefined8 *param_1)
 }
 
 
-// ==== entry=009e7bb0 name=FUN_009e7bb0 size=9 ====
+// ==== entry=009e7bb0 orig=FUN_009e7bb0 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009e7bb0(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a0cd5e(*(undefined8 *)(param_1 + 0x18));
@@ -13715,9 +13721,14 @@ void FUN_009e7bb0(long param_1)
 }
 
 
-// ==== entry=009e7bba name=FUN_009e7bba size=9 ====
+// ==== entry=009e7bba orig=FUN_009e7bba size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009e7bba(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a0cd7a(*(undefined8 *)(param_1 + 0x18));
@@ -13725,9 +13736,14 @@ void FUN_009e7bba(long param_1)
 }
 
 
-// ==== entry=009e7bc4 name=FUN_009e7bc4 size=9 ====
+// ==== entry=009e7bc4 orig=FUN_009e7bc4 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009e7bc4(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a0ce68(*(undefined8 *)(param_1 + 0x18));
@@ -13735,9 +13751,14 @@ void FUN_009e7bc4(long param_1)
 }
 
 
-// ==== entry=009e7bce name=FUN_009e7bce size=9 ====
+// ==== entry=009e7bce orig=FUN_009e7bce size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009e7bce(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a0ce84(*(undefined8 *)(param_1 + 0x18));
@@ -13802,9 +13823,14 @@ void FUN_009e7bd8(long param_1)
 }
 
 
-// ==== entry=009e7ce8 name=FUN_009e7ce8 size=9 ====
+// ==== entry=009e7ce8 orig=FUN_009e7ce8 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009e7ce8(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00930ce8(*(undefined8 *)(param_1 + 8));
@@ -13812,9 +13838,11 @@ void FUN_009e7ce8(long param_1)
 }
 
 
-// ==== entry=009e7cf2 name=FUN_009e7cf2 size=5 ====
+// ==== entry=009e7cf2 orig=FUN_009e7cf2 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_009e7cf2(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x20);
@@ -13945,7 +13973,8 @@ void FUN_009e7dc0(undefined8 param_1,undefined8 param_2,undefined8 param_3)
     do {
       iVar1 = iVar8 + 1;
       uVar3 = FUN_009e7d84(param_1,iVar8);
-      uVar3 = FUN_009e7bba(param_1,uVar3 >> 2);
+      uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar3 >> 2);
       if (1 < ((byte)(uVar3 >> 0xe) & 7)) goto LAB_009e7e22;
       iVar8 = iVar8 + -1;
     } while (iVar8 != -1);
@@ -13959,7 +13988,8 @@ LAB_009e7e22:
     do {
       iVar7 = iVar1;
       uVar3 = FUN_009e7d84(param_1,iVar7);
-      uVar5 = FUN_009e7bba(param_1,uVar3 >> 2);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar3 >> 2);
       iVar2 = iVar7 + -1;
       if ((uVar5 & 0x3fe0) == 0) break;
       iVar1 = iVar7 + 1;
@@ -13997,7 +14027,8 @@ int FUN_009e7eb4(long param_1,int param_2,uint param_3,long param_4,long param_5
         return -1;
       }
       uVar4 = FUN_009e7d84(param_1,param_2);
-      uVar4 = FUN_009e7bba(param_1,uVar4 >> 2);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar4 >> 2);
       if (((param_3 ^ uVar4) & 0x1f) != 0) {
         return -1;
       }
@@ -14014,7 +14045,8 @@ int FUN_009e7eb4(long param_1,int param_2,uint param_3,long param_4,long param_5
         }
         param_2 = iVar2 + -2;
         uVar4 = FUN_009e7d84(param_1,param_2);
-        uVar4 = FUN_009e7bba(param_1,uVar4 >> 2);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar4 >> 2);
         if (((param_3 ^ uVar4) & 0x1f) != 0) {
           return -1;
         }
@@ -14060,7 +14092,8 @@ int FUN_009e8008(long param_1,int param_2,uint param_3,long param_4,long param_5
         return -1;
       }
       uVar4 = FUN_009e7d84(param_1,param_2);
-      uVar4 = FUN_009e7bba(param_1,uVar4 >> 2);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar4 >> 2);
       if (((param_3 ^ uVar4) & 0x1f) != 0) {
         return -1;
       }
@@ -14077,7 +14110,8 @@ int FUN_009e8008(long param_1,int param_2,uint param_3,long param_4,long param_5
         }
         param_2 = iVar8 + 2;
         uVar4 = FUN_009e7d84(param_1,param_2);
-        uVar4 = FUN_009e7bba(param_1,uVar4 >> 2);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar4 >> 2);
         if (((param_3 ^ uVar4) & 0x1f) != 0) {
           return -1;
         }
@@ -14413,7 +14447,8 @@ byte FUN_009e849e(long param_1,long param_2,long param_3,long param_4,long param
       iVar2 = FUN_009e842e(param_1,param_4,lVar9);
       for (; bVar8 = local_61, iVar1 <= iVar2; iVar1 = iVar1 + 1) {
         uVar3 = FUN_009e8412(param_1,iVar1,lVar9);
-        FUN_009e7bce(param_1,uVar3 >> 2);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_1,uVar3 >> 2);
         if ((extraout_AH & 0xc0) == 0x80) {
           lVar6 = FUN_009e8466(param_1,iVar1,lVar9);
           lVar7 = FUN_009e8482(param_1,iVar1,lVar9);
@@ -14475,8 +14510,10 @@ void FUN_009e8658(long param_1,long *param_2,long *param_3,long *param_4,long *p
   long lVar9;
   long local_50;
   
-  uVar5 = FUN_0092522a(*(undefined8 *)(param_1 + 8),*param_2);
-  lVar6 = FUN_00925200(*(undefined8 *)(param_1 + 8),uVar5);
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 8),*param_2);
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 8),uVar5);
   cVar1 = FUN_009295cc(*(undefined8 *)(param_1 + 8),lVar6,*param_2);
   if (cVar1 == '\0') {
     lVar6 = FUN_0092934c(*(undefined8 *)(param_1 + 8),*param_2,*param_3,1);
@@ -14486,18 +14523,22 @@ void FUN_009e8658(long param_1,long *param_2,long *param_3,long *param_4,long *p
     lVar6 = *param_4;
   }
   *param_4 = lVar6;
-  lVar6 = FUN_0092522a(*(undefined8 *)(param_1 + 8),*param_3);
-  local_50 = FUN_0092520c(*(undefined8 *)(param_1 + 8),lVar6);
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 8),*param_3);
+  local_50 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (*(undefined8 *)(param_1 + 8),lVar6);
   cVar1 = FUN_009295cc(*(undefined8 *)(param_1 + 8),*param_3,local_50);
   if (cVar1 == '\0') {
     uVar5 = *(undefined8 *)(param_1 + 8);
     lVar9 = *param_3;
     if (0 < lVar6) {
-      uVar7 = FUN_00925200(uVar5,lVar6);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (uVar5,lVar6);
       cVar1 = FUN_009295cc(uVar5,uVar7,lVar9);
       if (cVar1 != '\0') {
         lVar6 = lVar6 + -1;
-        lVar9 = FUN_0092520c(*(undefined8 *)(param_1 + 8),lVar6);
+        lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 8),lVar6);
         *param_3 = lVar9;
         local_50 = lVar9;
         goto LAB_009e86f8;
@@ -14522,7 +14563,8 @@ LAB_009e86f8:
       return;
     }
     uVar5 = *(undefined8 *)(param_1 + 8);
-    uVar7 = FUN_00925200(uVar5,lVar6);
+    uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (uVar5,lVar6);
     cVar1 = FUN_009295cc(uVar5,uVar7,lVar9);
     if (cVar1 == '\0') {
       return;
@@ -14540,7 +14582,8 @@ LAB_009e86f8:
       iVar2 = iVar2 + -1;
       if ((-1 < iVar2) && (lVar9 = FUN_009e7db4(param_1,iVar2), *param_4 == lVar9)) {
         uVar4 = FUN_009e7d84(param_1,iVar2);
-        uVar4 = FUN_009e7bba(param_1,uVar4 >> 2);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar4 >> 2);
         if ((uVar4 & 0xfc000) == 0x2c000) {
           lVar9 = FUN_009e7da8(param_1,iVar2);
           *param_4 = lVar9;
@@ -14551,7 +14594,8 @@ LAB_009e86f8:
       lVar9 = *param_5;
       if (lVar9 == lVar8) {
         uVar4 = FUN_009e7d84(param_1,uVar3);
-        uVar4 = FUN_009e7bba(param_1,uVar4 >> 2);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar4 >> 2);
         if ((uVar4 & 0xfc000) == 0x6c000) {
           lVar9 = FUN_009e7db4(param_1,uVar3);
           *param_5 = lVar9;
@@ -14567,7 +14611,8 @@ LAB_009e86f8:
     if (lVar9 != local_50) {
       return;
     }
-    lVar8 = FUN_00925570(*(undefined8 *)(param_1 + 8));
+    lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 8));
     lVar9 = lVar6;
     do {
       lVar6 = lVar9;
@@ -14579,7 +14624,8 @@ LAB_009e86f8:
   }
   uVar5 = *(undefined8 *)(param_1 + 8);
 LAB_009e87e7:
-  lVar6 = FUN_0092520c(uVar5,lVar6);
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (uVar5,lVar6);
   *param_5 = lVar6;
   *param_3 = lVar6;
   return;
@@ -14605,7 +14651,8 @@ int FUN_009e8942(undefined8 param_1,int param_2,undefined8 param_3,char param_4)
   }
   if ((-1 < param_2) && (iVar1 = FUN_009e844a(param_1,param_3), param_2 < iVar1)) {
     uVar2 = FUN_009e8412(param_1,param_2,param_3);
-    uVar2 = FUN_009e7bce(param_1,uVar2 >> 2);
+    uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1,uVar2 >> 2);
     if ((uVar2 & 0x3fe0) != 0) {
       if ((uVar2 >> 0xe & 3) != (int)param_4) {
         param_2 = -1;
@@ -14673,7 +14720,8 @@ void FUN_009e89ca(long param_1,long param_2,undefined8 *param_3,byte param_4)
           do {
             iVar3 = FUN_009e842e(param_1,param_2,lVar9);
             uVar4 = FUN_009e8412(param_1,iVar3,lVar9);
-            iVar5 = FUN_009e7bce(param_1,uVar4 >> 2);
+            iVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (param_1,uVar4 >> 2);
             if (iVar5 == 0) {
 LAB_009e8a76:
               lVar8 = FUN_009e8466(param_1,iVar3,lVar9);
@@ -15016,7 +15064,8 @@ char FUN_009e927e(long param_1,uint param_2,long param_3,long param_4)
   char local_69;
   undefined8 local_40 [2];
   
-  lVar11 = FUN_009e7ce8();
+  lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     ();
   uVar6 = FUN_00a0cf82(lVar11,param_2);
   if ((lVar11 == 0) || (local_69 = FUN_00a0cf72(lVar11), local_69 == '\0')) {
     FUN_009e7d06(param_1,param_3,param_4 - param_3,uVar6,1);
@@ -15107,9 +15156,10 @@ LAB_009e95a1:
                       if ((*puVar2 & 0xe00) != 0x200) {
                         FUN_009e7d06(param_1,*(undefined8 *)(param_1 + 0x20),
                                      lVar18 - *(long *)(param_1 + 0x20),uVar6,1);
-                        iVar8 = FUN_009e7bb0(param_1,param_2 & 0x1f | (*puVar2 & 0x1ff) << 5 |
-                                                     (*(byte *)((long)puVar2 + 1) >> 1 & 7) << 0xe |
-                                                     (*(byte *)(plVar19 + 2) & 7) << 0x11);
+                        iVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                          (param_1,param_2 & 0x1f | (*puVar2 & 0x1ff) << 5 |
+                                                   (*(byte *)((long)puVar2 + 1) >> 1 & 7) << 0xe |
+                                                   (*(byte *)(plVar19 + 2) & 7) << 0x11);
                         FUN_009e7d06(param_1,lVar18,lVar17,iVar8 << 2,(*puVar2 & 0xe00) == 0xc00);
                         *(long *)(param_1 + 0x20) = lVar12;
                       }
@@ -15191,7 +15241,8 @@ joined_r0x009e97e3:
     if (iVar2 <= iVar3) {
       do {
         uVar4 = FUN_009e8412(param_1,iVar2,lVar8);
-        uVar4 = FUN_009e7bce(param_1,uVar4 >> 2);
+        uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar4 >> 2);
         if (((uVar4 != 0) && (((byte)(uVar4 >> 8) & 0xc0) == 0x80)) &&
            ((param_4 == 0 ||
             ((((param_4 ^ uVar4) & 0x3fe0) == 0 && (((param_4 ^ uVar4) & 0x1f) == 0)))))) {
@@ -15453,7 +15504,8 @@ char FUN_009e9cca(long param_1,int param_2,long param_3,long param_4)
   *(undefined8 *)(param_3 + 0x40) = uVar3;
   *(undefined8 **)(param_3 + 0x48) = puVar4;
   uVar6 = FUN_009e7d84(param_1,param_2);
-  uVar6 = FUN_009e7bba(param_1,uVar6 >> 2);
+  uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar6 >> 2);
   if ((uVar6 & 0x1c000) != 0x14000) {
     return '\x04';
   }
@@ -15483,7 +15535,8 @@ LAB_009e9fd0:
           return '\x05';
         }
         uVar7 = FUN_009e7d84(param_1,param_2);
-        uVar7 = FUN_009e7bba(param_1,uVar7 >> 2);
+        uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar7 >> 2);
         bVar11 = (byte)uVar7 & 0x1f;
         bVar13 = (byte)uVar6 & 0x1f;
         if (bVar11 <= bVar13) {
@@ -15521,7 +15574,8 @@ LAB_009e9fd0:
     cVar12 = '\x03';
     do {
       uVar7 = FUN_009e7d84(param_1,iVar14);
-      uVar7 = FUN_009e7bba(param_1,uVar7 >> 2);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar7 >> 2);
       bVar9 = (byte)uVar7 & 0x1f;
       if (bVar9 <= bVar13) {
         if (bVar9 < bVar13) break;
@@ -15753,7 +15807,8 @@ undefined8 FUN_009ea1a8(long param_1,uint param_2,long param_3,undefined8 param_
     if (iVar24 < iVar16) {
       do {
         uVar17 = FUN_009e7d84(param_1,iVar24);
-        uVar17 = FUN_009e7bba(param_1,uVar17 >> 2);
+        uVar17 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_1,uVar17 >> 2);
         bVar23 = (byte)uVar17 & 0x1f;
         if (bVar23 <= bVar14) {
           if (bVar23 < bVar14) break;
@@ -16106,7 +16161,8 @@ LAB_009eadd8:
     param_2 = param_2 + 1;
     if (param_2 < iVar5) {
       uVar6 = FUN_009e7d84(param_1,param_2);
-      uVar6 = FUN_009e7bba(param_1,uVar6 >> 2);
+      uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar6 >> 2);
       if ((((uVar6 & 0x1c000) == 0xc000) || ((uVar6 & 0x1c000) == 0x10000)) &&
          (bVar9 = (byte)uVar6 & 0x1f, bVar9 <= local_e8)) {
         if (bVar9 < local_e8) goto LAB_009eb013;
@@ -16687,7 +16743,9 @@ void FUN_009eb972(undefined8 *param_1,long *param_2,int param_3,int param_4)
     if (((-1 < lVar6) && (lVar6 < *(long *)(lVar1 + 0x10) * 2 >> 1)) && (0 < lVar8)) {
       plVar2 = *(long **)(lVar1 + 0x20);
       local_48 = lVar1;
-      if (*(code **)(*plVar2 + 0x28) == FUN_007a9c74) {
+      if (*(code **)(*plVar2 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         local_64 = runstyles_fill_range(plVar2[1],lVar6);
       }
       else {
@@ -16704,7 +16762,9 @@ void FUN_009eb972(undefined8 *param_1,long *param_2,int param_3,int param_4)
       lVar5 = lVar6;
       if (local_50 < local_58) {
         plVar2 = *(long **)(lVar1 + 0x20);
-        if (*(code **)(*plVar2 + 0x28) == FUN_007a9c74) {
+        if (*(code **)(*plVar2 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           local_68 = runstyles_fill_range(plVar2[1],lVar8 + lVar6);
         }
         else {
@@ -17051,7 +17111,8 @@ FUN_009ec10c(undefined8 param_1,long param_2,undefined8 param_3,long param_4,lon
         return 0;
       }
       uVar7 = FUN_009e7d84(param_1,iVar5);
-      uVar7 = FUN_009e7bba(param_1,uVar7 >> 2);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar7 >> 2);
       uVar14 = uVar7 >> 0x10 & 0xe;
       cVar3 = (char)uVar14;
       if (((uVar14 != 0) && (((byte)(uVar7 >> 0x11) & 7) < 4)) &&
@@ -17088,7 +17149,8 @@ FUN_009ec10c(undefined8 param_1,long param_2,undefined8 param_3,long param_4,lon
                 iVar10 = FUN_009eac3a(param_1,iVar5,uVar7,param_2);
                 if (iVar10 != -1) {
                   uVar14 = FUN_009e7d84(param_1,iVar10);
-                  uVar9 = FUN_009e7bba(param_1,uVar14 >> 2);
+                  uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                    (param_1,uVar14 >> 2);
                   iVar8 = FUN_009e8008(param_1,iVar10,uVar9,param_2);
                   if (iVar8 != -1) {
                     local_90 = CONCAT44(iVar8,iVar10);
@@ -17166,7 +17228,8 @@ LAB_009ec7ef:
                     if (local_94 != -1) {
 LAB_009ec76a:
                       uVar14 = FUN_009e7d84(param_1,iVar10);
-                      uVar9 = FUN_009e7bba(param_1,uVar14 >> 2);
+                      uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                        (param_1,uVar14 >> 2);
                       iVar10 = FUN_009e8008(param_1,iVar10,uVar9,param_2);
                       if (bVar13 == 0) {
                         if (iVar10 == -1) goto LAB_009ec7de;
@@ -17442,8 +17505,10 @@ void FUN_009ecd08(long param_1,long param_2,long param_3,long param_4,long param
     local_38 = param_4;
     local_30[0] = param_3;
     FUN_009e8658(param_1,local_30,&local_38,&local_40,&local_48,param_2);
-    lVar2 = FUN_0092522a(*(undefined8 *)(param_1 + 8),local_40);
-    lVar3 = FUN_0092522a(*(undefined8 *)(param_1 + 8),local_48);
+    lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 8),local_40);
+    lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 8),local_48);
     if (lVar2 < lVar3) {
       local_1c[0] = 0xffffffff;
       uVar1 = param_7 & 0xffff3fff;
@@ -17570,12 +17635,15 @@ void FUN_009ed01e(long param_1,long param_2,long param_3)
   undefined8 uVar7;
   
   if (param_3 == -1) {
-    param_3 = FUN_00925570(*(undefined8 *)(param_1 + 8));
+    param_3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 8));
     if (param_3 <= param_2) {
       return;
     }
-    uVar4 = FUN_00925200(*(undefined8 *)(param_1 + 8),param_2);
-    uVar5 = FUN_0092520c(*(undefined8 *)(param_1 + 8),param_2);
+    uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 8),param_2);
+    uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 8),param_2);
     if (param_3 == -1) {
       uVar6 = FUN_0092801a(*(undefined8 *)(param_1 + 8));
       goto LAB_009ed088;
@@ -17585,13 +17653,17 @@ void FUN_009ed01e(long param_1,long param_2,long param_3)
     if (param_3 <= param_2) {
       return;
     }
-    uVar4 = FUN_00925200(*(undefined8 *)(param_1 + 8),param_2);
-    uVar5 = FUN_0092520c(*(undefined8 *)(param_1 + 8),param_2);
+    uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 8),param_2);
+    uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 8),param_2);
   }
-  uVar6 = FUN_0092520c(*(undefined8 *)(param_1 + 8),param_3 + -1);
+  uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 8),param_3 + -1);
 LAB_009ed088:
   uVar1 = FUN_00930f62(*(undefined8 *)(param_1 + 8),uVar6,100000);
-  uVar7 = FUN_009e7ce8(param_1,uVar1);
+  uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar1);
   iVar2 = indent_column_at(*(undefined8 *)(param_1 + 8),param_2);
   uVar3 = iVar2 + 1;
   if (0x1ff < (ushort)uVar3) {
@@ -17632,8 +17704,10 @@ FUN_009ed160(long param_1,long param_2,long *param_3,undefined8 param_4,undefine
   
   cVar3 = FUN_00a0cf72(param_2);
   uVar5 = FUN_00930f62(*(undefined8 *)(param_1 + 8),param_4,100000);
-  lVar9 = FUN_0092522a(*(undefined8 *)(param_1 + 8),param_4);
-  lVar10 = FUN_0092522a(*(undefined8 *)(param_1 + 8),param_5);
+  lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 8),param_4);
+  lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     (*(undefined8 *)(param_1 + 8),param_5);
   if (lVar9 <= lVar10) {
     do {
       while( true ) {
@@ -17684,8 +17758,10 @@ LAB_009ed33c:
       }
       if (*param_3 == lVar13) {
 LAB_009ed3b5:
-        lVar13 = FUN_00925200(*(undefined8 *)(param_1 + 8),lVar9);
-        lVar14 = FUN_0092520c(*(undefined8 *)(param_1 + 8),lVar9);
+        lVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1 + 8),lVar9);
+        lVar14 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1 + 8),lVar9);
         iVar7 = FUN_009e81a4(param_1);
         iVar8 = FUN_009e8178(param_1,lVar13);
         if (iVar8 < iVar7) {
@@ -17700,7 +17776,8 @@ LAB_009ed3b5:
               if (((local_98 >> 0x10 & 0x180) != 0) && ((local_98 & 0x7fc000) != 0)) {
                 uVar11 = *(undefined8 *)(param_1 + 8);
                 uVar16 = FUN_009e81f6(param_1,iVar8);
-                lVar9 = FUN_0092522a(uVar11,uVar16);
+                lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                  (uVar11,uVar16);
                 BSim_std___Vector_base_TelnetOption__std__allocator_TelnetOption______Vector_impl_data___Vector_impl_data
                           (&local_58);
                 local_58 = -1;
@@ -17729,7 +17806,8 @@ LAB_009ed246:
             else {
               uVar11 = FUN_009e81d0(param_1);
               uVar16 = FUN_009e81f6(param_1,*(undefined4 *)(param_3[1] + -0xc));
-              uVar12 = FUN_0092520c(*(undefined8 *)(param_1 + 8),lVar9 + -1);
+              uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (*(undefined8 *)(param_1 + 8),lVar9 + -1);
               FUN_009ecd08(param_1,param_2,uVar11,uVar12,uVar16,uVar12,
                            *(byte *)(param_3[1] + -8) & 0x1f | 0x10000 |
                            *(uint *)(param_3[1] + -8) >> 9 & 0x3fe0);
@@ -17784,8 +17862,10 @@ FUN_009ed588(long param_1,long param_2,long *param_3,undefined8 param_4,undefine
   
   cVar2 = FUN_00a0cf72(param_2);
   uVar4 = FUN_00930f62(*(undefined8 *)(param_1 + 8),param_4,100000);
-  lVar7 = FUN_0092522a(*(undefined8 *)(param_1 + 8),param_4);
-  lVar8 = FUN_0092522a(*(undefined8 *)(param_1 + 8),param_5);
+  lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 8),param_4);
+  lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 8),param_5);
   if (lVar7 <= lVar8) {
     cVar15 = '\x01';
     do {
@@ -17841,7 +17921,8 @@ LAB_009ed8f2:
               else {
                 uVar9 = FUN_009e81d0(param_1);
                 uVar10 = FUN_009e81f6(param_1,*(undefined4 *)(param_3[1] + -0xc));
-                uVar11 = FUN_0092520c(*(undefined8 *)(param_1 + 8),lVar7 + -1);
+                uVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                   (*(undefined8 *)(param_1 + 8),lVar7 + -1);
                 FUN_009ecd08(param_1,param_2,uVar9,uVar11,uVar10,uVar11,
                              *(byte *)(param_3[1] + -8) & 0x1f | 0x10000 |
                              *(uint *)(param_3[1] + -8) >> 9 & 0x3fe0);
@@ -17879,8 +17960,10 @@ LAB_009ed775:
         }
         goto LAB_009ed7d2;
       }
-      lVar12 = FUN_00925200(*(undefined8 *)(param_1 + 8),lVar7);
-      lVar13 = FUN_0092520c(*(undefined8 *)(param_1 + 8),lVar7);
+      lVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (*(undefined8 *)(param_1 + 8),lVar7);
+      lVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (*(undefined8 *)(param_1 + 8),lVar7);
       iVar5 = FUN_009e81a4(param_1);
       iVar6 = FUN_009e8178(param_1,lVar12);
       if (iVar5 <= iVar6) goto LAB_009ed7d2;
@@ -17896,7 +17979,8 @@ LAB_009ed775:
             cVar3 = '\0';
             uVar9 = *(undefined8 *)(param_1 + 8);
             uVar10 = FUN_009e81f6(param_1,iVar6);
-            lVar7 = FUN_0092522a(uVar9,uVar10);
+            lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (uVar9,uVar10);
             iVar5 = indent_column_at(*(undefined8 *)(param_1 + 8),lVar7);
             lVar12 = param_3[1];
             lVar14 = lVar7;
@@ -17929,7 +18013,8 @@ void FUN_009ed9bc(long param_1,undefined4 param_2,int param_3,ulong param_4,uint
   uint uVar8;
   
   uVar8 = (uint)param_4 & 0x1f;
-  lVar2 = FUN_009e7ce8(param_1,uVar8);
+  lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar8);
   if (lVar2 != 0) {
     uVar3 = FUN_009e81d0(param_1,param_2);
     lVar4 = FUN_009e81f6(param_1,param_2);
@@ -17943,10 +18028,12 @@ void FUN_009ed9bc(long param_1,undefined4 param_2,int param_3,ulong param_4,uint
     }
     else if (((ushort)(param_4 >> 0x10) & 0x180) == 0x180) {
       lVar5 = FUN_009e81d0(param_1,param_3);
-      lVar7 = FUN_0092522a(*(undefined8 *)(param_1 + 8),lVar5);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 8),lVar5);
       lVar6 = lVar5;
       if (0 < lVar7) {
-        lVar7 = FUN_0092520c(*(undefined8 *)(param_1 + 8),lVar7 + -1);
+        lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 8),lVar7 + -1);
         cVar1 = FUN_0092998a(*(undefined8 *)(param_1 + 8),lVar7,lVar5);
         if ((cVar1 != '\0') && (lVar5 = lVar7, lVar6 = lVar7, lVar7 <= lVar4)) {
           lVar5 = lVar4;
@@ -18221,7 +18308,8 @@ undefined8 FUN_009ee136(long param_1)
             }
           }
           else {
-            lVar6 = FUN_009e7ce8(param_1,*(byte *)((long)local_50 + -8) & 0x1f);
+            lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (param_1,*(byte *)((long)local_50 + -8) & 0x1f);
             if (lVar6 == 0) {
 LAB_009ee1e2:
               bVar4 = 1;
@@ -18245,7 +18333,8 @@ LAB_009ee1e2:
       }
       if (iVar5 == iVar10) break;
 LAB_009ee256:
-      lVar6 = FUN_009e7ce8(param_1,bVar3);
+      lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,bVar3);
       if (lVar6 != 0) {
         uVar7 = FUN_009f8406(*(undefined8 *)(param_1 + 0x10),iVar10);
         uVar8 = FUN_009f8434(*(undefined8 *)(param_1 + 0x10),iVar10);
@@ -18464,7 +18553,8 @@ LAB_009ee618:
           goto LAB_009ee744;
         }
         uVar4 = FUN_009f958a(param_1[2],iVar17);
-        lVar13 = FUN_009e7ce8(param_1,uVar4);
+        lVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_1,uVar4);
         if ((lVar13 != 0) && (cVar3 = FUN_00a0cf72(lVar13), cVar3 != '\0')) break;
         iVar17 = iVar17 + 1;
         if (iVar5 == iVar17) goto LAB_009ee737;
@@ -18627,7 +18717,9 @@ void FUN_009eea8e(undefined8 *param_1,long *param_2,int param_3,int param_4)
     if (((-1 < lVar6) && (lVar6 < *(long *)(lVar1 + 0x10) * 2 >> 1)) && (0 < lVar8)) {
       plVar2 = *(long **)(lVar1 + 0x20);
       local_48 = lVar1;
-      if (*(code **)(*plVar2 + 0x28) == FUN_008897ae) {
+      if (*(code **)(*plVar2 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         local_64 = runstyles_fill_range(plVar2[1],lVar6);
       }
       else {
@@ -18644,7 +18736,9 @@ void FUN_009eea8e(undefined8 *param_1,long *param_2,int param_3,int param_4)
       lVar5 = lVar6;
       if (local_50 < local_58) {
         plVar2 = *(long **)(lVar1 + 0x20);
-        if (*(code **)(*plVar2 + 0x28) == FUN_008897ae) {
+        if (*(code **)(*plVar2 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           local_68 = runstyles_fill_range(plVar2[1],lVar8 + lVar6);
         }
         else {
@@ -18751,9 +18845,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=009eee08 name=FUN_009eee08 size=30 ====
+// ==== entry=009eee08 orig=FUN_009eee08 size=30 name=BSim_boost::exception::exception ====
 
-void FUN_009eee08(long param_1,undefined8 *param_2)
+/* BSim sim=0.7099356226858499 sig=11.32110174100946
+   ref=libwindtermopen2.so.1.0.0::boost::exception::exception */
+
+void BSim_boost__exception__exception(long param_1,undefined8 *param_2)
 
 {
   undefined4 uVar1;
@@ -19675,7 +19772,8 @@ void FUN_009efe86(long *param_1)
   long lVar2;
   
   lVar2 = QHashData::detach_helper
-                    ((_func_void_Node_ptr_void_ptr *)*param_1,FUN_009f55b2,0x9f55b0,0x20);
+                    ((_func_void_Node_ptr_void_ptr *)*param_1,BSim_boost__exception__exception,
+                     0x9f55b0,0x20);
   cVar1 = qatomic_int_deref(*param_1 + 0x10);
   if (cVar1 != '\0') {
     *param_1 = lVar2;
@@ -19708,9 +19806,14 @@ void FUN_009efee6(long *param_1)
 }
 
 
-// ==== entry=009eff46 name=FUN_009eff46 size=12 ====
+// ==== entry=009eff46 orig=FUN_009eff46 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009eff46(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a0d85c(*(undefined8 *)(param_1 + 0x88));
@@ -19718,9 +19821,14 @@ void FUN_009eff46(long param_1)
 }
 
 
-// ==== entry=009eff52 name=FUN_009eff52 size=12 ====
+// ==== entry=009eff52 orig=FUN_009eff52 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009eff52(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a0d878(*(undefined8 *)(param_1 + 0x88));
@@ -19785,9 +19893,14 @@ void FUN_009eff5e(long param_1)
 }
 
 
-// ==== entry=009f0080 name=FUN_009f0080 size=9 ====
+// ==== entry=009f0080 orig=FUN_009f0080 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009f0080(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00930d02(*(undefined8 *)(param_1 + 0x70));
@@ -19795,9 +19908,11 @@ void FUN_009f0080(long param_1)
 }
 
 
-// ==== entry=009f008a name=FUN_009f008a size=8 ====
+// ==== entry=009f008a orig=FUN_009f008a size=8 name=BSim_QPoint::y ====
 
-undefined8 FUN_009f008a(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x80);
@@ -19876,7 +19991,8 @@ void FUN_009f0148(long param_1,int param_2)
     return;
   }
   *(int *)(param_1 + 0x90) = param_2;
-  uVar1 = FUN_009f0080();
+  uVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    ();
   *(undefined8 *)(param_1 + 0x98) = uVar1;
   return;
 }
@@ -19890,7 +20006,8 @@ undefined8 FUN_009f016a(undefined8 param_1,uint *param_2)
   long lVar1;
   undefined8 uVar2;
   
-  lVar1 = FUN_009f0080(param_1,(byte)*param_2 & 0x1f);
+  lVar1 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,(byte)*param_2 & 0x1f);
   uVar2 = 0;
   if (lVar1 != 0) {
     uVar2 = *(undefined8 *)
@@ -20071,7 +20188,8 @@ void FUN_009f0368(long param_1,undefined8 param_2,undefined8 param_3)
   uVar2 = FUN_009f0330();
   uVar3 = FUN_009f0330(param_1,param_3);
   uVar4 = FUN_009f0322(param_1,uVar2);
-  uVar4 = FUN_009eff52(param_1,uVar4 >> 2);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar4 >> 2);
   uVar4 = uVar4 >> 0x18 & 0xe;
   if (uVar4 == 0) {
     lVar5 = FUN_009f035a();
@@ -20079,20 +20197,23 @@ void FUN_009f0368(long param_1,undefined8 param_2,undefined8 param_3)
   else {
     lVar5 = FUN_009f034c(param_1,uVar2);
     if ((char)uVar4 == '\x02') {
-      lVar6 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),param_2);
+      lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x70),param_2);
       do {
         lVar7 = lVar6;
         lVar6 = lVar7 + -1;
         cVar1 = FUN_00930efe(*(undefined8 *)(param_1 + 0x70),lVar6);
       } while (cVar1 != '\0');
-      lVar6 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),lVar7);
+      lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x70),lVar7);
       if (lVar5 < lVar6) {
         lVar5 = lVar6;
       }
     }
   }
   uVar4 = FUN_009f0322(param_1,uVar3);
-  uVar4 = FUN_009eff52(param_1,uVar4 >> 2);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar4 >> 2);
   uVar4 = uVar4 >> 0x18 & 0xe;
   if (uVar4 == 0) {
     lVar6 = FUN_009f034c(param_1,uVar3);
@@ -20100,8 +20221,10 @@ void FUN_009f0368(long param_1,undefined8 param_2,undefined8 param_3)
   else {
     lVar6 = FUN_009f035a();
     if ((char)uVar4 == '\x02') {
-      lVar7 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),param_3);
-      lVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),lVar7 + 1);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x70),param_3);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x70),lVar7 + 1);
       if (lVar7 < lVar6) {
         lVar6 = lVar7;
       }
@@ -20130,23 +20253,27 @@ undefined4 FUN_009f04ba(long param_1,long param_2)
   long lVar10;
   undefined8 *puVar11;
   
-  uVar7 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70));
-  lVar8 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),uVar7);
+  uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70));
+  lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70),uVar7);
   if (lVar8 < param_2) {
     uVar4 = FUN_00930f62(*(undefined8 *)(param_1 + 0x70),param_2 + -1,100);
-    lVar9 = FUN_009f0080(param_1,uVar4);
+    lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1,uVar4);
     if ((lVar9 != 0) && (FUN_009f0148(param_1,uVar4), *(long *)(param_1 + 0x98) != 0)) {
       uVar7 = line_doc_lookup(*(undefined8 *)(param_1 + 0x70),0);
       uVar5 = FUN_009f886c(*(undefined8 *)(param_1 + 0x78),param_2 + -1);
       cVar3 = FUN_00a0d84e(*(undefined8 *)(param_1 + 0x88),uVar4,lVar9,uVar7,uVar5);
       if (cVar3 != '\0') {
         uVar7 = FUN_0092801a(*(undefined8 *)(param_1 + 0x70));
-        FUN_00a834a8(param_1 + 0xb8);
+        BSim_QMouseEvent__globalPos(param_1 + 0xb8);
         puVar1 = *(undefined8 **)(*(long *)(param_1 + 0x98) + 0x40);
         for (puVar11 = *(undefined8 **)(*(long *)(param_1 + 0x98) + 0x38); puVar11 != puVar1;
             puVar11 = puVar11 + 1) {
           puVar2 = (undefined4 *)*puVar11;
-          uVar6 = FUN_00a0d966(*(undefined8 *)(param_1 + 0x88),uVar4,*puVar2,uVar5);
+          uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x88),uVar4,*puVar2,uVar5);
           if ((((char)uVar6 != '\0') &&
               (lVar9 = FUN_00a8395c(param_1 + 0xb8,puVar2 + 2,0,uVar7,param_2,lVar8,0), lVar9 != -1)
               ) && (lVar10 = FUN_00a83c1c(*(undefined8 *)(param_1 + 0xd0),0),
@@ -20420,7 +20547,8 @@ undefined8 FUN_009f0b10(long param_1,uint param_2,long param_3,long param_4)
   ulong uVar21;
   undefined8 local_40 [2];
   
-  lVar11 = FUN_009f0080();
+  lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     ();
   uVar6 = FUN_00a0d970(lVar11,param_2);
   if ((lVar11 == 0) || (*(long *)(lVar11 + 0x20) == *(long *)(lVar11 + 0x28))) {
     FUN_009f027c(param_1,param_3,param_4 - param_3,uVar6,1);
@@ -20516,7 +20644,8 @@ LAB_009f0ea8:
                           uVar20 = ((uint)uVar21 & 7) << 0x1c |
                                    (*(byte *)((long)puVar2 + 2) >> 4 & 7) << 0x19 |
                                    param_2 & 0x1f | (*puVar2 & 0xfffff) << 5;
-                          iVar8 = FUN_009eff46(param_1,uVar20);
+                          iVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                            (param_1,uVar20);
                           FUN_009f027c(param_1,lVar19,lVar18,iVar8 << 2,
                                        ((byte)(uVar20 >> 0x18) & 0xe) == 8);
                           *(long *)(param_1 + 0x80) = lVar12;
@@ -20809,7 +20938,8 @@ char FUN_009f1486(long param_1,int param_2,long param_3)
   *(undefined8 *)(param_3 + 0x40) = uVar3;
   *(undefined8 **)(param_3 + 0x48) = puVar4;
   uVar6 = FUN_009f0322(param_1,param_2);
-  uVar6 = FUN_009eff52(param_1,uVar6 >> 2);
+  uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar6 >> 2);
   bVar12 = (byte)(uVar6 >> 0x18);
   if ((bVar12 & 0xe) != 0xe) {
     return '\x04';
@@ -20839,7 +20969,8 @@ LAB_009f1773:
           return '\x05';
         }
         uVar7 = FUN_009f0322(param_1,param_2);
-        uVar7 = FUN_009eff52(param_1,uVar7 >> 2);
+        uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar7 >> 2);
         bVar10 = (byte)uVar7 & 0x1f;
         bVar12 = (byte)uVar6 & 0x1f;
         if (bVar10 <= bVar12) {
@@ -20878,7 +21009,8 @@ LAB_009f1773:
     cVar11 = '\x03';
     do {
       uVar7 = FUN_009f0322(param_1,iVar15);
-      uVar7 = FUN_009eff52(param_1,uVar7 >> 2);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar7 >> 2);
       bVar10 = (byte)uVar7 & 0x1f;
       if (bVar10 <= bVar12) {
         if (bVar10 < bVar12) break;
@@ -21156,7 +21288,8 @@ undefined1 FUN_009f1bd6(long param_1,undefined8 param_2,int param_3,long param_4
   iVar17 = *local_a8[0];
                     /* try { // try from 009f1d46 to 009f2018 has its CatchHandler @ 009f233a */
   uVar5 = FUN_009f0322(param_1,iVar17);
-  uVar5 = FUN_009eff52(param_1,uVar5 >> 2);
+  uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar5 >> 2);
   local_b8[0] = uVar5 >> 5 & 0xfffff;
   s_basic_string__append_9f124a((string *)&local_c0,param_1,param_4);
   std::string::swap((string *)&local_b0,(string *)&local_c0);
@@ -21189,7 +21322,8 @@ undefined1 FUN_009f1bd6(long param_1,undefined8 param_2,int param_3,long param_4
     local_d0 = -1;
     do {
       uVar6 = FUN_009f0322(param_1,iVar17);
-      uVar7 = FUN_009eff52(param_1,uVar6 >> 2);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar6 >> 2);
       bVar13 = (byte)uVar7 & 0x1f;
       bVar15 = (byte)uVar5 & 0x1f;
       if (bVar13 <= bVar15) {
@@ -21594,7 +21728,8 @@ int FUN_009f291c(long param_1,undefined8 param_2,char *param_3)
   *(undefined4 *)(lVar3 + 8) = 3;
   if (3 < (byte)(*param_3 - 1U)) {
     if ((param_3[0xb] & 0xeU) != 0xe) {
-      lVar4 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),param_2);
+      lVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x70),param_2);
       local_2c = 0;
       iVar6 = *(int *)(param_3 + 4);
       if ((*param_3 == '\x05') && (*(long *)(param_1 + 0x98) != 0)) {
@@ -21605,7 +21740,8 @@ int FUN_009f291c(long param_1,undefined8 param_2,char *param_3)
           lVar5 = FUN_009f034c(param_1,iVar6);
           if (lVar5 < lVar4) break;
           uVar2 = FUN_009f0322(param_1,iVar6);
-          local_2c = FUN_009eff52(param_1,uVar2 >> 2);
+          local_2c = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_1,uVar2 >> 2);
           if ((local_2c & 0x1f) != *(uint *)(param_1 + 0x90)) {
 LAB_009f2a44:
             *(undefined4 *)(lVar3 + 8) = 2;
@@ -21741,7 +21877,8 @@ int FUN_009f2b28(long param_1,undefined8 param_2)
   long lVar5;
   
   iVar2 = FUN_00928624(*(undefined8 *)(param_1 + 0x70));
-  uVar4 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),param_2);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70),param_2);
   lVar5 = editbuf_ensureCapacity(param_1,uVar4);
   iVar1 = *(int *)(lVar5 + 4);
   if (iVar1 != -1) {
@@ -21794,7 +21931,8 @@ joined_r0x009f2c49:
       param_2 = param_2 + -1;
       if (param_2 < 0) goto LAB_009f2cbf;
       uVar2 = FUN_009f0322(param_1,param_2);
-      local_3c = FUN_009eff52(param_1,uVar2 >> 2);
+      local_3c = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_1,uVar2 >> 2);
       bVar6 = (byte)local_3c & 0x1f;
     } while (bVar7 < bVar6);
     if (bVar6 < bVar7) goto LAB_009f2cbf;
@@ -21820,7 +21958,8 @@ joined_r0x009f2c49:
 LAB_009f2d6a:
             uVar5 = FUN_009f034c(param_1,param_2);
             if ((local_3c._3_1_ & 0x70) != 0x10) {
-              uVar5 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar5);
+              uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (*(undefined8 *)(param_1 + 0x70),uVar5);
               uVar4 = FUN_009f2aaa(param_1,uVar5);
               return uVar4;
             }
@@ -21855,7 +21994,8 @@ LAB_009f2dd4:
       local_40 = FUN_009f2b28(param_1,uVar5);
     }
     else {
-      uVar5 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar5);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 0x70),uVar5);
       local_40 = FUN_009f2aaa(param_1,uVar5);
     }
     if ((((byte)local_50[0] & 0x38) == 8) || (((byte)local_50[0] & 0x38) == 0x10)) {
@@ -21938,8 +22078,10 @@ undefined1  [16] FUN_009f2e4a(long param_1,long param_2)
       pcVar3 = *(char **)(*(long *)(param_1 + 0x98) + 0x18);
       cVar1 = *pcVar3;
       uVar2 = *(uint *)(pcVar3 + 0x10);
-      local_100 = FUN_0092520c(*(undefined8 *)(param_1 + 0x70),param_2);
-      lVar14 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),param_2);
+      local_100 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x70),param_2);
+      lVar14 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                         (*(undefined8 *)(param_1 + 0x70),param_2);
       lVar15 = 0;
       if (-1 < local_100 + -1) {
         lVar15 = local_100 + -1;
@@ -21987,7 +22129,8 @@ LAB_009f2f50:
         iVar9 = FUN_009f0330(param_1,lVar15);
         *(int *)(pcVar13 + 4) = iVar9;
         uVar10 = FUN_009f0322(param_1,iVar9);
-        uVar11 = FUN_009eff52(param_1,uVar10 >> 2);
+        uVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_1,uVar10 >> 2);
         *(undefined4 *)(pcVar13 + 8) = uVar11;
         local_88 = 0;
         uStack_84 = 0;
@@ -22011,7 +22154,8 @@ LAB_009f2f50:
                     /* try { // try from 009f304b to 009f3199 has its CatchHandler @ 009f362b */
             lVar15 = FUN_009f034c(param_1,iVar20);
             uVar10 = FUN_009f0322(param_1,iVar20);
-            local_ac = FUN_009eff52(param_1,uVar10 >> 2);
+            local_ac = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                 (param_1,uVar10 >> 2);
             bVar4 = (byte)(local_ac >> 0x18);
             bVar19 = bVar4 & 0xe;
             if (lVar15 < lVar14) {
@@ -22302,7 +22446,8 @@ LAB_009f37e0:
   if (-1 < iVar17) {
     while( true ) {
       uVar4 = FUN_009f0322(param_1,iVar17);
-      uVar5 = FUN_009eff52(param_1,uVar4 >> 2);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar4 >> 2);
       local_74 = (undefined4)uVar5;
       bVar12 = (byte)uVar5 & 0x1f;
       if (bVar14 < bVar12) break;
@@ -22334,7 +22479,8 @@ LAB_009f383e:
   }
 LAB_009f3afd:
   uVar8 = FUN_009f034c(param_1,param_2);
-  uVar8 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar8);
+  uVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70),uVar8);
   uVar5 = FUN_009f2aaa(param_1,uVar8);
   return uVar5;
 LAB_009f38f1:
@@ -22385,19 +22531,22 @@ LAB_009f38a6:
   FUN_009f59fc(local_b0,lVar16);
   if ((local_68 != (char *)local_58[0]._0_8_) || (local_60 != local_58[0]._8_4_)) goto LAB_009f38c3;
   uVar8 = FUN_009f034c(param_1,iVar17);
-  lVar6 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar8);
+  lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70),uVar8);
   iVar18 = iVar17 + -1;
   if (-1 < iVar18) {
     do {
       uVar15 = FUN_009f0322(param_1,iVar18);
-      local_74 = FUN_009eff52(param_1,uVar15 >> 2);
+      local_74 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_1,uVar15 >> 2);
       bVar12 = (byte)local_74 & 0x1f;
       if (bVar14 < bVar12) goto LAB_009f3a7f;
       if (bVar12 < bVar14) break;
       cVar3 = FUN_009f01a6(param_1,&local_74);
       if (cVar3 != '\0') {
         uVar8 = FUN_009f034c(param_1,iVar18);
-        lVar10 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar8);
+        lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1 + 0x70),uVar8);
         auVar19._8_4_ = local_58[0]._8_4_;
         auVar19._0_8_ = local_58[0]._0_8_;
         if (lVar6 == lVar10) {
@@ -22416,8 +22565,10 @@ LAB_009f38a6:
         lVar10 = FUN_009f016a(param_1,&local_74);
         if ((lVar10 != 0) && ((*(byte *)(lVar10 + 0x18) & 0x38) != 0x20)) {
           uVar8 = FUN_009f034c(param_1,iVar18);
-          lVar7 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar8);
-          uVar9 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),lVar7);
+          lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x70),uVar8);
+          uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 0x70),lVar7);
           cVar3 = FUN_009f0268(param_1,uVar9,uVar8);
           if (cVar3 == '\0') {
             local_58[0]._0_8_ = local_58[0]._0_8_ & 0xffffffffffffff00;
@@ -22431,14 +22582,17 @@ LAB_009f3a7f:
       else {
         if ((local_74._3_1_ & 0xe) != 10) goto LAB_009f3a7f;
         uVar8 = FUN_009f034c(param_1,iVar18);
-        lVar10 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar8);
-        lVar11 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),lVar10);
+        lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1 + 0x70),uVar8);
+        lVar11 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1 + 0x70),lVar10);
         do {
           iVar18 = iVar18 + -1;
           lVar7 = FUN_009f035a(param_1,iVar18);
           if (lVar7 <= lVar11) goto LAB_009f3d13;
           uVar15 = FUN_009f0322(param_1,iVar18);
-          local_74 = FUN_009eff52(param_1,uVar15 >> 2);
+          local_74 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (param_1,uVar15 >> 2);
           cVar3 = FUN_009f01a6(param_1,&local_74);
         } while (cVar3 == '\0');
         if (iVar18 == -1) {
@@ -22475,7 +22629,8 @@ LAB_009f3c50:
     if (((bVar2 & 0x70) == 0x10) && ((local_80 & 1) != 0)) {
       lVar11 = FUN_009f016a(param_1,&local_74);
       if (lVar11 != 0) {
-        uVar9 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),lVar10);
+        uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 0x70),lVar10);
         if ((local_74._3_1_ & 0x70) == 0x10) {
           cVar3 = FUN_009f0268(param_1,uVar9,uVar8);
           if (cVar3 == '\0') goto LAB_009f3dd0;
@@ -22568,7 +22723,8 @@ LAB_009f3ee2:
           auVar7 = FUN_009f2e4a(param_1,lVar6);
           if ((1 < (byte)(auVar7[0] - 1U)) && (auVar7[0] != '\x04')) {
             local_34 = auVar7;
-            lVar2 = FUN_00925570(*(undefined8 *)(param_1 + 0x70));
+            lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (*(undefined8 *)(param_1 + 0x70));
             if (lVar6 < lVar2) {
               if (((byte)local_40 & 0x38) == 0x10) {
                 uVar4 = FUN_009f034c(param_1,param_3);
@@ -22593,11 +22749,13 @@ LAB_009f3ee2:
             param_3 = iVar1;
           }
           uVar4 = FUN_009f034c(param_1,param_3);
-          param_2 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),uVar4);
+          param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (*(undefined8 *)(param_1 + 0x70),uVar4);
         }
         else if (bVar5 != 2) {
           lVar6 = FUN_009f034c(param_1,param_3);
-          while (lVar2 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),param_2), lVar6 < lVar2) {
+          while (lVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                   (*(undefined8 *)(param_1 + 0x70),param_2), lVar6 < lVar2) {
             param_2 = param_2 + -1;
           }
         }
@@ -22609,7 +22767,8 @@ LAB_009f3ee2:
       auVar7._0_8_ = local_34._0_8_;
     }
     local_34 = auVar7;
-    FUN_00925570(*(undefined8 *)(param_1 + 0x70));
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (*(undefined8 *)(param_1 + 0x70));
 LAB_009f3fdb:
     if (local_38 == 0xffffffff) goto LAB_009f3f99;
     FUN_009f00b4(param_1,&local_38,&local_40);
@@ -22760,10 +22919,12 @@ void FUN_009f430e(long param_1,undefined8 param_2)
                     /* try { // try from 009f4329 to 009f4381 has its CatchHandler @ 009f4390 */
   FUN_009f024a(param_1);
   FUN_009f2346(param_1,param_2,param_2);
-  uVar3 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),param_2);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70),param_2);
   uVar1 = FUN_009f0330(param_1,uVar3);
   uVar2 = FUN_009f0322(param_1,uVar1);
-  uVar2 = FUN_009eff52(param_1,uVar2 >> 2);
+  uVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar2 >> 2);
   FUN_009f0148(param_1,uVar2 & 0x1f);
   FUN_009f409e(param_1,param_2);
   *(undefined1 *)(param_1 + 0x138) = 0;
@@ -22797,13 +22958,15 @@ undefined8 FUN_009f4396(long param_1,long param_2,long param_3)
   uint local_48;
   undefined1 local_44 [12];
   
-  lVar7 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),param_3 + 1);
+  lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70),param_3 + 1);
   if (*(long *)(param_1 + 0x80) < lVar7) {
     return 0;
   }
   spinlock_lock_backoff(param_1 + 0x138);
                     /* try { // try from 009f43e7 to 009f47a6 has its CatchHandler @ 009f47b2 */
-  iVar4 = FUN_00925570(*(undefined8 *)(param_1 + 0x70));
+  iVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70));
   iVar5 = iVar4 + -1;
   if ((int)param_3 < iVar4 + -1) {
     iVar5 = (int)param_3;
@@ -22813,7 +22976,8 @@ undefined8 FUN_009f4396(long param_1,long param_2,long param_3)
   FUN_009f2346(param_1,param_2,lVar7);
   local_4c = 0;
   iVar5 = FUN_009f0330(param_1,*(undefined8 *)(param_1 + 0x80));
-  auVar13 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),param_2);
+  auVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 0x70),param_2);
   local_7c = -1;
   if (lVar7 < param_2) {
 LAB_009f46a5:
@@ -22823,7 +22987,8 @@ LAB_009f46a5:
 LAB_009f44b9:
   local_90 = auVar13._0_8_;
   lVar1 = param_2 + 1;
-  lVar8 = FUN_00925200(*(undefined8 *)(param_1 + 0x70),lVar1,auVar13._8_8_);
+  lVar8 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x70),lVar1,auVar13._8_8_);
   local_48 = 0xffffffff;
   cVar3 = FUN_009f0268(param_1,local_90,lVar8);
   if (cVar3 == '\0') {
@@ -22832,12 +22997,14 @@ LAB_009f44b9:
       lVar9 = FUN_009f034c(param_1,iVar4);
       if (lVar8 <= lVar9) break;
       uVar6 = FUN_009f0322(param_1,iVar4);
-      local_4c = FUN_009eff52(param_1,uVar6 >> 2);
+      local_4c = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_1,uVar6 >> 2);
       FUN_009f0148(param_1,local_4c & 0x1f);
       if (*(long *)(param_1 + 0x98) != 0) {
         if ((local_4c._3_1_ & 0xe) != 2) {
           if (lVar9 < local_90) {
-            lVar9 = FUN_0092522a(*(undefined8 *)(param_1 + 0x70),lVar9);
+            lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (*(undefined8 *)(param_1 + 0x70),lVar9);
             if ((local_4c._3_1_ & 0xe) != 8) {
               lVar11 = param_2 + -1;
               auVar14 = local_44;
@@ -23417,7 +23584,9 @@ void FUN_009f5236(undefined8 *param_1,long *param_2,int param_3,int param_4)
     if (((-1 < lVar6) && (lVar6 < *(long *)(lVar1 + 0x10) * 2 >> 1)) && (0 < lVar8)) {
       plVar2 = *(long **)(lVar1 + 0x20);
       local_48 = lVar1;
-      if (*(code **)(*plVar2 + 0x28) == FUN_008897ae) {
+      if (*(code **)(*plVar2 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         local_64 = runstyles_fill_range(plVar2[1],lVar6);
       }
       else {
@@ -23434,7 +23603,9 @@ void FUN_009f5236(undefined8 *param_1,long *param_2,int param_3,int param_4)
       lVar5 = lVar6;
       if (local_50 < local_58) {
         plVar2 = *(long **)(lVar1 + 0x20);
-        if (*(code **)(*plVar2 + 0x28) == FUN_008897ae) {
+        if (*(code **)(*plVar2 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           local_68 = runstyles_fill_range(plVar2[1],lVar8 + lVar6);
         }
         else {
@@ -23541,9 +23712,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=009f55b2 name=FUN_009f55b2 size=30 ====
+// ==== entry=009f55b2 orig=FUN_009f55b2 size=30 name=BSim_boost::exception::exception ====
 
-void FUN_009f55b2(long param_1,undefined8 *param_2)
+/* BSim sim=0.7099356226858499 sig=11.32110174100946
+   ref=libwindtermopen2.so.1.0.0::boost::exception::exception */
+
+void BSim_boost__exception__exception(long param_1,undefined8 *param_2)
 
 {
   undefined4 uVar1;
@@ -25882,9 +26056,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=009f819e name=FUN_009f819e size=36 ====
+// ==== entry=009f819e orig=FUN_009f819e size=36 name=BSim_boost::exception::exception ====
 
-void FUN_009f819e(long param_1,undefined8 *param_2)
+/* BSim sim=0.7683823310774321 sig=14.864766969491942
+   ref=libwindtermopen2.so.1.0.0::boost::exception::exception */
+
+void BSim_boost__exception__exception(long param_1,undefined8 *param_2)
 
 {
   undefined4 uVar1;
@@ -25911,7 +26088,8 @@ void FUN_009f81c2(long *param_1)
   long lVar3;
   
   lVar3 = QHashData::detach_helper
-                    ((_func_void_Node_ptr_void_ptr *)*param_1,FUN_009f819e,0x9f819c,0x20);
+                    ((_func_void_Node_ptr_void_ptr *)*param_1,BSim_boost__exception__exception,
+                     0x9f819c,0x20);
   piVar1 = (int *)(*param_1 + 0x10);
   iVar2 = *(int *)(*param_1 + 0x10);
   if (iVar2 != 0) {
@@ -26013,9 +26191,11 @@ void FUN_009f82a2(undefined8 *param_1)
 }
 
 
-// ==== entry=009f82e2 name=FUN_009f82e2 size=5 ====
+// ==== entry=009f82e2 orig=FUN_009f82e2 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_009f82e2(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x18);
@@ -26905,7 +27085,9 @@ void FUN_009f8dc6(undefined8 *param_1,long *param_2,int param_3,int param_4)
     if (((-1 < lVar11) && (lVar11 < *(long *)(lVar2 + 0x10) * 2 >> 1)) && (0 < lVar14)) {
       plVar3 = *(long **)(lVar2 + 0x20);
       local_48 = lVar2;
-      if (*(code **)(*plVar3 + 0x28) == FUN_008897ae) {
+      if (*(code **)(*plVar3 + 0x28) ==
+          BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+         ) {
         local_64 = runstyles_fill_range(plVar3[1],lVar11);
       }
       else {
@@ -26922,7 +27104,9 @@ void FUN_009f8dc6(undefined8 *param_1,long *param_2,int param_3,int param_4)
       lVar8 = lVar11;
       if (local_50 < local_58) {
         plVar3 = *(long **)(lVar2 + 0x20);
-        if (*(code **)(*plVar3 + 0x28) == FUN_008897ae) {
+        if (*(code **)(*plVar3 + 0x28) ==
+            BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+           ) {
           local_68 = runstyles_fill_range(plVar3[1],lVar14 + lVar11);
         }
         else {
@@ -27582,9 +27766,12 @@ undefined8 FUN_009f9cc6(long param_1)
       if ((lVar6 != 0) && (cVar2 = *(char *)(lVar6 + 0x88), cVar2 != '\0')) {
         uVar7 = FUN_009f8406(param_1,local_54);
         lVar8 = FUN_009f8434(param_1,local_54);
-        uVar9 = FUN_0092522a(*(undefined8 *)(param_1 + 8),uVar7);
-        lVar10 = FUN_0092522a(*(undefined8 *)(param_1 + 8),lVar8);
-        lVar6 = FUN_00925200(*(undefined8 *)(param_1 + 8),uVar9);
+        uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 8),uVar7);
+        lVar10 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (*(undefined8 *)(param_1 + 8),lVar8);
+        lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 8),uVar9);
 joined_r0x009f9dc8:
         lVar11 = lVar6;
         if ((long)uVar9 <= lVar10) {
@@ -27592,7 +27779,8 @@ joined_r0x009f9dc8:
             return 0;
           }
           uVar9 = uVar9 + 1;
-          lVar6 = FUN_00925200(*(undefined8 *)(param_1 + 8),uVar9);
+          lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (*(undefined8 *)(param_1 + 8),uVar9);
           lVar1 = lVar6;
           do {
             lVar1 = lVar1 + -1;
@@ -28352,7 +28540,8 @@ void FUN_009fac9a(long *param_1)
   long lVar3;
   
   lVar3 = QHashData::detach_helper
-                    ((_func_void_Node_ptr_void_ptr *)*param_1,FUN_00a00cb2,0xa00cb0,0x20);
+                    ((_func_void_Node_ptr_void_ptr *)*param_1,BSim_boost__exception__exception,
+                     0xa00cb0,0x20);
   piVar1 = (int *)(*param_1 + 0x10);
   iVar2 = *(int *)(*param_1 + 0x10);
   if (iVar2 != 0) {
@@ -28457,9 +28646,14 @@ void FUN_009fadf8(long param_1,uint param_2,ushort param_3,uint param_4,uint par
 }
 
 
-// ==== entry=009fae20 name=FUN_009fae20 size=9 ====
+// ==== entry=009fae20 orig=FUN_009fae20 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009fae20(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a10d5a(*(undefined8 *)(param_1 + 0x18));
@@ -28524,9 +28718,14 @@ void FUN_009fae2a(long param_1)
 }
 
 
-// ==== entry=009faf3a name=FUN_009faf3a size=9 ====
+// ==== entry=009faf3a orig=FUN_009faf3a size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_009faf3a(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00930fb8(*(undefined8 *)(param_1 + 8));
@@ -28534,9 +28733,11 @@ void FUN_009faf3a(long param_1)
 }
 
 
-// ==== entry=009faf44 name=FUN_009faf44 size=5 ====
+// ==== entry=009faf44 orig=FUN_009faf44 size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_009faf44(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x20);
@@ -28676,7 +28877,8 @@ void FUN_009fb05c(long param_1,undefined8 param_2,undefined8 param_3)
   uVar2 = FUN_009fb02c();
   uVar3 = FUN_009fb02c(param_1,param_3);
   uVar4 = FUN_009fb020(param_1,uVar2);
-  uVar4 = FUN_009fae20(param_1,uVar4 >> 5);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar4 >> 5);
   uVar4 = uVar4 >> 0x10 & 0xe0;
   if (uVar4 == 0) {
     lVar5 = FUN_009fb050();
@@ -28684,20 +28886,23 @@ void FUN_009fb05c(long param_1,undefined8 param_2,undefined8 param_3)
   else {
     lVar5 = FUN_009fb044(param_1,uVar2);
     if ((char)uVar4 == ' ') {
-      lVar6 = FUN_0092522a(*(undefined8 *)(param_1 + 8),param_2);
+      lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 8),param_2);
       do {
         lVar7 = lVar6;
         lVar6 = lVar7 + -1;
         cVar1 = FUN_00930efe(*(undefined8 *)(param_1 + 8),lVar6);
       } while (cVar1 != '\0');
-      lVar6 = FUN_00925200(*(undefined8 *)(param_1 + 8),lVar7);
+      lVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 8),lVar7);
       if (lVar5 < lVar6) {
         lVar5 = lVar6;
       }
     }
   }
   uVar4 = FUN_009fb020(param_1,uVar3);
-  uVar4 = FUN_009fae20(param_1,uVar4 >> 5);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar4 >> 5);
   uVar4 = uVar4 >> 0x10 & 0xe0;
   if (uVar4 == 0) {
     lVar6 = FUN_009fb044(param_1,uVar3);
@@ -28705,8 +28910,10 @@ void FUN_009fb05c(long param_1,undefined8 param_2,undefined8 param_3)
   else {
     lVar6 = FUN_009fb050();
     if ((char)uVar4 == ' ') {
-      lVar7 = FUN_0092522a(*(undefined8 *)(param_1 + 8),param_3);
-      lVar7 = FUN_00925200(*(undefined8 *)(param_1 + 8),lVar7 + 1);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 8),param_3);
+      lVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (*(undefined8 *)(param_1 + 8),lVar7 + 1);
       if (lVar7 < lVar6) {
         lVar6 = lVar7;
       }
@@ -28752,12 +28959,14 @@ int FUN_009fb1c4(long param_1,long param_2)
   }
   iVar3 = FUN_009fb02c(param_1,param_2);
   uVar4 = FUN_009fb020(param_1,iVar3);
-  FUN_009fae20(param_1,uVar4 >> 5);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (param_1,uVar4 >> 5);
   lVar5 = FUN_009fb044(param_1,iVar3);
   if ((param_2 == lVar5) && (0 < iVar3)) {
     iVar7 = iVar3 + -1;
     uVar4 = FUN_009fb020(param_1,iVar7);
-    FUN_009fae20(param_1,uVar4 >> 5);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,uVar4 >> 5);
     bVar6 = (byte)extraout_var_00 & 0xe0;
     if ((bVar6 != 0x20) && (bVar6 != 0x40)) {
       if (((byte)extraout_var & 0xe0) == 0x20) {
@@ -28807,7 +29016,8 @@ undefined8 * FUN_009fb2d6(undefined8 *param_1,long param_2,undefined8 param_3,ch
   if ((-1 < iVar2) && (iVar2 < iVar3)) {
     while( true ) {
       uVar4 = FUN_009fb020(param_2,iVar2);
-      uVar5 = FUN_009fae20(param_2,uVar4 >> 5);
+      uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_2,uVar4 >> 5);
       bVar1 = (byte)((uint)uVar5 >> 0x10);
       if (((bVar1 & 0xe0) == 0x60) || ((bVar1 & 0xc0) == 0x80)) break;
       iVar2 = iVar2 + uVar7;
@@ -28842,7 +29052,8 @@ undefined8 * FUN_009fb396(undefined8 *param_1,long param_2,undefined8 param_3)
             (param_1);
   uVar2 = FUN_009fb02c(param_2,param_3);
   uVar3 = FUN_009fb020(param_2,uVar2);
-  uVar4 = FUN_009fae20(param_2,uVar3 >> 5);
+  uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_2,uVar3 >> 5);
   bVar1 = (byte)((uint)uVar4 >> 0x10);
   if (((bVar1 & 0xe0) == 0x60) || ((bVar1 & 0xc0) == 0x80)) {
     *(undefined4 *)(param_1 + 2) = uVar4;
@@ -28874,7 +29085,8 @@ bool FUN_009fb424(long param_1,long param_2)
                     /* try { // try from 009fb443 to 009fb4c1 has its CatchHandler @ 009fb502 */
   iVar1 = FUN_009fb02c(param_1,param_2);
   uVar2 = FUN_009fb020(param_1,iVar1);
-  uVar3 = FUN_009fae20(param_1,uVar2 >> 5);
+  uVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar2 >> 5);
   uVar5 = (ushort)((ulong)uVar3 >> 0x10);
   bVar6 = (byte)((ulong)uVar3 >> 0x18) & 7;
   if (iVar1 < 1) {
@@ -28889,7 +29101,8 @@ LAB_009fb4ca:
       lVar4 = FUN_009fb050(param_1,iVar1 + -1);
       if (param_2 == lVar4) {
         uVar2 = FUN_009fb020(param_1,iVar1 + -1);
-        FUN_009fae20(param_1,uVar2 >> 5);
+        BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                  (param_1,uVar2 >> 5);
         bVar6 = (byte)(extraout_var >> 8) & 7;
         uVar5 = extraout_var;
         goto LAB_009fb4ca;
@@ -29368,7 +29581,8 @@ undefined8 FUN_009fbd9e(long param_1,undefined4 param_2,long param_3,long param_
   long lVar18;
   undefined8 *puVar19;
   
-  lVar13 = FUN_009faf3a();
+  lVar13 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                     ();
   uVar7 = FUN_00a10e8c(lVar13,param_2);
   uVar8 = FUN_00a10e7a(lVar13,param_2);
   if ((lVar13 == 0) || (*(long *)(lVar13 + 0x18) == *(long *)(lVar13 + 0x20))) {
@@ -29526,7 +29740,8 @@ char FUN_009fc21c(undefined8 param_1,long param_2)
     return '\x04';
   }
   if (lVar5 == 1) {
-    FUN_009faf3a(param_1,*(byte *)(*(long *)(param_2 + 0x10) + 4) & 0x1f);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,*(byte *)(*(long *)(param_2 + 0x10) + 4) & 0x1f);
     return '\x03';
   }
   lVar6 = 1;
@@ -29560,7 +29775,8 @@ switchD_009fc3aa_caseD_0:
     lVar6 = lVar6 + 1;
   } while (lVar5 != lVar6);
   if (cVar2 == '\x03') {
-    lVar3 = FUN_009faf3a(param_1,*(byte *)(*(long *)(param_2 + 0x10) + 4) & 0x1f);
+    lVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1,*(byte *)(*(long *)(param_2 + 0x10) + 4) & 0x1f);
     if (lVar3 != 0) {
       uVar4 = (ulong)(*(uint *)(*(long *)(param_2 + 0x10) + 4) >> 5 & 0xffff);
       if ((uVar4 < (ulong)(*(long *)(lVar3 + 0x20) - *(long *)(lVar3 + 0x18) >> 3)) &&
@@ -29705,7 +29921,8 @@ undefined8 FUN_009fc6b2(long param_1)
           goto LAB_009fc852;
         }
         uVar5 = FUN_009fb020(param_1,iVar9);
-        local_54 = FUN_009fae20(param_1,uVar5 >> 5);
+        local_54 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                             (param_1,uVar5 >> 5);
         puVar7 = local_50;
         bVar8 = (byte)(local_54 >> 0x10) & 0xe0;
         if (bVar8 == 0x40) break;
@@ -29968,7 +30185,8 @@ undefined8 FUN_009fcc8a(undefined8 param_1,int param_2,uint param_3,long param_4
     local_f8 = 0;
     do {
       uVar4 = FUN_009fb020(param_1,param_2);
-      uVar4 = FUN_009fae20(param_1,uVar4 >> 5);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar4 >> 5);
       bVar6 = (byte)uVar4 & 0x1f;
       if (bVar7 < bVar6) goto LAB_009fcd35;
       if (bVar6 < bVar7) {
@@ -30175,7 +30393,8 @@ undefined8 FUN_009fd1b0(undefined8 param_1,int param_2,byte param_3,long param_4
   if (-1 < param_2) {
     do {
       uVar3 = FUN_009fb020(param_1,param_2);
-      uVar4 = FUN_009fae20(param_1,uVar3 >> 5);
+      uVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar3 >> 5);
       bVar6 = (byte)uVar4 & 0x1f;
       if (bVar6 <= (param_3 & 0x1f)) {
         if (bVar6 < (param_3 & 0x1f)) {
@@ -30332,7 +30551,8 @@ undefined8 FUN_009fd414(long param_1,int param_2,ulong param_3,long param_4,long
       return 2;
     }
     uVar9 = FUN_009fb020(param_1,iVar13);
-    uVar9 = FUN_009fae20(param_1,uVar9 >> 5);
+    uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1,uVar9 >> 5);
     bVar12 = (byte)uVar9 & 0x1f;
     if (bVar12 <= bVar19) {
       if (bVar12 < bVar19) {
@@ -30612,7 +30832,8 @@ undefined4 FUN_009fdc2a(long param_1,int param_2,uint param_3,long param_4)
       uVar7 = 3;
       do {
         uVar6 = FUN_009fb020(param_1,iVar13);
-        uVar6 = FUN_009fae20(param_1,uVar6 >> 5);
+        uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar6 >> 5);
         bVar10 = (byte)uVar6 & 0x1f;
         if (bVar10 <= bVar12) {
           if (bVar10 < bVar12) break;
@@ -30675,7 +30896,8 @@ LAB_009fdea3:
           return 5;
         }
         uVar6 = FUN_009fb020(param_1,param_2);
-        uVar6 = FUN_009fae20(param_1,uVar6 >> 5);
+        uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar6 >> 5);
         bVar10 = (byte)uVar6 & 0x1f;
       } while (bVar12 < bVar10);
       if (bVar10 < bVar12) goto LAB_009fddfc;
@@ -30855,7 +31077,8 @@ undefined4 FUN_009fe0f0(long param_1,int param_2,byte param_3,long param_4)
       do {
                     /* try { // try from 009fe24c to 009fe3c1 has its CatchHandler @ 009fe5fc */
         uVar8 = FUN_009fb020(param_1,param_2);
-        uVar9 = FUN_009fae20(param_1,uVar8 >> 5);
+        uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (param_1,uVar8 >> 5);
         bVar12 = (byte)uVar9 & 0x1f;
         if (bVar12 <= param_3) {
           if (bVar12 < param_3) break;
@@ -31029,7 +31252,8 @@ LAB_009fe869:
           goto LAB_009fe86e;
         }
         uVar11 = FUN_009fb020(param_1,param_2);
-        uVar12 = FUN_009fae20(param_1,uVar11 >> 5);
+        uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                           (param_1,uVar11 >> 5);
         bVar16 = (byte)uVar12 & 0x1f;
         if (bVar16 <= param_3) {
           if (bVar16 < param_3) break;
@@ -31186,7 +31410,8 @@ undefined8 FUN_009feb48(long param_1,int param_2,byte param_3,long param_4)
         return 2;
       }
       uVar7 = FUN_009fb020(param_1,iVar15);
-      uVar9 = FUN_009fae20(param_1,uVar7 >> 5);
+      uVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar7 >> 5);
       bVar12 = (byte)uVar9 & 0x1f;
       if (bVar12 <= (param_3 & 0x1f)) {
         if (bVar12 < (param_3 & 0x1f)) {
@@ -31549,8 +31774,10 @@ LAB_009ff53f:
     return;
   }
   uVar6 = FUN_009fb020(param_1,iVar5);
-  uVar6 = FUN_009fae20(param_1,uVar6 >> 5);
-  lVar9 = FUN_009faf3a(param_1,uVar6 & 0x1f);
+  uVar6 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar6 >> 5);
+  lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1,uVar6 & 0x1f);
   if ((lVar9 == 0) || (*(long *)(lVar9 + 0x18) == *(long *)(lVar9 + 0x20))) goto LAB_009ff53f;
   piVar14 = *(int **)(param_1 + 0x28);
   if ((*(byte *)(piVar14 + 2) != 2) && (*piVar14 == iVar5)) {
@@ -31795,7 +32022,8 @@ LAB_009ff949:
       lVar8 = uVar12 * 0x18;
       FUN_00a01638(&local_a8,&local_78,uVar12);
       uVar6 = FUN_009fb020(param_1,*local_a8);
-      uVar7 = FUN_009fae20(param_1,uVar6 >> 5);
+      uVar7 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1,uVar6 >> 5);
       *(undefined4 *)(lVar9 + lVar8 + 0x10) = uVar7;
       FUN_00a01638(&local_a8,&local_78,uVar12);
       uVar10 = FUN_009fb044(param_1,*local_a8);
@@ -32326,9 +32554,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00a00cb2 name=FUN_00a00cb2 size=30 ====
+// ==== entry=00a00cb2 orig=FUN_00a00cb2 size=30 name=BSim_boost::exception::exception ====
 
-void FUN_00a00cb2(long param_1,undefined8 *param_2)
+/* BSim sim=0.7099356226858499 sig=11.32110174100946
+   ref=libwindtermopen2.so.1.0.0::boost::exception::exception */
+
+void BSim_boost__exception__exception(long param_1,undefined8 *param_2)
 
 {
   undefined4 uVar1;
@@ -34771,7 +35002,8 @@ void FUN_00a04546(long *param_1)
   long lVar2;
   
   lVar2 = QHashData::detach_helper
-                    ((_func_void_Node_ptr_void_ptr *)*param_1,FUN_00a0a974,0xa0a972,0x20);
+                    ((_func_void_Node_ptr_void_ptr *)*param_1,BSim_boost__exception__exception,
+                     0xa0a972,0x20);
   cVar1 = qatomic_int_deref(*param_1 + 0x10);
   if (cVar1 != '\0') {
     *param_1 = lVar2;
@@ -34924,9 +35156,11 @@ void FUN_00a046fc(long param_1)
 }
 
 
-// ==== entry=00a0480c name=FUN_00a0480c size=5 ====
+// ==== entry=00a0480c orig=FUN_00a0480c size=5 name=BSim_QPoint::y ====
 
-undefined8 FUN_00a0480c(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined8 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined8 *)(param_1 + 0x18);
@@ -35691,7 +35925,8 @@ void FUN_00a051e0(long param_1,long param_2)
       lVar11 = auVar18._0_8_;
       lVar1 = lVar11 + -1;
       if (lVar1 == -1) {
-        iVar3 = FUN_00a0e060(*(undefined8 *)(param_1 + 0x30),piVar2 + 2,lVar8);
+        iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                          (*(undefined8 *)(param_1 + 0x30),piVar2 + 2,lVar8);
         *piVar2 = iVar3;
         return;
       }
@@ -35831,7 +36066,8 @@ int FUN_00a0544c(long param_1,long param_2,int param_3)
                     /* try { // try from 00a054c1 to 00a054c5 has its CatchHandler @ 00a05565 */
   QByteArray::append((QByteArray *)local_30);
                     /* try { // try from 00a054cc to 00a054d0 has its CatchHandler @ 00a0555d */
-  local_34 = FUN_00a0e060(uVar3,(QByteArray *)local_30);
+  local_34 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                       (uVar3,(QByteArray *)local_30);
   cVar4 = qatomic_int_deref(local_30[0]);
   if (cVar4 == '\0') {
     QArrayData::deallocate(local_30[0],1,8);
@@ -35929,7 +36165,7 @@ void FUN_00a0560e(int param_1)
             ((runtime_error *)local_58,"character escape too large to fit in target character type")
   ;
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -37535,7 +37771,8 @@ LAB_00a07ed0:
           }
           lVar17 = *(long *)(param_1 + 8);
           if (local_b0 < *(long *)(lVar17 + 0x140)) {
-            uVar12 = FUN_0092522a(lVar17,local_b0);
+            uVar12 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                               (lVar17,local_b0);
             cVar4 = FUN_00927e66(lVar17,uVar12);
             if (cVar4 != '\0') {
               FUN_00929002((QString *)&local_48,*(undefined8 *)(param_1 + 8),local_b0,lVar16);
@@ -38175,11 +38412,11 @@ LAB_00a08cbf:
           FUN_00a1163c(&local_118,*(undefined8 *)(param_1 + 0x30));
 LAB_00a08f94:
                     /* try { // try from 00a08f9c to 00a08fbb has its CatchHandler @ 00a0a00d */
-          cVar6 = FUN_00a116a6(&local_118);
+          cVar6 = BSim_QMouseEvent__globalPos(&local_118);
           if (cVar6 != '\0') {
 LAB_00a08fa9:
             lVar11 = FUN_00a116de(&local_118);
-            cVar6 = FUN_00a116a6(&local_118);
+            cVar6 = BSim_QMouseEvent__globalPos(&local_118);
             if (cVar6 == '\0') {
               if (((bVar35 & 3) == 3) ||
                  (plVar15 = *(long **)(lVar11 + 0x28), plVar15 == (long *)0x0)) goto LAB_00a08f94;
@@ -38213,7 +38450,7 @@ joined_r0x00a09604:
               *(void **)(local_78 + -8) = pvVar12;
               local_78 = local_78 + -8;
                     /* try { // try from 00a0907e to 00a09165 has its CatchHandler @ 00a0a00d */
-              cVar6 = FUN_00a116a6(&local_118);
+              cVar6 = BSim_QMouseEvent__globalPos(&local_118);
               if (cVar6 == '\0') goto LAB_00a0908b;
               goto LAB_00a08fa9;
             }
@@ -38348,7 +38585,7 @@ LAB_00a090d1:
                   local_16c = FUN_00a04ad4(param_1,iVar8);
                   FUN_00a1163c(&local_b8,*(undefined8 *)(param_1 + 0x30),&local_16c);
                   do {
-                    cVar6 = FUN_00a116a6(&local_b8);
+                    cVar6 = BSim_QMouseEvent__globalPos(&local_b8);
                     if (cVar6 == '\0') {
                       cVar6 = qatomic_int_deref(local_b8);
                       if (cVar6 == '\0') {
@@ -38362,7 +38599,7 @@ LAB_00a090d1:
                     lVar13 = FUN_00a116de(&local_b8);
                   } while (lVar32 != lVar13);
                     /* try { // try from 00a096ec to 00a09732 has its CatchHandler @ 00a0a01d */
-                  cVar6 = FUN_00a116a6(&local_b8);
+                  cVar6 = BSim_QMouseEvent__globalPos(&local_b8);
                   if (cVar6 != '\0') {
                     FUN_00a116de(&local_b8);
                   }
@@ -38569,7 +38806,7 @@ LAB_00a098a4:
                   local_16c = FUN_00a04ad4(param_1,iVar8);
                   FUN_00a1163c(local_e8,*(undefined8 *)(param_1 + 0x30),&local_16c);
                   do {
-                    cVar6 = FUN_00a116a6(local_e8);
+                    cVar6 = BSim_QMouseEvent__globalPos(local_e8);
                     if (cVar6 == '\0') {
                       cVar6 = qatomic_int_deref(local_e8[0]);
                       if (cVar6 == '\0') {
@@ -38581,7 +38818,7 @@ LAB_00a098a4:
                     lVar11 = FUN_00a116de(local_e8);
                   } while (lVar32 != lVar11);
                     /* try { // try from 00a0999f to 00a099e9 has its CatchHandler @ 00a0a05d */
-                  cVar6 = FUN_00a116a6(local_e8);
+                  cVar6 = BSim_QMouseEvent__globalPos(local_e8);
                   if (cVar6 == '\0') {
                     cVar6 = qatomic_int_deref(local_e8[0]);
                     if (cVar6 == '\0') {
@@ -39152,9 +39389,12 @@ void BSim_QList_int___node_destruct(void)
 }
 
 
-// ==== entry=00a0a974 name=FUN_00a0a974 size=30 ====
+// ==== entry=00a0a974 orig=FUN_00a0a974 size=30 name=BSim_boost::exception::exception ====
 
-void FUN_00a0a974(long param_1,undefined8 *param_2)
+/* BSim sim=0.7099356226858499 sig=11.32110174100946
+   ref=libwindtermopen2.so.1.0.0::boost::exception::exception */
+
+void BSim_boost__exception__exception(long param_1,undefined8 *param_2)
 
 {
   undefined4 uVar1;
@@ -40065,7 +40305,9 @@ LAB_00a0c54b:
               styles_cache_create32(lVar18);
             }
             plVar6 = *(long **)(lVar18 + 0x20);
-            if (*(code **)(*plVar6 + 0x28) == FUN_007a9c50) {
+            if (*(code **)(*plVar6 + 0x28) ==
+                BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               ) {
               iVar10 = runstyles_fill_range(plVar6[1],lVar20);
             }
             else {
@@ -40162,7 +40404,9 @@ LAB_00a0b946:
               lVar23 = lVar22 + lVar20;
               plVar6 = *(long **)(lVar21 + 0x20);
               local_58 = lVar21;
-              if (*(code **)(*plVar6 + 0x28) == FUN_007a9c50) {
+              if (*(code **)(*plVar6 + 0x28) ==
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                 ) {
                 iVar11 = runstyles_fill_range(plVar6[1]);
               }
               else {
@@ -40177,7 +40421,9 @@ LAB_00a0b946:
               }
               if (lVar24 < lVar23) {
                 plVar6 = *(long **)(lVar21 + 0x20);
-                if (*(code **)(*plVar6 + 0x28) == FUN_007a9c50) {
+                if (*(code **)(*plVar6 + 0x28) ==
+                    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                   ) {
                   iVar12 = runstyles_fill_range(plVar6[1],lVar23);
                 }
                 else {
@@ -40328,9 +40574,12 @@ LAB_00a0b8b3:
 }
 
 
-// ==== entry=00a0c6a4 name=FUN_00a0c6a4 size=11 ====
+// ==== entry=00a0c6a4 orig=FUN_00a0c6a4 size=11 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00a0c6a4(undefined8 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined8 *param_1)
 
 {
   *param_1 = &QListData::shared_null;
@@ -40420,9 +40669,14 @@ void FUN_00a0c738(long param_1,undefined8 param_2,long param_3)
 }
 
 
-// ==== entry=00a0c746 name=FUN_00a0c746 size=9 ====
+// ==== entry=00a0c746 orig=FUN_00a0c746 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a0c746(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a11f02(*(undefined8 *)(param_1 + 0x70));
@@ -41621,9 +41875,14 @@ LAB_00a0d8e3:
 }
 
 
-// ==== entry=00a0d966 name=FUN_00a0d966 size=9 ====
+// ==== entry=00a0d966 orig=FUN_00a0d966 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a0d966(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a11f02(*(undefined8 *)(param_1 + 0x70));
@@ -41975,9 +42234,14 @@ LAB_00a0dff7:
 }
 
 
-// ==== entry=00a0e060 name=FUN_00a0e060 size=9 ====
+// ==== entry=00a0e060 orig=FUN_00a0e060 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a0e060(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   ByteArrayBimap_qt_metacall(*(undefined8 *)(param_1 + 0x58));
@@ -42077,7 +42341,7 @@ ulong FUN_00a0e176(undefined8 param_1,byte *param_2)
   FUN_00a1163c(local_58,param_1,param_2);
   do {
                     /* try { // try from 00a0e1a5 to 00a0e1d4 has its CatchHandler @ 00a0e234 */
-    cVar2 = FUN_00a116a6(local_58);
+    cVar2 = BSim_QMouseEvent__globalPos(local_58);
     if (cVar2 == '\0') {
       uVar4 = 1;
       iVar5 = *(int *)local_58[0];
@@ -42085,7 +42349,7 @@ ulong FUN_00a0e176(undefined8 param_1,byte *param_2)
       goto LAB_00a0e20a;
     }
     uVar3 = FUN_00a116de(local_58);
-    cVar2 = FUN_00a116a6(local_58);
+    cVar2 = BSim_QMouseEvent__globalPos(local_58);
     bVar6 = 2;
     if (cVar2 == '\0') {
       bVar6 = bVar1 >> 1 & 3;
@@ -42351,7 +42615,7 @@ LAB_00a0e534:
                     /* try { // try from 00a0e65e to 00a0e662 has its CatchHandler @ 00a0ed9e */
   FUN_00a1163c(local_e0,param_1,param_2);
                     /* try { // try from 00a0e666 to 00a0e73a has its CatchHandler @ 00a0edad */
-  cVar2 = FUN_00a116a6(local_e0);
+  cVar2 = BSim_QMouseEvent__globalPos(local_e0);
   if ((cVar2 != '\0') && (local_108 = FUN_00a116de(local_e0), local_108 != 0)) {
     cVar2 = '\0';
     local_f0 = 0;
@@ -42361,7 +42625,7 @@ LAB_00a0e534:
         local_f0 = FUN_00a115d2(local_108);
         cVar2 = '\0';
       }
-      cVar3 = FUN_00a116a6(local_e0);
+      cVar3 = BSim_QMouseEvent__globalPos(local_e0);
       if (cVar3 == '\0') {
         local_100 = 0;
       }
@@ -42784,9 +43048,9 @@ string * FUN_00a0f058(string *param_1,undefined8 param_2,uint *param_3)
                     /* try { // try from 00a0f09a to 00a0f09e has its CatchHandler @ 00a0f20f */
   FUN_00a1163c(local_68);
                     /* try { // try from 00a0f0a2 to 00a0f204 has its CatchHandler @ 00a0f207 */
-  cVar1 = FUN_00a116a6(local_68);
+  cVar1 = BSim_QMouseEvent__globalPos(local_68);
   if ((cVar1 != '\0') && (lVar2 = FUN_00a116de(local_68), lVar2 != 0)) {
-    cVar1 = FUN_00a116a6(local_68);
+    cVar1 = BSim_QMouseEvent__globalPos(local_68);
     if (cVar1 != '\0') goto LAB_00a0f13b;
 LAB_00a0f0f1:
     lVar4 = lVar2;
@@ -42809,7 +43073,7 @@ LAB_00a0f0f1:
             }
             std::string::append(param_1,(string *)(lVar4 + 0x10));
           }
-          cVar1 = FUN_00a116a6(local_68);
+          cVar1 = BSim_QMouseEvent__globalPos(local_68);
           if (cVar1 == '\0') goto LAB_00a0f0f1;
 LAB_00a0f13b:
           lVar3 = FUN_00a116de(local_68);
@@ -43353,9 +43617,14 @@ void FUN_00a0ff28(long param_1,undefined8 param_2,long param_3)
 }
 
 
-// ==== entry=00a0ff36 name=FUN_00a0ff36 size=9 ====
+// ==== entry=00a0ff36 orig=FUN_00a0ff36 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a0ff36(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a11f02(*(undefined8 *)(param_1 + 0x20));
@@ -44590,9 +44859,12 @@ void FUN_00a11026(undefined8 *param_1)
 }
 
 
-// ==== entry=00a1113e name=FUN_00a1113e size=139 ====
+// ==== entry=00a1113e orig=FUN_00a1113e size=139 name=BSim_QMargins::QMargins ====
 
-void FUN_00a1113e(undefined8 *param_1)
+/* BSim sim=0.8043049695289347 sig=6.087347177834494
+   ref=libwindtermopen2.so.1.0.0::QMargins::QMargins */
+
+void BSim_QMargins__QMargins(undefined8 *param_1)
 
 {
   *param_1 = 0;
@@ -44936,9 +45208,12 @@ LAB_00a11674:
 }
 
 
-// ==== entry=00a116a6 name=FUN_00a116a6 size=9 ====
+// ==== entry=00a116a6 orig=FUN_00a116a6 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a116a6(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00a927c8(param_1 + 8);
@@ -48500,9 +48775,14 @@ void FUN_00a15fee(long param_1,undefined8 param_2,long param_3)
 }
 
 
-// ==== entry=00a15ffc name=FUN_00a15ffc size=9 ====
+// ==== entry=00a15ffc orig=FUN_00a15ffc size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a15ffc(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a11f02(*(undefined8 *)(param_1 + 0x20));
@@ -49152,7 +49432,8 @@ void FUN_00a16886(long *param_1,char param_2)
   iVar3 = visible_line_count(param_1[3],0);
   if (param_2 != '\0') {
     lVar4 = param_1[1];
-    uVar5 = FUN_00925200(param_1[2],uVar1);
+    uVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[2],uVar1);
     runstyles_runnode_init(auStack_48,uVar5,0,0);
                     /* try { // try from 00a16921 to 00a16925 has its CatchHandler @ 00a1693b */
     cVar2 = FUN_0095c92c(lVar4,auStack_48);
@@ -49280,7 +49561,8 @@ uint FUN_00a16aca(long param_1)
   iVar2 = visible_line_count(*(undefined8 *)(param_1 + 0x18),0);
   lVar8 = (long)iVar2;
   lVar6 = editor_textLength(*(undefined8 *)(param_1 + 8));
-  iVar3 = FUN_00a1fb02(*(undefined8 *)(param_1 + 0x18));
+  iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_1 + 0x18));
   if (iVar3 < 2) {
     cVar1 = *(char *)(param_1 + 0x2c);
   }
@@ -49288,7 +49570,8 @@ uint FUN_00a16aca(long param_1)
     FUN_00a1fda6(auStack_58,*(undefined8 *)(param_1 + 0x18),0xffffffff);
                     /* try { // try from 00a16b6d to 00a16b7d has its CatchHandler @ 00a16bd1 */
     lVar7 = FUN_009587cc(*(undefined8 *)(param_1 + 8),auStack_58);
-    iVar3 = FUN_00a1fb02(*(undefined8 *)(param_1 + 0x18));
+    iVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (*(undefined8 *)(param_1 + 0x18));
     if (lVar6 < iVar3 + lVar7) {
       lVar6 = iVar3 + lVar7;
     }
@@ -49485,11 +49768,13 @@ LAB_00a16e0f:
      iVar5 <= (int)(uVar6 & 0x3fffffff))) {
     local_c8 = 0;
   }
-  lVar9 = FUN_00a20580(param_1[3]);
+  lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (param_1[3]);
   lVar11 = (long)(int)local_c8;
   dVar15 = local_b8;
   if (lVar9 + lVar11 <= lVar8) {
-    lVar9 = FUN_00a20580(param_1[3]);
+    lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[3]);
     lVar12 = (long)iVar5;
     if ((lVar9 + lVar12) - lVar11 <= lVar8) {
       iVar2 = 2;
@@ -49506,12 +49791,14 @@ LAB_00a1704e:
       local_a0 = -local_a0;
     }
     if (lVar12 < local_a0) goto LAB_00a1704e;
-    lVar9 = FUN_00a20580(param_1[3]);
+    lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                      (param_1[3]);
     if (lVar10 < lVar9 + lVar11) {
       iVar2 = 1;
     }
     else {
-      lVar9 = FUN_00a20580(param_1[3]);
+      lVar9 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1[3]);
       if (lVar10 < (lVar9 + lVar12) - lVar11) goto LAB_00a1704e;
       iVar2 = 2;
     }
@@ -50125,7 +50412,7 @@ LAB_00a179da:
     scintilla_notification_route();
     break;
   case 0xc:
-    FUN_009468a0();
+    BSim_QWidget__height();
     break;
   default:
     goto switchD_00a178ab_default;
@@ -50389,7 +50676,7 @@ LAB_00a17e88:
     QArrayData::deallocate(local_20[0],2,8);
     break;
   case 5:
-    FUN_0094893e();
+    BSim_QMouseEvent__globalPos();
     break;
   case 6:
     FUN_0094912a();
@@ -50513,9 +50800,11 @@ ulong ScintillaQt_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,
 }
 
 
-// ==== entry=00a1814e name=FUN_00a1814e size=7 ====
+// ==== entry=00a1814e orig=FUN_00a1814e size=7 name=BSim_QPoint::y ====
 
-undefined4 FUN_00a1814e(long param_1)
+/* BSim sim=0.9999999999999999 sig=9.999999956618833 ref=libwindtermopen2.so.1.0.0::QPoint::y */
+
+undefined4 BSim_QPoint__y(long param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x10d8);
@@ -55584,7 +55873,7 @@ void FUN_00a1df74(QObject *param_1,int param_2,long param_3)
   
   BSim_ScrollBar__ScrollBar();
   *(undefined ***)param_1 = &SciScrollbar_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011ae930;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_011ae930;
   *(undefined8 *)(param_1 + 0x50) = 0;
                     /* try { // try from 00a1dfb3 to 00a1dfb7 has its CatchHandler @ 00a1e0de */
   QPixmap::QPixmap((QPixmap *)(param_1 + 0x60));
@@ -55629,7 +55918,7 @@ void SciScrollbar_dtor(QScrollBar *param_1)
 
 {
   *(undefined ***)param_1 = &SciScrollbar_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011ae930;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_011ae930;
   FUN_00a1d782();
   QPixmap::~QPixmap((QPixmap *)(param_1 + 0x60));
   *(undefined ***)param_1 = &ScrollBar_vtable;
@@ -55639,9 +55928,12 @@ void SciScrollbar_dtor(QScrollBar *param_1)
 }
 
 
-// ==== entry=00a1e141 name=FUN_00a1e141 size=6 ====
+// ==== entry=00a1e141 orig=FUN_00a1e141 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a1e141(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   SciScrollbar_dtor(param_1 + -0x10);
@@ -55660,9 +55952,12 @@ void SciScrollbar_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=00a1e15f name=FUN_00a1e15f size=6 ====
+// ==== entry=00a1e15f orig=FUN_00a1e15f size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00a1e15f(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   SciScrollbar_dtor_deleting(param_1 + -0x10);
@@ -57049,9 +57344,12 @@ long * FUN_00a1f46e(long *param_1,long *param_2,long param_3,long param_4)
 }
 
 
-// ==== entry=00a1f62e name=FUN_00a1f62e size=7 ====
+// ==== entry=00a1f62e orig=FUN_00a1f62e size=7 name=BSim_QFlags_Qt::WindowType_::QFlags ====
 
-void FUN_00a1f62e(undefined4 *param_1)
+/* BSim sim=0.9999999999999999 sig=9.447092588265528
+   ref=libwindtermopen2.so.1.0.0::QFlags<Qt::WindowType>::QFlags */
+
+void BSim_QFlags_Qt__WindowType___QFlags(undefined4 *param_1)
 
 {
   *param_1 = 0xfa2;
@@ -57413,9 +57711,14 @@ long FUN_00a1fa88(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00a1fad2 name=FUN_00a1fad2 size=12 ====
+// ==== entry=00a1fad2 orig=FUN_00a1fad2 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fad2(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a52806(*(undefined8 *)(param_1 + 0x10c0));
@@ -57423,9 +57726,14 @@ void FUN_00a1fad2(long param_1)
 }
 
 
-// ==== entry=00a1fade name=FUN_00a1fade size=12 ====
+// ==== entry=00a1fade orig=FUN_00a1fade size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fade(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a525b8(*(undefined8 *)(param_1 + 0x10c0));
@@ -57433,9 +57741,14 @@ void FUN_00a1fade(long param_1)
 }
 
 
-// ==== entry=00a1faea name=FUN_00a1faea size=12 ====
+// ==== entry=00a1faea orig=FUN_00a1faea size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1faea(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a526ac(*(undefined8 *)(param_1 + 0x10c0));
@@ -57443,9 +57756,14 @@ void FUN_00a1faea(long param_1)
 }
 
 
-// ==== entry=00a1faf6 name=FUN_00a1faf6 size=12 ====
+// ==== entry=00a1faf6 orig=FUN_00a1faf6 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1faf6(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a5296e(*(undefined8 *)(param_1 + 0x10c0));
@@ -57453,9 +57771,14 @@ void FUN_00a1faf6(long param_1)
 }
 
 
-// ==== entry=00a1fb02 name=FUN_00a1fb02 size=12 ====
+// ==== entry=00a1fb02 orig=FUN_00a1fb02 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb02(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a52a84(*(undefined8 *)(param_1 + 0x10c0));
@@ -57463,9 +57786,14 @@ void FUN_00a1fb02(long param_1)
 }
 
 
-// ==== entry=00a1fb0e name=FUN_00a1fb0e size=12 ====
+// ==== entry=00a1fb0e orig=FUN_00a1fb0e size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb0e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a52974(*(undefined8 *)(param_1 + 0x10c0));
@@ -57473,9 +57801,14 @@ void FUN_00a1fb0e(long param_1)
 }
 
 
-// ==== entry=00a1fb1a name=FUN_00a1fb1a size=12 ====
+// ==== entry=00a1fb1a orig=FUN_00a1fb1a size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb1a(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a52b28(*(undefined8 *)(param_1 + 0x10c0));
@@ -57493,9 +57826,14 @@ void FUN_00a1fb26(long param_1)
 }
 
 
-// ==== entry=00a1fb3a name=FUN_00a1fb3a size=12 ====
+// ==== entry=00a1fb3a orig=FUN_00a1fb3a size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb3a(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a52fc6(*(undefined8 *)(param_1 + 0x10c0));
@@ -57503,9 +57841,14 @@ void FUN_00a1fb3a(long param_1)
 }
 
 
-// ==== entry=00a1fb46 name=FUN_00a1fb46 size=12 ====
+// ==== entry=00a1fb46 orig=FUN_00a1fb46 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb46(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a52a6c(*(undefined8 *)(param_1 + 0x10c0));
@@ -57513,9 +57856,14 @@ void FUN_00a1fb46(long param_1)
 }
 
 
-// ==== entry=00a1fb52 name=FUN_00a1fb52 size=12 ====
+// ==== entry=00a1fb52 orig=FUN_00a1fb52 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb52(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   BSim_Splitter__setMainIndex(*(undefined8 *)(param_1 + 0x10c0));
@@ -57523,9 +57871,14 @@ void FUN_00a1fb52(long param_1)
 }
 
 
-// ==== entry=00a1fb5e name=FUN_00a1fb5e size=12 ====
+// ==== entry=00a1fb5e orig=FUN_00a1fb5e size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb5e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00a52fb0(*(undefined8 *)(param_1 + 0x10c0));
@@ -57533,9 +57886,14 @@ void FUN_00a1fb5e(long param_1)
 }
 
 
-// ==== entry=00a1fb6a name=FUN_00a1fb6a size=12 ====
+// ==== entry=00a1fb6a orig=FUN_00a1fb6a size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb6a(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   str_appendGrow(*(undefined8 *)(param_1 + 0x10c0));
@@ -57543,9 +57901,14 @@ void FUN_00a1fb6a(long param_1)
 }
 
 
-// ==== entry=00a1fb76 name=FUN_00a1fb76 size=12 ====
+// ==== entry=00a1fb76 orig=FUN_00a1fb76 size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb76(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   position_to_x(*(undefined8 *)(param_1 + 0x10a0));
@@ -57562,15 +57925,21 @@ void FUN_00a1fb82(long param_1,undefined8 param_2)
   undefined8 uVar2;
   
   uVar1 = *(undefined8 *)(param_1 + 0x1098);
-  uVar2 = FUN_0096bbc0(param_2);
-  FUN_0092522a(uVar1,uVar2);
+  uVar2 = BSim_QPoint__y(param_2);
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+            (uVar1,uVar2);
   return;
 }
 
 
-// ==== entry=00a1fb9e name=FUN_00a1fb9e size=12 ====
+// ==== entry=00a1fb9e orig=FUN_00a1fb9e size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fb9e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_009587cc(*(undefined8 *)(param_1 + 0x10a0));
@@ -57618,9 +57987,14 @@ undefined8 FUN_00a1fc18(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00a1fc2e name=FUN_00a1fc2e size=12 ====
+// ==== entry=00a1fc2e orig=FUN_00a1fc2e size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fc2e(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_00975682(*(undefined8 *)(param_1 + 0x1038));
@@ -57639,7 +58013,7 @@ void FUN_00a1fc3a(long param_1,int param_2)
     scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),(long)param_2,1);
     return;
   }
-  iVar1 = FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+  iVar1 = BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
   scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),(long)iVar1,1);
   return;
 }
@@ -57689,12 +58063,17 @@ undefined8 * FUN_00a1fc74(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=00a1fd76 name=FUN_00a1fd76 size=21 ====
+// ==== entry=00a1fd76 orig=FUN_00a1fd76 size=21 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a1fd76(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
-  FUN_00975316(*(undefined8 *)(param_1 + 0x1038));
+  BSim_QPoint__y(*(undefined8 *)(param_1 + 0x1038));
   return;
 }
 
@@ -57744,7 +58123,8 @@ void FUN_00a1fdd8(long param_1,int param_2,undefined8 *param_3)
   local_4c = 0;
   editor_selCtor(local_48,param_1,&local_4c);
   if (param_2 == -1) {
-    param_2 = FUN_00a1fd76(param_1);
+    param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
   }
                     /* try { // try from 00a1fe17 to 00a1fe4d has its CatchHandler @ 00a1fe52 */
   puVar1 = (undefined8 *)FUN_00975d98(*(undefined8 *)(param_1 + 0x1038),(long)param_2);
@@ -57785,7 +58165,8 @@ void FUN_00a1fe8c(long param_1,int param_2,undefined8 *param_3)
   local_4c = 0;
   editor_selCtor(local_48,param_1,&local_4c);
   if (param_2 == -1) {
-    param_2 = FUN_00a1fd76(param_1);
+    param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
   }
                     /* try { // try from 00a1fecb to 00a1ff01 has its CatchHandler @ 00a1ff06 */
   puVar1 = (undefined8 *)FUN_00975db2(*(undefined8 *)(param_1 + 0x1038),(long)param_2);
@@ -57825,7 +58206,8 @@ void FUN_00a1ff24(long param_1,int param_2,undefined1 param_3)
   local_4c = 0;
   editor_selCtor(local_48,param_1,&local_4c);
   if (param_2 == -1) {
-    param_2 = FUN_00a1fd76(param_1);
+    param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
   }
                     /* try { // try from 00a1ff64 to 00a1ff8f has its CatchHandler @ 00a1ff94 */
   uVar1 = scintilla_get_text_range(*(undefined8 *)(param_1 + 0x1038),(long)param_2,0);
@@ -57864,7 +58246,8 @@ void FUN_00a1ffce(long param_1,int param_2,undefined8 *param_3)
   local_4c = 0;
   editor_selCtor(local_48,param_1,&local_4c);
   if (param_2 == -1) {
-    param_2 = FUN_00a1fd76(param_1);
+    param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
   }
                     /* try { // try from 00a2000d to 00a20043 has its CatchHandler @ 00a20048 */
   puVar1 = (undefined8 *)FUN_00975cc8(*(undefined8 *)(param_1 + 0x1038),(long)param_2);
@@ -57905,7 +58288,8 @@ void FUN_00a20082(long param_1,int param_2,undefined8 *param_3)
   local_4c = 0;
   editor_selCtor(local_48,param_1,&local_4c);
   if (param_2 == -1) {
-    param_2 = FUN_00a1fd76(param_1);
+    param_2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (param_1);
   }
                     /* try { // try from 00a200c1 to 00a200f7 has its CatchHandler @ 00a200fc */
   puVar1 = (undefined8 *)FUN_00975ce2(*(undefined8 *)(param_1 + 0x1038),(long)param_2);
@@ -57985,9 +58369,14 @@ void FUN_00a201e2(long param_1)
 }
 
 
-// ==== entry=00a2022c name=FUN_00a2022c size=12 ====
+// ==== entry=00a2022c orig=FUN_00a2022c size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a2022c(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_0097531c(*(undefined8 *)(param_1 + 0x1038));
@@ -58015,9 +58404,14 @@ void FUN_00a20248(long param_1)
 }
 
 
-// ==== entry=00a2025a name=FUN_00a2025a size=12 ====
+// ==== entry=00a2025a orig=FUN_00a2025a size=12 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_00a2025a(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   FUN_009756c8(*(undefined8 *)(param_1 + 0x1038));
@@ -58066,7 +58460,7 @@ double FUN_00a202fa(long param_1,undefined8 param_2)
 {
   double dVar1;
   
-  dVar1 = (double)FUN_0096bc14(param_2);
+  dVar1 = (double)BSim_QPoint__y(param_2);
   if (dVar1 != -1.0) {
     return dVar1;
   }

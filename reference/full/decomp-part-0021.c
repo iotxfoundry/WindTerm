@@ -1687,7 +1687,7 @@ void FUN_0067ef50(undefined8 *param_1,long param_2)
   param_1[5] = *(undefined8 *)(param_2 + 0x28);
   *(undefined4 *)(param_1 + 6) = *(undefined4 *)(param_2 + 0x30);
   *param_1 = &PTR_actionhandler_exception_dtor_01189318;
-  param_1[2] = &PTR_FUN_01189340;
+  param_1[2] = &PTR_BSim_QMouseEvent__globalPos_01189340;
   *(undefined4 *)((long)param_1 + 0x34) = *(undefined4 *)(param_2 + 0x34);
   return;
 }
@@ -1771,7 +1771,7 @@ void FUN_0067f21e(void)
   local_68 = 0x4a;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -1814,7 +1814,7 @@ void FUN_0067f2ba(int param_1)
             ((runtime_error *)local_58,"character escape too large to fit in target character type")
   ;
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -1906,7 +1906,7 @@ cxa_throw_runtime_error
   std::runtime_error::runtime_error((runtime_error *)local_68,param_3);
   local_50 = 0;
   local_68[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_58 = &PTR_FUN_01189340;
+  local_58 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_48 = param_4;
   local_40 = param_5;
   local_38 = param_6;
@@ -3065,7 +3065,7 @@ undefined8 FUN_00680770(long param_1,undefined8 *param_2,int *param_3)
       this = (runtime_error *)local_68;
       std::runtime_error::runtime_error(this,"unknown pattern modifier");
       local_68[0] = &PTR_actionhandler_exception_dtor_01189318;
-      local_58 = &PTR_FUN_01189340;
+      local_58 = &PTR_BSim_QMouseEvent__globalPos_01189340;
       local_50 = 0;
       local_48 = 0;
       local_40 = 0;
@@ -7343,7 +7343,7 @@ xpressive_get_group_type_w(undefined8 param_1,long *param_2,int *param_3,undefin
     local_78 = 0x118;
     std::runtime_error::runtime_error((runtime_error *)local_68,"unrecognized extension");
     local_68[0] = &PTR_actionhandler_exception_dtor_01189318;
-    local_58 = &PTR_FUN_01189340;
+    local_58 = &PTR_BSim_QMouseEvent__globalPos_01189340;
     local_50 = 0;
     local_48 = 0;
     local_40 = 0;
@@ -7410,7 +7410,7 @@ LAB_00684b4e:
     local_78 = 0xfc;
     std::runtime_error::runtime_error((runtime_error *)local_68,"unrecognized extension");
     local_68[0] = &PTR_actionhandler_exception_dtor_01189318;
-    local_58 = &PTR_FUN_01189340;
+    local_58 = &PTR_BSim_QMouseEvent__globalPos_01189340;
     local_50 = 0;
     local_48 = 0;
     local_40 = 0;
@@ -7426,7 +7426,7 @@ LAB_00684bd0:
     local_78 = 0x10d;
     std::runtime_error::runtime_error((runtime_error *)local_68,"unrecognized extension");
     local_68[0] = &PTR_actionhandler_exception_dtor_01189318;
-    local_58 = &PTR_FUN_01189340;
+    local_58 = &PTR_BSim_QMouseEvent__globalPos_01189340;
     local_50 = 0;
     local_48 = 0;
     local_40 = 0;
@@ -8439,9 +8439,12 @@ int FUN_006859e8(locale *param_1,wchar_t param_2,int param_3)
 }
 
 
-// ==== entry=00685aee name=FUN_00685aee size=9 ====
+// ==== entry=00685aee orig=FUN_00685aee size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_00685aee(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_006859e8(param_1 + 0x10);
@@ -11382,7 +11385,7 @@ LAB_0068958b:
               ((runtime_error *)&local_78,
                "found quote-meta end without corresponding quote-meta begin");
     local_78 = &PTR_actionhandler_exception_dtor_01189318;
-    local_68 = &PTR_FUN_01189340;
+    local_68 = &PTR_BSim_QMouseEvent__globalPos_01189340;
     local_60 = 0;
     local_58 = 0;
     local_50 = 0;
@@ -11398,7 +11401,7 @@ LAB_0068958b:
     param_1 = (runtime_error *)&local_78;
     std::runtime_error::runtime_error(param_1,"quantifier not expected");
     local_78 = &PTR_actionhandler_exception_dtor_01189318;
-    local_68 = &PTR_FUN_01189340;
+    local_68 = &PTR_BSim_QMouseEvent__globalPos_01189340;
     local_60 = 0;
     local_58 = 0;
     local_50 = 0;
@@ -12355,7 +12358,7 @@ LAB_0068ad74:
     this = (runtime_error *)&local_78;
     std::runtime_error::runtime_error(this,"rule assignments must be at the front of the regex");
     local_78 = &PTR_actionhandler_exception_dtor_01189318;
-    local_68 = &PTR_FUN_01189340;
+    local_68 = &PTR_BSim_QMouseEvent__globalPos_01189340;
     local_60 = (undefined8 *)0x0;
     local_58 = (undefined8 *)0x0;
     local_50 = 0;
@@ -12540,7 +12543,7 @@ LAB_0068b0ef:
                     /* try { // try from 0068ba4e to 0068ba52 has its CatchHandler @ 0068bb52 */
     std::runtime_error::runtime_error((runtime_error *)&local_78,"invalid named back-reference");
     local_78 = &PTR_actionhandler_exception_dtor_01189318;
-    local_68 = &PTR_FUN_01189340;
+    local_68 = &PTR_BSim_QMouseEvent__globalPos_01189340;
     local_60 = (undefined8 *)0x0;
     local_58 = (undefined8 *)0x0;
     local_50 = 0;
@@ -14698,7 +14701,7 @@ void FUN_0068dd28(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -14752,7 +14755,7 @@ void FUN_0068dde8(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -14793,7 +14796,7 @@ void FUN_0068de9c(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -14930,7 +14933,7 @@ void FUN_0068e070(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -14971,7 +14974,7 @@ void FUN_0068e124(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -15012,7 +15015,7 @@ void FUN_0068e1d8(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -15053,7 +15056,7 @@ void FUN_0068e28c(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -15094,7 +15097,7 @@ void FUN_0068e340(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -15135,7 +15138,7 @@ void FUN_0068e3f4(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -15356,7 +15359,7 @@ void FUN_0068e7f8(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -15397,7 +15400,7 @@ void FUN_0068e8ac(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -15451,7 +15454,7 @@ void FUN_0068e96c(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -16093,7 +16096,7 @@ void FUN_0068f132(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -16134,7 +16137,7 @@ void FUN_0068f1e6(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -16227,7 +16230,7 @@ void FUN_0068f2ca(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -16268,7 +16271,7 @@ void FUN_0068f37e(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -16309,7 +16312,7 @@ void FUN_0068f432(undefined8 param_1,undefined8 param_2,long param_3)
   local_68 = 0x76;
   std::runtime_error::runtime_error((runtime_error *)local_58,"expression cannot be quantified");
   local_58[0] = &PTR_actionhandler_exception_dtor_01189318;
-  local_48 = &PTR_FUN_01189340;
+  local_48 = &PTR_BSim_QMouseEvent__globalPos_01189340;
   local_40 = 0;
   local_38 = 0;
   local_30 = 0;
@@ -18985,7 +18988,8 @@ LAB_00692c9f:
       plVar7 = *(long **)(lVar8 + 0x10);
     }
     else if (bVar2 == 3) {
-      lVar5 = FUN_00767b36(lVar3);
+      lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                        (lVar3);
       if (lVar5 == 0) {
 LAB_00692d66:
         plVar6 = *(long **)(param_2 + 8);
@@ -19458,7 +19462,9 @@ LAB_006938b5:
           }
           if (bVar23 == 0) goto LAB_006939f5;
           if (bVar23 == 3) {
-            pQVar15 = (QObject *)FUN_00767b40(lVar14);
+            pQVar15 = (QObject *)
+                      BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                                (lVar14);
             if (pQVar15 == (QObject *)0x0) goto LAB_00693b8f;
             QObject::setParent(pQVar15);
             this_00 = operator_new(0x30);
@@ -19902,7 +19908,9 @@ LAB_006949fa:
         goto switchD_006944cf_default;
       case 3:
                     /* try { // try from 00694610 to 0069466c has its CatchHandler @ 00694b2d */
-        pQVar10 = (QObject *)FUN_00767b40(lVar6,plVar3);
+        pQVar10 = (QObject *)
+                  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                            (lVar6,plVar3);
         QObject::setParent(pQVar10);
         lVar15 = *(long *)(*local_50 + 0x20);
         if ((*(byte *)(lVar15 + 0x11) & 8) != 0) {
@@ -19915,7 +19923,8 @@ LAB_006949fa:
                     /* try { // try from 00694a4b to 00694aaa has its CatchHandler @ 00694b2d */
             QToolButton::setDefaultAction((QAction *)pQVar13);
             QToolButton::setMenu((QMenu *)pQVar13);
-            cVar4 = FUN_00767c4a(lVar6,pQVar10);
+            cVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (lVar6,pQVar10);
             QToolButton::setPopupMode(pQVar13,~-(uint)(cVar4 == '\0') + 2);
             break;
           }
@@ -23561,9 +23570,12 @@ void FUN_00698910(int param_1,void *param_2,long param_3,long *param_4,undefined
 }
 
 
-// ==== entry=0069897e name=FUN_0069897e size=9 ====
+// ==== entry=0069897e orig=FUN_0069897e size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_0069897e(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   FUN_00696698(param_1 + 0x10);
@@ -34927,7 +34939,8 @@ LAB_006a889d:
           if (lVar4 != 0) {
             QByteArray::QByteArray((QByteArray *)local_40,"Terminal.ManageTunnels",-1);
                     /* try { // try from 006a8826 to 006a882a has its CatchHandler @ 006a88d1 */
-            lVar5 = FUN_00767b36(lVar3,(QByteArray *)local_40);
+            lVar5 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                              (lVar3,(QByteArray *)local_40);
             if (*(int *)local_40[0] == 0) {
 LAB_006a88bd:
               QArrayData::deallocate(local_40[0],1,8);
@@ -42913,9 +42926,14 @@ void FUN_006b2cd2(long param_1)
 }
 
 
-// ==== entry=006b2f22 name=FUN_006b2f22 size=9 ====
+// ==== entry=006b2f22 orig=FUN_006b2f22 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_006b2f22(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   QPlainTextEdit::setPlainText(*(QString **)(param_1 + 0x48));
@@ -42953,7 +42971,8 @@ LAB_006b2fe5:
   }
   if (iVar1 != 0) {
                     /* try { // try from 006b2f9a to 006b2f9e has its CatchHandler @ 006b3002 */
-    FUN_006b2f22(param_1,(QString *)&local_38);
+    BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+              (param_1,(QString *)&local_38);
   }
   if (*(int *)local_38 != 0) {
     if (*(int *)local_38 == -1) goto LAB_006b2fb5;
@@ -42969,9 +42988,14 @@ LAB_006b2fb5:
 }
 
 
-// ==== entry=006b3016 name=FUN_006b3016 size=9 ====
+// ==== entry=006b3016 orig=FUN_006b3016 size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_006b3016(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   QComboBox::setEditText(*(QString **)(param_1 + 0x40));
@@ -45341,9 +45365,14 @@ LAB_006b6c6c:
 }
 
 
-// ==== entry=006b6cbe name=FUN_006b6cbe size=9 ====
+// ==== entry=006b6cbe orig=FUN_006b6cbe size=9 name=BSim_boost::detail::sp_counted_impl_p_boost::exception_detail::clone_impl_boost::exception_detail::bad_alloc____::dispose ====
 
-void FUN_006b6cbe(long param_1)
+/* BSim sim=1.0000000000000002 sig=11.56015384273319
+   ref=libwindtermopen2.so.1.0.0::boost::detail::sp_counted_impl_p<boost::exception_detail::clone_impl<boost::exception_detail::bad_alloc_>_>::dispose
+    */
+
+void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+               (long param_1)
 
 {
   pattern_table_fill_rows(*(undefined8 *)(param_1 + 0x30));
@@ -53281,7 +53310,9 @@ void FUN_006c2170(void *param_1,undefined8 *param_2)
   QMetaObject::Connection::~Connection(local_148);
   local_f8 = FUN_008ef7fc;
   local_f0 = 0;
-  local_e8 = FUN_00584ede;
+  local_e8 = 
+  BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+  ;
   local_e0 = 0;
   puVar4 = operator_new(0x20);
   *puVar4 = 1;
@@ -60106,9 +60137,12 @@ undefined8 * s_text_matchWholeWord_6cd0fc(undefined8 *param_1,long param_2)
   QTextDocument::toPlainText();
   if (*(int *)(local_88 + 4) == 0) goto LAB_006cd4a2;
                     /* try { // try from 006cd151 to 006cd195 has its CatchHandler @ 006cdfc5 */
-  cVar2 = FUN_005339e0(*(undefined8 *)(param_2 + 0x38),0x2000);
-  cVar3 = FUN_005339e0(*(undefined8 *)(param_2 + 0x38),0x4000);
-  cVar4 = FUN_005339e0(*(undefined8 *)(param_2 + 0x38),0x8000);
+  cVar2 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x38),0x2000);
+  cVar3 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x38),0x4000);
+  cVar4 = BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
+                    (*(undefined8 *)(param_2 + 0x38),0x8000);
   if (*(long *)(param_2 + 0x48) == 0) {
     local_80 = (QArrayData *)&QArrayData::shared_null;
     if (cVar2 != '\0') goto LAB_006cd4e5;
@@ -60962,7 +60996,7 @@ void ProfileDialog_dtor(QDialog *param_1)
   QArrayData *pQVar2;
   
   *(undefined ***)param_1 = &ProfileDialog_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a35d0;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_011a35d0;
   QCoreApplication::removeTranslator(*(QTranslator **)(param_1 + 0x90));
   pQVar2 = *(QArrayData **)(param_1 + 0x88);
   if (*(int *)pQVar2 == 0) {
@@ -61022,9 +61056,12 @@ LAB_006ce61a:
 }
 
 
-// ==== entry=006ce641 name=FUN_006ce641 size=9 ====
+// ==== entry=006ce641 orig=FUN_006ce641 size=9 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_006ce641(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   ProfileDialog_dtor(param_1 + -0x10);
@@ -61043,9 +61080,12 @@ void ProfileDialog_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=006ce661 name=FUN_006ce661 size=6 ====
+// ==== entry=006ce661 orig=FUN_006ce661 size=6 name=BSim_QMouseEvent::globalPos ====
 
-void FUN_006ce661(long param_1)
+/* BSim sim=1.0000000000000002 sig=10.572993358438056
+   ref=libwindtermopen2.so.1.0.0::QMouseEvent::globalPos */
+
+void BSim_QMouseEvent__globalPos(long param_1)
 
 {
   ProfileDialog_dtor_deleting(param_1 + -0x10);
@@ -61436,7 +61476,7 @@ void FUN_006cf13c(QString *param_1,char param_2,undefined8 param_3)
   
   QDialog::QDialog((QDialog *)param_1,param_3,0);
   *(undefined ***)param_1 = &ProfileDialog_vtable;
-  *(undefined ***)(param_1 + 0x10) = &PTR_FUN_011a35d0;
+  *(undefined ***)(param_1 + 0x10) = &PTR_BSim_QMouseEvent__globalPos_011a35d0;
                     /* try { // try from 006cf177 to 006cf17b has its CatchHandler @ 006cf22c */
   QCoreApplication::applicationDirPath();
                     /* try { // try from 006cf186 to 006cf18a has its CatchHandler @ 006cf245 */
