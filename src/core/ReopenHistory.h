@@ -20,7 +20,8 @@ struct ReopenState
     bool maximized = false;
     int currentIndex = 0; // 0x7669b2 stateBlob 层 + 0x8bbab6 tabList 层共用的当前标签索引
     QVector<ReopenTabEntry> tabs;
-    bool menuBarVisible = true;    // 0x8cf0c8 barsBlob 3×bool
+    // 盘上语义（0x8d2f7e 实证）：bool=hidden（000→三栏全可见）；本结构字段=可见性，读写时取反
+    bool menuBarVisible = true;
     bool statusBarVisible = true;
     bool toolBarVisible = true;
 };

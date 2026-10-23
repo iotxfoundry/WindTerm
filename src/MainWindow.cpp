@@ -865,10 +865,11 @@ void MainWindow::onRestoreLayout()
         restoreGeometry(st.geometry);
         if (st.maximized)
             showMaximized();
-        // bars 恢复挂账（0x8d2f7e 应用条件未逆明,真样例 00 00 00 与实机显示矛盾——语义存疑）
-        // menuBar()->setVisible(st.menuBarVisible); statusBar()->setVisible(st.statusBarVisible);
+        // bars 语义=hidden 取反应用（0x8d2f7e 实证，真样例 000→三栏全可见）
+        menuBar()->setVisible(st.menuBarVisible);
+        statusBar()->setVisible(st.statusBarVisible);
         if (m_toolBar) {
-            // m_toolBar->setVisible(st.toolBarVisible);  // 同上挂账
+            m_toolBar->setVisible(st.toolBarVisible);
         }
         // LastSessions 恢复挂账：只取 uuid 列表+计数告警；真重连（0x8d2e46 按 pageName 建
         // 视图→vtbl[0x60](url)→0x833db4 QUuid 查 user.sessions 重连）避免实现期自动外连

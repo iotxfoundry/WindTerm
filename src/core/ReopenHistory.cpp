@@ -86,7 +86,8 @@ void writePageBlob(QDataStream &s, const ReopenState &st)
         QDataStream ds(&bars, QIODevice::WriteOnly);
         ds.setByteOrder(QDataStream::BigEndian);
         ds.setVersion(QDataStream::Qt_5_15);
-        ds << quint8(st.menuBarVisible) << quint8(st.statusBarVisible) << quint8(st.toolBarVisible);
+        // 0x8d2f7e 实证：bool=hidden，应用时取反传 setBarVisible；第 3 字节仅 magic>0x21
+        ds << quint8(!st.menuBarVisible) << quint8(!st.statusBarVisible) << quint8(!st.toolBarVisible);
         s << bars;
     }
     // 0x8cf0c8 子类钩子尾块直写, 样例 5B 全 0, 语义未明透传（docs/reopen-history.md）
@@ -249,11 +250,16 @@ bool ReopenHistory::load(const QString &path, ReopenState &out)
         return false;
     st.maximized = maximized != 0;
 
-    // bars 挂账不应用（2026-10-24 真样例实证）：真样例 barsBlob=00 00 00，但原版实机
-    // 明明显示菜单栏/状态栏——「3 bool=可见性」是从 0x8cf0c8 保存对称推定的，恢复侧
-    // (0x8d2f7e 对这 3 bool 的应用条件)未逆明，语义不可信。逆明后恢复应用。
-    // if (rightOk) { st.menuBarVisible = barsMenu != 0; ... }
-    Q_UNUSED(barsMenu); Q_UNUSED(barsStatus); Q_UNUSED(barsTool); Q_UNUSED(rightOk);
+    // bars 语义已实证（0x8d2f7e）：bool=hidden（000→三栏全可见，与实机一致），
+    // 应用时取反传 setBarVisible；第 3 字节（ToolBar）仅 magic>0x21 存在（0x8d2f7e 版本条件）
+    // 尾块 5B=状态栏 message 区（vtbl+0x240）
+    if (rightOk) {
+        st.menuBarVisible = barsMenu == 0;
+        st.statusBarVisible = barsStatus == 0;
+        st.toolBarVisible = barsTool == 0;
+    } else {
+        Q_UNUSED(barsMenu); Q_UNUSED(barsStatus); Q_UNUSED(barsTool); Q_UNUSED(rightOk);
+    }
 
     out = st;
     return true;

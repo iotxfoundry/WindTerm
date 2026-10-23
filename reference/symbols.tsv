@@ -7703,3 +7703,4 @@
 0x008cbc86	MenuBarCorner_mkBtn	QToolButton+objectName+text+tooltip+svg;FocusMode=checkable+TextBesideIcon+toggled;ManageLayout=InstantPopup+setMenu(Layout);Palette=仅 eventFilter+released 切 pane
 0x00585528	TransferBar_createButtons	Close=icon king::close+AutoRaise+NoFocus;Open=纯文字(text tr Open,无icon)+NoFocus;布局 [TransferLabel(最左 insertWidget 0), stretch, Open, Close];Close→bar close;Open→打开 transfer pane
 0x00585c4f	TransferBar_animate	QPropertyAnimation(maximumHeight) 0→sizeHint().height(),OutQuad,start(DeleteWhenStopped)
+0x008d2f7e细节	bars_语义裁定	3×bool=hidden 应用时取反传 setBarVisible;第3字节(ToolBar)仅 magic>0xb9e7e622 存在;tail 5B=状态栏 message 区(vtbl+0x240);right 树 marker==1=子splitter 包 list[idx] 入队
