@@ -529,47 +529,56 @@ void TerminalView::sendMouseEvent(QEvent::Type type, Qt::MouseButton button,
     if (!mode || !m_session)
         return;
     int cb = -1;
-    bool press = false;
+    bool pressSuffix = true;
     if (type == QEvent::MouseButtonPress || type == QEvent::MouseButtonDblClick) {
-        press = true;
         cb = button == Qt::LeftButton ? 0 : button == Qt::MiddleButton ? 1 : button == Qt::RightButton ? 2 : -1;
     } else if (type == QEvent::MouseButtonRelease) {
         cb = button == Qt::LeftButton ? 0 : button == Qt::MiddleButton ? 1 : 2;
+        pressSuffix = false;
     } else if (type == QEvent::MouseMove && (mode == 1003
                || (mode == 1002 && buttons != Qt::NoButton))) {
-        press = true;
-        cb = buttons & Qt::LeftButton ? 0 : buttons & Qt::MiddleButton ? 1
-            : buttons & Qt::RightButton ? 2 : 35;
+        // 运动事件：cb=(btn|3|mods)+32（0x7ebdfc 恒加 32 运动位），后缀 'm' 非 'M'
+        const int btn = buttons & Qt::LeftButton ? 0 : buttons & Qt::MiddleButton ? 1
+                      : buttons & Qt::RightButton ? 2 : 3;
+        cb = btn + 32;
+        pressSuffix = false;
+        // 同格去重（0x7ebdfc：与上次坐标相同丢弃）
+        const QPoint cell0 = cellFromPos(pos);
+        if (cell0 == m_lastMouseCell)
+            return;
+        m_lastMouseCell = cell0;
     }
     if (cb < 0)
         return;
+    // 修饰键位（0x7ebdfc 位级实证）：Shift=4 / Meta=8 / Ctrl=16 —— Alt 不编码
     const int mod = ((mods & Qt::ShiftModifier) ? 4 : 0)
-                  | ((mods & Qt::AltModifier) ? 8 : 0)
+                  | ((mods & Qt::MetaModifier) ? 8 : 0)
                   | ((mods & Qt::ControlModifier) ? 16 : 0);
     const QPoint cell = cellFromPos(pos);
     if (cell.x() < 0)
         return;
-    // SGR 形态（\x1b[<b;x;yM/m）；非 1006 的旧 X10 形态挂账
-    // shortcut: X10/UTF8(1005) 形态未实现,SGR(1006) 为现代应用标准形态
+    // SGR 形态（0x7ebdfc '<%d;%d;%d%c'：坐标 1 基）；X10/1005/1015 形态挂账
+    // shortcut: X10/UTF8(1005)/1015 形态未实现,SGR(1006) 为现代应用标准形态
     m_session->write(QByteArrayLiteral("\x1b[<") + QByteArray::number(cb + mod) + ';'
-                     + QByteArray::number(cell.x() + 1) + ';' + QByteArray::number(cell.y() + 1)
-                     + (press ? 'M' : 'm'));
+                     + QByteArray::number(cell.y() + 1) + ';' + QByteArray::number(cell.x() + 1)
+                     + (pressSuffix ? 'M' : 'm'));
 }
 
 void TerminalView::wheelEvent(QWheelEvent *event)
 {
     if (mouseReportMode(m_screen) && m_session) {
+        // 滚轮（0x7ebdfc 位级）：delta 只取符号——>0→64(上)/<0→65(下)/==0 丢弃；每事件恒 1 条
         const int delta = event->angleDelta().y();
-        const int mod = ((event->modifiers() & Qt::ShiftModifier) ? 4 : 0)
-                      | ((event->modifiers() & Qt::AltModifier) ? 8 : 0)
-                      | ((event->modifiers() & Qt::ControlModifier) ? 16 : 0);
-        const int steps = qMax(1, qAbs(delta) / 120);
-        const int cb = (delta > 0 ? 64 : 65) + mod;
-        const QPoint cell = cellFromPos(event->pos());
-        for (int i = 0; i < steps; ++i)
+        if (delta != 0) {
+            const int mod = ((event->modifiers() & Qt::ShiftModifier) ? 4 : 0)
+                          | ((event->modifiers() & Qt::MetaModifier) ? 8 : 0)
+                          | ((event->modifiers() & Qt::ControlModifier) ? 16 : 0);
+            const int cb = (delta > 0 ? 64 : 65) + mod;
+            const QPoint cell = cellFromPos(event->pos());
             m_session->write(QByteArrayLiteral("\x1b[<") + QByteArray::number(cb) + ';'
-                             + QByteArray::number(qMax(1, cell.x() + 1)) + ';'
-                             + QByteArray::number(qMax(1, cell.y() + 1)) + 'M');
+                             + QByteArray::number(qMax(1, cell.y() + 1)) + ';'
+                             + QByteArray::number(qMax(1, cell.x() + 1)) + 'M');
+        }
         event->accept();
         return;
     }

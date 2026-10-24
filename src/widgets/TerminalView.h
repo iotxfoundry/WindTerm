@@ -123,6 +123,7 @@ private:
     QPoint m_selAnchor = QPoint(-1, -1);
     QPoint m_selEnd = QPoint(-1, -1);
     QPoint m_pressPos;
+    QPoint m_lastMouseCell{-1, -1}; // 鼠标上报同格去重(0x7ebdfc)
     bool m_selecting = false;
 
     Session *m_session;
