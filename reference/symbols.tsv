@@ -7703,3 +7703,17 @@
 0x008cbc86	MenuBarCorner_mkBtn	QToolButton+objectName+text+tooltip+svg;FocusMode=checkable+TextBesideIcon+toggled;ManageLayout=InstantPopup+setMenu(Layout);Palette=仅 eventFilter+released 切 pane
 0x00585528	TransferBar_createButtons	Close=icon king::close+AutoRaise+NoFocus;Open=纯文字(text tr Open,无icon)+NoFocus;布局 [TransferLabel(最左 insertWidget 0), stretch, Open, Close];Close→bar close;Open→打开 transfer pane
 0x00585c4f	TransferBar_animate	QPropertyAnimation(maximumHeight) 0→sizeHint().height(),OutQuad,start(DeleteWhenStopped)
+# —— SSH 会话链深逆批（2026-10-24,libssh 旧 API/认证队列/线程模型）——
+0x0086adc4	SshAuthOperator_exec	认证队列执行:取消检查(vt+0x60)→取队首→vtable+0x78 调用;队列模型非固定序
+0x00869602	SshBridge_onAuthResult	认证结果分派:rc==0 完成;(rc&~1)==1 下一方法;Password rc==1 要密码终止;None rc 分支表
+0x0086597e	SshBridge_queueAutoLogin	自动登录入队:cfg 驱动 Password→PubKey(两步)→KbdInt 检测;顺序=入队顺序
+0x008689b7	SshBridge_queuePublicKey	两步 op:op1 try_publickey 试探服务器认钥(006287f6)→op2 publickey 真签名(0062752c)
+0x0086410a	SshBridge_acceptHostKey	接受 target:变更先手工删旧行(0086254e→0062aac6 QFile 逐行匹配 key 段)再 target==1 时 write_knownhost(00628a24)
+0x00864972	SshSocket_threadStart	QThread+moveToThread 工作对象(0086c648);thread.started→λ(00862283)→TCP 连接;socket 断开→disconnectMsg 清理
+0x0086c7b2	SshSocket_connectTcp	QTcpSocket 先行(代理):自旋锁置忙位+低延迟/KeepAlive 选项+connectToHost(host,port,3,2)
+0x00865ace	SshSocket_sshHandshake	ssh_new→set_blocking(0)→options→挂 socket 回调结构→入队 channel open;emit sig2
+0x006293dc	ssh_drain	数据泵:read_nonblocking stdout/stderr 双拉;双 0 时 is_closed||is_eof throw;信号槽驱动非固定 timer
+0x006279c0	ssh_pollReady	就绪探测:channel_poll(ch,0)>0||poll(ch,1)>0——poll 仅作就绪判断
+0x00806382	ssh_knownHostsDir	路径拼接:<配置根 DAT_011c2200>+"/ssh/"+id(小写 join)→options_set(s,8,utf8)——opt 8=ssh-dir(修补版,known_hosts 落其下)
+0x008636ee	ssh_checkAgent	ssh_agent_is_running→channel_request_auth_agent+本地 QTcpServer 转发代理(0086bc66,隧道功能)
+0x00629aee	ssh_authMethodNames	服务端方法掩码→显示名:8 Host Based/4 Public Key/0x20 Gssapi/2 Password/0x10 Kbdint(固定编码序)
