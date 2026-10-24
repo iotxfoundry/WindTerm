@@ -7791,3 +7791,4 @@
 0x005773d6	FilerPane_localSystemMode	判型:视图绑定 Transfer 对象 vt14==SftpTransfer_vt14→false(远程)——Transfer 类型决定本地/远程
 0x00731cc0	FilerPane_downloadDlg	slot 0x22:filedlg_choose(2,上次目录)+finished→selectedFiles→0x579f0e(view,files)
 0x00578d88	FilerPane_goBackward	历史游标:idx<count-1 前进可用/idx>0 后退可用(0x578e18);RecentPaths 动作 text=列表+checked=rootPath==text
+# —— P5 实现实证补充（2026-10-25,fixer 批回填）——

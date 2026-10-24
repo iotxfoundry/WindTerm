@@ -86,3 +86,5 @@
 | R35 | SSH 会话链：QThread+moveToThread worker(00864972)；认证=SshAuthOperator 队列(none 探测→userauth_list 掩码→cfg 入队 Password/PubKey 两步 try→real/KbdInt,0086adc4/00869602)；known_hosts=<profileRoot>/ssh/<id>/known_hosts(opt 8=ssh-dir 语义)；host key 接受=先删旧指纹行再 write(0086410a)；drain 数据泵+poll 就绪探测 | 0x0086597e/0x008689b7/0x006293dc/0x00806382 | core/SshSession |
 | R36 | 终端渲染=自研文档引擎（非 cell 网格非 QTextDocument）：VT u64 属性(fg24@bit14/bg24@bit39+bold→bright 自动)→行快照 run styles 入 doc(分块+zstd)→自绘 painter 逐可见行(0xa64cea)+光标覆盖式(0xa64838);滚回=文档历史行(window.scrollbackLimit);字符宽逐字符 horizontalAdvance 缓存 | 0x007ef95c/0x00a40876/0x00a64cea/0x00a52aa8/0x007cc8aa | widgets/TerminalView(自绘网格等效) |
 | R37 | 鼠标上报位级方言(0x7ebdfc)：运动恒+32 且后缀 'm' 非 'M'；修饰 Meta=8(Alt 不编码)；滚轮只取符号每事件恒 1 条(delta==0 丢弃)；同格去重；SGR '<%d;%d;%d%c' 坐标 y;x 1 基 | 0x007ebdfc | TerminalView sendMouseEvent/wheelEvent |
+
+| R38 | sftp 通道双约束（实现实证）：sftp_attributes 布局两库一致（mirror+static_assert 自证）；libssh session 非线程安全——后台 sftp 操作必须与主线程事件循环互斥（挂泵护栏），并发踩 packet 链段错 | 0x00627efc 实现/段错实测 | src/core/SshSession.cpp |
