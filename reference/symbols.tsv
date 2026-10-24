@@ -7742,3 +7742,25 @@
 0x008cabee	KitWindow_activeViewWidget	焦点 view 获取:优先 +0x88 缓存否则 kit_focus_widget_get(0x8ca6ca) 沿父链解析
 0x005aa7b0	TabBar_onCurrentChanged	currentChanged→stack setCurrentIndex 同步+通知(0x8fb5ac)
 0x005ab2cc	TabGroup_closeAndRemoveView	view 关闭=close+deleteLater+removeWidget(idx)——组内单 view(区别于关整组)
+# —— CommandPalette 命令面板深逆批（2026-10-24,P3;QuickSwitcher=多窗壳与面板是两套系统）——
+0x005403f6	CommandPalette_ctor	QFrame 弹层(0x80B) objectName"CommandPalette";非模态(attr 0x37);挂活动窗格上:宽 44% 水平居中贴上方;Frame Panel(6)/Sunken(0x30);autoFillBackground(false)
+0x0053e936	CommandPalette_buildUi	布局:searchEdit(+0x48)+CountLabel(+0x58)+BackwardButton(+0x38,icon king::left,tooltip text(快捷键),QShortcut(Return,ctx3)→click)+ListView(+0x50)
+0x0053f552	commandpane_connect	接线表:focusChanged→焦点离开 close;BackwardButton→弹历史栈;textChanged→0x54334c;countChanged→CountLabel+按钮显隐;activated→script_fireEvent;destroyed→还焦点
+0x0054334c	CommandPalette_onTextChanged	空列表(行数<2 且无当前)才做前缀路由(0x5431c6 逐 keyMode 试);否则 filterEvent JS 或 listFilter_applyRegExp(延迟 singleShot+clear)
+0x005431c6	CommandPalette_prefixMatch	prefix 末字符字母数字先补空格;text.startsWith(prefix,区分大小写)→切模式(0x542e86)+缓存过滤文本
+0x00542e86	s_KeyMode_542e86	模式分派:1=">"全部 action(0x541896 菜单标题,"&(?!&)"剥&,0x5416e2);2='m' mux/tmux 词过滤;3=默认 Anything(action+静态前缀映射 0x53feaa);4/5/6/7=地址类/会话标题格式/JS item(未全逆)
+0x00768dfa	window_openCommandPalette	懒建 CommandPalette(活动窗格)→0x53fc54 设初值→show;调用点传 ""/">"/"m"/"t"
+0x0053fc54	CommandPalette_open	设初始过滤串(prefix)
+0x0053fd52	CommandPalette_goBack	弹历史栈顶:恢复 filter text/模型/当前项
+0x00583e8e	listFilter_applyRegExp	QRegularExpression::match 整串全匹配(capturedLength==文本长度)才保留;qname_entry_build(0xa8e8b8);invalidate→0x664cd0
+0x00664cd0	proxy_filterAccepts	建索引数组→0x6660fb6/0x666282a QString::compare 打分→0x6664bfd 选择排序取前 N;打分公式未逐行逆明
+0x00583bac	ListView_ctor	iconSize/行上限夹 1..9(构造设 9)/clicked=activated
+0x0053f00a	CommandListModel_build	建 CommandListModel(QAbstractListModel);role:0=text,0x101=icon,1=data,0x107=payload,0x108=kind;压历史栈
+0x00544006	CommandPalette_onCurrentChanged	JS selectionEvent/激活刷新
+0x0053edad	CommandPalette_findChildById	findChildren 按 id 匹配(会话项 kind3 用)
+0x0053e2f0	CommandPalette_focusOut	焦点离开且新焦点非 QMenuBar→close
+0x0053e3e4	CommandPalette_restoreFocus	关闭后焦点还 +0x60 快照(isAncestorOf 活动窗格且可见则 setFocus(7) 否则 0x767b4a)
+0x00544126	CommandPalette_closeEvent	mode7 先 leaveEvent JS;激活原窗
+0x00766364	QuickSwitcher_setAlwaysOnTop	X11 _NET_WM_STATE_ABOVE XSendEvent;缓存 +0x30
+0x007669b2	QuickSwitcher_saveState	QDataStream:count,currentIndex,[页名+startupSessions];flags&4 再写全屏/saveGeometry/置顶/windowOpacity
+0x008b305c	KitBar_addSpacer	首按钮前插弹性 spacer QWidget(sizePolicy 0x750000)
