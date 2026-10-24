@@ -624,6 +624,39 @@ QAction *MainWindow::makeAction(const QString &actionId)
         action->setEnabled(false); // 菜单位占位；真 QWidgetAction 经 buildMenu 特判插入（见 buildMenu）
         return action;
     }
+    // ═══ P5 FilerPane 浏览动作（wind.actions/keymaps 同 id；0x731066/0x5773d6/0x578d88）═══
+    // 其余（Open/Remove/Rename/Upload/Download/MakeDir/MakeFile/CopyTo/...）保持无分支占位（P6 批）
+    if (actionId == QStringLiteral("FilerPane.Refresh")
+        || actionId == QStringLiteral("FilerPane.Cdup")
+        || actionId == QStringLiteral("FilerPane.GoBackward")
+        || actionId == QStringLiteral("FilerPane.GoForward")
+        || actionId == QStringLiteral("FilerPane.GotoAddressBar")
+        || actionId == QStringLiteral("FilerPane.ToggleHiddenItems")) {
+        if (actionId == QStringLiteral("FilerPane.ToggleHiddenItems")) {
+            // wind.actions:355 state JS=window.option('filer.hiddenItemsVisible'),
+            // script=window.toggleOption(...)——option 求值/持久化挂账,checked 初始读 wind.config
+            action->setCheckable(true);
+            if (m_filerPane)
+                action->setChecked(m_filerPane->showHidden());
+        }
+        connect(action, &QAction::triggered, this, [this, actionId]() {
+            if (!m_filerPane)
+                return;
+            if (actionId == QStringLiteral("FilerPane.Refresh"))
+                m_filerPane->reload();
+            else if (actionId == QStringLiteral("FilerPane.Cdup"))
+                m_filerPane->cdUp();
+            else if (actionId == QStringLiteral("FilerPane.GoBackward"))
+                m_filerPane->goBackward();
+            else if (actionId == QStringLiteral("FilerPane.GoForward"))
+                m_filerPane->goForward();
+            else if (actionId == QStringLiteral("FilerPane.GotoAddressBar"))
+                m_filerPane->focusAddressEdit();
+            else
+                m_filerPane->toggleHiddenItems();
+        });
+        return action;
+    }
     // wind.actions Dock.TogglePane* 与 Window.TogglePane*：toggle 对应容器。
     // 映射按骨架合并形态：原版 Session 独立 pane 与 Explorer 合并为 tabsGroup（QTabWidget），shortcut 挂账
     connect(action, &QAction::triggered, this, [this, actionId]() {
@@ -960,6 +993,7 @@ void MainWindow::createCentral()
     connectSessionPane(sessionPane);
 
     auto *filerPane = new FilerPane;
+    m_filerPane = filerPane;
     // PaneHeader closeRequested → hide pane（对齐 Dock.TogglePaneFiler toggle 语义）
     connect(filerPane, &FilerPane::closeRequested, this, [this, filerPane]() { togglePane(filerPane); });
     left->addWidget(tabsGroup);
@@ -1041,6 +1075,18 @@ void MainWindow::createCentral()
         if (QWidget *pane = findChild<QWidget *>(QString::fromLatin1(name)))
             installPaneToolBar(pane);
     }
+    // P5：FilterEdit（toolbar.config FilerPane 节,上方 installPaneToolBar 已建）→地址条 cd 防抖
+    if (m_filerPane)
+        m_filerPane->hookAddressEdit();
+    // P5（0x5773d6）：本地/远程页随活动会话类型——view 切换转发链（viewSignalForScripts）
+    // 已在每个 muxStack currentChanged 发出,此处挂 FilerPane 判型（SshSession→远程页）
+    connect(this, &MainWindow::viewSignalForScripts, this, [this](QObject *viewObj) {
+        if (!m_filerPane)
+            return;
+        auto *view = qobject_cast<TerminalView *>(viewObj);
+        auto *ssh = view ? qobject_cast<SshSession *>(view->session()) : nullptr;
+        m_filerPane->setRemoteSession(ssh);
+    });
     // 右键上下文菜单管线（pane_showPopupMenu 0x8c3c6a）：KitPane 基类经基类
     // contextMenuEvent（0x8c3bbe vtable+0x110）发 popupRequested；item view 类 pane
     // （Session/Outline/Output）无法继承 KitPane，保留 eventFilter 路径
@@ -1340,6 +1386,11 @@ void MainWindow::hookSshSession(SshSession *session)
                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
                == QMessageBox::Yes);
         session->hostKeyAnswer(accept);
+    });
+    // P5：会话终局→FilerPane 撤远程句柄（sftp 已随 teardown free,防悬垂）
+    connect(session, &Session::finished, this, [this, session] {
+        if (m_filerPane)
+            m_filerPane->dropRemoteSession(session);
     });
 }
 

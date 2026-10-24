@@ -22,6 +22,9 @@ find_package(Qt${QT_VERSION_MAJOR} QUIET COMPONENTS Network)
 # QUIET 可选：系统装了 qtserialport 才编 SerialSession（MainWindow 接线无条件编译）
 find_package(Qt${QT_VERSION_MAJOR}SerialPort QUIET)
 
+# P5 Filer 懒加载：QtConcurrent 后台列目录（Qt5/Qt6 均有 Concurrent 组件；缺则模型退同步路径）
+find_package(Qt${QT_VERSION_MAJOR} QUIET COMPONENTS Concurrent)
+
 # 任务二：statusbar.config 的 JS init 由 QJSEngine 真跑（0x005a3156 statusbar_runInit）。
 # Qt5Qml（QJSEngine 跑 statusbar.config 的 JS；qtdeclarative5-dev 系统安装）
 find_package(Qt5 QUIET COMPONENTS Qml)
@@ -56,6 +59,10 @@ if (TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
   target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_SERIALPORT)
   target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
 endif()
+if (TARGET Qt${QT_VERSION_MAJOR}::Concurrent)
+  target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_CONCURRENT)
+  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Concurrent)
+endif()
 if (WINDTERM_HAVE_QJSENGINE)
   target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_QJSENGINE)
   target_link_libraries(WindTermGuiSkeleton PRIVATE Qt5::Qml)
@@ -83,6 +90,10 @@ function(windterm_add_test name)
   if (TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
     target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_SERIALPORT)
     target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
+  endif()
+  if (TARGET Qt${QT_VERSION_MAJOR}::Concurrent)
+    target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_CONCURRENT)
+    target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::Concurrent)
   endif()
   if (WINDTERM_HAVE_QJSENGINE)
     target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_QJSENGINE)
@@ -143,3 +154,8 @@ windterm_test_offscreen(test_command_palette)
 # P4 终端搜索/高亮：offscreen + 本地 bash 已知文本（find/高亮/HighlightTextBar 链）
 windterm_add_test(test_search_highlight)
 windterm_test_offscreen(test_search_highlight)
+
+# P5 Filer/SFTP：LocalFolder 过滤/字段+FileSystemModel 懒加载+FilerPane 本地页；
+# sftp 端到端需本机 sshd 127.0.0.1:22 + key，缺则测试内嵌 SKIP
+windterm_add_test(test_filer_sftp)
+windterm_test_offscreen(test_filer_sftp)

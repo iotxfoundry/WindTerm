@@ -14,6 +14,7 @@ class QCloseEvent;
 class QAction;
 class CommandPalette;
 class QEvent;
+class FilerPane;
 class QLineEdit;
 class QMenu;
 class QResizeEvent;
@@ -96,5 +97,6 @@ private:
     // P3 命令面板（0x768dfa +0xc0 QPointer 同构）：WA_DeleteOnClose，关后下次懒重建
     QPointer<CommandPalette> m_commandPalette;
     SearchPane *m_searchPane = nullptr;
+    FilerPane *m_filerPane = nullptr; // P5 浏览链宿主锚（createCentral 建）
     TransferBar *m_transferBar = nullptr; // shortcut: 懒建点挂账（0x85af56 传输启动时建），传输功能实现时接入
 };

@@ -16,6 +16,13 @@
 
 #include "Assets.h"
 #include "JsonText.h"
+#include "filer/FileSystemItem.h"
+
+#include <QDateTime>
+#include <QHash>
+#include <QPointer>
+
+#include <cstddef>
 
 // ---------------------------------------------------------------------------
 // libssh 运行库绑定（无开发头文件的折衷，风格同 widgets/KingIcons.h）
@@ -108,6 +115,19 @@ struct Api
     char *(*getHexa)(const unsigned char *, size_t);
     void (*keyFree)(void *);
     void (*stringFreeChar)(char *);
+    // P5 sftp 绑定表（0x627efc/0x866372/0x8638f0）：旧名优先探测——原版自带 4.8 修补版有
+    // sftp_new2/sftp_init2（0020:3448 实证调用序 sftp_new2(session)→sftp_init2(h,0)），
+    // 系统 0.10 无旧名回退 sftp_new/sftp_init
+    void *(*sftpNew)(void *);
+    int (*sftpInit1)(void *);      // sftp_init
+    int (*sftpInit2)(void *, int); // sftp_init2
+    void *(*sftpOpendir)(void *, const char *);
+    void *(*sftpReaddir)(void *, void *);
+    int (*sftpClosedir)(void *);
+    int (*sftpDirEof)(void *);
+    void (*sftpAttributesFree)(void *);
+    void (*sftpFree)(void *);
+    bool hasSftp;
     bool loaded;
     bool hasFingerprint;
     bool hasAgentIsRunning;
@@ -188,6 +208,23 @@ Api &api()
         bind(r.getHexa, "ssh_get_hexa");
         bind(r.keyFree, "ssh_key_free");
         bind(r.stringFreeChar, "ssh_string_free_char");
+
+        // P5 sftp 绑定（旧名优先探测,原版 libssh 旧名语义）
+        bind(r.sftpNew, "sftp_new2");
+        if (!r.sftpNew)
+            bind(r.sftpNew, "sftp_new");
+        bind(r.sftpInit2, "sftp_init2");
+        bind(r.sftpInit1, "sftp_init");
+        bind(r.sftpOpendir, "sftp_opendir");
+        bind(r.sftpReaddir, "sftp_readdir");
+        bind(r.sftpClosedir, "sftp_closedir");
+        bind(r.sftpDirEof, "sftp_dir_eof");
+        bind(r.sftpAttributesFree, "sftp_attributes_free");
+        bind(r.sftpFree, "sftp_free");
+        r.hasSftp = r.sftpNew && (r.sftpInit1 || r.sftpInit2) && r.sftpOpendir
+                    && r.sftpReaddir && r.sftpClosedir && r.sftpAttributesFree && r.sftpFree;
+        if (!r.hasSftp)
+            qWarning("SshSession: sftp 绑定不完整,Filer 远程浏览不可用");
 
         r.loaded = r.newSession && r.freeSession && r.optionsSet && r.connectSession
                    && r.isConnected && r.knownServer && r.userauthPassword && r.channelNew
@@ -317,7 +354,17 @@ struct SshConnectState
     bool accepted = false;
     void *session = nullptr; // handoff 前归 worker；established 消费后归主线程
     void *channel = nullptr;
+    void *sftp = nullptr; // P5：worker 线程建的 sftp_session（established 消费后主线程只读值）
 };
+
+// ---------------------------------------------------------------------------
+// P5：sftp 句柄 → SshSession 注册表（sftpList 后台线程反向找到宿主,同步暂停其
+// socket 泵；libssh session 非线程安全）。主线程 established 注册/teardown 注销
+// ---------------------------------------------------------------------------
+namespace {
+QMutex g_sftpMapMutex;
+QHash<void *, QPointer<SshSession>> g_sftpMap;
+} // namespace
 
 // ---------------------------------------------------------------------------
 // C3（差异#2/#3，0027:0086597e/0086adc4）：认证队列 op 模型（SshAuthOperator 等效）。
@@ -616,6 +663,20 @@ void SshWorker::connectFlow()
         return;
     }
 
+    // ---- P5 sftp channel（0x627efc/0x866372/0x8638f0：认证成功后 established 链末尾建;
+    // 实证调用序 0020:3448 sftp_new2(session)→sftp_init2(sftp,0)——sftp_new2 内部对 SSH
+    // 连接开第二条 channel+sftp subsystem request。失败非致命：原版信号 0 语义=null+统一
+    // 文案,established 后主线程 emit sftpReady/sftpFailed）----
+    if (api().hasSftp) {
+        if (void *sftp = api().sftpNew(session)) {
+            const int sRc = api().sftpInit2 ? api().sftpInit2(sftp, 0) : api().sftpInit1(sftp);
+            if (sRc == kOk)
+                m_state->sftp = sftp;
+            else
+                api().sftpFree(sftp);
+        }
+    }
+
     // handoff：句柄进共享态，established 排主线程；此后 worker 只自然退出
     m_state->session = session;
     m_state->channel = channel;
@@ -797,13 +858,29 @@ void SshSession::onWorkerEstablished()
                 api().channelFree(state->channel);
             state->channel = nullptr;
         }
+        if (state->sftp) {
+            if (api().loaded && api().sftpFree)
+                api().sftpFree(state->sftp);
+            state->sftp = nullptr;
+        }
         return;
     }
     m_session = state->session;
     m_channel = state->channel;
+    m_sftp = state->sftp;
     m_notifier = new QSocketNotifier(api().getFd(m_session), QSocketNotifier::Read, this);
     connect(m_notifier, &QSocketNotifier::activated, this, &SshSession::readChannel);
+    // P5：sftpList 反查注册（后台线程同步暂停泵用）
+    if (m_sftp) {
+        QMutexLocker lock(&g_sftpMapMutex);
+        g_sftpMap.insert(m_sftp, this);
+    }
     emit connected();
+    // P5 信号 0 语义：成功带句柄/失败 null+统一文案（0x866372/0x8638f0）
+    if (m_sftp)
+        emit sftpReady();
+    else
+        emit sftpFailed(QStringLiteral("SFTP failed to allocate. "));
 }
 
 void SshSession::onWorkerFailed(const QString &reason)
@@ -817,10 +894,25 @@ void SshSession::onWorkerFailed(const QString &reason)
     emit finished();
 }
 
-// 数据泵：notifier 驱动 read_nonblocking drain（0020:4592 结构）
+// P5：主线程槽——关/开 socket 泵（notifier enabled 即可,drain 链不推进）。
+// IO 线程 sftpList 入口 invokeMethod(BlockingQueued) 同步等待此处返回后才开始碰 libssh
+void SshSession::ioSuspend(bool suspend)
+{
+    m_ioSuspended = suspend;
+    if (m_notifier)
+        m_notifier->setEnabled(!suspend);
+    // 恢复时补一轮 drain（挂起期间积压的 shell 数据）
+    if (!suspend)
+        readChannel();
+}
+
+// P5（0x8e8d36 SftpFolder 后端语义）：阻塞版列目录,运行于 FileSystemModel 的后台 IO 线程。
+// shortcut: 原版 async_readdir 泵(0x8e8d36)未照搬,阻塞 readdir 在独立线程等效;
+// opendir 失败→空表（错误分流挂账,sftp_dir_eof 判定未用）。
+// 并发护栏：libssh session 非线程安全——入口同步挂起主线程泵,出口恢复
 void SshSession::readChannel()
 {
-    if (m_finished || !m_channel || !m_session)
+    if (m_finished || m_ioSuspended || !m_channel || !m_session)
         return;
 
     char buffer[8192];
@@ -876,6 +968,17 @@ void SshSession::teardown()
         m_notifier->deleteLater();
         m_notifier = nullptr;
     }
+    // P5：sftp 先于 channel/session free（sftp_free 关闭自持第二 channel）。
+    // shortcut: 在途 sftpList(IO 线程)与 free 的竞态未加锁,取消机制挂账 P6 传输批
+    if (m_sftp) {
+        {
+            QMutexLocker lock(&g_sftpMapMutex);
+            g_sftpMap.remove(m_sftp);
+        }
+        if (api().loaded && api().sftpFree)
+            api().sftpFree(m_sftp);
+        m_sftp = nullptr;
+    }
     if (m_channel) {
         if (api().loaded) {
             api().channelSendEof(m_channel);
@@ -908,8 +1011,124 @@ void SshSession::teardown()
                 api().channelFree(m_state->channel);
             m_state->channel = nullptr;
         }
+        if (m_state->sftp) {
+            if (api().loaded && api().sftpFree)
+                api().sftpFree(m_state->sftp);
+            m_state->sftp = nullptr;
+        }
     }
     m_state.clear();
+}
+
+// ---------------------------------------------------------------------------
+// P5：sftp_attributes_struct 镜像（libssh 4.x 布局,/usr/include/libssh/sftp.h 核对;
+// 原版 4.8 修补版与系统 0.10 同布局）。仅取 readdir 所需字段,偏移 static_assert 自证
+// ---------------------------------------------------------------------------
+namespace {
+
+struct SftpAttrMirror
+{
+    char *name;                   // +0
+    char *longname;               // +8
+    uint32_t flags;               // +16
+    uint8_t type;                 // +20
+    uint64_t size;                // +24
+    uint32_t uid;                 // +32
+    uint32_t gid;                 // +36
+    char *owner;                  // +40
+    char *group;                  // +48
+    uint32_t permissions;         // +56
+    uint64_t atime64;             // +64
+    uint32_t atime;               // +72
+    uint32_t atime_nseconds;      // +76
+    uint64_t createtime;          // +80
+    uint32_t createtime_nseconds; // +88
+    uint64_t mtime64;             // +96
+    uint32_t mtime;               // +104
+    uint32_t mtime_nseconds;      // +108
+};
+
+static_assert(offsetof(SftpAttrMirror, name) == 0, "sftp_attributes layout");
+static_assert(offsetof(SftpAttrMirror, type) == 20, "sftp_attributes layout");
+static_assert(offsetof(SftpAttrMirror, size) == 24, "sftp_attributes layout");
+static_assert(offsetof(SftpAttrMirror, owner) == 40, "sftp_attributes layout");
+static_assert(offsetof(SftpAttrMirror, permissions) == 56, "sftp_attributes layout");
+static_assert(offsetof(SftpAttrMirror, mtime) == 104, "sftp_attributes layout");
+
+} // namespace
+
+// P5（0x8e8d36 SftpFolder 后端语义）：阻塞版列目录,运行于 FileSystemModel 的后台 IO 线程。
+// shortcut: 原版 async_readdir 泵(0x8e8d36)未照搬,阻塞 readdir 在独立线程等效;
+// opendir 失败→空表（错误分流挂账,sftp_dir_eof 判定未用）。
+// 并发护栏：libssh session 非线程安全——入口同步挂起主线程泵,出口恢复
+QVector<FileSystemItem *> SshSession::sftpList(void *sftpHandle, const QString &path,
+                                               bool showHidden)
+{
+    QVector<FileSystemItem *> items;
+    Api &a = api();
+    if (!sftpHandle || !a.hasSftp)
+        return items;
+    // 反查宿主：同步请求主线程挂泵（BlockingQueued——主线程事件循环需在转,
+    // 测试 waitFor/正常 UI 场景事件循环常开）
+    QPointer<SshSession> host;
+    {
+        QMutexLocker lock(&g_sftpMapMutex);
+        host = g_sftpMap.value(sftpHandle);
+    }
+    const bool guarded = host && host->thread() != QThread::currentThread();
+    if (guarded)
+        QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
+                                  Q_ARG(bool, true));
+    const QByteArray pathUtf8 = path.toUtf8();
+    void *dir = a.sftpOpendir(sftpHandle, pathUtf8.constData());
+    if (!dir) {
+        if (guarded)
+            QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
+                                      Q_ARG(bool, false));
+        return items;
+    }
+    for (;;) {
+        auto *attr = static_cast<SftpAttrMirror *>(a.sftpReaddir(sftpHandle, dir));
+        if (!attr)
+            break; // EOF（错误态不分流）
+        // 深拷字符串字段再 free（sftpAttributesFree 释放整块含字符串）
+        QByteArray name8 = attr->name ? QByteArray(attr->name) : QByteArray();
+        QByteArray owner8 = attr->owner ? QByteArray(attr->owner) : QByteArray();
+        QByteArray group8 = attr->group ? QByteArray(attr->group) : QByteArray();
+        const uint8_t type = attr->type;
+        const qint64 size = static_cast<qint64>(attr->size);
+        const uint32_t mtime = attr->mtime;
+        const uint32_t permissions = attr->permissions;
+        a.sftpAttributesFree(attr);
+        const QString name = QString::fromUtf8(name8);
+        if (name.isEmpty() || name == QLatin1String(".") || name == QLatin1String(".."))
+            continue;
+        if (!showHidden && name.startsWith(QLatin1Char('.')))
+            continue;
+        auto *item = new FileSystemItem;
+        // SSH_FILEXFER_TYPE（libssh sftp.h 实证）：1=REGULAR 2=DIRECTORY 3=SYMLINK
+        item->type = type == 2 ? FileSystemItem::Folder
+                     : type == 3 ? FileSystemItem::Link
+                                 : FileSystemItem::File;
+        item->name = name;
+        // 链接 size=-1（0x634ef0 语义）
+        item->size = item->type == FileSystemItem::Link ? -1
+                     : item->type == FileSystemItem::Folder ? 0
+                                                            : size;
+        item->mtime = QDateTime::fromSecsSinceEpoch(mtime);
+        const QChar typeChar = item->type == FileSystemItem::Folder ? QLatin1Char('d')
+                               : item->type == FileSystemItem::Link ? QLatin1Char('l')
+                                                                    : QLatin1Char('-');
+        item->permissions = fileModeString(typeChar, permissions & 0777u);
+        item->owner = QString::fromUtf8(owner8);
+        item->group = QString::fromUtf8(group8);
+        items.append(item);
+    }
+    a.sftpClosedir(dir);
+    if (guarded)
+        QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
+                                  Q_ARG(bool, false));
+    return items;
 }
 
 #include "SshSession.moc"
