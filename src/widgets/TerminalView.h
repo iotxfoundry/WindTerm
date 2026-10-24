@@ -7,8 +7,10 @@
 #include <QHash>
 #include <QPoint>
 #include <QRect>
+#include <QScrollBar>
 #include <QString>
 #include <QTimer>
+#include <QVariant>
 #include <QVector>
 
 class Session;
@@ -82,6 +84,29 @@ public:
     // 当前选区文本（HighlightTextBar toggled 取选区用）
     QString selectionText() const { return selectedText(); }
     bool hasSel() const { return hasSelection(); }
+
+    // ═══ palette JS API 面（*.palette 一手证据：goto-line/calculator 用到的 text.* 契约）═══
+    // 行数（scrollback+屏行——原版 text.lineCount 契约：全文行数）
+    Q_INVOKABLE int lineCount() const;
+    // 跳行（0 基；goto-line commitEvent `text.gotoLine(line - 1)`——caret 移动+滚动定位）
+    Q_INVOKABLE void gotoLine(int line);
+    // 滚动位置（行语义：goto-line.palette `text.scrollTop = line - 1`——JS 全部按行读写）
+    Q_PROPERTY(int scrollTop READ scrollTop WRITE setScrollTop)
+    Q_PROPERTY(int scrollLeft READ scrollLeft WRITE setScrollLeft)
+    int scrollTop() const { return verticalScrollBar()->value(); }
+    void setScrollTop(int line) { verticalScrollBar()->setValue(qBound(0, line, verticalScrollBar()->maximum())); }
+    int scrollLeft() const { return horizontalScrollBar()->value(); }
+    void setScrollLeft(int px) { horizontalScrollBar()->setValue(px); }
+    // 可视行数（goto-line `text.screenLineCapacity`——scrollTop 定位取半高）
+    Q_INVOKABLE int screenLineCapacity() const { return windowRows(); }
+    // 选区起始位置（goto-line 相对跳转基准 `text.lineFromPosition(text.selectionStartP())`——
+    // 骨架无位置编解码，映射 caret 行：无选区时 selectionStartP 即 caret 位置，语义等效挂账注明）
+    Q_INVOKABLE int selectionStartP() const;
+    Q_INVOKABLE int lineFromPosition(int pos) const { Q_UNUSED(pos); return caretLine(); }
+    // 寄存器（goto-line setRegister/getRegister/removeRegister——滚动位置暂存）
+    Q_INVOKABLE void setRegister(const QString &name, const QVariantList &value) { m_registers.insert(name, value); }
+    Q_INVOKABLE QVariantList getRegister(const QString &name) const { return m_registers.value(name).toList(); }
+    Q_INVOKABLE void removeRegister(const QString &name) { m_registers.remove(name); }
     // HighlightTextBar：当前选区整体以命名色高亮（选区起止单行/跨行逐行拆分在实现内）
     void highlightSelection(const QString &colorName);
     // 高亮span直查（测试断言用）
@@ -187,4 +212,5 @@ private:
     FindOptions m_findOptions;
     struct HighlightSpan { int line; int colStart; int colEnd; QColor color; };
     QVector<HighlightSpan> m_highlights;
+    QHash<QString, QVariant> m_registers; // palette JS 寄存器（goto-line 滚动暂存）
 };

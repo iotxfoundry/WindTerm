@@ -29,6 +29,11 @@ public:
     // （2000ms 时钟 applet 用；原版同签名，见 window metaobject setInterval/callback/milliseconds）
     Q_INVOKABLE void setInterval(QObject *obj, const QJSValue &callback, int milliseconds);
 
+    // palette JS 面（goto-line.palette `let text = window.activeText`——活动终端 view 代理，
+    // 与 ScriptTerminal::view() 同源 0x8d9764 焦点链）
+    Q_PROPERTY(QObject *activeText READ activeText CONSTANT)
+    QObject *activeText() const;
+
     // wind.actions 查找机制：返回已注册 QAction（"Terminal.SchemeList" 需存在）。
     // shortcut: 原版 Terminal.SchemeList 是动态 scheme 列表 action（text=() => schemeNames，
     // script=setScheme 0x56d890 链），此处返回弹出 SchemeManager::schemeNames 菜单的占位
@@ -115,6 +120,10 @@ public:
     // 0x669086：action property("state")（wind.actions state JS 串）求值缓存 + callWithInstance
     // ([action])——JS 闭包内直接改 action.checked/checkable/enabled
     Q_INVOKABLE void updateActionState(QObject *action);
+
+    // palette script 求值面（0x54334c mode7：CommandPalette 经宿主引擎求值 *.palette
+    // script——QJSValue 不可跨 QJSEngine，必须共享本实例）。isError→qWarning+返回 Invalid。
+    QJSValue evaluateScript(const QString &source, const QString &context = QString());
 
 private:
     QJSEngine m_engine;

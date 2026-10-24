@@ -201,6 +201,41 @@ int TerminalView::caretLineOffset() const
     return m_screen ? m_screen->cursorX() : 0;
 }
 
+// ═══ palette JS API 面（*.palette 一手证据：goto-line.palette 用到的 text.* 契约）═══
+
+// text.lineCount：全文行数（滚回+屏行——scrollTop 定位/上界语义）
+int TerminalView::lineCount() const
+{
+    if (!m_screen)
+        return 0;
+    return (m_screen->alternateScreen() ? 0 : m_screen->scrollback().size()) + m_screen->rows();
+}
+
+// text.gotoLine(line-1)：0 基跳行（commitEvent 链）——目标行滚入视口（scroll 定位，
+// scrollback 覆盖区纯滚动）+caret 移动（CSI d 等价 ScreenModel moveCursor 'd'，仅目标在
+// 活动屏内时）
+void TerminalView::gotoLine(int line)
+{
+    if (!m_screen)
+        return;
+    const int clamped = qBound(0, line, lineCount() - 1);
+    verticalScrollBar()->setValue(qBound(0, clamped, verticalScrollBar()->maximum()));
+    const int scrollbackCount = m_screen->alternateScreen() ? 0 : m_screen->scrollback().size();
+    const int inScreen = clamped - scrollbackCount;
+    if (inScreen >= 0) {
+        m_screen->moveCursor('d', inScreen + 1);
+        emit caretPositionChanged();
+    }
+    viewport()->update();
+}
+
+// text.selectionStartP()：选区起始全局位置——骨架无原版位置编解码，简化为 caret 绝对行
+// 位置（goto-line 仅经 lineFromPosition 取当前行，caret 行语义等效——挂账注明）
+int TerminalView::selectionStartP() const
+{
+    return caretLine();
+}
+
 QString TerminalView::scheme() const
 {
     // SchemeManager 当前值（scheme.theme 全局单值；per-view 切换挂账）

@@ -151,6 +151,10 @@ windterm_add_test(test_shell_args)
 windterm_add_test(test_command_palette)
 windterm_test_offscreen(test_command_palette)
 
+# P3 mode7 palette 文件模式：offscreen + MainWindow + bash（*.palette 一手证据链）
+windterm_add_test(test_palette_mode)
+windterm_test_offscreen(test_palette_mode)
+
 # P4 终端搜索/高亮：offscreen + 本地 bash 已知文本（find/高亮/HighlightTextBar 链）
 windterm_add_test(test_search_highlight)
 windterm_test_offscreen(test_search_highlight)

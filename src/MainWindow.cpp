@@ -1438,6 +1438,9 @@ void MainWindow::openCommandPalette(const QString &prefix)
             action->setShortcut(QKeySequence());
             return action;
         }, host);
+        // mode7 palette JS 面注入（0x54334c：panel script 经 MainWindow ScriptHost 引擎求值
+        // ——QJSValue 不可跨引擎；注入即扫 assets/palettes/*.palette）
+        m_commandPalette->setScriptHost(&m_scriptHost);
     }
     m_commandPalette->open(prefix);
     m_commandPalette->show();

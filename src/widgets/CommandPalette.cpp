@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QHBoxLayout>
+#include <QFileInfo>
+#include <QIODevice>
 #include <QKeyEvent>
 #include <QLabel>
 #include <QLineEdit>
@@ -15,12 +17,25 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QVBoxLayout>
+#include <QDir>
+#include <QFile>
 #include <algorithm>
 
 #include "core/ActionRegistry.h"
+#include "core/Assets.h"
+#include "core/JsonText.h"
 #include "core/LocaleManager.h"
+#include "core/ScriptHost.h"
 #include "core/ThemeManager.h"
 #include "widgets/ActionIcons.h"
+
+#ifdef WINDTERM_HAVE_QJSENGINE
+#include <QJSEngine>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QQmlEngine>
+#endif
 
 namespace {
 
@@ -121,6 +136,19 @@ void CommandPalette::buildUi()
     });
 }
 
+// palette JS 宿主注入（0x54334c mode7：panel 脚本经 MainWindow 的 ScriptHost 引擎求值——
+// QJSValue 不可跨 QJSEngine，必须共享同一实例）。宿主就绪即扫 palettes 目录（数据文件
+// 一手证据：global/palettes/*.palette → assets/palettes/ 同源拷贝）。
+void CommandPalette::setScriptHost(ScriptHost *host)
+{
+#ifdef WINDTERM_HAVE_QJSENGINE
+    m_scriptHost = host;
+    loadPalettes();
+#else
+    Q_UNUSED(host);
+#endif
+}
+
 // 0x53fc54 CommandPalette_open：清历史+基准 mode3+prefix 补空格段+设初值
 void CommandPalette::open(const QString &prefix)
 {
@@ -139,8 +167,23 @@ void CommandPalette::open(const QString &prefix)
 void CommandPalette::onTextChanged(const QString &text)
 {
     if (m_history.size() < 2) {
+        // 已在 palette 模式且 trigger 仍匹配：filterEvent（0x54334c JS 分支——进入后
+        // textChanged 走过滤链，仅新 trigger 才重新 enter）
+        if (m_activePalette && m_mode == 7 && text.startsWith(m_activePalette->trigger)) {
+            m_filterText = text;
+            applyFilter(); // filterEvent→items 重建
+            return;
+        }
         m_mode = 0;
-        // mode7 注册前缀链（DAT_011c1240+0x40 keyMode 表）未逆——挂账
+        // mode7 palette trigger 前缀路由（0x54334c filterEvent JS 分支：trigger 匹配即
+        // 切 palette 模式，优先于默认 mode3——palette 文件一手证据）
+        PaletteDef *def = paletteMatch(text);
+        if (def) {
+            m_activePalette = def;
+            switchMode(7, text); // mode7=palette 文件模式（前缀字符 DAT 未逆的 keyMode 项）
+            return;
+        }
+        m_activePalette = nullptr;
         if (prefixMatches(text, ">"))
             switchMode(1, text);   // ">"→全部 action
         else if (prefixMatches(text, "m"))
@@ -160,10 +203,15 @@ void CommandPalette::switchMode(int mode, const QString &text)
     m_filterText = text; // FUN_005836a6 缓存过滤文本
     m_history.clear();   // 0x53fab6 清历史
     switch (mode) {
-    case 2:
+    case 7: // palette 文件模式：enterEvent JS→items 建 model（0x54334c JS 分支链）
+        if (m_activePalette) {
+            const QString filter = text.mid(m_activePalette->trigger.size());
+            enterPalette(*m_activePalette, filter);
+        }
+        break;    case 2:
         buildList({QStringLiteral("mux"), QStringLiteral("tmux")}); // 0x542f1b 词表
         break;
-    // mode 4/5/6/7（地址类/会话标题格式/JS item）前缀字符 DAT 常量读不出——挂账不实现
+    // mode 4/5/6（地址类/会话标题格式）前缀字符 DAT 常量读不出——挂账不实现
     case 1: // ">" 全部 action
     case 3: // Anything 默认——静态前缀映射 0x53feaa 未逆，列表=动作集（挂账）
     default:
@@ -203,6 +251,14 @@ void CommandPalette::buildList(const QStringList &idWords)
 // 单模型直接重建（挂账）
 void CommandPalette::applyFilter()
 {
+    // mode7 palette：filterable=false 语义=不做本地过滤（items 由 JS filterEvent 全权决定，
+    // 两 palette 文件均 filterable:false——一手证据）。textChanged→filterEvent→items 重建
+#ifdef WINDTERM_HAVE_QJSENGINE
+    if (m_mode == 7 && m_activePalette) {
+        runPaletteEvent(QStringLiteral("filterEvent"), m_filterText.mid(m_activePalette->trigger.size()));
+        return;
+    }
+#endif
     QString f = m_filterText;
     if (m_mode == 1 && f.startsWith(QLatin1Char('>')))
         f.remove(0, 1);
@@ -265,6 +321,16 @@ void CommandPalette::goBack()
 // kind3 会话部件激活（0x5b91a8）/kind5 文本回填下钻无数据源——挂账
 void CommandPalette::dispatch(const QModelIndex &index)
 {
+#ifdef WINDTERM_HAVE_QJSENGINE
+    if (m_mode == 7 && m_activePalette) { // kind7 palette：Enter→commitEvent（0x5436e2 kind 表）
+        runPaletteEvent(QStringLiteral("commitEvent"),
+                        m_filterText.mid(m_activePalette->trigger.size()));
+        m_activePalette = nullptr; // commit 链终点（closeEvent 的 leave 不再触发——
+                                   // goto-line commit 已 removeRegister，重复 leave 误还原滚动）
+        close();
+        return;
+    }
+#endif
     if (!index.isValid() || index.data(Qt::UserRole + 8).toInt() != 1 || !m_factory)
         return;
     if (QAction *action = m_factory(index.data(Qt::UserRole).toString())) {
@@ -294,7 +360,13 @@ void CommandPalette::showEvent(QShowEvent *event)
 
 void CommandPalette::closeEvent(QCloseEvent *event)
 {
-    // 0x544126 closeEvent：mode7 leaveEvent JS 未接——挂账；焦点还原 0x53e3e4
+    // 0x544126 closeEvent：mode7 leaveEvent JS（palette 挂账解除：Esc/焦点离开→还原链）
+#ifdef WINDTERM_HAVE_QJSENGINE
+    if (m_activePalette)
+        runPaletteEvent(QStringLiteral("leaveEvent"),
+                        m_filterText.mid(m_activePalette->trigger.size()));
+    m_activePalette = nullptr;
+#endif
     setVisible(false); // 先落焦点链，防 restoreFocus 触发 focusChanged 递归 close
     if (QWidget *snap = m_focusSnapshot.data()) {
         if (snap->isVisibleTo(window()))
@@ -315,3 +387,109 @@ bool CommandPalette::eventFilter(QObject *watched, QEvent *event)
     }
     return QFrame::eventFilter(watched, event);
 }
+
+#ifdef WINDTERM_HAVE_QJSENGINE
+// ═══ mode7 palette 文件模式（global/palettes/*.palette 一手证据落地）═══
+// 加载：Assets::dir()/palettes/*.palette；文件结构 {trigger,comment,filterable,events,script}
+// ——script 是 (event,filter,selection)=>{…} 签名（返回 items 数组）。实测两文件裸换行在
+// "script" 字符串内（同 wind.actions 控制字符陷阱）——复用 JsonText 净化后 QJsonDocument 解析。
+void CommandPalette::loadPalettes()
+{
+    m_palettes.clear();
+    if (!m_scriptHost)
+        return;
+    QDir dir(Assets::dir() + QStringLiteral("/palettes"));
+    for (const QFileInfo &fi : dir.entryInfoList({ QStringLiteral("*.palette") }, QDir::Files)) {
+        QFile f(fi.absoluteFilePath());
+        if (!f.open(QIODevice::ReadOnly))
+            continue;
+        const QJsonDocument doc = QJsonDocument::fromJson(
+            JsonText::replaceControlCharsInStrings(JsonText::stripLineComments(f.readAll())));
+        if (!doc.isObject())
+            continue;
+        const QJsonObject o = doc.object();
+        PaletteDef def;
+        def.trigger = o.value(QStringLiteral("trigger")).toString();
+        def.filterable = o.value(QStringLiteral("filterable")).toBool(false);
+        for (const QString &ev : o.value(QStringLiteral("events")).toString()
+                                        .split(QLatin1Char(','), Qt::SkipEmptyParts))
+            def.events.append(ev.trimmed());
+        // 0x54334c 链：script 串经 ScriptHost 共享引擎 evaluate（"use strict" 前缀同 runInit）
+        QJSValue script = m_scriptHost->evaluateScript(
+            o.value(QStringLiteral("script")).toString(), fi.fileName());
+        if (def.trigger.isEmpty() || !script.isCallable())
+            continue;
+        def.script = script;
+        m_palettes.append(def);
+    }
+}
+
+// trigger 前缀路由（0x54334c：text.startsWith(trigger) 切 palette 模式；区分大小写同 prefixMatch）
+CommandPalette::PaletteDef *CommandPalette::paletteMatch(const QString &text) const
+{
+    for (const PaletteDef &def : m_palettes) {
+        if (!def.trigger.isEmpty() && text.startsWith(def.trigger, Qt::CaseSensitive))
+            return const_cast<PaletteDef *>(&def);
+    }
+    return nullptr;
+}
+
+// enterEvent：调 script(event,filter,selection)→items 建 model（0x54334c JS 分支进入段）
+void CommandPalette::enterPalette(PaletteDef &def, const QString &filter)
+{
+    QJSValueList args;
+    args.append(QJSValue(QStringLiteral("enterEvent")));
+    args.append(QJSValue(filter));
+    args.append(QJSValue(QJSValue::UndefinedValue)); // selection 未逆明取值——挂账
+    QJSValue items = def.script.call(args);
+    setItemsFromJs(items);
+}
+
+// filterEvent/leaveEvent/commitEvent 分发（0x54334c filterEvent 分支 + closeEvent leave +
+// dispatch commit——事件名查 events 表防线外注入；返回值仅 filter/commit 建 model 需求，
+// leaveEvent 无 items 原版语义如此——goto-line leaveEvent 只还原滚动）
+void CommandPalette::runPaletteEvent(const QString &event, const QString &filter)
+{
+    if (!m_activePalette || !m_activePalette->events.contains(event))
+        return;
+    QJSValueList args;
+    args.append(QJSValue(event));
+    args.append(QJSValue(filter));
+    args.append(QJSValue(QJSValue::UndefinedValue));
+    QJSValue items = m_activePalette->script.call(args);
+    if (event != QLatin1String("leaveEvent"))
+        setItemsFromJs(items);
+}
+
+// items[{title,subtitle,icon}] → model（kind7 项：title=显示列、subtitle→ToolTipRole 骨架
+// 映射、icon→king:: 名直查 ActionIcons；role 0x108=7 与 dispatch kind 分支对齐）
+void CommandPalette::setItemsFromJs(const QJSValue &items)
+{
+    m_model->removeRows(0, m_model->rowCount());
+    m_fullIds.clear();
+    m_fullTexts.clear();
+    const int len = items.property(QStringLiteral("length")).toInt();
+    for (int i = 0; i < len; ++i) { // 全量建行；ListView 呈现上限由视图侧滚动承载
+        const QJSValue it = items.property(static_cast<quint32>(i));
+        const QString title = it.property(QStringLiteral("title")).toString();
+        auto *item = new QStandardItem(title);
+        const QString subtitle = it.property(QStringLiteral("subtitle")).toString();
+        if (!subtitle.isEmpty())
+            item->setToolTip(subtitle);
+        const QString icon = it.property(QStringLiteral("icon")).toString();
+        if (!icon.isEmpty()) {
+            const QIcon ic = ActionIcons::iconFor(icon, icon,
+                                                  ThemeManager::instance().currentTheme());
+            if (!ic.isNull())
+                item->setIcon(ic);
+        }
+        item->setData(7, Qt::UserRole + 8); // kind7=palette item（0x5436e2 kind 表）
+        m_model->appendRow(item);
+    }
+    // CountLabel=行数（0x53e806）；palette 无 Backward 下钻语义——栈保持空
+    m_countLabel->setNum(m_model->rowCount());
+    m_backwardButton->setVisible(false);
+    m_listView->setCurrentIndex(m_model->index(0, 0));
+    adjustSize();
+}
+#endif // WINDTERM_HAVE_QJSENGINE

@@ -69,6 +69,14 @@ void ScriptWindow::lockScreen()
     Q_UNIMPLEMENTED(); // 原版锁屏链（0x0064b102 lockScreen 面存在）未逆明，挂账
 }
 
+// palette JS 面：window.activeText getter（goto-line.palette `let text = window.activeText`）
+// ——与 ScriptTerminal::view() 同源（0x8d9764 焦点 view 链骨架等价）。CONSTANT 属性：
+// 每次 JS 取值现取焦点 view，无缓存失效问题。
+QObject *ScriptWindow::activeText() const
+{
+    return TerminalView::activeView();
+}
+
 ScriptTerminal::ScriptTerminal(QObject *parent)
     : QObject(parent)
 {
@@ -172,6 +180,16 @@ void ScriptHost::updateActionState(QObject *action)
     QJSValue result = value.callWithInstance(QJSValue(QJSValue::UndefinedValue), args);
     if (result.isError())
         qWarning() << "action state error:" << result.toString();
+}
+
+// palette script 求值面（0x54334c mode7 链；context 仅告警定位用）。
+// "use strict" 指令序言同 runInit（FUN_0064af3c 拼接式）。
+QJSValue ScriptHost::evaluateScript(const QString &source, const QString &context)
+{
+    QJSValue value = m_engine.evaluate(QStringLiteral("\"use strict\";\n") + source);
+    if (value.isError())
+        qWarning() << "palette script error" << context << ":" << value.toString();
+    return value;
 }
 
 #else // !WINDTERM_HAVE_QJSENGINE

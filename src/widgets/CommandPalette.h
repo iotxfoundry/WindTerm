@@ -19,6 +19,12 @@
 #include <QString>
 #include <functional>
 
+#ifdef WINDTERM_HAVE_QJSENGINE
+#include <QJSValue>
+#include <QVariantList>
+#include <QVariantMap>
+#endif
+
 class QCloseEvent;
 class QEvent;
 class QLabel;
@@ -26,6 +32,7 @@ class QLineEdit;
 class QListView;
 class QAction;
 class QStandardItemModel;
+class QJSEngine;
 
 class CommandPalette : public QFrame
 {
@@ -35,6 +42,10 @@ public:
     // actionId → 接线好的 QAction（原版 actionFactory_getOrCreate 0x665dc2 共享缓存——
     // 骨架经 MainWindow::makeAction 临时新建，激活即弃）
     using ActionFactory = std::function<QAction *(const QString &actionId)>;
+
+    // palette JS 宿主注入（0x54334c mode7 script_fireEvent 链：panel 脚本经
+    // scriptHost.evaluate 求值；MainWindow 传入共享 ScriptHost 的引擎——QJSValue 跨引擎禁用）
+    void setScriptHost(class ScriptHost *host);
 
     explicit CommandPalette(ActionFactory factory, QWidget *parent = nullptr);
 
@@ -55,6 +66,29 @@ private:
     void goBack();                                  // 0x53fd52
     void dispatch(const class QModelIndex &index);  // 0x5436e2
     void reposition();                              // 0x5401d6 宽 44% 居中贴上缘
+#ifdef WINDTERM_HAVE_QJSENGINE
+    // ═══ mode7 palette 文件模式（global/palettes/*.palette 一手证据；深逆 0x54334c
+    // filterEvent JS 分支 + script_fireEvent kind7——前缀字符 DAT 未逆的 mode7 即此链）═══
+public:
+    struct PaletteDef
+    {
+        QString trigger;
+        bool filterable = false;
+        QStringList events;   // "enterEvent, leaveEvent, …" 逗号表
+        QJSValue script;      // evaluate 缓存（可调用）；事件时 call(event, filter, selection)
+    };
+
+private:
+    void loadPalettes(); // global/palettes/*.palette 扫描（数据文件一手证据，骨架 assets 同名目录）
+    PaletteDef *paletteMatch(const QString &text) const; // trigger 前缀路由
+    void enterPalette(PaletteDef &def, const QString &filter);   // enterEvent→items
+    void runPaletteEvent(const QString &event, const QString &filter);  // filter/leave/commit 分发
+    void setItemsFromJs(const QJSValue &items); // items[{title,subtitle,icon}]→model（kind7）
+
+    ScriptHost *m_scriptHost = nullptr;
+    QVector<PaletteDef> m_palettes;
+    PaletteDef *m_activePalette = nullptr; // 当前 palette 模式（mode7 等效，+0x70 表另路）
+#endif
 
     ActionFactory m_factory;
     QLineEdit *m_searchEdit = nullptr;
