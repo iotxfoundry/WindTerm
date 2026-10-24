@@ -7717,3 +7717,18 @@
 0x00806382	ssh_knownHostsDir	路径拼接:<配置根 DAT_011c2200>+"/ssh/"+id(小写 join)→options_set(s,8,utf8)——opt 8=ssh-dir(修补版,known_hosts 落其下)
 0x008636ee	ssh_checkAgent	ssh_agent_is_running→channel_request_auth_agent+本地 QTcpServer 转发代理(0086bc66,隧道功能)
 0x00629aee	ssh_authMethodNames	服务端方法掩码→显示名:8 Host Based/4 Public Key/0x20 Gssapi/2 Password/0x10 Kbdint(固定编码序)
+# —— 终端渲染链深逆批（2026-10-24,自研文档引擎,非 cell 网格非 QTextDocument）——
+0x00a40876	TerminalCell_snapshot	屏行快照入 doc:遍历行 style run(Uint16RunStyles)逐 run 写 docEdit(0x926640);行块带锁+zstd 重压缩
+0x00a40c78	Editor_terminalSnapshot	终端→编辑器文档:屏行表→undoBegin+插文本+风格扫描(TerminalCell+TerminalLink 0xa3b880)
+0x00a64cea	editor_paint_line_colors	自绘行渲染:逐 run 取色(editor_styleAt)叠加 selection/hex/空白/列标色层+caret
+0x00a64838	caret_rect_render	光标覆盖式填充(先背景条再画文本,非 xor)
+0x00a3e5ca	editor_caret_geometry_update	光标几何:hitTest→px 存+0x1ea;拖选 3px 阈值+200ms 自动滚动节流(+0xf14)
+0x007ef95c	vt_sgrParse	SGR u64 属性:bit0 bold..bit10;fg24@bit14/37 bg24@bit39/62+brighten 位;38;5;n 与 38;2;r;g;b(colon 归一);bold+fg∈0..7 自动换 bright
+0x00535d00	theme_palette_load	scheme.theme→QMap(terminal.ansi*/text.default/text.selection/line.*)→VT 调色板 vt+0xd0 uint32[16]+bold→bright 位图 vt+0xd8
+0x007e3578	vt_palette_color	调色板[i]直接读数组打包进 u64 属性
+0x00a52aa8	editor_charWidthCache	QFontMetricsF::horizontalAdvance 逐字符宽缓存表(非平均宽 cell);行高 0xa224f0+descent 补偿
+0x00a5940a	caret_spec_parse	DECSCUSR 类 4KB 解析器;caret_changeShape(0xa29a48)
+0x00a63550	caret_blinkTimer	QTimer 惰性 editor+0x40:setInterval→翻转;块样式+光标行可见才 blink(editor+0x1083)
+0x007cc8aa	settings_scrollback	滚回上限键 window.scrollbackLimit(范围 0..999999999);滚回=文档历史行(非独立缓冲,天然混排)
+0x00834f2c	terminal_rightClick	s_terminal_rightClickAction:copy/paste 动作分发(非 contextMenu)
+0x007f298e	mouse_sgr_encode	鼠标上报 SGR 编码;xterm 序列 0x7ebdfc
