@@ -22,6 +22,7 @@ class MuxPaneGroup;
 class QuickBar;
 class SearchPane;
 class SessionPane;
+class SshSession;
 class StatusBar;
 class TerminalView;
 class TransferBar;
@@ -64,6 +65,8 @@ private:
     QString makeMenuTitle(const QString &base, int n) const;
     void initActionRegistry();
     void connectSessionPane(SessionPane *pane);
+    // F3：host key 确认/警告窗（worker 等回执的落点在 SshSession::hostKeyAnswer）
+    void hookSshSession(SshSession *session);
     QuickBar *ensureQuickBar();
     void toggleQuickBar();
 

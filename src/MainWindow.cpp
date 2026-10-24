@@ -6,6 +6,9 @@
 
 #include <QContextMenuEvent>
 #include <QCursor>
+#include <QEventLoop>
+#include <QMessageBox>
+#include <QPointer>
 
 #include <QFile>
 #include <QJsonArray>
@@ -300,7 +303,16 @@ void MainWindow::onAddressBarReturn()
     auto *session = new SshSession(24, 80, m_muxPaneGroup);
     // 地址栏新连非 user.sessions 条目，无 uuid（0x833db4 恢复仅对存量会话）
     m_muxPaneGroup->openSession(session, QStringLiteral("ssh %1").arg(dialog.host()), Qt::red);
-    session->start(dialog.host(), dialog.user(), dialog.password(), dialog.port());
+    hookSshSession(session);
+    // F3：start 立即返回，worker 线程跑连接链；对话框停留到 connected/failed 再关（保持原 UX 最小改）
+    QPointer<SshSession> guard(session);
+    QEventLoop wait;
+    QObject::connect(session, &SshSession::connected, &wait, &QEventLoop::quit);
+    QObject::connect(session, &Session::finished, &wait, &QEventLoop::quit);
+    session->start(dialog.host(), dialog.port(), dialog.user(), dialog.password());
+    wait.exec(); // 事件循环活着（UI 不卡）；finished 路径标签已由视图标退出
+    if (guard && guard->isConnected())
+        dialog.accept();
 }
 
 // user.sessions 双击接入（原版编辑即写 0x00806958，骨架只读）：user 无键 → user 留空
@@ -357,7 +369,18 @@ void MainWindow::connectSessionPane(SessionPane *pane)
             dialog.setSpec(QString(), host, port > 0 ? port : 22);
             if (dialog.exec() != QDialog::Accepted || dialog.host().isEmpty())
                 return;
-            session = new SshSession(24, 80, m_muxPaneGroup);
+            // F3：对话框停留到 connected/failed 再关（同 onAddressBarReturn 最小改）
+            auto *ssh = new SshSession(24, 80, m_muxPaneGroup);
+            hookSshSession(ssh);
+            QPointer<SshSession> sshGuard(ssh);
+            QEventLoop wait;
+            QObject::connect(ssh, &SshSession::connected, &wait, &QEventLoop::quit);
+            QObject::connect(ssh, &Session::finished, &wait, &QEventLoop::quit);
+            ssh->start(dialog.host(), dialog.port(), dialog.user(), dialog.password());
+            wait.exec();
+            if (sshGuard && sshGuard->isConnected())
+                dialog.accept();
+            session = ssh;
         }
 
         // 0x833db4：恢复/重连以 session.uuid 查 user.sessions；双击条目按 label 匹配带 uuid
@@ -938,8 +961,8 @@ void MainWindow::onRestoreLayout()
         }
         // LastSessions 真重连（0x8d2f7e→0x8d2e46→0x833db4）：uuid→SessionStore 查→按
         // protocol 建会话→openSession。查不到→原版标 Error/Discarded，此处跳过+告警。
-        // SSH 挂账：认证链（publickey F3/密码交互）未接——原版密钥可自动、密码需交互，
-        // 重建恢复跳过。双键说明：0x8d2f7e 读 kit.startupSessions（三处配置文件均无值=默认），
+        // C7 后 SSH 走认证队列（见下方恢复分支）。双键说明：
+        // 0x8d2f7e 读 kit.startupSessions（三处配置文件均无值=默认），
         // terminal.startupSessions 为 TerminalWindow 级；本处按用户可见键语义分派
         if (startupSessions == QStringLiteral("LastSessions")) {
             for (const ReopenTabEntry &t : st.tabs) {
@@ -980,8 +1003,35 @@ void MainWindow::onRestoreLayout()
                     session->setUuid(uuid);
                     m_muxPaneGroup->openSession(session, label, QColor(Qt::darkMagenta));
                 } else {
-                    qWarning() << "reopen.history: session" << uuid
-                               << "(" << protocol << ") restore pending (SSH 认证链挂账 F3)";
+                    // C7：SSH 恢复走认证队列——无密码=Password op 跳过→PublicKey cfg 开→
+                    // 两步 try/real→KbdInt；全失败 failed→关标签。真数据 user.sessions
+                    // 条目键为 "session.target"/"session.port"/扁平键（无 session.user——
+                    // 实测 grep 只有 autoLogin/target/port/protocol/uuid 等扁平键），
+                    // user 留空走 libssh 默认（当前用户）。
+                    auto *session = new SshSession(24, 80, this);
+                    session->setUuid(uuid);
+                    hookSshSession(session);
+                    m_muxPaneGroup->openSession(session, label, QColor(Qt::red));
+                    connect(session, &Session::finished, this, [uuid]() {
+                        // shortcut: 原版失败弹密码窗,弹窗体系未接
+                        qWarning() << "reopen.history: ssh session" << uuid
+                                   << "restore failed (原版失败弹密码窗, 弹窗体系未接)";
+                    });
+                    connect(session, &SshSession::failed, this, [this, session]() {
+                        // C7：认证队列全失败→关标签
+                        auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>();
+                        const auto views = m_muxPaneGroup->findChildren<TerminalView *>();
+                        for (TerminalView *view : views) {
+                            if (view->session() == session && stack) {
+                                m_muxPaneGroup->setConfirmClose(false); // 恢复路径无确认框应答者
+                                m_muxPaneGroup->onTabCloseRequested(stack->indexOf(view));
+                                m_muxPaneGroup->setConfirmClose(true);
+                                break;
+                            }
+                        }
+                    });
+                    session->start(target,
+                                   entry.value(QStringLiteral("session.port")).toInt(), QString());
                 }
             }
         }
@@ -1039,6 +1089,30 @@ void MainWindow::togglePane(QWidget *pane)
 }
 
 // 懒建+插入（证据 0x85ad2e lazyCreateQuickBar、0x85a7a6 顺序：SearchPane 之后、TransferBar 之前）
+// F3：SSH host key 确认/警告接线。信号 queued 到主线程；回执走 hostKeyAnswer()
+// （worker 无事件循环，QWaitCondition 等待——槽本身不 join 线程，无死锁）。
+void MainWindow::hookSshSession(SshSession *session)
+{
+    connect(session, &SshSession::hostKeyUnknown, this,
+            [this, session](const QString &host, const QString &fingerprint, bool changed) {
+        const QString msg = changed
+            ? tr("远程主机 %1 的主机密钥已变更！\n\n可能是中间人攻击（MITM），也可能\n"
+                 "是服务器重装/换钥。指纹 (MD5)：\n%2\n\n拒绝连接？")
+                  .arg(host, fingerprint.isEmpty() ? QStringLiteral("(不可用)") : fingerprint)
+            : tr("主机 %1 的真实性无法确认。\n\n指纹 (MD5)：\n%2\n\n"
+                 "接受并保存到 known_hosts？")
+                  .arg(host, fingerprint.isEmpty() ? QStringLiteral("(不可用)") : fingerprint);
+        const bool accept = changed
+            ? (QMessageBox::warning(this, tr("主机密钥警告"), msg,
+                                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
+               == QMessageBox::No) // changed 警告默认拒绝；选 No=坚持拒绝，Yes=冒险接受
+            : (QMessageBox::question(this, tr("主机密钥确认"), msg,
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
+               == QMessageBox::Yes);
+        session->hostKeyAnswer(accept);
+    });
+}
+
 QuickBar *MainWindow::ensureQuickBar()
 {
     if (!m_quickBar) {
