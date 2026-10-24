@@ -111,6 +111,17 @@ thiscall 原型的正确做法：按需对**单个函数**用 Ghidra setSignatur
 - 原版类名规则生效机制：QSS 类型选择器只匹配 C++ 类名（真实子类）；骨架以 objectName 挂名需 ThemeManager 改写（R17），新部件命名对照 `symbols.tsv` 反哺节的 setObjectName 点。
 - **截图仅用于视觉验收对照（最终比对），禁作实现证据来源**（用户指令 2026-10-23）——颜色/尺寸/行为的实现依据必须来自反汇编或数据文件；无数据键时标注"无证据"并给出反汇编升级路径，不得写"截图对照值"兜底（截图曾两次误导：2020 EN 素材、菜单编号）。
 
+## 参考路径（反编译/对照用，均已核实存在）
+
+| 路径 | 内容 | 用途 |
+|---|---|---|
+| `/opt/WindTerm_2.7.0/` | 原版 2.7.0 安装目录：`WindTerm` 主程序（反汇编对象，sha256 见 reference/README.md）、`lib/libssh.so.4`（**原版自带修补版**，SshSession dlopen 优先加载）、`lib/libcrypto.so.1.1`、`terminal/configs/`（menu/toolbar/statusbar/session/triggers.config，与 assets/config/uiconfigs 同源）、`global/wind.config`（全局默认配置） | 反汇编取证 / 原版库行为对照 / 数据文件交叉验证 |
+| `/home/pana/.wind/` | 用户 profile 目录：`profiles/default.v10/terminal/user.sessions`（会话真数据，**只读源，写盘走 .bak 备份**）、`user.config`（用户覆盖配置，如 terminal.startupSessions=NoSessions）、`global/reopen.history`（布局持久化二进制，格式见 docs/reopen-history.md）、`terminal/quickbar.config`（缺省不存在=空） | 真数据验证 / 格式对照（禁止伪造/污染） |
+| `/home/pana/go/src/github.com/kingtoolbox/WindTerm/` | 开源仓库（本仓库同门）：`src/Protocols`（TelnetProtocol 已 vendor）、`src/Pty/`（API 断裂未 vendor）、`src/Utility/`、`src/Widgets/`、`src/libssh/` 与 `src/Onigmo/`（第三方源码，读闭源层行为旁证）；BSim 参考库构建源（reference/bsim-reference/full.pro，WINDTERM_SRC 指向此处） | 开源代码证据（优先级次于反汇编）/ BSim 签名 |
+| `/home/pana/go/src/github.com/kingtoolbox/WindTermGuiSkeleton/` | **本仓库**（重建项目） | — |
+| `/tmp/opencode/ghidra-proj`（项目名 `WindTermRef`） | Ghidra 项目：`-process WindTerm` 复用免重分析，符号重放见 reference/README.md；**/tmp 重启丢失**，重建命令在 README | 符号应用/重 dump |
+| `/home/pana/tools/ghidra_12.1.4_PUBLIC/` | Ghidra 安装（analyzeHeadless/support/bsim 命令行） | 逆向工具链 |
+
 ## 陷阱补充（phase12）
 
 21. **dlopen 调 C++ 成员/构造函数的 ABI**：构造函数隐含 this（RDI）——须预分配对象内存显式传 this；按普通函数指针调用会把对象写进参数内存段错误。
