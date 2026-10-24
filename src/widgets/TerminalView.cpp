@@ -19,6 +19,38 @@
 
 namespace {
 
+// 键→序列映射（xterm 编码；CPR 形态 = CSI 模式/光标键模式未跟踪，固定 CSI 版，
+// DECCKM 应用光标模式跟踪挂账）。方向/翻页/编辑/F 键——全屏 TUI（vim/less）核心输入。
+QByteArray keyToSequence(int key)
+{
+    switch (key) {
+    case Qt::Key_Up:        return QByteArrayLiteral("\x1b[A");
+    case Qt::Key_Down:      return QByteArrayLiteral("\x1b[B");
+    case Qt::Key_Right:     return QByteArrayLiteral("\x1b[C");
+    case Qt::Key_Left:      return QByteArrayLiteral("\x1b[D");
+    case Qt::Key_Home:      return QByteArrayLiteral("\x1b[H");
+    case Qt::Key_End:       return QByteArrayLiteral("\x1b[F");
+    case Qt::Key_Insert:    return QByteArrayLiteral("\x1b[2~");
+    case Qt::Key_Delete:    return QByteArrayLiteral("\x1b[3~");
+    case Qt::Key_PageUp:    return QByteArrayLiteral("\x1b[5~");
+    case Qt::Key_PageDown:  return QByteArrayLiteral("\x1b[6~");
+    case Qt::Key_F1:        return QByteArrayLiteral("\x1bOP");
+    case Qt::Key_F2:        return QByteArrayLiteral("\x1bOQ");
+    case Qt::Key_F3:        return QByteArrayLiteral("\x1bOR");
+    case Qt::Key_F4:        return QByteArrayLiteral("\x1bOS");
+    case Qt::Key_F5:        return QByteArrayLiteral("\x1b[15~");
+    case Qt::Key_F6:        return QByteArrayLiteral("\x1b[17~");
+    case Qt::Key_F7:        return QByteArrayLiteral("\x1b[18~");
+    case Qt::Key_F8:        return QByteArrayLiteral("\x1b[19~");
+    case Qt::Key_F9:        return QByteArrayLiteral("\x1b[20~");
+    case Qt::Key_F10:       return QByteArrayLiteral("\x1b[21~");
+    case Qt::Key_F11:       return QByteArrayLiteral("\x1b[23~");
+    case Qt::Key_F12:       return QByteArrayLiteral("\x1b[24~");
+    default:
+        return {};
+    }
+}
+
 QString schemeColor(const QString &name, const QString &fallback)
 {
     const QColor color = SchemeManager::instance().color(name);
@@ -216,8 +248,10 @@ QString TerminalView::sessionUuid() const
 void TerminalView::renderScreen()
 {
     QString html;
-    for (const auto &row : m_screen->scrollback())
-        appendRowHtml(html, row, false);
+    // 1049 alternate screen 无 scrollback（VT 语义：alt 屏独立，退出恢复主屏）
+    if (!m_screen->alternateScreen())
+        for (const auto &row : m_screen->scrollback())
+            appendRowHtml(html, row, false);
 
     for (int row = 0; row < m_screen->rows(); ++row) {
         QVector<Cell> cells(m_screen->cols());
@@ -250,10 +284,12 @@ bool TerminalView::eventFilter(QObject *obj, QEvent *event)
         case Qt::Key_Escape:
             data = QByteArrayLiteral("\x1b");
             break;
-        default:
-            if (!keyEvent->text().isEmpty())
+        default: {
+            data = keyToSequence(keyEvent->key());
+            if (data.isEmpty() && !keyEvent->text().isEmpty())
                 data = keyEvent->text().toUtf8();
             break;
+        }
         }
         if (!data.isEmpty()) {
             m_session->write(data);
