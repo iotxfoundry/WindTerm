@@ -35,3 +35,21 @@ QVector<SessionEntry> SessionStore::load()
     }
     return entries;
 }
+
+QVariantMap SessionStore::sessionByUuid(const QString &uuid)
+{
+    for (const SessionEntry &e : load()) {
+        if (e.uuid == uuid) {
+            QVariantMap m;
+            m.insert(QStringLiteral("session.uuid"), e.uuid);
+            m.insert(QStringLiteral("session.group"), e.group);
+            m.insert(QStringLiteral("session.label"), e.label);
+            m.insert(QStringLiteral("session.icon"), e.icon);
+            m.insert(QStringLiteral("session.protocol"), e.protocol);
+            m.insert(QStringLiteral("session.target"), e.target);
+            m.insert(QStringLiteral("session.port"), e.port);
+            return m;
+        }
+    }
+    return {};
+}

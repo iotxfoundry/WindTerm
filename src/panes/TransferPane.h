@@ -1,11 +1,11 @@
 #pragma once
 
-#include <QWidget>
+#include "KitPane.h"
 
 class QLabel;
 class QProgressBar;
 
-class TransferPane : public QWidget
+class TransferPane : public KitPane
 {
     Q_OBJECT
 

@@ -1,11 +1,11 @@
 #pragma once
 
-#include <QWidget>
+#include "KitPane.h"
 
 class PaneHeader;
 class QTreeWidget;
 
-class FilerPane : public QWidget
+class FilerPane : public KitPane
 {
     Q_OBJECT
 

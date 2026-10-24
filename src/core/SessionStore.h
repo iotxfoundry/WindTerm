@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QVariantMap>
 #include <QString>
 #include <QVector>
 
@@ -21,4 +22,6 @@ class SessionStore
 {
 public:
     static QVector<SessionEntry> load();
+    // 0x833db4 恢复链：按 session.uuid 查单条（未命中返回空 map）
+    static QVariantMap sessionByUuid(const QString &uuid);
 };

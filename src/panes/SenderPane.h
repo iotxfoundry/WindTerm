@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QWidget>
+#include "KitPane.h"
 
-class SenderPane : public QWidget
+class SenderPane : public KitPane
 {
     Q_OBJECT
 

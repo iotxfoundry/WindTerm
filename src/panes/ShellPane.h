@@ -1,11 +1,11 @@
 #pragma once
 
-#include <QWidget>
+#include "KitPane.h"
 
 class QLineEdit;
 class QPlainTextEdit;
 
-class ShellPane : public QWidget
+class ShellPane : public KitPane
 {
     Q_OBJECT
 

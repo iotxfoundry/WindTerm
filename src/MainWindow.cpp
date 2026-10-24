@@ -37,6 +37,7 @@
 #include "core/JsonText.h"
 #include "core/ReopenHistory.h"
 #include "core/SchemeManager.h"
+#include "core/Session.h"
 #include "core/SessionStore.h"
 #include "core/SshSession.h"
 #include "core/ThemeManager.h"
@@ -45,6 +46,7 @@
 #include "dialogs/ConnectDialog.h"
 #include "panes/ExplorerPane.h"
 #include "panes/FilerPane.h"
+#include "panes/KitPane.h"
 #include "panes/OutlinePane.h"
 #include "panes/OutputPane.h"
 #include "panes/SearchPane.h"
@@ -290,6 +292,7 @@ void MainWindow::onAddressBarReturn()
         return;
 
     auto *session = new SshSession(24, 80, m_muxPaneGroup);
+    // 地址栏新连非 user.sessions 条目，无 uuid（0x833db4 恢复仅对存量会话）
     m_muxPaneGroup->openSession(session, QStringLiteral("ssh %1").arg(dialog.host()), Qt::red);
     session->start(dialog.host(), dialog.user(), dialog.password(), dialog.port());
 }
@@ -307,6 +310,13 @@ void MainWindow::connectSessionPane(SessionPane *pane)
             return;
 
         auto *session = new SshSession(24, 80, m_muxPaneGroup);
+        // 0x833db4：恢复/重连以 session.uuid 查 user.sessions；双击条目按 label 匹配带 uuid
+        for (const SessionEntry &e : SessionStore::load()) {
+            if (e.label == label) {
+                session->setUuid(e.uuid);
+                break;
+            }
+        }
         m_muxPaneGroup->openSession(session, label.isEmpty()
                                                 ? QStringLiteral("ssh %1").arg(dialog.host())
                                                 : label,
@@ -741,8 +751,18 @@ void MainWindow::createCentral()
         if (QWidget *pane = findChild<QWidget *>(QString::fromLatin1(name)))
             installPaneToolBar(pane);
     }
-    // 右键上下文菜单管线（pane_showPopupMenu 0x8c3c6a）：五 pane 的 ContextMenu → 本窗 eventFilter
-    for (const char *name : {"ExplorerPane", "FilerPane", "OutlinePane", "SessionPane", "TransferPane"}) {
+    // 右键上下文菜单管线（pane_showPopupMenu 0x8c3c6a）：KitPane 基类经基类
+    // contextMenuEvent（0x8c3bbe vtable+0x110）发 popupRequested；item view 类 pane
+    // （Session/Outline/Output）无法继承 KitPane，保留 eventFilter 路径
+    //（原版 SessionPane 等 item view 子类同样经 KitPane，重建 Qt 单继承限制）
+    for (const char *name : {"ExplorerPane", "FilerPane", "SenderPane", "TransferPane", "SearchPane", "ShellPane"}) {
+        if (KitPane *pane = findChild<KitPane *>(QString::fromLatin1(name))) {
+            connect(pane, &KitPane::popupRequested, this, [this, pane](Qt::KeyboardModifiers mods) {
+                showPopupMenu(pane, mods);
+            });
+        }
+    }
+    for (const char *name : {"SessionPane", "OutlinePane"}) {
         if (QWidget *pane = findChild<QWidget *>(QString::fromLatin1(name)))
             pane->installEventFilter(this);
     }
@@ -872,8 +892,8 @@ void MainWindow::onRestoreLayout()
             m_toolBar->setVisible(st.toolBarVisible);
         }
         // LastSessions 恢复挂账：只取 uuid 列表+计数告警；真重连（0x8d2e46 按 pageName 建
-        // 视图→vtbl[0x60](url)→0x833db4 QUuid 查 user.sessions 重连）避免实现期自动外连
-        // 用户真机会话
+        // 视图→vtbl[0x60](url)→0x833db4 QUuid 查 user.sessions 重连）——0x833db4 查询接口
+        // SessionStore::sessionByUuid 已备，接通待自动外连策略放行
         QStringList uuids;
         for (const ReopenTabEntry &t : st.tabs) {
             if (t.url.startsWith(QStringLiteral("$")))
@@ -901,13 +921,17 @@ void MainWindow::closeEvent(QCloseEvent *event)
     // 0x8cf0c8 barsBlob 第三位=ToolBar 可见性；骨架 ToolBar 挂 KitGroup（可能未建）
     st.toolBarVisible = m_toolBar ? m_toolBar->isVisible() : false;
     if (m_muxPaneGroup) {
-        // 会话 uuid：MuxPaneGroup 无公开标签列表 → findChildren<TerminalView*> 取
-        // session()→uuid。挂账: Session 基类无 uuid 暴露（LocalSession/SshSession 均未携带）——
-        // url 留空（0x833db4 真重连需 "$<uuid>"），uuid 接入后回填
+        // 0x8bbab6：每 view 持久化 url="$<uuid>"（uuid=会话 session.uuid，0x833db4 恢复时
+        // QUuid 查 user.sessions）；无 uuid（本地会话）→空串
         const auto views = m_muxPaneGroup->findChildren<TerminalView *>();
         st.tabs.reserve(views.size());
-        for (TerminalView *view : views)
-            st.tabs.append(ReopenTabEntry{}); // url 挂账：Session 无 uuid 接口（见上）
+        for (TerminalView *view : views) {
+            ReopenTabEntry entry;
+            const QString uuid = view->sessionUuid();
+            if (!uuid.isEmpty())
+                entry.url = QStringLiteral("$") + uuid;
+            st.tabs.append(entry);
+        }
         if (auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>())
             st.currentIndex = stack->currentIndex();
     }

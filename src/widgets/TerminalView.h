@@ -29,6 +29,8 @@ public:
 
     void attachSession(Session *session);
     Session *session() const { return m_session; }
+    // 会话持久化 uuid（0x8bbab6 url="$<uuid>"；无会话→空串）
+    QString sessionUuid() const;
 
     // quickbar "Send Text" 命令（0x56d890）：文本直接写入会话
     void sendText(const QString &text);

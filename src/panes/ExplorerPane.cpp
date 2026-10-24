@@ -9,15 +9,8 @@
 #include "core/LocaleManager.h"
 
 ExplorerPane::ExplorerPane(QWidget *parent)
-    : QWidget(parent)
+    : KitPane(parent, QStringLiteral("ExplorerPane"))
 {
-    // 原版 KitPane 派生类以类名挂 objectName（0x008c3bbe+0x0072fbee）；
-    // gui.theme:560（dige-black 默认主题，ExplorerPane QWidget 规则）
-    setObjectName(QStringLiteral("ExplorerPane"));
-    // King_title 0x008a1106 表中 Explorer（"ExplorerPane" 是 objectName，不是 tr 键）
-    setWindowTitle(LocaleManager::instance().tr(QStringLiteral("Explorer")));
-    // shortcut: setWindowIcon 挂账, paneIconFactory 未实现
-
     // toolbar.config ExplorerPane=[{FilterEdit:true}]（ctor 0x0057eb0c）；
     // objectName 命中 gui.theme:617 KitPane FilterEdit 规则（dige-black 默认主题）；骨架侧 ExplorerPane
     // 是容器自身，KitPane 前缀选择器在骨架无后代链——沿用类名挂名近似，规则未命中挂账

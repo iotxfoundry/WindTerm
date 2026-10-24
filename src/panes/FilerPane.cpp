@@ -8,13 +8,8 @@
 #include "widgets/PaneHeader.h"
 
 FilerPane::FilerPane(QWidget *parent)
-    : QWidget(parent)
+    : KitPane(parent, QStringLiteral("FilerPane"))
 {
-    setObjectName(QStringLiteral("FilerPane"));
-    // King_title 0x008a1106 表中 Filer（"FilerPane" 是 objectName，不是 tr 键）
-    setWindowTitle(LocaleManager::instance().tr(QStringLiteral("Filer")));
-    // shortcut: setWindowIcon 挂账, paneIconFactory 未实现
-
     // 标题行：非 tab 形态 pane 才有（createFamily 0x005524a0）；标题走 locale 查表
     // "Filer"→文件管理器（zh-CN.locale 实键；"FilerPane" 无 tr 键）
     m_header = new PaneHeader(LocaleManager::instance().tr(QStringLiteral("Filer")), this);

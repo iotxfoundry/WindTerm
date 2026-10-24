@@ -1,12 +1,12 @@
 #pragma once
 
-#include <QWidget>
+#include "KitPane.h"
 
 class QLineEdit;
 class QPushButton;
 class QTreeWidget;
 
-class SearchPane : public QWidget
+class SearchPane : public KitPane
 {
     Q_OBJECT
 

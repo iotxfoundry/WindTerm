@@ -207,6 +207,12 @@ QString TerminalView::scheme() const
     return ThemeManager::instance().currentTheme();
 }
 
+// 会话持久化 uuid（0x8bbab6 url="$<uuid>"）；无会话→空串
+QString TerminalView::sessionUuid() const
+{
+    return m_session ? m_session->uuid() : QString();
+}
+
 void TerminalView::renderScreen()
 {
     QString html;
