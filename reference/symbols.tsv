@@ -7778,3 +7778,16 @@
 0x0096cbb8	trigger_styleWrite	RunStyles 写入:整 run 低3位差异原地改;否则 runstyles_upgrade;脏区并集≥40KiB→post SciHighlightEvent(0x3f0,from,to) 重绘
 0x0096e2ae	trigger_scanTask	扫描任务:mode1 增量(游标 +0x88)/mode2 续扫/mode0 全量;中止检查+扫描完成事件(0x3f8/0x3f9)
 0x00665dc2	actionFactory_getOrCreate	"Text.HighlightTextBar" 特判 new QWidgetAction(0x20B)——右键菜单内嵌高亮条入口
+# —— P5 SFTP/FilerPane 深逆批（2026-10-24;浏览链,传输属 P6）——
+0x00627efc	sftp_channel_get_or_init	幂等:句柄已有再 init;否则 sftp_new2(SSH 连接开第二条 channel)+sftp_init2;失败 -1
+0x00866372	sftp_start_async	就绪检查→run_async(worker 0x8638f0);未就绪统一文案"SFTP failed to allocate. "+信号0(null)
+0x008638f0	sftp_worker	worker:get_or_init→成功发信号0(句柄)/失败 disconnectMsg+信号0(null);SSH 选项应用阶段(0x7daedc)即预建
+0x008e8d36	SftpFolder_listDir	opendir→async_readdir 泵(EAGAIN→yieldCurrentThread 忙让步)→dir_eof→closedir;每 attr 建 item(0x8e89a2);过滤 ./..与隐藏(开关+0x4c)
+0x00634ef0	SftpFileSystemItem_ctor	attr 映射:类型表/大小(链接=-1)/毫秒时间戳×3/uid/gid/属主属组/权限;引用计数+父 children(+0x50) append
+0x008e9b7e	sftp_loaderNotify	路径自旋读(0x8eb30e)→listDir→结果逆序→逐项 QVariant 包 item→dataChanged(role 0x100)+行插入;排序只见整表逆序(按名排序未找到)
+0x00624eae	RemoteFSM_data	模型 data/parent/index 均 busy 自旋门(yield×16→nanosleep 退避)等后台加载——无 QMutex 自旋标志位
+0x00731066	FilerPane_buildUi	QStackedWidget(+0x60)+状态 QLabel(+0x58:framed/AlignVCenter|Left/不 autofill)入布局;视图命令统一 forwardSetMode(0x57664e):3=刷新/0x10=cd+250ms 防抖/0x11=设路径
+0x00730d9c	FilerPane_bindSignals	kit 三信号绑定+全局 filer.hiddenItemsVisible 联动+singleShot(0) 首绑;终端 cwd(+0x208)经 mode 0x11 推入(AutoSyncTerminalFolder)
+0x005773d6	FilerPane_localSystemMode	判型:视图绑定 Transfer 对象 vt14==SftpTransfer_vt14→false(远程)——Transfer 类型决定本地/远程
+0x00731cc0	FilerPane_downloadDlg	slot 0x22:filedlg_choose(2,上次目录)+finished→selectedFiles→0x579f0e(view,files)
+0x00578d88	FilerPane_goBackward	历史游标:idx<count-1 前进可用/idx>0 后退可用(0x578e18);RecentPaths 动作 text=列表+checked=rootPath==text
