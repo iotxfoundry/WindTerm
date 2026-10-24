@@ -88,3 +88,5 @@
 | R37 | 鼠标上报位级方言(0x7ebdfc)：运动恒+32 且后缀 'm' 非 'M'；修饰 Meta=8(Alt 不编码)；滚轮只取符号每事件恒 1 条(delta==0 丢弃)；同格去重；SGR '<%d;%d;%d%c' 坐标 y;x 1 基 | 0x007ebdfc | TerminalView sendMouseEvent/wheelEvent |
 
 | R38 | sftp 通道双约束（实现实证）：sftp_attributes 布局两库一致（mirror+static_assert 自证）；libssh session 非线程安全——后台 sftp 操作必须与主线程事件循环互斥（挂泵护栏），并发踩 packet 链段错 | 0x00627efc 实现/段错实测 | src/core/SshSession.cpp |
+
+| R39 | CommandPalette mode7=palette 文件模式：`global/palettes/*.palette`（{trigger,comment,filterable,events,script}）——trigger（':' goto-line/'=' calculator）即前缀路由 DAT 常量；script(event,filter,selection)=>items[{title,subtitle,icon}] 四事件 enter/filter/commit/leave；filterable=false 时 items 全权 JS；activeText 依赖 API：lineCount/gotoLine/scrollTop(行)/setRegister/getRegister/removeRegister/screenLineCapacity | 0x0053feaa/0x0054334c + palettes 一手文件 | widgets/CommandPalette、TerminalView |

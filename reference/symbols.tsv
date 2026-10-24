@@ -7792,3 +7792,6 @@
 0x00731cc0	FilerPane_downloadDlg	slot 0x22:filedlg_choose(2,上次目录)+finished→selectedFiles→0x579f0e(view,files)
 0x00578d88	FilerPane_goBackward	历史游标:idx<count-1 前进可用/idx>0 后退可用(0x578e18);RecentPaths 动作 text=列表+checked=rootPath==text
 # —— P5 实现实证补充（2026-10-25,fixer 批回填）——
+# —— P3 mode7 palette 收口批（2026-10-25,一手数据文件实证）——
+0x0054334c确认	CommandPalette_filterEvent分支	mode7 JS item 实锤:palette 文件(global/palettes/*.palette){trigger,comment,filterable,events,script}——trigger ':'=goto-line/'='=calculator 即未解 DAT 前缀常量;script 签名(event,filter,selection)=>items[{title,subtitle,icon}];四事件 enter/filter/commit/leave 对应 script_fireEvent kind==2
+0x0053feaa确认	CommandPalette_paletteMap	静态前缀映射=palette 文件装载:trigger 匹配切 mode7(filterable=false 不本地过滤,items 全权 JS)
