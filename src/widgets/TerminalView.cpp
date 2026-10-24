@@ -506,9 +506,84 @@ void TerminalView::keyPressEvent(QKeyEvent *event)
     QAbstractScrollArea::keyPressEvent(event);
 }
 
+// 鼠标上报（mouse_sgr_encode 0x7f298e 对齐）：DECSET 1000/1002/1003 + 1006(SGR) 时
+// 事件编码上报终端，本地选区禁用；滚轮在 1000 模式也上报（64+0/1）
+static int mouseReportMode(const ScreenModel *screen)
+{
+    if (!screen)
+        return 0;
+    if (screen->mode(1003))
+        return 1003;
+    if (screen->mode(1002))
+        return 1002;
+    if (screen->mode(1000))
+        return 1000;
+    return 0;
+}
+
+void TerminalView::sendMouseEvent(QEvent::Type type, Qt::MouseButton button,
+                                  Qt::MouseButtons buttons, Qt::KeyboardModifiers mods,
+                                  const QPoint &pos)
+{
+    const int mode = mouseReportMode(m_screen);
+    if (!mode || !m_session)
+        return;
+    int cb = -1;
+    bool press = false;
+    if (type == QEvent::MouseButtonPress || type == QEvent::MouseButtonDblClick) {
+        press = true;
+        cb = button == Qt::LeftButton ? 0 : button == Qt::MiddleButton ? 1 : button == Qt::RightButton ? 2 : -1;
+    } else if (type == QEvent::MouseButtonRelease) {
+        cb = button == Qt::LeftButton ? 0 : button == Qt::MiddleButton ? 1 : 2;
+    } else if (type == QEvent::MouseMove && (mode == 1003
+               || (mode == 1002 && buttons != Qt::NoButton))) {
+        press = true;
+        cb = buttons & Qt::LeftButton ? 0 : buttons & Qt::MiddleButton ? 1
+            : buttons & Qt::RightButton ? 2 : 35;
+    }
+    if (cb < 0)
+        return;
+    const int mod = ((mods & Qt::ShiftModifier) ? 4 : 0)
+                  | ((mods & Qt::AltModifier) ? 8 : 0)
+                  | ((mods & Qt::ControlModifier) ? 16 : 0);
+    const QPoint cell = cellFromPos(pos);
+    if (cell.x() < 0)
+        return;
+    // SGR 形态（\x1b[<b;x;yM/m）；非 1006 的旧 X10 形态挂账
+    // shortcut: X10/UTF8(1005) 形态未实现,SGR(1006) 为现代应用标准形态
+    m_session->write(QByteArrayLiteral("\x1b[<") + QByteArray::number(cb + mod) + ';'
+                     + QByteArray::number(cell.x() + 1) + ';' + QByteArray::number(cell.y() + 1)
+                     + (press ? 'M' : 'm'));
+}
+
+void TerminalView::wheelEvent(QWheelEvent *event)
+{
+    if (mouseReportMode(m_screen) && m_session) {
+        const int delta = event->angleDelta().y();
+        const int mod = ((event->modifiers() & Qt::ShiftModifier) ? 4 : 0)
+                      | ((event->modifiers() & Qt::AltModifier) ? 8 : 0)
+                      | ((event->modifiers() & Qt::ControlModifier) ? 16 : 0);
+        const int steps = qMax(1, qAbs(delta) / 120);
+        const int cb = (delta > 0 ? 64 : 65) + mod;
+        const QPoint cell = cellFromPos(event->pos());
+        for (int i = 0; i < steps; ++i)
+            m_session->write(QByteArrayLiteral("\x1b[<") + QByteArray::number(cb) + ';'
+                             + QByteArray::number(qMax(1, cell.x() + 1)) + ';'
+                             + QByteArray::number(qMax(1, cell.y() + 1)) + 'M');
+        event->accept();
+        return;
+    }
+    QAbstractScrollArea::wheelEvent(event);
+}
+
 // 选区（0xa3e5ca：3px 位移阈值起选）
 void TerminalView::mousePressEvent(QMouseEvent *event)
 {
+    sendMouseEvent(event->type(), event->button(), event->buttons(), event->modifiers(), event->pos());
+    if (mouseReportMode(m_screen)) {
+        event->accept();
+        return; // 上报模式不本地选区
+    }
     if (event->button() != Qt::LeftButton) {
         QAbstractScrollArea::mousePressEvent(event);
         return;
@@ -523,6 +598,11 @@ void TerminalView::mousePressEvent(QMouseEvent *event)
 
 void TerminalView::mouseMoveEvent(QMouseEvent *event)
 {
+    sendMouseEvent(event->type(), event->button(), event->buttons(), event->modifiers(), event->pos());
+    if (mouseReportMode(m_screen)) {
+        event->accept();
+        return;
+    }
     if (!m_selecting) {
         QAbstractScrollArea::mouseMoveEvent(event);
         return;
@@ -564,6 +644,11 @@ void TerminalView::mouseDoubleClickEvent(QMouseEvent *event)
 
 void TerminalView::mouseReleaseEvent(QMouseEvent *event)
 {
+    sendMouseEvent(event->type(), event->button(), event->buttons(), event->modifiers(), event->pos());
+    if (mouseReportMode(m_screen)) {
+        event->accept();
+        return;
+    }
     if (event->button() == Qt::LeftButton) {
         m_selecting = false;
         // 双击词选后拖动扩展

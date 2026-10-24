@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QAbstractScrollArea>
+#include <QEvent>
 #include <QColor>
 #include <QFont>
 #include <QHash>
@@ -77,6 +78,9 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
+    void sendMouseEvent(QEvent::Type type, Qt::MouseButton button, Qt::MouseButtons buttons,
+                        Qt::KeyboardModifiers mods, const QPoint &pos);
     // 0x84005a/0x834f2c：原版按事件位置 + 修饰键弹 pane 菜单（viewport 事件经
     // QAbstractScrollArea::viewportEvent 转发到本类 contextMenuEvent）
     void contextMenuEvent(QContextMenuEvent *event) override;
