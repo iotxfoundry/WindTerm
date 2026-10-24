@@ -60,3 +60,78 @@ if (WINDTERM_HAVE_QJSENGINE)
   target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_QJSENGINE)
   target_link_libraries(WindTermGuiSkeleton PRIVATE Qt5::Qml)
 endif()
+
+# ═══ Tests（tests/ 回归集；CTest 接线）═══
+enable_testing()
+
+# 与主 target 同样的源过滤：pty 仅 Unix、SerialSession 依赖 SerialPort 组件
+# HEADERS 必须一并带上：AUTOMOC 按 target 源/头清单决定为哪些 Q_OBJECT 头生成 moc_*；
+# 少了 Session.h 等纯接口头 → 子类 moc 引用其 qt_metacall 链接失败
+set(TEST_SOURCES ${PROJECT_SOURCES} ${PROJECT_HEADERS})
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/src/main\\.cpp$")
+
+# 通用接线：include src、复用主项目条件链接与宏；按需单独覆盖（SSH/serial 不注 HOME）
+function(windterm_add_test name)
+  add_executable(${name} tests/${name}.cpp ${TEST_SOURCES})
+  target_include_directories(${name} PRIVATE src)
+  target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CMAKE_DL_LIBS})
+  if (TARGET Qt${QT_VERSION_MAJOR}::Network)
+    target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+  endif()
+  # src/MainWindow.cpp 的 reopen Serial 段无 #ifdef 守卫（仅 connect 段有）——
+  # SerialPort 组件在系统上时测试 target 必须同样携带 define+链接才能编过共享源
+  if (TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
+    target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_SERIALPORT)
+    target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
+  endif()
+  if (WINDTERM_HAVE_QJSENGINE)
+    target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_QJSENGINE)
+    target_link_libraries(${name} PRIVATE Qt5::Qml)
+  endif()
+  add_test(NAME ${name} COMMAND ${name})
+endfunction()
+
+function(windterm_test_offscreen name)
+  set_tests_properties(${name} PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+endfunction()
+
+# 本地 bash 终端行为（无显示需要；工作目录=build，Assets 走 CWD/assets）
+windterm_add_test(test_terminal_tui)
+windterm_add_test(test_terminal_decckm)
+windterm_add_test(test_terminal_mouse)
+
+# 纯函数：colon SGR + 滚回上限
+windterm_add_test(test_terminal_sgr)
+windterm_test_offscreen(test_terminal_sgr)
+
+# 渲染像素断言：offscreen 平台必须
+windterm_add_test(test_terminal_render)
+windterm_test_offscreen(test_terminal_render)
+
+# SSH 认证：自管 HOME（可写临时目录）+ 本机 sshd 127.0.0.1:22，缺则测试内 SKIP
+windterm_add_test(test_ssh_auth)
+
+# 分屏/标签端到端：offscreen + 本地 bash
+windterm_add_test(test_pane_split)
+windterm_test_offscreen(test_pane_split)
+
+# SessionStore 写盘 round-trip：测试内自建 QTemporaryDir HOME
+windterm_add_test(test_sessionstore)
+windterm_test_offscreen(test_sessionstore)
+
+# 对话框字段：offscreen
+windterm_add_test(test_entryvalue)
+windterm_test_offscreen(test_entryvalue)
+
+# reopen.history round-trip：测试内 QTemporaryDir
+windterm_add_test(test_reopen_roundtrip)
+windterm_test_offscreen(test_reopen_roundtrip)
+
+# 串口混型参数：需 SerialPort 组件（SerialSession 参编）；无组件则不编译
+if (TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
+  windterm_add_test(test_serial_params)
+  windterm_test_offscreen(test_serial_params)
+endif()
+
+# Shell args/workdir：本地 bash
+windterm_add_test(test_shell_args)
