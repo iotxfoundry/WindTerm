@@ -19,33 +19,47 @@
 
 namespace {
 
-// 键→序列映射（xterm 编码；CPR 形态 = CSI 模式/光标键模式未跟踪，固定 CSI 版，
-// DECCKM 应用光标模式跟踪挂账）。方向/翻页/编辑/F 键——全屏 TUI（vim/less）核心输入。
-QByteArray keyToSequence(int key)
+// 键→序列映射（xterm 编码）。appCursor=DECCKM(mode 1)：方向/HOME/END 发 SS3 形态；
+// mods=xterm 修饰位（Shift=1/Alt=2/Ctrl=4，参数 = 1+mods）：Ctrl+←→ 词跳、Shift+方向选择区
+QByteArray keyToSequence(int key, int mods, bool appCursor)
 {
+    const bool mod = mods != 0;
+    auto csi = [mod, mods](const char *suffix) {
+        return mod ? QByteArrayLiteral("\x1b[1;") + QByteArray::number(1 + mods) + suffix
+                   : QByteArrayLiteral("\x1b[") + suffix;
+    };
+    auto tilde = [mod, mods](int n) {
+        return mod ? QByteArrayLiteral("\x1b[") + QByteArray::number(n) + ';'
+                       + QByteArray::number(1 + mods) + '~'
+                   : QByteArrayLiteral("\x1b[") + QByteArray::number(n) + '~';
+    };
     switch (key) {
-    case Qt::Key_Up:        return QByteArrayLiteral("\x1b[A");
-    case Qt::Key_Down:      return QByteArrayLiteral("\x1b[B");
-    case Qt::Key_Right:     return QByteArrayLiteral("\x1b[C");
-    case Qt::Key_Left:      return QByteArrayLiteral("\x1b[D");
-    case Qt::Key_Home:      return QByteArrayLiteral("\x1b[H");
-    case Qt::Key_End:       return QByteArrayLiteral("\x1b[F");
-    case Qt::Key_Insert:    return QByteArrayLiteral("\x1b[2~");
-    case Qt::Key_Delete:    return QByteArrayLiteral("\x1b[3~");
-    case Qt::Key_PageUp:    return QByteArrayLiteral("\x1b[5~");
-    case Qt::Key_PageDown:  return QByteArrayLiteral("\x1b[6~");
-    case Qt::Key_F1:        return QByteArrayLiteral("\x1bOP");
-    case Qt::Key_F2:        return QByteArrayLiteral("\x1bOQ");
-    case Qt::Key_F3:        return QByteArrayLiteral("\x1bOR");
-    case Qt::Key_F4:        return QByteArrayLiteral("\x1bOS");
-    case Qt::Key_F5:        return QByteArrayLiteral("\x1b[15~");
-    case Qt::Key_F6:        return QByteArrayLiteral("\x1b[17~");
-    case Qt::Key_F7:        return QByteArrayLiteral("\x1b[18~");
-    case Qt::Key_F8:        return QByteArrayLiteral("\x1b[19~");
-    case Qt::Key_F9:        return QByteArrayLiteral("\x1b[20~");
-    case Qt::Key_F10:       return QByteArrayLiteral("\x1b[21~");
-    case Qt::Key_F11:       return QByteArrayLiteral("\x1b[23~");
-    case Qt::Key_F12:       return QByteArrayLiteral("\x1b[24~");
+    case Qt::Key_Up:        return appCursor && !mod ? QByteArrayLiteral("\x1bOA") : csi("A");
+    case Qt::Key_Down:      return appCursor && !mod ? QByteArrayLiteral("\x1bOB") : csi("B");
+    case Qt::Key_Right:     return appCursor && !mod ? QByteArrayLiteral("\x1bOC") : csi("C");
+    case Qt::Key_Left:      return appCursor && !mod ? QByteArrayLiteral("\x1bOD") : csi("D");
+    case Qt::Key_Home:      return appCursor && !mod ? QByteArrayLiteral("\x1bOH") : csi("H");
+    case Qt::Key_End:       return appCursor && !mod ? QByteArrayLiteral("\x1bOF") : csi("F");
+    case Qt::Key_Insert:    return tilde(2);
+    case Qt::Key_Delete:    return tilde(3);
+    case Qt::Key_PageUp:    return tilde(5);
+    case Qt::Key_PageDown:  return tilde(6);
+    case Qt::Key_F1:        return mod ? QByteArrayLiteral("\x1bO1;") + QByteArray::number(1 + mods) + 'P'
+                                       : QByteArrayLiteral("\x1bOP");
+    case Qt::Key_F2:        return mod ? QByteArrayLiteral("\x1bO1;") + QByteArray::number(1 + mods) + 'Q'
+                                       : QByteArrayLiteral("\x1bOQ");
+    case Qt::Key_F3:        return mod ? QByteArrayLiteral("\x1bO1;") + QByteArray::number(1 + mods) + 'R'
+                                       : QByteArrayLiteral("\x1bOR");
+    case Qt::Key_F4:        return mod ? QByteArrayLiteral("\x1bO1;") + QByteArray::number(1 + mods) + 'S'
+                                       : QByteArrayLiteral("\x1bOS");
+    case Qt::Key_F5:        return tilde(15);
+    case Qt::Key_F6:        return tilde(17);
+    case Qt::Key_F7:        return tilde(18);
+    case Qt::Key_F8:        return tilde(19);
+    case Qt::Key_F9:        return tilde(20);
+    case Qt::Key_F10:       return tilde(21);
+    case Qt::Key_F11:       return tilde(23);
+    case Qt::Key_F12:       return tilde(24);
     default:
         return {};
     }
@@ -285,7 +299,11 @@ bool TerminalView::eventFilter(QObject *obj, QEvent *event)
             data = QByteArrayLiteral("\x1b");
             break;
         default: {
-            data = keyToSequence(keyEvent->key());
+            const int mods = ((keyEvent->modifiers() & Qt::ShiftModifier) ? 1 : 0)
+                           | ((keyEvent->modifiers() & Qt::AltModifier) ? 2 : 0)
+                           | ((keyEvent->modifiers() & Qt::ControlModifier) ? 4 : 0);
+            data = keyToSequence(keyEvent->key(), mods,
+                                 m_screen && m_screen->mode(1) /* DECCKM */);
             if (data.isEmpty() && !keyEvent->text().isEmpty())
                 data = keyEvent->text().toUtf8();
             break;

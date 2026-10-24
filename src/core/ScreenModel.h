@@ -51,6 +51,8 @@ public:
 
     void setMode(int mode, bool dec = false);
     void resetMode(int mode, bool dec = false);
+    // DEC 私有模式查询（DECCKM=1 应用光标——键盘序列形态的键面依据）
+    bool mode(int mode) const { return m_modes.contains(mode); }
     void selectGraphicRendition(const QString &params);
     void saveCursor();
     void restoreCursor();
