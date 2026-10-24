@@ -7732,3 +7732,13 @@
 0x007cc8aa	settings_scrollback	滚回上限键 window.scrollbackLimit(范围 0..999999999);滚回=文档历史行(非独立缓冲,天然混排)
 0x00834f2c	terminal_rightClick	s_terminal_rightClickAction:copy/paste 动作分发(非 contextMenu)
 0x006d37b0	quick_command_newDefaults	新建命令默认 quick.type="Send Text"/uuid=QUuid 带花括号/label 缺省 "Untitled"
+# —— 分屏/窗格生命周期深逆批（2026-10-24,script 动作链+槽体系）——
+0x008d4166	KitWindow_splitView	方向分屏:焦点 view 沿父链找 KitGroup(0x8c52fa)→父 splitter 方向不符包 ns(replaceWidget)→新 KitGroup(0x89f516) insertWidget 邻位→sizes 对半减 handleWidth/2→新组重建 view(0x0089e9e0 用旧 view url/状态)→激活归新 view(0x008ba0f6 参数3)
+0x008d42e8	KitWindow_splitGroup	组级分:组内 view 数检查(<2)→mux_insertPaneSplitter 引擎(0x8d3e3c/0x5a277a 同款)→迁移焦点 view 到新组并激活(blockSignals 包裹)
+0x008cc99c	KitWindow_closeGroup	关闭整组:canClose 守卫→QWidget close→singleShot(0) 清理(0x8cee89:全树空 splitter deleteLater+焦点回归 restoreFocus)
+0x008cc916	KitWindow_canCloseGroup	findChildren<KitGroup*>().count()>1 才允许关组
+0x008cee89	KitWindow_cleanupSplitters	close 后下一拍:全树空 splitter deleteLater+kit_focus_widget_get 焦点回归(setCurrentIndex+setFocus(3))
+0x008ba0f6	KitGroup_attachView	insertWidget+selectTab(activate 参数=1 焦点归新 view);0x008b9f04 内部
+0x008cabee	KitWindow_activeViewWidget	焦点 view 获取:优先 +0x88 缓存否则 kit_focus_widget_get(0x8ca6ca) 沿父链解析
+0x005aa7b0	TabBar_onCurrentChanged	currentChanged→stack setCurrentIndex 同步+通知(0x8fb5ac)
+0x005ab2cc	TabGroup_closeAndRemoveView	view 关闭=close+deleteLater+removeWidget(idx)——组内单 view(区别于关整组)
