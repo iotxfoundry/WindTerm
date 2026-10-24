@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QPointer>
 #include <QPoint>
 
 #include "core/LocaleManager.h"
@@ -11,6 +12,7 @@ struct ToolbarEntry;
 
 class QCloseEvent;
 class QAction;
+class CommandPalette;
 class QEvent;
 class QLineEdit;
 class QMenu;
@@ -33,6 +35,9 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+
+    // P3 命令面板入口（0x768dfa window_openCommandPalette）：懒建+设初值+show
+    void openCommandPalette(const QString &prefix);
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -88,6 +93,8 @@ private:
     ScriptHost m_scriptHost; // 0x005a3106：原版 MainWindow+0x48 脚本宿主（沿父链取 QJSEngine）
     QTabBar *m_viewTabBar = nullptr; // MuxPaneGroup 标签条（无 objectName），"ViewTab Popup" 映射用
     QuickBar *m_quickBar = nullptr; // 懒建（0x85ad2e），toggleQuickBar 首次创建
+    // P3 命令面板（0x768dfa +0xc0 QPointer 同构）：WA_DeleteOnClose，关后下次懒重建
+    QPointer<CommandPalette> m_commandPalette;
     SearchPane *m_searchPane = nullptr;
     TransferBar *m_transferBar = nullptr; // shortcut: 懒建点挂账（0x85af56 传输启动时建），传输功能实现时接入
 };

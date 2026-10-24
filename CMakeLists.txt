@@ -135,3 +135,7 @@ endif()
 
 # Shell args/workdir：本地 bash
 windterm_add_test(test_shell_args)
+
+# P3 命令面板：offscreen + MainWindow（无会话，宿主回退组容器）
+windterm_add_test(test_command_palette)
+windterm_test_offscreen(test_command_palette)

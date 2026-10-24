@@ -65,6 +65,7 @@
 #include "panes/ShellPane.h"
 #include "panes/TransferPane.h"
 #include "widgets/ActionIcons.h"
+#include "widgets/CommandPalette.h"
 #include "widgets/KitGroup.h"
 #include "widgets/MenuBarCorner.h"
 #include "widgets/MuxPaneGroup.h"
@@ -487,6 +488,21 @@ QAction *MainWindow::makeAction(const QString &actionId)
             if (!SessionStore::appendOrReplace(dialog.entryValue()))
                 return;
             pane->reload();
+        });
+        return action;
+    }
+    // P3 命令面板入口（0x768dfa 调用点传 ""/">"/"m"）；wind.keymaps Alt+S/Alt+;/Alt+B
+    // 经上方 shortcut 机制自动携带
+    if (actionId == QStringLiteral("Window.ShowPaletteAnything")
+        || actionId == QStringLiteral("Window.ShowPaletteCommand")
+        || actionId == QStringLiteral("Window.ShowPaletteMultiplexer")) {
+        connect(action, &QAction::triggered, this, [this, actionId]() {
+            QString prefix;
+            if (actionId == QStringLiteral("Window.ShowPaletteCommand"))
+                prefix = QStringLiteral(">");
+            else if (actionId == QStringLiteral("Window.ShowPaletteMultiplexer"))
+                prefix = QStringLiteral("m");
+            openCommandPalette(prefix);
         });
         return action;
     }
@@ -1262,6 +1278,33 @@ QuickBar *MainWindow::ensureQuickBar()
         }
     }
     return m_quickBar;
+}
+
+// 0x768dfa window_openCommandPalette：懒建 CommandPalette（挂活动窗格 currentWidget）→
+// 0x53fc54 设初值 → show。QPointer 承接 WA_DeleteOnClose——关后下次懒重建
+void MainWindow::openCommandPalette(const QString &prefix)
+{
+    QWidget *host = nullptr;
+    if (MuxPaneGroup *group = activeMuxGroup()) {
+        if (auto *stack = group->findChild<QStackedWidget *>())
+            host = stack->currentWidget();
+        if (!host)
+            host = group; // 无会话时回退组容器（原版 mainPane_currentWidgetCast 空路径——挂账）
+    }
+    if (!host)
+        return;
+    if (!m_commandPalette) {
+        m_commandPalette = new CommandPalette([this](const QString &id) {
+            // 原版 actionFactory_getOrCreate（0x665dc2）共享缓存——骨架 makeAction 临时新建；
+            // 剥 shortcut 防与菜单动作重复注册产生歧义快捷键
+            QAction *action = makeAction(id);
+            action->setShortcut(QKeySequence());
+            return action;
+        }, host);
+    }
+    m_commandPalette->open(prefix);
+    m_commandPalette->show();
+    m_commandPalette->raise();
 }
 
 void MainWindow::toggleQuickBar()
