@@ -1,21 +1,34 @@
 #pragma once
 
-#include <QWidget>
+#include <QAbstractScrollArea>
+#include <QColor>
+#include <QFont>
+#include <QHash>
+#include <QPoint>
+#include <QRect>
+#include <QString>
+#include <QTimer>
 
 class Session;
 class QContextMenuEvent;
-class QPlainTextEdit;
+class QKeyEvent;
+class QMouseEvent;
+class QPaintEvent;
+class QResizeEvent;
 class ScreenModel;
 class VtParser;
 
-class TerminalView : public QWidget
+// 原版 TextView 自研自绘引擎的重建（docs/terminal-render-audit.md 修复路线 1+2）：
+// QAbstractScrollArea + paintEvent 逐 cell 网格绘制（0xa64cea editor_paint_line_colors 模型），
+// cell 度量→rows/cols→Session::resize 尺寸协商（0xa52aa8 horizontalAdvance 缓存）。
+class TerminalView : public QAbstractScrollArea
 {
     Q_OBJECT
     // statusbar.config JS 面（0x005a3156 runInit 依赖 7 项）：
     // keyMode=本地/远程（King.LocalMode=16/King.RemoteMode=8，0xccbc40 KeyMode 枚举）；
     // shortcut: 真实 keyMode 存储未接（keymap 焦点过滤 0x8cb962 只读未回写），setter 仅置位
     Q_PROPERTY(int keyMode READ keyMode WRITE setKeyMode NOTIFY keyModeChanged)
-    // 终端字符矩阵行列（原版 termview 面名）；骨架 24x80 定格，resizeEvent 发信号
+    // 终端字符矩阵行列（原版 termview 面名）；首次度量前缺省 24x80
     Q_PROPERTY(int windowRows READ windowRows NOTIFY screenSizeChanged)
     Q_PROPERTY(int windowColumns READ windowColumns NOTIFY screenSizeChanged)
     // 光标行/列（ScreenModel cursorX/Y，1 基行=caretLine+1 由 JS 侧处理——config:52
@@ -57,16 +70,57 @@ signals:
     void schemeChanged();
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
+    // 0x84005a/0x834f2c：原版按事件位置 + 修饰键弹 pane 菜单（viewport 事件经
+    // QAbstractScrollArea::viewportEvent 转发到本类 contextMenuEvent）
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
+    void applyResize();
+    void updateScrollRange();
     void appendSystemMessage(const QString &text);
-    void renderScreen();
+    // 0xa52aa8 horizontalAdvance 懒填缓存
+    qreal advanceOf(QChar ch);
+    QColor selectionColor() const;
+    // 光标 cell 矩形（viewport 坐标）；不可见/隐藏→无效 QRect
+    QRect cursorCellRect() const;
+    // block 光标：反色填充整 cell 重画字符（0xa64838 覆盖式）
+    void drawBlockCaret(QPainter &p, const QRect &r);
+    // viewport 像素 → cell（col, 绝对行=scrollOffset+viewport 行）；无屏→(-1,-1)
+    QPoint cellFromPos(const QPoint &viewportPos) const;
+    QChar charAtLine(int line, int col) const;
+    QString selectedText() const;
+    bool hasSelection() const { return m_selAnchor.x() >= 0; }
+    void copySelection();
+    void pasteClipboard();
 
-    QPlainTextEdit *m_gutter;
-    QPlainTextEdit *m_main;
+    QFont m_font;
+    qreal m_cellW = 0.0;
+    qreal m_cellH = 0.0;
+    QHash<quint32, qreal> m_advanceCache;
+    QColor m_defaultFg;
+    QColor m_defaultBg;
+    QString m_systemMessage;
+
+    // 光标（0xa63550 闪烁 QTimer / 0xa5940a 形态）
+    QTimer m_caretTimer;
+    QRect m_lastCaretRect;
+    bool m_caretOn = true;
+    bool m_caretBlink = true;
+    int m_caretShape = 0; // text.caretShape：0 block/1 line/2 rectangle/3 underline
+
+    // 选区（0xa3e5ca 3px 拖动阈值/word 语义）：cell 坐标（col, 绝对行），(-1,-1)=无
+    QPoint m_selAnchor = QPoint(-1, -1);
+    QPoint m_selEnd = QPoint(-1, -1);
+    QPoint m_pressPos;
+    bool m_selecting = false;
+
     Session *m_session;
     ScreenModel *m_screen;
     VtParser *m_parser;

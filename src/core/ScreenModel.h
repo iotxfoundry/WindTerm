@@ -58,6 +58,10 @@ public:
     void restoreCursor();
     void repeatLast(int n);
 
+    // 尺寸协商（TerminalView applyResize）：行/列扩缩+光标夹取+滚动区重置；
+    // 主屏缩行时溢出行沉入 scrollback（对齐原版滚回=文档历史行语义）
+    void resizeScreen(int rows, int cols);
+
 private:
     void scrollUp(int n);
     void scrollDown(int n);

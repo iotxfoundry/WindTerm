@@ -61,6 +61,22 @@ int paramAt(const QStringList &parts, int index, int defaultValue)
     return ok ? value : defaultValue;
 }
 
+// ansi[0..7] 基色（bold→bright 比对源，0x7ef95c palette[0..7]）
+QColor baseAnsi(int index)
+{
+    static const QColor base[8] = {
+        ansiColor("terminal.ansiBlack", "#000000"),
+        ansiColor("terminal.ansiRed", "#800000"),
+        ansiColor("terminal.ansiGreen", "#008000"),
+        ansiColor("terminal.ansiYellow", "#808000"),
+        ansiColor("terminal.ansiBlue", "#000080"),
+        ansiColor("terminal.ansiMagenta", "#800080"),
+        ansiColor("terminal.ansiCyan", "#008080"),
+        ansiColor("terminal.ansiWhite", "#c0c0c0")
+    };
+    return base[index];
+}
+
 } // namespace
 
 ScreenModel::ScreenModel(int rows, int cols, const QColor &fg, const QColor &bg)
@@ -79,6 +95,7 @@ ScreenModel::ScreenModel(int rows, int cols, const QColor &fg, const QColor &bg)
     blank.fg = m_defaultFg;
     blank.bg = m_defaultBg;
     m_cells = QVector<QVector<Cell>>(m_rows, QVector<Cell>(m_cols, blank));
+    m_scrollback.reserve(1100);
 }
 
 const Cell &ScreenModel::cellAt(int row, int col) const
@@ -409,6 +426,16 @@ void ScreenModel::selectGraphicRendition(const QString &params)
             }
         }
     }
+
+    // bold+fg∈ansi[0..7] 自动换 bright（0x7ef95c vt_sgrParse 末尾 brighten 循环对齐）
+    if (m_bold) {
+        for (int i = 0; i < 8; ++i) {
+            if (m_fg == baseAnsi(i)) {
+                m_fg = color256(i + 8);
+                break;
+            }
+        }
+    }
 }
 
 void ScreenModel::saveCursor()
@@ -441,6 +468,52 @@ void ScreenModel::repeatLast(int n)
     const QChar ch = m_lastChar;
     for (int i = 0; i < qMax(1, n); ++i)
         putChar(ch);
+}
+
+void ScreenModel::resizeScreen(int rows, int cols)
+{
+    rows = qMax(1, rows);
+    cols = qMax(1, cols);
+    if (rows == m_rows && cols == m_cols)
+        return;
+
+    // 列扩：尾部补空白；列缩：截断
+    Cell blank;
+    blankCell(blank);
+    for (QVector<Cell> &row : m_cells) {
+        while (row.size() < cols)
+            row.append(blank);
+        if (row.size() > cols)
+            row.resize(cols);
+    }
+    if (m_alternate)
+        for (QVector<Cell> &row : m_mainCells) {
+            while (row.size() < cols)
+                row.append(blank);
+            if (row.size() > cols)
+                row.resize(cols);
+        }
+
+    // 行缩：溢出顶部行沉入 scrollback（主屏；alt 屏直接截断）；行扩：底部补空白行
+    if (rows < m_rows && !m_alternate) {
+        for (int i = 0; i < m_rows - rows; ++i) {
+            m_scrollback.append(m_cells.takeFirst());
+            if (m_cursorY > 0)
+                --m_cursorY;
+        }
+    } else if (rows > m_rows) {
+        const int add = rows - m_rows;
+        for (int i = 0; i < add; ++i)
+            m_cells.append(QVector<Cell>(cols, blank));
+        if (!m_alternate)
+            m_cursorY = qMin(m_cursorY + add, rows - 1);
+    }
+
+    m_rows = rows;
+    m_cols = cols;
+    m_top = 0;
+    m_bottom = rows - 1;
+    clampCursor();
 }
 
 void ScreenModel::scrollUp(int n)
