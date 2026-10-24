@@ -53,6 +53,7 @@
 #include "core/ToolbarConfig.h"
 #include "core/WindConfig.h"
 #include "dialogs/ConnectDialog.h"
+#include "dialogs/SessionSettingsDialog.h"
 #include "panes/ExplorerPane.h"
 #include "panes/FilerPane.h"
 #include "panes/KitPane.h"
@@ -425,6 +426,41 @@ QAction *MainWindow::makeAction(const QString &actionId)
         action->setShortcut(QKeySequence(keys));
 
     action->setData(actionId);
+    // F4 写盘：新建会话=SessionSettingsDialog（空）→OK→appendOrReplace→SessionPane 刷新。
+    // Terminal.NewSession（menu.config Session 节/toolbar）原走 ConnectDialog 的路径不动
+    // （ConnectDialog 连接不落盘）；SessionPane.NewSession（Session Popup 节）同走此对话框
+    if (actionId == QStringLiteral("Terminal.NewSession")
+        || actionId == QStringLiteral("SessionPane.NewSession")) {
+        connect(action, &QAction::triggered, this, [this]() {
+            SessionSettingsDialog dialog(this);
+            if (dialog.exec() != QDialog::Accepted)
+                return;
+            if (!SessionStore::appendOrReplace(dialog.entryValue()))
+                return;
+            if (auto *pane = findChild<SessionPane *>())
+                pane->reload();
+        });
+        return action;
+    }
+    // SessionPane.Property（Session Popup 节，wind.actions state=hasSelection）：
+    // 编辑当前选中会话——条目动作 makeAction 无个体参数，特判从 SessionPane 取选中
+    if (actionId == QStringLiteral("SessionPane.Property")) {
+        connect(action, &QAction::triggered, this, [this]() {
+            auto *pane = findChild<SessionPane *>();
+            if (!pane)
+                return;
+            const QVariantMap entry = pane->selectedEntry();
+            if (entry.isEmpty())
+                return;
+            SessionSettingsDialog dialog(this, entry);
+            if (dialog.exec() != QDialog::Accepted)
+                return;
+            if (!SessionStore::appendOrReplace(dialog.entryValue()))
+                return;
+            pane->reload();
+        });
+        return action;
+    }
     // Window.ToggleQuickBar（wind.actions: checkable，state=isHidden?false:true，script=toggleBar）
     if (actionId == QStringLiteral("Window.ToggleQuickBar")) {
         action->setCheckable(true);
