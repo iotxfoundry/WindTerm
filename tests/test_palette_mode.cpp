@@ -141,10 +141,6 @@ int main(int argc, char *argv[])
                   && model->item(1)->text().contains(QStringLiteral("relative line")),
               "goto: enterEvent items '+,- relative' hint");
 
-        // setRegister 已在 enterEvent 内：scrollTop 暂存断言（leaveEvent 还原对照）
-        const int saved = view->property("__probe_scroll").toInt(); // 仅占位——寄存器在 JS 侧
-        Q_UNUSED(saved);
-
         edit = pal ? pal->findChild<QLineEdit *>() : nullptr;
         if (edit) {
             edit->setText(QStringLiteral(":50"));
