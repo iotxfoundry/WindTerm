@@ -936,17 +936,55 @@ void MainWindow::onRestoreLayout()
         if (m_toolBar) {
             m_toolBar->setVisible(st.toolBarVisible);
         }
-        // LastSessions 恢复挂账：只取 uuid 列表+计数告警；真重连（0x8d2e46 按 pageName 建
-        // 视图→vtbl[0x60](url)→0x833db4 QUuid 查 user.sessions 重连）——0x833db4 查询接口
-        // SessionStore::sessionByUuid 已备，接通待自动外连策略放行
-        QStringList uuids;
-        for (const ReopenTabEntry &t : st.tabs) {
-            if (t.url.startsWith(QStringLiteral("$")))
-                uuids.append(t.url.mid(1));
+        // LastSessions 真重连（0x8d2f7e→0x8d2e46→0x833db4）：uuid→SessionStore 查→按
+        // protocol 建会话→openSession。查不到→原版标 Error/Discarded，此处跳过+告警。
+        // SSH 挂账：认证链（publickey F3/密码交互）未接——原版密钥可自动、密码需交互，
+        // 重建恢复跳过。双键说明：0x8d2f7e 读 kit.startupSessions（三处配置文件均无值=默认），
+        // terminal.startupSessions 为 TerminalWindow 级；本处按用户可见键语义分派
+        if (startupSessions == QStringLiteral("LastSessions")) {
+            for (const ReopenTabEntry &t : st.tabs) {
+                if (!t.url.startsWith(QStringLiteral("$")))
+                    continue;
+                const QString uuid = t.url.mid(1);
+                const QVariantMap entry = SessionStore::sessionByUuid(uuid);
+                if (entry.isEmpty()) {
+                    qWarning() << "reopen.history: session" << uuid
+                               << "not in user.sessions (原版标 Discarded, 0x833db4)";
+                    continue;
+                }
+                const QString protocol = entry.value(QStringLiteral("session.protocol")).toString();
+                const QString target = entry.value(QStringLiteral("session.target")).toString();
+                const QString label = entry.value(QStringLiteral("session.label")).toString();
+                // shortcut: 恢复标签色未持久化(0x8bbab6 QColor 字段未写),统一暗色,写盘时补
+                if (protocol == QStringLiteral("Shell")) {
+                    auto *session = new LocalSession(24, 80, this);
+                    session->setUuid(uuid);
+                    session->start(target,
+                                   entry.value(QStringLiteral("process.arguments")).toString(),
+                                   entry.value(QStringLiteral("process.workingDirectory"))
+                                       .toString()
+                                       .replace(QStringLiteral("${HomeDir}"), QDir::homePath()));
+                    m_muxPaneGroup->openSession(session, label, QColor(Qt::darkCyan));
+                } else if (protocol.compare(QStringLiteral("Telnet"), Qt::CaseInsensitive) == 0) {
+                    auto *session = new TelnetSession(target,
+                        entry.value(QStringLiteral("session.port")).toInt(), 24, 80, this);
+                    session->setUuid(uuid);
+                    m_muxPaneGroup->openSession(session, label, QColor(Qt::darkYellow));
+                } else if (protocol.compare(QStringLiteral("Serial"), Qt::CaseInsensitive) == 0) {
+                    auto *session = new SerialSession(target,
+                        entry.value(QStringLiteral("serial.baudRate")).toInt(),
+                        entry.value(QStringLiteral("serial.dataBits")).toInt(),
+                        entry.value(QStringLiteral("serial.parity")).toString(),
+                        entry.value(QStringLiteral("serial.stopBits")).toInt(),
+                        entry.value(QStringLiteral("serial.flowControl")).toString(), this);
+                    session->setUuid(uuid);
+                    m_muxPaneGroup->openSession(session, label, QColor(Qt::darkMagenta));
+                } else {
+                    qWarning() << "reopen.history: session" << uuid
+                               << "(" << protocol << ") restore pending (SSH 认证链挂账 F3)";
+                }
+            }
         }
-        if (!uuids.isEmpty())
-            qWarning() << "reopen.history:" << uuids.size()
-                       << "session(s) pending restore (LastSessions 重连挂账 0x8d2e46/0x833db4)";
     }
 }
 
