@@ -7795,3 +7795,16 @@
 # —— P3 mode7 palette 收口批（2026-10-25,一手数据文件实证）——
 0x0054334c确认	CommandPalette_filterEvent分支	mode7 JS item 实锤:palette 文件(global/palettes/*.palette){trigger,comment,filterable,events,script}——trigger ':'=goto-line/'='=calculator 即未解 DAT 前缀常量;script 签名(event,filter,selection)=>items[{title,subtitle,icon}];四事件 enter/filter/commit/leave 对应 script_fireEvent kind==2
 0x0053feaa确认	CommandPalette_paletteMap	静态前缀映射=palette 文件装载:trigger 匹配切 mode7(filterable=false 不本地过滤,items 全权 JS)
+# —— P6 传输引擎深逆批（2026-10-25）——
+0x00618a0a	TransferCenter_ctor	全局单例:QStandardItemModel(2列)+3 QMap+QHash 按路径任务态;3 信号(path,bool)/(path,int kind 0建2删4刷新)/(path,int)
+0x006202ba	TransferModel_data	仅重写 data:role 0x100 属性 QVariantMap→0x617aea HTML 表(Session/Target dir/Current Item/Items %1 of %2/Failed(red)/Processed/Time left/Time elapsed/Avg speed);其余落回基类
+0x0061abbe	TransferCenter_updateTask	recent_map_update(path,kind) 自旋锁写 map;0x61af2e kind3→sig1(path,1);0x61af5a 删行→sig1(path,2);0x61b14a→sig1(path,3)
+0x008e5b52	SftpFile_read	sftp_async_read(0x8e5b52)/write(0x8e5b66)/read_begin(0x8e5b18)/write_begin(0x8e5b2e)/seek64(0x8e5b42)/close(0x8e5a3a);open flags:0 读/0x241 写;open_sync 后 set_nonblocking
+0x0091e8c8	SftpTransfer_meta	SftpTransfer 15 槽/信号:进度对(int,qlonglong,qlonglong)/状态(int,QVariant 0x8eb54e 去重)/查询(sig9→QVariant);状态机 2 Pausing/3 Paused(king::paused)/4 Resuming/5 Removing/100% 完成;续传 sftp_seek64
+0x0085cea4	KitWindow_onTransferEvent	TransferCenter sig1 转发:kind0→TransferBar 懒建(0x85af56,非 Find 家族)+createLabel;kind2→findLabel deleteLater;kind4→刷新(0x58722a)
+0x005850c6	TransferBar_createLabel	每任务一行 TransferLabel(QFrame+path+内嵌 ActionButton Popup:暂停 0x61b176/恢复 0x61b206/移除 0x61b2a8/重发 0x61860e);insertWidget(0);label destroyed 无剩余→bar close(0x585c8f)
+0x0058722a	TransferLabel_refresh	显示逻辑:100%→动词文案(downloaded/uploaded/copied/removed)+failed 红字+30s 后 deleteLater;运行→Time left;名称 elide 30 空格宽;tooltip=属性 map HTML;进度环 0x586ca6 叠画
+0x00733a18	TransferPane_ctor	KitPane"TransferPane"+TreeView"TreeView"(Extended 选择,列0 pause delegate,headerHidden,col1 Stretch)挂 TransferCenter model;命令条"No transfer available";行弹菜单 ActionButton 暂停/恢复/移除
+0x008ec9b8	transfer_createTask	打包{sessionId,files,srcRoot,dstDir}→forwardSetMode(0x12);下载=0x579f0e(filedlg 选本地目录);上传=0x57a928(RemoteFileDialog 选远端);拖放 0x578386 直发
+0x00577b30	transfer_readyCheck	transfer 就绪自旋等句柄+QDir::fromNativeSeparators 规整
+0x007a04c2	ZModem_run	调外部 vendors/lrzsz(sz|rz -b -e -v) QThread+正则解析进度;XYModem(0x79cde6 族)=进程内协议机+终端进度行"\\r %1 bytes transferred"
