@@ -12,7 +12,7 @@ constexpr quint32 MAGIC = 0xB9E7E626u;
 constexpr int PAGE_COUNT = 1; // 重建单窗口单页；pageName 恒 "Terminal"
 
 // 写 tabListBlob（0x8bbab6）：i32 current + i32 count + 每 view
-// QString url + QBA viewState(空) + QColor()（magic>0x15）+ QString ""（magic>0x24）
+// QString url + QBA viewState(空) + QColor（magic>0x15）+ QString ""（magic>0x24）
 void writeTabList(QDataStream &s, const QVector<ReopenTabEntry> &tabs, int current)
 {
     s << qint32(current);
@@ -20,7 +20,7 @@ void writeTabList(QDataStream &s, const QVector<ReopenTabEntry> &tabs, int curre
     for (const ReopenTabEntry &t : tabs) {
         s << t.url;
         s << QByteArray(); // KitView_vt9 viewState：重建无内容，透传空（0x8bbab6）
-        s << QColor();     // magic>0x15 字段，恒空色
+        s << t.color;      // magic>0x15 标签色（0x8bbab6）
         s << QString();    // magic>0x24 RenamedTitle（page=="Terminal"），恒空
     }
 }
@@ -41,6 +41,7 @@ bool readTabList(QDataStream &s, QVector<ReopenTabEntry> &tabs, int &current)
         s >> viewState >> color >> renamed; // QColor 存 5×quint16（Qt_5_15），对称即可
         if (s.status() != QDataStream::Ok)
             return false;
+        e.color = color;
         tabs.append(e);
     }
     current = cur;

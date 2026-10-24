@@ -1,16 +1,18 @@
 #pragma once
 
 #include <QByteArray>
+#include <QColor>
 #include <QString>
 #include <QVector>
 
 // tabListBlob（0x8bbab6）单 view 项：QString url("$<uuid>" 会话 / 内部视图跳过)
-// + QBA viewState + QColor(magic>0x15) + RenamedTitle QString(magic>0x24)——后两项写侧恒空
+// + QBA viewState + QColor(magic>0x15) + RenamedTitle QString(magic>0x24)——后一项写侧恒空
 struct ReopenTabEntry
 {
     // 挂账: Session 无 uuid 暴露（原版 url="$<uuid>"，0x833db4 真重连入口）——留空 url，
     // uuid 接入 TerminalView 会话后回填
     QString url;
+    QColor color; // 0x8bbab6 magic>0x15 标签色（重建恒读——恒新 magic）
 };
 
 // 单窗口重建态（原版顶层 i32 窗口数可多窗，重建恒 1——0x5dd560 读链逐窗循环）

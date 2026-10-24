@@ -60,6 +60,11 @@ private:
     QAction *makeAction(const QString &actionId);
     static QString displayActionText(const QString &en, const QString &translated);
     void createCentral();
+    // KitGroup 装配（setupBars 0x008bade2 同款，自 createCentral 抽出供分屏复用——落点 1）
+    QWidget *createKitGroup();
+    QToolBar *buildGroupToolBar();
+    // 焦点 view 沿父链找 MuxPaneGroup（0x8ca6ca 焦点链骨架等价）；无焦点回退主组
+    MuxPaneGroup *activeMuxGroup() const;
     void createStatusBar();
     QWidget *createBottomTabs();
     QString makeMenuTitle(const QString &base, int n) const;

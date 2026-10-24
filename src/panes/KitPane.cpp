@@ -3,6 +3,8 @@
 #include <QHash>
 
 #include "core/LocaleManager.h"
+#include "core/ThemeManager.h"
+#include "widgets/ActionIcons.h"
 
 namespace {
 
@@ -29,7 +31,16 @@ KitPane::KitPane(QWidget *parent, const QString &name)
     : QWidget(parent)
 {
     setObjectName(name);
-    // shortcut: setWindowIcon 挂账, paneIconFactory 未实现
+    // paneIconFactory（0x0089e584）：objectName endsWith("Pane")（大小写不敏感，原 endsWith
+    // 第 3 参=1）不匹配→空 icon；匹配→"king::"+首字母小写（ExplorerPane→king::explorerPane，
+    // king.svg 实存 explorerPane/filerPane/outlinePane/outputPane/senderPane/sessionPane/
+    // shellPane/transferPane）；icon 缺失无回退（0x5acaba 同款）
+    if (name.endsWith(QLatin1String("Pane"), Qt::CaseInsensitive)) {
+        QString iconName = name;
+        iconName[0] = iconName.at(0).toLower();
+        setWindowIcon(ActionIcons::iconFor(name, QStringLiteral("king::") + iconName,
+                                           ThemeManager::instance().currentTheme()));
+    }
     const QString title = paneTitle(name);
     if (!title.isEmpty())
         setWindowTitle(LocaleManager::instance().tr(title));

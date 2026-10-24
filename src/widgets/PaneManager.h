@@ -71,4 +71,72 @@ inline QWidget *insert(Splitter *root, QWidget *anchor, QWidget *pane, Dir dir)
     return pane;
 }
 
+// E(0x5a236c)：沿首子 QSplitter 下钻到底（null 即止），OtherFocusReason 聚焦
+inline void restoreFocus(QWidget *w)
+{
+    while (auto *sp = qobject_cast<QSplitter *>(w)) {
+        w = sp->widget(0);
+        if (!w)
+            return;
+    }
+    w->setFocus(Qt::OtherFocusReason);
+}
+
+namespace detail {
+
+// D(0x5a29e6) 全文照搬（递归 690B）：closedView 关闭后自底向上清理/合并 splitter 树
+inline void cleanupEmptyTree(QWidget *closedView, QWidget *container)
+{
+    if (!container)
+        return;
+    auto *sp = qobject_cast<QSplitter *>(container->parentWidget());
+    if (!sp)
+        return;
+    const int idx = sp->indexOf(container);
+    QList<int> sizes = sp->sizes();
+    if (!container->close())
+        return;
+    container->hide();
+    // 重建注记：原版经关闭链即时移除（count 同步递减）；重建以脱离父 splitter 等价，
+    // 脱离件即删（0x8cee89 sweep 的 deleteLater 语义并至此，且脱离子件 findChildren 不达）
+    container->setParent(nullptr);
+    container->deleteLater();
+    if (sp->count() == 0) {
+        cleanupEmptyTree(closedView, sp); // 父也空→递归向上
+    } else if (sp->count() == 1) {
+        QWidget *only = sp->widget(0);
+        if (!qobject_cast<QSplitter *>(only)) {
+            restoreFocus(sp);
+            return;
+        }
+        QWidget *keep = qobject_cast<QSplitter *>(only)->widget(0);
+        const int i2 = sp->indexOf(only);
+        sp->replaceWidget(i2, keep);
+        only->deleteLater();
+        restoreFocus(keep);
+    } else {
+        QWidget *survivor = nullptr;
+        if (idx + 1 < sp->count()) {
+            sizes[idx + 1] += sp->handleWidth() + sizes[idx]; // 尺寸移交右邻
+            survivor = sp->widget(idx + 1);
+        } else if (idx >= 1) {
+            sizes[idx - 1] += sp->handleWidth() + sizes[idx]; // 尺寸移交左邻
+            survivor = sp->widget(idx);
+        }
+        sizes.removeAt(idx);
+        sp->setSizes(sizes);
+        restoreFocus(survivor);
+    }
+}
+
+} // namespace detail
+
+// D(0x5a29e6) 入口守卫：closedView 须为 container 祖先（0x5a29e6 isAncestorOf）
+inline void cleanupEmptyTree(QWidget *closedView, QWidget *container)
+{
+    if (!container || !closedView->isAncestorOf(container))
+        return;
+    detail::cleanupEmptyTree(closedView, container);
+}
+
 } // namespace PaneManager

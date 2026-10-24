@@ -154,6 +154,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_locale.load(Assets::dir() + QStringLiteral("/locales/zh-CN.locale"));
 
+    // 分屏工厂注入（MuxPaneGroup::splitView 经此回调新建 KitGroup，widgets 层不依赖宿主）
+    MuxPaneGroup::s_createGroup = [this]() { return createKitGroup(); };
+
     createStatusBar();
     initActionRegistry();
     createMenus();
@@ -233,16 +236,19 @@ void MainWindow::addToolBarEntry(QToolBar *toolBar, const ToolbarEntry &entry)
         break;
     }
     case ToolbarEntry::AddressBar: {
-        m_addressBar = new QLineEdit(toolBar);
-        m_addressBar->setObjectName(QStringLiteral("AddressBarEdit"));
+        auto *edit = new QLineEdit(toolBar);
+        edit->setObjectName(QStringLiteral("AddressBarEdit"));
         // dige-black gui.theme:492 AddressBar > QLineEdit{...}：骨架地址栏无 BreadCrumb 容器，后代选择器不命中，
         // 内联同值复刻；多主题支持时移入 ThemeManager 适配段（shortcut）
-        m_addressBar->setStyleSheet(QStringLiteral(
+        edit->setStyleSheet(QStringLiteral(
             "padding:4px;border:1px solid silver;background-color:white;"));
-        m_addressBar->setPlaceholderText(QStringLiteral("ssh user@host"));
-        m_addressBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        connect(m_addressBar, &QLineEdit::returnPressed, this, &MainWindow::onAddressBarReturn);
-        toolBar->addWidget(m_addressBar);
+        edit->setPlaceholderText(QStringLiteral("ssh user@host"));
+        edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        connect(edit, &QLineEdit::returnPressed, this, &MainWindow::onAddressBarReturn);
+        // 分屏新组各带地址框，m_addressBar 锚主组框（脚本/逻辑单指针）
+        if (!m_addressBar)
+            m_addressBar = edit;
+        toolBar->addWidget(edit);
         break;
     }
     case ToolbarEntry::FilterEdit: {
@@ -265,22 +271,40 @@ void MainWindow::createToolBar()
     if (!config.load(Assets::dir() + QStringLiteral("/config/uiconfigs/toolbar.config")))
         return;
 
-    const QString name = config.toolbarName();
-    if (name.isEmpty())
-        return;
-
     // 原版 KitGroup 的 toolBar 区（工具栏行：标签行之下、终端之上，只占中部宽）。
     // 经 KitGroup::addToolBar 挂入（setupBars 0x008bade2 → QMainWindow::addToolBar 0x008bb07d）；
-    // createCentral 里装配
+    // createCentral 里装配；分屏新组经 buildGroupToolBar 各建一份
+    m_toolBar = buildGroupToolBar();
+}
+
+// 工具栏行构建（toolbar.config Standard 节；主组分屏新组共用，0x008bade2 addToolBar per group）
+QToolBar *MainWindow::buildGroupToolBar()
+{
+    ToolbarConfig &config = ToolbarConfig::instance();
+    const QString name = config.toolbarName();
+    if (name.isEmpty())
+        return nullptr;
+
     auto *toolBar = new QToolBar(name, this);
     // 原版 toolbar_build 产物 objectName="ToolBar"（0x00694276，title=tr("Standard")）；
     // "KitBar" 只属 QuickSwitcher（0x008b31b6），不得用于主窗工具栏
     toolBar->setObjectName(QStringLiteral("ToolBar"));
     toolBar->setMovable(false);
-    m_toolBar = toolBar;
 
     for (const ToolbarEntry &entry : config.entries(name))
         addToolBarEntry(toolBar, entry);
+    return toolBar;
+}
+
+// 焦点 view 沿父链找 MuxPaneGroup（0x8ca6ca kit_focus_widget 骨架等价）；无焦点回退主组
+MuxPaneGroup *MainWindow::activeMuxGroup() const
+{
+    if (TerminalView *view = TerminalView::activeView()) {
+        for (QWidget *w = view->parentWidget(); w; w = w->parentWidget())
+            if (auto *group = qobject_cast<MuxPaneGroup *>(w))
+                return group;
+    }
+    return m_muxPaneGroup;
 }
 
 void MainWindow::onAddressBarReturn()
@@ -354,7 +378,7 @@ void MainWindow::connectSessionPane(SessionPane *pane)
 #ifdef WINDTERM_HAVE_SERIALPORT
             // serial.* 值字符串/数字混型——QVariant::toString 统一解析
             const QVariantMap &m = entry;
-            session = new SerialSession(
+            auto *serial = new SerialSession(
                 host,
                 m.value(QStringLiteral("serial.baudRate")).toInt(),
                 m.value(QStringLiteral("serial.dataBits")).toInt(),
@@ -362,6 +386,11 @@ void MainWindow::connectSessionPane(SessionPane *pane)
                 m.value(QStringLiteral("serial.stopBits")).toInt(),
                 m.value(QStringLiteral("serial.flowControl")).toString(),
                 m_muxPaneGroup);
+            session = serial;
+            // 1d 串口打开失败状态栏瞬态提示（0x5a2e58 showMessageEx 机制）
+            connect(serial, &SerialSession::openFailed, this, [this](const QString &message) {
+                m_statusBar->showMessageEx(tr("串口打开失败: %1").arg(message), 4000);
+            });
 #else
             return; // 系统无 Qt SerialPort 组件，Serial 条目不接（挂账）
 #endif
@@ -476,6 +505,40 @@ QAction *MainWindow::makeAction(const QString &actionId)
         connect(action, &QAction::triggered, this, [this]() { statusBar()->setVisible(!statusBar()->isVisible()); });
         return action;
     }
+    // 批 2 分屏/窗格生命周期接线（0x8d4166/0x8d42e8/0x8cc99c/0x8ce784）：
+    // dir 0=Left/1=Right/2=Top/3=Bottom；动作经 activeMuxGroup() 落到焦点组
+    if (actionId == QStringLiteral("Window.SplitViewHorizontally")
+        || actionId == QStringLiteral("Window.SplitViewVertically")
+        || actionId == QStringLiteral("Window.SplitGroupHorizontally")
+        || actionId == QStringLiteral("Window.SplitGroupVertically")
+        || actionId == QStringLiteral("Window.CloseActiveGroup")
+        || actionId == QStringLiteral("Window.ActivateNextView")
+        || actionId == QStringLiteral("Window.ActivatePreviousView")) {
+        connect(action, &QAction::triggered, this, [this, actionId]() {
+            auto *group = activeMuxGroup();
+            if (!group)
+                return;
+            if (actionId == QStringLiteral("Window.SplitViewHorizontally"))
+                group->splitView(0);
+            else if (actionId == QStringLiteral("Window.SplitViewVertically"))
+                group->splitView(3);
+            else if (actionId == QStringLiteral("Window.SplitGroupHorizontally"))
+                group->splitGroup(0);
+            else if (actionId == QStringLiteral("Window.SplitGroupVertically"))
+                group->splitGroup(3);
+            else if (actionId == QStringLiteral("Window.CloseActiveGroup"))
+                group->closeGroup();
+            else if (actionId == QStringLiteral("Window.ActivateNextView"))
+                group->activateNextView(true);
+            else
+                group->activateNextView(false);
+        });
+        return action;
+    }
+    // shortcut: Window.MoveGroupToGroup（Merge To Group 子菜单,按 allGroupNames 组名）挂账,
+    // allGroupNames 动态列表未逆完（0x8cc994 text JS 动态生成,0x76cb16 动态项体系未接）
+    if (actionId == QStringLiteral("Window.MoveGroupToGroup"))
+        action->setEnabled(false);
     // wind.actions Dock.TogglePane* 与 Window.TogglePane*：toggle 对应容器。
     // 映射按骨架合并形态：原版 Session 独立 pane 与 Explorer 合并为 tabsGroup（QTabWidget），shortcut 挂账
     connect(action, &QAction::triggered, this, [this, actionId]() {
@@ -722,6 +785,68 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
     return QMainWindow::eventFilter(watched, event);
 }
 
+// KitGroup 装配（setupBars 0x008bade2 同款，自 createCentral 抽出供分屏复用——落点 1）：
+// 标签行占 menuWidget 槽、ToolBar 占 toolBar 区（QToolBar 只占中部宽，不横跨侧栏）、
+// central=muxRow（setMenuWidget 0x008bb044 → TabGroup_buildCentral 0x005ab6e8 return +0x60
+// → addToolBar 0x008bb07d）。首调=主组（挂 m_muxPaneGroup/m_viewTabBar/m_toolBar）
+QWidget *MainWindow::createKitGroup()
+{
+    const bool primary = m_muxPaneGroup == nullptr;
+    auto *mux = new MuxPaneGroup;
+    if (primary)
+        m_muxPaneGroup = mux;
+    // 终端区右键（0x84005a TerminalWidget/0x834f2c TerminalView contextMenuEvent）：
+    // view 由 MuxPaneGroup::addPane 内部创建（addPane 私有、无 paneAdded 信号），故借 stack
+    // currentChanged 兜住每个新建/激活的 view；UniqueConnection 去重避免反复连
+    if (auto *muxStack = mux->findChild<QStackedWidget *>()) {
+        auto link = [this, mux]() {
+            for (TerminalView *view : mux->findChildren<TerminalView *>())
+                connect(view, &TerminalView::contextMenuRequested, this,
+                        &MainWindow::onTerminalContextMenu, Qt::UniqueConnection);
+        };
+        // statusbar.config JS 链：view 切换 → terminal.viewActivated 转发
+        // （0x8d9764 焦点终端链骨架等价；无 view 时发 nullptr——config JS 据 null 隐藏按钮）
+        connect(muxStack, &QStackedWidget::currentChanged, this, [this, mux, link](int) {
+            link();
+            auto *stack = mux->findChild<QStackedWidget *>();
+            QObject *view = stack ? stack->currentWidget() : nullptr;
+            emit viewSignalForScripts(view);
+        });
+        link(); // 兜底：装配时若已有 view 立即连
+    }
+
+    auto *muxRow = new QSplitter(Qt::Horizontal);
+    muxRow->setChildrenCollapsible(false);
+    // 持久化键只挂主组行（次组行动态生成，不参与 QSettings splitter 持久化）
+    if (primary)
+        muxRow->setObjectName(QStringLiteral("MuxRow"));
+    muxRow->addWidget(mux);
+
+    // 中央列 = KitGroup（嵌套 QMainWindow，ctor 0x008bb360）
+    auto *kitGroup = new KitGroup;
+    if (mux->tabBarRow()) {
+        kitGroup->setMenuWidget(mux->tabBarRow());
+        if (primary) {
+            // 原版 ViewTab Popup：标签条 customContextMenuRequested（0x8ba130）；标签条无 objectName，存指针特判
+            m_viewTabBar = mux->findChild<QTabBar *>();
+            if (m_viewTabBar)
+                m_viewTabBar->installEventFilter(this);
+        }
+    }
+    QToolBar *toolBar = nullptr;
+    if (primary) {
+        toolBar = m_toolBar; // createToolBar 已建（createCentral 前）；脱离 MainWindow 改挂 KitGroup
+    } else {
+        toolBar = buildGroupToolBar(); // 每组自带 ToolBar 行（0x008bade2 addToolBar per group）
+    }
+    if (toolBar) {
+        toolBar->setParent(kitGroup); // objectName ToolBar 保持主题规则
+        kitGroup->addToolBar(toolBar);
+    }
+    kitGroup->setCentralWidget(muxRow);
+    return kitGroup;
+}
+
 void MainWindow::createCentral()
 {
     // 0x008cd068 显式装配：0x38/0x40/0x48/0x50 为裸 QSplitter，0x58/0x60/0x68 为 Splitter 子类。
@@ -753,48 +878,7 @@ void MainWindow::createCentral()
 
     // 原版 root 中央单元 0x60=QSplitter 子类 H（childrenCollapsible(false)），
     // 内装 TabGroup_buildCentral(0x005ab6e8) 的返回件（原版 return +0x60 = 该 splitter）
-    auto *muxRow = new QSplitter(Qt::Horizontal);
-    muxRow->setObjectName(QStringLiteral("MuxRow"));
-    muxRow->setChildrenCollapsible(false);
-    m_muxPaneGroup = new MuxPaneGroup;
-    // 终端区右键（0x84005a TerminalWidget/0x834f2c TerminalView contextMenuEvent）：
-    // view 由 MuxPaneGroup::addPane 内部创建（addPane 私有、无 paneAdded 信号），故借 stack
-    // currentChanged 兜住每个新建/激活的 view；UniqueConnection 去重避免反复连
-    if (auto *muxStack = m_muxPaneGroup->findChild<QStackedWidget *>()) {
-        auto link = [this]() {
-            for (TerminalView *view : m_muxPaneGroup->findChildren<TerminalView *>())
-                connect(view, &TerminalView::contextMenuRequested, this,
-                        &MainWindow::onTerminalContextMenu, Qt::UniqueConnection);
-        };
-        // statusbar.config JS 链：view 切换 → terminal.viewActivated 转发
-        // （0x8d9764 焦点终端链骨架等价；无 view 时发 nullptr——config JS 据 null 隐藏按钮）
-        connect(muxStack, &QStackedWidget::currentChanged, this, [this, link](int) {
-            link();
-            auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>();
-            QObject *view = stack ? stack->currentWidget() : nullptr;
-            emit viewSignalForScripts(view);
-        });
-        link(); // 兜底：装配时若已有 view 立即连
-    }
-    muxRow->addWidget(m_muxPaneGroup);
-
-    // 中央列 = KitGroup（嵌套 QMainWindow，ctor 0x008bb360）：标签行占 menuWidget 槽、
-    // ToolBar 占 toolBar 区（QToolBar 只占中部宽，不横跨侧栏）、central=MuxPaneGroup
-    // 的堆栈（对应 setupBars 0x008bade2：setMenuWidget 0x008bb044 → TabGroup_buildCentral
-    // 0x005ab6e8 return +0x60 → addToolBar 0x008bb07d）
-    auto *kitGroup = new KitGroup;
-    if (m_muxPaneGroup->tabBarRow()) {
-        kitGroup->setMenuWidget(m_muxPaneGroup->tabBarRow());
-        // 原版 ViewTab Popup：标签条 customContextMenuRequested（0x8ba130）；标签条无 objectName，存指针特判
-        m_viewTabBar = m_muxPaneGroup->findChild<QTabBar *>();
-        if (m_viewTabBar)
-            m_viewTabBar->installEventFilter(this);
-    }
-    if (m_toolBar) {
-        m_toolBar->setParent(kitGroup); // 脱离 MainWindow，改挂 KitGroup；objectName ToolBar 保持主题规则
-        kitGroup->addToolBar(m_toolBar);
-    }
-    kitGroup->setCentralWidget(muxRow);
+    auto *kitGroup = static_cast<KitGroup *>(createKitGroup());
 
     // 证据 0x008cd068：0x60 纵向 splitter 包住 0x48（KitGroup 容器）再入 0x58 主行；
     // 上方预留纵向空间供 showPane 动态插入，单子件不 setSizes
@@ -1014,7 +1098,7 @@ void MainWindow::onRestoreLayout()
                 const QString protocol = entry.value(QStringLiteral("session.protocol")).toString();
                 const QString target = entry.value(QStringLiteral("session.target")).toString();
                 const QString label = entry.value(QStringLiteral("session.label")).toString();
-                // shortcut: 恢复标签色未持久化(0x8bbab6 QColor 字段未写),统一暗色,写盘时补
+                // 1b 标签色恢复（0x8bbab6 QColor 字段）
                 if (protocol == QStringLiteral("Shell")) {
                     auto *session = new LocalSession(24, 80, this);
                     session->setUuid(uuid);
@@ -1023,12 +1107,12 @@ void MainWindow::onRestoreLayout()
                                    entry.value(QStringLiteral("process.workingDirectory"))
                                        .toString()
                                        .replace(QStringLiteral("${HomeDir}"), QDir::homePath()));
-                    m_muxPaneGroup->openSession(session, label, QColor(Qt::darkCyan));
+                    m_muxPaneGroup->openSession(session, label, t.color);
                 } else if (protocol.compare(QStringLiteral("Telnet"), Qt::CaseInsensitive) == 0) {
                     auto *session = new TelnetSession(target,
                         entry.value(QStringLiteral("session.port")).toInt(), 24, 80, this);
                     session->setUuid(uuid);
-                    m_muxPaneGroup->openSession(session, label, QColor(Qt::darkYellow));
+                    m_muxPaneGroup->openSession(session, label, t.color);
                 } else if (protocol.compare(QStringLiteral("Serial"), Qt::CaseInsensitive) == 0) {
                     auto *session = new SerialSession(target,
                         entry.value(QStringLiteral("serial.baudRate")).toInt(),
@@ -1037,7 +1121,7 @@ void MainWindow::onRestoreLayout()
                         entry.value(QStringLiteral("serial.stopBits")).toInt(),
                         entry.value(QStringLiteral("serial.flowControl")).toString(), this);
                     session->setUuid(uuid);
-                    m_muxPaneGroup->openSession(session, label, QColor(Qt::darkMagenta));
+                    m_muxPaneGroup->openSession(session, label, t.color);
                 } else {
                     // C7：SSH 恢复走认证队列——无密码=Password op 跳过→PublicKey cfg 开→
                     // 两步 try/real→KbdInt；全失败 failed→关标签。真数据 user.sessions
@@ -1047,7 +1131,7 @@ void MainWindow::onRestoreLayout()
                     auto *session = new SshSession(24, 80, this);
                     session->setUuid(uuid);
                     hookSshSession(session);
-                    m_muxPaneGroup->openSession(session, label, QColor(Qt::red));
+                    m_muxPaneGroup->openSession(session, label, t.color);
                     connect(session, &Session::finished, this, [uuid]() {
                         // shortcut: 原版失败弹密码窗,弹窗体系未接
                         qWarning() << "reopen.history: ssh session" << uuid
@@ -1070,6 +1154,12 @@ void MainWindow::onRestoreLayout()
                                    entry.value(QStringLiteral("session.port")).toInt(), QString());
                 }
             }
+        }
+        // 1c 恢复 currentIndex（0x7669b2/0x8bbab6 双层索引；MuxPaneGroup 无公开 setCurrentIndex，
+        // 走标签条最小可行）
+        if (m_muxPaneGroup) {
+            if (auto *tabBar = m_muxPaneGroup->findChild<QTabBar *>())
+                tabBar->setCurrentIndex(st.currentIndex);
         }
     }
 }
@@ -1099,6 +1189,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
             const QString uuid = view->sessionUuid();
             if (!uuid.isEmpty())
                 entry.url = QStringLiteral("$") + uuid;
+            // shortcut: view 色属性未接(MuxPaneGroup 建标签处 QColor 参数),先灰色
+            entry.color = QColor(Qt::gray);
             st.tabs.append(entry);
         }
         if (auto *stack = m_muxPaneGroup->findChild<QStackedWidget *>())

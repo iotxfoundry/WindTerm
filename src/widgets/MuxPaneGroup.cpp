@@ -5,19 +5,47 @@
 #include <QMessageBox>
 #include <QPainter>
 #include <QPixmap>
+#include <QSplitter>
 #include <QStackedWidget>
 #include <QTabBar>
+#include <QTimer>
 
 #include <QAction>
 #include <QToolButton>
 #include <QVBoxLayout>
 
+#include <QDir>
+
 #include "ActionIcons.h"
+#include "KitGroup.h"
+#include "PaneManager.h"
 #include "TerminalView.h"
 
 #include "core/LocalSession.h"
+#ifdef WINDTERM_HAVE_SERIALPORT
+#include "core/SerialSession.h"
+#endif
 #include "core/Session.h"
+#include "core/SessionStore.h"
+#include "core/TelnetSession.h"
 #include "core/ThemeManager.h"
+
+std::function<QWidget *()> MuxPaneGroup::s_createGroup;
+
+namespace {
+
+// 本组焦点 view（0x8d4166 targetWidget=无参取焦点 view；0x8ca6ca 缓存链骨架等价：
+// focusWidget 沿父链属本组即取，否则退栈当前）
+TerminalView *focusViewOf(const MuxPaneGroup *group)
+{
+    if (TerminalView *view = TerminalView::activeView(); view && group->isAncestorOf(view))
+        return view;
+    if (auto *stack = group->findChild<QStackedWidget *>())
+        return qobject_cast<TerminalView *>(stack->currentWidget());
+    return nullptr;
+}
+
+} // namespace
 
 // 原版无 icon 缺失回退（0x5acaba：icon 缺失=空按钮），iconOrText 回退按逆明删除
 namespace {
@@ -191,4 +219,204 @@ void MuxPaneGroup::onAddSession()
     addPane(session, tr("Local"), Qt::gray);
 
     session->start();
+}
+
+// 新组 view 重建（0x0089e9e0"用旧 view url/状态"语义）：uuid→SessionStore 查→按 protocol 分派
+void MuxPaneGroup::openRebuiltSession(TerminalView *old)
+{
+    const QString uuid = old->session() ? old->session()->uuid() : QString();
+    const QVariantMap entry = uuid.isEmpty() ? QVariantMap() : SessionStore::sessionByUuid(uuid);
+    const QString protocol = entry.value(QStringLiteral("session.protocol")).toString();
+    const QString target = entry.value(QStringLiteral("session.target")).toString();
+    // shortcut: view 色属性未接(MuxPaneGroup 建标签处 QColor 参数),新标签灰色
+    const QColor color = QColor(Qt::gray);
+    const QString title = m_tabBar->tabText(m_stack->indexOf(old));
+
+    if (protocol == QLatin1String("Shell")) {
+        auto *local = new LocalSession(24, 80, this);
+        local->start(target,
+                     entry.value(QStringLiteral("process.arguments")).toString(),
+                     entry.value(QStringLiteral("process.workingDirectory"))
+                         .toString()
+                         .replace(QStringLiteral("${HomeDir}"), QDir::homePath()));
+        openSession(local, title, color);
+    } else if (protocol.compare(QLatin1String("Telnet"), Qt::CaseInsensitive) == 0) {
+        openSession(new TelnetSession(target, entry.value(QStringLiteral("session.port")).toInt(),
+                                      24, 80, this),
+                    title, color);
+    } else if (protocol.compare(QLatin1String("Serial"), Qt::CaseInsensitive) == 0) {
+#ifdef WINDTERM_HAVE_SERIALPORT
+        openSession(new SerialSession(target,
+                                      entry.value(QStringLiteral("serial.baudRate")).toInt(),
+                                      entry.value(QStringLiteral("serial.dataBits")).toInt(),
+                                      entry.value(QStringLiteral("serial.parity")).toString(),
+                                      entry.value(QStringLiteral("serial.stopBits")).toInt(),
+                                      entry.value(QStringLiteral("serial.flowControl")).toString(),
+                                      this),
+                    title, color);
+#endif
+    } else if (!entry.isEmpty()) {
+        // shortcut: SSH 会话分屏重建挂账(认证链),新组空开
+    } else {
+        // shortcut: 无 uuid 本地会话参数未持久化(0x0089e9e0 旧 view 状态未接),开新空 bash
+        auto *local = new LocalSession(24, 80, this);
+        local->start();
+        openSession(local, title, color);
+    }
+}
+
+// A(0x8d4166) splitView：父 splitter（MuxRow）里再插新 KitGroup+新 MuxPaneGroup（落点 1）
+void MuxPaneGroup::splitView(int dir)
+{
+    auto *row = qobject_cast<QSplitter *>(parentWidget());
+    if (!row || !s_createGroup)
+        return;
+
+    // wanted 原式 2-(dir<2)：Left/Right→Horizontal(1)，Top/Bottom→Vertical(2)
+    const Qt::Orientation wanted = static_cast<Qt::Orientation>(2 - (dir < 2));
+    if (row->orientation() != wanted) {
+        const int idx = row->indexOf(this);
+        auto *ns = new QSplitter(wanted);
+        ns->setChildrenCollapsible(false);
+        row->replaceWidget(idx, ns);
+        ns->addWidget(this);
+        ns->show(); // 无父新建被收养后不自动显示（同 PaneManager::insert）
+        row->show(); // 包裹替换后父 splitter 刷新（offscreen 无 expose 路径靠它落布局）
+        row = ns;
+    }
+
+    TerminalView *old = focusViewOf(this);
+    const int idx = row->indexOf(this);
+    QWidget *newGroup = s_createGroup();
+    newGroup->show(); // 新组先显示再插入（隐藏件插入 QSplitter 不分份）
+    // Left/Top→插锚点前，Right/Bottom→插锚点后（0x8d4166）
+    const bool before = (dir == 0 || dir == 2);
+    row->insertWidget(before ? idx : idx + 1, newGroup);
+    // 对半（各减 handleWidth 后 /2，0x8d4166）： sizes() 首拍未落（422,0）——先
+    // show + processEvents 一拍再 setSizes（offscreen 无 expose 链，尺寸事件靠显式泵）
+    QCoreApplication::processEvents();
+    QList<int> sizes = row->sizes();
+    if (sizes.size() == 2) {
+        const int total = sizes.at(0) + sizes.at(1);
+        if (total > row->handleWidth()) {
+            const int half = qMax(1, (total - row->handleWidth()) / 2);
+            sizes[0] = half;
+            sizes[1] = half;
+            row->setSizes(sizes);
+        }
+    }
+    // 新组里重建焦点 view（0x0089e9e0）→激活焦点归新 view（0x8ba0f6 第三参=1）
+    if (auto *newMux = newGroup->findChild<MuxPaneGroup *>()) {
+        if (old)
+            newMux->openRebuiltSession(old);
+        if (TerminalView *fresh = newMux->findChild<TerminalView *>())
+            fresh->setFocus(Qt::OtherFocusReason);
+    }
+}
+
+// B(0x8d42e8) splitGroup：insertPaneSplitter 引擎（0x8d3e3c/0x5a277a 同款）组内再插一窗格，
+// 旧组焦点 view 迁移到新组并激活（blockSignals 包裹）
+void MuxPaneGroup::splitGroup(int dir)
+{
+    // 0x8d42e8 组内 view 数检查（<2 语义）：无可迁移即不拆
+    if (m_stack->count() < 2)
+        return;
+
+    auto *newMux = new MuxPaneGroup;
+    PaneManager::insert(nullptr, this, newMux, static_cast<Dir>(dir));
+
+    auto *nstack = newMux->findChild<QStackedWidget *>();
+    auto *ntab = newMux->findChild<QTabBar *>();
+    if (TerminalView *view = focusViewOf(this); view && nstack && ntab) {
+        const int idx = m_stack->indexOf(view);
+        if (Session *session = view->session())
+            session->setParent(newMux); // 会话随迁（原挂旧组，旧组销毁不牵连）
+        {
+            const QSignalBlocker b1(m_tabBar), b2(ntab), b3(m_stack), b4(nstack);
+            const QString title = m_tabBar->tabText(idx);
+            // shortcut: 标签色未存 view 属性,迁移按灰色（同写盘挂账）
+            const int newIndex = ntab->addTab(dotIcon(QColor(Qt::gray)), title);
+            nstack->addWidget(view); // addWidget 重挂父=迁移
+            m_tabBar->removeTab(idx);
+            m_stack->removeWidget(view);
+            ntab->setCurrentIndex(newIndex);
+            nstack->setCurrentWidget(view);
+        }
+        view->setFocus(Qt::OtherFocusReason); // 0x8d42e8 迁移后激活
+    }
+}
+
+// canCloseGroup 0x8cc916：全窗 KitGroup 数>1
+bool MuxPaneGroup::canCloseGroup() const
+{
+    return window()->findChildren<KitGroup *>().count() > 1;
+}
+
+// closeGroup 0x8cc99c：QTimer::singleShot(0)→清理（0x8cee89 sweep + PaneManager 树清理）→焦点回归
+void MuxPaneGroup::closeGroup()
+{
+    if (!canCloseGroup())
+        return;
+    // 本组 KitGroup（0x8c52fa 沿父链找）
+    QWidget *grp = parentWidget();
+    while (grp && !qobject_cast<KitGroup *>(grp))
+        grp = grp->parentWidget();
+    auto *kit = qobject_cast<KitGroup *>(grp);
+    if (!kit)
+        return;
+    // 嵌套重建注记：外层 kit 含子组时只摘本 pane（原版兄弟结构无此分支）
+    QWidget *unit
+        = kit->findChildren<KitGroup *>().isEmpty() ? static_cast<QWidget *>(kit) : this;
+    QWidget *top = window();
+    QTimer::singleShot(0, this, [top, unit]() {
+        for (TerminalView *view : unit->findChildren<TerminalView *>())
+            if (Session *s = view->session())
+                s->close(); // 组关随 view 级 close 链（防 pty 残留）
+        // D(0x5a29e6)：结构化清理（尺寸移交/单子提升/向上递归/脱离件删除）
+        PaneManager::cleanupEmptyTree(unit, unit);
+        // 0x8cee89：残余空 splitter 扫除
+        const auto splitters = top->findChildren<QSplitter *>();
+        for (QSplitter *sp : splitters)
+            if (sp->count() == 0)
+                sp->deleteLater();
+        // 焦点回归：剩余首 view
+        const auto views = top->findChildren<TerminalView *>();
+        if (!views.isEmpty())
+            views.first()->setFocus(Qt::OtherFocusReason);
+    });
+}
+
+// F(0x8ce784) 链：全 splitter 树深度优先收集 view → indexOf(当前)→±1 取模循环
+// →setCurrentIndex+setFocus(OtherFocusReason)
+static void collectViews(QWidget *w, QList<TerminalView *> &out)
+{
+    if (auto *sp = qobject_cast<QSplitter *>(w)) {
+        for (int i = 0; i < sp->count(); ++i)
+            collectViews(sp->widget(i), out);
+    } else if (auto *kit = qobject_cast<KitGroup *>(w)) {
+        collectViews(kit->centralWidget(), out); // 嵌套 QMainWindow：走 central 树
+    } else if (auto *mux = qobject_cast<MuxPaneGroup *>(w)) {
+        collectViews(mux->findChild<QStackedWidget *>(), out); // 组：走其 view 堆栈
+    } else if (auto *st = qobject_cast<QStackedWidget *>(w)) {
+        for (int i = 0; i < st->count(); ++i)
+            collectViews(st->widget(i), out);
+    } else if (auto *view = qobject_cast<TerminalView *>(w)) {
+        out.append(view); // 叶（0x8ce784 收集面：QSplitter 树下的 view）
+    }
+}
+
+void MuxPaneGroup::activateNextView(bool next)
+{
+    QList<TerminalView *> views;
+    collectViews(window(), views);
+    if (views.isEmpty())
+        return;
+
+    const int current = qMax(0, views.indexOf(focusViewOf(this)));
+    TerminalView *target = views.at((current + (next ? 1 : -1) + views.size()) % views.size());
+    if (auto *stack = qobject_cast<QStackedWidget *>(target->parentWidget())) {
+        if (auto *tabBar = stack->parentWidget()->findChild<QTabBar *>())
+            tabBar->setCurrentIndex(stack->indexOf(target)); // 0x8ce784 setCurrentIndex
+    }
+    target->setFocus(Qt::OtherFocusReason);
 }

@@ -1,6 +1,7 @@
 #include "SerialSession.h"
 
 #include <QDebug>
+#include <QTimer>
 
 SerialSession::SerialSession(const QString &portPath, int baudRate, int dataBits,
                              const QString &parity, int stopBits, const QString &flowControl,
@@ -19,9 +20,15 @@ SerialSession::SerialSession(const QString &portPath, int baudRate, int dataBits
                           : flowControl == QLatin1String("CTS/RTS") ? QSerialPort::HardwareControl
                                                                     : QSerialPort::NoFlowControl);
 
-    // 打开失败（设备不存在/权限）即 finished + qWarning——offscreen 下预期路径
+    // 打开失败（设备不存在/权限）即 finished + qWarning——offscreen 下预期路径；
+    // openFailed 延一拍：构造期同步 emit 早于 MainWindow 侧接线（1d 状态栏提示落点）
     if (!m_port->open(QIODevice::ReadWrite)) {
         qWarning() << "SerialSession:" << m_port->portName() << m_port->errorString();
+        const QString device = m_port->portName();
+        const QString error = m_port->errorString();
+        QTimer::singleShot(0, this, [this, device, error]() {
+            emit openFailed(QStringLiteral("%1: %2").arg(device, error));
+        });
         emit finished();
         return;
     }

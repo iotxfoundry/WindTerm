@@ -22,6 +22,11 @@ public:
     void resize(int rows, int columns) override;
     void close() override;
 
+signals:
+    // 打开失败（0x5a2e58 showMessageEx 消费：<设备名>: <错误>，4000ms）；
+    // finished 保留原语义（close()/错误也发），openFailed 仅打开失败一发
+    void openFailed(const QString &message);
+
 private:
     QSerialPort *m_port;
 };
