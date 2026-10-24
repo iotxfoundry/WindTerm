@@ -9,6 +9,7 @@
 #include <QRect>
 #include <QString>
 #include <QTimer>
+#include <QVector>
 
 class Session;
 class QContextMenuEvent;
@@ -18,6 +19,17 @@ class QPaintEvent;
 class QResizeEvent;
 class ScreenModel;
 class VtParser;
+
+// P4 find 选项（SearchPane 选项表 0x74d90c 子集；searchIncremental/searchContext 只影响
+// 触发时机/挂账，不进匹配引擎）
+struct FindOptions
+{
+    bool regex = false;         // matchRegex
+    bool caseSensitive = false; // matchCase
+    bool wholeWord = false;     // matchWholeWord
+    bool wrap = true;           // searchWrap（回绕循环）
+    bool fromSelection = false; // searchSelection（以选区为 pattern）
+};
 
 // 原版 TextView 自研自绘引擎的重建（docs/terminal-render-audit.md 修复路线 1+2）：
 // QAbstractScrollArea + paintEvent 逐 cell 网格绘制（0xa64cea editor_paint_line_colors 模型），
@@ -48,6 +60,38 @@ public:
 
     // quickbar "Send Text" 命令（0x56d890）：文本直接写入会话
     void sendText(const QString &text);
+
+    // ═══ P4 终端搜索/高亮（深逆 0x74efe6 族；B 节 find API——函数体未 dump，
+    // 按动作脚本面+SearchPane 执行链语义实现+挂账注明）═══
+
+    // 0x75cb7c 槽族语义：useSelection=true→以当前选区文本为 pattern（wind.actions
+    // "window.activeText.findNext(true)"）；在滚回+活动屏全文本中匹配，命中→设选区+
+    // 滚动定位+状态栏消息，未命中→"未找到"（wrap on 回绕循环）
+    void findNext(bool useSelection = false);
+    void findPrevious(bool useSelection = false);
+    // SearchPane pattern/options 传入（原版 pane 直读视图属性；骨架 setter 单向传递）
+    void setFindPattern(const QString &pattern) { m_findPattern = pattern; }
+    void setFindOptions(const FindOptions &options) { m_findOptions = options; }
+
+    // 0x75c7/0x75cb 槽语义（方法体未 dump 挂账）：start/end 为全局文本位置——实现取
+    // (line,colStart)/(line,colEnd) 对编码：line*10000+col（cols<10000 恒成立，列超界夹取）。
+    // 颜色名映射 QColor（Red/Orange/Yellow/Green/Royalblue/Cyan/Purple）
+    void setHighlightRange(int start, int end, const QString &colorName);
+    void clearHighlightRange(int pos);
+
+    // 当前选区文本（HighlightTextBar toggled 取选区用）
+    QString selectionText() const { return selectedText(); }
+    bool hasSel() const { return hasSelection(); }
+    // HighlightTextBar：当前选区整体以命名色高亮（选区起止单行/跨行逐行拆分在实现内）
+    void highlightSelection(const QString &colorName);
+    // 高亮span直查（测试断言用）
+    int highlightCount() const { return m_highlights.size(); }
+    // 选区规范化锚点（测试断言用：s0=(min line,min col)）
+    QPoint selectionAnchor() const;
+    void clearSelectionForTest() { m_selAnchor = m_selEnd = QPoint(-1, -1); viewport()->update(); }
+    // 命中时状态栏消息由 TerminalView 经宿主链走 MainWindow::statusBar；骨架提供回调注入
+    // （原版直调 kit 状态栏 0x74f5ac；避免 widgets 层反向依赖 MainWindow）
+    static void (*statusMessageHandler)(TerminalView *, const QString &, int timeoutMs);
 
     // 当前活动 view（0x8d9764 焦点终端链骨架等价：focusWidget 上溯；无→nullptr）
     static TerminalView *activeView();
@@ -103,6 +147,11 @@ private:
     bool hasSelection() const { return m_selAnchor.x() >= 0; }
     void copySelection();
     void pasteClipboard();
+    // 全文本线性位置 ↔ (line,col)（滚回+活动屏；pos=line*10000+col）
+    QPair<int, int> posToCell(int pos) const;
+    // 在 [fromLine+fromCol, …] 起找下一个匹配（含 wrap）；命中返回 (line,colStart)，colEnd 填 len
+    bool matchAt(int line, int col, int *colEnd) const;
+    bool findImpl(bool backward, bool useSelection);
 
     QFont m_font;
     qreal m_cellW = 0.0;
@@ -132,4 +181,10 @@ private:
     int m_keyMode = 8; // King.RemoteMode（0xccbc40：RemoteMode=8；默认远程）
     int m_windowRows = 24;
     int m_windowColumns = 80;
+
+    // P4 find/高亮状态
+    QString m_findPattern;
+    FindOptions m_findOptions;
+    struct HighlightSpan { int line; int colStart; int colEnd; QColor color; };
+    QVector<HighlightSpan> m_highlights;
 };

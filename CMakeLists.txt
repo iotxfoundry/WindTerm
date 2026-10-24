@@ -139,3 +139,7 @@ windterm_add_test(test_shell_args)
 # P3 命令面板：offscreen + MainWindow（无会话，宿主回退组容器）
 windterm_add_test(test_command_palette)
 windterm_test_offscreen(test_command_palette)
+
+# P4 终端搜索/高亮：offscreen + 本地 bash 已知文本（find/高亮/HighlightTextBar 链）
+windterm_add_test(test_search_highlight)
+windterm_test_offscreen(test_search_highlight)

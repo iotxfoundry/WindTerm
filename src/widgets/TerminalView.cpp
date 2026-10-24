@@ -7,7 +7,9 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QRegularExpression>
 #include <QScrollBar>
+#include <algorithm>
 
 #include "core/Session.h"
 #include "core/SchemeManager.h"
@@ -311,6 +313,17 @@ void TerminalView::paintEvent(QPaintEvent *)
                 p.fillRect(cellRect, selColor);
             } else {
                 p.fillRect(cellRect, bg);
+            }
+
+            // 高亮层叠加（选区层之后；40% 半透明与 text.selection 同管线注释——0x75c7 槽族，
+            // paint 层叠顺序挂账）
+            for (const HighlightSpan &h : m_highlights) {
+                if (h.line == line && col >= h.colStart && col <= h.colEnd) {
+                    QColor hc = h.color;
+                    hc.setAlpha(102); // 40%
+                    p.fillRect(cellRect, hc);
+                    break;
+                }
             }
 
             if (cell.bold) {
@@ -677,5 +690,205 @@ void TerminalView::contextMenuEvent(QContextMenuEvent *event)
 void TerminalView::appendSystemMessage(const QString &text)
 {
     m_systemMessage = text;
+    viewport()->update();
+}
+
+// ═══ P4 终端搜索/高亮 ═══
+
+// 全局文本位置 = line*10000+col（实现最简：cols<10000 恒成立；0x75c7 槽面 start/end 语义，
+// 方法体未 dump 挂账——原版真编码未逆明）
+QPair<int, int> TerminalView::posToCell(int pos) const
+{
+    return { pos / 10000, pos % 10000 };
+}
+
+void (*TerminalView::statusMessageHandler)(TerminalView *, const QString &, int) = nullptr;
+
+namespace {
+// 颜色名→QColor（原版 HighlightTextBar 8 色表中的命名色；Qt 命名色直映）
+QColor highlightColorByName(const QString &name)
+{
+    static const QHash<QString, QColor> table = {
+        { QStringLiteral("Red"), QColor(Qt::red) },
+        { QStringLiteral("Orange"), QColor(QStringLiteral("#ffa500")) },
+        { QStringLiteral("Yellow"), QColor(Qt::yellow) },
+        { QStringLiteral("Green"), QColor(Qt::green) },
+        { QStringLiteral("Royalblue"), QColor(QStringLiteral("royalblue")) },
+        { QStringLiteral("Cyan"), QColor(Qt::cyan) },
+        { QStringLiteral("Purple"), QColor(QStringLiteral("purple")) },
+    };
+    return table.value(name);
+}
+} // namespace
+
+void TerminalView::setHighlightRange(int start, int end, const QString &colorName)
+{
+    const QColor color = highlightColorByName(colorName);
+    if (!color.isValid() || !m_screen)
+        return;
+    QPair<int, int> s = posToCell(qMin(start, end));
+    QPair<int, int> e = posToCell(qMax(start, end));
+    if (e.first != s.first)
+        return; // 跨行高亮原版由调用方逐行拆分；骨架单行语义（挂账 0x75c7）
+    const int colStart = qBound(0, s.second, m_screen->cols() - 1);
+    const int colEnd = qBound(0, e.second, m_screen->cols() - 1);
+    if (colEnd < colStart)
+        return;
+    m_highlights.append({ s.first, colStart, colEnd, color });
+    viewport()->update();
+}
+
+void TerminalView::clearHighlightRange(int pos)
+{
+    QPair<int, int> cell = posToCell(pos);
+    m_highlights.erase(std::remove_if(m_highlights.begin(), m_highlights.end(),
+                                      [&cell](const HighlightSpan &h) {
+        return h.line == cell.first && cell.second >= h.colStart && cell.second <= h.colEnd;
+    }), m_highlights.end());
+    viewport()->update();
+}
+
+// 单行内从 col 起匹配 pattern；命中回填结束列。regex/case/wholeWord 选项生效。
+bool TerminalView::matchAt(int line, int col, int *colEnd) const
+{
+    if (!m_screen || m_findPattern.isEmpty() || col >= m_screen->cols())
+        return false;
+    // 逐 cell 取行文本（与 selectedText 同管线；空白尾随裁掉）
+    QString text;
+    for (int c = 0; c < m_screen->cols(); ++c)
+        text += charAtLine(line, c);
+    while (text.endsWith(QLatin1Char(' ')))
+        text.chop(1);
+    if (m_findOptions.regex) {
+        QRegularExpression::PatternOptions opts = QRegularExpression::NoPatternOption;
+        if (!m_findOptions.caseSensitive)
+            opts |= QRegularExpression::CaseInsensitiveOption;
+        QRegularExpression re(m_findPattern, opts);
+        if (!re.isValid())
+            return false;
+        QRegularExpressionMatch m = re.match(text, col);
+        if (!m.hasMatch() || m.capturedStart() != col)
+            return false; // 锚定 col：逐位置推进由 findImpl 驱动
+        *colEnd = m.capturedEnd();
+        return true;
+    }
+    Qt::CaseSensitivity cs = m_findOptions.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive;
+    int at = text.indexOf(m_findPattern, col, cs);
+    if (at != col)
+        return false; // 同上：只认 col 处命中
+    if (m_findOptions.wholeWord) {
+        const auto isWord = [this, line](int c) {
+            const QChar ch = charAtLine(line, c);
+            return ch.isLetterOrNumber() || ch == QLatin1Char('_');
+        };
+        if ((at > 0 && isWord(at - 1)) || (at + m_findPattern.size() < text.size() && isWord(at + m_findPattern.size())))
+            return false;
+    }
+    *colEnd = at + m_findPattern.size();
+    return true;
+}
+
+// find 核心（B 节语义）：从当前光标/选区端起向下/上扫滚回+活动屏全文本；wrap 回绕；
+// 命中→选区+滚动+状态栏；未命中→"未找到"
+bool TerminalView::findImpl(bool backward, bool useSelection)
+{
+    if (!m_screen || m_findPattern.isEmpty()) {
+        if (statusMessageHandler)
+            statusMessageHandler(this, tr("未找到"), 4000);
+        return false;
+    }
+    if (useSelection) {
+        const QString sel = selectedText();
+        if (!sel.isEmpty())
+            m_findPattern = sel; // wind.actions 语义：选区即 pattern
+    }
+    const int backLines = m_screen->alternateScreen() ? 0 : m_screen->scrollback().size();
+    const int totalLines = backLines + m_screen->rows();
+    // 起点：有选区从选区尾(next)/头(previous)，否则从光标；再进一步=先经再比（含端点后一格）
+    int startLine, startCol;
+    if (hasSelection()) {
+        QPoint s0 = m_selAnchor, s1 = m_selEnd;
+        if (s0.y() > s1.y() || (s0.y() == s1.y() && s0.x() > s1.x()))
+            qSwap(s0, s1);
+        startLine = backward ? s0.y() : s1.y();
+        startCol = backward ? s0.x() : s1.x();
+    } else {
+        startLine = backLines + m_screen->cursorY();
+        startCol = m_screen->cursorX();
+    }
+    const auto advance = [this, totalLines](int &line, int &col, bool back) {
+        if (back) {
+            if (col > 0) { --col; return true; }
+            if (line > 0) { --line; col = INT_MAX; return true; }
+            return false;
+        }
+        if (++col >= m_screen->cols()) { ++line; col = 0; return line < totalLines; }
+        return true;
+    };
+    // 先走一步再比对（起点自身不重复命中；wrap 由 searchWrap 控制）
+    int line = startLine, col = startCol;
+    bool wrapped = false;
+    while (true) {
+        if (!advance(line, col, backward)) {
+            if (!m_findOptions.wrap || wrapped)
+                break;
+            wrapped = true;
+            if (backward) { line = totalLines - 1; col = INT_MAX; }
+            else { line = 0; col = 0; }
+            continue;
+        }
+        col = qMin(col, m_screen->cols() - 1);
+        int matchEnd = 0;
+        if (matchAt(line, qMax(col, 0), &matchEnd)) {
+            // 命中：设选区到匹配处+滚动定位（scrollbar 值=匹配行-视口半高，B 节）+状态栏
+            m_selAnchor = QPoint(qMax(col, 0), line);
+            m_selEnd = QPoint(matchEnd - 1, line);
+            viewport()->update();
+            const int page = qMax(1, int(viewport()->height() / qMax<qreal>(1.0, m_cellH)));
+            verticalScrollBar()->setValue(qBound(0, line - page / 2, verticalScrollBar()->maximum()));
+            if (statusMessageHandler)
+                statusMessageHandler(this, QStringLiteral("找到 1 处"), 4000); // N 计数简化挂账
+            return true;
+        }
+    }
+    if (statusMessageHandler)
+        statusMessageHandler(this, tr("未找到"), 4000);
+    return false;
+}
+
+void TerminalView::findNext(bool useSelection) { findImpl(false, useSelection); }
+
+void TerminalView::findPrevious(bool useSelection) { findImpl(true, useSelection); }
+
+// 选区规范化锚点（测试断言用；s0=排序后起点）
+QPoint TerminalView::selectionAnchor() const
+{
+    if (!hasSelection())
+        return QPoint(-1, -1);
+    QPoint s0 = m_selAnchor, s1 = m_selEnd;
+    if (s0.y() > s1.y() || (s0.y() == s1.y() && s0.x() > s1.x()))
+        qSwap(s0, s1);
+    return s0;
+}
+
+// HighlightTextBar 落点：选区→逐行 highlight span（0x55c246 toggled 语义；
+// shortcut: 原版 selToRange 全局位置换算未逆明，按选区 (line,col) 对直接拆行——最简且清晰）
+void TerminalView::highlightSelection(const QString &colorName)
+{
+    if (!hasSelection() || !m_screen)
+        return;
+    QPoint s0 = m_selAnchor, s1 = m_selEnd;
+    if (s0.y() > s1.y() || (s0.y() == s1.y() && s0.x() > s1.x()))
+        qSwap(s0, s1);
+    const QColor color = highlightColorByName(colorName);
+    if (!color.isValid())
+        return;
+    for (int line = s0.y(); line <= s1.y(); ++line) {
+        const int from = line == s0.y() ? s0.x() : 0;
+        const int to = line == s1.y() ? s1.x() : m_screen->cols() - 1;
+        if (to < from)
+            continue;
+        m_highlights.append({ line, from, to, color });
+    }
     viewport()->update();
 }

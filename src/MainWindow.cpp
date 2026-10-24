@@ -66,6 +66,7 @@
 #include "panes/TransferPane.h"
 #include "widgets/ActionIcons.h"
 #include "widgets/CommandPalette.h"
+#include "widgets/HighlightTextBar.h"
 #include "widgets/KitGroup.h"
 #include "widgets/MenuBarCorner.h"
 #include "widgets/MuxPaneGroup.h"
@@ -77,6 +78,17 @@
 #include "widgets/TransferBar.h"
 
 namespace {
+
+// P4 find 状态栏消息 thunk（0x74f5ac 执行链：状态栏 4s 消息——showMessageEx 已有；
+// 静态函数指针收 MainWindow 实例——单窗骨架，最后建的 MainWindow 持有 m_statusBar）
+static MainWindow *g_statusBarHost = nullptr;
+static void statusMessageThunk(TerminalView *, const QString &text, int timeoutMs)
+{
+    if (g_statusBarHost) {
+        if (StatusBar *sb = g_statusBarHost->findChild<StatusBar *>())
+            sb->showMessageEx(text, timeoutMs);
+    }
+}
 
 // v5：中部单元改为嵌套 QMainWindow（KitGroup，ctor 0x008bb360）——标签行=menuWidget、
 // KitBar=addToolBar、MuxPaneGroup=central（setupBars 0x008bade2）；v4 的 CenterGroup
@@ -157,6 +169,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 分屏工厂注入（MuxPaneGroup::splitView 经此回调新建 KitGroup，widgets 层不依赖宿主）
     MuxPaneGroup::s_createGroup = [this]() { return createKitGroup(); };
+
+    // P4 find 状态栏消息挂接（单窗骨架：thunk 取最后建的 MainWindow）
+    g_statusBarHost = this;
+    TerminalView::statusMessageHandler = &statusMessageThunk;
 
     createStatusBar();
     initActionRegistry();
@@ -555,6 +571,59 @@ QAction *MainWindow::makeAction(const QString &actionId)
     // allGroupNames 动态列表未逆完（0x8cc994 text JS 动态生成,0x76cb16 动态项体系未接）
     if (actionId == QStringLiteral("Window.MoveGroupToGroup"))
         action->setEnabled(false);
+
+    // ═══ P4 终端搜索/高亮接线（D 节）═══
+    // Text.Find→显示 SearchPane 底部条（TogglePaneSearch 同路径；showPane 语义：显示+聚焦
+    // find 编辑框——wind.actions script "window.activeKit.showPane('FindPane')"）
+    if (actionId == QStringLiteral("Text.Find")) {
+        connect(action, &QAction::triggered, this, [this]() {
+            if (!m_searchPane)
+                return;
+            if (m_searchPane->isHidden())
+                togglePane(m_searchPane);
+            m_searchPane->focusFindEdit();
+        });
+        return action;
+    }
+    // Text.FindNext/FindPrevious/FindNextSelection/FindPreviousSelection→activeMuxGroup
+    // 当前 view 的 findNext/Previous(useSelection)（wind.actions script 面）
+    if (actionId == QStringLiteral("Text.FindNext")
+        || actionId == QStringLiteral("Text.FindPrevious")
+        || actionId == QStringLiteral("Text.FindNextSelection")
+        || actionId == QStringLiteral("Text.FindPreviousSelection")) {
+        connect(action, &QAction::triggered, this, [this, actionId]() {
+            auto *stack = activeMuxGroup() ? activeMuxGroup()->findChild<QStackedWidget *>() : nullptr;
+            auto *view = stack ? qobject_cast<TerminalView *>(stack->currentWidget()) : nullptr;
+            if (!view)
+                return;
+            view->setFindPattern(m_searchPane ? m_searchPane->pattern() : QString());
+            if (m_searchPane)
+                view->setFindOptions({ m_searchPane->options().regex,
+                                       m_searchPane->options().caseSensitive,
+                                       m_searchPane->options().wholeWord,
+                                       m_searchPane->options().wrap,
+                                       false });
+            const bool useSelection = actionId.endsWith(QLatin1String("Selection"));
+            if (actionId.contains(QLatin1String("Previous")))
+                view->findPrevious(useSelection);
+            else
+                view->findNext(useSelection);
+        });
+        return action;
+    }
+    // Text.HighlightText→openHighlightTextDialog() 挂账（script 原文：
+    // "() => { window.activeText.openHighlightTextDialog() }"）
+    if (actionId == QStringLiteral("Text.HighlightText")) {
+        connect(action, &QAction::triggered, this, []() {
+            Q_UNIMPLEMENTED();
+        });
+        return action;
+    }
+    // Text.HighlightTextBar（menu.config:252 View Popup 位置——QWidgetAction 插入）
+    if (actionId == QStringLiteral("Text.HighlightTextBar")) {
+        action->setEnabled(false); // 菜单位占位；真 QWidgetAction 经 buildMenu 特判插入（见 buildMenu）
+        return action;
+    }
     // wind.actions Dock.TogglePane* 与 Window.TogglePane*：toggle 对应容器。
     // 映射按骨架合并形态：原版 Session 独立 pane 与 Explorer 合并为 tabsGroup（QTabWidget），shortcut 挂账
     connect(action, &QAction::triggered, this, [this, actionId]() {
@@ -714,6 +783,12 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
     for (const MenuEntry &entry : entries) {
         switch (entry.type) {
         case MenuEntry::Action:
+            // menu.config:252 Text.HighlightTextBar：QWidgetAction（0x55c246/0x665dc2 特判）
+            // ——经 addAction(QWidgetAction) 时菜单自建工具按钮项（8 色钮条）
+            if (entry.actionId == QLatin1String("Text.HighlightTextBar")) {
+                menu->addAction(HighlightTextBar::instance());
+                break;
+            }
             menu->addAction(makeAction(entry.actionId));
             break;
         case MenuEntry::Separator:
@@ -931,12 +1006,23 @@ void MainWindow::createCentral()
     centralVSplitter->addWidget(m_searchPane);
     m_searchPane->hide();
 
-    m_searchPane = new SearchPane;
-    centralVSplitter->addWidget(m_searchPane);
-    m_searchPane->hide();
+    // P4 执行链（0x74f5ac/0x74d488）：SearchPane findRequested→活动 view findNext/Previous
+    // （pattern/options 随调随传）；状态栏 4s 消息经 TerminalView::statusMessageHandler
+    connect(m_searchPane, &SearchPane::findRequested, this, [this](bool useSelection, bool backward) {
+        auto *stack = activeMuxGroup() ? activeMuxGroup()->findChild<QStackedWidget *>() : nullptr;
+        auto *view = stack ? qobject_cast<TerminalView *>(stack->currentWidget()) : nullptr;
+        if (!view)
+            return;
+        view->setFindPattern(m_searchPane->pattern());
+        const SearchPane::Options o = m_searchPane->options();
+        view->setFindOptions({ o.regex, o.caseSensitive, o.wholeWord, o.wrap, false });
+        if (backward)
+            view->findPrevious(useSelection);
+        else
+            view->findNext(useSelection);
+    });
 
     // QuickBar/TransferBar 懒建（证据 0x85ad2e lazyCreateQuickBar / 0x85af56：
-    // 原版首次显示才建，显隐分发 0x85d080），ensureQuickBar 插在本条之后
 
     // v5：中央 widget 即 root splitter（中部单元=KitGroup 嵌套窗口，标签行/工具栏不横跨侧栏）
     setCentralWidget(centralVSplitter);
