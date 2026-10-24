@@ -40,6 +40,7 @@
 #include "core/Session.h"
 #include "core/SessionStore.h"
 #include "core/SshSession.h"
+#include "core/TelnetSession.h"
 #include "core/ThemeManager.h"
 #include "core/ToolbarConfig.h"
 #include "core/WindConfig.h"
@@ -309,7 +310,20 @@ void MainWindow::connectSessionPane(SessionPane *pane)
         if (dialog.exec() != QDialog::Accepted || dialog.host().isEmpty())
             return;
 
-        auto *session = new SshSession(24, 80, m_muxPaneGroup);
+        // F5：protocol=="Telnet" 条目走 TelnetSession，其余维持 SshSession
+        Session *session = nullptr;
+        QString protocol;
+        for (const SessionEntry &e : SessionStore::load()) {
+            if (e.label == label) {
+                protocol = e.protocol;
+                break;
+            }
+        }
+        if (protocol == QLatin1String("Telnet"))
+            session = new TelnetSession(dialog.host(), dialog.port(), 24, 80, m_muxPaneGroup);
+        else
+            session = new SshSession(24, 80, m_muxPaneGroup);
+
         // 0x833db4：恢复/重连以 session.uuid 查 user.sessions；双击条目按 label 匹配带 uuid
         for (const SessionEntry &e : SessionStore::load()) {
             if (e.label == label) {
@@ -317,11 +331,11 @@ void MainWindow::connectSessionPane(SessionPane *pane)
                 break;
             }
         }
-        m_muxPaneGroup->openSession(session, label.isEmpty()
-                                                ? QStringLiteral("ssh %1").arg(dialog.host())
-                                                : label,
+        m_muxPaneGroup->openSession(session,
+                                    label.isEmpty()
+                                        ? QStringLiteral("telnet %1:%2").arg(dialog.host()).arg(dialog.port())
+                                        : label,
                                     Qt::red);
-        session->start(dialog.host(), dialog.user(), dialog.password(), dialog.port());
     });
 }
 

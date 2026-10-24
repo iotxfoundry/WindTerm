@@ -15,6 +15,8 @@ else()
   set(QT_VERSION_MAJOR 6)
 endif()
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+# F5 Telnet：QTcpSocket（TelnetSession）需 Network
+find_package(Qt${QT_VERSION_MAJOR} QUIET COMPONENTS Network)
 
 # 任务二：statusbar.config 的 JS init 由 QJSEngine 真跑（0x005a3156 statusbar_runInit）。
 # Qt5Qml（QJSEngine 跑 statusbar.config 的 JS；qtdeclarative5-dev 系统安装）
@@ -38,6 +40,9 @@ endif()
 add_executable(WindTermGuiSkeleton ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 target_include_directories(WindTermGuiSkeleton PRIVATE src)
 target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CMAKE_DL_LIBS})
+if (TARGET Qt${QT_VERSION_MAJOR}::Network)
+  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+endif()
 if (WINDTERM_HAVE_QJSENGINE)
   target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_QJSENGINE)
   target_link_libraries(WindTermGuiSkeleton PRIVATE Qt5::Qml)
