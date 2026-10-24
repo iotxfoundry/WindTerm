@@ -20,7 +20,8 @@ class ScreenModel
 public:
     ScreenModel(int rows, int cols,
                 const QColor &fg = QColor(QStringLiteral("#e3e3dd")),
-                const QColor &bg = QColor(QStringLiteral("#1c1c1c")));
+                const QColor &bg = QColor(QStringLiteral("#1c1c1c")),
+                int scrollbackLimit = 1000);
 
     int rows() const { return m_rows; }
     int cols() const { return m_cols; }
@@ -29,6 +30,7 @@ public:
     int cursorY() const { return m_cursorY; }
     // 滚动回看保存带格式快照——原版滚回保留原色（不重刷历史行颜色）
     const QList<QVector<Cell>> &scrollback() const { return m_scrollback; }
+    int scrollbackLimit() const { return m_scrollbackLimit; }
     bool cursorVisible() const { return m_cursorVisible; }
     bool alternateScreen() const { return m_alternate; }
     bool bracketedPaste() const { return m_bracketedPaste; }
@@ -104,5 +106,6 @@ private:
     int m_mainCursorY = 0;
 
     QList<QVector<Cell>> m_scrollback;
+    int m_scrollbackLimit = 1000;
     QChar m_lastChar;
 };

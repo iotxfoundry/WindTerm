@@ -144,7 +144,10 @@ void TerminalView::attachSession(Session *session)
     m_defaultFg = schemeColor(QStringLiteral("terminal.ansiWhite"), QColor(QStringLiteral("#e3e3dd")));
     m_defaultBg = schemeColor(QStringLiteral("line.background"), QColor(QStringLiteral("#272822")));
 
-    m_screen = new ScreenModel(24, 80, m_defaultFg, m_defaultBg);
+    // window.scrollbackLimit(原版键,0x7cc8aa;默认值未逆,1000 缺省)
+    m_screen = new ScreenModel(24, 80, m_defaultFg, m_defaultBg,
+                               WindConfig::instance().valueToString(
+                                   QStringLiteral("window.scrollbackLimit"), QStringLiteral("1000")).toInt());
     m_parser = new VtParser(m_screen);
     m_systemMessage.clear();
     m_selAnchor = m_selEnd = QPoint(-1, -1);

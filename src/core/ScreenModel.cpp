@@ -79,12 +79,15 @@ QColor baseAnsi(int index)
 
 } // namespace
 
-ScreenModel::ScreenModel(int rows, int cols, const QColor &fg, const QColor &bg)
+ScreenModel::ScreenModel(int rows, int cols, const QColor &fg, const QColor &bg,
+                         int scrollbackLimit)
     : m_rows(qMax(1, rows))
     , m_cols(qMax(1, cols))
     , m_bottom(m_rows - 1)
     , m_defaultFg(fg)
     , m_defaultBg(bg)
+    // 原版滚回上限键 window.scrollbackLimit(0..999999999,0x7cc8aa);默认值未逆,缺省 1000
+    , m_scrollbackLimit(qMax(0, scrollbackLimit))
     , m_fg(fg)
     , m_bg(bg)
     , m_savedFg(fg)
@@ -374,7 +377,9 @@ void ScreenModel::resetMode(int mode, bool dec)
 
 void ScreenModel::selectGraphicRendition(const QString &params)
 {
-    const QStringList parts = params.split(QLatin1Char(';'));
+    // colon 子参归一（"38:5:n"/"38:2:r:g:b" → 分号形态，0x7ef95c vt_sgrParse 先做子参归一对齐）
+    const QStringList parts = QString(params).replace(QLatin1Char(':'), QLatin1Char(';'))
+                                   .split(QLatin1Char(';'));
     for (int i = 0; i < parts.size(); ++i) {
         const int code = paramAt(parts, i, 0);
         if (code == 0) {
@@ -521,7 +526,7 @@ void ScreenModel::scrollUp(int n)
     for (int i = 0; i < n; ++i) {
         if (m_top == 0) {
             m_scrollback.append(rowCells(0));
-            if (m_scrollback.size() > 1000)
+            if (m_scrollback.size() > m_scrollbackLimit)
                 m_scrollback.removeFirst();
         }
         for (int row = m_top; row < m_bottom; ++row)
