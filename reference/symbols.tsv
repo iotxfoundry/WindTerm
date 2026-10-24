@@ -1727,7 +1727,7 @@
 0x000000000054892c	obj_connectDestroyed	ExternalRefCountData::getAndRef 后连接销毁信号
 0x000000000054b4a0	path_menu_popup	转换 QToolButton 并用 QDir 导航生成路径弹出菜单
 0x000000000054f9b6	tabbar_elideWidth	computes elide width summing tab widths with QFontMetrics::averageCharWidth
-0x000000000055025c	searchpanel_apply	applies search QLineEdit text via QRegularExpression globalMatch filling results
+0x000000000055025c	BreadEdit_buildSegments	更正误名:面包屑分段构建器(编辑框正则→匹配 +0x78 主题串→BreadButton 段+防抖定时器 0xb8/0xc8),非搜索面板;唯一调用者 breadedit_ctor(0x54e188)
 0x0000000000550ea0	atomic_refptr_delete	原子减引用归零后operator_delete裸指针
 0x0000000000550ec0	qlist_unref_dispose	减引用后QListData::dispose
 0x00000000005520e4	explorer_connectButtons	连接 QAbstractButton::clicked 与 Explorer 相关信号
@@ -7764,3 +7764,17 @@
 0x00766364	QuickSwitcher_setAlwaysOnTop	X11 _NET_WM_STATE_ABOVE XSendEvent;缓存 +0x30
 0x007669b2	QuickSwitcher_saveState	QDataStream:count,currentIndex,[页名+startupSessions];flags&4 再写全屏/saveGeometry/置顶/windowOpacity
 0x008b305c	KitBar_addSpacer	首按钮前插弹性 spacer QWidget(sizePolicy 0x750000)
+# —— P4 搜索/高亮链深逆批（2026-10-24;SearchPane 真身 0x74 族,旧线索 0x55025c/0x8f0c56 已更正）——
+0x0074efe6	SearchPane_ctor	KitPane 子类(0x148B) objectName"SearchPane";+0x110 选中项;选项表 0x74d90c+控件族 0x74c906+接线 0x74bebe+历史载入 0x74eed6
+0x0074d90c	SearchPane_optionTable	7 行三元组(tr 文本,king:: 图标,快捷键):matchRegex Alt+X/matchCase Alt+C/matchWholeWord Alt+W/searchSelection Alt+N/searchIncremental Alt+I/searchWrap Alt+O/searchContext Alt+T;无 scope 项
+0x0074c906	SearchPane_buildControls	find/replace 两历史 QComboBox(+0x58/+0x60,QListView+completer)+QLabel 助记+7 选项 QPushButton(NoFocus,QSignalMapper)+CloseButton(king::close)+7 QToolButton(RTL 插入)
+0x0074d488	SearchPane_execute	执行查找:text→0x74d31c 结果→+0x121=1 发 optionsChanged→沿父链 KitPane 状态栏 4s 消息→0x74d30a 视图回调
+0x0074f3ac	SearchPane_switchMode	find/replace 四态 UI:QGridLayout::replaceWidget 交换两 combo+7 控件可见性+singleShot(0) 聚焦
+0x0074f5ac	SearchPane_apply	槽7:切模式→存 pattern→search_history_update(property find/replace/where)→执行
+0x005eac66	SearchPane_crossSessionGrep	信号#0 接:非增量走 0x5bdda6;增量=收集全 KitView 名(去重)→kit_view_acquire("::Find Result",After)→FileGrep QThread×idealThreadCount(grep.leading/trailingContextLines)
+0x0055c246	HighlightTextBar_ctor	QWidgetAction createWidget(0x55c556) 惰建;8 色表[默认,Red,Orange,Yellow,Green,Royalblue,Cyan,Purple];每色 flat+checkable QPushButton(fixedSize=PM×2,checked 无边框 QSS,property=颜色名)
+0x0055afb3	HighlightTextBar_onColor	checked→选区起(0x5ba54e)尾(0x5ba388 vt0xa1b)→0x5c5826:>511 字符 QMessageBox 确认→invokeMethod(view,槽 0x75c7,start,end,color);取消→invokeMethod(0x75cb,pos) 清除
+0x0096dad6	trigger_highlight	触发器扫描核心:逐行(flag&4 跳过)+40KiB 分段落盘+规则倒序(允许样式位图过滤)+Onigmo 命中→(a)post SciExpectEvent(0x3f4,QVariantMap{match,captureGroups,type,position})(b)RunStyles 写样式 run(低3位标志+(索引+1)<<3);type7=HighlightText 带选色计数
+0x0096cbb8	trigger_styleWrite	RunStyles 写入:整 run 低3位差异原地改;否则 runstyles_upgrade;脏区并集≥40KiB→post SciHighlightEvent(0x3f0,from,to) 重绘
+0x0096e2ae	trigger_scanTask	扫描任务:mode1 增量(游标 +0x88)/mode2 续扫/mode0 全量;中止检查+扫描完成事件(0x3f8/0x3f9)
+0x00665dc2	actionFactory_getOrCreate	"Text.HighlightTextBar" 特判 new QWidgetAction(0x20B)——右键菜单内嵌高亮条入口
