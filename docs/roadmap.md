@@ -64,3 +64,52 @@
 - selfcheck：开标签→关标签→QPointer 失效断言
 - 缺口：新建/编辑会话（写盘）、reopen.history 二进制格式（Qt 序列化，后续）、tmux 面板 kill-pane 分支
 - 挂账撤销：侧栏左窄图标列经像素裁剪证明不存在（docs/imgs 裁剪 x0-60 全内容），上轮 explorer"AppletBar 图标列"措辞误读，挂账撤销。
+
+---
+
+# 未实现清单与计划（2026-10-24 反汇编对照盘点）
+
+来源：symbols.tsv 7,697 条已逆明符号 × src/ 消费对照 + 全部 shortcut 挂账注释 + docs 审计挂账节。
+
+## P1 终端可用性小件群（小，1 批）
+| 项 | 证据 | 现状 |
+|---|---|---|
+| 恢复标签色持久化 | 0x8bbab6 QColor 字段 | closeEvent 未存，恢复统一暗色 |
+| 恢复标签 currentIndex 应用 | 0x8bbab6 current 字段 | 读出未 setCurrentIndex |
+| paneIconFactory | KitPane ctor 三连 0x8c3bbe | 4 处 setWindowIcon 挂账 |
+| scheme 切换链 | Terminal.SchemeList 动态 action | 状态栏菜单仅改文本不应用 |
+| keyMode 真实存储 | 0x8cb962 焦点过滤回写 | setter 仅置位 |
+| 串口设备错误 UI 提示 | — | 仅 qWarning |
+
+## P2 Pane 生命周期引擎补半（中）
+insert 已移植（0x5a277a）；缺：remove/close 链（0x5a29e6 Splitter_cleanupEmptyTree 递归清空树、0x5a236c TabGroup_restoreFocus）；SplitViewHorizontally/Vertically+Merge To Group 菜单动作（现占位无接线）。
+
+## P3 QuickSwitcher 命令面板（中）
+0x7662e6 隐藏宿主（addToolBar(KitBar)+QStackedWidget+hide）+0x7664a2 每页一 Kit 按钮+0x8b346e QButtonGroup 切换；Editor/Terminal 页体系；Ctrl+Shift+P 入口。重建零实现（KitBar 名已预留）。
+
+## P4 终端搜索/高亮（中大）
+0x8f0c56 searchpanel_apply（正则→结果树）+0x55aeb0/0x6f68de HighlightText 触发规则引擎+0x55025c；TerminalView 需补 find/highlight API（滚回+活动屏匹配→选区/色层）；SearchPane 现空壳。
+
+## P5 SFTP + FilerPane 实体化（大）
+类族 0x8e59f2/0x8e6840/0x8e72e8（SftpFileSystemItem/SftpFile/SftpFolder/SftpTransfer）+0x91e918+0x6351c0（uid/gid 表单）；SshSession 补 sftp channel（绑定表已有 sftp_new2/sftp_init2）；FilerPane 硬编码假目录项换真数据（本地/远程双栏）。
+
+## P6 传输实体化（大）
+TransferModel 0x621a3e+传输进度消息 0x8f17c0+XYModem 收发 0x79cde6/0x79ed2e/0x79f1ac+0x79d680 send_file+0x585af56 TransferBar 懒建；TransferPane 假进度条换 TransferModel；TransferBar 接传输事件。
+
+## P7 tmux control 集成（中大）
+0x878fee tmux_parse_notify（begin/end/output/exit/layout-change）+Tmux 类族 0x7fd670/0x919180+0x8d9786 MuxDesktop；kill-pane 挂账并入本批。
+
+## P8 端口转发中心（中）
+ForwardingCenter/ForwardingHandler 0x5ecd00/0x5f1838+forwarding_server_listen 0x5ece74 QTcpServer 监听+0x718996 表单；菜单 ManageTunnels 现占位。
+
+## 持续线（随相关批次带）
+- 性能：增量行级重画（原版脏行范围）；同色 run 合并；UCS4 精确宽度表（双宽阈值近似升级）
+- Mouse X10/1005/1015 形态（0x7ebdfc 有完整实现可抄）
+- kbdint 答案 UI（原版 GUI 分片缺失，需补逆）
+- 会话 id 派生规则校准（0x806382 逆明后）
+- 快捷命令编辑对话框（0x6d36be 独立类族待确认）
+- 0x8d2e46 建树链重逆（right 树布局互通）
+- resize→pty 原版链补逆（现 QFontMetrics 等效）
+
+## 批次依赖
+P1 独立可先行；P2 是 P4/P5/P7 的布局基座（分屏后才有跨 pane 搜索/多 pane tmux）；P3 独立；P5→P6（SFTP 传输依赖 sftp channel）；P8 依赖 P5 的 ssh channel 扩展面（可并行做 UI）。
