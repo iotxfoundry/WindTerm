@@ -2726,7 +2726,7 @@
 0x00000000007e66c6	bytearraylist_join_write	QByteArrayList_join 后交给写入器 vtable
 0x00000000007ea318	terminal_reset_state	复位大量终端标志字节并重置编码/字符集状态
 0x00000000007eb4d6	term_resp_cursor_report	按 "%d;%d;%s;%s;%d&w" 构造 ESC[ 光标/状态应答
-0x00000000007ebdfc	mouse_xterm_seq_build	格式串'M%c%c%c'/'%d;%d;%dM'/'<%d;%d;%d%c' 生成鼠标序列
+0x00000000007ebdfc	mouse_xterm_seq_build	格式串'M%c%c%c'/'%d;%d;%dM'/'<%d;%d;%d%c' 生成鼠标序列；位级(0x7ebdfc 核对):cb=btn(0/1/2/无键3)|mods Shift4/Meta8/Ctrl16(Alt 不编码);运动恒+32 且后缀 m 非M;滚轮>0→64/<0→65/==0丢弃 每事件恒1条;同格去重;门控 press:9∪1000..1015 release/wheel 同 move:1002/1003
 0x00000000007f24ae	term_set_window_color	处理 "XTerm Set Window Color Type {}" 并写颜色表
 0x00000000007f298e	mouse_event_sgr_encode	'\\x1b['+'4;%d;%d'/'5;%d;%d'+QWidget::mapToGlobal 上报鼠标/窗口
 0x00000000007f7da2	qlist_shared_detach	仅引用计数>1 时 QListData::detach 并从当前首元素 memcpy
@@ -7731,5 +7731,4 @@
 0x00a63550	caret_blinkTimer	QTimer 惰性 editor+0x40:setInterval→翻转;块样式+光标行可见才 blink(editor+0x1083)
 0x007cc8aa	settings_scrollback	滚回上限键 window.scrollbackLimit(范围 0..999999999);滚回=文档历史行(非独立缓冲,天然混排)
 0x00834f2c	terminal_rightClick	s_terminal_rightClickAction:copy/paste 动作分发(非 contextMenu)
-0x007ebdfc细节	mouse_xterm_seq_build_位级	cb=btn(左0/中1/右2/无0xFF丢弃)|mods(Shift4/Meta8/Ctrl16,Alt 不编码);运动恒+32(btn 无键=3→35)后缀'm'(非M);滚轮只取符号>0→64/<0→65/==0丢弃,每事件恒1条;同格去重;SGR '<%d;%d;%d%c' 坐标y;x 1基;模式门控 press:9∪1000/1001/1002/1003/1015, release/wheel 同, move:1002/1003
 0x006d37b0	quick_command_newDefaults	新建命令默认 quick.type="Send Text"/uuid=QUuid 带花括号/label 缺省 "Untitled"
