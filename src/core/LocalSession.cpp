@@ -28,13 +28,17 @@ LocalSession::LocalSession(int rows, int columns, QObject *parent)
 
 LocalSession::~LocalSession() = default;
 
-bool LocalSession::start(const QString &program)
+bool LocalSession::start(const QString &program, const QString &args, const QString &workDir)
 {
 #ifdef Q_OS_UNIX
-    return m_pty->createProcess(program, QString(), QDir::homePath(),
+    // workDir 空 → home（原版 ${HomeDir} 宏展开等价回退）；args 空白分隔由 UnixPty 拆成 argv
+    return m_pty->createProcess(program, args,
+                                workDir.isEmpty() ? QDir::homePath() : workDir,
                                 QProcessEnvironment::systemEnvironment(), m_rows, m_columns);
 #else
     Q_UNUSED(program);
+    Q_UNUSED(args);
+    Q_UNUSED(workDir);
     return false;
 #endif
 }

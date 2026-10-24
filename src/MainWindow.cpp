@@ -2,6 +2,7 @@
 
 #include <QAction>
 #include <QCloseEvent>
+#include <QDir>
 
 #include <QContextMenuEvent>
 #include <QCursor>
@@ -37,6 +38,10 @@
 #include "core/JsonText.h"
 #include "core/ReopenHistory.h"
 #include "core/SchemeManager.h"
+#include "core/LocalSession.h"
+#ifdef WINDTERM_HAVE_SERIALPORT
+#include "core/SerialSession.h"
+#endif
 #include "core/Session.h"
 #include "core/SessionStore.h"
 #include "core/SshSession.h"
@@ -299,41 +304,67 @@ void MainWindow::onAddressBarReturn()
 }
 
 // user.sessions 双击接入（原版编辑即写 0x00806958，骨架只读）：user 无键 → user 留空
+// F5：SSH 走原路径；Telnet/Shell/Serial 按 protocol 分派（真数据 protocol 有 "serial" 小写变体）
 void MainWindow::connectSessionPane(SessionPane *pane)
 {
     connect(pane, &SessionPane::sessionActivated, this,
             [this](const QString &host, int port, const QString &label) {
         if (!m_muxPaneGroup)
             return;
-        ConnectDialog dialog(this);
-        dialog.setSpec(QString(), host, port > 0 ? port : 22);
-        if (dialog.exec() != QDialog::Accepted || dialog.host().isEmpty())
-            return;
 
-        // F5：protocol=="Telnet" 条目走 TelnetSession，其余维持 SshSession
         Session *session = nullptr;
-        QString protocol;
+        QVariantMap entry;
         for (const SessionEntry &e : SessionStore::load()) {
             if (e.label == label) {
-                protocol = e.protocol;
+                entry = SessionStore::sessionByUuid(e.uuid);
                 break;
             }
         }
-        if (protocol == QLatin1String("Telnet"))
-            session = new TelnetSession(dialog.host(), dialog.port(), 24, 80, m_muxPaneGroup);
-        else
+        const QString protocol = entry.value(QStringLiteral("session.protocol")).toString();
+        const QString uuid = entry.value(QStringLiteral("session.uuid")).toString();
+
+        if (protocol == QLatin1String("Telnet")) {
+            session = new TelnetSession(host, port > 0 ? port : 23, 24, 80, m_muxPaneGroup);
+        } else if (protocol == QLatin1String("Shell")) {
+            auto *local = new LocalSession(24, 80, m_muxPaneGroup);
+            // ${HomeDir} → QDir::homePath()；args 空白分隔由 UnixPty 拆 argv
+            QString workDir = entry.value(QStringLiteral("process.workingDirectory")).toString();
+            workDir.replace(QStringLiteral("${HomeDir}"), QDir::homePath());
+            if (local->start(host, entry.value(QStringLiteral("process.arguments")).toString(),
+                             workDir)) {
+                session = local;
+            } else {
+                delete local;
+                return;
+            }
+        } else if (protocol.compare(QLatin1String("Serial"), Qt::CaseInsensitive) == 0) {
+#ifdef WINDTERM_HAVE_SERIALPORT
+            // serial.* 值字符串/数字混型——QVariant::toString 统一解析
+            const QVariantMap &m = entry;
+            session = new SerialSession(
+                host,
+                m.value(QStringLiteral("serial.baudRate")).toInt(),
+                m.value(QStringLiteral("serial.dataBits")).toInt(),
+                m.value(QStringLiteral("serial.parity")).toString(),
+                m.value(QStringLiteral("serial.stopBits")).toInt(),
+                m.value(QStringLiteral("serial.flowControl")).toString(),
+                m_muxPaneGroup);
+#else
+            return; // 系统无 Qt SerialPort 组件，Serial 条目不接（挂账）
+#endif
+        } else {
+            ConnectDialog dialog(this);
+            dialog.setSpec(QString(), host, port > 0 ? port : 22);
+            if (dialog.exec() != QDialog::Accepted || dialog.host().isEmpty())
+                return;
             session = new SshSession(24, 80, m_muxPaneGroup);
+        }
 
         // 0x833db4：恢复/重连以 session.uuid 查 user.sessions；双击条目按 label 匹配带 uuid
-        for (const SessionEntry &e : SessionStore::load()) {
-            if (e.label == label) {
-                session->setUuid(e.uuid);
-                break;
-            }
-        }
+        session->setUuid(uuid);
         m_muxPaneGroup->openSession(session,
                                     label.isEmpty()
-                                        ? QStringLiteral("telnet %1:%2").arg(dialog.host()).arg(dialog.port())
+                                        ? QStringLiteral("telnet %1:%2").arg(host).arg(port)
                                         : label,
                                     Qt::red);
     });

@@ -54,8 +54,9 @@ SessionPane::SessionPane(QWidget *parent)
     connect(this, &QTreeWidget::itemDoubleClicked, this,
             [this](QTreeWidgetItem *item, int column) {
         Q_UNUSED(column);
-        // 仅子项（协议非空）；SSH → 发信号，MainWindow 弹 ConnectDialog
-        if (item->parent() && item->data(0, Qt::UserRole).toString() == QLatin1String("SSH"))
+        // 仅子项（协议非空）都发信号——MainWindow 按 SessionStore 条目 protocol 分派
+        // （SSH→ConnectDialog，Telnet/Shell/Serial 直接建会话）
+        if (item->parent())
             emit sessionActivated(item->data(1, Qt::UserRole).toString(),
                                   item->data(2, Qt::UserRole).toInt(),
                                   item->text(0));

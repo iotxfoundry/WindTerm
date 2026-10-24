@@ -17,6 +17,10 @@ endif()
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 # F5 Telnet：QTcpSocket（TelnetSession）需 Network
 find_package(Qt${QT_VERSION_MAJOR} QUIET COMPONENTS Network)
+# F5 Serial：QSerialPort（SerialSession）需 SerialPort。不走 COMPONENTS——Qt5Config 的
+# 组件子探测 PATHS NO_DEFAULT_PATH 只认系统前缀；独立 find_package 才吃 CMAKE_PREFIX_PATH。
+# QUIET 可选：系统装了 qtserialport 才编 SerialSession（MainWindow 接线无条件编译）
+find_package(Qt${QT_VERSION_MAJOR}SerialPort QUIET)
 
 # 任务二：statusbar.config 的 JS init 由 QJSEngine 真跑（0x005a3156 statusbar_runInit）。
 # Qt5Qml（QJSEngine 跑 statusbar.config 的 JS；qtdeclarative5-dev 系统安装）
@@ -36,12 +40,21 @@ if(NOT (UNIX AND NOT APPLE))
   list(FILTER PROJECT_SOURCES EXCLUDE REGEX "/src/pty/")
   list(FILTER PROJECT_HEADERS EXCLUDE REGEX "/src/pty/")
 endif()
+# SerialPort 组件缺失时 SerialSession 不参与编译（接线头文件探测保护）
+if(NOT TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
+  list(FILTER PROJECT_SOURCES EXCLUDE REGEX "SerialSession")
+  list(FILTER PROJECT_HEADERS EXCLUDE REGEX "SerialSession")
+endif()
 
 add_executable(WindTermGuiSkeleton ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 target_include_directories(WindTermGuiSkeleton PRIVATE src)
 target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CMAKE_DL_LIBS})
 if (TARGET Qt${QT_VERSION_MAJOR}::Network)
   target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+endif()
+if (TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
+  target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_SERIALPORT)
+  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
 endif()
 if (WINDTERM_HAVE_QJSENGINE)
   target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_QJSENGINE)

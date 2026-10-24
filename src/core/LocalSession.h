@@ -15,7 +15,8 @@ public:
     explicit LocalSession(int rows, int columns, QObject *parent = nullptr);
     ~LocalSession() override;
 
-    bool start(const QString &program = QStringLiteral("/bin/bash"));
+    bool start(const QString &program = QStringLiteral("/bin/bash"),
+               const QString &args = {}, const QString &workDir = {});
     void write(const QByteArray &data) override;
     void resize(int rows, int columns) override;
     // UnixPty::stop() 已有杀进程/断 notifier/关 fd 的清理路径（terminate→kill -9），
