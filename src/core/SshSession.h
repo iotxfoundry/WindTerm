@@ -48,6 +48,23 @@ public:
     // 并发会踩 packet 链）,出口恢复——IO 线程同步等主线程挂起后再动手
     static QVector<FileSystemItem *> sftpList(void *sftp, const QString &path, bool showHidden);
 
+    // P6（SftpTransfer 后端）:sftp_stat 远端文件大小（-1=失败/不存在）。同 sftpList
+    // 走挂泵护栏（libssh 非线程安全,后台 IO 与主线程泵互斥——R38）
+    static qint64 sftpFileSize(void *sftp, const QString &path);
+    // sftp_open/close/read/write 绑定齐备（传输可用前置;缺失时 SftpTransfer 拒新任务）
+    static bool sftpFileIoAvailable();
+    // SftpTransfer 直调绑定面（P6 内部协作;非公开 API——TransferCenter/TransferLabel 勿用）
+    struct SftpFileApi
+    {
+        void *(*open)(void *, const char *, int, int);
+        int (*close)(void *);
+        int (*read)(void *, void *, size_t);
+        int (*write)(void *, const void *, size_t);
+    };
+    static const SftpFileApi &fileApi();
+    // sftp 句柄→宿主 session（挂泵护栏目标;无注册返回 nullptr）
+    static QObject *hostForSftp(void *sftp);
+
     // 自检用：libssh 是否加载且所有必需符号非空
     static bool symbolsAvailable();
 

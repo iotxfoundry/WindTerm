@@ -127,7 +127,15 @@ struct Api
     int (*sftpDirEof)(void *);
     void (*sftpAttributesFree)(void *);
     void (*sftpFree)(void *);
+    // P6 sftp 文件 IO（SftpTransfer 后台分块读写;阻塞版——原版 async 泵挂账见 SftpTransfer）
+    void *(*sftpOpen)(void *, const char *, int, int); // (sftp,path,flags,mode)
+    int (*sftpClose)(void *);
+    int (*sftpRead)(void *, void *, size_t);
+    int (*sftpWrite)(void *, const void *, size_t);
+    int (*sftpSeek64)(void *, quint64); // 续传定位（首版断点续传挂账,绑定先行）
+    void *(*sftpStat)(void *, const char *);
     bool hasSftp;
+    bool hasSftpFile; // 文件 IO 绑定完整性（传输可用性）
     bool loaded;
     bool hasFingerprint;
     bool hasAgentIsRunning;
@@ -225,6 +233,16 @@ Api &api()
                     && r.sftpReaddir && r.sftpClosedir && r.sftpAttributesFree && r.sftpFree;
         if (!r.hasSftp)
             qWarning("SshSession: sftp 绑定不完整,Filer 远程浏览不可用");
+        // P6 文件 IO 绑定（两库均 T 导出,nm 核对;open flags 语义见 SftpTransfer）
+        bind(r.sftpOpen, "sftp_open");
+        bind(r.sftpClose, "sftp_close");
+        bind(r.sftpRead, "sftp_read");
+        bind(r.sftpWrite, "sftp_write");
+        bind(r.sftpSeek64, "sftp_seek64");
+        bind(r.sftpStat, "sftp_stat");
+        r.hasSftpFile = r.sftpOpen && r.sftpClose && r.sftpRead && r.sftpWrite && r.sftpStat;
+        if (!r.hasSftpFile)
+            qWarning("SshSession: sftp 文件 IO 绑定不完整,传输不可用");
 
         r.loaded = r.newSession && r.freeSession && r.optionsSet && r.connectSession
                    && r.isConnected && r.knownServer && r.userauthPassword && r.channelNew
@@ -1129,6 +1147,52 @@ QVector<FileSystemItem *> SshSession::sftpList(void *sftpHandle, const QString &
         QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
                                   Q_ARG(bool, false));
     return items;
+}
+
+// P6（SftpTransfer 后端）：sftp_stat 远端大小。attr 布局见上方 SftpAttrMirror（size@+24,
+// static_assert 自证）。挂泵护栏同 sftpList——后台 IO 线程与主线程泵互斥（R38）
+qint64 SshSession::sftpFileSize(void *sftpHandle, const QString &path)
+{
+    Api &a = api();
+    if (!sftpHandle || !a.hasSftp || !a.sftpStat)
+        return -1;
+    QPointer<SshSession> host;
+    {
+        QMutexLocker lock(&g_sftpMapMutex);
+        host = g_sftpMap.value(sftpHandle);
+    }
+    const bool guarded = host && host->thread() != QThread::currentThread();
+    if (guarded)
+        QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
+                                  Q_ARG(bool, true));
+    const QByteArray pathUtf8 = path.toUtf8();
+    qint64 size = -1;
+    if (auto *attr = static_cast<SftpAttrMirror *>(a.sftpStat(sftpHandle, pathUtf8.constData()))) {
+        size = static_cast<qint64>(attr->size);
+        a.sftpAttributesFree(attr);
+    }
+    if (guarded)
+        QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
+                                  Q_ARG(bool, false));
+    return size;
+}
+
+bool SshSession::sftpFileIoAvailable()
+{
+    return api().hasSftpFile;
+}
+
+const SshSession::SftpFileApi &SshSession::fileApi()
+{
+    static const SftpFileApi table = { api().sftpOpen, api().sftpClose, api().sftpRead,
+                                       api().sftpWrite };
+    return table;
+}
+
+QObject *SshSession::hostForSftp(void *sftp)
+{
+    QMutexLocker lock(&g_sftpMapMutex);
+    return g_sftpMap.value(sftp).data();
 }
 
 #include "SshSession.moc"

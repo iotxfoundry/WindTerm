@@ -2,8 +2,10 @@
 
 #include <QFile>
 #include <QDir>
+#include <QFileDialog>
 #include <QFileInfo>
 #include <QHeaderView>
+#include <QItemSelectionModel>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLabel>
@@ -20,6 +22,8 @@
 #include "core/SshSession.h"
 #include "filer/FileSystemItem.h"
 #include "filer/FileSystemModel.h"
+#include "transfer/TransferCenter.h"
+#include "transfer/SftpTransfer.h"
 #include "widgets/PaneHeader.h"
 
 namespace {
@@ -253,4 +257,95 @@ void FilerPane::dropRemoteSession(SshSession *session)
     m_remoteSession = nullptr;
     m_remoteModel->setSftp(nullptr);
     m_stack->setCurrentIndex(0);
+}
+
+// ═══ P6 传输收口（0x579f0e/0x57acf2/0x8ec9b8）═══
+// 0x8ec9b8 createTransfers：QVariantList{方向,files,srcRoot,dstDir}→forwardSetMode(0x12)——
+// 骨架直接建 SftpTransfer 入 TransferCenter（分派层简化,事件序列保持 taskEvent 一致）
+namespace {
+// createTransfers 等效：逐文件建任务行+属性+后台传输;行键=本地路径
+void startTransfers(void *sftp, bool upload, const QStringList &files,
+                    const QString &srcRoot, const QString &dstDir)
+{
+    TransferCenter *center = TransferCenter::instance();
+    for (const QString &file : files) {
+        const QString name = QFileInfo(file).fileName();
+        const QString remote = upload ? (dstDir + QLatin1Char('/') + name)
+                                      : file;
+        const QString local = upload ? file
+                                     : (dstDir + QLatin1Char('/') + name);
+        auto *transfer = new SftpTransfer(sftp, upload, remote, local, center);
+        center->ensureTaskRow(local); // kind 0 建行（TransferBar/Pane 懒建触发）
+        // 属性（0x8ec9b8 参 2=方向——transfer.download/transfer.upload 二值键）
+        center->setTaskProperty(local, QStringLiteral("transfer.session"),
+                                upload ? QStringLiteral("SFTP") : QStringLiteral("SFTP"));
+        center->setTaskProperty(local, upload ? QStringLiteral("transfer.upload")
+                                              : QStringLiteral("transfer.download"),
+                                true);
+        center->setTaskProperty(local, QStringLiteral("transfer.targetDirectory"),
+                                upload ? dstDir : dstDir);
+        center->setTaskProperty(local, QStringLiteral("transfer.currentItemName"), name);
+        center->setTaskProperty(local, QStringLiteral("transfer.count"), 1);
+        center->setTaskProperty(local, QStringLiteral("transfer.localFileSystem"), !upload);
+        // 进度/状态/终局→行属性+taskEvent(4) 刷新（0x58722a 消费链）
+        QObject::connect(transfer, &SftpTransfer::progress, center,
+                [center, local](qint64 processed, qint64 total) {
+            center->setTaskProperty(local, QStringLiteral("transfer.processedSize"),
+                                    QString::number(processed));
+            center->setTaskProperty(local, QStringLiteral("transfer.size"),
+                                    QString::number(total));
+            center->setTaskProperty(local, QStringLiteral("transfer.weightPercent"),
+                                    total > 0 ? static_cast<int>(processed * 100 / total) : 0);
+            emit center->taskEvent(local, TransferCenter::Refresh);
+        });
+        QObject::connect(transfer, &SftpTransfer::finished, center, [center, local]() {
+            center->setTaskProperty(local, QStringLiteral("transfer.weightPercent"), 100);
+            emit center->taskEvent(local, TransferCenter::Refresh);
+        });
+        transfer->start();
+    }
+}
+} // namespace
+
+// 0x57acf2 Download 语义：selectedRows→路径集（srcRoot=远端当前目录）→QFileDialog 选本地
+// 目录（0x57a928 原版 RemoteFileDialog 0x6d8cfe 简化挂账）→createTransfers(download)
+void FilerPane::download()
+{
+    if (!m_remoteSession || !m_remoteSession->sftpSession())
+        return;
+    if (m_stack->currentIndex() != 1)
+        return; // wind.actions state=visible=!localSystemMode 等效门
+    // 选中项收集（0x734398 同构：selectionModel→selectedRows→路径;目录递归挂账）
+    const QItemSelectionModel *selection = m_remoteView->selectionModel();
+    if (!selection)
+        return;
+    QStringList files;
+    const QModelIndexList rows = selection->selectedRows(0);
+    for (const QModelIndex &idx : rows) {
+        if (FileSystemItem *item = m_remoteModel->itemFor(idx);
+            item && item->type == FileSystemItem::File)
+            files << m_remoteModel->pathFor(idx);
+    }
+    if (files.isEmpty())
+        return;
+    const QString dst = QFileDialog::getExistingDirectory(
+        this, LocaleManager::instance().tr(QStringLiteral("Select Download Folder")));
+    if (dst.isEmpty())
+        return;
+    startTransfers(m_remoteSession->sftpSession(), false, files, currentPath(), dst);
+}
+
+// 0x579f0e Upload 语义：QFileDialog 选本地文件（原版 RemoteFileDialog 多选简化为
+// getOpenFileNames）→当前远端目录=createTransfers(upload)
+void FilerPane::upload()
+{
+    if (!m_remoteSession || !m_remoteSession->sftpSession())
+        return;
+    if (m_stack->currentIndex() != 1)
+        return;
+    const QStringList files = QFileDialog::getOpenFileNames(
+        this, LocaleManager::instance().tr(QStringLiteral("Select Upload Items")));
+    if (files.isEmpty())
+        return;
+    startTransfers(m_remoteSession->sftpSession(), true, files, QString(), currentPath());
 }

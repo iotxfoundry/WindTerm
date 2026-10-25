@@ -64,6 +64,7 @@
 #include "panes/SessionPane.h"
 #include "panes/ShellPane.h"
 #include "panes/TransferPane.h"
+#include "transfer/TransferCenter.h"
 #include "widgets/ActionIcons.h"
 #include "widgets/CommandPalette.h"
 #include "widgets/HighlightTextBar.h"
@@ -624,8 +625,19 @@ QAction *MainWindow::makeAction(const QString &actionId)
         action->setEnabled(false); // 菜单位占位；真 QWidgetAction 经 buildMenu 特判插入（见 buildMenu）
         return action;
     }
+    // ═══ P6 传输接线（wind.actions FilerPane.Download/Upload→FilerPane 收口方法）═══
+    if (actionId == QStringLiteral("FilerPane.Download")) {
+        connect(action, &QAction::triggered, this,
+                [this]() { if (m_filerPane) m_filerPane->download(); });
+        return action;
+    }
+    if (actionId == QStringLiteral("FilerPane.Upload")) {
+        connect(action, &QAction::triggered, this,
+                [this]() { if (m_filerPane) m_filerPane->upload(); });
+        return action;
+    }
     // ═══ P5 FilerPane 浏览动作（wind.actions/keymaps 同 id；0x731066/0x5773d6/0x578d88）═══
-    // 其余（Open/Remove/Rename/Upload/Download/MakeDir/MakeFile/CopyTo/...）保持无分支占位（P6 批）
+    // 其余（Open/Remove/Rename/MakeDir/MakeFile/CopyTo/...）保持无分支占位（P7 批）
     if (actionId == QStringLiteral("FilerPane.Refresh")
         || actionId == QStringLiteral("FilerPane.Cdup")
         || actionId == QStringLiteral("FilerPane.GoBackward")
@@ -1040,6 +1052,16 @@ void MainWindow::createCentral()
     centralVSplitter->addWidget(m_searchPane);
     m_searchPane->hide();
 
+    // P6 传输接线（0x85af56 懒建点/0x85a7a6 顺序=SearchPane 之后）：TransferBar 懒建锚
+    // （首个 taskEvent(kind 0) 时建+hook）;TransferPane 挂 TransferCenter::model
+    m_transferCenter = TransferCenter::instance();
+    if (TransferPane *transferPane = findChild<TransferPane *>()) {
+        transferPane->hookModel(m_transferCenter->model());
+    }
+    connect(m_transferCenter, &TransferCenter::taskEvent, this, [this](const QString &, int kind) {
+        if (kind == TransferCenter::LabelCreate)
+            ensureTransferBar();
+    });
     // P4 执行链（0x74f5ac/0x74d488）：SearchPane findRequested→活动 view findNext/Previous
     // （pattern/options 随调随传）；状态栏 4s 消息经 TerminalView::statusMessageHandler
     connect(m_searchPane, &SearchPane::findRequested, this, [this](bool useSelection, bool backward) {
@@ -1415,6 +1437,24 @@ QuickBar *MainWindow::ensureQuickBar()
         }
     }
     return m_quickBar;
+}
+
+// P6（0x85af56 懒建/0x85a7a6 顺序）：TransferBar 懒建——首个 taskEvent(kind 0) 触发
+// （createCentral 连线）;插入位=SearchPane 之后（0x0085a7a6 [Search,QuickBar,TransferBar] 序）
+void MainWindow::ensureTransferBar()
+{
+    if (m_transferBar || !m_transferCenter)
+        return;
+    m_transferBar = new TransferBar(this);
+    m_transferBar->hookTransferCenter(m_transferCenter);
+    m_transferBar->hide();
+    if (QWidget *central = centralWidget(); central) {
+        if (auto *vs = qobject_cast<QSplitter *>(central)) {
+            const int at = m_quickBar ? vs->indexOf(m_quickBar) + 1 : vs->indexOf(m_searchPane) + 1;
+            vs->insertWidget(at, m_transferBar);
+        }
+    }
+    m_transferBar->show();
 }
 
 // 0x768dfa window_openCommandPalette：懒建 CommandPalette（挂活动窗格 currentWidget）→

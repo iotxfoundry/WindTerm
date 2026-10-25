@@ -31,7 +31,7 @@ public:
     void hookAddressEdit();
     void focusAddressEdit();
 
-    // 浏览动作落点（wind.actions FilerPane.*；上传/下载/Remove/Rename 挂账 P6）
+    // 浏览动作落点（wind.actions FilerPane.*；Remove/Rename 挂账 P7）
     void reload();
     void cdUp();
     void goBackward();
@@ -41,6 +41,13 @@ public:
     void toggleHiddenItems();
     bool showHidden() const;
     QString currentPath() const;
+
+    // P6 传输收口（0x8ec9b8 createTransfers(files,srcRoot,dstDir)+forwardSetMode 0x12）：
+    // Download=QFileDialog 选本地目录+选中远端项→下载任务集（transfer.download 方向）;
+    // Upload=QFileDialog 选本地文件→当前远端目录（transfer.upload;原版 RemoteFileDialog
+    // 0x6d8cfe 简化挂账）。拖放挂账。
+    void download();
+    void upload();
 
 signals:
     void closeRequested();

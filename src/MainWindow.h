@@ -29,6 +29,7 @@ class SshSession;
 class StatusBar;
 class TerminalView;
 class TransferBar;
+class TransferCenter;
 
 class MainWindow : public QMainWindow
 {
@@ -98,5 +99,7 @@ private:
     QPointer<CommandPalette> m_commandPalette;
     SearchPane *m_searchPane = nullptr;
     FilerPane *m_filerPane = nullptr; // P5 浏览链宿主锚（createCentral 建）
-    TransferBar *m_transferBar = nullptr; // shortcut: 懒建点挂账（0x85af56 传输启动时建），传输功能实现时接入
+    TransferBar *m_transferBar = nullptr; // P6 懒建（0x85af56：首个 taskEvent 建）
+    TransferCenter *m_transferCenter = nullptr; // 单例锚（hook 一次）
+    void ensureTransferBar(); // 0x85af56：懒建+插入 centralVSplitter（SearchPane 之后）
 };

@@ -163,3 +163,9 @@ windterm_test_offscreen(test_search_highlight)
 # sftp 端到端需本机 sshd 127.0.0.1:22 + key，缺则测试内嵌 SKIP
 windterm_add_test(test_filer_sftp)
 windterm_test_offscreen(test_filer_sftp)
+
+# P6 传输引擎：SftpTransfer 上传/下载 round-trip+暂停/恢复、TransferCenter 行/事件/
+# 0x617aea HTML、TransferBar 标签行、TransferPane 模型挂接；
+# sftp 端到端需本机 sshd + key，缺则测试内嵌 SKIP
+windterm_add_test(test_transfer)
+windterm_test_offscreen(test_transfer)
