@@ -11,12 +11,14 @@
 #include <QScrollBar>
 #include <algorithm>
 
+#include "core/LocalSession.h"
 #include "core/Session.h"
 #include "core/SchemeManager.h"
 #include "core/ScreenModel.h"
 #include "core/ThemeManager.h"
 #include "core/VtParser.h"
 #include "core/WindConfig.h"
+#include "tmux/Tmux.h"
 
 namespace {
 
@@ -159,6 +161,11 @@ void TerminalView::attachSession(Session *session)
 
     // 0xa64cea 数据流：output→feed→重绘
     connect(m_session, &Session::output, this, [this](const QByteArray &data) {
+        if (m_tmux) {
+            // 输出分流（0x7e9a32）：tmux control 流喂 Tmux，透传行经 vtOutput 回流
+            m_tmux->feedData(data);
+            return;
+        }
         const bool atBottom = verticalScrollBar()->value() >= verticalScrollBar()->maximum();
         m_parser->feed(data);
         updateScrollRange();
@@ -168,6 +175,10 @@ void TerminalView::attachSession(Session *session)
         viewport()->update();
         emit caretPositionChanged();
     });
+
+    // tmux control 模式检测（0x7e9a06 挂账谓词；仅 LocalSession 参数判定）
+    if (auto *ls = qobject_cast<LocalSession *>(session); ls && ls->tmuxControl())
+        enableTmuxMode();
 
     connect(m_session, &Session::finished, this, [this]() {
         m_systemMessage = tr("[进程已退出]");
@@ -179,6 +190,41 @@ void TerminalView::sendText(const QString &text)
 {
     if (m_session)
         m_session->write(text.toUtf8());
+}
+
+// tmux control 模式挂载（0x7e9a06：new Tmux 挂 +0x188+connect+emit entered——
+// 骨架无 entered 信号面，挂账）；命令入口 view->tmux()->sendCommand。
+void TerminalView::enableTmuxMode()
+{
+    if (m_tmux || !m_session)
+        return;
+    m_tmux = new Tmux(this);
+    m_tmux->setWriter([this](const QByteArray &b) { m_session->write(b); });
+    // 活动 pane 输出直喂 VT（0x7e6b64 显示中 pane 路径；与直通同管线）
+    connect(m_tmux, &Tmux::vtOutput, this, [this](const QByteArray &data) {
+        const bool atBottom = verticalScrollBar()->value() >= verticalScrollBar()->maximum();
+        m_parser->feed(data);
+        updateScrollRange();
+        if (atBottom)
+            verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+        viewport()->update();
+        emit caretPositionChanged();
+    });
+    // %exit（0x7e9a1e）：销毁 Tmux+屏显 [exited(: reason)]，残余直通 VT
+    connect(m_tmux, &Tmux::exited, this, [this](const QString &reason) {
+        auto *t = m_tmux;
+        m_tmux = nullptr;
+        const QByteArray msg = reason.isEmpty()
+                                 ? QByteArrayLiteral("[exited]\r\n")
+                                 : "[exited: " + reason.toUtf8() + "]\r\n";
+        m_parser->feed(msg);
+        const QByteArray rest = t->takeBuffer();
+        t->deleteLater();
+        m_parser->feed(rest);
+        viewport()->update();
+    });
+    // shortcut: tmux-256color DA 应答挂账(terms 文件,DA 65 身份),P7b
+    m_tmux->start();
 }
 
 TerminalView *TerminalView::activeView()

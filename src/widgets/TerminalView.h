@@ -20,6 +20,7 @@ class QMouseEvent;
 class QPaintEvent;
 class QResizeEvent;
 class ScreenModel;
+class Tmux;
 class VtParser;
 
 // P4 find 选项（SearchPane 选项表 0x74d90c 子集；searchIncremental/searchContext 只影响
@@ -59,6 +60,12 @@ public:
     Session *session() const { return m_session; }
     // 会话持久化 uuid（0x8bbab6 url="$<uuid>"；无会话→空串）
     QString sessionUuid() const;
+
+    // tmux control 模式（P7a：模型+解析+命令面；GUI 映射 MuxDesktop 属 P7b 挂账）。
+    // attachSession 对 LocalSession 自动判定（0x7e9a06 谓词挂账，见 LocalSession::
+    // isTmuxControlCommand）；SSH 会话内 tmux 检测挂账（同地址）。
+    void enableTmuxMode();
+    Tmux *tmux() const { return m_tmux; }
 
     // quickbar "Send Text" 命令（0x56d890）：文本直接写入会话
     void sendText(const QString &text);
@@ -203,6 +210,7 @@ private:
     Session *m_session;
     ScreenModel *m_screen;
     VtParser *m_parser;
+    Tmux *m_tmux = nullptr; // tmux control 模式挂载（0x7e9a06 +0x188）
     int m_keyMode = 8; // King.RemoteMode（0xccbc40：RemoteMode=8；默认远程）
     int m_windowRows = 24;
     int m_windowColumns = 80;

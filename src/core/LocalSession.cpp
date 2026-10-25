@@ -1,11 +1,20 @@
 #include "LocalSession.h"
 
 #include <QDir>
+#include <QFileInfo>
 #include <QProcessEnvironment>
 
 #ifdef Q_OS_UNIX
 #include "pty/UnixPty.h"
 #endif
+
+bool LocalSession::isTmuxControlCommand(const QString &program, const QString &args)
+{
+    // shortcut: 0x7e9a06 触发谓词未逆明，按 session 参数近似（target 基名 tmux 且 args 含 -CC）
+    return QFileInfo(program).fileName() == QLatin1String("tmux")
+        && args.split(QLatin1Char(' '), Qt::SkipEmptyParts).contains(QLatin1String("-CC"));
+}
+
 LocalSession::LocalSession(int rows, int columns, QObject *parent)
     : Session(parent)
 #ifdef Q_OS_UNIX
@@ -31,6 +40,8 @@ LocalSession::~LocalSession() = default;
 bool LocalSession::start(const QString &program, const QString &args, const QString &workDir)
 {
 #ifdef Q_OS_UNIX
+    // tmux control 模式检测接线段（0x7e9a06 挂账谓词，见 isTmuxControlCommand）
+    m_tmuxControl = isTmuxControlCommand(program, args);
     // workDir 空 → home（原版 ${HomeDir} 宏展开等价回退）；args 空白分隔由 UnixPty 拆成 argv
     return m_pty->createProcess(program, args,
                                 workDir.isEmpty() ? QDir::homePath() : workDir,
@@ -39,6 +50,7 @@ bool LocalSession::start(const QString &program, const QString &args, const QStr
     Q_UNUSED(program);
     Q_UNUSED(args);
     Q_UNUSED(workDir);
+    m_tmuxControl = isTmuxControlCommand(program, args);
     return false;
 #endif
 }

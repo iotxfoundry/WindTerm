@@ -209,7 +209,11 @@ bool UnixPty::createProcess(QString command, const QString &arguments,
 		m_shellProcess.setWorkingDirectory(workingDirectory);
 		m_shellProcess.setProcessEnvironment(environment);
 		m_shellProcess.setReadChannel(QProcess::StandardOutput);
-		m_shellProcess.start(command, arguments.isEmpty() ? QStringList() : QStringList(arguments));
+		// tmux 3.4 实测（2026-10-25）：原 QStringList(arguments) 把整串当单个 argv 传入——
+		// "tmux -CC …" 收到 argv[1]="-CC -L … new-session …" 整串即 usage 错误退出（bash "-i -l"
+		// 同理；test_shell_args 早年通过是 pty 回显把 LOGIN_YES 字面量喂回了自己的判定）。
+		// QProcess::splitCommand 按 shell 词法拆分（引号成组），Qt 5.15+。
+		m_shellProcess.start(command, QProcess::splitCommand(arguments));
 		m_shellProcess.waitForStarted();
 
 		m_pid = m_shellProcess.processId();

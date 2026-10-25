@@ -169,3 +169,7 @@ windterm_test_offscreen(test_filer_sftp)
 # sftp 端到端需本机 sshd + key，缺则测试内嵌 SKIP
 windterm_add_test(test_transfer)
 windterm_test_offscreen(test_transfer)
+
+# P7a tmux 集成：解析单测必跑；真实 -CC 端到端系统缺 tmux 则测试内 SKIP
+windterm_add_test(test_tmux_control)
+windterm_test_offscreen(test_tmux_control)
