@@ -7808,3 +7808,26 @@
 0x008ec9b8	transfer_createTask	打包{sessionId,files,srcRoot,dstDir}→forwardSetMode(0x12);下载=0x579f0e(filedlg 选本地目录);上传=0x57a928(RemoteFileDialog 选远端);拖放 0x578386 直发
 0x00577b30	transfer_readyCheck	transfer 就绪自旋等句柄+QDir::fromNativeSeparators 规整
 0x007a04c2	ZModem_run	调外部 vendors/lrzsz(sz|rz -b -e -v) QThread+正则解析进度;XYModem(0x79cde6 族)=进程内协议机+终端进度行"\\r %1 bytes transferred"
+# —— P7 tmux 集成深逆批（2026-10-25;tmux 会话=普通会话跑 tmux -CC,命令写 stdin,通知解析 stdout）——
+0x008795a6	tmux_begin_frame	%begin 正则 ts/idx/flags→new cmd{ts,idx,output}挂当前+入列表;拼期望尾 %end/%error ts idx
+0x0087728a	tmux_parse_output_line	%output %(?<paneId>\d++) 取 paneId→0x877128 反转义(\X 四字符→控制字节)→0x7e6b64 路由
+0x007e6b64	tmux_output_route	显示中 pane 直接喂 VT(vtable+0x68 原始写);否则 append QMap<paneId,QByteArray> 待激活冲账
+0x00879d62	tmux_refresh_panes	type4 帧全量刷新:0x48B pane 字段(id/title/cwd/flags bit0 active·bit1 alt·bit2 sync/cursor/w/h/history/pid/sessionId/windowId/modes);新 pane 发 paneAdded;变 paneResized;删 termsRemoved
+0x0087b76a	tmux_refresh_windows	type5:0x58B window 字段(flags/attached/id/idx/activePane/sessionId/name/layout/visibleLayout/sessionName/panesMap);rawFlags 字符 *=active/Z=zoomed;变化打包 windowsChanged 批发
+0x0087ad18	tmux_layout_change	%layout-change @<windowId> <layout>→visibleLayout 全局匹配 (?<w>\d+)x(?<h>\d+),(?<x>\d+),(?<y>\d+),(?<id>\d+),?→逐 pane 更新 w/h→paneResized;不直接改 splitter(GUI 侧 lambda 重建)
+0x0087afee	tmux_window_pane_changed	window.activePaneId=paneId;同窗 pane active 位重算
+0x0087c44e	tmux_parse_prompt_meta	%end/%error 完成帧:校验 ts/idx→按命令类型分派(type0 error 通道/type1 pane-cwd/type3 version/type4 pane 全量/type5 window 全量)
+0x0087c832	tmux_parse_error_frame	%error 前缀(挂起中):切左/中,mid 追加输出,left 走 parsePromptMeta(1)
+0x007e9a06	tmux_enable	置 terminal+0x138 标志+new Tmux 挂 +0x188(parent=terminal)+connect 12 信号+emit tmuxControlModeEntered;触发谓词未逆明(session target/args 含 -CC 推断)
+0x007e9a1e	tmux_disable	销毁 Tmux+清 +0x188+emit exited;%exit 处理也走此路
+0x007e9a32	tmux_vt_notify_dispatch	VT 输出流按 \n 切行去 \r→0x878fee 分派;switch 20 枚举;残余回填缓冲
+0x007e69ca	tmux_pane_find	pane 查找(含 +0x1a8 列表/当前 buffer +0x198/+0x1a0)
+0x00877564	tmux_cmd_build	按类型拼命令:type3 display-message -p 'version:#{version}';type4 list-panes -s -F 26 个 #{var};type5 list-windows -a -F;查询后 -1=全量重算
+0x00877610	tmux_capture_pane_cmd	capture-pane 命令构造
+0x00876c9c	tmux_cwd_poll_cmd	pane cwd 轮询命令
+0x0091d4a8	mux_desktop_metacall	MuxDesktop 槽表 26+ case(attach/newMuxWindow/selectMuxWindow/kill 三态确认/killTmuxSession/rename QInputDialog/selectLayout lowercase/synchronizePanes/swapMuxPane)
+0x008db1c2	mux_desktop_broadcast	widget_findChildren 找桌面内全部 tmux 终端部件→逐个 invokeMethod 槽号——命令广播引擎
+0x008d9786	mux_desktop_addPage	MuxDesktop(objectName,每 MainWindow 一份)页=tmux window(Tmux::Window 部件=TabGroup 页);pane=Tmux::PaneWidget 内嵌终端;分屏=Tmux::SplitterWidget 自有树(勿用主窗引擎)
+0x0083eaa6	term_tmux_send	命令下发原语族(0x83eac6-0x83f924):break-pane/resize-pane/split-window {left-of}.../swap-pane -d/attach-session/kill-pane/kill-session/new-window/refresh-client -C W,H/select-pane -T/rename-*/select-layout/clear-history;rename 后拼 %pane-renamed 回读确认
+0x009191c0	tmux_signal_emitters	Tmux 12 信号(errorOccurred/outputCached/paneCwdChanged/paneInited/screenCaptured/sessionsChanged/termAdded/termsRemoved/windowsChanged/windowsRemoved/...)
+0x00878fee确认	tmux_parse_notify_20token	分派表:%begin2/%client-detached3/%end5/%error6/%exit7(正则含 \033\\)/%layout-change8/%output9/%pane-mode-changed10/普通11/挂起error12/%session-changed13...%window-renamed23;泛化 thunk 0x877f30 正则槽→Type4/5(-1) 入队异步批刷
