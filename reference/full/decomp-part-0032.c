@@ -28101,7 +28101,7 @@ bool FUN_009976b0(undefined8 param_1,uint param_2)
 void BSim_QBasicAtomicInteger_int___deref(undefined8 param_1,undefined4 param_2)
 
 {
-  FUN_0066c318(param_2);
+  ismark_or_skin_tone(param_2);
   return;
 }
 

@@ -12010,10 +12010,10 @@ long kit_focus_widget_get(long param_1)
 }
 
 
-// ==== entry=008ca77c name=FUN_008ca77c size=114 ====
+// ==== entry=008ca77c orig=FUN_008ca77c size=114 name=KitPane_insertView ====
 
-void FUN_008ca77c(long param_1,undefined8 param_2,undefined1 param_3,undefined8 param_4,long param_5
-                 )
+void KitPane_insertView(long param_1,undefined8 param_2,undefined1 param_3,undefined8 param_4,
+                       long param_5)
 
 {
   if (param_5 == 0) {
@@ -12023,7 +12023,7 @@ void FUN_008ca77c(long param_1,undefined8 param_2,undefined1 param_3,undefined8 
       QSplitter::addWidget(*(QWidget **)(param_1 + 0x48));
     }
   }
-  FUN_008ba104(param_5,param_2,param_4,param_3);
+  kit_group_insert_view_at(param_5,param_2,param_4,param_3);
   return;
 }
 
@@ -12041,7 +12041,7 @@ void FUN_008ca7ee(undefined8 param_1,undefined8 param_2,undefined1 param_3,undef
   sVar1 = strlen("Last");
   local_30 = QString::fromAscii_helper("Last",(int)sVar1);
                     /* try { // try from 008ca83f to 008ca843 has its CatchHandler @ 008ca860 */
-  FUN_008ca77c(param_1,param_2,param_3,&local_30,param_4);
+  KitPane_insertView(param_1,param_2,param_3,&local_30,param_4);
   qt_array_data_unref(&local_30);
   return;
 }
@@ -12078,7 +12078,7 @@ long FUN_008ca876(undefined8 param_1,long param_2,undefined1 param_3,long param_
         iVar1 = widget_type_index_find(param_4,param_2,0xffffffff);
         iVar1 = iVar1 + 1;
       }
-      FUN_008b9f04(param_4,lVar2,iVar1,param_3);
+      kit_group_attach_tab(param_4,lVar2,iVar1,param_3);
       return lVar2;
     }
   }
@@ -12823,9 +12823,9 @@ void FUN_008cb81f(int param_1,void *param_2)
 }
 
 
-// ==== entry=008cb89a name=FUN_008cb89a size=26 ====
+// ==== entry=008cb89a orig=FUN_008cb89a size=26 name=KitPane_rebuildGroup_slot ====
 
-void FUN_008cb89a(long param_1)
+void KitPane_rebuildGroup_slot(long param_1)
 
 {
   QWidget *pQVar1;
@@ -17343,11 +17343,11 @@ long * KitPane_rebuildView(long param_1,undefined8 *param_2,char param_3,undefin
     qatomic_int_ref();
   }
                     /* try { // try from 008d2e8a to 008d2e8e has its CatchHandler @ 008d2f6a */
-  plVar2 = (long *)FUN_0089e8de((QVariant *)local_48,param_1);
+  plVar2 = (long *)kit_view_factory((QVariant *)local_48,param_1);
   qt_array_data_unref((QVariant *)local_48);
   if (plVar2 != (long *)0x0) {
     *(undefined1 *)((long)plVar2 + 9) = *(undefined1 *)(param_1 + 0x31);
-    FUN_008ca77c(param_1,plVar2,param_3,param_4,param_5);
+    KitPane_insertView(param_1,plVar2,param_3,param_4,param_5);
     cVar1 = (**(code **)(*plVar2 + 0x60))(plVar2,param_2);
     if (cVar1 == '\0') {
       qstring_assign_from_ascii((QVariant *)local_48,"Error");

@@ -35119,9 +35119,9 @@ void BSim_QMouseEvent__globalPos(long param_1)
 }
 
 
-// ==== entry=00842414 orig=FUN_00842414 size=821 name=s_session__tmux_842414 ====
+// ==== entry=00842414 orig=FUN_00842414 size=821 name=s_session__tmux_attach ====
 
-void s_session__tmux_842414(long param_1)
+void s_session__tmux_attach(long param_1)
 
 {
   int iVar1;
@@ -35236,9 +35236,9 @@ void s_session__tmux_842414(long param_1)
 }
 
 
-// ==== entry=00842772 orig=FUN_00842772 size=5 name=s_session__tmux_842772 ====
+// ==== entry=00842772 orig=FUN_00842772 size=5 name=s_session__tmux_attach_thunk ====
 
-void s_session__tmux_842772(long param_1)
+void s_session__tmux_attach_thunk(long param_1)
 
 {
   int iVar1;
@@ -35348,9 +35348,9 @@ void s_session__tmux_842772(long param_1)
 }
 
 
-// ==== entry=00842778 name=FUN_00842778 size=381 ====
+// ==== entry=00842778 orig=FUN_00842778 size=381 name=s_session__tmux_detach ====
 
-void FUN_00842778(long *param_1)
+void s_session__tmux_detach(long *param_1)
 
 {
   code *pcVar1;
@@ -35419,9 +35419,9 @@ LAB_00842870:
 }
 
 
-// ==== entry=008428f6 orig=FUN_008428f6 size=5 name=thunk_FUN_00842778 ====
+// ==== entry=008428f6 orig=FUN_008428f6 size=5 name=s_session__tmux_detach ====
 
-void thunk_FUN_00842778(long *param_1)
+void s_session__tmux_detach(long *param_1)
 
 {
   code *pcVar1;
@@ -38130,7 +38130,7 @@ void s_window_caretStyle_8464ec(long param_1,undefined8 *param_2)
   }
   local_58 = FUN_009131a0;
   local_50 = 0;
-  local_48 = s_session__tmux_842772;
+  local_48 = s_session__tmux_attach_thunk;
   local_40 = 0;
   puVar7 = operator_new(0x20);
   *puVar7 = 1;
@@ -38150,7 +38150,7 @@ void s_window_caretStyle_8464ec(long param_1,undefined8 *param_2)
   }
   local_58 = FUN_009131b4;
   local_50 = 0;
-  local_48 = thunk_FUN_00842778;
+  local_48 = s_session__tmux_detach;
   local_40 = 0;
   puVar7 = operator_new(0x20);
   *puVar7 = 1;
@@ -40206,7 +40206,7 @@ void s_SessionErrorMessage_84b146(long *param_1,char param_2)
   
   if ((param_1[0x23] != 0) && ((char)param_1[0x2c] == '\0')) {
     FUN_009107b0();
-    FUN_00842778(param_1);
+    s_session__tmux_detach(param_1);
     TerminalWidget_h84ab1a(param_1);
     pvVar1 = (void *)param_1[0x24];
     if (pvVar1 != (void *)0x0) {

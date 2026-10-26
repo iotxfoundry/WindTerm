@@ -206,7 +206,7 @@ LAB_0085d7f5:
   QArrayData::deallocate(local_20,2,8);
 LAB_0085d75c:
   KitWindow_lazyCreateQuickBar(param_1);
-  FUN_008cb89a(param_1);
+  KitPane_rebuildGroup_slot(param_1);
   return;
 }
 
@@ -3137,9 +3137,9 @@ void FUN_008619a3(long *param_1)
 }
 
 
-// ==== entry=008619b6 name=FUN_008619b6 size=41 ====
+// ==== entry=008619b6 orig=FUN_008619b6 size=41 name=ssh_auth_kbi_exec ====
 
-undefined8 FUN_008619b6(long *param_1)
+undefined8 ssh_auth_kbi_exec(long *param_1)
 
 {
   undefined8 uVar1;
@@ -5719,9 +5719,9 @@ undefined8 FUN_0086448e(void)
 }
 
 
-// ==== entry=008644b8 name=FUN_008644b8 size=171 ====
+// ==== entry=008644b8 orig=FUN_008644b8 size=171 name=ssh_auth_kbi_probe ====
 
-ulong FUN_008644b8(long *param_1)
+ulong ssh_auth_kbi_probe(long *param_1)
 
 {
   long lVar1;
@@ -5738,7 +5738,7 @@ ulong FUN_008644b8(long *param_1)
     if ((int)uVar3 != 3) {
       return uVar3;
     }
-    FUN_00629dea(local_28,*(undefined8 *)(*param_1 + 0x70));
+    kbi_prompt_collect_kbdint_loop(local_28,*(undefined8 *)(*param_1 + 0x70));
     puVar2 = local_20[0];
     local_20[0] = &QListData::shared_null;
     local_30 = *(undefined8 *)(*param_1 + 0x148);
@@ -5753,9 +5753,9 @@ ulong FUN_008644b8(long *param_1)
 }
 
 
-// ==== entry=00864563 name=FUN_00864563 size=161 ====
+// ==== entry=00864563 orig=FUN_00864563 size=161 name=ssh_auth_kbi_resubmit_slot ====
 
-ulong FUN_00864563(long *param_1)
+ulong ssh_auth_kbi_resubmit_slot(long *param_1)
 
 {
   uint uVar1;
@@ -5770,7 +5770,7 @@ ulong FUN_00864563(long *param_1)
   if ((int)uVar3 != 3) {
     return uVar3;
   }
-  FUN_00629dea(local_28,*(undefined8 *)(*param_1 + 0x70));
+  kbi_prompt_collect_kbdint_loop(local_28,*(undefined8 *)(*param_1 + 0x70));
   puVar2 = local_20;
   local_20 = &QListData::shared_null;
   local_30 = *(undefined8 *)(*param_1 + 0x148);
@@ -6282,9 +6282,9 @@ LAB_00865290:
 }
 
 
-// ==== entry=00865306 name=FUN_00865306 size=703 ====
+// ==== entry=00865306 orig=FUN_00865306 size=703 name=ssh_autologin_push_kbi ====
 
-void FUN_00865306(undefined8 param_1,QVariant *param_2,undefined8 *param_3)
+void ssh_autologin_push_kbi(undefined8 param_1,QVariant *param_2,undefined8 *param_3)
 
 {
   undefined8 uVar1;
@@ -6330,7 +6330,7 @@ void FUN_00865306(undefined8 param_1,QVariant *param_2,undefined8 *param_3)
     *local_d0 = *local_d0 + 1;
     UNLOCK();
   }
-  local_80 = FUN_008644b8;
+  local_80 = ssh_auth_kbi_probe;
   local_88 = FUN_00861e13;
                     /* try { // try from 008653da to 008653f9 has its CatchHandler @ 008655ed */
   uVar1 = FUN_0086ac68(uVar1,local_98);
@@ -6342,7 +6342,7 @@ void FUN_00865306(undefined8 param_1,QVariant *param_2,undefined8 *param_3)
   *puVar2 = local_b8;
                     /* try { // try from 00865425 to 00865429 has its CatchHandler @ 008655fd */
   QVariant::QVariant((QVariant *)(puVar2 + 1),local_b0);
-  local_60 = FUN_008619b6;
+  local_60 = ssh_auth_kbi_exec;
   local_68 = FUN_00861a64;
   local_78[0] = puVar2;
                     /* try { // try from 00865460 to 00865464 has its CatchHandler @ 008655f5 */
@@ -6364,7 +6364,7 @@ void FUN_00865306(undefined8 param_1,QVariant *param_2,undefined8 *param_3)
     *local_c0 = *local_c0 + 1;
     UNLOCK();
   }
-  local_40 = FUN_00864563;
+  local_40 = ssh_auth_kbi_resubmit_slot;
   local_48 = FUN_00861d7f;
                     /* try { // try from 008654f2 to 008654fe has its CatchHandler @ 008655cd */
   uVar1 = FUN_0086ac68(uVar1,local_58);
@@ -6412,7 +6412,7 @@ void FUN_00865605(int param_1,void *param_2)
   if (param_1 == 1) {
     lVar1 = *(long *)((long)param_2 + 0x10);
     *(undefined1 *)(lVar1 + 0x128) = 1;
-    FUN_00865306(lVar1,(long)param_2 + 0x18,(long)param_2 + 0x28);
+    ssh_autologin_push_kbi(lVar1,(long)param_2 + 0x18,(long)param_2 + 0x28);
     return;
   }
   return;
@@ -56209,9 +56209,9 @@ void FUN_0089e8c8(undefined8 param_1)
 }
 
 
-// ==== entry=0089e8de name=FUN_0089e8de size=234 ====
+// ==== entry=0089e8de orig=FUN_0089e8de size=234 name=kit_view_factory ====
 
-long FUN_0089e8de(long *param_1,long param_2)
+long kit_view_factory(long *param_1,long param_2)
 
 {
   long lVar1;
@@ -56276,14 +56276,14 @@ long * FUN_0089e9e0(long *param_1,undefined8 param_2)
   if (lVar2 == 0) {
     (**(code **)(*param_1 + 0x18))(local_40,param_1);
                     /* try { // try from 0089eb67 to 0089eb6b has its CatchHandler @ 0089ebd1 */
-    plVar4 = (long *)FUN_0089e8de(local_40,param_2);
+    plVar4 = (long *)kit_view_factory(local_40,param_2);
     iVar1 = *(int *)local_40[0];
   }
   else {
     sVar3 = strlen("::Find Result");
     local_40[0] = (QArrayData *)QString::fromAscii_helper("::Find Result",(int)sVar3);
                     /* try { // try from 0089ea56 to 0089ea5a has its CatchHandler @ 0089ebd9 */
-    plVar4 = (long *)FUN_0089e8de(local_40,param_2);
+    plVar4 = (long *)kit_view_factory(local_40,param_2);
     iVar1 = *(int *)local_40[0];
   }
   if (iVar1 != 0) {
@@ -77687,11 +77687,11 @@ void s_TabAddButton_8b9dfa(long param_1)
 }
 
 
-// ==== entry=008b9f04 name=FUN_008b9f04 size=445 ====
+// ==== entry=008b9f04 orig=FUN_008b9f04 size=445 name=kit_group_attach_tab ====
 
 /* WARNING: Removing unreachable block (ram,0x008ba0b2) */
 
-undefined4 FUN_008b9f04(long param_1,long *param_2,undefined4 param_3,char param_4)
+undefined4 kit_group_attach_tab(long param_1,long *param_2,undefined4 param_3,char param_4)
 
 {
   long lVar1;
@@ -77762,20 +77762,20 @@ undefined4 FUN_008b9f04(long param_1,long *param_2,undefined4 param_3,char param
 void KitGroup_attachView(undefined8 param_1,undefined8 param_2,undefined1 param_3)
 
 {
-  FUN_008b9f04(param_1,param_2,0xffffffff,param_3);
+  kit_group_attach_tab(param_1,param_2,0xffffffff,param_3);
   return;
 }
 
 
-// ==== entry=008ba104 name=FUN_008ba104 size=44 ====
+// ==== entry=008ba104 orig=FUN_008ba104 size=44 name=kit_group_insert_view_at ====
 
-void FUN_008ba104(long param_1,undefined8 param_2,undefined8 param_3,undefined1 param_4)
+void kit_group_insert_view_at(long param_1,undefined8 param_2,undefined8 param_3,undefined1 param_4)
 
 {
   undefined4 uVar1;
   
   uVar1 = FUN_005abce4(*(undefined8 *)(param_1 + 0x38),param_3);
-  FUN_008b9f04(param_1,param_2,uVar1,param_4);
+  kit_group_attach_tab(param_1,param_2,uVar1,param_4);
   return;
 }
 

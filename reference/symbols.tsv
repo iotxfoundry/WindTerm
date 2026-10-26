@@ -7842,3 +7842,29 @@
 0x008d98d0	MuxDesktop_bind5	TabGroup 五连:tabActivated→切页/tabAddRequested→新 MuxWindow+addPage/tabCloseRequested→三态确认/tabBlankRequested/信号6→重命名;关闭三态:attach 窗 Detach(&D)/Kill(&K)/Cancel(&C) QMessageBox(0x8dd1b8)
 0x008da278	MuxDesktop_findWindow	遍历 TabGroup 页→MuxWindow 比对 +0x44==idx;0x8da072=insertTab(idx+1,icon,Normal/Pinned state)
 0x007ee78e	tmux_pane_createView	termAdded 信号→新 TerminalView+resizeBuffer(pane cols,rows)+append +0x1a8 表+paneCreated 信号;capture-pane(0x877610 -peCqJ -S- -E-1 -t %N)仅新 pane 首挂入队;%end→paneInited+screenCaptured(join \r\n)整缓冲替换
+# —— 小尾巴深逆批（2026-10-26;kbdint 两阶段 wizard 表单/UCS4 宽度区间表/MuxDesktop per-terminal replaceWidget/KitPane 三通道互通;更正:0x8d9786 行"每 MainWindow 一份"应为"每 tmux 终端一份"）——
+0x005f5450	utf8_decode_char_width	UTF-8 LUT 解码+宽度一体:cp<0x1100 窄;宽2:1100-115F/2329-232A/2E80-A4CF(≠303F)/AC00-D7A3/F900-FAFF/FE10-FE19/FE30-FE6F/FF00-FF60/FFE0-FFE7/1F300-1F9FF/≥20000;无查表数组无 ambiguous 开关
+0x005f56de	fmt_int_digits10	局部 64 项 ushort 表按值域返回十进制位数,fmt 定宽写数字
+0x0066c318	ismark_or_skin_tone	QChar::isMark(cp)||cp∈[1F3FB,1F3FF] 编辑器侧零宽跳过(终端 cell 宽层无此逻辑)
+0x00629dea	kbi_prompt_collect_kbdint_loop	循环:getnprompts/getprompt 收 prompts(echo 读后丢弃);ssh_userauth_kbdint(ssh,0,0) rc==3(AGAIN)同步重入
+0x008644b8	ssh_auth_kbi_probe	kbi 探测 operator vtable 槽:先发 kbdint(ssh,0,0) 起步,rc==3→0x629dea 循环→prompts 存 bridge+0x148 供 UI 生成行
+0x008619b6	ssh_auth_kbi_exec	提交轮:QVariant List/Map 逐项 toUtf8→ssh_userauth_kbdint_setanswer(ssh,i);answers 数<nprompts 不推进
+0x00864563	ssh_auth_kbi_resubmit_slot	kbi 再执行回调(autologin ③)
+0x00865306	ssh_autologin_push_kbi	"Keyboard Interactive" operator 入队:回调①探测②提交③再执行
+0x00592e5a	ssh_authForm	Login Wizard 认证页 QFormLayout:按方法名(None/Password/Keyboard Interactive/Public Key)建行;setRowWrapPolicy(2)
+0x00594366	ssh_add_kbi_row	prompts 到达后 singleShot(0) 插行:name+instruction 合一 QLabel;逐 prompt SafeEdit(Password 掩码,echo 丢弃);returnPressed 焦点推进
+0x00595e52	kbi_row_advance_focus	回车推进:收行→焦点移相邻行(跳空行);最后一行回车=QDialogButtonBox accepted
+0x005941e2	auth_form_collect_qlineedit	遍历 QFormLayout rowCount itemAt(FieldRole)→QLineEdit 按序收集
+0x005961b0	ssh_authMeta	accepted metacall:KbdInt 收行跳前两非输入行→QMap{trimmed(label)→text}→session_write_char(2) 通道下发
+0x005646ae	SafeEdit_ctor	QLineEdit 封装 echoMode 参数 3→setEchoMode(2)=Password
+0x008d2e46	KitPane_rebuildView	工厂+插入编排:name 判型("::"前缀 Grep/Editor/Terminal)→new view→烙 pane+0x31 家族标志→0x8ca77c 插组→vtbl+0x60 按名加载→失败 Error/Discarded 双属性
+0x0089e8de	kit_view_factory	name=="Editor"→EditorView(0x5e5bb6);"Terminal"→TerminalView(0x835f5a);startsWith("::")→GrepView(0x891e22)
+0x008ca77c	KitPane_insertView	焦点 KitGroup 沿父链解析(0x8ca6ca);无→KitGroup_instantiate→addWidget(receiver=pane+0x48 右 splitter);→0x8ba104 挂 tab
+0x0089f516	KitGroup_instantiate	new KitGroup(QMainWindow 嵌入式)+读 tabbar.selectionBehaviorOnRemove/textElideMode+connect 4 信号(sig2=跨 pane acquire 通道 0x8a09ac→0x8ca876)
+0x008b9f04	kit_group_attach_tab	view 挂 tab:find_ancestor_type(KitGroup)→TabGroup insertTab→pane 状态栏消息→Unactivated 属性→activate 则 selectTab
+0x008ba104	kit_group_insert_view_at	target 槽解析("Last"/uuid/序号 0x5abce4)→0x8b9f04(group,view,tabIdx)
+0x00842414	s_session__tmux_attach	TerminalView 进 tmux:守卫(+0x1c8/+0x1d0)→new MuxDesktop→layout->replaceWidget(terminal,desktop,1) 原位换入→MuxWindow+MuxPaneGroup(terminal 入 TabGroup 页)+属性"tmux"→addPage;每终端一份
+0x00842778	s_session__tmux_detach	退出 tmux:replaceWidget(desktop,terminal,1) 换回→桌面整树 deleting-dtor→+0x1c8/+0x1d0 清零
+0x00842772	s_session__tmux_attach_thunk	0x842414 同体 5B 跳桩(TerminalView ctor sig#22=0x9131b4 触发 attach)
+0x008cb89a	KitPane_rebuildGroup_slot	左树空组重建→addWidget(pane+0x48);子 splitter 空组 reparent
+0x008bb3e6	TabGroup_loadTabList	恢复 blob 逐 tab→rebuildView(0x8d2e46 调用者)

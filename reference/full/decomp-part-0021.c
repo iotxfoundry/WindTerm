@@ -47231,11 +47231,11 @@ LAB_006b9dae:
   }
   pvVar7 = operator_new(0x90);
                     /* try { // try from 006b9a97 to 006b9a9b has its CatchHandler @ 006b9e62 */
-  FUN_005646ae(pvVar7,param_1,3);
+  SafeEdit_ctor(pvVar7,param_1,3);
   *(void **)(param_1 + 0x48) = pvVar7;
   pvVar7 = operator_new(0x90);
                     /* try { // try from 006b9ab8 to 006b9abc has its CatchHandler @ 006b9e72 */
-  FUN_005646ae(pvVar7,param_1,3);
+  SafeEdit_ctor(pvVar7,param_1,3);
   *(void **)(param_1 + 0x50) = pvVar7;
   pvVar7 = operator_new(0x30);
                     /* try { // try from 006b9ad4 to 006b9ad8 has its CatchHandler @ 006b9e6a */
@@ -51572,7 +51572,7 @@ void s_king__oneKeyAccount_6bf160(QWidget *param_1)
   *(void **)(param_1 + 0x88) = pvVar4;
   pvVar4 = operator_new(0x90);
                     /* try { // try from 006bf2f2 to 006bf2f6 has its CatchHandler @ 006bf5ed */
-  FUN_005646ae(pvVar4,0,3);
+  SafeEdit_ctor(pvVar4,0,3);
   *(void **)(param_1 + 0x90) = pvVar4;
   QMetaObject::tr((char *)local_48,(char *)&PTR_staticMetaObject_011a1860,0xc9daf4);
                     /* try { // try from 006bf327 to 006bf32b has its CatchHandler @ 006bf5e5 */
@@ -53418,7 +53418,7 @@ void s_king__oneKeySSH_6c2878(long param_1)
   *(QLineEdit **)(param_1 + 0x40) = this_01;
   pvVar9 = operator_new(0x90);
                     /* try { // try from 006c2a27 to 006c2a2b has its CatchHandler @ 006c2d66 */
-  FUN_005646ae(pvVar9,0,3);
+  SafeEdit_ctor(pvVar9,0,3);
   *(void **)(param_1 + 0x48) = pvVar9;
   pvVar9 = operator_new(0xa0);
                     /* try { // try from 006c2a46 to 006c2a4a has its CatchHandler @ 006c2d5e */
@@ -56023,7 +56023,7 @@ LAB_006c6a4c:
                     /* try { // try from 006c6a8f to 006c6a93 has its CatchHandler @ 006c6f4a */
   pvVar4 = operator_new(0x90);
                     /* try { // try from 006c6aa2 to 006c6aa6 has its CatchHandler @ 006c6fe7 */
-  FUN_005646ae(pvVar4,param_1,3);
+  SafeEdit_ctor(pvVar4,param_1,3);
   *(void **)(param_1 + 0x58) = pvVar4;
                     /* try { // try from 006c6aba to 006c6abe has its CatchHandler @ 006c6f4a */
   pQVar6 = operator_new(0x30);
@@ -57874,11 +57874,11 @@ LAB_006c9d0a:
   *(QLabel **)(param_1 + 0x30) = pQVar6;
   pvVar7 = operator_new(0x90);
                     /* try { // try from 006c9a06 to 006c9a0a has its CatchHandler @ 006c9e68 */
-  FUN_005646ae(pvVar7,param_1,3);
+  SafeEdit_ctor(pvVar7,param_1,3);
   *(void **)(param_1 + 0x40) = pvVar7;
   pvVar7 = operator_new(0x90);
                     /* try { // try from 006c9a27 to 006c9a2b has its CatchHandler @ 006c9e60 */
-  FUN_005646ae(pvVar7,param_1,3);
+  SafeEdit_ctor(pvVar7,param_1,3);
   *(void **)(param_1 + 0x48) = pvVar7;
   pQVar8 = operator_new(0x30);
                     /* try { // try from 006c9a47 to 006c9a4b has its CatchHandler @ 006c9e58 */

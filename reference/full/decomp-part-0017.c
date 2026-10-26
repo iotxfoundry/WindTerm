@@ -34557,15 +34557,15 @@ LAB_005607ca:
   }
   pvVar4 = operator_new(0x90);
                     /* try { // try from 00560547 to 0056054b has its CatchHandler @ 00560828 */
-  FUN_005646ae(pvVar4,param_1,3);
+  SafeEdit_ctor(pvVar4,param_1,3);
   *(void **)(param_1 + 0x60) = pvVar4;
   pvVar4 = operator_new(0x90);
                     /* try { // try from 00560568 to 0056056c has its CatchHandler @ 00560810 */
-  FUN_005646ae(pvVar4,param_1,3);
+  SafeEdit_ctor(pvVar4,param_1,3);
   *(void **)(param_1 + 0x68) = pvVar4;
   pvVar4 = operator_new(0x90);
                     /* try { // try from 00560589 to 0056058d has its CatchHandler @ 00560878 */
-  FUN_005646ae(pvVar4,param_1,3);
+  SafeEdit_ctor(pvVar4,param_1,3);
   *(void **)(param_1 + 0x70) = pvVar4;
   pvVar4 = operator_new(0x30);
                     /* try { // try from 005605a5 to 005605a9 has its CatchHandler @ 00560838 */
@@ -37649,9 +37649,9 @@ void FUN_00564676(QEvent *param_1,long param_2)
 }
 
 
-// ==== entry=005646ae name=FUN_005646ae size=148 ====
+// ==== entry=005646ae orig=FUN_005646ae size=148 name=SafeEdit_ctor ====
 
-void FUN_005646ae(undefined8 *param_1,undefined8 param_2,int param_3)
+void SafeEdit_ctor(undefined8 *param_1,undefined8 param_2,int param_3)
 
 {
   char cVar1;

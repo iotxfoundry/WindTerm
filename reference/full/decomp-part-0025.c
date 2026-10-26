@@ -3617,7 +3617,7 @@ void FUN_007d430c(long param_1,undefined8 param_2,undefined8 param_3)
   }
   lVar1 = __dynamic_cast(*(long *)(param_1 + 0x10),&PTR_PTR_011a8050,&PTR_PTR_011a8f30,0);
   if (lVar1 != 0) {
-    FUN_00865306(lVar1,param_2,param_3);
+    ssh_autologin_push_kbi(lVar1,param_2,param_3);
     return;
   }
   return;

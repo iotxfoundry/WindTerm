@@ -7531,7 +7531,7 @@ LAB_00590bf8:
                     /* try { // try from 0059099c to 005909a0 has its CatchHandler @ 00590c3a */
       pQVar18 = operator_new(0x90);
                     /* try { // try from 005909b3 to 005909b7 has its CatchHandler @ 00590cbd */
-      FUN_005646ae(pQVar18,*plVar1,local_110);
+      SafeEdit_ctor(pQVar18,*plVar1,local_110);
       if (*(int *)(local_e0 + 4) != 0) {
                     /* try { // try from 005909cf to 005909f9 has its CatchHandler @ 00590c3a */
         QLineEdit::setText(pQVar18);
@@ -9048,7 +9048,7 @@ LAB_005930bb:
       puVar2 = (undefined8 *)param_1[3];
       pvVar8 = operator_new(0x90);
                     /* try { // try from 0059340d to 00593411 has its CatchHandler @ 005936bd */
-      FUN_005646ae(pvVar8,*puVar2,3);
+      SafeEdit_ctor(pvVar8,*puVar2,3);
       QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_01198d80,0xc8ad83);
                     /* try { // try from 00593443 to 00593447 has its CatchHandler @ 005936b5 */
       QFormLayout::insertRow(iVar15,(QString *)0x0,(QWidget *)&local_48);
@@ -9080,7 +9080,7 @@ LAB_005930bb:
       qt_array_data_unref((QWidget *)&local_48);
       pvVar9 = operator_new(0x90);
                     /* try { // try from 00593237 to 0059323b has its CatchHandler @ 0059369d */
-      FUN_005646ae(pvVar9,*puVar2,3);
+      SafeEdit_ctor(pvVar9,*puVar2,3);
       lVar11 = *(long *)puVar2[1];
       local_64 = *(uint *)(lVar11 + 4);
       if (local_64 == 0) {
@@ -9645,9 +9645,9 @@ void FUN_005941b5(int param_1,void *param_2)
 }
 
 
-// ==== entry=005941e2 name=FUN_005941e2 size=370 ====
+// ==== entry=005941e2 orig=FUN_005941e2 size=370 name=auth_form_collect_qlineedit ====
 
-undefined8 * FUN_005941e2(undefined8 *param_1,undefined8 param_2,long param_3)
+undefined8 * auth_form_collect_qlineedit(undefined8 *param_1,undefined8 param_2,long param_3)
 
 {
   int iVar1;
@@ -9835,10 +9835,10 @@ LAB_0059447a:
       do {
         pvVar11 = operator_new(0x90);
                     /* try { // try from 00594542 to 00594546 has its CatchHandler @ 005948d9 */
-        FUN_005646ae(pvVar11,param_1,3);
+        SafeEdit_ctor(pvVar11,param_1,3);
         local_58 = QLineEdit::returnPressed;
         local_50 = 0;
-        local_48 = (QArrayData *)FUN_00595e52;
+        local_48 = (QArrayData *)kbi_row_advance_focus;
         local_40 = 0;
                     /* try { // try from 0059457c to 00594649 has its CatchHandler @ 005948c9 */
         puVar12 = operator_new(0x20);
@@ -10124,7 +10124,7 @@ LAB_00595079:
       uVar9 = *(undefined8 *)puVar11;
       local_b8 = (QArrayData *)QLineEdit::returnPressed;
       local_b0 = 0;
-      local_a8 = (QString *)FUN_00595e52;
+      local_a8 = (QString *)kbi_row_advance_focus;
       local_a0 = (QVariant *)0x0;
                     /* try { // try from 00594e34 to 00594e96 has its CatchHandler @ 00595132 */
       puVar10 = operator_new(0x20);
@@ -10539,9 +10539,9 @@ LAB_0059532f:
 }
 
 
-// ==== entry=00595e52 name=FUN_00595e52 size=854 ====
+// ==== entry=00595e52 orig=FUN_00595e52 size=854 name=kbi_row_advance_focus ====
 
-void FUN_00595e52(long param_1)
+void kbi_row_advance_focus(long param_1)
 
 {
   uint uVar1;
@@ -10571,7 +10571,7 @@ void FUN_00595e52(long param_1)
     }
     uVar4 = FUN_005ab316(uVar4);
     ppQVar10 = &local_58;
-    FUN_005941e2(ppQVar10,param_1,uVar4);
+    auth_form_collect_qlineedit(ppQVar10,param_1,uVar4);
     pQVar5 = local_58;
     local_58 = (QArrayData *)&QListData::shared_null;
   }
@@ -10585,7 +10585,7 @@ void FUN_00595e52(long param_1)
     }
     uVar4 = FUN_005ab316(uVar4);
     ppQVar10 = &local_50;
-    FUN_005941e2(ppQVar10,param_1,uVar4);
+    auth_form_collect_qlineedit(ppQVar10,param_1,uVar4);
     pQVar5 = local_50;
     local_50 = (QArrayData *)&QListData::shared_null;
   }
@@ -10757,7 +10757,7 @@ LAB_00596286:
     if (lVar8 != 0) {
       pQVar9 = (QWidget *)__dynamic_cast(lVar8,&QLayout::typeinfo,&QFormLayout::typeinfo,0);
       if (pQVar9 != (QWidget *)0x0) {
-        FUN_005941e2(&local_50,lVar13,lVar6);
+        auth_form_collect_qlineedit(&local_50,lVar13,lVar6);
         if (1 < *local_50) {
           qlist_takeFirst(&local_50,local_50[1]);
         }
@@ -10917,7 +10917,7 @@ LAB_005964d7:
       iVar5 = QString::compare(&local_78,(QVariant *)local_48,1);
       qt_array_data_unref((QVariant *)local_48);
       if (iVar5 == 0) {
-        FUN_005941e2(&local_70,*(undefined8 *)((long)param_2 + 0x18),lVar6);
+        auth_form_collect_qlineedit(&local_70,*(undefined8 *)((long)param_2 + 0x18),lVar6);
         if (local_70[3] - local_70[2] == 2) {
           if (1 < *local_70) {
                     /* try { // try from 005969ac to 005969b0 has its CatchHandler @ 005969bb */

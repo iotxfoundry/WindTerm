@@ -24518,7 +24518,7 @@ LAB_005ebe87:
   }
   QArrayData::deallocate(local_20,2,8);
 LAB_005ebdf6:
-  FUN_008cb89a(param_1);
+  KitPane_rebuildGroup_slot(param_1);
   return;
 }
 
@@ -33708,9 +33708,9 @@ size_t strlen(char *__s)
 }
 
 
-// ==== entry=005f5450 name=FUN_005f5450 size=654 ====
+// ==== entry=005f5450 orig=FUN_005f5450 size=654 name=utf8_decode_char_width ====
 
-char * FUN_005f5450(undefined8 *param_1,char *param_2)
+char * utf8_decode_char_width(undefined8 *param_1,char *param_2)
 
 {
   byte bVar1;
@@ -33801,9 +33801,9 @@ LAB_005f56ce:
 }
 
 
-// ==== entry=005f56de name=FUN_005f56de size=311 ====
+// ==== entry=005f56de orig=FUN_005f56de size=311 name=fmt_int_digits10 ====
 
-int FUN_005f56de(ulong param_1)
+int fmt_int_digits10(ulong param_1)
 
 {
   long lVar1;
@@ -35345,7 +35345,7 @@ void FUN_005f6e58(undefined8 param_1,long param_2,undefined8 param_3,undefined8 
   undefined2 *local_20;
   
   uVar4 = *(long *)(param_2 + 0x18) % 1000000000;
-  uVar2 = FUN_005f56de(uVar4);
+  uVar2 = fmt_int_digits10(uVar4);
   if (uVar2 < 9) {
     do {
       lVar3 = param_4[2];
@@ -35408,7 +35408,7 @@ void FUN_005f6fae(undefined8 param_1,long param_2,undefined8 param_3,undefined8 
   undefined2 *local_20;
   
   uVar5 = *(long *)(param_2 + 0x18) / 1000 + (*(long *)(param_2 + 0x18) / 1000000000) * -1000000;
-  uVar2 = FUN_005f56de(uVar5);
+  uVar2 = fmt_int_digits10(uVar5);
   if (uVar2 < 6) {
     do {
       lVar3 = param_4[2];
@@ -35860,7 +35860,7 @@ void FUN_005f776c(long param_1,long param_2,undefined8 param_3,undefined8 *param
       local_48 = (ulong)((uint)lVar3 & 1) + (lVar3 >> 1);
     }
   }
-  uVar2 = FUN_005f56de(uVar4);
+  uVar2 = fmt_int_digits10(uVar4);
   if (uVar2 < 9) {
     do {
       lVar3 = param_4[2];
@@ -35927,7 +35927,7 @@ void FUN_005f795a(long param_1,long param_2,undefined8 param_3,undefined8 param_
   undefined8 local_38;
   
   uVar3 = *(ulong *)(param_2 + 0x20);
-  uVar2 = FUN_005f56de(uVar3);
+  uVar2 = fmt_int_digits10(uVar3);
   local_58 = param_1 + 8;
   local_40 = "                                                                ";
   local_38 = 0x40;
@@ -36153,7 +36153,7 @@ void FUN_005f7d76(long param_1,long param_2,undefined8 param_3,undefined8 *param
       local_48 = (ulong)((uint)lVar3 & 1) + (lVar3 >> 1);
     }
   }
-  uVar2 = FUN_005f56de(uVar5);
+  uVar2 = fmt_int_digits10(uVar5);
   if (uVar2 < 6) {
     do {
       lVar3 = param_4[2];
@@ -36569,7 +36569,7 @@ void FUN_005f86b6(long param_1,long param_2,undefined8 param_3,undefined8 param_
   if (-1 < (long)uVar7) {
     uVar3 = uVar7;
   }
-  uVar2 = FUN_005f56de(uVar3);
+  uVar2 = fmt_int_digits10(uVar3);
   local_58 = param_1 + 8;
   local_40 = "                                                                ";
   local_38 = 0x40;
@@ -36650,7 +36650,7 @@ void FUN_005f884c(long param_1,long param_2,undefined8 param_3,undefined8 param_
   }
   *(long *)(param_1 + 0x18) = *(long *)(param_2 + 0x18);
   uVar3 = uVar7 / 1000000;
-  uVar2 = FUN_005f56de(uVar3);
+  uVar2 = fmt_int_digits10(uVar3);
   local_58 = param_1 + 8;
   local_40 = "                                                                ";
   local_38 = 0x40;
@@ -36731,7 +36731,7 @@ void FUN_005f89fc(long param_1,long param_2,undefined8 param_3,undefined8 param_
   }
   *(long *)(param_1 + 0x18) = *(long *)(param_2 + 0x18);
   uVar3 = uVar7 / 1000000000;
-  uVar2 = FUN_005f56de(uVar3);
+  uVar2 = fmt_int_digits10(uVar3);
   local_58 = param_1 + 8;
   local_40 = "                                                                ";
   local_38 = 0x40;
@@ -36812,7 +36812,7 @@ void FUN_005f8bc0(long param_1,long param_2,undefined8 param_3,undefined8 param_
   }
   *(long *)(param_1 + 0x18) = *(long *)(param_2 + 0x18);
   uVar3 = uVar7 / 1000;
-  uVar2 = FUN_005f56de(uVar3);
+  uVar2 = fmt_int_digits10(uVar3);
   local_58 = param_1 + 8;
   local_40 = "                                                                ";
   local_38 = 0x40;
@@ -44308,7 +44308,7 @@ long FUN_006045a2(long param_1,ulong param_2)
   undefined2 *puVar7;
   undefined2 auStack_38 [20];
   
-  iVar2 = FUN_005f56de(param_2);
+  iVar2 = fmt_int_digits10(param_2);
   lVar5 = (long)iVar2;
   lVar3 = *(long *)(param_1 + 0x10);
   uVar4 = lVar5 + lVar3;
@@ -44373,7 +44373,7 @@ long FUN_006046fe(long param_1,ulong param_2)
   undefined2 *puVar7;
   undefined2 auStack_38 [20];
   
-  iVar2 = FUN_005f56de(param_2);
+  iVar2 = fmt_int_digits10(param_2);
   lVar5 = (long)iVar2;
   lVar3 = *(long *)(param_1 + 0x10);
   uVar4 = lVar5 + lVar3;
@@ -44811,7 +44811,7 @@ long FUN_006050a0(long param_1,ulong param_2)
   uVar5 = *(ulong *)(param_1 + 0x18);
   if ((long)param_2 < 0) {
     param_2 = -param_2;
-    iVar3 = FUN_005f56de(param_2);
+    iVar3 = fmt_int_digits10(param_2);
     lVar10 = (long)iVar3;
     uVar1 = lVar4 + 1 + lVar10;
     if (uVar1 <= uVar5) {
@@ -44828,7 +44828,7 @@ long FUN_006050a0(long param_1,ulong param_2)
     obuffer_put_char(local_48,&local_49);
   }
   else {
-    iVar3 = FUN_005f56de(param_2);
+    iVar3 = fmt_int_digits10(param_2);
     lVar10 = (long)iVar3;
     if ((ulong)(lVar4 + lVar10) <= uVar5) {
       *(long *)(param_1 + 0x10) = lVar4 + lVar10;
@@ -45004,7 +45004,7 @@ LAB_0060574e:
       return 0;
     }
   }
-  iVar5 = FUN_005f56de();
+  iVar5 = fmt_int_digits10();
   ppuVar19 = (undefined **)((long)ppuVar10 + (long)ppuVar10[-3]);
   iVar20 = iVar5;
   iVar6 = iVar5;
@@ -46577,7 +46577,7 @@ undefined8 FUN_00607a6a(undefined8 param_1,ulong *param_2,uint *param_3,ulong pa
   
   uVar10 = *param_2;
   local_7c[0] = param_5;
-  iVar3 = FUN_005f56de(uVar10);
+  iVar3 = fmt_int_digits10(uVar10);
   uVar17 = param_4 >> 0x28;
   uVar8 = (uint)(param_4 >> 0x20);
   uVar18 = uVar8 >> 8;
@@ -48115,7 +48115,7 @@ LAB_0060a2fa:
        (cVar2 = numput_grouped_digits(&local_90,param_2,uVar7,param_3,param_4), cVar2 != '\0')) {
       return local_90;
     }
-    iVar13 = FUN_005f56de(param_2);
+    iVar13 = fmt_int_digits10(param_2);
     lVar3 = local_90;
     uVar10 = (ulong)*param_3;
     uVar4 = param_3[1];
@@ -48544,7 +48544,7 @@ LAB_0060ad33:
        (cVar2 = numput_grouped_digits(&local_90,param_2,uVar7,param_3,param_4), cVar2 != '\0')) {
       return local_90;
     }
-    iVar13 = FUN_005f56de(param_2);
+    iVar13 = fmt_int_digits10(param_2);
     lVar3 = local_90;
     uVar10 = (ulong)*param_3;
     uVar4 = param_3[1];
@@ -50995,7 +50995,7 @@ LAB_0060e747:
           local_58 = (Elf64_Ehdr *)((ulong)local_58 & 0xff00000000000000);
           pvVar18 = memcpy(&local_58,pbVar29,sVar17);
           do {
-            pvVar18 = (void *)FUN_005f5450(&local_1d0,pvVar18);
+            pvVar18 = (void *)utf8_decode_char_width(&local_1d0,pvVar18);
           } while ((long)pvVar18 - (long)&local_58 < (long)sVar17);
           local_210 = CONCAT44(uVar10,(uint)local_1c8);
         }

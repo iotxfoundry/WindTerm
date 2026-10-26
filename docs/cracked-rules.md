@@ -90,3 +90,15 @@
 | R38 | sftp 通道双约束（实现实证）：sftp_attributes 布局两库一致（mirror+static_assert 自证）；libssh session 非线程安全——后台 sftp 操作必须与主线程事件循环互斥（挂泵护栏），并发踩 packet 链段错 | 0x00627efc 实现/段错实测 | src/core/SshSession.cpp |
 
 | R39 | CommandPalette mode7=palette 文件模式：`global/palettes/*.palette`（{trigger,comment,filterable,events,script}）——trigger（':' goto-line/'=' calculator）即前缀路由 DAT 常量；script(event,filter,selection)=>items[{title,subtitle,icon}] 四事件 enter/filter/commit/leave；filterable=false 时 items 全权 JS；activeText 依赖 API：lineCount/gotoLine/scrollTop(行)/setRegister/getRegister/removeRegister/screenLineCapacity | 0x0053feaa/0x0054334c + palettes 一手文件 | widgets/CommandPalette、TerminalView |
+
+## R40（2026-10-26）SSH kbdint 应答=Login Wizard 认证页表单（非弹窗、全掩码）
+呈现=认证页 QFormLayout（objectName "Keyboard Interactive"，setRowWrapPolicy(2)）：首轮 QLabel "Retrieving prompts, please wait..."，prompts 到达后 singleShot(0) 插行；name+instruction 合一 QLabel；逐 prompt 一行，输入行全部 Password 掩码（echo 标志 0x00629dea 读后丢弃）；returnPressed 焦点推进（跳空行），末行回车=QDialogButtonBox accepted；收集=遍历 FieldRole QLineEdit 跳前两非输入行→QMap{trimmed(label)→text}（同 key 覆盖）→session_write_char(2) 通道；SSH 侧 rc==3 同步重入取新 prompts，setanswer 逐项 toUtf8，answers<nprompts 不推进。证据：0x00594366/0x00595e52/0x005941e2/0x005961b0/0x00629dea/0x008619b6。落点：src/widgets/LoginAuthForm + src/core/SshSession。
+
+## R41（2026-10-26）UCS4 宽度=自研区间函数（无 wcwidth/无查表数组/无 ambiguous 开关）
+宽 1 基线（cp<0x1100）；宽 2：1100-115F/2329-232A/2E80-A4CF(≠303F)/AC00-D7A3/F900-FAFF/FE10-FE19/FE30-FE6F/FF00-FF60/FFE0-FFE7/1F300-1F64F/1F900-1F9FF/[20000,2FFFD]；≥30000 平面按掩码式 ((cp&0xfffeffff)-0x20000)<=0xfffd 判定（0x30000/0x3FFFD 宽、0x40000 窄——静态字面，边界真值未运行时验证）；FE0F/200D 无特判自然窄；肤色修饰 1F3FB-1F3FF 仅编辑器字体宽链零宽（0x0066c318），终端 cell 宽无此逻辑。证据：0x005f5450（UTF-8 LUT 解码+宽度一体）。落点：src/terminal 宽度函数。
+
+## R42（2026-10-26）MuxDesktop 生命周期=每 tmux 终端一份，QLayout::replaceWidget 原位换入（非 stack 切页）
+attach（0x00842414）：守卫(+0x1c8 引用/+0x1d0 指针)幂等→终端须在布局内（indexOf!=-1）→new MuxDesktop→connect(destroyed 清指针)→**layout->replaceWidget(terminal,desktop,1)**→MuxWindow+MuxPaneGroup→terminal 置属性"tmux"→**原 terminal 挂入 MuxPaneGroup TabGroup 首页**（%output 活动面继续喂它）→group 入 win 内 splitter→win 名"tmux"/"session::tmux"→addPage。detach（0x00842778）：replaceWidget(desktop,terminal,1) 换回→桌面整树 deleting-dtor→字段清零。每个进入 control mode 的 TerminalView 一份（symbols 0x8d9786 行"每 MainWindow 一份"已更正）。落点：src/MainWindow tmux 挂载段。
+
+## R43（2026-10-26）KitPane 左右树无共享模型，互通=三通道
+左树（pin pane）不产 view；新 KitGroup 恒 addWidget 进右 splitter（pane+0x48）。互通：①parent 链回溯（findAncestorPane/find_ancestor_type）②QVariant 目标寻址跨 pane acquire（"Last"/uuid/"::Find Result"）③TabGroup sig2→0x8a09ac→0x8ca876 跨 pane rebuildView。禁止实现成共享 model/共享 widget。证据：0x008ca77c/0x008d43ba/0x008a09ac/0x0089f516。落点：结构约束（重建现状合规）。

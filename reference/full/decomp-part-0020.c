@@ -5267,9 +5267,9 @@ LAB_00629d6f:
 }
 
 
-// ==== entry=00629dea name=FUN_00629dea size=660 ====
+// ==== entry=00629dea orig=FUN_00629dea size=660 name=kbi_prompt_collect_kbdint_loop ====
 
-int * FUN_00629dea(int *param_1,QArrayData *param_2)
+int * kbi_prompt_collect_kbdint_loop(int *param_1,QArrayData *param_2)
 
 {
   QArrayData *pQVar1;
@@ -54601,9 +54601,9 @@ bool FUN_0066c306(undefined8 param_1,int param_2,undefined1 param_3)
 }
 
 
-// ==== entry=0066c318 name=FUN_0066c318 size=39 ====
+// ==== entry=0066c318 orig=FUN_0066c318 size=39 name=ismark_or_skin_tone ====
 
-char FUN_0066c318(uint param_1)
+char ismark_or_skin_tone(uint param_1)
 
 {
   char cVar1;

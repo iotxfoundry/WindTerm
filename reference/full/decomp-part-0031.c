@@ -16129,7 +16129,7 @@ LAB_0094bd44:
   else {
     local_98 = 0.0;
     do {
-      local_85 = FUN_0066c318(*(uint *)pQVar22);
+      local_85 = ismark_or_skin_tone(*(uint *)pQVar22);
       if (local_85 != '\0') break;
       uVar14 = *(uint *)pQVar22;
       uVar23 = (ulong)uVar14;
