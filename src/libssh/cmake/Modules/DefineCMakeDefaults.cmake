@@ -14,8 +14,5 @@ set(CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE ON)
 # since cmake 2.4.0
 set(CMAKE_COLOR_MAKEFILE ON)
 
-# Create the compile command database for clang by default
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 # Always build with -fPIC
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
