@@ -35448,7 +35448,7 @@ void FUN_006507a4(int param_1,void *param_2,undefined8 param_3,long param_4)
     uVar1 = *(undefined8 *)(*(long *)(*(long *)((long)param_2 + 0x18) + 8) + 0x10);
     plVar2 = operator_new(0xd8);
                     /* try { // try from 00650808 to 0065080c has its CatchHandler @ 00650860 */
-    FUN_006c55c0(plVar2,uVar1);
+    OneKeyDialog_ctor(plVar2,uVar1);
     QComboBox::currentData((int)local_28);
                     /* try { // try from 0065082e to 00650832 has its CatchHandler @ 00650875 */
     QVariant::toString();

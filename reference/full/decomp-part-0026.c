@@ -24067,7 +24067,7 @@ void thunk_FUN_00841898(QObject *param_1)
   uStack_20 = 0;
   puVar1 = operator_new(0x18);
   *puVar1 = 1;
-  *(code **)(puVar1 + 2) = s_shell_sysmon_84a755;
+  *(code **)(puVar1 + 2) = pane_sysmon_applet_load;
   *(QObject **)(puVar1 + 4) = param_1;
   QObject::connectImpl(aCStack_30,this,&pcStack_28,param_1,0,puVar1,0,0,&QTimer::staticMetaObject);
   QMetaObject::Connection::~Connection(aCStack_30);
@@ -25376,11 +25376,11 @@ void terminal_rightClick(long param_1,long param_2)
   if (cVar1 != '\0') {
     return;
   }
-  iVar2 = FUN_005bc118(param_1,param_2 + 0x20);
+  iVar2 = margin_hitTest(param_1,param_2 + 0x20);
   if (iVar2 != 0) {
     QByteArray::QByteArray((QByteArray *)local_48,"View Margin Popup",-1);
                     /* try { // try from 0083506e to 00835072 has its CatchHandler @ 008350aa */
-    FUN_008c5f16(param_1 + 0x218,(QByteArray *)local_48,param_2 + 0x28);
+    popup_exec_byKey(param_1 + 0x218,(QByteArray *)local_48,param_2 + 0x28);
     qt_byte_array_unref((QByteArray *)local_48);
     return;
   }
@@ -25402,7 +25402,7 @@ void terminal_rightClick(long param_1,long param_2)
                        "ShowMenu",0xffffffff,1);
     if ((iVar2 != 0) || (*(char *)(param_1 + 0x192) != '\0')) goto LAB_00835030;
   }
-  FUN_008c5f82(param_1 + 0x218,param_2);
+  popup_menuKey_build(param_1 + 0x218,param_2);
 LAB_00835030:
   qt_array_data_unref(&local_68);
   return;
@@ -29941,7 +29941,7 @@ QString * s_modem_lastDownloadFolder_83b6ce
   
   pQVar2 = operator_new(0x68);
                     /* try { // try from 0083b6fd to 0083b701 has its CatchHandler @ 0083b7b7 */
-  FUN_006bab56(pQVar2,param_2,param_3,*param_1);
+  ModemFileDialog_ctor(pQVar2,param_2,param_3,*param_1);
   if (param_3 == 0) {
     QMetaObject::tr(local_30,(char *)&PTR_PTR_011a7c00,0xcb7460);
   }
@@ -33422,7 +33422,7 @@ void s_terminal_rightClickAction_84005a(long param_1,long param_2)
   }
   local_70 = &QArrayData::shared_null;
                     /* try { // try from 0084009f to 008400dc has its CatchHandler @ 0084030d */
-  iVar2 = FUN_005bc118(param_1,param_2 + 0x20);
+  iVar2 = margin_hitTest(param_1,param_2 + 0x20);
   if (iVar2 == 0) {
     uVar4 = qcoreapp_self_get();
     QVariant::QVariant(local_58,"ShowMenu");
@@ -34585,7 +34585,7 @@ void FUN_00841898(QObject *param_1)
   local_20 = 0;
   puVar1 = operator_new(0x18);
   *puVar1 = 1;
-  *(code **)(puVar1 + 2) = s_shell_sysmon_84a755;
+  *(code **)(puVar1 + 2) = pane_sysmon_applet_load;
   *(QObject **)(puVar1 + 4) = param_1;
   QObject::connectImpl(local_30,this,&local_28,param_1,0,puVar1,0,0,&QTimer::staticMetaObject);
   QMetaObject::Connection::~Connection(local_30);
@@ -35891,7 +35891,7 @@ LAB_0084323f:
 LAB_00843243:
       plVar9 = operator_new(0x80);
                     /* try { // try from 00843259 to 0084325d has its CatchHandler @ 00843365 */
-      FUN_006caf18(plVar9,param_2,param_1);
+      PasteDialog_ctor(plVar9,param_2,param_1);
       plVar3 = local_68;
       local_48 = QDialog::finished;
       local_40 = 0;
@@ -39728,9 +39728,9 @@ void FUN_0084a4a5(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=0084a755 orig=FUN_0084a755 size=764 name=s_shell_sysmon_84a755 ====
+// ==== entry=0084a755 orig=FUN_0084a755 size=764 name=pane_sysmon_applet_load ====
 
-void s_shell_sysmon_84a755(int param_1,void *param_2)
+void pane_sysmon_applet_load(int param_1,void *param_2)
 
 {
   uint *puVar1;
@@ -39834,7 +39834,7 @@ LAB_0084a8b6:
                     /* try { // try from 0084a98d to 0084aa35 has its CatchHandler @ 0084aa75 */
   if ((uVar9 != uVar8) &&
      (lVar7 = KitPane_ensureAppletBar(*(undefined8 *)((long)param_2 + 0x10)), lVar7 != 0)) {
-    FUN_005284d6(lVar7,&local_60);
+    appletbar_loadFiles(lVar7,&local_60);
   }
   qt_array_data_unref(local_58);
   qt_shared_data_unref(&local_60);
@@ -43873,7 +43873,7 @@ LAB_008504bf:
                 else {
                   local_48 = (uint *)FUN_00852b48(lVar19 + 0x20);
                     /* try { // try from 0085110d to 00851111 has its CatchHandler @ 00851b85 */
-                  iVar11 = FUN_005bc118(param_1,&local_48);
+                  iVar11 = margin_hitTest(param_1,&local_48);
                   if (iVar11 == 0) {
                     /* try { // try from 008515d3 to 008515d7 has its CatchHandler @ 00851b85 */
                     cVar10 = qstring_equals_utf8(local_88,"CopyOrPasteText");
@@ -50498,7 +50498,7 @@ void FUN_00858cbc(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 00858d2e to 00858d32 has its CatchHandler @ 00858e75 */
   plVar1 = operator_new(0x110);
                     /* try { // try from 00858d47 to 00858d4b has its CatchHandler @ 00858e6c */
-  FUN_0072223c(plVar1,&local_78,local_68,1,param_1);
+  SessionDialog_ctor(plVar1,&local_78,local_68,1,param_1);
   if (*(int *)local_78 == 0) {
 LAB_00858e3a:
     QArrayData::deallocate(local_78,2,8);
@@ -50570,7 +50570,7 @@ void FUN_00858efa(undefined8 param_1)
   
   pvVar1 = operator_new(0x70);
                     /* try { // try from 00858f16 to 00858f1a has its CatchHandler @ 00858f29 */
-  FUN_0072abce(pvVar1,param_1);
+  SyncInputDialog_ctor(pvVar1,param_1);
   QDialog::open();
   return;
 }
@@ -51139,7 +51139,7 @@ void FUN_00859a42(undefined8 param_1,undefined8 *param_2)
   
   pQVar1 = operator_new(0xd8);
                     /* try { // try from 00859a63 to 00859a67 has its CatchHandler @ 00859ca5 */
-  FUN_006c55c0(pQVar1,param_1);
+  OneKeyDialog_ctor(pQVar1,param_1);
   piVar2 = (int *)QtSharedPointer::ExternalRefCountData::getAndRef(pQVar1);
   if (piVar2 != (int *)0x0) {
     if ((piVar2[1] != 0) && (pQVar1 != (QObject *)0x0)) {
@@ -52870,7 +52870,7 @@ undefined4 FUN_0085cafa(undefined8 param_1,long *param_2)
                     /* try { // try from 0085cb4c to 0085cb50 has its CatchHandler @ 0085cd30 */
   QMetaObject::tr((char *)&local_170,(char *)&PTR_PTR_011a7f60,0xca0296);
                     /* try { // try from 0085cb64 to 0085cb68 has its CatchHandler @ 0085cd38 */
-  FUN_0072223c((QDialog *)local_138,&local_170,local_168,0,param_1);
+  SessionDialog_ctor((QDialog *)local_138,&local_170,local_168,0,param_1);
   if (*(int *)local_170 == 0) {
 LAB_0085ccb8:
     QArrayData::deallocate(local_170,2,8);

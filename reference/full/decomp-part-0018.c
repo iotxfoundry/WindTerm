@@ -38598,11 +38598,11 @@ LAB_005bc037:
 }
 
 
-// ==== entry=005bc118 name=FUN_005bc118 size=458 ====
+// ==== entry=005bc118 orig=FUN_005bc118 size=458 name=margin_hitTest ====
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 FUN_005bc118(undefined8 param_1,QPoint *param_2)
+undefined4 margin_hitTest(undefined8 param_1,QPoint *param_2)
 
 {
   char cVar1;
@@ -38684,7 +38684,7 @@ void FUN_005bc308(QPoint *param_1)
   
   QCursor::pos();
   local_10 = QWidget::mapFromGlobal(param_1);
-  FUN_005bc118(param_1,&local_10);
+  margin_hitTest(param_1,&local_10);
   return;
 }
 

@@ -23998,7 +23998,7 @@ void FUN_006991c8(undefined8 param_1,undefined8 param_2,long *param_3)
   
   pcVar1 = operator_new(0xe0);
                     /* try { // try from 006991f0 to 006991f4 has its CatchHandler @ 00699343 */
-  FUN_006f2dd4(pcVar1,param_2);
+  TriggerDialog_ctor(pcVar1,param_2);
   local_38 = QDialog::finished;
   local_30 = 0;
   puVar2 = operator_new(0x20);
@@ -32068,7 +32068,7 @@ void FUN_006a43a8(undefined8 param_1,undefined8 param_2)
   
   plVar1 = operator_new(0xc0);
                     /* try { // try from 006a43c9 to 006a43cd has its CatchHandler @ 006a445d */
-  FUN_0072cf44(plVar1,param_2);
+  TunnelDialog_ctor(plVar1,param_2);
   local_28 = QDialog::finished;
   local_20 = 0;
   puVar2 = operator_new(0x20);
@@ -40027,12 +40027,12 @@ void FUN_006ae7ea(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=006ae82e name=FUN_006ae82e size=198 ====
+// ==== entry=006ae82e orig=FUN_006ae82e size=198 name=XServerCenter_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x006ae87f) */
 /* WARNING: Removing unreachable block (ram,0x006ae8d8) */
 
-void FUN_006ae82e(QObject *param_1)
+void XServerCenter_ctor(QObject *param_1)
 
 {
   long *plVar1;
@@ -40438,7 +40438,7 @@ undefined * FUN_006af04c(void)
     BSim_Splitter__Splitter(&DAT_011c1c20,0);
     DAT_011c1c48 = -1;
     __cxa_guard_release(&DAT_011c1c08);
-    __cxa_atexit(FUN_006ae82e,&DAT_011c1c20,&DAT_00c89008);
+    __cxa_atexit(XServerCenter_ctor,&DAT_011c1c20,&DAT_00c89008);
   }
   return &DAT_011c1c20;
 }
@@ -42256,9 +42256,9 @@ LAB_006b2071:
 }
 
 
-// ==== entry=006b22e6 name=FUN_006b22e6 size=165 ====
+// ==== entry=006b22e6 orig=FUN_006b22e6 size=165 name=DefaultEditorDialog_ctor ====
 
-void FUN_006b22e6(QString *param_1,undefined8 param_2)
+void DefaultEditorDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   QArrayData *local_20;
@@ -43210,9 +43210,9 @@ LAB_006b345b:
 }
 
 
-// ==== entry=006b35a6 name=FUN_006b35a6 size=175 ====
+// ==== entry=006b35a6 orig=FUN_006b35a6 size=175 name=EnvironmentDialog_ctor ====
 
-void FUN_006b35a6(QString *param_1,undefined8 param_2)
+void EnvironmentDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   QArrayData *local_20;
@@ -47784,9 +47784,9 @@ LAB_006baa6b:
 }
 
 
-// ==== entry=006bab56 name=FUN_006bab56 size=162 ====
+// ==== entry=006bab56 orig=FUN_006bab56 size=162 name=ModemFileDialog_ctor ====
 
-void FUN_006bab56(undefined8 *param_1,int param_2,int param_3,undefined8 param_4)
+void ModemFileDialog_ctor(undefined8 *param_1,int param_2,int param_3,undefined8 param_4)
 
 {
   int iVar1;
@@ -50394,9 +50394,9 @@ LAB_006bd6d9:
 }
 
 
-// ==== entry=006bd7f6 name=FUN_006bd7f6 size=319 ====
+// ==== entry=006bd7f6 orig=FUN_006bd7f6 size=319 name=NameDialog_ctor ====
 
-void FUN_006bd7f6(QString *param_1,undefined8 *param_2,undefined8 param_3)
+void NameDialog_ctor(QString *param_1,undefined8 *param_2,undefined8 param_3)
 
 {
   int *piVar1;
@@ -51042,7 +51042,7 @@ void FUN_006be5e6(undefined8 param_1,undefined4 param_2)
                     /* try { // try from 006be611 to 006be615 has its CatchHandler @ 006be6c7 */
   plVar1 = operator_new(0x58);
                     /* try { // try from 006be627 to 006be62b has its CatchHandler @ 006be6d4 */
-  FUN_006bd7f6(plVar1,&local_38,param_1);
+  NameDialog_ctor(plVar1,&local_38,param_1);
   qt_array_data_unref(&local_38);
   local_38 = QDialog::finished;
   local_30 = 0;
@@ -51363,7 +51363,7 @@ void FUN_006bedc0(long param_1)
                     /* try { // try from 006bee24 to 006bee28 has its CatchHandler @ 006bef16 */
       plVar4 = operator_new(0x58);
                     /* try { // try from 006bee35 to 006bee39 has its CatchHandler @ 006bef2e */
-      FUN_006bd7f6(plVar4,(QVariant *)&local_48,param_1);
+      NameDialog_ctor(plVar4,(QVariant *)&local_48,param_1);
       qt_array_data_unref((QVariant *)&local_48);
       local_48 = QDialog::finished;
       local_40 = 0;
@@ -54789,9 +54789,9 @@ void FUN_006c5300(QLayout *param_1)
 }
 
 
-// ==== entry=006c55c0 name=FUN_006c55c0 size=206 ====
+// ==== entry=006c55c0 orig=FUN_006c55c0 size=206 name=OneKeyDialog_ctor ====
 
-void FUN_006c55c0(QString *param_1,undefined8 param_2)
+void OneKeyDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   undefined4 *puVar1;
@@ -58678,9 +58678,9 @@ LAB_006cace1:
 }
 
 
-// ==== entry=006caf18 name=FUN_006caf18 size=221 ====
+// ==== entry=006caf18 orig=FUN_006caf18 size=221 name=PasteDialog_ctor ====
 
-void FUN_006caf18(QString *param_1,undefined8 *param_2,undefined8 param_3)
+void PasteDialog_ctor(QString *param_1,undefined8 *param_2,undefined8 param_3)
 
 {
   int *piVar1;
@@ -59663,9 +59663,9 @@ LAB_006cc496:
 }
 
 
-// ==== entry=006cc63e name=FUN_006cc63e size=175 ====
+// ==== entry=006cc63e orig=FUN_006cc63e size=175 name=PlaySoundDialog_ctor ====
 
-void FUN_006cc63e(QString *param_1,undefined8 param_2)
+void PlaySoundDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   QArrayData *local_20;
@@ -61467,9 +61467,9 @@ LAB_006cf0fc:
 }
 
 
-// ==== entry=006cf13c name=FUN_006cf13c size=240 ====
+// ==== entry=006cf13c orig=FUN_006cf13c size=240 name=ProfileDialog_ctor ====
 
-void FUN_006cf13c(QString *param_1,char param_2,undefined8 param_3)
+void ProfileDialog_ctor(QString *param_1,char param_2,undefined8 param_3)
 
 {
   QArrayData *local_30;

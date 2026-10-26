@@ -7892,3 +7892,61 @@
 0x00733a18	transfer_pane_ctor	TabGroup+QSplitter[TreeView(Extended,headerHidden,col1 Stretch),命令条]sizes[4000,1000]+隐藏 QProgressBar(+0xa0)
 0x00735a0c	transfer_pane_setupUi	同上构面;进度条借位记值不画格
 0x0073782e	transfer_progressHtml_tooltip	TabProgress[cur,max,state]→setMaximum/setValue+HTML 表 tooltip(剩余时间/速度,elapsed 计算)
+# —— 界面缺口深逆批（2026-10-26;对话框全集 35 类+右键菜单链/Layout/Window 菜单/statusbar applet/QuickBar/连接时序;0x38131 无效地址更正）——
+0x006ea66e	SettingDialog_ctor	设置中心:QVBox[搜索 QLineEdit;H[CategoryTree(NoFrame+QStandardItemModel 单选)|QStackedWidget];H[提示 QLabel|QDialogButtonBox(Close→reject)]];min 45%x75%;WA_DeleteOnClose
+0x006e9cd8	settings_category_tree_create	顶层页 Application/Appearance/Editor/Proxy/Search/Security/Tabs/Terminal;Terminal 子页 AutoCompletion/CommandHistory/MouseTracking;Editor 子页 Text(Binary/Caret/Font/Highlight/Indentation/LineEnding/Wrap)+Widgets(Filer/QuickBar)
+0x006f5b42	settings_filter	搜索过滤页树
+0x0072223c	SessionDialog_ctor	会话设置多 tab;骨架化 0x007101a0 dialog_tabbed_build;模型 0x00721412
+0x00593810	LoginWizard_initUi	QWidget 窗 objectName"LoginWizard";VBox 居中[标题+QFrame 内 QFormLayout+QStackedWidget(Expanding);H[2 QCheckBox(首默认选)|QDialogButtonBox(改文 Connect/&Cancel)]];switchLayout(LoginStage) 切连接/认证/进度
+0x006c55c0	OneKeyDialog_ctor	OneKey 管理器;页 SSH 0x6c2878/Account 0x6bf160/Session 0x6c4fa0
+0x006f2dd4	TriggerDialog_ctor	触发器管理 TabBar+页栈;页分派 0x6f440e;页型 10 种
+0x006ff1a0	TriggerActionDialog_ctor	QListWidget+Add Action/Add Separator
+0x0072cf44	TunnelDialog_ctor	Session combo+ListenPort/Host/Port(SpinBox×2+Edit×2+Combo×2)+状态 QLabel+Overlay busy;键 ssh.tunnels
+0x0072abce	SyncInputDialog_ctor	scope combo(4 值)+QTabBar(频道 A-D)+QStackedWidget+Joined 双列表+IntValidator(0,99999999)
+0x00704b32	WindowOpacityDialog_ctor	窗口不透明度滑条(s_application_windowOpacity)
+0x006bd7f6	NameDialog_ctor	QLabel 提示+QLineEdit+Ok|Cancel(textChanged 控 OK);标题 "Enter a new name for \"%1\"."/"Enter a name for the new %1."
+0x006caf18	PasteDialog_ctor	多行粘贴确认;统计刷新 0x6ca4f8
+0x006c9e70	PasswordDialog_ctor	密码输入(向导用);header 0x6c97d0(IconLabel+TitleLabel)
+0x006b6676	FocusModeDialog_ctor	专注模式设置
+0x006cf13c	ProfileDialog_ctor	radio Application Directory/Home Directory/specific directory+QLineEdit+Ok;首跑强制 dige-black
+0x006d9574	SearchEngineDialog_ctor	搜索引擎条目编辑
+0x006b22e6	DefaultEditorDialog_ctor	默认编辑器选择
+0x006b35a6	EnvironmentDialog_ctor	?Variable:/Value:+QPlainTextEdit
+0x0072facc	InsertFileDialog_ctor	插入文件到编辑器
+0x006d8cfe	RemoteFileDialog_ctor	SFTP 远端文件选择
+0x006cc63e	PlaySoundDialog_ctor	提示音选择/试听
+0x006bab56	ModemFileDialog_ctor	X/Y/ZModem 选项:3 QCheckBox+协议/包大小+覆盖策略 Overwrite/Append/Rename/Skip+Packet padding char
+0x006d9a66	SessionGroupDialog_ctor	会话分组选择(搜索型 combo)
+0x00707f8e	RunToolDialog_ctor	Command:/Arguments:/Program.../stdin 源(6 选)/Working directory:/Beep When Finished
+0x006ae82e	XServerCenter_ctor	X Server 中心多页;键 xserver.*
+0x00560888	LockScreen_initUi	QStackedWidget+密码行+PasswordMeter(0x561d28)+失败计数;键 application.lockScreenTimeout
+0x008df0a4	mux_renamePaneDialog	QInputDialog::getText 原生(paneName)
+0x008dbf3a	window_name_ask	QInputDialog::getText(windowName 正则)
+0x00834f2c	terminal_rightClick	守卫 0x83c674(自由编辑态吞)→margin 命中→"View Margin Popup";否则 terminal.rightClickAction(默认 ShowMenu)→0x8c5f82
+0x008c5f82	popup_menuKey_build	节名="View "+修饰键串(Ctrl/Shift/Alt/Meta)+"Popup"→0x8c5f16
+0x008c5f16	popup_exec_byKey	find_ancestor_type 取 pane→menuconfig_build_menu→QMenu::exec→deleteLater
+0x005bc118	margin_hitTest	属性 0x758f 读回≠0=边距命中
+0x008d4166	KitWindow_splitView	父 splitter 方向(dir<2→V)不合才 mux_insertPaneSplitter;合则复用邻位同类;attach+激活
+0x008d42e8	KitWindow_splitGroup	组内 view 数<2 拒绝;迁移焦点 view;blockSignals 包裹
+0x0076cb16	tool_menu_action_update	aboutToShow 逐 action:文本刷新+\t+快捷键;text JS 返回数组→展开 N 可勾选项;每项跑 state JS=动态可见/可用/勾选唯一来源
+0x00669086	js_actionState	action state JS 求值
+0x0076c3ee	menu_aboutToHide	property("dynamic")非空→deleteLater 动态项一次性
+0x005a333e	statusbar_buildApplet	button→QToolButton 子类(TextOnly+AutoRaise);label→QLabel(0xf+OpenExternalLinks+PointingHand);addPermanentWidget(w,0);无 objectName
+0x005a4432	applet_layout_widgets	setUpdatesEnabled(false)→逐条 buildApplet→恢复
+0x005a3106	statusbar_scriptHost	沿父链取 MainWindow QJSEngine
+0x005a3156	statusbar_runInit	evaluate("'use strict;'+init)→newQObject(widget)→callWithInstance
+0x005bf49e	KitPane_ensureAppletBar	QVBoxLayout 找/建 AppletBar(QStatusBar 子类)
+0x005284d6	appletbar_loadFiles	同 populate 路径跑 JS init
+0x0080a4de	cfg_loadAppletFiles	扫 schemes 目录 facet 表(.appletbar→import)
+0x00526ffa	applet_load_script_info	applet 文件 yaml 取 name/uuid/type/init
+0x0084a755	pane_sysmon_applet_load	scheme .appletbar import;Shell→shell.sysmon/SSH→ssh.sysmon 开关;禁用则逆序删 sysmon 项
+0x0056e26e	QuickBar_ctor	objectName"QuickBar"+monoLogo(0x56d0ac)+close/config 双钮
+0x0056ce72	QuickBar_onButtonClicked	close→QWidget::close;config→0x56f0ef 配置菜单
+0x005acaba	TabScrollButtonFactory	QToolButton AutoRaise+IconOnly+sizePolicy(Preferred,Fixed)+QAction(iconFile=theme svg)+eventFilter
+0x008ba416	KitGroup_connectChain	ctor 末连接序:TabGroup sig→8bd86a;TabAdd→8b9dfa;TabGroupBtn→8b9d1c;customContextMenuRequested→ViewTab_popup(0x8ba130,Queued);×4 sig;pane 2 信号;地址钮类×5 连接
+0x008bade2	KitGroup_setupBars	行序:TabGroup_initUi→读 hoverToSelect/showSequenceNumbers→"ViewGroup"→ButtonFactory×3→setMenuWidget→centralStack→setCentralWidget→toolbar_build("Kit")→addToolBar→kit 家族属性→子件 eventFilter(pane)
+0x005c6d16	TextView_ctor	MuxPane_ctor(0x8de0c0)→vtable TextView→objectName"TextView"→editorbase(0x5b3c1c)→QStackedLayout+currentChanged
+0x005c68c6	textView_connectSignals	8 连接序:0xa17708→5c7154;0xa17794→8f2f52;0xa17740→8f2ed4;0xa1776a→8f2efe;0xa1781c→autoCopySelection;自×2;qApp→alternatingHexColumnColors
+0x008c442e	KitPane_onShown	普通成员(非 showEvent);7 个 pane 子类初始化显式调用
+0x008c40a6	KitPane_buildToolbar	hbox 空→建;toolbar_build(config key=pane objectName);子件 eventFilter;hbox 最后 addLayout=视觉在内容上方
+0x008c3a70	KitPane_ensureVBoxLayout	QVBox margins0 spacing0

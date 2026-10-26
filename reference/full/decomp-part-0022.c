@@ -5145,12 +5145,13 @@ LAB_006d6e3a:
 }
 
 
-// ==== entry=006d8cfe name=FUN_006d8cfe size=247 ====
+// ==== entry=006d8cfe orig=FUN_006d8cfe size=247 name=RemoteFileDialog_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x006d8def) */
 
-void FUN_006d8cfe(QDialog *param_1,QDialog param_2,undefined8 param_3,undefined8 *param_4,
-                 undefined8 param_5)
+void RemoteFileDialog_ctor
+               (QDialog *param_1,QDialog param_2,undefined8 param_3,undefined8 *param_4,
+               undefined8 param_5)
 
 {
   long lVar1;
@@ -5537,9 +5538,9 @@ LAB_006d94b5:
 }
 
 
-// ==== entry=006d9574 name=FUN_006d9574 size=175 ====
+// ==== entry=006d9574 orig=FUN_006d9574 size=175 name=SearchEngineDialog_ctor ====
 
-void FUN_006d9574(QString *param_1,undefined8 param_2)
+void SearchEngineDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   QArrayData *local_20;
@@ -5821,9 +5822,9 @@ LAB_006d99eb:
 }
 
 
-// ==== entry=006d9a66 name=FUN_006d9a66 size=175 ====
+// ==== entry=006d9a66 orig=FUN_006d9a66 size=175 name=SessionGroupDialog_ctor ====
 
-void FUN_006d9a66(QString *param_1,undefined8 param_2)
+void SessionGroupDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   QArrayData *local_20;
@@ -7883,7 +7884,7 @@ void s_logo__label_6dc2ed(int param_1,void *param_2)
   else if (param_1 == 1) {
     plVar6 = operator_new(0x58);
                     /* try { // try from 006dc323 to 006dc327 has its CatchHandler @ 006dc443 */
-    FUN_006d9574(plVar6,*(undefined8 *)((long)param_2 + 0x10));
+    SearchEngineDialog_ctor(plVar6,*(undefined8 *)((long)param_2 + 0x10));
     local_48 = (code *)QString::fromLatin1_helper("logo::label",0xb);
                     /* try { // try from 006dc349 to 006dc34d has its CatchHandler @ 006dc44b */
     BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
@@ -7950,7 +7951,7 @@ void FUN_006dc453(int param_1,void *param_2)
                     /* try { // try from 006dc503 to 006dc507 has its CatchHandler @ 006dc642 */
       plVar7 = operator_new(0x58);
                     /* try { // try from 006dc512 to 006dc516 has its CatchHandler @ 006dc63a */
-      FUN_006d9574(plVar7,*(undefined8 *)((long)param_2 + 0x20));
+      SearchEngineDialog_ctor(plVar7,*(undefined8 *)((long)param_2 + 0x20));
                     /* try { // try from 006dc51d to 006dc60a has its CatchHandler @ 006dc642 */
       BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
                 (plVar7,local_68);
@@ -14486,9 +14487,9 @@ void FUN_006ea37a(QLayout *param_1)
 }
 
 
-// ==== entry=006ea66e name=FUN_006ea66e size=318 ====
+// ==== entry=006ea66e orig=FUN_006ea66e size=318 name=SettingDialog_ctor ====
 
-void FUN_006ea66e(QString *param_1,undefined8 param_2)
+void SettingDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   char cVar1;
@@ -20088,9 +20089,9 @@ void FUN_006f2d8a(QArrayData *param_1)
 }
 
 
-// ==== entry=006f2dd4 name=FUN_006f2dd4 size=236 ====
+// ==== entry=006f2dd4 orig=FUN_006f2dd4 size=236 name=TriggerDialog_ctor ====
 
-void FUN_006f2dd4(QString *param_1,undefined8 param_2)
+void TriggerDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   undefined4 *puVar1;
@@ -20271,7 +20272,7 @@ void FUN_006f32e0(undefined8 param_1)
                     /* try { // try from 006f333b to 006f333f has its CatchHandler @ 006f34a3 */
     plVar3 = operator_new(0x58);
                     /* try { // try from 006f334c to 006f3350 has its CatchHandler @ 006f34d5 */
-    FUN_006bd7f6(plVar3,(QVariant *)&local_48,param_1);
+    NameDialog_ctor(plVar3,(QVariant *)&local_48,param_1);
     qt_array_data_unref((QVariant *)&local_48);
     pvVar4 = operator_new(0x70);
                     /* try { // try from 006f336c to 006f3370 has its CatchHandler @ 006f34cd */
@@ -20762,7 +20763,7 @@ void FUN_006f409a(undefined8 param_1)
                     /* try { // try from 006f40d6 to 006f40da has its CatchHandler @ 006f4405 */
   plVar3 = operator_new(0x58);
                     /* try { // try from 006f40e7 to 006f40eb has its CatchHandler @ 006f43fd */
-  FUN_006bd7f6(plVar3,(QVariant *)&local_48,param_1);
+  NameDialog_ctor(plVar3,(QVariant *)&local_48,param_1);
   qt_array_data_unref((QVariant *)&local_48);
   pvVar4 = operator_new(0x70);
                     /* try { // try from 006f4107 to 006f410b has its CatchHandler @ 006f43d5 */
@@ -21689,9 +21690,9 @@ void s_session_uuid_6f571a(long *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=006f5b42 orig=FUN_006f5b42 size=1264 name=settings_filter_model_build ====
+// ==== entry=006f5b42 orig=FUN_006f5b42 size=1264 name=settings_filter ====
 
-void settings_filter_model_build(long param_1,undefined8 param_2)
+void settings_filter(long param_1,undefined8 param_2)
 
 {
   uint uVar1;
@@ -21878,7 +21879,7 @@ void FUN_006f60a8(undefined8 param_1,undefined8 param_2,int *param_3)
     FUN_006f272a(param_1,1);
     panes_stackInit(param_1,*(undefined4 *)(lVar1 + 0x24),*(undefined1 *)(lVar1 + 0x20),lVar1 + 0x28
                    );
-    settings_filter_model_build(param_1,lVar1);
+    settings_filter(param_1,lVar1);
     FUN_006f2384(param_1,0);
     return;
   }
@@ -21940,7 +21941,7 @@ LAB_006f6219:
                     /* try { // try from 006f6253 to 006f6257 has its CatchHandler @ 006f62d3 */
     panes_stackInit(param_1,8,1,&local_38);
     QVariant::~QVariant((QVariant *)&local_38);
-    settings_filter_model_build(param_1,param_1 + 0x98);
+    settings_filter(param_1,param_1 + 0x98);
   }
   else {
     FUN_006f272a(param_1,1);
@@ -22022,7 +22023,7 @@ void FUN_006f6304(long param_1)
         panes_stackInit(param_1,8,1,(QVariant *)&local_78);
         QVariant::~QVariant((QVariant *)&local_78);
                     /* try { // try from 006f6462 to 006f6466 has its CatchHandler @ 006f64e7 */
-        settings_filter_model_build(param_1,param_1 + 0x98);
+        settings_filter(param_1,param_1 + 0x98);
       }
       else {
                     /* try { // try from 006f64a8 to 006f64e4 has its CatchHandler @ 006f64e7 */
@@ -23484,7 +23485,7 @@ void FUN_006f7e2d(int param_1,void *param_2)
   else if (param_1 == 1) {
     pvVar1 = operator_new(0x58);
                     /* try { // try from 006f7e53 to 006f7e57 has its CatchHandler @ 006f7e8e */
-    FUN_006cc63e(pvVar1,*(undefined8 *)((long)param_2 + 0x10));
+    PlaySoundDialog_ctor(pvVar1,*(undefined8 *)((long)param_2 + 0x10));
     FUN_006f7d8a((long)param_2 + 0x18,pvVar1,0xffffffff);
     return;
   }
@@ -25014,7 +25015,7 @@ void FUN_006fabc0(long *param_1)
   }
   pvVar2 = operator_new(0x58);
                     /* try { // try from 006fac02 to 006fac06 has its CatchHandler @ 006fac93 */
-  FUN_006cc63e(pvVar2,*param_1);
+  PlaySoundDialog_ctor(pvVar2,*param_1);
   plVar3 = (long *)QTableWidget::item((int)*(undefined8 *)(*param_1 + 0x40),iVar1);
   if (plVar3 == (long *)0x0) {
     local_38 = 0;
@@ -25129,7 +25130,7 @@ void FUN_006faeb0(long param_1,char param_2)
                     /* try { // try from 006faf07 to 006faf0b has its CatchHandler @ 006fb11a */
   plVar3 = operator_new(0x58);
                     /* try { // try from 006faf18 to 006faf1c has its CatchHandler @ 006fb115 */
-  FUN_006bd7f6(plVar3,(QVariant *)&local_48,param_1);
+  NameDialog_ctor(plVar3,(QVariant *)&local_48,param_1);
   qt_array_data_unref((QVariant *)&local_48);
   local_48 = QDialog::finished;
   local_40 = 0;
@@ -27402,9 +27403,9 @@ void FUN_006ff150(long param_1)
 }
 
 
-// ==== entry=006ff1a0 name=FUN_006ff1a0 size=647 ====
+// ==== entry=006ff1a0 orig=FUN_006ff1a0 size=647 name=TriggerActionDialog_ctor ====
 
-void FUN_006ff1a0(long param_1,char param_2)
+void TriggerActionDialog_ctor(long param_1,char param_2)
 
 {
   undefined8 uVar1;
@@ -27540,7 +27541,7 @@ void FUN_006ff4f0(long *param_1)
                     /* try { // try from 006ff5cd to 006ff604 has its CatchHandler @ 006ff620 */
   cVar1 = qstring_equals_utf8(local_68,"Separator");
   if (cVar1 == '\0') {
-    FUN_006ff1a0(*param_1,0);
+    TriggerActionDialog_ctor(*param_1,0);
   }
   else {
     FUN_006faeb0();
@@ -27584,7 +27585,7 @@ void FUN_006ff6a9(int param_1,void *param_2)
     return;
   }
   if (param_1 == 1) {
-    FUN_006ff1a0(*(undefined8 *)((long)param_2 + 0x10),1);
+    TriggerActionDialog_ctor(*(undefined8 *)((long)param_2 + 0x10),1);
     return;
   }
   return;
@@ -30665,9 +30666,9 @@ void FUN_0070496e(long param_1)
 }
 
 
-// ==== entry=00704b32 orig=FUN_00704b32 size=600 name=s_application_windowOpacity_704b32 ====
+// ==== entry=00704b32 orig=FUN_00704b32 size=600 name=WindowOpacityDialog_ctor ====
 
-void s_application_windowOpacity_704b32(QLayout *param_1)
+void WindowOpacityDialog_ctor(QLayout *param_1)
 
 {
   QDialogButtonBox *pQVar1;
@@ -30773,7 +30774,7 @@ void FUN_00704dd2(QString *param_1,undefined8 param_2)
 LAB_00704e40:
                     /* try { // try from 00704e4d to 00704e61 has its CatchHandler @ 00704e81 */
   QWidget::setAttribute(param_1,0x37,1);
-  s_application_windowOpacity_704b32(param_1);
+  WindowOpacityDialog_ctor(param_1);
   FUN_0070496e(param_1);
   return;
 }
@@ -34222,7 +34223,7 @@ void FUN_00709c25(int param_1,void *param_2)
   }
   plVar7 = operator_new(0x50);
                     /* try { // try from 00709c5b to 00709c5f has its CatchHandler @ 00709e01 */
-  FUN_006b35a6(plVar7,*(undefined8 *)((long)param_2 + 0x10));
+  EnvironmentDialog_ctor(plVar7,*(undefined8 *)((long)param_2 + 0x10));
   local_48 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 00709c77 to 00709c7b has its CatchHandler @ 00709df9 */
   BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
@@ -34328,7 +34329,7 @@ void FUN_00709e11(int param_1,void *param_2)
                     /* try { // try from 00709ef0 to 00709ef4 has its CatchHandler @ 0070a04e */
       plVar8 = operator_new(0x50);
                     /* try { // try from 00709eff to 00709f03 has its CatchHandler @ 0070a03e */
-      FUN_006b35a6(plVar8,*(undefined8 *)((long)param_2 + 0x20));
+      EnvironmentDialog_ctor(plVar8,*(undefined8 *)((long)param_2 + 0x20));
                     /* try { // try from 00709f0a to 00709ff4 has its CatchHandler @ 0070a04e */
       BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
                 (plVar8,&local_70);
@@ -47053,10 +47054,10 @@ LAB_007215e9:
 }
 
 
-// ==== entry=0072223c name=FUN_0072223c size=364 ====
+// ==== entry=0072223c orig=FUN_0072223c size=364 name=SessionDialog_ctor ====
 
-void FUN_0072223c(QString *param_1,undefined8 param_2,undefined8 param_3,QString param_4,
-                 undefined8 param_5)
+void SessionDialog_ctor(QString *param_1,undefined8 param_2,undefined8 param_3,QString param_4,
+                       undefined8 param_5)
 
 {
   undefined4 uVar1;
@@ -52402,9 +52403,9 @@ LAB_0072a983:
 }
 
 
-// ==== entry=0072abce name=FUN_0072abce size=239 ====
+// ==== entry=0072abce orig=FUN_0072abce size=239 name=SyncInputDialog_ctor ====
 
-void FUN_0072abce(QString *param_1,undefined8 param_2)
+void SyncInputDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   undefined4 *puVar1;
@@ -53858,9 +53859,9 @@ LAB_0072ca83:
 }
 
 
-// ==== entry=0072cf44 name=FUN_0072cf44 size=257 ====
+// ==== entry=0072cf44 orig=FUN_0072cf44 size=257 name=TunnelDialog_ctor ====
 
-void FUN_0072cf44(QString *param_1,undefined8 param_2)
+void TunnelDialog_ctor(QString *param_1,undefined8 param_2)
 
 {
   undefined4 *puVar1;
@@ -55848,9 +55849,9 @@ LAB_0072f848:
 }
 
 
-// ==== entry=0072facc name=FUN_0072facc size=74 ====
+// ==== entry=0072facc orig=FUN_0072facc size=74 name=InsertFileDialog_ctor ====
 
-void FUN_0072facc(QDialog *param_1,undefined8 param_2)
+void InsertFileDialog_ctor(QDialog *param_1,undefined8 param_2)
 
 {
   QDialog::QDialog(param_1,param_2,0);

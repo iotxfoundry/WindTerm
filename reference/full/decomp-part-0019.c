@@ -18192,14 +18192,14 @@ void FUN_005e2d5c(long param_1,long param_2)
   int iVar1;
   QArrayData *local_20;
   
-  iVar1 = FUN_005bc118(param_1,param_2 + 0x20);
+  iVar1 = margin_hitTest(param_1,param_2 + 0x20);
   if (iVar1 == 0) {
-    FUN_008c5f82(param_1 + 0x100,param_2);
+    popup_menuKey_build(param_1 + 0x100,param_2);
     return;
   }
   QByteArray::QByteArray((QByteArray *)&local_20,"View Margin Popup",-1);
                     /* try { // try from 005e2da1 to 005e2da5 has its CatchHandler @ 005e2df6 */
-  FUN_008c5f16(param_1 + 0x100,(QByteArray *)&local_20,param_2 + 0x28);
+  popup_exec_byKey(param_1 + 0x100,(QByteArray *)&local_20,param_2 + 0x28);
   if (*(int *)local_20 == 0) {
 LAB_005e2dca:
     QArrayData::deallocate(local_20,1,8);
@@ -24106,7 +24106,7 @@ undefined8 FUN_005eb4fc(undefined8 param_1)
      (lVar2 = __dynamic_cast(lVar2,&PTR_PTR_011925c8,&PTR_PTR_0119e610,0x100), lVar2 == 0)) {
     return 0xffffffffffffffff;
   }
-  FUN_0072facc(local_98,param_1);
+  InsertFileDialog_ctor(local_98,param_1);
                     /* try { // try from 005eb552 to 005eb556 has its CatchHandler @ 005eb646 */
   iVar1 = QDialog::exec();
   if (iVar1 == 0) {

@@ -3379,7 +3379,7 @@ void terminalwidget_qt_metacall(long *param_1,int param_2,int param_3,long *para
       qmap_freetree_variant_nodes(&local_38);
       return;
     case 0x7c:
-      uVar7 = FUN_005bc118(param_1,param_4[1]);
+      uVar7 = margin_hitTest(param_1,param_4[1]);
       if ((undefined4 *)*param_4 == (undefined4 *)0x0) {
         return;
       }

@@ -50386,7 +50386,7 @@ undefined8 FUN_00577422(undefined8 param_1)
   undefined **local_58 [2];
   undefined **local_48;
   
-  FUN_006b22e6(local_58,0);
+  DefaultEditorDialog_ctor(local_58,0);
                     /* try { // try from 0057743b to 0057744f has its CatchHandler @ 0057747c */
   QDialog::exec();
   uVar1 = qcoreapp_self_get();
@@ -51244,7 +51244,7 @@ void FUN_005785d6(long param_1)
                     /* try { // try from 00578635 to 00578639 has its CatchHandler @ 00578705 */
     plVar2 = operator_new(0xa0);
                     /* try { // try from 00578650 to 00578654 has its CatchHandler @ 005786fd */
-    FUN_006d8cfe(plVar2,0,uVar4,&local_38,param_1);
+    RemoteFileDialog_ctor(plVar2,0,uVar4,&local_38,param_1);
     if (local_30 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
       std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(local_30);
     }
@@ -51290,7 +51290,7 @@ void FUN_0057870e(long param_1)
                     /* try { // try from 0057876d to 00578771 has its CatchHandler @ 00578845 */
     plVar2 = operator_new(0xa0);
                     /* try { // try from 0057878b to 0057878f has its CatchHandler @ 00578838 */
-    FUN_006d8cfe(plVar2,1,uVar4,&local_38,param_1);
+    RemoteFileDialog_ctor(plVar2,1,uVar4,&local_38,param_1);
     if (local_30 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
       std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(local_30);
     }
@@ -51336,7 +51336,7 @@ void FUN_0057884e(long param_1)
                     /* try { // try from 005788ad to 005788b1 has its CatchHandler @ 00578985 */
     plVar2 = operator_new(0xa0);
                     /* try { // try from 005788cb to 005788cf has its CatchHandler @ 00578978 */
-    FUN_006d8cfe(plVar2,2,uVar4,&local_38,param_1);
+    RemoteFileDialog_ctor(plVar2,2,uVar4,&local_38,param_1);
     if (local_30 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
       std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(local_30);
     }
@@ -52448,7 +52448,7 @@ void FUN_0057a026(long param_1)
                     /* try { // try from 0057a32f to 0057a333 has its CatchHandler @ 0057a6dd */
     plVar9 = operator_new(0xa0);
                     /* try { // try from 0057a34a to 0057a34e has its CatchHandler @ 0057a712 */
-    FUN_006d8cfe(plVar9,3,uVar11,&local_b8,param_1);
+    RemoteFileDialog_ctor(plVar9,3,uVar11,&local_b8,param_1);
     uVar1 = *(undefined4 *)((long)plVar9 + 0x34);
     local_68 = local_e8;
     local_78 = param_1;
@@ -52609,7 +52609,7 @@ void FUN_0057a928(long param_1)
                     /* try { // try from 0057a9a1 to 0057a9a5 has its CatchHandler @ 0057aaee */
       plVar1 = operator_new(0xa0);
                     /* try { // try from 0057a9bf to 0057a9c3 has its CatchHandler @ 0057aaf6 */
-      FUN_006d8cfe(plVar1,4,uVar3,&local_58,param_1);
+      RemoteFileDialog_ctor(plVar1,4,uVar3,&local_58,param_1);
       if (local_50 != (_Sp_counted_base<(__gnu_cxx::_Lock_policy)2> *)0x0) {
         std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release(local_50);
       }

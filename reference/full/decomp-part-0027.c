@@ -45740,7 +45740,7 @@ void BSim_Splitter___Splitter(undefined8 param_1,long param_2)
 void BSim_QMouseEvent__globalPos(long param_1)
 
 {
-  FUN_008c5f82(param_1 + 0x100);
+  popup_menuKey_build(param_1 + 0x100);
   return;
 }
 
@@ -77919,9 +77919,9 @@ undefined4 FUN_008ba342(long param_1,long *param_2,int param_3)
 }
 
 
-// ==== entry=008ba416 name=FUN_008ba416 size=2492 ====
+// ==== entry=008ba416 orig=FUN_008ba416 size=2492 name=KitGroup_connectChain ====
 
-void FUN_008ba416(long param_1)
+void KitGroup_connectChain(long param_1)
 
 {
   uint *puVar1;
@@ -78338,7 +78338,7 @@ void KitGroup_ctor(QMainWindow *param_1,undefined8 *param_2,undefined8 param_3)
   QWidget::setFocusPolicy(param_1,0);
   QWidget::setAttribute(param_1,0x37,1);
   KitGroup_setupBars(param_1);
-  FUN_008ba416(param_1);
+  KitGroup_connectChain(param_1);
   return;
 }
 

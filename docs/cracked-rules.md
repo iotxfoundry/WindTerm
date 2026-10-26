@@ -123,3 +123,21 @@ begin→readdir 循环收 attr→closedir_begin→closedir；EAGAIN=QThread::yie
 
 ## R50（2026-10-26）tmux pane 组 ConfigButton=menu.config "MuxPaneGroup" 键弹菜单（非对话框）
 clicked→TabGroup sig8 configRequested→菜单配置系统按路径构 QMenu（TogglePaneZoom/MovePaneToNewWindow|Split 四向|RenamePane/RenameWindow/Tmux.RenameSession）→按钮 mapToGlobal exec。证据 0x8de2d4/0x692ef0/0x5ac790。
+
+## R51（2026-10-26）设置中心=左页树+右页栈+搜索过滤（SettingDialog 0x006ea66e 族）
+QVBox[搜索 QLineEdit；H[CategoryTree(NoFrame/单选/不可编辑)|QStackedWidget]；H[提示 QLabel|QDialogButtonBox(Close→reject)]]；顶层 8 页+子页（0x006e9cd8）；min=45%×75% 屏；WA_DeleteOnClose；键域 application.*/text.*/terminal.*/ssh.*/session.*/xserver.*/modem.*/quickbar.*/tabbar.*/window.*。
+
+## R52（2026-10-26）终端右键=menu.config "View <修饰键> Popup" 节动态构建
+链 0x00834f2c→(margin 命中→"View Margin Popup")→terminal.rightClickAction(默认 ShowMenu)→0x008c5f82 拼节名("View "+Ctrl/Shift/Alt/Meta+" Popup")→0x008c5f16 menuconfig 构建执行后 deleteLater。菜单结构静态；动态可见/可用/勾选**只在 aboutToShow 跑各 action 的 state JS**（0x0076cb16）；text JS 返回数组→展开 N 个可勾选项（动态项 aboutToHide 后 deleteLater 0x0076c3ee）。
+
+## R53（2026-10-26）Layout 菜单=3 dock 区+3 栏+7 面板开关（全 checked 门卫）；splitView 复用邻位
+splitView(0x008d4166)：父 splitter 方向不合才插新组（dir<2→V），合则复用邻位同类节点；splitGroup(0x008d42e8)：view<2 拒绝+blockSignals 迁移焦点。toggleDockArea/togglePane/moveGroupToGroup/allGroupNames 原生体未逆明（JS 桥）——静态近似挂账。WindowManager/WindowList=2.7.0 空占位；**About 无绑定证据（原版就没有）**。
+
+## R54（2026-10-26）重命名族=原生 QInputDialog::getText；NameDialog=自定义单行
+Tab/Window/Session/Pane/View 重命名=QInputDialog::getText（0x008df0a4/0x008dbf3a，文案 "Input a new name for this session/window/pane:"）；NameDialog（0x006bd7f6）=QLabel+QLineEdit+Ok|Cancel（textChanged 控 OK），用于 Filer 新建与 Quick 分组。SetTabColor=预设色菜单+QColorDialog::getColor(0x0070a6cd)。
+
+## R55（2026-10-26）statusbar applet=statusbar.config 7 项 JS init；pane 内 AppletBar 由 .appletbar import 装载
+button=TextOnly+AutoRaise QToolButton 子类；label=OpenExternalLinks+PointingHand QLabel；addPermanentWidget(w,0)；无 objectName；JS 经 QJSEngine newQObject(widget)+callWithInstance（0x005a333e/0x005a4432/0x005a3156）。主栏 7 项：KeyMode/W×H/LnCh/Scheme/clock/bugs 链接/LockScreen。pane 侧 sysmon 开关=shell.sysmon/ssh.sysmon（0x0084a755）；**无右键配置菜单（勿自创）**。
+
+## R56（2026-10-26）QuickBar 构造=monoLogo+双钮+6 项按钮表工厂（0x0056e26e/0x005acc3e/0x005acaba）；0x38131 无效地址更正
+KitGroup 连接序（0x008ba416）与 setupBars 行序（0x008bade2）、TextView ctor 8 连接序（0x005c6d16/0x005c68c6）、pane 工具栏在 onShown 建且 hbox 最后 addLayout=视觉在内容上方（0x008c442e/0x008c40a6）。**此前 AGENTS"0x38131 connect"为无效地址（.text 起点 0x4c33c0），真实链=0x008ba416/0x005c68c6**。

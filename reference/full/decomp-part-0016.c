@@ -20781,9 +20781,9 @@ LAB_0052702e:
 }
 
 
-// ==== entry=005284d6 name=FUN_005284d6 size=277 ====
+// ==== entry=005284d6 orig=FUN_005284d6 size=277 name=appletbar_loadFiles ====
 
-void FUN_005284d6(undefined8 param_1,long *param_2)
+void appletbar_loadFiles(undefined8 param_1,long *param_2)
 
 {
   undefined8 *puVar1;

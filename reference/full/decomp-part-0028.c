@@ -8204,9 +8204,9 @@ undefined8 * FUN_008c5ecc(undefined8 *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008c5f16 name=FUN_008c5f16 size=108 ====
+// ==== entry=008c5f16 orig=FUN_008c5f16 size=108 name=popup_exec_byKey ====
 
-void FUN_008c5f16(undefined8 param_1,undefined8 param_2,QAction *param_3)
+void popup_exec_byKey(undefined8 param_1,undefined8 param_2,QAction *param_3)
 
 {
   long lVar1;
@@ -8228,9 +8228,9 @@ void FUN_008c5f16(undefined8 param_1,undefined8 param_2,QAction *param_3)
 }
 
 
-// ==== entry=008c5f82 name=FUN_008c5f82 size=255 ====
+// ==== entry=008c5f82 orig=FUN_008c5f82 size=255 name=popup_menuKey_build ====
 
-void FUN_008c5f82(undefined8 param_1,long param_2)
+void popup_menuKey_build(undefined8 param_1,long param_2)
 
 {
   uint uVar1;
@@ -8256,7 +8256,7 @@ void FUN_008c5f82(undefined8 param_1,long param_2)
     QByteArray::append((char *)&local_20);
   }
   QByteArray::append((char *)&local_20);
-  FUN_008c5f16(param_1,(QByteArray *)&local_20,param_2 + 0x28);
+  popup_exec_byKey(param_1,(QByteArray *)&local_20,param_2 + 0x28);
   if (*(int *)local_20 == 0) {
 LAB_008c6041:
     QArrayData::deallocate(local_20,1,8);
@@ -13343,7 +13343,7 @@ void FUN_008cc4a0(undefined8 param_1,undefined8 *param_2)
   
   pQVar1 = operator_new(0x70);
                     /* try { // try from 008cc4c1 to 008cc4c5 has its CatchHandler @ 008cc689 */
-  FUN_006ea66e(pQVar1,param_1);
+  SettingDialog_ctor(pQVar1,param_1);
   local_88 = (int *)QtSharedPointer::ExternalRefCountData::getAndRef(pQVar1);
   local_80 = pQVar1;
   if (((local_88 != (int *)0x0) && (local_88[1] != 0)) && (pQVar1 != (QObject *)0x0)) {

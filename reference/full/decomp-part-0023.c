@@ -3051,7 +3051,7 @@ void FUN_0073cdc4(undefined8 param_1)
                     /* try { // try from 0073ce18 to 0073ce1c has its CatchHandler @ 0073d45d */
   plVar4 = operator_new(0x110);
                     /* try { // try from 0073ce2e to 0073ce32 has its CatchHandler @ 0073d47d */
-  FUN_0072223c(plVar4,&local_88,(QVariant *)&local_68,0,param_1);
+  SessionDialog_ctor(plVar4,&local_88,(QVariant *)&local_68,0,param_1);
   json_value_destruct((QVariant *)&local_68);
   piVar2 = (int *)CONCAT71(uStack_87,local_88);
   if (*piVar2 == 0) {
@@ -3587,7 +3587,7 @@ LAB_0073e0ac:
                     /* try { // try from 0073de64 to 0073de68 has its CatchHandler @ 0073e6dd */
       pQVar9 = operator_new(0x40);
                     /* try { // try from 0073de72 to 0073de76 has its CatchHandler @ 0073e6ed */
-      FUN_006d9a66(pQVar9,param_1);
+      SessionGroupDialog_ctor(pQVar9,param_1);
       if ((*(int *)local_f8 != 0) && (*(int *)local_f8 != -1)) {
         LOCK();
         *(int *)local_f8 = *(int *)local_f8 + 1;
@@ -3635,7 +3635,7 @@ LAB_0073e0ac:
                     /* try { // try from 0073e167 to 0073e16b has its CatchHandler @ 0073e6f5 */
     plVar6 = operator_new(0x110);
                     /* try { // try from 0073e17d to 0073e181 has its CatchHandler @ 0073e715 */
-    FUN_0072223c(plVar6,&local_78,lVar5,0,param_1);
+    SessionDialog_ctor(plVar6,&local_78,lVar5,0,param_1);
     if (*(int *)local_78 == 0) {
 LAB_0073e5ed:
       QArrayData::deallocate(local_78,2,8);
@@ -3782,7 +3782,7 @@ LAB_0073e695:
                     /* try { // try from 0073d907 to 0073d90b has its CatchHandler @ 0073e725 */
     plVar6 = operator_new(0x110);
                     /* try { // try from 0073d91d to 0073d921 has its CatchHandler @ 0073e705 */
-    FUN_0072223c(plVar6,&local_78,lVar5,0,param_1);
+    SessionDialog_ctor(plVar6,&local_78,lVar5,0,param_1);
     if (*(int *)local_78 == 0) {
 LAB_0073e4ab:
       QArrayData::deallocate(local_78,2,8);
@@ -4480,7 +4480,7 @@ LAB_0073ece1:
                     /* try { // try from 0073ed0f to 0073ed13 has its CatchHandler @ 0073f767 */
   pQVar10 = operator_new(0x40);
                     /* try { // try from 0073ed1d to 0073ed21 has its CatchHandler @ 0073f76f */
-  FUN_006d9a66(pQVar10,param_1);
+  SessionGroupDialog_ctor(pQVar10,param_1);
   local_70 = local_160;
   if ((*(int *)(local_160 + 0x10) == 0) || (*(int *)(local_160 + 0x10) == -1)) {
     cVar3 = local_160[0x28];
@@ -16848,7 +16848,7 @@ void FUN_00751792(undefined8 *param_1)
                     /* try { // try from 007517d4 to 007517d8 has its CatchHandler @ 007519e5 */
   QMetaObject::tr((char *)&local_170,(char *)&PTR_PTR_011a6680,0xca0296);
                     /* try { // try from 007517ec to 007517f0 has its CatchHandler @ 007519d5 */
-  FUN_0072223c((QDialog *)local_138,&local_170,local_168,0,uVar2);
+  SessionDialog_ctor((QDialog *)local_138,&local_170,local_168,0,uVar2);
   if (*(int *)local_170 == 0) {
 LAB_00751960:
     QArrayData::deallocate(local_170,2,8);
@@ -26616,7 +26616,7 @@ void FUN_0075d108(undefined8 param_1)
   uVar1 = window_activeMainPane(uVar1);
   plVar2 = operator_new(0x98);
                     /* try { // try from 0075d13a to 0075d13e has its CatchHandler @ 0075d21e */
-  FUN_006cf13c(plVar2,0,uVar1);
+  ProfileDialog_ctor(plVar2,0,uVar1);
   local_38 = QDialog::finished;
   local_30 = 0;
   puVar3 = operator_new(0x20);
@@ -29937,7 +29937,7 @@ void FUN_007625b6(void)
   FUN_005d8a36(&local_d8,DAT_011c1240);
   if (*(int *)(local_d8 + 4) == 0) {
                     /* try { // try from 00762600 to 00762604 has its CatchHandler @ 007626ae */
-    FUN_006cf13c(local_c8,1,0);
+    ProfileDialog_ctor(local_c8,1,0);
                     /* try { // try from 00762608 to 0076260c has its CatchHandler @ 007626c6 */
     QDialog::exec();
     local_d0 = local_40;
