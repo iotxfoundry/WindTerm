@@ -939,8 +939,47 @@ void TerminalView::mouseReleaseEvent(QMouseEvent *event)
 // 0x84005a/0x834f2c：原版按事件位置 + 修饰键弹 pane 菜单，节名由 MainWindow 拼 "View Popup"
 void TerminalView::contextMenuEvent(QContextMenuEvent *event)
 {
+    // R52：自由编辑态守卫挂账（0x00834f2c 链无可略判断——骨架无 free edit 概念）；
+    // rightClickAction 门卫在宿主 viewPopupEntries（配置键读+节名分派宿主层）
     emit contextMenuRequested(event->globalPos(), event->modifiers());
     event->accept();
+}
+
+// ═══ R52 View Popup 动作面（wind.actions script 桥已逆明子集）═══
+
+// selectAll：全活动屏+滚回选区（原版 text.selectAll 全文档——selAnchor=(0,0)、
+// selEnd=末行末列，渲染/复制面自然覆盖）
+void TerminalView::selectAllForScript()
+{
+    if (!m_screen)
+        return;
+    const int lastLine = verticalScrollBar()->maximum() + m_screen->rows() - 1;
+    m_selAnchor = QPoint(0, 0);
+    m_selEnd = QPoint(qMax(0, m_screen->cols() - 1), lastLine);
+    viewport()->update();
+}
+
+// clearScreen：活动屏清空（ScreenModel::clearScreen——光标归位由模型内处理）；
+// 原 state=!isAltScreen 守卫挂账（骨架无 alt screen 概念）
+void TerminalView::clearScreenForScript()
+{
+    if (!m_screen)
+        return;
+    m_selAnchor = m_selEnd = QPoint(-1, -1);
+    m_screen->clearScreen();
+    updateScrollRange();
+    viewport()->update();
+}
+
+// reset：清滚回+模式+屏（ScreenModel::reset——ClearScreenAndScrollback/ClearScrollback 面）
+void TerminalView::resetForScript()
+{
+    if (!m_screen)
+        return;
+    m_selAnchor = m_selEnd = QPoint(-1, -1);
+    m_screen->reset();
+    updateScrollRange();
+    viewport()->update();
 }
 
 void TerminalView::appendSystemMessage(const QString &text)

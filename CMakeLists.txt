@@ -193,6 +193,10 @@ windterm_test_offscreen(test_filer_sftp)
 windterm_add_test(test_transfer)
 windterm_test_offscreen(test_transfer)
 
+# R55 statusbar applet 体系：7 项 JS init 真跑+AppletBar pane 装载链（offscreen）
+windterm_add_test(test_statusbar_applets)
+windterm_test_offscreen(test_statusbar_applets)
+
 # 主题 R17 类名→骨架树改写文本断言（offscreen 必须）
 windterm_add_test(test_theme_rewrites)
 windterm_test_offscreen(test_theme_rewrites)
@@ -208,3 +212,16 @@ windterm_test_offscreen(test_tmux_control)
 # 系统缺 tmux 则测试内 SKIP
 windterm_add_test(test_tmux_desktop)
 windterm_test_offscreen(test_tmux_desktop)
+
+# 五小对话框（NameDialog/PasteDialog/LogDialog/FocusModeDialog/WindowOpacityDialog）
+# 结构+行为断言：offscreen + QTemporaryDir HOME
+windterm_add_test(test_small_dialogs)
+windterm_test_offscreen(test_small_dialogs)
+
+# R51 设置中心：页树 8 顶层+子页枚举/选中切页/实页控件 WindConfig round-trip/Close 单钮（offscreen）
+windterm_add_test(test_settings_dialog)
+windterm_test_offscreen(test_settings_dialog)
+
+# R52/R53/R54 菜单动作面：View Popup 节名/门卫/动态展开/Layout 开关/MergeToGroup 勾选/rename（offscreen）
+windterm_add_test(test_menu_actions)
+windterm_test_offscreen(test_menu_actions)

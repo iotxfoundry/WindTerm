@@ -129,3 +129,10 @@ P1 独立可先行；P2 是 P4/P5/P7 的布局基座（分屏后才有跨 pane �
 - ✅ Filer async_readdir 忙泵（R49，async 符号缺→门退阻塞链）；sftp_canonicalize_path 绑定接入
 - ✅ TransferPane 进度真相（R48：隐藏 QProgressBar 借位+HTML tooltip 三时间行；自绘 delegate 挂账撤销）
 - 剩余挂账（挂账清单见 src/ shortcut 注释,功能级不动）：Login Wizard 壳迁移/FileGrep 跨会话/SessionStore 写盘/LastSessions uuid 重连落地/0x5ab6ee 像素步长(静态不可达)/ConfigButton 8 空槽/tmux 检测前普通行透传边界差/宽度表 ≥0x30000 边界真值/tmux 3.5 兼容实测/paneIconFactory(永久)
+
+## UI 缺口 wave1（2026-10-26；原版对话框 35 类 vs 骨架 3 类→补 7 类+菜单动作面）
+- ✅ 右键 View Popup（R52：节名拼接+menu.config 构建动态 text/state JS 数组展开+aboutToHide 清理）；Layout 菜单 11 开关（toggleDockArea 静态近似挂账）；Window 菜单（MergeToGroup 动态勾选/空表占位/WindowManager=原版空占位实证）；Rename/SetTabColor(14 预设+QColorDialog)
+- ✅ SettingDialog（R51：22 页树/5 实页 Application·Appearance·Proxy·Tabs·MouseTracking/控件工厂三绑定；**证据修正：原版无搜索框**——0x6f5b42 过滤器属 TriggerDialog 族，任务书预想被反汇编证伪）
+- ✅ 小对话框五件：NameDialog(双模式文案逐字)/PasteDialog(统计三键)/LogDialog(实键 session.userLog* 核对非预想 log*)/FocusModeDialog/WindowOpacityDialog(即时预览)
+- ✅ statusbar applet×7（R55：**全部 JS 原文真跑**——ScriptHost 补 Q_PROPERTY 菜单面+actionCount 两实测缺口；sysmon 依赖 executeCommand 桥挂账空态）；pane AppletBar 装载链全序
+- 剩余 UI 挂账：对话框 P2/P3 族（OneKey/Trigger/Tunnel/Sync/Quick/Modem 等 20 类）、SessionDialog tab 化、LoginWizard 壳、SettingDialog 17 占位页、View Popup 缺 JS 桥动作约 30 项（CopyCommand/Logger/Reset/Modem 族等）、自由编辑态守卫+margin 变体

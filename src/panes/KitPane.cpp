@@ -1,10 +1,12 @@
 #include "KitPane.h"
 
 #include <QHash>
+#include <QVBoxLayout>
 
 #include "core/LocaleManager.h"
 #include "core/ThemeManager.h"
 #include "widgets/ActionIcons.h"
+#include "widgets/AppletBar.h"
 
 namespace {
 
@@ -50,4 +52,21 @@ void KitPane::contextMenuEvent(QContextMenuEvent *e)
 {
     emit popupRequested(e->modifiers());
     e->accept();
+}
+
+// 0x005bf49e KitPane_ensureAppletBar（R55）：qFindChild_helper(pane,"",AppletBar) 找既有；
+// 无→layout() dynamic_cast<QVBoxLayout> 成功才建 AppletBar_setObjectName（ctor 内）+
+// QBoxLayout::addWidget(bar,0,0)——非 VBox/无布局→nullptr（原版同）。
+AppletBar *KitPane_ensureAppletBar(KitPane *pane)
+{
+    if (!pane)
+        return nullptr;
+    if (auto *existing = pane->findChild<AppletBar *>())
+        return existing;
+    if (auto *vbox = qobject_cast<QVBoxLayout *>(pane->layout())) {
+        auto *bar = new AppletBar(pane);
+        vbox->addWidget(bar, 0);
+        return bar;
+    }
+    return nullptr;
 }

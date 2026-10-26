@@ -6,6 +6,8 @@
 #include <QDir>
 
 #include <QContextMenuEvent>
+#include <QClipboard>
+#include <QColorDialog>
 #include <QCursor>
 #include <QEventLoop>
 #include <QInputDialog>
@@ -81,6 +83,7 @@
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
 #include "widgets/StatusBar.h"
+#include "widgets/TabGroupBar.h"
 #include "widgets/TerminalView.h"
 #include "widgets/TransferBar.h"
 
@@ -712,10 +715,131 @@ QAction *MainWindow::makeAction(const QString &actionId)
         });
         return action;
     }
-    // shortcut: Window.MoveGroupToGroup（Merge To Group 子菜单,按 allGroupNames 组名）挂账,
-    // allGroupNames 动态列表未逆完（0x8cc994 text JS 动态生成,0x76cb16 动态项体系未接）
-    if (actionId == QStringLiteral("Window.MoveGroupToGroup"))
-        action->setEnabled(false);
+    // R53/R54：WindowManager/WindowList=原版 2.7.0 空占位（wind.actions text 面：
+    // "Windows &Manager..."/"[Windows list is empty]"——无 script 键；原版同态禁用不可触发）
+    if (actionId == QStringLiteral("Window.WindowManager")
+        || actionId == QStringLiteral("Window.WindowList")
+        || actionId == QStringLiteral("Window.ToolbarList")
+        || actionId == QStringLiteral("Window.NavigationList")) {
+        action->setEnabled(false); // 静态空占位（list 文本即 "[... is empty]" 面）
+        return action;
+    }
+
+    // R53 dock 区开关（wind.actions Toggle{Left,Right,Bottom}DockArea）：按主窗 splitter 树
+    // 左/右竖带与底横带 hide/show。toggleDockArea 原生未逆明（R53 挂账）——静态近似：
+    // LeftDockArea=CenterColumn idx0、RightDockArea=idx2、BottomDockArea=root idx1
+    if (actionId == QStringLiteral("Window.ToggleLeftDockArea")
+        || actionId == QStringLiteral("Window.ToggleRightDockArea")
+        || actionId == QStringLiteral("Window.ToggleBottomDockArea")) {
+        connect(action, &QAction::triggered, this, [this, actionId]() {
+            QWidget *area = nullptr;
+            if (actionId == QStringLiteral("Window.ToggleBottomDockArea")) {
+                if (auto *root = findChild<QSplitter *>(QStringLiteral("RootSplitter")))
+                    area = root->widget(1); // BottomPanes
+            } else if (auto *col = findChild<QSplitter *>(QStringLiteral("CenterColumn"))) {
+                area = col->widget(actionId == QStringLiteral("Window.ToggleLeftDockArea") ? 0 : 2);
+            }
+            togglePane(area);
+        });
+        return action;
+    }
+
+    // R53 Merge To Group（0x8cc994 面）：MoveGroupToGroup 动态 text=allGroupNames（hookMenuUpdate
+    // ④ 展开为 N 项）；script=moveGroupToGroup 原生未逆明→最小实现（标签组文本迁移）。
+    // state=checked 门卫（当前组名==项文本）由 updateActionState 求值，需 allGroupNames JS 面
+    if (actionId == QStringLiteral("Window.MoveGroupToGroup")) {
+        action->setCheckable(true);
+        connect(action, &QAction::triggered, this, [this, action]() {
+            moveActiveGroupTo(action->text());
+        });
+        return action;
+    }
+
+    // R54 重命名/颜色族（0x8df0a4 同族 QInputDialog::getText 文案原文；0x0070a6cd QColorDialog）
+    if (actionId == QStringLiteral("Window.RenameView")) {
+        connect(action, &QAction::triggered, this, [this]() {
+            auto *group = activeMuxGroup();
+            if (!group)
+                return;
+            auto *stack = group->findChild<QStackedWidget *>();
+            // 标签条归 KitGroup menuWidget 槽（setMenuWidget 移交）——经祖先 KitGroup 取
+            QTabBar *tabBar = nullptr;
+            for (QWidget *w = group->parentWidget(); w && !tabBar; w = w->parentWidget()) {
+                if (auto *kit = qobject_cast<KitGroup *>(w)) {
+                    if (QWidget *menuWidget = kit->menuWidget())
+                        tabBar = menuWidget->findChild<QTabBar *>();
+                    break;
+                }
+            }
+            if (!stack || !tabBar)
+                return;
+            const int index = tabBar->currentIndex();
+            bool ok = false;
+            const QString name = QInputDialog::getText(
+                this, tr("Rename View"),
+                tr("Please input a new name for this view"), QLineEdit::Normal,
+                tabBar->tabText(index), &ok); // 0x8df0a4 文案（zh-CN.locale:2023）
+            if (ok && !name.isEmpty())
+                tabBar->setTabText(index, name);
+        });
+        return action;
+    }
+    // 活动组 TabGroupBar（标签条归 KitGroup menuWidget 槽——经祖先 KitGroup 取）
+    auto activeTabGroupBar = [this]() -> TabGroupBar * {
+        MuxPaneGroup *group = activeMuxGroup();
+        for (QWidget *w = group ? group->parentWidget() : nullptr; w; w = w->parentWidget()) {
+            if (auto *kit = qobject_cast<KitGroup *>(w)) {
+                if (QWidget *menuWidget = kit->menuWidget())
+                    return menuWidget->findChild<TabGroupBar *>();
+                break;
+            }
+        }
+        return nullptr;
+    };
+    if (actionId == QStringLiteral("Window.SetTabColor")) {
+        connect(action, &QAction::triggered, this, [this, activeTabGroupBar]() {
+            auto *tabBar = activeTabGroupBar();
+            if (!tabBar)
+                return;
+            // 0x0070a6cd：QColorDialog::getColor 取色→TabGroupBar::setTabColor
+            const QColor color = QColorDialog::getColor(tabBar->tabColor(tabBar->currentIndex()),
+                                                        this, tr("Set Tab Color"));
+            if (color.isValid())
+                tabBar->setTabColor(tabBar->currentIndex(), color);
+        });
+        return action;
+    }
+    // 预设色（wind.actions Window.SetTabColor* 13 色 script 面：setTabColor(view,'#80XXXXXX')）
+    if (actionId.startsWith(QStringLiteral("Window.SetTabColor"))
+        && actionId != QStringLiteral("Window.SetTabColor")) {
+        static const QHash<QString, QString> presetColors = {
+            {QStringLiteral("Window.SetTabColorDarkCyan"), QStringLiteral("#80008B8B")},
+            {QStringLiteral("Window.SetTabColorDeepPink"), QStringLiteral("#80FF1493")},
+            {QStringLiteral("Window.SetTabColorForestGreen"), QStringLiteral("#80228B22")},
+            {QStringLiteral("Window.SetTabColorGoldenrod"), QStringLiteral("#80DAA520")},
+            {QStringLiteral("Window.SetTabColorIndianRed"), QStringLiteral("#80CD5C5C")},
+            {QStringLiteral("Window.SetTabColorMediumOrchid"), QStringLiteral("#80BA55D3")},
+            {QStringLiteral("Window.SetTabColorMediumSlateBlue"), QStringLiteral("#807B68EE")},
+            {QStringLiteral("Window.SetTabColorOlive"), QStringLiteral("#80808000")},
+            {QStringLiteral("Window.SetTabColorRed"), QStringLiteral("#80FF0000")},
+            {QStringLiteral("Window.SetTabColorRoyalBlue"), QStringLiteral("#804169E1")},
+            {QStringLiteral("Window.SetTabColorSteelBlue"), QStringLiteral("#804682B4")},
+            {QStringLiteral("Window.SetTabColorTeal"), QStringLiteral("#80008080")},
+        };
+        const QString colorSpec = presetColors.value(actionId);
+        const bool isEmptyColor = actionId == QLatin1String("Window.SetTabColorEmpty");
+        if (!colorSpec.isEmpty() || isEmptyColor) {
+            connect(action, &QAction::triggered, this, [this, colorSpec, isEmptyColor, activeTabGroupBar]() {
+                auto *tabBar = activeTabGroupBar();
+                if (!tabBar)
+                    return;
+                // Empty=透明清除（script setTabColor(view,'#00000000')）
+                const QColor color(isEmptyColor ? QStringLiteral("#00000000") : colorSpec);
+                tabBar->setTabColor(tabBar->currentIndex(), color);
+            });
+            return action;
+        }
+    }
 
     // ═══ P4 终端搜索/高亮接线（D 节）═══
     // Text.Find→显示 SearchPane 底部条（TogglePaneSearch 同路径；showPane 语义：显示+聚焦
@@ -850,6 +974,18 @@ QAction *MainWindow::makeAction(const QString &actionId)
                 tabs->setCurrentIndex(bottomTabIndex);
         }
     });
+    // R53 checked 门卫（aboutToShow state JS 之外的最小落地）：开关类动作 checkable，
+    // 勾选态=目标可见（原版 state JS isPaneHidden 面）；JS 桥 window.activeKit 未接，
+    // 骨架在 refreshMenuActions aboutToShow 中刷新
+    if (actionId.startsWith(QStringLiteral("Window.TogglePane"))
+        || actionId.startsWith(QStringLiteral("Dock.TogglePane"))
+        || actionId.startsWith(QStringLiteral("Window.Toggle"))) {
+        action->setCheckable(true);
+    }
+    // R52 未接线动作（runActionScript 返回 false=JS 桥缺失）：禁用+挂账
+    // （清单见 runActionScript 尾注；已接线项 disabled 恒 false 不影响）
+    if (!runActionScript(actionId))
+        action->setEnabled(false);
     return action;
 }
 
@@ -913,42 +1049,158 @@ QWidget *MainWindow::paneHost(QWidget *pane)
 
 // 0x76cb16 菜单动态更新 + 0x76c3ee aboutToHide 清理。update：①文本刷新（"text\tshortcut"
 // 拼接，当前 text 无 \t 时重建）②逐 action 调 scriptHost.updateActionState（0x669086，
-// property("state") JS 求值驱动 checked/checkable/enabled）③递归子菜单。
-// 0x76c3ee dynamic 清理：本项目暂无动态项（ExternalToolList/SchemeToolList 类重建挂账），
-// 空实现占位
+// property("state") JS 求值驱动 checked/checkable/enabled）③递归子菜单 ④text JS 返回数组→
+// 展开 N 个可勾选动态项（R52 0x0076cb16：property("dynamic") 标记；空数组→单禁用项占位文本）
+// 0x76c3ee：property("dynamic") 非空→deleteLater
 void MainWindow::hookMenuUpdate(QMenu *menu)
 {
-    connect(menu, &QMenu::aboutToShow, this, [menu, this] {
-        for (QAction *action : menu->actions()) {
-            if (QMenu *sub = action->menu())
-                emit sub->aboutToShow(); // 子菜单同处理（原版逐级递归 update）
-            const QString id = action->data().toString();
-            if (id.isEmpty())
-                continue;
-            // ①文本刷新：ActionRegistry actionText 重建 "text\tshortcut"（原版比对后 setText+
-            // property("oldText") 缓存；简化：当前无 \t 才 setText，比对语义不变）
-            QString text = ActionRegistry::instance().actionText(id);
-            if (text.isEmpty())
-                continue;
-            QString key = text;
-            key.remove(QLatin1Char('&'));
-            if (key.endsWith(QStringLiteral("...")))
-                key.chop(3);
-            text = displayActionText(text, m_locale.tr(key));
-            const QString keys = KeymapConfig::instance().shortcut(id);
-            if (!keys.isEmpty())
-                text += QLatin1Char('\t') + keys;
-            if (!action->text().contains(QLatin1Char('\t')) && action->text() != text)
-                action->setText(text);
-            // ②状态刷新：property("state") JS 求值（0x669086）
-            m_scriptHost.updateActionState(action);
+    connect(menu, &QMenu::aboutToShow, this, [menu, this] { refreshMenuActions(menu); });
+    // 0x76c3ee：property("dynamic") 非空→deleteLater（展开项+占位基准项随菜单关闭清理；
+    // 基准项属 menu.config 构建面时由下次 show 重建——本菜单为堆分配一次性面，全清）
+    connect(menu, &QMenu::aboutToHide, menu, [menu]() {
+        const QList<QAction *> actions = menu->actions();
+        for (QAction *action : actions)
+            if (!action->property("dynamic").isNull())
+                action->deleteLater();
+    });
+}
+
+// 测试面：Layout 节菜单构建（menuSection 匿名空间函数宿主侧桥——MenuBarCorner
+// ManageLayoutButton 同节同管线，widgets 层不在本批改动面，行为面经此驱动）
+void MainWindow::buildLayoutMenuForTest(QMenu *menu)
+{
+    buildMenu(menu, menuSection(QStringLiteral("Layout")));
+}
+
+// hookMenuUpdate aboutToShow 体（公开=测试驱动面，test_menu_actions 直调——原版 0x76cb16
+// 逐 action update 的骨架面）。④动态 text：C++ 桥接管（原版 window.activeKit.allGroupNames
+// JS 面未接，ScriptHost 属他人文件挂账；升级条件=ScriptWindow JS 桥接入后改走 evaluateScript）
+void MainWindow::refreshMenuActions(QMenu *menu)
+{
+    // ④ 先清上一轮展开项（0x0076cb16 展开前清理段；"dynamicItem"=纯展开项，
+    // 基准项永驻 menu.config 构建面）
+    const QList<QAction *> stale = menu->actions();
+    for (QAction *action : stale) {
+        if (!action->property("dynamicItem").isNull()) {
+            menu->removeAction(action);
+            action->deleteLater();
         }
-    });
-    // 0x76c3ee：property("dynamic") 非空→deleteLater。骨架无动态项（menu 类
-    // ExternalToolList/SchemeToolList 动态重建挂账）
-    connect(menu, &QMenu::aboutToHide, menu, []() {
-        // 挂账 0x76c3ee：dynamic 动作清理待 ExternalToolList/SchemeToolList 接入
-    });
+    }
+
+    for (QAction *action : menu->actions()) {
+        if (QMenu *sub = action->menu())
+            emit sub->aboutToShow(); // 子菜单同处理（原版逐级递归 update）
+        const QString id = action->data().toString();
+        if (id.isEmpty())
+            continue;
+        // ①文本刷新：ActionRegistry actionText 重建 "text\tshortcut"（原版比对后 setText+
+        // property("oldText") 缓存；简化：当前无 \t 才 setText，比对语义不变）
+        QString text = ActionRegistry::instance().actionText(id);
+        if (text.isEmpty())
+            continue;
+        QString key = text;
+        key.remove(QLatin1Char('&'));
+        if (key.endsWith(QStringLiteral("...")))
+            key.chop(3);
+        text = displayActionText(text, m_locale.tr(key));
+
+        // ④ 动态 text 面（0x0076cb16）：数组→展开 N 可勾选动态项；空→禁用占位
+        const bool isDynamic = text.startsWith(QLatin1String("() =>"));
+        if (isDynamic) {
+            QStringList items;
+            QString placeholder;
+            if (id == QLatin1String("Window.MoveGroupToGroup")) {
+                items = allGroupNames(); // 0x8cc994 text JS 面 C++ 等价
+                placeholder = QStringLiteral("[Group list is empty]");
+            } else if (id == QLatin1String("Text.SearchOnline")) {
+                placeholder = QStringLiteral("[No search engine]"); // searchEngines 桥未接
+            }
+            if (items.isEmpty()) {
+                action->setText(placeholder.isEmpty() ? text : placeholder);
+                action->setEnabled(placeholder.isEmpty()); // 未知动态面保留原样+挂账
+                action->setProperty("dynamic", id);
+                continue;
+            }            // R53 state 门卫：checked=当前组名==项文本（0x8cc994）——标签条归 KitGroup
+            // menuWidget 槽（setMenuWidget 移交），经活动组祖先 KitGroup→menuWidget 取
+            MuxPaneGroup *active = activeMuxGroup();
+            QWidget *activeRow = nullptr;
+            for (QWidget *w = active ? active->parentWidget() : nullptr; w;
+                 w = w->parentWidget()) {
+                if (auto *kit = qobject_cast<KitGroup *>(w)) {
+                    if (QWidget *menuWidget = kit->menuWidget())
+                        activeRow = menuWidget->objectName() == QStringLiteral("ViewGroup")
+                                        ? menuWidget
+                                        : menuWidget->findChild<QWidget *>(
+                                            QStringLiteral("ViewGroup"));
+                    break;
+                }
+            }
+            auto *tabBar = activeRow ? activeRow->findChild<QTabBar *>() : nullptr;
+            const QString activeName
+                = tabBar && tabBar->count() > 0 ? tabBar->tabText(0) : QString();
+            action->setText(items.first());
+            action->setCheckable(true);
+            action->setChecked(items.first() == activeName);
+            action->setEnabled(true);
+            action->setProperty("dynamic", id);
+            for (int i = 1; i < items.size(); ++i) {
+                auto *extra = new QAction(items.at(i), menu);
+                extra->setCheckable(true);
+                extra->setChecked(items.at(i) == activeName);
+                extra->setProperty("dynamic", id);
+                extra->setProperty("dynamicItem", id); // 纯展开项标记（refresh 前清理面）
+                connect(extra, &QAction::triggered, this,
+                        [this, extra] { moveActiveGroupTo(extra->text()); });
+                menu->insertAction(action, extra); // 展开项插基准项前（0x0076cb16 面）
+            }
+            continue;
+        }
+
+        const QString keys = KeymapConfig::instance().shortcut(id);
+        if (!keys.isEmpty())
+            text += QLatin1Char('\t') + keys;
+        if (!action->text().contains(QLatin1Char('\t')) && action->text() != text)
+            action->setText(text);
+        // ②状态刷新：property("state") JS 求值（0x669086）
+        m_scriptHost.updateActionState(action);
+        // R53 checked 门卫（window.activeKit JS 桥未接的开关类）：勾选态=目标可见
+        if (id.startsWith(QStringLiteral("Window.TogglePane"))
+            || id.startsWith(QStringLiteral("Dock.TogglePane"))) {
+            QString pane = id.section(QLatin1Char('.'), -1);
+            pane.remove(QStringLiteral("TogglePane"));
+            QWidget *target = nullptr;
+            if (pane == QStringLiteral("Explorer") || pane == QStringLiteral("Session"))
+                target = findChild<QWidget *>(QStringLiteral("ExplorerTabs"));
+            else if (pane == QStringLiteral("Filer"))
+                target = findChild<FilerPane *>();
+            else if (pane == QStringLiteral("Outline"))
+                target = findChild<QWidget *>(QStringLiteral("OutlineTabs"));
+            else if (pane == QStringLiteral("Search"))
+                target = m_searchPane;
+            else if (pane == QStringLiteral("Sender") || pane == QStringLiteral("Transfer")
+                     || pane == QStringLiteral("Output") || pane == QStringLiteral("Shell"))
+                target = findChild<QWidget *>(QStringLiteral("BottomPanes"));
+            if (target)
+                action->setChecked(!target->isHidden());
+        } else if (id == QLatin1String("Window.ToggleLeftDockArea")
+                   || id == QLatin1String("Window.ToggleRightDockArea")
+                   || id == QLatin1String("Window.ToggleBottomDockArea")) {
+            if (id == QLatin1String("Window.ToggleBottomDockArea")) {
+                if (auto *root = findChild<QSplitter *>(QStringLiteral("RootSplitter")))
+                    action->setChecked(!root->widget(1)->isHidden());
+            } else if (auto *col = findChild<QSplitter *>(QStringLiteral("CenterColumn"))) {
+                action->setChecked(!col->widget(
+                                       id == QLatin1String("Window.ToggleLeftDockArea") ? 0 : 2)
+                                       ->isHidden());
+            }
+        } else if (id == QLatin1String("Window.ToggleMenuBar")) {
+            action->setChecked(menuBar()->isVisible());
+        } else if (id == QLatin1String("Window.ToggleStatusBar")) {
+            action->setChecked(statusBar()->isVisible());
+        } else if (id == QLatin1String("Window.ToggleQuickBar")) {
+            action->setChecked(m_quickBar && m_quickBar->isVisible());
+        }
+    }
 }
 
 QString MainWindow::displayActionText(const QString &en, const QString &translated)
@@ -1006,45 +1258,80 @@ void MainWindow::buildMenu(QMenu *menu, const QVector<MenuEntry> &entries)
     }
 }
 
+// R52 终端区右键条目（0x00834f2c→0x008c5f16 链）：free-edit 守卫挂账（骨架无 free edit
+// 概念）；terminal.rightClickAction 非 ShowMenu 且无修饰键强制→不弹；margin 命中变体挂账
+// （0x005bc118 属性 0x758f——骨架无 margin 概念）。节名="View "+修饰键串+"Popup"（0x008c5f82）
+QVector<MenuEntry> MainWindow::viewPopupEntries(Qt::KeyboardModifiers mods)
+{
+    if (!(mods & (Qt::ControlModifier | Qt::ShiftModifier | Qt::AltModifier | Qt::MetaModifier))) {
+        const QString action = WindConfig::instance().valueToString(
+            QStringLiteral("terminal.rightClickAction"), QStringLiteral("ShowMenu"));
+        if (action != QLatin1String("ShowMenu"))
+            return {}; // 非 ShowMenu 且未强制（无修饰键）→不弹
+    }
+    QString mod;
+    if (mods & Qt::ControlModifier)
+        mod = QStringLiteral("Ctrl ");
+    else if (mods & Qt::ShiftModifier)
+        mod = QStringLiteral("Shift ");
+    else if (mods & Qt::AltModifier)
+        mod = QStringLiteral("Alt ");
+    else if (mods & Qt::MetaModifier)
+        mod = QStringLiteral("Meta ");
+    const QString section = QStringLiteral("View %1Popup").arg(mod);
+    QVector<MenuEntry> entries = MenuConfig::instance().menu(section);
+    if (entries.isEmpty())
+        entries = menuSection(section); // popup 节不在 MenuConfig（只收 Kit 菜单），按顶层节补取
+    return entries;
+}
+
 // 原版 pane_showPopupMenu 0x8c3c6a：节名 "%1 %2Popup"，%1=pane objectName 去 "Pane" 后缀（0x8c3684），
 // %2=修饰键串（无修饰键为空）；挂各 pane 的 contextMenuEvent。ViewTab Popup 走标签条 0x8ba130。
+// R52：TerminalView 特判走 viewPopupEntries（门卫+修饰键变体）；0x008c5f16 菜单堆分配+exec 后
+// deleteLater（原为栈对象，照原版改）
 void MainWindow::showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods)
 {
     if (!paneLike)
         return;
 
-    QString section;
-    if (paneLike == m_viewTabBar) {
-        section = QStringLiteral("ViewTab Popup");
+    QVector<MenuEntry> entries;
+    if (qobject_cast<TerminalView *>(paneLike)) {
+        entries = viewPopupEntries(mods);
     } else {
-        QString base = paneLike->objectName();
-        // 原版 TerminalWidget pane 名 "View"(0x84005a 硬编码),重建 objectName TextView 特判
-        if (base == QStringLiteral("TextView"))
-            base = QStringLiteral("View");
-        else if (base.endsWith(QStringLiteral("Pane")))
-            base.chop(4);
-        QString mod;
-        if (mods & Qt::ShiftModifier)
-            mod = QStringLiteral("Shift ");
-        else if (mods & Qt::ControlModifier)
-            mod = QStringLiteral("Ctrl ");
-        else if (mods & Qt::AltModifier)
-            mod = QStringLiteral("Alt ");
-        else if (mods & Qt::MetaModifier)
-            mod = QStringLiteral("Meta ");
-        section = QStringLiteral("%1 %2Popup").arg(base, mod);
+        QString section;
+        if (paneLike == m_viewTabBar) {
+            section = QStringLiteral("ViewTab Popup");
+        } else {
+            QString base = paneLike->objectName();
+            // 原版 TerminalWidget pane 名 "View"(0x84005a 硬编码),重建 objectName TextView 特判
+            if (base == QStringLiteral("TextView"))
+                base = QStringLiteral("View");
+            else if (base.endsWith(QStringLiteral("Pane")))
+                base.chop(4);
+            QString mod;
+            if (mods & Qt::ControlModifier)
+                mod = QStringLiteral("Ctrl ");
+            else if (mods & Qt::ShiftModifier)
+                mod = QStringLiteral("Shift ");
+            else if (mods & Qt::AltModifier)
+                mod = QStringLiteral("Alt ");
+            else if (mods & Qt::MetaModifier)
+                mod = QStringLiteral("Meta ");
+            section = QStringLiteral("%1 %2Popup").arg(base, mod);
+        }
+        entries = MenuConfig::instance().menu(section);
+        if (entries.isEmpty())
+            entries = menuSection(section); // popup 节不在 MenuConfig（只收 Kit 菜单），按同名顶层节补取
     }
-
-    QVector<MenuEntry> entries = MenuConfig::instance().menu(section);
-    if (entries.isEmpty())
-        entries = menuSection(section); // popup 节不在 MenuConfig（只收 Kit 菜单），按同名顶层节补取
     if (entries.isEmpty())
         return; // 原版空节不弹项
 
-    QMenu menu(this);
-    // 条目动作走 makeAction：已接线的 Toggle 类生效，其余占位（与主菜单同限制）
-    buildMenu(&menu, entries);
-    menu.exec(QCursor::pos()); // 0x8ba130 同款
+    // 0x008c5f16：堆分配 QMenu，exec 后 deleteLater
+    auto *menu = new QMenu(this);
+    // 条目动作走 makeAction：已接线项生效，未接线项经 makeAction 尾部分派（禁用+挂账）
+    buildMenu(menu, entries);
+    menu->exec(QCursor::pos()); // 0x8ba130 同款
+    menu->deleteLater(); // 0x008c5f16
 }
 
 // 0x834f2c TerminalView contextMenuEvent → 0x8c3c6a pane_showPopupMenu；
@@ -1648,4 +1935,143 @@ void MainWindow::toggleQuickBar()
 void MainWindow::onPlaceholderAction()
 {
     Q_UNIMPLEMENTED();
+}
+
+// R53 moveGroupToGroup 最小实现（原生未逆明，R53 挂账）：Merge To Group 语义=活动组整体并入
+// 目标组（标签组文本迁移）。骨架 MuxPaneGroup 无组名存储——组名取标签组首个标签文本，目标为
+// 同名标签迁入（组间移动标签集）。空实现守卫：无活动组/目标即本组首签→no-op。
+// 升级条件：逆明 Kit::moveGroupToGroup 原生体（0x8cc994 script 面宿主侧）后照搬。
+void MainWindow::moveActiveGroupTo(const QString &targetName)
+{
+    MuxPaneGroup *group = activeMuxGroup();
+    if (!group || targetName.isEmpty())
+        return;
+    // 标签条归 KitGroup 树（setMenuWidget 移交）——经 tabBarRow(="ViewGroup") 取本组行
+    // 标签条归 KitGroup menuWidget 槽（setMenuWidget 移交）——经活动组祖先 KitGroup 取本组行
+    QWidget *row = nullptr;
+    for (QWidget *w = group->parentWidget(); w; w = w->parentWidget()) {
+        if (auto *kit = qobject_cast<KitGroup *>(w)) {
+            if (QWidget *menuWidget = kit->menuWidget())
+                row = menuWidget->objectName() == QStringLiteral("ViewGroup")
+                          ? menuWidget
+                          : menuWidget->findChild<QWidget *>(QStringLiteral("ViewGroup"));
+            break;
+        }
+    }
+    auto *tabBar = row ? row->findChild<QTabBar *>() : nullptr;
+    auto *stack = group->findChild<QStackedWidget *>();
+    if (!tabBar || !stack || tabBar->count() == 0)
+        return;
+    // 目标名==本组首签文本→自并入 no-op
+    if (tabBar->tabText(0) == targetName)
+        return;
+    // 最小实现：全树找首个含 targetName 标签的兄弟 ViewGroup 行，把本组标签逐个迁移过去
+    const auto rows = findChildren<QWidget *>(QStringLiteral("ViewGroup"));
+    for (QWidget *otherRow : rows) {
+        if (otherRow == row)
+            continue;
+        auto *otherTab = otherRow->findChild<QTabBar *>();
+        if (!otherTab || otherTab->tabText(0) != targetName)
+            continue;
+        // 目标行所属组（行→沿父链 MuxPaneGroup；tmux 行挂 MuxWindow 树跳过）
+        MuxPaneGroup *other = nullptr;
+        for (QWidget *w = otherRow->parentWidget(); w; w = w->parentWidget())
+            if ((other = qobject_cast<MuxPaneGroup *>(w)))
+                break;
+        if (!other)
+            continue;
+        auto *otherStack = other->findChild<QStackedWidget *>();
+        if (!otherStack)
+            continue;
+        while (tabBar->count() > 0) {
+            const int idx = 0;
+            if (Session *session = qobject_cast<TerminalView *>(stack->widget(idx))->session())
+                session->setParent(other); // 会话随迁（splitGroup 同语义 0x8d42e8）
+            const QString title = tabBar->tabText(idx);
+            const QColor color = qobject_cast<TabGroupBar *>(tabBar)
+                                     ? qobject_cast<TabGroupBar *>(tabBar)->tabColor(idx)
+                                     : QColor();
+            otherTab->addTab(title);
+            if (auto *otherTgb = qobject_cast<TabGroupBar *>(otherTab))
+                otherTgb->setTabColor(otherTgb->count() - 1, color);
+            otherStack->addWidget(stack->widget(idx));
+            QWidget *migrated = stack->widget(idx);
+            stack->removeWidget(migrated);
+            tabBar->removeTab(idx);
+        }
+        return;
+    }
+}
+
+// allGroupNames（0x8cc994 text/state JS 求值面）：主窗全部组名集合（各 MuxPaneGroup 首签文本）。
+// 注入 ScriptWindow JS 面；空集合→空数组（调用方回落 "[Group list is empty]" 占位）。
+// 标签条经 KitGroup::setMenuWidget 归 KitGroup 树（MuxPaneGroup::tabBarRow 所有权移交）——
+// 组名经 tabBarRow(="ViewGroup") 反查：组↔行一一对应（行内 QTabBar 首签文本）
+QStringList MainWindow::allGroupNames() const
+{
+    QStringList names;
+    const auto rows = findChildren<QWidget *>(QStringLiteral("ViewGroup"));
+    for (const QWidget *row : rows) {
+        if (auto *tabBar = row->findChild<QTabBar *>(); tabBar && tabBar->count() > 0)
+            names << tabBar->tabText(0);
+    }
+    return names;
+}
+
+// wind.actions script 面已接线子集分派（R52 View Popup 条目共用 makeAction 管线）；
+// 返回 false=未接线（makeAction 置禁用+挂账）。缺失 JS 桥函数清单见函数内挂账注释。
+bool MainWindow::runActionScript(const QString &actionId)
+{
+    auto *group = activeMuxGroup();
+    auto *stack = group ? group->findChild<QStackedWidget *>() : nullptr;
+    auto *view = stack ? qobject_cast<TerminalView *>(stack->currentWidget()) : nullptr;
+
+    // ── 剪贴板/选区族（Text.Copy/Cut/Paste、Terminal.SelectAll）──
+    if (actionId == QLatin1String("Text.Copy")) { // script: window.activeText.copy()
+        if (view) view->copySelectionForScript();
+        return view != nullptr;
+    }
+    if (actionId == QLatin1String("Terminal.Cut") || actionId == QLatin1String("Text.Cut"))
+        return false; // 终端无 cut 语义（原版 script=window.activeText.cut() 终端态禁用）
+    if (actionId == QLatin1String("Text.Paste")) { // script: window.activeText.paste()
+        if (view) view->pasteClipboardForScript();
+        return view != nullptr;
+    }
+    if (actionId == QLatin1String("Terminal.PasteSelectedText")) {
+        if (view && view->hasSel()) {
+            QApplication::clipboard()->setText(view->selectionText());
+            view->pasteClipboardForScript();
+            return true;
+        }
+        return false;
+    }
+    if (actionId == QLatin1String("Terminal.SelectAll")) { // script: activeText.selectAll()
+        if (view) view->selectAllForScript();
+        return view != nullptr;
+    }
+
+    // ── 清屏族（Terminal.ClearScreen/ClearScreenAndScrollback/ClearScrollback）──
+    if (actionId == QLatin1String("Terminal.ClearScreen")) {
+        if (view) view->clearScreenForScript();
+        return view != nullptr;
+    }
+    if (actionId == QLatin1String("Terminal.ClearScreenAndScrollback")
+        || actionId == QLatin1String("Terminal.ClearScrollback")) {
+        if (view) view->resetForScript(); // reset 清滚回+屏（isAltScreen 守卫挂账）
+        return view != nullptr;
+    }
+
+    // ── 未接线挂账清单（JS 桥函数缺失：不实现、禁用+注释）──
+    // Terminal.CopyCommand(commandText)/SelectCommand(selectCommand)/isBinary
+    // Terminal.MoveToPreviousCommand/MoveToNextCommand(moveTo)
+    // Terminal.ManageSessionTriggers(openSessionTriggersDialog)
+    // Terminal.Send/Receive{X,Y,Z}Modem+CancelModem(isModemSupported/sendBinary——vendors/lrzsz 链)
+    // Terminal.StartLogger/StopLogger/PauseLogger/ResumeLogger/OpenLogFile/OpenLogFolder/
+    //   OpenLogSettings(isLoggerStarted/logger 面)
+    // Terminal.ResetHard/ResetSoft/ResetCharacterSet(resetHard/resetSoft 面)
+    // Text.HighlightText(openHighlightTextDialog)/SearchOnline(searchOnline)
+    // Window.ReopenClosedView(reopen)/RecentUrls(reopen)/ClearRecentUrls
+    // Terminal.DuplicateSession/DuplicateSSHChannel/ReconnectSession/CopySessionName/
+    //   CopySessionUrl/Save
+    return false;
 }

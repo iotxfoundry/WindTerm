@@ -68,6 +68,10 @@ public:
         if (auto *a = qobject_cast<QAction *>(action))
             QMenu::addAction(a);
     }
+    // QMenu::actions 非 moc 槽，QJSEngine newQObject 面不可调（同 addAction 实测）；JS 面
+    // 补 Q_INVOKABLE 数量面（scheme 按钮菜单项自检；QList<QAction*> 不可跨引擎返回——
+    // Unknown method return type，仅暴露 count）
+    Q_INVOKABLE int actionCount() const { return QMenu::actions().size(); }
     // 0x76cb16：ScriptMenu 同主菜单挂 aboutToShow（scheme 按钮菜单 Terminal.SchemeList
     // 子项状态刷新链；createMenu 返回后由调用方逐 action 补 state 属性，挂账）
     void hookUpdate()

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPointer>
 #include <QPoint>
+#include <QStringList>
 
 #include "core/LocaleManager.h"
 #include "core/MenuConfig.h"
@@ -13,6 +14,7 @@ struct ToolbarEntry;
 
 class QCloseEvent;
 class QAction;
+class QColor;
 class CommandPalette;
 class QEvent;
 class FilerPane;
@@ -43,6 +45,22 @@ public:
     // P3 命令面板入口（0x768dfa window_openCommandPalette）：懒建+设初值+show
     void openCommandPalette(const QString &prefix);
 
+    // ── 测试驱动面（test_menu_actions）──
+    // R52 View Popup 条目取节（0x00834f2c→0x008c5f16 门卫+修饰键节名）
+    QVector<MenuEntry> viewPopupEntriesForTest(Qt::KeyboardModifiers mods)
+    {
+        return viewPopupEntriesForTestImpl(mods);
+    }
+    // 0x76cb16 逐 action update 体直调（aboutToShow 同源）
+    void refreshMenuActionsForTest(QMenu *menu) { refreshMenuActionsForTestImpl(menu); }
+    // Layout 节菜单构建（MenuBarCorner ManageLayoutButton 同节同管线——widgets 层不在
+    // 本批改动面，行为面经此驱动）
+    void buildLayoutMenuForTest(QMenu *menu);
+    // 动作工厂（makeAction 私有，rename 类不在 Kit 菜单的动作经此驱动）
+    QAction *makeActionForTest(const QString &actionId) { return makeAction(actionId); }
+    // 0x76cb16/0x76c3ee 双挂接面（buildMenu 同源；测试直驱 aboutToShow/aboutToHide 链）
+    void hookMenuUpdateForTest(QMenu *menu) { hookMenuUpdate(menu); }
+
 protected:
     void closeEvent(QCloseEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
@@ -63,9 +81,21 @@ private:
     void buildMenu(QMenu *menu, const QVector<MenuEntry> &entries);
     // 0x76cb16/0x76c3ee：每 QMenu 挂 aboutToShow→动态更新 / aboutToHide→dynamic 动作清理
     void hookMenuUpdate(QMenu *menu);
+    // hookMenuUpdate aboutToShow 体公开面（测试直调；0x76cb16 逐 action update 骨架面）
+    void refreshMenuActions(QMenu *menu);
+    QVector<MenuEntry> viewPopupEntriesForTestImpl(Qt::KeyboardModifiers mods) { return viewPopupEntries(mods); }
+    void refreshMenuActionsForTestImpl(QMenu *menu) { refreshMenuActions(menu); }
     void showPopupMenu(QWidget *paneLike, Qt::KeyboardModifiers mods);
+    // R52 终端区右键条目（0x00834f2c→0x008c5f16）：rightClickAction 门卫+修饰键节名取条目
+    QVector<MenuEntry> viewPopupEntries(Qt::KeyboardModifiers mods);
     // TerminalView::contextMenuRequested 落点：sender() 即 view（UniqueConnection 去重连）
     void onTerminalContextMenu(const QPoint &globalPos, Qt::KeyboardModifiers mods);
+    // 动作执行分派（wind.actions script 面已接线子集）；未接线返回 false（调用方禁用+挂账）
+    bool runActionScript(const QString &actionId);
+    // R53 moveGroupToGroup 最小实现（原生未逆明挂账）：活动组标签组文本迁到目标名同组
+    void moveActiveGroupTo(const QString &targetName);
+    // allGroupNames JS 面（0x8cc994 text/state 求值用）：主窗全部组名集合（MuxPaneGroup 标签组）
+    Q_INVOKABLE QStringList allGroupNames() const;
     QAction *makeAction(const QString &actionId);
     static QString displayActionText(const QString &en, const QString &translated);
     void createCentral();

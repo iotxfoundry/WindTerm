@@ -103,5 +103,23 @@ QString WindConfig::valueToString(const QString &key, const QString &defaultValu
 double WindConfig::valueToDouble(const QString &key, double defaultValue) const
 {
     const QJsonValue value = m_root.value(key);
-    return value.isDouble() ? value.toDouble() : defaultValue;
+    // 原 global_setting 数值读取不拒 bool（JSON true/false 即 1/0）——Opacity/FocusMode 初值走此路径
+    if (value.isDouble())
+        return value.toDouble();
+    if (value.isBool())
+        return value.toBool() ? 1.0 : 0.0;
+    return defaultValue;
+}
+
+bool WindConfig::valueToBool(const QString &key, bool defaultValue) const
+{
+    const QJsonValue value = m_root.value(key);
+    return value.isBool() ? value.toBool() : defaultValue;
+}
+
+void WindConfig::setValue(const QString &key, const QJsonValue &value)
+{
+    m_root.insert(key, value);
+    // shortcut: user.config 写盘链挂账——原版 setValue 落 ~/.wind/user.config 的函数未逆明，
+    // 先内存生效；逆明后在此补写盘
 }

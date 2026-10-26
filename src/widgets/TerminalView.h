@@ -119,6 +119,17 @@ public:
     QString selectionText() const { return selectedText(); }
     bool hasSel() const { return hasSelection(); }
 
+    // ═══ R52 View Popup 动作面（wind.actions script 桥已逆明子集；MainWindow::runActionScript
+    // 调用。原版走 window.activeText.* JS 面——骨架宿主层等价直调）═══
+    void copySelectionForScript() { copySelection(); }
+    void pasteClipboardForScript() { pasteClipboard(); }
+    // selectAll（0xa3e5ca 面）：全活动屏+滚回选区（原版 text.selectAll 全文档）
+    void selectAllForScript();
+    // clearScreen（Terminal.ClearScreen state=!isAltScreen 守卫挂账——骨架无 alt screen 概念）
+    void clearScreenForScript();
+    // reset（Terminal.ClearScreenAndScrollback/ClearScrollback：ScreenModel::reset 清滚回+屏）
+    void resetForScript();
+
     // ═══ palette JS API 面（*.palette 一手证据：goto-line/calculator 用到的 text.* 契约）═══
     // 行数（scrollback+屏行——原版 text.lineCount 契约：全文行数）
     Q_INVOKABLE int lineCount() const;
