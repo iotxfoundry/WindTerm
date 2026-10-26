@@ -70,8 +70,8 @@ public:
     QString sessionUuid() const;
 
     // tmux control 模式（P7a：模型+解析+命令面；GUI 映射 MuxDesktop 属 P7b 挂账）。
-    // attachSession 对 LocalSession 自动判定（0x7e9a06 谓词挂账，见 LocalSession::
-    // isTmuxControlCommand）；SSH 会话内 tmux 检测挂账（同地址）。
+    // R44：启用判定=VT 输出流通知行特征命中（0x7e9a32 泵，0x878fee 通知名 QHash），
+    // 非 session 参数判定；本地/SSH 同泵（SSH 输出走同一 Session::output 路径）。
     void enableTmuxMode();
     Tmux *tmux() const { return m_tmux; }
 
@@ -217,6 +217,10 @@ private:
     bool matchAt(int line, int col, int *colEnd) const;
     bool findImpl(bool backward, bool useSelection);
 
+    // R44 tmux 启用检测（0x7e9a32 输出泵逐行通知名匹配）：data 累积按 \n 切行，
+    // 通知行前缀命中→true（命中前缓冲经 m_tmuxDetectBuf 交还调用方喂 Tmux）
+    bool detectTmuxControl(const QByteArray &data);
+
     QFont m_font;
     qreal m_cellW = 0.0;
     qreal m_cellH = 0.0;
@@ -242,6 +246,10 @@ private:
     Session *m_session;
     ScreenModel *m_screen;
     VtParser *m_parser;
+    // tmux control 检测状态（R44 0x7e9a32 输出泵）：跨块行残余/命中前缓冲
+    QByteArray m_pending;
+    QByteArray m_tmuxDetectBuf;
+    bool m_tmuxDetected = false;
     Tmux *m_tmux = nullptr; // tmux control 模式挂载（0x7e9a06 +0x188）
     // P7b attach 守卫（0x8de3e8 同位语义：TerminalWidget 桌面指针字段）：
     // desktop destroyed→自动清零（QPointer），重复 attach 幂等

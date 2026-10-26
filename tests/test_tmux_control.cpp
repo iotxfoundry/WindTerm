@@ -198,7 +198,17 @@ static int testEndToEnd()
     const bool started = s->start(tmux, QStringLiteral("-CC -L %1 new-session -x 100 -y 30").arg(sock));
     check(started, "tmux -CC pty started");
     view.attachSession(s);
-    check(view.tmux() != nullptr, "tmux mode detected (view->tmux() non-null)");
+    // R44：启用判定=输出流通知行特征命中（非 args 判定）——等 tmuxModeEntered 后 view->tmux() 非空
+    bool tmuxEntered = false;
+    {
+        QElapsedTimer t;
+        t.start();
+        while (!t.hasExpired(5000)) {
+            pump(100);
+            if (view.tmux() != nullptr) { tmuxEntered = true; break; }
+        }
+    }
+    check(tmuxEntered, "tmux mode detected (output notify hit -> view->tmux() non-null)");
 
     // ②version 回填
     bool hasVersion = false;

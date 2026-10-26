@@ -97,7 +97,8 @@ int main(int argc, char *argv[])
         = s->start(tmux, QStringLiteral("-CC -L %1 new-session -x 100 -y 30").arg(sock));
     CHECK(started, "tmux -CC pty started");
     host->attachSession(s);
-    CHECK(host->tmux() != nullptr, "tmux mode detected");
+    // R44：检测=输出流通知命中（异步）——轮询等待 tmux 模式进入（同步断言面移除）
+    CHECK(waitFor(5000, [&] { return host->tmux() != nullptr; }), "tmux mode detected");
 
     // 模型就绪 + desktop 出现（tmuxModeEntered 同步触发 attach）
     MuxDesktop *desktop = nullptr;

@@ -11,6 +11,12 @@
 #include <QTimer>
 
 #include <QAction>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QMenu>
 #include <QToolButton>
 #include <QVBoxLayout>
 
@@ -18,18 +24,25 @@
 
 #include "ActionIcons.h"
 #include "KitGroup.h"
+#include "MuxDesktop.h"
 #include "MuxPane.h"
+#include "MuxWindow.h"
 #include "PaneManager.h"
+#include "TabGroupBar.h"
 #include "TerminalView.h"
 
+#include "core/Assets.h"
+#include "core/JsonText.h"
 #include "core/LocalSession.h"
 #ifdef WINDTERM_HAVE_SERIALPORT
 #include "core/SerialSession.h"
 #endif
+#include "core/MenuConfig.h" // MenuEntry（R50 键解析与骨架 menu.config 管线同型）
 #include "core/Session.h"
 #include "core/SessionStore.h"
 #include "core/TelnetSession.h"
 #include "core/ThemeManager.h"
+#include "core/WindConfig.h"
 
 std::function<QWidget *()> MuxPaneGroup::s_createGroup;
 
@@ -67,7 +80,7 @@ QIcon dotIcon(const QColor &color)
 
 MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     : QWidget(parent)
-    , m_tabBar(new QTabBar(this))
+    , m_tabBar(new TabGroupBar(this))
     , m_stack(new QStackedWidget(this))
     , m_scrollLeftButton(new QToolButton(this))
     , m_scrollRightButton(new QToolButton(this))
@@ -138,6 +151,9 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     m_scrollRightButton->hide();
     m_scrollRightButton->setEnabled(false);
     m_scrollRightButton->setAutoRepeat(true);
+    // R47（0x005aec28/0x005ab6ee）：滚动钮挂标签条（autoRepeat 连点步进、溢出态刷
+    // 显隐可用、无动画——原版实证）
+    m_tabBar->setScrollButtons(m_scrollLeftButton, m_scrollRightButton);
     // QTabBar 内建箭头冲突已裁定（0x5ac522 逐行）：setupUi 末尾与 MuxPaneGroup 均
     // param_2=0——内建箭头永不出现（setUsesScrollButtons(false) 无条件），前证据 B 的
     // 分拣过滤器在无箭头状态下白装；保持 false 正确
@@ -166,9 +182,16 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     connect(m_tabBar, &QTabBar::currentChanged, m_stack, &QStackedWidget::setCurrentIndex);
     connect(m_tabBar, &QTabBar::tabCloseRequested, this, &MuxPaneGroup::onTabCloseRequested);
     connect(m_addButton, &QToolButton::clicked, this, &MuxPaneGroup::onAddSession);
-    // TabListMenu 菜单本体挂账
-    // shortcut: TabListButton 菜单挂账, TabListMenu 未实现(0x005acc3e)
-    connect(m_listButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
+    // R47 TabListMenu（0x005b1c08）：平铺行+FilterEdit+CountLabel；行关闭→本类关闭链
+    connect(m_listButton, &QToolButton::clicked, this, [this]() {
+        TabGroupBar::execTabListMenu(m_tabBar, m_listButton,
+                                     [this](int index) { onTabCloseRequested(index); });
+    });
+
+    // R45 hoverToSelect（0x008dea8d MuxPaneGroup_setupUi 末段：QVariant("tabbar.
+    // hoverToSelect").toDouble()→0x005ad4a6 建/删定时器；wind.config:34=0.2s）
+    m_tabBar->setHoverToSelect(
+        WindConfig::instance().valueToDouble(QStringLiteral("tabbar.hoverToSelect"), 0.0));
 
     // profile terminal.startupSessions=NoSessions：原版启动无标签（空 tabBar 仅按钮组）
 }
@@ -193,8 +216,9 @@ void MuxPaneGroup::initTmuxMode(bool attached)
                                                  QStringLiteral("king::config"),
                                                  ThemeManager::instance().currentTheme()));
     m_tabBarRow->layout()->addWidget(m_configButton);
-    // shortcut: ConfigButton 行为挂账, tmux pane 配置对话框未逆明(0x8dece0 按钮面)
-    connect(m_configButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
+    // R50（0x008de2d4）：clicked→menu.config "MuxPaneGroup" 键构 QMenu→按钮 mapToGlobal
+    // exec（0x005ac790 前后 setAutoRaise 按压态）
+    connect(m_configButton, &QToolButton::clicked, this, &MuxPaneGroup::showConfigMenu);
     // shortcut: hoverToSelect 延时未逆明(0x8de936 段), 挂账
 }
 
@@ -212,12 +236,111 @@ void MuxPaneGroup::setPaneTitle(const QString &title)
         m_tabBar->setTabText(0, title);
 }
 
+// ── R50：ConfigButton→menu.config "MuxPaneGroup" 键弹菜单（0x008de2d4 照搬）──
+
+// 0x00692ef0 menuconfig_build_menu：菜单配置系统按路径键构 QMenu；骨架 MenuConfig
+// 只收 Kit 菜单名（menu("MuxPaneGroup") 空）→按 MainWindow::menuSection 同源解析
+// （assets /config/uiconfigs/menu.config 的 "MuxPaneGroup" 数组；terminal/configs 同源）
+static QVector<MenuEntry> muxPaneGroupMenuEntries()
+{
+    QFile file(Assets::dir() + QStringLiteral("/config/uiconfigs/menu.config"));
+    if (!file.open(QIODevice::ReadOnly))
+        return {};
+    QByteArray data = file.readAll();
+    if (data.startsWith("\xEF\xBB\xBF"))
+        data.remove(0, 3);
+    const QJsonDocument doc = QJsonDocument::fromJson(JsonText::stripLineComments(data));
+    if (!doc.isObject())
+        return {};
+    const QJsonArray array = doc.object().value(QStringLiteral("MuxPaneGroup")).toArray();
+    QVector<MenuEntry> entries;
+    for (const QJsonValue &value : array) {
+        const QJsonObject object = value.toObject();
+        if (object.contains(QStringLiteral("Separator")))
+            entries.append(MenuEntry{MenuEntry::Separator, QString(), QString(), {}});
+        else if (object.contains(QStringLiteral("Action")))
+            entries.append(MenuEntry{MenuEntry::Action,
+                                     object.value(QStringLiteral("Action")).toString(),
+                                     QString(), {}});
+    }
+    return entries;
+}
+
+void MuxPaneGroup::showConfigMenu()
+{
+    if (!m_configButton)
+        return;
+    if (!m_configMenu) {
+        m_configMenu = new QMenu(m_configButton);
+        m_configMenu->setObjectName(QStringLiteral("MuxPaneGroupMenu"));
+        // 0x00692ef0 建面：QAction 组（TogglePaneZoom/MovePaneToNewWindow|Split 四向|
+        // RenamePane/RenameWindow/Tmux.RenameSession，2 分隔）；标题走 locale+ActionRegistry
+        const QVector<MenuEntry> entries = muxPaneGroupMenuEntries();
+        for (const MenuEntry &entry : entries) {
+            if (entry.type == MenuEntry::Separator) {
+                m_configMenu->addSeparator();
+                continue;
+            }
+            QAction *action = m_configMenu->addAction(entry.actionId);
+            action->setData(entry.actionId); // 0x00692ef0 面：动作带 id，触发按 id 分派
+        }
+        connect(m_configMenu, &QMenu::triggered, this, [this](QAction *action) {
+            dispatchConfigAction(action->data().toString());
+        });
+    }
+    // 0x005ac790：按钮 mapToGlobal exec，前后 setAutoRaise 按压态；结束补发 Leave
+    m_configButton->setAutoRaise(false);
+    m_configMenu->exec(m_configButton->mapToGlobal(QPoint(0, m_configButton->height())));
+    m_configButton->setAutoRaise(true);
+    QEvent leave(QEvent::Leave);
+    QCoreApplication::sendEvent(m_configButton, &leave);
+}
+
+// R50 动作分派：已接线项落 desktop 命令桥/窗格引擎；其余空槽挂账（menu.config
+// "MuxPaneGroup" 9 动作原样，0x008de2d4 键面）
+void MuxPaneGroup::dispatchConfigAction(const QString &actionId)
+{
+    // tmux 桥（0x008de2d4 段 dynamic_cast<KitWindow> 后走 menuconfig，Tmux.RenameSession
+    // 由 desktop 命令桥承接——骨架找宿主 MuxDesktop）
+    if (actionId == QLatin1String("Tmux.RenameSession")) {
+        // 宿主 desktop：沿父链 MuxWindow→desktop
+        MuxDesktop *desktop = nullptr;
+        for (QWidget *w = parentWidget(); w; w = w->parentWidget()) {
+            if (auto *mw = qobject_cast<MuxWindow *>(w)) {
+                desktop = mw->desktop();
+                break;
+            }
+        }
+        if (desktop)
+            desktop->renameTmuxSession();
+        else
+            Q_UNIMPLEMENTED(); // 非 tmux 宿主无 desktop（挂账：原版 activeMuxDesktop 面）
+        return;
+    }
+    // 其余 8 动作未接线（TogglePaneZoom/MovePaneToNewWindow/SplitPane*|RenamePane/
+    // RenameWindow）——原版走 TabGroup pane 引擎对应槽，骨架对应体挂账
+    Q_UNIMPLEMENTED();
+}
+
+// 测试驱动面：menu.config "MuxPaneGroup" 键动作集比对（showConfigMenu 同源 entries）
+bool MuxPaneGroup::configMenuActionsForTest(const QStringList &expectedActionIds) const
+{
+    const QVector<MenuEntry> entries = muxPaneGroupMenuEntries();
+    QStringList actual;
+    for (const MenuEntry &entry : entries)
+        if (entry.type == MenuEntry::Action)
+            actual << entry.actionId;
+    return actual == expectedActionIds;
+}
+
 void MuxPaneGroup::addPane(Session *session, const QString &title, const QColor &color)
 {
     auto *view = new TerminalView(title, m_stack);
     view->attachSession(session);
 
     const int index = m_tabBar->addTab(dotIcon(color), title);
+    // R46（0x5a7b66/0x7503a0）：per-tab 色面（dotIcon 既有面保留；无效色不染）
+    m_tabBar->setTabColor(index, color);
     m_stack->addWidget(view);
     m_tabBar->setCurrentIndex(index);
     m_stack->setCurrentWidget(view);
@@ -268,8 +391,8 @@ void MuxPaneGroup::openRebuiltSession(TerminalView *old)
     const QVariantMap entry = uuid.isEmpty() ? QVariantMap() : SessionStore::sessionByUuid(uuid);
     const QString protocol = entry.value(QStringLiteral("session.protocol")).toString();
     const QString target = entry.value(QStringLiteral("session.target")).toString();
-    // shortcut: view 色属性未接(MuxPaneGroup 建标签处 QColor 参数),新标签灰色
-    const QColor color = QColor(Qt::gray);
+    // R46（0x7503a0）：条目 session.color 命名色（缺键=无效不染）
+    const QColor color = QColor(entry.value(QStringLiteral("session.color")).toString());
     const QString title = m_tabBar->tabText(m_stack->indexOf(old));
 
     if (protocol == QLatin1String("Shell")) {
@@ -374,8 +497,12 @@ void MuxPaneGroup::splitGroup(int dir)
         {
             const QSignalBlocker b1(m_tabBar), b2(ntab), b3(m_stack), b4(nstack);
             const QString title = m_tabBar->tabText(idx);
-            // shortcut: 标签色未存 view 属性,迁移按灰色（同写盘挂账）
-            const int newIndex = ntab->addTab(dotIcon(QColor(Qt::gray)), title);
+            // R46：标签色随迁（0x5a7b66 per-tab 列表面；ntab 可能是裸 QTabBar——
+            // 仅当同为 TabGroupBar 才带色迁移）
+            const QColor color = m_tabBar->tabColor(idx);
+            const int newIndex = ntab->addTab(dotIcon(color), title);
+            if (auto *ntgb = qobject_cast<TabGroupBar *>(ntab))
+                ntgb->setTabColor(newIndex, color);
             nstack->addWidget(view); // addWidget 重挂父=迁移
             m_tabBar->removeTab(idx);
             m_stack->removeWidget(view);

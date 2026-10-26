@@ -148,6 +148,17 @@ struct Api
     int (*sftpWrite)(void *, const void *, size_t);
     int (*sftpSeek64)(void *, quint64); // 续传定位（首版断点续传挂账,绑定先行）
     void *(*sftpStat)(void *, const char *);
+    // R49（0x8e8d36）async_readdir 忙泵四符号：仅原版修补库 T 导出（nm 核对;系统 0.10
+    // 只有 async_read/read_begin）→缺失退阻塞 readdir 链。返回值语义自反汇编：
+    // begin/closedir_begin→request id>0（≤0=pending/错误）;async_readdir→attr*>0 /
+    // 0=本轮 EOF / -1=SSH_ERROR / -2=SSH_AGAIN;async_closedir→0=终局/-1/-2 同
+    int (*sftpAsyncReaddirBegin)(void *, void *);
+    long (*sftpAsyncReaddir)(void *, void *, unsigned int);
+    int (*sftpAsyncClosedirBegin)(void *);
+    int (*sftpAsyncClosedir)(void *, void *, unsigned int);
+    // sftp_canonicalize_path（两库均 T 导出,nm 核对;返回串 stringFreeChar 释放）
+    char *(*sftpCanonicalizePath)(void *, const char *);
+    bool hasSftpAsyncDir; // async 目录泵绑定完整性
     bool hasSftp;
     bool hasSftpFile; // 文件 IO 绑定完整性（传输可用性）
     bool loaded;
@@ -259,6 +270,14 @@ Api &api()
         r.hasSftpFile = r.sftpOpen && r.sftpClose && r.sftpRead && r.sftpWrite && r.sftpStat;
         if (!r.hasSftpFile)
             qWarning("SshSession: sftp 文件 IO 绑定不完整,传输不可用");
+        // R49 async 目录泵（原版修补库专属;系统库缺符号→hasSftpAsyncDir=false 退阻塞链）
+        bind(r.sftpAsyncReaddirBegin, "sftp_async_readdir_begin");
+        bind(r.sftpAsyncReaddir, "sftp_async_readdir");
+        bind(r.sftpAsyncClosedirBegin, "sftp_async_closedir_begin");
+        bind(r.sftpAsyncClosedir, "sftp_async_closedir");
+        bind(r.sftpCanonicalizePath, "sftp_canonicalize_path");
+        r.hasSftpAsyncDir = r.sftpAsyncReaddirBegin && r.sftpAsyncReaddir
+                            && r.sftpAsyncClosedirBegin && r.sftpAsyncClosedir;
 
         r.loaded = r.newSession && r.freeSession && r.optionsSet && r.connectSession
                    && r.isConnected && r.knownServer && r.userauthPassword && r.channelNew
@@ -1319,6 +1338,34 @@ qint64 SshSession::sftpFileSize(void *sftpHandle, const QString &path)
 bool SshSession::sftpFileIoAvailable()
 {
     return api().hasSftpFile;
+}
+
+// sftp_canonicalize_path（sftp.h 实证返回 malloc 串,stringFreeChar 释放）：相对路径/
+// ".." 收敛为服务端绝对路径。挂泵护栏同 sftpList
+QString SshSession::sftpCanonicalizePath(void *sftpHandle, const QString &path)
+{
+    Api &a = api();
+    if (!sftpHandle || !a.hasSftp || !a.sftpCanonicalizePath)
+        return {};
+    QPointer<SshSession> host;
+    {
+        QMutexLocker lock(&g_sftpMapMutex);
+        host = g_sftpMap.value(sftpHandle);
+    }
+    const bool guarded = host && host->thread() != QThread::currentThread();
+    if (guarded)
+        QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
+                                  Q_ARG(bool, true));
+    const QByteArray pathUtf8 = path.toUtf8();
+    QString canonical;
+    if (char *c = a.sftpCanonicalizePath(sftpHandle, pathUtf8.constData())) {
+        canonical = QString::fromUtf8(c);
+        a.stringFreeChar(c);
+    }
+    if (guarded)
+        QMetaObject::invokeMethod(host, "ioSuspend", Qt::BlockingQueuedConnection,
+                                  Q_ARG(bool, false));
+    return canonical;
 }
 
 const SshSession::SftpFileApi &SshSession::fileApi()

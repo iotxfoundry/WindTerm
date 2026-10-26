@@ -17,10 +17,10 @@ public:
 
     bool start(const QString &program = QStringLiteral("/bin/bash"),
                const QString &args = {}, const QString &workDir = {});
-    // tmux control 模式触发谓词（0x7e9a06 触发谓词未逆明挂账：仅按本地 session 参数判定
-    // ——target 基名=="tmux" 且 args 含 "-CC"（用户真数据条目形态））
+    // tmux control 触发谓词已关闭（R44 2026-10-26：0x7e9a06 谓词=输出流检测，见
+    // TerminalView::detectTmuxControl）；m_tmuxControl/tmuxControl() 过渡面保留恒 false。
     static bool isTmuxControlCommand(const QString &program, const QString &args);
-    bool tmuxControl() const { return m_tmuxControl; }
+    bool tmuxControl() const { return m_tmuxControl; } // 过渡面：R44 后恒 false，勿再接线
     void write(const QByteArray &data) override;
     void resize(int rows, int columns) override;
     // UnixPty::stop() 已有杀进程/断 notifier/关 fd 的清理路径（terminate→kill -9），

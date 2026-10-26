@@ -145,6 +145,10 @@ windterm_test_offscreen(test_ssh_kbdint_e2e)
 windterm_add_test(test_pane_split)
 windterm_test_offscreen(test_pane_split)
 
+# TabGroup 族五件（R45/R46/R47/TabListMenu/R50）：offscreen
+windterm_add_test(test_tabgroup_family)
+windterm_test_offscreen(test_tabgroup_family)
+
 # SessionStore 写盘 round-trip：测试内自建 QTemporaryDir HOME
 windterm_add_test(test_sessionstore)
 windterm_test_offscreen(test_sessionstore)

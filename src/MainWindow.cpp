@@ -523,11 +523,13 @@ void MainWindow::connectSessionPane(SessionPane *pane)
 
         // 0x833db4：恢复/重连以 session.uuid 查 user.sessions；双击条目按 label 匹配带 uuid
         session->setUuid(uuid);
+        // R46（0x7503a0）：条目 session.color 命名色→标签染色（无效不染；缺键=QColor() 无效）
+        const QColor sessionColor(entry.value(QStringLiteral("session.color")).toString());
         m_muxPaneGroup->openSession(session,
                                     label.isEmpty()
                                         ? QStringLiteral("telnet %1:%2").arg(host).arg(port)
                                         : label,
-                                    Qt::red);
+                                    sessionColor);
     });
 }
 

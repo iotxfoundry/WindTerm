@@ -1,7 +1,6 @@
 #include "LocalSession.h"
 
 #include <QDir>
-#include <QFileInfo>
 #include <QProcessEnvironment>
 
 #ifdef Q_OS_UNIX
@@ -10,9 +9,12 @@
 
 bool LocalSession::isTmuxControlCommand(const QString &program, const QString &args)
 {
-    // shortcut: 0x7e9a06 触发谓词未逆明，按 session 参数近似（target 基名 tmux 且 args 含 -CC）
-    return QFileInfo(program).fileName() == QLatin1String("tmux")
-        && args.split(QLatin1Char(' '), Qt::SkipEmptyParts).contains(QLatin1String("-CC"));
+    // 0x7e9a06 谓词挂账已关闭（R44 2026-10-26）：原版启用判定=VT 输出流通知行特征检测
+    // （0x7e9a32 泵），非 session 参数判定——判定已迁 TerminalView::detectTmuxControl。
+    // 本函数保留空实现为过渡面；唯一调用点已删。
+    Q_UNUSED(program);
+    Q_UNUSED(args);
+    return false;
 }
 
 LocalSession::LocalSession(int rows, int columns, QObject *parent)
@@ -40,7 +42,7 @@ LocalSession::~LocalSession() = default;
 bool LocalSession::start(const QString &program, const QString &args, const QString &workDir)
 {
 #ifdef Q_OS_UNIX
-    // tmux control 模式检测接线段（0x7e9a06 挂账谓词，见 isTmuxControlCommand）
+    // tmux control 模式检测接线段（R44：判定迁 TerminalView 输出泵检测，此处恒 false）
     m_tmuxControl = isTmuxControlCommand(program, args);
     // workDir 空 → home（原版 ${HomeDir} 宏展开等价回退）；args 空白分隔由 UnixPty 拆成 argv
     return m_pty->createProcess(program, args,

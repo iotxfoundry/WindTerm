@@ -11,7 +11,7 @@
 #include <QScrollBar>
 #include <algorithm>
 
-#include "core/LocalSession.h"
+#include "MouseEncode.h"
 #include "core/Session.h"
 #include "core/SchemeManager.h"
 #include "core/ScreenModel.h"
@@ -161,9 +161,22 @@ void TerminalView::attachSession(Session *session)
 
     // 0xa64cea 数据流：output→feed→重绘
     connect(m_session, &Session::output, this, [this](const QByteArray &data) {
-        if (m_tmux) {
-            // 输出分流（0x7e9a32）：tmux control 流喂 Tmux，透传行经 vtOutput 回流
-            m_tmux->feedData(data);
+        if (m_tmux || m_tmuxDetected) {
+            // 输出分流（0x7e9a32）：tmux control 流喂 Tmux，透传行经 vtOutput 回流；
+            // 检测已命中但 %exit 销毁 Tmux 后的残余直通 VT（0x7e9a1e 链语义）
+            if (m_tmux)
+                m_tmux->feedData(data);
+            else
+                feedVtData(data);
+            return;
+        }
+        if (detectTmuxControl(data)) {
+            m_tmuxDetected = true;
+            enableTmuxMode(); // 0x7e9a06：幂等置位+new Tmux+entered
+            if (m_tmux) {
+                m_tmux->feedData(m_tmuxDetectBuf + data); // 检测行本体进 Tmux 泵（通知行不落 VT）
+                m_tmuxDetectBuf.clear();
+            }
             return;
         }
         const bool atBottom = verticalScrollBar()->value() >= verticalScrollBar()->maximum();
@@ -175,9 +188,8 @@ void TerminalView::attachSession(Session *session)
         emit caretPositionChanged();
     });
 
-    // tmux control 模式检测（0x7e9a06 挂账谓词；仅 LocalSession 参数判定）
-    if (auto *ls = qobject_cast<LocalSession *>(session); ls && ls->tmuxControl())
-        enableTmuxMode();
+    // ── R44 tmux 检测内联在上方 output lambda（0x7e9a32 泵：通知行命中→enableTmuxMode，
+    // 检测行不落 VT；本地 PTY 与 SSH channel 同源进此泵）──
 
     connect(m_session, &Session::finished, this, [this]() {
         m_systemMessage = tr("[进程已退出]");
@@ -271,6 +283,52 @@ QString TerminalView::plainText() const
         lines.append(line);
     }
     return lines.join(QLatin1Char('\n'));
+}
+
+// R44 tmux 启用检测（0x7e9a32 上游）：原版 tmux_parse_notify(0x878fee) 对 VT 输出
+// 逐行做通知名 QHash 命中。检测 pattern 组=0x0087842e ctor 正则原文（已在 Tmux.cpp
+// 照抄 20 通知名族）；此处用最小检测集=已知通知前缀（R7 实证的 20-token 家族名原文照抄，
+// ^% 前缀锚定），命中即判定 control 流。正则组原文 vs 通知行特征：通知名表属原文照抄
+// （0x878fee QHash 键），'^%name ' 行级形态为泵切行特征的等价最小集（完整正则在 Tmux
+// 侧已原文照抄并复用，二次复制无增益）。
+// shortcut: 命中前的普通行已直喂 VT（原版 +0x180 prepend 缓冲是整体扣留）——跨块
+// 半行横跨检测点时 pane 视图可能多一行部分透传，升级条件=照 0x7e9a32 全量扣留重写泵。
+bool TerminalView::detectTmuxControl(const QByteArray &data)
+{
+    static const QList<QByteArray> kNotifyPrefixes = {
+        "%begin ",         "%client-detached ",   "%client-session-changed ",
+        "%end ",           "%error ",             "%exit",
+        "%layout-change ", "%output %",           "%pane-mode-changed %",
+        "%pane-renamed %", "%session-changed $",  "%session-renamed $",
+        "%sessions-changed", "%session-window-changed $", "%unlinked-window-add @",
+        "%unlinked-window-close @", "%unlinked-window-renamed @", "%window-add @",
+        "%window-close @", "%window-pane-changed @", "%window-renamed @",
+    };
+    m_pending += data;
+    // 只需检查可能横跨块的最后一行残余之前的完整行；缓冲按行修剪
+    int nl, consumed = 0;
+    while ((nl = m_pending.indexOf('\n', consumed)) >= 0) {
+        QByteArray line = m_pending.mid(consumed, nl - consumed);
+        consumed = nl + 1;
+        if (line.endsWith('\r'))
+            line.chop(1);
+        for (const QByteArray &p : kNotifyPrefixes) {
+            if (line.startsWith(p)) {
+                m_tmuxDetectBuf = m_pending.mid(0, consumed); // 命中行为止的全部（进 Tmux 泵）
+                m_pending.clear();
+                return true;
+            }
+        }
+    }
+    m_pending.remove(0, consumed);
+    // %exit 可无尾随 \n（正则 `\r?\n\033\\`）——残余整体做一次前缀判定即够（%exit 起始）
+    if (m_pending.startsWith("%exit")) {
+        m_tmuxDetectBuf = m_pending.mid(0, 0); // 命中即从当前块进入
+        m_tmuxDetectBuf.clear();
+        m_pending.clear();
+        return true;
+    }
+    return false;
 }
 
 // tmux control 模式挂载（0x7e9a06：new Tmux 挂 +0x188+connect+emit entered——
@@ -763,11 +821,13 @@ void TerminalView::sendMouseEvent(QEvent::Type type, Qt::MouseButton button,
     const QPoint cell = cellFromPos(pos);
     if (cell.x() < 0)
         return;
-    // SGR 形态（0x7ebdfc '<%d;%d;%d%c'：坐标 1 基）；X10/1005/1015 形态挂账
-    // shortcut: X10/UTF8(1005)/1015 形态未实现,SGR(1006) 为现代应用标准形态
-    m_session->write(QByteArrayLiteral("\x1b[<") + QByteArray::number(cb + mod) + ';'
-                     + QByteArray::number(cell.y() + 1) + ';' + QByteArray::number(cell.x() + 1)
-                     + (pressSuffix ? 'M' : 'm'));
+    // 形态取当前 DECSET 模式（0x7ebdfc 嵌套序 1006>1015>1005>X10；分支语义=各 DEC
+    // 编码定义，字段↔DEC 号对应由 Tmux.cpp mouse_sgr_flag 侧证）；运动事件非 SGR 形态
+    // 由 MouseEncode::body 分支内再 +0x20（cb 传原始运动值）
+    const auto dialect = MouseEncode::dialectFor(m_screen->mode(1005), m_screen->mode(1006),
+                                                 m_screen->mode(1015));
+    m_session->write(QByteArrayLiteral("\x1b[")
+                     + MouseEncode::body(dialect, cb + mod, cell.x(), cell.y(), pressSuffix));
 }
 
 void TerminalView::wheelEvent(QWheelEvent *event)
@@ -780,10 +840,13 @@ void TerminalView::wheelEvent(QWheelEvent *event)
                           | ((event->modifiers() & Qt::MetaModifier) ? 8 : 0)
                           | ((event->modifiers() & Qt::ControlModifier) ? 16 : 0);
             const int cb = (delta > 0 ? 64 : 65) + mod;
-            const QPoint cell = cellFromPos(event->pos());
-            m_session->write(QByteArrayLiteral("\x1b[<") + QByteArray::number(cb) + ';'
-                             + QByteArray::number(qMax(1, cell.y() + 1)) + ';'
-                             + QByteArray::number(qMax(1, cell.x() + 1)) + 'M');
+            const QPoint cell = cellFromPos(event->position().toPoint());
+            const auto dialect = MouseEncode::dialectFor(m_screen->mode(1005),
+                                                         m_screen->mode(1006),
+                                                         m_screen->mode(1015));
+            m_session->write(QByteArrayLiteral("\x1b[")
+                             + MouseEncode::body(dialect, cb,
+                                                 qMax(0, cell.x()), qMax(0, cell.y()), true));
         }
         event->accept();
         return;

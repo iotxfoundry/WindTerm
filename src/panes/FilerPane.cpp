@@ -66,7 +66,7 @@ FilerPane::FilerPane(QWidget *parent)
         view->header()->setSectionResizeMode(0, QHeaderView::Stretch);
     }
 
-    // 0x731066：两页栈（页 0=本地视图/页 1=远程视图）
+        // 0x731066：两页栈（页 0=本地视图/页 1=远程视图）
     m_stack = new QStackedWidget(this);
     m_stack->addWidget(m_localView);
     m_stack->addWidget(m_remoteView);
@@ -244,9 +244,12 @@ void FilerPane::applyRemotePage()
     m_remoteModel->setSftp(m_remoteSession->sftpSession());
     if (m_stack->currentIndex() != 1) {
         m_stack->setCurrentIndex(1);
-        // 远程初始=服务端 home。shortcut: sftp_canonicalize_path 未绑定,
-        // 用 "."（SFTP 服务端 home 相对路径）
-        cd(QStringLiteral("."));
+        // 远程初始=服务端 home：sftp_canonicalize_path(".")（0x8e8d36 同点——原版
+        // listDir 错误链 0x008e8fb1 对 "." canonicalize 拼错误文案,证明 "." 起点合法）。
+        // 失败退 "."（服务端 home 相对路径仍可列）
+        const QString home = SshSession::sftpCanonicalizePath(m_remoteSession->sftpSession(),
+                                                              QStringLiteral("."));
+        cd(home.isEmpty() ? QStringLiteral(".") : home);
     }
 }
 

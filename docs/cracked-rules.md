@@ -104,7 +104,7 @@ attach（0x00842414）：守卫(+0x1c8 引用/+0x1d0 指针)幂等→终端须�
 左树（pin pane）不产 view；新 KitGroup 恒 addWidget 进右 splitter（pane+0x48）。互通：①parent 链回溯（findAncestorPane/find_ancestor_type）②QVariant 目标寻址跨 pane acquire（"Last"/uuid/"::Find Result"）③TabGroup sig2→0x8a09ac→0x8ca876 跨 pane rebuildView。禁止实现成共享 model/共享 widget。证据：0x008ca77c/0x008d43ba/0x008a09ac/0x0089f516。落点：结构约束（重建现状合规）。
 
 ## R44（2026-10-26）tmux 启用谓词=VT 输出流特征检测（非 session 参数判定）
-tmux_enable(0x7e9a06)=幂等置位+new Tmux(0x7e90b6 setter:12 信号连线)+发 tmuxControlModeEntered；唯一触发点=meta 派发 idx0x22（0x90fa45），上游=tmux_vt_notify_dispatch(0x7e9a32) 对 VT 输出按 \n 切行逐行正则匹配命中——本地 PTY 与 SSH channel 同源进此泵（SSH 内 tmux 无独立检测）。落点：TerminalView 检测器改造。
+tmux_enable(0x7e9a06)=幂等置位+new Tmux(0x7e90b6 setter:12 信号连线)+发 tmuxControlModeEntered；唯一触发点=meta 派发 jump table(0xcd81a0) idx 0x88→thunk 0x7cb7d6→0x90fa45（objdump+跳表核对；此前记"idx0x22"有误，2026-10-26 wave2 汇编复核更正），上游=tmux_vt_notify_dispatch(0x7e9a32) 对 VT 输出按 \n 切行逐行正则匹配命中——本地 PTY 与 SSH channel 同源进此泵（SSH 内 tmux 无独立检测）。落点：TerminalView 检测器改造。
 
 ## R45（2026-10-26）hoverToSelect=tabbar.hoverToSelect（ms）+eventFilter
 键 tabbar.hoverToSelect（double→int ms，≤0 禁用删定时器）；TabGroup eventFilter：MouseMove tabAt 变化→记 idx+QTimer start；Leave→清+stop；超时→setCurrentIndex。证据 0x005ad4a6/0x005aa91e/0x005abfd8。

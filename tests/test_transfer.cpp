@@ -8,7 +8,10 @@
 #include <QEventLoop>
 #include <QFile>
 #include <QFileInfo>
+#include <QHeaderView>
 #include <QLabel>
+#include <QProgressBar>
+#include <QStandardItemModel>
 #include <QTemporaryFile>
 #include <QTimer>
 #include <QTreeView>
@@ -352,6 +355,40 @@ int main(int argc, char **argv)
         CHECK(view && view->selectionMode() == QAbstractItemView::ExtendedSelection
                   && view->isHeaderHidden(),
               "TreeView Extended selection + headerHidden (0x733a18)");
+        // 0x733ca6 三补 + 列模式反汇编实证
+        CHECK(view && view->editTriggers() == QAbstractItemView::NoEditTriggers
+                  && view->selectionBehavior() == QAbstractItemView::SelectRows
+                  && view->uniformRowHeights(),
+              "TreeView NoEdit/SelectRows/UniformRowHeights (0x733ca6)");
+        CHECK(view && view->header()->sectionResizeMode(0) == QHeaderView::Stretch
+                  && view->header()->sectionResizeMode(1) == QHeaderView::ResizeToContents,
+              "header col0 Stretch / col1 ResizeToContents (0x733ca6 asm)");
+        // R48：隐藏 QProgressBar 成员（0x735a0c 借位记值,非 delegate/非单元格）
+        auto *progress = pane.findChild<QProgressBar *>();
+        CHECK(progress && progress->isHidden(),
+              "hidden QProgressBar member present (R48 0x735a0c)");
+        // R48 ③：行 tooltip=0x617aea HTML 表（含三时间行）
+        const QString p = QStringLiteral("/tmp/tooltip_row.txt");
+        TransferCenter *center = TransferCenter::instance();
+        center->ensureTaskRow(p);
+        center->setTaskProperty(p, QStringLiteral("transfer.session"), QStringLiteral("ssh"));
+        center->setTaskProperty(p, QStringLiteral("transfer.elapsedTime"), QStringLiteral("1.5 s"));
+        center->setTaskProperty(p, QStringLiteral("transfer.leftTime"), QStringLiteral("2.0 s"));
+        center->setTaskProperty(p, QStringLiteral("transfer.averageSpeed"),
+                                QStringLiteral("8.0 KB/s"));
+        emit center->taskEvent(p, TransferCenter::Refresh);
+        app.processEvents();
+        auto *itemModel = qobject_cast<QStandardItemModel *>(center->model());
+        QStandardItem *rowItem = nullptr;
+        if (itemModel)
+            for (int r = 0; r < itemModel->rowCount() && !rowItem; ++r)
+                if (itemModel->item(r, 0) && itemModel->item(r, 0)->text() == p)
+                    rowItem = itemModel->item(r, 0);
+        const QString tip = rowItem ? rowItem->toolTip() : QString();
+        CHECK(tip.contains(QLatin1String("Time left")) && tip.contains(QLatin1String("Time elapsed"))
+                  && tip.contains(QLatin1String("Average speed")),
+              qPrintable(QStringLiteral("row tooltip HTML has time rows: '%1'").arg(tip.left(80))));
+        center->removeTaskRow(p);
     }
 
     QDir(QDir::tempPath()

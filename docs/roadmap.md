@@ -121,3 +121,11 @@ P1 独立可先行；P2 是 P4/P5/P7 的布局基座（分屏后才有跨 pane �
 - ✅ QBasicTimer 退出警告×2：strace 钉死=Qt5 QProcessManager（fd5 收割管道）在 QApplication 析构 postRoutine 的 teardown 竞态，QtCore 内部噪声非缺陷——关闭挂账不修。
 - ✅ 0x8d2e46 建树链重逆：R43 定案左右树无共享模型三通道互通（现状合规，无代码改动）。
 - 剩余挂账：增量行级重画（性能优化项）；kbdint 真机 kbdint 流验证；宽度表 ≥0x30000 边界运行时真值。
+
+## 挂账收敛 wave2（2026-10-26）
+- ✅ 鼠标四方言接线：MouseEncode 接入 sendMouseEvent/wheelEvent（dialectFor 优先级 1006>1015>1005>X10，SGR 回归不变）
+- ✅ tmux 启用谓词：LocalSession 参数判定删除，改 VT 输出流特征检测（detectTmuxControl，0x7e9a32 语义；本地/SSH 同泵自动覆盖；R44 更正 meta idx 0x88）
+- ✅ TabGroup 五件：hoverToSelect(tabbar.hoverToSelect ms)/TabScroll autoRepeat(无动画实证)/TabListMenu(平铺+FilterEdit+计数)/ConfigButton 弹菜单(menu.config MuxPaneGroup 键,RenameSession 接命令桥,余 8 动作空槽挂账)/标签色 session.color(含旧 Qt::red 占位移除)
+- ✅ Filer async_readdir 忙泵（R49，async 符号缺→门退阻塞链）；sftp_canonicalize_path 绑定接入
+- ✅ TransferPane 进度真相（R48：隐藏 QProgressBar 借位+HTML tooltip 三时间行；自绘 delegate 挂账撤销）
+- 剩余挂账（挂账清单见 src/ shortcut 注释,功能级不动）：Login Wizard 壳迁移/FileGrep 跨会话/SessionStore 写盘/LastSessions uuid 重连落地/0x5ab6ee 像素步长(静态不可达)/ConfigButton 8 空槽/tmux 检测前普通行透传边界差/宽度表 ≥0x30000 边界真值/tmux 3.5 兼容实测/paneIconFactory(永久)

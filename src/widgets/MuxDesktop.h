@@ -8,7 +8,7 @@
 #include <QVariant>
 #include <QVector>
 #include <QWidget>
-class QTabBar;
+#include "TabGroupBar.h" // 标签条族面（R45/R46/R47）：成员直接持 TabGroupBar*
 class QTimer;
 class TerminalView;
 class Tmux;
@@ -93,7 +93,7 @@ private:
     TerminalView *m_host = nullptr;
     Tmux *m_tmux = nullptr;
     QStackedWidget *m_stack = nullptr; // TabGroup.centralStack
-    QTabBar *m_tabBar = nullptr;
+    TabGroupBar *m_tabBar = nullptr;
     QMap<int, MuxWindow *> m_pages; // windowId→页（desktop 比对 +0x44）
     QHash<MuxWindow *, QString> m_pageStates; // 页 state 面（"Normal"/"Pinned"/"Active"，0x8e0bb2）
     QStringList m_sessionNames;

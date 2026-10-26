@@ -51,6 +51,9 @@ public:
     // P6（SftpTransfer 后端）:sftp_stat 远端文件大小（-1=失败/不存在）。同 sftpList
     // 走挂泵护栏（libssh 非线程安全,后台 IO 与主线程泵互斥——R38）
     static qint64 sftpFileSize(void *sftp, const QString &path);
+    // sftp_canonicalize_path 绑定（两库 T 导出）：相对路径/ ".." 收敛为服务端绝对路径
+    //（空串=失败）。同 sftpList 挂泵护栏
+    static QString sftpCanonicalizePath(void *sftp, const QString &path);
     // sftp_open/close/read/write 绑定齐备（传输可用前置;缺失时 SftpTransfer 拒新任务）
     static bool sftpFileIoAvailable();
     // SftpTransfer 直调绑定面（P6 内部协作;非公开 API——TransferCenter/TransferLabel 勿用）

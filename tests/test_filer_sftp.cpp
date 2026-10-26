@@ -189,6 +189,38 @@ int main(int argc, char **argv)
                   "sftp hidden present when showHidden=true");
             qDeleteAll(remoteH);
 
+            // C：sftp_canonicalize_path 绑定（"." →服务端绝对路径;"/subdir/.." 收敛）
+            const QString canon = SshSession::sftpCanonicalizePath(sftp, QStringLiteral("."));
+            CHECK(canon.startsWith(QLatin1Char('/')) && canon != QLatin1String("."),
+                  qPrintable(QStringLiteral("sftp_canonicalize_path('.') → absolute (%1)")
+                                 .arg(canon)));
+            const QString canonUp = SshSession::sftpCanonicalizePath(
+                sftp, QStringLiteral("%1/subdir/..").arg(home));
+            CHECK(canonUp == home,
+                  qPrintable(QStringLiteral("canonicalize '..' collapse (%1 == %2)")
+                                 .arg(canonUp, home)));
+
+            // R49 逆序插入序：模型行序=后端返回序的逆（finishLoad 逆序 append,0x634ef0）
+            const QVector<FileSystemItem *> listing = SftpFolder::list(sftp, home, true);
+            QStringList names;
+            for (const FileSystemItem *it : listing)
+                names << it->name;
+            FileSystemModel revModel;
+            revModel.setSftp(sftp);
+            revModel.setShowHidden(true);
+            revModel.setRootPath(home);
+            const bool revOk = waitFor([&] {
+                if (revModel.rowCount() != names.size())
+                    return false;
+                for (int r = 0; r < names.size(); ++r)
+                    if (revModel.index(r, 0).data().toString()
+                        != names.at(names.size() - 1 - r))
+                        return false;
+                return true;
+            });
+            CHECK(revOk, "model rows = backend listing reversed (R49 reverse insert)");
+            qDeleteAll(listing);
+
             // 远程模型链（QtConcurrent 后端+sftp 句柄）
             FileSystemModel remoteModel;
             remoteModel.setSftp(sftp);

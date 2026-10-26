@@ -15,6 +15,7 @@
 #include "MuxPane.h"
 #include "MuxPaneGroup.h"
 #include "MuxWindow.h"
+#include "TabGroupBar.h"
 #include "TerminalView.h"
 #include "core/ThemeManager.h"
 #include "tmux/Tmux.h"
@@ -144,7 +145,7 @@ void MuxDesktop::buildUi()
     auto *hbox = new QHBoxLayout;
     hbox->setContentsMargins(0, 0, 0, 0);
     hbox->setSpacing(0);
-    m_tabBar = new QTabBar(this);
+    m_tabBar = new TabGroupBar(this); // R45/R46/R47 标签条族挂载面（TabGroup TabBar 面）
     m_tabBar->setExpanding(false);
     m_tabBar->setUsesScrollButtons(false);
     m_tabBar->setElideMode(Qt::ElideRight);
@@ -185,7 +186,13 @@ void MuxDesktop::buildUi()
     connect(addButton, &QToolButton::clicked, this,
             [this, addButton]() { Q_UNUSED(addButton); if (m_tmux) m_tmux->newWindow(); });
     // shortcut: TabListButton 菜单挂账, TabListMenu 未实现(0x5acc3e 同 MuxPaneGroup)
-    connect(listButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
+    // R47：TabListMenu（0x005b1c08）实现——平铺行+FilterEdit+CountLabel；行关闭走
+    // 本类关闭三态（0x005aa958 分流面）
+    connect(listButton, &QToolButton::clicked, this, [this, listButton]() {
+        TabGroupBar::execTabListMenu(m_tabBar, listButton, [this](int index) {
+            onTabCloseRequested(index);
+        });
+    });
 }
 
 // ═══ E：0x84dd5a onTmuxWindowsChanged 全流程 ═══

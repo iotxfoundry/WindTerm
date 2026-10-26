@@ -8,8 +8,9 @@ class QColor;
 class MuxPane;
 class Session;
 class QStackedWidget;
-class QTabBar;
+class QMenu;
 class QToolButton;
+class TabGroupBar;
 class TerminalView;
 
 class MuxPaneGroup : public QWidget
@@ -65,16 +66,29 @@ public:
     // 组标题（"%1:%2" paneId:name，0x84b483 链）
     void setPaneTitle(const QString &title);
 
+    // R50 ConfigButton 菜单动作落点（tests 驱动面）：动作按 actionId 分派，
+    // 未接线项空槽挂账
+    void dispatchConfigAction(const QString &actionId);
+
+    // 测试驱动面：校验 menu.config "MuxPaneGroup" 键动作集（showConfigMenu 同源构建，
+    // exec 阻塞不入测试）
+    bool configMenuActionsForTest(const QStringList &expectedActionIds) const;
+
+private slots:
+    // R50（0x008de2d4）：ConfigButton→menu.config "MuxPaneGroup" 键弹菜单
+    void showConfigMenu();
+
 private:
     void addPane(Session *session, const QString &title, const QColor &color);
 
     QWidget *m_tabBarRow;
-    QTabBar *m_tabBar;
+    TabGroupBar *m_tabBar;
     QStackedWidget *m_stack;
     QToolButton *m_scrollLeftButton;
     QToolButton *m_scrollRightButton;
     QToolButton *m_addButton;
     QToolButton *m_listButton;
     QToolButton *m_configButton = nullptr; // P7b tmux 模式（initTmuxMode 建）
+    QMenu *m_configMenu = nullptr;         // R50：menu.config "MuxPaneGroup" 弹出面（懒建）
     bool m_confirmClose = true;
 };
