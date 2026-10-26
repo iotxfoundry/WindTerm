@@ -24330,9 +24330,9 @@ void FUN_00833cb5(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=00833db4 name=FUN_00833db4 size=279 ====
+// ==== entry=00833db4 orig=FUN_00833db4 size=279 name=TerminalView_openUrl ====
 
-ulong FUN_00833db4(long param_1,undefined8 *param_2)
+ulong TerminalView_openUrl(long param_1,undefined8 *param_2)
 
 {
   int iVar1;
@@ -24403,7 +24403,7 @@ LAB_00833e4d:
 void BSim_QMouseEvent__globalPos(long param_1)
 
 {
-  FUN_00833db4(param_1 + -0x218);
+  TerminalView_openUrl(param_1 + -0x218);
   return;
 }
 
@@ -25359,9 +25359,9 @@ void FUN_00834ded(int param_1,void *param_2)
 }
 
 
-// ==== entry=00834f2c orig=FUN_00834f2c size=350 name=s_terminal_rightClickAction_834f2c ====
+// ==== entry=00834f2c orig=FUN_00834f2c size=350 name=terminal_rightClick ====
 
-void s_terminal_rightClickAction_834f2c(long param_1,long param_2)
+void terminal_rightClick(long param_1,long param_2)
 
 {
   char cVar1;
@@ -30263,7 +30263,7 @@ void FUN_0083be38(long param_1,long *param_2)
         uVar6 = *(undefined8 *)(param_1 + 0x1d0);
       }
                     /* try { // try from 0083bf21 to 0083bf63 has its CatchHandler @ 0083bfa1 */
-      lVar4 = FUN_008da278(uVar6,*puVar5);
+      lVar4 = MuxDesktop_findWindow(uVar6,*puVar5);
       if ((lVar4 != 0) && (cVar3 = FUN_008e012c(), cVar3 != '\0')) {
         if ((*(long *)(param_1 + 0x1c8) == 0) || (*(int *)(*(long *)(param_1 + 0x1c8) + 4) == 0)) {
           uVar6 = 0;
@@ -32385,9 +32385,9 @@ LAB_0083e730:
 }
 
 
-// ==== entry=0083eaa6 orig=FUN_0083eaa6 size=25 name=term_flush_if_active ====
+// ==== entry=0083eaa6 orig=FUN_0083eaa6 size=25 name=term_tmux_send ====
 
-void term_flush_if_active(long param_1,long *param_2)
+void term_tmux_send(long param_1,long *param_2)
 
 {
   if ((*(char *)(param_1 + 0x160) == '\x01') && (*(int *)(*param_2 + 4) != 0)) {
@@ -32398,9 +32398,9 @@ void term_flush_if_active(long param_1,long *param_2)
 }
 
 
-// ==== entry=0083eac0 orig=FUN_0083eac0 size=5 name=term_flush_if_active ====
+// ==== entry=0083eac0 orig=FUN_0083eac0 size=5 name=term_tmux_send ====
 
-void term_flush_if_active(long param_1,long *param_2)
+void term_tmux_send(long param_1,long *param_2)
 
 {
   if ((*(char *)(param_1 + 0x160) == '\x01') && (*(int *)(*param_2 + 4) != 0)) {
@@ -32427,7 +32427,7 @@ void FUN_0083eac6(long param_1)
                     /* try { // try from 0083eb17 to 0083eb1b has its CatchHandler @ 0083eb40 */
   QString::arg(local_20,auStack_28,(long)*(int *)(param_1 + 0x30),0,10,0x20);
                     /* try { // try from 0083eb22 to 0083eb26 has its CatchHandler @ 0083eb48 */
-  term_flush_if_active(param_1,local_20);
+  term_tmux_send(param_1,local_20);
   qt_array_data_unref(local_20);
   qt_array_data_unref(auStack_28);
   return;
@@ -32505,7 +32505,7 @@ void FUN_0083eb50(long param_1,int param_2,int param_3)
               (local_c0,(long)*(int *)(local_d8 + 4),local_d8 + *(long *)(local_d8 + 0x10),3,
                &local_58);
                     /* try { // try from 0083ecc4 to 0083ecc8 has its CatchHandler @ 0083ed16 */
-    term_flush_if_active(param_1,local_c0);
+    term_tmux_send(param_1,local_c0);
     qt_array_data_unref(local_c0);
     qt_array_data_unref(&local_d0);
     qt_array_data_unref(&local_c8);
@@ -32577,7 +32577,7 @@ void FUN_0083ed36(long param_1,int param_2)
             (local_90,(long)*(int *)(local_a0 + 4),local_a0 + *(long *)(local_a0 + 0x10),2,&local_88
             );
                     /* try { // try from 0083ee48 to 0083ee4c has its CatchHandler @ 0083ee9a */
-  term_flush_if_active(param_1,local_90);
+  term_tmux_send(param_1,local_90);
   qt_array_data_unref(local_90);
   qt_array_data_unref(&local_98);
   qt_array_data_unref(&local_a0);
@@ -32644,7 +32644,7 @@ void FUN_0083eeb2(long param_1,int param_2)
             (local_90,(long)*(int *)(local_a0 + 4),local_a0 + *(long *)(local_a0 + 0x10),2,&local_88
             );
                     /* try { // try from 0083efc2 to 0083efc6 has its CatchHandler @ 0083f014 */
-  term_flush_if_active(param_1,local_90);
+  term_tmux_send(param_1,local_90);
   qt_array_data_unref(local_90);
   qt_array_data_unref(&local_98);
   qt_array_data_unref(&local_a0);
@@ -32689,7 +32689,7 @@ void FUN_0083f02e(long param_1,int param_2)
                     /* try { // try from 0083f0cb to 0083f0cf has its CatchHandler @ 0083f123 */
     QString::arg(local_30,local_38,&local_40,0,0x20);
                     /* try { // try from 0083f0d6 to 0083f0da has its CatchHandler @ 0083f11b */
-    term_flush_if_active(param_1,local_30);
+    term_tmux_send(param_1,local_30);
     qt_array_data_unref(local_30);
     qt_array_data_unref(local_38);
   }
@@ -32713,7 +32713,7 @@ void FUN_0083f12c(undefined8 param_1,long *param_2)
                     /* try { // try from 0083f16f to 0083f173 has its CatchHandler @ 0083f19a */
   QString::arg(local_30,auStack_38,param_2,0,0x20);
                     /* try { // try from 0083f17a to 0083f17e has its CatchHandler @ 0083f1a2 */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(auStack_38);
   return;
@@ -32729,7 +32729,7 @@ void FUN_0083f1aa(undefined8 param_1)
   
   local_20[0] = QString::fromAscii_helper("detach-client",0xd);
                     /* try { // try from 0083f1d4 to 0083f1d8 has its CatchHandler @ 0083f1e8 */
-  term_flush_if_active(param_1,local_20);
+  term_tmux_send(param_1,local_20);
   qt_array_data_unref(local_20);
   return;
 }
@@ -32747,7 +32747,7 @@ void FUN_0083f1f0(long param_1)
                     /* try { // try from 0083f22b to 0083f22f has its CatchHandler @ 0083f254 */
   QString::arg(local_20,auStack_28,(long)*(int *)(param_1 + 0x30),0,10,0x20);
                     /* try { // try from 0083f236 to 0083f23a has its CatchHandler @ 0083f25c */
-  term_flush_if_active(param_1,local_20);
+  term_tmux_send(param_1,local_20);
   qt_array_data_unref(local_20);
   qt_array_data_unref(auStack_28);
   return;
@@ -32769,7 +32769,7 @@ void FUN_0083f264(undefined8 param_1,long *param_2)
                     /* try { // try from 0083f2a7 to 0083f2ab has its CatchHandler @ 0083f2d2 */
   QString::arg(local_30,auStack_38,param_2,0,0x20);
                     /* try { // try from 0083f2b2 to 0083f2b6 has its CatchHandler @ 0083f2da */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(auStack_38);
   return;
@@ -32791,7 +32791,7 @@ void FUN_0083f2e2(undefined8 param_1,int param_2)
                     /* try { // try from 0083f325 to 0083f329 has its CatchHandler @ 0083f350 */
   QString::arg(local_30,auStack_38,(long)param_2,0,10,0x20);
                     /* try { // try from 0083f330 to 0083f334 has its CatchHandler @ 0083f358 */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(auStack_38);
   return;
@@ -32807,7 +32807,7 @@ void FUN_0083f360(undefined8 param_1)
   
   local_20[0] = QString::fromAscii_helper("new-window",10);
                     /* try { // try from 0083f38a to 0083f38e has its CatchHandler @ 0083f39e */
-  term_flush_if_active(param_1,local_20);
+  term_tmux_send(param_1,local_20);
   qt_array_data_unref(local_20);
   return;
 }
@@ -32828,7 +32828,7 @@ void FUN_0083f3a6(undefined8 param_1,int param_2,int param_3)
                     /* try { // try from 0083f40c to 0083f410 has its CatchHandler @ 0083f451 */
   QString::arg(local_30,local_38,(long)param_2,0,10,0x20);
                     /* try { // try from 0083f417 to 0083f41b has its CatchHandler @ 0083f449 */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(local_38);
   qt_array_data_unref(local_40);
@@ -32848,7 +32848,7 @@ void thunk_FUN_0083f3a6(undefined8 param_1,int param_2,int param_3)
   qstring_assign_from_ascii(auStack_40,"refresh-client -C %1,%2");
   QString::arg(auStack_38,auStack_40,(long)param_3,0,10,0x20);
   QString::arg(auStack_30,auStack_38,(long)param_2,0,10,0x20);
-  term_flush_if_active(param_1,auStack_30);
+  term_tmux_send(param_1,auStack_30);
   qt_array_data_unref(auStack_30);
   qt_array_data_unref(auStack_38);
   qt_array_data_unref(auStack_40);
@@ -32892,7 +32892,7 @@ void FUN_0083f460(long param_1,int param_2,long *param_3)
             (&local_a0,(long)*(int *)(local_b0 + 4),local_b0 + *(long *)(local_b0 + 0x10),2,
              &local_98);
                     /* try { // try from 0083f53b to 0083f53f has its CatchHandler @ 0083f64d */
-  term_flush_if_active(param_1,&local_a0);
+  term_tmux_send(param_1,&local_a0);
   qt_array_data_unref(&local_a0);
   qt_array_data_unref(&local_a8);
   qt_array_data_unref(&local_b0);
@@ -32939,7 +32939,7 @@ void FUN_0083f666(undefined8 param_1,undefined8 param_2,undefined8 param_3)
                     /* try { // try from 0083f6c0 to 0083f6c4 has its CatchHandler @ 0083f705 */
   QString::arg(local_30,local_38,param_3,0,0x20);
                     /* try { // try from 0083f6cb to 0083f6cf has its CatchHandler @ 0083f6fd */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(local_38);
   qt_array_data_unref(local_40);
@@ -32962,7 +32962,7 @@ void FUN_0083f70e(undefined8 param_1,int param_2,undefined8 param_3)
                     /* try { // try from 0083f76e to 0083f772 has its CatchHandler @ 0083f7b3 */
   QString::arg(local_30,local_38,param_3,0,0x20);
                     /* try { // try from 0083f779 to 0083f77d has its CatchHandler @ 0083f7ab */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(local_38);
   qt_array_data_unref(local_40);
@@ -32982,7 +32982,7 @@ void FUN_0083f7bc(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 0083f7f4 to 0083f7f8 has its CatchHandler @ 0083f81f */
   QString::arg(local_30,auStack_38,param_2,0,0x20);
                     /* try { // try from 0083f7ff to 0083f803 has its CatchHandler @ 0083f827 */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(auStack_38);
   return;
@@ -33001,7 +33001,7 @@ void FUN_0083f830(undefined8 param_1,int param_2)
                     /* try { // try from 0083f86e to 0083f872 has its CatchHandler @ 0083f899 */
   QString::arg(local_30,auStack_38,(long)param_2,0,10,0x20);
                     /* try { // try from 0083f879 to 0083f87d has its CatchHandler @ 0083f8a1 */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(auStack_38);
   return;
@@ -33020,7 +33020,7 @@ void FUN_0083f8aa(undefined8 param_1,int param_2)
                     /* try { // try from 0083f8e8 to 0083f8ec has its CatchHandler @ 0083f913 */
   QString::arg(local_30,auStack_38,(long)param_2,0,10,0x20);
                     /* try { // try from 0083f8f3 to 0083f8f7 has its CatchHandler @ 0083f91b */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(auStack_38);
   return;
@@ -33065,7 +33065,7 @@ void FUN_0083f924(undefined8 param_1,int param_2,int param_3)
             (local_90,(long)*(int *)(local_a8 + 4),local_a8 + *(long *)(local_a8 + 0x10),2,&local_88
             );
                     /* try { // try from 0083f9f3 to 0083f9f7 has its CatchHandler @ 0083fa2d */
-  term_flush_if_active(param_1,local_90);
+  term_tmux_send(param_1,local_90);
   qt_array_data_unref(local_90);
   qt_array_data_unref(&local_a0);
   qt_array_data_unref(&local_98);
@@ -33089,7 +33089,7 @@ void FUN_0083fa46(undefined8 param_1,int param_2,int param_3)
                     /* try { // try from 0083faac to 0083fab0 has its CatchHandler @ 0083faf1 */
   QString::arg(local_30,local_38,(long)param_3,0,10,0x20);
                     /* try { // try from 0083fab7 to 0083fabb has its CatchHandler @ 0083fae9 */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(local_38);
   qt_array_data_unref(local_40);
@@ -33109,7 +33109,7 @@ void FUN_0083fafa(undefined8 param_1,undefined8 param_2)
                     /* try { // try from 0083fb32 to 0083fb36 has its CatchHandler @ 0083fb5d */
   QString::arg(local_30,auStack_38,param_2,0,0x20);
                     /* try { // try from 0083fb3d to 0083fb41 has its CatchHandler @ 0083fb65 */
-  term_flush_if_active(param_1,local_30);
+  term_tmux_send(param_1,local_30);
   qt_array_data_unref(local_30);
   qt_array_data_unref(auStack_38);
   return;
@@ -33138,7 +33138,7 @@ void FUN_0083fb6e(long param_1,char param_2)
   qt_array_data_unref(local_30);
   qt_array_data_unref(local_38);
                     /* try { // try from 0083fbfc to 0083fc00 has its CatchHandler @ 0083fc14 */
-  term_flush_if_active(param_1,local_40);
+  term_tmux_send(param_1,local_40);
   qt_array_data_unref(local_40);
   return;
 }
@@ -33167,7 +33167,7 @@ void FUN_0083fc2c(long param_1)
                     /* try { // try from 0083fcf4 to 0083fcf8 has its CatchHandler @ 0083fd1d */
     QString::arg(local_38,(QVariant *)&local_48,(long)*(int *)(lVar1 + 0x1b8),0,10,0x20);
                     /* try { // try from 0083fcff to 0083fd03 has its CatchHandler @ 0083fd2d */
-    term_flush_if_active(param_1,local_38);
+    term_tmux_send(param_1,local_38);
     qt_array_data_unref(local_38);
     qt_array_data_unref((QVariant *)&local_48);
   }
@@ -35192,7 +35192,7 @@ void s_session__tmux_842414(long param_1)
           }
           pvVar6 = operator_new(0x88);
                     /* try { // try from 008425f8 to 008425fc has its CatchHandler @ 00842761 */
-          s_MuxWindow_8e0938(pvVar6,0,uVar4);
+          MuxWindow_ctor(pvVar6,0,uVar4);
           if ((*(long *)(param_1 + 0x1c8) == 0) || (*(int *)(*(long *)(param_1 + 0x1c8) + 4) == 0))
           {
             bVar9 = false;
@@ -35225,7 +35225,7 @@ void s_session__tmux_842414(long param_1)
           else {
             uVar4 = *(undefined8 *)(param_1 + 0x1d0);
           }
-          MuxDesktop_addPage(uVar4,pvVar6,0);
+          mux_desktop_addPage(uVar4,pvVar6,0);
           (**(code **)(*plVar2 + 8))(plVar2);
         }
       }
@@ -35307,7 +35307,7 @@ void s_session__tmux_842772(long param_1)
             uVar4 = *(undefined8 *)(param_1 + 0x1d0);
           }
           pvVar6 = operator_new(0x88);
-          s_MuxWindow_8e0938(pvVar6,0,uVar4);
+          MuxWindow_ctor(pvVar6,0,uVar4);
           if ((*(long *)(param_1 + 0x1c8) == 0) || (*(int *)(*(long *)(param_1 + 0x1c8) + 4) == 0))
           {
             bVar9 = false;
@@ -35337,7 +35337,7 @@ void s_session__tmux_842772(long param_1)
           else {
             uVar4 = *(undefined8 *)(param_1 + 0x1d0);
           }
-          MuxDesktop_addPage(uVar4,pvVar6,0);
+          mux_desktop_addPage(uVar4,pvVar6,0);
           (**(code **)(*plVar2 + 8))(plVar2);
         }
       }
@@ -38250,7 +38250,7 @@ void s_window_caretStyle_8464ec(long param_1,undefined8 *param_2)
   }
   local_58 = FUN_00913760;
   local_50 = 0;
-  local_48 = focus_breadcrumb_build;
+  local_48 = onTmuxWindowsChanged;
   local_40 = 0;
   puVar7 = operator_new(0x20);
   *puVar7 = 1;
@@ -39832,8 +39832,8 @@ LAB_0084a8b6:
     }
   }
                     /* try { // try from 0084a98d to 0084aa35 has its CatchHandler @ 0084aa75 */
-  if ((uVar9 != uVar8) && (lVar7 = FUN_005bf49e(*(undefined8 *)((long)param_2 + 0x10)), lVar7 != 0))
-  {
+  if ((uVar9 != uVar8) &&
+     (lVar7 = KitPane_ensureAppletBar(*(undefined8 *)((long)param_2 + 0x10)), lVar7 != 0)) {
     FUN_005284d6(lVar7,&local_60);
   }
   qt_array_data_unref(local_58);
@@ -41924,9 +41924,9 @@ LAB_0084da6f:
 }
 
 
-// ==== entry=0084dd5a orig=FUN_0084dd5a size=5076 name=focus_breadcrumb_build ====
+// ==== entry=0084dd5a orig=FUN_0084dd5a size=5076 name=onTmuxWindowsChanged ====
 
-void focus_breadcrumb_build(code *param_1,long *param_2)
+void onTmuxWindowsChanged(code *param_1,long *param_2)
 
 {
   uint *puVar1;
@@ -42056,7 +42056,7 @@ void focus_breadcrumb_build(code *param_1,long *param_2)
             uVar24 = *(undefined8 *)(param_1 + 0x1d0);
           }
                     /* try { // try from 0084e01c to 0084e03f has its CatchHandler @ 0084f15e */
-          puVar11 = (uint *)FUN_008da278(uVar24,local_98._4_4_);
+          puVar11 = (uint *)MuxDesktop_findWindow(uVar24,local_98._4_4_);
           qstring_assign_from_ascii(local_138,"%1:%2%3");
                     /* try { // try from 0084e069 to 0084e06d has its CatchHandler @ 0084f156 */
           QString::arg(local_118,local_138,(long)(int)(uint)local_90,0,10,0x20);
@@ -42078,7 +42078,7 @@ void focus_breadcrumb_build(code *param_1,long *param_2)
                     /* try { // try from 0084e6e6 to 0084e6ea has its CatchHandler @ 0084f13e */
             puVar11 = operator_new(0x88);
                     /* try { // try from 0084e6f9 to 0084e6fd has its CatchHandler @ 0084f186 */
-            s_MuxWindow_8e0938(puVar11,1,uVar24);
+            MuxWindow_ctor(puVar11,1,uVar24);
             puVar11[0x11] = local_98._4_4_;
                     /* try { // try from 0084e710 to 0084e756 has its CatchHandler @ 0084f13e */
             FUN_008e03e4(puVar11,local_190);
@@ -42265,7 +42265,7 @@ LAB_0084e6a8:
             uVar24 = *(undefined8 *)(param_1 + 0x1d0);
           }
                     /* try { // try from 0084e83c to 0084e951 has its CatchHandler @ 0084f166 */
-          lVar10 = FUN_008da278(uVar24,local_98._4_4_);
+          lVar10 = MuxDesktop_findWindow(uVar24,local_98._4_4_);
           if ((((ulong)local_98 & 4) != 0) || ((char)(byte)local_98 < '\0')) {
             if ((*(long *)(param_1 + 0x1c8) == 0) || (*(int *)(*(long *)(param_1 + 0x1c8) + 4) == 0)
                ) {
@@ -42274,7 +42274,7 @@ LAB_0084e6a8:
             else {
               uVar24 = *(undefined8 *)(param_1 + 0x1d0);
             }
-            lVar14 = FUN_008da278(uVar24,local_98._4_4_);
+            lVar14 = MuxDesktop_findWindow(uVar24,local_98._4_4_);
             if ((lVar14 != 0) &&
                (puVar15 = (undefined8 *)FUN_008e01ac(lVar14), puVar15 != (undefined8 *)0x0)) {
               local_118[0] = (uint *)&QArrayData::shared_null;
@@ -42425,7 +42425,7 @@ LAB_0084e90c:
             uVar24 = *(undefined8 *)(param_1 + 0x1d0);
           }
                     /* try { // try from 0084eb9f to 0084ebd5 has its CatchHandler @ 0084f1de */
-          lVar10 = FUN_008da278(uVar24,local_98._4_4_);
+          lVar10 = MuxDesktop_findWindow(uVar24,local_98._4_4_);
           if (lVar10 != 0) {
             if ((*(long *)(param_1 + 0x1c8) == 0) || (*(int *)(*(long *)(param_1 + 0x1c8) + 4) == 0)
                ) {
@@ -50545,7 +50545,7 @@ void FUN_00858e86(void)
   uVar1 = FUN_008cbc36();
   local_20[0] = (QArrayData *)QString::fromAscii_helper("t",1);
                     /* try { // try from 00858eb5 to 00858eb9 has its CatchHandler @ 00858ef2 */
-  FUN_00768dfa(uVar1,local_20);
+  window_openCommandPalette(uVar1,local_20);
   if (*(int *)local_20[0] != 0) {
     if (*(int *)local_20[0] != -1) {
       LOCK();
@@ -50737,7 +50737,7 @@ long s_SearchPane_8590a8(long param_1)
     }
     *(undefined8 *)(param_1 + 0xd0) = uVar3;
     qt_array_data_unref(&local_48);
-    lVar2 = FUN_008cabee(param_1);
+    lVar2 = KitWindow_activeViewWidget(param_1);
     if (lVar2 != 0) {
       uVar3 = *(undefined8 *)(param_1 + 0xd0);
       property_to_string(&local_48,lVar2);
@@ -50763,7 +50763,7 @@ long s_SearchPane_8590a8(long param_1)
     uVar3 = *(undefined8 *)(param_1 + 0xd0);
     local_58 = FUN_009117c8;
     local_50 = 0;
-    local_48 = FUN_0074f5ac;
+    local_48 = SearchPane_apply;
     local_40 = 0;
     puVar4 = operator_new(0x20);
     *puVar4 = 1;
@@ -50919,7 +50919,7 @@ void FUN_00859638(undefined8 param_1)
   uVar1 = FUN_008cbc36();
   lVar2 = FUN_00767222(uVar1);
   if (lVar2 == 0) {
-    lVar2 = FUN_008cabee(param_1);
+    lVar2 = KitWindow_activeViewWidget(param_1);
     if (lVar2 != 0) {
       __dynamic_cast(lVar2,&PTR_PTR_011925c8,&PTR_PTR_01197420,0xfffffffffffffffe);
       return;
@@ -51246,7 +51246,7 @@ void FUN_00859cb6(undefined8 param_1,long param_2)
   undefined1 auStack_48 [8];
   QArrayData *local_40 [2];
   
-  lVar3 = FUN_008cabee();
+  lVar3 = KitWindow_activeViewWidget();
   if (((lVar3 == 0) ||
       (lVar3 = __dynamic_cast(lVar3,&PTR_PTR_011925c8,&PTR_PTR_011a8310,0x218), lVar3 == 0)) ||
      (cVar1 = QMimeData::hasUrls(), cVar1 == '\0')) goto LAB_00859d01;
@@ -51446,7 +51446,7 @@ void FUN_0085a0ce(undefined8 param_1)
   uVar1 = DAT_011c1680;
   local_58 = FUN_008fc660;
   local_50 = 0;
-  local_48 = s_TransferPane_85cea4;
+  local_48 = KitWindow_onTransferEvent;
   local_40 = 0;
   puVar3 = operator_new(0x20);
   *puVar3 = 1;
@@ -51636,12 +51636,12 @@ LAB_0085a733:
 }
 
 
-// ==== entry=0085a7a6 orig=FUN_0085a7a6 size=601 name=s_SearchPane_85a7a6 ====
+// ==== entry=0085a7a6 orig=FUN_0085a7a6 size=601 name=TerminalWindow_insertBottomBar ====
 
 /* WARNING: Removing unreachable block (ram,0x0085a99b) */
 /* WARNING: Removing unreachable block (ram,0x0085a9f8) */
 
-undefined8 s_SearchPane_85a7a6(long param_1)
+undefined8 TerminalWindow_insertBottomBar(long param_1)
 
 {
   QArrayData *pQVar1;
@@ -51751,7 +51751,7 @@ void s_ReplaceInFilesPane_85aa18(long param_1,undefined8 param_2,long *param_3)
   pQVar7 = (QWidget *)s_SearchPane_8590a8();
   if (pQVar7 != (QWidget *)0x0) {
     if (((undefined8 *)*param_3 == &QArrayData::shared_null) &&
-       (lVar8 = FUN_008cabee(param_1), lVar8 != 0)) {
+       (lVar8 = KitWindow_activeViewWidget(param_1), lVar8 != 0)) {
       local_50 = __dynamic_cast(lVar8,&PTR_PTR_011925c8,&PTR_PTR_01197420,0xfffffffffffffffe);
       qcoreapp_self_get();
       for (lVar8 = __dynamic_cast(lVar8,&PTR_PTR_011925c8,&QWidget::typeinfo,0xfffffffffffffffe);
@@ -51804,7 +51804,7 @@ LAB_0085aa56:
       QWidget::setParent(pQVar7);
     }
     FUN_009117c8(param_1,bVar10,param_3);
-    cVar4 = s_SearchPane_85a7a6(param_1);
+    cVar4 = TerminalWindow_insertBottomBar(param_1);
     if (cVar4 != '\0') {
       QSplitter::setStretchFactor((int)*(undefined8 *)(param_1 + 200),0);
       QSplitter::setStretchFactor((int)*(undefined8 *)(param_1 + 200),1);
@@ -51866,7 +51866,7 @@ void KitWindow_lazyCreateQuickBar(long param_1)
     else {
       uVar4 = *(undefined8 *)(param_1 + 0xe0);
     }
-    s_SearchPane_85a7a6(param_1,uVar4);
+    TerminalWindow_insertBottomBar(param_1,uVar4);
     lVar3 = *(long *)(param_1 + 0xd8);
   }
   if ((lVar3 != 0) && (*(int *)(lVar3 + 4) != 0)) {
@@ -51996,7 +51996,7 @@ void TransferBar_lazyCreate(long param_1)
   else {
     uVar5 = *(undefined8 *)(param_1 + 0xf0);
   }
-  s_SearchPane_85a7a6(param_1,uVar5);
+  TerminalWindow_insertBottomBar(param_1,uVar5);
   return;
 }
 
@@ -52022,7 +52022,7 @@ void FUN_0085b0a8(undefined8 param_1,long param_2)
   uint *local_48;
   QArrayData *local_40 [2];
   
-  lVar5 = FUN_008cabee();
+  lVar5 = KitWindow_activeViewWidget();
   if (((lVar5 != 0) &&
       (lVar5 = __dynamic_cast(lVar5,&PTR_PTR_011925c8,&PTR_PTR_011a8310,0x218), lVar5 != 0)) &&
      (cVar3 = QMimeData::hasUrls(), cVar3 != '\0')) {
@@ -53025,11 +53025,11 @@ ulong FUN_0085ce6e(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0085cea4 orig=FUN_0085cea4 size=487 name=s_TransferPane_85cea4 ====
+// ==== entry=0085cea4 orig=FUN_0085cea4 size=487 name=KitWindow_onTransferEvent ====
 
 /* WARNING: Removing unreachable block (ram,0x0085d06d) */
 
-void s_TransferPane_85cea4(long param_1,undefined8 param_2,int param_3)
+void KitWindow_onTransferEvent(long param_1,undefined8 param_2,int param_3)
 
 {
   long lVar1;
@@ -53129,9 +53129,9 @@ joined_r0x0085d05a:
 }
 
 
-// ==== entry=0085d080 name=FUN_0085d080 size=170 ====
+// ==== entry=0085d080 orig=FUN_0085d080 size=170 name=TerminalWindow_toggleBar ====
 
-void FUN_0085d080(undefined8 param_1,undefined8 param_2,char param_3)
+void TerminalWindow_toggleBar(undefined8 param_1,undefined8 param_2,char param_3)
 
 {
   int iVar1;

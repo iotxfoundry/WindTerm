@@ -19792,7 +19792,7 @@ LAB_00526b67:
                     /* try { // try from 00526b09 to 00526b0d has its CatchHandler @ 00526bd0 */
   local_30[0] = (QArrayData *)QString::fromAscii_helper("AppletBar",(int)sVar1);
                     /* try { // try from 00526b1c to 00526b20 has its CatchHandler @ 00526bc0 */
-  King__registerBarsAndPanes(&local_38,local_30);
+  King_title(&local_38,local_30);
                     /* try { // try from 00526b27 to 00526b2b has its CatchHandler @ 00526bd8 */
   QWidget::setWindowTitle(param_1);
   if (*(int *)local_38 == 0) {
@@ -20771,7 +20771,7 @@ LAB_005277f7:
   else {
 LAB_00527161:
                     /* try { // try from 00527171 to 00527175 has its CatchHandler @ 00528445 */
-    FUN_005a333e(&local_98,param_1,&local_c8,0xffffffff);
+    statusbar_buildApplet(&local_98,param_1,&local_c8,0xffffffff);
     QVariant::~QVariant(&local_98);
   }
   qmap_freetree_variant_nodes(&local_c8);

@@ -3843,7 +3843,7 @@ void FUN_00862283(int param_1,void *param_2)
       local_20 = *(undefined8 *)((long)param_2 + 0x18);
       qatomic_int_ref();
                     /* try { // try from 008622de to 008622e2 has its CatchHandler @ 0086231c */
-      s_session_proxyWorkingDirectory_86c7b2(uVar4,&local_20,uVar1);
+      SshSocket_connectTcp(uVar4,&local_20,uVar1);
       qt_array_data_unref(&local_20);
     }
   }
@@ -3941,7 +3941,7 @@ undefined8 * FUN_00862448(undefined8 *param_1,long param_2)
 
 {
   if (*(long *)(param_2 + 0x70) != 0) {
-    FUN_00629aee();
+    ssh_authMethodNames();
     return param_1;
   }
   *param_1 = &QListData::shared_null;
@@ -3957,7 +3957,7 @@ undefined8 FUN_0086246e(undefined8 param_1,long param_2)
   undefined8 uVar1;
   
   if (param_2 != 0) {
-    uVar1 = FUN_006279c0(param_2);
+    uVar1 = ssh_pollReady(param_2);
     return uVar1;
   }
   return 0;
@@ -4037,7 +4037,7 @@ ulong FUN_0086254e(long param_1,undefined8 param_2)
     uVar2 = 0xffffffff;
   }
   else {
-    FUN_00806382(&local_20,DAT_011c2200);
+    ssh_knownHostsDir(&local_20,DAT_011c2200);
                     /* try { // try from 00862582 to 00862586 has its CatchHandler @ 008625d2 */
     uVar2 = s_known_hosts_62aac6(lVar1,&local_20,param_2);
     if (*(int *)local_20 == 0) {
@@ -4900,9 +4900,9 @@ joined_r0x00863562:
 }
 
 
-// ==== entry=008636ee name=FUN_008636ee size=117 ====
+// ==== entry=008636ee orig=FUN_008636ee size=117 name=ssh_checkAgent ====
 
-long FUN_008636ee(long param_1)
+long ssh_checkAgent(long param_1)
 
 {
   char cVar1;
@@ -4936,7 +4936,7 @@ undefined8 FUN_0086376b(undefined8 param_1,long param_2)
   if (param_2 == 0) {
     return 0;
   }
-  lVar1 = FUN_008636ee(param_2);
+  lVar1 = ssh_checkAgent(param_2);
   if (lVar1 != 0) {
     uVar2 = BSim_QScopedPointer_QObjectData__QScopedPointerDeleter_QObjectData_____operator__(lVar1)
     ;
@@ -5031,9 +5031,9 @@ undefined8 * FUN_0086380a(undefined8 *param_1,long param_2,int param_3)
 }
 
 
-// ==== entry=008638f0 name=FUN_008638f0 size=797 ====
+// ==== entry=008638f0 orig=FUN_008638f0 size=797 name=sftp_worker ====
 
-int FUN_008638f0(long *param_1)
+int sftp_worker(long *param_1)
 
 {
   char *pcVar1;
@@ -5059,7 +5059,7 @@ int FUN_008638f0(long *param_1)
   undefined1 local_40 [16];
   
   param_1 = (long *)*param_1;
-  iVar5 = FUN_00627efc(*param_1);
+  iVar5 = sftp_channel_get_or_init(*param_1);
   if (iVar5 == -2) {
     return -2;
   }
@@ -5529,9 +5529,9 @@ int FUN_008640aa(long param_1)
 }
 
 
-// ==== entry=0086410a name=FUN_0086410a size=523 ====
+// ==== entry=0086410a orig=FUN_0086410a size=523 name=SshBridge_acceptHostKey ====
 
-int FUN_0086410a(long param_1,int param_2)
+int SshBridge_acceptHostKey(long param_1,int param_2)
 
 {
   char cVar1;
@@ -5626,7 +5626,7 @@ undefined8 * FUN_00864368(undefined8 *param_1,undefined8 param_2,long param_3)
   *param_1 = &QArrayData::shared_null;
   if (param_3 != 0) {
                     /* try { // try from 00864390 to 00864394 has its CatchHandler @ 008643b9 */
-    FUN_006293dc(&local_20,param_3);
+    ssh_drain(&local_20,param_3);
     uVar1 = *param_1;
     *param_1 = local_20;
     local_20 = uVar1;
@@ -5923,9 +5923,9 @@ void FUN_008647ee(long param_1)
 }
 
 
-// ==== entry=00864972 orig=FUN_00864972 size=1398 name=thread_worker_start ====
+// ==== entry=00864972 orig=FUN_00864972 size=1398 name=SshSocket_threadStart ====
 
-void thread_worker_start(QObject *param_1,undefined8 *param_2,undefined2 param_3)
+void SshSocket_threadStart(QObject *param_1,undefined8 *param_2,undefined2 param_3)
 
 {
   undefined8 uVar1;
@@ -6559,9 +6559,9 @@ void FUN_008657ce(undefined8 param_1,QByteArray *param_2,undefined8 *param_3)
 }
 
 
-// ==== entry=0086597e name=FUN_0086597e size=76 ====
+// ==== entry=0086597e orig=FUN_0086597e size=76 name=SshBridge_queueAutoLogin ====
 
-void FUN_0086597e(int param_1,void *param_2)
+void SshBridge_queueAutoLogin(int param_1,void *param_2)
 
 {
   long lVar1;
@@ -6641,11 +6641,11 @@ undefined8 * FUN_008659ca(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=00865ace orig=FUN_00865ace size=1908 name=s_ssh_agent_865ace ====
+// ==== entry=00865ace orig=FUN_00865ace size=1908 name=SshSocket_sshHandshake ====
 
 /* WARNING: Removing unreachable block (ram,0x00866210) */
 
-void s_ssh_agent_865ace(long *param_1,undefined2 param_2)
+void SshSocket_sshHandshake(long *param_1,undefined2 param_2)
 
 {
   undefined4 *puVar1;
@@ -6704,7 +6704,7 @@ void s_ssh_agent_865ace(long *param_1,undefined2 param_2)
                     /* try { // try from 00865bca to 00865be7 has its CatchHandler @ 008662a6 */
   FUN_00628906(*(undefined8 *)(*param_1 + 0x70),4,param_2);
   uVar3 = *(undefined8 *)(*param_1 + 0x70);
-  FUN_00806382((QString *)&local_78,DAT_011c2200);
+  ssh_knownHostsDir((QString *)&local_78,DAT_011c2200);
                     /* try { // try from 00865bee to 00865bf2 has its CatchHandler @ 008662f3 */
   QString::toUtf8_helper((QString *)&local_58);
                     /* try { // try from 00865c07 to 00865c0b has its CatchHandler @ 008662e8 */
@@ -6934,16 +6934,16 @@ void FUN_00866335(int param_1,void *param_2,undefined8 param_3,long param_4)
     return;
   }
   if (param_1 == 1) {
-    s_ssh_agent_865ace((long)param_2 + 0x10,**(undefined2 **)(param_4 + 8));
+    SshSocket_sshHandshake((long)param_2 + 0x10,**(undefined2 **)(param_4 + 8));
     return;
   }
   return;
 }
 
 
-// ==== entry=00866372 name=FUN_00866372 size=617 ====
+// ==== entry=00866372 orig=FUN_00866372 size=617 name=sftp_start_async ====
 
-void FUN_00866372(long param_1,undefined8 *param_2)
+void sftp_start_async(long param_1,undefined8 *param_2)
 
 {
   char *pcVar1;
@@ -7004,7 +7004,7 @@ void FUN_00866372(long param_1,undefined8 *param_2)
       puVar7[1] = local_50;
       puVar7[2] = local_48[0];
       qatomic_int_ref();
-      local_20 = FUN_008638f0;
+      local_20 = sftp_worker;
       local_28 = FUN_0086214b;
       local_38 = puVar7;
                     /* try { // try from 00866486 to 0086648a has its CatchHandler @ 00866618 */
@@ -7430,7 +7430,7 @@ undefined4 s_PasswordEnabled_866e4a(undefined8 *param_1,uint param_2)
   if ((param_1[0x28] == 0) || ((param_2 & 0xfffffffd) != 1)) {
     return 0;
   }
-  FUN_00629aee(local_178,param_1[0xe]);
+  ssh_authMethodNames(local_178,param_1[0xe]);
                     /* try { // try from 00866eb9 to 00866ebd has its CatchHandler @ 0086796a */
   qstring_assign_from_ascii(&local_98,"session.user");
                     /* try { // try from 00866ecf to 00866ed3 has its CatchHandler @ 00867975 */
@@ -7509,7 +7509,7 @@ undefined4 s_PasswordEnabled_866e4a(undefined8 *param_1,uint param_2)
                     /* try { // try from 008673d3 to 0086742b has its CatchHandler @ 008679dd */
               puVar6 = operator_new(0x28);
               *puVar6 = 1;
-              *(code **)(puVar6 + 2) = FUN_0086597e;
+              *(code **)(puVar6 + 2) = SshBridge_queueAutoLogin;
               *(undefined8 **)(puVar6 + 4) = local_118;
               *(undefined8 **)(puVar6 + 6) = local_110;
               local_110 = &QArrayData::shared_null;
@@ -7608,7 +7608,7 @@ undefined4 s_PasswordEnabled_866e4a(undefined8 *param_1,uint param_2)
                     /* try { // try from 0086773f to 008677ab has its CatchHandler @ 008678fd */
               puVar6 = operator_new(0x30);
               *puVar6 = 1;
-              *(code **)(puVar6 + 2) = FUN_008689b7;
+              *(code **)(puVar6 + 2) = SshBridge_queuePublicKey;
               *(undefined8 **)(puVar6 + 4) = local_98;
               *(undefined8 **)(puVar6 + 6) = local_90;
               local_90 = &QArrayData::shared_null;
@@ -8242,9 +8242,9 @@ LAB_00868932:
 }
 
 
-// ==== entry=008689b7 name=FUN_008689b7 size=143 ====
+// ==== entry=008689b7 orig=FUN_008689b7 size=143 name=SshBridge_queuePublicKey ====
 
-void FUN_008689b7(int param_1,void *param_2)
+void SshBridge_queuePublicKey(int param_1,void *param_2)
 
 {
   long lVar1;
@@ -8605,9 +8605,9 @@ LAB_00868ad5:
 }
 
 
-// ==== entry=00869602 name=FUN_00869602 size=597 ====
+// ==== entry=00869602 orig=FUN_00869602 size=597 name=SshBridge_onAuthResult ====
 
-void FUN_00869602(long param_1,char *param_2,undefined8 param_3,uint param_4)
+void SshBridge_onAuthResult(long param_1,char *param_2,undefined8 param_3,uint param_4)
 
 {
   char cVar1;
@@ -8641,7 +8641,7 @@ void FUN_00869602(long param_1,char *param_2,undefined8 param_3,uint param_4)
     if (cVar1 != '\0') goto switchD_0086971e_caseD_0;
     if ((param_4 & 0xfffffffd) == 1) {
                     /* try { // try from 008697d4 to 008697d8 has its CatchHandler @ 00869897 */
-      FUN_00629aee(local_60,*(undefined8 *)(param_1 + 0x70));
+      ssh_authMethodNames(local_60,*(undefined8 *)(param_1 + 0x70));
                     /* try { // try from 008697df to 008697e3 has its CatchHandler @ 008698b7 */
       QVariant::QVariant(local_58,local_60);
                     /* try { // try from 008697ef to 008697f3 has its CatchHandler @ 008698af */
@@ -9490,7 +9490,7 @@ void FUN_0086a47e(long param_1)
   }
   cVar1 = FUN_006279fc(*(long *)(param_1 + 0x18));
   if ((cVar1 == '\0') && (cVar1 = FUN_00627a12(*(undefined8 *)(param_1 + 0x18)), cVar1 == '\0')) {
-    cVar1 = FUN_006279c0(*(undefined8 *)(param_1 + 0x18));
+    cVar1 = ssh_pollReady(*(undefined8 *)(param_1 + 0x18));
     if (cVar1 != '\0') {
       FUN_00864368(local_20,*(undefined8 *)(param_1 + 0x10),*(undefined8 *)(param_1 + 0x18));
       if ((*(long *)(param_1 + 0x30) != 0) && (*(int *)(local_20[0] + 4) != 0)) {
@@ -10071,9 +10071,9 @@ void FUN_0086ad30(long *param_1)
 }
 
 
-// ==== entry=0086adc4 orig=FUN_0086adc4 size=694 name=SshAuthOperator_vt15 ====
+// ==== entry=0086adc4 orig=FUN_0086adc4 size=694 name=SshAuthOperator_exec ====
 
-void SshAuthOperator_vt15(long *param_1,undefined4 param_2)
+void SshAuthOperator_exec(long *param_1,undefined4 param_2)
 
 {
   void **ppvVar1;
@@ -10342,7 +10342,7 @@ void FUN_0086b326(long param_1,int param_2)
     if (puVar1 != (undefined8 *)0x0) {
       uVar2 = *(undefined8 *)(param_1 + 0x18);
       uVar3 = FUN_0062768a(param_2);
-      FUN_00869602(uVar2,*puVar1,puVar1 + 1,uVar3);
+      SshBridge_onAuthResult(uVar2,*puVar1,puVar1 + 1,uVar3);
     }
   }
   if (param_2 != 0) {
@@ -11436,7 +11436,7 @@ LAB_0086c6cf:
 }
 
 
-// ==== entry=0086c7b2 orig=FUN_0086c7b2 size=7768 name=s_session_proxyWorkingDirectory_86c7b2 ====
+// ==== entry=0086c7b2 orig=FUN_0086c7b2 size=7768 name=SshSocket_connectTcp ====
 
 /* WARNING: Removing unreachable block (ram,0x0086dda7) */
 /* WARNING: Removing unreachable block (ram,0x0086e017) */
@@ -11450,7 +11450,7 @@ LAB_0086c6cf:
 /* WARNING: Removing unreachable block (ram,0x0086da2c) */
 /* WARNING: Removing unreachable block (ram,0x0086da36) */
 
-void s_session_proxyWorkingDirectory_86c7b2(long param_1,undefined8 param_2,undefined2 param_3)
+void SshSocket_connectTcp(long param_1,undefined8 param_2,undefined2 param_3)
 
 {
   code *pcVar1;
@@ -19356,9 +19356,9 @@ bool FUN_00876c06(long *param_1,long *param_2)
 }
 
 
-// ==== entry=00876c9c name=FUN_00876c9c size=109 ====
+// ==== entry=00876c9c orig=FUN_00876c9c size=109 name=tmux_cwd_poll_cmd ====
 
-QString * FUN_00876c9c(QString *param_1,long param_2)
+QString * tmux_cwd_poll_cmd(QString *param_1,long param_2)
 
 {
   undefined1 auStack_38 [8];
@@ -19829,9 +19829,9 @@ undefined8 FUN_00877260(long param_1)
 }
 
 
-// ==== entry=0087728a name=FUN_0087728a size=156 ====
+// ==== entry=0087728a orig=FUN_0087728a size=156 name=tmux_parse_output_line ====
 
-undefined4 FUN_0087728a(long param_1,undefined8 param_2)
+undefined4 tmux_parse_output_line(long param_1,undefined8 param_2)
 
 {
   char cVar1;
@@ -19899,9 +19899,9 @@ undefined8 FUN_0087736c(undefined8 param_1,long param_2,undefined8 param_3)
 }
 
 
-// ==== entry=008773a4 name=FUN_008773a4 size=202 ====
+// ==== entry=008773a4 orig=FUN_008773a4 size=202 name=tmux_batchTimer ====
 
-void FUN_008773a4(QObject *param_1)
+void tmux_batchTimer(QObject *param_1)
 
 {
   QTimer *this;
@@ -20011,9 +20011,9 @@ void FUN_008774f2(Data *param_1)
 }
 
 
-// ==== entry=00877564 name=FUN_00877564 size=155 ====
+// ==== entry=00877564 orig=FUN_00877564 size=155 name=tmux_cmd_build ====
 
-QByteArray * FUN_00877564(QByteArray *param_1,long param_2)
+QByteArray * tmux_cmd_build(QByteArray *param_1,long param_2)
 
 {
   char cVar1;
@@ -20049,9 +20049,9 @@ QByteArray * FUN_00877564(QByteArray *param_1,long param_2)
 }
 
 
-// ==== entry=00877610 name=FUN_00877610 size=163 ====
+// ==== entry=00877610 orig=FUN_00877610 size=163 name=tmux_capture_pane_cmd ====
 
-QByteArray * FUN_00877610(QByteArray *param_1,long param_2)
+QByteArray * tmux_capture_pane_cmd(QByteArray *param_1,long param_2)
 
 {
   long local_20;
@@ -21424,9 +21424,9 @@ LAB_008794c6:
 }
 
 
-// ==== entry=008795a6 name=FUN_008795a6 size=485 ====
+// ==== entry=008795a6 orig=FUN_008795a6 size=485 name=tmux_begin_frame ====
 
-void FUN_008795a6(long param_1,undefined8 param_2)
+void tmux_begin_frame(long param_1,undefined8 param_2)
 
 {
   undefined8 *puVar1;
@@ -21665,7 +21665,7 @@ void FUN_00879ab2(undefined8 param_1,long param_2,char *param_3)
               (local_48,param_3,(int)local_40[0] + (int)*(undefined8 *)(local_40[0] + 0x10));
     qt_byte_array_unref((QByteArray *)local_40);
                     /* try { // try from 00879b2f to 00879b4e has its CatchHandler @ 00879b6e */
-    FUN_009191c0(param_1,uVar2);
+    tmux_signal_emitters(param_1,uVar2);
     FUN_00919316(param_1,uVar2,uVar1,uVar3,local_48,lVar4 + 0x18);
     qt_byte_array_unref(local_48);
   }
@@ -21740,9 +21740,9 @@ void FUN_00879b76(long param_1,long param_2,long *param_3)
 }
 
 
-// ==== entry=00879d62 orig=FUN_00879d62 size=3291 name=s_mouse_standard_flag_879d62 ====
+// ==== entry=00879d62 orig=FUN_00879d62 size=3291 name=tmux_refresh_panes ====
 
-void s_mouse_standard_flag_879d62(long param_1,long *param_2)
+void tmux_refresh_panes(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -22069,7 +22069,7 @@ LAB_0087a356:
           }
           else {
                     /* try { // try from 0087a46a to 0087a46e has its CatchHandler @ 0087aa3d */
-            FUN_009191c0(param_1);
+            tmux_signal_emitters(param_1);
             puVar20 = *(uint **)(param_1 + 0x168);
             lVar17 = *(long *)(puVar20 + 4);
             if (lVar17 == 0) goto LAB_0087a356;
@@ -22267,7 +22267,7 @@ void FUN_0087aabc(undefined8 param_1,undefined8 param_2,QString *param_3)
     if (cVar1 == '\0') {
       QString::operator=((QString *)(pbVar2 + 0x18),param_3);
       *pbVar2 = *pbVar2 | 8;
-      FUN_008773a4(param_1);
+      tmux_batchTimer(param_1);
       return;
     }
   }
@@ -22347,9 +22347,9 @@ void FUN_0087ac18(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0087ad18 name=FUN_0087ad18 size=618 ====
+// ==== entry=0087ad18 orig=FUN_0087ad18 size=618 name=tmux_layout_change ====
 
-void FUN_0087ad18(long param_1,undefined8 param_2)
+void tmux_layout_change(long param_1,undefined8 param_2)
 
 {
   char cVar1;
@@ -22436,9 +22436,9 @@ void FUN_0087ad18(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0087afee name=FUN_0087afee size=416 ====
+// ==== entry=0087afee orig=FUN_0087afee size=416 name=tmux_window_pane_changed ====
 
-void FUN_0087afee(long param_1,undefined8 param_2)
+void tmux_window_pane_changed(long param_1,undefined8 param_2)
 
 {
   int iVar1;
@@ -22496,7 +22496,7 @@ void FUN_0087afee(long param_1,undefined8 param_2)
       }
       *(int *)(pbVar9 + 0xc) = iVar6;
       *pbVar9 = *pbVar9 | 1;
-      FUN_008773a4(param_1);
+      tmux_batchTimer(param_1);
     }
   }
   QRegularExpressionMatch::~QRegularExpressionMatch(local_50);
@@ -22684,7 +22684,7 @@ void FUN_0087b5d2(undefined8 param_1,undefined8 param_2,QString *param_3)
         FUN_0087fcd8(pbVar3 + 0x50,lVar2,local_30);
         qt_array_data_unref(local_30);
         *pbVar3 = *pbVar3 | 0x10;
-        FUN_008773a4(param_1);
+        tmux_batchTimer(param_1);
       }
     }
   }
@@ -22728,9 +22728,9 @@ void FUN_0087b66a(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0087b76a orig=FUN_0087b76a size=3244 name=s_window_visible_layout_87b76a ====
+// ==== entry=0087b76a orig=FUN_0087b76a size=3244 name=tmux_refresh_windows ====
 
-void s_window_visible_layout_87b76a(long param_1,long *param_2)
+void tmux_refresh_windows(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -23152,7 +23152,7 @@ LAB_0087be3e:
   if (*(int *)((long)local_118 + 0xc) != *(int *)(local_118 + 1)) {
     FUN_0091939c(param_1,&local_118);
   }
-  FUN_008773a4(param_1);
+  tmux_batchTimer(param_1);
   FUN_008797c6(param_1,&local_110,(QString *)&local_108);
   FUN_0087dd40(&local_100);
   qt_array_data_unref((QString *)&local_108);
@@ -23166,9 +23166,9 @@ LAB_0087be3e:
 }
 
 
-// ==== entry=0087c44e orig=FUN_0087c44e size=931 name=terminal_parsePromptMeta ====
+// ==== entry=0087c44e orig=FUN_0087c44e size=931 name=tmux_parse_prompt_meta ====
 
-void terminal_parsePromptMeta(long param_1,undefined8 param_2,char param_3)
+void tmux_parse_prompt_meta(long param_1,undefined8 param_2,char param_3)
 
 {
   char cVar1;
@@ -23251,10 +23251,10 @@ void terminal_parsePromptMeta(long param_1,undefined8 param_2,char param_3)
     break;
   case 4:
                     /* try { // try from 0087c5a4 to 0087c739 has its CatchHandler @ 0087c821 */
-    s_mouse_standard_flag_879d62(param_1,plVar5 + 2);
+    tmux_refresh_panes(param_1,plVar5 + 2);
     break;
   case 5:
-    s_window_visible_layout_87b76a(param_1,plVar5 + 2);
+    tmux_refresh_windows(param_1,plVar5 + 2);
   }
 switchD_0087c59b_caseD_2:
   plVar5 = *(long **)(param_1 + 0x80);
@@ -23311,9 +23311,9 @@ LAB_0087c538:
 }
 
 
-// ==== entry=0087c832 name=FUN_0087c832 size=228 ====
+// ==== entry=0087c832 orig=FUN_0087c832 size=228 name=tmux_parse_error_frame ====
 
-void FUN_0087c832(long param_1,long *param_2)
+void tmux_parse_error_frame(long param_1,long *param_2)
 
 {
   long lVar1;
@@ -23343,7 +23343,7 @@ void FUN_0087c832(long param_1,long *param_2)
   FUN_00877886(param_1,local_48);
   cstr_toQStr(local_40,local_50);
                     /* try { // try from 0087c8eb to 0087c8ef has its CatchHandler @ 0087c926 */
-  terminal_parsePromptMeta(param_1,local_40,1);
+  tmux_parse_prompt_meta(param_1,local_40,1);
   qt_array_data_unref(local_40);
   qt_byte_array_unref(local_48);
   qt_byte_array_unref(local_50);
@@ -46434,7 +46434,7 @@ LAB_00892454:
     if (*(int *)local_48 == 0) goto LAB_00892454;
   }
                     /* try { // try from 008923f6 to 008924f7 has its CatchHandler @ 0089250d */
-  lVar4 = FUN_008cabee(lVar4);
+  lVar4 = KitWindow_activeViewWidget(lVar4);
   if ((lVar4 != 0) &&
      (lVar4 = __dynamic_cast(lVar4,&PTR_PTR_011925c8,&PTR_PTR_0119e610,0x100), lVar4 != 0)) {
     cVar1 = FUN_008c56f2(lVar4 + 0x100);
@@ -56566,7 +56566,7 @@ LAB_0089ef1b:
           if (iVar3 == 0) {
             pvVar4 = operator_new(0x148);
                     /* try { // try from 0089f1f7 to 0089f1fb has its CatchHandler @ 0089f381 */
-            s_SearchPane_74efe6(pvVar4,param_2);
+            SearchPane_ctor(pvVar4,param_2);
           }
           else {
             lVar6 = *param_1;
@@ -56616,7 +56616,7 @@ LAB_0089ef1b:
                   }
                   pvVar4 = operator_new(0x60);
                     /* try { // try from 0089f36f to 0089f373 has its CatchHandler @ 0089f3b9 */
-                  s_TransferPane_733a18(pvVar4,param_2);
+                  TransferPane_ctor(pvVar4,param_2);
                 }
                 else {
                   pvVar4 = operator_new(0x60);
@@ -57633,7 +57633,7 @@ LAB_008a0daf:
 }
 
 
-// ==== entry=008a1106 orig=FUN_008a1106 size=12455 name=King::registerBarsAndPanes ====
+// ==== entry=008a1106 orig=FUN_008a1106 size=12455 name=King_title ====
 
 /* WARNING: Removing unreachable block (ram,0x008a3446) */
 /* WARNING: Removing unreachable block (ram,0x008a345a) */
@@ -57652,7 +57652,7 @@ LAB_008a0daf:
 /* WARNING: Removing unreachable block (ram,0x008a3450) */
 /* WARNING: Removing unreachable block (ram,0x008a343c) */
 
-undefined8 * King__registerBarsAndPanes(undefined8 *param_1,QString *param_2)
+undefined8 * King_title(undefined8 *param_1,QString *param_2)
 
 {
   long *plVar1;
@@ -71447,9 +71447,9 @@ void FUN_008b2fbc(Data *param_1)
 }
 
 
-// ==== entry=008b305c name=FUN_008b305c size=141 ====
+// ==== entry=008b305c orig=FUN_008b305c size=141 name=KitBar_addSpacer ====
 
-void FUN_008b305c(QAction *param_1,undefined8 param_2,char param_3)
+void KitBar_addSpacer(QAction *param_1,undefined8 param_2,char param_3)
 
 {
   QWidget *pQVar1;
@@ -71546,7 +71546,7 @@ LAB_008b3300:
                     /* try { // try from 008b3269 to 008b326d has its CatchHandler @ 008b336d */
   local_30[0] = (QArrayData *)QString::fromAscii_helper("KitBar",(int)sVar1);
                     /* try { // try from 008b327c to 008b3280 has its CatchHandler @ 008b335a */
-  King__registerBarsAndPanes(&local_38,local_30);
+  King_title(&local_38,local_30);
                     /* try { // try from 008b3287 to 008b328b has its CatchHandler @ 008b3375 */
   QWidget::setWindowTitle((QString *)param_1);
   if (*(int *)local_38 == 0) {
@@ -73453,7 +73453,7 @@ LAB_008b3f67:
   }
                     /* try { // try from 008b3f80 to 008b4013 has its CatchHandler @ 008b5a7d */
   QButtonGroup::addButton(this,(int)pcVar13);
-  FUN_008b305c(param_1,pcVar13,0);
+  KitBar_addSpacer(param_1,pcVar13,0);
   local_c8 = QAbstractButton::toggled;
   local_c0 = 0;
   puVar14 = operator_new(0x20);
@@ -75712,11 +75712,11 @@ LAB_008b7f03:
     QVar1 = param_1[0x38];
   }
   if (QVar1 != (QLayout)0x0) {
-    s_TabGroupButton_5acc3e(uVar5,"ExpandButton",1);
+    QuickBar_ButtonFactory(uVar5,"ExpandButton",1);
     uVar5 = *(undefined8 *)(param_1 + 0x30);
   }
-  s_TabGroupButton_5acc3e(uVar5,"ConfigButton",1);
-  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x30),"CloseButton",1);
+  QuickBar_ButtonFactory(uVar5,"ConfigButton",1);
+  QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x30),"CloseButton",1);
   this = operator_new(0x20);
                     /* try { // try from 008b7e98 to 008b7e9c has its CatchHandler @ 008b7f47 */
   QVBoxLayout::QVBoxLayout(this);
@@ -77614,7 +77614,7 @@ void s_TabGroupButton_8b9d1c(long param_1)
   long lVar2;
   
   uVar1 = widget_findAncestorPane();
-  lVar2 = FUN_008ca002(uVar1);
+  lVar2 = TabGroupButton_popup(uVar1);
   if (lVar2 != 0) {
     FUN_005ac790(*(undefined8 *)(param_1 + 0x38),"TabGroupButton",lVar2);
     QObject::deleteLater();
@@ -77757,9 +77757,9 @@ undefined4 FUN_008b9f04(long param_1,long *param_2,undefined4 param_3,char param
 }
 
 
-// ==== entry=008ba0f6 name=FUN_008ba0f6 size=13 ====
+// ==== entry=008ba0f6 orig=FUN_008ba0f6 size=13 name=KitGroup_attachView ====
 
-void FUN_008ba0f6(undefined8 param_1,undefined8 param_2,undefined1 param_3)
+void KitGroup_attachView(undefined8 param_1,undefined8 param_2,undefined1 param_3)
 
 {
   FUN_008b9f04(param_1,param_2,0xffffffff,param_3);
@@ -77780,9 +77780,9 @@ void FUN_008ba104(long param_1,undefined8 param_2,undefined8 param_3,undefined1 
 }
 
 
-// ==== entry=008ba130 name=FUN_008ba130 size=215 ====
+// ==== entry=008ba130 orig=FUN_008ba130 size=215 name=ViewTab_popup ====
 
-void FUN_008ba130(long param_1)
+void ViewTab_popup(long param_1)
 
 {
   int iVar1;
@@ -77905,9 +77905,9 @@ undefined4 FUN_008ba342(long param_1,long *param_2,int param_3)
       if (1 < *(uint *)*param_2) {
         qlist_detachCopy(param_2,((uint *)*param_2)[1]);
       }
-      uVar1 = FUN_008ba0f6(param_1,*(undefined8 *)
-                                    (*param_2 + 0x10 + (*(int *)(*param_2 + 8) + lVar2) * 8),
-                           param_3 == (int)lVar2);
+      uVar1 = KitGroup_attachView(param_1,*(undefined8 *)
+                                           (*param_2 + 0x10 + (*(int *)(*param_2 + 8) + lVar2) * 8),
+                                  param_3 == (int)lVar2);
       if (param_3 == (int)lVar2) {
         uVar3 = uVar1;
       }
@@ -77999,7 +77999,7 @@ void FUN_008ba416(long param_1)
   uVar2 = *(undefined8 *)(param_1 + 0x38);
   local_58 = QWidget::customContextMenuRequested;
   local_50 = 0;
-  local_48 = FUN_008ba130;
+  local_48 = ViewTab_popup;
   local_40 = 0;
   puVar3 = operator_new(0x20);
   *puVar3 = 1;
@@ -78220,9 +78220,9 @@ void KitGroup_setupBars(QWidget *param_1)
   QObject::setObjectName(pQVar3);
   qt_array_data_unref((QVariant *)local_48);
                     /* try { // try from 008baf46 to 008bb009 has its CatchHandler @ 008bb2e8 */
-  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x38),"TabGroupButton",1);
-  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x38),"TabAddButton",1);
-  s_TabGroupButton_5acc3e(*(undefined8 *)(param_1 + 0x38),"TabListButton",1);
+  QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x38),"TabGroupButton",1);
+  QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x38),"TabAddButton",1);
+  QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x38),"TabListButton",1);
   s_TabGroupButton_5aba4e(*(undefined8 *)(param_1 + 0x38),param_1 + 0x30);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x38),1);
   thunk_FUN_005ad4a6(uVar11,*(undefined8 *)(param_1 + 0x38));

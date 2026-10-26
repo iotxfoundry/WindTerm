@@ -5356,9 +5356,9 @@ void ZModem_dtor_deleting(void *param_1)
 }
 
 
-// ==== entry=007a04c2 orig=FUN_007a04c2 size=2636 name=zmodem_init ====
+// ==== entry=007a04c2 orig=FUN_007a04c2 size=2636 name=ZModem_run ====
 
-void zmodem_init(QObject *param_1,QObject param_2,undefined8 param_3)
+void ZModem_run(QObject *param_1,QObject param_2,undefined8 param_3)
 
 {
   int iVar1;
@@ -39081,7 +39081,7 @@ void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_b
                (long param_1)
 
 {
-  FUN_007e9a06(*(undefined8 *)(param_1 + 0x80));
+  tmux_enable(*(undefined8 *)(param_1 + 0x80));
   return;
 }
 
@@ -40072,7 +40072,7 @@ void FUN_007cc1fa(long param_1,long param_2,int param_3,int param_4)
   param_2 = param_2 + param_3;
   cVar1 = FUN_007e3bc8(*(undefined8 *)(param_1 + 0x80));
   if (cVar1 != '\0') {
-    vt_exitMsg(*(undefined8 *)(param_1 + 0x80),param_2,param_4);
+    tmux_vt_notify_dispatch(*(undefined8 *)(param_1 + 0x80),param_2,param_4);
     return;
   }
   BSim_QList_int___node_destruct(param_1,param_2,param_4);
@@ -41076,11 +41076,11 @@ void BSim_Splitter__setMainIndex(long param_1,undefined8 param_2)
 }
 
 
-// ==== entry=007cc8aa orig=FUN_007cc8aa size=569 name=s_window_scrollbackLimit_7cc8aa ====
+// ==== entry=007cc8aa orig=FUN_007cc8aa size=569 name=settings_scrollback ====
 
 /* WARNING: Removing unreachable block (ram,0x007ccad1) */
 
-void s_window_scrollbackLimit_7cc8aa(long param_1,long param_2)
+void settings_scrollback(long param_1,long param_2)
 
 {
   int iVar1;
@@ -43183,7 +43183,7 @@ void FUN_007cf02c(QObject *param_1,undefined8 param_2,undefined8 param_3,QObject
   FUN_007caec2(param_1);
   FUN_007cb02c(param_1);
   King__registerVtOperations(param_1);
-  s_window_scrollbackLimit_7cc8aa(param_1,param_2);
+  settings_scrollback(param_1,param_2);
   puVar3 = operator_new(0x10);
   *puVar3 = 0x8000000000000000;
   puVar3[1] = 0x8000000000000000;

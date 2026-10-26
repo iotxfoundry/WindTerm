@@ -13875,9 +13875,9 @@ LAB_005dd3d5:
 }
 
 
-// ==== entry=005dd560 name=FUN_005dd560 size=236 ====
+// ==== entry=005dd560 orig=FUN_005dd560 size=236 name=reopen_history_load ====
 
-undefined8 * FUN_005dd560(undefined8 *param_1,undefined8 param_2)
+undefined8 * reopen_history_load(undefined8 *param_1,undefined8 param_2)
 
 {
   char cVar1;
@@ -13932,7 +13932,7 @@ int FUN_005dd666(undefined8 param_1)
   QArrayData *local_40;
   QDataStream local_38 [32];
   
-  FUN_005dd560(&local_40,param_1);
+  reopen_history_load(&local_40,param_1);
                     /* try { // try from 005dd68e to 005dd692 has its CatchHandler @ 005dd6ec */
   QDataStream::QDataStream(local_38,&local_40,1);
                     /* try { // try from 005dd69b to 005dd69f has its CatchHandler @ 005dd6f4 */
@@ -13953,9 +13953,9 @@ LAB_005dd6d2:
 }
 
 
-// ==== entry=005dd6fc name=FUN_005dd6fc size=250 ====
+// ==== entry=005dd6fc orig=FUN_005dd6fc size=250 name=reopen_history_save ====
 
-bool FUN_005dd6fc(undefined8 param_1,long *param_2)
+bool reopen_history_save(undefined8 param_1,long *param_2)
 
 {
   char cVar1;
@@ -22974,7 +22974,7 @@ LAB_005e9c4a:
     UNLOCK();
     if (*(int *)local_48 == 0) goto LAB_005e9c4a;
   }
-  lVar2 = FUN_008cabee(param_1);
+  lVar2 = KitWindow_activeViewWidget(param_1);
   if (lVar2 == 0) goto LAB_005e9936;
   uVar3 = *(undefined8 *)(param_1 + 0xc0);
   property_to_string(&local_48,lVar2);
@@ -23005,7 +23005,7 @@ LAB_005e9936:
   uVar3 = *(undefined8 *)(param_1 + 0xc0);
   local_58 = FUN_008fc2f8;
   local_50 = 0;
-  local_48 = (QArrayData *)FUN_0074f5ac;
+  local_48 = (QArrayData *)SearchPane_apply;
   local_40 = 0;
   puVar4 = operator_new(0x20);
   *puVar4 = 1;
@@ -23017,7 +23017,7 @@ LAB_005e9936:
   uVar3 = *(undefined8 *)(param_1 + 0xc0);
   local_58 = FUN_0090b492;
   local_50 = 0;
-  local_48 = (QArrayData *)s_grep_trailingContextLines_5eac66;
+  local_48 = (QArrayData *)SearchPane_crossSessionGrep;
   local_40 = 0;
   puVar4 = operator_new(0x20);
   *puVar4 = 1;
@@ -23126,7 +23126,7 @@ void s_ReplaceInFilesPane_5e9dce(long param_1,undefined8 param_2,undefined8 *par
     return;
   }
   if (((undefined8 *)*param_3 == &QArrayData::shared_null) &&
-     (lVar7 = FUN_008cabee(param_1), lVar7 != 0)) {
+     (lVar7 = KitWindow_activeViewWidget(param_1), lVar7 != 0)) {
     lVar7 = __dynamic_cast(lVar7,&PTR_PTR_011925c8,&PTR_PTR_0119e610,0x100);
     if (lVar7 != 0) {
       variant_convertRegistered2(local_40,lVar7);
@@ -23383,7 +23383,7 @@ void FUN_005ea304(undefined8 param_1)
   uVar1 = FUN_008cbc36();
   lVar2 = FUN_00767222(uVar1);
   if (lVar2 == 0) {
-    lVar2 = FUN_008cabee(param_1);
+    lVar2 = KitWindow_activeViewWidget(param_1);
     if (lVar2 != 0) {
       __dynamic_cast(lVar2,&PTR_PTR_011925c8,&PTR_PTR_01197420,0xfffffffffffffffe);
       return;
@@ -23796,11 +23796,11 @@ LAB_005eab54:
 }
 
 
-// ==== entry=005eac66 orig=FUN_005eac66 size=2057 name=s_grep_trailingContextLines_5eac66 ====
+// ==== entry=005eac66 orig=FUN_005eac66 size=2057 name=SearchPane_crossSessionGrep ====
 
 /* WARNING: Removing unreachable block (ram,0x005eb3f7) */
 
-void s_grep_trailingContextLines_5eac66(undefined8 param_1,long param_2)
+void SearchPane_crossSessionGrep(undefined8 param_1,long param_2)
 
 {
   code *pcVar1;
@@ -24101,7 +24101,7 @@ undefined8 FUN_005eb4fc(undefined8 param_1)
   QArrayData *local_68;
   int local_60;
   
-  lVar2 = FUN_008cabee();
+  lVar2 = KitWindow_activeViewWidget();
   if ((lVar2 == 0) ||
      (lVar2 = __dynamic_cast(lVar2,&PTR_PTR_011925c8,&PTR_PTR_0119e610,0x100), lVar2 == 0)) {
     return 0xffffffffffffffff;
@@ -24552,7 +24552,7 @@ void scriptcmd_dispatchBuffer(undefined8 param_1,long *param_2,undefined8 *param
                     (lVar4 + *(long *)(lVar4 + 0x10),*(undefined4 *)(lVar4 + 4),"newBuffer",
                      0xffffffff,1);
   if (iVar2 != 0) {
-    lVar4 = FUN_008cabee(param_1);
+    lVar4 = KitWindow_activeViewWidget(param_1);
     if ((lVar4 != 0) &&
        (lVar4 = __dynamic_cast(lVar4,&PTR_PTR_011925c8,&PTR_PTR_0119e610,0x100), lVar4 != 0)) {
       lVar1 = *param_2;
@@ -24709,7 +24709,7 @@ undefined8 FUN_005ec2dc(undefined8 param_1,long *param_2)
                      "activeView",0xffffffff,1);
   if (iVar4 == 0) {
                     /* try { // try from 005ec3ed to 005ec4ee has its CatchHandler @ 005ec507 */
-    lVar6 = FUN_008cabee(param_1);
+    lVar6 = KitWindow_activeViewWidget(param_1);
     if (lVar6 != 0) {
       lVar6 = __dynamic_cast(lVar6,&PTR_PTR_011925c8,&PTR_PTR_0119e610,0x100);
       if (lVar6 != 0) {
@@ -29288,9 +29288,9 @@ void FUN_005f1b3c(long param_1)
     if ((*(long *)(lVar2 + 8) != 0) && (*(long *)(lVar2 + 0x10) != 0)) {
       cVar5 = FUN_006279fc();
       if ((cVar5 == '\0') && (cVar5 = FUN_00627a12(*(undefined8 *)(lVar2 + 8)), cVar5 == '\0')) {
-        cVar5 = FUN_006279c0(*(undefined8 *)(lVar2 + 8));
+        cVar5 = ssh_pollReady(*(undefined8 *)(lVar2 + 8));
         if (cVar5 != '\0') {
-          FUN_006293dc(local_40,*(undefined8 *)(lVar2 + 8));
+          ssh_drain(local_40,*(undefined8 *)(lVar2 + 8));
           if (*(int *)(local_40[0] + 4) != 0) {
             pcVar3 = *(char **)(lVar2 + 0x10);
             lVar4 = *(long *)(param_1 + 0x28);
@@ -56521,7 +56521,7 @@ void FUN_00616e15(int param_1,void *param_2,undefined8 param_3,long param_4)
                     /* try { // try from 00616eb4 to 00616eb8 has its CatchHandler @ 00616ef9 */
       qlist_appendRange(local_40,&local_48);
                     /* try { // try from 00616ec7 to 00616ecb has its CatchHandler @ 00616f01 */
-      FUN_008ec9b8(uVar2,0,local_40,uVar2,(long)param_2 + 0x28);
+      transfer_createTask(uVar2,0,local_40,uVar2,(long)param_2 + 0x28);
       qt_shared_data_unref(local_40);
       qt_array_data_unref(&local_48);
       puVar3 = *(undefined8 **)((long)param_2 + 0x18);
@@ -57547,9 +57547,9 @@ bool FUN_006189f6(void)
 }
 
 
-// ==== entry=00618a0a name=FUN_00618a0a size=129 ====
+// ==== entry=00618a0a orig=FUN_00618a0a size=129 name=TransferCenter_ctor ====
 
-void FUN_00618a0a(QObject *param_1,QObject *param_2)
+void TransferCenter_ctor(QObject *param_1,QObject *param_2)
 
 {
   void *pvVar1;
@@ -57591,7 +57591,7 @@ undefined * FUN_00618a9c(void)
   iVar1 = __cxa_guard_acquire(&DAT_011c1688);
   if (iVar1 != 0) {
                     /* try { // try from 00618ae0 to 00618ae4 has its CatchHandler @ 00618b17 */
-    FUN_00618a0a(&DAT_011c16a0,0);
+    TransferCenter_ctor(&DAT_011c16a0,0);
     DAT_011c16f0 = -1;
     __cxa_guard_release(&DAT_011c1688);
     __cxa_atexit(FUN_00619f98,&DAT_011c16a0,&DAT_00c89008);
@@ -58919,7 +58919,7 @@ void recent_list_prune(long param_1,QString *param_2)
                     /* try { // try from 0061a98c to 0061a990 has its CatchHandler @ 0061abad */
         qlist_appendRange((QString *)&local_58,&local_78,&local_70);
                     /* try { // try from 0061a99f to 0061a9a3 has its CatchHandler @ 0061aba5 */
-        FUN_008ec9b8(uVar3,0,(QString *)&local_58,uVar3,(QString *)&local_e0);
+        transfer_createTask(uVar3,0,(QString *)&local_58,uVar3,(QString *)&local_e0);
         qt_shared_data_unref((QString *)&local_58);
         qt_array_data_unref(&local_78);
       }
@@ -58971,9 +58971,9 @@ void recent_list_prune(long param_1,QString *param_2)
 }
 
 
-// ==== entry=0061abbe orig=FUN_0061abbe size=874 name=recent_map_update ====
+// ==== entry=0061abbe orig=FUN_0061abbe size=874 name=TransferCenter_updateTask ====
 
-void recent_map_update(long param_1,QString *param_2,int param_3)
+void TransferCenter_updateTask(long param_1,QString *param_2,int param_3)
 
 {
   QMapNodeBase *pQVar1;
@@ -59154,7 +59154,7 @@ LAB_0061ac34:
 void FUN_0061af2e(undefined8 param_1,undefined8 param_2)
 
 {
-  recent_map_update(param_1,param_2,3);
+  TransferCenter_updateTask(param_1,param_2,3);
   FUN_008fc660(param_1,param_2,1);
   return;
 }
@@ -59242,7 +59242,7 @@ LAB_0061b09d:
       iVar6 = iVar6 + 1;
     } while (iVar2 != iVar6);
   }
-  recent_map_update(param_1,param_2,6);
+  TransferCenter_updateTask(param_1,param_2,6);
   FUN_008fc660(param_1,param_2,2);
   return;
 }
@@ -59253,7 +59253,7 @@ LAB_0061b09d:
 void FUN_0061b14a(undefined8 param_1,undefined8 param_2)
 
 {
-  recent_map_update(param_1,param_2,1);
+  TransferCenter_updateTask(param_1,param_2,1);
   FUN_008fc660(param_1,param_2,3);
   return;
 }
@@ -59271,7 +59271,7 @@ void FUN_0061b176(undefined8 param_1,QString *param_2)
   
   lVar1 = s_transfer_pointer_6188d2();
   if (lVar1 != 0) {
-    recent_map_update(param_1,param_2,2);
+    TransferCenter_updateTask(param_1,param_2,2);
     local_28 = 0;
     local_20 = 0x80000000;
                     /* try { // try from 0061b1bb to 0061b1bf has its CatchHandler @ 0061b1f1 */
@@ -59297,7 +59297,7 @@ void FUN_0061b206(undefined8 param_1,QString *param_2)
   
   lVar1 = s_transfer_pointer_6188d2();
   if (lVar1 != 0) {
-    recent_map_update(param_1,param_2,5);
+    TransferCenter_updateTask(param_1,param_2,5);
     local_28 = 0;
     local_20 = 0x80000000;
                     /* try { // try from 0061b24b to 0061b24f has its CatchHandler @ 0061b29a */
@@ -59325,7 +59325,7 @@ void FUN_0061b2a8(undefined8 param_1,QString *param_2)
   
   lVar1 = s_transfer_pointer_6188d2();
   if (lVar1 != 0) {
-    recent_map_update(param_1,param_2,4);
+    TransferCenter_updateTask(param_1,param_2,4);
     local_28 = 0;
     local_20 = 0x80000000;
                     /* try { // try from 0061b2ed to 0061b2f1 has its CatchHandler @ 0061b323 */
@@ -59683,7 +59683,7 @@ void s_transfer_weightPercent_61b8b6(long param_1,QMap *param_2)
     QStandardItemModel::insertRow((int)uVar6,(QList *)0x0);
     qqlist_derefDispose((QVariant *)local_48);
                     /* try { // try from 0061baf8 to 0061bafc has its CatchHandler @ 0061bc2d */
-    recent_map_update(param_1,local_68,1);
+    TransferCenter_updateTask(param_1,local_68,1);
     QIcon::~QIcon((QIcon *)&local_58);
     uVar6 = 0;
   }
@@ -59735,7 +59735,7 @@ void s_transfer_weightPercent_61b8b6(long param_1,QMap *param_2)
     }
     else if (iVar2 == 100) {
                     /* try { // try from 0061bbf3 to 0061bbf7 has its CatchHandler @ 0061bc72 */
-      recent_map_update(param_1,local_68,6);
+      TransferCenter_updateTask(param_1,local_68,6);
     }
     pcVar1 = *(code **)(*plVar4 + 0x18);
                     /* try { // try from 0061b9e8 to 0061b9ec has its CatchHandler @ 0061bc72 */
@@ -63511,10 +63511,9 @@ void BSim_std__bad_alloc__bad_alloc(QStandardItemModel *param_1,QObject *param_2
 }
 
 
-// ==== entry=006202ba orig=FUN_006202ba size=5996 name=transfermodel_data_directory ====
+// ==== entry=006202ba orig=FUN_006202ba size=5996 name=TransferModel_data ====
 
-QModelIndex *
-transfermodel_data_directory(QModelIndex *param_1,int param_2,long param_3,int param_4)
+QModelIndex * TransferModel_data(QModelIndex *param_1,int param_2,long param_3,int param_4)
 
 {
   long *plVar1;

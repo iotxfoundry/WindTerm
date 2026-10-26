@@ -7989,7 +7989,7 @@ switchD_00918561_caseD_4:
     UNLOCK();
   }
                     /* try { // try from 00918589 to 0091858d has its CatchHandler @ 0091873e */
-  s_session_proxyWorkingDirectory_86c7b2(param_1,&local_20,uVar1);
+  SshSocket_connectTcp(param_1,&local_20,uVar1);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) {
       return;
@@ -9345,9 +9345,9 @@ void FUN_00919198(QObject *param_1,undefined8 param_2)
 }
 
 
-// ==== entry=009191c0 name=FUN_009191c0 size=54 ====
+// ==== entry=009191c0 orig=FUN_009191c0 size=54 name=tmux_signal_emitters ====
 
-void FUN_009191c0(QObject *param_1,undefined4 param_2)
+void tmux_signal_emitters(QObject *param_1,undefined4 param_2)
 
 {
   undefined4 local_1c;
@@ -9578,7 +9578,7 @@ void Tmux_h919420(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
       FUN_009192da(param_1,*(undefined4 *)param_4[1],param_4[2]);
       return;
     case 3:
-      FUN_009191c0(param_1,*(undefined4 *)param_4[1]);
+      tmux_signal_emitters(param_1,*(undefined4 *)param_4[1]);
       return;
     case 4:
       FUN_00919316(param_1,*(undefined4 *)param_4[1],*(undefined1 *)param_4[2],
@@ -9628,7 +9628,7 @@ void Tmux_h919420(undefined8 param_1,int param_2,int param_3,undefined8 *param_4
       *puVar1 = 2;
       return;
     }
-    if ((pcVar3 == FUN_009191c0) && (plVar2[1] == 0)) {
+    if ((pcVar3 == tmux_signal_emitters) && (plVar2[1] == 0)) {
       *puVar1 = 3;
       return;
     }
@@ -11999,20 +11999,20 @@ void kitwindow_qt_metacall(long *param_1,int param_2,int param_3,long *param_4)
       qt_shared_data_unref(&local_58);
       return;
     case 0x2b:
-      FUN_008cc99c(param_1,*(undefined8 *)param_4[1]);
+      KitWindow_closeGroup(param_1,*(undefined8 *)param_4[1]);
       return;
     case 0x2c:
-      FUN_008cc99c(param_1,0);
+      KitWindow_closeGroup(param_1,0);
       return;
     case 0x2d:
-      uVar7 = FUN_008cc916(param_1,*(undefined8 *)param_4[1]);
+      uVar7 = KitWindow_canCloseGroup(param_1,*(undefined8 *)param_4[1]);
       if ((undefined1 *)*param_4 == (undefined1 *)0x0) {
         return;
       }
       *(undefined1 *)*param_4 = uVar7;
       return;
     case 0x2e:
-      uVar7 = FUN_008cc916(param_1,0);
+      uVar7 = KitWindow_canCloseGroup(param_1,0);
       if ((undefined1 *)*param_4 == (undefined1 *)0x0) {
         return;
       }
@@ -12204,8 +12204,8 @@ LAB_0091ccfe:
       QArrayData::deallocate(local_58,2,8);
       return;
     case 0x3e:
-      FUN_008d4166((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],*(undefined8 *)param_4[2]
-                  );
+      KitWindow_splitView((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],
+                          *(undefined8 *)param_4[2]);
       puVar1 = (undefined8 *)*param_4;
       if (puVar1 != (undefined8 *)0x0) {
         pQVar6 = (QArrayData *)*puVar1;
@@ -12220,7 +12220,7 @@ LAB_0091ccfe:
       QVariant::~QVariant((QVariant *)&local_58);
       return;
     case 0x3f:
-      FUN_008d4166((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],0);
+      KitWindow_splitView((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],0);
       puVar1 = (undefined8 *)*param_4;
       if (puVar1 != (undefined8 *)0x0) {
         pQVar6 = (QArrayData *)*puVar1;
@@ -12235,8 +12235,8 @@ LAB_0091ccfe:
       QVariant::~QVariant((QVariant *)&local_58);
       return;
     case 0x40:
-      FUN_008d42e8((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],*(undefined8 *)param_4[2]
-                  );
+      KitWindow_splitGroup
+                ((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],*(undefined8 *)param_4[2]);
       puVar1 = (undefined8 *)*param_4;
       if (puVar1 != (undefined8 *)0x0) {
         pQVar6 = (QArrayData *)*puVar1;
@@ -12251,7 +12251,7 @@ LAB_0091ccfe:
       QVariant::~QVariant((QVariant *)&local_58);
       return;
     case 0x41:
-      FUN_008d42e8((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],0);
+      KitWindow_splitGroup((QVariant *)&local_58,param_1,*(undefined4 *)param_4[1],0);
       puVar1 = (undefined8 *)*param_4;
       if (puVar1 != (undefined8 *)0x0) {
         pQVar6 = (QArrayData *)*puVar1;
@@ -13202,9 +13202,9 @@ undefined ** MuxDesktop_metaObject(long param_1)
 }
 
 
-// ==== entry=0091d4a8 orig=FUN_0091d4a8 size=1389 name=MuxDesktop_h91d4a8 ====
+// ==== entry=0091d4a8 orig=FUN_0091d4a8 size=1389 name=mux_desktop_metacall ====
 
-void MuxDesktop_h91d4a8(long param_1,int param_2,undefined4 param_3,long *param_4)
+void mux_desktop_metacall(long param_1,int param_2,undefined4 param_3,long *param_4)
 
 {
   int iVar1;
@@ -13530,14 +13530,14 @@ ulong MuxDesktop_qt_metacall(undefined8 param_1,int param_2,undefined8 param_3,u
   if (-1 < iVar1) {
     if (param_2 == 0) {
       if (iVar1 < 0x20) {
-        MuxDesktop_h91d4a8(param_1,0,uVar2 & 0xffffffff,param_4);
+        mux_desktop_metacall(param_1,0,uVar2 & 0xffffffff,param_4);
         uVar2 = uVar2 & 0xffffffff;
       }
     }
     else {
       if (param_2 != 0xc) {
         if ((param_2 - 1U < 3) || (param_2 == 0xb)) {
-          MuxDesktop_h91d4a8(param_1,param_2,uVar2 & 0xffffffff,param_4);
+          mux_desktop_metacall(param_1,param_2,uVar2 & 0xffffffff,param_4);
           return (ulong)(iVar1 - 7);
         }
         if ((((param_2 != 4) && (param_2 != 5)) && (param_2 != 6)) &&
@@ -14593,9 +14593,9 @@ undefined ** LocalTransfer_vt0(long param_1)
 }
 
 
-// ==== entry=0091e8c8 orig=FUN_0091e8c8 size=66 name=SuperTransfer_dtor ====
+// ==== entry=0091e8c8 orig=FUN_0091e8c8 size=66 name=SftpTransfer_meta ====
 
-undefined8 SuperTransfer_dtor(undefined8 param_1,char *param_2)
+undefined8 SftpTransfer_meta(undefined8 param_1,char *param_2)
 
 {
   int iVar1;
@@ -29236,7 +29236,7 @@ undefined4 FUN_0092dd8a(long param_1,long param_2)
     uVar2 = session_stop_handlers(param_1,lVar4);
     if ((char)uVar2 != '\0') {
       if (*(char *)(lVar4 + 0x28) == '\0') {
-        FUN_0096e2ae(lVar4,0xffffffffffffffff);
+        trigger_scanTask(lVar4,0xffffffffffffffff);
         return uVar2;
       }
 LAB_0092df06:

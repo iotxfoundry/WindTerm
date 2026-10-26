@@ -20559,9 +20559,9 @@ LAB_00a3fcc2:
 }
 
 
-// ==== entry=00a40876 orig=FUN_00a40876 size=1004 name=s_TerminalCell_a40876 ====
+// ==== entry=00a40876 orig=FUN_00a40876 size=1004 name=TerminalCell_snapshot ====
 
-void s_TerminalCell_a40876(undefined8 *param_1,long *param_2,long param_3,long *param_4)
+void TerminalCell_snapshot(undefined8 *param_1,long *param_2,long param_3,long *param_4)
 
 {
   undefined8 *puVar1;
@@ -20707,9 +20707,9 @@ LAB_00a40a22:
 }
 
 
-// ==== entry=00a40c78 orig=FUN_00a40c78 size=2161 name=s_Editor__terminalSnapshotText_a40c78 ====
+// ==== entry=00a40c78 orig=FUN_00a40c78 size=2161 name=Editor_terminalSnapshot ====
 
-void s_Editor__terminalSnapshotText_a40c78(long param_1,long param_2)
+void Editor_terminalSnapshot(long param_1,long param_2)
 
 {
   undefined8 *puVar1;
@@ -20834,7 +20834,7 @@ void s_Editor__terminalSnapshotText_a40c78(long param_1,long param_2)
         FUN_00a3fbd6(&local_110,lVar6,lVar9,lVar10,uVar11);
       }
       terminal_snapshot_style_scan(&local_118,lVar6,*(undefined8 *)(param_2 + 0x30));
-      s_TerminalCell_a40876(&local_108,&local_100,lVar6,*(undefined8 *)(param_2 + 0x38));
+      TerminalCell_snapshot(&local_108,&local_100,lVar6,*(undefined8 *)(param_2 + 0x38));
       s_TerminalLink_a3b880(&local_f8,&local_f0,lVar6,*(undefined8 *)(param_2 + 0x40));
       FUN_0092d002(*(undefined8 *)(param_1 + 0x1098),(long)*(int *)(param_2 + 0x2c),
                    *(int *)((long)plVar7 + 0xc) + lVar6,*(undefined1 *)(param_2 + 0x24));
@@ -20908,7 +20908,7 @@ LAB_00a40e9a:
             qt_byte_array_unref((QByteArray *)local_88);
                     /* try { // try from 00a40fc0 to 00a41061 has its CatchHandler @ 00a41531 */
             terminal_snapshot_style_scan(&local_118,lVar9,*(undefined8 *)(piVar2 + 2));
-            s_TerminalCell_a40876(&local_108,&local_100,lVar9,*(undefined8 *)(piVar2 + 4));
+            TerminalCell_snapshot(&local_108,&local_100,lVar9,*(undefined8 *)(piVar2 + 4));
             s_TerminalLink_a3b880(&local_f8,&local_f0,lVar9,*(undefined8 *)(piVar2 + 6));
             local_1b8 = local_1b8 + 1;
           } while (puVar1 != local_1b8);
@@ -24848,7 +24848,7 @@ LAB_00a42965:
                 qt_array_data_unref(local_78);
                 qt_array_data_unref(local_f8);
               }
-              s_Editor__terminalSnapshotText_a40c78(param_2,lVar31);
+              Editor_terminalSnapshot(param_2,lVar31);
               if ((char)param_2[0x21d] != '\0') {
                 qstring_assign_from_ascii(local_78,"\n=== After snapshot ===");
                     /* try { // try from 00a48202 to 00a48206 has its CatchHandler @ 00a4b037 */
@@ -30876,9 +30876,9 @@ void BSim_Splitter__setMainIndex(long param_1,undefined4 param_2)
 }
 
 
-// ==== entry=00a52aa8 name=FUN_00a52aa8 size=120 ====
+// ==== entry=00a52aa8 orig=FUN_00a52aa8 size=120 name=editor_charWidthCache ====
 
-undefined8 FUN_00a52aa8(long *param_1,long *param_2)
+undefined8 editor_charWidthCache(long *param_1,long *param_2)
 
 {
   long lVar1;
@@ -31055,7 +31055,7 @@ void FUN_00a52db0(long param_1)
       *(double *)(lVar3 + 0x10) = dVar7;
       dVar6 = *(double *)(lVar3 + 0x18);
       if (ABS(dVar6 + 1.0) <= 2.220446049250313e-16) {
-        dVar6 = (double)FUN_00a52aa8(param_1,lVar3);
+        dVar6 = (double)editor_charWidthCache(param_1,lVar3);
         *(double *)(lVar3 + 0x18) = dVar6;
       }
       dVar7 = dVar7 + dVar6;
@@ -42280,9 +42280,9 @@ void FUN_00a63525(int param_1,void *param_2)
 }
 
 
-// ==== entry=00a63550 name=FUN_00a63550 size=208 ====
+// ==== entry=00a63550 orig=FUN_00a63550 size=208 name=caret_blinkTimer ====
 
-void FUN_00a63550(long param_1)
+void caret_blinkTimer(long param_1)
 
 {
   undefined8 uVar1;
@@ -42334,7 +42334,7 @@ void FUN_00a63628(undefined8 *param_1,undefined8 *param_2)
   param_1[6] = param_2[5];
   param_1[7] = param_2[6];
   FUN_00a22e50(*param_1,param_2);
-  FUN_00a63550(param_1);
+  caret_blinkTimer(param_1);
   return;
 }
 

@@ -5261,7 +5261,7 @@ undefined8 FUN_007d6896(long param_1,undefined4 param_2)
   }
   lVar1 = __dynamic_cast(*(long *)(param_1 + 0x10),&PTR_PTR_011a8050,&PTR_PTR_011a8f30,0);
   if (lVar1 != 0) {
-    uVar2 = FUN_0086410a(lVar1,param_2);
+    uVar2 = SshBridge_acceptHostKey(lVar1,param_2);
     return uVar2;
   }
   return 0;
@@ -8180,7 +8180,7 @@ void s_sftp_preserveOriginalFolderModifyTim_7daedc(long param_1,QString *param_2
               ((Connection *)&local_60,lVar9,(QByteArray *)&local_58,param_1,(QVariant *)&local_48,
                puVar11,2,0,&PTR_PTR_011a9020);
     QMetaObject::Connection::~Connection((Connection *)&local_60);
-    FUN_00866372(lVar9,param_2);
+    sftp_start_async(lVar9,param_2);
   }
   local_a0 = (QByteArray *)&local_60;
   QByteArray::QByteArray(local_a0,"sftp.fileCreationPermissions",-1);
@@ -15316,9 +15316,9 @@ void FUN_007e3568(void)
 }
 
 
-// ==== entry=007e3578 name=FUN_007e3578 size=22 ====
+// ==== entry=007e3578 orig=FUN_007e3578 size=22 name=vt_palette_color ====
 
-undefined4 FUN_007e3578(long param_1,byte param_2)
+undefined4 vt_palette_color(long param_1,byte param_2)
 
 {
   return *(undefined4 *)
@@ -19267,9 +19267,9 @@ void FUN_007e69b2(void *param_1)
 }
 
 
-// ==== entry=007e69ca name=FUN_007e69ca size=323 ====
+// ==== entry=007e69ca orig=FUN_007e69ca size=323 name=tmux_pane_find ====
 
-undefined8 * FUN_007e69ca(undefined8 *param_1,long param_2,int param_3)
+undefined8 * tmux_pane_find(undefined8 *param_1,long param_2,int param_3)
 
 {
   long lVar1;
@@ -19338,7 +19338,7 @@ void FUN_007e6b0e(undefined8 param_1,undefined4 param_2)
   long local_18;
   long local_10;
   
-  FUN_007e69ca(&local_18,param_1,param_2);
+  tmux_pane_find(&local_18,param_1,param_2);
   if (((local_18 != 0) && (*(int *)(local_18 + 4) != 0)) && (local_10 != 0)) {
     if (*(int *)(local_18 + 4) == 0) {
       local_10 = 0;
@@ -19350,9 +19350,9 @@ void FUN_007e6b0e(undefined8 param_1,undefined4 param_2)
 }
 
 
-// ==== entry=007e6b64 name=FUN_007e6b64 size=515 ====
+// ==== entry=007e6b64 orig=FUN_007e6b64 size=515 name=tmux_output_route ====
 
-undefined8 FUN_007e6b64(long param_1,undefined4 param_2,char *param_3,int param_4)
+undefined8 tmux_output_route(long param_1,undefined4 param_2,char *param_3,int param_4)
 
 {
   long lVar1;
@@ -19364,7 +19364,7 @@ undefined8 FUN_007e6b64(long param_1,undefined4 param_2,char *param_3,int param_
   undefined8 local_48;
   undefined8 local_40;
   
-  FUN_007e69ca(&local_58,param_1,param_2);
+  tmux_pane_find(&local_58,param_1,param_2);
   uVar2 = local_50;
   uVar4 = local_58;
   local_58 = 0;
@@ -19435,7 +19435,7 @@ undefined8 FUN_007e6d78(long param_1,undefined4 param_2)
   undefined8 local_28;
   undefined8 local_20;
   
-  FUN_007e69ca(&local_38,param_1,param_2);
+  tmux_pane_find(&local_38,param_1,param_2);
   uVar3 = local_30;
   uVar2 = local_38;
   local_38 = 0;
@@ -19469,7 +19469,7 @@ void FUN_007e6e3a(long param_1,undefined4 param_2)
   long local_28;
   long local_20;
   
-  FUN_007e69ca(&local_28,param_1,param_2);
+  tmux_pane_find(&local_28,param_1,param_2);
                     /* try { // try from 007e6e60 to 007e6ea4 has its CatchHandler @ 007e6eba */
   lVar1 = FUN_00879a6c(*(undefined8 *)(param_1 + 0x188),param_2);
   if ((((local_28 != 0) && (*(int *)(local_28 + 4) != 0)) && (local_20 != 0)) && (lVar1 != 0)) {
@@ -19493,7 +19493,7 @@ void FUN_007e6ec2(long param_1,undefined4 param_2)
   long local_28;
   long local_20;
   
-  FUN_007e69ca(&local_28,param_1,param_2);
+  tmux_pane_find(&local_28,param_1,param_2);
                     /* try { // try from 007e6ee9 to 007e6f23 has its CatchHandler @ 007e6f39 */
   lVar1 = FUN_00879a6c(*(undefined8 *)(param_1 + 0x188),param_2);
   if ((((local_28 != 0) && (*(int *)(local_28 + 4) != 0)) && (local_20 != 0)) && (lVar1 != 0)) {
@@ -20013,7 +20013,8 @@ void FUN_007e7bea(undefined8 param_1,undefined8 param_2,long *param_3)
   QString local_30 [8];
   
   lVar1 = *param_3;
-  cVar2 = FUN_007e6b64(param_1,param_2,lVar1 + *(long *)(lVar1 + 0x10),*(undefined4 *)(lVar1 + 4));
+  cVar2 = tmux_output_route(param_1,param_2,lVar1 + *(long *)(lVar1 + 0x10),
+                            *(undefined4 *)(lVar1 + 4));
   if (cVar2 != '\0') {
     return;
   }
@@ -20983,7 +20984,7 @@ void FUN_007e90b6(long param_1,char param_2)
                &PTR_staticMetaObject_011aa220);
     QMetaObject::Connection::~Connection(local_60);
     uVar2 = *(undefined8 *)(param_1 + 0x188);
-    local_58 = FUN_009191c0;
+    local_58 = tmux_signal_emitters;
     local_50 = 0;
     local_48 = FUN_007e6b0e;
     local_40 = 0;
@@ -21055,7 +21056,7 @@ void FUN_007e90b6(long param_1,char param_2)
     uVar2 = *(undefined8 *)(param_1 + 0x188);
     local_58 = FUN_00919262;
     local_50 = 0;
-    local_48 = FUN_007ee78e;
+    local_48 = tmux_pane_createView;
     local_40 = 0;
     puVar4 = operator_new(0x20);
     *puVar4 = 1;
@@ -21136,9 +21137,9 @@ void FUN_007e90b6(long param_1,char param_2)
 }
 
 
-// ==== entry=007e9a06 name=FUN_007e9a06 size=23 ====
+// ==== entry=007e9a06 orig=FUN_007e9a06 size=23 name=tmux_enable ====
 
-void FUN_007e9a06(undefined8 param_1)
+void tmux_enable(undefined8 param_1)
 
 {
   FUN_007e90b6(param_1,1);
@@ -21147,9 +21148,9 @@ void FUN_007e9a06(undefined8 param_1)
 }
 
 
-// ==== entry=007e9a1e name=FUN_007e9a1e size=20 ====
+// ==== entry=007e9a1e orig=FUN_007e9a1e size=20 name=tmux_disable ====
 
-void FUN_007e9a1e(undefined8 param_1)
+void tmux_disable(undefined8 param_1)
 
 {
   FUN_007e90b6(param_1,0);
@@ -21158,9 +21159,9 @@ void FUN_007e9a1e(undefined8 param_1)
 }
 
 
-// ==== entry=007e9a32 orig=FUN_007e9a32 size=2021 name=vt_exitMsg ====
+// ==== entry=007e9a32 orig=FUN_007e9a32 size=2021 name=tmux_vt_notify_dispatch ====
 
-void vt_exitMsg(long param_1,int param_2,int param_3)
+void tmux_vt_notify_dispatch(long param_1,int param_2,int param_3)
 
 {
   undefined8 uVar1;
@@ -21236,7 +21237,7 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
                     /* try { // try from 007ea0a9 to 007ea0ad has its CatchHandler @ 007ea21f */
         cstr_toQStr(local_40,&local_78);
                     /* try { // try from 007ea0b4 to 007ea0b8 has its CatchHandler @ 007ea2bf */
-        FUN_008795a6(uVar1,local_40);
+        tmux_begin_frame(uVar1,local_40);
         break;
       case 3:
         uVar1 = *(undefined8 *)(param_1 + 0x188);
@@ -21257,14 +21258,14 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
                     /* try { // try from 007ea02f to 007ea033 has its CatchHandler @ 007ea21f */
         cstr_toQStr(local_40,&local_78);
                     /* try { // try from 007ea03f to 007ea043 has its CatchHandler @ 007ea2a7 */
-        terminal_parsePromptMeta(uVar1,local_40,1);
+        tmux_parse_prompt_meta(uVar1,local_40,1);
         break;
       case 6:
         uVar1 = *(undefined8 *)(param_1 + 0x188);
                     /* try { // try from 007ea006 to 007ea00a has its CatchHandler @ 007ea21f */
         cstr_toQStr(local_40,&local_78);
                     /* try { // try from 007ea013 to 007ea017 has its CatchHandler @ 007ea29f */
-        terminal_parsePromptMeta(uVar1,local_40,0);
+        tmux_parse_prompt_meta(uVar1,local_40,0);
         break;
       case 7:
                     /* try { // try from 007e9edb to 007e9ef3 has its CatchHandler @ 007ea21f */
@@ -21293,7 +21294,7 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
           qt_array_data_unref(local_40);
                     /* try { // try from 007e9f60 to 007e9f72 has its CatchHandler @ 007ea30f */
           iVar7 = QRegularExpressionMatch::capturedLength((int)local_68);
-          FUN_007e9a1e(param_1);
+          tmux_disable(param_1);
           if (*(int *)(local_50 + 4) == 0) {
                     /* try { // try from 007e9f97 to 007e9f9b has its CatchHandler @ 007ea307 */
             QByteArray::QByteArray(local_58,"[exited]\r\n",-1);
@@ -21329,14 +21330,14 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
         uVar1 = *(undefined8 *)(param_1 + 0x188);
         cstr_toQStr(local_40,&local_78);
                     /* try { // try from 007e9ec5 to 007e9ec9 has its CatchHandler @ 007ea27f */
-        FUN_0087ad18(uVar1,local_40);
+        tmux_layout_change(uVar1,local_40);
         break;
       case 9:
         uVar1 = *(undefined8 *)(param_1 + 0x188);
                     /* try { // try from 007e9de2 to 007e9de6 has its CatchHandler @ 007ea21f */
         cstr_toQStr(local_48,&local_78);
                     /* try { // try from 007e9ded to 007e9df1 has its CatchHandler @ 007ea297 */
-        iVar9 = FUN_0087728a(uVar1,local_48);
+        iVar9 = tmux_parse_output_line(uVar1,local_48);
         qt_array_data_unref(local_48);
         if (iVar9 != -1) {
                     /* try { // try from 007e9e17 to 007e9ebe has its CatchHandler @ 007ea21f */
@@ -21350,7 +21351,7 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
           lVar10 = (long)local_78 + (long)iVar11 + local_78[2];
           uVar6 = FUN_00877128(*(undefined8 *)(param_1 + 0x188),lVar10,
                                (*(int *)((long)local_78 + 4) - iVar11) - (uint)(cVar4 == '\r'));
-          FUN_007e6b64(param_1,iVar9,lVar10,uVar6);
+          tmux_output_route(param_1,iVar9,lVar10,uVar6);
         }
         goto switchD_007e9b3d_default;
       case 10:
@@ -21364,7 +21365,7 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
         goto switchD_007e9b3d_default;
       case 0xc:
                     /* try { // try from 007e9d8b to 007e9dbf has its CatchHandler @ 007ea21f */
-        FUN_0087c832(*(undefined8 *)(param_1 + 0x188),&local_78);
+        tmux_parse_error_frame(*(undefined8 *)(param_1 + 0x188),&local_78);
         goto switchD_007e9b3d_default;
       case 0xd:
         uVar1 = *(undefined8 *)(param_1 + 0x188);
@@ -21440,7 +21441,7 @@ void vt_exitMsg(long param_1,int param_2,int param_3)
         uVar1 = *(undefined8 *)(param_1 + 0x188);
         cstr_toQStr(local_40,&local_78);
                     /* try { // try from 007e9c19 to 007e9c1d has its CatchHandler @ 007ea227 */
-        FUN_0087afee(uVar1,local_40);
+        tmux_window_pane_changed(uVar1,local_40);
         break;
       case 0x17:
         uVar1 = *(undefined8 *)(param_1 + 0x188);
@@ -24041,9 +24042,9 @@ LAB_007ee1f7:
 }
 
 
-// ==== entry=007ee78e name=FUN_007ee78e size=161 ====
+// ==== entry=007ee78e orig=FUN_007ee78e size=161 name=tmux_pane_createView ====
 
-void FUN_007ee78e(long param_1,undefined4 param_2,undefined8 param_3)
+void tmux_pane_createView(long param_1,undefined4 param_2,undefined8 param_3)
 
 {
   long lVar1;
@@ -24941,12 +24942,12 @@ switchD_007efa13_caseD_0:
               uVar20 = iVar8 - 0x28;
               if ((uVar20 < 8) || (iVar8 - 100U < 8)) {
                 if (iVar8 < 100) {
-                  uVar11 = FUN_007e3578(param_1,uVar20);
+                  uVar11 = vt_palette_color(param_1,uVar20);
                   uVar17 = uVar17 & 0x8000007fffffffff | (ulong)(uVar11 & 0xffffff) << 0x27;
                   lVar16 = FUN_007e358e(param_1,uVar20);
                 }
                 else {
-                  uVar20 = FUN_007e3578(param_1,iVar8 + -0x5c);
+                  uVar20 = vt_palette_color(param_1,iVar8 + -0x5c);
                   uVar17 = uVar17 & 0x8000007fffffffff | (ulong)(uVar20 & 0xffffff) << 0x27;
                   lVar16 = FUN_007e358e(param_1,iVar8 + -0x5c);
                 }
@@ -24955,7 +24956,7 @@ switchD_007efa13_caseD_0:
               goto LAB_007efd7b;
             }
             if (iVar8 < 0x5a) {
-              uVar11 = FUN_007e3578(param_1,uVar20);
+              uVar11 = vt_palette_color(param_1,uVar20);
               uVar20 = FUN_007e358e(param_1,uVar20);
               uVar17 = uVar17 & 0xffffff8000003fff | (ulong)(uVar11 & 0xffffff) << 0xe |
                        (ulong)(uVar20 & 1) << 0x26;
@@ -24963,7 +24964,7 @@ switchD_007efa13_caseD_0:
               local_75 = cVar4;
             }
             else {
-              uVar20 = FUN_007e3578(param_1,iVar8 + -0x52);
+              uVar20 = vt_palette_color(param_1,iVar8 + -0x52);
               uVar11 = FUN_007e358e(param_1,iVar8 + -0x52);
               uVar17 = uVar17 & 0xffffff8000003fff | (ulong)(uVar20 & 0xffffff) << 0xe |
                        (ulong)(uVar11 & 1) << 0x26;
@@ -24995,14 +24996,14 @@ switchD_007efa13_caseD_0:
               uVar5 = str_parseInt(uVar13,local_58 + ((long)(int)local_58[2] + (long)iVar1) * 2 + 4,
                                    0);
               if (iVar8 == 0x30) {
-                uVar20 = FUN_007e3578(param_1,uVar5);
+                uVar20 = vt_palette_color(param_1,uVar5);
                 lVar16 = FUN_007e358e(param_1,uVar5);
                 uVar17 = uVar17 & 0x7fffffffff | (ulong)(uVar20 & 0xffffff) << 0x27 | lVar16 << 0x3f
                 ;
                 iVar19 = iVar10 + 3;
               }
               else {
-                uVar20 = FUN_007e3578(param_1,uVar5);
+                uVar20 = vt_palette_color(param_1,uVar5);
                 uVar11 = FUN_007e358e(param_1,uVar5);
                 uVar17 = uVar17 & 0xffffff8000003fff | (ulong)(uVar20 & 0xffffff) << 0xe |
                          (ulong)(uVar11 & 1) << 0x26;
@@ -25072,9 +25073,9 @@ LAB_007efd7b:
       iVar10 = 0;
       do {
                     /* try { // try from 007efe38 to 007f02fb has its CatchHandler @ 007f032b */
-        uVar20 = FUN_007e3578(param_1,iVar10);
+        uVar20 = vt_palette_color(param_1,iVar10);
         if (uVar20 == ((uint)(uVar17 >> 0xe) & 0xffffff)) {
-          uVar20 = FUN_007e3578(param_1,iVar10 + 8);
+          uVar20 = vt_palette_color(param_1,iVar10 + 8);
           uVar17 = uVar17 & 0xffffffc000003fff | (ulong)(uVar20 & 0xffffff) << 0xe;
           lVar16 = *(long *)(param_1 + 0x80);
           goto LAB_007efa74;
@@ -29257,7 +29258,7 @@ void FUN_007f670a(long param_1,undefined4 param_2,char param_3,int param_4,long 
   long local_48;
   long local_40;
   
-  FUN_007e69ca(&local_48,param_1,param_2);
+  tmux_pane_find(&local_48,param_1,param_2);
                     /* try { // try from 007f6748 to 007f682d has its CatchHandler @ 007f6939 */
   lVar3 = FUN_00879a6c(*(undefined8 *)(param_1 + 0x188),param_2);
   if ((((local_48 != 0) && (*(int *)(local_48 + 4) != 0)) && (local_40 != 0)) && (lVar3 != 0)) {
@@ -29296,7 +29297,7 @@ void FUN_007f670a(long param_1,undefined4 param_2,char param_3,int param_4,long 
       qt_byte_array_unref(local_50);
     }
                     /* try { // try from 007f68a8 to 007f6924 has its CatchHandler @ 007f6939 */
-    FUN_007e6b64(param_1,param_2,lVar5,uVar2);
+    tmux_output_route(param_1,param_2,lVar5,uVar2);
     if (param_4 < 1) {
       if ((local_48 == 0) || (*(int *)(local_48 + 4) == 0)) {
         local_40 = 0;
@@ -41615,9 +41616,9 @@ long * s_session_label_8062b6
 }
 
 
-// ==== entry=00806382 name=FUN_00806382 size=75 ====
+// ==== entry=00806382 orig=FUN_00806382 size=75 name=ssh_knownHostsDir ====
 
-undefined8 FUN_00806382(undefined8 param_1,undefined8 param_2)
+undefined8 ssh_knownHostsDir(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 local_20;
@@ -41660,9 +41661,9 @@ undefined8 FUN_0080642a(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=0080647e name=FUN_0080647e size=75 ====
+// ==== entry=0080647e orig=FUN_0080647e size=75 name=QuickBar_configPath ====
 
-undefined8 FUN_0080647e(undefined8 param_1,undefined8 param_2)
+undefined8 QuickBar_configPath(undefined8 param_1,undefined8 param_2)
 
 {
   undefined8 local_20;
@@ -41675,9 +41676,9 @@ undefined8 FUN_0080647e(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008064d2 name=FUN_008064d2 size=183 ====
+// ==== entry=008064d2 orig=FUN_008064d2 size=183 name=QuickBar_configLoad ====
 
-undefined4 FUN_008064d2(long param_1)
+undefined4 QuickBar_configLoad(long param_1)
 
 {
   void *pvVar1;
@@ -41689,7 +41690,7 @@ undefined4 FUN_008064d2(long param_1)
                     /* try { // try from 008064f3 to 008064f7 has its CatchHandler @ 00806589 */
   json_value_init_by_type(pvVar3,0);
                     /* try { // try from 00806503 to 00806507 has its CatchHandler @ 00806599 */
-  FUN_0080647e(local_30,param_1);
+  QuickBar_configPath(local_30,param_1);
                     /* try { // try from 0080650e to 00806512 has its CatchHandler @ 00806591 */
   uVar2 = yaml_loadFile(local_30,pvVar3);
   if ((char)uVar2 != '\0') {
@@ -41709,9 +41710,9 @@ undefined4 FUN_008064d2(long param_1)
 }
 
 
-// ==== entry=008065a2 name=FUN_008065a2 size=104 ====
+// ==== entry=008065a2 orig=FUN_008065a2 size=104 name=QuickBar_configLazy ====
 
-void * FUN_008065a2(long param_1)
+void * QuickBar_configLazy(long param_1)
 
 {
   long lVar1;
@@ -41719,7 +41720,7 @@ void * FUN_008065a2(long param_1)
   
   pvVar2 = *(void **)(param_1 + 0xd8);
   if (pvVar2 == (void *)0x0) {
-    FUN_008064d2();
+    QuickBar_configLoad();
     pvVar2 = *(void **)(param_1 + 0xd8);
     if (pvVar2 == (void *)0x0) {
       pvVar2 = operator_new(0x28);
@@ -41751,7 +41752,7 @@ int s_quick_uuid_806612(undefined8 param_1,long *param_2)
   undefined1 local_98 [48];
   undefined1 local_68 [56];
   
-  lVar4 = FUN_008065a2();
+  lVar4 = QuickBar_configLazy();
   if ((lVar4 != 0) && (iVar2 = json_size_or_int_get(lVar4), 0 < iVar2)) {
     iVar6 = 0;
     do {
@@ -41777,9 +41778,9 @@ int s_quick_uuid_806612(undefined8 param_1,long *param_2)
 }
 
 
-// ==== entry=00806700 name=FUN_00806700 size=175 ====
+// ==== entry=00806700 orig=FUN_00806700 size=175 name=QuickBar_configSave ====
 
-undefined4 FUN_00806700(long param_1,undefined8 param_2)
+undefined4 QuickBar_configSave(long param_1,undefined8 param_2)
 
 {
   long lVar1;
@@ -41798,7 +41799,7 @@ undefined4 FUN_00806700(long param_1,undefined8 param_2)
       FUN_00803c54();
     }
   }
-  FUN_0080647e(local_60,param_1);
+  QuickBar_configPath(local_60,param_1);
                     /* try { // try from 00806735 to 00806739 has its CatchHandler @ 008067bf */
   json_value_copy_ctor(local_58,param_2);
                     /* try { // try from 00806744 to 00806748 has its CatchHandler @ 008067b7 */

@@ -128,7 +128,7 @@ void FUN_00585eca(undefined8 param_1,undefined8 param_2)
   if (lVar1 != 0) {
     lVar2 = FUN_00585d68(param_1,param_2);
     if (lVar2 != 0) {
-      s_transfer_currentItemName_58722a(lVar2,lVar1);
+      TransferLabel_refresh(lVar2,lVar1);
       return;
     }
   }
@@ -820,7 +820,7 @@ LAB_005871eb:
 }
 
 
-// ==== entry=0058722a orig=FUN_0058722a size=9233 name=s_transfer_currentItemName_58722a ====
+// ==== entry=0058722a orig=FUN_0058722a size=9233 name=TransferLabel_refresh ====
 
 /* WARNING: Removing unreachable block (ram,0x005892ef) */
 /* WARNING: Removing unreachable block (ram,0x00589131) */
@@ -841,7 +841,7 @@ LAB_005871eb:
 /* WARNING: Removing unreachable block (ram,0x0058913b) */
 /* WARNING: Removing unreachable block (ram,0x00589301) */
 
-void s_transfer_currentItemName_58722a(QString *param_1,long *param_2)
+void TransferLabel_refresh(QString *param_1,long *param_2)
 
 {
   long lVar1;
@@ -19077,9 +19077,9 @@ undefined8 * FUN_005a2e32(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=005a2e58 name=FUN_005a2e58 size=654 ====
+// ==== entry=005a2e58 orig=FUN_005a2e58 size=654 name=statusbar_showMessage ====
 
-void FUN_005a2e58(QString *param_1,undefined8 *param_2,int param_3)
+void statusbar_showMessage(QString *param_1,undefined8 *param_2,int param_3)
 
 {
   int iVar1;
@@ -19185,9 +19185,9 @@ LAB_005a2fcc:
 }
 
 
-// ==== entry=005a3106 name=FUN_005a3106 size=79 ====
+// ==== entry=005a3106 orig=FUN_005a3106 size=79 name=statusbar_scriptHost ====
 
-long FUN_005a3106(long param_1)
+long statusbar_scriptHost(long param_1)
 
 {
   long lVar1;
@@ -19204,9 +19204,9 @@ long FUN_005a3106(long param_1)
 }
 
 
-// ==== entry=005a3156 name=FUN_005a3156 size=463 ====
+// ==== entry=005a3156 orig=FUN_005a3156 size=463 name=statusbar_runInit ====
 
-QJSValue * FUN_005a3156(QJSValue *param_1,undefined8 param_2,long param_3,undefined8 param_4)
+QJSValue * statusbar_runInit(QJSValue *param_1,undefined8 param_2,long param_3,undefined8 param_4)
 
 {
   undefined8 *puVar1;
@@ -19230,7 +19230,7 @@ QJSValue * FUN_005a3156(QJSValue *param_1,undefined8 param_2,long param_3,undefi
         lVar3 = __dynamic_cast(param_3,&QWidget::typeinfo,&QLabel::typeinfo,0);
         if (lVar3 != 0) {
                     /* try { // try from 005a32ea to 005a3303 has its CatchHandler @ 005a3325 */
-          uVar4 = FUN_005a3106(param_2);
+          uVar4 = statusbar_scriptHost(param_2);
           FUN_00767d2e((QJSValue *)&local_48,uVar4,lVar3);
           puVar1 = local_58;
           local_58 = local_48;
@@ -19240,7 +19240,7 @@ QJSValue * FUN_005a3156(QJSValue *param_1,undefined8 param_2,long param_3,undefi
       }
       else {
                     /* try { // try from 005a31d2 to 005a321b has its CatchHandler @ 005a3325 */
-        uVar4 = FUN_005a3106(param_2);
+        uVar4 = statusbar_scriptHost(param_2);
         FUN_00767d2e((QJSValue *)&local_50,uVar4,lVar3);
         puVar1 = local_58;
         local_58 = local_50;
@@ -19250,7 +19250,7 @@ QJSValue * FUN_005a3156(QJSValue *param_1,undefined8 param_2,long param_3,undefi
     }
     cVar2 = QJSValue::isUndefined();
     if (cVar2 == '\0') {
-      uVar4 = FUN_005a3106(param_2);
+      uVar4 = statusbar_scriptHost(param_2);
       local_48 = &QListData::shared_null;
                     /* try { // try from 005a3238 to 005a3254 has its CatchHandler @ 005a332d */
       FUN_005454b0(&local_48,(QJSValue *)&local_58);
@@ -19276,7 +19276,7 @@ QJSValue * FUN_005a3156(QJSValue *param_1,undefined8 param_2,long param_3,undefi
 }
 
 
-// ==== entry=005a333e name=FUN_005a333e size=4090 ====
+// ==== entry=005a333e orig=FUN_005a333e size=4090 name=statusbar_buildApplet ====
 
 /* WARNING: Removing unreachable block (ram,0x005a4295) */
 /* WARNING: Removing unreachable block (ram,0x005a4055) */
@@ -19287,7 +19287,7 @@ QJSValue * FUN_005a3156(QJSValue *param_1,undefined8 param_2,long param_3,undefi
 /* WARNING: Removing unreachable block (ram,0x005a428b) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-long * FUN_005a333e(long *param_1,QWidget *param_2,undefined8 *param_3,int param_4)
+long * statusbar_buildApplet(long *param_1,QWidget *param_2,undefined8 *param_3,int param_4)
 
 {
   int *piVar1;
@@ -19615,7 +19615,7 @@ LAB_005a3f0e:
     }
     QVariant::~QVariant(local_118);
                     /* try { // try from 005a36b9 to 005a36da has its CatchHandler @ 005a439d */
-    uVar10 = FUN_005a3106(param_2);
+    uVar10 = statusbar_scriptHost(param_2);
     FUN_00767a70((QJSValue *)&local_a0,uVar10,&local_c0);
     if (*(int *)(local_a8 + 4) != 0) {
       local_78 = (QArrayData *)0x0;
@@ -19805,7 +19805,7 @@ LAB_005a3d58:
             (local_b8,local_108,(QVariant *)&local_68,local_108,0,puVar13,1,0,
              &QObject::staticMetaObject);
   QMetaObject::Connection::~Connection(local_b8);
-  FUN_005a3156(local_b0,param_2,local_108,(QJSValue *)&local_a0);
+  statusbar_runInit(local_b0,param_2,local_108,(QJSValue *)&local_a0);
   QJSValue::~QJSValue(local_b0);
   if ((param_4 < 0) || (*(int *)(param_2 + 0x40) <= param_4)) {
     QStatusBar::addPermanentWidget(param_2,(int)local_108);
@@ -19884,7 +19884,7 @@ void applet_layout_widgets(undefined8 param_1,long *param_2)
       while( true ) {
         QVariant::toMap();
                     /* try { // try from 005a44b8 to 005a44bc has its CatchHandler @ 005a6206 */
-        FUN_005a333e(local_48,param_1,&local_50,0xffffffff);
+        statusbar_buildApplet(local_48,param_1,&local_50,0xffffffff);
         QVariant::~QVariant(local_48);
         pQVar8 = local_50;
         if (*(int *)local_50 != 0) break;
@@ -24560,9 +24560,9 @@ void FUN_005aa72a(long param_1,undefined8 param_2,uint param_3)
 }
 
 
-// ==== entry=005aa7b0 name=FUN_005aa7b0 size=62 ====
+// ==== entry=005aa7b0 orig=FUN_005aa7b0 size=62 name=TabBar_onCurrentChanged ====
 
-void FUN_005aa7b0(long param_1,int param_2)
+void TabBar_onCurrentChanged(long param_1,int param_2)
 
 {
   int iVar1;
@@ -26743,9 +26743,10 @@ void FUN_005acaae(long param_1,undefined8 param_2,undefined1 param_3)
 }
 
 
-// ==== entry=005acaba name=FUN_005acaba size=347 ====
+// ==== entry=005acaba orig=FUN_005acaba size=347 name=TabScrollButtonFactory ====
 
-QToolButton * FUN_005acaba(QWidget *param_1,undefined8 param_2,undefined8 param_3,QString *param_4)
+QToolButton *
+TabScrollButtonFactory(QWidget *param_1,undefined8 param_2,undefined8 param_3,QString *param_4)
 
 {
   QToolButton *this;
@@ -26790,9 +26791,9 @@ LAB_005acb7b:
 }
 
 
-// ==== entry=005acc3e orig=FUN_005acc3e size=2042 name=s_TabGroupButton_5acc3e ====
+// ==== entry=005acc3e orig=FUN_005acc3e size=2042 name=QuickBar_ButtonFactory ====
 
-char * s_TabGroupButton_5acc3e(long param_1,char *param_2,char param_3)
+char * QuickBar_ButtonFactory(long param_1,char *param_2,char param_3)
 
 {
   QArrayData *pQVar1;
@@ -26898,7 +26899,7 @@ char * s_TabGroupButton_5acc3e(long param_1,char *param_2,char param_3)
                     /* try { // try from 005aced9 to 005acedd has its CatchHandler @ 005ad440 */
       local_e8 = (QArrayData *)QString::fromLatin1_helper(param_2,iVar6);
                     /* try { // try from 005acf0b to 005acf0f has its CatchHandler @ 005ad438 */
-      pcVar3 = (char *)FUN_005acaba(param_1,&local_e8,ppcVar5 + 1);
+      pcVar3 = (char *)TabScrollButtonFactory(param_1,&local_e8,ppcVar5 + 1);
       if (*(int *)local_e8 == 0) {
 LAB_005acfc8:
         QArrayData::deallocate(local_e8,2,8);
@@ -28570,7 +28571,7 @@ void TabGroup_setupUi(QLayout *param_1)
                     /* try { // try from 005aec9e to 005aeca2 has its CatchHandler @ 005af822 */
   local_68 = (QArrayData *)QString::fromLatin1_helper("TabScrollLeftButton",(int)sVar5);
                     /* try { // try from 005aecce to 005aecd2 has its CatchHandler @ 005af885 */
-  uVar6 = FUN_005acaba(param_1,&local_68,(Connection *)&local_78);
+  uVar6 = TabScrollButtonFactory(param_1,&local_68,(Connection *)&local_78);
   *(undefined8 *)(param_1 + 0x70) = uVar6;
   if (*(int *)local_68 == 0) {
 LAB_005af724:
@@ -28617,7 +28618,7 @@ LAB_005af766:
                     /* try { // try from 005aed8d to 005aed91 has its CatchHandler @ 005af81a */
   local_68 = (QArrayData *)QString::fromLatin1_helper("TabScrollRightButton",(int)sVar5);
                     /* try { // try from 005aedaa to 005aedae has its CatchHandler @ 005af875 */
-  uVar6 = FUN_005acaba(param_1,&local_68,(Connection *)&local_78,&local_58);
+  uVar6 = TabScrollButtonFactory(param_1,&local_68,(Connection *)&local_78,&local_58);
   *(undefined8 *)(param_1 + 0x78) = uVar6;
   if (*(int *)local_68 == 0) {
 LAB_005af7d6:
@@ -28687,7 +28688,7 @@ LAB_005af782:
   uVar6 = *(undefined8 *)(param_1 + 0x58);
   local_68 = (QArrayData *)QTabBar::currentChanged;
   local_60 = 0;
-  local_58 = (QArrayData *)FUN_005aa7b0;
+  local_58 = (QArrayData *)TabBar_onCurrentChanged;
   local_50 = (QArrayData *)0x0;
   puVar7 = operator_new(0x20);
   *puVar7 = 1;
@@ -41271,9 +41272,9 @@ void FUN_005bf485(undefined8 param_1,undefined8 *param_2,bool *param_3)
 }
 
 
-// ==== entry=005bf49e name=FUN_005bf49e size=221 ====
+// ==== entry=005bf49e orig=FUN_005bf49e size=221 name=KitPane_ensureAppletBar ====
 
-void * FUN_005bf49e(undefined8 param_1)
+void * KitPane_ensureAppletBar(undefined8 param_1)
 
 {
   void *pvVar1;

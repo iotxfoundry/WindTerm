@@ -941,7 +941,7 @@ void StatusBar_h8f24a8(undefined8 param_1,int param_2,int param_3,long param_4)
 {
   if (param_2 == 0) {
     if (param_3 == 1) {
-      FUN_005a2e58(param_1,*(undefined8 *)(param_4 + 8),0);
+      statusbar_showMessage(param_1,*(undefined8 *)(param_4 + 8),0);
       return;
     }
     if (param_3 == 2) {
@@ -949,7 +949,7 @@ void StatusBar_h8f24a8(undefined8 param_1,int param_2,int param_3,long param_4)
       return;
     }
     if (param_3 == 0) {
-      FUN_005a2e58(param_1,*(undefined8 *)(param_4 + 8),**(undefined4 **)(param_4 + 0x10));
+      statusbar_showMessage(param_1,*(undefined8 *)(param_4 + 8),**(undefined4 **)(param_4 + 0x10));
       return;
     }
   }
@@ -28930,7 +28930,7 @@ joined_r0x0090a8bf:
     FUN_007309ee();
     break;
   case 0x22:
-    FUN_00731cc0();
+    FilerPane_downloadDlg();
   }
   return;
 }
@@ -29605,7 +29605,7 @@ void SearchPane_h90b4c6(undefined8 param_1,undefined4 param_2,long param_3)
     FUN_0074e58e(param_1,**(undefined1 **)(param_3 + 8),*(undefined8 *)(param_3 + 0x10));
     return;
   case 7:
-    FUN_0074f5ac(param_1,**(undefined1 **)(param_3 + 8),*(undefined8 *)(param_3 + 0x10));
+    SearchPane_apply(param_1,**(undefined1 **)(param_3 + 8),*(undefined8 *)(param_3 + 0x10));
     return;
   default:
     return;
@@ -31203,7 +31203,7 @@ void MainWindow_h90d42c(long param_1,int param_2,int param_3,long *param_4)
       }
       puVar13 = (undefined8 *)*param_4;
       if (param_3 == 6) {
-        FUN_00766364(param_1,*(undefined1 *)puVar13);
+        QuickSwitcher_setAlwaysOnTop(param_1,*(undefined1 *)puVar13);
         return;
       }
       if (param_3 < 7) {
@@ -31468,12 +31468,12 @@ LAB_0090de0d:
     FUN_00768a48(param_1,1);
     break;
   case 0x13:
-    FUN_00768dfa(param_1,param_4[1]);
+    window_openCommandPalette(param_1,param_4[1]);
     break;
   case 0x14:
     local_38 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0090dba2 to 0090dba6 has its CatchHandler @ 0090debf */
-    FUN_00768dfa(param_1,&local_38);
+    window_openCommandPalette(param_1,&local_38);
     if (*(int *)local_38 != 0) {
       if (*(int *)local_38 == -1) {
         return;

@@ -18737,7 +18737,7 @@ LAB_006928dd:
   sVar3 = strlen("StatusBar");
   local_38 = (QArrayData *)QString::fromAscii_helper("StatusBar",(int)sVar3);
                     /* try { // try from 0069280e to 00692812 has its CatchHandler @ 00692963 */
-  King__registerBarsAndPanes(local_30,&local_38);
+  King_title(local_30,&local_38);
                     /* try { // try from 00692819 to 0069281d has its CatchHandler @ 0069296b */
   QWidget::setWindowTitle(pQVar2);
   if (*(int *)local_30[0] == 0) {
@@ -18762,7 +18762,7 @@ LAB_00692903:
   }
   local_30[0] = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 0069286d to 00692871 has its CatchHandler @ 00692975 */
-  FUN_005a2e58(pQVar2,local_30,0);
+  statusbar_showMessage(pQVar2,local_30,0);
   if (*(int *)local_30[0] != 0) {
     if (*(int *)local_30[0] == -1) goto LAB_00692890;
     LOCK();
@@ -18776,7 +18776,7 @@ LAB_00692890:
   if (lVar1 != 0) {
     puVar4 = operator_new(0x20);
     *puVar4 = 1;
-    *(code **)(puVar4 + 2) = FUN_006933ea;
+    *(code **)(puVar4 + 2) = StatusBar_populate;
     *(QString **)(puVar4 + 4) = pQVar2;
     *(long *)(puVar4 + 6) = lVar1;
     QTimer::singleShotImpl(0,0,0,puVar4);
@@ -18896,7 +18896,7 @@ LAB_00692d4a:
   QMetaObject::Connection::~Connection(local_70);
   local_68 = (QArrayData *)QMenu::aboutToHide;
   local_60 = 0;
-  local_58 = (QArrayData *)FUN_0076c3ee;
+  local_58 = (QArrayData *)menu_aboutToHide;
   local_50 = (long *)0x0;
   puVar4 = operator_new(0x20);
   *puVar4 = 1;
@@ -19108,7 +19108,7 @@ LAB_00693207:
   sVar2 = strlen("MenuBar");
   local_78 = (QArrayData *)QString::fromAscii_helper("MenuBar",(int)sVar2);
                     /* try { // try from 006930e5 to 006930e9 has its CatchHandler @ 00693275 */
-  King__registerBarsAndPanes(&local_58,&local_78);
+  King_title(&local_58,&local_78);
                     /* try { // try from 006930f0 to 006930f4 has its CatchHandler @ 0069328d */
   QWidget::setWindowTitle((QString *)this);
   if (*(int *)local_58 == 0) {
@@ -19227,9 +19227,9 @@ LAB_006933bc:
 }
 
 
-// ==== entry=006933ea name=FUN_006933ea size=117 ====
+// ==== entry=006933ea orig=FUN_006933ea size=117 name=StatusBar_populate ====
 
-void FUN_006933ea(int param_1,void *param_2)
+void StatusBar_populate(int param_1,void *param_2)
 
 {
   undefined1 local_30 [8];
@@ -44644,7 +44644,7 @@ QWidget * s_WindowOpacityMode_6b57f8(undefined8 param_1,long *param_2)
                     /* try { // try from 006b58e8 to 006b58ec has its CatchHandler @ 006b60ed */
       King__paneIconFactory(local_50,pQVar6);
                     /* try { // try from 006b58f5 to 006b58f9 has its CatchHandler @ 006b60d5 */
-      King__registerBarsAndPanes(&local_48,pQVar6);
+      King_title(&local_48,pQVar6);
                     /* try { // try from 006b58ff to 006b5903 has its CatchHandler @ 006b60cd */
       pvVar4 = operator_new(0x78);
                     /* try { // try from 006b5918 to 006b591c has its CatchHandler @ 006b606d */
@@ -44795,7 +44795,7 @@ LAB_006b5fc0:
                     /* try { // try from 006b5ca8 to 006b5cac has its CatchHandler @ 006b60bd */
       King__paneIconFactory(local_50,pQVar6);
                     /* try { // try from 006b5cb5 to 006b5cb9 has its CatchHandler @ 006b6065 */
-      King__registerBarsAndPanes(&local_48,pQVar6);
+      King_title(&local_48,pQVar6);
                     /* try { // try from 006b5cbf to 006b5cc3 has its CatchHandler @ 006b6059 */
       pvVar4 = operator_new(0x78);
                     /* try { // try from 006b5cd8 to 006b5cdc has its CatchHandler @ 006b6051 */
@@ -44849,7 +44849,7 @@ LAB_006b5fa7:
                     /* try { // try from 006b5e03 to 006b5e07 has its CatchHandler @ 006b607d */
       King__paneIconFactory(local_50,pQVar6);
                     /* try { // try from 006b5e10 to 006b5e14 has its CatchHandler @ 006b609d */
-      King__registerBarsAndPanes(&local_48,pQVar6);
+      King_title(&local_48,pQVar6);
                     /* try { // try from 006b5e1a to 006b5e1e has its CatchHandler @ 006b6095 */
       pvVar4 = operator_new(0x78);
                     /* try { // try from 006b5e33 to 006b5e37 has its CatchHandler @ 006b608d */

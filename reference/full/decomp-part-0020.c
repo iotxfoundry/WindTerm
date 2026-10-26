@@ -148,10 +148,9 @@ undefined8 FUN_00624e8a(long param_1,int *param_2)
 }
 
 
-// ==== entry=00624eae orig=FUN_00624eae size=339 name=RemoteFileSystemModel_vt12 ====
+// ==== entry=00624eae orig=FUN_00624eae size=339 name=RemoteFSM_data ====
 
-int * RemoteFileSystemModel_vt12
-                (int *param_1,long param_2,int param_3,uint param_4,undefined8 param_5)
+int * RemoteFSM_data(int *param_1,long param_2,int param_3,uint param_4,undefined8 param_5)
 
 {
   char cVar1;
@@ -3049,9 +3048,9 @@ void FUN_0062799a(long *param_1)
 }
 
 
-// ==== entry=006279c0 name=FUN_006279c0 size=56 ====
+// ==== entry=006279c0 orig=FUN_006279c0 size=56 name=ssh_pollReady ====
 
-bool FUN_006279c0(long *param_1)
+bool ssh_pollReady(long *param_1)
 
 {
   int iVar1;
@@ -3436,9 +3435,9 @@ bool FUN_00627eda(undefined8 param_1,long param_2)
 }
 
 
-// ==== entry=00627efc name=FUN_00627efc size=57 ====
+// ==== entry=00627efc orig=FUN_00627efc size=57 name=sftp_channel_get_or_init ====
 
-undefined8 FUN_00627efc(long *param_1)
+undefined8 sftp_channel_get_or_init(long *param_1)
 
 {
   undefined8 uVar1;
@@ -4696,9 +4695,9 @@ void FUN_00629350(long *param_1)
 }
 
 
-// ==== entry=006293dc name=FUN_006293dc size=383 ====
+// ==== entry=006293dc orig=FUN_006293dc size=383 name=ssh_drain ====
 
-long * FUN_006293dc(long *param_1,undefined8 *param_2)
+long * ssh_drain(long *param_1,undefined8 *param_2)
 
 {
   char cVar1;
@@ -5160,7 +5159,7 @@ void FUN_00629ab8(undefined8 *param_1)
 }
 
 
-// ==== entry=00629aee name=FUN_00629aee size=715 ====
+// ==== entry=00629aee orig=FUN_00629aee size=715 name=ssh_authMethodNames ====
 
 /* WARNING: Removing unreachable block (ram,0x00629d9e) */
 /* WARNING: Removing unreachable block (ram,0x00629d8a) */
@@ -5169,7 +5168,7 @@ void FUN_00629ab8(undefined8 *param_1)
 /* WARNING: Removing unreachable block (ram,0x00629da8) */
 /* WARNING: Type propagation algorithm not settling */
 
-undefined8 * FUN_00629aee(undefined8 *param_1,undefined8 *param_2)
+undefined8 * ssh_authMethodNames(undefined8 *param_1,undefined8 *param_2)
 
 {
   uint uVar1;
@@ -13675,9 +13674,10 @@ LAB_00634e61:
 }
 
 
-// ==== entry=00634ef0 name=FUN_00634ef0 size=694 ====
+// ==== entry=00634ef0 orig=FUN_00634ef0 size=694 name=SftpFileSystemItem_ctor ====
 
-void FUN_00634ef0(undefined8 *param_1,undefined8 param_2,undefined8 *param_3,long *param_4)
+void SftpFileSystemItem_ctor
+               (undefined8 *param_1,undefined8 param_2,undefined8 *param_3,long *param_4)
 
 {
   QArrayData *pQVar1;
@@ -30311,9 +30311,9 @@ QObject * FUN_0064b0d0(QObject *param_1,undefined8 param_2,undefined8 param_3)
 }
 
 
-// ==== entry=0064b102 orig=FUN_0064b102 size=1707 name=s_MuxPane_64b102 ====
+// ==== entry=0064b102 orig=FUN_0064b102 size=1707 name=QJSEngineHost_ctor ====
 
-void s_MuxPane_64b102(QObject *param_1)
+void QJSEngineHost_ctor(QObject *param_1)
 
 {
   QJSEngine *this;

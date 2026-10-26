@@ -42561,9 +42561,9 @@ void FUN_0096cba2(long param_1,long param_2,char param_3)
 }
 
 
-// ==== entry=0096cbb8 name=FUN_0096cbb8 size=429 ====
+// ==== entry=0096cbb8 orig=FUN_0096cbb8 size=429 name=trigger_styleWrite ====
 
-void FUN_0096cbb8(long param_1,long param_2,long param_3,long param_4,uint param_5)
+void trigger_styleWrite(long param_1,long param_2,long param_3,long param_4,uint param_5)
 
 {
   long lVar1;
@@ -42701,7 +42701,7 @@ LAB_0096cdad:
         if (param_3 <= lVar5) {
           lVar5 = param_3;
         }
-        FUN_0096cbb8(param_1,lVar4,lVar5 - lVar4,lVar5,uVar3 & 0xfffffffb);
+        trigger_styleWrite(param_1,lVar4,lVar5 - lVar4,lVar5,uVar3 & 0xfffffffb);
         iVar6 = iVar6 + -1;
         if (iVar1 + -1 == iVar6) goto LAB_0096ce47;
       }
@@ -43437,8 +43437,8 @@ LAB_0096db96:
             cVar4 = FUN_0096cac8(param_1);
             if (cVar4 != '\0') goto LAB_0096daf5;
             if (0xa000 < lVar12 - *param_4) {
-              FUN_0096cbb8(param_1,*param_4,lVar12 - *param_4,lVar13,*(undefined4 *)(param_1 + 0x2c)
-                          );
+              trigger_styleWrite(param_1,*param_4,lVar12 - *param_4,lVar13,
+                                 *(undefined4 *)(param_1 + 0x2c));
               *param_4 = lVar12;
             }
             uVar5 = (*(code *)**(undefined8 **)(param_1 + 0xa0))
@@ -43567,23 +43567,24 @@ LAB_0096dd36:
                   *(undefined1 *)(param_1 + 0x10) = 2;
                 }
               }
-              FUN_0096cbb8(param_1,*param_4,lVar12 - *param_4,lVar13,*(undefined4 *)(param_1 + 0x2c)
-                          );
-              FUN_0096cbb8(param_1,lVar12,lVar14,lVar13,*(undefined4 *)(lVar16 + -0x10));
+              trigger_styleWrite(param_1,*param_4,lVar12 - *param_4,lVar13,
+                                 *(undefined4 *)(param_1 + 0x2c));
+              trigger_styleWrite(param_1,lVar12,lVar14,lVar13,*(undefined4 *)(lVar16 + -0x10));
               *param_4 = lVar17;
             }
             lVar12 = lVar17;
             if (param_3 <= lVar17) {
               *(undefined1 *)(param_1 + 99) = 0;
-              FUN_0096cbb8(param_1,*param_4,lVar17 - *param_4,lVar13,*(undefined4 *)(param_1 + 0x2c)
-                          );
+              trigger_styleWrite(param_1,*param_4,lVar17 - *param_4,lVar13,
+                                 *(undefined4 *)(param_1 + 0x2c));
               *param_4 = lVar17;
               BSim_QTypedArrayData_char___deallocate(param_1);
               return cVar3;
             }
           }
           if (*param_4 < lVar13) {
-            FUN_0096cbb8(param_1,*param_4,lVar13 - *param_4,lVar13,*(undefined4 *)(param_1 + 0x2c));
+            trigger_styleWrite(param_1,*param_4,lVar13 - *param_4,lVar13,
+                               *(undefined4 *)(param_1 + 0x2c));
             *param_4 = lVar13;
           }
           iVar6 = FUN_0096cb24(param_1,*param_4);
@@ -43606,9 +43607,9 @@ LAB_0096daf5:
 }
 
 
-// ==== entry=0096e2ae name=FUN_0096e2ae size=503 ====
+// ==== entry=0096e2ae orig=FUN_0096e2ae size=503 name=trigger_scanTask ====
 
-undefined8 FUN_0096e2ae(long param_1,long param_2)
+undefined8 trigger_scanTask(long param_1,long param_2)
 
 {
   byte bVar1;
