@@ -56616,7 +56616,7 @@ LAB_0089ef1b:
                   }
                   pvVar4 = operator_new(0x60);
                     /* try { // try from 0089f36f to 0089f373 has its CatchHandler @ 0089f3b9 */
-                  TransferPane_ctor(pvVar4,param_2);
+                  transfer_pane_ctor(pvVar4,param_2);
                 }
                 else {
                   pvVar4 = operator_new(0x60);
@@ -76230,7 +76230,7 @@ void s_ConfigButton_8b877e(long param_1)
   FUN_006926a0(auStack_28,uVar1);
   QByteArray::QByteArray((QByteArray *)&local_20,"Dock",-1);
                     /* try { // try from 008b87c1 to 008b87c5 has its CatchHandler @ 008b8814 */
-  uVar1 = FUN_00692ef0(auStack_28,(QByteArray *)&local_20,param_1);
+  uVar1 = menuconfig_build_menu(auStack_28,(QByteArray *)&local_20,param_1);
   if (*(int *)local_20 != 0) {
     if (*(int *)local_20 == -1) goto LAB_008b87df;
     LOCK();
@@ -76240,7 +76240,7 @@ void s_ConfigButton_8b877e(long param_1)
   }
   QArrayData::deallocate(local_20,1,8);
 LAB_008b87df:
-  FUN_005ac790(*(undefined8 *)(param_1 + 0x30),"ConfigButton",uVar1);
+  quickbar_button_popup_menu(*(undefined8 *)(param_1 + 0x30),"ConfigButton",uVar1);
   return;
 }
 
@@ -77616,7 +77616,7 @@ void s_TabGroupButton_8b9d1c(long param_1)
   uVar1 = widget_findAncestorPane();
   lVar2 = TabGroupButton_popup(uVar1);
   if (lVar2 != 0) {
-    FUN_005ac790(*(undefined8 *)(param_1 + 0x38),"TabGroupButton",lVar2);
+    quickbar_button_popup_menu(*(undefined8 *)(param_1 + 0x38),"TabGroupButton",lVar2);
     QObject::deleteLater();
     return;
   }
@@ -77668,7 +77668,7 @@ void s_TabAddButton_8b9dfa(long param_1)
   plVar1 = (long *)widget_findAncestorPane();
   if ((*(code **)(*plVar1 + 0x200) != BSim_std____is_constant_evaluated) &&
      (lVar2 = (**(code **)(*plVar1 + 0x200))(plVar1), lVar2 != 0)) {
-    FUN_005ac790(*(undefined8 *)(param_1 + 0x38),"TabAddButton",lVar2);
+    quickbar_button_popup_menu(*(undefined8 *)(param_1 + 0x38),"TabAddButton",lVar2);
     QObject::deleteLater();
     return;
   }
@@ -77803,7 +77803,7 @@ void ViewTab_popup(long param_1)
   lVar2 = widget_findAncestorPane(param_1);
   if (lVar2 != 0) {
     FUN_006926a0(local_48,lVar2);
-    pQVar3 = (QPoint *)FUN_00692ef0(local_48,local_50,param_1);
+    pQVar3 = (QPoint *)menuconfig_build_menu(local_48,local_50,param_1);
     if (pQVar3 != (QPoint *)0x0) {
       local_40[0] = QWidget::mapToGlobal(*(QPoint **)(param_1 + 0x38));
       uVar4 = FUN_008b9890(param_1,iVar1);
@@ -78225,7 +78225,7 @@ void KitGroup_setupBars(QWidget *param_1)
   QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x38),"TabListButton",1);
   s_TabGroupButton_5aba4e(*(undefined8 *)(param_1 + 0x38),param_1 + 0x30);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x38),1);
-  thunk_FUN_005ad4a6(uVar11,*(undefined8 *)(param_1 + 0x38));
+  tabbar_hoverToSelect_setTimer(uVar11,*(undefined8 *)(param_1 + 0x38));
   BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
             (*(undefined8 *)(param_1 + 0x38),local_70);
   QMainWindow::setMenuWidget(param_1);

@@ -24372,7 +24372,7 @@ ulong TerminalView_openUrl(long param_1,undefined8 *param_2)
     cVar2 = QUuid::isNull();
     if (cVar2 == '\0') {
       FUN_0083d148(param_1,&local_30);
-      lVar3 = s_session_uuid_810056(DAT_011c2200,&local_30,0);
+      lVar3 = s_session_uuid_find_entry(DAT_011c2200,&local_30,0);
       uVar4 = CONCAT71((int7)((ulong)param_1 >> 8),lVar3 != 0);
     }
     else {
@@ -25605,7 +25605,7 @@ void s_session_color_835306(QString *param_1)
   json_value_init_by_type(local_c8,0);
   cVar3 = QUuid::isNull();
   if (cVar3 == '\0') {
-    local_130 = (QString *)s_session_uuid_810056(DAT_011c2200,&local_128,0);
+    local_130 = (QString *)s_session_uuid_find_entry(DAT_011c2200,&local_128,0);
     if (local_130 == (QString *)0x0) {
       iVar1 = *(int *)((long)local_128 + 4);
       goto joined_r0x00835696;
@@ -25863,7 +25863,7 @@ void s_process_workingDirectory_835a16(long param_1,long param_2)
     json_value_init_by_type((QVariant *)&local_98,0);
                     /* try { // try from 00835b2b to 00835b4b has its CatchHandler @ 00835dcd */
     if ((*(int *)(local_a8 + 4) == 0) ||
-       (lVar3 = s_session_uuid_810056(DAT_011c2200,local_b0,0), lVar3 == 0)) {
+       (lVar3 = s_session_uuid_find_entry(DAT_011c2200,local_b0,0), lVar3 == 0)) {
       lVar3 = 0;
     }
     else {
@@ -27042,7 +27042,7 @@ undefined8 s_session_protocol_837fea(undefined8 param_1,long param_2)
   cVar2 = QUuid::isNull();
   if (cVar2 == '\0') {
                     /* try { // try from 008384f0 to 008384f4 has its CatchHandler @ 00838613 */
-    puVar9 = (undefined1 *)s_session_uuid_810056(DAT_011c2200,&local_110,0);
+    puVar9 = (undefined1 *)s_session_uuid_find_entry(DAT_011c2200,&local_110,0);
     if (puVar9 == (undefined1 *)0x0) goto LAB_008384c1;
   }
   else {
@@ -33476,7 +33476,7 @@ void s_terminal_rightClickAction_84005a(long param_1,long param_2)
       if (lVar5 != 0) {
                     /* try { // try from 00840288 to 008402b5 has its CatchHandler @ 0084030d */
         FUN_006926a0(local_48,lVar5);
-        pQVar7 = (QPoint *)FUN_00692ef0(local_48,&local_70,param_1);
+        pQVar7 = (QPoint *)menuconfig_build_menu(local_48,&local_70,param_1);
         if (pQVar7 != (QPoint *)0x0) {
           QMenu::exec(pQVar7,(QAction *)(param_2 + 0x28));
           (**(code **)(*(long *)pQVar7 + 0x20))(pQVar7);

@@ -59468,11 +59468,11 @@ LAB_007339ef:
 }
 
 
-// ==== entry=00733a18 orig=FUN_00733a18 size=190 name=TransferPane_ctor ====
+// ==== entry=00733a18 orig=FUN_00733a18 size=190 name=transfer_pane_ctor ====
 
 /* WARNING: Removing unreachable block (ram,0x00733acc) */
 
-void TransferPane_ctor(undefined8 *param_1,undefined8 param_2)
+void transfer_pane_ctor(undefined8 *param_1,undefined8 param_2)
 
 {
   size_t sVar1;
@@ -59757,7 +59757,7 @@ LAB_007342be:
                     /* try { // try from 007340e9 to 007340ed has its CatchHandler @ 0073432b */
   QString::toUtf8_helper((QString *)&local_58);
                     /* try { // try from 007340f7 to 007340fb has its CatchHandler @ 00734333 */
-  lVar3 = FUN_00692ef0(local_88,(QString *)&local_58,this);
+  lVar3 = menuconfig_build_menu(local_88,(QString *)&local_58,this);
   if (*(int *)local_58 == 0) {
 LAB_007342a5:
     QArrayData::deallocate(local_58,1,8);
@@ -60940,9 +60940,9 @@ bool FUN_007359e8(undefined8 param_1)
 }
 
 
-// ==== entry=00735a0c orig=FUN_00735a0c size=1175 name=s_IntervalSpinbox_735a0c ====
+// ==== entry=00735a0c orig=FUN_00735a0c size=1175 name=transfer_pane_setupUi ====
 
-void s_IntervalSpinbox_735a0c(QWidget *param_1)
+void transfer_pane_setupUi(QWidget *param_1)
 
 {
   long lVar1;
@@ -61664,7 +61664,7 @@ void FUN_00737106(undefined8 param_1)
   QArrayData *local_20 [2];
   
   KitPane_onShown(param_1,1);
-  s_IntervalSpinbox_735a0c(param_1);
+  transfer_pane_setupUi(param_1);
   settings_connectSignals(param_1);
   local_28 = (QArrayData *)&QArrayData::shared_null;
                     /* try { // try from 00737147 to 0073714b has its CatchHandler @ 007371b8 */
@@ -61933,9 +61933,9 @@ LAB_00737725:
 }
 
 
-// ==== entry=0073782e orig=FUN_0073782e size=1550 name=sender_progressHtml ====
+// ==== entry=0073782e orig=FUN_0073782e size=1550 name=transfer_progressHtml_tooltip ====
 
-void sender_progressHtml(long param_1)
+void transfer_progressHtml_tooltip(long param_1)
 
 {
   undefined8 *puVar1;
@@ -62126,7 +62126,7 @@ void FUN_00737f44(long param_1)
     qt_array_data_unref(local_30);
     settings_enableDependentWidgets(param_1,bVar1 ^ 1);
     dialog_loadWidgetValues(param_1);
-    sender_progressHtml(param_1);
+    transfer_progressHtml_tooltip(param_1);
     QWidget::setFocus(lVar2,7);
   }
   return;
@@ -62196,7 +62196,7 @@ void s_TabTargetTitle_738000(int param_1,void *param_2)
           iVar2 = tabbar_currentIndex(*(undefined8 *)(*(long *)((long)param_2 + 0x10) + 0x48));
           if (iVar2 == iVar5) {
             settings_enableDependentWidgets(*(undefined8 *)((long)param_2 + 0x10),1);
-            sender_progressHtml(*(undefined8 *)((long)param_2 + 0x10));
+            transfer_progressHtml_tooltip(*(undefined8 *)((long)param_2 + 0x10));
           }
           local_38 = 0;
           local_30 = 0x80000000;
@@ -62260,7 +62260,7 @@ void s_TabProgress_7381fe(long param_1,char *param_2,int param_3,int param_4,int
     QVariant::~QVariant(local_48);
     QVariant::~QVariant(local_58);
     QVariant::~QVariant(local_68);
-    sender_progressHtml(param_1);
+    transfer_progressHtml_tooltip(param_1);
     return;
   }
   return;

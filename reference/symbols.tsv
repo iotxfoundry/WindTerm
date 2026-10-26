@@ -7868,3 +7868,27 @@
 0x00842772	s_session__tmux_attach_thunk	0x842414 同体 5B 跳桩(TerminalView ctor sig#22=0x9131b4 触发 attach)
 0x008cb89a	KitPane_rebuildGroup_slot	左树空组重建→addWidget(pane+0x48);子 splitter 空组 reparent
 0x008bb3e6	TabGroup_loadTabList	恢复 blob 逐 tab→rebuildView(0x8d2e46 调用者)
+# —— 挂账小目标深逆批（2026-10-26;tmux 谓词=VT 流正态检测/hoverToSelect/session.uuid/标签色/TransferPane 进度真相/async_readdir 忙泵）——
+0x005ad4a6	tabbar_hoverToSelect_setTimer	键 tabbar.hoverToSelect double→int ms;>0 建 QTimer(timeout→0x5aa91e);≤0 删
+0x005aa91e	tabbar_hover_timeout_select	超时→hover idx(+=0x40 非步-1)→setCurrentIndex
+0x005abfd8	TabGroup_tabbar_eventFilter	MouseMove(5) tabAt 变化→记 idx+start;Leave(0xb)→-1+stop;EnabledChange(0x62)→按溢出态刷滚动钮
+0x007da43e	session_factory_create_uuid	QUuid::createUuid().toString(带花括号)存 session+json 键 session.uuid;纯随机非哈希
+0x007d5f7e	s_session_uuid_get	自旋锁→json_get_string_default("session.uuid","")
+0x00810056	s_session_uuid_find_entry	线性扫 user.sessions entries[].session.uuid==目标→返回条目(惰性 QHash 缓存)
+0x00806382	ssh_knownHostsDir	<配置根>/ssh/<小写id> 路径拼装——更正:此前误当 session id 派生规则
+0x008de2d4	MuxPaneGroup_configMenu	configRequested→FUN_00692ef0(menubar,"MuxPaneGroup")按 menu.config 构菜单→按钮 mapToGlobal exec
+0x00692ef0	menuconfig_build_menu	菜单配置系统按路径键构 QMenu
+0x005ac790	quickbar_button_popup_menu	按钮→mapToGlobal→QMenu::exec,前后 setAutoRaise 按压态
+0x008e8d36	sftp_async_readdir_pump	同线程忙泵:begin→readdir 循环收 attr→closedir_begin→closedir;EAGAIN=QThread::yieldCurrentThread;无信号无批次一次全量
+0x008e9b7e	sftp_loaderNotify_insert	listDir 结果逆序逐项 QVariant→role 0x100 dataChanged+行插入
+0x008e89a2	sftp_item_from_attr	attr→SftpFileSystemItem(0xa8 包裹);过滤 "." ".." 及首'.'隐藏(pane+0x4c 开关)
+0x005aec28	TabScrollButton_factory	QToolButton autoRepeat(true) 连点步进——原版无动画;初始 hide+disabled
+0x005ab6ee	tabgroup_scroll_step	滚动步进实现(0x70/0x78 槽,按 tab 宽)
+0x005b1c08	TabListMenu_buildItems	QWidgetAction 平铺全部标签(tabIcon pixmap+文本+每行 CloseButton)+顶部 FilterEdit+CountLabel 过滤计数
+0x007503a0	s_session_color	条目键 session.color 命名色→QColor::setNamedColor→setTabColor
+0x005a7b66	tabbar_setTabColor	per-tab QColor 列表(TabBar+0x60,默认无效白)写入→tabRect update
+0x005a8b2e	tabbar_delegate_paint_fill	取 per-tab 色,非无效→fillRect(tabRect,color)
+0x008bbab6	TabGroup_saveTabList	Terminal 型 view 追加写 QColor;loadTabList alpha>0 才恢复
+0x00733a18	transfer_pane_ctor	TabGroup+QSplitter[TreeView(Extended,headerHidden,col1 Stretch),命令条]sizes[4000,1000]+隐藏 QProgressBar(+0xa0)
+0x00735a0c	transfer_pane_setupUi	同上构面;进度条借位记值不画格
+0x0073782e	transfer_progressHtml_tooltip	TabProgress[cur,max,state]→setMaximum/setValue+HTML 表 tooltip(剩余时间/速度,elapsed 计算)

@@ -4798,9 +4798,9 @@ undefined8 * FUN_007d5e68(undefined8 *param_1,long param_2)
 }
 
 
-// ==== entry=007d5f7e orig=FUN_007d5f7e size=228 name=s_session_uuid_7d5f7e ====
+// ==== entry=007d5f7e orig=FUN_007d5f7e size=228 name=s_session_uuid_get ====
 
-undefined8 * s_session_uuid_7d5f7e(undefined8 *param_1,long param_2)
+undefined8 * s_session_uuid_get(undefined8 *param_1,long param_2)
 
 {
   long lVar1;
@@ -7630,9 +7630,9 @@ void FUN_007da228(long param_1,undefined8 param_2,long *param_3)
 }
 
 
-// ==== entry=007da43e orig=FUN_007da43e size=1887 name=s_terminal_eraseWithBackground_7da43e ====
+// ==== entry=007da43e orig=FUN_007da43e size=1887 name=session_factory_create_uuid ====
 
-long * s_terminal_eraseWithBackground_7da43e
+long * session_factory_create_uuid
                  (long *param_1,long param_2,QObject *param_3,undefined8 param_4,int param_5)
 
 {
@@ -46873,9 +46873,9 @@ LAB_0080fcad:
 }
 
 
-// ==== entry=00810056 orig=FUN_00810056 size=1408 name=s_session_uuid_810056 ====
+// ==== entry=00810056 orig=FUN_00810056 size=1408 name=s_session_uuid_find_entry ====
 
-long s_session_uuid_810056(long param_1,QString *param_2,char param_3)
+long s_session_uuid_find_entry(long param_1,QString *param_2,char param_3)
 
 {
   char cVar1;
@@ -47124,7 +47124,7 @@ undefined8 * s_session_label_810606(undefined8 *param_1,long param_2,undefined8 
   
   *param_1 = &QArrayData::shared_null;
                     /* try { // try from 00810631 to 00810656 has its CatchHandler @ 00810985 */
-  lVar6 = s_session_uuid_810056(param_2,param_3,0);
+  lVar6 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar6 != 0) {
     json_value_copy_ctor(local_98,lVar6);
                     /* try { // try from 0081066f to 00810673 has its CatchHandler @ 0081097d */
@@ -47253,7 +47253,7 @@ undefined8 * FUN_008109c6(undefined8 *param_1,undefined8 param_2,undefined8 para
   
   *param_1 = &QArrayData::shared_null;
                     /* try { // try from 008109e6 to 00810a02 has its CatchHandler @ 00810a27 */
-  lVar2 = s_session_uuid_810056(param_2,param_3,0);
+  lVar2 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar2 != 0) {
     s_session_group_805a3e(&local_20,param_2,lVar2);
     uVar1 = *param_1;
@@ -47277,7 +47277,7 @@ undefined8 * FUN_00810a30(undefined8 *param_1,undefined8 param_2,undefined8 *par
   *param_1 = *param_3;
   qatomic_int_ref();
                     /* try { // try from 00810a54 to 00810a75 has its CatchHandler @ 00810a9a */
-  lVar2 = s_session_uuid_810056(param_2,param_3,0);
+  lVar2 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar2 != 0) {
     s_session_label_8062b6(&local_20,param_2,lVar2,1);
     uVar1 = *param_1;
@@ -47301,7 +47301,7 @@ undefined8 * FUN_00810aa2(undefined8 *param_1,undefined8 param_2,undefined8 *par
   *param_1 = *param_3;
   qatomic_int_ref();
                     /* try { // try from 00810ac6 to 00810ae2 has its CatchHandler @ 00810b07 */
-  lVar2 = s_session_uuid_810056(param_2,param_3,0);
+  lVar2 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar2 != 0) {
     s_session_protocol_805c94(&local_20,param_2,lVar2);
     uVar1 = *param_1;
@@ -47321,7 +47321,7 @@ FUN_00810b10(undefined8 *param_1,undefined8 param_2,undefined8 param_3,undefined
 {
   long lVar1;
   
-  lVar1 = s_session_uuid_810056(param_2,param_3,0);
+  lVar1 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar1 != 0) {
     FUN_00806ce4(param_1,param_2,lVar1,param_4);
     return param_1;
@@ -47340,7 +47340,7 @@ undefined8 * s_session_protocol_810b5e(undefined8 *param_1,undefined8 param_2,un
   long lVar1;
   QVariant aQStack_28 [16];
   
-  lVar1 = s_session_uuid_810056(param_2,param_3,0);
+  lVar1 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar1 != 0) {
     FUN_00806ce4(aQStack_28,param_2,lVar1,"session.protocol");
                     /* try { // try from 00810b9f to 00810ba3 has its CatchHandler @ 00810bce */
@@ -47361,7 +47361,7 @@ undefined8 * s_session_system_810bd6(undefined8 *param_1,undefined8 param_2,unde
   long lVar1;
   QVariant aQStack_28 [16];
   
-  lVar1 = s_session_uuid_810056(param_2,param_3,0);
+  lVar1 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar1 != 0) {
     FUN_00806ce4(aQStack_28,param_2,lVar1,"session.system");
                     /* try { // try from 00810c17 to 00810c1b has its CatchHandler @ 00810c46 */
@@ -47389,7 +47389,7 @@ FUN_00810c4e(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8
   undefined1 local_98 [48];
   undefined1 local_68 [56];
   
-  lVar3 = s_session_uuid_810056(param_1,param_2,0);
+  lVar3 = s_session_uuid_find_entry(param_1,param_2,0);
   if (lVar3 == 0) {
     uVar2 = 0;
   }
@@ -47461,7 +47461,7 @@ QString * s_session_protocol_810d6e
   
   local_d8 = &QArrayData::shared_null;
                     /* try { // try from 00810da2 to 00810dd2 has its CatchHandler @ 008114a0 */
-  lVar6 = s_session_uuid_810056(param_2,param_3,0);
+  lVar6 = s_session_uuid_find_entry(param_2,param_3,0);
   if (lVar6 == 0) goto LAB_008112a6;
   s_session_label_8062b6((QByteArray *)local_68,param_2,lVar6,1);
                     /* try { // try from 00810de3 to 00810de7 has its CatchHandler @ 0081150a */
@@ -49395,7 +49395,7 @@ LAB_008142bd:
               local_160 = *(QRegularExpression **)((long)local_2f0 + 0x18);
               qatomic_int_ref();
                     /* try { // try from 008143f8 to 008143fc has its CatchHandler @ 008151cd */
-              lVar15 = s_session_uuid_810056(param_1,&local_160,0);
+              lVar15 = s_session_uuid_find_entry(param_1,&local_160,0);
               if (lVar15 != 0) {
                     /* try { // try from 008144af to 008144b3 has its CatchHandler @ 008151cd */
                 json_value_copy_ctor(local_d8,lVar15);
@@ -49704,7 +49704,7 @@ long * CTerminalConfig_qt_metacall(long *param_1,undefined8 param_2,undefined1 p
         local_e8 = auVar8;
         cVar3 = QUuid::isNull();
         if (cVar3 != '\0') break;
-        lVar7 = s_session_uuid_810056(param_2,plVar1,0);
+        lVar7 = s_session_uuid_find_entry(param_2,plVar1,0);
         if (lVar7 == 0) {
                     /* try { // try from 008157af to 008157ec has its CatchHandler @ 0081582d */
           FUN_008a5816(param_2,plVar1);

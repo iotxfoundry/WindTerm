@@ -6562,7 +6562,7 @@ LAB_008c3f99:
                     /* try { // try from 008c3e3e to 008c3e42 has its CatchHandler @ 008c4096 */
   QString::toUtf8_helper(&local_58);
                     /* try { // try from 008c3e4c to 008c3e50 has its CatchHandler @ 008c4086 */
-  pQVar9 = (QPoint *)FUN_00692ef0(local_c8,&local_58,param_1);
+  pQVar9 = (QPoint *)menuconfig_build_menu(local_c8,&local_58,param_1);
   piVar1 = (int *)CONCAT71(uStack_57,local_58);
   if (*piVar1 == 0) {
 LAB_008c3f80:
@@ -8218,7 +8218,7 @@ void FUN_008c5f16(undefined8 param_1,undefined8 param_2,QAction *param_3)
   if (lVar1 != 0) {
     FUN_006926a0(local_30,lVar1);
     uVar2 = find_ancestor_type(param_1);
-    pQVar3 = (QPoint *)FUN_00692ef0(local_30,param_2,uVar2);
+    pQVar3 = (QPoint *)menuconfig_build_menu(local_30,param_2,uVar2);
     if (pQVar3 != (QPoint *)0x0) {
       QMenu::exec(pQVar3,param_3);
       (**(code **)(*(long *)pQVar3 + 0x20))(pQVar3);
@@ -11501,7 +11501,7 @@ undefined8 TabGroupButton_popup(undefined8 param_1)
   FUN_006926a0(auStack_28,param_1);
   QByteArray::QByteArray(local_20,"TabGroup Popup",-1);
                     /* try { // try from 008ca03d to 008ca041 has its CatchHandler @ 008ca059 */
-  uVar1 = FUN_00692ef0(auStack_28,local_20,param_1);
+  uVar1 = menuconfig_build_menu(auStack_28,local_20,param_1);
   qt_byte_array_unref(local_20);
   return uVar1;
 }
@@ -13088,7 +13088,7 @@ MenuBarCorner_mkBtn(undefined8 *param_1,QWidget *param_2,undefined8 param_3,unde
       FUN_006926a0((Connection *)&local_58,*param_1);
       QByteArray::QByteArray((QByteArray *)&local_48,"Layout",-1);
                     /* try { // try from 008cbef5 to 008cbf19 has its CatchHandler @ 008cbfe5 */
-      lVar2 = FUN_00692ef0((Connection *)&local_58,(QIcon *)&local_48,this);
+      lVar2 = menuconfig_build_menu((Connection *)&local_58,(QIcon *)&local_48,this);
       if (lVar2 != 0) {
         QToolButton::setPopupMode(this,2);
         QToolButton::setMenu((QMenu *)this);
@@ -16917,7 +16917,7 @@ void s_ViewGroup_8d22be(undefined8 param_1,undefined8 *param_2,bool *param_3)
     uVar2 = *(undefined8 *)puVar5;
                     /* try { // try from 008d2370 to 008d23b2 has its CatchHandler @ 008d23dc */
     QVariant::toDouble(param_3);
-    thunk_FUN_005ad4a6(uVar2);
+    tabbar_hoverToSelect_setTimer(uVar2);
   }
   FUN_008d60c0(&local_30);
   return;
@@ -17615,7 +17615,8 @@ undefined1 KitWindow_restoreStartupSessions(long *param_1,QByteArray *param_2,ui
                           if (0 < iVar9) {
                             QString::left((int)(QByteArray *)&local_b8);
                     /* try { // try from 008d3acf to 008d3aec has its CatchHandler @ 008d3bb0 */
-                            lVar17 = s_session_uuid_810056(DAT_011c2200,(QByteArray *)&local_b8,0);
+                            lVar17 = s_session_uuid_find_entry
+                                               (DAT_011c2200,(QByteArray *)&local_b8,0);
                             if (lVar17 != 0) {
                               qstring_assign_from_ascii((QVariant *)local_a8,&DAT_00d0d1c3);
                     /* try { // try from 008d3aff to 008d3b03 has its CatchHandler @ 008d3c6d */
@@ -22175,7 +22176,7 @@ LAB_008d9ea7:
   QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x30),"TabListButton",1);
   QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x30),"ConfigButton",0);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x30),0);
-  thunk_FUN_005ad4a6(uVar3,*(undefined8 *)(param_1 + 0x30));
+  tabbar_hoverToSelect_setTimer(uVar3,*(undefined8 *)(param_1 + 0x30));
   uVar3 = *(undefined8 *)(param_1 + 0x30);
   sVar4 = strlen("RenameTab");
   local_58[0] = (QArrayData *)QString::fromAscii_helper("RenameTab",(int)sVar4);
@@ -25715,9 +25716,9 @@ void FUN_008de260(int param_1,void *param_2)
 }
 
 
-// ==== entry=008de2d4 orig=FUN_008de2d4 size=214 name=s_MuxPaneGroup_8de2d4 ====
+// ==== entry=008de2d4 orig=FUN_008de2d4 size=214 name=MuxPaneGroup_configMenu ====
 
-void s_MuxPaneGroup_8de2d4(long param_1)
+void MuxPaneGroup_configMenu(long param_1)
 
 {
   long lVar1;
@@ -25737,7 +25738,7 @@ void s_MuxPaneGroup_8de2d4(long param_1)
   FUN_006926a0(auStack_38,lVar1);
   QByteArray::QByteArray((QByteArray *)local_30,"MuxPaneGroup",-1);
                     /* try { // try from 008de357 to 008de35b has its CatchHandler @ 008de3aa */
-  uVar2 = FUN_00692ef0(auStack_38,(QByteArray *)local_30,param_1);
+  uVar2 = menuconfig_build_menu(auStack_38,(QByteArray *)local_30,param_1);
   if (*(int *)local_30[0] != 0) {
     if (*(int *)local_30[0] == -1) goto LAB_008de389;
     LOCK();
@@ -25747,7 +25748,7 @@ void s_MuxPaneGroup_8de2d4(long param_1)
   }
   QArrayData::deallocate(local_30[0],1,8);
 LAB_008de389:
-  FUN_005ac790(*(undefined8 *)(param_1 + 0x38),"ConfigButton",uVar2);
+  quickbar_button_popup_menu(*(undefined8 *)(param_1 + 0x38),"ConfigButton",uVar2);
   return;
 }
 
@@ -25902,7 +25903,7 @@ void FUN_008de5a6(long param_1)
   uVar1 = *(undefined8 *)(param_1 + 0x38);
   local_58 = FUN_008fb598;
   local_50 = 0;
-  local_48 = s_MuxPaneGroup_8de2d4;
+  local_48 = MuxPaneGroup_configMenu;
   local_40 = 0;
   puVar2 = operator_new(0x20);
   *puVar2 = 1;
@@ -26034,7 +26035,7 @@ LAB_008dec55:
   FUN_005ab89c(*(undefined8 *)(param_1 + 0x38),0);
   FUN_005ab88a(*(undefined8 *)(param_1 + 0x38),0);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x38),0);
-  thunk_FUN_005ad4a6(uVar3,*(undefined8 *)(param_1 + 0x38));
+  tabbar_hoverToSelect_setTimer(uVar3,*(undefined8 *)(param_1 + 0x38));
   uVar3 = *(undefined8 *)(param_1 + 0x38);
   sVar4 = strlen("RenameTab");
   local_58[0] = (QArrayData *)QString::fromAscii_helper("RenameTab",(int)sVar4);
@@ -33314,7 +33315,7 @@ LAB_008e6a2f:
           }
           local_50 = (QArrayData *)QString::fromAscii_helper(__s,iVar9);
                     /* try { // try from 008e6a65 to 008e6a69 has its CatchHandler @ 008e6bf8 */
-          FUN_008e89a2(&local_48,lVar10,param_2 + 0x28,&local_50,puVar5);
+          sftp_item_from_attr(&local_48,lVar10,param_2 + 0x28,&local_50,puVar5);
           if (*(int *)local_50 == 0) {
 LAB_008e6b53:
             QArrayData::deallocate(local_50,2,8);
@@ -34863,7 +34864,7 @@ LAB_008e86c5:
     }
   }
   else {
-    FUN_008e89a2(&local_48,param_2,&local_88,&local_90,lVar9);
+    sftp_item_from_attr(&local_48,param_2,&local_88,&local_90,lVar9);
     pQVar11 = local_40[0];
     pQVar12 = local_48;
     local_40[0] = (QArrayData *)0x0;
@@ -34934,15 +34935,15 @@ LAB_008e83ca:
 }
 
 
-// ==== entry=008e89a2 name=FUN_008e89a2 size=679 ====
+// ==== entry=008e89a2 orig=FUN_008e89a2 size=679 name=sftp_item_from_attr ====
 
 /* WARNING: Removing unreachable block (ram,0x008e8c29) */
 /* WARNING: Removing unreachable block (ram,0x008e8b5c) */
 /* WARNING: Removing unreachable block (ram,0x008e8bf9) */
 /* WARNING: Removing unreachable block (ram,0x008e8c39) */
 
-long * FUN_008e89a2(long *param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,
-                   long param_5)
+long * sftp_item_from_attr(long *param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,
+                          long param_5)
 
 {
   long *plVar1;
@@ -35111,13 +35112,14 @@ undefined8 FUN_008e8c72(undefined8 param_1,undefined8 param_2)
 }
 
 
-// ==== entry=008e8d36 orig=FUN_008e8d36 size=3504 name=SftpFolder_listDir ====
+// ==== entry=008e8d36 orig=FUN_008e8d36 size=3504 name=sftp_async_readdir_pump ====
 
 /* WARNING: Removing unreachable block (ram,0x008e9a2c) */
 /* WARNING: Removing unreachable block (ram,0x008e9adb) */
 
 undefined1 *
-SftpFolder_listDir(undefined1 *param_1,long param_2,long *param_3,char param_4,undefined1 param_5)
+sftp_async_readdir_pump
+          (undefined1 *param_1,long param_2,long *param_3,char param_4,undefined1 param_5)
 
 {
   QArrayData *pQVar1;
@@ -35409,7 +35411,7 @@ LAB_008e975b:
           }
           local_58 = (QArrayData *)QString::fromAscii_helper(__s,iVar9);
                     /* try { // try from 008e9791 to 008e9795 has its CatchHandler @ 008e9b5d */
-          FUN_008e89a2(&local_48,param_2,param_3,&local_58,puVar14);
+          sftp_item_from_attr(&local_48,param_2,param_3,&local_58,puVar14);
           if (*(int *)local_58 == 0) {
 LAB_008e9889:
             QArrayData::deallocate(local_58,2,8);
@@ -35633,9 +35635,9 @@ LAB_008e8d7a:
 }
 
 
-// ==== entry=008e9b7e orig=FUN_008e9b7e size=762 name=sftp_loaderNotify ====
+// ==== entry=008e9b7e orig=FUN_008e9b7e size=762 name=sftp_loaderNotify_insert ====
 
-void sftp_loaderNotify(long param_1)
+void sftp_loaderNotify_insert(long param_1)
 
 {
   QArrayData *pQVar1;
@@ -35658,7 +35660,8 @@ void sftp_loaderNotify(long param_1)
     local_68 = (QArrayData *)&QListData::shared_null;
     local_60 = &QListData::shared_null;
                     /* try { // try from 008e9bef to 008e9cb1 has its CatchHandler @ 008e9e90 */
-    SftpFolder_listDir((QVariant *)&local_48,param_1,&local_70,*(undefined1 *)(param_1 + 0x40),0);
+    sftp_async_readdir_pump
+              ((QVariant *)&local_48,param_1,&local_70,*(undefined1 *)(param_1 + 0x40),0);
     pQVar6 = local_40[0];
     local_50 = local_68;
     local_40[0] = (QArrayData *)&QListData::shared_null;

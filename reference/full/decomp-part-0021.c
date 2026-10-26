@@ -19013,9 +19013,9 @@ LAB_00692d66:
 }
 
 
-// ==== entry=00692ef0 name=FUN_00692ef0 size=310 ====
+// ==== entry=00692ef0 orig=FUN_00692ef0 size=310 name=menuconfig_build_menu ====
 
-QMenu * FUN_00692ef0(long *param_1,long *param_2,QWidget *param_3)
+QMenu * menuconfig_build_menu(long *param_1,long *param_2,QWidget *param_3)
 
 {
   QMenu *pQVar1;
@@ -19480,7 +19480,7 @@ LAB_006938b5:
             lVar22 = *(long *)(*local_50 + 0x20);
             if ((*(byte *)(lVar22 + 0x11) & 8) != 0) {
                     /* try { // try from 00693fd3 to 00693ff4 has its CatchHandler @ 0069419d */
-              lVar22 = FUN_00692ef0(local_c0,lVar22 + 8,lVar2);
+              lVar22 = menuconfig_build_menu(local_c0,lVar22 + 8,lVar2);
               if (lVar22 != 0) {
                 QToolButton::setMenu((QMenu *)this_00);
                 QToolButton::setPopupMode(this_00,1);
@@ -19915,7 +19915,7 @@ LAB_006949fa:
         lVar15 = *(long *)(*local_50 + 0x20);
         if ((*(byte *)(lVar15 + 0x11) & 8) != 0) {
                     /* try { // try from 00694a1a to 00694a32 has its CatchHandler @ 00694b2d */
-          lVar15 = FUN_00692ef0(param_2,lVar15 + 8,param_4);
+          lVar15 = menuconfig_build_menu(param_2,lVar15 + 8,param_4);
           if (lVar15 != 0) {
             pQVar13 = operator_new(0x30);
                     /* try { // try from 00694a3e to 00694a42 has its CatchHandler @ 00694b55 */

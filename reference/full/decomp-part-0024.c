@@ -26629,7 +26629,7 @@ LAB_007bb8f3:
       local_78 = (QArrayData *)0x0;
       local_70 = 0x80000000;
                     /* try { // try from 007bb92e to 007bb932 has its CatchHandler @ 007bbb31 */
-      s_session_uuid_7d5f7e(&local_98,*(undefined8 *)(param_1 + 0x38));
+      s_session_uuid_get(&local_98,*(undefined8 *)(param_1 + 0x38));
       lVar2 = DAT_011c2200;
                     /* try { // try from 007bb943 to 007bb947 has its CatchHandler @ 007bbb29 */
       qjsvalue_to_qvariant_convert(local_68,(QVariant *)&local_78);
@@ -26653,7 +26653,7 @@ joined_r0x007bb980:
                     /* try { // try from 007bba16 to 007bba1a has its CatchHandler @ 007bbaf1 */
     QVariant::QVariant((QVariant *)&local_78,(QByteArray *)&local_98);
                     /* try { // try from 007bba3a to 007bba3e has its CatchHandler @ 007bbae9 */
-    s_session_uuid_7d5f7e(&local_90,*(undefined8 *)(param_1 + 0x38));
+    s_session_uuid_get(&local_90,*(undefined8 *)(param_1 + 0x38));
     lVar2 = DAT_011c2200;
                     /* try { // try from 007bba4f to 007bba53 has its CatchHandler @ 007bbb21 */
     qjsvalue_to_qvariant_convert(local_68,(QVariant *)&local_78);
@@ -26694,7 +26694,7 @@ LAB_007bb840:
                     /* try { // try from 007bb846 to 007bb84a has its CatchHandler @ 007bbb39 */
     QVariant::QVariant((QVariant *)&local_78,(QString *)&local_a8);
                     /* try { // try from 007bb85b to 007bb85f has its CatchHandler @ 007bbb11 */
-    s_session_uuid_7d5f7e(&local_a0,*(undefined8 *)(param_1 + 0x38));
+    s_session_uuid_get(&local_a0,*(undefined8 *)(param_1 + 0x38));
     lVar2 = DAT_011c2200;
                     /* try { // try from 007bb870 to 007bb874 has its CatchHandler @ 007bbb09 */
     qjsvalue_to_qvariant_convert(local_68,(QVariant *)&local_78);
@@ -27928,7 +27928,7 @@ LAB_007bdb7e:
           } while (puVar7 + (long)(int)uVar2 * 2 + 4 != puVar12);
           uVar5 = uVar5 & 0xff;
         }
-        lVar8 = s_session_uuid_810056(DAT_011c2200,(QString *)&local_a8,0);
+        lVar8 = s_session_uuid_find_entry(DAT_011c2200,(QString *)&local_a8,0);
         if (lVar8 == 0) {
           QMetaObject::tr((char *)&local_78,(char *)&PTR_staticMetaObject_011a7220,0xca6ae0);
                     /* try { // try from 007bdea4 to 007bdea8 has its CatchHandler @ 007bdf25 */
@@ -28463,7 +28463,7 @@ undefined8 FUN_007be8e4(long param_1,QString *param_2,undefined1 param_3,undefin
   QString::operator=((QString *)(param_1 + 0x30),param_2);
   *(undefined1 *)(param_1 + 0x28) = param_4;
   FUN_007bbb5a(param_1);
-  lVar1 = s_session_uuid_810056(DAT_011c2200,param_2,1);
+  lVar1 = s_session_uuid_find_entry(DAT_011c2200,param_2,1);
   if (lVar1 == 0) {
     QMetaObject::tr((char *)&local_78,(char *)&PTR_staticMetaObject_011a7220,0xca6b68);
                     /* try { // try from 007bea51 to 007bea55 has its CatchHandler @ 007beb66 */
@@ -38380,8 +38380,7 @@ void FUN_007caec2(undefined8 param_1)
 undefined8 FUN_007cb00e(undefined8 param_1,long param_2,undefined8 param_3,undefined4 param_4)
 
 {
-  s_terminal_eraseWithBackground_7da43e
-            (param_1,*(undefined8 *)(param_2 + 0x38),param_2,param_3,param_4);
+  session_factory_create_uuid(param_1,*(undefined8 *)(param_2 + 0x38),param_2,param_3,param_4);
   return param_1;
 }
 
@@ -41679,8 +41678,7 @@ void FUN_007cd120(long param_1)
   if (*(long **)(param_1 + 0x50) != (long *)0x0) {
     (**(code **)(**(long **)(param_1 + 0x50) + 0x20))();
   }
-  s_terminal_eraseWithBackground_7da43e
-            (&local_38,*(undefined8 *)(param_1 + 0x38),param_1,0,0xffffffff);
+  session_factory_create_uuid(&local_38,*(undefined8 *)(param_1 + 0x38),param_1,0,0xffffffff);
   if (local_38 == (int *)0x0) {
     *(undefined8 *)(param_1 + 0x50) = 0;
     local_30 = 0;

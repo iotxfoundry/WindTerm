@@ -18215,7 +18215,7 @@ LAB_00524c9e:
         local_d8 = pQVar8;
         qt_array_data_unref(&local_d8);
       }
-      lVar6 = s_session_uuid_810056(DAT_011c2200,&local_e0,0);
+      lVar6 = s_session_uuid_find_entry(DAT_011c2200,&local_e0,0);
       if (lVar6 != 0) {
         json_value_assign_string((QIcon *)local_98,&DAT_00cb99b6);
                     /* try { // try from 00524de1 to 00524de5 has its CatchHandler @ 00525029 */

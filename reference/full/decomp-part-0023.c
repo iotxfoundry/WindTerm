@@ -2792,7 +2792,7 @@ void FUN_0073c884(int param_1,void *param_2,undefined8 param_3,long param_4)
     if (*(long *)((long)param_2 + 0x28) == 0) {
       return;
     }
-    lVar4 = s_session_uuid_810056(DAT_011c2200,(long)param_2 + 0x30,0);
+    lVar4 = s_session_uuid_find_entry(DAT_011c2200,(long)param_2 + 0x30,0);
     if (lVar4 == 0) {
       return;
     }
@@ -3623,7 +3623,7 @@ LAB_0073e0ac:
       return;
     }
     local_140 = &local_e8;
-    lVar5 = s_session_uuid_810056(DAT_011c2200,param_2,0);
+    lVar5 = s_session_uuid_find_entry(DAT_011c2200,param_2,0);
     if (lVar5 == 0) {
       return;
     }
@@ -3770,7 +3770,7 @@ LAB_0073e695:
     FUN_007212d0(plVar6,param_3);
   }
   else {
-    lVar5 = s_session_uuid_810056(DAT_011c2200,param_2,0);
+    lVar5 = s_session_uuid_find_entry(DAT_011c2200,param_2,0);
     if (lVar5 == 0) {
       return;
     }
@@ -5056,7 +5056,7 @@ void FUN_00740325(int param_1,void *param_2,undefined8 param_3,long param_4)
       UNLOCK();
     }
                     /* try { // try from 00740396 to 007403f1 has its CatchHandler @ 00740429 */
-    lVar2 = s_session_uuid_810056(DAT_011c2200,&local_40,0);
+    lVar2 = s_session_uuid_find_entry(DAT_011c2200,&local_40,0);
     if (lVar2 != 0) {
       s_session_uuid_73f7a2(&local_38,*(undefined8 *)((long)param_2 + 0x18),lVar2);
       if (((-1 < local_38) && (-1 < local_34)) && (local_28 != 0)) {
@@ -5091,7 +5091,7 @@ void FUN_00740432(undefined8 param_1,undefined8 param_2)
   long lVar1;
   undefined1 auStack_28 [32];
   
-  lVar1 = s_session_uuid_810056(DAT_011c2200,param_2,0);
+  lVar1 = s_session_uuid_find_entry(DAT_011c2200,param_2,0);
   if (lVar1 != 0) {
     s_session_uuid_73f7a2(auStack_28,param_1,lVar1);
     FUN_0073d49a(param_1);
@@ -7733,7 +7733,7 @@ LAB_00744561:
     QVariant::toString();
     QVariant::~QVariant((QVariant *)&local_128);
                     /* try { // try from 007447fd to 00744801 has its CatchHandler @ 007459f8 */
-    lVar7 = s_session_uuid_810056(DAT_011c2200,local_210,0);
+    lVar7 = s_session_uuid_find_entry(DAT_011c2200,local_210,0);
     if (lVar7 == 0) {
       qt_array_data_unref(local_210);
       goto LAB_00744561;
@@ -8252,7 +8252,7 @@ LAB_00745715:
   QVariant::toString();
   QVariant::~QVariant((QVariant *)&local_128);
                     /* try { // try from 00744602 to 00744629 has its CatchHandler @ 00745b6a */
-  lVar7 = s_session_uuid_810056(DAT_011c2200,&local_170,0);
+  lVar7 = s_session_uuid_find_entry(DAT_011c2200,&local_170,0);
   if (lVar7 != 0) {
     json_value_assign_string(local_158,&DAT_00cb99b6);
                     /* try { // try from 0074463d to 00744641 has its CatchHandler @ 00745b62 */
@@ -15964,9 +15964,9 @@ LAB_00750377:
 }
 
 
-// ==== entry=007503a0 orig=FUN_007503a0 size=944 name=s_session_color_7503a0 ====
+// ==== entry=007503a0 orig=FUN_007503a0 size=944 name=s_session_color ====
 
-int s_session_color_7503a0(long param_1,undefined8 param_2)
+int s_session_color(long param_1,undefined8 param_2)
 
 {
   undefined8 uVar1;
@@ -15985,7 +15985,7 @@ int s_session_color_7503a0(long param_1,undefined8 param_2)
   code *local_68;
   undefined8 local_60;
   
-  lVar3 = s_session_uuid_810056(DAT_011c2200,param_2,0);
+  lVar3 = s_session_uuid_find_entry(DAT_011c2200,param_2,0);
   if ((lVar3 == 0) || (lVar4 = s_ShowMenu_7502f0(param_1), lVar4 == 0)) {
     return -1;
   }
@@ -16139,7 +16139,7 @@ void FUN_007507a0(int param_1,void *param_2)
                     /* try { // try from 007507eb to 007507ef has its CatchHandler @ 00750865 */
   QVariant::toString();
                     /* try { // try from 007507f6 to 007507fa has its CatchHandler @ 0075085b */
-  s_session_color_7503a0(uVar1,&local_30);
+  s_session_color(uVar1,&local_30);
   if (*(int *)local_30 == 0) {
 LAB_00750842:
     QArrayData::deallocate(local_30,2,8);
@@ -16222,7 +16222,7 @@ LAB_00750a97:
   QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x48),"TabAddButton",1);
   QuickBar_ButtonFactory(*(undefined8 *)(param_1 + 0x48),"TabListButton",1);
   FUN_005ac522(*(undefined8 *)(param_1 + 0x48),1);
-  thunk_FUN_005ad4a6(uVar2,*(undefined8 *)(param_1 + 0x48));
+  tabbar_hoverToSelect_setTimer(uVar2,*(undefined8 *)(param_1 + 0x48));
   BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_boost__exception_detail__bad_alloc______dispose
             (*(undefined8 *)(param_1 + 0x48),&local_68);
   if (*(int *)local_68 != 0) {
@@ -16288,7 +16288,7 @@ void FUN_00750b36(undefined8 param_1)
   s_tabbar_showSequenceNumbers_75086e(param_1);
   FUN_0074ffe8(param_1);
   if (*(int *)(local_20[0] + 4) != 0) {
-    s_session_color_7503a0(param_1,local_20);
+    s_session_color(param_1,local_20);
   }
   if (*(int *)local_20[0] != 0) {
     if (*(int *)local_20[0] != -1) {
@@ -16818,7 +16818,7 @@ LAB_0075144a:
   }
   QHashData::free_helper((_func_void_Node_ptr *)local_60);
 LAB_00751410:
-  FUN_005ac790(*(undefined8 *)(param_1 + 0x48),"TabAddButton",this);
+  quickbar_button_popup_menu(*(undefined8 *)(param_1 + 0x48),"TabAddButton",this);
   QObject::deleteLater();
   return;
 }
@@ -16870,7 +16870,7 @@ LAB_00751960:
       UNLOCK();
     }
                     /* try { // try from 0075191f to 00751923 has its CatchHandler @ 007519dd */
-    s_session_color_7503a0(*param_1,local_168);
+    s_session_color(*param_1,local_168);
     if (*(int *)local_168[0] == 0) {
 LAB_00751947:
       QArrayData::deallocate(local_168[0],2,8);

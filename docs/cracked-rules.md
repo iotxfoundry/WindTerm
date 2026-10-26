@@ -102,3 +102,24 @@ attach（0x00842414）：守卫(+0x1c8 引用/+0x1d0 指针)幂等→终端须�
 
 ## R43（2026-10-26）KitPane 左右树无共享模型，互通=三通道
 左树（pin pane）不产 view；新 KitGroup 恒 addWidget 进右 splitter（pane+0x48）。互通：①parent 链回溯（findAncestorPane/find_ancestor_type）②QVariant 目标寻址跨 pane acquire（"Last"/uuid/"::Find Result"）③TabGroup sig2→0x8a09ac→0x8ca876 跨 pane rebuildView。禁止实现成共享 model/共享 widget。证据：0x008ca77c/0x008d43ba/0x008a09ac/0x0089f516。落点：结构约束（重建现状合规）。
+
+## R44（2026-10-26）tmux 启用谓词=VT 输出流特征检测（非 session 参数判定）
+tmux_enable(0x7e9a06)=幂等置位+new Tmux(0x7e90b6 setter:12 信号连线)+发 tmuxControlModeEntered；唯一触发点=meta 派发 idx0x22（0x90fa45），上游=tmux_vt_notify_dispatch(0x7e9a32) 对 VT 输出按 \n 切行逐行正则匹配命中——本地 PTY 与 SSH channel 同源进此泵（SSH 内 tmux 无独立检测）。落点：TerminalView 检测器改造。
+
+## R45（2026-10-26）hoverToSelect=tabbar.hoverToSelect（ms）+eventFilter
+键 tabbar.hoverToSelect（double→int ms，≤0 禁用删定时器）；TabGroup eventFilter：MouseMove tabAt 变化→记 idx+QTimer start；Leave→清+stop；超时→setCurrentIndex。证据 0x005ad4a6/0x005aa91e/0x005abfd8。
+
+## R46（2026-10-26）会话标识与标签色
+uuid=QUuid::createUuid() 纯随机、创建时生成、持久化 session.uuid、查找线性扫条目（0x7da43e/0x7d5f7e/0x810056）；0x806382 是 ssh_knownHostsDir（误名更正）。标签色=user.sessions 条目 session.color 命名色→TabBar per-tab QColor 列表→paint fillRect（0x7503a0/0x5a7b66/0x5a8b2e）；默认无效不染色；save/load 按 alpha>0。
+
+## R47（2026-10-26）TabScroll=autoRepeat 连点无动画（挂账"动画未实现"更正——原版本就无动画类）；TabListMenu=平铺列表
+滚动钮 QToolButton autoRepeat(true)，初始 hide+disabled，EnabledChange 按溢出态刷新（0x5aec28/0x5ab6ee）；TabListMenu=QWidgetAction 平铺（图标+文本+每行 CloseButton）+顶部 FilterEdit+CountLabel（0x5b1c08）。
+
+## R48（2026-10-26）TransferPane 进度=隐藏 QProgressBar 借位+HTML tooltip（非 delegate 自绘，挂账表述更正）
+列 0 pause delegate 之外：独立隐藏 QProgressBar（setMaximum/setValue 仅记状态）+悬浮 HTML 表 tooltip（Session/Target dir/Items %1 of %2/Failed 红/Time left/elapsed/Avg speed）；行内百分比=transfer.weightPercent 文本。证据 0x733a18/0x735a0c/0x73782e/0x617aea。
+
+## R49（2026-10-26）async_readdir=同线程忙泵+EAGAIN yield（无专用线程/无信号批次）
+begin→readdir 循环收 attr→closedir_begin→closedir；EAGAIN=QThread::yieldCurrentThread；一次全量返回+上层逆序整表插入。证据 0x8e8d36/0x8e9b7e/0x8e89a2。
+
+## R50（2026-10-26）tmux pane 组 ConfigButton=menu.config "MuxPaneGroup" 键弹菜单（非对话框）
+clicked→TabGroup sig8 configRequested→菜单配置系统按路径构 QMenu（TogglePaneZoom/MovePaneToNewWindow|Split 四向|RenamePane/RenameWindow/Tmux.RenameSession）→按钮 mapToGlobal exec。证据 0x8de2d4/0x692ef0/0x5ac790。

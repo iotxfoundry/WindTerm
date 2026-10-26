@@ -29970,7 +29970,7 @@ void ShellPane_h90ba9a(undefined8 param_1,int param_2,int param_3,long *param_4)
   
   if (param_2 == 0) {
     if (param_3 == 0) {
-      uVar1 = s_session_color_7503a0(param_1,param_4[1]);
+      uVar1 = s_session_color(param_1,param_4[1]);
       if ((undefined4 *)*param_4 != (undefined4 *)0x0) {
         *(undefined4 *)*param_4 = uVar1;
       }

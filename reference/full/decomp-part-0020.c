@@ -37202,7 +37202,7 @@ LAB_00652f12:
     if (iVar2 != -1) goto LAB_00653034;
   }
                     /* try { // try from 00652fa5 to 00652fc0 has its CatchHandler @ 006530dd */
-  lVar5 = s_session_uuid_810056(DAT_011c2200,local_b0,0);
+  lVar5 = s_session_uuid_find_entry(DAT_011c2200,local_b0,0);
   if (lVar5 != 0) {
     json_value_assign_string((QIcon *)local_98,&DAT_00cb99b6);
                     /* try { // try from 00652fd4 to 00652fd8 has its CatchHandler @ 0065311d */

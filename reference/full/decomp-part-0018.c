@@ -7592,7 +7592,7 @@ joined_r0x00590b3a:
         pvVar17 = operator_new(0x48);
                     /* try { // try from 0059037c to 00590380 has its CatchHandler @ 00590ce5 */
         combo_makeSearchCombo(pvVar17,*plVar1);
-        s_session_uuid_7d5f7e(local_b8,*(undefined8 *)(*plVar1 + 0xa0));
+        s_session_uuid_get(local_b8,*(undefined8 *)(*plVar1 + 0xa0));
                     /* try { // try from 005903b9 to 005903e3 has its CatchHandler @ 00590cd5 */
         s_session_oneKeyType_65312e(DAT_011c17e0,pvVar17,local_b8,1);
         QMetaObject::tr((char *)&local_48,(char *)&PTR_staticMetaObject_01198d80,0xc8ace0);
@@ -8077,7 +8077,7 @@ void FUN_005913ec(long param_1,undefined8 param_2,undefined8 param_3)
   QArrayData *local_60;
   undefined1 local_58 [48];
   
-  s_session_uuid_7d5f7e(&local_60,*(undefined8 *)(param_1 + 0xa0));
+  s_session_uuid_get(&local_60,*(undefined8 *)(param_1 + 0xa0));
   uVar1 = DAT_011c2200;
                     /* try { // try from 00591427 to 0059142b has its CatchHandler @ 0059148f */
   qjsvalue_to_qvariant_convert(local_58,param_3);
@@ -22569,9 +22569,9 @@ LAB_005a79c4:
 }
 
 
-// ==== entry=005a7b66 name=FUN_005a7b66 size=269 ====
+// ==== entry=005a7b66 orig=FUN_005a7b66 size=269 name=tabbar_setTabColor ====
 
-void FUN_005a7b66(QRect *param_1,int param_2,QColor *param_3)
+void tabbar_setTabColor(QRect *param_1,int param_2,QColor *param_3)
 
 {
   QRect *pQVar1;
@@ -23320,9 +23320,9 @@ LAB_005a8af0:
 }
 
 
-// ==== entry=005a8b2e orig=FUN_005a8b2e size=1419 name=item_delegate_paint ====
+// ==== entry=005a8b2e orig=FUN_005a8b2e size=1419 name=tabbar_delegate_paint_fill ====
 
-void item_delegate_paint(long *param_1,long param_2,undefined4 param_3)
+void tabbar_delegate_paint_fill(long *param_1,long param_2,undefined4 param_3)
 
 {
   int iVar1;
@@ -23645,7 +23645,7 @@ LAB_005a9508:
           local_140 = local_140 + iVar2;
           local_148 = local_148 + iVar2;
         }
-        item_delegate_paint(&local_1e8,local_158,uVar8 & 0xffffffff);
+        tabbar_delegate_paint_fill(&local_1e8,local_158,uVar8 & 0xffffffff);
       }
       bVar11 = iVar6 - 1 != uVar8;
       uVar8 = uVar8 + 1;
@@ -23669,7 +23669,7 @@ LAB_005a9508:
       local_148 = local_148 + iVar6;
     }
     if (local_218[0x226] == (QStyleOptionTab)0x0) {
-      item_delegate_paint(&local_1e8,local_158,iVar10);
+      tabbar_delegate_paint_fill(&local_1e8,local_158,iVar10);
     }
     else {
       local_c8 = (**(code **)(*local_210 + 0xe0))(local_210,0x13,0,param_1);
@@ -24673,9 +24673,9 @@ void FUN_005aa8f0(int param_1,void *param_2)
 }
 
 
-// ==== entry=005aa91e name=FUN_005aa91e size=58 ====
+// ==== entry=005aa91e orig=FUN_005aa91e size=58 name=tabbar_hover_timeout_select ====
 
-void FUN_005aa91e(int param_1,void *param_2)
+void tabbar_hover_timeout_select(int param_1,void *param_2)
 
 {
   if (param_1 == 0) {
@@ -25458,9 +25458,9 @@ undefined8 TabGroup_centralStack(long param_1)
 }
 
 
-// ==== entry=005ab6ee name=FUN_005ab6ee size=38 ====
+// ==== entry=005ab6ee orig=FUN_005ab6ee size=38 name=tabgroup_scroll_step ====
 
-void FUN_005ab6ee(undefined8 param_1)
+void tabgroup_scroll_step(undefined8 param_1)
 
 {
   long lVar1;
@@ -25495,7 +25495,7 @@ void FUN_005ab714(int param_1,void *param_2)
     bVar1 = QVariant::toBool();
     QVariant::~QVariant(aQStack_28);
     FUN_008fb690(*(undefined8 *)((long)param_2 + 0x10),bVar1 ^ 1);
-    FUN_005ab6ee(*(undefined8 *)((long)param_2 + 0x10),3);
+    tabgroup_scroll_step(*(undefined8 *)((long)param_2 + 0x10),3);
   }
   return;
 }
@@ -25793,7 +25793,7 @@ void BSim_boost__detail__sp_counted_impl_p_boost__exception_detail__clone_impl_b
                (long param_1)
 
 {
-  FUN_005a7b66(*(undefined8 *)(param_1 + 0x58));
+  tabbar_setTabColor(*(undefined8 *)(param_1 + 0x58));
   return;
 }
 
@@ -26127,9 +26127,9 @@ LAB_005abfaf:
 }
 
 
-// ==== entry=005abfd8 orig=FUN_005abfd8 size=901 name=TabGroup_vt6 ====
+// ==== entry=005abfd8 orig=FUN_005abfd8 size=901 name=TabGroup_tabbar_eventFilter ====
 
-undefined8 TabGroup_vt6(QObject *param_1,QEvent *param_2,long param_3)
+undefined8 TabGroup_tabbar_eventFilter(QObject *param_1,QEvent *param_2,long param_3)
 
 {
   double dVar1;
@@ -26226,7 +26226,7 @@ undefined8 TabGroup_vt6(QObject *param_1,QEvent *param_2,long param_3)
       QVariant::~QVariant((QVariant *)&local_38);
       if (cVar3 == '\0') goto LAB_005ac020;
     }
-    FUN_005ab6ee(param_1,3);
+    tabgroup_scroll_step(param_1,3);
   }
   else {
     if ((uVar2 != 4) || (*(QEvent **)(param_1 + 0x58) != param_2)) goto LAB_005ac020;
@@ -26550,9 +26550,9 @@ LAB_005ac750:
 }
 
 
-// ==== entry=005ac790 name=FUN_005ac790 size=275 ====
+// ==== entry=005ac790 orig=FUN_005ac790 size=275 name=quickbar_button_popup_menu ====
 
-void FUN_005ac790(undefined8 param_1,char *param_2,QPoint *param_3)
+void quickbar_button_popup_menu(undefined8 param_1,char *param_2,QPoint *param_3)
 
 {
   size_t sVar1;
@@ -27009,7 +27009,7 @@ LAB_005ad0de:
         if (param_2 == "TabListButton") {
           local_e8 = (QArrayData *)QAbstractButton::clicked;
           local_e0 = 0;
-          local_d8 = (QArrayData *)TabListMenu_createItemWidget;
+          local_d8 = (QArrayData *)TabListMenu_buildItems;
           local_d0 = 0;
                     /* try { // try from 005ad06f to 005ad432 has its CatchHandler @ 005ad455 */
           puVar4 = operator_new(0x20);
@@ -27063,9 +27063,9 @@ LAB_005ace5e:
 }
 
 
-// ==== entry=005ad4a6 name=FUN_005ad4a6 size=270 ====
+// ==== entry=005ad4a6 orig=FUN_005ad4a6 size=270 name=tabbar_hoverToSelect_setTimer ====
 
-void FUN_005ad4a6(double param_1,QObject *param_2)
+void tabbar_hoverToSelect_setTimer(double param_1,QObject *param_2)
 
 {
   QTimer *this;
@@ -27087,7 +27087,7 @@ void FUN_005ad4a6(double param_1,QObject *param_2)
       local_30 = 0;
       puVar1 = operator_new(0x18);
       *puVar1 = 1;
-      *(code **)(puVar1 + 2) = FUN_005aa91e;
+      *(code **)(puVar1 + 2) = tabbar_hover_timeout_select;
       *(QObject **)(puVar1 + 4) = param_2;
       QObject::connectImpl(local_40,this,&local_38,this,0,puVar1,1,0,&QTimer::staticMetaObject);
       QMetaObject::Connection::~Connection(local_40);
@@ -27104,9 +27104,9 @@ void FUN_005ad4a6(double param_1,QObject *param_2)
 }
 
 
-// ==== entry=005ad5bc orig=FUN_005ad5bc size=5 name=thunk_FUN_005ad4a6 ====
+// ==== entry=005ad5bc orig=FUN_005ad5bc size=5 name=tabbar_hoverToSelect_setTimer ====
 
-void thunk_FUN_005ad4a6(double param_1,QObject *param_2)
+void tabbar_hoverToSelect_setTimer(double param_1,QObject *param_2)
 
 {
   QTimer *this;
@@ -27127,7 +27127,7 @@ void thunk_FUN_005ad4a6(double param_1,QObject *param_2)
       uStack_30 = 0;
       puVar1 = operator_new(0x18);
       *puVar1 = 1;
-      *(code **)(puVar1 + 2) = FUN_005aa91e;
+      *(code **)(puVar1 + 2) = tabbar_hover_timeout_select;
       *(QObject **)(puVar1 + 4) = param_2;
       QObject::connectImpl(aCStack_40,this,&pcStack_38,this,0,puVar1,1,0,&QTimer::staticMetaObject);
       QMetaObject::Connection::~Connection(aCStack_40);
@@ -28527,12 +28527,12 @@ void BSim_QMouseEvent__globalPos(long param_1)
 }
 
 
-// ==== entry=005aec28 orig=FUN_005aec28 size=3050 name=TabGroup_setupUi ====
+// ==== entry=005aec28 orig=FUN_005aec28 size=3050 name=TabScrollButton_factory ====
 
 /* WARNING: Removing unreachable block (ram,0x005af7ea) */
 /* WARNING: Removing unreachable block (ram,0x005af7f1) */
 
-void TabGroup_setupUi(QLayout *param_1)
+void TabScrollButton_factory(QLayout *param_1)
 
 {
   QObject *pQVar1;
@@ -28922,7 +28922,7 @@ void TabGroup_initUi(QString *param_1,undefined8 param_2)
   QArrayData::deallocate(pQVar2,2,8);
 LAB_005af98f:
                     /* try { // try from 005af992 to 005af996 has its CatchHandler @ 005af9bd */
-  TabGroup_setupUi(param_1);
+  TabScrollButton_factory(param_1);
   return;
 }
 
@@ -30077,7 +30077,7 @@ void FUN_005b19ad(int param_1,void *param_2,undefined8 param_3,long param_4)
 }
 
 
-// ==== entry=005b1c08 orig=FUN_005b1c08 size=3727 name=TabListMenu_createItemWidget ====
+// ==== entry=005b1c08 orig=FUN_005b1c08 size=3727 name=TabListMenu_buildItems ====
 
 /* WARNING: Removing unreachable block (ram,0x005b2a4d) */
 /* WARNING: Removing unreachable block (ram,0x005b2594) */
@@ -30086,7 +30086,7 @@ void FUN_005b19ad(int param_1,void *param_2,undefined8 param_3,long param_4)
 /* WARNING: Removing unreachable block (ram,0x005b25a8) */
 /* WARNING: Removing unreachable block (ram,0x005b2a8d) */
 
-void TabListMenu_createItemWidget(QArrayData *param_1)
+void TabListMenu_buildItems(QArrayData *param_1)
 
 {
   int iVar1;
@@ -30559,7 +30559,7 @@ LAB_005b2a1d:
   qlist_unref_dispose2(&local_88);
                     /* try { // try from 005b296b to 005b2986 has its CatchHandler @ 005b2b34 */
   QMenu::setDefaultAction((QAction *)local_68);
-  FUN_005ac790(param_1,"TabListButton",local_68);
+  quickbar_button_popup_menu(param_1,"TabListButton",local_68);
 LAB_005b2987:
   if (local_c0 != (int *)0x0) {
     LOCK();
