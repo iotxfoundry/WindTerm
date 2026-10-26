@@ -171,8 +171,7 @@ void TerminalView::attachSession(Session *session)
         updateScrollRange();
         if (atBottom) // 新输出锚底；用户上滚回看时不强拉
             verticalScrollBar()->setValue(verticalScrollBar()->maximum());
-        // shortcut: 增量行级重画(原版脏行范围)挂账,先全量保正确
-        viewport()->update();
+        updateDirtyRegion();
         emit caretPositionChanged();
     });
 
@@ -255,7 +254,7 @@ void TerminalView::feedVtData(const QByteArray &data)
     updateScrollRange();
     if (atBottom)
         verticalScrollBar()->setValue(verticalScrollBar()->maximum());
-    viewport()->update();
+    updateDirtyRegion();
     emit caretPositionChanged();
 }
 
@@ -289,7 +288,7 @@ void TerminalView::enableTmuxMode()
         updateScrollRange();
         if (atBottom)
             verticalScrollBar()->setValue(verticalScrollBar()->maximum());
-        viewport()->update();
+        updateDirtyRegion();
         emit caretPositionChanged();
     });
     // %exit（0x7e9a1e）：销毁 Tmux+屏显 [exited(: reason)]，残余直通 VT
@@ -427,6 +426,34 @@ void TerminalView::updateScrollRange()
     verticalScrollBar()->setRange(0, qMax(0, total - page));
     verticalScrollBar()->setPageStep(page);
     verticalScrollBar()->setValue(verticalScrollBar()->maximum()); // 新输出锚底
+}
+
+// 增量行级重画（纯工程优化，不改视觉行为）：取走 ScreenModel 脏行集，按行高换算
+// y 范围做局部 update()；paintEvent 仍全量绘制（裁剪区自然限制实际绘制量）。
+// 全量脏（-1）/无屏 → 整 viewport update()，行为与旧全量路径一致。
+void TerminalView::updateDirtyRegion()
+{
+    if (!m_screen) {
+        viewport()->update();
+        return;
+    }
+    const QVector<int> dirty = m_screen->takeDirtyLines();
+    if (dirty.contains(-1)) {
+        viewport()->update();
+        return;
+    }
+    if (dirty.isEmpty())
+        return;
+    const qreal ch = qMax<qreal>(1.0, m_cellH);
+    // updateScrollRange 已锚底：scrollOffset=maximum()=scrollback 行数（非 alt）
+    const int scrollOffset = verticalScrollBar()->value();
+    QRect region;
+    for (int row : dirty) {
+        const int line = (m_screen->alternateScreen() ? 0 : m_screen->scrollback().size()) + row;
+        region |= QRect(0, int((line - scrollOffset) * ch) - 1,
+                        viewport()->width(), int(ch) + 2);
+    }
+    viewport()->update(region);
 }
 
 // 0xa64cea editor_paint_line_colors：垂直滚动 [scrollOffset,+可见行)，行来自

@@ -44,11 +44,12 @@
 // ---------------------------------------------------------------------------
 namespace {
 
-// ssh_options_e（libssh 0.10 头文件实证 api.libssh.org/stable）: HOST=0, PORT=1,
-// PORT_STR=2, FD=3, USER=4, SSH_DIR=5, IDENTITY=6, ADD_IDENTITY=7, KNOWNHOSTS=8
+// ssh_options_e（libssh 0.9.6 修补版运行时实证 2026-10-26 E2E：set(4,"u") 后服务器收到
+// getpwuid 本地名 → 4=LOG_VERBOSITY_STR 非 USER；二分扫描 set(7,"scanuser7") 服务器
+// begin_auth 收到 scanuser7 → USER=7。HOST=0/PORT=1 同批实证（set(16,..)≠PORT 被证伪））
 constexpr int kOptHost = 0;
 constexpr int kOptPort = 1;
-constexpr int kOptUser = 4;
+constexpr int kOptUser = 7;
 
 // C1（0020:4007）：known_hosts 选项号按运行时探测（原版修补版实证 8=KNOWNHOSTS 可用；
 // 系统库 probe 亦为 8——任务清单"系统用 2"经 probe 证伪：opt(2,path)=-1 被拒。
@@ -942,6 +943,14 @@ void SshSession::kbdintCancel()
 void SshSession::onWorkerKbdint(const QString &name, const QString &instruction,
                                 const QStringList &prompts)
 {
+    // 程序化回执通道（E2E 测试/无头宿主）：kbdintNeeded 先行 emit（直连，接收者同步
+    // 调 kbdintAnswer/kbdintCancel 置位共享态）→已回执则跳过对话框。无接收者时照旧弹窗。
+    emit kbdintNeeded(name, instruction, prompts);
+    {
+        QMutexLocker lock(&m_state ? &m_state->mutex : nullptr);
+        if (m_state && (m_state->kbdintAnswered || m_state->aborted))
+            return; // 已程序化应答/取消/中止：worker 侧等待点已被唤醒
+    }
     QDialog dialog;
     dialog.setWindowTitle(tr("Keyboard Interactive"));
     auto *form = new LoginAuthForm(&dialog);

@@ -40,7 +40,9 @@ protected:
 private:
     void openMenu(); // ActionButton 下拉：暂停/恢复/移除
 
-    TransferCenter *m_center;
+    // QPointer：TransferCenter 单例析构序晚于标签（bar/label 在 MainWindow 树内先亡），
+    // refresh/菜单回调不得在 center 亡后直调（悬挂面闭合）
+    QPointer<TransferCenter> m_center;
     QString m_path;
     bool m_upload;
     QLabel *m_icon = nullptr;   // pie 图/状态图标位

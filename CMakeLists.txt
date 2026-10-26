@@ -123,6 +123,10 @@ windterm_test_offscreen(test_charwidth)
 windterm_add_test(test_terminal_render)
 windterm_test_offscreen(test_terminal_render)
 
+# 增量行级重画：脏行跟踪+渲染等价（增量 grab==强制全量 grab），offscreen 必须
+windterm_add_test(test_incremental_paint)
+windterm_test_offscreen(test_incremental_paint)
+
 # SSH 认证：自管 HOME（可写临时目录）+ 本机 sshd 127.0.0.1:22，缺则测试内 SKIP
 windterm_add_test(test_ssh_auth)
 
@@ -130,6 +134,12 @@ windterm_add_test(test_ssh_auth)
 # （fake libssh 表，无网络）；需 offscreen（QWidget/QLineEdit 焦点链）
 windterm_add_test(test_ssh_kbdint)
 windterm_test_offscreen(test_ssh_kbdint)
+
+# SSH kbdint 真服务器端到端：tools/kbdint_server.py（asyncssh 两轮挑战）+ 完整
+# connectFlow（探测信号→程序化 kbdintAnswer 回执→setanswer→终认→shell 回显）；
+# python3/asyncssh 缺失则测试内 SKIP
+windterm_add_test(test_ssh_kbdint_e2e)
+windterm_test_offscreen(test_ssh_kbdint_e2e)
 
 # 分屏/标签端到端：offscreen + 本地 bash
 windterm_add_test(test_pane_split)
@@ -178,6 +188,13 @@ windterm_test_offscreen(test_filer_sftp)
 # sftp 端到端需本机 sshd + key，缺则测试内嵌 SKIP
 windterm_add_test(test_transfer)
 windterm_test_offscreen(test_transfer)
+
+# 主题 R17 类名→骨架树改写文本断言（offscreen 必须）
+windterm_add_test(test_theme_rewrites)
+windterm_test_offscreen(test_theme_rewrites)
+
+# 鼠标上报方言编码（0x7ebdfc 四形态分支照搬；纯函数无 IO）
+windterm_add_test(test_mouse_dialects)
 
 # P7a tmux 集成：解析单测必跑；真实 -CC 端到端系统缺 tmux 则测试内 SKIP
 windterm_add_test(test_tmux_control)

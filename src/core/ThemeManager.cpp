@@ -47,7 +47,16 @@ void ThemeManager::apply() const
     // 把原版类名改写成 #objectName 才能命中 gui.theme 的 TextView/ViewGroup/KitBar 等规则
     // （原版 TabGroup 类的标签行实例 objectName=ViewGroup，0x008baf26）
     QString qss = m_qss;
-    // "TabGroup"→"#ViewGroup"：类名与实例名不同名，非 token 循环能表达的映射
+    // TabGroup 链式规则按骨架树逐条映射（0x7ebdfc 同款：改写保持规则语义，树差入注释）：
+    // - MuxDesktop > TabGroup > QTabBar（gui.theme:676）：骨架 MuxDesktop 自持 QTabBar
+    //   （MuxDesktop::buildUi hbox[QTabBar,...]，无 TabGroup 容器层）→ 中段剥除
+    qss.replace(QStringLiteral("MuxDesktop > TabGroup"), QStringLiteral("MuxDesktop"));
+    // - MuxPaneGroup > TabGroup / ShellPane > TabGroup（gui.theme:686/724）：骨架标签行容器
+    //   实挂 ViewGroup（MuxPaneGroup ctor 0x008baf26 对照；ShellPane 未来补标签行即命中）
+    qss.replace(QStringLiteral("MuxPaneGroup > TabGroup"), QStringLiteral("MuxPaneGroup > #ViewGroup"));
+    qss.replace(QStringLiteral("ShellPane > TabGroup"), QStringLiteral("ShellPane > #ViewGroup"));
+    // "TabGroup"→"#ViewGroup"：裸后代规则（TabGroup QToolButton/#TextLabel/#CloseButton）
+    // 与类名不同名实例，非 token 循环能表达的映射
     qss.replace(QLatin1String("TabGroup"), QStringLiteral("#ViewGroup"));
     // 子串安全：TabGroup/ViewGroup/KitBar… 均非其他 QSS 标识符的子串（gui.theme 全量 rg 核过）
     for (const char *name : {"TextView", "KitBar", "AppletBar", "TerminalWindow"}) {

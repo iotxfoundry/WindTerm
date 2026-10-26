@@ -64,8 +64,11 @@ void TransferBar::hookTransferCenter(TransferCenter *center)
     // 懒建触发：kind 0=建标签（0x5850c6 createLabel;方向读行属性 transfer.upload——
     // ensureTaskRow 后 setTaskProperty 已在行内）;kind 4=刷新（0x58722a）;
     // kind 2=删行（label 随行键定位 deleteLater——0x61b206 收口末端）
+    // Center 销毁→断链（context=center：receiver 先亡连接自动丢弃,QPointer 双保险）
     connect(center, &TransferCenter::taskEvent, this,
             [this](const QString &path, int kind) {
+        if (!m_center)
+            return; // Center 已销毁（QPointer 空）——悬挂信号面闭合
         if (kind == TransferCenter::LabelCreate) {
             const bool upload = m_center->taskProperties(path)
                                     .contains(QStringLiteral("transfer.upload"));

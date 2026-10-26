@@ -46,6 +46,13 @@ public:
     void resumeTask(const QString &path);
     void removeTask(const QString &path);
 
+    // 确定收口序入口（关窗/退出 teardown 用）：removeTask（remove 置位）→任务 deleteLater。
+    // run 循环块边界见 removeRequested 退出→~SftpTransfer wait 线程——remove 先于线程收口
+    void teardownTask(const QString &path);
+
+    // 竞态自检：未终局任务路径表（空=全部收口；测试断言销毁前到达确定态）
+    QString activeTaskPaths() const;
+
     // 0x617aea 原样复刻：属性 map → tooltip HTML 表（键序/键名/条件行全照搬）
     static QString propertiesToHtml(const QVariantMap &properties);
 

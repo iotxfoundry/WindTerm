@@ -280,6 +280,36 @@ int main(int argc, char **argv)
                 QFile(bigFile).remove();
                 QFile(QStringLiteral("/tmp/%1_big_remote.bin").arg(pid)).remove();
             }
+            // ⑥ teardown 竞态：5MB 传输中途直接销毁 bar + transfer → 确定收口无崩溃
+            //（~SftpTransfer remove 先置位→quit→wait 泵事件（BlockingQueued 护栏应答））
+            {
+                const QString bigFile = QStringLiteral("/tmp/%1_race.bin").arg(pid);
+                {
+                    QFile big(bigFile);
+                    big.open(QIODevice::WriteOnly | QIODevice::Truncate);
+                    QByteArray chunk(32768, 'R');
+                    for (int i = 0; i < 160; ++i) // 5MB
+                        big.write(chunk);
+                }
+                TransferCenter *center = TransferCenter::instance();
+                auto *bar = new TransferBar;
+                bar->hookTransferCenter(center);
+                auto *transfer = new SftpTransfer(sftp, true,
+                    QStringLiteral("/tmp/%1_race_remote.bin").arg(pid), bigFile, center);
+                center->ensureTaskRow(bigFile);
+                center->setTaskProperty(bigFile, QStringLiteral("transfer.upload"), true);
+                center->setTaskProperty(bigFile, QStringLiteral("transfer.currentItemName"),
+                                        QFileInfo(bigFile).fileName());
+                transfer->start();
+                waitFor([&] { return bar->findChildren<TransferLabel *>().size() == 1; }, 3000);
+                waitFor([&] { return transfer->processed() > 512 * 1024; }, 10000);
+                bar->deleteLater();  // 中途直接销毁 bar
+                delete transfer;     // 中途直接销毁传输（线程在途→析构收口序）
+                app.processEvents();
+                CHECK(true, "mid-transfer bar+transfer destruction: no crash");
+                QFile(bigFile).remove();
+                QFile(QStringLiteral("/tmp/%1_race_remote.bin").arg(pid)).remove();
+            }
         }
         QFile(upPath).remove();
         QFile(downPath).remove();
@@ -287,6 +317,27 @@ int main(int argc, char **argv)
             ssh->close();
             delete ssh;
         }
+    }
+
+    // ---- Bar/Label teardown 断链（无 sshd 也可跑）：bar 先亡→center 事件续发不崩 ----
+    {
+        TransferCenter *center = TransferCenter::instance();
+        auto *bar = new TransferBar;
+        bar->hookTransferCenter(center);
+        const QString p = QStringLiteral("/tmp/%1_teardown.txt").arg(pid);
+        center->ensureTaskRow(p);
+        center->setTaskProperty(p, QStringLiteral("transfer.upload"), true);
+        center->setTaskProperty(p, QStringLiteral("transfer.weightPercent"), 42);
+        emit center->taskEvent(p, TransferCenter::LabelCreate);
+        app.processEvents();
+        CHECK(bar->findChildren<TransferLabel *>().size() == 1, "teardown: label created");
+        bar->deleteLater(); // 硬删 bar（关窗路径外的最恶序）
+        app.processEvents();
+        emit center->taskEvent(p, TransferCenter::Refresh); // center 亡前续发事件
+        app.processEvents();
+        center->removeTaskRow(p);
+        app.processEvents();
+        CHECK(true, "events after bar destruction: no crash (QPointer guards)");
     }
 
     // ---- TransferPane 空态/结构 ----

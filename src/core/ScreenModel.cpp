@@ -1,6 +1,7 @@
 #include "ScreenModel.h"
 
 #include <QStringList>
+#include <algorithm>
 
 #include "SchemeManager.h"
 #include "terminal/CharWidth.h"
@@ -99,6 +100,7 @@ ScreenModel::ScreenModel(int rows, int cols, const QColor &fg, const QColor &bg,
     blank.fg = m_defaultFg;
     blank.bg = m_defaultBg;
     m_cells = QVector<QVector<Cell>>(m_rows, QVector<Cell>(m_cols, blank));
+    m_dirtySnap = m_cells; // 初始快照=初始全空白（未变不登记）
     m_scrollback.reserve(1100);
 }
 
@@ -115,9 +117,40 @@ void ScreenModel::putChar(QChar ch)
     putCodePoint(ch.unicode());
 }
 
+void ScreenModel::markDirty(int row)
+{
+    m_dirty.insert(qBound(0, row, m_rows - 1));
+}
+
+void ScreenModel::markAllDirty()
+{
+    m_dirty = {-1};
+}
+
+QVector<int> ScreenModel::takeDirtyLines()
+{
+    const bool all = m_dirty.contains(-1);
+    QVector<int> result;
+    if (!all) {
+        for (int row : m_dirty) {
+            // 与上次取走快照一致（如写后又被擦回原样）→不登记
+            if (row >= 0 && row < m_dirtySnap.size() && m_cells.at(row) == m_dirtySnap.at(row))
+                continue;
+            result.append(row);
+        }
+        std::sort(result.begin(), result.end());
+    } else {
+        result.append(-1);
+    }
+    m_dirty.clear();
+    m_dirtySnap = m_cells; // 当前态=上次已绘制态（全量重画后视口即当前态）
+    return result;
+}
+
 // 0x005f5450 宽度接入：光标前进列数/宽字符不跨行拆/2 cell 占位（第二格 wideCont）
 void ScreenModel::putCodePoint(unsigned int cp)
 {
+    markDirty(m_cursorY);
     const int w = CharWidth::widthOfChar(cp);
     // 行尾放不下宽字符→整体换行（宽字符不跨行拆）
     if (m_cursorX >= m_cols || (w == 2 && m_cursorX + 1 >= m_cols)) {
@@ -192,6 +225,7 @@ void ScreenModel::tab()
 
 void ScreenModel::clearScreen()
 {
+    markAllDirty();
     for (int row = 0; row < m_rows; ++row)
         blankRow(row);
     m_cursorX = 0;
@@ -200,6 +234,7 @@ void ScreenModel::clearScreen()
 
 void ScreenModel::reset()
 {
+    markAllDirty();
     clearScreen();
     m_top = 0;
     m_bottom = m_rows - 1;
@@ -249,22 +284,33 @@ void ScreenModel::erase(char op, int n)
 {
     if (op == QLatin1Char('J')) {
         if (n == 0) {
+            markDirty(m_cursorY);
             for (int x = m_cursorX; x < m_cols; ++x)
                 blankCell(m_cells[m_cursorY][x]);
-            for (int row = m_cursorY + 1; row < m_rows; ++row)
+            for (int row = m_cursorY + 1; row < m_rows; ++row) {
+                markDirty(row);
                 blankRow(row);
+            }
         } else if (n == 1) {
-            for (int row = 0; row < m_cursorY; ++row)
+            for (int row = 0; row < m_cursorY; ++row) {
+                markDirty(row);
                 blankRow(row);
+            }
+            markDirty(m_cursorY);
             for (int x = 0; x <= m_cursorX && x < m_cols; ++x)
                 blankCell(m_cells[m_cursorY][x]);
         } else if (n == 2) {
-            for (int row = 0; row < m_rows; ++row)
+            for (int row = 0; row < m_rows; ++row) {
+                markDirty(row);
                 blankRow(row);
+            }
         } else if (n == 3) {
+            // 滚回清除=视口上方内容消失（scrollbar 范围变化）→ 全量
+            markAllDirty();
             m_scrollback.clear();
         }
     } else if (op == QLatin1Char('K')) {
+        markDirty(m_cursorY);
         if (n == 0) {
             for (int x = m_cursorX; x < m_cols; ++x)
                 blankCell(m_cells[m_cursorY][x]);
@@ -275,6 +321,7 @@ void ScreenModel::erase(char op, int n)
             blankRow(m_cursorY);
         }
     } else if (op == QLatin1Char('X')) {
+        markDirty(m_cursorY);
         const int count = qMax(1, n);
         for (int x = m_cursorX; x < m_cursorX + count && x < m_cols; ++x)
             blankCell(m_cells[m_cursorY][x]);
@@ -283,6 +330,7 @@ void ScreenModel::erase(char op, int n)
 
 void ScreenModel::insertDelete(char op, int n)
 {
+    markAllDirty(); // 行移位/行删除=多行平移，按全量处理（正确优先）
     const int count = qBound(1, n, m_rows);
     switch (op) {
     case 'L':
@@ -369,12 +417,14 @@ void ScreenModel::setMode(int mode, bool dec)
 
     if (mode == 25) {
         m_cursorVisible = true;
+        markDirty(m_cursorY); // 光标显隐只影响光标行
     } else if (mode == 1049) {
         if (!m_alternate) {
             m_mainCells = m_cells;
             m_mainCursorX = m_cursorX;
             m_mainCursorY = m_cursorY;
             m_alternate = true;
+            markAllDirty(); // alt 屏切换=整屏内容替换
             clearScreen();
         }
     } else if (mode == 2004) {
@@ -393,12 +443,14 @@ void ScreenModel::resetMode(int mode, bool dec)
 
     if (mode == 25) {
         m_cursorVisible = false;
+        markDirty(m_cursorY);
     } else if (mode == 1049) {
         if (m_alternate) {
             m_cells = m_mainCells;
             m_cursorX = m_mainCursorX;
             m_cursorY = m_mainCursorY;
             m_alternate = false;
+            markAllDirty(); // 主屏恢复=整屏替换
         }
     } else if (mode == 2004) {
         m_bracketedPaste = false;
@@ -514,6 +566,7 @@ void ScreenModel::resizeScreen(int rows, int cols)
     if (rows == m_rows && cols == m_cols)
         return;
 
+    markAllDirty(); // resize=行/列扩缩+光标夹取+溢出沉滚回 → 全量
     // 列扩：尾部补空白；列缩：截断
     Cell blank;
     blankCell(blank);
@@ -551,10 +604,14 @@ void ScreenModel::resizeScreen(int rows, int cols)
     m_top = 0;
     m_bottom = rows - 1;
     clampCursor();
+    m_dirtySnap = m_cells; // resize 后快照基线对齐新几何（全量脏已登记）
 }
 
 void ScreenModel::scrollUp(int n)
 {
+    if (n <= 0)
+        return;
+    markAllDirty(); // 滚动=视口内容平移 → 全量（回滚缓冲路径保持正确即可）
     for (int i = 0; i < n; ++i) {
         if (m_top == 0) {
             m_scrollback.append(rowCells(0));
@@ -570,6 +627,9 @@ void ScreenModel::scrollUp(int n)
 
 void ScreenModel::scrollDown(int n)
 {
+    if (n <= 0)
+        return;
+    markAllDirty();
     for (int i = 0; i < n; ++i) {
         for (int row = m_bottom; row > m_top; --row)
             m_cells[row] = m_cells[row - 1];

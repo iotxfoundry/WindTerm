@@ -2,6 +2,9 @@
 
 #include <QBrush>
 #include <QFont>
+#include <QPointer>
+
+#include "SftpTransfer.h"
 
 namespace {
 // role 0x100（0x617aea：(**vtable)(QVariant,item,0x100) 读属性 map;对应 Qt::UserRole+0）
@@ -112,6 +115,32 @@ void TransferCenter::removeTask(const QString &path)
 {
     // 0x61b206：forwardSetMode(0,path)+recent_map_update(mode 5)——骨架=移除行（kind 2 链）
     removeTaskRow(path);
+    // 行移除后回收该行键的任务对象：remove() 置位→run 块边界退出→终态 Removing→finished
+    // （QPointer 守护：对象若已被 parent 链析构则跳过——teardown 竞态面闭合）
+    const auto transfers = findChildren<SftpTransfer *>();
+    for (SftpTransfer *t : transfers)
+        if (t->path() == path)
+            t->remove();
+}
+
+// 竞态测试挂钩：teardown 序（removeTask 先于线程收口）的可观测出口
+void TransferCenter::teardownTask(const QString &path)
+{
+    removeTask(path); // remove 置位 → run 退出
+    for (QObject *child : findChildren<SftpTransfer *>()) {
+        if (qobject_cast<SftpTransfer *>(child)->path() == path)
+            child->deleteLater(); // 析构→~SftpTransfer 确定收口线程
+    }
+}
+
+QString TransferCenter::activeTaskPaths() const
+{
+    QStringList paths;
+    const auto transfers = findChildren<SftpTransfer *>();
+    for (const SftpTransfer *t : transfers)
+        if (!t->isFinished())
+            paths << t->path();
+    return paths.join(QLatin1Char('\n'));
 }
 
 void TransferCenter::emitTaskEvent(const QString &path, int kind)

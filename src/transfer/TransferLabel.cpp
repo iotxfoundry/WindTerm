@@ -46,6 +46,8 @@ TransferLabel::TransferLabel(TransferCenter *center, const QString &path, bool u
     // 暂停/恢复（wind.actions TransferPane.Pause 文案随状态）/移除（0x61b176/0x61b2a8/0x61b206）
     m_pauseAction = m_menu->addAction(LocaleManager::instance().tr(QStringLiteral("Pause")));
     connect(m_pauseAction, &QAction::triggered, this, [this] {
+        if (!m_center)
+            return; // center 已亡（QPointer 空）——悬挂面闭合
         const QVariantMap map = m_center->taskProperties(m_path);
         if (map.value(QStringLiteral("transfer.state")).toString() == QLatin1String("Paused"))
             m_center->resumeTask(m_path);
@@ -54,8 +56,10 @@ TransferLabel::TransferLabel(TransferCenter *center, const QString &path, bool u
         refresh();
     });
     m_menu->addAction(LocaleManager::instance().tr(QStringLiteral("Remove")));
-    connect(m_menu->actions().last(), &QAction::triggered, this,
-            [this] { m_center->removeTask(m_path); });
+    connect(m_menu->actions().last(), &QAction::triggered, this, [this] {
+        if (m_center)
+            m_center->removeTask(m_path);
+    });
     actionButton->setMenu(m_menu);
     layout->addWidget(actionButton);
 
@@ -64,7 +68,8 @@ TransferLabel::TransferLabel(TransferCenter *center, const QString &path, bool u
 
 TransferLabel::~TransferLabel()
 {
-    // 0x585c8f：找剩余 TransferLabel，空→bar close（经 lastLabelClosed 收口）
+    // 0x585c8f：找剩余 TransferLabel，空→bar close（经 lastLabelClosed 收口）。
+    // Queued 延迟查：析构链内 findChildren 仍含 this；receiver this 保证 label 亡后回调丢弃
     QMetaObject::invokeMethod(this, [this] {
         if (m_center && m_center->findChildren<TransferLabel *>().isEmpty())
             emit lastLabelClosed();

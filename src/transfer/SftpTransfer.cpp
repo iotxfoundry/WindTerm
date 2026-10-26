@@ -1,6 +1,8 @@
 #include "SftpTransfer.h"
 
+#include <QCoreApplication>
 #include <QDateTime>
+#include <QEventLoop>
 #include <QFile>
 #include <QPointer>
 #include <QThread>
@@ -27,10 +29,27 @@ SftpTransfer::SftpTransfer(void *sftp, bool upload, const QString &remotePath,
 
 SftpTransfer::~SftpTransfer()
 {
+    // 确定收口序：remove 请求置位（run 循环块边界可见）→ quit → wait。terminate 仅作
+    // 卡 IO 兜底（close 已 free sftp 后不再有阻塞面）。
+    // wait 期间泵主线程事件：run 的 pumpSuspend 会 BlockingQueued 到主线程 ioSuspend，
+    // 主线程若纯 wait 则该应答永不返回 → 与 run 互等死锁（实测死锁告警路径）
     if (m_thread) {
+        {
+            QMutexLocker lock(&m_mutex);
+            m_removeRequested = true;
+        }
+        m_pauseCond.wakeAll();
         m_thread->quit();
-        if (!m_thread->wait(30000))
-            m_thread->terminate(); // run 卡 IO 兜底（close 已 free sftp,不再有阻塞面）
+        static constexpr int kSpinLimit = 600; // ~30s 量级泵兜底（同旧 30s wait）
+        for (int spins = 0; m_thread->isRunning() && spins < kSpinLimit; ++spins) {
+            if (m_thread->wait(50))
+                break;
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+        }
+        if (m_thread->isRunning()) {
+            m_thread->terminate(); // 泵耗尽仍未收口=run 阻塞在 libssh IO：兜底
+            m_thread->wait();
+        }
     }
 }
 

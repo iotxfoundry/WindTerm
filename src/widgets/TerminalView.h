@@ -1,5 +1,7 @@
 #pragma once
 
+// 增量行级重画（纯工程优化，不改视觉行为）：数据更新只对脏行 y 范围做局部 update()，
+// paintEvent 绘制逻辑不变（裁剪区自然限制重画量）。
 #include <QAbstractScrollArea>
 #include <QEvent>
 #include <QColor>
@@ -192,6 +194,8 @@ protected:
 private:
     void applyResize();
     void updateScrollRange();
+    // 增量行级重画（纯工程优化）：ScreenModel 脏行集 → 视口局部 update()
+    void updateDirtyRegion();
     void appendSystemMessage(const QString &text);
     // 0xa52aa8 horizontalAdvance 懒填缓存
     qreal advanceOf(QChar ch);
