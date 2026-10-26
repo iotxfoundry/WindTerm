@@ -115,12 +115,21 @@ windterm_add_test(test_terminal_mouse)
 windterm_add_test(test_terminal_sgr)
 windterm_test_offscreen(test_terminal_sgr)
 
+# 0x005f5450 宽度区间表：边界向量 + 渲染级（宽字符 2 cell/换行/continuation）
+windterm_add_test(test_charwidth)
+windterm_test_offscreen(test_charwidth)
+
 # 渲染像素断言：offscreen 平台必须
 windterm_add_test(test_terminal_render)
 windterm_test_offscreen(test_terminal_render)
 
 # SSH 认证：自管 HOME（可写临时目录）+ 本机 sshd 127.0.0.1:22，缺则测试内 SKIP
 windterm_add_test(test_ssh_auth)
+
+# SSH keyboard-interactive：LoginAuthForm 结构/焦点/收集 + kbdint 两阶段状态机
+# （fake libssh 表，无网络）；需 offscreen（QWidget/QLineEdit 焦点链）
+windterm_add_test(test_ssh_kbdint)
+windterm_test_offscreen(test_ssh_kbdint)
 
 # 分屏/标签端到端：offscreen + 本地 bash
 windterm_add_test(test_pane_split)

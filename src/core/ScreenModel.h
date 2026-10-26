@@ -13,6 +13,8 @@ struct Cell
     bool bold = false;
     bool underline = false;
     bool reverse = false;
+    // 宽字符第二 cell（占 2 格不拆半——0x005f5450 区间表宽度应用）
+    bool wideCont = false;
 };
 
 class ScreenModel
@@ -36,6 +38,8 @@ public:
     bool bracketedPaste() const { return m_bracketedPaste; }
 
     void putChar(QChar ch);
+    // 宽度计算按码点（0x005f5450 解码+宽度一体；骨架拆两步：VtParser 解码→此处按码点）
+    void putCodePoint(unsigned int cp);
     void printText(const QString &text);
     void newline();
     void carriageReturn();

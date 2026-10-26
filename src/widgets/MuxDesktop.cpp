@@ -115,10 +115,9 @@ MuxDesktop::MuxDesktop(TerminalView *host, QWidget *parent)
         if (m_focusedPaneId >= 0)
             feedPaneView(m_focusedPaneId, data);
     });
-    // %exit（I：宿主恢复显示）：desktop 隐藏+finished（MainWindow 接线弃件）
+    // %exit（0x842778 detach 链）：desktop 由宿主 replaceWidget 换回+弃件（非 hide/show）
     connect(m_tmux, &Tmux::exited, this, [this]() {
         m_tmux = nullptr;
-        hide();
         emit finished();
     });
     // 0x8e12c0 分屏树 resize-pane 防抖
@@ -127,6 +126,10 @@ MuxDesktop::MuxDesktop(TerminalView *host, QWidget *parent)
     connect(m_resizeDebounce, &QTimer::timeout, this, &MuxDesktop::sendPendingResizes);
     // G：focusChanged→TabBar state="Active" 刷新（0x8e0bb2）
     connect(qApp, &QApplication::focusChanged, this, [this]() { onFocusChanged(); });
+    // attach（0x842778 detach 链）：detach 前 desktop 由宿主 deleteLater——focusChanged
+    // 广播可晚于析构起点（焦点部件在 desktop 树内被销毁时触发），connect 默认
+    // Qt::AutoConnection 同线程直达会踩已释放 this——经 context 对象自断链
+    connect(this, &QObject::destroyed, this, [this]() { disconnect(qApp, &QApplication::focusChanged, this, nullptr); });
     reconcile();
 }
 
@@ -229,6 +232,27 @@ void MuxDesktop::reconcile()
             closePage(id);
 }
 
+void MuxDesktop::adoptInitialWindow(MuxWindow *win, int windowId)
+{
+    if (!win || m_pages.values().contains(win))
+        return;
+    if (windowId < 0)
+        windowId = m_pages.isEmpty() ? 0 : m_pages.lastKey() + 1;
+    m_stack->addWidget(win);
+    m_pages.insert(windowId, win);
+    win->setWindowId(windowId);
+    const int ti = m_tabBar->addTab(win->name());
+    win->setTabIndex(ti);
+    m_tabBar->setTabData(ti, QVariant::fromValue<quintptr>(reinterpret_cast<quintptr>(win)));
+    // nameChanged 页文本同步（ensureWindowPage 同款）
+    connect(win, &MuxWindow::nameChanged, this, [this, win](const QString &tabName) {
+        const int i = win->tabIndex();
+        if (i >= 0)
+            m_tabBar->setTabText(i, tabName);
+    });
+    // 栈与页签随真实窗对齐（0x8de3e8 addPage(win) 落点）
+}
+
 MuxWindow *MuxDesktop::ensureWindowPage(int windowId, int idx, const QString &name)
 {
     if (MuxWindow *mw = m_pages.value(windowId)) {
@@ -297,16 +321,23 @@ void MuxDesktop::restoreSplitterTree(MuxWindow *mw, const QString &layout)
 
     // 摘离全部现有子树：组暂存 MuxWindow（hide），旧 splitter 弃
     // 注意 findChildren 递归：deleteLater 未弹出的旧 splitter 仍会再被扫到——先断链
+    // 宿主终端组（MainWindow attach 原位挂入）不摘不 hide（0x8de3e8：原终端不隐藏，
+    // 布局引擎只管 pane 组；宿主组 paneId=-1 不参与 layout 串匹配）
+    MuxPaneGroup *hostGroup = nullptr;
+    for (MuxPaneGroup *g : root->findChildren<MuxPaneGroup *>())
+        if (g->property("hostTerminal").toBool())
+            hostGroup = g;
     QList<MuxPaneGroup *> groups = root->findChildren<MuxPaneGroup *>();
     for (MuxPaneGroup *g : groups)
-        if (g->parentWidget()) {
+        if (g->parentWidget() && g != hostGroup) {
             g->setParent(mw);
             g->hide();
         }
     groups.clear();
     QList<QWidget *> tops;
     for (int i = 0; i < root->count(); ++i)
-        tops.append(root->widget(i));
+        if (root->widget(i) != hostGroup)
+            tops.append(root->widget(i));
     for (QWidget *w : tops) {
         w->setParent(nullptr);
         w->deleteLater();

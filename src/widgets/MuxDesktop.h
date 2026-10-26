@@ -44,6 +44,9 @@ public:
     // 测试断言面
     int pageCount() const { return m_stack->count(); }
     MuxWindow *windowPage(int windowId) const { return m_pages.value(windowId); }
+    // 0x8de3e8 attach 首窗注册：MainWindow 手建的 MuxWindow 挂 desktop 栈+页表；
+    // windowId 已知则同步，后续 reconcile/ensureWindowPage 以存在性守卫接管
+    void adoptInitialWindow(MuxWindow *win, int windowId);
     TerminalView *viewForPane(int paneId) const;
     // 页签位映射：QTabBar 无 indexOf(QWidget)——mw->tabIndex()（插入/移动/移除时同步）
     int tabIndexOf(MuxWindow *mw) const;

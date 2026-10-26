@@ -113,3 +113,11 @@ ForwardingCenter/ForwardingHandler 0x5ecd00/0x5f1838+forwarding_server_listen 0x
 
 ## 批次依赖
 P1 独立可先行；P2 是 P4/P5/P7 的布局基座（分屏后才有跨 pane 搜索/多 pane tmux）；P3 独立；P5→P6（SFTP 传输依赖 sftp channel）；P8 依赖 P5 的 ssh channel 扩展面（可并行做 UI）。
+
+## 小尾巴收敛批（2026-10-26，1d22a29 后）
+- ✅ kbdint 答案 UI：LoginAuthForm（0x00592e5a 结构照搬：全掩码/焦点推进/QMap 收集）+SshSession 两阶段（0x00629dea/0x008619b6 QWaitCondition 回执）；16 断言。Login Wizard 壳挂账。
+- ✅ UCS4 宽度表：src/terminal/CharWidth（0x005f5450 区间照搬）接入 ScreenModel（宽字符 2 cell/换行不拆半）；33 边界向量。
+- ✅ MuxDesktop 落位：attach/detach=QLayout::replaceWidget 原位换入/换回（0x00842414/0x00842778），每终端一份，原 terminal 入 MuxPaneGroup 首页不隐藏；24 断言真 tmux 端到端。
+- ✅ QBasicTimer 退出警告×2：strace 钉死=Qt5 QProcessManager（fd5 收割管道）在 QApplication 析构 postRoutine 的 teardown 竞态，QtCore 内部噪声非缺陷——关闭挂账不修。
+- ✅ 0x8d2e46 建树链重逆：R43 定案左右树无共享模型三通道互通（现状合规，无代码改动）。
+- 剩余挂账：增量行级重画（性能优化项）；kbdint 真机 kbdint 流验证；宽度表 ≥0x30000 边界运行时真值。

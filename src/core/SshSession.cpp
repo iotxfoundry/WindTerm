@@ -20,7 +20,17 @@
 
 #include <QDateTime>
 #include <QHash>
+#include <QMap>
 #include <QPointer>
+#include <QStringList>
+
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QEventLoop>
+#include <QTimer>
+#include <QVBoxLayout>
+
+#include "widgets/LoginAuthForm.h"
 
 #include <cstddef>
 
@@ -88,6 +98,9 @@ struct Api
     int (*kbdintGetnprompts)(void *);
     const char *(*kbdintGetprompt)(void *, unsigned int, char *);
     int (*kbdintSetanswer)(void *, unsigned int, const char *);
+    // kbdint 页头（0x00592e5a name/instruction 合并 QLabel 行）：两库均 T 导出（nm 核对）
+    const char *(*kbdintGetName)(void *);
+    const char *(*kbdintGetinstruction)(void *);
     int (*pkiImportPrivkeyFile)(const char *, const char *, void *, void *, void **);
     int (*pkiExportPrivkeyToPubkey)(const void *, void **);
     // C6：ssh_agent_is_running（0020:2737 FUN_00627646，原版 4.8.1+；系统 0.10.6 无此
@@ -193,6 +206,8 @@ Api &api()
         bind(r.kbdintGetnprompts, "ssh_userauth_kbdint_getnprompts");
         bind(r.kbdintGetprompt, "ssh_userauth_kbdint_getprompt");
         bind(r.kbdintSetanswer, "ssh_userauth_kbdint_setanswer");
+        bind(r.kbdintGetName, "ssh_userauth_kbdint_getname");
+        bind(r.kbdintGetinstruction, "ssh_userauth_kbdint_getinstruction");
         bind(r.pkiImportPrivkeyFile, "ssh_pki_import_privkey_file");
         bind(r.pkiExportPrivkeyToPubkey, "ssh_pki_export_privkey_to_pubkey");
         bind(r.agentIsRunning, "ssh_agent_is_running");
@@ -373,6 +388,12 @@ struct SshConnectState
     void *session = nullptr; // handoff 前归 worker；established 消费后归主线程
     void *channel = nullptr;
     void *sftp = nullptr; // P5：worker 线程建的 sftp_session（established 消费后主线程只读值）
+    // kbdint 回执（gatherKbdintAnswers 等，kbdintAnswer()/kbdintCancel() 置位；模式同
+    // host key）。answers：QMap<trimmed(prompt label), 答案>（UI collect 直达）；重复
+    // label 已被 QMap 同 key 覆盖（0x005961b0 语义）
+    bool kbdintAnswered = false;
+    bool kbdintCancelled = false;
+    QMap<QString, QString> kbdintAnswers;
 };
 
 // ---------------------------------------------------------------------------
@@ -446,6 +467,9 @@ public slots:
 
 signals:
     void hostKeyNeeded(const QString &host, const QString &fingerprint, bool changed);
+    // kbdint 两阶段（0x00629dea/0x008644b8/0x008619b6）：prompts 探测信号→主线程 UI；
+    // 回执经 state（QWaitCondition 同 host key 模式）等 answers
+    void kbdintPrompts(const QString &name, const QString &instruction, const QStringList &prompts);
     void established();
     void failedSignal(const QString &reason);
 
@@ -453,6 +477,9 @@ private:
     QString fetchFingerprint(void *session) const;
     QByteArray hostPortKey() const;
     void emitFailure(const QString &why, void *session, void *channel);
+    // 0x008644b8：一轮 kbdint prompts 收集（rc==3 起）：emit kbdintPrompts→等 answers
+    //（QWaitCondition 模式同 host key）；返回是否拿到答案（false=中止/取消/超时）
+    bool gatherKbdintAnswers(void *session);
 
     QString m_host;
     int m_port;
@@ -502,6 +529,58 @@ void SshWorker::emitFailure(const QString &why, void *session, void *channel)
         api().freeSession(session);
     if (!m_state->aborted) // 中止路径静默（close 已 emit finished）
         emit failedSignal(why);
+}
+
+// 0x008644b8：一轮 kbdint prompts 收集+答案提交。
+// 收集：getnprompts→逐 getprompt(ssh,i,&echo)（echo 丢弃）→emit kbdintPrompts（queued
+// 回主线程）→QWaitCondition 等回执（模式同 host key：worker 无事件循环推进此段，
+// 主线程槽只置答案+wakeAll 不 join 本线程，死锁面同 host key 分析）。
+// 提交：0x008619b6 逐项 QString::toUtf8→setanswer(ssh,i,buf)；answers 数<nprompts 或
+// 任一 setanswer<0 → 失败不推进。
+bool SshWorker::gatherKbdintAnswers(void *session)
+{
+    const int np = api().kbdintGetnprompts(session);
+    QStringList prompts;
+    prompts.reserve(np);
+    for (int i = 0; i < np; ++i) {
+        char echo = 0;
+        const char *p = api().kbdintGetprompt(session, static_cast<unsigned int>(i), &echo);
+        prompts.append(QString::fromUtf8(p ? p : "")); // echo 读后丢弃（0x00629dea 全掩码）
+    }
+    const char *n = api().kbdintGetName ? api().kbdintGetName(session) : nullptr;
+    const char *ins = api().kbdintGetinstruction ? api().kbdintGetinstruction(session) : nullptr;
+    {
+        QMutexLocker lock(&m_state->mutex);
+        m_state->kbdintAnswered = false;
+        m_state->kbdintCancelled = false;
+        m_state->kbdintAnswers.clear();
+    }
+    emit kbdintPrompts(QString::fromUtf8(n ? n : ""), QString::fromUtf8(ins ? ins : ""),
+                       prompts);
+    {
+        QMutexLocker lock(&m_state->mutex);
+        // 定时醒检 aborted；总超时 120s 兜底（同 host key 等待）
+        QElapsedTimer waitTimer;
+        waitTimer.start();
+        while (!m_state->kbdintAnswered && !m_state->aborted && waitTimer.elapsed() < 120000)
+            m_state->cond.wait(&m_state->mutex, 200);
+        if (!m_state->kbdintAnswered || m_state->aborted)
+            return false; // 中止：调用侧静默（close 已收尾）
+        if (m_state->kbdintCancelled)
+            return false; // 用户取消 → abort 会话（走既有失败链）
+        m_state->kbdintAnswered = false; // 为下一轮重置
+    }
+    // 提交（0x008619b6）：行序对位——UI collect 的 QMap 已按 label 去重，重复 label 同
+    // key 覆盖（0x005961b0 语义），此处逐 prompt label 查表取值（读表在锁外：答案回执后
+    // 仅 worker 再读，主线程不再写）
+    for (int i = 0; i < np; ++i) {
+        const QString key = prompts.at(i).trimmed();
+        const QString value = m_state->kbdintAnswers.value(key);
+        const QByteArray buf = value.toUtf8();
+        if (api().kbdintSetanswer(session, static_cast<unsigned int>(i), buf.constData()) < 0)
+            return false; // 任一 setanswer<0 → 失败不推进
+    }
+    return true;
 }
 
 void SshWorker::connectFlow()
@@ -728,18 +807,17 @@ int SshWorker::runAuthOp(const AuthOp &op, void *session)
         }
         return rc;
     }
-    case AuthOp::KbdInt: { // rc==3(SSH_AUTH_INFO) 时 getnprompts/getprompt 循环
+    case AuthOp::KbdInt: { // 两阶段（0x00629dea/0x008644b8/0x008619b6）
+        // 探测：kbdint() 起步；rc==3(SSH_AUTH_INFO/AGAIN)→收集 prompts 发 UI 层→
+        // 等答案→setanswer 逐项提交→再 kbdint()；rc==3→新一轮 prompts 重建行。
+        // echo 标志读后丢弃（全部掩码，UI 实证 0x00629dea）。
+        // 取消（kbdintAnswered+cancelled）→false→队列当失败终止（abort 既有失败链）。
+        if (!api().kbdintGetnprompts || !api().kbdintGetprompt || !api().kbdintSetanswer)
+            return api().userauthKbdint(session, nullptr, nullptr); // 绑定残缺退旧探测语义
         int rc = api().userauthKbdint(session, nullptr, nullptr);
         while (rc == 3) {
-            const int np = api().kbdintGetnprompts ? api().kbdintGetnprompts(session) : 0;
-            for (int i = 0; i < np; ++i) {
-                char echo = 0;
-                if (api().kbdintGetprompt)
-                    api().kbdintGetprompt(session, static_cast<unsigned int>(i), &echo);
-                // shortcut: kbdint 答案 UI 未接(原版 GUI 分片缺失),首答案空重入
-                if (api().kbdintSetanswer)
-                    api().kbdintSetanswer(session, static_cast<unsigned int>(i), "");
-            }
+            if (!gatherKbdintAnswers(session))
+                return 1; // 取消/中止：rc=1=再次要密码语义 → 队列失败终止
             rc = api().userauthKbdint(session, nullptr, nullptr);
         }
         return rc;
@@ -824,6 +902,7 @@ void SshSession::start(const QString &host, int port, const QString &user, const
     connect(m_worker, &SshWorker::established, this, &SshSession::onWorkerEstablished);
     connect(m_worker, &SshWorker::failedSignal, this, &SshSession::onWorkerFailed);
     connect(m_worker, &SshWorker::hostKeyNeeded, this, &SshSession::onWorkerHostKey);
+    connect(m_worker, &SshWorker::kbdintPrompts, this, &SshSession::onWorkerKbdint);
     m_thread->start();
 }
 
@@ -835,6 +914,57 @@ void SshSession::hostKeyAnswer(bool accept)
     m_state->answered = true;
     m_state->accepted = accept;
     m_state->cond.wakeAll();
+}
+
+// kbdint 回执（主线程 LoginAuthForm accept 调用）：置答案表+唤醒 worker（模式同 hostKeyAnswer）
+void SshSession::kbdintAnswer(const QMap<QString, QString> &answers)
+{
+    if (!m_state)
+        return;
+    QMutexLocker lock(&m_state->mutex);
+    m_state->kbdintAnswers = answers;
+    m_state->kbdintAnswered = true;
+    m_state->cond.wakeAll();
+}
+
+void SshSession::kbdintCancel()
+{
+    if (!m_state)
+        return;
+    QMutexLocker lock(&m_state->mutex);
+    m_state->kbdintCancelled = true;
+    m_state->kbdintAnswered = true; // 唤醒同一等待点，gather 内分流取消
+    m_state->cond.wakeAll();
+}
+
+// 主线程：worker 探到 kbdint prompts（queued）→弹 LoginAuthForm 对话框（QDialog 承载
+// auth 页——shortcut: Login Wizard 壳未建,wizard 迁移挂账）→回执 kbdintAnswer/kbdintCancel
+void SshSession::onWorkerKbdint(const QString &name, const QString &instruction,
+                                const QStringList &prompts)
+{
+    QDialog dialog;
+    dialog.setWindowTitle(tr("Keyboard Interactive"));
+    auto *form = new LoginAuthForm(&dialog);
+    form->setPrompts(name, instruction, prompts);
+    QEventLoop spin; // singleShot(0) 插行落地后 accept=提交
+    QObject::connect(form, &LoginAuthForm::accepted, &dialog, &QDialog::accept);
+    connect(&dialog, &QDialog::rejected, &spin, &QEventLoop::quit);
+    auto *bbox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    connect(bbox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(bbox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    auto *vbox = new QVBoxLayout(&dialog);
+    vbox->addWidget(form);
+    vbox->addWidget(bbox);
+    QTimer::singleShot(0, &spin, &QEventLoop::quit);
+    spin.exec(); // 等 singleShot(0) 插行
+    QEventLoop waitLoop;
+    QObject::connect(&dialog, &QDialog::finished, &waitLoop, &QEventLoop::exit);
+    dialog.show();
+    waitLoop.exec();
+    if (dialog.result() == QDialog::Accepted)
+        kbdintAnswer(form->collect());
+    else
+        kbdintCancel(); // 取消 → abort 会话（走既有失败链）
 }
 
 void SshSession::stopWorkerThread()

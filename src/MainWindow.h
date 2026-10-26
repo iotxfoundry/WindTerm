@@ -75,9 +75,8 @@ private:
     // 焦点 view 沿父链找 MuxPaneGroup（0x8ca6ca 焦点链骨架等价）；无焦点回退主组
     MuxPaneGroup *activeMuxGroup() const;
     // ── P7b：tmux 会话 GUI（I 节挂载+J 节 Tmux.* 动作桥）──
-    // shortcut: MuxDesktop 落位挂账(原版 TerminalWidget+0x1d0 关联),当前以 activeMuxGroup
-    // 当前页 stack 插页替换待真机定——tmux 模式启用时 MuxDesktop 顶替 TerminalView 显示，
-    // TerminalView 隐藏不销毁（%exit 恢复显示）
+    // attach/detach 深逆 0x00842414/0x00842778 照搬：layout->replaceWidget 原位换入/
+    // 换回（第三参 1），desktop 每终端一份（TerminalView::muxDesktop 字段承载守卫）
     void attachMuxDesktop(TerminalView *view);
     void detachMuxDesktop(TerminalView *view);
     MuxDesktop *activeMuxDesktop() const;
@@ -111,5 +110,4 @@ private:
     TransferBar *m_transferBar = nullptr; // P6 懒建（0x85af56：首个 taskEvent 建）
     TransferCenter *m_transferCenter = nullptr; // 单例锚（hook 一次）
     void ensureTransferBar(); // 0x85af56：懒建+插入 centralVSplitter（SearchPane 之后）
-    QHash<TerminalView *, MuxDesktop *> m_muxDesktops; // P7b：host view→MuxDesktop（tmux 会话）
 };

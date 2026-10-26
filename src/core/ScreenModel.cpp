@@ -3,6 +3,7 @@
 #include <QStringList>
 
 #include "SchemeManager.h"
+#include "terminal/CharWidth.h"
 
 namespace {
 
@@ -111,27 +112,58 @@ const Cell &ScreenModel::cellAt(int row, int col) const
 
 void ScreenModel::putChar(QChar ch)
 {
-    if (m_cursorX >= m_cols) {
+    putCodePoint(ch.unicode());
+}
+
+// 0x005f5450 宽度接入：光标前进列数/宽字符不跨行拆/2 cell 占位（第二格 wideCont）
+void ScreenModel::putCodePoint(unsigned int cp)
+{
+    const int w = CharWidth::widthOfChar(cp);
+    // 行尾放不下宽字符→整体换行（宽字符不跨行拆）
+    if (m_cursorX >= m_cols || (w == 2 && m_cursorX + 1 >= m_cols)) {
         carriageReturn();
         newline();
     }
 
     Cell &cell = m_cells[m_cursorY][m_cursorX];
-    cell.ch = ch;
+    cell.ch = cp > 0xFFFF ? QChar::highSurrogate(cp) : QChar(cp);
+    cell.wideCont = false;
     cell.fg = m_fg;
     cell.bg = m_bg;
     cell.bold = m_bold;
     cell.underline = m_underline;
     cell.reverse = m_reverse;
 
-    m_lastChar = ch;
-    ++m_cursorX;
+    m_lastChar = cell.ch;
+    if (w == 2 && m_cursorX + 1 < m_cols) {
+        Cell &cont = m_cells[m_cursorY][m_cursorX + 1];
+        cont.ch = cp > 0xFFFF ? QChar::lowSurrogate(cp) : QChar();
+        cont.wideCont = true;
+        cont.fg = m_fg;
+        cont.bg = m_bg;
+        cont.bold = m_bold;
+        cont.underline = m_underline;
+        cont.reverse = m_reverse;
+        m_cursorX += 2;
+    } else {
+        ++m_cursorX;
+    }
 }
 
 void ScreenModel::printText(const QString &text)
 {
-    for (const QChar ch : text)
-        putChar(ch);
+    // 原版解码+宽度一体；骨架 VtParser 已解码为 UTF-16，此处按码点合并代理对再取宽
+    for (int i = 0; i < text.size();) {
+        const uint u = text.at(i).unicode();
+        if (QChar::isHighSurrogate(u) && i + 1 < text.size()
+            && QChar::isLowSurrogate(text.at(i + 1).unicode())) {
+            putCodePoint(QChar::surrogateToUcs4(u, text.at(i + 1).unicode()));
+            i += 2;
+        } else {
+            putCodePoint(u);
+            ++i;
+        }
+    }
 }
 
 void ScreenModel::newline()
@@ -560,6 +592,7 @@ void ScreenModel::blankCell(Cell &cell) const
     cell.bold = false;
     cell.underline = false;
     cell.reverse = false;
+    cell.wideCont = false;
 }
 
 QVector<Cell> ScreenModel::rowCells(int row) const

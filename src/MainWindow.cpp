@@ -17,6 +17,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLabel>
+#include <QLayout>
 #include <QLineEdit>
 #include <QMenu>
 
@@ -74,12 +75,16 @@
 #include "widgets/MenuBarCorner.h"
 #include "widgets/MuxPaneGroup.h"
 #include "widgets/MuxDesktop.h"
+#include "widgets/MuxPane.h"
+#include "widgets/MuxWindow.h"
 #include "widgets/PaneHeader.h"
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
 #include "widgets/StatusBar.h"
 #include "widgets/TerminalView.h"
 #include "widgets/TransferBar.h"
+
+#include "tmux/Tmux.h"
 
 namespace {
 
@@ -330,45 +335,84 @@ MuxPaneGroup *MainWindow::activeMuxGroup() const
 
 // ── P7b：tmux 会话 GUI（I 节挂载）──
 
-// shortcut: MuxDesktop 落位挂账(原版 TerminalWidget+0x1d0 关联),当前以 activeMuxGroup
-// 当前页 stack 插页替换待真机定：tmux 模式启用时 MuxDesktop 顶替 TerminalView 显示
+// attach（0x00842414 照搬）：MuxDesktop 原位替换 TerminalView（layout->replaceWidget
+// 第三参 1），非 stack 插页。每终端一份 desktop（非窗级共享）。
+// 首窗（0x8de3e8 链）：原 terminal 挂该窗 MuxPaneGroup 首页——不隐藏，%output 继续喂它。
 void MainWindow::attachMuxDesktop(TerminalView *view)
 {
-    if (!view || m_muxDesktops.contains(view))
+    if (!view || view->muxDesktop())
+        return; // 守卫幂等：已挂桌面（0x842414 首段）
+    // 前置：terminal 在宿主布局内（原版 layout->indexOf(terminal) 检——layout 取自父件）
+    QLayout *layout = view->parentWidget() ? view->parentWidget()->layout() : nullptr;
+    if (!layout || layout->indexOf(view) < 0)
         return;
-    auto *desktop = new MuxDesktop(view, this);
-    m_muxDesktops.insert(view, desktop);
-    // %exit（tmuxModeExited）→恢复 TerminalView 显示并弃 desktop
+    auto *desktop = new MuxDesktop(view);
+    view->setMuxDesktop(desktop);
+    // desktop 销毁（%exit detach deleteLater 路径外）→清宿主指针字段
+    connect(desktop, &QObject::destroyed, view, [view] { view->setMuxDesktop(nullptr); });
+    // %exit（tmuxModeExited/exited）→replaceWidget 换回+desktop 弃件
     connect(desktop, &MuxDesktop::finished, this, [this, view]() { detachMuxDesktop(view); });
-    if (auto *stack = qobject_cast<QStackedWidget *>(view->parentWidget())) {
-        stack->addWidget(desktop);
-        stack->setCurrentWidget(desktop);
-    }
-    view->hide(); // TerminalView 隐藏不销毁（%exit 恢复显示）
+    layout->replaceWidget(view, desktop, Qt::FindDirectChildrenOnly); // 0x842414 第三参 1
+
+    // 首窗构建序（0x8de3e8）：MuxWindow→MuxPaneGroup(存活态)→terminal 挂 "tmux" 属性→
+    // terminal 入组 TabGroup 首页（不隐藏，%output 活动面继续喂）→组进 win splitter→
+    // win 名 "tmux"/内部名 "session::tmux"→desktop->addPage(win)
+    auto *win = new MuxWindow(desktop);
+    win->setObjectName(QStringLiteral("tmux"));
+    win->setProperty("session", QStringLiteral("session::tmux")); // 内部名挂属性（0x8de3e8）
+    auto *group = new MuxPaneGroup(win);
+    group->initTmuxMode(true);
+    // 宿主终端组标记：restoreSplitterTree 摘离 pass 跳过（0x8de3e8 原终端不隐藏）
+    group->setProperty("hostTerminal", true);
+    view->setProperty("tmux", true);
+    auto *pane = new MuxPane(-1, group);
+    pane->setView(view);
+    group->attachTmuxPane(pane, tr("tmux"));
+    win->rootSplitter()->addWidget(group);
+    // desktop 侧页注册：windowsChanged 首拍会经 ensureWindowPage 以真实 windowId 接管
+    // （attach 先于模型首拍时 windows 空——adopt 仅建页，id 由后续 reconcile 对齐）
+    desktop->adoptInitialWindow(win, -1);
 }
 
 void MainWindow::detachMuxDesktop(TerminalView *view)
 {
-    auto it = m_muxDesktops.find(view);
-    if (it == m_muxDesktops.end())
+    MuxDesktop *desktop = view ? view->muxDesktop() : nullptr;
+    if (!desktop)
         return;
-    MuxDesktop *desktop = it.value();
-    m_muxDesktops.erase(it);
-    if (auto *stack = qobject_cast<QStackedWidget *>(desktop->parentWidget())) {
-        stack->setCurrentWidget(view);
-        stack->removeWidget(desktop);
+    // 0x842778 照搬：layout->replaceWidget(desktop, terminal) 换回（非 hide/show）。
+    // terminal 已深入 desktop 树（首窗 pane 组内）——原版换回前先把 terminal 沿树摘出
+    // （0x8de3e8 首窗页内容），再在原槽位 replaceWidget。
+    if (QWidget *pane = view->parentWidget()) {
+        if (QLayout *paneLayout = pane->layout())
+            paneLayout->removeWidget(view); // 摘出 desktop 树（pane 随 desktop 弃件）
     }
-    view->show();
+    if (QLayout *slotLayout = desktop->parentWidget() ? desktop->parentWidget()->layout()
+                                                      : nullptr;
+        slotLayout && slotLayout->indexOf(desktop) >= 0) {
+        slotLayout->replaceWidget(desktop, view, Qt::FindDirectChildrenOnly);
+    } else if (desktop->parentWidget()) {
+        view->setParent(desktop->parentWidget()); // 兜底：槽非布局件（QStackedWidget 页）
+        view->show();
+    }
+    // desktop 整树 deleteLater（MuxWindow/pane 组随销毁；terminal 已摘出不牵连）
     desktop->deleteLater();
+    view->setMuxDesktop(nullptr);
+    view->setProperty("tmux", QVariant()); // "tmux" 属性清除（0x842778 恢复段）
 }
 
 MuxDesktop *MainWindow::activeMuxDesktop() const
 {
-    if (QWidget *focus = QApplication::focusWidget())
-        for (auto it = m_muxDesktops.cbegin(); it != m_muxDesktops.cend(); ++it)
-            if ((*it)->isAncestorOf(focus))
-                return it.value();
-    return m_muxDesktops.isEmpty() ? nullptr : m_muxDesktops.cbegin().value();
+    if (QWidget *focus = QApplication::focusWidget()) {
+        const auto views = findChildren<TerminalView *>();
+        for (TerminalView *view : views)
+            if (MuxDesktop *desktop = view->muxDesktop();
+                desktop && desktop->isAncestorOf(focus))
+                return desktop;
+    }
+    for (TerminalView *view : findChildren<TerminalView *>())
+        if (MuxDesktop *desktop = view->muxDesktop())
+            return desktop;
+    return nullptr;
 }
 
 void MainWindow::onAddressBarReturn()

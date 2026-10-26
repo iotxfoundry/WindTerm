@@ -6,6 +6,7 @@
 #include <QFont>
 #include <QHash>
 #include <QPoint>
+#include <QPointer>
 #include <QRect>
 #include <QScrollBar>
 #include <QSizeF>
@@ -14,6 +15,8 @@
 #include <QTimer>
 #include <QVariant>
 #include <QVector>
+
+#include "MuxDesktop.h"
 
 class Session;
 class QContextMenuEvent;
@@ -24,6 +27,7 @@ class QResizeEvent;
 class ScreenModel;
 class Tmux;
 class VtParser;
+class MuxDesktop;
 
 // P4 find 选项（SearchPane 选项表 0x74d90c 子集；searchIncremental/searchContext 只影响
 // 触发时机/挂账，不进匹配引擎）
@@ -85,6 +89,9 @@ public:
     QSizeF cellSize() const { return QSizeF(m_cellW, m_cellH); }
     int paneId() const { return m_paneId; }
     void setPaneId(int id) { m_paneId = id; }
+    // P7b：tmux 桌面（attach 幂等守卫 + 断言面；0x8de3e8 桌面指针字段语义）
+    MuxDesktop *muxDesktop() const { return m_muxDesktop.data(); }
+    void setMuxDesktop(MuxDesktop *desktop) { m_muxDesktop = desktop; }
     // 活动屏纯文本（测试断言用）
     QString plainText() const;
 
@@ -232,6 +239,9 @@ private:
     ScreenModel *m_screen;
     VtParser *m_parser;
     Tmux *m_tmux = nullptr; // tmux control 模式挂载（0x7e9a06 +0x188）
+    // P7b attach 守卫（0x8de3e8 同位语义：TerminalWidget 桌面指针字段）：
+    // desktop destroyed→自动清零（QPointer），重复 attach 幂等
+    QPointer<MuxDesktop> m_muxDesktop;
     int m_paneId = -1;      // P7b：tmux pane 目标（pane 视图用，非 tmux 挂 -1）
     int m_keyMode = 8; // King.RemoteMode（0xccbc40：RemoteMode=8；默认远程）
     int m_windowRows = 24;

@@ -71,11 +71,20 @@ public:
     // hostKeyUnknown() 的回执落点（主线程对话框调用；worker 收到即继续/放弃）
     void hostKeyAnswer(bool accept);
 
+    // kbdint 回执落点（主线程 LoginAuthForm 对话框 accept/reject 调用；worker 等待处
+    // 唤醒继续/中止——模式同 hostKeyAnswer）
+    void kbdintAnswer(const QMap<QString, QString> &answers);
+    void kbdintCancel();
+
 signals:
     void connected();
     void failed(const QString &reason);
     // changed=true：KNOWN_CHANGED（MITM 嫌疑，警告默认拒绝）；false：UNKNOWN/NOT_FOUND 首连
     void hostKeyUnknown(const QString &host, const QString &fingerprint, bool changed);
+    // kbdint prompts 到达（worker queued→主线程弹 LoginAuthForm 对话框→回执走
+    // kbdintAnswer/kbdintCancel）
+    void kbdintNeeded(const QString &name, const QString &instruction,
+                      const QStringList &prompts);
     // P5（0x866372/0x8638f0 信号 0 语义）：成功带句柄/失败 null+统一文案
     // "SFTP failed to allocate. "。非致命：会话保持 connected
     void sftpReady();
@@ -89,6 +98,8 @@ private slots:
     void onWorkerEstablished();                // 接管 worker 移交的 libssh 句柄：挂 notifier
     void onWorkerFailed(const QString &reason);
     void onWorkerHostKey(const QString &host, const QString &fingerprint, bool changed);
+    void onWorkerKbdint(const QString &name, const QString &instruction,
+                        const QStringList &prompts);
 
 private:
     void teardown();
