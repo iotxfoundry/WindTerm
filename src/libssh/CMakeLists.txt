@@ -212,11 +212,9 @@ endif (WITH_SYMBOL_VERSIONING AND ABIMAP_FOUND)
 add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source DEPENDS ${_SYMBOL_TARGET} VERBATIM)
 
 # Link compile database for clangd
-if(EXISTS "${CMAKE_BINARY_DIR}/compile_commands.json")
-    execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-                    "${CMAKE_BINARY_DIR}/compile_commands.json"
-                    "${CMAKE_SOURCE_DIR}/compile_commands.json")
-endif()
+execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+                "${CMAKE_BINARY_DIR}/compile_commands.json"
+                "${CMAKE_SOURCE_DIR}/compile_commands.json")
 
 message(STATUS "********************************************")
 message(STATUS "********** ${PROJECT_NAME} build options : **********")
