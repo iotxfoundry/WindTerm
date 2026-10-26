@@ -173,3 +173,8 @@ windterm_test_offscreen(test_transfer)
 # P7a tmux 集成：解析单测必跑；真实 -CC 端到端系统缺 tmux 则测试内 SKIP
 windterm_add_test(test_tmux_control)
 windterm_test_offscreen(test_tmux_control)
+
+# P7b MuxDesktop GUI 映射：真 tmux -CC 端到端（页/分屏树/激活/补屏/%exit 恢复），
+# 系统缺 tmux 则测试内 SKIP
+windterm_add_test(test_tmux_desktop)
+windterm_test_offscreen(test_tmux_desktop)

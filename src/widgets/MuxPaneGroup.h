@@ -5,6 +5,7 @@
 #include <functional>
 
 class QColor;
+class MuxPane;
 class Session;
 class QStackedWidget;
 class QTabBar;
@@ -53,6 +54,17 @@ public:
     // KitGroup::setMenuWidget 挂其 menuWidget 槽（0x008bade2）
     QWidget *tabBarRow() const { return m_tabBarRow; }
 
+    // ── P7b：tmux pane 组模式（MuxWindow 承载，0x8de936/0x8dece0 结构差异点）──
+    // TabGroup objectName "PaneGroup"、documentMode(false)、focusPolicy NoFocus、
+    // tabsClosable(false)、scrollButtons(false)、doubleClickAction 属性="RenameTab"；
+    // attached 组按钮 [ConfigButton]、非 attached [TabAddButton,TabListButton,ConfigButton]，
+    // CloseButton visible=false
+    void initTmuxMode(bool attached);
+    // 组内挂 tmux pane（tab+stack；0x8de1a8 addChildWidget 语义由 MuxPane::setView 承担）
+    void attachTmuxPane(MuxPane *pane, const QString &title);
+    // 组标题（"%1:%2" paneId:name，0x84b483 链）
+    void setPaneTitle(const QString &title);
+
 private:
     void addPane(Session *session, const QString &title, const QColor &color);
 
@@ -63,5 +75,6 @@ private:
     QToolButton *m_scrollRightButton;
     QToolButton *m_addButton;
     QToolButton *m_listButton;
+    QToolButton *m_configButton = nullptr; // P7b tmux 模式（initTmuxMode 建）
     bool m_confirmClose = true;
 };

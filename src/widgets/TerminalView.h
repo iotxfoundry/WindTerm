@@ -8,7 +8,9 @@
 #include <QPoint>
 #include <QRect>
 #include <QScrollBar>
+#include <QSizeF>
 #include <QString>
+#include <QStringList>
 #include <QTimer>
 #include <QVariant>
 #include <QVector>
@@ -69,6 +71,22 @@ public:
 
     // quickbar "Send Text" 命令（0x56d890）：文本直接写入会话
     void sendText(const QString &text);
+
+    // ── P7b tmux pane 视图（0x8de1a8 内嵌 TerminalWidget 语义：无会话独立缓冲）──
+    // 无会话建屏（attachSession 屏建段同款缺省色/滚回；pane 视图初始化用）
+    void ensureScreenModel(int cols, int rows);
+    // ScreenModel::resizeScreen(cols/rows 参数序对齐视图面；pane 模型 w/h 随动)
+    void resizeScreen(int cols, int rows);
+    // screenCaptured 整缓冲替换：\r\n 拆行重建满行（溢出自然沉 scrollback）
+    void loadScreen(const QStringList &lines);
+    // tmux 输出回灌（MuxDesktop feedPaneView 落点）：VT 直喂+重绘
+    void feedVtData(const QByteArray &data);
+    // cell 像素度量（MuxDesktop resize-pane 计数换算）；paneId 挂靠（pane 命令目标）
+    QSizeF cellSize() const { return QSizeF(m_cellW, m_cellH); }
+    int paneId() const { return m_paneId; }
+    void setPaneId(int id) { m_paneId = id; }
+    // 活动屏纯文本（测试断言用）
+    QString plainText() const;
 
     // ═══ P4 终端搜索/高亮（深逆 0x74efe6 族；B 节 find API——函数体未 dump，
     // 按动作脚本面+SearchPane 执行链语义实现+挂账注明）═══
@@ -143,6 +161,9 @@ signals:
     void keyModeChanged();
     void screenSizeChanged();
     void caretPositionChanged();
+    // P7b：tmux 模式进出（MainWindow 挂载/恢复 MuxDesktop 接线点，0x8d9be0 链）
+    void tmuxModeEntered();
+    void tmuxModeExited();
     // shortcut: scheme 切换点未接（SchemeManager 单例无 per-view 切换），挂账
     void schemeChanged();
 
@@ -211,6 +232,7 @@ private:
     ScreenModel *m_screen;
     VtParser *m_parser;
     Tmux *m_tmux = nullptr; // tmux control 模式挂载（0x7e9a06 +0x188）
+    int m_paneId = -1;      // P7b：tmux pane 目标（pane 视图用，非 tmux 挂 -1）
     int m_keyMode = 8; // King.RemoteMode（0xccbc40：RemoteMode=8；默认远程）
     int m_windowRows = 24;
     int m_windowColumns = 80;

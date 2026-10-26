@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QHash>
 #include <QMainWindow>
 #include <QPointer>
 #include <QPoint>
@@ -17,6 +18,7 @@ class QEvent;
 class FilerPane;
 class QLineEdit;
 class QMenu;
+class MuxDesktop;
 class QResizeEvent;
 class QTabBar;
 class QTimer;
@@ -72,6 +74,13 @@ private:
     QToolBar *buildGroupToolBar();
     // 焦点 view 沿父链找 MuxPaneGroup（0x8ca6ca 焦点链骨架等价）；无焦点回退主组
     MuxPaneGroup *activeMuxGroup() const;
+    // ── P7b：tmux 会话 GUI（I 节挂载+J 节 Tmux.* 动作桥）──
+    // shortcut: MuxDesktop 落位挂账(原版 TerminalWidget+0x1d0 关联),当前以 activeMuxGroup
+    // 当前页 stack 插页替换待真机定——tmux 模式启用时 MuxDesktop 顶替 TerminalView 显示，
+    // TerminalView 隐藏不销毁（%exit 恢复显示）
+    void attachMuxDesktop(TerminalView *view);
+    void detachMuxDesktop(TerminalView *view);
+    MuxDesktop *activeMuxDesktop() const;
     void createStatusBar();
     QWidget *createBottomTabs();
     QString makeMenuTitle(const QString &base, int n) const;
@@ -102,4 +111,5 @@ private:
     TransferBar *m_transferBar = nullptr; // P6 懒建（0x85af56：首个 taskEvent 建）
     TransferCenter *m_transferCenter = nullptr; // 单例锚（hook 一次）
     void ensureTransferBar(); // 0x85af56：懒建+插入 centralVSplitter（SearchPane 之后）
+    QHash<TerminalView *, MuxDesktop *> m_muxDesktops; // P7b：host view→MuxDesktop（tmux 会话）
 };

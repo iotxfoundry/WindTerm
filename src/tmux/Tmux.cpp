@@ -484,6 +484,15 @@ void Tmux::refreshWindows(const QList<QByteArray> &lines) // 0x0087b76a
             ++it;
         }
     }
+    // P7b 挂载面：layout/visibleLayout 变更同样通知（GUI 分屏树还原依赖——
+    // 原版 GUI 直读模型批刷；骨架信号面窄，几何变更走 windowsChanged）
+    for (const int id : qAsConst(seen)) {
+        const Window &w = m_windows.value(id);
+        if (w.attached && m_lastLayouts.value(id) != w.visibleLayout.toUtf8()) {
+            m_lastLayouts.insert(id, w.visibleLayout.toUtf8());
+            changed = true;
+        }
+    }
     if (!removed.isEmpty()) {
         emit windowsRemoved(removed);
         changed = true;

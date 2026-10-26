@@ -145,6 +145,7 @@ private:
     QMap<int, Pane> m_panes;
     QMap<int, Window> m_windows;
     QMap<int, QByteArray> m_pendingOut;
+    QMap<int, QByteArray> m_lastLayouts; // P7b：attached 窗 visibleLayout 变更检测（windowsChanged 依据）
     QString m_version;
     int m_sessionId = -1; // 0x00879d62 从 list-panes session_id 回填（+0x34）
     int m_activePaneId = -1;

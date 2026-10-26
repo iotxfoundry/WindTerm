@@ -18,6 +18,7 @@
 
 #include "ActionIcons.h"
 #include "KitGroup.h"
+#include "MuxPane.h"
 #include "PaneManager.h"
 #include "TerminalView.h"
 
@@ -170,6 +171,45 @@ MuxPaneGroup::MuxPaneGroup(QWidget *parent)
     connect(m_listButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
 
     // profile terminal.startupSessions=NoSessions：原版启动无标签（空 tabBar 仅按钮组）
+}
+
+// ── P7b：tmux pane 组模式（0x8de936/0x8dece0 结构差异点修正，KitGroup 场景不受影响）──
+
+void MuxPaneGroup::initTmuxMode(bool attached)
+{
+    // 0x8de936：TabGroup objectName "PaneGroup"（KitGroup 场景保持 "ViewGroup" 0x8bade2
+    // ——同名互斥，tmux 模式改挂）
+    m_tabBarRow->setObjectName(QStringLiteral("PaneGroup"));
+    m_tabBar->setTabsClosable(false); // 0x8dece0：tabsClosable=false
+    setFocusPolicy(Qt::NoFocus);
+    setProperty("doubleClickAction", QStringLiteral("RenameTab"));
+    // attached=[ConfigButton] / 非 attached=[TabAddButton,TabListButton,ConfigButton]；
+    // CloseButton visible=false（0x8dece0）。scroll 按钮 0x5ac522 裁定：初始隐藏禁用（维持）
+    m_addButton->setVisible(!attached);
+    m_listButton->setVisible(!attached);
+    m_configButton = new QToolButton(this);
+    m_configButton->setObjectName(QStringLiteral("ConfigButton"));
+    m_configButton->setIcon(ActionIcons::iconFor(QStringLiteral("ConfigButton"),
+                                                 QStringLiteral("king::config"),
+                                                 ThemeManager::instance().currentTheme()));
+    m_tabBarRow->layout()->addWidget(m_configButton);
+    // shortcut: ConfigButton 行为挂账, tmux pane 配置对话框未逆明(0x8dece0 按钮面)
+    connect(m_configButton, &QToolButton::clicked, this, []() { Q_UNIMPLEMENTED(); });
+    // shortcut: hoverToSelect 延时未逆明(0x8de936 段), 挂账
+}
+
+void MuxPaneGroup::attachTmuxPane(MuxPane *pane, const QString &title)
+{
+    const int index = m_tabBar->addTab(title);
+    m_stack->addWidget(pane);
+    m_tabBar->setCurrentIndex(index);
+    m_stack->setCurrentWidget(pane);
+}
+
+void MuxPaneGroup::setPaneTitle(const QString &title)
+{
+    if (m_tabBar->count() > 0)
+        m_tabBar->setTabText(0, title);
 }
 
 void MuxPaneGroup::addPane(Session *session, const QString &title, const QColor &color)

@@ -192,6 +192,88 @@ void TerminalView::sendText(const QString &text)
         m_session->write(text.toUtf8());
 }
 
+// ── P7b：tmux pane 视图（0x8de1a8 内嵌 TerminalWidget 语义）──
+
+// 无会话建屏：attachSession 屏建段同款（scheme 缺省色+scrollbackLimit；无 parser 不建——
+// pane 视图 VT 由 feedVtData 喂，VtParser 仅在有屏时构造）
+void TerminalView::ensureScreenModel(int cols, int rows)
+{
+    if (m_screen) {
+        resizeScreen(cols, rows);
+        return;
+    }
+    m_defaultFg = schemeColor(QStringLiteral("terminal.ansiWhite"), QColor(QStringLiteral("#e3e3dd")));
+    m_defaultBg = schemeColor(QStringLiteral("line.background"), QColor(QStringLiteral("#272822")));
+    m_screen = new ScreenModel(rows, cols, m_defaultFg, m_defaultBg,
+                               WindConfig::instance().valueToString(
+                                   QStringLiteral("window.scrollbackLimit"),
+                                   QStringLiteral("1000")).toInt());
+    m_parser = new VtParser(m_screen);
+    applyResize();
+    updateScrollRange();
+}
+
+// 参数序对齐视图面（cols, rows）；ScreenModel 侧 (rows, cols)
+void TerminalView::resizeScreen(int cols, int rows)
+{
+    if (!m_screen)
+        return;
+    m_screen->resizeScreen(rows, cols);
+    applyResize();
+    updateScrollRange();
+    viewport()->update();
+    emit screenSizeChanged();
+}
+
+// screenCaptured 整缓冲替换（0x877610 链）：reset 清滚回/模式后逐行 printText 重建——
+// newline 在底行使溢出行自然沉 scrollback（scrollUp 语义）
+void TerminalView::loadScreen(const QStringList &lines)
+{
+    if (!m_screen || !m_parser)
+        return;
+    m_selAnchor = m_selEnd = QPoint(-1, -1);
+    m_screen->reset();
+    for (int i = 0; i < lines.size(); ++i) {
+        m_screen->printText(lines.at(i));
+        m_screen->carriageReturn();
+        if (i + 1 < lines.size())
+            m_screen->newline();
+    }
+    updateScrollRange();
+    verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+    viewport()->update();
+    emit caretPositionChanged();
+}
+
+// tmux 输出回灌（MuxDesktop feedPaneView）：与 vtOutput 直通同管线
+void TerminalView::feedVtData(const QByteArray &data)
+{
+    if (!m_parser)
+        return;
+    const bool atBottom = verticalScrollBar()->value() >= verticalScrollBar()->maximum();
+    m_parser->feed(data);
+    updateScrollRange();
+    if (atBottom)
+        verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+    viewport()->update();
+    emit caretPositionChanged();
+}
+
+// 活动屏逐行纯文本（测试断言面）
+QString TerminalView::plainText() const
+{
+    if (!m_screen)
+        return QString();
+    QStringList lines;
+    for (int r = 0; r < m_screen->rows(); ++r) {
+        QString line;
+        for (int c = 0; c < m_screen->cols(); ++c)
+            line += m_screen->cellAt(r, c).ch;
+        lines.append(line);
+    }
+    return lines.join(QLatin1Char('\n'));
+}
+
 // tmux control 模式挂载（0x7e9a06：new Tmux 挂 +0x188+connect+emit entered——
 // 骨架无 entered 信号面，挂账）；命令入口 view->tmux()->sendCommand。
 void TerminalView::enableTmuxMode()
@@ -222,9 +304,12 @@ void TerminalView::enableTmuxMode()
         t->deleteLater();
         m_parser->feed(rest);
         viewport()->update();
+        emit tmuxModeExited(); // P7b：宿主恢复 TerminalView 显示
     });
     // shortcut: tmux-256color DA 应答挂账(terms 文件,DA 65 身份),P7b
     m_tmux->start();
+    // P7b：GUI 挂载点（MainWindow::attachMuxDesktop 经此信号接 MuxDesktop，0x8d9be0 链）
+    emit tmuxModeEntered();
 }
 
 TerminalView *TerminalView::activeView()

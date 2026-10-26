@@ -1,12 +1,14 @@
 #include "MainWindow.h"
 
 #include <QAction>
+#include <QApplication>
 #include <QCloseEvent>
 #include <QDir>
 
 #include <QContextMenuEvent>
 #include <QCursor>
 #include <QEventLoop>
+#include <QInputDialog>
 #include <QMessageBox>
 #include <QPointer>
 
@@ -71,6 +73,7 @@
 #include "widgets/KitGroup.h"
 #include "widgets/MenuBarCorner.h"
 #include "widgets/MuxPaneGroup.h"
+#include "widgets/MuxDesktop.h"
 #include "widgets/PaneHeader.h"
 #include "widgets/QuickBar.h"
 #include "widgets/Splitter.h"
@@ -325,6 +328,49 @@ MuxPaneGroup *MainWindow::activeMuxGroup() const
     return m_muxPaneGroup;
 }
 
+// ── P7b：tmux 会话 GUI（I 节挂载）──
+
+// shortcut: MuxDesktop 落位挂账(原版 TerminalWidget+0x1d0 关联),当前以 activeMuxGroup
+// 当前页 stack 插页替换待真机定：tmux 模式启用时 MuxDesktop 顶替 TerminalView 显示
+void MainWindow::attachMuxDesktop(TerminalView *view)
+{
+    if (!view || m_muxDesktops.contains(view))
+        return;
+    auto *desktop = new MuxDesktop(view, this);
+    m_muxDesktops.insert(view, desktop);
+    // %exit（tmuxModeExited）→恢复 TerminalView 显示并弃 desktop
+    connect(desktop, &MuxDesktop::finished, this, [this, view]() { detachMuxDesktop(view); });
+    if (auto *stack = qobject_cast<QStackedWidget *>(view->parentWidget())) {
+        stack->addWidget(desktop);
+        stack->setCurrentWidget(desktop);
+    }
+    view->hide(); // TerminalView 隐藏不销毁（%exit 恢复显示）
+}
+
+void MainWindow::detachMuxDesktop(TerminalView *view)
+{
+    auto it = m_muxDesktops.find(view);
+    if (it == m_muxDesktops.end())
+        return;
+    MuxDesktop *desktop = it.value();
+    m_muxDesktops.erase(it);
+    if (auto *stack = qobject_cast<QStackedWidget *>(desktop->parentWidget())) {
+        stack->setCurrentWidget(view);
+        stack->removeWidget(desktop);
+    }
+    view->show();
+    desktop->deleteLater();
+}
+
+MuxDesktop *MainWindow::activeMuxDesktop() const
+{
+    if (QWidget *focus = QApplication::focusWidget())
+        for (auto it = m_muxDesktops.cbegin(); it != m_muxDesktops.cend(); ++it)
+            if ((*it)->isAncestorOf(focus))
+                return it.value();
+    return m_muxDesktops.isEmpty() ? nullptr : m_muxDesktops.cbegin().value();
+}
+
 void MainWindow::onAddressBarReturn()
 {
     if (!m_addressBar || !m_muxPaneGroup)
@@ -486,6 +532,58 @@ QAction *MainWindow::makeAction(const QString &actionId)
                 return;
             if (auto *pane = findChild<SessionPane *>())
                 pane->reload();
+        });
+        return action;
+    }
+    // ── P7b J 节：Tmux.* 7 动作（wind.actions script 面落 desktop 命令桥；原版经
+    // window.activeMuxDesktop 直调——骨架以 activeMuxDesktop() 取件）──
+    if (actionId.startsWith(QStringLiteral("Tmux."))) {
+        connect(action, &QAction::triggered, this, [this, actionId, action]() {
+            MuxDesktop *desktop = activeMuxDesktop();
+            if (!desktop || !desktop->tmux())
+                return;
+            if (actionId == QStringLiteral("Tmux.AttachSession")
+                || actionId == QStringLiteral("Tmux.KillSession")) {
+                const QStringList names = desktop->tmuxSessionNames();
+                if (names.isEmpty())
+                    return; // wind.actions '[Session list is empty]'
+                bool ok = false;
+                const QString name = QInputDialog::getItem(
+                    this, action->text().remove(QLatin1Char('&')), tr("Session:"), names, 0,
+                    false, &ok);
+                if (!ok)
+                    return;
+                if (actionId == QStringLiteral("Tmux.AttachSession"))
+                    desktop->attachTmuxSession(name);
+                else
+                    desktop->killTmuxSession(name);
+            } else if (actionId == QStringLiteral("Tmux.DetachClient")) {
+                desktop->detachTmuxClient();
+            } else if (actionId == QStringLiteral("Tmux.ExecuteTmuxCommand")) {
+                desktop->executeTmuxCommand();
+            } else if (actionId == QStringLiteral("Tmux.RenameSession")) {
+                desktop->renameTmuxSession();
+            } else if (actionId == QStringLiteral("Tmux.SelectLayout")) {
+                // wind.actions text：7 布局列表（原文）
+                const QStringList layouts = {
+                    QStringLiteral("Even horizontal"), QStringLiteral("Even vertical"),
+                    QStringLiteral("Main horizontal"), QStringLiteral("Main horizontal mirrored"),
+                    QStringLiteral("Main vertical"), QStringLiteral("Main vertical mirrored"),
+                    QStringLiteral("Tiled")};
+                bool ok = false;
+                const QString name = QInputDialog::getItem(this, action->text().remove(QLatin1Char('&')),
+                                                           tr("Layout:"), layouts, 0, false, &ok);
+                if (ok)
+                    desktop->selectTmuxLayout(name);
+            } else if (actionId == QStringLiteral("Tmux.SynchronizePanes")) {
+                // wind.actions text：['On','Off'] 子菜单面——骨架以选择对话框等价（挂账）
+                bool ok = false;
+                const QString pick = QInputDialog::getItem(
+                    this, action->text().remove(QLatin1Char('&')), tr("Synchronize panes:"),
+                    {QStringLiteral("On"), QStringLiteral("Off")}, 0, false, &ok);
+                if (ok)
+                    desktop->synchronizeTmuxPanes(pick == QLatin1String("On"));
+            }
         });
         return action;
     }
@@ -936,9 +1034,17 @@ QWidget *MainWindow::createKitGroup()
     // currentChanged 兜住每个新建/激活的 view；UniqueConnection 去重避免反复连
     if (auto *muxStack = mux->findChild<QStackedWidget *>()) {
         auto link = [this, mux]() {
-            for (TerminalView *view : mux->findChildren<TerminalView *>())
+            for (TerminalView *view : mux->findChildren<TerminalView *>()) {
                 connect(view, &TerminalView::contextMenuRequested, this,
                         &MainWindow::onTerminalContextMenu, Qt::UniqueConnection);
+                // P7b：tmux 会话 GUI 挂载/恢复（0x8d9be0 链）
+                connect(view, &TerminalView::tmuxModeEntered, this, [this, view]() {
+                    attachMuxDesktop(view);
+                }, Qt::UniqueConnection);
+                connect(view, &TerminalView::tmuxModeExited, this, [this, view]() {
+                    detachMuxDesktop(view);
+                }, Qt::UniqueConnection);
+            }
         };
         // statusbar.config JS 链：view 切换 → terminal.viewActivated 转发
         // （0x8d9764 焦点终端链骨架等价；无 view 时发 nullptr——config JS 据 null 隐藏按钮）
