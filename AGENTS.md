@@ -46,7 +46,7 @@
 ## 验证基线
 
 ```bash
-cmake -B build && cmake --build build -j4   # Qt5 优先，产物在 build/
+cmake -B build && cmake --build build -j$(nproc)   # Qt5 优先，产物在 build/；源在 windterm_core 静态库只编一次（勿退回每 target 全量源），ccache 自动启用
 QT_QPA_PLATFORM=offscreen timeout 5 ./build/WindTermGuiSkeleton   # 冒烟（存活到超时=OK）
 ```
 

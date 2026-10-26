@@ -49,56 +49,51 @@ if(NOT TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
   list(FILTER PROJECT_HEADERS EXCLUDE REGEX "SerialSession")
 endif()
 
-add_executable(WindTermGuiSkeleton ${PROJECT_SOURCES} ${PROJECT_HEADERS})
-target_include_directories(WindTermGuiSkeleton PRIVATE src)
-target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CMAKE_DL_LIBS})
+# ccache 可选：命中时清构建/换分支零重编（缺失自动跳过）
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+  set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
+endif()
+
+# ═══ 核心静态库：项目源只编译一次 ═══
+# 旧结构 TEST_SOURCES=PROJECT_SOURCES 让 32 个测试 target 各自重编全部源+moc
+# （touch 一个 cpp 触发 33 目标×同文件重编）。改静态库后主程序/测试只链接。
+set(LIB_SOURCES ${PROJECT_SOURCES} ${PROJECT_HEADERS})
+list(FILTER LIB_SOURCES EXCLUDE REGEX "/src/main\\.cpp$")
+
+add_library(windterm_core STATIC ${LIB_SOURCES})
+# PUBLIC：include/Qt 链接/条件宏全部传递给主程序与各测试 target
+target_include_directories(windterm_core PUBLIC src)
+target_link_libraries(windterm_core PUBLIC Qt${QT_VERSION_MAJOR}::Widgets ${CMAKE_DL_LIBS})
 if (TARGET Qt${QT_VERSION_MAJOR}::Network)
-  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+  target_link_libraries(windterm_core PUBLIC Qt${QT_VERSION_MAJOR}::Network)
 endif()
 if (TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
-  target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_SERIALPORT)
-  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
+  # src/MainWindow.cpp 的 reopen Serial 段无 #ifdef 守卫（仅 connect 段有）——
+  # SerialPort 组件在系统上时必须携带 define+链接才能编过共享源
+  target_compile_definitions(windterm_core PUBLIC WINDTERM_HAVE_SERIALPORT)
+  target_link_libraries(windterm_core PUBLIC Qt${QT_VERSION_MAJOR}::SerialPort)
 endif()
 if (TARGET Qt${QT_VERSION_MAJOR}::Concurrent)
-  target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_CONCURRENT)
-  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt${QT_VERSION_MAJOR}::Concurrent)
+  target_compile_definitions(windterm_core PUBLIC WINDTERM_HAVE_CONCURRENT)
+  target_link_libraries(windterm_core PUBLIC Qt${QT_VERSION_MAJOR}::Concurrent)
 endif()
 if (WINDTERM_HAVE_QJSENGINE)
-  target_compile_definitions(WindTermGuiSkeleton PRIVATE WINDTERM_HAVE_QJSENGINE)
-  target_link_libraries(WindTermGuiSkeleton PRIVATE Qt5::Qml)
+  target_compile_definitions(windterm_core PUBLIC WINDTERM_HAVE_QJSENGINE)
+  target_link_libraries(windterm_core PUBLIC Qt5::Qml)
 endif()
+
+add_executable(WindTermGuiSkeleton src/main.cpp)
+target_link_libraries(WindTermGuiSkeleton PRIVATE windterm_core)
 
 # ═══ Tests（tests/ 回归集；CTest 接线）═══
 enable_testing()
 
-# 与主 target 同样的源过滤：pty 仅 Unix、SerialSession 依赖 SerialPort 组件
-# HEADERS 必须一并带上：AUTOMOC 按 target 源/头清单决定为哪些 Q_OBJECT 头生成 moc_*；
-# 少了 Session.h 等纯接口头 → 子类 moc 引用其 qt_metacall 链接失败
-set(TEST_SOURCES ${PROJECT_SOURCES} ${PROJECT_HEADERS})
-list(FILTER TEST_SOURCES EXCLUDE REGEX "/src/main\\.cpp$")
-
-# 通用接线：include src、复用主项目条件链接与宏；按需单独覆盖（SSH/serial 不注 HOME）
+# 通用接线：只链 windterm_core（Qt 链接/宏/include 经 PUBLIC 传递）；
+# 按需单独覆盖（SSH/serial 不注 HOME）
 function(windterm_add_test name)
-  add_executable(${name} tests/${name}.cpp ${TEST_SOURCES})
-  target_include_directories(${name} PRIVATE src)
-  target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CMAKE_DL_LIBS})
-  if (TARGET Qt${QT_VERSION_MAJOR}::Network)
-    target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::Network)
-  endif()
-  # src/MainWindow.cpp 的 reopen Serial 段无 #ifdef 守卫（仅 connect 段有）——
-  # SerialPort 组件在系统上时测试 target 必须同样携带 define+链接才能编过共享源
-  if (TARGET Qt${QT_VERSION_MAJOR}::SerialPort)
-    target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_SERIALPORT)
-    target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
-  endif()
-  if (TARGET Qt${QT_VERSION_MAJOR}::Concurrent)
-    target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_CONCURRENT)
-    target_link_libraries(${name} PRIVATE Qt${QT_VERSION_MAJOR}::Concurrent)
-  endif()
-  if (WINDTERM_HAVE_QJSENGINE)
-    target_compile_definitions(${name} PRIVATE WINDTERM_HAVE_QJSENGINE)
-    target_link_libraries(${name} PRIVATE Qt5::Qml)
-  endif()
+  add_executable(${name} tests/${name}.cpp)
+  target_link_libraries(${name} PRIVATE windterm_core)
   add_test(NAME ${name} COMMAND ${name})
 endfunction()
 
