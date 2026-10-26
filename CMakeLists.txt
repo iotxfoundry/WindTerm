@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(WindTermGuiSkeleton LANGUAGES CXX)
+# C 语言：opensource/src/Onigmo 是 C 源码，windterm_onigmo 静态库需要 C 编译器
+enable_language(C)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -53,6 +55,7 @@ endif()
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)
   set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
+  set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
 endif()
 
 # ═══ 核心静态库：项目源只编译一次 ═══
@@ -85,6 +88,93 @@ endif()
 
 add_executable(WindTermGuiSkeleton src/main.cpp)
 target_link_libraries(WindTermGuiSkeleton PRIVATE windterm_core)
+
+# ═══ opensource/src 真实代码合入（用户指令：开源件为真实实现，骨架只补闭源缺口）═══
+# ODR 防线——opensource 库排除清单（与骨架 src/ 已 vendor 同物，双编必撞符号）：
+#   - Protocols/TelnetProtocol.{h,cpp}+Protocol.h：与 src/protocols/ diff=0
+#   - Widgets/Splitter.{h,cpp}：                    与 src/widgets/ diff=0
+#   - Pty/UnixPty.{h,cpp}/Pty/{h,cpp}/Spin.h：      src/pty/ 为骨架增强版（QProcess::
+#     splitCommand 参数修复等），以骨架为准
+#   - libssh 整树：禁止编译链接——SshSession dlopen 原版修补版 libssh.so.4，
+#     双实例符号冲突（参考用，不进任何 target）
+#   - Pty/WinPty/ConPty：windows.h 平台排除（本工程仅 Linux/BSD）
+# Utility/{Cryptographic,ThreadLocal}：依赖 QtNetwork qpassworddigestor / boost.thread，
+#   Phase3 接线时按需再入库；本轮只带纯头+无 Qt 私有依赖件。
+
+# ── windterm_opensource：Widgets + Utility 纯头（Phase1）──
+set(OPENSOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/opensource/src)
+
+add_library(windterm_opensource STATIC
+  ${OPENSOURCE_DIR}/Widgets/ScrollBar.cpp
+  ${OPENSOURCE_DIR}/Widgets/ScrollBar.h
+  ${OPENSOURCE_DIR}/Widgets/PopupWidget.cpp
+  ${OPENSOURCE_DIR}/Widgets/PopupWidget.h
+  # Utility 纯头（无 Q_OBJECT，AUTOMOC 扫描过=零 moc 输出；挂 target 保 include 面可追溯）
+  ${OPENSOURCE_DIR}/Utility/CircularBuffer.h
+  ${OPENSOURCE_DIR}/Utility/MemoryPointer.h
+  ${OPENSOURCE_DIR}/Utility/ScopeGuard.h
+)
+target_include_directories(windterm_opensource
+  PUBLIC ${OPENSOURCE_DIR}/Utility ${OPENSOURCE_DIR}/Widgets
+)
+target_link_libraries(windterm_opensource PUBLIC Qt${QT_VERSION_MAJOR}::Widgets)
+
+# PopupWidget.cpp include <private/qeffects_p.h>（qFadeEffect 淡入，上游一行未改）——
+# 需 QtWidgets 私有头。正确取法是 Widgets config 传播的 Qt${V}Widgets_PRIVATE_INCLUDE_DIRS
+# （含 Gui/Core 递归私有路径），不是 target 属性。变量空=qtbase private dev 未装→硬失败挂账。
+if(NOT Qt${QT_VERSION_MAJOR}Widgets_PRIVATE_INCLUDE_DIRS)
+  message(FATAL_ERROR
+    "Qt${QT_VERSION_MAJOR}Widgets_PRIVATE_INCLUDE_DIRS is empty — "
+    "qtbase${QT_VERSION_MAJOR}-private-dev (naming per distro) required for PopupWidget (qeffects_p.h)")
+endif()
+target_include_directories(windterm_opensource SYSTEM PRIVATE
+  ${Qt${QT_VERSION_MAJOR}Widgets_PRIVATE_INCLUDE_DIRS}
+)
+
+# ── windterm_onigmo：终端高亮真引擎（Phase2）──
+# config.h 生成：宏集逐项有编译报错依据（ablation 实测 2026-10-26，gcc 13.3 x86_64）：
+#   HAVE_STDINT_H          缺→uintptr_t 未定义（st.h:9/regint.h:843，16 文件失败）
+#   HAVE_STDARG_PROTOTYPES 缺→regerror.c 落 varargs.h 路径，GCC 已移除（fatal）
+#   SIZEOF_INT 4           缺→INT_MAX_LIMIT 展开错误（regparse 等 2 文件失败）
+#   SIZEOF_LONG 8          regint.h WORD_ALIGNMENT_SIZE 取值（x86_64；非对齐平台用
+#                          PadBuf 对齐时必需，勿删）
+#   STDC_HEADERS/HAVE_SYS_TYPES_H/HAVE_STDLIB_H/HAVE_STRING_H/HAVE_ALLOCA_H/
+#   HAVE_STDARG_H/HAVE_PROTOTYPES          单删可编但落入 fallback 分支（strings.h/
+#   alloca 探测/旧式声明），按 config.h.in 语义在 Linux 全开
+set(ONIGMO_DIR ${OPENSOURCE_DIR}/Onigmo)
+set(ONIGMO_CONFIG_H ${CMAKE_CURRENT_BINARY_DIR}/onigmo/config.h)
+configure_file(tools/onigmo-config.h.in ${ONIGMO_CONFIG_H} @ONLY)
+
+add_library(windterm_onigmo STATIC
+  ${ONIGMO_DIR}/regerror.c   ${ONIGMO_DIR}/regparse.c  ${ONIGMO_DIR}/regext.c
+  ${ONIGMO_DIR}/regcomp.c    ${ONIGMO_DIR}/regexec.c   ${ONIGMO_DIR}/regenc.c
+  ${ONIGMO_DIR}/regsyntax.c  ${ONIGMO_DIR}/regtrav.c   ${ONIGMO_DIR}/regversion.c
+  ${ONIGMO_DIR}/st.c
+  ${ONIGMO_DIR}/reggnu.c     ${ONIGMO_DIR}/regposix.c  ${ONIGMO_DIR}/regposerr.c
+  # enc 子集：unicode/ascii/utf8/utf16/utf32 + CJK/单字节（终端 TERM 面覆盖；
+  # cp932.c #include "sjis.c" 复用 SJIS 表；koi8/koi8_r、euc_kr 同文件出 EUC_CN）
+  ${ONIGMO_DIR}/enc/unicode.c ${ONIGMO_DIR}/enc/ascii.c  ${ONIGMO_DIR}/enc/utf8.c
+  ${ONIGMO_DIR}/enc/utf16_le.c ${ONIGMO_DIR}/enc/utf16_be.c
+  ${ONIGMO_DIR}/enc/utf32_le.c ${ONIGMO_DIR}/enc/utf32_be.c
+  ${ONIGMO_DIR}/enc/euc_jp.c  ${ONIGMO_DIR}/enc/sjis.c   ${ONIGMO_DIR}/enc/cp932.c
+  ${ONIGMO_DIR}/enc/gb18030.c ${ONIGMO_DIR}/enc/big5.c   ${ONIGMO_DIR}/enc/euc_kr.c
+  ${ONIGMO_DIR}/enc/euc_tw.c  ${ONIGMO_DIR}/enc/koi8.c   ${ONIGMO_DIR}/enc/koi8_r.c
+  ${ONIGMO_DIR}/enc/cp1251.c  ${ONIGMO_DIR}/enc/iso8859_1.c
+)
+target_include_directories(windterm_onigmo PRIVATE
+  ${CMAKE_CURRENT_BINARY_DIR}/onigmo ${ONIGMO_DIR} ${ONIGMO_DIR}/enc
+)
+target_include_directories(windterm_onigmo INTERFACE ${OPENSOURCE_DIR}/Onigmo)
+# Onigmo 上游 C89 风格代码，本仓 gcc13 -Wall 面下仅 regparse.c 两条 unused 警告
+# （pfetch_prev / i_free_shared_unicode_table，均为上游死代码路径）——压到零警告基线
+target_compile_options(windterm_onigmo PRIVATE
+  $<$<COMPILE_LANGUAGE:C>:-w>
+)
+
+# ── Onigmo 自检（Phase2）：真引擎 + triggers.config 真数据正则 + 与 QRegularExpression 语义差异留证 ──
+add_executable(test_onigmo tests/test_onigmo.cpp)
+target_link_libraries(test_onigmo PRIVATE windterm_onigmo windterm_opensource Qt${QT_VERSION_MAJOR}::Widgets)
+add_test(NAME test_onigmo COMMAND test_onigmo)
 
 # ═══ Tests（tests/ 回归集；CTest 接线）═══
 enable_testing()

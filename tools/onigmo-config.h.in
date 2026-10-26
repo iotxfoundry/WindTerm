@@ -1,0 +1,22 @@
+// Onigmo 5.13.5（opensource/src/Onigmo）手写 config.h——CMake configure_file 生成。
+// 宏集依据：2026-10-26 gcc 13.3.0 / x86_64-linux-gnu 逐一 ablation 实测（详见 CMakeLists.txt 注释）。
+// 对应 autoheader 模板：opensource/src/Onigmo/config.h.in；Linux 路径取全开语义。
+// 此文件仅由 windterm_onigmo target 的 PRIVATE include 路径使用，绝不外泄。
+
+/* regint.h/regenc.h 开头无条件 include "config.h" */
+#define STDC_HEADERS 1
+#define HAVE_SYS_TYPES_H 1
+#define HAVE_STDINT_H 1        /* 必需：uintptr_t（st.h/regint.h） */
+#define HAVE_STDLIB_H 1
+#define HAVE_STRING_H 1
+#define HAVE_STRINGS_H 1
+#define HAVE_ALLOCA_H 1        /* gcc 非 _AIX 时 regint.h 已不用，留作语义正确 */
+#define HAVE_STDARG_H 1
+#define HAVE_STDARG_PROTOTYPES 1 /* 必需：regerror.c varargs.h 在 GCC 已移除 */
+#define HAVE_PROTOTYPES 1
+
+/* regint.h: WORD_ALIGNMENT_SIZE=SIZEOF_LONG；INT_MAX_LIMIT 用 SIZEOF_INT */
+#define SIZEOF_INT 4           /* 必需 */
+#define SIZEOF_LONG 8          /* x86_64 */
+
+/* regerror.c 无关项（HAVE_DECL_SYS_NERR 等 POSIX 包装不触）不设。 */
