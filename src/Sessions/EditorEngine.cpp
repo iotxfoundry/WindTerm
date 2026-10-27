@@ -87,6 +87,7 @@ static void cursorOpPrevSel(void *cursor);
 static void eA23a3e(EditorEngine *e, int kind, int v);
 static void cursorOp97881e(void *cursor);
 static long long cursorOp75316(void *cursor);
+static void cursorOp76b00(void *cursor, long long v);
 static void cursorOp7a50a(void *cursor);
 static void cursorOp75322(void *cursor, bool v);
 static void cursorOp7531c(void *cursor);
