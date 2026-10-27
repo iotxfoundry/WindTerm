@@ -64,7 +64,7 @@ public:
 	int m_savedCursorX;           // +0x24
 	unsigned char m_saveByte28;   // +0x28: bit0 = "saved", packed flag bits
 	unsigned char m_saveByte29;   // +0x29: packed flag bits
-	void *m_saved2;               // +0x30 mirror of +0xb8
+	unsigned long long m_saved2;  // +0x30 mirror of the SGR bits (+0xb8)
 	int m_savedCharsets[4];       // +0x58 charset slot snapshots
 
 	// --- screen buffer (+0x74/+0x78) --------------------------------------
@@ -87,7 +87,8 @@ public:
 	void *m_charsetSaved;         // +0x38: saved SGR/charset state (DECSC)
 	void *m_sgrState;             // +0x88: current SGR/charset state
 	unsigned char m_flags2;       // +0xb0: G-led style flags (DECSC packs)
-	void *m_stateB8;              // +0xb8: saved alongside flags2
+	// +0xb8 m_sgrBits is declared below; DECSC mirrors it to +0x30
+	// (m_saved2), and the write template carries it raw at cell+0x18
 
 	// --- tabstops (+0x18) ---------------------------------------------------
 	Tabstops m_tabstops;

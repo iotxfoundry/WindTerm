@@ -1572,10 +1572,34 @@ void Screen::savePendingMultibyte(const char *data, int len)
 	// 0x7e7338 tail: store the unconsumed bytes as their own QByteArray
 	m_pendingTail = QByteArray(data, len);
 }
-void *Screen::sgrPayload() { return nullptr; }
+void *Screen::buildFillAux()
+{
+	// FUN_007e4c90 — the same builder buildWriteTemplate wraps; DECFRA
+	// (FUN_007eb20a) passes the fresh template to the core filler
+	// (FUN_007a6eec) with an aux body carrying the fill char
+	buildWriteTemplate();
+	return &m_writeTemplate;
+}
+void *Screen::sgrPayload()
+{
+	// FUN_007e38ac: raw SGR attribute bits (core+0xb8) — they travel as
+	// the template payload and land in cell+0x18
+	return (void *)(unsigned long long)m_core->m_sgrBits;
+}
 void Screen::writeBackToView(const QByteArray &data) { (void)data; }
-QString Screen::keyboardDialects() const { return QString(); }
-QString Screen::keyboardType() const { return QString(); }
+QString Screen::keyboardDialects() const
+{
+	// DECDSR case 26 (0x7f0f05..0x7f0f23, level > 1): payload += three
+	// QByteArray fields read from a config/keymap object — the object
+	// and field offsets are not yet anchored (keymap layout dig pending)
+	return QString();
+}
+QString Screen::keyboardType() const
+{
+	// DECDSR case 56 (0x7f0f44 region, level > 2): one byte appended
+	// from the same config object — keymap layout dig pending
+	return QString();
+}
 QVariant Screen::configValue(const char *key) { (void)key; return QVariant(); }
 void Screen::playBell(const QVariant &style) { (void)style; }
 void Screen::setCodec(const QByteArray &name) { (void)name; }

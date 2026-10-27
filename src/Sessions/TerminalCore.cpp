@@ -375,7 +375,7 @@ void TerminalCore::saveCursor()
 	copyState(&m_charsetSaved, &m_sgrState); // FUN_007aa2e2(+0x38, +0x88)
 	unsigned char b0 = m_flags2;             // +0xb0
 	m_saveByte29 = (unsigned char)((m_saveByte29 & 0xfc) | ((b0 >> 4) & 3));
-	m_saved2 = m_stateB8;                    // *(u64*)(this+0x30) = *(u64*)(this+0xb8)
+	m_saved2 = m_sgrBits;                   // *(u64*)(this+0x30) = *(u64*)(this+0xb8)
 	m_saveByte28 = (unsigned char)((m_saveByte28 & 1)
 		| ((b0 & 3) << 4)
 		| (b0 >> 2) << 6
@@ -397,7 +397,7 @@ void TerminalCore::restoreCursor()
 		| ((s28 >> 4) & 3)
 		| ((s28 >> 6) << 2)
 		| ((m_saveByte29 & 3) << 4));
-	m_stateB8 = m_saved2;
+	m_sgrBits = m_saved2;
 	m_flags = (unsigned short)((m_flags & 0xb9)
 		| (s28 & 2)
 		| ((s28 & 4) << 4)
