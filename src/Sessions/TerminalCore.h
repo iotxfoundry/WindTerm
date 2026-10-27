@@ -20,11 +20,13 @@ struct Row;
 // word (0x40 dwl travels with scrolled source rows), +0x0c cell count,
 // +0x10 cell array (0x20 stride), +0x50 spare buffer.
 struct Row {
-	unsigned short flags;
-	unsigned short flags2;
-	int length;
-	void *cells;
-	void *spare;
+	unsigned short flags;     // +0x00 (bit0/1 changed, bit3 dwl, bit5 dhb, bit7 wrap)
+	unsigned short wordFlags; // +0x00 as u16: byte1 bit0 = continuation
+	unsigned char byte1;      // +0x01 (DECSACE extent bit0 etc.)
+	int length;               // +0x0c cell count
+	void *cells;              // +0x10
+	void *style;              // +0x50 render style (pushLinesToScrollback)
+	void *spare;              // +0x40/+0x50 region
 };
 
 // Tabstop bitmap embedded at core +0x18 (FUN_007e52f0): payload at +0x10,
@@ -195,6 +197,8 @@ public:
 	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
 	void cloneGlyphPayload(void *dst, const void *src);  // FUN_007aa2e2 inner
 	void *collectRectCells(const void *rect, void *outList, int mode);  // FUN_007a6ab0
+	// mode 2 honors DECSACE (flags byte1 bit0: stream vs rectangle) and
+	// offsets the rect by originTop/originLeft in origin mode (0x40)
 	void notifyRectChanged(const void *rect, int arg);   // FUN_007a4590
 	void *parseAttrList(const void *params, void *out);  // FUN_007a712b
 	void resetWrap(int arg);                       // FUN_007a45f6

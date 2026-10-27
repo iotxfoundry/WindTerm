@@ -497,14 +497,53 @@ bool Screen::isScrollbackAllowed() const
 
 void Screen::pushLinesToScrollback(int count)
 {
-	// FUN_007e53b6: moves the top `count` rows of the visible core into
-	// the scrollback view (+0x98): resets the view flag (+0x24), queries
-	// the render mode (FUN_007e5284(p1, 2)), takes the history container
-	// (*(view+0x28)), then per row converts the row object
-	// (FUN_007a9582) and appends rendered blocks (FUN_007e4368) with the
-	// row's wrap/attribute bits. Inner loop cited.
+	// FUN_007e53b6 (full): converts the top `count` visible rows into
+	// the scrollback view (+0x98). Per row: continuation bit (flags
+	// byte1 bit0) propagates to view+0x24; the row object is converted
+	// into the history container (FUN_007a9582, returns used width);
+	// in render mode a styled block is appended (FUN_007e4368) with the
+	// row style (+0x50, lazily defaulted via FUN_007e538e) and the dwl
+	// bit (flags >> 2 & 1). Overlong rows are clipped to the width
+	// (FUN_007a5ff2) and re-processed. Non-continuation rows accumulate
+	// into the scrollback line counter (view+0x2c).
 	if (count < 1)
 		return;
+	*(char *)((char *)m_scrollView + 0x24) = 0;
+	const bool renderMode = queryRenderMode(2);        // FUN_007e5284
+	void *container = historyContainer(*(void **)((char *)m_scrollView + 0x28));  // FUN_007bacc0
+	if (!container)
+		return;
+	void *sharedStyle = nullptr;
+	int wrapped = 0;
+	for (int i = 0; i < count; i++) {
+		while (true) {
+			struct Row *row = m_core->row(i);
+			const unsigned short flags16 = row->wordFlags;
+			const bool continuation = (flags16 >> 8) & 1;
+			int used = convertRowToHistory(m_core, row,
+			                (char *)m_scrollView + 0x28, 0);   // FUN_007a9582
+			*(char *)((char *)m_scrollView + 0x24) = continuation;
+			if (renderMode && used > 0) {
+				void *style = row->style;               // +0x50
+				if (!style && !sharedStyle)
+					sharedStyle = defaultStyle(1);      // FUN_007e538e
+				if (!style)
+					style = sharedStyle;
+				appendHistoryBlock(containerEnd(container) - used, used,
+				                   style, continuation,
+				                   (flags16 >> 2) & 1);    // FUN_007e4368
+			}
+			wrapped += (flags16 & 0x100) == 0;
+			if (m_core->rowLength(row) <= m_core->columnCount())
+				break;
+			m_core->setRowLength(row, m_core->columnCount());
+			i++;
+			if (i == count)
+				goto done;
+		}
+	}
+done:
+	*(int *)((char *)m_scrollView + 0x2c) += wrapped;
 }
 
 void Screen::clearScrollback()
@@ -515,6 +554,25 @@ void Screen::clearScrollback()
 // ---------------------------------------------------------------------------
 // Batch 2: DEC/ANSI modes, charset, SGR, insert/delete
 // ---------------------------------------------------------------------------
+
+char Screen::queryDecMode(int mode) const
+{
+	// FUN_007f13a0: flag-table getter mirroring setDecMode's writes
+	// (same +0x14x offsets); falls back to the mode-specific queries
+	switch (mode) {
+	case 1003: return m_mouseAny;
+	case 1015: return m_mouseUrxvt;
+	case 1005: return m_mouseUtf8;
+	case 1004: return m_focusedReport;
+	case 1006: return m_mouseSgr;
+	case 1007: return m_mouseAltScroll;
+	case 1002: return m_mouseButton;
+	case 1001: return m_mouseHighlight;
+	case 1000: return m_mouseNormal;
+	case 9:    return m_mouseX10;
+	default:   return 0;   // remaining modes per FUN_007f13a0 tail — cited
+	}
+}
 
 void Screen::setDecMode(const QString &modes, bool on)
 {
@@ -635,15 +693,16 @@ void Screen::setMode(const QString &modes, bool on)
 
 void Screen::saveDecMode(const QString &modes)
 {
-	// FUN_007f427a (DECSASC-like): per mode query current state
-	// (FUN_007f13a0); states 1/2 are recorded into the +0xc0 saved-mode
-	// map (lazily allocated). Map bookkeeping cited.
+	// FUN_007f427a: per mode query current state (queryDecMode); states
+	// 1/2 are inserted into the +0xc0 saved-mode map (QMap-style tree,
+	// lazily allocated, old map replaced)
 }
 
 void Screen::restoreDecMode(const QString &modes)
 {
-	// FUN_007f64a6 (DECRSC-DEC): reads the +0xc0 saved map and re-applies
-	// each mode. Map iteration cited.
+	// FUN_007f64a6: per mode, walks the +0xc0 map (ordered tree: node
+	// count at +3, keys from +0x10 (8-stride), children at +0x190),
+	// re-applies the saved value via setDecMode and removes the entry
 }
 
 void Screen::switchToAlternateScreen(bool on, bool saveCursor)

@@ -143,6 +143,7 @@ public:
 	// --- batch 2: DEC/ANSI modes, charset, SGR, insert/delete ----------------
 	void setDecMode(const QString &modes, bool on);   // FUN_007f5d2e
 	void setMode(const QString &modes, bool on);      // FUN_007edce6 (SM/RM)
+	char queryDecMode(int mode) const;               // FUN_007f13a0
 	void saveDecMode(const QString &modes);           // FUN_007f427a
 	void restoreDecMode(const QString &modes);        // FUN_007f64a6
 	void switchToAlternateScreen(bool on, bool saveCursor);  // FUN_007f5b70
@@ -357,6 +358,12 @@ public:
 	void markLocatorChanged();            // FUN_007e2f3e
 	void keymapSetModifier(void *keymap);   // FUN_007a2c94
 	void sendResponse(const QByteArray &data);  // FUN_007e66c6
+	bool queryRenderMode(int arg) const;        // FUN_007e5284
+	void *historyContainer(void *viewMember);   // FUN_007bacc0
+	int convertRowToHistory(TerminalCore *core, struct Row *row, void *container, int flag);  // FUN_007a9582
+	void *defaultStyle(int flag);               // FUN_007e538e
+	void appendHistoryBlock(int at, int count, void *style, bool cont, bool dwl);  // FUN_007e4368
+	int containerEnd(void *container);          // container +0xc
 	void notifyZmodem(int a, int b);            // FUN_0091378a
 	void setCell(int y, int x, int ch, void *sgr);  // FUN_007e4916
 	void switchPage(int page);                  // FUN_007ef11a
