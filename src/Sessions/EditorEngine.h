@@ -45,6 +45,12 @@ public:
 	double m_zoomFactor;  // +0xdd8 (0x7560)
 	int m_intD80;         // +0xd80 (0x7e4/0x7e5, repaint on change)
 	bool m_flagEc5;       // +0xec5 (0x7f2/0x7f3)
+	bool m_flagEc2;       // +0xec2 (0x873 change-detect + repaint)
+	int m_intFd4;         // +0xfd4 (0x857)
+	int m_intEa4;         // +0xea4 pair (0x862 write / sibling read)
+	int m_intEa8;         // +0xea8 (0x864)
+	char m_gate1128;      // +0x1128 ([0x225]) — coordinate mode gate
+	int m_mod1118;        // +0x1118 ([0x223]) — column modulo base
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
 	                      // int table, 11-byte stride at 0x7f8)
 	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),

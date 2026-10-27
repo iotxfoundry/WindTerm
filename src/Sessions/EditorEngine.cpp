@@ -85,6 +85,31 @@ static void vtA0Repaint()
 	// engine vtable +0xa0 slot — full repaint trigger (0x7e5/0x7583)
 }
 
+// SCI 0x80x-0x88x one-call thunks
+static void docOp927a08(void *doc, unsigned long long v) { (void)doc; (void)v; }  // 0x81e
+static void docOp927a14(void *doc, int v) { (void)doc; (void)v; }  // 0x81f (arg 1)
+static void docOp92c4ae(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x84e
+static long long docOp928404(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x850 (gated +0x1067)
+static int docOp9284c6(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x84f sibling (gated)
+static long long docOp928624(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x851 plain path
+static long long docOp92520c(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x858 plain path
+static long long editorLineEndIdx(void *obj, long long v) { (void)obj; (void)v; return 0; }  // 0x858 gated path
+static bool docFlag9290e8b(void *doc) { (void)doc; return false; }  // 0x85c
+static long long docOp92522a(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x876 plain
+static long long objRunStyleGet(void *obj, void *node) { (void)obj; (void)node; return 0; }  // 0x876 gated FUN_009587cc
+static double eScrollSet(EditorEngine *e, void *node) { (void)e; (void)node; return 0; }  // 0x875 region FUN_00a225be (XMM out)
+static void runNodeInit(void *node, long long start, int a, int b) { (void)node; (void)start; (void)a; (void)b; }  // runstyles_runnode_init
+static void runNodeFree(void *node) { (void)node; }  // FUN_0096bb02
+static void eA20eb2(EditorEngine *e, void *anchor, void *caret, int sel) { (void)e; (void)anchor; (void)caret; (void)sel; }  // 0x870 set selection
+static void editorSelCtor(void *sel, EditorEngine *e, int *type) { (void)sel; (void)e; (void)type; }  // editor_selCtor
+static void editorSelDtor(void *sel) { (void)sel; }  // FUN_00974856
+static void docOp927dbe(void *doc) { (void)doc; }  // 0x87f
+static void eA25f72(EditorEngine *e) { (void)e; }  // 0x881
+static void vtCall(EditorEngine *e, int slotOff) { (void)e; (void)slotOff; }  // engine vtable slot by offset
+static void eA235ce(EditorEngine *e, long long a, int b) { (void)e; (void)a; (void)b; }  // 0x883 tail
+static void editorSelMake(void *sel, EditorEngine *e, const char *mode, int a, int b) { (void)sel; (void)e; (void)mode; (void)a; (void)b; }  // 0x885
+static void eA21110(EditorEngine *e, void *node, int a) { (void)e; (void)node; (void)a; }  // 0x885 tail
+
 
 void EditorEngine::cmdAppendText(const QVariantList &args)
 {
@@ -354,6 +379,110 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 				break;
 		}
 		return QVariant((long long)-1);
+	}
+	case 0x81e:
+		docOp927a08(m_doc, a.toULongLong());
+		return QVariant(0);
+	case 0x81f:
+		docOp927a14(m_doc, 1);
+		return QVariant(0);
+	case 0x84e:
+		docOp92c4ae(m_doc, a.toLongLong(), b.toInt());
+		return QVariant(0);
+	case 0x84f:  // gated by +0x1067 (byte at engine)
+		if (m_docFlag1067 == 0)
+			return QVariant(0);
+		return QVariant(docOp9284c6(m_doc, a.toLongLong()));
+	case 0x850:
+		if (m_docFlag1067 == 0)
+			return QVariant((long long)0);
+		return QVariant(docOp928404(m_doc, a.toLongLong()));
+	case 0x851:  // +0x1128 gate: plain vs column-modulo conversion
+		if (m_gate1128 == 0)
+			return QVariant(docOp928624(m_doc, a.toLongLong()));
+		return QVariant(a.toLongLong() % m_mod1118);
+	case 0x857:
+		return QVariant(m_intFd4);
+	case 0x858:  // line end: dual path by the same gate
+		if (m_gate1128 == 0)
+			return QVariant(docOp92520c(m_doc, a.toLongLong()));
+		return QVariant(editorLineEndIdx(m_obj10a0, a.toLongLong()));
+	case 0x85c:
+		return QVariant(docFlag9290e8b(m_doc));
+	case 0x862:
+		m_intEa4 = a.toInt();
+		return QVariant(0);
+	case 0x863:  // inferred id: the <0x864 sibling read of the pair
+		return QVariant(m_intEa4);
+	case 0x864:
+		m_intEa8 = a.toInt();
+		return QVariant(0);
+	case 0x870: {  // setSelection(anchor, caret): negative defaults
+		int selType = 8;
+		char sel[64];
+		editorSelCtor(sel, this, &selType);
+		long long caret = b.toLongLong();
+		long long anchor = a.toLongLong();
+		if (caret < 0)
+			caret = docLength(m_doc);
+		if (anchor < 0)
+			anchor = caret;
+		char n1[64], n2[64];
+		runNodeInit(n1, caret, 0, 0);
+		runNodeInit(n2, anchor, 0, 0);
+		eA20eb2(this, n2, n1, 1);
+		runNodeFree(n2);
+		runNodeFree(n1);
+		editorSelDtor(sel);
+		return QVariant(0);
+	}
+	case 0x873:  // change-detect bool + repaint
+		if (m_flagEc2 != a.toBool()) {
+			m_flagEc2 = a.toBool();
+			vtA0Repaint();
+		}
+		return QVariant(0);
+	case 0x875: {  // scroll set (pos >= 0), XMM double return
+		const long long pos = a.toLongLong();
+		if (pos < 0)
+			return QVariant(0);
+		char n1[64];
+		runNodeInit(n1, pos, 0, 0);
+		const double d = eScrollSet(this, n1);
+		runNodeFree(n1);
+		return QVariant(d);
+	}
+	case 0x876:
+		if (m_gate1128 != 0) {
+			char n1[64];
+			runNodeInit(n1, a.toLongLong(), 0, 0);
+			const long long r = objRunStyleGet(m_obj10a0, n1);
+			runNodeFree(n1);
+			return QVariant(r);
+		}
+		return QVariant(docOp92522a(m_doc, a.toLongLong()));
+	case 0x87f:
+		docOp927dbe(m_doc);
+		return QVariant(0);
+	case 0x881:
+		eA25f72(this);
+		return QVariant(0);
+	case 0x882:  // engine vtable +0x108
+		vtCall(this, 0x108);
+		return QVariant(0);
+	case 0x883:  // SCI_COPY: vtable +0x118 then mode guard tail
+		vtCall(this, 0x118);
+		if (m_docFlag1067 != 2)
+			eA235ce(this, -1, 1);
+		return QVariant(0);
+	case 0x885: {  // select-all style make (mode str @0xcb99b6)
+		char sel[64], n1[64];
+		editorSelMake(sel, this, "\x08", 8, 2);
+		runNodeInit(n1, 0, 0, 0);
+		eA21110(this, n1, 0);
+		runNodeFree(n1);
+		editorSelDtor(sel);
+		return QVariant(0);
 	}
 	// EXT block (0x4e23-0x4f04) — one-call leaves, addresses in thunk names
 	case 0x4ec7:
