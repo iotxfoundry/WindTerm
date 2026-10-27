@@ -23,7 +23,7 @@ public:
 	                                   //  fallback: type check 0x8c4fd4 +
 	                                   //  session 0x8c5438 + QVariant path
 	bool isLoaded() const;            // FUN_008c56f2: property("Loaded")
-	QString nameProperty() const;     // FUN_008c5578: property(0x00cb6fcc string)
+	QString nameProperty() const;     // FUN_008c5578: property("Url")
 	void setArg1(void *a);            // FUN_008c5e24 -> FUN_008b9b98
 	void setArg2(void *a);            // FUN_008c5e56 -> FUN_008b9bc6
 	QIcon icon() const;               // FUN_008c5e88 -> FUN_008b9c18

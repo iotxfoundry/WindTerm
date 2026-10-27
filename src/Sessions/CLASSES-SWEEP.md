@@ -26,3 +26,6 @@
 - FilerPane/TextView/GrepView 的 metacall 采用「属性读写外壳 + 深分派器」
   两级结构(0x90aba2→0x90a86a、0x91a2dc→0x91a058)
 - SenderPane/TerminalWindow/FilerPane 的实现自成一簇,横扫时按簇取
+- TerminalView 自有簇(0x833-0x834)定性:会话 UUID(+0x218)解析、
+  A/B/C/D 会话槽字母->id 映射(0x8341c8)、SessionPane 祖先聚焦;
+  ViewBase 的属性串实为 "Url"(0xca9158-0xca9164 = 'A'/'B'/'C'/'D')
