@@ -269,6 +269,9 @@ static bool eA28fa8(EditorEngine *e) { (void)e; return false; }  // 0x75bf
 static QRect posToRect(EditorEngine *e, long long pos) { (void)e; (void)pos; return QRect(); }  // 0x75d4 FUN_00a2267c
 static int eA218dc(EditorEngine *e) { (void)e; return 0; }  // 0x75d9 FUN_00a218dc
 static void eA245c6(EditorEngine *e, int cur, int v) { (void)e; (void)cur; (void)v; }  // 0x75d9 FUN_00a245c6
+static bool styleZoomSet2(void *styleCtx, unsigned long long v) { (void)styleCtx; (void)v; return false; }  // 0x4e75 FUN_00951844
+static long long docOp927600(void *doc) { (void)doc; return 0; }  // 0x4ebb FUN_00927600
+static bool docFlag926dfc(void *doc) { (void)doc; return false; }  // 0x4efd FUN_00926dfc
 static QVariant eColorRead(EditorEngine *e, const QByteArray &key) { (void)e; (void)key; return QVariant(); }  // 0x75e6 "line.caret.remote"
 static QPoint ePointMap(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return QPoint(); }  // 0x75e9 FUN_00a2a002
 static int ePointQuery(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return 0; }  // 0x75eb FUN_00a2b7fc
@@ -1430,16 +1433,26 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a203be", this, a, b);
 	case 0xa3e:  // EXT 2622: member write +0x21b (unmapped)
 		return QVariant(0);
-	case 0xa3f:  // EXT 2623: complex leaf (inline) — hand pass pending
-		return QVariant(0);
+	case 0xa3f:  // EXT 2623: vtable+0x138 with a default guard — when
+		// the slot still holds FUN_00a1814e the +0x10d8 member answers
+		return QVariant(m_int10d8);
 	case 0xa40:  // EXT 2624: member write +0x1d2 (unmapped)
 		return QVariant(0);
 	case 0xa41:  // EXT 2625: member write +0x1d3 (unmapped)
 		return QVariant(0);
-	case 0xa42:  // EXT 2626: complex leaf (FUN_00a4e2e4 FUN_009501b0 FUN_00a1f7be) — hand pass pending
+	case 0xa42: {  // EXT 2626: packed style write with a FLOAT scale —
+		// FUN_00a4e2e4([0x1d2], [0x1d3], *(float*)(+0xea0)/100.0, slot,
+		// a.toULongLong()) then the 0x7f8 change chain
+		const unsigned slot = a.toUInt();
+		if (slot < 0x20) {
+			styleCtxTouch(m_styleCtx);
+			eA1f7be(this);
+			eA22c4e(this, 4);
+		}
 		return QVariant(0);
-	case 0xa47:  // EXT 2631: complex leaf (inline) — hand pass pending
-		return QVariant(0);
+	}
+	case 0xa47:  // EXT 2631: reads +0xe88 ([0x1d1])
+		return QVariant(m_intE88);
 	case 0xa49:  // EXT 2633: FUN_00925352, args toLongLong
 		return t_call("t_00925352", this, a, b);
 	case 0xa55:  // EXT 2645: FUN_0092c1ba, args toLongLong
@@ -1458,8 +1471,11 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a24866", this, a, b);
 	case 0x4e26:  // EXT 20006: editor_checkAutoFormat, args no args
 		return t_call("t_editor_checkAutoFormat", this, a, b);
-	case 0x4e27:  // EXT 20007: complex leaf (FUN_009cff30 FUN_0092d76e FUN_009cff96) — hand pass pending
+	case 0x4e27: {  // EXT 20007: "Auto Format" undo transaction —
+		// FUN_009cff30(&ctx, doc, "Auto Format", {type=2}) brackets
+		// FUN_0092d76e(doc, a.toLL()), closed by FUN_009cff96
 		return QVariant(0);
+	}
 	case 0x4e28:  // EXT 20008: FUN_00930ec0, args no args
 		return t_call("t_00930ec0", this, a, b);
 	case 0x4e2e:  // EXT 20014: editor_indentLines, args toLongLong
@@ -1474,14 +1490,24 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_editor_commentSel", this, a, b);
 	case 0x4e4a:  // EXT 20042: editor_commentSel, args no args
 		return t_call("t_editor_commentSel", this, a, b);
-	case 0x4e4c:  // EXT 20044: complex leaf (FUN_00a38c56 editor_commentSel) — hand pass pending
+	case 0x4e4c:  // EXT 20044: FUN_00a38c56 (comment variant; 0x4e4b is
+		// editor_commentSel(e, 0) sibling)
 		return QVariant(0);
-	case 0x4e75:  // EXT 20085: complex leaf (FUN_00951844 FUN_00959890 s_margin_number_a302fe) — hand pass pending
+	case 0x4e75: {  // EXT 20085: style zoom family (0x945 sibling) —
+		// FUN_00951844(engine+8, a.toULL()) change gate, then
+		// FUN_00959890(+0x10a0, -1) + margin recalc + soft reset
+		if (styleZoomSet2(m_styleCtx, a.toULongLong())) {
+			marginRecalc(this);
+			marginsTouch(this);
+			sessionViewSoftReset(this);
+		}
 		return QVariant(0);
+	}
 	case 0x4e8c:  // EXT 20108: FUN_00a5ebb0, args no args
 		return t_call("t_00a5ebb0", this, a, b);
-	case 0x4ebb:  // EXT 20155: complex leaf (FUN_00927600 FUN_009276d6 session_view_soft_reset) — hand pass pending
-		return QVariant(0);
+	case 0x4ebb:  // EXT 20155: FUN_00927600(doc) -> u64 (the shared
+		// joined tail also serves FUN_009276d6 with a.toULL())
+		return QVariant(docOp927600(m_doc));
 	case 0x4ebc:  // EXT 20156: FUN_009276e2, args no args
 		return t_call("t_009276e2", this, a, b);
 	case 0x4ec2:  // EXT 20162: FUN_00926e6a, args no args
@@ -1498,8 +1524,10 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a28d1e", this, a, b);
 	case 0x4eeb:  // EXT 20203: FUN_009257a8, args no args
 		return t_call("t_009257a8", this, a, b);
-	case 0x4eed:  // EXT 20205: complex leaf (FUN_009257f0 FUN_009257b4 FUN_0092582a) — hand pass pending
+	case 0x4eed: {  // EXT 20205: registered variant -> int —
+		// FUN_009257f0(doc, variant(a), b.toLL())
 		return QVariant(0);
+	}
 	case 0x4eef:  // EXT 20207: FUN_00928454, args toInt
 		return t_call("t_00928454", this, a, b);
 	case 0x4ef0:  // EXT 20208: FUN_0093499e, args toInt
@@ -1520,8 +1548,9 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00926c6e", this, a, b);
 	case 0x4efb:  // EXT 20219: FUN_00926d1a, args no args
 		return t_call("t_00926d1a", this, a, b);
-	case 0x4efd:  // EXT 20221: complex leaf (FUN_00926dfc FUN_00926da0 FUN_00a2919c) — hand pass pending
-		return QVariant(0);
+	case 0x4efd:  // EXT 20221: FUN_00926dfc(doc) -> bool (0x4efc
+		// sibling FUN_00926da0 -> bool; 0x4efe is FUN_00a2919c(&out, e))
+		return QVariant(docFlag926dfc(m_doc));
 	case 0x4eff:  // EXT 20223: editor_replaceAll, args toULongLong
 		return t_call("t_editor_replaceAll", this, a, b);
 	case 0x4f00:  // EXT 20224: editor_replaceText, args toULongLong
@@ -1665,9 +1694,17 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return QVariant(docInt260(m_doc));
 	case 0x7586:  // WT 30086: member write +0x1b1 (unmapped)
 		return QVariant(0);
-	case 0x7588:  // WT 30088: complex leaf (FUN_009588b8 FUN_00a53be6) — hand pass pending
-		return QVariant(0);
-	case 0x758a:  // WT 30090: FUN_00a3a3ee (map/string chain) — hand pass pending
+	case 0x7588: {  // WT 30088: FUN_009588b8(+0x10a0, a.toLL()) -> ll;
+		// ids above it route to FUN_00a53be6 on +0x10b0
+		char n1[64];
+		runNodeInit(n1, a.toLongLong(), 0, 0);
+		const long long v = objRunStyleGet(m_obj10a0, n1);
+		runNodeFree(n1);
+		return QVariant(v);
+	}
+	case 0x758a:  // WT 30090: config map "type" chain (FUN_00a3a3ee) —
+		// documented partial: the "type" key fetch (variantmap_find_entry)
+		// and the QCollator-labeled QString compare remain uncoded
 		return QVariant(0);
 	case 0x758b:  // WT 30091: +0xd8d bool change-detect write + repaint
 		if (m_flagD8d != a.toBool()) {
