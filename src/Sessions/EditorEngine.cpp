@@ -57,8 +57,20 @@ static double eA2041e(EditorEngine *e) { (void)e; return 0; } // 0x75a9 (double 
 // SCI one-call thunks (level-2 SCI range bodies)
 static void eA28a68(EditorEngine *e, unsigned long long a, long long b) { (void)e; (void)a; (void)b; }  // 0x7d1 scroll target
 static void eA26756(EditorEngine *e) { (void)e; }             // 0x7d4 redraw
-static long long docLength(void *doc) { (void)doc; return 0; } // FUN_0092801a
-static unsigned docCharAtLine(void *doc, long long line) { (void)doc; (void)line; return 0; }  // 0x7da FUN_00926c8c
+static long long docLength(void *doc)
+{
+	// FUN_0092801a (12B): *(ll*)(buffer(doc+0xf8) + 0x28)
+	return *(long long *)(*(char **)((char *)doc + 0xf8) + 0x28);
+}
+static unsigned docCharAtLine(void *doc, long long line)
+{
+	// FUN_00926c8c (20B): gated by doc+0x98 sub-object, else 0;
+	// the gate path calls FUN_00a04b28 (registers kept: doc, line)
+	(void)line;
+	if (*(void **)((char *)doc + 0x98) == nullptr)
+		return 0;
+	return 0;   // FUN_00a04b28(doc+0x98 chain, line) — wave-2
+}
 static void eA23b8c(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x7db
 static void eA26df4(EditorEngine *e) { (void)e; }             // 0x7dd
 static void docOp927ddc(void *doc) { (void)doc; }             // 0x7de
