@@ -56,6 +56,22 @@ LD_LIBRARY_PATH=$B ./metatest   # SuperSession 元对象活性
 - Screen/TextView 壳类无 Q_OBJECT(信号经 SuperCommander 侧),故
   元对象探针用 SuperSession
 
+## 第三方静态打包审计(2026-10-28,主二进制字符串证据)
+
+**动态链接**(NEEDED):libssh/crypto/ssl + Qt 全家(Qt5SerialPort 新发现!)
++ X11/Xtst/GL —— 对应 inc/ 的运行时依赖头(版本配套,保留)。
+
+**静态打包确凿**(主二进制内特征串实证):
+| 库 | 证据 | 处置 |
+|---|---|---|
+| spdlog(+fmt 后端) | mangled `N6spdlog9spdlog_exE` + 全 sink 串(rotating/daily/basic/stdout/ansicolor ×7)+ format_error ×3 | **已含头即源**(header-only),inc/spdlog+fmt 保留 |
+| jsoncpp 1.9.4 | `duplicateStringValue`/`requiresStringValue` 等 20 串;源码串命中 69/278 | **已引入 src/jsoncpp**,libjsoncpp.a(437KB)冒烟通过 |
+| yaml-cpp 0.6.3 | `yaml-cpp: error at line` ×19;源码串命中 **56/114(49%)** | **已引入 src/yaml-cpp**,libyaml-cpp.a(923KB)冒烟通过 |
+
+**零证据判否**:boost::thread(0 串)/xxhash/btree/dtl —— 原删除决定
+(inc/boost+qt5)追加确证。**参照头保留**:spdlog/fmt/jsoncpp/yaml-cpp
+对应 inc/ 头已并入 src/(其余 inc/ 为 Qt .so 的原版构建依赖头)。
+
 ## Scintilla 静态库(src/Scintilla = 上游 4.4.6)
 
 版本钉死证据:仓库 src/Scintilla/include/Scintilla.h(原 inc/scintilla,已删) 与上游 4.4.6 的
