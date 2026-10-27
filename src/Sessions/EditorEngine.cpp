@@ -323,23 +323,64 @@ static void runNodeFree(void *node)
 	(void)node;
 }
 static void eA20eb2(EditorEngine *e, void *anchor, void *caret, int sel) { (void)e; (void)anchor; (void)caret; (void)sel; }  // 0x870 set selection
+// cursor-object ops (FUN_00974xxx/00975xxx family — the +0x1038 cursor)
+static void cursorOp7557e(void *cursor, int v) { (void)cursor; (void)v; }  // FUN_0097557e
+static int probe74b54() { return 0; }                        // FUN_00974b54
+static void cursorOp75b02(void *cursor) { (void)cursor; }    // FUN_00975b02
+static void cursorOp753c4(void *cursor) { (void)cursor; }    // FUN_009753c4
+static void cursorOp7a2a4(void *cursor, int v) { (void)cursor; (void)v; }  // FUN_0097a2a4
+static int probe74b4a() { return 0; }                        // FUN_00974b4a
+static void eA20ab0(EditorEngine *e) { (void)e; }            // FUN_00a20ab0
+static void eA2dada(EditorEngine *e) { (void)e; }            // FUN_00a2dada
+static void eA2e88e(EditorEngine *e) { (void)e; }            // FUN_00a2e88e
 static void editorSelCtor(void *sel, EditorEngine *e, int *type)
 {
-	// editor_selCtor (85B): sel[0] = engine; sel[1] = engine+0x1038
-	// cursor object; sel[2] = type bits — bit1 (2) routes to
-	// FUN_0097557e(cursor, 0); a zero from FUN_00974b4a with bit0
-	// clear and bit2 (4) set routes to FUN_0097a2a4(cursor, 1) +
-	// FUN_00a2dada(engine)
-	(void)sel; (void)e; (void)type;
+	// editor_selCtor (85B) — real body: sel[0] = engine; sel[1] =
+	// cursor object (engine+0x1038); sel[2] = type bits. bit1 (2)
+	// routes to cursorOp7557e(cursor, 0); when probe FUN_00974b4a
+	// returns zero with bit0 clear and bit2 (4) set, the ctor runs
+	// cursorOp7a2a4(cursor, 1) + eA2dada(engine) — the eager
+	// thin-selection prebuild
+	unsigned long long *s = (unsigned long long *)sel;
+	s[0] = (unsigned long long)e;
+	s[1] = *(unsigned long long *)((char *)e + 0x1038);
+	*(unsigned *)((char *)sel + 16) = (unsigned)*type;
+	const unsigned bits = *type;
+	if (bits & 2) {
+		cursorOp7557e((void *)s[1], 0);
+		return;
+	}
+	if (probe74b4a() == 0 && (bits & 1) == 0) {
+		if (bits & 4)
+			cursorOp7a2a4((void *)s[1], 1);
+		eA2dada(e);
+	}
 }
 static void editorSelDtor(void *sel)
 {
-	// FUN_00974856 (130B): selection commit — bit1 routes to
-	// FUN_0097557e(cursor, 1); FUN_00974b54() zero path runs
-	// 00975b02/009753c4 (cursor state), bit2 → FUN_0097a2a4(cursor, 0),
-	// bit3 → FUN_00a20ab0 + FUN_00a235ce(e, -1, 1), then 00a2dada +
-	// FUN_00a2e88e repaint tail
-	(void)sel;
+	// FUN_00974856 (130B) — selection commit
+	unsigned long long *s = (unsigned long long *)sel;
+	const unsigned bits = *(unsigned *)((char *)sel + 16);   // sel[2] type
+	void *cursor = (void *)s[1];
+	EditorEngine *e = (EditorEngine *)s[0];
+	if (bits & 2) {
+		cursorOp7557e(cursor, 1);                            // FUN_0097557e
+		return;
+	}
+	if (probe74b54() == 0) {                                 // FUN_00974b54
+		cursorOp75b02(cursor);                               // FUN_00975b02
+		cursorOp753c4(cursor);                               // FUN_009753c4
+		if ((bits & 1) == 0) {
+			if (bits & 4)
+				cursorOp7a2a4(cursor, 0);                // FUN_0097a2a4
+			if (bits & 8) {
+				eA20ab0(e);                               // FUN_00a20ab0
+				eA235ce(e, -1, 1);                        // FUN_00a235ce
+			}
+			eA2dada(e);                                       // FUN_00a2dada
+			eA2e88e(e);                                       // FUN_00a2e88e
+		}
+	}
 }
 static void docOp927dbe(void *doc) { (void)doc; }  // 0x87f
 static void eA25f72(EditorEngine *e) { (void)e; }  // 0x881
