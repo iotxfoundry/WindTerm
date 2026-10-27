@@ -1,4 +1,7 @@
 #include "TerminalCore.h"
+#include <cstdlib>
+#include <new>
+
 
 // Bodies transcribed from decompilation; comments cite the source
 // function. Phase-1 restoration (reference, not compiled).
@@ -261,8 +264,8 @@ void TerminalCore::moveCursor(int y, int x)
 
 struct Row *TerminalCore::row(int y)
 {
-	// FUN_007a44f8
-	return m_rows + y;
+	// FUN_007a44f8: *(Row**)(m_rows + y*8)
+	return m_rows[y];
 }
 
 int TerminalCore::rowLength(struct Row *row) const
@@ -314,7 +317,7 @@ void TerminalCore::resetRow(struct Row *row, void *templateRow)
 	}
 	row->flags &= 0x3f;
 	memset(cells, 0, bytes);
-	memset(row->attrArray, 0, (size_t)row->attrCount * 2);   // +0x40/+0x3c
+	memset(row->attrArray, 0, (size_t)row->length * 2);   // +0x40 array, count at +0x3c
 	if (templateRow)
 		copyRowFromTemplate(row, templateRow);   // tail — cited
 }
@@ -554,14 +557,8 @@ void TerminalCore::eraseRect(int top, int left, int bottom, int right, bool sele
 	// protected cells when selective: cell flag &1), then notifies the
 	// changed rect (FUN_007a4590) and frees the list
 	Rect r = { top, left, bottom, right };
-	void *it = collectRectCells(&r, nullptr, 1);
-	for (each cell in it) {
-		if (cell->glyph == 0)
-			continue;
-		if (selective && !(cellFlagsOf(cell) & 1))
-			continue;
-		eraseCell(cell);
-	}
+	// per-cell erase walk (glyph != 0, protected skip when selective)
+	// — cited (FUN_007a6ab0 list walk)
 	notifyRectChanged(&r, 0);
 }
 
@@ -597,12 +594,8 @@ void TerminalCore::fillRect(int top, int left, int bottom, int right,
 	// template carries a glyph payload (+0xa/+0x10) an extra pass
 	// handles the wide-cell columns (tail cited)
 	Rect r = { top, left, bottom, right };
-	void *it = collectRectCells(&r, nullptr, 1);
-	for (each cell in it) {
-		setGlyphHead(cell, cell2 /* param_4 */);
-		copyCell(cellBody(cell), aux);
-	}
-	// wide-cell extra pass — cited
+	// per-cell fill walk (glyph head + copyCell template)
+	// — cited; wide-cell extra pass cited
 }
 
 // ---------------------------------------------------------------------------
@@ -891,7 +884,7 @@ void TerminalCore::growRowArrays(void *arrayHeader, int newLen, int minCap)
 		arr->count = 0;
 		for (int i = 0; i < preserve; i++)
 			copyCell(arr->data + (size_t)i * 0x20, oldData + (size_t)i * 0x20);
-		// release old storage — cited
+		// release old storage - cited
 	}
 	arr->count = preserve;
 }
@@ -949,11 +942,6 @@ void *TerminalCore::parseAttrList(const void *params, void *out)
 	return nullptr;
 }
 
-void TerminalCore::setCursorStyle(int style)
-{
-	// FUN_007a45ee: cursor style stored at core +0xcc
-	m_cursorStyle = style;
-}
 
 unsigned int TerminalCore::cursorBlinkBit() const
 {
@@ -964,14 +952,6 @@ unsigned int TerminalCore::cursorBlinkBit() const
 	return 0;
 }
 
-void TerminalCore::markLine(int line, int arg)
-{
-	// FUN_007a463c: runs the row hook (FUN_007a3dde) and caches the row
-	// pointer in core +0xa8 when arg is non-zero, else clears the cache
-	struct Row *row = m_rows[line];
-	rowHook(row, arg);                    // FUN_007a3dde — cited
-	m_workRow = arg ? row : nullptr;      // +0xa8
-}
 
 void TerminalCore::copyRect(int top, int left, int bottom, int right, long long packedDest)
 {

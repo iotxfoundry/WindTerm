@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include <cstddef>
+#include <cstring>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // The terminal screen interpreter core: called from SuperCommander's VT/ANSI
 // slots via a two-hop forward chain (Commander +0x80 -> Screen +0x80 -> this).
@@ -24,9 +27,11 @@ struct Row {
 	unsigned short wordFlags; // +0x00 as u16: byte1 bit0 = continuation
 	unsigned char byte1;      // +0x01 (DECSACE extent bit0 etc.)
 	int length;               // +0x0c cell count
+	char _pad0[4];           // +0x10 area
 	void *cells;              // +0x10
+	void *attrArray;          // +0x40 glyph-head array (2-byte stride)
 	void *style;              // +0x50 render style (pushLinesToScrollback)
-	void *spare;              // +0x40/+0x50 region
+	void *spare;              // +0x58 spare
 };
 
 // Tabstop bitmap embedded at core +0x18 (FUN_007e52f0): payload at +0x10,
@@ -39,6 +44,9 @@ struct Tabstops
 	void set(int column, bool on); // FUN_007e52fc / FUN_007e5df0
 	void clear();                  // FUN_007e5df0 mode 3 (clear all)
 };
+
+// Rect used by the rectangular-area workers (FUN_007a6ab0 family)
+struct Rect { int top, left, bottom, right; };
 
 class TerminalCore
 {
@@ -65,7 +73,7 @@ public:
 	// 32 bytes per cell: glyph + SGR attributes + flags), +0x40 = spare
 	// buffer freed on row destruction.
 	int m_rowCount;               // +0x74 (FUN_007a4b4a)
-	struct Row *m_rows;           // +0x78 (FUN_007a44f8 row(y))
+	struct Row **m_rows;          // +0x78: array of row POINTERS (8-byte stride, FUN_007a44f8)
 
 	// --- reset state group (+0x50..+0x66, FUN_007a4b0a reset sequence) ---
 	void *m_50;
@@ -186,7 +194,6 @@ public:
 	int charsetSlot(int i) const;                  // FUN_00801a46
 	void setCharsetSlot(int i, int v);             // FUN_00803470
 	bool rowHasContent(struct Row *row) const;     // FUN_007a4a06
-	int cellFlags(struct Row *row, int i) const;   // FUN_007a3c68 (defined above)
 	void copyRowFromTemplate(struct Row *row, void *templateRow);  // FUN_007a3c9a tail
 	int cellFlags(struct Row *row, int i) const;   // FUN_007a3c68
 	void writeBlankCell(struct Row *row, int i, unsigned short attr, void *blankTemplate);
