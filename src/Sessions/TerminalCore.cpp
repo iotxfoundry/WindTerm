@@ -976,3 +976,50 @@ void TerminalCore::rowHook(struct Row *row, int arg)
 	if ((row->byte1 & 1) != (arg & 1))
 		row->byte1 = (unsigned char)((row->byte1 & 0xfe) | (arg & 1) | 2);
 }
+
+// ---------------------------------------------------------------------------
+// Charset manager (batch: the +0x8 manager object's slot table)
+// ---------------------------------------------------------------------------
+
+int TerminalCore::charsetSlot(int slot) const
+{
+	// FUN_00801a46: slots[0..3] at manager+slot*4; >=4 yields 0
+	if (slot < 0 || slot >= 4)
+		return 0;
+	return m_charsetSlots[slot];
+}
+
+void TerminalCore::setCharsetSlot(int slot, int tableId)
+{
+	// FUN_00803470: slot<4; the G0 slot (0) is rejected when the table
+	// id fails the guard FUN_00802c80 (reserved/default id check)
+	if (slot < 0 || slot >= 4)
+		return;
+	if (slot == 0 && !slot0Allowed(tableId))   // FUN_00802c80 — cited
+		return;
+	m_charsetSlots[slot] = tableId;
+}
+
+bool TerminalCore::charsetDisabled(int tableId) const
+{
+	// FUN_008034a4: global charset-config flag byte (+0x11) from the
+	// registry root (FUN_00802bda) — set = all custom charsets disabled
+	return *((const unsigned char *)charsetConfigRoot() + 0x11);
+}
+
+// registry lookup (FUN_00802a26): walks the 0x18-stride registry table
+// comparing entry names (memcmp over the QByteArray payload) and the
+// set flag (94/96); returns the table id on match, 0 on miss.
+// user-preferred install (FUN_00801a3e): manager+0x10 = tableId.
+
+bool TerminalCore::slot0Allowed(int tableId) const
+{
+	// FUN_00802c80 — body cited
+	return true;
+}
+
+const void *TerminalCore::charsetConfigRoot() const
+{
+	// FUN_00802bda — body cited
+	return nullptr;
+}

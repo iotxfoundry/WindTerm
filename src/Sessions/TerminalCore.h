@@ -193,6 +193,11 @@ public:
 	void copyState(void **dst, void **src);        // FUN_007aa2e2 (16-byte state copy)
 	int charsetSlot(int i) const;                  // FUN_00801a46
 	void setCharsetSlot(int i, int v);             // FUN_00803470
+	bool slot0Allowed(int tableId) const;          // FUN_00802c80
+	const void *charsetConfigRoot() const;         // FUN_00802bda
+	int m_charsetSlots[4];    // manager slots G0..G3 (FUN_00801a46)
+	int m_userPreferredSet;   // manager +0x10 (FUN_00801a3e)
+	void resetCharsetSlots();  // FUN_00802baa
 	bool rowHasContent(struct Row *row) const;     // FUN_007a4a06
 	void copyRowFromTemplate(struct Row *row, void *templateRow);  // FUN_007a3c9a tail
 	int cellFlags(struct Row *row, int i) const;   // FUN_007a3c68

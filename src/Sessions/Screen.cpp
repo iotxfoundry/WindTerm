@@ -1789,3 +1789,41 @@ void Screen::parseRect(const QString &area, int *top, int *left, int *bottom, in
 	*bottom = list.value(2).isEmpty() ? 0 : list.value(2).toInt() - 1;
 	*right = list.value(3).isEmpty() ? 0 : list.value(3).toInt() - 1;
 }
+
+// ---------------------------------------------------------------------------
+// Micro helpers (batch): row-flags pointer, DECRC tail, cursor style
+// ---------------------------------------------------------------------------
+
+struct Row *Screen::rowFlagsPtr(int row)
+{
+	// FUN_007e41bc -> FUN_007e416e: core->row(y); the flag byte is the
+	// row object head (used by FUN_007e41ca / DECWL family)
+	return m_core->row(row);
+}
+
+void Screen::restoreCursorTail()
+{
+	// FUN_007e4b30: charset manager reset (slots {2,2,2,2} via
+	// FUN_00802baa), install table 6 as user-preferred (FUN_00801a3e),
+	// then core flag byte 0xb0 low nibble |= 8 (FUN_007a4504)
+	m_core->resetCharsetSlots();              // FUN_00802baa
+	m_core->m_userPreferredSet = 6;           // FUN_00801a3e
+	m_core->m_flags2 = (unsigned char)((m_core->m_flags2 & 0xf0) | 8);
+}
+
+int Screen::currentCursorStyle() const
+{
+	// FUN_007e36aa -> FUN_007a449e: core+0xcc style, 0 reads as 1
+	int style = m_core->m_cursorStyle;
+	return style == 0 ? 1 : style;
+}
+
+void Screen::setCursorVisible(bool on)
+{
+	// FUN_007e506a: +0x128 flag, notify only on change — Screen signal
+	// 7 (cursorVisible) via FUN_00913460
+	if (on == m_cursorVisible)
+		return;
+	m_cursorVisible = on;
+	cursorVisibleChanged(on);   // QMetaObject::activate sig 7
+}
