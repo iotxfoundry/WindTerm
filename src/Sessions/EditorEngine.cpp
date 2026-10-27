@@ -110,6 +110,30 @@ static void eA235ce(EditorEngine *e, long long a, int b) { (void)e; (void)a; (vo
 static void editorSelMake(void *sel, EditorEngine *e, const char *mode, int a, int b) { (void)sel; (void)e; (void)mode; (void)a; (void)b; }  // 0x885
 static void eA21110(EditorEngine *e, void *node, int a) { (void)e; (void)node; (void)a; }  // 0x885 tail
 
+// SCI 0x8b2-0x92e thunks
+static void objRangeSet(void *obj, long long a, long long b, int m) { (void)obj; (void)a; (void)b; (void)m; }  // 0x8b2/0x8b3 FUN_00958416
+static void eA239ee(EditorEngine *e) { (void)e; }             // 0x8b2/0x8b3 chain
+static bool objFlag95854c(void *obj) { (void)obj; return false; }  // 0x8bc
+static bool objFlag95855e(void *obj, long long v) { (void)obj; (void)v; return false; }  // 0x8b4
+static bool objFlag958b68(void *obj, long long v) { (void)obj; (void)v; return false; }  // 0x8b6
+static void foldMgrSet(void *mgr, long long v, bool b) { (void)mgr; (void)v; (void)b; }  // 0x8b5 FUN_00a5ecb2
+static void foldMgrLine2(void *mgr, long long line, int a, int b, int c) { (void)mgr; (void)line; (void)a; (void)b; (void)c; }  // 0x8b7/0x7571 FUN_00a5ed6e
+static void *cursorPosGet(void *obj) { (void)obj; return nullptr; }  // FUN_00975bc6 (+0x1038)
+static long long objPosOf(void *obj, void *cursor) { (void)obj; (void)cursor; return 0; }  // FUN_009587cc
+static long long eA282a8(EditorEngine *e, long long a, int b, bool c) { (void)e; (void)a; (void)b; (void)c; return 0; }  // 0x8da/0x8db
+static void eHa2aa22(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x8d8
+static bool eA169cc(void *obj, long long v) { (void)obj; (void)v; return false; }  // 0x8e2 (obj +0x10c8)
+static void eA21d26(EditorEngine *e, long long a, long long b, int c) { (void)e; (void)a; (void)b; (void)c; }  // 0x8f1
+static void insertAtEnd(EditorEngine *e, unsigned long long pos, long long extra) { (void)e; (void)pos; (void)extra; }  // 0x8ea FUN_00a287f8(-1,...)
+static void eA218f6(EditorEngine *e, long long a, long long b) { (void)e; (void)a; (void)b; }  // 0x8f0
+static long long editorTextLength(void *obj) { (void)obj; return 0; }  // editor_textLength (+0x10a0)
+static long long objPosQuery(void *obj, long long pos) { (void)obj; (void)pos; return 0; }  // 0x92e FUN_00958498
+static void eA2c222(EditorEngine *e) { (void)e; }             // 0x936 chain
+static void sMarginNumber(EditorEngine *e) { (void)e; }       // s_margin_number
+static void sMarginTimestamp(EditorEngine *e) { (void)e; }    // s_margin_timestamp
+static QVariant vtForward150(EditorEngine *e, uint cmd, const QVariant &a, const QVariant &b)
+{ (void)e; (void)cmd; (void)a; (void)b; return QVariant(0); }  // vtable+0x150 pass-through
+
 
 void EditorEngine::cmdAppendText(const QVariantList &args)
 {
@@ -484,6 +508,90 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 		editorSelDtor(sel);
 		return QVariant(0);
 	}
+	// SCI 0x8b2-0x92e block
+	case 0x8b2:
+		objRangeSet(m_obj10a0, a.toLongLong(), b.toLongLong(), 1);
+		eA239ee(this);
+		vtA0Repaint();
+		return QVariant(0);
+	case 0x8b3:
+		objRangeSet(m_obj10a0, a.toLongLong(), b.toLongLong(), 0);
+		eA239ee(this);
+		vtA0Repaint();
+		return QVariant(0);
+	case 0x8b4:
+		return QVariant(objFlag95855e(m_obj10a0, a.toLongLong()));
+	case 0x8b5:
+		foldMgrSet(m_foldMgr, a.toLongLong(), b.toBool());
+		return QVariant(0);
+	case 0x8b6:
+		return QVariant(!objFlag958b68(m_obj10a0, a.toLongLong()));
+	case 0x8b7: {
+		long long line = a.toLongLong();
+		if (line == -1)
+			line = objPosOf(m_obj10a0, cursorPosGet(m_obj1038));
+		foldMgrLine2(m_foldMgr, line, 1, 2, b.toInt());
+		return QVariant(0);
+	}
+	case 0x8bc:
+		return QVariant(objFlag95854c(m_obj10a0));
+	case 0x8d8:
+		eHa2aa22(this, a.toInt());
+		return QVariant(0);
+	case 0x8d9:
+		return QVariant(m_intF44);
+	case 0x8da:
+		return QVariant(eA282a8(this, a.toLongLong(), -1, b.toBool()));
+	case 0x8db:
+		return QVariant(eA282a8(this, a.toLongLong(), 1, b.toBool()));
+	case 0x8e2:  // on success clears bit0 of the object's +0x50 flags
+		if (eA169cc(m_obj10c8, a.toLongLong()))
+			*(unsigned char *)((char *)m_obj10c8 + 0x50) &= 0xfe;
+		return QVariant(0);
+	case 0x8e3:  // inferred: +0x10c8 object's +0x40 read
+		return QVariant(*(long long *)((char *)m_obj10c8 + 0x40));
+	case 0x8f1: {
+		const QVariantList args = a.toList();
+		if (args.size() != 3)
+			return QVariant(0);
+		eA21d26(this, args.at(0).toLongLong(), args.at(1).toLongLong(),
+		        args.at(2).toInt());
+		return QVariant(0);
+	}
+	case 0x8ea:  // insert at document end (-1 anchor)
+		insertAtEnd(this, a.toULongLong(), b.toLongLong());
+		return QVariant(0);
+	case 0x8f0:
+		eA218f6(this, a.toLongLong(), b.toLongLong());
+		return QVariant(0);
+	case 0x92e: {  // char width: pos+1 offset minus pos offset
+		const long long pos = a.toLongLong();
+		if (pos < 0 || pos >= editorTextLength(m_obj10a0))
+			return QVariant(0);
+		return QVariant(objPosQuery(m_obj10a0, pos + 1) - objPosQuery(m_obj10a0, pos));
+	}
+	case 0x936:  // margin number/timestamp width recalc (vt+0x148 guard)
+		// if vtable+0x148 != FUN_00a1e438 → call it
+		eA2c222(this);
+		sMarginNumber(this);
+		sMarginTimestamp(this);
+		return QVariant(0);
+	case 0x914:  // ranges 0x914-0x91a, 0x91d-0x91f, 0x924-0x928 forward
+	case 0x915:
+	case 0x916:
+	case 0x917:
+	case 0x918:
+	case 0x919:
+	case 0x91a:
+	case 0x91d:
+	case 0x91e:
+	case 0x91f:
+	case 0x924:
+	case 0x925:
+	case 0x926:
+	case 0x927:
+	case 0x928:
+		return vtForward150(this, cmd, a, b);
 	// EXT block (0x4e23-0x4f04) — one-call leaves, addresses in thunk names
 	case 0x4ec7:
 		return QVariant(docLineProbe1(m_doc, a.toLongLong()));

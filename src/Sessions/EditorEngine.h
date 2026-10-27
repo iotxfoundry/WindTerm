@@ -47,6 +47,8 @@ public:
 	bool m_flagEc5;       // +0xec5 (0x7f2/0x7f3)
 	bool m_flagEc2;       // +0xec2 (0x873 change-detect + repaint)
 	int m_intFd4;         // +0xfd4 (0x857)
+	int m_intF44;         // +0xf44 (0x8d9)
+	void *m_obj1038;      // +0x1038 ([0x207]) — cursor pos source (0x8b7)
 	int m_intEa4;         // +0xea4 pair (0x862 write / sibling read)
 	int m_intEa8;         // +0xea8 (0x864)
 	char m_gate1128;      // +0x1128 ([0x225]) — coordinate mode gate
