@@ -358,6 +358,9 @@ public:
 	bool incompleteSequence(unsigned int cp, int eaten);
 	int codepointWidth(unsigned int cp);  // FUN_007a4692
 	bool sCharClass(unsigned int cp);     // DAT_011c1fe0 table
+	int charClass(unsigned int cp);       // FUN_007e5a0e (charset slot)
+	int charsetSlotWidth(int slot, bool nrc);  // FUN_008034b6
+	int widthFromTables(unsigned int cp); // FUN_007a4692 binary searches
 	void *cellAt(struct Row *row, int col);         // FUN_007a3c1a
 	unsigned short *headAt(struct Row *row, int col);  // FUN_007a3c2a
 	void appendClusterUnits(void *cell, unsigned int cp);

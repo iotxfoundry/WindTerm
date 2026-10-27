@@ -1514,3 +1514,49 @@ void Screen::reportDecDeviceStatus(const QString &params)
 		return;
 	sendResponse((prefix + payload + suffix).toLatin1());
 }
+
+void *Screen::cellAt(struct Row *row, int col)
+{
+	// FUN_007a3c1a: direct pointer arithmetic on the cell array
+	return (char *)row->cells + (size_t)col * 0x20;
+}
+
+unsigned short *Screen::headAt(struct Row *row, int col)
+{
+	// FUN_007a3c2a: glyph head lives in the attribute array (+0x40)
+	return (unsigned short *)((char *)row->attrArray + (size_t)col * 2);
+}
+
+int Screen::charClass(unsigned int cp)
+{
+	// FUN_007e5a0e: resolves the charset slot for the character being
+	// written. VT52 mode reads the graphics slot at core+0xc0 directly;
+	// otherwise the current shift state (core+0xb0) selects the G slot:
+	// cp < 0x80 -> bits 4-5 (falling back to bits 0-1), high bytes ->
+	// bits 2-3; the single-shift bits 4-5 are consumed (cleared) and
+	// the charset manager (FUN_008034b6) is queried with the DECNRCM
+	// flag (+0x11b)
+	if (isVt52Mode())
+		return m_core->m_charsetSlot3;          // +0xc0
+	const unsigned char shift = m_core->m_flags2;   // +0xb0
+	unsigned slot;
+	if ((cp & 0xff80) == 0) {
+		slot = (shift >> 4) & 3;
+		if (slot == 0)
+			slot = shift & 3;
+	} else {
+		slot = (shift >> 2) & 3;
+	}
+	m_core->m_flags2 = (unsigned char)(m_core->m_flags2 & 0xcf);
+	return charsetSlotWidth(slot, m_nrcMode);   // FUN_008034b6
+}
+
+int Screen::codepointWidth(unsigned int cp)
+{
+	// FUN_007a4692: width class via binary search over two sorted
+	// range tables - wide ranges (DAT_00ca6920) then the 23-entry
+	// combining/zero-width table (DAT_00ca6860)
+	if (cp <= 0x7f)
+		return 1;
+	return widthFromTables(cp);    // two binary searches - cited tables
+}

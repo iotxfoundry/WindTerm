@@ -975,6 +975,24 @@ void TerminalCore::markLine(int line, int arg)
 
 void TerminalCore::copyRect(int top, int left, int bottom, int right, long long packedDest)
 {
-	// FUN_007a7776 (DECCRA core): copies the rect's cells to the packed
-	// destination (top<<32|left) — body cited
+	// FUN_007a7776 (DECCRA core): validates all four source coords and
+	// both packed destination coords (>= -1, src left<=right, top<=
+	// bottom), then builds source/destination cell-pointer lists
+	// (QListData) and copyCell's each pair; wide/continuation flags
+	// travel with the cells (loop cited)
+	if (top < -1 || left < -1 || left > right || top > bottom)
+		return;
+	const int destLeft = (int)(packedDest >> 32);
+	const int destTop = (int)packedDest;
+	if (destLeft < -1 || destTop < -1)
+		return;
+	// cell-list copy loop — cited
+}
+
+void TerminalCore::rowHook(struct Row *row, int arg)
+{
+	// FUN_007a3dde: flags byte1 bit0 <- arg (with the change bit1 set)
+	// when the bit actually differs
+	if ((row->byte1 & 1) != (arg & 1))
+		row->byte1 = (unsigned char)((row->byte1 & 0xfe) | (arg & 1) | 2);
 }
