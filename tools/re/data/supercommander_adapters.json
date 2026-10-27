@@ -1,0 +1,1424 @@
+[
+ {
+  "idx": 0,
+  "name": "asyncMessage",
+  "kind": "T1",
+  "target": "0x4c2b70"
+ },
+ {
+  "idx": 1,
+  "name": "charsetChanged",
+  "kind": "T1",
+  "target": "0x4c2b70"
+ },
+ {
+  "idx": 3,
+  "name": "shellCwdChanged",
+  "kind": "T1",
+  "target": "0x4c2b70"
+ },
+ {
+  "idx": 4,
+  "name": "syncMessage",
+  "kind": "T1",
+  "target": "0x4c2b70"
+ },
+ {
+  "idx": 5,
+  "name": "adjustScreenAlignment",
+  "kind": "T1",
+  "target": "0x7e5f24"
+ },
+ {
+  "idx": 7,
+  "name": "answerBack",
+  "kind": "T1",
+  "target": "0x4bc0d0"
+ },
+ {
+  "idx": 8,
+  "name": "assignUserPreferredSupplementalSet",
+  "kind": "T1",
+  "target": "0x7e4ac2"
+ },
+ {
+  "idx": 9,
+  "name": "backIndex",
+  "kind": "T1",
+  "target": "0x7e4d48"
+ },
+ {
+  "idx": 10,
+  "name": "backspace",
+  "kind": "T1",
+  "target": "0x7e4f44"
+ },
+ {
+  "idx": 11,
+  "name": "bell",
+  "kind": "T1",
+  "target": "0x4bc0d0"
+ },
+ {
+  "idx": 13,
+  "name": "carriageReturn",
+  "kind": "T1",
+  "target": "0x7e4fc8"
+ },
+ {
+  "idx": 14,
+  "name": "changeAttributesInRectangularArea",
+  "kind": "T1",
+  "target": "0x7eb17e"
+ },
+ {
+  "idx": 15,
+  "name": "checkControlCharacter",
+  "kind": "T1",
+  "target": "0x7e3568"
+ },
+ {
+  "idx": 16,
+  "name": "clearTabstop",
+  "kind": "T1",
+  "target": "0x7e5df0"
+ },
+ {
+  "idx": 17,
+  "name": "clearTabstop",
+  "kind": "T1",
+  "target": "0x7e5df0"
+ },
+ {
+  "idx": 18,
+  "name": "copyRectangularArea",
+  "kind": "T1",
+  "target": "0x7eb2f2"
+ },
+ {
+  "idx": 20,
+  "name": "deleteCharacter",
+  "kind": "T1",
+  "target": "0x7e3784"
+ },
+ {
+  "idx": 21,
+  "name": "deleteCharacter",
+  "kind": "T1",
+  "target": "0x7e3784"
+ },
+ {
+  "idx": 22,
+  "name": "deleteColumn",
+  "kind": "T1",
+  "target": "0x7e3790"
+ },
+ {
+  "idx": 23,
+  "name": "deleteColumn",
+  "kind": "T1",
+  "target": "0x7e3790"
+ },
+ {
+  "idx": 24,
+  "name": "deleteLine",
+  "kind": "T1",
+  "target": "0x7e379c"
+ },
+ {
+  "idx": 25,
+  "name": "deleteLine",
+  "kind": "T1",
+  "target": "0x7e379c"
+ },
+ {
+  "idx": 26,
+  "name": "doubleLineHeightBottom",
+  "kind": "T1",
+  "target": "0x7e4236"
+ },
+ {
+  "idx": 27,
+  "name": "doubleLineHeightTop",
+  "kind": "T1",
+  "target": "0x7e4282"
+ },
+ {
+  "idx": 28,
+  "name": "doubleLineWidth",
+  "kind": "T1",
+  "target": "0x7e41e4"
+ },
+ {
+  "idx": 29,
+  "name": "enableFilterRectangle",
+  "kind": "T1",
+  "target": "0x7eb8fe"
+ },
+ {
+  "idx": 30,
+  "name": "enableLocatorReports",
+  "kind": "T1",
+  "target": "0x7e37a8"
+ },
+ {
+  "idx": 31,
+  "name": "enableLocatorReports",
+  "kind": "T1",
+  "target": "0x7e37a8"
+ },
+ {
+  "idx": 32,
+  "name": "endGuardedArea",
+  "kind": "T1",
+  "target": "0x7e37dc"
+ },
+ {
+  "idx": 33,
+  "name": "enterAltKeypadMode",
+  "kind": "T1",
+  "target": "0x7e37e8"
+ },
+ {
+  "idx": 34,
+  "name": "enterTmuxControlMode",
+  "kind": "T1",
+  "target": "0x7e9a06"
+ },
+ {
+  "idx": 35,
+  "name": "eraseCharacter",
+  "kind": "T1",
+  "target": "0x7e385a"
+ },
+ {
+  "idx": 36,
+  "name": "eraseCharacter",
+  "kind": "T1",
+  "target": "0x7e385a"
+ },
+ {
+  "idx": 37,
+  "name": "eraseLine",
+  "kind": "T1",
+  "target": "0x7e4ba2"
+ },
+ {
+  "idx": 38,
+  "name": "eraseLine",
+  "kind": "T1",
+  "target": "0x7e4ba2"
+ },
+ {
+  "idx": 39,
+  "name": "eraseRectangularArea",
+  "kind": "T2",
+  "target": "0x7eb1c4"
+ },
+ {
+  "idx": 40,
+  "name": "eraseScreen",
+  "kind": "T2",
+  "target": "0x7e606a"
+ },
+ {
+  "idx": 41,
+  "name": "eraseScreen",
+  "kind": "T2",
+  "target": "0x7e606a"
+ },
+ {
+  "idx": 42,
+  "name": "eraseSelectiveLine",
+  "kind": "T1",
+  "target": "0x7e4ba2"
+ },
+ {
+  "idx": 43,
+  "name": "eraseSelectiveLine",
+  "kind": "T1",
+  "target": "0x7e4ba2"
+ },
+ {
+  "idx": 44,
+  "name": "eraseSelectiveScreen",
+  "kind": "T1",
+  "target": "0x7e606a"
+ },
+ {
+  "idx": 45,
+  "name": "eraseSelectiveScreen",
+  "kind": "T1",
+  "target": "0x7e606a"
+ },
+ {
+  "idx": 46,
+  "name": "exitAltKeypadMode",
+  "kind": "T1",
+  "target": "0x7e3896"
+ },
+ {
+  "idx": 47,
+  "name": "exitAnsiMode",
+  "kind": "T1",
+  "target": "0x7e88e8"
+ },
+ {
+  "idx": 48,
+  "name": "fillRectangularArea",
+  "kind": "T1",
+  "target": "0x7eb20a"
+ },
+ {
+  "idx": 49,
+  "name": "fillRectangularArea",
+  "kind": "T1",
+  "target": "0x7eb20a"
+ },
+ {
+  "idx": 50,
+  "name": "formFeed",
+  "kind": "T1",
+  "target": "0x7e55fc"
+ },
+ {
+  "idx": 51,
+  "name": "forwardIndex",
+  "kind": "T1",
+  "target": "0x7e4d82"
+ },
+ {
+  "idx": 52,
+  "name": "fromUnicode",
+  "kind": null,
+  "target": null
+ },
+ {
+  "idx": 53,
+  "name": "highlightTracking",
+  "kind": "T1",
+  "target": "0x7eac52"
+ },
+ {
+  "idx": 54,
+  "name": "horizontalTab",
+  "kind": "T1",
+  "target": "0x7e5d7c"
+ },
+ {
+  "idx": 55,
+  "name": "insertCharacter",
+  "kind": "T1",
+  "target": "0x7e3ace"
+ },
+ {
+  "idx": 56,
+  "name": "insertCharacter",
+  "kind": "T1",
+  "target": "0x7e3ace"
+ },
+ {
+  "idx": 57,
+  "name": "insertColumn",
+  "kind": "T1",
+  "target": "0x7e3ada"
+ },
+ {
+  "idx": 58,
+  "name": "insertColumn",
+  "kind": "T1",
+  "target": "0x7e3ada"
+ },
+ {
+  "idx": 59,
+  "name": "insertLine",
+  "kind": "T1",
+  "target": "0x7e3ae6"
+ },
+ {
+  "idx": 60,
+  "name": "insertLine",
+  "kind": "T1",
+  "target": "0x7e3ae6"
+ },
+ {
+  "idx": 61,
+  "name": "lineFeed",
+  "kind": "T1",
+  "target": "0x7e55fc"
+ },
+ {
+  "idx": 62,
+  "name": "loadLeds",
+  "kind": "T1",
+  "target": "0x7eadba"
+ },
+ {
+  "idx": 68,
+  "name": "mediaCopy",
+  "kind": "T1",
+  "target": "0x7f0530"
+ },
+ {
+  "idx": 69,
+  "name": "mediaCopy",
+  "kind": "T1",
+  "target": "0x7f0530"
+ },
+ {
+  "idx": 70,
+  "name": "mediaCopyDec",
+  "kind": "T1",
+  "target": "0x7f063a"
+ },
+ {
+  "idx": 71,
+  "name": "moveCursor",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 72,
+  "name": "moveCursor",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 73,
+  "name": "moveCursor",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 74,
+  "name": "moveCursorBackward",
+  "kind": "T2",
+  "target": "0x7e4832"
+ },
+ {
+  "idx": 75,
+  "name": "moveCursorBackward",
+  "kind": "T2",
+  "target": "0x7e4832"
+ },
+ {
+  "idx": 76,
+  "name": "moveCursorColumn",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 77,
+  "name": "moveCursorColumn",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 78,
+  "name": "moveCursorColumnBackward",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 79,
+  "name": "moveCursorColumnBackward",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 80,
+  "name": "moveCursorColumnRelative",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 81,
+  "name": "moveCursorColumnRelative",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 82,
+  "name": "moveCursorDown",
+  "kind": "T2",
+  "target": "0x7e483e"
+ },
+ {
+  "idx": 83,
+  "name": "moveCursorDown",
+  "kind": "T2",
+  "target": "0x7e483e"
+ },
+ {
+  "idx": 84,
+  "name": "moveCursorForward",
+  "kind": "T2",
+  "target": "0x7e484a"
+ },
+ {
+  "idx": 85,
+  "name": "moveCursorForward",
+  "kind": "T2",
+  "target": "0x7e484a"
+ },
+ {
+  "idx": 86,
+  "name": "moveCursorLine",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 87,
+  "name": "moveCursorLine",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 88,
+  "name": "moveCursorLineBackward",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 89,
+  "name": "moveCursorLineBackward",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 90,
+  "name": "moveCursorLineRelative",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 91,
+  "name": "moveCursorLineRelative",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 92,
+  "name": "moveCursorNextLine",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 93,
+  "name": "moveCursorNextLine",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 94,
+  "name": "moveCursorNextTabstop",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 95,
+  "name": "moveCursorNextTabstop",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 96,
+  "name": "moveCursorPrecedingLine",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 97,
+  "name": "moveCursorPrecedingLine",
+  "kind": "T1",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 98,
+  "name": "moveCursorPrecedingTabstop",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 99,
+  "name": "moveCursorPrecedingTabstop",
+  "kind": "T2",
+  "target": "0x7e4fdc"
+ },
+ {
+  "idx": 100,
+  "name": "moveCursorUp",
+  "kind": "T2",
+  "target": "0x7e4856"
+ },
+ {
+  "idx": 101,
+  "name": "moveCursorUp",
+  "kind": "T2",
+  "target": "0x7e4856"
+ },
+ {
+  "idx": 102,
+  "name": "movePagePositionAbsolute",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 103,
+  "name": "movePagePositionAbsolute",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 104,
+  "name": "movePagePositionBackward",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 105,
+  "name": "movePagePositionBackward",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 106,
+  "name": "movePagePositionRelative",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 107,
+  "name": "movePagePositionRelative",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 108,
+  "name": "nextPage",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 109,
+  "name": "nextPage",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 110,
+  "name": "notifyCommand",
+  "kind": "T1",
+  "target": "0x4c3110"
+ },
+ {
+  "idx": 111,
+  "name": "notifyFig",
+  "kind": "T1",
+  "target": "0x4c3290"
+ },
+ {
+  "idx": 112,
+  "name": "notifyHyperlink",
+  "kind": "T1",
+  "target": "0x4c3290"
+ },
+ {
+  "idx": 113,
+  "name": "notifyIterm2",
+  "kind": "T1",
+  "target": "0x4c3290"
+ },
+ {
+  "idx": 115,
+  "name": "notifyRemoteDirectory",
+  "kind": "T1",
+  "target": "0x7cd366"
+ },
+ {
+  "idx": 116,
+  "name": "option",
+  "kind": "T1",
+  "target": "0x7d5538"
+ },
+ {
+  "idx": 123,
+  "name": "precedingPage",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 124,
+  "name": "precedingPage",
+  "kind": "T2",
+  "target": "0x7ef16a"
+ },
+ {
+  "idx": 125,
+  "name": "refreshScreen",
+  "kind": "T1",
+  "target": "0x61324e"
+ },
+ {
+  "idx": 126,
+  "name": "repeatCharacter",
+  "kind": "T1",
+  "target": "0x7e7cf6"
+ },
+ {
+  "idx": 127,
+  "name": "repeatCharacter",
+  "kind": "T1",
+  "target": "0x7e7cf6"
+ },
+ {
+  "idx": 128,
+  "name": "reportDeviceAttributesOne",
+  "kind": "T1",
+  "target": "0x7ea806"
+ },
+ {
+  "idx": 129,
+  "name": "reportDeviceAttributesTwo",
+  "kind": "T1",
+  "target": "0x7ea806"
+ },
+ {
+  "idx": 130,
+  "name": "reportDeviceAttributesThree",
+  "kind": "T1",
+  "target": "0x7ea806"
+ },
+ {
+  "idx": 131,
+  "name": "reportDeviceStatus",
+  "kind": "T1",
+  "target": "0x7f0ae6"
+ },
+ {
+  "idx": 132,
+  "name": "reportDecDeviceStatus",
+  "kind": "T1",
+  "target": "0x7f0d7c"
+ },
+ {
+  "idx": 133,
+  "name": "reportTerminalParameters",
+  "kind": "T1",
+  "target": "0x7ecdc2"
+ },
+ {
+  "idx": 134,
+  "name": "reportTerminalParameters",
+  "kind": "T1",
+  "target": "0x7ecdc2"
+ },
+ {
+  "idx": 135,
+  "name": "requestChecksumOfRectangularArea",
+  "kind": "T1",
+  "target": "0x7eced6"
+ },
+ {
+  "idx": 136,
+  "name": "requestDecMode",
+  "kind": "T1",
+  "target": "0x7f13a0"
+ },
+ {
+  "idx": 137,
+  "name": "requestDisplayedExtent",
+  "kind": "T1",
+  "target": "0x7ed148"
+ },
+ {
+  "idx": 138,
+  "name": "requestKeyModifier",
+  "kind": "T1",
+  "target": "0x7ed282"
+ },
+ {
+  "idx": 139,
+  "name": "requestLocatorPosition",
+  "kind": "T1",
+  "target": "0x7ebd6a"
+ },
+ {
+  "idx": 140,
+  "name": "requestLocatorPosition",
+  "kind": "T1",
+  "target": "0x7ebd6a"
+ },
+ {
+  "idx": 141,
+  "name": "requestMode",
+  "kind": "T1",
+  "target": "0x7f17c2"
+ },
+ {
+  "idx": 142,
+  "name": "requestPresentationStateReport",
+  "kind": "T1",
+  "target": "0x7ed35a"
+ },
+ {
+  "idx": 143,
+  "name": "requestSelectionOrSetting",
+  "kind": "T1",
+  "target": "0x7f194e"
+ },
+ {
+  "idx": 144,
+  "name": "requestTerminalStateReport",
+  "kind": "T1",
+  "target": "0x7f0434"
+ },
+ {
+  "idx": 145,
+  "name": "requestTerminalStateReport",
+  "kind": "T1",
+  "target": "0x7f0434"
+ },
+ {
+  "idx": 146,
+  "name": "requestUserPreferredSupplementalSet",
+  "kind": "T1",
+  "target": "0x7ed7f6"
+ },
+ {
+  "idx": 147,
+  "name": "requestWindowSelections",
+  "kind": null,
+  "target": null
+ },
+ {
+  "idx": 148,
+  "name": "requestXtermTerminfoData",
+  "kind": "T1",
+  "target": "0x7f3518"
+ },
+ {
+  "idx": 149,
+  "name": "resetDecMode",
+  "kind": "T2",
+  "target": "0x7f5d2e"
+ },
+ {
+  "idx": 150,
+  "name": "resetHard",
+  "kind": "T1",
+  "target": "0x7ea73c"
+ },
+ {
+  "idx": 151,
+  "name": "resetKeyModifier",
+  "kind": "T1",
+  "target": "0x7e498c"
+ },
+ {
+  "idx": 152,
+  "name": "resetKeyModifier",
+  "kind": "T1",
+  "target": "0x7e498c"
+ },
+ {
+  "idx": 153,
+  "name": "resetMode",
+  "kind": "T2",
+  "target": "0x7edce6"
+ },
+ {
+  "idx": 154,
+  "name": "resetSoft",
+  "kind": "T3",
+  "target": "0x7ea7e6"
+ },
+ {
+  "idx": 155,
+  "name": "resetWindowColor",
+  "kind": "T1",
+  "target": "0x7f0858"
+ },
+ {
+  "idx": 156,
+  "name": "resetWindowColor",
+  "kind": "T1",
+  "target": "0x7f0858"
+ },
+ {
+  "idx": 157,
+  "name": "restoreCursor",
+  "kind": "T1",
+  "target": "0x7f6426"
+ },
+ {
+  "idx": 158,
+  "name": "restoreDecMode",
+  "kind": "T1",
+  "target": "0x7f64a6"
+ },
+ {
+  "idx": 159,
+  "name": "restorePresentationState",
+  "kind": "T1",
+  "target": "0x7ef1b6"
+ },
+ {
+  "idx": 160,
+  "name": "restoreTerminalState",
+  "kind": "T1",
+  "target": "0x7ef0a2"
+ },
+ {
+  "idx": 161,
+  "name": "reverseAttributesInRectangularArea",
+  "kind": "T1",
+  "target": "0x7eb2ac"
+ },
+ {
+  "idx": 163,
+  "name": "saveCursor",
+  "kind": "T1",
+  "target": "0x7e4aa2"
+ },
+ {
+  "idx": 164,
+  "name": "saveDecMode",
+  "kind": "T1",
+  "target": "0x7f427a"
+ },
+ {
+  "idx": 165,
+  "name": "scrollCursorDown",
+  "kind": "T1",
+  "target": "0x7e55b6"
+ },
+ {
+  "idx": 166,
+  "name": "scrollCursorUp",
+  "kind": "T1",
+  "target": "0x7e563e"
+ },
+ {
+  "idx": 167,
+  "name": "scrollDown",
+  "kind": "T2",
+  "target": "0x7e5546"
+ },
+ {
+  "idx": 168,
+  "name": "scrollDown",
+  "kind": "T2",
+  "target": "0x7e5546"
+ },
+ {
+  "idx": 169,
+  "name": "scrollLeft",
+  "kind": "T2",
+  "target": "0x7e4d3c"
+ },
+ {
+  "idx": 170,
+  "name": "scrollLeft",
+  "kind": "T2",
+  "target": "0x7e4d3c"
+ },
+ {
+  "idx": 171,
+  "name": "scrollNextLine",
+  "kind": "T1",
+  "target": "0x7e562c"
+ },
+ {
+  "idx": 172,
+  "name": "scrollRight",
+  "kind": "T2",
+  "target": "0x7e4d3c"
+ },
+ {
+  "idx": 173,
+  "name": "scrollRight",
+  "kind": "T2",
+  "target": "0x7e4d3c"
+ },
+ {
+  "idx": 174,
+  "name": "scrollUp",
+  "kind": "T2",
+  "target": "0x7e5546"
+ },
+ {
+  "idx": 175,
+  "name": "scrollUp",
+  "kind": "T2",
+  "target": "0x7e5546"
+ },
+ {
+  "idx": 176,
+  "name": "select7BitC1Control",
+  "kind": "T1",
+  "target": "0x7e5aec"
+ },
+ {
+  "idx": 177,
+  "name": "select8BitC1Control",
+  "kind": "T1",
+  "target": "0x7e5aec"
+ },
+ {
+  "idx": 178,
+  "name": "select94CharacterSet",
+  "kind": "T1",
+  "target": "0x7e4dbc"
+ },
+ {
+  "idx": 179,
+  "name": "select96CharacterSet",
+  "kind": "T1",
+  "target": "0x7e4e16"
+ },
+ {
+  "idx": 180,
+  "name": "selectActiveStatusDisplay",
+  "kind": "T1",
+  "target": "0x7ef86e"
+ },
+ {
+  "idx": 181,
+  "name": "selectActiveStatusDisplay",
+  "kind": "T1",
+  "target": "0x7ef86e"
+ },
+ {
+  "idx": 182,
+  "name": "selectAttributeChangeExtent",
+  "kind": "T1",
+  "target": "0x7e4e74"
+ },
+ {
+  "idx": 183,
+  "name": "selectAttributeChangeExtent",
+  "kind": "T1",
+  "target": "0x7e4e74"
+ },
+ {
+  "idx": 184,
+  "name": "selectCharacterAttribute",
+  "kind": "T1",
+  "target": "0x7eebd4"
+ },
+ {
+  "idx": 185,
+  "name": "selectCharacterAttribute",
+  "kind": "T1",
+  "target": "0x7eebd4"
+ },
+ {
+  "idx": 186,
+  "name": "selectGraphicRendition",
+  "kind": "T1",
+  "target": "0x7ef95c"
+ },
+ {
+  "idx": 188,
+  "name": "selectiveEraseRectangularArea",
+  "kind": "T1",
+  "target": "0x7eb1c4"
+ },
+ {
+  "idx": 189,
+  "name": "selectLocatorEvents",
+  "kind": "T1",
+  "target": "0x7e4e80"
+ },
+ {
+  "idx": 190,
+  "name": "selectNumberOfLinesOnScreen",
+  "kind": "T1",
+  "target": "0x7e5ba2"
+ },
+ {
+  "idx": 191,
+  "name": "selectStatusLineType",
+  "kind": "T1",
+  "target": "0x7f0346"
+ },
+ {
+  "idx": 192,
+  "name": "selectStatusLineType",
+  "kind": "T1",
+  "target": "0x7f0346"
+ },
+ {
+  "idx": 193,
+  "name": "setAllowScrollback",
+  "kind": "T1",
+  "target": "0x7e4f1c"
+ },
+ {
+  "idx": 194,
+  "name": "setAnsiConformanceLevelOne",
+  "kind": "T1",
+  "target": "0x7e5b12"
+ },
+ {
+  "idx": 195,
+  "name": "setAnsiConformanceLevelTwo",
+  "kind": "T1",
+  "target": "0x7e5b12"
+ },
+ {
+  "idx": 196,
+  "name": "setAnsiConformanceLevelThree",
+  "kind": "T1",
+  "target": "0x7e5b12"
+ },
+ {
+  "idx": 197,
+  "name": "setCodec",
+  "kind": "T3",
+  "target": "-0x3efdef14"
+ },
+ {
+  "idx": 198,
+  "name": "setColumnsPerPage",
+  "kind": "T1",
+  "target": "0x7e61fa"
+ },
+ {
+  "idx": 199,
+  "name": "setColumnsPerPage",
+  "kind": "T1",
+  "target": "0x7e61fa"
+ },
+ {
+  "idx": 200,
+  "name": "setConformanceLevel",
+  "kind": "T1",
+  "target": "0x7eecc0"
+ },
+ {
+  "idx": 201,
+  "name": "setConformanceLevel",
+  "kind": "T1",
+  "target": "0x7eecc0"
+ },
+ {
+  "idx": 202,
+  "name": "setCursorStyle",
+  "kind": "T2",
+  "target": "0x7e4ffa"
+ },
+ {
+  "idx": 203,
+  "name": "setCursorStyle",
+  "kind": "T2",
+  "target": "0x7e4ffa"
+ },
+ {
+  "idx": 204,
+  "name": "setCursorVisibility",
+  "kind": "T1",
+  "target": "0x7e5090"
+ },
+ {
+  "idx": 205,
+  "name": "setCursorVisibility",
+  "kind": "T1",
+  "target": "0x7e5090"
+ },
+ {
+  "idx": 206,
+  "name": "setDecMode",
+  "kind": "T1",
+  "target": "0x7f5d2e"
+ },
+ {
+  "idx": 208,
+  "name": "setHorizontalTabstop",
+  "kind": "T1",
+  "target": "0x7e52fc"
+ },
+ {
+  "idx": 209,
+  "name": "setHorizontalTabstop",
+  "kind": "T1",
+  "target": "0x7e52fc"
+ },
+ {
+  "idx": 210,
+  "name": "setHorizontalTabstop",
+  "kind": "T1",
+  "target": "0x7e52fc"
+ },
+ {
+  "idx": 211,
+  "name": "setKeyModifier",
+  "kind": "T1",
+  "target": "0x7e5152"
+ },
+ {
+  "idx": 212,
+  "name": "setKeyModifier",
+  "kind": "T1",
+  "target": "0x7e5152"
+ },
+ {
+  "idx": 213,
+  "name": "setLeftRightMargins",
+  "kind": "T1",
+  "target": "0x7e5bd4"
+ },
+ {
+  "idx": 214,
+  "name": "setLeftRightMargins",
+  "kind": "T1",
+  "target": "0x7e5bd4"
+ },
+ {
+  "idx": 215,
+  "name": "setLeftRightMargins",
+  "kind": "T1",
+  "target": "0x7e5bd4"
+ },
+ {
+  "idx": 216,
+  "name": "setLinesPerPage",
+  "kind": "T1",
+  "target": "0x7e5eb2"
+ },
+ {
+  "idx": 217,
+  "name": "setLinesPerPage",
+  "kind": "T1",
+  "target": "0x7e5eb2"
+ },
+ {
+  "idx": 218,
+  "name": "setMarginBellVolume",
+  "kind": "T1",
+  "target": "0x7e5190"
+ },
+ {
+  "idx": 219,
+  "name": "setMarginBellVolume",
+  "kind": "T1",
+  "target": "0x7e5190"
+ },
+ {
+  "idx": 220,
+  "name": "setMode",
+  "kind": "T1",
+  "target": "0x7edce6"
+ },
+ {
+  "idx": 222,
+  "name": "setTopBottomMargins",
+  "kind": "T1",
+  "target": "0x7e5fa6"
+ },
+ {
+  "idx": 223,
+  "name": "setTopBottomMargins",
+  "kind": "T1",
+  "target": "0x7e5fa6"
+ },
+ {
+  "idx": 224,
+  "name": "setTopBottomMargins",
+  "kind": "T1",
+  "target": "0x7e5fa6"
+ },
+ {
+  "idx": 225,
+  "name": "setUserDefinedKeys",
+  "kind": "T1",
+  "target": "0x7ef0e8"
+ },
+ {
+  "idx": 230,
+  "name": "setWarningBellVolume",
+  "kind": "T1",
+  "target": "0x7e520c"
+ },
+ {
+  "idx": 231,
+  "name": "setWarningBellVolume",
+  "kind": "T1",
+  "target": "0x7e520c"
+ },
+ {
+  "idx": 232,
+  "name": "setWindowAttributes",
+  "kind": "T1",
+  "target": "0x7f298e"
+ },
+ {
+  "idx": 233,
+  "name": "setWindowColor",
+  "kind": "T1",
+  "target": "0x7f24ae"
+ },
+ {
+  "idx": 234,
+  "name": "setWindowIcon",
+  "kind": null,
+  "target": null
+ },
+ {
+  "idx": 235,
+  "name": "setWindowIconAndTitle",
+  "kind": "T1",
+  "target": "0x7cd902"
+ },
+ {
+  "idx": 236,
+  "name": "setWindowSelections",
+  "kind": "T1",
+  "target": "0x4beac0"
+ },
+ {
+  "idx": 237,
+  "name": "setWindowTitle",
+  "kind": "T1",
+  "target": "0x7cd366"
+ },
+ {
+  "idx": 238,
+  "name": "setXtermTerminfoData",
+  "kind": "T1",
+  "target": "0x7f07d8"
+ },
+ {
+  "idx": 239,
+  "name": "shiftLockingOne",
+  "kind": "T1",
+  "target": "0x7e521c"
+ },
+ {
+  "idx": 240,
+  "name": "shiftLockingOneRight",
+  "kind": "T1",
+  "target": "0x7e521c"
+ },
+ {
+  "idx": 241,
+  "name": "shiftLockingThree",
+  "kind": "T1",
+  "target": "0x7e521c"
+ },
+ {
+  "idx": 242,
+  "name": "shiftLockingThreeRight",
+  "kind": "T1",
+  "target": "0x7e521c"
+ },
+ {
+  "idx": 243,
+  "name": "shiftLockingTwo",
+  "kind": "T1",
+  "target": "0x7e521c"
+ },
+ {
+  "idx": 244,
+  "name": "shiftLockingTwoRight",
+  "kind": "T1",
+  "target": "0x7e521c"
+ },
+ {
+  "idx": 245,
+  "name": "shiftLockingZero",
+  "kind": "T2",
+  "target": "0x7e521c"
+ },
+ {
+  "idx": 246,
+  "name": "shiftSingleTwo",
+  "kind": "T1",
+  "target": "0x7e5254"
+ },
+ {
+  "idx": 247,
+  "name": "shiftSingleThree",
+  "kind": "T1",
+  "target": "0x7e5254"
+ },
+ {
+  "idx": 248,
+  "name": "singleLineWidth",
+  "kind": "T1",
+  "target": "0x7e41e4"
+ },
+ {
+  "idx": 249,
+  "name": "startGuardedArea",
+  "kind": "T1",
+  "target": "0x7e5278"
+ },
+ {
+  "idx": 250,
+  "name": "testConfidence",
+  "kind": "T1",
+  "target": "0x7f0a5e"
+ },
+ {
+  "idx": 251,
+  "name": "toUnicode",
+  "kind": null,
+  "target": null
+ },
+ {
+  "idx": 252,
+  "name": "verticalTab",
+  "kind": "T1",
+  "target": "0x7e55fc"
+ },
+ {
+  "idx": 253,
+  "name": "vt52EnterGraphicsMode",
+  "kind": "T1",
+  "target": "0x7e5a90"
+ },
+ {
+  "idx": 254,
+  "name": "vt52ExitGraphicsMode",
+  "kind": "T1",
+  "target": "0x7e5ab0"
+ },
+ {
+  "idx": 255,
+  "name": "vt52Identify",
+  "kind": "T1",
+  "target": "0x7edc22"
+ },
+ {
+  "idx": 257,
+  "name": "vt52MoveCursor",
+  "kind": "T1",
+  "target": "0x7e4f38"
+ },
+ {
+  "idx": 259,
+  "name": "windowIcon",
+  "kind": null,
+  "target": null
+ },
+ {
+  "idx": 261,
+  "name": "windowTitle",
+  "kind": null,
+  "target": null
+ },
+ {
+  "idx": 262,
+  "name": "zmodemReceive",
+  "kind": "T1",
+  "target": "0x7e676c"
+ },
+ {
+  "idx": 263,
+  "name": "zmodemSend",
+  "kind": "T1",
+  "target": "0x7e6844"
+ }
+]
