@@ -5,6 +5,7 @@
 
 #include <QByteArray>
 #include <QList>
+#include <QPoint>
 #include <QString>
 #include <QVariant>
 
@@ -60,6 +61,9 @@ public:
 	int m_int1058;        // +0x1058 (0x9a3 byte write / 0x9a4 int read)
 	int m_intD48;         // +0xd48 (0x9c1)
 	char m_flagD90;       // +0xd90 (0x7581, sibling of the +0xd92 0x7583)
+	char m_flagD8d;       // +0xd8d (0x758b change-detect + repaint)
+	char m_flagD8e;       // +0xd8e (0x7599, repaint gated by +0x1128)
+	int m_intD94;         // +0xd94 (0x759c, repaint gated by +0x1128)
 	long m_zoomReal;      // +0xd10 ([0x1a2]) fractional zoom (0x7567)
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
 	                      // int table, 11-byte stride at 0x7f8)

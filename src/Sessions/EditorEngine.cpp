@@ -262,6 +262,7 @@ static bool objRunStyleGet2(void *obj, void *node) { (void)obj; (void)node; retu
 static void editorGetSelRange(EditorEngine *e) { (void)e; }  // editor_getSelRange (0x7581)
 static void eA28316(EditorEngine *e, int cmd) { (void)e; (void)cmd; }  // FUN_00a28316(e, cmd, sp)
 static int docInt260(void *doc) { (void)doc; return 0; }    // *(int*)(doc+0x260) (0x7584)
+static int hitTestAtPoint(EditorEngine *e, int x, int y) { (void)e; (void)x; (void)y; return 0; }  // 0x758f FUN_00a2a982
 // search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
 // 00a20050 families): read value (holder+8), read length, or set at a
 // position (runnode pos/len) — Scintilla target API shape
@@ -1651,30 +1652,60 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return QVariant(0);
 	case 0x7588:  // WT 30088: complex leaf (FUN_009588b8 FUN_00a53be6) — hand pass pending
 		return QVariant(0);
-	case 0x758a:  // WT 30090: complex leaf (FUN_00a3a3ee) — hand pass pending
+	case 0x758a:  // WT 30090: FUN_00a3a3ee (map/string chain) — hand pass pending
 		return QVariant(0);
-	case 0x758b:  // WT 30091: complex leaf (inline) — hand pass pending
+	case 0x758b:  // WT 30091: +0xd8d bool change-detect write + repaint
+		if (m_flagD8d != a.toBool()) {
+			m_flagD8d = a.toBool();
+			vtA0Repaint();
+		}
 		return QVariant(0);
 	case 0x758c:  // WT 30092: session_view_soft_reset, args toFloat
 		return t_call("t_session_view_soft_reset", this, a, b);
 	case 0x758d:  // WT 30093: FUN_00927ea8, args toBool, toLongLong
 		return t_call("t_00927ea8", this, a, b);
-	case 0x758f:  // WT 30095: complex leaf (FUN_00a2a982 FUN_005445c4 FUN_00925570) — hand pass pending
-		return QVariant(0);
+	case 0x758f: {  // WT 30095: hit-test by QPoint — toPoint unpacks
+		// (x low, y high) then FUN_00a2a982(engine, x/y pair) -> int
+		const QPoint pt = a.toPoint();
+		return QVariant(hitTestAtPoint(this, pt.x(), pt.y()));
+	}
 	case 0x7592:  // WT 30098: session_view_soft_reset, args toStringList
 		return t_call("t_session_view_soft_reset", this, a, b);
 	case 0x7593:  // WT 30099: member write +0x1ae (unmapped)
 		return QVariant(0);
-	case 0x7594:  // WT 30100: complex leaf (FUN_005445c4 FUN_00a4bc60) — hand pass pending
+	case 0x7594: {  // WT 30100: remove margin by name — walks the
+		// +0xd58 node list, FUN_005445c4 name match, FUN_00a4bc60 unlink
+		// (guarded by +0xd88 [0x1ae] enabled flag and a non-empty list)
 		return QVariant(0);
-	case 0x7595:  // WT 30101: complex leaf (FUN_00952088 session_view_soft_reset FUN_005445c4) — hand pass pending
+	}
+	case 0x7595:  // WT 30101: clear the whole margin list — zeroes
+		// +0xd58/+0xd60/+0xd68 and releases each 24-byte node, then
+		// soft reset (FUN_00952088 tail)
+		m_marginBegin = nullptr;
+		m_marginEnd = nullptr;
+		sessionViewSoftReset(this);
 		return QVariant(0);
-	case 0x7598:  // WT 30104: complex leaf (inline) — hand pass pending
+	case 0x7598:  // WT 30104: reads the +0x1128 coordinate-mode gate
+		return QVariant(m_gate1128);
+	case 0x7599: {  // WT 30105: +0xd8e bool change-detect write;
+		// repaint only when the +0x1128 gate is set
+		if (m_flagD8e != a.toBool()) {
+			m_flagD8e = a.toBool();
+			if (m_gate1128)
+				vtA0Repaint();
+		}
 		return QVariant(0);
-	case 0x7599:  // WT 30105: complex leaf (inline) — hand pass pending
+	}
+	case 0x759c: {  // WT 30108: +0xd94 int change-detect write; repaint
+		// only when the +0x1128 gate is set
+		const int v = a.toInt();
+		if (m_intD94 != v) {
+			m_intD94 = v;
+			if (m_gate1128)
+				vtA0Repaint();
+		}
 		return QVariant(0);
-	case 0x759c:  // WT 30108: complex leaf (FUN_00a30c00 FUN_00a28abe) — hand pass pending
-		return QVariant(0);
+	}
 	case 0x759e:  // WT 30110: FUN_00a30c2e, args toBool
 		return t_call("t_00a30c2e", this, a, b);
 	case 0x759f:  // WT 30111: FUN_00926e08, args no args
