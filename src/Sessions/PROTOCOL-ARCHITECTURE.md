@@ -32,13 +32,13 @@ WindTerm 的协议层是「正则协议引擎 + 配置文件」而非硬编码�
 | King 协议类 QMetaObject | 0x11a7440/0x11a8140/0x11a8220 | Commander/Bridge/Session 三基类 |
 | TerminalWidget 元数据串 | 0x8dde40 起 | QPointer\<SuperCommander\> 持有证据 |
 
-## Tcp/Serial 状态(开放问题)
+## Tcp/Serial 状态(已定论:死导入)
 
-- 主程序 .text 中**未发现** QSerialPort/QTcpSocket 构造的直接调用
-  (QSerialPort 13 个导入存在,但构造函数零交叉引用)
-- 推测:构造经 metacall/QMetaObject::newInstance 工厂、虚表、或
-  实际实现在运行时模块 —— 待查
-- Serial 对应 `src/Pty`(ptyqt 重写版)的串口分支,部分开源已在库
+三路验证(直接调用/数据区函数指针/GOT 间接调用)全部归零:
+QSerialPort(13 导入)/QTcpSocket 在主程序中无任何引用 —— 链接
+依赖存在但调用代码不在 Linux 主二进制(跨平台构建残留或运行时
+模块引用)。Linux 主程序内 Serial/Tcp 会话即纯壳,与还原的薄壳
+骨架一致;真正的串口实现走 `src/Pty`(ptyqt)路径。
 
 ## 已还原家族对照
 
