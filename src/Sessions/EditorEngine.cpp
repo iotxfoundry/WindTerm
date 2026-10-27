@@ -61,6 +61,15 @@ static void notifyFlag10(EditorEngine *e)
 	e->m_flagsFd0 |= 0x10;
 }
 static int docTabSize(EditorEngine *e) { (void)e; return 1; }  // *(doc+0x270)
+static bool docGate927a4c(void *doc);
+static void FUN_009b3f36(void *undo);
+static void FUN_00927d02(void *doc, int v);
+static long long docLength(void *doc);
+static long long eA0480c(void *sub);
+static void eA1f716(EditorEngine *e, int v);
+static void eA1f77c(EditorEngine *e);
+static bool eProbe950226(void *ctx);
+static void eA22c20(EditorEngine *e);
 static void docSetTabSize(EditorEngine *e, int n)
 {
 	// FUN_00925338 (26B): n>0 writes doc+0x270; a +0x278 flag mirrors
@@ -73,6 +82,9 @@ static void docSetTabSize(EditorEngine *e, int n)
 }
 // EXT one-call thunks (addresses = the leaf implementations)
 // fwd: 选择族定义在本文件后段
+static void cursorOp757e6(void *cursor);
+static void cursorOpPrevSel(void *cursor);
+static void eA23a3e(EditorEngine *e, int kind, int v);
 static void cursorOp97881e(void *cursor);
 static long long cursorOp75316(void *cursor);
 static void cursorOp7a50a(void *cursor);
@@ -82,8 +94,29 @@ static void cursorOp756c8(void *cursor);
 static void eA235ce(EditorEngine *e, long long a, int b);
 static void editorSelCtor(void *sel, EditorEngine *e, int *type);
 static void editorSelDtor(void *sel);
-static void eA237a6(EditorEngine *e) { (void)e; }             // 0x4ecd activateNextSelection
-static void eA23808(EditorEngine *e) { (void)e; }             // 0x4ece activatePreviousSelection
+static void eA237a6(EditorEngine *e)
+{
+	// FUN_00a237a6 (90B): type-0 selection txn — FUN_009757e6(cursor)
+	// then the FUN_00975316(cursor) value feeds FUN_00a235ce(e, val, 0)
+	int type = 0;
+	char sel[32];
+	editorSelCtor(sel, e, &type);
+	cursorOp757e6(*(void **)((char *)e + 0x1038));
+	eA235ce(e, cursorOp75316(*(void **)((char *)e + 0x1038)), 0);
+	editorSelDtor(sel);
+}
+static void cursorOp757e6(void *cursor) { (void)cursor; }    // FUN_009757e6
+static void eA23808(EditorEngine *e)
+{
+	// FUN_00a23808 (90B): same txn with the previous-selection op
+	int type = 0;
+	char sel[32];
+	editorSelCtor(sel, e, &type);
+	cursorOpPrevSel(*(void **)((char *)e + 0x1038));
+	eA235ce(e, cursorOp75316(*(void **)((char *)e + 0x1038)), 0);
+	editorSelDtor(sel);
+}
+static void cursorOpPrevSel(void *cursor) { (void)cursor; }   // FUN_009757e6 姊妹(0xa23808 内)
 static void eA2386a(EditorEngine *e)
 {
 	// FUN_00a2386a (42B): FUN_0097881e(cursor) then the
@@ -196,9 +229,27 @@ static unsigned docCharAtLine(void *doc, long long line)
 		return 0;
 	return 0;   // FUN_00a04b28(doc+0x98 chain, line) — wave-2
 }
-static void eA23b8c(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x7db
+static void eA23b8c(EditorEngine *e, int v)
+{
+	// FUN_00a23b8c (55B): gate FUN_00927a4c(doc) (col>margin probe)
+	// then FUN_00a23a3e(engine, 1, v)
+	if (docGate927a4c(e->m_doc) == false)
+		return;
+	eA23a3e(e, 1, v);
+}
+static void eA23a3e(EditorEngine *e, int kind, int v) { (void)e; (void)kind; (void)v; }  // FUN_00a23a3e
 static void eA26df4(EditorEngine *e) { (void)e; }             // 0x7dd
-static void docOp927ddc(void *doc) { (void)doc; }             // 0x7de
+static void docOp927ddc(void *doc)
+{
+	// FUN_00927ddc (69B): undo op FUN_009b3f36(doc+0xe8), then the
+	// gap buffer's vtable+0x18 (default CSuperBufferBase_dtor guard —
+	// named! the buffer base class symbol) runs before the
+	// FUN_00927d02(doc, 1) mirror
+	FUN_009b3f36(*(void **)((char *)doc + 0xe8));
+	FUN_00927d02(doc, 1);
+}
+static void FUN_009b3f36(void *undo) { (void)undo; }          // undo-family op
+static void FUN_00927d02(void *doc, int v) { (void)doc; (void)v; }  // state mirror
 static bool docGate927a4c(void *doc)
 {
 	// FUN_00927a4c (12B) → FUN_009b3f48(undo(doc+0xe8))
@@ -242,9 +293,37 @@ static int styleAtPos(void *styleCtx, long long pos)
 		                        + (size_t)(p + *(const int *)(ctx + 0x24)) * 8);
 	return entry != 0 ? runStyleValue(entry) : 0;
 }
-static long long docOp92814a(void *doc) { (void)doc; return 0; }  // 0x7ec
-static void eA1f7be(EditorEngine *e) { (void)e; }             // 0x7f8 chain
-static void eA22c4e(EditorEngine *e, int n) { (void)e; (void)n; }  // 0x7f8 chain
+static long long docOp92814a(void *doc)
+{
+	// FUN_0092814a (25B): doc+0x98 gate — hit → FUN_00a0480c(subobj);
+	// miss → the FUN_0092801a length path
+	if (*(void **)((char *)doc + 0x98))
+		return eA0480c(*(void **)((char *)doc + 0x98));
+	return docLength(doc);
+}
+static long long eA0480c(void *sub) { (void)sub; return 0; }  // FUN_00a0480c
+static void eA1f7be(EditorEngine *e)
+{
+	// FUN_00a1f7be (36B): +0x38 flag clear; +0xd00 = +0xe88 copy;
+	// then FUN_00a1f716(e, 0) + FUN_00a1f77c(e)
+	char *p = (char *)e;
+	*(unsigned char *)(p + 0x38) = 0;
+	*(int *)(p + 0xd00) = *(int *)(p + 0xe88);
+	eA1f716(e, 0);
+	eA1f77c(e);
+}
+static void eA1f716(EditorEngine *e, int v) { (void)e; (void)v; }  // FUN_00a1f716
+static void eA1f77c(EditorEngine *e) { (void)e; }            // FUN_00a1f77c
+static void eA22c4e(EditorEngine *e, int n)
+{
+	// FUN_00a22c4e (28B): gate FUN_00950226(e+0x40) then
+	// FUN_00a22c20(engine) — note the int arg rides in a register
+	if (eProbe950226((char *)e + 0x40) == false)
+		return;
+	eA22c20(e);
+}
+static bool eProbe950226(void *ctx) { (void)ctx; return false; }  // FUN_00950226
+static void eA22c20(EditorEngine *e) { (void)e; }            // FUN_00a22c20
 static void styleCtxTouch(void *ctx)
 {
 	// FUN_009501b0 (98B): walks the 32-slot style table (0x16-int
@@ -383,7 +462,16 @@ static void docOp927a14(void *doc, int v)
 	// FUN_00927a14 (16B) → FUN_009b6046(undo(doc+0xe8), v)
 }  // 0x81f (arg 1)
 static void docOp92c4ae(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x84e
-static long long docOp928404(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x850 (gated +0x1067)
+static long long docOp928404(void *doc, long long v)
+{
+	// FUN_00928404 (80B): negative rejects; walks line starts
+	// (FUN_00925200) against the doc length (FUN_0092801a) — the
+	// line-of-position search loop; per-line char probes follow
+	if (v < 0)
+		return 0;
+	// loop body — D 类余段(行内字符探测)
+	return 0;
+}  // 0x850 (gated +0x1067)
 static int docOp9284c6(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x84f sibling (gated)
 static long long docOp928624(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x851 plain path
 static long long docOp92520c(void *doc, long long v)
