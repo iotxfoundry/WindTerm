@@ -56,7 +56,10 @@ public:
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
 	                      // int table, 11-byte stride at 0x7f8)
 	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),
-	// indent@+0x274 (0x75c2/c5), flag279@+0x279 (0x75c3/c6)
+	// indent@+0x274 (0x75c2/c5), flag279@+0x279 (0x75c3/c6),
+	// undo/redo sub-object@+0xe8 (FUN_009b3xxx family),
+	// marker/bookmark sub-object@+0xf0 (FUN_0099b5d6, kind 1|2),
+	// flag132@+0x132 (FUN_009290e8), style ctx@+0x10 (FUN_0094277a)
 
 	// --- dispatchers (the two vtable+0x1c0 landing functions) --------
 	QVariant dispatchLevel1(uint cmd, const QVariant &a, const QVariant &b);

@@ -44,9 +44,22 @@ static bool eA2025a(EditorEngine *e) { (void)e; return false; }       // 0x4ed1?
 static void eA202b0(EditorEngine *e) { (void)e; }             // 0x4ed5 exchangeCaretAnchor
 static bool eA385ee(EditorEngine *e, int a) { (void)e; (void)a; return false; }  // 0x4ee4
 static void eA286a2(EditorEngine *e, int a) { (void)e; (void)a; }    // 0x4ee6
-static long long docPosOp(void *doc, bool b) { (void)doc; (void)b; return 0; }  // 0x4ec9 FUN_00927a68
-static bool docLineProbe1(void *doc, long long v) { (void)doc; (void)v; return false; }  // 0x4ec7 FUN_00927ce0
-static bool docLineProbe2(void *doc, long long v) { (void)doc; (void)v; return false; }  // 0x4ec8 FUN_00927e22
+static long long docPosOp(void *doc, bool b)
+{
+	// FUN_00927a68 (16B) → FUN_009b413e(undo(doc+0xe8), b); tail call
+	// leaves the result in RAX (callers read it as u64)
+	return 0;
+}
+static bool docLineProbe1(void *doc, long long v)
+{
+	// FUN_00927ce0 (17B) → FUN_0099b5d6(markers(doc+0xf0), v, 1)
+	return false;
+}
+static bool docLineProbe2(void *doc, long long v)
+{
+	// FUN_00927e22 (17B) → same marker op with kind 2
+	return false;
+}
 static long long docLineGet(void *doc, long long v, unsigned f, int g) {
 	// FUN_009252f4 (15B) → FUN_0099881e(*(doc+0xe0), v, f, g) — the
 	// +0xe0 sub-object (196B callee) — wave-2
@@ -77,9 +90,21 @@ static unsigned docCharAtLine(void *doc, long long line)
 static void eA23b8c(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x7db
 static void eA26df4(EditorEngine *e) { (void)e; }             // 0x7dd
 static void docOp927ddc(void *doc) { (void)doc; }             // 0x7de
-static bool docGate927a4c(void *doc) { (void)doc; return false; }  // 0x7e0 gate
-static bool docFlag9290e8(void *doc) { (void)doc; return false; }  // 0x7e0 value
-static bool docFlag927a24(void *doc) { (void)doc; return false; }  // 0x7e3
+static bool docGate927a4c(void *doc)
+{
+	// FUN_00927a4c (12B) → FUN_009b3f48(undo(doc+0xe8))
+	return false;
+}
+static bool docFlag9290e8(void *doc)
+{
+	// FUN_009290e8 (8B): direct bool read at doc+0x132
+	return *(bool *)((char *)doc + 0x132);
+}
+static bool docFlag927a24(void *doc)
+{
+	// FUN_00927a24 (12B) → FUN_009b3ef6(undo(doc+0xe8))
+	return false;
+}
 static int styleTableGet(void *styleCtx, int i) { (void)styleCtx; (void)i; return 0; }  // 0x7e1 FUN_0094316a
 static int styleAtPos(void *styleCtx, long long pos) { (void)styleCtx; (void)pos; return 0; }  // 0x7fe FUN_0094277a
 static long long docOp92814a(void *doc) { (void)doc; return 0; }  // 0x7ec
@@ -99,7 +124,10 @@ static void docOp925c8c(void *doc, int v) { (void)doc; (void)v; }  // 0x7fd
 static int docOp9251ea(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7ff
 static int docOp92a2b2(void *doc, long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7fb
 static void docOp92a3fc(void *doc, int v) { (void)doc; (void)v; }  // 0x7e2
-static void docOp927a30(void *doc, bool b) { (void)doc; (void)b; }  // 0x7dc
+static void docOp927a30(void *doc, bool b)
+{
+	// FUN_00927a30 (16B) → FUN_009b3ef0(undo(doc+0xe8), b)
+}
 
 // ---------------------------------------------------------------------------
 // GapBuffer / line-index layer: doc+0xf8 → buffer, buffer+8 → line index
