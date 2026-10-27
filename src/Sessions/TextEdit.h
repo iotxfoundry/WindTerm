@@ -326,7 +326,19 @@ public:
 		// EXT 0x4ee4
 		sendEditor(m_result, 0x4ee4, QVariant(), QVariant());
 	}
-	// --- real logic bodies (cited, not yet transcribed) ---
+	// --- real logic bodies (classified 2026-10-27) ---
+	// 0x5cb7d4 duplicate: selection -> QTextCodec::fromUnicode -> FUN_005cb75a (send)
+	// 0x5cc4d4/0x5cc578: shared toggle FUN_005cc4a0(this, 1|0)
+	// 0x5cc7f6: 3-arg codec variant -> FUN_005cc6f0 (CMD 0x7557 wrapper)
+	// 0x5cc0ac: one-hop FUN_005beeac
+	// 0x5cc94e/0x5d28b6: 32.6K twins - config-map builders (QMap+QVariant
+	//   storm, int-arg variant; same family as 0x5d0a4e: ~80% inlined
+	//   QMap destructor noise, e.g. "shuffle" key at 0xd0cf05)
+	// 0x5cebe6: 31.2K config-map builder (same family)
+	// 0x5d0a4e: 31K config-map builder ("reverse"/"type" keys) - classified
+	//   --- giant config builders NOT transcribed (no business value in
+	//   the destructor-dominated bodies)
+
 	// insert(canSelectSnippetStop,position) (0x5cb7d4)
 	// redoList() (0x5cc4d4)
 	// removeDuplicateLines(?) (0x5cc94e)
