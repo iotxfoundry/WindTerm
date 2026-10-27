@@ -3,13 +3,17 @@
 
 #pragma once
 
+#include <QString>
+#include <QIcon>
+#include <QVariant>
+#include <QByteArray>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // Shared view-model facade used by TerminalView / EditorView / GrepView
 // (their metacall case tables all point into the 0x8c5-0x8c6 cluster).
 // All methods resolve the shared view via FUN_008c52fa and delegate to
 // the model cluster at 0x8b9-0x8bd.
 
-#include <QIcon>
 
 class ViewBase
 {

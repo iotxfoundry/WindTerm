@@ -3,6 +3,11 @@
 
 #pragma once
 
+#include <QString>
+#include <QVariant>
+#include <QByteArray>
+#include <QUuid>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // TerminalView's own slots (beyond the shared ViewBase methods):
 // session-identity resolution via the UUID property at +0x218, the

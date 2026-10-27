@@ -3,6 +3,10 @@
 
 #pragma once
 
+#include <QString>
+#include <QVariant>
+#include <QByteArray>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // FilerPane: a guard-forward shell over the file-manager backend held
 // at +0x68 (the 0x576-0x57a operation cluster). Every moc slot checks

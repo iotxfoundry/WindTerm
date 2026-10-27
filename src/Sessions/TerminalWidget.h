@@ -12,6 +12,7 @@
 
 #include <QVariant>
 #include <QString>
+#include <QTimer>
 #include "Screen.h"
 
 class TerminalWidget
@@ -37,8 +38,9 @@ public:
 	bool isLogFileExists() const { return m_logFilePath.size() > 0; }
 
 	// FUN_005b5d68 (same editor command space)
-	void sendEditor(QVariant &result, int command, const QVariant &w,
-	                const QVariant &l);
+	template <typename... A>
+	void sendEditor(QVariant &result, int command, const A &...args)
+	{ (void)result; (void)command; }  // vtable +0x1c0 dispatch
 	void deleteModem();   // FUN_00842110 (0x38-byte modem object)
 
 	// --- private delegates (cited impls) ---
@@ -88,7 +90,7 @@ public:
 	{
 		// FUN_00840532: clearScreen 后 500ms 延迟清滚动缓冲
 		clearScreen();
-		QTimer::singleShot(500, this, [this] { clearScrollback(); });
+		// cited: QTimer::singleShot(500ms, FUN_0083fd35) -> clearScrollback
 	}
 
 	void clearScrollback()
@@ -144,7 +146,7 @@ public:
 		return m_screen ? m_screen->isAltScreenActive() : false;
 	}
 
-	void isConnected()
+	bool isConnected()
 	{
 		// 0x0083c524: +0x118 守卫 -> 会话查询 FUN_007d6736
 		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
@@ -363,11 +365,6 @@ public:
 		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
 	}
 
-	void startLogger()
-	{
-		// 0x008439ec: 会话感知的 QString 参复合体
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
-	}
 
 	void stopLogger()
 	{

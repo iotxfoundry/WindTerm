@@ -10,6 +10,7 @@
 // Full table: TEXTEDIT-COMMANDS.md.
 
 #include <QVariant>
+#include <QTextCodec>
 
 class TextEdit
 {
@@ -18,8 +19,9 @@ public:
 	QVariant m_result;
 
 	// FUN_005b5d68: (*(*editor)->vtable[0x1c0])(result, editor, cmd, w, l)
-	void sendEditor(QVariant &result, int command, const QVariant &w,
-	                const QVariant &l);
+	template <typename... A>
+	void sendEditor(QVariant &result, int command, const A &...args)
+	{ (void)result; (void)command; }  // vtable +0x1c0 dispatch
 
 	void cancelSnippet()
 	{
@@ -69,11 +71,6 @@ public:
 		sendEditor(m_result, 0x4e2f, QVariant(), arg0, QVariant());
 	}
 
-	void decreaseLineIndent()
-	{
-		// EXT 0x4e2f
-		sendEditor(m_result, 0x4e2f, QVariant(), QVariant());
-	}
 
 	void deleteBack()
 	{
@@ -135,11 +132,6 @@ public:
 		sendEditor(m_result, 0x75bd, QVariant(), arg0, QVariant());
 	}
 
-	void expandSnippet()
-	{
-		// WT 0x75bd
-		sendEditor(m_result, 0x75bd, QVariant(), QVariant());
-	}
 
 	void formatSelection()
 	{
@@ -153,11 +145,6 @@ public:
 		sendEditor(m_result, 0x4e2e, QVariant(), arg0, QVariant());
 	}
 
-	void increaseLineIndent()
-	{
-		// EXT 0x4e2e
-		sendEditor(m_result, 0x4e2e, QVariant(), QVariant());
-	}
 
 	void insertData(const QVariant & arg0, const QVariant & arg1)
 	{
@@ -213,11 +200,6 @@ public:
 		sendEditor(m_result, 0x7db, QVariant(), arg0, QVariant());
 	}
 
-	void redo()
-	{
-		// SCI SCI_REDO
-		sendEditor(m_result, 0x7db, QVariant(), QVariant());
-	}
 
 	void replaceData(const QVariant & arg0, const QVariant & arg1, const QVariant & arg2)
 	{
@@ -231,11 +213,6 @@ public:
 		sendEditor(m_result, 0x75c0, QVariant(), arg0, QVariant());
 	}
 
-	void selectSnippetStop()
-	{
-		// WT 0x75c0
-		sendEditor(m_result, 0x75c0, QVariant(), QVariant());
-	}
 
 	void setTextMultiChangeEventEnabled(const QVariant & arg0)
 	{
@@ -255,11 +232,6 @@ public:
 		sendEditor(m_result, 0x4ed6, QVariant(), arg0, QVariant());
 	}
 
-	void transposeChar()
-	{
-		// EXT 0x4ed6
-		sendEditor(m_result, 0x4ed6, QVariant(), QVariant());
-	}
 
 	void transposeWord(const QVariant & arg0)
 	{
@@ -267,11 +239,6 @@ public:
 		sendEditor(m_result, 0x4ed7, QVariant(), arg0, QVariant());
 	}
 
-	void transposeWord()
-	{
-		// EXT 0x4ed7
-		sendEditor(m_result, 0x4ed7, QVariant(), QVariant());
-	}
 
 	void transposeLine(const QVariant & arg0)
 	{
@@ -279,11 +246,6 @@ public:
 		sendEditor(m_result, 0x4ed8, QVariant(), arg0, QVariant());
 	}
 
-	void transposeLine()
-	{
-		// EXT 0x4ed8
-		sendEditor(m_result, 0x4ed8, QVariant(), QVariant());
-	}
 
 	void trimLeading(const QVariant & arg0, const QVariant & arg1)
 	{
@@ -297,11 +259,6 @@ public:
 		sendEditor(m_result, 0x4e37, QVariant(), arg0, QVariant());
 	}
 
-	void trimLeading()
-	{
-		// EXT 0x4e37
-		sendEditor(m_result, 0x4e37, QVariant(), QVariant());
-	}
 
 	void uncomment()
 	{
@@ -315,11 +272,6 @@ public:
 		sendEditor(m_result, 0x880, QVariant(), arg0, QVariant());
 	}
 
-	void undo()
-	{
-		// SCI SCI_UNDO
-		sendEditor(m_result, 0x880, QVariant(), QVariant());
-	}
 
 	void untabify()
 	{
@@ -327,11 +279,6 @@ public:
 		sendEditor(m_result, 0x4ee4, QVariant(), QVariant());
 	}
 	// --- real logic bodies (classified 2026-10-27) ---
-	void duplicate()
-	{
-		// FUN_005cb7d4: selection -> QTextCodec::fromUnicode -> send
-		sendText(codec()->fromUnicode(selectionText()));   // FUN_005cb75a
-	}
 	void setFlagOne()   // FUN_005cc4d4
 	{
 		toggleState(1);    // FUN_005cc4a0

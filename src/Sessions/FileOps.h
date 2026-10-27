@@ -3,6 +3,10 @@
 
 #pragma once
 
+#include <QString>
+#include <QVariant>
+#include <QByteArray>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // FilerPane's backend: a Qt view-model wrapper (QItemSelectionModel
 // based). Holds its own refcounted pair (+0x88 count / +0x90 raw).

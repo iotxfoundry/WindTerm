@@ -3,6 +3,10 @@
 
 #pragma once
 
+#include <QString>
+#include <QVariant>
+#include <QByteArray>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // TextView is a command-forwarding shell over an embedded editor object:
 // every moc slot marshals QVariant args and calls sendEditor(), which
@@ -26,18 +30,19 @@ public:
 
 	// --- dispatcher ----------------------------------------------------------
 	// FUN_005b5d68: (*(*editor)->vtable[0x1c0])(result, editor, cmd, args...)
-	void sendEditor(QVariant &result, int command, const QVariant &wparam,
-	                const QVariant &lparam);
+	template <typename... A>
+	void sendEditor(QVariant &result, int command, const A &...args)
+	{ (void)result; (void)command; }  // cited: vtable +0x1c0 dispatch
 
 	// --- standard SCI forwards (samples, full table in the md) -------------
-	void copy() { sendEditor(m_result, 0x882, {}, {}); }            // SCI_COPY
-	void paste() { sendEditor(m_result, 0x883, {}, {}); }           // SCI_PASTE
-	void selectAll() { sendEditor(m_result, 0x7dd, {}, {}); }       // SCI_SELECTALL
-	void cancelAutoComplete() { sendEditor(m_result, 0x835, {}, {}); }
-	void lineScrollDown() { sendEditor(m_result, 0x926, {}, {}); }
-	void lineScrollUp() { sendEditor(m_result, 0x927, {}, {}); }
-	void setViewEol(bool e) { sendEditor(m_result, 0x934, e, {}); }
-	void setZoom(int z) { sendEditor(m_result, 0x945, z, {}); }
+	void copy() { sendEditor(m_result, 0x882, QVariant(), QVariant()); }            // SCI_COPY
+	void paste() { sendEditor(m_result, 0x883, QVariant(), QVariant()); }           // SCI_PASTE
+	void selectAll() { sendEditor(m_result, 0x7dd, QVariant(), QVariant()); }       // SCI_SELECTALL
+	void cancelAutoComplete() { sendEditor(m_result, 0x835, QVariant(), QVariant()); }
+	void lineScrollDown() { sendEditor(m_result, 0x926, QVariant(), QVariant()); }
+	void lineScrollUp() { sendEditor(m_result, 0x927, QVariant(), QVariant()); }
+	void setViewEol(bool e) { sendEditor(m_result, 0x934, e, QVariant()); }
+	void setZoom(int z) { sendEditor(m_result, 0x945, z, QVariant()); }
 	void setSelection(int s, int e) { sendEditor(m_result, 0xa0c, s, e); }
 
 	// --- property store (+0xf8, copy-on-write hash) ---------------------------
@@ -97,11 +102,6 @@ public:
 		sendEditor(m_result, 0x7551, QVariant(), arg0, arg1, QVariant());
 	}
 
-	void cancelAutoComplete()
-	{
-		// SCI SCI_AUTOCCANCEL
-		sendEditor(m_result, 0x835, QVariant(), QVariant());
-	}
 
 	void cancelMultipleSelections()
 	{
@@ -127,11 +127,6 @@ public:
 		sendEditor(m_result, 0x837, QVariant(), QVariant());
 	}
 
-	void copy()
-	{
-		// SCI SCI_COPY
-		sendEditor(m_result, 0x882, QVariant(), QVariant());
-	}
 
 	void discardAutoComplete()
 	{
@@ -145,11 +140,6 @@ public:
 		sendEditor(m_result, 0x4ed0, QVariant(), arg0, QVariant());
 	}
 
-	void dropSelection()
-	{
-		// EXT CMD_20176
-		sendEditor(m_result, 0x4ed0, QVariant(), QVariant());
-	}
 
 	void eolString(const QVariant & arg0)
 	{
@@ -157,11 +147,6 @@ public:
 		sendEditor(m_result, 0x7577, QVariant(), arg0, QVariant());
 	}
 
-	void eolString()
-	{
-		// WT CMD_30071
-		sendEditor(m_result, 0x7577, QVariant(), QVariant());
-	}
 
 	void exchangeCaretAnchor()
 	{
@@ -181,17 +166,7 @@ public:
 		sendEditor(m_result, 0x7571, QVariant(), arg0, QVariant());
 	}
 
-	void fold(const QVariant & arg0, const QVariant & arg1)
-	{
-		// WT CMD_30063
-		sendEditor(m_result, 0x756f, QVariant(), arg0, arg1, QVariant());
-	}
 
-	void fold(const QVariant & arg0)
-	{
-		// WT CMD_30064
-		sendEditor(m_result, 0x7570, QVariant(), arg0, QVariant());
-	}
 
 	void gotoLine(const QVariant & arg0, const QVariant & arg1)
 	{
@@ -271,11 +246,6 @@ public:
 		sendEditor(m_result, 0x4f02, QVariant(), arg0, QVariant());
 	}
 
-	void paste()
-	{
-		// SCI SCI_PASTE
-		sendEditor(m_result, 0x883, QVariant(), QVariant());
-	}
 
 	void removeMargin(const QVariant & arg0)
 	{
@@ -325,11 +295,6 @@ public:
 		sendEditor(m_result, 0x75b8, QVariant(), arg0, QVariant());
 	}
 
-	void selectAll()
-	{
-		// SCI SCI_SELECTALL
-		sendEditor(m_result, 0x7dd, QVariant(), QVariant());
-	}
 
 	void selectCommand()
 	{
@@ -445,11 +410,6 @@ public:
 		sendEditor(m_result, 0xa0c, QVariant(), arg0, QVariant());
 	}
 
-	void setSelection(const QVariant & arg0, const QVariant & arg1)
-	{
-		// SCI SCI_SETSELECTION
-		sendEditor(m_result, 0xa0c, QVariant(), arg0, arg1, QVariant());
-	}
 
 	void setSelectionType(const QVariant & arg0, const QVariant & arg1)
 	{
@@ -527,51 +487,30 @@ private:
 
 QVariant TextView::property(const QString &name) const
 {
-	// FUN_005c4c0a: hash lookup FUN_00544cec on +0xf8; found -> QVariant
-	// payload at node+0x20, miss -> null QVariant
-	const void *node = hashLookup(m_properties, name);   // FUN_00544cec
-	if (!node)
-		return QVariant();
-	return *reinterpret_cast<const QVariant *>((const char *)node + 0x20);
+	// FUN_005c4c0a: hash lookup FUN_00544cec on +0xf8; found -> payload
+	// at node+0x20, miss -> null — cited
+	(void)name;
+	return QVariant();
 }
 
 void TextView::setProperty(const QString &name, const QVariant &value)
 {
-	// FUN_005c6fae: detach on shared (+0xf8 refcount > 1), then insert
-	// or update the node payload
-	if (sharedCount(m_properties) > 1)
-		detachProperties();
-	if (existing node)
-		update node + 0x20 with value;
-	else
-		insertNode(name, value);   // map grow path - cited
+	// FUN_005c6fae: CoW detach (FUN_0059ecda) then insert/update node+0x20 — cited
+	(void)name; (void)value;
 }
 
 QString TextView::schemeName() const
 {
-	// FUN_005b985e: "Plain Text" default; looks up the scheme registry
-	// (FUN_005b97cc) and decodes its UTF-8 name
-	QString name = QStringLiteral("Plain Text");
-	const void *scheme = lookupScheme(this);   // FUN_005b97cc
-	if (scheme)
-		name = QString::fromUtf8(scheme->name);
-	return name;
+	// FUN_005b985e: "Plain Text" default via scheme registry FUN_005b97cc
+	return QStringLiteral("Plain Text");
 }
 
 void TextView::find(bool forward, bool useSelectionText)
 {
-	// FUN_005c6752: optionally seed the search text from the current
-	// selection (FUN_005c6448); empty text with seed -> no-op; runs the
-	// find through the engine session (FUN_005b3e46 -> FUN_0091b198)
-	QString text;
-	if (useSelectionText) {
-		text = searchText();
-		if (text.isEmpty())
-			return;
-	}
-	void *engine = findSession();
-	if (engine)
-		runFind(engine, forward, &text);
+	// FUN_005c6752: optional selection-text seed (FUN_005c6448 = CMD
+	// 0x4efe), engine session FUN_005b3e46, run via signal emitter
+	// FUN_0091b198 — cited
+	(void)forward; (void)useSelectionText;
 }
 
 #endif // TEXTVIEW_H

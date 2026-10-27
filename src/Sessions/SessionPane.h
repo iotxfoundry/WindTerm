@@ -3,6 +3,10 @@
 
 #pragma once
 
+#include <QString>
+#include <QVariant>
+#include <QByteArray>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // SessionPane: Qt model-view session-tree pane. metacall 0x90a0aa.
 // The five slot monoliths share one framework: resolve the custom tree
@@ -115,6 +119,7 @@ public:
 	void *createDialog(int size);  // FUN_0072223c
 	void connectFinished(void *dialog, void (*cb)());    // FUN_00740325 cb
 	void execDialog(void *dialog);
+	static void dialogFinished();  // FUN_00740325
 };
 
 #endif // SESSIONPANE_H
