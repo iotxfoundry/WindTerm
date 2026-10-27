@@ -33,7 +33,17 @@ static void bytesToQString(QString *out, void *doc, const QByteArray *bytes)
 { (void)doc; (void)bytes; out->clear(); }            // FUN_0092777c (doc codec)
 static void searchExecute(QVariantList *out, EditorEngine *e, void *params,
                           long long start, long long end, int nth)
-{ (void)e; (void)params; (void)start; (void)end; (void)nth; out->clear(); }  // FUN_00a31966
+{
+	// FUN_00a31966 (1121B): the search engine. Direction = start <=
+	// end ? +1 : -1; the pattern encodes through the doc's codec
+	// (codec_canEncode gate, FUN_0089a0a0); line bounds resolve via
+	// FUN_009252f4(doc, pos, dir, 0). Loop: FUN_0092a596(doc, from, to,
+	// &pattern) is the match primitive — -1 = miss; hits step by the
+	// pattern's +0x10 match length; the nth hit builds a
+	// {"start": pos, "end": pos+len} QVariantMap appended to the
+	// result list (keys "start" and "end" @0xca39a0)
+	(void)e; (void)params; (void)start; (void)end; (void)nth; out->clear();
+}  // FUN_00a31966
 static void gotoPositionImpl(EditorEngine *e, long long pos)
 { (void)e; (void)pos; }                              // FUN_00a26f32
 static bool docMark(EditorEngine *e, void *doc, long long pos, bool mode2)
