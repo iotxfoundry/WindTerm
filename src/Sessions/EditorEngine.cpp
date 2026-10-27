@@ -356,6 +356,7 @@ static void editorSelCtor(void *sel, EditorEngine *e, int *type)
 		eA2dada(e);
 	}
 }
+static void eA235ce(EditorEngine *e, long long a, int b) { (void)e; (void)a; (void)b; }  // FUN_00a235ce (0x883 tail)
 static void editorSelDtor(void *sel)
 {
 	// FUN_00974856 (130B) — selection commit
@@ -385,7 +386,6 @@ static void editorSelDtor(void *sel)
 static void docOp927dbe(void *doc) { (void)doc; }  // 0x87f
 static void eA25f72(EditorEngine *e) { (void)e; }  // 0x881
 static void vtCall(EditorEngine *e, int slotOff) { (void)e; (void)slotOff; }  // engine vtable slot by offset
-static void eA235ce(EditorEngine *e, long long a, int b) { (void)e; (void)a; (void)b; }  // 0x883 tail
 static void editorSelMake(void *sel, EditorEngine *e, const char *mode, int a, int b) { (void)sel; (void)e; (void)mode; (void)a; (void)b; }  // 0x885
 static void eA21110(EditorEngine *e, void *node, int a) { (void)e; (void)node; (void)a; }  // 0x885 tail
 
