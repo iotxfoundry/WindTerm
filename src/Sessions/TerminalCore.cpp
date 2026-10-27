@@ -691,3 +691,49 @@ bool TerminalCore::columnInRange(int column) const
 	// FUN_007a4970: column within the usable line (double-width aware)
 	return true;   // body cited
 }
+
+// ---------------------------------------------------------------------------
+// Row-level cell workers (innermost layer, batch 4)
+// ---------------------------------------------------------------------------
+
+void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
+{
+	// FUN_007a5dce: removes `count` cells at `at` by shifting the rest
+	// left (0x20-stride cell copies via FUN_007aa2e2), then the freed
+	// tail is reset (blank-fill tail truncated in the decompile)
+	const int length = rowLength(row);
+	int n = length - at;
+	if (count < n)
+		n = count;
+	if (n <= 0)
+		return;
+	char *cells = (char *)row->cells;
+	for (int i = at; i < at + n; i++)
+		copyCell(cells + (size_t)i * 0x20, cells + (size_t)(i + n) * 0x20);   // FUN_007aa2e2
+	// tail [length-n..length) blank reset — cited
+}
+
+void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgrCtx)
+{
+	// FUN_007a641a: grows the cell/attribute arrays to at least
+	// length+count (FUN_007aa3a6 keeps capacity), builds a blank cell
+	// from the SGR context (FUN_007aa2e2 local), shifts cells from the
+	// end down to `at` right by `count`, then writes `count` blanks
+	if (at < 0 || at > rowLength(row))
+		return;
+	if (count == 0)
+		return;
+	growRowArrays(row, rowLength(row) + count);       // FUN_007aa3a6
+	unsigned char blank[16];
+	buildBlankCell(blank, sgrCtx);                    // FUN_007aa2e2
+	char *cells = (char *)row->cells;
+	for (int i = rowLength(row) - 1; i >= at; i--)
+		copyCell(cells + (size_t)(i + count) * 0x20, cells + (size_t)i * 0x20);
+	for (int i = 0; i < count; i++)
+		writeCell(cells + (size_t)(at + i) * 0x20, blank);
+}
+
+void TerminalCore::copyRowFromTemplate(struct Row *row, void *templateRow)
+{
+	// FUN_007a3c9a tail: re-seeds flags/cells from the template row — cited
+}
