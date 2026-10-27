@@ -124,7 +124,25 @@ static bool docFlag927a24(void *doc)
 	return false;
 }
 static int styleTableGet(void *styleCtx, int i) { (void)styleCtx; (void)i; return 0; }  // 0x7e1 FUN_0094316a
-static int styleAtPos(void *styleCtx, long long pos) { (void)styleCtx; (void)pos; return 0; }  // 0x7fe FUN_0094277a
+static int runStyleValue(long entry);                        // FUN_009407da (def below)
+static int styleAtPos(void *styleCtx, long long pos)
+{
+	// FUN_0094277a (61B): run-styles gap-buffer lookup — bounds-check
+	// against ctx+0x1c; pos below the gap head (ctx+0x20) indexes the
+	// +0x10 array directly, otherwise the index shifts by the gap size
+	// (ctx+0x24); a non-zero entry resolves through FUN_009407da
+	const int p = (int)pos;
+	const char *ctx = (const char *)styleCtx;
+	if (p < -1 || p >= *(const int *)(ctx + 0x1c))
+		return 0;
+	long entry;
+	if (p < *(const int *)(ctx + 0x20))
+		entry = *(const long *)(*(const long *const *)(ctx + 0x10) + (size_t)p * 8);
+	else
+		entry = *(const long *)(*(const long *const *)(ctx + 0x10)
+		                        + (size_t)(p + *(const int *)(ctx + 0x24)) * 8);
+	return entry != 0 ? runStyleValue(entry) : 0;
+}
 static long long docOp92814a(void *doc) { (void)doc; return 0; }  // 0x7ec
 static void eA1f7be(EditorEngine *e) { (void)e; }             // 0x7f8 chain
 static void eA22c4e(EditorEngine *e, int n) { (void)e; (void)n; }  // 0x7f8 chain
@@ -155,6 +173,9 @@ static void docOp927a30(void *doc, bool b)
 // ---------------------------------------------------------------------------
 // GapBuffer / line-index layer: doc+0xf8 → buffer, buffer+8 → line index
 // ---------------------------------------------------------------------------
+static int runStyleValue(long entry) { (void)entry; return 0; }  // FUN_009407da
+static void fontCascade(void *ctx) { (void)ctx; }            // FUN_0095159e + 4 s_ recalc chain
+static void op92710c() { }                                   // reset op (margin timestamp head)
 static void *gapBufferOf(void *doc)
 {
 	// every FUN_009252xx wrapper derefs doc+0xf8 first
@@ -328,7 +349,17 @@ static int eA218dc(EditorEngine *e)
 	return *(int *)((char *)e->m_obj10a0 + 0x14);
 }
 static void eA245c6(EditorEngine *e, int cur, int v) { (void)e; (void)cur; (void)v; }  // 0x75d9 FUN_00a245c6
-static bool styleZoomSet2(void *styleCtx, unsigned long long v) { (void)styleCtx; (void)v; return false; }  // 0x4e75 FUN_00951844
+static bool styleZoomSet2(void *styleCtx, unsigned long long v)
+{
+	// FUN_00951844 (63B): zero rejects; writes ctx+0xe00 then runs the
+	// full font-change cascade — FUN_0095159e, s_text_inserted,
+	// s_pair_levelUnmatched, s_fold_highlight, view_updateFontMetrics
+	if (v == 0)
+		return false;
+	*(unsigned long long *)((char *)styleCtx + 0xe00) = v;
+	fontCascade(styleCtx);
+	return true;
+}
 static long long docOp927600(void *doc)
 {
 	// FUN_00927600 (12B): forwards doc+0xe0 to FUN_009975c2 (tail call
@@ -348,11 +379,28 @@ static QString eRunNodeText(EditorEngine *e, long long pos) { (void)e; (void)pos
 static void eA2a44a(EditorEngine *e) { (void)e; }            // 0x75f0
 static void docOp929336(void *doc, long long v) { (void)doc; (void)v; }  // 0x75f4
 static void eA2a504(EditorEngine *e, const QByteArray &b) { (void)e; (void)b; }  // 0x75f7
-static void docOp927216(void *doc, const QByteArray &b) { (void)doc; (void)b; }  // 0x75fc FUN_00927216
+static void docOp927216(void *doc, const QByteArray &b)
+{
+	// FUN_00927216 (65B): op92710c resets; the sub-object at
+	// doc+0xd8 gets +8 = (format contains 'z') — seconds visibility;
+	// doc+0x290 holds the format QByteArray (0x75fe writes its sibling
+	// +0x298)
+	op92710c();
+	void *obj = *(void **)((char *)doc + 0xd8);
+	*(bool *)((char *)obj + 8) = b.indexOf('z') != -1;
+	*(QByteArray *)((char *)doc + 0x290) = b;
+}
 // search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
 // 00a20050 families): read value (holder+8), read length, or set at a
 // position (runnode pos/len) — Scintilla target API shape
-static void searchFlagsText(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }   // FUN_00a1fda6
+static void searchFlagsText(void *b, EditorEngine *e, int f)
+{
+	// FUN_00a1fda6 (49B): FUN_00a1fc3a(engine, flags) resolves a target
+	// descriptor, FUN_0096bfd4 expands it, and 3x8 bytes copy into b
+	// (value/length/flags triple) — the sibling getters 0xa1fe5a /
+	// 0xa1ff9c / 0xa20050 are the same shape on other ranges
+	(void)b; (void)e; (void)f;
+}   // FUN_00a1fda6
 static void searchRangeText(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }   // FUN_00a1fe5a
 static void searchFlagsText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a1ff9c
 static void searchRangeText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a20050
