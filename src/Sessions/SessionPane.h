@@ -6,6 +6,12 @@
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // metacall 0x90a0aa. Classification sweep result: session tree model: 5 monolith bodies (Node-tree walk, 1.2K-14K) + 3 tiny
 // NOTE: slots are REAL business logic (not command forwards) —
+// verified by probe (FUN_007415fc): Qt model-view tree operations —
+//   model() -> dynamic_cast custom model (typeinfo 0x119fa70)
+//   -> 0x18-byte closure (model/this/Node-tree + fnptrs 0x742de0/0x7424ef)
+//   -> selectionModel()->selectedRows() iteration -> Node-tree walk
+//      (+0x14 child count, +0x20 flag, children at +8)
+// The five monoliths are this shape; transcription is model-level work.
 //       bodies need per-function transcription; listed with form notes.
 
 class SessionPane
