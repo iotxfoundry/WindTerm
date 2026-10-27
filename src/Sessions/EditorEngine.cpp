@@ -54,6 +54,37 @@ static void eA28e7c(EditorEngine *e, int base) { (void)e; (void)base; }  // 0x75
 static void eA282b8(EditorEngine *e) { (void)e; }             // 0x75aa
 static double eA2041e(EditorEngine *e) { (void)e; return 0; } // 0x75a9 (double read)
 
+// SCI one-call thunks (level-2 SCI range bodies)
+static void eA28a68(EditorEngine *e, unsigned long long a, long long b) { (void)e; (void)a; (void)b; }  // 0x7d1 scroll target
+static void eA26756(EditorEngine *e) { (void)e; }             // 0x7d4 redraw
+static long long docLength(void *doc) { (void)doc; return 0; } // FUN_0092801a
+static unsigned docCharAtLine(void *doc, long long line) { (void)doc; (void)line; return 0; }  // 0x7da FUN_00926c8c
+static void eA23b8c(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x7db
+static void eA26df4(EditorEngine *e) { (void)e; }             // 0x7dd
+static void docOp927ddc(void *doc) { (void)doc; }             // 0x7de
+static bool docGate927a4c(void *doc) { (void)doc; return false; }  // 0x7e0 gate
+static bool docFlag9290e8(void *doc) { (void)doc; return false; }  // 0x7e0 value
+static bool docFlag927a24(void *doc) { (void)doc; return false; }  // 0x7e3
+static int styleTableGet(void *styleCtx, int i) { (void)styleCtx; (void)i; return 0; }  // 0x7e1 FUN_0094316a
+static int styleAtPos(void *styleCtx, long long pos) { (void)styleCtx; (void)pos; return 0; }  // 0x7fe FUN_0094277a
+static long long docOp92814a(void *doc) { (void)doc; return 0; }  // 0x7ec
+static void eA1f7be(EditorEngine *e) { (void)e; }             // 0x7f8 chain
+static void eA22c4e(EditorEngine *e, int n) { (void)e; (void)n; }  // 0x7f8 chain
+static void styleCtxTouch(void *ctx) { (void)ctx; }           // FUN_009501b0 (e+8)
+static int hitTestOffset(void *ctx) { (void)ctx; return 0; }   // FUN_0095019c (e+8)
+static long long hitTestResolve(void *out) { (void)out; return 0; }  // FUN_0096bbc0
+static void editorHitTest(double x, double y, void *out, EditorEngine *e,
+                          int a, int b, int c) { (void)x; (void)y; (void)out; (void)e; (void)a; (void)b; (void)c; }  // editor_hitTest
+static void docOp925c8c(void *doc, int v) { (void)doc; (void)v; }  // 0x7fd
+static int docOp9251ea(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7ff
+static int docOp92a2b2(void *doc, long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7fb
+static void docOp92a3fc(void *doc, int v) { (void)doc; (void)v; }  // 0x7e2
+static void docOp927a30(void *doc, bool b) { (void)doc; (void)b; }  // 0x7dc
+static void vtA0Repaint()
+{
+	// engine vtable +0xa0 slot — full repaint trigger (0x7e5/0x7583)
+}
+
 
 void EditorEngine::cmdAppendText(const QVariantList &args)
 {
@@ -238,6 +269,92 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 	case 0x75d6:
 		cmdSetWordSeparators(a.toString(), b.toBool());
 		return QVariant(0);
+	// level-2 SCI range (0x7d1-0x7ff)
+	case 0x7d1:
+		eA28a68(this, a.toULongLong(), b.toLongLong());
+		return QVariant(0);
+	case 0x7d4:
+		eA26756(this);
+		return QVariant(0);
+	case 0x7da: {
+		const long long line = a.toLongLong();
+		if (line < 0 || line >= docLength(m_doc))
+			return QVariant(0u);
+		return QVariant(docCharAtLine(m_doc, line));
+	}
+	case 0x7db:
+		eA23b8c(this, a.toInt());
+		return QVariant(0);
+	case 0x7dc:  // doc bool op, returns 0
+		docOp927a30(m_doc, a.toBool());
+		return QVariant(0);
+	case 0x7dd:
+		eA26df4(this);
+		return QVariant(0);
+	case 0x7de:
+		docOp927ddc(m_doc);
+		return QVariant(0);
+	case 0x7e0:
+		return QVariant(docGate927a4c(m_doc) ? !docFlag9290e8(m_doc) : false);
+	case 0x7e1:
+		return QVariant(styleTableGet(m_doc, a.toInt()));
+	case 0x7e2:
+		docOp92a3fc(m_doc, a.toInt());
+		return QVariant(0);
+	case 0x7e3:
+		return QVariant(docFlag927a24(m_doc));
+	case 0x7e4:
+		return QVariant(m_intD80);
+	case 0x7e5:  // change-detect write + vtable+0xa0 repaint
+		if (a.toInt() != m_intD80) {
+			m_intD80 = a.toInt();
+			vtA0Repaint();
+		}
+		return QVariant(0);
+	case 0x7e6:  // position from point (x,y doubles), nearest mode 0
+	case 0x7e7: {  // same, mode 1
+		char out[32];
+		editorHitTest(a.toDouble() - hitTestOffset(m_styleCtx), b.toDouble(),
+		              out, this, cmd == 0x7e7 ? 1 : 0, 2, 1);
+		return QVariant(hitTestResolve(out));
+	}
+	case 0x7ec:
+		return QVariant(docOp92814a(m_doc));
+	case 0x7f2:
+		return QVariant(m_flagEc5);
+	case 0x7f3:
+		m_flagEc5 = a.toBool();
+		return QVariant(0);
+	case 0x7f8: {  // packed int table: 32 slots, 11-byte stride at this+8
+		const unsigned slot = a.toUInt();
+		if (slot < 0x20) {
+			*(int *)((char *)m_styleCtx + slot * 0xb) = b.toInt();
+			styleCtxTouch(m_styleCtx);
+			eA1f7be(this);
+			eA22c4e(this, 4);
+		}
+		return QVariant(0);
+	}
+	case 0x7fb:
+		return QVariant(docOp92a2b2(m_doc, a.toInt(), b.toInt()));
+	case 0x7fd:
+		docOp925c8c(m_doc, a.toInt());
+		return QVariant(0);
+	case 0x7fe:
+		return QVariant(styleAtPos(m_styleCtx, a.toLongLong()));
+	case 0x7ff:
+		return QVariant(docOp9251ea(m_doc, a.toLongLong(), b.toInt()));
+	case 0x800: {  // backward scan: first position <= a whose style hits mask b
+		unsigned long long pos = a.toULongLong();
+		const int mask = b.toInt();
+		while ((long)pos >= 0) {
+			if (mask & styleAtPos(m_styleCtx, (long long)(uint)pos))
+				return QVariant((long long)pos);
+			if (pos-- == 0)
+				break;
+		}
+		return QVariant((long long)-1);
+	}
 	// EXT block (0x4e23-0x4f04) — one-call leaves, addresses in thunk names
 	case 0x4ec7:
 		return QVariant(docLineProbe1(m_doc, a.toLongLong()));

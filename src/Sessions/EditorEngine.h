@@ -43,6 +43,10 @@ public:
 	unsigned char m_flags1db; // +0x1db bitfield (0x755c/0x755d)
 	int m_intDd0;         // +0xdd0 (0x755f)
 	double m_zoomFactor;  // +0xdd8 (0x7560)
+	int m_intD80;         // +0xd80 (0x7e4/0x7e5, repaint on change)
+	bool m_flagEc5;       // +0xec5 (0x7f2/0x7f3)
+	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
+	                      // int table, 11-byte stride at 0x7f8)
 	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),
 	// indent@+0x274 (0x75c2/c5), flag279@+0x279 (0x75c3/c6)
 
