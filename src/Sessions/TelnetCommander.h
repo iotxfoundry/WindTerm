@@ -6,7 +6,9 @@
 #include "SuperCommander.h"
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
-// No new meta methods beyond SuperCommander.
+// Negotiation is config-driven: terminal/protocols/telnet.protocol defines an
+// IAC grammar as named capture groups; matched groups dispatch to these slots
+// by name (see PROTOCOL-ARCHITECTURE.md).
 class TelnetCommander : public SuperCommander
 {
 	Q_OBJECT
