@@ -1,6 +1,8 @@
 # 编译验证配方(2026-10-28 达成)
 
-成果:`libWindTermRe.so`(775KB)可加载、元对象活性通过。
+成果:`libWindTermRe.so`(775KB)可加载、元对象活性通过;
+`src/Scintilla`(上游 4.4.6,**与仓库 inc/scintilla 头 API 零 diff**)
+可编静态库并响应逆向命令号。
 
 ## 环境
 
@@ -53,3 +55,30 @@ LD_LIBRARY_PATH=$B ./metatest   # SuperSession 元对象活性
 - QScrollBar 未定义符号:PopupWidget 派生链引用,已由本库各 .cpp 覆盖
 - Screen/TextView 壳类无 Q_OBJECT(信号经 SuperCommander 侧),故
   元对象探针用 SuperSession
+
+## Scintilla 静态库(src/Scintilla = 上游 4.4.6)
+
+版本钉死证据:仓库 inc/scintilla/inc/Scintilla.h 与上游 4.4.6 的
+API 逐行零 diff(BRACEMATCHNEXT ✓ / 无 5.x 标记)。
+
+```bash
+S=src/Scintilla; B=/tmp/opencode/scibuild; Q=/usr/include/x86_64-linux-gnu/qt5
+mkdir -p $B && cd $B
+# 核心(154 objects;ExternalLexer 走平台目录,首编排除)
+g++ -std=c++17 -fPIC -c $S/src/*.cxx $S/lexlib/*.cxx $S/lexers/*.cxx \
+  -I $S/include -I $S/src -I $S/lexlib && ar rcs libscintilla_core.a $(ls *.o | grep -v ExternalLexer)
+# Qt 绑定层(moc 两个头:ScintillaEditBase + ScintillaQt)
+for h in ScintillaEditBase ScintillaQt; do
+  /usr/lib/qt5/bin/moc $S/qt/ScintillaEditBase/$h.h -o moc_$h.cpp -I $S/qt/ScintillaEditBase -I $S/include -I $S/lexlib
+  g++ -std=c++17 -fPIC -c moc_$h.cpp -I $S/qt/ScintillaEditBase -I $S/src -I $S/include -I $S/lexlib -I $Q -I $Q/QtCore -I $Q/QtGui -I $Q/QtWidgets
+done
+g++ -std=c++17 -fPIC -c $S/qt/ScintillaEditBase/*.cpp -I $S/qt/ScintillaEditBase -I $S/src -I $S/include -I $S/lexlib -I $Q -I $Q/QtCore -I $Q/QtGui -I $Q/QtWidgets
+ar rcs libscintilla_qt.a ScintillaEditBase.o ScintillaQt.o PlatQt.o moc_*.o
+# 冒烟(tools/re/metatest/scismoke.cpp):SCI_ADDTEXT(2001)/GETLENGTH(2006)
+```
+
+产物:libscintilla_core.a(16.5MB)+ libscintilla_qt.a(646KB)。
+冒烟实证:离屏 QApplication 下 `ADDTEXT("hello") → GETLENGTH = 5`——
+**静态库响应的正是从 WindTerm 二进制逆向出的命令号**。
+战略意义:重建可采混合架构——标准 SCI_(120 命令)委托真 Scintilla,
+WindTerm 扩展(EXT/WT 211 命令)用自研 EditorEngine 层。
