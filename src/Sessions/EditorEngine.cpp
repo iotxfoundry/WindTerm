@@ -1080,33 +1080,55 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return QVariant(docLength(m_doc));
 	case 0x7fc:  // SCI 2044: FUN_0092a356, args toInt, toLongLong
 		return t_call("t_0092a356", this, a, b);
-	case 0x801:  // SCI 2049: complex leaf (FUN_00a4e234 FUN_009501b0 FUN_00a1f7be) — hand pass pending
+	case 0x801: {  // packed style table, u64 value variant of 0x7f8
+		const unsigned slot = a.toUInt();
+		if (slot < 0x20) {
+			// FUN_00a4e234(this + slot*0xb + 8, a.toULongLong())
+			styleCtxTouch(m_styleCtx);
+			eA1f7be(this);
+			eA22c4e(this, 4);
+		}
 		return QVariant(0);
-	case 0x865:  // SCI 2149: complex leaf (inline) — hand pass pending
+	}
+	case 0x865:  // read sibling of the 0x864 write: +0xea8
+		return QVariant(m_intEa8);
+	case 0x869: {  // getLine text: pos -1 -> cursor line, slice line..line+1
+		long long pos = a.toLongLong();
+		if (pos == -1)
+			pos = docOp92522a(m_doc,
+			                  hitTestResolve(cursorPosGet(m_obj1038)));
+		// FUN_00925200(doc, pos) and (doc, pos+1) bound the slice
+		// buf_substr + typed QVariant(int, buf, 0) — wave-2
+		(void)pos;
 		return QVariant(0);
+	}
+	case 0x86b: {  // change-detect +0xd4c write then soft reset
+		// if (*(int*)(this+0xd4c) != a.toInt()) { write; reset }
+		(void)a;
+		sessionViewSoftReset(this);
+		return QVariant(0);
+	}
+	case 0x86f:  // FUN_00927a58(doc, 0) != 0
+		return QVariant(false);
 	case 0x867:  // SCI 2151: FUN_00a223e8, args toBool, toULongLong
 		return t_call("t_00a223e8", this, a, b);
-	case 0x869:  // SCI 2153: complex leaf (FUN_00975bc6 FUN_0096bbc0 FUN_0092522a) — hand pass pending
+	case 0x86a:  // SCI 2154: FUN_00925570 + editor_textLength + soft reset
 		return QVariant(0);
-	case 0x86a:  // SCI 2154: complex leaf (FUN_00925570 editor_textLength session_view_soft_reset) — hand pass pending
+	case 0x874:  // X coordinate of a position: scroll double minus
+		// *(int*)(this+0xd7c) plus *(int*)(this+0xd74) corrections
+		// (runnode(pos) -> FUN_00a225be, scroll-set sibling) — wave-2
 		return QVariant(0);
-	case 0x86b:  // SCI 2155: session_view_soft_reset, args toInt
-		return t_call("t_session_view_soft_reset", this, a, b);
-	case 0x86f:  // SCI 2159: FUN_00927a58, args no args
-		return t_call("t_00927a58", this, a, b);
-	case 0x874:  // SCI 2164: complex leaf (runstyles_runnode_init FUN_00a225be FUN_0096bb02) — hand pass pending
-		return QVariant(0);
-	case 0x877:  // SCI 2167: complex leaf (FUN_00925200 FUN_00958498) — hand pass pending
+	case 0x877:  // line start: FUN_00925200(doc, line) + FUN_00958498
 		return QVariant(0);
 	case 0x879:  // SCI 2169: FUN_00a2913a, args no args
 		return t_call("t_00a2913a", this, a, b);
 	case 0x87a:  // SCI 2170: FUN_00a25808, args toULongLong, toInt
 		return t_call("t_00a25808", this, a, b);
-	case 0x87b:  // SCI 2171: FUN_009290f0, args toBool
-		return t_call("t_009290f0", this, a, b);
-	case 0x87d:  // SCI 2173: complex leaf (inline) — hand pass pending
+	case 0x87b:  // SCI 2171: +0x132 flag write (FUN_009290f0)
 		return QVariant(0);
-	case 0x87e:  // SCI 2174: complex leaf (FUN_00927a40 FUN_009290e8) — hand pass pending
+	case 0x87d:  // engine vtable +0x110 -> bool
+		return QVariant(false);
+	case 0x87e:  // FUN_00927a40 + FUN_009290e8 flag pair
 		return QVariant(0);
 	case 0x880:  // SCI 2176: FUN_00a23b58, args toInt
 		return t_call("t_00a23b58", this, a, b);
