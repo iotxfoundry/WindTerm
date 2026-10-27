@@ -52,9 +52,14 @@ public:
 	void find(bool forward, bool useSelectionText); // FUN_005c6752
 	void findNext(bool flag) { find(true, flag); }  // FUN_005c6834
 	void findPrevious(bool flag) { find(false, flag); }  // FUN_005c6842
-	void *findSession();                            // FUN_005b3e46
-	static void runFind(void *engine, bool forward, const QString *text);  // FUN_0091b198
-	QString searchText();                           // FUN_005c6448
+	// findSession FUN_005b3e46: dynamic_cast(QObject) walking UP the
+	// parent chain (+8/+0x10) to the nearest owner of the find-engine
+	// class (typeinfo 0x11ab390)
+	// runFind FUN_0091b198: it is a SIGNAL EMITTER - QMetaObject::activate
+	// (engine, staticMetaObject, signal index 0, {forward, text}):
+	// the actual search runs in whichever slot is connected.
+	// searchText FUN_005c6448: EXT command 0x4efe ("get selection text"),
+	// registers its result metatype on first use.
 
 	// --- dialog -------------------------------------------------------------------
 	void showFindReplaceDialog();                   // FUN_005c3320 (QDialog::finished
