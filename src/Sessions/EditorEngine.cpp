@@ -47,7 +47,10 @@ static void eA286a2(EditorEngine *e, int a) { (void)e; (void)a; }    // 0x4ee6
 static long long docPosOp(void *doc, bool b) { (void)doc; (void)b; return 0; }  // 0x4ec9 FUN_00927a68
 static bool docLineProbe1(void *doc, long long v) { (void)doc; (void)v; return false; }  // 0x4ec7 FUN_00927ce0
 static bool docLineProbe2(void *doc, long long v) { (void)doc; (void)v; return false; }  // 0x4ec8 FUN_00927e22
-static long long docLineGet(void *doc, long long v, unsigned f, int g) { (void)doc; (void)v; (void)f; (void)g; return 0; }  // 0x75a7 FUN_009252f4
+static long long docLineGet(void *doc, long long v, unsigned f, int g) {
+	// FUN_009252f4 (15B) → FUN_0099881e(*(doc+0xe0), v, f, g) — the
+	// +0xe0 sub-object (196B callee) — wave-2
+	(void)doc; (void)v; (void)f; (void)g; return 0; }  // 0x75a7 FUN_009252f4
 static void eA26ec6(EditorEngine *e, unsigned long long line, int col) { (void)e; (void)line; (void)col; }  // 0x75ab gotoLine
 static void eA1fd8c(EditorEngine *e, bool on) { (void)e; (void)on; }  // 0x7597 setMarginTrackChange
 static void eA28e7c(EditorEngine *e, int base) { (void)e; (void)base; }  // 0x759a setHexBase
@@ -84,7 +87,12 @@ static void eA1f7be(EditorEngine *e) { (void)e; }             // 0x7f8 chain
 static void eA22c4e(EditorEngine *e, int n) { (void)e; (void)n; }  // 0x7f8 chain
 static void styleCtxTouch(void *ctx) { (void)ctx; }           // FUN_009501b0 (e+8)
 static int hitTestOffset(void *ctx) { (void)ctx; return 0; }   // FUN_0095019c (e+8)
-static long long hitTestResolve(void *out) { (void)out; return 0; }  // FUN_0096bbc0
+static long long hitTestResolve(void *out)
+{
+	// FUN_0096bbc0 (5B): *(ll*)(holder + 8) — value slot of the
+	// hit-test result holder
+	return *(long long *)((char *)out + 8);
+}
 static void editorHitTest(double x, double y, void *out, EditorEngine *e,
                           int a, int b, int c) { (void)x; (void)y; (void)out; (void)e; (void)a; (void)b; (void)c; }  // editor_hitTest
 static void docOp925c8c(void *doc, int v) { (void)doc; (void)v; }  // 0x7fd
@@ -104,14 +112,27 @@ static void docOp92c4ae(void *doc, long long a, int b) { (void)doc; (void)a; (vo
 static long long docOp928404(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x850 (gated +0x1067)
 static int docOp9284c6(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x84f sibling (gated)
 static long long docOp928624(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x851 plain path
-static long long docOp92520c(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x858 plain path
+static long long docOp92520c(void *doc, long long v)
+{
+	// FUN_0092520c (12B) → FUN_0098086c(gapBuf(doc+0xf8), v): line-
+	// terminator position = FUN_00a62f52(buf, v+1), clamped to the
+	// last line via FUN_0098081e — gap-buffer line index lookup
+	// gapLineEnd(gapBuf(doc), v) — wave-2 (FUN_0098086c, 68B)
+	(void)doc; (void)v;
+	return 0;
+}
 static long long editorLineEndIdx(void *obj, long long v) { (void)obj; (void)v; return 0; }  // 0x858 gated path
 static bool docFlag9290e8b(void *doc) { (void)doc; return false; }  // 0x85c
 static long long docOp92522a(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x876 plain
 static long long objRunStyleGet(void *obj, void *node) { (void)obj; (void)node; return 0; }  // 0x876 gated FUN_009587cc
 static double eScrollSet(EditorEngine *e, void *node) { (void)e; (void)node; return 0; }  // 0x875 region FUN_00a225be (XMM out)
 static void runNodeInit(void *node, long long start, int a, int b) { (void)node; (void)start; (void)a; (void)b; }  // runstyles_runnode_init
-static void runNodeFree(void *node) { (void)node; }  // FUN_0096bb02
+static void runNodeFree(void *node)
+{
+	// FUN_0096bb02 is literally a 1-byte `ret` — the "free" for these
+	// runnodes is a no-op (storage is stack/frame-owned)
+	(void)node;
+}
 static void eA20eb2(EditorEngine *e, void *anchor, void *caret, int sel) { (void)e; (void)anchor; (void)caret; (void)sel; }  // 0x870 set selection
 static void editorSelCtor(void *sel, EditorEngine *e, int *type) { (void)sel; (void)e; (void)type; }  // editor_selCtor
 static void editorSelDtor(void *sel) { (void)sel; }  // FUN_00974856
