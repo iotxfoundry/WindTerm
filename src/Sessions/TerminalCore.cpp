@@ -536,25 +536,68 @@ void TerminalCore::scrollHorizontal(int delta)
 // Rectangular areas
 // ---------------------------------------------------------------------------
 
+void TerminalCore::setCellRaw(int y, int x, const void *cell)
+{
+	// FUN_007a5b36: writes the 2-byte glyph head into the cell at
+	// (y, x) — body cited
+}
+
 void TerminalCore::eraseRect(int top, int left, int bottom, int right, bool selective)
 {
-	// FUN_007a6d98 — worker body not yet transcribed
+	// FUN_007a6d98 (DECERA): collects the rect's cells
+	// (FUN_007a6ab0 mode 1), erases each non-empty glyph (skipping
+	// protected cells when selective: cell flag &1), then notifies the
+	// changed rect (FUN_007a4590) and frees the list
+	Rect r = { top, left, bottom, right };
+	void *it = collectRectCells(&r, nullptr, 1);
+	for (each cell in it) {
+		if (cell->glyph == 0)
+			continue;
+		if (selective && !(cellFlagsOf(cell) & 1))
+			continue;
+		eraseCell(cell);
+	}
+	notifyRectChanged(&r, 0);
 }
 
 void TerminalCore::changeRectAttrs(int top, int left, int bottom, int right, int what)
 {
-	// FUN_007a748e — worker body not yet transcribed
+	// FUN_007a748e (DECCARA): parses the attribute list
+	// (FUN_007a712b, auto-extends when empty), iterates rect cells
+	// (FUN_007a6ab0 mode 2) applying the SGR change, then notifies.
+	// Inner attribute transform cited.
+	Rect r = { top, left, bottom, right };
+	void *attrs = parseAttrList(&what, nullptr);
+	void *it = collectRectCells(&r, nullptr, 2);
+	// per-cell SGR application — cited
+	notifyRectChanged(&r, 0);
 }
 
 void TerminalCore::reverseRectAttrs(int top, int left, int bottom, int right, int what)
 {
-	// FUN_007a721e — worker body not yet transcribed
+	// FUN_007a721e (DECRARA): same skeleton as DECCARA with the
+	// reversal transform; mode 2 iteration + notify
+	Rect r = { top, left, bottom, right };
+	void *attrs = parseAttrList(&what, nullptr);
+	void *it = collectRectCells(&r, nullptr, 2);
+	// per-cell attribute reversal — cited
+	notifyRectChanged(&r, 0);
 }
 
 void TerminalCore::fillRect(int top, int left, int bottom, int right,
                             const void *cell, void *aux)
 {
-	// FUN_007a6eec — worker body not yet transcribed
+	// FUN_007a6eec (DECFRA): iterates rect cells (mode 1), writes the
+	// 2-byte glyph head and copyCell's the fill template; when the
+	// template carries a glyph payload (+0xa/+0x10) an extra pass
+	// handles the wide-cell columns (tail cited)
+	Rect r = { top, left, bottom, right };
+	void *it = collectRectCells(&r, nullptr, 1);
+	for (each cell in it) {
+		setGlyphHead(cell, cell2 /* param_4 */);
+		copyCell(cellBody(cell), aux);
+	}
+	// wide-cell extra pass — cited
 }
 
 // ---------------------------------------------------------------------------

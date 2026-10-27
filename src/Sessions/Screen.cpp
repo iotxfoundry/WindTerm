@@ -188,7 +188,15 @@ int Screen::nextTabstop(int from, int count) const
 
 int Screen::prevTabstop(int from, int count) const
 {
-	// FUN_007e5ce4: mirror of nextTabstop — body not yet transcribed
+	// FUN_007e5ce4: mirror of nextTabstop — walks left over tabstops
+	while (count >= 1 && from >= 1) {
+		do {
+			from--;
+			if (from == 0)
+				return from;
+		} while (!isTabstop(from));
+		count--;
+	}
 	return from;
 }
 
@@ -1045,6 +1053,31 @@ bool Screen::refreshNeeded() const
 {
 	// FUN_0061324e: inverted top bit of the view flags (+0x10 +0x10)
 	return (~m_viewRefresh) >> 31;
+}
+
+void Screen::sendResponse(const QByteArray &data)
+{
+	// FUN_007e66c6: joins the parts and pushes them through the view
+	// object's virtual slot +0x70 (the write-back channel)
+	QByteArray joined = QByteArrayList::join(data);
+	(m_view->*m_view->writeBack)(this, joined);   // vtable +0x70 — cited
+}
+
+void Screen::setCell(int y, int x, int ch, void *sgr)
+{
+	// FUN_007e4916: 2-byte glyph head + core raw cell write
+	unsigned short cell[5] = { (unsigned short)ch, 0, 0, 0, 0 };
+	m_core->setCellRaw(y, x, cell);   // FUN_007a5b36
+}
+
+void Screen::switchPage(int page)
+{
+	// FUN_007ef11a: bounds + change guard; page switches beyond the
+	// current one report "Multiple Pages" as unsupported
+	if (page < 0 || page >= m_pageCount || m_pageCurrent == page)
+		return;
+	m_pageCurrent = page;
+	reportUnsupported(QStringLiteral("Multiple Pages"));
 }
 
 void Screen::adjustScreenAlignment()

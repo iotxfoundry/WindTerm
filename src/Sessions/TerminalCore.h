@@ -148,6 +148,7 @@ public:
 	void scrollHorizontal(int delta);      // FUN_007a68ae
 
 	// --- rectangular areas (DECERA/DECFRA/DECRARA/DECCRA workers) ---------------------
+	void setCellRaw(int y, int x, const void *cell);           // FUN_007a5b36
 	void eraseRect(int top, int left, int bottom, int right, bool selective);   // FUN_007a6d98
 	void changeRectAttrs(int top, int left, int bottom, int right, int what);   // FUN_007a748e
 	void reverseRectAttrs(int top, int left, int bottom, int right, int what);  // FUN_007a721e
@@ -193,6 +194,9 @@ public:
 	void writeCell(void *dst, const unsigned char blank[16]);
 	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
 	void cloneGlyphPayload(void *dst, const void *src);  // FUN_007aa2e2 inner
+	void *collectRectCells(const void *rect, void *outList, int mode);  // FUN_007a6ab0
+	void notifyRectChanged(const void *rect, int arg);   // FUN_007a4590
+	void *parseAttrList(const void *params, void *out);  // FUN_007a712b
 	void resetWrap(int arg);                       // FUN_007a45f6
 };
 

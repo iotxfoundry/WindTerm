@@ -183,7 +183,7 @@ public:
 
 	bool m_vt52Mode;                // +0x124
 	int m_pageCount;                // +0xcc
-	int m_pageCurrent;              // note: FUN_007ef11a switch target
+	int m_pageCurrent;              // +0xc8 (FUN_007ef11a)
 
 	// --- batch 3a: VT52 / zmodem / reports / alignment / pages --------------
 	bool isVt52Mode() const;                     // FUN_007e5a02 (+0x124)
@@ -219,7 +219,7 @@ public:
 	void reportDecDeviceStatus(int mode);        // FUN_007f0d7c
 
 	// --- batch 3c: pages / UDK / page geometry ------------------------------
-	int currentPage() const;                     // FUN_007cbfcc -> FUN_007e48f8
+	int currentPage() const { return m_pageCurrent; }  // FUN_007e48f8 (+0xc8)
 	void setUserDefinedKeys();                   // FUN_007ef0e8 (DECDLD)
 	void setColumnsPerPage(int columns);         // FUN_007e61fa (DECSCPP)
 	void setLinesPerPage(int lines);             // FUN_007e5eb2 (DECSLPP)
