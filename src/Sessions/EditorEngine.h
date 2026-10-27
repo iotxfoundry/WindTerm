@@ -68,6 +68,7 @@ public:
 	char m_flagDe0;       // +0xde0 ([0x1bc]) — 0x75d7 read / 0x75db write
 	void *m_holder1068;   // +0x1068 ([0x20d]) position holder family
 	bool m_flag1083;      // +0x1083 (0x75e2 read)
+	bool m_flag1082;      // +0x1082 (0x75f1, +8 style ctx write + reset)
 	long m_zoomReal;      // +0xd10 ([0x1a2]) fractional zoom (0x7567)
 	void *m_obj10b0;      // +0x10b0 ([0x216]) — 0x75a3 selection op target
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot

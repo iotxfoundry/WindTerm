@@ -269,6 +269,15 @@ static bool eA28fa8(EditorEngine *e) { (void)e; return false; }  // 0x75bf
 static QRect posToRect(EditorEngine *e, long long pos) { (void)e; (void)pos; return QRect(); }  // 0x75d4 FUN_00a2267c
 static int eA218dc(EditorEngine *e) { (void)e; return 0; }  // 0x75d9 FUN_00a218dc
 static void eA245c6(EditorEngine *e, int cur, int v) { (void)e; (void)cur; (void)v; }  // 0x75d9 FUN_00a245c6
+static QVariant eColorRead(EditorEngine *e, const QByteArray &key) { (void)e; (void)key; return QVariant(); }  // 0x75e6 "line.caret.remote"
+static QPoint ePointMap(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return QPoint(); }  // 0x75e9 FUN_00a2a002
+static int ePointQuery(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return 0; }  // 0x75eb FUN_00a2b7fc
+static int eRunNodeQuery(EditorEngine *e, long long pos) { (void)e; (void)pos; return 0; }  // 0x75ec FUN_00a2a0ea
+static QString eRunNodeText(EditorEngine *e, long long pos) { (void)e; (void)pos; return QString(); }  // 0x75ee FUN_00a2a15e
+static void eA2a44a(EditorEngine *e) { (void)e; }            // 0x75f0
+static void docOp929336(void *doc, long long v) { (void)doc; (void)v; }  // 0x75f4
+static void eA2a504(EditorEngine *e, const QByteArray &b) { (void)e; (void)b; }  // 0x75f7
+static void docOp927216(void *doc, const QByteArray &b) { (void)doc; (void)b; }  // 0x75fc FUN_00927216
 // search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
 // 00a20050 families): read value (holder+8), read length, or set at a
 // position (runnode pos/len) — Scintilla target API shape
@@ -1824,31 +1833,47 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a2cea8", this, a, b);
 	case 0x75e5:  // ? 30181: FUN_00a3175e, args no args
 		return t_call("t_00a3175e", this, a, b);
-	case 0x75e6:  // ? 30182: complex leaf (FUN_0095021a editor_styleAt FUN_0094a576) — hand pass pending
-		return QVariant(0);
+	case 0x75e6: {  // ? 30182: color readout — "line.caret.remote" key
+		// short-circuits to a QColor when +0xedc is non-zero; otherwise
+		// the key builds a std::string and walks FUN_0095021a/styleAt
+		return eColorRead(this, a.toByteArray());
+	}
 	case 0x75e7:  // ? 30183: FUN_00a29fa8, args toPoint
 		return t_call("t_00a29fa8", this, a, b);
-	case 0x75e9:  // ? 30185: complex leaf (FUN_00a2a002 FUN_00a29ff6 FUN_00a2a21c) — hand pass pending
-		return QVariant(0);
+	case 0x75e9:  // ? 30185: point transform — FUN_00a2a002 -> QPoint
+		return QVariant(ePointMap(this, a.toPoint()));
 	case 0x75eb:  // ? 30187: FUN_00a2b7fc, args toPoint
 		return t_call("t_00a2b7fc", this, a, b);
-	case 0x75ec:  // ? 30188: complex leaf (runstyles_runnode_init FUN_00a2a0ea FUN_0096bb02) — hand pass pending
-		return QVariant(0);
+	case 0x75ec: {  // ? 30188: runnode(a.toLL()) -> FUN_00a2a0ea -> int
+		char n1[64];
+		runNodeInit(n1, a.toLongLong(), 0, 0);
+		const int v = eRunNodeQuery(this, a.toLongLong());
+		runNodeFree(n1);
+		return QVariant(v);
+	}
 	case 0x75ed:  // ? 30189: FUN_00a2b854, args toInt, toPoint
 		return t_call("t_00a2b854", this, a, b);
-	case 0x75ee:  // ? 30190: complex leaf (runstyles_runnode_init FUN_00a2a15e FUN_0096bb02) — hand pass pending
+	case 0x75ee: {  // ? 30190: runnode(a.toLL()) -> FUN_00a2a15e -> QString
+		char n1[64];
+		runNodeInit(n1, a.toLongLong(), 0, 0);
+		const QString s = eRunNodeText(this, a.toLongLong());
+		runNodeFree(n1);
+		return QVariant(s);
+	}
+	case 0x75f0:  // ? 30192: FUN_00a2a44a (the 0x75f1 sibling is the
+		// +0x1082 change-detect + FUN_009502de(engine+8) + soft reset)
+		eA2a44a(this);
 		return QVariant(0);
-	case 0x75f0:  // ? 30192: complex leaf (FUN_00a2a44a FUN_009502de session_view_soft_reset) — hand pass pending
-		return QVariant(0);
-	case 0x75f2:  // ? 30194: complex leaf (inline) — hand pass pending
-		return QVariant(0);
-	case 0x75f3:  // ? 30195: complex leaf (inline) — hand pass pending
-		return QVariant(0);
+	case 0x75f2:  // ? 30194: reads *(ll*)(doc+0x160)
+		return QVariant(*(long long *)((char *)m_doc + 0x160));
+	case 0x75f3:  // ? 30195: reads *(ll*)(doc+0x158)
+		return QVariant(*(long long *)((char *)m_doc + 0x158));
 	case 0x75f4:  // ? 30196: FUN_00929336, args toLongLong
 		return t_call("t_00929336", this, a, b);
 	case 0x75f5:  // ? 30197: FUN_00925ae4, args toInt
 		return t_call("t_00925ae4", this, a, b);
-	case 0x75f7:  // ? 30199: complex leaf (FUN_00a2a504 FUN_00933830 FUN_005f2ede) — hand pass pending
+	case 0x75f7:  // ? 30199: FUN_00a2a504(engine, a.toByteArray())
+		eA2a504(this, a.toByteArray());
 		return QVariant(0);
 	case 0x75f9:  // ? 30201: FUN_00927170, args no args
 		return t_call("t_00927170", this, a, b);
@@ -1856,9 +1881,14 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a2a6e6", this, a, b);
 	case 0x75fb:  // ? 30203: FUN_00a2a6e6, args toBool, toLongLong
 		return t_call("t_00a2a6e6", this, a, b);
-	case 0x75fc:  // ? 30204: complex leaf (FUN_00927216 s_margin_timestamp_a30e02) — hand pass pending
+	case 0x75fc:  // ? 30204: margin timestamp set — FUN_00927216(doc,
+		// bytes) then s_margin_timestamp recalc
+		docOp927216(m_doc, a.toByteArray());
+		sMarginTimestamp(this);
 		return QVariant(0);
-	case 0x75fe:  // ? 30206: complex leaf (FUN_009271be FUN_00a22c4e) — hand pass pending
+	case 0x75fe:  // ? 30206: doc's +0x298 QByteArray assign
+		// (the 0x75fd sibling is FUN_009271be(doc, ll))
+		*(QByteArray *)((char *)m_doc + 0x298) = a.toByteArray();
 		return QVariant(0);
 	case 0x75ff:  // ? 30207: FUN_009271e4, args toLongLong
 		return t_call("t_009271e4", this, a, b);
