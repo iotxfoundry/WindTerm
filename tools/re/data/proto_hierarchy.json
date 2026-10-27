@@ -1,0 +1,17 @@
+{
+ "ShellPane": "0x11ab900",
+ "TelnetCommander": "0x11a7440",
+ "TelnetSession": "0x11a8220",
+ "SshBridge": "0x11a8140",
+ "SshCommander": "0x11a7440",
+ "SshSession": "0x11a8220",
+ "SerialBridge": "0x11a8140",
+ "SerialCommander": "0x11a7440",
+ "SerialSession": "0x11a8220",
+ "ShellBridge": "0x11a8140",
+ "ShellCommander": "0x11a7440",
+ "ShellSession": "0x11a8220",
+ "TcpBridge": "0x11a8140",
+ "TcpCommander": "0x11a7440",
+ "TcpSession": "0x11a8220"
+}

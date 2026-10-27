@@ -1,0 +1,2046 @@
+{
+ "SuperSession": [
+  {
+   "name": "asyncMessage",
+   "kind": "?",
+   "types": [
+    "...",
+    "authPassword",
+    "wParam"
+   ]
+  },
+  {
+   "name": "autoLoginFailed",
+   "kind": "?",
+   "types": []
+  },
+  {
+   "name": "commanderCreated",
+   "kind": "?",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "commandOutput",
+   "kind": "?",
+   "types": [
+    "errorOccurred",
+    "command"
+   ]
+  },
+  {
+   "name": "errorOccurred",
+   "kind": "?",
+   "types": [
+    "...",
+    "code"
+   ]
+  },
+  {
+   "name": "loggerCreated",
+   "kind": "?",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "loggerRemoved",
+   "kind": "?",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "stateChanged",
+   "kind": "?",
+   "types": [
+    "...",
+    "state"
+   ]
+  },
+  {
+   "name": "syncMessage",
+   "kind": "?",
+   "types": [
+    "...",
+    "authPassword",
+    "sessionMessage",
+    "lParam"
+   ]
+  },
+  {
+   "name": "termCreated",
+   "kind": "?",
+   "types": [
+    "command",
+    "commanderUuid"
+   ]
+  },
+  {
+   "name": "transferCreated",
+   "kind": "?",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "authAgent",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred"
+   ]
+  },
+  {
+   "name": "authAgent",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authMethods",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authNone",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred"
+   ]
+  },
+  {
+   "name": "authNone",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authGssapiWithMic",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred"
+   ]
+  },
+  {
+   "name": "authGssapiWithMic",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authInteractive",
+   "kind": "SLOT",
+   "types": [
+    "authPassword",
+    "interactives"
+   ]
+  },
+  {
+   "name": "authInteractive",
+   "kind": "SLOT",
+   "types": [
+    "authPassword"
+   ]
+  },
+  {
+   "name": "authInteractive",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authInteractiveInstruction",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authInteractivePrompts",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authInteractiveUser",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "authOneKey",
+   "kind": "SLOT",
+   "types": [
+    "command",
+    "oneKeyUuid"
+   ]
+  },
+  {
+   "name": "authPassword",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred",
+    "password"
+   ]
+  },
+  {
+   "name": "authPassword",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred"
+   ]
+  },
+  {
+   "name": "authPublicKey",
+   "kind": "SLOT",
+   "types": [
+    "command",
+    "errorOccurred",
+    "passphrase"
+   ]
+  },
+  {
+   "name": "authPublicKey",
+   "kind": "SLOT",
+   "types": [
+    "command",
+    "identityFilePath"
+   ]
+  },
+  {
+   "name": "autoLogin",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "drop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "fingerprint",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "fingerprint",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "flushLogger",
+   "kind": "SLOT",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "hostAddress",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "hostName",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "isConnected",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "isDuplicable",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "isUnconnected",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "lastError",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "lastErrorString",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "name",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "needVerifyServerFingerprint",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "open",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "opensshVersion",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "option",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred"
+   ]
+  },
+  {
+   "name": "pauseLogger",
+   "kind": "SLOT",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "protocolName",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "removeCommander",
+   "kind": "SLOT",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "removeLogger",
+   "kind": "SLOT",
+   "types": [
+    "command",
+    "loggerUuid"
+   ]
+  },
+  {
+   "name": "removeTerm",
+   "kind": "SLOT",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "removeTransfer",
+   "kind": "SLOT",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "resumeLogger",
+   "kind": "SLOT",
+   "types": [
+    "command"
+   ]
+  },
+  {
+   "name": "serverBanner",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setOption",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred",
+    "name"
+   ]
+  },
+  {
+   "name": "setOption",
+   "kind": "SLOT",
+   "types": [
+    "errorOccurred"
+   ]
+  },
+  {
+   "name": "state",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "verifyKnownHost",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "writeKnownHost",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  }
+ ],
+ "SuperBridge": [
+  {
+   "name": "attached",
+   "kind": "?",
+   "types": []
+  },
+  {
+   "name": "commandOutput",
+   "kind": "?",
+   "types": [
+    "info",
+    "...",
+    "output"
+   ]
+  },
+  {
+   "name": "detached",
+   "kind": "?",
+   "types": []
+  },
+  {
+   "name": "detaching",
+   "kind": "?",
+   "types": []
+  },
+  {
+   "name": "errorOccurred",
+   "kind": "?",
+   "types": [
+    "...",
+    "code"
+   ]
+  },
+  {
+   "name": "readyRead",
+   "kind": "?",
+   "types": []
+  },
+  {
+   "name": "stateChanged",
+   "kind": "?",
+   "types": [
+    "...",
+    "state"
+   ]
+  }
+ ],
+ "SuperCommander": [
+  {
+   "name": "asyncMessage",
+   "kind": "?",
+   "types": [
+    "...",
+    "doubleLineHeightTop",
+    "wParam"
+   ]
+  },
+  {
+   "name": "charsetChanged",
+   "kind": "?",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "error",
+   "kind": "?",
+   "types": [
+    "...",
+    "code"
+   ]
+  },
+  {
+   "name": "shellCwdChanged",
+   "kind": "?",
+   "types": [
+    "info"
+   ]
+  },
+  {
+   "name": "syncMessage",
+   "kind": "?",
+   "types": [
+    "...",
+    "doubleLineHeightTop",
+    "commanderMessage",
+    "lParam"
+   ]
+  },
+  {
+   "name": "adjustScreenAlignment",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "allowScrollback",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "answerBack",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "assignUserPreferredSupplementalSet",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "backIndex",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "backspace",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "bell",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "bracketedPasteMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "carriageReturn",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "changeAttributesInRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd",
+    "area"
+   ]
+  },
+  {
+   "name": "checkControlCharacter",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "clearTabstop",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "clearTabstop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "copyRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd",
+    "area"
+   ]
+  },
+  {
+   "name": "dataType",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "deleteCharacter",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "deleteCharacter",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "deleteColumn",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "deleteColumn",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "deleteLine",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "deleteLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "doubleLineHeightBottom",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "doubleLineHeightTop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "doubleLineWidth",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "enableFilterRectangle",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "enableLocatorReports",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "mode"
+   ]
+  },
+  {
+   "name": "enableLocatorReports",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "endGuardedArea",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "enterAltKeypadMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "enterTmuxControlMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "eraseCharacter",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "eraseCharacter",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "eraseLine",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "eraseLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "eraseRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "eraseScreen",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "eraseScreen",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "eraseSelectiveLine",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "eraseSelectiveLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "eraseSelectiveScreen",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "eraseSelectiveScreen",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "exitAltKeypadMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "exitAnsiMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "fillRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd",
+    "area"
+   ]
+  },
+  {
+   "name": "fillRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "formFeed",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "forwardIndex",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "fromUnicode",
+   "kind": "SLOT",
+   "types": [
+    "info"
+   ]
+  },
+  {
+   "name": "highlightTracking",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "horizontalTab",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "insertCharacter",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "insertCharacter",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "insertColumn",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "insertColumn",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "insertLine",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "insertLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "lineFeed",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "loadLeds",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "loadLeds",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "marginBottom",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "marginLeft",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "marginRight",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "marginTop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "mediaCopy",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "mediaCopy",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "mediaCopyDec",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursor",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "line"
+   ]
+  },
+  {
+   "name": "moveCursor",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursor",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorBackward",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorBackward",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorColumn",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorColumn",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorColumnBackward",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorColumnBackward",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorColumnRelative",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorColumnRelative",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorDown",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorDown",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorForward",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorForward",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorLine",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorLineBackward",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorLineBackward",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorLineRelative",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorLineRelative",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorNextLine",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorNextLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorNextTabstop",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorNextTabstop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorPrecedingLine",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorPrecedingLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorPrecedingTabstop",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorPrecedingTabstop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "moveCursorUp",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "moveCursorUp",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "movePagePositionAbsolute",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "movePagePositionAbsolute",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "movePagePositionBackward",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "movePagePositionBackward",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "movePagePositionRelative",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "movePagePositionRelative",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "nextPage",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "nextPage",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "notifyCommand",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "notifyFig",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "notifyHyperlink",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "notifyIterm2",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "notifyMessage",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "notifyRemoteDirectory",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "option",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "originBottom",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "originLeft",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "originRight",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "originTop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "page",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "pages",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "precedingPage",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "precedingPage",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "refreshScreen",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "repeatCharacter",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "repeatCharacter",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "reportDeviceAttributesOne",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "reportDeviceAttributesTwo",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "reportDeviceAttributesThree",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "reportDeviceStatus",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "reportDecDeviceStatus",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "reportTerminalParameters",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "reportTerminalParameters",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "requestChecksumOfRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "pid"
+   ]
+  },
+  {
+   "name": "requestDecMode",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "requestDisplayedExtent",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "requestKeyModifier",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "requestLocatorPosition",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "requestLocatorPosition",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "requestMode",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "requestPresentationStateReport",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "requestSelectionOrSetting",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "requestTerminalStateReport",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "requestTerminalStateReport",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "requestUserPreferredSupplementalSet",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "requestWindowSelections",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "requestXtermTerminfoData",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "resetDecMode",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "resetHard",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "resetKeyModifier",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "resetKeyModifier",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "resetMode",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "resetSoft",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "resetWindowColor",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "resetWindowColor",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "restoreCursor",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "restoreDecMode",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "restorePresentationState",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "restoreTerminalState",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "reverseAttributesInRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd",
+    "area"
+   ]
+  },
+  {
+   "name": "reverseScreen",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "saveCursor",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "saveDecMode",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "scrollCursorDown",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "scrollCursorUp",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "scrollDown",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "scrollDown",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "scrollLeft",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "scrollLeft",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "scrollNextLine",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "scrollRight",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "scrollRight",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "scrollUp",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "scrollUp",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "select7BitC1Control",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "select8BitC1Control",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "select94CharacterSet",
+   "kind": "SLOT",
+   "types": [
+    "count",
+    "graphic"
+   ]
+  },
+  {
+   "name": "select96CharacterSet",
+   "kind": "SLOT",
+   "types": [
+    "count",
+    "graphic"
+   ]
+  },
+  {
+   "name": "selectActiveStatusDisplay",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "selectActiveStatusDisplay",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "selectAttributeChangeExtent",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "selectAttributeChangeExtent",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "selectCharacterAttribute",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "selectCharacterAttribute",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "selectGraphicRendition",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "selectGraphicRendition",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "selectiveEraseRectangularArea",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "selectLocatorEvents",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "selectNumberOfLinesOnScreen",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "selectStatusLineType",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "selectStatusLineType",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setAllowScrollback",
+   "kind": "SLOT",
+   "types": [
+    "asyncMessage"
+   ]
+  },
+  {
+   "name": "setAnsiConformanceLevelOne",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setAnsiConformanceLevelTwo",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setAnsiConformanceLevelThree",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setCodec",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "setColumnsPerPage",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setColumnsPerPage",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setConformanceLevel",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "level"
+   ]
+  },
+  {
+   "name": "setConformanceLevel",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setCursorStyle",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setCursorStyle",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setCursorVisibility",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setCursorVisibility",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setDecMode",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "setDecMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setHorizontalTabstop",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "column"
+   ]
+  },
+  {
+   "name": "setHorizontalTabstop",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setHorizontalTabstop",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setKeyModifier",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "setKeyModifier",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setLeftRightMargins",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "left"
+   ]
+  },
+  {
+   "name": "setLeftRightMargins",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setLeftRightMargins",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setLinesPerPage",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setLinesPerPage",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setMarginBellVolume",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setMarginBellVolume",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setMode",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "setMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setTopBottomMargins",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "top"
+   ]
+  },
+  {
+   "name": "setTopBottomMargins",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setTopBottomMargins",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "...",
+    "clear",
+    "modifier"
+   ]
+  },
+  {
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "...",
+    "lock"
+   ]
+  },
+  {
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "clear"
+   ]
+  },
+  {
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setWarningBellVolume",
+   "kind": "SLOT",
+   "types": [
+    "..."
+   ]
+  },
+  {
+   "name": "setWarningBellVolume",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "setWindowAttributes",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "setWindowColor",
+   "kind": "SLOT",
+   "types": [
+    "...",
+    "type"
+   ]
+  },
+  {
+   "name": "setWindowIcon",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "setWindowIconAndTitle",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "setWindowSelections",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd",
+    "selections"
+   ]
+  },
+  {
+   "name": "setWindowTitle",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "setXtermTerminfoData",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "shiftLockingOne",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftLockingOneRight",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftLockingThree",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftLockingThreeRight",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftLockingTwo",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftLockingTwoRight",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftLockingZero",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftSingleTwo",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "shiftSingleThree",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "singleLineWidth",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "startGuardedArea",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "testConfidence",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "toUnicode",
+   "kind": "SLOT",
+   "types": [
+    "shellCwd"
+   ]
+  },
+  {
+   "name": "verticalTab",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "vt52EnterGraphicsMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "vt52ExitGraphicsMode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "vt52Identify",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "vt52Mode",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "vt52MoveCursor",
+   "kind": "SLOT",
+   "types": [
+    "count",
+    "line"
+   ]
+  },
+  {
+   "name": "windowColumns",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "windowIcon",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "windowRows",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "windowTitle",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "zmodemReceive",
+   "kind": "SLOT",
+   "types": []
+  },
+  {
+   "name": "zmodemSend",
+   "kind": "SLOT",
+   "types": []
+  }
+ ]
+}
