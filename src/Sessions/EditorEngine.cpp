@@ -252,6 +252,22 @@ static void duplicateLines(EditorEngine *e) { (void)e; }     // editor_duplicate
 static void docOp925d4c(void *doc, long long a, unsigned long long b) { (void)doc; (void)a; (void)b; }  // 0x9e2
 static void docOp925e2a(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x9e4
 static void docOp925df0(void *doc) { (void)doc; }            // 0x9e8
+// search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
+// 00a20050 families): read value (holder+8), read length, or set at a
+// position (runnode pos/len) — Scintilla target API shape
+static void searchFlagsText(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }   // FUN_00a1fda6
+static void searchRangeText(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }   // FUN_00a1fe5a
+static void searchFlagsText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a1ff9c
+static void searchRangeText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a20050
+static int qstrdataLength(void *b) { (void)b; return 0; }    // qstrdata_length_get
+static void insertRange(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }       // FUN_00a1fdd8
+static void setRangeNode(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a1fe8c
+static void insertRange2(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a1ff9c tail
+static void insertRange3(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a20082
+static void selRangeMake(void *out, void *a, void *b, int m) { (void)out; (void)a; (void)b; (void)m; }  // FUN_0096be24
+static void selRangeApply(EditorEngine *e, void *r) { (void)e; (void)r; }  // FUN_00a20fb0
+static void selRangeFree(void *r) { (void)r; }               // FUN_0096bd50
+static void eA2373a(EditorEngine *e, int v) { (void)e; (void)v; }  // 0xa0e
 static QVariant vtForward150(EditorEngine *e, uint cmd, const QVariant &a, const QVariant &b)
 { (void)e; (void)cmd; (void)a; (void)b; return QVariant(0); }  // vtable+0x150 pass-through
 
@@ -1251,32 +1267,133 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 	}
 	case 0xa0a:  // EXT 2570: FUN_00a1fc2e, args no args
 		return t_call("t_00a1fc2e", this, a, b);
-	case 0xa0c:  // EXT 2572: complex leaf (runstyles_runnode_init FUN_0096be24 FUN_00a20fb0) — hand pass pending
+	case 0xa0c: {  // setSelection(anchor a, caret b): dual runnode
+		char nA[64], nB[64], out[64];
+		runNodeInit(nB, b.toLongLong(), 0, 0);
+		runNodeInit(nA, a.toLongLong(), 0, 0);
+		selRangeMake(out, nA, nB, 0);      // FUN_0096be24
+		selRangeApply(this, out);           // FUN_00a20fb0
+		runNodeFree(nA); runNodeFree(nB); selRangeFree(out);
 		return QVariant(0);
-	case 0xa0e:  // EXT 2574: complex leaf (FUN_00a2373a FUN_00a1fd76 runstyles_runnode_init) — hand pass pending
+	}
+	case 0xa0e:  // FUN_00a2373a(engine, int)
+		eA2373a(this, a.toInt());
 		return QVariant(0);
-	case 0xa10:  // EXT 2576: complex leaf (FUN_00a1fda6 runstyles_runnode_init FUN_00a1fdd8) — hand pass pending
+	case 0xa10: {  // insert text at position (len from flags buf)
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64], n1[64];
+		searchFlagsText(buf, this, flags);   // FUN_00a1fda6
+		runNodeInit(n1, b.toLongLong(), qstrdataLength(buf), 0);
+		insertRange(this, flags, n1);        // FUN_00a1fdd8
+		runNodeFree(n1); runNodeFree(buf);
 		return QVariant(0);
-	case 0xa11:  // EXT 2577: complex leaf (FUN_00a1fda6 FUN_0096bbc0 FUN_0096bb02) — hand pass pending
+	}
+	case 0xa11: {  // target text value
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64];
+		searchFlagsText(buf, this, flags);
+		const long long v = hitTestResolve(buf);
+		runNodeFree(buf);
+		return QVariant(v);
+	}
+	case 0xa12: {  // set search text at position (len from buf)
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64], n1[64];
+		searchRangeText(buf, this, flags);   // FUN_00a1fe5a
+		runNodeInit(n1, b.toLongLong(), qstrdataLength(buf), 0);
+		setRangeNode(this, flags, n1);       // FUN_00a1fe8c
+		runNodeFree(n1); runNodeFree(buf);
 		return QVariant(0);
-	case 0xa12:  // EXT 2578: complex leaf (FUN_00a1fe5a runstyles_runnode_init FUN_00a1fe8c) — hand pass pending
+	}
+	case 0xa13: {  // search-range text value
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64];
+		searchRangeText(buf, this, flags);
+		const long long v = hitTestResolve(buf);
+		runNodeFree(buf);
+		return QVariant(v);
+	}
+	case 0xa15: {  // target text length
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64];
+		searchFlagsText(buf, this, flags);
+		const int len = qstrdataLength(buf);
+		runNodeFree(buf);
+		return QVariant(len);
+	}
+	case 0xa17: {  // search-range text length
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64];
+		searchRangeText(buf, this, flags);
+		const int len = qstrdataLength(buf);
+		runNodeFree(buf);
+		return QVariant(len);
+	}
+	case 0xa18: {  // set range text at position (FUN_00a1ff9c family)
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64], n1[64];
+		searchFlagsText2(buf, this, flags);  // FUN_00a1ff9c
+		runNodeInit(n1, b.toLongLong(), qstrdataLength(buf), 0);
+		insertRange2(this, flags, n1);       // FUN_00a1ff9c tail
+		runNodeFree(n1); runNodeFree(buf);
 		return QVariant(0);
-	case 0xa13:  // EXT 2579: complex leaf (FUN_00a1fe5a FUN_0096bbc0 FUN_0096bb02) — hand pass pending
+	}
+	case 0xa19: {  // range text value (FUN_00a1ff9c read)
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64];
+		searchFlagsText2(buf, this, flags);
+		const long long v = hitTestResolve(buf);
+		runNodeFree(buf);
+		return QVariant(v);
+	}
+	case 0xa1a: {  // set range text at position (FUN_00a20050 family)
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64], n1[64];
+		searchRangeText2(buf, this, flags);  // FUN_00a20050
+		runNodeInit(n1, b.toLongLong(), qstrdataLength(buf), 0);
+		insertRange3(this, flags, n1);       // FUN_00a20082
+		runNodeFree(n1); runNodeFree(buf);
 		return QVariant(0);
-	case 0xa15:  // EXT 2581: complex leaf (FUN_00a1fda6 FUN_0096bb02 FUN_0096bbc0) — hand pass pending
+	}
+	case 0xa1e: {  // target+position variant (FUN_00a20050 -> runnode)
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64], n1[64];
+		searchRangeText2(buf, this, flags);
+		runNodeInit(n1, hitTestResolve(buf), b.toInt(), 0);
+		insertRange3(this, flags, n1);
+		runNodeFree(n1); runNodeFree(buf);
 		return QVariant(0);
-	case 0xa17:  // EXT 2583: complex leaf (FUN_00a1fe5a FUN_0096bb02) — hand pass pending
-		return QVariant(0);
-	case 0xa18:  // EXT 2584: complex leaf (FUN_00a1ff9c runstyles_runnode_init FUN_00a1ffce) — hand pass pending
-		return QVariant(0);
-	case 0xa19:  // EXT 2585: complex leaf (FUN_00a1ff9c FUN_0096bbc0 FUN_0096bb02) — hand pass pending
-		return QVariant(0);
-	case 0xa1a:  // EXT 2586: complex leaf (FUN_00a20050 runstyles_runnode_init FUN_00a20082) — hand pass pending
-		return QVariant(0);
-	case 0xa1e:  // EXT 2590: complex leaf (FUN_00a20050 FUN_0096bbc0 runstyles_runnode_init) — hand pass pending
-		return QVariant(0);
-	case 0xa1f:  // EXT 2591: complex leaf (FUN_00a20050 FUN_0096bb02) — hand pass pending
-		return QVariant(0);
+	}
+	case 0xa1f: {  // range text length (FUN_00a20050)
+		int flags = -1;
+		if (a.canConvert(QMetaType::Type::Int))
+			flags = a.toInt();
+		char buf[64];
+		searchRangeText2(buf, this, flags);
+		const int len = qstrdataLength(buf);
+		runNodeFree(buf);
+		return QVariant(len);
+	}
 	case 0xa20:  // EXT 2592: FUN_00a1ff24, args toInt
 		return t_call("t_00a1ff24", this, a, b);
 	case 0xa21:  // EXT 2593: FUN_00a1ff0e, args toInt
