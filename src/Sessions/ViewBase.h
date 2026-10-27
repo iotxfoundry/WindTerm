@@ -32,7 +32,12 @@ public:
 	                                   //  (atomic LOCK/UNLOCK refcount++)
 	void walkSelectionLists();        // FUN_008c6cc2: CoW uint-list walk
 	                                   //  (FUN_005e9480 detach)
-	// FUN_008c6f48 (6.8K): complex multi-variant op — not yet transcribed
+	// FUN_008c6f48 (6.8K, full): the view-id collector — iterates the
+	// CoW widget list (detach FUN_005e9480), dynamic_casts each entry to
+	// QWidget, runs qt_qFindChildren_helper with metaobject 0x119a2e0,
+	// then per found child does a manual QMap tree lookup of the "id"
+	// property (operator< walk) comparing against the target string;
+	// matches are collected via FUN_008c81e8
 };
 
 #endif // VIEWBASE_H

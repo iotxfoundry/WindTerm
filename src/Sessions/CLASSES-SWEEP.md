@@ -29,3 +29,14 @@
 - TerminalView 自有簇(0x833-0x834)定性:会话 UUID(+0x218)解析、
   A/B/C/D 会话槽字母->id 映射(0x8341c8)、SessionPane 祖先聚焦;
   ViewBase 的属性串实为 "Url"(0xca9158-0xca9164 = 'A'/'B'/'C'/'D')
+
+## 大件定性(2026-10-27 补)
+
+- **0x8c6f48(6.8K)ViewBase::ViewById 收集器**:遍历 CoW 部件列表
+  (0x5e9480 分离)→ dynamic_cast QWidget → qt_qFindChildren_helper
+  (metaobject 0x119a2e0)→ 每个子件手写 QMap 树查找 "id" 属性
+  (operator< 走树)→ 字符串比对命中经 FUN_008c81e8 收集。
+- **0x5d0a4e(31K)TextEdit 配置映射构建器**:头部构建 "reverse"
+  (fromRawData 0xd0cf0d)/"type" 键的 QVariant 映射;函数体 ~80% 为
+  编译器内联的 QMap 递归析构(引用计数逐节点释放),非业务逻辑。
+  深挖价值否决:配置构建 + 析构噪音。
