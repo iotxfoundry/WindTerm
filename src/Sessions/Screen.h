@@ -230,6 +230,99 @@ public:
 	void resetHard();                            // FUN_007ea73c (RIS)
 	void restorePresentationState();             // FUN_007ef1b6
 
+
+	// --- batch 3d: T1 forwards auto-generated (impl cited) ---
+	void vt52Mode();
+	void vt52MoveCursor(int column, int line);	// 0x7e4f38
+	void moveCursorColumn();
+	void moveCursorColumnRelative();
+	void moveCursorColumnBackward();
+	void moveCursorLine();
+	void moveCursorLineRelative();
+	void moveCursorLineBackward();
+	void moveCursorNextLine();
+	void moveCursorPrecedingLine();
+	void moveCursorNextTabstop();
+	void moveCursorPrecedingTabstop();
+	void formFeed();
+	void verticalTab();
+	void bell();
+	void eraseSelectiveLine();
+	void eraseSelectiveScreen();
+	void selectiveEraseRectangularArea(const QString &area);	// 0x7eb1c4
+	void scrollUp();
+	void scrollDown();
+	void scrollLeft();
+	void scrollRight();
+	void scrollCursorUp();
+	void scrollCursorDown();
+	void scrollNextLine();
+	void nextPage();
+	void precedingPage();
+	void page();
+	void pages();
+	void setHorizontalTabstop();
+	void resetMode();
+	void resetDecMode(int mode);	// 0x7f5d2e
+	void requestDecMode(int mode);	// 0x7f13a0
+	void reverseScreen();
+	void shiftSingleTwo();
+	void shiftSingleThree();
+	void shiftLockingZero();
+	void shiftLockingOne();
+	void shiftLockingOneRight();
+	void shiftLockingTwo();
+	void shiftLockingTwoRight();
+	void shiftLockingThree();
+	void shiftLockingThreeRight();
+	void singleLineWidth();
+	void doubleLineWidth();
+	void doubleLineHeightTop();
+	void doubleLineHeightBottom();
+	void setAnsiConformanceLevelOne();
+	void setAnsiConformanceLevelTwo();
+	void setAnsiConformanceLevelThree();
+	void select8BitC1Control();
+	void refreshScreen();
+	void allowScrollback();
+	void movePagePositionAbsolute();
+	void movePagePositionBackward();
+	void movePagePositionRelative();
+	void setMarginBellVolume();
+	void setWarningBellVolume();
+	void reportDeviceAttributesOne();
+	void reportDeviceAttributesTwo();
+	void reportDeviceAttributesThree();
+	void setWindowSelections(const QString &which, const QString &selections);	// 0x4beac0
+	void setXtermTerminfoData(const QString &name);	// 0x7f07d8
+	void highlightTracking(int mode, int type);	// 0x7eac52
+	void enableFilterRectangle(const QString &filter);	// 0x7eb8fe
+	void setWindowTitle(const QString &title);	// 0x7cd366
+	void windowTitle();
+	void setWindowIcon(const QString &icon);	// 0x4c29d0
+	void windowIcon();
+	void setWindowColor(int index, const QString &color);	// 0x7f24ae
+	void resetWindowColor();
+	void setWindowAttributes(const QString &attributes);	// 0x7f298e
+	void windowRows();
+	void mediaCopy();
+	void mediaCopyDec(int mode);	// 0x7f063a
+	void setCodec(const QString &name);	// -0x3efdef14
+	void toUnicode(const QString &text);	// 0x4c29d0
+	void fromUnicode(const QString &text);	// 0x4c29d0
+	void notifyMessage(int message);	// 0x5444ac
+	void notifyRemoteDirectory(const QString &directory);	// 0x7cd366
+	void notifyHyperlink(const QString &url);	// 0x4c3290
+	void notifyIterm2(const QString &content);	// 0x4c3290
+	void notifyFig(const QString &content);	// 0x4c3290
+	void option(const QString &name);	// 0x7d5538
+	void checkControlCharacter();
+	void dataType();
+	void testConfidence(const QString &data);	// 0x7f0a5e
+	void loadLeds();
+	void enterTmuxControlMode();
+	void bracketedPasteMode();
+
 	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
 	int currentCursorStyle() const;                  // FUN_007e36aa
 	void notifyCursorStyle(void *cursor, int shape); // FUN_00913592

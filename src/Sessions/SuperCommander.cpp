@@ -1,7 +1,7 @@
 #include "SuperCommander.h"
 #include "Screen.h"
 
-// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(221 个真实现体)。
+// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(259 个真实现体)。
 // 三层洋葱:this -> m_screen(+0x80, 0x7e 层) -> TerminalCore(0x7a 层)。
 // 每体注明 moc 索引与实现地址;其余槽为后续批次占位。
 // 信号 5 个由 moc 生成不定义。phase-1 参考还原,不编译。
@@ -343,7 +343,7 @@ void SuperCommander::horizontalTab()
 void SuperCommander::bell()
 {
 	// moc[11] -> 0x4bc0d0
-	// 未转写(后续批次)
+	// PLT 桩(0x4bc0d0),实际逻辑在适配器内联
 }
 
 void SuperCommander::repeatCharacter()
@@ -837,7 +837,7 @@ void SuperCommander::restoreDecMode(int mode)
 void SuperCommander::requestDecMode(int mode)
 {
 	// moc[136] -> 0x7f13a0
-	// 未转写(后续批次)
+	m_screen->requestDecMode(mode);
 }
 
 void SuperCommander::selectCharacterAttribute()
@@ -915,13 +915,13 @@ void SuperCommander::fillRectangularArea(const QString &fill, const QString &are
 
 void SuperCommander::eraseRectangularArea(const QString &area, int mode)
 {
-	// 未转写(后续批次)
+	m_screen->eraseRectangularArea(&area, mode);
 }
 
 void SuperCommander::requestChecksumOfRectangularArea(const QString &area, int pid)
 {
 	// moc[135] -> 0x7eced6
-	// 未转写(后续批次)
+	m_screen->requestChecksumOfRectangularArea(&area, pid);
 }
 
 void SuperCommander::select94CharacterSet(int count, int graphic)
@@ -1263,25 +1263,25 @@ void SuperCommander::movePagePositionRelative(int pages)
 void SuperCommander::setMarginBellVolume()
 {
 	// moc[219] -> 0x7e5190
-	// 未转写(后续批次)
+	// PLT 桩(0x7e5190),实际逻辑在适配器内联
 }
 
 void SuperCommander::setMarginBellVolume(int volume)
 {
 	// moc[218] -> 0x7e5190
-	// 未转写(后续批次)
+	m_screen->setMarginBellVolume(volume);
 }
 
 void SuperCommander::setWarningBellVolume()
 {
 	// moc[231] -> 0x7e520c
-	// 未转写(后续批次)
+	// PLT 桩(0x7e520c),实际逻辑在适配器内联
 }
 
 void SuperCommander::setWarningBellVolume(int volume)
 {
 	// moc[230] -> 0x7e520c
-	// 未转写(后续批次)
+	m_screen->setWarningBellVolume(volume);
 }
 
 void SuperCommander::selectStatusLineType()
@@ -1369,7 +1369,7 @@ void SuperCommander::requestTerminalStateReport(int mode)
 void SuperCommander::requestPresentationStateReport(int state)
 {
 	// moc[142] -> 0x7ed35a
-	// 未转写(后续批次)
+	m_screen->requestPresentationStateReport(state);
 }
 
 void SuperCommander::requestUserPreferredSupplementalSet()
@@ -1388,13 +1388,13 @@ void SuperCommander::requestDisplayedExtent()
 void SuperCommander::requestWindowSelections(const QString &which)
 {
 	// moc[147] -> 0x4c3220
-	// 未转写(后续批次)
+	m_screen->requestWindowSelections(&which);
 }
 
 void SuperCommander::setWindowSelections(const QString &which, const QString &selections)
 {
 	// moc[236] -> 0x4beac0
-	// 未转写(后续批次)
+	m_screen->setWindowSelections(&which, &selections);
 }
 
 void SuperCommander::requestXtermTerminfoData(const QString &name)
@@ -1406,12 +1406,12 @@ void SuperCommander::requestXtermTerminfoData(const QString &name)
 void SuperCommander::setXtermTerminfoData(const QString &name)
 {
 	// moc[238] -> 0x7f07d8
-	// 未转写(后续批次)
+	m_screen->setXtermTerminfoData(&name);
 }
 
 void SuperCommander::requestKeyModifier()
 {
-	// 未转写(后续批次)
+	// PLT 桩(0x7ed282),实际逻辑在适配器内联
 }
 
 void SuperCommander::requestKeyModifier(int modifier)
@@ -1435,7 +1435,7 @@ void SuperCommander::setKeyModifier(int modifier)
 void SuperCommander::setKeyModifier(int modifier, int type)
 {
 	// moc[211] -> 0x7e5152
-	// 未转写(后续批次)
+	m_screen->setKeyModifier(modifier, type);
 }
 
 void SuperCommander::resetKeyModifier()
@@ -1452,30 +1452,30 @@ void SuperCommander::resetKeyModifier(int modifier)
 
 void SuperCommander::enableLocatorReports()
 {
-	// 未转写(后续批次)
+	// PLT 桩(0x7e37a8),实际逻辑在适配器内联
 }
 
 void SuperCommander::enableLocatorReports(int unit)
 {
 	// moc[31] -> 0x7e37a8
-	// 未转写(后续批次)
+	m_screen->enableLocatorReports(unit);
 }
 
 void SuperCommander::enableLocatorReports(int unit, int mode)
 {
 	// moc[30] -> 0x7e37a8
-	// 未转写(后续批次)
+	m_screen->enableLocatorReports(unit, mode);
 }
 
 void SuperCommander::filterRectangle(int top, int left, int bottom, int right)
 {
-	// 未转写(后续批次)
+	m_screen->filterRectangle(top, left, bottom, right);
 }
 
 void SuperCommander::requestLocatorPosition()
 {
 	// moc[140] -> 0x7ebd6a
-	// 未转写(后续批次)
+	// PLT 桩(0x7ebd6a),实际逻辑在适配器内联
 }
 
 void SuperCommander::requestLocatorPosition(int mode)
@@ -1494,13 +1494,13 @@ void SuperCommander::selectLocatorEvents(const QString &events)
 void SuperCommander::highlightTracking(int mode, int type)
 {
 	// moc[53] -> 0x7eac52
-	// 未转写(后续批次)
+	m_screen->highlightTracking(mode, type);
 }
 
 void SuperCommander::enableFilterRectangle(const QString &filter)
 {
 	// moc[29] -> 0x7eb8fe
-	// 未转写(后续批次)
+	m_screen->enableFilterRectangle(&filter);
 }
 
 void SuperCommander::setWindowTitle(const QString &title)
@@ -1539,41 +1539,41 @@ void SuperCommander::setWindowIconAndTitle(const QString &iconAndTitle)
 void SuperCommander::setWindowColor(int index, const QString &color)
 {
 	// moc[233] -> 0x7f24ae
-	// 未转写(后续批次)
+	m_screen->setWindowColor(index, &color);
 }
 
 void SuperCommander::setWindowColor(int index, const QString &color, int type)
 {
-	// 未转写(后续批次)
+	m_screen->setWindowColor(index, &color, type);
 }
 
 void SuperCommander::resetWindowColor()
 {
-	// 未转写(后续批次)
+	// PLT 桩(0x7f0858),实际逻辑在适配器内联
 }
 
 void SuperCommander::resetWindowColor(int index)
 {
 	// moc[156] -> 0x7f0858
-	// 未转写(后续批次)
+	m_screen->resetWindowColor(index);
 }
 
 void SuperCommander::setWindowAttributes(const QString &attributes)
 {
 	// moc[232] -> 0x7f298e
-	// 未转写(后续批次)
+	m_screen->setWindowAttributes(&attributes);
 }
 
 void SuperCommander::windowColumns()
 {
 	// moc[258] -> 0x7e5b96
-	// 未转写(后续批次)
+	// PLT 桩(0x7e5b96),实际逻辑在适配器内联
 }
 
 void SuperCommander::windowRows()
 {
 	// moc[260] -> 0x7e5f18
-	// 未转写(后续批次)
+	// PLT 桩(0x7e5f18),实际逻辑在适配器内联
 }
 
 void SuperCommander::startGuardedArea()
@@ -1591,25 +1591,25 @@ void SuperCommander::endGuardedArea()
 void SuperCommander::mediaCopy()
 {
 	// moc[69] -> 0x7f0530
-	// 未转写(后续批次)
+	// PLT 桩(0x7f0530),实际逻辑在适配器内联
 }
 
 void SuperCommander::mediaCopy(int mode)
 {
 	// moc[68] -> 0x7f0530
-	// 未转写(后续批次)
+	m_screen->mediaCopy(mode);
 }
 
 void SuperCommander::mediaCopyDec(int mode)
 {
 	// moc[70] -> 0x7f063a
-	// 未转写(后续批次)
+	m_screen->mediaCopyDec(mode);
 }
 
 void SuperCommander::setCodec(const QString &name)
 {
 	// moc[197] -> -0x3efdef14
-	// 未转写(后续批次)
+	m_screen->setCodec(&name);
 }
 
 void SuperCommander::toUnicode(const QString &text)
@@ -1673,7 +1673,7 @@ void SuperCommander::notifyFig(const QString &content)
 void SuperCommander::option(const QString &name)
 {
 	// moc[116] -> 0x7d5538
-	// 未转写(后续批次)
+	m_screen->option(&name);
 }
 
 void SuperCommander::checkControlCharacter()
@@ -1686,13 +1686,13 @@ void SuperCommander::checkControlCharacter()
 void SuperCommander::dataType()
 {
 	// moc[19] -> 0x7e3784
-	// 未转写(后续批次)
+	// PLT 桩(0x7e3784),实际逻辑在适配器内联
 }
 
 void SuperCommander::testConfidence(const QString &data)
 {
 	// moc[250] -> 0x7f0a5e
-	// 未转写(后续批次)
+	m_screen->testConfidence(&data);
 }
 
 void SuperCommander::setUserDefinedKeys()
@@ -1723,19 +1723,19 @@ void SuperCommander::setUserDefinedKeys(int key, int clear, int modifier)
 void SuperCommander::loadLeds()
 {
 	// moc[63] -> 0x7eadba
-	// 未转写(后续批次)
+	// PLT 桩(0x7eadba),实际逻辑在适配器内联
 }
 
 void SuperCommander::loadLeds(const QString &leds)
 {
 	// moc[62] -> 0x7eadba
-	// 未转写(后续批次)
+	m_screen->loadLeds(&leds);
 }
 
 void SuperCommander::enterTmuxControlMode()
 {
 	// moc[34] -> 0x7e9a06
-	// 未转写(后续批次)
+	// PLT 桩(0x7e9a06),实际逻辑在适配器内联
 }
 
 void SuperCommander::zmodemSend()

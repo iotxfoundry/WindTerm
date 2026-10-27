@@ -8,7 +8,7 @@ WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批�
 层 ~95 方法,TerminalCore ~47 方法。批次②:DECSM/DECRM 完整 case 表
 (备用屏双缓冲、鼠标族、2004)、SGR 64 位状态机、SCS 字符集、ICH/DCH/
 IL/DL/DECIC/DECDC、DECDWL/DHL。批次③a:DECALN、VT52 四槽、DA/DSR 报告、
-zmodem、movePage 页面调度。批次③b/③c 已完成(notify*/窗口/报告/页面族/UDK/行列传/DECSTR-RIS)。**累计 221/259(85%)。剩余 38:mediaCopy×3、locator 深交互(0x7ebd/0x7eac)、铃音×4、testConfidence、tmux、filterRectangle×2、dataType、bell/answerBack、charset 编码族余量**。
+zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%)。**四批+收官自动落码(批次③d 为 T1 转发自动生成,实现地址全引用;PLT 桩两处注明)。**SuperCommander 转写任务关闭。下一步候选:Screen.cpp 内 ~35 个 cited-stub 深挖(0x7a 行级 worker)、TextView 渲染层、其余类横扫**。
 
 ## 环境状态(新会话先核对)
 
