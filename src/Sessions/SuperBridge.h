@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QObject>
+#include "KingEnums.h"
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // Base class of Ssh/Shell/Telnet/Tcp/Serial bridges. Declares only the
@@ -21,7 +22,7 @@ signals:
 	void detaching();
 	void detached();
 	void readyRead();
-	void stateChanged(int oldState, King::SessionState state);
+	void stateChanged(King::SessionState oldState, King::SessionState state);
 	void errorOccurred(const QString &context, int code);
 	void commandOutput(const QString &context, const QString &input, const QString &output);
 

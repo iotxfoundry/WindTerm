@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QObject>
+#include "KingEnums.h"
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // The terminal command interpreter: the full VT/ANSI/DEC escape-sequence

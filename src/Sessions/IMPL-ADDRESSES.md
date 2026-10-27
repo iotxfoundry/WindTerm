@@ -1,5 +1,11 @@
 # 方法 → 实现地址映射(第二阶段逆向入口)
 
+> **勘误**:SuperSession 的 case 36+(`0x24` 起)属 ReadProperty 分支(属性访问器),
+> 非方法调用 —— 表中这些行对应属性而非方法名。已证实的属性:getter `state`→0x7d4dc4
+> (d->bridge+0x2c)、`needVerifyServerFingerprint`→0x7d5cb8(读 `ssh.verifyServerFingerprint`)。
+> SuperSession 层方法为薄转发(经 d->bridge 虚调用),真实逻辑在 Bridge 实现区
+> (0x838-0x84b,见 ssh 状态发射站点)。
+
 来源:QMetaObject moc 方法表(顺序即 case 索引)× metacall 反编译(Ghidra)case 分发。
 地址为 WindTerm 主程序 VA(非 PIE)。'-' = 信号(emit 路径)或未在首 switch 出现。
 

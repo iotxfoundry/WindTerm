@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QObject>
+#include "KingEnums.h"
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // Base class of Ssh/Shell/Telnet/Tcp/Serial sessions. Method surface as
@@ -36,13 +37,13 @@ public slots:
 	QString lastError() const;
 	QString lastErrorString() const;
 
-	QString fingerprint(const QString &hash = QString()) const;
+	QString fingerprint(King::FingerprintType type = King::Sha1) const;
 
 	void option(const QString &name);
 	void setOption(const QString &name, const QVariant &value);
 
 	void verifyKnownHost();
-	void writeKnownHost(const QString &hostsFile);
+	void writeKnownHost(King::ServerKnownState knownState);
 
 	void authAgent(const QString &service = QString());
 	void authNone(const QString &service = QString());
@@ -67,7 +68,7 @@ public slots:
 	void resumeLogger(const QUuid &loggerUuid);
 
 signals:
-	void stateChanged(int oldState, King::SessionState state);
+	void stateChanged(King::SessionState oldState, King::SessionState state);
 	void errorOccurred(const QString &context, int code);
 	void commanderCreated(const QUuid &commanderUuid);
 	void termCreated(const QUuid &commanderUuid);
