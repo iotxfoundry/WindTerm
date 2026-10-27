@@ -250,7 +250,13 @@ static bool docFlag9290e8b(void *doc) { (void)doc; return false; }  // 0x85c
 static long long docOp92522a(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x876 plain
 static long long objRunStyleGet(void *obj, void *node) { (void)obj; (void)node; return 0; }  // 0x876 gated FUN_009587cc
 static double eScrollSet(EditorEngine *e, void *node) { (void)e; (void)node; return 0; }  // 0x875 region FUN_00a225be (XMM out)
-static void runNodeInit(void *node, long long start, int a, int b) { (void)node; (void)start; (void)a; (void)b; }  // runstyles_runnode_init
+static void runNodeInit(void *node, long long start, int a, int b)
+{
+	// runstyles_runnode_init (66B): kind bit0 from the 4th arg; 3rd
+	// arg (count) clamps 0..0x3fffffff then stores as count*2|kind;
+	// +8 = start (2nd arg); +0x10 = -1.0 sentinel double
+	(void)node; (void)start; (void)a; (void)b;
+}
 static void runNodeFree(void *node)
 {
 	// FUN_0096bb02 is literally a 1-byte `ret` — the "free" for these
@@ -258,7 +264,15 @@ static void runNodeFree(void *node)
 	(void)node;
 }
 static void eA20eb2(EditorEngine *e, void *anchor, void *caret, int sel) { (void)e; (void)anchor; (void)caret; (void)sel; }  // 0x870 set selection
-static void editorSelCtor(void *sel, EditorEngine *e, int *type) { (void)sel; (void)e; (void)type; }  // editor_selCtor
+static void editorSelCtor(void *sel, EditorEngine *e, int *type)
+{
+	// editor_selCtor (85B): sel[0] = engine; sel[1] = engine+0x1038
+	// cursor object; sel[2] = type bits — bit1 (2) routes to
+	// FUN_0097557e(cursor, 0); a zero from FUN_00974b4a with bit0
+	// clear and bit2 (4) set routes to FUN_0097a2a4(cursor, 1) +
+	// FUN_00a2dada(engine)
+	(void)sel; (void)e; (void)type;
+}
 static void editorSelDtor(void *sel) { (void)sel; }  // FUN_00974856
 static void docOp927dbe(void *doc) { (void)doc; }  // 0x87f
 static void eA25f72(EditorEngine *e) { (void)e; }  // 0x881
@@ -373,7 +387,12 @@ static bool docFlag926dfc(void *doc)
 }
 static QVariant eColorRead(EditorEngine *e, const QByteArray &key) { (void)e; (void)key; return QVariant(); }  // 0x75e6 "line.caret.remote"
 static QPoint ePointMap(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return QPoint(); }  // 0x75e9 FUN_00a2a002
-static int ePointQuery(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return 0; }  // 0x75eb FUN_00a2b7fc
+static int ePointQuery(EditorEngine *e, const QPoint &p)
+{
+	// FUN_00a2b7fc (80B): editor_hitTest(x, y, &node, engine, 0, 0, 1)
+	// → FUN_00a2a0ea(engine, node) → int; node freed
+	return 0;
+}  // 0x75eb FUN_00a2b7fc
 static int eRunNodeQuery(EditorEngine *e, long long pos) { (void)e; (void)pos; return 0; }  // 0x75ec FUN_00a2a0ea
 static QString eRunNodeText(EditorEngine *e, long long pos) { (void)e; (void)pos; return QString(); }  // 0x75ee FUN_00a2a15e
 static void eA2a44a(EditorEngine *e) { (void)e; }            // 0x75f0
@@ -409,7 +428,13 @@ static void insertRange(EditorEngine *e, int f, void *n) { (void)e; (void)f; (vo
 static void setRangeNode(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a1fe8c
 static void insertRange2(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a1ff9c tail
 static void insertRange3(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a20082
-static void selRangeMake(void *out, void *a, void *b, int m) { (void)out; (void)a; (void)b; (void)m; }  // FUN_0096be24
+static void selRangeMake(void *out, void *a, void *b, int m)
+{
+	// FUN_0096be24 (70B): copies node b's 3 slots into out+8..+0x18
+	// (anchor) and node a's into out+0x20..+0x30 (caret), then
+	// FUN_0096bd68 normalizes with mode m
+	(void)out; (void)a; (void)b; (void)m;
+}
 static void selRangeApply(EditorEngine *e, void *r) { (void)e; (void)r; }  // FUN_00a20fb0
 static void selRangeFree(void *r)
 {
