@@ -1,1 +1,434 @@
-{"0":"0x009107ec","1":"0x00910814","2":"0x00910788","3":"0x0091079c","4":"0x009107b0","5":"0x009107c4","6":"0x00910916","7":"0x009107d8","8":"0x0091097a","9":"0x009109be","10":"0x00910844","11":"0x0091086e","12":"0x009109fa","13":"0x00910898","14":"0x009108c2","15":"0x009108ec","16":"0x00910a36","17":"0x00910a60","18":"0x0083cf68","19":"0x00842172","20":"0x0083cdcc","21":"0x0083c710","22":"0x00840438","23":"0x00840532","24":"0x0083fc2c","25":"0x0083c7f2","27":"0x0083df86","28":"0x0083dc90","29":"0x00842d34","30":"0x0083ffde","31":"0x0083c330","34":"0x0083c4c8","35":"0x0083c524","36":"0x0083c538","37":"0x0083c5c8","38":"0x0083c63a","39":"0x0083c5e6","40":"0x0083c674","41":"0x0083c696","42":"0x0083cb36","43":"0x0083c6a8","44":"0x0083c6fc","45":"0x0083c822","46":"0x0083c8b4","47":"0x0083c970","48":"0x0083c9a4","49":"0x00843050","50":"0x0083c9be","51":"0x0083c9e2","52":"0x0083ca74","53":"0x0083cb0c","54":"0x008496da","55":"0x0083d97a","56":"0x0083cbc8","57":"0x0083cc00","58":"0x0083cc38","59":"0x0083cc70","60":"0x0083cc94","61":"0x0083cd26","62":"0x008496e2","63":"0x0083cf70","64":"0x0083cff2","65":"0x0083d0a6","67":"0x0083d0c6","68":"0x0083d2cc","69":"0x0083d34e","70":"0x008439ec","71":"0x008439ec","72":"0x0083dc18","73":"0x0083dc72","74":"0x0083e286","75":"0x0083e286"}
+[
+ {
+  "idx": 0,
+  "name": "? commanderCreated(?)",
+  "impl": "0x009107ec",
+  "kind": "SIG"
+ },
+ {
+  "idx": 1,
+  "name": "? commandOutput(disconnected,command)",
+  "impl": "0x00910814",
+  "kind": "SIG"
+ },
+ {
+  "idx": 2,
+  "name": "? aboutToConnect()",
+  "impl": "0x00910788",
+  "kind": "SIG"
+ },
+ {
+  "idx": 3,
+  "name": "? detectShellCwdSupported()",
+  "impl": "0x0091079c",
+  "kind": "SIG"
+ },
+ {
+  "idx": 4,
+  "name": "? aboutToDisconnect()",
+  "impl": "0x009107b0",
+  "kind": "SIG"
+ },
+ {
+  "idx": 5,
+  "name": "? disconnected()",
+  "impl": "0x009107c4",
+  "kind": "SIG"
+ },
+ {
+  "idx": 6,
+  "name": "? mouse(?,?,mouseEvent,row)",
+  "impl": "0x00910916",
+  "kind": "SIG"
+ },
+ {
+  "idx": 7,
+  "name": "? ready()",
+  "impl": "0x009107d8",
+  "kind": "SIG"
+ },
+ {
+  "idx": 8,
+  "name": "? screenSizeChanged(?,rows)",
+  "impl": "0x0091097a",
+  "kind": "SIG"
+ },
+ {
+  "idx": 9,
+  "name": "? sessionStateChanged(?,state)",
+  "impl": "0x009109be",
+  "kind": "SIG"
+ },
+ {
+  "idx": 10,
+  "name": "? shellCwdChanged(disconnected)",
+  "impl": "0x00910844",
+  "kind": "SIG"
+ },
+ {
+  "idx": 11,
+  "name": "? stateChanged(disconnected)",
+  "impl": "0x0091086e",
+  "kind": "SIG"
+ },
+ {
+  "idx": 12,
+  "name": "? textWritten(disconnected,text)",
+  "impl": "0x009109fa",
+  "kind": "SIG"
+ },
+ {
+  "idx": 13,
+  "name": "? tmuxCommandWritten(disconnected)",
+  "impl": "0x00910898",
+  "kind": "SIG"
+ },
+ {
+  "idx": 14,
+  "name": "? tmuxPaneNameChanged(disconnected)",
+  "impl": "0x009108c2",
+  "kind": "SIG"
+ },
+ {
+  "idx": 15,
+  "name": "? windowTitleChanged(disconnected)",
+  "impl": "0x009108ec",
+  "kind": "SIG"
+ },
+ {
+  "idx": 16,
+  "name": "? writeRemote(QMouseEvent*)",
+  "impl": "0x00910a36",
+  "kind": "SIG"
+ },
+ {
+  "idx": 17,
+  "name": "? writeRemoteSingal(?)",
+  "impl": "0x00910a60",
+  "kind": "SIG"
+ },
+ {
+  "idx": 18,
+  "name": "SLOT cancelFreeTypeMode()",
+  "impl": "0x0083cf68",
+  "kind": "resetHard/resetSoft 共享 FUN_0083cee2(this, 0|1)"
+ },
+ {
+  "idx": 19,
+  "name": "SLOT cancelModemTransmitting()",
+  "impl": "0x00842172",
+  "kind": "Screen 栈守卫 + FUN_007e318a(取消 modem 命令 2) + 释放 +0x120 modem 对象(0x38 字节)"
+ },
+ {
+  "idx": 20,
+  "name": "SLOT canWrite()",
+  "impl": "0x0083cdcc",
+  "kind": "canWrite:FUN_0083cdb8 状态查询 + 会话栈(+0x1e0/+0x1e8)守卫"
+ },
+ {
+  "idx": 21,
+  "name": "SLOT caretVirtualSpace()",
+  "impl": "0x0083c710",
+  "kind": "CMD 0x75df(int)"
+ },
+ {
+  "idx": 22,
+  "name": "SLOT clearScreen()",
+  "impl": "0x00840438",
+  "kind": "复合体:光标位置(0x8403a6/0x5b8576)与提示行(0x83c9e2)比较后经 0x5be68c 发命令"
+ },
+ {
+  "idx": 23,
+  "name": "SLOT clearScreenAndScrollback()",
+  "impl": "0x00840532",
+  "kind": "clearScreen(FUN_00840438) + QTimer::singleShot(500ms, FUN_0083fd35) 延迟清滚动缓冲"
+ },
+ {
+  "idx": 24,
+  "name": "SLOT clearScrollback()",
+  "impl": "0x0083fc2c",
+  "kind": "tmux 特例:标志 0x160==1 发 'clear-history -t %%1' 经 Screen;否则 CMD 0x75f1"
+ },
+ {
+  "idx": 25,
+  "name": "SLOT commandText(command)",
+  "impl": "0x0083c7f2",
+  "kind": "范围 helper FUN_005b8fcc -> FUN_005b9110"
+ },
+ {
+  "idx": 27,
+  "name": "SLOT completeHistory()",
+  "impl": "0x0083df86",
+  "kind": "FUN_0083de16(this, 1)"
+ },
+ {
+  "idx": 28,
+  "name": "SLOT detectShellCwd()",
+  "impl": "0x0083dc90",
+  "kind": "QTimer 编排(+0x1a8,栈守卫 + 标志 0x160)"
+ },
+ {
+  "idx": 29,
+  "name": "SLOT eraseFreeTypeRange()",
+  "impl": "0x00842d34",
+  "kind": "Screen 栈守卫 + 光标快照(0x840316)复合判断"
+ },
+ {
+  "idx": 30,
+  "name": "SLOT executeCommand(disconnected)",
+  "impl": "0x0083ffde",
+  "kind": "+0x118/+0x1e0/+0x1e8 三重守卫 -> 会话/文本路径"
+ },
+ {
+  "idx": 31,
+  "name": "SLOT disconnectSession(commanderCreated)",
+  "impl": "0x0083c330",
+  "kind": "全局管理器注册:FUN_00810d6e(this, 0x11c2200, this+0x1b0, 0)"
+ },
+ {
+  "idx": 34,
+  "name": "SLOT isAltScreen()",
+  "impl": "0x0083c4c8",
+  "kind": "Screen 栈守卫 -> FUN_007e4028(+0x139 备用屏标志)"
+ },
+ {
+  "idx": 35,
+  "name": "SLOT isConnected()",
+  "impl": "0x0083c524",
+  "kind": "+0x118 守卫 -> 会话查询 FUN_007d6736"
+ },
+ {
+  "idx": 36,
+  "name": "SLOT isFreeTypeMode()",
+  "impl": "0x0083c538",
+  "kind": "CMD 0x75e2(bool)"
+ },
+ {
+  "idx": 37,
+  "name": "SLOT isLogFileExists()",
+  "impl": "0x0083c5c8",
+  "kind": "+0x148 引用守卫 -> QFileInfo::exists"
+ },
+ {
+  "idx": 38,
+  "name": "SLOT isLoggerPaused()",
+  "impl": "0x0083c63a",
+  "kind": "isConnected 守卫 -> 会话协议查询 FUN_007cabf8(+0x1e8)"
+ },
+ {
+  "idx": 39,
+  "name": "SLOT isLoggerStarted()",
+  "impl": "0x0083c5e6",
+  "kind": "会话栈守卫 -> +0x150 状态"
+ },
+ {
+  "idx": 40,
+  "name": "SLOT isLoginWizardVisible()",
+  "impl": "0x0083c674",
+  "kind": "+0x1b8/+0x1c0 智能指针对守卫"
+ },
+ {
+  "idx": 41,
+  "name": "SLOT isMainScreen()",
+  "impl": "0x0083c696",
+  "kind": "FUN_0083c4c8 取反(主屏)"
+ },
+ {
+  "idx": 42,
+  "name": "SLOT isModemSupported(?,modemType)",
+  "impl": "0x0083cb36",
+  "kind": "标志 0x160==0 时仅 'Telnet'(QString::compare)支持 modem;带标志走类型范围"
+ },
+ {
+  "idx": 43,
+  "name": "SLOT isModemTransmitting()",
+  "impl": "0x0083c6a8",
+  "kind": "+0x120 modem 非空 -> 1;否则 Screen FUN_007e31ec(命令 3)"
+ },
+ {
+  "idx": 44,
+  "name": "SLOT isUnconnected()",
+  "impl": "0x0083c6fc",
+  "kind": "+0x118 守卫 -> FUN_007d6722"
+ },
+ {
+  "idx": 45,
+  "name": "SLOT localBaseTime()",
+  "impl": "0x0083c822",
+  "kind": "CMD 0x75f9"
+ },
+ {
+  "idx": 46,
+  "name": "SLOT openLogFolder()",
+  "impl": "0x0083c8b4",
+  "kind": "无日志 -> 全局默认(0x11c2200);有 -> QFileInfo(+0x148).absolutePath()"
+ },
+ {
+  "idx": 47,
+  "name": "SLOT openLogFile()",
+  "impl": "0x0083c970",
+  "kind": "isModemTransmitting 守卫 -> FUN_0083c616 -> 全局对话框(0x11c1680, +0x148 参)"
+ },
+ {
+  "idx": 48,
+  "name": "SLOT openSessionTriggersDialog()",
+  "impl": "0x0083c9a4",
+  "kind": "全局 FUN_00699088(0x11c1a60, this+0x1b0, this)"
+ },
+ {
+  "idx": 49,
+  "name": "SLOT pasteText(disconnected)",
+  "impl": "0x00843050",
+  "kind": "executeCommand 全路径:光标/编辑器文本装备 + 发送"
+ },
+ {
+  "idx": 50,
+  "name": "SLOT pauseLogger()",
+  "impl": "0x0083c9be",
+  "kind": "isConnected 守卫 -> FUN_007d36a0(+0x118, +0x150)"
+ },
+ {
+  "idx": 51,
+  "name": "SLOT promptLine()",
+  "impl": "0x0083c9e2",
+  "kind": "CMD 0x75dd(int)"
+ },
+ {
+  "idx": 52,
+  "name": "SLOT promptPosition()",
+  "impl": "0x0083ca74",
+  "kind": "CMD 0x75de(int)"
+ },
+ {
+  "idx": 53,
+  "name": "SLOT protocolName()",
+  "impl": "0x0083cb0c",
+  "kind": "+0x118 守卫 -> FUN_007d5d2a(协议名)"
+ },
+ {
+  "idx": 54,
+  "name": "SLOT receiveBinary(?)",
+  "impl": "0x008496da",
+  "kind": "FUN_00848d6a(this, data, 0)(发送二进制)"
+ },
+ {
+  "idx": 55,
+  "name": "SLOT reconnectSession()",
+  "impl": "0x0083d97a",
+  "kind": "'SessionErrorMessage' 方案显示;状态非 0/1/5 分支"
+ },
+ {
+  "idx": 56,
+  "name": "SLOT resetCharacterSet()",
+  "impl": "0x0083cbc8",
+  "kind": "Screen 栈守卫 -> sendScreenCommand(6) 清屏"
+ },
+ {
+  "idx": 57,
+  "name": "SLOT resetHard()",
+  "impl": "0x0083cc00",
+  "kind": "Screen 栈守卫 -> sendScreenCommand(7) 清滚动缓冲"
+ },
+ {
+  "idx": 58,
+  "name": "SLOT resetSoft()",
+  "impl": "0x0083cc38",
+  "kind": "Screen 栈守卫 -> FUN_007e33ea(日志暂停命令)"
+ },
+ {
+  "idx": 59,
+  "name": "SLOT resumeLogger()",
+  "impl": "0x0083cc70",
+  "kind": "isConnected 守卫 -> FUN_007d3d28(+0x118, +0x150)"
+ },
+ {
+  "idx": 60,
+  "name": "SLOT scrollbackLimit()",
+  "impl": "0x0083cc94",
+  "kind": "CMD 0x75f2"
+ },
+ {
+  "idx": 61,
+  "name": "SLOT scrollbackLines()",
+  "impl": "0x0083cd26",
+  "kind": "CMD 0x75f3"
+ },
+ {
+  "idx": 62,
+  "name": "SLOT sendBinary(?)",
+  "impl": "0x008496e2",
+  "kind": "FUN_00848d6a(this, data, 1)(接收二进制,与发送共享)"
+ },
+ {
+  "idx": 63,
+  "name": "SLOT setLocalBaseTime(command)",
+  "impl": "0x0083cf70",
+  "kind": "CMD 0x75fd(int 参)"
+ },
+ {
+  "idx": 64,
+  "name": "SLOT setRemoteBaseTime(command)",
+  "impl": "0x0083cff2",
+  "kind": "CMD 0x75ff(int 参)"
+ },
+ {
+  "idx": 65,
+  "name": "SLOT setRightClickAction(disconnected)",
+  "impl": "0x0083d0a6",
+  "kind": "全局(0x11c2200)查询 -> FUN_0083d074"
+ },
+ {
+  "idx": 67,
+  "name": "SLOT setScrollbackLimit(?)",
+  "impl": "0x0083d0c6",
+  "kind": "CMD 0x75f4(int 参)"
+ },
+ {
+  "idx": 68,
+  "name": "SLOT setTimestampFormat(QMouseEvent*)",
+  "impl": "0x0083d2cc",
+  "kind": "CMD 0x75fc(QByteArray 参)"
+ },
+ {
+  "idx": 69,
+  "name": "SLOT setTimestampLongFormat(QMouseEvent*)",
+  "impl": "0x0083d34e",
+  "kind": "CMD 0x75fe(QByteArray 参)"
+ },
+ {
+  "idx": 70,
+  "name": "SLOT startLogger(disconnected)",
+  "impl": "0x008439ec",
+  "kind": "会话感知的 QString 参复合体"
+ },
+ {
+  "idx": 71,
+  "name": "SLOT startLogger()",
+  "impl": "0x008439ec",
+  "kind": "会话感知的 QString 参复合体"
+ },
+ {
+  "idx": 72,
+  "name": "SLOT stopLogger()",
+  "impl": "0x0083dc18",
+  "kind": "isConnected + 会话 FUN_007d377c(+0x118, +0x150, 0) + 释放 +0x150"
+ },
+ {
+  "idx": 73,
+  "name": "SLOT supportsDetectShellCwd()",
+  "impl": "0x0083dc72",
+  "kind": "方案注册表(FUN_005b97cc) +0x30 标志 getter"
+ },
+ {
+  "idx": 74,
+  "name": "SLOT write(disconnected,text)",
+  "impl": "0x0083e286",
+  "kind": "静态初始化守卫 + FUN_009109fa 信号接线"
+ },
+ {
+  "idx": 75,
+  "name": "SLOT write(disconnected)",
+  "impl": "0x0083e286",
+  "kind": "静态初始化守卫 + FUN_009109fa 信号接线"
+ }
+]
