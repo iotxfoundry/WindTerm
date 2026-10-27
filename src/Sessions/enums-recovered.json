@@ -1,0 +1,429 @@
+{
+ "King": {
+  "CaseSensitivity": {
+   "CaseInsensitive": 0,
+   "CaseSensitive": 1
+  },
+  "Direction": {
+   "Left": 0,
+   "Right": 1,
+   "Top": 2,
+   "Bottom": 3
+  },
+  "DockArea": {
+   "UnknownDockArea": 0,
+   "LeftDockArea": 1,
+   "RightDockArea": 2,
+   "TopDockArea": 4,
+   "BottomDockArea": 8
+  },
+  "EchoMode": {
+   "EchoNone": 0,
+   "EchoAll": 1,
+   "EchoEdit": 2,
+   "EchoRandom": 3
+  },
+  "KeyMode": {
+   "UnknownMode": 0,
+   "WidgetMode": 1,
+   "NormalMode": 2,
+   "CommandMode": 4,
+   "RemoteMode": 8,
+   "LocalMode": 16,
+   "AnyMode": 31
+  },
+  "KeyModes": {
+   "UnknownMode": 0,
+   "WidgetMode": 1,
+   "NormalMode": 2,
+   "CommandMode": 4,
+   "RemoteMode": 8,
+   "LocalMode": 16,
+   "AnyMode": 31
+  },
+  "Led": {
+   "NumLock": 1,
+   "Captial": 2,
+   "Scroll": 4
+  },
+  "MessageLevel": {
+   "NormalMessage": 0,
+   "InfoMessage": 1,
+   "QuestionMessage": 2,
+   "WarningMessage": 3,
+   "ErrorMessage": 4,
+   "CriticalMessage": 5
+  },
+  "Orientation": {
+   "Horizontal": 1,
+   "Vertical": 2
+  },
+  "StandardButton": {
+   "NoneButton": 0,
+   "OkButton": 1,
+   "YesButton": 2,
+   "YesToAllButton": 4,
+   "NoButton": 8,
+   "NoToAllButton": 16,
+   "AbortButton": 32,
+   "ApplyButton": 64,
+   "CancelButton": 128,
+   "CloseButton": 256,
+   "DiscardButton": 512,
+   "HelpButton": 1024,
+   "IgnoreButton": 2048,
+   "ResetButton": 4096,
+   "RestoreButton": 8192,
+   "RetryButton": 16384,
+   "UserButton": 32768
+  },
+  "StandardButtons": {
+   "NoneButton": 0,
+   "OkButton": 1,
+   "YesButton": 2,
+   "YesToAllButton": 4,
+   "NoButton": 8,
+   "NoToAllButton": 16,
+   "AbortButton": 32,
+   "ApplyButton": 64,
+   "CancelButton": 128,
+   "CloseButton": 256,
+   "DiscardButton": 512,
+   "HelpButton": 1024,
+   "IgnoreButton": 2048,
+   "ResetButton": 4096,
+   "RestoreButton": 8192,
+   "RetryButton": 16384,
+   "UserButton": 32768
+  },
+  "TabSelectionBehavior": {
+   "SelectLeftTab": 0,
+   "SelectRightTab": 1,
+   "SelectPreviousTab": 2
+  },
+  "TextElideMode": {
+   "ElideLeft": 0,
+   "ElideRight": 1,
+   "ElideMiddle": 2,
+   "ElideNone": 3
+  },
+  "ToolButtonPopupMode": {
+   "DelayedPopup": 0,
+   "MenuButtonPopup": 1,
+   "InstantPopup": 2
+  },
+  "ToolButtonStyle": {
+   "ToolButtonIconOnly": 0,
+   "ToolButtonTextOnly": 1,
+   "ToolButtonTextBesideIcon": 2,
+   "ToolButtonTextUnderIcon": 3,
+   "ToolButtonFollowStyle": 4
+  },
+  "CaretShape": {
+   "LineCaret": 0,
+   "BlockCaret": 1,
+   "RectangleCaret": 2,
+   "UnderlineCaret": 3
+  },
+  "ChangeReason": {
+   "NoneChanged": 0,
+   "HorizontalScrollChanged": 1,
+   "VerticalScrollChanged": 2,
+   "HeightChanged": 4,
+   "WidthChanged": 8,
+   "ContentChanged": 16,
+   "SelectionChanged": 32,
+   "MarginStyleChanged": 64,
+   "MarginTextChanged": 128,
+   "MarkerAdded": 256,
+   "MarkerRemoved": 512,
+   "WindowMoved": 1024
+  },
+  "ChangeReasons": {
+   "NoneChanged": 0,
+   "HorizontalScrollChanged": 1,
+   "VerticalScrollChanged": 2,
+   "HeightChanged": 4,
+   "WidthChanged": 8,
+   "ContentChanged": 16,
+   "SelectionChanged": 32,
+   "MarginStyleChanged": 64,
+   "MarginTextChanged": 128,
+   "MarkerAdded": 256,
+   "MarkerRemoved": 512,
+   "WindowMoved": 1024
+  },
+  "ColumnMarkerStyle": {
+   "LineMarker": 0,
+   "BackgroundMarker": 1
+  },
+  "DecorationType": {
+   "DecorationNull": 0,
+   "DecorationHidden": 1,
+   "DecorationSolid": 2,
+   "DecorationDouble": 3,
+   "DecorationThick": 4,
+   "DecorationHotspot": 5,
+   "DecorationDot": 6,
+   "DecorationDash": 7,
+   "DecorationDashDot": 8,
+   "DecorationDashDotDot": 9,
+   "DecorationStrike": 10,
+   "DecorationWavy": 11,
+   "DecorationBackground": 12,
+   "DecorationLineBackground": 13,
+   "DecorationLineEndingBackground": 14,
+   "DecorationBox": 15,
+   "DecorationRoundbox": 16,
+   "DecorationDashedbox": 17,
+   "DecorationDottedbox": 18,
+   "DecorationIcon": 19,
+   "DecorationFont": 20,
+   "DecorationLink": 21,
+   "DecorationVisitedLink": 22
+  },
+  "ScreenLocation": {
+   "TopLocation": 0,
+   "OneQuarterLocation": 1,
+   "CenterLocation": 2,
+   "ThreeQuarterLocation": 3,
+   "BottomLocation": 4
+  },
+  "Eol": {
+   "SYSTEM": 0,
+   "CR": 1,
+   "LF": 2,
+   "CRLF": 3,
+   "NATIVE": 2
+  },
+  "IndentGuideStyle": {
+   "LookBothGuide": 0,
+   "LookForwardGuide": 1,
+   "RealGuide": 2
+  },
+  "LineType": {
+   "DocumentLine": 0,
+   "VisibleLine": 1
+  },
+  "MarginType": {
+   "MarginUnknown": 0,
+   "MarginBlank": 1,
+   "MarginFold": 2,
+   "MarginNumber": 3,
+   "MarginSymbol": 4,
+   "MarginText": 5,
+   "MarginTimestamp": 6
+  },
+  "MatchOption": {
+   "MatchCase": 1,
+   "MatchRegex": 2,
+   "MatchWord": 4
+  },
+  "MatchOptions": {
+   "MatchCase": 1,
+   "MatchRegex": 2,
+   "MatchWord": 4
+  },
+  "SelectionType": {
+   "StreamSelection": 1,
+   "ColumnSelection": 2
+  },
+  "TextPosition": {
+   "Nowhere": 0,
+   "Anywhere": 1,
+   "LeadingPosition": 2,
+   "TrailingPosition": 3,
+   "SelectedPosition": 4
+  },
+  "WrapMode": {
+   "NoWrap": 0,
+   "CharWrap": 1,
+   "WordWrap": 2
+  },
+  "Charset": {
+   "CharsetUnknown": 0,
+   "UserSupplemental": 1,
+   "Ascii": 2,
+   "DecSpecial": 3,
+   "DecAltAscii": 4,
+   "DecAltSepcial": 5,
+   "DecSupplemental": 6,
+   "DecTechnical": 7,
+   "DecBritish": 8,
+   "DecDutch": 9,
+   "DecFinnish": 10,
+   "DecFrench": 11,
+   "DecFrenchCanadian": 12,
+   "DecGerman": 13,
+   "DecItalian": 14,
+   "DecNorwegianDanish": 15,
+   "DecPortuguese": 16,
+   "DecSpanish": 17,
+   "DecSwedish": 18,
+   "DecSwiss": 19,
+   "IsoCyrillicSupplemental": 20,
+   "IsoGreekSupplemental": 21,
+   "IsoHebrewSupplemental": 22,
+   "IsoLatin1Supplemental": 23,
+   "IsoLatin2Supplemental": 24,
+   "IsoTurkishSupplemental": 25,
+   "CharsetMax": 26
+  },
+  "FingerprintType": {
+   "Sha1": 0,
+   "Md5": 1
+  },
+  "LogOption": {
+   "eLogNone": 0,
+   "eLogOverwrite": 1,
+   "eLogAppend": 2,
+   "eLogCheckDontLog": 4
+  },
+  "LogType": {
+   "eLogNothing": 0,
+   "eLogDebug": 1,
+   "eLogPrintable": 2,
+   "eLogProtocol": 4,
+   "eLogTerm": 8,
+   "eLogEverything": 14
+  },
+  "ModemType": {
+   "XModem": 0,
+   "YModem": 1,
+   "ZModem": 2
+  },
+  "OneKeyType": {
+   "UnknownOneKey": 0,
+   "SshOneKey": 1,
+   "AccountOneKey": 2
+  },
+  "Protocol": {
+   "ProtocolUnknown": 0,
+   "ProtocolSerial": 1,
+   "ProtocolShell": 2,
+   "ProtocolSSH": 3,
+   "ProtocolTCP": 4,
+   "ProtocolTelnet": 5
+  },
+  "ServerKnownState": {
+   "ServerUnknown": 0,
+   "ServerKnown": 1,
+   "ServerChanged": 2,
+   "ServerMismatched": 3
+  },
+  "SessionAuthState": {
+   "AuthError": 4294967295,
+   "AuthSuccess": 0,
+   "AuthDenied": 1,
+   "AuthInfo": 2,
+   "AuthPartial": 3,
+   "AuthAgain": 4
+  },
+  "SessionState": {
+   "Unconnected": 0,
+   "HostLookup": 1,
+   "Connecting": 2,
+   "Connected": 3,
+   "Bound": 4,
+   "Closing": 5,
+   "Listening": 6,
+   "HostAuthed": 7,
+   "HostAuthing": 8,
+   "HostDenied": 9,
+   "HostVerified": 10
+  },
+  "Status": {
+   "Error": 4294967295,
+   "Ok": 0
+  },
+  "TransmitType": {
+   "Download": 0,
+   "Upload": 1
+  },
+  "TriggerType": {
+   "TriggerUnknown": 0,
+   "TriggerAfterConnection": 1,
+   "TriggerAfterDisconnection": 2,
+   "TriggerBeforeConnection": 3,
+   "TriggerBeforeDisconnection": 4,
+   "TriggerCustomLink": 5,
+   "TriggerCustomMenu": 6,
+   "TriggerExpect": 7,
+   "TriggerHighlightText": 8,
+   "TriggerPlaySound": 9,
+   "TriggerRunCommand": 10,
+   "TriggerSendText": 11,
+   "TriggerShowTooltip": 12
+  },
+  "TunnelType": {
+   "UnknownTunnel": 0,
+   "DynamicTunnel": 1,
+   "LocalTunnel": 2,
+   "RemoteTunnel": 3
+  },
+  "WriteReason": {
+   "UserWriteReason": 0,
+   "ExpectReason": 1,
+   "RemoteRequestReason": 2,
+   "SenderWriteReason": 3,
+   "SyncInputWriteReason": 4,
+   "TriggerReason": 5
+  }
+ },
+ "BreadCrumb": {
+  "ButtonType": {
+   "ChevronButton": 0,
+   "TextButton": 1,
+   "ArrowButton": 2,
+   "EditorButton": 3,
+   "TerminalButton": 4,
+   "FilerButton": 5,
+   "PropertyButton": 6,
+   "MagicButton": 7
+  },
+  "MagicButtonState": {
+   "GotoState": 0,
+   "ReloadState": 1,
+   "StopState": 2
+  }
+ },
+ "TabGroup": {
+  "TabPosition": {
+   "North": 0,
+   "South": 1,
+   "West": 2,
+   "East": 3
+  },
+  "TabShape": {
+   "Rounded": 0,
+   "Triangular": 1
+  }
+ },
+ "SenderPane": {
+  "SendUnit": {
+   "eSendChar": 0,
+   "eSendLine": 1,
+   "eSendBlock": 1
+  },
+  "SendMode": {
+   "eSendText": 0,
+   "eSendHex": 1
+  },
+  "TargetType": {
+   "eTargetSession": 0,
+   "eTargetGroup": 1,
+   "eTargetWindow": 2,
+   "eTargetWindows": 3,
+   "eTargetSelected": 4
+  }
+ },
+ "MuxPane": {
+  "Type": {
+   "Unknown": 0,
+   "Terminal": 1,
+   "TextEditor": 2,
+   "TextFinder": 3,
+   "TextViewer": 4
+  }
+ }
+}
