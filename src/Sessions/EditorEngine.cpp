@@ -264,8 +264,7 @@ static void eA28316(EditorEngine *e, int cmd) { (void)e; (void)cmd; }  // FUN_00
 static int docInt260(void *doc) { (void)doc; return 0; }    // *(int*)(doc+0x260) (0x7584)
 static int hitTestAtPoint(EditorEngine *e, int x, int y) { (void)e; (void)x; (void)y; return 0; }  // 0x758f FUN_00a2a982
 static int eA20430(EditorEngine *e) { (void)e; return 0; }  // 0x75ae FUN_00a20430
-static void eA169cc(void *obj, long long v) { (void)obj; (void)v; }  // 0x75b5 kind 1
-static void eA167ac(void *obj, long long v) { (void)obj; (void)v; }  // 0x75b5 kind 2
+static void eA167ac2(void *obj, long long v) { (void)obj; (void)v; }  // 0x75b5 kind 2 (FUN_00a167ac)
 static bool eA28fa8(EditorEngine *e) { (void)e; return false; }  // 0x75bf
 // search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
 // 00a20050 families): read value (holder+8), read length, or set at a
