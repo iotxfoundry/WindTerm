@@ -263,6 +263,10 @@ static void editorGetSelRange(EditorEngine *e) { (void)e; }  // editor_getSelRan
 static void eA28316(EditorEngine *e, int cmd) { (void)e; (void)cmd; }  // FUN_00a28316(e, cmd, sp)
 static int docInt260(void *doc) { (void)doc; return 0; }    // *(int*)(doc+0x260) (0x7584)
 static int hitTestAtPoint(EditorEngine *e, int x, int y) { (void)e; (void)x; (void)y; return 0; }  // 0x758f FUN_00a2a982
+static int eA20430(EditorEngine *e) { (void)e; return 0; }  // 0x75ae FUN_00a20430
+static void eA169cc(void *obj, long long v) { (void)obj; (void)v; }  // 0x75b5 kind 1
+static void eA167ac(void *obj, long long v) { (void)obj; (void)v; }  // 0x75b5 kind 2
+static bool eA28fa8(EditorEngine *e) { (void)e; return false; }  // 0x75bf
 // search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
 // 00a20050 families): read value (holder+8), read length, or set at a
 // position (runnode pos/len) — Scintilla target API shape
@@ -1710,12 +1714,28 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a30c2e", this, a, b);
 	case 0x759f:  // WT 30111: FUN_00926e08, args no args
 		return t_call("t_00926e08", this, a, b);
-	case 0x75a0:  // WT 30112: complex leaf (FUN_00975bc6 FUN_0096bbc0 FUN_0092522a) — hand pass pending
+	case 0x75a0: {  // WT 30112: line-from-position with cursor default —
+		// pos -1 resolves via +0x1038 cursor chain and clamps with max()
+		long long pos = a.toLongLong();
+		if (pos == -1) {
+			const long long cursor = hitTestResolve(cursorPosGet(m_obj1038));
+			const long long lineEnd = docOp928404(m_doc,
+			                                       docOp92522a(m_doc, cursor));
+			pos = lineEnd > cursor ? lineEnd : cursor;
+		}
+		// FUN_00926e52(doc, pos, &out) -> low-32 line — thunk pending
+		(void)pos;
 		return QVariant(0);
+	}
 	case 0x75a1:  // WT 30113: FUN_00926e3e, args toUInt
 		return t_call("t_00926e3e", this, a, b);
-	case 0x75a3:  // WT 30115: complex leaf (FUN_00926e1c runstyles_runnode_init FUN_0096be24) — hand pass pending
+	case 0x75a3: {  // WT 30115: select line range — toUInt(a) resolves a
+		// position pair via FUN_00926e1c(doc, uint, &pos64), builds two
+		// runnodes + FUN_0096be24 range, applies FUN_00a58d66 on
+		// +0x10b0 with command 7
+		// thunk chain pending
 		return QVariant(0);
+	}
 	case 0x75a5:  // WT 30117: FUN_00a2d3ec, args toBool
 		return t_call("t_00a2d3ec", this, a, b);
 	case 0x75a6:  // WT 30118: FUN_00a5940a, args toString, toLongLong
@@ -1724,12 +1744,19 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a21576", this, a, b);
 	case 0x75ad:  // WT 30125: FUN_00a20438, args no args
 		return t_call("t_00a20438", this, a, b);
-	case 0x75ae:  // WT 30126: complex leaf (FUN_00a2b0a2 FUN_00a20430) — hand pass pending
-		return QVariant(0);
+	case 0x75ae:  // WT 30126: FUN_00a2b0a2(engine) then FUN_00a20430 -> int
+		return QVariant(eA20430(this));
 	case 0x75b4:  // WT 30132: FUN_00a2398e, args toInt
 		return t_call("t_00a2398e", this, a, b);
-	case 0x75b5:  // WT 30133: complex leaf (FUN_00a169cc FUN_00a167ac) — hand pass pending
+	case 0x75b5: {  // WT 30133: dual-mode op on +0x10c8 — kind 1 calls
+		// FUN_00a169cc(obj, b.toLL()), kind 2 calls FUN_00a167ac
+		const int kind = a.toInt();
+		if (kind == 1)
+			eA169cc(m_obj10c8, b.toLongLong());
+		else if (kind == 2)
+			eA167ac(m_obj10c8, b.toLongLong());
 		return QVariant(0);
+	}
 	case 0x75b6:  // WT 30134: FUN_00a36e40, args no args
 		return t_call("t_00a36e40", this, a, b);
 	case 0x75bb:  // WT 30139: FUN_00a2eee0, args no args
@@ -1738,14 +1765,16 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a28efe", this, a, b);
 	case 0x75bd:  // WT 30141: FUN_00a2f09a, args toByteArray
 		return t_call("t_00a2f09a", this, a, b);
-	case 0x75bf:  // WT 30143: complex leaf (FUN_00a28fa8 FUN_00a28f98 FUN_00a297e8) — hand pass pending
-		return QVariant(0);
-	case 0x75c1:  // WT 30145: complex leaf (inline) — hand pass pending
-		return QVariant(0);
+	case 0x75bf:  // WT 30143: FUN_00a28fa8(engine) -> bool
+		return QVariant(eA28fa8(this));
+	case 0x75c1:  // WT 30145: tab size READ — *(int*)(doc+0x270)
+		// (the write side is 0x75c4)
+		return QVariant(*(int *)((char *)m_doc + 0x270));
 	case 0x75c8:  // WT 30152: FUN_0092759a, args toLongLong
 		return t_call("t_0092759a", this, a, b);
-	case 0x75cd:  // WT 30157: complex leaf (editor_textLength editor_lineEndIdx FUN_00a20680) — hand pass pending
-		return QVariant(0);
+	case 0x75cd:  // WT 30157: editor_textLength(+0x10a0) -> ll;
+		// the 0x75ce sibling is editor_lineEndIdx(+0x10a0, a.toLL())
+		return QVariant(editorTextLength(m_obj10a0));
 	case 0x75d0:  // WT 30160: FUN_00a2059c, args toPoint
 		return t_call("t_00a2059c", this, a, b);
 	case 0x75d1:  // WT 30161: complex leaf (runstyles_runnode_init FUN_009587cc FUN_0096bb02) — hand pass pending

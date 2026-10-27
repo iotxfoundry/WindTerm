@@ -65,6 +65,7 @@ public:
 	char m_flagD8e;       // +0xd8e (0x7599, repaint gated by +0x1128)
 	int m_intD94;         // +0xd94 (0x759c, repaint gated by +0x1128)
 	long m_zoomReal;      // +0xd10 ([0x1a2]) fractional zoom (0x7567)
+	void *m_obj10b0;      // +0x10b0 ([0x216]) — 0x75a3 selection op target
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
 	                      // int table, 11-byte stride at 0x7f8)
 	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),
