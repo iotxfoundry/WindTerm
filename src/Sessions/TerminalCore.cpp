@@ -816,7 +816,12 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 
 void TerminalCore::copyRowFromTemplate(struct Row *row, void *templateRow)
 {
-	// FUN_007a3c9a tail: re-seeds flags/cells from the template row — cited
+	// FUN_007a3c9a tail: every cell's +0x18 domain is seeded with the
+	// template pointer and the row takes flag 0x40 (payload present)
+	char *cells = (char *)row->cells;
+	for (char *p = cells; p != cells + (size_t)row->length * 0x20; p += 0x20)
+		*(void **)(p + 0x18) = templateRow;
+	row->flags |= 0x40;
 }
 
 // ---------------------------------------------------------------------------
@@ -843,11 +848,101 @@ void TerminalCore::copyCell(void *dst, const void *src)
 		operator delete(oldAux, 0x18);
 	}
 	if (*(const void *const *)(s + 0x10)) {
-		void *fresh = ::operator new(0x18);
-		cloneGlyphPayload(fresh, *(void **)(s + 0x10));   // deep copy — cited
+		const char *srcAux = (const char *)*(const void *const *)(s + 0x10);
+		int *fresh = (int *)::operator new(0x18);
+		fresh[0] = 1;                            // refcount
+		*(void **)(fresh + 2) = (char *)fresh + 0x10;   // payload -> embedded tail
+		cloneGlyphPayload(fresh, *(const void *const *)(srcAux + 8),
+		                  *(const int *)(srcAux + 4));
 		*(void **)(d + 0x10) = fresh;
 	} else {
 		*(void **)(d + 0x10) = nullptr;
+	}
+}
+
+// FUN_007aa1bc: ushort-vector {cap@0, count@4, data@8} resize to len with
+// capacity cap; embedded tail (header+0x10) when cap < 2; preserves
+// min(len, count) entries and zero-fills the grown region
+static void resizeUshortVector(int *hdr, int len, int cap)
+{
+	int *src = *(int **)(hdr + 2);
+	int keep = hdr[1] < len ? hdr[1] : len;
+	int *embedded = hdr + 4;
+	if (hdr[0] != cap) {
+		int *dst;
+		if (cap < 2) {
+			*(int **)(hdr + 2) = embedded;
+			hdr[0] = 1;
+			dst = embedded;
+		} else {
+			dst = (int *)malloc((size_t)cap * 2);
+			*(int **)(hdr + 2) = dst;
+			hdr[0] = cap;
+		}
+		hdr[1] = 0;
+		memcpy(dst, src, (size_t)keep * 2);
+	}
+	hdr[1] = keep;
+	if (src != embedded && src != *(int **)(hdr + 2))
+		free(src);
+	for (int i = hdr[1]; i < len; i++) {
+		hdr[1] = i + 1;
+		((unsigned short *)*(void **)(hdr + 2))[i] = 0;
+	}
+}
+
+// QList-shaped span {alloc, count, data} helpers for the rect collector
+// (inline append / FUN_007aa5ca reserve) and parseAttrList
+// (qlist_uint_append); the binary uses QListData, this tier keeps the
+// span shape used throughout the file
+struct IntList { int alloc; int count; void *data; };
+
+static void reserveList(void *list, int need)
+{
+	IntList *l = (IntList *)list;
+	if (need > l->alloc) {
+		int cap = l->alloc * 2 < need ? need : l->alloc * 2;
+		l->data = realloc(l->data, (size_t)cap * 16);
+		l->alloc = cap;
+	}
+}
+
+static void appendCellPair(void *list, const void *head, const void *cell)
+{
+	IntList *l = (IntList *)list;
+	reserveList(l, l->count + 1);
+	char *slot = (char *)l->data + (size_t)l->count * 16;
+	*(const void **)slot = head;
+	*(const void **)(slot + 8) = cell;
+	l->count++;
+}
+
+static void appendInt(void *list, int v)
+{
+	IntList *l = (IntList *)list;
+	reserveList(l, l->count + 1);
+	*(int *)((char *)l->data + (size_t)l->count * 16) = v;
+	l->count++;
+}
+
+void TerminalCore::cloneGlyphPayload(void *dstAux, const void *srcPayload, int words)
+{
+	// FUN_007aa28a: appends `words` ushorts from the source payload to the
+	// aux payload vector, growing to max(2*count, count+words) first
+	int *hdr = (int *)dstAux;
+	if (words < 1)
+		return;
+	int old = hdr[1];
+	if (hdr[0] < old + words) {
+		int cap = old * 2;
+		if (cap < old + words)
+			cap = old + words;
+		resizeUshortVector(hdr, old, cap);
+	}
+	const unsigned short *src = (const unsigned short *)srcPayload;
+	for (int i = hdr[1]; i < old + words; i++) {
+		((unsigned short *)*(void **)(hdr + 2))[i] = *src++;
+		hdr[1] = i + 1;
 	}
 }
 
@@ -889,19 +984,30 @@ void TerminalCore::growRowArrays(void *arrayHeader, int newLen, int minCap)
 	arr->count = preserve;
 }
 
+void *TerminalCore::cellAt(struct Row *row, int x)
+{
+	// FUN_007a3c1a
+	return (char *)row->cells + (size_t)x * 0x20;
+}
+
+unsigned short *TerminalCore::attrHeadAt(struct Row *row, int x)
+{
+	// FUN_007a3c2a
+	return (unsigned short *)row->attrArray + x;
+}
+
 void TerminalCore::setRowCell(struct Row *row, int x, const void *cell, void *aux)
 {
 	// FUN_007a5aac: x < length guard; writes the 2-byte glyph head into
-	// the attribute array (+0x40, 2-byte stride) and copyCell's the full
-	// cell body from aux into cells + x*0x20; wide-char flags 0x80
+	// the attribute array (2-byte stride) and copyCell's the full cell
+	// body from aux into the cell slot; wide-char flags 0x80
 	// (cell+10/0x10 non-zero) and 0x40 (cell+0x18 non-zero); marks the
 	// row changed and invalidates the per-row render style bytes
 	// (+0x50..+0x55)
 	if (x >= rowLength(row))
 		return;
-	*(unsigned short *)((char *)row->attrArray + (size_t)x * 2) =
-	    *(const unsigned short *)cell;
-	copyCell((char *)row->cells + (size_t)x * 0x20, aux);
+	*attrHeadAt(row, x) = *(const unsigned short *)cell;
+	copyCell(cellAt(row, x), aux);
 	const unsigned short *c16 = (const unsigned short *)cell;
 	if (c16[5] != 0 || *(const void *const *)((const char *)cell + 0x10) != nullptr)
 		row->flags |= 0x80;
@@ -927,19 +1033,95 @@ void TerminalCore::notifyRectChanged(const void *rect, int dwlFlag)
 
 void *TerminalCore::collectRectCells(const void *rect, void *outList, int mode)
 {
-	// FUN_007a6ab0: mode 2 honors DECSACE (row flags byte1 bit0:
-	// stream vs rectangle); validates left>=0, top>=0, left<=right,
-	// top<=bottom; origin mode (flag 0x40) offsets the rect by
-	// originTop/originLeft; then walks the rows collecting cell
-	// pointers. Head transcribed, walk cited.
-	return nullptr;
+	// FUN_007a6ab0 (549 bytes, full): mode 2 takes stream-vs-rectangle
+	// from flags byte1 bit0 (DECSACE); validates left>=0, top>=0,
+	// left<=right, top<=bottom; origin mode (0x40) offsets the rect by
+	// originTop/originLeft and restricts collection to the margin area
+	// (inScrollRegion && columnInRange); bottom clamped to rowCount()-1;
+	// reserve (h+2)*(w+2) slack. Rect mode collects only [left,right];
+	// stream mode additionally trims just the first row's left overhang
+	// and the last row's right overhang, keeping middle rows whole.
+	const int *r = (const int *)rect;   // {left, top, right, bottom}
+	int sel = mode;
+	if (mode == 2)
+		sel = (m_flags >> 8) & 1;   // core byte1 bit0 — DECSACE extent
+	int left = r[0], top = r[1], right = r[2], bottom = r[3];
+	if (top < 0 || left < 0 || left > right || top > bottom)
+		return outList;
+	if (m_flags & 0x40) {
+		left += originLeft();
+		top += originTop();
+		right += originLeft();
+		bottom += originTop();
+	}
+	if (bottom >= rowCount())
+		bottom = rowCount() - 1;
+	int width = sel ? (right - left) + 2 : m_columnCount;   // reserve slack
+	reserveList(outList, (bottom - top + 2) * width);       // FUN_007aa5ca
+	for (int y = top; y <= bottom; y++) {
+		struct Row *row = m_rows[y];
+		int len = rowLength(row);                            // FUN_007a3dfc
+		for (int x = 0; x < len; x++) {
+			if (m_flags & 0x40 &&
+			    !(inScrollRegion(y) && columnInRange(x)))
+				continue;
+			if (x < left || x > right) {
+				if (sel != 0)
+					continue;
+				if (y == top && x < left)
+					continue;
+				if (y == bottom && x > right) {
+					if (x + 1 >= len)
+						return outList;   // bottom row exhausted
+					continue;
+				}
+				// stream, middle rows: collected even outside [left,right]
+			}
+			appendCellPair(outList, attrHeadAt(row, x), cellAt(row, x));
+		}
+	}
+	return outList;
 }
 
 void *TerminalCore::parseAttrList(const void *params, void *out)
 {
-	// FUN_007a712b: QList<int> out; QByteArray split of the params, each
-	// element converted to an attribute code. Head transcribed, tail cited.
-	return nullptr;
+	// FUN_007a712b: QByteArray::split(';') — separator 0x3b verified in
+	// disassembly at 0x7a714b — then toInt(base 10, &ok) per element
+	// (ok-flag checked at 0x7a71b0); invalid entries are dropped, not
+	// defaulted. Raw tier: src = QByteArray {ptr, size} (Qt 5 header is
+	// {d, size} with data at d+16); out = QList<int>.
+	const int *src = (const int *)params;
+	const char *base = *(const char *const *)src;
+	int size = src[2];
+	for (int i = 0, start = 0; i <= size; i++) {
+		if (i == size || base[i] == ';') {
+			bool ok = false;
+			int v = 0;
+			if (i > start) {
+				ok = true;
+				int neg = 0;
+				int p = start;
+				if (base[p] == '-' || base[p] == '+') {
+					neg = base[p] == '-';
+					p++;
+				}
+				v = 0;
+				for (; p < i; p++) {
+					if (base[p] < '0' || base[p] > '9') {
+						ok = false;
+						break;
+					}
+					v = v * 10 + (base[p] - '0');
+				}
+				if (neg)
+					v = -v;
+			}
+			if (ok)
+				appendInt(out, v);   // qlist_uint_append — 0x7a71b0 path
+			start = i + 1;
+		}
+	}
+	return out;
 }
 
 
@@ -955,18 +1137,82 @@ unsigned int TerminalCore::cursorBlinkBit() const
 
 void TerminalCore::copyRect(int top, int left, int bottom, int right, long long packedDest)
 {
-	// FUN_007a7776 (DECCRA core): validates all four source coords and
-	// both packed destination coords (>= -1, src left<=right, top<=
-	// bottom), then builds source/destination cell-pointer lists
-	// (QListData) and copyCell's each pair; wide/continuation flags
-	// travel with the cells (loop cited)
-	if (top < -1 || left < -1 || left > right || top > bottom)
+	// FUN_007a7776 (DECCRA core, 882 bytes): validates all coords, offsets
+	// by originTop/originLeft in origin mode (0x40), clamps bottom to
+	// rowCount()-1, then per source row collects the attr heads (memcpy
+	// span, FUN_007a5f3e) and cell bodies (copyCell list, FUN_007a5f86),
+	// and pastes each pair into the destination row at destLeft
+	// (FUN_007a5b8e semantics); markDirty(1) at the end.
+	// packedDest: low 32 = dest column, high 32 = dest row.
+	if (top < 0 || left < 0 || top > right || left > bottom)
 		return;
-	const int destLeft = (int)(packedDest >> 32);
-	const int destTop = (int)packedDest;
-	if (destLeft < -1 || destTop < -1)
+	int destLeft = (int)packedDest;
+	int destTop = (int)((unsigned long long)packedDest >> 32);
+	if (destLeft < 0 || destTop < 0)
 		return;
-	// cell-list copy loop — cited
+	if (m_flags & 0x40) {
+		top += originTop();
+		left += originLeft();
+		right += originLeft();
+		bottom += originTop();
+		destLeft += originLeft();
+		destTop += originTop();
+	}
+	if (bottom >= rowCount())
+		bottom = rowCount() - 1;
+	const int count = right - left + 1;
+	const int rows = bottom - top + 1;
+
+	// per source row: two {cap, count, data} spans — heads (2-byte attr
+	// heads) and cells (0x20-byte bodies with owned aux clones); the
+	// binary uses QListData spans here
+	struct HeadSpan { int cap; int count; unsigned short *data; };
+	struct CellSpan { int cap; int count; unsigned char *data; };
+	HeadSpan *heads = (HeadSpan *)calloc((size_t)rows, sizeof(HeadSpan));
+	CellSpan *cells = (CellSpan *)calloc((size_t)rows, sizeof(CellSpan));
+	if (!heads || !cells) {
+		free(heads);
+		free(cells);
+		return;
+	}
+	for (int i = 0; i < rows; i++) {
+		struct Row *row = m_rows[top + i];
+		resizeUshortVector((int *)&heads[i], count, count);   // FUN_007a5f3e
+		memcpy(heads[i].data, (const unsigned short *)row->attrArray + left,
+		       (size_t)count * 2);
+		growRowArrays((int *)&cells[i], count, count);        // FUN_007a5f86
+		for (int x = 0; x < count; x++)
+			copyCell(cells[i].data + (size_t)x * 0x20, cellAt(row, left + x));
+	}
+	for (int i = 0; destTop + i < rowCount(); i++) {
+		struct Row *row = m_rows[destTop + i];
+		// FUN_007a5b8e: copyCell each body, memcpy the heads, flag the
+		// wide/continuation bits, mark changed, zero +0x50..+0x57
+		int n = rowLength(row) - destLeft;
+		if (count < n)
+			n = count;
+		for (int x = 0; x < n; x++) {
+			copyCell(cellAt(row, destLeft + x), cells[i].data + (size_t)x * 0x20);
+			if (((const unsigned short *)(cells[i].data + (size_t)x * 0x20))[5] != 0 ||
+			    *(const void *const *)(cells[i].data + (size_t)x * 0x20 + 0x10) != nullptr)
+				row->flags |= 0x80;
+			if (*(const void *const *)(cells[i].data + (size_t)x * 0x20 + 0x18) != nullptr)
+				row->flags |= 0x40;
+		}
+		if (n > 0) {
+			memcpy((unsigned short *)row->attrArray + destLeft, heads[i].data,
+			       (size_t)n * 2);
+			setRowFlags(row, 1);
+			memset((char *)row + 0x50, 0, 8);
+		}
+	}
+	markDirty(1);
+	for (int i = 0; i < rows; i++) {
+		resizeUshortVector((int *)&heads[i], 0, 0);   // QList dtor — cited
+		growRowArrays((int *)&cells[i], 0, 0);        // QList dtor — cited
+	}
+	free(heads);
+	free(cells);
 }
 
 void TerminalCore::rowHook(struct Row *row, int arg)

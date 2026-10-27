@@ -197,6 +197,7 @@ public:
 	const void *charsetConfigRoot() const;         // FUN_00802bda
 	int m_charsetSlots[4];    // manager slots G0..G3 (FUN_00801a46)
 	int m_userPreferredSet;   // manager +0x10 (FUN_00801a3e)
+	bool charsetDisabled(int tableId) const;       // FUN_008034a4 (Screen.h 同名)
 	void resetCharsetSlots();  // FUN_00802baa
 	bool rowHasContent(struct Row *row) const;     // FUN_007a4a06
 	void copyRowFromTemplate(struct Row *row, void *templateRow);  // FUN_007a3c9a tail
@@ -212,7 +213,9 @@ public:
 	void buildBlankCell(unsigned char blank[16], void *sgrCtx);  // FUN_007aa2e2
 	void writeCell(void *dst, const unsigned char blank[16]);
 	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
-	void cloneGlyphPayload(void *dst, const void *src);  // FUN_007aa2e2 inner
+	void cloneGlyphPayload(void *dstAux, const void *srcPayload, int words);  // FUN_007aa28a
+	void *cellAt(struct Row *row, int x);          // FUN_007a3c1a: cells + x*0x20
+	unsigned short *attrHeadAt(struct Row *row, int x);  // FUN_007a3c2a: attrArray + x*2
 	void *collectRectCells(const void *rect, void *outList, int mode);  // FUN_007a6ab0
 	// mode 2 honors DECSACE (flags byte1 bit0: stream vs rectangle) and
 	// offsets the rect by originTop/originLeft in origin mode (0x40)

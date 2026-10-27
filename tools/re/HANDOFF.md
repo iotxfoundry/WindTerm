@@ -20,10 +20,10 @@ zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%)
 单元格字节层。** 剩余 cited-stub 精确清单(下会话按此逐个击破):
 **writeText 主循环(0x7e6f42,终端心脏)与 DECDSR(0x7f0d7c)已完整
 转写 —— cited-stub 清单清零。** 终端栈 Commander→Screen→core→单元格
-四层全部真实现。仍剩纯引用级(按需,均为 worker 尾段):
-- TerminalCore: copyRect(0x7a7776)、rect 迭代尾(0x7a6ab0)、
-  cloneGlyphPayload(0x7aa2e2 内)、rowHook(0x7a3dde)、resetRow 模板尾、
-  setRowCell 的 FUN_007a3c1a/0x7a3c2a 取格/取头
+四层全部真实现。纯引用级清单已清(TerminalCore 六项全落码:copyRect/
+collectRectCells/parseAttrCells/resetRow 模板尾/cloneGlyphPayload/
+取格取头 0x7a3c1a·0x7a3c2a;IDA MCP + kuna 语料双源,IDA 基址 =
+Ghidra - 0x400000)。仍剩:
 - Screen: writeText 内层 helper(decodeChunk 编解码器链、字宽双源、
   组合簇追加)、键盘方言/类型表
 - 方向候选: writeText 内层 helper 深挖、TextView 渲染层、类横扫
