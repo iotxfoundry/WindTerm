@@ -53,5 +53,9 @@
 | SearchPane | 0x90b55a | 两级壳 | - |
 | UndoList | 0xa1c0ee | 两级壳 | 0xa1c0b8 |
 
-另:0x533df0 为 EditorWindow/TerminalWindow 共享体。
+另:0x533df0 定案 —— 不是跨类业务体,而是 moc 属性读取路径内联的
+**QList 拷贝构造器**(原子引用计数,共享时 detach 后逐元素 +1)。
+两类的 case 1 都是 Qt 基础设施辅助体,非槽实现。case 表提取时
+此类 Qt 辅助体(GList 拷贝/QVariant 构造)可能被误列为实现,
+甄别特征:纯引用计数操作 + QListData::detach,无业务分支。
 至此 king_api 61 类全部定性(全表/两级壳/骨架三档)。
