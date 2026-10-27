@@ -484,6 +484,14 @@ void Screen::setLeftRightMargins(int left, int right)
 // Scrollback
 // ---------------------------------------------------------------------------
 
+bool Screen::queryRenderMode(int mask) const
+{
+	// FUN_007e5284: walks the view list (+0x1e0, 8-stride); an entry
+	// with non-zero id (+4) and payload (+8) whose +0x19 byte has the
+	// mask bit set makes it true (loop body cited)
+	return false;
+}
+
 bool Screen::isScrollbackAllowed() const
 {
 	// FUN_007e4036: +0x11c flag && FUN_007e4028 mode check && the view
@@ -949,7 +957,7 @@ void Screen::repeatCharacter(int count)
 	const QString repeated = QString::fromUcs4((const char32_t *)&m_lastGraphicChar)
 		.repeated(count);
 	writeText(repeated);      // FUN_007e6f42 — cited
-	clearWrapLatch();         // FUN_007e515e(p1, 0) — cited
+	m_lastGraphicChar = 0;    // FUN_007e515e writes +0x114 directly — cited
 }
 
 void Screen::exitAnsiMode()
@@ -1164,8 +1172,35 @@ void Screen::reportDeviceAttributes(int index)
 
 void Screen::reportDeviceStatus(const QString &params)
 {
-	// FUN_007f0ae6 (DSR): builds the "n" response from the split param
-	// list and sends it back — head transcribed, response assembly cited
+	// FUN_007f0ae6 (DSR/DECDSR): first param selects - 5 -> "0n" (DSR OK);
+	// 6 -> CPR "%d;%dR" with 1-based origin-relative cursor; other values
+	// reported unsupported. Response wrapped as ESC [ <payload> and sent.
+	const QStringList list = splitParams(params);
+	if (list.isEmpty())
+		return;
+	const int mode = list.at(0).toInt();
+	QString payload;
+	if (mode == 5) {
+		payload = QStringLiteral("0n");
+	} else if (mode == 6) {
+		const int row = currentLine() + 1 - m_core->originTop();
+		const int col = currentColumn() + 1 - m_core->originLeft();
+		payload = QStringLiteral("%1;%2R").arg(row).arg(col);
+	} else {
+		reportUnsupported(QStringLiteral("Report Device Status %1").arg(mode));
+		return;
+	}
+	sendResponse(QByteArray("\x1b[") + payload.toLatin1());
+}
+
+void Screen::reportTerminalParameters(int mode)
+{
+	// FUN_007ecdc2 (DECREPTPARM): "%d;1;1;120;120;1;0x" (mode+2 prefix,
+	// 120-baud defaults, 7-bit parity), wrapped in ESC [ and sent back
+	if (mode > 1)
+		return;
+	sendResponse(QByteArray("\x1b[") +
+	             QString("%1;1;1;120;120;1;0x").arg(mode + 2).toLatin1());
 }
 
 void Screen::movePage(int page, bool homeCursor)
@@ -1181,4 +1216,27 @@ void Screen::movePage(int page, bool homeCursor)
 	switchPage(page);          // FUN_007ef11a — cited
 	if (homeCursor)
 		cursorMoveRaw(0, 0);
+}
+
+void Screen::mediaCopy(int type)
+{
+	// FUN_007f0530 (MC): 0 -> print page (unsupported report); 4/5 ->
+	// auto-print flag (+0x130) off/on; 6/7 -> locator print unsupported
+	switch (type) {
+	case 0:
+		reportUnsupported(QStringLiteral("Media Copy: Print Page"));
+		return;
+	case 4:
+		m_autoPrint = false;
+		return;
+	case 5:
+		m_autoPrint = true;
+		return;
+	case 6:
+	case 7:
+		reportUnsupported(QStringLiteral("Media Copy: Locator"));
+		return;
+	default:
+		reportUnsupported(QStringLiteral("Media Copy Type %1").arg(type));
+	}
 }

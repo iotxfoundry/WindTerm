@@ -216,8 +216,9 @@ public:
 	void requestChecksumOfRectangularArea(const QString &area);  // FUN_007eced6
 	void requestSelectionOrSetting();            // FUN_007f194e
 	void requestPresentationStateReport();       // FUN_007ed35a
-	void reportTerminalParameters();             // FUN_007ecdc2
-	void reportDecDeviceStatus(int mode);        // FUN_007f0d7c
+	void reportTerminalParameters(int mode);     // FUN_007ecdc2
+	void reportDecDeviceStatus(const QString &params);  // FUN_007f0d7c
+	void mediaCopy(int type);                    // FUN_007f0530 (MC)
 
 	// --- batch 3c: pages / UDK / page geometry ------------------------------
 	int currentPage() const { return m_pageCurrent; }  // FUN_007e48f8 (+0xc8)

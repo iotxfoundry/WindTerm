@@ -536,10 +536,15 @@ void TerminalCore::scrollHorizontal(int delta)
 // Rectangular areas
 // ---------------------------------------------------------------------------
 
-void TerminalCore::setCellRaw(int y, int x, const void *cell)
+bool TerminalCore::setCellRaw(int y, int x, const void *cell)
 {
-	// FUN_007a5b36: writes the 2-byte glyph head into the cell at
-	// (y, x) — body cited
+	// FUN_007a5b36: bounds-check y, write via FUN_007a5aac, mark
+	// dirty; returns flag bit3 (0x08)
+	if (y >= rowCount())
+		return false;
+	setRowCell(m_rows[y], x, cell, nullptr);   // FUN_007a5aac
+	markDirty(1);
+	return (m_flags >> 3) & 1;
 }
 
 void TerminalCore::eraseRect(int top, int left, int bottom, int right, bool selective)
