@@ -123,7 +123,15 @@ static bool docFlag927a24(void *doc)
 	// FUN_00927a24 (12B) → FUN_009b3ef6(undo(doc+0xe8))
 	return false;
 }
-static int styleTableGet(void *styleCtx, int i) { (void)styleCtx; (void)i; return 0; }  // 0x7e1 FUN_0094316a
+static int styleTableGet(void *styleCtx, int i)
+{
+	// FUN_0094316a (112B): forward scan over the run-styles array for
+	// the first run whose value matches FUN_009407fe(entry, i) — the
+	// style-id-to-slot lookup; gap indexing via +8/+9 like 0094277a;
+	// miss returns 0xffffffff
+	(void)styleCtx; (void)i;
+	return 0xffffffff;
+}  // 0x7e1 FUN_0094316a
 static int runStyleValue(long entry);                        // FUN_009407da (def below)
 static int styleAtPos(void *styleCtx, long long pos)
 {
@@ -146,7 +154,25 @@ static int styleAtPos(void *styleCtx, long long pos)
 static long long docOp92814a(void *doc) { (void)doc; return 0; }  // 0x7ec
 static void eA1f7be(EditorEngine *e) { (void)e; }             // 0x7f8 chain
 static void eA22c4e(EditorEngine *e, int n) { (void)e; (void)n; }  // 0x7f8 chain
-static void styleCtxTouch(void *ctx) { (void)ctx; }           // FUN_009501b0 (e+8)
+static void styleCtxTouch(void *ctx)
+{
+	// FUN_009501b0 (98B): walks the 32-slot style table (0x16-int
+	// stride = 88 bytes... matches the 11-byte packed rows x8) and
+	// tracks the maximum font/size metric into ctx[0x2c0]:
+	// slot kind 0x12 takes *(node+0) if larger, kind 0x17 takes the
+	// +0x14-linked object's +8; result = widest-style cache reset
+	int *t = (int *)ctx;
+	t[0x2c0] = 0;
+	for (int *p = t; p != t + 0x2c0; p += 0x16) {
+		int v = 0;
+		if (*p == 0x12 && *(int **)(p + 0x12))
+			v = **(int **)(p + 0x12);
+		else if (*p == 0x17 && *(long *)(p + 0x14))
+			v = *(int *)(*(long *)(p + 0x14) + 8);
+		if (t[0x2c0] < v)
+			t[0x2c0] = v;
+	}
+}
 static int hitTestOffset(void *ctx)
 {
 	// FUN_0095019c (19B): ctx = engine+8; the +0xd38 (ctx-relative) flag
@@ -334,7 +360,13 @@ static void eA29014(void *out, EditorEngine *e) { (void)out; (void)e; }  // 0x75
 static void eA2d648(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x7563
 static bool objRunStyleGet2(void *obj, void *node) { (void)obj; (void)node; return false; }  // 0x7576 FUN_0095c92c
 static void editorGetSelRange(EditorEngine *e) { (void)e; }  // editor_getSelRange (0x7581)
-static void eA28316(EditorEngine *e, int cmd) { (void)e; (void)cmd; }  // FUN_00a28316(e, cmd, sp)
+static void eA28316(EditorEngine *e, int cmd)
+{
+	// FUN_00a28316 (106B): doc(+0x1098) op with an edit ctx —
+	// FUN_00a20680(&ctx, e) → value FUN_0096bbc0, key FUN_00a20666(e),
+	// then FUN_0092e5e8(doc, cmd, sp, key, value); ctx freed
+	(void)e; (void)cmd;
+}
 static int docInt260(void *doc) { (void)doc; return 0; }    // *(int*)(doc+0x260) (0x7584)
 static int hitTestAtPoint(EditorEngine *e, int x, int y)
 {
@@ -393,7 +425,15 @@ static int ePointQuery(EditorEngine *e, const QPoint &p)
 	// → FUN_00a2a0ea(engine, node) → int; node freed
 	return 0;
 }  // 0x75eb FUN_00a2b7fc
-static int eRunNodeQuery(EditorEngine *e, long long pos) { (void)e; (void)pos; return 0; }  // 0x75ec FUN_00a2a0ea
+static int eRunNodeQuery(EditorEngine *e, long long pos)
+{
+	// FUN_00a2a0ea (116B): column from position — pos→line via
+	// FUN_009587cc, line start via FUN_009588b8, tail clamp by
+	// editor_textLength, then minus doc+0x158 (or +0x148 when
+	// FUN_00929120(doc) holds) — the view-vs-doc column correction
+	(void)e; (void)pos;
+	return 0;
+}
 static QString eRunNodeText(EditorEngine *e, long long pos) { (void)e; (void)pos; return QString(); }  // 0x75ee FUN_00a2a15e
 static void eA2a44a(EditorEngine *e) { (void)e; }            // 0x75f0
 static void docOp929336(void *doc, long long v) { (void)doc; (void)v; }  // 0x75f4
