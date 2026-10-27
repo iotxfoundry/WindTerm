@@ -125,6 +125,7 @@ public:
 	void setRowLength(struct Row *row, int length);          // FUN_007a5ff2
 	void setRowFlags(struct Row *row, int bits);             // FUN_007a3dc0
 	void resetRow(struct Row *row, void *templateRow);       // FUN_007a3c9a
+	struct { void *cells; int attrCount; void *attrArray; } m_rowAux;  // row +0x3c/+0x40
 	void resetWrapPending();               // FUN_007a4564
 	void markDirty(int level);             // FUN_007a454e
 	void markLine(int line, int arg);      // FUN_007a463c
@@ -177,6 +178,8 @@ public:
 	int charsetSlot(int i) const;                  // FUN_00801a46
 	void setCharsetSlot(int i, int v);             // FUN_00803470
 	bool rowHasContent(struct Row *row) const;     // FUN_007a4a06
+	int cellFlags(struct Row *row, int i) const;   // FUN_007a3c68 (defined above)
+	void copyRowFromTemplate(struct Row *row, void *templateRow);  // FUN_007a3c9a tail
 	int cellFlags(struct Row *row, int i) const;   // FUN_007a3c68
 	void writeBlankCell(struct Row *row, int i, unsigned short attr, void *blankTemplate);
 	void copyRowCells(struct Row *dst, struct Row *src, int from, int count);

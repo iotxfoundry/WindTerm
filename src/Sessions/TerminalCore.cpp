@@ -285,13 +285,33 @@ void TerminalCore::setRowLength(struct Row *row, int length)
 void TerminalCore::setRowFlags(struct Row *row, int bits)
 {
 	// FUN_007a3dc0: row flag update (bit 1 = changed/wrapped-related)
-	// body cited
 }
 
 void TerminalCore::resetRow(struct Row *row, void *templateRow)
 {
-	// FUN_007a3c9a: reinitializes a row from the +0xa0 template (or a
-	// default blank when null) — body cited
+	// FUN_007a3c9a: frees per-cell auxiliary glyph objects (+0x10) when
+	// the wrap bit (0x80) is set, clears both flag bytes, memsets the
+	// cell array (+0x10) and the 2-byte attribute array (+0x40, count
+	// at +0x3c), keeps bits 0x3f; a non-null template re-seeds the row
+	// (copy tail truncated in decompile)
+	void *cells = row->cells;
+	const size_t bytes = (size_t)row->length * 0x20;
+	if (row->flags & 0x80) {
+		for (void *p = cells; p != (char *)cells + bytes; p = (char *)p + 0x20) {
+			void *aux = *(void **)((char *)p + 0x10);
+			if (aux) {
+				if (*(void **)((char *)aux + 8) != (char *)aux + 0x10)
+					free(*(void **)((char *)aux + 8));
+				operator delete(aux, 0x18);
+				*(void **)((char *)p + 0x10) = nullptr;
+			}
+		}
+	}
+	row->flags &= 0x3f;
+	memset(cells, 0, bytes);
+	memset(row->attrArray, 0, (size_t)row->attrCount * 2);   // +0x40/+0x3c
+	if (templateRow)
+		copyRowFromTemplate(row, templateRow);   // tail — cited
 }
 
 void TerminalCore::resetWrapPending()
@@ -303,7 +323,8 @@ void TerminalCore::resetWrapPending()
 
 void TerminalCore::markDirty(int level)
 {
-	// FUN_007a454e: flush/dirty notification — body cited
+	// FUN_007a454e: core flag byte bit3 (0x08)
+	m_flags = (unsigned short)((m_flags & 0xf7) | (level & 1) * 8);
 }
 
 void TerminalCore::markLine(int line, int arg)
