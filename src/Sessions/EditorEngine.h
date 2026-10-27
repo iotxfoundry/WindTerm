@@ -35,9 +35,16 @@ public:
 	void *m_foldMgr;      // +0x10b8 (param_2[0x217]) — fold operations
 	void *m_pairObj;      // +0x10e0 (param_2[0x21c]) — pair highlight
 	void *m_obj10c8;      // +0x10c8 (param_2[0x219]) — 0x75b5 path
+	void *m_obj10a0;      // +0x10a0 (param_2[0x214]) — 0x7543 success path
 	void *m_marginBegin;  // +0xd58 (param_2[0x1ab]) margin node list
 	void *m_marginEnd;    // +0xd60 (param_2[0x1ac]) stride 24
 	char m_pairEnabled;   // +0xd92 (0x7583)
+	char m_docFlag1067;   // engine +0x1067 (0x7543 mode gate, ==2 check)
+	unsigned char m_flags1db; // +0x1db bitfield (0x755c/0x755d)
+	int m_intDd0;         // +0xdd0 (0x755f)
+	double m_zoomFactor;  // +0xdd8 (0x7560)
+	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),
+	// indent@+0x274 (0x75c2/c5), flag279@+0x279 (0x75c3/c6)
 
 	// --- dispatchers (the two vtable+0x1c0 landing functions) --------
 	QVariant dispatchLevel1(uint cmd, const QVariant &a, const QVariant &b);
@@ -62,6 +69,32 @@ public:
 	QString cmdSelectionText(const QString &sep, bool useSep);    // 0x75b8 CMD_30136
 	QByteArray cmdSelectionTextBytes(const QByteArray &sep, bool useSep);  // 0x75b7
 	void cmdSetPairHighlight(bool on);              // 0x7583
+	QVariant cmdRenderPixmap(qreal scale);          // 0x7544 CMD_30020 (QPixmap)
+	bool cmdVtE8Probe(int which);                   // 0x7546/0x7548 vt+0xe8
+	void cmdVtD0();                                 // 0x754a vt+0xd0
+	void cmdDocMark(long long pos);                 // 0x7543 (FUN_0092f0f6)
+	bool cmdDocFlag();                              // 0x7556 (FUN_00927ec8)
+	QString cmdDocCollect(const QVariantList &a);   // 0x7559 (FUN_00929076)
+	void cmdDocSetString(const QString &s);         // 0x755a (FUN_00927efc)
+	int cmdFlag1dbBit1();                           // 0x755c
+	int cmdFlag1dbHigh();                           // 0x755d
+	int cmdIntDd0();                                // 0x755f
+	double cmdZoomFactor();                         // 0x7560
+	void cmdSetBoolD5a0(bool on);                   // 0x7561 (FUN_00a2d5a0)
+	void cmdCancelSnippet();                        // 0x75ba (FUN_00a28ee8)
+	long long cmdVtE0Read(int arg);                 // 0x75b3 vt+0xe0 → +0x40
+	bool cmdProbe28398();                           // 0x75af (FUN_00a28398)
+	int cmdProbe224e4();                            // 0x75b1 (FUN_00a224e4)
+	bool cmdSetTabSize(int n);                      // 0x75c4 CMD_30148
+	int cmdIndentSize();                            // 0x75c2
+	bool cmdSetIndentSize(int n);                   // 0x75c5
+	bool cmdDocFlag279();                           // 0x75c3
+	void cmdSetDocFlag279(bool on);                 // 0x75c6
+	void cmdSetWordSeparators(const QString &s, bool keep);  // 0x75d6 CMD_30166
+	void cmdSetRegister(long long key);             // 0x75cb (FUN_009301a8)
+	QVariant cmdGetRegisterList();                  // 0x75c9 (FUN_00926b28)
+	bool cmdRegisterFlag();                         // 0x75ca (FUN_00926afe)
+	long long cmdUllFrom10a0(long long v);          // 0x75cf (FUN_009589f0)
 };
 
 #endif // EDITORENGINE_H

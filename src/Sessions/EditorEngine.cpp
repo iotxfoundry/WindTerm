@@ -23,6 +23,13 @@ static void searchExecute(QVariantList *out, EditorEngine *e, void *params,
 { (void)e; (void)params; (void)start; (void)end; (void)nth; out->clear(); }  // FUN_00a31966
 static void gotoPositionImpl(EditorEngine *e, long long pos)
 { (void)e; (void)pos; }                              // FUN_00a26f32
+static bool docMark(EditorEngine *e, void *doc, long long pos, bool mode2)
+{ (void)e; (void)doc; (void)pos; (void)mode2; return false; }  // FUN_0092f0f6
+static void objTouch(void *obj) { (void)obj; }       // FUN_0095cc7e
+static void sessionViewSoftReset(EditorEngine *e) { (void)e; }  // 0x8a4/0x8a5 共用
+static void notifyFlag10(EditorEngine *e) { (void)e; }  // FUN_00a243ae(e, 0x10)
+static int docTabSize(EditorEngine *e) { (void)e; return 1; }  // *(doc+0x270)
+static void docSetTabSize(EditorEngine *e, int n) { (void)e; (void)n; }  // FUN_00925338
 
 void EditorEngine::cmdAppendText(const QVariantList &args)
 {
@@ -145,6 +152,68 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 		cmdIndexOf(a.toList(), &ret);
 		return ret;
 	}
+	case 0x7543:
+		cmdDocMark(a.toLongLong());
+		return QVariant(0);
+	case 0x7544:
+		return cmdRenderPixmap(a.toReal());
+	case 0x7546:
+		return QVariant(cmdVtE8Probe(1));
+	case 0x7548:
+		return QVariant(cmdVtE8Probe(2));
+	case 0x754a:
+		cmdVtD0();
+		return QVariant(0);
+	case 0x7556:
+		return QVariant(cmdDocFlag());
+	case 0x7559:
+		return QVariant(cmdDocCollect(a.toList()));
+	case 0x755a:
+		cmdDocSetString(a.toString());
+		return QVariant(0);
+	case 0x755c:
+		return QVariant(cmdFlag1dbBit1());
+	case 0x755d:
+		return QVariant(cmdFlag1dbHigh());
+	case 0x755f:
+		return QVariant(cmdIntDd0());
+	case 0x7560:
+		return QVariant(cmdZoomFactor());
+	case 0x7561:
+		cmdSetBoolD5a0(a.toBool());
+		return QVariant(0);
+	case 0x75af:
+		return QVariant(cmdProbe28398());
+	case 0x75b1:
+		return QVariant(cmdProbe224e4());
+	case 0x75b3:
+		return QVariant(cmdVtE0Read(a.toInt()));
+	case 0x75ba:
+		cmdCancelSnippet();
+		return QVariant(0);
+	case 0x75c2:
+		return QVariant(cmdIndentSize());
+	case 0x75c3:
+		return QVariant(cmdDocFlag279());
+	case 0x75c4:
+		return QVariant(cmdSetTabSize(a.toInt()));
+	case 0x75c5:
+		return QVariant(cmdSetIndentSize(a.toInt()));
+	case 0x75c6:
+		cmdSetDocFlag279(a.toBool());
+		return QVariant(0);
+	case 0x75c9:
+		return cmdGetRegisterList();
+	case 0x75ca:
+		return QVariant(cmdRegisterFlag());
+	case 0x75cb:
+		cmdSetRegister(a.toLongLong());
+		return QVariant(0);
+	case 0x75cf:
+		return QVariant(cmdUllFrom10a0(a.toLongLong()));
+	case 0x75d6:
+		cmdSetWordSeparators(a.toString(), b.toBool());
+		return QVariant(0);
 	case 0x756f:
 		cmdFoldRange(a.toLongLong(), b.toLongLong());
 		return QVariant(0);
@@ -243,6 +312,195 @@ void EditorEngine::cmdSetPairHighlight(bool on)
 	} else {
 		// pairHighlightUnmatched(this, -1);
 	}
+}
+
+// ---------------------------------------------------------------------------
+// Third batch: probes / document ops / pixmap render (inline regions)
+// ---------------------------------------------------------------------------
+
+QVariant EditorEngine::cmdRenderPixmap(qreal scale)
+{
+	// 0x7544 (0xa48ded region): toReal(a) then FUN_00a4186e renders the
+	// view to a QPixmap (scale factor) — the only pixel-returning command
+	(void)scale;
+	return QVariant();
+}
+
+bool EditorEngine::cmdVtE8Probe(int which)
+{
+	// 0x7546/0x7548 (0xa48dc0/0xa48db0 region): engine vtable +0xe8
+	// with (1|2) — paired mode probes (hex/read-only family)
+	typedef bool (*ProbeFn)(EditorEngine *, int);
+	return (*(ProbeFn *)(*(void ***)this + 0xe8 / 8))(this, which);
+}
+
+void EditorEngine::cmdVtD0()
+{
+	// 0x754a (0xa48d80 region): engine vtable +0xd0, no args
+	typedef void (*Fn)(EditorEngine *);
+	(*(Fn *)(*(void ***)this + 0xd0 / 8))(this);
+}
+
+void EditorEngine::cmdDocMark(long long pos)
+{
+	// 0x7543 (0xa48b00 region): FUN_0092f0f6(doc, pos, +0x1067 == 2)
+	// — on success: FUN_0095cc7e(+0x10a0), session_view_soft_reset,
+	// FUN_00a243ae(engine, 0x10)
+	const bool ok = docMark(this, m_doc, pos, m_docFlag1067 == 2);
+	if (ok) {
+		objTouch(m_obj10a0);
+		sessionViewSoftReset(this);
+		notifyFlag10(this);
+	}
+}
+
+bool EditorEngine::cmdDocFlag()
+{
+	// 0x7556: FUN_00927ec8(doc)
+	return false;
+}
+
+QString EditorEngine::cmdDocCollect(const QVariantList &args)
+{
+	// 0x7559 (0xa49659 region): 5-arg form (pattern QString, bool,
+	// ull, ll, ll) — FUN_00929076(&out, doc, ...) returns text
+	(void)args;
+	return QString();
+}
+
+void EditorEngine::cmdDocSetString(const QString &s)
+{
+	// 0x755a (0xa42e04 region): FUN_00927efc(doc, s)
+	(void)s;
+}
+
+int EditorEngine::cmdFlag1dbBit1()
+{
+	// 0x755c (0xa42f00 region): (int)((flags1db << 0x1e) >> 0x1f) — bit1
+	return (int)((m_flags1db << 0x1e) >> 0x1f);
+}
+
+int EditorEngine::cmdFlag1dbHigh()
+{
+	// 0x755d (0xa42f20 region): (int)flags >> 3 — high nibble bits
+	return m_flags1db >> 3;
+}
+
+int EditorEngine::cmdIntDd0()
+{
+	// 0x755f: reads +0xdd0
+	return m_intDd0;
+}
+
+double EditorEngine::cmdZoomFactor()
+{
+	// 0x7560: reads +0xdd8
+	return m_zoomFactor;
+}
+
+void EditorEngine::cmdSetBoolD5a0(bool on)
+{
+	// 0x7561: FUN_00a2d5a0(engine, on)
+	(void)on;
+}
+
+void EditorEngine::cmdCancelSnippet()
+{
+	// 0x75ba: FUN_00a28ee8(engine) — snippet-mode teardown
+}
+
+long long EditorEngine::cmdVtE0Read(int arg)
+{
+	// 0x75b3 (0xa4a1f0 region): engine vtable +0xe0 (int arg) → object
+	// or 0; hit → read long long at +0x40
+	(void)arg;
+	return 0;
+}
+
+bool EditorEngine::cmdProbe28398()
+{
+	// 0x75af: FUN_00a28398(engine)
+	return false;
+}
+
+int EditorEngine::cmdProbe224e4()
+{
+	// 0x75b1: FUN_00a224e4(engine)
+	return 0;
+}
+
+// ---------------------------------------------------------------------------
+// Fourth batch: tab / indent / register / word-separator families
+// ---------------------------------------------------------------------------
+
+bool EditorEngine::cmdSetTabSize(int n)
+{
+	// 0x75c4 (0xa49460 region): rejected when n < 1 or unchanged
+	// (doc+0x270); accepted runs FUN_00925338(doc, n) + soft reset
+	if (n < 1 || n == docTabSize(this))
+		return false;
+	docSetTabSize(this, n);
+	sessionViewSoftReset(this);
+	return true;
+}
+
+int EditorEngine::cmdIndentSize()
+{
+	// 0x75c2: doc+0x274 read
+	return 0;
+}
+
+bool EditorEngine::cmdSetIndentSize(int n)
+{
+	// 0x75c5 (0xa494a0 region): change-detect against doc+0x274, write
+	// only when different, returns changed
+	(void)n;
+	return false;
+}
+
+bool EditorEngine::cmdDocFlag279()
+{
+	// 0x75c3: doc+0x279 bool read
+	return false;
+}
+
+void EditorEngine::cmdSetDocFlag279(bool on)
+{
+	// 0x75c6: doc+0x279 write
+	(void)on;
+}
+
+void EditorEngine::cmdSetWordSeparators(const QString &s, bool keep)
+{
+	// 0x75d6 (0xa482fc region): FUN_009279ec(doc, separators, keep)
+	(void)s; (void)keep;
+}
+
+void EditorEngine::cmdSetRegister(long long key)
+{
+	// 0x75cb (0xa45d6c region): builds an edit ctx (FUN_00a20680) +
+	// value (FUN_0096bbc0), engine key (FUN_00a20666) then
+	// FUN_009301a8(doc, key, valueA, valueB); ctx dtor FUN_0096bb02
+	(void)key;
+}
+
+QVariant EditorEngine::cmdGetRegisterList()
+{
+	// 0x75c9: FUN_00926b28(doc) — register contents list
+	return QVariant();
+}
+
+bool EditorEngine::cmdRegisterFlag()
+{
+	// 0x75ca: FUN_00926afe(doc)
+	return false;
+}
+
+long long EditorEngine::cmdUllFrom10a0(long long v)
+{
+	// 0x75cf: FUN_009589f0(+0x10a0 object, v)
+	(void)v;
+	return 0;
 }
 
 // ---------------------------------------------------------------------------
