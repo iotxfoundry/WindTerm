@@ -90,6 +90,7 @@ public:
 	int m_rightMargin;            // +0xdc (FUN_007a490e)
 	int m_columnCount;            // +0xe4 (FUN_007a4906)
 	unsigned long long m_sgrBits; // +0xb8 SGR attribute state (FUN_007ef95c)
+	int m_charsetSlot3;           // +0xc0 (VT52 graphics charset, FUN_007e5a90)
 
 	// --- sizes & limits -----------------------------------------------------
 	int rowCount() const;                  // FUN_007a4b4a

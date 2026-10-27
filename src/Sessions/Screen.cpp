@@ -999,3 +999,94 @@ int Screen::paletteColor(int index) const
 	// (array data at container+0x10, index stride 4)
 	return *(int *)(*(void **)((char *)m_palette + 0x10) + (size_t)index * 4);
 }
+
+// ---------------------------------------------------------------------------
+// Batch 3a: VT52 / zmodem / reports / alignment / pages
+// ---------------------------------------------------------------------------
+
+bool Screen::isVt52Mode() const
+{
+	// FUN_007e5a02: +0x124 != 0
+	return m_vt52Mode;
+}
+
+void Screen::vt52EnterGraphicsMode()
+{
+	// FUN_007e5a90: only in VT52 mode; core+0xc0 (charset slot area) = 3
+	if (isVt52Mode())
+		m_core->m_charsetSlot3 = 3;
+}
+
+void Screen::vt52ExitGraphicsMode()
+{
+	// FUN_007e5ab0 — mirror of enter (body not yet transcribed)
+}
+
+void Screen::vt52Identify()
+{
+	// FUN_007edc22: answers ESC / Z via the response path
+	sendResponse(QByteArray("\x1b") + "/Z");   // FUN_007e66c6 — cited
+}
+
+void Screen::zmodemSend()
+{
+	// FUN_007e6844: notifyView(2, 1)
+	notifyZmodem(2, 1);        // FUN_0091378a — cited
+}
+
+void Screen::zmodemReceive()
+{
+	// FUN_007e676c: tears down any pending zmodem timer (+0x208), then
+	// installs a QTimer wired to FUN_007e22fa (state machine tick)
+	// — orchestration cited
+}
+
+bool Screen::refreshNeeded() const
+{
+	// FUN_0061324e: inverted top bit of the view flags (+0x10 +0x10)
+	return (~m_viewRefresh) >> 31;
+}
+
+void Screen::adjustScreenAlignment()
+{
+	// FUN_007e5f24 (DECALN): reset viewport, cursor home, then fill every
+	// cell with 'E' carrying the +0x88 SGR context
+	m_core->resetViewport();                        // FUN_007a4aea
+	m_core->moveCursorRaw(0, 0);
+	for (int y = 0; y < rowCount(); y++) {
+		const int width = windowColumns();
+		for (int x = 0; x < width; x++)
+			setCell(y, x, 0x45, &m_core->m_sgrState);   // FUN_007e4916 — cited
+	}
+}
+
+void Screen::reportDeviceAttributes(int index)
+{
+	// FUN_007ea806 (DA1/2/3): index into the protocol parameter list
+	// (+0x58 container), out-of-range ignored, response sent via
+	// FUN_007e626e
+	if (m_protocolParams->size() <= index)
+		return;
+	sendResponse(m_protocolParams->at(index));   // FUN_007e626e — cited
+}
+
+void Screen::reportDeviceStatus(const QString &params)
+{
+	// FUN_007f0ae6 (DSR): builds the "n" response from the split param
+	// list and sends it back — head transcribed, response assembly cited
+}
+
+void Screen::movePage(int page, bool homeCursor)
+{
+	// FUN_007ef16a: single-page screens are a no-op; page clamped to
+	// [0, pageCount-1]; switch via FUN_007ef11a, optionally home cursor
+	if (m_pageCount == 1)
+		return;
+	if (page > m_pageCount - 1)
+		page = m_pageCount - 1;
+	if (page < 0)
+		page = 0;
+	switchPage(page);          // FUN_007ef11a — cited
+	if (homeCursor)
+		cursorMoveRaw(0, 0);
+}

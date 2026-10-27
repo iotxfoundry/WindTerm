@@ -1,7 +1,7 @@
 #include "SuperCommander.h"
 #include "Screen.h"
 
-// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(158 个真实现体)。
+// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(170 个真实现体)。
 // 三层洋葱:this -> m_screen(+0x80, 0x7e 层) -> TerminalCore(0x7a 层)。
 // 每体注明 moc 索引与实现地址;其余槽为后续批次占位。
 // 信号 5 个由 moc 生成不定义。phase-1 参考还原,不编译。
@@ -14,25 +14,27 @@ SuperCommander::SuperCommander(QObject *parent)
 void SuperCommander::vt52Mode()
 {
 	// moc[256] -> 0x7e5a02
-	// 未转写(后续批次)
+	m_screen->isVt52Mode();
+	// 取值函数(+0x124),槽调用丢弃返回值
 }
 
 void SuperCommander::vt52Identify()
 {
 	// moc[255] -> 0x7edc22
-	// 未转写(后续批次)
+	m_screen->vt52Identify();
+	// 应答 ESC / Z
 }
 
 void SuperCommander::vt52EnterGraphicsMode()
 {
 	// moc[253] -> 0x7e5a90
-	// 未转写(后续批次)
+	m_screen->vt52EnterGraphicsMode();
 }
 
 void SuperCommander::vt52ExitGraphicsMode()
 {
 	// moc[254] -> 0x7e5ab0
-	// 未转写(后续批次)
+	m_screen->vt52ExitGraphicsMode();
 }
 
 void SuperCommander::vt52MoveCursor(int column, int line)
@@ -1091,7 +1093,8 @@ void SuperCommander::exitAltKeypadMode()
 void SuperCommander::refreshScreen()
 {
 	// moc[125] -> 0x61324e
-	// 未转写(后续批次)
+	m_screen->refreshNeeded();
+	// 视图标志位取反,FUN_0061324e
 }
 
 void SuperCommander::setColumnsPerPage()
@@ -1153,7 +1156,8 @@ void SuperCommander::setCursorVisibility(bool visible)
 void SuperCommander::adjustScreenAlignment()
 {
 	// moc[5] -> 0x7e5f24
-	// 未转写(后续批次)
+	m_screen->adjustScreenAlignment();
+	// DECALN:全屏填 E
 }
 
 void SuperCommander::allowScrollback()
@@ -1284,25 +1288,29 @@ void SuperCommander::selectActiveStatusDisplay(int display)
 void SuperCommander::reportDeviceAttributesOne()
 {
 	// moc[128] -> 0x7ea806
-	// 未转写(后续批次)
+	m_screen->reportDeviceAttributes(0);
+	// DA1,容器首元素
 }
 
 void SuperCommander::reportDeviceAttributesTwo()
 {
 	// moc[129] -> 0x7ea806
-	// 未转写(后续批次)
+	m_screen->reportDeviceAttributes(1);
+	// DA2
 }
 
 void SuperCommander::reportDeviceAttributesThree()
 {
 	// moc[130] -> 0x7ea806
-	// 未转写(后续批次)
+	m_screen->reportDeviceAttributes(2);
+	// DA3
 }
 
 void SuperCommander::reportDeviceStatus(const QString &status)
 {
 	// moc[131] -> 0x7f0ae6
-	// 未转写(后续批次)
+	m_screen->reportDeviceStatus(status);
+	// DSR 应答装配
 }
 
 void SuperCommander::reportDecDeviceStatus(const QString &status)
@@ -1699,13 +1707,15 @@ void SuperCommander::enterTmuxControlMode()
 void SuperCommander::zmodemSend()
 {
 	// moc[263] -> 0x7e6844
-	// 未转写(后续批次)
+	m_screen->zmodemSend();
+	// notifyView(2,1)
 }
 
 void SuperCommander::zmodemReceive()
 {
 	// moc[262] -> 0x7e676c
-	// 未转写(后续批次)
+	m_screen->zmodemReceive();
+	// QTimer 状态机编排
 }
 
 void SuperCommander::bracketedPasteMode()

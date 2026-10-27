@@ -181,6 +181,23 @@ public:
 	void shiftSingle(int n);               // FUN_007e5254
 	int  paletteColor(int index) const;    // FUN_007e3578
 
+	bool m_vt52Mode;                // +0x124
+	int m_pageCount;                // +0xcc
+	int m_pageCurrent;              // note: FUN_007ef11a switch target
+
+	// --- batch 3a: VT52 / zmodem / reports / alignment / pages --------------
+	bool isVt52Mode() const;                     // FUN_007e5a02 (+0x124)
+	void vt52EnterGraphicsMode();                // FUN_007e5a90 (core+0xc0 = 3)
+	void vt52ExitGraphicsMode();                 // FUN_007e5ab0 (mirror)
+	void vt52Identify();                         // FUN_007edc22 (sends ESC / Z)
+	void zmodemSend();                           // FUN_007e6844 -> notify(2,1)
+	void zmodemReceive();                        // FUN_007e676c (QTimer FSM)
+	bool refreshNeeded() const;                  // FUN_0061324e (view flag)
+	void adjustScreenAlignment();                // FUN_007e5f24 (DECALN 'E' grid)
+	void reportDeviceAttributes(int index);      // FUN_007ea806
+	void reportDeviceStatus(const QString &params); // FUN_007f0ae6
+	void movePage(int page, bool homeCursor);    // FUN_007ef16a
+
 	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
 	int currentCursorStyle() const;                  // FUN_007e36aa
 	void notifyCursorStyle(void *cursor, int shape); // FUN_00913592
@@ -214,6 +231,12 @@ public:
 	void clearWrapLatch();                // FUN_007e515e
 	void markLocatorChanged();            // FUN_007e2f3e
 	void keymapSetModifier(void *keymap);   // FUN_007a2c94
+	void sendResponse(const QByteArray &data);  // FUN_007e66c6
+	void notifyZmodem(int a, int b);            // FUN_0091378a
+	void setCell(int y, int x, int ch, void *sgr);  // FUN_007e4916
+	void switchPage(int page);                  // FUN_007ef11a
+	unsigned int m_viewRefresh;                 // view flags via +0x10
+	void *m_protocolParams;                     // +0x58 parameter list
 	void keymapResetModifier(void *keymap); // FUN_007a2c02
 };
 
