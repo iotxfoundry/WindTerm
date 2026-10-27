@@ -2,7 +2,15 @@
 
 > 用途:新会话冷启动。让 agent 先读本文件 + 本目录其余文档,即可无缝续作。
 
-## 一句话状态
+## 一句话状态(2026-10-27 终态)
+
+**语法自洽达成**:src/Sessions 全部 20 个 .cpp + 全部头文件在
+g++ 13.3 -std=c++17 -fPIC -fsyntax-only 下 **0 错误**
+(需 -I 系统 Qt5 头:/usr/include/x86_64-linux-gnu/qt5,及
+-I src/libssh/include)。代码与逆向结果一致(真实现/转发/引用
+三档,地址注释齐全)。**下一步即编译验证**(链接 lib/libQt5*.so
+与 moc 处理 Q_OBJECT 类),由用户启动。
+
 
 WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批转写已完成**:SuperCommander.cpp 170 个真实现体,Screen
 层 ~95 方法,TerminalCore ~47 方法。批次②:DECSM/DECRM 完整 case 表
