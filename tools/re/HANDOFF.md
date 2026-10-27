@@ -24,9 +24,12 @@ zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%)
 collectRectCells/parseAttrCells/resetRow 模板尾/cloneGlyphPayload/
 取格取头 0x7a3c1a·0x7a3c2a;IDA MCP + kuna 语料双源,IDA 基址 =
 Ghidra - 0x400000)。仍剩:
-- Screen: writeText 内层 helper(decodeChunk 编解码器链、字宽双源、
-  组合簇追加)、键盘方言/类型表
-- 方向候选: writeText 内层 helper 深挖、TextView 渲染层、类横扫
+- Screen: writeText 内层 helper ✅、剩余视图桩 ✅;键盘方言表(动态路线)
+- 编辑器引擎(Scintilla 系,两级分派 0xa5205e/0xa418c4):336 命令
+  100% 接线(131 手工语义 + 228 生成层,EditorEngine.h/.cpp);
+  分层图:分派器 → doc(+0x1098)→ GapBuffer(+0xf8)→ 行索引
+  (自适应自旋惰性重算 FUN_00a62f52);复杂叶 104 个 + t_call 110
+  个按家族换真身推进中(见 EDITOR-ENGINE-COMMANDS.md)
 
 ## 环境状态(新会话先核对)
 

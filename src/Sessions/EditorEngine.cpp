@@ -100,6 +100,62 @@ static int docOp9251ea(void *doc, long long a, int b) { (void)doc; (void)a; (voi
 static int docOp92a2b2(void *doc, long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7fb
 static void docOp92a3fc(void *doc, int v) { (void)doc; (void)v; }  // 0x7e2
 static void docOp927a30(void *doc, bool b) { (void)doc; (void)b; }  // 0x7dc
+
+// ---------------------------------------------------------------------------
+// GapBuffer / line-index layer: doc+0xf8 → buffer, buffer+8 → line index
+// ---------------------------------------------------------------------------
+static void *gapBufferOf(void *doc)
+{
+	// every FUN_009252xx wrapper derefs doc+0xf8 first
+	return *(void **)((char *)doc + 0xf8);
+}
+
+static long long lineIndexAt(void *lineIdx, long long line)
+{
+	// FUN_00a62f52 (278B): lazy line-position lookup — empty index
+	// (runs+0x10 == 0) recomputes; the atomic flag at +0x31 gates one
+	// recompute while contenders spin: sched_yield up to 2 tries, then
+	// nanosleep 100ns, then 10us; result =
+	// runstyles_run_start_at(index+0x18 runs, position)
+	(void)lineIdx; (void)line;
+	return 0;
+}
+
+static long long gapLineCount(void *buf)
+{
+	// FUN_0098067a (9B) → FUN_00a629b6(index(buf+8))
+	return 0;
+}
+
+static long long gapClampEol(void *buf, long long pos, long long end)
+{
+	// FUN_0098081e (77B): clamp so a position never splits a line
+	// terminator — char reads via buffer vtable+0x28: "\n" then "\r"
+	// before it → end-2 (CRLF); lone "\n" → end-1; "\r" → end-1
+	typedef char (*CharAtFn)(void *, long long);
+	CharAtFn charAt = *(CharAtFn *)(*(void ***)buf + 0x28 / 8);
+	if (pos < end) {
+		const long long last = end - 1;
+		if (charAt(buf, last) == '\n') {
+			if (charAt(buf, end - 2) == '\r')
+				return end - 2;
+			return last;
+		}
+		if (charAt(buf, last) == '\r')
+			return last;
+	}
+	return end;
+}
+
+static long long gapLineEnd(void *buf, long long line)
+{
+	// FUN_0098086c (68B): lineIndexAt(index, line+1); when line is the
+	// last line the result clamps EOL-aware via FUN_0098081e
+	long long pos = lineIndexAt(*(void **)((char *)buf + 8), line + 1);
+	if (gapLineCount(buf) - 1 <= line)
+		pos = gapClampEol(buf, 0, pos);
+	return pos;
+}
 static void vtA0Repaint()
 {
 	// engine vtable +0xa0 slot — full repaint trigger (0x7e5/0x7583)
@@ -114,12 +170,8 @@ static int docOp9284c6(void *doc, long long v) { (void)doc; (void)v; return 0; }
 static long long docOp928624(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x851 plain path
 static long long docOp92520c(void *doc, long long v)
 {
-	// FUN_0092520c (12B) → FUN_0098086c(gapBuf(doc+0xf8), v): line-
-	// terminator position = FUN_00a62f52(buf, v+1), clamped to the
-	// last line via FUN_0098081e — gap-buffer line index lookup
-	// gapLineEnd(gapBuf(doc), v) — wave-2 (FUN_0098086c, 68B)
-	(void)doc; (void)v;
-	return 0;
+	// FUN_0092520c (12B) → FUN_0098086c(gapBuf(doc+0xf8), v)
+	return gapLineEnd(gapBufferOf(doc), v);
 }
 static long long editorLineEndIdx(void *obj, long long v) { (void)obj; (void)v; return 0; }  // 0x858 gated path
 static bool docFlag9290e8b(void *doc) { (void)doc; return false; }  // 0x85c
