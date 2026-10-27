@@ -1,0 +1,48 @@
+#ifndef EDITORENGINE_H
+#define EDITORENGINE_H
+
+#pragma once
+
+#include <QByteArray>
+#include <QList>
+#include <QString>
+#include <QVariant>
+
+// Reconstructed from WindTerm 2.7.0 disassembly. The editor backend
+// behind TextView+0x58 — a Scintilla-derived engine (RTTI: Sci* event
+// classes). Two-level command dispatch:
+//   level 1  0x00a5205e (1113B): SCI fast range 0x833-0x8a6 + 0x7531/2
+//   level 2  0x00a418c4 (37951B): full SCI/EXT/WT space — this file
+// Signature both levels:
+//   QVariant* f(QVariant *ret, Engine*, uint cmd, QVariant *a, QVariant *b)
+// = the sendEditor (FUN_005b5d68) vtable+0x1c0 tail-call landing shape.
+// Full command map: EDITOR-ENGINE-COMMANDS.md (336 leaves).
+
+class EditorEngine
+{
+public:
+	// --- object layout (partial, offsets proven in the dispatcher) ---
+	void *vtable;
+	void *m_doc;          // +0x1098 (param_2[0x213]) — buffer/document
+	void *m_field10a8;    // +0x10a8 (param_2[0x215]) — 0x7548 path
+	int m_style;          // +0x1238 / +0x123c pair (0xa5205e)
+	bool m_flag11e8;      // +0x11e8
+	long long m_pos11f0;  // +0x11f0
+	void *m_sub1148;      // +0x1148 (FUN_00a740xx cluster)
+	void *m_ptr1240;      // +0x1240
+	char m_flag1b2;       // +0x1b2
+
+	// edit transaction: editctx_beginIter(ctx, engine, &flags) at
+	// 0x7551; flags bit layout seen: 0x2 (no cursor move) / 0x200
+	// (move cursor to end); ctx committed by FUN_00a161d8
+
+	// --- level-2 command bodies (first batch) -----------------------
+	void cmdAppendText(const QVariantList &args);   // 0x7551 CMD_30033
+	void cmdReplaceText(const QVariantList &args);  // 0x7552 (5-arg form)
+	void cmdSubString(long long start, long long end, QVariant *ret);  // 0x7554
+	void cmdIndexOf(const QVariantList &args, QVariant *ret);   // 0x757e CMD_30078
+	void cmdSetFlagF8(int which, bool on);          // 0x754b/0x754c vt+0xf8
+	void cmdGotoPosition(long long pos);            // 0x75ac CMD_30124
+};
+
+#endif // EDITORENGINE_H
