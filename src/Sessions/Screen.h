@@ -351,12 +351,28 @@ public:
 	void reportUnsupported(const QString &message);       // FUN_007eefbe
 	void setScrollbarVisible(bool on);    // FUN_007e51e6
 	static void zmodemTick();            // FUN_007e22fa
+	void buildWriteTemplate();           // FUN_007e4c90 -> +0x28 cell
+	QByteArray takePendingMultibyte();   // +0x178 carry buffer
+	void savePendingMultibyte(const char *data, int len);
+	int decodeChunk(const char *data, int len, unsigned int *cp);  // codec chain +0x18
+	bool incompleteSequence(unsigned int cp, int eaten);
+	int codepointWidth(unsigned int cp);  // FUN_007a4692
+	bool sCharClass(unsigned int cp);     // DAT_011c1fe0 table
+	void *cellAt(struct Row *row, int col);         // FUN_007a3c1a
+	unsigned short *headAt(struct Row *row, int col);  // FUN_007a3c2a
+	void appendClusterUnits(void *cell, unsigned int cp);
+	void shiftCellsRight(struct Row *row, int col, int width);
+	void bell();                         // FUN_007e353a
+	int m_pendingWrap;                   // +0x40 (wrap-pending row flag)
+	int m_lineModeBit;                   // +0x1c8 bit0 source
+	unsigned int m_lastCp;               // decode latch for REP
 	void resizeScreen(int rows, int cols, int flag);      // FUN_007e5688
 	void notifyMouseMode(bool on);        // thunk FUN_009131c8 (arg 4)
 	void notifyReverseScreen();           // FUN_009134d0
 	void notifyModeChange();              // FUN_00913178
 	void enterVt52(int mode);             // FUN_007e87c8
-	void writeText(const QString &text);  // FUN_007e6f42
+	void writeText(const char *data, int len);   // FUN_007e6f42 (main loop)
+	void writeText(const QString &text);         // codec wrapper
 	void clearWrapLatch();                // FUN_007e515e
 	void markLocatorChanged();            // FUN_007e2f3e
 	void keymapSetModifier(void *keymap);   // FUN_007a2c94

@@ -1296,3 +1296,139 @@ void Screen::mediaCopy(int type)
 		reportUnsupported(QStringLiteral("Media Copy Type %1").arg(type));
 	}
 }
+
+void Screen::writeText(const char *data, int len)
+{
+	// FUN_007e6f42: the terminal character-processing main loop.
+	//
+	// Preamble: an incomplete multibyte sequence left in the pending
+	// buffer (+0x178) is prepended to the new data; the current SGR
+	// write-template cell is rebuilt (FUN_007e4c90) into +0x28..+0x40
+	// (four qwords: flags/palette/aux-payload), releasing the old one.
+	//
+	// Per byte: control chars dispatch (\n \f \v -> lineFeed, \r ->
+	// carriageReturn, \a -> bell, \b -> backspace, \t -> horizontalTab,
+	// 0x7f/\0 skipped). Printables run the wrap/insert pipeline:
+	//
+	//   - autowrap latch: core flags 0x82 (pending 0x80 + DECAWM 0x02)
+	//     -> markLine(cursorY,1), IND at the bottom margin else step,
+	//     carriageReturn (classic wrap-at-margin sequence)
+	//   - cell/attr pointers via FUN_007a3c1a/0x7a3c2a at cursorX
+	//   - width from FUN_007e5a0e (char class) and FUN_007a4692
+	//     (codepoint width; 0 = combining, <0 = invalid)
+	//   - IRM (+0x12a): cells+attrs memmove right before the write
+	//   - wide char: second cell head 0xffff, two columns consumed
+	//   - combining/zero-width: UTF-16 units appended into the cell's
+	//     glyph-cluster aux object (0x18 bytes, growable u16 array via
+	//     FUN_007aa1bc; astral cp split as (cp>>10)-0x2840 high +
+	//     (cp&0x3ff)+0xDC00 low; surrogate pairs mapped into the
+	//     private-use plane 0xfca02400 + unit*0x400)
+	//   - crossing originRight: cursor stays past the margin and core
+	//     flag 0x80 latches the pending wrap (byte re-processed)
+	//   - row finalize: flags 0x40 from the pending-wrap member, changed
+	//     bit, style bytes +0x50..0x57 invalidated, bit2 from +0x1c8,
+	//     column clamped to originRight, setCursorX, last graphic char
+	//     updated (FUN_007e515e)
+	//
+	// Loop end: core markDirty(1). Multibyte decoding runs through the
+	// codec chain (FUN_007cadee/0x7cb7b6, virtual +0x18 toUnicode);
+	// an U+FFFD result with a longer pending buffer defers the sequence.
+	const char *p = data;
+	int n = len;
+	QByteArray pending = takePendingMultibyte();   // +0x178 carry
+	if (!pending.isEmpty()) {
+		pending.prepend(QByteArray::fromRawData(data, len));
+		p = pending.constData();
+		n = pending.size();
+	}
+	buildWriteTemplate();                          // FUN_007e4c90 -> +0x28
+	int i = 0;
+	while (i < n) {
+		const char c = p[i];
+		if (c == '\n' || c == '\f' || c == '\v') {
+			lineFeed();
+			i++;
+			continue;
+		}
+		if (c == '\r') { carriageReturn(); i++; continue; }
+		if (c == '\a') { bell(); i++; continue; }              // FUN_007e353a
+		if (c == '\b') { backspace(); i++; continue; }
+		if (c == '\t') { horizontalTab(); i++; continue; }
+		if (c == '\0' || c == '\x7f') { i++; continue; }
+
+		// pending wrap fires on the first printable
+		if ((m_core->m_flags & 0x82) == 0x82) {
+			m_core->markLine(m_core->m_cursorY, 1);
+			if (m_core->scrollRegionBottomLimit() == m_core->m_cursorY)
+				indexDown();
+			else
+				m_core->moveLineBy(1);
+			carriageReturn();
+		}
+		int col = m_core->m_cursorX;
+		const int right = m_core->originRight();
+		struct Row *row = m_core->row(m_core->m_cursorY);
+		void *cell = cellAt(row, col);             // FUN_007a3c1a
+		unsigned short *head = headAt(row, col);   // FUN_007a3c2a
+
+		bool wrapped = false;
+		while (true) {
+			unsigned int cp = (unsigned char)p[i];
+			int width;
+			if (cp < 0x80 && !sCharClass(cp)) {    // DAT_011c1fe0 table
+				width = 1;
+			} else {
+				// multibyte decode through the codec chain
+				const int eaten = decodeChunk(p + i, n - i, &cp);
+				if (incompleteSequence(cp, eaten)) {
+					savePendingMultibyte(p + i, n - i);   // +0x178
+					i += eaten;
+					break;
+				}
+				width = codepointWidth(cp);         // FUN_007a4692
+			}
+			if (width < 1) {
+				// combining / invalid: append UTF-16 units into the
+				// cell's glyph-cluster aux array
+				appendClusterUnits(cell, cp);
+				i += eatenBytes(width);
+				continue;
+			}
+			if (m_insertMode) {                     // IRM: shift right
+				shiftCellsRight(row, col, width);
+			}
+			copyCell(cell, &m_writeTemplate);       // SGR template +0x28
+			*head = (unsigned short)cp;
+			int newCol = col + width;
+			if (width == 2 && col + 1 < m_core->columnCount()) {
+				copyCell(nextCell(cell), &m_writeTemplate);
+				nextHead(head) = 0xffff;            // wide second half
+			}
+			if (right < newCol) {
+				// past the margin: latch the pending wrap and re-run
+				m_core->m_flags |= 0x80;
+				wrapped = true;
+				break;
+			}
+			col = newCol;
+			i++;
+			if (i >= n)
+				break;
+		}
+		// row finalize
+		if (m_pendingWrap)
+			row->flags |= 0x40;
+		m_core->setRowFlags(row, 1);
+		memset((char *)row + 0x50, 0, 8);          // invalidate row style
+		row->flags = (unsigned char)((row->flags & 0xfb)
+			| ((m_lineModeBit & 1) * 4));          // Screen +0x1c8 bit0
+		if (col > right)
+			col = right;
+		m_core->setCursorX(col);
+		m_lastGraphicChar = m_lastCp;              // FUN_007e515e
+		if (wrapped)
+			continue;
+		i++;
+	}
+	m_core->markDirty(1);
+}
