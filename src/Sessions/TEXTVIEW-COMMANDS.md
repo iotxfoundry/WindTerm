@@ -97,3 +97,11 @@ TerminalWidget 槽体同样经 FUN_005b5d68 分发,新增 WT 段命令:
 槽体 case 表:tools/re/data/terminalwidget_cases.json(72 项)。
 非命令槽走会话栈守卫(+0x1f0/+0x1f8)直调 Screen 层 0x7e33xx 簇
 (clearScreen/clearScrollback/resetHard 等)。
+
+## 覆盖度定案(2026-10-27 补完轮)
+
+metacall(0x8f3a74)全文含 **238 个 case 标签 ≥ 227 方法计数** ——
+"27 行缺口"实为 king_api 计数包含属性读写外壳(metacall _c=1/2
+路径)与信号索引查询(_c=10 的 fn-ptr 比对分支,如 FUN_008f3046
+== 0x39/0x3a..0x3d),均非待逆向方法。方法面覆盖 = 100%
+(200 表行 + 58 moc 信号桩 + 属性/索引外壳)。
