@@ -32,6 +32,12 @@ public:
 	char m_flag1b2;       // +0x1b2
 	int m_style;          // +0x1238 (0x840/0x834 writes)
 	int m_stylePair;      // +0x123c (0x83c write / 0x83d read)
+	void *m_foldMgr;      // +0x10b8 (param_2[0x217]) — fold operations
+	void *m_pairObj;      // +0x10e0 (param_2[0x21c]) — pair highlight
+	void *m_obj10c8;      // +0x10c8 (param_2[0x219]) — 0x75b5 path
+	void *m_marginBegin;  // +0xd58 (param_2[0x1ab]) margin node list
+	void *m_marginEnd;    // +0xd60 (param_2[0x1ac]) stride 24
+	char m_pairEnabled;   // +0xd92 (0x7583)
 
 	// --- dispatchers (the two vtable+0x1c0 landing functions) --------
 	QVariant dispatchLevel1(uint cmd, const QVariant &a, const QVariant &b);
@@ -48,6 +54,14 @@ public:
 	void cmdIndexOf(const QVariantList &args, QVariant *ret);   // 0x757e CMD_30078
 	void cmdSetFlagF8(int which, bool on);          // 0x754b/0x754c vt+0xf8
 	void cmdGotoPosition(long long pos);            // 0x75ac CMD_30124
+	void cmdFoldRange(long long start, long long end);  // 0x756f CMD_30063
+	void cmdFoldLine(long long line, bool expand);  // 0x7571 CMD_30065
+	QByteArray cmdEolString(long long eol);         // 0x7577 CMD_30071
+	void cmdSetEol(int eol);                        // 0x757a (FUN_00a21b6a)
+	QStringList cmdMargins();                       // 0x7591 CMD_30097
+	QString cmdSelectionText(const QString &sep, bool useSep);    // 0x75b8 CMD_30136
+	QByteArray cmdSelectionTextBytes(const QByteArray &sep, bool useSep);  // 0x75b7
+	void cmdSetPairHighlight(bool on);              // 0x7583
 };
 
 #endif // EDITORENGINE_H

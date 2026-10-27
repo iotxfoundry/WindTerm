@@ -145,11 +145,103 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 		cmdIndexOf(a.toList(), &ret);
 		return ret;
 	}
+	case 0x756f:
+		cmdFoldRange(a.toLongLong(), b.toLongLong());
+		return QVariant(0);
+	case 0x7571:
+		cmdFoldLine(a.toLongLong(), b.toBool());
+		return QVariant(0);
+	case 0x7577:
+		return QVariant(cmdEolString(a.toLongLong()));
+	case 0x757a:
+		cmdSetEol(a.toInt());
+		return QVariant(0);
+	case 0x7591:
+		return QVariant(cmdMargins());
+	case 0x75b7:
+		return QVariant(cmdSelectionTextBytes(a.toByteArray(), b.toBool()));
+	case 0x75b8:
+		return QVariant(cmdSelectionText(a.toString(), b.toBool()));
+	case 0x7583:
+		cmdSetPairHighlight(a.toBool());
+		return QVariant(0);
 	case 0x75ac:
 		cmdGotoPosition(a.toLongLong());
 		return QVariant(0);
 	default:
 		return QVariant(0);   // remaining ~329 leaves per the command table
+	}
+}
+
+// ---------------------------------------------------------------------------
+// Second batch: fold / margin / eol / selection families (inline regions)
+// ---------------------------------------------------------------------------
+
+void EditorEngine::cmdFoldRange(long long start, long long end)
+{
+	// 0x756f (0xa49290 region): fold range on the fold manager
+	// (+0x10b8): FUN_00a5ec00(mgr, start, end, 0, 1)
+	// foldMgrFoldRange(m_foldMgr, start, end, 0, 1); — thunk
+}
+
+void EditorEngine::cmdFoldLine(long long line, bool expand)
+{
+	// 0x7571 (0xa4a0d0 region): FUN_00a5ed6e(mgr, line, 1, 0, expand)
+	// foldMgrFoldLine(m_foldMgr, line, 1, 0, expand); — thunk
+}
+
+QByteArray EditorEngine::cmdEolString(long long eol)
+{
+	// 0x7577 (0xa42761 region): FUN_00a21a0e(&out, engine, eol) — the
+	// per-eol-kind line terminator string
+	// QByteArr return; — thunk
+	return QByteArray();
+}
+
+void EditorEngine::cmdSetEol(int eol)
+{
+	// 0x757a: FUN_00a21b6a(engine, eol) — eol kind set; sibling 0x757b
+	// (FUN_00a21b2c) is the other kind slot
+	// eolSet(this, eol); — thunk
+}
+
+QStringList EditorEngine::cmdMargins()
+{
+	// 0x7591 (0xa47538 region): walks the inline margin node list
+	// (+0xd58..+0xd60, 24-byte nodes); nodes with a non-empty +4 name
+	// field convert (cstr_toQStr) into the QStringList result
+	QStringList out;
+	for (const char *n = (const char *)m_marginBegin; n != (const char *)m_marginEnd; n += 24)
+		if (*(const int *)(n + 4) != 0)
+			out << QString::fromUtf8(*(const char *const *)n);
+	return out;
+}
+
+QString EditorEngine::cmdSelectionText(const QString &sep, bool useSep)
+{
+	// 0x75b8 (0xa49a8e region): FUN_00a36f26(&out, engine, sep, useSep)
+	(void)sep; (void)useSep;
+	return QString();
+}
+
+QByteArray EditorEngine::cmdSelectionTextBytes(const QByteArray &sep, bool useSep)
+{
+	// 0x75b7 sibling (0xa426fc region): FUN_00a36eb0 — byte form
+	(void)sep; (void)useSep;
+	return QByteArray();
+}
+
+void EditorEngine::cmdSetPairHighlight(bool on)
+{
+	// 0x7583 (0xa41ef0 region): +0xd92 flag; off → FUN_00a10c68 on the
+	// pair object (+0x10e0)+8 then engine vtable+0xa0 repaint; on →
+	// pairHighlightUnmatched(engine, -1) (FUN_00a29352)
+	m_pairEnabled = on;
+	if (on) {
+		// FUN_00a10c68(*(char **)m_pairObj + 8);
+		// (*(vt+0xa0))(this);
+	} else {
+		// pairHighlightUnmatched(this, -1);
 	}
 }
 
