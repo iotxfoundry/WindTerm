@@ -1753,7 +1753,7 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		if (kind == 1)
 			eA169cc(m_obj10c8, b.toLongLong());
 		else if (kind == 2)
-			eA167ac(m_obj10c8, b.toLongLong());
+			eA167ac2(m_obj10c8, b.toLongLong());
 		return QVariant(0);
 	}
 	case 0x75b6:  // WT 30134: FUN_00a36e40, args no args
