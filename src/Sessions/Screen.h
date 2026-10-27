@@ -352,6 +352,11 @@ public:
 	void applyNamedAttribute(const char *key, const QString &value);  // FUN_007ee9e2
 	void setAttributeEnabled(int on);     // FUN_007e51ca
 	void notifyNamedAttribute(const char *key, const QString &value);
+	void notifyScrollbar();               // FUN_00913508
+	void setCodec(const QByteArray &name); // FUN_007e87a2
+	void playBell(const QVariant &style);  // FUN_007cbc46 tail
+	QVariant configValue(const char *key); // FUN_007cbb36
+	int queryProtocolLevel(void *params);  // FUN_007e2e42
 	void reportUnsupported(const QString &message);       // FUN_007eefbe
 	void setScrollbarVisible(bool on);    // FUN_007e51e6
 	static void zmodemTick();            // FUN_007e22fa

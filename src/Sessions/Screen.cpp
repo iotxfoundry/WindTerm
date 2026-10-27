@@ -1634,3 +1634,113 @@ void Screen::sendScreenCommand(int cmd, const QVariant &a, const QVariant &b)
 	// 6 clear screen, 7 clear scrollback.
 	emit commandRequested(cmd, a, b);   // QMetaObject::activate sig 2
 }
+
+// ---------------------------------------------------------------------------
+// Cited helpers: real bodies (batch sweep)
+// ---------------------------------------------------------------------------
+
+void Screen::reportUnsupported(const QString &message)
+{
+	// FUN_007eefbe: formats "[NOT SUPPORTED] {}" and walks the view
+	// list (+0x1e0 container) delivering the notice to every view
+	for (each view in m_views)
+		view->notify(message);
+}
+
+int Screen::paletteBright(int index) const
+{
+	// FUN_007e358e: bright-palette bitmap at +0xd8 container payload
+	// (+0x10, bit index <= 15); >=16 reads as bright (1)
+	if (index > 15)
+		return 1;
+	if (!m_brightBitset)
+		return 0;
+	return (m_brightBitset[(index >> 3) + 1] >> (index & 7)) & 1;
+}
+
+unsigned int Screen::rgbFromRgb(int r, int g, int b) const
+{
+	// FUN_007e35c8: b | r<<16 | g<<8
+	return (unsigned int)((r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff));
+}
+
+void Screen::setScrollbarVisible(bool on)
+{
+	// FUN_007e51e6: +0x135 flag, notify only on change (FUN_00913508)
+	if (on == m_scrollbarVisible)
+		return;
+	m_scrollbarVisible = on;
+	notifyScrollbar();   // FUN_00913508 — cited
+}
+
+void Screen::setAttributeEnabled(int on)
+{
+	// FUN_007e51ca: core flag bit2 (0x04)
+	m_core->m_flags = (unsigned short)((m_core->m_flags & 0xfb) | ((on & 1) << 2));
+}
+
+bool Screen::protocolExtCapable() const
+{
+	// FUN_007e2c72: protocol (+0x20) == 2 || == 4
+	return m_protocol == 2 || m_protocol == 4;
+}
+
+bool Screen::protocolAltCapable() const
+{
+	// FUN_007e2c6a: protocol == 3
+	return m_protocol == 3;
+}
+
+int Screen::protocolLevel() const
+{
+	// FUN_007e5ad0: cached at +0x124 (-1 = query the session, FUN_007e2e42)
+	if (m_protocolCache != -1)
+		return m_protocolCache;
+	return queryProtocolLevel(m_sessionParams);   // FUN_007e2e42 — cited
+}
+
+void Screen::notifyMouseMode(bool on)
+{
+	// FUN_009131c8: Screen signal 8 (mouseMode) — QMetaObject::activate
+	emit mouseModeChanged(on ? 4 : 0);   // literal arg per decompile
+}
+
+void Screen::notifyReverseScreen()
+{
+	// FUN_009134d0: Screen signal 18 (reverseScreen)
+	emit reverseScreenChanged();
+}
+
+void Screen::notifyModeChange()
+{
+	// FUN_00913178: Screen signal 1 (modeChange), no args
+	emit modeChanged();
+}
+
+void Screen::enterVt52(int mode)
+{
+	// FUN_007e87c8: mode!=0 -> clear the +0x124 protocol cache and set
+	// the "vt52" codec (FUN_007e87a2); mode==0 path restores (tail cited)
+	if (mode != 0) {
+		m_protocolCache = 0;
+		setCodec(QByteArray("vt52"));   // FUN_007e87a2 — cited
+	}
+}
+
+void Screen::ringBell()
+{
+	// FUN_007cbc46: reads the "terminal.bellStyle" config value and
+	// rings accordingly
+	playBell(configValue("terminal.bellStyle"));   // cited
+}
+
+void Screen::parseRect(const QString &area, int *top, int *left, int *bottom, int *right)
+{
+	// FUN_007eaeee: splits the param list into the 4-int rect
+	// (defaults/0-based normalization in the split loop)
+	const QStringList list = splitParams(area);
+	*top = list.value(0).isEmpty() ? 0 : list.value(0).toInt() - 1;
+	*left = list.value(1).isEmpty() ? 0 : list.value(1).toInt() - 1;
+	*bottom = list.value(2).isEmpty() ? 0 : list.value(2).toInt() - 1;
+	*right = list.value(3).isEmpty() ? 0 : list.value(3).toInt() - 1;
+}
