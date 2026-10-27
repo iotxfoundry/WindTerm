@@ -4,12 +4,13 @@
 
 ## 一句话状态
 
-WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二批转写已完成**:SuperCommander.cpp 158 个真实现体,Screen 层
-~80 方法,TerminalCore ~45 方法。批次②内容:DECSM/DECRM 完整 case 表
-(备用屏双缓冲 1046/1047/1049、鼠标 9/1000-1007/1015/2004)、SCS 94/96
-字符集槽、SGR 64 位属性状态机(core+0xb8 位域)、ICH/DCH/IL/DL/DECIC/
-DECDC、DECDWL/DHL 行标志。**剩余 ~101 占位体:批次③报告类/locator/
-zmodem/杂项**。
+WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批转写已完成**:SuperCommander.cpp 170 个真实现体,Screen
+层 ~95 方法,TerminalCore ~47 方法。批次②:DECSM/DECRM 完整 case 表
+(备用屏双缓冲、鼠标族、2004)、SGR 64 位状态机、SCS 字符集、ICH/DCH/
+IL/DL/DECIC/DECDC、DECDWL/DHL。批次③a:DECALN、VT52 四槽、DA/DSR 报告、
+zmodem、movePage 页面调度。**剩余 ~89 占位体:批次③b = 页面族适配器
+(0x7ef16a 参数构造,适配器在 0x7cc5-0x7cd0 段未解码)、request* 族
+(0x7ed/0x7f0/0x7f1/0x7f3 段)、mediaCopy、notify*、窗口标题族**。
 
 ## 环境状态(新会话先核对)
 
