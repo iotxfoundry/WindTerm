@@ -6,6 +6,7 @@
 #include <QByteArray>
 #include <QList>
 #include <QPoint>
+#include <QRect>
 #include <QString>
 #include <QVariant>
 
@@ -64,6 +65,9 @@ public:
 	char m_flagD8d;       // +0xd8d (0x758b change-detect + repaint)
 	char m_flagD8e;       // +0xd8e (0x7599, repaint gated by +0x1128)
 	int m_intD94;         // +0xd94 (0x759c, repaint gated by +0x1128)
+	char m_flagDe0;       // +0xde0 ([0x1bc]) — 0x75d7 read / 0x75db write
+	void *m_holder1068;   // +0x1068 ([0x20d]) position holder family
+	bool m_flag1083;      // +0x1083 (0x75e2 read)
 	long m_zoomReal;      // +0xd10 ([0x1a2]) fractional zoom (0x7567)
 	void *m_obj10b0;      // +0x10b0 ([0x216]) — 0x75a3 selection op target
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot

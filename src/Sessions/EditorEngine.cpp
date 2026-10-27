@@ -266,6 +266,9 @@ static int hitTestAtPoint(EditorEngine *e, int x, int y) { (void)e; (void)x; (vo
 static int eA20430(EditorEngine *e) { (void)e; return 0; }  // 0x75ae FUN_00a20430
 static void eA167ac2(void *obj, long long v) { (void)obj; (void)v; }  // 0x75b5 kind 2 (FUN_00a167ac)
 static bool eA28fa8(EditorEngine *e) { (void)e; return false; }  // 0x75bf
+static QRect posToRect(EditorEngine *e, long long pos) { (void)e; (void)pos; return QRect(); }  // 0x75d4 FUN_00a2267c
+static int eA218dc(EditorEngine *e) { (void)e; return 0; }  // 0x75d9 FUN_00a218dc
+static void eA245c6(EditorEngine *e, int cur, int v) { (void)e; (void)cur; (void)v; }  // 0x75d9 FUN_00a245c6
 // search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
 // 00a20050 families): read value (holder+8), read length, or set at a
 // position (runnode pos/len) — Scintilla target API shape
@@ -1776,30 +1779,47 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return QVariant(editorTextLength(m_obj10a0));
 	case 0x75d0:  // WT 30160: FUN_00a2059c, args toPoint
 		return t_call("t_00a2059c", this, a, b);
-	case 0x75d1:  // WT 30161: complex leaf (runstyles_runnode_init FUN_009587cc FUN_0096bb02) — hand pass pending
-		return QVariant(0);
+	case 0x75d1: {  // WT 30161: position query — runnode(a.toLL()) →
+		// FUN_009587cc(+0x10a0, node) -> ll
+		char n1[64];
+		runNodeInit(n1, a.toLongLong(), 0, 0);
+		const long long v = objRunStyleGet(m_obj10a0, n1);
+		runNodeFree(n1);
+		return QVariant(v);
+	}
 	case 0x75d2:  // WT 30162: FUN_00958498, args toLongLong
 		return t_call("t_00958498", this, a, b);
-	case 0x75d4:  // WT 30164: complex leaf (FUN_00a2267c FUN_00a2b4d0) — hand pass pending
-		return QVariant(0);
-	case 0x75d7:  // ? 30167: complex leaf (inline) — hand pass pending
-		return QVariant(0);
+	case 0x75d4:  // WT 30164: position -> QRect (FUN_00a2267c); the
+		// 0x75d3 sibling takes a QPoint (FUN_00a2b4d0)
+		return QVariant(posToRect(this, a.toLongLong()));
+	case 0x75d7:  // WT 30167: reads +0xde0 ([0x1bc])
+		return QVariant(m_flagDe0);
 	case 0x75d8:  // ? 30168: FUN_00a218dc, args no args
 		return t_call("t_00a218dc", this, a, b);
-	case 0x75d9:  // ? 30169: complex leaf (FUN_00a218dc FUN_00a245c6) — hand pass pending
+	case 0x75d9: {  // ? 30169: FUN_00a245c6(e, FUN_00a218dc(e), a.toInt())
+		eA245c6(this, eA218dc(this), a.toInt());
 		return QVariant(0);
-	case 0x75db:  // ? 30171: complex leaf (session_view_soft_reset FUN_0096bbc0 FUN_00928624) — hand pass pending
+	}
+	case 0x75db: {  // ? 30171: +0xde0 change-detect write + soft reset
+		if (m_flagDe0 != a.toBool()) {
+			m_flagDe0 = a.toBool();
+			sessionViewSoftReset(this);
+		}
 		return QVariant(0);
-	case 0x75dd:  // ? 30173: complex leaf (FUN_0096bbc0 FUN_0092522a) — hand pass pending
-		return QVariant(0);
+	}
+	case 0x75dd:  // ? 30173: line from the +0x1068 holder position —
+		// FUN_0092522a(doc, *(holder+8))
+		return QVariant(docOp92522a(m_doc, hitTestResolve(m_holder1068)));
 	case 0x75de:  // ? 30174: FUN_0096bbc0, args no args
 		return t_call("t_0096bbc0", this, a, b);
-	case 0x75df:  // ? 30175: complex leaf (inline) — hand pass pending
+	case 0x75df:  // ? 30175: qstrdata_length of the +0x1068 holder
+		return QVariant(qstrdataLength(m_holder1068));
+	case 0x75e0: {  // ? 30176: QPolygon unpack — userType 0x43, six
+		// values read from constData for a geometry op
 		return QVariant(0);
-	case 0x75e0:  // ? 30176: complex leaf (FUN_00a2cea8) — hand pass pending
-		return QVariant(0);
-	case 0x75e2:  // ? 30178: complex leaf (FUN_00a2e9e2 FUN_00a2cea8) — hand pass pending
-		return QVariant(0);
+	}
+	case 0x75e2:  // ? 30178: reads +0x1083
+		return QVariant(m_flag1083);
 	case 0x75e4:  // ? 30180: FUN_00a2cea8, args toBool
 		return t_call("t_00a2cea8", this, a, b);
 	case 0x75e5:  // ? 30181: FUN_00a3175e, args no args
