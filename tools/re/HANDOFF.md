@@ -10,13 +10,15 @@ WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批�
 IL/DL/DECIC/DECDC、DECDWL/DHL。批次③a:DECALN、VT52 四槽、DA/DSR 报告、
 zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%),行级 worker 已落码至
 单元格字节层。** 剩余 cited-stub 精确清单(下会话按此逐个击破):
-**cited-stub 清单已基本清零(六轮:原语/Screen 层/大件/报告/行渲染/
-DECCRA-DECRQM-zmodem)。** 仍剩纯引用级(按需):
-- TerminalCore: copyRect worker 体(0x7a7776)、rect 迭代尾段(0x7a6ab0)、
-  cloneGlyphPayload(0x7aa2e2 内)、rowHook(0x7a3dde)、resetRow 模板尾
-- Screen: writeText 全文(0x7e6f42,11K 文本渲染主管线,建议单独会话)、
-  reportDecDeviceStatus(0x7f0d7c,5.4K)、pushLines 内部容器 helper
-- 方向候选: writeText 深潜(终端写字符主循环)、TextView 渲染层、类横扫
+**writeText 主循环(0x7e6f42,终端心脏)与 DECDSR(0x7f0d7c)已完整
+转写 —— cited-stub 清单清零。** 终端栈 Commander→Screen→core→单元格
+四层全部真实现。仍剩纯引用级(按需,均为 worker 尾段):
+- TerminalCore: copyRect(0x7a7776)、rect 迭代尾(0x7a6ab0)、
+  cloneGlyphPayload(0x7aa2e2 内)、rowHook(0x7a3dde)、resetRow 模板尾、
+  setRowCell 的 FUN_007a3c1a/0x7a3c2a 取格/取头
+- Screen: writeText 内层 helper(decodeChunk 编解码器链、字宽双源、
+  组合簇追加)、键盘方言/类型表
+- 方向候选: writeText 内层 helper 深挖、TextView 渲染层、类横扫
 
 ## 环境状态(新会话先核对)
 

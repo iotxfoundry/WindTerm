@@ -1432,3 +1432,85 @@ void Screen::writeText(const char *data, int len)
 	}
 	m_core->markDirty(1);
 }
+
+void Screen::reportDecDeviceStatus(const QString &params)
+{
+	// FUN_007f0d7c (DECDSR): response = prefix + payload + suffix sent
+	// through sendResponse. Default prefix "ESC [ ?" (the "?" is appended
+	// to a copy of the leading param text), suffix "n". Mode table
+	// (guarded by the protocol level, FUN_007e5ad0):
+	//   6  -> DECCPR "%d;%d;%d" + "R": origin-relative row/col plus the
+	//         current page (+0xc8 + 1)
+	//   15 -> printer state "13" (level > 1)
+	//   25 -> UDK lock state: 0x15 - (+0x12d == 0) -> "21"/"20"
+	//   26 -> keyboard dialect: three appended dialect bytes
+	//   53/55 -> function-key type "2" (level > 2)
+	//   56 -> keyboard type byte appended (level > 2)
+	//   62 -> "0" with prefix "ESC [" and suffix "*{" (locator OK)
+	//   63 -> second param formatted "%d!~0000" inside DCS: prefix
+	//         "ESC P", suffix "ESC \" (multi-page XCPR)
+	//   75 -> "70";  85 -> "83"
+	//   default -> unsupported report
+	const QStringList list = splitParams(params);
+	if (list.isEmpty())
+		return;
+	const int level = protocolLevel();
+	QString prefix = QStringLiteral("\x1b[?");
+	QString suffix = QStringLiteral("n");
+	QString payload;
+	switch (list.at(0).toInt()) {
+	case 6: {
+		const int row = currentLine() + 1 - m_core->originTop();
+		const int col = currentColumn() + 1 - m_core->originLeft();
+		const int page = m_pageCurrent + 1;
+		payload = QStringLiteral("%1;%2;%3").arg(row).arg(col).arg(page);
+		suffix = QStringLiteral("R");
+		break;
+	}
+	case 15:
+		if (level > 1)
+			payload = QStringLiteral("13");
+		break;
+	case 25:
+		if (level > 1)
+			payload = QString::number(0x15 - (m_udkLocked == 0));
+		break;
+	case 26:
+		if (level > 1)
+			payload = keyboardDialects();       // three dialect bytes
+		break;
+	case 53:
+	case 55:
+		if (level > 2)
+			payload = QStringLiteral("2");
+		break;
+	case 56:
+		if (level > 2)
+			payload = keyboardType();
+		break;
+	case 62:
+		payload = QStringLiteral("0");
+		prefix = QStringLiteral("\x1b[");
+		suffix = QStringLiteral("*{");
+		break;
+	case 63: {
+		if (list.size() > 1 && !list.at(1).isEmpty())
+			payload = QStringLiteral("%1!~0000").arg(list.at(1).toInt());
+		prefix = QStringLiteral("\x1bP");
+		suffix = QStringLiteral("\x1b\\");
+		break;
+	}
+	case 75:
+		payload = QStringLiteral("70");
+		break;
+	case 85:
+		payload = QStringLiteral("83");
+		break;
+	default:
+		reportUnsupported(QStringLiteral("Report DEC Device Status %1").arg(list.at(0).toInt()));
+		return;
+	}
+	if (payload.isEmpty())
+		return;
+	sendResponse((prefix + payload + suffix).toLatin1());
+}
