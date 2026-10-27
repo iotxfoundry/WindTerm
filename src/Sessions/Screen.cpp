@@ -1560,3 +1560,61 @@ int Screen::codepointWidth(unsigned int cp)
 		return 1;
 	return widthFromTables(cp);    // two binary searches - cited tables
 }
+
+void *Screen::lockCodec()
+{
+	// FUN_007cadee: spinlock on the view lock byte (+0x120, LOCK/UNLOCK
+	// with nanosleep backoff 100ns -> 10us after 2 quick retries),
+	// returns the codec object at view +0xe0
+	return m_codec;            // +0xe0 under the +0x120 lock
+}
+
+void *Screen::decoderHandle()
+{
+	// FUN_007cb7b6: the decoder/iconv handle at view +0xf0
+	return m_decoder;
+}
+
+int Screen::charsetSlotWidth(int slot, bool nrc)
+{
+	// FUN_008034b6: setId = charset slot table; NRC mode returns it
+	// directly, otherwise a disabled charset (FUN_008034a4) yields 0
+	const int setId = m_core->charsetSlot(slot);
+	if (nrc)
+		return setId;
+	if (charsetDisabled(setId))   // FUN_008034a4 — cited
+		return 0;
+	return setId;
+}
+
+void Screen::buildWriteTemplate()
+{
+	// FUN_007e4c90: builds the 0x20-byte write cell template at
+	// +0x28..+0x40: aux payload from FUN_007e38ac, bytes 8..0x17 zeroed,
+	// flags byte starts at 1, +4 carries the view member at +0x64;
+	// flag bit0 <- core flags >> 2 & 1, bit1 <- guarded area (+0x121);
+	// remaining tail packs the erasure attribute (+0x110) - cited
+	m_writeTemplate.flags = 1;
+	m_writeTemplate.field4 = m_viewField64;
+	m_writeTemplate.flags = (unsigned char)
+	    ((m_writeTemplate.flags & 0xfe) | ((m_core->m_flags >> 2) & 1));
+	m_writeTemplate.flags = (unsigned char)
+	    ((m_writeTemplate.flags & 0xfd) | (m_guardedArea ? 2 : 0));
+	memset(m_writeTemplate.body, 0, 0x10);       // bytes 8..0x17
+	m_writeTemplate.payload = sgrPayload();      // FUN_007e38ac — cited
+}
+
+void Screen::bell()
+{
+	// FUN_007e353a: rings only when both switches are on - +0x12e
+	// (bell enabled) and +0x13a (audible), through the view object
+	if (m_bellEnabled && m_bellAudible)
+		ringBell();               // FUN_007cbc46(view) — cited
+}
+
+long Screen::styleTimestamp(bool primary)
+{
+	// FUN_007e538e: QElapsedTimer::elapsed() plus the base at +0x1f0
+	// (primary) or +0x1f8 - style-object lifetime stamps
+	return QElapsedTimer::elapsed() + (primary ? m_styleBase1 : m_styleBase2);
+}

@@ -360,6 +360,12 @@ public:
 	bool sCharClass(unsigned int cp);     // DAT_011c1fe0 table
 	int charClass(unsigned int cp);       // FUN_007e5a0e (charset slot)
 	int charsetSlotWidth(int slot, bool nrc);  // FUN_008034b6
+	bool charsetDisabled(int setId);           // FUN_008034a4
+	void *lockCodec();                         // FUN_007cadee (view +0xe0)
+	void *decoderHandle();                     // FUN_007cb7b6 (view +0xf0)
+	void ringBell();                           // FUN_007cbc46
+	void *sgrPayload();                        // FUN_007e38ac
+	long styleTimestamp(bool primary);         // FUN_007e538e
 	int widthFromTables(unsigned int cp); // FUN_007a4692 binary searches
 	void *cellAt(struct Row *row, int col);         // FUN_007a3c1a
 	unsigned short *headAt(struct Row *row, int col);  // FUN_007a3c2a
