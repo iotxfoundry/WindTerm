@@ -61,6 +61,7 @@ public:
 	// --- dispatchers (the two vtable+0x1c0 landing functions) --------
 	QVariant dispatchLevel1(uint cmd, const QVariant &a, const QVariant &b);
 	QVariant dispatchLevel2(uint cmd, const QVariant &a, const QVariant &b);
+	QVariant dispatchLevel2Generated(uint cmd, const QVariant &a, const QVariant &b);
 
 	// edit transaction: editctx_beginIter(ctx, engine, &flags) at
 	// 0x7551; flags bit layout seen: 0x2 (no cursor move) / 0x200

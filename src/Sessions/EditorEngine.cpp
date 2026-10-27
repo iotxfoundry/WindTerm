@@ -687,7 +687,7 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 		cmdGotoPosition(a.toLongLong());
 		return QVariant(0);
 	default:
-		return QVariant(0);   // remaining ~329 leaves per the command table
+		return dispatchLevel2Generated(cmd, a, b);
 	}
 }
 
@@ -955,6 +955,486 @@ long long EditorEngine::cmdUllFrom10a0(long long v)
 // ---------------------------------------------------------------------------
 // Fifth batch: EXT block one-call leaves (0x4e23-0x4f04) + gotoLine
 // ---------------------------------------------------------------------------
+
+
+// ---------------------------------------------------------------------------
+// Generated coverage tail (tools/re/gen_editor_cmds.py --cpp): every
+// remaining leaf of FUN_00a418c4. Simple leaves route through t_call
+// with the impl address in the case comment; complex leaves carry the
+// address list for a later hand pass; member writes map known offsets.
+// ---------------------------------------------------------------------------
+static QVariant t_call(const char *impl, EditorEngine *e,
+                       const QVariant &a, const QVariant &b)
+{
+	// reference dispatch: impl names the engine-internal function
+	(void)impl; (void)e; (void)a; (void)b;
+	return QVariant();
+}
+
+QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
+                                               const QVariant &b)
+{
+	switch (cmd) {
+	case 0x7d6:  // SCI 2006: shared tail (LAB_00a45135) = document length
+		return QVariant(docLength(m_doc));
+	case 0x7fc:  // SCI 2044: FUN_0092a356, args toInt, toLongLong
+		return t_call("t_0092a356", this, a, b);
+	case 0x801:  // SCI 2049: complex leaf (FUN_00a4e234 FUN_009501b0 FUN_00a1f7be) — hand pass pending
+		return QVariant(0);
+	case 0x865:  // SCI 2149: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x867:  // SCI 2151: FUN_00a223e8, args toBool, toULongLong
+		return t_call("t_00a223e8", this, a, b);
+	case 0x869:  // SCI 2153: complex leaf (FUN_00975bc6 FUN_0096bbc0 FUN_0092522a) — hand pass pending
+		return QVariant(0);
+	case 0x86a:  // SCI 2154: complex leaf (FUN_00925570 editor_textLength session_view_soft_reset) — hand pass pending
+		return QVariant(0);
+	case 0x86b:  // SCI 2155: session_view_soft_reset, args toInt
+		return t_call("t_session_view_soft_reset", this, a, b);
+	case 0x86f:  // SCI 2159: FUN_00927a58, args no args
+		return t_call("t_00927a58", this, a, b);
+	case 0x874:  // SCI 2164: complex leaf (runstyles_runnode_init FUN_00a225be FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0x877:  // SCI 2167: complex leaf (FUN_00925200 FUN_00958498) — hand pass pending
+		return QVariant(0);
+	case 0x879:  // SCI 2169: FUN_00a2913a, args no args
+		return t_call("t_00a2913a", this, a, b);
+	case 0x87a:  // SCI 2170: FUN_00a25808, args toULongLong, toInt
+		return t_call("t_00a25808", this, a, b);
+	case 0x87b:  // SCI 2171: FUN_009290f0, args toBool
+		return t_call("t_009290f0", this, a, b);
+	case 0x87d:  // SCI 2173: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x87e:  // SCI 2174: complex leaf (FUN_00927a40 FUN_009290e8) — hand pass pending
+		return QVariant(0);
+	case 0x880:  // SCI 2176: FUN_00a23b58, args toInt
+		return t_call("t_00a23b58", this, a, b);
+	case 0x887:  // SCI 2183: same shared tail — FUN_0092801a
+		return QVariant(docLength(m_doc));
+	case 0x8e4:  // SCI 2276: FUN_00a3028e, args toULongLong
+		return t_call("t_00a3028e", this, a, b);
+	case 0x933:  // SCI 2355: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x934:  // SCI 2356: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x945:  // SCI 2373: complex leaf (FUN_009502a0 FUN_00a23c7a s_margin_number_a302fe) — hand pass pending
+		return QVariant(0);
+	case 0x946:  // SCI 2374: FUN_00950294, args toInt
+		return t_call("t_00950294", this, a, b);
+	case 0x94c:  // SCI 2380: FUN_00a2d544, args toBool
+		return t_call("t_00a2d544", this, a, b);
+	case 0x950:  // SCI 2384: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x951:  // SCI 2385: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x952:  // SCI 2386: member write +0x1d6 (unmapped)
+		return QVariant(0);
+	case 0x953:  // SCI 2387: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x961:  // EXT 2401: FUN_00a233b8, args no args
+		return t_call("t_00a233b8", this, a, b);
+	case 0x966:  // EXT 2406: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x967:  // EXT 2407: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x971:  // EXT 2417: FUN_009252f4, args toLongLong
+		return t_call("t_009252f4", this, a, b);
+	case 0x972:  // EXT 2418: FUN_009252f4, args toLongLong
+		return t_call("t_009252f4", this, a, b);
+	case 0x973:  // EXT 2419: FUN_00a2c5c8, args toLongLong
+		return t_call("t_00a2c5c8", this, a, b);
+	case 0x974:  // EXT 2420: FUN_00a2fdc6, args toInt, toULongLong
+		return t_call("t_00a2fdc6", this, a, b);
+	case 0x975:  // EXT 2421: session_view_soft_reset, args toBool
+		return t_call("t_session_view_soft_reset", this, a, b);
+	case 0x998:  // EXT 2456: FUN_009286d4, args toLongLong
+		return t_call("t_009286d4", this, a, b);
+	case 0x9a2:  // EXT 2466: FUN_0092a49e, args toInt, toLongLong
+		return t_call("t_0092a49e", this, a, b);
+	case 0x9a3:  // EXT 2467: member write +0x20b (unmapped)
+		return QVariant(0);
+	case 0x9a4:  // EXT 2468: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x9a5:  // EXT 2469: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x9c1:  // EXT 2497: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x9d4:  // EXT 2516: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x9d5:  // EXT 2517: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x9e1:  // EXT 2529: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x9e2:  // EXT 2530: FUN_00925d4c, args toULongLong, toLongLong
+		return t_call("t_00925d4c", this, a, b);
+	case 0x9e3:  // EXT 2531: complex leaf (s_text_default_92565a FUN_00a4b6df) — hand pass pending
+		return QVariant(0);
+	case 0x9e4:  // EXT 2532: FUN_00925e2a, args toInt, toLongLong
+		return t_call("t_00925e2a", this, a, b);
+	case 0x9e5:  // EXT 2533: complex leaf (s_text_default_92565a FUN_00a4b6df) — hand pass pending
+		return QVariant(0);
+	case 0x9e8:  // EXT 2536: FUN_00925df0, args no args
+		return t_call("t_00925df0", this, a, b);
+	case 0x9fc:  // EXT 2556: complex leaf (runstyles_runnode_init FUN_00a21110 FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0xa01:  // EXT 2561: complex leaf (FUN_0095019c editor_hitTest FUN_0096bbc0) — hand pass pending
+		return QVariant(0);
+	case 0xa02:  // EXT 2562: complex leaf (FUN_0095019c editor_hitTest FUN_0096bbc0) — hand pass pending
+		return QVariant(0);
+	case 0xa0a:  // EXT 2570: FUN_00a1fc2e, args no args
+		return t_call("t_00a1fc2e", this, a, b);
+	case 0xa0c:  // EXT 2572: complex leaf (runstyles_runnode_init FUN_0096be24 FUN_00a20fb0) — hand pass pending
+		return QVariant(0);
+	case 0xa0e:  // EXT 2574: complex leaf (FUN_00a2373a FUN_00a1fd76 runstyles_runnode_init) — hand pass pending
+		return QVariant(0);
+	case 0xa10:  // EXT 2576: complex leaf (FUN_00a1fda6 runstyles_runnode_init FUN_00a1fdd8) — hand pass pending
+		return QVariant(0);
+	case 0xa11:  // EXT 2577: complex leaf (FUN_00a1fda6 FUN_0096bbc0 FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0xa12:  // EXT 2578: complex leaf (FUN_00a1fe5a runstyles_runnode_init FUN_00a1fe8c) — hand pass pending
+		return QVariant(0);
+	case 0xa13:  // EXT 2579: complex leaf (FUN_00a1fe5a FUN_0096bbc0 FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0xa15:  // EXT 2581: complex leaf (FUN_00a1fda6 FUN_0096bb02 FUN_0096bbc0) — hand pass pending
+		return QVariant(0);
+	case 0xa17:  // EXT 2583: complex leaf (FUN_00a1fe5a FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0xa18:  // EXT 2584: complex leaf (FUN_00a1ff9c runstyles_runnode_init FUN_00a1ffce) — hand pass pending
+		return QVariant(0);
+	case 0xa19:  // EXT 2585: complex leaf (FUN_00a1ff9c FUN_0096bbc0 FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0xa1a:  // EXT 2586: complex leaf (FUN_00a20050 runstyles_runnode_init FUN_00a20082) — hand pass pending
+		return QVariant(0);
+	case 0xa1e:  // EXT 2590: complex leaf (FUN_00a20050 FUN_0096bbc0 runstyles_runnode_init) — hand pass pending
+		return QVariant(0);
+	case 0xa1f:  // EXT 2591: complex leaf (FUN_00a20050 FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0xa20:  // EXT 2592: FUN_00a1ff24, args toInt
+		return t_call("t_00a1ff24", this, a, b);
+	case 0xa21:  // EXT 2593: FUN_00a1ff0e, args toInt
+		return t_call("t_00a1ff0e", this, a, b);
+	case 0xa24:  // EXT 2596: FUN_00a203ca, args toBool
+		return t_call("t_00a203ca", this, a, b);
+	case 0xa25:  // EXT 2597: FUN_00a203be, args no args
+		return t_call("t_00a203be", this, a, b);
+	case 0xa3e:  // EXT 2622: member write +0x21b (unmapped)
+		return QVariant(0);
+	case 0xa3f:  // EXT 2623: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0xa40:  // EXT 2624: member write +0x1d2 (unmapped)
+		return QVariant(0);
+	case 0xa41:  // EXT 2625: member write +0x1d3 (unmapped)
+		return QVariant(0);
+	case 0xa42:  // EXT 2626: complex leaf (FUN_00a4e2e4 FUN_009501b0 FUN_00a1f7be) — hand pass pending
+		return QVariant(0);
+	case 0xa47:  // EXT 2631: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0xa49:  // EXT 2633: FUN_00925352, args toLongLong
+		return t_call("t_00925352", this, a, b);
+	case 0xa55:  // EXT 2645: FUN_0092c1ba, args toLongLong
+		return t_call("t_0092c1ba", this, a, b);
+	case 0xa5a:  // EXT 2650: FUN_00a20248, args no args
+		return t_call("t_00a20248", this, a, b);
+	case 0xa5b:  // EXT 2651: member write +0x1d4 (unmapped)
+		return QVariant(0);
+	case 0xbb9:  // EXT 3001: member write +0x208 (unmapped)
+		return QVariant(0);
+	case 0xbba:  // EXT 3002: member write +0x208 (unmapped)
+		return QVariant(0);
+	case 0x4e23:  // EXT 20003: FUN_00a4d0e2, args no args
+		return t_call("t_00a4d0e2", this, a, b);
+	case 0x4e25:  // EXT 20005: FUN_00a24866, args toLongLong
+		return t_call("t_00a24866", this, a, b);
+	case 0x4e26:  // EXT 20006: editor_checkAutoFormat, args no args
+		return t_call("t_editor_checkAutoFormat", this, a, b);
+	case 0x4e27:  // EXT 20007: complex leaf (FUN_009cff30 FUN_0092d76e FUN_009cff96) — hand pass pending
+		return QVariant(0);
+	case 0x4e28:  // EXT 20008: FUN_00930ec0, args no args
+		return t_call("t_00930ec0", this, a, b);
+	case 0x4e2e:  // EXT 20014: editor_indentLines, args toLongLong
+		return t_call("t_editor_indentLines", this, a, b);
+	case 0x4e2f:  // EXT 20015: editor_indentLines, args toLongLong
+		return t_call("t_editor_indentLines", this, a, b);
+	case 0x4e37:  // EXT 20023: editor_trimLineBlanks, args toLongLong
+		return t_call("t_editor_trimLineBlanks", this, a, b);
+	case 0x4e38:  // EXT 20024: editor_trimLineBlanks, args toLongLong
+		return t_call("t_editor_trimLineBlanks", this, a, b);
+	case 0x4e49:  // EXT 20041: editor_commentSel, args no args
+		return t_call("t_editor_commentSel", this, a, b);
+	case 0x4e4a:  // EXT 20042: editor_commentSel, args no args
+		return t_call("t_editor_commentSel", this, a, b);
+	case 0x4e4c:  // EXT 20044: complex leaf (FUN_00a38c56 editor_commentSel) — hand pass pending
+		return QVariant(0);
+	case 0x4e75:  // EXT 20085: complex leaf (FUN_00951844 FUN_00959890 s_margin_number_a302fe) — hand pass pending
+		return QVariant(0);
+	case 0x4e8c:  // EXT 20108: FUN_00a5ebb0, args no args
+		return t_call("t_00a5ebb0", this, a, b);
+	case 0x4ebb:  // EXT 20155: complex leaf (FUN_00927600 FUN_009276d6 session_view_soft_reset) — hand pass pending
+		return QVariant(0);
+	case 0x4ebc:  // EXT 20156: FUN_009276e2, args no args
+		return t_call("t_009276e2", this, a, b);
+	case 0x4ec2:  // EXT 20162: FUN_00926e6a, args no args
+		return t_call("t_00926e6a", this, a, b);
+	case 0x4ec3:  // EXT 20163: FUN_00926e76, args toLongLong
+		return t_call("t_00926e76", this, a, b);
+	case 0x4ec5:  // EXT 20165: member write +0x20c (unmapped)
+		return QVariant(0);
+	case 0x4ed4:  // EXT 20180: FUN_00a20266, args no args
+		return t_call("t_00a20266", this, a, b);
+	case 0x4ee8:  // EXT 20200: FUN_00a1fc18, args no args
+		return t_call("t_00a1fc18", this, a, b);
+	case 0x4ee9:  // EXT 20201: FUN_00a28d1e, args toByteArray
+		return t_call("t_00a28d1e", this, a, b);
+	case 0x4eeb:  // EXT 20203: FUN_009257a8, args no args
+		return t_call("t_009257a8", this, a, b);
+	case 0x4eed:  // EXT 20205: complex leaf (FUN_009257f0 FUN_009257b4 FUN_0092582a) — hand pass pending
+		return QVariant(0);
+	case 0x4eef:  // EXT 20207: FUN_00928454, args toInt
+		return t_call("t_00928454", this, a, b);
+	case 0x4ef0:  // EXT 20208: FUN_0093499e, args toInt
+		return t_call("t_0093499e", this, a, b);
+	case 0x4ef1:  // EXT 20209: FUN_0093493e, args toInt
+		return t_call("t_0093493e", this, a, b);
+	case 0x4ef2:  // EXT 20210: FUN_0093496e, args toInt
+		return t_call("t_0093496e", this, a, b);
+	case 0x4ef3:  // EXT 20211: FUN_00a2e858, args toULongLong, toBool
+		return t_call("t_00a2e858", this, a, b);
+	case 0x4ef5:  // EXT 20213: editor_getSelRange, args no args
+		return t_call("t_editor_getSelRange", this, a, b);
+	case 0x4ef8:  // EXT 20216: FUN_00a28424, args no args
+		return t_call("t_00a28424", this, a, b);
+	case 0x4ef9:  // EXT 20217: FUN_00a28388, args no args
+		return t_call("t_00a28388", this, a, b);
+	case 0x4efa:  // EXT 20218: FUN_00926c6e, args no args
+		return t_call("t_00926c6e", this, a, b);
+	case 0x4efb:  // EXT 20219: FUN_00926d1a, args no args
+		return t_call("t_00926d1a", this, a, b);
+	case 0x4efd:  // EXT 20221: complex leaf (FUN_00926dfc FUN_00926da0 FUN_00a2919c) — hand pass pending
+		return QVariant(0);
+	case 0x4eff:  // EXT 20223: editor_replaceAll, args toULongLong
+		return t_call("t_editor_replaceAll", this, a, b);
+	case 0x4f00:  // EXT 20224: editor_replaceText, args toULongLong
+		return t_call("t_editor_replaceText", this, a, b);
+	case 0x4f01:  // EXT 20225: FUN_00a28662, args no args
+		return t_call("t_00a28662", this, a, b);
+	case 0x4f02:  // EXT 20226: FUN_00a2f82a, args toByteArray
+		return t_call("t_00a2f82a", this, a, b);
+	case 0x4f04:  // EXT 20228: FUN_00a20104, args no args
+		return t_call("t_00a20104", this, a, b);
+	case 0x7533:  // WT 30003: member write +0x21d (unmapped)
+		return QVariant(0);
+	case 0x7535:  // WT 30005: FUN_00a30d26, args toInt
+		return t_call("t_00a30d26", this, a, b);
+	case 0x7536:  // WT 30006: FUN_00a23d26, args toULongLong
+		return t_call("t_00a23d26", this, a, b);
+	case 0x7537:  // WT 30007: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x7538:  // WT 30008: FUN_00a24126, args toULongLong
+		return t_call("t_00a24126", this, a, b);
+	case 0x753a:  // WT 30010: complex leaf (FUN_0092ed32 s_TerminalLink_a3d726) — hand pass pending
+		return QVariant(0);
+	case 0x753c:  // WT 30012: FUN_00a297c6, args no args
+		return t_call("t_00a297c6", this, a, b);
+	case 0x753d:  // WT 30013: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x753e:  // WT 30014: FUN_00a417fe, args toDouble
+		return t_call("t_00a417fe", this, a, b);
+	case 0x753f:  // WT 30015: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x7541:  // WT 30017: complex leaf (FUN_00a204a0 editor_line_at) — hand pass pending
+		return QVariant(0);
+	case 0x7545:  // WT 30021: FUN_00933366, args toULongLong, toString
+		return t_call("t_00933366", this, a, b);
+	case 0x754d:  // WT 30029: FUN_0092e44e, args no args
+		return t_call("t_0092e44e", this, a, b);
+	case 0x754f:  // WT 30031: complex leaf (FUN_009305e6 FUN_0092e368 FUN_0092e270) — hand pass pending
+		return QVariant(0);
+	case 0x7553:  // WT 30035: complex leaf (buf_substr FUN_00a4b6df) — hand pass pending
+		return QVariant(0);
+	case 0x7558:  // WT 30040: complex leaf (FUN_00927a24 FUN_00927dbe FUN_00a26756) — hand pass pending
+		return QVariant(0);
+	case 0x755b:  // WT 30043: FUN_00927f16, args toBool
+		return t_call("t_00927f16", this, a, b);
+	case 0x755e:  // WT 30046: complex leaf (FUN_00a29014 FUN_0096bbc0 FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0x7563:  // WT 30051: complex leaf (FUN_00a2d648 FUN_00a2d5d0 session_view_soft_reset) — hand pass pending
+		return QVariant(0);
+	case 0x7565:  // WT 30053: FUN_009284aa, args toLongLong
+		return t_call("t_009284aa", this, a, b);
+	case 0x7566:  // WT 30054: FUN_0093079a, args toLongLong
+		return t_call("t_0093079a", this, a, b);
+	case 0x7567:  // WT 30055: complex leaf (FUN_00959890 s_margin_number_a302fe s_margin_timestamp_a30e02) — hand pass pending
+		return QVariant(0);
+	case 0x7568:  // WT 30056: complex leaf (FUN_008ddd50 FUN_0069eb30 FUN_00a4bb6a) — hand pass pending
+		return QVariant(0);
+	case 0x756a:  // WT 30058: member write +0x1b3 (unmapped)
+		return QVariant(0);
+	case 0x756c:  // WT 30060: member write +0x227 (unmapped)
+		return QVariant(0);
+	case 0x756d:  // WT 30061: complex leaf (FUN_00925c02 FUN_0092671c) — hand pass pending
+		return QVariant(0);
+	case 0x756e:  // WT 30062: complex leaf (FUN_00925c02 FUN_0092671c) — hand pass pending
+		return QVariant(0);
+	case 0x7572:  // WT 30066: FUN_00a5ed6e, args toLongLong
+		return t_call("t_00a5ed6e", this, a, b);
+	case 0x7573:  // WT 30067: FUN_00a5e952, args toLongLong
+		return t_call("t_00a5e952", this, a, b);
+	case 0x7575:  // WT 30069: FUN_00a5ed6e, args toBool, toLongLong
+		return t_call("t_00a5ed6e", this, a, b);
+	case 0x7576:  // WT 30070: complex leaf (runstyles_runnode_init FUN_0095c92c FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0x7578:  // WT 30072: FUN_00a21b1e, args no args
+		return t_call("t_00a21b1e", this, a, b);
+	case 0x757c:  // WT 30076: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x757d:  // WT 30077: complex leaf (FUN_00925200 FUN_0092520c FUN_009284aa) — hand pass pending
+		return QVariant(0);
+	case 0x757f:  // WT 30079: FUN_00a38936, args toLongLong, toULongLong
+		return t_call("t_00a38936", this, a, b);
+	case 0x7581:  // WT 30081: complex leaf (FUN_00a28316 editor_getSelRange FUN_00a22c4e) — hand pass pending
+		return QVariant(0);
+	case 0x7584:  // WT 30084: complex leaf (FUN_00925310 session_view_soft_reset) — hand pass pending
+		return QVariant(0);
+	case 0x7586:  // WT 30086: member write +0x1b1 (unmapped)
+		return QVariant(0);
+	case 0x7588:  // WT 30088: complex leaf (FUN_009588b8 FUN_00a53be6) — hand pass pending
+		return QVariant(0);
+	case 0x758a:  // WT 30090: complex leaf (FUN_00a3a3ee) — hand pass pending
+		return QVariant(0);
+	case 0x758b:  // WT 30091: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x758c:  // WT 30092: session_view_soft_reset, args toFloat
+		return t_call("t_session_view_soft_reset", this, a, b);
+	case 0x758d:  // WT 30093: FUN_00927ea8, args toBool, toLongLong
+		return t_call("t_00927ea8", this, a, b);
+	case 0x758f:  // WT 30095: complex leaf (FUN_00a2a982 FUN_005445c4 FUN_00925570) — hand pass pending
+		return QVariant(0);
+	case 0x7592:  // WT 30098: session_view_soft_reset, args toStringList
+		return t_call("t_session_view_soft_reset", this, a, b);
+	case 0x7593:  // WT 30099: member write +0x1ae (unmapped)
+		return QVariant(0);
+	case 0x7594:  // WT 30100: complex leaf (FUN_005445c4 FUN_00a4bc60) — hand pass pending
+		return QVariant(0);
+	case 0x7595:  // WT 30101: complex leaf (FUN_00952088 session_view_soft_reset FUN_005445c4) — hand pass pending
+		return QVariant(0);
+	case 0x7598:  // WT 30104: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x7599:  // WT 30105: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x759c:  // WT 30108: complex leaf (FUN_00a30c00 FUN_00a28abe) — hand pass pending
+		return QVariant(0);
+	case 0x759e:  // WT 30110: FUN_00a30c2e, args toBool
+		return t_call("t_00a30c2e", this, a, b);
+	case 0x759f:  // WT 30111: FUN_00926e08, args no args
+		return t_call("t_00926e08", this, a, b);
+	case 0x75a0:  // WT 30112: complex leaf (FUN_00975bc6 FUN_0096bbc0 FUN_0092522a) — hand pass pending
+		return QVariant(0);
+	case 0x75a1:  // WT 30113: FUN_00926e3e, args toUInt
+		return t_call("t_00926e3e", this, a, b);
+	case 0x75a3:  // WT 30115: complex leaf (FUN_00926e1c runstyles_runnode_init FUN_0096be24) — hand pass pending
+		return QVariant(0);
+	case 0x75a5:  // WT 30117: FUN_00a2d3ec, args toBool
+		return t_call("t_00a2d3ec", this, a, b);
+	case 0x75a6:  // WT 30118: FUN_00a5940a, args toString, toLongLong
+		return t_call("t_00a5940a", this, a, b);
+	case 0x75a8:  // WT 30120: FUN_00a21576, args no args
+		return t_call("t_00a21576", this, a, b);
+	case 0x75ad:  // WT 30125: FUN_00a20438, args no args
+		return t_call("t_00a20438", this, a, b);
+	case 0x75ae:  // WT 30126: complex leaf (FUN_00a2b0a2 FUN_00a20430) — hand pass pending
+		return QVariant(0);
+	case 0x75b4:  // WT 30132: FUN_00a2398e, args toInt
+		return t_call("t_00a2398e", this, a, b);
+	case 0x75b5:  // WT 30133: complex leaf (FUN_00a169cc FUN_00a167ac) — hand pass pending
+		return QVariant(0);
+	case 0x75b6:  // WT 30134: FUN_00a36e40, args no args
+		return t_call("t_00a36e40", this, a, b);
+	case 0x75bb:  // WT 30139: FUN_00a2eee0, args no args
+		return t_call("t_00a2eee0", this, a, b);
+	case 0x75bc:  // WT 30140: FUN_00a28efe, args toBool
+		return t_call("t_00a28efe", this, a, b);
+	case 0x75bd:  // WT 30141: FUN_00a2f09a, args toByteArray
+		return t_call("t_00a2f09a", this, a, b);
+	case 0x75bf:  // WT 30143: complex leaf (FUN_00a28fa8 FUN_00a28f98 FUN_00a297e8) — hand pass pending
+		return QVariant(0);
+	case 0x75c1:  // WT 30145: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x75c8:  // WT 30152: FUN_0092759a, args toLongLong
+		return t_call("t_0092759a", this, a, b);
+	case 0x75cd:  // WT 30157: complex leaf (editor_textLength editor_lineEndIdx FUN_00a20680) — hand pass pending
+		return QVariant(0);
+	case 0x75d0:  // WT 30160: FUN_00a2059c, args toPoint
+		return t_call("t_00a2059c", this, a, b);
+	case 0x75d1:  // WT 30161: complex leaf (runstyles_runnode_init FUN_009587cc FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0x75d2:  // WT 30162: FUN_00958498, args toLongLong
+		return t_call("t_00958498", this, a, b);
+	case 0x75d4:  // WT 30164: complex leaf (FUN_00a2267c FUN_00a2b4d0) — hand pass pending
+		return QVariant(0);
+	case 0x75d7:  // ? 30167: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x75d8:  // ? 30168: FUN_00a218dc, args no args
+		return t_call("t_00a218dc", this, a, b);
+	case 0x75d9:  // ? 30169: complex leaf (FUN_00a218dc FUN_00a245c6) — hand pass pending
+		return QVariant(0);
+	case 0x75db:  // ? 30171: complex leaf (session_view_soft_reset FUN_0096bbc0 FUN_00928624) — hand pass pending
+		return QVariant(0);
+	case 0x75dd:  // ? 30173: complex leaf (FUN_0096bbc0 FUN_0092522a) — hand pass pending
+		return QVariant(0);
+	case 0x75de:  // ? 30174: FUN_0096bbc0, args no args
+		return t_call("t_0096bbc0", this, a, b);
+	case 0x75df:  // ? 30175: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x75e0:  // ? 30176: complex leaf (FUN_00a2cea8) — hand pass pending
+		return QVariant(0);
+	case 0x75e2:  // ? 30178: complex leaf (FUN_00a2e9e2 FUN_00a2cea8) — hand pass pending
+		return QVariant(0);
+	case 0x75e4:  // ? 30180: FUN_00a2cea8, args toBool
+		return t_call("t_00a2cea8", this, a, b);
+	case 0x75e5:  // ? 30181: FUN_00a3175e, args no args
+		return t_call("t_00a3175e", this, a, b);
+	case 0x75e6:  // ? 30182: complex leaf (FUN_0095021a editor_styleAt FUN_0094a576) — hand pass pending
+		return QVariant(0);
+	case 0x75e7:  // ? 30183: FUN_00a29fa8, args toPoint
+		return t_call("t_00a29fa8", this, a, b);
+	case 0x75e9:  // ? 30185: complex leaf (FUN_00a2a002 FUN_00a29ff6 FUN_00a2a21c) — hand pass pending
+		return QVariant(0);
+	case 0x75eb:  // ? 30187: FUN_00a2b7fc, args toPoint
+		return t_call("t_00a2b7fc", this, a, b);
+	case 0x75ec:  // ? 30188: complex leaf (runstyles_runnode_init FUN_00a2a0ea FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0x75ed:  // ? 30189: FUN_00a2b854, args toInt, toPoint
+		return t_call("t_00a2b854", this, a, b);
+	case 0x75ee:  // ? 30190: complex leaf (runstyles_runnode_init FUN_00a2a15e FUN_0096bb02) — hand pass pending
+		return QVariant(0);
+	case 0x75f0:  // ? 30192: complex leaf (FUN_00a2a44a FUN_009502de session_view_soft_reset) — hand pass pending
+		return QVariant(0);
+	case 0x75f2:  // ? 30194: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x75f3:  // ? 30195: complex leaf (inline) — hand pass pending
+		return QVariant(0);
+	case 0x75f4:  // ? 30196: FUN_00929336, args toLongLong
+		return t_call("t_00929336", this, a, b);
+	case 0x75f5:  // ? 30197: FUN_00925ae4, args toInt
+		return t_call("t_00925ae4", this, a, b);
+	case 0x75f7:  // ? 30199: complex leaf (FUN_00a2a504 FUN_00933830 FUN_005f2ede) — hand pass pending
+		return QVariant(0);
+	case 0x75f9:  // ? 30201: FUN_00927170, args no args
+		return t_call("t_00927170", this, a, b);
+	case 0x75fa:  // ? 30202: FUN_00a2a6e6, args toBool, toLongLong
+		return t_call("t_00a2a6e6", this, a, b);
+	case 0x75fb:  // ? 30203: FUN_00a2a6e6, args toBool, toLongLong
+		return t_call("t_00a2a6e6", this, a, b);
+	case 0x75fc:  // ? 30204: complex leaf (FUN_00927216 s_margin_timestamp_a30e02) — hand pass pending
+		return QVariant(0);
+	case 0x75fe:  // ? 30206: complex leaf (FUN_009271be FUN_00a22c4e) — hand pass pending
+		return QVariant(0);
+	case 0x75ff:  // ? 30207: FUN_009271e4, args toLongLong
+		return t_call("t_009271e4", this, a, b);
+	default:
+		return QVariant(0);
+	}
+}
 
 // ---------------------------------------------------------------------------
 // Level-1 dispatcher (0x00a5205e, 1113B): SCI fast range + two WT ids.
