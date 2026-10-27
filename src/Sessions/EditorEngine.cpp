@@ -10,10 +10,23 @@ static void editCtxBegin(void *ctx, EditorEngine *e, unsigned *flags)
 { (void)ctx; (void)e; (void)flags; }          // editctx_beginIter
 static void editCtxCommit(void *ctx) { (void)ctx; }   // FUN_00a161d8
 static void insertBytes(EditorEngine *e, long long pos, const char *data, int len)
-{ (void)e; (void)pos; (void)data; (void)len; }        // FUN_00a287f8
+{
+	// FUN_00a287f8 (310B): typed insert inside a selection transaction.
+	// pos==0: cursor path — mode probe FUN_00975682(cursor)==1 with
+	// FUN_00974d18(cursor,1) picks selection type 0 or 2 by whether the
+	// cursor's slot shape (FUN_00975d98(cursor,0) + FUN_0096bb04)
+	// matches; pos==-1 clamps to docLength(+0x1098). Core write:
+	// FUN_0092c146(doc, pos, data, len), committed by selDtor
+	(void)e; (void)pos; (void)data; (void)len;
+}        // FUN_00a287f8
 static void replaceBytes(EditorEngine *e, long long pos, int a, int b,
                          const char *d1, int l1, const char *d2, int l2)
-{ (void)e; (void)pos; (void)a; (void)b; (void)d1; (void)l1; (void)d2; (void)l2; }  // FUN_00a2893e
+{
+	// FUN_00a2893e (112B): type-2 selection transaction around the
+	// core replace FUN_0092c0cc(doc, pos, a, b, d1, l1); d2/l2 ride in
+	// registers (dead in this leaf)
+	(void)e; (void)pos; (void)a; (void)b; (void)d1; (void)l1; (void)d2; (void)l2;
+}  // FUN_00a2893e
 static void bufSubstr(QByteArray *out, void *doc, long long start, long long end)
 { (void)doc; (void)start; (void)end; out->clear(); } // buf_substr
 static void bytesToQString(QString *out, void *doc, const QByteArray *bytes)
@@ -186,7 +199,17 @@ static long long hitTestResolve(void *out)
 	return *(long long *)((char *)out + 8);
 }
 static void editorHitTest(double x, double y, void *out, EditorEngine *e,
-                          int a, int b, int c) { (void)x; (void)y; (void)out; (void)e; (void)a; (void)b; (void)c; }  // editor_hitTest
+                          int a, int b, int c)
+{
+	// editor_hitTest (641B): two-mode coordinate resolve. Mode 0
+	// (a==0): x through FUN_00a22508 then minus +0xd7c; y / +0xd04
+	// floor = row, clamped [0, textLength), tail docLength node or
+	// FUN_00a1fbaa row resolve into the out node. Mode 1: view rect
+	// via FUN_00a1f7e2, optional vtable+0x80 offset correction (when
+	// the slot != FUN_00a1e400), then a four-way bounds check picks
+	// the in-view hit path
+	(void)x; (void)y; (void)out; (void)e; (void)a; (void)b; (void)c;
+}  // editor_hitTest
 static void docOp925c8c(void *doc, int v) { (void)doc; (void)v; }  // 0x7fd
 static int docOp9251ea(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7ff
 static int docOp92a2b2(void *doc, long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7fb
