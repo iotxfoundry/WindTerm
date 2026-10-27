@@ -972,3 +972,9 @@ void TerminalCore::markLine(int line, int arg)
 	rowHook(row, arg);                    // FUN_007a3dde — cited
 	m_workRow = arg ? row : nullptr;      // +0xa8
 }
+
+void TerminalCore::copyRect(int top, int left, int bottom, int right, long long packedDest)
+{
+	// FUN_007a7776 (DECCRA core): copies the rect's cells to the packed
+	// destination (top<<32|left) — body cited
+}

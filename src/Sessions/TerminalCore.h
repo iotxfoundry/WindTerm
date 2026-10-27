@@ -206,6 +206,7 @@ public:
 	// offsets the rect by originTop/originLeft in origin mode (0x40)
 	void notifyRectChanged(const void *rect, int arg);   // FUN_007a4590
 	void *parseAttrList(const void *params, void *out);  // FUN_007a712b
+	void copyRect(int top, int left, int bottom, int right, long long packedDest);  // FUN_007a7776
 	void resetWrap(int arg);                       // FUN_007a45f6
 };
 

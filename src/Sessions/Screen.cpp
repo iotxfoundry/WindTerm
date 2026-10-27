@@ -411,10 +411,58 @@ void Screen::fillRectangularArea(const QString &fill)
 
 void Screen::copyRectangularArea(const QString &area)
 {
-	// FUN_007eb2f2 (DECCRA): params arrive as a QByteArray that is
-	// split and re-parsed (QByteArray::split + container lookups
-	// FUN_0067dffe/FUN_0075bd66/FUN_00763334); the copy itself is the
-	// cited core path. Body beyond the parse not yet transcribed.
+	// FUN_007eb2f2 (DECCRA): two param lists (source rect + dest);
+	// guards list sizes (>=5 and >=3 elements); page-from is element 0
+	// (ok-flag -> 0-based), the source rect via parseRect, dest top/left
+	// are elements parsed to 0-based; the core worker gets the rect and
+	// the packed dest (top<<32 | left) - FUN_007a7776
+	const QStringList src = splitParams(area.left(area.indexOf(';')));
+	const QStringList dst = splitParams(area.mid(area.indexOf(';') + 1));
+	if (src.size() <= 4 || dst.size() <= 2)
+		return;
+	const int pageFrom = src.at(0).isEmpty() ? 0 : src.at(0).toInt() - 1;
+	const bool ok1 = !src.at(0).isEmpty();
+	int top, left, bottom, right;
+	parseRect(area, &top, &left, &bottom, &right);   // FUN_007eaeee
+	const int destTop = dst.at(1).isEmpty() ? 0 : dst.at(1).toInt() - 1;
+	const int destLeft = dst.at(0).isEmpty() ? 0 : dst.at(0).toInt() - 1;
+	if (!ok1 && destTop != 0)
+		return;
+	m_core->copyRect(top, left, bottom, right,
+	                 (long long)destLeft << 32 | (unsigned int)destTop);  // FUN_007a7776
+}
+
+void Screen::requestMode(int mode)
+{
+	// FUN_007f17c2 (DECRQM): state 1=set, 2=reset, 3=always set,
+	// 4=not recognized; response ESC [ ... $y via the format table
+	// (DAT_00ca98ec) sent through sendResponse
+	char state;
+	switch (mode) {
+	case 1: case 5: case 7: case 10: case 11: case 13: case 14:
+	case 15: case 16: case 17: case 18: case 19:
+		state = 4;                        // not recognized
+		break;
+	case 2:
+		state = (char)(m_kamMode == 0) + 1;    // KAM (+0x12b)
+		break;
+	case 3:
+		state = 2;                        // always reset per table
+		break;
+	case 4:
+		state = (char)(m_insertMode == 0) + 1; // IRM (+0x12a)
+		break;
+	case 12:
+		state = (char)(!m_srmModeInv) + 1;     // SRM (+0x12c, inverted)
+		break;
+	case 20:
+		state = (char)(m_newlineMode == 0) + 1; // LNM (+0x12f)
+		break;
+	default:
+		reportUnsupported(QStringLiteral("Request Modes (DECRQM), Mode %1").arg(mode));
+		return;
+	}
+	sendResponse(QStringLiteral("\x1b[?%1;%2$y").arg(mode).arg(state).toLatin1());
 }
 
 void Screen::changeAttributesInRectangularArea(const QString &area)
@@ -1112,9 +1160,16 @@ void Screen::zmodemSend()
 
 void Screen::zmodemReceive()
 {
-	// FUN_007e676c: tears down any pending zmodem timer (+0x208), then
-	// installs a QTimer wired to FUN_007e22fa (state machine tick)
-	// — orchestration cited
+	// FUN_007e676c: tears down any pending zmodem object (+0x208 via
+	// its vtable +0x20), then installs a fresh QTimer (parented here),
+	// sets its flag byte (|1), wires timeout -> FUN_007e22fa (the
+	// zmodem state-machine tick) and starts it
+	if (m_zmodemTimer)
+		(m_zmodemTimer->*m_zmodemTimer->reset)();   // vtable +0x20
+	m_zmodemTimer = new QTimer(this);
+	m_zmodemTimer->flags |= 1;
+	connect(m_zmodemTimer, &QTimer::timeout, this, zmodemTick);   // FUN_007e22fa
+	m_zmodemTimer->start();
 }
 
 bool Screen::refreshNeeded() const

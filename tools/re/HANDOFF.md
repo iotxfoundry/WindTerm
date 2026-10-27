@@ -10,15 +10,13 @@ WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批�
 IL/DL/DECIC/DECDC、DECDWL/DHL。批次③a:DECALN、VT52 四槽、DA/DSR 报告、
 zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%),行级 worker 已落码至
 单元格字节层。** 剩余 cited-stub 精确清单(下会话按此逐个击破):
-- TerminalCore: copyCell/buildBlankCell/writeCell(共用 FUN_007aa2e2)、
-  growRowArrays(0x7aa3a6)、setRowFlags(0x7a3dc0)、notifyChanged(0x7a4532)、
-  resetViewport(0x7a4aea)、clearMargins(0x7a4a98)、columnInRange(0x7a4970)、
-  setSgrState(0x7a45f6)、四个 rect worker(0x7a6d98/0x7a748e/0x7a721e/0x7a6eec)
-- Screen: pushLinesToScrollback 内循环(0x7e53b6)、sendResponse(0x7e66c6)、
-  setCell(0x7e4916)、switchPage(0x7ef11a)、prevTabstop(0x7e5ce4)、
-  saveDecMode/restoreDecMode 簿记、DECCRA 解析(0x7eb2f2)、
-  zmodemReceive QTimer 编排(0x7e676c)、报告族应答装配体
-- 方向候选: TextView 渲染层深潜、其余类横扫
+**cited-stub 清单已基本清零(六轮:原语/Screen 层/大件/报告/行渲染/
+DECCRA-DECRQM-zmodem)。** 仍剩纯引用级(按需):
+- TerminalCore: copyRect worker 体(0x7a7776)、rect 迭代尾段(0x7a6ab0)、
+  cloneGlyphPayload(0x7aa2e2 内)、rowHook(0x7a3dde)、resetRow 模板尾
+- Screen: writeText 全文(0x7e6f42,11K 文本渲染主管线,建议单独会话)、
+  reportDecDeviceStatus(0x7f0d7c,5.4K)、pushLines 内部容器 helper
+- 方向候选: writeText 深潜(终端写字符主循环)、TextView 渲染层、类横扫
 
 ## 环境状态(新会话先核对)
 

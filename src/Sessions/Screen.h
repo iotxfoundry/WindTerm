@@ -136,6 +136,7 @@ public:
 	void *m_keymap;                // +0xf8 (key modifier object)
 	char m_locatorEventMode;       // +0x160.. +0x162 (DEC locator events)
 	char m_locatorArg;
+	void *m_zmodemTimer;         // +0x208 (FUN_007e676c)
 	TerminalCore *m_altCore;       // +0x88 note: alternate-screen core
 	TerminalCore *m_savedPrimary;  // +0x90 (primary core while on alt screen)
 	void *m_savedDecModes;         // +0xc0 (saveDecMode container)
@@ -205,7 +206,7 @@ public:
 	void notifyMessageEx(int type, int a, int b); // 0x5444ac refcount path
 	void setWindowTitleBuffer(const QString &title);  // FUN_007cd366 (locked +0xe0)
 	void setWindowIconAndTitle(const QString &both);  // FUN_007cd902 (swap +0x118)
-	void requestMode(int mode);                  // FUN_007f17c2 (DECRQM)
+	void requestMode(int mode);                  // FUN_007f17c2 (DECRQM, full)
 	void requestDisplayedExtent();               // FUN_007ed148 ("w response)
 	void requestKeyModifier(int key);            // FUN_007ed282 (ESC [ >k;km)
 	void requestTerminalStateReport();           // FUN_007f0434
@@ -349,6 +350,7 @@ public:
 	void notifyNamedAttribute(const char *key, const QString &value);
 	void reportUnsupported(const QString &message);       // FUN_007eefbe
 	void setScrollbarVisible(bool on);    // FUN_007e51e6
+	static void zmodemTick();            // FUN_007e22fa
 	void resizeScreen(int rows, int cols, int flag);      // FUN_007e5688
 	void notifyMouseMode(bool on);        // thunk FUN_009131c8 (arg 4)
 	void notifyReverseScreen();           // FUN_009134d0
