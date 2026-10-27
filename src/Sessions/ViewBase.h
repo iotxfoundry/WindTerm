@@ -18,11 +18,34 @@
 class ViewBase
 {
 public:
-	// FUN_008c52fa: resolves the shared view object (returns 0 when the
-	// pane has none — every slot guards on it)
-	void *sharedView() const;
+	// FUN_008c52fa: dynamic_cast QWidget then walk UP the parent chain
+	// (+8/+0x10) to the nearest ancestor of class 0x11ab130 (the view
+	// session container); 0 when none
+	void *sharedView() const
+	{
+		void *w = asQWidget(this);
+		while (w) {
+			if (void *v = castToViewContainer(w))
+				return v;
+			w = parentWidget(w);
+		}
+		return nullptr;
+	}
+
+	// FUN_008c5438: same walk for class 0x11ab390 (the find-engine owner)
+	void *findEngineOwner() const;
 
 	void *query();                    // FUN_008c5d72 -> FUN_008bdd52(view, x)
+	// model: the pane's +0x38 QTabBar-backed model:
+	//   FUN_008b99f6: id resolver — null arg -> 0; else QWidget cast +
+	//     QStackedWidget::indexOf (model+0x60); -1 walks up parents
+	//   FUN_008b9b8e/0x8b9bbc: setTabIcon/tab text (FUN_005ab196/0x5ab09e
+	//     via QTabBar at model+0x58)
+	//   FUN_008b9c06/0x8b9c46: tabIcon / label lookup
+	//     (FUN_005ab1a0/0x5ab180 -> FUN_005a6fbe)
+	//   FUN_008bdd0e: bounds (FUN_008b9b2a count) -> FUN_005ab5d4
+	//     (QTabBar op) + change notify 3
+	void *m_model;    // pane +0x38 (QTabBar at +0x58, stack at +0x60)
 	bool checkWithFallback();         // FUN_008c5c16: model query 0x8bbe50,
 	                                   //  fallback: type check 0x8c4fd4 +
 	                                   //  session 0x8c5438 + QVariant path
