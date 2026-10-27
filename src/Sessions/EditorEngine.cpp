@@ -299,7 +299,15 @@ static void editorSelCtor(void *sel, EditorEngine *e, int *type)
 	// FUN_00a2dada(engine)
 	(void)sel; (void)e; (void)type;
 }
-static void editorSelDtor(void *sel) { (void)sel; }  // FUN_00974856
+static void editorSelDtor(void *sel)
+{
+	// FUN_00974856 (130B): selection commit — bit1 routes to
+	// FUN_0097557e(cursor, 1); FUN_00974b54() zero path runs
+	// 00975b02/009753c4 (cursor state), bit2 → FUN_0097a2a4(cursor, 0),
+	// bit3 → FUN_00a20ab0 + FUN_00a235ce(e, -1, 1), then 00a2dada +
+	// FUN_00a2e88e repaint tail
+	(void)sel;
+}
 static void docOp927dbe(void *doc) { (void)doc; }  // 0x87f
 static void eA25f72(EditorEngine *e) { (void)e; }  // 0x881
 static void vtCall(EditorEngine *e, int slotOff) { (void)e; (void)slotOff; }  // engine vtable slot by offset
@@ -388,7 +396,14 @@ static void eA167ac2(void *obj, long long v)
 	(void)obj; (void)v;
 }  // 0x75b5 kind 2 (FUN_00a167ac)
 static bool eA28fa8(EditorEngine *e) { (void)e; return false; }  // 0x75bf
-static QRect posToRect(EditorEngine *e, long long pos) { (void)e; (void)pos; return QRect(); }  // 0x75d4 FUN_00a2267c
+static QRect posToRect(EditorEngine *e, long long pos)
+{
+	// FUN_00a2267c (138B): runnode(pos) → FUN_00a225be = Y scroll
+	// value, FUN_00a2240a = line height; rect = (x: scrollX,
+	// y: param2, w: +0xd04 + x - 1, h: y + lineHeight - 1)
+	(void)e; (void)pos;
+	return QRect();
+}  // 0x75d4 FUN_00a2267c
 static int eA218dc(EditorEngine *e)
 {
 	// FUN_00a218dc (11B): *(int*)(obj(e+0x10a0) + 0x14)
@@ -464,7 +479,14 @@ static void searchRangeText(void *b, EditorEngine *e, int f) { (void)b; (void)e;
 static void searchFlagsText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a1ff9c
 static void searchRangeText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a20050
 static int qstrdataLength(void *b) { (void)b; return 0; }    // qstrdata_length_get
-static void insertRange(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }       // FUN_00a1fdd8
+static void insertRange(EditorEngine *e, int f, void *n)
+{
+	// FUN_00a1fdd8 (122B): editor_selCtor(ctx, e, {0}); flags -1
+	// resolves via FUN_00a1fd76(e); the target slot at cursor(+0x1038)
+	// via FUN_00975d98(cursor, flags) receives the node's 3 slots;
+	// selDtor FUN_00974856 commits
+	(void)e; (void)f; (void)n;
+}       // FUN_00a1fdd8
 static void setRangeNode(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a1fe8c
 static void insertRange2(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a1ff9c tail
 static void insertRange3(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a20082
@@ -475,7 +497,13 @@ static void selRangeMake(void *out, void *a, void *b, int m)
 	// FUN_0096bd68 normalizes with mode m
 	(void)out; (void)a; (void)b; (void)m;
 }
-static void selRangeApply(EditorEngine *e, void *r) { (void)e; (void)r; }  // FUN_00a20fb0
+static void selRangeApply(EditorEngine *e, void *r)
+{
+	// FUN_00a20fb0 (145B): kind via FUN_0096c674(range); expands both
+	// nodes through FUN_0096bfd4/0096bfda (caret/anchor triples) then
+	// FUN_00a20eb2(e, anchor, caret, kind); both freed (no-op dtors)
+	(void)e; (void)r;
+}  // FUN_00a20fb0
 static void selRangeFree(void *r)
 {
 	// FUN_0096bd50 (23B): frees the range's two inner nodes (+0x20, +8)
