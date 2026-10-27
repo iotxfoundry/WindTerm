@@ -43,3 +43,67 @@ Screen 元对象 0x11a82e0 信号索引至少覆盖 1..35(20+ 个已读出索引
 - 名字获取推荐路径:Frida 一次 dump
   metaObject()->method(i).name()(i=0..36),分钟级完成,
   替代继续静态格式考古。
+
+## 真名全解(2026-10-27 终,字符串池 0xce0960 区直读)
+
+**Screen 类真名 = SuperTerm**(池首类名;此前工程代号 Screen 保留)。
+信号声明序(池序 = moc 序,39 个信号名):
+
+ 1. ansiModeEntered
+ 2. ansiModeExited
+ 3. asyncMessage
+ 4. termMessage
+ 5. bellRequested
+ 6. binaryBytesRead
+ 7. caretColorChanged
+ 8. caretStyleChanged
+ 9. caretVisibleChanged
+10. cursorShapeChanged
+11. messageNotified
+12. modemFinished
+13. modemStarted
+14. remoteDirectoryNotified
+15. requestMapToScreenColumn
+16. requestMapToScreenPoint
+17. requestMapToScreenRow
+18. requestMapToWindowColor
+19. screenChanged
+20. screenReversed
+21. scrollbackErased
+22. scrollBarVisibleChanged
+23. tmuxControlModeEntered
+24. tmuxControlModeExited
+25. tmuxErrorOccurred
+26. tmuxPaneCwdChanged
+27. tmuxScreenChanged
+28. tmuxSessionsChanged
+29. tmuxTermsRemoved
+30. tmuxWindowsChanged
+31. tmuxWindowsRemoved
+32. transferBinary
+33. windowMoved
+34. windowSelectionsRead
+35. windowSelectionsWritten
+36. windowSizeChanged
+37. windowStateChanged
+38. windowTitleChanged
+
+已证索引对齐:idx7=caretVisibleChanged(原 cursorVisible)、
+idx18=screenReversed(原 reverseScreen)、scrollBarVisibleChanged=
+滚动条通知、ansiModeEntered/Exited=DEC 12/DECANM 路径的信号面。
+
+**交互请求信号族**(带引用出参 —— 视图必须响应):
+requestMapToScreenColumn(globalPosition, int& column)
+requestMapToScreenRow(..., row)、requestMapToScreenPoint(QPoint&)
+requestMapToWindowColor(const char* style, fore, QColor&)
+
+**tmux 信号族**:tmuxControlMode/Pane/Screen/Sessions/Windows/…(10 个)
+**窗口信号族**:windowMoved/SelectionsRead/SelectionsWritten/
+SizeChanged/StateChanged/TitleChanged
+**调制解调器**:modemStarted(downloadFileName)/modemFinished(success)
+transferBinary(King::ModemType, King::TransmitType)
+
+紧随其后的相邻池 = TerminalView 的 moc 表(propertyChanged/
+transferCreated/activate/close/closeMessageBar/groupName/isLoaded/
+path/setTabIcon/setTabText/showMessageBar/tabIcon/tabText/url/
+disconnectSession/displayUrl/isPermanentSession ...)。
