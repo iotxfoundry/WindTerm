@@ -5,6 +5,10 @@
 // Bodies transcribed from FUN_00a418c4 (level-2 dispatcher, 37951B);
 // comments cite the inline region. Phase-1 restoration (reference).
 
+static void eA28e7c(EditorEngine *e, int base);   // fwd
+static void eA282b8(EditorEngine *e);              // fwd
+static void vtA0Repaint();                         // fwd
+
 // engine-internal helpers (binary addresses noted; reference thunks)
 static void editCtxBegin(void *ctx, EditorEngine *e, unsigned *flags)
 { (void)ctx; (void)e; (void)flags; }          // editctx_beginIter
@@ -224,13 +228,54 @@ static long long docLineGet(void *doc, long long v, unsigned f, int g)
 	return 0;
 }  // 0x75a7 FUN_009252f4
 static void eA26ec6(EditorEngine *e, unsigned long long line, int col) { (void)e; (void)line; (void)col; }  // 0x75ab gotoLine
-static void eA1fd8c(EditorEngine *e, bool on) { (void)e; (void)on; }  // 0x7597 setMarginTrackChange
-static void eA28e7c(EditorEngine *e, int base) { (void)e; (void)base; }  // 0x759a setHexBase
-static void eA282b8(EditorEngine *e) { (void)e; }             // 0x75aa
-static double eA2041e(EditorEngine *e) { (void)e; return 0; } // 0x75a9 (double read)
+static void eA28e7c(EditorEngine *e, int base)
+{
+	// FUN_00a28e7c (108B): hexBase set — change-detect against +0x1120,
+	// valid range 2..36; on accept writes +0x1120, caches a decimal rep
+	// at +0x1124 (QByteArray::number head), and when the +0x1128 gate
+	// is set runs FUN_00a28c70
+	if (*(int *)((char *)e + 0x1120) != base && (unsigned)(base - 2) < 0x23) {
+		*(int *)((char *)e + 0x1120) = base;
+		*(int *)((char *)e + 0x1124) = base;
+		if (*(char *)((char *)e + 0x1128) != 0) {
+			// FUN_00a28c70(engine)
+		}
+	}
+}  // 0x759a setHexBase
+static void eA282b8(EditorEngine *e)
+{
+	// FUN_00a282b8 (86B): edit ctx (FUN_00a20680) → value
+	// (FUN_0096bbc0) head over doc(+0x1098) — position fetch with ctx
+	// bookkeeping (hand pass pending)
+	(void)e;
+}  // 0x75aa
+static void eA1fd8c(EditorEngine *e, bool on)
+{
+	// FUN_00a1fd8c (26B): change-detect +0x113a flag write then the
+	// engine vtable+0xa0 repaint (indirect jump Ghidra could not
+	// fully recover)
+	if (*(char *)((char *)e + 0x113a) != on) {
+		*(char *)((char *)e + 0x113a) = on;
+		vtA0Repaint();
+	}
+}  // 0x7597 setMarginTrackChange
 
 // SCI one-call thunks (level-2 SCI range bodies)
-static void eA28a68(EditorEngine *e, unsigned long long a, long long b) { (void)e; (void)a; (void)b; }  // 0x7d1 scroll target
+static void eA28a68(EditorEngine *e, unsigned long long a, long long b)
+{
+	// FUN_00a28a68 (77B): scroll-target — runnode(pos=-1 sentinel)
+	// then FUN_00a289b6(engine, node, a, b); the sentinel defers
+	// position resolution to the callee
+	(void)e; (void)a; (void)b;
+}  // 0x7d1 scroll target
+static double eA2041e(EditorEngine *e)
+{
+	// FUN_00a2041e (17B): reads +0xd38 clamped below by +0xd20
+	// (max(cur, min) — both doubles)
+	const double cur = *(double *)((char *)e + 0xd38);
+	const double lo = *(double *)((char *)e + 0xd20);
+	return cur <= lo ? lo : cur;
+}  // 0x75a9 (double read)
 static void eA26756(EditorEngine *e)
 {
 	// FUN_00a26756 (177B): early-out when doc flag +0x132 set; then
@@ -789,7 +834,14 @@ static int eRunNodeQuery(EditorEngine *e, long long pos)
 }
 static QString eRunNodeText(EditorEngine *e, long long pos) { (void)e; (void)pos; return QString(); }  // 0x75ee FUN_00a2a15e
 static void eA2a44a(EditorEngine *e) { (void)e; }            // 0x75f0
-static void docOp929336(void *doc, long long v) { (void)doc; (void)v; }  // 0x75f4
+static void docOp929336(void *doc, long long v)
+{
+	// FUN_00929336 (22B): negative clamps to -1, writes doc+0x160
+	// (the 0x75f2 read pair — a position/line slot)
+	if (v < 0)
+		v = -1;
+	*(long long *)((char *)doc + 0x160) = v;
+}  // 0x75f4
 static void eA2a504(EditorEngine *e, const QByteArray &b) { (void)e; (void)b; }  // 0x75f7
 static void docOp927216(void *doc, const QByteArray &b)
 {
