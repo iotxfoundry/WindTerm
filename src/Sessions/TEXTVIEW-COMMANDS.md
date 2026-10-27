@@ -88,3 +88,12 @@
 
 9 个真逻辑体(非命令转发):findNext/findPrevious(0x5c6834/42)、
 0x5b985e、0x5bf47e、0x5c0ccc、0x5c3320、0x5c4c0a、0x5c63d8、0x5c6fae 待转写。
+
+## TerminalWidget 命令(共用 sendEditor 命令空间)
+
+TerminalWidget 槽体同样经 FUN_005b5d68 分发,新增 WT 段命令:
+0x75dd(promptPosition) 0x75de(promptLine) 0x75df(scrollbackLines)
+0x75e2(isUnconnected) 0x75f9(caretVirtualSpace)。
+槽体 case 表:tools/re/data/terminalwidget_cases.json(72 项)。
+非命令槽走会话栈守卫(+0x1f0/+0x1f8)直调 Screen 层 0x7e33xx 簇
+(clearScreen/clearScrollback/resetHard 等)。
