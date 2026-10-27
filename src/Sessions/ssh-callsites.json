@@ -1,0 +1,166 @@
+{
+ "ssh_string_free_char": [
+  6454704,
+  6458441,
+  6459999,
+  9338184
+ ],
+ "ssh_get_error_code": [
+  6456875,
+  6461315
+ ],
+ "ssh_channel_new": [
+  6460262
+ ],
+ "ssh_key_free": [
+  6452623,
+  6457489,
+  6457499,
+  6459928
+ ],
+ "ssh_channel_read_nonblocking": [
+  6460448,
+  6460511
+ ],
+ "ssh_channel_request_send_signal": [
+  6458234
+ ],
+ "ssh_pki_import_privkey_file": [
+  6452590,
+  6457432
+ ],
+ "ssh_options_get": [
+  6458371,
+  9337960
+ ],
+ "ssh_channel_request_exec": [
+  6454320
+ ],
+ "ssh_options_get_port": [
+  6458510
+ ],
+ "ssh_channel_send_eof": [
+  6453673
+ ],
+ "ssh_userauth_publickey": [
+  6452612
+ ],
+ "ssh_userauth_kbdint_getnprompts": [
+  6463021
+ ],
+ "ssh_channel_change_pty_size": [
+  6458026
+ ],
+ "ssh_clean_pubkey_hash": [
+  6459938
+ ],
+ "ssh_userauth_try_publickey": [
+  6457477
+ ],
+ "ssh_finalize": [
+  7731486
+ ],
+ "ssh_userauth_kbdint": [
+  6463440
+ ],
+ "ssh_channel_close": [
+  6453681
+ ],
+ "ssh_channel_accept_forward": [
+  6461896
+ ],
+ "ssh_channel_cancel_forward": [
+  6458876
+ ],
+ "ssh_write_knownhost": [
+  6457914
+ ],
+ "ssh_agent_is_running": [
+  6452813
+ ],
+ "ssh_pki_export_privkey_to_pubkey": [
+  6457455
+ ],
+ "ssh_channel_is_open": [
+  6453807
+ ],
+ "ssh_get_hexa": [
+  6459977
+ ],
+ "ssh_userauth_kbdint_setanswer": [
+  6463877
+ ],
+ "ssh_buffer_load_data": [
+  8842677
+ ],
+ "ssh_userauth_list": [
+  6462219
+ ],
+ "ssh_userauth_kbdint_getprompt": [
+  6463090
+ ],
+ "ssh_userauth_kbdint_getinstruction": [
+  6452463
+ ],
+ "ssh_free": [
+  6462071
+ ],
+ "ssh_channel_poll": [
+  6453713,
+  6453740
+ ],
+ "ssh_is_server_known": [
+  6457018
+ ],
+ "ssh_get_error": [
+  6452764,
+  6456885,
+  6461325
+ ],
+ "ssh_channel_write": [
+  6458138
+ ],
+ "ssh_channel_listen_forward": [
+  6459260
+ ],
+ "ssh_channel_request_auth_agent": [
+  6454022
+ ],
+ "ssh_channel_is_eof": [
+  6453785
+ ],
+ "ssh_channel_accept_x11": [
+  6461931
+ ],
+ "ssh_get_serverbanner": [
+  6453553
+ ],
+ "ssh_disconnect": [
+  6462063
+ ],
+ "ssh_is_blocking": [
+  6452835,
+  6455141
+ ],
+ "ssh_userauth_kbdint_getname": [
+  6452497
+ ],
+ "ssh_get_openssh_version": [
+  6452970
+ ],
+ "ssh_options_set": [
+  6457130,
+  6457642,
+  6457740,
+  6457832
+ ],
+ "ssh_channel_open_forward": [
+  6459651
+ ],
+ "ssh_channel_is_closed": [
+  6453763
+ ],
+ "ssh_new": [
+  6460121
+ ]
+}
