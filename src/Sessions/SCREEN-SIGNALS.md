@@ -29,3 +29,14 @@
 
 Screen 元对象 0x11a82e0 信号索引至少覆盖 1..35(20+ 个已读出索引),
 远超此前实证的 5 个;全部经 FUN_008464ec 安装器连接到 TerminalWidget 槽。
+
+## 互证与遗留(2026-10-27)
+
+- metaobject 结构(0x11a82e0,delta 0x600000 区)读出 metacall=0x91382e
+  —— 即 Screen::qt_static_metacall(位于发射器簇中,实锤归属);
+  data[4]=37 = 方法总数,与 25 信号 + 槽计数互证。
+- stringdata(0xce0960)为 rev-9 式 uint 偏移表(非裸字符块),
+  方法名解码需按 Qt 5.15 moc 表格式解析(条目 {-1, argc, 0, 0,
+  paramOff, 0} 形);名字获取替代路径:Frida 一次 dump
+  metaObject()->method(i).name()。
+- superdata=0 提示该地址可能为嵌套/内联表,root metaobject 待定位。
