@@ -77,3 +77,6 @@ setColumnsPerPage/refreshScreen 等杂项。
 - TelnetProtocol 构造地址未精确锚定(0x7065aa 是 UI 字符串用户)
 - TerminalCore `+0x78/+0x10` 热成员类型已定性(行表/文档指针),
   其余次级成员(+0x2c 等)按需
+- `King::DataType`(SuperCommander 参数类型):无 Q_ENUM 注册,值域需从
+  使用处代码反推——45 枚举表之外唯一已知缺口
+  (枚举权威 = QMetaObject 表直读,见 KING-ENUMS-AUTHORITATIVE.md 更正)
