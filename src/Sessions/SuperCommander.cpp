@@ -1,7 +1,7 @@
 #include "SuperCommander.h"
 #include "Screen.h"
 
-// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(196 个真实现体)。
+// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(221 个真实现体)。
 // 三层洋葱:this -> m_screen(+0x80, 0x7e 层) -> TerminalCore(0x7a 层)。
 // 每体注明 moc 索引与实现地址;其余槽为后续批次占位。
 // 信号 5 个由 moc 生成不定义。phase-1 参考还原,不编译。
@@ -610,37 +610,48 @@ void SuperCommander::scrollNextLine()
 void SuperCommander::nextPage()
 {
 	// moc[109] -> 0x7ef16a
-	// 未转写(后续批次)
+	m_screen->movePage(m_screen->currentPage() + 1, true);
+	// 适配器 0x7cc0ce:n<1 取 1,回原点
 }
 
 void SuperCommander::nextPage(int pages)
 {
 	// moc[108] -> 0x7ef16a
-	// 未转写(后续批次)
+	if (pages < 0)
+		return;
+	if (pages < 1)
+		pages = 1;
+	m_screen->movePage(m_screen->currentPage() + pages, true);
 }
 
 void SuperCommander::precedingPage()
 {
 	// moc[124] -> 0x7ef16a
-	// 未转写(后续批次)
+	m_screen->movePage(m_screen->currentPage() - 1, true);
+	// 适配器 0x7cc112:n<1 取 1,回原点
 }
 
 void SuperCommander::precedingPage(int pages)
 {
 	// moc[123] -> 0x7ef16a
-	// 未转写(后续批次)
+	if (pages < 0)
+		return;
+	if (pages < 1)
+		pages = 1;
+	m_screen->movePage(m_screen->currentPage() - pages, true);
 }
 
 void SuperCommander::page()
 {
 	// moc[121] -> 0x7e48f8
-	// 未转写(后续批次)
+	m_screen->currentPage();
+	// 取值函数(0x7e48f8),槽调用丢弃返回值
 }
 
 void SuperCommander::pages()
 {
 	// moc[122] -> 0x7e4900
-	// 未转写(后续批次)
+	// 取值函数(0x7e4900 总页数),槽调用丢弃返回值
 }
 
 void SuperCommander::forwardIndex()
@@ -1102,31 +1113,33 @@ void SuperCommander::refreshScreen()
 void SuperCommander::setColumnsPerPage()
 {
 	// moc[199] -> 0x7e61fa
-	// 未转写(后续批次)
+	m_screen->setColumnsPerPage(0);
 }
 
 void SuperCommander::setColumnsPerPage(int columns)
 {
 	// moc[198] -> 0x7e61fa
-	// 未转写(后续批次)
+	m_screen->setColumnsPerPage(columns);
 }
 
 void SuperCommander::setLinesPerPage()
 {
 	// moc[217] -> 0x7e5eb2
-	// 未转写(后续批次)
+	m_screen->setLinesPerPage(0);
+	// 缺省参 0
 }
 
 void SuperCommander::setLinesPerPage(int lines)
 {
 	// moc[216] -> 0x7e5eb2
-	// 未转写(后续批次)
+	m_screen->setLinesPerPage(lines);
 }
 
 void SuperCommander::selectNumberOfLinesOnScreen(int lines)
 {
 	// moc[190] -> 0x7e5ba2
-	// 未转写(后续批次)
+	m_screen->selectNumberOfLinesOnScreen(lines);
+	// DECSNLS
 }
 
 void SuperCommander::setCursorStyle()
@@ -1207,37 +1220,44 @@ void SuperCommander::originRight()
 void SuperCommander::movePagePositionAbsolute()
 {
 	// moc[103] -> 0x7ef16a
-	// 未转写(后续批次)
+	m_screen->movePage(0, false);
+	// 缺省参 0
 }
 
 void SuperCommander::movePagePositionAbsolute(int page)
 {
 	// moc[102] -> 0x7ef16a
-	// 未转写(后续批次)
+	if (page < 0)
+		return;
+	m_screen->movePage(page, false);
 }
 
 void SuperCommander::movePagePositionBackward()
 {
 	// moc[105] -> 0x7ef16a
-	// 未转写(后续批次)
+	m_screen->movePage(m_screen->currentPage() - 1, false);
 }
 
 void SuperCommander::movePagePositionBackward(int pages)
 {
 	// moc[104] -> 0x7ef16a
-	// 未转写(后续批次)
+	if (pages < 0)
+		return;
+	m_screen->movePage(m_screen->currentPage() - pages, false);
 }
 
 void SuperCommander::movePagePositionRelative()
 {
 	// moc[107] -> 0x7ef16a
-	// 未转写(后续批次)
+	m_screen->movePage(m_screen->currentPage() + 1, false);
 }
 
 void SuperCommander::movePagePositionRelative(int pages)
 {
 	// moc[106] -> 0x7ef16a
-	// 未转写(后续批次)
+	if (pages < 0)
+		return;
+	m_screen->movePage(m_screen->currentPage() + pages, false);
 }
 
 void SuperCommander::setMarginBellVolume()
@@ -1267,25 +1287,25 @@ void SuperCommander::setWarningBellVolume(int volume)
 void SuperCommander::selectStatusLineType()
 {
 	// moc[192] -> 0x7f0346
-	// 未转写(后续批次)
+	m_screen->selectStatusLineType(0);
 }
 
 void SuperCommander::selectStatusLineType(int type)
 {
 	// moc[191] -> 0x7f0346
-	// 未转写(后续批次)
+	m_screen->selectStatusLineType(type);
 }
 
 void SuperCommander::selectActiveStatusDisplay()
 {
 	// moc[181] -> 0x7ef86e
-	// 未转写(后续批次)
+	m_screen->selectActiveStatusDisplay(0);
 }
 
 void SuperCommander::selectActiveStatusDisplay(int display)
 {
 	// moc[180] -> 0x7ef86e
-	// 未转写(后续批次)
+	m_screen->selectActiveStatusDisplay(display);
 }
 
 void SuperCommander::reportDeviceAttributesOne()
@@ -1678,25 +1698,26 @@ void SuperCommander::testConfidence(const QString &data)
 void SuperCommander::setUserDefinedKeys()
 {
 	// moc[229] -> 0x7ef0e8
-	// 未转写(后续批次)
+	m_screen->setUserDefinedKeys();
+	// DECDLD
 }
 
 void SuperCommander::setUserDefinedKeys(int key)
 {
 	// moc[228] -> 0x7ef0e8
-	// 未转写(后续批次)
+	m_screen->setUserDefinedKeys();
 }
 
 void SuperCommander::setUserDefinedKeys(int key, int clear)
 {
 	// moc[227] -> 0x7ef0e8
-	// 未转写(后续批次)
+	m_screen->setUserDefinedKeys();
 }
 
 void SuperCommander::setUserDefinedKeys(int key, int clear, int modifier)
 {
 	// moc[226] -> 0x7ef0e8
-	// 未转写(后续批次)
+	m_screen->setUserDefinedKeys();
 }
 
 void SuperCommander::loadLeds()

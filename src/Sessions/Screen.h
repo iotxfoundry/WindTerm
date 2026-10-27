@@ -218,6 +218,18 @@ public:
 	void reportTerminalParameters();             // FUN_007ecdc2
 	void reportDecDeviceStatus(int mode);        // FUN_007f0d7c
 
+	// --- batch 3c: pages / UDK / page geometry ------------------------------
+	int currentPage() const;                     // FUN_007cbfcc -> FUN_007e48f8
+	void setUserDefinedKeys();                   // FUN_007ef0e8 (DECDLD)
+	void setColumnsPerPage(int columns);         // FUN_007e61fa (DECSCPP)
+	void setLinesPerPage(int lines);             // FUN_007e5eb2 (DECSLPP)
+	void selectStatusLineType(int type);         // FUN_007f0346 (DECSSSL)
+	void selectActiveStatusDisplay(int which);   // FUN_007ef86e (DECSASD)
+	void selectNumberOfLinesOnScreen(int lines); // FUN_007e5ba2 (DECSNLS)
+	void resetSoft();                            // FUN_007ea7e6 (DECSTR)
+	void resetHard();                            // FUN_007ea73c (RIS)
+	void restorePresentationState();             // FUN_007ef1b6
+
 	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
 	int currentCursorStyle() const;                  // FUN_007e36aa
 	void notifyCursorStyle(void *cursor, int shape); // FUN_00913592

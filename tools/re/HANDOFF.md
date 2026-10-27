@@ -8,7 +8,7 @@ WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批�
 层 ~95 方法,TerminalCore ~47 方法。批次②:DECSM/DECRM 完整 case 表
 (备用屏双缓冲、鼠标族、2004)、SGR 64 位状态机、SCS 字符集、ICH/DCH/
 IL/DL/DECIC/DECDC、DECDWL/DHL。批次③a:DECALN、VT52 四槽、DA/DSR 报告、
-zmodem、movePage 页面调度。批次③b 已完成(notify*/窗口/报告族,PLT 桩与锁缓冲路径定性)。**剩余 ~63 占位体:页面族适配器(0x7cc5-0x7cd0 段)、setUserDefinedKeys、mediaCopy、locator 深交互、铃音/行列数设置族**。
+zmodem、movePage 页面调度。批次③b/③c 已完成(notify*/窗口/报告/页面族/UDK/行列传/DECSTR-RIS)。**累计 221/259(85%)。剩余 38:mediaCopy×3、locator 深交互(0x7ebd/0x7eac)、铃音×4、testConfidence、tmux、filterRectangle×2、dataType、bell/answerBack、charset 编码族余量**。
 
 ## 环境状态(新会话先核对)
 
