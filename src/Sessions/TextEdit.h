@@ -302,13 +302,16 @@ public:
 	void toggleState(int which);                 // FUN_005cc4a0
 	void applyFlagImpl(bool on);                 // FUN_005beeac
 	class QTextCodec *codec();
-	// 0x5cc94e/0x5d28b6: 32.6K twins - config-map builders (QMap+QVariant
-	//   storm, int-arg variant; same family as 0x5d0a4e: ~80% inlined
-	//   QMap destructor noise, e.g. "shuffle" key at 0xd0cf05)
-	// 0x5cebe6: 31.2K config-map builder (same family)
-	// 0x5d0a4e: 31K config-map builder ("reverse"/"type" keys) - classified
-	//   --- giant config builders NOT transcribed (no business value in
-	//   the destructor-dominated bodies)
+	// 0x5cc94e/0x5d28b6: 32.6K twins - line-operation option maps:
+	//   0x5d28b6 = "sort" lines / 0x5cc94e = "unique" lines, both with
+	//   keys: "type", "case", "numeric", "punctuation"
+	// 0x5cebe6: "shuffle" lines + "type"
+	// 0x5d0a4e: "reverse" lines + "type"
+	// All four build QMap<QString, QVariant> option maps (~80% of each
+	// body is inlined QMap destructor noise); semantics fully extracted:
+	//   sortLines(type, caseSensitive, numeric, punctuation)
+	//   uniqueLines(type, caseSensitive, numeric, punctuation)
+	//   reverseLines(type) / shuffleLines(type)
 
 	// insert(canSelectSnippetStop,position) (0x5cb7d4)
 	// redoList() (0x5cc4d4)
