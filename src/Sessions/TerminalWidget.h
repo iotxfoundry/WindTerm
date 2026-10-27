@@ -81,10 +81,11 @@ public:
 	}
 
 	void clearScreen()
-	{
-		// 0x00840438: 复合体:光标位置(0x8403a6/0x5b8576)与提示行(0x83c9e2)比较后经 0x5be68c 发命令
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
-	}
+{
+	// FUN_00840438: 光标位置(FUN_008403a6/0x5b8576)与提示行(CMD
+	// 0x75dd 经 0x83c9e2)比较后经 FUN_005be68c 发命令 — 复合体
+	promptCompareClear();   // cited composite
+}
 
 	void clearScreenAndScrollback()
 	{

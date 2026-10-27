@@ -430,5 +430,29 @@
   "name": "SLOT write(disconnected)",
   "impl": "0x0083e286",
   "kind": "静态初始化守卫 + FUN_009109fa 信号接线"
+ },
+ {
+  "idx": 26,
+  "name": "(property accessor)",
+  "impl": "-",
+  "kind": "PROPERTY 路径(_c=1/2)"
+ },
+ {
+  "idx": 32,
+  "name": "(property accessor)",
+  "impl": "-",
+  "kind": "PROPERTY 路径"
+ },
+ {
+  "idx": 33,
+  "name": "(property accessor)",
+  "impl": "-",
+  "kind": "PROPERTY 路径"
+ },
+ {
+  "idx": 66,
+  "name": "(property accessor)",
+  "impl": "-",
+  "kind": "PROPERTY 路径"
  }
 ]
