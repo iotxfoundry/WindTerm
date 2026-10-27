@@ -32,7 +32,8 @@ zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%)
 
 | 项 | 值 |
 |---|---|
-| 引擎 | Ghidra 12.1.4(自动)/ IDA Pro 9.1(深度,GUI 需手动开)/ kuna |
+| 引擎 | Ghidra 12.1.4(自动)/ IDA Pro 9.1(深度,GUI 需手动开)/ **kuna CLI(就绪)** |
+| | kuna 路径:~/.local/share/rea/bin/kuna(decompile/xrefs/functions/strings/disassemble),2026-10-27 验证:反编译 0x7a5588 与还原转写逐字段吻合,connectImpl 交叉引用 1016 处全解 |
 | IDA MCP | `~/.config/rea/ida-mcp.json`(stdio);IDA GUI 里需 Ctrl+Alt+M 启动插件服务 |
 | GitHub 代理 | `192.168.1.106:7890`(push 必带 `-c http.proxy=…`) |
 | 提交规范 | 中文,force 推送需覆盖远端 dev |
