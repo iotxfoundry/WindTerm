@@ -72,19 +72,87 @@ static void docSetTabSize(EditorEngine *e, int n)
 	}
 }
 // EXT one-call thunks (addresses = the leaf implementations)
+// fwd: 选择族定义在本文件后段
+static void cursorOp97881e(void *cursor);
+static long long cursorOp75316(void *cursor);
+static void cursorOp7a50a(void *cursor);
+static void cursorOp75322(void *cursor, bool v);
+static void cursorOp7531c(void *cursor);
+static void cursorOp756c8(void *cursor);
+static void eA235ce(EditorEngine *e, long long a, int b);
+static void editorSelCtor(void *sel, EditorEngine *e, int *type);
+static void editorSelDtor(void *sel);
 static void eA237a6(EditorEngine *e) { (void)e; }             // 0x4ecd activateNextSelection
 static void eA23808(EditorEngine *e) { (void)e; }             // 0x4ece activatePreviousSelection
-static void eA2386a(EditorEngine *e) { (void)e; }             // 0x4ecf lockSelection
-static void eA23894(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x4ed0 dropSelection
-static void eA20198(EditorEngine *e) { (void)e; }             // 0x4ed2 splitSelection
-static void eA2014e(EditorEngine *e) { (void)e; }             // 0x4ed1 cancelSelection
-static void eA201e2(EditorEngine *e) { (void)e; }             // 0x4ed3 invertSelection
-static void eA20238(EditorEngine *e, bool on) { (void)e; (void)on; }  // 0x4ecb
-static bool eA2022c(EditorEngine *e) { (void)e; return false; }       // 0x4ec6
-static bool eA2025a(EditorEngine *e) { (void)e; return false; }       // 0x4ed1? second probe
-static void eA202b0(EditorEngine *e) { (void)e; }             // 0x4ed5 exchangeCaretAnchor
-static bool eA385ee(EditorEngine *e, int a) { (void)e; (void)a; return false; }  // 0x4ee4
-static void eA286a2(EditorEngine *e, int a) { (void)e; (void)a; }    // 0x4ee6
+static void eA2386a(EditorEngine *e)
+{
+	// FUN_00a2386a (42B): FUN_0097881e(cursor) then the
+	// FUN_00975316(cursor) value feeds FUN_00a235ce(e, val, 0)
+	cursorOp97881e(*(void **)((char *)e + 0x1038));
+	eA235ce(e, cursorOp75316(*(void **)((char *)e + 0x1038)), 0);
+}
+static void cursorOp97881e(void *cursor) { (void)cursor; }    // FUN_0097881e
+static long long cursorOp75316(void *cursor) { (void)cursor; return 0; }  // FUN_00975316
+static void eA23894(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x4ed0 dropSelection (123B)
+// type-8/0xc 选择事务包(65B 同构四件):selCtor → 单 cursor 操作 → selDtor
+static void selTxn8(EditorEngine *e, void (*cursorOp)(void *))
+{
+	int type = 8;
+	char sel[32];
+	editorSelCtor(sel, e, &type);
+	cursorOp(*(void **)((char *)e + 0x1038));
+	editorSelDtor(sel);
+}
+static void cursorOp7528e(void *cursor) { (void)cursor; }     // FUN_0097528e
+static void cursorOp978872(void *cursor) { (void)cursor; }    // FUN_00978872
+static void cursorOp75bf2(void *cursor) { (void)cursor; }     // FUN_00975bf2
+static void eA20198(EditorEngine *e)           // 0x4ed2 splitSelection
+{
+	// FUN_00a20198 (65B): type-8 txn + FUN_00978872(cursor)
+	selTxn8(e, cursorOp978872);
+}
+static void eA2014e(EditorEngine *e)           // 0x4ed1 cancelSelection
+{
+	// FUN_00a2014e (65B): type-8 txn + FUN_0097528e(cursor)
+	selTxn8(e, cursorOp7528e);
+}
+static void eA201e2(EditorEngine *e)           // 0x4ed3 invertSelection
+{
+	// FUN_00a201e2 (65B): type-0xc txn + FUN_0097a50a(cursor)
+	int type = 0xc;
+	char sel[32];
+	editorSelCtor(sel, e, &type);
+	cursorOp7a50a(*(void **)((char *)e + 0x1038));
+	editorSelDtor(sel);
+}
+static void cursorOp7a50a(void *cursor) { (void)cursor; }     // FUN_0097a50a
+static void eA20238(EditorEngine *e, bool on)
+{
+	// FUN_00a20238 (16B) → FUN_00975322(cursor, on)
+	cursorOp75322(*(void **)((char *)e + 0x1038), on);
+}
+static void cursorOp75322(void *cursor, bool v) { (void)cursor; (void)v; }  // FUN_00975322
+static bool eA2022c(EditorEngine *e)
+{
+	// FUN_00a2022c (12B) → FUN_0097531c(cursor)
+	cursorOp7531c(*(void **)((char *)e + 0x1038));
+	return false;
+}
+static void cursorOp7531c(void *cursor) { (void)cursor; }     // FUN_0097531c
+static bool eA2025a(EditorEngine *e)
+{
+	// FUN_00a2025a (12B) → FUN_009756c8(cursor)
+	cursorOp756c8(*(void **)((char *)e + 0x1038));
+	return false;
+}
+static void cursorOp756c8(void *cursor) { (void)cursor; }     // FUN_009756c8
+static void eA202b0(EditorEngine *e)           // 0x4ed5 exchangeCaretAnchor
+{
+	// FUN_00a202b0 (65B): type-8 txn + FUN_00975bf2(cursor)
+	selTxn8(e, cursorOp75bf2);
+}
+static bool eA385ee(EditorEngine *e, int a) { (void)e; (void)a; return false; }  // 0x4ee4 (805B, D 类)
+static void eA286a2(EditorEngine *e, int a) { (void)e; (void)a; }    // 0x4ee6 (325B, D 类)
 static long long docPosOp(void *doc, bool b)
 {
 	// FUN_00927a68 (16B) → FUN_009b413e(undo(doc+0xe8), b); tail call
@@ -305,8 +373,15 @@ static void vtA0Repaint()
 }
 
 // SCI 0x80x-0x88x one-call thunks
-static void docOp927a08(void *doc, unsigned long long v) { (void)doc; (void)v; }  // 0x81e
-static void docOp927a14(void *doc, int v) { (void)doc; (void)v; }  // 0x81f (arg 1)
+static void docOp927a08(void *doc, unsigned long long v)
+{
+	// FUN_00927a08 (12B) → FUN_009b6472(undo(doc+0xe8), v)
+}
+  // 0x81e
+static void docOp927a14(void *doc, int v)
+{
+	// FUN_00927a14 (16B) → FUN_009b6046(undo(doc+0xe8), v)
+}  // 0x81f (arg 1)
 static void docOp92c4ae(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x84e
 static long long docOp928404(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x850 (gated +0x1067)
 static int docOp9284c6(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x84f sibling (gated)
@@ -318,7 +393,12 @@ static long long docOp92520c(void *doc, long long v)
 }
 static long long editorLineEndIdx(void *obj, long long v) { (void)obj; (void)v; return 0; }  // 0x858 gated path
 static bool docFlag9290e8b(void *doc) { (void)doc; return false; }  // 0x85c
-static long long docOp92522a(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x876 plain
+static long long docOp92522a(void *doc, long long v)
+{
+	// FUN_0092522a (12B) → FUN_00980684(gapBuf(doc+0xf8), v) —
+	// line-position query, gate +0x1128 handled inside
+	return 0;
+}  // 0x876 plain
 static long long objRunStyleGet(void *obj, void *node) { (void)obj; (void)node; return 0; }  // 0x876 gated FUN_009587cc
 static double eScrollSet(EditorEngine *e, void *node) { (void)e; (void)node; return 0; }  // 0x875 region FUN_00a225be (XMM out)
 static void runNodeInit(void *node, long long start, int a, int b)
