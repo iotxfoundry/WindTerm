@@ -1,9 +1,10 @@
+#include <QVariant>
 #include "SuperSession.h"
 
 #include "SuperBridge.h"
 
 // Implementation reconstructed from:
-//   - state getter  FUN_007d6712  (session+0x10 -> d; d+0x2c -> state)
+//   - state getter  FUN_007d6712  (session+0x10 -> m_d; d+0x2c -> state)
 //   - property reads (metacall ReadProperty branch)
 //   - needVerifyServerFingerprint FUN_007d5cb8 (reads "ssh.verifyServerFingerprint")
 //   - live trace: Unconnected->Connecting->Connected->HostVerified->HostAuthed
@@ -27,34 +28,34 @@ void SuperSessionPrivate::setState(King::SessionState newState)
 
 SuperSession::SuperSession(QObject *parent)
 	: QObject(parent)
-	, d(new SuperSessionPrivate)
+	, m_d(new SuperSessionPrivate)
 {
 }
 
 SuperSession::~SuperSession(void)
 {
-	delete d;
-	d = nullptr;
+	delete m_d;
+	m_d = nullptr;
 }
 
 bool SuperSession::isUnconnected() const
 {
 	// FUN_007d6722: state() == 0
-	return d->state == King::Unconnected;
+	return m_d->state == King::Unconnected;
 }
 
 bool SuperSession::isConnected() const
 {
 	// FUN_007d5b1a-family: state() >= Connected
-	return d->state >= King::Connected;
+	return m_d->state >= King::Connected;
 }
 
 King::SessionState SuperSession::state() const
 {
 	// FUN_007d4dc4: forwards to bridge->state(); Unconnected when no bridge
-	if (d->bridge == nullptr)
+	if (m_d->bridge == nullptr)
 		return King::Unconnected;
-	return d->state;
+	return m_d->state;
 }
 
 bool SuperSession::needVerifyServerFingerprint() const
@@ -70,16 +71,16 @@ void SuperSession::open()
 	// open() is dispatched to the protocol-specific bridge.
 	// Observed transition order on success:
 	//   Connecting -> Connected -> HostVerified -> HostAuthed
-	emit stateChanged(d->state, King::Connecting);
-	d->setState(King::Connecting);
+	emit stateChanged(m_d->state, King::Connecting);
+	m_d->setState(King::Connecting);
 }
 
 void SuperSession::drop()
 {
 	// Live trace: HostAuthed -> Unconnected directly (no Closing intermediate)
-	if (d->bridge != nullptr) {
-		const King::SessionState oldState = d->state;
-		d->setState(King::Unconnected);
+	if (m_d->bridge != nullptr) {
+		const King::SessionState oldState = m_d->state;
+		m_d->setState(King::Unconnected);
 		emit stateChanged(oldState, King::Unconnected);
 	}
 }

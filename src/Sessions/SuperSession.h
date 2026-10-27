@@ -85,8 +85,8 @@ signals:
 
 private:
 	friend class SuperSessionPrivate;
-	SuperSessionPrivate *d;
+	SuperSessionPrivate *m_d;  // d-pointer
 };
-Q_DECLARE_PRIVATE(SuperSession)
+// Q_DECLARE_PRIVATE(SuperSession)  // phase-1: 展开体需要 Qt d_ptr,还原语义见 m_d 注释
 
 #endif // SUPERSESSION_H

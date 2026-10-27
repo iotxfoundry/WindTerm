@@ -67,7 +67,7 @@ public:
 		for (int i = 0; i < count; ++i) {
 			char echo = 0;
 			const char *prompt = ssh_userauth_kbdint_getprompt(m_session, i, &echo);
-			prompts.append(QString::fromAscii(prompt));
+			prompts.append(QString::fromLatin1(prompt));
 		}
 		return prompts;
 	}
