@@ -1618,3 +1618,19 @@ long Screen::styleTimestamp(bool primary)
 	// (primary) or +0x1f8 - style-object lifetime stamps
 	return QElapsedTimer::elapsed() + (primary ? m_styleBase1 : m_styleBase2);
 }
+
+bool Screen::isAltScreenActive() const
+{
+	// FUN_007e4028: alternate-screen active flag at +0x139
+	return m_altScreenActive;
+}
+
+void Screen::sendScreenCommand(int cmd, const QVariant &a, const QVariant &b)
+{
+	// FUN_007e301a -> FUN_00913234: emits Screen signal index 2
+	// (commandRequested) with (cmd, a, b); the execution happens in the
+	// connected slot (view/renderer side). Known commands (from the
+	// TerminalWidget callers): 2 cancel modem, 3 clear screen+scrollback,
+	// 6 clear screen, 7 clear scrollback.
+	emit commandRequested(cmd, a, b);   // QMetaObject::activate sig 2
+}

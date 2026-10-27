@@ -136,6 +136,7 @@ public:
 	void *m_keymap;                // +0xf8 (key modifier object)
 	char m_locatorEventMode;       // +0x160.. +0x162 (DEC locator events)
 	char m_locatorArg;
+	bool m_altScreenActive;       // +0x139 (FUN_007e4028)
 	void *m_zmodemTimer;         // +0x208 (FUN_007e676c)
 	TerminalCore *m_altCore;       // +0x88 note: alternate-screen core
 	TerminalCore *m_savedPrimary;  // +0x90 (primary core while on alt screen)
@@ -171,6 +172,9 @@ public:
 	void setAllowScrollback(bool on);      // FUN_007e4f1c
 	bool isBracketedPaste() const;         // FUN_007e355a
 	bool isReverseScreen() const;          // FUN_007e4a94
+	bool isAltScreenActive() const;        // FUN_007e4028 (+0x139)
+	void sendScreenCommand(int cmd, const QVariant &a = QVariant(),
+	                       const QVariant &b = QVariant());  // FUN_007e301a -> signal 2
 	void startGuardedArea();               // FUN_007e5278
 	void endGuardedArea();                 // FUN_007e37dc
 	void enterAltKeypadMode();             // FUN_007e37e8

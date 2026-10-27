@@ -34,7 +34,9 @@ public:
 	Screen *m_screen;       // +0x1f8 -> 0x7e33xx Screen cluster calls
 
 	// --- screen cluster forwards (guards: +0x1f0 valid && +0x1f8) -------
-	// FUN_0083cbc8 clearScreen          -> FUN_007e3326(screen)
+	// The clear family routes: slot -> Screen::sendScreenCommand(n)
+	// -> Screen signal 2 (commandRequested) -> connected slot executes.
+	// FUN_0083cbc8 clearScreen          -> command 6 (FUN_007e3326)
 	// FUN_0083cc00 clearScrollback      -> FUN_007e3388(screen)
 	// FUN_0083c6a8 clearScreenAndScrollback -> FUN_007e31ec(screen)
 	// FUN_0083cf68 resetHard -> FUN_0083cee2(this, 0)
