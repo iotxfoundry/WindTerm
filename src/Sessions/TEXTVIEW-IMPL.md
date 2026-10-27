@@ -207,13 +207,24 @@ kind '?' = 信号(emit 桩),其余为可调用方法。地址为 WindTerm 主程
 | 199 | subString(data) | 0x005c0c32 |
 
 
-## 架构定性(2026-10-27 补)
+## 架构定性(2026-10-27 补,28 日修正)
 
 TextView = 命令转发壳:方法体仅 QVariant 装配后经 sendEditor
-(FUN_005b5d68)虚调用 this+0x58 编辑器对象的虚表槽 0x1c0。
+(FUN_005b5d68,**22 字节纯 vtable 尾调用** —— `(*(void***)m_editor)[
+0x1c0/8](ret, editor, cmd, a, b)`)分发 this+0x58 编辑器对象。
+两种装配形态(调用方实证):
+- ≤2 参:直接 QVariant 形参(如 FUN_005b99de cmd 0x75ad)
+- >2 参:QList\<QVariant\> 打包进一个 QVariant
+  (qlist_variant_append_heap,如 FUN_005c4c68 cmd 0x7545)
 61 个命令号全解见 TEXTVIEW-COMMANDS.md(11 标准 SCI + 40 自定义:
 扩展块 20173-20228 / WindTerm 命令空间 30001-30166)。
-属性哈希 +0xf8(QString->QVariant,CoW);方案名默认 "Plain Text";
+属性存储 +0xf8 = **QMap(有序,lower_bound 查找)**,非哈希;
+节点 0x30 字节:key QString@+0x18(引用计数复制)、value QVariant@+0x20;
+CoW:共享(ref>1)时 qmap_detach_copy_nodes 再写(FUN_005c6fae 全身已还原)。
+方案名默认 "Plain Text";注册表 FUN_005b97cc 命中项 +8 = char* 名
+(strlen 回退),fromUtf8 转换(FUN_005b985e 全身已还原);
+注册表项 +0xa8 = 方案能力位(text.highlightCaretWord 经 session_optGet
+读默认再与能力位与)。
 find 引擎链:取选中文本(0x5c6448)-> 会话(0x5b3e46)-> 执行
 (0x910 簇 FUN_0091b198);findReplace 对话框经 QDialog::finished
 接线(FUN_005c3320)。TextView.h 为还原骨架。

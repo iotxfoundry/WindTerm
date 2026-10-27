@@ -19,6 +19,17 @@
 
 class QVariant;
 
+// Qt QMap primitives used by the property store (binary addresses noted;
+// reference tier — thunks, never linked)
+static void *qmapLowerBoundFind(void *map, const void *key)
+{ (void)map; (void)key; return nullptr; }   // qmap_lower_bound_find
+static void QMapDetachIfShared(void **map)
+{ (void)map; }                              // qmap_detach_copy_nodes
+static void *qmapCreateNode(void **map, const void *key)
+{ (void)map; (void)key; return nullptr; }   // QMapDataBase::createNode (0x30)
+static const void *schemeRegistryEntry(const void *view)
+{ (void)view; return nullptr; }             // FUN_005b97cc
+
 class TextView
 {
 public:
@@ -29,10 +40,15 @@ public:
 	int m_page;            // (page-related members per find flow)
 
 	// --- dispatcher ----------------------------------------------------------
-	// FUN_005b5d68: (*(*editor)->vtable[0x1c0])(result, editor, cmd, args...)
+	// FUN_005b5d68 (22 bytes): pure pass-through thunk —
+	//   (*(*(void ***)this->m_editor)[0x1c0/8])(ret, editor, cmd, a, b)
+	// Two marshalling forms proven by callers:
+	//   <=2 args  : direct QVariant params (e.g. FUN_005b99de cmd 0x75ad)
+	//   >2 args   : QVariantList packed into one QVariant
+	//               (qlist_variant_append_heap, e.g. FUN_005c4c68 cmd 0x7545)
 	template <typename... A>
 	void sendEditor(QVariant &result, int command, const A &...args)
-	{ (void)result; (void)command; }  // cited: vtable +0x1c0 dispatch
+	{ (void)result; (void)command; }  // tail call, vtable +0x1c0
 
 	// --- standard SCI forwards (samples, full table in the md) -------------
 	void copy() { sendEditor(m_result, 0x882, QVariant(), QVariant()); }            // SCI_COPY
@@ -487,22 +503,44 @@ private:
 
 QVariant TextView::property(const QString &name) const
 {
-	// FUN_005c4c0a: hash lookup FUN_00544cec on +0xf8; found -> payload
-	// at node+0x20, miss -> null — cited
-	(void)name;
+	// FUN_005c4c0a: QMap lower_bound find on +0xf8 (ordered map, not a
+	// hash); hit -> QVariant payload at node+0x20, miss -> null QVariant
+	const void *node = qmapLowerBoundFind(m_properties, &name);
+	if (node)
+		return *(const QVariant *)((const char *)node + 0x20);
 	return QVariant();
 }
 
 void TextView::setProperty(const QString &name, const QVariant &value)
 {
-	// FUN_005c6fae: CoW detach (FUN_0059ecda) then insert/update node+0x20 — cited
-	(void)name; (void)value;
+	// FUN_005c6fae (408B): empty key ignored; CoW detach when shared
+	// (ref > 1 -> qmap_detach_copy_nodes); lower_bound find — hit
+	// assigns node+0x20, miss descends red-black via operator< and
+	// QMapDataBase::createNode(map, node size 0x30) with the key
+	// QString refcount-copied at +0x18, then assigns the QVariant at
+	// node+0x20
+	if (name.isEmpty())
+		return;
+	QMapDetachIfShared(&m_properties);
+	void *node = qmapLowerBoundFind(m_properties, &name);
+	if (!node)
+		node = qmapCreateNode(&m_properties, &name);   // key at +0x18
+	*(QVariant *)((char *)node + 0x20) = value;
 }
 
 QString TextView::schemeName() const
 {
-	// FUN_005b985e: "Plain Text" default via scheme registry FUN_005b97cc
-	return QStringLiteral("Plain Text");
+	// FUN_005b985e (165B): default "Plain Text"; the scheme registry
+	// lookup (FUN_005b97cc) returns an entry whose +8 is a char*
+	// scheme name (strlen fallback when its size field is -1),
+	// converted QString::fromUtf8
+	QString name = QStringLiteral("Plain Text");
+	const void *entry = schemeRegistryEntry(this);
+	if (entry) {
+		const char *s = *(const char *const *)((const char *)entry + 8);
+		name = QString::fromUtf8(s, -1);
+	}
+	return name;
 }
 
 void TextView::find(bool forward, bool useSelectionText)
