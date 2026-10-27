@@ -24,7 +24,13 @@
 #include <QToolButton>
 #include <QVBoxLayout>
 
-#include <private/qeffects_p.h>
+// qFadeEffect:Qt 私有 API(inc/qt5 的私有头为转发桩,qtbase 源码
+// 未入库)。参考层本地桩——纯装饰性渐隐;真 qtbase 联编时换回
+// #include <private/qeffects_p.h>
+static inline void qFadeEffect(QWidget *w, int duration = 150)
+{
+	(void)w; (void)duration;   // stub: no fade in the reference build
+}
 
 #define TRIANGLE_HEIGHT 18
 
