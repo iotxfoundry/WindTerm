@@ -1330,8 +1330,11 @@ void Screen::writeText(const char *data, int len)
 	//     column clamped to originRight, setCursorX, last graphic char
 	//     updated (FUN_007e515e)
 	//
-	// Loop end: core markDirty(1). Multibyte decoding runs through the
-	// codec chain (FUN_007cadee/0x7cb7b6, virtual +0x18 toUnicode);
+	// Loop end: core markDirty(1). Multibyte decoding is stock Qt:
+	// view+0xe0 = QTextCodec*, view+0xf0 = QTextDecoder* (makeDecoder);
+	// the vtable slot +0x18 call in the decompile is
+	// QTextDecoder::toUnicode(const char*, int) (import symbol
+	// _ZN12QTextDecoder9toUnicodeEPKci present in the binary).
 	// an U+FFFD result with a longer pending buffer defers the sequence.
 	const char *p = data;
 	int n = len;
