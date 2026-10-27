@@ -863,7 +863,7 @@ void TerminalCore::copyCell(void *dst, const void *src)
 // FUN_007aa1bc: ushort-vector {cap@0, count@4, data@8} resize to len with
 // capacity cap; embedded tail (header+0x10) when cap < 2; preserves
 // min(len, count) entries and zero-fills the grown region
-static void resizeUshortVector(int *hdr, int len, int cap)
+void TerminalCore::resizeUshortVector(int *hdr, int len, int cap)
 {
 	int *src = *(int **)(hdr + 2);
 	int keep = hdr[1] < len ? hdr[1] : len;

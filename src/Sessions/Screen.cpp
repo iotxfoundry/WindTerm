@@ -1,10 +1,38 @@
 #include "Screen.h"
 
 #include <QElapsedTimer>
+#include <QTextDecoder>
 #include <cstring>
 
 // Bodies transcribed from decompilation (0x7e cluster); comments cite the
 // source function. Phase-1 restoration (reference, not compiled).
+
+// FUN_007cadba: bytes the view codec needs for one char starting at the
+// lead byte (UTF-8 shape shown; the binary asks the codec itself)
+static int codecBytesFor(char lead)
+{
+	const unsigned char b = (unsigned char)lead;
+	if (b < 0xe0)
+		return b < 0xc0 ? 1 : 2;
+	if (b < 0xf0)
+		return 3;
+	if (b < 0xf8)
+		return 4;
+	return 1;
+}
+
+// FUN_007e2202: release an owned cell aux object — heap payload at +8
+// when not the embedded tail, then the 0x18 object itself
+static void releaseCellAux(char *auxSlot)
+{
+	void *aux = *(void **)auxSlot;
+	if (aux) {
+		if (*(void **)((char *)aux + 8) != (char *)aux + 0x10)
+			free(*(void **)((char *)aux + 8));
+		operator delete(aux, 0x18);
+		*(void **)auxSlot = nullptr;
+	}
+}
 
 Screen::Screen()
 	: m_core(nullptr), m_history(nullptr), m_savedCursorStyle(-1),
@@ -1439,36 +1467,111 @@ void Screen::writeText(const char *data, int len)
 	m_core->markDirty(1);
 }
 
-// writeText inner helpers (cited; see writeText header comment)
+// writeText inner helpers (bodies from FUN_007e6f42 inline regions)
 int Screen::decodeChunk(const char *data, int len, unsigned int *cp)
 {
-	// QTextDecoder::toUnicode(const char*, int) via view+0xf0 (vtable
-	// +0x18); returns bytes eaten, writes the codepoint
-	(void)data; (void)len; (void)cp;
-	return 1;
+	// 0x7e6f42 inline 0x7e7338..0x7e73d1: byte count from
+	// FUN_007cadba(view, data[0]) (codec min bytes for one char);
+	// decode via the codec vtable +0x18 call = QTextDecoder::toUnicode
+	// (import _ZN12QTextDecoder9toUnicodeEPKci). Output is UTF-16: one
+	// unit is the codepoint; two units fold a surrogate pair as
+	// high*0x400 + low + 0xfca02400 (0x7e73a8; = -0x35fdc00). U+FFFD
+	// with more than one unit marks a truncated sequence (see
+	// incompleteSequence).
+	const int eaten = codecBytesFor(data[0]);   // FUN_007cadba — cited
+	QByteArray raw(data, eaten > 0 ? eaten : 1);
+	const QString out = m_decoder
+	                        ? ((QTextDecoder *)m_decoder)->toUnicode(raw)
+	                        : QString::fromLatin1(raw);
+	m_lastDecodedUnits = out.length();
+	m_lastEatenBytes = eaten > 0 ? eaten : 1;
+	if (m_lastDecodedUnits == 2) {
+		const uint hi = out.at(0).unicode();
+		const uint lo = out.at(1).unicode();
+		*cp = hi * 0x400 + lo + 0xfca02400u;
+	} else if (m_lastDecodedUnits == 1) {
+		*cp = out.at(0).unicode();
+	} else {
+		*cp = 0xfffd;
+		m_lastDecodedUnits = 1;
+	}
+	return m_lastEatenBytes;
 }
 bool Screen::incompleteSequence(unsigned int cp, int eaten)
 {
-	// U+FFFD with a pending longer sequence -> defer (cited)
-	return cp == 0xfffd && eaten > 1;
+	// 0x7e735a: U+FFFD with more than one decoded unit = sequence cut by
+	// the buffer end — consume one byte and retry the remainder
+	(void)eaten;
+	return cp == 0xfffd && m_lastDecodedUnits > 1;
 }
-int Screen::eatenBytes(int width) { (void)width; return 1; }
+int Screen::eatenBytes(int width) { return m_lastEatenBytes; (void)width; }
 void Screen::appendClusterUnits(void *cell, unsigned int cp)
 {
-	// UTF-16 cluster append into the cell aux object (cited)
-	(void)cell; (void)cp;
+	// 0x7e74e0..0x7e76a0: the cluster array is the cell aux ushort
+	// vector {cap/refcount@0, count@4, data@8, embedded tail @0x10},
+	// grown ×2 (FUN_007aa1bc) when full. High surrogates are stored
+	// split — 0xd7c0 + (cp>>10) then 0xdc00 + (cp&0x3ff); BMP units
+	// as-is. The binary selects the target cell (col-1, or the prior
+	// row's last cell across a wrap) in the writeText body.
+	unsigned short units[2];
+	int n = 0;
+	if (cp - 0xd800u < 0x800) {
+		units[n++] = (unsigned short)((cp >> 10) + 0xd7c0);
+		units[n++] = (unsigned short)((cp & 0x3ff) + 0xdc00);
+	} else {
+		units[n++] = (unsigned short)cp;
+	}
+	int **auxSlot = (int **)((char *)cell + 0x10);
+	int *aux = *auxSlot;
+	if (!aux) {
+		aux = (int *)::operator new(0x18);
+		aux[0] = 1;
+		aux[1] = 0;
+		*(void **)(aux + 2) = aux + 4;
+		*auxSlot = aux;
+	}
+	for (int i = 0; i < n; i++) {
+		if (aux[1] == aux[0])
+			m_core->resizeUshortVector(aux, aux[1], aux[1] * 2);
+		((unsigned short *)*(void **)(aux + 2))[aux[1]++] = units[i];
+	}
 }
 void Screen::shiftCellsRight(struct Row *row, int col, int width)
 {
-	// IRM shift: memmove cells+attrs right (cited)
-	(void)row; (void)col; (void)width;
+	// 0x7e7453 (IRM insert): release the last on-screen cell's aux (it
+	// falls off the shift, FUN_007e2202), memmove cells (+0x20 stride)
+	// and heads (+2) right one slot, clear the vacated aux pointer
+	int n = m_core->columnCount() - col - 1;
+	if (n <= 0)
+		return;
+	releaseCellAux((char *)m_core->cellAt(row, col + n) + 0x10);
+	memmove(m_core->cellAt(row, col + 1), m_core->cellAt(row, col),
+	        (size_t)n * 0x20);
+	memmove(m_core->attrHeadAt(row, col + 1), m_core->attrHeadAt(row, col),
+	        (size_t)n * 2);
+	*(void **)((char *)m_core->cellAt(row, col) + 0x10) = nullptr;
 }
-bool Screen::sCharClass(unsigned int cp) { (void)cp; return false; }
+bool Screen::sCharClass(unsigned int cp)
+{
+	// DAT_011c1fe0: per-ASCII-byte special flags (C0 controls); a set
+	// entry re-enters the control dispatch at 0x7e7746 instead of being
+	// written as a glyph
+	return cp < 0x80 && ((const char *)0x11c1fe0)[cp] != 0;
+}
 void *Screen::nextCell(void *cell) { return (char *)cell + 0x20; }
 unsigned short *Screen::nextHead(unsigned short *head) { return head + 1; }
-QByteArray Screen::takePendingMultibyte() { return QByteArray(); }
+QByteArray Screen::takePendingMultibyte()
+{
+	// 0x7e6f7f prologue: the carry buffer empties into the new chunk
+	QByteArray out = m_pendingTail;
+	m_pendingTail.clear();
+	return out;
+}
 void Screen::savePendingMultibyte(const char *data, int len)
-{ (void)data; (void)len; }
+{
+	// 0x7e7338 tail: store the unconsumed bytes as their own QByteArray
+	m_pendingTail = QByteArray(data, len);
+}
 void *Screen::sgrPayload() { return nullptr; }
 void Screen::writeBackToView(const QByteArray &data) { (void)data; }
 QString Screen::keyboardDialects() const { return QString(); }

@@ -89,6 +89,9 @@ public:
 	int m_pendingWrap;                   // +0x40 (wrap-pending row flag)
 	int m_lineModeBit;                   // +0x1c8 bit0 source
 	unsigned int m_lastCp;               // decode latch for REP
+	QByteArray m_pendingTail;            // +0x178 carry (unconsumed tail)
+	int m_lastDecodedUnits;              // UTF-16 units of the last decode
+	int m_lastEatenBytes;                // bytes the last decode consumed
 	unsigned int m_viewRefresh;                 // view flags via +0x10
 	void *m_protocolParams; // +0x58 param list
 	void **m_views; // +0x1e0 view list
@@ -139,6 +142,10 @@ public:
 	void copyRectangularArea(const QString &area);                    // FUN_007eb2f2 (DECCRA)
 	int currentColumn() const;          // FUN_007e368e (core +0xc8)
 	int currentCursorStyle() const;                   // FUN_007e36aa
+	struct Row *rowFlagsPtr(int row);                 // FUN_007e41bc -> FUN_007e416e
+	void restoreCursorTail();                         // FUN_007e4b30
+	void cursorVisibleChanged(bool on) { (void)on; }  // Screen signal 7
+	bool m_cursorVisible = false;                     // +0x128
 	int currentLine() const;            // FUN_007e369c (core +0xc4)
 	void cursorMoveRaw(int y, int x);   // FUN_007e4f38 -> FUN_007a538a
 	void dataType();

@@ -52,6 +52,9 @@ locator 交互、zmodem(0x7e67/0x7e68)、mediaCopy、notify* 家族、
 setColumnsPerPage/refreshScreen 等杂项。
 
 转写方法(已验证):
+0. 工具优先(tools/re/README.md):xref_scan.py 查调用者、fdes.json
+   权威边界、qmo_extract.py 枚举表;反编译语料已入库
+   tools/re/decomp(`grep -n "entry=007xxxxx"` 直达函数,免 grep 全库)
 1. 查 `SUPERCOMMANDER-IMPL.md`(264 行,方法→实现地址→模板)
 2. `procedure_pseudo_code(<实现地址>)`(Ghidra)反编译目标
 3. Screen 层逻辑落 `Screen.cpp`,core 层逻辑落 `TerminalCore.cpp`,
