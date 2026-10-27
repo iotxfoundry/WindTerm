@@ -205,3 +205,15 @@ kind '?' = 信号(emit 桩),其余为可调用方法。地址为 WindTerm 主程
 | 197 | subData(data) | 0x005c63d8 |
 | 198 | subString(data,start) | 0x005c0c32 |
 | 199 | subString(data) | 0x005c0c32 |
+
+
+## 架构定性(2026-10-27 补)
+
+TextView = 命令转发壳:方法体仅 QVariant 装配后经 sendEditor
+(FUN_005b5d68)虚调用 this+0x58 编辑器对象的虚表槽 0x1c0。
+61 个命令号全解见 TEXTVIEW-COMMANDS.md(11 标准 SCI + 40 自定义:
+扩展块 20173-20228 / WindTerm 命令空间 30001-30166)。
+属性哈希 +0xf8(QString->QVariant,CoW);方案名默认 "Plain Text";
+find 引擎链:取选中文本(0x5c6448)-> 会话(0x5b3e46)-> 执行
+(0x910 簇 FUN_0091b198);findReplace 对话框经 QDialog::finished
+接线(FUN_005c3320)。TextView.h 为还原骨架。
