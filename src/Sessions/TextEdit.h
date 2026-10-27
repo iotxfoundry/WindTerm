@@ -327,10 +327,34 @@ public:
 		sendEditor(m_result, 0x4ee4, QVariant(), QVariant());
 	}
 	// --- real logic bodies (classified 2026-10-27) ---
-	// 0x5cb7d4 duplicate: selection -> QTextCodec::fromUnicode -> FUN_005cb75a (send)
-	// 0x5cc4d4/0x5cc578: shared toggle FUN_005cc4a0(this, 1|0)
-	// 0x5cc7f6: 3-arg codec variant -> FUN_005cc6f0 (CMD 0x7557 wrapper)
-	// 0x5cc0ac: one-hop FUN_005beeac
+	void duplicate()
+	{
+		// FUN_005cb7d4: selection -> QTextCodec::fromUnicode -> send
+		sendText(codec()->fromUnicode(selectionText()));   // FUN_005cb75a
+	}
+	void setFlagOne()   // FUN_005cc4d4
+	{
+		toggleState(1);    // FUN_005cc4a0
+	}
+	void setFlagZero()  // FUN_005cc578
+	{
+		toggleState(0);    // FUN_005cc4a0
+	}
+	void sendCodecTriple(const QVariant &a, const QVariant &b)  // FUN_005cc7f6
+	{
+		sendEditor(m_result, 0x7557, codec()->fromUnicode(a.toString()),
+		           b);   // via FUN_005cc6f0
+	}
+	void applyFlag(bool on)  // FUN_005cc0ac
+	{
+		applyFlagImpl(on);   // FUN_005beeac
+	}
+
+	// thin-wrapper delegates
+	void sendText(const QByteArray &data);       // FUN_005cb75a
+	void toggleState(int which);                 // FUN_005cc4a0
+	void applyFlagImpl(bool on);                 // FUN_005beeac
+	class QTextCodec *codec();
 	// 0x5cc94e/0x5d28b6: 32.6K twins - config-map builders (QMap+QVariant
 	//   storm, int-arg variant; same family as 0x5d0a4e: ~80% inlined
 	//   QMap destructor noise, e.g. "shuffle" key at 0xd0cf05)
