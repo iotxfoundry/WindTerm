@@ -6,6 +6,8 @@
 #include <QObject>
 #include "KingEnums.h"
 
+class Screen;
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // The terminal command interpreter: the full VT/ANSI/DEC escape-sequence
 // command surface (260+ entries, overloads collapsed where the moc table
@@ -18,6 +20,9 @@ class SuperCommander : public QObject
 public:
 	SuperCommander(QObject *parent = nullptr);
 	virtual ~SuperCommander(void) = default;
+
+	// +0x80: the VT screen (onion: this -> Screen(+0x80) -> TerminalCore)
+	Screen *m_screen;
 
 signals:
 	void charsetChanged(const QString &name);
@@ -143,6 +148,8 @@ public slots:
 	void setHorizontalTabstop(int column);
 	void clearTabstop();
 	void clearTabstop(int column);
+	void saveCursor();
+	void restoreCursor();
 
 	// Modes (ANSI)
 	void setMode();

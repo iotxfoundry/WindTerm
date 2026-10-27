@@ -4,30 +4,66 @@
 #pragma once
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
-// The terminal screen interpreter core: called from SuperCommander's
-// VT/ANSI slots via a two-hop forward chain (Commander +0x80 -> Screen
-// +0x80 -> this). See TERMINAL-CORE.md for the evidence chain.
+// The terminal screen interpreter core: called from SuperCommander's VT/ANSI
+// slots via a two-hop forward chain (Commander +0x80 -> Screen +0x80 -> this).
+// See TERMINAL-CORE.md for the evidence chain.
 //
 // Call chain (proven, moveCursorDown example):
-//   SuperCommander::moveCursorDown   0x7c8cc6  (1-line adapter)
-//     -> Screen::moveCursorDown      0x7e483e  (1-line forward)
+//   SuperCommander::moveCursorDown   0x7c8cc6  (guard adapter)
+//     -> Screen::moveCursorDown      0x7e483e  (alias forward)
 //       -> TerminalCore::cursorDown  0x7a5588  (real logic)
+
+struct Row;
+
+// Row layout (offsets proven in FUN_007a538a / FUN_007a4c6c / FUN_007a3dfc):
+// +0x00 flag byte (0x08 double-width line, 0x80 wrap pending), +0x02 flag
+// word (0x40 dwl travels with scrolled source rows), +0x0c cell count,
+// +0x10 cell array (0x20 stride), +0x50 spare buffer.
+struct Row {
+	unsigned short flags;
+	unsigned short flags2;
+	int length;
+	void *cells;
+	void *spare;
+};
+
+// Tabstop bitmap embedded at core +0x18 (FUN_007e52f0): payload at +0x10,
+// bit for column N lives at byte (N>>3)+1 (FUN_007e5c98 / FUN_007e52fc).
+struct Tabstops
+{
+	unsigned char *payload;
+
+	bool test(int column) const;   // FUN_007e5c98 bit extraction
+	void set(int column, bool on); // FUN_007e52fc / FUN_007e5df0
+	void clear();                  // FUN_007e5df0 mode 3 (clear all)
+};
 
 class TerminalCore
 {
 public:
 	// --- flags (+0x00) ---------------------------------------------------
-	// bit6 (0x40): DECOM-origin mode — cursor clamping against scroll
-	// region (rows) or column limit (columns) is only applied when set.
+	// bit3 (0x08): cursor moved since last flush
+	// bit5 (0x20): horizontal margins active — scroll operates on cells
+	//              inside [leftMargin..rightMargin] instead of whole rows
+	// bit6 (0x40): origin mode (DECOM/DECSLRM) — clamps against margins
+	// bit7 (0x80): wide-char wrap pending (FUN_007e4b9a checks sign)
 	unsigned short m_flags;
+
+	// --- saved cursor block (+0x20..+0x68, saveCursor FUN_007a5c70) -------
+	int m_savedCursorY;           // +0x20
+	int m_savedCursorX;           // +0x24
+	unsigned char m_saveByte28;   // +0x28: bit0 = "saved", packed flag bits
+	unsigned char m_saveByte29;   // +0x29: packed flag bits
+	void *m_saved2;               // +0x30 mirror of +0xb8
+	int m_savedCharsets[4];       // +0x58 charset slot snapshots
 
 	// --- screen buffer (+0x74/+0x78) --------------------------------------
 	// +0x78: array of row objects, +0x74: row count (FUN_007a4332).
 	// Row layout: +0x0c = cell count, +0x10 = cell array (0x20 stride,
 	// 32 bytes per cell: glyph + SGR attributes + flags), +0x40 = spare
 	// buffer freed on row destruction.
-	int m_rowCount;               // +0x74
-	struct Row *m_rows;           // +0x78
+	int m_rowCount;               // +0x74 (FUN_007a4b4a)
+	struct Row *m_rows;           // +0x78 (FUN_007a44f8 row(y))
 
 	// --- reset state group (+0x50..+0x66, FUN_007a4b0a reset sequence) ---
 	void *m_50;
@@ -35,21 +71,106 @@ public:
 	void *m_5c;
 	int m_66;                     // reset writes 2
 
+	// --- blank template / charset / SGR ------------------------------------
+	void *m_blankRowTemplate;     // +0xa0: template for reset rows (FUN_007a3c9a)
+	void *m_charsetSaved;         // +0x38: saved SGR/charset state (DECSC)
+	void *m_sgrState;             // +0x88: current SGR/charset state
+	unsigned char m_flags2;       // +0xb0: G-led style flags (DECSC packs)
+	void *m_stateB8;              // +0xb8: saved alongside flags2
+
+	// --- tabstops (+0x18) ---------------------------------------------------
+	Tabstops m_tabstops;
+
 	// --- cursor & scroll region --------------------------------------------
-	int m_cursorY;                // +0xc4 (FUN_007a5588)
-	int m_cursorX;                // +0xc8 (FUN_007a54b4)
+	int m_cursorY;                // +0xc4 (FUN_007a538a)
+	int m_cursorX;                // +0xc8 (FUN_007a538a)
 	int m_scrollRegionTop;        // +0xd0 (FUN_007a4672)
-	int m_scrollRegionBottom;     // +0xd4 (FUN_007a4672)
+	int m_scrollRegionBottom;     // +0xd4 (FUN_007a4bb4)
+	int m_leftMargin;             // +0xd8 (FUN_007a493c)
+	int m_rightMargin;            // +0xdc (FUN_007a490e)
+	int m_columnCount;            // +0xe4 (FUN_007a4906)
 
-	int scrollRegionBottomLimit() const;   // FUN_007a4bb4
-	int columnLimit() const;               // FUN_007a490e
+	// --- sizes & limits -----------------------------------------------------
+	int rowCount() const;                  // FUN_007a4b4a
+	int columnCount() const;               // FUN_007a4906
+	int scrollRegionBottomLimit() const;   // FUN_007a4bb4 (raw +0xd4)
+	int scrollRegionTopLimit() const;      // FUN_007a4be2 (clamped under bottom-1)
+	int scrollRegionHeight() const;        // FUN_007a4c48 (bottom-top+1)
+	int regionWidth() const;               // FUN_007a49a2 (right-left+1)
+	int leftMargin() const;                // FUN_007a493c (clamped under right-1)
+	int rightMargin() const;               // FUN_007a490e (defaults to width-1)
+	int originLeft() const;                // FUN_007a4962 (0 or leftMargin)
+	int originRight() const;               // FUN_007a49c6 (width-1 or rightMargin)
+	int originTop() const;                 // FUN_007a4c08 (0 or topLimit)
+	int originBottom() const;              // FUN_007a5304 (rowCount-1 or bottomLimit)
+	bool inScrollRegion(int line) const;   // FUN_007a4c16
 
+	// --- cursor movement ------------------------------------------------------
 	void cursorDown(int lines);            // FUN_007a5588
+	void cursorUp(int lines);              // FUN_007a55d2
 	void cursorForward(int columns);       // FUN_007a54b4
+	void cursorBackward(int columns);      // FUN_007a546c
+	void moveColumnBy(int delta);          // FUN_007a5460 (no clamp)
+	void moveLineBy(int delta);            // FUN_007a557c (no clamp)
 	void setCursorY(int y);                // FUN_007a5570
 	void setCursorX(int x);                // FUN_007a5452
-	void setTopBottomMargins(int top, int bottom); // FUN_007a4672
-	void reset();                          // FUN_007a4b0a
+	void moveCursorRaw(int y, int x);      // FUN_007a538a (clamp to screen)
+	void moveCursor(int y, int x);         // FUN_007a54f8 (clamp to origin bounds)
+
+	// --- rows ------------------------------------------------------------------
+	struct Row *row(int y);                // FUN_007a44f8 (m_rows[y])
+	int rowLength(struct Row *row) const;  // FUN_007a3dfc (+0x0c)
+	void setRowLength(struct Row *row, int length);          // FUN_007a5ff2
+	void setRowFlags(struct Row *row, int bits);             // FUN_007a3dc0
+	void resetRow(struct Row *row, void *templateRow);       // FUN_007a3c9a
+	void resetWrapPending();               // FUN_007a4564
+	void markDirty(int level);             // FUN_007a454e
+	void markLine(int line, int arg);      // FUN_007a463c
+	int lastContentRowCount() const;       // FUN_007a5618 (rows to last non-blank)
+
+	// --- save/restore cursor (DECSC/DECRC) --------------------------------------
+	bool hasSavedCursor() const;           // FUN_007a44da (+0x28 bit0)
+	void saveCursor();                     // FUN_007a5c70
+	void restoreCursor();                  // FUN_007a5d20
+
+	// --- erase ---------------------------------------------------------------------
+	int eraseCells(int line, int from, unsigned short attr, int count,
+	               bool skipProtected, bool selective);       // FUN_007a596c
+	int rowEraseCells(struct Row *row, int from, unsigned short attr,
+	                  int count, bool skipProtected, bool selective,
+	                  void *blankTemplate);                    // FUN_007a579c
+
+	// --- scroll ---------------------------------------------------------------------
+	void scrollRegion(int top, int count, bool down, bool fillTemplate);  // FUN_007a4c6c
+	void scrollHorizontal(int delta);      // FUN_007a68ae
+
+	// --- rectangular areas (DECERA/DECFRA/DECRARA/DECCRA workers) ---------------------
+	void eraseRect(int top, int left, int bottom, int right, bool selective);   // FUN_007a6d98
+	void changeRectAttrs(int top, int left, int bottom, int right, int what);   // FUN_007a748e
+	void reverseRectAttrs(int top, int left, int bottom, int right, int what);  // FUN_007a721e
+	void fillRect(int top, int left, int bottom, int right,
+	              const void *cell, void *aux);                                 // FUN_007a6eec
+
+	// --- margins / reset ---------------------------------------------------------------
+	void setTopBottomMargins(int top, int bottom); // FUN_007a4672 (DECSTBM core)
+	void setCursorStyle(int style);                // FUN_007a45ee
+	void *cursorUpdated();                         // FUN_007a44c0
+	void reset();                                  // FUN_007a4b0a
+
+	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
+	void copyState(void **dst, void **src);        // FUN_007aa2e2 (16-byte state copy)
+	int charsetSlot(int i) const;                  // FUN_00801a46
+	void setCharsetSlot(int i, int v);             // FUN_00803470
+	bool rowHasContent(struct Row *row) const;     // FUN_007a4a06
+	int cellFlags(struct Row *row, int i) const;   // FUN_007a3c68
+	void writeBlankCell(struct Row *row, int i, unsigned short attr, void *blankTemplate);
+	void copyRowCells(struct Row *dst, struct Row *src, int from, int count);
+	void preserveRowFlags(struct Row *dst, struct Row *src);
+	void clearRowCells(struct Row *row, int from, int count);
+	void notifyChanged(int level);                 // FUN_007a4532
+	void rowDeleteCells(struct Row *row, int at, int count);          // FUN_007a5dce
+	void rowInsertBlanks(struct Row *row, int at, int count, void *sgr);  // FUN_007a641a
+	void resetWrap(int arg);                       // FUN_007a45f6
 };
 
 #endif // TERMINALCORE_H

@@ -1,921 +1,1675 @@
 #include "SuperCommander.h"
+#include "Screen.h"
 
-// 全量转写:由 tools/re/data/supercommander_adapters.json(264 全量)按头文件声明生成。
-// 信号 5 个由 moc 生成不定义。模板:T1 纯转发(216),T2 参数守卫(42)。
+// 第一批转写:光标移动/擦除/滚动族(91 个真实现体)。
+// 三层洋葱:this -> m_screen(+0x80, 0x7e 层) -> TerminalCore(0x7a 层)。
+// 每体注明 moc 索引与实现地址;其余槽为后续批次占位。
+// 信号 5 个由 moc 生成不定义。phase-1 参考还原,不编译。
 
 SuperCommander::SuperCommander(QObject *parent)
-	: QObject(parent)
+	: QObject(parent), m_screen(nullptr)
 {
 }
 
 void SuperCommander::vt52Mode()
 {
-	// moc[256] (T1) -> 0x7e5a02
+	// moc[256] -> 0x7e5a02
+	// 未转写(后续批次)
 }
 
 void SuperCommander::vt52Identify()
 {
-	// moc[255] (T1) -> 0x7edc22
+	// moc[255] -> 0x7edc22
+	// 未转写(后续批次)
 }
 
 void SuperCommander::vt52EnterGraphicsMode()
 {
-	// moc[253] (T1) -> 0x7e5a90
+	// moc[253] -> 0x7e5a90
+	// 未转写(后续批次)
 }
 
 void SuperCommander::vt52ExitGraphicsMode()
 {
-	// moc[254] (T1) -> 0x7e5ab0
+	// moc[254] -> 0x7e5ab0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::vt52MoveCursor(int column, int line)
 {
-	// moc[257] (T1) -> 0x7e4f38
+	// moc[257] -> 0x7e4f38
+	m_screen->cursorMoveRaw(column - 32, line - 32);
+	// 适配器 0x7cd9b6:FUN_007e4f38(screen, column-0x20, line-0x20) 直通 moveCursorRaw
 }
 
 void SuperCommander::moveCursor()
 {
-	// moc[71] (T1) -> 0x7e4fdc
+	// moc[73] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->originTop(), m_screen->originLeft());
+	// 适配器 0x7cbeda,缺省参 1,1 -> 原点 home
+}
+
+void SuperCommander::moveCursor(int position)
+{
+	// moc[72] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->originTop(), m_screen->originLeft() - 1 + position);
+	// 适配器 0x7cbeda 为双参;单参槽取列位,参数序待动态验证
+}
+
+void SuperCommander::moveCursor(int column, int line)
+{
+	// moc[71] -> 0x7e4fdc
+	if (line < 1)
+		line = 1;
+	if (column < 1)
+		column = 1;
+	m_screen->moveCursor(m_screen->originTop() - 1 + line, m_screen->originLeft() - 1 + column);
+	// 适配器 0x7cbeda:第一参进 Y,第二参进 X(originTop/originLeft 为原点基)
 }
 
 void SuperCommander::moveCursorColumn()
 {
-	// moc[76] (T1) -> 0x7e4fdc
+	// moc[77] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->originLeft());
+	// 适配器 0x7cbe1e,缺省参 1 -> originLeft
+}
+
+void SuperCommander::moveCursorColumn(int column)
+{
+	// moc[76] -> 0x7e4fdc
+	if (column < 0)
+		return;
+	if (column == 0)
+		column = 1;
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->originLeft() - 1 + column);
 }
 
 void SuperCommander::moveCursorColumnRelative()
 {
-	// moc[80] (T2) -> 0x7e4fdc
+	// moc[81] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->currentColumn() + 1);
+	// 适配器 0x7cb282,缺省参 1
 }
 
-void SuperCommander::moveCursorColumnBackward()
+void SuperCommander::moveCursorColumnRelative(int columns)
 {
-	// moc[78] (T2) -> 0x7e4fdc
-}
-
-void SuperCommander::moveCursorForward(int columns)
-{
-	// moc[84] (T2) -> 0x7e484a
+	// moc[80] -> 0x7e4fdc
 	if (columns < 0)
 		return;
 	if (columns == 0)
 		columns = 1;
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->currentColumn() + columns);
+}
+
+void SuperCommander::moveCursorColumnBackward()
+{
+	// moc[79] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->currentColumn() - 1);
+	// 适配器 0x7cb1f6,缺省参 1
+}
+
+void SuperCommander::moveCursorColumnBackward(int columns)
+{
+	// moc[78] -> 0x7e4fdc
+	if (columns < 0)
+		return;
+	if (columns == 0)
+		columns = 1;
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->currentColumn() - columns);
+}
+
+void SuperCommander::moveCursorForward(int columns)
+{
+	// moc[84] -> 0x7e484a
+	if (columns < 0)
+		return;
+	if (columns == 0)
+		columns = 1;
+	m_screen->moveCursorForward(columns);
 }
 
 void SuperCommander::moveCursorBackward()
 {
-	// moc[74] (T2) -> 0x7e4832
+	// moc[75] -> 0x7e4832
+	m_screen->moveCursorBackward(1);
+	// 适配器带守卫,缺省参 1
+}
+
+void SuperCommander::moveCursorBackward(int columns)
+{
+	// moc[74] -> 0x7e4832
+	if (columns < 0)
+		return;
+	if (columns == 0)
+		columns = 1;
+	m_screen->moveCursorBackward(columns);
 }
 
 void SuperCommander::moveCursorUp()
 {
-	// moc[100] (T2) -> 0x7e4856
+	// moc[101] -> 0x7e4856
+	m_screen->moveCursorUp(1);
+	// 适配器带守卫,缺省参 1
+}
+
+void SuperCommander::moveCursorUp(int lines)
+{
+	// moc[100] -> 0x7e4856
+	if (lines < 0)
+		return;
+	if (lines == 0)
+		lines = 1;
+	m_screen->moveCursorUp(lines);
 }
 
 void SuperCommander::moveCursorDown()
 {
-	// moc[82] (T2) -> 0x7e483e
+	// moc[83] -> 0x7e483e
+	m_screen->moveCursorDown(1);
+	// 适配器带守卫,缺省参 1
+}
+
+void SuperCommander::moveCursorDown(int lines)
+{
+	// moc[82] -> 0x7e483e
+	if (lines < 0)
+		return;
+	if (lines == 0)
+		lines = 1;
+	m_screen->moveCursorDown(lines);
 }
 
 void SuperCommander::moveCursorLine()
 {
-	// moc[86] (T1) -> 0x7e4fdc
+	// moc[87] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->originTop(), m_screen->currentColumn());
+	// 适配器 0x7cbf28,缺省参 1 -> originTop
+}
+
+void SuperCommander::moveCursorLine(int line)
+{
+	// moc[86] -> 0x7e4fdc
+	if (line < 0)
+		return;
+	if (line == 0)
+		line = 1;
+	m_screen->moveCursor(m_screen->originTop() - 1 + line, m_screen->currentColumn());
 }
 
 void SuperCommander::moveCursorLineRelative()
 {
-	// moc[90] (T1) -> 0x7e4fdc
+	// moc[91] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine() + 1, m_screen->currentColumn());
+	// 适配器 0x7cb3b0,缺省参 1
+}
+
+void SuperCommander::moveCursorLineRelative(int lines)
+{
+	// moc[90] -> 0x7e4fdc
+	if (lines < 0)
+		return;
+	if (lines == 0)
+		lines = 1;
+	m_screen->moveCursor(m_screen->currentLine() + lines, m_screen->currentColumn());
 }
 
 void SuperCommander::moveCursorLineBackward()
 {
-	// moc[88] (T1) -> 0x7e4fdc
+	// moc[89] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine() - 1, m_screen->currentColumn());
+	// 适配器 0x7cb30c,缺省参 1
+}
+
+void SuperCommander::moveCursorLineBackward(int lines)
+{
+	// moc[88] -> 0x7e4fdc
+	if (lines < 0)
+		return;
+	if (lines == 0)
+		lines = 1;
+	m_screen->moveCursor(m_screen->currentLine() - lines, m_screen->currentColumn());
 }
 
 void SuperCommander::moveCursorNextLine()
 {
-	// moc[92] (T1) -> 0x7e4fdc
+	// moc[93] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine() + 1, 0);
+	// 适配器 0x7cb454,缺省参 1
+}
+
+void SuperCommander::moveCursorNextLine(int lines)
+{
+	// moc[92] -> 0x7e4fdc
+	if (lines < 0)
+		return;
+	if (lines == 0)
+		lines = 1;
+	m_screen->moveCursor(m_screen->currentLine() + lines, 0);
 }
 
 void SuperCommander::moveCursorPrecedingLine()
 {
-	// moc[96] (T1) -> 0x7e4fdc
+	// moc[97] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine() - 1, 0);
+	// 适配器 0x7cb572,缺省参 1
+}
+
+void SuperCommander::moveCursorPrecedingLine(int lines)
+{
+	// moc[96] -> 0x7e4fdc
+	if (lines < 0)
+		return;
+	if (lines == 0)
+		lines = 1;
+	m_screen->moveCursor(m_screen->currentLine() - lines, 0);
 }
 
 void SuperCommander::moveCursorNextTabstop()
 {
-	// moc[94] (T2) -> 0x7e4fdc
+	// moc[95] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->nextTabstop(m_screen->currentColumn(), 1));
+	// 适配器 0x7cb4dc,缺省参 1
+}
+
+void SuperCommander::moveCursorNextTabstop(int count)
+{
+	// moc[94] -> 0x7e4fdc
+	if (count < 0)
+		return;
+	if (count == 0)
+		count = 1;
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->nextTabstop(m_screen->currentColumn(), count));
 }
 
 void SuperCommander::moveCursorPrecedingTabstop()
 {
-	// moc[98] (T2) -> 0x7e4fdc
+	// moc[99] -> 0x7e4fdc
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->prevTabstop(m_screen->currentColumn(), 1));
+	// 适配器 0x7cb5fc,缺省参 1
+}
+
+void SuperCommander::moveCursorPrecedingTabstop(int count)
+{
+	// moc[98] -> 0x7e4fdc
+	if (count < 0)
+		return;
+	if (count == 0)
+		count = 1;
+	m_screen->moveCursor(m_screen->currentLine(), m_screen->prevTabstop(m_screen->currentColumn(), count));
 }
 
 void SuperCommander::backspace()
 {
-	// moc[10] (T1) -> 0x7e4f44
+	// moc[10] -> 0x7e4f44
+	m_screen->backspace();
+	// 逆向回绕逻辑在 Screen::backspace(0x7e4f44)
 }
 
 void SuperCommander::carriageReturn()
 {
-	// moc[13] (T1) -> 0x7e4fc8
+	// moc[13] -> 0x7e4fc8
+	m_screen->carriageReturn();
 }
 
 void SuperCommander::lineFeed()
 {
-	// moc[61] (T1) -> 0x7e55fc
+	// moc[61] -> 0x7e55fc
+	m_screen->lineFeed();
+	// 三槽同指 0x7e55fc
 }
 
 void SuperCommander::formFeed()
 {
-	// moc[50] (T1) -> 0x7e55fc
+	// moc[50] -> 0x7e55fc
+	m_screen->lineFeed();
+	// 三槽同指 0x7e55fc
 }
 
 void SuperCommander::verticalTab()
 {
-	// moc[252] (T1) -> 0x7e55fc
+	// moc[252] -> 0x7e55fc
+	m_screen->lineFeed();
+	// 三槽同指 0x7e55fc
 }
 
 void SuperCommander::horizontalTab()
 {
-	// moc[54] (T1) -> 0x7e5d7c
+	// moc[54] -> 0x7e5d7c
+	m_screen->horizontalTab();
 }
 
 void SuperCommander::bell()
 {
-	// moc[11] (T1) -> 0x4bc0d0
+	// moc[11] -> 0x4bc0d0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::repeatCharacter()
 {
-	// moc[126] (T1) -> 0x7e7cf6
+	// moc[127] -> 0x7e7cf6
+	// 未转写(后续批次)
+}
+
+void SuperCommander::repeatCharacter(int count)
+{
+	// moc[126] -> 0x7e7cf6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::insertCharacter()
 {
-	// moc[55] (T1) -> 0x7e3ace
+	// moc[56] -> 0x7e3ace
+	// 未转写(后续批次)
+}
+
+void SuperCommander::insertCharacter(int count)
+{
+	// moc[55] -> 0x7e3ace
+	// 未转写(后续批次)
 }
 
 void SuperCommander::deleteCharacter()
 {
-	// moc[20] (None) -> None
+	// moc[21] -> 0x7e3784
+	// 未转写(后续批次)
+}
+
+void SuperCommander::deleteCharacter(int count)
+{
+	// moc[20]
+	// 未转写(后续批次)
 }
 
 void SuperCommander::eraseCharacter()
 {
-	// moc[35] (T1) -> 0x7e385a
+	// moc[36] -> 0x7e385a
+	m_screen->eraseCharacter(1);
+	// 适配器 0x7c8c3c,缺省参 1
+}
+
+void SuperCommander::eraseCharacter(int count)
+{
+	// moc[35] -> 0x7e385a
+	m_screen->eraseCharacter(count);
+	// 守卫在实现内(FUN_007e385a)
 }
 
 void SuperCommander::insertLine()
 {
-	// moc[59] (T1) -> 0x7e3ae6
+	// moc[60] -> 0x7e3ae6
+	// 未转写(后续批次)
+}
+
+void SuperCommander::insertLine(int count)
+{
+	// moc[59] -> 0x7e3ae6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::deleteLine()
 {
-	// moc[24] (T1) -> 0x7e379c
+	// moc[25] -> 0x7e379c
+	// 未转写(后续批次)
+}
+
+void SuperCommander::deleteLine(int count)
+{
+	// moc[24] -> 0x7e379c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::insertColumn()
 {
-	// moc[57] (T1) -> 0x7e3ada
+	// moc[58] -> 0x7e3ada
+	// 未转写(后续批次)
+}
+
+void SuperCommander::insertColumn(int count)
+{
+	// moc[57] -> 0x7e3ada
+	// 未转写(后续批次)
 }
 
 void SuperCommander::deleteColumn()
 {
-	// moc[22] (T1) -> 0x7e3790
+	// moc[23] -> 0x7e3790
+	// 未转写(后续批次)
+}
+
+void SuperCommander::deleteColumn(int count)
+{
+	// moc[22] -> 0x7e3790
+	// 未转写(后续批次)
 }
 
 void SuperCommander::eraseLine()
 {
-	// moc[37] (T1) -> 0x7e4ba2
+	// moc[38] -> 0x7e4ba2
+	m_screen->eraseLine(m_screen->currentLine(), 0, false);
+	// 适配器 0x7cb106:T3,行参取当前行
+}
+
+void SuperCommander::eraseLine(int mode)
+{
+	// moc[37] -> 0x7e4ba2
+	m_screen->eraseLine(m_screen->currentLine(), mode, false);
 }
 
 void SuperCommander::eraseScreen()
 {
-	// moc[40] (T2) -> 0x7e606a
+	// moc[41] -> 0x7e606a
+	m_screen->eraseScreen(0, false);
+	// 适配器 0x7c8c68,缺省参 0
+}
+
+void SuperCommander::eraseScreen(int mode)
+{
+	// moc[40] -> 0x7e606a
+	m_screen->eraseScreen(mode, false);
 }
 
 void SuperCommander::eraseSelectiveLine()
 {
-	// moc[42] (T1) -> 0x7e4ba2
+	// moc[43] -> 0x7e4ba2
+	m_screen->eraseLine(m_screen->currentLine(), 0, true);
+	// 适配器 0x7cb17c:同上,DECSED 选择擦除
+}
+
+void SuperCommander::eraseSelectiveLine(int mode)
+{
+	// moc[42] -> 0x7e4ba2
+	m_screen->eraseLine(m_screen->currentLine(), mode, true);
 }
 
 void SuperCommander::eraseSelectiveScreen()
 {
-	// moc[44] (T1) -> 0x7e606a
+	// moc[45] -> 0x7e606a
+	m_screen->eraseScreen(0, true);
+	// 适配器 0x7c8c76
+}
+
+void SuperCommander::eraseSelectiveScreen(int mode)
+{
+	// moc[44] -> 0x7e606a
+	m_screen->eraseScreen(mode, true);
 }
 
 void SuperCommander::eraseRectangularArea(const QString &area)
 {
-	// moc[39] (T2) -> 0x7eb1c4
-	if (&area < 0)
-		return;
-	if (&area == 0)
-		&area = 1;
+	// moc[39] -> 0x7eb1c4
+	m_screen->eraseRectangularArea(area, false);
 }
 
 void SuperCommander::selectiveEraseRectangularArea(const QString &area)
 {
-	// moc[188] (T1) -> 0x7eb1c4
+	// moc[188] -> 0x7eb1c4
+	m_screen->eraseRectangularArea(area, true);
+	// 适配器 0x7c8c56:同 0x7c8c48,selective=1
 }
 
 void SuperCommander::scrollUp()
 {
-	// moc[174] (T2) -> 0x7e5546
+	// moc[175] -> 0x7e5546
+	m_screen->scroll(1, false, false);
+	// 适配器 0x7c8db6(n,0,0),缺省参 1
+}
+
+void SuperCommander::scrollUp(int lines)
+{
+	// moc[174] -> 0x7e5546
+	if (lines < 0)
+		return;
+	if (lines < 1)
+		lines = 1;
+	m_screen->scroll(lines, false, false);
 }
 
 void SuperCommander::scrollDown()
 {
-	// moc[167] (T2) -> 0x7e5546
+	// moc[168] -> 0x7e5546
+	m_screen->scroll(1, true, false);
+	// 适配器 0x7c8d96(n,1,0)
+}
+
+void SuperCommander::scrollDown(int lines)
+{
+	// moc[167] -> 0x7e5546
+	if (lines < 0)
+		return;
+	if (lines < 1)
+		lines = 1;
+	m_screen->scroll(lines, true, false);
 }
 
 void SuperCommander::scrollLeft()
 {
-	// moc[169] (T2) -> 0x7e4d3c
+	// moc[170] -> 0x7e4d3c
+	m_screen->scrollHorizontal(1);
+	// 适配器 0x7c8dd4 正参
+}
+
+void SuperCommander::scrollLeft(int columns)
+{
+	// moc[169] -> 0x7e4d3c
+	if (columns < 1)
+		return;
+	m_screen->scrollHorizontal(columns);
 }
 
 void SuperCommander::scrollRight()
 {
-	// moc[172] (T2) -> 0x7e4d3c
+	// moc[173] -> 0x7e4d3c
+	m_screen->scrollHorizontal(-1);
+	// 适配器 0x7c8e06 传 -n
+}
+
+void SuperCommander::scrollRight(int columns)
+{
+	// moc[172] -> 0x7e4d3c
+	if (columns < 1)
+		return;
+	m_screen->scrollHorizontal(-columns);
 }
 
 void SuperCommander::scrollCursorUp()
 {
-	// moc[166] (T1) -> 0x7e563e
+	// moc[166] -> 0x7e563e
+	m_screen->indexUp();
+	// RI,适配器 0x7cc4a0
 }
 
 void SuperCommander::scrollCursorDown()
 {
-	// moc[165] (T1) -> 0x7e55b6
+	// moc[165] -> 0x7e55b6
+	m_screen->indexDown();
+	// IND,适配器 0x7cc47e
 }
 
 void SuperCommander::scrollNextLine()
 {
-	// moc[171] (T1) -> 0x7e562c
+	// moc[171] -> 0x7e562c
+	m_screen->nextLine();
+	// NEL,适配器 0x7cc4c2
 }
 
 void SuperCommander::nextPage()
 {
-	// moc[108] (T2) -> 0x7ef16a
+	// moc[109] -> 0x7ef16a
+	// 未转写(后续批次)
+}
+
+void SuperCommander::nextPage(int pages)
+{
+	// moc[108] -> 0x7ef16a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::precedingPage()
 {
-	// moc[123] (T2) -> 0x7ef16a
+	// moc[124] -> 0x7ef16a
+	// 未转写(后续批次)
+}
+
+void SuperCommander::precedingPage(int pages)
+{
+	// moc[123] -> 0x7ef16a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::page()
 {
-	// moc[121] (T1) -> 0x7e48f8
+	// moc[121] -> 0x7e48f8
+	// 未转写(后续批次)
 }
 
 void SuperCommander::pages()
 {
-	// moc[122] (T1) -> 0x7e4900
+	// moc[122] -> 0x7e4900
+	// 未转写(后续批次)
 }
 
 void SuperCommander::forwardIndex()
 {
-	// moc[51] (T1) -> 0x7e4d82
+	// moc[51] -> 0x7e4d82
+	m_screen->forwardIndex();
 }
 
 void SuperCommander::backIndex()
 {
-	// moc[9] (T1) -> 0x7e4d48
+	// moc[9] -> 0x7e4d48
+	m_screen->backIndex();
 }
 
 void SuperCommander::marginTop()
 {
-	// moc[67] (T1) -> 0x7e4456
+	// moc[67] -> 0x7e4456
+	m_screen->marginTop();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::marginBottom()
 {
-	// moc[64] (T1) -> 0x7e4426
+	// moc[64] -> 0x7e4426
+	m_screen->marginBottom();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::marginLeft()
 {
-	// moc[65] (T1) -> 0x7e443e
+	// moc[65] -> 0x7e443e
+	m_screen->marginLeft();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::marginRight()
 {
-	// moc[66] (T1) -> 0x7e444a
+	// moc[66] -> 0x7e444a
+	m_screen->marginRight();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::setTopBottomMargins()
 {
-	// moc[222] (T1) -> 0x7e5fa6
+	// moc[224] -> 0x7e5fa6
+	m_screen->setTopBottomMargins(-1, -1);
+}
+
+void SuperCommander::setTopBottomMargins(int top)
+{
+	// moc[223] -> 0x7e5fa6
+	m_screen->setTopBottomMargins(top, -1);
+}
+
+void SuperCommander::setTopBottomMargins(int top, int bottom)
+{
+	// moc[222] -> 0x7e5fa6
+	m_screen->setTopBottomMargins(top, bottom);
 }
 
 void SuperCommander::setLeftRightMargins()
 {
-	// moc[213] (T1) -> 0x7e5bd4
+	// moc[215] -> 0x7e5bd4
+	m_screen->setLeftRightMargins(-1, -1);
+}
+
+void SuperCommander::setLeftRightMargins(int left)
+{
+	// moc[214] -> 0x7e5bd4
+	m_screen->setLeftRightMargins(left, -1);
+}
+
+void SuperCommander::setLeftRightMargins(int left, int right)
+{
+	// moc[213] -> 0x7e5bd4
+	m_screen->setLeftRightMargins(left, right);
 }
 
 void SuperCommander::setHorizontalTabstop()
 {
-	// moc[208] (T1) -> 0x7e52fc
+	// moc[210] -> 0x7e52fc
+	m_screen->setTabstop(-1, true);
+	// -1 -> 当前列(HTS)
+}
+
+void SuperCommander::setHorizontalTabstop(int column)
+{
+	// moc[209] -> 0x7e52fc
+	m_screen->setTabstop(column, true);
 }
 
 void SuperCommander::clearTabstop()
 {
-	// moc[16] (T1) -> 0x7e5df0
+	// moc[17] -> 0x7e5df0
+	m_screen->clearTabstop(0);
+	// TBC 0:清除当前列制表位
+}
+
+void SuperCommander::clearTabstop(int column)
+{
+	// moc[16] -> 0x7e5df0
+	m_screen->clearTabstop(column);
+}
+
+void SuperCommander::saveCursor()
+{
+	// moc[163] -> 0x7e4aa2
+	m_screen->saveCursor();
+	// DECSC,适配器 0x7cc45c
+}
+
+void SuperCommander::restoreCursor()
+{
+	// moc[157] -> 0x7f6426
+	m_screen->restoreCursor();
+	// DECRC,适配器 0x7cc40a
 }
 
 void SuperCommander::setMode()
 {
-	// moc[220] (T1) -> 0x7edce6
+	// moc[221] -> 0x7edce6
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setMode(int mode)
+{
+	// moc[220] -> 0x7edce6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::resetMode()
 {
-	// moc[153] (T2) -> 0x7edce6
+	// 未转写(后续批次)
+}
+
+void SuperCommander::resetMode(int mode)
+{
+	// moc[153] -> 0x7edce6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestMode(int mode)
 {
-	// moc[141] (T1) -> 0x7f17c2
+	// moc[141] -> 0x7f17c2
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setDecMode()
 {
-	// moc[206] (T1) -> 0x7f5d2e
+	// moc[207] -> 0x7f5d2e
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setDecMode(int mode)
+{
+	// moc[206] -> 0x7f5d2e
+	// 未转写(后续批次)
 }
 
 void SuperCommander::resetDecMode(int mode)
 {
-	// moc[149] (T2) -> 0x7f5d2e
-	if (mode < 0)
-		return;
-	if (mode == 0)
-		mode = 1;
+	// moc[149] -> 0x7f5d2e
+	// 未转写(后续批次)
 }
 
 void SuperCommander::saveDecMode(int mode)
 {
-	// moc[164] (T1) -> 0x7f427a
+	// moc[164] -> 0x7f427a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::restoreDecMode(int mode)
 {
-	// moc[158] (T1) -> 0x7f64a6
+	// moc[158] -> 0x7f64a6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestDecMode(int mode)
 {
-	// moc[136] (T1) -> 0x7f13a0
+	// moc[136] -> 0x7f13a0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::selectCharacterAttribute()
 {
-	// moc[184] (T1) -> 0x7eebd4
+	// moc[185] -> 0x7eebd4
+	// 未转写(后续批次)
+}
+
+void SuperCommander::selectCharacterAttribute(int attribute)
+{
+	// moc[184] -> 0x7eebd4
+	// 未转写(后续批次)
 }
 
 void SuperCommander::selectGraphicRendition()
 {
-	// moc[186] (T1) -> 0x7ef95c
+	// moc[187] -> 0x7ef95c
+	// 未转写(后续批次)
+}
+
+void SuperCommander::selectGraphicRendition(int rendition)
+{
+	// moc[186] -> 0x7ef95c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::selectAttributeChangeExtent()
 {
-	// moc[182] (T1) -> 0x7e4e74
+	// moc[183] -> 0x7e4e74
+	// 未转写(后续批次)
+}
+
+void SuperCommander::selectAttributeChangeExtent(int extent)
+{
+	// moc[182] -> 0x7e4e74
+	// 未转写(后续批次)
 }
 
 void SuperCommander::reverseScreen()
 {
-	// moc[162] (T1) -> 0x7e4a94
+	// moc[162] -> 0x7e4a94
+	// 未转写(后续批次)
 }
 
 void SuperCommander::changeAttributesInRectangularArea(const QString &area)
 {
-	// moc[14] (T1) -> 0x7eb17e
+	m_screen->changeAttributesInRectangularArea(area);
 }
 
 void SuperCommander::reverseAttributesInRectangularArea(const QString &area)
 {
-	// moc[161] (T1) -> 0x7eb2ac
+	m_screen->reverseAttributesInRectangularArea(area);
 }
 
 void SuperCommander::copyRectangularArea(const QString &area)
 {
-	// moc[18] (T1) -> 0x7eb2f2
+	m_screen->copyRectangularArea(area);
 }
 
 void SuperCommander::fillRectangularArea(const QString &fill)
 {
-	// moc[48] (T1) -> 0x7eb20a
+	// moc[49] -> 0x7eb20a
+	m_screen->fillRectangularArea(fill);
+}
+
+void SuperCommander::fillRectangularArea(const QString &fill, const QString &area)
+{
+	// moc[48] -> 0x7eb20a
+	m_screen->fillRectangularArea(fill);
+	// area 参由实现内解析,适配器只传 fill
+}
+
+void SuperCommander::eraseRectangularArea(const QString &area, int mode)
+{
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestChecksumOfRectangularArea(const QString &area, int pid)
 {
-	// moc[135] (T1) -> 0x7eced6
+	// moc[135] -> 0x7eced6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::select94CharacterSet(int count, int graphic)
 {
-	// moc[178] (T1) -> 0x7e4dbc
+	// moc[178] -> 0x7e4dbc
+	// 未转写(后续批次)
 }
 
 void SuperCommander::select96CharacterSet(int count, int graphic)
 {
-	// moc[179] (T1) -> 0x7e4e16
+	// moc[179] -> 0x7e4e16
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftSingleTwo()
 {
-	// moc[246] (T1) -> 0x7e5254
+	// moc[246] -> 0x7e5254
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftSingleThree()
 {
-	// moc[247] (T1) -> 0x7e5254
+	// moc[247] -> 0x7e5254
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftLockingZero()
 {
-	// moc[245] (T2) -> 0x7e521c
+	// moc[245] -> 0x7e521c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftLockingOne()
 {
-	// moc[239] (T1) -> 0x7e521c
+	// moc[239] -> 0x7e521c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftLockingOneRight()
 {
-	// moc[240] (T1) -> 0x7e521c
+	// moc[240] -> 0x7e521c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftLockingTwo()
 {
-	// moc[243] (T1) -> 0x7e521c
+	// moc[243] -> 0x7e521c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftLockingTwoRight()
 {
-	// moc[244] (T1) -> 0x7e521c
+	// moc[244] -> 0x7e521c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftLockingThree()
 {
-	// moc[241] (T1) -> 0x7e521c
+	// moc[241] -> 0x7e521c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::shiftLockingThreeRight()
 {
-	// moc[242] (T1) -> 0x7e521c
+	// moc[242] -> 0x7e521c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::assignUserPreferredSupplementalSet(int set, int type)
 {
-	// moc[8] (T1) -> 0x7e4ac2
+	// moc[8] -> 0x7e4ac2
+	// 未转写(后续批次)
 }
 
 void SuperCommander::singleLineWidth()
 {
-	// moc[248] (T1) -> 0x7e41e4
+	// moc[248] -> 0x7e41e4
+	// 未转写(后续批次)
 }
 
 void SuperCommander::doubleLineWidth()
 {
-	// moc[28] (T1) -> 0x7e41e4
+	// moc[28] -> 0x7e41e4
+	// 未转写(后续批次)
 }
 
 void SuperCommander::doubleLineHeightTop()
 {
-	// moc[27] (T1) -> 0x7e4282
+	// moc[27] -> 0x7e4282
+	// 未转写(后续批次)
 }
 
 void SuperCommander::doubleLineHeightBottom()
 {
-	// moc[26] (T1) -> 0x7e4236
+	// moc[26] -> 0x7e4236
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setAnsiConformanceLevelOne()
 {
-	// moc[194] (T1) -> 0x7e5b12
+	// moc[194] -> 0x7e5b12
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setAnsiConformanceLevelTwo()
 {
-	// moc[195] (T1) -> 0x7e5b12
+	// moc[195] -> 0x7e5b12
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setAnsiConformanceLevelThree()
 {
-	// moc[196] (T1) -> 0x7e5b12
+	// moc[196] -> 0x7e5b12
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setConformanceLevel()
 {
-	// moc[200] (T1) -> 0x7eecc0
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setConformanceLevel(int level)
+{
+	// moc[201] -> 0x7eecc0
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setConformanceLevel(int level, int type)
+{
+	// moc[200] -> 0x7eecc0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::select7BitC1Control()
 {
-	// moc[176] (T1) -> 0x7e5aec
+	// moc[176] -> 0x7e5aec
+	// 未转写(后续批次)
 }
 
 void SuperCommander::select8BitC1Control()
 {
-	// moc[177] (T1) -> 0x7e5aec
+	// moc[177] -> 0x7e5aec
+	// 未转写(后续批次)
 }
 
 void SuperCommander::exitAnsiMode()
 {
-	// moc[47] (T1) -> 0x7e88e8
+	// moc[47] -> 0x7e88e8
+	// 未转写(后续批次)
 }
 
 void SuperCommander::enterAltKeypadMode()
 {
-	// moc[33] (T1) -> 0x7e37e8
+	// moc[33] -> 0x7e37e8
+	// 未转写(后续批次)
 }
 
 void SuperCommander::exitAltKeypadMode()
 {
-	// moc[46] (T1) -> 0x7e3896
+	// moc[46] -> 0x7e3896
+	// 未转写(后续批次)
 }
 
 void SuperCommander::refreshScreen()
 {
-	// moc[125] (T1) -> 0x61324e
+	// moc[125] -> 0x61324e
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setColumnsPerPage()
 {
-	// moc[198] (T1) -> 0x7e61fa
+	// moc[199] -> 0x7e61fa
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setColumnsPerPage(int columns)
+{
+	// moc[198] -> 0x7e61fa
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setLinesPerPage()
 {
-	// moc[216] (T1) -> 0x7e5eb2
+	// moc[217] -> 0x7e5eb2
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setLinesPerPage(int lines)
+{
+	// moc[216] -> 0x7e5eb2
+	// 未转写(后续批次)
 }
 
 void SuperCommander::selectNumberOfLinesOnScreen(int lines)
 {
-	// moc[190] (T1) -> 0x7e5ba2
+	// moc[190] -> 0x7e5ba2
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setCursorStyle()
 {
-	// moc[202] (T2) -> 0x7e4ffa
+	// moc[203] -> 0x7e4ffa
+	m_screen->setCursorStyle(1, false);
+	// DECSCUSR,缺省参 1
+}
+
+void SuperCommander::setCursorStyle(int style)
+{
+	// moc[202] -> 0x7e4ffa
+	m_screen->setCursorStyle(style, false);
 }
 
 void SuperCommander::setCursorVisibility()
 {
-	// moc[204] (T1) -> 0x7e5090
+	// moc[205] -> 0x7e5090
+	m_screen->setCursorVisibility(1);
+	// DECTCEM,缺省参 1
+}
+
+void SuperCommander::setCursorVisibility(bool visible)
+{
+	// moc[204] -> 0x7e5090
+	m_screen->setCursorVisibility(visible ? 1 : 0);
 }
 
 void SuperCommander::adjustScreenAlignment()
 {
-	// moc[5] (T1) -> 0x7e5f24
+	// moc[5] -> 0x7e5f24
+	// 未转写(后续批次)
 }
 
 void SuperCommander::allowScrollback()
 {
-	// moc[6] (T1) -> 0x7e4036
+	// moc[6] -> 0x7e4036
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setAllowScrollback(const QString &allowed)
 {
-	// moc[193] (T1) -> 0x7e4f1c
+	// moc[193] -> 0x7e4f1c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::originTop()
 {
-	// moc[120] (T1) -> 0x7e48e0
+	// moc[120] -> 0x7e48e0
+	m_screen->originTop();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::originBottom()
 {
-	// moc[117] (T1) -> 0x7e48b0
+	// moc[117] -> 0x7e48b0
+	m_screen->originBottom();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::originLeft()
 {
-	// moc[118] (T1) -> 0x7e48c8
+	// moc[118] -> 0x7e48c8
+	m_screen->originLeft();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::originRight()
 {
-	// moc[119] (T1) -> 0x7e48d4
+	// moc[119] -> 0x7e48d4
+	m_screen->originRight();
+	// 实现为取值函数,槽调用丢弃返回值(适配器纯转发)
 }
 
 void SuperCommander::movePagePositionAbsolute()
 {
-	// moc[102] (T2) -> 0x7ef16a
+	// moc[103] -> 0x7ef16a
+	// 未转写(后续批次)
+}
+
+void SuperCommander::movePagePositionAbsolute(int page)
+{
+	// moc[102] -> 0x7ef16a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::movePagePositionBackward()
 {
-	// moc[104] (T2) -> 0x7ef16a
+	// moc[105] -> 0x7ef16a
+	// 未转写(后续批次)
+}
+
+void SuperCommander::movePagePositionBackward(int pages)
+{
+	// moc[104] -> 0x7ef16a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::movePagePositionRelative()
 {
-	// moc[106] (T2) -> 0x7ef16a
+	// moc[107] -> 0x7ef16a
+	// 未转写(后续批次)
+}
+
+void SuperCommander::movePagePositionRelative(int pages)
+{
+	// moc[106] -> 0x7ef16a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setMarginBellVolume()
 {
-	// moc[218] (T1) -> 0x7e5190
+	// moc[219] -> 0x7e5190
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setMarginBellVolume(int volume)
+{
+	// moc[218] -> 0x7e5190
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setWarningBellVolume()
 {
-	// moc[230] (T1) -> 0x7e520c
+	// moc[231] -> 0x7e520c
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setWarningBellVolume(int volume)
+{
+	// moc[230] -> 0x7e520c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::selectStatusLineType()
 {
-	// moc[191] (T1) -> 0x7f0346
+	// moc[192] -> 0x7f0346
+	// 未转写(后续批次)
+}
+
+void SuperCommander::selectStatusLineType(int type)
+{
+	// moc[191] -> 0x7f0346
+	// 未转写(后续批次)
 }
 
 void SuperCommander::selectActiveStatusDisplay()
 {
-	// moc[180] (T1) -> 0x7ef86e
+	// moc[181] -> 0x7ef86e
+	// 未转写(后续批次)
+}
+
+void SuperCommander::selectActiveStatusDisplay(int display)
+{
+	// moc[180] -> 0x7ef86e
+	// 未转写(后续批次)
 }
 
 void SuperCommander::reportDeviceAttributesOne()
 {
-	// moc[128] (T1) -> 0x7ea806
+	// moc[128] -> 0x7ea806
+	// 未转写(后续批次)
 }
 
 void SuperCommander::reportDeviceAttributesTwo()
 {
-	// moc[129] (T1) -> 0x7ea806
+	// moc[129] -> 0x7ea806
+	// 未转写(后续批次)
 }
 
 void SuperCommander::reportDeviceAttributesThree()
 {
-	// moc[130] (T1) -> 0x7ea806
+	// moc[130] -> 0x7ea806
+	// 未转写(后续批次)
 }
 
 void SuperCommander::reportDeviceStatus(const QString &status)
 {
-	// moc[131] (T1) -> 0x7f0ae6
+	// moc[131] -> 0x7f0ae6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::reportDecDeviceStatus(const QString &status)
 {
-	// moc[132] (T1) -> 0x7f0d7c
+	// moc[132] -> 0x7f0d7c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::reportTerminalParameters()
 {
-	// moc[133] (T1) -> 0x7ecdc2
+	// moc[134] -> 0x7ecdc2
+	// 未转写(后续批次)
+}
+
+void SuperCommander::reportTerminalParameters(int mode)
+{
+	// moc[133] -> 0x7ecdc2
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestTerminalStateReport()
 {
-	// moc[144] (T1) -> 0x7f0434
+	// moc[145] -> 0x7f0434
+	// 未转写(后续批次)
+}
+
+void SuperCommander::requestTerminalStateReport(int mode)
+{
+	// moc[144] -> 0x7f0434
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestPresentationStateReport(int state)
 {
-	// moc[142] (T1) -> 0x7ed35a
+	// moc[142] -> 0x7ed35a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestUserPreferredSupplementalSet()
 {
-	// moc[146] (T1) -> 0x7ed7f6
+	// moc[146] -> 0x7ed7f6
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestDisplayedExtent()
 {
-	// moc[137] (T1) -> 0x7ed148
+	// moc[137] -> 0x7ed148
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestWindowSelections(const QString &which)
 {
-	// moc[147] (T1) -> 0x4c3220
+	// moc[147] -> 0x4c3220
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setWindowSelections(const QString &which, const QString &selections)
 {
-	// moc[236] (T1) -> 0x4beac0
+	// moc[236] -> 0x4beac0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestXtermTerminfoData(const QString &name)
 {
-	// moc[148] (T1) -> 0x7f3518
+	// moc[148] -> 0x7f3518
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setXtermTerminfoData(const QString &name)
 {
-	// moc[238] (T1) -> 0x7f07d8
+	// moc[238] -> 0x7f07d8
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestKeyModifier()
 {
-	// moc[138] (T1) -> 0x7ed282
+	// 未转写(后续批次)
+}
+
+void SuperCommander::requestKeyModifier(int modifier)
+{
+	// moc[138] -> 0x7ed282
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setKeyModifier()
 {
-	// moc[211] (T1) -> 0x7e5152
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setKeyModifier(int modifier)
+{
+	// moc[212] -> 0x7e5152
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setKeyModifier(int modifier, int type)
+{
+	// moc[211] -> 0x7e5152
+	// 未转写(后续批次)
 }
 
 void SuperCommander::resetKeyModifier()
 {
-	// moc[151] (T1) -> 0x7e498c
+	// moc[152] -> 0x7e498c
+	// 未转写(后续批次)
+}
+
+void SuperCommander::resetKeyModifier(int modifier)
+{
+	// moc[151] -> 0x7e498c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::enableLocatorReports()
 {
-	// moc[30] (T1) -> 0x7e37a8
+	// 未转写(后续批次)
+}
+
+void SuperCommander::enableLocatorReports(int unit)
+{
+	// moc[31] -> 0x7e37a8
+	// 未转写(后续批次)
+}
+
+void SuperCommander::enableLocatorReports(int unit, int mode)
+{
+	// moc[30] -> 0x7e37a8
+	// 未转写(后续批次)
 }
 
 void SuperCommander::filterRectangle(int top, int left, int bottom, int right)
 {
-	// 适配器未解析
+	// 未转写(后续批次)
 }
 
 void SuperCommander::requestLocatorPosition()
 {
-	// moc[139] (T1) -> 0x7ebd6a
+	// moc[140] -> 0x7ebd6a
+	// 未转写(后续批次)
+}
+
+void SuperCommander::requestLocatorPosition(int mode)
+{
+	// moc[139] -> 0x7ebd6a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::selectLocatorEvents(const QString &events)
 {
-	// moc[189] (T1) -> 0x7e4e80
+	// moc[189] -> 0x7e4e80
+	// 未转写(后续批次)
 }
 
 void SuperCommander::highlightTracking(int mode, int type)
 {
-	// moc[53] (T1) -> 0x7eac52
+	// moc[53] -> 0x7eac52
+	// 未转写(后续批次)
 }
 
 void SuperCommander::enableFilterRectangle(const QString &filter)
 {
-	// moc[29] (T1) -> 0x7eb8fe
+	// moc[29] -> 0x7eb8fe
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setWindowTitle(const QString &title)
 {
-	// moc[237] (T1) -> 0x7cd366
+	// moc[237] -> 0x7cd366
+	// 未转写(后续批次)
 }
 
 void SuperCommander::windowTitle()
 {
-	// moc[261] (T1) -> 0x4c29d0
+	// moc[261] -> 0x4c29d0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setWindowIcon(const QString &icon)
 {
-	// moc[234] (T1) -> 0x4c29d0
+	// moc[234] -> 0x4c29d0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::windowIcon()
 {
-	// moc[259] (T1) -> 0x4c29d0
+	// moc[259] -> 0x4c29d0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setWindowIconAndTitle(const QString &iconAndTitle)
 {
-	// moc[235] (T1) -> 0x7cd902
+	// moc[235] -> 0x7cd902
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setWindowColor(int index, const QString &color)
 {
-	// moc[233] (T1) -> 0x7f24ae
+	// moc[233] -> 0x7f24ae
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setWindowColor(int index, const QString &color, int type)
+{
+	// 未转写(后续批次)
 }
 
 void SuperCommander::resetWindowColor()
 {
-	// moc[155] (T1) -> 0x7f0858
+	// 未转写(后续批次)
+}
+
+void SuperCommander::resetWindowColor(int index)
+{
+	// moc[156] -> 0x7f0858
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setWindowAttributes(const QString &attributes)
 {
-	// moc[232] (T1) -> 0x7f298e
+	// moc[232] -> 0x7f298e
+	// 未转写(后续批次)
 }
 
 void SuperCommander::windowColumns()
 {
-	// moc[258] (T1) -> 0x7e5b96
+	// moc[258] -> 0x7e5b96
+	// 未转写(后续批次)
 }
 
 void SuperCommander::windowRows()
 {
-	// moc[260] (T1) -> 0x7e5f18
+	// moc[260] -> 0x7e5f18
+	// 未转写(后续批次)
 }
 
 void SuperCommander::startGuardedArea()
 {
-	// moc[249] (T1) -> 0x7e5278
+	// moc[249] -> 0x7e5278
+	// 未转写(后续批次)
 }
 
 void SuperCommander::endGuardedArea()
 {
-	// moc[32] (T1) -> 0x7e37dc
+	// moc[32] -> 0x7e37dc
+	// 未转写(后续批次)
 }
 
 void SuperCommander::mediaCopy()
 {
-	// moc[68] (T1) -> 0x7f0530
+	// moc[69] -> 0x7f0530
+	// 未转写(后续批次)
+}
+
+void SuperCommander::mediaCopy(int mode)
+{
+	// moc[68] -> 0x7f0530
+	// 未转写(后续批次)
 }
 
 void SuperCommander::mediaCopyDec(int mode)
 {
-	// moc[70] (T1) -> 0x7f063a
+	// moc[70] -> 0x7f063a
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setCodec(const QString &name)
 {
-	// moc[197] (T1) -> -0x3efdef14
+	// moc[197] -> -0x3efdef14
+	// 未转写(后续批次)
 }
 
 void SuperCommander::toUnicode(const QString &text)
 {
-	// moc[251] (T1) -> 0x4c29d0
+	// moc[251] -> 0x4c29d0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::fromUnicode(const QString &text)
 {
-	// moc[52] (T1) -> 0x4c29d0
+	// moc[52] -> 0x4c29d0
+	// 未转写(后续批次)
 }
 
 void SuperCommander::notifyCommand(const QString &command)
 {
-	// moc[110] (T1) -> 0x4c3110
+	// moc[110] -> 0x4c3110
+	// 未转写(后续批次)
 }
 
 void SuperCommander::notifyMessage(int message)
 {
-	// moc[114] (T1) -> 0x5444ac
+	// 未转写(后续批次)
+}
+
+void SuperCommander::notifyMessage(int message, int type)
+{
+	// moc[114] -> 0x5444ac
+	// 未转写(后续批次)
 }
 
 void SuperCommander::notifyRemoteDirectory(const QString &directory)
 {
-	// moc[115] (T1) -> 0x7cd366
+	// moc[115] -> 0x7cd366
+	// 未转写(后续批次)
 }
 
 void SuperCommander::notifyHyperlink(const QString &url)
 {
-	// moc[112] (T1) -> 0x4c3290
+	// moc[112] -> 0x4c3290
+	// 未转写(后续批次)
 }
 
 void SuperCommander::notifyIterm2(const QString &content)
 {
-	// moc[113] (T1) -> 0x4c3290
+	// moc[113] -> 0x4c3290
+	// 未转写(后续批次)
 }
 
 void SuperCommander::notifyFig(const QString &content)
 {
-	// moc[111] (T1) -> 0x4c3290
+	// moc[111] -> 0x4c3290
+	// 未转写(后续批次)
 }
 
 void SuperCommander::option(const QString &name)
 {
-	// moc[116] (T1) -> 0x7d5538
+	// moc[116] -> 0x7d5538
+	// 未转写(后续批次)
 }
 
 void SuperCommander::checkControlCharacter()
 {
-	// moc[15] (T1) -> 0x7e3568
+	// moc[15] -> 0x7e3568
+	// 未转写(后续批次)
 }
 
 void SuperCommander::dataType()
 {
-	// moc[19] (T1) -> 0x7e3784
+	// moc[19] -> 0x7e3784
+	// 未转写(后续批次)
 }
 
 void SuperCommander::testConfidence(const QString &data)
 {
-	// moc[250] (T1) -> 0x7f0a5e
+	// moc[250] -> 0x7f0a5e
+	// 未转写(后续批次)
 }
 
 void SuperCommander::setUserDefinedKeys()
 {
-	// moc[225] (T1) -> 0x7ef0e8
+	// moc[229] -> 0x7ef0e8
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setUserDefinedKeys(int key)
+{
+	// moc[228] -> 0x7ef0e8
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setUserDefinedKeys(int key, int clear)
+{
+	// moc[227] -> 0x7ef0e8
+	// 未转写(后续批次)
+}
+
+void SuperCommander::setUserDefinedKeys(int key, int clear, int modifier)
+{
+	// moc[226] -> 0x7ef0e8
+	// 未转写(后续批次)
 }
 
 void SuperCommander::loadLeds()
 {
-	// moc[62] (T1) -> 0x7eadba
+	// moc[63] -> 0x7eadba
+	// 未转写(后续批次)
+}
+
+void SuperCommander::loadLeds(const QString &leds)
+{
+	// moc[62] -> 0x7eadba
+	// 未转写(后续批次)
 }
 
 void SuperCommander::enterTmuxControlMode()
 {
-	// moc[34] (T1) -> 0x7e9a06
+	// moc[34] -> 0x7e9a06
+	// 未转写(后续批次)
 }
 
 void SuperCommander::zmodemSend()
 {
-	// moc[263] (T1) -> 0x7e6844
+	// moc[263] -> 0x7e6844
+	// 未转写(后续批次)
 }
 
 void SuperCommander::zmodemReceive()
 {
-	// moc[262] (T1) -> 0x7e676c
+	// moc[262] -> 0x7e676c
+	// 未转写(后续批次)
 }
 
 void SuperCommander::bracketedPasteMode()
 {
-	// moc[12] (T1) -> 0x7e355a
+	// moc[12] -> 0x7e355a
+	// 未转写(后续批次)
 }

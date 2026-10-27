@@ -4,9 +4,10 @@
 
 ## 一句话状态
 
-WindTerm 2.7.0 逆向:API/架构/状态机全部打通,**当前任务 = 把
-`SuperCommander.cpp` 的 179 个占位实现体变成真实现**(分批转写,
-工具与数据全部就绪,见下)。
+WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一批转写已完成**:
+`SuperCommander.cpp` 91 个真实现体(光标/擦除/滚动/制表/边距/DECSC-DECRC),
+配套新层 `Screen.h/.cpp`(0x7e 层 30 方法)与 `TerminalCore` 扩展(0x7a 层
+~30 方法)。**下一批:②DEC 模式/字符集/SGR 族(剩余 ~168 占位体)**。
 
 ## 环境状态(新会话先核对)
 
@@ -19,22 +20,24 @@ WindTerm 2.7.0 逆向:API/架构/状态机全部打通,**当前任务 = 把
 | ptrace_scope | 已恢复 1(动态分析时临时置 0) |
 | 远端 dev | 已同步(本地=远端=同一链) |
 
-## 当前任务(三批转写,~216 个函数)
+## 当前任务(批次 ②,剩余 ~168 占位体)
 
-`src/Sessions/SuperCommander.cpp` 中 179 个函数体目前是**地址注释占位**。
-批量转写方法(已验证):
+第一批(光标/擦除/滚动族)已完成,方法学验证有效:
+适配器(0x7c 段)→ Screen(0x7e 段)→ TerminalCore(0x7a 段)三层各归其位。
+`SuperCommander.cpp` 由 `/tmp/opencode/gen_sc.py` 生成(B 表按 (名,参数数)
+键控;生成脚本在会话 /tmp,重写很快——B 表映射见 cpp 内注释即可重建)。
 
-1. 查 `SUPERCOMMANDER-IMPL.md`(237 行,方法→实现地址→模板 T1/T2/T3)
+批次 ②:DEC 模式(setDecMode 0x7f5d2e 等 0x7f 段)、字符集
+(select94/96CharacterSet 0x7e4dbc/0x7e4e16)、SGR(selectGraphicRendition
+0x7ef95c 0x7ef 段)、insert/delete 行字符族(0x7e3a 段)。
+批次 ③:报告类/locator/zmodem。
+
+转写方法(已验证):
+1. 查 `SUPERCOMMANDER-IMPL.md`(264 行,方法→实现地址→模板)
 2. `procedure_pseudo_code(<实现地址>)`(Ghidra)反编译目标
-3. 按模板转写:
-   - T1 纯转发 → 调用对应的 TerminalCore/Screen 层函数(多数可对接
-     `TerminalCore.h` 已还原方法)
-   - T2 参数守卫 → n<0 拒绝,n==0 置 1
-   - T3 复合 → 人工核对(全表仅 2 个)
+3. Screen 层逻辑落 `Screen.cpp`,core 层逻辑落 `TerminalCore.cpp`,
+   槽体只留守卫 + `m_screen->` 调用
 4. 分批提交(中文信息)
-
-建议批次:①光标移动/擦除/滚动族(同构多,快) ②DEC 模式/字符集/SGR
-③报告类/locator/zmodem。
 
 ## 已还原资产索引
 
