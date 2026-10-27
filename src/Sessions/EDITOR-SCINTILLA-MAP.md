@@ -1,4 +1,4 @@
-# 引擎命令 ↔ Scintilla 真名对照(inc/scintilla 源码头直读)
+# 引擎命令 ↔ Scintilla 真名对照(src/Scintilla/include 源码头直读)
 
 392 个 case 中 120 个命中上游 SCI_* 真名;其余 147 为
 WindTerm 扩展(EXT 20163-20228 / WT 30001-30166)自有命名空间。

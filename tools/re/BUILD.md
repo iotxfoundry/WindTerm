@@ -1,7 +1,7 @@
 # 编译验证配方(2026-10-28 达成)
 
 成果:`libWindTermRe.so`(775KB)可加载、元对象活性通过;
-`src/Scintilla`(上游 4.4.6,**与仓库 inc/scintilla 头 API 零 diff**)
+`src/Scintilla`(上游 4.4.6,**与原仓库 bundled 头(已并归 src/Scintilla) API 零 diff**)
 可编静态库并响应逆向命令号。
 
 ## 环境
@@ -12,7 +12,7 @@
 | 链接库 | **仓库 lib/**(Qt 5.15.2 与系统 5.15.13 ABI 同)+ libssh.so.4 |
 | moc | /usr/lib/qt5/bin/moc(系统 5.15.13,与 5.15.2 元数据兼容) |
 | inc/qt5 | 仅转发头(qtbase 源码未入库),**不可用作编译头** |
-| inc/scintilla | Scintilla 完整源码树(EditorEngine 原生参考,后续挖) |
+| inc/scintilla | **已删除**(与 src/Scintilla 头零 diff,并归;含 4.4.6 版本钉死证据,见 git 史) |
 
 ## 步骤
 
@@ -58,7 +58,7 @@ LD_LIBRARY_PATH=$B ./metatest   # SuperSession 元对象活性
 
 ## Scintilla 静态库(src/Scintilla = 上游 4.4.6)
 
-版本钉死证据:仓库 inc/scintilla/inc/Scintilla.h 与上游 4.4.6 的
+版本钉死证据:仓库 src/Scintilla/include/Scintilla.h(原 inc/scintilla,已删) 与上游 4.4.6 的
 API 逐行零 diff(BRACEMATCHNEXT ✓ / 无 5.x 标记)。
 
 ```bash
