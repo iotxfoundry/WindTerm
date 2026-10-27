@@ -284,7 +284,12 @@ void TerminalCore::setRowLength(struct Row *row, int length)
 
 void TerminalCore::setRowFlags(struct Row *row, int bits)
 {
-	// FUN_007a3dc0: row flag update (bit 1 = changed/wrapped-related)
+	// FUN_007a3dc0: bits!=0 -> (old & 0xfc) | bit1 (also clears bit0);
+	// bits==0 -> clear bit1 only
+	if (bits != 0)
+		row->flags = (unsigned char)((row->flags & 0xfc) | ((bits & 1) << 1));
+	else
+		row->flags = (unsigned char)(row->flags & 0xfd);
 }
 
 void TerminalCore::resetRow(struct Row *row, void *templateRow)
@@ -325,6 +330,12 @@ void TerminalCore::markDirty(int level)
 {
 	// FUN_007a454e: core flag byte bit3 (0x08)
 	m_flags = (unsigned short)((m_flags & 0xf7) | (level & 1) * 8);
+}
+
+void TerminalCore::notifyChanged(int level)
+{
+	// FUN_007a4532: core flag byte bit0
+	m_flags = (unsigned short)((m_flags & 0xfe) | (level & 1));
 }
 
 void TerminalCore::markLine(int line, int arg)
@@ -667,29 +678,57 @@ void TerminalCore::deleteColumn(int count)
 
 void TerminalCore::setSgrState(unsigned long long sgr)
 {
-	// FUN_007a45f6: publishes the 64-bit SGR state into the render
-	// attribute context — body cited
+	// FUN_007a45f6: stores +0xb8; flag bit4 (0x10) makes the blank-row
+	// template (+0xa0) follow the SGR "look" (low 14 bits stripped),
+	// otherwise the template is zeroed
+	m_sgrBits = sgr;
+	if (m_flags & 0x10)
+		m_blankTemplateSgr = sgr & 0xffffffffffffc000ULL;
+	else
+		m_blankTemplateSgr = 0;
 }
 
-void TerminalCore::setAttributeChangeExtent()
+void TerminalCore::setAttributeChangeExtent(int extent)
 {
-	// FUN_007a4518 — body cited
+	// FUN_007a4518 (DECSACE): extent==2 sets flags byte1 bit0,
+	// extent<2 clears it, other values ignored
+	if (extent < 2) {
+		m_flags2 = (unsigned char)(m_flags2 & 0xfe);
+		return;
+	}
+	if (extent == 2)
+		m_flags2 = (unsigned char)(m_flags2 | 1);
 }
 
 void TerminalCore::resetViewport()
 {
-	// FUN_007a4aea — body cited
+	// FUN_007a4aea: clears horizontal margins and resets the scroll
+	// region (trailing args dropped by Ghidra, -1/-1 per clearMargins)
+	clearMargins(-1, -1);
+	setTopBottomMargins(-1, -1);
 }
 
-void TerminalCore::clearMargins(int arg)
+void TerminalCore::clearMargins(int left, int right)
 {
-	// FUN_007a4a98 — body cited
+	// FUN_007a4a98: writes +0xd8/+0xdc and re-evaluates flag bit5
+	// (0x20) = "horizontal margins effective"
+	m_leftMargin = left;
+	m_rightMargin = right;
+	bool effective;
+	if (left < 1) {
+		effective = right >= 1 && right < m_columnCount - 1;
+	} else {
+		effective = true;
+	}
+	m_flags = (unsigned short)((m_flags & 0xdf) | ((effective ? 1 : 0) << 5));
 }
 
 bool TerminalCore::columnInRange(int column) const
 {
-	// FUN_007a4970: column within the usable line (double-width aware)
-	return true;   // body cited
+	// FUN_007a4970: leftMargin() <= column <= rightMargin()
+	if (column < leftMargin())
+		return false;
+	return column <= rightMargin();
 }
 
 // ---------------------------------------------------------------------------
@@ -723,7 +762,8 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 		return;
 	if (count == 0)
 		return;
-	growRowArrays(row, rowLength(row) + count);       // FUN_007aa3a6
+	growRowArrays((char *)row + 8, rowLength(row) + count,
+	              rowLength(row) + count);   // FUN_007aa3a6 (array header at row+8)
 	unsigned char blank[16];
 	buildBlankCell(blank, sgrCtx);                    // FUN_007aa2e2
 	char *cells = (char *)row->cells;
@@ -736,4 +776,74 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 void TerminalCore::copyRowFromTemplate(struct Row *row, void *templateRow)
 {
 	// FUN_007a3c9a tail: re-seeds flags/cells from the template row — cited
+}
+
+// ---------------------------------------------------------------------------
+// Cell copy / row-array growth primitives
+// ---------------------------------------------------------------------------
+
+void TerminalCore::copyCell(void *dst, const void *src)
+{
+	// FUN_007aa2e2: field-wise cell copy (offsets 0,4,8,10,0x18) plus a
+	// deep copy of the auxiliary glyph object at +0x10 (0x18-byte object
+	// with an optional heap buffer at +8); the destination's own aux
+	// object is released first
+	unsigned char *d = (unsigned char *)dst;
+	const unsigned char *s = (const unsigned char *)src;
+	d[0] = s[0];
+	*(int *)(d + 4) = *(const int *)(s + 4);
+	*(unsigned short *)(d + 10) = *(const unsigned short *)(s + 10);
+	*(unsigned long long *)(d + 0x18) = *(const unsigned long long *)(s + 0x18);
+	*(unsigned short *)(d + 8) = *(const unsigned short *)(s + 8);
+	void *oldAux = *(void **)(d + 0x10);
+	if (oldAux) {
+		if (*(void **)((char *)oldAux + 8) != (char *)oldAux + 0x10)
+			free(*(void **)((char *)oldAux + 8));
+		operator delete(oldAux, 0x18);
+	}
+	if (*(const void *const *)(s + 0x10)) {
+		void *fresh = ::operator new(0x18);
+		cloneGlyphPayload(fresh, *(void **)(s + 0x10));   // deep copy — cited
+		*(void **)(d + 0x10) = fresh;
+	} else {
+		*(void **)(d + 0x10) = nullptr;
+	}
+}
+
+void TerminalCore::buildBlankCell(unsigned char blank[16], void *sgrCtx)
+{
+	// FUN_007aa2e2 (same primitive): the blank cell is a copy of the
+	// SGR context cell
+	copyCell(blank, sgrCtx);
+}
+
+void TerminalCore::writeCell(void *dst, const unsigned char blank[16])
+{
+	// FUN_007aa2e2 (same primitive)
+	copyCell(dst, blank);
+}
+
+void TerminalCore::growRowArrays(void *arrayHeader, int newLen, int minCap)
+{
+	// FUN_007aa3a6: Qt-style cell vector header {cap, count, data};
+	// grows to minCap (0x20-byte cells, embedded storage for <2),
+	// preserving min(newLen, count) cells (ownership-aware copy)
+	struct CellArray { int cap; int count; unsigned char *data; };
+	CellArray *arr = (CellArray *)arrayHeader;
+	int preserve = arr->count < newLen ? arr->count : newLen;
+	unsigned char *oldData = arr->data;
+	if (arr->cap != minCap) {
+		if (minCap < 2) {
+			arr->data = (unsigned char *)(arr + 1);   // embedded storage
+			arr->cap = 1;
+		} else {
+			arr->data = (unsigned char *)malloc((size_t)minCap << 5);
+			arr->cap = minCap;
+		}
+		arr->count = 0;
+		for (int i = 0; i < preserve; i++)
+			copyCell(arr->data + (size_t)i * 0x20, oldData + (size_t)i * 0x20);
+		// release old storage — cited
+	}
+	arr->count = preserve;
 }

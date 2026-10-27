@@ -73,6 +73,7 @@ public:
 
 	// --- blank template / charset / SGR ------------------------------------
 	void *m_blankRowTemplate;     // +0xa0: template for reset rows (FUN_007a3c9a)
+	unsigned long long m_blankTemplateSgr;  // +0xa0 as SGR (FUN_007a45f6)
 	void *m_charsetSaved;         // +0x38: saved SGR/charset state (DECSC)
 	void *m_sgrState;             // +0x88: current SGR/charset state
 	unsigned char m_flags2;       // +0xb0: G-led style flags (DECSC packs)
@@ -125,7 +126,6 @@ public:
 	void setRowLength(struct Row *row, int length);          // FUN_007a5ff2
 	void setRowFlags(struct Row *row, int bits);             // FUN_007a3dc0
 	void resetRow(struct Row *row, void *templateRow);       // FUN_007a3c9a
-	struct { void *cells; int attrCount; void *attrArray; } m_rowAux;  // row +0x3c/+0x40
 	void resetWrapPending();               // FUN_007a4564
 	void markDirty(int level);             // FUN_007a454e
 	void markLine(int line, int arg);      // FUN_007a463c
@@ -168,9 +168,9 @@ public:
 	void deleteColumn(int count);         // FUN_007a6672 (DECDC)
 	void deleteLine(int count);           // FUN_007a5220 (DL)
 	void setSgrState(unsigned long long sgr);       // FUN_007a45f6
-	void setAttributeChangeExtent();                // FUN_007a4518
+	void setAttributeChangeExtent(int extent);       // FUN_007a4518
 	void resetViewport();                            // FUN_007a4aea
-	void clearMargins(int arg);                      // FUN_007a4a98
+	void clearMargins(int left, int right);          // FUN_007a4a98
 	bool columnInRange(int column) const;            // FUN_007a4970
 
 	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
@@ -188,10 +188,11 @@ public:
 	void notifyChanged(int level);                 // FUN_007a4532
 	void rowDeleteCells(struct Row *row, int at, int count);          // FUN_007a5dce
 	void rowInsertBlanks(struct Row *row, int at, int count, void *sgr);  // FUN_007a641a
-	void copyCell(void *dst, const void *src);     // FUN_007aa2e2 (16-byte)
+	void copyCell(void *dst, const void *src);     // FUN_007aa2e2 (deep, aux clone)
 	void buildBlankCell(unsigned char blank[16], void *sgrCtx);  // FUN_007aa2e2
 	void writeCell(void *dst, const unsigned char blank[16]);
-	void growRowArrays(struct Row *row, int minLen);  // FUN_007aa3a6
+	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
+	void cloneGlyphPayload(void *dst, const void *src);  // FUN_007aa2e2 inner
 	void resetWrap(int arg);                       // FUN_007a45f6
 };
 

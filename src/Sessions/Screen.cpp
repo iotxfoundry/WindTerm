@@ -595,7 +595,7 @@ void Screen::setDecMode(const QString &modes, bool on)
 				for (int row = 0; row < rowCount(); row++)
 					markRowErased(row);
 			} else {
-				m_core->clearMargins(-1);   // FUN_007a4a98(core, -1)
+				m_core->clearMargins(-1, -1);   // FUN_007a4a98(core, -1, -1)
 			}
 			break;
 		case 95: m_1046Flag = !on; break;           // note: inverted per decompile
@@ -832,7 +832,7 @@ void Screen::setAnsiConformanceLevel(int level)
 void Screen::selectAttributeChangeExtent()
 {
 	// FUN_007e4e74: forward to core FUN_007a4518
-	m_core->setAttributeChangeExtent();
+	m_core->setAttributeChangeExtent(0);   // extent arg dropped by adapter (FUN_007a4518)
 }
 
 void Screen::insertCharacter(int count)
