@@ -30,6 +30,30 @@ static void sessionViewSoftReset(EditorEngine *e) { (void)e; }  // 0x8a4/0x8a5 å
 static void notifyFlag10(EditorEngine *e) { (void)e; }  // FUN_00a243ae(e, 0x10)
 static int docTabSize(EditorEngine *e) { (void)e; return 1; }  // *(doc+0x270)
 static void docSetTabSize(EditorEngine *e, int n) { (void)e; (void)n; }  // FUN_00925338
+// EXT one-call thunks (addresses = the leaf implementations)
+static void eA237a6(EditorEngine *e) { (void)e; }             // 0x4ecd activateNextSelection
+static void eA23808(EditorEngine *e) { (void)e; }             // 0x4ece activatePreviousSelection
+static void eA2386a(EditorEngine *e) { (void)e; }             // 0x4ecf lockSelection
+static void eA23894(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x4ed0 dropSelection
+static void eA20198(EditorEngine *e) { (void)e; }             // 0x4ed2 splitSelection
+static void eA2014e(EditorEngine *e) { (void)e; }             // 0x4ed1 cancelSelection
+static void eA201e2(EditorEngine *e) { (void)e; }             // 0x4ed3 invertSelection
+static void eA20238(EditorEngine *e, bool on) { (void)e; (void)on; }  // 0x4ecb
+static bool eA2022c(EditorEngine *e) { (void)e; return false; }       // 0x4ec6
+static bool eA2025a(EditorEngine *e) { (void)e; return false; }       // 0x4ed1? second probe
+static void eA202b0(EditorEngine *e) { (void)e; }             // 0x4ed5 exchangeCaretAnchor
+static bool eA385ee(EditorEngine *e, int a) { (void)e; (void)a; return false; }  // 0x4ee4
+static void eA286a2(EditorEngine *e, int a) { (void)e; (void)a; }    // 0x4ee6
+static long long docPosOp(void *doc, bool b) { (void)doc; (void)b; return 0; }  // 0x4ec9 FUN_00927a68
+static bool docLineProbe1(void *doc, long long v) { (void)doc; (void)v; return false; }  // 0x4ec7 FUN_00927ce0
+static bool docLineProbe2(void *doc, long long v) { (void)doc; (void)v; return false; }  // 0x4ec8 FUN_00927e22
+static long long docLineGet(void *doc, long long v, unsigned f, int g) { (void)doc; (void)v; (void)f; (void)g; return 0; }  // 0x75a7 FUN_009252f4
+static void eA26ec6(EditorEngine *e, unsigned long long line, int col) { (void)e; (void)line; (void)col; }  // 0x75ab gotoLine
+static void eA1fd8c(EditorEngine *e, bool on) { (void)e; (void)on; }  // 0x7597 setMarginTrackChange
+static void eA28e7c(EditorEngine *e, int base) { (void)e; (void)base; }  // 0x759a setHexBase
+static void eA282b8(EditorEngine *e) { (void)e; }             // 0x75aa
+static double eA2041e(EditorEngine *e) { (void)e; return 0; } // 0x75a9 (double read)
+
 
 void EditorEngine::cmdAppendText(const QVariantList &args)
 {
@@ -213,6 +237,65 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 		return QVariant(cmdUllFrom10a0(a.toLongLong()));
 	case 0x75d6:
 		cmdSetWordSeparators(a.toString(), b.toBool());
+		return QVariant(0);
+	// EXT block (0x4e23-0x4f04) â€” one-call leaves, addresses in thunk names
+	case 0x4ec7:
+		return QVariant(docLineProbe1(m_doc, a.toLongLong()));
+	case 0x4ec8:
+		return QVariant(docLineProbe2(m_doc, a.toLongLong()));
+	case 0x4ec9:
+		return QVariant(docPosOp(m_doc, a.toBool()));
+	case 0x4ec6:
+		return QVariant(eA2022c(this));
+	case 0x4ecb:
+		eA20238(this, a.toBool());
+		return QVariant(0);
+	case 0x4ecd:
+		eA237a6(this);
+		return QVariant(0);
+	case 0x4ece:
+		eA23808(this);
+		return QVariant(0);
+	case 0x4ecf:
+		eA2386a(this);
+		return QVariant(0);
+	case 0x4ed0:
+		eA23894(this, a.toInt());
+		return QVariant(0);
+	case 0x4ed1:
+		eA2014e(this);
+		return QVariant(0);
+	case 0x4ed2:
+		eA20198(this);
+		return QVariant(0);
+	case 0x4ed3:
+		eA201e2(this);
+		return QVariant(0);
+	case 0x4ed5:
+		eA202b0(this);
+		return QVariant(0);
+	case 0x4ee4:
+		return QVariant(eA385ee(this, 0));
+	case 0x4ee6:
+		eA286a2(this, 0);
+		return QVariant(0);
+	// tail WT leaves
+	case 0x7597:
+		eA1fd8c(this, a.toBool());
+		return QVariant(0);
+	case 0x759a:
+		eA28e7c(this, a.toInt());
+		return QVariant(0);
+	case 0x75a7:
+		return QVariant(docLineGet(m_doc, a.toLongLong(),
+		                           b.toBool() ? 1u : ~1u, 1));
+	case 0x75a9:
+		return QVariant(eA2041e(this));
+	case 0x75aa:
+		eA282b8(this);
+		return QVariant(0);
+	case 0x75ab:  // gotoLine(line u64 in a, column int in b)
+		eA26ec6(this, a.toULongLong(), b.toInt());
 		return QVariant(0);
 	case 0x756f:
 		cmdFoldRange(a.toLongLong(), b.toLongLong());
@@ -502,6 +585,10 @@ long long EditorEngine::cmdUllFrom10a0(long long v)
 	(void)v;
 	return 0;
 }
+
+// ---------------------------------------------------------------------------
+// Fifth batch: EXT block one-call leaves (0x4e23-0x4f04) + gotoLine
+// ---------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------
 // Level-1 dispatcher (0x00a5205e, 1113B): SCI fast range + two WT ids.
