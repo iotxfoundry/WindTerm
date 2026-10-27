@@ -8,7 +8,17 @@ WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批�
 层 ~95 方法,TerminalCore ~47 方法。批次②:DECSM/DECRM 完整 case 表
 (备用屏双缓冲、鼠标族、2004)、SGR 64 位状态机、SCS 字符集、ICH/DCH/
 IL/DL/DECIC/DECDC、DECDWL/DHL。批次③a:DECALN、VT52 四槽、DA/DSR 报告、
-zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%)。**四批+收官自动落码(批次③d 为 T1 转发自动生成,实现地址全引用;PLT 桩两处注明)。**SuperCommander 转写任务关闭。下一步候选:Screen.cpp 内 ~35 个 cited-stub 深挖(0x7a 行级 worker)、TextView 渲染层、其余类横扫**。
+zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%),行级 worker 已落码至
+单元格字节层。** 剩余 cited-stub 精确清单(下会话按此逐个击破):
+- TerminalCore: copyCell/buildBlankCell/writeCell(共用 FUN_007aa2e2)、
+  growRowArrays(0x7aa3a6)、setRowFlags(0x7a3dc0)、notifyChanged(0x7a4532)、
+  resetViewport(0x7a4aea)、clearMargins(0x7a4a98)、columnInRange(0x7a4970)、
+  setSgrState(0x7a45f6)、四个 rect worker(0x7a6d98/0x7a748e/0x7a721e/0x7a6eec)
+- Screen: pushLinesToScrollback 内循环(0x7e53b6)、sendResponse(0x7e66c6)、
+  setCell(0x7e4916)、switchPage(0x7ef11a)、prevTabstop(0x7e5ce4)、
+  saveDecMode/restoreDecMode 簿记、DECCRA 解析(0x7eb2f2)、
+  zmodemReceive QTimer 编排(0x7e676c)、报告族应答装配体
+- 方向候选: TextView 渲染层深潜、其余类横扫
 
 ## 环境状态(新会话先核对)
 
