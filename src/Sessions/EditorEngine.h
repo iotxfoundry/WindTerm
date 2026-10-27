@@ -53,6 +53,10 @@ public:
 	int m_intEa8;         // +0xea8 (0x864)
 	char m_gate1128;      // +0x1128 ([0x225]) — coordinate mode gate
 	int m_mod1118;        // +0x1118 ([0x223]) — column modulo base
+	bool m_flagD8c;       // +0xd8c (0x933/0x934 pair)
+	bool m_flagEc4;       // +0xec4 (0x950/0x951 pair)
+	int m_intEd8;         // +0xed8 (0x952 write + vt+0x160 / 0x953 read)
+	int m_intEac;         // +0xeac (0x966/0x967 pair)
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
 	                      // int table, 11-byte stride at 0x7f8)
 	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),

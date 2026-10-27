@@ -244,6 +244,9 @@ static long long objPosQuery(void *obj, long long pos) { (void)obj; (void)pos; r
 static void eA2c222(EditorEngine *e) { (void)e; }             // 0x936 chain
 static void sMarginNumber(EditorEngine *e) { (void)e; }       // s_margin_number
 static void sMarginTimestamp(EditorEngine *e) { (void)e; }    // s_margin_timestamp
+static bool styleZoomSet(void *styleCtx, int zoom) { (void)styleCtx; (void)zoom; return false; }  // FUN_009502a0
+static void marginRecalc(EditorEngine *e) { (void)e; }       // FUN_00a23c7a
+static void marginsTouch(EditorEngine *e) { (void)e; }        // s_margin_number + s_margin_timestamp wrapper
 static QVariant vtForward150(EditorEngine *e, uint cmd, const QVariant &a, const QVariant &b)
 { (void)e; (void)cmd; (void)a; (void)b; return QVariant(0); }  // vtable+0x150 pass-through
 
@@ -1136,30 +1139,43 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return QVariant(docLength(m_doc));
 	case 0x8e4:  // SCI 2276: FUN_00a3028e, args toULongLong
 		return t_call("t_00a3028e", this, a, b);
-	case 0x933:  // SCI 2355: complex leaf (inline) — hand pass pending
+	case 0x933:  // read +0xd8c
+		return QVariant(m_flagD8c);
+	case 0x934:  // write +0xd8c, change-detect + vtable+0xa0 repaint
+		if (m_flagD8c != a.toBool()) {
+			m_flagD8c = a.toBool();
+			vtA0Repaint();
+		}
 		return QVariant(0);
-	case 0x934:  // SCI 2356: complex leaf (inline) — hand pass pending
-		return QVariant(0);
-	case 0x945:  // SCI 2373: complex leaf (FUN_009502a0 FUN_00a23c7a s_margin_number_a302fe) — hand pass pending
+	case 0x945:  // zoom set: FUN_009502a0(engine+8, n); margins recalc +
+		// soft reset on change
+		if (styleZoomSet(m_styleCtx, a.toInt()))
+			marginRecalc(this);
+		marginsTouch(this);
+		sessionViewSoftReset(this);
 		return QVariant(0);
 	case 0x946:  // SCI 2374: FUN_00950294, args toInt
 		return t_call("t_00950294", this, a, b);
 	case 0x94c:  // SCI 2380: FUN_00a2d544, args toBool
 		return t_call("t_00a2d544", this, a, b);
-	case 0x950:  // SCI 2384: complex leaf (inline) — hand pass pending
+	case 0x950:  // write +0xec4
+		m_flagEc4 = a.toBool();
 		return QVariant(0);
-	case 0x951:  // SCI 2385: complex leaf (inline) — hand pass pending
+	case 0x951:  // read +0xec4
+		return QVariant(m_flagEc4);
+	case 0x952:  // write +0xed8 + vtable+0x160(1)
+		m_intEd8 = a.toInt();
+		vtCall(this, 0x160);
 		return QVariant(0);
-	case 0x952:  // SCI 2386: member write +0x1d6 (unmapped)
-		return QVariant(0);
-	case 0x953:  // SCI 2387: complex leaf (inline) — hand pass pending
-		return QVariant(0);
+	case 0x953:  // read +0xed8
+		return QVariant(m_intEd8);
 	case 0x961:  // EXT 2401: FUN_00a233b8, args no args
 		return t_call("t_00a233b8", this, a, b);
-	case 0x966:  // EXT 2406: complex leaf (inline) — hand pass pending
+	case 0x966:  // write +0xeac
+		m_intEac = a.toInt();
 		return QVariant(0);
-	case 0x967:  // EXT 2407: complex leaf (inline) — hand pass pending
-		return QVariant(0);
+	case 0x967:  // read +0xeac
+		return QVariant(m_intEac);
 	case 0x971:  // EXT 2417: FUN_009252f4, args toLongLong
 		return t_call("t_009252f4", this, a, b);
 	case 0x972:  // EXT 2418: FUN_009252f4, args toLongLong
