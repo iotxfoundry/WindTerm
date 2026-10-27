@@ -1,7 +1,7 @@
 #include "SuperCommander.h"
 #include "Screen.h"
 
-// 第一批转写:光标移动/擦除/滚动族(91 个真实现体)。
+// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(158 个真实现体)。
 // 三层洋葱:this -> m_screen(+0x80, 0x7e 层) -> TerminalCore(0x7a 层)。
 // 每体注明 moc 索引与实现地址;其余槽为后续批次占位。
 // 信号 5 个由 moc 生成不定义。phase-1 参考还原,不编译。
@@ -347,37 +347,41 @@ void SuperCommander::bell()
 void SuperCommander::repeatCharacter()
 {
 	// moc[127] -> 0x7e7cf6
-	// 未转写(后续批次)
+	m_screen->repeatCharacter(1);
 }
 
 void SuperCommander::repeatCharacter(int count)
 {
 	// moc[126] -> 0x7e7cf6
-	// 未转写(后续批次)
+	m_screen->repeatCharacter(count);
 }
 
 void SuperCommander::insertCharacter()
 {
 	// moc[56] -> 0x7e3ace
-	// 未转写(后续批次)
+	m_screen->insertCharacter(1);
+	// 缺省参 1,守卫在实现内
 }
 
 void SuperCommander::insertCharacter(int count)
 {
 	// moc[55] -> 0x7e3ace
-	// 未转写(后续批次)
+	m_screen->insertCharacter(count);
+	// 守卫在 core 实现内
 }
 
 void SuperCommander::deleteCharacter()
 {
 	// moc[21] -> 0x7e3784
-	// 未转写(后续批次)
+	m_screen->deleteCharacter(1);
+	// 缺省参 1,守卫在实现内
 }
 
 void SuperCommander::deleteCharacter(int count)
 {
 	// moc[20]
-	// 未转写(后续批次)
+	m_screen->deleteCharacter(count);
+	// 守卫在 core 实现内
 }
 
 void SuperCommander::eraseCharacter()
@@ -397,49 +401,57 @@ void SuperCommander::eraseCharacter(int count)
 void SuperCommander::insertLine()
 {
 	// moc[60] -> 0x7e3ae6
-	// 未转写(后续批次)
+	m_screen->insertLine(1);
+	// 缺省参 1,守卫在实现内
 }
 
 void SuperCommander::insertLine(int count)
 {
 	// moc[59] -> 0x7e3ae6
-	// 未转写(后续批次)
+	m_screen->insertLine(count);
+	// 守卫在 core 实现内
 }
 
 void SuperCommander::deleteLine()
 {
 	// moc[25] -> 0x7e379c
-	// 未转写(后续批次)
+	m_screen->deleteLine(1);
+	// 缺省参 1,守卫在实现内
 }
 
 void SuperCommander::deleteLine(int count)
 {
 	// moc[24] -> 0x7e379c
-	// 未转写(后续批次)
+	m_screen->deleteLine(count);
+	// 守卫在 core 实现内
 }
 
 void SuperCommander::insertColumn()
 {
 	// moc[58] -> 0x7e3ada
-	// 未转写(后续批次)
+	m_screen->insertColumn(1);
+	// 缺省参 1,守卫在实现内
 }
 
 void SuperCommander::insertColumn(int count)
 {
 	// moc[57] -> 0x7e3ada
-	// 未转写(后续批次)
+	m_screen->insertColumn(count);
+	// 守卫在 core 实现内
 }
 
 void SuperCommander::deleteColumn()
 {
 	// moc[23] -> 0x7e3790
-	// 未转写(后续批次)
+	m_screen->deleteColumn(1);
+	// 缺省参 1,守卫在实现内
 }
 
 void SuperCommander::deleteColumn(int count)
 {
 	// moc[22] -> 0x7e3790
-	// 未转写(后续批次)
+	m_screen->deleteColumn(count);
+	// 守卫在 core 实现内
 }
 
 void SuperCommander::eraseLine()
@@ -747,24 +759,24 @@ void SuperCommander::restoreCursor()
 void SuperCommander::setMode()
 {
 	// moc[221] -> 0x7edce6
-	// 未转写(后续批次)
+	m_screen->setMode(QString(), true);
 }
 
 void SuperCommander::setMode(int mode)
 {
 	// moc[220] -> 0x7edce6
-	// 未转写(后续批次)
+	m_screen->setMode(QString::number(mode), true);
 }
 
 void SuperCommander::resetMode()
 {
-	// 未转写(后续批次)
+	m_screen->setMode(QString(), false);
 }
 
 void SuperCommander::resetMode(int mode)
 {
 	// moc[153] -> 0x7edce6
-	// 未转写(后续批次)
+	m_screen->setMode(QString::number(mode), false);
 }
 
 void SuperCommander::requestMode(int mode)
@@ -776,31 +788,35 @@ void SuperCommander::requestMode(int mode)
 void SuperCommander::setDecMode()
 {
 	// moc[207] -> 0x7f5d2e
-	// 未转写(后续批次)
+	m_screen->setDecMode(QString(), true);
 }
 
 void SuperCommander::setDecMode(int mode)
 {
 	// moc[206] -> 0x7f5d2e
-	// 未转写(后续批次)
+	m_screen->setDecMode(QString::number(mode), true);
+	// 适配器 0x7c8d4c:FUN_007f5d2e(screen, mode, 1)
 }
 
 void SuperCommander::resetDecMode(int mode)
 {
 	// moc[149] -> 0x7f5d2e
-	// 未转写(后续批次)
+	m_screen->setDecMode(QString::number(mode), false);
+	// 适配器 0x7c8d3e
 }
 
 void SuperCommander::saveDecMode(int mode)
 {
 	// moc[164] -> 0x7f427a
-	// 未转写(后续批次)
+	m_screen->saveDecMode(QString::number(mode));
+	// 适配器 0x7c8d8a
 }
 
 void SuperCommander::restoreDecMode(int mode)
 {
 	// moc[158] -> 0x7f64a6
-	// 未转写(后续批次)
+	m_screen->restoreDecMode(QString::number(mode));
+	// 适配器 0x7c8d7e
 }
 
 void SuperCommander::requestDecMode(int mode)
@@ -812,43 +828,46 @@ void SuperCommander::requestDecMode(int mode)
 void SuperCommander::selectCharacterAttribute()
 {
 	// moc[185] -> 0x7eebd4
-	// 未转写(后续批次)
+	m_screen->selectCharacterAttribute(0);
 }
 
 void SuperCommander::selectCharacterAttribute(int attribute)
 {
 	// moc[184] -> 0x7eebd4
-	// 未转写(后续批次)
+	m_screen->selectCharacterAttribute(attribute);
 }
 
 void SuperCommander::selectGraphicRendition()
 {
 	// moc[187] -> 0x7ef95c
-	// 未转写(后续批次)
+	m_screen->selectGraphicRendition(QString());
 }
 
 void SuperCommander::selectGraphicRendition(int rendition)
 {
 	// moc[186] -> 0x7ef95c
-	// 未转写(后续批次)
+	m_screen->selectGraphicRendition(QString::number(rendition));
+	// 适配器 0x7c8de6 -> 0x7ef95c(SGR 位域状态机)
 }
 
 void SuperCommander::selectAttributeChangeExtent()
 {
 	// moc[183] -> 0x7e4e74
-	// 未转写(后续批次)
+	m_screen->selectAttributeChangeExtent();
 }
 
 void SuperCommander::selectAttributeChangeExtent(int extent)
 {
 	// moc[182] -> 0x7e4e74
-	// 未转写(后续批次)
+	m_screen->selectAttributeChangeExtent();
+	// 实现忽略 extent 参(适配器 0x7cc530)
 }
 
 void SuperCommander::reverseScreen()
 {
 	// moc[162] -> 0x7e4a94
-	// 未转写(后续批次)
+	m_screen->isReverseScreen();
+	// 取值函数(DECSCNM 标志)
 }
 
 void SuperCommander::changeAttributesInRectangularArea(const QString &area)
@@ -893,162 +912,180 @@ void SuperCommander::requestChecksumOfRectangularArea(const QString &area, int p
 void SuperCommander::select94CharacterSet(int count, int graphic)
 {
 	// moc[178] -> 0x7e4dbc
-	// 未转写(后续批次)
+	m_screen->select94CharacterSet(count, graphic);
+	// SCS:count 为槽字符,G0..G3
 }
 
 void SuperCommander::select96CharacterSet(int count, int graphic)
 {
 	// moc[179] -> 0x7e4e16
-	// 未转写(后续批次)
+	m_screen->select96CharacterSet(count, graphic);
+	// SCS:G1..G3 96 集
 }
 
 void SuperCommander::shiftSingleTwo()
 {
 	// moc[246] -> 0x7e5254
-	// 未转写(后续批次)
+	m_screen->shiftSingle(2);
+	// 适配器 0x7cd0c8
 }
 
 void SuperCommander::shiftSingleThree()
 {
 	// moc[247] -> 0x7e5254
-	// 未转写(后续批次)
+	m_screen->shiftSingle(3);
+	// 适配器 0x7cd0da
 }
 
 void SuperCommander::shiftLockingZero()
 {
 	// moc[245] -> 0x7e521c
-	// 未转写(后续批次)
+	m_screen->shiftLocking(true, 0);
+	// 适配器 0x7cd0b4:FUN_007e521c(p,1,0)
 }
 
 void SuperCommander::shiftLockingOne()
 {
 	// moc[239] -> 0x7e521c
-	// 未转写(后续批次)
+	m_screen->shiftLocking(true, 1);
+	// 0x7cd036
 }
 
 void SuperCommander::shiftLockingOneRight()
 {
 	// moc[240] -> 0x7e521c
-	// 未转写(后续批次)
+	m_screen->shiftLocking(false, 1);
+	// 0x7cd04c
 }
 
 void SuperCommander::shiftLockingTwo()
 {
 	// moc[243] -> 0x7e521c
-	// 未转写(后续批次)
+	m_screen->shiftLocking(true, 2);
+	// 0x7cd060
 }
 
 void SuperCommander::shiftLockingTwoRight()
 {
 	// moc[244] -> 0x7e521c
-	// 未转写(后续批次)
+	m_screen->shiftLocking(false, 2);
+	// 0x7cd076
 }
 
 void SuperCommander::shiftLockingThree()
 {
 	// moc[241] -> 0x7e521c
-	// 未转写(后续批次)
+	m_screen->shiftLocking(true, 3);
+	// 0x7cd08a
 }
 
 void SuperCommander::shiftLockingThreeRight()
 {
 	// moc[242] -> 0x7e521c
-	// 未转写(后续批次)
+	m_screen->shiftLocking(false, 3);
+	// 0x7cd0a0
 }
 
 void SuperCommander::assignUserPreferredSupplementalSet(int set, int type)
 {
 	// moc[8] -> 0x7e4ac2
-	// 未转写(后续批次)
+	m_screen->assignUserPreferredSupplementalSet(set, type);
 }
 
 void SuperCommander::singleLineWidth()
 {
 	// moc[248] -> 0x7e41e4
-	// 未转写(后续批次)
+	m_screen->setLineDoubleWidth(false);
+	// DECSWL,适配器 0x7cd0ec
 }
 
 void SuperCommander::doubleLineWidth()
 {
 	// moc[28] -> 0x7e41e4
-	// 未转写(后续批次)
+	m_screen->setLineDoubleWidth(true);
+	// DECDWL
 }
 
 void SuperCommander::doubleLineHeightTop()
 {
 	// moc[27] -> 0x7e4282
-	// 未转写(后续批次)
+	m_screen->setLineDoubleHeightTop(true);
+	// DECDHL 顶半行
 }
 
 void SuperCommander::doubleLineHeightBottom()
 {
 	// moc[26] -> 0x7e4236
-	// 未转写(后续批次)
+	m_screen->setLineDoubleHeightBottom(true);
+	// DECDHL 底半行
 }
 
 void SuperCommander::setAnsiConformanceLevelOne()
 {
 	// moc[194] -> 0x7e5b12
-	// 未转写(后续批次)
+	m_screen->setAnsiConformanceLevel(1);
 }
 
 void SuperCommander::setAnsiConformanceLevelTwo()
 {
 	// moc[195] -> 0x7e5b12
-	// 未转写(后续批次)
+	m_screen->setAnsiConformanceLevel(2);
 }
 
 void SuperCommander::setAnsiConformanceLevelThree()
 {
 	// moc[196] -> 0x7e5b12
-	// 未转写(后续批次)
+	m_screen->setAnsiConformanceLevel(3);
 }
 
 void SuperCommander::setConformanceLevel()
 {
-	// 未转写(后续批次)
+	m_screen->setConformanceLevel(0, 0);
 }
 
 void SuperCommander::setConformanceLevel(int level)
 {
 	// moc[201] -> 0x7eecc0
-	// 未转写(后续批次)
+	m_screen->setConformanceLevel(level, 0);
 }
 
 void SuperCommander::setConformanceLevel(int level, int type)
 {
 	// moc[200] -> 0x7eecc0
-	// 未转写(后续批次)
+	m_screen->setConformanceLevel(level, type);
 }
 
 void SuperCommander::select7BitC1Control()
 {
 	// moc[176] -> 0x7e5aec
-	// 未转写(后续批次)
+	m_screen->select7BitC1Control(false);
+	// 适配器 0x7cc4e4 传 0
 }
 
 void SuperCommander::select8BitC1Control()
 {
 	// moc[177] -> 0x7e5aec
-	// 未转写(后续批次)
+	m_screen->select7BitC1Control(true);
+	// 适配器 0x7cc4f2 传 1(共用实现)
 }
 
 void SuperCommander::exitAnsiMode()
 {
 	// moc[47] -> 0x7e88e8
-	// 未转写(后续批次)
+	m_screen->exitAnsiMode();
+	// 进入 VT52(FUN_007e87c8(p,0))
 }
 
 void SuperCommander::enterAltKeypadMode()
 {
 	// moc[33] -> 0x7e37e8
-	// 未转写(后续批次)
+	m_screen->enterAltKeypadMode();
 }
 
 void SuperCommander::exitAltKeypadMode()
 {
 	// moc[46] -> 0x7e3896
-	// 未转写(后续批次)
+	m_screen->exitAltKeypadMode();
 }
 
 void SuperCommander::refreshScreen()
@@ -1122,7 +1159,8 @@ void SuperCommander::adjustScreenAlignment()
 void SuperCommander::allowScrollback()
 {
 	// moc[6] -> 0x7e4036
-	// 未转写(后续批次)
+	m_screen->isScrollbackAllowed();
+	// 取值函数,槽调用丢弃返回值
 }
 
 void SuperCommander::setAllowScrollback(const QString &allowed)
@@ -1352,13 +1390,14 @@ void SuperCommander::requestKeyModifier(int modifier)
 
 void SuperCommander::setKeyModifier()
 {
-	// 未转写(后续批次)
+	m_screen->setKeyModifier();
 }
 
 void SuperCommander::setKeyModifier(int modifier)
 {
 	// moc[212] -> 0x7e5152
-	// 未转写(后续批次)
+	m_screen->setKeyModifier();
+	// 实现忽略参数(适配器 0x7cc872)
 }
 
 void SuperCommander::setKeyModifier(int modifier, int type)
@@ -1370,13 +1409,13 @@ void SuperCommander::setKeyModifier(int modifier, int type)
 void SuperCommander::resetKeyModifier()
 {
 	// moc[152] -> 0x7e498c
-	// 未转写(后续批次)
+	m_screen->resetKeyModifier();
 }
 
 void SuperCommander::resetKeyModifier(int modifier)
 {
 	// moc[151] -> 0x7e498c
-	// 未转写(后续批次)
+	m_screen->resetKeyModifier();
 }
 
 void SuperCommander::enableLocatorReports()
@@ -1416,7 +1455,7 @@ void SuperCommander::requestLocatorPosition(int mode)
 void SuperCommander::selectLocatorEvents(const QString &events)
 {
 	// moc[189] -> 0x7e4e80
-	// 未转写(后续批次)
+	m_screen->selectLocatorEvents(events);
 }
 
 void SuperCommander::highlightTracking(int mode, int type)
@@ -1504,13 +1543,13 @@ void SuperCommander::windowRows()
 void SuperCommander::startGuardedArea()
 {
 	// moc[249] -> 0x7e5278
-	// 未转写(后续批次)
+	m_screen->startGuardedArea();
 }
 
 void SuperCommander::endGuardedArea()
 {
 	// moc[32] -> 0x7e37dc
-	// 未转写(后续批次)
+	m_screen->endGuardedArea();
 }
 
 void SuperCommander::mediaCopy()
@@ -1599,7 +1638,8 @@ void SuperCommander::option(const QString &name)
 void SuperCommander::checkControlCharacter()
 {
 	// moc[15] -> 0x7e3568
-	// 未转写(后续批次)
+	m_checkControlChars = true;
+	// 适配器 0x7cadda 直写 Commander+0x101,不经 Screen
 }
 
 void SuperCommander::dataType()
@@ -1671,5 +1711,6 @@ void SuperCommander::zmodemReceive()
 void SuperCommander::bracketedPasteMode()
 {
 	// moc[12] -> 0x7e355a
-	// 未转写(后续批次)
+	m_screen->isBracketedPaste();
+	// 取值函数(DEC 2004 标志)
 }

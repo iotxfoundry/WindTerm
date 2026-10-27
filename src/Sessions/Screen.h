@@ -99,8 +99,89 @@ public:
 	void pushLinesToScrollback(int count);     // FUN_007e53b6
 	void clearScrollback();                    // FUN_0091318c (ED 3)
 
+	// --- mode flags (Screen offsets, set by setDecMode/setMode) ------------
+	bool m_keypadNumericMode;      // +0xf0 (DECKPAM/DECKPNM, alt-keypad inverse)
+	bool m_cursorKeyMode;          // +0xf1 (DECCKM)
+	bool m_altScreenEnabled;       // +0x118 (DEC 1046)
+	bool m_leftRightMarginEnabled; // +0x11a (DECLRMM, DEC 69)
+	bool m_scrollbackEnabled;      // +0x11c (FUN_007e4f1c)
+	bool m_nrcMode;                // +0x11b (DECNRCM, DEC 42)
+	bool m_guardedArea;            // +0x121 (DECSACE start/end)
+	bool m_1046Flag;               // +0x122 (set with DECCOLM path)
+	bool m_bracketedPaste;         // +0x120 (DEC 2004, FUN_007e355a)
+	bool m_reverseWraparound2;     // +0x134 note: shared with reverse wrap (DEC 45)
+	bool m_smoothScrollInv;        // +0x136 (DEC 4, inverted)
+	bool m_c1Control8Bit;          // +0x137 (DEC 7/8-bit C1)
+	bool m_reverseScreenMode;      // +0x133 (DECSCNM, getter FUN_007e4a94)
+	bool m_eraseModeFlag;          // +0x129 (ANSI SM/RM 6, read by eraseCells)
+	bool m_insertMode;             // +0x12a (IRM, ANSI 4)
+	bool m_kamMode;                // +0x12b (ANSI 2)
+	bool m_srmModeInv;             // +0x12c (ANSI 12, inverted)
+	bool m_autoRepeatKeys;         // +0x119 (DEC 8)
+	bool m_colModeAllowed;         // +0x11d (DEC 40)
+	bool m_focusedReport;          // +0x142 (DEC 1004)
+	bool m_mouseUtf8;              // +0x145 (DEC 1005)
+	bool m_mouseSgr;               // +0x144 (DEC 1006)
+	bool m_mouseAltScroll;         // +0x141 (DEC 1007)
+	bool m_mouseUrxvt;             // +0x143 (DEC 1015)
+	bool m_mouseX10;               // +0x146 (DEC 9)
+	bool m_mouseNormal;            // +0x14a (DEC 1000)
+	bool m_mouseHighlight;         // +0x149 (DEC 1001)
+	bool m_mouseButton;            // +0x148 (DEC 1002)
+	bool m_mouseAny;               // +0x147 (DEC 1003)
+	bool m_printFormFeedInv;       // +0x132 (DEC 18, inverted)
+	bool m_printExtentInv;         // +0x131 (DEC 19, inverted)
+	bool m_lastGraphicChar;        // +0x114 (UCS4, repeatCharacter)
+	int  m_palette;                // +0xd0 (color table, FUN_007e3578)
+	void *m_keymap;                // +0xf8 (key modifier object)
+	char m_locatorEventMode;       // +0x160.. +0x162 (DEC locator events)
+	char m_locatorArg;
+	TerminalCore *m_altCore;       // +0x88 note: alternate-screen core
+	TerminalCore *m_savedPrimary;  // +0x90 (primary core while on alt screen)
+	void *m_savedDecModes;         // +0xc0 (saveDecMode container)
+
+	// --- batch 2: DEC/ANSI modes, charset, SGR, insert/delete ----------------
+	void setDecMode(const QString &modes, bool on);   // FUN_007f5d2e
+	void setMode(const QString &modes, bool on);      // FUN_007edce6 (SM/RM)
+	void saveDecMode(const QString &modes);           // FUN_007f427a
+	void restoreDecMode(const QString &modes);        // FUN_007f64a6
+	void switchToAlternateScreen(bool on, bool saveCursor);  // FUN_007f5b70
+	void select7BitC1Control(bool on);                // FUN_007e5aec
+	void select94CharacterSet(char slot, const QString &name);   // FUN_007e4dbc
+	void select96CharacterSet(char slot, const QString &name);   // FUN_007e4e16
+	void assignUserPreferredSupplementalSet(int which, const QString &name);  // FUN_007e4ac2
+	void selectGraphicRendition(const QString &params);  // FUN_007ef95c
+	void selectCharacterAttribute(int attr);             // FUN_007eebd4
+	void setConformanceLevel(int a, int b);              // FUN_007eecc0
+	void setAnsiConformanceLevel(int level);             // FUN_007e5b12
+	void selectAttributeChangeExtent();                  // FUN_007e4e74
+	void insertCharacter(int count);   // FUN_007e3ace -> FUN_007a6782
+	void insertColumn(int count);      // FUN_007e3ada -> FUN_007a6822
+	void insertLine(int count);        // FUN_007e3ae6 -> FUN_007a5290
+	void deleteCharacter(int count);   // FUN_007e3784 -> FUN_007a65d2
+	void deleteColumn(int count);      // FUN_007e3790 -> FUN_007a6672
+	void deleteLine(int count);        // FUN_007e379c -> FUN_007a5220
+	void repeatCharacter(int count);   // FUN_007e7cf6
+	void exitAnsiMode();               // FUN_007e88e8 (enter VT52)
+	void setLineDoubleWidth(bool on);  // FUN_007e41e4 (DECDWL, row bit3)
+	void setLineDoubleHeightTop(bool on);   // FUN_007e4282 (row bit4)
+	void setLineDoubleHeightBottom(bool on);// FUN_007e4236 (row bit5)
+	void setAllowScrollback(bool on);      // FUN_007e4f1c
+	bool isBracketedPaste() const;         // FUN_007e355a
+	bool isReverseScreen() const;          // FUN_007e4a94
+	void startGuardedArea();               // FUN_007e5278
+	void endGuardedArea();                 // FUN_007e37dc
+	void enterAltKeypadMode();             // FUN_007e37e8
+	void exitAltKeypadMode();              // FUN_007e3896
+	void enableLocatorReports(int mode, int arg);  // FUN_007e37a8
+	void selectLocatorEvents(const QString &list); // FUN_007e4e80
+	void setKeyModifier();                 // FUN_007e5152
+	void resetKeyModifier();               // FUN_007e498c
+	void shiftLocking(bool right, int n);  // FUN_007e521c
+	void shiftSingle(int n);               // FUN_007e5254
+	int  paletteColor(int index) const;    // FUN_007e3578
+
 	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
-	void setDecMode(const char *mode, bool on);      // FUN_007f5d2e
 	int currentCursorStyle() const;                  // FUN_007e36aa
 	void notifyCursorStyle(void *cursor, int shape); // FUN_00913592
 	void setCursorVisible(bool on);                  // FUN_007e506a
@@ -108,6 +189,32 @@ public:
 	void markRowErased(int row);                     // FUN_007e41ca
 	void *buildFillAux();                            // FUN_007e4c90
 	void parseRect(const QString &area, int *top, int *left, int *bottom, int *right);  // FUN_007eaeee
+	QStringList splitParams(const QString &params) const;   // QByteArray::split path
+	bool protocolExtCapable() const;      // FUN_007e2c72(+0x58)
+	bool protocolAltCapable() const;      // FUN_007e2c6a(+0x58)
+	int protocolLevel() const;            // FUN_007e5ad0
+	int charsetLookup(const QString &name, bool set96);  // FUN_00802a26
+	void setUserPreferredCharset(int setId);              // FUN_00801a3e
+	int paletteBright(int index) const;   // FUN_007e358e
+	unsigned int rgbFromRgb(int r, int g, int b) const;   // FUN_007e35c8
+	const char *sgrKey();                 // DAT_011c2088 (0xdca26230091f1ca6)
+	const char *attrKey();                // DAT_011c2098 (SGR attr key)
+	const char *conformanceKey();         // DAT_011c2068 (0x5b3b8ddd279e6bf4)
+	void applyNamedAttribute(const char *key, const QString &value);  // FUN_007ee9e2
+	void setAttributeEnabled(int on);     // FUN_007e51ca
+	void notifyNamedAttribute(const char *key, const QString &value);
+	void reportUnsupported(const QString &message);       // FUN_007eefbe
+	void setScrollbarVisible(bool on);    // FUN_007e51e6
+	void resizeScreen(int rows, int cols, int flag);      // FUN_007e5688
+	void notifyMouseMode(bool on);        // thunk FUN_009131c8 (arg 4)
+	void notifyReverseScreen();           // FUN_009134d0
+	void notifyModeChange();              // FUN_00913178
+	void enterVt52(int mode);             // FUN_007e87c8
+	void writeText(const QString &text);  // FUN_007e6f42
+	void clearWrapLatch();                // FUN_007e515e
+	void markLocatorChanged();            // FUN_007e2f3e
+	void keymapSetModifier(void *keymap);   // FUN_007a2c94
+	void keymapResetModifier(void *keymap); // FUN_007a2c02
 };
 
 #endif // SCREEN_H

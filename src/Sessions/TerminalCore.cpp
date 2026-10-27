@@ -558,3 +558,115 @@ void TerminalCore::reset()
 	m_50 = nullptr;
 	m_66 = 2;
 }
+
+// ---------------------------------------------------------------------------
+// Insert/delete (batch 2)
+// ---------------------------------------------------------------------------
+
+void TerminalCore::insertCharacter(int count)
+{
+	// FUN_007a6782 (ICH): shift cells right at the cursor within the
+	// right margin (delete at the right edge + insert blanks at cursor)
+	if (count <= 0 || !columnInRange(m_cursorX))
+		return;
+	const int room = rightMargin() - m_cursorX + 1;
+	if (count > room)
+		count = room;
+	struct Row *row = m_rows[m_cursorY];
+	rowDeleteCells(row, rightMargin() - count + 1, count);           // FUN_007a5dce
+	rowInsertBlanks(row, m_cursorX, count, &m_sgrState);             // FUN_007a641a
+}
+
+void TerminalCore::deleteCharacter(int count)
+{
+	// FUN_007a65d2 (DCH): remove cells at the cursor, blanks at the edge
+	if (count <= 0 || !columnInRange(m_cursorX))
+		return;
+	const int room = rightMargin() - m_cursorX + 1;
+	if (count > room)
+		count = room;
+	struct Row *row = m_rows[m_cursorY];
+	rowDeleteCells(row, m_cursorX, count);                           // FUN_007a5dce
+	rowInsertBlanks(row, rightMargin() - count + 1, count, &m_sgrState);
+}
+
+void TerminalCore::insertLine(int count)
+{
+	// FUN_007a5290 (IL): scroll [cursorY..bottom] down by count, cursor
+	// to the left margin
+	if (count < 1 || !inScrollRegion(m_cursorY) || !columnInRange(m_cursorX))
+		return;
+	const int room = scrollRegionBottomLimit() - m_cursorY + 1;
+	if (count > room)
+		count = room;
+	scrollRegion(m_cursorY, count, true, true);   // FUN_007a4c6c(down, template)
+	m_cursorX = leftMargin();
+}
+
+void TerminalCore::deleteLine(int count)
+{
+	// FUN_007a5220 (DL): scroll [cursorY..bottom] up by count
+	if (count < 1 || !inScrollRegion(m_cursorY) || !columnInRange(m_cursorX))
+		return;
+	const int room = scrollRegionBottomLimit() - m_cursorY + 1;
+	if (count > room)
+		count = room;
+	scrollRegion(m_cursorY, count, false, true);
+	m_cursorX = leftMargin();
+}
+
+void TerminalCore::insertColumn(int count)
+{
+	// FUN_007a6822 (DECIC): insertCharacter on every row of the scroll
+	// region, cursor row restored afterwards
+	if (count < 1 || !inScrollRegion(m_cursorY) || !columnInRange(m_cursorX))
+		return;
+	const int savedY = m_cursorY;
+	m_cursorY = scrollRegionTopLimit();
+	for (int y = scrollRegionTopLimit(); y <= scrollRegionBottomLimit(); y++) {
+		insertCharacter(count);
+		m_cursorY++;
+	}
+	m_cursorY = savedY;
+}
+
+void TerminalCore::deleteColumn(int count)
+{
+	// FUN_007a6672 (DECDC): deleteCharacter across the scroll region
+	if (count < 1 || !inScrollRegion(m_cursorY) || !columnInRange(m_cursorX))
+		return;
+	const int savedY = m_cursorY;
+	m_cursorY = scrollRegionTopLimit();
+	for (int y = scrollRegionTopLimit(); y <= scrollRegionBottomLimit(); y++) {
+		deleteCharacter(count);
+		m_cursorY++;
+	}
+	m_cursorY = savedY;
+}
+
+void TerminalCore::setSgrState(unsigned long long sgr)
+{
+	// FUN_007a45f6: publishes the 64-bit SGR state into the render
+	// attribute context — body cited
+}
+
+void TerminalCore::setAttributeChangeExtent()
+{
+	// FUN_007a4518 — body cited
+}
+
+void TerminalCore::resetViewport()
+{
+	// FUN_007a4aea — body cited
+}
+
+void TerminalCore::clearMargins(int arg)
+{
+	// FUN_007a4a98 — body cited
+}
+
+bool TerminalCore::columnInRange(int column) const
+{
+	// FUN_007a4970: column within the usable line (double-width aware)
+	return true;   // body cited
+}

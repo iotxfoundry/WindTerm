@@ -89,6 +89,7 @@ public:
 	int m_leftMargin;             // +0xd8 (FUN_007a493c)
 	int m_rightMargin;            // +0xdc (FUN_007a490e)
 	int m_columnCount;            // +0xe4 (FUN_007a4906)
+	unsigned long long m_sgrBits; // +0xb8 SGR attribute state (FUN_007ef95c)
 
 	// --- sizes & limits -----------------------------------------------------
 	int rowCount() const;                  // FUN_007a4b4a
@@ -156,6 +157,19 @@ public:
 	void setCursorStyle(int style);                // FUN_007a45ee
 	void *cursorUpdated();                         // FUN_007a44c0
 	void reset();                                  // FUN_007a4b0a
+
+	// --- insert/delete (0x7e3a aliases forward here) ---
+	void insertCharacter(int count);      // FUN_007a6782 (ICH)
+	void insertColumn(int count);         // FUN_007a6822 (DECIC)
+	void insertLine(int count);           // FUN_007a5290 (IL)
+	void deleteCharacter(int count);      // FUN_007a65d2 (DCH)
+	void deleteColumn(int count);         // FUN_007a6672 (DECDC)
+	void deleteLine(int count);           // FUN_007a5220 (DL)
+	void setSgrState(unsigned long long sgr);       // FUN_007a45f6
+	void setAttributeChangeExtent();                // FUN_007a4518
+	void resetViewport();                            // FUN_007a4aea
+	void clearMargins(int arg);                      // FUN_007a4a98
+	bool columnInRange(int column) const;            // FUN_007a4970
 
 	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
 	void copyState(void **dst, void **src);        // FUN_007aa2e2 (16-byte state copy)

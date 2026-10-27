@@ -4,10 +4,12 @@
 
 ## 一句话状态
 
-WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一批转写已完成**:
-`SuperCommander.cpp` 91 个真实现体(光标/擦除/滚动/制表/边距/DECSC-DECRC),
-配套新层 `Screen.h/.cpp`(0x7e 层 30 方法)与 `TerminalCore` 扩展(0x7a 层
-~30 方法)。**下一批:②DEC 模式/字符集/SGR 族(剩余 ~168 占位体)**。
+WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二批转写已完成**:SuperCommander.cpp 158 个真实现体,Screen 层
+~80 方法,TerminalCore ~45 方法。批次②内容:DECSM/DECRM 完整 case 表
+(备用屏双缓冲 1046/1047/1049、鼠标 9/1000-1007/1015/2004)、SCS 94/96
+字符集槽、SGR 64 位属性状态机(core+0xb8 位域)、ICH/DCH/IL/DL/DECIC/
+DECDC、DECDWL/DHL 行标志。**剩余 ~101 占位体:批次③报告类/locator/
+zmodem/杂项**。
 
 ## 环境状态(新会话先核对)
 
@@ -27,10 +29,9 @@ WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一批转写已完
 `SuperCommander.cpp` 由 `/tmp/opencode/gen_sc.py` 生成(B 表按 (名,参数数)
 键控;生成脚本在会话 /tmp,重写很快——B 表映射见 cpp 内注释即可重建)。
 
-批次 ②:DEC 模式(setDecMode 0x7f5d2e 等 0x7f 段)、字符集
-(select94/96CharacterSet 0x7e4dbc/0x7e4e16)、SGR(selectGraphicRendition
-0x7ef95c 0x7ef 段)、insert/delete 行字符族(0x7e3a 段)。
-批次 ③:报告类/locator/zmodem。
+批次 ③(剩余):报告类(reportDevice*/request* 0x7ea8-0x7f35 段)、
+locator 交互、zmodem(0x7e67/0x7e68)、mediaCopy、notify* 家族、
+setColumnsPerPage/refreshScreen 等杂项。
 
 转写方法(已验证):
 1. 查 `SUPERCOMMANDER-IMPL.md`(264 行,方法→实现地址→模板)

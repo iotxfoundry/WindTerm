@@ -24,6 +24,9 @@ public:
 	// +0x80: the VT screen (onion: this -> Screen(+0x80) -> TerminalCore)
 	Screen *m_screen;
 
+protected:
+	bool m_checkControlChars;   // +0x101 (adapter 0x7cadda writes it directly)
+
 signals:
 	void charsetChanged(const QString &name);
 	void shellCwdChanged(const QString &info);
