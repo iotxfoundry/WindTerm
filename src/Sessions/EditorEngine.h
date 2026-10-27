@@ -71,6 +71,9 @@ public:
 	bool m_flag1082;      // +0x1082 (0x75f1, +8 style ctx write + reset)
 	int m_int10d8;        // +0x10d8 ([0x21b]) — 0xa3f default
 	int m_intE88;         // +0xe88 ([0x1d1]) — 0xa47 read
+	int m_intD04;         // +0xd04 (FUN_00a20430)
+	unsigned m_flagsFd0;  // +0xfd0 — OR-accumulated flags (FUN_00a243ae)
+	void *m_zoomObj;      // +0xe00 — zoom sub-object (FUN_009502a0 chain)
 	long m_zoomReal;      // +0xd10 ([0x1a2]) fractional zoom (0x7567)
 	void *m_obj10b0;      // +0x10b0 ([0x216]) — 0x75a3 selection op target
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot

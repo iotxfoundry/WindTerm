@@ -25,11 +25,29 @@ static void gotoPositionImpl(EditorEngine *e, long long pos)
 { (void)e; (void)pos; }                              // FUN_00a26f32
 static bool docMark(EditorEngine *e, void *doc, long long pos, bool mode2)
 { (void)e; (void)doc; (void)pos; (void)mode2; return false; }  // FUN_0092f0f6
-static void objTouch(void *obj) { (void)obj; }       // FUN_0095cc7e
+static void objTouch(void *obj)
+{
+	// FUN_0095cc7e (29B): FUN_0095cc6a(obj, 0, docLength(*(obj+8)), 0)
+	// — full-range touch of the object using the +8 doc's length
+	(void)obj;
+}
 static void sessionViewSoftReset(EditorEngine *e) { (void)e; }  // 0x8a4/0x8a5 共用
-static void notifyFlag10(EditorEngine *e) { (void)e; }  // FUN_00a243ae(e, 0x10)
+static void notifyFlag10(EditorEngine *e)
+{
+	// FUN_00a243ae (7B): *(uint*)(engine+0xfd0) |= flags (call passes 0x10)
+	e->m_flagsFd0 |= 0x10;
+}
 static int docTabSize(EditorEngine *e) { (void)e; return 1; }  // *(doc+0x270)
-static void docSetTabSize(EditorEngine *e, int n) { (void)e; (void)n; }  // FUN_00925338
+static void docSetTabSize(EditorEngine *e, int n)
+{
+	// FUN_00925338 (26B): n>0 writes doc+0x270; a +0x278 flag mirrors
+	// it into doc+0x260 (the 0x7584/0x75c2 read pair)
+	if (n > 0) {
+		*(int *)((char *)e->m_doc + 0x270) = n;
+		if (*(char *)((char *)e->m_doc + 0x278) != '\0')
+			*(int *)((char *)e->m_doc + 0x260) = n;
+	}
+}
 // EXT one-call thunks (addresses = the leaf implementations)
 static void eA237a6(EditorEngine *e) { (void)e; }             // 0x4ecd activateNextSelection
 static void eA23808(EditorEngine *e) { (void)e; }             // 0x4ece activatePreviousSelection
@@ -111,7 +129,12 @@ static long long docOp92814a(void *doc) { (void)doc; return 0; }  // 0x7ec
 static void eA1f7be(EditorEngine *e) { (void)e; }             // 0x7f8 chain
 static void eA22c4e(EditorEngine *e, int n) { (void)e; (void)n; }  // 0x7f8 chain
 static void styleCtxTouch(void *ctx) { (void)ctx; }           // FUN_009501b0 (e+8)
-static int hitTestOffset(void *ctx) { (void)ctx; return 0; }   // FUN_0095019c (e+8)
+static int hitTestOffset(void *ctx)
+{
+	// FUN_0095019c (19B): ctx = engine+8; the +0xd38 (ctx-relative) flag
+	// gates the +0xd34 offset read (else 0)
+	return *(char *)((char *)ctx + 0xd38) ? 0 : *(int *)((char *)ctx + 0xd34);
+}
 static long long hitTestResolve(void *out)
 {
 	// FUN_0096bbc0 (5B): *(ll*)(holder + 8) — value slot of the
@@ -240,11 +263,23 @@ static void eA21d26(EditorEngine *e, long long a, long long b, int c) { (void)e;
 static void insertAtEnd(EditorEngine *e, unsigned long long pos, long long extra) { (void)e; (void)pos; (void)extra; }  // 0x8ea FUN_00a287f8(-1,...)
 static void eA218f6(EditorEngine *e, long long a, long long b) { (void)e; (void)a; (void)b; }  // 0x8f0
 static long long editorTextLength(void *obj) { (void)obj; return 0; }  // editor_textLength (+0x10a0)
-static long long objPosQuery(void *obj, long long pos) { (void)obj; (void)pos; return 0; }  // 0x92e FUN_00958498
+static long long objPosQuery(void *obj, long long pos)
+{
+	// FUN_00958498 (46B): three-path position resolve — the +0x1128
+	// gate takes FUN_0095846c; a non-zero obj[0x2c] (+0x160) takes
+	// skiprunstyles_run_lookup; else FUN_00925200(obj[1]) line start
+	(void)obj; (void)pos;
+	return 0;
+}
 static void eA2c222(EditorEngine *e) { (void)e; }             // 0x936 chain
 static void sMarginNumber(EditorEngine *e) { (void)e; }       // s_margin_number
 static void sMarginTimestamp(EditorEngine *e) { (void)e; }    // s_margin_timestamp
-static bool styleZoomSet(void *styleCtx, int zoom) { (void)styleCtx; (void)zoom; return false; }  // FUN_009502a0
+static bool styleZoomSet(void *styleCtx, int zoom)
+{
+	// FUN_009502a0 (14B): forwards to FUN_009b977a(zoom(e+0xe00), zoom, 0)
+	(void)styleCtx; (void)zoom;
+	return false;
+}
 static void marginRecalc(EditorEngine *e) { (void)e; }       // FUN_00a23c7a
 static void marginsTouch(EditorEngine *e) { (void)e; }        // s_margin_number + s_margin_timestamp wrapper
 static void docOp92a49e(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x9a2
@@ -255,23 +290,56 @@ static void docOp925df0(void *doc) { (void)doc; }            // 0x9e8
 static void caretChangeShape(EditorEngine *e, int shape) { (void)e; (void)shape; }  // caret_changeShape (0x753d)
 static void eA204a0(EditorEngine *e, double d) { (void)e; (void)d; }  // 0x7541 FUN_00a204a0
 static bool docCap8(void *doc) { (void)doc; return false; }  // 0x754f FUN_009305e6(doc, 8)
-static void docFlag927dbe(void *doc) { (void)doc; }          // 0x7558 (FUN_00927dbe recalc)
+static void docFlag927dbe(void *doc)
+{
+	// FUN_00927dbe (30B): undo(doc+0xe8) op via thunk_FUN_009b3978,
+	// then FUN_00927d02(doc, 1) — state mirror refresh
+}
 static void eA29014(void *out, EditorEngine *e) { (void)out; (void)e; }  // 0x755e
 static void eA2d648(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x7563
 static bool objRunStyleGet2(void *obj, void *node) { (void)obj; (void)node; return false; }  // 0x7576 FUN_0095c92c
 static void editorGetSelRange(EditorEngine *e) { (void)e; }  // editor_getSelRange (0x7581)
 static void eA28316(EditorEngine *e, int cmd) { (void)e; (void)cmd; }  // FUN_00a28316(e, cmd, sp)
 static int docInt260(void *doc) { (void)doc; return 0; }    // *(int*)(doc+0x260) (0x7584)
-static int hitTestAtPoint(EditorEngine *e, int x, int y) { (void)e; (void)x; (void)y; return 0; }  // 0x758f FUN_00a2a982
-static int eA20430(EditorEngine *e) { (void)e; return 0; }  // 0x75ae FUN_00a20430
-static void eA167ac2(void *obj, long long v) { (void)obj; (void)v; }  // 0x75b5 kind 2 (FUN_00a167ac)
+static int hitTestAtPoint(EditorEngine *e, int x, int y)
+{
+	// FUN_00a2a982 (44B): FUN_00a2a8c4() resolves a margin index; the
+	// answer reads a low nibble at marginNode(+0xd58) + idx*0x18 + 10
+	// (x/y ride along in registers)
+	(void)e; (void)x; (void)y;
+	return 0;
+}  // 0x758f FUN_00a2a982
+static int eA20430(EditorEngine *e)
+{
+	// FUN_00a20430 (7B): *(int*)(engine+0xd04)
+	return e->m_intD04;
+}
+static void eA167ac2(void *obj, long long v)
+{
+	// FUN_00a167ac (42B): virtual call on the +0x18 sub-object (vtable
+	// +0xe0, arg 2) -> pointer; hit -> FUN_00584bd8(ptr, v)
+	(void)obj; (void)v;
+}  // 0x75b5 kind 2 (FUN_00a167ac)
 static bool eA28fa8(EditorEngine *e) { (void)e; return false; }  // 0x75bf
 static QRect posToRect(EditorEngine *e, long long pos) { (void)e; (void)pos; return QRect(); }  // 0x75d4 FUN_00a2267c
-static int eA218dc(EditorEngine *e) { (void)e; return 0; }  // 0x75d9 FUN_00a218dc
+static int eA218dc(EditorEngine *e)
+{
+	// FUN_00a218dc (11B): *(int*)(obj(e+0x10a0) + 0x14)
+	return *(int *)((char *)e->m_obj10a0 + 0x14);
+}
 static void eA245c6(EditorEngine *e, int cur, int v) { (void)e; (void)cur; (void)v; }  // 0x75d9 FUN_00a245c6
 static bool styleZoomSet2(void *styleCtx, unsigned long long v) { (void)styleCtx; (void)v; return false; }  // 0x4e75 FUN_00951844
-static long long docOp927600(void *doc) { (void)doc; return 0; }  // 0x4ebb FUN_00927600
-static bool docFlag926dfc(void *doc) { (void)doc; return false; }  // 0x4efd FUN_00926dfc
+static long long docOp927600(void *doc)
+{
+	// FUN_00927600 (12B): forwards doc+0xe0 to FUN_009975c2 (tail call
+	// keeps the return); the +0xe0 sub-object is the 0x75a7 partner
+	return 0;
+}  // 0x4ebb FUN_00927600
+static bool docFlag926dfc(void *doc)
+{
+	// FUN_00926dfc (12B): *(ll*)(doc+0xc0) != 0
+	return *(long long *)((char *)doc + 0xc0) != 0;
+}
 static QVariant eColorRead(EditorEngine *e, const QByteArray &key) { (void)e; (void)key; return QVariant(); }  // 0x75e6 "line.caret.remote"
 static QPoint ePointMap(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return QPoint(); }  // 0x75e9 FUN_00a2a002
 static int ePointQuery(EditorEngine *e, const QPoint &p) { (void)e; (void)p; return 0; }  // 0x75eb FUN_00a2b7fc
@@ -295,7 +363,12 @@ static void insertRange2(EditorEngine *e, int f, void *n) { (void)e; (void)f; (v
 static void insertRange3(EditorEngine *e, int f, void *n) { (void)e; (void)f; (void)n; }      // FUN_00a20082
 static void selRangeMake(void *out, void *a, void *b, int m) { (void)out; (void)a; (void)b; (void)m; }  // FUN_0096be24
 static void selRangeApply(EditorEngine *e, void *r) { (void)e; (void)r; }  // FUN_00a20fb0
-static void selRangeFree(void *r) { (void)r; }               // FUN_0096bd50
+static void selRangeFree(void *r)
+{
+	// FUN_0096bd50 (23B): frees the range's two inner nodes (+0x20, +8)
+	// via the FUN_0096bb02 no-op dtor
+	(void)r;
+}
 static void eA2373a(EditorEngine *e, int v) { (void)e; (void)v; }  // 0xa0e
 static QVariant vtForward150(EditorEngine *e, uint cmd, const QVariant &a, const QVariant &b)
 { (void)e; (void)cmd; (void)a; (void)b; return QVariant(0); }  // vtable+0x150 pass-through
