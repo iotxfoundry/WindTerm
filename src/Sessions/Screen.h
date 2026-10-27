@@ -68,6 +68,8 @@ public:
 	int m_palette;                // +0xd0 (color table, FUN_007e3578)
 	unsigned *m_brightBitset; // +0xd8 payload
 	bool m_scrollbarVisible; // +0x135
+	void *m_view;            // +0x10 view object (write-back vtable +0x70/+0x78)
+	long m_lastBellSecs;     // +0xa8 bell rate-limit timestamp (epoch secs)
 	int m_protocol; // +0x20
 	int m_protocolCache; // +0x124
 	void *m_sessionParams; // +0x58
@@ -238,7 +240,7 @@ public:
 	void notifyOsc(int kind, const QString &payload);   // 0x4c3290 (split PLT path)
 	void notifyRemoteDirectory(const QString &directory); 	// 0x7cd366
 	void notifyReverseScreen();            // FUN_009134d0
-	void notifyScrollbar();                // FUN_00913508
+	void notifyScrollbar(bool visible);       // FUN_00913508 (Screen signal 20)
 	void notifyZmodem(int a, int b);             // FUN_0091378a
 	void option(const QString &name); 	// 0x7d5538
 	int originBottom() const;           // FUN_007e48b0 -> FUN_007a5304

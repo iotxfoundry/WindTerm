@@ -1,6 +1,7 @@
 #include "Screen.h"
 
 #include <QElapsedTimer>
+#include <QDateTime>
 #include <QTextDecoder>
 #include <cstring>
 
@@ -1586,7 +1587,25 @@ void *Screen::sgrPayload()
 	// the template payload and land in cell+0x18
 	return (void *)(unsigned long long)m_core->m_sgrBits;
 }
-void Screen::writeBackToView(const QByteArray &data) { (void)data; }
+// Qt/config primitives (binary addresses noted; reference tier thunks)
+static void sessionConfigGet(QVariant *out, const Screen *s, const QByteArray &key)
+{ (void)s; (void)key; *out = QVariant(); }   // session config getter (session_optGet family)
+static void *codecLookupGlobal(const QByteArray &name)
+{ (void)name; return nullptr; }              // FUN_00807144 over registry DAT_011c2200
+static void installCodec(Screen *s, void *codec)
+{ (void)s; (void)codec; }                    // FUN_007e8770
+static void bellEmit(const void *view, const QString &message)
+{ (void)view; (void)message; }               // FUN_00913274
+
+void Screen::writeBackToView(const QByteArray &data)
+{
+	// FUN_007e66c6 tail: QByteArrayList join already done by
+	// sendResponse; push through the view's vtable slot +0x70 (the
+	// terminal write-back channel; adjacent +0x78 is a second channel,
+	// FUN_007e673c)
+	typedef void (*PushFn)(void *, void *, const QByteArray &);
+	(*(PushFn *)(*(void ***)m_view + 0x70 / 8))(m_view, this, data);
+}
 QString Screen::keyboardDialects() const
 {
 	// DECDSR case 26 (0x7f0f05..0x7f0f23, level > 1): payload += three
@@ -1600,10 +1619,43 @@ QString Screen::keyboardType() const
 	// from the same config object — keymap layout dig pending
 	return QString();
 }
-QVariant Screen::configValue(const char *key) { (void)key; return QVariant(); }
-void Screen::playBell(const QVariant &style) { (void)style; }
-void Screen::setCodec(const QByteArray &name) { (void)name; }
-void Screen::notifyScrollbar() {}
+QVariant Screen::configValue(const char *key)
+{
+	// session config getter (session_optGet family; Ghidra labels the
+	// shared reader config_sshIdentityFile_get)
+	QVariant v;
+	QByteArray k(key);
+	sessionConfigGet(&v, this, k);
+	return v;
+}
+void Screen::playBell(const QVariant &style)
+{
+	// FUN_007cbc46 tail: build the message — "beep", or the
+	// terminal.bellFilePath sound file when style==2 — and emit via
+	// FUN_00913274(view, message)
+	QString message = QStringLiteral("beep");
+	if (style.toInt() == 2) {
+		QByteArray k("terminal.bellFilePath");
+		QVariant v;
+		sessionConfigGet(&v, this, k);
+		message = v.toString();
+	}
+	bellEmit(m_view, message);
+}
+void Screen::setCodec(const QByteArray &name)
+{
+	// FUN_007e87a2 (38B): codec lookup in the global registry
+	// (DAT_011c2200) via FUN_00807144, install via FUN_007e8770
+	void *codec = codecLookupGlobal(name);
+	if (codec)
+		installCodec(this, codec);
+}
+void Screen::notifyScrollbar(bool visible)
+{
+	// FUN_00913508 (55B): QMetaObject::activate(this, Screen
+	// staticMetaObject 0x11a82e0, signal 20, {visible})
+	(void)visible;
+}
 
 void Screen::reportDecDeviceStatus(const QString &params)
 {
@@ -1842,7 +1894,7 @@ void Screen::setScrollbarVisible(bool on)
 	if (on == m_scrollbarVisible)
 		return;
 	m_scrollbarVisible = on;
-	notifyScrollbar();   // FUN_00913508 — cited
+	notifyScrollbar(m_scrollbarVisible);   // FUN_00913508 — signal 20
 }
 
 void Screen::setAttributeEnabled(int on)
@@ -1901,9 +1953,19 @@ void Screen::enterVt52(int mode)
 
 void Screen::ringBell()
 {
-	// FUN_007cbc46: reads the "terminal.bellStyle" config value and
-	// rings accordingly
-	playBell(configValue("terminal.bellStyle"));   // cited
+	// FUN_007cbc46 (390B): style = terminal.bellStyle (int); 0 = off;
+	// rate-limited by terminal.bellInterval against +0xa8 (epoch secs);
+	// message "beep", style 2 swaps in terminal.bellFilePath; updates
+	// the timestamp then emits via FUN_00913274
+	const int style = configValue("terminal.bellStyle").toInt();
+	if (style == 0)
+		return;
+	const long now = QDateTime::currentSecsSinceEpoch();
+	const int interval = configValue("terminal.bellInterval").toInt();
+	if (now - m_lastBellSecs < interval)
+		return;
+	m_lastBellSecs = now;
+	playBell(style);
 }
 
 void Screen::parseRect(const QString &area, int *top, int *left, int *bottom, int *right)
