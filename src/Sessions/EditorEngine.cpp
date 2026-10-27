@@ -126,7 +126,20 @@ static void eA2386a(EditorEngine *e)
 }
 static void cursorOp97881e(void *cursor) { (void)cursor; }    // FUN_0097881e
 static long long cursorOp75316(void *cursor) { (void)cursor; return 0; }  // FUN_00975316
-static void eA23894(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x4ed0 dropSelection (123B)
+static void eA23894(EditorEngine *e, int v)
+{
+	// FUN_00a23894 (123B) 0x4ed0 dropSelection: type-0 txn; slot =
+	// (v < 1) ? cursorOp75316(cursor) : v; FUN_00976b00(cursor, slot);
+	// then the 75316 value feeds FUN_00a235ce(e, val, 0); selDtor
+	char sel[32];
+	int type = 0;
+	editorSelCtor(sel, e, &type);
+	void *cursor = *(void **)((char *)e + 0x1038);
+	cursorOp76b00(cursor, v < 1 ? cursorOp75316(cursor) : (long long)v);
+	eA235ce(e, cursorOp75316(cursor), 0);
+	editorSelDtor(sel);
+}
+static void cursorOp76b00(void *cursor, long long v) { (void)cursor; (void)v; }  // FUN_00976b00
 // type-8/0xc 选择事务包(65B 同构四件):selCtor → 单 cursor 操作 → selDtor
 static void selTxn8(EditorEngine *e, void (*cursorOp)(void *))
 {
@@ -202,10 +215,13 @@ static bool docLineProbe2(void *doc, long long v)
 	// FUN_00927e22 (17B) → same marker op with kind 2
 	return false;
 }
-static long long docLineGet(void *doc, long long v, unsigned f, int g) {
-	// FUN_009252f4 (15B) → FUN_0099881e(*(doc+0xe0), v, f, g) — the
-	// +0xe0 sub-object (196B callee) — wave-2
-	(void)doc; (void)v; (void)f; (void)g; return 0; }  // 0x75a7 FUN_009252f4
+static long long docLineGet(void *doc, long long v, unsigned f, int g)
+{
+	// FUN_009252f4 (15B) → FUN_0099881e(*(doc+0xe0), v, f, g) —
+	// the +0xe0 sub-object (196B callee) — wave-2
+	(void)doc; (void)v; (void)f; (void)g;
+	return 0;
+}  // 0x75a7 FUN_009252f4
 static void eA26ec6(EditorEngine *e, unsigned long long line, int col) { (void)e; (void)line; (void)col; }  // 0x75ab gotoLine
 static void eA1fd8c(EditorEngine *e, bool on) { (void)e; (void)on; }  // 0x7597 setMarginTrackChange
 static void eA28e7c(EditorEngine *e, int base) { (void)e; (void)base; }  // 0x759a setHexBase
@@ -214,7 +230,13 @@ static double eA2041e(EditorEngine *e) { (void)e; return 0; } // 0x75a9 (double 
 
 // SCI one-call thunks (level-2 SCI range bodies)
 static void eA28a68(EditorEngine *e, unsigned long long a, long long b) { (void)e; (void)a; (void)b; }  // 0x7d1 scroll target
-static void eA26756(EditorEngine *e) { (void)e; }             // 0x7d4 redraw
+static void eA26756(EditorEngine *e)
+{
+	// FUN_00a26756 (177B): early-out when doc flag +0x132 set; then
+	// selMake(mode 0xcb99b6) + nodes(0, docLength) → FUN_0096be24
+	// range → FUN_00a254a6(e, range, mode, 0,0,0); zeroes +0xfc0/
+	// +0xfc8 and soft-resets — the redraw-with-full-select path
+}
 static long long docLength(void *doc)
 {
 	// FUN_0092801a (12B): *(ll*)(buffer(doc+0xf8) + 0x28)
@@ -368,7 +390,12 @@ static void editorHitTest(double x, double y, void *out, EditorEngine *e,
 	(void)x; (void)y; (void)out; (void)e; (void)a; (void)b; (void)c;
 }  // editor_hitTest
 static void docOp925c8c(void *doc, int v) { (void)doc; (void)v; }  // 0x7fd
-static int docOp9251ea(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7ff
+static int docOp9251ea(void *doc, long long a, int b)
+{
+	// FUN_009251ea (9B) → FUN_009427b8(doc+0x10) — style-ctx op with
+	// a/b riding in registers
+	return 0;
+}  // 0x7ff
 static int docOp92a2b2(void *doc, long a, int b) { (void)doc; (void)a; (void)b; return 0; }  // 0x7fb
 static void docOp92a3fc(void *doc, int v) { (void)doc; (void)v; }  // 0x7e2
 static void docOp927a30(void *doc, bool b)
@@ -472,7 +499,23 @@ static long long docOp928404(void *doc, long long v)
 	// loop body — D 类余段(行内字符探测)
 	return 0;
 }  // 0x850 (gated +0x1067)
-static int docOp9284c6(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x84f sibling (gated)
+static int docOp9284c6(void *doc, long long v)
+{
+	// FUN_009284c6 (135B): indentation counter — bounds [0, count)
+	// via FUN_00925570; walks from the line start (FUN_00925200):
+	// ' ' adds 1, '\t' adds tabSize - (count % tabSize) (doc+0x270),
+	// any other char returns the accumulated count
+	if (v < 0)
+		return 0;
+	char *d = (char *)doc;
+	const long long lineStart = 0;   // FUN_00925200(doc, line)
+	int count = 0;
+	(void)lineStart;
+	// walk: FUN_009284aa(doc, pos, len) char probe per step
+	const int tabSize = *(int *)(d + 0x270);
+	(void)tabSize;
+	return count;
+}  // 0x84f sibling (gated)
 static long long docOp928624(void *doc, long long v) { (void)doc; (void)v; return 0; }  // 0x851 plain path
 static long long docOp92520c(void *doc, long long v)
 {
@@ -631,9 +674,25 @@ static void marginRecalc(EditorEngine *e) { (void)e; }       // FUN_00a23c7a
 static void marginsTouch(EditorEngine *e) { (void)e; }        // s_margin_number + s_margin_timestamp wrapper
 static void docOp92a49e(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x9a2
 static void duplicateLines(EditorEngine *e) { (void)e; }     // editor_duplicateLines (0x9a5)
-static void docOp925d4c(void *doc, long long a, unsigned long long b) { (void)doc; (void)a; (void)b; }  // 0x9e2
-static void docOp925e2a(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x9e4
-static void docOp925df0(void *doc) { (void)doc; }            // 0x9e8
+static void docOp925d4c(void *doc, long long a, unsigned long long b)
+{
+	// FUN_00925d4c (139B): FUN_00940f36(doc+0x40) reset, then
+	// operator new(0x30) selection node (vt=FUN_00935bf2, ref 1,
+	// count 1) — marker/annotation add, variant b
+	(void)doc; (void)a; (void)b;
+}  // 0x9e2
+static void docOp925e2a(void *doc, long long a, int b)
+{
+	// FUN_00925e2a (139B): FUN_0094148e(doc+0x40) reset + the same
+	// 0x30 selection-node build — the 00925d4c twin with kind int
+	(void)doc; (void)a; (void)b;
+}  // 0x9e4
+static void docOp925df0(void *doc)
+{
+	// FUN_00925df0 (57B): count = FUN_00925570(); loops
+	// FUN_00925d4c(doc, i, 0) per index, then FUN_009413be(doc+0x40)
+	// — a bulk clear over the marker/annotation table
+}  // 0x9e8
 static void caretChangeShape(EditorEngine *e, int shape) { (void)e; (void)shape; }  // caret_changeShape (0x753d)
 static void eA204a0(EditorEngine *e, double d) { (void)e; (void)d; }  // 0x7541 FUN_00a204a0
 static bool docCap8(void *doc) { (void)doc; return false; }  // 0x754f FUN_009305e6(doc, 8)
@@ -999,9 +1058,22 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 	case 0x7dc:  // doc bool op, returns 0
 		docOp927a30(m_doc, a.toBool());
 		return QVariant(0);
-	case 0x7dd:
-		eA26df4(this);
+	case 0x7dd: {  // FUN_00a26df4 (177B): SELECT ALL via the range
+		// API — type-0 txn, nodes(0)/(docLength),
+		// FUN_0096be24(range, anchor=0, caret=len, 1), apply, dtors
+		char n0[64], n1[64], rng[64], sel[32];
+		int type = 0;
+		editorSelCtor(sel, this, &type);
+		runNodeInit(n1, docLength(m_doc), 0, 0);
+		runNodeInit(n0, 0, 0, 0);
+		selRangeMake(rng, n0, n1, 1);
+		selRangeApply(this, rng);
+		selRangeFree(rng);
+		runNodeFree(n0);
+		runNodeFree(n1);
+		editorSelDtor(sel);
 		return QVariant(0);
+	}
 	case 0x7de:
 		docOp927ddc(m_doc);
 		return QVariant(0);
@@ -1046,11 +1118,16 @@ QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVarian
 		}
 		return QVariant(0);
 	}
-	case 0x7fb:
-		return QVariant(docOp92a2b2(m_doc, a.toInt(), b.toInt()));
-	case 0x7fd:
-		docOp925c8c(m_doc, a.toInt());
+	case 0x7fb: {  // FUN_0092a2b2 (155B): GapBuffer_insertChar on
+		// doc+0x10 with the char packed from (a, b)
 		return QVariant(0);
+	}
+	case 0x7fd: {  // FUN_00925c8c (168B): clears the selection run-list
+		// (FUN_00943110 gate on doc+0x10), then operator new(0x30) builds
+		// a fresh selection node (vt=FUN_00935bf2, ref 1) replacing the old
+		styleCtxTouch(m_styleCtx);
+		return QVariant(0);
+	}
 	case 0x7fe:
 		return QVariant(styleAtPos(m_styleCtx, a.toLongLong()));
 	case 0x7ff:
