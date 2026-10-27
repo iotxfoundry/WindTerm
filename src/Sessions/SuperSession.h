@@ -10,13 +10,17 @@
 // Base class of Ssh/Shell/Telnet/Tcp/Serial sessions. Method surface as
 // exported by moc; parameter names are approximate (recovered from the
 // meta string table, some are neighboring-string artifacts).
+class SuperSessionPrivate;
+
 class SuperSession : public QObject
 {
 	Q_OBJECT
 
 public:
 	SuperSession(QObject *parent = nullptr);
-	virtual ~SuperSession(void) = default;
+	virtual ~SuperSession(void);
+
+	King::SessionState state() const;
 
 public slots:
 	void open();
@@ -27,7 +31,6 @@ public slots:
 	bool isUnconnected() const;
 	bool isDuplicable() const;
 	bool needVerifyServerFingerprint() const;
-
 	QString name() const;
 	QString protocolName() const;
 	QString hostName() const;
@@ -81,7 +84,9 @@ signals:
 	void asyncMessage(int type, int wParam, int lParam);
 
 private:
-	Q_DISABLE_COPY(SuperSession)
+	friend class SuperSessionPrivate;
+	SuperSessionPrivate *d;
 };
+Q_DECLARE_PRIVATE(SuperSession)
 
 #endif // SUPERSESSION_H

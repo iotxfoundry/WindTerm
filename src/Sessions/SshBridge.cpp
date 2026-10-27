@@ -1,16 +1,32 @@
 #include "SshBridge.h"
 
-// Implementation notes (reconstructed, see SSH-INTERNALS.md):
-// - The protocol logic lives in the bridge state-machine layer (0x838-0x84b)
-//   driving a libssh RAII wrapper class (0x627-0x62a):
-//   ctor ssh_new()/throw, dtor ssh_disconnect()+ssh_free(),
-//   options via ssh_options_set (incl. the WindTerm SSH_OPTIONS_PROXY_*
-//   patch enums), auth via ssh_userauth_kbdint (see below), publickey,
-//   try_publickey, auth_agent (Pageant) and userauth_list.
-// - Password auth has no direct ssh_userauth_password call site: it goes
-//   through the interactive (kbdint) loop or the ssh agent.
+#include <QList>
+#include <QString>
+
+#include <functional>
+
+// Implementation notes reconstructed from the signal-routing hub
+// FUN_007bc21e (see SSH-INTERNALS.md "signal routing"):
+//
+// commandOutput is distributed to subscribers after stripping a trailing
+// "###" prompt marker (FUN_007bebdc: QString::endsWith("###") -> chop),
+// which is how the commander detects command completion.
 
 SshBridge::SshBridge(QObject *parent)
 	: SuperBridge(parent)
 {
+}
+
+void SshBridge::distributeCommandOutput(const QString &output)
+{
+	// FUN_007bebdc transcribed
+	QString text = output;
+	if (text.endsWith(QLatin1String("###")))
+		text.chop(3);
+
+	// FUN_007baf70: fan out to every subscribed term/commander
+	for (const auto &subscriber : m_subscribers)
+		subscriber(text);
+
+	emit commandOutput(QString(), QString(), text);
 }
