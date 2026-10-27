@@ -92,6 +92,8 @@ public:
 	int m_leftMargin;             // +0xd8 (FUN_007a493c)
 	int m_rightMargin;            // +0xdc (FUN_007a490e)
 	int m_columnCount;            // +0xe4 (FUN_007a4906)
+	int m_cursorStyle;            // +0xcc (FUN_007a45ee)
+	void *m_workRow;              // +0xa8 cached working row (FUN_007a463c)
 	unsigned long long m_sgrBits; // +0xb8 SGR attribute state (FUN_007ef95c)
 	int m_charsetSlot3;           // +0xc0 (VT52 graphics charset, FUN_007e5a90)
 
@@ -160,7 +162,9 @@ public:
 
 	// --- margins / reset ---------------------------------------------------------------
 	void setTopBottomMargins(int top, int bottom); // FUN_007a4672 (DECSTBM core)
-	void setCursorStyle(int style);                // FUN_007a45ee
+	void setCursorStyle(int style);                // FUN_007a45ee (+0xcc)
+	unsigned int cursorBlinkBit() const;           // FUN_007a44c0 (0x2b mask)
+	void rowHook(struct Row *row, int arg);        // FUN_007a3dde
 	void *cursorUpdated();                         // FUN_007a44c0
 	void reset();                                  // FUN_007a4b0a
 

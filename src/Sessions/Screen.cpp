@@ -142,6 +142,7 @@ void Screen::setCursorStyle(int style, bool save)
 	m_core->setCursorStyle(style);                // FUN_007a45ee
 	void *cursor = m_core->cursorUpdated();       // FUN_007a44c0
 	notifyCursorStyle(cursor, style > 4 ? (style > 6 ? 1 : 0) : 3);  // FUN_00913592
+	// note: FUN_007a44c0 blink mask 0x2b covers styles 0,1,3,5 (see cursorBlinkBit)
 }
 
 void Screen::setCursorVisibility(int mode)

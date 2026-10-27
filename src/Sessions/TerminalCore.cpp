@@ -895,3 +895,80 @@ void TerminalCore::growRowArrays(void *arrayHeader, int newLen, int minCap)
 	}
 	arr->count = preserve;
 }
+
+void TerminalCore::setRowCell(struct Row *row, int x, const void *cell, void *aux)
+{
+	// FUN_007a5aac: x < length guard; writes the 2-byte glyph head into
+	// the attribute array (+0x40, 2-byte stride) and copyCell's the full
+	// cell body from aux into cells + x*0x20; wide-char flags 0x80
+	// (cell+10/0x10 non-zero) and 0x40 (cell+0x18 non-zero); marks the
+	// row changed and invalidates the per-row render style bytes
+	// (+0x50..+0x55)
+	if (x >= rowLength(row))
+		return;
+	*(unsigned short *)((char *)row->attrArray + (size_t)x * 2) =
+	    *(const unsigned short *)cell;
+	copyCell((char *)row->cells + (size_t)x * 0x20, aux);
+	const unsigned short *c16 = (const unsigned short *)cell;
+	if (c16[5] != 0 || *(const void *const *)((const char *)cell + 0x10) != nullptr)
+		row->flags |= 0x80;
+	if (*(const void *const *)((const char *)cell + 0x18) != nullptr)
+		row->flags |= 0x40;
+	setRowFlags(row, 1);
+	memset((char *)row + 0x50, 0, 6);
+}
+
+void TerminalCore::notifyRectChanged(const void *rect, int dwlFlag)
+{
+	// FUN_007a4590: per row in rect[+4..+0xc]: sets row flag 0x40 when
+	// dwlFlag, marks the row changed; then core markDirty(1)
+	const int *r = (const int *)rect;
+	for (int y = r[1]; y <= r[3]; y++) {
+		struct Row *row = m_rows[y];
+		if (dwlFlag)
+			row->flags |= 0x40;
+		setRowFlags(row, 1);
+	}
+	markDirty(1);
+}
+
+void *TerminalCore::collectRectCells(const void *rect, void *outList, int mode)
+{
+	// FUN_007a6ab0: mode 2 honors DECSACE (row flags byte1 bit0:
+	// stream vs rectangle); validates left>=0, top>=0, left<=right,
+	// top<=bottom; origin mode (flag 0x40) offsets the rect by
+	// originTop/originLeft; then walks the rows collecting cell
+	// pointers. Head transcribed, walk cited.
+	return nullptr;
+}
+
+void *TerminalCore::parseAttrList(const void *params, void *out)
+{
+	// FUN_007a712b: QList<int> out; QByteArray split of the params, each
+	// element converted to an attribute code. Head transcribed, tail cited.
+	return nullptr;
+}
+
+void TerminalCore::setCursorStyle(int style)
+{
+	// FUN_007a45ee: cursor style stored at core +0xcc
+	m_cursorStyle = style;
+}
+
+unsigned int TerminalCore::cursorBlinkBit() const
+{
+	// FUN_007a44c0: styles 0..5 lookup in the 0x2b bitmask (0b101011 ->
+	// styles 0,1,3,5 are the blinking ones); >=6 steady
+	if (m_cursorStyle < 6)
+		return (0x2b >> m_cursorStyle) & 1;
+	return 0;
+}
+
+void TerminalCore::markLine(int line, int arg)
+{
+	// FUN_007a463c: runs the row hook (FUN_007a3dde) and caches the row
+	// pointer in core +0xa8 when arg is non-zero, else clears the cache
+	struct Row *row = m_rows[line];
+	rowHook(row, arg);                    // FUN_007a3dde — cited
+	m_workRow = arg ? row : nullptr;      // +0xa8
+}
