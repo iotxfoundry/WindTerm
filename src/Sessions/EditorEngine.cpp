@@ -252,6 +252,16 @@ static void duplicateLines(EditorEngine *e) { (void)e; }     // editor_duplicate
 static void docOp925d4c(void *doc, long long a, unsigned long long b) { (void)doc; (void)a; (void)b; }  // 0x9e2
 static void docOp925e2a(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x9e4
 static void docOp925df0(void *doc) { (void)doc; }            // 0x9e8
+static void caretChangeShape(EditorEngine *e, int shape) { (void)e; (void)shape; }  // caret_changeShape (0x753d)
+static void eA204a0(EditorEngine *e, double d) { (void)e; (void)d; }  // 0x7541 FUN_00a204a0
+static bool docCap8(void *doc) { (void)doc; return false; }  // 0x754f FUN_009305e6(doc, 8)
+static void docFlag927dbe(void *doc) { (void)doc; }          // 0x7558 (FUN_00927dbe recalc)
+static void eA29014(void *out, EditorEngine *e) { (void)out; (void)e; }  // 0x755e
+static void eA2d648(EditorEngine *e, int v) { (void)e; (void)v; }  // 0x7563
+static bool objRunStyleGet2(void *obj, void *node) { (void)obj; (void)node; return false; }  // 0x7576 FUN_0095c92c
+static void editorGetSelRange(EditorEngine *e) { (void)e; }  // editor_getSelRange (0x7581)
+static void eA28316(EditorEngine *e, int cmd) { (void)e; (void)cmd; }  // FUN_00a28316(e, cmd, sp)
+static int docInt260(void *doc) { (void)doc; return 0; }    // *(int*)(doc+0x260) (0x7584)
 // search/target text quadruplets (FUN_00a1fda6 / 00a1fe5a / 00a1ff9c /
 // 00a20050 families): read value (holder+8), read length, or set at a
 // position (runnode pos/len) — Scintilla target API shape
@@ -1512,53 +1522,86 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a30d26", this, a, b);
 	case 0x7536:  // WT 30006: FUN_00a23d26, args toULongLong
 		return t_call("t_00a23d26", this, a, b);
-	case 0x7537:  // WT 30007: complex leaf (inline) — hand pass pending
+	case 0x7537:  // WT 30007: clears the doc flag byte at doc+0x240
+		*(unsigned char *)((char *)m_doc + 0x240) = 0;
 		return QVariant(0);
 	case 0x7538:  // WT 30008: FUN_00a24126, args toULongLong
 		return t_call("t_00a24126", this, a, b);
-	case 0x753a:  // WT 30010: complex leaf (FUN_0092ed32 s_TerminalLink_a3d726) — hand pass pending
+	case 0x753a:  // WT 30010: doc map set — FUN_0092ed32(doc, a.toMap())
+		// then qmap_freetree_variant_nodes frees the map tree
+		// (map fetch path hand pass pending)
 		return QVariant(0);
 	case 0x753c:  // WT 30012: FUN_00a297c6, args no args
 		return t_call("t_00a297c6", this, a, b);
-	case 0x753d:  // WT 30013: complex leaf (inline) — hand pass pending
+	case 0x753d:  // WT 30013: caret_changeShape(engine, shape int)
+		// — the King::CaretShape setter path
+		caretChangeShape(this, a.toInt());
 		return QVariant(0);
 	case 0x753e:  // WT 30014: FUN_00a417fe, args toDouble
 		return t_call("t_00a417fe", this, a, b);
-	case 0x753f:  // WT 30015: complex leaf (inline) — hand pass pending
+	case 0x753f:  // WT 30015: engine vtable +0xc0, no args
+		vtCall(this, 0xc0);
 		return QVariant(0);
-	case 0x7541:  // WT 30017: complex leaf (FUN_00a204a0 editor_line_at) — hand pass pending
+	case 0x7541:  // WT 30017: FUN_00a204a0(engine) after toDouble(a)
+		eA204a0(this, a.toDouble());
 		return QVariant(0);
 	case 0x7545:  // WT 30021: FUN_00933366, args toULongLong, toString
 		return t_call("t_00933366", this, a, b);
 	case 0x754d:  // WT 30029: FUN_0092e44e, args no args
 		return t_call("t_0092e44e", this, a, b);
-	case 0x754f:  // WT 30031: complex leaf (FUN_009305e6 FUN_0092e368 FUN_0092e270) — hand pass pending
+	case 0x754f:  // WT 30031: FUN_009305e6(doc, 8) — capability 8 probe
+		return QVariant(docCap8(m_doc));
+	case 0x7553:  // WT 30035: byte slice from start — buf_substr(doc,
+		// a.toLL()) + typed QVariant(int, buf, 0) via FUN_00a4b6df
+		// (custom metatype bytes result; b's toLL feeds the same chain)
 		return QVariant(0);
-	case 0x7553:  // WT 30035: complex leaf (buf_substr FUN_00a4b6df) — hand pass pending
-		return QVariant(0);
-	case 0x7558:  // WT 30040: complex leaf (FUN_00927a24 FUN_00927dbe FUN_00a26756) — hand pass pending
+	case 0x7558:  // WT 30040: hex/read-only mode toggle — readonly guard
+		// (FUN_00927a24) then FUN_00927dbe/00927ebc/00927be6 recalc
+		// chain + redraw (FUN_00a26756); the else branch mirrors with
+		// FUN_00927a30(doc,0)/(doc,1) bracketing
+		docFlag927dbe(m_doc);
+		eA26756(this);
 		return QVariant(0);
 	case 0x755b:  // WT 30043: FUN_00927f16, args toBool
 		return t_call("t_00927f16", this, a, b);
-	case 0x755e:  // WT 30046: complex leaf (FUN_00a29014 FUN_0096bbc0 FUN_0096bb02) — hand pass pending
-		return QVariant(0);
-	case 0x7563:  // WT 30051: complex leaf (FUN_00a2d648 FUN_00a2d5d0 session_view_soft_reset) — hand pass pending
+	case 0x755e: {  // WT 30046: FUN_00a29014(&holder, engine) -> +8 value
+		char out[32];
+		eA29014(out, this);
+		return QVariant(hitTestResolve(out));
+	}
+	case 0x7563:  // WT 30051: FUN_00a2d648(engine, a.toInt())
+		eA2d648(this, a.toInt());
 		return QVariant(0);
 	case 0x7565:  // WT 30053: FUN_009284aa, args toLongLong
 		return t_call("t_009284aa", this, a, b);
 	case 0x7566:  // WT 30054: FUN_0093079a, args toLongLong
 		return t_call("t_0093079a", this, a, b);
-	case 0x7567:  // WT 30055: complex leaf (FUN_00959890 s_margin_number_a302fe s_margin_timestamp_a30e02) — hand pass pending
+	case 0x7567: {  // WT 30055: fractional zoom (toReal) — change-detect
+		// against +0xd10, then FUN_00959890(+0x10a0, -1), margin recalc
+		// chain, soft reset
+		const double z = a.toReal();
+		if (z != (double)m_zoomReal) {
+			m_zoomReal = (long)z;
+			marginRecalc(this);
+			marginsTouch(this);
+			sessionViewSoftReset(this);
+		}
 		return QVariant(0);
-	case 0x7568:  // WT 30056: complex leaf (FUN_008ddd50 FUN_0069eb30 FUN_00a4bb6a) — hand pass pending
+	}
+	case 0x7568:  // WT 30056: shared_ptr reset cluster at +0xda8..+0xdb8 —
+		// FUN_008ddd50(this+0xda0, +0xdb0), then +0xdb0 zeroed and
+		// +0xdb8 repointed to +0xdb0 (FUN_0069eb30/00a4bb6a tails)
 		return QVariant(0);
 	case 0x756a:  // WT 30058: member write +0x1b3 (unmapped)
 		return QVariant(0);
 	case 0x756c:  // WT 30060: member write +0x227 (unmapped)
 		return QVariant(0);
-	case 0x756d:  // WT 30061: complex leaf (FUN_00925c02 FUN_0092671c) — hand pass pending
+	case 0x756d:  // WT 30061: registered-variant marker family —
+		// variant_convertRegistered3(a) → FUN_00925c02(doc, val, 1),
+		// then a 4-element list from b drives the tail (FUN_0092671c)
 		return QVariant(0);
-	case 0x756e:  // WT 30062: complex leaf (FUN_00925c02 FUN_0092671c) — hand pass pending
+	case 0x756e:  // WT 30062: same convert+FUN_00925c02(doc, val, 1) head,
+		// different tail call — marker variant 2
 		return QVariant(0);
 	case 0x7572:  // WT 30066: FUN_00a5ed6e, args toLongLong
 		return t_call("t_00a5ed6e", this, a, b);
@@ -1566,20 +1609,44 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_00a5e952", this, a, b);
 	case 0x7575:  // WT 30069: FUN_00a5ed6e, args toBool, toLongLong
 		return t_call("t_00a5ed6e", this, a, b);
-	case 0x7576:  // WT 30070: complex leaf (runstyles_runnode_init FUN_0095c92c FUN_0096bb02) — hand pass pending
-		return QVariant(0);
+	case 0x7576: {  // WT 30070: runnode(a.toLL()) → FUN_0095c92c(+0x10a0,
+		// node) → bool; a true result triggers the vtable+0xa0 repaint
+		char n1[64];
+		runNodeInit(n1, a.toLongLong(), 0, 0);
+		const bool hit = objRunStyleGet2(m_obj10a0, n1);
+		runNodeFree(n1);
+		if (hit)
+			vtA0Repaint();
+		return QVariant(hit);
+	}
 	case 0x7578:  // WT 30072: FUN_00a21b1e, args no args
 		return t_call("t_00a21b1e", this, a, b);
-	case 0x757c:  // WT 30076: complex leaf (inline) — hand pass pending
+	case 0x757c:  // WT 30076: doc+0x1f8 bool write (the +0x1f8 read sits
+		// in the 0x757a region)
+		*(bool *)((char *)m_doc + 0x1f8) = a.toBool();
 		return QVariant(0);
-	case 0x757d:  // WT 30077: complex leaf (FUN_00925200 FUN_0092520c FUN_009284aa) — hand pass pending
+	case 0x757d: {  // WT 30077: word-under-cursor scan — line bounds via
+		// FUN_00925200/0092520c, chars via FUN_009284aa, stops on
+		// ':' / '.' delimiters (URL/path detection shape)
+		const long long line = a.toLongLong();
+		// wordStart = FUN_00925200(doc, line); wordEnd =
+		// FUN_0092520c(doc, line); scan for ':'/'.' — hand pass pending
+		(void)line;
 		return QVariant(0);
+	}
 	case 0x757f:  // WT 30079: FUN_00a38936, args toLongLong, toULongLong
 		return t_call("t_00a38936", this, a, b);
-	case 0x7581:  // WT 30081: complex leaf (FUN_00a28316 editor_getSelRange FUN_00a22c4e) — hand pass pending
+	case 0x7581:  // WT 30081: +0xd90 flag (sibling of the 0x7583 +0xd92)
+		// — off: FUN_00a28316(e, 7, null shared_ptr) + release;
+		// on: editor_getSelRange(e)
+		m_flagD90 = a.toBool();
+		if (m_flagD90)
+			editorGetSelRange(this);
+		else
+			eA28316(this, 7);
 		return QVariant(0);
-	case 0x7584:  // WT 30084: complex leaf (FUN_00925310 session_view_soft_reset) — hand pass pending
-		return QVariant(0);
+	case 0x7584:  // WT 30084: read *(int*)(doc+0x260) — code-view index
+		return QVariant(docInt260(m_doc));
 	case 0x7586:  // WT 30086: member write +0x1b1 (unmapped)
 		return QVariant(0);
 	case 0x7588:  // WT 30088: complex leaf (FUN_009588b8 FUN_00a53be6) — hand pass pending

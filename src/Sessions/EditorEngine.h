@@ -59,6 +59,8 @@ public:
 	int m_intEac;         // +0xeac (0x966/0x967 pair)
 	int m_int1058;        // +0x1058 (0x9a3 byte write / 0x9a4 int read)
 	int m_intD48;         // +0xd48 (0x9c1)
+	char m_flagD90;       // +0xd90 (0x7581, sibling of the +0xd92 0x7583)
+	long m_zoomReal;      // +0xd10 ([0x1a2]) fractional zoom (0x7567)
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
 	                      // int table, 11-byte stride at 0x7f8)
 	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),
