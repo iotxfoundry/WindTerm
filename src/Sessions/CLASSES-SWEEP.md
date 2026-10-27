@@ -40,3 +40,18 @@
   (fromRawData 0xd0cf0d)/"type" 键的 QVariant 映射;函数体 ~80% 为
   编译器内联的 QMap 递归析构(引用计数逐节点释放),非业务逻辑。
   深挖价值否决:配置构建 + 析构噪音。
+
+## 小类横扫(≤15 方法,2026-10-27 补)
+
+| 类 | metacall | case | 实现簇 |
+|---|---|---|---|
+| SessionPane | 0x90a0aa | 10/10 | 0x73c-0x741 |
+| OutputPane | 0x909e08 | 9/9 | 0x749-0x74a |
+| EditorWindow | 0x8fc36e | 8/8 | 0x5e9-0x5eb + 0x533df0(与 TerminalWindow 共享) |
+| TransferPane | 0x909c8a | 6/6 | 0x734 |
+| OutlinePane | 0x90afb2 | 两级壳 | 深分派 0x90ae9a |
+| SearchPane | 0x90b55a | 两级壳 | - |
+| UndoList | 0xa1c0ee | 两级壳 | 0xa1c0b8 |
+
+另:0x533df0 为 EditorWindow/TerminalWindow 共享体。
+至此 king_api 61 类全部定性(全表/两级壳/骨架三档)。
