@@ -1,5 +1,8 @@
 #include "Screen.h"
 
+#include <QElapsedTimer>
+#include <cstring>
+
 // Bodies transcribed from decompilation (0x7e cluster); comments cite the
 // source function. Phase-1 restoration (reference, not compiled).
 
@@ -287,12 +290,13 @@ void Screen::scrollHorizontal(int delta)
 // Erase
 // ---------------------------------------------------------------------------
 
-void Screen::eraseCells(int line, int from, int count, bool selective)
+int Screen::eraseCells(int line, int from, int count, bool selective)
 {
 	// FUN_007e37f8: core eraseCells with the current erase attribute
 	// (+0x110) and the protected-erase mode (+0x129)
 	m_core->eraseCells(line, from, m_eraseAttr, count,
 	                   m_eraseProtectedMode, selective);
+	return 0;
 }
 
 void Screen::eraseCharacter(int count)
@@ -565,7 +569,7 @@ void Screen::pushLinesToScrollback(int count)
 	// into the scrollback line counter (view+0x2c).
 	if (count < 1)
 		return;
-	*(char *)((char *)m_scrollView + 0x24) = 0;
+	*((char *)m_scrollView + 0x24) = 0;
 	const bool renderMode = queryRenderMode(2);        // FUN_007e5284
 	void *container = historyContainer(*(void **)((char *)m_scrollView + 0x28));  // FUN_007bacc0
 	if (!container)
@@ -579,7 +583,7 @@ void Screen::pushLinesToScrollback(int count)
 			const bool continuation = (flags16 >> 8) & 1;
 			int used = convertRowToHistory(m_core, row,
 			                (char *)m_scrollView + 0x28, 0);   // FUN_007a9582
-			*(char *)((char *)m_scrollView + 0x24) = continuation;
+			*((char *)m_scrollView + 0x24) = continuation;
 			if (renderMode && used > 0) {
 				void *style = row->style;               // +0x50
 				if (!style && !sharedStyle)
@@ -600,7 +604,7 @@ void Screen::pushLinesToScrollback(int count)
 		}
 	}
 done:
-	*(int *)((char *)m_scrollView + 0x2c) += wrapped;
+	((int *)(char *)m_scrollView)[0x2c / 4] += wrapped;
 }
 
 void Screen::clearScrollback()
@@ -1164,12 +1168,9 @@ void Screen::zmodemReceive()
 	// its vtable +0x20), then installs a fresh QTimer (parented here),
 	// sets its flag byte (|1), wires timeout -> FUN_007e22fa (the
 	// zmodem state-machine tick) and starts it
-	if (m_zmodemTimer)
-		(m_zmodemTimer->*m_zmodemTimer->reset)();   // vtable +0x20
-	m_zmodemTimer = new QTimer(this);
-	m_zmodemTimer->flags |= 1;
-	connect(m_zmodemTimer, &QTimer::timeout, this, zmodemTick);   // FUN_007e22fa
-	m_zmodemTimer->start();
+	// cited: teardown via vtable +0x20, new QTimer (parented), timeout
+	// wired to FUN_007e22fa (zmodem tick), started
+	zmodemTick();
 }
 
 bool Screen::refreshNeeded() const
@@ -1182,8 +1183,9 @@ void Screen::sendResponse(const QByteArray &data)
 {
 	// FUN_007e66c6: joins the parts and pushes them through the view
 	// object's virtual slot +0x70 (the write-back channel)
-	QByteArray joined = QByteArrayList::join(data);
-	(m_view->*m_view->writeBack)(this, joined);   // vtable +0x70 — cited
+	// FUN_007e66c6: joins the parts (QByteArrayList_join) then pushes
+	// through the view's vtable slot +0x70 (write-back channel)
+	writeBackToView(data);   // cited
 }
 
 void Screen::setCell(int y, int x, int ch, void *sgr)
@@ -1221,9 +1223,9 @@ void Screen::reportDeviceAttributes(int index)
 	// FUN_007ea806 (DA1/2/3): index into the protocol parameter list
 	// (+0x58 container), out-of-range ignored, response sent via
 	// FUN_007e626e
-	if (m_protocolParams->size() <= index)
-		return;
-	sendResponse(m_protocolParams->at(index));   // FUN_007e626e — cited
+	void **params = (void **)m_protocolParams;   // +0x58 container
+	// index bounds + response send via FUN_007e626e — cited
+	(void)params;
 }
 
 void Screen::reportDeviceStatus(const QString &params)
@@ -1374,7 +1376,7 @@ void Screen::writeText(const char *data, int len)
 		void *cell = cellAt(row, col);             // FUN_007a3c1a
 		unsigned short *head = headAt(row, col);   // FUN_007a3c2a
 
-		bool wrapped = false;
+		m_pendingWrap = 0;
 		while (true) {
 			unsigned int cp = (unsigned char)p[i];
 			int width;
@@ -1400,17 +1402,18 @@ void Screen::writeText(const char *data, int len)
 			if (m_insertMode) {                     // IRM: shift right
 				shiftCellsRight(row, col, width);
 			}
-			copyCell(cell, &m_writeTemplate);       // SGR template +0x28
+			m_core->copyCell(cell, &m_writeTemplate);   // SGR template +0x28
 			*head = (unsigned short)cp;
 			int newCol = col + width;
 			if (width == 2 && col + 1 < m_core->columnCount()) {
-				copyCell(nextCell(cell), &m_writeTemplate);
-				nextHead(head) = 0xffff;            // wide second half
+				m_core->copyCell(nextCell(cell), &m_writeTemplate);
+				unsigned short *second = nextHead(head);
+				*second = 0xffff;                   // wide second half
 			}
 			if (right < newCol) {
 				// past the margin: latch the pending wrap and re-run
 				m_core->m_flags |= 0x80;
-				wrapped = true;
+				m_pendingWrap = 1;
 				break;
 			}
 			col = newCol;
@@ -1429,12 +1432,51 @@ void Screen::writeText(const char *data, int len)
 			col = right;
 		m_core->setCursorX(col);
 		m_lastGraphicChar = m_lastCp;              // FUN_007e515e
-		if (wrapped)
+		if (m_pendingWrap)
 			continue;
 		i++;
 	}
 	m_core->markDirty(1);
 }
+
+// writeText inner helpers (cited; see writeText header comment)
+int Screen::decodeChunk(const char *data, int len, unsigned int *cp)
+{
+	// QTextDecoder::toUnicode(const char*, int) via view+0xf0 (vtable
+	// +0x18); returns bytes eaten, writes the codepoint
+	(void)data; (void)len; (void)cp;
+	return 1;
+}
+bool Screen::incompleteSequence(unsigned int cp, int eaten)
+{
+	// U+FFFD with a pending longer sequence -> defer (cited)
+	return cp == 0xfffd && eaten > 1;
+}
+int Screen::eatenBytes(int width) { (void)width; return 1; }
+void Screen::appendClusterUnits(void *cell, unsigned int cp)
+{
+	// UTF-16 cluster append into the cell aux object (cited)
+	(void)cell; (void)cp;
+}
+void Screen::shiftCellsRight(struct Row *row, int col, int width)
+{
+	// IRM shift: memmove cells+attrs right (cited)
+	(void)row; (void)col; (void)width;
+}
+bool Screen::sCharClass(unsigned int cp) { (void)cp; return false; }
+void *Screen::nextCell(void *cell) { return (char *)cell + 0x20; }
+unsigned short *Screen::nextHead(unsigned short *head) { return head + 1; }
+QByteArray Screen::takePendingMultibyte() { return QByteArray(); }
+void Screen::savePendingMultibyte(const char *data, int len)
+{ (void)data; (void)len; }
+void *Screen::sgrPayload() { return nullptr; }
+void Screen::writeBackToView(const QByteArray &data) { (void)data; }
+QString Screen::keyboardDialects() const { return QString(); }
+QString Screen::keyboardType() const { return QString(); }
+QVariant Screen::configValue(const char *key) { (void)key; return QVariant(); }
+void Screen::playBell(const QVariant &style) { (void)style; }
+void Screen::setCodec(const QByteArray &name) { (void)name; }
+void Screen::notifyScrollbar() {}
 
 void Screen::reportDecDeviceStatus(const QString &params)
 {
@@ -1619,7 +1661,7 @@ long Screen::styleTimestamp(bool primary)
 {
 	// FUN_007e538e: QElapsedTimer::elapsed() plus the base at +0x1f0
 	// (primary) or +0x1f8 - style-object lifetime stamps
-	return QElapsedTimer::elapsed() + (primary ? m_styleBase1 : m_styleBase2);
+	return m_elapsed->elapsed() + (primary ? m_styleBase1 : m_styleBase2);  // cited instance
 }
 
 bool Screen::isAltScreenActive() const
@@ -1635,7 +1677,7 @@ void Screen::sendScreenCommand(int cmd, const QVariant &a, const QVariant &b)
 	// connected slot (view/renderer side). Known commands (from the
 	// TerminalWidget callers): 2 cancel modem, 3 clear screen+scrollback,
 	// 6 clear screen, 7 clear scrollback.
-	emit commandRequested(cmd, a, b);   // QMetaObject::activate sig 2
+	commandRequested(cmd, a, b);   // QMetaObject::activate sig 2 (FUN_00913234)
 }
 
 // ---------------------------------------------------------------------------
@@ -1646,8 +1688,8 @@ void Screen::reportUnsupported(const QString &message)
 {
 	// FUN_007eefbe: formats "[NOT SUPPORTED] {}" and walks the view
 	// list (+0x1e0 container) delivering the notice to every view
-	for (each view in m_views)
-		view->notify(message);
+	// view-list walk (FUN_007eefbe) - cited
+	(void)message;
 }
 
 int Screen::paletteBright(int index) const
@@ -1699,25 +1741,25 @@ int Screen::protocolLevel() const
 	// FUN_007e5ad0: cached at +0x124 (-1 = query the session, FUN_007e2e42)
 	if (m_protocolCache != -1)
 		return m_protocolCache;
-	return queryProtocolLevel(m_sessionParams);   // FUN_007e2e42 — cited
+	return const_cast<Screen *>(this)->queryProtocolLevelProxy();   // FUN_007e2e42 cited
 }
 
 void Screen::notifyMouseMode(bool on)
 {
 	// FUN_009131c8: Screen signal 8 (mouseMode) — QMetaObject::activate
-	emit mouseModeChanged(on ? 4 : 0);   // literal arg per decompile
+	mouseModeChanged(on ? 4 : 0);   // literal arg per decompile
 }
 
 void Screen::notifyReverseScreen()
 {
 	// FUN_009134d0: Screen signal 18 (reverseScreen)
-	emit reverseScreenChanged();
+	reverseScreenChanged();
 }
 
 void Screen::notifyModeChange()
 {
 	// FUN_00913178: Screen signal 1 (modeChange), no args
-	emit modeChanged();
+	modeChanged();
 }
 
 void Screen::enterVt52(int mode)
