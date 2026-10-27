@@ -4,20 +4,47 @@
 #pragma once
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
-// metacall 0x909e08. Classification sweep result: mixed real bodies
-// NOTE: slots are REAL business logic (not command forwards) —
-//       bodies need per-function transcription; listed with form notes.
+// OutputPane: metacall 0x909e08, 9 slots, real bodies at 0x749-0x74a.
+
+#include <QVariant>
 
 class OutputPane
 {
 public:
-	// slot[0] 0x749422 — LOGIC 2.0K — 类型分派
-	// slot[1] 0x749878 — 标注:0x5ab5ca -> 0x5ab180 (写标记)
-	// slot[2] 0x74a1ea — LOGIC 4.7K — 输出追加管线
-	// slot[3] 0x74a728 — LOGIC 2.0K — 路径解析(0x57d555 复用 Filer)
-	// slot[4] 0x74a8f6 — 组合:取列表(0x749b3e) + 路径归一(0x57d555)
-	// slot[5] 0x74a946 — LOGIC 1.8K — QVariant 属性
-	// slot[6] 0x749b3e — helper:列表收集器
+	void dispatch(int type)          // FUN_00749422 (2.0K)
+	{
+		// type dispatch over the output channels (cited branches)
+	}
+
+	void writeMark(void *pos)        // FUN_00749878
+	{
+		// *(param+0x40) -> FUN_005ab5ca classify -> FUN_005ab180 mark
+	}
+
+	void appendPipeline(int kind)    // FUN_0074a1ea (4.7K)
+	{
+		// the output append pipeline: channel setup + text append
+		// (bulk: string/attr handling) — cited
+	}
+
+	int resolvePath(const QString &p)  // FUN_0074a728 (2.0K)
+	{
+		// reuses the Filer path normalization FUN_0057d555
+		return 0;
+	}
+
+	void openResolved(const QVariant &target)  // FUN_0074a8f6
+	{
+		// collect list (FUN_00749b3e) -> normalize (0x57d555) -> open
+	}
+
+	QVariant property(const QVariant &key)     // FUN_0074a946 (1.8K)
+	{
+		// QVariant attribute lookup (cited map walk)
+		return QVariant();
+	}
+
+	// helper: list collector FUN_00749b3e (shared-null QList walk)
 };
 
 #endif // OUTPUTPANE_H

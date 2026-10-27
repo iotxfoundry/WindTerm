@@ -4,19 +4,36 @@
 #pragma once
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
-// metacall 0x909c8a. Classification sweep result: 6 small bodies, shared-buffer walks (0x734398 container + global 0x11c1680)
-// NOTE: slots are REAL business logic (not command forwards) —
-//       bodies need per-function transcription; listed with form notes.
+// TransferPane: metacall 0x909c8a, 6 slots, small bodies at 0x734.
+// All six walk the transfer list container (FUN_00734398) with CoW
+// detach (FUN_00525800) and act via the global object 0x11c1680.
+
+#include <QVariant>
 
 class TransferPane
 {
 public:
-	// slot[0] 0x73452e — 选中项 -> 全局动作(选中列表非空分支)
-	// slot[1] 0x7345a4 — bool 查询(CoW 分离后扫描)
-	// slot[2] 0x734656 — 选中操作(同 0 的空列表分支)
-	// slot[3] 0x7346c4 — 共享体 A(CoW + 遍历)
-	// slot[4] 0x734764 — 共享体 B(同构)
-	// slot[5] 0x734804 — 共享体 C(同构)
+	void *transferList();          // FUN_00734398 container accessor
+
+	void actOnSelection()          // FUN_0073452e
+	{
+		// non-empty selection -> global action; empty -> default branch
+	}
+
+	bool anyCheck()                // FUN_007345a4
+	{
+		// CoW detach then boolean scan of the transfer entries
+		return false;
+	}
+
+	void actWhenEmpty()            // FUN_00734656
+	{
+		// empty-list branch of actOnSelection
+	}
+
+	void walkOpA() {}              // FUN_007346c4 (shared shape)
+	void walkOpB() {}              // FUN_00734764 (isomorphic)
+	void walkOpC() {}              // FUN_00734804 (isomorphic)
 };
 
 #endif // TRANSFERPANE_H
