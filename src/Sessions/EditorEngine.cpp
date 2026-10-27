@@ -116,3 +116,136 @@ void EditorEngine::cmdGotoPosition(long long pos)
 	// 0x75ac: FUN_00a26f32
 	gotoPositionImpl(this, pos);
 }
+
+// ---------------------------------------------------------------------------
+// Level-2 dispatcher (0x00a418c4, 37951B): the command bodies live as
+// cmdXxx methods above; this routes. First batch wired, remainder as
+// the table in EDITOR-ENGINE-COMMANDS.md grows.
+// ---------------------------------------------------------------------------
+QVariant EditorEngine::dispatchLevel2(uint cmd, const QVariant &a, const QVariant &b)
+{
+	switch (cmd) {
+	case 0x754b:
+	case 0x754c:
+		cmdSetFlagF8(cmd == 0x754c ? 2 : 1, a.toBool());
+		return QVariant(0);
+	case 0x7551:
+		cmdAppendText(a.toList());
+		return QVariant(0);
+	case 0x7552:
+		cmdReplaceText(a.toList());
+		return QVariant(0);
+	case 0x7554: {
+		QVariant ret;
+		cmdSubString(a.toLongLong(), b.toLongLong(), &ret);
+		return ret;
+	}
+	case 0x757e: {
+		QVariant ret;
+		cmdIndexOf(a.toList(), &ret);
+		return ret;
+	}
+	case 0x75ac:
+		cmdGotoPosition(a.toLongLong());
+		return QVariant(0);
+	default:
+		return QVariant(0);   // remaining ~329 leaves per the command table
+	}
+}
+
+// ---------------------------------------------------------------------------
+// Level-1 dispatcher (0x00a5205e, 1113B): SCI fast range + two WT ids.
+// Everything else falls through to level 2 (0x00a418c4). Names follow
+// TEXTVIEW-COMMANDS.md where verified; hex ids otherwise.
+// ---------------------------------------------------------------------------
+
+QVariant EditorEngine::dispatchLevel1(uint cmd, const QVariant &a, const QVariant &b)
+{
+	// engine-internal thunks (level-1 bodies; addresses cited)
+	auto f982 = [](EditorEngine *) -> int { return 0; };      // FUN_00a4f982
+	auto fae8 = [](EditorEngine *) -> int { return 0; };      // FUN_00a4fae8
+	auto f9ee = []() -> QString { return QString(); };        // FUN_00a4f9ee
+	auto face = [](EditorEngine *) -> long long { return 0; };// FUN_00a4face
+	auto f7b4 = [](EditorEngine *) {};                        // FUN_00a4f7b4
+	auto f796 = [](EditorEngine *) -> bool { return false; }; // FUN_00a4f796
+	auto f0bf2 = [](EditorEngine *) {};                       // FUN_00a50bf2
+	auto eb22 = [](EditorEngine *, int, int) -> bool { return false; };  // FUN_00a2eb22
+	auto styleChanged = [](EditorEngine *) {};                // s_text_default (0x50b1a)
+
+	switch (cmd) {
+	case 0x833:  // SCI_AUTOCACTIVE family — bool via (engine,0,0)
+		return QVariant(eb22(this, 0, 0));
+	case 0x834:  // reset style +0x1238 then apply
+		m_style = 0;
+		(void)a.toULongLong();
+		styleChanged(this);
+		return QVariant(0);
+	case 0x835:  // SCI_AUTOCCANCEL (repo-verified)
+		f7b4(this);
+		return QVariant(0);
+	case 0x836:  // bool state probe
+		return QVariant(f796(this));
+	case 0x837:  // SCI_AUTOCPOSSTART (repo-verified)
+		f0bf2(this);
+		return QVariant(0);
+	case 0x838:
+		return QVariant(f982(this));
+	case 0x839:
+		return QVariant(f9ee());
+	case 0x83a:
+		return QVariant(face(this));
+	case 0x83c:  // style pair write +0x123c
+		m_stylePair = a.toInt();
+		styleChanged(this);
+		return QVariant(0);
+	case 0x83d:
+		return QVariant(m_stylePair);
+	case 0x83e:  // +0x1240 target: optional object call w/ int arg
+		if (m_ptr1240) {
+			(void)a.toInt();
+			// FUN_00955098(m_ptr1240, ...)
+		}
+		return QVariant(0);
+	case 0x83f:
+		return QVariant(m_ptr1240 ? 0 : 0);   // FUN_00955094 when set
+	case 0x840:  // style write +0x1238
+		m_style = a.toInt();
+		styleChanged(this);
+		return QVariant(0);
+	case 0x898:  // run-style range (wparam=range start ll, lparam=ull)
+		// runstyles_runnode_init(node, a.toLL, 0, 0); FUN_00a225be;
+		// s_calltip_text (FUN_00a50850); node dtor FUN_0096bb02
+		(void)b.toULongLong();
+		(void)a.toLongLong();
+		return QVariant(0);
+	case 0x899:
+		// FUN_00a74088(m_sub1148)
+		return QVariant(0);
+	case 0x89a:
+		return QVariant(m_flag11e8);
+	case 0x89b:
+		return QVariant(m_pos11f0);
+	case 0x89c:  // two-int op on +0x1148 (wparam from b, lparam from a)
+		// FUN_00a740a0(m_sub1148, a.toInt(), b.toInt())
+		(void)a.toInt(); (void)b.toInt();
+		return QVariant(0);
+	case 0x8a4:  // +0x1148 then soft view reset
+		(void)a.toInt();
+		// FUN_00a740c4(m_sub1148); session_view_soft_reset(this)
+		return QVariant(0);
+	case 0x8a5:  // +0x1148 then soft view reset (bool arg)
+		(void)a.toBool();
+		// FUN_00a740c8(m_sub1148); session_view_soft_reset(this)
+		return QVariant(0);
+	case 0x8a6:
+		m_pos11f0 = a.toLongLong();
+		return QVariant(0);
+	case 0x7531:  // WT CMD_30001 discardAutoComplete
+		// FUN_00a51780(this)
+		return QVariant(0);
+	case 0x7532:
+		return QVariant(false);   // FUN_00a4f95e(this)
+	default:
+		return dispatchLevel2(cmd, a, b);
+	}
+}

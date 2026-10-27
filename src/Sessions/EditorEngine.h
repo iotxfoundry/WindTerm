@@ -25,12 +25,17 @@ public:
 	void *vtable;
 	void *m_doc;          // +0x1098 (param_2[0x213]) — buffer/document
 	void *m_field10a8;    // +0x10a8 (param_2[0x215]) — 0x7548 path
-	int m_style;          // +0x1238 / +0x123c pair (0xa5205e)
 	bool m_flag11e8;      // +0x11e8
 	long long m_pos11f0;  // +0x11f0
 	void *m_sub1148;      // +0x1148 (FUN_00a740xx cluster)
 	void *m_ptr1240;      // +0x1240
 	char m_flag1b2;       // +0x1b2
+	int m_style;          // +0x1238 (0x840/0x834 writes)
+	int m_stylePair;      // +0x123c (0x83c write / 0x83d read)
+
+	// --- dispatchers (the two vtable+0x1c0 landing functions) --------
+	QVariant dispatchLevel1(uint cmd, const QVariant &a, const QVariant &b);
+	QVariant dispatchLevel2(uint cmd, const QVariant &a, const QVariant &b);
 
 	// edit transaction: editctx_beginIter(ctx, engine, &flags) at
 	// 0x7551; flags bit layout seen: 0x2 (no cursor move) / 0x200
