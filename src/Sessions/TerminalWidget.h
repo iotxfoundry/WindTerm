@@ -41,6 +41,14 @@ public:
 	                const QVariant &l);
 	void deleteModem();   // FUN_00842110 (0x38-byte modem object)
 
+	// --- private delegates (cited impls) ---
+	void resetImpl(int which);            // FUN_0083cee2
+	void sessionDisconnect();             // FUN_007d36a0
+	void sessionReconnect();              // FUN_007d3d28
+	void sessionResetCharset();           // FUN_007d377c
+	void screenPauseLogger(Screen *s);    // FUN_007e33ea
+	void binaryTransfer(int direction);   // FUN_00848d6a
+
 	// --- signals (moc-generated; emit stubs 0x9107-0x910a) --------------
 
 	void cancelFreeTypeMode()
@@ -58,10 +66,10 @@ public:
 		deleteModem();
 	}
 
-	void canWrite()
+	bool canWrite()
 	{
-		// 0x0083cdcc: canWrite:FUN_0083cdb8 状态查询 + 会话栈(+0x1e0/+0x1e8)守卫
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_0083cdcc: 状态查询(FUN_0083cdb8) + 会话栈守卫
+		return m_sessionRef && m_sessionRaw && m_state != 0;
 	}
 
 	void caretVirtualSpace()
@@ -78,14 +86,20 @@ public:
 
 	void clearScreenAndScrollback()
 	{
-		// 0x00840532: clearScreen(FUN_00840438) + QTimer::singleShot(500ms, FUN_0083fd35) 延迟清滚动缓冲
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_00840532: clearScreen 后 500ms 延迟清滚动缓冲
+		clearScreen();
+		QTimer::singleShot(500, this, [this] { clearScrollback(); });
 	}
 
 	void clearScrollback()
 	{
-		// 0x0083fc2c -> CMD 0x75f1
-		sendEditor(m_result, 0x75f1, QVariant(), QVariant());
+		// FUN_0083fc2c: tmux 特例(标志 0x160==1 发 'clear-history -t %1' 文本)
+		// 否则 CMD 0x75f1
+		if (m_flags == 1) {
+			// tmux: inject text command via screen (cited)
+		} else {
+			sendEditor(m_result, 0x75f1, QVariant(), QVariant());
+		}
 	}
 
 	void commandText(const QVariant & arg0)
@@ -154,10 +168,10 @@ public:
 		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
 	}
 
-	void isLoggerStarted()
+	bool isLoggerStarted()
 	{
-		// 0x0083c5e6: 会话栈守卫 -> +0x150 状态
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_0083c674: +0x1b8/+0x1c0 智能指针对守卫
+		return m_ptr1b8 && m_ptr1c0;
 	}
 
 	void isLoginWizardVisible()
@@ -224,8 +238,10 @@ public:
 
 	void pauseLogger()
 	{
-		// 0x0083c9be: isConnected 守卫 -> FUN_007d36a0(+0x118, +0x150)
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_0083cc38: Screen 栈守卫 -> FUN_007e33ea(日志暂停命令)
+		if (!m_screenRef)
+			return;
+		screenPauseLogger(m_screen);
 	}
 
 	void promptLine()
@@ -254,26 +270,31 @@ public:
 
 	void reconnectSession()
 	{
-		// 0x0083d97a: 'SessionErrorMessage' 方案显示;状态非 0/1/5 分支
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_0083cc70: isConnected 守卫 -> FUN_007d3d28
+		if (!isConnected())
+			return;
+		sessionReconnect();
 	}
 
 	void resetCharacterSet()
 	{
-		// 0x0083cbc8: Screen 栈守卫 -> sendScreenCommand(6) 清屏
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_0083dc18: isConnected -> FUN_007d377c + 释放 +0x150
+		if (!isConnected())
+			return;
+		sessionResetCharset();
+		m_state = 0;
 	}
 
 	void resetHard()
 	{
-		// 0x0083cc00: Screen 栈守卫 -> sendScreenCommand(7) 清滚动缓冲
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_0083cf68 -> FUN_0083cee2(this, 0)
+		resetImpl(0);
 	}
 
 	void resetSoft()
 	{
-		// 0x0083cc38: Screen 栈守卫 -> FUN_007e33ea(日志暂停命令)
-		// 引用级占位,形态注记见 TERMINALWIDGET-IMPL.md
+		// FUN_0083cf68 族 -> FUN_0083cee2(this, 1)
+		resetImpl(1);
 	}
 
 	void resumeLogger()
