@@ -57,6 +57,8 @@ public:
 	bool m_flagEc4;       // +0xec4 (0x950/0x951 pair)
 	int m_intEd8;         // +0xed8 (0x952 write + vt+0x160 / 0x953 read)
 	int m_intEac;         // +0xeac (0x966/0x967 pair)
+	int m_int1058;        // +0x1058 (0x9a3 byte write / 0x9a4 int read)
+	int m_intD48;         // +0xd48 (0x9c1)
 	void *m_styleCtx;     // +0x8: style/hit-test context (packed 32-slot
 	                      // int table, 11-byte stride at 0x7f8)
 	// doc object (+0x1098) internal offsets: tabSize@+0x270 (0x75c4),

@@ -247,6 +247,11 @@ static void sMarginTimestamp(EditorEngine *e) { (void)e; }    // s_margin_timest
 static bool styleZoomSet(void *styleCtx, int zoom) { (void)styleCtx; (void)zoom; return false; }  // FUN_009502a0
 static void marginRecalc(EditorEngine *e) { (void)e; }       // FUN_00a23c7a
 static void marginsTouch(EditorEngine *e) { (void)e; }        // s_margin_number + s_margin_timestamp wrapper
+static void docOp92a49e(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x9a2
+static void duplicateLines(EditorEngine *e) { (void)e; }     // editor_duplicateLines (0x9a5)
+static void docOp925d4c(void *doc, long long a, unsigned long long b) { (void)doc; (void)a; (void)b; }  // 0x9e2
+static void docOp925e2a(void *doc, long long a, int b) { (void)doc; (void)a; (void)b; }  // 0x9e4
+static void docOp925df0(void *doc) { (void)doc; }            // 0x9e8
 static QVariant vtForward150(EditorEngine *e, uint cmd, const QVariant &a, const QVariant &b)
 { (void)e; (void)cmd; (void)a; (void)b; return QVariant(0); }  // vtable+0x150 pass-through
 
@@ -1188,38 +1193,62 @@ QVariant EditorEngine::dispatchLevel2Generated(uint cmd, const QVariant &a,
 		return t_call("t_session_view_soft_reset", this, a, b);
 	case 0x998:  // EXT 2456: FUN_009286d4, args toLongLong
 		return t_call("t_009286d4", this, a, b);
-	case 0x9a2:  // EXT 2466: FUN_0092a49e, args toInt, toLongLong
-		return t_call("t_0092a49e", this, a, b);
-	case 0x9a3:  // EXT 2467: member write +0x20b (unmapped)
+	case 0x9a2:  // doc + toLL(a), toInt(b) -> FUN_0092a49e
+		docOp92a49e(m_doc, a.toLongLong(), b.toInt());
 		return QVariant(0);
-	case 0x9a4:  // EXT 2468: complex leaf (inline) — hand pass pending
+	case 0x9a3:  // write +0x1058 low byte
+		m_int1058 = a.toBool();
 		return QVariant(0);
-	case 0x9a5:  // EXT 2469: complex leaf (inline) — hand pass pending
+	case 0x9a4:  // read +0x1058
+		return QVariant(m_int1058);
+	case 0x9a5:  // editor_duplicateLines(engine, 0)
+		duplicateLines(this);
 		return QVariant(0);
-	case 0x9c1:  // EXT 2497: complex leaf (inline) — hand pass pending
+	case 0x9c1:  // read +0xd48
+		return QVariant(m_intD48);
+	case 0x9d4:  // +0x10c8 obj +0x57 bit5 set
+		if (m_obj10c8)
+			*(unsigned char *)((char *)m_obj10c8 + 0x57) =
+			    (unsigned char)(*(unsigned char *)((char *)m_obj10c8 + 0x57) & 0xdf | (a.toBool() ? 1 : 0) << 5);
 		return QVariant(0);
-	case 0x9d4:  // EXT 2516: complex leaf (inline) — hand pass pending
+	case 0x9d5:  // +0x10c8 obj +0x57 bit5 read
+		return QVariant(m_obj10c8 && (*(unsigned char *)((char *)m_obj10c8 + 0x57) >> 5 & 1));
+	case 0x9e1: {  // packed style table READ (32 slots, 11B stride)
+		const unsigned slot = a.toUInt();
+		return QVariant(slot < 0x20 ? *(int *)((char *)m_styleCtx + slot * 0xb) : 0);
+	}
+	case 0x9e2:  // doc + toLL(a), toULL(b) -> FUN_00925d4c
+		docOp925d4c(m_doc, a.toLongLong(), b.toULongLong());
 		return QVariant(0);
-	case 0x9d5:  // EXT 2517: complex leaf (inline) — hand pass pending
+	case 0x9e3:  // std::string return (s_text_default_92565a)
 		return QVariant(0);
-	case 0x9e1:  // EXT 2529: complex leaf (inline) — hand pass pending
+	case 0x9e4:  // doc + toLL(a), toInt(b) -> FUN_00925e2a
+		docOp925e2a(m_doc, a.toLongLong(), b.toInt());
 		return QVariant(0);
-	case 0x9e2:  // EXT 2530: FUN_00925d4c, args toULongLong, toLongLong
-		return t_call("t_00925d4c", this, a, b);
-	case 0x9e3:  // EXT 2531: complex leaf (s_text_default_92565a FUN_00a4b6df) — hand pass pending
+	case 0x9e5:  // std::string return (s_text_default sibling)
 		return QVariant(0);
-	case 0x9e4:  // EXT 2532: FUN_00925e2a, args toInt, toLongLong
-		return t_call("t_00925e2a", this, a, b);
-	case 0x9e5:  // EXT 2533: complex leaf (s_text_default_92565a FUN_00a4b6df) — hand pass pending
+	case 0x9e8:  // doc -> FUN_00925df0
+		docOp925df0(m_doc);
 		return QVariant(0);
-	case 0x9e8:  // EXT 2536: FUN_00925df0, args no args
-		return t_call("t_00925df0", this, a, b);
-	case 0x9fc:  // EXT 2556: complex leaf (runstyles_runnode_init FUN_00a21110 FUN_0096bb02) — hand pass pending
+	case 0x9fc: {  // select-to-position: runnode(pos) -> FUN_00a21110(e,node,0)
+		char n1[64];
+		runNodeInit(n1, a.toLongLong(), 0, 0);
+		eA21110(this, n1, 0);
+		runNodeFree(n1);
 		return QVariant(0);
-	case 0xa01:  // EXT 2561: complex leaf (FUN_0095019c editor_hitTest FUN_0096bbc0) — hand pass pending
-		return QVariant(0);
-	case 0xa02:  // EXT 2562: complex leaf (FUN_0095019c editor_hitTest FUN_0096bbc0) — hand pass pending
-		return QVariant(0);
+	}
+	case 0xa01: {  // position from point, mode (0,1,1)
+		char out[32];
+		editorHitTest(a.toDouble() - hitTestOffset(m_styleCtx), b.toDouble(),
+		              out, this, 0, 1, 1);
+		return QVariant(hitTestResolve(out));
+	}
+	case 0xa02: {  // position from point, mode (1,1,1)
+		char out[32];
+		editorHitTest(a.toDouble() - hitTestOffset(m_styleCtx), b.toDouble(),
+		              out, this, 1, 1, 1);
+		return QVariant(hitTestResolve(out));
+	}
 	case 0xa0a:  // EXT 2570: FUN_00a1fc2e, args no args
 		return t_call("t_00a1fc2e", this, a, b);
 	case 0xa0c:  // EXT 2572: complex leaf (runstyles_runnode_init FUN_0096be24 FUN_00a20fb0) — hand pass pending
