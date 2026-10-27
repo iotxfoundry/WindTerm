@@ -207,6 +207,27 @@ kind '?' = 信号(emit 桩),其余为可调用方法。地址为 WindTerm 主程
 | 199 | subString(data) | 0x005c0c32 |
 
 
+## 编辑器引擎(渲染层)锚定(2026-10-28)
+
+**引擎 = Scintilla 系**(RTTI 实证:`SciCalltipClickEvent_vtable` /
+`SciCompleterEvent_vtable` @ 0xa524cf/0xa524e7 析构)。TextView+0x58 的
+后端对象 ≥0x1248 字节,两级命令分派:
+
+| 级 | 地址 | 体量 | 覆盖 |
+|---|---|---|---|
+| 1 | **0x00a5205e** `props_getValueById` | 1113B | SCI 快速段 0x833-0x8a6 + WT 0x7531/0x7532,直接读写引擎成员 |
+| 2 | **0x00a418c4** `s_line_caret_remote` | **37,951B** | 全命令空间(SCI/EXT 20173-20228/WT 30001-30166),0x7545 实现内联可见(FUN_00933366) |
+
+签名一致:`QVariant* f(QVariant *ret, Engine*, uint cmd, QVariant *a, QVariant *b)`
+——正是 sendEditor vtable+0x1c0 尾调用的落点形态。
+
+引擎成员锚点(0xa5205e 段):+0x1148(子对象,FUN_00a74088/c4/c8/a0 簇)、
++0x11e8(bool)、+0x11f0(u64)、+0x1238/+0x123c(int 对)、+0x1240(ptr)、
++0x1098/+0x10a8(param_2[0x213]/[0x215],0x7545/0x7548 路径)。
+0x7545(addScrollBarMark)实现 = FUN_00933366;0x7548 经引擎虚表 +0xe8 槽。
+
+**38K 分派器 = 下一个 SuperCommander 级矿**,逐 case 提取待专项。
+
 ## 架构定性(2026-10-27 补,28 日修正)
 
 TextView = 命令转发壳:方法体仅 QVariant 装配后经 sendEditor
