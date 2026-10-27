@@ -232,7 +232,19 @@ static void docOp927a30(void *doc, bool b)
 // ---------------------------------------------------------------------------
 // GapBuffer / line-index layer: doc+0xf8 → buffer, buffer+8 → line index
 // ---------------------------------------------------------------------------
-static int runStyleValue(long entry) { (void)entry; return 0; }  // FUN_009407da
+static int runStyleValue(long entry)
+{
+	// FUN_009407da (35B): walks the style-entry chain (+8 next) OR-ing
+	// 1 << (styleId & 0x1f) — builds the style bitmask of an entry list
+	// (the +4 dword of each node holds a style id)
+	const long *n = (const long *)entry;
+	unsigned mask = 0;
+	while (n) {
+		mask |= 1u << (*(const unsigned *)((const char *)n + 4) & 0x1f);
+		n = *(const long *const *)((const char *)n + 8);
+	}
+	return (int)mask;
+}  // FUN_009407da
 static void fontCascade(void *ctx) { (void)ctx; }            // FUN_0095159e + 4 s_ recalc chain
 static void op92710c() { }                                   // reset op (margin timestamp head)
 static void *gapBufferOf(void *doc)
@@ -324,12 +336,36 @@ static void runNodeFree(void *node)
 }
 static void eA20eb2(EditorEngine *e, void *anchor, void *caret, int sel) { (void)e; (void)anchor; (void)caret; (void)sel; }  // 0x870 set selection
 // cursor-object ops (FUN_00974xxx/00975xxx family — the +0x1038 cursor)
-static void cursorOp7557e(void *cursor, int v) { (void)cursor; (void)v; }  // FUN_0097557e
-static int probe74b54() { return 0; }                        // FUN_00974b54
-static void cursorOp75b02(void *cursor) { (void)cursor; }    // FUN_00975b02
-static void cursorOp753c4(void *cursor) { (void)cursor; }    // FUN_009753c4
-static void cursorOp7a2a4(void *cursor, int v) { (void)cursor; (void)v; }  // FUN_0097a2a4
-static int probe74b4a() { return 0; }                        // FUN_00974b4a
+// FUN_0097557e (5B): cursor+0x18 = flag byte
+static void cursorOp7557e(void *cursor, int v)
+{
+	*(unsigned char *)((char *)cursor + 0x18) = (unsigned char)v;
+}
+// FUN_009753c4 (5B): cursor+0x20 flag clear
+static void cursorOp753c4(void *cursor)
+{
+	*(unsigned char *)((char *)cursor + 0x20) = 0;
+}
+// FUN_00974b4a/00974b54 (10B each): selection refcount ++/-- at
+// cursor+0x1c — the ctor/dtor pairing is an RAII guard
+static int selRefBump(void *cursor) { return ++*(int *)((char *)cursor + 0x1c); }
+static int selRefDrop(void *cursor) { return --*(int *)((char *)cursor + 0x1c); }
+static void cursorOp759ce(void *cursor, long long v) { (void)cursor; (void)v; }  // FUN_009759ce
+// FUN_00975b02 (57B): selection teardown — bit0 of +0x20 with a live
+// +0x28 pair runs FUN_009759ce(cursor, -1) then zeroes +0x28/+0x30;
+// +0x30 = -1 sentinel either way
+static void cursorOp75b02(void *cursor)
+{
+	char *c = (char *)cursor;
+	if ((*(unsigned char *)(c + 0x20) & 1) && *(void **)(c + 0x28)) {
+		cursorOp759ce(cursor, -1);          // FUN_009759ce
+		*(void **)(c + 0x28) = nullptr;
+		*(long long *)(c + 0x30) = -1;
+		return;
+	}
+	*(long long *)(c + 0x30) = -1;
+}
+static void cursorOp7a2a4(void *cursor, int v) { (void)cursor; (void)v; }  // FUN_0097a2a4 (605B, D 类)
 static void eA20ab0(EditorEngine *e) { (void)e; }            // FUN_00a20ab0
 static void eA2dada(EditorEngine *e) { (void)e; }            // FUN_00a2dada
 static void eA2e88e(EditorEngine *e) { (void)e; }            // FUN_00a2e88e
@@ -350,7 +386,7 @@ static void editorSelCtor(void *sel, EditorEngine *e, int *type)
 		cursorOp7557e((void *)s[1], 0);
 		return;
 	}
-	if (probe74b4a() == 0 && (bits & 1) == 0) {
+	if (selRefBump((void *)s[1]) == 0 && (bits & 1) == 0) {
 		if (bits & 4)
 			cursorOp7a2a4((void *)s[1], 1);
 		eA2dada(e);
@@ -368,7 +404,7 @@ static void editorSelDtor(void *sel)
 		cursorOp7557e(cursor, 1);                            // FUN_0097557e
 		return;
 	}
-	if (probe74b54() == 0) {                                 // FUN_00974b54
+	if (selRefDrop(cursor) == 0) {                           // FUN_00974b54
 		cursorOp75b02(cursor);                               // FUN_00975b02
 		cursorOp753c4(cursor);                               // FUN_009753c4
 		if ((bits & 1) == 0) {
@@ -549,6 +585,10 @@ static void searchFlagsText(void *b, EditorEngine *e, int f)
 	// 0xa1ff9c / 0xa20050 are the same shape on other ranges
 	(void)b; (void)e; (void)f;
 }   // FUN_00a1fda6
+// FUN_00a1fe5a / FUN_00a1ff9c / FUN_00a20050 (49B each): the other
+// quadruplet members — identical 3-slot shape to FUN_00a1fda6, each
+// picking a different range descriptor via FUN_00a1fc3a + its own
+// expander (FUN_0096bfda vs 0096bfd4)
 static void searchRangeText(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }   // FUN_00a1fe5a
 static void searchFlagsText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a1ff9c
 static void searchRangeText2(void *b, EditorEngine *e, int f) { (void)b; (void)e; (void)f; }  // FUN_00a20050
