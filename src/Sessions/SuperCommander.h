@@ -339,7 +339,7 @@ public slots:
 	void setUserDefinedKeys(int key);
 	void setUserDefinedKeys(int key, int clear);
 	void setUserDefinedKeys(int key, int clear, int modifier);
-	void setUserDefinedKeys(int key, int lock);
+	// setUserDefinedKeys(int, int) 重复重载已合并(五槽同指 0x7ef0e8)
 	void loadLeds();
 	void loadLeds(const QString &leds);
 

@@ -179,6 +179,7 @@ public:
 	void insertLine(int count);         // FUN_007e3ae6 -> FUN_007a5290
 	bool isAltScreenActive() const;         // FUN_007e4028 (+0x139)
 	bool isBracketedPaste() const;          // FUN_007e355a
+	int currentPage() const { return m_pageCurrent; }
 	bool isReverseScreen() const;           // FUN_007e4a94
 	bool isScrollbackAllowed() const;           // FUN_007e4036
 	bool isTabstop(int column) const;             // FUN_007e5c98
@@ -420,6 +421,12 @@ public:
 	void mouseModeChanged(int mode) { (void)mode; }
 	void reverseScreenChanged() {}
 	class QElapsedTimer *m_elapsed;
+
+	// --- SuperCommander forward-compat declarations (auto-derived) ---
+	void codecFromUnicode(const QString &);  // SuperCommander forward compat
+	void codecToUnicode(const QString &);  // SuperCommander forward compat
+	void currentPage();  // SuperCommander forward compat
+	void filterRectangle(int a0, int a1, int a2, int a3);  // SuperCommander forward compat
 };
 
 #endif // SCREEN_H

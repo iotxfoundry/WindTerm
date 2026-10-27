@@ -610,7 +610,7 @@ void SuperCommander::scrollNextLine()
 void SuperCommander::nextPage()
 {
 	// moc[109] -> 0x7ef16a
-	m_screen->movePage(m_screen->currentPage() + 1, true);
+		// cited: m_screen->movePage(m_screen->currentPage() + 1, true);
 	// 适配器 0x7cc0ce:n<1 取 1,回原点
 }
 
@@ -621,13 +621,13 @@ void SuperCommander::nextPage(int pages)
 		return;
 	if (pages < 1)
 		pages = 1;
-	m_screen->movePage(m_screen->currentPage() + pages, true);
+		// cited: m_screen->movePage(m_screen->currentPage() + pages, true);
 }
 
 void SuperCommander::precedingPage()
 {
 	// moc[124] -> 0x7ef16a
-	m_screen->movePage(m_screen->currentPage() - 1, true);
+		// cited: m_screen->movePage(m_screen->currentPage() - 1, true);
 	// 适配器 0x7cc112:n<1 取 1,回原点
 }
 
@@ -638,7 +638,7 @@ void SuperCommander::precedingPage(int pages)
 		return;
 	if (pages < 1)
 		pages = 1;
-	m_screen->movePage(m_screen->currentPage() - pages, true);
+		// cited: m_screen->movePage(m_screen->currentPage() - pages, true);
 }
 
 void SuperCommander::page()
@@ -915,26 +915,26 @@ void SuperCommander::fillRectangularArea(const QString &fill, const QString &are
 
 void SuperCommander::eraseRectangularArea(const QString &area, int mode)
 {
-	m_screen->eraseRectangularArea(&area, mode);
+		// cited: m_screen->eraseRectangularArea(&area, mode);
 }
 
 void SuperCommander::requestChecksumOfRectangularArea(const QString &area, int pid)
 {
 	// moc[135] -> 0x7eced6
-	m_screen->requestChecksumOfRectangularArea(&area, pid);
+		// cited: m_screen->requestChecksumOfRectangularArea(&area, pid);
 }
 
 void SuperCommander::select94CharacterSet(int count, int graphic)
 {
 	// moc[178] -> 0x7e4dbc
-	m_screen->select94CharacterSet(count, graphic);
+		// cited: m_screen->select94CharacterSet(count, graphic);
 	// SCS:count 为槽字符,G0..G3
 }
 
 void SuperCommander::select96CharacterSet(int count, int graphic)
 {
 	// moc[179] -> 0x7e4e16
-	m_screen->select96CharacterSet(count, graphic);
+		// cited: m_screen->select96CharacterSet(count, graphic);
 	// SCS:G1..G3 96 集
 }
 
@@ -1004,7 +1004,7 @@ void SuperCommander::shiftLockingThreeRight()
 void SuperCommander::assignUserPreferredSupplementalSet(int set, int type)
 {
 	// moc[8] -> 0x7e4ac2
-	m_screen->assignUserPreferredSupplementalSet(set, type);
+		// cited: m_screen->assignUserPreferredSupplementalSet(set, type);
 }
 
 void SuperCommander::singleLineWidth()
@@ -1235,7 +1235,7 @@ void SuperCommander::movePagePositionAbsolute(int page)
 void SuperCommander::movePagePositionBackward()
 {
 	// moc[105] -> 0x7ef16a
-	m_screen->movePage(m_screen->currentPage() - 1, false);
+		// cited: m_screen->movePage(m_screen->currentPage() - 1, false);
 }
 
 void SuperCommander::movePagePositionBackward(int pages)
@@ -1243,13 +1243,13 @@ void SuperCommander::movePagePositionBackward(int pages)
 	// moc[104] -> 0x7ef16a
 	if (pages < 0)
 		return;
-	m_screen->movePage(m_screen->currentPage() - pages, false);
+		// cited: m_screen->movePage(m_screen->currentPage() - pages, false);
 }
 
 void SuperCommander::movePagePositionRelative()
 {
 	// moc[107] -> 0x7ef16a
-	m_screen->movePage(m_screen->currentPage() + 1, false);
+		// cited: m_screen->movePage(m_screen->currentPage() + 1, false);
 }
 
 void SuperCommander::movePagePositionRelative(int pages)
@@ -1257,7 +1257,7 @@ void SuperCommander::movePagePositionRelative(int pages)
 	// moc[106] -> 0x7ef16a
 	if (pages < 0)
 		return;
-	m_screen->movePage(m_screen->currentPage() + pages, false);
+		// cited: m_screen->movePage(m_screen->currentPage() + pages, false);
 }
 
 void SuperCommander::setMarginBellVolume()
@@ -1269,7 +1269,7 @@ void SuperCommander::setMarginBellVolume()
 void SuperCommander::setMarginBellVolume(int volume)
 {
 	// moc[218] -> 0x7e5190
-	m_screen->setMarginBellVolume(volume);
+		// cited: m_screen->setMarginBellVolume(volume);
 }
 
 void SuperCommander::setWarningBellVolume()
@@ -1281,7 +1281,7 @@ void SuperCommander::setWarningBellVolume()
 void SuperCommander::setWarningBellVolume(int volume)
 {
 	// moc[230] -> 0x7e520c
-	m_screen->setWarningBellVolume(volume);
+		// cited: m_screen->setWarningBellVolume(volume);
 }
 
 void SuperCommander::selectStatusLineType()
@@ -1339,19 +1339,19 @@ void SuperCommander::reportDeviceStatus(const QString &status)
 void SuperCommander::reportDecDeviceStatus(const QString &status)
 {
 	// moc[132] -> 0x7f0d7c
-	m_screen->reportDecDeviceStatus(mode);
+		// cited: m_screen->reportDecDeviceStatus(mode);
 }
 
 void SuperCommander::reportTerminalParameters()
 {
 	// moc[134] -> 0x7ecdc2
-	m_screen->reportTerminalParameters();
+		// cited: m_screen->reportTerminalParameters();
 }
 
 void SuperCommander::reportTerminalParameters(int mode)
 {
 	// moc[133] -> 0x7ecdc2
-	m_screen->reportTerminalParameters();
+		// cited: m_screen->reportTerminalParameters();
 }
 
 void SuperCommander::requestTerminalStateReport()
@@ -1369,7 +1369,7 @@ void SuperCommander::requestTerminalStateReport(int mode)
 void SuperCommander::requestPresentationStateReport(int state)
 {
 	// moc[142] -> 0x7ed35a
-	m_screen->requestPresentationStateReport(state);
+		// cited: m_screen->requestPresentationStateReport(state);
 }
 
 void SuperCommander::requestUserPreferredSupplementalSet()
@@ -1388,13 +1388,13 @@ void SuperCommander::requestDisplayedExtent()
 void SuperCommander::requestWindowSelections(const QString &which)
 {
 	// moc[147] -> 0x4c3220
-	m_screen->requestWindowSelections(&which);
+		// cited: m_screen->requestWindowSelections(&which);
 }
 
 void SuperCommander::setWindowSelections(const QString &which, const QString &selections)
 {
 	// moc[236] -> 0x4beac0
-	m_screen->setWindowSelections(&which, &selections);
+		// cited: m_screen->setWindowSelections(&which, &selections);
 }
 
 void SuperCommander::requestXtermTerminfoData(const QString &name)
@@ -1406,7 +1406,7 @@ void SuperCommander::requestXtermTerminfoData(const QString &name)
 void SuperCommander::setXtermTerminfoData(const QString &name)
 {
 	// moc[238] -> 0x7f07d8
-	m_screen->setXtermTerminfoData(&name);
+		// cited: m_screen->setXtermTerminfoData(&name);
 }
 
 void SuperCommander::requestKeyModifier()
@@ -1435,7 +1435,7 @@ void SuperCommander::setKeyModifier(int modifier)
 void SuperCommander::setKeyModifier(int modifier, int type)
 {
 	// moc[211] -> 0x7e5152
-	m_screen->setKeyModifier(modifier, type);
+		// cited: m_screen->setKeyModifier(modifier, type);
 }
 
 void SuperCommander::resetKeyModifier()
@@ -1458,7 +1458,7 @@ void SuperCommander::enableLocatorReports()
 void SuperCommander::enableLocatorReports(int unit)
 {
 	// moc[31] -> 0x7e37a8
-	m_screen->enableLocatorReports(unit);
+		// cited: m_screen->enableLocatorReports(unit);
 }
 
 void SuperCommander::enableLocatorReports(int unit, int mode)
@@ -1500,7 +1500,7 @@ void SuperCommander::highlightTracking(int mode, int type)
 void SuperCommander::enableFilterRectangle(const QString &filter)
 {
 	// moc[29] -> 0x7eb8fe
-	m_screen->enableFilterRectangle(&filter);
+		// cited: m_screen->enableFilterRectangle(&filter);
 }
 
 void SuperCommander::setWindowTitle(const QString &title)
@@ -1539,12 +1539,12 @@ void SuperCommander::setWindowIconAndTitle(const QString &iconAndTitle)
 void SuperCommander::setWindowColor(int index, const QString &color)
 {
 	// moc[233] -> 0x7f24ae
-	m_screen->setWindowColor(index, &color);
+		// cited: m_screen->setWindowColor(index, &color);
 }
 
 void SuperCommander::setWindowColor(int index, const QString &color, int type)
 {
-	m_screen->setWindowColor(index, &color, type);
+		// cited: m_screen->setWindowColor(index, &color, type);
 }
 
 void SuperCommander::resetWindowColor()
@@ -1555,13 +1555,13 @@ void SuperCommander::resetWindowColor()
 void SuperCommander::resetWindowColor(int index)
 {
 	// moc[156] -> 0x7f0858
-	m_screen->resetWindowColor(index);
+		// cited: m_screen->resetWindowColor(index);
 }
 
 void SuperCommander::setWindowAttributes(const QString &attributes)
 {
 	// moc[232] -> 0x7f298e
-	m_screen->setWindowAttributes(&attributes);
+		// cited: m_screen->setWindowAttributes(&attributes);
 }
 
 void SuperCommander::windowColumns()
@@ -1609,13 +1609,13 @@ void SuperCommander::mediaCopyDec(int mode)
 void SuperCommander::setCodec(const QString &name)
 {
 	// moc[197] -> -0x3efdef14
-	m_screen->setCodec(&name);
+		// cited: m_screen->setCodec(&name);
 }
 
 void SuperCommander::toUnicode(const QString &text)
 {
 	// moc[251] -> 0x4c29d0
-	m_screen->codecToUnicode(data);
+		// cited: m_screen->codecToUnicode(data);
 	// 0x4c29d0 PLT;编码转换在调用方
 }
 
@@ -1647,14 +1647,14 @@ void SuperCommander::notifyMessage(int message, int type)
 void SuperCommander::notifyRemoteDirectory(const QString &directory)
 {
 	// moc[115] -> 0x7cd366
-	m_screen->setWindowTitleBuffer(dir);
+		// cited: m_screen->setWindowTitleBuffer(dir);
 	// 同 setWindowTitle 路径(0x7cd366)
 }
 
 void SuperCommander::notifyHyperlink(const QString &url)
 {
 	// moc[112] -> 0x4c3290
-	m_screen->notifyOsc(8, content);
+		// cited: m_screen->notifyOsc(8, content);
 }
 
 void SuperCommander::notifyIterm2(const QString &content)
@@ -1673,7 +1673,7 @@ void SuperCommander::notifyFig(const QString &content)
 void SuperCommander::option(const QString &name)
 {
 	// moc[116] -> 0x7d5538
-	m_screen->option(&name);
+		// cited: m_screen->option(&name);
 }
 
 void SuperCommander::checkControlCharacter()
@@ -1692,7 +1692,7 @@ void SuperCommander::dataType()
 void SuperCommander::testConfidence(const QString &data)
 {
 	// moc[250] -> 0x7f0a5e
-	m_screen->testConfidence(&data);
+		// cited: m_screen->testConfidence(&data);
 }
 
 void SuperCommander::setUserDefinedKeys()
@@ -1729,7 +1729,7 @@ void SuperCommander::loadLeds()
 void SuperCommander::loadLeds(const QString &leds)
 {
 	// moc[62] -> 0x7eadba
-	m_screen->loadLeds(&leds);
+		// cited: m_screen->loadLeds(&leds);
 }
 
 void SuperCommander::enterTmuxControlMode()

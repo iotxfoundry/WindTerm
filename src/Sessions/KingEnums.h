@@ -40,6 +40,8 @@ enum ChangeReason
 	WindowMoved = 1024
 };
 
+namespace ChangeReasonsNS
+{
 enum ChangeReasons
 {
 	NoneChanged = 0,
@@ -55,6 +57,7 @@ enum ChangeReasons
 	MarkerRemoved = 512,
 	WindowMoved = 1024
 };
+}  // using-scope: ChangeReasonsNS::NoneChanged ...
 
 enum Charset
 {
@@ -178,6 +181,8 @@ enum KeyMode
 	AnyMode = 31
 };
 
+namespace KeyModesNS
+{
 enum KeyModes
 {
 	UnknownMode = 0,
@@ -188,6 +193,8 @@ enum KeyModes
 	LocalMode = 16,
 	AnyMode = 31
 };
+}  // scope: KeyModesNS::...
+
 
 enum Led
 {
@@ -238,12 +245,16 @@ enum MatchOption
 	MatchWord = 4
 };
 
+namespace MatchOptionsNS
+{
 enum MatchOptions
 {
 	MatchCase = 1,
 	MatchRegex = 2,
 	MatchWord = 4
 };
+}  // scope: MatchOptionsNS::...
+
 
 enum MessageLevel
 {
@@ -354,6 +365,8 @@ enum StandardButton
 	UserButton = 32768
 };
 
+namespace StandardButtonsNS
+{
 enum StandardButtons
 {
 	NoneButton = 0,
@@ -374,6 +387,8 @@ enum StandardButtons
 	RetryButton = 16384,
 	UserButton = 32768
 };
+}  // scope: StandardButtonsNS::...
+
 
 enum Status
 {
