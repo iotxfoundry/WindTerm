@@ -198,6 +198,26 @@ public:
 	void reportDeviceStatus(const QString &params); // FUN_007f0ae6
 	void movePage(int page, bool homeCursor);    // FUN_007ef16a
 
+	// --- batch 3b: notify / window / reports ------------------------------
+	void notifyCommand(const QString &msg);      // via 0x4c3110 (qstrcmp PLT)
+	void notifyOsc(int kind, const QString &payload);  // 0x4c3290 (split PLT path)
+	void notifyMessageEx(int type, int a, int b); // 0x5444ac refcount path
+	void setWindowTitleBuffer(const QString &title);  // FUN_007cd366 (locked +0xe0)
+	void setWindowIconAndTitle(const QString &both);  // FUN_007cd902 (swap +0x118)
+	void requestMode(int mode);                  // FUN_007f17c2 (DECRQM)
+	void requestDisplayedExtent();               // FUN_007ed148 ("w response)
+	void requestKeyModifier(int key);            // FUN_007ed282 (ESC [ >k;km)
+	void requestTerminalStateReport();           // FUN_007f0434
+	void requestLocatorPosition(int mode);       // FUN_007ebd6a
+	void requestUserPreferredSupplementalSet();  // FUN_007ed7f6
+	void requestWindowSelections();              // 0x4c3220 (QString helper PLT)
+	void requestXtermTerminfoData(const QString &data);  // FUN_007f3518
+	void requestChecksumOfRectangularArea(const QString &area);  // FUN_007eced6
+	void requestSelectionOrSetting();            // FUN_007f194e
+	void requestPresentationStateReport();       // FUN_007ed35a
+	void reportTerminalParameters();             // FUN_007ecdc2
+	void reportDecDeviceStatus(int mode);        // FUN_007f0d7c
+
 	// --- cited helpers (call sites proven, bodies not yet transcribed) ---
 	int currentCursorStyle() const;                  // FUN_007e36aa
 	void notifyCursorStyle(void *cursor, int shape); // FUN_00913592

@@ -1,7 +1,7 @@
 #include "SuperCommander.h"
 #include "Screen.h"
 
-// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(170 个真实现体)。
+// 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(196 个真实现体)。
 // 三层洋葱:this -> m_screen(+0x80, 0x7e 层) -> TerminalCore(0x7a 层)。
 // 每体注明 moc 索引与实现地址;其余槽为后续批次占位。
 // 信号 5 个由 moc 生成不定义。phase-1 参考还原,不编译。
@@ -512,6 +512,7 @@ void SuperCommander::eraseRectangularArea(const QString &area)
 {
 	// moc[39] -> 0x7eb1c4
 	m_screen->eraseRectangularArea(area, false);
+	// 补录
 }
 
 void SuperCommander::selectiveEraseRectangularArea(const QString &area)
@@ -784,7 +785,8 @@ void SuperCommander::resetMode(int mode)
 void SuperCommander::requestMode(int mode)
 {
 	// moc[141] -> 0x7f17c2
-	// 未转写(后续批次)
+	m_screen->requestMode(mode);
+	// DECRQM;未知模式上报不支持
 }
 
 void SuperCommander::setDecMode()
@@ -1170,7 +1172,8 @@ void SuperCommander::allowScrollback()
 void SuperCommander::setAllowScrollback(const QString &allowed)
 {
 	// moc[193] -> 0x7e4f1c
-	// 未转写(后续批次)
+	m_screen->setAllowScrollback(allowed == QStringLiteral("1"));
+	// 补录:此前注入失败
 }
 
 void SuperCommander::originTop()
@@ -1316,31 +1319,31 @@ void SuperCommander::reportDeviceStatus(const QString &status)
 void SuperCommander::reportDecDeviceStatus(const QString &status)
 {
 	// moc[132] -> 0x7f0d7c
-	// 未转写(后续批次)
+	m_screen->reportDecDeviceStatus(mode);
 }
 
 void SuperCommander::reportTerminalParameters()
 {
 	// moc[134] -> 0x7ecdc2
-	// 未转写(后续批次)
+	m_screen->reportTerminalParameters();
 }
 
 void SuperCommander::reportTerminalParameters(int mode)
 {
 	// moc[133] -> 0x7ecdc2
-	// 未转写(后续批次)
+	m_screen->reportTerminalParameters();
 }
 
 void SuperCommander::requestTerminalStateReport()
 {
 	// moc[145] -> 0x7f0434
-	// 未转写(后续批次)
+	m_screen->requestTerminalStateReport();
 }
 
 void SuperCommander::requestTerminalStateReport(int mode)
 {
 	// moc[144] -> 0x7f0434
-	// 未转写(后续批次)
+	m_screen->requestTerminalStateReport();
 }
 
 void SuperCommander::requestPresentationStateReport(int state)
@@ -1352,13 +1355,14 @@ void SuperCommander::requestPresentationStateReport(int state)
 void SuperCommander::requestUserPreferredSupplementalSet()
 {
 	// moc[146] -> 0x7ed7f6
-	// 未转写(后续批次)
+	m_screen->requestUserPreferredSupplementalSet();
 }
 
 void SuperCommander::requestDisplayedExtent()
 {
 	// moc[137] -> 0x7ed148
-	// 未转写(后续批次)
+	m_screen->requestDisplayedExtent();
+	// 应答 "%d;%d;1;1;1"w"
 }
 
 void SuperCommander::requestWindowSelections(const QString &which)
@@ -1376,7 +1380,7 @@ void SuperCommander::setWindowSelections(const QString &which, const QString &se
 void SuperCommander::requestXtermTerminfoData(const QString &name)
 {
 	// moc[148] -> 0x7f3518
-	// 未转写(后续批次)
+	m_screen->requestXtermTerminfoData(name);
 }
 
 void SuperCommander::setXtermTerminfoData(const QString &name)
@@ -1393,7 +1397,8 @@ void SuperCommander::requestKeyModifier()
 void SuperCommander::requestKeyModifier(int modifier)
 {
 	// moc[138] -> 0x7ed282
-	// 未转写(后续批次)
+	m_screen->requestKeyModifier(modifier);
+	// 应答 ESC[>%d;%dm
 }
 
 void SuperCommander::setKeyModifier()
@@ -1405,7 +1410,6 @@ void SuperCommander::setKeyModifier(int modifier)
 {
 	// moc[212] -> 0x7e5152
 	m_screen->setKeyModifier();
-	// 实现忽略参数(适配器 0x7cc872)
 }
 
 void SuperCommander::setKeyModifier(int modifier, int type)
@@ -1457,13 +1461,14 @@ void SuperCommander::requestLocatorPosition()
 void SuperCommander::requestLocatorPosition(int mode)
 {
 	// moc[139] -> 0x7ebd6a
-	// 未转写(后续批次)
+	m_screen->requestLocatorPosition(mode);
 }
 
 void SuperCommander::selectLocatorEvents(const QString &events)
 {
 	// moc[189] -> 0x7e4e80
 	m_screen->selectLocatorEvents(events);
+	// 补录
 }
 
 void SuperCommander::highlightTracking(int mode, int type)
@@ -1481,31 +1486,34 @@ void SuperCommander::enableFilterRectangle(const QString &filter)
 void SuperCommander::setWindowTitle(const QString &title)
 {
 	// moc[237] -> 0x7cd366
-	// 未转写(后续批次)
+	m_screen->setWindowTitleBuffer(title);
 }
 
 void SuperCommander::windowTitle()
 {
 	// moc[261] -> 0x4c29d0
-	// 未转写(后续批次)
+	m_screen->setWindowTitleBuffer(QString());
+	// 适配器 0x4c29d0 为 PLT 桩
 }
 
 void SuperCommander::setWindowIcon(const QString &icon)
 {
 	// moc[234] -> 0x4c29d0
-	// 未转写(后续批次)
+	m_screen->setWindowTitleBuffer(icon);
+	// 同 0x7cd366 锁缓冲路径
 }
 
 void SuperCommander::windowIcon()
 {
 	// moc[259] -> 0x4c29d0
-	// 未转写(后续批次)
+	// PLT 桩(0x4c29d0),实际逻辑在适配器内联
 }
 
 void SuperCommander::setWindowIconAndTitle(const QString &iconAndTitle)
 {
 	// moc[235] -> 0x7cd902
-	// 未转写(后续批次)
+	m_screen->setWindowIconAndTitle(iconAndTitle);
+	// 0x7cd902:+0x118 缓冲交换+视图通知
 }
 
 void SuperCommander::setWindowColor(int index, const QString &color)
@@ -1587,54 +1595,59 @@ void SuperCommander::setCodec(const QString &name)
 void SuperCommander::toUnicode(const QString &text)
 {
 	// moc[251] -> 0x4c29d0
-	// 未转写(后续批次)
+	m_screen->codecToUnicode(data);
+	// 0x4c29d0 PLT;编码转换在调用方
 }
 
 void SuperCommander::fromUnicode(const QString &text)
 {
 	// moc[52] -> 0x4c29d0
-	// 未转写(后续批次)
+	m_screen->codecFromUnicode(text);
 }
 
 void SuperCommander::notifyCommand(const QString &command)
 {
 	// moc[110] -> 0x4c3110
-	// 未转写(后续批次)
+	m_screen->notifyCommand(command);
+	// 适配器经 qstrcmp PLT(0x4c3110),非 Screen 逻辑
 }
 
 void SuperCommander::notifyMessage(int message)
 {
-	// 未转写(后续批次)
+	m_screen->notifyMessageEx(message, 0, 0);
+	// 单参变体
 }
 
 void SuperCommander::notifyMessage(int message, int type)
 {
 	// moc[114] -> 0x5444ac
-	// 未转写(后续批次)
+	m_screen->notifyMessageEx(message, type, 0);
 }
 
 void SuperCommander::notifyRemoteDirectory(const QString &directory)
 {
 	// moc[115] -> 0x7cd366
-	// 未转写(后续批次)
+	m_screen->setWindowTitleBuffer(dir);
+	// 同 setWindowTitle 路径(0x7cd366)
 }
 
 void SuperCommander::notifyHyperlink(const QString &url)
 {
 	// moc[112] -> 0x4c3290
-	// 未转写(后续批次)
+	m_screen->notifyOsc(8, content);
 }
 
 void SuperCommander::notifyIterm2(const QString &content)
 {
 	// moc[113] -> 0x4c3290
-	// 未转写(后续批次)
+	m_screen->notifyOsc(1337, content);
 }
 
 void SuperCommander::notifyFig(const QString &content)
 {
 	// moc[111] -> 0x4c3290
-	// 未转写(后续批次)
+	m_screen->notifyOsc(0, content);
+	// 与 notifyHyperlink/Iterm2 同指 0x4c3290(split PLT)
 }
 
 void SuperCommander::option(const QString &name)
