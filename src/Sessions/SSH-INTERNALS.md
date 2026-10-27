@@ -68,3 +68,24 @@ auth_agent→Pageant 补丁(0x627b06)、userauth_list=authMethods(0x629b0b)。
 - [ ] ssh_connect 未直调(经函数指针/虚表)→ 由 ssh_session_is_connected 调用者交叉定位
 - [ ] Bridge 状态机(0x838-0x84b)函数逐个还原
 - [ ] UI 回调链 FUN_00627315/00627110/0062713a/00627308 细化
+
+## 信号路由与状态机(静态分析结论)
+
+`FUN_007bc21e`(`0x7bc21e`,~8KB)= SuperSession 的**信号接线枢纽**:
+把 session 信号经 `QObject::connectImpl`(`&PTR_011a8220` 为信号索引上下文)
+批量接到 Bridge 侧闭包,关键配对:
+
+| SuperSession 信号 | Bridge 闭包 | 行为 |
+|---|---|---|
+| commandOutput(idx3) | `0x7bebdc` | 剥离尾部 `###` 提示标记后分发(命令历史/Commander 数据源) |
+| (多信号) | `0x7c04a0`→`0x7baf70` | 订阅者列表遍历分发 |
+| (错误/状态) | `0x7bb757` | 薄处理 |
+| stateChanged(idx7) | `0x91237e`(emit 桩)→ UI | TerminalWidget::sessionStateChanged 再发射(0x9109be) |
+
+**state() 取值链**:`SuperSession::state()`(metacall property 分支)
+→ `d->bridge` 虚调用(vtable+0x78)→ bridge 实现(0x7d6712 读 `d[0x2c]`)
+→ 未连接时返回 0(=Unconnected)。
+
+**静态边界**:状态迁移写入点(谁写 state=Connecting/Connected/…)
+在 stripped 二进制中无法与 +0x2c 通用偏移噪声区分 —— 需动态分析
+(Frida 对 `+0x2c` 写点设观察点,配合 SessionState 枚举即可画出完整状态机)。
