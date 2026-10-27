@@ -2,32 +2,44 @@
  {
   "idx": 0,
   "name": "asyncMessage",
-  "kind": "T1",
-  "target": "0x4c2b70"
+  "kind": "SIG",
+  "target": null
  },
  {
   "idx": 1,
   "name": "charsetChanged",
-  "kind": "T1",
-  "target": "0x4c2b70"
+  "kind": "SIG",
+  "target": null
+ },
+ {
+  "idx": 2,
+  "name": "error",
+  "kind": "SIG",
+  "target": null
  },
  {
   "idx": 3,
   "name": "shellCwdChanged",
-  "kind": "T1",
-  "target": "0x4c2b70"
+  "kind": "SIG",
+  "target": null
  },
  {
   "idx": 4,
   "name": "syncMessage",
-  "kind": "T1",
-  "target": "0x4c2b70"
+  "kind": "SIG",
+  "target": null
  },
  {
   "idx": 5,
   "name": "adjustScreenAlignment",
   "kind": "T1",
   "target": "0x7e5f24"
+ },
+ {
+  "idx": 6,
+  "name": "allowScrollback",
+  "kind": "T1",
+  "target": "0x7e4036"
  },
  {
   "idx": 7,
@@ -58,6 +70,12 @@
   "name": "bell",
   "kind": "T1",
   "target": "0x4bc0d0"
+ },
+ {
+  "idx": 12,
+  "name": "bracketedPasteMode",
+  "kind": "T1",
+  "target": "0x7e355a"
  },
  {
   "idx": 13,
@@ -96,10 +114,16 @@
   "target": "0x7eb2f2"
  },
  {
-  "idx": 20,
-  "name": "deleteCharacter",
+  "idx": 19,
+  "name": "dataType",
   "kind": "T1",
   "target": "0x7e3784"
+ },
+ {
+  "idx": 20,
+  "name": "deleteCharacter",
+  "kind": null,
+  "target": null
  },
  {
   "idx": 21,
@@ -290,8 +314,8 @@
  {
   "idx": 52,
   "name": "fromUnicode",
-  "kind": null,
-  "target": null
+  "kind": "T1",
+  "target": "0x4c29d0"
  },
  {
   "idx": 53,
@@ -352,6 +376,36 @@
   "name": "loadLeds",
   "kind": "T1",
   "target": "0x7eadba"
+ },
+ {
+  "idx": 63,
+  "name": "loadLeds",
+  "kind": "T1",
+  "target": "0x7eadba"
+ },
+ {
+  "idx": 64,
+  "name": "marginBottom",
+  "kind": "T1",
+  "target": "0x7e4426"
+ },
+ {
+  "idx": 65,
+  "name": "marginLeft",
+  "kind": "T1",
+  "target": "0x7e443e"
+ },
+ {
+  "idx": 66,
+  "name": "marginRight",
+  "kind": "T1",
+  "target": "0x7e444a"
+ },
+ {
+  "idx": 67,
+  "name": "marginTop",
+  "kind": "T1",
+  "target": "0x7e4456"
  },
  {
   "idx": 68,
@@ -630,6 +684,12 @@
   "target": "0x4c3290"
  },
  {
+  "idx": 114,
+  "name": "notifyMessage",
+  "kind": "T1",
+  "target": "0x5444ac"
+ },
+ {
   "idx": 115,
   "name": "notifyRemoteDirectory",
   "kind": "T1",
@@ -640,6 +700,42 @@
   "name": "option",
   "kind": "T1",
   "target": "0x7d5538"
+ },
+ {
+  "idx": 117,
+  "name": "originBottom",
+  "kind": "T1",
+  "target": "0x7e48b0"
+ },
+ {
+  "idx": 118,
+  "name": "originLeft",
+  "kind": "T1",
+  "target": "0x7e48c8"
+ },
+ {
+  "idx": 119,
+  "name": "originRight",
+  "kind": "T1",
+  "target": "0x7e48d4"
+ },
+ {
+  "idx": 120,
+  "name": "originTop",
+  "kind": "T1",
+  "target": "0x7e48e0"
+ },
+ {
+  "idx": 121,
+  "name": "page",
+  "kind": "T1",
+  "target": "0x7e48f8"
+ },
+ {
+  "idx": 122,
+  "name": "pages",
+  "kind": "T1",
+  "target": "0x7e4900"
  },
  {
   "idx": 123,
@@ -788,8 +884,8 @@
  {
   "idx": 147,
   "name": "requestWindowSelections",
-  "kind": null,
-  "target": null
+  "kind": "T1",
+  "target": "0x4c3220"
  },
  {
   "idx": 148,
@@ -830,7 +926,7 @@
  {
   "idx": 154,
   "name": "resetSoft",
-  "kind": "T3",
+  "kind": "T1",
   "target": "0x7ea7e6"
  },
  {
@@ -874,6 +970,12 @@
   "name": "reverseAttributesInRectangularArea",
   "kind": "T1",
   "target": "0x7eb2ac"
+ },
+ {
+  "idx": 162,
+  "name": "reverseScreen",
+  "kind": "T1",
+  "target": "0x7e4a94"
  },
  {
   "idx": 163,
@@ -1020,6 +1122,12 @@
   "target": "0x7ef95c"
  },
  {
+  "idx": 187,
+  "name": "selectGraphicRendition",
+  "kind": "T1",
+  "target": "0x7ef95c"
+ },
+ {
   "idx": 188,
   "name": "selectiveEraseRectangularArea",
   "kind": "T1",
@@ -1076,7 +1184,7 @@
  {
   "idx": 197,
   "name": "setCodec",
-  "kind": "T3",
+  "kind": "T1",
   "target": "-0x3efdef14"
  },
  {
@@ -1129,6 +1237,12 @@
  },
  {
   "idx": 206,
+  "name": "setDecMode",
+  "kind": "T1",
+  "target": "0x7f5d2e"
+ },
+ {
+  "idx": 207,
   "name": "setDecMode",
   "kind": "T1",
   "target": "0x7f5d2e"
@@ -1212,6 +1326,12 @@
   "target": "0x7edce6"
  },
  {
+  "idx": 221,
+  "name": "setMode",
+  "kind": "T1",
+  "target": "0x7edce6"
+ },
+ {
   "idx": 222,
   "name": "setTopBottomMargins",
   "kind": "T1",
@@ -1231,6 +1351,30 @@
  },
  {
   "idx": 225,
+  "name": "setUserDefinedKeys",
+  "kind": "T1",
+  "target": "0x7ef0e8"
+ },
+ {
+  "idx": 226,
+  "name": "setUserDefinedKeys",
+  "kind": "T1",
+  "target": "0x7ef0e8"
+ },
+ {
+  "idx": 227,
+  "name": "setUserDefinedKeys",
+  "kind": "T1",
+  "target": "0x7ef0e8"
+ },
+ {
+  "idx": 228,
+  "name": "setUserDefinedKeys",
+  "kind": "T1",
+  "target": "0x7ef0e8"
+ },
+ {
+  "idx": 229,
   "name": "setUserDefinedKeys",
   "kind": "T1",
   "target": "0x7ef0e8"
@@ -1262,8 +1406,8 @@
  {
   "idx": 234,
   "name": "setWindowIcon",
-  "kind": null,
-  "target": null
+  "kind": "T1",
+  "target": "0x4c29d0"
  },
  {
   "idx": 235,
@@ -1364,8 +1508,8 @@
  {
   "idx": 251,
   "name": "toUnicode",
-  "kind": null,
-  "target": null
+  "kind": "T1",
+  "target": "0x4c29d0"
  },
  {
   "idx": 252,
@@ -1392,22 +1536,40 @@
   "target": "0x7edc22"
  },
  {
+  "idx": 256,
+  "name": "vt52Mode",
+  "kind": "T1",
+  "target": "0x7e5a02"
+ },
+ {
   "idx": 257,
   "name": "vt52MoveCursor",
   "kind": "T1",
   "target": "0x7e4f38"
  },
  {
+  "idx": 258,
+  "name": "windowColumns",
+  "kind": "T1",
+  "target": "0x7e5b96"
+ },
+ {
   "idx": 259,
   "name": "windowIcon",
-  "kind": null,
-  "target": null
+  "kind": "T1",
+  "target": "0x4c29d0"
+ },
+ {
+  "idx": 260,
+  "name": "windowRows",
+  "kind": "T1",
+  "target": "0x7e5f18"
  },
  {
   "idx": 261,
   "name": "windowTitle",
-  "kind": null,
-  "target": null
+  "kind": "T1",
+  "target": "0x4c29d0"
  },
  {
   "idx": 262,

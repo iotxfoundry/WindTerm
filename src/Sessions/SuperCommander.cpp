@@ -1,8 +1,7 @@
 #include "SuperCommander.h"
 
-// 全量转写(165 有实现 + 19 未解析):由 tools/re/data/supercommander_adapters.json 生成。
-// 信号 5 个由 moc 生成,不定义。模板:T1 纯转发,T2 参数守卫,T3 复合。
-// 函数体为转发占位(phase-1 参考还原,不编译)。
+// 全量转写:由 tools/re/data/supercommander_adapters.json(264 全量)按头文件声明生成。
+// 信号 5 个由 moc 生成不定义。模板:T1 纯转发(216),T2 参数守卫(42)。
 
 SuperCommander::SuperCommander(QObject *parent)
 	: QObject(parent)
@@ -11,7 +10,7 @@ SuperCommander::SuperCommander(QObject *parent)
 
 void SuperCommander::vt52Mode()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[256] (T1) -> 0x7e5a02
 }
 
 void SuperCommander::vt52Identify()
@@ -160,7 +159,7 @@ void SuperCommander::insertCharacter()
 
 void SuperCommander::deleteCharacter()
 {
-	// moc[20] (T1) -> 0x7e3784
+	// moc[20] (None) -> None
 }
 
 void SuperCommander::eraseCharacter()
@@ -269,12 +268,12 @@ void SuperCommander::precedingPage()
 
 void SuperCommander::page()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[121] (T1) -> 0x7e48f8
 }
 
 void SuperCommander::pages()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[122] (T1) -> 0x7e4900
 }
 
 void SuperCommander::forwardIndex()
@@ -289,22 +288,22 @@ void SuperCommander::backIndex()
 
 void SuperCommander::marginTop()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[67] (T1) -> 0x7e4456
 }
 
 void SuperCommander::marginBottom()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[64] (T1) -> 0x7e4426
 }
 
 void SuperCommander::marginLeft()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[65] (T1) -> 0x7e443e
 }
 
 void SuperCommander::marginRight()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[66] (T1) -> 0x7e444a
 }
 
 void SuperCommander::setTopBottomMargins()
@@ -388,7 +387,7 @@ void SuperCommander::selectAttributeChangeExtent()
 
 void SuperCommander::reverseScreen()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[162] (T1) -> 0x7e4a94
 }
 
 void SuperCommander::changeAttributesInRectangularArea(const QString &area)
@@ -578,7 +577,7 @@ void SuperCommander::adjustScreenAlignment()
 
 void SuperCommander::allowScrollback()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[6] (T1) -> 0x7e4036
 }
 
 void SuperCommander::setAllowScrollback(const QString &allowed)
@@ -588,22 +587,22 @@ void SuperCommander::setAllowScrollback(const QString &allowed)
 
 void SuperCommander::originTop()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[120] (T1) -> 0x7e48e0
 }
 
 void SuperCommander::originBottom()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[117] (T1) -> 0x7e48b0
 }
 
 void SuperCommander::originLeft()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[118] (T1) -> 0x7e48c8
 }
 
 void SuperCommander::originRight()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[119] (T1) -> 0x7e48d4
 }
 
 void SuperCommander::movePagePositionAbsolute()
@@ -693,7 +692,7 @@ void SuperCommander::requestDisplayedExtent()
 
 void SuperCommander::requestWindowSelections(const QString &which)
 {
-	// moc[147] (T?) -> -
+	// moc[147] (T1) -> 0x4c3220
 }
 
 void SuperCommander::setWindowSelections(const QString &which, const QString &selections)
@@ -733,7 +732,7 @@ void SuperCommander::enableLocatorReports()
 
 void SuperCommander::filterRectangle(int top, int left, int bottom, int right)
 {
-	// 适配器未解析(直接调用变体)
+	// 适配器未解析
 }
 
 void SuperCommander::requestLocatorPosition()
@@ -763,17 +762,17 @@ void SuperCommander::setWindowTitle(const QString &title)
 
 void SuperCommander::windowTitle()
 {
-	// moc[261] (T?) -> -
+	// moc[261] (T1) -> 0x4c29d0
 }
 
 void SuperCommander::setWindowIcon(const QString &icon)
 {
-	// moc[234] (T?) -> -
+	// moc[234] (T1) -> 0x4c29d0
 }
 
 void SuperCommander::windowIcon()
 {
-	// moc[259] (T?) -> -
+	// moc[259] (T1) -> 0x4c29d0
 }
 
 void SuperCommander::setWindowIconAndTitle(const QString &iconAndTitle)
@@ -798,12 +797,12 @@ void SuperCommander::setWindowAttributes(const QString &attributes)
 
 void SuperCommander::windowColumns()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[258] (T1) -> 0x7e5b96
 }
 
 void SuperCommander::windowRows()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[260] (T1) -> 0x7e5f18
 }
 
 void SuperCommander::startGuardedArea()
@@ -828,17 +827,17 @@ void SuperCommander::mediaCopyDec(int mode)
 
 void SuperCommander::setCodec(const QString &name)
 {
-	// moc[197] (T3) -> -0x3efdef14
+	// moc[197] (T1) -> -0x3efdef14
 }
 
 void SuperCommander::toUnicode(const QString &text)
 {
-	// moc[251] (T?) -> -
+	// moc[251] (T1) -> 0x4c29d0
 }
 
 void SuperCommander::fromUnicode(const QString &text)
 {
-	// moc[52] (T?) -> -
+	// moc[52] (T1) -> 0x4c29d0
 }
 
 void SuperCommander::notifyCommand(const QString &command)
@@ -848,7 +847,7 @@ void SuperCommander::notifyCommand(const QString &command)
 
 void SuperCommander::notifyMessage(int message)
 {
-	// 适配器未解析(直接调用变体)
+	// moc[114] (T1) -> 0x5444ac
 }
 
 void SuperCommander::notifyRemoteDirectory(const QString &directory)
@@ -883,7 +882,7 @@ void SuperCommander::checkControlCharacter()
 
 void SuperCommander::dataType()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[19] (T1) -> 0x7e3784
 }
 
 void SuperCommander::testConfidence(const QString &data)
@@ -918,5 +917,5 @@ void SuperCommander::zmodemReceive()
 
 void SuperCommander::bracketedPasteMode()
 {
-	// 适配器未解析(直接调用变体)
+	// moc[12] (T1) -> 0x7e355a
 }

@@ -1,26 +1,30 @@
-# SuperCommander VT 命令 → 实现地址(237 适配器全量解析)
+# SuperCommander VT 命令 → 实现地址(264 全量)
 
-kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直发等)
+kind:SIG=信号(5) T1=纯转发(216) T2=参数守卫(42) None=未解析(1)
 
 | # | 方法 | kind | 实现 VA |
 |---|---|---|---|
-| 0 | asyncMessage | T1 | 0x4c2b70 |
-| 1 | charsetChanged | T1 | 0x4c2b70 |
-| 3 | shellCwdChanged | T1 | 0x4c2b70 |
-| 4 | syncMessage | T1 | 0x4c2b70 |
+| 0 | asyncMessage | SIG | - |
+| 1 | charsetChanged | SIG | - |
+| 2 | error | SIG | - |
+| 3 | shellCwdChanged | SIG | - |
+| 4 | syncMessage | SIG | - |
 | 5 | adjustScreenAlignment | T1 | 0x7e5f24 |
+| 6 | allowScrollback | T1 | 0x7e4036 |
 | 7 | answerBack | T1 | 0x4bc0d0 |
 | 8 | assignUserPreferredSupplementalSet | T1 | 0x7e4ac2 |
 | 9 | backIndex | T1 | 0x7e4d48 |
 | 10 | backspace | T1 | 0x7e4f44 |
 | 11 | bell | T1 | 0x4bc0d0 |
+| 12 | bracketedPasteMode | T1 | 0x7e355a |
 | 13 | carriageReturn | T1 | 0x7e4fc8 |
 | 14 | changeAttributesInRectangularArea | T1 | 0x7eb17e |
 | 15 | checkControlCharacter | T1 | 0x7e3568 |
 | 16 | clearTabstop | T1 | 0x7e5df0 |
 | 17 | clearTabstop | T1 | 0x7e5df0 |
 | 18 | copyRectangularArea | T1 | 0x7eb2f2 |
-| 20 | deleteCharacter | T1 | 0x7e3784 |
+| 19 | dataType | T1 | 0x7e3784 |
+| 20 | deleteCharacter | - | - |
 | 21 | deleteCharacter | T1 | 0x7e3784 |
 | 22 | deleteColumn | T1 | 0x7e3790 |
 | 23 | deleteColumn | T1 | 0x7e3790 |
@@ -52,7 +56,7 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 49 | fillRectangularArea | T1 | 0x7eb20a |
 | 50 | formFeed | T1 | 0x7e55fc |
 | 51 | forwardIndex | T1 | 0x7e4d82 |
-| 52 | fromUnicode | - | - |
+| 52 | fromUnicode | T1 | 0x4c29d0 |
 | 53 | highlightTracking | T1 | 0x7eac52 |
 | 54 | horizontalTab | T1 | 0x7e5d7c |
 | 55 | insertCharacter | T1 | 0x7e3ace |
@@ -63,6 +67,11 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 60 | insertLine | T1 | 0x7e3ae6 |
 | 61 | lineFeed | T1 | 0x7e55fc |
 | 62 | loadLeds | T1 | 0x7eadba |
+| 63 | loadLeds | T1 | 0x7eadba |
+| 64 | marginBottom | T1 | 0x7e4426 |
+| 65 | marginLeft | T1 | 0x7e443e |
+| 66 | marginRight | T1 | 0x7e444a |
+| 67 | marginTop | T1 | 0x7e4456 |
 | 68 | mediaCopy | T1 | 0x7f0530 |
 | 69 | mediaCopy | T1 | 0x7f0530 |
 | 70 | mediaCopyDec | T1 | 0x7f063a |
@@ -109,8 +118,15 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 111 | notifyFig | T1 | 0x4c3290 |
 | 112 | notifyHyperlink | T1 | 0x4c3290 |
 | 113 | notifyIterm2 | T1 | 0x4c3290 |
+| 114 | notifyMessage | T1 | 0x5444ac |
 | 115 | notifyRemoteDirectory | T1 | 0x7cd366 |
 | 116 | option | T1 | 0x7d5538 |
+| 117 | originBottom | T1 | 0x7e48b0 |
+| 118 | originLeft | T1 | 0x7e48c8 |
+| 119 | originRight | T1 | 0x7e48d4 |
+| 120 | originTop | T1 | 0x7e48e0 |
+| 121 | page | T1 | 0x7e48f8 |
+| 122 | pages | T1 | 0x7e4900 |
 | 123 | precedingPage | T2 | 0x7ef16a |
 | 124 | precedingPage | T2 | 0x7ef16a |
 | 125 | refreshScreen | T1 | 0x61324e |
@@ -135,14 +151,14 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 144 | requestTerminalStateReport | T1 | 0x7f0434 |
 | 145 | requestTerminalStateReport | T1 | 0x7f0434 |
 | 146 | requestUserPreferredSupplementalSet | T1 | 0x7ed7f6 |
-| 147 | requestWindowSelections | - | - |
+| 147 | requestWindowSelections | T1 | 0x4c3220 |
 | 148 | requestXtermTerminfoData | T1 | 0x7f3518 |
 | 149 | resetDecMode | T2 | 0x7f5d2e |
 | 150 | resetHard | T1 | 0x7ea73c |
 | 151 | resetKeyModifier | T1 | 0x7e498c |
 | 152 | resetKeyModifier | T1 | 0x7e498c |
 | 153 | resetMode | T2 | 0x7edce6 |
-| 154 | resetSoft | T3 | 0x7ea7e6 |
+| 154 | resetSoft | T1 | 0x7ea7e6 |
 | 155 | resetWindowColor | T1 | 0x7f0858 |
 | 156 | resetWindowColor | T1 | 0x7f0858 |
 | 157 | restoreCursor | T1 | 0x7f6426 |
@@ -150,6 +166,7 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 159 | restorePresentationState | T1 | 0x7ef1b6 |
 | 160 | restoreTerminalState | T1 | 0x7ef0a2 |
 | 161 | reverseAttributesInRectangularArea | T1 | 0x7eb2ac |
+| 162 | reverseScreen | T1 | 0x7e4a94 |
 | 163 | saveCursor | T1 | 0x7e4aa2 |
 | 164 | saveDecMode | T1 | 0x7f427a |
 | 165 | scrollCursorDown | T1 | 0x7e55b6 |
@@ -174,6 +191,7 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 184 | selectCharacterAttribute | T1 | 0x7eebd4 |
 | 185 | selectCharacterAttribute | T1 | 0x7eebd4 |
 | 186 | selectGraphicRendition | T1 | 0x7ef95c |
+| 187 | selectGraphicRendition | T1 | 0x7ef95c |
 | 188 | selectiveEraseRectangularArea | T1 | 0x7eb1c4 |
 | 189 | selectLocatorEvents | T1 | 0x7e4e80 |
 | 190 | selectNumberOfLinesOnScreen | T1 | 0x7e5ba2 |
@@ -183,7 +201,7 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 194 | setAnsiConformanceLevelOne | T1 | 0x7e5b12 |
 | 195 | setAnsiConformanceLevelTwo | T1 | 0x7e5b12 |
 | 196 | setAnsiConformanceLevelThree | T1 | 0x7e5b12 |
-| 197 | setCodec | T3 | -0x3efdef14 |
+| 197 | setCodec | T1 | -0x3efdef14 |
 | 198 | setColumnsPerPage | T1 | 0x7e61fa |
 | 199 | setColumnsPerPage | T1 | 0x7e61fa |
 | 200 | setConformanceLevel | T1 | 0x7eecc0 |
@@ -193,6 +211,7 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 204 | setCursorVisibility | T1 | 0x7e5090 |
 | 205 | setCursorVisibility | T1 | 0x7e5090 |
 | 206 | setDecMode | T1 | 0x7f5d2e |
+| 207 | setDecMode | T1 | 0x7f5d2e |
 | 208 | setHorizontalTabstop | T1 | 0x7e52fc |
 | 209 | setHorizontalTabstop | T1 | 0x7e52fc |
 | 210 | setHorizontalTabstop | T1 | 0x7e52fc |
@@ -206,15 +225,20 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 218 | setMarginBellVolume | T1 | 0x7e5190 |
 | 219 | setMarginBellVolume | T1 | 0x7e5190 |
 | 220 | setMode | T1 | 0x7edce6 |
+| 221 | setMode | T1 | 0x7edce6 |
 | 222 | setTopBottomMargins | T1 | 0x7e5fa6 |
 | 223 | setTopBottomMargins | T1 | 0x7e5fa6 |
 | 224 | setTopBottomMargins | T1 | 0x7e5fa6 |
 | 225 | setUserDefinedKeys | T1 | 0x7ef0e8 |
+| 226 | setUserDefinedKeys | T1 | 0x7ef0e8 |
+| 227 | setUserDefinedKeys | T1 | 0x7ef0e8 |
+| 228 | setUserDefinedKeys | T1 | 0x7ef0e8 |
+| 229 | setUserDefinedKeys | T1 | 0x7ef0e8 |
 | 230 | setWarningBellVolume | T1 | 0x7e520c |
 | 231 | setWarningBellVolume | T1 | 0x7e520c |
 | 232 | setWindowAttributes | T1 | 0x7f298e |
 | 233 | setWindowColor | T1 | 0x7f24ae |
-| 234 | setWindowIcon | - | - |
+| 234 | setWindowIcon | T1 | 0x4c29d0 |
 | 235 | setWindowIconAndTitle | T1 | 0x7cd902 |
 | 236 | setWindowSelections | T1 | 0x4beac0 |
 | 237 | setWindowTitle | T1 | 0x7cd366 |
@@ -231,13 +255,16 @@ kind:T1=纯转发(187) T2=参数守卫(42) T3=复合(2) None=特殊(6,信号直�
 | 248 | singleLineWidth | T1 | 0x7e41e4 |
 | 249 | startGuardedArea | T1 | 0x7e5278 |
 | 250 | testConfidence | T1 | 0x7f0a5e |
-| 251 | toUnicode | - | - |
+| 251 | toUnicode | T1 | 0x4c29d0 |
 | 252 | verticalTab | T1 | 0x7e55fc |
 | 253 | vt52EnterGraphicsMode | T1 | 0x7e5a90 |
 | 254 | vt52ExitGraphicsMode | T1 | 0x7e5ab0 |
 | 255 | vt52Identify | T1 | 0x7edc22 |
+| 256 | vt52Mode | T1 | 0x7e5a02 |
 | 257 | vt52MoveCursor | T1 | 0x7e4f38 |
-| 259 | windowIcon | - | - |
-| 261 | windowTitle | - | - |
+| 258 | windowColumns | T1 | 0x7e5b96 |
+| 259 | windowIcon | T1 | 0x4c29d0 |
+| 260 | windowRows | T1 | 0x7e5f18 |
+| 261 | windowTitle | T1 | 0x4c29d0 |
 | 262 | zmodemReceive | T1 | 0x7e676c |
 | 263 | zmodemSend | T1 | 0x7e6844 |
