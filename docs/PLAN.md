@@ -110,7 +110,7 @@
 
 ---
 
-## Phase 2 — TerminalCore / SuperSession 收口 ⏳(主体完成)
+## Phase 2 — TerminalCore / SuperSession 收口 ✅(2026-10-28 收口;尾项 convertRowToHistory 移 4b 文档模型)
 
 ### 2a. TerminalCore 剩余 cited ⏳
 | 函数 | 地址 | 语义 | 状态 |
@@ -134,11 +134,8 @@
 +0x18 注册表、逐对象 vtable+0x20 拆除);removeRegistry → loggerRemoved
 信号已发;loggerOp 对象面(spdlog sink)Phase-4 cited。
 **option/setOption → CTerminalConfig 单例真链 ✅**(见 4a)。
-open/drop/12 getter:metacall(ShellSession_h912400)case→target
-全映射到手(supersession_moc_methods.json)——hostAddress=7d583a/
-name=7d5b1a/protocolName=7d5d2a/state=7d6712/needVerify=7d5cb8/
-open=vtable+0x60 虚调等;getter 均为协议对象(+0x10 dynamic_cast)
-虚转发,Phase-4 布线;stub 保留(行为=空协议对象)。
+open/drop/12 getter + state:✅ 真身骨架落地(空协议对象分支
+按语料;虚查询 Phase-4 补)。**Phase 2b 收口 ✅**。
 **moc 权威抽取器已通用化**(stringdata 每串一 QArrayData,offset
 相对条目;data[4]/[5]=方法数/偏移):screen 37 方法 / supersession
 59 方法(11 信号+48 槽)/supercommander 264 方法三表入库。
@@ -231,7 +228,7 @@ find 种子/引擎面 Phase-4 cited。
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| gen_stubs.cpp | 1 | 27 | → 0 |
+| gen_stubs.cpp | 1 | 5(全为 Phase-4 深项) | → 0 |
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |

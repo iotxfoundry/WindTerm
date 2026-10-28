@@ -12,26 +12,11 @@
 #include "TerminalCore.h"
 
 SuperBridge::SuperBridge(QObject*) {}   // ctor/dtor stub
-void SuperSession::drop() {  } // stub
-void SuperSession::open() {  } // stub
 void TelnetCommander::negotiateOption(QString const&) {  } // stub
 void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
-QString SuperSession::fingerprint(King::FingerprintType) const { return QString(); } // stub
-QString SuperSession::hostAddress() const { return QString(); } // stub
-bool SuperSession::isConnected() const { return false; } // stub
-bool SuperSession::isDuplicable() const { return false; } // stub
-QString SuperSession::protocolName() const { return QString(); } // stub
-QString SuperSession::serverBanner() const { return QString(); } // stub
-bool SuperSession::isUnconnected() const { return false; } // stub
-QString SuperSession::opensshVersion() const { return QString(); } // stub
-QString SuperSession::lastErrorString() const { return QString(); } // stub
-bool SuperSession::needVerifyServerFingerprint() const { return false; } // stub
-QString SuperSession::name() const { return QString(); } // stub
-QString SuperSession::hostName() const { return QString(); } // stub
-QString SuperSession::lastError() const { return QString(); } // stub
 #include "TerminalCore.h"
 int TerminalCore::cellFlags(struct Row *row, int i) const
 {

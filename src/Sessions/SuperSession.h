@@ -89,6 +89,7 @@ signals:
 private:
 	friend class SuperSessionPrivate;
 	SuperSessionPrivate *m_d;  // d-pointer
+	void *m_protocol = nullptr;   // +0x10 当前协议对象(moc getter 全从此转发)
 };
 // Q_DECLARE_PRIVATE(SuperSession)  // phase-1: 展开体需要 Qt d_ptr,还原语义见 m_d 注释
 
