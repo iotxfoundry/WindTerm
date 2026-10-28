@@ -138,6 +138,7 @@ public:
 	void moveColumnBy(int delta);          // FUN_007a5460 (no clamp)
 	void moveLineBy(int delta);            // FUN_007a557c (no clamp)
 	void setCursorY(int y);                // FUN_007a5570
+	void setCursorYX(int y, int x);        // FUN_007a538a (the real mover)
 	void setCursorX(int x);                // FUN_007a5452
 	void moveCursorRaw(int y, int x);      // FUN_007a538a (clamp to screen)
 	void moveCursor(int y, int x);         // FUN_007a54f8 (clamp to origin bounds)

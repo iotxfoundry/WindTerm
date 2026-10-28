@@ -67,22 +67,34 @@ int main()
 
 	// 5) UTF-8 multibyte: 你好 = two wide chars (folded cp, 0xffff trail)
 	s.writeText("\xe4\xbd\xa0\xe5\xa5\xbd", 6);
-	expect("cursorX after CJK x2", s.currentColumn(), 4);
-	struct Row *rc = core.row(3);
+	expect("cursorX after CJK x2", s.currentColumn(), 5);
+	struct Row *rc = core.row(2);
 	unsigned short *hc = (unsigned short *)rc->attrArray;
 	// BMP chars decode to one unit: heads keep the raw codepoints with
 	// the 0xffff trail on the second column (the 0xfca02400 fold is for
 	// astral surrogate pairs only)
-	printf("CJK head[0]=%04x (want 4f60)%s\n", hc[0], hc[0] == 0x4f60 ? "" : "  FAIL");
-	fails += hc[0] != 0x4f60;
-	printf("CJK head[1]=%04x (want ffff trail)%s\n", hc[1], hc[1] == 0xffff ? "" : "  FAIL");
-	fails += hc[1] != 0xffff;
-	printf("CJK head[2]=%04x (want 597d)%s\n", hc[2], hc[2] == 0x597d ? "" : "  FAIL");
-	fails += hc[2] != 0x597d;
-	printf("CJK head[3]=%04x (want ffff trail)%s\n", hc[3], hc[3] == 0xffff ? "" : "  FAIL");
-	fails += hc[3] != 0xffff;
+	// CJK lands at row2 cols 1..4 (after 'Y' at col 0)
+	printf("CJK head[1]=%04x (want 4f60)%s\n", hc[1], hc[1] == 0x4f60 ? "" : "  FAIL");
+	fails += hc[1] != 0x4f60;
+	printf("CJK head[2]=%04x (want ffff trail)%s\n", hc[2], hc[2] == 0xffff ? "" : "  FAIL");
+	fails += hc[2] != 0xffff;
+	printf("CJK head[3]=%04x (want 597d)%s\n", hc[3], hc[3] == 0x597d ? "" : "  FAIL");
+	fails += hc[3] != 0x597d;
+	printf("CJK head[4]=%04x (want ffff trail)%s\n", hc[4], hc[4] == 0xffff ? "" : "  FAIL");
+	fails += hc[4] != 0xffff;
 
-	// 6) config-driven bell style read through the singleton
+	// 6) SGR template: payload (cell+0x18) carries the core SGR bits
+	core.m_sgrBits = 0x1122334455667788ULL;
+	s.writeText("S", 1);
+	struct Row *rs = core.row(2);
+	const unsigned long long gotSgr =
+	    *(const unsigned long long *)((const char *)core.cellAt(rs, 5) + 0x18);
+	printf("SGR payload cell+0x18 = %016llx (want 1122334455667788)%s\n",
+	       gotSgr, gotSgr == 0x1122334455667788ULL ? "" : "  FAIL");
+	fails += gotSgr != 0x1122334455667788ULL;
+	core.m_sgrBits = 0;
+
+	// 7) config-driven bell style read through the singleton
 	CTerminalConfig::instance()->setConfigPath(
 	    QStringLiteral("/opt/WindTerm_2.7.0/global/wind.config"));
 	const QVariant v = CTerminalConfig::instance()->value(QStringLiteral("terminal.historySize"));

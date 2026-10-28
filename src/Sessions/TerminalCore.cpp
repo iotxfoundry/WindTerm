@@ -471,16 +471,44 @@ int TerminalCore::rowEraseCells(struct Row *row, int from, unsigned short attr,
 // ---------------------------------------------------------------------------
 void TerminalCore::setCursorX(int x)
 {
-	// FUN_007a45ee: m_cursorX = x + markDirty(2)
-	m_cursorX = x;
-	markDirty(2);
+	// FUN_007a5452: tail into FUN_007a538a with the current row
+	setCursorYX(m_cursorY, x);
 }
 
 void TerminalCore::setCursorY(int y)
 {
-	// FUN_007a44f8 内联尾: m_cursorY = y + markDirty(1)
+	// FUN_007a5570: tail into FUN_007a538a with the current column
+	setCursorYX(y, m_cursorX);
+}
+
+void TerminalCore::setCursorYX(int y, int x)
+{
+	// FUN_007a538a (199B): clamps both axes; a double-width row halves
+	// the column span. The pending-wrap latch (flags 0x80) survives a
+	// same-position set (the margin-cross finalize re-pins the cursor)
+	// and a target past the right margin; any real move clears it and
+	// sets the moved bit (0x08).
+	const int oldY = m_cursorY;
+	const int oldX = m_cursorX;
+	if (y >= rowCount())
+		y = rowCount() - 1;
+	if (y < 0)
+		y = 0;
 	m_cursorY = y;
-	markDirty(1);
+	int span = m_columnCount;
+	if (m_rows[y] && (m_rows[y]->flags & 8))
+		span >>= 1;                       // double-width line
+	if (x > span - 1)
+		x = span - 1;
+	if (x < 0)
+		x = 0;
+	if (oldY == y && oldX == x)
+		return;                           // same position: latch kept
+	if (oldY == y && rightMargin() < x)
+		return;                           // past the margin: latch kept
+	m_cursorX = x;
+	m_flags &= 0x7f;                      // real move: clear the latch
+	markDirty(1);                         // moved bit
 }
 
 void TerminalCore::removeRow(int y)

@@ -1924,7 +1924,12 @@ void Screen::buildWriteTemplate()
 	m_writeTemplate.flags = (unsigned char)
 	    ((m_writeTemplate.flags & 0xfd) | (m_guardedArea ? 2 : 0));
 	memset(m_writeTemplate.body, 0, 0x10);       // bytes 8..0x17
-	m_writeTemplate.payload = sgrPayload();      // FUN_007e38ac — cited
+	// one-shot style carry: +0x60 moves into the template body when set
+	if (m_styleCarry60 != 0) {
+		*(short *)m_writeTemplate.body = m_styleCarry60;
+		m_styleCarry60 = 0;
+	}
+	m_writeTemplate.payload = sgrPayload();      // FUN_007e38ac
 }
 
 void Screen::bell()

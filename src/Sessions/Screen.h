@@ -131,6 +131,7 @@ public:
 		void *payload;
 	};
 	WriteTemplate m_writeTemplate;
+	short m_styleCarry60 = 0;      // +0x60 one-shot style carry (FUN_007e4c90 move)
 
 	bool m_reverseWraparound2;     // +0x134 note: shared with reverse wrap (DEC 45)
 	bool m_altScreenActive;       // +0x139 (FUN_007e4028)
