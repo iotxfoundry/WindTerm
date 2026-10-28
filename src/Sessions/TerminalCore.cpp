@@ -1549,5 +1549,10 @@ void TerminalCore::resizeCore(int rows, int cols)
 		m_rows[i] = nullptr;
 	}
 	m_rowCount = rows;
+	// fresh-buffer default: the scroll region covers the full screen
+	// (the original core ctor family seeds +0xd4 = rows-1; DECSLPP/DECSTBM
+	// users overwrite it later)
+	if (m_scrollRegionBottom == 0)
+		m_scrollRegionBottom = rows - 1;
 	m_tabstops.resizeDefault(cols);
 }

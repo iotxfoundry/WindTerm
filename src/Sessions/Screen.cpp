@@ -1464,6 +1464,8 @@ void Screen::writeText(const char *data, int len)
 		int col = m_core->m_cursorX;
 		const int right = m_core->originRight();
 		struct Row *row = m_core->row(m_core->m_cursorY);
+		// cell/head advance per character (corpus local_c8/local_c0
+		// walk the 0x20/2-byte strides inside the per-char block)
 		void *cell = cellAt(row, col);             // FUN_007a3c1a
 		unsigned short *head = headAt(row, col);   // FUN_007a3c2a
 
@@ -1471,8 +1473,10 @@ void Screen::writeText(const char *data, int len)
 		while (true) {
 			unsigned int cp = (unsigned char)p[i];
 			int width;
+			int used;   // bytes consumed by this character
 			if (cp < 0x80 && !sCharClass(cp)) {    // DAT_011c1fe0 table
 				width = 1;
+				used = 1;
 			} else {
 				// multibyte decode through the codec chain
 				const int eaten = decodeChunk(p + i, n - i, &cp);
@@ -1482,6 +1486,7 @@ void Screen::writeText(const char *data, int len)
 					break;
 				}
 				width = codepointWidth(cp);         // FUN_007a4692
+				used = eaten;
 			}
 			if (width < 1) {
 				// combining / invalid: append UTF-16 units into the
@@ -1502,13 +1507,18 @@ void Screen::writeText(const char *data, int len)
 				*second = 0xffff;                   // wide second half
 			}
 			if (right < newCol) {
-				// past the margin: latch the pending wrap and re-run
+				// past the margin: latch the pending wrap; the byte is
+				// consumed here (corpus LAB_007e73d1: iVar20 += iVar10)
+				// and the wrap motion re-runs on the next printable
 				m_core->m_flags |= 0x80;
 				m_pendingWrap = 1;
+				i += used;      // corpus LAB_007e73d1: iVar20 += iVar10
 				break;
 			}
 			col = newCol;
-			i++;
+			cell = nextCell(cell);
+			head = nextHead(head);
+			i += used;      // advance by the consumed byte count
 			if (i >= n)
 				break;
 		}
@@ -1614,12 +1624,32 @@ void Screen::shiftCellsRight(struct Row *row, int col, int width)
 	        (size_t)n * 2);
 	*(void **)((char *)m_core->cellAt(row, col) + 0x10) = nullptr;
 }
+// DAT_011c1fe0 (FUN_007e2182 init): per-ASCII-byte special flags; a
+// set entry re-enters the control dispatch instead of being written
+// as a glyph. Entries: NUL(0), BEL(7), BS(8) HT(9) LF(10) VT(11)
+// FF(12) CR(13), DEL(0x7f).
+static unsigned char s_asciiClassTable[0x80] = {
+	0, 0, 0, 0, 0, 0, 0, 1,   // NUL(0), BEL(7)
+	1, 1, 1, 1, 1, 1, 0, 0,   // BS(8) HT(9) LF(10) VT(11) FF(12) CR(13)
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 1,   // DEL(0x7f)
+};
+
 bool Screen::sCharClass(unsigned int cp)
 {
-	// DAT_011c1fe0: per-ASCII-byte special flags (C0 controls); a set
-	// entry re-enters the control dispatch at 0x7e7746 instead of being
-	// written as a glyph
-	return cp < 0x80 && ((const char *)0x11c1fe0)[cp] != 0;
+	return cp < 0x80 && s_asciiClassTable[cp] != 0;
 }
 void *Screen::nextCell(void *cell) { return (char *)cell + 0x20; }
 unsigned short *Screen::nextHead(unsigned short *head) { return head + 1; }
