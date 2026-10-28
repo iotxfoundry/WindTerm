@@ -179,6 +179,9 @@ find 种子/引擎面 Phase-4 cited。
 ## Phase 4 — UI 装配 ⬜
 
 ### 4a. QApplication 启动路径 ⏳
+- **SessionManager ✅**(2026-10-28):src/Widgets/SessionManager.{h,cpp}
+  ——s_session_uuid_6f571a 转写(uuid/icon/group/label →
+  QStandardItemModel,filter 禁用),会话源=运行期工作区注入
 - CTerminalConfig 单例 ✅:src/Editor/CTerminalConfig.{h,cpp}——Meyers
   访问器(00809d78)、ctor 默认 prompt ">"+trim 正则(00809b90)、
   wind.config JSONC(vendored jsoncpp,collectComments)载入;
