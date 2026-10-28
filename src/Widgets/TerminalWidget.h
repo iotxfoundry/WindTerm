@@ -30,12 +30,20 @@ public:
 	QString protocolName() const;  // idx 53 → 0083cb0c(FUN_007d5d2a)
 
 	// --- 复位组(Screen 栈守卫 → sendScreenCommand)---
+	// --- 输入/清屏组 ---
+	void write(const QString &text);            // idx 74/75 → 0083e286
+	void clearScreen();                         // idx 22 → 00840438
+	void clearScreenAndScrollback();            // idx 23 → 00840532
+	void clearScrollback();                     // idx 24 → 0083fc2c
+	void setTmuxMode(bool on) { m_tmuxMode = on; }   // 标志 0x160
+
 	void resetCharacterSet();      // idx 56 → 0083cbc8(命令 6)
 	void resetHard();              // idx 57 → 0083cc00(命令 7)
 	void resetSoft();              // idx 58 → 0083cc38(FUN_007e33ea)
 
 private:
 	SuperCommander *m_commander = nullptr;
+	bool m_tmuxMode = false;       // +0x160 tmux 状态标志
 };
 
 #endif // TERMINALWIDGET_H
