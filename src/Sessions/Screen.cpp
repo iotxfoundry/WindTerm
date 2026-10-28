@@ -1650,8 +1650,14 @@ void *Screen::sgrPayload()
 	return (void *)(unsigned long long)m_core->m_sgrBits;
 }
 // Qt/config primitives (binary addresses noted; reference tier thunks)
+// session config getter — now wired to the CTerminalConfig singleton
+// (FUN_00809d78); the Screen-side seam keeps the corpus call shape
+#include "../Editor/CTerminalConfig.h"
 static void sessionConfigGet(QVariant *out, const Screen *s, const QByteArray &key)
-{ (void)s; (void)key; *out = QVariant(); }   // session config getter (session_optGet family)
+{
+	(void)s;
+	*out = CTerminalConfig::instance()->value(QString::fromLatin1(key));
+}
 static void *codecLookupGlobal(const QByteArray &name)
 { (void)name; return nullptr; }              // FUN_00807144 over registry DAT_011c2200
 static void installCodec(Screen *s, void *codec)

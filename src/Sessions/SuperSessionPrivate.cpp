@@ -2,6 +2,7 @@
 #include "SuperSession.h"
 
 #include <QMap>
+#include "../Editor/CTerminalConfig.h"
 
 // 混合实现:逆向信号/方法名(moc 权威)× 真 libssh API。
 // libssh 0.9.6+ 补丁精确源码见 src/libssh。
@@ -41,15 +42,14 @@ QVariant SuperSessionPrivate::option(const QString &name,
                                      const QVariant &defaultValue) const
 {
 	// 逆向:option(const&)/session_optGet → CTerminalConfig 单例
-	// (DAT_011c2200) 的会话/终端配置;键串 "terminal.*"/"editor.*" 等
-	(void)name;
-	return defaultValue;
+	// (FUN_00809d78)的会话/终端配置;键串 "terminal.*"/"editor.*" 等
+	return CTerminalConfig::instance()->value(name, defaultValue);
 }
 
 void SuperSessionPrivate::setOption(const QString &name, const QVariant &value)
 {
-	// 逆向:setOption(name, value) → 写入会话级配置覆盖
-	(void)name; (void)value;
+	// 逆向:setOption(name, value) → 写入配置覆盖
+	CTerminalConfig::instance()->setValue(name, value);
 }
 
 bool SuperSessionPrivate::openSession(const QString &host, int port,

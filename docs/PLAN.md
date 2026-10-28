@@ -124,6 +124,7 @@
 四注册表 QMap<QUuid,obj> 落 SuperSessionPrivate(dtor 走查 7d7096 实证
 +0x18 注册表、逐对象 vtable+0x20 拆除);removeRegistry → loggerRemoved
 信号已发;loggerOp 对象面(spdlog sink)Phase-4 cited。
+**option/setOption → CTerminalConfig 单例真链 ✅**(见 4a)。
 open/drop/12 getter:metacall(ShellSession_h912400)已抽到函数簇
 FUN_007d42d6-7d694e——全部转发协议对象(+0x10 dynamic_cast + vtable
 查询 0x68/0x80 槽),属 Phase-4 协议布线;列表留 stub。
@@ -163,8 +164,13 @@ find 种子/引擎面 Phase-4 cited。
 
 ## Phase 4 — UI 装配 ⬜
 
-### 4a. QApplication 启动路径 ⬜
-- CTerminalConfig 单例初始化(FUN_00809d78 + 构造 432B)
+### 4a. QApplication 启动路径 ⏳
+- CTerminalConfig 单例 ✅:src/Editor/CTerminalConfig.{h,cpp}——Meyers
+  访问器(00809d78)、ctor 默认 prompt ">"+trim 正则(00809b90)、
+  wind.config JSONC(vendored jsoncpp,collectComments)载入;
+  Screen::sessionConfigGet 与 SuperSessionPrivate option/setOption
+  均已接真单例;recheck 对 /opt 真配置 3 键断言通过
+- recheck 22 例全绿(宽度 7+字符集 6+键 2+resize 3+config 3+tabstop 1)
 - 会话管理器 0x006f571a(QStandardItemModel)连 UI
 - 工作区装载器 0x00522056 → Terminal/Editor/Browser 三面板恢复
 

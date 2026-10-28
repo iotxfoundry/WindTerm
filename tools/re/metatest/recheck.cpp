@@ -1,6 +1,7 @@
 // Spot check: width tables + charset registry + named-attribute keys
 #include "Screen.h"
 #include "TerminalCore.h"
+#include "CTerminalConfig.h"
 #include <cstdio>
 
 int main()
@@ -54,6 +55,23 @@ int main()
 		}
 	}
 	printf("tabstops every-8th OK\n");
+	// CTerminalConfig: load the real wind.config (JSONC) and spot keys
+	CTerminalConfig::instance()->setConfigPath(
+	    QStringLiteral("/opt/WindTerm_2.7.0/global/wind.config"));
+	const QVariant tab = CTerminalConfig::instance()->value(QStringLiteral("text.tabSize"));
+	printf("config text.tabSize = %lld (want 4)%s\n", (long long)tab.toLongLong(),
+	       tab.toLongLong() == 4 ? "" : "  FAIL");
+	fails += tab.toLongLong() != 4;
+	const QVariant lang = CTerminalConfig::instance()->value(QStringLiteral("application.language"));
+	printf("config application.language = \"%s\" (want auto)%s\n",
+	       lang.toString().toUtf8().constData(),
+	       lang.toString() == QLatin1String("auto") ? "" : "  FAIL");
+	fails += lang.toString() != QLatin1String("auto");
+	const QVariant missing = CTerminalConfig::instance()->value(
+	    QStringLiteral("no.such.key"), QVariant(123));
+	printf("config missing-key default = %lld (want 123)%s\n", (long long)missing.toLongLong(),
+	       missing.toLongLong() == 123 ? "" : "  FAIL");
+	fails += missing.toLongLong() != 123;
 	printf(fails ? "RESULT: %d FAILS\n" : "RESULT: ALL PASS\n", fails);
 	return fails != 0;
 }
