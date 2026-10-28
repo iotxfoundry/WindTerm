@@ -104,6 +104,9 @@ void TerminalView::paintEvent(QPaintEvent *event)
 		    (const unsigned short *)row->attrArray;
 		const int n = qMin(row->length, core->columnCount());
 		for (int x = 0; x < n; ++x) {
+			const ushort u = heads[x];
+			if (u == 0xffff)
+				continue;   // 宽字符尾格(e2eterm 锚:0xffff trail)
 			quint32 sgr = 0;
 			if (row->cells)
 				sgr = *(const quint32 *)((const char *)row->cells +
@@ -117,12 +120,19 @@ void TerminalView::paintEvent(QPaintEvent *event)
 			if (sgr & (1ULL << 7)) {   // inverse
 				qSwap(fg, bg);
 			}
-			const QRect cell(x * cw, y * chh, cw, chh);
+			// 宽字符占双格(widthFromTables==2);字形自然宽渲染
+			const int span =
+			    (m_screen && u != 0 && m_screen->widthFromTables(u) == 2)
+			        ? 2
+			        : 1;
+			const QRect cell(x * cw, y * chh, cw * span, chh);
 			if (bg != kDefaultBg)
 				p.fillRect(cell, QColor(bg & 0xffffff));
-			const ushort u = heads[x];
-			if (u == 0 || u == (ushort)' ')
+			if (u == 0 || u == (ushort)' ') {
+				if (span == 2)
+					++x;   // 尾格已随跨度消费
 				continue;
+			}
 			QFont f = font();
 			f.setBold((sgr & 1) != 0);
 			p.setFont(f);
@@ -138,16 +148,26 @@ void TerminalView::paintEvent(QPaintEvent *event)
 				p.drawLine(cell.left(), cell.top() + chh / 2,
 				           cell.left() + w - 1,
 				           cell.top() + chh / 2);
+			if (span == 2)
+				++x;   // 跳过尾格(heads[x+1]=0xffff)
 		}
 	}
 
-	// 光标框(Screen::currentLine/currentColumn;实心块随 caretStyle)
+	// 光标(Screen::currentLine/currentColumn;DECSCUSR 1-2 块 /
+	// 3-4 下划线 / 5-6 竖条;闪烁面后续)
 	const int cx = m_screen->currentColumn() * cw;
 	const int cy = m_screen->currentLine() * chh;
+	const int cs = core->cursorStyle();
 	p.save();
 	p.setCompositionMode(QPainter::RasterOp_SourceXorDestination);
 	p.setPen(QColor(0xffffff));
-	p.drawRect(cx, cy, cw - 1, chh - 1);
+	if (cs >= 5) {   // bar:左缘竖条
+		p.drawRect(cx, cy, 2, chh - 1);
+	} else if (cs >= 3) {   // underline:底部横条
+		p.drawRect(cx, cy + chh - 3, cw - 1, 2);
+	} else {   // block(0/1/2 默认)
+		p.drawRect(cx, cy, cw - 1, chh - 1);
+	}
 	p.restore();
 }
 

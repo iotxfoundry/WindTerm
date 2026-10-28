@@ -457,7 +457,7 @@ public:
 	                       const QVariant &b = QVariant());
 	// signal emit points (metaObject 0x11a82e0):
 	//   1 modeChange   2 commandRequested   8 mouseMode   18 reverseScreen
-	void modeChanged() {}
+	void modeChanged();
 	void commandRequested(int cmd, const QVariant &a, const QVariant &b)
 	{ (void)cmd; (void)a; (void)b; }
 	void mouseModeChanged(int mode) { (void)mode; }

@@ -64,5 +64,43 @@ int main(int argc, char **argv)
 		}
 	}
 	printf("SGR red ink: %s (%d px)\n", reds > 3 ? "OK" : "FAIL", reds);
-	return (distinct > 0 && inked > 0 && reds > 3) ? 0 : 1;
+
+	// 5) 宽字符双宽:好 落 (row,col)=(0,0) 的新核 → 跨 2 格有墨
+	TerminalCore core2;
+	core2.resizeCore(24, 80);
+	core2.m_flags |= 0x02;
+	Screen s2;
+	s2.m_core = &core2;
+	s2.m_history = new TerminalCore();
+	s2.m_history->resizeCore(24, 80);
+	s2.writeText("\xe5\xa5\xbd", 3);   // 好(U+597D,宽)
+	TerminalView view2;
+	view2.setScreen(&s2);
+	view2.resize(640, 400);
+	view2.show();
+	QImage img3 = view2.grab().toImage();
+	const int cwpx = img3.width() / 80;
+	int rightHalf = 0;
+	for (int y = 0; y < 20; ++y)
+		for (int x = cwpx + 2; x < 2 * cwpx - 2; ++x)
+			if (img3.pixel(x, y) != first)
+				rightHalf++;
+	printf("wide glyph right half: %s (%d px)\n",
+	       rightHalf > 0 ? "OK" : "FAIL", rightHalf);
+
+	// 6) 光标三形态:bar(5) vs block — 光标区像素图不同
+	QImage before = view2.grab().toImage();
+	core2.setCursorStyle(5);
+	QImage after = view2.grab().toImage();
+	int cursorDiff = 0;
+	for (int y = 0; y < 20; ++y)
+		for (int x = 0; x < 30; ++x)
+			if (before.pixel(x, y) != after.pixel(x, y))
+				cursorDiff++;
+	printf("cursor style swap: %s (%d px)\n",
+	       cursorDiff > 0 ? "OK" : "FAIL", cursorDiff);
+	return (distinct > 0 && inked > 0 && reds > 3 && rightHalf > 0
+	        && cursorDiff > 0)
+	           ? 0
+	           : 1;
 }

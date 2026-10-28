@@ -724,7 +724,7 @@ void TerminalCore::setTopBottomMargins(int top, int bottom)
 
 void TerminalCore::setCursorStyle(int style)
 {
-	// FUN_007a45ee — body cited
+	m_cursorStyle = style;   // FUN_007a45ee(7B):+0xcc 直写
 }
 
 int TerminalCore::cursorStyleBit() const

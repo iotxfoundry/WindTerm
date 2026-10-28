@@ -313,6 +313,13 @@ FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
     取证,取证后替换)
   * **第二写回通道 ✅**:FUN_007e673c(vtable+0x78,参数直透)→
     TermViewFace::viewNotify → update()
+  * **渲染收尾批 ✅**(2026-10-28):
+    - 宽字符双宽:0xffff 尾格跳过(e2eterm 锚)+ widthFromTables
+      ==2 跨 2 格绘制;setCursorStyle 真身化(FUN_007a45ee 7B
+      +0xcc 直写)+ cursorStyle() 读取
+    - 光标三形态:DECSCUSR 1-2 块/3-4 底条/5-6 左竖条(XOR 面)
+    - alt-screen 刷新:switchToAlternateScreen 尾 + modeChanged()
+      信号 1 → viewNotify(0) 重绘(m_core=活动核,视图自动跟随)
   * engtest3 渲染冒烟:离屏 grab → 非单色 ✓/首行字墨 ✓/
     viewWrite+resize 不崩 ✓/**SGR 31 红字像素断言 52px ✓**
 - **TerminalWidget 全槽覆盖 ✅**(2026-10-28):58+ 槽一轮批量

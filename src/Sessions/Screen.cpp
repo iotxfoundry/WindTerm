@@ -944,6 +944,8 @@ void Screen::switchToAlternateScreen(bool on, bool saveCursor)
 	// enabled a fresh core (0xe8 bytes, FUN_007a69b8) replaces +0x90
 	// saved-primary and charset state carries over. Tail cited.
 	m_core = m_altCore;
+	// 1049 面观察效果:模式切换后视图重绘(modeChange → 通知通道)
+	notifyViewArg(0);
 	if (!m_altScreenEnabled)
 		return;
 	if (on) {
@@ -2175,6 +2177,13 @@ void Screen::notifyModeChange()
 {
 	// FUN_00913178: Screen signal 1 (modeChange), no args
 	modeChanged();
+}
+
+void Screen::modeChanged()
+{
+	// 信号 1(modeChange)emit 点:视图刷新 = 通知通道(vtable+0x78
+	// 面;alt-screen/模式切换后重绘)
+	notifyViewArg(0);
 }
 
 void Screen::enterVt52(int mode)

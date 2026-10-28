@@ -182,6 +182,7 @@ public:
 	// --- margins / reset ---------------------------------------------------------------
 	void setTopBottomMargins(int top, int bottom); // FUN_007a4672 (DECSTBM core)
 	void setCursorStyle(int style);                // FUN_007a45ee (+0xcc)
+	int cursorStyle() const { return m_cursorStyle; }   // +0xcc 读取
 	unsigned int cursorBlinkBit() const;           // FUN_007a44c0 (0x2b mask)
 	void rowHook(struct Row *row, int arg);        // FUN_007a3dde
 	int cursorStyleBit() const;                    // FUN_007a44c0: (0x2b >> style) & 1
