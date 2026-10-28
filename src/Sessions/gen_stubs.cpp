@@ -24,24 +24,18 @@ int Screen::containerEnd(void*) { return 0; } // stub
 void * Screen::defaultStyle(int) { return nullptr; } // stub
 void Screen::mediaCopyDec(int) {  } // stub
 void Screen::resizeScreen(int, int, int) {  } // stub
-int Screen::charsetLookup(QString const&, bool) { return 0; } // stub
 void Screen::notifyCommand(QString const&) {  } // stub
-bool Screen::charsetDisabled(int) { return false; } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::notifyMessageEx(int, int, int) {  } // stub
 void Screen::setLinesPerPage(int) {  } // stub
-int Screen::widthFromTables(unsigned int) { return 0; } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
 void * Screen::historyContainer(void*) { return nullptr; } // stub
 void Screen::highlightTracking(int, int) {  } // stub
-void Screen::keymapSetModifier(void*) {  } // stub
 void Screen::setColumnsPerPage(int) {  } // stub
 void Screen::appendHistoryBlock(int, int, void*, bool, bool) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
-void Screen::keymapResetModifier(void*) {  } // stub
 void Screen::setWindowTitleBuffer(QString const&) {  } // stub
 void Screen::setWindowIconAndTitle(QString const&) {  } // stub
-int Screen::queryProtocolLevelProxy() { return 0; } // stub
 void Screen::requestXtermTerminfoData(QString const&) {  } // stub
 void Screen::selectActiveStatusDisplay(int) {  } // stub
 void Screen::selectNumberOfLinesOnScreen(int) {  } // stub
@@ -61,8 +55,6 @@ QString SuperSession::name() const { return QString(); } // stub
 QString SuperSession::hostName() const { return QString(); } // stub
 QString SuperSession::lastError() const { return QString(); } // stub
 bool TerminalCore::rowHasContent(Row*) const { return false; } // stub
-QStringList Screen::splitParams(QString const&) const { return QStringList{}; } // stub
-bool Screen::scrollbackModeCheck() const { return false; } // stub
 #include "TerminalCore.h"
 int TerminalCore::cellFlags(struct Row *row, int i) const
 {

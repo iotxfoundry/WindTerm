@@ -211,8 +211,8 @@ public:
 	bool isScrollbackAllowed() const;           // FUN_007e4036
 	bool isTabstop(int column) const;             // FUN_007e5c98
 	bool isVt52Mode() const;                      // FUN_007e5a02 (+0x124)
-	void keymapResetModifier(void *keymap);  // FUN_007a2c02
-	void keymapSetModifier(void *keymap);    // FUN_007a2c94
+	void keymapResetModifier(void *keymap, int which);  // FUN_007a2c02
+	void keymapSetModifier(void *keymap, int which, int value);    // FUN_007a2c94
 	void lineFeed();                    // FUN_007e55fc
 	void loadLeds();
 	int marginBottom() const;           // FUN_007e4426 -> FUN_007a4bb4
@@ -360,7 +360,7 @@ public:
 	void setCursorVisible(bool on);                   // FUN_007e506a
 	void setDecMode(const QString &modes, bool on);    // FUN_007f5d2e
 	void setHorizontalTabstop();
-	void setKeyModifier();                  // FUN_007e5152
+	void setKeyModifier(int which, int value);    // FUN_007e5152 (tail jump)
 	void setLeftRightMargins(int left, int right);    // FUN_007e5bd4 (DECSLRM)
 	void setLineDoubleHeightBottom(bool on); // FUN_007e4236 (row bit5)
 	void setLineDoubleHeightTop(bool on);    // FUN_007e4282 (row bit4)

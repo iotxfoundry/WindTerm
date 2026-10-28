@@ -1423,19 +1423,19 @@ void SuperCommander::requestKeyModifier(int modifier)
 
 void SuperCommander::setKeyModifier()
 {
-	m_screen->setKeyModifier();
+	m_screen->setKeyModifier(-1, 0x7fffffff);   // 全槽默认(FUN_007a2c94 which=-1 无效分支)
 }
 
 void SuperCommander::setKeyModifier(int modifier)
 {
-	// moc[212] -> 0x7e5152
-	m_screen->setKeyModifier();
+	// moc[212] -> 0x7e5152(尾跳,实参直透)
+	m_screen->setKeyModifier(modifier, 0x7fffffff);
 }
 
 void SuperCommander::setKeyModifier(int modifier, int type)
 {
-	// moc[211] -> 0x7e5152
-		// cited: m_screen->setKeyModifier(modifier, type);
+	// moc[211] -> 0x7e5152(尾跳,实参直透)
+	m_screen->setKeyModifier(modifier, type);
 }
 
 void SuperCommander::resetKeyModifier()

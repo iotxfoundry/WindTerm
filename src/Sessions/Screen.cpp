@@ -1196,18 +1196,6 @@ void Screen::selectLocatorEvents(const QString &list)
 	// locator container ('0' button, ...); cited
 }
 
-void Screen::setKeyModifier()
-{
-	// FUN_007e5152: forward into the +0xf8 keymap object
-	keymapSetModifier(m_keymap);   // FUN_007a2c94 — cited
-}
-
-void Screen::resetKeyModifier()
-{
-	// FUN_007e498c
-	keymapResetModifier(m_keymap); // FUN_007a2c02 — cited
-}
-
 void Screen::shiftLocking(bool right, int n)
 {
 	// FUN_007e521c (DECLCK charset shifts): core+0xb0 low nibble;
@@ -2401,4 +2389,174 @@ void Screen::markRowErased(int row)
 	// (erased/dirty mark); the flag byte is the Row object head
 	unsigned char *flags = (unsigned char *)rowFlagsPtr(row);
 	*flags = (unsigned char)((*flags & 0xc5) | 2);
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1c: decode/style family — codepoint width tables (FUN_007a4692)
+// ---------------------------------------------------------------------------
+
+#include "width_tables.inc"
+
+// lower_bound over {start,end} pairs on the end field (FUN_007a4692's
+// hand-rolled search); returns the first entry with end >= cp or the
+// one-past-end slot
+static const int *widthLowerBound(const int *t, int n, unsigned int cp)
+{
+	while (n > 0) {
+		const int half = n >> 1;
+		if ((unsigned int)t[half * 2 + 1] < cp) {
+			t += (half + 1) * 2;
+			n -= half + 1;
+		} else {
+			n = half;
+		}
+	}
+	return t;
+}
+
+static bool widthInRange(const int *table, int n, const int *sentinel,
+                         unsigned int cp)
+{
+	const int *p = widthLowerBound(table, n, cp);
+	return p != sentinel && (unsigned int)p[0] <= cp;
+}
+
+int Screen::widthFromTables(unsigned int cp)
+{
+	// FUN_007a4692: seven sorted range tables.
+	//   T1 private-use -> 1; T2/T3 combining -> 0; T4 wide -> 2;
+	//   T5 ambiguous -> 1; T6 narrow letters -> 1; T7 emoji -> 2;
+	//   default (incl. ASCII) -> 1
+	if (cp <= 0x7f)
+		return 1;
+	if (widthInRange(&width_t1[0][0], 3, &width_t1[3][0], cp))
+		return 1;
+	if (widthInRange(&width_t2[0][0], 23, &width_t2[23][0], cp))
+		return 0;
+	if (widthInRange(&width_t3[0][0], 280, &width_t3[280][0], cp))
+		return 0;
+	if (widthInRange(&width_t4[0][0], 95, &width_t4[95][0], cp))
+		return 2;
+	if (widthInRange(&width_t5[0][0], 180, &width_t5[180][0], cp))
+		return 1;
+	if (widthInRange(&width_t6[0][0], 675, &width_t6[675][0], cp))
+		return 1;
+	if (widthInRange(&width_t7[0][0], 51, &width_t7[51][0], cp))
+		return 2;
+	return 1;
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1c: splitParams (reconstruction seam for the inline
+// QByteArray::split(';') pattern at each corpus call site)
+// ---------------------------------------------------------------------------
+
+QStringList Screen::splitParams(const QString &params) const
+{
+	QStringList out;
+	for (const QByteArray &part : params.toLatin1().split(';'))
+		out << QString::fromLatin1(part);
+	return out;
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1c: charset registry (FUN_00801a58 registration walk) and the
+// lookup/disabled pair (FUN_00802a26 / FUN_008034a4)
+// ---------------------------------------------------------------------------
+
+#include "charset_registry.inc"
+
+int Screen::charsetLookup(const QString &name, bool set96)
+{
+	// FUN_00802a26: walk the registry in registration order; the name
+	// must fully match and the entry flag stored at +0x10 (registration
+	// param_4, "set96" column) must equal the selector; returns the id
+	// or 0. Duplicate names disambiguate through the flag column.
+	const QByteArray raw = name.toLatin1();
+	for (const auto &e : charsetRegistry)
+		if (e.set96 == (set96 ? 1 : 0) && raw == e.name)
+			return e.id;
+	return 0;
+}
+
+bool Screen::charsetDisabled(int setId)
+{
+	// FUN_008034a4: the id-slot table (FUN_008034f2, later duplicate id
+	// wins) resolves the row; the flag at +0x11 (registration param_5)
+	// is the "disabled" bit. Empty slots read the sentinel entry as 0.
+	const int row = charsetRowById(setId);
+	return row < 0 ? false : charsetRegistry[row].disabled != 0;
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1c (cont): keymap modifier slots, protocol level proxy,
+// scrollback mode check
+// ---------------------------------------------------------------------------
+
+void Screen::setKeyModifier(int which, int value)
+{
+	// FUN_007e5152 (19B): RDI = m_keymap, then a tail jump into
+	// FUN_007a2c94 — the which/value args pass straight through
+	keymapSetModifier(m_keymap, which, value);
+}
+
+void Screen::resetKeyModifier()
+{
+	// FUN_007e498c: full body consults the +0x100 view member before
+	// resetting; the reset leg forwards into FUN_007a2c02 with the
+	// full -1 reset — cited (param-dependent branch not transcribed)
+	keymapResetModifier(m_keymap, -1);
+}
+
+void Screen::keymapSetModifier(void *keymap, int which, int value)
+{
+	// FUN_007a2c94: slots +0x14/+0x18/+0x1c/+0x20 for which 0/1/2/4;
+	// INT_MAX value means the per-slot default (0, 2, 2, 0)
+	if (!keymap)
+		return;
+	int *km = (int *)keymap;
+	switch (which) {
+	case 0: km[5] = value == 0x7fffffff ? 0 : value; break;   // +0x14
+	case 1: km[6] = value == 0x7fffffff ? 2 : value; break;   // +0x18
+	case 2: km[7] = value == 0x7fffffff ? 2 : value; break;   // +0x1c
+	case 4: km[8] = value == 0x7fffffff ? 0 : value; break;   // +0x20
+	}
+}
+
+void Screen::keymapResetModifier(void *keymap, int which)
+{
+	// FUN_007a2c02: -1 resets everything (+0x18 packs {2,2}); single
+	// slots reset to the same defaults the setter uses
+	if (!keymap)
+		return;
+	int *km = (int *)keymap;
+	switch (which) {
+	case -1:
+		km[5] = 0;
+		*(long *)((char *)km + 0x18) = 0x200000002LL;   // {2, 2}
+		km[8] = 0;
+		break;
+	case 0:  km[5] = 0; break;          // +0x14
+	case 1:  km[6] = 2; break;          // +0x18
+	case 2:  km[7] = 2; break;          // +0x1c
+	case 4:  km[8] = 0; break;          // +0x20
+	}
+}
+
+bool Screen::scrollbackModeCheck() const
+{
+	// FUN_007e4028 (13B): the alternate-screen latch at +0x139 —
+	// identical to isAltScreenActive (same function in the binary)
+	return m_altScreenActive;
+}
+
+int Screen::queryProtocolLevelProxy()
+{
+	// FUN_007e2e42: with the params' charset slot registered as a
+	// 94-set (FUN_007e2c6a), the level is strtol(paramsText + 2) / 100
+	// where paramsText is the QByteArray at protocol-obj +0x18;
+	// otherwise ext-capable -> 4, else -1. The protocol params object
+	// build path is not transcribed yet, so only the fallback runs.
+	// cited — wave-2
+	return protocolExtCapable() ? 4 : -1;
 }

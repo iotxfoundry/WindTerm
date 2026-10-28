@@ -63,15 +63,22 @@
 | notifyOsc / notifyCommand / notifyMessageEx | body 未定位;旧注 0x4c3290/0x4c3110/0x5444ac 均为 PLT 误读,已修正头文件 | ⬜ |
 | setWindowIconAndTitle / setWindowTitleBuffer | 007cd902/007cd366:标题经 +0xe0 缓冲编解码、+0x120 自旋锁、+0x118 交换;宿主对象(Screen vs view)待适配器反汇编定 | ⬜ |
 
-### 1c. 解码/样式族 ⬜
-| 函数 | 地址 | 语义 |
-|---|---|---|
-| attrKey / sgrKey | 0x007e515e | 属性→key 映射(缓存) |
-| charsetDisabled / charsetLookup | 0x008034a4 | 字符集校验/查找 |
-| conformanceKey | 0x007e5ad0 | 协议级(已解:cached+0x124) |
-| codecFromUnicode / codecToUnicode | 0x0091318c | 超级编解码器桥 |
-| widthFromTables | 0x007a4692 | 宽度双表查找 |
-| splitParams | 0x007e5c98 → | QByteArray::split(';') |
+### 1c. 解码/样式族 ⏳
+| 函数 | 地址 | 语义 | 状态 |
+|---|---|---|---|
+| attrKey / sgrKey | 007eebd4/7ef95c | splitmix64 哈希键 | ✅(1a) |
+| conformanceKey | 007eecc0 | 同上 | ✅(1a) |
+| charsetDisabled | 008034a4 | 注册表行 +0x11 位 | ✅ |
+| charsetLookup | 00802a26 | 注册表名+标志匹配→id | ✅ |
+| charset 注册表 | 00801a58 | 31 条 {id,name,set96,disabled}(charset_registry.inc) | ✅ |
+| widthFromTables | 007a4692 | 7 张区间表级联二分(1307 条,width_tables.inc) | ✅ |
+| splitParams | 调用点内联 | QByteArray::split(';') 重建缝 | ✅ |
+| keymapSetModifier | 007a2c94 | 槽 +0x14/18/1c/20,INT_MAX=默认 | ✅ |
+| keymapResetModifier | 007a2c02 | -1 全重置(+0x18 压包{2,2}) | ✅ |
+| scrollbackModeCheck | 007e4028 | =isAltScreenActive(+0x139,同一函数) | ✅ |
+| queryProtocolLevelProxy | 007e2e42 | 94 槽→strtol(text+2)/100;否则 ext?4:-1 | ✅(参数对象路径 cited) |
+| codecFromUnicode / codecToUnicode | ? | body 未定位(0091318c 实为 scrollbackErased 信号) | ⬜ |
+| requestXtermTerminfoData | 007f3518 | XTGETTCAP(92 项表 @0x117fea0 可 dump) | ⬜ |
 
 ### 1d. 滚动/区域 ⬜
 | 函数 | 语义 |
@@ -182,7 +189,7 @@ TextView.h 中 `property()/setProperty()/schemeName()/find()` 4 函数
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| gen_stubs.cpp | 1 | 55(1a 后剩) | → 0 |
+| gen_stubs.cpp | 1 | 43(1c 第一批后) | → 0 |
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |
