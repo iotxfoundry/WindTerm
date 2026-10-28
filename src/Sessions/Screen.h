@@ -13,6 +13,7 @@
 #include <QString>
 #include <QStringList>
 #include <QByteArray>
+#include <QMap>
 #include <QVariant>
 
 class Screen
@@ -73,9 +74,20 @@ public:
 	int m_protocol; // +0x20
 	int m_protocolCache; // +0x124
 	void *m_sessionParams; // +0x58
-	char m_locatorEventMode;       // +0x160.. +0x162 (DEC locator events)
-	char m_locatorArg;
+	// DEC locator state (+0x160; FUN_007e2efe/eea/ec2):
+	//   flags bit3 = rect valid; +1 mode (0=off,1=on,2=one-shot,
+	//   reset to 0 by FUN_007eb4d6); +2 units (2=cell,1=pixel);
+	//   rect ints at +4/+8/+0xc/+0x10
+	struct LocatorState {
+		unsigned char flags;   // +0x160
+		char mode;             // +0x161 enabled / one-shot
+		char units;            // +0x162
+		char pad;
+		int left, top, right, bottom;  // +0x164.. (write order p2,p4,p3,p5)
+	};
+	LocatorState m_locator = { 0, 0, 2, 0, -1, -1, -1, -1 };   // FUN_007e2f52 reset state
 	bool m_udkLocked;               // +0x12d (DECDSR 25)
+	bool m_mode67Flag;              // +0x11f (DECRQM 67 reads, name unknown)
 	bool m_autoPrint; // +0x130
 	bool m_bellEnabled; // +0x12e
 	bool m_bellAudible; // +0x13a
@@ -97,6 +109,12 @@ public:
 	unsigned int m_viewRefresh;                 // view flags via +0x10
 	void *m_protocolParams; // +0x58 param list
 	void **m_views; // +0x1e0 view list
+	QMap<quint64, QByteArray> m_namedAttributes; // +0x78 (FUN_007ee9e2 store)
+	// locator report chain (FUN_007ebd6a -> FUN_007eb4d6)
+	void reportLocatorEvent(int kind, int buttons, double x, double y, int row, int col);
+	int locatorRowFromPixel(double x, double y) const;   // FUN_007e3136 — cited
+	int locatorColFromPixel(double x, double y) const;   // FUN_007e30f4 — cited
+	quint64 locatorUnitTransform(double x, double y) const;  // FUN_007e3114 — cited
 	unsigned m_altSlot;
 	struct WriteTemplate {         // +0x28..+0x40 (FUN_007e4c90)
 		unsigned char flags;
@@ -118,7 +136,7 @@ public:
 	void allowScrollback();
 	void appendClusterUnits(void *cell, unsigned int cp);
 	void appendHistoryBlock(int at, int count, void *style, bool cont, bool dwl);   // FUN_007e4368
-	void applyNamedAttribute(const char *key, const QString &value);   // FUN_007ee9e2
+	void applyNamedAttribute(quint64 key, const QString &value);   // FUN_007ee9e2 set path
 	void assignUserPreferredSupplementalSet(int which, const QString &name);   // FUN_007e4ac2
 	void backIndex();                   // FUN_007e4d48 (DECBI)
 	void backspace();                   // FUN_007e4f44
@@ -236,7 +254,7 @@ public:
 	void notifyMessageEx(int type, int a, int b);  // 0x5444ac refcount path
 	void notifyModeChange();               // FUN_00913178
 	void notifyMouseMode(bool on);         // thunk FUN_009131c8 (arg 4)
-	void notifyNamedAttribute(const char *key, const QString &value);
+	void notifyNamedAttribute(quint64 key, const QByteArray &value);   // FUN_007ee9e2
 	void notifyOsc(int kind, const QString &payload);   // 0x4c3290 (split PLT path)
 	void notifyRemoteDirectory(const QString &directory); 	// 0x7cd366
 	void notifyReverseScreen();            // FUN_009134d0
@@ -259,7 +277,7 @@ public:
 	bool protocolExtCapable() const;       // FUN_007e2c72(+0x58)
 	int protocolLevel() const;             // FUN_007e5ad0
 	void pushLinesToScrollback(int count);      // FUN_007e53b6
-	char queryDecMode(int mode) const;                // FUN_007f13a0
+	char queryDecMode(int mode);                // FUN_007f13a0 (respond flag = 0)
 	int queryProtocolLevelProxy();              // FUN_007e2e42 wrapper
 	bool queryRenderMode(int arg) const;         // FUN_007e5284
 	bool refreshNeeded() const;                   // FUN_0061324e (view flag)
@@ -407,9 +425,11 @@ public:
 	void *buildFillAux();                       // FUN_007e4c90
 	void *historyContainer(void *viewMember);   // FUN_007bacc0
 	void *defaultStyle(int flag);               // FUN_007e538e
-	const char *sgrKey();                       // DAT_011c2088
-	const char *attrKey();                      // DAT_011c2098
-	const char *conformanceKey();               // DAT_011c2068
+	// Named-attribute hash keys (splitmix64 of seed pair ^ site literal;
+	// see FUN_007f0346/7eecc0/7eebd4 guard inits)
+	quint64 sgrKey();                           // FUN_007e2123("m") hash
+	quint64 attrKey();                          // literal 0x71220271
+	quint64 conformanceKey();                   // literal 0x70222070
 	void *cellAt(struct Row *row, int col);     // FUN_007a3c1a
 	unsigned short *headAt(struct Row *row, int col);  // FUN_007a3c2a
 	void *nextCell(void *cell);

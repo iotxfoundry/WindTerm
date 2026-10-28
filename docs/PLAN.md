@@ -29,17 +29,27 @@
 **文件**:`src/Sessions/Screen.cpp`(~2700 行)
 **方法**:每函数 grep 语料 entry → 转写真身 → 删 cited 标记
 
-### 1a. DEC/VT 报告族 ⬜
+### 1a. DEC/VT 报告族 ✅(2026-10-28)
 | 函数 | 地址 | 体量 | 语义 |
 |---|---|---|---|
-| requestDecMode(int) | 0x00a5? | ~200B | DECRQM 查询/设置 |
-| requestTerminalStateReport | 0x007f0d7c | 1482B | DECDSR 主报告 |
-| requestUserPreferredSupplementalSet | 0x007e4ac2 | ~80B | SCUSS |
-| requestXtermTerminfoData | 0x007e66? | ~100B | XTGETTCAP |
-| requestLocatorPosition | 0x007e2f3e | 20B | DECLRP |
-| requestDisplayedExtent | 0x007e5b96 | 12B | DECRQDE |
-| requestKeyModifier | 0x007e5152 | ~40B | DSR modifier |
-| selectStatusLineType | 0x007e87c8 | 232B | DECLTLM |
+| requestDecMode(int) | 0x007f13a0 | 1033B | DECRQM-DEC;与 queryDecMode 同体(respond 标志区分);ext 快路径 17 模式 + 大 switch |
+| requestTerminalStateReport | 0x007f0434 | 228B | DECRQTSR:回 DCS 1$s ST + unsupported |
+| requestUserPreferredSupplementalSet | 0x007ed7f6 | 248B | DECRQUPSS:DCS + ("0!u%5"/"1!uA") |
+| requestXtermTerminfoData | 0x007f3518 | 1784B | XTGETTCAP(92 项静态表 0x117fea0 + keys_parseAngleNotation)→ **留待 1c 与字符集表一起** |
+| requestLocatorPosition | 0x007ebd6a | 145B | DECLRP:QCursor::pos + mouseButtons → reportLocatorEvent |
+| requestDisplayedExtent | 0x007ed148 | 282B | DECRQDE:CSI rows;cols;1;1;1"w |
+| requestKeyModifier | 0x007ed282 | 200B | CSI >key;state m(keymap 槽 007a2bd4) |
+| selectStatusLineType | 0x007f0346 | 232B | DECSSSL:命名属性存 key=0x910265f6a06002be |
+
+**附带战果**:
+- 命名属性键体系破解:splitmix64(0x396cfeb8 ^ 0xbe4ba423 ^ 站点字面量);
+  attrKey=0xdca26230091f1ca6(0x71220271)、conformanceKey=0x5b3b8ddd279e6bf4(0x70222070)、
+  sgrKey=FUN_007e2123("m")——与旧注释 magic 常量三键全对上
+- notifyNamedAttribute/applyNamedAttribute 真身(QMap<quint64,QByteArray> +0x78,空值擦除)
+- markLocatorChanged + locator 状态机结构体(+0x160:flags/mode/units/rect)
+- reportLocatorEvent(007eb4d6)真身;像素映射三函数(007e3136/30f4/3114→0091xxxx 视图层)留 cited
+- setUserDefinedKeys(007ef0e8)、setUserPreferredCharset(00801a3e)真身
+- 修正 requestMode 两处转写错误:格式应为 "%d;%d$y"(无 ?);SRM 状态应为 (m_srmModeInv!=0)+1
 
 ### 1b. 配置/通知族 ⬜
 | 函数 | 语义 |
@@ -166,11 +176,11 @@ TextView.h 中 `property()/setProperty()/schemeName()/find()` 4 函数
 
 | 阶段 | 文件数 | cited 数 | 目标 |
 |---|---|---|---|
-| Screen.cpp | 1 | 38 | → 0 |
+| Screen.cpp | 1 | 38 行级标注 | 随各函数真身化消除 |
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| gen_stubs.cpp | 1 | ~70 行 | → 0 |
+| gen_stubs.cpp | 1 | 55(1a 后剩) | → 0 |
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |

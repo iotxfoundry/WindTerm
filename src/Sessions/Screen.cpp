@@ -3,6 +3,8 @@
 #include <QElapsedTimer>
 #include <QDateTime>
 #include <QTextDecoder>
+#include <QCursor>
+#include <QGuiApplication>
 #include <cstring>
 
 // Bodies transcribed from decompilation (0x7e cluster); comments cite the
@@ -467,9 +469,8 @@ void Screen::copyRectangularArea(const QString &area)
 
 void Screen::requestMode(int mode)
 {
-	// FUN_007f17c2 (DECRQM): state 1=set, 2=reset, 3=always set,
-	// 4=not recognized; response ESC [ ... $y via the format table
-	// (DAT_00ca98ec) sent through sendResponse
+	// FUN_007f17c2 (DECRQM, ANSI variant): format "%d;%d$y" (no '?',
+	// DAT_00ca98ec); unknown modes log the notice and still reply 0
 	char state;
 	switch (mode) {
 	case 1: case 5: case 7: case 10: case 11: case 13: case 14:
@@ -486,16 +487,17 @@ void Screen::requestMode(int mode)
 		state = (char)(m_insertMode == 0) + 1; // IRM (+0x12a)
 		break;
 	case 12:
-		state = (char)(!m_srmModeInv) + 1;     // SRM (+0x12c, inverted)
+		state = (char)(m_srmModeInv != 0) + 1; // SRM (+0x12c, inverted)
 		break;
 	case 20:
 		state = (char)(m_newlineMode == 0) + 1; // LNM (+0x12f)
 		break;
 	default:
 		reportUnsupported(QStringLiteral("Request Modes (DECRQM), Mode %1").arg(mode));
-		return;
+		state = 0;
+		break;
 	}
-	sendResponse(QStringLiteral("\x1b[?%1;%2$y").arg(mode).arg(state).toLatin1());
+	sendResponse(QStringLiteral("\x1b[%1;%2$y").arg(mode).arg(state).toLatin1());
 }
 
 void Screen::changeAttributesInRectangularArea(const QString &area)
@@ -645,23 +647,96 @@ void Screen::clearScrollback()
 // Batch 2: DEC/ANSI modes, charset, SGR, insert/delete
 // ---------------------------------------------------------------------------
 
-char Screen::queryDecMode(int mode) const
+char Screen::queryDecMode(int mode)
 {
-	// FUN_007f13a0: flag-table getter mirroring setDecMode's writes
-	// (same +0x14x offsets); falls back to the mode-specific queries
-	switch (mode) {
-	case 1003: return m_mouseAny;
-	case 1015: return m_mouseUrxvt;
-	case 1005: return m_mouseUtf8;
-	case 1004: return m_focusedReport;
-	case 1006: return m_mouseSgr;
-	case 1007: return m_mouseAltScroll;
-	case 1002: return m_mouseButton;
-	case 1001: return m_mouseHighlight;
-	case 1000: return m_mouseNormal;
-	case 9:    return m_mouseX10;
-	default:   return 0;   // remaining modes per FUN_007f13a0 tail — cited
+	// FUN_007f13a0 (terminal_handleDECRQM): DEC-mode flag table. State
+	// 0 = tracked-but-off/not-recognized, 1 = set, 2 = reset; the third
+	// corpus arg is the "respond" flag (requestDecMode sends the reply).
+	const char *f = (const char *)this;
+	char state = 0;
+	// ext-capable fast paths (FUN_007e2c72 +0x58) — modes ≥1000 and the
+	// core-table queries; everything else falls into the big switch
+	if (protocolExtCapable()) {
+		char c = 0;
+		bool hit = true;
+		if (mode == 1003) c = f[0x147];                 // m_mouseAny
+		else if (mode == 1015) c = f[0x143];            // m_mouseUrxvt
+		else if (mode == 1005) c = f[0x145];            // m_mouseUtf8
+		else if (mode == 1004) c = f[0x142];            // m_focusedReport
+		else if (mode == 1006) c = f[0x144];            // m_mouseSgr
+		else if (mode == 1007) c = f[0x141];            // m_mouseAltScroll
+		else if (mode == 1046) c = f[0x118];            // m_altScreenEnabled
+		else if (mode == 1047 || mode == 1049) c = f[0x139]; // altScreenActive
+		else if (mode == 2004) c = f[0x120];            // m_bracketedPaste
+		else if (mode == 45) c = f[0x134];              // m_reverseWraparound
+		else if (mode == 9) c = f[0x146];               // m_mouseX10
+		else if (mode == 30) c = f[0x135];              // m_scrollbarVisible
+		else if (mode == 40) c = f[0x11d];              // m_colModeAllowed
+		else if (mode == 1000) c = f[0x14a];            // m_mouseNormal
+		else if (mode == 1001) c = f[0x149];            // m_mouseHighlight
+		else if (mode == 1002) c = f[0x148];            // m_mouseButton
+		else if (mode == 1048) {
+			// FUN_007a44da: core +0x28 bit0 (saved-cursor latch)
+			return (char)(m_core->hasSavedCursor() == false) + 1;
+		}
+		else if (mode == 12) {
+			// FUN_007a44c0: 6-bit table 0x2b indexed by core +0xcc
+			const unsigned style = (unsigned)m_core->m_cursorStyle;
+			const unsigned bit = style < 6 ? (0x2bu >> style) & 1u : 0u;
+			return (char)(bit == 0) + 1;
+		}
+		else hit = false;
+		if (hit)
+			return (char)(c == 0) + 1;                  // LAB_007f140f
 	}
+	switch (mode) {
+	default:
+		reportUnsupported(QStringLiteral("Request Dec Modes (DECRQM), Mode %1").arg(mode));
+		return 0;
+	case 1:   // DECCKM: 1 when the cursor-key flag reads exactly 1
+		return m_cursorKeyMode == 1 ? 1 : 2;            // LAB_007f15cd
+	case 2:   // ANM: set when not in VT52 mode
+		return (char)(isVt52Mode() != 0) + 1;
+	case 3:   // DECCOLM: 132-column check
+		return (char)(windowColumns() != 132) + 1;
+	case 4:   // smooth scroll (inverted flag store)
+		return (char)(m_smoothScrollInv != 0) + 1;
+	case 5:   // DECSCNM
+		return (char)(m_reverseScreenMode == 0) + 1;
+	case 6:   // core flags & 0x40
+		return (char)((m_core->m_flags2 & 0x40) == 0) + 1;
+	case 7:   // core flags & 2
+		return (char)((m_core->m_flags2 & 2) == 0) + 1;
+	case 8:   // auto repeat
+		return (char)(m_autoRepeatKeys == 0) + 1;
+	case 18:  return (char)(m_printFormFeedInv != 0) + 1;
+	case 19:  return (char)(m_printExtentInv != 0) + 1;
+	case 25:  return (char)(m_cursorVisible == 0) + 1;
+	case 42:  // DECNRCM
+		return (char)(m_nrcMode == 0) + 1;
+	case 43:  return (char)(m_mode67Flag != 0) + 1;
+	case 66:  // DECNKM keypad
+		return m_keypadNumericMode == 1 ? 1 : 2;
+	case 69:  // DECLRMM
+		return (char)(m_leftRightMarginEnabled == 0) + 1;
+	case 95:  return (char)(m_1046Flag != 0) + 1;
+	case 10: case 11: case 13: case 14: case 16: case 34: case 36:
+	case 38: case 44: case 53: case 57: case 60: case 61:
+	case 64: case 68: case 73: case 81: case 96: case 97: case 98:
+	case 99: case 100: case 101: case 102: case 103: case 104:
+	case 106: case 108: case 109: case 110: case 111: case 112:
+	case 113: case 114: case 115: case 116: case 117:
+		return 0;   // tracked as off
+	}
+	return state;
+}
+
+void Screen::requestDecMode(int mode)
+{
+	// FUN_007f13a0 tail (respond=1): "?%d;%d$y" (DAT_00ca98eb) after the
+	// queryDecMode table (including its unsupported notice + state 0)
+	const char state = queryDecMode(mode);
+	sendResponse(QStringLiteral("\x1b[?%1;%2$y").arg(mode).arg(state).toLatin1());
 }
 
 void Screen::setDecMode(const QString &modes, bool on)
@@ -950,15 +1025,15 @@ void Screen::selectGraphicRendition(const QString &params)
 	}
 	m_core->m_sgrBits = sgr;
 	m_core->setSgrState(sgr);        // FUN_007a45f6
-	notifyNamedAttribute(sgrKey(), params);   // FUN_007ee9e2(static key)
+	notifyNamedAttribute(sgrKey(), params.toLatin1());   // FUN_007ee9e2(static key)
 }
 
 void Screen::selectCharacterAttribute(int attr)
 {
-	// FUN_007eebd4: named attribute (user config registry, magic key
-	// 0xdca26230091f1ca6) applied via FUN_007ee9e2; then FUN_007e51ca
-	// toggles the attribute enable (1 for attr 0/2, 0 for attr 1)
-	applyNamedAttribute(attrKey(), QByteArray::number(attr).constData());
+	// FUN_007eebd4: named attribute (attrKey = 0xdca26230091f1ca6 store)
+	// applied via FUN_007ee9e2; then FUN_007e51ca toggles the attribute
+	// enable (1 for attr 0/2, 0 for attr 1)
+	applyNamedAttribute(attrKey(), QString::number(attr));
 	if ((attr & 0xfffffffd) == 0)
 		setAttributeEnabled(1);        // FUN_007e51ca(p1, 1)
 	else if (attr == 1)
@@ -968,7 +1043,7 @@ void Screen::selectCharacterAttribute(int attr)
 void Screen::setConformanceLevel(int a, int b)
 {
 	// FUN_007eecc0: builds "%1;%2" and pushes it through the named
-	// attribute registry (magic key 0x5b3b8ddd279e6bf4)
+	// attribute registry (conformanceKey = 0x5b3b8ddd279e6bf4 store)
 	applyNamedAttribute(conformanceKey(), QString("%1;%2").arg(a).arg(b));
 }
 
@@ -1110,8 +1185,8 @@ void Screen::enableLocatorReports(int mode, int arg)
 		return;
 	if (arg == 0)
 		arg = 2;
-	m_locatorEventMode = (char)mode;
-	m_locatorArg = (char)arg;
+	m_locator.mode = (char)mode;
+	m_locator.units = (char)arg;
 	markLocatorChanged();     // FUN_007e2f3e(+0x160) — cited
 }
 
@@ -2015,4 +2090,267 @@ void Screen::setCursorVisible(bool on)
 		return;
 	m_cursorVisible = on;
 	cursorVisibleChanged(on);   // QMetaObject::activate sig 7
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1a: DEC/VT report family (report requests and locator machinery)
+// ---------------------------------------------------------------------------
+
+// FUN_007f0346/7eecc0/7eebd4 guard inits: every named-attribute key is
+// splitmix64(0x396cfeb8 ^ 0xbe4ba423 ^ site_literal) — verified against the
+// precomputed constants Ghidra shows (e.g. DECSSDT 0x910265f6a06002be).
+static quint64 attrMix64(quint32 v)
+{
+	quint64 x = v;
+	x *= 0xc2b2ae3d27d4eb4fULL;
+	x ^= x >> 29;
+	x *= 0x165667b19e3779f9ULL;
+	x ^= x >> 32;
+	return x;
+}
+
+static quint64 namedAttributeKey(quint32 literal)
+{
+	return attrMix64(0x396cfeb8u ^ 0xbe4ba423u ^ literal);
+}
+
+quint64 Screen::sgrKey()
+{
+	// FUN_007ef95c guard: FUN_007e2123("m", 1) — 4-char anagram hash
+	// (('m'<<16)|(1<<8)|'m'|('m'<<24)) ^ 0x87275a9b, then the avalanche
+	const quint64 v = ((quint64)'m' << 16) | (1u << 8) | (quint64)'m'
+	                  | ((quint64)'m' << 24);
+	return attrMix64((quint32)(v ^ 0x87275a9bULL));
+}
+
+quint64 Screen::attrKey()
+{
+	// FUN_007eebd4 guard, literal 0x71220271 -> 0xdca26230091f1ca6
+	return namedAttributeKey(0x71220271u);
+}
+
+quint64 Screen::conformanceKey()
+{
+	// FUN_007eecc0 guard, literal 0x70220270 -> 0x5b3b8ddd279e6bf4
+	return namedAttributeKey(0x70220270u);
+}
+
+void Screen::notifyNamedAttribute(quint64 key, const QByteArray &value)
+{
+	// FUN_007ee9e2: QMap<quint64,QByteArray> at +0x78. An empty value
+	// erases the entry; otherwise the value is stored (the corpus swaps
+	// the previous value out into the caller, which then drops it).
+	if (value.isEmpty())
+		m_namedAttributes.remove(key);
+	else
+		m_namedAttributes.insert(key, value);
+}
+
+void Screen::applyNamedAttribute(quint64 key, const QString &value)
+{
+	// FUN_007eebd4/7eecc0 call FUN_007ee9e2 with the formatted value
+	notifyNamedAttribute(key, value.toLatin1());
+}
+
+void Screen::selectStatusLineType(int type)
+{
+	// FUN_007f0346: DECSSSL value stored under its hash key, then the
+	// notice is logged as unsupported
+	notifyNamedAttribute(namedAttributeKey(0x7e24027eu),   // 0x910265f6a06002be
+	                     QByteArray::number(type));
+	reportUnsupported(QStringLiteral("Select Status Line Type (DECSSDT)"));
+}
+
+void Screen::requestTerminalStateReport()
+{
+	// FUN_007f0434 (DECRQTSR, mode 1 only in the corpus caller): echoes
+	// the DCS 1$s frame and logs the report as unsupported
+	sendResponse(QByteArrayLiteral("\x1bP1$s\x1b\\"));
+	reportUnsupported(QStringLiteral("Request Terminal State Report (DECRQTSR)"));
+}
+
+void Screen::requestUserPreferredSupplementalSet()
+{
+	// FUN_007ed7f6 (DECRQUPSS): DCS frame carrying the manager charset
+	// id (+0x10 via FUN_00802bd6): 6 -> "0!u%5", else "1!uA"
+	const int id = m_core ? m_core->m_userPreferredSet : 0;
+	sendResponse(QByteArrayLiteral("\x1bP")
+	             + (id == 6 ? QByteArrayLiteral("0!u%5")
+	                        : QByteArrayLiteral("1!uA"))
+	             + QByteArrayLiteral("\x1b\\"));
+}
+
+void Screen::setUserPreferredCharset(int setId)
+{
+	// FUN_00801a3e (4B): manager charset id slot (+0x10) = setId
+	if (m_core)
+		m_core->m_userPreferredSet = setId;
+}
+
+void Screen::requestDisplayedExtent()
+{
+	// FUN_007ed148 (DECRQDE): CSI rows;cols;1;1;1"w
+	sendResponse(QStringLiteral("\x1b[%1;%2;1;1;1\"w")
+	                 .arg(rowCount()).arg(windowColumns()).toLatin1());
+}
+
+void Screen::requestKeyModifier(int key)
+{
+	// FUN_007ed282: CSI >key;state m — state read from the keymap
+	// modifier slots via FUN_007a2bd4 (0->+0x14 1->+0x18 2->+0x1c
+	// 4->+0x20, anything else -1); ESI still holds `key` at the call
+	int state = -1;
+	if (m_keymap) {
+		const char *km = (const char *)m_keymap;
+		switch (key) {
+		case 0:  state = *(const int *)(km + 0x14); break;
+		case 1:  state = *(const int *)(km + 0x18); break;
+		case 2:  state = *(const int *)(km + 0x1c); break;
+		case 4:  state = *(const int *)(km + 0x20); break;
+		}
+	}
+	sendResponse(QStringLiteral("\x1b[>%1;%2m").arg(key).arg(state).toLatin1());
+}
+
+void Screen::markLocatorChanged()
+{
+	// FUN_007e2f3e -> FUN_007e2efe(this+0x160, -1,-1,-1,-1): rect reset
+	// (all -1 -> not all >= 0, so the valid bit 3 is cleared)
+	m_locator.left = m_locator.top = m_locator.right = m_locator.bottom = -1;
+	m_locator.flags &= (unsigned char)~8;
+}
+
+int Screen::locatorRowFromPixel(double x, double y) const
+{
+	// FUN_007e3136 -> FUN_00913608 (view pixel->cell): failure default
+	// is the -1 the caller initialized; body not transcribed
+	(void)x; (void)y;
+	return -1;
+}
+
+int Screen::locatorColFromPixel(double x, double y) const
+{
+	// FUN_007e30f4 -> FUN_009135d8: same shape as the row mapper
+	(void)x; (void)y;
+	return -1;
+}
+
+quint64 Screen::locatorUnitTransform(double x, double y) const
+{
+	// FUN_007e3114 -> FUN_00913638 (pixel units report): failure
+	// default is the 0 the caller initialized
+	(void)x; (void)y;
+	return 0;
+}
+
+void Screen::requestLocatorPosition(int mode)
+{
+	// FUN_007ebd6a (DECLRP): when locator reports are on (+0x161 mode,
+	// else the filter-rect valid check FUN_007e2ec2) report the global
+	// cursor pos and mouse buttons; otherwise a zero event
+	(void)mode;
+	const LocatorState &loc = m_locator;
+	const bool on = loc.mode != 0
+	                || ((loc.flags & 8) != 0
+	                    && loc.left >= 0 && loc.top >= 0
+	                    && loc.right >= 0 && loc.bottom >= 0);
+	if (on) {
+		const QPoint pos = QCursor::pos();
+		reportLocatorEvent(1, (int)QGuiApplication::mouseButtons(),
+		                   pos.x(), pos.y(), -1, -1);
+	} else {
+		reportLocatorEvent(0, 0, 0.0, 0.0, -1, -1);
+	}
+}
+
+void Screen::reportLocatorEvent(int kind, int buttons, double x, double y,
+                                int row, int col)
+{
+	// FUN_007eb4d6: button normalization (Qt codes -> DEC), pixel->cell
+	// fill for missing row/col, bounds check, then the CSI ...&w report
+	if ((buttons & 2) != 0) {
+		buttons = 1;
+	} else {
+		if ((buttons & 4) != 0)
+			buttons = 2;
+		else if ((buttons & 1) != 0)
+			buttons = 4;
+		else
+			buttons &= 8;
+		if (row == -1)
+			row = locatorRowFromPixel(x, y);   // FUN_007e3136
+		if (col == -1)
+			col = locatorColFromPixel(x, y);   // FUN_007e30f4
+	}
+	if (row < 0 || col < 0 || rowCount() <= row || windowColumns() <= col) {
+		row = -1;
+		col = -1;
+	} else if (m_locator.units == 2) {
+		row++;
+		col++;
+	} else if (m_locator.units == 1) {
+		const quint64 pack = locatorUnitTransform(x, y);   // FUN_007e3114
+		row = (int)(pack & 0xffffffffu);
+		col = (int)(pack >> 32);
+	}
+
+	QByteArray payload;
+	if (kind == 0) {
+		// reset report
+		if (m_locator.mode == 2)
+			m_locator.mode = 0;
+		payload = QByteArrayLiteral("0&w");
+	} else {
+		if (m_locator.mode == 2)
+			m_locator.mode = 0;
+		int event = kind & 1;
+		if ((kind & 1) == 0) {
+			if ((kind & 2) == 0) {
+				if ((kind & 4) == 0) {
+					if ((kind & 8) == 0) {
+						payload = QByteArrayLiteral("0&w");
+						goto send;
+					}
+					event = 10;
+				} else if (buttons == 4) {
+					event = 3;
+				} else if (buttons == 2) {
+					event = 5;
+				} else if (buttons == 1) {
+					event = 7;
+				} else if (buttons == 8) {
+					event = 9;
+				} else {
+					payload = QByteArrayLiteral("0&w");
+					goto send;
+				}
+			} else if (buttons == 4) {
+				event = 2;
+			} else if (buttons == 2) {
+				event = 4;
+			} else if (buttons == 1) {
+				event = 6;
+			} else if (buttons == 8) {
+				event = 8;
+			} else {
+				payload = QByteArrayLiteral("0&w");
+				goto send;
+			}
+		}
+		payload = QStringLiteral("%1;%2;%3;%4;%5&w")
+		              .arg(event).arg(buttons)
+		              .arg(row == -1 ? QString() : QString::number(row))
+		              .arg(col == -1 ? QString() : QString::number(col))
+		              .arg(m_pageCurrent).toLatin1();
+	}
+send:
+	sendResponse(QByteArrayLiteral("\x1b[") + payload);
+}
+
+void Screen::setUserDefinedKeys()
+{
+	// FUN_007ef0e8 (DECDLD): protocol level read dropped by the
+	// decompiler, then the unsupported notice
+	(void)protocolLevel();
+	reportUnsupported(QStringLiteral("Set User Defined Keys"));
 }

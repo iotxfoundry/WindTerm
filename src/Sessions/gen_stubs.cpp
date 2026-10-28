@@ -29,8 +29,6 @@ void Screen::resizeScreen(int, int, int) {  } // stub
 int Screen::charsetLookup(QString const&, bool) { return 0; } // stub
 void Screen::markRowErased(int) {  } // stub
 void Screen::notifyCommand(QString const&) {  } // stub
-const char * Screen::conformanceKey() { return nullptr; } // stub
-void Screen::requestDecMode(int) {  } // stub
 bool Screen::charsetDisabled(int) { return false; } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::notifyMessageEx(int, int, int) {  } // stub
@@ -43,26 +41,14 @@ void Screen::keymapSetModifier(void*) {  } // stub
 void Screen::notifyCursorStyle(void*, int) {  } // stub
 void Screen::setColumnsPerPage(int) {  } // stub
 void Screen::appendHistoryBlock(int, int, void*, bool, bool) {  } // stub
-void Screen::markLocatorChanged() {  } // stub
-void Screen::requestKeyModifier(int) {  } // stub
-void Screen::applyNamedAttribute(char const*, QString const&) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
 void Screen::keymapResetModifier(void*) {  } // stub
-void Screen::notifyNamedAttribute(char const*, QString const&) {  } // stub
-void Screen::selectStatusLineType(int) {  } // stub
 void Screen::setWindowTitleBuffer(QString const&) {  } // stub
 void Screen::setWindowIconAndTitle(QString const&) {  } // stub
-void Screen::requestDisplayedExtent() {  } // stub
-void Screen::requestLocatorPosition(int) {  } // stub
 int Screen::queryProtocolLevelProxy() { return 0; } // stub
-void Screen::setUserPreferredCharset(int) {  } // stub
 void Screen::requestXtermTerminfoData(QString const&) {  } // stub
 void Screen::selectActiveStatusDisplay(int) {  } // stub
-void Screen::requestTerminalStateReport() {  } // stub
 void Screen::selectNumberOfLinesOnScreen(int) {  } // stub
-void Screen::requestUserPreferredSupplementalSet() {  } // stub
-const char * Screen::sgrKey() { return nullptr; } // stub
-const char * Screen::attrKey() { return nullptr; } // stub
 void Screen::notifyOsc(int, QString const&) {  } // stub
 void Screen::writeText(QString const&) {  } // stub
 QString SuperSession::fingerprint(King::FingerprintType) const { return QString(); } // stub
@@ -81,7 +67,6 @@ QString SuperSession::lastError() const { return QString(); } // stub
 bool TerminalCore::rowHasContent(Row*) const { return false; } // stub
 QStringList Screen::splitParams(QString const&) const { return QStringList{}; } // stub
 bool Screen::scrollbackModeCheck() const { return false; } // stub
-void Screen::setUserDefinedKeys() { }
 #include "TerminalCore.h"
 int TerminalCore::cellFlags(struct Row *row, int i) const
 {
