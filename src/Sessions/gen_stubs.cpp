@@ -19,7 +19,6 @@ void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
 void Screen::notifyCommand(QString const&) {  } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
-void Screen::highlightTracking(int, int) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
 void Screen::notifyOsc(int, QString const&) {  } // stub
 QString SuperSession::fingerprint(King::FingerprintType) const { return QString(); } // stub

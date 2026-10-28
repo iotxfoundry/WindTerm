@@ -60,7 +60,9 @@
 | zmodemTick(event,ctx) | 007e22fa:事件0删上下文/事件1报(2,0) | ✅ |
 | notifyNamedAttribute | ✅(1a 完成) | ✅ |
 | markLocatorChanged | ✅(1a 完成) | ✅ |
-| notifyOsc / notifyCommand / notifyMessageEx | body 未定位;旧注 0x4c3290/0x4c3110/0x5444ac 均为 PLT 误读,已修正头文件 | ⬜ |
+| notifyMessageEx | =00913540 信号34 windowSizeChanged(resizeScreen 尾实锤) | ✅(1d) |
+| highlightTracking | 007eac52:+0x158 4-int 追踪矩形,mode 0 释放;spec 4 整数(首段 1-based 递减) | ✅(近似:语料变体解包以 splitParams 等价) |
+| notifyOsc / notifyCommand | body 未定位;XTWINOPS(007f298e)族发 windowTitleChanged 状态码 1-7,OSC 解析在 processData 侧 | ⬜ |
 | setWindowIconAndTitle / setWindowTitleBuffer | 007cd902/007cd366:标题经 +0xe0 缓冲编解码、+0x120 自旋锁、+0x118 交换;宿主对象(Screen vs view)待适配器反汇编定 | ⬜ |
 
 ### 1c. 解码/样式族 ⏳

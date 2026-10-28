@@ -2836,3 +2836,28 @@ void Screen::setWindowIconAndTitle(const QString &both)
 	// through FUN_009133e2 (emitter, idx unresolved — cited)
 	m_windowTitle = both;
 }
+
+// ---------------------------------------------------------------------------
+// Phase 1c tail: highlight tracking (FUN_007eac52)
+// ---------------------------------------------------------------------------
+
+void Screen::highlightTracking(int mode, const QString &spec)
+{
+	// FUN_007eac52 (352B): frees the 16-byte rect at +0x158; a nonzero
+	// mode parses the 4-integer spec (1-based values decremented — the
+	// corpus decrements the first unpacked range) into a fresh rect.
+	// This is the locator/filter rectangle the DECLRP check consults.
+	if (m_trackRect) {
+		::operator delete(m_trackRect);
+		m_trackRect = nullptr;
+	}
+	if (mode == 0)
+		return;
+	const QStringList parts = splitParams(spec);
+	if (parts.size() != 4)
+		return;
+	int *rect = (int *)::operator new(0x10);
+	for (int i = 0; i < 4; ++i)
+		rect[i] = parts.at(i).toInt() - 1;
+	m_trackRect = rect;
+}

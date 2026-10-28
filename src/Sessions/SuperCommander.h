@@ -290,7 +290,7 @@ public slots:
 	void requestLocatorPosition();
 	void requestLocatorPosition(int mode);
 	void selectLocatorEvents(const QString &events);
-	void highlightTracking(int mode, int type);
+	void highlightTracking(int mode, const QString &spec);
 	void enableFilterRectangle(const QString &filter);
 
 	// Window title / icon / colors

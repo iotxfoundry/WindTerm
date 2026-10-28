@@ -1491,10 +1491,10 @@ void SuperCommander::selectLocatorEvents(const QString &events)
 	// 补录
 }
 
-void SuperCommander::highlightTracking(int mode, int type)
+void SuperCommander::highlightTracking(int mode, const QString &spec)
 {
 	// moc[53] -> 0x7eac52
-	m_screen->highlightTracking(mode, type);
+	m_screen->highlightTracking(mode, spec);
 }
 
 void SuperCommander::enableFilterRectangle(const QString &filter)

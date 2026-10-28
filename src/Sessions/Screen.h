@@ -104,6 +104,7 @@ public:
 	int m_pendingWrap;                   // +0x40 (wrap-pending row flag)
 	QByteArray m_pendingHistory;     // +0x1d0 pending history-run bytes (FUN_007e4368)
 	QString m_windowTitle;           // view-settings +0x118 title cache (FUN_007cd902 swap)
+	int *m_trackRect;                // +0x158: 4-int locator/filter rect (FUN_007eac52)
 	int m_resizeRows;                 // +0x1c0 (terminal_resizeBuffer tail)
 	int m_resizeCols;                 // +0x1c4
 	int m_lineModeBit;                   // +0x1c8 bit0 source
@@ -202,7 +203,7 @@ public:
 	void formFeed();
 	void forwardIndex();                // FUN_007e4d82 (DECFI)
 	void fromUnicode(const QString &text); 	// 0x4c29d0
-	void highlightTracking(int mode, int type); 	// 0x7eac52
+	void highlightTracking(int mode, const QString &spec);   // FUN_007eac52
 	void horizontalTab();               // FUN_007e5d7c
 	bool incompleteSequence(unsigned int cp, int eaten);
 	void indexDown();                   // FUN_007e55b6 (IND)
