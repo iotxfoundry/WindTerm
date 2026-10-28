@@ -1336,3 +1336,22 @@ const void *TerminalCore::charsetConfigRoot() const
 	// FUN_00802bda — body cited
 	return nullptr;
 }
+
+// ---------------------------------------------------------------------------
+// Phase 1d cited helpers (resize path)
+// ---------------------------------------------------------------------------
+
+void TerminalCore::resizeCore(int rows, int cols)
+{
+	// FUN_007a604a (967B): rows>=2/cols>=8, dims land at +0xe0/+0xe4,
+	// then the row vector (+0x78) reflows (per-row re-wrap with the
+	// width flags, FUN_007a3dfc/007a41d6 chain) — cited — wave-2
+	(void)rows; (void)cols;
+}
+
+int TerminalCore::lastNonEmptyRow() const
+{
+	// FUN_007a5618: scan the row vector tail-down counting rows until
+	// one passes the content check FUN_007a4a06(row, 0) > 0 — cited — wave-2
+	return 0;
+}

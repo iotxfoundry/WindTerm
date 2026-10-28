@@ -22,23 +22,15 @@ void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
 void Screen::currentPage() {  } // stub
 int Screen::containerEnd(void*) { return 0; } // stub
 void * Screen::defaultStyle(int) { return nullptr; } // stub
-void Screen::mediaCopyDec(int) {  } // stub
-void Screen::resizeScreen(int, int, int) {  } // stub
 void Screen::notifyCommand(QString const&) {  } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
-void Screen::notifyMessageEx(int, int, int) {  } // stub
-void Screen::setLinesPerPage(int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
 void * Screen::historyContainer(void*) { return nullptr; } // stub
 void Screen::highlightTracking(int, int) {  } // stub
-void Screen::setColumnsPerPage(int) {  } // stub
-void Screen::appendHistoryBlock(int, int, void*, bool, bool) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
 void Screen::setWindowTitleBuffer(QString const&) {  } // stub
 void Screen::setWindowIconAndTitle(QString const&) {  } // stub
 void Screen::requestXtermTerminfoData(QString const&) {  } // stub
-void Screen::selectActiveStatusDisplay(int) {  } // stub
-void Screen::selectNumberOfLinesOnScreen(int) {  } // stub
 void Screen::notifyOsc(int, QString const&) {  } // stub
 void Screen::writeText(QString const&) {  } // stub
 QString SuperSession::fingerprint(King::FingerprintType) const { return QString(); } // stub

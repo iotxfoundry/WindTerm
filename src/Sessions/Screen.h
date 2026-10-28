@@ -89,6 +89,7 @@ public:
 	bool m_udkLocked;               // +0x12d (DECDSR 25)
 	bool m_mode67Flag;              // +0x11f (DECRQM 67 reads, name unknown)
 	bool m_autoPrint; // +0x130
+	bool m_decAutoPrint; // +0x11e (DEC MC 4/5, FUN_007f063a)
 	bool m_bellEnabled; // +0x12e
 	bool m_bellAudible; // +0x13a
 	void *m_codec; // view +0xe0
@@ -101,6 +102,9 @@ public:
 	QString m_sessionUuid; // +0x218
 	void *m_zmodemTimer; // +0x208
 	int m_pendingWrap;                   // +0x40 (wrap-pending row flag)
+	QByteArray m_pendingHistory;     // +0x1d0 pending history-run bytes (FUN_007e4368)
+	int m_resizeRows;                 // +0x1c0 (terminal_resizeBuffer tail)
+	int m_resizeCols;                 // +0x1c4
 	int m_lineModeBit;                   // +0x1c8 bit0 source
 	unsigned int m_lastCp;               // decode latch for REP
 	QByteArray m_pendingTail;            // +0x178 carry (unconsumed tail)
@@ -112,6 +116,7 @@ public:
 	QMap<quint64, QByteArray> m_namedAttributes; // +0x78 (FUN_007ee9e2 store)
 	// locator report chain (FUN_007ebd6a -> FUN_007eb4d6)
 	void reportLocatorEvent(int kind, int buttons, double x, double y, int row, int col);
+	void historySinkBroadcast(const long *range, void *style, int kind, bool dwl);  // FUN_007e42da — cited
 	int locatorRowFromPixel(double x, double y) const;   // FUN_007e3136 — cited
 	int locatorColFromPixel(double x, double y) const;   // FUN_007e30f4 — cited
 	quint64 locatorUnitTransform(double x, double y) const;  // FUN_007e3114 — cited

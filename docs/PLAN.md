@@ -80,20 +80,20 @@
 | codecFromUnicode / codecToUnicode | ? | body 未定位(0091318c 实为 scrollbackErased 信号) | ⬜ |
 | requestXtermTerminfoData | 007f3518 | XTGETTCAP(92 项表 @0x117fea0 可 dump) | ⬜ |
 
-### 1d. 滚动/区域 ⬜
-| 函数 | 语义 |
-|---|---|
-| resizeScreen(rows, cols, flag) | FUN_007e5688 |
-| scrollbackModeCheck | FUN_007e4028 |
-| selectActiveStatusDisplay | 状态行选择 |
-| selectNumberOfLinesOnScreen | 行数设置 |
-| setColumnsPerPage | FUN_007e61fa(DECSCPP) |
-| setLinesPerPage | FUN_007e62? (DECSLPP) |
-| filterRectangle | FUN_007eb2ac |
-| convertRowToHistory | FUN_007a9582 |
-| appendHistoryBlock | FUN_007e4368 |
-| mediaCopyDec | FUN_007eb20a |
-| zmodemTick | FUN_0091378a |
+### 1d. 滚动/区域 ⏳
+| 函数 | 语义 | 状态 |
+|---|---|---|
+| resizeScreen(rows,cols,flag) | 007e5688:收缩先滚历史,history/saved 双核 resize,+0x1c0/1c4 缓存,尾部发 windowSizeChanged | ✅(RAII 守卫 cited) |
+| scrollbackModeCheck | ✅(1c) | ✅ |
+| selectActiveStatusDisplay | 007ef86e:键 0x151373d5c3e56760 + unsupported | ✅ |
+| selectNumberOfLinesOnScreen | 007e5ba2:直连 core resize(FUN_007a604a,非 resizeBuffer) | ✅ |
+| setColumnsPerPage | 007e61fa:DECCOLM 门(+0x11d),80/132 | ✅ |
+| setLinesPerPage | 007e5eb2:掩码 0x1000001001003→24/25/36/48/72+0x90 | ✅ |
+| mediaCopyDec | 007f063a:4/5→+0x11e DEC 打印锁,其余 unsupported | ✅ |
+| zmodemTick | ✅(1b) | ✅ |
+| appendHistoryBlock | 007e4368:+0x1d0 连续段合并;007e42da=sink 广播(同 7eefbe 形) | ✅(sink 注册表 Phase-4 cited) |
+| convertRowToHistory | 007a9582(1262B):单元格级行→历史转换器(FUN_007a3d72/3c52/3c42/3c84/3ff8 链) | ⬜(移 Phase 2 TerminalCore 单元格层) |
+| filterRectangle | PLAN 旧注 007eb2ac 错——那是 reverseAttributesInRectangularArea(已实现);真 body 未定位 | ⬜ |
 
 **完成标准**:Screen.cpp grep "cited" = 0。
 
@@ -189,7 +189,7 @@ TextView.h 中 `property()/setProperty()/schemeName()/find()` 4 函数
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| gen_stubs.cpp | 1 | 43(1c 第一批后) | → 0 |
+| gen_stubs.cpp | 1 | 35(1d 后) | → 0 |
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |

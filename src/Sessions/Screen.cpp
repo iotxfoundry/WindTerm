@@ -2560,3 +2560,160 @@ int Screen::queryProtocolLevelProxy()
 	// cited — wave-2
 	return protocolExtCapable() ? 4 : -1;
 }
+
+// ---------------------------------------------------------------------------
+// Phase 1d: scroll/region family
+// ---------------------------------------------------------------------------
+
+void Screen::mediaCopyDec(int mode)
+{
+	// FUN_007f063a (DEC MC): 4/5 toggle the auto-print latch (+0x11e);
+	// every other mode is reported as an unsupported media-copy variant
+	switch (mode) {
+	case 4: m_decAutoPrint = false; break;
+	case 5: m_decAutoPrint = true; break;
+	case 1:
+		reportUnsupported(QStringLiteral("Media Copy: Print Cursor Line"));
+		break;
+	case 8: case 9:
+		reportUnsupported(QStringLiteral("Media Copy: Printer To Host"));
+		break;
+	case 10:
+		reportUnsupported(QStringLiteral("Media Copy: Print Composed Main Display"));
+		break;
+	case 0xb:
+		reportUnsupported(QStringLiteral("Media Copy: Print All Pages"));
+		break;
+	case 0x12: case 0x13:
+		reportUnsupported(QStringLiteral(
+			"Media Copy: Printer To Active Host Session"));
+		break;
+	default:
+		reportUnsupported(QStringLiteral("Media Copy Type %1").arg(mode));
+		break;
+	}
+}
+
+void Screen::selectNumberOfLinesOnScreen(int lines)
+{
+	// FUN_007e5ba2 (DECSNLS): 1..255 lines, then a DIRECT core resize
+	// (FUN_007a604a(m_core, lines, cols)) — no full resizeBuffer path
+	if ((unsigned int)(lines - 1) > 0xfe)
+		return;
+	m_core->resizeCore(lines, windowColumns());
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1d (cont): resize family
+// ---------------------------------------------------------------------------
+
+void Screen::resizeScreen(int rows, int cols, int flag)
+{
+	// terminal_resizeBuffer (FUN_007e5688): dims guards, shrink-first
+	// history scroll, then history/saved-primary core resizes, the dim
+	// cache +0x1c0/+0x1c4, and the windowSizeChanged emit (FUN_00913540,
+	// signal 34 — this also resolves notifyMessageEx's identity)
+	if (rows < 2 || cols < 8)
+		return;
+	const int oldRows = m_history->rowCount();
+	const int oldCols = m_history->columnCount();
+	if (oldRows != rows || oldCols != cols) {
+		if (oldRows > rows) {
+			// shrink: scroll the excess out first — count = max(cursorY+1,
+			// last non-empty row) - rows (FUN_007a5618); the corpus wraps
+			// FUN_007e5546 in std::function RAII guards (FUN_007e2107
+			// family) — cited
+			int excess = m_core->m_cursorY + 1;
+			const int trailing = m_core->lastNonEmptyRow();
+			if (excess < trailing)
+				excess = trailing;
+			if (excess - rows >= 1)
+				scroll(excess - rows, false, false);   // FUN_007e5546
+		}
+	}
+	m_history->resizeCore(rows, cols);
+	if (m_savedPrimary)
+		m_savedPrimary->resizeCore(rows, cols);
+	m_resizeRows = rows;
+	m_resizeCols = cols;
+	notifyMessageEx(m_core->rowCount(), m_core->columnCount(), flag);
+}
+
+void Screen::notifyMessageEx(int type, int a, int b)
+{
+	// FUN_00913540: QMetaObject::activate(this, staticMetaObject, 34,
+	// {a, b, type}) — signal 34 windowSizeChanged(int, int, bool);
+	// emit point inert until the Phase-4 wiring. Identity proven by the
+	// terminal_resizeBuffer tail call.
+	(void)type; (void)a; (void)b;
+}
+
+void Screen::setColumnsPerPage(int columns)
+{
+	// FUN_007e61fa (DECSCPP): needs the DECCOLM allow flag (+0x11d);
+	// only 80 (default for 0) / 132; then resize + cursor re-pin
+	if (!m_colModeAllowed)
+		return;
+	if (columns == 0)
+		columns = 0x50;
+	else if (columns != 0x50 && columns != 0x84)
+		return;
+	resizeScreen(rowCount(), columns, 0);
+	cursorMoveRaw(currentLine(), currentColumn());   // FUN_007e4f38
+}
+
+void Screen::setLinesPerPage(int lines)
+{
+	// FUN_007e5eb2 (DECSLPP): mask 0x1000001001003 admits 24/25/36/48/72
+	// in the 0x18..0x48 band plus the 0x90 catch-all; then resize +
+	// cursor re-pin
+	if ((unsigned int)(lines - 0x18) < 0x31) {
+		if (((0x1000001001003ULL >> ((lines - 0x18) & 0x3f)) & 1) == 0)
+			return;
+	} else if (lines != 0x90) {
+		return;
+	}
+	resizeScreen(lines, windowColumns(), 0);
+	cursorMoveRaw(currentLine(), currentColumn());
+}
+
+void Screen::selectActiveStatusDisplay(int which)
+{
+	// FUN_007ef86e (DECSASD): value stored under the guard-computed key
+	// 0x151373d5c3e56760 (same splitmix64 scheme as the 1a keys), then
+	// the unsupported notice
+	notifyNamedAttribute(0x151373d5c3e56760ULL, QByteArray::number(which));
+	reportUnsupported(QStringLiteral("Select Active Status Display (DECSASD)"));
+}
+
+void Screen::appendHistoryBlock(int at, int count, void *style, bool cont, bool dwl)
+{
+	// FUN_007e4368: a contiguous run appends into the +0x1d0 pending
+	// byte; a flush broadcasts the accumulated {len, data} range to the
+	// view-list sinks (FUN_007e42da walks +0x1e0 and hands each sink
+	// FUN_007c1f2c), otherwise a fresh {count-1, at} range goes out
+	// directly. The sink registry is a Phase-4 concern, so the broadcast
+	// helper below stays inert (cited).
+	if (cont) {
+		m_pendingHistory.append((char)at);
+		return;
+	}
+	if (!m_pendingHistory.isEmpty()) {
+		m_pendingHistory.append((char)at);
+		const long range[2] = { (long)m_pendingHistory.size(),
+		                        (long)(const char *)m_pendingHistory.constData() };
+		historySinkBroadcast(range, style, 2, dwl);   // FUN_007e42da — cited
+		m_pendingHistory.clear();
+		return;
+	}
+	const long fresh[2] = { count - 1, at };
+	historySinkBroadcast(fresh, style, 2, dwl);       // FUN_007e42da — cited
+}
+
+void Screen::historySinkBroadcast(const long *range, void *style, int kind, bool dwl)
+{
+	// FUN_007e42da: walk the view list (+0x1e0) and hand each live sink
+	// FUN_007c1f2c(sink, range, style, kind, dwl) — same broadcast shape
+	// as FUN_007eefbe. Sink registry wiring is Phase-4 (spdlog layer).
+	(void)range; (void)style; (void)kind; (void)dwl;
+}

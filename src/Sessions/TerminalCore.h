@@ -218,6 +218,8 @@ public:
 	void writeCell(void *dst, const unsigned char blank[16]);
 	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
 	static void resizeUshortVector(int *hdr, int len, int cap);  // FUN_007aa1bc
+	void resizeCore(int rows, int cols);   // FUN_007a604a — cited (row reflow)
+	int lastNonEmptyRow() const;           // FUN_007a5618 (trailing-content scan)
 	void cloneGlyphPayload(void *dstAux, const void *srcPayload, int words);  // FUN_007aa28a
 	void *cellAt(struct Row *row, int x);          // FUN_007a3c1a: cells + x*0x20
 	unsigned short *attrHeadAt(struct Row *row, int x);  // FUN_007a3c2a: attrArray + x*2
