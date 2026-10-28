@@ -180,6 +180,9 @@ find 种子/引擎面 Phase-4 cited。
   逐格校验,e2eterm.cpp 14 断言全过;writeText 修复四处真 bug
   (sCharClass 硬编码地址/cell-head 不步进/越缘 stale 计数/宽字符
   列步进)
+- 行为矩阵(e2eterm 25 断言):ASCII/CJK/换行/wrap latch/tab/
+  backspace/DECSTBM 区域滚动/SGR payload 全过 ✅
+- makeRow cells 零初始化修复(ASAN 抓获 aux 野指针)✅
 - ScintillaEditBase 嵌入(Editor 窗口)⬜
 - SuperCommander → SuperSession 命令转发(SuperBridge 桥)⬜
 
