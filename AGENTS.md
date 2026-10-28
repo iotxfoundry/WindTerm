@@ -144,6 +144,13 @@ LD_LIBRARY_PATH=build:lib QT_QPA_PLATFORM=offscreen \
   必须 `#include <完整头>`;前置声明不够——moc 生成的
   `reinterpret_cast` 需要完整类型。
 
+### 15. 手工编的测试二进制会因 ABI 失配崩溃
+- `tools/re/metatest/` 下的测试是手工 g++ 编的;改了含内联成员
+  访问的头(如 EditorEngine 加成员)后,旧二进制按旧偏移读新库
+  → 段错误,极易误判为库回归。
+- **对策**:改头文件后必须重编测试二进制再跑;判断法——崩溃
+  先重编测试,若仍崩才是真回归。
+
 ## 反编译语料结构
 
 ```
