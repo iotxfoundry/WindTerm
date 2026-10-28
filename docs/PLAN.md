@@ -176,9 +176,10 @@ find 种子/引擎面 Phase-4 cited。
 
 ### 4b. TerminalWidget 组装 ⏳
 - **端到端数据路径已通 ✅**(2026-10-28 晚):Screen+core resize→
-  writeText(ASCII/换行/边缘 wrap latch)→ 单元格逐格校验,
-  e2eterm.cpp 10 断言全过;writeText 修复三处真 bug(sCharClass
-  硬编码地址/cell-head 不步进/越缘 stale 计数)
+  writeText(ASCII/换行/边缘 wrap latch/UTF-8 宽字符)→ 单元格
+  逐格校验,e2eterm.cpp 14 断言全过;writeText 修复四处真 bug
+  (sCharClass 硬编码地址/cell-head 不步进/越缘 stale 计数/宽字符
+  列步进)
 - ScintillaEditBase 嵌入(Editor 窗口)⬜
 - SuperCommander → SuperSession 命令转发(SuperBridge 桥)⬜
 
