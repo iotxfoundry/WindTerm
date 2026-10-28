@@ -19,8 +19,21 @@ TerminalView *TerminalWidget::attachView()
 	m_viewWidget = new TerminalView(this);
 	if (m_commander) {
 		m_viewWidget->setScreen(m_commander->m_screen);
-		if (m_commander->m_screen)
+		if (m_commander->m_screen) {
 			m_commander->m_screen->m_view = m_viewWidget;
+			// 调色板未配置时装默认表(installPalette;快捷注释见
+			// Screen.cpp——16 色已知 + xterm 算式,取证后替换)
+			if (!m_commander->m_screen->m_palette) {
+				static const quint32 defs[16] = {
+					0x000000, 0xcd0000, 0x00cd00, 0xcdcd00,
+					0x0000ee, 0xcd00cd, 0x00cdcd, 0xe5e5e5,
+					0x7f7f7f, 0xff0000, 0x00ff00, 0xffff00,
+					0x5c5cff, 0xff00ff, 0x00ffff, 0xffffff,
+				};
+				m_commander->m_screen->installPalette(
+				    QVector<quint32>(defs, defs + 16));
+			}
+		}
 	}
 	connect(m_viewWidget, &TerminalView::keyText, this,
 	        [this](const QString &t) { write(t); });

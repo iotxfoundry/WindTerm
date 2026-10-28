@@ -30,8 +30,9 @@ public:
 
 	QSize sizeHint() const override;
 
-	// TermViewFace(语料 vtable+0x70 写回通道)
+	// TermViewFace(语料 vtable+0x70 写回通道 / +0x78 通知通道)
 	void viewWrite(const QByteArray &data) override;
+	void viewNotify(void *sender, long long arg) override;
 
 protected:
 	void paintEvent(QPaintEvent *event) override;

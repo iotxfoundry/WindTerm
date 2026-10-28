@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QByteArray>
+#include <QVector>
 
 // 终端视图写回通道。语料:Screen::writeBackToView(FUN_007e66c6 尾)
 // 经视图对象 vtable+0x70 推数据(+0x78 为第二通道)。本重建面以
@@ -14,6 +15,7 @@ class TermViewFace
 public:
 	virtual ~TermViewFace() = default;
 	virtual void viewWrite(const QByteArray &data) = 0;
+	virtual void viewNotify(void *sender, long long arg) { Q_UNUSED(sender); Q_UNUSED(arg); }
 };
 
 #endif // TERMVIEWFACE_H

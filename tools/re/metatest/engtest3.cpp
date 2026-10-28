@@ -46,8 +46,23 @@ int main(int argc, char **argv)
 
 	// 3) viewWrite 通道不崩 + 行列自适应
 	s.writeBackToView(QByteArray("x"));
+	s.notifyViewArg(0);
 	s.resizeScreen(10, 40, 0);
 	printf("post-resize %dx%d core=%dx%d OK\n", view.width(),
 	       view.height(), core.columnCount(), core.rowCount());
-	return (distinct > 0 && inked > 0) ? 0 : 1;
+
+	// 4) SGR 31 → 红字(applySgr 存 RGB 色值;RED 在末行)
+	s.writeText("\r\n\x1b[31mRED", 10);
+	QImage img2 = view.grab().toImage();
+	int reds = 0;
+	for (int y = 0; y < img2.height(); y += 2) {
+		for (int x = 0; x < 200; ++x) {
+			const QRgb px = img2.pixel(x, y);
+			if (qRed(px) > 0x80 && qGreen(px) < 0x60
+			    && qBlue(px) < 0x60)
+				reds++;
+		}
+	}
+	printf("SGR red ink: %s (%d px)\n", reds > 3 ? "OK" : "FAIL", reds);
+	return (distinct > 0 && inked > 0 && reds > 3) ? 0 : 1;
 }

@@ -67,7 +67,8 @@ public:
 	int m_savedCursorStyle;         // +0xa8 (-1 = none)
 	unsigned short m_eraseAttr;     // +0x110 current SGR erase attribute
 	bool m_lastGraphicChar;        // +0x114 (UCS4, repeatCharacter)
-	int m_palette;                // +0xd0 (color table, FUN_007e3578)
+	void *m_palette;              // +0xd0 (QArrayData 容器指针;FUN_007e3578
+	                              //  读法 payload=容器+offset@0x10;dealloc 4,8)
 	unsigned *m_brightBitset; // +0xd8 payload
 	bool m_scrollbarVisible; // +0x135
 	void *m_view;            // +0x10 view object (write-back vtable +0x70/+0x78)
@@ -425,6 +426,8 @@ public:
 	void windowRows();
 	void windowTitle();
 	void writeBackToView(const QByteArray &data);
+	void notifyViewArg(long long arg);
+	void installPalette(const QVector<quint32> &colors);
 	void writeText(const QString &text);          // codec wrapper
 	void writeText(const char *data, int len);    // FUN_007e6f42 (main loop)
 	void zmodemReceive();                         // FUN_007e676c (QTimer FSM)

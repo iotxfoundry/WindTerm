@@ -1794,6 +1794,49 @@ void Screen::writeBackToView(const QByteArray &data)
 	if (m_view)
 		static_cast<TermViewFace *>(m_view)->viewWrite(data);
 }
+
+void Screen::notifyViewArg(long long arg)
+{
+	// FUN_007e673c(22B):第二写回通道(视图 vtable+0x78,参数直透;
+	// 跳转表未恢复——面语义=通知)
+	if (m_view)
+		static_cast<TermViewFace *>(m_view)->viewNotify(this, arg);
+}
+
+void Screen::installPalette(const QVector<quint32> &colors)
+{
+	// +0xd0 容器 = QArrayData(QVector<uint> 家族,0096bd50 dealloc
+	// 4,8);FUN_007e3578 读法:payload = 容器 + *(容器+0x10)(offset),
+	// 色 = *(int*)(payload + byte索引*4)。此处手工组块免 Qt 头依赖。
+	// shortcut: 默认 256 表未从二进制取证(非平铺 .rodata 表)——
+	// 先填 16 色已知默认 + xterm 标准算式补齐;取证后替换
+	const int n = 256;
+	const int hdr = 0x20;   // QArrayData 头(ref,size / alloc,flags / offset)
+	char *block = (char *)malloc(hdr + n * 4);
+	*(int *)(block + 0) = 1;              // ref
+	*(int *)(block + 4) = n;              // size
+	*(unsigned *)(block + 8) = n;         // alloc
+	*(block + 12) = 0;                    // flags
+	*(qptrdiff *)(block + 0x10) = hdr;    // offset
+	quint32 *payload = (quint32 *)(block + hdr);
+	for (int i = 0; i < n; ++i) {
+		quint32 c;
+		if (i < colors.size())
+			c = colors[i];
+		else if (i < 232) {   // xterm 标准立方(6×6×6)
+			const int k = i - 16;
+			const int b[3] = { k / 36, (k / 6) % 6, k % 6 };
+			const int lv[6] = { 0, 95, 135, 175, 215, 255 };
+			c = (quint32)lv[b[0]] << 16 | (quint32)lv[b[1]] << 8
+			    | (quint32)lv[b[2]];
+		} else {              // 灰阶 8..238
+			const int g = 8 + (i - 232) * 10;
+			c = (quint32)g << 16 | (quint32)g << 8 | (quint32)g;
+		}
+		payload[i] = c;
+	}
+	m_palette = block;
+}
 QString Screen::keyboardDialects() const
 {
 	// DECDSR case 26 (0x7f0f05..0x7f0f23, level > 1): payload += three

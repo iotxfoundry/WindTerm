@@ -50,6 +50,13 @@ void TerminalView::viewWrite(const QByteArray &data)
 	update();   // 语料:写回通道即重绘触发
 }
 
+void TerminalView::viewNotify(void *sender, long long arg)
+{
+	Q_UNUSED(sender);
+	Q_UNUSED(arg);
+	update();   // FUN_007e673c 通道:通知即重绘
+}
+
 int TerminalView::cellWidth() const
 {
 	return qMax(1, fontMetrics().horizontalAdvance(QLatin1Char('M')));
@@ -83,11 +90,10 @@ void TerminalView::paintEvent(QPaintEvent *event)
 	const int chh = cellHeight();
 	const QFontMetrics fm(fontMetrics());
 
-	// 调色板:Screen::paletteColor(+0xd0 容器,4B 步长);未配置回落
-	const bool paletteReady = m_screen->m_palette != 0;
-
 	p.fillRect(event->rect(), QColor(kDefaultBg));
 
+	// SGR 位 = 解析期已消费的 RGB 色值(applySgr:paletteColor 结果
+	// 直存 14..37 fg / 39..62 bg);0 = 默认
 	const int y0 = event->rect().top() / chh;
 	const int y1 = qMin(core->rowCount() - 1, event->rect().bottom() / chh);
 	for (int y = y0; y <= y1; ++y) {
@@ -102,14 +108,12 @@ void TerminalView::paintEvent(QPaintEvent *event)
 			if (row->cells)
 				sgr = *(const quint32 *)((const char *)row->cells +
 				                         (size_t)x * 0x20 + 0x18);
-			quint32 fg = kDefaultFg;
-			quint32 bg = kDefaultBg;
-			if (paletteReady) {
-				fg = (quint32)m_screen->paletteColor(
-				    (int)((sgr >> 14) & 0xff));
-				bg = (quint32)m_screen->paletteColor(
-				    (int)((sgr >> 39) & 0xff));
-			}
+			quint32 fg = (quint32)((sgr >> 14) & 0xffffff);
+			quint32 bg = (quint32)((sgr >> 39) & 0xffffff);
+			if (fg == 0)
+				fg = kDefaultFg;
+			if (bg == 0)
+				bg = kDefaultBg;
 			if (sgr & (1ULL << 7)) {   // inverse
 				qSwap(fg, bg);
 			}

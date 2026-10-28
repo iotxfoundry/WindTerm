@@ -303,8 +303,18 @@ FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
     类型安全路由)
   * 装配:TerminalWidget::attachView()(视图=写回通道对端);
     view resizeEvent → Screen::resizeScreen(FUN_007e5688)
+  * **调色板管线 ✅**(2026-10-28):Screen::installPalette——
+    +0xd0 容器 = QArrayData 手工组块(offset@0x10,FUN_007e3578
+    读法 payload=容器+offset);**m_palette 类型修正 int→void\***
+    (语料证明容器为指针,原 int 建模在 x86-64 截断——铁律 5);
+    TerminalView 改直读 SGR 位内 RGB 色值(applySgr 存的是
+    paletteColor 消费后的值,非索引);attachView 自动装默认表
+    (16 色已知 + xterm 算式;shortcut:默认 256 表未从二进制
+    取证,取证后替换)
+  * **第二写回通道 ✅**:FUN_007e673c(vtable+0x78,参数直透)→
+    TermViewFace::viewNotify → update()
   * engtest3 渲染冒烟:离屏 grab → 非单色 ✓/首行字墨 ✓/
-    viewWrite+resize 不崩 ✓
+    viewWrite+resize 不崩 ✓/**SGR 31 红字像素断言 52px ✓**
 - **TerminalWidget 全槽覆盖 ✅**(2026-10-28):58+ 槽一轮批量
   (守卫查询 9/复位 3/输入清屏 4/CMD 直传 12/日志 9/modem 5/
   FreeType 2/会话命令 8 + write 端到端);深子系统腿(对话框/
