@@ -66,7 +66,10 @@ lines = ['// 自动生成 cited-stub(链接器 mangled 名 + 头文件返回类�
          '#include "TerminalCore.h"',
          '#include "Screen.h"',
          '#include "TextView.h"',
-         '#include "TelnetCommander.h"', '']
+         '#include "TelnetCommander.h"',
+         '#include "Screen.h"',
+         '#include "SuperSession.h"',
+         '#include "TerminalCore.h"', '']
 seen, unmatched = set(), []
 for m in mangled:
     d = subprocess.run(['c++filt', m], capture_output=True, text=True).stdout.strip()
