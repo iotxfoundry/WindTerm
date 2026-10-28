@@ -15,18 +15,25 @@ SuperSession::~SuperSession()
 	delete m_d;
 }
 
-void SuperSession::removeCommander(const QUuid &id) { m_d->removeRegistry(0, id); }
-void SuperSession::removeTerm(const QUuid &id)       { m_d->removeRegistry(1, id); }
-void SuperSession::removeTransfer(const QUuid &id)   { m_d->removeRegistry(2, id); }
-void SuperSession::removeLogger(const QUuid &id)     { m_d->removeRegistry(3, id); }
-void SuperSession::flushLogger(const QUuid &id)  { m_d->loggerOp(id, 0); }
-void SuperSession::pauseLogger(const QUuid &id)  { m_d->loggerOp(id, 1); }
-void SuperSession::resumeLogger(const QUuid &id) { m_d->loggerOp(id, 2); }
-
-void SuperSession::option(const QString &name) { (void)name; }
-QVariant SuperSession::option(const QString &name) const { return QVariant(); }
-QVariant SuperSession::option(const QString &name, const QVariant &defaultValue) const { return defaultValue; }
-void SuperSession::setOption(const QString &name, const QVariant &value) { (void)name; (void)value; }
+void SuperSession::removeCommander(const QUuid &id) { if (m_d) m_d->removeRegistry(0, id); }
+void SuperSession::removeTerm(const QUuid &id)       { if (m_d) m_d->removeRegistry(1, id); }
+void SuperSession::removeTransfer(const QUuid &id)   { if (m_d) m_d->removeRegistry(2, id); }
+void SuperSession::removeLogger(const QUuid &id)     { if (m_d) m_d->removeRegistry(3, id); }
+void SuperSession::flushLogger(const QUuid &id)  { if (m_d) m_d->loggerOp(id, 0); }
+void SuperSession::pauseLogger(const QUuid &id)  { if (m_d) m_d->loggerOp(id, 1); }
+void SuperSession::resumeLogger(const QUuid &id) { if (m_d) m_d->loggerOp(id, 2); }
+QVariant SuperSession::option(const QString &name) const
+{
+	return m_d ? m_d->option(name, QVariant()) : QVariant();
+}
+QVariant SuperSession::option(const QString &name, const QVariant &defaultValue) const
+{
+	return m_d ? m_d->option(name, defaultValue) : defaultValue;
+}
+void SuperSession::setOption(const QString &name, const QVariant &value)
+{
+	if (m_d) m_d->setOption(name, value);
+}
 
 void SuperSession::authAgent(const QString &service)        { if (m_d) m_d->authAgent(service); }
 void SuperSession::authNone(const QString &service)         { if (m_d) m_d->authNone(service); }

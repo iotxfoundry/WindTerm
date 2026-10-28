@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QObject>
+#include <QVariant>
 #include "../Utility/KingEnums.h"
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
@@ -68,10 +69,9 @@ public slots:
 	void flushLogger(const QUuid &loggerUuid);
 	void pauseLogger(const QUuid &loggerUuid);
 	void resumeLogger(const QUuid &loggerUuid);
-	void option(const QString &name);
+	void setOption(const QString &name, const QVariant &value);
 	QVariant option(const QString &name) const;
 	QVariant option(const QString &name, const QVariant &defaultValue) const;
-	void setOption(const QString &name, const QVariant &value);
 
 signals:
 	void stateChanged(King::SessionState oldState, King::SessionState state);
