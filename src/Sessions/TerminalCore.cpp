@@ -1438,3 +1438,11 @@ void TerminalCore::copyState(void **dst, void **src)
 	// clone of src's +0x10 node (FUN_007aa28a) — cited
 	*(void **)(d + 0x10) = nullptr;
 }
+
+void TerminalCore::resetCharsetSlots()
+{
+	// FUN_00802baa (18B): slots {2,2,2,2} as two packed qwords
+	// (0x200000002 twice) — matches the keymapResetModifier packed form
+	m_charsetSlots[0] = m_charsetSlots[1] = 2;
+	m_charsetSlots[2] = m_charsetSlots[3] = 2;
+}
