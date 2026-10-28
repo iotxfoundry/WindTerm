@@ -101,23 +101,31 @@
 
 ## Phase 2 — TerminalCore / SuperSession 收口 ⬜
 
-### 2a. TerminalCore 剩余 cited(5 个)⬜
-| 函数 | 地址 | 语义 |
-|---|---|---|
-| charsetConfigRoot | 0x00802bda | 字符集管理器根 |
-| cursorUpdated | 0x007e51e6 | 光标更新信号 |
-| markLine(int) | ? | 行标记 |
-| setCursorStyle(int, bool) | 0x007e4ffa | DECSCUSR |
-| slot0Allowed(int) | 0x00802c80 | G0 校验 |
+### 2a. TerminalCore 剩余 cited ⏳
+| 函数 | 地址 | 语义 | 状态 |
+|---|---|---|---|
+| resetCharsetSlots | 0x00802baa | 槽 {2,2,2,2}(打包 0x200000002×2) | ✅ |
+| rowHasContent | 0x007a4a06 | rowUsedWidth(007a41d6)包脏标志+clamp | ✅(cell 走查 cited) |
+| resetWrap | 0x007a45f6 | =setSgrState(重复声明,已并) | ✅ |
+| rowUsedWidth | 0x007a41d6 | SSE 尾扫最后非零 head;0x40+payload 走查 cited | ✅ 标量等价 |
+| copyState | 0x007aa2e2 | 16B 状态拷贝 + 0x18 节点换装(克隆 cited) | ⬜ |
+| charsetConfigRoot | 0x00802bda | 字符集管理器根 | ⬜ |
+| cursorUpdated | 0x007e51e6 | 光标更新信号 | ⬜ |
+| markLine(int) | 0x007a463c | 行标记 | ⬜ |
+| slot0Allowed(int) | 0x00802c80 | G0 校验 | ⬜ |
+| resizeCore | 0x007a604a | 967B 行 reflow | ⬜ cited |
+| lastNonEmptyRow | 0x007a5618 | 尾部内容扫描 | ⬜ cited |
 
-### 2b. SuperSession 管家真链 ⬜
-当前 SuperSessionPrivate 中 removeRegistry/loggerOp 是最小可用空实现。
-需接真下层:四注册表(QHash<QUuid, obj>)→ 信号发射(commanderCreated 等)。
-option/setOption → CTerminalConfig 单例读写(SESSION-CONFIG-LAYER.md ①)。
+### 2b. SuperSession 管家真链 ⏳
+四注册表 QMap<QUuid,obj> 落 SuperSessionPrivate(dtor 走查 7d7096 实证
++0x18 注册表、逐对象 vtable+0x20 拆除);removeRegistry → loggerRemoved
+信号已发;loggerOp 对象面(spdlog sink)Phase-4 cited。
+open/drop/12 getter body 未定位(metacall 表未抽)。
 
-### 2c. TextView 收口 ⬜
-TextView.h 中 `property()/setProperty()/schemeName()/find()` 4 函数
-(cited 档,上游接口已定,真实现可用 Qt 原生容器替代)。
+### 2c. TextView 收口 ✅
+property/setProperty 换原生 QMap<QString,QVariant>(原 qmap thunk 桩
+有 nullptr 解引用 UB,已消除);schemeName "Plain Text" 默认真身;
+find 种子/引擎面 Phase-4 cited。
 
 ---
 
@@ -189,7 +197,7 @@ TextView.h 中 `property()/setProperty()/schemeName()/find()` 4 函数
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| gen_stubs.cpp | 1 | 34(Phase 1 主体后;余 12 Screen + Phase 2 项) | → 0 |
+| gen_stubs.cpp | 1 | 28(Phase 2 第一批后) | → 0 |
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |

@@ -204,6 +204,7 @@ public:
 	bool charsetDisabled(int tableId) const;       // FUN_008034a4 (Screen.h 同名)
 	void resetCharsetSlots();  // FUN_00802baa
 	bool rowHasContent(struct Row *row) const;     // FUN_007a4a06
+	int rowUsedWidth(struct Row *row, int withStyle) const;   // FUN_007a41d6 — cited
 	void copyRowFromTemplate(struct Row *row, void *templateRow);  // FUN_007a3c9a tail
 	int cellFlags(struct Row *row, int i) const;   // FUN_007a3c68
 	void writeBlankCell(struct Row *row, int i, unsigned short attr, void *blankTemplate);
@@ -229,7 +230,6 @@ public:
 	void notifyRectChanged(const void *rect, int arg);   // FUN_007a4590
 	void *parseAttrList(const void *params, void *out);  // FUN_007a712b
 	void copyRect(int top, int left, int bottom, int right, long long packedDest);  // FUN_007a7776
-	void resetWrap(int arg);                       // FUN_007a45f6
 };
 
 #endif // TERMINALCORE_H

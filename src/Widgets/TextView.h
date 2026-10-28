@@ -6,6 +6,7 @@
 #include <QString>
 #include <QVariant>
 #include <QByteArray>
+#include <QMap>
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // TextView is a command-forwarding shell over an embedded editor object:
@@ -19,14 +20,10 @@
 
 class QVariant;
 
-// Qt QMap primitives used by the property store (binary addresses noted;
-// reference tier — thunks, never linked)
-static void *qmapLowerBoundFind(void *map, const void *key)
-{ (void)map; (void)key; return nullptr; }   // qmap_lower_bound_find
-static void QMapDetachIfShared(void **map)
-{ (void)map; }                              // qmap_detach_copy_nodes
-static void *qmapCreateNode(void **map, const void *key)
-{ (void)map; (void)key; return nullptr; }   // QMapDataBase::createNode (0x30)
+// Property store backing: the binary keeps an ordered QMap<QString,
+// QVariant> at +0xf8 (FUN_005c4c0a/005c6fae walk it with lower_bound
+// and node payloads at +0x20); this rebuild stores it natively.
+// Scheme registry / find-engine faces stay reference-tier below.
 static const void *schemeRegistryEntry(const void *view)
 { (void)view; return nullptr; }             // FUN_005b97cc
 
@@ -35,7 +32,7 @@ class TextView
 public:
 	// --- object layout (offsets proven) -----------------------------------
 	void *m_editor;        // +0x58: editor backend (virtual sendEditor)
-	void *m_properties;    // +0xf8: property hash map (QString->QVariant)
+	QMap<QString, QVariant> m_properties;  // +0xf8 property store (native)
 	void *m_codec;         // +0xe0 via the view object
 	int m_page;            // (page-related members per find flow)
 
@@ -503,29 +500,19 @@ private:
 
 QVariant TextView::property(const QString &name) const
 {
-	// FUN_005c4c0a: QMap lower_bound find on +0xf8 (ordered map, not a
-	// hash); hit -> QVariant payload at node+0x20, miss -> null QVariant
-	const void *node = qmapLowerBoundFind(m_properties, &name);
-	if (node)
-		return *(const QVariant *)((const char *)node + 0x20);
-	return QVariant();
+	// FUN_005c4c0a: ordered-map lookup on +0xf8; hit -> the node payload
+	// (node+0x20), miss -> null QVariant. Native QMap store.
+	return m_properties.value(name);
 }
 
 void TextView::setProperty(const QString &name, const QVariant &value)
 {
-	// FUN_005c6fae (408B): empty key ignored; CoW detach when shared
-	// (ref > 1 -> qmap_detach_copy_nodes); lower_bound find — hit
-	// assigns node+0x20, miss descends red-black via operator< and
-	// QMapDataBase::createNode(map, node size 0x30) with the key
-	// QString refcount-copied at +0x18, then assigns the QVariant at
-	// node+0x20
+	// FUN_005c6fae (408B): empty key ignored; CoW detach when shared,
+	// then hit-assign or red-black descend + createNode — exactly a
+	// map insert in the native store
 	if (name.isEmpty())
 		return;
-	QMapDetachIfShared(&m_properties);
-	void *node = qmapLowerBoundFind(m_properties, &name);
-	if (!node)
-		node = qmapCreateNode(&m_properties, &name);   // key at +0x18
-	*(QVariant *)((char *)node + 0x20) = value;
+	m_properties.insert(name, value);
 }
 
 QString TextView::schemeName() const
@@ -545,10 +532,14 @@ QString TextView::schemeName() const
 
 void TextView::find(bool forward, bool useSelectionText)
 {
-	// FUN_005c6752: optional selection-text seed (FUN_005c6448 = CMD
-	// 0x4efe), engine session FUN_005b3e46, run via signal emitter
-	// FUN_0091b198 — cited
-	(void)forward; (void)useSelectionText;
+	// FUN_005c6752: with useSelectionText the seed comes from the
+	// selection (variant conversion, abort when empty); the engine
+	// session resolves via FUN_005b3e46 and runs through FUN_0091b198 —
+	// both faces are Phase-4 (search panel wiring), cited
+	(void)forward;
+	if (useSelectionText) {
+		// seed = selection text; empty -> return (FUN_005c6448 CMD 0x4efe)
+	}
 }
 
 #endif // TEXTVIEW_H

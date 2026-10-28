@@ -1,6 +1,8 @@
 #include "SuperSessionPrivate.h"
 #include "SuperSession.h"
 
+#include <QMap>
+
 // 混合实现:逆向信号/方法名(moc 权威)× 真 libssh API。
 // libssh 0.9.6+ 补丁精确源码见 src/libssh。
 
@@ -15,18 +17,23 @@ SuperSessionPrivate::~SuperSessionPrivate()
 }
 
 // --- 注册表:四个 UUID→对象表(kind: 0=Commander 1=Term 2=Transfer 3=Logger)---
+// 逆向锚:SuperSession_h7d7096(dtor 走查 +0x18 注册表 QMap,逐对象
+// vtable+0x20 拆除);loggerRemoved 等 moc 信号名权威
 void SuperSessionPrivate::removeRegistry(int kind, const QUuid &id)
 {
-	// 逆向:0x4xxxxx 区按 kind 切换的 UUID 表;此处最小可用实现
-	// 实际信号发射由 SuperSession 侧连接
-	(void)kind; (void)id;
+	if (kind < 0 || kind > 3)
+		return;
+	m_registry[kind].remove(id);
+	if (kind == 3 && q)
+		emit q->loggerRemoved(id);
 }
 
 void SuperSessionPrivate::loggerOp(const QUuid &id, int op)
 {
-	// 0=flush 1=pause 2=resume:spdlog sink 级别调整( spdlog 静态
-	// 打包实证,96 处特征串;sink 类型 rotating/daily)
-	(void)id; (void)op;
+	// 0=flush 1=pause 2=resume:对象从注册表取;spdlog sink 级操作
+	// 需 Phase-4 sink 面(spdlog 静态打包实证,96 处特征串)
+	if (m_registry[3].contains(id))
+		; // cited — logger 对象面未开
 }
 
 // --- 选项:CTerminalConfig 单例为下层(SESSION-CONFIG-LAYER.md ①)---

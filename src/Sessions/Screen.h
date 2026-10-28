@@ -459,7 +459,6 @@ public:
 	// --- SuperCommander forward-compat declarations (auto-derived) ---
 	void codecFromUnicode(const QString &);  // SuperCommander forward compat
 	void codecToUnicode(const QString &);  // SuperCommander forward compat
-	void currentPage();  // SuperCommander forward compat
 	void filterRectangle(int a0, int a1, int a2, int a3);  // SuperCommander forward compat
 };
 

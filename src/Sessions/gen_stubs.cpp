@@ -16,16 +16,11 @@ void SuperSession::drop() {  } // stub
 void SuperSession::open() {  } // stub
 void TerminalCore::resetCharsetSlots() {  } // stub
 void TerminalCore::copyState(void**, void**) {  } // stub
-void TerminalCore::resetWrap(int) {  } // stub
 void TelnetCommander::negotiateOption(QString const&) {  } // stub
 void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
-void Screen::currentPage() {  } // stub
-int Screen::containerEnd(void*) { return 0; } // stub
-void * Screen::defaultStyle(int) { return nullptr; } // stub
 void Screen::notifyCommand(QString const&) {  } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
-void * Screen::historyContainer(void*) { return nullptr; } // stub
 void Screen::highlightTracking(int, int) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
 void Screen::setWindowTitleBuffer(QString const&) {  } // stub
@@ -45,7 +40,6 @@ bool SuperSession::needVerifyServerFingerprint() const { return false; } // stub
 QString SuperSession::name() const { return QString(); } // stub
 QString SuperSession::hostName() const { return QString(); } // stub
 QString SuperSession::lastError() const { return QString(); } // stub
-bool TerminalCore::rowHasContent(Row*) const { return false; } // stub
 #include "TerminalCore.h"
 int TerminalCore::cellFlags(struct Row *row, int i) const
 {

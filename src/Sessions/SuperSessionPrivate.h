@@ -57,6 +57,10 @@ private:
 	SuperSession *q;
 	ssh_session m_session = nullptr;
 	mutable QStringList m_authMethods;
+	// 四注册表(kind 0=Commander 1=Term 2=Transfer 3=Logger);
+	// SuperSession_h7d7096(dtor 走查)实证注册表为 QMap<QUuid,obj>,
+	// 逐对象 vtable+0x20 拆除
+	QMap<QUuid, void *> m_registry[4];
 };
 
 #endif // SUPERSESSIONPRIVATE_H

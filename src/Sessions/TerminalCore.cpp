@@ -1355,3 +1355,33 @@ int TerminalCore::lastNonEmptyRow() const
 	// one passes the content check FUN_007a4a06(row, 0) > 0 — cited — wave-2
 	return 0;
 }
+
+bool TerminalCore::rowHasContent(Row *row) const
+{
+	// FUN_007a4a06: width = rowUsedWidth(row, 0); the dirty flag (bit0)
+	// trusts the count directly, otherwise clamp to originRight()+1
+	int n = rowUsedWidth(row, 0);
+	if (!(row->flags & 1)) {
+		const int w = originRight();
+		if (w + 1 < n)
+			n = w + 1;
+	}
+	return n > 0;
+}
+
+int TerminalCore::rowUsedWidth(Row *row, int withStyle) const
+{
+	// FUN_007a41d6 (323B, SSE tail scan): index of the last non-zero
+	// 16-bit head + 1; withStyle && flags&0x40 additionally walks the
+	// 0x20-byte payload cells downward; flags&8 drops a trailing zero —
+	// payload walk cited — wave-2. The corpus count lives at row+0x3c
+	// with the head array at +0x40.
+	(void)withStyle;
+	if (!row || !row->attrArray)
+		return 0;
+	int i = row->length - 1;
+	unsigned short *heads = (unsigned short *)row->attrArray;
+	while (i >= 0 && heads[i] == 0)
+		--i;
+	return i + 1;
+}

@@ -162,7 +162,7 @@ void Screen::restoreCursor()
 		return;
 	}
 	setDecMode("6", false);           // FUN_007f5d2e(p1, "6", 0)
-	m_core->resetWrap(0);             // FUN_007a45f6(core, 0) — name unverified
+	m_core->setSgrState(0);           // FUN_007a45f6 = setSgrState(0)
 	// FUN_007e4b30(p1): tail call, not yet transcribed
 }
 
@@ -2767,4 +2767,32 @@ void Screen::requestXtermTerminfoData(const QString &data)
 			"XTerm Request Termcap/Terminfo String %1").arg(data));
 	sendResponse(QByteArrayLiteral("\x1bP") + (miss ? "0" : "1")
 	             + QByteArrayLiteral("+r") + result + QByteArrayLiteral("\x1b\\"));
+}
+
+int Screen::containerEnd(void *container)
+{
+	// container +0xc: used length (read as lVar9+0xc by FUN_007a9582)
+	return container ? *(int *)((char *)container + 0xc) : 0;
+}
+
+void *Screen::defaultStyle(int flag)
+{
+	// FUN_007e538e — same function as styleTimestamp (elapsed + base);
+	// the pushLinesToScrollback caller carries the value as a handle
+	return (void *)(long)(m_elapsed->elapsed()
+	                      + (flag ? m_styleBase1 : m_styleBase2));
+}
+
+void *Screen::historyContainer(void *viewMember)
+{
+	// FUN_007bacc0: lazily allocate the history container at view+0x28
+	// (0x20000 units via the app allocator FUN_007c128 — cited); getter
+	// is FUN_007bace6 (+0x28)
+	void **slot = (void **)viewMember;
+	if (!slot)
+		return nullptr;
+	if (!*slot) {
+		// FUN_0075c128(app, 0x20000) — cited
+	}
+	return *slot;
 }
