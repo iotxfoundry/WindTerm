@@ -30,5 +30,14 @@ int main(int argc, char **argv)
 	e.dispatch(2001, 0, QByteArray("hello world"));    // 供 0x7558 选区剥离
 	e.dispatch(0x7dd);                                 // SCI selectAll
 	e.dispatch(0x7558);                                // 清格式 → 默认样式
+	// --- 批 4:状态簇链(+0xed8 bit1/bit2/bits3+)---
+	e.dispatch(0x7561, true);                          // bit1|bit2
+	printf("bit1=%d ", e.dispatch(0x755c).toInt());    // -1
+	e.dispatch(0x7564, 0.5);                           // 0.5s → 500ms
+	printf("ms=%d ", e.dispatch(0x755d).toInt());      // 500
+	e.dispatch(0x7563, 42);                            // +0xdd0 + bit2
+	printf("collect5<%d> isSuper=%d\n",
+	       e.dispatch(0x7559, QVariantList{1, 2}).toString().size(),
+	       e.dispatch(0x7556).toBool());
 	return 0;
 }

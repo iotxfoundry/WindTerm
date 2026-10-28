@@ -64,6 +64,15 @@ public:
 	quint64 pairCacheFc0 = 0;        // +0xfc0(剥离时清零)
 	quint64 pairCacheFc8 = 0;        // +0xfc8
 
+	// --- buffer/状态簇(0x7556-0x7564;+0x1098 buffer / +0xed8 状态)---
+	bool isSuperBuffer = false;      // +0xf8 动态类型 cast(00927ec8)
+	QString bufferString;            // 0x755a(vt+0x58 虚调用 — cited)
+	bool bufferModeB = false;        // 0x755b(+0xf8 对象置换 0x48B — cited)
+	quint32 stateEd8 = 0;            // bit1=0x755c/7561 布尔 bit2=脏 bits3+=ms
+	quint32 valDd0 = 0;              // +0xdd0(0x7563 set)
+	int val1ba = 0;                  // 0x755f 查询
+	double val1bb = 0;               // 0x7560 查询(double)
+
 	// --- 语义动作 ---
 	void setHexBase(int base)
 	{

@@ -125,9 +125,21 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		send(SCI_GETSELTEXT, 0, (sptr_t)buf.data());
 		return QVariant(QString::fromUtf8(buf.constData()));
 	}
-	case 0x7571:     // fold(line) = SCI_TOGGLEFOLD
-		send(SCI_TOGGLEFOLD, a.toLongLong());
+	case 0x7571: {   // FUN_00a5ed6e(fold,line,1,0,flag):mode0=ec00 族
+	                 // (与 0x756f 同体;flag=展开位;父行解析 param_3=1)
+		const long long line = a.toLongLong();
+		const long long parent = send(SCI_GETFOLDPARENT, line, 0);
+		send(SCI_FOLDLINE, parent < 0 ? line : parent,
+		     b.toBool() ? SC_FOLDACTION_EXPAND : SC_FOLDACTION_CONTRACT);
 		return QVariant(0);
+	}
+	case 0x7572: {   // FUN_00a5ed6e(…,1,2,0):mode2=按状态 toggle
+	                 // (disp 00a5f0a2:bVar2==8→ec00 / 0xc→e952)
+		const long long line = a.toLongLong();
+		const long long parent = send(SCI_GETFOLDPARENT, line, 0);
+		send(SCI_TOGGLEFOLD, parent < 0 ? line : parent, 0);
+		return QVariant(0);
+	}
 	case 0x756f:     // fold range = SCI_FOLDLINE 展开/折叠
 		send(SCI_FOLDLINE, a.toLongLong(), b.toLongLong() ? SC_FOLDACTION_EXPAND : SC_FOLDACTION_CONTRACT);
 		return QVariant(0);
@@ -256,6 +268,66 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant((bool)m_ctx.snippetMode);
 	case 0x75bf:     // 片段会话活跃?(FUN_00926eb0:+0xd0 != 0)
 		return QVariant((bool)m_ctx.snippetMode);
+	// --- 批 4:buffer/状态簇(语料 disp 叶 22992-23145)---
+	case 0x7556:     // buffer 动态类型(FUN_00927ec8:+0xf8 cast != 0)
+		return QVariant((bool)m_ctx.isSuperBuffer);
+	case 0x7559: {   // collect(严格 5 元素 [str,bool,u64,ll,ll];
+	                 //  FUN_00980ffc 收集器深腿 — cited)
+		if (a.toList().size() != 5)
+			return QVariant(QString());
+		return QVariant(QString());
+	}
+	case 0x755a:     // setString(buffer vt+0x58 — 跳转表未恢复,cited)
+		m_ctx.bufferString = a.toString();
+		return QVariant(0);
+	case 0x755b:     // buffer 对象置换(FUN_00927f16:0x48B;
+	                 //  false→009818aa / true→00989ef2 — cited)
+		m_ctx.bufferModeB = a.toBool();
+		return QVariant(0);
+	case 0x755c:     // bit1 → -1/0(语料 (uint)b<<30>>31 语义)
+		return QVariant((m_ctx.stateEd8 & 2) ? -1 : 0);
+	case 0x755d:     // (int)+0xed8 >> 3 = ms 时长
+		return QVariant((int)m_ctx.stateEd8 >> 3);
+	case 0x755e:     // 当前样式 run → QVariant(FUN_00a29014 块样式/+0x1068
+	                 //  三元 + 0096bbc0 — runnode 模型 cited)
+		return QVariant();
+	case 0x755f:     // +0x1ba 查询
+		return QVariant(m_ctx.val1ba);
+	case 0x7560:     // +0x1bb 查询(double)
+		return QVariant(m_ctx.val1bb);
+	case 0x7561: {   // FUN_00a2d5a0:bit1 布尔(守卫比较 bit1 派生;
+	                 //  写 bit1|bit2;刷新 00a2cea8 cited)
+		const bool v = a.toBool();
+		const int cur = (m_ctx.stateEd8 & 2) ? -1 : 0;
+		if (cur == (int)(uint)v)
+			return QVariant(0);
+		m_ctx.stateEd8 = (m_ctx.stateEd8 & ~2u) | (v ? 2u : 0u) | 4u;
+		return QVariant(0);
+	}
+	case 0x7563: {   // FUN_00a2d648:+0xdd0 int + bit2 脏(+0xef0 镜像 cited)
+		const int v = a.toInt();
+		if (m_ctx.valDd0 != (quint32)v) {
+			m_ctx.valDd0 = (quint32)v;
+			m_ctx.stateEd8 |= 4;
+		}
+		return QVariant(0);
+	}
+	case 0x7564: {   // FUN_00a2d5d0:float 秒→ms 夹 100 → bits3+ + bit2
+		int ms = (int)((double)a.toFloat() * 1000.0);
+		if (ms < 100)
+			ms = 100;
+		if ((float)((int)m_ctx.stateEd8 >> 3) != (float)ms) {
+			m_ctx.stateEd8 = (m_ctx.stateEd8 & 7u)
+			    | ((quint32)(int)(float)ms << 3);
+			m_ctx.stateEd8 |= 4;
+		}
+		return QVariant(0);
+	}
+	case 0x756d:     // 标记注册(FUN_00925c02 sortedvec 插入 + 0092671c
+	                 //  回调接线 — 片段标记模型 cited)
+		return QVariant(0);
+	case 0x756e:     // 同 0x756d(变体,cited)
+		return QVariant(0);
 	case 0x7594:     // removeMargin(FUN_00a4bc60:按名移除)
 		m_ctx.removeMargin(a.toString());
 		return QVariant(0);

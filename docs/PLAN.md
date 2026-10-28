@@ -22,7 +22,7 @@
 | Phase 0 基础设施 | ✅ |
 | Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
-| Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(36/149;批 3=清格式/margin/视口滚动 10 条) |
+| Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(批 3=10 条批 4=15 条;详见 Phase 3 节) |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58(渲染层/深腿 cited) |
 | Phase 5 行为对比 | ⬜(需渲染层) |
@@ -189,6 +189,21 @@ bf = 片段查询;已按语料修正。
 **待下一批**:0x75b6(00a3663e 文本 getter,2025B)、0x75b9
 (009276ee buffer vtable+0x60 工厂)、0x75bb(00a2eee0 片段
 占位符跳转,434B)、0x7556/0x7559-7560/0x756d-756e。
+**批 4(2026-10-28)**:buffer/状态簇 + 折叠修正 15 条 ——
+0x7556 buffer 动态类型(+0xf8 cast;00927ec8)、0x7559 collect
+(严格 5 元素校验;收集器 00980ffc cited)、0x755a setString
+(vt+0x58 跳转表未恢复,cited 存字段)、0x755b buffer 对象置换
+(00927f16:0x48B 双构造器 cited)、0x755c/755d/7561/7563/7564
+**+0xed8 状态簇**(bit1=755c/7561 布尔(-1/0);bit2=脏;
+bits3+=ms 时长,7564 float 秒×1000 夹 100;7563 +0xdd0 int)、
+0x755e 样式 run→QVariant(runnode 模型 cited)、0x755f/7560
+(+0x1ba/+0x1bb 查询)、0x756d/756e 片段标记注册(sortedvec
+插入+回调接线 cited)、0x7572 折叠 toggle(mode2 按状态二选一
+disp 00a5f0a2;父行解析→SCI_TOGGLEFOLD)。
+**修正**:0x7571 旧映射 TOGGLEFOLD 语料证伪(mode0=ec00 折叠族,
+与 0x756f 同体)→ 父行解析 + SCI_FOLDLINE(flag 展开位)。
+**悬置**:0x7573(00a5e952 全体方向:ec00/e952 的 contract/
+expand 方向未定,不猜;待 00a2509a 方向证据)。
 
 ### 3a. 已定名的 WT 命令(有 Scintilla 等价)⬜
 | WT cmd | Scintilla API | 语义 |
