@@ -196,11 +196,10 @@ find 种子/引擎面 Phase-4 cited。
 - 工作区装载器 0x00522056 → Terminal/Editor/Browser 三面板恢复
 
 ### 4b. TerminalWidget 组装 ⏳
-- **TerminalWidget 骨架 ✅**(2026-10-28):src/Widgets/TerminalWidget.{h,cpp}
-  ——守卫+查询组 9 槽 + resetHard/resetSoft 真身 + 输入/清屏组
-  (write 端到端:vt14 C1 折叠→writeText;clear 三连含 tmux 特例)
-  + resetHard/resetSoft 真身(007ea73c/007ea7e6);渲染/日志/modem
-  组待后续轮次
+- **TerminalWidget 全槽覆盖 ✅**(2026-10-28):58+ 槽一轮批量
+  (守卫查询 9/复位 3/输入清屏 4/CMD 直传 12/日志 9/modem 5/
+  FreeType 2/会话命令 8 + write 端到端);深子系统腿(对话框/
+  全局管理器/会话栈/渲染层)cited
 - **端到端数据路径已通 ✅**(2026-10-28 晚):Screen+core resize→
   writeText(ASCII/换行/边缘 wrap latch/UTF-8 宽字符)→ 单元格
   逐格校验,e2eterm.cpp 14 断言全过;writeText 修复四处真 bug
