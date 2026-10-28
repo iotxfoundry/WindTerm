@@ -206,3 +206,16 @@ find 种子/引擎面 Phase-4 cited。
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |
+
+## Phase 2 收尾补记(2026-10-28 晚)
+
+- **resizeCore(007a604a)真身**:TerminalCore 构造器补齐(原为无构造
+  裸类,m_rows 野指针);makeRow(007a5670)、Tabstops::resizeDefault
+  (每 8 列默认 tabstop)落地;recheck 16 例全过
+- **convertRowToHistory(007a9582)结构定案但留 cited**:它是行→历史
+  文档模型桥——容器四槽(+8 Uint64RunStyles 样式 / +0x10 Uint16
+  PieceTable / +0x18 Uint32RunStyles / +0x20 尾槽)全部懒初始化;
+  行样式游程(007a3d72/3c52/3c42/3c84)逐段插入。RunStyles 即
+  Scintilla 的 RunStyles 类 —— 与 Phase 4 文档模型一体,届时以
+  src/Scintilla 的 RunStyles 源码直接对接
+- lastNonEmptyRow = lastContentRowCount(同体别名,已并)
