@@ -167,6 +167,15 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	// --- margin 链批(Phase-3 批 2)---
 	case 0x7591:     // margins(FUN_00a4bc60 邻位;返回定义列)
 		return QVariant(m_ctx.margins);
+	// --- pair 高亮/片段批(Phase-3 批 2 续)---
+	case 0x7583:     // pairHighlightUnmatched(FUN_00a10c68:置枚举 2;
+	                 //  editctx 迭代腿 FUN_00a2398e — cited)
+		m_ctx.pairHighlightUnmatched = 2;
+		return QVariant(0);
+	case 0x75ba:     // cancelSnippetMode(FUN_00a28ee8:
+	                 //  FUN_00a20104 + FUN_00926ebc(+0x1098))
+		m_ctx.snippetMode = false;
+		return QVariant(0);
 	case 0x7594:     // removeMargin(FUN_00a4bc60:按名移除)
 		m_ctx.removeMargin(a.toString());
 		return QVariant(0);

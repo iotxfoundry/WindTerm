@@ -47,6 +47,10 @@ public:
 		marginFlag1ab = marginFlag1ac = marginFlag1ad = marginFlag1ae = false;
 	}
 
+	// --- pair 高亮/片段(0x7583/75b4/75b5/75ba)---
+	int pairHighlightUnmatched = 0;  // FUN_00a10c68 置 2(枚举)
+	bool snippetMode = false;        // FUN_00926ebc(+0x1098)状态位
+
 	// --- 语义动作 ---
 	void setHexBase(int base)
 	{
