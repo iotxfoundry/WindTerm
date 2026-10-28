@@ -19,17 +19,22 @@
   QtCore 导出 `_ZN10QByteArrayC1EPKci` 现场构造。
 
 ### 行为发现(重建对齐用)
-1. **writeText(FUN_007e6f42)= 后处理写入器,非 ANSI 解析器**:
-   注入 `ESC[31mR` 后格子字面落 `ESC[31mR`,游标逐字节推进。
-   ——我方 writeText 内嵌解析(e2eterm 路径),**架构分歧已锁定**:
-   原版解析在 vt14 支路或更上游(见 3)。
-2. **vt14 门语义(实测)**:
-   - commander+0xfc = 0(实机会话态)
-   - screen+0x137 = 0 → vt14 不折不析(字面);
-     = 1 → ESC 折叠/解析支路(indexOf(0x1b) + case 0x44…)
-   - screen+0x12c ≠ 门(翻转无效);FUN_007cba64 = +0x137 读
-3. **宽字符/换行/回车行为与重建一致**:`\r` 归零、CJK 双格 +
-   0xffff 尾、world 写行首——字面态下与 e2eterm 断言同构。
+1. **writeText(FUN_007e6f42)= 后处理写入器,非 ANSI 解析器**
+   (注入 ESC[31mR 字面落格)。**双重视角修正**:我方 writeText
+   同样无 ESC/CSI 层——e2eterm 的 SGR 断言是直写 m_sgrBits,
+   从未经过解析!Phase 5 首个真实缺口 = **我方缺 CSI 分派层**。
+2. **原版真解析器 = SuperCommander_writeSplitData(007d1f5a)**
+   (回溯定位:writeSplitData → 007d10c5 → vt14 → writeText):
+   签名 (commander, char\* data, int len);+0xd8 挂起尾拼接 →
+   FUN_007e4908 取字符集分派表 → 逐字节分类 → 字面累积 /
+   **FUN_007cadba(007e4908 表驱动解释器)**。实测经此链注入:
+   ESC[2J/H 清屏归零 ✓、ESC[31m 消费 ✓、CJK 双格+尾格 ✓、
+   CR/LF ✓ —— 与重建可观察语义完全一致(解析后态)。
+3. vt14(007d1348)三参 (commander, screen, QByteArray\*),
+   +0x137=+0xfc=0 时字面直通(实测);非主解析路。
+4. **下一批(Phase 5 主线)**:转写 writeSplitData 尾 +
+   FUN_007cadba 解释器 + 007e4908/007e389e 表选择 → 我方
+   processOutput 尾接线(cited 占位处)→ engtest4 diff 全绿。
 
 ### 待解(下一轮)
 - **真解析入口定位**:实机 +0x137=0/+0xfc=0 下 pty 数据(含彩色

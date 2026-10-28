@@ -20,3 +20,4 @@ g++ -std=c++17 -fPIC -o recheck recheck.cpp \
   -L<build> -lWindTermRe -lQt5Core -lQt5Gui -lQt5Widgets -lssh
 LD_LIBRARY_PATH=<build> QT_QPA_PLATFORM=offscreen ./recheck
 ```
+| engtest4.cpp | Phase 5 对称 dump(writeText→格子 JSON,对比原版) |
