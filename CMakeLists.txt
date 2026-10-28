@@ -10,47 +10,57 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # =====================================================================
-# 外部静态库:预构建一次,改代码不重编(除非 --fresh)
+# 外部静态库:默认使用 lib/ 下已提交的 .a;仅 -DBUILD_DEPS=ON 时重编
 # =====================================================================
 set(LIB_OUT ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(PREBUILT_DIR ${CMAKE_BINARY_DIR}/prebuilt)
 
-# --- 预构建脚本(首次 cmake --build 时跑,之后跳过) ---
-file(MAKE_DIRECTORY ${PREBUILT_DIR})
-add_custom_command(
-  OUTPUT ${PREBUILT_DIR}/.stamp
-  COMMAND ${CMAKE_COMMAND} -E echo ">>> Pre-building external static libs..."
-  # Scintilla core (154 objects)
-  COMMAND bash -c "cd ${PREBUILT_DIR} && ${CMAKE_CXX_COMPILER} -std=c++17 -fPIC -c ${CMAKE_SOURCE_DIR}/src/Scintilla/src/*.cxx ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib/*.cxx ${CMAKE_SOURCE_DIR}/src/Scintilla/lexers/*.cxx -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/src -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib 2>/dev/null && ${CMAKE_CXX_COMPILER} -std=c++17 -fPIC -c ${CMAKE_SOURCE_DIR}/src/Scintilla/src/ExternalLexer.cxx -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/src 2>/dev/null; ar rcs libscintilla_core.a *.o"
-  # Scintilla Qt binding
-  COMMAND /usr/lib/qt5/bin/moc ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaEditBase.h -o ${PREBUILT_DIR}/moc_ScintillaEditBase.cpp -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib
-  COMMAND /usr/lib/qt5/bin/moc ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaQt.h -o ${PREBUILT_DIR}/moc_ScintillaQt.cpp -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib
-  COMMAND ${CMAKE_CXX_COMPILER} -std=c++17 -fPIC -c ${PREBUILT_DIR}/moc_ScintillaEditBase.cpp -o ${PREBUILT_DIR}/moc_ScintillaEditBase.o -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/src -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib -I /usr/include/x86_64-linux-gnu/qt5 -I /usr/include/x86_64-linux-gnu/qt5/QtCore -I /usr/include/x86_64-linux-gnu/qt5/QtGui -I /usr/include/x86_64-linux-gnu/qt5/QtWidgets
-  COMMAND ${CMAKE_CXX_COMPILER} -std=c++17 -fPIC -c ${PREBUILT_DIR}/moc_ScintillaQt.cpp -o ${PREBUILT_DIR}/moc_ScintillaQt.o -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/src -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib -I /usr/include/x86_64-linux-gnu/qt5 -I /usr/include/x86_64-linux-gnu/qt5/QtCore -I /usr/include/x86_64-linux-gnu/qt5/QtGui -I /usr/include/x86_64-linux-gnu/qt5/QtWidgets
-  COMMAND bash -c "cd ${PREBUILT_DIR} && ${CMAKE_CXX_COMPILER} -std=c++17 -fPIC -c ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/PlatQt.cpp ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaQt.cpp -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/src -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib -I /usr/include/x86_64-linux-gnu/qt5 -I /usr/include/x86_64-linux-gnu/qt5/QtCore -I /usr/include/x86_64-linux-gnu/qt5/QtGui -I /usr/include/x86_64-linux-gnu/qt5/QtWidgets && ar rcs libscintilla_qt.a ScintillaEditBase.o ScintillaQt.o PlatQt.o moc_ScintillaEditBase.o moc_ScintillaQt.o"
-  # yaml-cpp static
-  COMMAND bash -c "cd ${PREBUILT_DIR} && mkdir -p ycpp && cd ycpp && ${CMAKE_CXX_COMPILER} -std=c++11 -fPIC -O2 -I ${CMAKE_SOURCE_DIR}/src/yaml-cpp/include -c ${CMAKE_SOURCE_DIR}/src/yaml-cpp/src/*.cpp && ar rcs ../libyaml-cpp.a *.o"
-  # jsoncpp static
-  COMMAND bash -c "cd ${PREBUILT_DIR} && mkdir -p jcpp && cd jcpp && ${CMAKE_CXX_COMPILER} -std=c++11 -fPIC -O2 -I ${CMAKE_SOURCE_DIR}/src/jsoncpp/include -c ${CMAKE_SOURCE_DIR}/src/jsoncpp/src/lib_json/*.cpp && ar rcs ../libjsoncpp.a *.o"
-  COMMAND ${CMAKE_COMMAND} -E touch ${PREBUILT_DIR}/.stamp
-  COMMENT "Pre-building Scintilla + yaml-cpp + jsoncpp (first time only)"
-  VERBATIM)
-add_custom_target(prebuilt_deps DEPENDS ${PREBUILT_DIR}/.stamp)
+set(SCINTILLA_CORE ${LIB_OUT}/libscintilla_core.a)
+set(SCINTILLA_QT    ${LIB_OUT}/libscintilla_qt.a)
+set(YAML_CPP       ${LIB_OUT}/libyaml-cpp.a)
+set(JSONCPP        ${LIB_OUT}/libjsoncpp.a)
 
-# --- 预构建静态库路径 ---
-set(SCINTILLA_CORE ${PREBUILT_DIR}/libscintilla_core.a)
-set(SCINTILLA_QT    ${PREBUILT_DIR}/libscintilla_qt.a)
-set(YAML_CPP       ${PREBUILT_DIR}/libyaml-cpp.a)
-set(JSONCPP        ${PREBUILT_DIR}/libjsoncpp.a)
+option(BUILD_DEPS "Rebuild external static libs from source" OFF)
 
-# =====================================================================
-# libssh:共享库(保留原 CMakeLists 子项目方式)
-# =====================================================================
-set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
-set(BUILD_STATIC_LIBS OFF CACHE BOOL "" FORCE)
-set(WITH_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(UNIT_TESTING OFF CACHE BOOL "" FORCE)
-# add_subdirectory(src/libssh)  # 注释掉:使用 lib/libssh.so.4(仓库预构建)
+if(BUILD_DEPS)
+  # --- 从源码重编(仅首次/上游更新时) ---
+  set(DEPS_BUILD ${CMAKE_BINARY_DIR}/deps)
+  file(MAKE_DIRECTORY ${DEPS_BUILD})
+
+  add_custom_command(
+    OUTPUT ${DEPS_BUILD}/.stamp
+    COMMAND ${CMAKE_COMMAND} -E echo ">>> Rebuilding external static libs from source..."
+
+    # Scintilla core
+    COMMAND bash -c "cd ${DEPS_BUILD} && mkdir -p sci && cd sci && ${CMAKE_CXX_COMPILER} -std=c++17 -fPIC -c ${CMAKE_SOURCE_DIR}/src/Scintilla/src/*.cxx ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib/*.cxx ${CMAKE_SOURCE_DIR}/src/Scintilla/lexers/*.cxx -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/src -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib 2>&1 | grep -v 'error' | head -5; ar rcs ${LIB_OUT}/libscintilla_core.a *.o"
+
+    # Scintilla Qt binding
+    COMMAND /usr/lib/qt5/bin/moc ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaEditBase.h -o ${DEPS_BUILD}/moc_ScintillaEditBase.cpp -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib
+    COMMAND /usr/lib/qt5/bin/moc ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaQt.h -o ${DEPS_BUILD}/moc_ScintillaQt.cpp -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib
+    COMMAND bash -c "cd ${DEPS_BUILD} && ${CMAKE_CXX_COMPILER} -std=c++17 -fPIC -c moc_ScintillaEditBase.cpp moc_ScintillaQt.cpp ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/PlatQt.cpp ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase/ScintillaQt.cpp -I ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase -I ${CMAKE_SOURCE_DIR}/src/Scintilla/src -I ${CMAKE_SOURCE_DIR}/src/Scintilla/include -I ${CMAKE_SOURCE_DIR}/src/Scintilla/lexlib -I /usr/include/x86_64-linux-gnu/qt5 -I /usr/include/x86_64-linux-gnu/qt5/QtCore -I /usr/include/x86_64-linux-gnu/qt5/QtGui -I /usr/include/x86_64-linux-gnu/qt5/QtWidgets && ar rcs ${LIB_OUT}/libscintilla_qt.a moc_ScintillaEditBase.o moc_ScintillaQt.o PlatQt.o ScintillaEditBase.o ScintillaQt.o"
+
+    # yaml-cpp
+    COMMAND bash -c "cd ${DEPS_BUILD} && mkdir -p ycpp && cd ycpp && ${CMAKE_CXX_COMPILER} -std=c++11 -fPIC -O2 -I ${CMAKE_SOURCE_DIR}/src/yaml-cpp/include -c ${CMAKE_SOURCE_DIR}/src/yaml-cpp/src/*.cpp && ar rcs ${LIB_OUT}/libyaml-cpp.a *.o"
+
+    # jsoncpp
+    COMMAND bash -c "cd ${DEPS_BUILD} && mkdir -p jcpp && cd jcpp && ${CMAKE_CXX_COMPILER} -std=c++11 -fPIC -O2 -I ${CMAKE_SOURCE_DIR}/src/jsoncpp/include -c ${CMAKE_SOURCE_DIR}/src/jsoncpp/src/lib_json/*.cpp && ar rcs ${LIB_OUT}/libjsoncpp.a *.o"
+
+    COMMAND ${CMAKE_COMMAND} -E touch ${DEPS_BUILD}/.stamp
+    COMMENT "Rebuilding Scintilla + yaml-cpp + jsoncpp from source into lib/"
+    VERBATIM)
+  add_custom_target(rebuild_deps DEPENDS ${DEPS_BUILD}/.stamp)
+
+else()
+  # --- 默认:检查 lib/ 下的 .a 是否存在 ---
+  foreach(lib ${SCINTILLA_CORE} ${SCINTILLA_QT} ${YAML_CPP} ${JSONCPP})
+    if(NOT EXISTS ${lib})
+      message(FATAL_ERROR
+        "Missing pre-built library: ${lib}\n"
+        "Run: cmake .. -DBUILD_DEPS=ON && make rebuild_deps\n"
+        "Or build manually per tools/re/BUILD.md")
+    endif()
+  endforeach()
+  add_custom_target(rebuild_deps SOURCES "")
+endif()
 
 # =====================================================================
 # Qt 查找
@@ -115,16 +125,4 @@ target_link_libraries(WindTermRe
   ${YAML_CPP} ${JSONCPP}
   ${LIB_OUT}/libssh.so.4
 )
-add_dependencies(WindTermRe prebuilt_deps)
-
-# =====================================================================
-# 测试目标(可选)
-# =====================================================================
-# engtest 可选(主库完整;测试用 cmake --build . --target engtest)
-if(BUILD_ENGTEST)
-  add_executable(engtest tools/re/metatest/engtest.cpp
-    tools/re/metatest/metahook.cpp)
-  target_include_directories(engtest PRIVATE ${WT_INCLUDES})
-  target_link_libraries(engtest WindTermRe ${SCINTILLA_QT} ${SCINTILLA_CORE} Qt5::Core Qt5::Gui Qt5::Widgets)
-  set_target_properties(engtest PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-endif()
+add_dependencies(WindTermRe rebuild_deps)
