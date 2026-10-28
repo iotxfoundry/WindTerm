@@ -33,10 +33,25 @@ void SuperSessionPrivate::removeRegistry(int kind, const QUuid &id)
 
 void SuperSessionPrivate::loggerOp(const QUuid &id, int op)
 {
-	// 0=flush 1=pause 2=resume:对象从注册表取;spdlog sink 级操作
-	// 需 Phase-4 sink 面(spdlog 静态打包实证,96 处特征串)
-	if (m_registry[3].contains(id))
-		; // cited — logger 对象面未开
+	// moc 权威:case 33 flushLogger(007d4d7c,31B)/ 46 pauseLogger
+	// (007db8a6,64B)/ 52 resumeLogger(007dc11e,39B):
+	//   flush  = FUN_007c1b92(logger)(sink 冲刷 — cited)
+	//   pause  = flush + 绑定 term +0x1c8 = 1
+	//   resume = 绑定 term +0x1c8 = 0
+	// term 查找语料经 FUN_007db6ce(logger);重建以同 uuid 跨表近似。
+	void *logger = m_registry[3].value(id, nullptr);
+	if (!logger)
+		return;
+	if (op == 1 || op == 0) {
+		// FUN_007c1b92(logger) sink 冲刷 — cited(spdlog 面 Phase-4)
+	}
+	if (op == 1) {
+		if (void *term = m_registry[1].value(id, nullptr))
+			*(unsigned char *)((char *)term + 0x1c8) = 1;
+	} else if (op == 2) {
+		if (void *term = m_registry[1].value(id, nullptr))
+			*(unsigned char *)((char *)term + 0x1c8) = 0;
+	}
 }
 
 // --- 选项:CTerminalConfig 单例为下层(SESSION-CONFIG-LAYER.md ①)---

@@ -1470,10 +1470,9 @@ void TerminalCore::resetCharsetSlots()
 
 TerminalCore::TerminalCore()
 {
-	// buffer state zero-init; the corpus ctor family (FUN_007a69b8)
-	// builds the 0x58 template rows and inline arrays — Phase-4 view
-	// wiring will replace this with the full init
-	memset(&m_flags, 0, 0);   // no-op placeholder for member clarity
+	// 全成员显式清零(原版由 0x7e69b8 构造族保证;漏初始化会让
+	// m_flags/滚动区/SGR 等读堆垃圾,行为非确定)
+	m_flags = 0;
 	m_rowCount = 0;
 	m_rowCapacity = 0;
 	m_rows = nullptr;
@@ -1481,6 +1480,31 @@ TerminalCore::TerminalCore()
 	m_cursorX = 0;
 	m_columnCount = 0;
 	m_tabstops.payload = nullptr;
+	m_savedCursorY = 0;
+	m_savedCursorX = 0;
+	m_saveByte28 = 0;
+	m_saveByte29 = 0;
+	m_saved2 = 0;
+	for (int i = 0; i < 4; ++i)
+		m_savedCharsets[i] = 0;
+	m_blankRowTemplate = nullptr;
+	m_blankTemplateSgr = 0;
+	m_charsetSaved = nullptr;
+	m_sgrState = nullptr;
+	m_flags2 = 0;
+	m_sgrBits = 0;
+	m_workRow = nullptr;
+	m_userPreferredSet = 0;
+	for (int i = 0; i < 4; ++i)
+		m_charsetSlots[i] = 0;
+	m_scrollRegionTop = 0;
+	m_scrollRegionBottom = 0;
+	m_leftMargin = 0;
+	m_rightMargin = 0;
+	m_50 = nullptr;
+	m_58 = 0;
+	m_5c = nullptr;
+	m_66 = 0;
 }
 
 void TerminalCore::makeRow(struct Row *row, int cols)
