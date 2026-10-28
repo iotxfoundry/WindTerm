@@ -3,6 +3,7 @@
 #include "TerminalCore.h"
 #include "CTerminalConfig.h"
 #include <cstdio>
+#include <QTextCodec>
 
 static int fails = 0;
 static void expect(const char *what, long long got, long long want)
@@ -22,6 +23,10 @@ int main()
 	s.m_core = &core;
 	s.m_history = new TerminalCore();
 	s.m_history->resizeCore(24, 80);
+	// codec install (corpus: view+0xe0 codec, +0xf0 decoder)
+	QTextCodec *utf8 = QTextCodec::codecForName("UTF-8");
+	s.m_codec = (void *)utf8;
+	s.m_decoder = (void *)utf8->makeDecoder();
 
 	// 2) writeText ASCII
 	s.writeText("hello", 5);
@@ -60,7 +65,24 @@ int main()
 	printf("row2[0] = %c (want Y)%s\n", (char)h2[0], h2[0] == 'Y' ? "" : "  FAIL");
 	fails += h2[0] != 'Y';
 
-	// 5) config-driven bell style read through the singleton
+	// 5) UTF-8 multibyte: 你好 = two wide chars (folded cp, 0xffff trail)
+	s.writeText("\xe4\xbd\xa0\xe5\xa5\xbd", 6);
+	expect("cursorX after CJK x2", s.currentColumn(), 4);
+	struct Row *rc = core.row(3);
+	unsigned short *hc = (unsigned short *)rc->attrArray;
+	// BMP chars decode to one unit: heads keep the raw codepoints with
+	// the 0xffff trail on the second column (the 0xfca02400 fold is for
+	// astral surrogate pairs only)
+	printf("CJK head[0]=%04x (want 4f60)%s\n", hc[0], hc[0] == 0x4f60 ? "" : "  FAIL");
+	fails += hc[0] != 0x4f60;
+	printf("CJK head[1]=%04x (want ffff trail)%s\n", hc[1], hc[1] == 0xffff ? "" : "  FAIL");
+	fails += hc[1] != 0xffff;
+	printf("CJK head[2]=%04x (want 597d)%s\n", hc[2], hc[2] == 0x597d ? "" : "  FAIL");
+	fails += hc[2] != 0x597d;
+	printf("CJK head[3]=%04x (want ffff trail)%s\n", hc[3], hc[3] == 0xffff ? "" : "  FAIL");
+	fails += hc[3] != 0xffff;
+
+	// 6) config-driven bell style read through the singleton
 	CTerminalConfig::instance()->setConfigPath(
 	    QStringLiteral("/opt/WindTerm_2.7.0/global/wind.config"));
 	const QVariant v = CTerminalConfig::instance()->value(QStringLiteral("terminal.historySize"));

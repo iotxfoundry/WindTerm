@@ -1516,8 +1516,9 @@ void Screen::writeText(const char *data, int len)
 				break;
 			}
 			col = newCol;
-			cell = nextCell(cell);
-			head = nextHead(head);
+			// the cell/head walk skips the wide char's second half
+			cell = (char *)cell + 0x20 * width;
+			head += width;
 			i += used;      // advance by the consumed byte count
 			if (i >= n)
 				break;
