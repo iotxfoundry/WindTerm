@@ -2717,3 +2717,54 @@ void Screen::historySinkBroadcast(const long *range, void *style, int kind, bool
 	// as FUN_007eefbe. Sink registry wiring is Phase-4 (spdlog layer).
 	(void)range; (void)style; (void)kind; (void)dwl;
 }
+
+// ---------------------------------------------------------------------------
+// Phase 1a (deferred): XTGETTCAP (FUN_007f3518)
+// ---------------------------------------------------------------------------
+
+#include "terminfo_caps.inc"
+
+void Screen::requestXtermTerminfoData(const QString &data)
+{
+	// FUN_007f3518: ';'-separated hex capability names; Co -> 256,
+	// TN -> "xterm", RGB -> "8/8/8"; table hits resolve their angle
+	// notation (<F1> etc.) through the keymap slots on the +0x58
+	// params object (FUN_007e27a0, "Num" variant; keymap layer not
+	// transcribed — cited, unresolved hits skip). Values append
+	// hex-encoded, ';'-joined. Reply DCS 0/1+r ... ST; an empty or
+	// echoed-back request additionally logs the unsupported notice.
+	const QByteArray request = data.toLatin1();
+	QByteArray result;
+	const QList<QByteArray> parts = request.split(';');
+	for (const QByteArray &raw : parts) {
+		const QByteArray cap = QByteArray::fromHex(raw);
+		QByteArray value;
+		if (cap == "Co")
+			value = QByteArray::number(0x100);
+		else if (cap == "TN")
+			value = QByteArrayLiteral("xterm");
+		else if (cap == "RGB")
+			value = QByteArrayLiteral("8/8/8");   // FUN_007e27a0 路径 cited
+		else {
+			for (const auto &e : terminfoCaps) {
+				if ((cap == e.cap || cap == e.alias) && e.value[0] != '\0') {
+					// keys_parseAngleNotation + keymap slot resolve — cited
+					value = QByteArray();
+					break;
+				}
+			}
+		}
+		if (value.isEmpty())
+			continue;
+		if (!result.isEmpty())
+			result.append(';');
+		result.append(value.toHex());
+	}
+	const bool miss = result.isEmpty()
+	                  || (result.size() == request.size() && result == request);
+	if (request.isEmpty() || miss)
+		reportUnsupported(QStringLiteral(
+			"XTerm Request Termcap/Terminfo String %1").arg(data));
+	sendResponse(QByteArrayLiteral("\x1bP") + (miss ? "0" : "1")
+	             + QByteArrayLiteral("+r") + result + QByteArrayLiteral("\x1b\\"));
+}

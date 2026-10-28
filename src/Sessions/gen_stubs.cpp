@@ -30,7 +30,6 @@ void Screen::highlightTracking(int, int) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
 void Screen::setWindowTitleBuffer(QString const&) {  } // stub
 void Screen::setWindowIconAndTitle(QString const&) {  } // stub
-void Screen::requestXtermTerminfoData(QString const&) {  } // stub
 void Screen::notifyOsc(int, QString const&) {  } // stub
 void Screen::writeText(QString const&) {  } // stub
 QString SuperSession::fingerprint(King::FingerprintType) const { return QString(); } // stub
