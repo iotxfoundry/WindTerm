@@ -1627,8 +1627,24 @@ void SuperCommander::fromUnicode(const QString &text)
 
 void SuperCommander::notifyCommand(const QString &command)
 {
-	// moc[110] -> 目标待定(旧注 0x4c3110 是 qstrcmp PLT,误)
-	m_screen->notifyCommand(command);
+	// moc 名权威:case 110 = FUN_007c9e90(288B)命令字解析:
+	// "A"→kind1 "B"→kind0 "C"/"C;N"→kind2(N<0x100),种入 +0x60 carry
+	const QByteArray cmd = command.toLatin1();
+	int kind = 0, value = 0;
+	if (cmd == "A")
+		kind = 1;
+	else if (cmd == "B")
+		kind = 0;
+	else if (cmd == "C" || cmd.startsWith("C;")) {
+		kind = 2;
+		const int semi = cmd.indexOf(';');
+		if (semi != -1) {
+			const uint n = cmd.mid(semi + 1).toUInt();
+			if (n < 0x100)
+				value = (int)n;
+		}
+	}
+	m_screen->setStyleCarry(kind, value);
 }
 
 void SuperCommander::notifyMessage(int message)
@@ -1652,21 +1668,43 @@ void SuperCommander::notifyRemoteDirectory(const QString &directory)
 
 void SuperCommander::notifyHyperlink(const QString &url)
 {
-	// moc[112] -> 目标待定(旧注 0x4c3290 是 QByteArray PLT,误)
-		// cited: m_screen->notifyOsc(8, content);
+	// moc 名权威:case 112 = FUN_007cf526(154B):取 ';' 分段最后一段
+	// 作为超链接目标交给 core(FUN_007f43ce,457B — cited)
+	const QList<QByteArray> parts = url.toLatin1().split(';');
+	const QByteArray target = parts.isEmpty() ? QByteArray()
+	                                          : parts.last();
+	m_screen->setHyperlinkTarget(target);
 }
 
 void SuperCommander::notifyIterm2(const QString &content)
 {
-	// moc[113] -> 目标待定(同上)
-	m_screen->notifyOsc(1337, content);
+	// moc 名权威:case 113 = s_CursorShape_7cf5d0(619B)iTerm2 会话
+	// 传播协议:'k=v;…' 对,CurrentDir → 目录缓存+信号;
+	// CursorShape → FUN_007e3b12/007cc828(cited)
+	const QList<QByteArray> pairs = content.toLatin1().split(';');
+	for (const QByteArray &pair : pairs) {
+		const QList<QByteArray> kv = pair.split('=');
+		if (kv.size() != 2)
+			continue;
+		if (kv.at(0) == "CurrentDir")
+			m_screen->notifyRemoteDirectory(QString::fromLatin1(kv.at(1)));
+		else if (kv.at(0) == "CursorShape") {
+			// FUN_007e3b12 + FUN_007cc828 — cited
+		}
+	}
 }
 
 void SuperCommander::notifyFig(const QString &content)
 {
-	// moc[111] -> 目标待定(同上)
-	m_screen->notifyOsc(0, content);
-	// 与 notifyHyperlink/Iterm2 同族
+	// moc 名权威:case 111 = FUN_007cf856(332B)shell 集成标记:
+	// "StartPrompt"/"EndPrompt" → +0x60 carry(1/0);"Dir;x" → 目录
+	const QList<QByteArray> parts = content.toLatin1().split(';');
+	if (parts.size() == 1) {
+		if (parts.at(0) == "StartPrompt" || parts.at(0) == "EndPrompt")
+			m_screen->setStyleCarry(parts.at(0) == "StartPrompt" ? 1 : 0, 0);
+	} else if (parts.size() == 2 && parts.at(0) == "Dir") {
+		m_screen->notifyRemoteDirectory(QString::fromLatin1(parts.at(1)));
+	}
 }
 
 void SuperCommander::option(const QString &name)

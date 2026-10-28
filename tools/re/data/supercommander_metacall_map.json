@@ -1,273 +1,1839 @@
 {
- "_comment": "SuperCommander qt_static_metacall (0090ef1c) case\u2192target \u5168\u6620\u5c04\u3002\u547d\u540d\u951a:110=\u547d\u4ee4\u5b57\u89e3\u6790(A/B/C;N),235=setWindowIconAndTitle,251=\u6807\u9898\u7f13\u51b2\u8bfb;\u5176\u4f59\u5f85\u9010\u4e2a\u5185\u5bb9\u5b9a\u540d\u3002pool \u5e8f \u2260 case \u5e8f,\u7981\u6b62\u6309 pool \u4f4d\u7f6e\u731c\u540d\u3002",
- "metacall": "0x90ef1c",
- "slots": {
-  "0": "FUN_0090ee08",
-  "1": "FUN_0090ee46",
-  "2": "FUN_0090ee70",
-  "3": "FUN_0090eeac",
-  "4": "FUN_0090eed6",
-  "5": "FUN_007ca8bc",
-  "6": "FUN_007ca8c8",
-  "7": "s_terminal_answerBack_7cbb60",
-  "8": "FUN_007ca8d4",
-  "9": "FUN_007cad68",
-  "10": "FUN_007cad8a",
-  "11": "s_terminal_bellInterval_7cbc46",
-  "12": "FUN_007cad96",
-  "13": "FUN_007cada2",
-  "14": "FUN_007cadae",
-  "15": "FUN_007cadda",
-  "16": "FUN_007c8c0c",
-  "17": "FUN_007c8c0c",
-  "18": "FUN_007caeb6",
-  "20": "FUN_007c8c18",
-  "21": "FUN_007c8c18",
-  "22": "FUN_007c8c24",
-  "23": "FUN_007c8c24",
-  "24": "FUN_007c8c30",
-  "25": "FUN_007c8c30",
-  "26": "FUN_007cb768",
-  "27": "FUN_007cb77a",
-  "28": "FUN_007cb78c",
-  "29": "FUN_007cb79e",
-  "30": "FUN_007cb7aa",
-  "31": "FUN_007cb7aa",
-  "32": "FUN_007cb7be",
-  "33": "FUN_007cb7ca",
-  "34": "FUN_007cb7d6",
-  "35": "FUN_007c8c3c",
-  "36": "FUN_007c8c3c",
-  "37": "FUN_007cb106",
-  "38": "FUN_007cb106",
-  "39": "FUN_007c8c48",
-  "40": "FUN_007c8c68",
-  "41": "FUN_007c8c68",
-  "42": "FUN_007cb17c",
-  "43": "FUN_007cb17c",
-  "44": "FUN_007c8c76",
-  "45": "FUN_007c8c76",
-  "46": "FUN_007cb7e2",
-  "47": "FUN_007cb7ee",
-  "48": "FUN_007cb7fa",
-  "49": "FUN_007cb7fa",
-  "50": "FUN_007cb806",
-  "51": "FUN_007cb812",
-  "52": "FUN_007cb834",
-  "53": "FUN_007cb992",
-  "54": "FUN_007cb99e",
-  "55": "FUN_007c8c88",
-  "56": "FUN_007c8c88",
-  "57": "FUN_007c8c94",
-  "58": "FUN_007c8c94",
-  "59": "FUN_007c8ca0",
-  "60": "FUN_007c8ca0",
-  "61": "FUN_007cbaca",
-  "62": "FUN_007cbad6",
-  "63": "FUN_007cbad6",
-  "64": "FUN_007cbaee",
-  "65": "FUN_007cbafa",
-  "66": "FUN_007cbb06",
-  "67": "FUN_007cbb12",
-  "68": "FUN_007cbb1e",
-  "69": "FUN_007cbb1e",
-  "70": "FUN_007cbb2a",
-  "71": "FUN_007cbeda",
-  "72": "FUN_007cbeda",
-  "73": "FUN_007cbeda",
-  "74": "FUN_007c8cac",
-  "75": "FUN_007c8cac",
-  "76": "FUN_007cbe1e",
-  "77": "FUN_007cbe1e",
-  "78": "FUN_007cb1f6",
-  "79": "FUN_007cb1f6",
-  "80": "FUN_007cb282",
-  "81": "FUN_007cb282",
-  "82": "FUN_007c8cc6",
-  "83": "FUN_007c8cc6",
-  "84": "FUN_007c8ce0",
-  "85": "FUN_007c8ce0",
-  "86": "FUN_007cbf28",
-  "87": "FUN_007cbf28",
-  "88": "FUN_007cb30c",
-  "89": "FUN_007cb30c",
-  "90": "FUN_007cb3b0",
-  "91": "FUN_007cb3b0",
-  "92": "FUN_007cb454",
-  "93": "FUN_007cb454",
-  "94": "FUN_007cb4dc",
-  "95": "FUN_007cb4dc",
-  "96": "FUN_007cb572",
-  "97": "FUN_007cb572",
-  "98": "FUN_007cb5fc",
-  "99": "FUN_007cb5fc",
-  "100": "FUN_007c8cfa",
-  "101": "FUN_007c8cfa",
-  "102": "FUN_007c8df2",
-  "103": "FUN_007c8df2",
-  "104": "FUN_007cbfd8",
-  "105": "FUN_007cbfd8",
-  "106": "FUN_007cc054",
-  "107": "FUN_007cc054",
-  "108": "FUN_007cc0ce",
-  "109": "FUN_007cc0ce",
-  "110": "FUN_007c9e90",
-  "111": "s_StartPrompt_7cf856",
-  "112": "FUN_007cf526",
-  "113": "s_CursorShape_7cf5d0",
-  "114": "FUN_007cf24e",
-  "115": "FUN_007cd50c",
-  "117": "FUN_007cbe06",
-  "118": "FUN_007cbe12",
-  "119": "FUN_007cbec2",
-  "120": "FUN_007cbece",
-  "121": "FUN_007cbfcc",
-  "122": "FUN_007cc106",
-  "123": "FUN_007cc112",
-  "124": "FUN_007cc112",
-  "125": "FUN_007d0a2a",
-  "126": "FUN_007c8d14",
-  "127": "FUN_007c8d14",
-  "128": "FUN_007cc25e",
-  "129": "FUN_007cc26c",
-  "130": "FUN_007cc27e",
-  "131": "FUN_007cc290",
-  "132": "FUN_007cc29c",
-  "133": "FUN_007cc2a8",
-  "134": "FUN_007cc2a8",
-  "135": "FUN_007cc2b4",
-  "136": "FUN_007c8d20",
-  "137": "FUN_007cc2c0",
-  "138": "FUN_007cc2cc",
-  "139": "FUN_007cc2d8",
-  "140": "FUN_007cc2d8",
-  "141": "FUN_007c8d32",
-  "142": "FUN_007cc2e4",
-  "143": "FUN_007cc2f0",
-  "144": "FUN_007cc2fc",
-  "145": "FUN_007cc2fc",
-  "146": "FUN_007cc308",
-  "147": "FUN_007cc314",
-  "148": "FUN_007cc3c2",
-  "149": "FUN_007c8d3e",
-  "150": "FUN_007cc3da",
-  "151": "FUN_007cc3e6",
-  "152": "FUN_007cc3e6",
-  "153": "FUN_007c8d5e",
-  "154": "FUN_007cc3f2",
-  "155": "FUN_007cc3fe",
-  "156": "FUN_007cc3fe",
-  "157": "FUN_007cc40a",
-  "158": "FUN_007c8d7e",
-  "159": "FUN_007cc42c",
-  "160": "FUN_007cc438",
-  "161": "FUN_007cc444",
-  "162": "FUN_007cc450",
-  "163": "FUN_007cc45c",
-  "164": "FUN_007c8d8a",
-  "165": "FUN_007cc47e",
-  "166": "FUN_007cc4a0",
-  "167": "FUN_007c8d96",
-  "168": "FUN_007c8d96",
-  "169": "FUN_007c8e06",
-  "170": "FUN_007c8e06",
-  "171": "FUN_007cc4c2",
-  "172": "FUN_007c8dd4",
-  "173": "FUN_007c8dd4",
-  "174": "FUN_007c8db6",
-  "175": "FUN_007c8db6",
-  "176": "FUN_007cc4e4",
-  "177": "FUN_007cc4f2",
-  "178": "FUN_007cc504",
-  "179": "FUN_007cc514",
-  "180": "FUN_007cc524",
-  "181": "FUN_007cc524",
-  "182": "FUN_007cc530",
-  "183": "FUN_007cc530",
-  "184": "FUN_007cc53c",
-  "185": "FUN_007cc53c",
-  "186": "FUN_007c8de6",
-  "187": "FUN_007c8de6",
-  "188": "FUN_007c8c56",
-  "189": "FUN_007cc548",
-  "190": "FUN_007cc554",
-  "191": "FUN_007cc560",
-  "192": "FUN_007cc560",
-  "193": "FUN_007cc59c",
-  "194": "FUN_007cc5ac",
-  "195": "FUN_007cc5be",
-  "196": "FUN_007cc5d0",
-  "197": "FUN_007cc7de",
-  "198": "FUN_007cc810",
-  "199": "FUN_007cc810",
-  "200": "FUN_007cc81c",
-  "201": "FUN_007cc81c",
-  "202": "FUN_007cc828",
-  "203": "FUN_007cc828",
-  "204": "FUN_007cc836",
-  "205": "FUN_007cc836",
-  "206": "FUN_007c8d4c",
-  "207": "FUN_007c8d4c",
-  "208": "FUN_007cc862",
-  "209": "FUN_007cc862",
-  "210": "FUN_007cc862",
-  "211": "FUN_007cc872",
-  "212": "FUN_007cc872",
-  "213": "FUN_007cc87e",
-  "214": "FUN_007cc87e",
-  "215": "FUN_007cc87e",
-  "216": "FUN_007cc88a",
-  "217": "FUN_007cc88a",
-  "218": "FUN_007cc896",
-  "219": "FUN_007cc896",
-  "220": "FUN_007c8d6c",
-  "221": "FUN_007c8d6c",
-  "222": "FUN_007cce2a",
-  "223": "FUN_007cce2a",
-  "224": "FUN_007cce2a",
-  "225": "FUN_007cce36",
-  "226": "FUN_007cce36",
-  "227": "FUN_007cce36",
-  "228": "FUN_007cce36",
-  "229": "FUN_007cce36",
-  "230": "FUN_007cce4e",
-  "231": "FUN_007cce4e",
-  "232": "FUN_007cce5a",
-  "233": "FUN_007cce66",
-  "234": "FUN_007cce72",
-  "235": "FUN_007cd958",
-  "236": "FUN_007cd816",
-  "237": "FUN_007cd902",
-  "238": "FUN_007ccf48",
-  "239": "FUN_007cd036",
-  "240": "FUN_007cd04c",
-  "241": "FUN_007cd08a",
-  "242": "FUN_007cd0a0",
-  "243": "FUN_007cd060",
-  "244": "FUN_007cd076",
-  "245": "FUN_007cd0b4",
-  "246": "FUN_007cd0c8",
-  "247": "FUN_007cd0da",
-  "248": "FUN_007cd0ec",
-  "249": "FUN_007cd0fa",
-  "250": "FUN_007cd35a",
-  "251": "FUN_007cd366",
-  "252": "FUN_007cd97a",
-  "253": "FUN_007cd986",
-  "254": "FUN_007cd992",
-  "255": "FUN_007cd99e",
-  "256": "FUN_007cd9aa",
-  "257": "FUN_007cd9b6",
-  "258": "FUN_007cd9d0",
-  "259": "FUN_007cd9dc",
-  "260": "FUN_007cdb0c",
-  "261": "FUN_007cdb18",
-  "262": "FUN_007cdc9a",
-  "263": "FUN_007cdca6"
- },
- "anchors": {
-  "110": "FUN_007c9e90 \u2014 \"A\"/\"B\"/\"C[;N]\" \u547d\u4ee4\u89e3\u6790 \u2192 007e4f28 (+0x60 carry)",
-  "235": "FUN_007cd958 \u2014 setWindowIconAndTitle \u94fe(007cd902 \u2713 \u4e0e adapters \u8868\u4e92\u8bc1)",
-  "251": "FUN_007cd366 \u2014 \u6807\u9898\u7f13\u51b2\u8bfb"
- }
+ "_comment": "SuperCommander metacall case→函数→权威槽名(moc data 表方法偏移抽取,007a538a 同法)。case N = 方法 N(含信号);目标函数为槽真身。",
+ "slots": [
+  {
+   "case": 0,
+   "target": "FUN_0090ee08",
+   "name": "asyncMessage",
+   "kind": "?",
+   "argc": 3
+  },
+  {
+   "case": 1,
+   "target": "FUN_0090ee46",
+   "name": "charsetChanged",
+   "kind": "?",
+   "argc": 1
+  },
+  {
+   "case": 2,
+   "target": "FUN_0090ee70",
+   "name": "error",
+   "kind": "?",
+   "argc": 2
+  },
+  {
+   "case": 3,
+   "target": "FUN_0090eeac",
+   "name": "shellCwdChanged",
+   "kind": "?",
+   "argc": 1
+  },
+  {
+   "case": 4,
+   "target": "FUN_0090eed6",
+   "name": "syncMessage",
+   "kind": "?",
+   "argc": 4
+  },
+  {
+   "case": 5,
+   "target": "FUN_007ca8bc",
+   "name": "adjustScreenAlignment",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 6,
+   "target": "FUN_007ca8c8",
+   "name": "allowScrollback",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 7,
+   "target": "s_terminal_answerBack_7cbb60",
+   "name": "answerBack",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 8,
+   "target": "FUN_007ca8d4",
+   "name": "assignUserPreferredSupplementalSet",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 9,
+   "target": "FUN_007cad68",
+   "name": "backIndex",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 10,
+   "target": "FUN_007cad8a",
+   "name": "backspace",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 11,
+   "target": "s_terminal_bellInterval_7cbc46",
+   "name": "bell",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 12,
+   "target": "FUN_007cad96",
+   "name": "bracketedPasteMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 13,
+   "target": "FUN_007cada2",
+   "name": "carriageReturn",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 14,
+   "target": "FUN_007cadae",
+   "name": "changeAttributesInRectangularArea",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 15,
+   "target": "FUN_007cadda",
+   "name": "checkControlCharacter",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 16,
+   "target": "FUN_007c8c0c",
+   "name": "clearTabstop",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 17,
+   "target": "FUN_007c8c0c",
+   "name": "clearTabstop",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 18,
+   "target": "FUN_007caeb6",
+   "name": "copyRectangularArea",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 20,
+   "target": "FUN_007c8c18",
+   "name": "deleteCharacter",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 21,
+   "target": "FUN_007c8c18",
+   "name": "deleteCharacter",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 22,
+   "target": "FUN_007c8c24",
+   "name": "deleteColumn",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 23,
+   "target": "FUN_007c8c24",
+   "name": "deleteColumn",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 24,
+   "target": "FUN_007c8c30",
+   "name": "deleteLine",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 25,
+   "target": "FUN_007c8c30",
+   "name": "deleteLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 26,
+   "target": "FUN_007cb768",
+   "name": "doubleLineHeightBottom",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 27,
+   "target": "FUN_007cb77a",
+   "name": "doubleLineHeightTop",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 28,
+   "target": "FUN_007cb78c",
+   "name": "doubleLineWidth",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 29,
+   "target": "FUN_007cb79e",
+   "name": "enableFilterRectangle",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 30,
+   "target": "FUN_007cb7aa",
+   "name": "enableLocatorReports",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 31,
+   "target": "FUN_007cb7aa",
+   "name": "enableLocatorReports",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 32,
+   "target": "FUN_007cb7be",
+   "name": "endGuardedArea",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 33,
+   "target": "FUN_007cb7ca",
+   "name": "enterAltKeypadMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 34,
+   "target": "FUN_007cb7d6",
+   "name": "enterTmuxControlMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 35,
+   "target": "FUN_007c8c3c",
+   "name": "eraseCharacter",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 36,
+   "target": "FUN_007c8c3c",
+   "name": "eraseCharacter",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 37,
+   "target": "FUN_007cb106",
+   "name": "eraseLine",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 38,
+   "target": "FUN_007cb106",
+   "name": "eraseLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 39,
+   "target": "FUN_007c8c48",
+   "name": "eraseRectangularArea",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 40,
+   "target": "FUN_007c8c68",
+   "name": "eraseScreen",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 41,
+   "target": "FUN_007c8c68",
+   "name": "eraseScreen",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 42,
+   "target": "FUN_007cb17c",
+   "name": "eraseSelectiveLine",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 43,
+   "target": "FUN_007cb17c",
+   "name": "eraseSelectiveLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 44,
+   "target": "FUN_007c8c76",
+   "name": "eraseSelectiveScreen",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 45,
+   "target": "FUN_007c8c76",
+   "name": "eraseSelectiveScreen",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 46,
+   "target": "FUN_007cb7e2",
+   "name": "exitAltKeypadMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 47,
+   "target": "FUN_007cb7ee",
+   "name": "exitAnsiMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 48,
+   "target": "FUN_007cb7fa",
+   "name": "fillRectangularArea",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 49,
+   "target": "FUN_007cb7fa",
+   "name": "fillRectangularArea",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 50,
+   "target": "FUN_007cb806",
+   "name": "formFeed",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 51,
+   "target": "FUN_007cb812",
+   "name": "forwardIndex",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 52,
+   "target": "FUN_007cb834",
+   "name": "fromUnicode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 53,
+   "target": "FUN_007cb992",
+   "name": "highlightTracking",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 54,
+   "target": "FUN_007cb99e",
+   "name": "horizontalTab",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 55,
+   "target": "FUN_007c8c88",
+   "name": "insertCharacter",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 56,
+   "target": "FUN_007c8c88",
+   "name": "insertCharacter",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 57,
+   "target": "FUN_007c8c94",
+   "name": "insertColumn",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 58,
+   "target": "FUN_007c8c94",
+   "name": "insertColumn",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 59,
+   "target": "FUN_007c8ca0",
+   "name": "insertLine",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 60,
+   "target": "FUN_007c8ca0",
+   "name": "insertLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 61,
+   "target": "FUN_007cbaca",
+   "name": "lineFeed",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 62,
+   "target": "FUN_007cbad6",
+   "name": "loadLeds",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 63,
+   "target": "FUN_007cbad6",
+   "name": "loadLeds",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 64,
+   "target": "FUN_007cbaee",
+   "name": "marginBottom",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 65,
+   "target": "FUN_007cbafa",
+   "name": "marginLeft",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 66,
+   "target": "FUN_007cbb06",
+   "name": "marginRight",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 67,
+   "target": "FUN_007cbb12",
+   "name": "marginTop",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 68,
+   "target": "FUN_007cbb1e",
+   "name": "mediaCopy",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 69,
+   "target": "FUN_007cbb1e",
+   "name": "mediaCopy",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 70,
+   "target": "FUN_007cbb2a",
+   "name": "mediaCopyDec",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 71,
+   "target": "FUN_007cbeda",
+   "name": "moveCursor",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 72,
+   "target": "FUN_007cbeda",
+   "name": "moveCursor",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 73,
+   "target": "FUN_007cbeda",
+   "name": "moveCursor",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 74,
+   "target": "FUN_007c8cac",
+   "name": "moveCursorBackward",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 75,
+   "target": "FUN_007c8cac",
+   "name": "moveCursorBackward",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 76,
+   "target": "FUN_007cbe1e",
+   "name": "moveCursorColumn",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 77,
+   "target": "FUN_007cbe1e",
+   "name": "moveCursorColumn",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 78,
+   "target": "FUN_007cb1f6",
+   "name": "moveCursorColumnBackward",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 79,
+   "target": "FUN_007cb1f6",
+   "name": "moveCursorColumnBackward",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 80,
+   "target": "FUN_007cb282",
+   "name": "moveCursorColumnRelative",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 81,
+   "target": "FUN_007cb282",
+   "name": "moveCursorColumnRelative",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 82,
+   "target": "FUN_007c8cc6",
+   "name": "moveCursorDown",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 83,
+   "target": "FUN_007c8cc6",
+   "name": "moveCursorDown",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 84,
+   "target": "FUN_007c8ce0",
+   "name": "moveCursorForward",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 85,
+   "target": "FUN_007c8ce0",
+   "name": "moveCursorForward",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 86,
+   "target": "FUN_007cbf28",
+   "name": "moveCursorLine",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 87,
+   "target": "FUN_007cbf28",
+   "name": "moveCursorLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 88,
+   "target": "FUN_007cb30c",
+   "name": "moveCursorLineBackward",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 89,
+   "target": "FUN_007cb30c",
+   "name": "moveCursorLineBackward",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 90,
+   "target": "FUN_007cb3b0",
+   "name": "moveCursorLineRelative",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 91,
+   "target": "FUN_007cb3b0",
+   "name": "moveCursorLineRelative",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 92,
+   "target": "FUN_007cb454",
+   "name": "moveCursorNextLine",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 93,
+   "target": "FUN_007cb454",
+   "name": "moveCursorNextLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 94,
+   "target": "FUN_007cb4dc",
+   "name": "moveCursorNextTabstop",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 95,
+   "target": "FUN_007cb4dc",
+   "name": "moveCursorNextTabstop",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 96,
+   "target": "FUN_007cb572",
+   "name": "moveCursorPrecedingLine",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 97,
+   "target": "FUN_007cb572",
+   "name": "moveCursorPrecedingLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 98,
+   "target": "FUN_007cb5fc",
+   "name": "moveCursorPrecedingTabstop",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 99,
+   "target": "FUN_007cb5fc",
+   "name": "moveCursorPrecedingTabstop",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 100,
+   "target": "FUN_007c8cfa",
+   "name": "moveCursorUp",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 101,
+   "target": "FUN_007c8cfa",
+   "name": "moveCursorUp",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 102,
+   "target": "FUN_007c8df2",
+   "name": "movePagePositionAbsolute",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 103,
+   "target": "FUN_007c8df2",
+   "name": "movePagePositionAbsolute",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 104,
+   "target": "FUN_007cbfd8",
+   "name": "movePagePositionBackward",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 105,
+   "target": "FUN_007cbfd8",
+   "name": "movePagePositionBackward",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 106,
+   "target": "FUN_007cc054",
+   "name": "movePagePositionRelative",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 107,
+   "target": "FUN_007cc054",
+   "name": "movePagePositionRelative",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 108,
+   "target": "FUN_007cc0ce",
+   "name": "nextPage",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 109,
+   "target": "FUN_007cc0ce",
+   "name": "nextPage",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 110,
+   "target": "FUN_007c9e90",
+   "name": "notifyCommand",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 111,
+   "target": "s_StartPrompt_7cf856",
+   "name": "notifyFig",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 112,
+   "target": "FUN_007cf526",
+   "name": "notifyHyperlink",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 113,
+   "target": "s_CursorShape_7cf5d0",
+   "name": "notifyIterm2",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 114,
+   "target": "FUN_007cf24e",
+   "name": "notifyMessage",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 115,
+   "target": "FUN_007cd50c",
+   "name": "notifyRemoteDirectory",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 117,
+   "target": "FUN_007cbe06",
+   "name": "originBottom",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 118,
+   "target": "FUN_007cbe12",
+   "name": "originLeft",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 119,
+   "target": "FUN_007cbec2",
+   "name": "originRight",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 120,
+   "target": "FUN_007cbece",
+   "name": "originTop",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 121,
+   "target": "FUN_007cbfcc",
+   "name": "page",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 122,
+   "target": "FUN_007cc106",
+   "name": "pages",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 123,
+   "target": "FUN_007cc112",
+   "name": "precedingPage",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 124,
+   "target": "FUN_007cc112",
+   "name": "precedingPage",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 125,
+   "target": "FUN_007d0a2a",
+   "name": "refreshScreen",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 126,
+   "target": "FUN_007c8d14",
+   "name": "repeatCharacter",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 127,
+   "target": "FUN_007c8d14",
+   "name": "repeatCharacter",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 128,
+   "target": "FUN_007cc25e",
+   "name": "reportDeviceAttributesOne",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 129,
+   "target": "FUN_007cc26c",
+   "name": "reportDeviceAttributesTwo",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 130,
+   "target": "FUN_007cc27e",
+   "name": "reportDeviceAttributesThree",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 131,
+   "target": "FUN_007cc290",
+   "name": "reportDeviceStatus",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 132,
+   "target": "FUN_007cc29c",
+   "name": "reportDecDeviceStatus",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 133,
+   "target": "FUN_007cc2a8",
+   "name": "reportTerminalParameters",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 134,
+   "target": "FUN_007cc2a8",
+   "name": "reportTerminalParameters",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 135,
+   "target": "FUN_007cc2b4",
+   "name": "requestChecksumOfRectangularArea",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 136,
+   "target": "FUN_007c8d20",
+   "name": "requestDecMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 137,
+   "target": "FUN_007cc2c0",
+   "name": "requestDisplayedExtent",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 138,
+   "target": "FUN_007cc2cc",
+   "name": "requestKeyModifier",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 139,
+   "target": "FUN_007cc2d8",
+   "name": "requestLocatorPosition",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 140,
+   "target": "FUN_007cc2d8",
+   "name": "requestLocatorPosition",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 141,
+   "target": "FUN_007c8d32",
+   "name": "requestMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 142,
+   "target": "FUN_007cc2e4",
+   "name": "requestPresentationStateReport",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 143,
+   "target": "FUN_007cc2f0",
+   "name": "requestSelectionOrSetting",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 144,
+   "target": "FUN_007cc2fc",
+   "name": "requestTerminalStateReport",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 145,
+   "target": "FUN_007cc2fc",
+   "name": "requestTerminalStateReport",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 146,
+   "target": "FUN_007cc308",
+   "name": "requestUserPreferredSupplementalSet",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 147,
+   "target": "FUN_007cc314",
+   "name": "requestWindowSelections",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 148,
+   "target": "FUN_007cc3c2",
+   "name": "requestXtermTerminfoData",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 149,
+   "target": "FUN_007c8d3e",
+   "name": "resetDecMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 150,
+   "target": "FUN_007cc3da",
+   "name": "resetHard",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 151,
+   "target": "FUN_007cc3e6",
+   "name": "resetKeyModifier",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 152,
+   "target": "FUN_007cc3e6",
+   "name": "resetKeyModifier",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 153,
+   "target": "FUN_007c8d5e",
+   "name": "resetMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 154,
+   "target": "FUN_007cc3f2",
+   "name": "resetSoft",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 155,
+   "target": "FUN_007cc3fe",
+   "name": "resetWindowColor",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 156,
+   "target": "FUN_007cc3fe",
+   "name": "resetWindowColor",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 157,
+   "target": "FUN_007cc40a",
+   "name": "restoreCursor",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 158,
+   "target": "FUN_007c8d7e",
+   "name": "restoreDecMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 159,
+   "target": "FUN_007cc42c",
+   "name": "restorePresentationState",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 160,
+   "target": "FUN_007cc438",
+   "name": "restoreTerminalState",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 161,
+   "target": "FUN_007cc444",
+   "name": "reverseAttributesInRectangularArea",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 162,
+   "target": "FUN_007cc450",
+   "name": "reverseScreen",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 163,
+   "target": "FUN_007cc45c",
+   "name": "saveCursor",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 164,
+   "target": "FUN_007c8d8a",
+   "name": "saveDecMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 165,
+   "target": "FUN_007cc47e",
+   "name": "scrollCursorDown",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 166,
+   "target": "FUN_007cc4a0",
+   "name": "scrollCursorUp",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 167,
+   "target": "FUN_007c8d96",
+   "name": "scrollDown",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 168,
+   "target": "FUN_007c8d96",
+   "name": "scrollDown",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 169,
+   "target": "FUN_007c8e06",
+   "name": "scrollLeft",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 170,
+   "target": "FUN_007c8e06",
+   "name": "scrollLeft",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 171,
+   "target": "FUN_007cc4c2",
+   "name": "scrollNextLine",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 172,
+   "target": "FUN_007c8dd4",
+   "name": "scrollRight",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 173,
+   "target": "FUN_007c8dd4",
+   "name": "scrollRight",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 174,
+   "target": "FUN_007c8db6",
+   "name": "scrollUp",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 175,
+   "target": "FUN_007c8db6",
+   "name": "scrollUp",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 176,
+   "target": "FUN_007cc4e4",
+   "name": "select7BitC1Control",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 177,
+   "target": "FUN_007cc4f2",
+   "name": "select8BitC1Control",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 178,
+   "target": "FUN_007cc504",
+   "name": "select94CharacterSet",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 179,
+   "target": "FUN_007cc514",
+   "name": "select96CharacterSet",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 180,
+   "target": "FUN_007cc524",
+   "name": "selectActiveStatusDisplay",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 181,
+   "target": "FUN_007cc524",
+   "name": "selectActiveStatusDisplay",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 182,
+   "target": "FUN_007cc530",
+   "name": "selectAttributeChangeExtent",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 183,
+   "target": "FUN_007cc530",
+   "name": "selectAttributeChangeExtent",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 184,
+   "target": "FUN_007cc53c",
+   "name": "selectCharacterAttribute",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 185,
+   "target": "FUN_007cc53c",
+   "name": "selectCharacterAttribute",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 186,
+   "target": "FUN_007c8de6",
+   "name": "selectGraphicRendition",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 187,
+   "target": "FUN_007c8de6",
+   "name": "selectGraphicRendition",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 188,
+   "target": "FUN_007c8c56",
+   "name": "selectiveEraseRectangularArea",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 189,
+   "target": "FUN_007cc548",
+   "name": "selectLocatorEvents",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 190,
+   "target": "FUN_007cc554",
+   "name": "selectNumberOfLinesOnScreen",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 191,
+   "target": "FUN_007cc560",
+   "name": "selectStatusLineType",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 192,
+   "target": "FUN_007cc560",
+   "name": "selectStatusLineType",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 193,
+   "target": "FUN_007cc59c",
+   "name": "setAllowScrollback",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 194,
+   "target": "FUN_007cc5ac",
+   "name": "setAnsiConformanceLevelOne",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 195,
+   "target": "FUN_007cc5be",
+   "name": "setAnsiConformanceLevelTwo",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 196,
+   "target": "FUN_007cc5d0",
+   "name": "setAnsiConformanceLevelThree",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 197,
+   "target": "FUN_007cc7de",
+   "name": "setCodec",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 198,
+   "target": "FUN_007cc810",
+   "name": "setColumnsPerPage",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 199,
+   "target": "FUN_007cc810",
+   "name": "setColumnsPerPage",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 200,
+   "target": "FUN_007cc81c",
+   "name": "setConformanceLevel",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 201,
+   "target": "FUN_007cc81c",
+   "name": "setConformanceLevel",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 202,
+   "target": "FUN_007cc828",
+   "name": "setCursorStyle",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 203,
+   "target": "FUN_007cc828",
+   "name": "setCursorStyle",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 204,
+   "target": "FUN_007cc836",
+   "name": "setCursorVisibility",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 205,
+   "target": "FUN_007cc836",
+   "name": "setCursorVisibility",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 206,
+   "target": "FUN_007c8d4c",
+   "name": "setDecMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 207,
+   "target": "FUN_007c8d4c",
+   "name": "setDecMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 208,
+   "target": "FUN_007cc862",
+   "name": "setHorizontalTabstop",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 209,
+   "target": "FUN_007cc862",
+   "name": "setHorizontalTabstop",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 210,
+   "target": "FUN_007cc862",
+   "name": "setHorizontalTabstop",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 211,
+   "target": "FUN_007cc872",
+   "name": "setKeyModifier",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 212,
+   "target": "FUN_007cc872",
+   "name": "setKeyModifier",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 213,
+   "target": "FUN_007cc87e",
+   "name": "setLeftRightMargins",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 214,
+   "target": "FUN_007cc87e",
+   "name": "setLeftRightMargins",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 215,
+   "target": "FUN_007cc87e",
+   "name": "setLeftRightMargins",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 216,
+   "target": "FUN_007cc88a",
+   "name": "setLinesPerPage",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 217,
+   "target": "FUN_007cc88a",
+   "name": "setLinesPerPage",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 218,
+   "target": "FUN_007cc896",
+   "name": "setMarginBellVolume",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 219,
+   "target": "FUN_007cc896",
+   "name": "setMarginBellVolume",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 220,
+   "target": "FUN_007c8d6c",
+   "name": "setMode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 221,
+   "target": "FUN_007c8d6c",
+   "name": "setMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 222,
+   "target": "FUN_007cce2a",
+   "name": "setTopBottomMargins",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 223,
+   "target": "FUN_007cce2a",
+   "name": "setTopBottomMargins",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 224,
+   "target": "FUN_007cce2a",
+   "name": "setTopBottomMargins",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 225,
+   "target": "FUN_007cce36",
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "argc": 4
+  },
+  {
+   "case": 226,
+   "target": "FUN_007cce36",
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "argc": 3
+  },
+  {
+   "case": 227,
+   "target": "FUN_007cce36",
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 228,
+   "target": "FUN_007cce36",
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 229,
+   "target": "FUN_007cce36",
+   "name": "setUserDefinedKeys",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 230,
+   "target": "FUN_007cce4e",
+   "name": "setWarningBellVolume",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 231,
+   "target": "FUN_007cce4e",
+   "name": "setWarningBellVolume",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 232,
+   "target": "FUN_007cce5a",
+   "name": "setWindowAttributes",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 233,
+   "target": "FUN_007cce66",
+   "name": "setWindowColor",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 234,
+   "target": "FUN_007cce72",
+   "name": "setWindowIcon",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 235,
+   "target": "FUN_007cd958",
+   "name": "setWindowIconAndTitle",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 236,
+   "target": "FUN_007cd816",
+   "name": "setWindowSelections",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 237,
+   "target": "FUN_007cd902",
+   "name": "setWindowTitle",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 238,
+   "target": "FUN_007ccf48",
+   "name": "setXtermTerminfoData",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 239,
+   "target": "FUN_007cd036",
+   "name": "shiftLockingOne",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 240,
+   "target": "FUN_007cd04c",
+   "name": "shiftLockingOneRight",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 241,
+   "target": "FUN_007cd08a",
+   "name": "shiftLockingThree",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 242,
+   "target": "FUN_007cd0a0",
+   "name": "shiftLockingThreeRight",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 243,
+   "target": "FUN_007cd060",
+   "name": "shiftLockingTwo",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 244,
+   "target": "FUN_007cd076",
+   "name": "shiftLockingTwoRight",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 245,
+   "target": "FUN_007cd0b4",
+   "name": "shiftLockingZero",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 246,
+   "target": "FUN_007cd0c8",
+   "name": "shiftSingleTwo",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 247,
+   "target": "FUN_007cd0da",
+   "name": "shiftSingleThree",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 248,
+   "target": "FUN_007cd0ec",
+   "name": "singleLineWidth",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 249,
+   "target": "FUN_007cd0fa",
+   "name": "startGuardedArea",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 250,
+   "target": "FUN_007cd35a",
+   "name": "testConfidence",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 251,
+   "target": "FUN_007cd366",
+   "name": "toUnicode",
+   "kind": "SLOT",
+   "argc": 1
+  },
+  {
+   "case": 252,
+   "target": "FUN_007cd97a",
+   "name": "verticalTab",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 253,
+   "target": "FUN_007cd986",
+   "name": "vt52EnterGraphicsMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 254,
+   "target": "FUN_007cd992",
+   "name": "vt52ExitGraphicsMode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 255,
+   "target": "FUN_007cd99e",
+   "name": "vt52Identify",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 256,
+   "target": "FUN_007cd9aa",
+   "name": "vt52Mode",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 257,
+   "target": "FUN_007cd9b6",
+   "name": "vt52MoveCursor",
+   "kind": "SLOT",
+   "argc": 2
+  },
+  {
+   "case": 258,
+   "target": "FUN_007cd9d0",
+   "name": "windowColumns",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 259,
+   "target": "FUN_007cd9dc",
+   "name": "windowIcon",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 260,
+   "target": "FUN_007cdb0c",
+   "name": "windowRows",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 261,
+   "target": "FUN_007cdb18",
+   "name": "windowTitle",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 262,
+   "target": "FUN_007cdc9a",
+   "name": "zmodemReceive",
+   "kind": "SLOT",
+   "argc": 0
+  },
+  {
+   "case": 263,
+   "target": "FUN_007cdca6",
+   "name": "zmodemSend",
+   "kind": "SLOT",
+   "argc": 0
+  }
+ ]
 }

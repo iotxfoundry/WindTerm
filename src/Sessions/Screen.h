@@ -254,7 +254,6 @@ public:
 	void nextLine();                    // FUN_007e562c (NEL)
 	void nextPage();
 	int nextTabstop(int from, int count) const;   // FUN_007e5d1e
-	void notifyCommand(const QString &msg);       // body 未定位(旧注 0x4c3110 是 qstrcmp PLT,误)
 	void notifyCursorStyle(void *cursor, int shape);  // FUN_00913592 信号6 caretStyleChanged(bool,int)
 	void notifyFig(const QString &content); 	// body 未定位(0x4c3290 是 QByteArray PLT,误)
 	void notifyHyperlink(const QString &url); 	// body 未定位(同上)
@@ -264,8 +263,8 @@ public:
 	void notifyModeChange();               // FUN_00913178
 	void notifyMouseMode(bool on);         // thunk FUN_009131c8 (arg 4)
 	void notifyNamedAttribute(quint64 key, const QByteArray &value);   // FUN_007ee9e2
-	void notifyOsc(int kind, const QString &payload);   // body 未定位(0x4c3290 是 QByteArray PLT,误)
-	void notifyRemoteDirectory(const QString &directory); 	// 0x7cd366
+	void notifyRemoteDirectory(const QString &directory);   // FUN_007cd366(+0xe0 自旋锁目录缓存)
+	void setHyperlinkTarget(const QByteArray &target);      // FUN_007f43ce — cited
 	void notifyReverseScreen();            // FUN_009134d0
 	void notifyScrollbar(bool visible);       // FUN_00913508 (Screen signal 20)
 	void notifyZmodem(int a, int b);             // FUN_0091378a

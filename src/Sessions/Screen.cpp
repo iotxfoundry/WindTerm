@@ -43,6 +43,74 @@ Screen::Screen()
 	  m_scrollbackEnabled(false), m_eraseProtectedMode(false),
 	  m_newlineMode(false), m_reverseWraparound(false)
 {
+	// 标志/状态成员显式清零(原版由 0x7e69b8 族构造保证;漏初始化
+	// 会使 IRM/pendingWrap 等读到堆垃圾,行为非确定)
+	m_insertMode = false;
+	m_kamMode = false;
+	m_pendingWrap = 0;
+	m_pageCurrent = 0;
+	m_pageCount = 1;
+	m_lastCp = 0;
+	m_lastDecodedUnits = 0;
+	m_lastEatenBytes = 0;
+	m_lastGraphicChar = 0;
+	m_trackRect = nullptr;
+	m_viewRefresh = 0;
+	m_brightBitset = nullptr;
+	m_zmodemTimer = nullptr;
+	m_protocolParams = nullptr;
+	m_views = nullptr;
+	m_elapsed = nullptr;
+	m_keymap = nullptr;
+	m_keymap2 = nullptr;
+	m_scrollView = nullptr;
+	m_view = nullptr;
+	m_codec = nullptr;
+	m_decoder = nullptr;
+	m_cursorKeyMode = false;
+	m_keypadNumericMode = false;
+	m_altScreenEnabled = false;
+	m_altScreenActive = false;
+	m_vt52Mode = false;
+	m_bracketedPaste = false;
+	m_guardedArea = false;
+	m_nrcMode = false;
+	m_udkLocked = false;
+	m_autoRepeatKeys = false;
+	m_colModeAllowed = false;
+	m_smoothScrollInv = false;
+	m_c1Control8Bit = false;
+	m_reverseScreenMode = false;
+	m_printFormFeedInv = false;
+	m_printExtentInv = false;
+	m_bellEnabled = false;
+	m_bellAudible = false;
+	m_srmModeInv = false;
+	m_autoPrint = false;
+	m_decAutoPrint = false;
+	m_mode67Flag = false;
+	m_1046Flag = false;
+	m_focusedReport = false;
+	m_mouseUtf8 = false;
+	m_mouseSgr = false;
+	m_mouseAltScroll = false;
+	m_mouseUrxvt = false;
+	m_mouseX10 = false;
+	m_mouseNormal = false;
+	m_mouseHighlight = false;
+	m_mouseButton = false;
+	m_mouseAny = false;
+	m_bracketedPaste = false;
+	m_scrollbarVisible = false;
+	m_lastBellSecs = 0;
+	m_pendingWrap = 0;
+	m_lineModeBit = 0;
+	m_protocol = 0;
+	m_protocolCache = 0;
+	memset(&m_writeTemplate, 0, sizeof(m_writeTemplate));
+	memset(&m_locator, 0, sizeof(m_locator));
+	m_locator.units = 2;
+	m_locator.left = m_locator.top = m_locator.right = m_locator.bottom = -1;
 }
 
 // ---------------------------------------------------------------------------
@@ -1684,6 +1752,22 @@ void *Screen::sgrPayload()
 	// the template payload and land in cell+0x18
 	return (void *)(unsigned long long)m_core->m_sgrBits;
 }
+void Screen::notifyRemoteDirectory(const QString &directory)
+{
+	// FUN_007cd366 (244B): the cwd cache lives at view-settings +0xe0
+	// guarded by the +0x120 spinlock; the corpus writes the encoded dir
+	// then callers emit signal 12 (FUN_009132f8,
+	// remoteDirectoryNotified). Codec-encode tail cited; value stored.
+	m_windowTitle = directory;   // 重建侧:cwd 暂存与标题缓存共用该缝
+	// cited: FUN_009132f8(core, dir) 发射点
+}
+
+void Screen::setHyperlinkTarget(const QByteArray &target)
+{
+	// FUN_007f43ce (457B): hyperlink 结构装配 — cited — wave-2
+	(void)target;
+}
+
 // Qt/config primitives (binary addresses noted; reference tier thunks)
 // session config getter — now wired to the CTerminalConfig singleton
 // (FUN_00809d78); the Screen-side seam keeps the corpus call shape

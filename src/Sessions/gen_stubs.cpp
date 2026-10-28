@@ -16,11 +16,9 @@ void SuperSession::drop() {  } // stub
 void SuperSession::open() {  } // stub
 void TelnetCommander::negotiateOption(QString const&) {  } // stub
 void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
-void Screen::notifyCommand(QString const&) {  } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
-void Screen::notifyOsc(int, QString const&) {  } // stub
 QString SuperSession::fingerprint(King::FingerprintType) const { return QString(); } // stub
 QString SuperSession::hostAddress() const { return QString(); } // stub
 bool SuperSession::isConnected() const { return false; } // stub
