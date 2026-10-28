@@ -22,6 +22,8 @@ TerminalView *TerminalWidget::attachView()
 		if (m_commander->m_screen)
 			m_commander->m_screen->m_view = m_viewWidget;
 	}
+	connect(m_viewWidget, &TerminalView::keyText, this,
+	        [this](const QString &t) { write(t); });
 	return m_viewWidget;
 }
 

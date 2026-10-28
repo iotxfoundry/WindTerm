@@ -36,6 +36,10 @@ public:
 protected:
 	void paintEvent(QPaintEvent *event) override;
 	void resizeEvent(QResizeEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+
+Q_SIGNALS:
+	void keyText(const QString &text);   // 键入 → TerminalWidget::write
 
 private:
 	int cellWidth() const;

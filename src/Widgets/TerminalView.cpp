@@ -2,6 +2,7 @@
 #include "Screen.h"
 #include "TerminalCore.h"
 
+#include <QKeyEvent>
 #include <QPainter>
 #include <QResizeEvent>
 
@@ -144,6 +145,20 @@ void TerminalView::paintEvent(QPaintEvent *event)
 	p.setPen(QColor(0xffffff));
 	p.drawRect(cx, cy, cw - 1, chh - 1);
 	p.restore();
+}
+
+void TerminalView::keyPressEvent(QKeyEvent *event)
+{
+	// 键盘 → 写链(TerminalWidget::write → vt14 → writeText)。
+	// 临时通道:打印字符/Enter/Backspace(通用);全键位随
+	// 键表配置面(wind.config keymap,Phase 4a)接线
+	QString t = event->text();
+	if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+		t = QStringLiteral("\r");
+	else if (event->key() == Qt::Key_Backspace)
+		t = QStringLiteral("\x7f");
+	if (!t.isEmpty())
+		Q_EMIT keyText(t);
 }
 
 void TerminalView::drawCells(QPainter &p, const QRect &clip)
