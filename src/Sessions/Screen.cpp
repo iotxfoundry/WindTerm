@@ -1270,11 +1270,10 @@ void Screen::zmodemReceive()
 {
 	// FUN_007e676c: tears down any pending zmodem object (+0x208 via
 	// its vtable +0x20), then installs a fresh QTimer (parented here),
-	// sets its flag byte (|1), wires timeout -> FUN_007e22fa (the
-	// zmodem state-machine tick) and starts it
-	// cited: teardown via vtable +0x20, new QTimer (parented), timeout
-	// wired to FUN_007e22fa (zmodem tick), started
-	zmodemTick();
+	// sets its flag byte (|1), wires timeout -> FUN_007e22fa with a
+	// 0x18-byte context whose +0x10 is this Screen, and starts it.
+	// The parented-QTimer wiring needs the Phase-4 QObject conversion;
+	// cited until then
 }
 
 bool Screen::refreshNeeded() const
@@ -2353,4 +2352,53 @@ void Screen::setUserDefinedKeys()
 	// decompiler, then the unsupported notice
 	(void)protocolLevel();
 	reportUnsupported(QStringLiteral("Set User Defined Keys"));
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1b: notification family — SuperTerm signal emitters (0x0091xxxx
+// cluster). Screen is not a QObject in this rebuild yet; the emit points
+// carry the proven activate() index and stay inert until the Phase-4
+// wiring. Signal names follow the 39-name pool with idx = pool - 2
+// (verified on idx7 caretVisibleChanged, idx18 screenReversed, idx20
+// scrollBarVisibleChanged, idx30 transferBinary).
+// ---------------------------------------------------------------------------
+
+void Screen::notifyZmodem(int modemType, int transmitType)
+{
+	// FUN_0091378a: QMetaObject::activate(this, SuperTerm::staticMetaObject,
+	// 30, {modemType, transmitType}) — signal 30 transferBinary
+	// (King::ModemType, King::TransmitType)
+	(void)modemType; (void)transmitType;
+}
+
+void Screen::notifyCursorStyle(void *cursor, int style)
+{
+	// FUN_00913592: activate(..., 6, {cursor(bool), style}) — signal 6
+	// caretStyleChanged(bool, int)
+	(void)cursor; (void)style;
+}
+
+void Screen::zmodemTick(int event, void *context)
+{
+	// FUN_007e22fa: zmodem timer callback — event 0 deletes the 0x18-byte
+	// context; event 1 reports transferBinary(2, 0) on the screen object
+	// stored at context+0x10
+	if (event == 0) {
+		if (context)
+			::operator delete(context);
+		return;
+	}
+	if (event == 1) {
+		Screen *screen = *(Screen **)((char *)context + 0x10);
+		screen->notifyZmodem(2, 0);
+		return;
+	}
+}
+
+void Screen::markRowErased(int row)
+{
+	// FUN_007e41ca: row flag byte &= 0xc5 (keeps bits 7,6,2,0) then |= 2
+	// (erased/dirty mark); the flag byte is the Row object head
+	unsigned char *flags = (unsigned char *)rowFlagsPtr(row);
+	*flags = (unsigned char)((*flags & 0xc5) | 2);
 }

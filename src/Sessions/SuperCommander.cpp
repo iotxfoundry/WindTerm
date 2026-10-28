@@ -1627,9 +1627,8 @@ void SuperCommander::fromUnicode(const QString &text)
 
 void SuperCommander::notifyCommand(const QString &command)
 {
-	// moc[110] -> 0x4c3110
+	// moc[110] -> 目标待定(旧注 0x4c3110 是 qstrcmp PLT,误)
 	m_screen->notifyCommand(command);
-	// 适配器经 qstrcmp PLT(0x4c3110),非 Screen 逻辑
 }
 
 void SuperCommander::notifyMessage(int message)
@@ -1640,7 +1639,7 @@ void SuperCommander::notifyMessage(int message)
 
 void SuperCommander::notifyMessage(int message, int type)
 {
-	// moc[114] -> 0x5444ac
+	// moc[114] -> 目标待定(旧注 0x5444ac 是引用计数内联,误)
 	m_screen->notifyMessageEx(message, type, 0);
 }
 
@@ -1653,21 +1652,21 @@ void SuperCommander::notifyRemoteDirectory(const QString &directory)
 
 void SuperCommander::notifyHyperlink(const QString &url)
 {
-	// moc[112] -> 0x4c3290
+	// moc[112] -> 目标待定(旧注 0x4c3290 是 QByteArray PLT,误)
 		// cited: m_screen->notifyOsc(8, content);
 }
 
 void SuperCommander::notifyIterm2(const QString &content)
 {
-	// moc[113] -> 0x4c3290
+	// moc[113] -> 目标待定(同上)
 	m_screen->notifyOsc(1337, content);
 }
 
 void SuperCommander::notifyFig(const QString &content)
 {
-	// moc[111] -> 0x4c3290
+	// moc[111] -> 目标待定(同上)
 	m_screen->notifyOsc(0, content);
-	// 与 notifyHyperlink/Iterm2 同指 0x4c3290(split PLT)
+	// 与 notifyHyperlink/Iterm2 同族
 }
 
 void SuperCommander::option(const QString &name)

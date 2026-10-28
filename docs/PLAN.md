@@ -51,15 +51,17 @@
 - setUserDefinedKeys(007ef0e8)、setUserPreferredCharset(00801a3e)真身
 - 修正 requestMode 两处转写错误:格式应为 "%d;%d$y"(无 ?);SRM 状态应为 (m_srmModeInv!=0)+1
 
-### 1b. 配置/通知族 ⬜
-| 函数 | 语义 |
-|---|---|
-| notifyOsc(kind, payload) | OSC 终端操作(0x4c3290 split PLT 路径) |
-| notifyZmodem(state, dir) | FUN_0091378a → 信号 |
-| notifyCommand / notifyCursorStyle / notifyMessageEx | Screen 信号族(moc 权威) |
-| notifyNamedAttribute | FUN_007ee9e2 |
-| markLocatorChanged | FUN_007e2f3e(20B)→ 信号 |
-| setWindowIconAndTitle / setWindowTitleBuffer | 窗口元数据 |
+### 1b. 配置/通知族 ⏳
+| 函数 | 语义 | 状态 |
+|---|---|---|
+| notifyZmodem(a,b) | 0091378a 信号30 transferBinary 发射点 | ✅ |
+| notifyCursorStyle(c,s) | 00913592 信号6 caretStyleChanged 发射点 | ✅ |
+| markRowErased(row) | 007e41ca:行标志字节 &=0xc5 \| 2 | ✅ |
+| zmodemTick(event,ctx) | 007e22fa:事件0删上下文/事件1报(2,0) | ✅ |
+| notifyNamedAttribute | ✅(1a 完成) | ✅ |
+| markLocatorChanged | ✅(1a 完成) | ✅ |
+| notifyOsc / notifyCommand / notifyMessageEx | body 未定位;旧注 0x4c3290/0x4c3110/0x5444ac 均为 PLT 误读,已修正头文件 | ⬜ |
+| setWindowIconAndTitle / setWindowTitleBuffer | 007cd902/007cd366:标题经 +0xe0 缓冲编解码、+0x120 自旋锁、+0x118 交换;宿主对象(Screen vs view)待适配器反汇编定 | ⬜ |
 
 ### 1c. 解码/样式族 ⬜
 | 函数 | 地址 | 语义 |

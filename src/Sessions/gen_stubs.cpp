@@ -19,15 +19,12 @@ void TerminalCore::copyState(void**, void**) {  } // stub
 void TerminalCore::resetWrap(int) {  } // stub
 void TelnetCommander::negotiateOption(QString const&) {  } // stub
 void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
-void Screen::zmodemTick() {  } // stub
 void Screen::currentPage() {  } // stub
 int Screen::containerEnd(void*) { return 0; } // stub
 void * Screen::defaultStyle(int) { return nullptr; } // stub
 void Screen::mediaCopyDec(int) {  } // stub
-void Screen::notifyZmodem(int, int) {  } // stub
 void Screen::resizeScreen(int, int, int) {  } // stub
 int Screen::charsetLookup(QString const&, bool) { return 0; } // stub
-void Screen::markRowErased(int) {  } // stub
 void Screen::notifyCommand(QString const&) {  } // stub
 bool Screen::charsetDisabled(int) { return false; } // stub
 void Screen::filterRectangle(int, int, int, int) {  } // stub
@@ -38,7 +35,6 @@ void Screen::codecFromUnicode(QString const&) {  } // stub
 void * Screen::historyContainer(void*) { return nullptr; } // stub
 void Screen::highlightTracking(int, int) {  } // stub
 void Screen::keymapSetModifier(void*) {  } // stub
-void Screen::notifyCursorStyle(void*, int) {  } // stub
 void Screen::setColumnsPerPage(int) {  } // stub
 void Screen::appendHistoryBlock(int, int, void*, bool, bool) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub

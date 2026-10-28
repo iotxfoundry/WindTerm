@@ -245,17 +245,17 @@ public:
 	void nextLine();                    // FUN_007e562c (NEL)
 	void nextPage();
 	int nextTabstop(int from, int count) const;   // FUN_007e5d1e
-	void notifyCommand(const QString &msg);       // via 0x4c3110 (qstrcmp PLT)
-	void notifyCursorStyle(void *cursor, int shape);  // FUN_00913592
-	void notifyFig(const QString &content); 	// 0x4c3290
-	void notifyHyperlink(const QString &url); 	// 0x4c3290
-	void notifyIterm2(const QString &content); 	// 0x4c3290
-	void notifyMessage(int message); 	// 0x5444ac
-	void notifyMessageEx(int type, int a, int b);  // 0x5444ac refcount path
+	void notifyCommand(const QString &msg);       // body 未定位(旧注 0x4c3110 是 qstrcmp PLT,误)
+	void notifyCursorStyle(void *cursor, int shape);  // FUN_00913592 信号6 caretStyleChanged(bool,int)
+	void notifyFig(const QString &content); 	// body 未定位(0x4c3290 是 QByteArray PLT,误)
+	void notifyHyperlink(const QString &url); 	// body 未定位(同上)
+	void notifyIterm2(const QString &content); 	// body 未定位(同上)
+	void notifyMessage(int message); 	// body 未定位
+	void notifyMessageEx(int type, int a, int b);  // body 未定位(候选 00913540=信号34 windowSizeChanged,未证)
 	void notifyModeChange();               // FUN_00913178
 	void notifyMouseMode(bool on);         // thunk FUN_009131c8 (arg 4)
 	void notifyNamedAttribute(quint64 key, const QByteArray &value);   // FUN_007ee9e2
-	void notifyOsc(int kind, const QString &payload);   // 0x4c3290 (split PLT path)
+	void notifyOsc(int kind, const QString &payload);   // body 未定位(0x4c3290 是 QByteArray PLT,误)
 	void notifyRemoteDirectory(const QString &directory); 	// 0x7cd366
 	void notifyReverseScreen();            // FUN_009134d0
 	void notifyScrollbar(bool visible);       // FUN_00913508 (Screen signal 20)
@@ -419,7 +419,7 @@ public:
 	void writeText(const char *data, int len);    // FUN_007e6f42 (main loop)
 	void zmodemReceive();                         // FUN_007e676c (QTimer FSM)
 	void zmodemSend();                            // FUN_007e6844 -> notify(2,1)
-	static void zmodemTick();             // FUN_007e22fa
+	static void zmodemTick(int event, void *context);   // FUN_007e22fa
 
 	// --- cited helpers, emit points and writeText internals (canonical) ---
 	void *buildFillAux();                       // FUN_007e4c90

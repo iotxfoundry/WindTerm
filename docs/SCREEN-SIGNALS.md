@@ -30,6 +30,38 @@
 Screen 元对象 0x11a82e0 信号索引至少覆盖 1..35(20+ 个已读出索引),
 远超此前实证的 5 个;全部经 FUN_008464ec 安装器连接到 TerminalWidget 槽。
 
+## 发射器 ↔ 信号名全对齐(2026-10-28 定案)
+
+**idx = 池序 − 2**(池头多 2 个非信号字符串);四点已证:idx7=
+caretVisibleChanged、idx18=screenReversed、idx20=scrollBarVisibleChanged、
+idx30=transferBinary(zmodemSend 调 0091378a(2,1) 实锤)。
+
+| 发射器 | idx | 信号名(池序−2) | 参数 |
+|---|---|---|---|
+| 0091340c | 4 | binaryBytesRead | (qint64) |
+| 00913436 | 5 | caretColorChanged | (…) |
+| 00913592 | 6 | caretStyleChanged | (bool, int) |
+| 00913460 | 7 | caretVisibleChanged ✅ | (bool) |
+| 00913498 | 10 | messageNotified | (bool/int) |
+| 009135d8 | 13 | requestMapToScreenColumn | (pos, int&) |
+| 00913638 | 14 | requestMapToScreenPoint | (QPoint&) |
+| 00913608 | 15 | requestMapToScreenRow | (pos, int&) ← locatorRowFromPixel |
+| 00913668 | 16 | requestMapToWindowColor | (const char*, bool, QColor&) |
+| 009136b2 | 17 | screenChanged | (…) |
+| 009134d0 | 18 | screenReversed ✅ | (bool) |
+| 00913508 | 20 | scrollBarVisibleChanged ✅ | (bool) |
+| 009136dc | 26 | tmuxSessionsChanged | (…) |
+| 0091370c | 27 | tmuxTermsRemoved | (…) |
+| 00913760 | 28 | tmuxWindowsChanged | (…) |
+| 00913736 | 29 | tmuxWindowsRemoved | (…) |
+| 0091378a | 30 | transferBinary ✅ | (int, int) ← notifyZmodem |
+| 009137ce | 31 | windowMoved | (…) |
+| 00913540 | 34 | windowSizeChanged | (int, int, bool) |
+| 009137f8 | 35 | windowTitleChanged | (int/QString) |
+
+其余小发射器(0091318c/9131c8/9131fe/913274/91329e/9132f8/91334c/
+9133b2/9133e2)按同式可对齐,待调用点出现再定名。
+
 ## 互证与遗留(2026-10-27)
 
 - metaobject 结构(0x11a82e0,delta 0x600000 区)读出 metacall=0x91382e
