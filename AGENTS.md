@@ -3,11 +3,13 @@
 > 目标:完全逆向 WindTerm 2.7.0(含 bug 原封不动)。所有代码必须有出处
 > (逆向地址),禁止捏造。本文件是 agent 会话必读,总结了多轮反复
 > 踩坑后的方法论与约束。
+>
+> 冷启动顺序:本文件 → `tools/re/HANDOFF.md`(状态快照)→ `docs/PLAN.md`(待收口清单)。
 
 ## 铁律
 
 1. **每行代码有出处**:真实现引用 `FUN_XXXXXXXX` 或 `name@地址`;
-   thunk 引用反向表项;文档引用 IMPL-*.md。没地址不写。
+   thunk 引用反向表项;文档引用 docs/IMPL-*.md。没地址不写。
 2. **bug 原封不动**:不修、不美化、不"顺手改进"。原版有 bug 就是
    我们的 bug。发现疑似 bug 时**记录**到对应的 .md,**不修**。
 3. **禁止捏造**:反编译语料里没有的行不写。不确定时用
@@ -25,6 +27,40 @@
 
 引用档到真实现的升级 = 读语料 entry → 转写为代码 → 删除 cited 标记。
 
+## 构建(CMake,2026-10 起)
+
+```bash
+mkdir build && cd build
+cmake .. && make -j$(nproc)   # → libWindTermRe.so;增量 <2s
+```
+
+- **外部静态库已预构建入库** `lib/*.a`(20MB:scintilla_core 16M +
+  scintilla_qt 754K + yaml-cpp 923K + jsoncpp 438K + onig 2.1M)。
+  默认直接链接,不重编。仅上游更新时 `cmake .. -DBUILD_DEPS=ON
+  && make rebuild_deps` 重编入 lib/。
+- **新增 .cpp/.h 后必须重跑 `cmake ..`**:GLOB 无 CONFIGURE_DEPENDS,
+  make 不会自动发现新文件。
+- moc 自动检测(CMakeLists 内 grep Q_OBJECT),新 Q_OBJECT 头零配置。
+- 环境:系统 Qt 头 5.15.13 × 仓库 lib/ Qt 5.15.2 = ABI 同代直接链;
+  `inc/qt5`(转发头)与 `inc/boost`(残缺)已删,**一律用系统头**。
+- 手工 g++ 配方(不走 CMake 时)见 `tools/re/BUILD.md`。
+- Scintilla 混合:src/Scintilla(4.4.6)承接标准 SCI_*;
+  WindTerm EXT/WT(≥20163)在 EditorEngine::customDispatch。
+
+## 验证管线(每轮必须跑)
+
+```bash
+# 编译+链接(CMake 一条覆盖)
+cmake --build build
+
+# 加载零 undefined
+LD_LIBRARY_PATH=build:lib QT_QPA_PLATFORM=offscreen \
+  python3 -c "import ctypes; ctypes.CDLL('build/libWindTermRe.so'); print('dlopen OK')"
+```
+
+冒烟源码在 `tools/re/metatest/`(engtest/engtest2/sshsmoke/scismoke,
+需离屏 QApplication),未接 CMake,手工 g++ 按需编。全绿才提交。
+
 ## 工具优先
 
 | 工具 | 用途 |
@@ -33,22 +69,11 @@
 | `tools/re/xref_scan.py` | 交叉引用:调用者/导入 |
 | `tools/re/ehframe_fdes.py` | 30566 函数边界(零重叠) |
 | `tools/re/qmo_extract.py` | QMetaObject:类/方法/Q_ENUM(值权威) |
-| `tools/re/gen_scintilla_returns.py` | Scintilla.iface → 返回类型表 |
 | `tools/re/gen_stubs.py` | 链接器 mangled → stub 定义 |
 | kuna CLI(`~/.local/share/rea/bin/kuna`) | 反编译(优于 grep 语料,支持 `--addr`);Ghidra 12.1.4 包装 |
 | IDA(若开着) | **基址差:IDA = Ghidra − 0x400000**;仅 spot check |
 
 反编译语料优先于 kuna(免重复反编译),kuna 优先于 IDA(免基址差)。
-
-## 构建体系
-
-见 `tools/re/BUILD.md`。要点:
-- 系统 Qt 头 5.15.13 × 仓库 lib Qt 5.15.2 = **ABI 同代,直接链**
-- `inc/qt5` 是转发头(qtbase 源码未入库)→ **不可用**,用系统头
-- `inc/boost` 是不完整副本 → **不可用**,用系统头
-- Scintilla 混合:src/Scintilla(4.4.6 静态库)承接标准 SCI_*;
-  WindTerm EXT/WT(30001-30166)在 EditorEngine::customDispatch
-- jsoncpp/yaml-cpp 已入库:src/jsoncpp/src/yaml-cpp(4.4.6 配套)
 
 ## 已踩坑(每次重复同样的错就在此追加)
 
@@ -63,23 +88,21 @@
 
 ### 3. 函数声明顺序:静态函数必须先声明后使用
 - `eA235ce` 在 editorSelDtor 之后定义,调用编译错。
-- **对策**:文件头部集中前向声明区(已制度化,见 EditorEngine.cpp
+  **对策**:文件头部集中前向声明区(已制度化,见 EditorEngine.cpp
   `// fwd:` 段)。新增静态函数写在这里。
 
 ### 4. 重复定义:stub 与真实现共文件
-- `eA169cc` 在 SuperSessionPrivate.cpp 与 mine_stubs.cpp 各一份。
-- **对策**:mine_stubs.cpp 中加新真身时,**先 grep 旧 stub 同名**,
-  有则删旧 stub 行。
+- 真身化一个函数前,先 `grep -n "函数名" src/Sessions/*.cpp`
+  (尤其 gen_stubs.cpp),有旧 stub 则删该行再加真身。
 
 ### 5. 头文件函数签名不一致
-- `option()` 三个重载与 `remove*` 族在 SuperSession.h 有两份
-  (一在 auth 之前、一在管家注释内)。**教训**:修改头文件先
-  `grep -n "函数名"` 确认唯一声明点。
+- `option()` 三个重载与 `remove*` 族在 SuperSession.h 有过两份。
+  **教训**:修改头文件先 `grep -n "函数名"` 确认唯一声明点。
 
 ### 6. 嵌入字符串≠库版本
 - 主二进制含 spdlog/jsoncpp/yaml-cpp 特征串 ≠ 用了同版本源码。
-- **对策**:拉上游源码后 `diff` 其 Scintilla.h / 特征串
-  与仓库 inc/ 头;或用源码唯一串命中二进制(69/278,56/114
+  **对策**:拉上游源码后 `diff` 其 Scintilla.h / 特征串
+  与仓库头;或用源码唯一串命中二进制(69/278,56/114
   命中率定版本)。零 diff 才入库。
 
 ### 7. 反编译 warning 不是 error
@@ -96,8 +119,7 @@
 
 ### 10. 全局作用域污染
 - 生成器曾把 stub 写到全局作用域,与真实现撞名。
-- **对策**:新 stub 写进 mine_stubs.cpp 之前,先查 `grep -n
-  "函数名" src/Sessions/*.cpp` 看是否已有真实现。
+  **对策**:同第 4 条——写 stub 前先 grep 真实现。
 
 ### 11. EditorEngine 混合架构边界
 - 标准 SCI_* (≤4033) 走 scintillaDelegate(真 Scintilla);
@@ -107,12 +129,20 @@
 
 ### 12. QMetaObject 枚举值权威
 - Q_ENUM 注册表(qmo_extract.py)> 声明池字符串。
-- 曾把声明序当值(全错),后从 QMetaObject 精确读回。
+  曾把声明序当值(全错),后从 QMetaObject 精确读回。
 
 ### 13. CASE 注释勿丢:标签行是唯一溯源
 - EDITOR-ENGINE-COMMANDS.md 的 case 标签注释是**唯一
   反向溯源**(没有函数名只有 cmd)。改代码时 case 标签
   行绝对不能删。
+
+### 14. moc 的两个坑
+- moc 不支持同名同参、仅返回类型不同的重载(`void option(QString)`
+  与 `QVariant option(QString)` 共存 → moc 生成 `QVariant _r =`
+  编译错)。删 void 版或改名。
+- 头文件的方法签名用到 QVariant/QByteArray 等作参数或返回时,
+  必须 `#include <完整头>`;前置声明不够——moc 生成的
+  `reinterpret_cast` 需要完整类型。
 
 ## 反编译语料结构
 
@@ -126,17 +156,16 @@ tools/re/decomp/decomp-part-NNNN.c
 - `grep -n "entry=ADDR"` 拿行号,`sed -n` 截函数体
 - 反编译器:Ghidra 12.1.4(-revoke 不可重入,生成一次性导出)
 
-## 逆向领域知识锚点
+## 逆向领域知识锚点(文档在 docs/)
 
 | 子系统 | 关键文件/文档 |
 |---|---|
-| 终端状态机 | STATE-MACHINE.md;Screen.cpp(SGR/DECSM 等) |
-| SSH 认证 | SSH-INTERNALS.md;SuperSessionPrivate.cpp |
-| Scintilla 内核 | src/Scintilla/src/(上游源码)+ EDITOR-ENGINE-COMMANDS.md(336 命令) |
-| 会话/工作区 | SESSION-CONFIG-LAYER.md(装载器/管理器/schema) |
+| 终端状态机 | docs/STATE-MACHINE.md;Screen.cpp(SGR/DECSM 等) |
+| SSH 认证 | docs/SSH-INTERNALS.md;SuperSessionPrivate.cpp |
+| Scintilla 内核 | src/Scintilla/src/(上游源码)+ docs/EDITOR-ENGINE-COMMANDS.md(336 命令) |
+| 会话/工作区 | docs/SESSION-CONFIG-LAYER.md(装载器/管理器/schema) |
 | 终端配置 | CTerminalConfig 单例(0x00809d78,199 处);wind.config=JSON |
-| Scintilla 委托 | scintilla_returns.inc(743 条返回类型)+ Scintilla.iface |
-| King 枚举 | KingEnums.h(45 枚举全值域,QMetaObject 权威) |
+| King 枚举 | src/Utility/KingEnums.h(45 枚举全值域,QMetaObject 权威) |
 | 三大静态库 | spdlog(+fmt)/jsoncpp 1.9.4/yaml-cpp 0.6.3(BUILD.md 审计表) |
 
 ## 混合架构边界(不要越线)
@@ -150,23 +179,8 @@ QVariant dispatch(cmd, a, b)
                不要把 EXT/WT 移入 scintillaDelegate
 ```
 
-## 验证管线(每轮必须跑)
-
-```bash
-# 编译零错
-g++ -std=c++17 -fPIC -fsyntax-only …(各改动文件)
-
-# 链接零 undefined
-g++ -std=c++17 -fPIC -shared -o libWindTermRe.so <全量 .cpp> moc_*.cpp …
-
-# 加载零 undefined
-LD_LIBRARY_PATH=<build> python3 -c "import ctypes; ctypes.CDLL('…'); print('dlopen OK')"
-
-# 冒烟(全绿才提交)
-./engtest2   # 编辑引擎混合层(tabSize=4,indexOf=1)
-./engtest    # ADDTEXT→GETLENGTH=5, SELECTALL→SELECTIONS=1
-./sshsmoke   # libssh 认证族探针
-```
+同一策略适用于 libssh(认证族委托真 libssh)与 yaml-cpp(ConfigBridge
+委托真库):**标准行为委托真库,fork 特性才逆向自研**。
 
 ## 提交规范
 

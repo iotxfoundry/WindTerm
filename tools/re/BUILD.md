@@ -16,16 +16,16 @@ ls libWindTermRe.so    # 8.82MB
 | 选项 | 默认 | 说明 |
 |---|---|---|
 | BUILD_DEPS | OFF | 重编外部静态库(Scintilla+yaml-cpp+jsoncpp)到 lib/*.a |
-| BUILD_ENGTEST | OFF | 编译编辑引擎测试二进制 |
 
 ## 构建架构
 
 ```
-prebuilt_deps   ← Scintilla core(155 obj)+ Qt 绑定(3 cpp+2 moc)
+rebuild_deps    ← 检查 lib/*.a 存在(BUILD_DEPS=ON 时从源码重编)
+                  Scintilla core(155 obj)+ Qt 绑定(3 cpp+2 moc)
                   + yaml-cpp + jsoncpp → lib/*.a(20MB 静态库)
 WindTermRe      ← src/{Sessions,Editor,Widgets,Protocols,Utility}/*.cpp
                   + moc(自动检测 Q_OBJECT 头)→ libWindTermRe.so
-engtest         ← 编辑引擎混合层测试(可选)
+(冒烟 engtest/sshsmoke 等未接 CMake,源码在 tools/re/metatest/,手工编)
 ```
 
 外部静态库**首次构建后入 lib/ 提交**,clone 后 CMake 检查 `.a` 存在
