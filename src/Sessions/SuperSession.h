@@ -4,7 +4,7 @@
 #pragma once
 
 #include <QObject>
-#include "KingEnums.h"
+#include "../Utility/KingEnums.h"
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // Base class of Ssh/Shell/Telnet/Tcp/Serial sessions. Method surface as
