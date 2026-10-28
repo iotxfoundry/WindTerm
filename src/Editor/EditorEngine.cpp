@@ -151,6 +151,19 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant(send(SCI_CANUNDO) != 0);
 	case 0x754f:     // capability 8 探针(只读)
 		return QVariant(send(SCI_GETREADONLY) == 0);
+	// --- 编辑器上下文 setter 批(Phase-3;EditorContext 模型)---
+	case 0x759a:     // setHexBase(FUN_00a28e7c)
+		m_ctx.setHexBase(a.toInt());
+		return QVariant(0);
+	case 0x759e:     // setHexMode(FUN_00a30c2e)
+		m_ctx.setHexMode(a.toBool());
+		return QVariant(0);
+	case 0x7597:     // setMarginTrackChange(FUN_00a1fd8c)
+		m_ctx.setMarginTrackChange(a.toBool());
+		return QVariant(0);
+	case 0x759b: {   // hexBase 读(语料 0x759a 邻位;vt 读)
+		return QVariant(m_ctx.hexBase);
+	}
 	case 0x75d6: {   // setWordSeparators(FUN_009279ec:flag 选 +0x288/+0x280 槽)
 		const QString text = b.toString();
 		if (a.toBool())

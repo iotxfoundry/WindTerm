@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "EditorContext.h"
 #include <QByteArray>
 #include <QList>
 #include <QPoint>
@@ -37,6 +38,7 @@ private:
 	QVariant scintillaDelegate(uint cmd, const QVariant &a, const QVariant &b);
 	QVariant customDispatch(uint cmd, const QVariant &a, const QVariant &b);
 
+	EditorContext m_ctx;          // 编辑器上下文状态(Phase-3 模型)
 	ScintillaEditBase *m_edit;
 	// 分隔符双槽(FUN_009279ec:+0x280/+0x288;语义为词/行分隔符组)
 	QString m_separators0;
