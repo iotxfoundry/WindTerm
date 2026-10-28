@@ -42,3 +42,12 @@
 静态库源码 → 版本钉死(串命中率)→ 语料库函数名 → 调用点反查 →
 WindTerm 层定位。下期转写目标:0x00522056 会话主读写(9KB,会话
 持久化核心)与 yaml_toQVariant 桥。
+
+## 进展(同日续)
+
+- **yamlToQVariant 桥已真身化**(ConfigBridge.cpp,跑在 vendored
+  yaml-cpp 上,冒烟通过:嵌套/double/列表全类型正确)
+- 0x00522056(9KB)结构初判:**按面板类型路由的分发体**——体内
+  仅 "Terminal"(×5)/"Editor"(×2)/"Browser" 三词 + "session.uuid"
+  键 + URL 正则 `://([^/]++)/`,各面板的序列化在各自的被调函数;
+  会话文件按 Terminal/Editor/Browser 分节
