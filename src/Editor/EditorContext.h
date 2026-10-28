@@ -9,6 +9,8 @@
 // 视图装配时接线。
 
 #include <QString>
+#include <QVariant>
+#include <QVariantList>
 
 class EditorContext
 {
@@ -20,6 +22,30 @@ public:
 
 	// --- 边栏(0x7597;FUN_00a1fd8c)---
 	bool marginTrackChange = false;  // +0x113a
+
+	// --- margin 链(0x7591/7594/7595;FUN_00a4bc60)---
+	QVariantList margins;            // margin 定义对象列(QList 语义)
+	bool marginFlag1ab = false;      // +0x1ab
+	bool marginFlag1ac = false;      // +0x1ac
+	bool marginFlag1ad = false;      // +0x1ad
+	bool marginFlag1ae = false;      // +0x1ae
+	void removeMargin(const QString &name)
+	{
+		// FUN_00a4bc60(387B):按名移除,后续元素前移
+		// (语料的逐字段搬移即 QList 压缩语义)
+		for (int i = 0; i < margins.size(); ++i) {
+			const QVariantMap m = margins.at(i).toMap();
+			if (m.value("name").toString() == name) {
+				margins.removeAt(i);
+				return;
+			}
+		}
+	}
+	void clearMarginFlags()
+	{
+		// 0x7595(inline):四标志清零(+0x1ab..+0x1ae)
+		marginFlag1ab = marginFlag1ac = marginFlag1ad = marginFlag1ae = false;
+	}
 
 	// --- 语义动作 ---
 	void setHexBase(int base)

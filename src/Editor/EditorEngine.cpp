@@ -164,6 +164,15 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x759b: {   // hexBase 读(语料 0x759a 邻位;vt 读)
 		return QVariant(m_ctx.hexBase);
 	}
+	// --- margin 链批(Phase-3 批 2)---
+	case 0x7591:     // margins(FUN_00a4bc60 邻位;返回定义列)
+		return QVariant(m_ctx.margins);
+	case 0x7594:     // removeMargin(FUN_00a4bc60:按名移除)
+		m_ctx.removeMargin(a.toString());
+		return QVariant(0);
+	case 0x7595:     // clearMargins(inline:四标志清零)
+		m_ctx.clearMarginFlags();
+		return QVariant(0);
 	case 0x75d6: {   // setWordSeparators(FUN_009279ec:flag 选 +0x288/+0x280 槽)
 		const QString text = b.toString();
 		if (a.toBool())
