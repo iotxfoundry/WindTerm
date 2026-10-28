@@ -74,6 +74,28 @@ WindTerm 层定位。下期转写目标:0x00522056 会话主读写(9KB,会话
   配 text/data/session.uuid 三件套与 URI 正则做持久化关联;
   写入侧(保存)在别处,字段级序列化即 QWidget 属性转储
 
+### ① 全局根定案:DAT_011c2200 = CTerminalConfig 单例
+
+- FUN_00809d78(121B)= **Meyers 单例访问器**(__cxa_guard_acquire/
+  release + atexit),存储于 &DAT_011c2220
+- 构造 FUN_00809b90(432B):`CTerminalConfig_vtable` + 默认 prompt
+  正则(`>` 转义 + `^\s++|\s++(?=%1)|(?<=%1)\s++|\s++$` 空白分割)
+- 析构 CTerminalConfig_vt7(680B);使用点 **199 处**(全语料)
+- 修正:此前"全局会话库"实为 **CTerminalConfig 终端配置单例**——
+  会话管理器模型(0x6f571a)从其管理的会话列表构建 UI;懒初始化
+  触发点:FUN_00750b36/00858fce
+
+### ② 启动会话恢复(s_kit_startupSessions_8d2f7e,3122B)
+
+- 配置键:`kit.startupSessions` = "LastSessions"(恢复上次)或
+  "SpecificSessions"(开指定);后者读 **kit.startupSession1-4**
+  四个会话槽;同区恢复 ToolBar/StatusBar/MenuBar UI 状态
+- **实机对证**:发行包 global/wind.config 真含
+  `"terminal.startupSessions": "LastSessions"` 与
+  `"editor.startupSessions"` ——与二进制分支逐一吻合
+- 格式修正:wind.config 实为 **JSON**(默认包实证);yaml 层
+  (yaml_loadFile 等)服务 wind.variables/其他文件,两桥并存
+
 ### 消费层与 UI 链(0x6f571a,会话管理器模型构建)
 
 - s_session_uuid_6f571a(927B):**会话管理器 QStandardItemModel
