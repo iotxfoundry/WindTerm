@@ -148,11 +148,14 @@ find 种子/引擎面 Phase-4 cited。
 
 ---
 
-## Phase 3 — 编辑引擎 customDispatch 收口 ⬜
+## Phase 3 — 编辑引擎 customDispatch 收口 ⏳(批量模式)
 
-当前状态:22 个 WT 命令已真身;其余 ~40 个 fork 特性返回 0。
-**方法**:EDITOR-ENGINE-COMMANDS.md 逐条对照 Scintilla 公共 API,
-有等价则接 `scintillaDelegate`,无等价则写真逻辑。
+当前状态:26 个 WT 命令已真身(22 + setStyleCarry 链 3 + hex 批 4
+有交叠);其余 ~40 个 fork 特性按 EditorContext 模型逐批落。
+**方法**:每命令 = EditorContext 字段语义(+语料偏移注释)+ cited
+软复位/刷新尾;软复位(session_view_soft_reset)与视图刷新
+(vtable+0xa0)随 Phase-4 视图装配接线。
+**批 1(2026-10-28)**:EditorContext.h 骨架 + 0x759a/759e/7597/759b。
 
 ### 3a. 已定名的 WT 命令(有 Scintilla 等价)⬜
 | WT cmd | Scintilla API | 语义 |
