@@ -1,86 +1,48 @@
 #include <QVariant>
 #include "SuperSession.h"
+#include "SuperSessionPrivate.h"
 
-#include "SuperBridge.h"
-
-// Implementation reconstructed from:
-//   - state getter  FUN_007d6712  (session+0x10 -> m_d; d+0x2c -> state)
-//   - property reads (metacall ReadProperty branch)
-//   - needVerifyServerFingerprint FUN_007d5cb8 (reads "ssh.verifyServerFingerprint")
-//   - live trace: Unconnected->Connecting->Connected->HostVerified->HostAuthed
-//     (see STATE-MACHINE.md)
-
-struct SuperSessionPrivate
-{
-	SuperBridge *bridge = nullptr;
-	King::SessionState state = King::Unconnected;
-
-	void setState(King::SessionState newState);
-};
-
-void SuperSessionPrivate::setState(King::SessionState newState)
-{
-	const King::SessionState oldState = state;
-	if (oldState == newState)
-		return;
-	state = newState;
-}
+// SuperSession 的公共方法实现:转发到 SuperSessionPrivate
+// (混合架构:认证/校验→真 libssh;管家/选项→最小可用)
 
 SuperSession::SuperSession(QObject *parent)
-	: QObject(parent)
-	, m_d(new SuperSessionPrivate)
+	: QObject(parent), m_d(nullptr)
 {
 }
 
-SuperSession::~SuperSession(void)
+SuperSession::~SuperSession()
 {
 	delete m_d;
-	m_d = nullptr;
 }
 
-bool SuperSession::isUnconnected() const
-{
-	// FUN_007d6722: state() == 0
-	return m_d->state == King::Unconnected;
-}
+void SuperSession::removeCommander(const QUuid &id) { m_d->removeRegistry(0, id); }
+void SuperSession::removeTerm(const QUuid &id)       { m_d->removeRegistry(1, id); }
+void SuperSession::removeTransfer(const QUuid &id)   { m_d->removeRegistry(2, id); }
+void SuperSession::removeLogger(const QUuid &id)     { m_d->removeRegistry(3, id); }
+void SuperSession::flushLogger(const QUuid &id)  { m_d->loggerOp(id, 0); }
+void SuperSession::pauseLogger(const QUuid &id)  { m_d->loggerOp(id, 1); }
+void SuperSession::resumeLogger(const QUuid &id) { m_d->loggerOp(id, 2); }
 
-bool SuperSession::isConnected() const
-{
-	// FUN_007d5b1a-family: state() >= Connected
-	return m_d->state >= King::Connected;
-}
+void SuperSession::option(const QString &name) { (void)name; }
+QVariant SuperSession::option(const QString &name) const { return QVariant(); }
+QVariant SuperSession::option(const QString &name, const QVariant &defaultValue) const { return defaultValue; }
+void SuperSession::setOption(const QString &name, const QVariant &value) { (void)name; (void)value; }
 
-King::SessionState SuperSession::state() const
-{
-	// FUN_007d4dc4: forwards to bridge->state(); Unconnected when no bridge
-	if (m_d->bridge == nullptr)
-		return King::Unconnected;
-	return m_d->state;
-}
-
-bool SuperSession::needVerifyServerFingerprint() const
-{
-	// FUN_007d5cb8: reads option "ssh.verifyServerFingerprint" as bool
-	const QVariant value = property("ssh.verifyServerFingerprint");
-	return value.toBool();
-}
-
-void SuperSession::open()
-{
-	// Thin forwarder (metacall invoke case 0x2b -> vtable+0x60):
-	// open() is dispatched to the protocol-specific bridge.
-	// Observed transition order on success:
-	//   Connecting -> Connected -> HostVerified -> HostAuthed
-	emit stateChanged(m_d->state, King::Connecting);
-	m_d->setState(King::Connecting);
-}
-
-void SuperSession::drop()
-{
-	// Live trace: HostAuthed -> Unconnected directly (no Closing intermediate)
-	if (m_d->bridge != nullptr) {
-		const King::SessionState oldState = m_d->state;
-		m_d->setState(King::Unconnected);
-		emit stateChanged(oldState, King::Unconnected);
-	}
-}
+void SuperSession::authAgent(const QString &service)        { if (m_d) m_d->authAgent(service); }
+void SuperSession::authNone(const QString &service)         { if (m_d) m_d->authNone(service); }
+void SuperSession::authGssapiWithMic(const QString &service){ if (m_d) m_d->authGssapiWithMic(service); }
+void SuperSession::authPassword(const QString &service, const QString &password)
+                                                             { if (m_d) m_d->authPassword(service, password); }
+void SuperSession::authPublicKey(const QString &identity, const QString &passphrase)
+                                                             { if (m_d) m_d->authPublicKey(identity, passphrase); }
+void SuperSession::authInteractive(const QString &service)  { if (m_d) m_d->authInteractive(service); }
+void SuperSession::authInteractive(const QString &service, const QString &password)
+                                                             { if (m_d) m_d->authKeyboardInteractive(service, password); }
+void SuperSession::verifyKnownHost()                        { if (m_d) m_d->verifyKnownHost(); }
+void SuperSession::writeKnownHost(King::ServerKnownState s) { if (m_d) m_d->writeKnownHost(s); }
+void SuperSession::authOneKey(const QUuid &id)              { (void)id; }
+void SuperSession::authInteractiveUser(const QString &user) { (void)user; }
+void SuperSession::authInteractiveInstruction()            {}
+void SuperSession::authInteractivePrompts()                {}
+QStringList SuperSession::authMethods() const               { return m_d ? m_d->authMethods() : QStringList(); }
+void SuperSession::autoLogin()                             {}

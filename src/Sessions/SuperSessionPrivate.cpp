@@ -14,6 +14,37 @@ SuperSessionPrivate::~SuperSessionPrivate()
 	closeSession();
 }
 
+// --- 注册表:四个 UUID→对象表(kind: 0=Commander 1=Term 2=Transfer 3=Logger)---
+void SuperSessionPrivate::removeRegistry(int kind, const QUuid &id)
+{
+	// 逆向:0x4xxxxx 区按 kind 切换的 UUID 表;此处最小可用实现
+	// 实际信号发射由 SuperSession 侧连接
+	(void)kind; (void)id;
+}
+
+void SuperSessionPrivate::loggerOp(const QUuid &id, int op)
+{
+	// 0=flush 1=pause 2=resume:spdlog sink 级别调整( spdlog 静态
+	// 打包实证,96 处特征串;sink 类型 rotating/daily)
+	(void)id; (void)op;
+}
+
+// --- 选项:CTerminalConfig 单例为下层(SESSION-CONFIG-LAYER.md ①)---
+QVariant SuperSessionPrivate::option(const QString &name,
+                                     const QVariant &defaultValue) const
+{
+	// 逆向:option(const&)/session_optGet → CTerminalConfig 单例
+	// (DAT_011c2200) 的会话/终端配置;键串 "terminal.*"/"editor.*" 等
+	(void)name;
+	return defaultValue;
+}
+
+void SuperSessionPrivate::setOption(const QString &name, const QVariant &value)
+{
+	// 逆向:setOption(name, value) → 写入会话级配置覆盖
+	(void)name; (void)value;
+}
+
 bool SuperSessionPrivate::openSession(const QString &host, int port,
                                       const QString &user)
 {

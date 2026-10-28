@@ -451,6 +451,73 @@ int TerminalCore::rowEraseCells(struct Row *row, int from, unsigned short attr,
 }
 
 // ---------------------------------------------------------------------------
+// Cursor setters (一行真身,TERMINAL-CORE.md)
+// ---------------------------------------------------------------------------
+void TerminalCore::setCursorX(int x)
+{
+	// FUN_007a45ee: m_cursorX = x + markDirty(2)
+	m_cursorX = x;
+	markDirty(2);
+}
+
+void TerminalCore::setCursorY(int y)
+{
+	// FUN_007a44f8 内联尾: m_cursorY = y + markDirty(1)
+	m_cursorY = y;
+	markDirty(1);
+}
+
+void TerminalCore::removeRow(int y)
+{
+	// FUN_007a463c: rows 数组管理(0x7e6f42 写路径调用)
+	if (y >= 0 && y < rowCount())
+		m_rows[y] = nullptr;
+	markDirty(1);
+}
+
+// ---------------------------------------------------------------------------
+// Row cell operations (TERMINAL-CORE.md cited helpers)
+// ---------------------------------------------------------------------------
+void TerminalCore::writeBlankCell(struct Row *row, int i, unsigned short attr,
+                                  void *blankTemplate)
+{
+	// FUN_007e4916 内联尾:attr 头 + copyCell(body) 对;attr 写入
+	// attrHeadAt(row,i),copyCell(cellAt(row,i), blankTemplate);
+	*(unsigned short *)attrHeadAt(row, i) = attr;
+	copyCell(cellAt(row, i), blankTemplate);
+}
+
+void TerminalCore::copyRowCells(struct Row *dst, struct Row *src, int from,
+                                int count)
+{
+	// FUN_007a44f8 辅助: memmove cells+attrs from src to dst
+	if (from < 0 || count < 1)
+		return;
+	memmove((char *)dst->cells + from * 0x20,
+	        (const char *)src->cells + from * 0x20,
+	        (size_t)count * 0x20);
+	memmove((char *)dst->attrArray + from,
+	        (const char *)src->attrArray + from,
+	        (size_t)count * 2);
+}
+
+void TerminalCore::preserveRowFlags(struct Row *dst, struct Row *src)
+{
+	// 0x7a 辅助(滚动): flags 高位保留自 src(避免行级标志丢失)
+	dst->flags = (unsigned char)((dst->flags & 0x0f) | (src->flags & 0xf0));
+}
+
+void TerminalCore::clearRowCells(struct Row *row, int from, int count)
+{
+	// FUN_007e4916 内联: 按当前 erase attr 空白化
+	if (from < 0 || count < 1)
+		return;
+	for (int i = from; i < from + count; i++)
+		*(unsigned short *)attrHeadAt(row, i) = 0;
+	memset((char *)row->cells + from * 0x20, 0, (size_t)count * 0x20);
+}
+
+// ---------------------------------------------------------------------------
 // Scroll
 // ---------------------------------------------------------------------------
 

@@ -42,9 +42,6 @@ public slots:
 
 	QString fingerprint(King::FingerprintType type = King::Sha1) const;
 
-	void option(const QString &name);
-	void setOption(const QString &name, const QVariant &value);
-
 	void verifyKnownHost();
 	void writeKnownHost(King::ServerKnownState knownState);
 
@@ -62,6 +59,8 @@ public slots:
 
 	QStringList authMethods() const;
 
+	// --- 会话管家(逆向:0x4xxxxx 区;字典管理 Commander/Term/
+	// Transfer/Logger 四个 UUID→对象表;实现见 SuperSession.cpp)---
 	void removeCommander(const QUuid &commanderUuid);
 	void removeTerm(const QUuid &commanderUuid);
 	void removeTransfer(const QUuid &transferUuid);
@@ -69,6 +68,10 @@ public slots:
 	void flushLogger(const QUuid &loggerUuid);
 	void pauseLogger(const QUuid &loggerUuid);
 	void resumeLogger(const QUuid &loggerUuid);
+	void option(const QString &name);
+	QVariant option(const QString &name) const;
+	QVariant option(const QString &name, const QVariant &defaultValue) const;
+	void setOption(const QString &name, const QVariant &value);
 
 signals:
 	void stateChanged(King::SessionState oldState, King::SessionState state);

@@ -96,6 +96,9 @@ public:
 	// --- cursor & scroll region --------------------------------------------
 	int m_cursorY;                // +0xc4 (FUN_007a538a)
 	int m_cursorX;                // +0xc8 (FUN_007a538a)
+
+	// --- 光标/行操作一行真身(TERMINAL-CORE.md 地址表)---
+	void removeRow(int y);                     // FUN_007a463c
 	int m_scrollRegionTop;        // +0xd0 (FUN_007a4672)
 	int m_scrollRegionBottom;     // +0xd4 (FUN_007a4bb4)
 	int m_leftMargin;             // +0xd8 (FUN_007a493c)

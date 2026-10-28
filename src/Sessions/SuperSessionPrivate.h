@@ -3,8 +3,10 @@
 
 #pragma once
 
+#include <QMetaType>
 #include <QString>
-#include <QStringList>
+#include <QVariant>
+#include <QUuid>
 #include <libssh/libssh.h>
 
 // SuperSession 的 SSH 认证/主机校验实现(混合架构:真 libssh)。
@@ -19,6 +21,15 @@ class SuperSessionPrivate
 public:
 	explicit SuperSessionPrivate(SuperSession *q);
 	~SuperSessionPrivate();
+
+	// --- 注册表(逆向:Commander/Term/Transfer/Logger 四个 UUID→对象表)---
+	void removeRegistry(int kind, const QUuid &id);
+	void loggerOp(const QUuid &id, int op);
+
+	// --- 选项(逆向:option(const&)→读;setOption→写;CTerminalConfig
+	//     单例为真下层,键串如 "terminal.startupSessions")---
+	QVariant option(const QString &name, const QVariant &defaultValue) const;
+	void setOption(const QString &name, const QVariant &value);
 
 	// --- 连接与状态(逆向:状态机见 STATE-MACHINE.md)---
 	bool openSession(const QString &host, int port, const QString &user);
