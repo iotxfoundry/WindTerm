@@ -1795,3 +1795,50 @@ void SuperCommander::bracketedPasteMode()
 	m_screen->isBracketedPaste();
 	// 取值函数(DEC 2004 标志)
 }
+
+// ---------------------------------------------------------------------------
+// 数据入口:C1 预转换(SuperCommander_vt14 / FUN_007d1348,684B)
+// ---------------------------------------------------------------------------
+
+QByteArray SuperCommander::processOutput(const QByteArray &data)
+{
+	// vt14:开转换时把 7 位 ESC 序列就地折叠为 8 位 C1 控制码:
+	//   D→84 E→85 H→88 M→8d N→8e O→8f P→90 X→98 Z→9a
+	//   [→9b \\→9c ]→9d ^→9e _→9f(尾 ESC 不折叠)
+	// 尾部:cited —— s_Session__write_7d11da 日志 + FUN_007cdff2 上行
+	// + ansi_buffer_build(→ Screen::writeText)在 4b 装配时接线。
+	// 成员门控(+0xfc、FUN_007cba64/70/7c)随 Commander 状态面落地补。
+	QByteArray out = data;
+	if (m_screen == nullptr)
+		return out;
+	for (int idx = out.indexOf('\x1b'); idx != -1 && idx + 1 < out.size();
+	     idx = out.indexOf('\x1b', idx)) {
+		const unsigned char next = (unsigned char)out.at(idx + 1);
+		unsigned char c1 = 0;
+		switch (next) {
+		case 'D': c1 = 0x84; break;
+		case 'E': c1 = 0x85; break;
+		case 'H': c1 = 0x88; break;
+		case 'M': c1 = 0x8d; break;
+		case 'N': c1 = 0x8e; break;
+		case 'O': c1 = 0x8f; break;
+		case 'P': c1 = 0x90; break;
+		case 'X': c1 = 0x98; break;
+		case 'Z': c1 = 0x9a; break;
+		case '[': c1 = 0x9b; break;
+		case '\\': c1 = 0x9c; break;
+		case ']': c1 = 0x9d; break;
+		case '^': c1 = 0x9e; break;
+		case '_': c1 = 0x9f; break;
+		default: break;
+		}
+		if (c1 == 0) {
+			idx++;   // 非 C1 对:跳过该 ESC 继续找
+			continue;
+		}
+		out.remove(idx, 1);
+		out[idx] = (char)c1;   // 原位写 C1(语料 expand/insert 等价)
+		idx++;
+	}
+	return out;
+}

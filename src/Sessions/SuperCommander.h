@@ -22,6 +22,7 @@ public:
 	virtual ~SuperCommander(void) = default;
 
 	// +0x80: the VT screen (onion: this -> Screen(+0x80) -> TerminalCore)
+	QByteArray processOutput(const QByteArray &data);  // SuperCommander_vt14(007d1348)
 	Screen *m_screen;
 
 protected:
