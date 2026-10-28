@@ -51,3 +51,16 @@ WindTerm 层定位。下期转写目标:0x00522056 会话主读写(9KB,会话
   仅 "Terminal"(×5)/"Editor"(×2)/"Browser" 三词 + "session.uuid"
   键 + URL 正则 `://([^/]++)/`,各面板的序列化在各自的被调函数;
   会话文件按 Terminal/Editor/Browser 分节
+
+### 深挖一层(同日)
+
+- 路由形态:`QString::compare_helper(pane, "Editor"/"Terminal"/
+  "Browser")` → 类型收集器(FUN_008c9e64/FUN_008d0cf2/FUN_008d097c,
+  **视图类区 0x8c9-0x8d0**——与 EditorWindow/TerminalView 实现
+  簇同区!)→ 每项经 **session_defaultDir** 展开 → QHash<项> 构建
+  (FUN_0052523e = qHash 查找,0x5247fc/0x524830 = 节点拷贝/释放对)
+- **会话树节点 schema 三件套**(json_get_string_default 实证):
+  `text`(显示名)/ `data`(负载)/ `session.uuid`(默认空串 ""),
+  配 URL 正则 `://([^/]++)/` 解析会话 URI(ssh://user@host/ 形态)
+- 判定:这是**会话管理器目录装载器**(session_defaultDir = 逐项
+  展开),非逐字段序列化体;字段级序列化在视图类区被调中
