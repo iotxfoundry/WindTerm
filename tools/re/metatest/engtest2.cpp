@@ -63,5 +63,13 @@ int main(int argc, char **argv)
 	printf("text@4='%s' col@4=%d\n",
 	       e.dispatch(0x75ee, 4).toString().toUtf8().constData(),
 	       e.dispatch(0x75ec, 4).toInt());
+	// --- 标记注册表(0x756d/756e 插入 → 0x75a3 区间选区)---
+	e.dispatch(0x7551, QByteArray("alpha\nbeta\ngamma"));   // 追加 16B
+	e.dispatch(0x756d, 0);
+	e.dispatch(0x756e, 10);
+	e.dispatch(0x756d, 6);         // 去重乱序插入 → 有序 [0,6,10]
+	e.dispatch(0x75a3, 0, 2);      // 选 [markers0, markers2] = [0,10)
+	printf("markersel=%lld..%lld\n",
+	       e.dispatch(2143).toLongLong(), e.dispatch(2145).toLongLong());
 	return 0;
 }

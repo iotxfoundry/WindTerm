@@ -239,6 +239,20 @@ buf_substr(起点,node.pos))、0x75eb/75ec(列,FUN_00a2a0ea
 FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
 (标记对 → RunPair → 选区);convertRowToHistory(007a9582)
 仍是 Screen 侧独立大件。
+**批 7(2026-10-28):标记注册表** —— EditorContext::markers
+(QVector<RunNode> 按位置保序去重;原版为自旋锁槽阵 009a088e,
+行为模型等价,单线程)。
+- 0x756d/756e 实身:语料完全同体(flag=1,disp 23290 证实)——
+  查得即返否则插入(FUN_00920442/00925c02;通知 00925bd4 cited;
+  尾部接线 0092671c 当 b!=0 cited)
+- 0x75a3 实身:FUN_00926e1c×2(越界=无效节点)→ RunPair →
+  完整则 SCI 选区 [min,max](尾部 0092777c/substring 返回形状
+  cited);语料:首对不完整且 a<b 时重取 b
+- 冒烟:乱序插入 0/10/6 → 有序 [0,6,10];0x75a3(0,2) →
+  选区 0..10 ✓(ADDTEXT w=0 教训:追加用 0x7551;Scintilla
+  对超界选区夹取=内核行为)
+**注**:0x7573 方向 / 0x75e8(009347b6 sign-directive prompt)/
+0x75ef(00a29eb6 iter 0x104+0092c222)经查仍悬置/cited。
 
 ### 3a. 已定名的 WT 命令(有 Scintilla 等价)⬜
 | WT cmd | Scintilla API | 语义 |

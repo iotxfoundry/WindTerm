@@ -369,11 +369,32 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x756d:     // 标记注册(FUN_00925c02 sortedvec 插入 + 0092671c
-	                 //  回调接线 — 片段标记模型 cited)
+	case 0x756d:     // 标记注册(FUN_00925c02:查得即返,否则插入 +
+	                 //  通知 cited;flag=1;尾部接线 0092671c 当
+	                 //  b!=0 — cited;756d/756e 语料同体)
+	case 0x756e: {
+		const long long p = a.toLongLong();
+		m_ctx.markerInsert(RunNode::make(p, 0, true));
 		return QVariant(0);
-	case 0x756e:     // 同 0x756d(变体,cited)
-		return QVariant(0);
+	}
+	case 0x75a3: {   // 标记对选区(FUN_00926e1c×2 → RunPair;
+	                 //  完整则选 [min,max],尾 0092777c/substring cited;
+	                 //  语料:首对不完整且 a<b 时重取 b 再合成)
+		const int i = a.toUInt();
+		const int j = b.toUInt();
+		RunPair pair;
+		pair.first = m_ctx.markerAt(i);
+		pair.second = m_ctx.markerAt(j);
+		if (!pair.complete() && i < j)
+			pair.second = m_ctx.markerAt(j);
+		if (!pair.complete())
+			return QVariant();
+		const long long s = qMin(pair.first.pos, pair.second.pos);
+		const long long e = qMax(pair.first.pos, pair.second.pos);
+		send(SCI_SETSELECTIONSTART, s, 0);
+		send(SCI_SETSELECTIONEND, e, 0);
+		return QVariant();           // 尾部返回形状 cited
+	}
 	// --- 批 5:尾块 0x75d0-0x75ff(disp 24100-24518)---
 	case 0x75d0: {   // y→行(FUN_00a2059c:首行+ y/行高;exact 恒 1:
 	                 //  结果 >= textLength → -1,行数与字符数比较=原样)

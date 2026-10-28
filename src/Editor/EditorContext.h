@@ -92,6 +92,29 @@ public:
 	RunNode blockNode;               // 当前块样式节点(0096bbc6/00a2a2xx 写)
 	quint32 bufField148 = 0;         // buffer+0x148(0x75ec hex 模式选)
 
+	// --- 标记注册表(+0x1098+0x100 sortedvec;+0xc0 游标族同型)—
+	// 键=位置保序去重;原版为自旋锁槽阵(FUN_009a088e),行为模型
+	// 用有序表,单线程等价
+	QVector<RunNode> markers;
+	int markerInsert(const RunNode &n)
+	{
+		for (int i = 0; i < markers.size(); ++i)
+			if (markers.at(i).pos == n.pos)
+				return i;                // FUN_00920442 查得即返
+		auto it = std::lower_bound(markers.begin(), markers.end(), n.pos,
+		                           [](const RunNode &a, long long p) {
+			                           return a.pos < p;
+		                           });
+		markers.insert(it, n);           // sortedvec_insert;00925bd4 通知 cited
+		return int(it - markers.begin());
+	}
+	RunNode markerAt(int idx) const
+	{
+		// FUN_00926e1c:越界 = 无效节点(空 RunNode)
+		return (idx >= 0 && idx < markers.size()) ? markers.at(idx)
+		                                          : RunNode{};
+	}
+
 	// --- 语义动作 ---
 	void setHexBase(int base)
 	{
