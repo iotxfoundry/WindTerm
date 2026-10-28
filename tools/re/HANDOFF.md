@@ -1,115 +1,89 @@
 # 新会话起点(交接文档)
 
-> 用途:新会话冷启动。先读本文件 + AGENTS.md + docs/PLAN.md,即可无缝续作。
+> 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md,即可无缝续作。
 
 ## 一句话状态(2026-10-28 终态)
 
-**CMake 构建体系达成**:静态库(lib/*.a 20MB)入库,CMake 默认直接
-链接,增量编译 0.08s。libWindTermRe.so 8.82MB,dlopen OK,三冒烟全绿。
+**Phase 0/1/2 全部收口;Phase 4b 槽覆盖完成;Phase 3 批量模式运行中。**
+libWindTermRe.so 9.2MB,dlopen OK;e2eterm 25 断言 + recheck 22 例 +
+engtest×2 + sshsmoke 全绿。gen_stubs 70→**5**(全为 Phase-3/4 深项)。
 
-里程碑链:语法自洽 → moc → 编译 → 链接 → dlopen → 元对象活性 →
-**CMake 化 + 静态库入库**。下一步:docs/PLAN.md Phase 1(Screen 收口)。
+## 里程碑链(全部 ✅)
 
-## 目录结构(2026-10-28 归位后)
+语法/moc/编译/链接/dlopen → 三层真实现(终端栈 259/259、编辑引擎
+混合、SSH 认证)→ CMake 构建(增量 0.08s,静态库入库)→ 目录归位 →
+**moc 权威抽取器**(Screen 37 信号/SuperSession 59/SuperCommander 264
+三表入库)→ **行为测试矩阵**(e2eterm/recheck)→ **配置层贯通**
+(CTerminalConfig+ProfileLoader)→ **端到端写路径**(ASCII/UTF-8/
+wrap/SGR)→ **Phase 4b TerminalWidget 58 槽覆盖**。
+
+## 目录结构
 
 ```
 src/
-  Sessions/   ← 会话层(Super*族 + TerminalCore + Screen + gen_stubs.cpp)
-  Editor/     ← 编辑引擎(EditorEngine 混合层 + ConfigBridge)
-  Widgets/    ← 视图壳(Terminal*/Editor*/TextView/TextEdit/Pane*)
-  Utility/    ← 通用(KingEnums + Cryptographic + ThreadLocal)
-  Protocols/  ← 协议(Telnet)
-  Pty/        ← 串口
-  libssh/     ← libssh 0.9.6+补丁(源码树)
-  Onigmo/     ← Onigmo 5.13.5+迭代器补丁(源码树)
-  Scintilla/  ← Scintilla 4.4.6(上游源码树)
-  jsoncpp/    ← jsoncpp 1.9.4(上游源码树)
-  yaml-cpp/   ← yaml-cpp 0.6.3(上游源码树)
-lib/          ← 原版 .so + 预构建 .a(20MB,git 管理)
-inc/          ← 运行时配套头(23M;boost/qt5 已删)
-docs/         ← 逆向知识文档(18 .md)
-tools/re/     ← 逆向工具链 + BUILD.md + AGENTS.md
+  Sessions/   ← 会话层(SuperCommander 264 槽/Screen/TerminalCore/
+                SuperSession;gen_stubs.cpp 仅剩 5 深项)
+  Editor/     ← EditorEngine(混合层)+ ConfigBridge + CTerminalConfig
+                + ProfileLoader + EditorContext.h
+  Widgets/    ← TerminalWidget(58 槽)+ SessionManager + TextView +
+                ScrollBar/Splitter/PopupWidget
+  Protocols/  ← Telnet
+  Utility/    ← KingEnums + Cryptographic + ThreadLocal
+  Scintilla|libssh|Onigmo|jsoncpp|yaml-cpp  ← 五源码树
+lib/          ← 原版 .so + 预构建 .a(20MB)
+docs/         ← 19 .md(含 PLAN.md/QUIRKS.md)
+tools/re/     ← 逆向工具链 + 49M decomp + metatest/(5 测试)+ data/
 ```
 
-## 构建体系(CMake,2026-10-28)
+## 构建/验证(每轮提交门)
 
 ```bash
-# 默认(clone 后直接):
-mkdir build && cd build
-cmake .. && make -j$(nproc)
-# → libWindTermRe.so 8.82MB;增量 0.08s
-
-# 重编外部依赖(仅上游更新时):
-cmake .. -DBUILD_DEPS=ON && make rebuild_deps
-# → 重编 Scintilla+yaml-cpp+jsoncpp 到 lib/*.a
-
-# 可选测试:
-cmake .. -DBUILD_ENGTEST=ON && make engtest
+mkdir build && cd build && cmake .. && make -j$(nproc)   # 增量 0.08s
+LD_LIBRARY_PATH=build:lib QT_QPA_PLATFORM=offscreen \
+  python3 -c "import ctypes; ctypes.CDLL('build/libWindTermRe.so')"
+# 测试(改头文件后必须重编!踩坑 15):
+g++ -std=c++17 -fPIC -o /tmp/e2e tools/re/metatest/e2eterm.cpp …(-L build -lWindTermRe)
 ```
 
-lib/ 下预构建 .a(20MB):libscintilla_core(16M)+ libscintilla_qt(754K)
-+ libyaml-cpp(923K)+ libjsoncpp(438K)+ libonig(2.1M)。
+## 测试策略(PLAN.md 头部成文)
 
-## 逆向架构总览
+**测试跟随真身化,不领先。** e2eterm(25 断言)/recheck(22 例)冻结
+为提交门;不向未完成子系统扩展;失败测试按 docs/QUIRKS.md 裁决
+(10 条原版怪癖登记,禁止按"终端应该怎样"修)。
 
-### 终端栈(全部真实现)
-```
-SuperCommander(259/259) → Screen(~95 方法) → TerminalCore(~60 方法)
-                                          → 单元格层(0x20 字节/格)
-```
+## 关键方法论资产(本轮新增)
 
-### 编辑引擎(混合架构)
-```
-EditorEngine::dispatch(cmd, a, b)
- ├─ cmd ≥ 20163(EXT/WT)→ customDispatch     ← WindTerm 自有(逆向,22 已真身)
- └─ cmd ≤ 4033(标准 SCI)→ scintillaDelegate  ← 真 Scintilla 4.4.6 静态库
-```
+1. **moc 权威抽取器**(tools/re/data/*_moc_methods.json ×3):
+   stringdata = 每串一 QArrayData(24B 步长),offset 相对条目自身;
+   data[4]/[5]=方法数/偏移;每方法 5 uint(name/argc/params/tag/flags)。
+   任意类的 moc 方法名/序/签名可权威抽出——**禁止按 pool 位置猜名**。
+2. **metacall 全映射**:supercommander_metacall_map.json(264 槽 case→
+   target+权威名)。教训:SuperCommander.h 声明序 ≠ 原 moc 序。
+3. **数据表 dump 法**:宽度表(1307 区间)/字符集注册表(31)/
+   terminfo(92)从 .rodata/.data.rel.ro 直接 dump 入 .inc。
+4. **IDA = Ghidra − 0x400000**;kuna disassemble 用于寄存器级确认
+   (如 FUN_007a2bd4 第二参=ESI 直透)。
 
-### 认证族(混合架构)
-```
-SuperSession::auth*(14 个)→ SuperSessionPrivate → 真 libssh API
-```
+## 下一步(按优先级)
 
-### 配置桥(混合架构)
-```
-ConfigBridge.cpp:yamlToQVariant → vendored yaml-cpp 0.6.3
-```
-
-## 环境
-
-| 项 | 值 |
-|---|---|
-| 目标二进制 | /opt/WindTerm_2.7.0/WindTerm(仓库根有副本) |
-| Ghidra 12.1.4 | 自动引擎 |
-| IDA Pro 9.1 | 深度;**基址差:IDA = Ghidra − 0x400000** |
-| kuna CLI | ~/.local/share/rea/bin/kuna |
-| GitHub 代理 | 192.168.1.106:7890(push 必带 `-c http.proxy=…`) |
-| 提交规范 | 中文,每轮一条 commit 一条 push |
-
-## 转写方法(AGENTS.md 铁律)
-
-0. 工具优先:tools/re/decomp/(49M 主语料)> kuna > IDA
-1. `grep -n "entry=ADDR"` 定位函数 → sed 截函数体
-2. 真实现写入正确目录(src/Sessions|Editor|Widgets|Utility)
-3. 每行代码引用 `FUN_XXXXXXXX` 或 `// cited` 标记
-4. 分批提交(中文信息)
-
-## 已还原资产索引
-
-- `docs/*.md`:SSH-INTERNALS / PROTOCOL-ARCHITECTURE / STATE-MACHINE /
-  TERMINAL-CORE / IMPL-ADDRESSES / SUPERCOMMANDER-IMPL /
-  EDITOR-ENGINE-COMMANDS(336 命令) / EDITOR-SCINTILLA-MAP(120 真名) /
-  SESSION-CONFIG-LAYER / SCREEN-SIGNALS / TEXTVIEW-* / KING-ENUMS /
-  CLASSES-SWEEP / MOC-NAMES
-- `src/Utility/KingEnums.h`:45 枚举权威值
-- `tools/re/`:全部逆向工具 + 49M 反编译语料 + data/(方法表/调用点)
-- `AGENTS.md`:完整方法论 + 13 项踩坑
-- `docs/PLAN.md`:202 项待收口计划(Phase 1-5)
+1. **Phase 3 批 3**:editctx 迭代器模型(FUN_00a169cc/00a167ac 对
+   跳转)+ pair 批 0x75b4/75b5;之后 0x7558/7567/7568 margin 元数据批
+2. **Phase 4 深腿**:渲染层(调色板/字体/视口——TerminalWidget 目前
+   无 paint)、会话栈(+0x1e0/+0x1e8)、对话框面
+3. **SessionLogger moc 抽取**(loggerOp 的 FUN_007c1b92 sink 面)
+4. **Phase 5**:离屏渲染对比(需渲染层先行)
 
 ## 已知开放问题
 
-- `King::DataType`:无 Q_ENUM 注册,值域需代码反推
-- keymap 方言表(DECDSR 26):三字节运行期取值,静态封箱
-- Screen.cpp 38 cited(Phase 1 目标)
-- EditorEngine customDispatch ~40 fork 特性(Phase 3 目标)
-- UI 装配(Phase 4-5 目标)
+- convertRowToHistory(007a9582,1262B)= RunStyles/PieceTable 文档
+  桥,待 Phase-4 文档模型(可直接对接 src/Scintilla 的 RunStyles)
+- notifyIterm2 CursorShape 腿(007e3b12/007cc828)、setHyperlinkTarget
+  (007f43ce,457B)cited
+- vt14 门控 +0xfc 命令器成员、+0x12c 写屏门语义待 Commander 状态面
+- wind.config 数组缺逗号 QUIRK 已由 jsoncpp 容错覆盖(QUIRKS 无条目,
+  见 ProfileLoader parseTolerant 注释)
+
+## 提交规范(不变)
+
+中文 commit;push 必带 `-c http.proxy=http://192.168.1.106:7890`;
+每轮:改动 + 对应 .md 更新,一条 commit 一条 push。

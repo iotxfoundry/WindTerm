@@ -15,6 +15,23 @@
 
 ---
 
+## 总览(2026-10-28 会话末)
+
+| 阶段 | 状态 |
+|---|---|
+| Phase 0 基础设施 | ✅ |
+| Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
+| Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
+| Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(30/149;EditorContext 模型) |
+| Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
+| Phase 4b TerminalWidget | ✅ 槽覆盖 58/58(渲染层/深腿 cited) |
+| Phase 5 行为对比 | ⬜(需渲染层) |
+
+测试矩阵:e2eterm 25 + recheck 22 + engtest×2 + sshsmoke 全绿。
+gen_stubs 70→5。测试策略与保真约束见下方"测试策略"块。
+
+---
+
 ## Phase 0 — 已完成 ✅
 
 - [x] 语法自洽(Sessions/Widgets/Protocols/Utility 全 .cpp 0 错)
