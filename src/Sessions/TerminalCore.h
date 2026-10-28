@@ -43,6 +43,7 @@ struct Tabstops
 	bool test(int column) const;   // FUN_007e5c98 bit extraction
 	void set(int column, bool on); // FUN_007e52fc / FUN_007e5df0
 	void clear();                  // FUN_007e5df0 mode 3 (clear all)
+	void resizeDefault(int cols);  // QBitArray::resize + every-8th re-arm (007a604a tail)
 };
 
 // Rect used by the rectangular-area workers (FUN_007a6ab0 family)
@@ -51,6 +52,8 @@ struct Rect { int top, left, bottom, right; };
 class TerminalCore
 {
 public:
+	TerminalCore();   // buffer state zero-init (FUN_007a69b8 family)
+
 	// --- flags (+0x00) ---------------------------------------------------
 	// bit3 (0x08): cursor moved since last flush
 	// bit5 (0x20): horizontal margins active — scroll operates on cells
@@ -73,6 +76,7 @@ public:
 	// 32 bytes per cell: glyph + SGR attributes + flags), +0x40 = spare
 	// buffer freed on row destruction.
 	int m_rowCount;               // +0x74 (FUN_007a4b4a)
+	int m_rowCapacity;            // +0x70 (doubling growth, FUN_007a604a)
 	struct Row **m_rows;          // +0x78: array of row POINTERS (8-byte stride, FUN_007a44f8)
 
 	// --- reset state group (+0x50..+0x66, FUN_007a4b0a reset sequence) ---
@@ -92,6 +96,7 @@ public:
 
 	// --- tabstops (+0x18) ---------------------------------------------------
 	Tabstops m_tabstops;
+	bool isTabstop(int column) const { return m_tabstops.test(column); }
 
 	// --- cursor & scroll region --------------------------------------------
 	int m_cursorY;                // +0xc4 (FUN_007a538a)
@@ -112,6 +117,7 @@ public:
 	// --- sizes & limits -----------------------------------------------------
 	int rowCount() const;                  // FUN_007a4b4a
 	int columnCount() const;               // FUN_007a4906
+	void makeRow(struct Row *row, int cols);        // FUN_007a5670 (Row ctor)
 	int scrollRegionBottomLimit() const;   // FUN_007a4bb4 (raw +0xd4)
 	int scrollRegionTopLimit() const;      // FUN_007a4be2 (clamped under bottom-1)
 	int scrollRegionHeight() const;        // FUN_007a4c48 (bottom-top+1)
@@ -220,7 +226,8 @@ public:
 	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
 	static void resizeUshortVector(int *hdr, int len, int cap);  // FUN_007aa1bc
 	void resizeCore(int rows, int cols);   // FUN_007a604a — cited (row reflow)
-	int lastNonEmptyRow() const;           // FUN_007a5618 (trailing-content scan)
+	// lastNonEmptyRow == lastContentRowCount (FUN_007a5618, alias)
+	int lastNonEmptyRow() const { return lastContentRowCount(); }
 	void cloneGlyphPayload(void *dstAux, const void *srcPayload, int words);  // FUN_007aa28a
 	void *cellAt(struct Row *row, int x);          // FUN_007a3c1a: cells + x*0x20
 	unsigned short *attrHeadAt(struct Row *row, int x);  // FUN_007a3c2a: attrArray + x*2

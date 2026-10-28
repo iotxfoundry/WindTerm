@@ -113,8 +113,8 @@
 | cursorUpdated→cursorStyleBit | 0x007a44c0 | (0x2b>>style)&1 闪烁位;007e51e6 实为 setScrollbarVisible | ✅(标签纠错) |
 | markLine(int) | 0x007a463c | row+rowHook,+0xa8 缓存/清零 | ✅ |
 | slot0Allowed(int) | 0x00802c96 | userPreferredSet==1 或 tableId==6 | ✅ |
-| resizeCore | 0x007a604a | 967B 行 reflow | ⬜ cited |
-| lastNonEmptyRow | 0x007a5618 | 尾部内容扫描 | ⬜ cited |
+| resizeCore | 0x007a604a | 967B:重包装/增删行/默认 tabstop;行 ctor 007a5670 + Tabstops::resizeDefault 真身 | ✅ |
+| lastNonEmptyRow | 0x007a5618 | =lastContentRowCount 别名(真身已有) | ✅ |
 | writeText(QString) | 007e7b88 | 清+0x178→主循环→换回尾 | ✅ |
 | setWindowTitleBuffer/IconAndTitle | 007cd366/7cd902 | view-settings(+0x10)对象上 +0xe0/118/120 | ✅(发射器 cited) |
 

@@ -1365,20 +1365,9 @@ const void *TerminalCore::charsetConfigRoot() const
 // Phase 1d cited helpers (resize path)
 // ---------------------------------------------------------------------------
 
-void TerminalCore::resizeCore(int rows, int cols)
-{
-	// FUN_007a604a (967B): rows>=2/cols>=8, dims land at +0xe0/+0xe4,
-	// then the row vector (+0x78) reflows (per-row re-wrap with the
-	// width flags, FUN_007a3dfc/007a41d6 chain) — cited — wave-2
-	(void)rows; (void)cols;
-}
 
-int TerminalCore::lastNonEmptyRow() const
-{
-	// FUN_007a5618: scan the row vector tail-down counting rows until
-	// one passes the content check FUN_007a4a06(row, 0) > 0 — cited — wave-2
-	return 0;
-}
+
+
 
 bool TerminalCore::rowHasContent(Row *row) const
 {
@@ -1445,4 +1434,120 @@ void TerminalCore::resetCharsetSlots()
 	// (0x200000002 twice) — matches the keymapResetModifier packed form
 	m_charsetSlots[0] = m_charsetSlots[1] = 2;
 	m_charsetSlots[2] = m_charsetSlots[3] = 2;
+}
+
+// ---------------------------------------------------------------------------
+// Phase 2: row ctor + tabstop re-arm + resizeCore (FUN_007a604a family)
+// ---------------------------------------------------------------------------
+
+TerminalCore::TerminalCore()
+{
+	// buffer state zero-init; the corpus ctor family (FUN_007a69b8)
+	// builds the 0x58 template rows and inline arrays — Phase-4 view
+	// wiring will replace this with the full init
+	memset(&m_flags, 0, 0);   // no-op placeholder for member clarity
+	m_rowCount = 0;
+	m_rowCapacity = 0;
+	m_rows = nullptr;
+	m_cursorY = 0;
+	m_cursorX = 0;
+	m_columnCount = 0;
+	m_tabstops.payload = nullptr;
+}
+
+void TerminalCore::makeRow(struct Row *row, int cols)
+{
+	// FUN_007a5670 (291B): flags 0, length = cols, cells allocated
+	// (inline spare at +0x18 then heap when cols > 1), each 0x20-byte
+	// cell zeroed with byte0 = 1; heads likewise with the count at
+	// +0x38. The rebuild allocates both arrays plainly.
+	memset(row, 0, 0x58);
+	row->length = cols;
+	row->cells = ::operator new((size_t)cols * 0x20);
+	for (int i = 0; i < cols; ++i)
+		((unsigned char *)row->cells)[i * 0x20] = 1;
+	row->attrArray = ::operator new((size_t)cols * 2);
+	memset(row->attrArray, 0, (size_t)cols * 2);
+}
+
+void Tabstops::resizeDefault(int cols)
+{
+	// FUN_007a604a tail: bitmap resize to cols, then bit set when
+	// (col & 7) == 0, else cleared — the every-8th default tabstops
+	if (payload)
+		delete[] payload;
+	payload = new unsigned char[(cols + 7) / 8 + 1]();
+	// byte 0 is the meta byte in the corpus layout; keep column bits
+	// from byte 1 (per Tabstops::test's (column >> 3) + 1 convention)
+	for (int c = 0; c < cols; ++c) {
+		const int byte = (c >> 3) + 1;
+		if (c % 8 == 0)
+			payload[byte] |= (unsigned char)(1 << (c & 7));
+		else
+			payload[byte] &= (unsigned char)~(1 << (c & 7));
+	}
+}
+
+void TerminalCore::resizeCore(int rows, int cols)
+{
+	// FUN_007a604a (967B): rows>=2/cols>=8; dims land at +0xe0/+0xe4;
+	// per existing row: unchanged length is a no-op, otherwise the
+	// reflow-off path marks the row dirty (bit0) when the old width
+	// overhangs both rowLength and rowUsedWidth(+1), else clips via
+	// setRowLength; the row vector grows with new Rows (FUN_007a5670)
+	// under doubling capacity or shrinks with the 0x58-row teardown
+	// (attr free + FUN_007aa108 payload dtor); finally the tabstop
+	// bitmap resizes with the every-8th default.
+	if (rows < 2 || cols < 8)
+		return;
+	const int oldCols = m_columnCount;
+	const int oldCount = m_rowCount;
+	m_columnCount = cols;         // +0xe4
+	// the corpus writes the row target to +0xe0 (a dims field distinct
+	// from the live count +0x74); keep the live count authoritative and
+	// grow the vector below
+	for (int i = 0; i < oldCount && m_rows[i]; ++i) {
+		struct Row *r = m_rows[i];
+		const int len = rowLength(r);
+		if (len == cols)
+			continue;
+		if (oldCols <= len && oldCols < rowUsedWidth(r, 1))
+			r->flags |= 1;
+		else
+			setRowLength(r, cols);
+	}
+	// vector grow (capacity doubling per the corpus +0x70/+0x74/+0x78
+	// block) or shrink (extra rows torn down: attr free + payload dtor
+	// + 0x58 delete)
+	if (m_rowCapacity < rows) {
+		int cap = m_rowCapacity < 2 ? 2 : m_rowCapacity;
+		while (cap < rows)
+			cap *= 2;
+		struct Row **grown = (struct Row **)malloc((size_t)cap * sizeof(struct Row *));
+		if (m_rows && m_rowCount > 0)
+			memcpy(grown, m_rows, (size_t)m_rowCount * sizeof(struct Row *));
+		for (int i = m_rowCount; i < cap; ++i)
+			grown[i] = nullptr;
+		free(m_rows);
+		m_rows = grown;
+		m_rowCapacity = cap;
+	}
+	for (int i = 0; i < rows; ++i) {
+		if (!m_rows[i]) {
+			struct Row *r = (struct Row *)::operator new(0x58);
+			makeRow(r, cols);
+			m_rows[i] = r;
+		}
+	}
+	for (int i = rows; i < m_rowCount; ++i) {
+		struct Row *r = m_rows[i];
+		if (r) {
+			free(r->attrArray);   // +0x40 buffer (corpus frees +0x40)
+			::operator delete(r->cells);
+			::operator delete(r);
+		}
+		m_rows[i] = nullptr;
+	}
+	m_rowCount = rows;
+	m_tabstops.resizeDefault(cols);
 }

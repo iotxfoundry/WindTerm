@@ -40,6 +40,20 @@ int main()
 	       (unsigned long long)s2.conformanceKey(),
 	       s2.conformanceKey() == 0x5b3b8ddd279e6bf4ULL ? "" : "  FAIL");
 	fails += s2.conformanceKey() != 0x5b3b8ddd279e6bf4ULL;
+	// resizeCore: 24x80 build, dims + default tabstops every 8th
+	TerminalCore core;
+	core.resizeCore(24, 80);
+	printf("resize 24x80 -> rows=%d cols=%d%s\n", core.rowCount(),
+	       core.columnCount(),
+	       (core.rowCount() == 24 && core.columnCount() == 80) ? "" : "  FAIL");
+	fails += !(core.rowCount() == 24 && core.columnCount() == 80);
+	for (int c = 0; c < 80; c += 8) {
+		if (!core.isTabstop(c)) { printf("tabstop %d missing FAIL\n", c); ++fails; }
+		if (c + 1 < 80 && core.isTabstop(c + 1)) {
+			printf("tabstop %d unexpectedly set FAIL\n", c + 1); ++fails;
+		}
+	}
+	printf("tabstops every-8th OK\n");
 	printf(fails ? "RESULT: %d FAILS\n" : "RESULT: ALL PASS\n", fails);
 	return fails != 0;
 }
