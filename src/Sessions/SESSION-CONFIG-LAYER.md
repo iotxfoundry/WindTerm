@@ -62,5 +62,14 @@ WindTerm 层定位。下期转写目标:0x00522056 会话主读写(9KB,会话
 - **会话树节点 schema 三件套**(json_get_string_default 实证):
   `text`(显示名)/ `data`(负载)/ `session.uuid`(默认空串 ""),
   配 URL 正则 `://([^/]++)/` 解析会话 URI(ssh://user@host/ 形态)
-- 判定:这是**会话管理器目录装载器**(session_defaultDir = 逐项
-  展开),非逐字段序列化体;字段级序列化在视图类区被调中
+### 深挖二层(结构真相:工作区恢复系统)
+
+- FUN_008c9e64(105B):`QObject::objectName()` 去掉 "Window"
+  →面板类型("TerminalWindow"→"Terminal")
+- FUN_008d0cf2(339B):dynamic_cast 过滤子 QWidget,逐个取
+  **windowFilePath()** 入 QVariantList——目录项=打开文件的路径
+- FUN_008d097c(223B):递归子件遍历("Editor" 过滤)
+- **定性:0x00522056 = 工作区(打开的窗口/文件)装载器**——
+  按面板类型枚举打开的 QWidget,取其文件路径建 QHash 目录,
+  配 text/data/session.uuid 三件套与 URI 正则做持久化关联;
+  写入侧(保存)在别处,字段级序列化即 QWidget 属性转储
