@@ -99,7 +99,7 @@
 
 ---
 
-## Phase 2 — TerminalCore / SuperSession 收口 ⬜
+## Phase 2 — TerminalCore / SuperSession 收口 ⏳(主体完成)
 
 ### 2a. TerminalCore 剩余 cited ⏳
 | 函数 | 地址 | 语义 | 状态 |
@@ -115,12 +115,17 @@
 | slot0Allowed(int) | 0x00802c96 | userPreferredSet==1 或 tableId==6 | ✅ |
 | resizeCore | 0x007a604a | 967B 行 reflow | ⬜ cited |
 | lastNonEmptyRow | 0x007a5618 | 尾部内容扫描 | ⬜ cited |
+| writeText(QString) | 007e7b88 | 清+0x178→主循环→换回尾 | ✅ |
+| setWindowTitleBuffer/IconAndTitle | 007cd366/7cd902 | view-settings(+0x10)对象上 +0xe0/118/120 | ✅(发射器 cited) |
 
 ### 2b. SuperSession 管家真链 ⏳
 四注册表 QMap<QUuid,obj> 落 SuperSessionPrivate(dtor 走查 7d7096 实证
 +0x18 注册表、逐对象 vtable+0x20 拆除);removeRegistry → loggerRemoved
 信号已发;loggerOp 对象面(spdlog sink)Phase-4 cited。
-open/drop/12 getter body 未定位(metacall 表未抽)。
+open/drop/12 getter:metacall(ShellSession_h912400)已抽到函数簇
+FUN_007d42d6-7d694e——全部转发协议对象(+0x10 dynamic_cast + vtable
+查询 0x68/0x80 槽),属 Phase-4 协议布线;列表留 stub。
+行为回归:engtest×2/sshsmoke/recheck(13 例)全绿。
 
 ### 2c. TextView 收口 ✅
 property/setProperty 换原生 QMap<QString,QVariant>(原 qmap thunk 桩
