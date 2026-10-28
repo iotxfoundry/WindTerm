@@ -1,90 +1,115 @@
 # 新会话起点(交接文档)
 
-> 用途:新会话冷启动。让 agent 先读本文件 + 本目录其余文档,即可无缝续作。
+> 用途:新会话冷启动。先读本文件 + AGENTS.md + docs/PLAN.md,即可无缝续作。
 
-## 一句话状态(2026-10-28)
+## 一句话状态(2026-10-28 终态)
 
-**编译验证达成**:src 全量(Sessions/Widgets/Protocols/Utility)+ moc(22/22)
-编译零错误,链接为 `libWindTermRe.so`(775KB),**dlopen 加载通过**,
-`SuperSession::staticMetaObject` 运行时活性验证:className=
-"SuperSession",signals=61/方法表完整。构建配方见 BUILD.md。
+**CMake 构建体系达成**:静态库(lib/*.a 20MB)入库,CMake 默认直接
+链接,增量编译 0.08s。libWindTermRe.so 8.82MB,dlopen OK,三冒烟全绿。
 
-里程碑链:语法自洽 ✅ → moc 全过 ✅ → 全量编译 ✅ → 链接 ✅ →
-dlopen ✅ → 元对象活性 ✅。下一步:UI 装配(QApplication + TerminalWidget)
-或继续 D 类按需深挖。
+里程碑链:语法自洽 → moc → 编译 → 链接 → dlopen → 元对象活性 →
+**CMake 化 + 静态库入库**。下一步:docs/PLAN.md Phase 1(Screen 收口)。
 
+## 目录结构(2026-10-28 归位后)
 
-WindTerm 2.7.0 逆向:API/架构/状态机全部打通。**第一/二/三 a 批转写已完成**:SuperCommander.cpp 170 个真实现体,Screen
-层 ~95 方法,TerminalCore ~47 方法。批次②:DECSM/DECRM 完整 case 表
-(备用屏双缓冲、鼠标族、2004)、SGR 64 位状态机、SCS 字符集、ICH/DCH/
-IL/DL/DECIC/DECDC、DECDWL/DHL。批次③a:DECALN、VT52 四槽、DA/DSR 报告、
-zmodem、movePage 页面调度。**SuperCommander.cpp 转写完成:259/259(100%),行级 worker 已落码至
-单元格字节层。** 剩余 cited-stub 精确清单(下会话按此逐个击破):
-**writeText 主循环(0x7e6f42,终端心脏)与 DECDSR(0x7f0d7c)已完整
-转写 —— cited-stub 清单清零。** 终端栈 Commander→Screen→core→单元格
-四层全部真实现。纯引用级清单已清(TerminalCore 六项全落码:copyRect/
-collectRectCells/parseAttrCells/resetRow 模板尾/cloneGlyphPayload/
-取格取头 0x7a3c1a·0x7a3c2a;IDA MCP + kuna 语料双源,IDA 基址 =
-Ghidra - 0x400000)。仍剩:
-- Screen: writeText 内层 helper ✅、剩余视图桩 ✅;键盘方言表(动态路线)
-- 编辑器引擎(Scintilla 系,两级分派 0xa5205e/0xa418c4):336 命令
-  100% 接线(131 手工语义 + 228 生成层,EditorEngine.h/.cpp);
-  分层图:分派器 → doc(+0x1098)→ GapBuffer(+0xf8)→ 行索引
-  (自适应自旋惰性重算 FUN_00a62f52);复杂叶 104 个 + t_call 110
-  个按家族换真身推进中(见 EDITOR-ENGINE-COMMANDS.md)
+```
+src/
+  Sessions/   ← 会话层(Super*族 + TerminalCore + Screen + gen_stubs.cpp)
+  Editor/     ← 编辑引擎(EditorEngine 混合层 + ConfigBridge)
+  Widgets/    ← 视图壳(Terminal*/Editor*/TextView/TextEdit/Pane*)
+  Utility/    ← 通用(KingEnums + Cryptographic + ThreadLocal)
+  Protocols/  ← 协议(Telnet)
+  Pty/        ← 串口
+  libssh/     ← libssh 0.9.6+补丁(源码树)
+  Onigmo/     ← Onigmo 5.13.5+迭代器补丁(源码树)
+  Scintilla/  ← Scintilla 4.4.6(上游源码树)
+  jsoncpp/    ← jsoncpp 1.9.4(上游源码树)
+  yaml-cpp/   ← yaml-cpp 0.6.3(上游源码树)
+lib/          ← 原版 .so + 预构建 .a(20MB,git 管理)
+inc/          ← 运行时配套头(23M;boost/qt5 已删)
+docs/         ← 逆向知识文档(18 .md)
+tools/re/     ← 逆向工具链 + BUILD.md + AGENTS.md
+```
 
-## 环境状态(新会话先核对)
+## 构建体系(CMake,2026-10-28)
+
+```bash
+# 默认(clone 后直接):
+mkdir build && cd build
+cmake .. && make -j$(nproc)
+# → libWindTermRe.so 8.82MB;增量 0.08s
+
+# 重编外部依赖(仅上游更新时):
+cmake .. -DBUILD_DEPS=ON && make rebuild_deps
+# → 重编 Scintilla+yaml-cpp+jsoncpp 到 lib/*.a
+
+# 可选测试:
+cmake .. -DBUILD_ENGTEST=ON && make engtest
+```
+
+lib/ 下预构建 .a(20MB):libscintilla_core(16M)+ libscintilla_qt(754K)
++ libyaml-cpp(923K)+ libjsoncpp(438K)+ libonig(2.1M)。
+
+## 逆向架构总览
+
+### 终端栈(全部真实现)
+```
+SuperCommander(259/259) → Screen(~95 方法) → TerminalCore(~60 方法)
+                                          → 单元格层(0x20 字节/格)
+```
+
+### 编辑引擎(混合架构)
+```
+EditorEngine::dispatch(cmd, a, b)
+ ├─ cmd ≥ 20163(EXT/WT)→ customDispatch     ← WindTerm 自有(逆向,22 已真身)
+ └─ cmd ≤ 4033(标准 SCI)→ scintillaDelegate  ← 真 Scintilla 4.4.6 静态库
+```
+
+### 认证族(混合架构)
+```
+SuperSession::auth*(14 个)→ SuperSessionPrivate → 真 libssh API
+```
+
+### 配置桥(混合架构)
+```
+ConfigBridge.cpp:yamlToQVariant → vendored yaml-cpp 0.6.3
+```
+
+## 环境
 
 | 项 | 值 |
 |---|---|
-| 引擎 | Ghidra 12.1.4(自动)/ IDA Pro 9.1(深度,GUI 需手动开)/ **kuna CLI(就绪)** |
-| | kuna 路径:~/.local/share/rea/bin/kuna(decompile/xrefs/functions/strings/disassemble),2026-10-27 验证:反编译 0x7a5588 与还原转写逐字段吻合,connectImpl 交叉引用 1016 处全解 |
-| IDA MCP | `~/.config/rea/ida-mcp.json`(stdio);IDA GUI 里需 Ctrl+Alt+M 启动插件服务 |
-| GitHub 代理 | `192.168.1.106:7890`(push 必带 `-c http.proxy=…`) |
-| 提交规范 | 中文,force 推送需覆盖远端 dev |
-| ptrace_scope | 已恢复 1(动态分析时临时置 0) |
-| 远端 dev | 已同步(本地=远端=同一链) |
+| 目标二进制 | /opt/WindTerm_2.7.0/WindTerm(仓库根有副本) |
+| Ghidra 12.1.4 | 自动引擎 |
+| IDA Pro 9.1 | 深度;**基址差:IDA = Ghidra − 0x400000** |
+| kuna CLI | ~/.local/share/rea/bin/kuna |
+| GitHub 代理 | 192.168.1.106:7890(push 必带 `-c http.proxy=…`) |
+| 提交规范 | 中文,每轮一条 commit 一条 push |
 
-## 当前任务(批次 ②,剩余 ~168 占位体)
+## 转写方法(AGENTS.md 铁律)
 
-第一批(光标/擦除/滚动族)已完成,方法学验证有效:
-适配器(0x7c 段)→ Screen(0x7e 段)→ TerminalCore(0x7a 段)三层各归其位。
-`SuperCommander.cpp` 由 `/tmp/opencode/gen_sc.py` 生成(B 表按 (名,参数数)
-键控;生成脚本在会话 /tmp,重写很快——B 表映射见 cpp 内注释即可重建)。
-
-批次 ③(剩余):报告类(reportDevice*/request* 0x7ea8-0x7f35 段)、
-locator 交互、zmodem(0x7e67/0x7e68)、mediaCopy、notify* 家族、
-setColumnsPerPage/refreshScreen 等杂项。
-
-转写方法(已验证):
-0. 工具优先(tools/re/README.md):xref_scan.py 查调用者、fdes.json
-   权威边界、qmo_extract.py 枚举表;反编译语料已入库
-   tools/re/decomp(`grep -n "entry=007xxxxx"` 直达函数,免 grep 全库)
-1. 查 `SUPERCOMMANDER-IMPL.md`(264 行,方法→实现地址→模板)
-2. `procedure_pseudo_code(<实现地址>)`(Ghidra)反编译目标
-3. Screen 层逻辑落 `Screen.cpp`,core 层逻辑落 `TerminalCore.cpp`,
-   槽体只留守卫 + `m_screen->` 调用
+0. 工具优先:tools/re/decomp/(49M 主语料)> kuna > IDA
+1. `grep -n "entry=ADDR"` 定位函数 → sed 截函数体
+2. 真实现写入正确目录(src/Sessions|Editor|Widgets|Utility)
+3. 每行代码引用 `FUN_XXXXXXXX` 或 `// cited` 标记
 4. 分批提交(中文信息)
 
 ## 已还原资产索引
 
-- `src/Sessions/*.md`:SSH-INTERNALS(SSH 深度)/ PROTOCOL-ARCHITECTURE
-  (Telnet 配置驱动 + Tcp/Serial 死导入定论)/ STATE-MACHINE(Frida 实测
-  状态机)/ TERMINAL-CORE(结构体 + 调用链)/ IMPL-ADDRESSES 与
-  SUPERCOMMANDER-IMPL(方法→地址表)
-- `src/Sessions/KingEnums.h`:45 枚举权威值
-- `src/Sessions/TerminalCore.h/.cpp`:屏幕核心结构体 + 6 方法(已转写)
-- `src/libssh`:0.9.6+补丁精确源码;`src/Onigmo`:5.13.5+迭代器补丁
-- `tools/re`:qmo_extract.py(QMetaObject 提取)/ xref_scan.py(numpy
-  交叉引用引擎)/ ehframe_fdes.py(函数边界)/ frida_statechanged.js
-  (动态状态机钩子)/ data(49 API 调用点、30566 FDE、方法表等)
+- `docs/*.md`:SSH-INTERNALS / PROTOCOL-ARCHITECTURE / STATE-MACHINE /
+  TERMINAL-CORE / IMPL-ADDRESSES / SUPERCOMMANDER-IMPL /
+  EDITOR-ENGINE-COMMANDS(336 命令) / EDITOR-SCINTILLA-MAP(120 真名) /
+  SESSION-CONFIG-LAYER / SCREEN-SIGNALS / TEXTVIEW-* / KING-ENUMS /
+  CLASSES-SWEEP / MOC-NAMES
+- `src/Utility/KingEnums.h`:45 枚举权威值
+- `tools/re/`:全部逆向工具 + 49M 反编译语料 + data/(方法表/调用点)
+- `AGENTS.md`:完整方法论 + 13 项踩坑
+- `docs/PLAN.md`:202 项待收口计划(Phase 1-5)
 
 ## 已知开放问题
 
-- Tcp/Serial:死导入已定论(Linux 主程序为纯壳),串口走 src/Pty
-- TelnetProtocol 构造地址未精确锚定(0x7065aa 是 UI 字符串用户)
-- TerminalCore `+0x78/+0x10` 热成员类型已定性(行表/文档指针),
-  其余次级成员(+0x2c 等)按需
-- `King::DataType`(SuperCommander 参数类型):无 Q_ENUM 注册,值域需从
-  使用处代码反推——45 枚举表之外唯一已知缺口
-  (枚举权威 = QMetaObject 表直读,见 KING-ENUMS-AUTHORITATIVE.md 更正)
+- `King::DataType`:无 Q_ENUM 注册,值域需代码反推
+- keymap 方言表(DECDSR 26):三字节运行期取值,静态封箱
+- Screen.cpp 38 cited(Phase 1 目标)
+- EditorEngine customDispatch ~40 fork 特性(Phase 3 目标)
+- UI 装配(Phase 4-5 目标)

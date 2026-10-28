@@ -10,13 +10,17 @@
 
 - [x] 语法自洽(Sessions/Widgets/Protocols/Utility 全 .cpp 0 错)
 - [x] moc 22/22 零错
-- [x] libWindTermRe.so 9.08MB,dlopen OK
+- [x] libWindTermRe.so 8.82MB,dlopen OK
 - [x] 三冒烟全绿(engtest2/engtest/sshsmoke)
 - [x] 五源码树入库(libssh/Onigmo/Scintilla/jsoncpp/yaml-cpp)
 - [x] Scintilla 静态库(16.5+0.6MB)混合架构验证
 - [x] King 45 枚举权威值域
 - [x] 终端栈 Commander→Screen→TerminalCore 全真实现
 - [x] 编辑引擎 336 命令混合架构(真 Scintilla + 自研 EXT/WT)
+- [x] 目录归位(Sessions 60→48;Editor/Widgets/Utility/docs 分立)
+- [x] CMake 构建体系(静态库 lib/*.a 20MB 入库;增量 0.08s)
+- [x] AGENTS.md 方法论(4 铁律 + 13 踩坑)
+- [x] stubs 统一为 gen_stubs.cpp(~70 行;SuperSession 认证族真身化)
 
 ---
 
@@ -166,7 +170,7 @@ TextView.h 中 `property()/setProperty()/schemeName()/find()` 4 函数
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| stubs_remaining.cpp | 1 | 112 行 | → 0 |
-| TextView.h | 1 | 1 | → 0 |
+| gen_stubs.cpp | 1 | ~70 行 | → 0 |
+| Widgets/TextView.h | 1 | 1 | → 0 |
 
-| **总计** | ~6 | **~202** | → **0** |
+| **总计** | ~6 | **~160** | → **0** |
