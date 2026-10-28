@@ -1,0 +1,352 @@
+{
+ "metacall": "0x912400",
+ "methods": [
+  [
+   "asyncMessage",
+   "?",
+   3
+  ],
+  [
+   "autoLoginFailed",
+   "?",
+   0
+  ],
+  [
+   "commanderCreated",
+   "?",
+   1
+  ],
+  [
+   "commandOutput",
+   "?",
+   2
+  ],
+  [
+   "errorOccurred",
+   "?",
+   2
+  ],
+  [
+   "loggerCreated",
+   "?",
+   1
+  ],
+  [
+   "loggerRemoved",
+   "?",
+   1
+  ],
+  [
+   "stateChanged",
+   "?",
+   2
+  ],
+  [
+   "syncMessage",
+   "?",
+   4
+  ],
+  [
+   "termCreated",
+   "?",
+   2
+  ],
+  [
+   "transferCreated",
+   "?",
+   1
+  ],
+  [
+   "authAgent",
+   "SLOT",
+   1
+  ],
+  [
+   "authAgent",
+   "SLOT",
+   0
+  ],
+  [
+   "authMethods",
+   "SLOT",
+   0
+  ],
+  [
+   "authNone",
+   "SLOT",
+   1
+  ],
+  [
+   "authNone",
+   "SLOT",
+   0
+  ],
+  [
+   "authGssapiWithMic",
+   "SLOT",
+   1
+  ],
+  [
+   "authGssapiWithMic",
+   "SLOT",
+   0
+  ],
+  [
+   "authInteractive",
+   "SLOT",
+   2
+  ],
+  [
+   "authInteractive",
+   "SLOT",
+   1
+  ],
+  [
+   "authInteractive",
+   "SLOT",
+   0
+  ],
+  [
+   "authInteractiveInstruction",
+   "SLOT",
+   0
+  ],
+  [
+   "authInteractivePrompts",
+   "SLOT",
+   0
+  ],
+  [
+   "authInteractiveUser",
+   "SLOT",
+   0
+  ],
+  [
+   "authOneKey",
+   "SLOT",
+   2
+  ],
+  [
+   "authPassword",
+   "SLOT",
+   2
+  ],
+  [
+   "authPassword",
+   "SLOT",
+   1
+  ],
+  [
+   "authPublicKey",
+   "SLOT",
+   3
+  ],
+  [
+   "authPublicKey",
+   "SLOT",
+   2
+  ],
+  [
+   "autoLogin",
+   "SLOT",
+   0
+  ],
+  [
+   "drop",
+   "SLOT",
+   0
+  ],
+  [
+   "fingerprint",
+   "SLOT",
+   1
+  ],
+  [
+   "fingerprint",
+   "SLOT",
+   0
+  ],
+  [
+   "flushLogger",
+   "SLOT",
+   1
+  ],
+  [
+   "hostAddress",
+   "SLOT",
+   0
+  ],
+  [
+   "hostName",
+   "SLOT",
+   0
+  ],
+  [
+   "isConnected",
+   "SLOT",
+   0
+  ],
+  [
+   "isDuplicable",
+   "SLOT",
+   0
+  ],
+  [
+   "isUnconnected",
+   "SLOT",
+   0
+  ],
+  [
+   "lastError",
+   "SLOT",
+   0
+  ],
+  [
+   "lastErrorString",
+   "SLOT",
+   0
+  ],
+  [
+   "name",
+   "SLOT",
+   0
+  ],
+  [
+   "needVerifyServerFingerprint",
+   "SLOT",
+   0
+  ],
+  [
+   "open",
+   "SLOT",
+   0
+  ],
+  [
+   "opensshVersion",
+   "SLOT",
+   0
+  ],
+  [
+   "option",
+   "SLOT",
+   1
+  ],
+  [
+   "pauseLogger",
+   "SLOT",
+   1
+  ],
+  [
+   "protocolName",
+   "SLOT",
+   0
+  ],
+  [
+   "removeCommander",
+   "SLOT",
+   1
+  ],
+  [
+   "removeLogger",
+   "SLOT",
+   2
+  ],
+  [
+   "removeTerm",
+   "SLOT",
+   1
+  ],
+  [
+   "removeTransfer",
+   "SLOT",
+   1
+  ],
+  [
+   "resumeLogger",
+   "SLOT",
+   1
+  ],
+  [
+   "serverBanner",
+   "SLOT",
+   0
+  ],
+  [
+   "setOption",
+   "SLOT",
+   2
+  ],
+  [
+   "setOption",
+   "SLOT",
+   1
+  ],
+  [
+   "state",
+   "SLOT",
+   0
+  ],
+  [
+   "verifyKnownHost",
+   "SLOT",
+   0
+  ],
+  [
+   "writeKnownHost",
+   "SLOT",
+   1
+  ]
+ ],
+ "metacall_cases": {
+  "0": "FUN_009121fc",
+  "1": "FUN_009121e8",
+  "2": "FUN_0091223a",
+  "3": "FUN_00912312",
+  "4": "FUN_00912342",
+  "5": "FUN_00912264",
+  "6": "FUN_0091228e",
+  "7": "FUN_0091237e",
+  "8": "FUN_009123ba",
+  "9": "FUN_009122b8",
+  "10": "FUN_009122e8",
+  "11": "FUN_007d42a0",
+  "12": "FUN_007d42a0",
+  "13": "FUN_007d68ce",
+  "16": "FUN_007d42d6",
+  "17": "FUN_007d42d6",
+  "18": "FUN_007d430c",
+  "19": "FUN_007d430c",
+  "20": "FUN_007d430c",
+  "21": "FUN_007d4358",
+  "22": "FUN_007d694e",
+  "23": "FUN_007d446e",
+  "25": "FUN_007d4586",
+  "26": "FUN_007d4586",
+  "27": "FUN_007d45d2",
+  "28": "FUN_007d45d2",
+  "30": "FUN_007d48cc",
+  "31": "FUN_007d4c60",
+  "32": "FUN_007d4c60",
+  "33": "FUN_007d4d7c",
+  "34": "FUN_007d4d9c",
+  "36": "FUN_007d6736",
+  "37": "FUN_007d5da2",
+  "38": "FUN_007d6722",
+  "39": "FUN_007d4dc4",
+  "40": "FUN_007d4dda",
+  "44": "FUN_007d5422",
+  "46": "FUN_007db8a6",
+  "48": "FUN_007da09a",
+  "49": "FUN_007db8ee",
+  "50": "FUN_007dac60",
+  "51": "FUN_007dad94",
+  "52": "FUN_007dc11e",
+  "53": "FUN_007d5e68",
+  "54": "FUN_007d6378",
+  "55": "FUN_007d6378",
+  "56": "FUN_007d6712",
+  "57": "FUN_007d6858",
+  "58": "FUN_007d6896"
+ },
+ "_comment": "SuperSession moc 方法表(59 = 11 信号 + 48 槽,声明序)。metacall_cases:ShellSession_h912400 case→target。remove 家族:+0x18 Commander(007da09a,删同 uuid 全部节点) / +0x20 Term(007dac60) / +0x28 Transfer(007dad94) / +0x40 Logger(007e159e;007db8ee 发 loggerRemoved=0091228e)。getter 均为协议对象(+0x10 dynamic_cast)虚转发,Phase-4 接。"
+}

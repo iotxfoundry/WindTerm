@@ -71,7 +71,7 @@
 | markLocatorChanged | ✅(1a 完成) | ✅ |
 | notifyMessageEx | =00913540 信号34 windowSizeChanged(resizeScreen 尾实锤) | ✅(1d) |
 | highlightTracking | 007eac52:+0x158 4-int 追踪矩形,mode 0 释放;spec 4 整数(首段 1-based 递减) | ✅(近似:语料变体解包以 splitParams 等价) |
-| notifyCommand/notifyFig/Hyperlink/Iterm2/Message | moc 名权威定名+真身(见 supercommander_moc_methods.json);**notifyOsc 原版不存在** | ✅ |
+| notifyCommand/notifyFig/Hyperlink/Iterm2/Message | moc 名权威定名+真身;**notifyOsc 原版不存在**;notifyCommand=A/B/C;N 命令字解析 | ✅ |
 | setWindowIconAndTitle / setWindowTitleBuffer | 007cd902/007cd366:标题经 +0xe0 缓冲编解码、+0x120 自旋锁、+0x118 交换;宿主对象(Screen vs view)待适配器反汇编定 | ⬜ |
 
 ### 1c. 解码/样式族 ⏳
@@ -134,10 +134,15 @@
 +0x18 注册表、逐对象 vtable+0x20 拆除);removeRegistry → loggerRemoved
 信号已发;loggerOp 对象面(spdlog sink)Phase-4 cited。
 **option/setOption → CTerminalConfig 单例真链 ✅**(见 4a)。
-open/drop/12 getter:metacall(ShellSession_h912400)已抽到函数簇
-FUN_007d42d6-7d694e——全部转发协议对象(+0x10 dynamic_cast + vtable
-查询 0x68/0x80 槽),属 Phase-4 协议布线;列表留 stub。
-行为回归:engtest×2/sshsmoke/recheck(13 例)全绿。
+open/drop/12 getter:metacall(ShellSession_h912400)case→target
+全映射到手(supersession_moc_methods.json)——hostAddress=7d583a/
+name=7d5b1a/protocolName=7d5d2a/state=7d6712/needVerify=7d5cb8/
+open=vtable+0x60 虚调等;getter 均为协议对象(+0x10 dynamic_cast)
+虚转发,Phase-4 布线;stub 保留(行为=空协议对象)。
+**moc 权威抽取器已通用化**(stringdata 每串一 QArrayData,offset
+相对条目;data[4]/[5]=方法数/偏移):screen 37 方法 / supersession
+59 方法(11 信号+48 槽)/supercommander 264 方法三表入库。
+行为回归:engtest×2/sshsmoke/recheck 全绿。
 
 ### 2c. TextView 收口 ✅
 property/setProperty 换原生 QMap<QString,QVariant>(原 qmap thunk 桩

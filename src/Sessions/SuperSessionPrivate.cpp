@@ -18,8 +18,10 @@ SuperSessionPrivate::~SuperSessionPrivate()
 }
 
 // --- 注册表:四个 UUID→对象表(kind: 0=Commander 1=Term 2=Transfer 3=Logger)---
-// 逆向锚:SuperSession_h7d7096(dtor 走查 +0x18 注册表 QMap,逐对象
-// vtable+0x20 拆除);loggerRemoved 等 moc 信号名权威
+// 逆向锚(权威):SuperSession+0x18 Commander(007da09a:自旋锁 +0x61,
+// 删同 uuid 全部节点,逐个释放 +0x18/+0x20,尾 vtable+0x20 拆除)/
+// +0x20 Term(007dac60)/ +0x28 Transfer(007dad94)/ +0x40 Logger
+// (007db8ee:keepFlag bit2@+0x19 免拆,发 loggerRemoved=0091228e)
 void SuperSessionPrivate::removeRegistry(int kind, const QUuid &id)
 {
 	if (kind < 0 || kind > 3)
