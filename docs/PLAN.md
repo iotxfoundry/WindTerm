@@ -71,7 +71,7 @@
 | markLocatorChanged | ✅(1a 完成) | ✅ |
 | notifyMessageEx | =00913540 信号34 windowSizeChanged(resizeScreen 尾实锤) | ✅(1d) |
 | highlightTracking | 007eac52:+0x158 4-int 追踪矩形,mode 0 释放;spec 4 整数(首段 1-based 递减) | ✅(近似:语料变体解包以 splitParams 等价) |
-| notifyOsc / notifyCommand | body 未定位;XTWINOPS(007f298e)族发 windowTitleChanged 状态码 1-7,OSC 解析在 processData 侧 | ⬜ |
+| notifyCommand/notifyFig/Hyperlink/Iterm2/Message | moc 名权威定名+真身(见 supercommander_moc_methods.json);**notifyOsc 原版不存在** | ✅ |
 | setWindowIconAndTitle / setWindowTitleBuffer | 007cd902/007cd366:标题经 +0xe0 缓冲编解码、+0x120 自旋锁、+0x118 交换;宿主对象(Screen vs view)待适配器反汇编定 | ⬜ |
 
 ### 1c. 解码/样式族 ⏳
