@@ -72,6 +72,41 @@ QVariant EditorEngine::charRectAt(long long pos)
 	return QVariant(QRect(x, (int)(line * lineH), x2 - x, lineH));
 }
 
+QVariant EditorEngine::colAt(long long pos)
+{
+	// FUN_00a2a0ea:列 = 视图调整(009588b8 行内游走 cited → 列适配)+
+	//  pos>textLength 补差(原样比较)- 模式选 +0x148/+0x158
+	const long long line = m_edit->send(SCI_LINEFROMPOSITION, pos, 0);
+	long long col = pos - m_edit->send(SCI_POSITIONFROMLINE, line, 0);
+	if (col < 0)
+		col = 0;
+	const long long tl = m_edit->send(SCI_GETLENGTH, 0, 0);
+	if (pos - tl > 0)
+		col += pos - tl;
+	col -= (long long)(m_ctx.hexMode ? m_ctx.bufField148 : m_ctx.bufField158);
+	return QVariant((int)col);
+}
+
+QVariant EditorEngine::textUpTo(long long pos)
+{
+	// FUN_00a2a15e:buf_substr(缓冲起点, node.pos) → UTF-8;
+	// 起点链 0092522a/00925200 cited → 行首适配
+	if (pos < 0)
+		return QVariant(QString());
+	const long long line = m_edit->send(SCI_LINEFROMPOSITION, pos, 0);
+	const long long start = m_edit->send(SCI_POSITIONFROMLINE, line, 0);
+	const long long n = pos - start;
+	if (n <= 0)
+		return QVariant(QString());
+	QByteArray buf((int)n + 1, 0);
+	Sci_TextRange tr;
+	tr.chrg.cpMin = (Sci_PositionCR)start;
+	tr.chrg.cpMax = (Sci_PositionCR)pos;
+	tr.lpstrText = buf.data();
+	m_edit->send(SCI_GETTEXTRANGE, 0, (sptr_t)&tr);
+	return QVariant(QString::fromUtf8(buf.constData()));
+}
+
 QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
                                       const QVariant &b)
 {
@@ -380,12 +415,20 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x75dc:     // 存储块样式 run 合成查询(00928624+runlen)——runnode cited
-	case 0x75dd:     // 0092522a(buffer, +0x20d run)——runnode cited
-	case 0x75de:     // +0x20d run → QVariant(0096bbc0)——runnode cited
+	case 0x75dc: {   // FUN_00928624:行扫描到 \n 的长度 + 存储节点样式
+	                 //  (0092522a/00925200 buffer 链 cited;行长=SCI 适配)
+		const RunNode &n = m_ctx.blockNode;
+		const long long line = m_edit->send(SCI_LINEFROMPOSITION, n.pos, 0);
+		const long long len = m_edit->send(SCI_GETLINEENDPOSITION, line, 0)
+		    - m_edit->send(SCI_POSITIONFROMLINE, line, 0);
+		return QVariant((int)(n.style() + len));
+	}
+	case 0x75dd:     // FUN_0092522a → FUN_00980684(+0xf8 buffer obj)——cited
 		return QVariant();
-	case 0x75df:     // +0x20d run 文本长(qstrdata_length)——runnode cited
-		return QVariant(0);
+	case 0x75de:     // +0x1068 存储节点 pos(FUN_0096bbc0 = *(x+8))
+		return QVariant((long long)m_ctx.blockNode.pos);
+	case 0x75df:     // 存储节点样式(qstrdata_length_get 复用:word0>>1)
+		return QVariant(m_ctx.blockNode.style());
 	case 0x75e0:     // +0x210 写(00a2cea8 刷新 cited)
 		m_ctx.flag210 = a.toBool();
 		return QVariant(0);
@@ -412,16 +455,23 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant();
 	case 0x75e9:     // 点→锚点(FUN_00a2a002:模式选 +0x148/+0x158)——cited
 		return QVariant();
-	case 0x75ea:     // 当前块样式 run 文本(FUN_00a2a21c:+0x1068)——runnode cited
-		return QVariant(QString());
-	case 0x75eb:     // 点→hitTest→run int(00a2a0ea)——runnode cited
-		return QVariant(0);
-	case 0x75ec:     // runnode(pos)→int(00a2a0ea)——cited
-		return QVariant(0);
-	case 0x75ed:     // hitTest(pt,exact)→文本(00a2b854→00a2a15e)——cited
-		return QVariant(QString());
-	case 0x75ee:     // runnode(pos)→文本(00a2a15e)——cited
-		return QVariant(QString());
+	case 0x75ea:     // 块节点文本(FUN_00a2a21c→00a2a15e:+0x1068 节点;
+	                 //  buf_substr(缓冲起点, node.pos),起点链 cited)
+		return textUpTo(m_ctx.blockNode.pos);
+	case 0x75ee:     // runnode(pos)→文本(00a2a15e 同体)——行首适配
+		return textUpTo(a.toLongLong());
+	case 0x75eb: {   // 点→hitTest→节点→FUN_00a2a0ea(列,原样含
+	                 //  pos>textLength 补差)
+		const QPoint p = a.toPoint();
+		return colAt(send(SCI_POSITIONFROMPOINT, p.x(), p.y()));
+	}
+	case 0x75ec:     // runnode(pos)→列(FUN_00a2a0ea)
+		return colAt(a.toLongLong());
+	case 0x75ed:     // hitTest(pt,exact)→文本(00a2b854→00a2a15e)
+	{
+		const QPoint p = a.toPoint();
+		return textUpTo(send(SCI_POSITIONFROMPOINT, p.x(), p.y()));
+	}
 	case 0x75ef:     // FUN_00a29eb6 —— cited
 		return QVariant();
 	case 0x75f0:     // FUN_00a2a44a(177B 块跳转)——cited

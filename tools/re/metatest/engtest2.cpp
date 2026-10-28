@@ -52,5 +52,16 @@ int main(int argc, char **argv)
 	e.dispatch(0x75fc, QByteArray("HH:mm zz"));           // 'z' 探测
 	e.dispatch(0x75d9, 250);
 	printf("scale=%d\n", e.dispatch(0x75d8).toInt());
+	// --- runnode 面(RunNode 值类型 + 升级命令)---
+	RunNode n = RunNode::make(42, 7, true);
+	printf("node<pos=%lld style=%d flag=%d valid=%d> ",
+	       (long long)n.pos, n.style(), (int)n.flag(), (int)n.isValid());
+	RunPair pair;
+	pair.first = RunNode::make(10, 0, false);
+	pair.second = RunNode::make(25, 0, false);
+	printf("pairLen=%lld complete=%d ", pair.length(), (int)pair.complete());
+	printf("text@4='%s' col@4=%d\n",
+	       e.dispatch(0x75ee, 4).toString().toUtf8().constData(),
+	       e.dispatch(0x75ec, 4).toInt());
 	return 0;
 }

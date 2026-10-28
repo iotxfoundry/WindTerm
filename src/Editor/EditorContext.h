@@ -8,10 +8,10 @@
 // (session_view_soft_reset)与视图刷新(vtable+0xa0)腿在 Phase-4
 // 视图装配时接线。
 
-#include <QList>
 #include <QString>
 #include <QVariant>
 #include <QVariantList>
+#include "RunNode.h"
 
 class EditorContext
 {
@@ -87,6 +87,10 @@ public:
 	QByteArray timestampFormat;      // 0x75fc(00927216:indexOf('z') 探测)
 	bool timestampHasZ = false;
 	QByteArray timestampLongFormat;  // 0x75fe
+
+	// --- runnode 面(+0x1068 块光标锚;写入=块编辑路径 00a2a2xx)---
+	RunNode blockNode;               // 当前块样式节点(0096bbc6/00a2a2xx 写)
+	quint32 bufField148 = 0;         // buffer+0x148(0x75ec hex 模式选)
 
 	// --- 语义动作 ---
 	void setHexBase(int base)

@@ -222,7 +222,23 @@ indexOf('z')→布尔;串存 +0x290)。
 0x75e3/75e5/75e8/75e9/75ea/75eb/75ec/75ed/75ee/75ef/75f0(点/
 run 变换深腿)、0x75f7(447B iter 0x200)、0x75f8(1544B 节点树)、
 0x75fa/75fb(hex 子态行文本)——runnode/坐标模型随 Phase-4。
-冒烟:line@4、rect@0=<5,0,10,22>、f160neg=-1、scale=250。
+**批 6(2026-10-28):runnode 模型** —— RunNode/RunPair 值类型
+入库(src/Editor/RunNode.h;结构锚 runstyles_runnode_init
+@0096bac0:u32 style<<1|flag / s64 pos(-1 无效,0096bbb4 判定)/
+f64 width(-1.0 未设);Pair={flags,A,B}=位置区间,0096beb4 完整
+判定/0096bed4 距离)。引擎存储块节点 = +0x1068(块光标编辑路径
+00a2a2xx 写,0096bbc6 置位)。升级 8 条 cited→实身:
+0x75dc(节点样式+行扫描长,00928624)、0x75de(节点 pos,
+0096bbc0=*(x+8))、0x75df(节点样式,qstrdata_length_get 位
+复用 word0>>1)、0x75ea(块节点文本,00a2a21c→00a2a15e
+buf_substr(起点,node.pos))、0x75eb/75ec(列,FUN_00a2a0ea
+原样含 pos>textLength 补差 + hexMode 选 +0x148/+0x158)、
+0x75ed/75ee(hitTest/runnode 文本)。colAt/textUpTo 适配器。
+冒烟:node 往返/pairLen=15/text@4='hell'/col@4=4。
+**runnode 下一层**:标记注册表(+0x1098+0x100 sortedvec;
+FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
+(标记对 → RunPair → 选区);convertRowToHistory(007a9582)
+仍是 Screen 侧独立大件。
 
 ### 3a. 已定名的 WT 命令(有 Scintilla 等价)⬜
 | WT cmd | Scintilla API | 语义 |
