@@ -25,7 +25,7 @@
 | Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(批 3-5 共 55 条;WT 尾块收口,详见 Phase 3 节) |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 5 行为对比 | ⬜(需渲染层) |
+| Phase 5 行为对比 | ⏳ **v1 管线通**(Xvfb 原版 + Frida 格子读回/注入;writeText/vt14 语义实锤——见 docs/PHASE5.md) |
 
 测试矩阵:e2eterm 25 + recheck 22 + engtest×2 + sshsmoke 全绿。
 gen_stubs 70→5。测试策略与保真约束见下方"测试策略"块。
