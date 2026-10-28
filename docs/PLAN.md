@@ -181,7 +181,11 @@ find 种子/引擎面 Phase-4 cited。
 ### 4a. QApplication 启动路径 ⏳
 - **SessionManager ✅**(2026-10-28):src/Widgets/SessionManager.{h,cpp}
   ——s_session_uuid_6f571a 转写(uuid/icon/group/label →
-  QStandardItemModel,filter 禁用),会话源=运行期工作区注入
+  QStandardItemModel,filter 禁用)
+- **ProfileLoader ✅**:profile 布局定案(~/.wind/profiles/<name>/
+  terminal/user.sessions 等);loadSessions/saveSessions
+  (FUN_00806904/00806958)+ JSONC 容错解析——SessionManager
+  数据源接通
 - CTerminalConfig 单例 ✅:src/Editor/CTerminalConfig.{h,cpp}——Meyers
   访问器(00809d78)、ctor 默认 prompt ">"+trim 正则(00809b90)、
   wind.config JSONC(vendored jsoncpp,collectComments)载入;
