@@ -132,6 +132,7 @@ public:
 	};
 	WriteTemplate m_writeTemplate;
 	short m_styleCarry60 = 0;      // +0x60 one-shot style carry (FUN_007e4c90 move)
+	void setStyleCarry(int kind, int value);   // FUN_007e4f28: +0x60 = value<<8|kind
 
 	bool m_reverseWraparound2;     // +0x134 note: shared with reverse wrap (DEC 45)
 	bool m_altScreenActive;       // +0x139 (FUN_007e4028)

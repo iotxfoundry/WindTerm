@@ -2907,3 +2907,15 @@ void Screen::highlightTracking(int mode, const QString &spec)
 		rect[i] = parts.at(i).toInt() - 1;
 	m_trackRect = rect;
 }
+
+// ---------------------------------------------------------------------------
+// +0x60 style-carry producer (FUN_007e4f28; caller FUN_007c9e90 parses the
+// "A"/"B"/"C[;N]" command words, metacall case 0x6e)
+// ---------------------------------------------------------------------------
+
+void Screen::setStyleCarry(int kind, int value)
+{
+	// FUN_007e4f28 (15B): kind in the low byte, value (<0x100) in the
+	// high byte; buildWriteTemplate moves it into the next written cell
+	m_styleCarry60 = (short)((value << 8) | (kind & 0xff));
+}
