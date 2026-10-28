@@ -174,10 +174,13 @@ find 种子/引擎面 Phase-4 cited。
 - 会话管理器 0x006f571a(QStandardItemModel)连 UI
 - 工作区装载器 0x00522056 → Terminal/Editor/Browser 三面板恢复
 
-### 4b. TerminalWidget 组装 ⬜
-- ScintillaEditBase 嵌入(Editor 窗口)
-- Screen.cpp 接 TerminalCore(SGR/DECSM 状态机→Scintilla 或自研)
-- SuperCommander → SuperSession 命令转发(SuperBridge 桥)
+### 4b. TerminalWidget 组装 ⏳
+- **端到端数据路径已通 ✅**(2026-10-28 晚):Screen+core resize→
+  writeText(ASCII/换行/边缘 wrap latch)→ 单元格逐格校验,
+  e2eterm.cpp 10 断言全过;writeText 修复三处真 bug(sCharClass
+  硬编码地址/cell-head 不步进/越缘 stale 计数)
+- ScintillaEditBase 嵌入(Editor 窗口)⬜
+- SuperCommander → SuperSession 命令转发(SuperBridge 桥)⬜
 
 ### 4c. 主窗口(Kit/TerminalWindow)⬜
 - MenuBar/ToolBar/StatusBar 恢复(0x8d2f7e 启动恢复)
