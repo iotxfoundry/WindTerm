@@ -176,6 +176,86 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //  FUN_00a20104 + FUN_00926ebc(+0x1098))
 		m_ctx.snippetMode = false;
 		return QVariant(0);
+	// --- 批 3:清格式 / margin 元数据 / 视口滚动(语料 decomp-part-0034)---
+	case 0x7558: {   // clearFormatting(FUN_00927a24 守卫 + FUN_00a26756)
+		if (m_ctx.snippetMode)             // FUN_009290e8 守卫(00a26756 头)
+			return QVariant(0);
+		const bool flag = m_ctx.bufferStyleFlag;
+		if (flag)
+			m_ctx.bufferStyleFlag = false; // FUN_00927a30(buf,0)
+		// FUN_00927dbe/00927ebc/00927be6 buffer 通知腿 — cited
+		const sptr_t s = send(SCI_GETSELECTIONSTART, 0, 0);
+		const sptr_t e = send(SCI_GETSELECTIONEND, 0, 0);
+		if (e > s) {
+			// run-node 空合并(00a26756)→ 选区回归默认样式的适配映射
+			send(SCI_STARTSTYLING, s, 0xff);
+			send(SCI_SETSTYLING, e - s, 0);
+		}
+		m_ctx.pairCacheFc0 = 0;            // +0xfc0/+0xfc8 清零
+		m_ctx.pairCacheFc8 = 0;
+		// session_view_soft_reset — cited(Phase-4 视图)
+		if (flag)
+			m_ctx.bufferStyleFlag = true;  // FUN_00927a30(buf,1)
+		return QVariant(0);
+	}
+	case 0x7567: {   // setMarginWidth(real → +0x1a2;变化才动作)
+		const double w = a.toReal();
+		if (w != m_ctx.marginWidth) {
+			m_ctx.marginWidth = w;
+			// FUN_00959890(buf,-1,-1)全程样式失效(+0x14/+0x168 守卫
+			// 与逐位置循环 — cited)+ number/timestamp margin 刷新
+			// (s_margin_a302fe/a30e02)+ soft_reset — cited
+		}
+		return QVariant(0);
+	}
+	case 0x7568: {   // setMarginIcons(list → +0x1b4;先清空再过滤追加)
+		QList<int> icons;
+		const QVariantList in = a.toList();
+		for (const QVariant &v : in) {
+			if (!v.canConvert<int>())
+				continue;
+			const int n = v.toInt();
+			if (n >= 0)
+				icons.append(n);           // FUN_00a4bb6a(QList append)
+		}
+		m_ctx.marginIcons = icons;
+		// vtable+0xa0 视图刷新 — cited(Phase-4)
+		return QVariant(0);
+	}
+	case 0x75ad:     // 可见行数(FUN_00a20438:像素高/行高,≥1)
+		return QVariant(qMax(1, (int)send(SCI_LINESONSCREEN, 0, 0)));
+	case 0x75ae: {   // 行高(FUN_00a2b0a2 重算 388B cited → +0xd04)
+		return QVariant((int)send(SCI_TEXTHEIGHT, 0, 0));
+	}
+	case 0x75b2: {   // 纵向滚动条 max(视口 vt+0xe0(1) → sb+0x30;
+	                 //  适配映射:lineCount - linesOnScreen,≥0)
+		const long long lc = send(SCI_GETLINECOUNT, 0, 0);
+		const long long vis = send(SCI_LINESONSCREEN, 0, 0);
+		return QVariant((long long)qMax<long long>(0, lc - vis));
+	}
+	case 0x75b3:     // 纵向 pageStep(sb pageStep;适配 SCI_LINESONSCREEN)
+		return QVariant((int)send(SCI_LINESONSCREEN, 0, 0));
+	case 0x75b4:     // 视口 +0x2c 字节(FUN_00a2398e:beginIter(2)+写+endIter)
+		m_ctx.viewportFlag2c = a.toInt();
+		return QVariant(0);
+	case 0x75b5: {   // scrollTo(axis,pos):1=纵 00a169cc / 2=横 00a167ac
+		const int axis = a.toInt();
+		const long long pos = b.toLongLong();
+		if (axis == 1) {
+			// max < pos 时像素锚重算(FUN_00a16946)+ doc 通知
+			// (FUN_00a243ae)— cited;可见行为 = 设首可见行
+			send(SCI_SETFIRSTVISIBLELINE, pos, 0);
+		} else if (axis == 2) {
+			send(SCI_SETXOFFSET, pos, 0);  // FUN_00584bd8 夹取由内核做
+		}
+		return QVariant(0);
+	}
+	case 0x75bc:     // setSnippetMode(FUN_00a28efe:行扫描 cited →
+	                 //  FUN_00926fde;失败且 on 则取消)
+		m_ctx.snippetMode = a.toBool();
+		return QVariant((bool)m_ctx.snippetMode);
+	case 0x75bf:     // 片段会话活跃?(FUN_00926eb0:+0xd0 != 0)
+		return QVariant((bool)m_ctx.snippetMode);
 	case 0x7594:     // removeMargin(FUN_00a4bc60:按名移除)
 		m_ctx.removeMargin(a.toString());
 		return QVariant(0);

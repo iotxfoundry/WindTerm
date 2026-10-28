@@ -8,6 +8,7 @@
 // (session_view_soft_reset)与视图刷新(vtable+0xa0)腿在 Phase-4
 // 视图装配时接线。
 
+#include <QList>
 #include <QString>
 #include <QVariant>
 #include <QVariantList>
@@ -50,6 +51,18 @@ public:
 	// --- pair 高亮/片段(0x7583/75b4/75b5/75ba)---
 	int pairHighlightUnmatched = 0;  // FUN_00a10c68 置 2(枚举)
 	bool snippetMode = false;        // FUN_00926ebc(+0x1098)状态位
+
+	// --- 视口/滚动(0x75b2-75b5;FUN_00a169cc/00a167ac 对)---
+	int viewportFlag2c = 0;          // 视口对象 +0x2c 字节(0x75b4 写)
+
+	// --- margin 元数据(0x7567/7568)---
+	double marginWidth = 0;          // +0x1a2(double)
+	QList<int> marginIcons;          // +0x1b4(QList<int>;0x7568 重建)
+
+	// --- 样式剥离(0x7558;FUN_00a26756 尾)---
+	bool bufferStyleFlag = false;    // +0x1098 buffer 样式收集标志
+	quint64 pairCacheFc0 = 0;        // +0xfc0(剥离时清零)
+	quint64 pairCacheFc8 = 0;        // +0xfc8
 
 	// --- 语义动作 ---
 	void setHexBase(int base)

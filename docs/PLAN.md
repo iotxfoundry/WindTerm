@@ -22,7 +22,7 @@
 | Phase 0 基础设施 | ✅ |
 | Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
-| Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(30/149;EditorContext 模型) |
+| Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(36/149;批 3=清格式/margin/视口滚动 10 条) |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58(渲染层/深腿 cited) |
 | Phase 5 行为对比 | ⬜(需渲染层) |
@@ -167,19 +167,34 @@ find 种子/引擎面 Phase-4 cited。
 
 ## Phase 3 — 编辑引擎 customDispatch 收口 ⏳(批量模式)
 
-当前状态:26 个 WT 命令已真身(22 + setStyleCarry 链 3 + hex 批 4
-有交叠);其余 ~40 个 fork 特性按 EditorContext 模型逐批落。
+当前状态:36 个 WT 命令已真身;其余按 EditorContext 模型逐批落。
 **方法**:每命令 = EditorContext 字段语义(+语料偏移注释)+ cited
 软复位/刷新尾;软复位(session_view_soft_reset)与视图刷新
 (vtable+0xa0)随 Phase-4 视图装配接线。
 **批 1(2026-10-28)**:EditorContext.h 骨架 + 0x759a/759e/7597/759b。
+**批 3(2026-10-28)**:清格式/margin 元数据/视口滚动 10 条 ——
+0x7558 清格式(00927a24 守卫 + 00a26756 剥离;样式腿=SCI 起止
+styling 适配映射)、0x7567 marginWidth(+0x1a2 double,变化才动)、
+0x7568 marginIcons(+0x1b4 QList<int>,canConvert/≥0 过滤)、
+0x75ad 可见行数(00a20438→SCI_LINESONSCREEN)、0x75ae 行高
+(00a2b0a2 重算 cited→SCI_TEXTHEIGHT)、0x75b2/75b3 纵滚动条
+max/pageStep(vt+0xe0(1)→sb+0x30/pageStep 的 SCI 适配)、
+0x75b4 视口 +0x2c 字节(00a2398e beginIter 包裹)、0x75b5 滚动
+(axis 1=纵 00a169cc→SETFIRSTVISIBLELINE / 2=横 00a167ac→
+SETXOFFSET;像素锚 00a16946 cited)、0x75bc 片段模式(00a28efe
+行扫描 cited)、0x75bf 片段会话活跃(00926eb0 = +0xd0!=0)。
+**注**:PLAN 旧表"0x75b4-75b5 pair highlight / 0x75bf canRedo"
+为猜测,语料证伪(disp 叶 24632-24640/24591):b4/b5 = 视口滚动,
+bf = 片段查询;已按语料修正。
+**待下一批**:0x75b6(00a3663e 文本 getter,2025B)、0x75b9
+(009276ee buffer vtable+0x60 工厂)、0x75bb(00a2eee0 片段
+占位符跳转,434B)、0x7556/0x7559-7560/0x756d-756e。
 
 ### 3a. 已定名的 WT 命令(有 Scintilla 等价)⬜
 | WT cmd | Scintilla API | 语义 |
 |---|---|---|
 | 0x7591 margins() | SCI_MARGINGETCOUNT 等 | margin 列表 |
 | 0x75b8 selectionText | SCI_GETSELTEXT | (已有,接公共) |
-| 0x75bf canRedo | SCI_CANREDO | (已有) |
 | 0x75c1 tabSize | SCI_GETTABWIDTH | (已有) |
 | 0x75c4 setTabSize | SCI_SETTABWIDTH | (已有) |
 
