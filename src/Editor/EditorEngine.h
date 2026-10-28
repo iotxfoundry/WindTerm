@@ -37,7 +37,10 @@ private:
 	QVariant scintillaDelegate(uint cmd, const QVariant &a, const QVariant &b);
 	QVariant customDispatch(uint cmd, const QVariant &a, const QVariant &b);
 
-	ScintillaEditBase *m_edit;   // owned
+	ScintillaEditBase *m_edit;
+	// 分隔符双槽(FUN_009279ec:+0x280/+0x288;语义为词/行分隔符组)
+	QString m_separators0;
+	QString m_separators1;   // owned
 };
 
 #endif // EDITORENGINE_H

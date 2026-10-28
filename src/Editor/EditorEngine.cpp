@@ -151,6 +151,14 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant(send(SCI_CANUNDO) != 0);
 	case 0x754f:     // capability 8 探针(只读)
 		return QVariant(send(SCI_GETREADONLY) == 0);
+	case 0x75d6: {   // setWordSeparators(FUN_009279ec:flag 选 +0x288/+0x280 槽)
+		const QString text = b.toString();
+		if (a.toBool())
+			m_separators1 = text;   // +0x288
+		else
+			m_separators0 = text;   // +0x280
+		return QVariant(0);
+	}
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 		// std::string 返回族/hexBase…):真名与语义锚见
