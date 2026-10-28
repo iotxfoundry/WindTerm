@@ -1492,6 +1492,7 @@ void TerminalCore::makeRow(struct Row *row, int cols)
 	memset(row, 0, 0x58);
 	row->length = cols;
 	row->cells = ::operator new((size_t)cols * 0x20);
+	memset(row->cells, 0, (size_t)cols * 0x20);   // 全零:aux 槽 (+0x10) 必须为 null
 	for (int i = 0; i < cols; ++i)
 		((unsigned char *)row->cells)[i * 0x20] = 1;
 	row->attrArray = ::operator new((size_t)cols * 2);

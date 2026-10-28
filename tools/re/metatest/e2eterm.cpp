@@ -65,6 +65,34 @@ int main()
 	printf("row2[0] = %c (want Y)%s\n", (char)h2[0], h2[0] == 'Y' ? "" : "  FAIL");
 	fails += h2[0] != 'Y';
 
+	// 4b) tab / backspace on a fresh 10x40 screen
+	{
+		TerminalCore c2;
+		c2.resizeCore(10, 40);
+		c2.m_flags |= 0x02;
+		Screen s2;
+		s2.m_core = &c2;
+		s2.m_history = new TerminalCore();
+		s2.writeText("ab", 2);
+		s2.writeText("\t", 1);
+		expect("tab to next stop", s2.currentColumn(), 8);
+		s2.writeText("\b", 1);
+		expect("backspace", s2.currentColumn(), 7);
+		// scroll region 1;3 (1-based) -> rows 0..2; walk to bottom, LF scrolls
+		s2.setTopBottomMargins(1, 3);
+		s2.writeText("\r\nab\r\ncd", 8);
+
+		s2.writeText("\r\n", 2);
+		expect("at region bottom row", s2.currentLine(), 2);
+				expect("row after scroll", s2.currentLine(), 2);
+		struct Row *r1s = c2.row(1);
+		unsigned short *h1s = (unsigned short *)r1s->attrArray;
+		// after scroll: old row2 ('cd') becomes row1
+		printf("scroll: row1[0]=%04x (want 'cd'=0063)%s\n", h1s[0],
+		       h1s[0] == 0x63 ? "" : "  FAIL");
+		fails += h1s[0] != 0x63;
+	}
+
 	// 5) UTF-8 multibyte: 你好 = two wide chars (folded cp, 0xffff trail)
 	s.writeText("\xe4\xbd\xa0\xe5\xa5\xbd", 6);
 	expect("cursorX after CJK x2", s.currentColumn(), 5);

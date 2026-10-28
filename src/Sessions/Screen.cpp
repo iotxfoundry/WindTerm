@@ -1472,9 +1472,14 @@ void Screen::writeText(const char *data, int len)
 		m_pendingWrap = 0;
 		while (true) {
 			unsigned int cp = (unsigned char)p[i];
+			// control re-entry (corpus 0x7e7746): special-class bytes
+			// leave the printable pipeline and re-enter the control
+			// dispatch — bail to the outer loop for a fresh refetch
+			if (cp < 0x80 && sCharClass(cp))
+				break;
 			int width;
 			int used;   // bytes consumed by this character
-			if (cp < 0x80 && !sCharClass(cp)) {    // DAT_011c1fe0 table
+			if (cp < 0x80) {
 				width = 1;
 				used = 1;
 			} else {
@@ -1523,7 +1528,9 @@ void Screen::writeText(const char *data, int len)
 			if (i >= n)
 				break;
 		}
-		// row finalize
+		// row finalize (corpus joined_007e7746). The inner loop
+		// self-advances `i` (printables) or leaves it (control
+		// re-entry break), so there is deliberately no trailing i++.
 		if (m_pendingWrap)
 			row->flags |= 0x40;
 		m_core->setRowFlags(row, 1);
@@ -1534,9 +1541,6 @@ void Screen::writeText(const char *data, int len)
 			col = right;
 		m_core->setCursorX(col);
 		m_lastGraphicChar = m_lastCp;              // FUN_007e515e
-		if (m_pendingWrap)
-			continue;
-		i++;
 	}
 	m_core->markDirty(1);
 }
