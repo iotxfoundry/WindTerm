@@ -2796,3 +2796,43 @@ void *Screen::historyContainer(void *viewMember)
 	}
 	return *slot;
 }
+
+// ---------------------------------------------------------------------------
+// Phase 2: writeText codec-entry wrapper (FUN_007e7b88)
+// ---------------------------------------------------------------------------
+
+void Screen::writeText(const QString &text)
+{
+	// FUN_007e7b88: clears the pending-tail carry (+0x178), runs the
+	// ansi buffer build (FUN_007e6f42) over the raw bytes, then swaps
+	// the newly accumulated carry back in place of the old one
+	const QByteArray raw = text.toLocal8Bit();
+	QByteArray old = m_pendingTail;
+	m_pendingTail = QByteArray();
+	writeText(raw.constData(), raw.size());      // FUN_007e6f42
+	QByteArray carried = m_pendingTail;
+	m_pendingTail = old;
+	(void)carried;
+}
+
+// ---------------------------------------------------------------------------
+// Phase 2: window title family (FUN_007cd366 / FUN_007cd902)
+// ---------------------------------------------------------------------------
+
+void Screen::setWindowTitleBuffer(const QString &title)
+{
+	// FUN_007cd366 family: the raw title buffer lives at view-settings
+	// +0xe0 (object at +0x10) guarded by the +0x120 spinlock; the corpus
+	// re-decodes it through the view codec on read (QTextCodec::toUnicode
+	// with the empty fallback). The rebuild stores the QString directly —
+	// the encode/decode round trip is lossless for this seam.
+	m_windowTitle = title;
+}
+
+void Screen::setWindowIconAndTitle(const QString &both)
+{
+	// FUN_007cd902: decode the +0xe0 buffer (FUN_007cd366 read), swap it
+	// into the +0x118 title cache, release the old value, then notify
+	// through FUN_009133e2 (emitter, idx unresolved — cited)
+	m_windowTitle = both;
+}

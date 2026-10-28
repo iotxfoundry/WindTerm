@@ -103,6 +103,7 @@ public:
 	void *m_zmodemTimer; // +0x208
 	int m_pendingWrap;                   // +0x40 (wrap-pending row flag)
 	QByteArray m_pendingHistory;     // +0x1d0 pending history-run bytes (FUN_007e4368)
+	QString m_windowTitle;           // view-settings +0x118 title cache (FUN_007cd902 swap)
 	int m_resizeRows;                 // +0x1c0 (terminal_resizeBuffer tail)
 	int m_resizeCols;                 // +0x1c4
 	int m_lineModeBit;                   // +0x1c8 bit0 source

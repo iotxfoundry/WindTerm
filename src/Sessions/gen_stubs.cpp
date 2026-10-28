@@ -22,10 +22,7 @@ void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
 void Screen::highlightTracking(int, int) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
-void Screen::setWindowTitleBuffer(QString const&) {  } // stub
-void Screen::setWindowIconAndTitle(QString const&) {  } // stub
 void Screen::notifyOsc(int, QString const&) {  } // stub
-void Screen::writeText(QString const&) {  } // stub
 QString SuperSession::fingerprint(King::FingerprintType) const { return QString(); } // stub
 QString SuperSession::hostAddress() const { return QString(); } // stub
 bool SuperSession::isConnected() const { return false; } // stub
