@@ -37,6 +37,7 @@ public:
 private:
 	QVariant scintillaDelegate(uint cmd, const QVariant &a, const QVariant &b);
 	QVariant customDispatch(uint cmd, const QVariant &a, const QVariant &b);
+	QVariant charRectAt(long long pos);   // FUN_00a2267c 适配(0x75d3/75d4)
 
 	EditorContext m_ctx;          // 编辑器上下文状态(Phase-3 模型)
 	ScintillaEditBase *m_edit;

@@ -22,7 +22,7 @@
 | Phase 0 基础设施 | ✅ |
 | Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
-| Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(批 3=10 条批 4=15 条;详见 Phase 3 节) |
+| Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(批 3-5 共 55 条;WT 尾块收口,详见 Phase 3 节) |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58(渲染层/深腿 cited) |
 | Phase 5 行为对比 | ⬜(需渲染层) |
@@ -204,6 +204,25 @@ disp 00a5f0a2;父行解析→SCI_TOGGLEFOLD)。
 与 0x756f 同体)→ 父行解析 + SCI_FOLDLINE(flag 展开位)。
 **悬置**:0x7573(00a5e952 全体方向:ec00/e952 的 contract/
 expand 方向未定,不猜;待 00a2509a 方向证据)。
+**批 5(2026-10-28)**:尾块 0x75d0-0x75ff 共 30 条,dip 24100-24518。
+**实身(22)**:0x75d0 y→行(首行+y/行高;结果≥textLength→-1
+的行/字符比较=原样)、0x75d1/75d2 pos→行(LINEFROMPOSITION 适配,
+00958498/009587cc)、0x75d3/75d4 字符矩形(00a2267c 适配
+x=POINTX/y=行×行高/w=字符宽/h=行高;run 宽内部 cited)、
+0x75d7/75db(+0x1bc 布尔,db 变化才 soft_reset)、0x75d8/75d9
+(doc+0x14 查询/写,FUN_00a245c6 夹 [0,10000];伴侣守卫
+00a21610 cited)、0x75e0/75e2/75f1(+0x210/+0x1083/+0x1082 布尔,
+传播腿 cited)、0x75e6 配色读取("line.caret.remote"+0xedc 特例;
+styleAt 查找腿 cited)、0x75e7 点→列(00a29fa8 原点/字宽 →
+pos-行首适配)、0x75f2/75f3/75f4(buffer+0x158/+0x160;<0→-1)、
+0x75f5(00925ae4 枚举;(v&~4)!=3 → 缓存 -1)、0x75f9/75ff
+(+0xd8 obj 字段查询/写)、0x75fc/75fe 时间戳格式(00927216:
+indexOf('z')→布尔;串存 +0x290)。
+**cited 骨架(19)**:0x75dc/75dd/75de/75df(+0x20d 存储 run 查询)、
+0x75e3/75e5/75e8/75e9/75ea/75eb/75ec/75ed/75ee/75ef/75f0(点/
+run 变换深腿)、0x75f7(447B iter 0x200)、0x75f8(1544B 节点树)、
+0x75fa/75fb(hex 子态行文本)——runnode/坐标模型随 Phase-4。
+冒烟:line@4、rect@0=<5,0,10,22>、f160neg=-1、scale=250。
 
 ### 3a. 已定名的 WT 命令(有 Scintilla 等价)⬜
 | WT cmd | Scintilla API | 语义 |

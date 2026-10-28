@@ -73,6 +73,21 @@ public:
 	int val1ba = 0;                  // 0x755f 查询
 	double val1bb = 0;               // 0x7560 查询(double)
 
+	// --- 尾块状态(0x75d0-0x75ff;disp 24100-24518)---
+	bool flag1bc = false;            // 0x75d7 查询 / 0x75db 写(+soft_reset)
+	int fontScale = 0;               // doc+0x14(00a218dc);0x75d9 夹 [0,10000]
+	bool flag210 = false;            // 0x75e0(+00a2cea8 刷新 cited)
+	bool flag1083 = false;           // 0x75e2 查询
+	bool flag1082 = false;           // 0x75f1(+009502de 传播 cited+soft_reset)
+	quint32 remoteCaretFlag = 0;     // +0xedc(0x75e6 "line.caret.remote" 特例)
+	quint64 bufField158 = 0;         // buffer+0x158(0x75f3 查询)
+	quint64 bufField160 = 0;         // buffer+0x160(0x75f2 查询/0x75f4 写,<0→-1)
+	quint32 modeEnum2c0 = 0;         // 0x75f5(00925ae4;(v&~4)!=3 时缓存 -1)
+	long long bufObjField = -1;      // 0x75f9 查询(00927170:obj+0x20)/0x75ff 写
+	QByteArray timestampFormat;      // 0x75fc(00927216:indexOf('z') 探测)
+	bool timestampHasZ = false;
+	QByteArray timestampLongFormat;  // 0x75fe
+
 	// --- 语义动作 ---
 	void setHexBase(int base)
 	{

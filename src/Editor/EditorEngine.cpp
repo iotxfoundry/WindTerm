@@ -61,6 +61,17 @@ QVariant EditorEngine::dispatch(uint cmd, const QVariant &a, const QVariant &b)
 	return scintillaDelegate(cmd, a, b);
 }
 
+QVariant EditorEngine::charRectAt(long long pos)
+{
+	// FUN_00a2267c 适配:x=字符起始像素,y=行×行高,w=字符宽,h=行高;
+	// run 宽度内部(FUN_00a225be/00a2240a)cited
+	const long long line = m_edit->send(SCI_LINEFROMPOSITION, pos, 0);
+	const int x = (int)m_edit->send(SCI_POINTXFROMPOSITION, 0, pos);
+	const int x2 = (int)m_edit->send(SCI_POINTXFROMPOSITION, 0, pos + 1);
+	const int lineH = qMax(1, (int)m_edit->send(SCI_TEXTHEIGHT, 0, 0));
+	return QVariant(QRect(x, (int)(line * lineH), x2 - x, lineH));
+}
+
 QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
                                       const QVariant &b)
 {
@@ -327,6 +338,135 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //  回调接线 — 片段标记模型 cited)
 		return QVariant(0);
 	case 0x756e:     // 同 0x756d(变体,cited)
+		return QVariant(0);
+	// --- 批 5:尾块 0x75d0-0x75ff(disp 24100-24518)---
+	case 0x75d0: {   // y→行(FUN_00a2059c:首行+ y/行高;exact 恒 1:
+	                 //  结果 >= textLength → -1,行数与字符数比较=原样)
+		const int y = a.toPoint().y();
+		long long line = send(SCI_GETFIRSTVISIBLELINE, 0, 0)
+		    + y / qMax(1, (int)send(SCI_TEXTHEIGHT, 0, 0));
+		if (send(SCI_GETLENGTH, 0, 0) <= line)
+			line = -1;
+		return QVariant(line);
+	}
+	case 0x75d1:     // pos→行(FUN_009587cc run 查找 — SCI_LINEFROMPOSITION 适配)
+	case 0x75d2:     // pos→行(FUN_00958498)
+		return QVariant((long long)send(SCI_LINEFROMPOSITION,
+		                                a.toLongLong(), 0));
+	case 0x75d3: {   // 点→字符矩形(hitTest→00a2267c;适配:点→pos→矩形)
+		const QPoint p = a.toPoint();
+		const long long pos = send(SCI_POSITIONFROMPOINT, p.x(), p.y());
+		return charRectAt(pos);
+	}
+	case 0x75d4:     // pos→字符矩形(FUN_00a2267c:runX/runW 内部 cited;
+	                 //  适配:x=POINTX,y=line*行高,w=字符宽,h=行高)
+		return charRectAt(a.toLongLong());
+	case 0x75d7:     // +0x1bc 查询
+		return QVariant((bool)m_ctx.flag1bc);
+	case 0x75d8:     // doc+0x14 查询(FUN_00a218dc)
+		return QVariant(m_ctx.fontScale);
+	case 0x75d9: {   // FUN_00a245c6:旧值经 FUN_00958426 通知,新值夹
+	                 //  [0,10000] 回写 doc+0x14;伴侣值守卫(00a21610)cited;
+	                 //  刷新 009753ca/0097a2a4 cited
+		const int v = a.toInt();
+		m_ctx.fontScale = qBound(0, v, 10000);
+		return QVariant(0);
+	}
+	case 0x75db: {   // +0x1bc 写(+变化才 soft_reset)
+		const bool v = a.toBool();
+		if (m_ctx.flag1bc != v) {
+			m_ctx.flag1bc = v;
+			// session_view_soft_reset — cited(Phase-4 视图)
+		}
+		return QVariant(0);
+	}
+	case 0x75dc:     // 存储块样式 run 合成查询(00928624+runlen)——runnode cited
+	case 0x75dd:     // 0092522a(buffer, +0x20d run)——runnode cited
+	case 0x75de:     // +0x20d run → QVariant(0096bbc0)——runnode cited
+		return QVariant();
+	case 0x75df:     // +0x20d run 文本长(qstrdata_length)——runnode cited
+		return QVariant(0);
+	case 0x75e0:     // +0x210 写(00a2cea8 刷新 cited)
+		m_ctx.flag210 = a.toBool();
+		return QVariant(0);
+	case 0x75e2:     // +0x1083 查询
+		return QVariant((bool)m_ctx.flag1083);
+	case 0x75e3:     // FUN_00a2e9e2(296B QVariant 组装)——cited
+		return QVariant();
+	case 0x75e5:     // FUN_00a3175e 动作 —— cited
+		return QVariant(0);
+	case 0x75e6: {   // 配色读取:"line.caret.remote" 且 +0xedc 非空 → 远程
+	                 //  光标色;否则 0095021a key 查 styleAt —— 查找腿 cited
+		if (a.toString() == QLatin1String("line.caret.remote")
+		    && m_ctx.remoteCaretFlag != 0)
+			return QVariant(QColor());   // 色值随配色面(Phase-4)
+		return QVariant(QColor());
+	}
+	case 0x75e7: {   // 点→列(FUN_00a29fa8:(x-原点)/字宽;适配:pos-行首)
+		const QPoint p = a.toPoint();
+		const long long pos = send(SCI_POSITIONFROMPOINT, p.x(), p.y());
+		const long long line = send(SCI_LINEFROMPOSITION, pos, 0);
+		return QVariant((int)(pos - send(SCI_POSITIONFROMLINE, line, 0)));
+	}
+	case 0x75e8:     // FUN_00a29ff6 → 009347b6(+0x1098)——buffer 面 cited
+		return QVariant();
+	case 0x75e9:     // 点→锚点(FUN_00a2a002:模式选 +0x148/+0x158)——cited
+		return QVariant();
+	case 0x75ea:     // 当前块样式 run 文本(FUN_00a2a21c:+0x1068)——runnode cited
+		return QVariant(QString());
+	case 0x75eb:     // 点→hitTest→run int(00a2a0ea)——runnode cited
+		return QVariant(0);
+	case 0x75ec:     // runnode(pos)→int(00a2a0ea)——cited
+		return QVariant(0);
+	case 0x75ed:     // hitTest(pt,exact)→文本(00a2b854→00a2a15e)——cited
+		return QVariant(QString());
+	case 0x75ee:     // runnode(pos)→文本(00a2a15e)——cited
+		return QVariant(QString());
+	case 0x75ef:     // FUN_00a29eb6 —— cited
+		return QVariant();
+	case 0x75f0:     // FUN_00a2a44a(177B 块跳转)——cited
+		return QVariant(0);
+	case 0x75f1: {   // +0x1082 写(009502de 传播 + soft_reset cited)
+		const bool v = a.toBool();
+		if (m_ctx.flag1082 != v)
+			m_ctx.flag1082 = v;
+		return QVariant(0);
+	}
+	case 0x75f2:     // buffer+0x160 查询
+		return QVariant((long long)m_ctx.bufField160);
+	case 0x75f3:     // buffer+0x158 查询
+		return QVariant((long long)m_ctx.bufField158);
+	case 0x75f4:     // buffer+0x160 写(FUN_00929336:<0 → -1)
+		m_ctx.bufField160 = (quint64)(a.toLongLong() < 0 ? -1 : a.toLongLong());
+		return QVariant(0);
+	case 0x75f5: {   // FUN_00925ae4:+0x2c0 枚举;(v&~4)!=3 时 +0x168=-1
+		m_ctx.modeEnum2c0 = (quint32)a.toUInt();
+		if ((m_ctx.modeEnum2c0 & 0xfffffffbu) != 3u) {
+			m_ctx.bufField160 = 0xffffffffffffffffull;  // +0x168 缓存失效
+			// FUN_00925a78() — cited
+		}
+		return QVariant(0);
+	}
+	case 0x75f7:     // FUN_00a2a504(447B editctx iter 0x200)——cited
+		return QVariant(0);
+	case 0x75f8:     // FUN_00933830(1544B 节点树)——cited
+		return QVariant(0);
+	case 0x75f9:     // +0xd8 obj+0x20 查询(空对象 → -1;FUN_00927170)
+		return QVariant((long long)m_ctx.bufObjField);
+	case 0x75fa:     // FUN_00a2a6e6(+0x1067==2 hex 子态;行文本+标记)——cited
+	case 0x75fb:     // 同上变体 —— cited
+		return QVariant(QString());
+	case 0x75fc: {   // 时间戳格式(FUN_00927216:indexOf('z') → +0xd8+8 布尔;
+	                 //  串存 +0x290;margin 刷新 cited)
+		m_ctx.timestampFormat = a.toByteArray();
+		m_ctx.timestampHasZ = m_ctx.timestampFormat.indexOf('z') != -1;
+		return QVariant(0);
+	}
+	case 0x75fe:     // 长时间戳格式存(disp 24506)
+		m_ctx.timestampLongFormat = a.toByteArray();
+		return QVariant(0);
+	case 0x75ff:     // +0xd8 obj 写(FUN_009271e4 → 009af2d6)
+		m_ctx.bufObjField = a.toLongLong();
 		return QVariant(0);
 	case 0x7594:     // removeMargin(FUN_00a4bc60:按名移除)
 		m_ctx.removeMargin(a.toString());

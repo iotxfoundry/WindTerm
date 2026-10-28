@@ -39,5 +39,18 @@ int main(int argc, char **argv)
 	printf("collect5<%d> isSuper=%d\n",
 	       e.dispatch(0x7559, QVariantList{1, 2}).toString().size(),
 	       e.dispatch(0x7556).toBool());
+	// --- 批 5:尾块(行变换/字符矩形/状态字段)---
+	e.dispatch(2001, 0, QByteArray("one\ntwo\nthree"));   // 3 行
+	printf("line@4=%lld ", e.dispatch(0x75d2, 4).toLongLong());
+	QVariant r = e.dispatch(0x75d4, 0);
+	printf("rect@0=<%d,%d,%d,%d> ",
+	       r.toRect().x(), r.toRect().y(), r.toRect().width(), r.toRect().height());
+	e.dispatch(0x75f4, 9999);
+	printf("f160=%lld ", e.dispatch(0x75f2).toLongLong());
+	e.dispatch(0x75f4, -5);
+	printf("f160neg=%lld ", e.dispatch(0x75f2).toLongLong());
+	e.dispatch(0x75fc, QByteArray("HH:mm zz"));           // 'z' 探测
+	e.dispatch(0x75d9, 250);
+	printf("scale=%d\n", e.dispatch(0x75d8).toInt());
 	return 0;
 }
