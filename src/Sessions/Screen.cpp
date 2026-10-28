@@ -3003,3 +3003,37 @@ void Screen::setStyleCarry(int kind, int value)
 	// high byte; buildWriteTemplate moves it into the next written cell
 	m_styleCarry60 = (short)((value << 8) | (kind & 0xff));
 }
+
+// ---------------------------------------------------------------------------
+// RIS/DECSTR(FUN_007ea73c / FUN_007ea7e6)
+// ---------------------------------------------------------------------------
+
+static void screenStateReset(Screen *s, int hard)
+{
+	// FUN_007ea318(1051B):history 核复位(FUN_007a4b0a)+ 标志/调色板
+	// 状态面重置;重建接核心复位真身,调色板/颜色腿 — cited
+	Q_UNUSED(s);
+	Q_UNUSED(hard);
+	if (s && s->m_core)
+		s->m_core->reset();
+}
+
+void Screen::resetHard()
+{
+	// FUN_007ea73c (152B):XOFF → 状态重置(1)→ [1046 开则 ED2] →
+	// 光标归零 → XON
+	sendResponse(QByteArrayLiteral("\x13"));
+	screenStateReset(this, 1);
+	if (m_1046Flag)
+		eraseScreen(2, false);
+	cursorMoveRaw(0, 0);
+	sendResponse(QByteArrayLiteral("\x11"));
+}
+
+void Screen::resetSoft()
+{
+	// FUN_007ea7e6 (32B):状态重置(0)→ DECSC(FUN_007a5c70)→ 光标归零
+	screenStateReset(this, 0);
+	saveCursor();
+	cursorMoveRaw(0, 0);
+}
