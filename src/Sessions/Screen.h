@@ -9,6 +9,7 @@
 // (Canonical rebuild after multi-batch drift; offsets proven.)
 
 #include "TerminalCore.h"
+#include "TermViewFace.h"
 
 #include <QString>
 #include <QStringList>

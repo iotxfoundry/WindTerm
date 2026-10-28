@@ -1,5 +1,6 @@
 #include "TerminalWidget.h"
 #include "Screen.h"
+#include "TerminalView.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -8,6 +9,20 @@
 TerminalWidget::TerminalWidget(QWidget *parent)
 	: QWidget(parent)
 {
+}
+
+TerminalView *TerminalWidget::attachView()
+{
+	// Phase 4b 装配:视图 = Screen::m_view 写回通道的对端
+	if (m_viewWidget)
+		return m_viewWidget;
+	m_viewWidget = new TerminalView(this);
+	if (m_commander) {
+		m_viewWidget->setScreen(m_commander->m_screen);
+		if (m_commander->m_screen)
+			m_commander->m_screen->m_view = m_viewWidget;
+	}
+	return m_viewWidget;
 }
 
 // --- 状态查询组 ---

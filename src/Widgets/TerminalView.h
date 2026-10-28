@@ -3,69 +3,46 @@
 
 #pragma once
 
-#include <QString>
-#include <QVariant>
-#include <QByteArray>
-#include <QUuid>
+// 终端视图渲染面(Phase 4b 渲染层)。数据源 = TerminalCore 格子:
+// 行=core->row(y)(Row.length 格),字符=Row.attrArray u16 UCS-2 字头
+// (e2eterm 同源),SGR=cell+0x18 u64(Screen::applySgr 位义:
+// bit0 bold/1 faint/2 italic/3 underline/4 d-underline/6 blink/
+// 7 inverse/8 conceal/9 strike/10 overline;14..37 fg RGB24;
+// 38 fg-bright;39..62 bg RGB24;63 bg-bright)。调色板经
+// Screen::paletteColor(+0xd0 容器);空表回落 16 色 xterm 默认。
+// 刷新 = TermViewFace::viewWrite(语料 vtable+0x70 通道)→ update()。
 
-// Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
-// TerminalView's own slots (beyond the shared ViewBase methods):
-// session-identity resolution via the UUID property at +0x218, the
-// A/B/C/D session-slot letter mapping, and cross-widget SessionPane
-// focus operations. Shares the 0x8c5 cluster with EditorView/GrepView.
+#include "TermViewFace.h"
 
-class TerminalView
+#include <QWidget>
+
+class Screen;
+
+class TerminalView : public QWidget, public TermViewFace
 {
+	Q_OBJECT
+
 public:
-	QString m_sessionUuid;   // +0x218 property (0x8c5578 reads "Url"-style props)
+	explicit TerminalView(QWidget *parent = nullptr);
 
-	QString resolveSessionUuid()
-	{
-		// FUN_00833ee0: reads the +0x218 property as a QUuid; on a valid
-		// UUID registers with the global manager via FUN_0083c330
-		// (the same registration TerminalWidget::FUN_0083c330 uses)
-		QString uuid = property(m_sessionUuid);
-		if (QUuid::fromString(uuid).isNull())
-			return uuid;
-		registerWithManager();       // FUN_0083c330 — cited
-		return uuid;
-	}
+	void setScreen(Screen *screen);
+	Screen *screen() const { return m_screen; }
 
-	bool hasValidSession()
-	{
-		// FUN_00833f84: !QUuid::isNull() over the +0x218 property
-		return !QUuid::fromString(property(m_sessionUuid)).isNull();
-	}
+	QSize sizeHint() const override;
 
-	int sessionSlotType(const QString &letter)
-	{
-		// FUN_008341c8: maps the slot letter to its id — "A"->1, "B"->2,
-		// "C"->3, "D"->4 (the four anonymous session slots); anything
-		// else is ignored
-		static const char *letters[] = { "A", "B", "C", "D" };
-		for (int i = 0; i < 4; i++)
-			if (letter == letters[i])
-				return i + 1;
-		return 0;
-	}
+	// TermViewFace(语料 vtable+0x70 写回通道)
+	void viewWrite(const QByteArray &data) override;
 
-	void notifyGlobal()
-	{
-		// FUN_008342ae: global-manager call with singleton 0x11c1a00
-	}
-
-	void focusSessionPane()
-	{
-		// FUN_00834920 / FUN_00834a2e: with a valid session, walks up to
-		// the "SessionPane" ancestor (hash lookup 0x89eed8 +
-		// dynamic_cast typeinfo 0x11ab690/0x11a56f0), resolves the
-		// +0x218 property and focuses it. FUN_00834a2e passes a
-		// QMetaObject::tr-translated context string first.
-	}
+protected:
+	void paintEvent(QPaintEvent *event) override;
+	void resizeEvent(QResizeEvent *event) override;
 
 private:
-	QString property(const QString &key);   // FUN_008c5578 (ViewBase)
-	void registerWithManager();             // FUN_0083c330
+	int cellWidth() const;
+	int cellHeight() const;
+	void drawCells(QPainter &p, const QRect &clip);
+
+	Screen *m_screen = nullptr;
 };
 
 #endif // TERMINALVIEW_H

@@ -4,6 +4,7 @@
 |---|---|
 | engtest.cpp | 编辑引擎混合层(ADDTEXT→GETLENGTH、SELECTALL) |
 | engtest2.cpp | tabSize/indexOf 抽查 |
+| engtest3.cpp | TerminalView 离屏渲染(格子→像素、viewWrite 通道、resize) |
 | sshsmoke.cpp | libssh 认证族探针 |
 | scismoke.cpp | Scintilla 静态库命令号 |
 | recheck.cpp | 数据表+键哈希抽查(宽度表 7 例 / 字符集 6 例 / 属性键 2 例) |

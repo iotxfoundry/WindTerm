@@ -1789,9 +1789,10 @@ void Screen::writeBackToView(const QByteArray &data)
 	// FUN_007e66c6 tail: QByteArrayList join already done by
 	// sendResponse; push through the view's vtable slot +0x70 (the
 	// terminal write-back channel; adjacent +0x78 is a second channel,
-	// FUN_007e673c)
-	typedef void (*PushFn)(void *, void *, const QByteArray &);
-	(*(PushFn *)(*(void ***)m_view + 0x70 / 8))(m_view, this, data);
+	// FUN_007e673c)。本重建面:视图对象实现 TermViewFace::viewWrite
+	// (布局映射属原生视图层,见 TermViewFace.h)
+	if (m_view)
+		static_cast<TermViewFace *>(m_view)->viewWrite(data);
 }
 QString Screen::keyboardDialects() const
 {

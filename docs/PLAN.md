@@ -24,7 +24,7 @@
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
 | Phase 3 编辑引擎 customDispatch | ⏳ 批量模式(批 3-5 共 55 条;WT 尾块收口,详见 Phase 3 节) |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
-| Phase 4b TerminalWidget | ✅ 槽覆盖 58/58(渲染层/深腿 cited) |
+| Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
 | Phase 5 行为对比 | ⬜(需渲染层) |
 
 测试矩阵:e2eterm 25 + recheck 22 + engtest×2 + sshsmoke 全绿。
@@ -292,10 +292,23 @@ FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
 - 工作区装载器 0x00522056 → Terminal/Editor/Browser 三面板恢复
 
 ### 4b. TerminalWidget 组装 ⏳
+- **渲染层 ✅**(2026-10-28):src/Widgets/TerminalView.{h,cpp} +
+  src/Sessions/TermViewFace.h——
+  * TerminalView:格子绘制(attrArray u16 字头 + cell+0x18 SGR
+    位义全解:0-13 属性/14-37 fg/38 bright/39-62 bg/63 bg-bright;
+    bold/underline/strike/inverse 落 QPainter;光标 XOR 框);
+    Screen::paletteColor(+0xd0)取色,未配置回落 16 色
+  * TermViewFace:writeBackToView 的 vtable+0x70 通道 →
+    viewWrite() 虚槽 → update()(Screen 侧原裸 vtable 调用改
+    类型安全路由)
+  * 装配:TerminalWidget::attachView()(视图=写回通道对端);
+    view resizeEvent → Screen::resizeScreen(FUN_007e5688)
+  * engtest3 渲染冒烟:离屏 grab → 非单色 ✓/首行字墨 ✓/
+    viewWrite+resize 不崩 ✓
 - **TerminalWidget 全槽覆盖 ✅**(2026-10-28):58+ 槽一轮批量
   (守卫查询 9/复位 3/输入清屏 4/CMD 直传 12/日志 9/modem 5/
   FreeType 2/会话命令 8 + write 端到端);深子系统腿(对话框/
-  全局管理器/会话栈/渲染层)cited
+  全局管理器/会话栈)cited
 - **端到端数据路径已通 ✅**(2026-10-28 晚):Screen+core resize→
   writeText(ASCII/换行/边缘 wrap latch/UTF-8 宽字符)→ 单元格
   逐格校验,e2eterm.cpp 14 断言全过;writeText 修复四处真 bug

@@ -12,6 +12,8 @@
 
 #include <QWidget>
 
+class TerminalView;
+
 class TerminalWidget : public QWidget
 {
 	Q_OBJECT
@@ -22,6 +24,10 @@ public:
 	void setCommander(SuperCommander *commander) { m_commander = commander; }
 	SuperCommander *commander() const { return m_commander; }
 	void setTmuxMode(bool on) { m_tmuxMode = on; }
+
+	// 视图装配(Phase 4b 渲染层):创建 TerminalView 并接入
+	// Screen::m_view 写回通道(vtable+0x70)
+	TerminalView *attachView();
 
 	// --- 状态查询组 ---
 	bool isAltScreen() const;      // idx 34 → 0083c4c8
@@ -93,6 +99,7 @@ public:
 
 private:
 	SuperCommander *m_commander = nullptr;
+	TerminalView *m_viewWidget = nullptr;   // 渲染视图(attachView)
 	bool m_tmuxMode = false;        // +0x160 tmux 状态标志
 	bool m_modemActive = false;     // +0x120 modem 对象非空
 	QString m_logFilePath;          // +0x148 日志文件
