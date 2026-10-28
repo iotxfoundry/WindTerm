@@ -35,7 +35,7 @@
 | requestDecMode(int) | 0x007f13a0 | 1033B | DECRQM-DEC;与 queryDecMode 同体(respond 标志区分);ext 快路径 17 模式 + 大 switch |
 | requestTerminalStateReport | 0x007f0434 | 228B | DECRQTSR:回 DCS 1$s ST + unsupported |
 | requestUserPreferredSupplementalSet | 0x007ed7f6 | 248B | DECRQUPSS:DCS + ("0!u%5"/"1!uA") |
-| requestXtermTerminfoData | 0x007f3518 | 1784B | XTGETTCAP(92 项静态表 0x117fea0 + keys_parseAngleNotation)→ **留待 1c 与字符集表一起** |
+| requestXtermTerminfoData | 0x007f3518 | 1784B | XTGETTCAP:92 项表 dump(terminfo_caps.inc)+ DCS 0/1+r 应答;keymap 解析腿 cited ✅ |
 | requestLocatorPosition | 0x007ebd6a | 145B | DECLRP:QCursor::pos + mouseButtons → reportLocatorEvent |
 | requestDisplayedExtent | 0x007ed148 | 282B | DECRQDE:CSI rows;cols;1;1;1"w |
 | requestKeyModifier | 0x007ed282 | 200B | CSI >key;state m(keymap 槽 007a2bd4) |
@@ -189,7 +189,7 @@ TextView.h 中 `property()/setProperty()/schemeName()/find()` 4 函数
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| gen_stubs.cpp | 1 | 35(1d 后) | → 0 |
+| gen_stubs.cpp | 1 | 34(Phase 1 主体后;余 12 Screen + Phase 2 项) | → 0 |
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |
