@@ -224,8 +224,8 @@ public:
 	void rowDeleteCells(struct Row *row, int at, int count);          // FUN_007a5dce
 	void rowInsertBlanks(struct Row *row, int at, int count, void *sgr);  // FUN_007a641a
 	void copyCell(void *dst, const void *src);     // FUN_007aa2e2 (deep, aux clone)
-	void buildBlankCell(unsigned char blank[16], void *sgrCtx);  // FUN_007aa2e2
-	void writeCell(void *dst, const unsigned char blank[16]);
+	void buildBlankCell(unsigned char blank[0x20], void *sgrCtx);  // FUN_007aa2e2
+	void writeCell(void *dst, const unsigned char blank[0x20]);
 	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
 	static void resizeUshortVector(int *hdr, int len, int cap);  // FUN_007aa1bc
 	void resizeCore(int rows, int cols);   // FUN_007a604a — cited (row reflow)

@@ -1879,20 +1879,27 @@ void SuperCommander::writeSplitData(const char *data, int len)
 		if (c == 0x1b) {                      // ESC:序列起点
 			flushLiteral(i);
 			i++;
-			if (i < len && data[i] == '[') {  // CSI:参数收集
+			if (i >= len)
+				break;                         // 尾截断:挂起 — cited
+			const unsigned char e1 = (unsigned char)data[i];
+			if (e1 == '[') {                   // CSI:参数收集
 				i++;
 				QString params;
 				QChar finalByte = 0;
+				bool priv = false;
 				while (i < len) {
 					const unsigned char b = (unsigned char)data[i];
-					if (b >= 0x30 && b <= 0x3f) {   // 参数域
+					if (b == '?' && params.isEmpty()) {
+						priv = true;           // 私有标记
+						i++;
+					} else if (b >= 0x30 && b <= 0x3f) {
 						params += (char)b;
 						i++;
 					} else if (b >= 0x40 && b <= 0x7e) {
 						finalByte = (char)b;
 						i++;
 						break;
-					} else {   // 中介域(冒号等)按参数收集 — 简化
+					} else {   // 中介域(空格/冒号等)按参数收集 — 简化
 						params += (char)b;
 						i++;
 					}
@@ -1903,7 +1910,9 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				const QStringList pl =
 				    params.split(QLatin1Char(';'));
 				auto num = [&](int idx) {
-					return idx < pl.size() ? pl.at(idx).toInt() : 0;
+					return idx < pl.size() && !pl.at(idx).isEmpty()
+					       ? pl.at(idx).toInt()
+					       : 0;
 				};
 				switch (finalByte.unicode()) {
 				case 'm':   // SGR(FUN_007ef95c)
@@ -1912,32 +1921,147 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case 'J':   // ED(FUN_007e606a)
 					m_screen->eraseScreen(num(0), false);
 					break;
+				case 'K':   // EL(FUN_007e4ba2)
+					m_screen->eraseLine(m_screen->currentLine(),
+					                    num(0), false);
+					break;
 				case 'H':   // CUP(1-based;FUN_007e4fdc)
 				case 'f':
 					m_screen->moveCursor(num(0) ? num(0) - 1 : 0,
 					                     num(1) ? num(1) - 1 : 0);
 					break;
-				case 'A':   // CUU/CUD/CUF/CUB
+				case 'A':   // CUU
 					m_screen->moveCursorUp(num(0) ? num(0) : 1);
 					break;
-				case 'B':
+				case 'B':   // CUD
 					m_screen->moveCursorDown(num(0) ? num(0) : 1);
 					break;
-				case 'C':
+				case 'C':   // CUF
 					m_screen->moveCursorForward(num(0) ? num(0) : 1);
 					break;
-				case 'D':
+				case 'D':   // CUB
 					m_screen->moveCursorBackward(num(0) ? num(0) : 1);
 					break;
+				case 'G':   // CHA(FUN_007e4f38 面)
+				case '`':
+					m_screen->cursorMoveRaw(m_screen->currentLine(),
+					                        num(0) ? num(0) - 1 : 0);
+					break;
+				case 'd':   // VPA
+					m_screen->cursorMoveRaw(num(0) ? num(0) - 1 : 0,
+					                        m_screen->currentColumn());
+					break;
+				case 'E':   // CNL
+					m_screen->cursorMoveRaw(
+					    m_screen->currentLine()
+					        + (num(0) ? num(0) : 1),
+					    0);
+					break;
+				case 'F':   // CPL
+					m_screen->cursorMoveRaw(
+					    m_screen->currentLine()
+					        - (num(0) ? num(0) : 1),
+					    0);
+					break;
+				case 'S':   // SU(FUN_007e5688 面)
+					m_screen->scrollUp();
+					break;
+				case 'T':   // SD
+					m_screen->scrollDown();
+					break;
+				case 'L':   // IL(FUN_007e3ae6)
+					m_screen->insertLine(num(0) ? num(0) : 1);
+					break;
+				case 'M':   // DL(FUN_007e379c)
+					m_screen->deleteLine(num(0) ? num(0) : 1);
+					break;
+				case 'P':   // DCH(FUN_007e3784)
+					m_screen->deleteCharacter(num(0) ? num(0) : 1);
+					break;
+				case '@':   // ICH(FUN_007e3ace)
+					m_screen->insertCharacter(num(0) ? num(0) : 1);
+					break;
+				case 'X':   // ECH(FUN_007e385a)
+					m_screen->eraseCharacter(num(0) ? num(0) : 1);
+					break;
+				case 'r':   // DECSTBM(FUN_007e5fa6)
+					m_screen->setTopBottomMargins(
+					    num(0) ? num(0) : 1,
+					    num(1) ? num(1)
+                                           : m_screen->m_core->rowCount());
+					break;
+				case 'h':   // SM/DECSET(FUN_007edce6 / 007f5d2e)
+					if (priv)
+						m_screen->setDecMode(params, true);
+					else
+						m_screen->setMode(params, true);
+					break;
+				case 'l':   // RM/DECRST
+					if (priv)
+						m_screen->setDecMode(params, false);
+					else
+						m_screen->setMode(params, false);
+					break;
+				case 's':   // SCOSC(FUN_007e4aa2)
+					m_screen->saveCursor();
+					break;
+				case 'u':   // SCORC(FUN_007f6426)
+					m_screen->restoreCursor();
+					break;
+				case 'g':   // TBC(FUN_007e5df0)
+					m_screen->clearTabstop(num(0));
+					break;
+				case 'n':   // DSR — 报告发射 — cited
+				case 'c':   // DA — 报告发射 — cited
+				case 't':   // XTWINOPS — cited
 				default:    // 其余 final:doAction 全量后续批 — cited
 					break;
 				}
 				litStart = i;
+			} else {                          // ESC 单/双字符序列
+				switch (e1) {
+				case '7':   // DECSC(FUN_007e4aa2)
+					m_screen->saveCursor();
+					break;
+				case '8':   // DECRC(FUN_007f6426)
+					m_screen->restoreCursor();
+					break;
+				case 'D':   // IND(FUN_007e55b6)
+					m_screen->indexDown();
+					break;
+				case 'E':   // NEL:IND + CR
+					m_screen->indexDown();
+					m_screen->carriageReturn();
+					break;
+				case 'M':   // RI(FUN_007e563e)
+					m_screen->indexUp();
+					break;
+				case 'c':   // RIS(FUN_007ea73c)
+					m_screen->resetHard();
+					break;
+				case '=':   // DECKPAM(FUN_007e37e8)
+					m_screen->enterAltKeypadMode();
+					break;
+				case '>':   // DECKPNM(FUN_007e3896)
+					m_screen->exitAltKeypadMode();
+					break;
+				case '(':   // 字符集指派 G0 — 略读 1 字节
+				case ')':   // G1 — charset 面后续批 — cited
+					if (i + 1 < len)
+						i++;
+					break;
+				case '#':   // DECALN 等 — cited
+					if (i + 1 < len)
+						i++;
+					break;
+				default:    // 其余 ESC 序列 — cited
+					break;
+				}
+				litStart = ++i;
 			}
-			// ESC + 非 '[':单字符转义 — doAction 全量后续批 — cited
 			continue;
 		}
-		if (c < 0x20) {                       // C0:doAction 直派
+		if (c < 0x20 || (c >= 0x80 && c < 0xa0)) {   // C0/C1 控制域
 			flushLiteral(i);
 			switch (c) {
 			case '\n':
@@ -1946,6 +2070,49 @@ void SuperCommander::writeSplitData(const char *data, int len)
 			case '\r': m_screen->carriageReturn(); break;
 			case '\b': m_screen->backspace(); break;
 			case '\t': m_screen->horizontalTab(); break;
+			case 0x84: m_screen->indexDown(); break;   // C1 IND
+			case 0x85:                                   // C1 NEL
+				m_screen->indexDown();
+				m_screen->carriageReturn();
+				break;
+			case 0x88: m_screen->setTabstop(             // C1 HTS
+			               m_screen->currentColumn(), true);
+				break;
+			case 0x8d: m_screen->indexUp(); break;       // C1 RI
+			case 0x9b: {                                 // C1 CSI
+				i++;
+				QString params;
+				QChar finalByte = 0;
+				bool priv = false;
+				while (i < len) {
+					const unsigned char b = (unsigned char)data[i];
+					if (b == '?' && params.isEmpty()) {
+						priv = true;
+						i++;
+					} else if (b >= 0x30 && b <= 0x3f) {
+						params += (char)b;
+						i++;
+					} else if (b >= 0x40 && b <= 0x7e) {
+						finalByte = (char)b;
+						i++;
+						break;
+					} else {
+						params += (char)b;
+						i++;
+					}
+				}
+				if (finalByte != 0) {
+					// 与 0x1b CSI 同表 — cited(见上 switch)
+					if (finalByte == 'm')
+						m_screen->selectGraphicRendition(params);
+					else if (finalByte == 'J')
+						m_screen->eraseScreen(
+						    params.isEmpty()
+					        ? 0 : params.toInt(), false);
+				}
+				litStart = i;
+				continue;
+			}
 			default: break;   // 其余 C0 — cited
 			}
 			i++;

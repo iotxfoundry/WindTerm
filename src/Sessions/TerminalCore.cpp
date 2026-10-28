@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "TerminalCore.h"
 #include <cstdlib>
 #include <new>
@@ -920,11 +921,24 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 		return;
 	growRowArrays((char *)row + 8, rowLength(row) + count,
 	              rowLength(row) + count);   // FUN_007aa3a6 (array header at row+8)
-	unsigned char blank[16];
+	unsigned char blank[0x20];
+	memset(blank, 0, sizeof(blank));
 	buildBlankCell(blank, sgrCtx);                    // FUN_007aa2e2
 	char *cells = (char *)row->cells;
-	for (int i = rowLength(row) - 1; i >= at; i--)
-		copyCell(cells + (size_t)(i + count) * 0x20, cells + (size_t)i * 0x20);
+	// FUN_007aa3a6 内联 move 块(语料):dst aux 先清 → 4×8B 拷 →
+	// src aux 释放(引用计数检查 + operator_delete 0x18)
+	for (int i = rowLength(row) - 1; i >= at; i--) {
+		void *d = cells + (size_t)(i + count) * 0x20;
+		void *sv = cells + (size_t)i * 0x20;
+		void **dd = (void **)d;
+		void **ss = (void **)sv;
+		dd[2] = nullptr;
+		dd[0] = ss[0];
+		dd[1] = ss[1];
+		dd[2] = ss[2];
+		dd[3] = ss[3];
+		ss[2] = nullptr;   // src aux 所有权已转移
+	}
 	for (int i = 0; i < count; i++)
 		writeCell(cells + (size_t)(at + i) * 0x20, blank);
 }
@@ -1045,8 +1059,9 @@ void TerminalCore::cloneGlyphPayload(void *dstAux, const void *srcPayload, int w
 	// FUN_007aa28a: appends `words` ushorts from the source payload to the
 	// aux payload vector, growing to max(2*count, count+words) first
 	int *hdr = (int *)dstAux;
-	if (words < 1)
-		return;
+	if (words < 1 || words > 0x400 || srcPayload == nullptr
+	    || (unsigned long)srcPayload < 0x1000)
+		return;   // junk payload 护栏(Phase 5,开放问题同上)
 	int old = hdr[1];
 	if (hdr[0] < old + words) {
 		int cap = old * 2;
@@ -1061,14 +1076,14 @@ void TerminalCore::cloneGlyphPayload(void *dstAux, const void *srcPayload, int w
 	}
 }
 
-void TerminalCore::buildBlankCell(unsigned char blank[16], void *sgrCtx)
+void TerminalCore::buildBlankCell(unsigned char blank[0x20], void *sgrCtx)
 {
 	// FUN_007aa2e2 (same primitive): the blank cell is a copy of the
 	// SGR context cell
 	copyCell(blank, sgrCtx);
 }
 
-void TerminalCore::writeCell(void *dst, const unsigned char blank[16])
+void TerminalCore::writeCell(void *dst, const unsigned char blank[0x20])
 {
 	// FUN_007aa2e2 (same primitive)
 	copyCell(dst, blank);
@@ -1089,6 +1104,7 @@ void TerminalCore::growRowArrays(void *arrayHeader, int newLen, int minCap)
 			arr->cap = 1;
 		} else {
 			arr->data = (unsigned char *)malloc((size_t)minCap << 5);
+			memset(arr->data, 0, (size_t)minCap << 5);   // aux 槽必须 null(00aa3a6 行为不变量)
 			arr->cap = minCap;
 		}
 		arr->count = 0;
@@ -1492,7 +1508,10 @@ TerminalCore::TerminalCore()
 	m_blankRowTemplate = nullptr;
 	m_blankTemplateSgr = 0;
 	m_charsetSaved = nullptr;
-	m_sgrState = nullptr;
+	// SGR/charset 状态对象(FUN_007a69b8 初始化族:+0x88 堆对象;
+	// rowInsertBlanks 等路径解引用,漏分配即崩——Phase 5 diff 暴露)
+	m_sgrState = malloc(0x18);
+	memset(m_sgrState, 0, 0x18);
 	m_flags2 = 0;
 	m_sgrBits = 0;
 	m_workRow = nullptr;

@@ -3,9 +3,13 @@
 #include "Screen.h"
 #include "TerminalCore.h"
 #include "SuperCommander.h"
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QTextCodec>
 #include <cstdio>
 #include <fstream>
+#include <QFile>
 
 struct Row;
 
@@ -40,7 +44,7 @@ static void dumpSeq(SuperCommander &cmd, Screen &s, TerminalCore &core,
 			out << heads[x] << (x + 1 < row->length ? ", " : "");
 		out << "]" << (y + 1 < n ? ", " : "");
 	}
-	out << "]}}" << (strcmp(name, "clear_end") ? ",\n" : "\n");
+	out << "]}}" << ",\n";
 }
 
 int main()
@@ -72,12 +76,30 @@ int main()
 	SuperCommander cmd;
 	cmd.m_screen = &s;
 
-	dumpSeq(cmd, s, core, "clear", "1b5b324a1b5b48", out);   // 同原版:先清屏
-	dumpSeq(cmd, s, core, "ascii", "68656c6c6f", out);
-	dumpSeq(cmd, s, core, "crlf", "0d0a776f726c64", out);
-	dumpSeq(cmd, s, core, "cjk", "e4bda0e5a5bd", out);
-	dumpSeq(cmd, s, core, "sgr_red", "1b5b33316d52", out);
-	dumpSeq(cmd, s, core, "clear_end", "1b5b306d", out);
+	QJsonDocument doc = QJsonDocument::fromJson(
+	    QByteArrayLiteral(
+	        R"SEQFILE(/tmp/opencode/phase5_seq.json)SEQFILE"));
+	Q_UNUSED(doc);
+	QFile f(QStringLiteral("/tmp/opencode/phase5_seq.json"));
+	f.open(QIODevice::ReadOnly);
+	QJsonDocument seqDoc = QJsonDocument::fromJson(f.readAll());
+	const QJsonArray arr = seqDoc.array();
+	bool first = true;
+	bool cleared = false;
+	for (const QJsonValue &v : arr) {
+		const QJsonObject o = v.toObject();
+		const QByteArray name = o["name"].toString().toUtf8();
+		const QByteArray hex = o["bytes"].toString().toUtf8();
+		if (!cleared) {   // 与原版一致:先清屏归零
+			dumpSeq(cmd, s, core, "clear",
+			        "1b5b324a1b5b48", out);
+			cleared = true;
+		}
+		if (!first)
+			out << ",\n";
+		first = false;
+		dumpSeq(cmd, s, core, name.constData(), hex.constData(), out);
+	}
 	out << "]";
 	std::printf("written /tmp/opencode/phase5_ours.json\n");
 	return 0;

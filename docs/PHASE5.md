@@ -58,10 +58,26 @@
    穿参至核擦除;原 m_blankRowTemplate 从未构建=段错误)。
 4. TerminalWidget::write 双写修正(尾已入 processOutput)。
 
+### 批 8:解析谱扩容(35 序列差分)⏳
+- writeSplitData 分派扩容:CSI 全谱(K/L/M/P/@/X/S/T/r/h/l/s/u/
+  g/G/d/E/F + 私有 ? 前缀 → setDecMode/setMode)、ESC 中介
+  (7/8/D/E/M/c/=/>/(/)/#)、C1 控制域(0x84/85/88/8d/9b CSI)
+  —— 全部锚到已转写 Screen 方法;engtest4 改 JSON 驱动(与
+  原版侧同序列源)。
+- **对比现状**:前 5 序列(基础集)ALL MATCH 保持;扩展集在
+  ICH/DCH/ECH(插入/删除/擦除簇)段触发堆损坏 —— **格 aux
+  所有权簇 = 已定位开放问题**(copyCell 深拷/转移语义 + 模板
+  生命周期,语料 FUN_007aa3a6 内联 move 块与 007aa2e2 深拷为
+  两个原语;当前过渡护栏:cloneGlyphPayload junk-payload 拒绝 +
+  grow 新存储清零)。
+- e2eterm/recheck 主路径不受影响(全绿)。
+
 ### 待解(后续轮)
-- doAction(007d1606,2292B)全量动作 + 状态机表 dump——扩
-  CSI/ESC 全谱(EL/DECSC/CUP 变体/OSC…)。
-- C1 折叠开(+0x137=1)态对比;multibyte 挂起尾(+0xd8)态对比。
+- **格 aux 所有权簇收口**(ICH/DCH/ECH 堆损坏):按语料双原语
+  语义(007aa3a6 move+release / 007aa2e2 deep)重排擦除/插入族
+  的模板生命周期,再跑 35 序列 diff。
+- doAction(007d1606,2292B)全量 + 状态机表 dump。
+- C1 折叠开态对比;multibyte 挂起尾态对比。
 
 ## 复现
 

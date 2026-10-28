@@ -3095,3 +3095,15 @@ void Screen::resetSoft()
 	saveCursor();
 	cursorMoveRaw(0, 0);
 }
+
+void Screen::scrollUp()
+{
+	// SU:内容上移一行(scroll 家族 FUN_007e5546)
+	scroll(1, false, true);
+}
+
+void Screen::scrollDown()
+{
+	// SD:内容下移一行
+	scroll(1, true, true);
+}
