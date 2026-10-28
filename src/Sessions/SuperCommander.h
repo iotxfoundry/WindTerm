@@ -23,6 +23,7 @@ public:
 
 	// +0x80: the VT screen (onion: this -> Screen(+0x80) -> TerminalCore)
 	QByteArray processOutput(const QByteArray &data);  // SuperCommander_vt14(007d1348)
+	void writeSplitData(const char *data, int len);    // 007d1f5a(解析链入口)
 	Screen *m_screen;
 
 protected:

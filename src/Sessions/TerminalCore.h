@@ -161,7 +161,8 @@ public:
 
 	// --- erase ---------------------------------------------------------------------
 	int eraseCells(int line, int from, unsigned short attr, int count,
-	               bool skipProtected, bool selective);       // FUN_007a596c
+	               bool skipProtected, bool selective,
+	               void *blankTemplate);                    // FUN_007a596c
 	int rowEraseCells(struct Row *row, int from, unsigned short attr,
 	                  int count, bool skipProtected, bool selective,
 	                  void *blankTemplate);                    // FUN_007a579c

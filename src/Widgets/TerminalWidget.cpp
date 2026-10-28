@@ -100,12 +100,11 @@ void TerminalWidget::resetSoft()
 
 void TerminalWidget::write(const QString &text)
 {
-	// idx 74/75(0083e286):vt14 C1 折叠 → writeText;
-	// FUN_009109fa 信号发射(有连接时)— cited
-	if (!m_commander || !m_commander->m_screen)
+	// idx 74/75(0083e286):vt14 折叠 → 解析链(writeSplitData →
+	// writeText)——尾部已入 processOutput(Phase 5 接线)
+	if (!m_commander)
 		return;
-	const QByteArray folded = m_commander->processOutput(text.toUtf8());
-	m_commander->m_screen->writeText(QString::fromUtf8(folded));
+	m_commander->processOutput(text.toUtf8());
 }
 
 void TerminalWidget::clearScrollback()

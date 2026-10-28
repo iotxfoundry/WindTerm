@@ -36,12 +36,32 @@
    FUN_007cadba 解释器 + 007e4908/007e389e 表选择 → 我方
    processOutput 尾接线(cited 占位处)→ engtest4 diff 全绿。
 
-### 待解(下一轮)
-- **真解析入口定位**:实机 +0x137=0/+0xfc=0 下 pty 数据(含彩色
-  提示符转义)必然经另一解析路。方法:hook writeText,待
-  ESC 含量 >0 的写入时 Thread.backtrace() 回溯调用链 → 找真解析器。
-- 差异化对比序列(CUP/ED/EL/SGR/DECSC…)——解析入口定位后
-  逐序列落格对比(格式化管线已通,见 phase5_original.json)。
+### 真解析入口定位 ✅(backtrace → writeSplitData)与逐格对比 ✅
+
+- 回溯定位:**writeSplitData(007d1f5a)→ 007d10c5 → vt14 →
+  writeText**;签名 (commander, char\* data, int len)。
+- 经原版链注入实测:ESC[2J/H 清屏归零 ✓、ESC[31m 消费 ✓、
+  CJK 双格+尾格 ✓、CR/LF ✓。
+- **逐格对比 ✅(ALL MATCH)**:5 序列(ascii/crlf/cjk/sgr_red/
+  clear_end)清屏基线下,原版 vs 重建游标+行 0..2 逐字节一致
+  (engtest4 + phase5_original/ours.json diff)。
+
+### 对比驱动落地的修正(全部由 diff 暴露)
+1. **SuperCommander::writeSplitData(007d1f5a 镜像)**:字面累积
+   → writeText(= 007cc1fa/cc1b98+ansi_buffer_build 等价)+
+   C0 直派 + CSI(m/J/H/f/A-D)→ 已转写 Screen 方法;doAction
+   全量状态机后续批。
+2. **paletteColor 公式修正**:色 = 容器 + index*4 + *(容器+0x10)
+   (offset 相对容器基址)——原实现把 offset 当绝对指针,合成
+   容器块下必崩(Phase 5 diff 链暴露的潜伏 bug)。
+3. **Screen::eraseCells blank 模板 = +0x28 写格**(7e4c90 产物,
+   穿参至核擦除;原 m_blankRowTemplate 从未构建=段错误)。
+4. TerminalWidget::write 双写修正(尾已入 processOutput)。
+
+### 待解(后续轮)
+- doAction(007d1606,2292B)全量动作 + 状态机表 dump——扩
+  CSI/ESC 全谱(EL/DECSC/CUP 变体/OSC…)。
+- C1 折叠开(+0x137=1)态对比;multibyte 挂起尾(+0xd8)态对比。
 
 ## 复现
 

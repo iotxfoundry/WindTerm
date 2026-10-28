@@ -1810,37 +1810,149 @@ QByteArray SuperCommander::processOutput(const QByteArray &data)
 	// vtable+0x90 覆盖,007cba7c)在 4b 装配时接线。+0xfc 命令器门
 	// 随 Commander 状态面落地补。
 	QByteArray out = data;
-	// 门控(语料 007cba64 → 007e3af8):折叠仅当屏幕 +0x137 标志开启
-	if (m_screen == nullptr || !m_screen->m_c1Translate)
-		return out;
-	for (int idx = out.indexOf('\x1b'); idx != -1 && idx + 1 < out.size();
-	     idx = out.indexOf('\x1b', idx)) {
-		const unsigned char next = (unsigned char)out.at(idx + 1);
-		unsigned char c1 = 0;
-		switch (next) {
-		case 'D': c1 = 0x84; break;
-		case 'E': c1 = 0x85; break;
-		case 'H': c1 = 0x88; break;
-		case 'M': c1 = 0x8d; break;
-		case 'N': c1 = 0x8e; break;
-		case 'O': c1 = 0x8f; break;
-		case 'P': c1 = 0x90; break;
-		case 'X': c1 = 0x98; break;
-		case 'Z': c1 = 0x9a; break;
-		case '[': c1 = 0x9b; break;
-		case '\\': c1 = 0x9c; break;
-		case ']': c1 = 0x9d; break;
-		case '^': c1 = 0x9e; break;
-		case '_': c1 = 0x9f; break;
-		default: break;
+	// 门控(语料 007cba64 → 007e3af8):折叠仅当屏幕 +0x137 标志开启;
+	// 解析链(007d1f5a)恒达——原版会话对数据直调 writeSplitData,
+	// vt14(+0x137 关)字面直通(Phase 5 实测)
+	if (m_screen != nullptr && m_screen->m_c1Translate) {
+		for (int idx = out.indexOf('\x1b'); idx != -1 && idx + 1 < out.size();
+		     idx = out.indexOf('\x1b', idx)) {
+			const unsigned char next = (unsigned char)out.at(idx + 1);
+			unsigned char c1 = 0;
+			switch (next) {
+			case 'D': c1 = 0x84; break;
+			case 'E': c1 = 0x85; break;
+			case 'H': c1 = 0x88; break;
+			case 'M': c1 = 0x8d; break;
+			case 'N': c1 = 0x8e; break;
+			case 'O': c1 = 0x8f; break;
+			case 'P': c1 = 0x90; break;
+			case 'X': c1 = 0x98; break;
+			case 'Z': c1 = 0x9a; break;
+			case '[': c1 = 0x9b; break;
+			case '\\': c1 = 0x9c; break;
+			case ']': c1 = 0x9d; break;
+			case '^': c1 = 0x9e; break;
+			case '_': c1 = 0x9f; break;
+			default: break;
+			}
+			if (c1 == 0) {
+				idx++;   // 非 C1 对:跳过该 ESC 继续找
+				continue;
+			}
+			out.remove(idx, 1);
+			out[idx] = (char)c1;   // 原位写 C1(语料 expand/insert 等价)
+			idx++;
 		}
-		if (c1 == 0) {
-			idx++;   // 非 C1 对:跳过该 ESC 继续找
+	}
+	// 尾部接线(Phase 5):折叠产物进解析链 writeSplitData
+	// (007d1f5a → 007cc1fa → ansi_buffer_build → writeText)
+	writeSplitData(out.constData(), out.size());
+	return out;
+}
+
+// ---------------------------------------------------------------------------
+// 解析链入口(Phase 5;SuperCommander_writeSplitData / FUN_007d1f5a,914B)
+// ---------------------------------------------------------------------------
+
+void SuperCommander::writeSplitData(const char *data, int len)
+{
+	// 007d1f5a 骨架:+0xd8 挂起尾拼接(初始空,尾巴面后续)→
+	// 逐字节分类:字面累积 → FUN_007cc1fa(→ 007cb698 +
+	// commander_ansi_buffer_build → Screen::writeText);控制/转义
+	// 经表驱动状态机(00a8158c)→ doAction(007d1606,2292B)。
+	// 本实现 = 行为等价子集:字面直通 writeText + C0 直派 +
+	// CSI(final m/J/H/f/A-D)派已转写 Screen 方法;全表状态机
+	// 与 doAction 全量随后续批(语料锚齐,见 PHASE5.md)。
+	if (m_screen == nullptr)
+		return;
+	// 写模板前置(FUN_007e4c90):原版链中 ansi_buffer_build 先于
+	// writeText 构建 +0x28 模板;擦除/填充路径消费同模板
+	m_screen->buildWriteTemplate();
+	int i = 0;
+	int litStart = 0;
+	auto flushLiteral = [&](int end) {
+		if (end > litStart)
+			m_screen->writeText(data + litStart, end - litStart);
+	};
+	while (i < len) {
+		const unsigned char c = (unsigned char)data[i];
+		if (c == 0x1b) {                      // ESC:序列起点
+			flushLiteral(i);
+			i++;
+			if (i < len && data[i] == '[') {  // CSI:参数收集
+				i++;
+				QString params;
+				QChar finalByte = 0;
+				while (i < len) {
+					const unsigned char b = (unsigned char)data[i];
+					if (b >= 0x30 && b <= 0x3f) {   // 参数域
+						params += (char)b;
+						i++;
+					} else if (b >= 0x40 && b <= 0x7e) {
+						finalByte = (char)b;
+						i++;
+						break;
+					} else {   // 中介域(冒号等)按参数收集 — 简化
+						params += (char)b;
+						i++;
+					}
+				}
+				if (finalByte == 0)
+					break;                     // 尾截断:挂起 — cited
+				// doAction 子集(动作 → 已转写 Screen 方法)
+				const QStringList pl =
+				    params.split(QLatin1Char(';'));
+				auto num = [&](int idx) {
+					return idx < pl.size() ? pl.at(idx).toInt() : 0;
+				};
+				switch (finalByte.unicode()) {
+				case 'm':   // SGR(FUN_007ef95c)
+					m_screen->selectGraphicRendition(params);
+					break;
+				case 'J':   // ED(FUN_007e606a)
+					m_screen->eraseScreen(num(0), false);
+					break;
+				case 'H':   // CUP(1-based;FUN_007e4fdc)
+				case 'f':
+					m_screen->moveCursor(num(0) ? num(0) - 1 : 0,
+					                     num(1) ? num(1) - 1 : 0);
+					break;
+				case 'A':   // CUU/CUD/CUF/CUB
+					m_screen->moveCursorUp(num(0) ? num(0) : 1);
+					break;
+				case 'B':
+					m_screen->moveCursorDown(num(0) ? num(0) : 1);
+					break;
+				case 'C':
+					m_screen->moveCursorForward(num(0) ? num(0) : 1);
+					break;
+				case 'D':
+					m_screen->moveCursorBackward(num(0) ? num(0) : 1);
+					break;
+				default:    // 其余 final:doAction 全量后续批 — cited
+					break;
+				}
+				litStart = i;
+			}
+			// ESC + 非 '[':单字符转义 — doAction 全量后续批 — cited
 			continue;
 		}
-		out.remove(idx, 1);
-		out[idx] = (char)c1;   // 原位写 C1(语料 expand/insert 等价)
-		idx++;
+		if (c < 0x20) {                       // C0:doAction 直派
+			flushLiteral(i);
+			switch (c) {
+			case '\n':
+			case '\v':
+			case '\f': m_screen->lineFeed(); break;
+			case '\r': m_screen->carriageReturn(); break;
+			case '\b': m_screen->backspace(); break;
+			case '\t': m_screen->horizontalTab(); break;
+			default: break;   // 其余 C0 — cited
+			}
+			i++;
+			litStart = i;
+			continue;
+		}
+		i++;                                  // 字面:留在累积段
 	}
-	return out;
+	flushLiteral(len);
 }

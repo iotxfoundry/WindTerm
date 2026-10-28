@@ -427,13 +427,15 @@ void TerminalCore::restoreCursor()
 // ---------------------------------------------------------------------------
 
 int TerminalCore::eraseCells(int line, int from, unsigned short attr, int count,
-                             bool skipProtected, bool selective)
+                             bool skipProtected, bool selective,
+                             void *blankTemplate)
 {
-	// FUN_007a596c: delegates to rowEraseCells, marks dirty on change
+	// FUN_007a596c: delegates to rowEraseCells, marks dirty on change;
+	// blank 模板 = 屏 +0x28 写格(语料 context+0x60 载体,Phase 5 接线)
 	if (line >= rowCount())
 		return 0;
 	int n = rowEraseCells(m_rows[line], from, attr, count,
-	                      skipProtected, selective, m_blankRowTemplate);
+	                      skipProtected, selective, blankTemplate);
 	if (n > 0)
 		markDirty(1);
 	return n;

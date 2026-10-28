@@ -392,9 +392,10 @@ void Screen::scrollHorizontal(int delta)
 int Screen::eraseCells(int line, int from, int count, bool selective)
 {
 	// FUN_007e37f8: core eraseCells with the current erase attribute
-	// (+0x110) and the protected-erase mode (+0x129)
+	// (+0x110) and the protected-erase mode (+0x129); blank 模板 =
+	// +0x28 写格(FUN_007e4c90 产物,Phase 5 接线)
 	m_core->eraseCells(line, from, m_eraseAttr, count,
-	                   m_eraseProtectedMode, selective);
+	                   m_eraseProtectedMode, selective, &m_writeTemplate);
 	return 0;
 }
 
@@ -1285,9 +1286,13 @@ void Screen::shiftSingle(int n)
 
 int Screen::paletteColor(int index) const
 {
-	// FUN_007e3578: 4-byte color read from the +0xd0 palette payload
-	// (array data at container+0x10, index stride 4)
-	return *(int *)(*(void **)((char *)m_palette + 0x10) + (size_t)index * 4);
+	// FUN_007e3578: 色 = *(容器 + index*4 + *(容器+0x10))(QArrayData
+	// offset 域,相对容器基址;Phase 5 修正——原实现把 offset 当
+	// 绝对指针,合成容器块下必崩)
+	if (m_palette == nullptr)
+		return 0;
+	return *(int *)((char *)m_palette + (size_t)index * 4
+	                + *(long *)((char *)m_palette + 0x10));
 }
 
 // ---------------------------------------------------------------------------
