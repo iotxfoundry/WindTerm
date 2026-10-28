@@ -73,3 +73,15 @@ WindTerm 层定位。下期转写目标:0x00522056 会话主读写(9KB,会话
   按面板类型枚举打开的 QWidget,取其文件路径建 QHash 目录,
   配 text/data/session.uuid 三件套与 URI 正则做持久化关联;
   写入侧(保存)在别处,字段级序列化即 QWidget 属性转储
+
+### 消费层与 UI 链(0x6f571a,会话管理器模型构建)
+
+- s_session_uuid_6f571a(927B):**会话管理器 QStandardItemModel
+  构建器**——遍历全局 JSON(DAT_011c2200,即会话库),每项取
+  `session.uuid`/`session.icon`/组(s_session_group_805a3e)/
+  标签(s_session_label_8062b6),图标经 theme_icon_load_svg
+  (SVG 主题),组名以 "%1 / " 前缀插入标签 → QStandardItem 行
+- 会话库 schema 扩容:session.uuid + session.icon + 组 + 标签
+- 上层 FUN_005420c8(2925B,SuperSession 区)调用装载器并含
+  KeyMode/protocol/subtitle/title/tmux/mux 键——会话协议配置
+  与工作区的汇合点
