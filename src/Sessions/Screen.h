@@ -86,6 +86,7 @@ public:
 		int left, top, right, bottom;  // +0x164.. (write order p2,p4,p3,p5)
 	};
 	LocatorState m_locator = { 0, 0, 2, 0, -1, -1, -1, -1 };   // FUN_007e2f52 reset state
+	bool m_c1Translate;              // +0x137:7 位→8 位 C1 折叠门(vt14 门控)
 	bool m_udkLocked;               // +0x12d (DECDSR 25)
 	bool m_mode67Flag;              // +0x11f (DECRQM 67 reads, name unknown)
 	bool m_autoPrint; // +0x130

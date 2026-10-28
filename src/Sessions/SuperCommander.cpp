@@ -1806,10 +1806,12 @@ QByteArray SuperCommander::processOutput(const QByteArray &data)
 	//   D→84 E→85 H→88 M→8d N→8e O→8f P→90 X→98 Z→9a
 	//   [→9b \\→9c ]→9d ^→9e _→9f(尾 ESC 不折叠)
 	// 尾部:cited —— s_Session__write_7d11da 日志 + FUN_007cdff2 上行
-	// + ansi_buffer_build(→ Screen::writeText)在 4b 装配时接线。
-	// 成员门控(+0xfc、FUN_007cba64/70/7c)随 Commander 状态面落地补。
+	// + ansi_buffer_build(→ Screen::writeText,门 = 屏幕 +0x12c 或
+	// vtable+0x90 覆盖,007cba7c)在 4b 装配时接线。+0xfc 命令器门
+	// 随 Commander 状态面落地补。
 	QByteArray out = data;
-	if (m_screen == nullptr)
+	// 门控(语料 007cba64 → 007e3af8):折叠仅当屏幕 +0x137 标志开启
+	if (m_screen == nullptr || !m_screen->m_c1Translate)
 		return out;
 	for (int idx = out.indexOf('\x1b'); idx != -1 && idx + 1 < out.size();
 	     idx = out.indexOf('\x1b', idx)) {
