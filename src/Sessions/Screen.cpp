@@ -174,8 +174,8 @@ void Screen::setCursorStyle(int style, bool save)
 	if (currentCursorStyle() == style && !save)   // FUN_007e36aa
 		return;
 	m_core->setCursorStyle(style);                // FUN_007a45ee
-	void *cursor = m_core->cursorUpdated();       // FUN_007a44c0
-	notifyCursorStyle(cursor, style > 4 ? (style > 6 ? 1 : 0) : 3);  // FUN_00913592
+	const int blinkBit = m_core->cursorStyleBit();  // FUN_007a44c0
+	notifyCursorStyle((void *)(intptr_t)blinkBit, style > 4 ? (style > 6 ? 1 : 0) : 3);  // FUN_00913592
 	// note: FUN_007a44c0 blink mask 0x2b covers styles 0,1,3,5 (see cursorBlinkBit)
 }
 
@@ -752,8 +752,8 @@ void Screen::setDecMode(const QString &modes, bool on)
 			else if (mode == 45) { m_reverseWraparound = on; }
 			else if (mode == 12) { // cursor blink: adjust current style
 				int style = currentCursorStyle();
-				if (!on) style = style + 1 - (m_core->cursorUpdated() ? 1 : 0);
-				else     style = style - (m_core->cursorUpdated() ? 1 : 0);
+				if (!on) style = style + 1 - (m_core->cursorStyleBit() ? 1 : 0);
+				else     style = style - 1 + (m_core->cursorStyleBit() ? 1 : 0);
 				setCursorStyle(style, false);
 			}
 			else if (mode == 9) { m_mouseX10 = on; }

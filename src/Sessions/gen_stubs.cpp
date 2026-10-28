@@ -15,7 +15,6 @@ SuperBridge::SuperBridge(QObject*) {}   // ctor/dtor stub
 void SuperSession::drop() {  } // stub
 void SuperSession::open() {  } // stub
 void TerminalCore::resetCharsetSlots() {  } // stub
-void TerminalCore::copyState(void**, void**) {  } // stub
 void TelnetCommander::negotiateOption(QString const&) {  } // stub
 void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
 void Screen::notifyCommand(QString const&) {  } // stub

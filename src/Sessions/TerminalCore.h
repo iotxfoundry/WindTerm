@@ -177,7 +177,7 @@ public:
 	void setCursorStyle(int style);                // FUN_007a45ee (+0xcc)
 	unsigned int cursorBlinkBit() const;           // FUN_007a44c0 (0x2b mask)
 	void rowHook(struct Row *row, int arg);        // FUN_007a3dde
-	void *cursorUpdated();                         // FUN_007a44c0
+	int cursorStyleBit() const;                    // FUN_007a44c0: (0x2b >> style) & 1
 	void reset();                                  // FUN_007a4b0a
 
 	// --- insert/delete (0x7e3a aliases forward here) ---

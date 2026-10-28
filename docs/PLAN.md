@@ -108,11 +108,11 @@
 | rowHasContent | 0x007a4a06 | rowUsedWidth(007a41d6)包脏标志+clamp | ✅(cell 走查 cited) |
 | resetWrap | 0x007a45f6 | =setSgrState(重复声明,已并) | ✅ |
 | rowUsedWidth | 0x007a41d6 | SSE 尾扫最后非零 head;0x40+payload 走查 cited | ✅ 标量等价 |
-| copyState | 0x007aa2e2 | 16B 状态拷贝 + 0x18 节点换装(克隆 cited) | ⬜ |
-| charsetConfigRoot | 0x00802bda | 字符集管理器根 | ⬜ |
-| cursorUpdated | 0x007e51e6 | 光标更新信号 | ⬜ |
-| markLine(int) | 0x007a463c | 行标记 | ⬜ |
-| slot0Allowed(int) | 0x00802c80 | G0 校验 | ⬜ |
+| copyState | 0x007aa2e2 | 字段拷贝+0x18 节点释放真身;节点克隆 cited | ✅ |
+| charsetConfigRoot | 0x00802bda | id→entry 槽表访问器;cited | ⬜(语义并入 charsetDisabled/slot0Allowed) |
+| cursorUpdated→cursorStyleBit | 0x007a44c0 | (0x2b>>style)&1 闪烁位;007e51e6 实为 setScrollbarVisible | ✅(标签纠错) |
+| markLine(int) | 0x007a463c | row+rowHook,+0xa8 缓存/清零 | ✅ |
+| slot0Allowed(int) | 0x00802c96 | userPreferredSet==1 或 tableId==6 | ✅ |
 | resizeCore | 0x007a604a | 967B 行 reflow | ⬜ cited |
 | lastNonEmptyRow | 0x007a5618 | 尾部内容扫描 | ⬜ cited |
 
@@ -197,7 +197,7 @@ find 种子/引擎面 Phase-4 cited。
 | TerminalCore.cpp | 1 | 5 | → 0 |
 | EditorEngine.cpp | 1 | ~40 桩 | → 22 (真身) |
 | SuperSessionPrivate.cpp | 1 | 6 | → 0 |
-| gen_stubs.cpp | 1 | 28(Phase 2 第一批后) | → 0 |
+| gen_stubs.cpp | 1 | 27 | → 0 |
 | Widgets/TextView.h | 1 | 1 | → 0 |
 
 | **总计** | ~6 | **~160** | → **0** |

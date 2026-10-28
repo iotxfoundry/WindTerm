@@ -2,6 +2,18 @@
 #include <cstdlib>
 #include <new>
 
+// charset registry accessors (mirror of Screen's charset_registry.inc;
+// internal linkage per TU is acceptable duplication for now)
+#include "charset_registry.inc"
+static int charsetRegistryRow(int id)
+{
+	int row = -1;
+	for (int i = 0; i < 31; ++i)
+		if (charsetRegistry[i].id == id)
+			row = i;
+	return row;
+}
+
 
 // Bodies transcribed from decompilation; comments cite the source
 // function. Phase-1 restoration (reference, not compiled).
@@ -343,7 +355,11 @@ void TerminalCore::notifyChanged(int level)
 
 void TerminalCore::markLine(int line, int arg)
 {
-	// FUN_007a463c: post-erase line notification — body cited
+	// FUN_007a463c: row = row(line); rowHook(row, arg); arg==0 clears
+	// the cached working row (+0xa8), otherwise the row is cached
+	struct Row *r = row(line);
+	rowHook(r, arg);
+	m_workRow = arg ? r : nullptr;
 }
 
 int TerminalCore::lastContentRowCount() const
@@ -683,10 +699,12 @@ void TerminalCore::setCursorStyle(int style)
 	// FUN_007a45ee — body cited
 }
 
-void *TerminalCore::cursorUpdated()
+int TerminalCore::cursorStyleBit() const
 {
-	// FUN_007a44c0: cursor display object refresh — body cited
-	return nullptr;
+	// FUN_007a44c0 (26B): 6-bit table 0x2b indexed by the cursor style
+	// (+0xcc); out-of-range styles read 0. Bit set for styles 0,1,3,5
+	// (the blink mask — also the DECRQM mode-12 probe)
+	return (unsigned)m_cursorStyle < 6 ? (int)((0x2bu >> (unsigned)m_cursorStyle) & 1u) : 0;
 }
 
 void TerminalCore::reset()
@@ -1315,9 +1333,11 @@ void TerminalCore::setCharsetSlot(int slot, int tableId)
 
 bool TerminalCore::charsetDisabled(int tableId) const
 {
-	// FUN_008034a4: global charset-config flag byte (+0x11) from the
-	// registry root (FUN_00802bda) — set = all custom charsets disabled
-	return *((const unsigned char *)charsetConfigRoot() + 0x11);
+	// FUN_008034a4: registry row (+0x11 flag) via the id-slot table
+	// (FUN_00802bda); rebuilt against the static registry — see the
+	// identical Screen::charsetDisabled
+	const int r = charsetRegistryRow(tableId);
+	return r < 0 ? false : charsetRegistry[r].disabled != 0;
 }
 
 // registry lookup (FUN_00802a26): walks the 0x18-stride registry table
@@ -1327,13 +1347,17 @@ bool TerminalCore::charsetDisabled(int tableId) const
 
 bool TerminalCore::slot0Allowed(int tableId) const
 {
-	// FUN_00802c80 — body cited
-	return true;
+	// FUN_00802c96: the config root's id slot (+0x10, the
+	// user-preferred set) must read 1, or the table is 6 (default
+	// supplemental set)
+	return m_userPreferredSet == 1 || tableId == 6;
 }
 
 const void *TerminalCore::charsetConfigRoot() const
 {
-	// FUN_00802bda — body cited
+	// FUN_00802bda: id→entry slot-table accessor over the lazily grown
+	// container; the rebuild resolves rows through charsetRegistryRow
+	// — cited
 	return nullptr;
 }
 
@@ -1384,4 +1408,33 @@ int TerminalCore::rowUsedWidth(Row *row, int withStyle) const
 	while (i >= 0 && heads[i] == 0)
 		--i;
 	return i + 1;
+}
+
+// ---------------------------------------------------------------------------
+// Phase 2a: state copy (FUN_007aa2e2)
+// ---------------------------------------------------------------------------
+
+void TerminalCore::copyState(void **dst, void **src)
+{
+	// FUN_007aa2e2 (172B): copies the state record fields (+0 u64,
+	// +4 u32, +8/+0xa u16, +0x18 u64); dst's heap node at +0x10 is
+	// released (data buffer free, then the 0x18-byte node deleted) and
+	// replaced by a clone of src's node (fresh refcount 1, payload via
+	// FUN_007aa28a) — the node payload clone body is cited
+	unsigned char *d = (unsigned char *)dst;
+	const unsigned char *s = (const unsigned char *)src;
+	*(unsigned long long *)(d + 0) = *(const unsigned long long *)(s + 0);
+	*(unsigned int *)(d + 4) = *(const unsigned int *)(s + 4);
+	*(unsigned short *)(d + 8) = *(const unsigned short *)(s + 8);
+	*(unsigned short *)(d + 0xa) = *(const unsigned short *)(s + 0xa);
+	*(unsigned long long *)(d + 0x18) = *(const unsigned long long *)(s + 0x18);
+	void *node = *(void **)(d + 0x10);
+	if (node) {
+		void *buf = *(void **)((char *)node + 8);
+		if (buf != (char *)node + 0x10)
+			free(buf);
+		::operator delete(node);
+	}
+	// clone of src's +0x10 node (FUN_007aa28a) — cited
+	*(void **)(d + 0x10) = nullptr;
 }
