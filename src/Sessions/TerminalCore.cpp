@@ -903,11 +903,11 @@ bool TerminalCore::columnInRange(int column) const
 
 void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
 {
-	// FUN_007a5dce (368B, 批 16 全读): MOVE 左移(007aa2e2)+ 尾部
-	// [length-n,length) aux 销毁(007e2202 规约:free 内嵌 buffer +
-	// delete 0x18)+ length -= n(+0xc 写回)+ attr u16 左移。
-	// (原转写:尾部 cited 空、length 不缩——双引用 aux 悬垂 =
-	// free(垃圾) 崩溃链,批 16 diff 暴露)
+	// FUN_007a5dce (368B): MOVE 左移(007aa2e2)+ 尾部 aux 销毁
+	// (007e2202 规约)+ 尾部格/attr 清零。批 20 行为修正(probe14
+	// 实锤):原版 DCH3 后 row +0xc = 89 **不变**——批 16 的
+	// length 缩短转写与行为矛盾,回退;length 恒定后 DECALN 全屏
+	// 填充不再被 guard 挡(背书债 #11 decaln 归绿路径)
 	const int length = rowLength(row);
 	int n = length - at;
 	if (count < n)
@@ -926,10 +926,14 @@ void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
 			*(void **)((char *)cells + (size_t)i * 0x20 + 0x10) = nullptr;
 		}
 	}
-	row->length = length - n;
 	unsigned short *attrs = (unsigned short *)row->attrArray;
 	for (int i = 0; i < length - at - n; i++)
 		attrs[at + i] = attrs[at + n + i];
+	// 尾部 [length-n,length) 清零(cells+attr;length 不缩,
+	// 尾部以空格呈现 = 行为对齐 probe14/58 时代 dch3)
+	memset((char *)cells + (size_t)(length - n) * 0x20, 0,
+	       (size_t)n * 0x20);
+	memset(attrs + (length - n), 0, (size_t)n * 2);
 }
 
 void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count,

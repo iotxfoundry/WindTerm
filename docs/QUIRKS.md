@@ -32,3 +32,4 @@
 4. 语料不可读(优化糊掉/间接跳转)→ 测试标 cited-skip,不猜
 | 17 | **初始 tabstop 表 = {4} 单元素**(干净会话两轮复现:HT 0→4→行尾 88;3g 后 HT→88 表空);来源未定位(非 resizeCore every-8 增量,疑运行期 HTS——shell 集成/prompt 通道) | p5probe9 + 干净会话 dump(tab/cht2) |
 | 18 | **HT(C0 09)入 pending 队列**(与 D/M/E 同);col 已是 stop → HT 不动(tab 表{4} col=4 不动 (0,4))、表空 → 行尾 88(tbc_all (0,88));两锚下 HTS pending/flush 时机仍有二义(hts_tab (0,0) vs tbc_all 88)——HT 语义矩阵实验待做 | 批 18 dump tab/tbc_all/hts_tab |
+| 19 | **DCH 不缩 row length**(+0xc 恒 89;批 16 的缩短转写被 probe14 行为否定);尾部格清零呈现空 | probe14(原版 DCH3 后 +0xc=89) |

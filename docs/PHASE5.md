@@ -252,6 +252,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - bs o=27(row0[4..7])同属 length/读数错位家族,待行池轮
 - 55/60 基线不变
 
+### 批 20(2026-10-29):probe14 行为实锤 + rowDeleteCells 修正 + decaln 归绿(56/60)⏳
+- **probe14(原版行为)**:DCH3 后 row +0xc = **89 不变**;35LF 滚动后
+  仍 89——批 16 的"DCH 缩短 length"转写与行为矛盾,回退;尾部格/
+  attr 清零保留(内存安全 + dch3 行为)
+- **rowDeleteCells 修正落地**:MOVE 左移 + 尾部 aux 销毁 + attr 左移
+  + 尾部清零(length 恒定)——**decaln 归绿**(guard 不再挡,行尾
+  3 格填 69;此前 u=0 为 guard 挡 + 旧 JSON 叠加)
+- 诊断保留:[d] 打印(decaln/tbc_all 的 cur/len/attr/ts0)
+- 53→56/60;剩 4:bs(27)、tbc_all(HT flush 后光标仍 (0,0)——
+  horizontalTab 执行链待查)、crlf(v3)、wrap_edge(#11)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +
