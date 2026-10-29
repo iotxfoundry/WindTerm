@@ -1,0 +1,142 @@
+[
+ {
+  "name": "cup",
+  "bytes": "1b5b31303b3548"
+ },
+ {
+  "name": "cup_home",
+  "bytes": "1b5b48"
+ },
+ {
+  "name": "cuu3",
+  "bytes": "1b5b3341"
+ },
+ {
+  "name": "cud2",
+  "bytes": "1b5b3242"
+ },
+ {
+  "name": "cuf2",
+  "bytes": "1b5b3243"
+ },
+ {
+  "name": "cub3",
+  "bytes": "1b5b3344"
+ },
+ {
+  "name": "cha10",
+  "bytes": "1b5b313047"
+ },
+ {
+  "name": "vpa5",
+  "bytes": "1b5b3564"
+ },
+ {
+  "name": "cnl2",
+  "bytes": "1b5b3245"
+ },
+ {
+  "name": "cpl",
+  "bytes": "1b5b46"
+ },
+ {
+  "name": "ed0",
+  "bytes": "1b5b304a"
+ },
+ {
+  "name": "ed1",
+  "bytes": "1b5b314a"
+ },
+ {
+  "name": "el0",
+  "bytes": "1b5b304b"
+ },
+ {
+  "name": "el2",
+  "bytes": "1b5b324b"
+ },
+ {
+  "name": "il2",
+  "bytes": "1b5b324c"
+ },
+ {
+  "name": "dl",
+  "bytes": "1b5b4d"
+ },
+ {
+  "name": "dch3",
+  "bytes": "1b5b3350"
+ },
+ {
+  "name": "ich2",
+  "bytes": "1b5b3240"
+ },
+ {
+  "name": "ech2",
+  "bytes": "1b5b3258"
+ },
+ {
+  "name": "su",
+  "bytes": "1b5b53"
+ },
+ {
+  "name": "sd",
+  "bytes": "1b5b54"
+ },
+ {
+  "name": "decstbm",
+  "bytes": "1b5b333b3872"
+ },
+ {
+  "name": "scosc",
+  "bytes": "1b5b73"
+ },
+ {
+  "name": "scorc",
+  "bytes": "1b5b75"
+ },
+ {
+  "name": "decsc",
+  "bytes": "1b37"
+ },
+ {
+  "name": "decrc",
+  "bytes": "1b38"
+ },
+ {
+  "name": "ind",
+  "bytes": "1b44"
+ },
+ {
+  "name": "ri",
+  "bytes": "1b4d"
+ },
+ {
+  "name": "nel",
+  "bytes": "1b45"
+ },
+ {
+  "name": "sgr_bg",
+  "bytes": "1b5b34313b39336d58"
+ },
+ {
+  "name": "sgr0",
+  "bytes": "1b5b306d"
+ },
+ {
+  "name": "decset25",
+  "bytes": "1b5b3f323568"
+ },
+ {
+  "name": "decrst25",
+  "bytes": "1b5b3f32356c"
+ },
+ {
+  "name": "tab",
+  "bytes": "09"
+ },
+ {
+  "name": "bs",
+  "bytes": "08"
+ }
+]

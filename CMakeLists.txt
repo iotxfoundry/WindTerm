@@ -86,8 +86,8 @@ set(WT_INCLUDES
   ${CMAKE_SOURCE_DIR}/src/libssh/include
   ${Qt5Core_INCLUDE_DIRS}
   ${Qt5Gui_INCLUDE_DIRS}
-  ${Qt5Widgets_INCLUDE_DIRS}
   ${Qt5Network_INCLUDE_DIRS}
+  ${Qt5Widgets_INCLUDE_DIRS}
 )
 
 # --- 源文件(按目录自动收集,新文件零配置) ---
@@ -116,7 +116,8 @@ qt5_wrap_cpp(WT_MOC_SOURCES ${WT_MOC_LIST})
 add_library(WindTermRe SHARED ${WT_SOURCES} ${WT_MOC_SOURCES})
 set_target_properties(WindTermRe PROPERTIES
   LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
-  OUTPUT_NAME WindTermRe)
+  OUTPUT_NAME WindTermRe
+  BUILD_RPATH_USE_ORIGIN TRUE)   # 防 repo lib/ 污染 RUNPATH(Phase 5)
 
 target_include_directories(WindTermRe PRIVATE ${WT_INCLUDES})
 target_link_libraries(WindTermRe
@@ -126,3 +127,7 @@ target_link_libraries(WindTermRe
   ${LIB_OUT}/libssh.so.4
 )
 add_dependencies(WindTermRe rebuild_deps)
+# 去 RUNPATH(repo lib/ 的 Qt5Network 版本符号与系统 Qt 冲突,
+# 会污染测试/宿主链接——Phase 5)
+add_custom_command(TARGET WindTermRe POST_BUILD
+    COMMAND patchelf --remove-rpath $<TARGET_FILE:WindTermRe> || true)

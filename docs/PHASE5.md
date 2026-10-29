@@ -76,6 +76,17 @@
 - **格 aux 所有权簇收口**(ICH/DCH/ECH 堆损坏):按语料双原语
   语义(007aa3a6 move+release / 007aa2e2 deep)重排擦除/插入族
   的模板生命周期,再跑 35 序列 diff。
+- **ASan 精确定位 ✅(下一轮首任务)**:heap-buffer-overflow
+  READ@copyCell(TerminalCore.cpp:984)← rowInsertBlanks:926
+  (move-shift 搬移循环);被越界读的缓冲 = **Tabstops::
+  resizeDefault 的 payload(new[] 11B)**——即某行 cells 指针与
+  制表位缓冲混叠。根因指向 growRowArrays 的 CellArray 覆盖
+  {cap,count,data} 写 row+8/+12/+16:我方 C Row 结构(编译器
+  布局 length@+8/_pad0@+0xc/cells@+0x10)与语料 Row(0x58,
+  length@+0x0c/cells@+0x10)偏移不一致,覆盖写把 length 当
+  cap、_pad0 当 count 使用, cells 指针与行内其他域的相对关
+  系错位。修法:growRowArrays/rowInsertBlanks 按语料偏移直接
+  编址(不依赖 C 结构布局),35 序列 diff 后全绿收口。
 - doAction(007d1606,2292B)全量 + 状态机表 dump。
 - C1 折叠开态对比;multibyte 挂起尾态对比。
 

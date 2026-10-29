@@ -13,6 +13,31 @@
 
 struct Row;
 
+
+// 格子验尸:aux 非 null 时必须为合法 0x18 对象(ref∈[1,0x10000])
+static const char *verifyCells(TerminalCore &core)
+{
+	for (int y = 0; y < core.rowCount(); ++y) {
+		struct Row *row = core.row(y);
+		if (!row)
+			continue;
+		for (int x = 0; x < row->length; ++x) {
+			void *aux = *(void **)((const char *)core.cellAt(row, x)
+			                       + 0x10);
+			if (aux == nullptr)
+				continue;
+			if ((unsigned long)aux < 0x1000
+			    || *(const int *)aux < 1 || *(const int *)aux > 0x10000)
+				return "junk-aux";
+			if (*(const void *const *)((const char *)aux + 8)
+			        == nullptr
+			    && *(const int *)((const char *)aux + 4) != 0)
+				return "null-payload";
+		}
+	}
+	return nullptr;
+}
+
 static void dumpSeq(SuperCommander &cmd, Screen &s, TerminalCore &core,
                     const char *name, const char *hex, std::ofstream &out)
 {
@@ -25,6 +50,10 @@ static void dumpSeq(SuperCommander &cmd, Screen &s, TerminalCore &core,
 	}
 	if (!bytes.isEmpty())
 		cmd.processOutput(bytes);   // 解析链(writeSplitData)
+	const char *bad = verifyCells(core);
+	if (bad)
+		fprintf(stderr, "[p5] VERIFY %s: %s (cursor %d,%d)\n", name,
+		        bad, s.currentLine(), s.currentColumn());
 	out << "{\"name\": \"" << name << "\", \"grid\": {";
 	out << "\"rowCount\": " << core.rowCount();
 	out << ", \"curY\": " << s.currentLine();
