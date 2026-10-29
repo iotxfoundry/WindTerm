@@ -209,11 +209,11 @@
  },
  {
   "name": "ind_bot_scroll",
-  "bytes": "1b5b353b31724141410a4242420a4343430a1b5b353b31481b442c1b5b306d"
+  "bytes": "1b5b353b31724141410a4242420a4343430a1b5b353b31481b44,1b5b306d"
  },
  {
   "name": "ri_top_scroll",
-  "bytes": "1b5b353b31724141410a4242420a1b5b313b31481b4d2c1b5b306d"
+  "bytes": "1b5b353b31724141410a4242420a1b5b313b31481b4d,1b5b306d"
  },
  {
   "name": "tbc_all",

@@ -3,15 +3,14 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-29 第三次交接,批 12 更新)
+## 一句话状态(2026-10-29 第三次交接,批 13 更新)
 
-**Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线通,
-38 序列 38/38 全绿(pending 队列定型后回归);扩谱 58 序列进行中
-(42/58,原版会话待重置);Phase 3 WT 分派 93/149 case;配置面
-资产已探明(docs/CONFIG-SCHEMAS.md)。** ctest 6 测试(engtest3
-间歇渲染失败待诊);ProfileLoader 全局默认层 ✅(批 12)。
+**Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线通:
+自包含基线 + 原版会话重置后 **58 序列 54/58 MATCH**;38 序列回归
+全绿(pending 队列);Phase 3 WT 分派 93/149 case;配置面资产已
+探明(CONFIG-SCHEMAS);ProfileLoader 全局层 ✅。** QUIRKS 16 条。
 
-**本地领先远端 11 个提交(未推送,遵"只提交不主动推送"规范)**。
+**本地领先远端 12 个提交(未推送,遵"只提交不主动推送"规范)**。
 用户说"推送"时一次性 push。
 
 ## 里程碑链(全部 ✅)
@@ -59,22 +58,20 @@
 
 ## 下一步(按优先级)
 
-1. **格体 aux 深水区**(批 12 定位):精读 FUN_007a5aac(setRowCell)/
-   FUN_007e4916(setCell)/007e515e(wrap-pending)语料 + aux 对象
-   布局,修 DECALN/wrap 路径 junk aux(0x10101)→ decaln/wrap_edge
-   回归序列 → 58 全绿
-2. **原版会话重置 + 58 干净对比**(批 12 收尾):杀 WindTerm 重开
-   (Xvfb 流程见 PHASE5 复现节),echo 残留污染(tab/bs 漂)消除
-3. **ESC M 组合注入语义**(QUIRKS 13)✅ 已定型(pending 队列,
-   见 PHASE5 批 12)——38/38 全绿
-4. **键位引擎**(Phase 4a):按 wind.keymaps 格式解析 {keys,modes,
-   action|script};action 名查 wind.actions
-5. **doAction(007d1606)全量动作 + 状态机表 dump**——CSI/ESC 全谱
+1. **pending 模型 v3**(批 13 破译):CSI 全动作入 pending 队列
+   (枚举+参数),flush = writeSplitData 入口 + timer(亚 100ms)
+   → crlf_cup_text 归绿
+2. **tabstop 默认表**(QUIRKS 16):resizeDefault(007a604a)语料
+   精读 + HTS pending 疑云 probe(hts_tab→0)→ tab/cht2/hts_tab 归绿
+3. 格体 aux 深水区(DECALN/wrap,批 12 定位:junk aux 0x10101 =
+   m_sgrBits 当指针;需 007a5aac/007e4916/007e515e 语料)
+4. **键位引擎**(Phase 4a):wind.keymaps 格式解析;action 名查
+   wind.actions
+5. **doAction(007d1606)全量 + 状态机表 dump**(与 v3 伴生)——
    差分扩谱 58→100+
-6. 渲染层余项:宽字符双宽绘制/caretStyle 实心块/alt-screen 切换;
-   engtest3 光标 XOR 间歇失败诊断(1/3)
-7. Phase 4a 启动路径(workspace 布局装载 → 可启动);Telnet 协议
-   配置化(telnet.protocol);触发器/词法引擎(triggers/lexer)
+6. 渲染层余项:宽字符双宽/caretStyle/alt-screen;engtest3 光标
+   XOR 间歇失败诊断(1/3)
+7. Phase 4a 启动路径;Telnet 配置化;触发器/词法引擎
 
 ## 已知开放问题
 

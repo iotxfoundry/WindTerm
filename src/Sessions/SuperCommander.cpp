@@ -1960,17 +1960,29 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case 'C':   // CUF
 					m_screen->moveCursorForward(num(0) ? num(0) : 1);
 					break;
-				case 'D':   // CUB
-					m_screen->moveCursorBackward(num(0) ? num(0) : 1);
+				case 'D': { // CUB:越界整体拒绝(p5probe7 e 实测
+				            // CSI 99 D 从 col=4 不动;非教科书钳制)
+					const int n = num(0) ? num(0) : 1;
+					if (n <= m_screen->currentColumn())
+						m_screen->moveCursorBackward(n);
 					break;
+				}
 				case 'G':   // CHA(FUN_007e4f38 面)
-				case '`':
 					m_screen->cursorMoveRaw(m_screen->currentLine(),
 					                        num(0) ? num(0) - 1 : 0);
 					break;
-				case 'd':   // VPA
-					m_screen->cursorMoveRaw(num(0) ? num(0) - 1 : 0,
-					                        m_screen->currentColumn());
+				case 'I':   // CHT:前进 n 个 tabstop(实测 cht2
+				            // (0,16);FUN_007e5d1e 面)
+					m_screen->moveCursor(
+					    m_screen->currentLine(),
+					    m_screen->nextTabstop(
+					        m_screen->currentColumn(),
+					        num(0) ? num(0) : 1));
+					break;
+				case 'd':   // VPA:越界拒绝(同 CUB;p5probe7 e)
+					if (num(0) && num(0) - 1 < m_screen->rowCount())
+						m_screen->cursorMoveRaw(num(0) - 1,
+						    m_screen->currentColumn());
 					break;
 				case 'E':   // CNL
 					m_screen->cursorMoveRaw(

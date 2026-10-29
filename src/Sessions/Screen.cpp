@@ -175,7 +175,10 @@ void Screen::lineFeed()
 	// FUN_007e55fc: clear wrap pending, index down, then also CR when
 	// newline mode (LNM, +0x12f) is set
 	m_core->resetWrapPending();   // FUN_007a4564
-	indexDown();
+	// QUIRK(p5probe7 f 实测):LF 在未写入行上不动——CUP 到空行后
+	// LF 无效,字面写入后 LF 才下移(rowHasContent 门;非教科书)
+	if (m_core->rowHasContent(m_core->row(currentLine())))
+		indexDown();
 	if (!m_newlineMode)
 		return;
 	carriageReturn();
@@ -327,7 +330,10 @@ void Screen::clearTabstop(int mode)
 		return;
 	}
 	if (mode == 3)
-		m_core->m_tabstops.clear();
+		// 位图容量 = resizeDefault(cols) 分配,按屏宽循环清
+		// (Tabstops::clear 空体实锤:tbc_all diff 暴露)
+		for (int c = 0; c < windowColumns(); ++c)
+			m_core->m_tabstops.set(c, false);
 }
 
 // ---------------------------------------------------------------------------

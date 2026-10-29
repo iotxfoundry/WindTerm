@@ -19,6 +19,9 @@
 | 11 | ~~ESC D/E = 光标不动~~ **撤销(2026-10-29 伪影)**:实为教科书 IND/NEL + pending 队列延迟——单批尾动作待下次 writeSplitData 才 flush,旧 dump 读不到效果 | p5probe4/5 实测 |
 | 12 | ~~ESC M = 下移 1 行~~ **撤销(伪影)**:实为教科书 RI(上移 1,p5probe4 实测 4→3) + pending 延迟 | p5probe4 实测 |
 | 13 | **ESC 单字符动作(D/M/E)= pending 队列**:不立即执行,下次 writeSplitData 入口 flush(doAction 007d1606 记录器 → +0x20 容器);单批尾动作在下批注入前不可见——组合注入"CUP+M 只见 CUP"即此机制 | p5probe4/5 + doAction 语料 |
+| 14 | **LF 在未写入行上不动**:CUP 到空行后 LF 无效;字面写入后 LF 才下移(rowHasContent 门;批 13 crlf_cup_text 全轨迹实锤)。教科书 LF 无条件换行 | p5probe7 f + crlf_cup_text |
+| 15 | **CUB/VPA 越界整体拒绝**:CSI 99 D 从 col=4 不动、CSI 99 d 不动(p5probe7 e);CUP 越界却是钳制(99;99→右下)——同批序列不同策略 | p5probe7 e |
+| 16 | **HT/CHT 的默认 stop 表(新会话)= {4}**:HT→4、CHT 2 无下一 stop→行尾 88(=cols-1);旧会话曾现 every-8(表随会话/配置变)——resizeDefault(007a604a)语料精读待做 | p5 58 序列 tab/cht2 diff |
 
 ## 裁决流程(测试失败时)
 

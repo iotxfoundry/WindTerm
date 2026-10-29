@@ -50,7 +50,8 @@ static const char *verifyCells(TerminalCore &core)
 }
 
 static void dumpSeq(SuperCommander &cmd, Screen &s, TerminalCore &core,
-                    const char *name, const char *hex, std::ofstream &out)
+                    const char *name, const char *hex, std::ofstream &out,
+                    bool baselineOnly = false)
 {
 	// hex → bytes;',' 分批(批间 = writeSplitData 入口 = pending
 	// flush 点,与原版 dump 驱动同模型)
@@ -66,6 +67,8 @@ static void dumpSeq(SuperCommander &cmd, Screen &s, TerminalCore &core,
 		if (!bytes.isEmpty())
 			cmd.processOutput(bytes);   // 解析链(writeSplitData)
 	}
+	if (baselineOnly)
+		return;   // 基线注入不落 JSON
 	const char *bad = verifyCells(core);
 	if (bad)
 		fprintf(stderr, "[p5] VERIFY %s: %s (cursor %d,%d)\n", name,
@@ -98,12 +101,12 @@ int main()
 	out << "[\n";
 
 	TerminalCore core;
-	core.resizeCore(24, 80);
+	core.resizeCore(31, 89);
 	core.m_flags |= 0x02;   // DECAWM
 	Screen s;
 	s.m_core = &core;
 	s.m_history = new TerminalCore();
-	s.m_history->resizeCore(24, 80);
+	s.m_history->resizeCore(31, 89);
 	QTextCodec *utf8 = QTextCodec::codecForName("UTF-8");
 	s.m_codec = (void *)utf8;
 	s.m_decoder = (void *)utf8->makeDecoder();
@@ -130,17 +133,14 @@ int main()
 	QJsonDocument seqDoc = QJsonDocument::fromJson(f.readAll());
 	const QJsonArray arr = seqDoc.array();
 	bool first = true;
-	bool cleared = false;
 	for (const QJsonValue &v : arr) {
 		const QJsonObject o = v.toObject();
 		const QByteArray name = o["name"].toString().toUtf8();
 		const QByteArray hex = o["bytes"].toString().toUtf8();
-		if (!cleared) {   // 与原版一致:先清屏归零
-			dumpSeq(cmd, s, core, "clear",
-			        "1b5b324a1b5b481b5b72", out);
-			cleared = true;
-			first = false;
-		}
+		// 每序列清屏基线(与原版 dump 驱动同模型):自包含对比,
+		// 差异不级联
+		dumpSeq(cmd, s, core, nullptr, "1b5b324a1b5b481b5b72", out,
+		        true);
 		if (!first)
 			out << ",\n";
 		first = false;

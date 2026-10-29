@@ -107,10 +107,10 @@ def main():
         time.sleep(1)
     print('ready =', script.exports_sync.ready())
 
-    script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 清屏+重置滚动区基线
-    time.sleep(0.3)   # 异步动作(Gt 事件循环排队)稳定
     out = []
     for seq in seqs:
+        script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 每序列清屏基线
+        time.sleep(0.3)   # 异步动作(Gt 事件循环排队)稳定
         # ',' 分批:验证 pending flush(QUIRKS 13)必需——批间即 flush 点
         for part in seq['bytes'].split(','):
             script.exports_sync.inject(part)

@@ -90,18 +90,39 @@
 - engtest3 光标 XOR 断言间歇失败(1/3,全量时)——渲染层偶发,
   与本轮改动无关,待诊
 
+### 批 13(2026-10-29):管线自包含化 + 修复浪潮 54/58 ⏳
+- **管线升级**:基线注入进序列循环(每序列清屏+home+CSI r,双侧同
+  模型)——差异不再级联,单序列可独立诊断
+- **原版会话重置**(批 12 脏会话作废重拉;屏尺寸实测 **31×89**,
+  cols=89 ← core+0xe4;我方 engtest4 resize 同步)
+- 修复(全部 diff/probe 实锚):
+  - Tabstops::clear 空体实锤 → Screen::clearTabstop 按屏宽循环清
+  - nextTabstop 行尾语义(88=cols-1)✓ 语料已在;尺寸修正后自绿
+  - HPA(ESC[`)原版不识别 → 删 '`' case(probe a:ESC[10` 不动)
+  - CHT(CSI I)= 跳 n stop → 补 case 'I'(cht2 (0,16) 旧会话)
+  - CUB/VPA 越界整体拒绝(QUIRKS 15)→ CSI D/d 加守卫
+  - LF 未写行不动(QUIRKS 14)→ lineFeed rowHasContent 门
+  - ICH blank attr head=0x20 + attrArray 平行搬移(rowInsertBlanks
+    只搬 cells 的缺口;ich2 diff 暴露)
+  - DCH 尾部补 = 0(非 space)→ rowInsertBlanks blankHead 参数
+    (ICH=0x20/DCH=0;dch3 回归暴露)
+- **crlf_cup_text 全轨迹破译 = pending 模型 v3**:批内 AB@home +
+  光标 (1,2) = **CSI CUP 也入 pending 队列**(字面写在动作前;
+  timer 亚 100ms flush——probe a CUP 单批 imm 0.02 已生效)。
+  实现需 doAction 全量重构(动作枚举+参数化队列)= 下一轮主菜
+- 53→54/58;剩 4:tab/cht2/hts_tab(默认 stop 表谜,QUIRKS 16,
+  新会话表={4}:HT→4/CHT2→行尾/HTS+HT→0 待 probe)+ crlf_cup_text
+  (pending v3 实现)
+
 ### 待解(下一轮首任务)
-- **格体 aux 深水区**(decaln/wrap_edge 触发):adjustScreenAlignment
-  的 setCell(y,x,0x45,m_sgrState) 把状态格当 MOVE 源 → 格体四域语义
-  错位 → junk aux(0x10101 = m_sgrBits 值被当指针)→ free 崩。
-  wrap_edge = writeText wrap 路径同簇(HANDOFF 开放问题 m_writeTemplate
-  实锤)。需精读 FUN_007a5aac(setRowCell)/FUN_007e4916(setCell)/
-  007e515e(wrap-pending)语料 + aux 对象布局
-- 原版侧会话重置 + 58 序列干净对比 → 目标 58/58
-- hpa(`)/cht2(I)/cubOob/vpaOob/osc 的我方分派逐条对原版裁决
-  (hpa 原版读数 (4,4) = CUP 生效 HPA 忽略?待干净会话复核)
-- 我方 sgr_rgb 后 X 残留 row1(ris 读数 row1[0]=88)——writeText 写入
-  位置或 ESC[2J 清除范围待查
+- **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
+  CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +
+  timer;对齐后 crlf_cup_text 归绿
+- **tabstop 默认表**:resizeDefault(007a604a tail)语料精读
+  (every-4?单元素 {4}?);HTS(ESC H)pending 疑云(hts_tab →0)
+  probe 裁决
+- 格体 aux 深水区(DECALN/wrap,批 12 定位)仍在队列
+- 58→100+ 扩谱(doAction 全量伴生)
 
 ## 复现
 

@@ -641,7 +641,7 @@ void TerminalCore::scrollHorizontal(int delta)
 			continue;
 		if (delta >= 0) {
 			rowDeleteCells(row, rightMargin() - count + 1, count);        // FUN_007a5dce
-			rowInsertBlanks(row, leftMargin(), count, m_sgrState);       // FUN_007a641a
+			rowInsertBlanks(row, leftMargin(), count, m_sgrState, 0x20);       // FUN_007a641a
 		} else {
 			rowDeleteCells(row, leftMargin(), count);                     // FUN_007a5dce
 			rowInsertBlanks(row, rightMargin() - count + 1, count, m_sgrState);
@@ -765,7 +765,7 @@ void TerminalCore::insertCharacter(int count)
 		count = room;
 	struct Row *row = m_rows[m_cursorY];
 	rowDeleteCells(row, rightMargin() - count + 1, count);           // FUN_007a5dce
-	rowInsertBlanks(row, m_cursorX, count, m_sgrState);             // FUN_007a641a
+	rowInsertBlanks(row, m_cursorX, count, m_sgrState, 0x20);       // FUN_007a641a ICH
 }
 
 void TerminalCore::deleteCharacter(int count)
@@ -915,7 +915,8 @@ void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
 	// tail [length-n..length) blank reset — cited
 }
 
-void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgrCtx)
+void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count,
+                                   void *sgrCtx, unsigned short blankHead)
 {
 	// FUN_007a641a: grows the cell/attribute arrays to at least
 	// length+count (FUN_007aa3a6 keeps capacity), builds a blank cell
@@ -929,6 +930,7 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 	unsigned char blank[0x20];
 	memset(blank, 0, sizeof(blank));
 	buildBlankCell(blank, sgrCtx);                    // FUN_007aa2e2
+	((unsigned short *)blank)[0] = blankHead;   // ICH=0x20 space,DCH 补=0
 	fprintf(stderr,
 	        "[p5] bb sgrCtx=%p q0=%p q2=%p m_sgrState=%p tabs=%p\n",
 	        sgrCtx, *(void *const *)sgrCtx,
@@ -937,6 +939,7 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 	char *cells = (char *)row->cells;
 	// FUN_007aa3a6 内联 move 块(语料):dst aux 先清 → 4×8B 拷 →
 	// src aux 释放(引用计数检查 + operator_delete 0x18)
+	unsigned short *attrs = (unsigned short *)row->attrArray;
 	for (int i = rowLength(row) - 1; i >= at; i--) {
 		void *d = cells + (size_t)(i + count) * 0x20;
 		void *sv = cells + (size_t)i * 0x20;
@@ -948,9 +951,12 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 		dd[2] = ss[2];
 		dd[3] = ss[3];
 		ss[2] = nullptr;   // src aux 所有权已转移
+		attrs[i + count] = attrs[i];   // attr u16 头平行搬移
 	}
-	for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++) {
 		writeCell(cells + (size_t)(at + i) * 0x20, blank);
+		attrs[at + i] = blankHead;
+	}
 }
 
 void TerminalCore::copyRowFromTemplate(struct Row *row, void *templateRow)
