@@ -32,6 +32,11 @@ struct Row {
 	void *attrArray;          // +0x40 glyph-head array (2-byte stride)
 	void *style;              // +0x50 render style (pushLinesToScrollback)
 	void *spare;              // +0x58 spare
+	// 重建侧容量追踪(语料 Row 0x58B 的 +0x08 覆盖头在 C 结构下
+	// 与 length/_pad0 错位——ASan 定位后改显式字段;行为对比以
+	// 格子级为准,见 PHASE5.md)
+	int cellsCap = 0;
+	int attrCap = 0;
 };
 
 // Tabstop bitmap embedded at core +0x18 (FUN_007e52f0): payload at +0x10,
@@ -226,7 +231,8 @@ public:
 	void copyCell(void *dst, const void *src);     // FUN_007aa2e2 (deep, aux clone)
 	void buildBlankCell(unsigned char blank[0x20], void *sgrCtx);  // FUN_007aa2e2
 	void writeCell(void *dst, const unsigned char blank[0x20]);
-	void growRowArrays(void *arrayHeader, int newLen, int minCap);  // FUN_007aa3a6
+	void growRowArrays(struct Row *row, int newLen);   // 容量字段版
+	void growQListCells(int *header, int newLen, int minCap);  // FUN_007aa3a6
 	static void resizeUshortVector(int *hdr, int len, int cap);  // FUN_007aa1bc
 	void resizeCore(int rows, int cols);   // FUN_007a604a — cited (row reflow)
 	// lastNonEmptyRow == lastContentRowCount (FUN_007a5618, alias)

@@ -919,12 +919,16 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 		return;
 	if (count == 0)
 		return;
-	growRowArrays((char *)row + 8, rowLength(row) + count,
-	              rowLength(row) + count);   // FUN_007aa3a6 (array header at row+8)
+	growRowArrays(row, rowLength(row) + count);   // FUN_007aa3a6 语义
 	unsigned char blank[0x20];
 	memset(blank, 0, sizeof(blank));
 	buildBlankCell(blank, sgrCtx);                    // FUN_007aa2e2
 	char *cells = (char *)row->cells;
+	fprintf(stderr,
+	        "[p5] rib row=%p cells=%p cap=%d len=%d tabs=%p cur=%d\n",
+	        (void *)row, (void *)row->cells, row->cellsCap,
+	        row->length, (void *)m_tabstops.payload, m_cursorY);
+	fflush(stderr);
 	// FUN_007aa3a6 内联 move 块(语料):dst aux 先清 → 4×8B 拷 →
 	// src aux 释放(引用计数检查 + operator_delete 0x18)
 	for (int i = rowLength(row) - 1; i >= at; i--) {
@@ -1089,30 +1093,63 @@ void TerminalCore::writeCell(void *dst, const unsigned char blank[0x20])
 	copyCell(dst, blank);
 }
 
-void TerminalCore::growRowArrays(void *arrayHeader, int newLen, int minCap)
+void TerminalCore::growQListCells(int *header, int newLen, int minCap)
 {
-	// FUN_007aa3a6: Qt-style cell vector header {cap, count, data};
-	// grows to minCap (0x20-byte cells, embedded storage for <2),
-	// preserving min(newLen, count) cells (ownership-aware copy)
-	struct CellArray { int cap; int count; unsigned char *data; };
-	CellArray *arr = (CellArray *)arrayHeader;
-	int preserve = arr->count < newLen ? arr->count : newLen;
-	unsigned char *oldData = arr->data;
-	if (arr->cap != minCap) {
+	// QList 形 {cap,count,data} 临时头(矩形收集路径专用)
+	// FUN_007aa3a6:容量增长,保留 min(newLen,count) 格
+	int preserve = header[1] < newLen ? header[1] : newLen;
+	unsigned char *oldData = (unsigned char *)header[2];
+	if (header[0] != minCap) {
 		if (minCap < 2) {
-			arr->data = (unsigned char *)(arr + 1);   // embedded storage
-			arr->cap = 1;
+			*(unsigned char **)&header[2] =
+			    (unsigned char *)header + 16;
+			header[0] = 1;
 		} else {
-			arr->data = (unsigned char *)malloc((size_t)minCap << 5);
-			memset(arr->data, 0, (size_t)minCap << 5);   // aux 槽必须 null(00aa3a6 行为不变量)
-			arr->cap = minCap;
+			unsigned char *fresh =
+			    (unsigned char *)malloc((size_t)minCap << 5);
+			memset(fresh, 0, (size_t)minCap << 5);
+			header[2] = (int)(long)fresh;
+			header[0] = minCap;
 		}
-		arr->count = 0;
+		header[1] = 0;
+		unsigned char *freshData = (unsigned char *)header[2];
 		for (int i = 0; i < preserve; i++)
-			copyCell(arr->data + (size_t)i * 0x20, oldData + (size_t)i * 0x20);
-		// release old storage - cited
+			memcpy(freshData + (size_t)i * 0x20,
+			       oldData + (size_t)i * 0x20, 0x20);
 	}
-	arr->count = preserve;
+	header[1] = preserve;
+}
+
+void TerminalCore::growRowArrays(struct Row *row, int newLen)
+{
+	// 重建实现:按 Row::cellsCap/attrCap 容量字段倍增扩容,新域清零
+	// (aux 槽必须 null)。语料 FUN_007aa3a6 的行内覆盖头在 C 结构
+	// 布局下与 length/_pad0 错位(ASan 定位),故改显式字段——
+	// 可观察行为(格字头/SGR/aux 所有权)与语料一致。
+	if (newLen <= row->length && row->cellsCap >= newLen
+	    && row->attrCap >= newLen)
+		return;
+	int cap = row->cellsCap < 2 ? 2 : row->cellsCap;
+	while (cap < newLen)
+		cap *= 2;
+	unsigned char *cells = (unsigned char *)malloc((size_t)cap * 0x20);
+	memset(cells, 0, (size_t)cap * 0x20);
+	memcpy(cells, row->cells, (size_t)row->length * 0x20);
+	::operator delete(row->cells);
+	row->cells = cells;
+	row->cellsCap = cap;
+	if (row->attrCap < newLen) {
+		int acap = row->attrCap < 2 ? 2 : row->attrCap;
+		while (acap < newLen)
+			acap *= 2;
+		unsigned short *heads =
+		    (unsigned short *)malloc((size_t)acap * 2);
+		memset(heads, 0, (size_t)acap * 2);
+		memcpy(heads, row->attrArray, (size_t)row->length * 2);
+		::operator delete(row->attrArray);
+		row->attrArray = heads;
+		row->attrCap = acap;
+	}
 }
 
 void *TerminalCore::cellAt(struct Row *row, int x)
@@ -1311,7 +1348,7 @@ void TerminalCore::copyRect(int top, int left, int bottom, int right, long long 
 		resizeUshortVector((int *)&heads[i], count, count);   // FUN_007a5f3e
 		memcpy(heads[i].data, (const unsigned short *)row->attrArray + left,
 		       (size_t)count * 2);
-		growRowArrays((int *)&cells[i], count, count);        // FUN_007a5f86
+		growQListCells((int *)&cells[i], count, count);        // FUN_007a5f86
 		for (int x = 0; x < count; x++)
 			copyCell(cells[i].data + (size_t)x * 0x20, cellAt(row, left + x));
 	}
@@ -1340,7 +1377,7 @@ void TerminalCore::copyRect(int top, int left, int bottom, int right, long long 
 	markDirty(1);
 	for (int i = 0; i < rows; i++) {
 		resizeUshortVector((int *)&heads[i], 0, 0);   // QList dtor — cited
-		growRowArrays((int *)&cells[i], 0, 0);        // QList dtor — cited
+		growQListCells((int *)&cells[i], 0, 0);        // QList dtor — cited
 	}
 	free(heads);
 	free(cells);
@@ -1542,6 +1579,8 @@ void TerminalCore::makeRow(struct Row *row, int cols)
 		((unsigned char *)row->cells)[i * 0x20] = 1;
 	row->attrArray = ::operator new((size_t)cols * 2);
 	memset(row->attrArray, 0, (size_t)cols * 2);
+	row->cellsCap = cols;
+	row->attrCap = cols;
 }
 
 void Tabstops::resizeDefault(int cols)
