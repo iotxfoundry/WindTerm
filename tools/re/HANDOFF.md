@@ -3,16 +3,17 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-29 第二次交接)
+## 一句话状态(2026-10-29 第三次交接)
 
 **Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线通,
 38 序列 36/38 MATCH(剩 ESC M 组合注入语义 2 差异);Phase 3 WT
-分派 93/149 case。** libWindTermRe.so 9.3MB,dlopen OK;e2eterm 25 +
-recheck 22 + engtest3/2 全绿。
+分派 93/149 case;配置面资产已探明(docs/CONFIG-SCHEMAS.md)。**
+libWindTermRe.so 9.3MB,dlopen OK;e2eterm 25 + recheck 22 +
+engtest3/2 全绿。
 
-**本地领先远端 4 个提交(未推送,遵"只提交不主动推送"规范)**:
-3c439f88(批 11 ESC D/M/E 语义)、d06e173b(批 10 aux 簇收口)、
-643c1f2b(踩坑 17 强化)。用户说"推送"时一次性 push。
+**本地领先远端 9 个提交(未推送,遵"只提交不主动推送"规范;含
+批 9-11/tests/ ctest 集成/文档同步/CONFIG-SCHEMAS)。用户说"推送"
+时一次性 push。**
 
 ## 里程碑链(全部 ✅)
 
@@ -85,8 +86,9 @@ recheck 22 + engtest3/2 全绿。
 
 - frida:pip --user(17.24.3);REA binding 已修(bun prebuild-install
   走代理)但需宿主重载
-- 测试构建:见 tools/re/metatest/README.md(无 LD_LIBRARY_PATH
-  链接 + -Wl,-rpath-link;运行时 bundled Qt)
+- 测试:`cd build && ctest`(行为门 6 测试,环境已封装;见
+  tests/README.md)。RE 探针:tools/re/metatest/(手工 g++;改
+  头文件后必须重编,踩坑 15)
 - ptrace_scope=0(已设,重启后需重设:sysctl -w)
 - libssh-dev/patchelf/Xvfb 已装
 
