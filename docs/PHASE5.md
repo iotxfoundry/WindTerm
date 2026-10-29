@@ -338,6 +338,19 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   decstbm_ri 排空分相),均非我方转写缺陷
 - pkill 自匹配误杀(p5 踩坑 #16):pkill -f 括号法 [d] 规避
 
+### 批 25(2026-10-30)/loop-start R1:decstbm_ri probe 矩阵 + 吞噬扩展回归修复 ⏳
+- **probe38 矩阵跑成**:(a) decstbm_ri 原样 → X 被吞(r4[0]=0,未渲染)
+  + CUP 应用 (4,0);(c) tab 批后 (0,4) 表干净 ✓ —— **ESC-single 吞噬
+  尾随字面证据 +1**(M 后 X 吞,与 E2 \t 吞同型)
+- **吞噬扩展实验(7/8/c/=/ >)→ ris 回归 (4,4) → 根因两连**:
+  ① 吞噬扫描后落入公共尾 litStart=++i → **吃掉下一序列的 ESC**
+  (级联字面化);② 条件修复时误删分支体(H/7/8 落入默认 glyph 路径
+  → decsc/decrc/tab/hts_tab u=27)——双双修复,96/98 + ctest 6/6 恢复
+- **正确吞噬实现留批 26**:扫描后需 i-1 回退(公共 ++i 消化)+ litStart
+  对齐,使下一 ESC 交还解析(当下回退到批 23 miss 态 96/98 保平安)
+- 教训:多轮 python 锚点编辑互相踩(条件/体分离),改后必须
+  grep -A 复核分支完整性(踩坑 #17 候选)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

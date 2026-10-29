@@ -2200,15 +2200,14 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				i++;
 				litStart = i;
 			} else if (e1 == 'H' || e1 == '7' || e1 == '8') {
-				// HTS/DECSC/DECRC = 分派 miss,消费不执行
-				// (probe15 E2 bits{};批 22:decsc_rc/
-				// scosc_rc 双 (1,2) 稳定读 —— save/restore
-				// 族全 miss,RestoreCursor 动作名未注册)
+				// HTS/DECSC/DECRC = 分派 miss,消费 2 字节
+				// (批 23 验证态;probe38 尾随吞噬证据挂账
+				// decstbm_ri)
 				i++;
 				litStart = i;
 			} else if (e1 == 'c' || e1 == '=' || e1 == '>') {
-				// 正则命中动作 → FIFO 队列(probe15:E5 字面
-				// 先行动作后至;E4 字节序 FIFO)
+				// RIS/DECKPAM/DECKPNM = 应用型(ris 锚:
+				// 批 23 误吞致 ris 回归,已裁)
 				if (m_replaying)
 					execEsc(e1);
 				else
