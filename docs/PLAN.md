@@ -106,7 +106,7 @@ gen_stubs 70→5。测试策略与保真约束见下方"测试策略"块。
 | scrollbackModeCheck | 007e4028 | =isAltScreenActive(+0x139,同一函数) | ✅ |
 | queryProtocolLevelProxy | 007e2e42 | 94 槽→strtol(text+2)/100;否则 ext?4:-1 | ✅(参数对象路径 cited) |
 | codecFromUnicode / codecToUnicode | ? | body 未定位(0091318c 实为 scrollbackErased 信号) | ⬜ |
-| requestXtermTerminfoData | 007f3518 | XTGETTCAP(92 项表 @0x117fea0 可 dump) | ⬜ |
+| requestXtermTerminfoData | 007f3518 | XTGETTCAP 92 项表(1a 已转写 ✅,terminfo_caps.inc) | ✅ |
 
 ### 1d. 滚动/区域 ⏳
 | 函数 | 语义 | 状态 |

@@ -1,4 +1,8 @@
 # 会话/配置层定位(静态库反哺逆向,2026-10-28)
+#
+# 【实现状态 2026-10-29】CTerminalConfig(JSONC)+ ProfileLoader
+# 已实现(src/Editor,Phase 4a 部分 ✅);workspace 布局装载 ⬜
+# 见 PLAN 4a。
 
 由引入的 jsoncpp 1.9.4 / yaml-cpp 0.6.3 反哺:先在主二进制证实
 静态打包,再经反编译语料中的库函数名(Ghidra 从字符串解名)与

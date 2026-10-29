@@ -1,4 +1,9 @@
 # 编辑器引擎主分派器命令表(FUN_00a418c4,37,951B)
+#
+# 【实现状态 2026-10-29】WT 段(30001-30166)93 case 已在
+# EditorEngine::customDispatch 实现(批 1-7,含 RunNode/
+# 标记注册表/调色板管线);SCI 段委托真 Scintilla。余量与
+# cited 清单见 docs/PLAN.md Phase 3。
 
 两级分派第二级(第一级 0xa5205e SCI 快速段,见 TEXTVIEW-IMPL.md)。
 由 tools/re/gen_editor_cmds.py 从反编译语料机械提取:336 个 `==` 叶

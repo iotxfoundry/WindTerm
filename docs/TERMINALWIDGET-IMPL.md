@@ -1,4 +1,9 @@
 // 58 槽全量映射(idx=moc 序号,metacall 0x910a98 case 表)
+//
+// 【实现状态 2026-10-29】58 槽分派已在 src/Widgets/TerminalWidget
+// 实现(Phase 4b;PLAN.md 总览);本文档 = 原版证据表,持续有效。
+// 渲染层见 TerminalView(Phase 4b 批 8);深腿 cited 清单见
+// docs/PHASE5.md。
 
 | idx | 方法 | 实现 VA | 形态/证据 |
 |---|---|---|---|

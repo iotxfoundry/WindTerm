@@ -1,4 +1,9 @@
 # Screen 信号表(经 setScreen 安装器布线 + 发射器 activate 索引)
+#
+# 【实现状态 2026-10-29】发射器 notify*(Zmodem/CursorStyle/
+# Message/NamedAttribute 等)已在 Screen 转写(PLAN 1b ✅);
+# Qt 信号布线(setScreen 安装器)待 Phase 4a;视图侧经
+# TermViewFace::viewNotify 通道承接(TerminalView)。
 
 | 信号 idx | 发射器 | 接收槽(TerminalWidget) | 已证名 |
 |---|---|---|---|
