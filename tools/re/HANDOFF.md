@@ -1,89 +1,85 @@
 # 新会话起点(交接文档)
 
-> 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md,即可无缝续作。
+> 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
+> docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-28 终态)
+## 一句话状态(2026-10-29 第二次交接)
 
-**Phase 0/1/2 全部收口;Phase 4b 槽覆盖完成;Phase 3 批量模式运行中。**
-libWindTermRe.so 9.2MB,dlopen OK;e2eterm 25 断言 + recheck 22 例 +
-engtest×2 + sshsmoke 全绿。gen_stubs 70→**5**(全为 Phase-3/4 深项)。
+**Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线通,
+38 序列 36/38 MATCH(剩 ESC M 组合注入语义 2 差异);Phase 3 WT
+分派 93/149 case。** libWindTermRe.so 9.3MB,dlopen OK;e2eterm 25 +
+recheck 22 + engtest3/2 全绿。
+
+**本地领先远端 4 个提交(未推送,遵"只提交不主动推送"规范)**:
+3c439f88(批 11 ESC D/M/E 语义)、d06e173b(批 10 aux 簇收口)、
+643c1f2b(踩坑 17 强化)。用户说"推送"时一次性 push。
 
 ## 里程碑链(全部 ✅)
 
-语法/moc/编译/链接/dlopen → 三层真实现(终端栈 259/259、编辑引擎
-混合、SSH 认证)→ CMake 构建(增量 0.08s,静态库入库)→ 目录归位 →
-**moc 权威抽取器**(Screen 37 信号/SuperSession 59/SuperCommander 264
-三表入库)→ **行为测试矩阵**(e2eterm/recheck)→ **配置层贯通**
-(CTerminalConfig+ProfileLoader)→ **端到端写路径**(ASCII/UTF-8/
-wrap/SGR)→ **Phase 4b TerminalWidget 58 槽覆盖**。
+语法/moc/构建/dlopen → 三层真实现 → CMake → moc 权威抽取器 →
+行为测试矩阵 → 配置层贯通 → 端到端写路径 → Phase 4b TerminalWidget
+58 槽 + **渲染层(TerminalView 格子/SGR/光标/调色板管线)+ 键盘
+闭环** → **Phase 5:Xvfb + Frida 差分管线,38 序列 36/38 MATCH**。
 
-## 目录结构
+## Phase 5 差分管线(核心资产,详见 docs/PHASE5.md)
 
-```
-src/
-  Sessions/   ← 会话层(SuperCommander 264 槽/Screen/TerminalCore/
-                SuperSession;gen_stubs.cpp 仅剩 5 深项)
-  Editor/     ← EditorEngine(混合层)+ ConfigBridge + CTerminalConfig
-                + ProfileLoader + EditorContext.h
-  Widgets/    ← TerminalWidget(58 槽)+ SessionManager + TextView +
-                ScrollBar/Splitter/PopupWidget
-  Protocols/  ← Telnet
-  Utility/    ← KingEnums + Cryptographic + ThreadLocal
-  Scintilla|libssh|Onigmo|jsoncpp|yaml-cpp  ← 五源码树
-lib/          ← 原版 .so + 预构建 .a(20MB)
-docs/         ← 19 .md(含 PLAN.md/QUIRKS.md)
-tools/re/     ← 逆向工具链 + 49M decomp + metatest/(5 测试)+ data/
-```
+- **原版驱动**:tools/re/phase5/phase5_dump.py(附加运行中的
+  原版,Xvfb + bash 会话;xdotool 打字触发捕获;writeSplitData
+  007d1f5a 注入;core +0xc4/+0xc8 光标、行 +0x74/+0x78、
+  row +0x0c/+0x40 读格)→ phase5_original.json
+- **我方驱动**:engtest4.cpp(writeText/processOutput → 同格式
+  phase5_ours.json)+ python diff(游标+行 0..2 逐字节)
+- **环境**:Xvfb :99 + 原版(bundled Qt;offscreen QPA 会话段崩
+  不可用)+ xdotool(点击开 bash:双击 1014,331 → 1040,359;
+  打字触发回显捕获 Screen)+ **exec sleep 100000 哑化 shell**
+  (防提示符重绘干扰,ALL MATCH 基线前提)
+- 链接测试二进制:无 LD_LIBRARY_PATH + `-Wl,-rpath-link,/
+  usr/lib/x86_64-linux-gnu`;运行时 bundled Qt(/opt lib)
 
-## 构建/验证(每轮提交门)
+## 关键发现(逆向对齐用,详见 PHASE5/BUILD-AUDIT/EXT-BOUNDARY)
 
-```bash
-mkdir build && cd build && cmake .. && make -j$(nproc)   # 增量 0.08s
-LD_LIBRARY_PATH=build:lib QT_QPA_PLATFORM=offscreen \
-  python3 -c "import ctypes; ctypes.CDLL('build/libWindTermRe.so')"
-# 测试(改头文件后必须重编!踩坑 15):
-g++ -std=c++17 -fPIC -o /tmp/e2e tools/re/metatest/e2eterm.cpp …(-L build -lWindTermRe)
-```
-
-## 测试策略(PLAN.md 头部成文)
-
-**测试跟随真身化,不领先。** e2eterm(25 断言)/recheck(22 例)冻结
-为提交门;不向未完成子系统扩展;失败测试按 docs/QUIRKS.md 裁决
-(10 条原版怪癖登记,禁止按"终端应该怎样"修)。
-
-## 关键方法论资产(本轮新增)
-
-1. **moc 权威抽取器**(tools/re/data/*_moc_methods.json ×3):
-   stringdata = 每串一 QArrayData(24B 步长),offset 相对条目自身;
-   data[4]/[5]=方法数/偏移;每方法 5 uint(name/argc/params/tag/flags)。
-   任意类的 moc 方法名/序/签名可权威抽出——**禁止按 pool 位置猜名**。
-2. **metacall 全映射**:supercommander_metacall_map.json(264 槽 case→
-   target+权威名)。教训:SuperCommander.h 声明序 ≠ 原 moc 序。
-3. **数据表 dump 法**:宽度表(1307 区间)/字符集注册表(31)/
-   terminfo(92)从 .rodata/.data.rel.ro 直接 dump 入 .inc。
-4. **IDA = Ghidra − 0x400000**;kuna disassemble 用于寄存器级确认
-   (如 FUN_007a2bd4 第二参=ESI 直透)。
+1. **writeText(007e6f42)= 后处理写入器,非 ANSI 解析器**(双侧
+   实证);真解析链 = writeSplitData(007d1f5a)→ 007d10c5 →
+   vt14 → writeText
+2. **ESC D/E = 光标不动;ESC M = 下移 1 行**(QUIRKS 11-13,
+   per-key 实测);ESC M 组合注入(CUP+M)动作丢失语义待定型
+3. **RunNode 值类型**(0096bac0):{style<<1|flag, pos, width};
+   RunPair 区间;标记注册表 = 有序去重表
+4. 原版静态嵌入:boost 1.78(xpressive,**未复刻差距**)/yaml-cpp
+   0.7.0/jsoncpp/dtl/zstd;spdlog 0 符号;onig 0(已删误判)
+5. paletteColor 公式 = 容器 + index*4 + *(容器+0x10)(QArrayData
+   offset 域);malloc/free 家族统一(makeRow/growRowArrays)
 
 ## 下一步(按优先级)
 
-1. **Phase 3 批 3**:editctx 迭代器模型(FUN_00a169cc/00a167ac 对
-   跳转)+ pair 批 0x75b4/75b5;之后 0x7558/7567/7568 margin 元数据批
-2. **Phase 4 深腿**:渲染层(调色板/字体/视口——TerminalWidget 目前
-   无 paint)、会话栈(+0x1e0/+0x1e8)、对话框面
-3. **SessionLogger moc 抽取**(loggerOp 的 FUN_007c1b92 sink 面)
-4. **Phase 5**:离屏渲染对比(需渲染层先行)
+1. **ESC M 组合注入语义定型**(QUIRKS 13):多位置×逐键微实验
+   (p5probe2.py 模式)→ 38 全绿
+2. **doAction(007d1606,2292B)全量动作 + 状态机表 dump**——
+   CSI/ESC 全谱(CUP/ED/EL/SGR 全参/DECSET 族)差分扩到 60+
+3. 渲染层余项:宽字符双宽绘制/caretStyle 实心块/alt-screen 切换
+4. Phase 4a 启动路径(workspace 布局装载 → 可启动)
+5. boost::xpressive 子集引入(正则面转写时)
 
 ## 已知开放问题
 
-- convertRowToHistory(007a9582,1262B)= RunStyles/PieceTable 文档
-  桥,待 Phase-4 文档模型(可直接对接 src/Scintilla 的 RunStyles)
-- notifyIterm2 CursorShape 腿(007e3b12/007cc828)、setHyperlinkTarget
-  (007f43ce,457B)cited
-- vt14 门控 +0xfc 命令器成员、+0x12c 写屏门语义待 Commander 状态面
-- wind.config 数组缺逗号 QUIRK 已由 jsoncpp 容错覆盖(QUIRKS 无条目,
-  见 ProfileLoader parseTolerant 注释)
+- ESC M 组合注入动作丢失(QUIRKS 13,异步排队/合并语义)
+- IND/RI/NEL 滚动区外钳制(DECSTBM 后区外行为,32/35 的 3 差异
+  已随 exec-sleep 哑化消解,待复核)
+- m_writeTemplate 生命周期(payload 域 0x10101 junk 写入者)
+- convertRowToHistory(007a9582)RunStyles 文档桥
+- REA 的 MCP 通道需宿主重载(当前用 python frida 直驱)
 
-## 提交规范(不变)
+## 环境速查
 
-中文 commit;push 必带 `-c http.proxy=http://192.168.1.106:7890`;
-每轮:改动 + 对应 .md 更新,一条 commit 一条 push。
+- frida:pip --user(17.24.3);REA binding 已修(bun prebuild-install
+  走代理)但需宿主重载
+- 测试构建:见 tools/re/metatest/README.md(无 LD_LIBRARY_PATH
+  链接 + -Wl,-rpath-link;运行时 bundled Qt)
+- ptrace_scope=0(已设,重启后需重设:sysctl -w)
+- libssh-dev/patchelf/Xvfb 已装
+
+## 提交规范(2026-10-29 修订)
+
+- 中文 commit;**只提交,不主动推送**(push 仅在用户明示时执行,
+  届时必带 `-c http.proxy=http://192.168.1.106:7890`)
+- 每轮:改动 + 对应 .md 更新,一条 commit
