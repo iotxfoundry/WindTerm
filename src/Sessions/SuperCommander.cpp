@@ -2188,21 +2188,25 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					m_tailResumed = false;
 				}
 				litStart = i;
-			} else if (e1 == 'D' || e1 == 'E' || e1 == 'M') {
-				// IND/NEL/RI → 专队列,下次入口 flush(v6:
-				// ind/nel 单批 (0,0);ind_bot_scroll/ri_top_
-				// scroll follower 批生效 (5,0)/滚)
+			} else if (e1 == 'D' || e1 == 'E' || e1 == 'M'
+			           || e1 == 'H' || e1 == '7' || e1 == '8') {
+				// ESC-single 统一(批 26):全族 escPending
+				// (下次入口 flush)+ 吞噬尾随字面直到下一
+				// ESC —— 四锚全拟:ind 单批 (0,0)/ind_bot_
+				// scroll follower (5,0)/probe38 X 吞/E2 \t 吞/
+				// E4 CHT 存活于 ESC 边界
 				if (m_replaying)
 					execEsc(e1);
-				else
+				else {
 					m_escPending.append(
 					    QByteArray(data + seqStart, 2));
-				i++;
-				litStart = i;
-			} else if (e1 == 'H' || e1 == '7' || e1 == '8') {
-				// HTS/DECSC/DECRC = 分派 miss,消费 2 字节
-				// (批 23 验证态;probe38 尾随吞噬证据挂账
-				// decstbm_ri)
+					i++;
+					while (i < len && data[i] != 0x1b)
+						i++;
+					litStart = i;
+					i--;   // 公共 ++i 消化,ESC 交还解析
+					continue;
+				}
 				i++;
 				litStart = i;
 			} else if (e1 == 'c' || e1 == '=' || e1 == '>') {

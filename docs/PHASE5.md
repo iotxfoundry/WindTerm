@@ -351,6 +351,15 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 教训:多轮 python 锚点编辑互相踩(条件/体分离),改后必须
   grep -A 复核分支完整性(踩坑 #17 候选)
 
+### 批 26(2026-10-30)/loop Iter1:ESC-single 统一模型 → **97/98** ✅
+- **统一**:D/E/M/H/7/8 全族 = escPending(下次入口 flush)+ 吞噬
+  尾随字面直到下一 ESC —— 四锚(ind/ind_bot_scroll/probe38-X/E2-\t)
+  + E4 CHT 存活(ESC 边界)全拟
+- **decstbm_ri 归绿** ✓(X 吞 → row0[0]=0 ✓ cursor (4,0) ✓)
+- i-1 回退法修复公共尾吃 ESC(批 25 根因①)的正式落地
+- 97/98;剩 tbc3 = 原版字面态伪影(retry 随机)
+- loop-core Iter1 完成(decstbm_ri 裁决+修复);Iter2 = 键位引擎
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +
