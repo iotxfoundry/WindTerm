@@ -84,7 +84,7 @@ static void dumpSeq(SuperCommander &cmd, Screen &s, TerminalCore &core,
 			out << heads[x] << (x + 1 < row->length ? ", " : "");
 		out << "]" << (y + 1 < n ? ", " : "");
 	}
-	out << "]}}" << ",\n";
+	out << "]}}";
 }
 
 int main()
@@ -134,6 +134,7 @@ int main()
 			dumpSeq(cmd, s, core, "clear",
 			        "1b5b324a1b5b48", out);
 			cleared = true;
+			first = false;
 		}
 		if (!first)
 			out << ",\n";

@@ -89,13 +89,18 @@ def main():
                m.get('payload') or m.get('description')))
     script.load()
 
-    # 打字触发回显 → 捕获 commander/screen
+    # 打字触发回显 → 捕获 commander/screen;随后 exec sleep 哑化
+    # shell(防提示符重绘干扰对比——ALL MATCH 基线的前提)
     env = dict(os.environ, DISPLAY=':99')
     subprocess.run(['xdotool', 'mousemove', '500', '400', 'click', '1'],
                    env=env)
     time.sleep(0.3)
     subprocess.run(['xdotool', 'type', 'echo CAP'], env=env)
     subprocess.run(['xdotool', 'key', 'Return'], env=env)
+    time.sleep(0.5)
+    subprocess.run(['xdotool', 'type', 'exec sleep 100000'], env=env)
+    subprocess.run(['xdotool', 'key', 'Return'], env=env)
+    time.sleep(1)
     for _ in range(15):
         if script.exports_sync.ready():
             break

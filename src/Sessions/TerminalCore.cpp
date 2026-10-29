@@ -385,6 +385,7 @@ bool TerminalCore::hasSavedCursor() const
 
 void TerminalCore::saveCursor()
 {
+
 	// FUN_007a5c70 (DECSC): packs cursor, flag bytes, SGR/charset state
 	// and the four charset slots into the +0x20..+0x68 save block
 	m_savedCursorY = m_cursorY;             // *(u64*)(this+0x20) = *(u64*)(this+0xc4)
@@ -640,10 +641,10 @@ void TerminalCore::scrollHorizontal(int delta)
 			continue;
 		if (delta >= 0) {
 			rowDeleteCells(row, rightMargin() - count + 1, count);        // FUN_007a5dce
-			rowInsertBlanks(row, leftMargin(), count, &m_sgrState);       // FUN_007a641a
+			rowInsertBlanks(row, leftMargin(), count, m_sgrState);       // FUN_007a641a
 		} else {
 			rowDeleteCells(row, leftMargin(), count);                     // FUN_007a5dce
-			rowInsertBlanks(row, rightMargin() - count + 1, count, &m_sgrState);
+			rowInsertBlanks(row, rightMargin() - count + 1, count, m_sgrState);
 		}
 	}
 	markDirty(1);
@@ -763,7 +764,7 @@ void TerminalCore::insertCharacter(int count)
 		count = room;
 	struct Row *row = m_rows[m_cursorY];
 	rowDeleteCells(row, rightMargin() - count + 1, count);           // FUN_007a5dce
-	rowInsertBlanks(row, m_cursorX, count, &m_sgrState);             // FUN_007a641a
+	rowInsertBlanks(row, m_cursorX, count, m_sgrState);             // FUN_007a641a
 }
 
 void TerminalCore::deleteCharacter(int count)
@@ -776,7 +777,7 @@ void TerminalCore::deleteCharacter(int count)
 		count = room;
 	struct Row *row = m_rows[m_cursorY];
 	rowDeleteCells(row, m_cursorX, count);                           // FUN_007a5dce
-	rowInsertBlanks(row, rightMargin() - count + 1, count, &m_sgrState);
+	rowInsertBlanks(row, rightMargin() - count + 1, count, m_sgrState);
 }
 
 void TerminalCore::insertLine(int count)
@@ -1133,7 +1134,7 @@ void TerminalCore::growRowArrays(struct Row *row, int newLen)
 	unsigned char *cells = (unsigned char *)malloc((size_t)cap * 0x20);
 	memset(cells, 0, (size_t)cap * 0x20);
 	memcpy(cells, row->cells, (size_t)row->length * 0x20);
-	::operator delete(row->cells);
+	free(row->cells);                // malloc/free 家族统一
 	row->cells = cells;
 	row->cellsCap = cap;
 	if (row->attrCap < newLen) {
@@ -1144,7 +1145,7 @@ void TerminalCore::growRowArrays(struct Row *row, int newLen)
 		    (unsigned short *)malloc((size_t)acap * 2);
 		memset(heads, 0, (size_t)acap * 2);
 		memcpy(heads, row->attrArray, (size_t)row->length * 2);
-		::operator delete(row->attrArray);
+		free(row->attrArray);                // malloc/free 家族统一
 		row->attrArray = heads;
 		row->attrCap = acap;
 	}
@@ -1486,27 +1487,16 @@ int TerminalCore::rowUsedWidth(Row *row, int withStyle) const
 
 void TerminalCore::copyState(void **dst, void **src)
 {
-	// FUN_007aa2e2 (172B): copies the state record fields (+0 u64,
-	// +4 u32, +8/+0xa u16, +0x18 u64); dst's heap node at +0x10 is
-	// released (data buffer free, then the 0x18-byte node deleted) and
-	// replaced by a clone of src's node (fresh refcount 1, payload via
-	// FUN_007aa28a) — the node payload clone body is cited
-	unsigned char *d = (unsigned char *)dst;
-	const unsigned char *s = (const unsigned char *)src;
-	*(unsigned long long *)(d + 0) = *(const unsigned long long *)(s + 0);
-	*(unsigned int *)(d + 4) = *(const unsigned int *)(s + 4);
-	*(unsigned short *)(d + 8) = *(const unsigned short *)(s + 8);
-	*(unsigned short *)(d + 0xa) = *(const unsigned short *)(s + 0xa);
-	*(unsigned long long *)(d + 0x18) = *(const unsigned long long *)(s + 0x18);
-	void *node = *(void **)(d + 0x10);
-	if (node) {
-		void *buf = *(void **)((char *)node + 8);
-		if (buf != (char *)node + 0x10)
-			free(buf);
-		::operator delete(node);
-	}
-	// clone of src's +0x10 node (FUN_007aa28a) — cited
-	*(void **)(d + 0x10) = nullptr;
+	// FUN_007aa2e2:状态对象(0x20 整格)按指针成员语义克隆——
+	// *src 的整格拷入新块,*dst 旧块释放,*dst = 新块。
+	// (原转写把成员地址当源格读 32B,拾取相邻核心成员 = SEGV,
+	// Phase 5 diff 暴露;格形含 flags/aux/sgr 域,DECSC/DECRC
+	// 经此完整保存/恢复 SGR 状态)
+	void *fresh = malloc(0x20);
+	memcpy(fresh, *src, 0x20);
+	if (*dst)
+		free(*dst);
+	*dst = fresh;
 }
 
 void TerminalCore::resetCharsetSlots()
@@ -1572,11 +1562,11 @@ void TerminalCore::makeRow(struct Row *row, int cols)
 	// +0x38. The rebuild allocates both arrays plainly.
 	memset(row, 0, 0x58);
 	row->length = cols;
-	row->cells = ::operator new((size_t)cols * 0x20);
+	row->cells = (void *)malloc((size_t)cols * 0x20);
 	memset(row->cells, 0, (size_t)cols * 0x20);   // 全零:aux 槽 (+0x10) 必须为 null
 	for (int i = 0; i < cols; ++i)
 		((unsigned char *)row->cells)[i * 0x20] = 1;
-	row->attrArray = ::operator new((size_t)cols * 2);
+	row->attrArray = (void *)malloc((size_t)cols * 2);
 	memset(row->attrArray, 0, (size_t)cols * 2);
 	row->cellsCap = cols;
 	row->attrCap = cols;
@@ -1655,7 +1645,7 @@ void TerminalCore::resizeCore(int rows, int cols)
 		struct Row *r = m_rows[i];
 		if (r) {
 			free(r->attrArray);   // +0x40 buffer (corpus frees +0x40)
-			::operator delete(r->cells);
+			free(r->cells);
 			::operator delete(r);
 		}
 		m_rows[i] = nullptr;
