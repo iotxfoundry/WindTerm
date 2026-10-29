@@ -903,9 +903,11 @@ bool TerminalCore::columnInRange(int column) const
 
 void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
 {
-	// FUN_007a5dce: removes `count` cells at `at` by shifting the rest
-	// left (0x20-stride cell copies via FUN_007aa2e2), then the freed
-	// tail is reset (blank-fill tail truncated in the decompile)
+	// FUN_007a5dce (368B, 批 16 全读): MOVE 左移(007aa2e2)+ 尾部
+	// [length-n,length) aux 销毁(007e2202 规约:free 内嵌 buffer +
+	// delete 0x18)+ length -= n(+0xc 写回)+ attr u16 左移。
+	// (原转写:尾部 cited 空、length 不缩——双引用 aux 悬垂 =
+	// free(垃圾) 崩溃链,批 16 diff 暴露)
 	const int length = rowLength(row);
 	int n = length - at;
 	if (count < n)
@@ -915,7 +917,19 @@ void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
 	char *cells = (char *)row->cells;
 	for (int i = at; i < at + n; i++)
 		copyCell(cells + (size_t)i * 0x20, cells + (size_t)(i + n) * 0x20);   // FUN_007aa2e2
-	// tail [length-n..length) blank reset — cited
+	for (int i = length - n; i < length; i++) {
+		void *aux = *(void **)((char *)cells + (size_t)i * 0x20 + 0x10);
+		if (aux) {
+			if (*(void **)((char *)aux + 8) != (char *)aux + 0x10)
+				free(*(void **)((char *)aux + 8));
+			operator delete(aux, 0x18);
+			*(void **)((char *)cells + (size_t)i * 0x20 + 0x10) = nullptr;
+		}
+	}
+	row->length = length - n;
+	unsigned short *attrs = (unsigned short *)row->attrArray;
+	for (int i = 0; i < length - at - n; i++)
+		attrs[at + i] = attrs[at + n + i];
 }
 
 void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count,

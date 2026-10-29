@@ -169,6 +169,27 @@ insertCharacter/deleteCharacter(007a6782/007a65d2)。
 - 54→53(会话污染 4 条);v3 暂缓(CUP pending 触发机制证据冲突:
   probe a 0.02s 生效 vs probe4 M1 0.24s 未生效——flush 驱动待定)
 
+### 批 16(2026-10-29):双悬垂崩溃根因清除 + DECALN/wrap 回归 ⏳
+- **rowDeleteCells 全重写**(007a5dce 368B 全读):原转写缺三件——
+  尾部 aux 销毁(cited 空)/length 缩短(+0xc 写回)/attr 左移 →
+  **双引用 aux 悬垂**(搬移 dst←src 后 src 不清,尾部补 blank 释放
+  共享 aux,头部格悬垂)= free(0x10101/随机垃圾)崩溃链真根因。
+  按 007a5dce 精确改写:MOVE 左移 + 007e2202 规约尾部销毁 +
+  length -= n + attr u16 左移
+- **DECALN &m_sgrState 误取地址修复**:adjustScreenAlignment 传
+  `&m_core->m_sgrState`(指针成员的地址)——setCell 语义要状态格
+  本体;copyCell 块拷从成员地址拾取类布局相邻域(m_tabstops,
+  offTabs=0/JUNK 对象={0,0,nil} 三元组诊断实锤)→ 去 &
+- wrap 换行重入(批 15)+ 上述两项 → **decaln/wrap_edge 回归成功
+  (不再崩)**;58→60 序列(回归两探针)
+- **53/60**:新增 diff 待破译——decaln 行 2 尾 3 格(DECALN 对
+  非 89 长度行的填充边界);wrap_edge 原版全吞(CUP1;88+T+X →
+  原版全空+光标 (0,0),行为未破译,下轮 probe:CUP1;88 单独/
+  +T/+X 三步)
+- tab/bs/cht2/hts_tab = 会话污染批 15 已登记(下轮重置会话复核);
+  crlf_cup_text = pending v3
+- engtest3 间歇依旧(1/3 光标 XOR)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

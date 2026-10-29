@@ -230,5 +230,13 @@
  {
   "name": "crlf_cup_text",
   "bytes": "1b5b323b334841420d0a4344"
+ },
+ {
+  "name": "decaln",
+  "bytes": "1b2338"
+ },
+ {
+  "name": "wrap_edge",
+  "bytes": "1b5b313b38385458"
  }
 ]

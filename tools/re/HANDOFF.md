@@ -58,18 +58,16 @@
 
 ## 下一步(按优先级)
 
-1. **会话污染清除 + 58 干净 diff**(批 15 教训):重置原版会话
-   (probe 用完即弃/独立会话)→ tab/bs/cht2/hts_tab 复核
-2. **m_sgrState 污染专项**(背书债 #10):DECALN 后 junk-aux 链,
-   审计 m_sgrState 0x20 块 +0x10/+0x18 域的写入者 → decaln/
-   wrap_edge 回归
-3. **HT pending 证据**(批 15 probe9):HT 效果延迟一步;stop 表
-   {4} 单元素来源未定位;hts_tab→0 待裁决
-4. **pending 模型 v3**:证据冲突(probe a 0.02s vs probe4 0.24s)
-   ——flush 驱动(GUI paint?入口?timer?)probe 定型后实现
-5. 格体 aux 深水区余项;doAction 全量(v3 伴生);58→100+ 扩谱
-6. **键位引擎**(Phase 4a):wind.keymaps;动作查 wind.actions
-7. 渲染层余项;engtest3 光标 XOR 间歇;Phase 4a 启动路径
+1. **decaln/wrap_edge 残差破译**(批 16):decaln 行尾 3 格
+   (DECALN 对非全长行的边界);wrap_edge 原版全吞行为
+   (probe:CUP1;88 / +T / +X 三步)
+2. **会话污染清除**(批 15 教训):重置原版会话 → tab/bs/cht2/
+   hts_tab 复核(HTS 前置已入序列)
+3. **pending v3**:flush 驱动定型(GUI paint/入口/timer)→
+   crlf_cup_text 归绿;doAction 全量伴生
+4. **键位引擎**(Phase 4a):wind.keymaps;动作查 wind.actions
+5. 60→100+ 扩谱;渲染层余项;engtest3 光标 XOR 间歇
+6. Phase 4a 启动路径;Telnet 配置化;触发器/词法
 
 ## 已知开放问题
 

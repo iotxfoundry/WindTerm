@@ -1399,7 +1399,10 @@ void Screen::adjustScreenAlignment()
 	for (int y = 0; y < rowCount(); y++) {
 		const int width = windowColumns();
 		for (int x = 0; x < width; x++)
-			setCell(y, x, 0x45, &m_core->m_sgrState);   // FUN_007e4916 — cited
+			setCell(y, x, 0x45, m_core->m_sgrState);   // FUN_007e4916(sgr
+			                    // = 状态格本体;原 & 误取成员地址,
+			                    // copyCell 块拷拾取类布局相邻域
+			                    // (m_tabstops)当 aux——批 16 ASan/JUNK 定位)
 	}
 }
 
