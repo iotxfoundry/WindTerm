@@ -64,3 +64,21 @@ void TerminalCore::setTopBottomMargins(int top, int bottom) {
 - [ ] 与 TextView 层(0x5b5-0x5c6)的衔接点
 - [ ] 通用规律:`每个 VT 命令 = 1 个 TerminalCore 函数写 1-2 个成员`,
       按 moveCursorDown/Forward/setMargins 的同构性即可批量还原
+
+## 格/状态对象语义(批 8-11 修正,2026-10-29,ASan 实证)
+
+- **copyCell(FUN_007aa2e2)= 格 MOVE 原语**:dst aux 对象按释放规约
+  销毁(非内嵌 payload free + 0x18 delete)→ 4×8B 块拷(aux 指针
+  随块转移)。**不解引用 src aux**——深拷转写会在未初始化 aux 上崩
+  (Phase 5 diff 暴露,QUIRKS 候选)
+- **m_sgrState(+0x88)= 0x20 整格状态单元**:flags byte0=1、
+  aux@+0x10=null、SGR 域@+0x18(=m_sgrBits,setSgrState 同步);
+  buildBlankCell/rowInsertBlanks 以它为 blank 源(调用方传
+  m_sgrState 本体,**非 &m_sgrState**——二级指针 = 拾取相邻核心
+  成员当 aux 的 junk 根因)
+- **growRowArrays = Row 显式容量字段**(cellsCap/attrCap;语料
+  FUN_007aa3a6 的行内覆盖头在 C 结构布局下与 length/_pad0 错位
+  ——ASan 定位后改显式字段);新存储必须清零(aux-null 不变量);
+  malloc/free 家族统一(makeRow/grow/teardown 三处一致)
+- rowDeleteCells 尾部 [length-n..length) blank reset:cited 未实现
+  (语料 FUN_007a5dce 尾)
