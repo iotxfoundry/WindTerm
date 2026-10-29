@@ -25,19 +25,27 @@
 | jsoncpp | 428(_ZN4Json) |
 | onig | 0(未链,已删) |
 
-## 三、inc/ 头文件快照(已删除)
+## 三、inc/ 头文件快照(2026-10-29 曾删,同日恢复——保留至复刻完成)
 
-18 目录 / 23MB:alsa, cpp-btree, dbus-1.0, dtl, fmt, glib-2.0,
+19 目录 / 23MB:alsa, cpp-btree, dbus-1.0, dtl, fmt, glib-2.0,
 gstreamer-1.0, gtk-3.0, icu, jsoncpp, openssl, pulse, spdlog, X11,
-xcb, xxhash, yaml-cpp, zlib。
+xcb, xxhash, yaml-cpp, zlib(19 = 含 openssl 子级)。
 
 - **0 构建引用**:compile_commands.json 无 `-I inc/*`;openssl 的
   `#include "openssl/evp.h"` 解析自 ssl11/include 与
   src/libssh/include;yaml-cpp 解析自源码树。
-- 性质 = 原版环境头文件快照(原版链接了什么的证据)。git 历史
-  保留(16c23948 前身提交)。
-- 同批删除:src/Onigmo 树 + lib/libonig.a(误判引入,原版无
-  onig 符号、CMake 未链、src 零调用)。
+- **性质 = 未复刻子系统的 API 参考文档**,不是构建垃圾:
+  - fmt/spdlog → loggerOp/logger 面(Phase-4 cited)复刻时
+    需要对齐原版 spdlog API 与版本
+  - dtl → diff 功能面未复刻
+  - cpp-btree/xxhash → 原版容器/哈希实现线索
+  - zlib/zstd → 会话存档/传输压缩未复刻
+  - gstreamer/pulse/alsa → bell 音频播放路径未复刻
+  - icu → 原版 Unicode 语义参照(我方暂用 QTextCodec)
+- **处置原则(2026-10-29 修订)**:参考性材料的删除等该子系统
+  复刻完成并过对比后再做;不当"构建未引用=可删"。
+- src/Onigmo + lib/libonig.a 同批恢复(证据仅"无符号",非定论;
+  保留至正则面对比完成)。
 
 ## 四、CMake 链接修正(2026-10-29)
 
