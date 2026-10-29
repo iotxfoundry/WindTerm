@@ -18,10 +18,10 @@
 | ICU 56 | lib/icudata.so.56 动态捆绑 | 运行时动态库 | 不需接口(动态加载) |
 | glib/gtk/X11/alsa/pulse/gstreamer/dbus | 动态系统栈 | 运行时动态库 | 不需接口 |
 
-## 第一方开源组件(2026-10-29 新增,见 reference/windterm-oss/CALIBRATION.md)
+## 第一方开源组件(2026-10-29 新增,见 docs/CALIBRATION.md)
 
-作者 git 仓库开源了 6 个第一方组件(TelnetProtocol/Pty/Utility/
-Widgets/libssh-改/Onigmo-改,Apache-2.0)——**对应子系统停止逆向,
+src/ 本就包含官方开源的 6 个第一方组件(TelnetProtocol/Pty/Utility/
+Widgets/libssh-改/Onigmo-改,Apache-2.0;勿重复 clone)——**对应子系统停止逆向,
 改为移植/校准**。终端核心不在其中 = 逆向边界的权威确认。
 
 ## 使用规则
