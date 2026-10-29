@@ -241,6 +241,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   timer flush)——dump 时点差一个 flush 的系统性偏差,hts_tab/
   tbc_all 各执一侧
 
+### 批 19(2026-10-29):diff 工具一键化 + decaln 残差实锤 ⏳
+- **tools/re/phase5/phase5_diff.py**:dump(可选 ours/orig)→ diff
+  一键 + JSON mtime 新鲜度告警(消时序假象;dirname 层级修 3 次)
+- **decaln 残 3 格实锤**:diag row2 **len=86**(非 89)→ DECALN
+  guard(x<rowLength)在 86 挡住(attr[85]=69 ✓ 86-88 未填)。
+  86 = 89-3 = **DCH 缩过的行对象流落到 row2**(滚动换位:行池复用
+  保留缩过的 length)——行对象池 × length × 滚动 = 新深链,
+  #11 升级为"行池轮"
+- bs o=27(row0[4..7])同属 length/读数错位家族,待行池轮
+- 55/60 基线不变
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

@@ -146,6 +146,18 @@ int main()
 		first = false;
 		fprintf(stderr, "[seq] %s\n", name.constData());
 		dumpSeq(cmd, s, core, name.constData(), hex.constData(), out);
+		if (name == "decaln") {   // 诊断:row2 尾 3 格(背书债 #11)
+			struct Row *r2 = core.row(2);
+			fprintf(stderr, "[d3] row2 len=%d attr[85..89]=",
+			        r2 ? r2->length : -1);
+			if (r2 && r2->attrArray) {
+				const unsigned short *h =
+				    (const unsigned short *)r2->attrArray;
+				for (int x = 85; x < 89 && x < r2->length; ++x)
+					fprintf(stderr, " %d", h[x]);
+			}
+			fprintf(stderr, "\n");
+		}
 	}
 	out << "]";
 	std::printf("written /tmp/opencode/phase5_ours.json\n");
