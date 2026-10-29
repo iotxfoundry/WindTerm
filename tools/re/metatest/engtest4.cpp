@@ -27,8 +27,19 @@ static const char *verifyCells(TerminalCore &core)
 			if (aux == nullptr)
 				continue;
 			if ((unsigned long)aux < 0x1000
-			    || *(const int *)aux < 1 || *(const int *)aux > 0x10000)
+			    || *(const int *)aux < 1 || *(const int *)aux > 0x10000) {
+				fprintf(stderr,
+				        "[p5] JUNK y=%d x=%d aux=%p {%d,%d,%p} "
+				        "offCells=%ld offTabs=%ld\n",
+				        y, x, aux, *(const int *)aux,
+				        *(const int *)((const char *)aux + 4),
+				        *(void *const *)((const char *)aux + 8),
+				        (long)((const char *)aux
+				               - (const char *)core.row(y)->cells),
+				        (long)((const char *)aux
+				               - (const char *)core.m_tabstops.payload));
 				return "junk-aux";
+			}
 			if (*(const void *const *)((const char *)aux + 8)
 			        == nullptr
 			    && *(const int *)((const char *)aux + 4) != 0)

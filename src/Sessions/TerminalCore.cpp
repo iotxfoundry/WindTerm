@@ -839,6 +839,10 @@ void TerminalCore::setSgrState(unsigned long long sgr)
 	// template (+0xa0) follow the SGR "look" (low 14 bits stripped),
 	// otherwise the template is zeroed
 	m_sgrBits = sgr;
+	// 状态格(+0x88)保持格形:SGR 域(+0x18)随位面更新
+	// (rowInsertBlanks 的 blank 源 = 该格,Phase 5 aux 簇修复)
+	if (m_sgrState)
+		*(unsigned long long *)((char *)m_sgrState + 0x18) = sgr;
 	if (m_flags & 0x10)
 		m_blankTemplateSgr = sgr & 0xffffffffffffc000ULL;
 	else
@@ -923,12 +927,12 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count, void *sgr
 	unsigned char blank[0x20];
 	memset(blank, 0, sizeof(blank));
 	buildBlankCell(blank, sgrCtx);                    // FUN_007aa2e2
-	char *cells = (char *)row->cells;
 	fprintf(stderr,
-	        "[p5] rib row=%p cells=%p cap=%d len=%d tabs=%p cur=%d\n",
-	        (void *)row, (void *)row->cells, row->cellsCap,
-	        row->length, (void *)m_tabstops.payload, m_cursorY);
-	fflush(stderr);
+	        "[p5] bb sgrCtx=%p q0=%p q2=%p m_sgrState=%p tabs=%p\n",
+	        sgrCtx, *(void *const *)sgrCtx,
+	        *((void *const *)sgrCtx + 2), m_sgrState,
+	        (void *)m_tabstops.payload);
+	char *cells = (char *)row->cells;
 	// FUN_007aa3a6 内联 move 块(语料):dst aux 先清 → 4×8B 拷 →
 	// src aux 释放(引用计数检查 + operator_delete 0x18)
 	for (int i = rowLength(row) - 1; i >= at; i--) {
@@ -963,34 +967,22 @@ void TerminalCore::copyRowFromTemplate(struct Row *row, void *templateRow)
 
 void TerminalCore::copyCell(void *dst, const void *src)
 {
-	// FUN_007aa2e2: field-wise cell copy (offsets 0,4,8,10,0x18) plus a
-	// deep copy of the auxiliary glyph object at +0x10 (0x18-byte object
-	// with an optional heap buffer at +8); the destination's own aux
-	// object is released first
-	unsigned char *d = (unsigned char *)dst;
-	const unsigned char *s = (const unsigned char *)src;
-	d[0] = s[0];
-	*(int *)(d + 4) = *(const int *)(s + 4);
-	*(unsigned short *)(d + 10) = *(const unsigned short *)(s + 10);
-	*(unsigned long long *)(d + 0x18) = *(const unsigned long long *)(s + 0x18);
-	*(unsigned short *)(d + 8) = *(const unsigned short *)(s + 8);
-	void *oldAux = *(void **)(d + 0x10);
+	// FUN_007aa2e2 = 格 MOVE(语料 00aa3a6 内联实锚):dst aux 对象
+	// 按释放规约销毁(非内嵌 payload free + 0x18 delete)→ 4×8B 块
+	// 拷(aux 指针随块转移)。不解引用 src aux——原深拷转写会在
+	// 未初始化 aux 上崩(Phase 5 diff 暴露的转写错误)
+	void **d = (void **)dst;
+	void **s = (void **)src;
+	void *oldAux = d[2];
 	if (oldAux) {
 		if (*(void **)((char *)oldAux + 8) != (char *)oldAux + 0x10)
 			free(*(void **)((char *)oldAux + 8));
 		operator delete(oldAux, 0x18);
 	}
-	if (*(const void *const *)(s + 0x10)) {
-		const char *srcAux = (const char *)*(const void *const *)(s + 0x10);
-		int *fresh = (int *)::operator new(0x18);
-		fresh[0] = 1;                            // refcount
-		*(void **)(fresh + 2) = (char *)fresh + 0x10;   // payload -> embedded tail
-		cloneGlyphPayload(fresh, *(const void *const *)(srcAux + 8),
-		                  *(const int *)(srcAux + 4));
-		*(void **)(d + 0x10) = fresh;
-	} else {
-		*(void **)(d + 0x10) = nullptr;
-	}
+	d[0] = s[0];
+	d[1] = s[1];
+	d[2] = s[2];
+	d[3] = s[3];
 }
 
 // FUN_007aa1bc: ushort-vector {cap@0, count@4, data@8} resize to len with
@@ -1066,6 +1058,9 @@ void TerminalCore::cloneGlyphPayload(void *dstAux, const void *srcPayload, int w
 	if (words < 1 || words > 0x400 || srcPayload == nullptr
 	    || (unsigned long)srcPayload < 0x1000)
 		return;   // junk payload 护栏(Phase 5,开放问题同上)
+	fprintf(stderr,
+	        "[p5] CLONE fresh=%p words=%d srcPayload=%p -> hdr{%d,%d,%p}\n",
+	        dstAux, words, srcPayload, hdr[0], hdr[1], hdr[2]);
 	int old = hdr[1];
 	if (hdr[0] < old + words) {
 		int cap = old * 2;
@@ -1089,6 +1084,9 @@ void TerminalCore::buildBlankCell(unsigned char blank[0x20], void *sgrCtx)
 
 void TerminalCore::writeCell(void *dst, const unsigned char blank[0x20])
 {
+	if (*(const void *const *)(blank + 0x10))
+		fprintf(stderr, "[p5] writeCell aux-transfer %p\n",
+		        *(const void *const *)(blank + 0x10));
 	// FUN_007aa2e2 (same primitive)
 	copyCell(dst, blank);
 }
@@ -1547,8 +1545,9 @@ TerminalCore::TerminalCore()
 	m_charsetSaved = nullptr;
 	// SGR/charset 状态对象(FUN_007a69b8 初始化族:+0x88 堆对象;
 	// rowInsertBlanks 等路径解引用,漏分配即崩——Phase 5 diff 暴露)
-	m_sgrState = malloc(0x18);
-	memset(m_sgrState, 0, 0x18);
+	m_sgrState = malloc(0x20);   // 整格 0x20(FUN_007aa2e2 按整格拷)
+	memset(m_sgrState, 0, 0x20);
+	((unsigned char *)m_sgrState)[0] = 1;   // flags=1(格形)
 	m_flags2 = 0;
 	m_sgrBits = 0;
 	m_workRow = nullptr;
