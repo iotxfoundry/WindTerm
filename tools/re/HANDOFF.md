@@ -3,14 +3,17 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-29 第三次交接,批 13 更新)
+## 一句话状态(2026-10-29 第四次交接)
 
-**Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线通:
-自包含基线 + 原版会话重置后 **58 序列 54/58 MATCH**;38 序列回归
-全绿(pending 队列);Phase 3 WT 分派 93/149 case;配置面资产已
-探明(CONFIG-SCHEMAS);ProfileLoader 全局层 ✅。** QUIRKS 16 条。
+**Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线:
+自包含基线 + 60 序列(含 decaln/wrap_edge 回归)** 56/60 MATCH;
+**批 14-20:背书债清偿(#2/#3/#7/#8/#9/#10)+ HTS/CHT/HT 入队 +
+rowDeleteCells 修正(probe14:DCH 不缩 length)**;Phase 3 WT
+分派 93/149;配置面资产探明(CONFIG-SCHEMAS);ProfileLoader
+全局层 ✅。QUIRKS 19 条。**剩余 4 diffs 全部定性**:bs(27)/
+tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
-**本地领先远端 12 个提交(未推送,遵"只提交不主动推送"规范)**。
+**本地领先远端 22 个提交(未推送,遵"只提交不主动推送"规范)**。
 用户说"推送"时一次性 push。
 
 ## 里程碑链(全部 ✅)
@@ -58,15 +61,16 @@
 
 ## 下一步(按优先级)
 
-1. **decaln/wrap_edge 残差破译**(批 16):decaln 行尾 3 格
-   (DECALN 对非全长行的边界);wrap_edge 原版全吞行为
-   (probe:CUP1;88 / +T / +X 三步)
-2. **会话污染清除**(批 15 教训):重置原版会话 → tab/bs/cht2/
-   hts_tab 复核(HTS 前置已入序列)
-3. **pending v3**:flush 驱动定型(GUI paint/入口/timer)→
-   crlf_cup_text 归绿;doAction 全量伴生
-4. **键位引擎**(Phase 4a):wind.keymaps;动作查 wind.actions
-5. 60→100+ 扩谱;渲染层余项;engtest3 光标 XOR 间歇
+1. **tbc_all 的 HT flush 链**(批 20 新发现):flush 执行 HT 后
+   horizontalTab→setCursorX 光标仍 (0,0)——horizontalTab 执行链
+   逐层查(nextTabstop→QUIRKS 18 前置→setCursorX)
+2. **行池轮**(背书债 #11 收尾):滚动/erase 的行对象复用 × length
+   (gapbuf_move_items 1459B + 007a3c9a resetRow 已读)——
+   wrap_edge(原版全吞)/decaln 余波归绿
+3. **pending v3**:flush 驱动定型(入口+timer 双证据)→ CSI 全
+   动作入队 → crlf_cup_text 归绿;doAction 全量伴生
+4. **bs o=27**(row0[4..7] 残留 0x1B)随行池轮/写侧精查
+5. 60→100+ 扩谱;**键位引擎**(Phase 4a);渲染层余项
 6. Phase 4a 启动路径;Telnet 配置化;触发器/词法
 
 ## 已知开放问题
@@ -87,6 +91,19 @@
   头文件后必须重编,踩坑 15)
 - ptrace_scope=0(已设,重启后需重设:sysctl -w)
 - libssh-dev/patchelf/Xvfb 已装
+
+## 服务器/环境重启恢复流程(批 20 实战)
+
+1. `sudo sysctl -w kernel.yama.ptrace_scope=0`(**须 sudo**;非
+   sudo sysctl -w 静默不生效→frida attach PermissionDenied)
+2. Xvfb :99 + WindTerm 重拉 + 双击开 bash(1014,331→1040,359)+
+   `exec sleep 100000` 哑化
+3. **build 树重建**(/tmp 全清):cmake <repo> -B /tmp/opencode/
+   wtbuild2 + make -j;**engtest4 硬编码读 /tmp/opencode/
+   phase5_seq.json——从仓库恢复副本**
+4. **probe 与 dump 会话隔离**:probe 注入污染 stop 表等会话态,
+   probe 后必须重开会话再 dump
+5. engtest3 光标 XOR 间歇(~1/3)已知非阻断
 
 ## 提交规范(2026-10-29 修订)
 
