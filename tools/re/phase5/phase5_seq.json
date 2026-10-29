@@ -138,5 +138,17 @@
  {
   "name": "bs",
   "bytes": "08"
+ },
+ {
+  "name": "cupD",
+  "bytes": "1b5b353b35481b44"
+ },
+ {
+  "name": "cupM",
+  "bytes": "1b5b353b35481b4d"
+ },
+ {
+  "name": "cupE",
+  "bytes": "1b5b353b35481b45"
  }
 ]

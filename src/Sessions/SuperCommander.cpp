@@ -2026,15 +2026,15 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case '8':   // DECRC(FUN_007f6426)
 					m_screen->restoreCursor();
 					break;
-				case 'D':   // IND(FUN_007e55b6)
-					m_screen->indexDown();
+				case 'D':   // QUIRK(38+3 序列原版实测):ESC D 光标不动
 					break;
-				case 'E':   // NEL:IND + CR
-					m_screen->indexDown();
-					m_screen->carriageReturn();
+				case 'E':   // QUIRK:ESC E 光标不动
 					break;
-				case 'M':   // RI(FUN_007e563e)
-					m_screen->indexUp();
+				case 'M':   // QUIRK:ESC M = 下移 1 行(非教科书
+					        //  RI 上行;per-key 实测 (4,4)→(5,4))
+					m_screen->cursorMoveRaw(
+					    m_screen->currentLine() + 1,
+					    m_screen->currentColumn());
 					break;
 				case 'c':   // RIS(FUN_007ea73c)
 					m_screen->resetHard();

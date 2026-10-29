@@ -108,10 +108,13 @@ def main():
     print('ready =', script.exports_sync.ready())
 
     script.exports_sync.inject('1b5b324a1b5b48')   # 清屏基线
+    time.sleep(0.3)   # 异步动作(Gt 事件循环排队)稳定
     out = []
     for seq in seqs:
         g = script.exports_sync.inject(seq['bytes'])
-        out.append({'name': seq['name'], 'grid': g})
+        time.sleep(0.35)   # 异步动作(IND/RI/NEL 等排队)稳定后再读格
+        g2 = script.exports_sync.inject('')   # 空注入 = 只读网格
+        out.append({'name': seq['name'], 'grid': g2})
         print(seq['name'], '-> cur', g.get('curY'), g.get('curX'))
     with open(out_path, 'w') as f:
         json.dump(out, f, indent=1)
