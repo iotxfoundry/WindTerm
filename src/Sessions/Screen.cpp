@@ -324,14 +324,15 @@ void Screen::setTabstop(int column, bool on)
 
 void Screen::clearTabstop(int mode)
 {
-	// FUN_007e5df0 (TBC): 0 = clear at cursor, 3 = clear all
+	// FUN_007e5df0 (TBC, 193B): 0 = clear at cursor, 3 = loop-clear
+	// every column 0..cols-1(bit at payload[(c>>3)+1]);语料批 14 补读
 	if (mode == 0) {
 		m_core->m_tabstops.set(currentColumn(), false);
 		return;
 	}
 	if (mode == 3)
-		// 位图容量 = resizeDefault(cols) 分配,按屏宽循环清
-		// (Tabstops::clear 空体实锤:tbc_all diff 暴露)
+		// FUN_007e5df0 mode 3 逐位循环(0..FUN_007e5b96()-1);
+		// 我方 set(c,false) 循环行为等价
 		for (int c = 0; c < windowColumns(); ++c)
 			m_core->m_tabstops.set(c, false);
 }

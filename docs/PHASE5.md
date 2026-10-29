@@ -114,6 +114,29 @@
   新会话表={4}:HT→4/CHT2→行尾/HTS+HT→0 待 probe)+ crlf_cup_text
   (pending v3 实现)
 
+### 背书债清单(2026-10-29 审计,铁律 1/3 合规补救)
+
+> 批 12/13 的差分驱动修复中,以下改动只有**行为实测背书**
+> (probe/diff),缺**语料结构背书**(写代码前未读真身)。按铁律 1,
+> 下轮逐项 grep 语料 → 按原版结构改写 → 重跑 58 diff 验证仍绿;
+> 定位不到的降级 cited。
+
+| # | 改动 | 缺口 | 补救路径 |
+|---|---|---|---|
+| 1 | flushPendingActions 在 writeSplitData 入口 | 007d1f5a 入口只有 +0xd8 挂起尾,无 flush 结构 | 定位 doAction +0x20 队列的**消费者**(grep 读 +0x18/+0x20 的函数) |
+| 2 | NEL = indexDown+carriageReturn | 原版 NEL 动作函数未定位 | 007cc4xx 包装族/C1 0x85 handler |
+| 3 | DECSTBM 反参数拒绝在 case 'r' | 007a4672 语料是"存原值+钳",拒绝层未定位 | 007e5fa6(196B)重读找守卫 |
+| 4 | OSC 吞吐 while 循环 | 原版 OSC 解析路径未读 | 007e4908 表 ']' 项 + OSC 函数 |
+| 5 | CHT = nextTabstop 组合 | 原版 CSI 'I' 分派未定位 | writeSplitData 分派表语料 |
+| 6 | CUB/VPA 拒绝守卫在 CSI case | **与语料冲突**:007a546c 是 clamp 语义,拒绝在别层 | CSI 参数解析层/Screen 包装重读 |
+| 7 | LF rowHasContent 门在 Screen::lineFeed | **已证伪**:007e55fc(41B)/007e55b6(70B)均无门 | C0 分派或 writeText 层(字面流换行处理) |
+| 8 | ICH blankHead/attrArray 搬移/DCH=0 | 007a641a/007a5dce 未精读 | 两函数精读(attr 结构/blank head 来源) |
+| 9 | Tabstops::clear 行为 | **已补读** ✓ 007e5df0(193B)行为一致,注释已补地址 | 完成 |
+
+已核实有背书:indexDown(007e55b6 镜像)、setCellRaw sgr(007a5aac)、
+adjustScreenAlignment(007e5f24)、IND/RI 动作体(007cc47e/007cc4a0)、
+doAction 定性(007d1606)。
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +
