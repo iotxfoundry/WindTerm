@@ -217,6 +217,19 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   crlf_cup_text = pending v3
 - engtest3 间歇依旧(1/3 光标 XOR)
 
+**批 17(2026-10-29):HTS 实现 + CHT 语义修正 + stop 表收敛(53/60)**:
+- **HTS 落地**(ESC 'H' → setTabstop(-1,true),FUN_007e52fc)——
+  hts_tab u 从 88→4(HTS 生效证据);tab/cht2 前置 HTS 现可生效
+- **CHT 语义修正**(case 'I'):逐 stop 前进 n 次,不足 n 停最后
+  到达的 stop(干净会话锚:表{4} 时 CHT2→4;HT 的"无 stop→行尾"
+  是 FUN_007e5d1e 另一语义,两 final 行为分叉实锤)
+- **stop 表 = {4} 单元素**(干净会话两轮稳定复现;HT 连发:0→4→
+  行尾 88)。表来源未定位(非 resizeCore every-8 增量)——QUIRKS 17
+  登记;我方测试以 HTS@4 前置对齐会话态
+- **tab u=8 待查**:HTS@4 前置后 HT 仍跳 8(set(4,true) 未落表?
+  下轮 engtest4 打表验证)
+- bs o=27(row0[4..7])待查;decaln/wrap_edge/crlf 照旧(v3/#11)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

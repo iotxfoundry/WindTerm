@@ -1983,16 +1983,27 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					m_screen->cursorMoveRaw(m_screen->currentLine(),
 					                        num(0) ? num(0) - 1 : 0);
 					break;
-				case 'I':   // CHT:前进 n 个 tabstop。行为锚:cht2
-				            // (0,16)/(0,88) 表空时行尾。结构注:原版
-				            // CSI 'I' 分派未定位——背书债 #5;
-				            // FUN_007e5d1e 面
+				case 'I': { // CHT:逐 stop 前进 n 次;不足 n 停最后
+				            // 到达的 stop(实测表{4} CHT2→4;行为锚
+				            // tab/cht2 diff;HT 的"无 stop→行尾"是
+				            // FUN_007e5d1e 另一语义——背书债 #5 分派
+				            // 真身未定位)
+					int col = m_screen->currentColumn();
+					int n = num(0) ? num(0) : 1;
+					const int last = m_screen->windowColumns() - 1;
+					while (n-- > 0) {
+						int nxt = col + 1;
+						while (nxt <= last
+						       && !m_screen->isTabstop(nxt))
+							nxt++;
+						if (nxt > last)
+							break;
+						col = nxt;
+					}
 					m_screen->moveCursor(
-					    m_screen->currentLine(),
-					    m_screen->nextTabstop(
-					        m_screen->currentColumn(),
-					        num(0) ? num(0) : 1));
+					    m_screen->currentLine(), col);
 					break;
+				}
 				case 'd':   // VPA:越界拒绝(同 CUB,p5probe7 e;
 				            // 拒绝层=CSI 动作执行器,背书债 #6)
 					if (num(0) && num(0) - 1 < m_screen->rowCount())
@@ -2074,6 +2085,9 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					break;
 				case '8':   // DECRC(FUN_007f6426)
 					m_screen->restoreCursor();
+					break;
+				case 'H':   // HTS(FUN_007e52fc):-1 = 当前列设 stop
+					m_screen->setTabstop(-1, true);
 					break;
 				case 'D':   // IND 入队(FUN_007cc47e→007e55b6;pending
 				            // 至下次 writeSplitData flush,QUIRKS 13)
