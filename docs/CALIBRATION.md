@@ -33,6 +33,23 @@
 3. **实验锚**(金标准):可执行对拍。首个:Cryptographic 用
    user.sessions 真 blob 解密验证(源码已在本树,编译即测)。
 
+**实验锚 #1 完成(2026-10-29,Cryptographic 同版验证 ✓)**:
+- **语料定位**:doCrypt=00a7dfb0(EVP_CIPHER_CTX_new→aes_256_cbc→
+  CipherInit(enc)→Update→Final,与开源码逐句同构)、decrypt=
+  00a7e12e(enc=0)、encrypt=00a7e258(enc=1)、pbkdf2=00a7e5f6
+  `deriveKeyPbkdf2(ret,0xe,pw,salt,100000,0x30)`、salt=00a7e61c
+  (generate64→number→Sha512(=6)→base64)——**全家族与开源码
+  同版零差异**;0xe=14=Qt5.15 枚举 Sha3_512(系统头 76 行域已核)
+- **调用点**:decrypt(data, CTerminalConfig+0xc0)——pbkdf2 存于
+  配置单例 0x11c2220 +0xc0(实例指针 DAT_011c2200);fingerprint
+  64B≠48B 角色(盐?存储 key?)未定,+0xc0 布局待读(探测见
+  /tmp/opencode/p5probe3*.py)
+- **运行时触发未闭合**:autoLogin 属 SSH 会话 118,实测均
+  key/onekey 免密(3 次)→ 密码解密未执行;强制触发 = password-only
+  sshd(:2222,已建已撤,118 曾指向它实验)+ 指纹对话框确认流,
+  UI 自动化不稳定,留给下一轮(scripts p5probe24-33)
+- 副作用已恢复:user.sessions 已还原备份,sshd 已关,WindTerm 已重启
+
 **实验锚 #1 进行中(2026-10-29,Cryptographic × session.autoLogin)**:
 - autoLogin blob(280B base64)属于 SSH 会话 192.168.1.118(本地集群组);
   三次触发(开 bash/盲扫/双击 118 行)均**免密登录成功**(key/onekey
