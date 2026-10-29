@@ -33,6 +33,19 @@
 3. **实验锚**(金标准):可执行对拍。首个:Cryptographic 用
    user.sessions 真 blob 解密验证(源码已在本树,编译即测)。
 
+**实验锚 #1 进行中(2026-10-29,Cryptographic × session.autoLogin)**:
+- autoLogin blob(280B base64)属于 SSH 会话 192.168.1.118(本地集群组);
+  三次触发(开 bash/盲扫/双击 118 行)均**免密登录成功**(key/onekey
+  路径)→ **autoLogin 密码解密从未触发**,EVP 捕获对(启动 120 对/
+  重开 125 对)无一对 blob 可解
+- 但 **EVP_CipherInit_ex(enc)+ Decrypt/EncryptInit_ex 对偶模式在
+  二进制中出现**(启动对:Decrypt c20be809…/Encrypt f1fe3b97… 同
+  ctx 系)——源码 doCrypt 单 ctx 双向模式与二进制同型 ✓(部分行为锚)
+- 下一步:造 password-only 触发(临时 sshd 或改测会话)强制
+  autoLogin 解密 → 抓真 key/iv → 与 fingerprint 派生链对拍
+- 副作用备注:probe 期间曾开 39.100.119.145/118 的 SSH 标签并重启
+  WindTerm(未在任何远程会话输入内容)
+
 **已核**:deriveKeyPbkdf2 导入符号与源码签名精确同型
 (Algorithm,QByteArray,QByteArray,int,ulong);Cryptographic 为
 Qt/OpenSSL 薄胶水(AES-256-CBC,key=pbkdf2[0..32),iv=[32..48),
