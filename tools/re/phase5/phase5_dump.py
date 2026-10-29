@@ -109,26 +109,25 @@ def main():
 
     out = []
     for seq in seqs:
-        script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 每序列清屏基线(批 22:ST 重同步废弃——ST 非独立模式,-1 全字面化风险)
-        time.sleep(0.6)   # 批间 settle(probe15:动作排队后至,0.5s 全生效)
-        # ',' 分批:验证 pending flush(QUIRKS 13)必需——批间即 flush 点
-        for part in seq['bytes'].split(','):
-            script.exports_sync.inject(part)
-            time.sleep(0.05)
-        time.sleep(0.6)   # 批间 settle 加长(probe15:E 系列 0.5s 全生效)
-        g2 = script.exports_sync.inject('')   # 空注入 = 只读网格
-        # 字面态伪影重试(批 22):非 esc_literal 序列出现 0x1b 格 =
-        # vt14 字面直通态竞态签名 → 重基线重注入一次
-        if seq['name'] != 'esc_literal' and any(
-                27 in (r or []) for r in g2.get('lines', [])[:6]):
-            print('  glitch(0x1b cell) -> retry', seq['name'])
-            script.exports_sync.inject('1b5b324a1b5b481b5b72')
-            time.sleep(0.6)
+        # 字面态伪影重试(loop iter1):0x1b 格签名 → 最多 3 次重基线
+        # 重注入,前置 sleep 1.0(vt14 字面直通态竞态,随机性)
+        for attempt in range(3):
+            script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 清屏基线
+            time.sleep(1.0)   # 前置 settle(iter1 强化,0.6→1.0)
+            # ',' 分批:验证 pending flush(QUIRKS 13)必需——批间即 flush 点
             for part in seq['bytes'].split(','):
                 script.exports_sync.inject(part)
                 time.sleep(0.05)
-            time.sleep(0.6)
-            g2 = script.exports_sync.inject('')
+            time.sleep(0.6)   # 批后 settle(probe15:E 系列 0.5s 全生效)
+            g2 = script.exports_sync.inject('')   # 空注入 = 只读网格
+            if seq['name'] == 'esc_literal' or not any(
+                    27 in (r or []) for r in g2.get('lines', [])[:6]):
+                break   # 干净(或合法 0x1b 字面序列)
+            # 重试前排空窗:立即重注入会撞上一次 attempt 的未排空队列
+            # (+0xd8 tail 拼接混沌 = 字面化根因,iter1 三连中招实锤)
+            print('  glitch(0x1b cell) attempt %d -> retry (drain 2s)'
+                  % (attempt + 1), seq['name'])
+            time.sleep(2.0)
         out.append({'name': seq['name'], 'grid': g2})
         print(seq['name'], '-> cur', g2.get('curY'), g2.get('curX'))
     with open(out_path, 'w') as f:

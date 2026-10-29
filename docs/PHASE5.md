@@ -324,6 +324,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   -1 全字面化风险,回退(p5 自匹配误杀教训 ×1:pkill 括号法)
 - 教训入档:pkill -f 自匹配(p5 踩坑 #16 候选)
 
+### 批 24(2026-10-30)/loop-start Iter1:tbc3 定性(驱动流怪癖,隔离干净)✅
+- **重试强化**(×3 + 前置 sleep 1.0)无效 → 非排水竞态;2s 排空窗
+  亦无效 → 非简单 tail 拼接
+- **隔离决断实验**(probe39:baseline+tbc3 直注入)→ row0 全零
+  **干净**;dump 流内 = 确定性 [6..9]="ESC[3g" 字面化于 CUP(1;7)
+  落点 (0,6)——victim = 自身首序列,位置 = 自身 CUP 落点,
+  **依赖驱动级多序列流状态**(前序 tab_matrix 尾 \t 残留)
+- **定性**:WindTerm 流状态怪癖(隔离不复现);我方 (0,6)+干净 =
+  原版隔离行为 ✓。bs/decawm_off/tab_matrix 同族(0x1b 格签名,
+  retry 随机命中);decstbm_ri = 排空分相(另案)
+- **loop 停止条件达成**:96/98,2 红全部定性(tbc3 流怪癖/
+  decstbm_ri 排空分相),均非我方转写缺陷
+- pkill 自匹配误杀(p5 踩坑 #16):pkill -f 括号法 [d] 规避
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +
