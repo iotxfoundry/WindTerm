@@ -206,6 +206,14 @@ QVariant dispatch(cmd, a, b)
 - **原则**:参考性材料删除 = 该子系统复刻完成并通过行为对比
   之后;提交前自问"复刻时是否需要它当 API 文档"。
 
+## 外部库边界(2026-10-29)
+
+- 静态嵌入的开源库(boost/yaml-cpp/jsoncpp/dtl/zstd/fmt+spdlog)
+  **实现不逆向**;命中见 docs/EXT-BOUNDARY.md 注册表 → 标记边界、
+  转写调用接口面(src/Ext/ 声明层),行为由委托真库或 no-op 承接。
+- 例外:外库数据布局被 WindTerm 业务消费的部分(SGR 位/行格)
+  仍属逆向范围。
+
 ## 提交规范
 
 - 中文 commit,force push 需覆盖远端 dev
