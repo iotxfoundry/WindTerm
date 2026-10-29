@@ -61,8 +61,9 @@ LD_LIBRARY_PATH=build:lib QT_QPA_PLATFORM=offscreen \
   python3 -c "import ctypes; ctypes.CDLL('build/libWindTermRe.so'); print('dlopen OK')"
 ```
 
-冒烟源码在 `tools/re/metatest/`(engtest/engtest2/sshsmoke/scismoke,
-需离屏 QApplication),未接 CMake,手工 g++ 按需编。全绿才提交。
+行为门测试在 `tests/`(CMake+ctest 集成,`cd build && ctest`,
+bundled Qt 环境已封装);RE 探针在 `tools/re/metatest/`(手工
+g++)。全绿才提交。
 
 ## 工具优先
 

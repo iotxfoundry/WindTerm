@@ -130,6 +130,9 @@ target_link_libraries(WindTermRe
   ${LIB_OUT}/libssh.so.4
 )
 add_dependencies(WindTermRe rebuild_deps)
+
+enable_testing()
+add_subdirectory(tests)
 # 去 RUNPATH(repo lib/ 的 Qt5Network 版本符号与系统 Qt 冲突,
 # 会污染测试/宿主链接——Phase 5)
 add_custom_command(TARGET WindTermRe POST_BUILD
