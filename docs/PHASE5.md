@@ -114,28 +114,32 @@
   新会话表={4}:HT→4/CHT2→行尾/HTS+HT→0 待 probe)+ crlf_cup_text
   (pending v3 实现)
 
-### 背书债清单(2026-10-29 审计,铁律 1/3 合规补救)
+### 背书债清单(2026-10-29 审计,批 14 补全)
 
 > 批 12/13 的差分驱动修复中,以下改动只有**行为实测背书**
-> (probe/diff),缺**语料结构背书**(写代码前未读真身)。按铁律 1,
-> 下轮逐项 grep 语料 → 按原版结构改写 → 重跑 58 diff 验证仍绿;
-> 定位不到的降级 cited。
+> (probe/diff),缺**语料结构背书**(写代码前未读真身)。
+> 批 14 逐项补全结果:
 
-| # | 改动 | 缺口 | 补救路径 |
-|---|---|---|---|
-| 1 | flushPendingActions 在 writeSplitData 入口 | 007d1f5a 入口只有 +0xd8 挂起尾,无 flush 结构 | 定位 doAction +0x20 队列的**消费者**(grep 读 +0x18/+0x20 的函数) |
-| 2 | NEL = indexDown+carriageReturn | 原版 NEL 动作函数未定位 | 007cc4xx 包装族/C1 0x85 handler |
-| 3 | DECSTBM 反参数拒绝在 case 'r' | 007a4672 语料是"存原值+钳",拒绝层未定位 | 007e5fa6(196B)重读找守卫 |
-| 4 | OSC 吞吐 while 循环 | 原版 OSC 解析路径未读 | 007e4908 表 ']' 项 + OSC 函数 |
-| 5 | CHT = nextTabstop 组合 | 原版 CSI 'I' 分派未定位 | writeSplitData 分派表语料 |
-| 6 | CUB/VPA 拒绝守卫在 CSI case | **与语料冲突**:007a546c 是 clamp 语义,拒绝在别层 | CSI 参数解析层/Screen 包装重读 |
-| 7 | LF rowHasContent 门在 Screen::lineFeed | **已证伪**:007e55fc(41B)/007e55b6(70B)均无门 | C0 分派或 writeText 层(字面流换行处理) |
-| 8 | ICH blankHead/attrArray 搬移/DCH=0 | 007a641a/007a5dce 未精读 | 两函数精读(attr 结构/blank head 来源) |
-| 9 | Tabstops::clear 行为 | **已补读** ✓ 007e5df0(193B)行为一致,注释已补地址 | 完成 |
+| # | 改动 | 处置 |
+|---|---|---|
+| 1 | flushPendingActions 在 writeSplitData 入口 | **未定位**(007d1f5a 入口只有 +0xd8 挂起尾)→ 行为保留+注释声明;随 pending v3 定位 +0x20 队列消费者后迁移 |
+| 2 | NEL 动作体 | ✅ **定位:FUN_007e562c(18B,007cc4c2 表项)= CR+IND**;我方顺序已按语料改写(先 CR 后 IND) |
+| 3 | DECSTBM 反参数拒绝 | ✅ **定位:007e5fa6(196B)内守卫**——bottom<1 拒/bottom<=top 拒/bottom>rows 钳 rows-1;我方 case 'r' 层错守卫已移入 Screen::setTopBottomMargins(精确结构改写),diff 验证绿 |
+| 4 | OSC 吞吐循环 | 未定位(007e4908 表 ']' 项)→ 行为保留+注释声明 |
+| 5 | CHT(CSI I) | 未定位 → 行为保留+注释声明 |
+| 6 | CUB/VPA 拒绝守卫 | **语料冲突实锤**:007a546c 是 clamp;拒绝层=CSI 动作执行器(doAction 消费链)未定位 → 守卫暂留+注释声明,v3 迁移 |
+| 7 | LF rowHasContent 门 | ✅ **证伪我方层**:007e55fc(41B)/007e55b6(70B)均无门;真身位置在 C0 分派或 writeText 字面流 → 门暂留(行为锚 QUIRKS 14)+注释声明,writeText 轮迁移 |
+| 8 | rowInsertBlanks/ICH/DCH | ✅ **全定位**:007a641a(431B)= 5 参(row,at,count,blankHead*,sgr 格),attr grow(007aa1bc)+memmove+尾填 *head;ICH=0x20(007a6782 local_1a)、DCH=0(007a65d2 local_1a)——**我方结构已与语料一致**,注释升级真身地址 |
+| 9 | Tabstops::clear | ✅ 上轮补读 007e5df0(193B),行为一致,注释已补 |
 
 已核实有背书:indexDown(007e55b6 镜像)、setCellRaw sgr(007a5aac)、
 adjustScreenAlignment(007e5f24)、IND/RI 动作体(007cc47e/007cc4a0)、
-doAction 定性(007d1606)。
+doAction 定性(007d1606)、setTopBottomMargins(007e5fa6 全量)、
+insertCharacter/deleteCharacter(007a6782/007a65d2)。
+
+**未定位三项(#1/#4/#5)+ 半定位两项(#6/#7)= 注释声明 +
+债随 v3/writeText 轮清偿;其余全部升级为有地址背书的转写。**
+54/58 在改写后无行为回归。
 
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/

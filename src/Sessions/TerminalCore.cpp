@@ -756,8 +756,10 @@ void TerminalCore::reset()
 
 void TerminalCore::insertCharacter(int count)
 {
-	// FUN_007a6782 (ICH): shift cells right at the cursor within the
-	// right margin (delete at the right edge + insert blanks at cursor)
+	// FUN_007a6782 (160B, 批 14 全读): columnInRange 门 + margin 钳
+	// (count>room → count=room,room<=0 拒);右缘 rowDeleteCells
+	// (007a5dce)+ 光标处 rowInsertBlanks(blankHead=0x20,语料
+	// local_1a 字面)+ markDirty(007a454e)
 	if (count <= 0 || !columnInRange(m_cursorX))
 		return;
 	const int room = rightMargin() - m_cursorX + 1;
@@ -770,7 +772,8 @@ void TerminalCore::insertCharacter(int count)
 
 void TerminalCore::deleteCharacter(int count)
 {
-	// FUN_007a65d2 (DCH): remove cells at the cursor, blanks at the edge
+	// FUN_007a65d2 (160B, 批 14 全读): DCH = cursor 处 rowDeleteCells
+	// (007a5dce)+ 右缘 rowInsertBlanks(blankHead=0,语料 local_1a)
 	if (count <= 0 || !columnInRange(m_cursorX))
 		return;
 	const int room = rightMargin() - m_cursorX + 1;
@@ -918,10 +921,12 @@ void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
 void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count,
                                    void *sgrCtx, unsigned short blankHead)
 {
-	// FUN_007a641a: grows the cell/attribute arrays to at least
-	// length+count (FUN_007aa3a6 keeps capacity), builds a blank cell
-	// from the SGR context (FUN_007aa2e2 local), shifts cells from the
-	// end down to `at` right by `count`, then writes `count` blanks
+	// FUN_007a641a (431B, 批 14 全读):5 参 (row, at, count,
+	// blankHead u16*, sgr 状态格)。cells:grow(007aa3a6)→ blank
+	// 模板 copyCell(sgrCtx)→ 尾段逐格 MOVE(00aa3a6 内联)→ blank
+	// 写入;attr(+0x38/+0x40):grow(007aa1bc)+ memmove 平移 +
+	// 尾部填 *blankHead。blankHead 由调用者传:ICH=0x20(007a6782
+	// local_1a)、DCH=0(007a65d2 local_1a)
 	if (at < 0 || at > rowLength(row))
 		return;
 	if (count == 0)
@@ -930,7 +935,7 @@ void TerminalCore::rowInsertBlanks(struct Row *row, int at, int count,
 	unsigned char blank[0x20];
 	memset(blank, 0, sizeof(blank));
 	buildBlankCell(blank, sgrCtx);                    // FUN_007aa2e2
-	((unsigned short *)blank)[0] = blankHead;   // ICH=0x20 space,DCH 补=0
+	((unsigned short *)blank)[0] = blankHead;   // 007a641a param_4:ICH=0x20/DCH=0
 	fprintf(stderr,
 	        "[p5] bb sgrCtx=%p q0=%p q2=%p m_sgrState=%p tabs=%p\n",
 	        sgrCtx, *(void *const *)sgrCtx,

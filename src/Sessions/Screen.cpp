@@ -175,8 +175,10 @@ void Screen::lineFeed()
 	// FUN_007e55fc: clear wrap pending, index down, then also CR when
 	// newline mode (LNM, +0x12f) is set
 	m_core->resetWrapPending();   // FUN_007a4564
-	// QUIRK(p5probe7 f 实测):LF 在未写入行上不动——CUP 到空行后
-	// LF 无效,字面写入后 LF 才下移(rowHasContent 门;非教科书)
+	// 行为锚(QUIRKS 14,p5probe7 f + crlf_cup_text):LF 在未写入行
+	// 上不动。结构注:007e55fc(LF 41B)/007e55b6(IND 70B)均无此门
+	// ——真身位置在 C0 分派或 writeText 字面流(未定位,背书债 #7);
+	// 此处为行为等价过渡,随 writeText 轮迁移
 	if (m_core->rowHasContent(m_core->row(currentLine())))
 		indexDown();
 	if (!m_newlineMode)
@@ -600,9 +602,11 @@ void Screen::reverseAttributesInRectangularArea(const QString &area)
 
 void Screen::setTopBottomMargins(int top, int bottom)
 {
-	// FUN_007e5fa6 (DECSTBM): 1-based params, -1/absent -> extremes;
-	// bottom is clamped under rowCount; tail (core set + cursor home
-	// per DECSTBM semantics) truncated in the decompile
+	// FUN_007e5fa6 (196B, 批 14 全读): 1-based, -1/absent -> extremes;
+	// bottom > rows -> clamp rows-1; bottom < 1 -> reject;
+	// bottom <= top -> reject(反参数;p5probe6 实测 CSI 5;1 r
+	// 区域/光标均不动)。尾 = core setTopBottomMargins + home
+	// (FUN_007a54f8:DECOM off = home 0,0;on = clamp 进 region)
 	if (top == -1)
 		top = 0;
 	else {
@@ -612,10 +616,17 @@ void Screen::setTopBottomMargins(int top, int bottom)
 	}
 	if (bottom == -1)
 		bottom = rowCount() - 1;
-	else
-		bottom = bottom - 1;   // + clamp vs rowCount (partially decoded)
+	else {
+		if (bottom > rowCount())
+			bottom = rowCount();
+		bottom = bottom - 1;
+		if (bottom < 1)
+			return;
+	}
+	if (bottom <= top)
+		return;
 	m_core->setTopBottomMargins(top, bottom);   // FUN_007a4672
-	m_core->moveCursorRaw(m_core->originTop(), m_core->originLeft());  // homes per DECSTBM
+	m_core->moveCursorRaw(m_core->originTop(), m_core->originLeft());
 }
 
 void Screen::setLeftRightMargins(int left, int right)

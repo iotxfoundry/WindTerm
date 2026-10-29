@@ -1858,14 +1858,20 @@ void SuperCommander::flushPendingActions()
 {
 	// 动作体:IND = FUN_007cc47e → Screen FUN_007e55b6(indexDown);
 	// RI = FUN_007cc4a0 → FUN_007e563e(indexUp);
-	// NEL = IND + CR(实测 flush 后 (4,4)→(5,0))
+	// NEL = FUN_007e562c(007cc4c2 表项)= CR + IND(实测 (4,4)→(5,0))
+	// 结构注:flush 时机(writeSplitData 入口)为行为推断(p5probe4/5
+	// 实测:动作 pending、下次注入生效),007d1f5a 入口语料只有
+	// +0xd8 挂起尾,无 flush 结构——背书债 #1,随 pending v3 定位
+	// doAction(007d1606)+0x20 队列消费者后迁移
 	for (const PendingAction a : m_pendingActions) {
 		switch (a) {
 		case PendingAction::Ind: m_screen->indexDown(); break;
 		case PendingAction::Ri:  m_screen->indexUp(); break;
 		case PendingAction::Nel:
-			m_screen->indexDown();
+			// FUN_007e562c(18B,007cc4c2 表项)= CR + IND
+			// (先 CR 后 IND,按语料顺序;实测 (4,4)→(5,0))
 			m_screen->carriageReturn();
+			m_screen->indexDown();
 			break;
 		}
 	}
@@ -1960,8 +1966,11 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case 'C':   // CUF
 					m_screen->moveCursorForward(num(0) ? num(0) : 1);
 					break;
-				case 'D': { // CUB:越界整体拒绝(p5probe7 e 实测
-				            // CSI 99 D 从 col=4 不动;非教科书钳制)
+				case 'D': { // CUB。行为锚:越界整体拒绝(p5probe7 e
+				            // 实测 CSI 99 D 从 col=4 不动)。结构注:
+				            // core 007a546c 是 clamp 语义,拒绝层实为
+				            // CSI 动作执行器(doAction 消费链,未定
+				            // 位——背书债 #6,随 pending v3 迁移)
 					const int n = num(0) ? num(0) : 1;
 					if (n <= m_screen->currentColumn())
 						m_screen->moveCursorBackward(n);
@@ -1971,15 +1980,18 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					m_screen->cursorMoveRaw(m_screen->currentLine(),
 					                        num(0) ? num(0) - 1 : 0);
 					break;
-				case 'I':   // CHT:前进 n 个 tabstop(实测 cht2
-				            // (0,16);FUN_007e5d1e 面)
+				case 'I':   // CHT:前进 n 个 tabstop。行为锚:cht2
+				            // (0,16)/(0,88) 表空时行尾。结构注:原版
+				            // CSI 'I' 分派未定位——背书债 #5;
+				            // FUN_007e5d1e 面
 					m_screen->moveCursor(
 					    m_screen->currentLine(),
 					    m_screen->nextTabstop(
 					        m_screen->currentColumn(),
 					        num(0) ? num(0) : 1));
 					break;
-				case 'd':   // VPA:越界拒绝(同 CUB;p5probe7 e)
+				case 'd':   // VPA:越界拒绝(同 CUB,p5probe7 e;
+				            // 拒绝层=CSI 动作执行器,背书债 #6)
 					if (num(0) && num(0) - 1 < m_screen->rowCount())
 						m_screen->cursorMoveRaw(num(0) - 1,
 						    m_screen->currentColumn());
@@ -2017,15 +2029,12 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case 'X':   // ECH(FUN_007e385a)
 					m_screen->eraseCharacter(num(0) ? num(0) : 1);
 					break;
-				case 'r':   // DECSTBM(FUN_007e5fa6);反参数原版
-				            // 忽略(p5probe6 实测:CSI 5;1 r 区域/
-				            // 光标均不动)——top<bot 才设
-					if (num(0) == 0 || num(1) == 0
-					    || num(0) < num(1))
-						m_screen->setTopBottomMargins(
-						    num(0) ? num(0) : 1,
-						    num(1) ? num(1)
-		                                           : m_screen->m_core->rowCount());
+				case 'r':   // DECSTBM → Screen::setTopBottomMargins
+				            // (FUN_007e5fa6;守卫在 Screen 层:
+				            // bottom<1/bottom<=top 拒,>rows 钳)
+					m_screen->setTopBottomMargins(
+					    num(0) ? num(0) : -1,
+					    num(1) ? num(1) : -1);
 					break;
 				case 'h':   // SM/DECSET(FUN_007edce6 / 007f5d2e)
 					if (priv)
@@ -2087,8 +2096,10 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					if (i + 1 < len)
 						i++;
 					break;
-				case ']': { // OSC:吞到 BEL / ST(ESC \)——原版实测
-				          // osc_title 全消费不落格(p5 60 序列)
+				case ']': { // OSC:吞到 BEL / ST。行为锚:原版全
+				          // 消费不落格(p5 58 osc_title)。结构
+				          // 注:原版解析路径(007e4908 表 ']'
+				          // 项 + OSC 函数)未定位——背书债 #4
 					while (i < len && data[i] != '\x07') {
 						if (data[i] == '\x1b'
 						    && i + 1 < len
