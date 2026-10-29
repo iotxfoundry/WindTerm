@@ -1854,99 +1854,19 @@ QByteArray SuperCommander::processOutput(const QByteArray &data)
 // 解析链入口(Phase 5;SuperCommander_writeSplitData / FUN_007d1f5a,914B)
 // ---------------------------------------------------------------------------
 
-void SuperCommander::flushPendingActions()
+void SuperCommander::execCsi(const QString &params, char finalByte,
+                             bool priv)
 {
-	// 动作体:IND = FUN_007cc47e → Screen FUN_007e55b6(indexDown);
-	// RI = FUN_007cc4a0 → FUN_007e563e(indexUp);
-	// NEL = FUN_007e562c(007cc4c2 表项)= CR + IND(实测 (4,4)→(5,0))
-	// 结构注:flush 时机(writeSplitData 入口)为行为推断(p5probe4/5
-	// 实测:动作 pending、下次注入生效),007d1f5a 入口语料只有
-	// +0xd8 挂起尾,无 flush 结构——背书债 #1,随 pending v3 定位
-	// doAction(007d1606)+0x20 队列消费者后迁移
-	for (const PendingAction a : m_pendingActions) {
-		switch (a) {
-		case PendingAction::Ind: m_screen->indexDown(); break;
-		case PendingAction::Ri:  m_screen->indexUp(); break;
-		case PendingAction::Nel:
-			// FUN_007e562c(18B,007cc4c2 表项)= CR + IND
-			// (先 CR 后 IND,按语料顺序;实测 (4,4)→(5,0))
-			m_screen->carriageReturn();
-			m_screen->indexDown();
-			break;
-		case PendingAction::Ht:
-			// FUN_007e5d7c(horizontalTab;行为锚:dump tab 单批尾
-			// HT 不执行→(0,4),批 18)
-			m_screen->horizontalTab();
-			break;
-		}
-	}
-	m_pendingActions.clear();
-}
-
-void SuperCommander::writeSplitData(const char *data, int len)
-{
-	// 007d1f5a 骨架:+0xd8 挂起尾拼接(初始空,尾巴面后续)→
-	// 逐字节分类:字面累积 → FUN_007cc1fa(→ 007cb698 +
-	// commander_ansi_buffer_build → Screen::writeText);控制/转义
-	// 经表驱动状态机(00a8158c)→ doAction(007d1606,2292B)。
-	// 本实现 = 行为等价子集:字面直通 writeText + C0 直派 +
-	// CSI(final m/J/H/f/A-D)派已转写 Screen 方法;全表状态机
-	// 与 doAction 全量随后续批(语料锚齐,见 PHASE5.md)。
-	if (m_screen == nullptr)
-		return;
-	// 入口 flush(QUIRKS 13 机制,p5probe4/5 实测):上次批的
-	// ESC D/M/E 动作此刻才执行——单批尾动作恒延迟一步
-	flushPendingActions();
-	// 写模板前置(FUN_007e4c90):原版链中 ansi_buffer_build 先于
-	// writeText 构建 +0x28 模板;擦除/填充路径消费同模板
-	m_screen->buildWriteTemplate();
-	int i = 0;
-	int litStart = 0;
-	auto flushLiteral = [&](int end) {
-		if (end > litStart)
-			m_screen->writeText(data + litStart, end - litStart);
+	// doAction(FUN_007d1606)派发的动作体(批 21 自 writeSplitData
+	// 内联迁出;CHT 语义 E4 修正)
+	const QStringList pl = params.split(QLatin1Char(';'));
+	auto num = [&](int idx) {
+		return idx < pl.size() && !pl.at(idx).isEmpty()
+		       ? pl.at(idx).toInt()
+		       : 0;
 	};
-	while (i < len) {
-		const unsigned char c = (unsigned char)data[i];
-		if (c == 0x1b) {                      // ESC:序列起点
-			flushLiteral(i);
-			i++;
-			if (i >= len)
-				break;                         // 尾截断:挂起 — cited
-			const unsigned char e1 = (unsigned char)data[i];
-			if (e1 == '[') {                   // CSI:参数收集
-				i++;
-				QString params;
-				QChar finalByte = 0;
-				bool priv = false;
-				while (i < len) {
-					const unsigned char b = (unsigned char)data[i];
-					if (b == '?' && params.isEmpty()) {
-						priv = true;           // 私有标记
-						i++;
-					} else if (b >= 0x30 && b <= 0x3f) {
-						params += (char)b;
-						i++;
-					} else if (b >= 0x40 && b <= 0x7e) {
-						finalByte = (char)b;
-						i++;
-						break;
-					} else {   // 中介域(空格/冒号等)按参数收集 — 简化
-						params += (char)b;
-						i++;
-					}
-				}
-				if (finalByte == 0)
-					break;                     // 尾截断:挂起 — cited
-				// doAction 子集(动作 → 已转写 Screen 方法)
-				const QStringList pl =
-				    params.split(QLatin1Char(';'));
-				auto num = [&](int idx) {
-					return idx < pl.size() && !pl.at(idx).isEmpty()
-					       ? pl.at(idx).toInt()
-					       : 0;
-				};
-				switch (finalByte.unicode()) {
+	switch (finalByte) {
+
 				case 'm':   // SGR(FUN_007ef95c)
 					m_screen->selectGraphicRendition(params);
 					break;
@@ -1988,22 +1908,26 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					m_screen->cursorMoveRaw(m_screen->currentLine(),
 					                        num(0) ? num(0) - 1 : 0);
 					break;
-				case 'I': { // CHT:逐 stop 前进 n 次;不足 n 停最后
-				            // 到达的 stop(实测表{4} CHT2→4;行为锚
-				            // tab/cht2 diff;HT 的"无 stop→行尾"是
-				            // FUN_007e5d1e 另一语义——背书债 #5 分派
-				            // 真身未定位)
+				case 'I': { // CHT(probe15 E4 实锤:表{4} 从
+				            // col4 CHT2 → (0,88):无下一 stop → 行尾,
+				            // 非"停最后到达";部分到达后耗尽 → 停
+				            // 最后到达)
 					int col = m_screen->currentColumn();
 					int n = num(0) ? num(0) : 1;
 					const int last = m_screen->windowColumns() - 1;
+					int reached = -1;
 					while (n-- > 0) {
 						int nxt = col + 1;
 						while (nxt <= last
 						       && !m_screen->isTabstop(nxt))
 							nxt++;
-						if (nxt > last)
+						if (nxt > last) {
+							if (reached < 0)
+								col = last;
 							break;
+						}
 						col = nxt;
+						reached = nxt;
 					}
 					m_screen->moveCursor(
 					    m_screen->currentLine(), col);
@@ -2081,42 +2005,187 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case 't':   // XTWINOPS — cited
 				default:    // 其余 final:doAction 全量后续批 — cited
 					break;
+					}
+}
+
+void SuperCommander::execEsc(char e1)
+{
+	switch (e1) {
+	case '7':   // DECSC(FUN_007e4aa2)
+		m_screen->saveCursor();
+		break;
+	case '8':   // DECRC(FUN_007f6426)
+		m_screen->restoreCursor();
+		break;
+	case 'D':   // IND(FUN_007cc47e→007e55b6)
+		m_screen->indexDown();
+		break;
+	case 'E':   // NEL = CR + IND(FUN_007e562c,007cc4c2 表项)
+		m_screen->carriageReturn();
+		m_screen->indexDown();
+		break;
+	case 'M':   // RI(FUN_007cc4a0→007e563e)
+		m_screen->indexUp();
+		break;
+	case 'c':   // RIS(FUN_007ea73c)
+		m_screen->resetHard();
+		break;
+	case '=':   // DECKPAM(FUN_007e37e8)
+		m_screen->enterAltKeypadMode();
+		break;
+	case '>':   // DECKPNM(FUN_007e3896)
+		m_screen->exitAltKeypadMode();
+		break;
+	default:
+		break;
+	}
+}
+
+void SuperCommander::flushPendingActions()
+{
+	// FIFO 重放(probe15 E4/E5 机制:字面先行、动作按字节序后至;
+	// 重放经 writeSplitData,m_replaying 门防再入队)。原"入口
+	// flush"模型废弃——批 21 起为批尾排空(p5probe15 实测链)
+	if (m_replaying || m_pendingActions.isEmpty())
+		return;
+	m_replaying = true;
+	const QVector<QByteArray> q = m_pendingActions;
+	m_pendingActions.clear();
+	for (const QByteArray &s : q)
+		writeSplitData(s.constData(), s.size());
+	m_replaying = false;
+}
+
+void SuperCommander::writeSplitData(const char *data, int len)
+{
+	// 007d1f5a 骨架:+0xd8 挂起尾拼接(初始空,尾巴面后续)→
+	// 逐字节分类:字面累积 → FUN_007cc1fa(→ 007cb698 +
+	// commander_ansi_buffer_build → Screen::writeText);控制/转义
+	// 经表驱动状态机(00a8158c)→ doAction(007d1606,2292B)。
+	// 本实现 = 行为等价子集:字面直通 writeText + C0 直派 +
+	// CSI(final m/J/H/f/A-D)派已转写 Screen 方法;全表状态机
+	// 与 doAction 全量随后续批(语料锚齐,见 PHASE5.md)。
+	if (m_screen == nullptr)
+		return;
+	// 入口排空 ESC D/E/M 专队列(批 21 v6:dump 双锚——ind/nel 单批
+	// 永不生效 (0,0);ind_bot_scroll/ri_top_scroll 有 follower 批
+	// 才生效。QUIRKS 13 原型回归,机制 = 队列重放)
+	if (!m_replaying && !m_escPending.isEmpty()) {
+		m_replaying = true;
+		const QVector<QByteArray> q = m_escPending;
+		m_escPending.clear();
+		for (const QByteArray &s : q)
+			writeSplitData(s.constData(), s.size());
+		m_replaying = false;
+	}
+	// +0xd8 挂起尾前拼(007d1f5a 入口 1647-1658;probe15 E7 实锤
+	// partial 序列整段入尾、本批不执行)
+	QByteArray spliced;
+	if (!m_seqTail.isEmpty()) {
+		spliced = m_seqTail + QByteArray(data, len);
+		m_seqTail.clear();
+		data = spliced.constData();
+		len = spliced.size();
+	}
+	// 写模板前置(FUN_007e4c90):原版链中 ansi_buffer_build 先于
+	// writeText 构建 +0x28 模板;擦除/填充路径消费同模板
+	m_screen->buildWriteTemplate();
+	int i = 0;
+	int litStart = 0;
+	auto flushLiteral = [&](int end) {
+		if (end > litStart)
+			m_screen->writeText(data + litStart, end - litStart);
+	};
+	while (i < len) {
+		const unsigned char c = (unsigned char)data[i];
+		if (c == 0x1b) {                      // ESC:序列起点
+			flushLiteral(i);
+			const int seqStart = i;
+			i++;
+			if (i >= len) {
+				// 尾截断 → +0xd8(语料 1706;本批不执行)
+				m_seqTail.append(data + seqStart,
+				                 len - seqStart);
+				litStart = len;
+				break;
+			}
+			const unsigned char e1 = (unsigned char)data[i];
+			if (e1 == '[') {                   // CSI:参数收集
+				i++;
+				QString params;
+				QChar finalByte = 0;
+				bool priv = false;
+				while (i < len) {
+					const unsigned char b = (unsigned char)data[i];
+					if (b == '?' && params.isEmpty()) {
+						priv = true;           // 私有标记
+						i++;
+					} else if (b >= 0x30 && b <= 0x3f) {
+						params += (char)b;
+						i++;
+					} else if (b >= 0x40 && b <= 0x7e) {
+						finalByte = (char)b;
+						i++;
+						break;
+					} else {   // 中介域(空格/冒号等)按参数收集 — 简化
+						params += (char)b;
+						i++;
+					}
 				}
+				if (finalByte == 0) {
+					// 尾截断 → +0xd8 挂起尾(语料 1706)
+					m_seqTail.append(data + seqStart,
+					                 len - seqStart);
+					i = len;
+					litStart = len;
+					break;
+				}
+				// 参数形不配 → partial 可完成 → 挂起尾(probe15
+				// E7:ESC[1;88T ret=-2,HighlightTracking 可完成形;
+				// 尾随 X 未进解析器 → 原版全空+home)
+				if (finalByte == 'T' && params.contains(';')) {
+					m_seqTail.append(data + seqStart,
+					                 len - seqStart);
+					i = len;
+					litStart = len;
+					break;
+				}
+				if (m_replaying)
+					execCsi(params, finalByte.unicode(), priv);
+				else
+					m_pendingActions.append(
+					    QByteArray(data + seqStart, i - seqStart));
 				litStart = i;
-			} else {                          // ESC 单/双字符序列
+			} else if (e1 == 'D' || e1 == 'E' || e1 == 'M') {
+				// IND/NEL/RI → 专队列,下次入口 flush(v6:
+				// ind/nel 单批 (0,0);ind_bot_scroll/ri_top_
+				// scroll follower 批生效 (5,0)/滚)
+				if (m_replaying)
+					execEsc(e1);
+				else
+					m_escPending.append(
+					    QByteArray(data + seqStart, 2));
+				i++;
+				litStart = i;
+			} else if (e1 == 'H') {
+				// HTS = 分派 miss,消费不执行(probe15 E2
+				// bits{};tbc_all-88 需表空 —— E4 bits{4} 为
+				// 未解残留,见 PHASE5 批 21)
+				i++;
+				litStart = i;
+			} else if (e1 == '7' || e1 == '8'
+			           || e1 == 'c' || e1 == '=' || e1 == '>') {
+				// 正则命中动作 → FIFO 队列(probe15:E5 字面
+				// 先行动作后至;E4 字节序 FIFO)
+				if (m_replaying)
+					execEsc(e1);
+				else
+					m_pendingActions.append(
+					    QByteArray(data + seqStart, 2));
+				i++;
+				litStart = i;
+			} else {                          // 其余 ESC:立即
 				switch (e1) {
-				case '7':   // DECSC(FUN_007e4aa2)
-					m_screen->saveCursor();
-					break;
-				case '8':   // DECRC(FUN_007f6426)
-					m_screen->restoreCursor();
-					break;
-				case 'H':   // HTS(FUN_007e52fc):-1 = 当前列设 stop
-					m_screen->setTabstop(-1, true);
-					fprintf(stderr,
-					        "[hts] col=%d test4=%d\n",
-					        m_screen->currentColumn(),
-					        m_screen->isTabstop(4));
-					break;
-				case 'D':   // IND 入队(FUN_007cc47e→007e55b6;pending
-				            // 至下次 writeSplitData flush,QUIRKS 13)
-					m_pendingActions.push_back(PendingAction::Ind);
-					break;
-				case 'E':   // NEL 入队(=IND+CR;实测 (4,4)→(5,0))
-					m_pendingActions.push_back(PendingAction::Nel);
-					break;
-				case 'M':   // RI 入队(FUN_007cc4a0→007e563e)
-					m_pendingActions.push_back(PendingAction::Ri);
-					break;
-				case 'c':   // RIS(FUN_007ea73c)
-					m_screen->resetHard();
-					break;
-				case '=':   // DECKPAM(FUN_007e37e8)
-					m_screen->enterAltKeypadMode();
-					break;
-				case '>':   // DECKPNM(FUN_007e3896)
-					m_screen->exitAltKeypadMode();
-					break;
 				case '(':   // 字符集指派 G0 — 略读 1 字节
 				case ')':   // G1 — charset 面后续批 — cited
 					if (i + 1 < len)
@@ -2162,9 +2231,9 @@ void SuperCommander::writeSplitData(const char *data, int len)
 			case '\r': m_screen->carriageReturn(); break;
 			case '\b': m_screen->backspace(); break;
 			case '\t':
-				// HT 入队(QUIRKS 17 批 18:dump tab 单批尾 HT
-				// 不执行,原版 (0,4);与 D/M/E 同队列)
-				m_pendingActions.push_back(PendingAction::Ht);
+				// HT = C0 直派(语料 ansi_buffer_build
+				// 19276-19306;tbc_all/tab 锚:v5 下即释)
+				m_screen->horizontalTab();
 				break;
 			case 0x84: m_screen->indexDown(); break;   // C1 IND
 			case 0x85:                                   // C1 NEL
@@ -2218,4 +2287,7 @@ void SuperCommander::writeSplitData(const char *data, int len)
 		i++;                                  // 字面:留在累积段
 	}
 	flushLiteral(len);
+	// 批尾排空(probe15:E-probes 显示批后 0.5s 内动作全部生效;
+	// 字面先行、动作后至 —— 此处即"后至"点)
+	flushPendingActions();
 }

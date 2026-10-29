@@ -110,12 +110,12 @@ def main():
     out = []
     for seq in seqs:
         script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 每序列清屏基线
-        time.sleep(0.3)   # 异步动作(Gt 事件循环排队)稳定
+        time.sleep(0.6)   # 批间 settle(probe15:动作排队后至,0.5s 全生效)
         # ',' 分批:验证 pending flush(QUIRKS 13)必需——批间即 flush 点
         for part in seq['bytes'].split(','):
             script.exports_sync.inject(part)
             time.sleep(0.05)
-        time.sleep(0.35)   # 异步动作(IND/RI/NEL 等排队)稳定后再读格
+        time.sleep(0.6)   # 批间 settle 加长(probe15:E 系列 0.5s 全生效)
         g2 = script.exports_sync.inject('')   # 空注入 = 只读网格
         out.append({'name': seq['name'], 'grid': g2})
         print(seq['name'], '-> cur', g2.get('curY'), g2.get('curX'))

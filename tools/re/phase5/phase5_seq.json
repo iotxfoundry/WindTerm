@@ -161,7 +161,7 @@
  },
  {
   "name": "cht2",
-  "bytes": "1b5b33671b5b313b35481b481b5b3249"
+  "bytes": "1b5b33671b5b3249"
  },
  {
   "name": "cbt1",
@@ -238,5 +238,157 @@
  {
   "name": "wrap_edge",
   "bytes": "1b5b313b38385458"
+ },
+ {
+  "name": "ech9",
+  "bytes": "1b5b3958"
+ },
+ {
+  "name": "su2",
+  "bytes": "1b5b3253"
+ },
+ {
+  "name": "sd2",
+  "bytes": "1b5b3254"
+ },
+ {
+  "name": "il99",
+  "bytes": "1b5b39394c"
+ },
+ {
+  "name": "dl99",
+  "bytes": "1b5b39394d"
+ },
+ {
+  "name": "dch99",
+  "bytes": "1b5b393950"
+ },
+ {
+  "name": "ich99",
+  "bytes": "1b5b393940"
+ },
+ {
+  "name": "cuu99",
+  "bytes": "1b5b393941"
+ },
+ {
+  "name": "cud99",
+  "bytes": "1b5b393942"
+ },
+ {
+  "name": "cuf99",
+  "bytes": "1b5b393943"
+ },
+ {
+  "name": "cnl99",
+  "bytes": "1b5b393945"
+ },
+ {
+  "name": "cpl99",
+  "bytes": "1b5b393946"
+ },
+ {
+  "name": "cha0",
+  "bytes": "1b5b3047"
+ },
+ {
+  "name": "cha200",
+  "bytes": "1b5b32303047"
+ },
+ {
+  "name": "vpa31",
+  "bytes": "1b5b333164"
+ },
+ {
+  "name": "hpr5",
+  "bytes": "1b5b3561"
+ },
+ {
+  "name": "vpr3",
+  "bytes": "1b5b3365"
+ },
+ {
+  "name": "hpb2",
+  "bytes": "1b5b326a"
+ },
+ {
+  "name": "vpb2",
+  "bytes": "1b5b326b"
+ },
+ {
+  "name": "rep2",
+  "bytes": "41421b5b3262"
+ },
+ {
+  "name": "decsc_rc",
+  "bytes": "1b371b5b323b33481b38"
+ },
+ {
+  "name": "scosc_rc",
+  "bytes": "1b5b731b5b323b33481b5b75"
+ },
+ {
+  "name": "tab_matrix",
+  "bytes": "1b5b313b3131481b48091b5b3131471b5b6709"
+ },
+ {
+  "name": "tbc3",
+  "bytes": "1b5b33671b5b313b37481b4809"
+ },
+ {
+  "name": "decawm_off",
+  "bytes": "1b5b3f376c1b5b313b38384854581b5b3f3768"
+ },
+ {
+  "name": "wrap_line",
+  "bytes": "1b5b313b3838485458"
+ },
+ {
+  "name": "sgr_ul",
+  "bytes": "1b5b346d551b5b32346d4e"
+ },
+ {
+  "name": "sgr_inv",
+  "bytes": "1b5b376d491b5b32376d4a"
+ },
+ {
+  "name": "sgr_256bg",
+  "bytes": "1b5b34383b353b32316d42"
+ },
+ {
+  "name": "sgr_true",
+  "bytes": "1b5b33383b323b3235353b303b306d52"
+ },
+ {
+  "name": "sgr_colon",
+  "bytes": "1b5b33383a353a3139366d43"
+ },
+ {
+  "name": "multi_crlf",
+  "bytes": "41420d0a43440d0a45460d0a4748"
+ },
+ {
+  "name": "decstbm_ri",
+  "bytes": "1b5b353b3130721b5b353b31481b4d58"
+ },
+ {
+  "name": "decstbm_cup",
+  "bytes": "1b5b353b3130721b5b32303b354858"
+ },
+ {
+  "name": "decom",
+  "bytes": "1b5b353b3130721b5b3f36681b5b313b3148581b5b3f366c"
+ },
+ {
+  "name": "wide_wrap",
+  "bytes": "1b5b313b383848e4b8ad"
+ },
+ {
+  "name": "lf40",
+  "bytes": "0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a"
+ },
+ {
+  "name": "esc_literal",
+  "bytes": "411b1b1b1b42"
  }
 ]

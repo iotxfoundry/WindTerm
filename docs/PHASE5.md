@@ -263,6 +263,29 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 53→56/60;剩 4:bs(27)、tbc_all(HT flush 后光标仍 (0,0)——
   horizontalTab 执行链待查)、crlf(v3)、wrap_edge(#11)
 
+### 批 21(2026-10-29):机制革命——probe15 仪器 + xterm.term 分派表 + v6 模型 + 扩谱 98 ⏳
+- **probe15 决定性仪器**(tools 外科 /tmp/opencode/p5probe15.py):9 实验 ×
+  全链 hook(pcre2 ret/doAction/光标写/HT/±0xd8 尾/表位图)——
+  **dump 读数不可信类**(mid-drain/状态污染)自此有仲裁者
+- **三份语料 subagent**:doAction=QHash 派发非记录器(+0x20 无消费者
+  仅 [TERM] 日志);writeText 字面路径(ESC=普通字形!wrap latch=
+  Screen+0 bit7);tab 族全解(HT 无 at-stop 守卫/表空→cols-1/
+  TBC mode2 原版未实现勿补);**序列→动作名绑定 = terminal 配置
+  regex(xterm.term input.match,refs+命名捕获组)**——分派真相源
+- **wrap_edge 破译**:ESC[1;88T = partial 可完成(HighlightTracking
+  形)→ ret=-2 → +0xd8 尾,X 未进解析器(全空+home ✓)
+- **v6 模型落地**:CSI = 批尾 FIFO 排空;ESC D/E/M = 专队列下次
+  入口 flush;HTS = miss-no-op;\t/C0 立即;at-stop 守卫删除;
+  CHT 无下一 stop → 行尾;LF rowHasContent 门删除(lf40 实锤)
+- **扩谱 60→98**(+38:xterm.term 动作清单直出;cht2/hts_tab 去重)
+- 70/98;28 红分类:①原版读数 flaky(bs/cht2/hts_tab——同字节
+  异读铁证);②我方缺口(REP/HPR/VPR/HPB/VPB 未实现、DECOM/
+  DECAWM-off wrap、ESC-字形字面、SGR-colon 后写路径断、cha200/
+  ich99 钳制、multi_crlf 我方空写、lf40 我方 indexDown 门、
+  decstbm_ri/cup、tab_matrix/tbc3、decsc_rc/scosc_rc 恢复语义)
+- **E4 bits{4} 未解残留**(HTS-miss 模型下唯一矛盾 datum)
+- dump settle 0.35→0.6(不解决读数变异——变异非时序)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

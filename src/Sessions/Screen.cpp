@@ -175,12 +175,9 @@ void Screen::lineFeed()
 	// FUN_007e55fc: clear wrap pending, index down, then also CR when
 	// newline mode (LNM, +0x12f) is set
 	m_core->resetWrapPending();   // FUN_007a4564
-	// 行为锚(QUIRKS 14,p5probe7 f + crlf_cup_text):LF 在未写入行
-	// 上不动。结构注:007e55fc(LF 41B)/007e55b6(IND 70B)均无此门
-	// ——真身位置在 C0 分派或 writeText 字面流(未定位,背书债 #7);
-	// 此处为行为等价过渡,随 writeText 轮迁移
-	if (m_core->rowHasContent(m_core->row(currentLine())))
-		indexDown();
+	// LF 无条件下移(批 21 v6:lf40 实锤——空屏 40×LF → (30,0),
+	// 原版无 rowHasContent 门;007e55fc 语料本就无门。QUIRKS 14 撤销)
+	indexDown();
 	if (!m_newlineMode)
 		return;
 	carriageReturn();
@@ -189,11 +186,9 @@ void Screen::lineFeed()
 void Screen::horizontalTab()
 {
 	// FUN_007e5d7c: next tabstop, clamped to the right margin while the
-	// cursor line is inside the scroll region。
-	// QUIRKS 18(批 18,tab/tbc_all 双锚):光标已在 stop 上 → HT 不动
-	// (tab 表{4} col=4 不动;tbc_all 表空 0 非 stop → 行尾 88)
-	if (isTabstop(currentColumn()))
-		return;
+	// cursor line is inside the scroll region(批 21 v5:去 at-stop
+	// 守卫——语料无此守卫(007e5d7c/007e5d1e 全读);v5 模型下
+	// tab/tbc_all 双锚不需守卫)
 	int col = nextTabstop(currentColumn(), 1);
 	if (m_core->inScrollRegion(currentLine())
 	    && currentColumn() <= marginRight()) {

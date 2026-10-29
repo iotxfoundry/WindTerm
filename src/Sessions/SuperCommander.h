@@ -26,14 +26,18 @@ public:
 	void writeSplitData(const char *data, int len);    // 007d1f5a(解析链入口)
 	Screen *m_screen;
 
-	// ESC 单字符动作 pending 队列(QUIRKS 13 修订,2026-10-29 p5probe4/5
-	// 实测):D/M/E 不立即执行,入队;下次 writeSplitData 入口 flush。
-	// 动作体:IND=007cc47e→007e55b6;RI=007cc4a0→007e563e;
-	// NEL=IND+CR(实测 (4,4)→(5,0))。doAction 007d1606 = 记录器
-	// (xxhash64 动作名 → +0x20 容器 append)。
-	enum class PendingAction { Ind, Ri, Nel, Ht };
+	// 动作 FIFO 队列(批 21 pending-v3;probe15 实锤:E5 字面先行/
+	// 动作后至、E4 字节序 FIFO、tbc_all 88 需 3g 先于 \t)。队列项 =
+	// 原始序列字节,flush 时经 writeSplitData 重放(m_replaying 门)。
+	// m_seqTail = +0xd8 挂起尾(007d1f5a 1647;probe15 E7:partial
+	// 序列如 ESC[1;88T 整段入尾,本批不执行,下批入口前拼)。
 	void flushPendingActions();
-	QVector<PendingAction> m_pendingActions;
+	QVector<QByteArray> m_pendingActions;
+	QVector<QByteArray> m_escPending;   // ESC D/E/M 专队列:下次入口 flush
+	QByteArray m_seqTail;
+	bool m_replaying = false;
+	void execCsi(const QString &params, char finalByte, bool priv);
+	void execEsc(char e1);
 
 protected:
 	bool m_checkControlChars;   // +0x101 (adapter 0x7cadda writes it directly)
