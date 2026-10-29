@@ -33,6 +33,21 @@
 3. **实验锚**(金标准):可执行对拍。首个:Cryptographic 用
    user.sessions 真 blob 解密验证(源码已在本树,编译即测)。
 
+**实验锚 #1 ✅✅ 全链闭环(2026-10-30)**:
+- autoLogin 解密链**端到端验证**:`decrypt(b64)` → `AES-256-CBC`
+  (key=pbkdf2[0:32], iv=pbkdf2[32:48]) → JSON
+  `{"Password":…,"session.user":…,"uuidSalt":…}`
+- **KDF 派生链验证**:`pbkdf2 = PBKDF2-HMAC-SHA3-512(password="",
+  salt=fingerprint(64B 原始), 100000, 48)` — masterPassword=false ⇒
+  空口令;fingerprint(user.config)= **KDF 盐**(角色定案);
+  pbkdf2 本身不落盘(内存 config+0xc0)
+- 方法:frida spawn 钩 0xa7e12e(decrypt)拿 (data, pbkdf2) 实参 →
+  本地 python 复解 → 派生矩阵反推 password/salt —— 三段互证
+- uuidSalt(密文内)= 条目级盐,用于 changeMasterPassword 重加密
+  (推测,未验)
+- 现场已恢复:user.sessions 还原、sshd 关闭、WindTerm 重启
+- 敏感信息处理:明文/pbkdf2/fingerprint 值不入库(仅机制描述)
+
 **实验锚 #1 完成(2026-10-29,Cryptographic 同版验证 ✓)**:
 - **语料定位**:doCrypt=00a7dfb0(EVP_CIPHER_CTX_new→aes_256_cbc→
   CipherInit(enc)→Update→Final,与开源码逐句同构)、decrypt=
