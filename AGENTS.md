@@ -197,12 +197,6 @@ QVariant dispatch(cmd, a, b)
 同一策略适用于 libssh(认证族委托真 libssh)与 yaml-cpp(ConfigBridge
 委托真库):**标准行为委托真库,fork 特性才逆向自研**。
 
-## 提交规范
-
-- 中文 commit,force push 需覆盖远端 dev
-- push 必带 `-c http.proxy=http://192.168.1.106:7890`
-- 每轮:改动 + 对应 .md 更新,**一条 commit 一条 push**
-
 ### 16. 参考材料删除判据:复刻完成前不动(2026-10-29)
 - **错**:"构建未引用 = 可删"——曾据此删 inc/(23MB 头文件快照)
   与 Onigmo/libonig.a,用户复核后恢复。
@@ -211,3 +205,9 @@ QVariant dispatch(cmd, a, b)
   (如 spdlog/fmt 之于 loggerOp 面)。
 - **原则**:参考性材料删除 = 该子系统复刻完成并通过行为对比
   之后;提交前自问"复刻时是否需要它当 API 文档"。
+
+## 提交规范
+
+- 中文 commit,force push 需覆盖远端 dev
+- push 必带 `-c http.proxy=http://192.168.1.106:7890`
+- 每轮:改动 + 对应 .md 更新,**一条 commit 一条 push**
