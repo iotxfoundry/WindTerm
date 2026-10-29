@@ -143,15 +143,26 @@ insertCharacter/deleteCharacter(007a6782/007a65d2)、rowDeleteCells
 布局相邻域(m_tabstops,offTabs=0/JUNK {0,0,nil} 三元组实锤);去 &
 修复,decaln/wrap_edge 回归不崩。
 
-**背书债 #11(row length 生命周期,批 16 新立)**:007aa3a6 = resize
-**双写**(len+cap);writeText 字面写推进 length;DCH(007a5dce)
-缩短——我方 length 静态 89 + DCH 缩短后不恢复 = DECALN 行尾 guard
-漏填/wrap_edge 读数错位同源。精读 007aa3a6/writeText 357 行段后
-统一 length 维护,DECALN/wrap_edge 归绿。
+**背书债 #11(row length 生命周期,批 16 立/批 16 续推进)**:007aa3a6
+尾部实锤 count = min(oldCount, newLen)——resize 不增长 length(我方
+growRowArrays 一致);DCH 缩短已对齐(批 16 主轮,dch3 MATCH)。
+余:writeText 357 行段(attr count 推进)精读 + decaln 行尾 3 格
+归因(diag3 实证 DECALN 填充正确,row2 len=89 attr[85..89]=69×4
+——diff 的 u=0 为旧文件时序假象,重 dump 后待复核)。
 
-**批 16 另修:case 'H'/'f' 参数序**(SuperCommander::moveCursor
-(column,line) 1-based;原 (num-1,num-1) 非对称 CUP(1;88) 乱跳
-(86,1))。
+**批 16 续:case 'H' 参数序回归 + 回退(背书债 #12)**:批 16 续曾改
+case 'H' 为 (num(1),num(0))——**引发 40/60 大面积回归**(cup 首条即
+乱),已回退 (num(0)-1,num(1)-1) 恢复 53/60。教训:非对称 CUP 在
+旧版下全 MATCH,说明**实际调用链与 SuperCommander::moveCursor
+(column,line) 的形参语义与 presumed 不同**——需精读 FUN_007e4fdc
+(CUP 的 Screen 面)+ 007cbeda(适配器)+ 0x7cbeda 链逐参数裁决
+(背书债 #12),禁止再凭形参名推断。
+
+**背书债 #11(length 生命周期)推进**:007aa3a6 尾部实锤
+`count = min(oldCount, newLen)`——resize **不增长** length(我方
+growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
+余:writeText 357 行段(attr count 推进)精读 + decaln 行尾 3 格
+(row2 [86..88])归因。
 
 **未定位三项(#1/#4/#5)+ 半定位两项(#6/#7)= 注释声明 +
 债随 v3/writeText 轮清偿;其余全部升级为有地址背书的转写。**

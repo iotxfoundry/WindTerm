@@ -145,23 +145,7 @@ int main()
 			out << ",\n";
 		first = false;
 		fprintf(stderr, "[seq] %s\n", name.constData());
-		if (name == "decaln") {   // 临时诊断:m_sgrState 0x20 块(背书债 #10)
-			const unsigned char *sg =
-			    (const unsigned char *)core.m_sgrState;
-			fprintf(stderr, "[diag] sgrState=%p:", (const void *)sg);
-			for (int b = 0; b < 0x20; ++b)
-				fprintf(stderr, " %02x", sg[b]);
-			fprintf(stderr, "\n");
-		}
 		dumpSeq(cmd, s, core, name.constData(), hex.constData(), out);
-		if (name == "decaln") {   // 写后三元组:(0,0)aux / sgr+0x10 / tabs.payload
-			fprintf(stderr,
-			        "[diag2] cell00aux=%p sgr+0x10=%p tabs=%p\n",
-			        *(void **)((char *)core.cellAt(core.row(0), 0)
-			                   + 0x10),
-			        *(void **)((char *)core.m_sgrState + 0x10),
-			        core.m_tabstops.payload);
-		}
 	}
 	out << "]";
 	std::printf("written /tmp/opencode/phase5_ours.json\n");
