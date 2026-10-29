@@ -1991,11 +1991,8 @@ void SuperCommander::execCsi(const QString &params, char finalByte,
 					else
 						m_screen->setMode(params, false);
 					break;
-				case 's':   // SCOSC(FUN_007e4aa2)
-					m_screen->saveCursor();
-					break;
-				case 'u':   // SCORC(FUN_007f6426)
-					m_screen->restoreCursor();
+				case 's':   // SCOSC = 分派 miss(批 22:
+				case 'u':   // scosc_rc/decsc_rc 双 (1,2))
 					break;
 				case 'a':   // HPR(MoveCursorColumnRelative)= CUF 相对列
 					m_screen->moveCursorForward(num(0) ? num(0) : 1);
@@ -2202,14 +2199,14 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					    QByteArray(data + seqStart, 2));
 				i++;
 				litStart = i;
-			} else if (e1 == 'H') {
-				// HTS = 分派 miss,消费不执行(probe15 E2
-				// bits{};tbc_all-88 需表空 —— E4 bits{4} 为
-				// 未解残留,见 PHASE5 批 21)
+			} else if (e1 == 'H' || e1 == '7' || e1 == '8') {
+				// HTS/DECSC/DECRC = 分派 miss,消费不执行
+				// (probe15 E2 bits{};批 22:decsc_rc/
+				// scosc_rc 双 (1,2) 稳定读 —— save/restore
+				// 族全 miss,RestoreCursor 动作名未注册)
 				i++;
 				litStart = i;
-			} else if (e1 == '7' || e1 == '8'
-			           || e1 == 'c' || e1 == '=' || e1 == '>') {
+			} else if (e1 == 'c' || e1 == '=' || e1 == '>') {
 				// 正则命中动作 → FIFO 队列(probe15:E5 字面
 				// 先行动作后至;E4 字节序 FIFO)
 				if (m_replaying)

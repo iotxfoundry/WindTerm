@@ -105,12 +105,25 @@ void TerminalView::paintEvent(QPaintEvent *event)
 		const int n = qMin(row->length, core->columnCount());
 		for (int x = 0; x < n; ++x) {
 			const ushort u = heads[x];
-			if (u == 0xffff)
-				continue;   // 宽字符尾格(e2eterm 锚:0xffff trail)
+			int span = 1;
+			ushort glyph = u;
+			int sgrOff = x;
+			if (u == 0xffff) {
+				// 宽字符哨兵在前:字形在次格,本格起跨双格
+				// (probe37:原版 [ffff,中,ffff,中,…];批 22)
+				if (x + 1 >= n)
+					continue;
+				glyph = heads[x + 1];
+				span = 2;
+				sgrOff = x + 1;
+			} else if (u != 0 && m_screen &&
+			           m_screen->widthFromTables(u) == 2) {
+				span = 2;   // 旧约定兼容(孤立宽字形)
+			}
 			quint32 sgr = 0;
 			if (row->cells)
 				sgr = *(const quint32 *)((const char *)row->cells +
-				                         (size_t)x * 0x20 + 0x18);
+				                         (size_t)sgrOff * 0x20 + 0x18);
 			quint32 fg = (quint32)((sgr >> 14) & 0xffffff);
 			quint32 bg = (quint32)((sgr >> 39) & 0xffffff);
 			if (fg == 0)
@@ -120,17 +133,12 @@ void TerminalView::paintEvent(QPaintEvent *event)
 			if (sgr & (1ULL << 7)) {   // inverse
 				qSwap(fg, bg);
 			}
-			// 宽字符占双格(widthFromTables==2);字形自然宽渲染
-			const int span =
-			    (m_screen && u != 0 && m_screen->widthFromTables(u) == 2)
-			        ? 2
-			        : 1;
 			const QRect cell(x * cw, y * chh, cw * span, chh);
 			if (bg != kDefaultBg)
 				p.fillRect(cell, QColor(bg & 0xffffff));
-			if (u == 0 || u == (ushort)' ') {
+			if (glyph == 0 || glyph == (ushort)' ') {
 				if (span == 2)
-					++x;   // 尾格已随跨度消费
+					++x;   // 次格已随跨度消费
 				continue;
 			}
 			QFont f = font();
@@ -139,8 +147,8 @@ void TerminalView::paintEvent(QPaintEvent *event)
 			p.setPen(QColor(fg & 0xffffff));
 			p.drawText(cell, Qt::AlignLeft | Qt::AlignTop |
 			                     Qt::TextSingleLine,
-			            QString(QChar(u)));
-			const int w = fm.horizontalAdvance(QChar(u));
+			            QString(QChar(glyph)));
+			const int w = fm.horizontalAdvance(QChar(glyph));
 			if (sgr & (1 << 3))   // underline
 				p.drawLine(cell.left(), cell.bottom(),
 				           cell.left() + w - 1, cell.bottom());
@@ -149,7 +157,7 @@ void TerminalView::paintEvent(QPaintEvent *event)
 				           cell.left() + w - 1,
 				           cell.top() + chh / 2);
 			if (span == 2)
-				++x;   // 跳过尾格(heads[x+1]=0xffff)
+				++x;   // 跳过次格(字形已消费)
 		}
 	}
 

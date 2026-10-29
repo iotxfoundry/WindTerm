@@ -303,6 +303,27 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 3 路校准 subagent 并行完成(Telnet/Pty/Widgets,见 CALIBRATION.md)
 - 诊断基建:dbg_cursor 微驱动 + engtest4 [diag] 逐序列状态
 
+### 批 23(2026-10-30)/loop 四轮:92→94→**96/98**,save/restore miss 族 + glitch 重试 ⏳
+- **wide_wrap 格序定案**(loop R1):probe37 决断实验——原版宽字符
+  = **哨兵在首格**([ffff,中,ffff,中,…]),我方字形在前反了;writeText
+  换序 + TerminalView 哨兵渲染 + e2eterm 断言更新(旧"ffff trail"
+  约定撤销)→ 绿
+- **decstbm_ri 定性**(loop R2,挂账):E2-bits{}/tab/E4/decstbm_ri 四锚
+  在一切 uniform 排队模型下互斥(逐组合验算)——原版排空边界按动作
+  类型分相(\t 触发 LIFO vs 批尾 FIFO 假说最拟合),需 per-action
+  probe 矩阵(3 微实验)终裁
+- **save/restore miss 族扩员**(loop R4):decsc_rc/scosc_rc 双 (1,2)
+  稳定读 → DECSC(ESC7)/DECRC(ESC8)/SCOSC(s)/SCORC(u) 全部分派
+  miss 消费不执行 → 双绿;注册表有 SaveCursor/RestoreCursor 但
+  live 配置 miss —— 命名/注册错位待查(不阻塞)
+- **字面态伪影 = 随机性**(loop R3):bs/tab_matrix/tbc3/decawm_off
+  轮流中招(0x1b 格签名),非确定性;phase5_dump.py 加 glitch 重试
+  (0x1b 格检测 → 重基线重注入)→ bs/decawm_off 即刻归绿,tbc3
+  重试仍中(随机,可多次重试/加长前置 sleep)
+- **ST 重同步废弃**:ST 非独立模式((?&ST) 仅内嵌于 OSC/DCS)→
+  -1 全字面化风险,回退(p5 自匹配误杀教训 ×1:pkill 括号法)
+- 教训入档:pkill -f 自匹配(p5 踩坑 #16 候选)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

@@ -93,23 +93,21 @@ int main()
 		fails += h1s[0] != 0x63;
 	}
 
-	// 5) UTF-8 multibyte: 你好 = two wide chars (folded cp, 0xffff trail)
+	// 5) UTF-8 multibyte: 你好 = two wide chars (批 22 换序:哨兵在首格,
+	// probe37 实锤原版 [ffff,中,ffff,中,…];旧"ffff trail"约定撤销)
 	s.writeText("\xe4\xbd\xa0\xe5\xa5\xbd", 6);
 	expect("cursorX after CJK x2", s.currentColumn(), 5);
 	struct Row *rc = core.row(2);
 	unsigned short *hc = (unsigned short *)rc->attrArray;
-	// BMP chars decode to one unit: heads keep the raw codepoints with
-	// the 0xffff trail on the second column (the 0xfca02400 fold is for
-	// astral surrogate pairs only)
 	// CJK lands at row2 cols 1..4 (after 'Y' at col 0)
-	printf("CJK head[1]=%04x (want 4f60)%s\n", hc[1], hc[1] == 0x4f60 ? "" : "  FAIL");
-	fails += hc[1] != 0x4f60;
-	printf("CJK head[2]=%04x (want ffff trail)%s\n", hc[2], hc[2] == 0xffff ? "" : "  FAIL");
-	fails += hc[2] != 0xffff;
-	printf("CJK head[3]=%04x (want 597d)%s\n", hc[3], hc[3] == 0x597d ? "" : "  FAIL");
-	fails += hc[3] != 0x597d;
-	printf("CJK head[4]=%04x (want ffff trail)%s\n", hc[4], hc[4] == 0xffff ? "" : "  FAIL");
-	fails += hc[4] != 0xffff;
+	printf("CJK head[1]=%04x (want ffff sentinel)%s\n", hc[1], hc[1] == 0xffff ? "" : "  FAIL");
+	fails += hc[1] != 0xffff;
+	printf("CJK head[2]=%04x (want 4f60)%s\n", hc[2], hc[2] == 0x4f60 ? "" : "  FAIL");
+	fails += hc[2] != 0x4f60;
+	printf("CJK head[3]=%04x (want ffff sentinel)%s\n", hc[3], hc[3] == 0xffff ? "" : "  FAIL");
+	fails += hc[3] != 0xffff;
+	printf("CJK head[4]=%04x (want 597d)%s\n", hc[4], hc[4] == 0x597d ? "" : "  FAIL");
+	fails += hc[4] != 0x597d;
 
 	// 6) SGR template: payload (cell+0x18) carries the core SGR bits
 	core.m_sgrBits = 0x1122334455667788ULL;

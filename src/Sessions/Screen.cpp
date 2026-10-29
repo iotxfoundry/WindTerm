@@ -1506,7 +1506,7 @@ void Screen::writeText(const char *data, int len)
 	//   - width from FUN_007e5a0e (char class) and FUN_007a4692
 	//     (codepoint width; 0 = combining, <0 = invalid)
 	//   - IRM (+0x12a): cells+attrs memmove right before the write
-	//   - wide char: second cell head 0xffff, two columns consumed
+	//   - wide char: FIRST cell head 0xffff sentinel, glyph in second
 	//   - combining/zero-width: UTF-16 units appended into the cell's
 	//     glyph-cluster aux object (0x18 bytes, growable u16 array via
 	//     FUN_007aa1bc; astral cp split as (cp>>10)-0x2840 high +
@@ -1614,12 +1614,15 @@ void Screen::writeText(const char *data, int len)
 				shiftCellsRight(row, col, width);
 			}
 			m_core->copyCell(cell, &m_writeTemplate);   // SGR template +0x28
-			*head = (unsigned short)cp;
 			int newCol = col + width;
 			if (width == 2 && col + 1 < m_core->columnCount()) {
+				// 哨兵在首格,字形在次格(probe37:原版
+				// [65535,20013,65535,20013,…];批 22 换序)
+				*head = 0xffff;
 				m_core->copyCell(nextCell(cell), &m_writeTemplate);
-				unsigned short *second = nextHead(head);
-				*second = 0xffff;                   // wide second half
+				*nextHead(head) = (unsigned short)cp;
+			} else {
+				*head = (unsigned short)cp;   // 无次格:字形回落
 			}
 			if (right < newCol) {
 				// past the margin: latch the pending wrap; the byte is

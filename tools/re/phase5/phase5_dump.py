@@ -109,7 +109,7 @@ def main():
 
     out = []
     for seq in seqs:
-        script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 每序列清屏基线
+        script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 每序列清屏基线(批 22:ST 重同步废弃——ST 非独立模式,-1 全字面化风险)
         time.sleep(0.6)   # 批间 settle(probe15:动作排队后至,0.5s 全生效)
         # ',' 分批:验证 pending flush(QUIRKS 13)必需——批间即 flush 点
         for part in seq['bytes'].split(','):
@@ -117,6 +117,18 @@ def main():
             time.sleep(0.05)
         time.sleep(0.6)   # 批间 settle 加长(probe15:E 系列 0.5s 全生效)
         g2 = script.exports_sync.inject('')   # 空注入 = 只读网格
+        # 字面态伪影重试(批 22):非 esc_literal 序列出现 0x1b 格 =
+        # vt14 字面直通态竞态签名 → 重基线重注入一次
+        if seq['name'] != 'esc_literal' and any(
+                27 in (r or []) for r in g2.get('lines', [])[:6]):
+            print('  glitch(0x1b cell) -> retry', seq['name'])
+            script.exports_sync.inject('1b5b324a1b5b481b5b72')
+            time.sleep(0.6)
+            for part in seq['bytes'].split(','):
+                script.exports_sync.inject(part)
+                time.sleep(0.05)
+            time.sleep(0.6)
+            g2 = script.exports_sync.inject('')
         out.append({'name': seq['name'], 'grid': g2})
         print(seq['name'], '-> cur', g2.get('curY'), g2.get('curX'))
     with open(out_path, 'w') as f:
