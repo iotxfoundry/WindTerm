@@ -1568,6 +1568,11 @@ void Screen::writeText(const char *data, int len)
 
 		m_pendingWrap = 0;
 		while (true) {
+			if (m_pendingWrap || m_core->m_cursorX > 80) {   // 临时诊断(背书债 wrap)
+				fprintf(stderr, "[wt] enter col=%d y=%d latch=%d i=%d cp=%u\n",
+				        m_core->m_cursorX, m_core->m_cursorY,
+				        m_pendingWrap, i, (unsigned char)p[i]);
+			}
 			if (m_pendingWrap) {
 				// wrap 执行(语料 writeText 内联 122-139:
 				// markLine(cursorY,1) + IND(FUN_007e55b6,

@@ -1952,10 +1952,13 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					m_screen->eraseLine(m_screen->currentLine(),
 					                    num(0), false);
 					break;
-				case 'H':   // CUP(1-based;FUN_007e4fdc)
+				case 'H':   // CUP(FUN_007e4fdc 面):column=第二参,
+				            // line=第一参(SuperCommander::moveCursor
+				            // (column,line) 1-based;批 16 参数序修正
+				            // ——非对称 CUP(1;88)曾 (86,1) 乱跳)
 				case 'f':
-					m_screen->moveCursor(num(0) ? num(0) - 1 : 0,
-					                     num(1) ? num(1) - 1 : 0);
+					m_screen->moveCursor(num(1) ? num(1) : 1,
+					                     num(0) ? num(0) : 1);
 					break;
 				case 'A':   // CUU
 					m_screen->moveCursorUp(num(0) ? num(0) : 1);

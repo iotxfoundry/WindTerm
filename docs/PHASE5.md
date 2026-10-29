@@ -135,7 +135,23 @@
 已核实有背书:indexDown(007e55b6 镜像)、setCellRaw sgr(007a5aac)、
 adjustScreenAlignment(007e5f24)、IND/RI 动作体(007cc47e/007cc4a0)、
 doAction 定性(007d1606)、setTopBottomMargins(007e5fa6 全量)、
-insertCharacter/deleteCharacter(007a6782/007a65d2)。
+insertCharacter/deleteCharacter(007a6782/007a65d2)、rowDeleteCells
+(007a5dce 全量)、rowInsertBlanks(007a641a 全量)、TBC(007e5df0)。
+
+**背书债 #10(m_sgrState 污染)已修**(批 16):`adjustScreenAlignment`
+传 `&m_sgrState`(成员地址)误作状态格本体——copyCell 块拷拾取类
+布局相邻域(m_tabstops,offTabs=0/JUNK {0,0,nil} 三元组实锤);去 &
+修复,decaln/wrap_edge 回归不崩。
+
+**背书债 #11(row length 生命周期,批 16 新立)**:007aa3a6 = resize
+**双写**(len+cap);writeText 字面写推进 length;DCH(007a5dce)
+缩短——我方 length 静态 89 + DCH 缩短后不恢复 = DECALN 行尾 guard
+漏填/wrap_edge 读数错位同源。精读 007aa3a6/writeText 357 行段后
+统一 length 维护,DECALN/wrap_edge 归绿。
+
+**批 16 另修:case 'H'/'f' 参数序**(SuperCommander::moveCursor
+(column,line) 1-based;原 (num-1,num-1) 非对称 CUP(1;88) 乱跳
+(86,1))。
 
 **未定位三项(#1/#4/#5)+ 半定位两项(#6/#7)= 注释声明 +
 债随 v3/writeText 轮清偿;其余全部升级为有地址背书的转写。**
