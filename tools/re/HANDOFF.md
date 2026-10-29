@@ -49,16 +49,28 @@ recheck 22 + engtest3/2 全绿。
    0.7.0/jsoncpp/dtl/zstd;spdlog 0 符号;onig 0(已删误判)
 5. paletteColor 公式 = 容器 + index*4 + *(容器+0x10)(QArrayData
    offset 域);malloc/free 家族统一(makeRow/growRowArrays)
+6. **配置面资产已探明(docs/CONFIG-SCHEMAS.md)**:global/wind.config
+   = 权威默认层(138 行全键表);装载顺序 wind.config → user.config
+   (运行期样本互证);wind.keymaps = 键位引擎输入格式(2391 行,
+   {keys 正则, modes, action|script});triggers.config = expect
+   正则权威来源;schemes/*.lexer = TextMate 式 prompt 识别;
+   telnet.protocol = 转义引用表;user.sessions auth blobs =
+   Cryptographic 已知密文样本
 
 ## 下一步(按优先级)
 
-1. **ESC M 组合注入语义定型**(QUIRKS 13):多位置×逐键微实验
-   (p5probe2.py 模式)→ 38 全绿
-2. **doAction(007d1606,2292B)全量动作 + 状态机表 dump**——
-   CSI/ESC 全谱(CUP/ED/EL/SGR 全参/DECSET 族)差分扩到 60+
-3. 渲染层余项:宽字符双宽绘制/caretStyle 实心块/alt-screen 切换
-4. Phase 4a 启动路径(workspace 布局装载 → 可启动)
-5. boost::xpressive 子集引入(正则面转写时)
+1. **ProfileLoader 补全局默认层**(行动项 1,小而高值):wind.config
+   为基线、用户配置覆写——value(key) 的 default 即有权威来源
+2. **ESC M 组合注入语义定型**(QUIRKS 13):多位置×逐键微实验
+   (p5probe2.py 模式,0.12s 稳定)→ 38 全绿
+3. **键位引擎**(Phase 4a):按 wind.keymaps 格式解析 {keys,modes,
+   action|script};action 名查 wind.actions
+4. **doAction(007d1606,2292B)全量动作 + 状态机表 dump**——
+   CSI/ESC 全谱差分扩到 60+
+5. 渲染层余项:宽字符双宽绘制/caretStyle 实心块/alt-screen 切换
+6. Phase 4a 启动路径(workspace 布局装载 → 可启动)
+7. boost::xpressive 子集引入(正则面转写时);Telnet 协议配置化
+   (telnet.protocol);触发器/词法引擎(triggers/lexer)
 
 ## 已知开放问题
 
