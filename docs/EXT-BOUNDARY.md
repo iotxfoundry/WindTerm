@@ -30,9 +30,9 @@
    逻辑消费(如 SGR 位、行格),该部分仍属逆向范围——边界只在
    库的实现内部。
 
-## 已建立接口层
+## 接口层(src/Ext 已删,2026-10-29)
 
-| 接口 | 依据头文件 | 服务面 |
-|---|---|---|
-| src/Ext/spdlog/SpdlogFace.h | inc/spdlog/include/spdlog/logger.h | loggerOp/logger 面(FUN_007c1b92 族,Phase-4) |
-| src/Ext/fmt/FmtFace.h | inc/fmt/include/fmt/format.h | 日志/界面格式化串 |
+初版 Face 声明层(src/Ext/spdlog|fmt)在源码树归位(src/spdlog、
+src/fmt)后由**真库 API 直接承接**(委托真库策略)——logger 面
+转写时直接使用 src/spdlog 的 logger.h/格式化 API,不再需要自造
+Face 声明。
