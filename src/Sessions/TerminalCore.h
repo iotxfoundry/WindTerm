@@ -177,7 +177,7 @@ public:
 	void scrollHorizontal(int delta);      // FUN_007a68ae
 
 	// --- rectangular areas (DECERA/DECFRA/DECRARA/DECCRA workers) ---------------------
-	bool setCellRaw(int y, int x, const void *cell);           // FUN_007a5b36
+	bool setCellRaw(int y, int x, const void *cell, const void *sgr = nullptr);   // FUN_007a5b36(sgr=0x20 状态格)
 	void setRowCell(struct Row *row, int x, const void *cell, void *aux);  // FUN_007a5aac
 	void eraseRect(int top, int left, int bottom, int right, bool selective);   // FUN_007a6d98
 	void changeRectAttrs(int top, int left, int bottom, int right, int what);   // FUN_007a748e

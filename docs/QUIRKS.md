@@ -16,9 +16,9 @@
 | 8 | sgrKey = FUN_007e2123("m",1) 四字变形哈希;调用点 RSI(长度参)未显式置位,按 strlen=1 取值 | 007ef95c guard |
 | 9 | markLine(line,0):arg==0 时缓存指针清零(工作行缓存语义,而非"标记清零") | 007a463c |
 | 10 | XTGETTCAP "Co" 恒答 256(0x100),不读真实色数配置 | 007f3518 |
-| 11 | ESC D(IND)= 光标不动;ESC E(NEL)= 光标不动(Phase 5 逐键实测 (4,4) 前后不变) | p5probe2 实测 |
-| 12 | ESC M(RI)= **光标下移 1 行**(非教科书上行);逐键实测 (4,4)→(5,4) | p5probe2 实测 |
-| 13 | ESC M 在 CUP+M 组合注入下动作丢失(只见 CUP 生效)——异步排队/合并语义待定型 | p5dump 38 序列 dump |
+| 11 | ~~ESC D/E = 光标不动~~ **撤销(2026-10-29 伪影)**:实为教科书 IND/NEL + pending 队列延迟——单批尾动作待下次 writeSplitData 才 flush,旧 dump 读不到效果 | p5probe4/5 实测 |
+| 12 | ~~ESC M = 下移 1 行~~ **撤销(伪影)**:实为教科书 RI(上移 1,p5probe4 实测 4→3) + pending 延迟 | p5probe4 实测 |
+| 13 | **ESC 单字符动作(D/M/E)= pending 队列**:不立即执行,下次 writeSplitData 入口 flush(doAction 007d1606 记录器 → +0x20 容器);单批尾动作在下批注入前不可见——组合注入"CUP+M 只见 CUP"即此机制 | p5probe4/5 + doAction 语料 |
 
 ## 裁决流程(测试失败时)
 

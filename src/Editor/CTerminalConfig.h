@@ -25,6 +25,7 @@ public:
 	static CTerminalConfig *instance();   // FUN_00809d78
 
 	void setConfigPath(const QString &path);   // wind.config 位置
+	void setOverridePath(const QString &path);   // user.config 覆写层(CONFIG-SCHEMAS 装载顺序)
 	void reload();
 	QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;
 	bool contains(const QString &key) const { return m_values.contains(key); }
@@ -39,6 +40,7 @@ private:
 
 	QVariantMap m_values;   // dotted key -> value
 	QString m_configPath;
+	QString m_overridePath;   // user.config 覆写层(空 = 不叠加)
 	QString m_defaultPrompt = QStringLiteral(">");
 	QRegularExpression m_trimRegex;
 	bool m_loaded = false;

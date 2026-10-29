@@ -150,5 +150,85 @@
  {
   "name": "cupE",
   "bytes": "1b5b353b35481b45"
+ },
+ {
+  "name": "cupF",
+  "bytes": "1b5b333b3466"
+ },
+ {
+  "name": "hpa",
+  "bytes": "1b5b353b35481b5b313060"
+ },
+ {
+  "name": "cht2",
+  "bytes": "1b5b3249"
+ },
+ {
+  "name": "cbt1",
+  "bytes": "1b5b31303b31481b5b5a"
+ },
+ {
+  "name": "sgr_combo",
+  "bytes": "1b5b313b33313b346d58"
+ },
+ {
+  "name": "sgr_inverse",
+  "bytes": "1b5b376d58"
+ },
+ {
+  "name": "sgr_256fg",
+  "bytes": "1b5b33383b353b3139366d58"
+ },
+ {
+  "name": "sgr_rgb",
+  "bytes": "1b5b33383b323b3130303b3135303b3230306d58"
+ },
+ {
+  "name": "ris",
+  "bytes": "1b5b353b35481b63"
+ },
+ {
+  "name": "lf",
+  "bytes": "1b5b323b35480a"
+ },
+ {
+  "name": "cud0",
+  "bytes": "1b5b3042"
+ },
+ {
+  "name": "cupOob",
+  "bytes": "1b5b39393b393948"
+ },
+ {
+  "name": "cubOob",
+  "bytes": "1b5b353b35481b5b393944"
+ },
+ {
+  "name": "vpaOob",
+  "bytes": "1b5b353b35481b5b393964"
+ },
+ {
+  "name": "ind_bot_scroll",
+  "bytes": "1b5b353b31724141410a4242420a4343430a1b5b353b31481b442c1b5b306d"
+ },
+ {
+  "name": "ri_top_scroll",
+  "bytes": "1b5b353b31724141410a4242420a1b5b313b31481b4d2c1b5b306d"
+ },
+ {
+  "name": "tbc_all",
+  "bytes": "1b5b336709"
+ },
+ {
+  "name": "hts_tab",
+  "bytes": "1b5b313b35481b481b5b313b314809"
+ },
+ {
+  "name": "osc_title",
+  "bytes": "1b5d303b7469746c6507"
+ },
+ {
+  "name": "crlf_cup_text",
+  "bytes": "1b5b323b334841420d0a4344"
  }
 ]

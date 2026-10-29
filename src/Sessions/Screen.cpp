@@ -1356,9 +1356,10 @@ void Screen::sendResponse(const QByteArray &data)
 
 void Screen::setCell(int y, int x, int ch, void *sgr)
 {
-	// FUN_007e4916: 2-byte glyph head + core raw cell write
+	// FUN_007e4916: 2-byte glyph head + core raw cell write;
+	// sgr = 0x20 状态格本体(格体源,copyCell 读 0x20)
 	unsigned short cell[5] = { (unsigned short)ch, 0, 0, 0, 0 };
-	m_core->setCellRaw(y, x, cell);   // FUN_007a5b36
+	m_core->setCellRaw(y, x, cell, sgr);   // FUN_007a5b36
 }
 
 void Screen::switchPage(int page)

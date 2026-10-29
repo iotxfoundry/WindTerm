@@ -26,14 +26,18 @@ void CTerminalConfig::setConfigPath(const QString &path)
 	m_loaded = false;
 }
 
-void CTerminalConfig::reload()
+void CTerminalConfig::setOverridePath(const QString &path)
 {
-	m_values.clear();
-	m_loaded = true;
-	QFile f(m_configPath);
-	if (!f.open(QIODevice::ReadOnly))
+	// 用户覆写层(~/.wind/.../user.config);装载顺序见
+	// docs/CONFIG-SCHEMAS.md 二节:wind.config 基线 → user.config 覆盖
+	if (m_overridePath == path)
 		return;
-	const QByteArray raw = f.readAll();
+	m_overridePath = path;
+	m_loaded = false;
+}
+
+static void parseInto(const QByteArray &raw, QVariantMap &out)
+{
 	Json::CharReaderBuilder b;
 	b.settings_["collectComments"] = true;   // wind.config 带 // 注释
 	std::unique_ptr<Json::CharReader> reader(b.newCharReader());
@@ -47,13 +51,27 @@ void CTerminalConfig::reload()
 		const Json::Value &v = *it;
 		const QString key = QString::fromStdString(it.name());
 		switch (v.type()) {
-		case Json::booleanValue: m_values.insert(key, v.asBool()); break;
+		case Json::booleanValue: out.insert(key, v.asBool()); break;
 		case Json::intValue:
-		case Json::uintValue:    m_values.insert(key, (qlonglong)v.asInt64()); break;
-		case Json::realValue:    m_values.insert(key, v.asDouble()); break;
-		case Json::stringValue:  m_values.insert(key, QString::fromStdString(v.asString())); break;
+		case Json::uintValue:    out.insert(key, (qlonglong)v.asInt64()); break;
+		case Json::realValue:    out.insert(key, v.asDouble()); break;
+		case Json::stringValue:  out.insert(key, QString::fromStdString(v.asString())); break;
 		default: break;   // 复杂值:数组/对象按需扩展
 		}
+	}
+}
+
+void CTerminalConfig::reload()
+{
+	m_values.clear();
+	m_loaded = true;
+	QFile f(m_configPath);
+	if (f.open(QIODevice::ReadOnly))
+		parseInto(f.readAll(), m_values);
+	if (!m_overridePath.isEmpty()) {
+		QFile u(m_overridePath);
+		if (u.open(QIODevice::ReadOnly))
+			parseInto(u.readAll(), m_values);   // 后写覆盖 = 覆写层
 	}
 }
 

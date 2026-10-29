@@ -1854,6 +1854,24 @@ QByteArray SuperCommander::processOutput(const QByteArray &data)
 // 解析链入口(Phase 5;SuperCommander_writeSplitData / FUN_007d1f5a,914B)
 // ---------------------------------------------------------------------------
 
+void SuperCommander::flushPendingActions()
+{
+	// 动作体:IND = FUN_007cc47e → Screen FUN_007e55b6(indexDown);
+	// RI = FUN_007cc4a0 → FUN_007e563e(indexUp);
+	// NEL = IND + CR(实测 flush 后 (4,4)→(5,0))
+	for (const PendingAction a : m_pendingActions) {
+		switch (a) {
+		case PendingAction::Ind: m_screen->indexDown(); break;
+		case PendingAction::Ri:  m_screen->indexUp(); break;
+		case PendingAction::Nel:
+			m_screen->indexDown();
+			m_screen->carriageReturn();
+			break;
+		}
+	}
+	m_pendingActions.clear();
+}
+
 void SuperCommander::writeSplitData(const char *data, int len)
 {
 	// 007d1f5a 骨架:+0xd8 挂起尾拼接(初始空,尾巴面后续)→
@@ -1865,6 +1883,9 @@ void SuperCommander::writeSplitData(const char *data, int len)
 	// 与 doAction 全量随后续批(语料锚齐,见 PHASE5.md)。
 	if (m_screen == nullptr)
 		return;
+	// 入口 flush(QUIRKS 13 机制,p5probe4/5 实测):上次批的
+	// ESC D/M/E 动作此刻才执行——单批尾动作恒延迟一步
+	flushPendingActions();
 	// 写模板前置(FUN_007e4c90):原版链中 ansi_buffer_build 先于
 	// writeText 构建 +0x28 模板;擦除/填充路径消费同模板
 	m_screen->buildWriteTemplate();
@@ -1984,11 +2005,15 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case 'X':   // ECH(FUN_007e385a)
 					m_screen->eraseCharacter(num(0) ? num(0) : 1);
 					break;
-				case 'r':   // DECSTBM(FUN_007e5fa6)
-					m_screen->setTopBottomMargins(
-					    num(0) ? num(0) : 1,
-					    num(1) ? num(1)
-                                           : m_screen->m_core->rowCount());
+				case 'r':   // DECSTBM(FUN_007e5fa6);反参数原版
+				            // 忽略(p5probe6 实测:CSI 5;1 r 区域/
+				            // 光标均不动)——top<bot 才设
+					if (num(0) == 0 || num(1) == 0
+					    || num(0) < num(1))
+						m_screen->setTopBottomMargins(
+						    num(0) ? num(0) : 1,
+						    num(1) ? num(1)
+		                                           : m_screen->m_core->rowCount());
 					break;
 				case 'h':   // SM/DECSET(FUN_007edce6 / 007f5d2e)
 					if (priv)
@@ -2026,15 +2051,15 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				case '8':   // DECRC(FUN_007f6426)
 					m_screen->restoreCursor();
 					break;
-				case 'D':   // QUIRK(38+3 序列原版实测):ESC D 光标不动
+				case 'D':   // IND 入队(FUN_007cc47e→007e55b6;pending
+				            // 至下次 writeSplitData flush,QUIRKS 13)
+					m_pendingActions.push_back(PendingAction::Ind);
 					break;
-				case 'E':   // QUIRK:ESC E 光标不动
+				case 'E':   // NEL 入队(=IND+CR;实测 (4,4)→(5,0))
+					m_pendingActions.push_back(PendingAction::Nel);
 					break;
-				case 'M':   // QUIRK:ESC M = 下移 1 行(非教科书
-					        //  RI 上行;per-key 实测 (4,4)→(5,4))
-					m_screen->cursorMoveRaw(
-					    m_screen->currentLine() + 1,
-					    m_screen->currentColumn());
+				case 'M':   // RI 入队(FUN_007cc4a0→007e563e)
+					m_pendingActions.push_back(PendingAction::Ri);
 					break;
 				case 'c':   // RIS(FUN_007ea73c)
 					m_screen->resetHard();
@@ -2050,7 +2075,24 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					if (i + 1 < len)
 						i++;
 					break;
-				case '#':   // DECALN 等 — cited
+				case ']': { // OSC:吞到 BEL / ST(ESC \)——原版实测
+				          // osc_title 全消费不落格(p5 60 序列)
+					while (i < len && data[i] != '\x07') {
+						if (data[i] == '\x1b'
+						    && i + 1 < len
+						    && data[i + 1] == '\\') {
+							i++;
+							break;
+						}
+						i++;
+					}
+					break;
+				}
+				case '#':   // # 族:8 = DECALN。体 = FUN_007e5f24 已读
+				          // (resetViewport+home+fill 'E');fill 腿
+				          // 依赖 setCell→copyCell MOVE 的格体四域
+				          // 语义,与 wrap 崩同簇(0x10101 aux)——
+				          // cited 至格体布局轮;暂略读 1 字节
 					if (i + 1 < len)
 						i++;
 					break;

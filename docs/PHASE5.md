@@ -72,23 +72,36 @@
   grow 新存储清零)。
 - e2eterm/recheck 主路径不受影响(全绿)。
 
-### 待解(后续轮)
-- **格 aux 所有权簇收口**(ICH/DCH/ECH 堆损坏):按语料双原语
-  语义(007aa3a6 move+release / 007aa2e2 deep)重排擦除/插入族
-  的模板生命周期,再跑 35 序列 diff。
-- **ASan 精确定位 ✅(下一轮首任务)**:heap-buffer-overflow
-  READ@copyCell(TerminalCore.cpp:984)← rowInsertBlanks:926
-  (move-shift 搬移循环);被越界读的缓冲 = **Tabstops::
-  resizeDefault 的 payload(new[] 11B)**——即某行 cells 指针与
-  制表位缓冲混叠。根因指向 growRowArrays 的 CellArray 覆盖
-  {cap,count,data} 写 row+8/+12/+16:我方 C Row 结构(编译器
-  布局 length@+8/_pad0@+0xc/cells@+0x10)与语料 Row(0x58,
-  length@+0x0c/cells@+0x10)偏移不一致,覆盖写把 length 当
-  cap、_pad0 当 count 使用, cells 指针与行内其他域的相对关
-  系错位。修法:growRowArrays/rowInsertBlanks 按语料偏移直接
-  编址(不依赖 C 结构布局),35 序列 diff 后全绿收口。
-- doAction(007d1606,2292B)全量 + 状态机表 dump。
-- C1 折叠开态对比;multibyte 挂起尾态对比。
+### 批 12(2026-10-29):ESC pending 队列机制定型 + 差分扩谱 58 ✅/⏳
+- **QUIRKS 13 机制破解(p5probe4/5 决定性实验)**:ESC D/M/E = 教科书
+  IND/RI/NEL + **pending 队列**——动作入队,下次 writeSplitData 入口
+  flush(doAction 007d1606 = 记录器:xxhash64 动作名 → +0x20 容器)。
+  单批尾动作在下批注入前不可见。QUIRKS 11/12 撤销(观测伪影)
+- 我方实现:SuperCommander::flushPendingActions() + m_pendingActions
+  (入队 D/M/E;入口 flush)→ **38 序列回归 38/38 全绿** ✓
+- **DECSTBM 反参数拒绝**(p5probe6 实测:CSI 5;1 r 原版区域/光标均
+  不动)——我方 'r' case 加 top<bot 守卫(修 SegFault:scrollRegion
+  反向区间踩 resetRow)
+- **OSC 吞吐**(ESC]...BEL/ST 原版全消费)——我方补 ']' case
+- 扩谱 38→58(+20:CUP f/HPA/CHT/CBT/SGR 组合/256 色/RGB/RIS/LF/
+  越界钳制/区域滚动/TBC/HTS/OSC/复合写;decaln/wrap_edge 移除待深挖)
+- **当前 42/58**:原版侧会话脏(echo 残留:tab/bs 老序列也漂)——
+  下一轮开头重置原版会话(HANDOFF 流程)再重 dump 对比
+- engtest3 光标 XOR 断言间歇失败(1/3,全量时)——渲染层偶发,
+  与本轮改动无关,待诊
+
+### 待解(下一轮首任务)
+- **格体 aux 深水区**(decaln/wrap_edge 触发):adjustScreenAlignment
+  的 setCell(y,x,0x45,m_sgrState) 把状态格当 MOVE 源 → 格体四域语义
+  错位 → junk aux(0x10101 = m_sgrBits 值被当指针)→ free 崩。
+  wrap_edge = writeText wrap 路径同簇(HANDOFF 开放问题 m_writeTemplate
+  实锤)。需精读 FUN_007a5aac(setRowCell)/FUN_007e4916(setCell)/
+  007e515e(wrap-pending)语料 + aux 对象布局
+- 原版侧会话重置 + 58 序列干净对比 → 目标 58/58
+- hpa(`)/cht2(I)/cubOob/vpaOob/osc 的我方分派逐条对原版裁决
+  (hpa 原版读数 (4,4) = CUP 生效 HPA 忽略?待干净会话复核)
+- 我方 sgr_rgb 后 X 残留 row1(ris 读数 row1[0]=88)——writeText 写入
+  位置或 ESC[2J 清除范围待查
 
 ## 复现
 

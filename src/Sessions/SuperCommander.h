@@ -26,6 +26,15 @@ public:
 	void writeSplitData(const char *data, int len);    // 007d1f5a(解析链入口)
 	Screen *m_screen;
 
+	// ESC 单字符动作 pending 队列(QUIRKS 13 修订,2026-10-29 p5probe4/5
+	// 实测):D/M/E 不立即执行,入队;下次 writeSplitData 入口 flush。
+	// 动作体:IND=007cc47e→007e55b6;RI=007cc4a0→007e563e;
+	// NEL=IND+CR(实测 (4,4)→(5,0))。doAction 007d1606 = 记录器
+	// (xxhash64 动作名 → +0x20 容器 append)。
+	enum class PendingAction { Ind, Ri, Nel };
+	void flushPendingActions();
+	QVector<PendingAction> m_pendingActions;
+
 protected:
 	bool m_checkControlChars;   // +0x101 (adapter 0x7cadda writes it directly)
 

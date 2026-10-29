@@ -654,13 +654,14 @@ void TerminalCore::scrollHorizontal(int delta)
 // Rectangular areas
 // ---------------------------------------------------------------------------
 
-bool TerminalCore::setCellRaw(int y, int x, const void *cell)
+bool TerminalCore::setCellRaw(int y, int x, const void *cell, const void *sgr)
 {
 	// FUN_007a5b36: bounds-check y, write via FUN_007a5aac, mark
-	// dirty; returns flag bit3 (0x08)
+	// dirty; returns flag bit3 (0x08)。sgr = 0x20 状态格本体
+	// (FUN_007e4916 语义:格体从状态格拷贝;nullptr = 空格体)
 	if (y >= rowCount())
 		return false;
-	setRowCell(m_rows[y], x, cell, nullptr);   // FUN_007a5aac
+	setRowCell(m_rows[y], x, cell, const_cast<void *>(sgr));   // FUN_007a5aac
 	markDirty(1);
 	return (m_flags >> 3) & 1;
 }

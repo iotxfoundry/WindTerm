@@ -2,6 +2,7 @@
 #include "Screen.h"
 #include "TerminalCore.h"
 #include "CTerminalConfig.h"
+#include <QFile>
 #include <cstdio>
 
 int main()
@@ -72,6 +73,30 @@ int main()
 	printf("config missing-key default = %lld (want 123)%s\n", (long long)missing.toLongLong(),
 	       missing.toLongLong() == 123 ? "" : "  FAIL");
 	fails += missing.toLongLong() != 123;
+	// 覆写层:用户 user.config 同名键覆盖基线(wind.config → user.config)
+	{
+		const QString overridePath = QStringLiteral("/tmp/opencode/recheck_user.config");
+		QFile ov(overridePath);
+		ov.open(QIODevice::WriteOnly | QIODevice::Truncate);
+		ov.write("{\n  \"text.tabSize\": 8,\n  \"user.only.key\": \"on\"\n}\n");
+		ov.close();
+		CTerminalConfig::instance()->setOverridePath(overridePath);
+		const QVariant t8 = CTerminalConfig::instance()->value(QStringLiteral("text.tabSize"));
+		printf("config override text.tabSize = %lld (want 8)%s\n", (long long)t8.toLongLong(),
+		       t8.toLongLong() == 8 ? "" : "  FAIL");
+		fails += t8.toLongLong() != 8;
+		const QVariant lang2 = CTerminalConfig::instance()->value(QStringLiteral("application.language"));
+		fails += lang2.toString() != QLatin1String("auto");   // 基线键不被覆写层清除
+		if (lang2.toString() != QLatin1String("auto"))
+			printf("config baseline key after override FAIL\n");
+		else
+			printf("config baseline key survives override OK\n");
+		const QVariant ukey = CTerminalConfig::instance()->value(QStringLiteral("user.only.key"));
+		fails += ukey.toString() != QLatin1String("on");
+		printf("config user-only key = \"%s\" (want on)%s\n", ukey.toString().toUtf8().constData(),
+		       ukey.toString() == QLatin1String("on") ? "" : "  FAIL");
+		CTerminalConfig::instance()->setOverridePath(QString());   // 还原单层
+	}
 	printf(fails ? "RESULT: %d FAILS\n" : "RESULT: ALL PASS\n", fails);
 	return fails != 0;
 }

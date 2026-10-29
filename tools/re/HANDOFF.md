@@ -3,17 +3,16 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-29 第三次交接)
+## 一句话状态(2026-10-29 第三次交接,批 12 更新)
 
 **Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线通,
-38 序列 36/38 MATCH(剩 ESC M 组合注入语义 2 差异);Phase 3 WT
-分派 93/149 case;配置面资产已探明(docs/CONFIG-SCHEMAS.md)。**
-libWindTermRe.so 9.3MB,dlopen OK;e2eterm 25 + recheck 22 +
-engtest3/2 全绿。
+38 序列 38/38 全绿(pending 队列定型后回归);扩谱 58 序列进行中
+(42/58,原版会话待重置);Phase 3 WT 分派 93/149 case;配置面
+资产已探明(docs/CONFIG-SCHEMAS.md)。** ctest 6 测试(engtest3
+间歇渲染失败待诊);ProfileLoader 全局默认层 ✅(批 12)。
 
-**本地领先远端 9 个提交(未推送,遵"只提交不主动推送"规范;含
-批 9-11/tests/ ctest 集成/文档同步/CONFIG-SCHEMAS)。用户说"推送"
-时一次性 push。**
+**本地领先远端 11 个提交(未推送,遵"只提交不主动推送"规范)**。
+用户说"推送"时一次性 push。
 
 ## 里程碑链(全部 ✅)
 
@@ -60,18 +59,22 @@ engtest3/2 全绿。
 
 ## 下一步(按优先级)
 
-1. **ProfileLoader 补全局默认层**(行动项 1,小而高值):wind.config
-   为基线、用户配置覆写——value(key) 的 default 即有权威来源
-2. **ESC M 组合注入语义定型**(QUIRKS 13):多位置×逐键微实验
-   (p5probe2.py 模式,0.12s 稳定)→ 38 全绿
-3. **键位引擎**(Phase 4a):按 wind.keymaps 格式解析 {keys,modes,
+1. **格体 aux 深水区**(批 12 定位):精读 FUN_007a5aac(setRowCell)/
+   FUN_007e4916(setCell)/007e515e(wrap-pending)语料 + aux 对象
+   布局,修 DECALN/wrap 路径 junk aux(0x10101)→ decaln/wrap_edge
+   回归序列 → 58 全绿
+2. **原版会话重置 + 58 干净对比**(批 12 收尾):杀 WindTerm 重开
+   (Xvfb 流程见 PHASE5 复现节),echo 残留污染(tab/bs 漂)消除
+3. **ESC M 组合注入语义**(QUIRKS 13)✅ 已定型(pending 队列,
+   见 PHASE5 批 12)——38/38 全绿
+4. **键位引擎**(Phase 4a):按 wind.keymaps 格式解析 {keys,modes,
    action|script};action 名查 wind.actions
-4. **doAction(007d1606,2292B)全量动作 + 状态机表 dump**——
-   CSI/ESC 全谱差分扩到 60+
-5. 渲染层余项:宽字符双宽绘制/caretStyle 实心块/alt-screen 切换
-6. Phase 4a 启动路径(workspace 布局装载 → 可启动)
-7. boost::xpressive 子集引入(正则面转写时);Telnet 协议配置化
-   (telnet.protocol);触发器/词法引擎(triggers/lexer)
+5. **doAction(007d1606)全量动作 + 状态机表 dump**——CSI/ESC 全谱
+   差分扩谱 58→100+
+6. 渲染层余项:宽字符双宽绘制/caretStyle 实心块/alt-screen 切换;
+   engtest3 光标 XOR 间歇失败诊断(1/3)
+7. Phase 4a 启动路径(workspace 布局装载 → 可启动);Telnet 协议
+   配置化(telnet.protocol);触发器/词法引擎(triggers/lexer)
 
 ## 已知开放问题
 

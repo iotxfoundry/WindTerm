@@ -52,15 +52,20 @@ static const char *verifyCells(TerminalCore &core)
 static void dumpSeq(SuperCommander &cmd, Screen &s, TerminalCore &core,
                     const char *name, const char *hex, std::ofstream &out)
 {
-	// hex → bytes
-	QByteArray bytes;
-	for (const char *p = hex; p[0] && p[1]; p += 2) {
-		int v;
-		sscanf(p, "%2x", &v);
-		bytes.append((char)v);
+	// hex → bytes;',' 分批(批间 = writeSplitData 入口 = pending
+	// flush 点,与原版 dump 驱动同模型)
+	const QList<QByteArray> parts =
+	    QByteArray(hex).split(',');
+	for (const QByteArray &part : parts) {
+		QByteArray bytes;
+		for (int p = 0; p + 1 < part.size(); p += 2) {
+			int v;
+			sscanf(part.constData() + p, "%2x", &v);
+			bytes.append((char)v);
+		}
+		if (!bytes.isEmpty())
+			cmd.processOutput(bytes);   // 解析链(writeSplitData)
 	}
-	if (!bytes.isEmpty())
-		cmd.processOutput(bytes);   // 解析链(writeSplitData)
 	const char *bad = verifyCells(core);
 	if (bad)
 		fprintf(stderr, "[p5] VERIFY %s: %s (cursor %d,%d)\n", name,
@@ -132,13 +137,14 @@ int main()
 		const QByteArray hex = o["bytes"].toString().toUtf8();
 		if (!cleared) {   // 与原版一致:先清屏归零
 			dumpSeq(cmd, s, core, "clear",
-			        "1b5b324a1b5b48", out);
+			        "1b5b324a1b5b481b5b72", out);
 			cleared = true;
 			first = false;
 		}
 		if (!first)
 			out << ",\n";
 		first = false;
+		fprintf(stderr, "[seq] %s\n", name.constData());
 		dumpSeq(cmd, s, core, name.constData(), hex.constData(), out);
 	}
 	out << "]";
