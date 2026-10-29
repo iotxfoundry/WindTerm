@@ -2111,12 +2111,13 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					}
 					break;
 				}
-				case '#':   // # 族:8 = DECALN。体 = FUN_007e5f24 已读
-				          // (resetViewport+home+fill 'E');fill 腿
-				          // 依赖 setCell→copyCell MOVE 的格体四域
-				          // 语义,与 wrap 崩同簇(0x10101 aux)——
-				          // cited 至格体布局轮;暂略读 1 字节
-					if (i + 1 < len)
+				case '#':   // # 族:8 = DECALN(FUN_007e5f24 →
+				          // Screen::adjustScreenAlignment;
+				          // setCell sgr 链已修,批 15 回归)
+					if (i + 1 < len && data[i + 1] == '8') {
+						i++;
+						m_screen->adjustScreenAlignment();
+					} else if (i + 1 < len)
 						i++;
 					break;
 				default:    // 其余 ESC 序列 — cited

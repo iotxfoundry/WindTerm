@@ -141,6 +141,34 @@ insertCharacter/deleteCharacter(007a6782/007a65d2)。
 债随 v3/writeText 轮清偿;其余全部升级为有地址背书的转写。**
 54/58 在改写后无行为回归。
 
+### 批 15(2026-10-29):背书债补全执行 + wrap 换行修复 + setRowCell 混参 ⏳
+- **背书债 8 项逐项语料核验**(详见上节债清单处置状态):
+  - #3 DECSTBM ✅ 007e5fa6 守卫迁 Screen 层(精确结构改写)
+  - #2 NEL ✅ 定位 007e562c(CR+IND,顺序按语料改写)
+  - #8 rowInsertBlanks ✅ 007a641a(431B)5 参全解;ICH=0x20
+    (007a6782)/DCH=0(007a65d2)双实锤——我方结构一致
+  - #7 LF 门证伪我方层(007e55fc/007e55b6 无门)
+  - #6 CUB 拒绝层语料冲突实锤(007a546c = clamp)
+  - #9 TBC ✅ 007e5df0(193B)
+- **wrap 换行缺失修复**(批 12 遗留真缺口):我方 latch 后无
+  重入换行——按语料 writeText 内联 122-139(markLine+IND+CR)
+  补 latch 重入块;光标越缘保留(col=newCol,语料 cursor stays
+  past the margin)
+- **setRowCell 混参修复**(ASan 定位):flags 检查(0x80/0x40)误读
+  param_3(head 2B)——语料 007a5aac 读 param_4(0x20 源格)
+  +10/+0x10/+0x18;混参 = DECALN 全屏写时栈越界读 + 格 flags 污染
+- **DECALN 回归暴露新深链**:m_sgrState 状态格污染(DECALN 后
+  VERIFY junk-aux;free(垃圾) 于后续 2J)——**背书债 #10**,
+  专项轮(需 m_sgrState 生命周期审计)
+- **实验设计缺陷登记**:probe 系列与 dump 共享原版会话——probe7
+  的 CSI 3g 清了原版 stop 表,tab/bs/cht2 的波动 = 会话级污染。
+  下轮:重置会话 → 独立跑 dump(probe 用完即弃)
+- HT 连发 probe:stop 表 = {4} 单元素(HT2 从 4 无下一 → 行尾
+  88);HT 效果延迟一步(HT 也 pending);tab/cht2 序列前置 HTS@4
+  对齐会话状态
+- 54→53(会话污染 4 条);v3 暂缓(CUP pending 触发机制证据冲突:
+  probe a 0.02s 生效 vs probe4 M1 0.24s 未生效——flush 驱动待定)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

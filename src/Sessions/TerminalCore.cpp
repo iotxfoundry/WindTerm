@@ -1187,11 +1187,16 @@ void TerminalCore::setRowCell(struct Row *row, int x, const void *cell, void *au
 		return;
 	*attrHeadAt(row, x) = *(const unsigned short *)cell;
 	copyCell(cellAt(row, x), aux);
-	const unsigned short *c16 = (const unsigned short *)cell;
-	if (c16[5] != 0 || *(const void *const *)((const char *)cell + 0x10) != nullptr)
-		row->flags |= 0x80;
-	if (*(const void *const *)((const char *)cell + 0x18) != nullptr)
-		row->flags |= 0x40;
+	// 语料 007a5aac:flags 位读 param_4(0x20 源格 aux)的
+	// +10/+0x10(0x80 宽字符簇)与 +0x18(0x40 payload)——
+	// 非 param_3(head 2B);批 14 转写混参,ASan 定位后修正
+	if (aux) {
+		if (*(const short *)((const char *)aux + 10) != 0
+		    || *(const void *const *)((const char *)aux + 0x10) != nullptr)
+			row->flags |= 0x80;
+		if (*(const void *const *)((const char *)aux + 0x18) != nullptr)
+			row->flags |= 0x40;
+	}
 	setRowFlags(row, 1);
 	memset((char *)row + 0x50, 0, 6);
 }

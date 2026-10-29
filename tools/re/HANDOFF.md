@@ -58,20 +58,18 @@
 
 ## 下一步(按优先级)
 
-1. **pending 模型 v3**(批 13 破译):CSI 全动作入 pending 队列
-   (枚举+参数),flush = writeSplitData 入口 + timer(亚 100ms)
-   → crlf_cup_text 归绿
-2. **tabstop 默认表**(QUIRKS 16):resizeDefault(007a604a)语料
-   精读 + HTS pending 疑云 probe(hts_tab→0)→ tab/cht2/hts_tab 归绿
-3. 格体 aux 深水区(DECALN/wrap,批 12 定位:junk aux 0x10101 =
-   m_sgrBits 当指针;需 007a5aac/007e4916/007e515e 语料)
-4. **键位引擎**(Phase 4a):wind.keymaps 格式解析;action 名查
-   wind.actions
-5. **doAction(007d1606)全量 + 状态机表 dump**(与 v3 伴生)——
-   差分扩谱 58→100+
-6. 渲染层余项:宽字符双宽/caretStyle/alt-screen;engtest3 光标
-   XOR 间歇失败诊断(1/3)
-7. Phase 4a 启动路径;Telnet 配置化;触发器/词法引擎
+1. **会话污染清除 + 58 干净 diff**(批 15 教训):重置原版会话
+   (probe 用完即弃/独立会话)→ tab/bs/cht2/hts_tab 复核
+2. **m_sgrState 污染专项**(背书债 #10):DECALN 后 junk-aux 链,
+   审计 m_sgrState 0x20 块 +0x10/+0x18 域的写入者 → decaln/
+   wrap_edge 回归
+3. **HT pending 证据**(批 15 probe9):HT 效果延迟一步;stop 表
+   {4} 单元素来源未定位;hts_tab→0 待裁决
+4. **pending 模型 v3**:证据冲突(probe a 0.02s vs probe4 0.24s)
+   ——flush 驱动(GUI paint?入口?timer?)probe 定型后实现
+5. 格体 aux 深水区余项;doAction 全量(v3 伴生);58→100+ 扩谱
+6. **键位引擎**(Phase 4a):wind.keymaps;动作查 wind.actions
+7. 渲染层余项;engtest3 光标 XOR 间歇;Phase 4a 启动路径
 
 ## 已知开放问题
 

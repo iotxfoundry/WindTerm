@@ -1565,6 +1565,20 @@ void Screen::writeText(const char *data, int len)
 
 		m_pendingWrap = 0;
 		while (true) {
+			if (m_pendingWrap) {
+				// wrap 执行(语料 writeText 内联 122-139:
+				// markLine(cursorY,1) + IND(FUN_007e55b6,
+				// bottom 时滚 region)+ CR(FUN_007e4fc8)),
+				// 然后重取行/格/头指针
+				m_core->markLine(m_core->m_cursorY, 1);
+				indexDown();
+				carriageReturn();
+				col = m_core->m_cursorX;
+				row = m_core->row(m_core->m_cursorY);
+				cell = cellAt(row, col);
+				head = headAt(row, col);
+				m_pendingWrap = 0;
+			}
 			unsigned int cp = (unsigned char)p[i];
 			// control re-entry (corpus 0x7e7746): special-class bytes
 			// leave the printable pipeline and re-enter the control
@@ -1608,7 +1622,9 @@ void Screen::writeText(const char *data, int len)
 			if (right < newCol) {
 				// past the margin: latch the pending wrap; the byte is
 				// consumed here (corpus LAB_007e73d1: iVar20 += iVar10)
-				// and the wrap motion re-runs on the next printable
+				// and the wrap motion re-runs on the next printable.
+				// 光标停在越缘列(语料:cursor stays past the margin)
+				col = newCol;
 				m_core->m_flags |= 0x80;
 				m_pendingWrap = 1;
 				i += used;      // corpus LAB_007e73d1: iVar20 += iVar10
