@@ -120,6 +120,9 @@ set_target_properties(WindTermRe PROPERTIES
   BUILD_RPATH_USE_ORIGIN TRUE)   # 防 repo lib/ 污染 RUNPATH(Phase 5)
 
 target_include_directories(WindTermRe PRIVATE ${WT_INCLUDES})
+# 静态嵌入库源码树(src/spdlog|fmt|dtl)已在 src/ 归位(header-only);
+# 不加全局 include——调用点转写时按 TU 局部 -I 接线(全局路径会
+# 与 Scintilla/Qt 头冲突,实测 6k 错)
 target_link_libraries(WindTermRe
   Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network
   ${SCINTILLA_QT} ${SCINTILLA_CORE}

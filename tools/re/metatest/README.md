@@ -18,6 +18,8 @@ g++ -std=c++17 -fPIC -o recheck recheck.cpp \
   -I src/yaml-cpp/include -I src/jsoncpp/include -I src/libssh/include \
   -I /usr/include/x86_64-linux-gnu/qt5/{,QtCore,QtGui,QtWidgets} \
   -L<build> -lWindTermRe -lQt5Core -lQt5Gui -lQt5Widgets -lssh
-LD_LIBRARY_PATH=<build> QT_QPA_PLATFORM=offscreen ./recheck
+# 链接须无 LD_LIBRARY_PATH(防 /opt bundled Qt 混入),并加:
+#   -Wl,-rpath-link,/usr/lib/x86_64-linux-gnu
+LD_LIBRARY_PATH=<build>:/opt/WindTerm_2.7.0/lib QT_PLUGIN_PATH=/opt/WindTerm_2.7.0/lib QT_QPA_PLATFORM=offscreen ./recheck
 ```
 | engtest4.cpp | Phase 5 对称 dump(writeText→格子 JSON,对比原版) |
