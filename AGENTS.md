@@ -209,5 +209,6 @@ QVariant dispatch(cmd, a, b)
 ## 提交规范
 
 - 中文 commit,force push 需覆盖远端 dev
-- push 必带 `-c http.proxy=http://192.168.1.106:7890`
-- 每轮:改动 + 对应 .md 更新,**一条 commit 一条 push**
+- **只提交,不主动推送**:每轮改动 + 对应 .md 更新后 commit;
+  push 仅在用户明示时执行(2026-10-29 修订),届时必带
+  `-c http.proxy=http://192.168.1.106:7890`
