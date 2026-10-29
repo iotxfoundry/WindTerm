@@ -1873,6 +1873,11 @@ void SuperCommander::flushPendingActions()
 			m_screen->carriageReturn();
 			m_screen->indexDown();
 			break;
+		case PendingAction::Ht:
+			// FUN_007e5d7c(horizontalTab;行为锚:dump tab 单批尾
+			// HT 不执行→(0,4),批 18)
+			m_screen->horizontalTab();
+			break;
 		}
 	}
 	m_pendingActions.clear();
@@ -2088,6 +2093,10 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					break;
 				case 'H':   // HTS(FUN_007e52fc):-1 = 当前列设 stop
 					m_screen->setTabstop(-1, true);
+					fprintf(stderr,
+					        "[hts] col=%d test4=%d\n",
+					        m_screen->currentColumn(),
+					        m_screen->isTabstop(4));
 					break;
 				case 'D':   // IND 入队(FUN_007cc47e→007e55b6;pending
 				            // 至下次 writeSplitData flush,QUIRKS 13)
@@ -2152,7 +2161,11 @@ void SuperCommander::writeSplitData(const char *data, int len)
 			case '\f': m_screen->lineFeed(); break;
 			case '\r': m_screen->carriageReturn(); break;
 			case '\b': m_screen->backspace(); break;
-			case '\t': m_screen->horizontalTab(); break;
+			case '\t':
+				// HT 入队(QUIRKS 17 批 18:dump tab 单批尾 HT
+				// 不执行,原版 (0,4);与 D/M/E 同队列)
+				m_pendingActions.push_back(PendingAction::Ht);
+				break;
 			case 0x84: m_screen->indexDown(); break;   // C1 IND
 			case 0x85:                                   // C1 NEL
 				m_screen->indexDown();

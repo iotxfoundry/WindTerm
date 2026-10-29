@@ -189,7 +189,11 @@ void Screen::lineFeed()
 void Screen::horizontalTab()
 {
 	// FUN_007e5d7c: next tabstop, clamped to the right margin while the
-	// cursor line is inside the scroll region
+	// cursor line is inside the scroll region。
+	// QUIRKS 18(批 18,tab/tbc_all 双锚):光标已在 stop 上 → HT 不动
+	// (tab 表{4} col=4 不动;tbc_all 表空 0 非 stop → 行尾 88)
+	if (isTabstop(currentColumn()))
+		return;
 	int col = nextTabstop(currentColumn(), 1);
 	if (m_core->inScrollRegion(currentLine())
 	    && currentColumn() <= marginRight()) {

@@ -230,6 +230,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   下轮 engtest4 打表验证)
 - bs o=27(row0[4..7])待查;decaln/wrap_edge/crlf 照旧(v3/#11)
 
+### 批 18(2026-10-29):HT 入队 + 三绿(tab/cht2/hts_tab)54→55 ⏳
+- **HT(C0 09)入 pending 队列**(PendingAction::Ht;dump 锚:tab 单批
+  尾 HT 不执行→(0,4))——tab/cht2/hts_tab 三绿(HTS/CHT/表状态对齐
+  组合生效)
+- **QUIRKS 18**:col 已是 stop → HT 不动;表空 → 行尾 88(两锚);
+  hts_tab (0,0) 与 tbc_all (0,88) 的 HTS pending/flush 时机二义
+  待 HT 语义矩阵实验
+- 我方无 timer:批尾挂起动作在 dump 时点未执行(原版 0.35s 内
+  timer flush)——dump 时点差一个 flush 的系统性偏差,hts_tab/
+  tbc_all 各执一侧
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

@@ -31,7 +31,7 @@ public:
 	// 动作体:IND=007cc47e→007e55b6;RI=007cc4a0→007e563e;
 	// NEL=IND+CR(实测 (4,4)→(5,0))。doAction 007d1606 = 记录器
 	// (xxhash64 动作名 → +0x20 容器 append)。
-	enum class PendingAction { Ind, Ri, Nel };
+	enum class PendingAction { Ind, Ri, Nel, Ht };
 	void flushPendingActions();
 	QVector<PendingAction> m_pendingActions;
 
