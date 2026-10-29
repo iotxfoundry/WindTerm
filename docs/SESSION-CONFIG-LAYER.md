@@ -3,6 +3,11 @@
 # 【实现状态 2026-10-29】CTerminalConfig(JSONC)+ ProfileLoader
 # 已实现(src/Editor,Phase 4a 部分 ✅);workspace 布局装载 ⬜
 # 见 PLAN 4a。
+#
+# 【配置面资产】global/wind.config = 权威默认层(138 行全键表),
+# 装载顺序 wind.config → user.config(用户只存覆写键,样本互证);
+# 键位/变量/动作/触发器/词法/Telnet 协议面见
+# docs/CONFIG-SCHEMAS.md(含逆向行动项)。
 
 由引入的 jsoncpp 1.9.4 / yaml-cpp 0.6.3 反哺:先在主二进制证实
 静态打包,再经反编译语料中的库函数名(Ghidra 从字符串解名)与

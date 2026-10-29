@@ -275,6 +275,9 @@ FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
 ## Phase 4 — UI 装配 ⬜
 
 ### 4a. QApplication 启动路径 ⏳
+- 配置面资产已探明:global/wind.config(权威默认层)+ wind.keymaps
+  (键位引擎输入格式)+ triggers/lexer/Telnet 协议面——
+  见 docs/CONFIG-SCHEMAS.md
 - **SessionManager ✅**(2026-10-28):src/Widgets/SessionManager.{h,cpp}
   ——s_session_uuid_6f571a 转写(uuid/icon/group/label →
   QStandardItemModel,filter 禁用)
