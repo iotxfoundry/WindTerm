@@ -36,6 +36,8 @@ public:
 	QVector<QByteArray> m_escPending;   // ESC D/E/M 专队列:下次入口 flush
 	QByteArray m_seqTail;
 	bool m_replaying = false;
+	bool m_tailResumed = false;   // 尾已前拼过:同死点复发 → 字形字面自愈
+	int m_lastGlyph = 0;          // 最后写入的字面字节(REP b 用,批 22)
 	void execCsi(const QString &params, char finalByte, bool priv);
 	void execEsc(char e1);
 

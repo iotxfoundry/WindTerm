@@ -286,6 +286,23 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **E4 bits{4} 未解残留**(HTS-miss 模型下唯一矛盾 datum)
 - dump settle 0.35→0.6(不解决读数变异——变异非时序)
 
+### 批 22(2026-10-30):poison-loop 破译 + rowDeleteCells OOB + 新动作 + 87/98 ⏳
+- **poison-loop 破译(28 红的真主)**:wrap_edge 的 T-tail 每次 splice
+  后同死点复发 → 后 38 序列全跑死区(假绿+假红)。修复 = 复活批同
+  死点 → ESC 字形字面(pcre2 -1)+ 从 '[' 重扫自愈(m_tailResumed)
+- **rowDeleteCells OOB**(dch99 崩溃暴露):移动循环旧界 at+n,count≥room
+  时 src 越界——语料 007a5dce 实际界 = length-n;修正后 dch99 行全清 ✓
+- **新动作落地**(xterm.term 表):HPR(a)=CUF、VPR(e)=CUD、HPB(j)=CUB、
+  VPB(k)=CUU、REP(b)=重复最后字面(m_lastGlyph 追踪)
+- **ESC 字形规则**(esc_literal ✓):未知 ESC-x → 0x1b 字形 + e1 入字面;
+  e1 为批尾 → partial 挂起(A+4×ESC+B → A+3 字形+尾,原版一致)
+- **70→87/98**;剩 7 红定性:bs/tab_matrix/decawm_off = 原版侧字面态
+  伪影(同签名 0x1b 格,probe15 证清);decsc_rc/scosc_rc = mid-drain
+  读数;decstbm_ri = M 时序(E2-bits 同族矛盾);wide_wrap = 原版
+  o[0]=ffff 哨兵在前 vs 我方字形在前(与 cjk 绿矛盾,待解)
+- 3 路校准 subagent 并行完成(Telnet/Pty/Widgets,见 CALIBRATION.md)
+- 诊断基建:dbg_cursor 微驱动 + engtest4 [diag] 逐序列状态
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

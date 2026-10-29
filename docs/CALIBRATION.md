@@ -16,6 +16,18 @@
 | Onigmo(改版 5.13.5) | 新增 iterator 可匹配 gap buffer/非邻接内存块 | EditorEngine 搜索面机制对照 |
 | Scintilla/jsoncpp/yaml-cpp/dtl/fmt/spdlog | 第三方原版 | 已按 EXT-BOUNDARY 委托真库 |
 
+## 组件校准结论(2026-10-30,三路 subagent 并行)
+
+| 组件 | 判定 | 要点 |
+|---|---|---|
+| **Utility/Cryptographic** | ✅ 同版(实验锚全过) | 解密链端到端对拍成功(见上) |
+| **Protocols/TelnetProtocol** | ⚠️ 部分同版 | 叶子逻辑(名字表/GetOption*)与 2.7.0 精确同版(00860b30/00860cd6/00861156);基类被裁剪(SuperProtocol 0x128 缺);**协商非 C++ 状态机** = telnet.protocol 正则 + TelnetCommander 槽;option=49 越界读怪癖两侧一致(勿修) |
+| **Pty/UnixPty** | ⚠️ 部分同版 | posix_openpt 链/termios/setupChildProcess/utmpx 逐句同构,内存布局逐字段吻合(+0x50 master 等);差异:二进制多第 5 纯虚(readlink /proc/pid/cwd)、Q_OBJECT、stop() 顺序 |
+| **Widgets/ScrollBar** | ✅ 同版 | 全族零差异,布局 0x48 逐字节吻合,4 信号索引一致 |
+| **Widgets/Splitter** | ✅ 同版 | sizeof 0x38、m_mainIndex@+0x30、"ratio"+0.18 缺省 ✓;Phase 4c 需补 SplitterGroup(仓库缺) |
+| **Widgets/PopupWidget** | ⚠️ 部分同版 | 全同,唯 TRIANGLE_HEIGHT 18↔语料 6 待核 |
+| libssh(改版) | 待 diff | README 列明:pageant/external socket/hmac-md5-96(-etm)/hmac-sha1-96(-etm) |
+
 ## 校准协议(2026-10-29 定,**逆向为准**)
 
 > 担忧:仓库 src 持续演进,2.7.0 编译时点可能不同 → 开源码**只是

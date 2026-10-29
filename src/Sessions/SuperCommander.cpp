@@ -1997,6 +1997,25 @@ void SuperCommander::execCsi(const QString &params, char finalByte,
 				case 'u':   // SCORC(FUN_007f6426)
 					m_screen->restoreCursor();
 					break;
+				case 'a':   // HPR(MoveCursorColumnRelative)= CUF 相对列
+					m_screen->moveCursorForward(num(0) ? num(0) : 1);
+					break;
+				case 'e':   // VPR(MoveCursorLineRelative)= CUD 相对行
+					m_screen->moveCursorDown(num(0) ? num(0) : 1);
+					break;
+				case 'j':   // HPB(MoveCursorColumnBackward)= CUB 相对列
+					m_screen->moveCursorBackward(num(0) ? num(0) : 1);
+					break;
+				case 'k':   // VPB(MoveCursorLineBackward)= CUU 相对行
+					m_screen->moveCursorUp(num(0) ? num(0) : 1);
+					break;
+				case 'b':   // REP(RepeatCharacter):重复最后字面 n 次
+					if (m_lastGlyph > 0) {
+						const int n = num(0) ? num(0) : 1;
+						QByteArray rep(n, (char)m_lastGlyph);
+						m_screen->writeText(rep.constData(), n);
+					}
+					break;
 				case 'g':   // TBC(FUN_007e5df0)
 					m_screen->clearTabstop(num(0));
 					break;
@@ -2086,6 +2105,9 @@ void SuperCommander::writeSplitData(const char *data, int len)
 		m_seqTail.clear();
 		data = spliced.constData();
 		len = spliced.size();
+		m_tailResumed = true;
+	} else {
+		m_tailResumed = false;
 	}
 	// 写模板前置(FUN_007e4c90):原版链中 ansi_buffer_build 先于
 	// writeText 构建 +0x28 模板;擦除/填充路径消费同模板
@@ -2093,8 +2115,10 @@ void SuperCommander::writeSplitData(const char *data, int len)
 	int i = 0;
 	int litStart = 0;
 	auto flushLiteral = [&](int end) {
-		if (end > litStart)
+		if (end > litStart) {
 			m_screen->writeText(data + litStart, end - litStart);
+			m_lastGlyph = (unsigned char)data[end - 1];
+		}
 	};
 	while (i < len) {
 		const unsigned char c = (unsigned char)data[i];
@@ -2144,17 +2168,28 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				// E7:ESC[1;88T ret=-2,HighlightTracking 可完成形;
 				// 尾随 X 未进解析器 → 原版全空+home)
 				if (finalByte == 'T' && params.contains(';')) {
-					m_seqTail.append(data + seqStart,
-					                 len - seqStart);
-					i = len;
-					litStart = len;
-					break;
-				}
-				if (m_replaying)
+					if (!m_tailResumed) {
+						// 首遇:partial → +0xd8 挂起尾
+						m_seqTail.append(data + seqStart,
+						                 len - seqStart);
+						i = len;
+						litStart = len;
+						break;
+					}
+					// 复活批同死点:pcre2 -1 → ESC 字形字面,
+					// 从 '[' 重扫,后续序列自愈(批 22)
+					char escGlyph = 0x1b;
+					m_screen->writeText(&escGlyph, 1);
+					i = seqStart + 1;
+					litStart = i;
+				} else if (m_replaying) {
 					execCsi(params, finalByte.unicode(), priv);
-				else
+					m_tailResumed = false;
+				} else {
 					m_pendingActions.append(
 					    QByteArray(data + seqStart, i - seqStart));
+					m_tailResumed = false;
+				}
 				litStart = i;
 			} else if (e1 == 'D' || e1 == 'E' || e1 == 'M') {
 				// IND/NEL/RI → 专队列,下次入口 flush(v6:
@@ -2215,8 +2250,24 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					} else if (i + 1 < len)
 						i++;
 					break;
-				default:    // 其余 ESC 序列 — cited
+				default: {
+					// 未知 ESC-x:ESC=普通字形字面(语料 B:
+					// ansi_buffer_build 无 0x1b 分支);e1 为批尾
+					// → partial 挂起(esc_literal:A+4×ESC+B →
+					// A+3×字形,第 4 ESC+B 入尾,probe 证据)
+					if (i + 1 >= len) {
+						m_seqTail.append(data + seqStart,
+						                 len - seqStart);
+						i = len;
+						litStart = len;
+					} else {
+						char escGlyph = 0x1b;
+						m_screen->writeText(&escGlyph, 1);
+						i--;
+						litStart = i;
+					}
 					break;
+				}
 				}
 				litStart = ++i;
 			}

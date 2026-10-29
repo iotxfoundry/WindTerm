@@ -146,6 +146,15 @@ int main()
 		first = false;
 		fprintf(stderr, "[seq] %s\n", name.constData());
 		dumpSeq(cmd, s, core, name.constData(), hex.constData(), out);
+		if (QString("cud99|ich99|cha200|multi_crlf|sgr_ul|lf40|wrap_edge|ech9|wrap_line|vpa31|hpr5|rep2").contains(name)) {
+			struct Row *r0 = core.row(0);
+			int nz = 0;
+			for (int x = 0; r0 && x < r0->length; ++x)
+				if (((const unsigned short *)r0->attrArray)[x]) nz++;
+			fprintf(stderr, "[diag] %s cur=(%d,%d) row0len=%d nz=%d\n",
+			        name.constData(), s.currentLine(),
+			        s.currentColumn(), r0 ? r0->length : -1, nz);
+		}
 		if (name == "decaln" || name == "tbc_all") {   // 诊断
 			struct Row *r0 = core.row(0);
 			struct Row *r2 = core.row(2);

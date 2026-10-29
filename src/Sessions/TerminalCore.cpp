@@ -915,7 +915,9 @@ void TerminalCore::rowDeleteCells(struct Row *row, int at, int count)
 	if (n <= 0)
 		return;
 	char *cells = (char *)row->cells;
-	for (int i = at; i < at + n; i++)
+	// 移动次数 = length - n(语料 007a5dce:lVar4 = len*0x20 - n*0x20);
+	// 旧界 at+n 在 count≥room 时 OOB(批 22 dch99 崩溃暴露)
+	for (int i = at; i < length - n; i++)
 		copyCell(cells + (size_t)i * 0x20, cells + (size_t)(i + n) * 0x20);   // FUN_007aa2e2
 	for (int i = length - n; i < length; i++) {
 		void *aux = *(void **)((char *)cells + (size_t)i * 0x20 + 0x10);
