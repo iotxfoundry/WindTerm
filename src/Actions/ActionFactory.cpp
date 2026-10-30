@@ -24,6 +24,22 @@ QVariant js_actionFire(QAction *action, const QJSValue &arg)
 	return QVariant();
 }
 
+// 00669086(1739B):property("dynamic")→ QAction* 门 → 状态镜像。
+// 语料锚:属性名 "dynamic"(指针 @0x11821e8,反汇编 6690a3 实证);
+// QAction* metatype 一次注册(DAT_011c0b04,006693xx);第二读
+// 0066911c(this = cast 后 linked);尾 setProperty 镜像 @006697xx。
+void js_actionState(QAction *action, const char *propName)
+{
+	const QVariant v = action->property("dynamic");
+	if (!v.canConvert<QAction *>())
+		return;                                   // 语料 canConvert 门
+	QAction *linked = v.value<QAction *>();
+	if (linked == nullptr)
+		return;                                   // 语料 QMetaObject::cast 门(006690f8)
+	const QVariant st = linked->property(propName);   // 0066911c
+	action->setProperty(propName, st);                // 尾镜像(006697xx)
+}
+
 // theme_icon_load_svg(00756cd6,1272B)—— cited — wave-2:主题
 // SVG 装载(DAT_011c1ce0 主题容器),主题子系统另批转写
 static QIcon theme_icon_load_svg(const QString &iconFile)

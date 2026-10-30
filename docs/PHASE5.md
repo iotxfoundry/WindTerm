@@ -589,6 +589,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   —— 下批继续。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 37(2026-10-30)/loop:js_actionState 语料转写 ✅
+- **属性名实证**(反汇编 6690a3 → 指针 @0x11821e8 → 字符串):
+  js_actionState 首读 = action->property(**"dynamic"**)
+- **语义闭环**:property("dynamic")→ QAction* 门(QAction*
+  metatype 一次注册 DAT_011c0b04;canConvert/cast 门)→
+  linked->property(propName)→ action->setProperty(propName, …)
+  **状态镜像**(尾 @006697xx;第二读 this = cast 后 linked
+  @0066911c 实证)
+- **落地**:js_actionState 入 ActionFactory(自由函数,语料名);
+  canConvert/cast 双门转写,镜像尾转写
+- js_actionFire(006697b2)完整转写仍欠:两处 property 名串
+  (00669841/45 区)+ MuxPane 类体 —— 下批同法反汇编实证
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
