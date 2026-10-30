@@ -25,13 +25,13 @@
 | Phase 3 编辑引擎 customDispatch | ⏳ 批 1-7(runnode 模型 + 93 WT case;详见 Phase 3 节) |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 5 行为对比 | ⏳ **98 序列 96/98 MATCH**(2 红定性挂账:tbc3 流怪癖/decstbm_ri 排空分相;Xvfb+Frida 差分管线 + glitch 重试;详见 docs/PHASE5.md) |
-| 会话装配 | ✅ **端到端冒烟过**(UnixPty + SuperCommander + Screen:进程→pty→ANSI→格子;tests/shellsession_test;ctest 10/10) |
+| Phase 5 行为对比 | ✅ **98 序列 98/98 MATCH 全绿**(批 30 收官:tbc3 = +0x101 流回显 QUIRKS 22,驱动 resetState+稳定性网;详见 docs/PHASE5.md) |
+| 会话装配 | ✅ **管理收口**(批 29:ShellSession::stop + TelnetSession 网络接线 RFC 默认拒绝;telnetsocket_test + stop 冒烟;ctest 11/11) |
 | 新组件四件 | ✅ KeymapEngine(wind.keymaps 531 条)/ TelnetCommander IAC 状态机 / UnixPty+Pty 入构建 / TelnetProtocol 同版验证(见 docs/CALIBRATION.md) |
 
-测试矩阵:**ctest 10/10**(e2eterm 25 + recheck 22 + engtest×2 +
-sshsmoke + keymap/telnet/pty/shellsession 四冒烟;engtest3 ctest 态
-间歇——直跑复核)。
+测试矩阵:**ctest 11/11**(e2eterm 25 + recheck 22 + engtest×2 +
+sshsmoke + keymap/telnet/pty/shellsession/telnetsocket 五冒烟;
+engtest3 ctest 态间歇——直跑复核)。
 gen_stubs 70→5。测试策略与保真约束见下方"测试策略"块。
 
 ---

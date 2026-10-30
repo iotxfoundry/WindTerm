@@ -35,3 +35,4 @@
 | 19 | **DCH 不缩 row length**(+0xc 恒 89;批 16 的缩短转写被 probe14 行为否定);尾部格清零呈现空 | probe14(原版 DCH3 后 +0xc=89) |
 | 20 | **CSI 参数形不配 → pcre2 PARTIAL → +0xd8 挂起尾**:ESC[1;88T 不匹配 ScrollDown(单参 \d+)也不匹配 HighlightTracking(type;d;d;d;d;)但可完成 → ret=-2 → 整段入尾本批不执行(wrap_edge 全空+home 实锤);下一批入口前拼 | probe15 E7 ret=-2 + xterm.term 模式表 |
 | 21 | **字面流 ESC = 普通 1 列字形**(0x1b 写进格子,宽度 1,attr 照抄 SGR;ansi_buffer_build 无 0x1b 分支);4 连 ESC → 前 3 格字面 + 第 4 入尾(pcre2 PARTIAL[3,4)) | 语料 B(19281-19291)+ esc_literal dump(o=65,27,27,27) |
+| 22 | **+0x101 流回显(批 30 实锤)**:ESC-single 动作置 Commander+0x101(checkControlCharacter,007cadda)→ 下一 writeSplitData 首个匹配序列被回显成字面字形(007d1f5a @7d2077 → 007cc1fa → writeText)。dump 流污染唯一源(基线 ESC[2J 字面化);我方未实现(净基线语义下永不触发,挂账) | 批 30 + baseline() 注释 |

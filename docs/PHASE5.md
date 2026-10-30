@@ -438,15 +438,31 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
     至下一 ESC(批 26)
 - 证据脚本:/tmp/opencode/p5probe38b.py,读数 p5tbc3_readings.json
 
-### 待解(下一轮首任务)
-- **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
-  CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +
-  timer;对齐后 crlf_cup_text 归绿
-- **tabstop 默认表**:resizeDefault(007a604a tail)语料精读
-  (every-4?单元素 {4}?);HTS(ESC H)pending 疑云(hts_tab →0)
-  probe 裁决
-- 格体 aux 深水区(DECALN/wrap,批 12 定位)仍在队列
-- 58→100+ 扩谱(doAction 全量伴生)
+### 批 30(2026-10-30)/loop Attempt2:tbc3 归绿终裁 v2 → **98/98 全绿** ✅
+- **裁决翻转(批 29 的 tbc3 结论作废)**:批 29 的 mode-of-N(1 净/4
+  字面)测于**未复位流态**——p5tbc3_mode.py 直注基线、未调 resetState。
+- **机制实锤**:ESC-single 动作置 Commander+0x101(checkControl-
+  Character,007cadda)→ 下一 writeSplitData 的**首个匹配序列被回显
+  成字面字形**(007d1f5a @7d2077 → 007cc1fa → writeText);另有 +0xd8
+  挂起尾。dump 流中前序(tab_matrix 等)残留 +0x101 → 基线自身
+  ESC[2J 被回显字面(27,91,50,74 落在上一序列收尾光标处)= 唯一
+  污染源。**原版语义,驱动侧流态;非我方缺陷,亦非随机**。
+- **修复 = baseline() 前置 resetState**(+0x101 清零 + +0xd8 clear,
+  仪器卫生;suite 语义 = 每序列净基线,probe39 隔离锚一致):
+  - tbc3 带复位 5 连读:**5/5 干净**(cur (0,6),row0 全零,确定性)
+  - 全量差分:run1 **98/98**;run2 96/98(tab_matrix/decom = 残余
+    glitch 族随机,decom 光标 (4,0) = decstbm_ri CUP 落点残留);
+    run3 **98/98**(零重试);驱动加**稳定性复读网**(批 30:复读
+    一次,读数不稳 → mode-of-5)后 run4 **98/98**(网零触发)
+- **残余怪癖挂账 = QUIRKS 22**(+0x101 流回显;我方未实现——suite
+  净基线语义下永不触发,实现随 pending v3 族)
+- **PHASE 5 收官:98 序列 98/98 MATCH**(双侧净基线对齐;ctest 11/11)
+
+### 待解(批 30 后剩余)
+- **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
+  suite 净基线下永不触发,随 pending v3 族补)
+- **Phase 4a 注册表插入侧**:语料无直呼者(批 29 A3,cited 挂账)
+- 130+ 扩谱;Phase 4c(SplitterGroup);触发器/词法;5b/5c
 
 ## 复现
 

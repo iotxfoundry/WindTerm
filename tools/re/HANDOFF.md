@@ -1,20 +1,21 @@
 # 新会话起点(交接文档)
 
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
-> docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
+> docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-30 第五次交接,重开刷新)
+## 一句话状态(2026-10-30 第六次交接)
 
-**Phase 5:98 序列 97/98**(仅 tbc3;批 29 连读众数终裁 = **停手**:
-5 次独立重 dump 得 1 干净/4 字面,字面格 = `27,91,50,74` = 驱动
-自身清屏基线 "ESC[2J"(非 tbc3 字节),settle 1.0/2.0s 同结果 →
-原版 dump 流内确定行为)。**Phase 4a 会话管理 A1/A2 ✅**:
+**Phase 5 收官:98 序列 98/98 MATCH 全绿**(批 30:tbc3 归绿终裁
+v2——批 29 的"停手"结论**作废**:其 1 净/4 字面测于未复位流态;
+机制实锤 = **+0x101 流回显**(ESC-single → 下批首序列回显字面,
+QUIRKS 22),baseline() resetState 后 tbc3 5/5 干净,全量差分
+98/98 ×2 + 稳定性复读网)。**Phase 4a 会话管理 A1/A2 ✅**:
 ShellSession::stop(pty+断链+清 screen 挂钩)、**TelnetSession 网络
 接线**(QTcpSocket + RFC 854 默认拒绝响应在会话层 + IAC 状态机);
 注册表**插入**侧语料未定位 → wave-2 挂账。**ctest 11/11 全绿**
 (+telnetsocket_test 回环 +shellsession stop 冒烟)。probe38b 矩阵
 终裁见 PHASE5 批 29(字面先行/动作批尾/ESC-single 入口 flush 且
-组合注入 M 丢失)。**本地领先 45 提交**(未推送,遵规范)。
+组合注入 M 丢失)。**本地领先 48 提交**(未推送,遵规范)。
 
 **engtest3 段错误根因已修**(5b773aec,推翻批 24"环境竞争"结论):
 Screen ctor 漏初始化 m_savedPrimary/m_altCore/m_viewSettings →
@@ -79,15 +80,16 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **Phase 4a 收尾**:Commander UUID 表**插入**侧(wave-2 挂账,
+1. **+0x101 流回显语义补齐**(QUIRKS 22,挂账):我方 writeSplitData
+   未实现 ESC-single → 下批首序列回显字面(007cadda/@7d2077→
+   007cc1fa→writeText);suite 净基线永不触发,随 pending v3 族
+2. **Phase 4a 收尾**:Commander UUID 表**插入**侧(wave-2 挂账,
    插入函数语料未定位;邻接面 007da178/007da09a 已记)
-2. ~~tbc3 众数终裁~~ ✅ 批 29(停手:原版 dump 流内确定行为)
-3. ~~decstbm_ri 排空分相 + probe38 矩阵~~ ✅ 批 29(per-action
-   排空边界:字面即时/CSI 批尾/ESC-single 下批入口)
-4. **键位 action 执行面**:KeymapEngine 命中 → wind.actions 分发
-5. **吞噬尾随精确边界**(probe38 挂账):M/H 后尾随字面吞噬的
-   ESC 停/批尾停微实验(i-1 回退法已落地,批 26)
-6. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类);触发器/词法
+3. **键位 action 执行面**:KeymapEngine 命中 → wind.actions 分发
+4. **TelnetSession RFC 策略细化**:按 telnet.protocol refs 对已知
+   option 回 WILL/DO(现全默认拒绝);触发器/词法引擎
+5. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类)
+6. Phase 5b(编辑引擎行为对比)/5c(会话持久化对比)
 
 ## 已知开放问题
 

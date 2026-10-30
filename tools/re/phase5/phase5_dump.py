@@ -22,6 +22,8 @@ const mod = Process.getModuleByName('libQt5Core.so.5');
 const qbaNew = new NativeFunction(
     mod.getExportByName('_ZN10QByteArrayC1EPKci'),
     'pointer', ['pointer', 'pointer', 'int']);
+const qbaClear = new NativeFunction(
+    mod.getExportByName('_ZN10QByteArray5clearEv'), 'void', ['pointer']);
 const writeSplitData = new NativeFunction(ptr('0x7d1f5a'), 'void',
     ['pointer', 'pointer', 'int']);
 let commander = null;
@@ -52,6 +54,15 @@ function grid() {
 }
 rpc.exports = {
   ready() { return commander !== null && screen !== null; },
+  // 解析器遗留态复位(每序列前,见 baseline() 注释):
+  //   +0x101 = checkControlCharacter 挂起(007cadda 直写)
+  //   +0xd8  = 挂起尾 QByteArray(半截序列)
+  resetState() {
+    if (commander === null) return false;
+    commander.add(0x101).writeU8(0);
+    qbaClear(commander.add(0xd8));
+    return true;
+  },
   inject(hex) {
     if (commander === null) throw new Error('no commander');
     if (!hex) return grid();
@@ -89,6 +100,21 @@ def mode_grid(grids):
         lines.append([_mode([v[x] if x < len(v) else 0 for v in vals])
                       for x in range(max(len(v) for v in vals))])
     return {'curY': curY, 'curX': curX, 'lines': lines}
+
+
+def baseline(script):
+    """清屏基线(前置遗留态复位)。
+
+    原版遗留态:ESC-single 动作会置 Commander+0x101(checkControlCharacter,
+    007cadda),下一 writeSplitData 的**首个匹配序列**除执行动作外还会被回
+    显成字面字形(007d1f5a @7d2077 → 007cc1fa → writeText);另有 +0xd8
+    挂起尾(半截序列,入口前拼)。dump 每序列前的基线恰是那个「下一批」,
+    于是基线自身的 ESC[2J 字样落在上一序列的收尾光标处(批 29 tbc3 的
+    27,91,50,74 = 仪器字节,非序列字节)。
+    基线前复位这两项 → 序列读数只含序列自己的字节效应。
+    """
+    script.exports_sync.resetState()
+    script.exports_sync.inject('1b5b324a1b5b481b5b72')
 
 
 def main():
@@ -135,7 +161,7 @@ def main():
         # 字面态伪影重试(loop iter1):0x1b 格签名 → 最多 3 次重基线
         # 重注入,前置 sleep 1.0(vt14 字面直通态竞态,随机性)
         for attempt in range(3):
-            script.exports_sync.inject('1b5b324a1b5b481b5b72')   # 清屏基线
+            baseline(script)     # 清屏基线(双发,见 baseline() 注释)
             time.sleep(1.0)   # 前置 settle(iter1 强化,0.6→1.0)
             # ',' 分批:验证 pending flush(QUIRKS 13)必需——批间即 flush 点
             for part in seq['bytes'].split(','):
@@ -157,7 +183,7 @@ def main():
                 27 in (r or []) for r in g2.get('lines', [])[:6]):
             grids = [g2]
             for _ in range(4):
-                script.exports_sync.inject('1b5b324a1b5b481b5b72')
+                baseline(script)
                 time.sleep(1.0)
                 for part in seq['bytes'].split(','):
                     script.exports_sync.inject(part)
@@ -167,6 +193,29 @@ def main():
             g2 = mode_grid(grids)
             print('  mode-of-%d -> cur %s,%s' % (len(grids), g2['curY'],
                                                  g2['curX']), seq['name'])
+        # 稳定性复读(批 30):非 0x1b 的流态噪声族(decom 光标残留
+        # 等)不触发上面的字面签名重试——复读一次,读数不稳 →
+        # mode-of-5(独立重基线,逐格众数 = 稳定读数)
+        baseline(script)
+        time.sleep(1.0)
+        for part in seq['bytes'].split(','):
+            script.exports_sync.inject(part)
+            time.sleep(0.05)
+        time.sleep(0.6)
+        g3 = script.exports_sync.inject('')
+        if g3 != g2:
+            grids = [g2, g3]
+            for _ in range(3):
+                baseline(script)
+                time.sleep(1.0)
+                for part in seq['bytes'].split(','):
+                    script.exports_sync.inject(part)
+                    time.sleep(0.05)
+                time.sleep(0.6)
+                grids.append(script.exports_sync.inject(''))
+            g2 = mode_grid(grids)
+            print('  stability mode-of-%d -> cur %s,%s' % (
+                len(grids), g2['curY'], g2['curX']), seq['name'])
         out.append({'name': seq['name'], 'grid': g2})
         print(seq['name'], '-> cur', g2.get('curY'), g2.get('curX'))
     with open(out_path, 'w') as f:
