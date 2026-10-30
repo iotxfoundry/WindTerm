@@ -1,4 +1,5 @@
 #include "ActionFactory.h"
+#include "ThemeIcons.h"
 
 #include <QAction>
 #include <QCoreApplication>
@@ -77,13 +78,11 @@ void js_actionState(QObject *target, const char *propName)
 	target->setProperty(propName, st);                // 尾镜像(006697xx)
 }
 
-// theme_icon_load_svg(00756cd6,1272B)—— cited — wave-2:主题
-// SVG 装载(DAT_011c1ce0 主题容器),主题子系统另批转写
+// theme_icon_load_svg(00756cd6,1272B)—— ThemeIcons::loadSvg
+// (批 49 转写;主题容器 = 进程级单例,语料 DAT_011c1ce0)
 static QIcon theme_icon_load_svg(const QString &iconFile)
 {
-	// cited — wave-2(00756cd6 未转写;空图标,宁可留空也不猜)
-	Q_UNUSED(iconFile);
-	return QIcon();
+	return ThemeIcons::loadSvg(iconFile, QString());
 }
 
 ActionFactory::ActionFactory(QObject *parent)

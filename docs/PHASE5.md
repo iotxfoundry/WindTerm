@@ -757,6 +757,21 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 写侧(params 对象构建,mode@+0x20/text@+0x18)待定位 →
   Screen 1 处 cited 精度化保留(下批 DECRQSS/params 构建面)
 
+### 批 49(2026-10-30)/loop:主题图标链转写 ✅
+- **theme_icon_load_svg(00756cd6,1272B)全流程转写**:空名短路 →
+  iconCache 查得直返 → SvgIconEngine(name) 包装(00639200)→
+  iconCache_lookupEntry 入缓存 → 非空 && isValidColor(recolor)→
+  FUN_00756b68 着色
+- **FUN_00639200(98B)SvgIconEngine ctor**:名字引用 @+8 +
+  scale 1.0 @+0x10 + 三清零域;paint/clone cited(绘制体另处)
+- **FUN_00756b68(331B)着色循环**:availableSizes → pixmap →
+  createMaskFromColor(color,MaskOutColor)→ fill → setMask →
+  addPixmap
+- **iconCache_lookupEntry(005df09e,1006B)**:sorted 名→QIcon 查/插
+  (语料自定义节点深层 cited;行为面 = QMap 等价承载)
+- ActionFactory theme 桩 → ThemeIcons::loadSvg 委托;1 处 cited 清除
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
