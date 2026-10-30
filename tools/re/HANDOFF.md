@@ -5,13 +5,16 @@
 
 ## 一句话状态(2026-10-30 第五次交接,重开刷新)
 
-**Phase 5:98 序列 97/98**(仅 tbc3 = 原版字面态伪影,retry 随机;
-decstbm_ri 已随 ESC-single 统一模型归绿)。**新组件四件 + 会话层
-真接线 ✅**:KeymapEngine(wind.keymaps 531 条)、TelnetCommander
-IAC 状态机、UnixPty/Pty 入构建、**ShellSession::startLocal**(pty+
-commander 装配,tests/shellsession_test 端到端:进程→pty→ANSI→
-Screen)——**ctest 10/10 全绿**。6 组件三锚校准闭环。AGENTS 踩坑
-#16-19。**本地领先 45 提交**(未推送,遵规范)。
+**Phase 5:98 序列 97/98**(仅 tbc3;批 29 连读众数终裁 = **停手**:
+5 次独立重 dump 得 1 干净/4 字面,字面格 = `27,91,50,74` = 驱动
+自身清屏基线 "ESC[2J"(非 tbc3 字节),settle 1.0/2.0s 同结果 →
+原版 dump 流内确定行为)。**Phase 4a 会话管理 A1/A2 ✅**:
+ShellSession::stop(pty+断链+清 screen 挂钩)、**TelnetSession 网络
+接线**(QTcpSocket + RFC 854 默认拒绝响应在会话层 + IAC 状态机);
+注册表**插入**侧语料未定位 → wave-2 挂账。**ctest 11/11 全绿**
+(+telnetsocket_test 回环 +shellsession stop 冒烟)。probe38b 矩阵
+终裁见 PHASE5 批 29(字面先行/动作批尾/ESC-single 入口 flush 且
+组合注入 M 丢失)。**本地领先 45 提交**(未推送,遵规范)。
 
 **engtest3 段错误根因已修**(5b773aec,推翻批 24"环境竞争"结论):
 Screen ctor 漏初始化 m_savedPrimary/m_altCore/m_viewSettings →
@@ -76,13 +79,11 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **tbc3**(唯一红):原版字面态伪影,驱动 retry(3×+2s 窗)随机
-   命中;终裁 = 连读众数/多次重试(低优,原版侧伪影)
-2. **decstbm_ri 排空分相终裁**(已绿,机制挂账):probe38 矩阵(X
-   吞时点/[CUP,M] 跨批/E2-bits)裁决 per-action 排空边界
-3. **Phase 4a 会话管理**:ShellSession::stop 接线(UnixPty::stop
-   private)+ 注册表集成(Commander UUID 表)+ TelnetSession 网络
-   接线(QTcpSocket + RFC 响应策略)
+1. **Phase 4a 收尾**:Commander UUID 表**插入**侧(wave-2 挂账,
+   插入函数语料未定位;邻接面 007da178/007da09a 已记)
+2. ~~tbc3 众数终裁~~ ✅ 批 29(停手:原版 dump 流内确定行为)
+3. ~~decstbm_ri 排空分相 + probe38 矩阵~~ ✅ 批 29(per-action
+   排空边界:字面即时/CSI 批尾/ESC-single 下批入口)
 4. **键位 action 执行面**:KeymapEngine 命中 → wind.actions 分发
 5. **吞噬尾随精确边界**(probe38 挂账):M/H 后尾随字面吞噬的
    ESC 停/批尾停微实验(i-1 回退法已落地,批 26)
@@ -101,8 +102,8 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 - frida:pip --user(17.24.3);REA binding 已修(bun prebuild-install
   走代理)但需宿主重载
-- 测试:`cd build && ctest`(**10 测试**:行为门 6 + keymap/
-  telnet/pty/shellsession 四冒烟;engtest3 ctest 态间歇——直跑复核;
+- 测试:`cd build && ctest`(**11 测试**:行为门 6 + keymap/
+  telnet/pty/shellsession/telnetsocket 五冒烟;engtest3 ctest 态间歇——直跑复核;
   见 tests/README.md)。RE 探针:tools/re/metatest/(手工 g++;改
   头文件后必须重编,踩坑 15)
 - ptrace_scope=0(已设,重启后需重设:sysctl -w)

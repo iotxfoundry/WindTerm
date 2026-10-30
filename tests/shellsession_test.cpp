@@ -1,7 +1,10 @@
 // 会话装配冒烟(loop:Phase 4a 真接线):ShellSession::startLocal
 // 进程 → pty → SuperCommander 解析 → Screen 格子(attachScreen 挂入)
 #include <cstdio>
+#include <csignal>
+#include <unistd.h>
 #include <QCoreApplication>
+#include <QThread>
 #include <QTimer>
 #include "ShellSession.h"
 #include "Screen.h"
@@ -44,6 +47,30 @@ int main(int argc, char **argv)
         printf("row0 MARK_42 DONE42: FAIL\n");
         ++fails;
     }
+
+    // stop 冒烟:/bin/sleep 5 → stop() 终止 pty 进程(3s 内退出)
+    {
+        ShellSession s2;
+        if (!s2.startLocal(QLatin1String("/bin/sleep"), QLatin1String("5"),
+                           QLatin1String("/tmp"))) {
+            printf("startLocal sleep: FAIL\n");
+            ++fails;
+        } else {
+            const qint64 pid = s2.pty()->pid();
+            s2.stop();
+            bool alive = ::kill((pid_t)pid, 0) == 0;
+            for (int i = 0; i < 30 && alive; ++i) {   // 3s
+                QThread::msleep(100);
+                alive = ::kill((pid_t)pid, 0) == 0;
+            }
+            printf("stop: pid=%lld alive=%d\n", (long long)pid, alive ? 1 : 0);
+            if (pid <= 0 || alive) {
+                printf("stop sleep exit: FAIL\n");
+                ++fails;
+            }
+        }
+    }
+
     printf("shellsession_test fails=%d\n", fails);
     return fails != 0;
 }

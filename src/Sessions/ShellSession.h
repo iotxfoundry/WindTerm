@@ -26,6 +26,7 @@ public:
 	bool startLocal(const QString &shell, const QString &arguments,
 	                const QString &workingDirectory);
 	bool write(const QByteArray &data);              // UI 输入 → pty
+	void stop();                                     // 会话停止:pty + 数据路径
 	void attachScreen(Screen *screen);               // 视图挂格子
 	UnixPty *pty() { return &m_pty; }
 	SuperCommander *commander() { return &m_commander; }
@@ -38,6 +39,7 @@ private:
 
 	UnixPty m_pty;
 	SuperCommander m_commander;
+	QMetaObject::Connection m_ptyConn;   // readyRead → 解析器(停止时断)
 };
 
 #endif // SHELLSESSION_H

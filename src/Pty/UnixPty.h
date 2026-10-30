@@ -44,12 +44,14 @@ public:
 	bool resizeWindow(int rows, int columns) final;
     QByteArray readAll() final;
 	qint64 write(const QByteArray &text) final;
+	// pty 操作面(访问级属重建自由度:原版 ptyqt 基类 stop() 即 public)
+	void stop();
+	qint64 pid() const { return m_pid; }
 
 private:
 	void moveToThread(QThread *targetThread);
 	void setError(const char *error);
 	bool setTerminalAttributes(struct ::termios *ttmode);
-	void stop();
 	bool terminalAttributes(struct ::termios *ttmode);
 
 private:

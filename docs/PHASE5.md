@@ -394,6 +394,50 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 文档:AGENTS 踩坑 #16-19(pkill 自匹配/锚点编辑互踩/QByteArray
   strlen \x00 截断/moc 基类子句换行);CALIBRATION 组件结论表
 
+### 批 29(2026-10-30)/loop:Phase 4a 会话管理 ✅ + tbc3 众数终裁 + probe38b 矩阵终裁 ✅
+- **A1 ShellSession::stop 接线**:UnixPty::stop 移 public(line 52 private→
+  public;访问级属重建自由度——原版 ptyqt 基类 stop() 即 public)+
+  ShellSession::stop()(断 pty readyRead 连接 → pty.stop() →
+  m_commander.m_screen=nullptr),析构器改调 stop ✅
+- **A2 TelnetSession 网络接线**:QTcpSocket + TelnetCommander。
+  socket.readyRead → (a) 会话层 RFC 854 默认拒绝响应(DO x→WONT x、
+  WILL x→DONT x、IAC IAC 字面、SB…SE 跳过、半截序列留尾)→ 回写
+  socket;(b) 整段原始流进 commander.feed(IAC 状态机)→
+  processOutput(解析器)+ dataReceived。**响应策略不入 Commander**
+  (Commander 只记录 optionStates)✅
+- **A3 注册表集成挂账**:Commander 表**插入**侧语料未定位——
+  已实证邻接面 FUN_007da178(commander→会话 +0x48 并发
+  commanderCreated 0091223a)与 FUN_007da09a(按 uuid 移除 +0x18
+  节点;调用者 007da1ee/007da219/007dc314/00912927),插入无直呼者
+  → 不猜,SuperSessionPrivate.cpp 留 `cited — wave-2` 注记
+- **A4 测试**:新增 tests/telnetsocket_test(本地 QTcpServer 回环:
+  收 IAC DO 24 + IAC WILL 3 + "hello" → 断言回
+  `fffc18fffe03` + dataReceived 含 hello);shellsession_test 补
+  stop 冒烟(`/bin/sleep 5` → stop() → pid 3s 内消失)。**ctest 11/11**
+- **B tbc3 连读众数终裁**:dump 驱动加 mode-of-N(3 次重试仍字面态
+  → N=5 连读逐格众数)。独立复跑(*/tmp/opencode/p5tbc3_mode.py*)
+  逐次读数:**1 干净 / 4 字面**,字面格 = `27,91,50,74` = **"ESC[2J"
+  = 驱动自身的清屏基线**,不是 tbc3 的 ESC[3g;settle 1.0s 与 2.0s
+  同结果(非时序竞态)。众数仍字面 → **停手**:定性为原版 dump 流内
+  确定行为(基线注入在批首被字面化),不硬修我方 → 97/98 保持
+- **C probe38 残余矩阵终裁(probe38b,零代码改动)**:
+  - (d1) 批内 `DECSTBM+CUP(7;1)+ESC M` → cur(6,0):CUP 生效、**M
+    未执行** ⇒ ESC-single 族入 escPending,排空 = 下一批入口
+  - (d2/d5) 同批 `DECSTBM+CUP(5;1)+"AAAA"` → AAAA 落 **(0,0)**
+    (r0=65×4),而同批 `DECSTBM+CUP` 单独调用 cur 正确 (4,0) ⇒
+    **字面先行、动作后置**(同调用内动作在批尾应用,E5 同型)
+  - (d4) 区内标记 BBBB@row6 → 批 `CUP(5;1)+M` → cur(4,0) →
+    触发入口 `5a` 后 **r5 BBBB 未移动**:M 在入口 flush 时**动作丢失**
+    ⇒ **QUIRKS 13 实锤**(组合注入 M 丢失,原版确定性,非我方 bug;
+    decstbm_ri 归绿与本条一致)
+  - (e) E2-bits 复验:tab 批后 r0 全 0、cur(0,4) → 干净,0x1b 字面
+    不复现 ✓
+  - **per-action 排空边界结论**:字面 = 即时(入口光标)→ CSI 动作
+    = 同一调用批尾(DECSTBM 归位至 home 亦在此刻)→ ESC-single
+    (D/E/M/H/7/8)= 下一批入口(且组合注入时常丢失)→ 尾随字面被吞
+    至下一 ESC(批 26)
+- 证据脚本:/tmp/opencode/p5probe38b.py,读数 p5tbc3_readings.json
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

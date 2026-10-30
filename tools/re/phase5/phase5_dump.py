@@ -68,6 +68,29 @@ rpc.exports = {
 '''
 
 
+def _mode(vals):
+    """众数(并列取首现)。"""
+    best, best_n = None, -1
+    for v in vals:
+        c = vals.count(v)
+        if c > best_n:
+            best, best_n = v, c
+    return best
+
+
+def mode_grid(grids):
+    """逐格众数:字面态伪影(N 次独立重 dump 偶发)按格投票,众数即读数。"""
+    curY = _mode([g.get('curY') for g in grids])
+    curX = _mode([g.get('curX') for g in grids])
+    rows = [(g.get('lines') or []) for g in grids]
+    lines = []
+    for y in range(min(max(len(r) for r in rows), 32)):
+        vals = [(r[y] if y < len(r) else None) or [] for r in rows]
+        lines.append([_mode([v[x] if x < len(v) else 0 for v in vals])
+                      for x in range(max(len(v) for v in vals))])
+    return {'curY': curY, 'curX': curX, 'lines': lines}
+
+
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     seq_file = sys.argv[1] if len(sys.argv) > 1 \
@@ -128,6 +151,22 @@ def main():
             print('  glitch(0x1b cell) attempt %d -> retry (drain 2s)'
                   % (attempt + 1), seq['name'])
             time.sleep(2.0)
+        # 终裁(批 29):3 次重试仍字面态 → N=5 连读、逐格取众数
+        # (每次重基线 + 重注入;伪影随机命中,众数即干净读数)
+        if seq['name'] != 'esc_literal' and any(
+                27 in (r or []) for r in g2.get('lines', [])[:6]):
+            grids = [g2]
+            for _ in range(4):
+                script.exports_sync.inject('1b5b324a1b5b481b5b72')
+                time.sleep(1.0)
+                for part in seq['bytes'].split(','):
+                    script.exports_sync.inject(part)
+                    time.sleep(0.05)
+                time.sleep(0.6)
+                grids.append(script.exports_sync.inject(''))
+            g2 = mode_grid(grids)
+            print('  mode-of-%d -> cur %s,%s' % (len(grids), g2['curY'],
+                                                 g2['curX']), seq['name'])
         out.append({'name': seq['name'], 'grid': g2})
         print(seq['name'], '-> cur', g2.get('curY'), g2.get('curX'))
     with open(out_path, 'w') as f:
