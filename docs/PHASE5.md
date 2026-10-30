@@ -971,6 +971,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**12/70**(4+4+4;注:0x7583 不重复计)
 
+### 批 60(2026-10-30)/loop-start R3:字段/QCollator 命令波(5 条)✅
+- **0x7586**:+0x1b1 int(变更 → 刷新 cited);**0x758b**:+0xd8d
+  bool(同构);**0x7588 邻区**:+0xd84 bool 同构入库
+- **0x7588**:FUN_009588b8(ctx[0x214],a)行内游走查询(cited —
+  runstyles 面;我方 stub 77 行既有同引用)
+- **0x758d**:FUN_00927ea8(ctx[0x213],a,bool)(cited — markers 面)
+- **0x758a:QCollator 配置命令全转写**(Qt 真类):toMap →
+  type(QLocale)/case(setCaseSensitivity)/punctuation
+  (setIgnorePunctuation)/numeric(setNumericMode)→ FUN_00a3a3ee
+  应用(cited — 搜索/排序面)
+- EditorContext 成员:field1b1/flagD84/flagD8d 入库
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**17/70**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

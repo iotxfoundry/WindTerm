@@ -1,3 +1,5 @@
+#include <QCollator>
+#include <QLocale>
 #include "EditorEngine.h"
 
 #include "ScintillaEditBase.h"
@@ -589,6 +591,54 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	}
 	case 0x7578: {   // FUN_00a21b1e(14B):markers 对象 +0x210 int 查询
 		return QVariant((int)m_ctx.hexField210);
+	}
+	case 0x7586: {   // +0x1b1 int = a.toInt();变更 → vtable+0xa0 刷新
+	                 //   (cited — Phase-4b 视图腿)
+		const int v = a.toInt();
+		if (m_ctx.field1b1 != v) {
+			m_ctx.field1b1 = v;
+			// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
+		}
+		return QVariant(0);
+	}
+	case 0x7588: {   // FUN_009588b8(ctx[0x214],a):行内游走查询
+	                 //   (runstyles 面;cited — Phase-4b)
+		return QVariant(0);   // cited — wave-2(009588b8 待转写)
+	}
+	case 0x758a: {   // QCollator 配置(006698xx 区):toMap →
+	                 //   type/case/punctuation/numeric 四键 →
+	                 //   QCollator set* → FUN_00a3a3ee 应用
+		const QVariantMap cfg = a.toMap();
+		QCollator collator;
+		if (cfg.contains(QStringLiteral("type")))
+			collator.setLocale(QLocale(
+			    cfg.value(QStringLiteral("type")).toString()));
+		if (cfg.contains(QStringLiteral("case")))
+			collator.setCaseSensitivity(
+			    cfg.value(QStringLiteral("case")).toInt()
+			        ? Qt::CaseSensitive
+			        : Qt::CaseInsensitive);
+		if (cfg.contains(QStringLiteral("punctuation")))
+			collator.setIgnorePunctuation(
+			    cfg.value(QStringLiteral("punctuation")).toBool());
+		if (cfg.contains(QStringLiteral("numeric")))
+			collator.setNumericMode(
+			    cfg.value(QStringLiteral("numeric")).toBool());
+		// FUN_00a3a3ee(ctx,collator)应用 — cited — wave-2
+		// (搜索/排序 collator 面,Phase-4b)
+		return QVariant(0);
+	}
+	case 0x758b: {   // +0xd8d 字节 = a.toBool();变更 → 刷新(cited)
+		const bool v = a.toBool();
+		if (m_ctx.flagD8d != v) {
+			m_ctx.flagD8d = v;
+			// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
+		}
+		return QVariant(0);
+	}
+	case 0x758d: {   // FUN_00927ea8(ctx[0x213],a.toLongLong,bool)
+	                 //   — cited — wave-2(markers 面待转写)
+		return QVariant(0);
 	}
 	case 0x7582: {   // +0xd8f 字节 = a.toBool() + vtable+0xa0 刷新
 	                 //   (cited — Phase-4b 视图腿)
