@@ -42,3 +42,20 @@ Widgets/libssh-改/Onigmo-改,Apache-2.0;勿重复 clone)——**对应子系统
 src/fmt)后由**真库 API 直接承接**(委托真库策略)——logger 面
 转写时直接使用 src/spdlog 的 logger.h/格式化 API,不再需要自造
 Face 声明。
+
+## 动态库直接调用接口(2026-10-31 勘定,导出表交集法)
+
+主二进制 NEEDED = 10 动态库;PLT 直接调用 ≈3270 符号(交集法精确计数):
+
+| 库 | 符号数 | 结论 |
+|---|---|---|
+| Qt5Widgets/Core/Gui/Network | 1535/1052/371/91 | 委托真库(既有策略)|
+| **libssh.so.4** | **117**(sftp_async_* 47 全套)| SSH-INTERNALS 委托边界精确到符号清单;TLS 走 libssh(libssl 交集=0)|
+| **libQt5Qml** | **45 = QJSEngine 全家** | **JsEngine 底座钉死:动态 QJSEngine 真库,零逆向**(CALIBRATION 落定)|
+| Qt5SerialPort | 18 | 串口会话 = 纯委托 QSerialPort |
+| Qt5Multimedia / Qt5Svg | 13 / 8 | 提示音 / SVG(QSvgRenderer 委托吻合)|
+| X11/Xtst | 10 | XSendEvent/XTestFakeKeyEvent/XKeysymToKeycode(按键模拟/热键)|
+| libcrypto 1.1 | 6 | EVP_aes_256_cbc+Cipher 族独立加密;调用者在 decomp-part-0042/0043 业务区(疑配置 vault,勘定待批)|
+
+静态(逆向对象,不在 NEEDED):Scintilla/boost/yaml-cpp/jsoncpp/onig。
+未定:Multimedia 13 具体符号、EVP 调用者语义。
