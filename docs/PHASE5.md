@@ -783,6 +783,22 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   "已定位 0067500e/00674cdc,转写待专用批"
 - 验证:构建零 undefined;ctest 6/6
 
+### 批 50(2026-10-30)/loop:FUN_0076745c/0064ab5e 调用层 + MuxPane 壳 ✅
+- **FUN_0076745c(104B)解明**:引擎门(+0x48)→ 名字 QJSValue →
+  FUN_0064ab5e(out, engine, name, args)
+- **FUN_0064ab5e(76B)**:QJSValue(undefined instance)→
+  callWithInstance(args)—— 全局函数按名调用
+- **MuxPane 面板壳落地**(PTR_011a6c00 类):QJSEngine @+0x48
+  (四门实证)+ m_cachedArg(+0x18,FUN_00668f3a 缓存槽)
+- **jsCallOnPane 闭合**(批 40 cited 清除):FUN_00665d8a cast →
+  引擎门 → newQObject(action) + 缓存 → callWithInstance
+- **SvgIconEngine 结构补全**(批 49 增补):vt8 = clone(0x30 壳,
+  名字/scale/pixmap 缓存表拷贝);h6393e6(619B)= 缓存查/渲染
+  分发((mode<<4|state) 打包键 @+0x20;0xa0/0x28 步长条目);
+  FUN_0063a000(504B)= 缓存扩容/插入。**SVG 光栅化内部** =
+  独立深层(cited 保留 3 处:paint/clone 绘制体 + 节点结构)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
