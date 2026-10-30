@@ -1,4 +1,5 @@
 #include "Screen.h"
+#include "CTerminalConfig.h"
 
 #include <QElapsedTimer>
 #include <QDateTime>
@@ -2810,15 +2811,41 @@ bool Screen::scrollbackModeCheck() const
 
 int Screen::queryProtocolLevelProxy()
 {
-	// FUN_007e2e42: with the params' charset slot registered as a
-	// 94-set (FUN_007e2c6a), the level is strtol(paramsText + 2) / 100
-	// where paramsText is the QByteArray at protocol-obj +0x18;
-	// otherwise ext-capable -> 4, else -1. Read side fully mapped
-	// (批 48c): FUN_007e2c6a(8B)= mode==3 → strtol(paramsText+2)/100;
-	// FUN_007e2c72(21B)= mode∈{2,4} → 4, else -1. Write side (the
-	// params-object build, mode@+0x20/text@+0x18) not yet located —
-	// cited — wave-2(下批:DECRQSS/params 构建面定位)
-	return protocolExtCapable() ? 4 : -1;
+	// FUN_007e2e42(128B)+ FUN_007e2cba(206B)+ s_session_term_860126
+	// (00860126)联合语料转写(批 48d/52):
+	//   params text = session.term 配置值(toLower/utf8,00860126 面;
+	//   语料 params 对象 +0x18 = 该文本快照)
+	//   FUN_007e2cba 分类:startsWith ansi→1 / tmux→2 / vt→3 /
+	//     xterm→4(前缀串 @ca2395/cb7729/ca9654/ca0de2 实证)
+	//   FUN_007e2e42:mode==3(FUN_007e2c6a)→ strtol(text+2)/100
+	//     (vtNNN → 级);mode∈{2,4}(FUN_007e2c72)→ 4;else → -1
+	// (语料 params 对象 = 文本快照;此处在查询点直读同源配置,
+	//   行为等价)
+	const QString term =
+	    CTerminalConfig::instance()
+	        ->value(QStringLiteral("session.term"),
+	                QStringLiteral("xterm-256color"))
+	        .toString()
+	        .toLower();
+	const int mode = term.startsWith(QStringLiteral("ansi"))
+	                     ? 1
+	                     : term.startsWith(QStringLiteral("tmux"))
+	                           ? 2
+	                           : term.startsWith(QStringLiteral("vt"))
+	                                 ? 3
+	                                 : term.startsWith(
+	                                       QStringLiteral("xterm"))
+	                                       ? 4
+	                                       : 0;
+	if (mode != 3) {
+		const bool ext = (mode == 2 || mode == 4);
+		return ext ? 4 : -1;                     // 语料 -(c==0)|4 形
+	}
+	bool ok = false;
+	const int digits = term.mid(2).toInt(&ok);   // 语料 text+2 strtol
+	if (!ok)
+		return -1;
+	return digits / 100;                          // 语料 strtol/100
 }
 
 // ---------------------------------------------------------------------------

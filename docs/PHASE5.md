@@ -815,6 +815,24 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 剩余:cited 1 处(Screen params 写侧,DECRQSS 构建面定位下批)
 
+### 批 52(2026-10-30)/loop:params 写侧定位 + queryProtocolLevel 全转写 ✅
+- **写侧定位**(反汇编 7e2d08-7e2d6e → 四前缀串实证):FUN_007e2cba
+  (206B)= s_session_term 值分类器 —— toLower/utf8 → startsWith
+  **"ansi"→1 / "tmux"→2 / "vt"→3 / "xterm"→4**(串 @ca2395/cb7729/
+  ca9654/ca0de2)→ mode@+0x20
+- **全链闭环**:session.term 配置(00860126 存储)→ 分类器 →
+  queryProtocolLevel(FUN_007e2e42):mode 3(vt)→ strtol(text+2)/100
+  (vt420→4);mode 2/4 → 4;ansi/未知 → -1
+- **queryProtocolLevelProxy 全转写**(配置直读 = params 快照等价);
+  protocolExtCapable 面由分类链取代
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK;**98/98**
+
+### **cited 全清**(批 47-52,16→0)
+47:KeymapEngine YAML/注册表链接面/槽形(3)· 48:rowUsedWidth(1)·
+48b:TelnetCommander TTYPE+记录面(2)· 48c:注册表插入(1)·
+49:主题图标链(1)· 50:jsCallOnPane(1)· 51:QtSvg 闭环(3)·
+52:params 写侧(1)—— src/ 内 "cited — wave-2" = **0**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

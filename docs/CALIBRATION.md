@@ -41,6 +41,13 @@
 | TelnetCommander(新) | ❌ 已回退(批 34) | IAC 状态机 feed/协商策略无逐行转写源,退 cited 空壳;协商字节实验锚在案(telnet_capture.json),待语料定位槽体后按转写重做 |
 | JsEngine(新) | ❌ 已回退(批 34) | 包装 API 无逐行转写源(evaluate/newQObject 仅锚点);待语料转写 JsEngine 体后重做 |
 
+## 混合架构边界增补(2026-10-30 批 51)
+
+- **QtSvg 委托实证**:语料 QtSvg 符号族(0001.c QSvgRenderer::
+  render/isValid/elementExists + 二进制 _ZN12QSvgRenderer* 导入)
+  —— SVG 光栅化 = 真库委托(同 libssh/yaml-cpp 策略);
+  libqt5svg5-dev 入构建环境,Qt5::Svg 链接
+
 ## 校准协议(2026-10-29 定,**逆向为准**)
 
 > 担忧:仓库 src 持续演进,2.7.0 编译时点可能不同 → 开源码**只是
