@@ -579,6 +579,24 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
+	case 0x7575: {   // FUN_00a5ed6e(ctx[0x217],line,1,1,bool):fold 族
+	                 //   (同 0x7571 映射;flag=展开位)
+		const long long line = a.toLongLong();
+		const long long parent = send(SCI_GETFOLDPARENT, line, 0);
+		send(SCI_FOLDLINE, parent < 0 ? line : parent,
+		     b.toBool() ? SC_FOLDACTION_EXPAND : SC_FOLDACTION_CONTRACT);
+		return QVariant(0);
+	}
+	case 0x7578: {   // FUN_00a21b1e(14B):markers 对象 +0x210 int 查询
+		return QVariant((int)m_ctx.hexField210);
+	}
+	case 0x7582: {   // +0xd8f 字节 = a.toBool() + vtable+0xa0 刷新
+	                 //   (cited — Phase-4b 视图腿)
+		m_ctx.flagD8f = a.toBool();
+		return QVariant(0);
+	}
+	// 0x7583 既有 = pairHighlightUnmatched(FUN_00a10c68,另一语料
+	//   dispatch 面);s_line_caret_remote 面的 +0xd91 写 = 归属待核
 	case 0x756a: {   // +0x1b3 bool = a.toBool();变更 → vtable+0xa0
 	                 //   刷新( cited — Phase-4b 视图腿)
 		const bool v = a.toBool();

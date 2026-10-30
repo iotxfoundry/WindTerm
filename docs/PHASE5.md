@@ -958,6 +958,19 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   → 保持缺失(零猜测)
 - 验证:零行为变更(勘察批)
 
+### 批 59(2026-10-30)/loop-start R2:字段/fold 命令波(4 条)✅
+- **0x7575**:FUN_00a5ed6e(ctx[0x217],line,1,1,bool)—— 同 0x7571
+  fold 映射(SCI_FOLDLINE expand/contract)
+- **0x7578**:FUN_00a21b1e(14B)markers 对象 +0x210 int 查询
+  (hexField210 成员入库)
+- **0x7582**:+0xd8f bool(视图刷新腿 cited)
+- **0x7583 归属发现**:我方既有 0x7583 = pairHighlightUnmatched
+  (FUN_00a10c68,另一语料 dispatch 面);s_line_caret_remote 面的
+  +0xd91 写 = 归属待核(不重复接线)—— "我方多出 13" 部分解明:
+  多 dispatch 面聚合
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**12/70**(4+4+4;注:0x7583 不重复计)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
