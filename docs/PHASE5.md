@@ -1104,6 +1104,26 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 进度:55/70(本轮 = 质量升级:4 条 cited→真实现 + 修正 2 +
   定案 3;0x75a6 落地方案备而未落)
 
+### 批 67a(2026-10-31)markers 读侧真身化:MarkersStore.h 落地 ✅
+- **src/Editor/MarkersStore.h(header-only)**:布局 struct
+  (MarkEntry 24B/ValueTable 6 路/MarkersArray/MarkersStore,
+  static_assert 锁偏移)+ 16 读侧函数全转写(0099d1f6 发布快照/
+  009a088e 区间解析/009a096a 剪枝(哨兵极性勘正:非 0x28 即断)/
+  009a07d8 反向扫/009a0830 线性找/009a073e run 终行/0099c974 六路
+  取值/00a101a0 twin 表读/0099cec0/cecc/c9c2/c75a/cf3e/5c/7a/98/
+  009a06ac/009a0710)+ spinlock 0069e8ac 全转写(__atomic 退避)
+- **0x759f/0x75a1/0x75a0/0x754d 升级真实现**(publishSnapshot/
+  resolveLine/nearestIdFrom/stopAllBackground);**0x7552 升级**
+  (FUN_00a2893e→0092c0cc 字段承接:doc+0x38 挂起标注记录五字段
+  入 EditorContext + SCI_BEGINUNDOACTION;链内无文本写入,不加
+  SCI 替换 —— 铁律 6)
+- **构建坑自愈**:MarkersStore 构造器 memset 摧毁 Qt 成员 d-ptr →
+  engtest/2 析构段错误;改 POD 显式清零(语料裸内存 vs C++ 类型
+  系统边界,AGENTS 坑 15 族新例)
+- RS valueAt 委托占位(返 0,值域待 Scintilla RunStyles 接线);
+  行为测试须等写入侧/构建者批(E2 保留 b)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

@@ -687,34 +687,31 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x759f: {   // FUN_00926e08(20B):markers 对象(+0xc0 门)→
-	                 //   FUN_0099d1f6 getters — cited — wave-2
-	                 //   (markers 对象内部;门转写保留)
+	case 0x759f: {   // FUN_00926e08(20B):M(+0xc0 门)→ FUN_0099d1f6
+	                 //   发布快照 → *(M+0x50)(批 67a 真身化)
+		if (m_ctx.markers.isEmpty())
+			return QVariant(0);                          // 门(行为模型保留)
+		return QVariant::fromValue<quint64>(
+		    *m_ctx.markersStore.publishSnapshot());
+	}
+	case 0x75a1: {   // FUN_00926e3e(20B):同门 → FUN_009a096a(批 67a)
 		if (m_ctx.markers.isEmpty())
 			return QVariant(0);
-		// FUN_0099d1f6 — cited — wave-2
-		return QVariant(0);
+		return QVariant(qlonglong(
+		    m_ctx.markersStore.resolveLine(a.toUInt())));
 	}
-	case 0x75a1: {   // FUN_00926e3e(20B):同门 → FUN_009a096a
-	                 //   — cited — wave-2
-		if (m_ctx.markers.isEmpty())
-			return QVariant(0);
-		// FUN_009a096a — cited — wave-2
-		return QVariant(0);
-	}
-	case 0x75a0: {   // 行解析链(006698xx 区):a==-1 → FUN_00975bc6/
-	                 //   FUN_0096bbc0/FUN_0092522a/FUN_00928404 当行
-	                 //   解析( cited — wave-2 四函数)→
-	                 //   FUN_00926e52(markers, line, out)
+	case 0x75a0: {   // L24799:line==-1 → 当行解析四函数(cited,维持
+	                 //   line=0)→ FUN_00926e52(24B):*out=0 + 
+	                 //   FUN_009a07d8(批 67a 真身化 nearestIdFrom)
 		long line = a.toLongLong();
 		if (line == -1) {
-			// FUN_00975bc6/FUN_0096bbc0/FUN_0092522a/FUN_00928404
-			// 当行解析 — cited — wave-2(四函数待转写)
+			// FUN_00975bc6/0096bbc0/0092522a/00928404 — cited
 			line = 0;
 		}
-		// FUN_00926e52(24B):out = 0 门 + FUN_009a07d8
-		//   — cited — wave-2(markers 对象内部)
-		return QVariant(0);
+		quint32 id = 0;                                      // FUN_00926e52:*param_3=0
+		if (m_ctx.markersStore.arr)                          // +0xc0 门 ⇔ M 非空
+			m_ctx.markersStore.nearestIdFrom(line, &id);     // FUN_009a07d8
+		return QVariant(id);
 	}
 	case 0x75a5: {   // FUN_00a2d3ec(286B):+0xec3 = a.toBool();变更
 	                 //   且 +0x1128 → 逐行 run 失效(FUN_0096bf4a/
@@ -854,15 +851,39 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			m_edit->setVerticalScrollBarPolicy(a.toBool()
 			    ? Qt::ScrollBarAsNeeded : Qt::ScrollBarAlwaysOff);
 		return QVariant(0);
-	case 0x754d:     // FUN_0092e44e(195B):M+0x128++ → QThreadPool::
-	                 //   clear → map 遍历(type∈[5,8] 停机)→
-	                 //   waitForDone(M+0x118);FUN_009264ba 未解 cited
+	case 0x754d:     // FUN_0092e44e(195B)后台解析全停(批 67a 主体
+	                 //   真身化;FUN_009264ba 腿 cited — wave-2)
+		m_ctx.markersStore.stopAllBackground();
 		return QVariant(0);
-	case 0x7552:     // 5 元列表 [pos,ch1,ch2,baA,baB] → FUN_00a2893e
-	                 //   (112B)→ FUN_0092c0cc(105B)doc 双字符标签 +
-	                 //   undoBegin(三体全解,真身化随 doc 标签接口批)
-	                 //   — cited — wave-2
+	case 0x7552: {   // 5 元列表 → FUN_00a2893e(112B)→ FUN_0092c0cc
+	                 //   (105B):FUN_0098075a doc+0x38 挂起标注记录
+	                 //   (字段承接,批 67a;链内无文本写入,不加 SCI
+	                 //   替换 — 铁律 6)+ editor_undoBegin(SCI 承接;
+	                 //   end 腿不在本链)+ FUN_00974856 sel 收尾 cited
+		const QVariantList list = a.toList();
+		if (list.size() == 5) {
+			const qint64 pos = list[0].toLongLong();
+			const QByteArray baA = list[3].toByteArray();
+			// FUN_00a4e152(76B)toChar 宽松转换(两标注字符)
+			auto toCharQ = [](const QVariant &v) -> quint8 {
+				if (v.userType() == QMetaType::Char)
+					return *(const quint8 *)v.constData();
+				QVariant cv = v;
+				if (!cv.convert(QMetaType::Char))
+					return 0;
+				return quint8(cv.value<QChar>().toLatin1());
+			};
+			m_ctx.pendAnnPos0 = pos;                     // 记录 +0x00
+			m_ctx.pendAnnPos1 = pos + baA.size();        // +0x08
+			m_ctx.pendAnnCh1  = toCharQ(list[1]);        // +0x10
+			m_ctx.pendAnnCh2  = toCharQ(list[2]);        // +0x11
+			m_ctx.pendAnnBa   = baA;                     // +0x18 槽
+			send(SCI_BEGINUNDOACTION, 0, 0);             // undo begin 腿
+			// FUN_00980710(74B)槽释放 / FUN_00974856(130B)收尾
+			// — cited — wave-2
+		}
 		return QVariant(0);
+	}
 	case 0x7573:     // fold 折叠+滚到视野(FUN_00a5e952 90B/
 	                 //   FUN_00a5e8bc 141B vt+0xa0;fold ctx 0x217
 	                 //   未建模)— cited — wave-2

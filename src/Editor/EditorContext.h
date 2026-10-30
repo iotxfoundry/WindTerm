@@ -12,6 +12,7 @@
 #include <QByteArray>
 #include <QString>
 #include <QVariant>
+#include "MarkersStore.h"
 #include <QVariantList>
 #include "RunNode.h"
 
@@ -44,6 +45,12 @@ public:
 	float field1a1 = 0.f;        // +0x1a1 行距倍率(0x758c;合法域 (0,2])
 	bool docIndentTabs = false;  // +0x279(0x75c3 读/0x75c6 写)
 	QVariantMap linkMap;         // 0x753a 到达参数暂存(FUN_0092ed32 真身化时消费)
+	// 0x7552 挂起标注记录(FUN_0098075a doc+0x38 槽的字段承接;批 67a)
+	qint64 pendAnnPos0 = -1;     // 记录 +0x00
+	qint64 pendAnnPos1 = -1;     // 记录 +0x08
+	quint8 pendAnnCh1 = 0;       // +0x10
+	quint8 pendAnnCh2 = 0;       // +0x11
+	QByteArray pendAnnBa;        // +0x18 槽
 	// margin 列表(语料 +0x1ab/+0x1ac,0x18 步长条目:名字 + 标志)
 	struct MarginEntry {
 		QString name;
@@ -197,6 +204,8 @@ public:
 	// --- 标记注册表(+0x1098+0x100 sortedvec;+0xc0 游标族同型)—
 	// 键=位置保序去重;原版为自旋锁槽阵(FUN_009a088e),行为模型
 	// 用有序表,单线程等价
+	// markers 读侧真身(批 67a;与下行行为模型并存,构建者批后接管门)
+	wt::MarkersStore markersStore;
 	QVector<RunNode> markers;
 	int markerInsert(const RunNode &n)
 	{
