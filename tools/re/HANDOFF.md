@@ -80,9 +80,11 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 1. **keymap 匹配体转写**(已定位):FUN_0067500e(9978B 匹配/分发
    巨函数)+ keys_parseAngleNotation 00674cdc(753B 角括号解析,
    结构已读)—— 专用批逐行转写
-2. **TelnetSession 装配重做**:语料五元组(Session/Bridge/Commander
-   e3474ff4 面)定位 → 槽体/读写面按转写重做(negotiationReply
-   写出点已备)
+2. **TelnetSession 装配重做**:语料面已侦察 —— TelnetSession 族 =
+   vt15(008616ea,303B,协商响应构建)+ metaObject 00917f76/
+   metacast 00917f8e/metacall 00917fd0(5B 无槽壳);QTcpSocket
+   使用面在 decomp 0001-0003 部(Qt 库区,装配点待定位);
+   negotiationReply 写出点已备(批 48b)
 3. **MuxPane 面板装配**(Phase 4c):ThemeIcons::setThemeDir 装配
    期接线 + 面板 QWidget 面语料定位
 4. **+0x101 发射点动态证据**(QUIRKS 22:门已转写;connect probe
