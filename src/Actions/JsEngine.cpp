@@ -1,39 +1,101 @@
 #include "JsEngine.h"
 
+// 0064ab10(33B):QObject(parent) + m_engine 置空(引擎创建收进
+// bootstrap;语料 0020:29875)
 JsEngine::JsEngine(QObject *parent)
 	: QObject(parent)
 {
 }
 
-// 0064abb2(809B):字面 "'use strict'; () => { %1 }" → QString::arg
-// (param_3)→ QJSEngine::evaluate(ret, program, name)
-QJSValue JsEngine::evaluateArrow(const QString &program, const QString &name)
+// dtor 0064ab32/0064ab46:零额外拆除 —— 引擎父链挂 this,由 QObject
+// 父子拆除(0020:29887/29898)
+JsEngine::~JsEngine() = default;
+
+// s_MuxPane_64b102(0064b102,1707B)引导体(与 MuxPaneJs::bootstrap
+// 同体;本实现父链挂 this —— 语料 QJSEngine::QJSEngine(this,param_1)
+// @0020:30179)
+void JsEngine::bootstrap(QObject *kingMeta, QObject *paneMeta,
+                         QObject *appBridge, QObject *windowBridge)
 {
-	const QString wrapped =
-	    QStringLiteral("'use strict'; () => { %1 }").arg(name);
-	// 语料槽位:evaluate(ret, program=@param+0x10, name=包装串)
-	// —— Ghidra 槽位歧义,标注不猜改
-	return m_engine.evaluate(program, wrapped);
+	// 0064b12x:旧引擎非空 → deleteLater
+	if (m_engine != nullptr) {
+		m_engine->deleteLater();
+		m_engine = nullptr;
+	}
+	// 0064b134:new QJSEngine,父链 = this(JsEngine)
+	m_engine = new QJSEngine(this);
+	// 0064b15a:installExtensions(All, undefined)
+	m_engine->installExtensions(QJSEngine::AllExtensions,
+	                            QJSValue(QJSValue::UndefinedValue));
+	// 0064b1a8-0064b218:"King" 元对象注册 + 冻结
+	QJSValue king = m_engine->newQMetaObject(
+	    kingMeta ? kingMeta->metaObject() : nullptr);
+	m_engine->globalObject().setProperty(QStringLiteral("King"), king);
+	m_engine->evaluate(QStringLiteral("Object.freeze(King)"));
+	// 0064b2ab-0064b2e2:"MuxPane" 元对象注册 + 冻结
+	QJSValue pane = m_engine->newQMetaObject(
+	    paneMeta ? paneMeta->metaObject() : nullptr);
+	m_engine->globalObject().setProperty(QStringLiteral("MuxPane"), pane);
+	m_engine->evaluate(QStringLiteral("Object.freeze(MuxPane)"));
+	// 0064b3xx:"application" 桥
+	if (appBridge != nullptr) {
+		m_engine->globalObject().setProperty(
+		    QStringLiteral("application"), m_engine->newQObject(appBridge));
+		m_engine->evaluate(QStringLiteral("Object.freeze(application)"));
+	}
+	// 0064b4xx:"window" 桥
+	if (windowBridge != nullptr) {
+		m_engine->globalObject().setProperty(
+		    QStringLiteral("window"), m_engine->newQObject(windowBridge));
+		m_engine->evaluate(QStringLiteral("Object.freeze(window)"));
+	}
 }
 
-// 0064af3c(348B):分配 len(name)+0xd → convertFromAscii
-// ("'use strict';",0xd)前缀 + name memcpy(×2 字节)→ resize →
-// QJSEngine::evaluate(ret, program, 拼接串)
-QJSValue JsEngine::evaluateStrict(const QString &program, const QString &name)
+// 0064abb2(809B):program = "'use strict'; () => { %1 }".arg(code)
+// → evaluate → isError → tr 文本(0xc91268)…arg(lineNumber)…
+// arg(正文);非 error 返空串(0020:29924-30006)
+QString JsEngine::runScript(const QString &code)
 {
-	const QString strict = QStringLiteral("'use strict';") + name;
-	// 语料槽位同上(标注不猜改)
-	return m_engine.evaluate(program, strict);
+	QJSValue r = m_engine->evaluate(
+	    QStringLiteral("'use strict'; () => { %1 }").arg(code));
+	if (!r.isError())
+		return QString();
+	// 0xc91268 tr 源文本:语料未展开 + 二进制取证未中(批 68),
+	// 字面腿 — cited — wave-2(结构转写,文本待取证)
+	const int line = r.property(QStringLiteral("lineNumber")).toInt();
+	const QString body = r.toString();
+	Q_UNUSED(line);
+	Q_UNUSED(body);
+	return QString();
 }
 
-// 0064b0be(18B):QJSEngine::newObject
+// 0064af3c(348B):"'use strict';" + code → evaluate(0020:30070;
+//   convertFromAscii 前缀 + UTF-16 memcpy = QString 拼接同构)
+// 槽位勘正(批 68):program 走 rdx 槽(引擎 this = *(this+0x10)),
+//   旧实现把 program 塞 fileName 槽 = 错位
+QJSValue JsEngine::evaluateStrict(const QString &code)
+{
+	return m_engine->evaluate(QStringLiteral("'use strict';") + code);
+}
+
+// 0064ab5e(76B):undefined instance 承载 + callWithInstance
+// (形参按调用者 0076745c 重构)
+QJSValue JsEngine::call(const QString &name, const QJSValueList &args)
+{
+	return m_engine->globalObject().property(name).callWithInstance(
+	    QJSValue(QJSValue::UndefinedValue), args);
+}
+
+// 0064b0be(18B):QJSEngine::newObject 直调
 QJSValue JsEngine::newObject()
 {
-	return m_engine.newObject();
+	return m_engine->newObject();
 }
 
-// 0064b0d0(41B):QJSEngine::newQObject
-QJSValue JsEngine::newQObject(QObject *obj)
+// 0064b0d0(41B):newQObject → setObjectOwnership(CppOwnership)
+QJSValue JsEngine::newQObjectCppOwned(QObject *obj)
 {
-	return m_engine.newQObject(obj);
+	QJSValue v = m_engine->newQObject(obj);
+	QQmlEngine::setObjectOwnership(obj, QQmlEngine::CppOwnership);
+	return v;
 }

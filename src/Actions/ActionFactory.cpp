@@ -1,5 +1,6 @@
 #include "ActionFactory.h"
 #include "MuxPane.h"
+#include "JsEngine.h"
 #include "ThemeIcons.h"
 
 #include <QAction>
@@ -28,9 +29,12 @@ static QJSValue jsCallOnPane(QObject *target, const char *jsFuncName,
 	if (arg.isUndefined()) {
 		// FUN_00767d08:newObject → host+0x18 缓存
 		if (pane->m_cachedArg == nullptr)
+			// FUN_00767d08 → JsEngine::newObject(0064b0be 同体)
 			pane->m_cachedArg = new QJSValue(pane->m_engine->newObject());
 	}
-	args << pane->m_engine->newQObject(action);     // FUN_00767d2e
+	// FUN_00767d2e → JsEngine::newQObjectCppOwned(0064b0d0 同体,
+	//   含 CppOwnership 腿 —— 旧 QJSEngine 直调缺此腿)
+	args << pane->m_engine->newQObjectCppOwned(action);
 	args << (arg.isUndefined() && pane->m_cachedArg != nullptr
 	             ? *pane->m_cachedArg
 	             : arg);
@@ -39,11 +43,8 @@ static QJSValue jsCallOnPane(QObject *target, const char *jsFuncName,
 	if (pane->m_engine == nullptr)
 		return QJSValue(QJSValue::UndefinedValue);
 	const QString fn = QString::fromUtf8(jsFuncName);
-	QJSValue fnVal = pane->m_engine->globalObject().property(fn);
-	if (!fnVal.isCallable())
-		return QJSValue(QJSValue::UndefinedValue);
-	return fnVal.callWithInstance(QJSValue(QJSValue::UndefinedValue),
-	                              args);
+	// FUN_0076745c → JsEngine::call(0064ab5e 同体)
+	return pane->m_engine->call(fn, args);
 }
 
 // 006697b2(2282B)—— 语料形(批 38 反汇编实证):param = (out,

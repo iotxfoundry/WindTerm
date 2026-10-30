@@ -10,12 +10,16 @@
 // 引导流程 = s_MuxPane_64b102(0064b102,1707B;批 39 MuxPaneJs
 // 转写)——本壳为运行期宿主面(引擎持有点 + 调用门)。
 // 面板装配(QWidget 面)属 Phase 4c;本壳零自造行为。
+// 勘误批 68:FUN_00766192 放 +0x48 的是 JsEngine*(0023:33040-44),
+// 非裸 QJSEngine(旧注"QJSEngine @+0x48"随之勘正)
+class JsEngine;
+
 class MuxPane : public QObject {
     Q_OBJECT
 
 public:
     explicit MuxPane(QObject *parent = nullptr);
 
-    QJSEngine *m_engine = nullptr;   // 语料 +0x48(四门读取)
+    JsEngine *m_engine = nullptr;   // 语料 +0x48(四门读取)
     QJSValue *m_cachedArg = nullptr; // 语料 +0x18(FUN_00668f3a 缓存)
 };

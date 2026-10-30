@@ -1143,6 +1143,27 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (FUN_0095c1c2 1857B 阻塞)留待;0x7552/0x754d 已随 67a 落
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 68(2026-10-31)调查结果应用:JsEngine 重做(QJSEngine 委托钉死)✅
+- **底座勘定应用**:EXT-BOUNDARY libQt5Qml 45 符号 = QJSEngine 全家
+  → JsEngine 39 行锚点壳重做为真实现(铁律 6:12 函数逐个转写,
+  0064ab10/32/46/b0be/b0d0/ab5e/af3c/abb2 + bootstrap 收编
+  s_MuxPane_64b102)
+- **三处勘误修正**:① evaluate 槽位错位(program 塞 fileName 槽)
+  ② QJSEngine 值成员 → `QJSEngine *m_engine`(语料 +0x10,父链
+  this)③ MuxPane.h m_engine 类型 QJSEngine* → JsEngine*
+  (FUN_00766192 实证,0023:33040-44)
+- **ActionFactory 三宿主门对齐**:00767d08→JsEngine::newObject/
+  00767d2e→newQObjectCppOwned(补 CppOwnership 腿)/0076745c→call
+  (0064ab5e 同体)
+- runScript tr 文本(0xc91268)二进制取证未中(段映射 0x600000
+  差),字面腿 cited;0064b86a create 语义未解 cited
+- **EVP vault 定性**(ev lane):FUN_00a7dfb0(316B)唯一业务调用
+  = AES-256-CBC;blob = [32B 盐|48B key|48B iv|密文] base64;
+  主密码 PBKDF2-HMAC-SHA256(100000)派生;对象 = 配置敏感字段
+  (autoLogin/proxyPassword);包装链 5 函数(00a7e12e/e258/e3f0/
+  e5f6/e61c)→ 入 EXT-BOUNDARY
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

@@ -39,7 +39,7 @@
 | Widgets/PopupWidget | ⚠️ 部分同版 | TRIANGLE_HEIGHT 18↔6 待核 |
 | KeymapEngine(新) | ⏳ 引壳+装载器转写(批 42/47) | 装载器 s_wind_keymaps_768854(428B)转写落地;匹配体 = FUN_0067500e(9978B)已定位,转写待专用批 |
 | TelnetCommander(新) | ⏳ 槽体结构转写(批 41/48b) | metacall 00917e20 → 槽 0/1(FUN_008606fe/00860642)结构落地;协商 = session.term 配置驱动分类(批 48b/52 全链闭环);助手链(0085e2xx/0085fa60/00860a50)已转写;响应写出(term_processCR)与会话终端面(72014e)待转写 |
-| JsEngine(新) | ❌ 已回退(批 34) | 包装 API 无逐行转写源(evaluate/newQObject 仅锚点);待语料转写 JsEngine 体后重做 |
+| JsEngine(新) | ✅ 重做(批 68) | 底座勘定 = 动态 QJSEngine(EXT-BOUNDARY);12 函数逐个转写(0064a/b 族)+ bootstrap 收编 0064b102;tr 文本 0xc91268 字面 cited |
 
 ## 混合架构边界增补(2026-10-30 批 51)
 

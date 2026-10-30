@@ -55,7 +55,7 @@ Face 声明。
 | Qt5SerialPort | 18 | 串口会话 = 纯委托 QSerialPort |
 | Qt5Multimedia / Qt5Svg | 13 / 8 | 提示音 / SVG(QSvgRenderer 委托吻合)|
 | X11/Xtst | 10 | XSendEvent/XTestFakeKeyEvent/XKeysymToKeycode(按键模拟/热键)|
-| libcrypto 1.1 | 6 | EVP_aes_256_cbc+Cipher 族独立加密;调用者在 decomp-part-0042/0043 业务区(疑配置 vault,勘定待批)|
+| libcrypto 1.1 | 6 | **已勘定(批 68)**:FUN_00a7dfb0(316B)= AES-256-CBC;blob [32B 盐\|48B key\|48B iv\|密文] base64;主密码 PBKDF2-HMAC-SHA256(100000);对象 = 配置敏感字段(autoLogin/proxyPassword);包装链 00a7e12e/e258/e3f0/e5f6/e61c;padding 默认 PKCS7 待证 |
 
 静态(逆向对象,不在 NEEDED):Scintilla/boost/yaml-cpp/jsoncpp/onig。
 未定:Multimedia 13 具体符号、EVP 调用者语义。
