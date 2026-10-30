@@ -28,25 +28,7 @@
 
 #include <termios.h>
 
-class ShellProcess
-	: public QProcess
-{
-    Q_OBJECT
-
-public:
-	ShellProcess();
-
-private:
-	void setupChildProcess() final;
-
-private:
-	int m_handleMaster;
-	int m_handleSlave;
-    QString m_handleSlaveName;
-
-private:
-	friend class UnixPty;
-};
+#include "ShellProcess.h"
 
 class UnixPty
 	: public Pty

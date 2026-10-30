@@ -360,6 +360,25 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 97/98;剩 tbc3 = 原版字面态伪影(retry 随机)
 - loop-core Iter1 完成(decstbm_ri 裁决+修复);Iter2 = 键位引擎
 
+### 批 27(2026-10-30)/loop Iter2-4:键位引擎 ✅ + Telnet 会话链 ✅ + Pty 装配 ✅
+- **Iter2 键位引擎**:src/Editor/KeymapEngine —— wind.keymaps 装载
+  (531 条:477 action+50 script;裸控制字符 \u 转义容错;PCRE2
+  语义差条目量化跳过 =8)+ 锚定正则×mode 过滤;tests/keymap_test
+  (真文件 ≥500 + "."→Window.RepeatLastCommand + mode 过滤)✅
+- **Iter3 Telnet 会话链**:TelnetCommander::feed = 确定性 IAC 状态机
+  (PCRE2-Qt PARTIAL 语义坑弃用;refs 从 telnet.protocol 解码)+
+  loadProtocol(重复命名组首现保名/后现 _N + 派发空串回退)+
+  gen_stubs 双槽桩转正;tests/telnet_test(DO/WILL 协商+SB 子协商
+  24/0+直通+半截拼接+状态)✅ **教训:QByteArray(const char*)
+  strlen 在 \x00 截断——测试字节须显式长度**
+- **Iter4 Pty 装配**:src/Pty 入构建(UnixPty+Pty.cpp;Win/Con =
+  Windows 路径排除);base/UnixPty 签名对齐(QProcessEnvironment/
+  int);setErrorCode Linux 分支;ShellProcess 抽 ShellProcess.h
+  (moc 独立可解析;UnixPty.h 多行基类子句 = moc 类扫描盲区——
+  基类子句并回类行修复);Public/Spin.h 转发头;tests/pty_test
+  (createProcess echo → write/readAll 回环)✅
+- **ctest 8/8 全绿**(含 engtest3;keymap/telnet/pty 三新冒烟)
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

@@ -7,7 +7,7 @@ set(TEST_ENV
   "QT_QPA_PLATFORM=offscreen"
 )
 
-foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 keymap_test telnet_test)
+foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 keymap_test telnet_test pty_test)
   add_executable(${t} ${t}.cpp)
   target_include_directories(${t} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/Sessions
@@ -15,6 +15,7 @@ foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 keymap_test telnet_
     ${CMAKE_SOURCE_DIR}/src/Widgets
     ${CMAKE_SOURCE_DIR}/src/Protocols
     ${CMAKE_SOURCE_DIR}/src/Utility
+    ${CMAKE_SOURCE_DIR}/src/Pty
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/Scintilla/include
     ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase

@@ -17,6 +17,7 @@
 #ifndef PTY_H
 #define PTY_H
 
+#include <QProcessEnvironment>
 #include <QObject>
 
 #include "Public/Spin.h"
@@ -29,16 +30,16 @@ class Pty
 	Q_OBJECT
 
 public:
-	Pty();
+	explicit Pty(QObject *parent = nullptr);
 	virtual ~Pty() = default;
 
 	virtual bool createProcess(QString command, const QString &arguments,
-							   const QString &workingDirectory, const QStringList &environment,
-							   qint16 rows, qint16 columns) = 0;
+							   const QString &workingDirectory, const QProcessEnvironment &environment,
+							   int rows, int columns) = 0;
 	int errorCode() const { return m_errorCode; }
 	QString errorString();
 	virtual QByteArray readAll() = 0;	
-	virtual bool resizeWindow(qint16 rows, qint16 columns) = 0;
+	virtual bool resizeWindow(int rows, int columns) = 0;
 	void setErrorCode(int errorCode);
 	void setErrorString(const QString &errorString);
 	virtual qint64 write(const QByteArray &text) = 0;
