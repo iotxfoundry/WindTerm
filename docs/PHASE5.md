@@ -653,6 +653,26 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   助手链(表访问器/匹配/响应) cited — wave-2,逐批转写
 - 验证:构建零 undefined;ctest 6/6
 
+### 批 42-43(2026-10-30)/loop:keymap 装载器 + commander→session 链 ✅
+- **批 42**:s_wind_keymaps_768854(428B)转写 —— 双源累积
+  (global wind.keymaps FUN_005d7cf8 / user.keymaps
+  cfg_ensureProfileDir)→ FUN_0067461a 引擎复位(+0x68)→
+  toList 喂引擎;KeymapEngine 引壳 loadKeymapSources()落地
+  (匹配/分发体语料未转写 → 不写,铁律 6)
+- **批 43**:FUN_007da178(168B)转写 —— commander→session 链
+  (dynamic_cast 校验 → +0x48 写/FUN_007da09a 移除);
+  SuperCommander+0x48 成员入库;FUN_007d6cee 查表 cited
+- 验证:构建零 undefined;ctest 6/6(engtest3 直跑 OK);98/98
+
+### 批 44(2026-10-30)/loop:+0x101 发射点定性(cited 挂账)✅
+- 定位尝试:PMF connect 无串引用(moc 表索引);二进制无
+  "1/2checkControlCharacter" 连接串;E5b 回溯 = 排队激活链全
+  QtCore → 发射侧 = 事件循环分发,静态语料不可达
+- **定性**:触发发射点 = 语料静态不可达(cited — wave-2 永久
+  挂账);触发面实证(E7)与门转写(批 31)在案;运行期行为
+  与 E7 矩阵一致即可,接线留待动态证据(probe 捕获 connect 调用)
+- 门本体(0025 语料 1714-1749)已转写休眠,QUIRKS 22 状态准确
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
