@@ -21,7 +21,8 @@
 //   FUN_0067461a(engine@+0x68,0)引擎复位(批 46 SuperKeymap::reset)
 //   FUN_00a7fdd8(71B)→ FUN_00a7fd5e(113B):bit2 门 → yaml 解析 →
 //     yaml_toQVariant(ConfigBridge 委托,0x00a7ecde 族)
-// 匹配体:语料未定位(cited — wave-2,PHASE5 批 46 记录)。
+// 匹配体:已定位 = FUN_0067500e(9978B)+ keys_parseAngleNotation
+// 00674cdc(753B);转写需专用批(PHASE5 批 53 记录)。
 class KeymapEngine {
 public:
     static KeymapEngine &instance();

@@ -1,8 +1,8 @@
 #include "SuperKeymap.h"
 
-// 语料内部(cited — wave-2,批 46):FUN_0067db40(60B,QList 容量
-// 确保)/ FUN_0067ce4c(49B,槽交换销毁)/ FUN_0067ce30(项销毁走查)
-// —— Qt QListData 管理形,Qt5 QList 原生等价操作承载。
+// 语料内部:FUN_0067db40(60B,QList 容量确保)/ FUN_0067ce4c(49B,
+// 槽交换销毁)/ FUN_0067ce30(项销毁走查)—— Qt QListData 管理形,
+// Qt5 QList 原生等价操作承载(同源等价,非缺口)。
 
 // 00674648(161B)语料转写:
 //   QObject(parent) → vtable → +0x10 槽列表(FUN_0067db7c,容量 2)

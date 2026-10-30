@@ -772,6 +772,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - ActionFactory theme 桩 → ThemeIcons::loadSvg 委托;1 处 cited 清除
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 53(2026-10-30)/loop:keymap 匹配体定位 + 解析体转写入场 ✅
+- **匹配体定位**:FUN_0067500e(9978B,SuperKeymap 邻域匹配/分发
+  巨函数)+ keys_parseAngleNotation(00674cdc,753B,键角括号解析)
+  —— "语料未定位"状态解除,转写需专用批(体量 = 本域最大)
+- **keys_parseAngleNotation 结构**:regex "(?<!\\?P|\\?)<([^>]*)>"
+  (避 ?P 命名组)→ match 迭代 → captured 修剪重组(00674d20-
+  00674e49 区);余段(重组细节)下批
+- 注记精度化:SuperKeymap.h/cpp + KeymapEngine.h 由"未定位"更新为
+  "已定位 0067500e/00674cdc,转写待专用批"
+- 验证:构建零 undefined;ctest 6/6
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

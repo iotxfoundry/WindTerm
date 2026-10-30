@@ -1,4 +1,5 @@
 #include "ActionFactory.h"
+#include "MuxPane.h"
 #include "ThemeIcons.h"
 
 #include <QAction>
@@ -12,20 +13,37 @@
 #include <json/json.h>
 #include <memory>
 
-// FUN_00668f3a(305B)—— cited — wave-2:按名调用包装。语料体:
-//   arg 未定义 → FUN_00767d08(newObject)缓存 host+0x18;参数表
-//   = [FUN_00767d2e(newQObject(param_4)), host+0x18/argval];
-//   FUN_0076745c 按名调用;isError → undefined。宿主类 =
-//   FUN_00665d8a qobject_cast(PTR_011a6c00,Phase 4c 面板层)——
-//   待该类落地后以 QJSEngine 直调完成本函数
+// FUN_00668f3a(305B)+ FUN_0076745c(104B)+ FUN_0064ab5e(76B)
+// 语料转写(批 50):arg 未定义 → FUN_00767d08(newObject)缓存
+// host+0x18;参数表 = [FUN_00767d2e(newQObject(action)),
+// host+0x18 缓存/argval];引擎门(0076745c)→ FUN_0064ab5e
+// callWithInstance(undefined-instance, args);isError → undefined
 static QJSValue jsCallOnPane(QObject *target, const char *jsFuncName,
                              QAction *action, const QJSValue &arg)
 {
-	Q_UNUSED(target);
-	Q_UNUSED(jsFuncName);
-	Q_UNUSED(action);
-	Q_UNUSED(arg);
-	return QJSValue(QJSValue::UndefinedValue);
+	auto *pane = qobject_cast<MuxPane *>(target);   // FUN_00665d8a
+	if (pane == nullptr || pane->m_engine == nullptr)
+		return QJSValue(QJSValue::UndefinedValue);  // 语料引擎门
+	QJSValueList args;
+	if (arg.isUndefined()) {
+		// FUN_00767d08:newObject → host+0x18 缓存
+		if (pane->m_cachedArg == nullptr)
+			pane->m_cachedArg = new QJSValue(pane->m_engine->newObject());
+	}
+	args << pane->m_engine->newQObject(action);     // FUN_00767d2e
+	args << (arg.isUndefined() && pane->m_cachedArg != nullptr
+	             ? *pane->m_cachedArg
+	             : arg);
+	// FUN_0076745c(104B)引擎门 + FUN_0064ab5e(76B)
+	// callWithInstance(undefined-instance, args)
+	if (pane->m_engine == nullptr)
+		return QJSValue(QJSValue::UndefinedValue);
+	const QString fn = QString::fromUtf8(jsFuncName);
+	QJSValue fnVal = pane->m_engine->globalObject().property(fn);
+	if (!fnVal.isCallable())
+		return QJSValue(QJSValue::UndefinedValue);
+	return fnVal.callWithInstance(QJSValue(QJSValue::UndefinedValue),
+	                              args);
 }
 
 // 006697b2(2282B)—— 语料形(批 38 反汇编实证):param = (out,
@@ -53,9 +71,7 @@ void js_actionFire(QVariant &out, QObject *target, const char *jsFuncName,
 	if (!script.canConvert<QJSValue>())
 		return;
 	// FUN_00668f3a(006699xx 调用点):引擎宿主解析 = 语料
-	// FUN_00665d8a(qobject_cast → PTR_011a6c00 类)—— 该类属
-	// Phase 4c 面板层,未落地 → cited — wave-2(链接点在案,
-	// paneHost 落地后本函数即活)
+	// FUN_00665d8a(qobject_cast → MuxPane,批 50 壳)
 	QJSValue result = jsCallOnPane(target, jsFuncName, linked, arg);
 	if (result.isError())
 		return;                              // 语料 isError → undefined
@@ -134,7 +150,7 @@ void ActionFactory::applyEntry(QAction *action, const QVariantMap &entry)
 	//   ("iconFile",s)(006663e1)
 	const QString icon = entry.value(QStringLiteral("icon")).toString();
 	if (!icon.isEmpty()) {
-		const QIcon loaded = theme_icon_load_svg(icon);   // cited — wave-2
+		const QIcon loaded = theme_icon_load_svg(icon);   // 批 49 转写
 		if (!loaded.isNull())
 			action->setIcon(loaded);
 		action->setProperty("iconFile", icon);
