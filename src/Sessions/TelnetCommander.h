@@ -30,6 +30,11 @@ public slots:
 	//   匹配 → s_session_term_72014e
 	void negotiateSubOption(unsigned char command, unsigned char option);
 
+signals:
+	// 协商响应写出点(term_processCR 承载;消费者 = 会话传输层,
+	// 随 TelnetSession 重做批接线)
+	void negotiationReply(const QByteArray &data);
+
 private:
 	QVector<int> m_optionStates;   // +0x128 选项状态向量(语料成员)
 	Q_DISABLE_COPY(TelnetCommander)

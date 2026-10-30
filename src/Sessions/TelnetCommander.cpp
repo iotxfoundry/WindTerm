@@ -1,4 +1,5 @@
 #include "TelnetCommander.h"
+#include "CTerminalConfig.h"
 
 #include <QVector>
 
@@ -63,8 +64,9 @@ TelnetCommander::TelnetCommander(QObject *parent)
 }
 
 // 槽 0 = FUN_008606fe(460B)语料转写:
-//   FUN_0085f5d4(this,0,command,option)(记录面;cited — wave-2)
-//   表 = FUN_00860a50 单例;+0x128 向量非空门(this+0x128 != +0x130)
+//   FUN_0085f5d4(1108B)= ostream 调试记录面(telnet_cmdName
+//   00861156 格式化;[TERM] 通道宿主调试输出,无终端行为 ——
+//   树内无宿主调试汇,记录面定性 no-op,批 48)
 //   迭代:option==entry.option → verbE2de(entry.verb)==command →
 //     向量[i]==0 → verbE308(entry.flag 域)→ FUN_0085fa60 响应
 void TelnetCommander::negotiateOption(unsigned char command,
@@ -89,10 +91,23 @@ void TelnetCommander::negotiateOption(unsigned char command,
 	}
 }
 
+// s_session_term_860126(00860126,1251B)TTYPE 分支语料转写
+// (批 48):command==0x18 && option==1 → 响应 = [0x18 前导]
+//   config("session.term")(config getter 族;终类型值随配置,
+//   捕获 xterm-256color = 原版配置值实证)
+static QByteArray sessionTermResponse(unsigned char lead,
+                                      const QByteArray &termType)
+{
+	QByteArray r;
+	r.append(lead);
+	r.append(termType);
+	return r;
+}
+
 // 槽 1 = FUN_00860642(188B)语料转写:
 //   表 = FUN_00860a50 单例;迭代:entry.flag(+4)==1 →
-//     FUN_0085e326(this,i)&1 → s_session_term(this,command,option)
-//     (真身 s_session_term_72014e,1323B)即返
+//     FUN_0085e326(this,i)&1 → s_session_term_860126
+//     (00860126,1251B)即返
 void TelnetCommander::negotiateSubOption(unsigned char command,
                                          unsigned char option)
 {
@@ -101,8 +116,22 @@ void TelnetCommander::negotiateSubOption(unsigned char command,
 		if (table[i].flag != 1)
 			continue;
 		if ((m_optionStates.value(i) & 1) != 0) {   // FUN_0085e326
-			// s_session_term_72014e(1323B)—— cited — wave-2
-			// (会话终端面,1323B 待转写)
+			// s_session_term_860126 TTYPE 分支:config
+			// "session.term"(0x00a7ecde 族 config getter 面;
+			// 经 CTerminalConfig 委托)→ negotiationReply 写出
+			// (term_processCR 承载 = 会话输出通道)
+			if (command == 0x18 && option == 1) {
+				// config 值(CTerminalConfig 委托);缺省 =
+				// 捕获实证值(xterm-256color)
+				const QString term = CTerminalConfig::instance()
+				                         ->value(QStringLiteral(
+				                                     "session.term"),
+				                                 QStringLiteral(
+				                                     "xterm-256color"))
+				                         .toString();
+				emit negotiationReply(
+				    sessionTermResponse(0x18, term.toUtf8()));
+			}
 			return;
 		}
 	}

@@ -731,6 +731,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK;**98/98**
   (rowUsedWidth 转写零回归)
 
+### 批 48b(2026-10-30)/loop:TelnetCommander 双 cited 清除 ✅
+- **s_session_term_860126(00860126,1251B)TTYPE 分支转写**:
+  command==0x18 && option==1 → 响应 = [0x18] + config
+  "session.term"(CTerminalConfig 委托;缺省 xterm-256color =
+  捕获实证值)—— 捕获字节与配置读取闭环
+- **FUN_0085f5d4(1108B)定性**:ostream 调试记录面(telnet_cmdName
+  00861156 格式化;[TERM] 宿主调试输出,无终端行为)→ no-op 定性
+- negotiationReply 信号补声明(term_processCR 写出承载;消费者随
+  TelnetSession 重做批)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
