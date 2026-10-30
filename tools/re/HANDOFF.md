@@ -77,9 +77,12 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **keymap 匹配体转写**(已定位):FUN_0067500e(9978B 匹配/分发
-   巨函数)+ keys_parseAngleNotation 00674cdc(753B 角括号解析,
-   结构已读)—— 专用批逐行转写
+1. **keymap 匹配体转写**(已定位+勘察批 54):FUN_0067500e(9978B
+   递归树行走,0067 包装族依赖)+ keys_parseAngleNotation 00674cdc
+   (753B,结构已读)—— 包装族逐个转写前置
+1b. **Phase 3 命令补全**(批 57 精确清单):语料 dispatch
+   s_line_caret_remote_a418c4(00a418c4,37951B)= 151 命令;缺失
+   70(清单在 PHASE5 批 57)—— 每条 = 巨 switch 内体读取+转写
 2. **TelnetSession 装配重做**:语料面已侦察 —— TelnetSession 族 =
    vt15(008616ea,303B,协商响应构建)+ metaObject 00917f76/
    metacast 00917f8e/metacall 00917fd0(5B 无槽壳);QTcpSocket
