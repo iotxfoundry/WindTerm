@@ -1,4 +1,5 @@
 #include "SuperSessionPrivate.h"
+#include "SuperCommander.h"
 #include "SuperSession.h"
 
 #include <QMap>
@@ -204,4 +205,25 @@ QStringList SuperSessionPrivate::authMethods() const
 		m_authMethods = out;
 	}
 	return m_authMethods;
+}
+
+// FUN_007da178(168B,批 43 语料转写):commander→session 链。
+// 语料体:FUN_007d6cee(&node, this, commander)查注册表节点 →
+//   node 非空 && node+4 非零 && session 非空 → dynamic_cast 校验
+//   (PTR_011a7310/011a9050)→ session 非空写 commander+0x48,
+//   空 → FUN_007da09a(this, commander)移除。
+// 本树等价面:Commander UUID 表(kind 0)置/清 commander→session
+// 链接;FUN_007d6cee/007da09a 对应本类注册表查/删(cited —
+// wave-2:节点结构逐字段转写待注册表批)。
+void SuperSessionPrivate::linkCommanderSession(SuperCommander *commander,
+                                               SuperSession *session)
+{
+	// 语料体:dynamic_cast 校验后 commander+0x48 = session(非空)
+	// / FUN_007da09a 移除(空);FUN_007d6cee 查表 cited — wave-2
+	if (commander == nullptr)
+		return;
+	if (session != nullptr)
+		commander->m_session = session;            // 语料 +0x48 写
+	else
+		commander->m_session = nullptr;            // 语料 FUN_007da09a
 }

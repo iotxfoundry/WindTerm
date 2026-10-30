@@ -25,6 +25,7 @@ public:
 	QByteArray processOutput(const QByteArray &data);  // SuperCommander_vt14(007d1348)
 	void writeSplitData(const char *data, int len);    // 007d1f5a(解析链入口)
 	Screen *m_screen;
+	class SuperSession *m_session = nullptr;   // +0x48(FUN_007da178 写;commander→会话链)
 
 	// 动作 FIFO 队列(批 21 pending-v3;probe15 实锤:E5 字面先行/
 	// 动作后至、E4 字节序 FIFO、tbc_all 88 需 3g 先于 \t)。队列项 =

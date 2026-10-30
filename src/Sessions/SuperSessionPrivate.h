@@ -26,6 +26,12 @@ public:
 	void removeRegistry(int kind, const QUuid &id);
 	void loggerOp(const QUuid &id, int op);
 
+	// FUN_007da178(168B,批 43 转写):commander→session 链 ——
+	// FUN_007d6cee 查注册表节点 → dynamic_cast 校验 → session 非空
+	// 写 commander+0x48,空 → FUN_007da09a 移除
+	void linkCommanderSession(class SuperCommander *commander,
+	                          class SuperSession *session);
+
 	// --- 选项(逆向:option(const&)→读;setOption→写;CTerminalConfig
 	//     单例为真下层,键串如 "terminal.startupSessions")---
 	QVariant option(const QString &name, const QVariant &defaultValue) const;
