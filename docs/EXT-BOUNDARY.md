@@ -58,4 +58,17 @@ Face 声明。
 | libcrypto 1.1 | 6 | **已勘定(批 68)**:FUN_00a7dfb0(316B)= AES-256-CBC;blob [32B 盐\|48B key\|48B iv\|密文] base64;主密码 PBKDF2-HMAC-SHA256(100000);对象 = 配置敏感字段(autoLogin/proxyPassword);包装链 00a7e12e/e258/e3f0/e5f6/e61c;padding 默认 PKCS7 待证 |
 
 静态(逆向对象,不在 NEEDED):Scintilla/boost/yaml-cpp/jsoncpp/onig。
-未定:Multimedia 13 具体符号、EVP 调用者语义。
+未定:Multimedia 13 具体符号(勘定见下 EVP 行)。
+
+## lib/ 子目录(2026-10-31 补勘):26 个 Qt 插件,零直调
+
+子目录(platforms/imageformats/iconengines/audio/mediaservice/
+platforminputcontexts/platformthemes/xcbglintegrations)26 so 全为
+标准 Qt 插件分类:
+- **零直调实证**:NEEDED 不含;导出表 ∩ 主二进制未定义 = 16 符号且
+  全为 libstdc++ std::string 模板实例(同版工具链共性,非接口)
+- 加载机制 = QPluginLoader 运行时自动匹配(QPA/图像格式插件),
+  非主二进制代码显式调用;测试环境 QT_PLUGIN_PATH 已覆盖
+- 唯一主动加载抽象 = **DynamicLibraryImpl**(FUN_00944a0e 178B 工厂:
+  QLibrary 包路径 + vtable 9763/9777 两实现)—— 语料无调用者转写
+  (动态扩展机制存在未激活),登记低优先级逆向点
