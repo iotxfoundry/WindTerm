@@ -673,6 +673,36 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   与 E7 矩阵一致即可,接线留待动态证据(probe 捕获 connect 调用)
 - 门本体(0025 语料 1714-1749)已转写休眠,QUIRKS 22 状态准确
 
+### 批 46(2026-10-30)/loop:SuperKeymap 类转写 ✅
+- **FUN_00674648(161B,ctor)解明**:QObject(parent) → vtable →
+  +0x10 列表(FUN_0067db7c init,2)→ **+0x18 = QRegularExpression
+  ("meta\+|\+meta",CaseInsensitive)**(006746b9 字面实证)
+- **FUN_0067461a(45B)复位**:FUN_0067db40(+0x10)→ FUN_0067ce4c
+  (+0x10 + mode*8 + *(+0x10+0x10))—— mode*8 槽寻址
+- **SuperKeymap 族边界**:语料仅 ctor/dtor + moc 三件(metaObject/
+  metacast/metacall 全 5-66B 壳,无槽)→ **匹配体语料未定位**
+  → cited — wave-2 挂账(PHASE5 批 46);ctor/复位已转写
+- 落地:src/Editor/SuperKeymap.{h,cpp}(Editor moc GLOB 补回——
+  批 34 回退时连带丢失)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
+### 批 45(2026-10-30)/loop:TelnetCommander 助手族全转写 ✅
+- **命令码四式**(各 13B,算术原样):e2de(0→-3/else -5)/
+  e2ec(0→-2/-4)/e2fa(0→-4/-2)/e308(0→-5/-3)
+- **+0x128 向量位操作**:e316(清零)/e326(&1)/e334(vec[7]&1^1)/
+  e34a(>>4&1)→ m_optionStates 成员入库
+- **静态表单例**(FUN_00860a50 224B guard+once / FUN_00860b6e 254B
+  11 条目 × 3 dword;稀疏写 d0=0x1f/d2=0x10/d6=0x18/d8=0x10/d18=1;
+  重叠字节区 decomp 歧义 cited)——**批 41 注记更正**:表 = 静态
+  单例,非 CTerminalConfig+0xb0(Ghidra 调用描述符混淆)
+- **响应链**:FUN_0085fa60(349B)= QByteArray{字节,option} →
+  term_processCR(this,bytes,1)→ FUN_0085f5d4(this,1,verb,option);
+  **s_session_term 真身 = s_session_term_72014e(0072014e,1323B)**
+  (批 41 误名 860126 更正)
+- 槽 0/槽 1 体按助手族全转写;响应写出(term_processCR)与
+  s_session_term_72014e cited — wave-2(会话输出/终端面待转写)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

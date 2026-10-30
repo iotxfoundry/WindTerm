@@ -5,6 +5,8 @@
 
 #include "SuperCommander.h"
 
+#include <QVector>
+
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // No new meta methods beyond SuperCommander.
 //
@@ -22,13 +24,14 @@ public:
 	virtual ~TelnetCommander(void) = default;
 public slots:
 	// 槽 0 = FUN_008606fe(460B):表查 option 匹配 → 响应链
-	//   FUN_0085e2de/0085e308/0085fa60(+0x128/+0x130 向量门)
+	//   FUN_0085e2de/0085e308/0085fa60(+0x128 向量门)
 	void negotiateOption(unsigned char command, unsigned char option);
 	// 槽 1 = FUN_00860642(188B):表 flag==1 条目 → FUN_0085e326
-	//   匹配 → s_session_term_860126
+	//   匹配 → s_session_term_72014e
 	void negotiateSubOption(unsigned char command, unsigned char option);
 
 private:
+	QVector<int> m_optionStates;   // +0x128 选项状态向量(语料成员)
 	Q_DISABLE_COPY(TelnetCommander)
 };
 

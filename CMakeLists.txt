@@ -109,6 +109,7 @@ endif()
 
 file(GLOB WT_MOC_HEADERS
   ${CMAKE_SOURCE_DIR}/src/Actions/*.h
+  ${CMAKE_SOURCE_DIR}/src/Editor/*.h
   ${CMAKE_SOURCE_DIR}/src/Sessions/*.h
   ${CMAKE_SOURCE_DIR}/src/Widgets/*.h
   ${CMAKE_SOURCE_DIR}/src/Protocols/*.h
