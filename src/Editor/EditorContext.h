@@ -1,3 +1,4 @@
+#include <QTextCodec>
 #ifndef EDITORCONTEXT_H
 #define EDITORCONTEXT_H
 
@@ -8,6 +9,7 @@
 // (session_view_soft_reset)与视图刷新(vtable+0xa0)腿在 Phase-4
 // 视图装配时接线。
 
+#include <QByteArray>
 #include <QString>
 #include <QVariant>
 #include <QVariantList>
@@ -28,6 +30,56 @@ public:
 	int fieldD9c = 0;            // +0xd9c(0x756a 邻区写)
 	quint64 currentBufferId = 0; // +0x600(FUN_0092f0f6 setCurrentBuffer)
 	int taskGeneration = 0;      // +0x128(FUN_0092e44e 线程池代计数)
+	// --- 文档模型层(批 58 语料:+0xe0 doc 对象族)---
+	// 语料:多态文本缓冲包装(vtable:+0x28 长度/FUN_00928a7a +0x30
+	//   拷出)+ QTextCodec 解码(FUN_0099785e ConverterState 静态态
+	//   DAT_011c26c0);Qt QByteArray 原生承载(等价面)。
+	QByteArray docBytes;                 // +0xe0 文档字节缓冲
+	QTextCodec *docCodec = nullptr;      // 解码 codec(nullptr = UTF-8)
+
+	// FUN_009252d4(15B→FUN_009987a2 123B):pos 处字符字节长
+	//   (编解码多字节行走;flag = CRLF 对分支 FUN_009975de \r\n)
+	int docCharLength(long pos) const
+	{
+		if (pos < 0 || pos >= (long)docBytes.size())
+			return 0;
+		if ((docBytes[(int)pos] & 0x80) == 0)
+			return 1;                    // ASCII 单字节
+		const unsigned char c = docBytes[(int)pos];
+		if ((c & 0xE0) == 0xC0) return 2;
+		if ((c & 0xF0) == 0xE0) return 3;
+		if ((c & 0xF8) == 0xF0) return 4;
+		return 1;
+	}
+
+	// FUN_0093079a(257B)链:定位 → substr → codec 解码 → ucs4
+	uint docCharCodeAt(long pos) const
+	{
+		const int len = docCharLength(pos);
+		if (len <= 0)
+			return 0xFFFF;               // 语料空 → 0xffff
+		QByteArray seq = docBytes.mid((int)pos, len);
+		QTextCodec *codec =
+		    docCodec ? docCodec : QTextCodec::codecForName("UTF-8");
+		if (codec == nullptr)
+			return 0xFFFF;
+		const QString s = codec->toUnicode(seq);
+		if (s.isEmpty())
+			return 0xFFFF;
+		const QVector<uint> cps = s.left(1).toUcs4();
+		return (uint)cps.value(0, s.at(0).unicode());
+	}
+
+	// buf_substr(0092acb8,192B):夹取 + 空返回 shared_null 语义
+	QByteArray docSub(long from, long to) const
+	{
+		const int len = docBytes.size();
+		long f = qBound(0L, from, (long)len);
+		long t = (to < 0) ? len : qBound(0L, to, (long)len);
+		if (f >= t)
+			return QByteArray();         // 语料 shared_null
+		return docBytes.mid((int)f, (int)(t - f));
+	}
 
 	// --- 边栏(0x7597;FUN_00a1fd8c)---
 	bool marginTrackChange = false;  // +0x113a

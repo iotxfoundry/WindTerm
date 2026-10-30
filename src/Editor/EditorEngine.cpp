@@ -574,7 +574,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		if (m_ctx.field1067 != (signed char)v) {
 			m_ctx.field1067 = (signed char)v;
 			if (v == 0) {
-				// FUN_00a245c6(this,0,0)— cited — wave-2
+				// FUN_00a245c6(this,0,0)— cited(Phase-4b)
 			}
 		}
 		return QVariant(0);
@@ -584,7 +584,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		const bool v = a.toBool();
 		if (m_ctx.flag1b3 != v) {
 			m_ctx.flag1b3 = v;
-			// (**+0xa0)(ctx) 刷新 — cited — wave-2(Phase-4b)
+			// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
 		}
 		return QVariant(0);
 	}
@@ -601,9 +601,18 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		if (m_ctx.currentBufferId == bufId)
 			return QVariant(0);              // 语料同 id 短路
 		m_ctx.currentBufferId = bufId;
-		// setCurrentBuffer 核心(1279B)与刷新腿 — cited — wave-2
+		// setCurrentBuffer 核心(1279B)与刷新腿 — cited(Phase-4b)
 		// (Phase-4b 视图面;字段面已落位)
 		return QVariant(0);
+	}
+	case 0x7553: {   // buf_substr(0092acb8,192B):doc[a,b) →
+	                 //   QVariant(bytearray);空 = shared_null 语义
+		const long long from = a.toLongLong();
+		const long long to = b.toLongLong();
+		return QVariant(m_ctx.docSub(from, to));
+	}
+	case 0x7566: {   // FUN_0093079a(257B):charAt → ucs4 码点
+		return QVariant((uint)m_ctx.docCharCodeAt(a.toLongLong()));
 	}
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/

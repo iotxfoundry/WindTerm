@@ -930,6 +930,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   locate/charAt/substr 族)后命令批量接线
 - 验证:零行为变更(勘察批)
 
+### 批 58(2026-10-30)/loop-start:EditorContext 文档模型层转写落地 ✅
+- **文档层模型解明**:doc = 多态文本缓冲包装(vtable +0x28 长度/
+  +0x30 拷出,FUN_0092801a/00928a7a)+ QTextCodec 解码
+  (FUN_0099785e ConverterState 静态态 DAT_011c26c0)
+- **EditorContext 落地**:docBytes(+0xe0 文档缓冲)/docCodec
+  (+0x28 解码)/ docCharLength(FUN_009252d4→FUN_009987a2 多字节
+  行走 + FUN_009975de CRLF 对分支)/ docSub(buf_substr 0092acb8:
+  夹取 + 空返回 shared_null)/ docCharCodeAt(FUN_0093079a 链:
+  substr → codec 解码 → ucs4)
+- **命令接线**:0x7553(docSub → QVariant(bytearray))/
+  0x7566(charAt → ucs4 int)—— 两命令全转写
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**10/70**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
