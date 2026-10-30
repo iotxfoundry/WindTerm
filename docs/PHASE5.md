@@ -617,6 +617,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (体事实全数入档,转写批接续)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 39(2026-10-30)/loop:MuxPane JS 宿主引导转写 ✅
+- **s_MuxPane_64b102(1707B)流程解明**:旧引擎 @+0x10 →
+  deleteLater → new QJSEngine → installExtensions(All, undefined)
+  → "King"/"MuxPane" 元对象 newQMetaObject → globalObject 注册 →
+  "Object.freeze(%1)" 冻结 → "application"/"window" newQObject 桥
+  → setProperty + evaluate(0064b3xx/0064b4xx 区)
+- **落地**:src/Actions/MuxPaneJs.{h,cpp}(bootstrap 幂等;桥对象
+  参数化 —— 应用级单例来源属 Phase 4c,不发明)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK(间歇首跑
+  FAIL 复跑过);phase5 98/98
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
