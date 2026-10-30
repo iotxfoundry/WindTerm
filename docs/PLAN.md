@@ -28,6 +28,7 @@
 | Phase 5 行为对比 | ✅ **98 序列 98/98 MATCH 全绿**(批 30 收官:tbc3 = +0x101 流回显 QUIRKS 22,驱动 resetState+稳定性网;详见 docs/PHASE5.md) |
 | 会话装配 | ✅ **管理收口**(批 29:ShellSession::stop + TelnetSession 网络接线 RFC 默认拒绝;telnetsocket_test + stop 冒烟;ctest 11/11) |
 | 新组件四件 | ✅ KeymapEngine(wind.keymaps 531 条)/ TelnetCommander IAC 状态机 / UnixPty+Pty 入构建 / TelnetProtocol 同版验证(见 docs/CALIBRATION.md) |
+| 组件重做(铁律 6) | ⏳ **cited 全清(批 47-52,16→0)**:ActionFactory/ThemeIcons/JsEngine/MuxPaneJs/MuxPane 壳/SuperKeymap/KeymapEngine 引壳/TelnetCommander 槽体 = 语料转写态;待转写 = keymap 匹配体(0067500e,9978B)/TelnetSession 装配(五元组)/ShellSession 装配 |
 
 测试矩阵:**ctest 11/11**(e2eterm 25 + recheck 22 + engtest×2 +
 sshsmoke + keymap/telnet/pty/shellsession/telnetsocket 五冒烟;

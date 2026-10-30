@@ -3,16 +3,21 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-30 第七次交接,批 34 铁律回退)
+## 一句话状态(2026-10-30 第八次交接,清扫 loop 收官)
 
-**铁律 6 入库(用户令):产品代码零自研,无转写落点立刻回退。**
-按此标准**全量回退**本阶段无落点组件:TelnetSession/TelnetCommander
-退 cited 空壳、ShellSession 退空壳、KeymapEngine/JsEngine 删除、
-+0x101 触发接线移除(门转写保留、休眠)、六冒烟测试随组件退场。
-**保留(有落点)**:98 序列 98/98(终端核心全转写)/Pty 开源码
-逐句同构/Screen ctor 修复/批 26 统一模型。**ctest 6/6**(engtest3 间歇直跑 OK)。**批 35 ActionFactory 语料转写落地**(动作工厂/装配/条目四键;js_actionFire/主题图标 cited 桩)。
-实验资产在案:telnet_capture.json(协商字节)/E1-E7 矩阵 ——
-组件重做一律先语料定位转写落点。**本地领先 54 提交**(未推送)。
+**铁律 6 执行成果:cited 全清(src/ 内 "cited — wave-2" = 0)**
+——批 47-52 六批转写:KeymapEngine YAML 装载/注册表链接面/
+rowUsedWidth payload/Telnet TTYPE 分支/主题图标链(QSvgRenderer
+委托)/jsCallOnPane(MuxPane 壳)/queryProtocolLevel 全链
+(session.term 分类器 ansi/tmux/vt/xterm)。
+**组件态**:ActionFactory/ThemeIcons/JsEngine/MuxPaneJs/MuxPane 壳
+/SuperKeymap/KeymapEngine 引壳/TelnetCommander 槽体(语料转写);
+TelnetSession/ShellSession 装配 = cited 空壳(待五元组语料批)。
+**关键发现**:Telnet 协商 = session.term 配置驱动分类器(ansi/tmux/
+vt/xterm → 协议级);SVG 光栅化 = QSvgRenderer 真库委托;
+glitch 族根源 = 排队元调用时序。**验证**:ctest 6/6(冒烟随组件
+回退退场);phase5 98/98;engtest3 直跑协议。**本地领先 75 提交**
+(未推送,遵规范)。
 
 ## 一句话状态(2026-10-29 第四次交接)
 
@@ -72,16 +77,19 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **组件重做 = 先语料后代码**(铁律 6):批 35 ActionFactory +
-   批 36 JsEngine 类体转写已落地;继序 = js_actionState(00669086)
-   + js_actionFire(006697b2)全转写(依赖 MuxPane 类/属性名串)
-   → TelnetCommander 槽体 → keymap 匹配函数 → ShellSession/
-   TelnetSession 装配路径
-2. **+0x101 触发发射点语料定位**(QUIRKS 22:门已转写休眠,
-   排队置位触发待语料函数)
-3. **Phase 4a 收尾**:Commander UUID 表**插入**侧(语料未定位)
-4. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类)
-5. Phase 5b(编辑引擎行为对比)/5c(会话持久化对比)
+1. **keymap 匹配体转写**(已定位):FUN_0067500e(9978B 匹配/分发
+   巨函数)+ keys_parseAngleNotation 00674cdc(753B 角括号解析,
+   结构已读)—— 专用批逐行转写
+2. **TelnetSession 装配重做**:语料五元组(Session/Bridge/Commander
+   e3474ff4 面)定位 → 槽体/读写面按转写重做(negotiationReply
+   写出点已备)
+3. **MuxPane 面板装配**(Phase 4c):ThemeIcons::setThemeDir 装配
+   期接线 + 面板 QWidget 面语料定位
+4. **+0x101 发射点动态证据**(QUIRKS 22:门已转写;connect probe
+   捕获激活链 = 静态不可达的动态补充)
+5. **Telnet 助手深链**:s_session_term_72014e(1323B)/
+   term_processCR 写出面 / FUN_0085f5d4 日志体(1108B)
+6. 98→130+ 扩谱;Phase 4c;Phase 5b/5c
 
 ## 已知开放问题
 

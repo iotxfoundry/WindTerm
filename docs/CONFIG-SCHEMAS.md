@@ -52,10 +52,11 @@ user.config 实际只有少量键(fingerprint/language/theme/lockScreen)
 
 1. **ProfileLoader 补全局默认层**:读 wind.config 为基线,用户配置
    覆写——value(key) 无需 default 参数(有权威默认)
-2. **键位引擎**:批 27/32 实现已回退(批 34 铁律,无转写落点)
-   ——待语料定位 keymap 匹配/分发函数后按转写重做
-3. **Telnet 协议**:批 27/33 实现已回退(批 34 铁律)——协商字节
-   实验锚在案(telnet_capture.json),待语料定位槽体后按转写重做
+2. **键位引擎**:引壳+装载器转写落地(批 42/47);匹配体已定位
+   FUN_0067500e(9978B),转写待专用批
+3. **Telnet 协商**:槽体结构+分类器转写落地(批 41/48b/52:
+   session.term 配置驱动,ansi/tmux/vt/xterm);响应写出通道待
+   TelnetSession 重做批
 4. **wind.actions 动作面**:批 32 实现已回退(批 34 铁律)
 5. **触发器/超链接引擎**:triggers.config 的 {text.pattern, action,
    lineColor} 面与 shell 集成 notify* 通道对接

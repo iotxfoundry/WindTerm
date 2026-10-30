@@ -37,8 +37,8 @@
 | Pty/UnixPty | ⚠️ 部分同版 | posix_openpt 链/termios/utmpx 逐句同构+布局吻合;差异 = 第 5 纯虚(cwd readlink)/Q_OBJECT/stop() 顺序;**base 签名已对齐**(QProcessEnvironment/int;setErrorCode Linux strerror 分支);ShellProcess 抽 ShellProcess.h(moc 类扫描盲区:基类子句换行) |
 | Widgets/ScrollBar+Splitter | ✅ 同版 | 布局逐字节吻合;Phase 4c 需补 SplitterGroup(仓库缺) |
 | Widgets/PopupWidget | ⚠️ 部分同版 | TRIANGLE_HEIGHT 18↔6 待核 |
-| KeymapEngine(新) | ❌ 已回退(批 34) | 装载/匹配无逐行转写源,按铁律 6 退场;待语料定位 keymap 匹配函数后按转写重做 |
-| TelnetCommander(新) | ❌ 已回退(批 34) | IAC 状态机 feed/协商策略无逐行转写源,退 cited 空壳;协商字节实验锚在案(telnet_capture.json),待语料定位槽体后按转写重做 |
+| KeymapEngine(新) | ⏳ 引壳+装载器转写(批 42/47) | 装载器 s_wind_keymaps_768854(428B)转写落地;匹配体 = FUN_0067500e(9978B)已定位,转写待专用批 |
+| TelnetCommander(新) | ⏳ 槽体结构转写(批 41/48b) | metacall 00917e20 → 槽 0/1(FUN_008606fe/00860642)结构落地;协商 = session.term 配置驱动分类(批 48b/52 全链闭环);助手链(0085e2xx/0085fa60/00860a50)已转写;响应写出(term_processCR)与会话终端面(72014e)待转写 |
 | JsEngine(新) | ❌ 已回退(批 34) | 包装 API 无逐行转写源(evaluate/newQObject 仅锚点);待语料转写 JsEngine 体后重做 |
 
 ## 混合架构边界增补(2026-10-30 批 51)
