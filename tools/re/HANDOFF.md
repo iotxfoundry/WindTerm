@@ -5,17 +5,14 @@
 
 ## 一句话状态(2026-10-30 第六次交接)
 
-**Phase 5 收官:98 序列 98/98 MATCH 全绿**(批 30:tbc3 归绿终裁
-v2——批 29 的"停手"结论**作废**:其 1 净/4 字面测于未复位流态;
-机制实锤 = **+0x101 流回显**(ESC-single → 下批首序列回显字面,
-QUIRKS 22),baseline() resetState 后 tbc3 5/5 干净,全量差分
-98/98 ×2 + 稳定性复读网)。**Phase 4a 会话管理 A1/A2 ✅**:
-ShellSession::stop(pty+断链+清 screen 挂钩)、**TelnetSession 网络
-接线**(QTcpSocket + RFC 854 默认拒绝响应在会话层 + IAC 状态机);
-注册表**插入**侧语料未定位 → wave-2 挂账。**ctest 11/11 全绿**
-(+telnetsocket_test 回环 +shellsession stop 冒烟)。probe38b 矩阵
-终裁见 PHASE5 批 29(字面先行/动作批尾/ESC-single 入口 flush 且
-组合注入 M 丢失)。**本地领先 48 提交**(未推送,遵规范)。
+**Phase 5 收官:98 序列 98/98 MATCH 全绿**(批 30:tbc3 归绿 =
+checkControlCharacter 门污染实锤;批 31 门语义补齐落地,QUIRKS 22
+已实现版;触发面 = 入口排空+HT 批,排队元调用)。**Phase 4a 会话
+管理 A1/A2 ✅**:ShellSession::stop(pty+断链+清 screen 挂钩)、
+**TelnetSession 网络接线**(QTcpSocket + RFC 854 默认拒绝响应在
+会话层 + IAC 状态机);注册表**插入**侧语料未定位 → wave-2 挂账。
+**ctest 12/12 全绿**(+telnetsocket/echo_semantics 冒烟)。probe38b
+矩阵终裁见 PHASE5 批 29。**本地领先 49 提交**(未推送,遵规范)。
 
 **engtest3 段错误根因已修**(5b773aec,推翻批 24"环境竞争"结论):
 Screen ctor 漏初始化 m_savedPrimary/m_altCore/m_viewSettings →
@@ -80,9 +77,8 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **+0x101 流回显语义补齐**(QUIRKS 22,挂账):我方 writeSplitData
-   未实现 ESC-single → 下批首序列回显字面(007cadda/@7d2077→
-   007cc1fa→writeText);suite 净基线永不触发,随 pending v3 族
+1. ~~+0x101 流回显语义补齐~~ ✅ 批 31(门+触发面落地,QUIRKS 22
+   已实现版;发射点 cited — wave-2)
 2. **Phase 4a 收尾**:Commander UUID 表**插入**侧(wave-2 挂账,
    插入函数语料未定位;邻接面 007da178/007da09a 已记)
 3. **键位 action 执行面**:KeymapEngine 命中 → wind.actions 分发
@@ -104,8 +100,8 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 - frida:pip --user(17.24.3);REA binding 已修(bun prebuild-install
   走代理)但需宿主重载
-- 测试:`cd build && ctest`(**11 测试**:行为门 6 + keymap/
-  telnet/pty/shellsession/telnetsocket 五冒烟;engtest3 ctest 态间歇——直跑复核;
+- 测试:`cd build && ctest`(**12 测试**:行为门 6 + keymap/
+  telnet/pty/shellsession/telnetsocket/echo_semantics 六冒烟;engtest3 ctest 态间歇——直跑复核;
   见 tests/README.md)。RE 探针:tools/re/metatest/(手工 g++;改
   头文件后必须重编,踩坑 15)
 - ptrace_scope=0(已设,重启后需重设:sysctl -w)

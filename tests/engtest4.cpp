@@ -139,6 +139,7 @@ int main()
 		const QByteArray hex = o["bytes"].toString().toUtf8();
 		// 每序列清屏基线(与原版 dump 驱动同模型):自包含对比,
 		// 差异不级联
+		cmd.resetParserState();   // 镜像原版驱动 resetState(批 30)
 		dumpSeq(cmd, s, core, nullptr, "1b5b324a1b5b481b5b72", out,
 		        true);
 		if (!first)

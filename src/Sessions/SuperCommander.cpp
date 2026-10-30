@@ -1,5 +1,7 @@
 #include "SuperCommander.h"
 #include "Screen.h"
+#include <QCoreApplication>
+#include <cctype>
 
 // 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(259 个真实现体)。
 // 三层洋葱:this -> m_screen(+0x80, 0x7e 层) -> TerminalCore(0x7a 层)。
@@ -1715,9 +1717,10 @@ void SuperCommander::option(const QString &name)
 
 void SuperCommander::checkControlCharacter()
 {
-	// moc[15] -> 0x7e3568
+	// moc[15] = case 0xf(QTcpCommander 选项分发器 0090ef1c)→
+	// 适配器 0x7cadda 直写 Commander+0x101;运行期经排队元调用激活
+	// (E5b 回溯:metacall → QtCore 激活链),配置键 = text.controlChar
 	m_checkControlChars = true;
-	// 适配器 0x7cadda 直写 Commander+0x101,不经 Screen
 }
 
 void SuperCommander::dataType()
@@ -2086,8 +2089,10 @@ void SuperCommander::writeSplitData(const char *data, int len)
 	// 入口排空 ESC D/E/M 专队列(批 21 v6:dump 双锚——ind/nel 单批
 	// 永不生效 (0,0);ind_bot_scroll/ri_top_scroll 有 follower 批
 	// 才生效。QUIRKS 13 原型回归,机制 = 队列重放)
+	bool entryDrained = false;
 	if (!m_replaying && !m_escPending.isEmpty()) {
 		m_replaying = true;
+		entryDrained = true;
 		const QVector<QByteArray> q = m_escPending;
 		m_escPending.clear();
 		for (const QByteArray &s : q)
@@ -2116,6 +2121,22 @@ void SuperCommander::writeSplitData(const char *data, int len)
 			m_screen->writeText(data + litStart, end - litStart);
 			m_lastGlyph = (unsigned char)data[end - 1];
 		}
+	};
+	// checkControlCharacter 门(007d1f5a 主循环尾,0025 语料
+	// 1714-1749):doAction 后若 +0x101 置位,匹配序列回显字面
+	// (QUIRKS 21:ESC = 1 列字形),进门即自清(与回显分支无关)
+	auto controlCharGate = [&](int seqStart, int seqEnd) {
+		if (!m_checkControlChars || seqStart >= seqEnd)
+			return;
+		const unsigned char last = (unsigned char)data[seqEnd - 1];
+		m_checkControlChars = false;      // 语料 1716:进门即清
+		if ((last & 0xfd) == 0x18)
+			return;                       // CAN(0x18)/SUB(0x1a) 压制
+		// 控制尾字节且再匹配 = partial 的 memmove 变体(语料
+		// 1738-1747):全表状态机才可达,我方动作集无此前缀形 —
+		// cited-skip;可达面 = 整段回显(通道同 FUN_007cc1fa)
+		m_screen->writeText(data + seqStart, seqEnd - seqStart);
+		m_lastGlyph = last;
 	};
 	while (i < len) {
 		const unsigned char c = (unsigned char)data[i];
@@ -2181,6 +2202,7 @@ void SuperCommander::writeSplitData(const char *data, int len)
 					litStart = i;
 				} else if (m_replaying) {
 					execCsi(params, finalByte.unicode(), priv);
+					controlCharGate(seqStart, i);
 					m_tailResumed = false;
 				} else {
 					m_pendingActions.append(
@@ -2195,9 +2217,10 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				// ESC —— 四锚全拟:ind 单批 (0,0)/ind_bot_
 				// scroll follower (5,0)/probe38 X 吞/E2 \t 吞/
 				// E4 CHT 存活于 ESC 边界
-				if (m_replaying)
+				if (m_replaying) {
 					execEsc(e1);
-				else {
+					controlCharGate(seqStart, seqStart + 2);
+				} else {
 					m_escPending.append(
 					    QByteArray(data + seqStart, 2));
 					i++;
@@ -2212,9 +2235,10 @@ void SuperCommander::writeSplitData(const char *data, int len)
 			} else if (e1 == 'c' || e1 == '=' || e1 == '>') {
 				// RIS/DECKPAM/DECKPNM = 应用型(ris 锚:
 				// 批 23 误吞致 ris 回归,已裁)
-				if (m_replaying)
+				if (m_replaying) {
 					execEsc(e1);
-				else
+					controlCharGate(seqStart, seqStart + 2);
+				} else
 					m_pendingActions.append(
 					    QByteArray(data + seqStart, 2));
 				i++;
@@ -2275,26 +2299,44 @@ void SuperCommander::writeSplitData(const char *data, int len)
 		}
 		if (c < 0x20 || (c >= 0x80 && c < 0xa0)) {   // C0/C1 控制域
 			flushLiteral(i);
+			bool acted = false;
 			switch (c) {
 			case '\n':
 			case '\v':
-			case '\f': m_screen->lineFeed(); break;
-			case '\r': m_screen->carriageReturn(); break;
-			case '\b': m_screen->backspace(); break;
+			case '\f': m_screen->lineFeed(); acted = true; break;
+			case '\r': m_screen->carriageReturn(); acted = true; break;
+			case '\b': m_screen->backspace(); acted = true; break;
 			case '\t':
 				// HT = C0 直派(语料 ansi_buffer_build
 				// 19276-19306;tbc_all/tab 锚:v5 下即释)
 				m_screen->horizontalTab();
+				acted = true;
+				// checkControlCharacter 发射(触发面实证锚
+				// E7:本批入口排空 + HT 执行 → 排队元调用
+				// 置 +0x101;ESC D/M/H/7 + CUP 后继均不置;
+				// 发射点语料不可达(现代 PMF connect,仅
+				// moc 表引用)→ cited — wave-2;
+				// 排队 = 运行期语义(E5b 回溯:激活链全
+				// QtCore),批后事件循环才置位 → 门由后批
+				// 消费(批 30 tbc3 回显时序)
+				if (!m_replaying && entryDrained
+				    && QCoreApplication::instance()
+				           != nullptr)
+					QMetaObject::invokeMethod(
+					    this, "checkControlCharacter",
+					    Qt::QueuedConnection);
 				break;
-			case 0x84: m_screen->indexDown(); break;   // C1 IND
+			case 0x84: m_screen->indexDown(); acted = true; break;   // C1 IND
 			case 0x85:                                   // C1 NEL
 				m_screen->indexDown();
 				m_screen->carriageReturn();
+				acted = true;
 				break;
 			case 0x88: m_screen->setTabstop(             // C1 HTS
 			               m_screen->currentColumn(), true);
+				acted = true;
 				break;
-			case 0x8d: m_screen->indexUp(); break;       // C1 RI
+			case 0x8d: m_screen->indexUp(); acted = true; break;     // C1 RI
 			case 0x9b: {                                 // C1 CSI
 				i++;
 				QString params;
@@ -2331,6 +2373,8 @@ void SuperCommander::writeSplitData(const char *data, int len)
 			}
 			default: break;   // 其余 C0 — cited
 			}
+			if (acted)
+				controlCharGate(i, i + 1);
 			i++;
 			litStart = i;
 			continue;

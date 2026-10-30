@@ -458,6 +458,29 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   净基线语义下永不触发,实现随 pending v3 族)
 - **PHASE 5 收官:98 序列 98/98 MATCH**(双侧净基线对齐;ctest 11/11)
 
+### 批 31(2026-10-30)/loop:checkControlCharacter 门补齐(QUIRKS 22 落地)✅
+- **语料四要素**:①门 = writeSplitData 主循环尾(0025 语料
+  1714-1749):doAction 后若 +0x101 置位 → 匹配序列回显字面 +
+  进门即自清;压制 = 尾字节 0x18/0x1a;控制尾字节 partial 再匹配
+  的 memmove 变体全表状态机才可达(cited-skip)。②setter =
+  007cadda(moc[15] = case 0xf,选项分发器 0090ef1c;旧注 moc[15]
+  →0x7e3568 系误注,0x7e3568 实为 QByteArray::clear)。
+  ③配置键 = text.controlChar。④运行期 = 排队元调用(E5b 回溯
+  全 QtCore 激活链)。
+- **触发面实证(E7 矩阵)**:本批入口排空 + HT 执行 → 置位;
+  ESC D/M/H/7 + CUP 后继 / 单 HT / 单 ESC-single 均**不**置位。
+  E1 分载体:清 +0x101 即净(清 +0xd8 无效)→ 批 30 机制结论
+  保持;排队语义解释 glitch 族随机性(事件循环交付时序 vs 注入
+  节奏竞速)。
+- **实现**:SuperCommander 门 lambda(CSI/ESC-single/C0 执行点)+
+  HT 触发排队 invokeMethod(QueuedConnection,发射点 cited —
+  wave-2)+ resetParserState() 卫生面;engtest4 基线镜像
+  resetState。suite 奇偶守恒:98/98(复跑归稳);ctest 12/12
+  (+ echo_semantics_test 6 断言:置位/回显/自清/门关/触发/后批
+  消费)
+- 证据脚本:/tmp/opencode/e1_carrier.py e2_trigger.py e3_trace.py
+  e4_bisect.py e5b/e5d_bt.py e6_dual.py e7_trigger_set.py
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

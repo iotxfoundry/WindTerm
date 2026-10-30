@@ -44,6 +44,17 @@ public:
 protected:
 	bool m_checkControlChars;   // +0x101 (adapter 0x7cadda writes it directly)
 
+public:
+	// dump 驱动卫生面(批 30 原版驱动 resetState 同构:每序列
+	// 净基线;+0x101 / escPending / +0xd8)
+	void resetParserState()
+	{
+		m_checkControlChars = false;
+		m_escPending.clear();
+		m_seqTail.clear();
+	}
+	bool checkControlCharsActive() const { return m_checkControlChars; }
+
 signals:
 	void charsetChanged(const QString &name);
 	void shellCwdChanged(const QString &info);
