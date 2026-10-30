@@ -334,6 +334,10 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **定性**:WindTerm 流状态怪癖(隔离不复现);我方 (0,6)+干净 =
   原版隔离行为 ✓。bs/decawm_off/tab_matrix 同族(0x1b 格签名,
   retry 随机命中);decstbm_ri = 排空分相(另案)
+- **更正(批 28)**:本批 engtest3 段错误"环境竞争"结论**作废**
+  ——真根因 = Screen ctor 漏初始化 m_savedPrimary/m_altCore/
+  m_viewSettings(resizeScreen 拿垃圾 this,rdi=串地址实锤),
+  批 28 已修(ctor 补 nullptr),裸跑 75%→10%
 - **loop 停止条件达成**:96/98,2 红全部定性(tbc3 流怪癖/
   decstbm_ri 排空分相),均非我方转写缺陷
 - pkill 自匹配误杀(p5 踩坑 #16):pkill -f 括号法 [d] 规避

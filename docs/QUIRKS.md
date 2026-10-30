@@ -18,7 +18,7 @@
 | 10 | XTGETTCAP "Co" 恒答 256(0x100),不读真实色数配置 | 007f3518 |
 | 11 | ~~ESC D/E = 光标不动~~ **撤销(2026-10-29 伪影)**:实为教科书 IND/NEL + pending 队列延迟——单批尾动作待下次 writeSplitData 才 flush,旧 dump 读不到效果 | p5probe4/5 实测 |
 | 12 | ~~ESC M = 下移 1 行~~ **撤销(伪影)**:实为教科书 RI(上移 1,p5probe4 实测 4→3) + pending 延迟 | p5probe4 实测 |
-| 13 | **ESC 动作三分类(批 21 v6,probe15 仪器)**:①IND/NEL/RI(ESC D/E/M)= 专队列,**下次 writeSplitData 入口 flush**(ind/nel 单批 (0,0) 永不;ind_bot_scroll/ri_top_scroll 有 follower 批才生效);②HTS(ESC H)= **分派 miss,消费不执行**(E2 bits{};tbc_all-88);③CSI 动作 = 批尾 FIFO 排空(E4/E5)。doAction 007d1606 = QHash 派发,非记录器(+0x20 无消费者,仅 [TERM] 调试日志) | probe15 + dump 双锚 |
+| 13 | **ESC-single 统一模型(批 26 终版)**:D/E/M/H/7/8 全族 = escPending(下次 writeSplitData **入口 flush**)+ **吞噬尾随字面直到下一 ESC**(probe38 X 吞/E2 \t 吞/E4 CHT 存活于 ESC 边界)。四锚:ind 单批 (0,0)/ind_bot_scroll follower (5,0)/probe38 X 吞/E2 bits{}。ESC c(RIS)= 应用型(ris 锚,批 23 误吞回归已裁);CSI = 批尾 FIFO。doAction 007d1606 = QHash 派发,非记录器(+0x20 无消费者,仅 [TERM] 调试日志) | 批 26 + probe38 |
 | 14 | ~~LF 未写行不动~~ **撤销(批 21 lf40 实锤)**:空屏 40×LF → (30,0),原版无 rowHasContent 门(007e55fc 语料本就无门,我方门已删)。单 LF 序列原版 (1,0) ✓ 无门一致 | lf40 dump |
 | 15 | **CUB/VPA 越界整体拒绝**:CSI 99 D 从 col=4 不动、CSI 99 d 不动(p5probe7 e);CUP 越界却是钳制(99;99→右下)——同批序列不同策略 | p5probe7 e |
 | 16 | **HT/CHT 的默认 stop 表(新会话)= {4}**:HT→4、CHT 2 无下一 stop→行尾 88(=cols-1);旧会话曾现 every-8(表随会话/配置变)——resizeDefault(007a604a)语料精读待做 | p5 58 序列 tab/cht2 diff |

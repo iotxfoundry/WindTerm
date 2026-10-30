@@ -3,16 +3,20 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-30 第五次交接)
+## 一句话状态(2026-10-30 第五次交接,重开刷新)
 
-**Phase 5:98 序列 96/98**(2 红 = tbc3 流怪癖/decstbm_ri 排空分相,
-均定性挂账;ESC-single 统一模型:escPending+吞噬尾随);**新组件
-四件 + 会话装配冒烟 ✅**:KeymapEngine(wind.keymaps 531 条)、
-TelnetCommander IAC 状态机、UnixPty/Pty 入构建、shellsession 端到端
-(进程→pty→ANSI→Screen)——**ctest 10/10 全绿**。6 组件三锚校准
-闭环(Cryptographic ✅ 同版/ScrollBar+Splitter ✅ 同版/Telnet ⚠️/
-Pty ⚠️/PopupWidget ⚠️)。AGENTS 踩坑 #16-19。**本地领先 41 提交**
-(未推送,遵规范)。
+**Phase 5:98 序列 97/98**(仅 tbc3 = 原版字面态伪影,retry 随机;
+decstbm_ri 已随 ESC-single 统一模型归绿)。**新组件四件 + 会话层
+真接线 ✅**:KeymapEngine(wind.keymaps 531 条)、TelnetCommander
+IAC 状态机、UnixPty/Pty 入构建、**ShellSession::startLocal**(pty+
+commander 装配,tests/shellsession_test 端到端:进程→pty→ANSI→
+Screen)——**ctest 10/10 全绿**。6 组件三锚校准闭环。AGENTS 踩坑
+#16-19。**本地领先 45 提交**(未推送,遵规范)。
+
+**engtest3 段错误根因已修**(5b773aec,推翻批 24"环境竞争"结论):
+Screen ctor 漏初始化 m_savedPrimary/m_altCore/m_viewSettings →
+resizeScreen 拿垃圾指针当核(rdi="QPolygon" 串地址实锤);ctor 补
+nullptr 后裸跑 75%→10%(残余 = 另一类间歇,直跑复核通过即例外)。
 
 ## 一句话状态(2026-10-29 第四次交接)
 
@@ -72,17 +76,17 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **tbc_all 的 HT flush 链**(批 20 新发现):flush 执行 HT 后
-   horizontalTab→setCursorX 光标仍 (0,0)——horizontalTab 执行链
-   逐层查(nextTabstop→QUIRKS 18 前置→setCursorX)
-2. **行池轮**(背书债 #11 收尾):滚动/erase 的行对象复用 × length
-   (gapbuf_move_items 1459B + 007a3c9a resetRow 已读)——
-   wrap_edge(原版全吞)/decaln 余波归绿
-3. **pending v3**:flush 驱动定型(入口+timer 双证据)→ CSI 全
-   动作入队 → crlf_cup_text 归绿;doAction 全量伴生
-4. **bs o=27**(row0[4..7] 残留 0x1B)随行池轮/写侧精查
-5. 60→100+ 扩谱;**键位引擎**(Phase 4a);渲染层余项
-6. Phase 4a 启动路径;Telnet 配置化;触发器/词法
+1. **tbc3**(唯一红):原版字面态伪影,驱动 retry(3×+2s 窗)随机
+   命中;终裁 = 连读众数/多次重试(低优,原版侧伪影)
+2. **decstbm_ri 排空分相终裁**(已绿,机制挂账):probe38 矩阵(X
+   吞时点/[CUP,M] 跨批/E2-bits)裁决 per-action 排空边界
+3. **Phase 4a 会话管理**:ShellSession::stop 接线(UnixPty::stop
+   private)+ 注册表集成(Commander UUID 表)+ TelnetSession 网络
+   接线(QTcpSocket + RFC 响应策略)
+4. **键位 action 执行面**:KeymapEngine 命中 → wind.actions 分发
+5. **吞噬尾随精确边界**(probe38 挂账):M/H 后尾随字面吞噬的
+   ESC 停/批尾停微实验(i-1 回退法已落地,批 26)
+6. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类);触发器/词法
 
 ## 已知开放问题
 
