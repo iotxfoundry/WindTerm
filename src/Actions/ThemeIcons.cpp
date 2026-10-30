@@ -2,18 +2,26 @@
 
 #include <QBitmap>
 #include <QColor>
+#include <QDir>
+#include <QFile>
 #include <QIconEngine>
 #include <QList>
 #include <QPainter>
 #include <QPixmap>
 #include <QSize>
+#include <QSvgRenderer>
+
+// 主题目录(语料 DAT_011c1ce0 主题容器面;主题系统装配期设置)
+static QString g_themeDir;
 
 namespace {
 
 // FUN_00639200(98B):SvgIconEngine ctor 转写 —— QIconEngine 基 +
 // 名字引用 @+8 + scale 1.0 @+0x10 + 三清零域(@+0x18/20/28)。
-// paint/render 体语料另处(引擎视觉输出面;cited — wave-2):
-// 本引擎对 QIcon 为不透明载体(缓存命中路径不触发绘制)。
+// 渲染 = QSvgRenderer 委托(语料 QtSvg 符号族实证:0001.c
+// QSvgRenderer::render/isValid;混合架构边界,同 libssh 策略)。
+// pixmap 缓存 = +0x18/+0x20/+0x28 QList((mode<<4|state) 打包键,
+// FUN_0063a000 504B 扩容/插入语料)。
 class SvgIconEngine : public QIconEngine {
 public:
 	explicit SvgIconEngine(const QString &name)
@@ -21,38 +29,83 @@ public:
 		, m_scale(1.0)   // 语料 0x3ff0000000000000
 	{
 	}
-	// QIconEngine 纯虚/虚覆盖 — cited — wave-2(绘制体未转写;
-	// 引擎为缓存载体,命中路径不触发绘制)
-	void paint(QPainter *, const QRect &, QIcon::Mode,
-	           QIcon::State) override
-	{
-	}
-	QIconEngine *clone() const override
+
+	QIconEngine *clone() const override   // 语料 SvgIconEngine_vt8(366B)
 	{
 		return new SvgIconEngine(m_name);
 	}
-	QPixmap pixmap(const QSize &size, QIcon::Mode, QIcon::State) override
+
+	// 语料 SvgIconEngine_h6393e6(619B):缓存查(mode<<4|state 键)
+	// → 未命中渲染(FUN_0063a000 插入 + QSvgRenderer 委托)
+	QPixmap pixmap(const QSize &size, QIcon::Mode mode,
+	               QIcon::State state) override
 	{
-		return QPixmap(size);
+		const int key = ((int)mode << 4) | (int)state;
+		for (const auto &e : m_cache) {
+			if (e.key == key && !e.pm.isNull())
+				return e.pm;
+		}
+		QPixmap pm = render(size);   // FUN_0063a000 插入位
+		CacheEntry e;
+		e.key = key;
+		e.pm = pm;
+		m_cache.append(e);           // 语料扩容/插入(0x28 步长条目)
+		return pm;
 	}
+
 	QSize actualSize(const QSize &size, QIcon::Mode,
 	                 QIcon::State) override
 	{
 		return size;
 	}
 
+	void paint(QPainter *painter, const QRect &rect, QIcon::Mode mode,
+	           QIcon::State state) override
+	{
+		const QPixmap pm = pixmap(rect.size(), mode, state);
+		if (!pm.isNull())
+			painter->drawPixmap(rect, pm);
+	}
+
 private:
-	QString m_name;        // +8(引用计数复制)
-	double m_scale;        // +0x10 = 1.0
-	quint64 m_f1 = 0;      // +0x18
-	quint64 m_f2 = 0;      // +0x20
-	quint64 m_f3 = 0;      // +0x28
+	struct CacheEntry
+	{
+		int key = 0;
+		QPixmap pm;
+	};
+	QPixmap render(const QSize &size) const
+	{
+		if (g_themeDir.isEmpty() || m_name.isEmpty())
+			return QPixmap();
+		// 主题 SVG 文件:themeDir/name(.svg 后缀语义见
+		// theme_icon_load_svg 的 .endsWith 门)
+		QString base = m_name;
+		if (!base.endsWith(QStringLiteral(".svg"), Qt::CaseInsensitive))
+			base += QStringLiteral(".svg");
+		const QString path = g_themeDir + QLatin1Char('/') + base;
+		QFile f(path);
+		if (!f.open(QIODevice::ReadOnly))
+			return QPixmap();
+		QSvgRenderer renderer(f.readAll());
+		if (!renderer.isValid())
+			return QPixmap();
+		QPixmap pm(size);
+		pm.fill(Qt::transparent);
+		QPainter p(&pm);
+		renderer.render(&p, QRectF(pm.rect()));
+		return pm;
+	}
+
+	QString m_name;             // +8(引用计数复制)
+	double m_scale = 1.0;       // +0x10 = 1.0
+	quint64 m_f1 = 0;           // +0x18(缓存表语料 +0x18/20/28 区)
+	QList<CacheEntry> m_cache;  // 语料 pixmap 缓存(FUN_0063a000)
 };
 
 // iconCache_lookupEntry(005df09e,1006B):sorted 名→QIcon 查/插。
 // 语料深层 = 自定义节点结构(0x20 头/{ref,used,cap,count} +
-// +0x100 子表 + FUN_005de1a4 节点插)—— cited — wave-2(容器内部
-// 表示);行为面 = 排序查得直返/未查得插默认(QMap 承载)。
+// +0x100 子表 + FUN_005de1a4 节点插)—— 容器内部表示(行为面 =
+// 排序查得直返/未查得插默认,QMap 承载;节点表示非行为面)
 QIcon &iconCache_lookupEntry(const QByteArray &name)
 {
 	static QMap<QByteArray, QIcon> s_cache;   // DAT_011c1ce0→+0x38 表
@@ -81,6 +134,8 @@ QIcon recolorIcon(const QIcon &src, const QColor &color)
 
 namespace ThemeIcons {
 
+void setThemeDir(const QString &dir) { g_themeDir = dir; }
+
 // 00756cd6(1272B)语料转写
 QIcon loadSvg(const QString &name, const QString &recolor)
 {
@@ -94,7 +149,7 @@ QIcon loadSvg(const QString &name, const QString &recolor)
 		return icon;                               // 语料命中直返
 	}
 	// 未命中:名含 "::" 或 toLower().endsWith(".svg") →
-	//   SvgIconEngine(name) 包装(00666xxx 区调用点/FUN_00639200)
+	//   SvgIconEngine(name) 包装(00639200)
 	const bool svgPath = name.contains(QStringLiteral("::"))
 	                     || name.toLower().endsWith(
 	                         QStringLiteral(".svg"));

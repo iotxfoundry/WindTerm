@@ -25,4 +25,7 @@ namespace ThemeIcons {
 // 00756cd6:主题 SVG 图标装载(recolor = 有效色名时着色)
 QIcon loadSvg(const QString &name, const QString &recolor);
 
+// 主题目录(渲染期 SVG 解析基;主题系统装配期设置)
+void setThemeDir(const QString &dir);
+
 } // namespace ThemeIcons

@@ -799,6 +799,22 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   独立深层(cited 保留 3 处:paint/clone 绘制体 + 节点结构)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 51(2026-10-30)/loop:ThemeIcons QtSvg 闭环 ✅(3 处 cited 清除)
+- **SVG 光栅化 = QSvgRenderer 委托实证**(混合架构边界,同
+  libssh/yaml-cpp 策略):语料 QtSvg 符号族(0001.c
+  QSvgRenderer::render/isValid/elementExists + 二进制
+  _ZN12QSvgRenderer* 导入)—— 渲染 = 真库
+- **SvgIconEngine 完整转写**:paint/clone(00639262 vt8)/
+  pixmap 缓存查((mode<<4|state) 打包键,h6393e6 619B)→
+  未命中渲染(QSvgRenderer 委托,themeDir/name.svg)
+- **主题目录面**:ThemeIcons::setThemeDir(DAT_011c1ce0 主题容器
+  装配面参数化;默认空 → 空图标,零行为差)
+- iconCache 深层节点结构注记消解(行为面 = QMap 承载全覆盖,
+  节点表示非行为面)
+- libqt5svg5-dev 入构建环境;Qt5::Svg 链接
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 剩余:cited 1 处(Screen params 写侧,DECRQSS 构建面定位下批)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
