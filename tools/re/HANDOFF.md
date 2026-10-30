@@ -3,6 +3,17 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(13 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
+## 一句话状态(2026-10-30 第五次交接)
+
+**Phase 5:98 序列 96/98**(2 红 = tbc3 流怪癖/decstbm_ri 排空分相,
+均定性挂账;ESC-single 统一模型:escPending+吞噬尾随);**新组件
+四件 + 会话装配冒烟 ✅**:KeymapEngine(wind.keymaps 531 条)、
+TelnetCommander IAC 状态机、UnixPty/Pty 入构建、shellsession 端到端
+(进程→pty→ANSI→Screen)——**ctest 10/10 全绿**。6 组件三锚校准
+闭环(Cryptographic ✅ 同版/ScrollBar+Splitter ✅ 同版/Telnet ⚠️/
+Pty ⚠️/PopupWidget ⚠️)。AGENTS 踩坑 #16-19。**本地领先 41 提交**
+(未推送,遵规范)。
+
 ## 一句话状态(2026-10-29 第四次交接)
 
 **Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线:
@@ -86,8 +97,9 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 - frida:pip --user(17.24.3);REA binding 已修(bun prebuild-install
   走代理)但需宿主重载
-- 测试:`cd build && ctest`(行为门 6 测试,环境已封装;见
-  tests/README.md)。RE 探针:tools/re/metatest/(手工 g++;改
+- 测试:`cd build && ctest`(**10 测试**:行为门 6 + keymap/
+  telnet/pty/shellsession 四冒烟;engtest3 ctest 态间歇——直跑复核;
+  见 tests/README.md)。RE 探针:tools/re/metatest/(手工 g++;改
   头文件后必须重编,踩坑 15)
 - ptrace_scope=0(已设,重启后需重设:sysctl -w)
 - libssh-dev/patchelf/Xvfb 已装

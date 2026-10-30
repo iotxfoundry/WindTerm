@@ -379,6 +379,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (createProcess echo → write/readAll 回环)✅
 - **ctest 8/8 全绿**(含 engtest3;keymap/telnet/pty 三新冒烟)
 
+### 批 28(2026-10-30)/loop-start:会话装配冒烟 ✅ + ctest 10/10
+- **tests/shellsession_test**:UnixPty.createProcess(echo)→
+  pty.readyRead → cmd.processOutput → Screen 格子含 MARK_42 DONE42
+  ✅(fails=0)——**会话数据路径首次端到端验证**(进程 → pty →
+  ANSI 解析 → 屏幕格子)
+- 装配模式 = Phase 4a 会话层蓝图(pty.readyRead → 解析器;
+  响应 → pty.write;带引号命令需参数列表式重载,已知项)
+- ctest 10/10 全绿(含 engtest3;keymap/telnet/pty/shellsession 四新)
+- 文档:AGENTS 踩坑 #16-19(pkill 自匹配/锚点编辑互踩/QByteArray
+  strlen \x00 截断/moc 基类子句换行);CALIBRATION 组件结论表
+
 ### 待解(下一轮首任务)
 - **pending 模型 v3 实现**:CSI 全动作(CUP/CNL/CPL/CHA/VPA/CUU/
   CUD/CUF/CUB…)入 pending 队列(动作枚举+参数),flush = 入口 +

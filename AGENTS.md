@@ -226,6 +226,29 @@ QVariant dispatch(cmd, a, b)
 - 例外:外库数据布局被 WindTerm 业务消费的部分(SGR 位/行格)
   仍属逆向范围。
 
+### 16. pkill -f 自匹配误杀自身命令
+- **错**:pkill -f phase5_dump 连自己 shell 一并 SIGTERM(命令行含同串)。
+- **对策**:括号法 `pkill -f 'phase5_[d]ump'`(正则不匹配字面括号串)。
+
+### 17. 连续锚点编辑互相踩 + 分支体误删
+- **错**:多轮 python 锚点编辑同一分支,条件修复时误删分支体
+  (H/7/8 落入默认 glyph 路径 → u=27 族),数轮构建互相覆盖。
+- **对策**:每轮编辑后 `grep -n -A14` 复核分支完整性;连续编辑
+  同一函数时改用单次全函数重写。
+
+### 18. QByteArray(const char*) strlen 在 \x00 截断
+- **错**:测试喂 `QByteArray("\xff\xfa\x18\x00...")` —— strlen 截断
+  于 \x00,只进 3 字节(telnet 冒烟子协商不触发的元凶)。
+- **对策**:含 \x00 的字节流用显式长度构造
+  `QByteArray(lit, sizeof(lit)-1)`。
+
+### 19. moc 类扫描盲区:基类子句换行
+- **错**:`class X\n\t: public QProcess` 形态 → moc "No relevant
+  classes found"(空 moc)→ vtable 未定义;且 moc GLOB 新增头时
+  需同步核对 foreach 的 Q_OBJECT 过滤链。
+- **对策**:基类子句与类名同行;新增 Q_OBJECT 头后核对
+  moc_<name>.cpp 非空。
+
 ## 提交规范
 
 - 中文 commit,force push 需覆盖远端 dev
