@@ -703,6 +703,22 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   s_session_term_72014e cited — wave-2(会话输出/终端面待转写)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 47(2026-10-30)/loop:清扫 cited 第一波(累接器/注册表/槽清)✅
+- **KeymapEngine YAML 装载转写**:s_wind_keymaps_768854 全流程
+  (FUN_005d7cf8 全局路径 = applicationDirPath()+"/global/"+名 /
+  cfg_ensureProfileDir 005d7dae = "%1/profiles/%2/%3"+mkpath /
+  FUN_00a7e78a/00a7e866 双槽+flags 门 / FUN_00a7fd5e bit2 门 /
+  FUN_00a7fdd8 → yamlLoadToVariant(ConfigBridge 0x00a7ecde 委托))
+  —— KeymapEngine.cpp 两处 cited 清除
+- **SuperSessionPrivate 链接面转写**:FUN_007d6cee(119B,spinlock
+  @+0x61 + FUN_007ddad0 map 查)/ FUN_007da09a(208B,qmap_detach2)
+  —— m_commanderLinks QMap(@+0x18 语料)入库;1 处 cited 清除
+- **SuperKeymap 槽形修正**:FUN_0067db7c(266B)= 容量确保语料
+  (ctor 容量 2)→ reset(mode) = mode 槽清(FUN_0067ce4c 转写,
+  界守卫标注);FUN_0067db40/0067ce4c = QListData 管理形,Qt 原生
+  等价承载
+- 验证:构建零 undefined;ctest 6/6(engtest3 间歇复跑 OK)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

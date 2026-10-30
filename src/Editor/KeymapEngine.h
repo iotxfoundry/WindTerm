@@ -3,31 +3,40 @@
 
 #pragma once
 
+#include "SuperKeymap.h"
+
 #include <QString>
 #include <QStringList>
+#include <QVariant>
 
-// 键位引擎壳 —— 语料转写(批 42;铁律 6:无转写落点不写匹配逻辑)。
-// 语料:s_wind_keymaps_768854(00768854,428B)装载器 ——
-//   1) FUN_00a7e75e 累积器初始化
-//   2) "wind.keymaps" → FUN_005d7cf8(DAT_011c1240,名)解析 →
-//      FUN_00a7e78a 入累积器(00668888 区)
-//   3) "user.keymaps" → cfg_ensureProfileDir(DAT_011c1240,名)→
-//      FUN_00a7e866 入累积器(006688d4 区)
-//   4) FUN_0067461a(engine@+0x68,0)引擎复位(0076890d)
-//   5) FUN_00a7fdd8 → QVariant::toList 喂引擎(00768927)
-// 匹配/分发体语料未转写 → 不写(待定位 keymap 匹配函数后按转写补)。
+// 键位引擎 —— 语料转写(批 47;铁律 6)。
+// 装载器 s_wind_keymaps_768854(00768854,428B)流程:
+//   FUN_00a7e75e(43B)累积器初始化 {flags, userPath@+8,
+//     globalPath@+0x10, 0x18-0x21}
+//   FUN_005d7cf8(174B):applicationDirPath() + "/global/" + 名
+//     → FUN_00a7e78a(12B):全局槽 + flags &= ~0x04
+//   cfg_ensureProfileDir 005d7dae(438B):"%1/profiles/%2/%3"
+//     (.wind 根/profile/名)→ mkpath → FUN_00a7e866(12B):
+//     用户槽 + flags &= ~0x01
+//   FUN_0067461a(engine@+0x68,0)引擎复位(批 46 SuperKeymap::reset)
+//   FUN_00a7fdd8(71B)→ FUN_00a7fd5e(113B):bit2 门 → yaml 解析 →
+//     yaml_toQVariant(ConfigBridge 委托,0x00a7ecde 族)
+// 匹配体:语料未定位(cited — wave-2,PHASE5 批 46 记录)。
 class KeymapEngine {
 public:
     static KeymapEngine &instance();
 
-    // s_wind_keymaps_768854:双源解析(global+user)→ 引擎复位
-    // → 源列表;返回解析出的源路径数
+    // s_wind_keymaps_768854:双源路径解析 → 引擎复位 → YAML 装载;
+    // 返回非空解析源数
     int loadKeymapSources();
 
     const QStringList &sources() const { return m_sources; }
+    const QVariant &loaded() const { return m_loaded; }   // FUN_00a7fdd8 产物
 
 private:
     KeymapEngine() = default;
-    QStringList m_sources;   // 语料累积器( FUN_00a7e75e 族)
+    QStringList m_sources;
+    QVariant m_loaded;      // FUN_00a7fdd8 合并产物(toList 喂引擎面)
+    SuperKeymap m_keymap;   // 语料 engine@+0x68
 };
 #endif // KEYMAPENGINE_H

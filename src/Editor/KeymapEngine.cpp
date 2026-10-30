@@ -1,11 +1,14 @@
 #include "KeymapEngine.h"
 
-// 语料依赖(00768854 区;cited — wave-2,待转写):
-//   FUN_00a7e75e/FUN_00a7e78a/FUN_00a7e866/FUN_00a7fdd8 —— 累积器
-//   FUN_005d7cf8 —— global 配置解析(DAT_011c1240 配置层)
-//   cfg_ensureProfileDir —— user 侧 profile 目录确保
-//   FUN_0067461a —— 引擎复位(engine @+0x68)
-// 路径解析复用本树 ProfileLoader 面(开源/语料锚见 CALIBRATION)。
+#include "ProfileLoader.h"
+
+#include <QFileInfo>
+
+// ConfigBridge(0x00a7ecde yaml_toQVariant 转写,批 34 前入库)
+QVariant yamlLoadToVariant(const QString &path);
+
+#include <QCoreApplication>
+#include <QDir>
 
 KeymapEngine &KeymapEngine::instance()
 {
@@ -13,13 +16,35 @@ KeymapEngine &KeymapEngine::instance()
 	return s_engine;
 }
 
+// s_wind_keymaps_768854(00768854,428B)语料转写
 int KeymapEngine::loadKeymapSources()
 {
-	// 语料:累积器 = [global/wind.keymaps, user.keymaps] 双源
 	m_sources.clear();
-	m_sources.append(QStringLiteral("wind.keymaps"));
-	m_sources.append(QStringLiteral("user.keymaps"));
-	// 语料:FUN_0067461a(engine@+0x68,0)—— 引擎复位
-	// cited — wave-2(复位体待转写)
-	return m_sources.size();
+	// FUN_005d7cf8(174B):applicationDirPath() + "/global/" + 名
+	const QString globalPath = QCoreApplication::applicationDirPath()
+	                               + QStringLiteral("/global/")
+	                               + QStringLiteral("wind.keymaps");
+	m_sources.append(globalPath);
+	// FUN_00a7e78a(12B):全局槽 + flags &= ~0x04(语料)
+	// cfg_ensureProfileDir(005d7dae,438B):"%1/profiles/%2/%3"
+	//   (.wind 根/profile/名)→ absolutePath → mkpath
+	const QString userPath = ProfileLoader::defaultProfilePath()
+	                             + QStringLiteral("/user.keymaps");
+	QDir().mkpath(QFileInfo(userPath).absolutePath());   // 语料 ensure 段
+	m_sources.append(userPath);
+	// FUN_00a7e866(12B):用户槽 + flags &= ~0x01(语料)
+	// FUN_0067461a(m_keymap@+0x68,0)—— 引擎复位(批 46)
+	m_keymap.reset(0);
+	// FUN_00a7fd5e(113B)bit2 门 → FUN_00a7fdd8(71B)→
+	//   yaml_toQVariant(ConfigBridge 委托,0x00a7ecde 族)
+	int parsed = 0;
+	m_loaded = QVariant();
+	for (const QString &p : m_sources) {
+		const QVariant root = yamlLoadToVariant(p);
+		if (!root.isNull()) {
+			++parsed;
+			m_loaded = root;   // 语料双源累积(后源覆写/合并面待转写)
+		}
+	}
+	return parsed;
 }

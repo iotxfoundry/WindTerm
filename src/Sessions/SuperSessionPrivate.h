@@ -26,9 +26,12 @@ public:
 	void removeRegistry(int kind, const QUuid &id);
 	void loggerOp(const QUuid &id, int op);
 
-	// FUN_007da178(168B,批 43 转写):commander→session 链 ——
-	// FUN_007d6cee 查注册表节点 → dynamic_cast 校验 → session 非空
-	// 写 commander+0x48,空 → FUN_007da09a 移除
+	// FUN_007da178(168B,批 43/47 转写):commander→session 链 ——
+	// FUN_007d6cee(119B)查注册表节点(spinlock@+0x61 + FUN_007ddad0
+	// map@+0x18 查)→ dynamic_cast 校验 → session 非空写
+	// commander+0x48,空 → FUN_007da09a(208B)qmap_detach2 移除
+	// 语料成员:QMap @+0x18(spinlock@+0x61;单线程重建免锁,注记)
+	QMap<class SuperCommander *, class SuperCommander *> m_commanderLinks;   // +0x18
 	void linkCommanderSession(class SuperCommander *commander,
 	                          class SuperSession *session);
 

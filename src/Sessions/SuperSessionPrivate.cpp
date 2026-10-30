@@ -218,12 +218,18 @@ QStringList SuperSessionPrivate::authMethods() const
 void SuperSessionPrivate::linkCommanderSession(SuperCommander *commander,
                                                SuperSession *session)
 {
-	// 语料体:dynamic_cast 校验后 commander+0x48 = session(非空)
-	// / FUN_007da09a 移除(空);FUN_007d6cee 查表 cited — wave-2
+	// FUN_007da178(168B)语料转写:FUN_007d6cee(119B)查节点
+	// (spinlock@+0x61 + FUN_007ddad0 map@+0x18;单线程重建免锁,
+	// 注记)→ node+0x20 = commander → dynamic_cast 校验 →
+	// commander+0x48 = session;session 空 → FUN_007da09a(208B)
+	// qmap_detach2 移除
 	if (commander == nullptr)
 		return;
-	if (session != nullptr)
-		commander->m_session = session;            // 语料 +0x48 写
-	else
-		commander->m_session = nullptr;            // 语料 FUN_007da09a
+	if (session == nullptr) {
+		m_commanderLinks.remove(commander);        // FUN_007da09a detach
+		commander->m_session = nullptr;            // 语料 +0x48 清
+		return;
+	}
+	m_commanderLinks.insert(commander, commander); // 语料 node+0x20
+	commander->m_session = session;                // 语料 value+0x48 = session
 }
