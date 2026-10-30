@@ -103,8 +103,14 @@ struct MarkersArray {                    // A = *(void**)M — 0099cecc/009a06ac
 // libstdc++ _Sp_counted_base<Lock_policy 2>(0099d1f6 语料类型;libstdc++ 边界)
 using SpBase = std::_Sp_counted_base<__gnu_cxx::_Lock_policy::_S_atomic>;
 
-struct MarkersStore {                    // M(EditorContext+0xc0 / +0x1098 同一对象)
-    MarkersArray *arr;                   // +0x000 A
+// ⚠ 批 69 勘正(mk2 构建者勘察):M ≡ D = doc-state(0x70B,挂
+// E+0xc0);pool/stopCount/serialEntries/name/nodes 实属 E 对象
+// (+0x118/+0x128/+0x250/+0x2b8/+0x2d8),已迁 EditorContext 平铺。
+// A=0x38/bank=0x40 全在 editor_initDoc(009a2e1e,956B)尾构建。
+// tlist(+0x18):0099c75a 读侧实证 vs mk2"lexerSnap"说冲突,以读侧
+// 为准,构建者批复核。
+struct MarkersStore {                    // M ≡ D = doc-state(0x70B)
+    MarkersArray *arr;                   // +0x000 A(0x38;*A=D 回指)
     void         *doc;                   // +0x008 E(折叠 +0xe0 族 / 层级 +0xa0 / 行数 +0xf8)
     quint8       _r10[0x08];             // +0x010 未解
     ValueTable   *tlist;                 // +0x018 T(FUN_00a101a0;与 bank 不同对象!)
@@ -114,18 +120,7 @@ struct MarkersStore {                    // M(EditorContext+0xc0 / +0x1098 同�
     quint64      visibleSnap;            // +0x050 可见快照槽(0099d1f6 返回 &此)
     SpBase      *curSnap;                // +0x058 当前快照
     quint64      stagedSnap;             // +0x060 暂存快照值
-    SpBase      *pendSnap;               // +0x068 待发布快照
-    quint8       _r70[0xa8];             // +0x070..0x117 未解
-    void        *pool;                   // +0x118 QThreadPool*(0x754d clear/waitForDone)
-    quint8       _r120[0x08];
-    quint32      stopCount;              // +0x128 停机计数(0x754d ++)
-    quint8       _r12c[0x124];           // +0x12c..0x24f 未解
-    QList<QByteArray> serialEntries;      // +0x250 序列化条目(FUN_00926b14;pixmap 侧;
-                                          //   0x7547 读侧无锁——原版怪癖保留)
-    quint8       _r258[0x60];            // +0x258..0x2b7 未解
-    QString      name;                   // +0x2b8 名称
-    quint8       _r2c0[0x18];
-    QMap<QString, void *> nodes;          // +0x2d8 名→节点 map(0x754d 遍历;值+8=type)
+    SpBase      *pendSnap;               // +0x068 待发布快照(0x70 止)
 
     MarkersStore()
     {
@@ -134,7 +129,6 @@ struct MarkersStore {                    // M(EditorContext+0xc0 / +0x1098 同�
         arr = nullptr; doc = nullptr; tlist = nullptr;
         spin = 0; visibleSnap = 0; curSnap = nullptr;
         stagedSnap = 0; pendSnap = nullptr;
-        pool = nullptr; stopCount = 0;
     }
     // ⚠ M+0x50/+0x58 与观测 holder(+0x8 ptr/+0x10 flag)对位差待复核;
     //   按 FUN_0099d1f6 字面(+0x50 快照值/+0x58 shared_ptr)落,构建者批复核。
@@ -413,21 +407,10 @@ struct MarkersStore {                    // M(EditorContext+0xc0 / +0x1098 同�
         return &visibleSnap;                                     // 返回 &M+0x50
     }
 
-    // ============ FUN_0092e44e(195B)后台解析全停(0x754d 体)============
-    // 主体转写;FUN_009264ba(81B)腿(dynamic_cast/FUN_009263fa 广播/
-    // DocumentTask_h9637ea 取消)—— cited — wave-2(事件总线未建模)
-    void stopAllBackground()
-    {
-        ++stopCount;                                             // +0x128 ++(LOCK 原样)
-        // QThreadPool::clear / waitForDone(Ghidra 字面 wait=(int)*(M+0x118)
-        // 与池 this 语义二选一未定)— 我方无线程池实体 — cited
-        for (auto it = nodes.begin(); it != nodes.end(); ++it) {
-            void *e = it.value();
-            if (e && quint8(*(quint8 *)(reinterpret_cast<char *>(e) + 8) - 5) < 4) {
-                // FUN_009264ba:type∈[5,8] 逐节点停机 — cited — wave-2
-            }
-        }
-    }
+    // FUN_0092e44e(0x754d 体)已迁 EditorEngine case 0x754d —— 批 69
+    // 勘正:stopCount/nodes 属 E 面,不在 D(本结构)
 };
+
+static_assert(sizeof(MarkersStore) == 0x70, "D 0x70B (mk2 勘正)");
 
 } // namespace wt

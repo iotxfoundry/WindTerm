@@ -1164,6 +1164,29 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   e5f6/e61c)→ 入 EXT-BOUNDARY
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 69(2026-10-31)四 lane 并行:构建者勘正 + 0x7547 S2-S4 + tr 取证 ✅
+- **布局翻页勘正**(mk2 lane):M ≡ D = doc-state(**0x70B**,挂
+  E+0xc0);pool/stopCount/serialEntries/name/nodes **实属 E 对象**
+  (+0x118/+0x128/+0x250/+0x2b8/+0x2d8)→ MarkersStore 截断 0x70
+  (sizeof assert 锁)+ EditorContext E 面五字段;A/bank/RS/GB/DATA
+  全在 editor_initDoc(009a2e1e,956B)尾构建;0x7545 = 纯序列化
+  导出(非条目建立,注释勘正);tlist 冲突注记待复核
+- **构建者最小函数集 12 项入档**(mk2 §:initDoc 尾接线/bankCtor/
+  runstylesUpgrade(009cd554 u8→u16→u32)/coreWriteRange(0099c8d6)/
+  markWrite(009a62c0)/publishOutline(009a2766)…)
+- **0x7547 S2-S4 追加真身化**(b1b lane):S2 度量(SCI_LINESONSCREEN
+  承接成立 + max 怪癖原样 + rowH/bw/fstep);S3 样式(styleTable
+  QHash 占位,丢 bit1 门登记);S4 坐标序**定案无错位**
+  QRectF(0,y0,bw,y1-y0),markerBand 桩(-1,-1)安全缺省
+- **tr 文本取证成功**(tr lane):"Line %1: %2"(ASCII @0xc91268,
+  LOAD1 file = vaddr-0x400000)→ JsEngine::runScript 字面腿激活
+- **DynamicLibraryImpl 定案**(五重扫描零调用者):未激活机制,
+  EXT-BOUNDARY 登记维持
+- 渲染族测绘(rd lane):0x753e/0x7544 同核 FUN_00a41552(QPixmap
+  出参);包装层可转写,核 vtbl+0x88/0x20/0x130 + 00a72686 未展开;
+  0x7547 与渲染核无调用关系(独立底座)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

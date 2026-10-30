@@ -69,6 +69,8 @@ platforminputcontexts/platformthemes/xcbglintegrations)26 so 全为
   全为 libstdc++ std::string 模板实例(同版工具链共性,非接口)
 - 加载机制 = QPluginLoader 运行时自动匹配(QPA/图像格式插件),
   非主二进制代码显式调用;测试环境 QT_PLUGIN_PATH 已覆盖
-- 唯一主动加载抽象 = **DynamicLibraryImpl**(FUN_00944a0e 178B 工厂:
-  QLibrary 包路径 + vtable 9763/9777 两实现)—— 语料无调用者转写
-  (动态扩展机制存在未激活),登记低优先级逆向点
+- 唯一主动加载抽象 = **DynamicLibraryImpl**(FUN_00944a0e 178B 工厂;
+  vtable@0x11ad170 = {ZTI,unload,删析构,resolve,isLoaded},ZTI 链
+  "18DynamicLibraryImpl"→"14DynamicLibrary"→"7Surface")—— **五重
+  扫描零调用者**(E8/E9/LEA rip/绝对引用/xref_scan):机制存在未激活,
+  无创建者无加载路径,定案(批 69 tr lane)

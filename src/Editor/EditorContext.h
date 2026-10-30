@@ -12,6 +12,7 @@
 #include <QByteArray>
 #include <QString>
 #include <QVariant>
+#include <QHash>
 #include "MarkersStore.h"
 #include <QVariantList>
 #include "RunNode.h"
@@ -206,6 +207,13 @@ public:
 	// 用有序表,单线程等价
 	// markers 读侧真身(批 67a;与下行行为模型并存,构建者批后接管门)
 	wt::MarkersStore markersStore;
+	// E 对象面(批 69 勘正:原误挂 MarkersStore;E=doc+0xc0 宿主态)
+	quint32 eStopCount = 0;            // E+0x128(0x754d 停机计数)
+	QMap<QString, void *> eNodes;      // E+0x2d8(0x754d 遍历;值+8=type)
+	QList<QByteArray> eSerialEntries;  // E+0x250(0x7545 序列化导出 append)
+	QString eName;                     // E+0x2b8
+	void *ePool = nullptr;             // E+0x118(线程池,0x754d)
+	QHash<QString, QColor> styleTable; // 样式表占位(0x7547 S3;+0xe00 面未建模)
 	QVector<RunNode> markers;
 	int markerInsert(const RunNode &n)
 	{

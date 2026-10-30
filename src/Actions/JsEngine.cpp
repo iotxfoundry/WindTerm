@@ -60,13 +60,11 @@ QString JsEngine::runScript(const QString &code)
 	    QStringLiteral("'use strict'; () => { %1 }").arg(code));
 	if (!r.isError())
 		return QString();
-	// 0xc91268 tr 源文本:语料未展开 + 二进制取证未中(批 68),
-	// 字面腿 — cited — wave-2(结构转写,文本待取证)
+	// tr 文本批 69 取证:"Line %1: %2"(ASCII @0xc91268,LOAD1
+	//   file = vaddr-0x400000;0xc91268 即字面首地址,NUL@0xc91274)
+	//   → .arg(lineNumber).arg(正文)
 	const int line = r.property(QStringLiteral("lineNumber")).toInt();
-	const QString body = r.toString();
-	Q_UNUSED(line);
-	Q_UNUSED(body);
-	return QString();
+	return tr("Line %1: %2").arg(line).arg(r.toString());
 }
 
 // 0064af3c(348B):"'use strict';" + code → evaluate(0020:30070;

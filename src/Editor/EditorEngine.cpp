@@ -928,30 +928,77 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   高参 −1=实际视高);a.toReal() 未消费原样
 	                 //   — cited — wave-2
 		return QVariant(0);
-	case 0x7545:     // FUN_00933366(892B)markers 导入:标记行收集
-	                 //   (0093f7aa)→ QDataStream 序列化 → M+0x250
-	                 //   append → SciScrollBarMarkEvent(0x414) 广播
-	                 //   — cited — wave-2
+	case 0x7545:     // FUN_00933366(892B)序列化导出(批 69 勘正:
+	                 //   非条目建立 —— 标记行收集(0093f7aa)→
+	                 //   QDataStream 序列化 → E+0x250 append →
+	                 //   SciScrollBarMarkEvent(0x414) 广播)— cited
 		return QVariant(0);
 	case 0x7546:     // 槽 29(vt+0xe8,self,1)= 水平滚动条可见性
 	                 //   (批 66 勘破:实例 vptr 0x11afd30/派生重写
 	                 //   FUN_00948a48:policy 判定 + QScrollBar bit15)
 	                 //   → SCI 承接(混合边界:标准行为委托真库)
 		return QVariant((bool)send(SCI_GETHSCROLLBAR));
-	case 0x7547: {   // s_line_modified_a72ad6(3008B)S1 构图真身化
-	                 //   (批 66 分级转写):double 高/宽四舍五入 →
-	                 //   QPixmap ctor + QColor(0,0,0,19)fill;
-	                 //   S2 度量(max 怪癖:denom = max(textLen,
-	                 //   可视行数 FUN_00a20438))/S3 样式装载
-	                 //   (editor_styleAt 面)/S4 色带(FUN_00927a78)/
+	case 0x7547: {   // s_line_modified_a72ad6(3008B)S1-S4(批 69):
 	                 //   S5 grep 注册(FUN_00a66ae8 1031B)/S6 逐条目
-	                 //   M+0x250 无锁读(怪癖原样) — cited — wave-2
-		const double dh = a.toDouble();
-		const double dw = b.toDouble();
-		QPixmap pm(qRound(dw), qRound(dh));
-		pm.fill(QColor(0, 0, 0, 19));   // 00a72b6e QColor(0x13)
+	                 //   无锁读(怪癖原样) — cited — wave-2
+		const double dh = a.toDouble();                  // 00a72ad9
+		const double dw = b.toDouble();                  // 00a72aef
+		QPixmap pm(qRound(dw), qRound(dh));              // S1 00a72b14
+		pm.fill(QColor(0, 0, 0, 19));                    // S1 00a72b6e
 		if (dh > 0.0) {
-			QPainter p(&pm);   // 00a72bbd(S2 起腿 cited)
+			QPainter p(&pm);                             // S1 00a72bbd
+			// ===== S2 度量(00a72cb8-00a72d3d)真身化 =====
+			const qint64 textLen = send(SCI_GETLENGTH, 0, 0);
+			// FUN_00a20438(self,0):floor((bot-top)/行高),<1 夹 1
+			//   —— SCI_LINESONSCREEN 承接成立(b1b §1)
+			const int visLines = qMax(1, int(send(SCI_LINESONSCREEN, 0, 0)));
+			qint64 denom = visLines;                     // 00a72cd4 max 怪癖(原样)
+			if (denom < textLen)
+				denom = textLen;
+			double rowH = dh / double(denom);            // 00a72d0e
+			double bw = dw / 3.0;                        // 00a72d1a
+			int fstep = 1;                               // 00a72d1e
+			if (rowH < 3.0) {
+				rowH = 3.0;
+				fstep = int(textLen * 3.0 / dh);         // 00a72d26
+			}
+			// ===== S3 样式装载(00a72d4c-)=====
+			// 门 *(*(this)+0x113a)(00a72d4c)未建模,常开承接
+			//   (偏差登记);样式表 +0xe00 未建模 → styleTable 占位
+			QColor cSaved, cUnsaved, cModified;          // 缺省 Invalid 同效
+			auto styleColor = [&](const char *key) -> QColor {
+				// 0095021a(+0xe00)→ 0094a7f8(bit1 门)→ 0094a5b2
+				//   环形 16B 槽 —— QHash 占位(丢 bit1 门,登记回填)
+				const auto it = m_ctx.styleTable.constFind(
+				    QLatin1String(key));
+				return it == m_ctx.styleTable.cend()
+				    ? QColor() : it.value();
+			};
+			cSaved = styleColor("line.saved");           // 00a72d56
+			cUnsaved = styleColor("line.unsaved");       // 00a72dd0
+			cModified = styleColor("line.modified");     // 00a72e44
+			// ===== S4 色带迭代(49632-49768)=====
+			// 坐标序定案(b1b §4):QRectF(0, y0, bw, y1-y0),行向沿 y
+			const qint64 lineCount = send(SCI_GETLINECOUNT, 0, 0);
+			char savedF = 1, unsavedF = 0;               // 00a72d4e 预置(原样)
+			auto markerBand = [&](qint64 from) -> QPair<qint64, qint64> {
+				// FUN_00927a78(365B)— cited — wave-2(*(M+0xf0)
+				//   flagmask 族未落地;桩 = 无带,安全缺省)
+				Q_UNUSED(from);
+				return {-1, -1};
+			};
+			QPair<qint64, qint64> band = markerBand(0);  // 00927a78
+			qint64 st = band.first, en = band.second;
+			if (st != -1) {
+				// 逐带 fillRect(QRectF(0, y0, bw, y1-y0), 色按
+				//   saved/unsaved/modified 三路选)—— 迭代体依赖
+				//   markerBand 真身,fold 跳步(009589f0/009588b8)
+				//   — cited — wave-2
+			}
+			Q_UNUSED(en); Q_UNUSED(lineCount);
+			Q_UNUSED(savedF); Q_UNUSED(unsavedF);
+			Q_UNUSED(cSaved); Q_UNUSED(cUnsaved); Q_UNUSED(cModified);
+			Q_UNUSED(rowH); Q_UNUSED(bw); Q_UNUSED(fstep); Q_UNUSED(p);
 		}
 		return QVariant::fromValue(pm);
 	}
@@ -974,10 +1021,20 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			m_edit->setVerticalScrollBarPolicy(a.toBool()
 			    ? Qt::ScrollBarAsNeeded : Qt::ScrollBarAlwaysOff);
 		return QVariant(0);
-	case 0x754d:     // FUN_0092e44e(195B)后台解析全停(批 67a 主体
-	                 //   真身化;FUN_009264ba 腿 cited — wave-2)
-		m_ctx.markersStore.stopAllBackground();
+	case 0x754d: {   // FUN_0092e44e(195B)后台解析全停(批 69 勘正:
+	                 //   stopCount/nodes 实属 E +0x128/+0x2d8;
+	                 //   FUN_009264ba 腿 cited — wave-2)
+		++m_ctx.eStopCount;
+		for (auto it = m_ctx.eNodes.begin(); it != m_ctx.eNodes.end(); ++it) {
+			void *e = it.value();
+			if (e && quint8(*(quint8 *)(reinterpret_cast<char *>(e) + 8) - 5) < 4) {
+				// FUN_009264ba:type∈[5,8] 逐节点停机(动态转换/
+				//   广播/取消)— cited — wave-2
+			}
+		}
+		// QThreadPool clear/waitForDone(E+0x118)—— 池未建模 cited
 		return QVariant(0);
+	}
 	case 0x7552: {   // 5 元列表 → FUN_00a2893e(112B)→ FUN_0092c0cc
 	                 //   (105B):FUN_0098075a doc+0x38 挂起标注记录
 	                 //   (字段承接,批 67a;链内无文本写入,不加 SCI
