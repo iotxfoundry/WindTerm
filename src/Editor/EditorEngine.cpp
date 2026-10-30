@@ -640,6 +640,41 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   — cited — wave-2(markers 面待转写)
 		return QVariant(0);
 	}
+	case 0x7592: {   // margin 可见过滤:toStringList → 名单外条目
+	                 //   bit7 置隐 → session_view_soft_reset
+	                 //   (cited — Phase-4 视图)
+		const QStringList names = a.toStringList();
+		for (auto &e : m_ctx.marginList)
+			e.hidden = !names.contains(e.name, Qt::CaseInsensitive);
+		// session_view_soft_reset — cited(Phase-4 视图)
+		return QVariant(0);
+	}
+	case 0x7593: {   // +0x1ae 字节 = a.toBool()
+		m_ctx.flag1ae = a.toBool();
+		return QVariant(0);
+	}
+	case 0x7598:     // +0x225 查询(SUB81 字节读)
+		return QVariant((bool)m_ctx.flag225);
+	case 0x7599: {   // +0xd8e bool;变更且 +0x225 门 → 刷新(cited)
+		const bool v = a.toBool();
+		if (m_ctx.flagD8e != v) {
+			m_ctx.flagD8e = v;
+			if (m_ctx.flag225) {
+				// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
+			}
+		}
+		return QVariant(0);
+	}
+	case 0x759c: {   // +0xd94 int;变更且 +0x225 门 → 刷新(cited)
+		const int v = a.toInt();
+		if (m_ctx.fieldD94 != v) {
+			m_ctx.fieldD94 = v;
+			if (m_ctx.flag225) {
+				// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
+			}
+		}
+		return QVariant(0);
+	}
 	case 0x7582: {   // +0xd8f 字节 = a.toBool() + vtable+0xa0 刷新
 	                 //   (cited — Phase-4b 视图腿)
 		m_ctx.flagD8f = a.toBool();

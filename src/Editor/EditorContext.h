@@ -29,6 +29,16 @@ public:
 	int field1b1 = 0;            // +0x1b1(0x7586 写)
 	bool flagD84 = false;        // +0xd84(0x7588 邻区写)
 	bool flagD8d = false;        // +0xd8d(0x758b 写)
+	bool flag1ae = false;        // +0x1ae(0x7593 写)
+	bool flagD8e = false;        // +0xd8e(0x7599 写)
+	int fieldD94 = 0;            // +0xd94(0x759c 写)
+	bool flag225 = false;        // +0x225(刷新门;0x7598 查询)
+	// margin 列表(语料 +0x1ab/+0x1ac,0x18 步长条目:名字 + 标志)
+	struct MarginEntry {
+		QString name;
+		bool hidden = false;   // 语料 +0x0b bit7
+	};
+	QList<MarginEntry> marginList;
 	bool flagD8f = false;        // +0xd8f(0x7582 写)
 	bool flagD91 = false;        // +0xd91(0x7583 写)
 	bool flag1b3 = false;        // +0x1b3(0x756a 写;变更触发刷新)

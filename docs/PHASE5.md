@@ -985,6 +985,18 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**17/70**
 
+### 批 61(2026-10-30)/loop-start R4:margin/flag 命令波(5 条)✅
+- **0x7592**:margin 可见过滤 —— toStringList → 名单外条目 bit7
+  置隐(session_view_soft_reset cited — Phase-4);marginList
+  (QList<{name,hidden}>)入库(语料 +0x1ab/+0x1ac,0x18 步长,
+  +0x0b bit7)
+- **0x7593**:+0x1ae bool;**0x7598**:+0x225 字节查询;
+  **0x7599**:+0xd8e bool(变更且 +0x225 门 → 刷新 cited);
+  **0x759c**:+0xd94 int(同构)
+- EditorContext 成员:flag1ae/flagD8e/fieldD94/flag225/marginList
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**22/70**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
