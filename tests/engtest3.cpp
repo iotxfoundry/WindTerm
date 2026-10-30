@@ -75,9 +75,13 @@ int main(int argc, char **argv)
 	s2.m_history->resizeCore(24, 80);
 	s2.writeText("\xe5\xa5\xbd", 3);   // 好(U+597D,宽)
 	TerminalView view2;
+	printf("CHK a: m_core=%p want=%p\n", s2.m_core, &core2);
 	view2.setScreen(&s2);
+	printf("CHK b: m_core=%p\n", s2.m_core);
 	view2.resize(640, 400);
+	printf("CHK c: m_core=%p\n", s2.m_core);
 	view2.show();
+	printf("CHK d: m_core=%p\n", s2.m_core);
 	QImage img3 = view2.grab().toImage();
 	const int cwpx = img3.width() / 80;
 	int rightHalf = 0;

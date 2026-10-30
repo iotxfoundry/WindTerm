@@ -38,7 +38,9 @@ static void releaseCellAux(char *auxSlot)
 }
 
 Screen::Screen()
-	: m_core(nullptr), m_history(nullptr), m_savedCursorStyle(-1),
+	: m_core(nullptr), m_history(nullptr), m_altCore(nullptr),
+	  m_savedPrimary(nullptr), m_viewSettings(nullptr),
+	  m_savedCursorStyle(-1),
 	  m_eraseAttr(0), m_leftRightMarginEnabled(false),
 	  m_scrollbackEnabled(false), m_eraseProtectedMode(false),
 	  m_newlineMode(false), m_reverseWraparound(false)
