@@ -11,10 +11,21 @@
 #include <json/json.h>
 #include <memory>
 
-// js_actionFire(006697b2,2282B)—— cited — wave-2:语料体在案,
-// 下一批逐行转写(触发链 FUN_0066a148 的执行位;签名按 0066a148
-// 调用形,转写落位时定稿)
-QVariant js_actionFire(QAction *action, const QJSValue &arg);
+// FUN_00668f3a(305B)—— cited — wave-2:按名调用包装。语料体:
+//   arg 未定义 → FUN_00767d08(newObject)缓存 host+0x18;参数表
+//   = [FUN_00767d2e(newQObject(param_4)), host+0x18/argval];
+//   FUN_0076745c 按名调用;isError → undefined。宿主类 =
+//   FUN_00665d8a qobject_cast(PTR_011a6c00,Phase 4c 面板层)——
+//   待该类落地后以 QJSEngine 直调完成本函数
+static QJSValue jsCallOnPane(QObject *target, const char *jsFuncName,
+                             QAction *action, const QJSValue &arg)
+{
+	Q_UNUSED(target);
+	Q_UNUSED(jsFuncName);
+	Q_UNUSED(action);
+	Q_UNUSED(arg);
+	return QJSValue(QJSValue::UndefinedValue);
+}
 
 // 006697b2(2282B)—— 语料形(批 38 反汇编实证):param = (out,
 // target,param_3 名串,param_4 QJSValue);体 = js_actionState
@@ -23,15 +34,31 @@ QVariant js_actionFire(QAction *action, const QJSValue &arg);
 // → data() 脚本(006698ad/c2)→ metatype/canConvert 门 →
 // FUN_00668f3a 调用(006699xx;依赖 MuxPane +0x48 QJSEngine 面)→
 // 错误 setText 尾 → toVariant
-void js_actionFire(QVariant &out, QObject *target, const char *propName,
+void js_actionFire(QVariant &out, QObject *target, const char *jsFuncName,
                    const QJSValue &arg)
 {
-	// cited — wave-2(006697b2 体未转写完:FUN_00668f3a 调用依赖
-	// MuxPane 类体 0064b102 + 00767a70/d08/d2e 三门;宁可留空)
-	Q_UNUSED(out);
-	Q_UNUSED(target);
-	Q_UNUSED(propName);
-	Q_UNUSED(arg);
+	// 00669086 前置(批 37 转写)
+	js_actionState(target, jsFuncName);
+	// property("data")(00669841 名@0x1182208)→ QAction* 门
+	// (00669860 canConvert/00669890 cast)
+	const QVariant dv = target->property("data");
+	if (!dv.canConvert<QAction *>())
+		return;
+	QAction *linked = dv.value<QAction *>();
+	if (linked == nullptr)
+		return;
+	// data() 脚本(006698ad/c2)+ metatype/canConvert 门(006698d8)
+	const QVariant script = linked->data();
+	if (!script.canConvert<QJSValue>())
+		return;
+	// FUN_00668f3a(006699xx 调用点):引擎宿主解析 = 语料
+	// FUN_00665d8a(qobject_cast → PTR_011a6c00 类)—— 该类属
+	// Phase 4c 面板层,未落地 → cited — wave-2(链接点在案,
+	// paneHost 落地后本函数即活)
+	QJSValue result = jsCallOnPane(target, jsFuncName, linked, arg);
+	if (result.isError())
+		return;                              // 语料 isError → undefined
+	out = result.toVariant();                // 语料尾 toVariant
 }
 
 // 00669086(1739B):property("dynamic")→ QAction* 门 → 状态镜像。

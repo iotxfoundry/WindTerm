@@ -628,6 +628,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK(间歇首跑
   FAIL 复跑过);phase5 98/98
 
+### 批 40(2026-10-30)/loop:js_actionFire 尾段闭合 ✅(FUN_00668f3a 转写)
+- **FUN_00668f3a(305B)全解明**:arg 未定义 → 00767d08(newObject)
+  缓存 host+0x18;参数表 = [00767d2e(newQObject(action)),
+  host+0x18/argval];FUN_0076745c 按名调用;isError → undefined
+- **落地**:js_actionFire 前置链转写完成(js_actionState →
+  property("data")门 → data() 脚本 → canConvert 门);尾段 =
+  jsCallOnPane cited 桩(宿主类 = FUN_00665d8a qobject_cast
+  PTR_011a6c00,Phase 4c 面板层 —— 该类落地后以 QJSEngine 直调
+  闭合;链接点/参数表全数在案)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK(复跑)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
