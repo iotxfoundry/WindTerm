@@ -72,10 +72,11 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **组件重做 = 先语料后代码**(铁律 6):批 35 ActionFactory
-   转写已落地;继序 = js_actionFire(006697b2)/js_actionState
-   (00669086)→ TelnetCommander 槽体 → keymap 匹配函数 →
-   ShellSession/TelnetSession 装配路径
+1. **组件重做 = 先语料后代码**(铁律 6):批 35 ActionFactory +
+   批 36 JsEngine 类体转写已落地;继序 = js_actionState(00669086)
+   + js_actionFire(006697b2)全转写(依赖 MuxPane 类/属性名串)
+   → TelnetCommander 槽体 → keymap 匹配函数 → ShellSession/
+   TelnetSession 装配路径
 2. **+0x101 触发发射点语料定位**(QUIRKS 22:门已转写休眠,
    排队置位触发待语料函数)
 3. **Phase 4a 收尾**:Commander UUID 表**插入**侧(语料未定位)

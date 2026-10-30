@@ -574,6 +574,21 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   1739B)逐行转写 → TelnetCommander 槽体 → keymap 匹配 →
   ShellSession → TelnetSession(回退组件按此序语料重做)
 
+### 批 36(2026-10-30)/loop:JsEngine 类体转写 ✅
+- **关键语料事实**:脚本包装模板 = 字面 **"'use strict'; () => { %1 }"**
+  (0064abb2,QString::arg)+ **"'use strict';" 前缀拼接**
+  (0064af3c:分配 len+0xd → convertFromAscii 前缀 + memcpy ×2 字节
+  → resize)。两包装均落 evaluate 的 name 槽(program = 成员串
+  @param+0x10 —— Ghidra 槽位歧义已标注,不猜改)。
+- **转写**:src/Actions/JsEngine.{h,cpp} —— evaluateArrow(0064abb2)/
+  evaluateStrict(0064af3c)/newObject(0064b0be)/newQObject
+  (0064b0d0);QJSEngine 组合成员(宿主面:MuxPane QJSEngine
+  @+0x48,00767a70/d08/d2e 三门语料)。
+- 语料边界:js_actionFire(006697b2)完整转写依赖 MuxPane 类
+  (s_MuxPane_64b102)+ js_actionState(00669086)+ 属性名串定位
+  —— 下批继续。
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
