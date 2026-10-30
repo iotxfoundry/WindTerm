@@ -944,6 +944,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**10/70**
 
+### 批 58b(2026-10-30)/loop:0x7545/0x7546/0x7548 勘察 ⏳
+- **FUN_00933366(892B)头部解明**(0x7545):FUN_00930338 预备 →
+  FUN_00925570 长度 → QVariantList 迭代(toLongLong → 界内 →
+  FUN_0093f7aa 收集)= 标记/位置导入;余段(第二列表 + 应用)
+  未读 —— 体量 892B,专用批
+- **s_line_modified_a72ad6(3008B)**(0x7548):行修改 pixmap 渲染
+  —— 体量最大单函数,专用批
+- **vtable+0xe8 槽(0x7546/0x7548)**:EditorContext = 多态类
+  (+0x00 vptr 实证:(**(*param_2+0xe8)) 双解引用);槽 29 映射
+  需 EditorContext 类身份/ctor 定位 —— 静态扫描(FUN_0092e44e
+  指针 .data.rel.ro 无命中)与运行期 vptr 转储两路已探,未解
+  → 保持缺失(零猜测)
+- 验证:零行为变更(勘察批)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
