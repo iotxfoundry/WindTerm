@@ -3,21 +3,32 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-30 第八次交接,清扫 loop 收官)
+## 一句话状态(2026-10-30 第九次交接,重开刷新)
 
-**铁律 6 执行成果:cited 全清(src/ 内 "cited — wave-2" = 0)**
-——批 47-52 六批转写:KeymapEngine YAML 装载/注册表链接面/
-rowUsedWidth payload/Telnet TTYPE 分支/主题图标链(QSvgRenderer
-委托)/jsCallOnPane(MuxPane 壳)/queryProtocolLevel 全链
-(session.term 分类器 ansi/tmux/vt/xterm)。
-**组件态**:ActionFactory/ThemeIcons/JsEngine/MuxPaneJs/MuxPane 壳
-/SuperKeymap/KeymapEngine 引壳/TelnetCommander 槽体(语料转写);
-TelnetSession/ShellSession 装配 = cited 空壳(待五元组语料批)。
-**关键发现**:Telnet 协商 = session.term 配置驱动分类器(ansi/tmux/
-vt/xterm → 协议级);SVG 光栅化 = QSvgRenderer 真库委托;
-glitch 族根源 = 排队元调用时序。**验证**:ctest 6/6(冒烟随组件
-回退退场);phase5 98/98;engtest3 直跑协议。**本地领先 75 提交**
-(未推送,遵规范)。
+**Phase 3 补全战役进行中:15/70 命令落地**(批 57-1 ×4/57-2 ×3/
+59 ×3/63 ×3/58 ×1;origin/dev 已被用户推送至批 57-1,**本地领先
+9 提交**)。**cited wave-2 全清维持(src/ 内 = 0)**。
+**组件转写态**:ActionFactory/ThemeIcons(QtSvg 委托)/JsEngine
+(0064aXXX 族)/MuxPaneJs/MuxPane 壳/SuperKeymap(ctor+复位)/
+KeymapEngine(YAML 装载)/TelnetCommander 槽体(配置表驱动分类)/
+EditorContext 文档层(docBytes/docCharLength/docSub/docCharCodeAt/
+docNextNonMatching)。**关键发现**:Telnet 协商 = session.term
+配置驱动分类器(ansi/tmux/vt/xterm);SVG 光栅化 = QSvgRenderer
+真库委托;glitch 族根源 = 排队元调用时序;frida 17 API 断层
+(findGlobalExportByName)。**验证**:ctest 6/6(engtest3 直跑
+协议)/phase5 98/98。
+
+## 下一批队列(重开后入口)
+
+1. **批 64:markers 对象内部层**(0099d1f6/009a096a/009a07d8/
+   009a088e——FUN_00926exx getters 背后)+ 余量命令接线
+2. **keymap 匹配体专用批**:0067 包装族(FUN_0067faa0 销毁族已
+   读 = 管线)→ FUN_0067500e(9978B 递归树行走,勘察批 54)
+3. **TelnetSession 装配点**:QTcpSocket 使用面在 decomp 0001-0003
+   (Qt 库区);TelnetSession_vt15(008616ea)协商响应构建已读
+4. **MuxPane 面板装配**(Phase 4c):ThemeIcons::setThemeDir 接线
+5. 动态探针脚本:/tmp/opencode/km_probe*.js kb_ev.js(重开会话
+   丢失,按 PHASE5 批 55b 形态重建)
 
 ## 一句话状态(2026-10-29 第四次交接)
 
