@@ -1,4 +1,5 @@
 #include "KeymapEngine.h"
+#include "JsEngine.h"
 
 #include <QFile>
 #include <QJsonArray>
@@ -87,4 +88,32 @@ QVector<KeymapEngine::Entry> KeymapEngine::match(const QString &key,
         hits.append(e);
     }
     return hits;
+}
+
+KeymapEngine::DispatchResult KeymapEngine::dispatch(const QString &key,
+                                                    const QString &mode)
+{
+    // 批 32:命中 → 分发。action = wind.actions 注册表名
+    // (JsEngine 动作表,wind_actions_build 00667102 装载);
+    // script = 内联 JS 体直评(JsEngine evaluate 面)
+    DispatchResult r;
+    JsEngine &js = JsEngine::instance();
+    const auto hits = match(key, mode);
+    r.hits = hits.size();
+    for (const Entry &e : hits) {
+        if (!e.action.isEmpty()) {
+            if (js.hasAction(e.action)) {
+                js.runAction(e.action);
+                ++r.ran;
+            } else {
+                ++r.missed;
+            }
+        } else if (!e.script.isEmpty()) {
+            js.runScript(e.script, e.action.isEmpty()
+                                    ? QStringLiteral("keymap.script")
+                                    : e.action);
+            ++r.ran;
+        }
+    }
+    return r;
 }

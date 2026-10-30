@@ -65,7 +65,7 @@ endif()
 # =====================================================================
 # Qt 查找
 # =====================================================================
-find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Network)
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Network Qml)
 
 # =====================================================================
 # WindTerm 重建库(libWindTermRe.so)
@@ -88,6 +88,7 @@ set(WT_INCLUDES
   ${Qt5Gui_INCLUDE_DIRS}
   ${Qt5Network_INCLUDE_DIRS}
   ${Qt5Widgets_INCLUDE_DIRS}
+  ${Qt5Qml_INCLUDE_DIRS}
 )
 
 # --- 源文件(按目录自动收集,新文件零配置) ---
@@ -109,6 +110,7 @@ file(GLOB WT_MOC_HEADERS
   ${CMAKE_SOURCE_DIR}/src/Sessions/*.h
   ${CMAKE_SOURCE_DIR}/src/Widgets/*.h
   ${CMAKE_SOURCE_DIR}/src/Protocols/*.h
+  ${CMAKE_SOURCE_DIR}/src/Editor/*.h
   ${CMAKE_SOURCE_DIR}/src/Pty/Pty.h
   ${CMAKE_SOURCE_DIR}/src/Pty/ShellProcess.h
   ${CMAKE_SOURCE_DIR}/src/Pty/UnixPty.h
@@ -134,7 +136,7 @@ target_include_directories(WindTermRe PRIVATE ${WT_INCLUDES})
 # 不加全局 include——调用点转写时按 TU 局部 -I 接线(全局路径会
 # 与 Scintilla/Qt 头冲突,实测 6k 错)
 target_link_libraries(WindTermRe
-  Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network
+  Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Qml
   ${SCINTILLA_QT} ${SCINTILLA_CORE}
   ${YAML_CPP} ${JSONCPP}
   ${LIB_OUT}/libssh.so.4

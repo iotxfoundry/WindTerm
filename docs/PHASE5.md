@@ -481,6 +481,27 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 证据脚本:/tmp/opencode/e1_carrier.py e2_trigger.py e3_trace.py
   e4_bisect.py e5b/e5d_bt.py e6_dual.py e7_trigger_set.py
 
+### 批 32(2026-10-30)/loop:键位 action 执行面(JsEngine + dispatch)✅
+- **语料**:JsEngine 类(QObject,metaObject 008fd850;evaluate 体
+  0064abb2/0064af3c = 源码+名字上下文;newQObject 0064b0d0)+
+  **wind_actions_build**(00667102,7702B:map 遍历 → script
+  trimmed → evaluate 注册)+ 装载器 s_wind_keymaps_768854/
+  s_wind_actions_76b7c0。**QJSEngine 实锤**(decomp 0020:29945)
+  → 标准行为委托真库(混合架构)。
+- **格式实证**:wind.actions = {name:{text,script 箭头函数}};
+  桥对象 application/window 等为 globalObject 注入(newQObject)。
+- **落地**:src/Editor/JsEngine.{h,cpp}(loadActions jsoncpp
+  JSONC 容错/runAction 可选 action 实参/installBridge/runScript)
+  + KeymapEngine::dispatch(match → action 走注册表,script 直评;
+  全命中执行——首中即停无证据,挂 CALIBRATION 待核)+ CMake
+  Qt5::Qml 组件(运行库在,dev 头已在 qtdeclarative5-dev)+
+  Editor/*.h 入 moc GLOB + tests AUTOMOC。
+- **actions_test**(新,6 断言)✅:480 动作装载/Application.Exit
+  桥调用/带参 SetWindowTransparent/未注册静默 miss/dispatch 命中
+  +script 项。**注意点:Window.RepeatLastCommand 不在 wind.actions**
+  (内置/他层注册,数据点挂账)。
+- ctest 13(engtest3 ctest 态间歇,直跑复核 OK);phase5 98/98。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

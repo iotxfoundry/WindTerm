@@ -56,9 +56,11 @@ user.config 实际只有少量键(fingerprint/language/theme/lockScreen)
    有效装载 + 锚定正则×mode 匹配 + tests/keymap_test(action 执行面待接)
 3. **Telnet 协议** ✅ 骨架(批 27):TelnetCommander IAC 状态机 feed +
    telnet.protocol 装载 + telnet_test(RFC 响应策略待接)
-4. **触发器/超链接引擎**:triggers.config 的 {text.pattern, action,
+4. ~~**wind.actions 动作面**~~ ✅(批 32):JsEngine 装载 480 动作
+   + runAction 桥调用 + KeymapEngine::dispatch 分发
+5. **触发器/超链接引擎**:triggers.config 的 {text.pattern, action,
    lineColor} 面与 shell 集成 notify* 通道对接
-5. **词法引擎**(schemes/*.lexer):prompt 行识别正则集——shell
+6. **词法引擎**(schemes/*.lexer):prompt 行识别正则集——shell
    集成通道的输入面;TextMate 子集解析器为独立工程项
-6. **Cryptographic 面样本**:user.sessions auth blobs(masterPassword
+7. **Cryptographic 面样本**:user.sessions auth blobs(masterPassword
    =false 路径)= 已知密文样本,可用于验证 Cryptographic 实现

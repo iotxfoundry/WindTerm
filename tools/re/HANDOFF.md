@@ -11,8 +11,11 @@ checkControlCharacter 门污染实锤;批 31 门语义补齐落地,QUIRKS 22
 管理 A1/A2 ✅**:ShellSession::stop(pty+断链+清 screen 挂钩)、
 **TelnetSession 网络接线**(QTcpSocket + RFC 854 默认拒绝响应在
 会话层 + IAC 状态机);注册表**插入**侧语料未定位 → wave-2 挂账。
-**ctest 12/12 全绿**(+telnetsocket/echo_semantics 冒烟)。probe38b
-矩阵终裁见 PHASE5 批 29。**本地领先 49 提交**(未推送,遵规范)。
+**ctest 13/13 全绿**(+telnetsocket/echo_semantics/actions 冒烟;
+engtest3 ctest 态间歇直跑复核)。**键位 action 执行面 ✅**(批 32:
+JsEngine 委托 QJSEngine + wind_actions_build 装载 + dispatch 面)。
+probe38b 矩阵终裁见 PHASE5 批 29。**本地领先 50 提交**(未推送,
+遵规范)。
 
 **engtest3 段错误根因已修**(5b773aec,推翻批 24"环境竞争"结论):
 Screen ctor 漏初始化 m_savedPrimary/m_altCore/m_viewSettings →
@@ -81,7 +84,8 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
    已实现版;发射点 cited — wave-2)
 2. **Phase 4a 收尾**:Commander UUID 表**插入**侧(wave-2 挂账,
    插入函数语料未定位;邻接面 007da178/007da09a 已记)
-3. **键位 action 执行面**:KeymapEngine 命中 → wind.actions 分发
+3. ~~键位 action 执行面~~ ✅ 批 32(JsEngine + dispatch;发射外
+   待办 = MuxPane 键流接线,Phase 4b)
 4. **TelnetSession RFC 策略细化**:按 telnet.protocol refs 对已知
    option 回 WILL/DO(现全默认拒绝);触发器/词法引擎
 5. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类)
@@ -100,8 +104,8 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 - frida:pip --user(17.24.3);REA binding 已修(bun prebuild-install
   走代理)但需宿主重载
-- 测试:`cd build && ctest`(**12 测试**:行为门 6 + keymap/
-  telnet/pty/shellsession/telnetsocket/echo_semantics 六冒烟;engtest3 ctest 态间歇——直跑复核;
+- 测试:`cd build && ctest`(**13 测试**:行为门 6 + keymap/
+  telnet/pty/shellsession/telnetsocket/echo_semantics/actions 七冒烟;engtest3 ctest 态间歇——直跑复核;
   见 tests/README.md)。RE 探针:tools/re/metatest/(手工 g++;改
   头文件后必须重编,踩坑 15)
 - ptrace_scope=0(已设,重启后需重设:sysctl -w)
