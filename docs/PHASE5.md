@@ -603,6 +603,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (00669841/45 区)+ MuxPane 类体 —— 下批同法反汇编实证
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 38(2026-10-30)/loop:js_actionFire 语料事实 + 签名修正 ✅
+- **属性名实证**(反汇编 669834 → 指针 @0x1182208 → 字符串):
+  js_actionFire 首读 = target->property(**"data"**)
+- **js_actionState 签名修正**:this = param_2(汇编 66909b/6690ad)
+  → (QObject *target, const char *propName);镜像尾不变
+- **js_actionFire 形与体边界**:param = (out, target, 名串,
+  QJSValue);体 = js_actionState 前置 → property("data")→
+  QAction* 门(00669890 cast)→ data() 脚本(006698ad/c2)→
+  metatype/canConvert 门 → FUN_00668f3a 调用(依赖 MuxPane +0x48
+  QJSEngine 面,0064b102 类体)→ 错误 setText 尾 → toVariant。
+  **尾段依赖 MuxPane 类体未转写 → js_actionFire 保持 cited**
+  (体事实全数入档,转写批接续)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

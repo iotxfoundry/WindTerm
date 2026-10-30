@@ -16,28 +16,38 @@
 // 调用形,转写落位时定稿)
 QVariant js_actionFire(QAction *action, const QJSValue &arg);
 
-QVariant js_actionFire(QAction *action, const QJSValue &arg)
+// 006697b2(2282B)—— 语料形(批 38 反汇编实证):param = (out,
+// target,param_3 名串,param_4 QJSValue);体 = js_actionState
+// (target,…)前置(00669834 前)→ target->property("data")
+// (名串 @0x1182208 → "data",00669841)→ QAction* 门 → cast(00669890)
+// → data() 脚本(006698ad/c2)→ metatype/canConvert 门 →
+// FUN_00668f3a 调用(006699xx;依赖 MuxPane +0x48 QJSEngine 面)→
+// 错误 setText 尾 → toVariant
+void js_actionFire(QVariant &out, QObject *target, const char *propName,
+                   const QJSValue &arg)
 {
-	// cited — wave-2(006697b2 未转写;空实现,宁可留空也不猜)
-	Q_UNUSED(action);
+	// cited — wave-2(006697b2 体未转写完:FUN_00668f3a 调用依赖
+	// MuxPane 类体 0064b102 + 00767a70/d08/d2e 三门;宁可留空)
+	Q_UNUSED(out);
+	Q_UNUSED(target);
+	Q_UNUSED(propName);
 	Q_UNUSED(arg);
-	return QVariant();
 }
 
 // 00669086(1739B):property("dynamic")→ QAction* 门 → 状态镜像。
 // 语料锚:属性名 "dynamic"(指针 @0x11821e8,反汇编 6690a3 实证);
 // QAction* metatype 一次注册(DAT_011c0b04,006693xx);第二读
 // 0066911c(this = cast 后 linked);尾 setProperty 镜像 @006697xx。
-void js_actionState(QAction *action, const char *propName)
+void js_actionState(QObject *target, const char *propName)
 {
-	const QVariant v = action->property("dynamic");
+	const QVariant v = target->property("dynamic");   // 006690b0 名@0x11821e8
 	if (!v.canConvert<QAction *>())
-		return;                                   // 语料 canConvert 门
+		return;                                   // 语料 canConvert 门(006690cc)
 	QAction *linked = v.value<QAction *>();
 	if (linked == nullptr)
 		return;                                   // 语料 QMetaObject::cast 门(006690f8)
-	const QVariant st = linked->property(propName);   // 0066911c
-	action->setProperty(propName, st);                // 尾镜像(006697xx)
+	const QVariant st = linked->property(propName);   // 0066911c(this = cast 后)
+	target->setProperty(propName, st);                // 尾镜像(006697xx)
 }
 
 // theme_icon_load_svg(00756cd6,1272B)—— cited — wave-2:主题
@@ -71,7 +81,11 @@ QAction *ActionFactory::getOrCreate(const QByteArray &name)
 	connect(action, &QAction::triggered, this, [this, action] {
 		Q_UNUSED(this);
 		// FUN_0066a148(103B):sender() → QAction cast → js_actionFire
-		QVariant result = js_actionFire(action, QJSValue(QJSValue::UndefinedValue));
+		// (语料形:out, target, 名串, QJSValue;target = 触发上下文
+		// 对象 —— decomp 歧义,转写批落位)
+		QVariant result;
+		js_actionFire(result, action, "state",
+		              QJSValue(QJSValue::UndefinedValue));
 		Q_UNUSED(result);
 	});
 	m_actions.insert(trimmed, action);             // 语料 QHash 插表(006660f9 区)

@@ -45,8 +45,9 @@ private:
     QHash<QByteArray, QAction *> m_actions;   // 工厂表(corpus +0x10)
 };
 
-// js_actionState 00669086(1739B)—— 语料转写(批 37):
-// action->property("dynamic")(名串 @0x11821e8 实证)→ QAction*
-// 门(DAT_011c0b04 一次注册)→ linked->property(propName)→
-// action->setProperty(propName, …)状态镜像(@006697xx 尾)
-void js_actionState(QAction *action, const char *propName);
+// js_actionState 00669086(1739B)—— 语料转写(批 37/38 签名修正):
+// this = param_2(汇编 66909b/6690ad 实证)→ target->property
+// ("dynamic")(名串 @0x11821e8)→ QAction* 门(DAT_011c0b04 一次
+// 注册)→ linked->property(propName)(0066911c,this = cast 后)→
+// target->setProperty(propName, …)状态镜像(@006697xx 尾)
+void js_actionState(QObject *target, const char *propName);
