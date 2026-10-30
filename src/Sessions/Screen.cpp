@@ -2813,9 +2813,11 @@ int Screen::queryProtocolLevelProxy()
 	// FUN_007e2e42: with the params' charset slot registered as a
 	// 94-set (FUN_007e2c6a), the level is strtol(paramsText + 2) / 100
 	// where paramsText is the QByteArray at protocol-obj +0x18;
-	// otherwise ext-capable -> 4, else -1. The protocol params object
-	// build path is not transcribed yet, so only the fallback runs.
-	// cited — wave-2
+	// otherwise ext-capable -> 4, else -1. Read side fully mapped
+	// (批 48c): FUN_007e2c6a(8B)= mode==3 → strtol(paramsText+2)/100;
+	// FUN_007e2c72(21B)= mode∈{2,4} → 4, else -1. Write side (the
+	// params-object build, mode@+0x20/text@+0x18) not yet located —
+	// cited — wave-2(下批:DECRQSS/params 构建面定位)
 	return protocolExtCapable() ? 4 : -1;
 }
 

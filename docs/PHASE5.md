@@ -751,6 +751,12 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   007e2c6a 门 → strtol(paramsText+2)/100;params 对象**写侧**
   (007e2c6a 94-set 构建函数)待定位 → 1 处 cited 保留(下批)
 
+### 批 48d(2026-10-30)/loop:queryProtocolLevel 读侧精度化 ✅
+- FUN_007e2c6a(8B)= mode==3 → strtol(paramsText+2)/100;
+  FUN_007e2c72(21B)= mode∈{2,4} → 4,else -1(读侧全解)
+- 写侧(params 对象构建,mode@+0x20/text@+0x18)待定位 →
+  Screen 1 处 cited 精度化保留(下批 DECRQSS/params 构建面)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
