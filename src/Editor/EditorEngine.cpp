@@ -553,6 +553,32 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			m_separators0 = text;   // +0x280
 		return QVariant(0);
 	}
+	case 0x7536: {   // FUN_00a23d26(19B):+0x1108 |= mask;标记通知
+	                 //   FUN_00925bb4(+0x1098)— cited(Phase-4b 通知腿)
+		m_ctx.mask1108 |= a.toULongLong();
+		return QVariant(0);
+	}
+	case 0x7538: {   // FUN_00a24126(25B):+0x1108 &= ~mask;通知
+	                 //   FUN_00925bc8 — cited(Phase-4b 通知腿)
+		m_ctx.mask1108 &= ~a.toULongLong();
+		return QVariant(0);
+	}
+	case 0x7533: {   // +0x21d 字节 = a.toBool()(00669xxx 区直写)
+		m_ctx.flag21d = a.toBool();
+		return QVariant(0);
+	}
+	case 0x7535: {   // FUN_00a30d26(219B):+0x1067 = int(a);变更时
+	                 //   0 → FUN_00a245c6 + FUN_0095cc7e(ctx[0x214])
+	                 //   + 0x213 面刷新 — cited(Phase-4b 通知腿)
+		const int v = a.toInt();
+		if (m_ctx.field1067 != (signed char)v) {
+			m_ctx.field1067 = (signed char)v;
+			if (v == 0) {
+				// FUN_00a245c6(this,0,0)— cited — wave-2
+			}
+		}
+		return QVariant(0);
+	}
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 		// std::string 返回族/hexBase…):真名与语义锚见

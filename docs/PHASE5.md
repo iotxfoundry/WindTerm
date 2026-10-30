@@ -890,6 +890,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   每条 = 巨 switch 内语料体读取 + 转写;体量 = Phase 3 长期战役)
 - 验证:零行为变更(清单批)
 
+### 批 57-1(2026-10-30)/loop-start R1:Phase 3 命令转写第一波(4 条)✅
+- **0x7536**(FUN_00a23d26 19B)+0x1108 |= mask;**0x7538**
+  (FUN_00a24126 25B)&= ~mask(标记通知腿 cited — Phase-4b)
+- **0x7533**:+0x21d 字节 = a.toBool();**0x7535**(FUN_00a30d26
+  219B):+0x1067 = int(a)(变更腿 FUN_00a245c6/0095cc7e cited)
+- EditorContext 成员入库:mask1108(+0x1108)/flag21d(+0x21d)/
+  field1067(+0x1067)
+- 剩余本波(被调体量大,后续轮):0x7531(00a51780 1155B)/
+  0x7532(120 行)/0x753a(0092ed32 430B)/0x753c(112 行)/
+  0x753d(caret_changeShape 00a29a48 1059B)/0x753e(00a417fe
+  112B)/0x753f(vtable+0xc0 虚调)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**4/70**(runbook phase3-70-loop)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

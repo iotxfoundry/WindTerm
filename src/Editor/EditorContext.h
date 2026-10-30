@@ -20,6 +20,9 @@ public:
 	int hexBase = 10;            // +0x1120(合法域 2..0x24)
 	QString hexBaseStr = "255";  // +0x1124(FUN_007c4392 number(0xff))
 	bool hexMode = false;        // +0x1128
+	quint64 mask1108 = 0;        // +0x1108(FUN_00a23d26/00a24126 掩码)
+	bool flag21d = false;        // +0x21d(0x7533 写)
+	signed char field1067 = 0;   // +0x1067(0x7535 写/FUN_00a30d26)
 
 	// --- 边栏(0x7597;FUN_00a1fd8c)---
 	bool marginTrackChange = false;  // +0x113a
