@@ -997,6 +997,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**22/70**
 
+### 批 62(2026-10-30)/loop-start:0x759f-0x75aa 段测绘 ⏳
+- 8 命令全读(皆薄分发 → markers/ctx 方法):
+  0x759f(FUN_00926e08)/0x75a0(行解析链 FUN_00975bc6→FUN_0096bbc0
+  →FUN_0092522a→FUN_00928404 → FUN_00926e52)/0x75a1(FUN_00926e3e)/
+  0x75a5(FUN_00a2d3ec bool)/0x75a6(FUN_00a5940a ctx[0x216]+u64+串)/
+  0x75a7(FUN_009252f4 四参)/0x75a8(FUN_00a21576)/0x75aa
+  (FUN_00a282b8/FUN_00a2041e double/FUN_00a26ec6 三形)
+- **依赖**:markers 方法族(FUN_00926exx)+ ctx 方法族(FUN_00a2xxxx)
+  ≈ 12 函数 —— 转写 = 下批(批 63)主体
+- 验证:零行为变更(测绘批)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
