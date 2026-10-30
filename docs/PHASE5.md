@@ -917,6 +917,19 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**8/70**
 
+### 批 57-3(2026-10-30)/loop-start:文档模型层解明 + 定界 ⏳
+- **0x7566 全链读通**:FUN_009252d4(15B,→FUN_009987a2 文档定位)
+  → buf_substr(0092acb8,192B)→ FUN_0092777c(21B,→FUN_0099792a
+  字符)→ toUcs4 —— charAt→ucs4
+- **EditorContext 文档模型层解明**(+0xe0 doc 对象族):
+  FUN_009987a2(123B,定位:FUN_00a840e6 多态 seek + FUN_00998678
+  298B 行走)/ FUN_009975de(59B,CRLF 检查:charAt\r\n)/
+  FUN_0099792a→0099785e(charAt)/ buf_substr(0092acb8)
+- **判定**:该层 = EditorContext 文档子系统(0x7553/0x7566/0x7545
+  等 ~15 命令的共同依赖)—— **专用批转写**(文档对象构造 +
+  locate/charAt/substr 族)后命令批量接线
+- 验证:零行为变更(勘察批)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
