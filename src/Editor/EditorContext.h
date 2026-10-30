@@ -23,6 +23,11 @@ public:
 	quint64 mask1108 = 0;        // +0x1108(FUN_00a23d26/00a24126 掩码)
 	bool flag21d = false;        // +0x21d(0x7533 写)
 	signed char field1067 = 0;   // +0x1067(0x7535 写/FUN_00a30d26)
+	bool flag1b3 = false;        // +0x1b3(0x756a 写;变更触发刷新)
+	bool flag227 = false;        // +0x227(0x756c 写)
+	int fieldD9c = 0;            // +0xd9c(0x756a 邻区写)
+	quint64 currentBufferId = 0; // +0x600(FUN_0092f0f6 setCurrentBuffer)
+	int taskGeneration = 0;      // +0x128(FUN_0092e44e 线程池代计数)
 
 	// --- 边栏(0x7597;FUN_00a1fd8c)---
 	bool marginTrackChange = false;  // +0x113a

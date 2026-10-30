@@ -579,6 +579,32 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
+	case 0x756a: {   // +0x1b3 bool = a.toBool();变更 → vtable+0xa0
+	                 //   刷新( cited — Phase-4b 视图腿)
+		const bool v = a.toBool();
+		if (m_ctx.flag1b3 != v) {
+			m_ctx.flag1b3 = v;
+			// (**+0xa0)(ctx) 刷新 — cited — wave-2(Phase-4b)
+		}
+		return QVariant(0);
+	}
+	case 0x756c: {   // +0x227 字节 = a.toBool()(00669xxx 区直写)
+		m_ctx.flag227 = a.toBool();
+		return QVariant(0);
+	}
+	case 0x7543: {   // FUN_0092f0f6(1279B)setCurrentBuffer(a):
+	                 //   FUN_0092ef06 拆链 → FUN_00925338/00925310
+	                 //   状态应用 → +0x274 写;命中变更 →
+	                 //   FUN_0095cc7e + session_view_soft_reset +
+	                 //   FUN_00a243ae(0x10)( cited — Phase-4b 面)
+		const quint64 bufId = a.toULongLong();
+		if (m_ctx.currentBufferId == bufId)
+			return QVariant(0);              // 语料同 id 短路
+		m_ctx.currentBufferId = bufId;
+		// setCurrentBuffer 核心(1279B)与刷新腿 — cited — wave-2
+		// (Phase-4b 视图面;字段面已落位)
+		return QVariant(0);
+	}
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 		// std::string 返回族/hexBase…):真名与语义锚见

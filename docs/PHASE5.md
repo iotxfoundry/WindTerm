@@ -904,6 +904,19 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**4/70**(runbook phase3-70-loop)
 
+### 批 57-2(2026-10-30)/loop-start R1 续:字段命令 + 0x7543 接线 ✅
+- **0x756a**:+0x1b3 bool = a.toBool()(变更 → vtable+0xa0 刷新,
+  cited — Phase-4b);邻区 +0xd9c int 同构入库
+- **0x756c**:+0x227 bool = a.toBool()
+- **0x7543**:FUN_0092f0f6(1279B)setCurrentBuffer 接线 —— 同 id
+  短路 + 字段落位(+0x600);核心/刷新腿(FUN_0092ef06 拆链/
+  FUN_00925338/00925310/FUN_0095cc7e/session_view_soft_reset/
+  FUN_00a243ae)= cited — Phase-4b
+- EditorContext 成员:flag1b3/flag227/fieldD9c/currentBufferId
+  (+0x600)/taskGeneration(+0x128)入库
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**8/70**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
