@@ -742,6 +742,15 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   TelnetSession 重做批)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 48c(2026-10-30)/loop:SuperSessionPrivate 插入侧消解 ✅
+- FUN_007d6cee(119B)实证查表 = FUN_007ddad0(99B,QMap 节点行走,
+  operator< 键比较)→ 容器 = QMap;插入 = QMap 定址写,无独立
+  插入函数 —— 行为由 QMap 语义覆盖,会话 start 写表经
+  linkCommanderSession 落位 —— 1 处 cited 清除
+- queryProtocolLevelProxy(007e2e42,128B)语料全读:FUN_007e2c72/
+  007e2c6a 门 → strtol(paramsText+2)/100;params 对象**写侧**
+  (007e2c6a 94-set 构建函数)待定位 → 1 处 cited 保留(下批)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

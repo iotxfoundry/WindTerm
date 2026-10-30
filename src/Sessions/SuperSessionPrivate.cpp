@@ -23,11 +23,13 @@ SuperSessionPrivate::~SuperSessionPrivate()
 // 删同 uuid 全部节点,逐个释放 +0x18/+0x20,尾 vtable+0x20 拆除)/
 // +0x20 Term(007dac60)/ +0x28 Transfer(007dad94)/ +0x40 Logger
 // (007db8ee:keepFlag bit2@+0x19 免拆,发 loggerRemoved=0091228e)
-// 挂账(wave-2):Commander 表**插入**侧未定位——已实证邻接面为
-// FUN_007da178(挂入:commander→会话 +0x48 并发 commanderCreated
-// =0091223a)与 FUN_007da09a(按 uuid 移除 +0x18 表节点,调用者
-// 007da1ee/007da219/007dc314/00912927);插入无直呼者,语义不明 →
-// 不猜,会话 start 时不写表 /* cited — wave-2 */。
+// 插入侧消解(批 48c):FUN_007d6cee(119B)实证查表 = FUN_007ddad0
+// (99B,QMap 节点行走,operator< 键比较)→ 容器 = QMap;插入 =
+// QMap 定址写(查得即用/未查得建节点),无独立插入函数 —— 行为
+// 由 QMap 语义覆盖。挂入/移除面 = FUN_007da178(linkCommanderSession
+// 批 43 转写)与 FUN_007da09a(removeRegistry 转写);调用者
+// 007da1ee/007da219/007dc314/00912927。会话 start 写表经
+// linkCommanderSession 落位。
 void SuperSessionPrivate::removeRegistry(int kind, const QUuid &id)
 {
 	if (kind < 0 || kind > 3)
