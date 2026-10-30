@@ -550,6 +550,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   触发面矩阵/probe39 隔离证据 —— 待语料定位后按转写重做组件
 - 验证:ctest 5/6(engtest3 ctest 态间歇,直跑复核 OK);phase5 98/98
 
+### 批 35(2026-10-30)/loop:ActionFactory 语料转写(动作子系统第一层)✅
+- **语料函数族定位**(铁律 6:先落点后代码):
+  - actionFactory_getOrCreate 00665dc2(856B):工厂表
+    (QHash<QByteArray,QAction*> @factory+0x10)查/建;建 = new
+    QAction + setText(name) + connectImpl(triggered →
+    FUN_0066a148,functor 壳 0066b3a0)
+  - FUN_0066613a(2882B)条目应用四键:script(toString.trimmed;
+    空→setEnabled(false)@006669e2 / 非空→setData@006662c5)/
+    icon(非空门@00666344 → theme_icon_load_svg@00756cd6 →
+    setIcon@00666399 + setProperty("iconFile")@006663e5)/
+    text(toUtf8→tr→setText)/ tooltip(→setToolTip@006665e0)
+  - wind_actions_build 00667102(7702B):根 map 空守卫(+0x10)
+    → key→toUtf8 / value→toMap → FUN_0066613a
+  - FUN_0066a148(103B)triggered 处理:sender→QAction→js_actionFire
+  - 触发执行位 js_actionFire 006697b2(2282B)+ theme_icon_load_svg
+    00756cd6(1272B)→ **cited 桩**(下一批转写)
+- **落地**:src/Actions/ActionFactory.{h,cpp}(getOrCreate/
+  build/applyEntry/loadActionsFile;JSONC 解析 CTerminalConfig
+  同款);src/Actions 入源码/moc 双 GLOB;Qt5::Qml 回归(链接面)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 待办(下批):js_actionFire(006697b2)/js_actionState(00669086,
+  1739B)逐行转写 → TelnetCommander 槽体 → keymap 匹配 →
+  ShellSession → TelnetSession(回退组件按此序语料重做)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

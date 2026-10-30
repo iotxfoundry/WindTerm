@@ -10,7 +10,7 @@
 退 cited 空壳、ShellSession 退空壳、KeymapEngine/JsEngine 删除、
 +0x101 触发接线移除(门转写保留、休眠)、六冒烟测试随组件退场。
 **保留(有落点)**:98 序列 98/98(终端核心全转写)/Pty 开源码
-逐句同构/Screen ctor 修复/批 26 统一模型。**ctest 5/6(engtest3 间歇直跑 OK)**。
+逐句同构/Screen ctor 修复/批 26 统一模型。**ctest 6/6**(engtest3 间歇直跑 OK)。**批 35 ActionFactory 语料转写落地**(动作工厂/装配/条目四键;js_actionFire/主题图标 cited 桩)。
 实验资产在案:telnet_capture.json(协商字节)/E1-E7 矩阵 ——
 组件重做一律先语料定位转写落点。**本地领先 54 提交**(未推送)。
 
@@ -72,10 +72,10 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. **组件重做 = 先语料后代码**(铁律 6):TelnetCommander 槽体/
-   keymap 匹配函数/JsEngine 体/Session 装配路径 —— 逐个在语料
-   定位 FUN_ 转写落点,再按转写实现;实验锚(telnet_capture.json/
-   E1-E7)作验证基准,不作实现依据
+1. **组件重做 = 先语料后代码**(铁律 6):批 35 ActionFactory
+   转写已落地;继序 = js_actionFire(006697b2)/js_actionState
+   (00669086)→ TelnetCommander 槽体 → keymap 匹配函数 →
+   ShellSession/TelnetSession 装配路径
 2. **+0x101 触发发射点语料定位**(QUIRKS 22:门已转写休眠,
    排队置位触发待语料函数)
 3. **Phase 4a 收尾**:Commander UUID 表**插入**侧(语料未定位)
