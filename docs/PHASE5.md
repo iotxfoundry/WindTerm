@@ -639,6 +639,20 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   闭合;链接点/参数表全数在案)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK(复跑)
 
+### 批 41(2026-10-30)/loop:TelnetCommander 槽体语料定位 + 结构转写 ✅
+- **槽体定位**(metacall 00917e20,93B):槽 0 = FUN_008606fe
+  (460B)/ 槽 1 = FUN_00860642(188B),均收 (command,option)
+  双字节
+- **策略 = 配置表驱动**(推翻批 33 捕获策略猜想):表 =
+  FUN_00860a50(**CTerminalConfig 单例 DAT_011c2200+0xb0**),
+  12 字节条目;槽 0 按 option 匹配 + 向量门(this+0x128/+0x130)
+  → FUN_0085e2de/0085e308/0085fa60 响应链;槽 1 flag==1 →
+  FUN_0085e326 匹配 → s_session_term_860126(0070ce42 族)
+- **落地**:TelnetCommander 槽签名修正为语料形 (uchar command,
+  uchar option);槽体结构转写(门序/调用形/表引用全引地址),
+  助手链(表访问器/匹配/响应) cited — wave-2,逐批转写
+- 验证:构建零 undefined;ctest 6/6
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
