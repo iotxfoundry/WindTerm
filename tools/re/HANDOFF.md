@@ -18,17 +18,22 @@ docNextNonMatching)。**关键发现**:Telnet 协商 = session.term
 (findGlobalExportByName)。**验证**:ctest 6/6(engtest3 直跑
 协议)/phase5 98/98。
 
-## 下一批队列(重开后入口)
+## 下一批队列(重开后入口;批 65 后刷新)
 
-1. **批 64:markers 对象内部层**(0099d1f6/009a096a/009a07d8/
-   009a088e——FUN_00926exx getters 背后)+ 余量命令接线
-2. **keymap 匹配体专用批**:0067 包装族(FUN_0067faa0 销毁族已
-   读 = 管线)→ FUN_0067500e(9978B 递归树行走,勘察批 54)
-3. **TelnetSession 装配点**:QTcpSocket 使用面在 decomp 0001-0003
-   (Qt 库区);TelnetSession_vt15(008616ea)协商响应构建已读
-4. **MuxPane 面板装配**(Phase 4c):ThemeIcons::setThemeDir 接线
-5. 动态探针脚本:/tmp/opencode/km_probe*.js kb_ev.js(重开会话
-   丢失,按 PHASE5 批 55b 形态重建)
+**Phase 3 = 55/70**(批 65 四 lane 并行勘察收口:`370e7b44`)。
+勘察笔记:/tmp/opencode/p3_notes_e1-e4.md(重开丢失则按
+PHASE5 批 65 清单重建)。
+
+1. **cited 锚定条目真身化升级**(小体优先:0x754d 线程池停机/
+   0x7552 双字符标签三函数/0x7576 插入体 FUN_0095c92c 400B)
+2. **markers 写入侧批**:FUN_0099d27e(600B)族(布局还原已入档:
+   +0x48 锁/+0x50 快照/条目 24B/run 值 u32 打包 id=v>>13)
+3. 大体专用批:0x7547(3008B pixmap)/0x75a6(4113B 搜索)/
+   0x7531(1155B props)/0x753e+0x7544(渲染族)
+4. **待用户复核**:0x75e0/0x75e1 归位修正(L24250)/0x75c5 变更门
+   (L24726)—— 批 65 ⚠️ 标注
+5. **keymap 匹配体专用批**:0067 包装族 → FUN_0067500e(9978B)
+6. **TelnetSession 装配点** / **MuxPane 面板装配**(Phase 4c)
 
 ## 一句话状态(2026-10-29 第四次交接)
 
