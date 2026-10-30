@@ -1,5 +1,6 @@
 #include <QCollator>
 #include <QPainter>
+#include <QRegularExpression>
 #include <QPixmap>
 #include <QLocale>
 #include "EditorEngine.h"
@@ -749,10 +750,132 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	//   FUN_00a26ec6(99B)即其实现体(editctx 定位 + markers 现位 +
 	//   FUN_00a21110 选中应用,L24915 唯一 dispatch 体)—— 我方
 	//   SCI_GOTOLINE 丢 col/选中腿,待补批
-	case 0x75a6:     // FUN_00a5940a(4113B)正则搜索跳转
-	                 //   (QRegularExpressionMatch 面)— cited —
-	                 //   wave-2(体量最大搜索面,专用批)
-		return QVariant(0);
+	case 0x75a6: {   // FUN_00a5940a(4113B)搜索跳转(批 67b 分级转写):
+	                 //   前奏 A-E 正则直转 + F2 轻量 switch(28 case 全读;
+	                 //   runnode 腿 → FUN_00a557b0(2961B) cited;
+	                 //   F/T/t/H/L/M Grep·视口腿整体 cited;
+	                 //   'g'+'g'/未知码 = -1;'f' 空组3 直落)
+		const QString cmd = b.toString();
+		// A:静态正则 "(\\d*)(.)(.?)"(DAT_011c28c8,guard+atexit,options=0)
+		static const QRegularExpression re(
+		    QStringLiteral("(\\d*)(.)(.?)"));
+		// B:matchType=0/NormalMatch;matchOptions=1(NoMatch)—— 语料
+		//   字面矛盾点原样(铁律 2),行为测试裁决
+		const QRegularExpressionMatch mt = re.match(
+		    cmd, 0, QRegularExpression::NormalMatch,
+		    QRegularExpression::MatchOptions(
+		        QRegularExpression::NoMatch));
+		if (!mt.hasMatch())                               // 34631
+			return QVariant(qlonglong(-1));
+		const qlonglong n = mt.captured(1).toLongLong();  // 34637 组1
+		const quint64 count = n > 0 ? quint64(n) : 1;     // 34645 缺省 1
+		const QString codeStr = mt.captured(2);           // 34655 首码元
+		const QString text3 = mt.captured(3);             // 34676 组3
+		// 状态定案(F2 §0):lVar5 = 当前行(FUN_0092522a);lVar6 =
+		//   总行数(FUN_00925570)—— SCI 承接
+		long long param2 = a.toLongLong();                // pos 基点
+		const long long lVar5 = send(SCI_LINEFROMPOSITION, param2, 0);
+		long long lVar6 = send(SCI_GETLINECOUNT, 0, 0);
+		// F1 Grep 对象分支前提(34884):组3 空 或 码 ∉ {f,F,t,T}
+		const ushort uVar1 =
+		    codeStr.isEmpty() ? 0 : codeStr.at(0).unicode();
+		auto runnodeLeg = [](int kind, int sign, quint64 cnt) {
+			// 14 腿统一模式:runstyles_runnode_init(RunNode.h 真身)
+			//   → FUN_00a557b0(2961B)运动执行器 — cited — wave-2
+			//   (kind/sign/cnt 语料实证;执行后 param2 = 结果 pos)
+			(void)kind; (void)sign; (void)cnt;
+		};
+		switch (uVar1) {
+		case 0x24:  // '$' @34895:目标行(当前+count-1)行尾(FUN_0092520c)
+			param2 = send(SCI_GETLINEENDPOSITION, lVar5 - 1 + (long long)count, 0);
+			break;
+		case 0x28:  // '(' @34902:kind 0xc 负向
+			runnodeLeg(0xc, -1, count); break;
+		case 0x29:  // ')' @34914:kind 0xc 正向
+			runnodeLeg(0xc, 1, count); break;
+		case 0x42:  // 'B' @:kind 6 负向
+			runnodeLeg(6, -1, count); break;
+		case 0x45:  // 'E' @:kind 5 正向
+			runnodeLeg(5, 1, count); break;
+		case 0x57:  // 'W' @:kind 6 正向
+			runnodeLeg(6, 1, count); break;
+		case 0x62:  // 'b' @:kind 2 负向
+			runnodeLeg(2, -1, count); break;
+		case 0x65:  // 'e' @:kind 3 正向
+			runnodeLeg(3, 1, count); break;
+		case 0x68:  // 'h' @:kind 1 负向
+			runnodeLeg(1, -1, count); break;
+		case 0x6a:  // 'j' @:kind 7 正向
+			runnodeLeg(7, 1, count); break;
+		case 0x6b:  // 'k' @:kind 7 负向
+			runnodeLeg(7, -1, count); break;
+		case 0x6c:  // 'l' @:kind 1 正向
+			runnodeLeg(1, 1, count); break;
+		case 0x77:  // 'w' @:kind 2 正向
+			runnodeLeg(2, 1, count); break;
+		case 0x7b:  // '{' @:kind 0xe 负向
+			runnodeLeg(0xe, -1, count); break;
+		case 0x7d:  // '}' @:kind 0xe 正向
+			runnodeLeg(0xe, 1, count); break;
+		case 0x2b:  // '+' @34924:min(当前+count,末行)首非空(FUN_00927952)
+			{
+				const long long last = lVar6 - 1;
+				if (lVar5 < last) {
+					long long tgt = lVar5 + (long long)count;
+					if (tgt > last) tgt = last;
+					// FUN_00927952(100B)下探首非空 — cited — wave-2
+				}
+			}
+			break;
+		case 0x2d:  // '-' @34940:上 count 行(≥0)首非空(FUN_00927952)
+			if (0 < lVar5) {
+				long long tgt = lVar5 - (long long)count;
+				if (tgt < 0) tgt = 0;
+				// FUN_00927952 — cited — wave-2
+			}
+			break;
+		case 0x30:  // '0' @34952:当前行行首(FUN_00925200)
+			param2 = send(SCI_POSITIONFROMLINE, lVar5, 0);
+			break;
+		case 0x5e:  // '^' @:当前行首非空(FUN_00927952)— cited
+			break;
+		case 0x47: {  // 'G' @34999:captured 组1 → 行钳制 → 首非空 cited
+			const qlonglong gn = mt.captured(1).toLongLong();
+			long long target = lVar6 - 1;
+			if (gn >= 1 && gn <= lVar6)
+				target = gn - 1;
+			if (target < 0)
+				target = 0;
+			// FUN_00927952(doc,target)— cited — wave-2
+			break;
+		}
+		case 0x67:  // 'g':组3=="e"→kind3 -n;"E"→kind5 -n;"g"→0;余不变
+			if (text3 == QStringLiteral("e"))
+				runnodeLeg(3, -1, count);
+			else if (text3 == QStringLiteral("E"))
+				runnodeLeg(5, -1, count);
+			else if (text3 == QStringLiteral("g"))
+				param2 = 0;
+			break;
+		case 0x7a:  // 'z':组3=="j"→kind 0x11 +n;"k"→kind 0x11 -n;余不变
+			if (text3 == QStringLiteral("j"))
+				runnodeLeg(0x11, 1, count);
+			else if (text3 == QStringLiteral("k"))
+				runnodeLeg(0x11, -1, count);
+			break;
+		case 0x46: case 0x54: case 0x74:  // F/T/t → F1 Grep 体
+		case 0x66:                        // 'f' 空组3 直落尾
+			// FUN_00a31966(1121B)Grep 搜索执行 — cited — wave-2
+			break;
+		case 0x48: case 0x4c: case 0x4d:  // H/L/M 视口腿(FUN_00a20580/
+			//   00a20604 视口首末行 + FUN_00958498)— cited — wave-2
+			break;
+		default:    // 未知码 → -1(35230 尾)
+			param2 = -1;
+			break;
+		}
+		return QVariant(qlonglong(param2));
+	}
 	case 0x7537:     // *(u8*)(doc+0x240) = 0(0x7538 邻位写 1;语义未解)
 		m_ctx.field240 = 0;
 		return QVariant(0);

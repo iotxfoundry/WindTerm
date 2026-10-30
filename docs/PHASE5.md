@@ -1124,6 +1124,25 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   行为测试须等写入侧/构建者批(E2 保留 b)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 67b(2026-10-31)0x75a6 真身化:前奏直转 + F2 全 switch ✅
+- **前奏 A-E 直转**(b2 §4.1):静态正则 "(\d*)(.)(.?)"(DAT_011c28c8)
+  → match —— matchOptions=1(NoMatch)语料字面矛盾点原样(铁律 2,
+  行为测试裁决)→ 组1 计数(缺省 1)/组2 首码元/组3 文本
+- **F2 轻量 switch 28 case 全落**(f2 笔记逐 case 转写):
+  - SCI 承接真身:'$'(行尾)/'0'(行首)/状态定案 lVar5=当前行
+    (SCI_LINEFROMPOSITION)/lVar6=总行数(SCI_GETLINECOUNT)
+  - runnode 腿 14 处统一模式:kind/方向/count 全实证(1 h/l、2 w/b、
+    3 e、5 E、6 W/B、7 j/k、0xc ()、0xe {}、0x11 z j/k)→
+    FUN_00a557b0(2961B)执行器 cited(param2 维持)
+  - '+'/'-'/^/'G' 首非空(FUN_00927952 cited);'g'/'z' 复合判定
+    真身化(组3 =="e"/"E"/"g"/"j"/"k");F/T/t/f Grep 腿 +
+    H/L/M 视口腿整体 cited;default = -1
+- 勘察三 lane(F2 28 case/MK markers 读侧 16 函数/XS 小体三件套)
+  产出:/tmp/opencode/p3_notes_f2/mk/xs.md
+- 0x7547 S2(SCI_LINESONSCREEN 承接路线)与 0x7576 插入体
+  (FUN_0095c1c2 1857B 阻塞)留待;0x7552/0x754d 已随 67a 落
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
