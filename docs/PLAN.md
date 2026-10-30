@@ -25,9 +25,13 @@
 | Phase 3 编辑引擎 customDispatch | ⏳ 批 1-7(runnode 模型 + 93 WT case;详见 Phase 3 节) |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 5 行为对比 | ⏳ **38 序列 36/38 MATCH**(Xvfb+Frida 差分管线;aux 簇收口;ESC D/M/E 语义实测定性——见 docs/PHASE5.md/EXT-BOUNDARY.md) |
+| Phase 5 行为对比 | ⏳ **98 序列 96/98 MATCH**(2 红定性挂账:tbc3 流怪癖/decstbm_ri 排空分相;Xvfb+Frida 差分管线 + glitch 重试;详见 docs/PHASE5.md) |
+| 会话装配 | ✅ **端到端冒烟过**(UnixPty + SuperCommander + Screen:进程→pty→ANSI→格子;tests/shellsession_test;ctest 10/10) |
+| 新组件四件 | ✅ KeymapEngine(wind.keymaps 531 条)/ TelnetCommander IAC 状态机 / UnixPty+Pty 入构建 / TelnetProtocol 同版验证(见 docs/CALIBRATION.md) |
 
-测试矩阵:e2eterm 25 + recheck 22 + engtest×2 + sshsmoke 全绿。
+测试矩阵:**ctest 10/10**(e2eterm 25 + recheck 22 + engtest×2 +
+sshsmoke + keymap/telnet/pty/shellsession 四冒烟;engtest3 ctest 态
+间歇——直跑复核)。
 gen_stubs 70→5。测试策略与保真约束见下方"测试策略"块。
 
 ---
@@ -347,7 +351,7 @@ FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
 
 ---
 
-## Phase 5 — 行为一致验证 ⬜
+## Phase 5 — 行为一致验证 ⏳(98 序列 96/98;2 红定性挂账——见 docs/PHASE5.md 批 26-28)
 
 ### 5a. 离屏终端渲染 ⬜
 - 加载 wind.config → CTerminalConfig 填充

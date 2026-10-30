@@ -52,9 +52,10 @@ user.config 实际只有少量键(fingerprint/language/theme/lockScreen)
 
 1. **ProfileLoader 补全局默认层**:读 wind.config 为基线,用户配置
    覆写——value(key) 无需 default 参数(有权威默认)
-2. **键位引擎**(Phase 4a):按 wind.keymaps 格式解析 {keys,modes,
-   action|script};action 名查 wind.actions
-3. **Telnet 协议**:转义引用表从 telnet.protocol 配置化
+2. ~~**键位引擎**~~ ✅(批 26/27):src/Editor/KeymapEngine —— 523 条
+   有效装载 + 锚定正则×mode 匹配 + tests/keymap_test(action 执行面待接)
+3. **Telnet 协议** ✅ 骨架(批 27):TelnetCommander IAC 状态机 feed +
+   telnet.protocol 装载 + telnet_test(RFC 响应策略待接)
 4. **触发器/超链接引擎**:triggers.config 的 {text.pattern, action,
    lineColor} 面与 shell 集成 notify* 通道对接
 5. **词法引擎**(schemes/*.lexer):prompt 行识别正则集——shell
