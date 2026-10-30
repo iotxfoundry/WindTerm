@@ -11,9 +11,10 @@ checkControlCharacter 门污染实锤;批 31 门语义补齐落地,QUIRKS 22
 管理 A1/A2 ✅**:ShellSession::stop(pty+断链+清 screen 挂钩)、
 **TelnetSession 网络接线**(QTcpSocket + RFC 854 默认拒绝响应在
 会话层 + IAC 状态机);注册表**插入**侧语料未定位 → wave-2 挂账。
-**ctest 13/13 全绿**(+telnetsocket/echo_semantics/actions 冒烟;
-engtest3 ctest 态间歇直跑复核)。**键位 action 执行面 ✅**(批 32:
-JsEngine 委托 QJSEngine + wind_actions_build 装载 + dispatch 面)。
+**ctest 13/13 全绿**(+telnetsocket 捕获断言/echo_semantics/
+actions 冒烟;engtest3 ctest 态间歇直跑复核)。**键位 action 执行
+面 ✅**(批 32)+ **Telnet 协商策略实验锚落地 ✅**(批 33:捕获
+原版字节 → Commander 策略,回放逐字节同型)。
 probe38b 矩阵终裁见 PHASE5 批 29。**本地领先 50 提交**(未推送,
 遵规范)。
 
@@ -86,8 +87,8 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
    插入函数语料未定位;邻接面 007da178/007da09a 已记)
 3. ~~键位 action 执行面~~ ✅ 批 32(JsEngine + dispatch;发射外
    待办 = MuxPane 键流接线,Phase 4b)
-4. **TelnetSession RFC 策略细化**:按 telnet.protocol refs 对已知
-   option 回 WILL/DO(现全默认拒绝);触发器/词法引擎
+4. ~~TelnetSession RFC 策略细化~~ ✅ 批 33(实验锚捕获落地;
+   触发器/词法引擎仍开放)
 5. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类)
 6. Phase 5b(编辑引擎行为对比)/5c(会话持久化对比)
 

@@ -13,9 +13,9 @@ class Screen;
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // Phase 4a:telnet 会话装配 —— QTcpSocket(传输)+ TelnetCommander(IAC
-// 状态机 → Screen)。数据路径:socket.readyRead → IAC 状态机 → 解析器;
-// RFC 默认拒绝策略在会话层(收到 DO x → WONT x、WILL x → DONT x),
-// Commander 只记录选项状态、不发响应。
+// 状态机 → Screen)。数据路径:socket.readyRead → feed → 解析器;
+// 协商响应由 Commander 生成(实验锚 telnet_capture.json,批 33),
+// 会话层仅转发(negotiationReply → socket;connected → 初始协商)。
 class TelnetSession : public SuperSession
 {
 	Q_OBJECT
@@ -40,11 +40,9 @@ private:
 	Q_DISABLE_COPY(TelnetSession)
 
 	void onReadyRead();
-	QByteArray rfcReply(const QByteArray &in);       // IAC 拒绝响应字节
 
 	QTcpSocket m_socket;
 	TelnetCommander m_commander;
-	QByteArray m_iacTail;                            // 半截 IAC 序列
 };
 
 #endif // TELNETSESSION_H

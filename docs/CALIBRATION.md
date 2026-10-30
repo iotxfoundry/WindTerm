@@ -33,7 +33,7 @@
 | 组件 | 判定 | 落地/差异 |
 |---|---|---|
 | Cryptographic | ✅ 同版(实验锚全过) | 解密链端到端对拍(fingerprint 盐 + 空口令派生) |
-| Protocols/TelnetProtocol | ⚠️ 部分同版 | 叶子逻辑同版(00860b30/00860cd6/00861156);协商 = telnet.protocol 正则驱动;option=49 越界读怪癖两侧一致(勿修) |
+| Protocols/TelnetProtocol | ⚠️ 部分同版 | 叶子逻辑同版(00860b30/00860cd6/00861156);协商 = telnet.protocol 正则驱动;option=49 越界读怪癖两侧一致(勿修);**响应策略 = 实验锚捕获**(批 33,telnet_capture.json:init/DO24 重发/NAWS/TTYPE xterm-256color/DO39 WONT;策略体语料不可达,实验为准) |
 | Pty/UnixPty | ⚠️ 部分同版 | posix_openpt 链/termios/utmpx 逐句同构+布局吻合;差异 = 第 5 纯虚(cwd readlink)/Q_OBJECT/stop() 顺序;**base 签名已对齐**(QProcessEnvironment/int;setErrorCode Linux strerror 分支);ShellProcess 抽 ShellProcess.h(moc 类扫描盲区:基类子句换行) |
 | Widgets/ScrollBar+Splitter | ✅ 同版 | 布局逐字节吻合;Phase 4c 需补 SplitterGroup(仓库缺) |
 | Widgets/PopupWidget | ⚠️ 部分同版 | TRIANGLE_HEIGHT 18↔6 待核 |

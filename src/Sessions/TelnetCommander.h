@@ -28,6 +28,7 @@ public slots:
 signals:
 	void optionNegotiated(const QString &command, int option);
 	void subOptionReceived(int option, int action);
+	void negotiationReply(const QByteArray &data);   // 协商回写字节
 
 public:
 	// 装载 terminal/protocols/telnet.protocol(refs + match 编译)
@@ -35,8 +36,14 @@ public:
 	// 字节流入解析:IAC 握手 → 槽/信号;非协议字节直通返回
 	QByteArray feed(const QByteArray &in);
 
-	// 选项状态(NegotiateOption 记录面;RFC 响应策略 Phase 4a)
+	// 选项状态(NegotiateOption 记录面)
 	QHash<int, QString> optionStates;
+
+	// 协商响应字节(实验锚 telnet_capture.json 2026-10-30:原版
+	// 2.7.0 连 127.0.0.1:3023 捕获;语料无策略体——三叶
+	// 00860b30/00860cd6/00861156 = 名字表/日志,telnet.protocol
+	// 仅解析面 → 响应策略以实验锚为准)
+	QByteArray initialNegotiation() const;
 
 private:
 	Q_DISABLE_COPY(TelnetCommander)

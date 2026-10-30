@@ -1,4 +1,5 @@
 #include "TelnetCommander.h"
+#include "Screen.h"
 
 #include <QFile>
 #include <QJsonDocument>
@@ -94,6 +95,29 @@ bool TelnetCommander::loadProtocol(const QString &path)
 	return m_re.isValid();
 }
 
+// 协商响应表 —— 实验锚 /tmp/opencode/telnet_capture.json(原版
+// 2.7.0 客户端真实字节,2026-10-30 捕获):
+//   init(连接主动协商) = WILL NAWS(31) WILL TTYPE(24) DO ECHO(1)
+//                          DO SGA(3) WILL SGA(3)
+//   DO 24 → 重发 init;DO 31 → SB 31 0 <cols> <rows> SE;
+//   SB 24,1 → SB 24,0 "xterm-256color" SE;DO 39 → WONT 39;
+//   WILL 1/3 → 不应(已 DO);其余 DO/WILL → 默认拒绝(39 实证同型)
+namespace {
+const QByteArray kInitNegotiation =
+    QByteArrayLiteral("\xff\xfb\x1f\xff\xfb\x18\xff\xfd\x01\xff\xfd"
+                      "\x03\xff\xfb\x03");
+constexpr unsigned char kOptEcho = 1;
+constexpr unsigned char kOptSga = 3;
+constexpr unsigned char kOptTtype = 24;
+constexpr unsigned char kOptNaws = 31;
+const char *const kTermType = "xterm-256color";   // SB TTYPE 应答实证
+} // namespace
+
+QByteArray TelnetCommander::initialNegotiation() const
+{
+	return kInitNegotiation;
+}
+
 QByteArray TelnetCommander::feed(const QByteArray &in)
 {
 	// 确定性 IAC 状态机(telnet 本质;PCRE2-Qt PARTIAL 语义与
@@ -141,6 +165,20 @@ QByteArray TelnetCommander::feed(const QByteArray &in)
 				const int option = (unsigned char)pending[sb];
 				const int action = (unsigned char)pending[sb + 1];
 				emit subOptionReceived(option, action);
+				// 实验锚:SB 24,1(TTYPE SEND)→ SB 24,0
+				// "xterm-256color" SE(got=fffa1800787465
+				// 726d2d323536636f6c6f72fff0)
+				if (option == kOptTtype && action == 1) {
+					QByteArray r;
+					r += (char)m_refIAC;
+					r += (char)m_refSB;
+					r += (char)kOptTtype;
+					r += (char)0;
+					r += kTermType;
+					r += (char)m_refIAC;
+					r += (char)m_refSE;
+					emit negotiationReply(r);
+				}
 			}
 			i = se + 2;
 			continue;
@@ -160,6 +198,39 @@ QByteArray TelnetCommander::feed(const QByteArray &in)
 		}
 		optionStates[option] = name;
 		emit optionNegotiated(name, option);
+		// 实验锚策略(见 kInitNegotiation 注):DO 24 → 重发
+		// init;DO 31 → SB NAWS(cols,rows);WILL 1/3 → 不应;
+		// 其余 DO → WONT(39 实证)、其余 WILL → DONT
+		QByteArray r;
+		if (cmd == 0xFD) {                       // DO
+			if (option == kOptTtype) {
+				r = kInitNegotiation;            // 重发 init 实证
+			} else if (option == kOptNaws) {
+				r += (char)m_refIAC;
+				r += (char)m_refSB;
+				r += (char)kOptNaws;
+				r += (char)0;
+				r += (char)(m_screen
+				                ? m_screen->m_core->columnCount()
+				                : 80);
+				r += (char)(m_screen ? m_screen->m_core->rowCount()
+				                     : 24);
+				r += (char)m_refIAC;
+				r += (char)m_refSE;
+			} else {
+				r += (char)m_refIAC;
+				r += (char)0xFC;                 // WONT
+				r += (char)option;
+			}
+			emit negotiationReply(r);
+		} else if (cmd == 0xFB) {                // WILL
+			if (option != kOptEcho && option != kOptSga) {
+				r += (char)m_refIAC;
+				r += (char)0xFE;                 // DONT
+				r += (char)option;
+				emit negotiationReply(r);
+			}   // ECHO/SGA:已 DO,不应(实证 got="")
+		}
 		i += 3;
 	}
 	return data;

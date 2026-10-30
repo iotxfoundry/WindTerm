@@ -502,6 +502,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (内置/他层注册,数据点挂账)。
 - ctest 13(engtest3 ctest 态间歇,直跑复核 OK);phase5 98/98。
 
+### 批 33(2026-10-30)/loop:Telnet 协商策略 = 实验锚捕获落地 ✅
+- **实验锚(CALIBRATION 协议,金标准)**:原版 2.7.0 连
+  127.0.0.1:3023 捕获(user.sessions 种子克隆 Telnet 条目 →
+  xdotool 开会话)——telnet_capture.json:
+  - client_init(连接主动协商)= WILL NAWS(31) WILL TTYPE(24)
+    DO ECHO(1) DO SGA(3) WILL SGA(3)
+    (fffb1ffffb18fffd01fffd03fffb03)
+  - DO 24 → 重发整段 init;DO 31 → SB 31 0 <cols><rows> SE
+    (实证 89x32 = 当窗尺寸,动态);SB 24,1 → SB 24,0
+    "xterm-256color" SE;DO 39 → WONT 39;WILL 1/3 → 不应
+- **语料边界**:telnet.protocol 仅解析面(refs+match);三叶
+  00860b30/00860cd6/00861156 = 名字表/日志 → 策略体语料不可达,
+  响应策略以实验锚为准(不发明;CALIBRATION 协议步骤 3)
+- **落地**:响应生成入 TelnetCommander(feed 内 DO/WILL/SB 分支,
+  negotiationReply 信号回写;initialNegotiation() 面)——语料架构
+  对齐(协商 = TelnetCommander 槽,CALIBRATION);TelnetSession 退
+  纯转发(connected → init;negotiationReply → socket;rfcReply
+  默认拒绝层删除)
+- **telnetsocket_test 重写为捕获断言**(7 断言)✅:init 原字节/
+  DO24 重发/WILL3 静默/NAWS 89x31(动态尺寸)/TTYPE xterm-256color/
+  DO39 WONT/数据路径;**回放字节与捕获逐字节同型**
+- ctest 13/13;phase5 98/98;环境复原(user.sessions 还原/WindTerm
+  重启 + bash exec sleep 哑化/捕获服务器已杀)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
