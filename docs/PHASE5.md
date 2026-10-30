@@ -1021,6 +1021,26 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**15/70**
 
+### 批 64(2026-10-30)重开 Attempt 1:0x75a5-0x75aa 波(6 条)✅
+- **0x75a5**:FUN_00a2d3ec(286B)字段门转写(+0xec3 变更门 +
+  +0x1128 门读;逐行 run 失效腿 cited — runstyles 族)
+- **0x75a9 真实现**:FUN_00a2041e(17B)= max(+0xd38,+0xd20)
+  行高查询 —— 纯字段,零 cited 依赖
+- **0x75a7**:FUN_009252f4(15B)→ FUN_0099881e(196B word-walk
+  层)锚定;**0x75a8**:FUN_00a21576(153B)可见行数公式入注
+  (门 FUN_00a20b94 cited);**0x75aa**:FUN_00a282b8(86B)全文
+  重着色链锚定;**0x75a6**:FUN_00a5940a(**4113B** 正则搜索)
+  专用批
+- **0x75ab 归属发现**:既有 gotoLine(另一 dispatch 面)——
+  FUN_00a26ec6 区间重着色归属待核(同 0x7583 形态)
+- **markers 内部层测绘**(批 64 附带):0099d1f6(130B spinlock
+  快照)/009a096a(215B 剪枝)/009a07d8(82B 反向扫)/009a088e
+  (215B 边界解析)—— 依赖存储族 ≈10 函数(0099c9xx/009a0xxx)
+  → 专用批
+- EditorContext 成员:flagEc3/flag1128/lineHeightD20/lineHeightD38
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**21/70**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

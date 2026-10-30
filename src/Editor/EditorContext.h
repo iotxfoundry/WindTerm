@@ -33,6 +33,10 @@ public:
 	bool flagD8e = false;        // +0xd8e(0x7599 写)
 	int fieldD94 = 0;            // +0xd94(0x759c 写)
 	bool flag225 = false;        // +0x225(刷新门;0x7598 查询)
+	bool flagEc3 = false;        // +0xec3(0x75a5 写;FUN_00a2d3ec)
+	bool flag1128 = false;       // +0x1128(FUN_00a2d3ec 门读)
+	double lineHeightD20 = 0.0;  // +0xd20(行高 A;FUN_00a2041e max)
+	double lineHeightD38 = 0.0;  // +0xd38(行高 B;FUN_00a2041e max)
 	// margin 列表(语料 +0x1ab/+0x1ac,0x18 步长条目:名字 + 标志)
 	struct MarginEntry {
 		QString name;

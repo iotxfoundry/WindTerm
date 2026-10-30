@@ -704,6 +704,44 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		//   — cited — wave-2(markers 对象内部)
 		return QVariant(0);
 	}
+	case 0x75a5: {   // FUN_00a2d3ec(286B):+0xec3 = a.toBool();变更
+	                 //   且 +0x1128 → 逐行 run 失效(FUN_0096bf4a/
+	                 //   0096bfc8/0096bc28/0096bfce runstyles 族)+
+	                 //   +0xdd0 复位 — cited — wave-2(失效腿)
+		const bool v = a.toBool();
+		if (m_ctx.flagEc3 != v) {
+			m_ctx.flagEc3 = v;
+			if (m_ctx.flag1128) {
+				// 逐行 run 失效 + FUN_00a20b94 门重算
+				// — cited — wave-2(runstyles 面)
+			}
+		}
+		return QVariant(0);
+	}
+	case 0x75a7:     // FUN_009252f4(15B)→ FUN_0099881e(196B
+	                 //   word-walk 层:FUN_00a840fc 类进/00998678
+	                 //   类测/FUN_009975de CRLF)— cited — wave-2
+		return QVariant(0);
+	case 0x75a8:     // FUN_00a21576(153B)可见行数:dv = max(
+	                 //   +0xd38,+0xd20);field1067==2 →
+	                 //   (+0x10a0 对象+0x18)/dv;否则 FUN_00a1f7e2
+	                 //   文档高-滚动偏移;clamp ≥1;门 FUN_00a20b94
+	                 //   — cited — wave-2(分支选择待转写)
+		return QVariant(0);
+	case 0x75a9:     // FUN_00a2041e(17B):max(+0xd38,+0xd20) 行高
+		return QVariant(m_ctx.lineHeightD38 > m_ctx.lineHeightD20
+		    ? m_ctx.lineHeightD38 : m_ctx.lineHeightD20);
+	case 0x75aa:     // FUN_00a282b8(86B)全文重着色:markers 对象 →
+	                 //   FUN_00a20680 构建/FUN_0096bbc0 文档长/
+	                 //   FUN_00a20666 起点 → FUN_00930226 应用
+	                 //   — cited — wave-2(runstyles 面)
+		return QVariant(0);
+	// 0x75ab 既有 = gotoLine(另一语料 dispatch 面);s_line 区的
+	//   FUN_00a26ec6 区间重着色 = 归属待核(同 0x7583 形态)
+	case 0x75a6:     // FUN_00a5940a(4113B)正则搜索跳转
+	                 //   (QRegularExpressionMatch 面)— cited —
+	                 //   wave-2(体量最大搜索面,专用批)
+		return QVariant(0);
 	// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 	case 0x7582: {   // +0xd8f 字节 = a.toBool() + vtable+0xa0 刷新
 	                 //   (cited — Phase-4b 视图腿)
