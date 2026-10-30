@@ -4,6 +4,11 @@
 #pragma once
 
 #include "SuperCommander.h"
+#include "TelnetProtocol.h"
+
+#include <QHash>
+#include <QJsonParseError>
+#include <QRegularExpression>
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // Negotiation is config-driven: terminal/protocols/telnet.protocol defines an
@@ -20,8 +25,29 @@ public slots:
 	void negotiateOption(const QString &command);
 	void negotiateSubOption(const QString &option);
 
+signals:
+	void optionNegotiated(const QString &command, int option);
+	void subOptionReceived(int option, int action);
+
+public:
+	// 装载 terminal/protocols/telnet.protocol(refs + match 编译)
+	bool loadProtocol(const QString &path);
+	// 字节流入解析:IAC 握手 → 槽/信号;非协议字节直通返回
+	QByteArray feed(const QByteArray &in);
+
+	// 选项状态(NegotiateOption 记录面;RFC 响应策略 Phase 4a)
+	QHash<int, QString> optionStates;
+
 private:
 	Q_DISABLE_COPY(TelnetCommander)
+
+	QRegularExpression m_re;      // telnet.protocol match 编译
+	QJsonParseError m_parseError;
+	int m_refIAC = 0xff;   // telnet.protocol refs 解码字节(默认 RFC)
+	int m_refSB = 0xfa;
+	int m_refSE = 0xf0;
+	TelnetProtocol m_proto;       // 命令/选项名表(开源同版)
+	QByteArray m_pending;         // 尾部半截序列(partial)
 };
 
 #endif // TELNETCOMMANDER_H

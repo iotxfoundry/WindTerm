@@ -12,8 +12,8 @@
 #include "TerminalCore.h"
 
 SuperBridge::SuperBridge(QObject*) {}   // ctor/dtor stub
-void TelnetCommander::negotiateOption(QString const&) {  } // stub
-void TelnetCommander::negotiateSubOption(QString const&) {  } // stub
+// TelnetCommander 槽已转正(TelnetCommander.cpp,批 27)
+
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
