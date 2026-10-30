@@ -86,6 +86,21 @@ public:
 		return (uint)cps.value(0, s.at(0).unicode());
 	}
 
+	// FUN_00928404(80B):自 from 起首一个字符谓词失败位(FUN_00927940
+	//   谓词/FUN_00925200 起点 —— cited — wave-2;docLen 已转写)
+	int docNextNonMatching(long from) const
+	{
+		if (from < 0)
+			return 0;
+		long p = 0;                    // 语料 FUN_00925200 起点
+		const long len = docBytes.size();
+		while (p < len) {
+			// FUN_00927940(doc,p)谓词 — cited — wave-2
+			++p;
+		}
+		return (int)p;
+	}
+
 	// buf_substr(0092acb8,192B):夹取 + 空返回 shared_null 语义
 	QByteArray docSub(long from, long to) const
 	{

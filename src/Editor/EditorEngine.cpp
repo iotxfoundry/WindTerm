@@ -675,6 +675,36 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
+	case 0x759f: {   // FUN_00926e08(20B):markers 对象(+0xc0 门)→
+	                 //   FUN_0099d1f6 getters — cited — wave-2
+	                 //   (markers 对象内部;门转写保留)
+		if (m_ctx.markers.isEmpty())
+			return QVariant(0);
+		// FUN_0099d1f6 — cited — wave-2
+		return QVariant(0);
+	}
+	case 0x75a1: {   // FUN_00926e3e(20B):同门 → FUN_009a096a
+	                 //   — cited — wave-2
+		if (m_ctx.markers.isEmpty())
+			return QVariant(0);
+		// FUN_009a096a — cited — wave-2
+		return QVariant(0);
+	}
+	case 0x75a0: {   // 行解析链(006698xx 区):a==-1 → FUN_00975bc6/
+	                 //   FUN_0096bbc0/FUN_0092522a/FUN_00928404 当行
+	                 //   解析( cited — wave-2 四函数)→
+	                 //   FUN_00926e52(markers, line, out)
+		long line = a.toLongLong();
+		if (line == -1) {
+			// FUN_00975bc6/FUN_0096bbc0/FUN_0092522a/FUN_00928404
+			// 当行解析 — cited — wave-2(四函数待转写)
+			line = 0;
+		}
+		// FUN_00926e52(24B):out = 0 门 + FUN_009a07d8
+		//   — cited — wave-2(markers 对象内部)
+		return QVariant(0);
+	}
+	// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 	case 0x7582: {   // +0xd8f 字节 = a.toBool() + vtable+0xa0 刷新
 	                 //   (cited — Phase-4b 视图腿)
 		m_ctx.flagD8f = a.toBool();

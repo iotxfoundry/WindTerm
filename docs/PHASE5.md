@@ -1008,6 +1008,19 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   ≈ 12 函数 —— 转写 = 下批(批 63)主体
 - 验证:零行为变更(测绘批)
 
+### 批 63(2026-10-30)/loop:markers 族接线 + 行走器转写(3 条)✅
+- **0x759f/0x75a1**:FUN_00926e08/00926e3e(各 20B)接线 ——
+  markers 对象(+0xc0 门)→ FUN_0099d1f6/009a096a getters
+  (cited — wave-2;markers 对象内部层)
+- **0x75a0**:行解析链接线(a==-1 当行解析四函数 cited)→
+  FUN_00926e52(24B,out 门 + FUN_009a07d8 cited)
+- **FUN_00928404(80B)行走器转写**:docNextNonMatching(自 from
+  首个谓词失败位;FUN_00927940 谓词/FUN_00925200 起点 cited)
+- markers 对象内部层(0099d1f6/009a096a/009a07d8/009a088e)=
+  下一层待转写
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**15/70**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
