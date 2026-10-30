@@ -833,6 +833,16 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 49:主题图标链(1)· 50:jsCallOnPane(1)· 51:QtSvg 闭环(3)·
 52:params 写侧(1)—— src/ 内 "cited — wave-2" = **0**
 
+### 批 54(2026-10-30)/loop:keymap 匹配体勘察(A 组入场)⏳
+- FUN_0067500e(9978B)勘察:签名 (out, configTree, map, mode)
+  递归;重度优化体(30+ unreachable 警告,150+ 行寄存变量,
+  shared_ptr/_Rb_tree 走查);可见段零 Qt 直调 —— 纯 0067 包装族
+  遍历(FUN_0067faa0×3/00683ad6/0067e3dc×2/00686134/006857f4/
+  00681a40/006809c0/00673ecc)
+- **转写路径定案**:包装族逐个转写 → 树行走语义还原 → 匹配本体
+  落位(专用多轮批;勘察记录入 SuperKeymap.cpp,零猜测)
+- 本批 = 勘察落地;A 组转写主体后续批推进
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

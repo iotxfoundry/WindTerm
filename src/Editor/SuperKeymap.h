@@ -18,8 +18,7 @@
 //   FUN_0067ce4c 49B = 槽交换销毁;FUN_0067ce30 = 项销毁走查)。
 // 匹配体:已定位 = FUN_0067500e(9978B,匹配/分发巨函数)+
 // keys_parseAngleNotation 00674cdc(753B,键角括号解析);
-// 转写需专用批(体量.record,PHASE5 批 53)。
-// 元素类型:语料不透明(槽内元素以 QVariant 承载,非猜测行为面)。
+// 转写需专用批(体量.record,PHASE5 批 53/54 勘察)。// 元素类型:语料不透明(槽内元素以 QVariant 承载,非猜测行为面)。
 class SuperKeymap : public QObject {
     Q_OBJECT
 
