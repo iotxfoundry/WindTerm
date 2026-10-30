@@ -1041,6 +1041,39 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**21/70**
 
+### 批 65(2026-10-30)四 lane 并行勘察收口:38+ 命令波 ✅
+- **并行勘察**(E1:0x7531-0x7544/E2:0x7545-0x7552+markers 存储 16 函数/
+  E3:0x7573-0x758f/E4:0x75b6-0x75e4+区间 case 全扫)→ 笔记
+  /tmp/opencode/p3_notes_e1-e4.md
+- **真实现 13**:0x7537(+0x240 写)/0x753c(FUN_00a297c6 33B 全转写,
+  形态2→8 语料原样)/0x753d(caret_changeShape 核心腿:归一化+短路+
+  赋值;事件/块对象腿 cited)/0x757c(+0x1f8)/0x7584(+0x260 读)/
+  0x758c(+0x1a1 clamp (0,2],<=0 拒 = SSE 原样)/0x757d(扫描真实现+
+  子串提取真实现;返回容器形状 cited)/0x75c3/0x75c6(+0x279 对)/
+  0x75cd(textLength)/0x75cf(pos 夹取)/0x75d5(槽选读)/
+  0x75e4(flag1083 变更门)
+- **转写修正 2(语料 L24726/L24250 背书)**:0x75c5 = 变更门+返 bool
+  (原直写返 0);**0x75e0/0x75e1 归位** —— 语料 0x75e1=+0x210 写、
+  0x75e0=QColor 六字段写(cited);原 0x75e0 标签 = 区间腿误切
+  ⚠️ 请复核
+- **cited 锚定 25**:0x7531/0x7532/0x753a(linkMap 暂存)/0x753e/
+  0x753f/0x7541/0x7544/0x7545/0x7546/0x7547(体归属修正:原 0x7548
+  块切出 0x7547/0x7549)/0x7548/0x7549/0x754a-0x754d/0x7552/
+  0x7573/0x7576/0x757a/0x757f/0x7581/0x758f/0x75b6/0x75b7/0x75b9/
+  0x75bb/0x75bd/0x75be/0x75c0/0x75c7/0x75c8/0x75c9/0x75ca/0x75cb/
+  0x75cc/0x75da
+- **清单外新发现 9**(Ghidra 区间默认腿):0x75b7/0x75b9/0x75be/
+  0x75c0/0x75c7/0x75cc/0x75d5/0x75da/0x75e1
+- **markers 存储布局还原**(E2,16 函数全读):+0x48 锁/+0x50 快照槽/
+  条目数组(+0x18 6 路 RunStyles 银行,24B 条目)/run 值 u32 打包
+  (id=v>>13,key=v&0x1fff);写入侧 = FUN_0099d27e(600B)族待批
+- 复核登记:0x75d3 hitTest 腿未单列(FUN_00a2b4d0 vs 0x75d4
+  FUN_00a2267c);0x75e6 注释 +0xedc 读腿与 0x75e0 QColor 写互证
+- EditorContext 成员:field240/caretShape/field213f8/field213_260/
+  field1a1/docIndentTabs/linkMap
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:**55/70**(21 + 34 清单内;清单外 9 条另计)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

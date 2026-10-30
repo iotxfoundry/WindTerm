@@ -37,6 +37,13 @@ public:
 	bool flag1128 = false;       // +0x1128(FUN_00a2d3ec 门读)
 	double lineHeightD20 = 0.0;  // +0xd20(行高 A;FUN_00a2041e max)
 	double lineHeightD38 = 0.0;  // +0xd38(行高 B;FUN_00a2041e max)
+	unsigned char field240 = 0;  // +0x240(0x7537 写 0/0x7538 邻位写 1;语义未解)
+	int caretShape = 0;          // +0x10ec(0x753c 读/caret_changeShape 00a29a48 写)
+	bool field213f8 = false;     // +0x1f8(0x757c 写/0x757b 读)
+	int field213_260 = 0;        // +0x260(0x7584 读/FUN_00925310 写)
+	float field1a1 = 0.f;        // +0x1a1 行距倍率(0x758c;合法域 (0,2])
+	bool docIndentTabs = false;  // +0x279(0x75c3 读/0x75c6 写)
+	QVariantMap linkMap;         // 0x753a 到达参数暂存(FUN_0092ed32 真身化时消费)
 	// margin 列表(语料 +0x1ab/+0x1ac,0x18 步长条目:名字 + 标志)
 	struct MarginEntry {
 		QString name;
