@@ -458,7 +458,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   净基线语义下永不触发,实现随 pending v3 族)
 - **PHASE 5 收官:98 序列 98/98 MATCH**(双侧净基线对齐;ctest 11/11)
 
-### 批 31(2026-10-30)/loop:checkControlCharacter 门补齐(QUIRKS 22 落地)✅
+### 批 31(2026-10-30)/loop:checkControlCharacter 门补齐(QUIRKS 22 落地)(**触发接线已回退,批 34;门转写保留**)
 - **语料四要素**:①门 = writeSplitData 主循环尾(0025 语料
   1714-1749):doAction 后若 +0x101 置位 → 匹配序列回显字面 +
   进门即自清;压制 = 尾字节 0x18/0x1a;控制尾字节 partial 再匹配
@@ -481,7 +481,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 证据脚本:/tmp/opencode/e1_carrier.py e2_trigger.py e3_trace.py
   e4_bisect.py e5b/e5d_bt.py e6_dual.py e7_trigger_set.py
 
-### 批 32(2026-10-30)/loop:键位 action 执行面(JsEngine + dispatch)✅
+### 批 32(2026-10-30)/loop:键位 action 执行面(JsEngine + dispatch)(**已回退,批 34**)
 - **语料**:JsEngine 类(QObject,metaObject 008fd850;evaluate 体
   0064abb2/0064af3c = 源码+名字上下文;newQObject 0064b0d0)+
   **wind_actions_build**(00667102,7702B:map 遍历 → script
@@ -502,7 +502,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (内置/他层注册,数据点挂账)。
 - ctest 13(engtest3 ctest 态间歇,直跑复核 OK);phase5 98/98。
 
-### 批 33(2026-10-30)/loop:Telnet 协商策略 = 实验锚捕获落地 ✅
+### 批 33(2026-10-30)/loop:Telnet 协商策略 = 实验锚捕获落地(**已回退,批 34**)
 - **实验锚(CALIBRATION 协议,金标准)**:原版 2.7.0 连
   127.0.0.1:3023 捕获(user.sessions 种子克隆 Telnet 条目 →
   xdotool 开会话)——telnet_capture.json:
@@ -525,6 +525,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   DO39 WONT/数据路径;**回放字节与捕获逐字节同型**
 - ctest 13/13;phase5 98/98;环境复原(user.sessions 还原/WindTerm
   重启 + bash exec sleep 哑化/捕获服务器已杀)
+
+### 批 34(2026-10-30)铁律执行:无落点代码全量回退(用户令)✅
+- **审计标准(AGENTS 铁律 6,本批入库)**:src/ 行为实现必须有
+  转写落点(语料 FUN_ 地址/行号或 cited 空实现);实验锚只能作
+  docs 证据,不能直接生成产品代码;发现违规不经讨论立刻回退。
+- **回退清单(无转写落点)**:
+  - TelnetSession 类整体 → cited 空壳(e3474ff4 态;QTcpSocket
+    装配/协商转发/rfcReply/negotiationReply 均无转写源)
+  - TelnetCommander → cited 空壳(e3474ff4 态;批 33 协商策略 +
+    批 27 IAC 状态机 feed/loadProtocol 均自研无转写)
+  - ShellSession → cited 空壳(879e5803^ 态;startLocal/stop
+    装配 API 无转写)
+  - KeymapEngine 整组件(装载/匹配/dispatch 均无转写)+ JsEngine
+    整组件(包装 API 无转写)→ 删除
+  - SuperCommander +0x101 触发接线(HT 排队发射,实验锚非转写)
+    → 移除;**门本体保留**(0025 语料 1714-1749 转写,休眠)
+  - 测试:keymap/telnet/shellsession/telnetsocket/actions/
+    echo_semantics 六冒烟随组件回退删除
+- **保留(有落点)**:门转写/批 26 统一模型/Screen ctor 修复/
+  Pty(开源码逐句同构,CALIBRATION 在案)/phase5 驱动与
+  engtest4 基线卫生(工具面,镜像原版驱动 resetState)
+- **实验资产保留在案**:telnet_capture.json(协商字节)/E1-E7
+  触发面矩阵/probe39 隔离证据 —— 待语料定位后按转写重做组件
+- 验证:ctest 5/6(engtest3 ctest 态间歇,直跑复核 OK);phase5 98/98
 
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;

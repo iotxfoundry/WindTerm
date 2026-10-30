@@ -7,7 +7,7 @@ set(TEST_ENV
   "QT_QPA_PLATFORM=offscreen"
 )
 
-foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 keymap_test telnet_test pty_test shellsession_test telnetsocket_test echo_semantics_test actions_test)
+foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4)
   add_executable(${t} ${t}.cpp)
   target_include_directories(${t} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/Sessions
@@ -15,7 +15,6 @@ foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 keymap_test telnet_
     ${CMAKE_SOURCE_DIR}/src/Widgets
     ${CMAKE_SOURCE_DIR}/src/Protocols
     ${CMAKE_SOURCE_DIR}/src/Utility
-    ${CMAKE_SOURCE_DIR}/src/Pty
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/Scintilla/include
     ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase
@@ -25,8 +24,7 @@ foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 keymap_test telnet_
     ${CMAKE_SOURCE_DIR}/src/jsoncpp/include
     ${CMAKE_SOURCE_DIR}/src/libssh/include
   )
-  target_link_libraries(${t} WindTermRe Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Qml ssh)
-  set_target_properties(${t} PROPERTIES AUTOMOC ON)
+  target_link_libraries(${t} WindTermRe Qt5::Core Qt5::Gui Qt5::Widgets ssh)
   add_test(NAME ${t} COMMAND ${t})
   set_tests_properties(${t} PROPERTIES
     ENVIRONMENT "${TEST_ENV}"

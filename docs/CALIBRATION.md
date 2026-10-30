@@ -37,9 +37,9 @@
 | Pty/UnixPty | ⚠️ 部分同版 | posix_openpt 链/termios/utmpx 逐句同构+布局吻合;差异 = 第 5 纯虚(cwd readlink)/Q_OBJECT/stop() 顺序;**base 签名已对齐**(QProcessEnvironment/int;setErrorCode Linux strerror 分支);ShellProcess 抽 ShellProcess.h(moc 类扫描盲区:基类子句换行) |
 | Widgets/ScrollBar+Splitter | ✅ 同版 | 布局逐字节吻合;Phase 4c 需补 SplitterGroup(仓库缺) |
 | Widgets/PopupWidget | ⚠️ 部分同版 | TRIANGLE_HEIGHT 18↔6 待核 |
-| KeymapEngine(新) | ✅ 自研落地 | wind.keymaps 531 条装载+锚定正则×mode;PCRE2 语义差 8 条量化跳过;tests/keymap_test ✅ |
-| TelnetCommander(新) | ✅ 自研落地 | IAC 状态机 feed(确定性;PCRE2-Qt PARTIAL 坑弃 regex);telnet_test ✅;RFC 响应策略留 Phase 4a |
-| JsEngine(新) | ✅ 委托真 QJSEngine | 语料 JsEngine 类(QObject,metaObject 008fd850;evaluate 0064abb2/0064af3c;newQObject 0064b0d0)+ wind_actions_build 00667102 装载语义;脚本执行委托真库(混合架构,同 libssh 策略);actions_test 480 动作装载+桥调用 ✅ |
+| KeymapEngine(新) | ❌ 已回退(批 34) | 装载/匹配无逐行转写源,按铁律 6 退场;待语料定位 keymap 匹配函数后按转写重做 |
+| TelnetCommander(新) | ❌ 已回退(批 34) | IAC 状态机 feed/协商策略无逐行转写源,退 cited 空壳;协商字节实验锚在案(telnet_capture.json),待语料定位槽体后按转写重做 |
+| JsEngine(新) | ❌ 已回退(批 34) | 包装 API 无逐行转写源(evaluate/newQObject 仅锚点);待语料转写 JsEngine 体后重做 |
 
 ## 校准协议(2026-10-29 定,**逆向为准**)
 

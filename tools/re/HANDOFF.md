@@ -3,25 +3,16 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-30 第六次交接)
+## 一句话状态(2026-10-30 第七次交接,批 34 铁律回退)
 
-**Phase 5 收官:98 序列 98/98 MATCH 全绿**(批 30:tbc3 归绿 =
-checkControlCharacter 门污染实锤;批 31 门语义补齐落地,QUIRKS 22
-已实现版;触发面 = 入口排空+HT 批,排队元调用)。**Phase 4a 会话
-管理 A1/A2 ✅**:ShellSession::stop(pty+断链+清 screen 挂钩)、
-**TelnetSession 网络接线**(QTcpSocket + RFC 854 默认拒绝响应在
-会话层 + IAC 状态机);注册表**插入**侧语料未定位 → wave-2 挂账。
-**ctest 13/13 全绿**(+telnetsocket 捕获断言/echo_semantics/
-actions 冒烟;engtest3 ctest 态间歇直跑复核)。**键位 action 执行
-面 ✅**(批 32)+ **Telnet 协商策略实验锚落地 ✅**(批 33:捕获
-原版字节 → Commander 策略,回放逐字节同型)。
-probe38b 矩阵终裁见 PHASE5 批 29。**本地领先 50 提交**(未推送,
-遵规范)。
-
-**engtest3 段错误根因已修**(5b773aec,推翻批 24"环境竞争"结论):
-Screen ctor 漏初始化 m_savedPrimary/m_altCore/m_viewSettings →
-resizeScreen 拿垃圾指针当核(rdi="QPolygon" 串地址实锤);ctor 补
-nullptr 后裸跑 75%→10%(残余 = 另一类间歇,直跑复核通过即例外)。
+**铁律 6 入库(用户令):产品代码零自研,无转写落点立刻回退。**
+按此标准**全量回退**本阶段无落点组件:TelnetSession/TelnetCommander
+退 cited 空壳、ShellSession 退空壳、KeymapEngine/JsEngine 删除、
++0x101 触发接线移除(门转写保留、休眠)、六冒烟测试随组件退场。
+**保留(有落点)**:98 序列 98/98(终端核心全转写)/Pty 开源码
+逐句同构/Screen ctor 修复/批 26 统一模型。**ctest 5/6(engtest3 间歇直跑 OK)**。
+实验资产在案:telnet_capture.json(协商字节)/E1-E7 矩阵 ——
+组件重做一律先语料定位转写落点。**本地领先 54 提交**(未推送)。
 
 ## 一句话状态(2026-10-29 第四次交接)
 
@@ -81,16 +72,15 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
 
 ## 下一步(按优先级)
 
-1. ~~+0x101 流回显语义补齐~~ ✅ 批 31(门+触发面落地,QUIRKS 22
-   已实现版;发射点 cited — wave-2)
-2. **Phase 4a 收尾**:Commander UUID 表**插入**侧(wave-2 挂账,
-   插入函数语料未定位;邻接面 007da178/007da09a 已记)
-3. ~~键位 action 执行面~~ ✅ 批 32(JsEngine + dispatch;发射外
-   待办 = MuxPane 键流接线,Phase 4b)
-4. ~~TelnetSession RFC 策略细化~~ ✅ 批 33(实验锚捕获落地;
-   触发器/词法引擎仍开放)
-5. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类)
-6. Phase 5b(编辑引擎行为对比)/5c(会话持久化对比)
+1. **组件重做 = 先语料后代码**(铁律 6):TelnetCommander 槽体/
+   keymap 匹配函数/JsEngine 体/Session 装配路径 —— 逐个在语料
+   定位 FUN_ 转写落点,再按转写实现;实验锚(telnet_capture.json/
+   E1-E7)作验证基准,不作实现依据
+2. **+0x101 触发发射点语料定位**(QUIRKS 22:门已转写休眠,
+   排队置位触发待语料函数)
+3. **Phase 4a 收尾**:Commander UUID 表**插入**侧(语料未定位)
+4. 98→130+ 扩谱;Phase 4c 主窗口(SplitterGroup 补类)
+5. Phase 5b(编辑引擎行为对比)/5c(会话持久化对比)
 
 ## 已知开放问题
 

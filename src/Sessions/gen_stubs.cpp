@@ -6,13 +6,11 @@
 #include "TerminalCore.h"
 #include "Screen.h"
 #include "TextView.h"
-#include "TelnetCommander.h"
 #include "Screen.h"
 #include "SuperSession.h"
 #include "TerminalCore.h"
 
 SuperBridge::SuperBridge(QObject*) {}   // ctor/dtor stub
-// TelnetCommander 槽已转正(TelnetCommander.cpp,批 27)
 
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub

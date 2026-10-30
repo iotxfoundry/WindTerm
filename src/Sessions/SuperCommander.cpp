@@ -1,6 +1,5 @@
 #include "SuperCommander.h"
 #include "Screen.h"
-#include <QCoreApplication>
 #include <cctype>
 
 // 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(259 个真实现体)。
@@ -2089,10 +2088,8 @@ void SuperCommander::writeSplitData(const char *data, int len)
 	// 入口排空 ESC D/E/M 专队列(批 21 v6:dump 双锚——ind/nel 单批
 	// 永不生效 (0,0);ind_bot_scroll/ri_top_scroll 有 follower 批
 	// 才生效。QUIRKS 13 原型回归,机制 = 队列重放)
-	bool entryDrained = false;
 	if (!m_replaying && !m_escPending.isEmpty()) {
 		m_replaying = true;
-		entryDrained = true;
 		const QVector<QByteArray> q = m_escPending;
 		m_escPending.clear();
 		for (const QByteArray &s : q)
@@ -2311,20 +2308,9 @@ void SuperCommander::writeSplitData(const char *data, int len)
 				// 19276-19306;tbc_all/tab 锚:v5 下即释)
 				m_screen->horizontalTab();
 				acted = true;
-				// checkControlCharacter 发射(触发面实证锚
-				// E7:本批入口排空 + HT 执行 → 排队元调用
-				// 置 +0x101;ESC D/M/H/7 + CUP 后继均不置;
-				// 发射点语料不可达(现代 PMF connect,仅
-				// moc 表引用)→ cited — wave-2;
-				// 排队 = 运行期语义(E5b 回溯:激活链全
-				// QtCore),批后事件循环才置位 → 门由后批
-				// 消费(批 30 tbc3 回显时序)
-				if (!m_replaying && entryDrained
-				    && QCoreApplication::instance()
-				           != nullptr)
-					QMetaObject::invokeMethod(
-					    this, "checkControlCharacter",
-					    Qt::QueuedConnection);
+				// +0x101 触发发射点:语料不可达(cited —
+				// wave-2,批 34 回退自造接线;实验锚与
+				// 触发面记录在案,待语料定位后重接)
 				break;
 			case 0x84: m_screen->indexDown(); acted = true; break;   // C1 IND
 			case 0x85:                                   // C1 NEL
