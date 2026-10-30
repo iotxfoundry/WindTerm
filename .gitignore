@@ -7,3 +7,8 @@ compile_commands.json
 *.nam
 *.til
 *.asm
+__pycache__/
+*.pyc
+.claude/
+.opencode/
+frida_binding.node
