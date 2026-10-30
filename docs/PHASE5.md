@@ -843,6 +843,17 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   落位(专用多轮批;勘察记录入 SuperKeymap.cpp,零猜测)
 - 本批 = 勘察落地;A 组转写主体后续批推进
 
+### 批 55(2026-10-30)/loop:keymap 匹配定位换挡(静态穷尽 → 动态探针)⏳
+- 0067 SuperKeymap 邻域排查:FUN_0067faa0(67B,递归链表销毁器)/
+  FUN_0067fae4(82B,refcount 门 + 容器复位)/ FUN_0067e3dc(90B,
+  QListData detach/append)—— **拆解/管线族,匹配体不在本簇**
+- 静态定位穷尽:语料无 "modes"/"action" fromAscii 串(YAML 键 =
+  运行期访问,静态文本不可达)
+- **换挡方案(批 56)**:动态探针 —— frida 拦 SuperKeymap vtable
+  (metaObject 0090366e 面)+ 真机按键捕获 → 匹配函数地址现形
+  (同 telnet 协商捕获法);SuperKeymap 引壳已就位(批 46)
+- 验证:零行为变更
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
