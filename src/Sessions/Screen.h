@@ -97,7 +97,15 @@ public:
 	bool m_bellAudible; // +0x13a
 	void *m_codec; // view +0xe0
 	void *m_decoder; // view +0xf0
-	int m_viewField64; // view +0x64
+	int m_viewField64; // +0x64(FUN_007f43ce:hyperlink id 持有)
+	// hyperlink intern 表(+0x70:{QByteArray,int} 排序条目;
+	//   计数 +0x68;spinlock +0x6c —— FUN_007f43ce 语料)
+	struct HyperlinkEntry {
+		QByteArray target;
+		int id = 0;
+	};
+	QList<HyperlinkEntry> m_hyperlinkTargets;
+	int m_hyperlinkCounter = 0;
 	long m_styleBase1; // +0x1f0
 	long m_styleBase2; // +0x1f8
 	int m_pageCount;                // +0xcc

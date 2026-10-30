@@ -1811,10 +1811,38 @@ void Screen::notifyRemoteDirectory(const QString &directory)
 	// cited: FUN_009132f8(core, dir) 发射点
 }
 
+// FUN_007f43ce(457B)语料转写(批 48):
+//   空目标 → +100(0x64)id = 0 即返
+//   spinlock(+0x6c)护排序表(+0x70:{QByteArray target,int id} 条目)
+//   二分查目标 → 未命中 → FUN_00801378 排序插入新条目 →
+//     id 计数(+0x68)++ → +100 = 新 id
+//   命中 → +100 = 条目+8(条目 id)
+//   解锁。FUN_00801378(排序插入)= QList 二分插入等价承载
 void Screen::setHyperlinkTarget(const QByteArray &target)
 {
-	// FUN_007f43ce (457B): hyperlink 结构装配 — cited — wave-2
-	(void)target;
+	if (target.isEmpty()) {
+		m_viewField64 = 0;          // 语料 +100(0x64)= 0
+		return;
+	}
+	// 语料 spinlock(+0x6c):单线程重建免锁(注记)
+	int lo = 0, hi = m_hyperlinkTargets.size();
+	while (lo < hi) {                        // 语料二分(00669xxx 同形)
+		const int mid = (lo + hi) / 2;
+		if (m_hyperlinkTargets[mid].target >= target)
+			hi = mid;
+		else
+			lo = mid + 1;
+	}
+	if (lo >= m_hyperlinkTargets.size()
+	    || m_hyperlinkTargets[lo].target != target) {
+		HyperlinkEntry e;
+		e.target = target;
+		e.id = m_hyperlinkCounter++;      // 语料 +0x68 计数
+		m_hyperlinkTargets.insert(lo, e); // 语料 FUN_00801378 排序插入
+		m_viewField64 = e.id;             // 语料 +100 = 新 id
+		return;
+	}
+	m_viewField64 = m_hyperlinkTargets[lo].id;   // 语料 条目+8 = id
 }
 
 // Qt/config primitives (binary addresses noted; reference tier thunks)

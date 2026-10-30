@@ -1503,19 +1503,64 @@ bool TerminalCore::rowHasContent(Row *row) const
 
 int TerminalCore::rowUsedWidth(Row *row, int withStyle) const
 {
-	// FUN_007a41d6 (323B, SSE tail scan): index of the last non-zero
-	// 16-bit head + 1; withStyle && flags&0x40 additionally walks the
-	// 0x20-byte payload cells downward; flags&8 drops a trailing zero —
-	// payload walk cited — wave-2. The corpus count lives at row+0x3c
-	// with the head array at +0x40.
-	(void)withStyle;
+	// FUN_007a41d6 (323B, SSE tail scan) 语料转写(批 48):
+	//   count = row+0x3c;heads = row+0x40;尾扫 → last
+	//   flags = *(u8*)row:
+	//     非 withStyle / 无 0x40 / last==count-1 → result = last+1
+	//     有 0x40:payload 走查(cells@+0x10,0x20 步长,格 +0x18
+	//       qword 非零下行)→ result;然后 flags&8 → 两种归路
+	//   clamp:result = min(result, count/2)
+	// (payload 走查引用 cells +0x18 qword —— 格布局语料面,填充
+	//  随 makeRow 族;cells 空则等价跳过)
 	if (!row || !row->attrArray)
 		return 0;
-	int i = row->length - 1;
-	unsigned short *heads = (unsigned short *)row->attrArray;
-	while (i >= 0 && heads[i] == 0)
-		--i;
-	return i + 1;
+	const int count = row->length;                              // +0x3c
+	unsigned short *heads = (unsigned short *)row->attrArray;   // +0x40
+	int last = count - 1;
+	if (count < 8) {
+		if (last < 0)
+			last = -1;
+		else if (heads[last] == 0) {
+			int i = count - 2;
+			do {
+				last = i;
+				--i;
+			} while (i >= 0 && heads[i + 1] == 0);
+		}
+	} else {
+		// SSE 8-lane 尾扫(语料 0x10 步长 + lz 计数)→ 标量等价
+		while (last >= 0 && heads[last] == 0)
+			--last;
+	}
+	const unsigned char rowFlags = *(const unsigned char *)row;
+	int result;
+	if (withStyle == 0 || (rowFlags & 0x40) == 0
+	    || count - 1 <= last) {
+		result = last + 1;
+		if ((rowFlags & 8) == 0 || result == 0)
+			return result;
+	} else {
+		result = count;
+		const char *cells = (const char *)row->cells;   // 语料 +0x10
+		if (cells != nullptr
+		    && *(const long *)(cells + 0x18
+		                       + (long)(count - 1) * 0x20)
+		           == 0) {
+			int i = count - 1;
+			do {
+				result = i;
+				--i;
+			} while (i >= 0
+			         && *(const long *)(cells + 0x18
+			                            + (long)i * 0x20)
+			               != 0);
+		}
+		if ((rowFlags & 8) == 0)
+			return result;
+	}
+	if (count >> 1 < result)
+		result = count >> 1;                     // 语料 clamp
+	return result;
 }
 
 // ---------------------------------------------------------------------------

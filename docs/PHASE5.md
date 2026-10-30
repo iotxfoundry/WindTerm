@@ -719,6 +719,18 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   等价承载
 - 验证:构建零 undefined;ctest 6/6(engtest3 间歇复跑 OK)
 
+### 批 48(2026-10-30)/loop:setHyperlinkTarget + rowUsedWidth payload 走查转写 ✅
+- **setHyperlinkTarget**(FUN_007f43ce,457B)全转写:空目标 →
+  +0x64 id=0;排序 intern 表(+0x70:{QByteArray,int})二分查/插
+  (FUN_00801378 = QList 二分插入承载)→ id 计数(+0x68)→
+  +0x64 = 条目 id;Screen.h HyperlinkEntry/m_hyperlinkCounter 入库
+- **rowUsedWidth**(FUN_007a41d6,323B)全转写:SSE 尾扫标量等价
+  + flags 判定(非 withStyle/无 0x40/last==count-1 → last+1)+
+  **payload 走查**(cells@+0x10,0x20 步长,+0x18 qword 非零下行)
+  + flags&8 归路 + **min(result, count/2) clamp**
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK;**98/98**
+  (rowUsedWidth 转写零回归)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
