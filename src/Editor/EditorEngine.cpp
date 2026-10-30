@@ -1,4 +1,6 @@
 #include <QCollator>
+#include <QPainter>
+#include <QPixmap>
 #include <QLocale>
 #include "EditorEngine.h"
 
@@ -746,8 +748,10 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   FUN_00a20666 起点 → FUN_00930226 应用
 	                 //   — cited — wave-2(runstyles 面)
 		return QVariant(0);
-	// 0x75ab 既有 = gotoLine(另一语料 dispatch 面);s_line 区的
-	//   FUN_00a26ec6 区间重着色 = 归属待核(同 0x7583 形态)
+	// 0x75ab 归属核定案(批 66):唯一语义 = gotoLine(line,col);
+	//   FUN_00a26ec6(99B)即其实现体(editctx 定位 + markers 现位 +
+	//   FUN_00a21110 选中应用,L24915 唯一 dispatch 体)—— 我方
+	//   SCI_GOTOLINE 丢 col/选中腿,待补批
 	case 0x75a6:     // FUN_00a5940a(4113B)正则搜索跳转
 	                 //   (QRegularExpressionMatch 面)— cited —
 	                 //   wave-2(体量最大搜索面,专用批)
@@ -773,8 +777,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		m_ctx.caretShape = v;
 		return QVariant(0);
 	}
-	case 0x7531:     // FUN_00a51780(1155B)props 导入(主体未读)
-	                 //   — cited — wave-2(专用批)
+	case 0x7531:     // FUN_00a51780(1155B)= 补全列表当前项打包
+	                 //   SciCompleterEvent(0x50B,type 0x3ed)经 vt+0x140
+	                 //   投递 + FUN_00955368 模型通知(批 66 全读勘正:
+	                 //   非 props 导入;事件总线未建模)
+	                 //   — cited — wave-2
 		return QVariant(0);
 	case 0x7532:     // FUN_00a4f95e(36B):视图 selectionModel→
 	                 //   hasSelection;空视图 = false(语料空检路径)
@@ -789,8 +796,8 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   核心);a.toDouble() 语料未消费,原样
 	                 //   — cited — wave-2(渲染专用批)
 		return QVariant(0);
-	case 0x753f:     // (**vt+0xc0)(ctx) 槽 24 — EditorContext vptr
-	                 //   身份未解(批 58b)— cited 待槽映射
+	case 0x753f:     // 槽 +0xc0 = FUN_00948b9b(thunk→FUN_00948b5a)
+	                 //   — 槽已定位(批 66),体 cited
 		return QVariant(0);
 	case 0x7541:     // FUN_00a204a0(216B)scrollToFraction:
 	                 //   target = f*len − lines*f 夹取 → scroll obj
@@ -806,23 +813,46 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   append → SciScrollBarMarkEvent(0x414) 广播
 	                 //   — cited — wave-2
 		return QVariant(0);
-	case 0x7546:     // (bool)vt+0xe8(self,1) — 槽 29 映射待
-	                 //   EditorContext 身份(批 58b)— cited
-		return QVariant(0);
-	case 0x7547:     // s_line_modified_a72ad6(3008B)行修改 pixmap:
-	                 //   构图/度量/三样式(saved·unsaved·modified)/
-	                 //   标记行色带(00927a78)/M+0x250 无锁读(怪癖)
-	                 //   — cited — wave-2
-		return QVariant(0);
-	case 0x7548:     // (bool)vt+0xe8(self,2)— 同 0x7546 槽 — cited
-		return QVariant(0);
+	case 0x7546:     // 槽 29(vt+0xe8,self,1)= 水平滚动条可见性
+	                 //   (批 66 勘破:实例 vptr 0x11afd30/派生重写
+	                 //   FUN_00948a48:policy 判定 + QScrollBar bit15)
+	                 //   → SCI 承接(混合边界:标准行为委托真库)
+		return QVariant((bool)send(SCI_GETHSCROLLBAR));
+	case 0x7547: {   // s_line_modified_a72ad6(3008B)S1 构图真身化
+	                 //   (批 66 分级转写):double 高/宽四舍五入 →
+	                 //   QPixmap ctor + QColor(0,0,0,19)fill;
+	                 //   S2 度量(max 怪癖:denom = max(textLen,
+	                 //   可视行数 FUN_00a20438))/S3 样式装载
+	                 //   (editor_styleAt 面)/S4 色带(FUN_00927a78)/
+	                 //   S5 grep 注册(FUN_00a66ae8 1031B)/S6 逐条目
+	                 //   M+0x250 无锁读(怪癖原样) — cited — wave-2
+		const double dh = a.toDouble();
+		const double dw = b.toDouble();
+		QPixmap pm(qRound(dw), qRound(dh));
+		pm.fill(QColor(0, 0, 0, 19));   // 00a72b6e QColor(0x13)
+		if (dh > 0.0) {
+			QPainter p(&pm);   // 00a72bbd(S2 起腿 cited)
+		}
+		return QVariant::fromValue(pm);
+	}
+	case 0x7548:     // 槽 29 kind=2 = 垂直滚动条可见性(同 0x7546)
+		return QVariant((bool)send(SCI_GETVSCROLLBAR));
 	case 0x7549:     // FUN_00930338(654B)— cited — wave-2
 		return QVariant(0);
-	case 0x754a:     // vt+0xd0(self) 无参 void — 语义未解(槽映射待)
+	case 0x754a:     // 槽 +0xd0 = FUN_00948c89(thunk→00948c6e;体未录)
+	                 //   — 槽已定位(批 66 vtable 勘破),体 cited
 		return QVariant(0);
-	case 0x754b:     // vt+0xf8(self,1,toBool) set — 槽 cited
+	case 0x754b:     // 槽 +0xf8 kind=1(FUN_00948ab0 全读):policy!=
+	                 //   AlwaysOff 时 setHorizontalScrollBarPolicy(v^1)
+	                 //   = v?AsNeeded:AlwaysOff — QAbstractScrollArea 承接
+		if (m_edit->horizontalScrollBarPolicy() != Qt::ScrollBarAlwaysOff)
+			m_edit->setHorizontalScrollBarPolicy(a.toBool()
+			    ? Qt::ScrollBarAsNeeded : Qt::ScrollBarAlwaysOff);
 		return QVariant(0);
-	case 0x754c:     // vt+0xf8(self,2,toBool) set — 槽 cited
+	case 0x754c:     // 槽 +0xf8 kind=2 = 垂直同构(FUN_00948ab0)
+		if (m_edit->verticalScrollBarPolicy() != Qt::ScrollBarAlwaysOff)
+			m_edit->setVerticalScrollBarPolicy(a.toBool()
+			    ? Qt::ScrollBarAsNeeded : Qt::ScrollBarAlwaysOff);
 		return QVariant(0);
 	case 0x754d:     // FUN_0092e44e(195B):M+0x128++ → QThreadPool::
 	                 //   clear → map 遍历(type∈[5,8] 停机)→
@@ -980,13 +1010,17 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant(0);
 	}
 	// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
-	case 0x7582: {   // +0xd8f 字节 = a.toBool() + vtable+0xa0 刷新
-	                 //   (cited — Phase-4b 视图腿)
-		m_ctx.flagD8f = a.toBool();
+	case 0x7582: {   // +0xd91 = a.toBool()(L23538-50 归属核批 66):
+	                 //   false → 释放 +0x1d7(0x40)+ FUN_00a22c4e(2);
+	                 //   true → FUN_00a2509a(this,-1,0) — cited — wave-2
+	                 //   (原 +0xd8f 写属 <0x7582 区间未定条目,fieldD8f
+	                 //   保留待归)
+		m_ctx.flagD91 = a.toBool();
+		// FUN_00a22c4e(28B)/FUN_00a2509a — cited — wave-2
 		return QVariant(0);
 	}
-	// 0x7583 既有 = pairHighlightUnmatched(FUN_00a10c68,另一语料
-	//   dispatch 面);s_line_caret_remote 面的 +0xd91 写 = 归属待核
+	// 0x7583 归属核定案(批 66):唯一语义 = pairHighlightUnmatched
+	//   (L23339,无双面);+0xd91 写已归位 0x7582
 	case 0x756a: {   // +0x1b3 bool = a.toBool();变更 → vtable+0xa0
 	                 //   刷新( cited — Phase-4b 视图腿)
 		const bool v = a.toBool();

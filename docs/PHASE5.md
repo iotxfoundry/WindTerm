@@ -1074,6 +1074,36 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 - 进度:**55/70**(21 + 34 清单内;清单外 9 条另计)
 
+### 批 66(2026-10-30)五 lane 并行:四大战役 ✅
+- **vtable 战役告破**(C lane,.data.rel.ro 重定位+语料双向):
+  实例首 vptr = **0x11afd30**(ScintillaQt 派生终态;Editor 基
+  0x11afb10 为子对象表);ctor = FUN_00a2c670;**槽 29(+0xe8)=
+  FUN_00948a88 滚动条可见性 kind1/2** → 0x7546/0x7548 解阻 =
+  SCI_GET{H,V}SCROLLBAR 承接(混合边界);+0xf8 = FUN_00948ab0
+  策略切换(QAbstractScrollArea 承接,v^1 语义原样)→ 0x754b/c
+  真身化;+0xd0/+0xc0 槽定位(体 cited);全槽表 53 项入
+  docs/VTABLE-MAP.md;批 58b 两路未解就此收口
+- **归属核定案**(V lane,全语料唯一 dispatch 体 L23339/L24915):
+  0x7583 = pairHighlightUnmatched 无双面;0x75ab = gotoLine,
+  FUN_00a26ec6 即其实现体(重着色 = 内部步骤);**0x7582 修正** =
+  +0xd91 腿(L23538-50;原 +0xd8f 属 <0x7582 区间未定条目,
+  fieldD8f 保留待归)
+- **0x7531 勘正**(M lane 全读):非 props 导入 = 补全列表当前项
+  打包 SciCompleterEvent(0x50B,type 0x3ed)vt+0x140 投递
+- **0x7547 分级转写**(B1 lane):S1 构图真身化(QPixmap+QColor
+  (0,0,0,19)fill);S2 max 度量怪癖/S3 样式/S4 色带/S5 grep/S6
+  M+0x250 无锁读 cited(6 helper ≤365B 待真身化);TBD-field-order
+  登记
+- **0x75a6 方案备**(B2 lane):前奏 A-E QRegularExpression 直转
+  骨架 + F2 24-case(笔记 §4.1);'F/T/t/f' Grep 腿 cited
+  (FUN_00a557b0 2961B);matchOptions=1 矛盾点原样标注
+- **markers 写入侧勘正**(M lane):FUN_0099d27e = lexer 快照
+  memo 缓存(QHash key64=pos<<32|style;命中换 payload 旧 vec
+  泄漏 = 原版 bug);真 M 写 = FUN_0099c8d6(锁 + runstyles_upgrade)
+- 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
+- 进度:55/70(本轮 = 质量升级:4 条 cited→真实现 + 修正 2 +
+  定案 3;0x75a6 落地方案备而未落)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
