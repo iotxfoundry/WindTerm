@@ -1367,6 +1367,29 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(markerstest 注册)+ make 零错;ctest 7/7;
   engtest3 直跑 OK
 
+### 批 77(2026-10-31)四 lane 并行:代理 spawn 落码/装配链三层/0x7576 接线/全量清点 ✅
+- **代理 spawn S1-S5 全腿落地**(X1):FUN_0065d482 真身(env ``/`=`
+  恰 2 段解析叠加 systemEnvironment/QProcess 重建/4×DirectConnection
+  /start)+ **setProxyCommand 真身补齐批 74 缺失的末 token 回填** +
+  workingDir setter 骨架;cited 残腿 3(宏展开/once-guard/桥闭包)
+- **装配链三层落地**(X2):TabGroup(**QFrame**,TabBar 子类十信号
+  声明序 = activate 索引序;fullAssemble 逐行:双滚钮/elide/WA_
+  MouseTracking/HBox)+ MuxPaneGroup("PaneGroup",六条 connectImpl)
+  + SplitterGroup(QSplitter Vertical+QStackedLayout);页挂
+  FUN_008de3e8 归属 MuxPaneGroup;moc stringdata 与语料 0xccacd8
+  **逐字一致**;cited 24
+- **0x7576 骨架可落**(X3):dispatch 拆解/runnode_init/charUsedMark
+  闭包实接 charUsedView->FillRange(null 守卫 + QUIRKS 23 相位引用);
+  runvector 循环/迭代器/R·T 段 cited(runvector 未建模)
+- **Phase 3 全量清点**(X4):语料全集 **190** / 我方 176;正向差集
+  19 = 区间默认腿 10(无体登记)+ 薄 7 + 中 1 + 大 1(0x7596 样式
+  名查找专用批);**反向差集 5 均正常,唯 0x75dc 存疑**(批 5 早期
+  接线,命令号全语料零字面 —— ⚠ 标记待回查,行为体 FUN_00928624
+  有据)
+- 本批落:0x7585 结构真身(FUN_00925310 setter bool 返回)/
+  0x7565/0x754e cited 锚/0x7555·0x7557 同体 fallthrough 标签并列
+- 验证:make 零错;ctest 7/7;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

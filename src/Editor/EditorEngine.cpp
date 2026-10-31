@@ -252,6 +252,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		m_ctx.snippetMode = false;
 		return QVariant(0);
 	// --- 批 3:清格式 / margin 元数据 / 视口滚动(语料 decomp-part-0034)---
+	case 0x7557:   // 0034:23003 else 腿 = 与 0x7558 同体(批 77 清点)
 	case 0x7558: {   // clearFormatting(FUN_00927a24 守卫 + FUN_00a26756)
 		if (m_ctx.snippetMode)             // FUN_009290e8 守卫(00a26756 头)
 			return QVariant(0);
@@ -332,6 +333,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x75bf:     // 片段会话活跃?(FUN_00926eb0:+0xd0 != 0)
 		return QVariant((bool)m_ctx.snippetMode);
 	// --- 批 4:buffer/状态簇(语料 disp 叶 22992-23145)---
+	case 0x7555:   // 0034:22997 <0x7557 默认腿 = 与 0x7556 同体(批 77 清点)
 	case 0x7556:     // buffer 动态类型(FUN_00927ec8:+0xf8 cast != 0)
 		return QVariant((bool)m_ctx.isSuperBuffer);
 	case 0x7559: {   // collect(严格 5 元素 [str,bool,u64,ll,ll];
@@ -453,7 +455,10 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x75dc: {   // FUN_00928624:行扫描到 \n 的长度 + 存储节点样式
+	case 0x75dc: {   // ⚠ 批 77 清点:命令号全语料零字面命中(批 5 早期
+	                 //   接线,出处待回查);FUN_00928624 函数体真实
+	                 //   存在(0030.c:24489)—— 行为体有据,命令号待核
+	                 // FUN_00928624:行扫描到 \n 的长度 + 存储节点样式
 	                 //  (0092522a/00925200 buffer 链 cited;行长=SCI 适配)
 		const RunNode &n = m_ctx.blockNode;
 		const long long line = m_edit->send(SCI_LINEFROMPOSITION, n.pos, 0);
@@ -1815,16 +1820,44 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   FUN_00a5e8bc 141B vt+0xa0;fold ctx 0x217
 	                 //   未建模)— cited — wave-2
 		return QVariant(0);
-	case 0x7576:     // 30070:runnode 插入样式表(批 70 分段地图入注,
-	                 //   76 笔记):c92c(400B)P0 min/max 归一 →
-	                 //   c1c2(1857B)A/B 路(p4=run 索引,尾跳勘定)/
-	                 //   R 段 style==1 重刷+runnode 构建/T 拆除 ——
-	                 //   控制流全读,行为落地被底座阻塞(gapbuffer
-	                 //   char-used 2599B/runstyles_upgrade 920B/
-	                 //   flagmask/+0x170 restyle 四底座未读)
-	                 //   — cited — wave-2(插入整腿;runvector 底座
-	                 //   批后升级真身)
-		return QVariant(0);
+	case 0x7576: {   // 30070:runnode 插入样式表 — FUN_0095c92c(400B @0031.c:29031)
+	                 //   主循环骨架真身;执行体 c1c2(1857B @0031.c:28734)
+	                 //   P0/A/B/R/T 分级(批 70 分段地图 + 76/76b/76c 笔记)
+		const qint64 pos = a.toLongLong();              // dispatch 表 30070:
+		                                                //   toLongLong → runnode_init
+		const RunNode node = RunNode::make(pos, 0, 0);  // runstyles_runnode_init
+		                                                //   (0096bac0 66B;RunNode.h 真身)
+		const qint64 nodePos = node.pos;                // FUN_0096bbc0(5B):节点 +8 读
+		(void)node; (void)nodePos;                      // 消费腿 FUN_009587cc(159B)/
+		                     // FUN_00a208a4(75B,kind=1 → +0x10c8 视图通道)— cited — wave-2
+		// *(ctx+0x178) run 状态向量未建模 → runcount==0 门(L29035 ==0 → 0)壳态
+		//   按语料字面走此路(向量缺省 ≡ 0);editctx_beginIter(kind=1,00a16150
+		//   135B)/FUN_00a161d8(221B)迭代器收尾 — cited — wave-2
+		// A/B 路 char-used 标记腿实接(c1c2 L28867/L29010 → gapbuffer_get_chars_locked
+		//   00890880 2599B 全读,76b/76c):≡ RunStyles::FillRange(char-kind 域,
+		//   RunStyles.cxx:132)→ RS8 一体委托(路线 A 定案;与 MarkersStore.h:187
+		//   runstylesUpgrade case0 同一委托面);val=1 已用(A)/0 未用(B);
+		//   charUsedView null → 壳期跳过
+		auto charUsedMark = [this](qint64 s, bool used, qint64 len) {
+			if (!m_ctx.charUsedView || len < 1)   // len<1 → *changed=0,ret 0(00890880 首门)
+				return false;
+			// QUIRKS 23:语料 ret 1=吸收/0=新写,与 FillRange changed 不同相;
+			//   changed==false → 原版恒 ret 1(吸收);true 时两相不可辨 — 行为门裁决点
+			return m_ctx.charUsedView->FillRange(int(s), char(used ? 1 : 0),
+			                                     int(len)).changed;
+		};
+		(void)charUsedMark;   // 驱动点 = 逆序 runvector 循环(L29057 count-1→0;
+		                      //   命中 run vt38/vt40 取界 → c91e→c1c2)— cited —
+		                      //   wave-2(容器未建模;A 路 p4=i≠0:标记已用 +
+		                      //   runstyles_upgrade(920B,MarkersStore
+		                      //   runstylesUpgrade 同面)+FUN_0095da64 prune;
+		                      //   i==0 → B 路 标记未用;p4 尾跳勘定,76 笔记 §2)
+		// R 段 style==1 重扫+runnode 构建(L28920-29008)/R2 行旗传播(+0x168
+		//   flagmask,L28954-28990)/T 拆除(FUN_00957e2c)— cited — wave-2
+		//   (底座 +0x170 styleBank/FUN_00962310 restyle/flagmask/skipruns/
+		//   +0x178 runvector/+0x180 视图宿主均未建模;批 70 分段地图)
+		return QVariant(0);   // true → vt+0xa0 刷新 — cited(Phase-4b)
+	}
 	case 0x757a:     // FUN_00a21b6a(412B)buffer 模式切换:mode1/2 →
 	                 //   FUN_0092c482 持久化 +0x210;mode3 全行 runnode
 	                 //   回填(+0x1067 门)— cited — wave-2
@@ -1870,6 +1903,22 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   清高亮);true → editor_getSelRange
 	                 //   (FUN_00a2bbbe 897B)— cited — wave-2
 		return QVariant(0);
+	case 0x7585: {   // FUN_00925310(40B)setter(L24001):n==0 → 默认
+	                 //   (+0x270/+0x278=1 — cited);n<1 → false;n==现值
+	                 //   → false;写 + soft_reset → true
+		const int v = a.toInt();
+		if (v == 0) {
+			// +0x260 = +0x270(默认)/+0x278 = 1 — cited — wave-2
+			return QVariant(true);
+		}
+		if (v < 1)
+			return QVariant(false);
+		if (v == m_ctx.field213_260)
+			return QVariant(false);
+		m_ctx.field213_260 = v;
+		// session_view_soft_reset — cited
+		return QVariant(true);
+	}
 	case 0x7584:     // *(int*)(ctx[0x213]+0x260) 读(0x7585 setter =
 	                 //   FUN_00925310 40B:n>0 写 n/+0x278=0;n==0 默认)
 		return QVariant(m_ctx.field213_260);
@@ -2005,6 +2054,12 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		const long long to = b.toLongLong();
 		return QVariant(m_ctx.docSub(from, to));
 	}
+	case 0x7565:     // 0034:23050:pos → FUN_009284aa(13B)→ int
+	                 //   (批 77 清点薄条;体未读 —— cited — wave-2)
+		return QVariant(0);
+	case 0x754e:     // 0034:23602 <0x7550 默认腿:FUN_0092e368(session)
+	                 //   无参调用(1 行;体未读 —— cited — wave-2)
+		return QVariant(0);
 	case 0x7566: {   // FUN_0093079a(257B):charAt → ucs4 码点
 		return QVariant((uint)m_ctx.docCharCodeAt(a.toLongLong()));
 	}

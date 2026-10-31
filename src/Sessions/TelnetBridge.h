@@ -24,10 +24,15 @@
 //   → FUN_007c85dc(0,…)
 // - 写出面 0087685a/00876864 → socket(0065d228:代理 +0x30 在则走
 //   代理,否则直写;0065f572:m_command 非空走 FUN_0065d482 代理分支
-//   [cited — wave-2],否则 connectToHost 直连)—— 见 ProxyCommandSocket.h
-// - 网络腿(ProxyCommandSocket 代理进程分支 FUN_0065d482 6947B、命令
-//   拆词 FUN_0065d24a 551B、槽闭包 jumptable)cited — wave-2,落点见
-//   ProxyCommandSocket.{h,cpp}(直连/写/读/options 腿已实接)。
+//   = spawnProxyProcess 已真身,否则 connectToHost 直连)—— 见
+//   ProxyCommandSocket.h
+// 网络腿真身化(2026-10-31 px 笔记,W4 破案;仅注释,d482/d24a 落点
+//   ProxyCommandSocket.{h,cpp}):
+// - FUN_0065d482 = spawnProxyProcess(S1 env/S2 new+setProgram/S3 args+
+//   env+workdir/S4 4×Direct connect/S5 start 全落地;S6 RAII 展开)
+// - FUN_0065d24a = setProxyCommand(c11e 拆词+尾 token 回填落地)
+// - cited 维持:d01e 宏展开腿(c56a/a8b2e6)/C3 once-guard 注册段/
+//   f7d0 槽闭包(jumptable,不在本类)
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 class TelnetBridge : public SuperBridge
 {
@@ -38,7 +43,8 @@ public:
 	virtual ~TelnetBridge(void) override;
 
 	// FUN_0087685a(9B)/FUN_00876864(23B)写转发:实接 ProxyCommandSocket
-	// (write=0065d228 / connectToHost=0065f572,代理腿 cited)
+	// (write=0065d228 / connectToHost=0065f572,代理腿 spawnProxyProcess
+	// 已真身)
 	void writeToSocket(const QByteArray &bytes);
 	void connectToTarget(const QString &host, unsigned short port);
 

@@ -35,6 +35,9 @@ class MuxPaneView : public QWidget {
 public:
     explicit MuxPaneView(QWidget *parent, MuxPaneType type); // s_MuxPane_8de0c0(param_1,param_2,param_3)
     void setCentralView(QWidget *view);                      // FUN_008de1a8
+    // 标题槽只读面:语料 FUN_008de3e8(0028:25642)跨对象直读页 +0x38
+    //   (MuxPaneGroup::addTab 转写消费);本体无独立 getter 函数(inline 槽)。
+    const QString &title() const { return m_title; }
 
     // cited 预留接线(库内零调用点,不发明触发时机):
     //   语料 FUN_00766192(0023:33030,65B)创建 JsEngine(0064ab10)
