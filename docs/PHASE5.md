@@ -1434,6 +1434,33 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   ⚠ 标记维持,行为体 FUN_00928624 有据
 - 验证:make 零错;ctest 7/7;engtest3 直跑 OK(主线程复验)
 
+### 批 80(2026-10-31)四 lane 并行:matchTrie §11-15 全落/渲染核 a688f6+68b18/测试扩展 +2/MarginEntry 位级 ✅
+- **matchTrie §11-15 全落地**(Z2):§11 真身 4 辅助(trieChildrenClone
+  00683c80 554B/trieMatchInsert 0067e4c2/localMatchNodeAt 00673dec/
+  trieLocalTreeFree 0067e2c0)+ §12 JS 门全流程(evaluateGate/callGate/
+  cacheFetch/metatypeRegister;引擎宿主 cast → nullptr 走语料空臂)/
+  §13 三路 + count 门接线/§14 全真身(3 行 + 哨兵 wmemcmp 同契约)/
+  §15 全真身(前缀 append 125B/learn erase/游标回退);cited 6 腿
+  (谓词类身份/挂链批/JS 分发体)
+- **渲染核 a688f6 + 68b18**(Z1):a688f6(529B)**全真身零 cited**
+  (key 三选/取色双槽 styleTable 占位登记/整竖线 + 虚线段 y 步进 2.0
+  原样);68b18(941B)骨架+循环+matched 判(ABS≤2.2e-16)真身,
+  cited 6(占位 0 同相 fd4=0);EditorContext +indentGuidesD44
+  (Z1 越写域 +2 行,自报请求裁决 —— r6 §7 预期内最小补,**保留**)
+- **测试扩展 +2**(Z3):keymaptest(编解码闭环 19 断言)/proxysocktest
+  (拆词流程/flush 四腿/幂等,5 实断言 + 受限项逐条注明);
+  **proxysocktest 断言 a 修正**:未 open 态 QIODevice read = -1
+  (批 80 收口,主线程)
+- **MarginEntry 位级建模**(Z4):0x18B 全结构(name/flagsA bit0-3
+  type·bit4-5 border/flagsB bit3-4 alignment·bit5 trackChange·
+  bit6 trackSelection·bit7 visible/symbol u32 默认 -1/width u16
+  bit0-11/rightPadding bit12-21/leftPadding);默认构造 +0x0a=0x84/
+  +0x0b=0x8b;回写 = 拷位面→bc60 移除→c3fa 按 index 重插→setter 依序;
+  升级方案备(现有 name/hidden 两字段版 → 5 字段位域,hidden() 内联
+  零改动)
+- 验证:make 零错;**ctest 9/9**(7+keymaptest+proxysocktest);
+  engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

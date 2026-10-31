@@ -8,11 +8,15 @@
 #include <QFrame>
 #include <QKeySequence>
 #include <QJSValue>
+#include <QJSValueList>
+
+#include "Actions/JsEngine.h"
 
 #include <cstring>
 #include <cerrno>
 #include <cwchar>
 #include <stdexcept>
+#include <string>
 
 // ── 键码双向编解码(DAT_011c1960)─────────────────────────────
 // 语料体全文可读(00674206 204B / 00674b1e 431B,decomp-part-0020.c
@@ -651,6 +655,222 @@ static int keymapEntryCountFromToken(const wchar_t *rep)
 	return static_cast<int>(v);   // 63580 iVar22
 }
 
+// ── 走查体辅助真身(§11-§15,km3 批)────────────────────────
+
+// FUN_00683c80(554B,decomp-part-0021.c 6747-6818)语料转写:
+// vector<pair<wstring,X>> 赋值克隆 —— 目标容量 < 源(6772)→ 新缓冲
+// operator_new(uVar2)(6788)+ FUN_00683bd0 逐元素 wstring 拷贝(6791);
+// 旧元素 wstring rep--/释放(6792-6802 FUN_00673ecc,非共享串判断
+// `!= &DAT_011c5118`);复用段逐元素 wstring::assign + X 拷贝
+// (6805-6814)。语料元素 wstring = COW rep++;我方 children =
+// QVector<QPair<QString,void*>>,QVector 拷贝 = COW ref++(同契约承载,
+// 批 75 注记;元素级 wstring 拷贝 = 隐式共享同构)。
+static QVector<QPair<QString, void *>> trieChildrenClone(
+    const QVector<QPair<QString, void *>> &src)
+{
+	return src;   // 6772-6818(COW 同契约;元素 {rep,X} 逐项拷贝语义)
+}
+
+// §11 本地匹配树节点 —— FUN_0067e4c2 param_1 布局转写(0021.c 1035-
+// 1064;matchTrie local_108 栈宿主,+0x00..+0x18 由 62543-62549 初始化):
+//   +0x18 已置 byte(62543 local_238 形)/ +0x20 token rep / +0x28 已置
+//   / +0x30 rep2 / +0x38 值 / +0x40 已置 / +0x48 已置 / +0x50 值2
+//   / +0x58 tail / +0x60 已置 / +0x68 子链哨兵(空 = 自指,62544
+//   local_a0 形)/ +0x70 子链头。
+//   查找对 = {+0x00 容量,+0x08 向量基址}(FUN_00673dec 129B,0020.c
+//   61341-61351 读体:越界 → 静态空节点 DAT_011c19d0(三连 0 形);
+//   否则 end + idx*0x28)—— 本批 vectors 承载按值索引,不伪造 0x28
+//   布局;查表基址/容量由挂链腿(cited)维护。
+struct LocalMatchNode {
+	quint64 cap = 0;                       // +0x00(FUN_00673dec param_1)
+	QVector<LocalMatchNode> vec;           // +0x08(FUN_00673dec param_2)
+	bool touched1 = false;                 // +0x18
+	const void *rep = nullptr;             // +0x20
+	bool touched2 = false;                 // +0x28
+	const void *rep2 = nullptr;            // +0x30
+	const void *value1 = nullptr;          // +0x38
+	bool touched3 = false;                 // +0x40
+	bool touched4 = false;                 // +0x48
+	const void *value2 = nullptr;          // +0x50
+	const void *tail = nullptr;            // +0x58
+	bool touched5 = false;                 // +0x60
+	LocalMatchNode *childSent = nullptr;   // +0x68(空 = 自指,62544)
+	LocalMatchNode *childHead = nullptr;   // +0x70
+};
+
+// FUN_00673dec(129B,0020.c 61341-61351)语料转写:idx 越界(容量门
+// 61345 `*param_1 <= param_3`)→ 静态空节点(DAT_011c19c0 三连守卫
+// 61343-61350 = DAT_011c19d0/d8/e0 零初始化);否则 end + idx*0x28。
+// 我方 vectors 按 [] 越界抛/UB,故越界臂落 nullptr 承载静态空节点
+// (消费侧判空同形 —— 静态零节点消费 = 空值,同契约)。
+static LocalMatchNode *localMatchNodeAt(LocalMatchNode &host, quint64 idx)
+{
+	if (host.cap <= idx)   // 61345
+		return nullptr;    // 61346-61351(静态零节点空值承载)
+	return &host.vec[(int)idx];   // 61352:end + idx*0x28
+}
+
+// FUN_0067e4c2(215B,0021.c 1035-1064)语料转写:本地匹配树写体。
+//   +0x20 = token rep(1041);+0x18 已置(1042-1043);FUN_00673dec
+//   查找 ×2(1047-1049)→ 值;+0x30 = rep(1050)/ +0x38 = 查得值
+//   (1051)/ +0x40 = (查得 != rep)(1052);+0x28 已置(1053-1054);
+//   查得+8(1055-1056)→ +0x50 = 第二查得+8(1057-1058)/ +0x58 =
+//   tail(1059)/ +0x60 = (第二查得+8 != tail)(1060-1061);+0x48 已置
+//   (1062-1063);子链递归传播(1064-1066:+0x70 头走查,哨兵 +0x68 止,
+//   逐子 +0x10 偏移递归同参)。
+static void trieMatchInsert(LocalMatchNode &node, const void *rep,
+                            const void *tail)
+{
+	node.rep = rep;                                  // 1041
+	if (!node.touched1)                              // 1042
+		node.touched1 = true;                        // 1043
+	LocalMatchNode *hit1 = localMatchNodeAt(node, 0);   // 1047 FUN_00673dec
+	LocalMatchNode *hit2 = localMatchNodeAt(node, 0);   // 1048-1049
+	node.rep2 = rep;                                 // 1050
+	node.value1 = hit1 != nullptr ? &hit1->cap : nullptr;   // 1051(*plVar3)
+	node.touched3 = hit1 != rep;                     // 1052
+	if (!node.touched2)                              // 1053
+		node.touched2 = true;                        // 1054
+	node.value2 = hit2 != nullptr ? &hit2->cap : nullptr;   // 1055-1057(+8)
+	node.tail = tail;                                // 1058-1059
+	node.touched5 = (node.value2 != tail);           // 1060-1061
+	if (!node.touched4)                              // 1062
+		node.touched4 = true;                        // 1063
+	// 1064-1066:子链递归(语料 lVar6+0x10 = 子节点宿主 +0x10;我方
+	//   子节点 = vectors 元素整体 —— 挂链腿 cited,子链恒空 → 零迭代;
+	//   哨兵判 = childHead == nullptr 空,语料 +0x68 自指同义)
+	for (LocalMatchNode *c = node.childHead;
+	     c != nullptr; c = c->childSent)
+		trieMatchInsert(*c, rep, tail);
+}
+
+// FUN_0067e2c0(210B,0021.c 889-926)语料转写:本地匹配树回收。
+//   +0xb8/+0xc0 children 向量(890-904:非共享串 rep-- + operator_delete)
+//   → FUN_0067d840(+0x88,*(+0x98))(905,容器卸挂)→ +0x80 ctrl
+//   vptr+8 dispose(906-913)→ +0x78 非空 → FUN_0067e1ed(914-915)
+//   → +0x68/+0x70 子链走查(916-927:逐子摘链 → 子 +0x10 递归回收 →
+//   operator_delete(0xe0) 子块)。
+//   我方本地树 = 栈宿主 + vectors(挂链腿 cited — wave-2,宿主 +0x78/
+//   +0x80/+0x88/+0xb8 域未建):容器/vectors 析构 = 栈展开承载,
+//   子链恒空 → 走查零次;本函数落真身形(子链臂按语料保留)。
+static void trieLocalTreeFree(LocalMatchNode &node)
+{
+	// 890-904:children 向量释放 —— vectors 析构承载(栈展开)
+	// 905:FUN_0067d840 容器卸挂 —— 同上
+	// 906-913/914-915:ctrl/FUN_0067e1ed —— 宿主域 cited — wave-2
+	// 916-927:子链走查递归(挂链恒空;臂形按语料保留)
+	node.childHead = node.childSent;   // 917-919:摘链尾态(哨兵对齐)
+}
+
+// FUN_00767d08(38B,0023.c 34430-34437)语料转写:QJSValue result
+// 对象门 —— 引擎 *(host+0x48) 空 → QJSValue(undefined)(34436);
+// 非空 → FUN_0064b0be = JsEngine::newObject 委托(34432,批 68 面)。
+static QJSValue jsNewObjectGate(JsEngine *engine)
+{
+	if (engine == nullptr)
+		return QJSValue(QJSValue::UndefinedValue);   // 34436
+	return engine->newObject();                      // 34432 FUN_0064b0be
+}
+
+// §13 取值腿(63520-63524,km3):FUN_00673dec(&local_100,&local_f8,
+// child.second)链查找 → 空 → DAT_011c5118 空串 / 非空 → FUN_0067fa14
+// (129B,0021.c 2162-2190)取值(wstring{begin,end} 拷贝,空区间 →
+// 空 wstring)→ fromUcs4 → QString(我方 QString 直载同构)。
+// 查找键 = child.second(挂链域未解 —— cited — wave-2:查找宿主
+// local_100/local_f8 挂链态未建,恒空臂 = 空串承载)。
+static QString trieMatchNodeValue(const LocalMatchNode &,
+                                  void *key)
+{
+	Q_UNUSED(key)   // 挂链查找臂 cited — wave-2 → 恒空串(空值同形)
+	return QString();   // 63522:DAT_011c5118 空串承载
+}
+
+// §12 JS 引擎门三件(km3:引擎 face = FUN_00674442(mainPane cast
+// 011a6c00)+0x48 槽;mainPane 面 cited — wave-2 → 我方宿主恒空 →
+// 走语料空臂,勿造宿主):
+// FUN_00674442(20B,0020.c 61786)同形 cast 转写 —— 语料返回 cast 面;
+// 我方 MatchOut.ctxWhen(ctxDispatch)无 +0x48 引擎槽 → nullptr。
+static JsEngine *keymapEngineCast(QObject *host)
+{
+	Q_UNUSED(host)   // 00674442 cast 面 cited — wave-2(mainPane 未转写)
+	return nullptr;
+}
+
+// FUN_00767a70(38B,0023.c 34205-34216)语料转写:引擎 *(host+0x48)
+// 空 → QJSValue(undefined)(34214);非空 → FUN_0064af3c =
+// JsEngine::evaluateStrict 委托(34211,批 68 重做面)。
+static QJSValue jsEvaluateGate(JsEngine *engine, const QString &code)
+{
+	if (engine == nullptr)
+		return QJSValue(QJSValue::UndefinedValue);   // 34214
+	return engine->evaluateStrict(code);             // 34211 FUN_0064af3c
+}
+
+// FUN_0076745c(104B,0023.c 33962-33978)语料转写:引擎 *(host+0x48)
+// 空 → QJSValue(true)(33976);非空 → callable 拷贝(33970)→
+// FUN_0064ab5e(76B,0020.c 29907-29919)= callWithInstance(undefined
+// instance 承载,29915-29918;批 68 JsEngine::call 同体旧形)。
+static QJSValue jsCallGate(JsEngine *engine, const QJSValue &callable,
+                           const QJSValueList &args)
+{
+	if (engine == nullptr)
+		return QJSValue(true);   // 33976
+	// FUN_0064ab5e:QJSValue(undefined) instance + callWithInstance(args)
+	// (Qt5 callWithInstance 非 const,拷贝承载)
+	QJSValue fn = callable;   // 33970:QJSValue::QJSValue(local_30, param_3)
+	return fn.callWithInstance(QJSValue(QJSValue::UndefinedValue),
+	                           args);   // 29915-29918
+}
+
+// FUN_0067cd71(107B,0020.c 69768-69781)读体转写:DAT_011c18dc 惰性
+// 注册 —— 非零即返(69772);零 → normalizedType(69774)+ registerNormalizedType
+// (69776,dtor = QJSValue 析构,ctor = FUN_0066b36f 34B,尺寸 8,旗标
+// 0x103)→ qt_byte_array_unref(69778)→ DAT_011c18dc = id(69780)。
+// 我方 QJSValue 已有 Qt 元系统注册(Q_DECLARE_METATYPE(QJSValue),
+// qMetaTypeId 惰性归一注册 = 同一注册契约承载,dtor/ctor/尺寸由 Qt
+// 头生成面提供 —— 非自研,标准委托)。
+static int jsMetatypeRegister()
+{
+	static int s_id = 0;   // DAT_011c18dc
+	if (s_id != 0)
+		return s_id;   // 69772
+	s_id = qMetaTypeId<QJSValue>();   // 69774-69780(注册契约同构)
+	return s_id;
+}
+
+// FUN_0067e011(260B,0021.c 763-804)读体转写:when QVariant 缓存取回。
+//   DAT_011c18dc 零 → 注册(765-770,同 FUN_0067cd71 体)+ userType 比较
+//   (771-773);命中(缓存已存 QJSValue)→ constData 直拷 QJSValue
+//   (777-780);未命中 → QJSValue(undefined)(787)+ QVariant::convert
+//   (param_2 → metaType id,789)失败 → 保持 undefined(790-792)/
+//   成功 → 转换产物移出(793-796)。
+static QJSValue jsValueCacheFetch(const QVariant &cached)
+{
+	const int id = jsMetatypeRegister();   // 765-770
+	if (cached.userType() == id) {         // 771-773/776-779
+		return *static_cast<const QJSValue *>(cached.constData());   // 778-779
+	}
+	QJSValue out(QJSValue::UndefinedValue);   // 787
+	QVariant v = cached;                      // 789 convert 源
+	if (v.convert(id))                        // 789
+		out = v.value<QJSValue>();            // 793-796(转换产物移出)
+	return out;                               // 790-798
+}
+
+// FUN_0067df30(125B,0021.c 716-747)语料转写:记录弦清单 append。
+//   槽容 < 2 → QListData::append(6722)否则 FUN_0067dc90(detach_grow
+//   0x7fffffff,1 = 尾部扩一,6731)→ 槽项 operator_new(0x10)(6726/
+//   6744)→ {raw@0, ctrl@8} 拷入(6746-6748)+ ctrl 非空 LOCK use++
+//   (6749-6753,+8 计数 = shared_ptr 拷贝形)。
+//   km3 §15:我方 ctrl = shared_ptr 承载(批 79)→ 槽项 = KeymapEntry
+//   拷贝,ctrl use++ = entry.trieRoot shared_ptr 强引用拷贝(标准库
+//   _M_add_ref_copy 同构);QList 尾插 = QList::append 承载。
+static void triePrefixChordAppend(QList<KeymapEntry> &chords,
+                                  const KeymapEntry &item)
+{
+	chords.append(item);   // 6717-6747(raw+ctrl 拷入 + ctrl use++)
+}
+
 // FUN_0067500e(9978B,decomp-part-0020.c 62391-63957)15 段,P3 勘察
 // §3 地图逐段转写。km3 裁决:走查体执行前提 = Trie 根(entry+0x08 槽,
 // 语料 *(lVar7+8)),该槽由装载翼 xpressive 编译腿(00678295-006783fe →
@@ -660,8 +880,9 @@ static int keymapEntryCountFromToken(const wchar_t *rep)
 // 与批 72 骨架行为一致(匹配恒未竟,不产生伪结果)。ctrl = shared_ptr
 // 承载(km3:§5/§7/§8 计数面闭环,见上方真身);因此本批落点 =
 // ①谓词/分发等跨段辅助真身(0075debe/0066a116/编解码,上方);
-// ②§5-§10 真身化(批 75,km2 §6-8 定案,辅助真身上方);
-// ③其余段逐句注记(行号锚,装载腿落地后按此转写):
+// ②§5-§15 真身化(批 75 + km3 批:§11 谓词腿/§12 when 腿/§13 分发/
+//   §14 哨兵/§15 收尾,辅助真身上方;未解面 cited 注记在段内);
+// ③逐句行号锚(装载腿落地后已可运行,谓词/挂链两 cited 腿接入后闭环):
 //   §1(62391-62616)局部初始化:out 指针数组形(feedKey 已填)。
 //   §2(62617-62635)外层槽循环(LAB_00675222):QList detach
 //       (FUN_0067e3dc)→ 槽项{shared_ptr@0, ctrl@8} → sp ref++
@@ -693,51 +914,70 @@ static int keymapEntryCountFromToken(const wchar_t *rep)
 //       首配下限 0x100(00676e4b));宿主历史链消费腿 cited。
 //   §10(63282-63342)×1.5 扩容(63296-63303 double 乘 + 9.22e18 溢出钳)
 //       = recordSinkAcquire 真身内;旧链卸挂(63330-63335)真身内。
-//   §11(63350-63360)FUN_00683c80(554B)克隆 payload 列表 → 记录
-//       挂链(local_98);plVar27 = *(节点+0x78) → 虚调 vtable+0x10
-//       (plVar27,&local_268) 返回 bool = 匹配谓词(00675f2c 调用形,
-//       谓词类属未解 —— cited);false → 叶记录 {record[0]=record[3],
-//       record[1]=token 尾指针}(00675f31);true → FUN_0067e4c2
-//       (215B,0021.c 1035-1064)入本地树(+0x20/+0x30/+0x50 域写 +
-//       +0x70 子链递归传播)。
-//   §12(63361-63516)— cited — wave-2:when 条件 JS 腿(entry
-//       +0x40/+0x48 = lVar7+0x30/0x38 域,mask 0x3fffffff →
-//       canConvert→toString→trimmed(00676ecf-00676f03)→
-//       FUN_00767a70(38B,引擎门 +0x48)取 QJSValue → isCallable?→
-//       FUN_0067cd71 metatype 注册(107B,DAT_011c18dc)→
-//       QVariant 缓存回写 → FUN_0067e011(260B)取回 →
-//       FUN_0076745c(104B)求值 → isBool→toBool;bVar17 一次性门)。
-//   §13(63517-63654)命中分发(LAB_00675e70):FUN_00767d08(38B)
-//       建 QJSValue 结果对象(JS 面 cited);逐记录 setProperty
-//       (fromUcs4 键名,00675ef6-00675f28);count 门:tokenIdx==1 &&
-//       repeatable(+0x20,lVar7+0x10 读形)&& flags&0x14 →
-//       wcstol(tokens[0],"stoi")(006776f7 门);FUN_006745b0 清输入
-//       缓冲(00677258);entry.actionType(+0x28,lVar7+0x18 读形)
-//       ==1 → payload.toString() + count>1 时 number 前插 0067752a-
-//       0067754a → FUN_0075debe 合成键事件(00677553,真身上方);
-//       否则 count 次循环:==0 → 00674442 cast → payload.toByteArray
-//       → FUN_007682c0 → 0066a116(006772d0,真身上方);payload
-//       QVariant mask(+0x38)&0x3fffffff → FUN_00767a70 取 callable +
-//       FUN_0076745c 直调(JS 面 cited);result=2(006776f2 前)。
-//       km3 §13 可落片段 —— count 门真身 keymapEntryCountFromToken
-//       (上方;63557-63590 wcstol = std::stoi 全语义);63653:result=2
-//       写 *(param_1[6])。
-//   §14(63655)LAB_00675d97:result=1;bVar18=true;非末 token 续
-//       (local_4a8+1 != lVar26 → LAB_006755e2;末 token → §15);
-//       实际续循环机制 code_r0x00675e23(63876-63886):记录哨兵
-//       _Rep 长度域判空/相等 → 结束,否则回 §4 走查头。
-//   §15(63888-63957)收尾(LAB_00675dbd/00675dcb/006751ce):
-//       result==2 → sp release + FUN_0067e2c0(210B)本地树回收 +
-//       返回;bVar18(前缀)且 mode!=2 → FUN_0067df30(125B)
-//       {槽项 wstring,sp} append 记录弦清单;否则 mode==2 →
-//       QList::erase 当前槽项(learn 命中移除,00677071-00677170);
-//       游标推进 → 下一槽项。
-//       km3:FUN_0067df30(0021.c 716-747)= QList append + 0x10 pair
-//       {raw@0, ctrl@8};ctrl use++@+8(738-743 LOCK)= shared_ptr
-//       拷贝形(我方 ctrl = shared_ptr 承载 → 强引用拷贝同构);
-//       槽项两段释放(63921-63941 use→weak→0)随 QList<KeymapEntry>
-//       按值承载的 shared_ptr 析构同构(槽项 = shared_ptr 形,§15
-//       消费腿整体随 §11-13 落地批转写,此处计数面已闭环)。
+//   §11(63423-63443)谓词腿 —— 本批真身:FUN_00683c80 children 克隆
+//       (trieChildrenClone)+ FUN_0067e4c2 本地树入树(trieMatchInsert)+
+//       FUN_00673dec 查找(localMatchNodeAt);谓词虚调(**(*plVar27)+0x10)
+//       类身份未解(QSlotObjectBase 子类,VTABLE-MAP 批)→ cited,叶写
+//       门 local_238(63004 挂链态,挂链宿主未解)→ cited。
+//   §12(63444-63516)when 腿 —— 本批真身:FUN_00767a70/0076745c 引擎门
+//       (jsEvaluateGate/jsCallGate,空臂 = undefined/true)+ FUN_0067e011
+//       (jsValueCacheFetch)+ FUN_0067cd71(jsMetatypeRegister);
+//       引擎宿主 FUN_00674442 cast 面 cited;bVar17 每槽项一次门。
+//   §13(63517-63654)命中分发(LAB_00675e70)—— 本批:FUN_00767d08
+//       result 对象(jsNewObjectGate)→ 逐克隆元素 result[tokenRep] =
+//       节点值串(fromUcs4+setProperty,63536-63540);count 门真身
+//       keymapEntryCountFromToken(63557-63590)接线;FUN_006745b0 清
+//       输入缓冲;actionType 三路(synthKeyEvents/keymapActionFire
+//       真身上方 + JS callable 腿 = §12 门族);§13 入门 local_100/
+//       写入条 flag/DAT_011c19e0(挂链/静态命中块,未解)→ cited。
+//   §14(63655 + 63876-63886)LAB_00675d97:result=1;bVar18=true;
+//       非末 token 续 → LAB_006755e2;code_r0x00675e23 哨兵:tokens[1]
+//       空(_Rep 长域 0)或 wmemcmp(tokens[0],tokens[1]) 相等 → §15,
+//       不等 → 回 §4 走查头 —— 真身(wmemcmp = QString==同契约)。
+//   §15(63888-63957)收尾(LAB_00675dbd/00675dcb/006751ce/006751e5)
+//       —— 本批真身:bVar18 且 result==2 → FUN_0067e2c0 本地树回收
+//       (trieLocalTreeFree)+ 返回;bVar18 且 mode!=2 → FUN_0067df30
+//       前缀 append(triePrefixChordAppend);!bVar18 且 mode==2 →
+//       FUN_0067e3dc detach + 槽项释放 + QListData::erase learn 移除
+//       (QList::erase 同构承载);游标推进 = 循环 ++(LAB_006751e5
+//       槽项两段释放随 Qt 容器析构)。
+// ── §15(63888-63957)收尾(LAB_00675dbd;游离函数承载 = goto 落点
+// 跨槽循环作用域,C++ goto 不能跨变量初始化 —— 语料标签流同构转写,
+// continue/游标臂由返回值表达:0=走查完下一槽项,1=learn erase 已做)
+static int matchTrieFinalize(MatchOut &out, QList<KeymapEntry> &slotList,
+                             int si, bool prefixHit, LocalMatchNode &walkTree,
+                             int mode)
+{
+	KeymapEntry &entry = slotList[si];   // 当前槽项(§15 消费形)
+	if (prefixHit) {   // LAB_00675dbd 63887:bVar18(前缀命中)
+		// LAB_00675dcb 63889
+		if (out.result == 2) {
+			// 63890-63894:sp release(_M_release)+ FUN_0067e2c0
+			// 本地树回收 + return(真身:trieLocalTreeFree)
+			trieLocalTreeFree(walkTree);
+			return 2;   // 63896 LAB_0067720d:result==2 终态(调用方 return)
+		}
+		if (mode != 2) {   // 63898
+			// 63899-63900:FUN_006741e2(*(param_1[3]))(4B 前缀清单
+			// getter = record->m_chords)→ FUN_0067df30 append
+			triePrefixChordAppend(out.record->m_chords, entry);
+		}
+	} else if (mode == 2) {
+		// LAB_006751ce(63903-63915,learn 命中移除):FUN_0067e3dc
+		// detach(90B,Qt QList detach 同构)→ 当前槽项释放
+		// {raw@0, ctrl@8}(63908-63913:_M_release + operator_delete
+		// 0x10 —— shared_ptr 析构承载)→ QListData::erase(param_2)
+		// (63914)= learn 命中移除槽项;游标回退重对齐算术
+		// (63911-63917)由调用方 si-1 承载(erase 后 ++ 对齐)
+		slotList.removeAt(si);   // 63914 QListData::erase 同构
+		return 1;   // → LAB_006751e5:调用方 si-=1 后下一槽项
+	}
+	// LAB_006751e5(63916-63918):槽项 sp 两段释放(use→weak→0)
+	// + 游标 +2 → LAB_00675222 下一槽项 —— QList<KeymapEntry> 按值
+	// 承载的槽项析构 = 循环 ++it(标准委托同构,批 75 注记)
+	return 0;
+}
+
 int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
                            const QVector<QString> &tokens, int mode)
 {
@@ -753,48 +993,263 @@ int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
 		// §3(62636)模式门:modesMask(+0x24)& 旗标;不满足 → 下一槽项
 		if ((entry.modesMask & out.flags) == 0)
 			continue;
-		// §4(62638-62662)首门(00675296):Trie 根 = entry+0x08 槽
-		//    (语料 *(lVar7+8);xpressive 编译腿换入 —— boost 边界
-		//    cited — wave-2 未建)。km3 装载腿语义:root 空 = 装载腿
-		//    未建 → 短路即语料 "无条目" 语义(KeymapEngine 建条目时
-		//    root 恒空 → 匹配恒短路,现状即语料语义)。
-		//    根空或根谓词槽 *(根+0x78)==0 即出。
-		if (!entry.trieRoot || entry.trieRoot->group.pred == nullptr)
-			break;   // §4 门 → 走查体(§5-§13)整体短路(装载腿 cited)
-		// §5(62659)FUN_00681a40(&local_3d8,lVar7+8):获取/换入走查
-		//    节点(snap = 旧根 use++ 持有,或空 = 复用腿 §6-§8 跳过)
-		TrieNode *snap = trieNodeGetOrCreate(&entry.trieRoot);
-		TrieNode *root = entry.trieRoot.get();   // 62661:p_Var41 = 换入后根
-		if (snap != nullptr && snap != root) {
-			// §6(62662-62843)组快照整组 std::swap 换入(树1 克隆腿 cited)
-			trieGroupSwapIn(root, snap);
-			// §7(62842-62871)树1 遍历:条目值 raw@+0x20 = 旧根子节点,
-			//    逐个把本根 payload 对插入其树2(键树装载 cited → 空树
-			//    循环零次,判式按语料保留)
-			for (const auto &kv : root->keyTree) {
-				auto *child = static_cast<TrieNode *>(kv.first);   // 62845
-				if (child == nullptr)
-					continue;
-				trieRefChildInsert(root, child);   // §7 LAB_006761d1
-				triePruneDeadRefs(root, child);    // §8 LAB_00676681
+		// 62640:token 向量空门(lVar26 != 0)→ 下一槽项
+		if (tokens.isEmpty())
+			continue;
+		bool whenPassed = false;   // bVar17(§12 每槽项一次门,62643)
+		bool prefixHit = false;    // bVar18(§14/§15 前缀旗,62644)
+		int tokenIdx = 0;          // local_4a8(62642)
+		LocalMatchNode walkTree;   // local_108 栈宿主(§11 本地树)
+		// token 循环壳(LAB_00675296 迭代面;continue = 下一 token);
+		// 走查体入内层作用域 —— goto 落点(§15)不跨局部初始化
+		for (;;) {
+			{   // 走查体作用域(goto finalize 从内跳出到域外标签,不跨初始化)
+			// §4(62638-62662)token 循环(LAB_00675296):根空或谓词槽
+			//    *(根+0x78)==0 → LAB_006755b6(下一 token/出 —— 语料逐
+			//    token 判,非槽项短路;km3 §4)。Trie 根 = entry+0x08 槽
+			//    (xpressive 编译腿换入 —— boost 边界 cited — wave-2 未建);
+			//    装载腿语义:root 恒空 → 每 token 走 LAB_006755b6 → §15
+			//    收尾下一槽项,与批 72/79 短路行为一致(结果恒 0,不伪造)。
+			if (!entry.trieRoot || entry.trieRoot->group.pred == nullptr) {
+				// LAB_006755b6(62645):本地树头复位 + token 推进门
+				if (tokenIdx + 1 == tokens.size()) {   // 62646 末 token
+					goto finalize;                   // → LAB_00675dbd
+				}
+				++tokenIdx;                          // 62648 LAB_006755e2
+				if (tokenIdx == 1) {                 // 62649
+					if (out.flags != 2 && out.flags != 8) {
+						// code_r0x00675e23 哨兵(63876-63886):tokens[1]
+						// _Rep 长域判空 + wmemcmp(tokens[0],tokens[1])
+						// —— QString == = 长判 + 内容比(同契约)
+						if (tokens[1].isEmpty() || tokens[0] == tokens[1]) {
+							goto finalize;   // → LAB_00675dbd
+						}
+						continue;            // → LAB_00675296 续走查
+					}
+					goto finalize;   // flags∈{2,8} → LAB_00675dbd
+				}
+				continue;   // → LAB_00675296
 			}
-			// 收尾(63876-63879 → 63125-63129):FUN_00686cb0 交叉审计
-			//    (cited — wave-2)→ 旧根复位(LAB_006759bf)
-			trieNodeReset(snap);
-		}
-		// §9-10(63131-63379)记录向量真身:宿主 0x38(local_90 承载)+
-		//    容量门/×1.5 扩容 + 写入条 = begin + [+0xb0](63381);
-		//    owner = token rep(63268 local_250 = p_Var8);§11 叶写/
-		//    谓词虚调(cited — wave-2)消费此向量。
-		KeymapRecordSink sink;   // 63146-63211
-		out.sink = &sink;        // §13 消费面挂出(cited — wave-2)
-		const ushort t0 = tokens.isEmpty() ? 0 : tokens[0].at(0).unicode();
-		(void)recordSinkAcquire(sink, root->group.xA8, root->group.xB0,
-		                        reinterpret_cast<const wchar_t *>(
-		                            static_cast<uintptr_t>(t0)));
-		// §12-§15(63361-63957)— cited — wave-2(when JS 腿/命中分发/
-		//    收尾)—— 走查体保持注记级,见函数头逐段落点。
-		return out.result;   // 装载腿 cited(Trie 根未建)恒 0(不伪造 1/2)
+			// §5(62659)FUN_00681a40(&local_3d8,lVar7+8):获取/换入走查
+			//    节点(snap = 旧根 use++ 持有,或空 = 复用腿 §6-§8 跳过)
+			TrieNode *snap = trieNodeGetOrCreate(&entry.trieRoot);
+			TrieNode *root = entry.trieRoot.get();   // 62661:p_Var41 = 换入后根
+			if (snap != nullptr && snap != root) {
+				// §6(62662-62843)组快照整组 std::swap 换入(树1 克隆腿 cited)
+				trieGroupSwapIn(root, snap);
+				// §7(62842-62871)树1 遍历:条目值 raw@+0x20 = 旧根子节点,
+				//    逐个把本根 payload 对插入其树2(键树装载 cited → 空树
+				//    循环零次,判式按语料保留)
+				for (const auto &kv : root->keyTree) {
+					auto *child = static_cast<TrieNode *>(kv.first);   // 62845
+					if (child == nullptr)
+						continue;
+					trieRefChildInsert(root, child);   // §7 LAB_006761d1
+					triePruneDeadRefs(root, child);    // §8 LAB_00676681
+				}
+				// 收尾(63876-63879 → 63125-63129):FUN_00686cb0 交叉审计
+				//    (cited — wave-2)→ 旧根复位(LAB_006759bf)
+				trieNodeReset(snap);
+			}
+			// §9-10(63131-63379)记录向量真身:宿主 0x38(local_90 承载)+
+			//    容量门/×1.5 扩容 + 写入条 = begin + [+0xb0](63381);
+			//    owner = 当前 token rep(63268 local_250 = p_Var8);语料
+			//    rep = wstring 指针,我方 QString 承载(QChar 数据指针
+			//    同域;wchar_t* 形 = KeymapMatchRecord 语料域)。§11 叶写/
+			//    谓词虚调消费此向量;§13 以克隆 rep 消费(63536-63540)。
+			KeymapRecordSink sink;   // 63146-63211
+			out.sink = &sink;        // §13 消费面挂出(cited — wave-2)
+			QString token = tokens[tokenIdx];              // 62569 p_Var8
+			// 62570 p_Var3 = token 尾指针(tokTail;谓词叶写臂 cited 消费,
+			//   悬伏注记形 —— 变量省略,QChar* 同域)
+			const wchar_t *owner = reinterpret_cast<const wchar_t *>(
+			    static_cast<const void *>(token.constData()));
+			(void)recordSinkAcquire(sink, root->group.xA8, root->group.xB0, owner);
+			// ── §11(63423-63443)谓词腿 ─────────────────────────
+			// 63423:FUN_00683c80(&local_50, 节点+0x12×8)children 克隆
+			const QVector<QPair<QString, void *>> cloned =
+			    trieChildrenClone(root->group.children);   // 63423
+			// 63425-63441:local_98 记录挂链 splice(FUN_0067e45e 100B 消费)
+			//    —— 挂链宿主 local_210/local_98 身份未解 —— cited — wave-2
+			// 63426:写入条[3] = token rep(rep2 先行写;§13 前)
+			// KeymapMatchRecord 写入条 = begin + [+0xb0]*5(recordSinkAcquire
+			// 返回面,悬伏指针形态;挂链 cited → 直写臂保持注记形):
+			if (sink.begin != nullptr) {
+				KeymapMatchRecord &rec = sink.begin[root->group.xB0];   // 63383
+				rec.rep2 = owner;                       // 63426 local_260[3]=p_Var8
+			}
+			// 63427-63428:plVar27 = *(根+0x78) → 虚调 vtable+0x10(plVar27,
+			// &local_268)返 bool —— 谓词对象 = QSlotObjectBase 子类,vtable
+			// 无名(类身份未解,VTABLE-MAP 批)—— cited — wave-2:不伪造
+			// 调用;语料 false → 叶写(63430 门 local_238 = 挂链态,亦 cited)
+			// / true → FUN_0067e4c2 入本地树(真身)。谓词批接入前两臂按
+			// 63430 门未解态短路(不入树不叶写,0x238 臂保持注记)。
+			// bool matched = 谓词虚调;false → 叶写 rec.rep = rec.rep2;
+			//   rec.tail = tokTail;rec.flag = false(63439-63443);
+			// true → trieMatchInsert(walkTree, owner, tokTail);   // 63443
+			// ── §12(63444-63516)when 条件腿(bVar17 每槽项一次门)──
+			if (!whenPassed) {                              // 63444
+				if ((entry.when.userType() & 0x3fffffff) != 0) {   // 63445
+					bool consumed = false;                  // cVar20(63453/63483)
+					if (entry.when.canConvert(QMetaType::QString)) {   // 63446
+						const QString expr = entry.when.toString().trimmed();
+						if (!expr.isEmpty()) {              // 63450 len 门
+							JsEngine *eng = keymapEngineCast(out.ctxWhen);
+							QJSValue v = jsEvaluateGate(eng, expr);   // 63453 FUN_00767a70
+							if (!v.isCallable()) {        // 63456
+								consumed = v.isBool() ? v.toBool()
+								                      : false;   // 63457-63462
+							} else {
+								jsMetatypeRegister();     // 63463 FUN_0067cd71
+								// 63464-63474:QVariant(metaType, QJSValue)
+								// 缓存回写 entry.when(+0x30/+0x38;
+								//   语料 QVariant(int type, const void*)
+								//   = Qt5 fromValue 同构造面)
+								entry.when =
+								    QVariant::fromValue<QJSValue>(v);
+							}
+						}
+					}
+					// LAB_00676fcd(63477):注册 → canConvert → 取回 → 求值
+					jsMetatypeRegister();                   // 63478
+					if (entry.when.canConvert(jsMetatypeRegister())) {   // 63480
+						QJSValue cached = jsValueCacheFetch(entry.when);   // 63481 FUN_0067e011
+						JsEngine *eng = keymapEngineCast(out.ctxWhen);
+						QJSValue r = jsCallGate(eng, cached, QJSValueList());
+						if (r.isBool() && r.toBool())       // 63488-63489
+							whenPassed = true;              // → LAB_00676c5f
+					}
+					if (!whenPassed && !consumed) {         // 63495 cVar20==0
+						// → LAB_00675dbd(§15 收尾;bVar18 false)
+						goto finalize;                      // 63496
+					}
+				}
+				whenPassed = true;                          // LAB_00676c5f 63499
+			}
+			// ── §13(63517-63654)命中分发(LAB_00675e70)──────────
+			// 入门(63503-63506):本地树头 local_100 空 && 静态块 DAT_011c19e0
+			// 零 → 前缀路;写入条 flag(63509 local_f8[2])非零或树头非空
+			// → 命中路 —— local_100/挂链/DAT_011c19c0 静态块身份未解
+			// —— cited — wave-2(树头空 = 谓词臂未接入态)。
+			// (语料:local_100==0 且 e0==0 → LAB_00675d97 前缀;否则命中路)
+			const bool hitPath =
+			    walkTree.touched1;   // local_100 非空承载(树写体已接,cited 门)
+			if (hitPath) {
+				// 63508:FUN_00767d08(38B,0023.c 34430)result 对象门
+				JsEngine *eng = keymapEngineCast(out.ctxDispatch);
+				QJSValue result = jsNewObjectGate(eng);   // FUN_00767d08
+				// 63511-63531:逐克隆元素 → result[tokenRep] = 节点值串
+				for (const auto &child : cloned) {
+					// 63518-63524:FUN_00673dec(&local_100,&local_f8,
+					//   child.second)链查找 → 空 → DAT_011c5118 空串 /
+					//   非空 → FUN_0067fa14 取值(129B wstring 拷贝面)
+					const QString valueStr = trieMatchNodeValue(
+					    walkTree, child.second);   // 63520-63524
+					// 63525-63527:fromUcs4(值)→ QJSValue(我方 QString 直载)
+					QJSValue jsValue(valueStr);
+					// 63528-63531:fromUcs4(child.rep)→ setProperty(result,
+					//   键, 值)= result[tokenRep] = 节点值串(Ghidra
+					//   setProperty 丢值参,键值序以语料二 fromUcs4 为准,km3)
+					result.setProperty(child.first, jsValue);
+				}
+				// ── count 门(63557-63590)────────────────────────
+				int count = 1;   // 63583 默认
+				if (tokenIdx == 1 && entry.repeatable && (out.flags & 0x14) != 0) {
+					// 63558:p_Var3 = tokens[0] 尾即 wcstol 源;我方
+					// QString → std::wstring(wchar 同域)后进真身
+					const std::wstring w = tokens[0].toStdWString();
+					count = keymapEntryCountFromToken(w.c_str());   // 63559-63581
+				}
+				// 63592:FUN_006745b0(*(param_1[3]))清输入缓冲(106B 真身
+				// 已备:KeymapInputRecord::clearBuffer)
+				out.record->clearBuffer();   // 63592
+				// ── actionType 三路分发(63594-63652)────────────────
+				if (entry.actionType == 1) {   // 63594 ==1:map → 合成键
+					QString s = entry.payload.toString();   // 63595
+					if (count > 1) {   // 63599
+						s.insert(0, QString::number(count));   // 63600-63605
+					}
+					synthKeyEvents(s);   // 63607 FUN_0075debe(qApp 宿主形)
+				} else {
+					for (; count > 0; --count) {   // 63609 count 次循环
+						if (entry.actionType == 0) {   // 63611 ==0:action fire
+							JsEngine *tgt = keymapEngineCast(out.ctxDispatch);
+							QByteArray bytes = entry.payload.toByteArray();
+							QVariant fireOut;   // 63616 local_388(弃)
+							keymapActionFire(fireOut, tgt, bytes, result);   // 63617 FUN_007682c0
+						} else {                       // 63622 ==2:JS callable
+							if ((entry.payload.userType() & 0x3fffffff) != 0) {
+								if (entry.payload.canConvert(QMetaType::QString)) {
+									JsEngine *eng2 = keymapEngineCast(out.ctxWhen);
+									QJSValue c = jsEvaluateGate(
+									    eng2, entry.payload.toString());   // 63635 FUN_00767a70
+									if (c.isCallable()) {   // 63639
+										jsMetatypeRegister();   // 63641 FUN_0067cd71
+										// 63642-63652:缓存回写 entry.payload
+										// (+0x20/+0x28,QVariant(metaType,
+										//   QJSValue)= fromValue 同构造面)
+										entry.payload =
+										    QVariant::fromValue<QJSValue>(c);
+									}
+								}
+								// 63653 前直调段:注册 → canConvert → 取回 →
+								// args QList = [result](FUN_005454b0 130B)→
+								// FUN_0076745c 直调(结果不消费);每轮循环
+								// 重取(语料原样,不优化,km3)
+								jsMetatypeRegister();
+								if (entry.payload.canConvert(jsMetatypeRegister())) {
+									QJSValue cached =
+									    jsValueCacheFetch(entry.payload);   // FUN_0067e011
+									JsEngine *eng3 = keymapEngineCast(out.ctxDispatch);
+									QJSValueList args;
+									args.append(result);   // 63640 FUN_005454b0
+									jsCallGate(eng3, cached, args);   // 63642 FUN_0076745c
+								}
+							}
+						}
+					}
+				}
+				out.result = 2;   // 63653 写 *(param_1[6])
+				goto finalize;    // → LAB_00675dcb(§15 result==2 臂)
+			}
+			// ── §14(63655)LAB_00675d97:未竟前缀 ──────────────────
+			out.result = 1;   // 63656
+			prefixHit = true;   // 63656 bVar18 = true
+			if (tokenIdx + 1 != tokens.size()) {   // 63657 → LAB_006755e2
+				++tokenIdx;
+				if (tokenIdx == 1) {
+					if (out.flags != 2 && out.flags != 8) {
+						// code_r0x00675e23 哨兵(63876-63886):_Rep 长域
+						// 判空 + wmemcmp —— 我方 QString == 同契约
+						// (长度先判 + 内容比较 = wmemcmp 语义)
+						if (tokens[1].isEmpty() || tokens[0] == tokens[1]) {
+							goto finalize;   // → LAB_00675dbd
+						}
+						continue;   // → LAB_00675296(§4 走查头续循环)
+					}
+					goto finalize;   // flags∈{2,8} → LAB_00675dbd
+				}
+				continue;   // → LAB_00675296
+			}
+			goto finalize;   // 末 token → LAB_00675dbd
+			}   // 走查体作用域闭合(goto 不跨本域初始化)
+			finalize:;   // 域外标签(§4/§12 失败/§13 命中/§14 末 token 落点)
+			// ── §15(63888-63957)收尾(LAB_00675dbd)─────────────────
+			// 语料标签流(finalize → §15 → 下一槽项)以返回值表达:
+			// 0 = 下一槽项(游标 ++),1 = learn erase 已做(si-=1 后下一),
+			// 2 = result==2 终态(直接返回)。
+			{
+				const int fin = matchTrieFinalize(out, slotList, si, prefixHit,
+				                                  walkTree, mode);
+				if (fin == 2)
+					return out.result;   // 63896 LAB_0067720d
+				if (fin == 1) {
+					si -= 1;   // 63911-63917:游标回退重对齐(循环 ++ 对齐)
+				}
+			}   // fin 作用域闭合(repeat 迭代不跨 const int 初始化)
+			continue;   // LAB_006751e5:→ 下一槽项(游标 ++ 由外层 for 承载)
+		}   // token 循环壳尾
 	}
 	return out.result;
 }
+

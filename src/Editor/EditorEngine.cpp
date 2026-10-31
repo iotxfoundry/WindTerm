@@ -1347,6 +1347,29 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				    QLatin1String("line.wrapSymbol"));
 				s_zigzag_a63fd6(1, c, x0, ctx.d40, x1, ctx.d50);   // 00a688c0
 			};
+			// s_pair_highlightMatched_a688f6(529B)@decomp-0034.c:44592 —
+			//   真身化(批 80;hex_division/indentGuide(68b18)共用竖线
+			//   底座):key 三选 — *(char*)(*ed+0x1128) hex →
+			//   "hex.division",否则"line.indentGuide";matched 非 0 →
+			//   "pair.highlightMatched" 覆盖(00a6891x,语料原样)
+			auto s_pair_highlightMatched = [&](double x, bool matched) {
+				const char *key =
+				    m_ctx.hexMode ? "hex.division" : "line.indentGuide";
+				if (matched)
+					key = "pair.highlightMatched";
+				// FUN_0095021a(doc,key)×2 → FUN_0094a576(rec,0) 前景槽 +
+				//   editor_styleAt(rec,0) 基槽 — styleTable QHash 占位:
+				//   双取色槽坍缩单值(环形序数丢,登记回填)
+				const QColor c =
+				    m_ctx.styleTable.value(QLatin1String(key));
+				// vt+0x78 基色整竖线 (x, d40..d50)(00a689fx)
+				view.fillRect(x, ctx.d40, x + 1.0, ctx.d50, c);
+				// 虚线段覆盖:do-while y = d40+1 起步进 2.0、段高 1.0,
+				//   门 y < d50+1.0(00a68a1x,语料原样)
+				for (double y = ctx.d40 + 1.0; y < ctx.d50 + 1.0;
+				     y += 2.0)
+					view.fillRect(x, y, x + 1.0, y + 1.0, c);
+			};
 			// s_hex_division_a68ec6(511B)@44787 — 真身化(批 75;高亮腿 cited)
 			auto s_hex_division = [&]() {
 				if (m_ctx.hexGroupWidth > 0) {       // doc+0xd54(00a68edc)
@@ -1390,8 +1413,8 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 									const double px = node->n.width
 									    + addend * 0.5;
 									if (px >= ctx.d38 && px <= ctx.d48)
-										;    // s_pair_highlightMatched_a688f6
-										    //   (529B)— cited — wave-2(深腿)
+										s_pair_highlightMatched(
+										    px, false);  // a688f6(matched=0 语料原样;调用方自持 view/doc 参)
 								}
 							}
 							++i;
@@ -1402,10 +1425,13 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 						} while (!node->f50);    // *(char*)(n+0x50)=='\0'
 					}
 				}
-				// 尾:FUN_00a75b78(99B)@51402 = (ctx+0x60 + FUN_00a28b8c(219B,
-				//   @5985 cited — wave-2,占位 0))− FUN_00a28ae0(9B)=4.0×
-				//   doc+0xcf8×0.5
-				const double ex = ctx.d60
+				// 尾:FUN_00a75b78(99B)@51402 真身化 = ctx[0xc](int 截断)
+				//   + FUN_00a28b8c(219B,@5985 ed+0x1130 缓存:|v+1|≤eps 复算
+				//   4.0×d38+1118×d20×1124+Σ a28aea(run) — hex 字段面 cited
+				//   — wave-2,占位 0)− FUN_00a28ae0(9B)=4.0(0x4010… 恒常量,
+				//   @5949)× doc+0xcf8 × 0.5
+				const double ex = (double)(int)ctx.d60
+				    + 0.0
 				    - 4.0 * m_ctx.indentWidthCf8 * 0.5;
 				if (ex >= ctx.d38 && ex <= ctx.d48) {   // 00a6902c
 					view.fillRect(ex, ctx.d40, ex + 1.0, ctx.d50,
@@ -1515,7 +1541,54 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			// s_text_selection_a680c6(532B)— cited
 			if (!m_ctx.hexMode) {
 				s_line_columnMarker2();  // s_line_columnMarker_a682e6(543B)真身化
-				// FUN_00a68b18(941B)— cited(后续批)
+				// FUN_00a68b18(941B)@decomp-0034.c:44655 — 真身化(批 80;
+				//   缩进参考线,依赖 a688f6 底座)。doc 门 +0xd44;wrap 判
+				//   FUN_009587b2 / 行号归一 FUN_009588b8 — buffer 直读
+				//   (00925200/00958498 流)— cited — wave-2(占位常过/
+				//   原值,initDrawCtx 回填);缩进列 FUN_009284c6(135B
+				//   全读 @0030:24393,空格++/tab 升 tab 列)— cited 占位 0;
+				//   ±窗回扫/前扫腿(00a68c1x-00a68dxx:窗 = max(0x14,
+				//   FUN_00a20438(ed,0)) 可视行,回扫跳 fold、mode==1 须
+				//   FUN_00a24e8a(ed,ln,0)&0xc==8、前扫遇更小缩进 break;
+				//   pairDef 腿 ed+0xfd4>0 且对数>1 且末对 open≤line<
+				//   末对 close → max=max(fd4);mode!=2 时 max+=unit)
+				//   — fold/buffer API cited 占位 0(fd4 写侧未落,腿不
+				//   触发,同相);FUN_00a75c8e ctx[0x36] 缓存(216B 全读
+				//   @51474:|cache+1|≤eps 复算 fd4×cf8,门 fd4>0/+0x84/
+				//   首末对夹 ctx+0x68)— cited 占位 0(同相)
+				auto s_indentGuides = [&]() {
+					if (!m_ctx.indentGuidesD44)   // doc+0xd44 门(00a68b34)
+						return;
+					const int unit = m_ctx.field213_260;  // *(int*)(ed+0x260)
+					int maxInd = 0;   // FUN_009284c6 + 窗扫腿 — cited 占位 0
+					// fVar11 = (float)maxInd/(float)unit 截断(语料原样);
+					//   0/0 → NaN → (int)NaN = 0,循环不进(同相)
+					const float guides = (float)maxInd / (float)unit;
+					// dVar12 = unit × doc+0xcf8 步宽(00a68bax)
+					const double step = (double)unit * m_ctx.indentWidthCf8;
+					// FUN_00a224f0(ed)(24B 全读 @1735):+0x113b 非零 → 0,
+					//   否则 FUN_00a16564(*(ed+0x10c8)) — cited — wave-2
+					//   (columnMarker2 同款占位 0)
+					const long long x0 = 0;
+					for (long long i =
+					         (long long)(((double)x0 + 0.0001) / step) - 1;
+					     i < (int)guides; ++i) {
+						const double x = (double)i * step + ctx.d60;
+						if (ctx.d38 <= x && x != ctx.d38) {  // != 守卫原样
+							if (ctx.d48 <= x && x != ctx.d48)
+								return;              // 越右界整函数早退
+							// FUN_00a75c8e 值 + ctx+0x60 与 x 差 ≤
+							//   2.2e-16 → matched(00a68e6x)
+							const double pairCacheX = 0.0;
+							const double dx =
+							    pairCacheX + ctx.d60 - x;
+							s_pair_highlightMatched(
+							    x, dx >= -2.220446049250313e-16
+							        && dx <= 2.220446049250313e-16);  // ABS≤2.2e-16
+						}
+					}
+				};
+				s_indentGuides();        // FUN_00a68b18 真身化(批 80)
 			} else {
 				s_hex_division();        // s_hex_division_a68ec6(511B)真身化
 			}

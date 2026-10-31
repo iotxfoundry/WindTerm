@@ -252,6 +252,8 @@ public:
 	bool flagEc2 = false;              // ed+0xec2(FUN_00a75976 早退门;M4 表"selection flag")
 	int hexByteWidth1118 = 0;          // ed+0x1118 hex 字节宽(s_hex_division 取模)
 	int hexSub111c = 0;                // ed+0x111c(FUN_00a28aea 余数子模)
+	bool indentGuidesD44 = false;      // doc+0xd44 缩进参考线开(批 80;
+	                                   //   FUN_00a68b18 门,写侧未落 → 缺省关,同相)
 	double bufD18 = 0.0;               // buffer+0x18(FUN_00a218e8 左缘 int 截断;wrapSymbol)
 	QList<int> columnMarkers;          // doc+0xd78 列 RB-tree(节点 +0x20 int)行为模型:
 	                                   //   有序表 in-order 遍历(markersStore 同款先例,
