@@ -10,6 +10,9 @@
 #include <QJSValue>
 
 #include <cstring>
+#include <cerrno>
+#include <cwchar>
+#include <stdexcept>
 
 // ── 键码双向编解码(DAT_011c1960)─────────────────────────────
 // 语料体全文可读(00674206 204B / 00674b1e 431B,decomp-part-0020.c
@@ -393,24 +396,27 @@ int SuperKeymap::feedKey(KeymapInputRecord &record, uint key, int flags)
 // ── 走查体辅助真身(§5-§10)────────────────────────────────
 
 // FUN_00681a40(392B,0021.c 4594-4671)语料转写:§5 节点获取/复位。
-//   *out = 0;槽空/槽 use==1 → 复用现有(*out 保持 0,§6-§8 跳过);
-//   否则新建 0xb8 节点(布局 4622-4643)+ 0x18 ctrl(PTR_FUN_011895b0,
-//   use++ 4649-4651)+ +0x60 self/+0x68 ctrl(4652-4659)换入槽;
-//   *out = 旧根(use 已 ++ 持有,4609-4618),槽换新后旧根 FUN_0067fae4
-//   释放面由调用方走查收尾承载(§6-§8 后 use-- 复位)。
-//   ctrl 块(PTR_FUN_011895b0/_Sp_counted_base)= boost::xpressive
-//   编译产物(km3 定案;boost 边界 EXT-BOUNDARY,块体不伪造 ——
-//   编译腿 cited — wave-2):shared_ptr 承载 = 标准库委托
-//   (_Sp_counted_base use/weak 计数面同构,空 delete 形,永不解引);
-//   4649-4651 LOCK use++ → shared_ptr 强引用持有 +0x68。
+//   *param_1(返回槽) = 0;param_2 槽空 → 新建直挂;槽非空且节点
+//   use==1 → 复用直返(*param_1 保持 0,§6-§8 跳过);否则旧根
+//   use++ 持有(*param_1 = 旧根),槽换新后旧根 FUN_0067fae4 释放面
+//   由调用方走查收尾承载(§6-§8 后 use-- 复位)。
+//   km3 ctrl 落地:0x18 ctrl 块 = xpressive 编译产物(boost 边界
+//   EXT-BOUNDARY,块体不伪造 —— 编译腿 cited — wave-2);shared_ptr
+//   承载 = 标准库委托(_Sp_counted_base use/weak 计数面同构)。
+//   4649-4651 LOCK use++ → shared_ptr 强引用持有 +0x68;编译产物本体
+//   永不解引(空 delete 形,块仅计数)。
+//   语料节点 use(+0x70,4609-4614 LOCK++)= "走查中" 计数:它数的是
+//   FUN_0067fae4 62665 侧释放者;本转写按语料原样保留 +0x70 裸计数
+//   (持有面 4615 换手由 snap 返回承载),槽头 shared_ptr 仅承载
+//   节点生命周期(语料槽换入 *param_2 = pvVar3 等价)。
 static TrieNode *trieNodeGetOrCreate(std::shared_ptr<TrieNode> *slot)
 {
 	TrieNode *snap = nullptr;   // *param_1 = 0(4604)
-	if (slot->get() != nullptr) {   // 4605
-		if ((*slot)->use == 1)   // 4606:use==1 → 复用直返
+	if (slot->get() != nullptr) {   // 4605:*param_2 != 0
+		if (slot->get()->use == 1)   // 4606:use==1 → 复用直返
 			return snap;
-		// 4609-4614:LOCK;旧根 use++(持有)—— shared_ptr 强引用拷贝
-		//   = 语料 use++ 计数面(标准库委托;shared 头 use ≡ 节点 use 槽)
+		// 4609-4614:LOCK;旧根 use++(持有)
+		slot->get()->use += 1;
 		snap = slot->get();   // 4615-4616:*param_1 = 旧根
 	}
 	// 4622-4643:0xb8 节点新建(布局逐字段;std 成员 ctor 承载零值)
@@ -622,6 +628,29 @@ static KeymapMatchRecord *recordSinkAcquire(KeymapRecordSink &sink,
 	return sink.begin != nullptr ? sink.begin + xB0 : nullptr;
 }
 
+// km3 §13 count 门真身(63557-63590,LAB_00675e70 段):wcstol
+// tokens[0] = std::stoi 全语义语料转写 —— errno 保存/清零(63560-
+// 63562);endptr==起点 → __throw_invalid_argument("stoi")(63567-
+// 63569 LAB_006776f7);errno==0x22(ERANGE)或 (u64)(count+
+// 0x80000000)>0xffffffff → __throw_out_of_range("stoi")(63572-
+// 63575);errno==0 → 恢复原值(63577-63579)。默认 count=1(63583)。
+// 调用腿(§13 分发体内,count 消费 0067752a/006776f7)随 §11-13 落地批。
+static int keymapEntryCountFromToken(const wchar_t *rep)
+{
+	const int saved = errno;   // 63560-63561:iVar23 = *piVar35
+	errno = 0;                 // 63561-63562:*piVar35 = 0
+	const wchar_t *end = nullptr;
+	const long v = std::wcstol(rep, const_cast<wchar_t **>(&end), 10);   // 63563
+	if (rep == end)
+		throw std::invalid_argument("stoi");   // 63566-63569
+	if (errno == 0x22 /*ERANGE*/ ||
+	    static_cast<unsigned long long>(v + 0x80000000L) > 0xffffffffULL)
+		throw std::out_of_range("stoi");   // 63572-63575
+	if (errno == 0)
+		errno = saved;   // 63577-63579(errno==0 恢复)
+	return static_cast<int>(v);   // 63580 iVar22
+}
+
 // FUN_0067500e(9978B,decomp-part-0020.c 62391-63957)15 段,P3 勘察
 // §3 地图逐段转写。km3 裁决:走查体执行前提 = Trie 根(entry+0x08 槽,
 // 语料 *(lVar7+8)),该槽由装载翼 xpressive 编译腿(00678295-006783fe →
@@ -674,8 +703,8 @@ static KeymapMatchRecord *recordSinkAcquire(KeymapRecordSink &sink,
 //   §12(63361-63516)— cited — wave-2:when 条件 JS 腿(entry
 //       +0x40/+0x48 = lVar7+0x30/0x38 域,mask 0x3fffffff →
 //       canConvert→toString→trimmed(00676ecf-00676f03)→
-//       FUN_00767a70(38B,引擎门 +0x48)取 QJSValue → isCallable?
-//       → FUN_0067cd71 metatype 注册(107B,DAT_011c18dc)→
+//       FUN_00767a70(38B,引擎门 +0x48)取 QJSValue → isCallable?→
+//       FUN_0067cd71 metatype 注册(107B,DAT_011c18dc)→
 //       QVariant 缓存回写 → FUN_0067e011(260B)取回 →
 //       FUN_0076745c(104B)求值 → isBool→toBool;bVar17 一次性门)。
 //   §13(63517-63654)命中分发(LAB_00675e70):FUN_00767d08(38B)
@@ -690,13 +719,25 @@ static KeymapMatchRecord *recordSinkAcquire(KeymapRecordSink &sink,
 //       → FUN_007682c0 → 0066a116(006772d0,真身上方);payload
 //       QVariant mask(+0x38)&0x3fffffff → FUN_00767a70 取 callable +
 //       FUN_0076745c 直调(JS 面 cited);result=2(006776f2 前)。
-//   §14(63655)LAB_00675d97:result=1;bVar18=true;非末 token 续。
+//       km3 §13 可落片段 —— count 门真身 keymapEntryCountFromToken
+//       (上方;63557-63590 wcstol = std::stoi 全语义);63653:result=2
+//       写 *(param_1[6])。
+//   §14(63655)LAB_00675d97:result=1;bVar18=true;非末 token 续
+//       (local_4a8+1 != lVar26 → LAB_006755e2;末 token → §15);
+//       实际续循环机制 code_r0x00675e23(63876-63886):记录哨兵
+//       _Rep 长度域判空/相等 → 结束,否则回 §4 走查头。
 //   §15(63888-63957)收尾(LAB_00675dbd/00675dcb/006751ce):
 //       result==2 → sp release + FUN_0067e2c0(210B)本地树回收 +
 //       返回;bVar18(前缀)且 mode!=2 → FUN_0067df30(125B)
 //       {槽项 wstring,sp} append 记录弦清单;否则 mode==2 →
 //       QList::erase 当前槽项(learn 命中移除,00677071-00677170);
 //       游标推进 → 下一槽项。
+//       km3:FUN_0067df30(0021.c 716-747)= QList append + 0x10 pair
+//       {raw@0, ctrl@8};ctrl use++@+8(738-743 LOCK)= shared_ptr
+//       拷贝形(我方 ctrl = shared_ptr 承载 → 强引用拷贝同构);
+//       槽项两段释放(63921-63941 use→weak→0)随 QList<KeymapEntry>
+//       按值承载的 shared_ptr 析构同构(槽项 = shared_ptr 形,§15
+//       消费腿整体随 §11-13 落地批转写,此处计数面已闭环)。
 int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
                            const QVector<QString> &tokens, int mode)
 {

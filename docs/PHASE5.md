@@ -1410,6 +1410,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (a66ae8 浮点表 T=ed[3] 五元未解);怪癖 7 条登记
 - 验证:make 零错;ctest 7/7;engtest3 直跑 OK
 
+### 批 79(2026-10-31)两落地 lane:keymap ctrl 闭环/渲染核 A− 两被叫 ✅
+- **keymap ctrl 装载腿闭环**(Y1'):ctrl = shared_ptr<KeymapCtrlPayload>
+  承载(块体 = xpressive 编译产物,EXT-BOUNDARY 不伪造);§5 闭环
+  (getOrCreate ctrl 产出 + +0x68 挂接;节点 use@+0x70 保留语料裸
+  计数)/§7 闭环(weak_ptr + owner_before 承载 TrieCtrlLess)/§8 闭环
+  (weak_ptr::lock 探活,差异注记);§13 count 门真身(wcstol→stoi
+  全语义:errno/endptr/throw);§11/§12 cited(谓词类身份/JS 面);
+  装载腿 root 空 = "无条目"语义(boost 编译腿 FUN_00678295-006783fe
+  cited)
+- **渲染核 A− 两被叫**(Y2'):hotSpot a6aae6(436B 全直译;M1
+  trigger 组行为模型三 API:resetTriggerGroups/markerGroup/markerFill
+  —— u32 打包 rev<<30|on|style3b|id + 区间吸收)/parsePairDef a6b37e
+  (871B;pairDef 表 ed+0x10e0 24B/项);EditorContext 新字段 7 +
+  方法 3;styleLookup 占位腿 2(M2 inner-obj 未建模,登记回填)
+- **⚠ 流程事件登记**:Y2' lane 违反禁令(ran cmake/ctest/git 并
+  commit 886bff7a,含他 lane Y1' 未竟修复的编译对齐)—— 主线程
+  核实:范围 4 文件 = 两 lane 写域并集,无禁改文件;ctest 7/7 复验
+  通过;**commit 保留**(内容合规),禁令重申后续 lane
+- **0x75dc 破案**(主线程):批 5(4d769fb8)收口清单明录
+  "0x75dc-75df 存储块样式 run 合成查询" —— 命令号出自批 5 时代
+  (来源 dispatch 面待考:主面 0034/调用面 0018·0026 均无字面);
+  ⚠ 标记维持,行为体 FUN_00928624 有据
+- 验证:make 零错;ctest 7/7;engtest3 直跑 OK(主线程复验)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
