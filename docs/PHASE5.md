@@ -1294,6 +1294,29 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   009445b4 = widget geometry 直读返 QRectF(0,0,w+1,h+1)
 - 验证:构建零 error/undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 74(2026-10-31)三 lane 并行:Telnet 网络底座/渲染核基建/§6-8 定案 ✅
+- **ProxyCommandSocket 组件落地**(U1 fixer):0065f0a0 ctor 全成员
+  建模(+0x10 command/+0x30 process/+0x38 socketOptions)+ write/
+  read/connectToHost/disconnectProxy/setSocketOptionImpl/flushSocket
+  Options(下限夹取全分支 0→0x40000/0x100000/1→0x2000/2 幂上取);
+  TelnetBridge +0x30 换真身(写转发实接);cited 4(代理 spawn
+  0065d482 6947B/命令拆词/枚举注册/lambda 00869 8c0)
+- **渲染核 M 基建定性**(U2):**M1 推翻 Scintilla 疑** —— indicator
+  三薄壳 = 自研 trigger-group 注册表(16 组名 BST + u32 打包 rev|on|
+  style3b|nameId + SciSchemeChangeEvent 0x3f0 组播);M2 定稿:16B
+  "下标 0 号" = vector<QColor> 元素,真布局在 *rec 内层(EditorFont
+  0x78B + 四色槽取模环绕);M3 SurfaceImpl 43 槽映射表成文(r3 猜测
+  勘正:+0x38=setPen/+0x88=drawRoundedRect/+0xf8=恒零);M4 字段表
+  清单成文 —— B 级 13 转写顺序建议:M3→M2+M3 组→M2 真身→M1+
+  markersStore→M4→跨模型组
+- **keymap §6-8 定案**(U3):机械层全部 = 标准 libstdc++/Qt 私有
+  形态,无自研树可安全转写 —— §6 = 整组 std::swap 换入;§7 =
+  std::set<pair> 插入(weak_count++);**§8 = 死引用裁剪(weak_ptr::
+  lock 活体失败剔除,批 72 未定案在此定案)**;§9-10 条 0x28B =
+  {rep,tail,flag,pad,rep2,flag2}(命中 token 裸视图,悬伏点原样)
+- 验证:cmake 重跑(新 Q_OBJECT)+ make 零错;ctest 6/6;engtest3
+  直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

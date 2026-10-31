@@ -1,17 +1,18 @@
 #include "TelnetBridge.h"
 
+#include <QAbstractSocket>
 #include <QTcpSocket>
 
 // ctor 语料 = FUN_00875ffe(642B):SuperBridge 基(007c8290)→
 // +0x30 = new ProxyCommandSocket(0065f0a0)→ 4×connectImpl
 // (readyRead/errorOccurred/connected/disconnected,见 TelnetBridge.h
-// 头注)。树面 socket = QTcpSocket 承位(ProxyCommandSocket 网络底座
-// cited — wave-2,待其组件批替换承位);读/写/态腿按语料接线。
+// 头注)。socket 槽 = ProxyCommandSocket 真身(0065f0a0 转写,
+// 见 ProxyCommandSocket.{h,cpp});读/写/态腿按语料接线。
 TelnetBridge::TelnetBridge(QObject *parent)
 	: SuperBridge(parent)
 {
-	// FUN_00875ffe:param_1[6] = new ProxyCommandSocket(this)
-	m_socket = new QTcpSocket(this);
+	// FUN_00875ffe:param_1[6] = new ProxyCommandSocket(this)(0065f0a0)
+	m_socket = new ProxyCommandSocket(this);
 	// connectImpl:QIODevice::readyRead → lambda 008698c0
 	connect(m_socket, &QTcpSocket::readyRead, this, &TelnetBridge::onReadyRead);
 	// connectImpl:errorOccurred → FUN_00875f1f
@@ -37,28 +38,30 @@ TelnetBridge::~TelnetBridge()
 	delete m_socket;   // 语料引用减计数后 operator_delete(+0x18 槽)
 }
 
-// FUN_0087685a(9B)同构:FUN_0065d228(+0x30 代理在则走代理写,
-// 否则 QIODevice::write 直写)。
+// FUN_0087685a(9B)同构:直调 socket→FUN_0065d228(转写 =
+// ProxyCommandSocket::write:m_process 在走进程 stdin,否则直写)。
 void TelnetBridge::writeToSocket(const QByteArray &bytes)
 {
 	if (m_socket != nullptr)
-		m_socket->write(bytes);   // FUN_0065d228:QIODevice::write 直写分支
+		m_socket->write(bytes);   // FUN_0065d228(0065f0a0 转写,实接)
 }
 
-// FUN_00876864(23B)同构:FUN_0065f572 → QAbstractSocket::connectToHost
-// (代理分支 FUN_0065d482 = ProxyCommandSocket 内部,cited — wave-2)。
+// FUN_00876864(23B)同构:直调 socket→FUN_0065f572(转写 =
+// ProxyCommandSocket::connectToHost:m_command 非空走 FUN_0065d482 代理
+// 分支 [cited — wave-2],否则 QAbstractSocket::connectToHost 直连)。
 // 拨号门 FUN_007c82e6(自旋 +0x18 → 桥虚 +0xb8)为会话侧入口,树面
 // 直接落 connectToHost(自旋门单线程装配态无竞争,cited 注记)。
 void TelnetBridge::connectToTarget(const QString &host, unsigned short port)
 {
 	if (m_socket != nullptr)
-		m_socket->connectToHost(host, port);   // FUN_0065f572 直连分支
+		m_socket->connectToHost(host, port);   // FUN_0065f572(实接;代理腿 cited)
 }
 
-// lambda FUN_008698c0(102B)readyRead 落点:读腿(字节上行入会话)
-// 依赖会话承接面(0x911exx 信号族)cited — wave-2;现仅语料入口位。
+// lambda FUN_008698c0(102B,decomp-part-0027.c:8680)readyRead 落点:
+// 体为 Qt 元调用分发器(param_1 型 1/2/0),真调用腿 @0086990b jumptable
+// 未复原(Ghidra WARNING)→ 下行承接面未定,cited — wave-2,禁止按
+// "终端应该怎样"补读循环。socket 侧读腿分流(进程/自身)已在
+// ProxyCommandSocket::read/readAll 实接(0065cfe4/0065cffa)。
 void TelnetBridge::onReadyRead()
 {
-	// 008698c0 真身:jumptable 未复原(Ghidra WARNING),下行承接
-	// 面未定 —— cited — wave-2,禁止按"终端应该怎样"补读循环。
 }
