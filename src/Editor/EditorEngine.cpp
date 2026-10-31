@@ -1270,6 +1270,10 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				                          //   columnMarker2 参 rect;init cited 缺省)
 				QVector<const void *> nodes150;  // +0x150 runnode 指针数组
 				                          //   (0x58B/项;init cited — wave-2)
+				qint64 pairLo90 = 0;      // +0x90(parsePairDef lo = FUN_0096bbc0
+				                          //   (ctx+0x88) = *(ctx+0x90);init cited 缺省 0)
+				qint64 pairHiA8 = 0;      // +0xa8(parsePairDef hi = FUN_0096bbc0
+				                          //   (ctx+0xa0) = *(ctx+0xa8);同上)
 			} ctx;
 			// runnode 0x58B 对象布局(r3 §3 a75688 析构 stride 0x58;
 			//   FUN_0096bbc0/0096bc14 = +0x08 pos/+0x10 width)
@@ -1439,8 +1443,64 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			// s_grep_mark_a6afa2(ed, doc, &ctx)(440B)— cited — wave-2
 			if (!m_ctx.hexMode) {        // *(char*)(*ed+0x1128)==0
 				// s_PairColor_a72272(ed, doc, &ctx)(1001B)— cited
-				// editor_parsePairDef(ed, doc, &ctx)— cited
-				// s_text_hotSpot_a6aae6(ed, doc)(436B)— cited
+				// === editor_parsePairDef(871B)@decomp-0034.c:45827 — 真身化(批 79)===
+				{
+					// FUN_00a24e72(12B)@0034:3596 整表堆拷(3-long/项步进;
+					//   语料 operator_delete → QList 值语义承接)
+					const QList<EditorContext::PairDefEntry> pairs =
+					    m_ctx.pairDefs;
+					m_ctx.resetTriggerGroups(QLatin1String("Pair")); // 009257a8(M,"Pair")
+					if (!pairs.isEmpty()) {
+						// *(char**)(*ed+0xfd8) 语法名作 styleLookup key
+						const char *syn = m_ctx.syntaxNameFd8;
+						// FUN_0095021a(doc,key)→009ba94c strlist_bsearch,未命中
+						//   →默认记录;M2 inner-obj 未建模 → styleTable QHash 占位
+						//   (0x7547 S3/s_line_highlight 同款,登记回填)
+						const QColor rec = m_ctx.styleTable.value(
+						    QLatin1String(syn ? syn : ""));
+						// FUN_0094a6a4(19B)= !0094a5ee(8B,*rec 内层+0x40 u8):==0
+						//   才画;占位:命中即画(门位丢,登记回填)
+						if (rec.isValid()) {
+							// FUN_00925c02(ed,"Pair",0) 组注册 — 模型名柄
+							m_ctx.markerGroup(QLatin1String("Pair"), false);
+							// 区间:lo = FUN_0096bbc0(ctx+0x88)=*(ctx+0x90)(5B);
+							//   hi = FUN_0096bbc0(ctx+0xa0)=*(ctx+0xa8)(00a6b61x)
+							const qint64 lo = ctx.pairLo90;
+							const qint64 hi = ctx.pairHiA8;
+							for (const EditorContext::PairDefEntry &p : pairs) {
+								if (lo <= p.close) {           // 00a6b62a
+									if (hi < p.open)
+										break;                     // 00a6b63a 有序早退(原样)
+									// FUN_0092671c(ed,grp,p.open,p.close−p.open,
+									//   0094a5ee(rec),2,syntaxName,0)
+									m_ctx.markerFill(QLatin1String("Pair"),
+									    p.open, p.close - p.open, rec.alpha(),
+									    2, QByteArray(syn ? syn : ""), false);
+								}
+							}
+						}
+					}
+				}
+				// === s_text_hotSpot_a6aae6(436B)@decomp-0034.c:45546 — 真身化(批 79)===
+				{
+					m_ctx.resetTriggerGroups(QLatin1String("HotSpot")); // 009257a8(M,"HotSpot")
+					// FUN_0095021a(doc,"text.hotSpot") — styleTable 占位(同上)
+					const QColor rec = m_ctx.styleTable.value(
+					    QLatin1String("text.hotSpot"));
+					if (m_ctx.hotspotLo1048 != -1) {              // 00a6ab76
+						// FUN_0094a6a4(rec)==0 才画(00a6ab81);占位:命中即画
+						if (rec.isValid()) {
+							// FUN_00925c02(ed,"HotSpot",0)— 模型名柄
+							m_ctx.markerGroup(QLatin1String("HotSpot"), false);
+							// FUN_0092671c(ed,grp,lo,hi−lo,0094a5ee(rec),2,
+							//   "text.hotSpot",0)— len=hi−lo 可负,原样(r6 怪癖)
+							m_ctx.markerFill(QLatin1String("HotSpot"),
+							    m_ctx.hotspotLo1048,
+							    m_ctx.hotspotHi1050 - m_ctx.hotspotLo1048,
+							    rec.alpha(), 2, QByteArray("text.hotSpot"), false);
+						}
+					}
+				}
 			}
 			// s_TriggerHighlightTextFont_a6b872(5995B)— cited — wave-2
 			// FUN_00a6b17e(492B)— cited

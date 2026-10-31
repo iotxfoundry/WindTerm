@@ -256,6 +256,87 @@ public:
 	QList<int> columnMarkers;          // doc+0xd78 列 RB-tree(节点 +0x20 int)行为模型:
 	                                   //   有序表 in-order 遍历(markersStore 同款先例,
 	                                   //   单线程等价;插入语义 00a682e6 cited)
+	// --- hotspot 区间(批 79;r6 §1/FUN_00a6aae6)---
+	//   写侧命令未落地:缺省 −1/0 = 门关(00a6ab76 ==−1 早退),不虚构
+	long long hotspotLo1048 = -1;      // ed+0x1048(FUN_00a6aae6 门 + fill pos)
+	long long hotspotHi1050 = 0;       // ed+0x1050(len = +0x1050 − +0x1048,可负原样)
+	// --- 语法名(ed+0xfd8;M4 表;parsePairDef styleLookup/markerFill key)---
+	//   写侧未落 → nullptr(空名 → 0092671c _Rep len==0 早退,同相)
+	const char *syntaxNameFd8 = nullptr;   // *(char**)(*ed+0xfd8)
+	// --- pairDef 表(ed+0x10e0;批 79;r6 §2/FUN_00a6b37e)---
+	//   FUN_00a24e72(12B)@0034:3596 = *(ed+0x10e0)+8;数组 *(base+8)..*(base+0x10),
+	//   24B/项;写侧未落 → 缺省空表(parsePairDef 空表早退同相)
+	struct PairDefEntry {
+		qint64 open = 0;               // 项 +0x00(首 long)
+		qint64 close = 0;              // 项 +0x08(次 long;len = close−open)
+		qint64 flag = 0;               // 项 +0x10(第三 long;拷贝腿携带,消费面未解)
+	};
+	QList<PairDefEntry> pairDefs;      // parsePairDef 整表堆拷(00a6b3ax)→ QList 值语义
+
+	// --- M1 trigger 组注册表(ed[1]+0x100 = E 宿主行为模型;批 79,r5 §0)---
+	// 组对象 = sortedvec_insert(009205ae 段)产的 0x20 vtable obj(PTR_FUN_011acb90 +
+	// 0x50B initThread + 0x30B Uint32SkipRunStyles);行为模型 = 有序 runs 表,
+	// 单线程等价(markersStore 同款先例)。shortcut: run 末界未建模,读侧
+	// (a6b872 Trigger 面消费 u32)落地前须升级 run-end 载体。
+	quint8 triggerRev8 = 0;                    // E+8 低 2bit 版本号(00920a8a 自增翻转)
+	QHash<QByteArray, int> triggerNameIds;     // ByteArrayBimap(E+0x88;00a7cbd0 523B cited)
+	struct TriggerGroup {
+		bool flag = false;                     // sortedvec_insert flag 参(00925c02 p3)
+		QMap<qint64, quint32> runs;            // pos→u32 打包值(00920a8a 打包式)
+	};
+	QHash<QString, TriggerGroup> triggerGroups;
+
+	// FUN_009257a8(12B)@0030:20735 → FUN_0092043a(8B)→ trigger_findFont
+	//   (00923650,1880B@0030:18805:BST 摘除 + 4-deque 摘挂 + 组对象 D1 析构 +
+	//   FUN_00923220 回插)—— 深体 cited — wave-2;行为模型 = 该组 runs 清空
+	void resetTriggerGroups(const QString &name)
+	{
+		// 语料:BST 查不到 → no-op(不建组);查到 → 摘除+D1 析构
+		auto it = triggerGroups.find(name);
+		if (it != triggerGroups.end())
+			it->runs.clear();                  // trigger_findFont 尾 D1(00923a8x)
+	}
+	// FUN_00925c02(92B)@0030:21179:00920442(182B BST 查)查得即返;miss →
+	//   sortedvec_insert(1036B)+ FUN_00925bd4 通知(cited)。组柄 = 名
+	//   (语料返回组对象指针;模型名柄 1:1)
+	TriggerGroup &markerGroup(const QString &name, bool flag)
+	{
+		auto it = triggerGroups.find(name);
+		if (it == triggerGroups.end()) {       // 00920442 miss → insert(flag)
+			it = triggerGroups.insert(name, TriggerGroup{});
+			it->flag = flag;
+			// FUN_00925bd4 监听者通知 — cited — wave-2
+		}
+		return it.value();                     // 查得即返
+	}
+	// FUN_0092671c(279B)@0030:21716:名空早退(std::string _Rep len==0 门,
+	//   0092673f)→ FUN_00920a8a(221B@0030:16443):ByteArrayBimap(E+0x88)名→id;
+	//   rev = E+8 低 2bit 自增翻转,旧值入包;
+	//   val = rev<<30 | on&0x1f | (style3b&7)<<5 | (id&0x3fffff)<<8;
+	//   fill_range 循环(模型 = 单遍区间吸收)。
+	// notify!=0 腿:SciSchemeChangeEvent(0x3f0) 组播 FUN_0092601a/FUN_00924f02
+	//   — cited — wave-2(两调用点均 notify=0,腿不可达)
+	void markerFill(const QString &grpName, qint64 pos, qint64 len, int on,
+	                int style3b, const QByteArray &name, bool notify)
+	{
+		Q_UNUSED(notify);                      // 0x3f0 组播腿 — cited — wave-2
+		if (name.isEmpty())
+			return;                            // 0092673f _Rep len==0 门
+		if (!triggerNameIds.contains(name))    // ByteArrayBimap miss 建号 — cited
+			triggerNameIds.insert(name, triggerNameIds.size() + 1);
+		const quint8 rev = triggerRev8;        // 旧值入包(00920b0x)
+		triggerRev8 = quint8((triggerRev8 + 1) & 3);
+		const quint32 val = (quint32(rev) << 30) | (quint32(on) & 0x1fu)
+		    | ((quint32(style3b) & 7u) << 5)
+		    | ((quint32(triggerNameIds.value(name)) & 0x3fffffu) << 8);
+		TriggerGroup &g = triggerGroups[grpName];
+		// 区间吸收:[pos, pos+len) 内旧 run 起点抹除(fill_range run 分裂语义;
+		//   run 末界未建模 — 见 shortcut 注)
+		auto it = g.runs.lowerBound(pos);
+		while (it != g.runs.end() && it.key() < pos + len)
+			it = g.runs.erase(it);
+		g.runs.insert(pos, val);               // 单遍吸收(fill_range 循环 00920a8a)
+	}
 
 	// --- 语义动作 ---
 	void setHexBase(int base)

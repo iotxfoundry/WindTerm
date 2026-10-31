@@ -398,24 +398,29 @@ int SuperKeymap::feedKey(KeymapInputRecord &record, uint key, int flags)
 //   use++ 4649-4651)+ +0x60 self/+0x68 ctrl(4652-4659)换入槽;
 //   *out = 旧根(use 已 ++ 持有,4609-4618),槽换新后旧根 FUN_0067fae4
 //   释放面由调用方走查收尾承载(§6-§8 后 use-- 复位)。
-//   ctrl 块(PTR_FUN_011895b0/_Sp_counted_base)属语料运行时 —— cited —
-//   wave-2:ctrl 不落地,+0x68 置空(use/use-- 原子计数保留语义承载)。
-static TrieNode *trieNodeGetOrCreate(TrieNode **slot)
+//   ctrl 块(PTR_FUN_011895b0/_Sp_counted_base)= boost::xpressive
+//   编译产物(km3 定案;boost 边界 EXT-BOUNDARY,块体不伪造 ——
+//   编译腿 cited — wave-2):shared_ptr 承载 = 标准库委托
+//   (_Sp_counted_base use/weak 计数面同构,空 delete 形,永不解引);
+//   4649-4651 LOCK use++ → shared_ptr 强引用持有 +0x68。
+static TrieNode *trieNodeGetOrCreate(std::shared_ptr<TrieNode> *slot)
 {
 	TrieNode *snap = nullptr;   // *param_1 = 0(4604)
-	if (*slot != nullptr) {   // 4605
+	if (slot->get() != nullptr) {   // 4605
 		if ((*slot)->use == 1)   // 4606:use==1 → 复用直返
 			return snap;
-		// 4609-4614:LOCK;旧根 use++(持有)
-		(*slot)->use += 1;
-		snap = *slot;   // 4615-4616:*param_1 = 旧根
+		// 4609-4614:LOCK;旧根 use++(持有)—— shared_ptr 强引用拷贝
+		//   = 语料 use++ 计数面(标准库委托;shared 头 use ≡ 节点 use 槽)
+		snap = slot->get();   // 4615-4616:*param_1 = 旧根
 	}
 	// 4622-4643:0xb8 节点新建(布局逐字段;std 成员 ctor 承载零值)
 	TrieNode *node = new TrieNode;
+	// 4645-4651:0x18 ctrl 产出 + LOCK use++ → +0x68 挂接(4652-4659
+	//   self/ctrl 换入)—— ctrl 块体 cited — wave-2,shared_ptr 空承载
+	node->payloadCtrl = KeymapCtrlPtr(new int(0), [](int *p) { delete p; });
 	node->payloadSelf = node;   // 4652:+0x60 = self
-	// 4645-4659:0x18 ctrl + +0x68 挂接 —— cited — wave-2(ctrl 块不落地)
-	// 4664-4668:*param_2 = 新节点(槽换入)
-	*slot = node;
+	// 4664-4668:*param_2 = 新节点(槽换入;旧根释放随 shared_ptr 赋值)
+	*slot = std::shared_ptr<TrieNode>(node);
 	return snap;   // 4670
 }
 
@@ -436,63 +441,73 @@ static void trieNodeReset(TrieNode *node)
 	// 树2 不复位 —— FUN_0067fae4(0021.c 2232-2243)仅 +0x10/18/20/28/
 	//   +0x60/+0x68 域,不含树2(语料原样;裁剪由 §8 承担)。
 	node->payloadSelf = nullptr;    // 62675:+0x60 = 0(2237)
-	// 62676-62680:+0x68 ctrl 释放(refcounted_vt_destroy)—— cited — wave-2
+	// 62676-62680:+0x68 ctrl 释放(refcounted_vt_destroy)—— shared_ptr
+	//   强引用释放 = 标准库 _M_release(计数→0 → dispose),ctrl 块体
+	//   (boost 产物)cited — wave-2
 	node->payloadCtrl = nullptr;
 }
 
 // §7(62844-62871,LAB_006761d1)真身:root payload 对插入 child 树2。
 //   键 = {payload raw@+0x60, ctrl@+0x68}(62847-62848);ctrl 非空 →
-//   weak++(62849-62853,LOCK *(ctrl+0xc)+=1 —— ctrl 块属 shared/JS 面,
-//   cited — wave-2);FUN_006857f4 get_insert_hint(比较读 value.second,
-//   命中位非空才插,62856)→ operator_new(0x30)(62864)+ 值写 +0x20/+0x28
-//   (62865-62866)+ _Rb_tree_insert_and_rebalance(62869)+ +0x58++
-//   (62870);未插入 → 持键释放(62872-62886 weak--/两段释放 —— cited)。
+//   weak++(62849-62853,LOCK *(ctrl+0xc)+=1);FUN_006857f4
+//   get_insert_hint(比较读 value.second,命中位非空才插,62856)→
+//   operator_new(0x30)(62864)+ 值写 +0x20/+0x28(62865-62866)+
+//   _Rb_tree_insert_and_rebalance(62869)+ +0x58++(62870);未插入 →
+//   持键释放(62872-62886 weak--/两段释放)。
+//   km3 weak 腿:weak++ = std::weak_ptr 弱引用拷贝(同 _Sp_counted_base
+//   weak@+0xc 计数,标准库委托);weak-- = 持键 weak_ptr 析构自动 --
+//   (两段释放语义:weak→0 → deleter 承载在最后强引用侧)。
 static void trieRefChildInsert(TrieNode *root, TrieNode *child)
 {
 	if (child == root)   // 62846:p_Var41 != p_Var14 门
 		return;
-	// 62849-62853:ctrl 非空 weak++ —— ctrl cited(块不落地,占位注记)
-	const auto key = std::make_pair(reinterpret_cast<void *>(root),
-	                                root->payloadCtrl);
+	// 62849-62853:ctrl 非空 → weak++(weak_ptr 拷贝 = LOCK *(ctrl+0xc)+=1
+	//   标准库委托);键第二位 = weak 载形(树2 weak 载形同构)
+	std::pair<void *, std::weak_ptr<void>> key(
+	    reinterpret_cast<void *>(root),
+	    std::weak_ptr<void>(root->payloadCtrl));
 	auto r = child->refTree.insert(key);   // 62854 FUN_006857f4 同形
 	if (r.second) {                       // 62856-62857:命中位非空才插
 		                                  //   (62864 operator_new(0x30)+
 		                                  //   62869 rebalance 由 insert 承载)
 		child->refCount += 1;             // 62870:+0x58 侧挂计数++
 	} else {
-		// 62872-62886:未插入 → 持键释放(weak-- → 0 → _M_release
-		//   vptr+0x18==FUN_0067a2a0 ? vptr+8 : vptr+0x18)—— cited — wave-2
+		// 62872-62886:未插入 → 持键释放:weak_ptr 析构(weak--
+		//   标准库委托;→ 0 → 两段释放的 delete 侧随最后强引用)
 	}
 }
 
 // §8(62928-63130,LAB_00676681)真身:root 树2 死引用裁剪。
 //   从 begin 起逐项 use-CAS 活体探活(63051-63064,_Sp_counted_base use@+8
 //   CAS 环 —— weak_ptr::lock 形):ctrl 空或探活失败 → erase(63075
-//   _Rb_tree_rebalance_for_erase)+ 换出节点 ctrl weak--(63078-63091,
-//   cited)+ operator_delete(0x30)(63092)+ +0x58--(63093);探活成功
+//   _Rb_tree_rebalance_for_erase)+ 换出节点 ctrl weak--(63078-63091)
+//   + operator_delete(0x30)(63092)+ +0x58--(63093);探活成功
 //   → 持有并判 63015 退出式:活体 raw(*node+0x20)≠ 当前 child 即停
 //   (local_248=p_Var14,63012;km2 §8 裁剪判式定案)。held 持有释放
-//   (63096-63120)随循环退出承载。ctrl 引用计数操作 cited — wave-2。
+//   (63096-63120)随循环退出承载。
+//   km3 探活落地:语料 CAS 环 = weak_ptr::lock(use@+8);我方
+//   weak_ptr.lock() 非空 = 活体(use_count>0 时原子锁定成功 = CAS 同义;
+//   中途归零 → lock 返回空 = 探活失败)—— 模拟形态与语料
+//   _Sp_counted_base::_M_add_ref_copy 裸 CAS 的差异:标准库原子封装,
+//   语义同构;erase 换出节点 weak--(63078-63091)= 被 erase 值析构。
 static void triePruneDeadRefs(TrieNode *root, TrieNode *child)
 {
 	// 63007-63012:遍历对持有(rbtree_refShared begin 持有 62887-62896;
-	//   held = {raw, ctrl};ctrl 引用计数 cited — wave-2,块不落地 →
-	//   持有释放(63096-63120)不落码,判式形状按语料保留)
+	//   held = {raw, ctrl};持有/释放 63096-63120 = 局部 shared_ptr
+	//   构造/析构承载)
 	for (auto it = root->refTree.begin(); it != root->refTree.end();) {
-		void *ctrl = it->second;                 // 63020:*(node+0x28)
+		const std::weak_ptr<void> &ctrl = it->second;  // 63020:*(node+0x28)
 		// 63051-63064:CAS 环(use@+8 活体探活;中途归零 → 探活失败)
-		//   —— ctrl cited — wave-2:块不落地,探活恒不可行 → 按语料
-		//   死路径承载(erase + 计数--)
-		bool alive = false;   // CAS 承载(ctrl 块缺失 → 按死裁)
-		if (ctrl == nullptr || !alive) {         // 63021 空 / 探活失败
-			// 换出节点 ctrl weak-- → 0 → _M_release 两段(63078-63091,
-			//   vptr+0x18==FUN_0067a2a0 哨兵 ? vptr+8 : vptr+0x18)
-			//   —— ctrl cited — wave-2(块不落地)
+		//   = weak_ptr::lock 标准库委托
+		const KeymapCtrlPtr held = ctrl.lock();   // CAS 探活
+		if (ctrl.expired() || !held) {            // 63021 空 / 探活失败
+			// 换出节点 ctrl weak-- → 0 → _M_release 两段(63078-63091):
+			//   erase 弹出的 pair 析构 = weak_ptr 释放(标准库委托)
 			it = root->refTree.erase(it);        // 63075 rebalance_for_erase
 			root->refCount -= 1;                 // 63093:+0x58--
 			continue;
 		}
-		// 63065-63068:CAS 成功 → 持有 {raw, ctrl};63015 退出式:
+		// 63065-63068:CAS 成功 → 持有 {raw, ctrl}(held);63015 退出式:
 		//   活体 raw ≠ 当前 child(local_248 = p_Var14)→ 停(LAB_006755fd)
 		if (it->first != reinterpret_cast<void *>(child))
 			return;
@@ -522,8 +537,10 @@ static void trieGroupSwapIn(TrieNode *root, TrieNode *snap)
 	// ① 树1 克隆/交换/回收(62702-62719)—— cited — wave-2
 	//   (FUN_00686134 掉参腿,km2 §6 极值下行保持注记)
 	// ② 组快照拷贝(62720-62779)
-	KeymapChildGroup snapGroup = snap->group;   // COW:children ref 承载;
-	                                            // 3 槽 ref++ ctrl cited
+	//    3 槽 ref++(62720-62737):slotA/slotB use@+8、pred ref@+4
+	//    —— 语料裸计数;我方组域槽仍为裸指针(谓词/槽身份未解,cited
+	//    — wave-2 不伪造),children COW 由 QVector 拷贝承载。
+	KeymapChildGroup snapGroup = snap->group;
 	// ③ 整组交换(62781-62797:八槽逐字段交换 = 组结构 swap)
 	std::swap(root->group, snapGroup);
 	// ④ 换出组(现居 snapGroup)释放(62795-62836):
@@ -606,11 +623,13 @@ static KeymapMatchRecord *recordSinkAcquire(KeymapRecordSink &sink,
 }
 
 // FUN_0067500e(9978B,decomp-part-0020.c 62391-63957)15 段,P3 勘察
-// §3 地图逐段转写。本批裁决:走查体执行前提 = Trie 根(entry+0x08 槽,
-// 语料 *(lVar7+8)),该槽由装载翼 onig 编译腿(00678295-006783fe →
-// FUN_00687320 换入)建立 —— 该腿在案 cited — wave-2,根槽恒空 →
+// §3 地图逐段转写。km3 裁决:走查体执行前提 = Trie 根(entry+0x08 槽,
+// 语料 *(lVar7+8)),该槽由装载翼 xpressive 编译腿(00678295-006783fe →
+// FUN_00687320 换入;km3 勘正:onig → boost::xpressive 编译腿,boost
+// 边界 EXT-BOUNDARY)建立 —— 该腿在案 cited — wave-2,根槽恒空 →
 // §4 首门(00675296:根空或 *(根+0x78)==0 即出)短路全部走查体,
-// 与批 72 骨架行为一致(匹配恒未竟,不产生伪结果)。因此本批落点 =
+// 与批 72 骨架行为一致(匹配恒未竟,不产生伪结果)。ctrl = shared_ptr
+// 承载(km3:§5/§7/§8 计数面闭环,见上方真身);因此本批落点 =
 // ①谓词/分发等跨段辅助真身(0075debe/0066a116/编解码,上方);
 // ②§5-§10 真身化(批 75,km2 §6-8 定案,辅助真身上方);
 // ③其余段逐句注记(行号锚,装载腿落地后按此转写):
@@ -627,15 +646,18 @@ static KeymapMatchRecord *recordSinkAcquire(KeymapRecordSink &sink,
 //   §5  节点获取/复位:FUN_00681a40(392B,0021.c 4594-4647)—— 根空
 //       或 *(根+0x70)==1 直返现有;否则新建 0xb8 节点(00681b0a-
 //       00681b7a 布局:+0x18/+0x20/+0x28/+0x48/+0x50 Rb 头自指、
-//       +0x70 use、+0x78..+0xb0 槽)挂 shared ctrl(PTR_FUN_011895b0)
-//       换入;use 减到 0 → FUN_0067fae4(82B)→ FUN_0067faa0(67B)
+//       +0x70 use、+0x78..+0xb0 槽)挂 shared ctrl(PTR_FUN_011895b0,
+//       km3:shared_ptr 承载即闭环,块体 boost 边界不伪造)换入;
+//       use 减到 0 → FUN_0067fae4(82B)→ FUN_0067faa0(67B)
 //       递归子树回收 + 字段复位(+0x10/18/20/28/60/68)。
 //   §5(62636-62662)节点获取/复位:trieNodeGetOrCreate(FUN_00681a40
 //       真身,上方)/ trieNodeReset(LAB_006759bf+FUN_0067fae4 真身)。
-//   §6/§7/§8(62662-63130)真身化(批 75,km2 定案):§6 = trieGroupSwapIn
+//   §6/§7/§8(62662-63130)真身化(批 75 + km3 ctrl 闭环):§6 = trieGroupSwapIn
 //       (组快照整组 std::swap 换入;树1 克隆腿 cited);§7 = trieRefChildInsert
-//       (std::set<pair,CtrlLess> 插入 + +0x58++);§8 = triePruneDeadRefs
-//       (use-CAS 活体探活裁剪,ctrl cited);换出旧根收尾 trieNodeReset。
+//       (std::set<weak 载形,CtrlLess> 插入 = weak++ + +0x58++);§8 =
+//       triePruneDeadRefs(weak_ptr::lock 活体探活裁剪 —— km3 shared_ptr
+//       侧闭环,语料 _Sp_counted_base CAS 的标准库同构);换出旧根收尾
+//       trieNodeReset(+0x68 ctrl 强引用释放 = _M_release 委托)。
 //   §9(63131-63281)记录向量:recordSinkAcquire 真身(local_90 0x38 容器
 //       承载 = KeymapRecordSink;容量 = payload+0xa8 预算 + [+0xb0] + 1;
 //       记录 0x28B/条 = KeymapMatchRecord {rep,tail,flag,pad,rep2,flag2};
@@ -691,15 +713,17 @@ int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
 		if ((entry.modesMask & out.flags) == 0)
 			continue;
 		// §4(62638-62662)首门(00675296):Trie 根 = entry+0x08 槽
-		//    (语料 *(lVar7+8);onig 编译腿换入,cited — wave-2 未建)
-		//    ——根空或根谓词槽 *(根+0x78)==0 即出。
-		TrieNode *root = entry.trieRoot;   // 62643:*(lVar7 + 8)
-		if (root == nullptr || root->group.pred == nullptr)
+		//    (语料 *(lVar7+8);xpressive 编译腿换入 —— boost 边界
+		//    cited — wave-2 未建)。km3 装载腿语义:root 空 = 装载腿
+		//    未建 → 短路即语料 "无条目" 语义(KeymapEngine 建条目时
+		//    root 恒空 → 匹配恒短路,现状即语料语义)。
+		//    根空或根谓词槽 *(根+0x78)==0 即出。
+		if (!entry.trieRoot || entry.trieRoot->group.pred == nullptr)
 			break;   // §4 门 → 走查体(§5-§13)整体短路(装载腿 cited)
 		// §5(62659)FUN_00681a40(&local_3d8,lVar7+8):获取/换入走查
 		//    节点(snap = 旧根 use++ 持有,或空 = 复用腿 §6-§8 跳过)
 		TrieNode *snap = trieNodeGetOrCreate(&entry.trieRoot);
-		root = entry.trieRoot;   // 62661:p_Var41 = 换入后根
+		TrieNode *root = entry.trieRoot.get();   // 62661:p_Var41 = 换入后根
 		if (snap != nullptr && snap != root) {
 			// §6(62662-62843)组快照整组 std::swap 换入(树1 克隆腿 cited)
 			trieGroupSwapIn(root, snap);

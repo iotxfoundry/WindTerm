@@ -9,17 +9,37 @@
 #include <QVector>
 #include <QObject>
 
+#include <memory>
 #include <set>
 #include <utility>
+
+// KeymapCtrlPtr —— ctrl 块承载(km3 定案:ctrl = boost::xpressive
+// 编译产物 —— 分派体 FUN_0068aaf0(4118B,0021.c 12163)= xpressive
+// 动态编译器(0068dd28 "expression cannot be quantified" 路径串 =
+// boost/xpressive/detail/dynamic/dynamic.hpp 铁证);boost 边界不逆向,
+// EXT-BOUNDARY)。语料对应体 = FUN_00681a40 产的 0x18 ctrl 块
+// (PTR_FUN_011895b0,use 初 0x100000001,LOCK use++ 4649-4651):
+// 委托 boost、永不解引 —— _Sp_counted_base 计数面(use/weak)由
+// std::shared_ptr<void> 标准库委托承接;编译腿 cited — wave-2,
+// 块体不伪造。
+using KeymapCtrlPtr = std::shared_ptr<void>;
 
 // TrieCtrlLess —— FUN_006857f4(137B,0021.c 8233-8282)比较器承载:
 // get_insert_hint 探测键序 = 读 value.second(+0x28)即 ctrl 指针
 // (62858 实证 `local_370 < *(node+0x28)`),非 pair 全序。
+// shared_ptr 载形:语料裸指针 <(同块等价/异块地址序)→ owner_before
+// (管控块序;别名序为裸指针序的超集严格弱化,"同键不重插" 契约
+// 不变);weak 侧同 owner_before(同 _Sp_counted_base 管控块)。
 struct TrieCtrlLess {
-	bool operator()(const std::pair<void *, void *> &a,
-	                const std::pair<void *, void *> &b) const
+	bool operator()(const std::pair<void *, KeymapCtrlPtr> &a,
+	                const std::pair<void *, KeymapCtrlPtr> &b) const
 	{
-		return a.second < b.second;
+		return a.second.owner_before(b.second);
+	}
+	bool operator()(const std::pair<void *, std::weak_ptr<void>> &a,
+	                const std::pair<void *, std::weak_ptr<void>> &b) const
+	{
+		return a.second.owner_before(b.second);
 	}
 };
 
@@ -51,11 +71,13 @@ struct KeymapChildGroup {
 //   +0x70 use(LOCK 原子)
 //   +0x78..+0xb0 KeymapChildGroup
 struct TrieNode {
-	std::set<std::pair<void *, void *>, TrieCtrlLess> keyTree;  // +0x08 树1
-	std::set<std::pair<void *, void *>, TrieCtrlLess> refTree;  // +0x30 树2
+	std::set<std::pair<void *, KeymapCtrlPtr>, TrieCtrlLess> keyTree;  // +0x08 树1
+	std::set<std::pair<void *, std::weak_ptr<void>>, TrieCtrlLess> refTree;  // +0x30 树2(weak 载形)
 	quint64 refCount = 0;        // +0x58 树2 侧挂计数(§7 ++/§8 --)
 	TrieNode *payloadSelf = nullptr;   // +0x60
-	void *payloadCtrl = nullptr;       // +0x68(cited — wave-2)
+	KeymapCtrlPtr payloadCtrl;         // +0x68 ctrl(km3:shared_ptr 承载;
+	                                   //   语料 0x18 ctrl 块 use@+8/weak@+0xc
+	                                   //   计数面由 shared_ptr 标准库委托)
 	quint64 use = 0;                   // +0x70
 	KeymapChildGroup group;            // +0x78..+0xb0
 };
@@ -79,9 +101,13 @@ struct KeymapEntry {
 	QVariant when;              // +0x40
 	// +0x08 槽承载 —— Trie 根(FUN_00681a40 换入槽;§4 门 00675296
 	//   读 *(lVar7+8):根空或 *(根+0x78)==0 即出)。onig 编译腿
-	//   00678295-006783fe → FUN_00687320 建树换入,cited — wave-2
-	//   (装载腿未落地 → 恒空,§4 门短路走查体)。
-	TrieNode *trieRoot = nullptr;   // +0x08 槽(shared_ptr<TrieNode> 承载)
+	//   00678295-006783fe → FUN_00687320 建树换入,cited — wave-2。
+	//   km3 装载腿语义:root 空 = 装载腿未建 → §4 门短路即语料
+	//   "无条目" 语义(装载 KeymapEngine::loadKeymapSources 建条目时
+	//   root 恒空,匹配恒短路 —— 现状即语料语义,不伪造根)。
+	//   shared_ptr<TrieNode> 承载(语料槽项 = shared 头 + 节点;
+	//   槽项计数面由标准库委托)。编译腿落地后由装载翼换入真根。
+	std::shared_ptr<TrieNode> trieRoot;   // +0x08 槽
 };
 
 // 匹配上下文记录 —— FUN_006741a0(55B)转写:{QList*@0, wstring@8,
