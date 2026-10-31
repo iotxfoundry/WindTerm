@@ -1214,6 +1214,34 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - TelnetSession.h 装配五元组注释升级;验证:构建零 undefined;
   ctest 6/6;engtest3 直跑 OK
 
+### 批 71(2026-10-31)四 lane 并行:SurfaceImpl 收口/keymap 链/0x7576 底座/MuxPane 勘误 ✅
+- **SurfaceImpl vtable 收口**(si lane):**0x11acff0**(ctor 反汇编
+  直读);槽 4 = 0x9437a8 Init(209B,new QPixmap(w*dpr,h*dpr))/
+  槽 17 = 0x944374 drawRoundedRect(r=25.0 RelativeSize)/槽 38 =
+  0x944f10 setDpr(6B)/槽 41 = 0x94331e pixmap()—— 渲染核未解腿
+  **清零**;**勘正**:0xa728fc fill 色源 = FUN_009502c6(doc,hexMode)
+  (批 65/67"背景色 getter"误判);槽 4 第 3 参未消费(转写留注)
+- **keymap 匹配链全定案**(km lane):装载翼 0076b430(懒建)→
+  00768854(wind/user.keymaps 双源)/0076aee6(JSON)→ 00678a56
+  (4985B)→ 00677d7e(3031B,keys/modes → 0x1f 位掩码 → 0x50 节点);
+  匹配翼 006777e6(1347B)→ **0067500e ×3(mode 2/0/1 三级)**;
+  7500e 15 段地图(模式门/token 循环/子表快照/匹配谓词虚调/命中
+  三路:0075debe 合成 QKeyEvent|0066a116 actionFactory+js_actionFire|
+  JS callable);**批 55"语料无 modes 串"被推翻**(64243 行字面在案)
+- **0x7576 底座四件定性**(76b):get_chars_locked = char-used 视图
+  FillRange(需视图建模);upgrade 返回值不消费(勘正);b94a =
+  restyle 区间计算器(写全在 962310);迭代器三骨架全读 —— 骨架级
+  可落清单明确
+- **MuxPane 勘误**(mp lane):批 50 壳实为 **MainWindow 语义**
+  (PTR_011a6c00 = MainWindow QMetaObject,activeMuxPane 属性);
+  真面板 = 语料 MuxPane(QWidget,s_MuxPane_8de0c0)→ Phase 4c
+  新增 MuxPaneView(最小面 5 项:ctor/setCentralView/bootstrap
+  paneMeta/setThemeDir 装配期一次调/CMake 零新增);setThemeDir
+  已转写零调用点(语料面 = FUN_00753fc6 applicationDirPath()
+  +"/global/themes/")
+- MuxPane.h 注释勘正;验证:构建零 undefined;ctest 6/6;engtest3
+  直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
