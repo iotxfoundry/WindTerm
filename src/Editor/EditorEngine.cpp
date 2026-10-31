@@ -468,17 +468,9 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x75dc: {   // ⚠ 批 77 清点:命令号全语料零字面命中(批 5 早期
-	                 //   接线,出处待回查);FUN_00928624 函数体真实
-	                 //   存在(0030.c:24489)—— 行为体有据,命令号待核
-	                 // FUN_00928624:行扫描到 \n 的长度 + 存储节点样式
-	                 //  (0092522a/00925200 buffer 链 cited;行长=SCI 适配)
-		const RunNode &n = m_ctx.blockNode;
-		const long long line = m_edit->send(SCI_LINEFROMPOSITION, n.pos, 0);
-		const long long len = m_edit->send(SCI_GETLINEENDPOSITION, line, 0)
-		    - m_edit->send(SCI_POSITIONFROMLINE, line, 0);
-		return QVariant((int)(n.style() + len));
-	}
+	// 0x75dc 已注销(批 80 r4 定案:5b5d68 全调用面 0x75d0-0x75df 逐号
+	// 列表,0x75dc 全语料零调用点 = 不存在;批 5 早期接线撤)—— 发入
+	// 落 default 返 0,与原版一致
 	case 0x75dd:     // FUN_0092522a → FUN_00980684(+0xf8 buffer obj)——cited
 		return QVariant();
 	case 0x75de:     // +0x1068 存储节点 pos(FUN_0096bbc0 = *(x+8))
@@ -698,10 +690,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   trackSelection/width/padding 等键回写 +
 	                 //   类型分发重算(number/timestamp/…)+ soft_reset;
 	                 //   memcmp→QString::== 语义同构(QByteArray
-	                 //   等长字节比较);未命中腿(this==end)append
-	                 //   新条目 — 引用(cited)档:字段域位面
-	                 //   (type/border/cursor bit 布局)仅锚定,位级
-	                 //   转写待 wave-2
+	                 //   等长字节比较);批 79 位级转写 00a43134-00a437e4
 		if (m_ctx.flag1ae)
 			return QVariant(0);      // L25044:+0x1ae != 0 → 跳过
 		const QVariantMap spec = a.toMap();
@@ -709,19 +698,132 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		// 0x1ab/0x1ac 向量逐项匹配(0x18 步长 → QList 遍历语义)
 		int hit = -1;
 		for (int i = 0; i < m_ctx.marginList.size(); ++i) {
-			if (m_ctx.marginList.at(i).name == name) {  // memcmp 同构
+			if (m_ctx.marginList.at(i).name == name) {  // 00a43134 memcmp 同构
 				hit = i;
 				break;
 			}
 		}
-		if (hit < 0) {
-			// L25196 this==end → append 新条目(FUN_00a4cdf0)—— cited
-			return QVariant(0);
+		// index 键门(00a43256 取键/00a4327e:canConvert<int> && toInt()>=0)
+		const QVariant indexV = spec.value(QStringLiteral("index"));
+		int pos = -1;                    // 回写落点(语料 this 指针的 QList 位面)
+		if (indexV.canConvert<int>() && indexV.toInt() >= 0) {
+			const int index = indexV.toInt();
+			EditorContext::MarginEntry fresh;  // FUN_0094fc8c(ba,4) 默认位面:
+			                             //   0x84/0x8b/symbol=-1(头文件缺省承接)
+			if (hit >= 0 && hit != m_ctx.marginList.size() - 1) {
+				// 00a432a8 门(this!=end):位面拷入 fresh + 移除;
+				//   末位命中跳过拷贝/移除 — 语料原样(重插时旧末位保留)
+				const EditorContext::MarginEntry &src = m_ctx.marginList.at(hit);
+				fresh.name = src.name;                   // QByteArray::operator=
+				fresh.spare08 = src.spare08;             // +0x08 u16
+				fresh.flagsA = src.flagsA;  // +0x0a:&0x7ff|&0xf800 = 全位面
+				fresh.flagsB = src.flagsB;  // +0x0b:cursor 高位|&0xf8
+				fresh.symbol = src.symbol;  // +0x0c u32 直拷
+				fresh.flagsC = src.flagsC;  // +0x10:&0xfff|&0x3ff000 = 全位面
+				fresh.flagsD = src.flagsD & 0xffc0;      // +0x12 leftPadding 面
+				m_ctx.marginList.removeAt(hit);  // FUN_00a4bc60(387B) 左移补位
+			}
+			// FUN_00a4c3fa(394B) 插入;00a4aa83 门 index≥size → 尾插
+			pos = index < m_ctx.marginList.size() ? index : m_ctx.marginList.size();
+			m_ctx.marginList.insert(pos, fresh);
+		} else if (hit < 0 || hit == m_ctx.marginList.size() - 1) {
+			// index 门败且 this==end(未命中/命中末位)→ append 腿:
+			//   FUN_00a4cdf0(753B) 容量 2x 增容 + move 追加(QList append
+			//   承接);旧条目不覆写 — 语料原样
+			m_ctx.marginList.append(EditorContext::MarginEntry{});
+			pos = m_ctx.marginList.size() - 1;
+		} else {
+			pos = hit;                   // index 门败:this=命中项原位承接
 		}
-		// 命中项键回写 index/visible/type/border/cursor/alignment/
-		// trackChange/trackSelection/width/leftPadding/rightPadding
-		// (L25133-25388)+ 类型分发重算(L25382:number/timestamp/
-		// fold)+ session_view_soft_reset(L25405)— cited — wave-2
+		EditorContext::MarginEntry &e = m_ctx.marginList[pos];
+		e.name = name;                   // QByteArray::operator=(this,local_f8)
+		// setter 依序(L25054-25388;每键门 = 语料 QVariant 空检查)
+		QVariant v = spec.value(QStringLiteral("visible"));      // 00a432e4
+		if (!v.isNull())
+			e.flagsB = quint8((e.flagsB & 0x7f) | (v.toBool() << 7));
+		v = spec.value(QStringLiteral("type"));                  // 00a43340
+		if (!v.isNull()) {
+			const QByteArray t = v.toByteArray().toLower();
+			quint8 ty = 4;               // qstrcmp 链尾默认 symbol
+			if (t == "blank") ty = 1;
+			else if (t == "fold") ty = 2;
+			else if (t == "number") ty = 3;
+			else if (t == "text") ty = 5;
+			else if (t == "timestamp") ty = 6;
+			e.flagsA = quint8(ty | (e.flagsA & 0xf0));
+		}
+		v = spec.value(QStringLiteral("border"));                // 00a433e3
+		if (!v.isNull()) {
+			const QByteArray t = v.toByteArray().toLower();
+			const quint8 bo = (t == "dots") ? 1 : ((t == "line") ? 2 : 0);
+			e.flagsA = quint8((bo << 4) | (e.flagsA & 0x8f));
+		}
+		v = spec.value(QStringLiteral("cursor"));                // 00a43486
+		if (!v.isNull()) {
+			const bool arrow = v.toByteArray().toLower() == "arrow";
+			const quint16 cu = arrow ? 2 : 7;    // ((-eq&0xfffb)+7)&0xf
+			quint16 f = quint16(e.flagsA) | (quint16(e.flagsB) << 8);  // u16(+0x0a) 视角
+			f = quint16((cu << 7) | (f & 0xf87f));
+			e.flagsA = quint8(f & 0xff);
+			e.flagsB = quint8(f >> 8);
+		}
+		v = spec.value(QStringLiteral("alignment"));             // 00a43523
+		if (!v.isNull()) {
+			const QByteArray t = v.toByteArray().toLower();
+			const quint8 av = (t == "left") ? 0 : ((t == "right") ? 1 : 2);
+			e.flagsB = quint8((av << 3) | (e.flagsB & 0xe7));
+		}
+		v = spec.value(QStringLiteral("trackChange"));           // 00a435c0
+		if (!v.isNull())
+			e.flagsB = quint8((e.flagsB & 0xdf) | ((v.toBool() & 1) << 5));
+		v = spec.value(QStringLiteral("trackSelection"));        // 00a4361c
+		if (!v.isNull())
+			e.flagsB = quint8((e.flagsB & 0xbf) | ((v.toBool() & 1) << 6));
+		v = spec.value(QStringLiteral("width"));                 // 00a4367a
+		if (!v.isNull()) {
+			int w = v.toInt();
+			if (w < 0)
+				w = 0;
+			// (long)(float) 双重转换:语料字面(00a4367a;反编译伪影未核)
+			e.flagsC = quint16(((quint16)(long)(float)w & 0xfff) | (e.flagsC & 0xf000));
+		}
+		v = spec.value(QStringLiteral("leftPadding"));           // 00a436ee
+		if (!v.isNull()) {
+			int lp = v.toInt();
+			if (lp < 0)
+				lp = 0;
+			// 同上双重转换语料字面(00a436ee;反编译伪影未核)
+			e.flagsD = quint16(((quint16)((int)(long)(float)lp << 6)) | (e.flagsD & 0x3f));
+		}
+		v = spec.value(QStringLiteral("rightPadding"));          // 00a4375f
+		if (!v.isNull()) {
+			int rp = v.toInt();
+			if (rp < 0)
+				rp = 0;
+			quint32 u = quint32(e.flagsC) | (quint32(e.flagsD) << 16);  // +0x10 u32 视角
+			// 同上双重转换语料字面(00a4375f;反编译伪影未核)
+			u = ((((quint32)(long)(float)rp) & 0x3ff) << 0xc) | (u & 0xffc00fff);
+			e.flagsC = quint16(u & 0xffff);
+			e.flagsD = quint16(u >> 16);
+		}
+		if ((e.flagsA & 0x0f) == 4) {    // 00a437ac:type==4 才写 symbol
+			v = spec.value(QStringLiteral("symbol"));    // DAT_00cf882c 键
+			e.symbol = v.isNull() ? 0xffffffffu : v.toUInt();
+		}
+		// 尾部类型分发重算(L25382;门 = visible && width+padding 和非 0)
+		if ((e.flagsB & 0x80)
+		    && ((e.flagsC & 0xfff) + (e.flagsD >> 6)
+		        + (((quint32(e.flagsC) | (quint32(e.flagsD) << 16)) >> 0xc) & 0x3ff)) != 0) {
+			const quint8 ty = e.flagsA & 0x0f;
+			if (ty == 3) {
+				// s_margin_number_a302fe(ctx)— cited — wave-2
+			} else if (ty == 6) {
+				// s_margin_timestamp_a30e02(ctx)— cited — wave-2
+			} else if (ty == 2) {
+				// FUN_00a2509a(ctx,-1,0)— cited — wave-2
+			}
+		}
+		// session_view_soft_reset(ctx)(L25405)— cited — wave-2
 		return QVariant(0);
 	}
 	case 0x7598:     // +0x225 查询(SUB81 字节读)

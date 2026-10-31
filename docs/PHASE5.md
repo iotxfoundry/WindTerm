@@ -1461,6 +1461,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:make 零错;**ctest 9/9**(7+keymaptest+proxysocktest);
   engtest3 直跑 OK
 
+### 批 81(2026-10-31)四 lane 并行:MarginEntry 位级/§12 JsEngine/测试+1/余 3 双解 ✅
+- **MarginEntry 位级升级 + 0x7596 回写全真身**(A1):5 字段位域
+  (flagsA 0x84 默认/flagsB 0x8b/symbol -1)+ HiddenBit 引用视图类
+  (左值写承接,0x7592 零改动);回写腿:index 门/位面搬运/removeAt/
+  重插/11 键 setter(每键 isNull 门)/type 3·6·2 分派 cited;
+  width/padding (long)(float) 双重转换语料字面落 + 伪影未核注明
+- **matchTrie §12 JsEngine 批**(A2):keymapEngineCast 真身
+  (qobject_cast<MuxPane> → m_engine)+ 三门双臂形态(宿主持引擎 →
+  真 evaluateStrict/call/newObject;空 → 语料空臂 undefined/true);
+  **勘正当:JsEngine.h m_engine private → public**(语料门族直读
+  +0x10 字段访问形)
+- **行为测试 +1**(A3):rendermathtest 14 断言(0x7585 setter 四态
+  九断言/S1 构图 qRound+alpha19/dh=0 门 QPixmap null 态/SCI 冒烟/
+  0x7592 空表);**S2 纯算式与 0x7592 过滤语义停手**(无注入/观察缝,
+  注明)
+- **渲染核余 3 双解 + 0x75dc 定案**(A4):selection chunked-deque
+  **已解 B→B+**(store 0x88B{Span56,deque},QVector<Span56> 承载,
+  跨段步进三源互证);PairColor 块状态机已解 B+(块+0x08 压缩 buf/
+  state=2 zstd 委托;**byte==0=无值,r6 修正**);a66ae8 T 表**翻转
+  已解**(5 指针帧 = a72ad6 栈帧双胞胎,升级 B 可转写);**0x75dc
+  定案:全语料零调用点 = 不存在(5b5d68 全调用面逐号列表)→ 我方
+  case 注销回退,发入落 default 与原版一致**
+- 验证:make 零错;**ctest 10/10**;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

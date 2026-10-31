@@ -52,10 +52,49 @@ public:
 	quint8 pendAnnCh1 = 0;       // +0x10
 	quint8 pendAnnCh2 = 0;       // +0x11
 	QByteArray pendAnnBa;        // +0x18 槽
-	// margin 列表(语料 +0x1ab/+0x1ac,0x18 步长条目:名字 + 标志)
-	struct MarginEntry {
-		QString name;
-		bool hidden = false;   // 语料 +0x0b bit7
+	// margin 列表(语料 +0x1ab/+0x1ac,0x18 步长条目;批 79 位级布局:
+	// 默认构造 FUN_0094fc8c(ba,4) = +0x0a=0x84/+0x0b=0x8b/symbol=0xFFFFFFFF;
+	// 0x7596 命中回写段 00a43134-00a437e4)
+	struct MarginEntry {              // 0x18B/条(语料步长 0x18:00a43160 *0x18 步进)
+		QString name;                 // +0x00 匹配键(00a43134 memcmp 到 d->size)
+		quint16 spare08 = 0;          // +0x08 全 0(FUN_0094fc8c qword 常量低 16 位)
+		quint8 flagsA = 0x84;         // +0x0a bit0-3 type(默认4 symbol;1 blank/2 fold/3 number/5 text/6 timestamp,00a43340 qstrcmp 链)·bit4-5 border(1 dots/2 line,00a433e3 mask 0x8f 连带清 bit6)·bit6 spare·bit7 cursor 低位
+		quint8 flagsB = 0x8b;         // +0x0b bit0-2 cursor 高位(u16(+0x0a)>>7&0xf:2=arrow/7=默认)·bit3-4 alignment(00a43523 mask 0xe7)·bit5 trackChange(00a435c0 mask 0xdf)·bit6 trackSelection(00a4361c mask 0xbf)·bit7 visible(00a432e4 &0x7f|b<<7)
+		quint32 symbol = 0xffffffffu; // +0x0c type==4 符号码,默认 -1(FUN_0094fc8c 0xFFFFFFFF;00a437ac DAT_00cf882c 键 toUInt)
+		quint16 flagsC = 0;           // +0x10 u32 视角:bit0-11 width(00a4367a)·bit12-15 rightPadding 低 4 位(00a4375f u32&0x3ff000)
+		quint16 flagsD = 0;           // +0x12 bit6-15 leftPadding(00a436ee <<6)·bit0-5 spare
+		quint32 pad14 = 0;            // +0x14 尾 4B(FUN_0094fc8c *(u64*)(+0x10)=0 覆盖;步长凑满 0x18)
+		// 0x7592 `e.hidden = v` 左值写零改动承接(00a432e4 写面):
+		//   读 = !(bit7),写 = (b&0x7f)|(!v)<<7;存储唯一位面 = flagsB
+		struct HiddenBit {
+			quint8 &b;
+			explicit HiddenBit(quint8 &ref) : b(ref) {}
+			operator bool() const { return !(b & 0x80); }
+			HiddenBit &operator=(bool v)
+			{
+				b = quint8((b & 0x7f) | (quint8(!v) << 7));
+				return *this;
+			}
+		} hidden;                     // +0x0b bit7 视图(引用绑定 flagsB)
+		MarginEntry() : hidden(flagsB) {}
+		MarginEntry(const MarginEntry &o)
+		    : name(o.name), spare08(o.spare08), flagsA(o.flagsA),
+		      flagsB(o.flagsB), symbol(o.symbol), flagsC(o.flagsC),
+		      flagsD(o.flagsD), pad14(o.pad14), hidden(flagsB)
+		{
+		}
+		MarginEntry &operator=(const MarginEntry &o)
+		{
+			name = o.name;            // 引用成员不可重绑:hidden 恒指本对象 flagsB
+			spare08 = o.spare08;
+			flagsA = o.flagsA;
+			flagsB = o.flagsB;
+			symbol = o.symbol;
+			flagsC = o.flagsC;
+			flagsD = o.flagsD;
+			pad14 = o.pad14;
+			return *this;
+		}
 	};
 	QList<MarginEntry> marginList;
 	bool flagD8f = false;        // +0xd8f(0x7582 写)

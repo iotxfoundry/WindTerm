@@ -40,6 +40,10 @@ public:
     // 0064b0d0(41B):newQObject → CppOwnership(0)
     QJSValue newQObjectCppOwned(QObject *obj);
 
-private:
+public:
+    // 内部引擎槽(语料 +0x10;父链 = this)。批 81 keymap §12 门族
+    // (SuperKeymap jsEvaluateGate/jsCallGate/jsNewObjectGate)按语料
+    // 00767a70/0076745c 直接读 *(host+0x48) 判"引擎未建"空臂态 ——
+    // 字段直读 = 语料访问形(MuxPane +0x48 同面公有)。
     QJSEngine *m_engine = nullptr;   // 语料 +0x10;父链 = this
 };

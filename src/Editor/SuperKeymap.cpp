@@ -11,6 +11,7 @@
 #include <QJSValueList>
 
 #include "Actions/JsEngine.h"
+#include "Actions/MuxPane.h"   // FUN_00674442 cast 目标(PTR_011a6c00 壳,批 50;+0x48 JsEngine* 公有槽)
 
 #include <cstring>
 #include <cerrno>
@@ -293,9 +294,10 @@ static void synthKeyEvents(const QString &keys)
 // actionFactory_getOrCreate(param_2,param_3)→ js_actionFire
 // (param_1,param_2,uVar1,param_4);调用上下文 FUN_007682c0(18B,
 // 0023.c 34690-34697):0066a116(out, *(castHost+0x60), …)。
-// *(+0x60) 目标 = mainPane 面(00674442 cast 011a6c00)未转写
-// (cited),非空才进(语料 cast 恒成功;我方 face 缺 → 空即短路,
-// 勿造目标);getOrCreate(语料带 target 实参,批 35
+// *(+0x60) 目标 = mainPane 面(00674442 cast 011a6c00 → MuxPane
+// 本批已接,§12 区 keymapEngineCast;+0x60 槽语义 = cast 后宿主本体)
+// 非空才进(语料 cast 恒成功;宿主非 MuxPane → 空即短路,勿造目标);
+// getOrCreate(语料带 target 实参,批 35
 // ActionFactory::getOrCreate(QByteArray)单参面)工厂实例归属未接线
 // → 槽注记保留,fire 腿转写。
 static void keymapActionFire(QVariant &out, QObject *target,
@@ -346,7 +348,7 @@ int SuperKeymap::feedKey(KeymapInputRecord &record, uint key, int flags)
 	MatchOut out;
 	out.flags = static_cast<quint32>(flags);   // local_dc[0] = param_3
 	out.ctxWhen = this;                        // 语料 *[1] = this(006777e6 local_c8)
-	out.ctxDispatch = this;                    // 语料 *[2] = this(local_c0/mainPane cast 面 cited)
+	out.ctxDispatch = this;                    // 语料 *[2] = this(local_c0;00674442 cast → MuxPane 本批接)
 	out.record = &record;                      // 语料 *[3] = param_4(local_e8)
 	int result = 0;                            // local_cc = 0
 	if (!chord) {
@@ -767,8 +769,9 @@ static void trieLocalTreeFree(LocalMatchNode &node)
 // 非空 → FUN_0064b0be = JsEngine::newObject 委托(34432,批 68 面)。
 static QJSValue jsNewObjectGate(JsEngine *engine)
 {
-	if (engine == nullptr)
-		return QJSValue(QJSValue::UndefinedValue);   // 34436
+	// 双臂形态(本批,同 §12 门族):引擎未建 → 空臂;持引擎 → newObject。
+	if (engine == nullptr || engine->m_engine == nullptr)
+		return QJSValue(QJSValue::UndefinedValue);   // 34436 空臂
 	return engine->newObject();                      // 34432 FUN_0064b0be
 }
 
@@ -785,24 +788,29 @@ static QString trieMatchNodeValue(const LocalMatchNode &,
 	return QString();   // 63522:DAT_011c5118 空串承载
 }
 
-// §12 JS 引擎门三件(km3:引擎 face = FUN_00674442(mainPane cast
-// 011a6c00)+0x48 槽;mainPane 面 cited — wave-2 → 我方宿主恒空 →
-// 走语料空臂,勿造宿主):
-// FUN_00674442(20B,0020.c 61786)同形 cast 转写 —— 语料返回 cast 面;
-// 我方 MatchOut.ctxWhen(ctxDispatch)无 +0x48 引擎槽 → nullptr。
+// §12 JS 引擎门族(km3 §12:引擎 face = FUN_00674442(mainPane cast
+// PTR_staticMetaObject_011a6c00)+0x48 槽;+0x48 = JsEngine*(批 68
+// 勘正:FUN_00766192 放 +0x48 的是 JsEngine*,0023:33040-44))。
+// FUN_00674442(20B,0020.c 61786-61792)语料转写:QMetaObject::cast
+// (PTR_011a6c00)→ 唯一现转写映射 = MuxPane 壳(cast 目标类,
+// 批 50;ActionFactory.cpp 25 同 face)→ +0x48 = JsEngine* 槽。
+// cast 失败(host 非 MuxPane)→ nullptr → 各门走语料空臂。
 static JsEngine *keymapEngineCast(QObject *host)
 {
-	Q_UNUSED(host)   // 00674442 cast 面 cited — wave-2(mainPane 未转写)
-	return nullptr;
+	return qobject_cast<MuxPane *>(host) != nullptr   // 61791 cast 面
+	           ? qobject_cast<MuxPane *>(host)->m_engine   // +0x48 槽
+	           : nullptr;
 }
 
 // FUN_00767a70(38B,0023.c 34205-34216)语料转写:引擎 *(host+0x48)
 // 空 → QJSValue(undefined)(34214);非空 → FUN_0064af3c =
 // JsEngine::evaluateStrict 委托(34211,批 68 重做面)。
+// 双臂形态(本批):宿主持 JsEngine → 真 evaluate;宿主空/引擎未建
+// → 空臂 undefined(语料原样语义)。
 static QJSValue jsEvaluateGate(JsEngine *engine, const QString &code)
 {
-	if (engine == nullptr)
-		return QJSValue(QJSValue::UndefinedValue);   // 34214
+	if (engine == nullptr || engine->m_engine == nullptr)
+		return QJSValue(QJSValue::UndefinedValue);   // 34214 空臂
 	return engine->evaluateStrict(code);             // 34211 FUN_0064af3c
 }
 
@@ -813,8 +821,10 @@ static QJSValue jsEvaluateGate(JsEngine *engine, const QString &code)
 static QJSValue jsCallGate(JsEngine *engine, const QJSValue &callable,
                            const QJSValueList &args)
 {
-	if (engine == nullptr)
-		return QJSValue(true);   // 33976
+	// 双臂形态(本批):宿主空/引擎未建 → 空臂 true(33976,语料原样);
+	// 持引擎 → FUN_0064ab5e 直调臂。
+	if (engine == nullptr || engine->m_engine == nullptr)
+		return QJSValue(true);   // 33976 空臂
 	// FUN_0064ab5e:QJSValue(undefined) instance + callWithInstance(args)
 	// (Qt5 callWithInstance 非 const,拷贝承载)
 	QJSValue fn = callable;   // 33970:QJSValue::QJSValue(local_30, param_3)
@@ -826,9 +836,9 @@ static QJSValue jsCallGate(JsEngine *engine, const QJSValue &callable,
 // 注册 —— 非零即返(69772);零 → normalizedType(69774)+ registerNormalizedType
 // (69776,dtor = QJSValue 析构,ctor = FUN_0066b36f 34B,尺寸 8,旗标
 // 0x103)→ qt_byte_array_unref(69778)→ DAT_011c18dc = id(69780)。
-// 我方 QJSValue 已有 Qt 元系统注册(Q_DECLARE_METATYPE(QJSValue),
-// qMetaTypeId 惰性归一注册 = 同一注册契约承载,dtor/ctor/尺寸由 Qt
-// 头生成面提供 —— 非自研,标准委托)。
+// 我方 QJSValue = Qt 头自带元系统注册(Q_DECLARE_METATYPE(QJSValue)
+// 于 qjsvalue.h;qMetaTypeId 惰性归一注册 = 同一注册契约承载,
+// dtor/ctor/尺寸 8/旗标由 Qt 头生成面提供 —— 非自研,标准委托)。
 static int jsMetatypeRegister()
 {
 	static int s_id = 0;   // DAT_011c18dc
@@ -843,7 +853,9 @@ static int jsMetatypeRegister()
 //   (771-773);命中(缓存已存 QJSValue)→ constData 直拷 QJSValue
 //   (777-780);未命中 → QJSValue(undefined)(787)+ QVariant::convert
 //   (param_2 → metaType id,789)失败 → 保持 undefined(790-792)/
-//   成功 → 转换产物移出(793-796)。
+//   成功 → 转换产物移出(793-796)。本批读体逐行对齐(0021.c 763-804
+//   全体在案;ctor FUN_0066b36f(34B)= QJSValue 拷贝/undefined 兜底,
+//   0020.c 53466-53474 → Qt 拷贝构造/默认构造同构,标准委托)。
 static QJSValue jsValueCacheFetch(const QVariant &cached)
 {
 	const int id = jsMetatypeRegister();   // 765-770
@@ -920,9 +932,10 @@ static void triePrefixChordAppend(QList<KeymapEntry> &chords,
 //       类身份未解(QSlotObjectBase 子类,VTABLE-MAP 批)→ cited,叶写
 //       门 local_238(63004 挂链态,挂链宿主未解)→ cited。
 //   §12(63444-63516)when 腿 —— 本批真身:FUN_00767a70/0076745c 引擎门
-//       (jsEvaluateGate/jsCallGate,空臂 = undefined/true)+ FUN_0067e011
-//       (jsValueCacheFetch)+ FUN_0067cd71(jsMetatypeRegister);
-//       引擎宿主 FUN_00674442 cast 面 cited;bVar17 每槽项一次门。
+//       (jsEvaluateGate/jsCallGate,双臂:00674442 cast → MuxPane
+//       +0x48 JsEngine* 非空 → 真 evaluate/call;空 → 语料空臂)+
+//       FUN_0067e011(jsValueCacheFetch)+ FUN_0067cd71
+//       (jsMetatypeRegister);bVar17 每槽项一次门。
 //   §13(63517-63654)命中分发(LAB_00675e70)—— 本批:FUN_00767d08
 //       result 对象(jsNewObjectGate)→ 逐克隆元素 result[tokenRep] =
 //       节点值串(fromUcs4+setProperty,63536-63540);count 门真身
