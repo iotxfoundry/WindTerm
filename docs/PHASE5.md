@@ -1242,6 +1242,34 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - MuxPane.h 注释勘正;验证:构建零 undefined;ctest 6/6;engtest3
   直跑 OK
 
+### 批 72(2026-10-31)四落地 lane 并行:构建者/渲染核/MuxPaneView/keymap ✅
+- **markers 构建者批落地**(W1):MarkersStore.h 六构建者方法
+  (markersCtxInit 逐偏移/bankCtor K3-K5/runstylesUpgrade/coreWriteRange
+  /markWrite/publishOutline)+ 布局分解命名(scanCursor/idAlloc/memo/
+  builder)+ RS valueAt 真身化(RS8/16/32 委托真 Scintilla RunStyles,
+  null 守卫);**RS64 实例化裁决**:RunStyles.cxx 属预构建
+  scintilla_core.a,显式实例化须 rebuild_deps 才生效 → rsValue64/
+  rsFill64 占位 + RunStyles.cxx 行保留(重建 deps 后启用)
+- **构建坑 ×2 自愈**:① fixer 把 Scintilla include 插进 namespace wt
+  内 → 符号污染 wt::Scintilla(剪出全局域)② 显式实例化放
+  EditorEngine.cpp 无效(成员定义在预构建 .cxx 不可见)
+- **渲染核批落地**(W2):0x753e(~167 行)/0x7544(~103 行)从
+  cited 升级真身化 —— 包装层参数解析/可视行数算式/SurfaceView 局部
+  模型(ctor 全字段 + init/setDpr/pixmap/release)/逐行管线骨架
+  (hexMode 分支);17 步管线 25 被叫 + FUN_009502c6 色源等深腿
+  cited;FUN_00a1fa4c 分数源/dpr 透传等 7 项未解登记
+- **MuxPaneView 新增**(W3,Phase 4c):QWidget + Q_OBJECT(坑 19
+  守护);ctor(s_MuxPane_8de0c0)+ setCentralView(008de1a8)逐句
+  转写;布局边距/间距参数 cited(Ghidra 寄存器折叠,IDA spot check
+  待);Type 值域未提取
+- **keymap 双翼骨架**(W4):装载翼 0076b430/00768854/00678a56/
+  00677d7e(字段提取/位掩码/节点域落位,onig 腿 cited);匹配翼
+  006777e6 ~全转写(前导数字/chord 判式/状态反馈三档,二进制实测
+  tr 串 @0xc92230/0xc92260)+ 7500e 15 段注释骨架(§5-13 深腿 9 段
+  cited);勘正批 55 已入档
+- 验证:cmake 重跑(新 Q_OBJECT 头,坑 19)+ make 零 error/undefined;
+  ctest 6/6;engtest3 直跑 OK;diff 抽查(地址注释/cited 合规)
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

@@ -309,6 +309,9 @@ void RunStyles<DISTANCE, STYLE>::Check() const {
 
 template class Scintilla::RunStyles<int, int>;
 template class Scintilla::RunStyles<int, char>;
+template class Scintilla::RunStyles<int, long long>;   // mk3 §7:RS64 委托所需实例化(009a62c0 u64 载体)
+// ⚠ 本文件属预构建 scintilla_core.a(AGENTS 构建段):此行须 rebuild_deps
+// 才产出符号;rsValue64/rsFill64 现为占位(批 72),重建 deps 后启用
 #if (PTRDIFF_MAX != INT_MAX) || PLAT_HAIKU
 template class Scintilla::RunStyles<ptrdiff_t, int>;
 template class Scintilla::RunStyles<ptrdiff_t, char>;

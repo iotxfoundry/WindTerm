@@ -12,9 +12,11 @@
 // (src/Scintilla static libs); WindTerm EXT/WT stays in customDispatch.
 
 struct RetEntry { unsigned cmd; char kind; };
+
 static const RetEntry scintilla_returns[] =
 {
 #include "scintilla_returns.inc"
+
 };
 
 EditorEngine::EditorEngine()
@@ -912,10 +914,174 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		m_ctx.linkMap = a.toMap();   // 到达参数暂存,真身化时消费
 		return QVariant(0);
 	}
-	case 0x753e:     // FUN_00a417fe(112B)→ FUN_00a41552(649B 渲染
-	                 //   核心);a.toDouble() 语料未消费,原样
-	                 //   — cited — wave-2(渲染专用批)
-		return QVariant(0);
+	case 0x753e: {   // FUN_00a417fe(112B)→ FUN_00a41552(649B 渲染核)
+	                 //   真身化(批 70;a/b 语料未消费,原样)
+		// === 包装层 FUN_00a417fe(全读 @decomp-0034.c:20708)===
+		const long long textLen = send(SCI_GETLENGTH, 0, 0);
+		//   editor_textLength(ed+0x10a0);0x7547 同款映射
+		// FUN_00a1fa2a(34B):textLength 夹 ≤16 → 带宽 w(行数)
+		const int w = (int)(textLen < 0x10 ? textLen : 0x10);
+		// FUN_00a1fa4c(60B):FUN_00a1f9e8(65B)分数×textLength − w/2
+		//   夹 ≥0;分数参 xmm0 源未解 — cited — wave-2
+		//   (偏差登记:分数占位 0 → x0 = max(0, −w/2) = 0)
+		long long x0 = 0 - (long long)w / 2;
+		if (x0 < 0)
+			x0 = 0;
+		// FUN_00a1fa88(74B):x0+w 夹 ≤textLength
+		long long x1 = textLen;
+		if ((long long)w + x0 <= textLen)
+			x1 = (long long)w + x0;
+		// 带高 = *(int*)(ed+0xd04) × w(+0xd04=行高 px;SCI_TEXTHEIGHT
+		//   承接,charRectAt 同款)
+		const int lineH = qMax(1, (int)send(SCI_TEXTHEIGHT, 0, 0));
+		const int lineCount = lineH * w;
+		// === 渲染核 FUN_00a41552(649B 全读 @20630);dpr = 1.0 字面量
+		//   (0x3ff0000000000000,00a4172c)===
+		// ① 00a41587:ret 槽 QPixmap 默认构造
+		QPixmap out;
+		// ② FUN_00944556(37B)operator_new(0x40)+ ctor FUN_0094367a(72B,
+		//   全读 @8470):SurfaceImpl 视图对象(局部模型,勿外提)
+		struct SurfaceView {             // 语料 0x40B;成员名即偏移
+			QPixmap *m8 = nullptr;       // +0x08 m_pixmap
+			void *m10 = nullptr;         // +0x10 painter 引用
+			quint8 m18 = 0;              // +0x18(intDpr 字节)
+			quint8 m19 = 0;              // +0x19 m_started
+			quint8 m1a = 0;              // +0x1a
+			void *m20 = nullptr;         // +0x20(ctor 清零)
+			void *m28 = nullptr;         // +0x28(ctor 清零)
+			double dpr = 1.0;            // +0x30 ctor 0x3ff0…=1.0
+			quint8 m38 = 0;              // +0x38
+			QPixmap *pixmap() const      // vt+0x148 = FUN_0094331e(5B)
+			{
+				return m8;
+			}
+			void setDpr(double d)        // vt+0x130 = FUN_00944f10(6B)
+			{
+				dpr = d;
+			}
+			void release()               // vt+0x28 = FUN_0094333e:
+			{                            //   painter/pixmap 引用释放+四域清零
+				m8 = nullptr;
+				m10 = nullptr;
+				m18 = 0; m19 = 0; m1a = 0;
+			}
+			void init(double d, int iw, int ih, bool alt)  // vt+0x20 =
+			{   // FUN_009437a8(209B,全读 @8551;"dtor_deleting"Ghidra
+			    //   误标,地址权威)
+				release();               // (**vt+0x28)()
+				m19 = 1;                 // +0x19 = 1
+				if (ih < 1) ih = 1;      // 语料序:先 h(0094380e)后 w
+				if (iw < 1) iw = 1;
+				QPixmap *pm = new QPixmap((int)((double)iw * d),
+				                          (int)((double)ih * d));  // 00943817
+				pm->setDevicePixelRatio(d);          // 00943825
+				m8 = pm;                             // +8 = pm
+				// FUN_009436c2(133B,全读 @8488):metric(0xc)
+				//   ×1.52587890625e-05 → round 差×1e12 ≤ max 判整数 dpr
+				const double x =
+				    (double)(int)(d * 65536.0) * 1.52587890625e-05;
+				const double r = qRound(x);
+				double fr = x - r;
+				if (fr < 0)
+					fr = -fr;
+				double ar = r < 0 ? -r : r;
+				double ax = x < 0 ? -x : x;
+				const double mx = (ar <= ax) ? ar : ax;  // 语料 max 形
+				m18 = (fr * 1000000000000.0 <= mx) ? 1 : 0;
+				// 尾:vt+0x140==FUN_00943318(默认实现)→ +0x38 = alt
+				//   (派生重写路径不建模,取默认表分支;3 参唯一消费点)
+				m38 = (quint8)alt;
+			}
+		} view;
+		// ③ 视口:vt+0x88 分派(*vt+0x88==FUN_00a1e708 → FUN_009447a0
+		//   直读):widget(editor+8)非空 → [widget+0x28]+{0x14/0x18/
+		//   0x1c/0x20} 4 int → QRectF{0,0,rb−lb+1,bb−tb+1}
+		//   (FUN_009445b4,122B 全读 @9180)— 内部偏移直读
+		//   cited — wave-2(偏差登记:取语料空 widget 缺省分支值
+		//   {0,0,1001.0,1001.0},0x408f4000)
+		const QRectF vp(0, 0, 1001.0, 1001.0);
+		// ④ 00a41664:带高 = (lineCount==−1)? vp.h−vp.y : lineCount
+		const double bandH =
+		    (lineCount == -1) ? (vp.height() - vp.y()) : (double)lineCount;
+		// ⑤⑥ FUN_00a1e54d/558/582/58d(全读 @55865)+ FUN_00852bf2
+		//   (93B):editor+0x113b 标志 1/0 双 guard + std::function
+		//   (QPixmap/QRect 捕获)异步搬运壳 — 本核同步路径一次像素
+		//   搬运同效(00a4168e-00a41772);+0x113b 消费面未建模,cited
+		// FUN_00a2b07a(39B 全读 @7765)altBuffer:+0x1098 非空 →
+		//   FUN_00927600()==&PTR_FUN_011bf0e0 动态类型判
+		//   — cited — wave-2(占位 false)
+		const bool altBuffer = false;
+		// ⑦ Init:vt+0x78(editor)→dpr getter cited(Editor 表槽 14
+		//   未解;模型无缩放字段,取 ctor 初始 1.0 代入 — 偏差登记)
+		view.init(1.0, (int)(vp.width() - vp.x()), (int)bandH, altBuffer);
+		// ⑧ setDpr(dpr):包装层透传值(0x753e=1.0 字面量)→ +0x30
+		view.setDpr(1.0);
+		// ⑨ FUN_00a728fc(474B 全读 @49502)逐行管线:
+		QPixmap *pm = view.pixmap();
+		// FUN_00a72686(621B 全读 @49449)17 步管线骨架,逐步 cited
+		//   (被叫方 ~44KB 语料;DrawCtx=local_208 0x38B 工作区)
+		auto drawLineBody = [&]() {
+			// FUN_00a76608(4628B)initDrawCtx — cited — wave-2
+			// s_text_controlChar_a77836(&ctx)(4123B)— cited — wave-2
+			// s_grep_mark_a6afa2(ed, doc, &ctx)(440B)— cited — wave-2
+			if (!m_ctx.hexMode) {        // *(char*)(*ed+0x1128)==0
+				// s_PairColor_a72272(ed, doc, &ctx)(1001B)— cited
+				// editor_parsePairDef(ed, doc, &ctx)— cited
+				// s_text_hotSpot_a6aae6(ed, doc)(436B)— cited
+			}
+			// s_TriggerHighlightTextFont_a6b872(5995B)— cited — wave-2
+			// FUN_00a6b17e(492B)— cited
+			// s_line_background_a6e89e(6307B)— cited — wave-2
+			// s_line_columnMarker_a674c4(…,0)(2390B)— cited
+			if (m_ctx.hexMode) {
+				// FUN_00a67e56(11B)— cited
+			}
+			// s_line_highlight_a6734c(360B)— cited
+			// FUN_00a6d05e(…,1)(6088B)— cited — wave-2
+			// s_text_selection_a67e62(603B)— cited
+			// s_text_selection_a680c6(532B)— cited
+			if (!m_ctx.hexMode) {
+				// s_line_columnMarker_a682e6(ctx1d0)(543B)— cited
+				// FUN_00a68b18(941B)— cited
+			} else {
+				// s_hex_division_a68ec6(511B)— cited
+			}
+			// s_text_whiteSpace_a70196(…,0)(8299B)— cited — wave-2
+			// 语料原样双判:(hex==0)||(FUN_00a72266(11B), hex==0)
+			//   → 体仅非 hex 进;FUN_00a72266 仅 hex 进 — cited
+			if (!m_ctx.hexMode) {
+				// FUN_00a6710c(362B)— cited
+				// s_line_wrapSymbol_a687d0(283B)— cited
+			}
+			// FUN_00a6d05e(…,0)(6088B 二过:先 1 后 0)— cited
+			// FUN_00a6626a(2165B)— cited
+			// FUN_00a64838(1193B)— cited
+			// FUN_00a661a0(201B)— cited
+			// FUN_00a6447a(ed)(14B)— cited
+			// FUN_00a75688(&ctx) 析构(749B)— cited
+		};
+		if (pm != nullptr) {
+			// FUN_009502c6(12B 透传:doc+0xe00 → FUN_009ba966;+0x1067
+			//   字节转发)— fill 色 — cited — wave-2(色值未解,
+			//   Invalid QColor 占位)
+			const QColor bg;
+			pm->fill(bg);                // 00a729a1;fillRect =
+			                             //   QRectF(pm->rect()) y+=doc+0xcc4
+			                             //   (0xa7296c 组合,记录未展开)
+			// 逐行:param_5<param_6 才进循环,行号 ++(from==to 不画)
+			for (long long line = x0; line < x1; ++line) {
+				// s_margin_timestamp_a696b6(ed,view,doc,line)
+				//   (3668B)— cited — wave-2
+				drawLineBody();
+			}
+			// 尾:QPixmap(out, pm) copy-construct → out(00a729xx)
+			out = QPixmap(*pm);
+		}
+		// pm==0 → out 保持默认空(00a7291b 前支)
+		// ⑩ out←pm 共享搬运;⑤⑥ guard 回写(+0x113b=0);view 析构
+		//   (vt+8 = FUN_0094377c SurfaceImpl_dtor 43B,栈对象同效)
+		return QVariant(out);
+	}
 	case 0x753f:     // 槽 +0xc0 = FUN_00948b9b(thunk→FUN_00948b5a)
 	                 //   — 槽已定位(批 66),体 cited
 		return QVariant(0);
@@ -924,10 +1090,109 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   +0x10c8{+0x30/+0x38/+0x3c} — cited(滚动
 	                 //   几何 Phase-4b)
 		return QVariant(0);
-	case 0x7544:     // FUN_00a4186e(86B)可视区 pixmap(pos..pos+lines,
-	                 //   高参 −1=实际视高);a.toReal() 未消费原样
-	                 //   — cited — wave-2
-		return QVariant(0);
+	case 0x7544: {   // FUN_00a4186e(86B)→ FUN_00a41552(649B 渲染核)
+	                 //   可视区 pixmap(pos..pos+lines,高参 −1=实际视高)
+	                 //   真身化(批 70)
+		// === 包装层 FUN_00a4186e(全读 @decomp-0034.c:20725)===
+		// FUN_00a20580(12B):ed+0x10c8 scroll obj → FUN_00a17428(43B
+		//   全读 @49580):(vt+0xe0)(scroll+0x18,2)非空 → +0x40
+		//   — 滚动几何 Phase-4b cited;可视首行按混合边界承接真库
+		const long long from = send(SCI_GETFIRSTVISIBLELINE, 0, 0);
+		// 视口(同 0x753e ③;FUN_009445b4 内部直读 cited,取缺省分支)
+		const QRectF vp(0, 0, 1001.0, 1001.0);
+		// FUN_00a20438(103B 全读 @86):(vp.h−vp.y)/+0xd04 行高,ceil
+		//   夹 ≥1(SCI_LINESONSCREEN 承接先例:0x7547;此处按语料
+		//   算式原样转写)
+		const long long textLen = send(SCI_GETLENGTH, 0, 0);
+		const int lineH = qMax(1, (int)send(SCI_TEXTHEIGHT, 0, 0));
+		const int vh = (int)(vp.height() - vp.y());
+		int visCount = vh / lineH;
+		visCount = (visCount + 1) - ((vh % lineH == 0) ? 1 : 0);  // ceil(00a204a2)
+		if (visCount < 1)
+			visCount = 1;
+		// FUN_00a20604(97B 全读 @192):min(textLength, from+visCount)
+		//   −1 夹 ≥0(语料原样;editor_textLength → SCI_GETLENGTH
+		//   0x7547 同款映射)
+		long long to = textLen;
+		if (from + visCount <= textLen)
+			to = from + visCount;
+		to = to - 1;
+		if (to < 0)
+			to = 0;
+		// === 渲染核 FUN_00a41552(与 0x753e 同体;dpr = param_1 透传:
+		//   dispatch 未设(批 65 未消费/批 67 勘正:透传至 setDpr),
+		//   寄存器残留值不可建模 — 偏差登记:占位 0.0)===
+		QPixmap out;                                 // ① 00a41587
+		struct SurfaceView {                         // ② 同 0x753e(FUN_00944556
+			QPixmap *m8 = nullptr;       // +0x08      + ctor FUN_0094367a)
+			void *m10 = nullptr;         // +0x10
+			quint8 m18 = 0;              // +0x18
+			quint8 m19 = 0;              // +0x19
+			quint8 m1a = 0;              // +0x1a
+			void *m20 = nullptr;         // +0x20
+			void *m28 = nullptr;         // +0x28
+			double dpr = 1.0;            // +0x30
+			quint8 m38 = 0;              // +0x38
+			QPixmap *pixmap() const { return m8; }   // vt+0x148=0094331e
+			void setDpr(double d) { dpr = d; }       // vt+0x130=00944f10
+			void release()                           // vt+0x28=0094333e
+			{
+				m8 = nullptr;
+				m10 = nullptr;
+				m18 = 0; m19 = 0; m1a = 0;
+			}
+			void init(double d, int iw, int ih, bool alt)  // vt+0x20=009437a8
+			{
+				release();
+				m19 = 1;
+				if (ih < 1) ih = 1;
+				if (iw < 1) iw = 1;
+				QPixmap *pm = new QPixmap((int)((double)iw * d),
+				                          (int)((double)ih * d));
+				pm->setDevicePixelRatio(d);
+				m8 = pm;
+				const double x =
+				    (double)(int)(d * 65536.0) * 1.52587890625e-05;
+				const double r = qRound(x);
+				double fr = x - r;
+				if (fr < 0)
+					fr = -fr;
+				double ar = r < 0 ? -r : r;
+				double ax = x < 0 ? -x : x;
+				const double mx = (ar <= ax) ? ar : ax;
+				m18 = (fr * 1000000000000.0 <= mx) ? 1 : 0;  // FUN_009436c2
+				m38 = (quint8)alt;           // vt+0x140 默认实现分支
+			}
+		} view;
+		const double bandH =
+		    /* param_6=−1(0xffffffff,00a4185a)*/ vp.height() - vp.y();
+		view.init(1.0, (int)(vp.width() - vp.x()), (int)bandH, false);
+		view.setDpr(0.0);
+		QPixmap *pm = view.pixmap();
+		auto drawLineBody = [&]() {
+			// 17 步管线骨架 — 逐腿 cited,同 0x753e
+			//   (FUN_00a72686 621B;initDrawCtx 00a76608 4628B;
+			//   controlChar a77836/grepMark a6afa2/[非hex:PairColor
+			//   a72272/parsePairDef/hotSpot a6aae6]/Trigger a6b872/
+			//   a6b17e/lineBG a6e89e/columnMarker a674c4(0)/[hex:
+			//   a67e56]/highlight a6734c/d05e(1)/selection a67e62+
+			//   a680c6/[非hex:columnMarker2 a682e6+a68b18|hex:
+			//   hex_division a68ec6]/whiteSpace a70196/[非hex:
+			//   a6710c+wrapSymbol a687d0;语料双判含 a72266]/d05e(0)
+			//   /a6626a/a64838/a661a0/a6447a/ctx 析构 a75688)
+			//   — 全部 cited — wave-2
+		};
+		if (pm != nullptr) {
+			const QColor bg;             // FUN_009502c6 — cited — wave-2
+			pm->fill(bg);                // 00a729a1(QRectF+y+doc+0xcc4 组合未展开)
+			for (long long line = from; line < to + 1; ++line) {
+				// s_margin_timestamp_a696b6(3668B)— cited — wave-2
+				drawLineBody();
+			}
+			out = QPixmap(*pm);          // 00a729xx copy-construct
+		}
+		return QVariant(out);
+	}
 	case 0x7545:     // FUN_00933366(892B)序列化导出(批 69 勘正:
 	                 //   非条目建立 —— 标记行收集(0093f7aa)→
 	                 //   QDataStream 序列化 → E+0x250 append →
