@@ -1341,6 +1341,32 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   泛型同体(测绘毕)
 - 验证:make 零错;ctest 6/6;engtest3 直跑 OK
 
+### 批 76(2026-10-31)四 lane 并行:0x7547 S5/S6/markers 测试/装配链/代理破案 ✅
+- **0x7547 S5/S6 落地**(W1):S5 grep 4 注册真身(8,8/6,0/5,0/7,0
+  + grep.mark×3+grep.match;体内 5 级腿分级,行对象表未建模 = 查
+  不到同相 return);S6 真身 —— eSerialEntries 无锁遍历(怪癖原样)
+  + QDataStream 3×QByteArray + CSuperBuffer varint 态机(9 字节形态/
+  NUL 转义/耗尽哨兵)+ 逐码点绘循环(SCI 行号承接);**QUIRKS 24/25
+  登记**(hasNext 恒真风险/fstep SIGFPE 同原版)
+- **markers 行为测试批**(W2):tests/markerstest.cpp 7 用例 35 断言
+  全绿(bankCtor K3/rsValue 8·16·32 委托读写/markWrite id 分配/
+  nearestIdFrom/findLineSlot 低 32 怪癖/publishSnapshot 门)——
+  ctest 7/7;**上报守卫已修**:entryValueAt rsOf(nullptr) 解引崩
+  (styles 未建壳期)→ 双路判空守卫
+- **五级装配链定案**(W3):MainWindow(KitBar+QStackedWidget)→
+  MuxWindow(+0x70=SplitterGroup)→ **SplitterGroup 翻案**(语料不缺,
+  FUN_005a2314:QSplitter Vertical+QStackedLayout)→ MuxPaneGroup
+  (objectName"PaneGroup",六条 connectImpl)→ TabGroup(**QFrame 非
+  QTabWidget**:TabBar+stack+双滚钮);类型勘误:011ab390=KitWindow/
+  011ac070=MuxWindow(非 MuxPane)
+- **代理 spawn 破案**(W4):FUN_0065d482(6947B,~4500B 为 QMap
+  清算展开)—— **m_field20 = 环境变量定义文本/m_field28 = workingDir**
+  (批 74 未解解明);批 74"lambda jumptable 深腿" = Qt connectImpl
+  胶水非业务码;S1-S5 高可落(QProcess 全套委托 + 4×Direct connect
+  + env "\r"/"=" 恰 2 段解析 —— 多 = 值行丢弃原版如此勿修)
+- 验证:cmake 重跑(markerstest 注册)+ make 零错;ctest 7/7;
+  engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

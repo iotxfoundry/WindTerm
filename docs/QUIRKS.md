@@ -41,3 +41,9 @@
    gapbuffer_get_chars_locked 返回 1=吸收/0=新写,与 Scintilla
    RunStyles FillRange 的 changed 语义不同相(吸收腿 ret1/changed1);
    RS8 委托承接时 ret 映射需翻转 —— 行为门裁决点(76c 笔记)。
+
+24. **0x7547 S6 hasNext 耗尽哨兵恒真风险**(批 76 勘察):语料
+   CSuperBuffer hasNext 耗尽哨兵 pend=-1 与 pend!=0 判定相乘,畸形流
+   上原版有长循环风险 —— 转写逐字保留,未修。
+25. **0x7547 S6 fstep=0 SIGFPE 同原版**(批 76):语料直除 fstep,
+   畸形参数原版即崩 —— 原样保留未修。

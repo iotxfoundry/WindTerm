@@ -408,8 +408,15 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
     quint64 entryValueAt(int pos, int slot) const
     {
         MarkEntry *e = arr->entryAt(slot);
-        if (e->sel == '\0')
+        if (e->sel == '\0') {
+            // RS 未建(壳期 styles==nullptr)→ 0;rsOf 解引 +0x10 须非空
+            // (批 76 markerstest 上报守卫)
+            if (!e->u64Obj || !e->u64Obj->styles)
+                return 0;
             return rsValue64(rsOf(e->u64Obj->styles), pos);      // Uint64RunStyles_valueAt
+        }
+        if (!e->u32Obj || !e->u32Obj->styles)
+            return 0;
         const quint32 v = rsValue32(rsOf(e->u32Obj->styles), pos);
         const quint32 props = keyPropsOf(arr->bank, v & 0x1fff); // FUN_00a10384
         return (quint64(v >> 13) << 32) | props;                 // CONCAT44(v>>0xd, props)

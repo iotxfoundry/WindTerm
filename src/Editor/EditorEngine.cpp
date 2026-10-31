@@ -1,10 +1,12 @@
 #include <QCollator>
+#include <QDataStream>
 #include <QFontMetrics>
 #include <QLineF>
 #include <QPainter>
 #include <QRegularExpression>
 #include <QPixmap>
 #include <QLocale>
+#include <cstring>
 #include "EditorEngine.h"
 
 #include "ScintillaEditBase.h"
@@ -1563,8 +1565,8 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   → SCI 承接(混合边界:标准行为委托真库)
 		return QVariant((bool)send(SCI_GETHSCROLLBAR));
 	case 0x7547: {   // s_line_modified_a72ad6(3008B)S1-S4(批 69):
-	                 //   S5 grep 注册(FUN_00a66ae8 1031B)/S6 逐条目
-	                 //   无锁读(怪癖原样) — cited — wave-2
+	                 //   S5 grep 注册(FUN_00a66ae8)注册点真身/体内
+	                 //   cited;S6 逐条目绘(49727-49875)态机真身化
 		const double dh = a.toDouble();                  // 00a72ad9
 		const double dw = b.toDouble();                  // 00a72aef
 		QPixmap pm(qRound(dw), qRound(dh));              // S1 00a72b14
@@ -1622,7 +1624,128 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			Q_UNUSED(en); Q_UNUSED(lineCount);
 			Q_UNUSED(savedF); Q_UNUSED(unsavedF);
 			Q_UNUSED(cSaved); Q_UNUSED(cUnsaved); Q_UNUSED(cModified);
-			Q_UNUSED(rowH); Q_UNUSED(bw); Q_UNUSED(fstep); Q_UNUSED(p);
+			// ===== S5 grep 4 注册(49720-49725)=====
+			// FUN_00a66ae8(1031B)分级:① margin 行对象表
+			//   FUN_009258b2(185B)→0092586c(this[1]+0x2d8 族,
+			//   非 markersStore 面)— 未建模,查不到 → 段尾 return;
+			//   ② grep 结果浮点表(E+0x108,FUN_00926b1c→009c8bf2,
+			//   行 6‖列 8 特判覆色)— 未建模;③ 行 run 范围
+			//   FUN_00927472(29B)→0096d0e2 — 未建模;④ 色腿
+			//   FUN_0095021a+editor_styleAt — S3 styleTable 同占位;
+			//   ⑤ fillRect 条带循环(fold 跳步 FUN_00958498)依赖③。
+			//   ①②③⑤ cited — wave-2;行对象表空 = 原版查不到 →
+			//   return 同相,④⑤ 不可达不落(不虚构)。
+			auto grepEntry = [&](int row, int col, const char *key) {
+				Q_UNUSED(row); Q_UNUSED(col); Q_UNUSED(key);
+			};
+			grepEntry(8, 8, "grep.mark");                // 00a72ec1
+			grepEntry(6, 0, "grep.mark");                // 00a72ed7
+			grepEntry(5, 0, "grep.match");               // 00a72ee9
+			grepEntry(7, 0, "grep.mark");                // 00a72efb
+			// ===== S6 逐条目绘(49727-49875)=====
+			// E+0x250 无锁遍历(怪癖#2 原样:不加 mutex;语料
+			//   QList header +8/+0xc/+0x10 → range-for 等价)
+			for (const QByteArray &entry : m_ctx.eSerialEntries) {
+				QDataStream ds(entry);                   // 00a731ca
+				QByteArray key, modstr, data;
+				ds >> key >> modstr >> data;             // 00a731d7 ×3
+				Q_UNUSED(key);                           // 仅 S7 释放腿
+				// 中段串查样式(00a7323c;FUN_00a65f12 raw-byte
+				//   std::string → fromLatin1 字节保真承接)
+				const auto it = m_ctx.styleTable.constFind(
+				    QString::fromLatin1(modstr));
+				if (it == m_ctx.styleTable.cend())
+					continue;                            // 00a73199
+				// 四路判位(00a73265):0094a86e(b+9 bit4)→
+				//   0094a790(v+0x48 表)/ 0094a87c(b+9 bit5)→
+				//   0094a806(v+0x58 表)/ 0094a786(b+8 bit0)→
+				//   0094a576(v+0x20 表)/ 0094a7f8(b+8 bit1)→
+				//   editor_styleAt(v+0x30 表)— 样式记录位面未落地,
+				//   统一落 editor_styleAt 同面(= S3 占位),分派腿
+				//   cited — wave-2;空表默认色 DAT_011c25d0/e0 随占
+				const QColor c = it.value();             // 0094a5b2
+				if (!c.isValid())                        // local_108==0
+					continue;                            // 00a73199
+				// CSuperBuffer 态机真身化:ctor FUN_00a92656(36B,
+				//   +0x00 ba/+0x08 cache/+0x10 pend/+0x18 pos/+0x1c
+				//   end)/ hasNext FUN_00a927c8(23B)/ nextChar
+				//   bytestream_nextChar(00a928a6 198B)
+				const char *d = data.constData();
+				const int n = data.size();
+				int bpos = 0;                            // +0x18
+				quint64 cache = 0;                       // +0x08
+				qint64 pend = 0;                         // +0x10
+				auto xprRead = [&]() -> quint64 {        // 00a923cd
+					// FUN_00a9230c(26B):len = 首字节最低置位
+					//   bit + 1(0 字节 → 隐含 bit8 → len 9)
+					const unsigned char c0 =
+					    (unsigned char)d[bpos];
+					unsigned v =
+					    ((unsigned)(c0 >> 7) << 8) | c0 | 0x100u;
+					int len = 0;
+					while (!((v >> len) & 1))
+						++len;
+					++len;
+					if (len > 8) {                       // 00a92413
+						quint64 r;                       // 9 字节
+						memcpy(&r, d + bpos + 1, 8);     // 形态
+						bpos += 9;                       // 前 1 字节
+						return r;                        // 直读
+					}
+					quint64 r = 0;
+					memcpy(&r, d + bpos, len);           // LE n 字节
+					bpos += len;
+					return r >> len;                     // 00a924a0
+				};                                       // (v<<s1)>>s2
+				auto nextChar = [&]() -> quint64 {       // 00a928a6
+					if (pend == 0) {
+						if (n <= bpos) {                 // end≤pos
+							pend = -1;                   // 00a928c0
+							return cache;                // 哨兵
+						}
+						cache = xprRead();               // 00a928d1
+						// NUL 重复转义(语料原样):\0 后跟
+						//   重复计数 varint;peek 的 +0x18 偏移
+						//   特判 = QArrayData compact 读(此处
+						//   constData() 等价承接)
+						if (bpos < n && d[bpos] == '\0') {
+							++bpos;                      // 00a9290d
+							pend = (qint64)xprRead() - 1; // 2918
+						}
+						return cache;                    // 00a9291e
+					}
+					--pend;                              // 00a9286d
+					return cache;                        // 00a92875
+				};
+				auto hasNext = [&]() -> bool {           // 00a927c8
+					return bpos < n ? true : pend != 0;
+				};
+				// 逐码点循环(00a7331a-00a7344c)真身化:pos 累加、
+				//   fold 步行去重、行向 y 条带。fstep 可为 0(S2 截断)
+				//   → 语料直除(SIGFPE 怪癖,原样保留不修,QUIRKS 登记)
+				qint64 pos = 0, lastStep = -1;           // 00a7331a
+				bool has = hasNext();                    // 00a73326 首检
+				for (;;) {
+					if (!has)
+						break;                           // → 下条目
+					pos += (qint64)nextChar();           // 00a7332e
+					if (pos / fstep == lastStep)         // 00a7333a
+						continue;        // 同步行:has 不刷新(原样)
+					// FUN_009589f0(135B)fold 感知行号 — SCI 承接
+					//   (标准行为委托;fold 通道 00958536 cited)
+					const qint64 line =
+					    send(SCI_LINEFROMPOSITION, pos, 0);
+					double y = double(line) * dh / double(denom);
+					const double cap = dh - rowH;        // 00a73354
+					if (y > cap)
+						y = cap;                         // 00a7335c
+					// fillRect 定案坐标序(b1b §4,同 S4):
+					//   QRectF(0, y, bw, rowH),行向沿 y
+					p.fillRect(QRectF(0, y, bw, rowH), c); // 00a73366
+					has = hasNext();                     // 00a73444
+					lastStep = pos / fstep;              // 00a7344c
+				}
+			}
 		}
 		return QVariant::fromValue(pm);
 	}
