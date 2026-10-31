@@ -1270,6 +1270,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(新 Q_OBJECT 头,坑 19)+ make 零 error/undefined;
   ctest 6/6;engtest3 直跑 OK;diff 抽查(地址注释/cited 合规)
 
+### 批 73(2026-10-31)四 lane 并行:Telnet 组件落地/keymap 深腿/渲染核分级 ✅
+- **Telnet 组件面落地**(T2 fixer):TelnetSession vt15 真身(2B IAC
+  直调写出,空桥/dynamic_cast 门)+ TelnetBridge 结构面(+0x30 socket
+  /4 路 connectImpl ctor 转写/写转发 0087685a→0065d228/拨号门)/
+  TelnetCommander ctor(0085f520 装配序列)+ initialBurst(0085fbd6
+  真身:vec>>4 门 → verbE308 → 2B burst);协商分类器原样;真身化
+  6 处/cited 8 腿(网络底座 ProxyCommandSocket 未建模)
+- **keymap 深腿批**(T3 fixer):**键码表定性反转** —— DAT_011c1960
+  非静态查表 = 运行期惰性编解码器(xref 五扫唯一写入口 00674b1e
+  自身;_INIT_62 仅零初始化)→ keymapKeyForward/Reverse 按语料算法
+  真身(10 项断言自检全绿);synthKeyEvents(0075debe 529B)逐行 +
+  keymapActionFire(0066a116);matchTrie 逐句重勘(§6-8 未定案保持
+  注记;§4 首门短路 = 装载腿 cited 的诚实呈现)
+- **渲染核 25 被叫分级**(T1):A 级立即转写 4+1(timestamp 文本抽取
+  00a2a6e6 全读)/B 级 13(需 4 类基建:indicator API/样式表包装/
+  SurfaceImpl paint 槽/字段表)/C 级 cited 10;margin_timestamp
+  3668B 测绘:**timestamp 类型 6 = 直抽行文本,无时间数据源**
+- **渲染核三定性**(T4):FUN_009502c6 = 样式表 bsearch 返 0 号
+  16B 记录(非二值色);**FUN_00a1fa4c xmm0 = QVariant::toDouble
+  (滚动分数 0..1)**,公式 = frac*textLength − min(textLength,16)/2
+  负钳 0;MuxPane::Type 枚举 5 值落 MuxPaneView(qmo 权威);
+  009445b4 = widget geometry 直读返 QRectF(0,0,w+1,h+1)
+- 验证:构建零 error/undefined;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

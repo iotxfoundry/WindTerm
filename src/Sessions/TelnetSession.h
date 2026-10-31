@@ -5,8 +5,10 @@
 
 #include "SuperSession.h"
 
-// 装配五元组(批 70 勘察,ts 笔记;铁律 6:实现面待 TcpBridge/
-// ProxyCommandSocket 组件批,现壳不动行为):
+class TelnetBridge;
+
+// 装配五元组(批 70 勘察,ts 笔记;本批:桥结构面 + vt15 真身落地,
+// 网络腿/Commander 写出腿 cited — wave-2 待 ProxyCommandSocket):
 // - vtable 0x11a8e78;sizeof 0x68;ctor 008616d0(25B,零自有成员)
 // - 槽表:metaObject 00917f76/metacast 00917f8e/metacall 00917fd0
 //   (信号 12 特判 → -1,怪癖候选)/D2·D1/+0x60=007d952e 拨号槽/
@@ -33,6 +35,17 @@ class TelnetSession : public SuperSession
 public:
 	TelnetSession(QObject *parent = nullptr);
 	virtual ~TelnetSession(void) = default;
+
+	// TelnetSession_vt15(008616ea,303B;vtable +0x78 唯一自有虚)
+	// 真身:cast 桥 → 2B{IAC,0x0b} 经桥写(negotiationReply 勘正
+	// 见 TelnetCommander.h;语料面 = 直调非信号)
+	void negotiationWrite();
+
+private:
+	// 会话 +0x10 = 桥指针槽(语料:FUN_007d846e 装配 TcpBridge 于
+	// session+0x10;树面基类 m_protocol 同位但私有,写域限本批 →
+	// TelnetBridge 本地承载,TcpBridge 语料结构面见 TelnetBridge.h)
+	TelnetBridge *m_bridge = nullptr;
 
 private:
 	Q_DISABLE_COPY(TelnetSession)

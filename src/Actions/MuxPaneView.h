@@ -19,7 +19,11 @@
 //   s_MuxPane_64b102 批 39 链)在既有 0064b102 收编面注入,不在此重复。
 
 // MuxPane::Type 枚举(QMetaObject 权威值域未提取,笔记 §未解)→ int 别名
-using MuxPaneType = int;
+    // Type 值域(qmo_extract QMetaObject 权威,批 73 r4 lane)
+        enum MuxPaneType : int {
+            TypeUnknown = 0, TypeTerminal = 1, TypeTextEditor = 2,
+            TypeTextFinder = 3, TypeTextViewer = 4
+        };
 
 class MuxPaneView : public QWidget {
     Q_OBJECT
