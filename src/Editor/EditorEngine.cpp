@@ -230,6 +230,19 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x759a:     // setHexBase(FUN_00a28e7c)
 		m_ctx.setHexBase(a.toInt());
 		return QVariant(0);
+	case 0x759d: {   // +0x111c = a.toInt();变更且 >0 门,hexMode
+	                 // (+0x1128)开 → soft_reset(FUN_00a28abe 33B;
+	                 //   0034:24966-24968 ≥0x759d else 腿;与 0x759e
+	                 //   setHexMode(FUN_00a30c2e 247B)异体 — 独立转写)
+		const int v = a.toInt();
+		if (m_ctx.hexSub111c != v && v > 0) {
+			m_ctx.hexSub111c = v;
+			if (m_ctx.hexMode) {
+				// session_view_soft_reset — cited(Phase-4 视图)
+			}
+		}
+		return QVariant(0);
+	}
 	case 0x759e:     // setHexMode(FUN_00a30c2e)
 		m_ctx.setHexMode(a.toBool());
 		return QVariant(0);
@@ -675,6 +688,40 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	}
 	case 0x7593: {   // +0x1ae 字节 = a.toBool()
 		m_ctx.flag1ae = a.toBool();
+		return QVariant(0);
+	}
+	case 0x7596: {   // setMargin(focusOut)(CMD_30102;L25044-25409,
+	                 //   >40 行样式名查找):+0x1ae 门关时执行 —
+	                 //   toMap "name" → 0x1ab/0x1ac 向量(0x18 步长)
+	                 //   memcmp 匹配 → 命中项承接 index/visible/type/
+	                 //   border/cursor/alignment/trackChange/
+	                 //   trackSelection/width/padding 等键回写 +
+	                 //   类型分发重算(number/timestamp/…)+ soft_reset;
+	                 //   memcmp→QString::== 语义同构(QByteArray
+	                 //   等长字节比较);未命中腿(this==end)append
+	                 //   新条目 — 引用(cited)档:字段域位面
+	                 //   (type/border/cursor bit 布局)仅锚定,位级
+	                 //   转写待 wave-2
+		if (m_ctx.flag1ae)
+			return QVariant(0);      // L25044:+0x1ae != 0 → 跳过
+		const QVariantMap spec = a.toMap();
+		const QString name = spec.value(QStringLiteral("name")).toString();
+		// 0x1ab/0x1ac 向量逐项匹配(0x18 步长 → QList 遍历语义)
+		int hit = -1;
+		for (int i = 0; i < m_ctx.marginList.size(); ++i) {
+			if (m_ctx.marginList.at(i).name == name) {  // memcmp 同构
+				hit = i;
+				break;
+			}
+		}
+		if (hit < 0) {
+			// L25196 this==end → append 新条目(FUN_00a4cdf0)—— cited
+			return QVariant(0);
+		}
+		// 命中项键回写 index/visible/type/border/cursor/alignment/
+		// trackChange/trackSelection/width/leftPadding/rightPadding
+		// (L25133-25388)+ 类型分发重算(L25382:number/timestamp/
+		// fold)+ session_view_soft_reset(L25405)— cited — wave-2
 		return QVariant(0);
 	}
 	case 0x7598:     // +0x225 查询(SUB81 字节读)
@@ -2018,6 +2065,14 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   保留待归)
 		m_ctx.flagD91 = a.toBool();
 		// FUN_00a22c4e(28B)/FUN_00a2509a — cited — wave-2
+		return QVariant(0);
+	}
+	case 0x7580: {   // +0xd8f = a.toBool() + vt+0xa0 刷新(L23532-35
+	                 //   <0x7580 边界 else 腿;与 0x7581 的 +0x1b2 开关
+	                 //   (FUN_00a28316/editor_getSelRange 双腿)异体 —
+	                 //   独立转写;同型见 0x758b)
+		m_ctx.flagD8f = a.toBool();
+		// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
 		return QVariant(0);
 	}
 	// 0x7583 归属核定案(批 66):唯一语义 = pairHighlightUnmatched

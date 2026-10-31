@@ -1368,7 +1368,8 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   engtest3 直跑 OK
 
 ### 批 77(2026-10-31)四 lane 并行:代理 spawn 落码/装配链三层/0x7576 接线/全量清点 ✅
-- **代理 spawn S1-S5 全腿落地**(X1):FUN_0065d482 真身(env ``/`=`
+- **代理 spawn S1-S5 全腿落地**(X1):FUN_0065d482 真身(env `
+`/`=`
   恰 2 段解析叠加 systemEnvironment/QProcess 重建/4×DirectConnection
   /start)+ **setProxyCommand 真身补齐批 74 缺失的末 token 回填** +
   workingDir setter 骨架;cited 残腿 3(宏展开/once-guard/桥闭包)
@@ -1388,6 +1389,25 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   有据)
 - 本批落:0x7585 结构真身(FUN_00925310 setter bool 返回)/
   0x7565/0x754e cited 锚/0x7555·0x7557 同体 fallthrough 标签并列
+- 验证:make 零错;ctest 7/7;engtest3 直跑 OK
+
+### 批 78(2026-10-31)三 lane 并行:0x7596 专用/疑共腿核落/ctrl 破案 ✅
+- **0x7596 setMargin 落地**(Y1):门(+0x1ae)+ "name" 匹配
+  (marginList memcmp→QString 同构)真身;命中键回写/append 腿
+  cited(MarginEntry 位级布局待建模)
+- **0x7580/0x759d 均异体独立转写**(Y1 核定):0x7580 = +0xd8f bool
+  (flagD8f **归位**,批 69"待归"解消)/0x759d = +0x111c int 写
+  (hexSub111c;hexMode 开 → soft_reset cited)—— 与 0x7581/0x759e
+  非共腿
+- **keymap ctrl 源头破案**(Y3):ctrl = **boost::xpressive 正则编译
+  产物**(链 00678a56→00677d7e→0068aaf0 4118B opcode 分派,"expression
+  cannot be quantified" + dynamic.hpp 路径铁证)→ **属装载腿非 JS 面**
+  (勘正 km2/批 75 注记);落地批 = KeymapEngine 装载腿批(ctrl 用
+  std::shared_ptr 承载即闭环 §5/§7/§8);§11-15 全勘察毕:§13 wcstol
+  = std::stoi 语义/§12 等 JsEngine 批/§15 槽项 = shared_ptr<Payload>
+- 渲染核跨模型组分级(Y2):A− 2(hotSpot/parsePairDef)/B+ 2/
+  B 需新模型 3(selection chunked-deque 0x38/项等)/C+ 骨架 1
+  (a66ae8 浮点表 T=ed[3] 五元未解);怪癖 7 条登记
 - 验证:make 零错;ctest 7/7;engtest3 直跑 OK
 
 ### 待解(批 30 后剩余)
