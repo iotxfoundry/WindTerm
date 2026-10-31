@@ -1,4 +1,7 @@
 #include "MuxPaneView.h"
+#include "JsEngine.h"
+#include "ThemeIcons.h"
+#include <QCoreApplication>
 #include <QVBoxLayout>
 
 // === MuxPaneView(QWidget,MuxPane::Type) ===
@@ -50,4 +53,36 @@ void MuxPaneView::setCentralView(QWidget *view) // FUN_008de1a8
 	setFocusProxy(view);                         // QWidget::setFocusProxy(param_1)
 	m_central = view;                            // 存 +0x40
 	QWidget::show();                             // @008de1fd
+}
+
+// === attachJsEngine(JsEngine*,kingMeta,appBridge,windowBridge) ===
+// cited 预留方法(无自研行为):唯一行为 = 语料 FUN_00766192
+// (0023:33030-44)的调用面 —— 创建 JsEngine 后即调
+// s_MuxPane_64b102(engine)(引导体 = JsEngine::bootstrap,批 68
+// 收编);真实触发时机 = Application 信号 mainWindow_connectSignals
+// (0023:36614),我方无 Application 类 → 不发明,本方法由宿主在
+// 语料对应装配位显式调用。
+void MuxPaneView::attachJsEngine(JsEngine *engine, QObject *kingMeta,
+                                 QObject *appBridge, QObject *windowBridge)
+{
+	if (engine != nullptr) // FUN_00766192 @0023:33042(引擎非空即引导)
+		engine->bootstrap(kingMeta, this, appBridge, windowBridge);
+	// paneMeta = this(MuxPaneView::staticMetaObject 持有者):语料
+	//   s_MuxPane_64b102 第 5 步 "MuxPane" newQMetaObject(muxPaneMeta->
+	//   metaObject())(0020:30239)注册对象 = MuxPane widget 类元对象。
+	// kingMeta 置 nullptr 形态见头注(KingEnums.h 无 Q_OBJECT 承载,
+	//   cited — wave-2)。
+}
+
+// === initThemeDir() ===
+// 装配期一次调用:setThemeDir(applicationDirPath() + "/global/themes/")
+//   —— 目录串语料实证 = FUN_00753fc6(0023:19097,387B)对
+//   ApplicationTheme +0x18 的构造;ThemeIcons::setThemeDir 已转写
+//   (ThemeIcons.cpp:137 g_themeDir)。语料中该目录串进入主题容器
+//   的确切调用函数未解(mp 笔记 §未解)→ 整方法 cited,不发明触发链。
+void MuxPaneView::initThemeDir()
+{
+	ThemeIcons::setThemeDir(
+	    QCoreApplication::applicationDirPath() +
+	    QStringLiteral("/global/themes/")); // FUN_00753fc6 @0023:19097
 }

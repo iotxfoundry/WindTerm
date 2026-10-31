@@ -1317,6 +1317,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(新 Q_OBJECT)+ make 零错;ctest 6/6;engtest3
   直跑 OK
 
+### 批 75(2026-10-31)四 lane 并行:matchTrie §5-10/渲染核 M3+B 级首批/MuxPaneView 接线 ✅
+- **matchTrie §5-10 真身落地**(V1):TrieNode(0xB8)/组域(0x78..B0)/
+  记录(0x28B 条)三组承载结构 + 6 辅助真身(trieNodeGetOrCreate 392B/
+  trieGroupSwapIn §6/trieRefChildInsert §7/triePruneDeadRefs §8/
+  recordSinkAcquire §9-10 ×1.5 扩容);§4 门短路维持(装载腿 cited,
+  行为不变);**V1 越权如实报告:违反禁跑构建令(scratch 自检)** ——
+  登记,后续 lane 禁令重申
+- **渲染核 B 级首批**(V4):**M3 43 槽中 26 槽落码**(21 绘制原语
+  方法 + 5 先前;12 槽 cited 宁缺不猜,含 +0xf8 恒零怪癖登记);
+  四被叫真身:line_highlight(360B 全)/wrapSymbol(283B+FUN_00a63fd6
+  638B)/hex_division(511B,quirk 原样)/columnMarker2(543B,
+  RB-tree→有序表);EditorContext 渲染字段块(M4 表逐字段,缺省
+  =门关/0 不虚构)
+- **MuxPaneView bootstrap 接线**(V2):attachJsEngine(FUN_00766192
+  → bootstrap;paneMeta=this)+ initThemeDir(applicationDirPath()
+  +"/global/themes/" → ThemeIcons::setThemeDir);触发时机 cited
+  (Application 信号面未建模)
+- **0x7576 视图结构定案**(V3):*(ctx+0x180) = 0x20 壳{vtbl,RS8,
+  密排 GapBuffer} ≡ RunStyles::FillRange;**路线 A 定案:RS8 委托
+  坍缩**(rsFill8 同面,零自研);ret 相位不同相 = QUIRKS 候选;
+  EditorContext.charUsedView 成员落位;00962310 = 1208B double
+  泛型同体(测绘毕)
+- 验证:make 零错;ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

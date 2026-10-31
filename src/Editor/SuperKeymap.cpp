@@ -390,14 +390,230 @@ int SuperKeymap::feedKey(KeymapInputRecord &record, uint key, int flags)
 	return result == 0 ? (chord ? 0 : 1) : 1;
 }
 
+// ── 走查体辅助真身(§5-§10)────────────────────────────────
+
+// FUN_00681a40(392B,0021.c 4594-4671)语料转写:§5 节点获取/复位。
+//   *out = 0;槽空/槽 use==1 → 复用现有(*out 保持 0,§6-§8 跳过);
+//   否则新建 0xb8 节点(布局 4622-4643)+ 0x18 ctrl(PTR_FUN_011895b0,
+//   use++ 4649-4651)+ +0x60 self/+0x68 ctrl(4652-4659)换入槽;
+//   *out = 旧根(use 已 ++ 持有,4609-4618),槽换新后旧根 FUN_0067fae4
+//   释放面由调用方走查收尾承载(§6-§8 后 use-- 复位)。
+//   ctrl 块(PTR_FUN_011895b0/_Sp_counted_base)属语料运行时 —— cited —
+//   wave-2:ctrl 不落地,+0x68 置空(use/use-- 原子计数保留语义承载)。
+static TrieNode *trieNodeGetOrCreate(TrieNode **slot)
+{
+	TrieNode *snap = nullptr;   // *param_1 = 0(4604)
+	if (*slot != nullptr) {   // 4605
+		if ((*slot)->use == 1)   // 4606:use==1 → 复用直返
+			return snap;
+		// 4609-4614:LOCK;旧根 use++(持有)
+		(*slot)->use += 1;
+		snap = *slot;   // 4615-4616:*param_1 = 旧根
+	}
+	// 4622-4643:0xb8 节点新建(布局逐字段;std 成员 ctor 承载零值)
+	TrieNode *node = new TrieNode;
+	node->payloadSelf = node;   // 4652:+0x60 = self
+	// 4645-4659:0x18 ctrl + +0x68 挂接 —— cited — wave-2(ctrl 块不落地)
+	// 4664-4668:*param_2 = 新节点(槽换入)
+	*slot = node;
+	return snap;   // 4670
+}
+
+// LAB_006759bf(62664-62681)+ FUN_0067fae4(82B,0021.c 2217-2245)承载:
+//   use-- → 0 → 树1 走查回收(FUN_0067faa0 2219-2213:右子递归 + 左链迭代,
+//   节点 +0x28 值 ctrl refcounted_vt_destroy —— ctrl cited,键树条目释放
+//   随 std::set 析构承载)+ 字段复位(+0x10/18/20/28 = 树1 空、+0x60/+0x68)。
+static void trieNodeReset(TrieNode *node)
+{
+	if (node == nullptr)
+		return;
+	node->use -= 1;   // 62665-62668(LOCK;use--)+ 2217-2228(FUN_0067fae4)
+	if (node->use != 0)
+		return;   // 2229-2231
+	node->keyTree.clear();          // 62670 + FUN_0067faa0 树1 回收
+	node->keyTree = {};             // 62671-62674:树1 复位(0021.c 2232-2236
+	                                //   parent/left/right/count 复位形)
+	// 树2 不复位 —— FUN_0067fae4(0021.c 2232-2243)仅 +0x10/18/20/28/
+	//   +0x60/+0x68 域,不含树2(语料原样;裁剪由 §8 承担)。
+	node->payloadSelf = nullptr;    // 62675:+0x60 = 0(2237)
+	// 62676-62680:+0x68 ctrl 释放(refcounted_vt_destroy)—— cited — wave-2
+	node->payloadCtrl = nullptr;
+}
+
+// §7(62844-62871,LAB_006761d1)真身:root payload 对插入 child 树2。
+//   键 = {payload raw@+0x60, ctrl@+0x68}(62847-62848);ctrl 非空 →
+//   weak++(62849-62853,LOCK *(ctrl+0xc)+=1 —— ctrl 块属 shared/JS 面,
+//   cited — wave-2);FUN_006857f4 get_insert_hint(比较读 value.second,
+//   命中位非空才插,62856)→ operator_new(0x30)(62864)+ 值写 +0x20/+0x28
+//   (62865-62866)+ _Rb_tree_insert_and_rebalance(62869)+ +0x58++
+//   (62870);未插入 → 持键释放(62872-62886 weak--/两段释放 —— cited)。
+static void trieRefChildInsert(TrieNode *root, TrieNode *child)
+{
+	if (child == root)   // 62846:p_Var41 != p_Var14 门
+		return;
+	// 62849-62853:ctrl 非空 weak++ —— ctrl cited(块不落地,占位注记)
+	const auto key = std::make_pair(reinterpret_cast<void *>(root),
+	                                root->payloadCtrl);
+	auto r = child->refTree.insert(key);   // 62854 FUN_006857f4 同形
+	if (r.second) {                       // 62856-62857:命中位非空才插
+		                                  //   (62864 operator_new(0x30)+
+		                                  //   62869 rebalance 由 insert 承载)
+		child->refCount += 1;             // 62870:+0x58 侧挂计数++
+	} else {
+		// 62872-62886:未插入 → 持键释放(weak-- → 0 → _M_release
+		//   vptr+0x18==FUN_0067a2a0 ? vptr+8 : vptr+0x18)—— cited — wave-2
+	}
+}
+
+// §8(62928-63130,LAB_00676681)真身:root 树2 死引用裁剪。
+//   从 begin 起逐项 use-CAS 活体探活(63051-63064,_Sp_counted_base use@+8
+//   CAS 环 —— weak_ptr::lock 形):ctrl 空或探活失败 → erase(63075
+//   _Rb_tree_rebalance_for_erase)+ 换出节点 ctrl weak--(63078-63091,
+//   cited)+ operator_delete(0x30)(63092)+ +0x58--(63093);探活成功
+//   → 持有并判 63015 退出式:活体 raw(*node+0x20)≠ 当前 child 即停
+//   (local_248=p_Var14,63012;km2 §8 裁剪判式定案)。held 持有释放
+//   (63096-63120)随循环退出承载。ctrl 引用计数操作 cited — wave-2。
+static void triePruneDeadRefs(TrieNode *root, TrieNode *child)
+{
+	// 63007-63012:遍历对持有(rbtree_refShared begin 持有 62887-62896;
+	//   held = {raw, ctrl};ctrl 引用计数 cited — wave-2,块不落地 →
+	//   持有释放(63096-63120)不落码,判式形状按语料保留)
+	for (auto it = root->refTree.begin(); it != root->refTree.end();) {
+		void *ctrl = it->second;                 // 63020:*(node+0x28)
+		// 63051-63064:CAS 环(use@+8 活体探活;中途归零 → 探活失败)
+		//   —— ctrl cited — wave-2:块不落地,探活恒不可行 → 按语料
+		//   死路径承载(erase + 计数--)
+		bool alive = false;   // CAS 承载(ctrl 块缺失 → 按死裁)
+		if (ctrl == nullptr || !alive) {         // 63021 空 / 探活失败
+			// 换出节点 ctrl weak-- → 0 → _M_release 两段(63078-63091,
+			//   vptr+0x18==FUN_0067a2a0 哨兵 ? vptr+8 : vptr+0x18)
+			//   —— ctrl cited — wave-2(块不落地)
+			it = root->refTree.erase(it);        // 63075 rebalance_for_erase
+			root->refCount -= 1;                 // 63093:+0x58--
+			continue;
+		}
+		// 63065-63068:CAS 成功 → 持有 {raw, ctrl};63015 退出式:
+		//   活体 raw ≠ 当前 child(local_248 = p_Var14)→ 停(LAB_006755fd)
+		if (it->first != reinterpret_cast<void *>(child))
+			return;
+		++it;   // 63016:_Rb_tree_increment
+	}
+}
+
+// §6(62662-62843)真身:子表组快照换入(km2 §6 定案:
+// `snap = node->group; std::swap(...)` 形)。
+//   snap(use++ 持有的旧根)非空且 ≠ 新根 →
+//   ① 62702-62717 树1 极值下行克隆(FUN_00686134 掉参)+ 62718-62719
+//      FUN_00683ad6 整树换空/FUN_0067faa0 释放换出 —— cited — wave-2
+//      (km2:掉参未逐句核,该腿保持注记);
+//   ② 62720-62779 snap 组拷贝:3 槽 ref++(62720-62737,ctrl cited)+
+//      children COW 深拷(62738-62777,rep[-8]++/clone —— Qt COW 承载)+
+//      +0xa8/+0xb0 裸拷(62778-62779);
+//   ③ 62781-62797 FUN_00683ad6(p_Var41,&local_1c8)+ 八槽逐字段交换
+//      = 整组 std::swap;
+//   ④ 62795-62836 换出组释放:children ref--(62807-62812 FUN_00673ecc
+//      wstring rep--;Qt COW 由临时析构承载)+ 缓冲 operator_delete
+//      (62813-62815)+ 三槽释放(+0x88/+0x80 use@+8 vptr+8 dispose
+//      62816-62833、+0x78 qslotobject_release_destroy2 62834-62836,
+//      ctrl cited)+ 62837-62839 refcounted_vt_destroy(local_160);
+//   ⑤ 62840-62841 FUN_006809c0/FUN_0067faa0 旧树收尾(批 72 测绘,cited)。
+static void trieGroupSwapIn(TrieNode *root, TrieNode *snap)
+{
+	// ① 树1 克隆/交换/回收(62702-62719)—— cited — wave-2
+	//   (FUN_00686134 掉参腿,km2 §6 极值下行保持注记)
+	// ② 组快照拷贝(62720-62779)
+	KeymapChildGroup snapGroup = snap->group;   // COW:children ref 承载;
+	                                            // 3 槽 ref++ ctrl cited
+	// ③ 整组交换(62781-62797:八槽逐字段交换 = 组结构 swap)
+	std::swap(root->group, snapGroup);
+	// ④ 换出组(现居 snapGroup)释放(62795-62836):
+	//    children 元素 wstring rep--/clone 回收 —— Qt QVector 析构承载;
+	//    缓冲 operator_delete(62813-62815)随容器析构;
+	//    三槽释放 ctrl cited — wave-2(62816-62836)
+	snapGroup = KeymapChildGroup{};   // 旧组析构承载
+	// ⑤ 旧树收尾(62840-62841)—— cited — wave-2
+}
+
+// §9-10(63131-63379)真身:记录宿主 + 记录向量扩容。
+//   宿主空 → operator_new(0x38)(63148)+ 自指链头(63159-63160)+
+//   strong++(63161-63163);容量:需求 n = [+0xa8] + [+0xb0] + 1
+//   (63245);当前向量(宿主内联缓存@+8..+0x20)容不下 →
+//   首配 max(n,0x100)(63257-63259)/增长 ×1.5(63296-63297,double 乘
+//   + 9.22e18 溢出钳 63298-63303 —— qAllocMore 签名,非 std::vector ×2)
+//   → 新 0x28 节点 + 新缓冲(operator_new(n*0x28))+ 逐条初始化
+//   {owner,owner,0,0,owner,0}(63267-63275)+ 双向链接(63330-63335:
+//   node[3]=旧链头;旧+0x18=新)+ 旧链换出挂历史(63219-63242)。
+//   写入条 = payload+0xb0(63381:begin + [+0xb0]*5)。
+static KeymapMatchRecord *recordSinkAcquire(KeymapRecordSink &sink,
+                                            quint64 xA8, quint64 xB0,
+                                            const wchar_t *owner)
+{
+	const quint64 need = xB0 + 1 + xA8;   // 63245:lVar43 + 1 + plVar27[0x15]
+	// 63254:当前向量容量门(lVar28*0xcccccccd 魔数 = (bytes/8)/5 → 0x28/条)
+	if (sink.cap < need) {
+		quint64 newCap;
+		if (sink.curNode == nullptr) {   // 63256:无历史节点(首次)
+			newCap = 0x100;              // 63257
+			if (0xff < need)
+				newCap = need;           // 63258-63259
+		} else {
+			// 63296-63297:×1.5(double 乘)
+			double grown = static_cast<double>(sink.cap) * 1.5;
+			if (9.223372036854776e+18 <= grown)   // 63298:溢出钳
+				newCap = static_cast<quint64>(grown - 9.223372036854776e+18)
+				         ^ 0x8000000000000000ULL;   // 63299(语料位形)
+			else
+				newCap = static_cast<quint64>(grown);   // 63302
+			if (newCap < need)   // 63304
+				newCap = need;
+		}
+		// 63308:新 0x28 节点 {begin,end,cap,next,prev}(63195-63204 析构二链:
+		//   0x28 节点链 delete 走查 + 另一链 delete(·,0xe0)尺寸矛盾未解)
+		struct HistNode {
+			KeymapMatchRecord *begin;
+			KeymapMatchRecord *end;
+			KeymapMatchRecord *cap;
+			HistNode *next;
+			HistNode *prev;
+		};
+		HistNode *node = new HistNode;   // 63262 operator_new(0x28)承载
+		// 63312:operator_new(newCap * 0x28)新缓冲 + 63313-63323 逐条初始化
+		KeymapMatchRecord *buf = new KeymapMatchRecord[newCap];
+		for (quint64 i = 0; i < newCap; ++i) {
+			buf[i].rep = owner;       // 63316
+			buf[i].tail = owner;      // 63317
+			buf[i].flag = false;      // 63318
+			buf[i].pad = 0;           // 63319
+			buf[i].rep2 = owner;      // 63320
+			buf[i].flag2 = false;     // 63321
+		}
+		node->begin = buf;                          // 63326
+		node->end = buf + need;                     // 63327:puVar34+uVar39*5
+		node->cap = buf + newCap;                   // 63329:puVar46
+		node->prev = static_cast<HistNode *>(sink.curNode);   // 63330:node[3]=旧
+		node->next = nullptr;                       // 63331:uVar29(旧+0x20 形)
+		if (sink.curNode != nullptr)
+			static_cast<HistNode *>(sink.curNode)->next = node;   // 63332-63335
+		sink.curNode = node;                        // 63283:宿主+8 换节点
+		sink.begin = buf;                           // 63284:+0x10
+		sink.end = buf + need;                      // 63285:+0x18
+		sink.cap = newCap;                          // 63286:+0x20
+		// 63219-63242 旧内联缓冲链挂历史(宿主身份未解,消费腿 cited;
+		//   旧缓冲由旧 0x28 节点链持有 —— 63195-63204 析构走查随宿主)
+	}
+	// 63381:写入条 = begin + [+0xb0]*5(写入下标由 §11 消费,cited)
+	return sink.begin != nullptr ? sink.begin + xB0 : nullptr;
+}
+
 // FUN_0067500e(9978B,decomp-part-0020.c 62391-63957)15 段,P3 勘察
-// §3 地图逐段转写。本批裁决:§5-§11/§13-§15 的执行前提 = Trie 根
-// (entry+0x18 槽),该槽由装载翼 onig 编译腿(00678295-006783fe →
+// §3 地图逐段转写。本批裁决:走查体执行前提 = Trie 根(entry+0x08 槽,
+// 语料 *(lVar7+8)),该槽由装载翼 onig 编译腿(00678295-006783fe →
 // FUN_00687320 换入)建立 —— 该腿在案 cited — wave-2,根槽恒空 →
 // §4 首门(00675296:根空或 *(根+0x78)==0 即出)短路全部走查体,
 // 与批 72 骨架行为一致(匹配恒未竟,不产生伪结果)。因此本批落点 =
 // ①谓词/分发等跨段辅助真身(0075debe/0066a116/编解码,上方);
-// ②全段逐句注记(行号锚,装载腿落地后按此转写):
+// ②§5-§10 真身化(批 75,km2 §6-8 定案,辅助真身上方);
+// ③其余段逐句注记(行号锚,装载腿落地后按此转写):
 //   §1(62391-62616)局部初始化:out 指针数组形(feedKey 已填)。
 //   §2(62617-62635)外层槽循环(LAB_00675222):QList detach
 //       (FUN_0067e3dc)→ 槽项{shared_ptr@0, ctrl@8} → sp ref++
@@ -414,24 +630,18 @@ int SuperKeymap::feedKey(KeymapInputRecord &record, uint key, int flags)
 //       +0x70 use、+0x78..+0xb0 槽)挂 shared ctrl(PTR_FUN_011895b0)
 //       换入;use 减到 0 → FUN_0067fae4(82B)→ FUN_0067faa0(67B)
 //       递归子树回收 + 字段复位(+0x10/18/20/28/60/68)。
-//   §6/§7/§8(62737-63130)— 注记级(逐句读毕,意图未定案):§6 =
-//       根组 {+0x78/+0x80/+0x88 三 shared 槽 ref++,+0x90/+0x98 子键
-//       vector 深拷贝} 经 FUN_00683ad6(238B,Rb 整树交换)换入根后
-//       旧组释放(FUN_006809c0/FUN_0067faa0)—— 复位/重建语义候选,
-//       换出-换入次序与 learn 意图未定案;§7 LAB_006761d1:子节点
-//       遍历(begin=*(根+0x18)),FUN_006857f4(137B,键=ctrl 指针
-//       比较 +0x28)查 → _Rb_tree_insert_and_rebalance 插(键 =
-//       根 payload {+0x60/+0x68},+0x58 计数++);§8 双树裁剪
-//       LAB_00676681-00676722:第二棵 Rb(+0x30 头)逐项 refcount
-//       CAS 比对(_M_use_count 相等则持有,不等/空 →
-//       _Rb_tree_rebalance_for_erase + operator_delete + 计数--),
-//       裁剪判定的语义(何种失配触发)未定案 → 保持注记,不落码。
-//   §9(63131-63281)记录向量:local_90 0x38 容器(引用头+vector),
-//       容量 = 根 +0x60 payload 向量 [0x15]+[0x16]+1;记录 0x28B/条
-//       = 5 qword {owner,owner,byte,0,owner,byte}(00676e5f-00676e77
-//       初始化式);首配下限 0x100(00676e4b)。
-//   §10(63282-63342)×1.5 扩容(LAB_00676af5:dVar49 = count×1.5,
-//       00676b75;新块 0x28/条初始化 + 旧链卸挂 00676b9b-00676bb6)。
+//   §5(62636-62662)节点获取/复位:trieNodeGetOrCreate(FUN_00681a40
+//       真身,上方)/ trieNodeReset(LAB_006759bf+FUN_0067fae4 真身)。
+//   §6/§7/§8(62662-63130)真身化(批 75,km2 定案):§6 = trieGroupSwapIn
+//       (组快照整组 std::swap 换入;树1 克隆腿 cited);§7 = trieRefChildInsert
+//       (std::set<pair,CtrlLess> 插入 + +0x58++);§8 = triePruneDeadRefs
+//       (use-CAS 活体探活裁剪,ctrl cited);换出旧根收尾 trieNodeReset。
+//   §9(63131-63281)记录向量:recordSinkAcquire 真身(local_90 0x38 容器
+//       承载 = KeymapRecordSink;容量 = payload+0xa8 预算 + [+0xb0] + 1;
+//       记录 0x28B/条 = KeymapMatchRecord {rep,tail,flag,pad,rep2,flag2};
+//       首配下限 0x100(00676e4b));宿主历史链消费腿 cited。
+//   §10(63282-63342)×1.5 扩容(63296-63303 double 乘 + 9.22e18 溢出钳)
+//       = recordSinkAcquire 真身内;旧链卸挂(63330-63335)真身内。
 //   §11(63350-63360)FUN_00683c80(554B)克隆 payload 列表 → 记录
 //       挂链(local_98);plVar27 = *(节点+0x78) → 虚调 vtable+0x10
 //       (plVar27,&local_268) 返回 bool = 匹配谓词(00675f2c 调用形,
@@ -480,11 +690,46 @@ int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
 		// §3(62636)模式门:modesMask(+0x24)& 旗标;不满足 → 下一槽项
 		if ((entry.modesMask & out.flags) == 0)
 			continue;
-		// §4(62638-62662)首门(00675296):Trie 根 = entry+0x18 槽
-		//    (onig 编译腿换入,cited — wave-2 未建)——根空(语料
-		//    *(lVar7+8)==0 或根谓词槽 *(根+0x78)==0)即出,走查体
-		//    (§5-§13)整体短路;逐段转写落点见函数头注记。
-		break;   // 根槽空(§4 门)→ 出 token 循环
+		// §4(62638-62662)首门(00675296):Trie 根 = entry+0x08 槽
+		//    (语料 *(lVar7+8);onig 编译腿换入,cited — wave-2 未建)
+		//    ——根空或根谓词槽 *(根+0x78)==0 即出。
+		TrieNode *root = entry.trieRoot;   // 62643:*(lVar7 + 8)
+		if (root == nullptr || root->group.pred == nullptr)
+			break;   // §4 门 → 走查体(§5-§13)整体短路(装载腿 cited)
+		// §5(62659)FUN_00681a40(&local_3d8,lVar7+8):获取/换入走查
+		//    节点(snap = 旧根 use++ 持有,或空 = 复用腿 §6-§8 跳过)
+		TrieNode *snap = trieNodeGetOrCreate(&entry.trieRoot);
+		root = entry.trieRoot;   // 62661:p_Var41 = 换入后根
+		if (snap != nullptr && snap != root) {
+			// §6(62662-62843)组快照整组 std::swap 换入(树1 克隆腿 cited)
+			trieGroupSwapIn(root, snap);
+			// §7(62842-62871)树1 遍历:条目值 raw@+0x20 = 旧根子节点,
+			//    逐个把本根 payload 对插入其树2(键树装载 cited → 空树
+			//    循环零次,判式按语料保留)
+			for (const auto &kv : root->keyTree) {
+				auto *child = static_cast<TrieNode *>(kv.first);   // 62845
+				if (child == nullptr)
+					continue;
+				trieRefChildInsert(root, child);   // §7 LAB_006761d1
+				triePruneDeadRefs(root, child);    // §8 LAB_00676681
+			}
+			// 收尾(63876-63879 → 63125-63129):FUN_00686cb0 交叉审计
+			//    (cited — wave-2)→ 旧根复位(LAB_006759bf)
+			trieNodeReset(snap);
+		}
+		// §9-10(63131-63379)记录向量真身:宿主 0x38(local_90 承载)+
+		//    容量门/×1.5 扩容 + 写入条 = begin + [+0xb0](63381);
+		//    owner = token rep(63268 local_250 = p_Var8);§11 叶写/
+		//    谓词虚调(cited — wave-2)消费此向量。
+		KeymapRecordSink sink;   // 63146-63211
+		out.sink = &sink;        // §13 消费面挂出(cited — wave-2)
+		const ushort t0 = tokens.isEmpty() ? 0 : tokens[0].at(0).unicode();
+		(void)recordSinkAcquire(sink, root->group.xA8, root->group.xB0,
+		                        reinterpret_cast<const wchar_t *>(
+		                            static_cast<uintptr_t>(t0)));
+		// §12-§15(63361-63957)— cited — wave-2(when JS 腿/命中分发/
+		//    收尾)—— 走查体保持注记级,见函数头逐段落点。
+		return out.result;   // 装载腿 cited(Trie 根未建)恒 0(不伪造 1/2)
 	}
-	return out.result;   // 装载腿 cited(Trie 根未建)恒 0(不伪造 1/2)
+	return out.result;
 }

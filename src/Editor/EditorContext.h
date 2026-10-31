@@ -214,6 +214,11 @@ public:
 	QString eName;                     // E+0x2b8
 	void *ePool = nullptr;             // E+0x118(线程池,0x754d)
 	QHash<QString, QColor> styleTable; // 样式表占位(0x7547 S3;+0xe00 面未建模)
+	// char-used 视图(批 75 勘察:*(ctx+0x180) = 0x20 壳{vtbl, RS8,
+	//   密排 GapBuffer} ≡ RunStyles::FillRange;路线 A = RS8 委托坍缩,
+	//   与 MarkersStore rsFill8 同面;ret 1=吸收/0=新写 与 changed
+	//   不同相 = QUIRKS 候选,76c 笔记)
+	Scintilla::RunStyles<int, char> *charUsedView = nullptr;
 	QVector<RunNode> markers;
 	int markerInsert(const RunNode &n)
 	{
@@ -233,6 +238,24 @@ public:
 		return (idx >= 0 && idx < markers.size()) ? markers.at(idx)
 		                                          : RunNode{};
 	}
+
+	// --- 渲染 doc/ed 字段(批 75 B 级四被叫;r5 §3 M4 表逐字段补)---
+	//   写入命令未落地:全部缺省 = 门关/0(安全缺省,不虚构)
+	double indentWidthCf8 = 0.0;       // doc+0xcf8 缩进宽(columnMarker2/wrapSymbol/hex_division)
+	int foldCountD34 = 0;              // doc+0xd34(columnMarker2 x 修;r3"折叠计数")
+	double highlightOffsetD0c = 0.0;   // doc+0xd0c line.highlight x 修(s_line_highlight)
+	bool lineHighlightOn = false;      // doc+0xd4f line.highlight 开(s_line_highlight 门)
+	int hexGroupWidth = 0;             // doc+0xd54 hex 组宽(s_hex_division)
+	bool columnMarkerOn = false;       // doc+0xd58 列标记开(columnMarker2 门)
+	int columnMarkerMode = 0;          // doc+0xd5c 模式(==0 时 columnMarker2 承接)
+	bool wrapSymbolOn = false;         // doc+0xda0 wrapSymbol 开(s_line_wrapSymbol 门)
+	bool flagEc2 = false;              // ed+0xec2(FUN_00a75976 早退门;M4 表"selection flag")
+	int hexByteWidth1118 = 0;          // ed+0x1118 hex 字节宽(s_hex_division 取模)
+	int hexSub111c = 0;                // ed+0x111c(FUN_00a28aea 余数子模)
+	double bufD18 = 0.0;               // buffer+0x18(FUN_00a218e8 左缘 int 截断;wrapSymbol)
+	QList<int> columnMarkers;          // doc+0xd78 列 RB-tree(节点 +0x20 int)行为模型:
+	                                   //   有序表 in-order 遍历(markersStore 同款先例,
+	                                   //   单线程等价;插入语义 00a682e6 cited)
 
 	// --- 语义动作 ---
 	void setHexBase(int base)

@@ -9,6 +9,57 @@
 #include <QVector>
 #include <QObject>
 
+#include <set>
+#include <utility>
+
+// TrieCtrlLess —— FUN_006857f4(137B,0021.c 8233-8282)比较器承载:
+// get_insert_hint 探测键序 = 读 value.second(+0x28)即 ctrl 指针
+// (62858 实证 `local_370 < *(node+0x28)`),非 pair 全序。
+struct TrieCtrlLess {
+	bool operator()(const std::pair<void *, void *> &a,
+	                const std::pair<void *, void *> &b) const
+	{
+		return a.second < b.second;
+	}
+};
+
+// KeymapChildGroup —— TrieNode +0x78..+0xb0 组域(p3_notes_km2 §6 定案,
+// 8 qword;FUN_00681a40 00681b0a-00681b7a 布局 + §6 组交换 62781-62797):
+//   +0x78 pred QSlotObjectBase*(ref@+4;§4 门谓词槽;qslotobject_release_destroy2)
+//   +0x80/+0x88 slotA/slotB(use@+8;vptr+8 dispose,62816-62833)
+//   +0x90..+0xa0 children vector<pair<wstring,X>>(COW 16B/元素 62738-62777;
+//       rep[-8]++/clone —— Qt QVector COW 同契约承载)
+//   +0xa8 记录向量预算(§9 need = +0xb0 + 1 + +0xa8,63245)
+//   +0xb0 记录写入下标(63381 plVar40 = begin + [+0xb0]*5)
+struct KeymapChildGroup {
+	void *pred = nullptr;                    // +0x78
+	void *slotA = nullptr;                   // +0x80
+	void *slotB = nullptr;                   // +0x88
+	QVector<QPair<QString, void *>> children; // +0x90..+0xa0(COW 承载)
+	quint64 xA8 = 0;                         // +0xa8
+	quint64 xB0 = 0;                         // +0xb0
+};
+
+// TrieNode —— FUN_00681a40 0xb8 节点域转写(decomp-part-0021.c 4622-4643):
+//   +0x08 树1 {color@8,parent@0x10,left@0x18,right@0x20,count@0x28}
+//     值 = {payload raw@0x20, ctrl@0x28}(shared:FUN_00686134 克隆 use@+8++,
+//     FUN_0067faa0 释放 refcounted_vt_destroy);装载腿 cited — wave-2
+//   +0x30 树2 {color@0x30,parent@0x38,left@0x40,right@0x50,count@0x58}
+//     值 = {payload raw@0x20, ctrl@0x28}(weak:§7 插入 weak@+0xc++,
+//     §8 死引用裁剪)—— std::set<pair,CtrlLess> 承载
+//   +0x60 payload self / +0x68 ctrl(shared;ctrl 挂接 cited)
+//   +0x70 use(LOCK 原子)
+//   +0x78..+0xb0 KeymapChildGroup
+struct TrieNode {
+	std::set<std::pair<void *, void *>, TrieCtrlLess> keyTree;  // +0x08 树1
+	std::set<std::pair<void *, void *>, TrieCtrlLess> refTree;  // +0x30 树2
+	quint64 refCount = 0;        // +0x58 树2 侧挂计数(§7 ++/§8 --)
+	TrieNode *payloadSelf = nullptr;   // +0x60
+	void *payloadCtrl = nullptr;       // +0x68(cited — wave-2)
+	quint64 use = 0;                   // +0x70
+	KeymapChildGroup group;            // +0x78..+0xb0
+};
+
 // KeymapEntry —— 00677d7e 0x50 节点域转写(operator_new(0x50),
 // vtable PTR_FUN_01189508;shared 头@+0..+0xf → 条目域自 +0x10 起):
 //   +0x10 keys 编码 wstring(keys_parseAngleNotation 00674cdc 产物)
@@ -26,6 +77,11 @@ struct KeymapEntry {
 	int actionType = 0;         // +0x28
 	QVariant payload;           // +0x30
 	QVariant when;              // +0x40
+	// +0x08 槽承载 —— Trie 根(FUN_00681a40 换入槽;§4 门 00675296
+	//   读 *(lVar7+8):根空或 *(根+0x78)==0 即出)。onig 编译腿
+	//   00678295-006783fe → FUN_00687320 建树换入,cited — wave-2
+	//   (装载腿未落地 → 恒空,§4 门短路走查体)。
+	TrieNode *trieRoot = nullptr;   // +0x08 槽(shared_ptr<TrieNode> 承载)
 };
 
 // 匹配上下文记录 —— FUN_006741a0(55B)转写:{QList*@0, wstring@8,
@@ -47,6 +103,46 @@ struct KeymapInputRecord {
 	}
 };
 
+// KeymapMatchRecord —— §9-10 记录条目(p3_notes_km2 §9 定案,0x28B/条,
+// 5 qword;初始化式 00676e5f-00676e77 / joined_r0x00675bbc 63369-63378):
+//   {rep, tail, flag, pad, rep2, flag2}
+//   初始 = {owner=token rep, owner, 0, 0, owner, 0};叶写(谓词 false,
+//   63429-63433)= rec[0]=rec[3](rep←rep2)、rec[1]=token 尾指针(63432
+//   local_248=p_Var3)、rec[2]byte=0。命中 token {rep,tail} 裸视图,
+//   非拥有(生命周期依赖 token 存活;疑似悬伏点,原样保留不修)。
+//   §13 QString::fromUcs4(63533)以 rep 消费。
+struct KeymapMatchRecord {
+	const wchar_t *rep = nullptr;    // +0x00
+	const wchar_t *tail = nullptr;   // +0x08
+	bool flag = false;               // +0x10
+	quint32 pad = 0;                 // +0x14
+	const wchar_t *rep2 = nullptr;   // +0x18(谓词调用前先行写,63426)
+	bool flag2 = false;              // +0x20
+};
+
+// 记录宿主容器 —— local_90 0x38 形(63148-63163){strong 计数@+0(LOCK++),
+//   当前向量节点@+8/begin@+0x10/end@+0x18/cap@+0x20 内联缓存,+0x28/+0x30
+//   双向链头(空形自指)};节点 0x28 = {begin,end,cap,next,prev}(63308-63335
+//   双向链挂历史向量)。外层身份(list vs Qt 节点形)未解 —— 承载 = 计数 +
+//   当前向量 + 0x28 节点链,偏移注释照抄,行为面(当前向量重挂/历史换出
+//   63219-63242)随消费腿(§13)cited。
+struct KeymapRecordSink {
+	int refcount = 0;                       // +0(63161-63163 LOCK++)
+	void *curNode = nullptr;                // +8 当前向量节点(0x28 形)
+	KeymapMatchRecord *begin = nullptr;     // +0x10
+	KeymapMatchRecord *end = nullptr;       // +0x18
+	quint64 cap = 0;                        // +0x20
+	void *listFwd = nullptr;                // +0x28(空形自指,63159)
+	void *listBwd = nullptr;                // +0x30(空形自指,63160)
+
+	KeymapRecordSink()
+	{
+		listFwd = &listFwd;   // 63159:piVar35+10 = piVar35 + 10
+		listBwd = &listFwd;   // 63160:piVar35+0xc = piVar35 + 10
+		refcount = 1;         // 63161-63163 LOCK;+0 += 1
+	}
+};
+
 // FUN_0067500e param_1 out 结构转写:{+0 flags u32, +6 结果 int};
 // param_1 = 006777e6 栈上指针数组(local_78..local_48,六槽),各槽指向
 // {flags, 上下文对象×2, 记录, …, 结果}——槽间址逐槽对位 wave-2(cited);
@@ -58,6 +154,7 @@ struct MatchOut {
 	QObject *ctxWhen = nullptr;          // 语料 *[1](JS when/脚本宿主,cited)
 	QObject *ctxDispatch = nullptr;      // 语料 *[2](命中分发 mainPane cast 上下文,cited)
 	KeymapInputRecord *record = nullptr; // 语料 *[3](006745b0/0067df30)
+	KeymapRecordSink *sink = nullptr;    // §9 记录宿主(local_90;§13 消费,cited)
 };
 
 // SuperKeymap —— 语料转写(批 46/47 + 本批:编解码真身 + 匹配翼

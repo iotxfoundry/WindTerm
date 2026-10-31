@@ -1,4 +1,6 @@
 #include <QCollator>
+#include <QFontMetrics>
+#include <QLineF>
 #include <QPainter>
 #include <QRegularExpression>
 #include <QPixmap>
@@ -947,8 +949,9 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			quint8 m18 = 0;              // +0x18(intDpr 字节)
 			quint8 m19 = 0;              // +0x19 m_started
 			quint8 m1a = 0;              // +0x1a
-			void *m20 = nullptr;         // +0x20(ctor 清零)
-			void *m28 = nullptr;         // +0x28(ctor 清零)
+			double m20 = 0.0;            // +0x20 moveTo/lineTo 端点 x(FUN_00943300
+			                             //   Surface_vt15 存 double;ctor 清零)
+			double m28 = 0.0;            // +0x28 端点 y(同上)
 			double dpr = 1.0;            // +0x30 ctor 0x3ff0…=1.0
 			quint8 m38 = 0;              // +0x38
 			QPixmap *pixmap() const      // vt+0x148 = FUN_0094331e(5B)
@@ -992,6 +995,180 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				//   (派生重写路径不建模,取默认表分支;3 参唯一消费点)
 				m38 = (quint8)alt;
 			}
+			// === M3:SurfaceImpl vtable 0x11acff0 槽映射(r5 §2;批 75)===
+			// 惰性 QPainter 锚:FUN_00943882(137B)@0031:8586
+			QPainter *painter()
+			{
+				if (m10 != nullptr)
+					return (QPainter *)m10;  // +0x10 缓存(QPaintEngine::painter 分支同效)
+				if (m8 == nullptr)
+					return nullptr;
+				QPainter *p = new QPainter(m8);          // 00943900
+				p->setRenderHints(QPainter::RenderHints(3 - (m18 == 0)), true);  // 0094396c
+				p->scale(dpr, dpr);                      // 00943974
+				m10 = p;
+				return p;
+			}
+			bool hasPixmap() const          // vt+0x30 = FUN_0094332e0(9B):+0x8!=0
+			{
+				return m8 != nullptr;
+			}
+			void setPen(double width, const QColor &color, int style)  // vt+0x38 =
+			{   // FUN_00943914(228B):QPen(QBrush(color),w,style,FlatCap(0),BevelJoin(0x40));
+			    //   style/color/widthF/cap 四元缓存比对全等即返(语料原样)
+				QPainter *p = painter();
+				const QPen cur = p->pen();
+				if (cur.style() == (Qt::PenStyle)style && cur.color() == color
+				    && cur.widthF() == width && cur.capStyle() == Qt::FlatCap)
+					return;
+				p->setPen(QPen(QBrush(color), width, (Qt::PenStyle)style,
+				               Qt::FlatCap, Qt::BevelJoin));
+			}
+			void setBrush(const QColor &c)  // FUN_0094415c(104B)@0031:8977
+			{
+				QPainter *p = painter();
+				if (p->brush().color() == c)  // 缓存比对(语料原样)
+					return;
+				p->setBrush(QBrush(c));
+			}
+			void setFont(const QFont &f)    // FUN_00943a0e(64B)@0031:8632
+			{
+				QPainter *p = painter();
+				if (p->font() != f)
+					p->setFont(f);
+			}
+			void moveTo(double x, double y)  // vt+0x50 = FUN_00943300(11B):存 +0x20/+0x28
+			{
+				m20 = x;
+				m28 = y;
+			}
+			void lineTo(double x, double y)  // vt+0x58 = FUN_00943a4e(103B)
+			{
+				QLineF ln(m20, m28, x, y);
+				painter()->drawLines(&ln, 1);    // QPainter::drawLines(QLineF*,1)
+				m20 = x;                         // 回写端点(语料原样)
+				m28 = y;
+			}
+			void drawPolyline(const QPointF *pts, int n)  // vt+0x60 = FUN_00943ab6(191B)
+			{
+				painter()->drawPolyline(pts, n);
+			}
+			void drawPolygon(const QPointF *pts, int n, const QColor &penColor,
+			                 const QColor &fillColor)     // vt+0x68 = FUN_009441cc(245B)
+			{
+				setPen(1.0, penColor, 1);        // SolidLine(语料 style 参 1)
+				setBrush(fillColor);             // FUN_0094415c
+				painter()->drawPolygon(pts, n, Qt::OddEvenFill);  // 语料 fillrule 0
+			}
+			void drawRect(double x, double y, double x2, double y2,
+			              const QColor &penColor, const QColor &fillColor)
+			{   // vt+0x70 = FUN_009442c2(177B):setPen(1.0)+setBrush→drawRects(w−1,h−1)
+				setPen(1.0, penColor, 1);
+				setBrush(fillColor);
+				QRectF rr(x, y, (x2 - x) - 1.0, (y2 - y) - 1.0);
+				painter()->drawRects(&rr, 1);
+			}
+			void fillRect(double x, double y, double x2, double y2, const QColor &color)
+			{   // vt+0x78 = FUN_00943b76(88B):QPainter::fillRect(B 级高频消费面)
+				painter()->fillRect(QRectF(x, y, x2 - x, y2 - y), color);
+			}
+			void drawRoundedRect(double x, double y, double x2, double y2,
+			                     const QColor &penColor, const QColor &fillColor)
+			{   // vt+0x88 = FUN_00944374(145B):r=25.0(0x4039…)RelativeSize
+			    //   (批 71 槽 17;r3 猜"drawRect"误,勘正)
+				setPen(1.0, penColor, 1);
+				setBrush(fillColor);
+				painter()->drawRoundedRect(QRectF(x, y, x2 - x, y2 - y),
+				                           25.0, 25.0, Qt::RelativeSize);
+			}
+			void drawTextBg(double x, double y, const QFont &font, const QString &text,
+			                const QColor &penColor, const QColor &bgColor)
+			{   // vt+0xb0 = FUN_00943e94(184B):setFont→setPen(1.0)→setBackground
+			    //   +Opaque(1)→drawText(QPointF)
+				setFont(font);
+				setPen(1.0, penColor, 1);
+				QPainter *p = painter();
+				p->setBackground(QBrush(bgColor));
+				p->setBackgroundMode(Qt::OpaqueMode);       // 语料 1
+				p->drawText(QPointF(x, y), text);
+			}
+			void drawTextClipped(double x, double y, const QFont &font, const QString &text,
+			                     const QColor &penColor, const QColor &bgColor,
+			                     double cx, double cy, double cx2, double cy2)
+			{   // vt+0xb8 = FUN_00943f54(180B):setClipRect(+0x118)→透传 +0xb0
+			    //   →setClipping(语料 bool(painter) 恒真 quirk)
+				setClipRect(cx, cy, cx2, cy2);
+				drawTextBg(x, y, font, text, penColor, bgColor);
+				painter()->setClipping(painter() != nullptr);
+			}
+			void drawText(double x, double y, const QFont &font, const QString &text,
+			              const QColor &color)
+			{   // vt+0xc8 = FUN_00944008(128B):setFont→setPen(1.0)→Transparent(0)
+			    //   →drawText(QPointF)
+				setFont(font);
+				setPen(1.0, color, 1);
+				QPainter *p = painter();
+				p->setBackgroundMode(Qt::TransparentMode);  // 语料 0
+				p->drawText(QPointF(x, y), text);
+			}
+			void setClipRect(double x, double y, double x2, double y2)
+			{   // vt+0x118 = FUN_00944088(85B):setClipRect(rect,ReplaceClip=1)
+				painter()->setClipRect(QRectF(x, y, x2 - x, y2 - y), Qt::ReplaceClip);
+			}
+			double charWidth(const QFont &font, int ch) const  // vt+0xd8 = FUN_009433ce(69B)
+			{
+				return QFontMetricsF(font, m8).horizontalAdvance(ch);
+			}
+			double stringWidth(const QFont &font, ushort ch) const  // vt+0xe0 =
+			{   // FUN_0094341c(65B)(margin 量宽槽)
+				return QFontMetricsF(font, m8).horizontalAdvance(ch);
+			}
+			double ascent(const QFont &font) const  // vt+0xe8 = FUN_00943466(58B)
+			{
+				return QFontMetricsF(font, m8).ascent();
+			}
+			double descent(const QFont &font) const  // vt+0xf0 = FUN_009434a8(58B)
+			{
+				return QFontMetricsF(font, m8).descent();
+			}
+			double secondHeight(const QFont &font) const  // vt+0xf8 = FUN_0094330c(5B)
+			{
+				Q_UNUSED(font);
+				return 0.0;  // 恒零 stub — 语料原样(a66f10 第二高度调用点;怪癖登记)
+			}
+			double leading(const QFont &font) const   // vt+0x100 = FUN_009434ea(58B)
+			{
+				return QFontMetricsF(font, m8).leading();
+			}
+			double height(const QFont &font) const    // vt+0x108 = FUN_0094352c(58B)
+			{
+				return QFontMetricsF(font, m8).height();
+			}
+			double averageCharWidth(const QFont &font) const  // vt+0x110 =
+			{   // FUN_0094356e(58B)(0xa25fe2 用)
+				return QFontMetricsF(font, m8).averageCharWidth();
+			}
+			double getDpr() const          // vt+0x128 = FUN_00944f0a(6B)
+			{
+				return dpr;
+			}
+			quint8 flag38() const          // vt+0x138 = FUN_00943312(5B)
+			{
+				return m38;
+			}
+			void setFlag38(quint8 v)       // vt+0x140 = FUN_00943318(5B)
+			{
+				m38 = v;
+			}
+			// setDpr/pixmap 已有(vt+0x130 = FUN_00944f10 / vt+0x148 = FUN_0094331e)
+			// — cited — wave-2(体未读,宁缺不猜;槽位对照 r5 §2 全表):
+			//   +0x00/0x08 dtor 族 009433a2/b6(局部模型栈对象同效)
+			//   +0x10/0x18 Init 变体 00943748(52B)/0094377c(43B)
+			//   +0x40 painter end 转发 009432ea(18B);+0x48 identity 009432fc(3B 透传)
+			//   +0x80 drawPixmapTiled 00943bce(470B);+0x90 drawRoundedRect(abs)00944406(212B)
+			//   +0x98 drawImageRGBA 00944c06(265B);+0xa0 drawEllipse 009444da(123B)
+			//   +0xa8 drawPixmap 00943da4(240B);+0xc0 drawTextOnPixmap 00944d20(465B)
+			//   +0xd0 串可见性扫描 009435f2(136B);+0x120 resetPenBrush 009440de(110B)
 		} view;
 		// ③ 视口:vt+0x88 分派(*vt+0x88==FUN_00a1e708 → FUN_009447a0
 		//   直读):widget(editor+8)非空 → [widget+0x28]+{0x14/0x18/
@@ -1021,6 +1198,188 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		// FUN_00a72686(621B 全读 @49449)17 步管线骨架,逐步 cited
 		//   (被叫方 ~44KB 语料;DrawCtx=local_208 0x38B 工作区)
 		auto drawLineBody = [&]() {
+			// DrawCtx 局部模型(FUN_00a76608 4628B initDrawCtx — cited —
+			//   wave-2;字段表 r5 §3 M4。init 未建模 → 全 0 缺省,偏差登记)
+			struct DrawCtx {
+				long long i20 = 0;        // +0x20(FUN_00a75976 参 4;行 idx 源)
+				long long i28 = 0;        // +0x28 行首 idx(line_highlight styleAt 参)
+				double d38 = 0.0;         // +0x38 矩形 x
+				double d40 = 0.0;         // +0x40 矩形 y
+				double d48 = 0.0;         // +0x48 矩形 x2
+				double d50 = 0.0;         // +0x50 矩形 y2
+				double d60 = 0.0;         // +0x60 x 偏(FUN_00a75b78 项)
+				long long i68 = 0;        // +0x68 区间首(hex_division pos 修)
+				bool b84 = false;         // +0x84 wrap 末行 u8
+				long long i78 = 0;        // +0x78(FUN_00a76098 RunNode pos)
+				quint32 u80 = 0;          // +0x80(FUN_00a76098 RunNode style)
+				double r1d0[4] = {0, 0, 0, 0};  // +0x1d0 4-double(r3 #16 ctx1d0;
+				                          //   columnMarker2 参 rect;init cited 缺省)
+				QVector<const void *> nodes150;  // +0x150 runnode 指针数组
+				                          //   (0x58B/项;init cited — wave-2)
+			} ctx;
+			// runnode 0x58B 对象布局(r3 §3 a75688 析构 stride 0x58;
+			//   FUN_0096bbc0/0096bc14 = +0x08 pos/+0x10 width)
+			struct RunNodeX {
+				RunNode n;                // +0x00(24B;RunNode.h)
+				QString s;                // +0x18(hex_division strlen==0 判)
+				quint8 f50 = 0;           // +0x50(非零 = 跳过;语料 *(char*)=='\0' 门)
+			};
+			// s_line_highlight_a6734c(360B)@decomp-0034.c:43872 — 真身化(批 75)
+			auto s_line_highlight = [&]() {
+				if (!m_ctx.lineHighlightOn)          // doc+0xd4f 门(00a67368)
+					return;
+				// FUN_00a75976(101B)@51261 本行含 caret 门(00a6737e):
+				//   ed+0xec2 早退 → fold/hex 锚行号 == ctx+0x28。
+				if (m_ctx.flagEc2)
+					return;
+				// FUN_00975bc6(*(ed+0x1038))/FUN_00a2a8b0(*ed)/FUN_009587cc
+				//   — cited — wave-2(占位 −1 = 不含 caret,安全缺省)
+				const long long caretLine = -1;
+				if (ctx.i28 != caretLine)
+					return;
+				// FUN_0095021a→FUN_0094a7f8(bit1)门:M2 inner-obj 未建模
+				//   → styleTable QHash 占位常开承接(0x7547 S3 同款,登记回填)
+				const QColor c = m_ctx.styleTable.value(
+				    QLatin1String("line.highlight"));
+				// editor_styleAt(rec,ctx+0x28) 环形槽 — 同占位(丢 %len 环绕)
+				view.fillRect(ctx.d38 - m_ctx.highlightOffsetD0c, ctx.d40,
+				              ctx.d48, ctx.d50, c);  // vt+0x78(00a67464)
+			};
+			// FUN_00a63fd6(638B)@42221 — 折线符号绘制(全读真身化):
+			//   setPen(1.0,color)→moveTo×3/lineTo×5;flag=1 右向(sx=x0+2)、
+			//   flag=0 左向(sx=x1−1);首 moveTo y=dVar2(语料 00a64127
+			//   于调用前装载,推断为该参 — 记录)
+			auto s_zigzag_a63fd6 = [&](int flag, const QColor &color, double x0,
+			                           double y0, double x1, double y2) {
+				view.setPen(1.0, color, 1);          // (**vt+0x38)(1.0,color,1)
+				const double w = ((x1 - x0) - 2.0) - 2.0;   // 00a63f9c
+				const double a = (y2 - y0) / 5.0;    // local_30
+				const double b = (y2 - y0) * 0.5 + a;   // local_48
+				const double dir = flag ? 1.0 : -1.0;   // local_40
+				const double sx = flag ? x0 : x1 - 1.0;  // local_58 分支
+				const double mx = sx + 2.0 * dir;    // moveTo x(dVar4+local_58)
+				const double cx = sx + dir * ((w + w) / 3.0 + 2.0);  // 折点 x
+				const double tx = sx + dir * (w + 2.0);  // 横线末 x
+				const double mid = y0 + b;           // dVar2 = param_8+local_48
+				view.moveTo(mx, mid);                // vt+0x50(00a6413x)
+				view.lineTo(cx, mid - a);            // vt+0x58(00a6414x)
+				view.moveTo(mx, mid);
+				view.lineTo(cx, mid + a);            // local_30+local_48+param_8
+				view.moveTo(mx, mid);
+				view.lineTo(tx, mid);
+				const double yEnd = (b - (a + a)) + y0;  // param_8 重赋(语料原样)
+				view.lineTo(tx, yEnd);
+				view.lineTo(sx + dir, yEnd);         // local_40+local_58
+			};
+			// s_line_wrapSymbol_a687d0(283B)@44549 — 真身化(批 75)
+			auto s_line_wrapSymbol = [&]() {
+				if (!m_ctx.wrapSymbolOn || ctx.b84)  // +0xda0 && !+0x84(00a687e8)
+					return;
+				// FUN_00a218e8(13B)@1138:(int)*(double*)(*(ed+0x10a0)+0x18)
+				const double leftEdge = (double)(int)m_ctx.bufD18;
+				double x0 = leftEdge + ctx.d60;      // 00a68812
+				// FUN_00a76098(77B)@51642:RunNode(+0x78,+0x80,0)→
+				//   FUN_00a75e9a(ctx,node,1) — cited — wave-2(占位 0)
+				const double xr = 0.0;
+				if (x0 <= xr)                        // max(语料原样)
+					x0 = xr;
+				const double x1 = x0 + m_ctx.indentWidthCf8;   // +0xcf8
+				// FUN_0094a576(rec,0) 前景槽 — styleTable 占位(丢环形,登记回填)
+				const QColor c = m_ctx.styleTable.value(
+				    QLatin1String("line.wrapSymbol"));
+				s_zigzag_a63fd6(1, c, x0, ctx.d40, x1, ctx.d50);   // 00a688c0
+			};
+			// s_hex_division_a68ec6(511B)@44787 — 真身化(批 75;高亮腿 cited)
+			auto s_hex_division = [&]() {
+				if (m_ctx.hexGroupWidth > 0) {       // doc+0xd54(00a68edc)
+					const long long n = ctx.nodes150.size();
+					if (n != 0 && !static_cast<const RunNodeX *>(
+					                      ctx.nodes150.at(0))->f50) {
+						long long i = 0;
+						const RunNodeX *node =
+						    static_cast<const RunNodeX *>(ctx.nodes150.at(0));
+						do {
+							if (node->s.isEmpty()) {  // node+0x18 strlen==0
+								const long long x =
+								    node->n.pos - ctx.i68;   // 0096bbc0
+								if (x % m_ctx.hexGroupWidth == 0
+								    && x % (long long)m_ctx.hexByteWidth1118
+								           != 0) {
+									// FUN_00a28aea(162B)@5958 真身化:
+									//   商=pos/0x1118;rem=pos%0x1118;
+									//   rem>0 → 重赋 strlen(node+0x18)(语料
+									//   原样 quirk:非零串长直接作加数);
+									//   strlen==0 → (rem%0x111c==0)+
+									//   ((rem&(宽>0xf?7:3))==0)
+									double addend = (double)(node->n.pos
+									    / m_ctx.hexByteWidth1118);
+									const long long rem =
+									    node->n.pos % m_ctx.hexByteWidth1118;
+									if (rem > 0) {
+										addend = (double)node->s.size();
+										if (node->s.isEmpty()) {
+											int sub =
+											    (rem % m_ctx.hexSub111c == 0)
+											        ? 1 : 0;
+											const unsigned mask =
+											    m_ctx.hexByteWidth1118 > 0xf
+											        ? 7u : 3u;
+											if ((rem & mask) == 0)
+												++sub;
+											addend = (double)sub;
+										}
+									}
+									const double px = node->n.width
+									    + addend * 0.5;
+									if (px >= ctx.d38 && px <= ctx.d48)
+										;    // s_pair_highlightMatched_a688f6
+										    //   (529B)— cited — wave-2(深腿)
+								}
+							}
+							++i;
+							if (i == n)
+								break;
+							node = static_cast<const RunNodeX *>(
+							    ctx.nodes150.at(i));
+						} while (!node->f50);    // *(char*)(n+0x50)=='\0'
+					}
+				}
+				// 尾:FUN_00a75b78(99B)@51402 = (ctx+0x60 + FUN_00a28b8c(219B,
+				//   @5985 cited — wave-2,占位 0))− FUN_00a28ae0(9B)=4.0×
+				//   doc+0xcf8×0.5
+				const double ex = ctx.d60
+				    - 4.0 * m_ctx.indentWidthCf8 * 0.5;
+				if (ex >= ctx.d38 && ex <= ctx.d48) {   // 00a6902c
+					view.fillRect(ex, ctx.d40, ex + 1.0, ctx.d50,
+					              m_ctx.styleTable.value(
+					                  QLatin1String("hex.division")));  // vt+0x78
+				}
+			};
+			// s_line_columnMarker_a682e6(543B)@44394 — 真身化(批 75)
+			auto s_line_columnMarker2 = [&]() {
+				if (!m_ctx.columnMarkerOn
+				    || m_ctx.columnMarkerMode != 0)  // +0xd58 && +0xd5c==0
+					return;
+				// FUN_0094a7f8(bit1)门 — styleTable 占位常开承接(登记回填)
+				const double rx = ctx.r1d0[0], ry = ctx.r1d0[1];
+				const double rx2 = ctx.r1d0[2], ry2 = ctx.r1d0[3];
+				int ord = 0;                          // iVar8 style 序数
+				for (int col : m_ctx.columnMarkers) {  // doc+0xd78 树 in-order
+					// FUN_00a224f0(24B)@1735:ed+0x113b→0;否则
+					//   FUN_00a16564(*(ed+0x10c8)) — cited — wave-2(占位 0;
+					//   +0x113b 消费面未建模,同 0x753e ⑤⑥ 登记项)
+					const double x = (double)col * m_ctx.indentWidthCf8
+					    + (double)m_ctx.foldCountD34 - 0.0;
+					if (rx <= x) {                    // 00a68458
+						if (rx2 <= x && x != rx2)
+							return;   // 越界整函数早退(语料原样 quirk)
+						view.fillRect(x, ry, x + 1.0, ry2,   // x2 槽=x+1(原样)
+						              m_ctx.styleTable.value(
+						                  QLatin1String("line.columnMarker")));
+						++ord;    // editor_styleAt(rec,ord++);QHash 占位丢序数
+					}
+				}
+			};
 			// FUN_00a76608(4628B)initDrawCtx — cited — wave-2
 			// s_text_controlChar_a77836(&ctx)(4123B)— cited — wave-2
 			// s_grep_mark_a6afa2(ed, doc, &ctx)(440B)— cited — wave-2
@@ -1036,22 +1395,22 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			if (m_ctx.hexMode) {
 				// FUN_00a67e56(11B)— cited
 			}
-			// s_line_highlight_a6734c(360B)— cited
+			s_line_highlight();          // s_line_highlight_a6734c(360B)真身化
 			// FUN_00a6d05e(…,1)(6088B)— cited — wave-2
 			// s_text_selection_a67e62(603B)— cited
 			// s_text_selection_a680c6(532B)— cited
 			if (!m_ctx.hexMode) {
-				// s_line_columnMarker_a682e6(ctx1d0)(543B)— cited
-				// FUN_00a68b18(941B)— cited
+				s_line_columnMarker2();  // s_line_columnMarker_a682e6(543B)真身化
+				// FUN_00a68b18(941B)— cited(后续批)
 			} else {
-				// s_hex_division_a68ec6(511B)— cited
+				s_hex_division();        // s_hex_division_a68ec6(511B)真身化
 			}
 			// s_text_whiteSpace_a70196(…,0)(8299B)— cited — wave-2
 			// 语料原样双判:(hex==0)||(FUN_00a72266(11B), hex==0)
 			//   → 体仅非 hex 进;FUN_00a72266 仅 hex 进 — cited
 			if (!m_ctx.hexMode) {
-				// FUN_00a6710c(362B)— cited
-				// s_line_wrapSymbol_a687d0(283B)— cited
+				// FUN_00a6710c(362B)— cited(后续批)
+				s_line_wrapSymbol();     // s_line_wrapSymbol_a687d0(283B)真身化
 			}
 			// FUN_00a6d05e(…,0)(6088B 二过:先 1 后 0)— cited
 			// FUN_00a6626a(2165B)— cited
