@@ -597,7 +597,9 @@ static KeymapMatchRecord *recordSinkAcquire(KeymapRecordSink &sink,
 				newCap = need;
 		}
 		// 63308:新 0x28 节点 {begin,end,cap,next,prev}(63195-63204 析构二链:
-		//   0x28 节点链 delete 走查 + 另一链 delete(·,0xe0)尺寸矛盾未解)
+		//   0x28 节点链 delete 走查 + 另一链 delete(·,0xe0)—— km4 勘正:
+		//   0x28 = 本链(HistNode 记录向量历史),0xe0 = xpressive 匹配节点链
+		//   (63177,00690e90/0067e2c0),两条不同的链,非同链异尺寸)
 		struct HistNode {
 			KeymapMatchRecord *begin;
 			KeymapMatchRecord *end;
@@ -929,8 +931,11 @@ static void triePrefixChordAppend(QList<KeymapEntry> &chords,
 //   §11(63423-63443)谓词腿 —— 本批真身:FUN_00683c80 children 克隆
 //       (trieChildrenClone)+ FUN_0067e4c2 本地树入树(trieMatchInsert)+
 //       FUN_00673dec 查找(localMatchNodeAt);谓词虚调(**(*plVar27)+0x10)
-//       类身份未解(QSlotObjectBase 子类,VTABLE-MAP 批)→ cited,叶写
-//       门 local_238(63004 挂链态,挂链宿主未解)→ cited。
+//       类身份 km4 定案 = boost::xpressive dynamic_xpression / matchable_ex
+//       系(typeinfo + vtable 样本铁证,见 .h KeymapChildGroup 注)—— vcall
+//       = matchable_ex::match(state) → bool,实现属 boost(EXT-BOUNDARY)→
+//       cited — wave-2(不伪造);叶写门 local_238(0xe0 节点挂链态)随谓词
+//       批 cited;挂链 splice(local_210/local_98,0067e45e)同域 cited。
 //   §12(63444-63516)when 腿 —— 本批真身:FUN_00767a70/0076745c 引擎门
 //       (jsEvaluateGate/jsCallGate,双臂:00674442 cast → MuxPane
 //       +0x48 JsEngine* 非空 → 真 evaluate/call;空 → 语料空臂)+
@@ -1079,11 +1084,16 @@ int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
 			    static_cast<const void *>(token.constData()));
 			(void)recordSinkAcquire(sink, root->group.xA8, root->group.xB0, owner);
 			// ── §11(63423-63443)谓词腿 ─────────────────────────
-			// 63423:FUN_00683c80(&local_50, 节点+0x12×8)children 克隆
+			// 63423:FUN_00683c80(&local_50, 节点+0x12×8=+0x90)children 克隆
 			const QVector<QPair<QString, void *>> cloned =
 			    trieChildrenClone(root->group.children);   // 63423
-			// 63425-63441:local_98 记录挂链 splice(FUN_0067e45e 100B 消费)
-			//    —— 挂链宿主 local_210/local_98 身份未解 —— cited — wave-2
+			// 63425-63441:local_98 记录挂链 splice(FUN_0067e45e 100B 消费)。
+			// km4 定案:local_210 = local_90(63251,sink)+10*4=+0x28 链头地址;
+			// local_a0/local_98 = 走查头栈上 8 连哨兵双向链(62604/62614)。
+			// 63406-63422 = std::list::splice(whole):把 sink+0x28 链的活段与
+			// 哨兵链对调(5 步哨兵换手 63417-63422);元素 0xe0 = xpressive
+			// 匹配节点(+0x78 子链哨兵 +0x80 头,FUN_0067e45e 递归 splice)。
+			// 链体属 0xe0 节点域(boost 边界)→ 挂链宿主随谓词批 cited — wave-2。
 			// 63426:写入条[3] = token rep(rep2 先行写;§13 前)
 			// KeymapMatchRecord 写入条 = begin + [+0xb0]*5(recordSinkAcquire
 			// 返回面,悬伏指针形态;挂链 cited → 直写臂保持注记形):
@@ -1091,15 +1101,25 @@ int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
 				KeymapMatchRecord &rec = sink.begin[root->group.xB0];   // 63383
 				rec.rep2 = owner;                       // 63426 local_260[3]=p_Var8
 			}
-			// 63427-63428:plVar27 = *(根+0x78) → 虚调 vtable+0x10(plVar27,
-			// &local_268)返 bool —— 谓词对象 = QSlotObjectBase 子类,vtable
-			// 无名(类身份未解,VTABLE-MAP 批)—— cited — wave-2:不伪造
-			// 调用;语料 false → 叶写(63430 门 local_238 = 挂链态,亦 cited)
-			// / true → FUN_0067e4c2 入本地树(真身)。谓词批接入前两臂按
-			// 63430 门未解态短路(不入树不叶写,0x238 臂保持注记)。
+			// 63427-63428(汇编 00675d09):plVar27 = *(根+0x78) → 虚调
+			// [vtable+0x10](plVar27, &local_268)返 bool。km4 谓词类身份
+			// **定案**:= boost::xpressive dynamic_xpression<Matcher>
+			// (matchable_ex 系;typeinfo N5boost9xpressive6detail17dynamic_xpressionI…E,
+			// vtable 样本 0x11894c8/0x1189cc8/0x1189748;非 QSlotObject —— km2 勘正,
+			// 见 SuperKeymap.h KeymapChildGroup 注)。+0x10 = matchable_ex::match(
+			// state&) → bool(state = {cur,end,flags} 视图;true_matcher = FUN_0067a354
+			// 恒真 / eos = FUN_0067bd04 / string = FUN_0067ac0c)。63401:
+			// local_108(walk 树头)初始化 = *(根+0x78) 同源 —— 0xe0 匹配节点
+			// 兼作本地树根链头(00690e90 构造 / 0067e2c0 回收)。
+			// 谓词实现属 boost(EXT-BOUNDARY 不逆向)→ 调用不可伪造,保持
+			// cited — wave-2:不伪造调用;语料 false → 叶写(63430 门 local_238
+			// = 挂链态 —— 0xe0 节点域,随谓词批 cited)/ true → FUN_0067e4c2
+			// 入本地树(真身 trieMatchInsert)。谓词批接入前两臂按 63430 门
+			// 未解态短路(不入树不叶写,0x238 臂保持注记)。
 			// bool matched = 谓词虚调;false → 叶写 rec.rep = rec.rep2;
-			//   rec.tail = tokTail;rec.flag = false(63439-63443);
-			// true → trieMatchInsert(walkTree, owner, tokTail);   // 63443
+			//   rec.tail = tokTail;rec.flag = false(63439-63443,汇编
+			//   00675d31-00675d4c 三写实证);true →
+			//   trieMatchInsert(walkTree, owner, tokTail);   // 63443
 			// ── §12(63444-63516)when 条件腿(bVar17 每槽项一次门)──
 			if (!whenPassed) {                              // 63444
 				if ((entry.when.userType() & 0x3fffffff) != 0) {   // 63445
@@ -1140,10 +1160,15 @@ int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
 				whenPassed = true;                          // LAB_00676c5f 63499
 			}
 			// ── §13(63517-63654)命中分发(LAB_00675e70)──────────
-			// 入门(63503-63506):本地树头 local_100 空 && 静态块 DAT_011c19e0
-			// 零 → 前缀路;写入条 flag(63509 local_f8[2])非零或树头非空
-			// → 命中路 —— local_100/挂链/DAT_011c19c0 静态块身份未解
-			// —— cited — wave-2(树头空 = 谓词臂未接入态)。
+			// 入门(63503-63506,汇编 00675d71-00675d91):local_100 空 &&
+			// DAT_011c19e0 == 0 → 前缀路(LAB_00675d97);写入条 flag 或树头
+			// 非空 → 命中路。km4 DAT_011c19c0 静态块**定案**(00673dec/63508/
+			// 0021.c 17686/00690e90 五源一致):DAT_011c19c0 = __cxa_guard
+			// 字节,守卫 DAT_011c19d0/d8/e0 = FUN_00673dec 越界返回的静态
+			// 空节点 {ptr@0=0, 空 rep@8, valid byte@0x10=0}(惰性零初始化,
+			// 非独立容器)。DAT_011c19e0 == 0 ⇔ 越界哨兵仍空 ⇔ 无命中挂载。
+			// local_100/挂链态属 0xe0 匹配节点域(见 §11)→ cited — wave-2
+			// (树头空 = 谓词臂未接入态,现状 = 语料"装载腿未建"语义)。
 			// (语料:local_100==0 且 e0==0 → LAB_00675d97 前缀;否则命中路)
 			const bool hitPath =
 			    walkTree.touched1;   // local_100 非空承载(树写体已接,cited 门)

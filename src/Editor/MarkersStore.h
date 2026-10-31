@@ -341,7 +341,13 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
     { return *reinterpret_cast<void **>(reinterpret_cast<char *>(holder) + 0x10); }
     quint64 runValueAt(int idx) const
     {
-        ValueTable *b = arr->bank;                       // *(A+0x18)
+        return runValueWordAt(arr->bank, idx);           // 同面换元素(批 82:runvector 复用)
+    }
+    // 六路取值参数化版(批 82:0x7576 runvector 元素 = ValueTable 复用)
+    static quint64 runValueWordAt(const ValueTable *b, int idx)
+    {
+        if (!b)                                          // runvector 壳期守卫
+            return 0;
         if (b->kind < 6) {
             switch (b->kind) {                           // 每路:*holder→内对象,+0x10→RS
             case 0: return rsValue8 (rsOf(b->holders[0]), idx);   // FUN_0088ff00  u8

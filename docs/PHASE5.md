@@ -1485,6 +1485,33 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   case 注销回退,发入落 default 与原版一致**
 - 验证:make 零错;**ctest 10/10**;engtest3 直跑 OK
 
+### 批 82(2026-10-31)四 lane 并行:渲染核 selection+a66ae8/keymap 定案注释升格/MuxWindow 层/runvector 定案+接线 ✅
+- **渲染核 selection + a66ae8 落地**(B1):selection 三函数真身
+  (Span56/SelStoreX 局部模型,a67e62/a680c6 绘制层接线,壳期恒空与
+  写侧未接线同相)+ a66ae8 骨架(T 表五指针帧 + y 带公式 + 循环;
+  色槽 asm check 未做 cited 10);⚠ 写域缺口:a66ae8 真调用面在
+  0x7547 S5(骨架 0x753e 存照,接线待批)
+- **keymap 挂链+谓词定案注释升格**(B2,零行为码):**谓词类身份
+  定案 = boost::xpressive matchable_ex 系**(vtable 样本 0x11894c8
+  end/0x1189cc8 true/0x1189748 string_matcher 三铁证;非 QSlotObject
+  —— km2 勘正)→ boost 边界保持 cited;挂链 splice = std::list::
+  splice(whole);DAT_011c19c0 = 越界哨兵非容器;km2"0xe0 尺寸矛盾"
+  勘正(0x28/0xe0 两条不同链)
+- **MuxWindow 层 + KitBar 落地**(B3):4 新文件(MuxWindow 289B ctor
+  +assemble +restorePaneSplitter 归属定案/KitBar 420B+62B);修正
+  mp2 一处误判(FUN_008dfee8 = QApplication::focusChanged connect);
+  cited 15
+- **0x7576 runvector 定案 + 主循环真身化**(B4+主线程):runvector =
+  0x28{count,docState,begin,end,cap} ≡ QVector<ValueTable*>;run
+  元素 = wt::ValueTable 0x40 **复用零新增**(bankCtorK3 形);**
+  第六视图 ctx+0x190 Uint32Bimap 补漏**(76b 清单漏列);EditorContext
+  三成员落位 + case 0x7576 主循环真身化(逆序遍历/六路取值/表门/
+  vt38·40 取界/charUsedMark 驱动点实接 FillRange/prune 内层/
+  count==i break;c1c2 三怪癖/R·T 段 cited);MarkersStore 加
+  runValueWordAt 静态参数化版
+- 验证:cmake 重跑(B3 两新 Q_OBJECT)+ make 零错;ctest 10/10;
+  engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

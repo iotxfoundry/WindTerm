@@ -45,7 +45,16 @@ struct TrieCtrlLess {
 
 // KeymapChildGroup —— TrieNode +0x78..+0xb0 组域(p3_notes_km2 §6 定案,
 // 8 qword;FUN_00681a40 00681b0a-00681b7a 布局 + §6 组交换 62781-62797):
-//   +0x78 pred QSlotObjectBase*(ref@+4;§4 门谓词槽;qslotobject_release_destroy2)
+//   +0x78 pred(谓词槽;§4 门 006752a8 判空;§11 虚调 00675d09 [vtable+0x10])。
+//       km4 身份定案:**= boost::xpressive 编译产物 matchable_ex 系**
+//       (dynamic_xpression<Matcher>,vtable 型样本:0x11894c8 end_matcher /
+//       0x1189cc8 true_matcher / 0x1189748 string_matcher,typeinfo
+//       N5boost9xpressive6detail17dynamic_xpressionI…E 铁证;非 QSlotObject,
+//       km2 §6 "QSlotObjectBase" 勘正)。vtable+0x10 = matchable_ex::match(
+//       state&) → bool(true_matcher = FUN_0067a354 恒返 1;eos = FUN_0067bd04
+//       26B 尾匹配 + 下行递归;string = FUN_0067ac0c 127B 逐字符 traits 比较)。
+//       boost 边界(EXT-BOUNDARY,实现不逆向)→ 委托形态 = 谓词不可调用,
+//       保持 cited — wave-2(装载腿 xpressive 编译 cited 未建,槽恒空)。
 //   +0x80/+0x88 slotA/slotB(use@+8;vptr+8 dispose,62816-62833)
 //   +0x90..+0xa0 children vector<pair<wstring,X>>(COW 16B/元素 62738-62777;
 //       rep[-8]++/clone —— Qt QVector COW 同契约承载)
@@ -70,6 +79,10 @@ struct KeymapChildGroup {
 //   +0x60 payload self / +0x68 ctrl(shared;ctrl 挂接 cited)
 //   +0x70 use(LOCK 原子)
 //   +0x78..+0xb0 KeymapChildGroup
+//   km4 勘正(km2 遗留 "0xe0 delete 尺寸矛盾"):0x28 与 0xe0 是两条不同的
+//   链 —— 0x28 = 记录向量历史节点(HistNode,63308/63201),0xe0 = xpressive
+//   匹配节点(00690e90 构造 / 0067e2c0 回收 0021.c 934;FUN_00681c12 34B =
+//   ctrl dispose 链:FUN_00681960 域回收 + delete(0xb8) 本体)。非同链异尺寸。
 struct TrieNode {
 	std::set<std::pair<void *, KeymapCtrlPtr>, TrieCtrlLess> keyTree;  // +0x08 树1
 	std::set<std::pair<void *, std::weak_ptr<void>>, TrieCtrlLess> refTree;  // +0x30 树2(weak 载形)

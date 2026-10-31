@@ -258,6 +258,11 @@ public:
 	//   与 MarkersStore rsFill8 同面;ret 1=吸收/0=新写 与 changed
 	//   不同相 = QUIRKS 候选,76c 笔记)
 	Scintilla::RunStyles<int, char> *charUsedView = nullptr;
+	// runvector(批 82 勘察:ctx+0x178 = 0x28{count,docState,begin,end,cap}
+	//   ≡ std::vector<ValueTable*>;run 元素 = wt::ValueTable 0x40 复用)
+	QVector<wt::ValueTable *> runVector;
+	void *runSeed = nullptr;                        // rv[1] = FUN_0092801a(doc) 种子
+	QVector<quint32> styleProps190;                 // ctx+0x190 Uint32Bimap→QList(第六视图,76b 漏列补)
 	QVector<RunNode> markers;
 	int markerInsert(const RunNode &n)
 	{
