@@ -1187,6 +1187,33 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   0x7547 与渲染核无调用关系(独立底座)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
+### 批 70(2026-10-31)四 lane 并行:构建者 7 项/渲染核/0x7576/TelnetSession ✅
+- **构建者 7 项片段**(mk3 lane):initDoc 尾段(偏移全抄)/bankCtor
+  ×3(55B 字面)/runstyles_upgrade(920B,返回值勘正 = 灌值腿结果,
+  重灌相位 = 行为门裁决)/c8d6(140B)/62c0(821B,勘正 param_1=A/
+  bimap=A+0x08)/2766(585B)/RS 真身化(RunStyles.cxx:312 插 1 行
+  `<int,long long>` 实例化 + rsValue* 直换片段)—— 落地随构建者批
+  (q1:entryValueAt props 表 arg 疑点 = 行为门裁决点)
+- **渲染核**(rd2):vtbl+0x88 = FUN_00a1ec78(252B 视口交集,可转写);
+  +0x20/+0x130 = SurfaceImpl 派生表(Editor 表近义不可用,未解 ——
+  读二进制符号表一轮收口);视图 ctor 0094367a 全抄(0x40B,dpr=1.0);
+  00a72686 = **17 步逐行管线**(25 被叫全定位零未解);包装层 0x753e/
+  0x7544 定稿
+- **0x7576**:0095c1c2(1857B)五段全读(P0 归一/A·B 路 p4=run 索引
+  尾跳勘定/R 段重刷+runnode 构建/T 拆除);控制流 100%,行为被四
+  底座阻塞(gapbuffer char-used 2599B 等)→ case 注释升级(分段
+  地图入注),runvector 底座批后真身
+- **TelnetSession 装配五元组破案**(ts lane):vtable 0x11a8e78 全槽表
+  (sizeof 0x68;+0x60 拨号/+0x78 vt15 唯一自有虚)/创建链
+  0x7be0a6→0x7d48ce→FUN_007bc21e(SessionThread+6×connectImpl)/
+  Commander 工厂 007d9776(new 0x140)/Bridge = TcpBridge 共用
+  (会话+0x10)/socket = ProxyCommandSocket(QTcpSocket 子类)@
+  TcpBridge+0x30;**negotiationReply 勘正:语料无同名信号,协商 =
+  vt15 直调 socket 写**;未解:id 注入点/Commander→socket 落地/
+  metacall 信号 12 特判(怪癖候选)
+- TelnetSession.h 装配五元组注释升级;验证:构建零 undefined;
+  ctest 6/6;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

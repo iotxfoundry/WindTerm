@@ -1068,12 +1068,16 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   FUN_00a5e8bc 141B vt+0xa0;fold ctx 0x217
 	                 //   未建模)— cited — wave-2
 		return QVariant(0);
-	case 0x7576: {   // runnode 插入样式表:runstyles_runnode_init(66B
-	                 //   已真身 RunNode.h)→ FUN_0095c92c(400B
-	                 //   editctx_beginIter + runvector 遍历)插入;
-	                 //   true → vt+0xa0 刷新 — cited — wave-2(插入体)
+	case 0x7576:     // 30070:runnode 插入样式表(批 70 分段地图入注,
+	                 //   76 笔记):c92c(400B)P0 min/max 归一 →
+	                 //   c1c2(1857B)A/B 路(p4=run 索引,尾跳勘定)/
+	                 //   R 段 style==1 重刷+runnode 构建/T 拆除 ——
+	                 //   控制流全读,行为落地被底座阻塞(gapbuffer
+	                 //   char-used 2599B/runstyles_upgrade 920B/
+	                 //   flagmask/+0x170 restyle 四底座未读)
+	                 //   — cited — wave-2(插入整腿;runvector 底座
+	                 //   批后升级真身)
 		return QVariant(0);
-	}
 	case 0x757a:     // FUN_00a21b6a(412B)buffer 模式切换:mode1/2 →
 	                 //   FUN_0092c482 持久化 +0x210;mode3 全行 runnode
 	                 //   回填(+0x1067 门)— cited — wave-2
