@@ -1482,7 +1482,9 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   state=2 zstd 委托;**byte==0=无值,r6 修正**);a66ae8 T 表**翻转
   已解**(5 指针帧 = a72ad6 栈帧双胞胎,升级 B 可转写);**0x75dc
   定案:全语料零调用点 = 不存在(5b5d68 全调用面逐号列表)→ 我方
-  case 注销回退,发入落 default 与原版一致**
+  case 注销回退,发入落 default 与原版一致**;**批 82 二进制级补证**:
+  .text 立即数扫描 dc 75 00 00 = **0 命中**(对照法自证有效:0x75db
+  同法 3 命中,语料有 FUN_005bf35e 调用)—— 注销定案闭环
 - 验证:make 零错;**ctest 10/10**;engtest3 直跑 OK
 
 ### 批 82(2026-10-31)四 lane 并行:渲染核 selection+a66ae8/keymap 定案注释升格/MuxWindow 层/runvector 定案+接线 ✅
