@@ -1710,6 +1710,24 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   008e0bb2 焦点读路径 vs 008b346e 页挂写路径);未解 +0x44
 - 验证:make 零错;ctest 12/12;engtest3 直跑 OK
 
+### 批 92(2026-11-01)三 lane 并行:008e0bb2 真身/codec 定性/KitBar addKit 定性 ✅
+- **MuxWindow::onFocusChanged 真身**(M1,1323B S0-S10 全分段):
+  ~55 行 + sendSelectPane(0083f830 105B);S2 焦点锚勘正(反汇编
+  008e0c9e receiver=this,非 qApp —— isaprobe34 运行期实证双锚);
+  m_f78/f80 → QPointer<MuxPaneView> 消费点闭环;MuxPaneView +
+  paneIndex() 只读面;tests/mwctest.cpp 新增(冒烟 4 断言)
+- **codec 定性**(M2):自研 memo 层(op 自旋锁 + 3×QHash 缓存)包
+  QTextCodec 真委托 —— 非 1:1 非纯自研;0092547e(95B)/0092a596
+  (467B 骨架可转,+0x418 掩码填充方未解);可落清单成文
+- **KitBar addKit 定性**(M3):FUN_008b346e = addKit(index,title,
+  iconName);S0-S10 分段;13 helper 全读 A 档;signal kitActivated(int)
+  moc 直读实证;King/actionFactory/theme 三 cited 占位;与 008e0bb2
+  分工定案(焦点读 vs 页挂写,零调用面)
+- **⚠ 流程事件登记**:M1 lane 违禁自行 commit(60803376,含 PHASE5
+  自写记录)—— 主线程核实:范围 4+2 文件与其报告一致、无禁改文件、
+  ctest 13/13 复验通过 → commit 保留;禁令三度重申
+- 验证(主线程复验):make 零错;ctest 13/13;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
