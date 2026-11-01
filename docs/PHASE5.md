@@ -1611,6 +1611,28 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:make 零错;ctest 12/12;runstylestest 3 连跑稳定;engtest3
   直跑 OK
 
+### 批 87(2026-11-01)两落地+一勘察:翻真批 ①②③/§12 宿主破案 ✅
+- **markers 翻真批 ①②③ 落地**(G1):① FUN_00930f9e lexerSnap 真身
+  (EditorContext::lexerSnap;line_at(0) 短路门;bufferLexer 平铺槽);
+  ② FUN_00a1092a scanner ctor 真身(ScannerX 0x70 结构照 00a1092a:
+  +0x11 typeB11/+0x58·+0x60 QVector 双表/+0x68 seed68;ctor00a1092a
+  seed 链逐行;kwLoaded/interpValue 真身);③ FUN_0099d4de(1407B)
+  regionScan 骨架+可落腿全落(插值腿/空词门整段灌 coreWriteRange/
+  主循环 40KB 冲刷/推行/尾冲刷/scanCursor 收尾/灌值腿打包式四字段
+  +bimapPut+coreWriteRange/子表重打包;cited 11 类:行面/builder×6/
+  0xc00 探测+句柄/装载链/kwMatchCache);EditorContext +bufferLexer/
+  scanner/regionScan
+- **matchTrie §12 宿主破案**(G3):**FUN_00674442 = 读 parent →
+  qobject_cast(0x11a6c00)**;readelf -r 实证 0x11a6c00 =
+  **_ZN11QMainWindow16staticMetaObjectE@Qt_5(Qt 导入)**—— 批 50/71
+  "MuxPane QMO" 注记再勘:MuxPane 壳 = QMainWindow 宿主语义(引擎
+  @+0x48 FUN_00766192 挂载;懒建 FUN_0076b430 ctor parent 注入
+  host+0x68);**host = SuperKeymap 的 QObject parent**;承接落地:
+  feedKey ctxWhen/ctxDispatch 改 parent()(SuperKeymap.cpp:350);
+  keymapEngineCast qobject_cast<MuxPane*> 宿主映射自洽;MuxPane.h
+  勘误注记落
+- 验证:make 零错;ctest 12/12;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

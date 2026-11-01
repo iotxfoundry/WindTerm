@@ -377,6 +377,19 @@ public:
 	QList<QByteArray> eSerialEntries;  // E+0x250(0x7545 序列化导出 append)
 	QString eName;                     // E+0x2b8
 	void *ePool = nullptr;             // E+0x118(线程池,0x754d)
+	// --- lexer/scanner 面(批 markers 翻真①②③;buffer+0x108)---
+	void *bufferLexer = nullptr;       // buffer+0x108 原始槽(lexer/scanner obj;工厂
+	                                   //   FUN_00930f9e 短路链 *(*(E+0x258)+0x108) 平铺;
+	                                   //   生产者 FUN_009de20a→00a1092a — cited 装载链)
+	wt::ScannerX *scanner = nullptr;   // scanner ctor 产出(0x70,②);与 bufferLexer 同指
+	                                   //   一物 — 装载接线批两槽同写(批 85 同值双槽先例)
+	// FUN_00930f9e(26B)@0030:30982 真身化(①):editor_line_at(E,0) param_2==0
+	//   短路门 → *(E+0x258)=curBuffer → 非空取 *(buf+0x108)。我方 bufferLexer 即
+	//   平铺值,短路门同相(buffer 未挂 → 0)。
+	void *lexerSnap() const { return bufferLexer; }
+	// FUN_0099d4de(1407B)region 扫描驱动入口(E 面承接:lex = bufferLexer,③)
+	quint8 regionScan(quint32 lexerMode, qint64 from, qint64 to)
+	{ return markersStore.regionScan(lexerMode, from, to, bufferLexer); }
 	QHash<QString, QColor> styleTable; // 样式表占位(0x7547 S3;+0xe00 面未建模)
 	// char-used 视图(批 75 勘察:*(ctx+0x180) = 0x20 壳{vtbl, RS8,
 	//   密排 GapBuffer} ≡ RunStyles::FillRange;路线 A = RS8 委托坍缩,

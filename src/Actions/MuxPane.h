@@ -4,9 +4,10 @@
 #include <QObject>
 
 // MuxPane 宿主壳 —— 语料转写(批 50;铁律 6)。
-// ⚠ 批 71 勘正(mp lane):PTR_011a6c00 经 ELF 重定位+stringdata 解码
-//   = **MainWindow 的 QMetaObject**(activeMuxPane/muxPaneType 属性)
-//   —— 本壳实为主窗口宿主语义;真正面板 widget = 语料 MuxPane
+// ⚠ 批 71 勘正 + 批 87 km4 再勘:PTR_011a6c00 = readelf -r 实证
+//   **_ZN11QMainWindow16staticMetaObjectE@Qt_5(Qt 导入)**—— cast 面
+//   = qobject_cast<QMainWindow 后代>;本壳 = 主窗口宿主语义(引擎
+//   @+0x48 由 FUN_00766192 挂载);真正面板 widget = 语料 MuxPane
 //   (QWidget,s_MuxPane_8de0c0 ctor,MuxPaneGroup/TabGroup/Stacked
 //   层级)= Phase 4c 新增 MuxPaneView(避让本名)。
 // 语料:PTR_staticMetaObject_011a6c00(FUN_00665d8a 20B cast 目标;

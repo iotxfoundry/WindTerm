@@ -10,6 +10,7 @@
 
 #include <QtGlobal>
 #include <QList>
+#include <QVector>
 #include <QMap>
 #include <QString>
 #include <memory>
@@ -275,6 +276,93 @@ inline void bankCtorK5(ValueTable *b, void *rs)   // FUN_009cc29c
 { b->kind = 5; b->delegate = rs;
   b->holders[0] = b->holders[1] = b->holders[2] = b->holders[3] = b->holders[4] = nullptr;
   b->holders[5] = rs; }
+
+// ============ ScannerX — lexer/scanner 对象(buffer+0x108;批 markers 翻真②)============
+// FUN_00a1092a(403B @0033.c:43953)ctor 全读;分配 0x70,vt=PTR_scanner_freeEntries_
+// 011ae108;+0x58/+0x60 = 两个 Uint32Bimap(0x20 holder:{vt;+4 u32;+c spin;+0x10
+// QListData;+0x18 0})— 我方 QVector<quint32> 双表承载(styleProps190 同款先例,
+// EXT-BOUNDARY:metacall 体未读 — 查得即返/miss 追加,怪癖登记)。
+// 生产者 = FUN_009de20a(3051B,yaml lexer 装载)— cited;消费面 = tlist(D+0x18)≡ 同指针。
+// Uint32Bimap_qt_metacall 承载(值→idx;查得即返,miss 追加)— styleProps190 同款:
+inline quint32 bimapPut(QVector<quint32> &t, quint32 v)
+{
+    const int i = t.indexOf(v);
+    if (i < 0) { t.append(v); return quint32(t.size() - 1); }
+    return quint32(i);
+}
+
+struct ScannerX {                        // 0x70 布局照 ctor 语料(分配 0x70,00a1092a)
+    void    *vtbl = nullptr;             // +0x00 cited — PTR_scanner_freeEntries_011ae108
+    quint64  _r08 = 0;                   // +0x08/+0x10 FUN_00a12910 基 ctor 段 — cited — wave-2
+    quint64  _r10 = 0;
+    quint8   typeB11 = 0;                // +0x11 ctor 字面 0(00a10941;"syntax" 装载同值,0033:6537)
+    quint8   _r12[6] = {};               // +0x12..+0x17 对齐残隙
+    quint64  _r18 = 0;                   // +0x18/+0x20/+0x28 param_1[3..5]=0
+    quint64  _r20 = 0;
+    quint64  _r28 = 0;
+    QVector<quint64> kwVec30;            // +0x30..+0x40 语料三指针向量(param_1[6..8])QVector
+                                         //   等价承载(SelStoreX.extras 同款先例);ctor 尾
+                                         //   FUN_009e1af0 入一个 0;FUN_00a10472 门读 size>0xf
+                                         //   (关键词装载面,生产者 FUN_009de20a — cited)
+    void    *obj48 = nullptr;            // +0x48 operator_new(0x18){0,0,0}(00a10983)壳体 —
+                                         //   cited — wave-2(消费 = FUN_0099d072 关键词腿,未落)
+    quint64  _r50 = 0;                   // +0x50 param_1[10]=0(ctor 字面;tl"+0x50 域名 map"
+                                         //   与字面冲突,以语料为准 — 批 85 勘误流程)
+    QVector<quint32> list58;             // +0x58 Uint32Bimap(props 打包值→id;0099c750 插值面)
+    QVector<quint32> list60;             // +0x60 Uint32Bimap(值表 id↔值;keyProps 读面)
+    qint32   seed68 = 0;                 // +0x68 seed 条目 idx<<2(ctor 尾 metacall 链)
+    quint32  _r6c = 0;                   // +0x6c 0x70 分配尾
+
+    // FUN_00a1092a(403B)ctor 转写(0033.c:43953;字段字面见上):
+    void ctor00a1092a()
+    {
+        vtbl = nullptr;                  // cited
+        typeB11 = 0;                     // 00a10941
+        _r18 = _r20 = _r28 = 0;          // param_1[3..5]=0
+        kwVec30.clear();                 // param_1[6..8]=0(QVector 零承载)
+        obj48 = nullptr;                 // operator_new(0x18){0,0,0} — cited(壳期)
+        _r50 = 0;                        // param_1[10]=0
+        list58.clear(); list60.clear();  // 0x20 holder×2(00a109b0/00a109f8)→ QVector 承载
+        // seed 链(00a10a42..00a10a58):metacall(list58,0) → v=v&0xffc7ffff|0x80000
+        //   → metacall 回读 idx → +0x68 = idx<<2;list60 只 metacall 不回读
+        //   (00a10a5e — 未 seed,语料字面怪癖原样)
+        const quint32 i0 = bimapPut(list58, 0);
+        seed68 = qint32(bimapPut(list58, (i0 & 0xffc7ffffu) | 0x80000u)) << 2;
+        bimapPut(list60, 0);
+        kwVec30.append(0);               // 00a10a68..86:尾判满 → FUN_009e1af0 入 local_30[0]=0
+    }
+    // FUN_00a10472(16B)关键词计数门:(+0x38−+0x30)>>3 > 0xf
+    bool kwLoaded() const { return kwVec30.size() > 0xf; }
+    // FUN_00a10482(55B)插值腿:mode==0 → *(+0x68) seed;否则 metacall(list58,
+    //   CONCAT12(8,mode&0x1f) 命令字,00a10490)→ idx<<2。0x800 = metacall 命令位
+    //   (体未读,不承载);miss 即插(bimapPut 与 0099c750 同 op — 怪癖登记)。
+    quint32 interpValue(quint32 mode)
+    {
+        if (mode == 0) return quint32(seed68);
+        return bimapPut(list58, mode & 0x1f) << 2;
+    }
+};
+
+// —— 行面(builder 线同批;FUN_009f887e/009f88a4/009f88c8,slot10 = *(session+0xa0)
+//    0x48 doc-scan obj — 批④挂账)— cited — wave-2:主循环可达前提 = FUN_009de20a
+//    关键词装载(cited)+ slot10 接线,两批齐落前恒不可达(同相)
+inline qint64 lineStartOf10(void *, qint64) { return 0; }   // FUN_009f887e
+inline qint64 lineEndOf10(void *, qint64)   { return 0; }   // FUN_009f88c8
+inline qint64 lineIdxOf10(void *, qint64)   { return 0; }   // FUN_009f88a4
+// builder 面(FUN_00a83494/00a83480/00a836f8/00a83e0a/00a839cc/00a83bd0)— cited — wave-2
+inline void   builderSetAttr4(void *, quint8)               {}
+inline void   builderSetAttr5(void *, quint8)               {}
+inline bool   builderMatchRun(void *, qint64)               { return false; }   // 00a836f8
+inline qint64 builderScan(void *, void *, qint64, qint64)   { return -1; }      // 00a83e0a
+inline qint64 builderSubPos(void *, quint32)                { return 0; }       // 00a839cc
+inline qint64 builderSubEnd(void *, quint32)                { return 0; }       // 00a83bd0
+inline qint64 builderAnchor(void *, qint64)                 { return 0; }       // builder vt+0x00 双参尾调(0099d6ac)— cited
+// 关键词命中缓存(FUN_0099d27e,600B @0032.c:33028,production 全读但 QHash 击中面
+// 依赖 lexer 引擎句柄)— cited — wave-2:壳期恒 nullptr(→ d4de 主循环恒走 miss 腿)
+inline void *kwMatchCache(void *, void *, quint32, quint64) { return nullptr; }
+// 0xc00 腿 lexer 引擎逐行探测(FUN_00a11f02;句柄 FUN_00a12ab6/FUN_0098fdbc ctor/dtor
+// 亦 cited,我方无句柄承载)— cited — wave-2
+inline bool kwProbeLine(void *, quint32, quint16, quint64)  { return false; }
 
 // FUN_009a3116 editor_freeDocState4 — cited — wave-2(旧 doc-state 条目清理,体未转写)
 inline void editor_freeDocState4(void *, int) {}
@@ -774,7 +862,10 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
         D->scanCursor = 0;                                       // param_1[4] +0x20 扫描游标
         D->idAlloc = 0;                                          // *(u32*)(D+0x28)=0 id 分配器
         D->stopFlag = 0;                                         // *(u8*)(D+0x2c)=0 停机标志
-        D->tlist = nullptr;                                      // param_1[3] +0x18 = FUN_00930f9e(E,0) — cited(工厂未转写;读侧 T 同槽)
+        D->tlist = nullptr;                                      // param_1[3] +0x18 = FUN_00930f9e(E,0)
+                                                                 //   — 工厂已真身化(EditorContext::
+                                                                 //   lexerSnap,①);接线待 buffer 面
+                                                                 //   驱动批 — 参数位仍 nullptr(读侧 T 同槽)
         D->bucketTab = nullptr;                                  // param_1[6] +0x30 桶表
         D->memo = nullptr;                                       // param_1[7] +0x38 =&QHashData::shared_null(cited Qt 边界)
         D->builder = nullptr;                                    // param_1[8] +0x40 builder
@@ -829,6 +920,160 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
             runstylesUpgrade(A->bank, start, value, len);        // 单发
         }
         spin = 0;                                                // *(core+0x48)=0 解锁
+    }
+
+    // ============ FUN_0099d4de(1407B @0032.c:33144)regionScan — region 扫描游走器 ============
+    // 驱动 = FUN_009a2b90(mode-4 Outlining DocumentTask,0032.c:36875)循环调
+    //   (D, lexerMode, from, to);返回值 = local_69(语料全路径 '\0')。
+    // lex 形参:语料 FUN_0099c874(D)=FUN_00930f9e(*(D+0x08))=lexerSnap(D->doc);
+    //   E 面平铺后由 EditorContext::regionScan 供 bufferLexer。
+    quint8 regionScan(quint32 lexerMode, qint64 from, qint64 to, void *lex)
+    {
+        if (!arr || !arr->bank) return 0;        // 壳期守卫(语料均在 initDoc 后)
+        ScannerX *sx = static_cast<ScannerX *>(lex);
+        quint32 base = 0;
+        if (sx) base = sx->interpValue(lexerMode);           // FUN_00a10482 插值腿
+        if (!sx || !sx->kwLoaded()) {                        // FUN_00a10472 门(>0xf)
+            coreWriteRange(from, to - from, base, 1);        // 0099d50c 整段灌基值
+            scanCursor = quint64(to);                        // *(D+0x20)
+            return 0;
+        }
+        void *scanFace = reinterpret_cast<void *>(slot10);   // 0x48 doc-scan obj(批④挂账)
+        if (!scanFace) return 0;     // 壳期守卫:主循环须 FUN_009de20a 装载(cited)+slot10
+                                     //   接线齐备 — 恒不可达(同相);cited 行面 stub 恒 0,
+                                     //   无此门则 636 推行 while 死旋,故防崩门先于行面
+        int i8 = int(runIndexOfLine(quint64(from)));         // FUN_0099c9c2
+        const qint64 last = (to - 1 >= from) ? to - 1 : from;   // 0099d54e
+        int i9 = int(runIndexOfLine(quint64(last)));
+        if (i8 <= i9) {
+            do {                                             // LAB_0099d5c0
+                if (stopped()) return 0;                     // FUN_0099cfb6
+                if (runValueAt(i8) == 0) {                   // FUN_0099c974:素 run 才扫
+                    qint64 lo = qint64(vcallSlotArg(arr->bank->delegate, 0x38, i8));  // FUN_0099ca60
+                    if (lo < from) lo = from;
+                    qint64 hi = qint64(vcallSlotArg(arr->bank->delegate, 0x40, i8));  // FUN_0099ca6c
+                    if (to < hi) hi = to;
+                    int li = int(lineIdxOf10(scanFace, lo));         // FUN_009f88a4 — cited 面
+                    qint64 le = lineEndOf10(scanFace, li);           // FUN_009f88c8 — cited 面
+                    scanCursor = quint64(lo);                        // *(D+0x20)
+                    qint64 cur = lo;                                 // lVar13(lVar23 636 处重置)
+                    while (cur < hi) {                               // LAB_0099d636
+                        if (stopped()) return 0;
+                        if (cur - qint64(scanCursor) > 0xa000) {     // 40KB 分块冲刷
+                            coreWriteRange(qint64(scanCursor), cur - qint64(scanCursor), base, 1);
+                            scanCursor = quint64(cur);
+                        }
+                        while (le <= cur) { ++li; le = lineEndOf10(scanFace, li); }   // 推行
+                        const quint64 ch = quint64(lineStartOf10(scanFace, li));      // FUN_009f887e — cited 面
+                        void *matches = kwMatchCache(this, lex, lexerMode, ch);       // FUN_0099d27e — cited → 恒 nullptr
+                        if (!matches) {
+                            cur = le;                                // miss → 跳行尾(0099d628)
+                            if (hi <= le) break;                     // → LAB_0099d6b3
+                            continue;
+                        }
+                        // —— 命中处理腿(0099d6ab..0099da5d;壳期不可达:matches 恒 nullptr)
+                        //    记录 production = FUN_0099d27e(cited);face 由本消费点反推,
+                        //    字面照抄:+0x00 u16 tag;+0x01 attr byte;+0x10/+0x18 run 列表
+                        //    界(元素步长 3 long);+0x28 子表 ptr(元素 0x10,u32@+8)。
+                        void *builder = this->builder;               // D+0x40(initDoc 0;驱动链装载 — cited)
+                        if (!builder) {                              // 壳期守卫(语料此处必非空)
+                            cur = le;
+                            if (hi <= le) break;
+                            continue;
+                        }
+                        const qint64 anchor = builderAnchor(builder, cur);   // builder vt 双参尾调 — cited
+                        quint16 **rec = *static_cast<quint16 ***>(matches);  // matches = {begin,end}
+                        quint16 **recEnd = static_cast<quint16 ***>(matches)[1];
+                        qint64 next = cur + 1;                       // 未中默认腿(0099d6ab: +1)
+                        for (; rec != recEnd; ++rec) {               // 记录遍历
+                            const quint16 tag = **rec;               // 元素 = u16* 记录(语料字面)
+                            quint8 *rb = reinterpret_cast<quint8 *>(*rec);
+                            builderSetAttr4(builder, quint8((rb[1] >> 4) & 1));   // 00a83494 — cited
+                            builderSetAttr5(builder, quint8((rb[1] >> 5) & 1));   // 00a83480 — cited
+                            void *sub = *reinterpret_cast<void **>(rb + 0x28);
+                            *(bool *)(reinterpret_cast<char *>(builder) + 0x10) = (sub != nullptr);
+                            void **run = *reinterpret_cast<void ***>(rb + 0x10);  // run 列表
+                            void **runE = *reinterpret_cast<void ***>(rb + 0x18);
+                            for (; run != runE; run += 3) {          // 步长 3 long(语料字面)
+                                qint64 len = -1;
+                                if (*run == nullptr) {
+                                    if ((tag & 0xe00) == 0xc00) {    // 行内搜尾腿(0099d9b0)
+                                        // FUN_00a12ab6 句柄 ctor — cited(我方无句柄承载)
+                                        const int liEnd = int(lineIdxOf10(scanFace, hi));
+                                        int j8 = li, j9 = li;        // 语料 do-while 推进形
+                                        do {
+                                            j8 = j9; ++j9;
+                                            if (liEnd <= j9) break;
+                                        } while (kwProbeLine(lex, lexerMode, tag,
+                                                   quint64(lineStartOf10(scanFace, j9))));   // cited(恒 false)
+                                        le = lineEndOf10(scanFace, j8);   // LAB_0099da20 — cited 面
+                                        len = le - cur;              // lVar17 = lVar15 - lVar23
+                                        // FUN_0098fdbc 句柄 dtor — cited
+                                    }
+                                } else if (builderMatchRun(*run, anchor)) {   // 00a836f8 — cited(恒 false)
+                                    qint64 e = cur + 400;            // 游程 400 上限
+                                    if (to < e) e = to;
+                                    len = builderScan(builder, run, cur, e);   // 00a83e0a — cited(恒 -1)
+                                }
+                                if (len != -1) {                     // LAB_0099d812 灌值腿
+                                    next = cur + len;                // lVar13 = lVar17 + lVar23
+                                    if ((tag & 0xe00) != 0x200) {
+                                        // 前隙灌基值(0099d820)
+                                        coreWriteRange(qint64(scanCursor), cur - qint64(scanCursor), base, 1);
+                                        // props 打包式(0099d83a 字面):mode 低 5 位 |
+                                        //   tag 低 9 位<<5 | attr nib<<0x13 | run+0x10 字节&7<<0x16
+                                        const quint32 packed = (lexerMode & 0x1f)
+                                            | (quint32(tag & 0x1ff) << 5)
+                                            | (quint32((rb[1] >> 1) & 7) << 0x13)
+                                            | (quint32((reinterpret_cast<quint8 *>(run))[0x10] & 7) << 0x16);
+                                        // FUN_0099c750 → metacall(tlist+0x58):tlist≡lex 同指针,
+                                        //   接线批前 tlist nullptr → 走 lex 参(同指一物)
+                                        QVector<quint32> &bm =
+                                            tlist ? static_cast<ScannerX *>(static_cast<void *>(tlist))->list58
+                                                  : sx->list58;
+                                        const quint32 id = bimapPut(bm, packed);
+                                        // 灌 id<<2;rolling = bits19-21 == 0x30(0099d856 字面)
+                                        coreWriteRange(cur, len, id << 2,
+                                                       ((packed >> 0x10) & 0x38) == 0x30);
+                                        if (sub) {                   // 子表腿(0099d8b2)
+                                            void **subB = static_cast<void **>(sub);
+                                            for (quint8 *it = static_cast<quint8 *>(subB[0]);
+                                                 it != static_cast<quint8 *>(subB[1]); it += 0x10) {
+                                                const quint32 sv = *reinterpret_cast<quint32 *>(it + 8);
+                                                const qint64 sp = builderSubPos(builder, sv);   // 00a839cc — cited
+                                                const qint64 se = builderSubEnd(builder, sv);   // 00a83bd0 — cited
+                                                // bits14-18 = 子值低 5 位重打包(0099d8d8 字面)
+                                                const quint32 pk2 = (packed & 0xfff83fffu)
+                                                    | (quint32(sv & 0x1f) << 0xe);
+                                                const quint32 id2 = bimapPut(bm, pk2);
+                                                coreWriteRange(sp, se - sp, id2 << 2, 0);
+                                            }
+                                        }
+                                        scanCursor = quint64(next);  // *(D+0x20) = lVar13
+                                    }
+                                    break;                           // goto LAB_0099d636(cur=next)
+                                }
+                            }
+                            if (next != cur + 1)                     // 灌值命中 → 636 重入
+                                break;
+                        }
+                        cur = next;                                  // 636:lVar23 = lVar13
+                        continue;
+                    }
+                    // LAB_0099d6b3 尾冲刷
+                    if (qint64(scanCursor) < hi) {
+                        coreWriteRange(qint64(scanCursor), hi - qint64(scanCursor), base, 1);
+                        scanCursor = quint64(hi);
+                    }
+                    i8 = int(runIndexOfLine(scanCursor));            // FUN_0099c9c2
+                    i9 = int(runIndexOfLine(quint64(to)));
+                    if (i8 < i9) continue;                           // goto LAB_0099d5c0
+                }
+                ++i8;                                                // 已着色 run / 区间尽 → 下一 run
+            } while (i8 <= i9);
+        }
+        scanCursor = quint64(to);                                    // *(D+0x20) = to
+        return 0;
     }
 
     // FUN_0092e44e(0x754d 体)已迁 EditorEngine case 0x754d —— 批 69

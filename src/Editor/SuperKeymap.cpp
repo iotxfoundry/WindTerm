@@ -347,8 +347,9 @@ int SuperKeymap::feedKey(KeymapInputRecord &record, uint key, int flags)
 	QVector<QString> tokens{buf, digits == 0 ? buf : buf.mid(digits)};
 	MatchOut out;
 	out.flags = static_cast<quint32>(flags);   // local_dc[0] = param_3
-	out.ctxWhen = this;                        // 语料 *[1] = this(006777e6 local_c8)
-	out.ctxDispatch = this;                    // 语料 *[2] = this(local_c0;00674442 cast → MuxPane 本批接)
+	out.ctxWhen = parent();                    // 语料 *[1](006777e6;批 87 km4 反汇编
+	                                           //   定案:实参 = SuperKeymap,cast 内取 parent)
+	out.ctxDispatch = parent();                // 语料 *[2](local_c0;00674442 cast → MuxPane 宿主)
 	out.record = &record;                      // 语料 *[3] = param_4(local_e8)
 	int result = 0;                            // local_cc = 0
 	if (!chord) {
