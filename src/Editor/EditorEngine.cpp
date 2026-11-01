@@ -2319,14 +2319,22 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			// ===== S3 样式装载(00a72d4c-)=====
 			// 门 *(*(this)+0x113a)(00a72d4c)未建模,常开承接
 			//   (偏差登记);样式表 +0xe00 未建模 → styleTable 占位
-			QColor cSaved, cUnsaved, cModified;          // 缺省 Invalid 同效
+			QColor cSaved, cUnsaved, cModified;          // S3 装载(值取 styleColor,
+			                                             //   空表缺省=white 回填)
 			auto styleColor = [&](const char *key) -> QColor {
-				// 0095021a(+0xe00)→ 0094a7f8(bit1 门)→ 0094a5b2
-				//   环形 16B 槽 —— QHash 占位(丢 bit1 门,登记回填)
+				// 0095021a(+0xe00)→ 0094a7f8(bit1 门,常开承接)→
+				//   0094a5b2 环形 16B 槽 —— QHash 占位(丢 bit1 门,
+				//   登记回填);空表缺省腿回填:0094a5b2 尾
+				//   return &DAT_011c25e0 = _INIT_131(005204a8)
+				//   QColor(&DAT_011c25e0,3) = Qt::GlobalColor(3) =
+				//   white(r255g255b255a255,二进制实测;DAT 位于
+				//   RW LOAD 文件映像零,值由 ctor 运行期定义)。
+				//   同族 0094a576(v+0x20 表)空→DAT_011c25d0 =
+				//   GlobalColor(2)=black,bit0 腿不在此路
 				const auto it = m_ctx.styleTable.constFind(
 				    QLatin1String(key));
 				return it == m_ctx.styleTable.cend()
-				    ? QColor() : it.value();
+				    ? QColor(Qt::GlobalColor(3)) : it.value();
 			};
 			cSaved = styleColor("line.saved");           // 00a72d56
 			cUnsaved = styleColor("line.unsaved");       // 00a72dd0
@@ -2388,7 +2396,8 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				//   0094a576(v+0x20 表)/ 0094a7f8(b+8 bit1)→
 				//   editor_styleAt(v+0x30 表)— 样式记录位面未落地,
 				//   统一落 editor_styleAt 同面(= S3 占位),分派腿
-				//   cited — wave-2;空表默认色 DAT_011c25d0/e0 随占
+				//   cited — wave-2;空表默认色缺省腿已回填(S3 同款:
+				//   editor_styleAt 空→DAT_011c25e0=GlobalColor(3))
 				const QColor c = it.value();             // 0094a5b2
 				if (!c.isValid())                        // local_108==0
 					continue;                            // 00a73199
@@ -2620,13 +2629,16 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 					if (j < m_ctx.runVector.size())          // i<count 再验(L28879)
 						wt::runstylesUpgrade(rj, rs, 0, re - rs);
 					// ③ prune 一次(FUN_0095da64 @0031:30016;正向逐个摘
-					//   ≡ 全摘;resetState/operator_delete(0x40) 腿 cited,
-					//   我方 remove 不 delete → 摘后 rj 仍有效,行为门待裁决)
+					//   ≡ 全摘;delete 腿已补:语料 0095da64 命中后
+					//   scanner_resetState + operator_delete(0x40) 再
+					//   0095da30 摘;resetState 腿仍 cited — wave-2)
 					for (int q = m_ctx.runVector.size() - 1; q >= 0; --q) {
 						wt::ValueTable *qe = m_ctx.runVector[q];
 						if (wt::vcallSlot(qe->delegate, 0x30) == 1 &&
-						    wt::MarkersStore::runValueWordAt(qe, 0) == 0)
+						    wt::MarkersStore::runValueWordAt(qe, 0) == 0) {
+							delete qe;                   // 0095da64 operator_delete(_,0x40)
 							m_ctx.runVector.remove(q);   // da30 memmove 左移
+						}
 					}
 					if (m_ctx.runVector.size() == j)         // count==i → break 内层
 						break;                               //   run 序(L28886 字面)

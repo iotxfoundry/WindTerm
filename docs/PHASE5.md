@@ -1652,6 +1652,24 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (宿主装配批)
 - 验证:make 零错;ctest 12/12;engtest3 直跑 OK
 
+### 批 89(2026-11-01)三 lane 并行:replaceText 全读/builder 六函数/行为门小项 ✅
+- **replaceText 族全读**(I1):editor_replaceText(2248B)A-G 六段
+  (A 编码判定/B 撤销组+runlist/D 逐 run+undo/E 游标定位/F store
+  懒建含旧槽清理+flags&0x20 重试腿/G 析构)—— **骨架全可直转,可落
+  度高**;FUN_00a2de1c(1663B)11 段(遍历骨架+命中腿/边界校验);
+  FUN_009253ee(78B)/FUN_00a21110(165B)全读即转;cited ~35(codec/
+  选区/undo/容器族,FUN_0092a596 未解)
+- **markers builder 六函数分级**(I2):A 级 5(attr setter ×2 19B +
+  行面 ×3 17/17/26B,门 = *(slot10+0x10) 下游转发 lineFace+0x08
+  **ValueTable —— markers 实现复用新发现**)/B 级 2(捕获起止 75/76B
+  双态)/C 级 1(00a83c7a 400B regex 状态机,Onigmo EXT-BOUNDARY 前置);
+  调用图:非装载前置 = d4de 命中腿被调面;QUIRK:88c8 空面腿惰性重建
+- **行为门小项三件**(I3):① 0x7547 空样式表默认色回填(双源定值
+  GlobalColor(3)=white;同族 0094a576 空→black 注明)② 0x7576 prune
+  补 delete qe(0x40;悬漏同相项消解)③ upgrade 相位核对零改动
+  (runstylestest 断言与 009cd554 全同相,头注记录)
+- 验证:make 零错;ctest 12/12;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

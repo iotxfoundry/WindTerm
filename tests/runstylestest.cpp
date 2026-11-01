@@ -7,6 +7,10 @@
 // 批 86:值迁移腿六函数已转写(migrateLayer 参数化单体 + migU* 六入口;六体全读 0032.c
 //   69181/69265/69501/69585/69669/69753)→ 迁移分支断言翻转:旧槽清零(*param_2=0)/
 //   旧层+旧 holder 析构/旧值逐位搬新层/返回值=灌值腿 changed(铁律 5:断言语料行为)。
+// 批 89:upgrade 相位核对(语料 009cd554 @0032:68157 逐腿复核)—— 迁移腿
+//   goto 直灌(LAB_009cd65a/009cd592)= 返回灌值腿 changed、旧槽 *param_2=0
+//   (69264 族)、delegate=新层(LAB_009cd775 字面)、default return 0 ——
+//   与现断言全同相,零改动。
 #include "MarkersStore.h"
 #include <cstdio>
 
