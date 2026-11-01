@@ -343,15 +343,72 @@ struct ScannerX {                        // 0x70 布局照 ctor 语料(分配 0x
     }
 };
 
-// —— 行面(builder 线同批;FUN_009f887e/009f88a4/009f88c8,slot10 = *(session+0xa0)
-//    0x48 doc-scan obj — 批④挂账)— cited — wave-2:主循环可达前提 = FUN_009de20a
-//    关键词装载(cited)+ slot10 接线,两批齐落前恒不可达(同相)
-inline qint64 lineStartOf10(void *, qint64) { return 0; }   // FUN_009f887e
-inline qint64 lineEndOf10(void *, qint64)   { return 0; }   // FUN_009f88c8
-inline qint64 lineIdxOf10(void *, qint64)   { return 0; }   // FUN_009f88a4
-// builder 面(FUN_00a83494/00a83480/00a836f8/00a83e0a/00a839cc/00a83bd0)— cited — wave-2
-inline void   builderSetAttr4(void *, quint8)               {}
-inline void   builderSetAttr5(void *, quint8)               {}
+// —— 行面真身(FUN_009f887e/009f88a4/009f88c8,0033.c:26475/26505/26535;slot10 =
+//    *(session+0xa0) 0x48 doc-scan obj — 批④挂账):门 = *(s10+0x10) inner;
+//    inner+0x00 = lineFace;lineFace+0x08 = ValueTable*(bd 笔记 §2 结构定案;
+//    下游 thunk 00a04ad4/00a04ae0/00a04b04 = 0033.c:35109-35156,各 12B)。
+//    可达前提 = FUN_009de20a 关键词装载(cited)+ slot10 接线,两批齐落前恒不可达(同相)。
+// 6 路取值自由面(真体在 struct MarkersStore 后——成员体名字查找只看类定义前的声明):
+inline quint64 lineValueWord10(const ValueTable *b, int idx);
+// FUN_0092801a — cited — wave-2(E 面行表惰性重建/长度种子,体未读;EditorEngine.cpp:2859
+//   注 =*(doc+0xf8)+0x28 长度面)。88c8 空面腿字面调用(壳期恒不可达)。
+inline qint64 lineFaceRebuild10(void *) { return 0; }
+// 行面 ValueTable 直针:lineFace = *inner;bank = *(lineFace+0x08)(thunk 族字面 *(*(inner)+8))
+inline ValueTable *lineBank10(void *inner)
+{
+    void *lineFace = *reinterpret_cast<void **>(inner);
+    return *reinterpret_cast<ValueTable **>(reinterpret_cast<char *>(lineFace) + 8);
+}
+// FUN_009f887e(17B):门空 → 0(语料字面,无 s10 空判);门内 → 00a04ad4 →
+//   FUN_009cd3da(bank, idx)= 行 run 值(≡ 行起 offset;runs=行界,bd 笔记 §2 值语义)
+inline qint64 lineStartOf10(void *s10, qint64 idx)
+{
+    if (!s10) return 0;                                  // 壳期守卫(d4de 调用点自持 scanFace 门;测试/接线批直呼防崩)
+    void *inner = *reinterpret_cast<void **>(reinterpret_cast<char *>(s10) + 0x10);
+    if (!inner) return 0;
+    return qint64(lineValueWord10(lineBank10(inner), int(idx)));
+}
+// FUN_009f88a4(17B):门内 → 00a04ae0 → FUN_009cc396 = delegate vt+0x28(pos→run/line idx)
+inline qint64 lineIdxOf10(void *s10, qint64 pos)
+{
+    if (!s10) return 0;                                  // 壳期守卫(同 887e)
+    void *inner = *reinterpret_cast<void **>(reinterpret_cast<char *>(s10) + 0x10);
+    if (!inner) return 0;
+    return vcallSlotArg(lineBank10(inner)->delegate, 0x28, pos);
+}
+// FUN_009f88c8(26B):门内 → 00a04b04 → delegate vt+0x40 = 行止;
+//   空面腿:FUN_0092801a(*(s10+0x08))(E)行表惰性重建,rax 透传为返回值(语料字面)
+inline qint64 lineEndOf10(void *s10, qint64 idx)
+{
+    if (!s10) return 0;                                  // 壳期守卫(同 887e)
+    void *inner = *reinterpret_cast<void **>(reinterpret_cast<char *>(s10) + 0x10);
+    if (!inner)
+        return lineFaceRebuild10(*reinterpret_cast<void **>(reinterpret_cast<char *>(s10) + 8));
+    return vcallSlotArg(lineBank10(inner)->delegate, 0x40, idx);
+}
+// builder attr setter 对(0035.c:12/25;同构 19B,仅偏移差):b = builder 裸指针
+// (D+0x40,通用 matcher 上下文,≥7 实例共用 facade;我方无 BuilderX struct →
+// 按语料原样裸偏移直写,不触 ValueTable 0x40 布局)。+0x60/+0x61 attr 字节
+// (初值 0x0101,00a833e8 reset 实证);+0x58 u64 缓存(-1=无效,双 setter + reset 三源定案)。
+// FUN_00a83494(19B):*(char*)(b+0x60) != v 才写 + 缓存失效
+inline void builderSetAttr4(void *b, quint8 v)
+{
+    char &a = *reinterpret_cast<char *>(reinterpret_cast<char *>(b) + 0x60);
+    if (a != char(v)) {
+        a = char(v);
+        *reinterpret_cast<quint64 *>(reinterpret_cast<char *>(b) + 0x58) = ~quint64(0);
+    }
+}
+// FUN_00a83480(19B):同构,偏移 +0x61
+inline void builderSetAttr5(void *b, quint8 v)
+{
+    char &a = *reinterpret_cast<char *>(reinterpret_cast<char *>(b) + 0x61);
+    if (a != char(v)) {
+        a = char(v);
+        *reinterpret_cast<quint64 *>(reinterpret_cast<char *>(b) + 0x58) = ~quint64(0);
+    }
+}
+// builder 面(00a836f8/00a83e0a/00a839cc/00a83bd0)— cited — wave-2
 inline bool   builderMatchRun(void *, qint64)               { return false; }   // 00a836f8
 inline qint64 builderScan(void *, void *, qint64, qint64)   { return -1; }      // 00a83e0a
 inline qint64 builderSubPos(void *, quint32)                { return 0; }       // 00a839cc
@@ -1081,5 +1138,12 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
 };
 
 static_assert(sizeof(MarkersStore) == 0x70, "D 0x70B (mk2 勘正;mk3 全偏移核)");
+
+// lineValueWord10 定义(runValueWordAt 真身可见处;复用 markers 值表六路实现 —
+// bd 笔记 §2:行面 bank 与 markers 值表同源,009cd3da 直接复用实证)
+inline quint64 lineValueWord10(const ValueTable *b, int idx)
+{
+    return MarkersStore::runValueWordAt(b, idx);
+}
 
 } // namespace wt

@@ -1670,6 +1670,26 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (runstylestest 断言与 009cd554 全同相,头注记录)
 - 验证:make 零错;ctest 12/12;engtest3 直跑 OK
 
+### 批 90(2026-11-01)两落地 lane:replaceText 族 0x4f00 真身/builder A 级五函数入库 ✅
+- **case 0x4f00 editor_replaceText 真身**(J1,2248B A-G 六段):
+  A 编码判定(codec 族 cited,canOld=true/newLen=1 结构保留)/B type==3
+  门 + runlist 构建(Span56 逆序 be24 真身)/C flags&0x10 store extras
+  切换真身/D SCI 选区适配 + deque 迭代(/7 魔数怪癖登记;1:1 守卫
+  原样;**12998 FUN_00a21110 挂点 = m_ctx.notifyTextChanged(selStart,
+  delLen, insLen) 已接线 = vt8 事件源闭环**)/E 选区定位 + selStoreOn
+  置位 + flags&0x20 重试腿真身/F store 懒建 + anchor 7-long 写入
+  (旧槽清理腿 = 语料死分支同效)/G RAII;cited ~20;0x4eff replaceAll
+  骨架 cited(体未全读)
+- **builder A 级五函数入库**(J2,随批 89 ae627f2b):builderSetAttr4/5
+  (19B 裸偏移直写 + 缓存失效)/lineStartOf10/lineIdxOf10/lineEndOf10
+  (门 = *(slot10+0x10),下游 ValueTable 复用)/lineBank10/
+  lineValueWord10/lineFaceRebuild10 cited;零布局改动(0x70 assert 原样)
+- **⚠ 流程事件 ×2 登记**:① J1 违纪用 git(stash/checkout),误判
+  "销毁 J2 工作" —— 复活 lane 核对:J2 改动已随 ae627f2b 入库
+  (git add -A 自动收录),**零损失**;② J2 越权跑构建+ctest(自报
+  12/12)—— 禁令重申:lane 一律禁 git/构建/测试
+- 验证:make 零错;ctest 12/12;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
