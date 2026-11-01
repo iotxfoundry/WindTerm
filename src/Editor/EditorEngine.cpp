@@ -9,6 +9,8 @@
 #include <cstring>
 #include "EditorEngine.h"
 
+#include "CodecMemo.h"   // 批 91:ReplaceOp codec 缓存面(0089a0a0/0089a756/00899316)
+
 #include "ScintillaEditBase.h"
 #include "Scintilla.h"
 #include "Ext/ZstdFace.h"   // EXT-BOUNDARY 声明面(zstd 委托;调用点待链接)
@@ -29,6 +31,12 @@ static const RetEntry scintilla_returns[] =
 //   项;生产者未读 — r7 残留)→ 空表承载,at 恒越界返 0 同相
 //   — cited — wave-2
 static QVector<void *> s_grep_reg_1a60;   // DAT_011c1a60 占位
+
+// 批 91:ReplaceOp codec 缓存面承载(CodecMemo;语料 op 体 +0x48/+0x58/
+// +0x60 三缓存 + +0x08 自旋锁,布局对位见 CodecMemo.h。宿主桥 op 对象
+// 不承载我方缓存 → 文件级 static 承载替,批 81 s_grep_reg_1a60 先例;
+// 语料 op 级生命期 → 进程级,单会话单线程同相 — 登记)
+static CodecMemo s_codecMemo;
 static const void *s_grep_reg_at_6994e0(const QVector<void *> &list,
                                          int si)
 {
@@ -2910,11 +2918,17 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		const quint8 type = *(const quint8 *)(opb + 0x10);       // 12792 bVar1
 		const quint32 flags = *(const quint32 *)(opb + 0x0c);    // *(op+0xc)
 		bool selMode = ((type & 0xfd) == 1);            // 12793 local_18a
-		// 旧/新 codec getter FUN_009276e2/FUN_00927600、FUN_0089a756
-		//   可编码否、codec_canEncode→新长、FUN_0089a0a0→旧长 —
-		//   codec 族 — cited — wave-2(编码引擎未建模 → 占位 canOld=真、
-		//   oldLen=newLen=非零;selMode 取反腿 12798 结构保留、占位下不可达)
-		const bool canOld = true;                       // 【占位 — cited】local_189
+		// 旧/新 codec getter FUN_009276e2/FUN_00927600(doc+0xe0 持有体
+		//   +0x28/+0x20 串读取器;p3 §1 语义修正:009276e2 = find,
+		//   00927600 = replace 长提示)— cited — wave-2(空串承载)。
+		// codec memo 面(批 91):canOld = FUN_0089a756(179B)真身
+		//   (CodecMemo::canOld:op+0xc&5 门 + +0x58 Grep 针缓存查/插;
+		//   产腿 cited → 针恒 null → 真值,占位同相)。
+		// codec_canEncode(0089b85e)/FUN_0089a0a0 产物对(12842/12847:
+		//   新长/旧长源;canOld→canEncode 对 12871)产腿 cited → null
+		//   承载;null 门真身化(12871-12874)即 B-G 骨架死相(占位链
+		//   活性丢失)→ newLen/oldLen 占位非零保持
+		const bool canOld = s_codecMemo.canOld(QString());   // 12816 local_189 真身
 		if (!canOld)
 			selMode = !selMode;                         // 12798-12800
 		constexpr long long newLen = 1;                 // 【占位 — cited】local_188
@@ -3040,15 +3054,20 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			return QVariant(0);               //   取语料空判早退值 0;非语料行为 — 登记)
 		int hits = 0;                         // 12565/12785 iVar4 命中计数(return 值)
 		// —— 段 A 入口/编码判定(12551-12570)——
-		// 旧/新 codec FUN_009276e2/00927600、FUN_0089a756 旧编码可否
-		//   (12651 canOld 门)、codec_canEncode→新编码查找串、
-		//   FUN_0089a0a0→旧编码查找串(空 → 12565 return 0)、
-		//   FUN_0089ab22 替换串重编码 + FUN_00899316 长度 → repLen
-		//   (local_1d0,undo 腿写入长)— codec 族 — cited — wave-2
-		//   (编码引擎未建模 → 占位 canOld=真、repLen=1 非零;占位下
-		//   各守卫腿不可达,结构存照;replaceAll 无 selMode,与
-		//   replaceText 异)
-		const bool canOld = true;             // 【占位 — cited】cVar2
+		// 旧/新 codec getter FUN_009276e2/00927600 — cited — wave-2
+		//   (009276e2 = find 串源,p3 §1 修正;空串承载)。
+		// codec memo 面(批 91):canOld = FUN_0089a756(179B)真身
+		//   (CodecMemo::canOld;产腿 cited → 针恒 null → 真值,占位同相)。
+		// codec_canEncode(0089b85e,12657)/FUN_0089a0a0(12661)产物对 →
+		//   canOld 选对(12663:canOld→canEncode 对 else 针对象);产腿
+		//   cited → null 承载 → 12665 lVar7==0 门真身接线:针 null →
+		//   return 0(空判早退)。FUN_0089ab22(3300B)重编码 +
+		//   FUN_00899316(8B 真身 CodecMemo::encodedLen)→ repLen
+		//   (local_1d0,undo 腿写入长)— 0089ab22 cited → 占位非零
+		const bool canOld = s_codecMemo.canOld(QString());   // 12651 cVar2 真身
+		const void *needlePair = nullptr;     // 【占位 — cited】local_168/158
+		if (needlePair == nullptr)
+			return QVariant(0);               // 12665-12667 针 null → 0(真身)
 		constexpr long long repLen = 1;       // 【占位 — cited】local_1d0
 		const quint8 type = *(const quint8 *)(opb + 0x10);   // 12571 cVar1
 		// —— 段 B 替换 runlist(12572-12614)——
@@ -3089,15 +3108,14 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		//   迭代承载等价替,批 81/85 怪癖登记)——
 		for (int i = 0; i < base->size(); ++i) {
 			const EditorContext::Span56 &run = base->at(i);
-			const qint64 from = run.n0.pos;  // 12647 FUN_0096c18e(元素+0x10)
-			const qint64 to = run.n1.pos;    // 12648 FUN_0096c1a4(元素+0x28)
-			// LAB_00a32fe7/00a32ff2 搜索腿(12651-12653):canOld →
-			//   FUN_0092547e(95B,0030:20440 → FUN_00a8395c Screen 层
-			//   搜索,模式 2 同 FUN_009253ee);否则 LAB_00a33081 →
-			//   FUN_0092a596(467B,0030:26261,内部 0093632d/936cf1/
-			//   9376d1/93830d 深腿未解)正则腿 — 搜索族 — cited —
-			//   wave-2(编码引擎 f88 未建模 → 占位下无命中,命中
-			//   处理体恒不达,骨架存照如下)
+			qint64 from = run.n0.pos;        // 12647 FUN_0096c18e(元素+0x10)
+			qint64 to = run.n1.pos;         // 12648 FUN_0096c1a4(元素+0x28)
+			// —— 搜索腿真身接线(12651-12653;批 91 要点 3/4)——
+			//   canOld → FUN_0092547e(95B 真身骨架:searcher 复位+
+			//   state=2+thunk 门;00b422d0 引擎 cited);否则
+			//   FUN_0092a596(467B 骨架:四引擎分派 + pack64 掩码
+			//   过滤式;引擎/填充方 cited)。产腿 cited 下 needlePair
+			//   恒 null(12665 门先行 return 0)→ 本腿恒不达,存照。
 			// 命中处理体(12654-12749;语料行号):
 			//   · 12655-12657:FUN_00925540/92554c(12B×2,0030:20478/
 			//     20488)命中位对 → hitLen(lVar13 = 差值)
@@ -3120,14 +3138,25 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			//     语料同位 = per-hit editor_undoBegin 应用面(12682/
 			//     12691)→ doc 观察链 vt8 选区平移;参数 = (命中位
 			//     lVar8,delLen=hitLen lVar13,insLen=repLen local_1d0,
-			//     12704 推进前)—— 占位链下不可达,搜索/codec 族落地
-			//     时随 0x4f00 段 D 同批激活
+			//     12704 推进前)—— 本腿不达,搜索/codec 引擎落地时
+			//     随 0x4f00 段 D 同批激活
 			//   · 12704-12706:from += repLen、to += repLen−hitLen
 			//     (run 尾伸展)、run 尽 break;12708-12720:hitLen==0
 			//     防死循环腿 FUN_00925304(12B,0030:20331)步进 —
 			//     cited — wave-2
+			qint64 hit = -1;                  // lVar8
+			if (canOld)
+				hit = CodecMemo::searchNeedle(needlePair, from, to);  // 12652
+			else
+				hit = CodecMemo::scanMask(needlePair, from, to);      // 12653
+			if (hit != -1) {
+				// 命中处理体 — cited — wave-2(见上存照;占位链下恒不达)
+			}
 			Q_UNUSED(from);
 			Q_UNUSED(to);
+			// 命中位推进腿(from += repLen/to += repLen−hitLen/防死循环
+			//   FUN_00925304 步进)与双计数(*(op+0x3c)++)随命中处理体
+			//   同批落地 — cited — wave-2(本腿恒不达)
 		}
 		// —— 段 F 收尾(12760-12776)——
 		// 12760-12762:type==2 且有命中 → FUN_00a235ce(356B,0034:2405,

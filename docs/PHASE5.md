@@ -1728,6 +1728,28 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   ctest 13/13 复验通过 → commit 保留;禁令三度重申
 - 验证(主线程复验):make 零错;ctest 13/13;engtest3 直跑 OK
 
+### 批 93(2026-11-02)三 lane 并行:codec memo 落码/KitBar addKit 真身/restorePaneSplitter 类型化 ✅
+- **CodecMemo 落码**(N1):src/Editor/CodecMemo.{h,cpp} 新(op 体:
+  QBasicAtomicInt 自旋锁 +0x08/3×QHash +0x48/58/60 布局对位);
+  canOld(0089a756 179B)/grepNeedle(0089a0a0 缓存查插+LockGuard
+  退避真身)/encodedLen(00899316)/searchNeedle(0092547e 95B)/
+  scanMask(0092a596 467B 四引擎分派+pack64 过滤式)五真身;
+  0x4f00 段 A/0x4eff 段 A·E 三处 cited → 真身接线;GrepNeedle448
+  建模(+0x418 允许命中位图/+0x420 SIMD 块);canEncode(2047B)/
+  convCtor(2543B)声明层 cited;**语义勘正**:searcher @doc+0x88
+  (notes +0xf8 勘误);+0x418 填充方四单字节 codec 面证实(convCtor)
+- **KitBar addKit 真身**(N2):S0-S11 全段真身(9743B 体);A 档
+  helper 13 全落(委托 moc/QMap/ThemeIcons);KitBar.h 重写(KitEntry
+  0x18 节点型/kitActivated moc 承接/m_f38 spacer·m_f40 QButtonGroup
+  语义批 77 结案);S5 actionFactory/S6 King__buildKeySequence cited 2
+- **restorePaneSplitter 类型化定案**(N3):param_1 = SuperSession*
+  (+0x1c8 QSharedPointer 槽)/param_2 配置对象永 void*(类名未解)/
+  param_4 = paneIndex ✓/param_5 = 0x28B POD 匿名;detachPane(addTab
+  对偶 62B)落点 MuxPaneGroup::detachPane;升级方案备(POD 不进产品
+  头直至类名解)
+- 验证:cmake 重跑(CodecMemo 新 TU)+ make 零错;**ctest 13/13**;
+  engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
