@@ -4,10 +4,9 @@
 // mkLayer(LAB_009cd775)/rsFill8/16/32(007b7290/007b8000 ≡ RunStyles::FillRange
 // RunStyles.cxx:132)/rsValue8/16/32(0088ff00/007b6dd0/007b7b70)。
 // RS 模板实例化在预构建 scintilla_core.a(RunStyles.cxx:310-311)→ 链接经 WindTermRe。
-// ⚠ 现状登记:值迁移腿 cited — wave-2 未转写(009cee86/009cf8c2/009cf69e/009cf0b0/
-//   009cfae6/009cfd0a;landed MarkersStore.h:169-170「升宽后旧值不搬」)→ 迁移分支只测
-//   结构断言(kind/holders 槽位/delegate),迁移灌值/保值腿为现状断言,cited 腿转写后
-//   按 QUIRKS 裁决流程翻转。
+// 批 86:值迁移腿六函数已转写(migrateLayer 参数化单体 + migU* 六入口;六体全读 0032.c
+//   69181/69265/69501/69585/69669/69753)→ 迁移分支断言翻转:旧槽清零(*param_2=0)/
+//   旧层+旧 holder 析构/旧值逐位搬新层/返回值=灌值腿 changed(铁律 5:断言语料行为)。
 #include "MarkersStore.h"
 #include <cstdio>
 
@@ -48,27 +47,30 @@ int main()
 		expect(bank.kind == 3, "b1: 直灌腿 kind 不迁(仍 3)");
 		expect(wt::rsValue8(h3->rs, 2) == 0x7f && wt::rsValue8(h3->rs, 5) == 0x7f,
 		       "b1: u8 层读回(0088ff00 委托)");
-		// b2 判式下边界 v==0x100 → mkU16S(009cebe6 ctor;迁移 009cf0b0 cited)
+		// b2 判式下边界 v==0x100 → mkU16S(009cebe6 ctor;迁移 009cf0b0 真身)
 		const bool r2 = wt::runstylesUpgrade(&bank, 4, 0x100, 2);
 		expect(bank.kind == 4, "b2: v==0x100 → kind 3→4(mkU16S)");
 		expect(bank.holders[4] != nullptr && bank.holders[4] != h3,
 		       "b2: holders[4] 新建(mkLayer LAB_009cd775)");
-		expect(bank.holders[3] == h3, "b2: 旧 u8 槽位不动(holders[3]==h3)");
+		expect(bank.holders[3] == nullptr,
+		       "b2: 旧槽清零(009cf0b0 尾 *param_2=0,0032:69264)+ 旧 holder 析构 —— 批 86 迁移落地翻转");
 		expect(bank.delegate == bank.holders[4], "b2: delegate=新层(LAB_009cd775 字面)");
-		// q5:迁移腿不返回 true,返回值=灌值腿结果;现状新层空(Length 0)→
-		// FillRange 端界判 no-op(RunStyles.cxx:138)→ false。009cee86 转写后翻转。
-		expect(r2 == false,
-		       "b2: 返回值=灌值腿(q5);新层空 no-op → false(现状登记)");
+		// q5:迁移腿不返回 true,返回值=灌值腿结果;迁移保值后新层 Length=旧层 16 →
+		// FillRange [4,6)=0x100 changed → true(批 86 翻转;q5 语义不变)。
+		expect(r2 == true,
+		       "b2: 返回值=灌值腿(q5);迁移扩层后灌值 changed → true");
 		void *rsP = *reinterpret_cast<void *const *>(
 		    reinterpret_cast<const char *>(bank.holders[4]) + 0x10);  // holder→RS 解引(rsOf 同形)
-		expect(wt::rsValue16(rsP, 4) == 0,
-		       "b2: 触发值未落新层(灌值 no-op,现状登记;holders[4] 为 holder 形,经 +0x10 解引 —— 批 85 断言修正)");
-		// b3 判式上边界 v==0x10000 → mkU32S(009cf400 ctor;迁移 009cfae6 cited)
+		expect(wt::rsValue16(rsP, 4) == 0x100,
+		       "b2: 触发值落新层 [4,6)=0x100(灌值腿委托 FillRange;holders[4] 经 +0x10 解引)");
+		expect(wt::rsValue16(rsP, 2) == 0x7f,
+		       "b2: 旧值随迁移保留(pos2 0x7f 搬入 u16 层,009cee86 ⑤逐位搬运)—— 批 86 断言翻转");
+		// b3 判式上边界 v==0x10000 → mkU32S(009cf400 ctor;迁移 009cfae6 真身)
 		wt::runstylesUpgrade(&bank, 6, 0x10000, 2);
 		expect(bank.kind == 5, "b3: v==0x10000 → kind 4→5(mkU32S)");
-		expect(bank.holders[3] == h3 && bank.holders[4] != nullptr
+		expect(bank.holders[3] == nullptr && bank.holders[4] == nullptr
 		       && bank.holders[5] != nullptr,
-		       "b3: 梯槽 3/4/5 全在(逐层迁移不回收)");
+		       "b3: 逐层迁移旧槽清零(*param_2=0 逐腿字面;值已在 5 层)—— 批 86 翻转");
 		expect(bank.delegate == bank.holders[5], "b3: delegate=holders[5]");
 	}
 
@@ -83,21 +85,26 @@ int main()
 		       "bp: kind0 v<0x100 直灌 u8(gapbuffer 密排路,委托 RS8)");
 		expect(wt::rsValue8(h0->rs, 0) == 0xff, "bp: u8 直灌读回");
 		const bool r1 = wt::runstylesUpgrade(&bank, 1, 0xffff, 2);
-		expect(bank.kind == 1, "bp: v==0xffff → kind 0→1(mkU16,009ceabe+009cee86 cited)");
+		expect(bank.kind == 1, "bp: v==0xffff → kind 0→1(mkU16,009ceabe+009cee86 真身)");
 		expect(bank.holders[1] != nullptr && bank.delegate == bank.holders[1],
 		       "bp: holders[1]/delegate 换新(LAB_009cd775)");
-		expect(bank.holders[0] == h0, "bp: 旧 u8 槽位不动");
-		expect(r1 == false, "bp: 迁移后灌值 no-op(新层空,现状登记)");
+		expect(bank.holders[0] == nullptr, "bp: 旧槽清零(*param_2=0,009cee86 尾字面;批 86 翻转)");
+		expect(r1 == true, "bp: 迁移保值后灌值 [1,3)=0xffff changed → true(批 86 翻转)");
+		{
+			void *rsP1 = *reinterpret_cast<void *const *>(
+			    reinterpret_cast<const char *>(bank.holders[1]) + 0x10);
+			expect(wt::rsValue16(rsP1, 0) == 0xff,
+			       "bp: 旧值随迁移保留(pos0 0xff 搬入 u16 层,009cee86 同构)");
+		}
 		wt::runstylesUpgrade(&bank, 1, 0x10000, 1);
-		expect(bank.kind == 2, "bp: kind1 v≥0x10000 → kind 1→2(mkU32,009cf69e cited)");
+		expect(bank.kind == 2, "bp: kind1 v≥0x10000 → kind 1→2(mkU32,009cf69e 真身)");
 		expect(bank.holders[2] != nullptr && bank.delegate == bank.holders[2],
 		       "bp: holders[2]/delegate 换新");
 	}
 
-	// ======== c. 灌值腿(委托面语义 FUN_007b8000 ≡ FillRange)+ 迁移保值腿停手注明 ====
-	// 「迁移不丢值」腿 = 值迁移 cited — wave-2 未转写(MarkersStore.h:169-170)。
-	//   断言旧值随迁移保留 = 断言未转写行为(铁律 3)→ 停手;本组只做:
-	//   直灌腿真值(委托 FillRange changed/读回)+ 迁移后旧层本体不动的结构断言。
+	// ======== c. 灌值腿(委托面语义 FUN_007b8000 ≡ FillRange)+ 迁移保值腿(批 86 真身)====
+	//   直灌腿真值(委托 FillRange changed/读回)+ 迁移腿断言:旧槽清零/旧值搬新层
+	//   (铁律 5:断言语料行为;批 86 断言翻转落定)。
 	{
 		wt::ValueTable bank{};
 		RS8 *rs8 = new RS8();
@@ -106,13 +113,15 @@ int main()
 		wt::bankCtorK3(&bank, h3);
 		expect(wt::runstylesUpgrade(&bank, 0, 0x42, 4) == true, "c: 升宽前 u8 灌值 true");
 		expect(wt::rsValue8(h3->rs, 3) == 0x42, "c: 旧值在 u8 层(升宽前)");
-		wt::runstylesUpgrade(&bank, 8, 0x100, 1);            // 触发 3→4(迁移 cited)
-		expect(bank.holders[3] == h3 && wt::rsValue8(h3->rs, 3) == 0x42,
-		       "c: 旧 u8 层本体不动(holders[3] 值仍在 — 结构断言)");
+		wt::runstylesUpgrade(&bank, 8, 0x100, 1);            // 触发 3→4(迁移真身 009cf0b0)
+		expect(bank.holders[3] == nullptr,
+		       "c: 旧槽清零(009cf0b0 尾 *param_2=0)+ 旧 holder 析构 —— 批 86 翻转");
 		void *rsP4 = *reinterpret_cast<void *const *>(
 		    reinterpret_cast<const char *>(bank.holders[4]) + 0x10);  // holder→RS 解引(rsOf 同形)
-		expect(wt::rsValue16(rsP4, 0) == 0,
-		       "c: 升宽后旧值不搬(现状登记;cited 009cee86 转写后翻转);holders[4] holder 形 +0x10 解引 —— 批 85 断言修正");
+		expect(wt::rsValue16(rsP4, 3) == 0x42,
+		       "c: 旧值随迁移保留(pos3 0x42 搬入 u16 层,009cf0b0 ⑤逐位搬运)—— 批 86 断言翻转");
+		expect(wt::rsValue16(rsP4, 8) == 0x100,
+		       "c: 触发值落新层 [8,9)=0x100(灌值腿委托 FillRange)");
 
 		// 直灌腿真值:kind2 u32 层 Length 预扩(夹具侧上游 InsertSpace 语义)
 		wt::ValueTable b2{};

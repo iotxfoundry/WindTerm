@@ -1586,6 +1586,31 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:make 零错;**ctest 12/12**;engtest3 直跑 OK;runstylestest
   3 连跑稳定
 
+### 批 86(2026-11-01)三 lane 并行:迁移腿 6/6 真身/渲染核事件批/tlist 链定性 ✅
+- **markWrite 迁移腿 6/6 真身**(F1):六迁移函数(009cee86/009cf8c2/
+  009cf69e/009cf0b0/009cfae6/009cfd0a)全读同构 → 参数化模板
+  migrateLayer<OLDRS,NEWRS>(槽面搬运/pieceTable 析构+threadCtx 接管
+  cited/长度差零填尾 InsertSpace/逐位搬运零扩展/旧层 face+holder 析构
+  +*param_2=0)+ 六入口 migU*;runstylesUpgrade 六 cited 点全接线;
+  runstylestest 8 处断言翻转(旧值不搬→随迁移保留/no-op→changed/
+  旧槽清零,全带 0032.c 行号锚)
+- **渲染核事件批落地**(F2):SelStoreX 成员化(ed+0xfb8 行为模型 +
+  selStoreOn 门;replaceText 未落地恒 false = store 未建同相)+
+  平移原语四件上提单一定义(pos_gt_bb52/pos_eq_bb04/pos_adjust_bca4/
+  span_shift_c334,vt8 写侧与绘制核共用)+ notifyTextChanged 转写
+  (selStoreOn 短路/anchor beb4 门/extras 逐项 c334);调用点 cited
+  (我方 dispatch 无写命令面);F2 自伤修正一处(anchor 门 RunPair::
+  complete 误用 → Span56 isValid 原样)
+- **tlist 链定性**(E4'):**lexerSnap ≠ 快照** = lexer/scanner 对象
+  (FUN_00930f9e 26B = editor_line_at(E,0)+0x108;D+0x18 与 A+0x08
+  同指针双槽);tlist 内容生产 = FUN_0099d4de(1407B,Outlining task
+  驱动 FUN_009a2b90)+ scanner ctor FUN_00a1092a(403B 挂 list58/60);
+  markWrite param3=len/param4=32 位样式值(0xd nibble/0x7c000 门,
+  调用点 = Outlining 族 009a17da×4+009a23b4,**与 0x7596 margin UI
+  无关**);翻真批清单 4 项入档
+- 验证:make 零错;ctest 12/12;runstylestest 3 连跑稳定;engtest3
+  直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

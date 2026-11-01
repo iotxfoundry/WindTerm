@@ -1524,31 +1524,16 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		//   (被叫方 ~44KB 语料;DrawCtx=local_208 0x38B 工作区)
 		auto drawLineBody = [&]() {
 			// ===== selection chunked-deque store(r7 §1;ed+0xfb8 0x88B)=====
-			// Span56(0x38B/项;0096bd82 init@0031:40640 / 0096be24 组装
-			//   @40610 = {+8←param_3, +0x20←param_2} 逆序 + 0096bd68 flag):
-			//   +0x00 u32 flagWord(0096bd68@0031:40640:byte3|flag<<6 后
-			//     &0xc0000000);+0x08/+0x20 = 两 SelPos 24B(RunNode 形:
-			//     u32 styleWord/s64 pos/f64 width,runstyles_runnode_init
-			//     0096bac0@0031:40324 同构)
-			struct Span56 {
-				quint32 flagWord = 0;
-				RunNode n0;               // +0x08(be24 ←param_3)
-				RunNode n1;               // +0x20(be24 ←param_2)
-			};
-			// store(00a28516 建;0x88B):anchor@+0 + extras@+0x38。
-			// 我方 QVector<Span56> 等价承载(r7 §1c:块/gap 控制字不承载
-			// 可观察行为,size 内联公式 ≡ QVector::size(),怪癖登记)
-			struct SelStoreX {
-				Span56 anchor;            // +0x00(0096bd82:a=b={-1})
-				QVector<Span56> extras;   // +0x38 deque 基(0x50B→等价替)
-			};
+			// Span56/SelStoreX/平移原语批 85 上提 EditorContext.h
+			//   (D2:SelStoreX 成员化 — store 生命周期 = 文档级非帧级,
+			//   地址注释原样迁移;绘制侧消费 = m_ctx.selStore 成员,
+			//   帧间持续,绘制帧零写入)
+			using Span56 = EditorContext::Span56;         // 批 85 上提别名
+			using SelStoreX = EditorContext::SelStoreX;   //   (机械限定)
 			// FUN_0096beb4(31B)@0031:40707 两节点均有效门 — 真身化
 			auto span_valid_beb4 = [](const Span56 &sp) {
 				return sp.n0.isValid() && sp.n1.isValid();
 			};
-			SelStoreX selStore;           // ed+0xfb8 局部模型(每核重建;
-			                              //   写侧 Editor_vt8 0033:56230 未
-			                              //   接线 — 壳期恒空,a283a4==0 同相)
 			// DrawCtx 局部模型(FUN_00a76608 4628B initDrawCtx — cited —
 			//   wave-2;字段表 r5 §3 M4。init 未建模 → 全 0 缺省,偏差登记)
 			struct DrawCtx {
@@ -1773,97 +1758,40 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			//   ==0 → FUN_00a1fc3a(ed,-1) 现选区 7-qword 载入 — cited —
 			//   wave-2(scintilla_get_text_range 返回体未转写;占位跳过 →
 			//   anchor 恒 {-1},与写侧未接线壳期同相)
+			//   D2/批 85:懒建真调用面 = editor_replaceText(00a3360e,
+			//   0034:13032 唯一真调用面;13057-13089 inline 懒建同构)
+			//   — cited(我方无 replaceText 命令面;selStoreOn 置位腿
+			//   随 replaceText 族落地,当前恒 false = store 未建同相)
 			auto sel_store_a28516 = [&]() -> SelStoreX & {
-				return selStore;          // 已建 store 即返(00a2858e)
+				return m_ctx.selStore;    // 已建 store 即返(00a2858e;
+				                          //   成员化后帧间持续)
 			};
 			// FUN_00a283a4(127B)@decomp-0034.c:5635 — 真身化:extras 探测
 			//   (store 非空 && (+0x68‖+0x48 非零) && size!=0 → 返
 			//   store+0x38;size 内联公式 magic-mul 0x6db6… ≡
 			//   QVector::isEmpty() 等价替,怪癖登记)
 			auto sel_extras_a283a4 = [&](SelStoreX *st) -> QVector<Span56> * {
-				if (st != nullptr && !st->extras.isEmpty())  // 00a283b0 门
-					return &st->extras;                      // = store+0x38
-				return nullptr;                              // 00a28419
+				// 00a283b0 门:store 存在性 = selStoreOn(ed+0xfb8 非 0;
+				//   成员化后显式门,a28516 置位面随 replaceText 落地)
+				if (m_ctx.selStoreOn && st != nullptr
+				    && !st->extras.isEmpty())   // size!=0 内联 ≡ isEmpty
+					return &st->extras;         // = store+0x38
+				return nullptr;                 // 00a28419
 			};
-			// FUN_0096bb52(35B)@0031:40394 = (x >_lex y):pos2<pos1 返 1;
-			//   同 pos → style(x>>1 < y>>1) — 真身化
-			auto pos_gt_bb52 = [](const RunNode &x, const RunNode &y) {
-				if (y.pos < x.pos)
-					return true;
-				if (x.pos != y.pos)
-					return false;
-				return (x.styleWord >> 1) < (y.styleWord >> 1);
-			};
-			// FUN_0096bb04(24B)@0031:40352 同位判:pos 相等 && 低 30 位
-			//   styleWord 全同(flag 位不计)— 真身化
-			auto pos_eq_bb04 = [](const RunNode &x, const RunNode &y) {
-				if (x.pos != y.pos)
-					return false;
-				return ((x.styleWord ^ y.styleWord) & 0xfffffffeu) == 0;
-			};
-			// FUN_0096bca4(162B)@0031:40583 节点位置调整 — 真身化:
-			//   cur < pos+len 时(pos < cur 或 (cur==pos && posNode.style
-			//   ≤ node.style;语料 qstrdata_length_get 助记名 = runnode
-			//   style 面字>>1,与 bb52 平局支同构)):len>0 → pos=pos+
-			//   styleWord&1;delta>0 → pos+=delta;width=-1.0 恒置;
-			//   cur ≥ pos+len → pos += delta−len(width 同置)
-			auto pos_adjust_bca4 = [&](RunNode &n, const RunNode &p,
-			                           qint64 delta, qint64 len) {
-				const qint64 pos = p.pos;              // 0096bbc0(p)
-				const qint64 cur = n.pos;
-				if (cur < pos + len) {                 // 0096bcbx
-					if (pos < cur
-					    || (cur == pos && (p.styleWord >> 1)
-					                             <= (n.styleWord >> 1))) {
-						if (0 < len) {                 // 0096bcf8
-							n.pos = pos;               // 0096bd02
-							n.styleWord &= 1u;         // 留 flag 位
-						}
-						if (0 < delta)                 // 0096bd0c
-							n.pos += delta;            // 0096bd12
-						n.width = -1.0;                // 0096bd1c(位型)
-						return;
-					}
-					return;                            // 内层未中 → 隐式尾
-				}
-				n.pos = cur + (delta - len);           // 0096bcc6 else 支
-				n.width = -1.0;                        // 0096bccc
-			};
-			// FUN_0096c334(150B)@0031:41249 单 Span 平移 — 真身化:
-			//   (span,posNode,delta,len);两节点按 bb52 定序为大小两侧
-			//   (a=大侧,b=小侧);pos < 大侧(或 len==0 且 bb04 全等)→
-			//   bca4(大侧);pos < 小侧 → bca4(小侧)
-			auto span_shift_c334 = [&](Span56 &sp, const RunNode &posN,
-			                           qint64 delta, qint64 len) {
-				RunNode *a = &sp.n0;                   // lVar2 缺省
-				RunNode *b = &sp.n1;                   // lVar3 缺省
-				if (pos_gt_bb52(sp.n1, sp.n0)) {       // hi>lo → 换边
-					a = &sp.n1;
-					b = &sp.n0;
-				}
-				if (!pos_gt_bb52(*a, posN)) {          // pos ≥ 大侧:
-					if (len != 0)                      //   len!=0 → 弃
-						return;                        //   (0096c37c)
-					if (!pos_eq_bb04(*a, posN))        //   全等才调整
-						return;                        //   (0096c384)
-				}
-				pos_adjust_bca4(*a, posN, delta, len); // 0096c38c
-				if (!pos_gt_bb52(*b, posN))            // 小侧 ≤pos → 弃
-					return;                            //   (0096c3a0)
-				pos_adjust_bca4(*b, posN, delta, len); // 0096c3a8
-			};
+			// FUN_0096bb52/bb04/bca4/c334 真身化批 85 上提 EditorContext.h
+			//   (随 SelStoreX 成员化;vt8 写侧共用单一定义,地址注释原样)
 			// 真调用面存照:a28516 懒建/ c334 平移在 Editor_vt8 写入侧
 			//   (0033:56230-56277;anchor 路径 + extras 步进遍历)与会话
-			//   选区通知 — 写侧接线随后续批;本核仅结构存照
+			//   选区通知 — 写侧 = EditorContext::notifyTextChanged(已转写,
+			//   调用点待接线);本核仅结构存照
 			(void)sel_store_a28516;
-			(void)span_shift_c334;
 			// FUN_00a66ae8(1031B)s_grep_bands_a66ae8 — 批 83 提为文件级
 			//   static(机械搬移,真调用面 = 0x7547 S5 四注册;
 			//   本位原为存照定义,地址注释随迁至函数头)
 			// s_text_selection_a67e62(603B)@decomp-0034.c:44485 — 真身化
 			//   (批 81;选区亮带层:extras 全项线性迭代 + 逐项行绘委托)
 			auto s_text_selection_a67e62 = [&]() {
-				QVector<Span56> *ex = sel_extras_a283a4(&selStore); // 00a67ecb
+				QVector<Span56> *ex = sel_extras_a283a4(&m_ctx.selStore); // 00a67ecb
 				if (ex == nullptr)
 					return;                // 00a67ed6 extras 空 → 整退
 				// deque 五控制字遍历(r7 §1b)≡ QVector 线性迭代

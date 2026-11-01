@@ -3,6 +3,8 @@
 // 写侧构建者批已落地(mk3):markersCtxInit(009a2e1e 尾段)/bankCtor 族(009cc22c/
 // 009cc264/009cc29c)/runstylesUpgrade(009cd554)/coreWriteRange(0099c8d6)/
 // markWrite(009a62c0)/publishOutline(009a2766)+ rsValue* 委托真身(§7)。
+// 值迁移腿六函数已落地(批 86):migrateLayer 参数化体(009cee86/009cf8c2/009cf69e/
+// 009cf0b0/009cfae6/009cfd0a 六体同构)+ migU* 六入口,runstylesUpgrade 接真身调用。
 // 行为测试须等写入侧接线。语料地址均为 Ghidra 基址(非 PIE 直通)。
 #pragma once
 
@@ -156,6 +158,7 @@ inline RsHolder20 *makeHolder0x20(void *rs)
 // (RunStyles.cxx:132;changed 对应 *param_5)。⚠ 语料合并吸收路径返 1/普通写返 0/1,
 // 委托 .changed 与之未必逐值同相 — 行为门裁决点(登记待测)。Skip/plain 委托同形,
 // 分腿地址见 runstylesUpgrade 调用点。空守卫:壳期/前置期调用防崩(语料均在 init 后)。
+// rsFill64:RS64 实例化暂缓(见 rsValue64),占位 — cited — wave-2
 inline bool rsFill8(void *h, qint64 pos, quint8 v, qint64 len)
 { return h && static_cast<RS8 *>(holderRs(h))->FillRange(int(pos), char(v), int(len)).changed; }
 inline bool rsFill16(void *h, qint64 pos, quint16 v, qint64 len)
@@ -166,8 +169,7 @@ inline bool rsFill32(void *h, qint64 pos, quint32 v, qint64 len)
 inline bool rsFill64(void *, qint64, quint64, qint64) { return false; }
 
 // 升宽换层公共尾(LAB_009cd775):holders[slot]=新;delegate=新;kind=slot。
-// 值迁移腿 cited — wave-2 未转写(009cee86 u8→u16 / 009cf8c2 u8→u32 / 009cf69e u16→u32 /
-// 009cf0b0 u8S→u16S / 009cfae6 u8S→u32S / 009cfd0a u16S→u32S):升宽后旧值不搬,行为门待测。
+// 值迁移腿批 86 已转写(下行 migU* 六入口;语料六函数全读)。
 inline void mkLayer(ValueTable *b, int slot, void *newHolder)
 { b->holders[slot] = newHolder; b->delegate = newHolder; b->kind = quint32(slot); }
 // mkU 族 — operator_new(0x20){vt 占位;0;0;0}(009cd898 形)+ ctor cited(FUN_009ceabe/
@@ -177,6 +179,51 @@ inline void mkU32 (ValueTable *b, int slot) { mkLayer(b, slot, makeHolder0x20(ne
 inline void mkU16S(ValueTable *b, int slot) { mkLayer(b, slot, makeHolder0x20(new RS16())); }  // 009cebe6 形 Skip u16
 inline void mkU32S(ValueTable *b, int slot) { mkLayer(b, slot, makeHolder0x20(new RS32())); }  // 009cf400 形 Skip u32
 
+// ============ 值迁移腿六函数(批 86 落地;0032.c 全读:009cee86@69181/009cf0b0@69265/
+//              009cf69e@69501/009cf8c2@69585/009cfae6@69669/009cfd0a@69753)============
+// 六体逐行同构(各 505-510B;仅 ctor 入口/旧层读函数/写宽度三处差)→ 模板参数化单体:
+//   OLDRS = 旧层读宽(FUN_0088ff00 → RS8 / runstyles_value_at16 → RS16);NEWRS = 新层写宽。
+// 语料体(以 009cee86 为代表,行号 = 0032.c):
+//   ① ctor:FUN_009ceabe(param_1,0,…) 形(upgrade 调点先建新层;mkU* 承载)
+//   ② 69190-95 槽面搬运:uVar1=*(旧+0x08)/plVar2=*(旧+0x10)(旧层 face);旧 +0x08/+0x10 清 0
+//   ③ 69196-201:新 +0x08 非空 → vt+0x08 析构(ctor 所建 pieceTable)→ 新 +0x08 = uVar1
+//      (我方 threadCtx cited 恒 0,赋值同构)
+//   ④ 69202-10 长度差尾:旧长 = plVar2[2];新长 = 新层 +0x10 面;新短 → Uint1xRunStyles_fill
+//      (新face,新长,0,差)(68208)—— 委托 InsertSpace 零值扩(RunStyles.cxx:188)
+//   ⑤ 69212+ 逐位搬运 for u in [0,旧长):v = 读旧层 → 零扩展窄升 → 直写新层 DATA(GB 密排路
+//      threadLocalGet/runstyles_threadData+part1/gap 三段判断)—— 委托 NEWRS SetValueAt
+//      (≡ FillRange(u,v,1),RunStyles.cxx:185;run 合并语义差,怪癖登记)
+//   ⑥ 69260-4 尾:vt+0x08 析构旧层 face(我方 delete;语料 D1 单独调,释放权在 D0 链 —
+//      委托态收尾等价);析构旧 holder;*param_2 = 0(旧槽清)
+template <class OLDRS, class NEWRS>
+inline void migrateLayer(void *newHolder, void **oldSlot, quint32 srcMask)
+{
+    RsHolder20 *nu  = static_cast<RsHolder20 *>(newHolder);
+    RsHolder20 *old = static_cast<RsHolder20 *>(*oldSlot);          // 69189 lVar8 = *param_2
+    nu->threadCtx = old->threadCtx;                                 // ③ 69201(我方 cited 恒 0)
+    old->threadCtx = nullptr;                                       // ③ 69194
+    OLDRS *oldRs = static_cast<OLDRS *>(old->rs);                   // ③ 69192 plVar2(旧层 face)
+    old->rs = nullptr;                                              // ③ 69195
+    const int oldLen = oldRs ? int(oldRs->Length()) : 0;            // ④ 69197 plVar2[2]
+    const int nuLen  = int(static_cast<NEWRS *>(nu->rs)->Length()); // ④ 69198 新层长面
+    if (nuLen < oldLen)                                             // ④ 68207-9 零填尾
+        static_cast<NEWRS *>(nu->rs)->InsertSpace(nuLen, oldLen - nuLen);
+    for (int u = 0; u < oldLen; ++u) {                              // ⑤ 逐位搬运(窄升)
+        const quint32 v = quint32(oldRs->ValueAt(u)) & srcMask;     // 零扩展(byte/ushort 字面)
+        static_cast<NEWRS *>(nu->rs)->SetValueAt(u, int(v));        // 直写新层
+    }
+    delete oldRs;                                                   // ⑥ 69260 旧层 face D1
+    delete old;                                                     // ⑥ 69261-3 旧 holder
+    *oldSlot = nullptr;                                             // ⑥ 69264 *param_2 = 0
+}
+// migU* 六入口(009cd554 迁移腿调用点字面:<OLDRS,NEWRS> 分派;oldSlot 传 holders 槽址)
+inline void migU16 (ValueTable *b) { mkU16 (b, 1); migrateLayer<RS8 , RS16>(b->holders[1], &b->holders[0], 0xffu);   }  // 009cee86 u8→u16(ctor 009ceabe)
+inline void migU32 (ValueTable *b) { mkU32 (b, 2); migrateLayer<RS8 , RS32>(b->holders[2], &b->holders[0], 0xffu);   }  // 009cf8c2 u8→u32(ctor 009cf2da)
+inline void migU32b(ValueTable *b) { mkU32 (b, 2); migrateLayer<RS16, RS32>(b->holders[2], &b->holders[1], 0xffffu); }  // 009cf69e u16→u32(ctor 009cf2da)
+inline void migU16S(ValueTable *b) { mkU16S(b, 4); migrateLayer<RS8 , RS16>(b->holders[4], &b->holders[3], 0xffu);   }  // 009cf0b0 u8S→u16S(ctor 009cebe6)
+inline void migU32S(ValueTable *b) { mkU32S(b, 5); migrateLayer<RS8 , RS32>(b->holders[5], &b->holders[3], 0xffu);   }  // 009cfae6 u8S→u32S(ctor 009cf400)
+inline void migU32Sb(ValueTable *b){ mkU32S(b, 5); migrateLayer<RS16, RS32>(b->holders[5], &b->holders[4], 0xffffu); }  // 009cfd0a u16S→u32S(ctor 009cf400)
+
 // ============ runstylesUpgrade — FUN_009cd554(920B @0032.c:68157)分段转写 ============
 // plain 梯 kind0/1/2=holders[0..2],Skip 梯 kind3/4/5=holders[3..5];迁移腿不返回 true
 // (q5)/goto 直灌,返回值 = 灌值腿结果。
@@ -185,20 +232,20 @@ inline bool runstylesUpgrade(ValueTable *b, qint64 pos, quint32 v, qint64 len)
     switch (b->kind) {
     case 0:
         if (v < 0x100)   return rsFill8 (b->holders[0], pos, quint8(v), len);   // gapbuffer_get_chars_locked 密排直写(委托 RS8)
-        if (v < 0x10000) mkU16(b, 1);                                           // 009ceabe ctor + 009cee86 u8→u16 迁移(cited)
-        else             mkU32(b, 2);                                           // 009cf2da ctor + 009cf8c2 u8→u32(cited);直落 LAB_009cd775
+        if (v < 0x10000) { migU16(b); }                                         // 009ceabe ctor + 009cee86 u8→u16 迁移(批 86)
+        else             { migU32(b); }                                         // 009cf2da ctor + 009cf8c2 u8→u32(批 86);直落 LAB_009cd775
         break;
     case 1:
-        if (v >= 0x10000) mkU32(b, 2);                                          // 009cf69e u16→u32 迁移(cited)
+        if (v >= 0x10000) migU32b(b);                                           // 009cf69e u16→u32 迁移(批 86)
         break;                                                                  // 否则直灌 u16
     case 2: break;                                                              // 直灌 u32
     case 3:
         if (v < 0x100)   return rsFill8 (b->holders[3], pos, quint8(v), len);   // Uint8SkipRunStyles_h962e10(0032:68227)
-        if (v < 0x10000) mkU16S(b, 4);                                          // 009cebe6 ctor + 009cf0b0(cited)
-        else             mkU32S(b, 5);                                          // 009cf400 ctor + 009cfae6(cited)
+        if (v < 0x10000) { migU16S(b); }                                        // 009cebe6 ctor + 009cf0b0(批 86)
+        else             { migU32S(b); }                                        // 009cf400 ctor + 009cfae6(批 86)
         break;
     case 4:
-        if (v >= 0x10000) mkU32S(b, 5);                                         // 009cfd0a u16S→u32S(cited)
+        if (v >= 0x10000) migU32Sb(b);                                          // 009cfd0a u16S→u32S(批 86)
         break;
     case 5: break;
     default: return false;                                                      // kind≥6 → 0
