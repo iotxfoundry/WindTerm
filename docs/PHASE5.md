@@ -1690,6 +1690,26 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   12/12)—— 禁令重申:lane 一律禁 git/构建/测试
 - 验证:make 零错;ctest 12/12;engtest3 直跑 OK
 
+### 批 91(2026-11-01)三 lane 并行:0x4eff 骨架真身/builder B 级四体全真/008e0bb2 测绘 ✅
+- **0x4eff replaceAll 骨架真身**(K1,2171B 体全读 0034:12493-12786):
+  ≈27 行可执行骨架(桥面/空守卫/type·flags 偏移直读/段 B runlist
+  构建/Span56 承接/段 C 选区来源成员化/段 D 空判早退/段 E 循环+
+  FUN_0096c18e/c1a4 承接读);cited 5 组(codec/type==4 前置/搜索腿/
+  命中处理体/收尾);**notifyTextChanged 挂点对位注记未落活**
+  (语料命中体在 cited 搜索腿下恒不可达,落活 = 死代码,裁决正确;
+  激活条件注记)
+- **builder B 级四体全真身**(K2):builderSubPos/End(+0xb8 双态读:
+  ==1 结果表偶/奇槽 + +0x98 基/==2 简表)+ SubPos18/SubEnd18 辅助;
+  状态 1 腿 c7a 落地前不可达(壳期恒 -1 同相);regionScan 子表腿
+  cited → 真身同步
+- **008e0bb2(1323B)测绘**(K3):分段地图(S0 rollback/S2 焦点锚/
+  S3 findChildren<MuxPaneGroup*>/S4-6 组循环 property+refreshStyle
+  cited/S8 焦点链上溯 dynamic_cast MuxPane/S9 **+0x48=select-pane
+  index/+0x78·80=QPointer<MuxPane> 消费点落定**);~85% Qt 1:1 直译
+  可写;MuxWindow.h 成员勘误闭环;与 KitBar 零调用面(分工定案:
+  008e0bb2 焦点读路径 vs 008b346e 页挂写路径);未解 +0x44
+- 验证:make 零错;ctest 12/12;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

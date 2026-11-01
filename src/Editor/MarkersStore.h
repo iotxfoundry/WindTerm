@@ -408,11 +408,74 @@ inline void builderSetAttr5(void *b, quint8 v)
         *reinterpret_cast<quint64 *>(reinterpret_cast<char *>(b) + 0x58) = ~quint64(0);
     }
 }
-// builder 面(00a836f8/00a83e0a/00a839cc/00a83bd0)— cited — wave-2
+// builder 面(00a836f8/00a83e0a)— cited — wave-2;subPos/subEnd 真身见下
 inline bool   builderMatchRun(void *, qint64)               { return false; }   // 00a836f8
 inline qint64 builderScan(void *, void *, qint64, qint64)   { return -1; }      // 00a83e0a
-inline qint64 builderSubPos(void *, quint32)                { return 0; }       // 00a839cc
-inline qint64 builderSubEnd(void *, quint32)                { return 0; }       // 00a83bd0
+
+// —— builderSubPos/SubEnd 双态读真身(00a839cc 75B/00a83bd0 76B 同构,0035.c:518/620)——
+// b = builder 裸指针(D+0x40;BuilderX 未建模 → 裸偏移直写,同 builderSetAttr4/5 先例)。
+// 双态(状态由 00a83c7a regex 执行机置位 — Tier C 挂账:状态 1 腿现不可达,字面转写同相):
+//   1 = 匹配完成:i < *(int*)(b+0xa8)(捕获数)→ v = 捕获数组(*(resB0+0x18))[2i]
+//       (resB0 = *(b+0xb0) 结果表;偶槽=起/奇槽=止);v==-1 → -1;否则 + *(long*)(b+0x98)
+//       (region 基)。⚠ 语料状态 1 腿无负 i 守卫(quirk 原样;腿不可达期无风险)。
+//   2 = 流式:f = *(b+0x18) 简表 {+4 int count;+8 起表 arr;+0x10 止表 arr},
+//       负/越界 i → -1(FUN_00a839ae/00a83bb2 字面)。
+//   其余状态 → -1。
+// FUN_00a839ae(29B,0035.c:506)+0x18 简表起读
+inline qint64 builderSubPos18(void *f, int i)
+{
+    if (i < 0 || i >= *reinterpret_cast<int *>(reinterpret_cast<char *>(f) + 4))
+        return -1;
+    return *reinterpret_cast<qint64 *>(
+        reinterpret_cast<char *>(*reinterpret_cast<void **>(reinterpret_cast<char *>(f) + 8))
+        + static_cast<long>(i) * 8);
+}
+// FUN_00a83bb2(29B,0035.c:608)+0x18 简表止读(读 +0x10 数组)
+inline qint64 builderSubEnd18(void *f, int i)
+{
+    if (i < 0 || i >= *reinterpret_cast<int *>(reinterpret_cast<char *>(f) + 4))
+        return -1;
+    return *reinterpret_cast<qint64 *>(
+        reinterpret_cast<char *>(*reinterpret_cast<void **>(reinterpret_cast<char *>(f) + 0x10))
+        + static_cast<long>(i) * 8);
+}
+// FUN_00a839cc(75B,0035.c:518)— builderSubPos(捕获 i 起)
+inline qint64 builderSubPos(void *b, quint32 idx)
+{
+    char *p = reinterpret_cast<char *>(b);
+    const int i = int(idx);                                  // 语料形参 int(0035.c:520)
+    if (*reinterpret_cast<int *>(p + 0xb8) == 1) {                       // 523 状态 1
+        if (i < *reinterpret_cast<int *>(p + 0xa8)) {                    // 525 i < 捕获数
+            const long v = *reinterpret_cast<long *>(                    // 527 偶槽 = 起
+                *reinterpret_cast<long *>(*reinterpret_cast<long *>(p + 0xb0) + 0x18)
+                + static_cast<long>(i * 2) * 8);
+            if (v == -1) return -1;                                      // 529
+            return v + *reinterpret_cast<long *>(p + 0x98);              // 531 + region 基
+        }
+    } else if (*reinterpret_cast<int *>(p + 0xb8) == 2) {                // 534 状态 2:流式
+        return builderSubPos18(*reinterpret_cast<void **>(p + 0x18), i); // → FUN_00a839ae
+    }
+    return -1;                                                           // 539
+}
+// FUN_00a83bd0(76B,0035.c:620)— builderSubEnd(捕获 i 止):与 39cc 同构,三处差
+// (奇槽 +8 / 止表 +0x10 / 辅助 00a83bb2)
+inline qint64 builderSubEnd(void *b, quint32 idx)
+{
+    char *p = reinterpret_cast<char *>(b);
+    const int i = int(idx);                                  // 语料形参 int(0035.c:622)
+    if (*reinterpret_cast<int *>(p + 0xb8) == 1) {                       // 625 状态 1
+        if (i < *reinterpret_cast<int *>(p + 0xa8)) {                    // 627
+            const long v = *reinterpret_cast<long *>(                    // 629 奇槽 = 止
+                *reinterpret_cast<long *>(*reinterpret_cast<long *>(p + 0xb0) + 0x18)
+                + 8 + static_cast<long>(i * 2) * 8);
+            if (v == -1) return -1;                                      // 631
+            return v + *reinterpret_cast<long *>(p + 0x98);              // 633 + region 基
+        }
+    } else if (*reinterpret_cast<int *>(p + 0xb8) == 2) {                // 636 状态 2:流式
+        return builderSubEnd18(*reinterpret_cast<void **>(p + 0x18), i); // → FUN_00a83bb2
+    }
+    return -1;                                                           // 641
+}
 inline qint64 builderAnchor(void *, qint64)                 { return 0; }       // builder vt+0x00 双参尾调(0099d6ac)— cited
 // 关键词命中缓存(FUN_0099d27e,600B @0032.c:33028,production 全读但 QHash 击中面
 // 依赖 lexer 引擎句柄)— cited — wave-2:壳期恒 nullptr(→ d4de 主循环恒走 miss 腿)
@@ -1097,8 +1160,8 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
                                             for (quint8 *it = static_cast<quint8 *>(subB[0]);
                                                  it != static_cast<quint8 *>(subB[1]); it += 0x10) {
                                                 const quint32 sv = *reinterpret_cast<quint32 *>(it + 8);
-                                                const qint64 sp = builderSubPos(builder, sv);   // 00a839cc — cited
-                                                const qint64 se = builderSubEnd(builder, sv);   // 00a83bd0 — cited
+                                                const qint64 sp = builderSubPos(builder, sv);   // 00a839cc 真身
+                                                const qint64 se = builderSubEnd(builder, sv);   // 00a83bd0 真身
                                                 // bits14-18 = 子值低 5 位重打包(0099d8d8 字面)
                                                 const quint32 pk2 = (packed & 0xfff83fffu)
                                                     | (quint32(sv & 0x1f) << 0xe);

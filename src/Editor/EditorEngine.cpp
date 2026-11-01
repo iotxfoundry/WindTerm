@@ -3032,9 +3032,116 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		Q_UNUSED(insLen);   // 段 D 占位链(仅 delLen 进 notify;codec 族落地时接)
 		return QVariant(r);
 	}
-	case 0x4eff:     // editor_replaceAll — replaceText 同族(体未全读;
-	                 //   骨架同 0x4f00 A-G 简化)— cited — wave-2
-		return QVariant(0);
+	case 0x4eff: {   // editor_replaceAll @00a32cca(2171B,0034:12493-12786
+	                 //   体全读;批 90)— 命中循环骨架直转;codec/搜索/
+	                 //   undo/选区族深腿 cited — wave-2
+		char *const opb = (char *)a.toULongLong();       // 22608 toULongLong 桥面
+		if (opb == nullptr)                   // 我方安全守卫(宿主桥未建对象;
+			return QVariant(0);               //   取语料空判早退值 0;非语料行为 — 登记)
+		int hits = 0;                         // 12565/12785 iVar4 命中计数(return 值)
+		// —— 段 A 入口/编码判定(12551-12570)——
+		// 旧/新 codec FUN_009276e2/00927600、FUN_0089a756 旧编码可否
+		//   (12651 canOld 门)、codec_canEncode→新编码查找串、
+		//   FUN_0089a0a0→旧编码查找串(空 → 12565 return 0)、
+		//   FUN_0089ab22 替换串重编码 + FUN_00899316 长度 → repLen
+		//   (local_1d0,undo 腿写入长)— codec 族 — cited — wave-2
+		//   (编码引擎未建模 → 占位 canOld=真、repLen=1 非零;占位下
+		//   各守卫腿不可达,结构存照;replaceAll 无 selMode,与
+		//   replaceText 异)
+		const bool canOld = true;             // 【占位 — cited】cVar2
+		constexpr long long repLen = 1;       // 【占位 — cited】local_1d0
+		const quint8 type = *(const quint8 *)(opb + 0x10);   // 12571 cVar1
+		// —— 段 B 替换 runlist(12572-12614)——
+		// 本地 splitvector 清零 → QVector 承载(批 81/85 怪癖);
+		//   12583 FUN_0092801a(doc) 长度面(docBytes 承接,0x4f00 同面)
+		//   → runnode_init(textLen,0,0)/runnode_init(0,0,0) →
+		//   FUN_0096be24 合并 → push_back(FUN_00a4d18e/尾槽直写二腿
+		//   12595-12607,QVector::append 承载同效);12613
+		//   editor_clearSelectState(p1,(flags>>4)&1)— 选区族 —
+		//   cited — wave-2(874B 体未转写;0x4f00 同注)
+		const quint32 flags = *(const quint32 *)(opb + 0x0c);    // 12613/12616 *(op+0xc)
+		QVector<EditorContext::Span56> runlist;
+		{
+			const qint64 textLen = m_ctx.docBytes.size();   // FUN_0092801a — cited 适配
+			EditorContext::Span56 sp;
+			sp.flagWord = 0;
+			sp.n0 = RunNode::make(textLen, 0, false);   // local_128 +0x08←param_3
+			sp.n1 = RunNode::make(0, 0, false);         // local_148 +0x20←param_2
+			runlist.append(sp);
+		}
+		// —— 段 C 选区来源(12616-12619)——
+		QVector<EditorContext::Span56> *base = &runlist;         // plVar11
+		if ((flags & 0x10) != 0 && m_ctx.selStoreOn              // FUN_00a283a4(127B,
+		    && !m_ctx.selStore.extras.isEmpty())                 //   0034:5635)非空 → extras
+			base = &m_ctx.selStore.extras;
+		// —— 段 C2 type==4 前置腿(12620-12629)——
+		// FUN_00925798(doc+0x100 → 0092042e(…,1))事务挂起 +
+		//   FUN_00a28316(editctx 事件 5,106B,0034:5594)批注腿 —
+		//   undo/editctx 族 — cited — wave-2
+		if (type == 4) {
+			// cited — wave-2
+		}
+		// —— 段 D runlist 空判(12631-12637)——
+		if (base->isEmpty())                 // 12636 local_1a0==lVar10(deque 空 ≡ 空容器)
+			return QVariant(0);              //   12637 blocks_free + iVar4=0
+		// —— 段 E 逐 run 命中循环(12639-12759;手写 deque 步进
+		//   local_1a0 += 0x38 + 块界跳转 12752-12757 — QVector 线性
+		//   迭代承载等价替,批 81/85 怪癖登记)——
+		for (int i = 0; i < base->size(); ++i) {
+			const EditorContext::Span56 &run = base->at(i);
+			const qint64 from = run.n0.pos;  // 12647 FUN_0096c18e(元素+0x10)
+			const qint64 to = run.n1.pos;    // 12648 FUN_0096c1a4(元素+0x28)
+			// LAB_00a32fe7/00a32ff2 搜索腿(12651-12653):canOld →
+			//   FUN_0092547e(95B,0030:20440 → FUN_00a8395c Screen 层
+			//   搜索,模式 2 同 FUN_009253ee);否则 LAB_00a33081 →
+			//   FUN_0092a596(467B,0030:26261,内部 0093632d/936cf1/
+			//   9376d1/93830d 深腿未解)正则腿 — 搜索族 — cited —
+			//   wave-2(编码引擎 f88 未建模 → 占位下无命中,命中
+			//   处理体恒不达,骨架存照如下)
+			// 命中处理体(12654-12749;语料行号):
+			//   · 12655-12657:FUN_00925540/92554c(12B×2,0030:20478/
+			//     20488)命中位对 → hitLen(lVar13 = 差值)
+			//   · 12658-12659:iVar4++ + *(int*)(op+0x3c)++ 双计数
+			//   · type==2 选区腿(LAB_00a330bf 12723-12746):首命中
+			//     (12725 iVar4==1)→ runnode_init(end)/runnode_init
+			//     (start) + FUN_00a20eb2(238B,0034:676:两 runnode →
+			//     选区 + doc 通知 FUN_009783fa)移选区;非首命中 →
+			//     editor_selCtor 懒建多选区上下文(12735-12738)+ 同构
+			//     FUN_00a211c6(238B,0034:808,通知面 009786fa)追加 —
+			//     选区/通知族 — cited — wave-2
+			//   · type==4 undo 替换腿(12663-12707):editctx iter 懒建
+			//     (12665-12669 operator_new(0x18)+editctx_beginIter)/
+			//     editor_selMake("Replace All")懒建(12671-12675)/
+			//     FUN_008990b2 替换串空判(12678):空 → editor_undoBegin
+			//     直写(12680-12684);非空 → FUN_00925564+FUN_008990c0
+			//     打包 + editor_undoBegin(12685-12698)— codec/undo 族
+			//     — cited — wave-2
+			//   · 【notifyTextChanged 接线点】对位 0x4f00 段 D 挂点:
+			//     语料同位 = per-hit editor_undoBegin 应用面(12682/
+			//     12691)→ doc 观察链 vt8 选区平移;参数 = (命中位
+			//     lVar8,delLen=hitLen lVar13,insLen=repLen local_1d0,
+			//     12704 推进前)—— 占位链下不可达,搜索/codec 族落地
+			//     时随 0x4f00 段 D 同批激活
+			//   · 12704-12706:from += repLen、to += repLen−hitLen
+			//     (run 尾伸展)、run 尽 break;12708-12720:hitLen==0
+			//     防死循环腿 FUN_00925304(12B,0030:20331)步进 —
+			//     cited — wave-2
+			Q_UNUSED(from);
+			Q_UNUSED(to);
+		}
+		// —— 段 F 收尾(12760-12776)——
+		// 12760-12762:type==2 且有命中 → FUN_00a235ce(356B,0034:2405,
+		//   -1,0 全文档刷新)刷新腿 — cited — wave-2(00a23206/
+		//   00a20a56/00a209e4 深腿未解);12764 runlist 析构 = RAII
+		//   承载零操作;12765-12775 三懒建槽收尾(editor_selCtor →
+		//   FUN_00974856/selMake → FUN_00963b22/editctx iter →
+		//   FUN_00a161d8 + operator_delete ×3)— 占位下不懒建 →
+		//   无槽可收,同相
+		// —— 段 G 尾(12778-12785)——
+		// _M_release ×2(codec 查找/替换串 QByteArray 引用)— cited —
+		//   wave-2(RAII 承载零操作);return iVar4
+		return QVariant(hits);
+	}
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 		// std::string 返回族/hexBase…):真名与语义锚见
