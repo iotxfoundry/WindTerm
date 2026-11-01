@@ -53,15 +53,22 @@ signals:
 	void commandOutput(const QString &context, const QString &output);
 
 private slots:
-	// readyRead lambda 008698c0 落点(真调用腿 jumptable 未复原,
-	// cited — wave-2;socket 读腿分流已在 ProxyCommandSocket 实接)
+	// readyRead lambda 008698c0 落点(批 83 真身:= 00911e60 纯信号转发)
 	void onReadyRead();
+
+private:
+	// FUN_007c85dc(87B,0024.c:34783)状态门:`(s==+0x2c)&&(1<s-8U)` 去
+	// 重(仅 Auth 区同值不重发)→ +0x2c=s → 00911ef2
+	// emit stateChanged(state, extra)。(桥内 +0x2c 状态槽随本 helper
+	// 落地;SuperSession 侧消费点后续批接线)
+	void setState(King::SessionState state, const QVariant &extra);
 
 private:
 	ProxyCommandSocket *m_socket = nullptr;   // +0x30 ProxyCommandSocket 槽
 	                                          // (FUN_00875ffe:new 0065f0a0)
 	bool m_dialing = false;           // +0x18 自旋门(FUN_007c82e6)
 	bool m_connected = false;         // +0x28(007c82e6 拨号成置 1)
+	int m_state = 0;                  // +0x2c(FUN_007c85dc 状态门槽)
 
 private:
 	Q_DISABLE_COPY(TelnetBridge)

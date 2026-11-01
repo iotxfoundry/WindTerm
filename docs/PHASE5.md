@@ -1541,6 +1541,28 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(renderpixtest)+ make 零错;ctest 11/11;
   engtest3 直跑 OK
 
+### 批 84(2026-11-01)三 lane 并行:Telnet 头勘正/selection 接线点/markers 行为门 54 断言 ✅
+- **Telnet 头修正批**(D1):errorOccurred 勘正 `(int code, const
+  QString &errStr)`(activate idx4 双参序,moc 'code','info' 佐证);
+  stateChanged 改 `(King::SessionState, const QVariant&)`(emit 桩
+  00911ef2 = activate idx6 {int,QVariant-arg};007c85dc 单 state 门
+  与 oldState 对矛盾)—— **无 QUIRKS 需求,证据直接成立**;同值去重
+  门 `(1<s-8U)` 原样转写(QUIRKS 候选注);onReadyRead 真身 =
+  emit readyRead() 一行(00911e60 idx5);全库影响点清查:SuperSession
+  同名信号 = 自己的面不在链上,他桥零受影响
+- **selection 接线点定案**(D2):Editor_vt8(00a1e8da 439B)= 槽 6;
+  **事件驱动**(doc 观察者链 00925c5e)+ 事务内懒建(editor_replaceText
+  0034:13032 唯一真调用面),绘制帧零写入 —— 我方 SelStoreX 恒空 =
+  "store 未建"同相无偏差;方案三步(SelStoreX 提成员/notifyText
+  Changed 挂点/懒建随 replaceText 族)归渲染核事件批
+- **markers 行为门 54 断言**(D3):h 组接线激活(0x7543 → arr 非空/
+  idAlloc=0/bank kind=3)/i 组 markWrite 挂载后/j·k 组 0x759f·75a1
+  行为门/l 组 **q1 裁决落定:markWrite cur 读 = D+0x18 tlist 路**
+  (tlist 表 0x51a → cur≠0 → 39467 弃;行为门实测,与 landed 注
+  A+0x18 说矛盾 → 转写注记冲突登记待语料批复核);附带怪癖:rsFill32
+  (u32Obj) 委托双解引错位登记(铁律 2 不修)
+- 验证:make 零错;ctest 11/11;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
