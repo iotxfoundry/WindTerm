@@ -1563,6 +1563,29 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (u32Obj) 委托双解引错位登记(铁律 2 不修)
 - 验证:make 零错;ctest 11/11;engtest3 直跑 OK
 
+### 批 85(2026-11-01)三 lane 并行:PairColor 真身/a66ae8 升级 B/QUIRKS 26·27 定案/runstyles 测试 ✅
+- **PairColor a72272 真身化**(E1):消费循环全落码(块状态机:state==2
+  膨胀腿 zstd 委托真库/state==1 清零/buf[idx]−1 取值 byte==0=无值/
+  v<7 门);PcBlock/PcSlice 局部空模型(壳期 runs 恒 0 循环不可达
+  同相);src/Ext/ZstdFace.h 声明面新增(-lzstd 链接后点亮);
+  0088f940(1448B 块解析器)核心腿转写/深腿 cited
+- **a66ae8 升级 B 补完**(E1):特殊路径 3/4 真身化(0096d19a 纯函数/
+  6994e0 QList::at/00974d18 走查结构);fillRect 色槽按推断转写注明;
+  009c8bf2 唯一余 cited
+- **QUIRKS 26/27 双定案**(E3 三源复核):26 cur 读源 = **tlist(D+0x18)**
+  (39463 param_1=A→D 回指;bank 无 +0x60 槽不可能作 arg;恒同值条件
+  = A+0x08 ≡ D+0x18 同值双槽)→ **entryValueAt 修正落地**(keyPropsOf
+  tlist 守卫版);27 rsFill32 登记撤销(u32Obj = 复合载体{vtbl;runs@8;
+  styles@0x10},holderRs=*(+0x10) 与读腿 39462 同解引,形态正确)
+- **行为门连带修正**:markerstest f 组夹具改挂 tlist+0x60 槽(勘定
+  槽位)→ 11/11 恢复;runstylestest b2/c 组断言 holder→RS +0x10
+  解引修正 → 3 连跑稳定
+- **runstyles 行为测试**(E4):runstylestest 41 断言(bankCtor/upgrade
+  Skip 梯 kind3→4→5/plain 梯/灌值腿/三宽度闭环/空壳守卫;迁移腿
+  cited 现状登记断言)
+- 验证:make 零错;**ctest 12/12**;engtest3 直跑 OK;runstylestest
+  3 连跑稳定
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

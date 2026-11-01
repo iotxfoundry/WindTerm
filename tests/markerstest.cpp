@@ -229,7 +229,8 @@ int main(int argc, char **argv)
 		FList<4> fl;
 		wt::ValueTable bank{};
 		sf.A->bank = &bank;
-		bank.list60 = &fl.h;
+		sf.D.tlist = &bank;                              // QUIRKS 26 定案:props 读走 tlist
+		bank.list60 = &fl.h;                             // markWrite cur 腿 = 009a10384 读 +0x60 槽(批 85 勘定:挂 +0x60 非 +0x58)
 		U32Fixture uf(0, 2);
 		*sf.A->entryPtr(0) = uf.me;
 		const quint32 id = 0x2468a, key = 3, propsVal = 0x51a;

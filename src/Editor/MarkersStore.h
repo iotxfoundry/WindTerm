@@ -424,7 +424,10 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
         if (!e->u32Obj || !e->u32Obj->styles)
             return 0;
         const quint32 v = rsValue32(rsOf(e->u32Obj->styles), pos);
-        const quint32 props = keyPropsOf(arr->bank, v & 0x1fff); // FUN_00a10384
+        // QUIRKS 26 定案(批 85 三源复核):cur 读源 = tlist(D+0x18;
+        //   39463 *param_1=A→D 回指;bank 0x40 无 +0x60 槽不可能作 arg)
+        const quint32 props = tlist
+            ? keyPropsOf(tlist, v & 0x1fff) : 0;                 // FUN_00a10384
         return (quint64(v >> 13) << 32) | props;                 // CONCAT44(v>>0xd, props)
     }
 

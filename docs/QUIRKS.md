@@ -48,11 +48,12 @@
 25. **0x7547 S6 fstep=0 SIGFPE 同原版**(批 76):语料直除 fstep,
    畸形参数原版即崩 —— 原样保留未修。
 
-26. **markers markWrite cur 读源双证相悖**(批 84 行为门裁决):行为
-   门实测 cur = keyPropsOf(tlist)(D+0x18 路,表值 0x51a 非零 →
-   39467 弃腿可判别);landed 转写注与语料 39454 字面 `*param_1+0x18`
-   一致但与 A+0x18 bank 说矛盾 —— tlist vs bank 两读不同源,转写
-   注记冲突登记,待语料批三源复核(铁律 2 不修)。
-27. **markWrite u32 载体写腿 rsFill32 双解引错位**(批 84 附带):语料
-   39511 以 u32Obj 为 GB 密排句柄直传,我方委托形态(static_cast<RS32*>)
-   需 holder 解引 —— 形态失配登记,对照腿停手(铁律 2 不修)。
+26. **markers markWrite cur 读源 —— 已定案: = tlist(D+0x18)**(批 85
+   三源复核):39463 `*param_1+0x18` 的 param_1=A→*A=D 回指;"bank 说"
+   源于 mk2 把 param_1 误当 D;bank=0x40 分配无 FUN_00a10384 所读
+   +0x60 槽不可能作 arg;恒同值条件 = A+0x08 ≡ D+0x18 同值双槽(initDoc
+   唯一写)。修正已落:entryValueAt keyPropsOf(tlist 守卫版)。
+27. **markWrite u32 载体写腿 rsFill32 —— 登记撤销**(批 85 定案):
+   u32Obj = 复合载体{vtbl;runs@+0x08;styles@+0x10},读腿 39462 收
+   *(+0x10)=styles,landed holderRs=*(+0x10) 与语料同解引,形态正确;
+   补出处 39486/39462。残余 GB-vs-RS 差异维持原登记委托怪癖。
