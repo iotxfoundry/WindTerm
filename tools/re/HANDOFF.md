@@ -3,40 +3,39 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-10-30 第九次交接,重开刷新)
+## 一句话状态(2026-11-01 第十次交接,批 88)
 
-**Phase 3 补全战役进行中:15/70 命令落地**(批 57-1 ×4/57-2 ×3/
-59 ×3/63 ×3/58 ×1;origin/dev 已被用户推送至批 57-1,**本地领先
-9 提交**)。**cited wave-2 全清维持(src/ 内 = 0)**。
-**组件转写态**:ActionFactory/ThemeIcons(QtSvg 委托)/JsEngine
-(0064aXXX 族)/MuxPaneJs/MuxPane 壳/SuperKeymap(ctor+复位)/
-KeymapEngine(YAML 装载)/TelnetCommander 槽体(配置表驱动分类)/
-EditorContext 文档层(docBytes/docCharLength/docSub/docCharCodeAt/
-docNextNonMatching)。**关键发现**:Telnet 协商 = session.term
-配置驱动分类器(ansi/tmux/vt/xterm);SVG 光栅化 = QSvgRenderer
-真库委托;glitch 族根源 = 排队元调用时序;frida 17 API 断层
-(findGlobalExportByName)。**验证**:ctest 6/6(engtest3 直跑
-协议)/phase5 98/98。
+**Phase 3 全量清点闭环:语料全集 190/我方 176+批 77-88 补齐;差集
+清零(薄7中1大1 落/区间10 无体登记/0x75dc 注销定案+二进制补证)**。
+**批 79-88 十连批**:markers 全链(D 布局 0x70/读侧 16/构建者六方法/
+迁移腿 6/6 migrateLayer/regionScan 1407B/0x7543 驱动装配+QUIRKS 26·27
+定案)/渲染核(S1-S6 全/a66ae8 升级 B/hotSpot/parsePairDef/68b18/
+selection 三函数/PairColor zstd 委托/M3 26 槽)/keymap(装载翼/匹配翼
+feedKey ~全/matchTrie §4-§10·§13-15/ctrl=boost xpressive 定案/§12
+宿主=Qt 导入 QMainWindow 破案+attachHost)/Telnet 全链(装配五元组/
+头勘正/ProxyCommandSocket/spawn S1-S5/onReadyRead=纯转发破案)/
+JsEngine 重做/MuxPaneView/装配链三层+MuxWindow+KitBar/测试 12 项
+(markerstest 54 断言/runstyles 41/rendermath 14/renderpix 11)。
 
-## 下一批队列(重开后入口;批 65 后刷新)
+**EXT-BOUNDARY 定案**:0x11a6c00 = Qt 导入 QMainWindow::staticMetaObject
+(批 50/71 注记再勘);keymap 谓词 = boost xpressive matchable_ex;
+PairColor zstd 委托;libssh 117/QJSEngine 45。
 
-**Phase 3 = 55/70**(批 65 四 lane 并行勘察收口:`370e7b44`)。
-勘察笔记:/tmp/opencode/p3_notes_e1-e4.md(重开丢失则按
-PHASE5 批 65 清单重建)。
+## 下一批队列(批 89 入口)
 
-1. **批 66 已清**:vtable 告破(docs/VTABLE-MAP.md;0x7546/0x7548/
-   0x754b/c 真身化)/ 0x7583/0x75ab 定案 / 0x7582 修正(+0xd91)/
-   0x7531 勘正(补全事件)/ 0x7547 S1 真身化
-2. **0x75a6 落地批**:前奏 A-E 直转 + F2 24-case(方案 = 笔记 b2
-   §4.1,重开会话丢失则按 PHASE5 批 66 重建)
-3. **cited 真身化升级**(小体):0x754d/0x7552/0x7576 插入体
-   (FUN_0095c92c 400B)/0x7547 S2-S6(6 helper ≤365B)
-4. **待用户复核**:0x75e0/0x75e1 归位(L24250)/0x75c5(L24726)/
-   0x7582→+0xd91(L23538)/fieldD8f 待归
-5. **keymap 匹配体专用批**:0067 包装族 → FUN_0067500e(9978B)
-6. **TelnetSession 装配点** / **MuxPane 面板装配**(Phase 4c)
+1. **replaceText 族真身**(0x4f00/0x4eff:0034:13032 体 + FUN_00a2de1c
+   1663B;notifyTextChanged 挂点 0034:12998 随批)—— selection 事件
+   链闭环前置
+2. **markers 关键词装载批**(builder 面 6 cited:00a83494/480/36f8/
+   3e0a/39cc/3bd0 + 009f887e 行面×3)—— regionScan 真值前置
+3. **matchTrie 谓词/挂链**(boost 腿 EXT-BOUNDARY 永久 cited;§11
+   挂链 splice 同域)
+4. **行为门集中批**(upgrade 相位/0x7547 空样式表默认色回填/
+   markWrite 悬漏 delete 同相项)
+5. **MuxWindow 槽体**(FUN_008e0bb2 1323B)/KitBar 9.7KB(大,后置)
+6. **0x75dc 来源面**(已注销定案;若未来发现间接调用面再回查)
 
-## 一句话状态(2026-10-29 第四次交接)
+## 一句话状态(2026-10-30 第九次交接)## 一句话状态(2026-10-29 第四次交接)
 
 **Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线:
 自包含基线 + 60 序列(含 decaln/wrap_edge 回归)** 56/60 MATCH;

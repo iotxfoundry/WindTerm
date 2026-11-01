@@ -28,7 +28,7 @@
 | Phase 5 行为对比 | ✅ **98 序列 98/98 MATCH 全绿**(批 30 收官:tbc3 = +0x101 流回显 QUIRKS 22,驱动 resetState+稳定性网;详见 docs/PHASE5.md) |
 | 会话装配 | ✅ **管理收口**(批 29:ShellSession::stop + TelnetSession 网络接线 RFC 默认拒绝;telnetsocket_test + stop 冒烟;ctest 11/11) |
 | 新组件四件 | ✅ KeymapEngine(wind.keymaps 531 条)/ TelnetCommander IAC 状态机 / UnixPty+Pty 入构建 / TelnetProtocol 同版验证(见 docs/CALIBRATION.md) |
-| 组件重做(铁律 6) | ⏳ **cited 全清(批 47-52,16→0)** + **Phase 3 补全 15/70**(批 57-1/2/59/63);组件语料转写态:ActionFactory/ThemeIcons(QtSvg 委托)/JsEngine/MuxPaneJs/MuxPane 壳/SuperKeymap/KeymapEngine YAML 装载/TelnetCommander 槽体(session.term 分类器)/EditorContext 文档层;待转写 = keymap 匹配体(0067500e,9978B)/markers 对象内部层(0099d1f6 族)/TelnetSession 装配(五元组)/ShellSession 装配 |
+| 组件重做(铁律 6) | ⏳ **cited 全清(批 47-52,16→0)** + **Phase 3 补全 15/70**(批 57-1/2/59/63);组件语料转写态:ActionFactory/ThemeIcons(QtSvg 委托)/JsEngine/MuxPaneJs/MuxPane 壳/SuperKeymap/KeymapEngine YAML 装载/TelnetCommander 槽体(session.term 分类器)/EditorContext 文档层;待转写 = keymap 匹配体(0067500e,9978B)/markers 对象内部层(0099d1f6 族)/TelnetSession 装配(五元组)/ShellSession 装配 | **批 88:测试 12 项(markerstest 54/runstyles 41/rendermath 14/renderpix 11 断言);Telnet 全链/装配链五级/keymap 双翼落地**
 
 测试矩阵:**ctest 11/11**(e2eterm 25 + recheck 22 + engtest×2 +
 sshsmoke + keymap/telnet/pty/shellsession/telnetsocket 五冒烟;
