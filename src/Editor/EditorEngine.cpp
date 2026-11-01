@@ -23,6 +23,104 @@ static const RetEntry scintilla_returns[] =
 
 };
 
+// FUN_00a66ae8(1031B)@decomp-0034.c:43589 — 骨架转写(批 81;r7 §3 升级 B)。
+// 批 83:自 0x753e drawLineBody 存照位提为文件级 static(机械搬移,地址注释
+// 原样;捕获 view/m_ctx → 参数)。真调用面 = s_line_modified_a72ad6
+// @49784-49787 四连(case 0x7547 S5)。
+// T 表 = a72ad6@49613-49630 栈帧五指针帧双胞胎{scale=pixH,
+//   denom=textLength, x0=rowH, rect 槽(fillRect 聚合,
+//   坐标序 b1b §4), W/3 列偏移} + arg[4]=int* wrap
+static void s_grep_bands_a66ae8(EditorContext &ctx, QPainter &view,
+                                int kind, int colKind, const char *styleKey,
+                                double pixH, qint64 denom, double rowH,
+                                double w3, int wrap)
+{
+	struct GrepFrameT {            // T0 五指针帧局部值模型
+		double scale;              // T[0] *T[0] = pixH
+		qint64 denom;              // T[1] *T[1] = textLength
+		double rowH;               // T[2] *T[2] = x0
+		double w3;                 // T[4] *T[4] = W/3
+	} T{pixH, denom, rowH, w3};
+	Q_UNUSED(wrap);                // arg[4]:958498 推进腿用
+	// ① FUN_009258b2(*(ed+8),kind,0) margin 行对象(185B
+	//   全读)— M 行对象表未建模 → 占位 nullptr → 段尾
+	//   return(00a66b07;壳期同相 = 0x7547 S5 ① 登记款)
+	//   — cited — wave-2
+	const void *M = nullptr;
+	if (M == nullptr)
+		return;
+	// ② 默认绿 {0,0xffff,0}(00a66b0e);arg[1] 槽 QColor*
+	//   (puVar1 = *(param_1[1])@00a66b2f = fillRect 色源;
+	//   r7:styleKey 色仅门控疑噪声,asm spot check 未做 —
+	//   cited — wave-2)
+	QColor color(0, 255, 0);   // 原始槽 {0,0xffff,0}(u16 通道)
+	// ③ 特判门(00a66b31):kind==6 ‖ colKind==8 →
+	//   selection/styleIdx 色链;否则直达 band 迭代
+	if (kind == 6 || colKind == 8) {
+		// ③a FUN_00a20248(17B)= 00974d18(*(ed+0x1038),1)
+		//   selection 全项有效性门(0032:1804 已读;session
+		//   级 store 未建模)→ 占位 true — cited — wave-2
+		// ③b FUN_00a1fda6(49B)= a1fc3a(ed,-1)→0096bfd4 现选
+		//   区节点 → 占位 {-1}(无选区)— cited — wave-2
+		// ③c 9275ec(53B)/9275ae(21B) margin doc-pos→styleIdx
+		//   → 占位 -1 → 段尾 return 同相 — cited — wave-2
+		// ③d kind==6:926b1c(12B)→009c8bf2 样式定义表查(r7
+		//   唯一余 cited);kind==8(colKind==8):6994e0(36B)
+		//   全局注册表 DAT_011c1a60 → def=*(int**)(*(e+0x18)
+		//   +0x18) → 占位 nullptr(def[4]→def[0]→def[8]→0 四
+		//   槽优先链不覆盖)— cited — wave-2
+		// ③e band = 927472(*(ed+8),M,0,uVar4)— 占位 {-1,-1}
+		//   — cited — wave-2
+	} else {
+		// band = 927472(*(ed+8),M,0,0)(00a66b55 路径;29B→
+		//   0096d0e2 178B 已读:M 注记 store 未建模)→ 占位
+		//   {-1,-1} — cited — wave-2
+	}
+	const qint64 bandFrom = -1;    // auVar15._0_8_ 占位
+	if (bandFrom == -1)
+		return;                    // 00a66b91-00a66ba5
+	// ④ styleKey 门控(00a66b98):色 r==0 → styleLookup
+	//   (styleKey)→ editor_styleAt(u,0) 覆盖;仍 r==0 →
+	//   return(仅门控不入 fillRect,r7 §3)— styleTable
+	//   QHash 占位(登记回填)
+	if (color.red() == 0) {        // local_78[0]==0 字面
+		const QColor sc = ctx.styleTable.value(
+		    QLatin1String(styleKey));
+		if (sc.isValid())
+			color = sc;
+		if (color.red() == 0)
+			return;
+	}
+	// ⑤ 命中带 do-loop(00a66ba5-00a66ed3)— band 迭代 cited
+	//   后不可达;T 表消费 + y 带公式按语料转写存照:
+	do {
+		// runnode_init(lo/hi)→9587cc(runstyles)=abs 行
+		//   (159B 已读;hex 形态分支 009584d0 cited)→
+		//   占位 0 — cited — wave-2
+		const qint64 lnA = 0, lnB = 0;
+		// y 带公式(00a66bc9-00a66bf1;双胞胎 a72ad6
+		//   local_d8..c0 同构,全程可读):
+		double y0 = (double(lnA) * T.scale) / double(T.denom);
+		double y1 = (double(lnB) * T.scale) / double(T.denom);
+		double cap = T.scale - T.rowH;         // local_50
+		if (y0 <= cap)                         // y0 = min(lo·H/L,
+			cap = y0;                          //   H−rowH)
+		double yy = T.rowH + cap;              // rowH + y0
+		if (yy <= y1)                          // y1 = max(rowH+y0,
+			yy = y1;                           //   hi·H/L)
+		if (yy <= T.scale)                     // min(y1, H)
+			T.scale = yy;                      //   (scale 槽复用,原样)
+		const double h = T.scale - cap;        // local_40−local_50
+		// fillRect(T[3] rect 槽 = QRectF{0, y0, W3, h};
+		//   坐标序 b1b §4 / 双胞胎 local_d8..c0 同构;色源 =
+		//   arg[1] 槽 — asm check 未做 — cited — wave-2)
+		view.fillRect(0.0, cap, T.w3, h, color);
+		// 下一命中:958498(buf,(hi/wrap+1)*wrap,hi%wrap)→
+		//   927472(*(ed+8),M,from,0)— cited — wave-2
+		//   (占位 -1 哨兵 → 收循环)
+	} while (false);
+}
+
 EditorEngine::EditorEngine()
 	: m_edit(new ScintillaEditBase)
 {
@@ -1688,104 +1786,9 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			//   选区通知 — 写侧接线随后续批;本核仅结构存照
 			(void)sel_store_a28516;
 			(void)span_shift_c334;
-			// FUN_00a66ae8(1031B)@decomp-0034.c:43589 — 骨架转写(批 81;
-			//   r7 §3 升级 B)。真调用面 = s_line_modified_a72ad6
-			//   @49784-49787 四连(case 0x7547 S5;写域限 0x753e
-			//   drawLineBody 区,定义于此,0x7547 调用行替换随写域开放批)。
-			// T 表 = a72ad6@49613-49630 栈帧五指针帧双胞胎{scale=pixH,
-			//   denom=textLength, x0=rowH, rect 槽(fillRect 聚合,
-			//   坐标序 b1b §4), W/3 列偏移} + arg[4]=int* wrap
-			auto s_grep_bands_a66ae8 = [&](int kind, int colKind,
-			                               const char *styleKey,
-			                               double pixH, qint64 denom,
-			                               double rowH, double w3,
-			                               int wrap) {
-				struct GrepFrameT {            // T0 五指针帧局部值模型
-					double scale;              // T[0] *T[0] = pixH
-					qint64 denom;              // T[1] *T[1] = textLength
-					double rowH;               // T[2] *T[2] = x0
-					double w3;                 // T[4] *T[4] = W/3
-				} T{pixH, denom, rowH, w3};
-				Q_UNUSED(wrap);                // arg[4]:958498 推进腿用
-				// ① FUN_009258b2(*(ed+8),kind,0) margin 行对象(185B
-				//   全读)— M 行对象表未建模 → 占位 nullptr → 段尾
-				//   return(00a66b07;壳期同相 = 0x7547 S5 ① 登记款)
-				//   — cited — wave-2
-				const void *M = nullptr;
-				if (M == nullptr)
-					return;
-				// ② 默认绿 {0,0xffff,0}(00a66b0e);arg[1] 槽 QColor*
-				//   (puVar1 = *(param_1[1])@00a66b2f = fillRect 色源;
-				//   r7:styleKey 色仅门控疑噪声,asm spot check 未做 —
-				//   cited — wave-2)
-				QColor color(0, 255, 0);   // 原始槽 {0,0xffff,0}(u16 通道)
-				// ③ 特判门(00a66b31):kind==6 ‖ colKind==8 →
-				//   selection/styleIdx 色链;否则直达 band 迭代
-				if (kind == 6 || colKind == 8) {
-					// ③a FUN_00a20248(17B)= 00974d18(*(ed+0x1038),1)
-					//   selection 全项有效性门(0032:1804 已读;session
-					//   级 store 未建模)→ 占位 true — cited — wave-2
-					// ③b FUN_00a1fda6(49B)= a1fc3a(ed,-1)→0096bfd4 现选
-					//   区节点 → 占位 {-1}(无选区)— cited — wave-2
-					// ③c 9275ec(53B)/9275ae(21B) margin doc-pos→styleIdx
-					//   → 占位 -1 → 段尾 return 同相 — cited — wave-2
-					// ③d kind==6:926b1c(12B)→009c8bf2 样式定义表查(r7
-					//   唯一余 cited);kind==8(colKind==8):6994e0(36B)
-					//   全局注册表 DAT_011c1a60 → def=*(int**)(*(e+0x18)
-					//   +0x18) → 占位 nullptr(def[4]→def[0]→def[8]→0 四
-					//   槽优先链不覆盖)— cited — wave-2
-					// ③e band = 927472(*(ed+8),M,0,uVar4)— 占位 {-1,-1}
-					//   — cited — wave-2
-				} else {
-					// band = 927472(*(ed+8),M,0,0)(00a66b55 路径;29B→
-					//   0096d0e2 178B 已读:M 注记 store 未建模)→ 占位
-					//   {-1,-1} — cited — wave-2
-				}
-				const qint64 bandFrom = -1;    // auVar15._0_8_ 占位
-				if (bandFrom == -1)
-					return;                    // 00a66b91-00a66ba5
-				// ④ styleKey 门控(00a66b98):色 r==0 → styleLookup
-				//   (styleKey)→ editor_styleAt(u,0) 覆盖;仍 r==0 →
-				//   return(仅门控不入 fillRect,r7 §3)— styleTable
-				//   QHash 占位(登记回填)
-				if (color.red() == 0) {        // local_78[0]==0 字面
-					const QColor sc = m_ctx.styleTable.value(
-					    QLatin1String(styleKey));
-					if (sc.isValid())
-						color = sc;
-					if (color.red() == 0)
-						return;
-				}
-				// ⑤ 命中带 do-loop(00a66ba5-00a66ed3)— band 迭代 cited
-				//   后不可达;T 表消费 + y 带公式按语料转写存照:
-				do {
-					// runnode_init(lo/hi)→9587cc(runstyles)=abs 行
-					//   (159B 已读;hex 形态分支 009584d0 cited)→
-					//   占位 0 — cited — wave-2
-					const qint64 lnA = 0, lnB = 0;
-					// y 带公式(00a66bc9-00a66bf1;双胞胎 a72ad6
-					//   local_d8..c0 同构,全程可读):
-					double y0 = (double(lnA) * T.scale) / double(T.denom);
-					double y1 = (double(lnB) * T.scale) / double(T.denom);
-					double cap = T.scale - T.rowH;         // local_50
-					if (y0 <= cap)                         // y0 = min(lo·H/L,
-						cap = y0;                          //   H−rowH)
-					double yy = T.rowH + cap;              // rowH + y0
-					if (yy <= y1)                          // y1 = max(rowH+y0,
-						yy = y1;                           //   hi·H/L)
-					if (yy <= T.scale)                     // min(y1, H)
-						T.scale = yy;                      //   (scale 槽复用,原样)
-					const double h = T.scale - cap;        // local_40−local_50
-					// fillRect(T[3] rect 槽 = QRectF{0, y0, W3, h};
-					//   坐标序 b1b §4 / 双胞胎 local_d8..c0 同构;色源 =
-					//   arg[1] 槽 — asm check 未做 — cited — wave-2)
-					view.fillRect(0.0, cap, T.w3, h, color);
-					// 下一命中:958498(buf,(hi/wrap+1)*wrap,hi%wrap)→
-					//   927472(*(ed+8),M,from,0)— cited — wave-2
-					//   (占位 -1 哨兵 → 收循环)
-				} while (false);
-			};
-			(void)s_grep_bands_a66ae8;     // 定义即存照(真调用面 0x7547)
+			// FUN_00a66ae8(1031B)s_grep_bands_a66ae8 — 批 83 提为文件级
+			//   static(机械搬移,真调用面 = 0x7547 S5 四注册;
+			//   本位原为存照定义,地址注释随迁至函数头)
 			// s_text_selection_a67e62(603B)@decomp-0034.c:44485 — 真身化
 			//   (批 81;选区亮带层:extras 全项线性迭代 + 逐项行绘委托)
 			auto s_text_selection_a67e62 = [&]() {
@@ -2191,24 +2194,22 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			Q_UNUSED(en); Q_UNUSED(lineCount);
 			Q_UNUSED(savedF); Q_UNUSED(unsavedF);
 			Q_UNUSED(cSaved); Q_UNUSED(cUnsaved); Q_UNUSED(cModified);
-			// ===== S5 grep 4 注册(49720-49725)=====
-			// FUN_00a66ae8(1031B)分级:① margin 行对象表
-			//   FUN_009258b2(185B)→0092586c(this[1]+0x2d8 族,
-			//   非 markersStore 面)— 未建模,查不到 → 段尾 return;
-			//   ② grep 结果浮点表(E+0x108,FUN_00926b1c→009c8bf2,
-			//   行 6‖列 8 特判覆色)— 未建模;③ 行 run 范围
-			//   FUN_00927472(29B)→0096d0e2 — 未建模;④ 色腿
-			//   FUN_0095021a+editor_styleAt — S3 styleTable 同占位;
-			//   ⑤ fillRect 条带循环(fold 跳步 FUN_00958498)依赖③。
-			//   ①②③⑤ cited — wave-2;行对象表空 = 原版查不到 →
-			//   return 同相,④⑤ 不可达不落(不虚构)。
-			auto grepEntry = [&](int row, int col, const char *key) {
-				Q_UNUSED(row); Q_UNUSED(col); Q_UNUSED(key);
-			};
-			grepEntry(8, 8, "grep.mark");                // 00a72ec1
-			grepEntry(6, 0, "grep.mark");                // 00a72ed7
-			grepEntry(5, 0, "grep.match");               // 00a72ee9
-			grepEntry(7, 0, "grep.mark");                // 00a72efb
+			// ===== S5 grep 4 注册(49720-49725)真调用接线(批 83)=====
+			// FUN_00a66ae8(1031B)= 文件级 static s_grep_bands_a66ae8
+			//   (0x753e 存照位机械搬移)。体内分级:① margin 行对象表
+			//   FUN_009258b2 → M 未建模 → nullptr → 段尾 return
+			//   (00a66b07 同相);② grep 浮点表 ③ run 范围 ④ 色腿
+			//   (色槽 asm check 未做)⑤ 条带循环 — ①②③⑤ cited —
+			//   wave-2。帧对应:T = {pixH=dh, denom=S2 denom(max 怪癖
+			//   已在 S2), rowH, W/3=bw, wrap=fstep}(a72ad6@49613-49630)。
+			s_grep_bands_a66ae8(m_ctx, p, 8, 8, "grep.mark",
+			    dh, denom, rowH, bw, fstep);             // 00a72ec1
+			s_grep_bands_a66ae8(m_ctx, p, 6, 0, "grep.mark",
+			    dh, denom, rowH, bw, fstep);             // 00a72ed7
+			s_grep_bands_a66ae8(m_ctx, p, 5, 0, "grep.match",
+			    dh, denom, rowH, bw, fstep);             // 00a72ee9
+			s_grep_bands_a66ae8(m_ctx, p, 7, 0, "grep.mark",
+			    dh, denom, rowH, bw, fstep);             // 00a72efb
 			// ===== S6 逐条目绘(49727-49875)=====
 			// E+0x250 无锁遍历(怪癖#2 原样:不加 mutex;语料
 			//   QList header +8/+0xc/+0x10 → range-for 等价)
@@ -2382,40 +2383,99 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   FUN_00a5e8bc 141B vt+0xa0;fold ctx 0x217
 	                 //   未建模)— cited — wave-2
 		return QVariant(0);
-	case 0x7576: {   // 30070:runnode 插入样式表(批 82 主循环真身化;
+	case 0x7576: {   // 30070:runnode 插入样式表(c92c 主循环真身化批 82;
 	                 //   76d §5 片段;runvector = QVector<ValueTable*> 承接,
 	                 //   壳期空 → 0 = 语料"无 runvector"语义同相)
-	                 //   深腿:c1c2 内层三怪癖/迭代器/R·T 段 — cited
+	                 //   内层 c1c2 三怪癖真身化(批 83,76d §4);
+	                 //   深腿:迭代器/R·T 段 — cited
 		if (m_ctx.runVector.isEmpty())                   // L29033 *(rv)==0 → 0
 			return QVariant(0);
 		bool ok = false;
 		(void)ok;
+		const qint64 nodePos = a.toLongLong();
 		for (int i = m_ctx.runVector.size() - 1; i >= 0; --i) {   // L29057 逆序
+			if (i >= m_ctx.runVector.size())             // L29068 向量化守卫同相
+				continue;                                //   (内层摘除后越界 → 跳)
 			wt::ValueTable *r = m_ctx.runVector[i];
-			const qint64 nodePos = a.toLongLong();
 			const qint64 at = wt::vcallSlotArg(r->delegate, 0x28, nodePos);  // FUN_009cc396
 			const quint64 sv = wt::MarkersStore::runValueWordAt(r, int(at)); // FUN_009cd3da 六路
 			if (m_ctx.styleProps190.value(int(sv >> 2)) == 0)   // FUN_00957892 表门
 				continue;
 			const qint64 s = wt::vcallSlotArg(r->delegate, 0x38, at);   // vt+0x38 run 起
 			const qint64 e = wt::vcallSlotArg(r->delegate, 0x40, at);   // vt+0x40 run 止
-			// FUN_0095c91e → FUN_0095c1c2(1857B;p4=i,76b 尾跳勘定)
-			//   三怪癖照抄:子 run 重门/不夹交整 run 标/掩码特判
-			//   — cited — wave-2;charUsedMark 驱动点(A 路 val=1/B 路 i==0 val=0):
-			if (m_ctx.charUsedView) {                    // 壳期标记腿实接 RS8 FillRange
-				const int len = int(e - s);
-				if (len > 0)
-					m_ctx.charUsedView->FillRange(int(s), i != 0 ? 1 : 0, len);
+			// ===== FUN_0095c91e(13B thunk)→ FUN_0095c1c2(1857B @0031:28734)
+			//   内层真身化(批 83;76d §4 三怪癖)。c91e = 尾跳直通:
+			//   p4 = i(批 76b 尾跳勘定);p5 = sv(run 值字面形态);
+			//   p6 = 残寄不可读 → 壳期取 -1(全选)— cited — wave-2。
+			//   入口 FUN_0095c086(复位/ensure 腿)— cited — wave-2。
+			qint64 sMin = s, sMax = e;                   // L28745-28749 swap 归一
+			if (e < s) { sMin = e; sMax = s; }
+			const int p4 = i;
+			const quint64 p5 = sv;
+			const qint64 p6 = -1;                        // cited — wave-2
+			for (int j = m_ctx.runVector.size() - 1; j >= 0; --j) {  // L28787 elem 逆序
+				if (!(p4 != 0 || p6 == -1 || p6 == j))   // LAB_0095c240 选 elem 门
+					continue;
+				if (j >= m_ctx.runVector.size())         // 摘除后越界 → 跳(向量化
+					continue;                            //   守卫同相:越界读作 0)
+				wt::ValueTable *rj = m_ctx.runVector[j];
+				// ② runIdx(min)/runIdx(max) 对(L2879x 反编译器丢参;
+				//   R 段 LAB_0095c47d 同面字证 iVar7=min/iVar18=max)
+				const int atMin = int(wt::vcallSlotArg(rj->delegate, 0x28, sMin));
+				const int atMax = int(wt::vcallSlotArg(rj->delegate, 0x28, sMax));
+				if (atMax < atMin)                       // L28804 → 下一 elem
+					continue;
+				for (int rr = atMax; rr >= atMin; --rr) {          // run 序降序
+					// ① 子 run 重新六路取值 + props 门(非外层直传;
+					//   uVar5 复用为表值,L28813-28821)
+					const quint64 svIn = wt::MarkersStore::runValueWordAt(rj, rr);
+					const quint64 props = m_ctx.styleProps190.value(int(svIn >> 2)); // FUN_00957892
+					if (props == 0)
+						continue;
+					const qint64 rs = wt::vcallSlotArg(rj->delegate, 0x38, rr);  // vt38 run 起
+					const qint64 re = wt::vcallSlotArg(rj->delegate, 0x40, rr);  // vt40 run 止
+					if (p4 == 1) {                       // 掩码特判(L28845)
+						if (((p5 ^ props) & 0x1f) == 0 &&
+						    ((props ^ p5) & 0x3fe0) == 0) {
+							// 掩码同 → 直落界交判定(跳 p4==2 去重腿)
+						} else {
+							continue;                    // 掩码异 → 跳此 run
+						}
+					} else if (p4 == 2) {
+						// p4==2 去重向量腿 FUN_00926ddc(ctx+8,rs,re,
+						//   props&0x3fff)+ 5-long 步进线性查,命中即跳
+						//   — cited — wave-2(去重 store 未建模,不落)
+					}
+					// ② 界交判定不夹交(L28869):runStart<s || e<runEnd
+					//   即跳;命中标整 run
+					if (rs < sMin || sMax < re)
+						continue;
+					// 命中:get_chars_locked(ctx+0x180,rs,1,re-rs,0)
+					//   (L28873)→ charUsedView FillRange(标记腿已接)
+					if (m_ctx.charUsedView) {
+						const int len = int(re - rs);
+						if (len > 0)
+							m_ctx.charUsedView->FillRange(int(rs), 1, len);
+					}
+					// upgrade 腿(L28877):run 值清零 → prune 触发面;
+					//   len 参反编译器丢弃(RCX),壳期取整 run — cited — wave-2
+					if (j < m_ctx.runVector.size())          // i<count 再验(L28879)
+						wt::runstylesUpgrade(rj, rs, 0, re - rs);
+					// ③ prune 一次(FUN_0095da64 @0031:30016;正向逐个摘
+					//   ≡ 全摘;resetState/operator_delete(0x40) 腿 cited,
+					//   我方 remove 不 delete → 摘后 rj 仍有效,行为门待裁决)
+					for (int q = m_ctx.runVector.size() - 1; q >= 0; --q) {
+						wt::ValueTable *qe = m_ctx.runVector[q];
+						if (wt::vcallSlot(qe->delegate, 0x30) == 1 &&
+						    wt::MarkersStore::runValueWordAt(qe, 0) == 0)
+							m_ctx.runVector.remove(q);   // da30 memmove 左移
+					}
+					if (m_ctx.runVector.size() == j)         // count==i → break 内层
+						break;                               //   run 序(L28886 字面)
+					// ok = (char)c1c2 返回(R 段结果)— cited — wave-2;
+					//   骨架期不置位
+				}
 			}
-			for (int j = m_ctx.runVector.size() - 1; j >= 0; --j) {  // prune FUN_0095da64
-				wt::ValueTable *q = m_ctx.runVector[j];
-				if (wt::vcallSlot(q->delegate, 0x30) == 1 &&
-				    wt::MarkersStore::runValueWordAt(q, 0) == 0)
-					m_ctx.runVector.remove(j);           // da30 memmove 左移;resetState cited
-			}
-			if (m_ctx.runVector.size() == i)             // count==i → break 内层(L28886)
-				break;
-			// ok = (char)c1c2 返回(R 段结果)— cited — wave-2;骨架期不置位
 		}
 		// FUN_00a162b6(iter 收尾)/FUN_00a161d8(221B)— cited — wave-2
 		// vt+0xa0 刷新(true → 刷新)— cited(Phase-4b)
@@ -2611,6 +2671,13 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		if (m_ctx.currentBufferId == bufId)
 			return QVariant(0);              // 语料同 id 短路
 		m_ctx.currentBufferId = bufId;
+		// editor_initDoc 腿(FUN_0092f0f6@0030.c:29827;批 83 C2 破案:
+		//   editor_initDoc 唯一调用点 = 本命令,不在会话创建链)——
+		//   lexer 门(buffer+0x108 面)— cited(buffer 未建模,换缓冲即达)
+		//   → editor_initDoc(new(0x70),doc,*(doc+0xa0)) → D 挂 doc+0xc0。
+		//   E=doc ⇒ &m_ctx(批 69 E 面平铺);param3/lexerSnap 未建模
+		//   → nullptr(cited — wave-2)
+		wt::MarkersStore::markersCtxInit(&m_ctx.markersStore, &m_ctx, nullptr, nullptr);
 		// setCurrentBuffer 核心(1279B)与刷新腿 — cited(Phase-4b)
 		// (Phase-4b 视图面;字段面已落位)
 		return QVariant(0);

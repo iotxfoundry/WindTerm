@@ -1512,6 +1512,33 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(B3 两新 Q_OBJECT)+ make 零错;ctest 10/10;
   engtest3 直跑 OK
 
+### 批 83(2026-10-31)四 lane 并行:0x7576 内层三怪癖/a66ae8 接线/markers 驱动点破案/像素测试 ✅
+- **0x7576 c1c2 内层三怪癖真身化**(C1):swap 归一 → elem 逆序 →
+  runIdx 对 → run 序降序:①子 run 重新六路取值+props 表门 →
+  p4==1 掩码特判 → ②不夹交判定 → 命中 charUsedView->FillRange
+  (整 run 标)→ runstylesUpgrade 调用 → ③prune → count==j break;
+  cited 8 腿(p6 残寄/入口/p4==2 去重/upgrade len 参/resetState·
+  delete/R·T/迭代器 ×1)
+- **a66ae8 接线**(C1):s_grep_bands_a66ae8 自 0x753e 存照位提为
+  文件级 static → 0x7547 S5 四注册真调用(00a72ec1/ed7/ee9/efb);
+  帧 T = {pixH=dh, denom=S2, rowH, bw, wrap=fstep};色槽 cited
+- **markers 驱动点破案**(C2):editor_initDoc **唯一调用点 =
+  FUN_0092f0f6(setCurrentBuffer)= 0x7543 命令**(不在会话创建链!)
+  → **markersCtxInit 接线落 case 0x7543**(采纳 C2 精确补丁:E=&m_ctx
+  平铺/param3·lexerSnap nullptr cited)—— 0x759f/75a0/75a1 读侧
+  换缓冲即达非壳态
+- **渲染核像素测试**(C3):renderpixtest 5 组 11 断言(0x7547
+  QPixmap 尺寸 qRound/QImage 五点 pixelColor alpha19/dh=0 null 门/
+  0x753e 冒烟);S2 度量停手(局部无外显)
+- **Telnet jumptable 误报破案**(C4):0086990b `jmp *%rcx` = Qt
+  QSlotObjectBase 闭包分发器(PMF branchy-bit 误判),非 switch;
+  008698c0 三 case = Qt 槽分发(which 0/1/2);readyRead 腿 = 纯信号
+  转发 emit readyRead();**两处头偏差待裁决**(errorOccurred 原版
+  (int,QString) vs 我方 (QString,int) 相反;stateChanged 第二参
+  QVariant)—— 波及全桥 emit 面,登记下批头修正
+- 验证:cmake 重跑(renderpixtest)+ make 零错;ctest 11/11;
+  engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
