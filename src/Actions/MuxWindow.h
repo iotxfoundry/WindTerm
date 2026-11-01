@@ -1,11 +1,13 @@
 #pragma once
 
 #include <QList>
+#include <QPointer>
 #include <QString>
 #include <QWidget>
 
 class QSplitter;
 class SplitterGroup;
+class MuxPaneView;
 
 // MainWindow 装配锚(五级装配链 L1;不落 MainWindow 类 —— 宿主语义 =
 // 现 MuxPane 壳承载,批 71 勘误;仅记址):
@@ -33,7 +35,7 @@ class SplitterGroup;
 //   焦点接线        FUN_008dfee8(183B,0028:27169):qcoreapp
 //                   QApplication::focusChanged → 本类槽(lambda dynsym
 //                   _ZN9MuxWindow14onFocusChangedEP7QWidgetS1_E;槽体
-//                   FUN_008e0bb2 1323B @0028:27798 未读 → cited)
+//                   FUN_008e0bb2 1323B @0028:27798,批 92 真身落码)
 //   splitter 取面   FUN_008e01ac(9B,0028:27319)= *(+0x70)->+0x30
 //   zoom 判定       FUN_008e01a2(9B,0028:27309)= FUN_005a23c6(+0x70)
 //                   (消费面 FUN_008df5f8 已在 MuxPaneGroup.cpp cited;不落)
@@ -44,11 +46,13 @@ class SplitterGroup;
 //                   staticMetaObject PTR_staticMetaObject_011ac2a0,
 //                   ctor tr 引用 @008e099e → Q_OBJECT 实证)
 // 成员槽:+0x30 QList(shared_null)/+0x38 ← 0/+0x40 QString(param_2 标题)/
-//   +0x44/+0x4c int ← -1/+0x58 QString(session 串槽,
+//   +0x44/+0x48 int ← -1(ctor 8B 写覆盖两 int;+0x48 消费点 = 槽体
+//   S9 @008e0fb5,pane index 缓存)/+0x58 QString(session 串槽,
 //   s_session__tmux_842414 写入面 "session::tmux")/+0x60 QString(tr)/
-//   +0x68 parent/+0x70 SplitterGroup*/+0x78/+0x80 ← 0(消费点未读 cited)。
+//   +0x68 parent/+0x70 SplitterGroup*/+0x78/+0x80 = QPointer<MuxPane>
+//   双槽(槽体 S9 @008e0fc7-d4 存储)。
 // 注:mp 笔记 §5 "FUN_008dfee8 = +0x78/0x80 初始化" 系猜测 —— 体读
-//   (0028:27169)实为 focusChanged connect;+0x78/0x80 仅 ctor 清零。
+//   (0028:27169)实为 focusChanged connect;+0x78/0x80 消费点 = 槽体 S9。
 class MuxWindow : public QWidget {  // 批 91 K3 勘误闭环:成员槽位语义定案(008e0bb2 全读测绘)
   //  +0x48 = select-pane index 缓存(pane->+0x30)
   //  +0x78/+0x80 = QPointer<MuxPane> 双槽(命中 pane 消费点落定)
@@ -61,6 +65,10 @@ public:
 
     QSplitter *splitter() const;                               // FUN_008e01ac(+0x70→+0x30;体见 .cpp)
 
+    // FUN_0083f830(0026:32772,105B)归辖落点:"select-pane -t %1"
+    //   .arg(paneIndex)→ FUN_0083eaa6(pane)(tmux 发送门;链见 .cpp, cited)
+    void sendSelectPane(MuxPaneView *pane, int paneIndex);
+
     // mux_restorePaneSplitter(903B,0026:29862)。语料为自由函数:
     // (会话宿主*、配置容器、QSplitter*、页序、面板描述符*);QSplitter
     // 形参在调用点以 FUN_008e01ac(muxWindow) 形态取自本类
@@ -70,7 +78,7 @@ public:
                              unsigned int paneIndex, void *paneDescriptor);
 
 private slots:
-    void onFocusChanged(QWidget *old, QWidget *now);           // FUN_008e0bb2(cited — wave-2)
+    void onFocusChanged(QWidget *old, QWidget *now);           // FUN_008e0bb2(0028:27798;批 92 真身)
 
 private:
     void muxWindowAssemble();                                  // FUN_008dffa0
@@ -80,11 +88,11 @@ private:
     quint64 m_f38;          // 语料 +0x38 ← 0(消费点未读 cited — wave-2)
     QString m_f40;          // 语料 +0x40/0x41 ← param_2(标题;拷贝构造展开)
     int m_f44;              // 语料 +0x44 ← -1(语义未解 cited — wave-2)
-    int m_f4c;              // 语料 +0x4c ← -1(语义未解 cited — wave-2)
+    int m_f48;              // 语料 +0x48(消费点 008e0fb5:pane index 缓存 vs pane->+0x30)
     QString m_f58;          // 语料 +0x58(session 串槽;写入面 cited)
     QString m_f60;          // 语料 +0x60 ← QMetaObject::tr(0xc8c60e;字面 cited)
     QWidget *m_f68;         // 语料 +0x68 ← param_3(parent)
     SplitterGroup *m_f70;   // 语料 +0x70(FUN_008dffa0 落点)
-    quint64 m_f78;          // +0x78 QPointer<MuxPane> 槽(批 91 K3 定案:命中 pane 消费点)
-    quint64 m_f80;          // +0x80 QPointer<MuxPane> 双槽(同上)
+    QPointer<MuxPaneView> m_f78; // 语料 +0x78/0x80 QPointer<MuxPane> 双槽
+                                 //   (消费点 008e0fc7-d4:getAndRef + pane 指针)
 };

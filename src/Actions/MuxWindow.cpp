@@ -1,11 +1,13 @@
 #include "MuxWindow.h"
 
 #include "MuxPaneGroup.h"
+#include "MuxPaneView.h"
 #include "SplitterGroup.h"
 
 #include <QApplication>
 #include <QBoxLayout>
 #include <QSplitter>
+#include <QTabBar>
 #include <QVBoxLayout>
 
 // === MuxWindow(QString,QWidget*) ===
@@ -24,13 +26,13 @@ MuxWindow::MuxWindow(const QString &title, QWidget *parent)
 	, m_f38(0)              // *(this+0x38) = 0 @008e098d
 	, m_f40(title)          // param_1[0x40]=1 / [0x41]=param_2 @008e0995-9a(拷贝构造展开)
 	, m_f44(-1)             // *(this+0x44) = -1 @008e09a2
-	, m_f4c(-1)             // *(this+0x4c) = -1 @008e09aa
+	, m_f48(-1)             // *(this+0x48) = -1 @008e09a6(ctor 8B 写覆盖 +0x44/+0x48 两 int)
 	, m_f58()               // *(this+0x58) = QArrayData::shared_null @008e09b2
 	, m_f60()               // QMetaObject::tr(this+0x60,011ac2a0,0xc8c60e)@008e099e(字面 cited)
 	, m_f68(parent)         // *(this+0x68) = param_3 @008e09a6
 	, m_f70(nullptr)        // *(this+0x70) = 0 @008e09ae
-	, m_f78(0)              // *(this+0x78) = 0 @008e09b6
-	, m_f80(0)              // *(this+0x80) = 0 @008e09be
+	, m_f78()               // *(this+0x78) = 0 / *(this+0x80) = 0 @008e09b6-be
+	                        //   (QPointer<MuxPane> 默认构造 = 双槽清零,等价)
 {
 	setObjectName(QStringLiteral("MuxWindow")); // @008e09f1-a06
 	muxWindowAssemble();     // FUN_008dffa0 @008e0a24-30
@@ -68,24 +70,110 @@ void MuxWindow::muxWindowAssemble()
 //   {1,FUN_008e16a0,FUN_008e0bb2,0}, 0, 0,
 //   &QApplication::staticMetaObject)。
 //   槽体 = 本类 lambda 槽(dynsym _ZN9MuxWindow14onFocusChangedEP7QWidgetS1_E)
-//   = FUN_008e0bb2(1323B,0028:27798,未读)→ cited — wave-2;
+//   = FUN_008e0bb2(1323B,0028:27798,本批真身落码);
 //   调用器 FUN_008e16a0(118B,0028:28254,Qt connectImpl 通用形态,2 参转发)。
 void MuxWindow::connectFocusChanged()
 {
 	// connect(qApp, &QApplication::focusChanged, this, &MuxWindow::onFocusChanged)
-	//   @008dff10-4c — 槽体 FUN_008e0bb2 未读,cited — wave-2:
-	//   connect 接线本身语料实证(0028:27169),保留槽空体占位,
-	//   信号源/实参面照语料(app 级 focusChanged → 本类)。
+	//   @008dff10-4c(信号源/实参面照语料:app 级 focusChanged → 本类)。
 	connect(qApp, &QApplication::focusChanged,
 	        this, &MuxWindow::onFocusChanged);
 }
 
+// === sendSelectPane(MuxPaneView*,int) ===
+// 转写 FUN_0083f830(0026:32772,105B;call @008e10ce):
+//   "select-pane -t %1".arg(paneIndex) → FUN_0083eaa6(pane,cmd)。
+// FUN_0083eaa6(0026:32168,25B)= pane+0x160==1 且串非空 → FUN_00910898
+//   (tmux 发送门;pane+0x160 tmux 位 / FUN_00910898 均未落库 → cited)。
+// 语料形参 (pane, cmd);本类调用点仅 sendSelectPane 一处 → 归辖本类。
+void MuxWindow::sendSelectPane(MuxPaneView *pane, int paneIndex)
+{
+	const QString cmd = QStringLiteral("select-pane -t %1").arg(paneIndex); // @0083f86e-f72
+	// FUN_0083eaa6 @0083f87d:pane+0x160==1 && !cmd.isEmpty() →
+	//   FUN_00910898 — cited — wave-2(MuxPaneView +0x160 tmux 位与
+	//   FUN_00910898 发送面未落库,不发明)
+	(void)pane; (void)cmd;
+}
+
 // === onFocusChanged(QWidget*,QWidget*) ===
-// 语料 FUN_008e0bb2(0028:27798,1323B)— 未读,不发明。
+// 转写 FUN_008e0bb2(0028:27798,1323B)。信号两实参全程未消费
+//   (槽内焦点锚 = this->focusWidget() @008e0ca6,反汇编勘正:
+//   receiver = 0x20(%rsp) = this,非 qApp;connect 面 FUN_008dfee8
+//   0028:27169)。
 void MuxWindow::onFocusChanged(QWidget *old, QWidget *now)
 {
 	(void)old; (void)now;
-	/* FUN_008e0bb2 — cited — wave-2(1323B 未读,不发明) */
+
+	// S0-S1:更新禁更 @008e0c67 — 语料为 functor 对{this,FUN_008dfcd4,
+	//   FUN_008dfd89}(metaobject 包装 0028:26974/26994)= rollback 面,
+	//   直译语义:进槽 setUpdatesEnabled(false)(FUN_008dfd89),
+	//   离槽 setUpdatesEnabled(true)(FUN_008dfd7c,0028:27054 体读 =
+	//   mov $0x1 硬恢复 true,非旧值 — 原样保留)。Qt QScopedValueRollback
+	//   无法无成员直绑 QWidget 伪属性 → 按二进制观測调用直译。
+	setUpdatesEnabled(false);                         // FUN_008dfd89 @008e0c67
+
+	// S2:焦点锚 @008e0ca6。语料 receiver = 0x20(%rsp) = this(MuxWindow):
+	//   mov 0x20(%rsp),%rbx → mov %rbx,%rdi → call QWidget::focusWidget
+	//   = win.focusWidget()(窗口失活后仍返回窗口内旧焦点件,Qt 语义;
+	//   非 QApplication::focusWidget — 首读笔记按后者转写,已按反汇编
+	//   勘正;此语义使槽在窗口失焦时 state 保持 Active = 原版行为)。
+	QWidget *fw = focusWidget(); // QWidget::focusWidget(this) @008e0ca6
+
+	// S3:findChildren<MuxPaneGroup*>(this,空名)@008e0ce8
+	//   (qt_qFindChildren_helper,metaobject 011ac040,recursive=1)
+	const QList<MuxPaneGroup *> groups = findChildren<MuxPaneGroup *>(QString());
+
+	// S4-S6:组循环 @008e0d85-0f0d
+	for (MuxPaneGroup *group : groups) {
+		// S4:findChild<QTabBar*>(空名)@008e0e93;无 tab bar → 下一组
+		QTabBar *bar = group->findChild<QTabBar *>(QString());
+		if (bar == nullptr)
+			continue;
+		// S5:旧值 = property("state").toString() @008e0d85-d96;
+		//   新值 = isAncestorOf(fw)?"Active":"" @008e0da5-dac
+		//   (isAncestorOf 第二实参 Ghidra 丢 = fw 寄存器遗留)
+		const QString oldState = bar->property("state").toString();
+		const QString newState = bar->isAncestorOf(fw) ? QStringLiteral("Active")
+		                                               : QStringLiteral("");
+		// S6:不等 → setProperty + 样式刷新 @008e0df8-e26
+		if (oldState != newState) {
+			bar->setProperty("state", newState); // @008e0e06
+			// s_king_refreshWidgetStyle(DAT_011c1ce0 单例,bar,0)@008e0e26
+			//   — cited — wave-2:体读 00752640(67B)= style()→vtable
+			//   0x68/0x60 调 + r12 分叉 repaint;King 单例承载面
+			//   (DAT_011c1ce0)未落库 → 不发明
+		}
+	}
+
+	// S8:焦点链回溯 @008e0f2e-fc6:isAncestorOf(fw) 门 → qcoreapp_self_get
+	//   @008e0f3b(返回值弃)→ 从 fw 沿 parentWidget 上溯,
+	//   dynamic_cast(QObject typeinfo→011a7470)命中即止(011a7470 =
+	//   MuxPane typeinfo,MuxPaneView;链证 MuxPaneGroup.cpp 注)
+	if (isAncestorOf(fw) && fw != nullptr) {           // @008e0f2e/0f40
+		for (QWidget *w = fw; w != nullptr; w = w->parentWidget()) { // @008e0f59
+			// dynamic_cast @008e0f75( QObject→011a7470);qobject_cast 直译
+			auto *pane = dynamic_cast<MuxPaneView *>(w);
+			if (pane == nullptr)
+				continue;
+			// S9:命中 pane @008e0f7f-10d2。
+			//   ① 标题 QString +0x40/+0x41 非空判定 @008e0f87-92
+			//   ② pane index 二次 cast @008e0f9e(011abb90→011a7470,
+			//     011abb90 = MuxPane typeinfo)与 +0x48 比对 @008e0fb5
+			//   ③ 同步 +0x48 = pane->+0x30 @008e10c7 → 发送腿(见下)
+			//   ④ QPointer 存储 @008e0fc7-d4(getAndRef + pane 指针)
+			if (!m_f40.isEmpty() &&                      // [0x41]/[0x40] @008e0f87/0f92
+			    m_f48 != pane->paneIndex()) {            // pane->+0x30 @008e0fb5
+				m_f48 = pane->paneIndex();           // *(this+0x48) @008e10c7
+				sendSelectPane(pane, m_f48);         // FUN_0083f830 @008e10ce
+			}
+			m_f78 = QPointer<MuxPaneView>(pane); // +0x78/0x80 @008e0fc7-d4
+			break;                               // @008e0fda
+		}
+	}
+
+	// S10:更新恢复 @008e1059 段(local_68 门 → FUN_008dfd7c 体读 =
+	//   setUpdatesEnabled(true) @0028:27054;rollback 撤防直译)
+	setUpdatesEnabled(true);                          // FUN_008dfd7c @008e1059-8f
 }
 
 // === restorePaneSplitter(void*,void*,uint,void*) ===

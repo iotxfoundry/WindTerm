@@ -39,6 +39,10 @@ public:
     //   (MuxPaneGroup::addTab 转写消费);本体无独立 getter 函数(inline 槽)。
     const QString &title() const { return m_title; }
 
+    // 语料 +0x30 只读面(inline getter;消费点 = MuxWindow 槽体 S9
+    //   @008e0fb5,pane index 比对/缓存;本体无独立函数,直译成员读)。
+    int paneIndex() const { return m_f30; }
+
     // cited 预留接线(库内零调用点,不发明触发时机):
     //   语料 FUN_00766192(0023:33030,65B)创建 JsEngine(0064ab10)
     //   存宿主 +0x48 后即调 s_MuxPane_64b102(pvVar1)(0023:33040-44);
