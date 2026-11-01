@@ -26,6 +26,15 @@ void KeymapEngine::load()
 	loadJsonLeg();
 }
 
+// FUN_0076b430 ctor 注入点对位(0023.c 36366-36392:operator_new(0x20)
+// → FUN_00674648(engine, host)第二参 = QObject parent → *(host+0x68)=engine):
+// 我方懒建形态 = m_keymap 内嵌成员(头注),ctor 注入等价转 setParent(host)。
+// 调用点 = 宿主装配批(mainWindow_connectSignals 0076b9ec 时序位)— cited。
+void KeymapEngine::attachHost(QObject *host)
+{
+	m_keymap.setParent(host);
+}
+
 // s_wind_keymaps_768854(00768854,428B)语料转写
 int KeymapEngine::loadKeymapSources()
 {

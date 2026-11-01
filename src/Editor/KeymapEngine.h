@@ -36,7 +36,15 @@ public:
     static KeymapEngine &instance();
 
     // FUN_0076b430:懒建 + 装载总入口(YAML 双源 + JSON 腿 cited)
+    // 装配时序(语料):attachHost(= FUN_0076b430 ctor parent 注入)在
+    // 装载/匹配前;宿主装配批调用,本文件内不自行触发。
     void load();
+
+    // FUN_0076b430(0023.c 36366)ctor parent 注入的懒建对位:语料 =
+    // new SuperKeymap(parent=host) 落 host+0x68;我方 m_keymap 内嵌,
+    // 等价 = 事后 setParent(host)。host 未注入期 parent()=nullptr →
+    // matchTrie §12/§13 keymapEngineCast 空臂(语料 cast 失败同形)。
+    void attachHost(QObject *host);
 
     // s_wind_keymaps_768854:双源路径解析 → 引擎复位 → YAML 双源
     // 各自 loadEntries(mode=0);返回非空解析源数

@@ -2836,6 +2836,37 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		//   E=doc ⇒ &m_ctx(批 69 E 面平铺);param3/lexerSnap 未建模
 		//   → nullptr(cited — wave-2)
 		wt::MarkersStore::markersCtxInit(&m_ctx.markersStore, &m_ctx, nullptr, nullptr);
+		// —— FUN_009a2b90(634B,0032.c:36795)Outlining 驱动 ——
+		// 语料触发:DocumentTask 分发线程入口 0030.c:28874 case4
+		//   FUN_009a2b90(*(session+0xc0), -1)(异步);壳期无线程基建
+		//   → 同步直调【偏差登记:语料异步不阻塞主线程,同步版行为
+		//   等价但阻塞】。调用者门(0030.c:28871):task+0x28==0
+		//   (task 对象未建模,同相不可达)且 *(session+0xc0) 非空
+		//   → 我方代理门 = markersCtxInit 已建 arr。
+		if (m_ctx.markersStore.arr != nullptr) {          // *(session+0xc0)==0 → return 1 门(0030.c:28875)
+			const qint64 textLen = m_ctx.docBytes.size(); // -1 → FUN_0092801a=*(doc+0xf8)+0x28 长度面
+			                                              //   (EditorContext docBytes 等价承载);
+			                                              //   FUN_0092814a 同面钳制(0032.c:36813)
+			if (textLen == 0) {                           // to==0 && len==0 → FUN_009a29ce(009a2cb5)
+				m_ctx.markersStore.publishOutline();      //   发布/分发腿(→009a2766 体转写;壳期惰值)
+			}
+			if (qint64(m_ctx.markersStore.scanCursor) < textLen) {  // *(D+0x20) < to 主门(009a2cbf)
+				// FUN_0099d072 关键词腿(387B,0032.c:32955)— cited —
+				//   wave-2:语料其返回真才进 region 循环 + *(D+0x2c)=0
+				//   清零(009a2ce 区)+ finally 回调机制(cited);壳期
+				//   kwVec30 空 → regionScan 内 FUN_00a10472 门走基值腿
+				//   同相。【偏差登记:未设 0099d072 返回门,kw 就位批需补】
+				m_ctx.markersStore.stopFlag = 0;          // *(u8*)(D+0x2c)=0(009a2ce 区字面)
+				m_ctx.regionScan(0, 0, textLen);                // FUN_0099d4de(0032.c:36875;经 E 面包装,lex=bufferLexer):
+				                                          //   mode=0;from=scanCursor 初值 0,
+				                                          //   to=param_2 全文档
+				m_ctx.markersStore.publishOutline();      // 循环尾非停机腿 FUN_009a29ce(009a2df8)
+			} else if (m_ctx.markersStore.stopFlag == 0) {
+				// "Outlining End, Nothing to do............" 返 0 — 语料字面(009a2e0a)
+			} else {
+				m_ctx.markersStore.publishOutline();      // "outliningRegions Again" 腿(009a2e0e)
+			}
+		}
 		// setCurrentBuffer 核心(1279B)与刷新腿 — cited(Phase-4b)
 		// (Phase-4b 视图面;字段面已落位)
 		return QVariant(0);

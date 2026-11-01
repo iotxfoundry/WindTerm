@@ -1633,6 +1633,25 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   勘误注记落
 - 验证:make 零错;ctest 12/12;engtest3 直跑 OK
 
+### 批 88(2026-11-01)三 lane 并行:regionScan 驱动装配/replaceText 面破案/attachHost ✅
+- **regionScan 驱动装配**(H1):0x7543 markersCtxInit 后追加 Outlining
+  驱动(门 arr!=null 代理/参数定性:to==-1 → docBytes.size()·mode=0/
+  from=scanCursor;分支对位:to==0&&len==0 → publishOutline/+0x20<to
+  主门 → stopFlag=0 + regionScan(0,0,textLen)/else Nothing-to-do·
+  Again);偏差 ×2 登记(异步→同步壳期直调/0099d072 关键词腿挂账);
+  收口修正:H1 直调四参底层版 → 改走 E 面包装(自动带 bufferLexer)
+- **replaceText 写命令面破案**(H2):**editor_replaceText 唯一入口 =
+  0x4f00(EXT 20224),非 0x75XX 族**;同族 0x4eff = replaceAll;我方
+  两 case 均缺(写类已接 0x7551/0x7552/0x7554);notifyTextChanged
+  挂点 = 0034:12998(FUN_00a21110 选区 finalize+doc 通知 = vt8 事件
+  源);入口 flags&8 → store 懒建/selStoreOn 置位;insLen/delLen
+  精确语义待真身化复核
+- **attachHost 落地**(H3):KeymapEngine::attachHost(QObject*) =
+  m_keymap.setParent(host)(语料 0023.c:36366-36392 ctor parent 注入
+  对位);load() 创建点核对(内嵌成员构造期即等价);调用点 cited
+  (宿主装配批)
+- 验证:make 零错;ctest 12/12;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
