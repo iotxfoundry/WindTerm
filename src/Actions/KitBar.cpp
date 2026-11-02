@@ -12,6 +12,148 @@
 #include "ActionFactory.h"
 #include "ThemeIcons.h"
 
+#include "../Editor/SuperKeymap.h"   // King 面:host+0x68 SuperKeymap(批 87 parent() 链);keymapKeyForward 00674206
+#include <QHash>
+
+// ── King 面(0076bf82 外壳链;调用点 KitBar S6 0027:73051 / Palette
+//    Button 0028:18730 同构)──
+
+// FUN_006742e0(322B,decomp-part-0020.c:61726)转写:绑定串 → 显示串。
+// 逐 uint keycode:keymapKeyForward(006742d2 → 00674206 thunk,DAT_011c1960
+// 映射表读侧,<0xff 直通)→ (int)u < 0x100 且 isPrint → QChar 直通
+// append;否则 QKeySequence(u,0,0,0).toString(1=NativeText)append;
+// 追加间插 ", "(DAT_00c96600 二进制实证:QStringData ref=-1,size=2,
+// offset=24)——print 腿仅在前项非 print 时插(00674359 门 cVar6),
+// 非 print 腿恒 size 门插(006743b0)。
+static QString kingRenderKeyStrokes(const QString &bound)
+{
+	QString out;                                       // shared_null @006742ec
+	bool prevPrinted = false;                          // cVar6 初 '\0' @006742fa
+	for (int i = 0; i < bound.size(); ++i) {
+		const uint u = keymapKeyForward(bound.at(i).unicode());   // FUN_006742d2 @00674302
+		if ((int)u < 0x100 && QChar::isPrint(u)) {     // @00674306-0e
+			if (!out.isEmpty() && !prevPrinted)
+				out.append(QStringLiteral(", "));      // DAT_00c96600 @00674359
+			out.append(QChar(u));                      // QString::append(uint)@0067436b
+			prevPrinted = true;                        // cVar6 = cVar3 @00674388
+		} else {
+			if (!out.isEmpty())
+				out.append(QStringLiteral(", "));      // DAT_00c96600 @006743b0
+			out.append(QKeySequence(static_cast<int>(u), 0, 0, 0)
+			               .toString(QKeySequence::NativeText)); // toString(1)@006743de-e9
+			prevPrinted = false;                       // cVar6 = 0 @006743f5
+		}
+	}
+	return out;                                        // @00674422
+}
+
+// FUN_0067492e(474B,decomp-part-0020.c:62078)转写:绑定串 "[]|" 顶层
+// 截断 → 尾调 FUN_006742e0 渲染(@00674a6e)。分隔集
+// fromAscii("[]|",3)@00674960;逐字符 indexOf 命中(006749ax)→
+// '\' 前缀奇偶回溯(006749a8-e0,奇数 = 转义保留)→ '['/']' 配对态
+// (local_52,006749f2/a00)→ 顶层 '|' 即截断点(00674a0f break);
+// 保留前缀 resize(00674a58)/全滤清 replace(0,1,空)(00674a63)。
+static QString kingTruncateBoundKeys(const QString &bound)
+{
+	if (bound.isEmpty())
+		return QString();            // 首门 len==0 → shared_null 直返 @00674978
+	QString trimmed = bound;         // 语料 0076bed4 克隆(0023:36757)承载
+	int kept = 0;                    // uVar6 逐位计数 @00674a49 区
+	ushort bracketDepth = 0;         // local_52(0 / '[' 配对态)
+	for (int i = 0; i < bound.size(); ++i) {           // piVar8 walk @0067499x
+		const ushort ch = bound.at(i).unicode();
+		bool isSeparator =
+		    QStringLiteral("[]|").indexOf(QChar(ch)) != -1;   // fromAscii("[]|",3)+indexOf @00674960/ax
+		if (isSeparator) {
+			// '\' 前缀奇偶回溯(006749a8-e0):紧邻反斜杠奇数个 = 转义
+			bool escaped = false;                        // bVar3
+			for (int j = i - 1; j >= 0 && bound.at(j) == QLatin1Char('\\'); --j)
+				escaped = !escaped;                      // 0x5c walk,bVar3 ^= 1
+			if (escaped)
+				isSeparator = false;                     // 转义 → 字面保留 @00674a49
+		}
+		if (isSeparator) {
+			if (ch == '[') {                             // 0x5b
+				if (bracketDepth == 0)
+					bracketDepth = '[';                  // 006749f2
+			} else if (ch == ']') {                      // 0x5d
+				if (bracketDepth == '[')
+					bracketDepth = 0;                    // 00674a00
+			} else if (ch == '|' && bracketDepth == 0) { // 0x7c 顶层
+				break;                                   // 截断点(kept = i)@00674a0f
+			}
+		}
+		++kept;                                          // @00674a49 区
+	}
+	if (kept == 0)
+		trimmed.clear();             // 00674a63 replace(0,1,空)
+	else if (kept < trimmed.size())
+		trimmed.truncate(kept);      // 00674a58 resize(kept)
+	return kingRenderKeyStrokes(trimmed);                // 006742e0 尾调 @00674a6e
+}
+
+// King::buildKeySequence(0076bf82,113B,decomp-part-0023.c:36795)外壳链
+// 转写:FUN_0076707e(&tmp,host)(18B,0023:33696)= *(host+0x68) 槽取
+// SuperKeymap → FUN_00674748(绑定查)→ FUN_0076bed4(out,host,&tmp)
+// (166B,0023:36757,克隆+RAII = Qt5 值语义承接)→ FUN_0067492e →
+// FUN_006742e0。Ghidra 折叠 (param_1,param_2);真形 (out,host,action,
+// keyModes)(调用点 KitBar 0027:73051 / Palette 0028:18730 实证)。
+// host+0x68 SuperKeymap 懒建 = FUN_0076b430(68B,0023:36366)— cited —
+// wave-2(引擎未建 → 空序列同相);我方注册面 = KeymapEngine::attachHost
+// 的 setParent(host)(KeymapEngine.h:43-47,批 87 parent() 链)→ 自
+// host findChild 反查同链(host = 语料 lVar8 MainWindow;window() 顶窗
+// 承接)。
+static QString kingBuildKeySequence(QWidget *host, QAction *action, uint keyModes)
+{
+	SuperKeymap *keymap = host->findChild<SuperKeymap *>();   // *(host+0x68)@00767082
+	QString bound;
+	if (keymap != nullptr) {
+		// FUN_00674748(345B,0020:61992)绑定查 — cited — wave-2:
+		// 槽表 = keymap+0x10(SuperKeymap m_slots 私有,SuperKeymap*
+		// 冻结禁改 → 面不可达)。语料语义:槽项 +0x18 空(无 regex 腿)
+		// → payload QVariant::toByteArray() == *(action+0x60) 命令名
+		// (memcmp)→ modesMask & keyModes 门 → keysEncoded wstring
+		// assign,首中即返(0020:61992-62077)。面解冻后按此回填。
+	}
+	(void)action; (void)keyModes;    // 00674748 实参 — cited(见上)
+	// 查空 → 空串同相(0067492e len==0 首门直返 → 渲染不触)。
+	return kingTruncateBoundKeys(bound);   // 0076bed4 → 0067492e → 006742e0
+}
+
+// actionFactory_getOrCreate(00665dc2,856B,decomp-part-0020.c:50075 全读)
+// 体分级骨架(S5 工厂腿;仓库 ActionFactory::getOrCreate = 同构转写已
+// 落库,其宿主 = wind.actions 装配面)。语料表宿主 = *(host+0x60)
+// (FUN_00767b36,9B 转发,0023:34263)— 宿主槽未建模(KitBar.h 布局
+// 缺口注)→ 表载体文件级静态承接(同 KeymapCodecTable byKey 等价载体
+// 先例;宿主建模后迁移)。
+//   1. trimmed_helper(key)@00665e5a;空名短路 @00665e70(仓库同构先例)
+//   2. +0x10 QHash 查,命中 → *(node+0x18)
+//   3. qstrcmp(key,"Text.HighlightTextBar")==0 → 特化 operator_new(0x20)
+//      +FUN_0055bbce(HighlightTextBar 子类)— cited — wave-2(面未转写)
+//   4. else operator_new(0x10)+QAction+setText(fromAscii(key))@00665f98 区
+//   5. connectImpl(triggered → FUN_0066a148,functor 壳 0066b3a0)深腿
+//      cited — wave-2(js 触发链;同构真身见 ActionFactory.cpp:124)
+//   6. QHashData::allocateNode 插表(key 引用 +1)@006660f9 区
+static QAction *actionFactoryGetOrCreate(const QByteArray &name)
+{
+	static QHash<QByteArray, QAction *> s_factory;   // 语料 +0x10 表(host+0x60 载体替位)
+	const QByteArray key = name.trimmed();           // trimmed_helper @00665e5a
+	if (key.isEmpty())
+		return nullptr;                              // 空名短路 @00665e70
+	const auto it = s_factory.constFind(key);
+	if (it != s_factory.constEnd())
+		return *it;                                  // 命中 → *(node+0x18)
+	if (qstrcmp(key.constData(), "Text.HighlightTextBar") == 0) {
+		// operator_new(0x20)+FUN_0055bbce — cited — wave-2(特化面未转写)
+		return nullptr;
+	}
+	auto *action = new QAction;                      // operator_new(0x10)+QAction @00665f8x
+	action->setText(QString::fromUtf8(key));         // setText(fromAscii(key))@00665f98 区
+	// connectImpl(triggered → FUN_0066a148,0066b3a0 壳)— cited — wave-2
+	s_factory.insert(key, action);                   // allocateNode 插表 @006660f9 区
+	return action;
+}
+
 // === KitBar(QWidget*) ===
 // 转写 FUN_008b31b6(0027:71172,420B):
 //   QToolBar::QToolBar(param_1,param_2)→ vtable=KitBar →
@@ -198,22 +340,23 @@ void KitBar::addKit(int index, const QString &title, const QString &iconName)
 	const QByteArray cmdKey = cmdMap.value(title);   // operator< 查找 @72558-72590
 
 	// --- S5 actionFactory(72588)---
-	// 语料:lVar10 = FUN_00767b36(lVar8,&local_d0)(9B 转发)→
-	//   actionFactory_getOrCreate(*(lVar8+0x60)) — 依赖面未落库 →
-	//   cited 占位。
-	QAction *action = nullptr; // FUN_00767b36 → actionFactory_getOrCreate(*(this+0x60)) — cited — wave-2
+	// 语料:lVar10 = FUN_00767b36(lVar8,&local_d0)(9B 转发,0023:34263)
+	//   → actionFactory_getOrCreate(*(lVar8+0x60), key)(00665dc2,856B)。
+	QAction *action = actionFactoryGetOrCreate(cmdKey);   // 00665dc2 体分级骨架(见 helper 注)
 
 	// --- S6 快捷键/图标覆盖/tooltip(72980-73060)---
-	// 语料:lVar10(value ptr)非 0 → King__buildKeySequence(&local_c8,
-	//   lVar8,lVar10,1) → QAction::icon() 覆盖 local_100 →
-	//   QtPrivate::argToQString("%1 (%2)",{tr 标题,seq})@008b3e6d-71。
-	// 依赖面 King__buildKeySequence 未落库 → cited 占位(快捷键合成
-	//   不发明);tooltip/icon 覆盖面转写留于占位分支内。
+	// 语料:lVar10 非 0 → King__buildKeySequence(&local_c8,lVar8,lVar10,1)
+	//   @008b3d7e(keyModes=1)→ seq 非空:QAction::icon() 覆盖 local_100
+	//   @008b3d91 → QtPrivate::argToQString("%1 (%2)",{tr 标题,seq})
+	//   @008b3e6d-71(非空门 = p3_notes_kg §1 消费面定性)。
 	QString toolTip = trTitle;
-	if (!cmdKey.isEmpty()) {
-		// King__buildKeySequence(&seq,action,cmdKey,1)@008b3d7e — cited — wave-2
-		// icon = action->icon()(覆盖 svg)@008b3d91 — cited — wave-2(挂 action 空)
-		toolTip = QStringLiteral("%1 (%2)").arg(trTitle, cmdKey.constData()); // QtPrivate::argToQString @008b3e6d
+	if (action != nullptr) {
+		const QString seq =
+		    kingBuildKeySequence(window(), action, 1);   // @008b3d7e(host=语料 lVar8;window() 顶窗承接)
+		if (!seq.isEmpty()) {
+			icon = action->icon();                     // QAction::icon() 覆盖 svg @008b3d91
+			toolTip = QStringLiteral("%1 (%2)").arg(trTitle, seq); // @008b3e6d-71
+		}
 	}
 
 	// --- S7 造按钮+属性(73064-73085)---

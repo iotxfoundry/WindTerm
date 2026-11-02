@@ -4,6 +4,7 @@
 #include "MuxPaneView.h"
 #include "SplitterGroup.h"
 #include "../Sessions/SuperSession.h"
+#include "../Utility/ApplicationTheme.h"
 
 #include <QApplication>
 #include <QBoxLayout>
@@ -155,10 +156,10 @@ void MuxWindow::onFocusChanged(QWidget *old, QWidget *now)
 		// S6:不等 → setProperty + 样式刷新 @008e0df8-e26
 		if (oldState != newState) {
 			bar->setProperty("state", newState); // @008e0e06
-			// s_king_refreshWidgetStyle(DAT_011c1ce0 单例,bar,0)@008e0e26
-			//   — cited — wave-2:体读 00752640(67B)= style()→vtable
-			//   0x68/0x60 调 + r12 分叉 repaint;King 单例承载面
-			//   (DAT_011c1ce0)未落库 → 不发明
+			// s_king_refreshWidgetStyle(DAT_011c1ce0,bar,0)@008e0e26 —
+			//   00752640(67B)真身已落 King::refreshWidgetStyle
+			//   (src/Utility/ApplicationTheme.cpp);repaint=0 语料字面
+			King::refreshWidgetStyle(bar, false); // @008e0e26
 		}
 	}
 

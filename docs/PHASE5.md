@@ -1807,6 +1807,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   预期 markerBand 桩/S5 色槽)
 - 验证:工作树与 HEAD 一致(R1 只读核查);ctest 13/13 态维持
 
+### 批 98(2026-11-02)三落地 lane:replaceText 升真身/King 面+ApplicationTheme/phase5_px 骨架 ✅
+- **replaceText 族升真身**(S1):0x4f00 段 E cursorSearch_a2de1c
+  lambda(0096d4de 11 段:6/11 转写 + 5 段候选深腿 cited;~90 行)+
+  0x4eff 命中处理体真身(~60 行:双计数/推进腿/重搜循环；选区写侧+
+  undo 应用 cited)—— 两 case 新结构占位链下恒不达/恒 -1 同相
+- **King 面 + ApplicationTheme 落码**(S2):src/Utility/ApplicationTheme.
+  {h,cpp} 新(类壳 cited 档:两 QTimer 建序真身/instance() guard 懒建
+  转写/refreshWidgetStyle 67B 真身三行;无 Q_OBJECT 定性选择)+
+  KitBar S5/S6 回填真身(kingRenderKeyStrokes 322B/kingTruncateBoundKeys
+  474B/kingBuildKeySequence 113B 外壳链/actionFactoryGetOrCreate 856B
+  体分级)+ MuxWindow S6 三行直译；KingEnums.h 未动
+- **phase5_px.py 像素差分骨架**(S3,385 行):AGENT 三钩(00a1e1a4
+  paint 主路 GUI 线程内直呼/00a418c4 dispatch 备路/007d1f5a commander)
+  + rpc{ready,resetState,inject,arm,readSize,save}+ PNG 逐像素 diff;
+  **单点探针全链实证成功**(0x7547 槽直呼 → toImage → 30x101 PNG
+  落盘 PIL 可读);实测修正设计两处(windowsize 不触发 paintN/零长
+  writeSplitData 备路弃用改钩内自然 dispatch)
+- **⚠ 事故上报(未处置,留用户)**:S3 多轮 frida attach 竞态把
+  **用户日常实例(pid 635793)打入 loader 锁死锁**(主线程
+  pthread_create 持 futex 等待,20 分钟不复)—— kill 恢复超出写域
+  留用户处置;后续跑管线建议一次性 Xvfb 实例
+- 验证:cmake 重跑(ApplicationTheme 收编)+ make 零错；ctest 15/15;
+  engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
