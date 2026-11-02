@@ -1785,6 +1785,28 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 意义:**五级装配链(MuxWindow→Splitter→Group→Tab→View)首次运行
   期组装验证通过** —— Phase 4c 面板装配行为闭环
 
+### 批 97(2026-11-02)三勘察 lane:replaceText 核查/King 面/像素差分可行性 ✅
+- **0x4eff 搜索腿核查**(R1):CodecMemo 接线**已在库**(批 93 N1 落;
+  canOld 门真身 12651/searchNeedle·scanMask 双臂 12652-53)—— 零改动
+  (重复落码违铁律);cited 残腿 3(命中处理体/notifyTextChanged 注记/
+  命中位推进),激活条件 = needlePair 占位升真身(codec 大体批)
+- **King 面三函数定性**(R2):buildKeySequence(113B 外壳链:host+0x68
+  SuperKeymap 懒建 → 00674748 绑定查 → 0076492e "[]|" 顶层截断 →
+  006742e0 渲染 ", " 分隔 DAT_00c96600 实证;**无 fromString 无枚举
+  映射**)—— KitBar S6 回填片段可直用;actionFactory_getOrCreate
+  (856B:trim→QHash 查→Text.HighlightTextBar 特化;我方 getOrCreate
+  已同构落库,差 MainWindow 布局 +0x60/+0x68);refreshWidgetStyle
+  (67B:unpolish/polish,theme 参数运行时弃用,三行直译免单例);
+  **DAT_011c1ce0 = ApplicationTheme(QObject 新发现,非 King 枚举)**
+  —— 落点 src/Utility/ApplicationTheme cited 档
+- **0x7547 像素差分可行**(R3,高置信):原版触发 = QScrollBar
+  paintEvent 助手(FUN_00a1e1a4 经 vtable+0x1c0);导出 = 全链 Qt 符号
+  (toImage→save PNG,无需 QPixmap d 偏移);GUI 线程 → 钩内执行
+  (00a1e1a4 挂钩,原版自身同线程合法);phase5_px.py 设计
+  (arm/save rpc + 双侧 ARGB32 逐像素 diff 对账 QUIRKS:cited 空洞
+  预期 markerBand 桩/S5 色槽)
+- 验证:工作树与 HEAD 一致(R1 只读核查);ctest 13/13 态维持
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
