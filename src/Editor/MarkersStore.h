@@ -347,6 +347,24 @@ struct ScannerX {                        // 0x70 布局照 ctor 语料(分配 0x
 //    *(session+0xa0) 0x48 doc-scan obj — 批④挂账):门 = *(s10+0x10) inner;
 //    inner+0x00 = lineFace;lineFace+0x08 = ValueTable*(bd 笔记 §2 结构定案;
 //    下游 thunk 00a04ad4/00a04ae0/00a04b04 = 0033.c:35109-35156,各 12B)。
+//    slot10 承载定性(批 90 接线勘定,全链语料读):s10 = FUN_009f98a2(103B,
+//    0033.c:27347)0x48 obj — +0x00 = inner 0x20{+0x00=s10 回指,+0x08=lineFace20
+//    (FUN_009fa968 334B 0033.c:28108 建:Uint8RunStyles holder 0x20,piecetable
+//    0x60+GB 0x30;= publishOutline 面 FUN_009f839c/958a 读 *(inner+0x10) 槽,
+//    新建为 0),+0x10=0,+0x18=0x80 flag};+0x08 = session(E);
+//    +0x10 = 门 door = FUN_009f98a2 param_3 = *(session+0x98) 0x80 lexer face
+//    (FUN_00a0a1da 687B,0033.c:38753);door+0x00 = face10 0x10{+0x00=door 回指,
+//    +0x08 = ValueTable(FUN_009cc264 K4 ≠0 腿 00a0a370 / FUN_009cc1bc K1 ==0 腿
+//    00a0a474;K1=FUN_009cc1bc 55B,0032.c:66953 — kind=1 plain u16)}
+//    = 行面 bank —— 与 markers A+0x18 同一 ValueTable 实现(批 89 复用定案)。
+//    ⚠ slot10 ≠ ScannerX:ScannerX = buffer+0x108(D+0x18 ≡ A+0x08 同指针双槽,
+//    E4' 定性);slot10 = doc-scan 伴随对象,两轨独立勿并。
+//    写入点:唯一 = editor_initDoc param_1[2]=param_3(0032.c:36931);驱动 =
+//    FUN_0092f0f6 0030.c:29770 editor_initDoc(new 0x70, session, *(session+0xa0));
+//    s10 建/拆 = 0030.c:29676-29686(operator_new(0x48)+FUN_009f98a2(session,
+//    *(session+0x98));旧体 FUN_009f82a2 63B 0033.c:25969 + delete 0x48 0030.c:29790)
+//    + 0030.c:29572-29578 FUN_0092ef06 拆链。ctor/工场均 cited → 我方壳 nullptr,
+//    接线经 MarkersStore::setSlot10 + EditorContext::docScan48 注入(0x7543 驱动批)。
 //    可达前提 = FUN_009de20a 关键词装载(cited)+ slot10 接线,两批齐落前恒不可达(同相)。
 // 6 路取值自由面(真体在 struct MarkersStore 后——成员体名字查找只看类定义前的声明):
 inline quint64 lineValueWord10(const ValueTable *b, int idx);
@@ -516,8 +534,10 @@ inline MarkEntryObj *makeU64Styles()
 struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏移核)
     MarkersArray *arr;                   // +0x000 A(0x38;*A=D 回指)
     void         *doc;                   // +0x008 E(折叠 +0xe0 族 / 层级 +0xa0 / 行数 +0xf8)
-    quint64      slot10;                 // +0x010 原始入参槽(initDoc param_3);0099c8d6 低 4B
-                                         //   用作 u32 滚动计数 — 同槽两用,语料字面怪癖
+    quint64      slot10;                 // +0x010 原始入参槽(initDoc param_3;0x48 doc-scan
+                                         //   obj = FUN_009f98a2 产出 — 定性见上 §行面真身);
+                                         //   0099c8d6 低 4B 用作 u32 滚动计数 — 同槽两用,
+                                         //   语料字面怪癖
     ValueTable   *tlist;                 // +0x018 T(FUN_00a101a0)/ lexerSnap(initDoc
                                          //   FUN_00930f9e(E,0) 同槽;0099c75a 读侧为准)
     quint64      scanCursor;             // +0x020 扫描游标(initDoc param_1[4]=0)
@@ -546,6 +566,19 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
         spin = 0; visibleSnap = 0; curSnap = nullptr;
         stagedSnap = 0; pendSnap = nullptr;
     }
+
+    // ============ slot10(D+0x10)接线对(批 90 接线批)============
+    // 写侧:editor_initDoc param_1[2]=param_3(0032.c:36931)= markersCtxInit
+    //   markersCtxInit 已转写同槽(reinterpret_cast 按位存,D+0x10 现字段);
+    //   驱动 = FUN_0092f0f6(0030.c:29770)editor_initDoc(new 0x70, session,
+    //   *(session+0xa0))。setter 供 0x7543 驱动批注入 doc-scan obj(FUN_009f98a2
+    //   产出 — cited);getter 供 regionScan 行面门(/现有 reinterpret_cast 读位)。
+    //   壳期 slot10==0 → 行面 ×3 零守卫(regionScan 内 !scanFace 门同相)。
+    void setSlot10(void *docScanObj)
+    {
+        slot10 = reinterpret_cast<quint64>(docScanObj);   // param_1[2] 009a2e93 形(同 markersCtxInit)
+    }
+    void *slot10Obj() const { return reinterpret_cast<void *>(slot10); }   // d4de 0099d4de 读 *(param_1+0x10) 形
     // ⚠ M+0x50/+0x58 与观测 holder(+0x8 ptr/+0x10 flag)对位差待复核;
     //   按 FUN_0099d1f6 字面(+0x50 快照值/+0x58 shared_ptr)落,构建者批复核。
 
@@ -1058,7 +1091,8 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
             scanCursor = quint64(to);                        // *(D+0x20)
             return 0;
         }
-        void *scanFace = reinterpret_cast<void *>(slot10);   // 0x48 doc-scan obj(批④挂账)
+        void *scanFace = reinterpret_cast<void *>(slot10);   // 0x48 doc-scan obj(FUN_009f98a2 产出 —
+                                                             //   定性/写入点见 slot10 字段注;批④挂账)
         if (!scanFace) return 0;     // 壳期守卫:主循环须 FUN_009de20a 装载(cited)+slot10
                                      //   接线齐备 — 恒不可达(同相);cited 行面 stub 恒 0,
                                      //   无此门则 636 推行 while 死旋,故防崩门先于行面

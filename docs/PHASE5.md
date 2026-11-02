@@ -1831,6 +1831,27 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(ApplicationTheme 收编)+ make 零错；ctest 15/15;
   engtest3 直跑 OK
 
+### 批 99(2026-11-02)三 lane 并行:0x4f00 候选腿接线/slot10 全链定性勘正/全链测试 +16 ✅
+- **0x4f00 候选腿 CodecMemo 接线**(R1):段 5 scanMask/段 6 candEnd
+  针长加算/段 9 searchNeedle 真身调用 + 段 7 force 门真身 + 命中腿
+  结构;段 8/跳选腿定级 cited(需 FUN_0099881e 未解);占位链下恒 -1
+  同相;⚠ R1 越权自报:跑 cmake --build + ctest 15/15(禁令三违)
+- **slot10 全链定性勘正**(R2,推翻任务书假设):slot10 ≠ ScannerX
+  —— 真身 = **FUN_009f98a2 产出的 0x48 doc-scan 伴随对象**(+0x00
+  inner{+0=s10 回指,+8=lineFace20,+0x10=door=*(session+0x98)
+  0x80 lexer face(00a0a1da 687B)→ face10+0x08=bank(ValueTable
+  复用批 89 定案));E4' "scanner 双槽"实为 D+0x18(tlist)≡A+0x08
+  同指针双槽,**与 D+0x10 两轨独立**;写入点 = editor_initDoc
+  param_1[2](0032.c:36931);驱动 = 0092f0f6(0x7543)·拆建
+  0092ef06/009f82a2/delete 0x48 全链定案;接线:MarkersStore
+  setSlot10/slot10Obj + EditorContext docScan48/wireSlot10
+- **markers 全链测试 +16 断言**(R3):m 组 regionScan 驱动(空态/
+  非空 scanCursor=to 收尾/stopFlag=0)/n 组 0x759f·75a0 读侧门/
+  o 组 q26 tlist 路回归
+- **主线程落 R2 留的接线点**:0x7543 markersCtxInit 后 wireSlot10()
+  (0x7543 单写域收口)
+- 验证:make 零错;ctest 15/15;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

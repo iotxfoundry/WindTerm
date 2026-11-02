@@ -2,6 +2,8 @@
 // 铁律 5:断言语料行为,每条断言带语料锚;逐条手工写。
 // 语料地址均为 Ghidra 基址(同 MarkersStore.h 头注)。
 // 批 84 扩展:h..l 组 —— 0x7543 markersCtxInit 接线(批 83)后的非壳路径。
+// 批 100 扩展:m..o 组 —— 全链:0x7543 换缓冲驱动 regionScan(批 88)+ 0x759f/0x75a0
+//   读侧门 + q26 tlist 路回归(批 85 f 组修正后)。
 // 批 84:m_ctx 为 private(批 3 现状,无 ctx() 读缝)—— 测试专用可达缝:
 // #define private public 仅本 TU(EditorEngine/EditorContext 均无 Q_OBJECT,
 // 不触发 moc ABI 面;库侧已编 .so 二进制不受影响)。
@@ -426,6 +428,140 @@ int main(int argc, char **argv)
 		// 我方委托形态 obj->styles=holder(RsHolder20)→ holderRs(e->u32Obj) 取回
 		// holder 再 static_cast<RS32*> = 双解引错位 → FillRange this=vtbl+8 崩。
 		// u32 载体写侧委托形态失配(landed 转写 vs 委托怪癖),行为门裁决待语料批。
+	}
+
+	// ======== m. regionScan 驱动组(批 100)—— 0x7543 换缓冲 → FUN_009a2b90 ========
+	// ========      Outlining 驱动(批 88 落地,EditorEngine.cpp:2859-2889)同步直调 ========
+	// 语料链(0030.c:28874 case4 → 0032.c:36795 驱动体):markersCtxInit 建 arr →
+	//   *(D+0x20)=scanCursor(0)<textLen 主门(009a2cbf)→ FUN_0099d072 关键词腿 cited
+	//   → regionScan(0,0,textLen)(0032.c:36875;mode=0,lex=bufferLexer)。空态:
+	//   kwVec30 空(ctor 00a10a68 只入一个 0)→ regionScan 内 FUN_00a10472 门
+	//   (size>0xf,false)走基值腿:coreWriteRange(0099d50c)整段灌 base +
+	//   scanCursor=to 收尾(MarkersStore.h:1057-1058);shell 期 bufferLexer=
+	//   nullptr → sx=nullptr → !sx 门同腿(1056)。builder 壳 -1 同相:matches
+	//   = kwMatchCache 恒 nullptr(0099d27e cited,MarkersStore.h:482)→ 命中
+	//   处理腿(0099d6ab..)不可达,builder(D+0x40)读不发生。
+	{
+		EditorEngine e;
+		e.dispatch(0x7543, (qlonglong)1);            // 驱动同步腿(批 88 偏差登记)
+		wt::MarkersStore &D = e.m_ctx.markersStore;
+		expect(D.arr != nullptr,
+		       "m: 驱动前置 arr 非空(0030.c:28875 *(session+0xc0) 门代理)");
+		expect(D.scanCursor == 0,
+		       "m: 驱动前 scanCursor=0(markersCtxInit param_1[4]=0,009a2fxx)");
+		// 空文档腿:textLen=0 → publishOutline(009a2cb5 发布腿)+ scanCursor(0)
+		//   < 0 false → else-if stopFlag==0 → "Nothing to do"(009a2e0a 字面)。
+		//   publishOutline 壳期惰值(makeOutlineModel 恒 nullptr → moveEntry(1,2)
+		//   swap 两空槽),不崩即为同相。
+		expect(D.scanCursor == 0 && D.idAlloc == 0,
+		       "m: 空文档腿 → scanCursor/idAlloc 不动(009a2cbf 0<0 false)");
+		// 非空文档腿(走查 3 字节):scanCursor 0<3 → stopFlag=0(009a2ce 区字面)
+		//   → regionScan(0,0,3)(0032.c:36875;mode=0)。kwVec30 空 → 基值腿:
+		//   coreWriteRange(0,3,base,1) + scanCursor=to(1057-1058)→ publishOutline
+		//   循环尾非停机腿(009a2df8)。coreWriteRange rolling=1 → runstylesUpgrade
+		//   kind=3(rsFill8):bank 层 RS8 Length=0 → end>Length → noChange(委托
+		//   FillRange RunStyles.cxx:138 边界门;不扩容为委托怪癖,登记)。
+		e.m_ctx.docBytes = QByteArray("abc");        // docBytes ≡ FUN_0092801a 长度面
+		                                             //   (EditorEngine.cpp:2867 注)
+		e.m_ctx.styleProps190.append(0x51a);         // 预填一值(第六视图 +0x190;regionScan
+		                                             //   不读此表 — 只证壳值不影响驱动链)
+		e.m_ctx.currentBufferId = 0;                 // 复位短路门 → 重新走全链
+		e.dispatch(0x7543, (qlonglong)1);
+		expect(D.scanCursor == 3,
+		       "m: 非空文档 → scanCursor=to 收尾(*D+0x20=to,0099d50c 腿尾 1058)");
+		expect(D.stopFlag == 0,
+		       "m: stopFlag 清零(009a2ce 区 *(u8*)(D+0x2c)=0 字面)");
+		// builder 预填 + 再扫:builder(D+0x40 initDoc param_1[8]=0)壳期 -1 同相
+		//   —— matches 恒 nullptr → builder 腿不可达,只断言不崩 + 收尾游标。
+		//   styleProps190 预填值同相位:builder 腿不读 +0x190(同 h 组锚)。
+		expect(e.m_ctx.styleProps190.size() == 1 && e.m_ctx.styleProps190.at(0) == 0x51a,
+		       "m: styleProps190 预填保持(观测缝;驱动链不触第六视图)");
+		D.builder = static_cast<void *>(&D);         // 观测缝:壳期非空桩(批 88 口径)
+		e.m_ctx.currentBufferId = 0;
+		e.dispatch(0x7543, (qlonglong)1);
+		expect(D.scanCursor == 3,
+		       "m: builder 壳桩 → 命中腿不可达(matches 恒 nullptr)同相收尾");
+		// 直调腿:E 面包装(lex=bufferLexer,nullptr → !sx 基值腿,同 1056 门)
+		D.scanCursor = 0;
+		e.m_ctx.regionScan(0, 0, 3);
+		expect(D.scanCursor == 3,
+		       "m: regionScan 直调(lex=nullptr)→ scanCursor=to(1056 !sx 门)");
+	}
+
+	// ======== n. 0x759f/0x75a0 读侧门组(批 100)—— regionScan 后非壳链 ========
+	// 语料:0x759f(EditorEngine.cpp:1028)= FUN_00926e08:M(+0xc0 门)→
+	//   publishSnapshot → *(M+0x50);0x75a0(L24799)= FUN_00926e52:*out=0 →
+	//   FUN_009a07d8 nearestIdFrom(arr 门 :1050)。regionScan 基值腿灌 bank RS8
+	//   (kind=3)但 Length=0 → entryValueAt 扫全 0(壳期 0 合法 = 任务 n 组口径)。
+	{
+		EditorEngine e;
+		e.dispatch(0x7543, (qlonglong)1);            // arr 建 + regionScan 驱动(空态)
+		// 0x759f:行为门 markers(QVector,0x7543 不触)空 → 0(EditorEngine.cpp:1030 门)
+		expect(e.dispatch(0x759f) == QVariant(0),
+		       "n: 0x759f markers 表空门 → 0(EditorEngine.cpp:1030)");
+		// 非壳腿直调:publishSnapshot 返 &M+0x50;regionScan 不触 entry[2] → 门 false
+		e.m_ctx.markersStore.visibleSnap = 0;        // q3:+0x50 initDoc 不清零,显式定值
+		quint64 *ret = e.m_ctx.markersStore.publishSnapshot();
+		expect(ret == &e.m_ctx.markersStore.visibleSnap,
+		       "n: publishSnapshot 返 &M+0x50(0099d1f6 尾)");
+		expect(*ret == 0,
+		       "n: regionScan 后 buildPending 门 false(entry[2]==0)→ 0 合法(任务口径)");
+		// 0x75a0:无 QVector 表门(:1050 门 = arr 非空)→ nearestIdFrom 真执行。
+		//   语料 009a07d8 无空判(slotObj 解引用 entry[0] 原样)→ 先挂 u64 壳 obj
+		//   再走全链(批 76 e 组同口径)。
+		{
+			// 挂 u64 载体壳(styles=nullptr → entryValueAt 守卫返 0,MarkersStore.h:675)
+			wt::MarkEntryObj *obj = fxObj();
+			obj->styles = wt::makeHolder0x20(nullptr);
+			fxReset(0, 0, 0, 0);
+			wt::MarkEntry *me = new wt::MarkEntry{};
+			me->sel = 0; me->u64Obj = obj; me->u32Obj = nullptr;
+			*e.m_ctx.markersStore.arr->entryPtr(0) = me;
+			// dispatch 全链腿:0x75a0 → arr 门(:1050)→ nearestIdFrom(line=0)
+			//   → u64 壳 0 → id=0(L24799 体 = FUN_00926e52/009a07d8 链)
+			expect(e.dispatch(0x75a0, 0) == QVariant(quint32(0)),
+			       "n: dispatch(0x75a0) → arr 门 → nearestIdFrom 壳链 → id=0"
+			       "(L24799 体;门 EditorEngine.cpp:1050)");
+			quint32 out = 0;
+			e.m_ctx.markersStore.nearestIdFrom(0, &out);
+			expect(out == 0,
+			       "n: 挂壳后 nearestIdFrom → u64 腿 rsValue64 占位 0 → hi32=0"
+			       " → out=0(009a07d8 v>>32 门 false;rsValue64 批 72 现状)");
+		}
+	}
+
+	// ======== o. q26 回归组(批 100)—— entryValueAt tlist 路回归 ========
+	// ========      (批 85 QUIRKS 26 定案:props 读源 = tlist(D+0x18),========
+	// ========      f 组修正后回归断言:tlist 挂表 → props 经 keyPropsOf 读回)========
+	// 语料:entryValueAt(009a06ac,u32 拆包腿 MarkersStore.h:681-686):v=rsValue32
+	//   → props=keyPropsOf(tlist, v&0x1fff)(FUN_00a10384 值表 +0x60 槽)→
+	//   返 {v>>13 << 32 | props}。tlist 工厂 FUN_00930f9e cited 未接线(0x7543
+	//   落 nullptr)→ 夹具直挂 FList holder(tblRead 消费面,f 组同构)。
+	{
+		EditorEngine e;
+		e.dispatch(0x7543, (qlonglong)1);
+		wt::MarkersStore &D = e.m_ctx.markersStore;
+		// 0x7543 后 tlist=nullptr → props 腿守卫返 0(h:同锚)
+		expect(D.tlist == nullptr,
+		       "o: 0x7543 后 tlist=nullptr(FUN_00930f9e cited 未接线,h 组同锚)");
+		FList<4> fl;
+		wt::ValueTable bank{};                       // 裸内存零化语境(同 a/f 组)
+		D.tlist = &bank;
+		bank.list60 = &fl.h;                         // keyPropsOf = vt+0x60 槽(00a10384)
+		U32Fixture uf(0, 2);
+		*D.arr->entryPtr(0) = uf.me;
+		const quint32 id = 0x1357b, key = 2, propsVal = 0x24d;
+		fl.d.vals[key] = propsVal;                   // tblRead 槽读(begin=0/end=N)
+		uf.rs->InsertSpace(0, 8);                    // 上游语义:先扩 Length(f 组同构)
+		uf.rs->FillRange(1, int((id << 13) | key), 1);   // u32 packed:(id<<13)|key
+		const quint64 got = D.entryValueAt(1, 0);
+		expect(got == (quint64(id) << 32 | propsVal),
+		       "o: tlist 挂表 → entryValueAt 拆包 {id<<32|props}"
+		       "(009a06ac;QUIRKS 26 tlist 路修正后回归)");
+		// 负对照:tlist 空时 props=0(守卫腿)→ 仅 hi32=id(壳期形态,h 组锚)
+		D.tlist = nullptr;
+		expect(D.entryValueAt(1, 0) == (quint64(id) << 32),
+		       "o: tlist=nullptr → props 腿守卫 0 → {id<<32|0}(009a06ac 守卫)");
 	}
 
 	printf("fail=%d\n", g_fail);

@@ -2856,6 +2856,8 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		//   E=doc ⇒ &m_ctx(批 69 E 面平铺);param3/lexerSnap 未建模
 		//   → nullptr(cited — wave-2)
 		wt::MarkersStore::markersCtxInit(&m_ctx.markersStore, &m_ctx, nullptr, nullptr);
+		m_ctx.wireSlot10();                          // slot10 = param_1[2](0030.c:29770 形;
+		                                             //   批 99 R2:0x48 doc-scan 伴随对象,壳期 null 门关)
 		// —— FUN_009a2b90(634B,0032.c:36795)Outlining 驱动 ——
 		// 语料触发:DocumentTask 分发线程入口 0030.c:28874 case4
 		//   FUN_009a2b90(*(session+0xc0), -1)(异步);壳期无线程基建
@@ -2936,6 +2938,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		const long long oldLen = newLen;                // 12817 canOld → 同值 local_178
 		if (oldLen == 0)
 			return QVariant((long long)-1);             // 12820-12822
+		// ctx[4]/ctx[5] 产物对(codec_canEncode ctl/Grep 针对象)载体:
+		//   产腿 cited → 零值针(len=0 = conv+0x10;literal=1 = convCtor
+		//   面)。scanMask 26272 nlen<=0 门 / searchNeedle 00a83946 门
+		//   → 恒 -1(占位同相;ctx[4]/ctx[5] 同载体 — 产物对未建模登记)
+		GrepNeedle448 needleCar;                        // ctx[4]/ctx[5] 载体
 		// —— 段 B 撤销组+替换 runlist(12875-12926;type==3 门)——
 		QVector<EditorContext::Span56> runlist;         // local_1d0(splitvector 承载)
 		if (type == 3) {
@@ -3021,11 +3028,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			pos = anchor.n0.pos;                        // 13044 FUN_0096c18e
 		}
 		// FUN_00a2de1c(1663B)@0034:9644 游标落点搜索 — 段级转写(rt2
-		//   §2:段 1-4/7/10/11 骨架+命中腿+force 判定;段 5/6/8/9 深腿
-		//   FUN_0092a596/92547e/925540/9554c/925304/a20eb2/a235ce —
-		//   cited — wave-2)。ctx 面(12938-12944 局部排布直读):ctx[0]
-		//   =base(段 C 选定 runlist)、ctx[1]=&selMode(方向:非 0 前向)、
-		//   ctx[2]=&canOld(模式:非 0 → FUN_0092547e 针搜)、ctx[3]=ed、
+		//   §2:段 1-4/5/6/7/8 门/9/10/11;段 9 位对/段 8 步进推进/命中
+		//   腿消费 a20eb2/a235ce/925304 — cited — wave-2)。ctx 面
+		//   (12938-12944 局部排布直读):ctx[0]=base(段 C 选定
+		//   runlist)、ctx[1]=&selMode(方向:非 0 前向)、ctx[2]=&canOld
+		//   (模式:非 0 → FUN_0092547e 针搜)、ctx[3]=ed、
 		//   ctx[4]=&newLen(针字节 ctl)、ctx[5]=&oldLen(Grep 针对象)、
 		//   ctx[6]=op
 		auto cursorSearch_a2de1c = [&](long long startPos,
@@ -3066,44 +3073,82 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 					}
 				}
 				if (enter) {
-					// —— 段内体(9765-9858)——
-					// 段 5/6:FUN_0092a596 掩码扫描(467B 骨架 =
-					//   CodecMemo::scanMask;四引擎/填充方 cited)+ 基址
-					//   加算 *(int*)(针+0x10)(GrepNeedle448 conv+0x10
-					//   针长;针对象未建模);段 9:FUN_0092547e 针搜(95B
-					//   真身骨架 = CodecMemo::searchNeedle;00b422d0 引擎
-					//   cited — searcher 态未建模)+ FUN_00925540/9554c
-					//   命中位对(0030:20478/20488)— cited — wave-2 →
-					//   候选恒 -1(壳期 = 未命中同相)
-					long long cand = -1;            // 【cited 占位】local_e0
-					if (cand != -1) {
-						const long long candEnd = cand;   // local_c8 = 针长+候选
-						// 段 7 force 判定(9777-9800):force /
-						//   *(op+0xc)&8 / docLen<1 → 直达命中腿
-						if (force || (flags & 8) != 0
-						    || m_ctx.docBytes.size() < 1) {
-							// 段 10 命中腿(LAB_00a2e470/00a2e159,
-							//   9778-9793)
-							++*(int *)(opb + 0x3c);     // *(op+0x3c)++
-							const RunNode a0 =          // 9781 runnode_init
-							    RunNode::make(candEnd, 0, false);  //   (a0,local_c8)
-							const RunNode n78 =         // 9782 runnode_init
-							    RunNode::make(cand, 0, false);     //   (local_78,local_e0)
-							Q_UNUSED(a0); Q_UNUSED(n78); // 消费腿 cited(下行)
-							// FUN_00a20eb2(ed,&n78,&a0,1) 移选区 — cited
-							//   — wave-2(238B@0034:676:两 runnode → 选区 +
-							//   doc 通知 FUN_009783fa;宿主选区写侧未建模)
-							// FUN_00a235ce(ed,-1,0) 刷新 — cited — wave-2
-							//   (356B@0034:2405)
-							if (cand != -1)             // 9792
-								return cand;            //   返命中位
+					// —— 段内体(9765-9858;LAB_00a2e02a 入口)——
+					// ctx 载体:ctx[5] 针对象 = 段 A needleCar(段 5/6/9
+					//   共用;产腿 cited → literal=1/len=0);ctx[4] 同
+					//   载体(产物对未建模登记)。
+					long long cand = -1;            // local_e0
+					long long candEnd = -1;         // local_c8(段 6/针搜位对写)
+					int cc = 2;                     // 9740 local_cc=2(包夹门置)
+					if (!canOld) {                  // 9767 ctx[2]==0 → 掩码腿
+						// 段 5 LAB_00a2e326(9770-9771):FUN_0092a596()
+						//   掩码扫描 = CodecMemo::scanMask 真身(467B
+						//   骨架;四引擎/填充方 cited — 占位下恒 -1)
+						cand = CodecMemo::scanMask(&needleCar, lo, hi);
+						if (cand == -1)             // 9772 → LAB_00a2e1c6
+							goto step;              //   步进
+						// 段 6(9773):local_c8 = *(int*)(针+0x10)
+						//   + local_e0(GrepNeedle448 conv+0x10 针长加算)
+						candEnd = cand + needleCar.len;
+						// → 直落 LAB_00a2e0c1(语料 fall-through)
+					} else {                        // ctx[2] 非 0 → 针搜腿
+						// 段 9 LAB_00a2e07d(9852-9853):FUN_0092547e
+						//   (doc,lo,hi,ctx[4],runEnd)针搜真身(95B 骨架
+						//   = CodecMemo::searchNeedle;00b422d0 引擎
+						//   cited — 占位下恒 -1)
+						if (CodecMemo::searchNeedle(&needleCar, lo, hi) != -1) {
+							// 9855-9856:FUN_00925540/9554c(doc,0)读
+							//   命中位对 → local_e0/local_c8(0030:20478/
+							//   20488 12B thunk → 00a839cc 75B/00a83bd0
+							//   76B @0035:518/620:state==1 结果表槽
+							//   [i*2]+0x98 偏移读/state==2 委 00a839ae/
+							//   bb2 — 结果槽未建模)— cited — wave-2
+							cand = -1;              // 【cited 占位】local_e0
+							candEnd = -1;           // 【cited 占位】local_c8
+							goto hit;               // 9857 → LAB_00a2e0c1
 						}
-						// 段 8 边界校验腿(9801-9846;选区含候选 →
-						//   FUN_00925304 单步推进跳选 cc=2→1)— cited —
-						//   wave-2(FUN_00925304 12B@0030:20331;
-						//   00a1ff9c/00a20050/0096bbc0 SCI 承接面已核)
+						goto step;                  // -1 → LAB_00a2e1c6
 					}
+					// 段 7 force 判定(9774-9800;LAB_00a2e0c1 入口):
+					//   force / *(op+0xc)&8 → 命中腿;docLen<1(9795
+					//   FUN_0092801a — docBytes 承接)→ 命中腿;否则
+					//   入段 8 边界校验腿
+hit:
+					if (force || (flags & 8) != 0
+					    || m_ctx.docBytes.size() < 1) {
+						// LAB_00a2e470/00a2e159 命中腿(9778-9793)
+						++*(int *)(opb + 0x3c);     // 9779 *(op+0x3c)++
+						const RunNode a0 =          // 9781 runnode_init
+						    RunNode::make(candEnd, 0, false);  //   (a0,local_c8)
+						const RunNode n78 =         // 9782 runnode_init
+						    RunNode::make(cand, 0, false);     //   (local_78,local_e0)
+						Q_UNUSED(a0); Q_UNUSED(n78); // 消费腿 cited(下行)
+						// FUN_00a20eb2(ed,&n78,&a0,1) 移选区 — cited —
+						//   wave-2(238B@0034:676:两 runnode → 选区 +
+						//   doc 通知 FUN_009783fa;宿主选区写侧未建模)
+						// FUN_00a235ce(ed,-1,0) 刷新 — cited — wave-2
+						//   (356B@0034:2405)
+						if (cand != -1)             // 9792
+							return cand;            //   返命中位
+						goto step;                  // 9793 e0==-1 → 1c6
+					}
+					// 段 8 边界校验腿(9801-9846;候选 viable 才达 —
+					//   占位链下恒不达):FUN_00a1ff9c+FUN_0096bbc0 取
+					//   内容首(9803/9811)/FUN_00a20050+FUN_0096bbc0
+					//   取尾(9815/9822);候选在内容界内 → LAB_00a2e2ed/
+					//   137 回命中腿(9826);界外(LAB_00a2e406 9838)→
+					//   FUN_00925304(doc,cand,±1)跳选单步(9843;12B@
+					//   0030:20331 thunk → 009988e2 176B@0032:28889
+					//   全读:±1 逐字走读,逐字基元 FUN_0099881e 未解 —
+					//   cited — wave-2)+ cc=2→1(9850)内环重入(带
+					//   推进后 local_90 重包夹 — 内环体未转写;cc=1 时
+					//   9851 → LAB_00a2e326 重扫 / 前向臂 9852 → 07d
+					//   针搜重扫)— cited — wave-2(00a1ff9c/
+					//   00a20050/0096bbc0 SCI 承接面已核)
+					cc = 1;                         // 9850 local_cc=1(残腿同相)
+					Q_UNUSED(cc);
 				}
+step:;
 				// 段 11 步进(9859-9887)
 				idx += selMode ? 1 : -1;            // LAB_00a2e1cd/1d5
 				if (idx < 0 || idx >= size)         // 9879-9887 界外

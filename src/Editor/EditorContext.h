@@ -383,6 +383,13 @@ public:
 	                                   //   生产者 FUN_009de20a→00a1092a — cited 装载链)
 	wt::ScannerX *scanner = nullptr;   // scanner ctor 产出(0x70,②);与 bufferLexer 同指
 	                                   //   一物 — 装载接线批两槽同写(批 85 同值双槽先例)
+	// slot10 承载镜像(批 90 接线批;E=doc ⇒ session+0xa0 平铺):0x48 doc-scan
+	//   伴随对象(FUN_009f98a2 103B 0033.c:27347 产出 — ctor cited;建/拆 =
+	//   FUN_0092f0f6 0030.c:29676-29686 + 0092ef06 0030.c:29572-29578)。
+	//   与 scanner(buffer+0x108,E4' 定性)两轨独立:此对象供 editor_initDoc
+	//   param_3(D+0x10 slot10;唯一写入点 0032.c:36931;驱动 0030.c:29770)。
+	//   壳期 nullptr → markersStore.slot10 恒 0,行面 ×3 门关(同相)。
+	void *docScan48 = nullptr;         // *(session+0xa0) — 接线批经 markersStore.setSlot10 注入
 	// FUN_00930f9e(26B)@0030:30982 真身化(①):editor_line_at(E,0) param_2==0
 	//   短路门 → *(E+0x258)=curBuffer → 非空取 *(buf+0x108)。我方 bufferLexer 即
 	//   平铺值,短路门同相(buffer 未挂 → 0)。
@@ -390,6 +397,11 @@ public:
 	// FUN_0099d4de(1407B)region 扫描驱动入口(E 面承接:lex = bufferLexer,③)
 	quint8 regionScan(quint32 lexerMode, qint64 from, qint64 to)
 	{ return markersStore.regionScan(lexerMode, from, to, bufferLexer); }
+	// slot10 接线面(批 90):editor_initDoc 驱动批把 *(session+0xa0)(docScan48)
+	//   写入 D+0x10 — 我方 E 平铺经此镜像;0x7543 markersCtxInit 后同位点调用
+	//   (对位 0030.c:29770 param_3 传递)。壳期 docScan48==nullptr → slot10=0 门关。
+	void wireSlot10()
+	{ markersStore.setSlot10(docScan48); }
 	QHash<QString, QColor> styleTable; // 样式表占位(0x7547 S3;+0xe00 面未建模)
 	// char-used 视图(批 75 勘察:*(ctx+0x180) = 0x20 壳{vtbl, RS8,
 	//   密排 GapBuffer} ≡ RunStyles::FillRange;路线 A = RS8 委托坍缩,
