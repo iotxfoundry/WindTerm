@@ -149,7 +149,8 @@ private:
 
     int m_f30;                     // 语料 +0x30(单字节语义:005abe98/005aa7ee)
     QMap<QString, QVariant> m_f38; // 语料 +0x38(QMapDataBase::shared_null;键值型未解 cited)
-    int m_f40;                     // 语料 +0x40 ← -1(语义未解 cited — wave-2)
+    int m_f40;                     // 语料 +0x40 ← -1(悬停待切 index;FUN_005aa91e
+                                   //   hover 面 @005aa92e 判 !=-1 后 setCurrentIndex)
     QTimer *m_f48;                 // 语料 +0x48(悬停 QTimer,FUN_005ad4a6 落点)
     int m_f50;                     // 语料 +0x50(tabPosition 位;FUN_005ab814)
     int m_f54;                     // 语料 +0x54(Triangular flag;FUN_005ab814)

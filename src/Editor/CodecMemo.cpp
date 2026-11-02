@@ -234,26 +234,21 @@ int CodecMemo::encodedLen(const CodecCtl20 *ctl)
 	return ctl->encoded.size();
 }
 
-// 四引擎分派(FUN_0092a596 内 2627x/262ex 两处同构):caseFlag==0 →
-//   literal 引擎(针长 <0xc:009376d1 3132B / ≥0xc:0093830d 3159B);
-//   caseFlag!=0 → SIMD 引擎(<0xc:0093632d 2500B,vt+0x50 逐 16B 取块
-//   首字比较,针存 conv+0x420 / ≥0xc:00936cf1 2528B,带 doc+0xf8 行
-//   感知)— 四腿 2500-3160B 均未解 — cited — wave-2。
+// 四引擎分派(FUN_0092a596 内 2627x/2631x 两处同构)→
+// MatchEngine::engDispatch(批 94:ENG<IsLiteral,UseSkip> 四实例化;
+//   caseFlag==0 → literal 引擎(<0xc:009376d1 3132B / ≥0xc:0093830d
+//   3159B);caseFlag!=0 → 任意类引擎(<0xc:0093632d 2500B /
+//   ≥0xc:00936cf1 2528B,带 bad-char 跳表)。vt 块取/类取 vcall 承载
+//   占位(engVt50Block/engVt28Class)→ 引擎恒哨兵 — 占位同相。
 //   占位 = pack64 哨兵(hi16=0xffff/lo48 全 1;调用方哨兵门同相)。
-static quint64 scanEngine(const GrepNeedle448 *needle, qint64 from, qint64 to)
-{
-	Q_UNUSED(needle);
-	Q_UNUSED(from);
-	Q_UNUSED(to);
-	return quint64(-1);  /* cited — wave-2 */
-}
 
 // FUN_0092547e(95B)@0030:20440 — 搜索腿 wrapper 真身(骨架+置位)。
 //   语料:FUN_00a83622(*(doc+0x88));*(searcher+0xb8)=2;
 //   FUN_00a8395c(searcher,param_4,0,param_5,param_2,param_3,0)。
 //   thunk 链:00a8395c(42B)→00a83946(21B:needle[0]!=0 门,门不中
 //   返 -1)→00b42e10(28B)→00b422d0(2750B 缓冲扫描引擎,flags 0x800
-//   门/+0x74+0x78 buffer 字段)— 引擎腿 cited — wave-2。
+//   门/+0x74+0x78 buffer 字段)— 引擎腿 = MatchEngine::
+//   bufferScan00b422d0(2750B 深腿 — cited — wave-2,恒未命中 → -1)。
 qint64 CodecMemo::searchNeedle(const void *needlePair, qint64 from, qint64 to)
 {
 	s_searcher.reset();                           // 20440 FUN_00a83622
@@ -261,15 +256,14 @@ qint64 CodecMemo::searchNeedle(const void *needlePair, qint64 from, qint64 to)
 	if (needlePair == nullptr
 	    || *(void *const *)needlePair == nullptr) // 00a83946 *param_2 门
 		return -1;
-	// 00b422d0(2750B)缓冲扫描引擎 — cited — wave-2(恒未命中 → -1)
-	Q_UNUSED(from);
-	Q_UNUSED(to);
-	return -1;  /* cited — wave-2 */
+	return MatchEngine::bufferScan00b422d0(needlePair, from, to);  // 00b422d0(cited)
 }
 
-// FUN_0092a596(467B)@0030:26261 — 掩码位置扫描器骨架。
+// FUN_0092a596(467B)@0030:26261 — 掩码位置扫描器真身。
 //   param_4 → 针对象(长 +0x10,literal/case 门 +0x00/+0x01,允许命中
-//   位图 +0x418 u64);pack64 返回:hi16 = 候选掩码,lo48 = 位置;
+//   位图 +0x418 u64);四引擎分派 = MatchEngine::engDispatch(批 94
+//   ENG<IsLiteral,UseSkip> 四实例化;vt 承载占位 → 引擎恒哨兵 →
+//   本过滤式恒 -1 同相);pack64 返回:hi16 = 候选掩码,lo48 = 位置;
 //   逐位过滤(候选 & allowed==0 才收,弃位换下一候选);param_2 += 0x10
 //   步进;lo48==0xffff... 哨兵 → 出环(语料尾值残留同相 → -1)。
 qint64 CodecMemo::scanMask(const void *needlePair, qint64 from, qint64 to)
@@ -280,7 +274,8 @@ qint64 CodecMemo::scanMask(const void *needlePair, qint64 from, qint64 to)
 		return -1;                                // 26272 门
 	const qint64 scanEnd = to - (nlen - 1);       // 26274 param_3 -= nlen-1
 	qint64 pos = from;                            // param_2
-	quint64 pack = scanEngine(needle, pos, scanEnd);   // 首扫(cited)
+	quint64 pack = MatchEngine::engDispatch(      // 26276-26288 首扫
+	    nullptr, needle, quint64(pos), scanEnd);
 	quint16 mask = quint16(pack >> 0x30);         // 26296 uVar5 hi16
 	quint64 low48 = (pack << 0x10) >> 0x10;       // 26298 uVar3 lo48
 	while (low48 != Q_UINT64_C(0xffffffffffff)) { // 2629a 哨兵门(循环顶)
@@ -302,7 +297,8 @@ qint64 CodecMemo::scanMask(const void *needlePair, qint64 from, qint64 to)
 			}
 		}
 		pos += 0x10;                              // 262e2 16B 步进
-		pack = scanEngine(needle, pos, scanEnd);  // 再扫(cited)
+		pack = MatchEngine::engDispatch(          // 26314-26326 再扫
+		    nullptr, needle, quint64(pos), scanEnd);
 		mask = quint16(pack >> 0x30);             // 262ee
 		low48 = (pack << 0x10) >> 0x10;
 	}

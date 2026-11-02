@@ -7,6 +7,8 @@
 #include <QString>
 #include <QtGlobal>
 
+#include "MatchEngine.h"   // 批 94:ENG 四引擎 + 00b422d0 引擎接线
+
 class QTextCodec;
 
 // ReplaceOp codec 缓存面(批 91 p3;批 89 定性:op 体即 codec 缓存体)。
@@ -112,13 +114,16 @@ public:
 	static void convCtor(GrepNeedle448 *conv, QTextCodec *codec,
 	                     const char *bytes, int len, bool caseFlag);
 
-	// —— 搜索腿(0x4eff 段 E 接线;批 91 要点 3/4)——
-	// FUN_0092547e(95B)@0030:20440 真身骨架:复位 searcher(doc+0x88)
+	// —— 搜索腿(0x4eff 段 E 接线;批 91 要点 3/4;批 94 引擎接线)——
+	// FUN_0092547e(95B)@0030:20440 真身:复位 searcher(doc+0x88)
 	//   → state=2 → FUN_00a8395c thunk 门;00b422d0(2750B 缓冲扫描
-	//   引擎)— cited — wave-2(恒未命中 → -1,占位同相)
+	//   引擎)= MatchEngine::bufferScan00b422d0(深腿保持 cited,
+	//   恒未命中 → -1,占位同相)
 	static qint64 searchNeedle(const void *needlePair, qint64 from, qint64 to);
-	// FUN_0092a596(467B)@0030:26261 骨架:四引擎分派 + pack64 掩码
-	//   过滤式真身(引擎四腿 + +0x418 填充方 — cited — wave-2)
+	// FUN_0092a596(467B)@0030:26261 真身:四引擎分派
+	//   (MatchEngine::engDispatch:literal 门 +0x01/len<0xc 门)+
+	//   pack64 掩码过滤式真身(+0x418 填充方 convCtor 四单字节面已备;
+	//   vt 承载占位 → 引擎恒哨兵 → 过滤式恒 -1 同相)
 	static qint64 scanMask(const void *needlePair, qint64 from, qint64 to);
 };
 

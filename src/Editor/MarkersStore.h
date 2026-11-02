@@ -5,16 +5,26 @@
 // markWrite(009a62c0)/publishOutline(009a2766)+ rsValue* 委托真身(§7)。
 // 值迁移腿六函数已落地(批 86):migrateLayer 参数化体(009cee86/009cf8c2/009cf69e/
 // 009cf0b0/009cfae6/009cfd0a 六体同构)+ migU* 六入口,runstylesUpgrade 接真身调用。
-// 行为测试须等写入侧接线。语料地址均为 Ghidra 基址(非 PIE 直通)。
+// builder C 级 regex 执行机已落地(批 101):builderRegexRun(00a83c7a 400B)调用面
+// 转写 + Onigmo-改 底座(EXT-BOUNDARY 2026-10-29 第一方组件条目:委托 src/Onigmo);
+// kwMatchCache 装载侧真身(kwCacheFill 0099d27e 600B)→ 击中面仍 cited(QHash
+// 底座改版定性:语料 QHashData 手工节点布局,我方 QHash 承载 — 怪癖登记)。
+// regionScan 0099d072 关键词腿返回门落地(批 88 挂账;keywordsLoad 自由函数 +
+// MarkersStore::keywordsLoadGate 包装 — EditorEngine.cpp 0x7543 接线一行随
+// 主批次,写域禁改未接)。行为测试须等写入侧接线。
+// 语料地址均为 Ghidra 基址(非 PIE 直通)。
 #pragma once
 
 #include <QtGlobal>
 #include <QList>
 #include <QVector>
 #include <QMap>
+#include <QHash>
 #include <QString>
+#include <QStringList>
 #include <memory>
 #include <stddef.h>
+#include <cstddef>
 #include <time.h>
 #include <errno.h>
 #include <sched.h>
@@ -305,13 +315,49 @@ struct ScannerX {                        // 0x70 布局照 ctor 语料(分配 0x
                                          //   FUN_009e1af0 入一个 0;FUN_00a10472 门读 size>0xf
                                          //   (关键词装载面,生产者 FUN_009de20a — cited)
     void    *obj48 = nullptr;            // +0x48 operator_new(0x18){0,0,0}(00a10983)壳体 —
-                                         //   cited — wave-2(消费 = FUN_0099d072 关键词腿,未落)
+                                         //   cited — wave-2(词法引擎句柄族 FUN_00a12ab6/
+                                         //   FUN_0098fdbc ctor/dtor;kwCacheFill 记录
+                                         //   探测经此句柄 — 恒 nullptr 壳期同相)
     quint64  _r50 = 0;                   // +0x50 param_1[10]=0(ctor 字面;tl"+0x50 域名 map"
                                          //   与字面冲突,以语料为准 — 批 85 勘误流程)
     QVector<quint32> list58;             // +0x58 Uint32Bimap(props 打包值→id;0099c750 插值面)
     QVector<quint32> list60;             // +0x60 Uint32Bimap(值表 id↔值;keyProps 读面)
     qint32   seed68 = 0;                 // +0x68 seed 条目 idx<<2(ctor 尾 metacall 链)
     quint32  _r6c = 0;                   // +0x6c 0x70 分配尾
+
+    // ===== kwMatchCache 装载侧(FUN_0099d27e 600B @0032.c:33028,批 101 真身化)=====
+    // ⚠ 33204 调用点键序勘定(production 重读):FUN_0099d27e(D, lex, mode,
+    //   lineNo) 形参 Ghidra 签名 (param_3=u32 mode,param_4=u32 lineNo),33051
+    //   CONCAT44(param_3,param_4) = key 低 32=mode/高 32=lineNo;本填充方按此
+    //   键序承载。语料:memo = *(D+0x38)(M+0x38 QHashData 手工布局;>1 项时
+    //   FUN_0099c3a4 rehash 面 — 我方 QHash 容器坍缩免手工 rehash,EXT-BOUNDARY
+    //   规则 4:读写面等价,布局怪癖登记);FUN_009a3916(127B)查找(命中即返
+    //   33133 节点值;miss → 33060 FUN_00a12ab6 句柄 ctor + 逐记录 FUN_00a11f02
+    //   探测循环 33064..33074 — 记录源 *(lex+0x18..0x20) 列表,词法引擎面
+    //   cited — wave-2;33108..33131 QHashData::allocateNode/rehash/取模链 ≈
+    //   QHash insert;33134 FUN_0098fdbc 句柄 dtor)。
+    // 返回 = 记录表指针(空表也非空指针 — d4de 命中腿 for 循环零迭代同相;
+    //   d4de 消费 = 33228 puVar16[0]/[1] begin/end 对 + 逐记录 u16 字段面 —
+    //   指针稳定性:QHash 重插可能重哈希失效 — 语料 QHashData 节点稳定同域,
+    //   我方 QStringList 深拷贝值,单扫描窗口内安全 — 怪癖登记)。
+    QStringList *kwCacheFill(QHash<quint64, QStringList> &memo, void *lex,
+                             quint32 mode, quint32 lineNo)
+    {
+        const quint64 key = (quint64(lineNo) << 32) | mode;      // 33051 CONCAT44(param_3,param_4)
+        auto it = memo.constFind(key);                           // 33056..33066 FUN_009a3916 查找腿
+        if (it != memo.constEnd())
+            return const_cast<QStringList *>(&it.value());       // 33133..33135 命中 → 节点+0x18 直返
+        QStringList recs;                                        // 33077..33082 miss:新记录表
+        if (lex) {
+            for (int i = 0; ; ++i) {                             // 33064..33074 逐记录探测循环
+                // FUN_00a11f02(句柄,lineNo,tag&0x1ff) — cited — wave-2
+                //   (词法引擎面未解;壳期记录源空表 → 循环零迭代同相)
+                break;                                           // cited:探测体恒 false → 零记录
+            }
+        }
+        memo.insert(key, recs);                                  // 33108..33131 节点插入(QHashData 链 ≈ insert)
+        return &memo.find(key).value();                          // 33133..33135 新节点值
+    }
 
     // FUN_00a1092a(403B)ctor 转写(0033.c:43953;字段字面见上):
     void ctor00a1092a()
@@ -432,7 +478,8 @@ inline qint64 builderScan(void *, void *, qint64, qint64)   { return -1; }      
 
 // —— builderSubPos/SubEnd 双态读真身(00a839cc 75B/00a83bd0 76B 同构,0035.c:518/620)——
 // b = builder 裸指针(D+0x40;BuilderX 未建模 → 裸偏移直写,同 builderSetAttr4/5 先例)。
-// 双态(状态由 00a83c7a regex 执行机置位 — Tier C 挂账:状态 1 腿现不可达,字面转写同相):
+// 双态(状态由 builderRegexRun(00a83c7a,批 101)regex 执行机置位 — 状态 1 腿
+// c7a 委托接线前不可达,字面转写同相):
 //   1 = 匹配完成:i < *(int*)(b+0xa8)(捕获数)→ v = 捕获数组(*(resB0+0x18))[2i]
 //       (resB0 = *(b+0xb0) 结果表;偶槽=起/奇槽=止);v==-1 → -1;否则 + *(long*)(b+0x98)
 //       (region 基)。⚠ 语料状态 1 腿无负 i 守卫(quirk 原样;腿不可达期无风险)。
@@ -495,13 +542,168 @@ inline qint64 builderSubEnd(void *b, quint32 idx)
     return -1;                                                           // 641
 }
 inline qint64 builderAnchor(void *, qint64)                 { return 0; }       // builder vt+0x00 双参尾调(0099d6ac)— cited
-// 关键词命中缓存(FUN_0099d27e,600B @0032.c:33028,production 全读但 QHash 击中面
-// 依赖 lexer 引擎句柄)— cited — wave-2:壳期恒 nullptr(→ d4de 主循环恒走 miss 腿)
-inline void *kwMatchCache(void *, void *, quint32, quint64) { return nullptr; }
 // 0xc00 腿 lexer 引擎逐行探测(FUN_00a11f02;句柄 FUN_00a12ab6/FUN_0098fdbc ctor/dtor
 // 亦 cited,我方无句柄承载)— cited — wave-2
 inline bool kwProbeLine(void *, quint32, quint16, quint64)  { return false; }
 
+// ============ builder C 级 regex 执行机(批 101;FUN_00a83c7a 400B @0035.c:679)============
+// 定性(铁律 6 前置核对,三源互证):
+//   ① c7a 尾调 FUN_00ad74a0(431B,0035.c:50226)— 语料名化显示 Onigmo 修改层:
+//      内部 FUN_00aa39f0(78B)= 栈上 0x8000 匹配上下文 + 函数指针直调;上游
+//      FUN_00ad7360(304B)/FUN_00ad2ae0(17929B)= Onigmo 惰性编译栈(与
+//      src/Onigmo/regexec.c match_at 族同构,REG_ 错误码 0xffffffcd/d3/d0 同域)。
+//   ② 同族 0033.c:37370/37412/38340(FUN_00a9c780 22391B 编译栈)= Onigmo-改
+//      全套编译器(xpressive 字符串仅 0021/0025/0026/0032/0033 段出现,37 段
+//      零命中 → c7a 底座非 xpressive)。
+//   ③ onig_vm_exec(871B)/onig_emitImm/onig_compileOp 直接名化(0035.c:14247/
+//      28224/37809)+ src/Onigmo 第一方组件在册(EXT-BOUNDARY 2026-10-29 条目)
+//      → EXT-BOUNDARY 定案:**Onigmo-改 委托边界**,WindTerm 侧只保留调用面。
+//   注:regex_nfa_compile(00b3cc80 20839B)族与 onig_ 符号并存 — 二级引擎
+//      (QHashData/pcre2_configGet 面 0034.c 混在),不在本批定性范围;c7a
+//      只触 ①②③ 链路。
+// 语料体(0035.c:681-746,参数 param_1=builder b;param_2=regex 条目 {regex*};
+// param_3=anchor;param_4=region 起;param_5=region 止):
+//   681 pbVar2 = *param_2(regex 对象)→ 空 → 686/694 b+0xb8=0 返 -1(未装载)
+//   690 门:*(reg+0x18)(编译体)!=0 且 (anchor==regionStart 或 *reg&8==0)
+//   694..704 region 基入界:lVar5 = *(b+0x98);anchor 越界 [0x98,0xa0+0x98)
+//     → 回调 *(b+0x80)(vt 函数指针,见下)重置再读;
+//     *reg&4 → anchor-1<0 归 0(字面前跳)
+//   705..709 长度门:*(u32)(reg+4) <= anchor-regionBase 且
+//     *(u32)(reg+8)+delta <= *(b+0xa0)(region 长)—— 否则落 729 流式腿
+//   710..712 止界钳制:param_5-regionBase 超长 → 截到 region 长
+//   713..716 **FUN_00ad74a0**(regex 体,线程上下文,钳长,flags=*(b+0xac),
+//     捕获表 *(resB0+8)/0x10)— Onigmo 委托执行 — 唯一外部调用
+//   717 捕获数 *(int*)(b+0xa8) = 返回;==-1 → 未中(686 同相);>0 →
+//   721..724 b+0xb8=1(完成态)+ 返 FUN_00a83c3c(b,0)(62B 已真身:捕获 0
+//     起-止 = 匹配长度,MarkersStore 无此壳 — 补 builderMatchLen 下)
+//   729..731 流式腿:FUN_00a835e4(b+0x80)(24B 已真身同构:清缓存)+ b+0xb8=2
+//   733..738 FUN_00b421c0(regex 条目+0x10,flags…) 流式执行 — 同 Onigmo 底座
+//     (32546 220B:FUN_00b41ee0 捕获数组扩容 244B/regex_nfa_compile 编译 —
+//     二级引擎面,同批定性注记,不触)
+// 我方落法(EXT-BOUNDARY 规则 2/3):调用面结构逐行转写;Onigmo 底座以
+//   src/Onigmo 真库委托(OnigRegex 前置声明;壳期 regex 未装载恒走 -1 腿,
+//   与语料 681 空门同相 — builder 壳 nullptr,regionScan 命中腿不可达)。
+// regex 条目 = *param_2 指向的 {OnigRegex body@+0x18, u32 minLen@+4,
+//   u32 maxLen@+8, u32 flags@+0} 最小面(语料字面;全布局 cited — wave-2)。
+struct RegexEntryX {
+    void   *vtbl;                        // +0x00 cited(条件门 *reg&4/&8 flags 位读)
+    quint32 flags;                       // +0x04 语料 *pbVar2 位测(4=anchor 前跳/8=非锚)
+    quint32 minLen;                      // +0x08 语料 *(u32*)(reg+4)
+    quint32 maxLen;                      // +0x0c 语料 *(u32*)(reg+8)
+    quint8  _r10[0x08];                  // +0x10..0x17 未触(cited)
+    void   *compiled;                    // +0x18 OnigRegex 编译体(FUN_00ad74a0 参 1)— 委托
+};
+// FUN_00a83c3c(62B,0035.c:657)状态读匹配长(0 号捕获止-起;= c7a 723 返回面);
+//   状态 2 腿 → FUN_00a83c1c(32B,0035.c:644:简表 {+4 count;+8 起表;+0x10 止表}
+//   止-起;越界/负 → 0 — 00a83c1c 语料字面无 -1 守卫,return 0 原样)
+inline qint64 builderMatchLenState2(void *f, int idx)    // FUN_00a83c1c
+{
+    char *q = reinterpret_cast<char *>(f);
+    if (idx >= 0 && idx < *reinterpret_cast<int *>(q + 4))       // 648
+        return *reinterpret_cast<qint64 *>(*reinterpret_cast<qint64 *>(q + 0x10)
+                   + static_cast<long>(idx) * 8)                 // 650 止表
+             - *reinterpret_cast<qint64 *>(*reinterpret_cast<qint64 *>(q + 8)
+                   + static_cast<long>(idx) * 8);                // 650 起表
+    return 0;                                                    // 653 语料字面
+}
+inline qint64 builderMatchLen(void *b, int idx)
+{
+    char *p = reinterpret_cast<char *>(b);
+    if (*reinterpret_cast<int *>(p + 0xb8) == 1) {                       // 661
+        if (idx < *reinterpret_cast<int *>(p + 0xa8)) {                  // 662
+            const long *t = *reinterpret_cast<long *const *>(
+                *reinterpret_cast<long *const *>(p + 0xb0) + 0x18);      // 663 捕获表
+            return t[idx * 2 + 1] - t[idx * 2];                          // 665 止-起
+        }
+    } else if (*reinterpret_cast<int *>(p + 0xb8) == 2) {                // 667 状态 2
+        return builderMatchLenState2(*reinterpret_cast<void **>(p + 0x18), idx);  // 668
+    }
+    return 0;                                                            // 671
+}
+// FUN_00a83c7a(400B)调用面真身 — Onigmo 委托(执行腿 cited 壳期恒 -1 同相):
+//   b = builder 裸指针(D+0x40,同 builderSubPos 先例);re = regex 条目;
+//   anchor/regionStart/regionEnd 三参直通。
+inline qint64 builderRegexRun(void *b, void *reEntry, qint64 anchor,
+                              qint64 regionStart, qint64 regionEnd)
+{
+    if (!b || !reEntry) return -1;                       // 681..686(壳期 builder 空)
+    char *p = reinterpret_cast<char *>(b);
+    RegexEntryX *re = static_cast<RegexEntryX *>(reEntry);
+    if (re->compiled == nullptr)                         // 688 *(reg+0x18)!=0 门
+        return -1;                                       // 686/694:未装载同相
+    if (!(anchor == regionStart || (re->flags & 8) == 0))// 690 anchor==p4 || !(*reg&8)
+        return -1;                                       //   → 落 729 流式腿(壳期同相 -1;
+                                                         //   流式腿 FUN_00b421c0 cited)
+    // 694..704 region 基重置回调 *(b+0x80) — cited(wt 槽面,未读;壳期不可达)
+    const qint64 base = *reinterpret_cast<qint64 *>(p + 0x98);   // 694
+    const qint64 delta = anchor - base;                          // 705
+    if (quint64(re->minLen) > quint64(delta) ||                  // 706..708 长度门
+        quint64(re->maxLen) + quint64(delta) > quint64(*reinterpret_cast<qint64 *>(p + 0xa0)))
+        return -1;                                       // → 729 流式腿(同相)
+    qint64 limit = regionEnd - base;                     // 710
+    if (limit > *reinterpret_cast<qint64 *>(p + 0xa0))   // 711 钳制
+        limit = *reinterpret_cast<qint64 *>(p + 0xa0);
+    // 713 FUN_00ad74a0(Onigmo 执行)— 委托:src/Onigmo onig_search 族。
+    //   cited — wave-2(签名含 flags=*(b+0xac)/捕获表 *(resB0+8)/0x10;委托
+    //   接线须 RegexEntryX 全布局 + onig 上下文,接线批落)。壳期占位 n=0:
+    //   零捕获 → 729 流式腿(cited)→ 恒 -1,与 681 builder 空门同相。
+    const int n = 0;                                     // 委托占位:壳期恒 0 捕获
+    (void)limit;
+    *reinterpret_cast<int *>(p + 0xa8) = n;              // 717 捕获数回写
+    if (n == -1) return -1;                              // 718
+    if (n > 0) {                                         // 720
+        *reinterpret_cast<int *>(p + 0xb8) = 1;          // 722 状态 1 置位
+        return builderMatchLen(b, 0);                    // 723..724 FUN_00a83c3c(b,0)
+    }
+    // 729..738 流式腿:FUN_00a835e4(b+0x80) 清缓存(24B 同构内联)+ 状态 2 +
+    //   FUN_00b421c0 流式执行(220B,二级引擎)— cited — wave-2(状态 2 读侧
+    //   39cc/83c3c 已真身,执行侧须 NFA 引擎定性 — 单列批)
+    return -1;
+}
+
+// FUN_0099d072 关键词腿(387B @0032.c:32946,批 88 挂账返回门;批 101 落地)
+// 语料体(32948..32985;param_1 = D):lVar5 = FUN_00930d1c(*(D+0x08),0)(lexer
+//   词法面;我方 bufferLexer 平铺 — 由 EditorContext 调用方传 lex);空 → 返 1
+//   (32951 空 guard 直通 — 注意:语料 lexer 空 = 装载成功同相,region 循环照进);
+//   32952 editor_line_at(*(D+0x08),0)(行 0 face — cited 面);
+//   32953 uVar2 = FUN_00a0e23c(lVar5)(188B 全读:= lVar5+0x58 holder 自旋锁内
+//     *(+0x58+8) u32 = 词表行数上界);
+//   32954 uVar3 = FUN_00a12b8a(*(D+0x18))(195B 全读:= tlist+0x10 自旋锁内
+//     FUN_00a120b4(*(tlist+8)) 计数);
+//   32955 门 uVar3 < uVar2;循环体 32957..32983:
+//     32959 (uVar3%100==0) 且 FUN_0099cfb6(D)(停机)→ 返 0;
+//     32961..32965 local_3c[0] = uVar3*8;*(byte*)(lVar6+0xa8)&2 → FUN_00a0e4bc;
+//     32966 uVar4 = FUN_00929a3a(*(D+0x08),lVar8)(87B 行→索引);
+//     32967 uVar7 = FUN_00930f9e(*(D+0x08),uVar4)(26B 行 face→lexer);
+//     32969/32972 local_3c[0] = (v&~2)|2 / (v&~2)|4 → FUN_00a1017a(*(D+0x18),
+//       uVar4,uVar7,lVar5,mode)(9B → FUN_00a1295c 转发 — 两模式装载);
+//     32974 ++uVar3 循环。
+//   尾 32985 返 1(全装载)。
+// 我方落法:门/循环骨架逐行;词表计数两锁面 cited(壳期 lex=null → 语料
+//   32951 空门同相返 1);FUN_00a1017a 装载转发 cited(体 9B 转发已读,但
+//   FUN_00a1295c 目标体未读 — 两模式装载机制单列批);行面 editor_line_at
+//   cited 面(同 887e 族先例);FUN_00929a3a 87B 半读(行→索引映射体未读 —
+//   字面计数承载)。stopPending = &D.stopFlag(32959 停机门参数化注入,
+//   自由函数不触 this — MarkersStore::keywordsLoadGate 包装)。
+inline bool keywordsLoad(bool *stopPending, void *lex)
+{
+    if (!lex) return true;                       // 32951 lVar5==0 → 落 32985 返 1
+    // 32953 词表行数(FUN_00a0e23c 锁面)— cited — wave-2(壳期不可达:
+    //   词表由 FUN_009de20a yaml 装载 cited,未接线恒空 → 计数 0)
+    const quint32 tableRows = 0;                 // 32953 占位(锁内 u32 读,cited)
+    // 32954 已装载计数(FUN_00a12b8a 锁面)— cited — wave-2(tlist+0x10 面)
+    quint32 loaded = 0;                          // 32954 占位(同上)
+    for (quint32 i = loaded; i < tableRows; ++i) {   // 32955..32983 循环骨架
+        if (i % 100 == 0 && stopPending && *stopPending)   // 32959 FUN_0099cfb6 → 返 0
+            return false;
+        // 32961..32972 逐行两模式装载(FUN_00a0e4bc/FUN_00929a3a/FUN_00930f9e/
+        //   FUN_00a1017a ×2)— cited — wave-2(行面 + 装载转发,机制未解不承载;
+        //   壳期 tableRows=0 循环体不可达,与语料同相)
+    }
+    return true;                                 // 32985
+}
+// — keywordsLoad 为自由函数(成员声明区前;stopFlag 经 stopPending 注入,
+//   包装 = MarkersStore::keywordsLoadGate,见 struct 内)—
 // FUN_009a3116 editor_freeDocState4 — cited — wave-2(旧 doc-state 条目清理,体未转写)
 inline void editor_freeDocState4(void *, int) {}
 // bimapReg — FUN_00a1028e — cited — wave-2(props 值<0x2000 → 13bit 键注册;壳期返 0)
@@ -531,7 +733,8 @@ inline MarkEntryObj *makeU64Styles()
 // A=0x38/bank=0x40 全在 editor_initDoc(009a2e1e,956B)尾构建。
 // tlist(+0x18):0099c75a 读侧实证 vs mk2"lexerSnap"说冲突,以读侧
 // 为准,构建者批复核。
-struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏移核)
+struct MarkersStore {                    // M ≡ D = doc-state(0x70B 语料尾;mk3 全偏移核;
+                                         //   批 101 kwcMemo 挂尾超载 — 见尾注)
     MarkersArray *arr;                   // +0x000 A(0x38;*A=D 回指)
     void         *doc;                   // +0x008 E(折叠 +0xe0 族 / 层级 +0xa0 / 行数 +0xf8)
     quint64      slot10;                 // +0x010 原始入参槽(initDoc param_3;0x48 doc-scan
@@ -545,8 +748,8 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
     quint8       stopFlag;               // +0x02c 停机标志(0099cfb6 置 1)
     quint8       _r2d[0x03];             // +0x02d..0x2f 对齐残隙(语料未触)
     void        *bucketTab;              // +0x030 桶表(initDoc param_1[6]=0)
-    void        *memo;                   // +0x038 memo QHash(initDoc =&QHashData::shared_null;
-                                         //   Qt 内部地址 — cited,壳期 nullptr)
+    void        *memo;                   // +0x038 memo QHashData 手工布局语料槽(=shared_null;
+                                         //   真承载迁 kwcMemo 挂尾 — 见 0x70 尾注;q3)
     void        *builder;                // +0x040 builder(initDoc param_1[8]=0)
     quint8       spin;                   // +0x048 读侧自旋字节(0069e8ac;解锁=写0)
     quint8       _r49[0x07];
@@ -555,6 +758,12 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
     quint64      stagedSnap;             // +0x060 暂存快照(publishOutline 写 model 指针 — q4
                                          //   勘正:指针槽,位形等价)
     SpBase      *pendSnap;               // +0x068 待发布快照(0x70 止)
+    // ⚠ 0x70 分配止:以下为我方超语料承载字段(偏移不进布局 — QHash 坍缩
+    //   替代 D+0x38 memo 的 QHashData 手工布局;0x70 static_assert 锚定语料
+    //   尾,字段挂结构尾不破坏偏移)。memo(void*)保留原槽 — 承载迁至
+    //   kwcMemo(memo 恒 nullptr = 语料 shared_null 位形;读侧 tblRead 不经此)。
+    QHash<quint64, QStringList> kwcMemo; // = D+0x38 memo 真承载(kwMatchCache 批 101;
+                                         //   key=CONCAT44(mode,lineNo) 33051;值=记录表)
 
     MarkersStore()
     {
@@ -926,6 +1135,16 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
         if (hit) stopFlag = 1;                                   // 0099cfb6 字面(壳期不可达)
         return hit != nullptr;
     }
+    // FUN_0099d072 返回门包装(批 88 挂账收口;批 101):kw 装载腿自由函数
+    //   keywordsLoad(stopPending=&stopFlag, lex) — 009a2cbf 门内首调(32948 形:
+    //   lVar5 = FUN_00930d1c(*(D+0x08),0) = EditorContext::bufferLexer)。
+    //   返 false → 驱动跳 region 循环直落发布腿(009a2cac 前置门语料字面);
+    //   壳期 lex=null 恒 true(32951 空词表同相)。
+    bool keywordsLoadGate(void *lex)
+    {
+        bool pending = stopped() || stopFlag != 0;               // 32959 FUN_0099cfb6(D) 门参
+        return keywordsLoad(&pending, lex);                      // 009a2c uVar3 = FUN_0099d072(D)
+    }
     static void  *makeOutlineModel(void *)          { return nullptr; }  // 009a2768..009a27dc model(0x38) 构造 — cited
     static void  *lazyStack(void *)                 { return nullptr; }  // FUN_00643e32(006443xx 惰性栈)— cited
     static int    entryCountOf(void *)              { return 0; }        // FUN_009f839c(*(D+0x10)) — cited 面
@@ -1118,98 +1337,45 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
                             scanCursor = quint64(cur);
                         }
                         while (le <= cur) { ++li; le = lineEndOf10(scanFace, li); }   // 推行
-                        const quint64 ch = quint64(lineStartOf10(scanFace, li));      // FUN_009f887e — cited 面
-                        void *matches = kwMatchCache(this, lex, lexerMode, ch);       // FUN_0099d27e — cited → 恒 nullptr
-                        if (!matches) {
-                            cur = le;                                // miss → 跳行尾(0099d628)
-                            if (hi <= le) break;                     // → LAB_0099d6b3
+                        const quint32 ch = quint32(lineStartOf10(scanFace, li));      // FUN_009f887e — cited 面(33226 uVar11 u32)
+                        // 33227 kwMatchCache 查询 → 装载侧真身(批 101 ScannerX::
+                        //   kwCacheFill;memo = D+0x38 → 我方 kwcMemo QHash 承载):
+                        QStringList *matches = sx->kwCacheFill(kwcMemo, lex, lexerMode, ch);
+                        if (matches->isEmpty()) {                // 33229 puVar16==0(miss 腿同相:空表=零记录)
+                            cur = le;                            // miss → 跳行尾(0099d628)
+                            if (hi <= le) break;                 // → LAB_0099d6b3
                             continue;
                         }
-                        // —— 命中处理腿(0099d6ab..0099da5d;壳期不可达:matches 恒 nullptr)
-                        //    记录 production = FUN_0099d27e(cited);face 由本消费点反推,
-                        //    字面照抄:+0x00 u16 tag;+0x01 attr byte;+0x10/+0x18 run 列表
-                        //    界(元素步长 3 long);+0x28 子表 ptr(元素 0x10,u32@+8)。
+                        // —— 命中处理腿(0099d6ab..0099da5d;壳期不可达:记录源空表
+                        //    恒零记录)。记录 face 由消费点反推,字面照抄:+0x00 u16
+                        //    tag;+0x01 attr byte;+0x10/+0x18 run 列表界(元素步长 3
+                        //    long);+0x28 子表 ptr(元素 0x10,u32@+8)。kwcMemo 值 =
+                        //    原始 u16* 记录指针数组的 QStringList 索引化占位(cited:
+                        //    词法引擎面未落,记录构造恒空 — 壳期同相)。
                         void *builder = this->builder;               // D+0x40(initDoc 0;驱动链装载 — cited)
                         if (!builder) {                              // 壳期守卫(语料此处必非空)
                             cur = le;
                             if (hi <= le) break;
                             continue;
                         }
-                        const qint64 anchor = builderAnchor(builder, cur);   // builder vt 双参尾调 — cited
-                        quint16 **rec = *static_cast<quint16 ***>(matches);  // matches = {begin,end}
-                        quint16 **recEnd = static_cast<quint16 ***>(matches)[1];
+                        const qint64 anchor = builderAnchor(builder, cur);   // builder vt 双参尾调 — cited(33231 uVar6)
+                        (void)anchor;                        // 记录构造 cited 恒空;anchor 消费腿随记录真身化恢复
                         qint64 next = cur + 1;                       // 未中默认腿(0099d6ab: +1)
-                        for (; rec != recEnd; ++rec) {               // 记录遍历
-                            const quint16 tag = **rec;               // 元素 = u16* 记录(语料字面)
-                            quint8 *rb = reinterpret_cast<quint8 *>(*rec);
-                            builderSetAttr4(builder, quint8((rb[1] >> 4) & 1));   // 00a83494 — cited
-                            builderSetAttr5(builder, quint8((rb[1] >> 5) & 1));   // 00a83480 — cited
-                            void *sub = *reinterpret_cast<void **>(rb + 0x28);
-                            *(bool *)(reinterpret_cast<char *>(builder) + 0x10) = (sub != nullptr);
-                            void **run = *reinterpret_cast<void ***>(rb + 0x10);  // run 列表
-                            void **runE = *reinterpret_cast<void ***>(rb + 0x18);
-                            for (; run != runE; run += 3) {          // 步长 3 long(语料字面)
-                                qint64 len = -1;
-                                if (*run == nullptr) {
-                                    if ((tag & 0xe00) == 0xc00) {    // 行内搜尾腿(0099d9b0)
-                                        // FUN_00a12ab6 句柄 ctor — cited(我方无句柄承载)
-                                        const int liEnd = int(lineIdxOf10(scanFace, hi));
-                                        int j8 = li, j9 = li;        // 语料 do-while 推进形
-                                        do {
-                                            j8 = j9; ++j9;
-                                            if (liEnd <= j9) break;
-                                        } while (kwProbeLine(lex, lexerMode, tag,
-                                                   quint64(lineStartOf10(scanFace, j9))));   // cited(恒 false)
-                                        le = lineEndOf10(scanFace, j8);   // LAB_0099da20 — cited 面
-                                        len = le - cur;              // lVar17 = lVar15 - lVar23
-                                        // FUN_0098fdbc 句柄 dtor — cited
-                                    }
-                                } else if (builderMatchRun(*run, anchor)) {   // 00a836f8 — cited(恒 false)
-                                    qint64 e = cur + 400;            // 游程 400 上限
-                                    if (to < e) e = to;
-                                    len = builderScan(builder, run, cur, e);   // 00a83e0a — cited(恒 -1)
-                                }
-                                if (len != -1) {                     // LAB_0099d812 灌值腿
-                                    next = cur + len;                // lVar13 = lVar17 + lVar23
-                                    if ((tag & 0xe00) != 0x200) {
-                                        // 前隙灌基值(0099d820)
-                                        coreWriteRange(qint64(scanCursor), cur - qint64(scanCursor), base, 1);
-                                        // props 打包式(0099d83a 字面):mode 低 5 位 |
-                                        //   tag 低 9 位<<5 | attr nib<<0x13 | run+0x10 字节&7<<0x16
-                                        const quint32 packed = (lexerMode & 0x1f)
-                                            | (quint32(tag & 0x1ff) << 5)
-                                            | (quint32((rb[1] >> 1) & 7) << 0x13)
-                                            | (quint32((reinterpret_cast<quint8 *>(run))[0x10] & 7) << 0x16);
-                                        // FUN_0099c750 → metacall(tlist+0x58):tlist≡lex 同指针,
-                                        //   接线批前 tlist nullptr → 走 lex 参(同指一物)
-                                        QVector<quint32> &bm =
-                                            tlist ? static_cast<ScannerX *>(static_cast<void *>(tlist))->list58
-                                                  : sx->list58;
-                                        const quint32 id = bimapPut(bm, packed);
-                                        // 灌 id<<2;rolling = bits19-21 == 0x30(0099d856 字面)
-                                        coreWriteRange(cur, len, id << 2,
-                                                       ((packed >> 0x10) & 0x38) == 0x30);
-                                        if (sub) {                   // 子表腿(0099d8b2)
-                                            void **subB = static_cast<void **>(sub);
-                                            for (quint8 *it = static_cast<quint8 *>(subB[0]);
-                                                 it != static_cast<quint8 *>(subB[1]); it += 0x10) {
-                                                const quint32 sv = *reinterpret_cast<quint32 *>(it + 8);
-                                                const qint64 sp = builderSubPos(builder, sv);   // 00a839cc 真身
-                                                const qint64 se = builderSubEnd(builder, sv);   // 00a83bd0 真身
-                                                // bits14-18 = 子值低 5 位重打包(0099d8d8 字面)
-                                                const quint32 pk2 = (packed & 0xfff83fffu)
-                                                    | (quint32(sv & 0x1f) << 0xe);
-                                                const quint32 id2 = bimapPut(bm, pk2);
-                                                coreWriteRange(sp, se - sp, id2 << 2, 0);
-                                            }
-                                        }
-                                        scanCursor = quint64(next);  // *(D+0x20) = lVar13
-                                    }
-                                    break;                           // goto LAB_0099d636(cur=next)
-                                }
-                            }
-                            if (next != cur + 1)                     // 灌值命中 → 636 重入
-                                break;
+                        // 记录遍历(33232..):kwcMemo 值 = QStringList 索引化承载;
+                        //   原始记录 = u16* face(tag@+0x00/attr@+0x01/run 界
+                        //   +0x10/+0x18 步长 3 long/子表 +0x28 元素 0x10 — 消费点
+                        //   反推字面)。记录构造腿 cited(词法引擎面未落)→ 空表,
+                        //   本循环恒零迭代 — 壳期同相;0xc00 搜尾(builderScan)/
+                        //   灌值/子表重打包腿(33246..33400)随记录真身化批按
+                        //   face 直读恢复(builderSubPos/End 真身已就位)。
+                        for (int ridx = 0; ridx < matches->size(); ++ridx) {
+                            const quint16 tag = quint16(matches->at(ridx).toUShort());  // u16 tag(占位承载;cited)
+                            quint8 attr = 0;                      // +0x01 attr byte(cited 构造恒 0)
+                            builderSetAttr4(builder, quint8((attr >> 4) & 1));   // 00a83494 真身
+                            builderSetAttr5(builder, quint8((attr >> 5) & 1));   // 00a83480 真身
+                            void *sub = nullptr;                  // +0x28 子表 ptr(cited 恒空)
+                            *(bool *)(reinterpret_cast<char *>(builder) + 0x10) = (sub != nullptr);  // 33244 字面
+                            (void)tag; (void)sub;                 // cited 面恒零记录;哑参消音保留语义锚
                         }
                         cur = next;                                  // 636:lVar23 = lVar13
                         continue;
@@ -1234,7 +1400,12 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B;mk3 全偏
     // 勘正:stopCount/nodes 属 E 面,不在 D(本结构)
 };
 
-static_assert(sizeof(MarkersStore) == 0x70, "D 0x70B (mk2 勘正;mk3 全偏移核)");
+// ⚠ 批 101:kwcMemo(QHash)挂结构尾 → sizeof > 0x70。语料 D 分配 0x70(裸
+//   内存零化);kwcMemo = D+0x38 memo 承载坍缩(EXT-BOUNDARY 规则 4 读侧面
+//   等价),超尾承载不进语料偏移域 — static_assert 改语料尾锚(mk2 勘正链)。
+//   0x70 内偏移(+0x00..+0x68)全部不变(QHash 成员挂尾)。
+static_assert(offsetof(MarkersStore, pendSnap) + sizeof(void*) == 0x70,
+              "D 语料尾 0x70 锚(+0x00..+0x68 偏移域;批 101 kwcMemo 挂尾承载)");
 
 // lineValueWord10 定义(runValueWordAt 真身可见处;复用 markers 值表六路实现 —
 // bd 笔记 §2:行面 bank 与 markers 值表同源,009cd3da 直接复用实证)

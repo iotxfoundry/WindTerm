@@ -1880,6 +1880,38 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(MainWindowFace 收编/moc 变更)+ make 零错;
   ctest 15/15;engtest3 直跑 OK
 
+### 批 101(2026-11-02)四 lane 大批量:ENG 四匹配引擎/界面批 C/markers 关键词装载/wordsteptest ✅ ctest 16/16
+- **ENG 四匹配引擎**(L1):MatchEngine.{h,cpp} 新 —— engScan<
+  IsLiteral,UseSkip> 单模板 8 段 1:1(边界哨兵门/lane0-31 展开门链/
+  尾字 0x200 表偏移/pack64 返回 hi16 掩码|lo48 窗口)+ 四实例化
+  (0093632d→009376d1→00936cf1→0093830d 转写序)+ engDispatch 真身
+  (literal 门 +0x01/len<0xc 门);差异维 ①针源(literal 双表 OR +
+  0x430/+0x428,勘误:全程不读 +0x420)②步进(skip 表 bad-char);
+  CodecMemo scanMask 升真身接 engDispatch/searchNeedle 接
+  bufferScan00b422d0(2750B cited);⚠ vt 承载占位恒零 → 数值活性待
+  lineDoc vtable 波次(结构活性完成);模板语义自检 5/5
+- **界面批 C 交互槽体**(L2):paneAtCurrentIndex(FUN_008def86 53B
+  真身,≠currentPane 勘正;closeCurrentPane/focusCurrentPane 改走)/
+  onHoverTimeout 真身(+0x40!=-1→setCurrentIndex)/applyTabShape 四
+  分支勘正补落(==2→6/2、==3→7/3)/5a859a 定性(=TabBar ctor 建
+  QLabel 后 hide,照抄不发明)/assignTabProperty index 钳制真身;
+  四槽 cited(KitWindow/MuxWindow/dialog 落点缺);FUN_005aa7b0 切换
+  链核对已在库;moc 干跑两头非空
+- **markers 关键词装载**(L3):C 级定性 = **Onigmo-改**(三源互证:
+  regexec.c match_at 同构/onig_* 直接名化/xpressive 零命中)→ 调用
+  面转写+委托;kwCacheFill(FUN_0099d27e 600B 真身,QHash 坍缩)+
+  RegexEntryX 最小面+builderMatchLen·State2+builderRegexRun 400B
+  调用面(执行腿 00ad74a0 cited)/keywordsLoad 387B+Gate 包装;
+  regionScan 命中腿索引化骨架(恒零迭代同相);markerstest +5 断言
+  (m101 组);**主线程补 0x7543 接线**:keywordsLoadGate 门内首调
+  (009a2cbf 门内,返真才清零+region 循环)—— 批 88 挂账闭环
+- **wordsteptest 新门**(L4,7 组 20 断言):段 8 可达前缀契约钉死
+  (空文档/预填选区不变量/flags&8 腿/重试门)+ e 组包夹绊线(段 8
+  激活后必 FAIL 强制重审);裁决:s_wordStep 恒等近似转写层成立但
+  运行时不可达(bufferScan cited 恒 -1)—— 铁律 3 不虚构断言
+- 验证:cmake 重跑(MatchEngine/wordsteptest 收编)+ make 零错;
+  **ctest 16/16**;engtest3/wordsteptest 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

@@ -2964,16 +2964,17 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				m_ctx.markersStore.publishOutline();      //   发布/分发腿(→009a2766 体转写;壳期惰值)
 			}
 			if (qint64(m_ctx.markersStore.scanCursor) < textLen) {  // *(D+0x20) < to 主门(009a2cbf)
-				// FUN_0099d072 关键词腿(387B,0032.c:32955)— cited —
-				//   wave-2:语料其返回真才进 region 循环 + *(D+0x2c)=0
-				//   清零(009a2ce 区)+ finally 回调机制(cited);壳期
-				//   kwVec30 空 → regionScan 内 FUN_00a10472 门走基值腿
-				//   同相。【偏差登记:未设 0099d072 返回门,kw 就位批需补】
-				m_ctx.markersStore.stopFlag = 0;          // *(u8*)(D+0x2c)=0(009a2ce 区字面)
-				m_ctx.regionScan(0, 0, textLen);                // FUN_0099d4de(0032.c:36875;经 E 面包装,lex=bufferLexer):
-				                                          //   mode=0;from=scanCursor 初值 0,
-				                                          //   to=param_2 全文档
-				m_ctx.markersStore.publishOutline();      // 循环尾非停机腿 FUN_009a29ce(009a2df8)
+				// 关键词腿返回门(0099d072 387B,0032.c:32948 门内首调;
+				//   批 101 补批 88 挂账):返回真才进 region 循环 +
+				//   *(D+0x2c)=0 清零(009a2ce 区);kwVec30 空 → 基值腿
+				//   同相;finally 回调机制(cited — wave-2)
+				if (m_ctx.markersStore.keywordsLoadGate(m_ctx.bufferLexer)) {
+					m_ctx.markersStore.stopFlag = 0;          // *(u8*)(D+0x2c)=0(009a2ce 区字面,门真后清零)
+					m_ctx.regionScan(0, 0, textLen);                // FUN_0099d4de(0032.c:36875;经 E 面包装,lex=bufferLexer):
+					                                          //   mode=0;from=scanCursor 初值 0,
+					                                          //   to=param_2 全文档
+					m_ctx.markersStore.publishOutline();      // 循环尾非停机腿 FUN_009a29ce(009a2df8)
+				}
 			} else if (m_ctx.markersStore.stopFlag == 0) {
 				// "Outlining End, Nothing to do............" 返 0 — 语料字面(009a2e0a)
 			} else {

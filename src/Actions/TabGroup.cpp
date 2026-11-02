@@ -7,10 +7,15 @@
 #include <QTimer>
 
 // === TabBar(QWidget*) ===
-// 转写 s_TextLabel_5a859a(0018:23040,605B):
+// 转写 s_TextLabel_5a859a(0018:23040,605B;Ghidra 名取自函数内
+//   "TextLabel" 串字面量,真实类名 = TabBar,TabBar_vtable @23039
+//   上邻函数实证):
 //   QTabBar::QTabBar(parent) → +0x31 ← 1 → +0x38 ← "None" → +0x40 ← 1 →
 //   +0x48/+0x50 ← 0 → 三 QList shared_null → +0x78 ← 0 →
-//   new QLabel(this,"TextLabel") → +0x58 → hide() → FUN_005a81c6(cited) →
+//   new QLabel(this,"TextLabel") → +0x58 → hide() → FUN_005a81c6
+//   (标签合成定性:非 "%1 尾缀"标签文本器 —— QLabel 建后仅 hide,
+//   语料 605B 内无 setText/arg 调用;+0x58 供 QTabBar 布局面拖影用,
+//   消费点未追(mp2 笔记 §未解 6)→ ctor 照抄建+藏,不发明文本流)→
 //   FUN_005a84f6(this,1) → connect currentChanged→FUN_005a8376(cited 槽体)→
 //   connect tabMoved→FUN_005a7fa7(cited 槽体)。
 TabBar::TabBar(QWidget *parent)
@@ -27,7 +32,11 @@ TabBar::TabBar(QWidget *parent)
 	m_f58 = new QLabel(this);
 	m_f58->setObjectName(QStringLiteral("TextLabel"));
 	m_f58->hide();                       // QWidget::hide @005a869d
-	// FUN_005a81c6(134B)— cited — wave-2(体未读)
+	// FUN_005a81c6(134B,0018:22840 已读体):style()->pixelMetric(0x5d
+	//   = PM_TabBarTabVSpace)→ 与 +0x40 不同则遍历每 tab
+	//   FUN_005a80f8(旧值,0)/FUN_005a80f8(新值)换侧钮 → +0x40 ← 新值。
+	//   依赖 FUN_005a80f8(QTabBarPrivate +0x1d0 tab 列表私有写)→ cited。
+	//   调用形保留(ctor 语料序 @005a869d-6a5)。
 	setCloseButtonsVisible(true);        // FUN_005a84f6(this,1) @005a86a5
 	// connect QTabBar::currentChanged → FUN_005a8376 @005a86c1-6e3
 	connect(this, &QTabBar::currentChanged, this, &TabBar::onCurrentChanged);
@@ -36,21 +45,26 @@ TabBar::TabBar(QWidget *parent)
 }
 
 // === setCloseButtonsVisible(bool) ===
-// 转写 FUN_005a84f6(0018:22994,163B):+0x30 ← param_2 → 遍历每 tab
-//   增删关闭钮(循环体:s_CloseButton_5a6d42/FUN_005a824c/FUN_005a6c0e,
-//   未读)→ QWidget::update()。循环体 cited,开尾照抄。
+// 转写 FUN_005a84f6(0018:22994,163B,已读体):+0x30 ← param_2 →
+//   遍历每 tab:FUN_005a6c0e 取钮(cast 面)在 → on 且非当前 tab →
+//   deleteLater+FUN_005a824c(0)拆;钮缺 → on 或非当前 →
+//   s_CloseButton_5a6d42 新建 + FUN_005a824c 挂。s_CloseButton_5a6d42/
+//   FUN_005a824c(QTabBarPrivate 私有面)不入库 → 循环体 cited,
+//   开尾照抄。
 void TabBar::setCloseButtonsVisible(bool on) // FUN_005a84f6
 {
 	m_f30 = on; // *(this+0x30) = param_2 @005a84fb
-	// 每 tab 关闭钮增删循环 @005a8501-856 — cited — wave-2(依赖未读)
+	// 每 tab 关闭钮增删循环 @005a8501-856 — cited — wave-2
+	//   (s_CloseButton_5a6d42/FUN_005a824c/QTabBarPrivate 私有依赖)
 	QWidget::update(); // @005a8567
 }
 
 // === insertTabWithMeta(int,QString,QIcon) ===
-// 转写 FUN_005a7800(0018:22372,759B):
+// 转写 FUN_005a7800(0018:22372,759B,已读体):
 //   索引钳制(<0 或 >count → 尾插,count)→ +0x60/+0x68/+0x70 三 QList
-//   定位插入(自定义 0x10/0x18 字节节点;tabbar_buildPropHash/FUN_005a690e/
-//   FUN_005a6a80 合并流)→ QTabBar::insertTab → tabbar_assignMnemonics。
+//   定位插入(QListData::insert + 自定义 0x10/0x18 字节节点;
+//   tabbar_buildPropHash/FUN_005a690e/FUN_005a6a80 合并流,icon 实参
+//   进合并流 @005a790c)→ QTabBar::insertTab → tabbar_assignMnemonics。
 //   节点内部表示 cited(语料自定义,非 Qt 公开结构)。
 int TabBar::insertTabWithMeta(int index, const QString &title,
                               const QIcon &icon) // FUN_005a7800
@@ -70,39 +84,74 @@ int TabBar::insertTabWithMeta(int index, const QString &title,
 }
 
 // === assignTabProperty(int,QString) ===
-// 语料 FUN_005a8818(0018:23122,631B)体未读 → 整体 cited,
-//   仅为 FUN_008de3e8("Normal"/"Pinned" 面)保调用形。
+// 转写 FUN_005a8818(0018:23122,631B,已读体):index 钳制(负/越界返)→
+//   +0x68 QVariant 列表按 index 补空(qlist_qvariant_append)→ detach →
+//   列内旧值 operator== 相等即返 → QString::operator= 写新值 →
+//   FUN_005a6c0e(tabButton@+0x40 位 cast QToolButton)取关闭钮 →
+//   分叉:值=="Normal"/"Pinned" → 钮 deleteLater + FUN_005a824c(置 0);
+//   否则:(+0x30==0 或 index==currentIndex)→ 钮缺则
+//   s_CloseButton_5a6d42 新建 + FUN_005a824c 挂;钮在则
+//   setProperty("state",值);s_king_refreshWidgetStyle(DAT_011c1ce0)→
+//   尾 tabRect + update()。钮面 FUN_005a6c0e/005a824c/s_CloseButton_5a6d42
+//   (QTabBarPrivate 私有依赖)不入库 → 状态面 cited、头尾照抄。
 void TabBar::assignTabProperty(int index, const QString &value) // FUN_005a8818
 {
-	(void)index;   // cited — wave-2(体未读)
+	if (index < 0 || index >= count()) // 005a8832 钳制(负/越界直返)
+		return;
+	// +0x68 列表按 index 补空(qlist_qvariant_append @005a8896-8c2)— cited
+	//   — wave-2(补齐流依赖私有结构)
+	// 列内旧值 ==param_3 相等即返 @005a88e2-8f — cited — wave-2
+	// QString::operator= 写 @005a8907;FUN_005a6c0e 取钮 @005a890f
+	// "Normal"/"Pinned" → 钮删腿 @005a8945-968;s_CloseButton_5a6d42/
+	//   FUN_005a824c/setProperty("state")/s_king_refreshWidgetStyle
+	//   @005a89a5-8a5 — cited — wave-2(关闭钮私有面不入库)
+	// tabRect + QWidget::update @005a89b5-8bd — cited — wave-2
 	(void)value;
 }
 
 // === setTabText(int,QString) ===
 // 转写 FUN_005ab09e(0018:24913,218B):FUN_005a6fbe(+0x58,index,1)
 //   (QTabBar::tabText 读面)→ operator== 与 param_3 相等即返 →
-//   FUN_005a7c74(+0x58,index,title)写(体未读 → cited,调用形照语料)。
+//   FUN_005a7c74(+0x58,index,title)(0018:22566,308B 已读体:index 钳制 →
+//   tabbar_buildPropHash → FUN_005a690e/FUN_005a6ab0 写 +0x70 节点 →
+//   tabbar_assignMnemonics)→ 写函数依赖 tabbar_buildPropHash 自定义
+//   节点面(0x18 字节自表示,cited)→ 调用形保留。
 void TabBar::setTabText(int index, const QString &title) // FUN_005ab09e
 {
 	if (QTabBar::tabText(index) == title)        // FUN_005a6fbe @005ab0a1-d
 		return;                                  // @005ab130
-	// FUN_005a7c74(tabBar,index,title)@005ab136-42 — cited — wave-2(体未读)
+	// FUN_005a7c74(tabBar,index,title)@005ab136-42:0018:22566 已读 —
+	//   tabbar_buildPropHash/FUN_005a690e/FUN_005a6ab0(+0x70 节点写)/
+	//   tabbar_assignMnemonics — cited — wave-2(自定义 0x18 字节节点
+	//   表示未解,不发明)
 }
 
 // === onCurrentChanged(int) ===
-// 语料 FUN_005a8376(0018:22922,383B)依赖 QTabBarPrivate
-//   (normalizedScrollRect/makeVisible/layoutWidgets)→ Qt 私有类
-//   不入库,槽体 cited;连接面已在 ctor 落。
+// 转写 FUN_005a8376(0018:22922,383B,已读体):+0x30(关闭钮开关)
+//   且 count>0 → 遍历每 tab:index==param_2 时 FUN_005a6d00 读状态 →
+//   状态非 0 → s_CloseButton_5a6d42+FUN_005a824c 挂钮;else tab →
+//   钮在则 deleteLater+FUN_005a824c(0)拆钮。尾段 QTabBarPrivate
+//   (normalizedScrollRect/makeVisible/layoutWidgets,+0x1cc/0x1e8
+//   私有位)→ Qt 私有类不入库 → 钮面 cited、连接面已在 ctor 落。
 void TabBar::onCurrentChanged(int index) // FUN_005a8376
 {
-	(void)index; // cited — wave-2(QTabBarPrivate 私有依赖)
+	(void)index; // cited — wave-2(钮面 s_CloseButton_5a6d42/FUN_005a824c
+	             //   与尾段 QTabBarPrivate normalizedScrollRect/makeVisible/
+	             //   layoutWidgets 私有依赖,005a834b-915)
 }
 
 // === onTabMoved(int,int) ===
-// 语料 FUN_005a7fa7(0018:22729,251B)未读 → cited。
+// 转写 FUN_005a7fa7(0018:22729,251B,单发闭包已读体,case1):
+//   from = **(int**)(ctx+8)(信号首参)→ +0x60/+0x68/+0x70 三 QList 逐个
+//   detach(FUN_005aa0f0/qlist_qvariant_detach_copy/FUN_005aa200)→
+//   QListData::move(from)→ 尾 tabbar_assignMnemonics。三列表节点内部
+//   表示 cited(0x10/0x18 字节自定义),move 面照抄。
 void TabBar::onTabMoved(int from, int to) // FUN_005a7fa7
 {
-	(void)from; // cited — wave-2(体未读)
+	// 三 QList detach+move @005a7f3f-7c6 — cited — wave-2
+	//   (节点表示未解;QListData::move 非公开 API)
+	// tabbar_assignMnemonics(this)@005a7f7c — cited — wave-2(未读)
+	(void)from;
 	(void)to;
 }
 
@@ -381,36 +430,57 @@ void TabGroup::onTabMoved(int from, int to)
 }
 
 // === onWidgetRemoved() ===
-// 语料 FUN_005aa720(0018:24454,9B)→ FUN_005a7db8(+0x58,495B)未读
-//   → cited;连接面在 fullAssemble 落。
+// 转写 FUN_005aa720(0018:24454,9B)= FUN_005a7db8(+0x58)(0018:22630,
+//   495B 已读体):index<0 直穿到尾;否则 +0x60 节点 delete(0x10)+
+//   QListData::remove → +0x68 QVariant 列 remove(ref 减)→ +0x70 节点
+//   内 QString×2 dealloc + delete(0x18)+ remove → 尾
+//   QTabBar::removeTab + tabbar_assignMnemonics。QListData 私有 API
+//   不入库 → 摘除面 cited、尾尾面引用在案。
 void TabGroup::onWidgetRemoved()
 {
-	/* FUN_005a7db8 — cited — wave-2(体未读) */
+	/* FUN_005a7db8(0018:22630,495B)— cited — wave-2
+	   (+0x60/0x68/0x70 三列表摘除 + QListData::remove 私有面 +
+	    QTabBar::removeTab/tabbar_assignMnemonics 尾,不发明) */
 }
 
 // === onTabLayoutChanged() ===
-// 语料 FUN_005ab7d8(0018:25427,59B):+0x68 为 0 直返;否则按
-//   +0x80/0x88 钮 underMouse 位分叉 FUN_005ab79a(...)。FUN_005ab79a
-//   (62B)未读 → cited;连接面在 fullAssemble 落。
+// 转写 FUN_005ab7d8(0018:25427,59B,已读体):+0x68 为 0 直返;否则
+//   +0x80 钮 underMouse 位(bit7 of +0x28+9)→ 0:FUN_005ab79a(this,
+//   +0x88 钮 bit15>>0xf);1:FUN_005ab79a(this,1)。FUN_005ab79a
+//   (0018:25407,62B 已读体):+0x69==param_2 早返 → +0x69 ← param_2 →
+//   QTimer::singleShot(0,闭包 FUN_005aa862)。闭包 FUN_005aa862
+//   (0018:24534,98B)未读 → 尾链 cited。
 void TabGroup::onTabLayoutChanged()
 {
-	/* FUN_005ab7d8 → FUN_005ab79a — cited — wave-2(体未读) */
+	if (!m_f68)                              // *(this+0x68)==0 @005ab7dc
+		return;
+	// FUN_005ab79a(this,+0x80 钮 underMouse ? 1 : +0x88 钮展开位)
+	//   @005ab7e2-808 — cited — wave-2(钮 +0x28 位面 Qt 私有布局位,
+	//   不发明;尾链 FUN_005aa862 98B 未读)
 }
 
 // === onTabCloseRequested(int) ===
 // 语料连接面:QTabBar::tabCloseRequested → FUN_008fb5e0(activate 信号3
-//   = tabCloseRequested)信号转发。
+//   = tabCloseRequested)信号转发(连接面见 fullAssemble/setTabsClosable;
+//   本体仅转发,activate 实证面见 setTabsClosable 注)。
 void TabGroup::onTabCloseRequested(int index)
 {
 	emit tabCloseRequested(index); // FUN_008fb5e0 @008fb5e0
 }
 
 // === onHoverTimeout() ===
-// 语料 FUN_005aa91e(0018:24605,58B)未读 → cited;连接面在
-//   setHoverTimer 落。
+// 转写 FUN_005aa91e(0018:24605,58B,单发闭包已读体,case1):
+//   +0x40 != -1 → FUN_005a6bcc(+0x58 TabBar)(0018:21781,32B 已读体:
+//   FUN_005a6b1c(0018:21740,62B 已读体:私有位 +0x1c8 置起才动 —
+//   expanding 读存 +0x213 反相 → setExpanding,Qt 私有位不入库 cited)
+//   + QTabBar::setCurrentIndex)。
 void TabGroup::onHoverTimeout()
 {
-	/* FUN_005aa91e — cited — wave-2(体未读) */
+	if (m_f40 != -1)                       // *(ctx+0x10)+0x40 != -1 @005aa92e
+		m_f58->setCurrentIndex(m_f40);     // FUN_005a6bcc @0018:21786:
+		                                   //   前置 FUN_005a6b1c(cited,
+		                                   //   QTabBarPrivate +0x1c8/+0x213 私有位)
+		                                   //   + QTabBar::setCurrentIndex
 }
 
 // === setHoverTimer(double) ===
@@ -440,28 +510,37 @@ void TabGroup::setTabShapeMode(int mode)
 }
 
 // === applyTabShape() ===
-// 转写 FUN_005ab814(0018:25397 起,113B):+0x50==1 → shape =
-//   +0x54?5:1;+0x50==0 → shape = +0x54?4:0;其余分支(+0x50 其他值)
-//   未读 cited。shape 值 0/1/4/5 = QTabBar RoundedNorth/RoundedSouth/
-//   TriangularNorth/TriangularSouth(照抄语料常量)。
+// 转写 FUN_005ab814(0018:25397 起,113B,已读全四分支):+0x50==1 →
+//   shape = +0x54?5:1;==0 → +0x54?4:0;==2 → +0x54?6:2;==3 →
+//   +0x54?7:3;其余值直返。shape 值 0-7 = QTabBar Rounded
+//   North/South/West/East(0-3)+ Triangular North/South/West/East(4-7)
+//   (照抄语料常量;勘正先前"其余分支未读"注:四分支全读)。
 void TabGroup::applyTabShape()
 {
-	if (m_f50 == 1) {                                   // 005ab81f
-		m_f58->setShape(m_f54 != 0 ? (QTabBar::Shape)5
-		                            : (QTabBar::Shape)1); // 005ab829(实参 5/1)
-	} else if (m_f50 == 0) {                            // 005ab83b
+	if (m_f50 == 1) {                                        // 005ab81f
+		m_f58->setShape((QTabBar::Shape)(m_f54 != 0 ? 5 : 1)); // 005ab829
+		return;
+	}
+	if (m_f50 == 0) {                                        // 005ab83b
 		if (m_f54 != 0) {
-			m_f58->setShape((QTabBar::Shape)4);     // 005ab849
+			m_f58->setShape((QTabBar::Shape)4);              // 005ab849
 			return;
 		}
-		m_f58->setShape((QTabBar::Shape)0);         // 005ab854
+		m_f58->setShape((QTabBar::Shape)0);                  // 005ab854(公共尾)
+		return;
 	}
-	// 005ab85f 起其余分支 — cited — wave-2(+0x50 其余值未读)
+	if (m_f50 == 2) {                                        // 005ab85f
+		m_f58->setShape((QTabBar::Shape)(m_f54 != 0 ? 6 : 2)); // 005ab86b
+		return;
+	}
+	if (m_f50 != 3)                                          // 005ab874(其余直返)
+		return;
+	m_f58->setShape((QTabBar::Shape)(m_f54 != 0 ? 7 : 3));   // 005ab87a-884
 }
 
 // === setUsesScrollButtons(bool) ===
 // 转写 FUN_005ac522(0018:26271,62B):tabbar setUsesScrollButtons →
-//   on:+0x68=1;off:FUN_005ab79a(this,0)(cited)+ +0x68=0。
+//   on:+0x68=1;off:FUN_005ab79a(this,0)(0018:25407 已读体)+ +0x68=0。
 void TabGroup::setUsesScrollButtons(bool on)
 {
 	m_f58->setUsesScrollButtons(on); // 005ac52f
@@ -469,7 +548,8 @@ void TabGroup::setUsesScrollButtons(bool on)
 		m_f68 = true;                // *(this+0x68) = param_2 @005ac53a
 		return;
 	}
-	// FUN_005ab79a(this,0)— cited — wave-2(62B 未读)
+	// FUN_005ab79a(this,0)@005ac545:+0x69==0 早返 → 否则 singleShot(0,
+	//   FUN_005aa862 闭包,cited 98B 未读)——展开收缩单发面,不发明
 	m_f68 = false;                   // @005ac54e
 }
 
@@ -490,3 +570,7 @@ void TabGroup::setTabsClosable(bool on)
 	connect(m_f58, &QTabBar::tabCloseRequested,
 	        this, &TabGroup::onTabCloseRequested);     // 005ab90b
 }
+
+// === onTabCloseRequested(int) ===
+// 语料连接面:QTabBar::tabCloseRequested → FUN_008fb5e0(activate 信号3
+//   = tabCloseRequested)信号转发。

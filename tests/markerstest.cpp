@@ -439,8 +439,10 @@ int main(int argc, char **argv)
 	//   (size>0xf,false)走基值腿:coreWriteRange(0099d50c)整段灌 base +
 	//   scanCursor=to 收尾(MarkersStore.h:1057-1058);shell 期 bufferLexer=
 	//   nullptr → sx=nullptr → !sx 门同腿(1056)。builder 壳 -1 同相:matches
-	//   = kwMatchCache 恒 nullptr(0099d27e cited,MarkersStore.h:482)→ 命中
-	//   处理腿(0099d6ab..)不可达,builder(D+0x40)读不发生。
+	//   = kwCacheFill 记录表恒空(0099d27e 装载侧批 101,记录源 cited)→ 命中
+	//   处理腿(0099d6ab..)零迭代,builder(D+0x40)读不发生。
+	//   ⚠ 批 101 注:kw 装载返回门(keywordsLoadGate)在 MarkersStore.h 落地,
+	//   0x7543 驱动处 EditorEngine.cpp 接线属他批写域 — 测试链行为不变同相。
 	{
 		EditorEngine e;
 		e.dispatch(0x7543, (qlonglong)1);            // 驱动同步腿(批 88 偏差登记)
@@ -472,7 +474,7 @@ int main(int argc, char **argv)
 		expect(D.stopFlag == 0,
 		       "m: stopFlag 清零(009a2ce 区 *(u8*)(D+0x2c)=0 字面)");
 		// builder 预填 + 再扫:builder(D+0x40 initDoc param_1[8]=0)壳期 -1 同相
-		//   —— matches 恒 nullptr → builder 腿不可达,只断言不崩 + 收尾游标。
+		//   —— matches 记录表恒空 → 命中腿零迭代,只断言不崩 + 收尾游标。
 		//   styleProps190 预填值同相位:builder 腿不读 +0x190(同 h 组锚)。
 		expect(e.m_ctx.styleProps190.size() == 1 && e.m_ctx.styleProps190.at(0) == 0x51a,
 		       "m: styleProps190 预填保持(观测缝;驱动链不触第六视图)");
@@ -480,7 +482,29 @@ int main(int argc, char **argv)
 		e.m_ctx.currentBufferId = 0;
 		e.dispatch(0x7543, (qlonglong)1);
 		expect(D.scanCursor == 3,
-		       "m: builder 壳桩 → 命中腿不可达(matches 恒 nullptr)同相收尾");
+		       "m: builder 壳桩 → 命中腿零迭代(kwcMemo 空记录)同相收尾");
+		// 批 101:kwcMemo 装载侧直测(miss→insert→hit;键 CONCAT44(mode,lineNo))
+		{
+			wt::ScannerX sx;                          // ctor00a1092a 形(kwVec30=1)
+			QHash<quint64, QStringList> memo;
+			sx.kwCacheFill(memo, nullptr, 0, 2);      // miss → 空记录插入(33077 零记录同相)
+			expect(memo.size() == 1,
+			       "m101: kwCacheFill miss → 节点插入(33108..33131 QHashData≈insert)");
+			QStringList *hit = sx.kwCacheFill(memo, nullptr, 0, 2);   // hit → 直返
+			expect(hit != nullptr && hit->isEmpty(),
+			       "m101: kwCacheFill hit → 记录表直返(33133 节点+0x18 面;空表非空指针)");
+			expect(D.kwcMemo.isEmpty(),
+			       "m101: 驱动链 kwcMemo 不增长(基值腿不触 33227)");
+		}
+		// 批 101:keywordsLoad 返回门直测(0099d072;壳期 lex=null → 32951 空门
+		//   同相返 1;非空 lex → 词表计数 cited 恒 0 → 循环零迭代返 1)
+		{
+			bool stopPend = false;
+			expect(wt::keywordsLoad(&stopPend, nullptr) == true,
+			       "m101: keywordsLoad lex=null → 返 1(32951 lVar5==0 直通 32985)");
+			expect(wt::keywordsLoad(&stopPend, &stopPend) == true,
+			       "m101: keywordsLoad 非空 lex + 空词表 → 返 1(32955 门 0<0 false)");
+		}
 		// 直调腿:E 面包装(lex=bufferLexer,nullptr → !sx 基值腿,同 1056 门)
 		D.scanCursor = 0;
 		e.m_ctx.regionScan(0, 0, 3);

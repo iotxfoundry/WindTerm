@@ -28,6 +28,8 @@ public:
     void detachPane(MuxPaneView *page);                  // FUN_008dedae(0028:25986;addTab 对偶)
     int tabCount() const;                                // FUN_008de59c
     MuxPaneView *currentPane() const;                    // FUN_008de3b2(0028:25616)
+    MuxPaneView *paneAtCurrentIndex() const;             // FUN_008def86(0028:26083;
+                                                         //   stack widget(currentIndex) cast 面)
 
     // 两个归辖转发面(FUN_008df06e 面板标题同步 @0028:26161 消费):
     //   FUN_005ab6c2 / FUN_005ab09e 均为 +0x38 TabGroup 槽操作
