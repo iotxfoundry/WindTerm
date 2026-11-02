@@ -1770,6 +1770,21 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   **关键前置已解:P2 convCtor 落码即 0x448 构造链(表构建面备)**
 - 验证:make 零错;ctest 13/13;engtest3 直跑 OK
 
+### 批 96(2026-11-02)UI 界面推进:装配链行为测试 +2/KitBar 断言修正 ✅ ctest 15/15
+- **uiassembletest 落地**(17 断言):五级装配链组装冒烟(MuxPaneView
+  objectName/TabGroup QTabBar/MuxPaneGroup "PaneGroup"/SplitterGroup
+  Vertical 不可折叠/MuxWindow splitter()/五级 parent 链 + isAncestorOf
+  贯通 + tabCount/currentPane)
+- **kitbartest 落地**(11 断言):ctor 面三断言/addKit×2 → 按钮 property
+  ("kit")/checkable/QSignalSpy toggled→kitActivated 转发(false 腿
+  零发)/buttonForIndex·Title 查询面
+- **两断言修正**(主线程,Qt 运行期语义):① QToolBar 自带 extension
+  隐藏钮(QToolButton 子类)被 findChildren 误计 → 按 "kit" property
+  过滤计数 ② kitProps 循环同过滤(extension 钮 toInt=0 误判)
+- 验证:make 零错;**ctest 15/15**;engtest3 直跑 OK
+- 意义:**五级装配链(MuxWindow→Splitter→Group→Tab→View)首次运行
+  期组装验证通过** —— Phase 4c 面板装配行为闭环
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

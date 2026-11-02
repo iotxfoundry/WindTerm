@@ -7,7 +7,7 @@ set(TEST_ENV
   "QT_QPA_PLATFORM=offscreen"
 )
 
-foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 markerstest keymaptest proxysocktest rendermathtest renderpixtest runstylestest mwctest)
+foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 markerstest keymaptest proxysocktest rendermathtest renderpixtest runstylestest mwctest uiassembletest kitbartest)
   add_executable(${t} ${t}.cpp)
   target_include_directories(${t} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/Sessions
@@ -16,6 +16,7 @@ foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 markerstest keymapt
     ${CMAKE_SOURCE_DIR}/src/Protocols
     ${CMAKE_SOURCE_DIR}/src/Utility
     ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/Actions
     ${CMAKE_SOURCE_DIR}/src/Scintilla/include
     ${CMAKE_SOURCE_DIR}/src/Scintilla/qt/ScintillaEditBase
     ${CMAKE_SOURCE_DIR}/src/Scintilla/src
@@ -30,3 +31,7 @@ foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 markerstest keymapt
     ENVIRONMENT "${TEST_ENV}"
     TIMEOUT 60)
 endforeach()
+
+# kitbartest 用 QSignalSpy(0091a518 转发断言面)→ 需 Qt5Test
+find_package(Qt5 REQUIRED COMPONENTS Test)
+target_link_libraries(kitbartest Qt5::Test)
