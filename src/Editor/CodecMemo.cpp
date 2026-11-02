@@ -1,6 +1,7 @@
 #include "CodecMemo.h"
 
 #include <QTextCodec>
+#include <QTextEncoder>
 
 #include <errno.h>
 #include <sched.h>
@@ -86,23 +87,144 @@ GrepNeedle448 *CodecMemo::grepNeedle(const QString &findStr)
 	if (codec != nullptr) {                       // 0089a262 *(op+0x18) 门
 		                                          //   (+4 int 布局面 cited)
 		if (codec->canEncode(findStr)) {          // 0089a268 QTextCodec 真委托
-			// 0089a2e9 operator_new(0x448) + codec_convCtor(2543B)
-			//   — cited — wave-2
-			n = nullptr;  /* cited — wave-2 */
+			const uint opFlags = flags;           // 52653 *(param_2+0xc)
+			// 52650–52652 编码器 vt+0x20 vcall(ConverterState 栈对象同款
+			//   面)→ 52654/52655 长度与字节 — cited — wave-2(vtable 面;
+			//   fromUnicode(QString,0) 为标准 Qt 承载)
+			const QByteArray enc = codec->fromUnicode(findStr);
+			GrepNeedle448 *conv = new GrepNeedle448;  // 52657 new(0x448)
+			convCtor(conv, codec, enc.constData(), enc.size(),
+			    (opFlags >> 1) & 1);              // 52661 convCtor 产腿
+			n = conv;
 		}
 	}
-	needleCache.insert(findStr, n);               // 0089a46x 插腿(null 同插)
+	needleCache.insert(findStr, n);               // 0089a49e 插腿(null 同插)
 	return n;                                     // 0089a1f1 *(op+8)=0 出锁
 }
 
-// codec_canEncode(0089b85e,2047B)@decomp-0027.c:53596 — 声明层。
-//   体 cited — wave-2(缓存面 + QTextCodec canEncode + 编码器 vcall +
-//   ConverterState + 00a8450a→00a84376 utx 工厂 + 00a84492 Uint32Bimap
-//   0x20 ctl 包装)。
+// FUN_0066bc12/0066bcd2/0066bd92/0066be52(176B×4)@decomp-0020.c:54050/
+//   54085/54120/54155 — 四单字节 codec 单例:cxa_guard 惰性静态,
+//   codecForName("UTF-16BE"/"UTF-16LE"/"UTF-32BE"/"UTF-32LE")。convCtor
+//   四面比较消费(54393–54417);QTextCodec 指针面直接比较同构。
+static QTextCodec *utf16beCodec()
+{                                                                  // 0066bc12
+	static QTextCodec *c = QTextCodec::codecForName("UTF-16BE");   // 54067–54069
+	return c;                                                      // 54079
+}
+static QTextCodec *utf16leCodec()
+{                                                                  // 0066bcd2
+	static QTextCodec *c = QTextCodec::codecForName("UTF-16LE");   // 54102–54104
+	return c;                                                      // 54114
+}
+static QTextCodec *utf32beCodec()
+{                                                                  // 0066bd92
+	static QTextCodec *c = QTextCodec::codecForName("UTF-32BE");   // 54137–54139
+	return c;                                                      // 54149
+}
+static QTextCodec *utf32leCodec()
+{                                                                  // 0066be52
+	static QTextCodec *c = QTextCodec::codecForName("UTF-32LE");   // 54172–54174
+	return c;                                                      // 54184
+}
+
+// codec_convCtor(0089c450,2543B)@decomp-0027.c:54319 真身。
+//   语料:conv+0x00=1、QByteArray(param_3,param_4)@conv+0x08(54351–
+//   54352)、+0x418..+0x437 清零(54353–54384)、skip do-while 逐项
+//   param_4+1(54385–54389)、+0x10=len、+0x01=param_5(54390–54391);
+//   四单字节面 → allowedBits=1(54395)/3(54410),其余 0(ctor 清零);
+//   case(param_5)档:+0x420 posix_memalign(0x10,len<<4)+ 逐字节
+//   16B 广播 + skip 逐字符覆写(54420–54448);非 case 档 QTextEncoder
+//   折叠编码面(54450–54600)→ 触发时 literal 翻转 + +0x428/+0x430
+//   SIMD 块 + skip 对覆写(54603–54720)。析构尾段 = Qt RC 面。
+//   cited 腿:QTextEncoder 折叠面(54450–54657,深>300B)与 SIMD
+//   三块/skip 对覆写(54603–54720)。
+void CodecMemo::convCtor(GrepNeedle448 *conv, QTextCodec *codec,
+                         const char *bytes, int len, bool caseFlag)
+{
+	conv->literal = 1;                                        // 54351 *p1=1
+	conv->bytes = QByteArray(bytes, len);                     // 54352 +0x08
+	conv->allowedBits = 0;                                    // 54353–54360
+	conv->simdBlocks = nullptr;                               // 54361–54368
+	conv->lowerSimd = nullptr;                                // 54369–54376
+	conv->upperSimd = nullptr;                                // 54377–54384
+	for (int i = 0; i < 256; ++i)                             // 54385 do-while
+		conv->skip[i] = len + 1;                              //   0x14..0x413
+	conv->len = len;                                          // 54390 +0x10
+	conv->caseFlag = caseFlag ? 1 : 0;                        // 54391 +0x01
+	                                                          // 54393–54417:
+	if (codec == utf16beCodec() || codec == utf16leCodec())   //   bc12 门
+		conv->allowedBits = 1;                                // 54395 =1
+	else if (codec == utf32beCodec() || codec == utf32leCodec())
+		conv->allowedBits = 3;                                // 54410 =3
+	if (conv->caseFlag != 0) {                                // 54420 cVar2 门
+		void *blk = nullptr;                                  // 54421 posix_
+		posix_memalign(&blk, 0x10, qint64(len) << 4);         //   memalign
+		conv->simdBlocks = blk;                               // 54425 +0x420
+		if (len >= 1) {                                       // 54426 门
+			for (int i = 0; i < len; ++i) {                   // 54430 广播环
+				const quint32 b32 = quint32(quint8(bytes[i])) * 0x01010101u;
+				quint32 *dst = reinterpret_cast<quint32 *>(
+				    static_cast<char *>(blk) + i * 0x10);     // 54433
+				dst[0] = b32; dst[1] = b32;               // 54434–54437
+				dst[2] = b32; dst[3] = b32;
+			}
+			for (int i = 0; i < len; ++i)                 // 54442–54447 skip
+				conv->skip[quint8(bytes[i])] =            //   逐字符覆写
+				    (len + 0) - i;                        //   54445 算式
+		}
+		return;                                               // 54448 提前出
+	}
+	// 54450–54600 QTextEncoder 折叠编码面 + 54603–54720 触发面
+	// — cited — wave-2(深>300B 内层;carrier 零值同相:literal 保持 1、
+	//   SIMD 块空、skip 表保持默认 — 占位同相)
+	/* cited — wave-2 */
+}
+
+// codec_canEncode(0089b85e,2047B)@decomp-0027.c:53596 真身。
+//   语料:返回 {ptr,rc 包装}(param_1 两槽);锁(LAB_0089b8a7);
+//   +0x60 缓存查 FUN_0089d31e(53661);miss → codec+4 门(53664)
+//   → QTextCodec::canEncode(53666)→ ConverterState 栈 {1,0}
+//   (53672–53675)→ 编码器 vtable vt+0x20 vcall(53678)→ std::string
+//   _S_construct(53682)→ 空 QByteArray 释放臂(53686–53695)→
+//   FUN_00899740(param_4==0 键兜底,53668–53671)/ FUN_008997bc/
+//   008997d6 flags 面(53697–53698)→ FUN_00a8450a(&local_78,…,
+//   param_2+0x50 std::string 端)(53699)→ 旧产物 RC 释放 + 新产物
+//   双槽携出(53700–53742)→ std::string 释放(53743–53752)→
+//   ConverterState dtor(53753)→ +0x60 detach/insert(53757–53817)
+//   → LAB_0089b9e4 解锁(53945)。命中臂:RC 增持携出(53852–53921)
+//   + param_2+0x50 std::string 释放(53923–53943)。
+//   cited 腿:编码器 vcall 内层(53678 vtable 面)与 FUN_00a8450a→
+//   00a84376 utx 工厂内层(276B pthread 互斥 + FUN_00b3b090 换算)。
 CodecCtl20 *CodecMemo::canEncodeMemo(const QString &s)
 {
-	Q_UNUSED(s);
-	return nullptr;  /* cited — wave-2 */
+	CodecCtl20 *out = nullptr;                                // 53644 *p1=0
+	LockGuard g(lock);                                        // LAB_0089b8a7
+	auto it = encCache.find(s);                               // 53661 查
+	if (it != encCache.end()) {                               // 53663 命中臂
+		out = it.value();                                     // 53885–53896 RC
+		return out;                                           //   增持携出(共
+		                                                      //   享指针承载替)
+	}
+	if (codec != nullptr) {                                   // 53664 codec+4 门
+		                                                      //   (+4 int 布局面
+		                                                      //   cited)
+		if (codec->canEncode(s)) {                            // 53666 真委托
+			// param_4(53668–53671)= 调用方键 codec 兜底(FUN_00899740
+			//   codecForName 面)— 本桥无独立键参数 → param_4==0 恒相,
+			//   兜底腿 — cited — wave-2
+			// 53672 ConverterState 栈对象 {1,0}(53672–53675)+ 53678
+			//   编码器 vt+0x20 vcall → 53682 std::string 承载 — cited —
+			//   wave-2(vtable 面;标准 Qt 承载面已备:codec->fromUnicode)
+			// 53699 FUN_00a8450a(&local_78,&local_80,uVar6,local_98,
+			//   uVar9,param_2+0x50):std::string 端 utx 工厂 →
+			//   FUN_00a84492 operator_new(0x20) Uint32Bimap 包装 —
+			//   cited — wave-2(pthread 互斥 utx 换算内层;CodecCtl20
+			//   flag/QByteArray 载体同相)
+			out = nullptr;  /* cited — wave-2 */
+		}
+		encCache.insert(s, out);                              // 53778–53817 插
+	}
+	return out;                                               // LAB_0089b9e4
 }
 
 // FUN_00899316(8B)@decomp-0027.c:51741 — 编码结果字节长 accessor 真身。

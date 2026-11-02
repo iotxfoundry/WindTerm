@@ -14,7 +14,7 @@ class QToolButton;
 //   六条接线        FUN_008de5a6(912B,0028:25740)
 //   页挂 addTab     FUN_008de3e8(373B,0028:25642;this 形态 = MuxPaneGroup
 //                   ——经 +0x38 TabGroup 槽操作,归属本类)
-//   页拆            FUN_008dedae(62B,0028:25986)(不在本批写域,仅注)
+//   页拆 detachPane FUN_008dedae(62B,0028:25986;批 93 真身落码)
 //   计数            FUN_008de59c(9B,0028:25972)→ FUN_005abbda
 // 成员槽:+0x30 expandable(bool,构造点实证 0026:29939 传 1)/
 //   +0x38 TabGroup*(objectName "PaneGroup")。
@@ -25,6 +25,7 @@ public:
     MuxPaneGroup(bool expandable, QWidget *parent);      // s_MuxPaneGroup_8dece0(param_2=expandable)
 
     void addTab(MuxPaneView *page, bool normal);         // FUN_008de3e8
+    void detachPane(MuxPaneView *page);                  // FUN_008dedae(0028:25986;addTab 对偶)
     int tabCount() const;                                // FUN_008de59c
     MuxPaneView *currentPane() const;                    // FUN_008de3b2(0028:25616)
 

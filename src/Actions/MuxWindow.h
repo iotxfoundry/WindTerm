@@ -8,6 +8,8 @@
 class QSplitter;
 class SplitterGroup;
 class MuxPaneView;
+class SuperSession;
+struct PaneDescriptor;   // 定义在 MuxWindow.cpp(布局不进产品头,见 restorePaneSplitter 注)
 
 // MainWindow 装配锚(五级装配链 L1;不落 MainWindow 类 —— 宿主语义 =
 // 现 MuxPane 壳承载,批 71 勘误;仅记址):
@@ -73,9 +75,18 @@ public:
     // (会话宿主*、配置容器、QSplitter*、页序、面板描述符*);QSplitter
     // 形参在调用点以 FUN_008e01ac(muxWindow) 形态取自本类
     // (s_session__tmux_842414 @0026:34862 同面)→ 落为本类方法,
-    // 接收器 = splitter()。会话/配置层形参未落库 → void* 槽位名保留。
-    void restorePaneSplitter(void *sessionHost, void *configHolder,
-                             unsigned int paneIndex, void *paneDescriptor);
+    // 接收器 = splitter()。
+    // 四形参强类型化(勘察 /tmp/opencode/p3_notes_rs2.md N3 方案):
+    //   param_1 消费面仅 *param_1+0x1c8(QSharedPointer 槽 +0x1c8/+0x1d0
+    //     三连判同型,FUN_0083be38:30023 同面)→ SuperSession*
+    //     (SuperSession 已落库 src/Sessions/SuperSession.h);
+    //   param_2 消费面仅 *(param_2+0x50) QMap<int,QString> upperBound
+    //     内联 @0083bb27-d4;配置类未解 → void* 保留(铁律 6:无落点退 cited);
+    //   param_5 = 0x28B POD 描述符(QVariant 经 FUN_00856450 0026:48104
+    //     canConvert 提取;唯一实证字段 +0x18 int pane 序号;类名未解)
+    //     → 匿名局部 POD,定义在 MuxWindow.cpp,不进产品头(铁律 6)。
+    void restorePaneSplitter(SuperSession *sessionHost, void *configHolder,
+                             unsigned int paneIndex, const PaneDescriptor &desc);
 
 private slots:
     void onFocusChanged(QWidget *old, QWidget *now);           // FUN_008e0bb2(0028:27798;批 92 真身)

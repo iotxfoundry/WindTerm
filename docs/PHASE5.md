@@ -1750,6 +1750,26 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(CodecMemo 新 TU)+ make 零错;**ctest 13/13**;
   engtest3 直跑 OK
 
+### 批 94(2026-11-02)三 lane 并行:restorePaneSplitter 强类型化/codec 两体落码/四引擎同构定案 ✅
+- **restorePaneSplitter 强类型化执行**(P1):3/4 形参落地(param_1 =
+  SuperSession* 强/param_5 = PaneDescriptor 匿名 POD 0x28B .cpp 内/
+  param_2 配置永 void* 铁律 6);MuxPaneGroup::detachPane 真身落地
+  (FUN_008dedae 62B:stackIndexOf 早退 → removeWidget → setParent
+  nullptr);cited 残腿 4(查面板/标题合成/标题 setter/会话容器)
+- **codec canEncode+convCtor 落码**(P2):canEncodeMemo 真身 ~33 行
+  (锁→+0x60 缓存查→codec+4 门→QTextCodec::canEncode 真委托→插
+  缓存;ConverterState 面 cited)+ **convCtor 真身 ~38 行**(头域清零/
+  skip 表 do-while/四面 allowedBits 1/3/case 档 posix_memalign SIMD
+  广播/非 case 档 cited);四 codec 单例(0066bc12/bcd2/bd92/be52)
+  真身;grepNeedle 产腿接通 convCtor;cited 4 腿(编码器 vcall/utx
+  工厂/QTextEncoder 折叠/触发 SIMD)
+- **四匹配引擎同构定案**(P3):骨架 **100% 同构**(8 段模板:边界门
+  →lane1..31→tail→miss 步进;差异 2 维:针源单双表/miss 步进短针
+  vs 跳表)→ 参数化 ENG<IsLiteral,UseSkip> 四实例化 1:1 方案;
+  转写序:3632d(最纯)→376d1→36cf1→3830d→0092a596 分派器;
+  **关键前置已解:P2 convCtor 落码即 0x448 构造链(表构建面备)**
+- 验证:make 零错;ctest 13/13;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

@@ -115,6 +115,26 @@ void MuxPaneGroup::addTab(MuxPaneView *page, bool normal)
 		g->blockSignals(false);          // @008de4d7(false)
 }
 
+// === detachPane(MuxPaneView*) ===
+// 转写 FUN_008dedae(0028:25986,62B;addTab 的对偶 = 页拆):
+//   FUN_005ab6c2(+0x38)(stackIndexOf(w))== -1 早退 →
+//   FUN_005ab2cc(+0x38,idx,0)(stack 摘出:widget==0 早退,param_3=0
+//   不走 close/deleteLater 腿 → 仅 QStackedWidget::removeWidget,
+//   语料 0018:25074)→ QWidget::setParent(page,nullptr)(页脱管)。
+void MuxPaneGroup::detachPane(MuxPaneView *page)
+{
+	const int idx = m_f38->stackIndexOf(page);   // FUN_005ab6c2 @008dedb0
+	if (idx == -1)
+		return;                                  // @008dedb6
+	// FUN_005ab2cc(tabGroup,idx,0)@008dedbd:widget(idx)==0 早退 →
+	//   param_3=0 → QStackedWidget::removeWidget @0018:25098-104(73B)
+	m_f38->stack()->removeWidget(m_f38->stackWidgetAt(idx));
+	// QWidget::setParent(page)@008dedcf — 语料 Ghidra 形态 setParent(param_2)
+	//   = this 重载被弃,actual = page->setParent(nullptr)(QWidget::setParent
+	//   (QWidget*) 单参 = 0 parent;页脱管)
+	page->setParent(nullptr);
+}
+
 // === tabCount() ===
 // 转写 FUN_008de59c(0028:25972,9B)= FUN_005abbda(+0x38)
 //   = QTabBar::count。

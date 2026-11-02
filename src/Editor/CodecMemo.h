@@ -43,10 +43,18 @@ struct GrepNeedle448
 	                           //   len-offset(Boyer-Moore 面)
 	quint64 allowedBits = 0;   // conv+0x418 允许命中位图(u64;0092a596 候选
 	                           //   & allowed==0 才收)。convCtor 四单字节
-	                           //   codec 面(0066bc12/bcd2/bd92/be52)置
-	                           //   1/3;其余填充方未解 — cited — wave-2
-	void *simdBlocks = nullptr; // conv+0x420 16B/字符 SIMD 块(posix_memalign
-	                            //   len<<4,字节×8 广播;case 档)— cited
+	                           //   codec 面(0066bc12/bcd2/bd92/be52 =
+	                           //   UTF-16BE/LE/UTF-32BE/LE 单例)置 1/3
+	                           //   (54393–54417,批 93 N1 证实);其余
+	                           //   codec 置 0(ctor 清零段)
+	void *simdBlocks = nullptr; // conv+0x420(包装 +0x430;GrepViewConfig_vt15
+	                            //   释放面)— case 档 posix_memalign(0x10,
+	                            //   len<<4)逐字节 16B 广播(54421–54441)
+	                            //   — convCtor 落码
+	void *lowerSimd = nullptr;  // conv+0x428(包装 +0x438)— 折叠 lower 串
+	                            //   16B 广播 — cited — wave-2(54603–54652)
+	void *upperSimd = nullptr;  // conv+0x430(包装 +0x440)— upper 同上 —
+	                            //   cited — wave-2(54653–54688)
 };
 
 class CodecMemo
@@ -62,29 +70,47 @@ public:
 	                              //   — cited;非空承载)
 	QHash<QString, CodecCtl20 *> reencCache;      // +0x48(0089ab22 3300B cited)
 	QHash<QString, GrepNeedle448 *> needleCache;  // +0x58(0089a0a0)
-	QHash<QString, CodecCtl20 *> encCache;        // +0x60(0089b85e cited)
+	QHash<QString, CodecCtl20 *> encCache;        // +0x60(0089b85e)
 
 	// FUN_0089a756(179B)@decomp-0027.c:52888 真身:canOld 门。
 	//   op+0xc & 5 == 0 → +0x58 针缓存查(grepNeedle);针 null→真,
 	//   否则 !针 literal 字节;门不中 → 真。
 	bool canOld(const QString &findStr);
 
-	// FUN_0089a0a0(1680B)@decomp-0027.c:52578 骨架:+0x58 缓存查/插
-	//   真身(锁+查+插;canEncode 败/门不中也插 null,0089a262 门同插);
-	//   产腿 = operator_new(0x448)+codec_convCtor(2543B)— cited —
-	//   wave-2(→ null 承载,占位同相)
+	// FUN_0089a0a0(1680B)@decomp-0027.c:52578 真身:+0x58 缓存查/插
+	//   真身(锁+查+插;canEncode 败/门不中也插 null,0089a49e
+	//   allocateNode 腿);产腿真身:operator_new(0x448)+refs{1,1}+
+	//   PTR_Grep_dtor_deleting_01192460(52657–52659)→ codec_convCtor
+	//   (2543B)@0089c450 真身(见 convCtor 自由函数)。
 	GrepNeedle448 *grepNeedle(const QString &findStr);
 
-	// codec_canEncode(0089b85e,2047B)@decomp-0027.c:53596 声明层:
-	//   +0x60 缓存查/插 + QTextCodec::canEncode + 编码器 vt+0x20
-	//   toLocal8Bit 形态 + ConverterState 栈对象 + FUN_00a8450a→
-	//   00a84376(276B pthread 互斥 utx 工厂)Uint32Bimap 0x20 ctl
-	//   包装(00a84492)— 体 cited — wave-2
+	// codec_canEncode(0089b85e,2047B)@decomp-0027.c:53596 真身:
+	//   +0x60 缓存查(53661)/miss → codec+4 门(53664)→ QTextCodec::
+	//   canEncode(53666)→ 编码器 vt+0x20(53678)+ ConverterState 栈
+	//   {1,0}(53672)+ std::string 承载(53682)→ FUN_00899740 键兜底
+	//   (53670)→ FUN_00a8450a→00a84492 Uint32Bimap 0x20 ctl 包装
+	//   (53699;00a84376 pthread utx 工厂)→ 深拷贝出锁(53704)→
+	//   insert(53778–53817)→ 释引用尾段(RC 面 = 共享包装承载替)。
+	//   编码器 vcall/utx 工厂内层(std::string 遍历换算)— cited —
+	//   wave-2。
 	CodecCtl20 *canEncodeMemo(const QString &s);
 
 	// FUN_00899316(8B)@decomp-0027.c:51741 真身:编码结果字节长
 	//   accessor(*(int*)(*(x+0x10)+4);语料无空判 — 调用方保非空)
 	static int encodedLen(const CodecCtl20 *ctl);
+
+	// codec_convCtor(0089c450,2543B)@decomp-0027.c:54319 真身:
+	//   GrepNeedle448 conv 基构造。param_2 = QTextCodec 四单字节面
+	//   (UTF-16BE/LE 0066bc12/bcd2、UTF-32BE/LE 0066bd92/be52 →
+	//   allowedBits 1/3,54393–54417);param_5 = case 位。skip 表
+	//   do-while 逐项 len+1(54385–54389)。case 档:conv+0x420 SIMD
+	//   块字节广播 + skip 逐字符覆写(54420–54448)。非 case 档:
+	//   QTextEncoder 面逐字符折叠编码(load 门 54531/54631 shared_null
+	//   臂不退,死分支保留 — 原封不动)→ 触发面 — cited — wave-2
+	//   (54450–54657);literal 门翻转 + SIMD 三块/skip 对覆写段 —
+	//   cited — wave-2(54603–54720)。
+	static void convCtor(GrepNeedle448 *conv, QTextCodec *codec,
+	                     const char *bytes, int len, bool caseFlag);
 
 	// —— 搜索腿(0x4eff 段 E 接线;批 91 要点 3/4)——
 	// FUN_0092547e(95B)@0030:20440 真身骨架:复位 searcher(doc+0x88)

@@ -3,12 +3,29 @@
 #include "MuxPaneGroup.h"
 #include "MuxPaneView.h"
 #include "SplitterGroup.h"
+#include "../Sessions/SuperSession.h"
 
 #include <QApplication>
 #include <QBoxLayout>
 #include <QSplitter>
 #include <QTabBar>
 #include <QVBoxLayout>
+
+// === PaneDescriptor ===
+// mux_restorePaneSplitter @0026:29862:param_5 = 0x28B POD(QVariant 经
+//   FUN_00856450(0026:48104)canConvert 提取,QMetaType size 0x28 注册
+//   @00856546;0x28 布局同型 FUN_008de260 0028:25546:0x28 结构体 delete,
+//   读 +0x18 refcount、+0x20 裸指针)。唯一实证消费面 = +0x18 int pane
+//   序号(@0083bb0e/0f8/ded 查询键/标题 arg/序号比对);其余字段语义
+//   未解 — wave-2。结构体类名未解(registerNormalizedType 类型名串
+//   在 FUN_00856450 局部,语料未见字面名)→ 匿名布局,不进产品头
+//   (铁律 6:无落点不写)。
+struct PaneDescriptor {                 // 0x28B;+0x18 int(唯一实证消费面)
+    quint64 _0[3];                      // +0x00-0x17:未解 — wave-2
+    int paneIndex;                      // +0x18 @0083bb0e/0f8/ded(唯一读面)
+    int _1c;                            // +0x1c padding(未读)
+    void *f20;                          // +0x20 指针(语义未解 — wave-2)
+};
 
 // === MuxWindow(QString,QWidget*) ===
 // 转写 s_MuxWindow_8e0938(0028:27695,289B):
@@ -176,39 +193,44 @@ void MuxWindow::onFocusChanged(QWidget *old, QWidget *now)
 	setUpdatesEnabled(true);                          // FUN_008dfd7c @008e1059-8f
 }
 
-// === restorePaneSplitter(void*,void*,uint,void*) ===
+// === restorePaneSplitter(SuperSession*,void*,uint,const PaneDescriptor&) ===
 // 转写 mux_restorePaneSplitter(0026:29862,903B)。语料为自由函数
 //   (会话宿主*、配置容器 param_2、QSplitter* param_3、页序 param_4、
 //   面板描述符 param_5);QSplitter 在调用点以 FUN_008e01ac(muxWindow)
 //   形态取自本类(s_session__tmux_842414 @0026:34862 同面)→ 归属本类。
-//   会话/配置形参(→ FUN_008da01e 查面板面、param_2+0x50 标题 map、
-//   描述符 +0x18 序号)未落库 → void* 占位;两处标题 "%1:%2".arg 合成
-//   与 FUN_008da01e 查询腿整体 cited。
-void MuxWindow::restorePaneSplitter(void *sessionHost, void *configHolder,
-                                    unsigned int paneIndex, void *paneDescriptor)
+void MuxWindow::restorePaneSplitter(SuperSession *sessionHost, void *configHolder,
+                                    unsigned int paneIndex, const PaneDescriptor &desc)
 {
 	QSplitter *sp = splitter();                       // = param_3(调用点 FUN_008e01ac)
 	QWidget *w = sp->widget(static_cast<int>(paneIndex)); // QSplitter::widget @0083ba93
 	MuxPaneGroup *group = dynamic_cast<MuxPaneGroup *>(w); // __dynamic_cast 011abe10 @0083baa1
-	// 再核:group 非空时 FUN_008de3b2(currentPane)与描述符 +0x18 序号比对
-	//   @0083bab4-c0(描述符未落库 → 比对面 cited,见下分支条件)
-	const bool paneMismatch = (w == nullptr) || (group == nullptr) || (group->currentPane() == nullptr);
-	//   || (*(int *)(paneDescriptor + 0x18) != *(int *)(currentPane + 0x30))
-	//   @0083bac0 — cited — wave-2(paneDescriptor 布局未落库)
+	// @0083bab4-c0:currentPane 非空 && pane->+0x30 == desc.paneIndex
+	//   (param_5+0x18;描述符字段唯一实证消费面)
+	const bool paneMismatch =
+	    (w == nullptr) || (group == nullptr) || (group->currentPane() == nullptr) ||
+	    (group->currentPane()->paneIndex() != desc.paneIndex); // @0083bac0(param_5+0x18)
 	if (!paneMismatch) {
-		/* 语料 else 分支 @0083bcf5-bdd3:标题比对
-		   operator==((pane+0x38),"%1:%2".arg(…)) → 不等则
-		   FUN_008de224(setTitle)+ FUN_008df06e — 面板标题槽/
-		   FUN_008df06e 未落库 → cited — wave-2 */
+		// 语料 else 分支 @0083bcf5-bdd3:标题比对
+		// operator==((pane+0x38),"%1:%2".arg(desc.paneIndex).arg(map 上界值))
+		//   — param_2+0x50 QMap<int,QString> upperBound 内联 @0083bd63-c;
+		//   不等则 FUN_008de224(setTitle)+ FUN_008df06e — 面板标题槽/
+		//   FUN_008df06e 未落库 → cited — wave-2
 		return;
 	}
-	// FUN_008da01e(uVar8,desc+0x18)@0083bb0e(会话宿主查面板)— cited
-	//   — wave-2(会话层未落库);返回 0 直接 return @0083bb1a。
-	// 标题 "%1:%2".arg(desc+0x18).arg(map 上界值)@0083bb5d-bdd0 — cited
+	// 会话宿主 QSharedPointer 槽展开 @0083baf5-b10(*param_1+0x1c8 三连判,
+	//   同型 FUN_0083be38:30023)→ sessionHost 直入;FUN_008da01e(uVar8,
+	//   desc.paneIndex)@0083bb0e(会话宿主查面板)— cited — wave-2
+	//   (会话层 pane 查询面未落库);返回 0 直接 return @0083bb1a。
+	// 标题 "%1:%2".arg(desc.paneIndex).arg(map 上界值)@0083bb5d-bdd0 — cited
 	//   — wave-2(配置容器标题 map 未落库;合成串仅在命中时复用)。
+	MuxPaneView *pane = nullptr;                      // = lVar4(FUN_008da01e 结果,cited)
+	if (pane == nullptr) {
+		// 语料命中 pane 为 0 即 return @0083bb1a — cited 腿(查询面未落库)
+		return;
+	}
+	// QWidget *parent = 会话宿主容器(*param_1+0x1c8 链)@0083baf5-b10 —
+	//   cited — wave-2(语料 parent = uVar8)
 	if (group == nullptr) {
-		// QWidget *parent = 会话宿主容器(*param_1+0x1c8 链)@0083baf5-b10 —
-		//   cited — wave-2(会话层未落库;语料 parent = uVar8)
 		group = new MuxPaneGroup(true, nullptr);      // s_MuxPaneGroup_8dece0(pvVar5,1,uVar8)@0083bc91-99
 		                                              //   (0x40;expandable=1 实证 0026:29939 同面)
 		const int count = sp->count();                // QSplitter::count @0083bca4
@@ -220,15 +242,14 @@ void MuxWindow::restorePaneSplitter(void *sessionHost, void *configHolder,
 	} else {
 		// 语料 @0083bc10-82:FUN_008de59c(group)==1 时
 		//   FUN_008dedae(group,FUN_008de3b2)(拆当前 tab 页,62B,
-		//   0028:25986)@0083bdea-ff — MuxPane* 文件本批禁改,
-		//   FUN_008dedae 转写落点未入库 → cited — wave-2
-		if (group->tabCount() == 1) { // FUN_008de59c @0083bdea
-			/* FUN_008dedae(group,group->currentPane()) — cited — wave-2
-			   (0028:25986;转写落 MuxPaneGroup 写域,本批禁碰) */
+		//   0028:25986)@0083bdea-ff — detachPane 已落(本批)
+		if (group->tabCount() == 1) {                 // FUN_008de59c @0083bdea
+			group->detachPane(group->currentPane());  // FUN_008dedae @0083bdf2
 		}
 	}
-	// FUN_008de224(lVar4,local_60)(面板标题写入)+ FUN_008de3e8(group,
-	//   lVar4,0)(加 tab;normal=0)— cited — wave-2(面板对象 lVar4 =
-	//   FUN_008da01e 结果,会话层未落库;MuxPaneGroup::addTab 已落)
+	// FUN_008de224(pane,local_60)(面板标题写入)— cited — wave-2
+	//   (MuxPaneView +0x38 标题 setter 未落库;标题串 cited 同上)
+	// FUN_008de3e8(group,pane,0)(加 tab;normal=0 → "Pinned")@0083bdff
+	group->addTab(pane, /*normal=*/false);            // 批 77 已落;语料 0 = "Pinned"
 }
 
