@@ -45,6 +45,97 @@ static const void *s_grep_reg_at_6994e0(const QVector<void *> &list,
 	return list.at(si);                  // *(+0x10+(begin+si)*8)
 }
 
+// —— 批 99 R2:word 跳步基元族(0x4f00 段 8/跳选腿真身化;语料
+//   FUN_00925304 thunk@0030:20331 → 009988e2(176B@0032:28889)±1
+//   走读,逐字基元即本族)——
+// FUN_009284aa(13B)@0030:24371 — byteAt(doc,pos)(vt 委托:13B 全读
+//   (**(doc+0xf8) vt+0x28)(pos))— docBytes 承接(越界读 = 0 同相)
+static int s_byteAt_009284aa(const EditorContext &ctx, qint64 pos)
+{
+	return (pos < 0 || pos >= ctx.docBytes.size())
+	    ? 0 : quint8(ctx.docBytes.at(int(pos)));
+}
+
+// FUN_0092801a(12B)@0030:23968 — doc 长度面(*(doc+0xf8)+0x28)
+//   — docBytes 承接(本文件 2869 行既定适配)
+static qint64 s_docLen_0092801a(const EditorContext &ctx)
+{
+	return ctx.docBytes.size();
+}
+
+// FUN_00a840fc(108B)@0035:993 — 游标单步推进:*(cnv+0x18)==1(单字节
+//   codec)直返(语料 985/998 早退);else 00B434A0(vt+0x90,18B)+
+//   00A840E6(21B)跨界重对齐 — cited — wave-2(多字节 codec 族)。
+//   docBytes 单字节承载 → 直返同相
+static qint64 s_cursorAdvance_00a840fc(const EditorContext &ctx, qint64 pos,
+                                       bool fwd)
+{
+	Q_UNUSED(ctx); Q_UNUSED(fwd);
+	return pos;                          // 语料 985/1000
+}
+
+// FUN_00a84168(79B)@0035:1015 — 游标单步回退(语料 6-17 全读:
+//   ==1 → pos-1 clamp0;else advance(pos)<1 → 0,else advance(pos-1))
+static qint64 s_cursorBack_00a84168(const EditorContext &ctx, qint64 pos)
+{
+	const qint64 p = s_cursorAdvance_00a840fc(ctx, pos, false);  // 14
+	if (p < 1)                                                   // 15-16
+		return 0;
+	return s_cursorAdvance_00a840fc(ctx, p - 1, false);          // 17
+}
+
+// FUN_009975de(59B)@0032:27874 — \r\n 尾判定(语料 5-9 全读)
+static bool s_isCrlfAt_009975de(const EditorContext &ctx, qint64 pos)
+{
+	if (s_byteAt_009284aa(ctx, pos) != '\r')          // 5-7
+		return false;
+	return s_byteAt_009284aa(ctx, pos + 1) == '\n';   // 8-9
+}
+
+// FUN_00998678(298B)@0032:28760 — 词类宽度:首字节门(28762)
+//   ASCII → 0(28848 早退);≥0x80 → cnv[0] 多字节宽度表查
+//   (28764-28846:QArrayData 分配/00997560 锁/0099948a 查,
+//   *hit+0x10 宽度)— 表面 cited — wave-2 → 0(单字节承载同相)
+static int s_wordClass_00998678(const EditorContext &ctx, qint64 pos)
+{
+	const int b = s_byteAt_009284aa(ctx, pos);        // 28762
+	if (char(b) < '\0')                               // 28764 多字节臂
+		return 0;                                     //   表查 cited → 0
+	return 0;                                         // 28848 ASCII 早退
+}
+
+// FUN_0099881e(196B)@0032:28849 — 词跳步基元(语料全读;param_4 由
+//   调面 FUN_009252f4/00925304 恒 1 → true)
+static qint64 s_wordStep_0099881e(const EditorContext &ctx, qint64 pos,
+                                  int dir)
+{
+	qint64 p = s_cursorAdvance_00a840fc(ctx, pos, dir > 0);  // 28858
+	int w = s_wordClass_00998678(ctx, p);                    // 28859
+	while (w != 0) {                                         // 28860
+		while (dir > 0) {                                    // 28861 前向连跳
+			p += w;                                          // 28862
+			w = s_wordClass_00998678(ctx, p);                // 28863
+			if (w == 0)                                      // 28864
+				goto done;                                   //   → 28895
+		}
+		p = s_cursorBack_00a84168(ctx, p);                   // 28868
+		w = s_wordClass_00998678(ctx, p);                    // 28869
+	}
+done:
+	qint64 r = p;                                            // 28896
+	if (s_isCrlfAt_009975de(ctx, p - 1)) {                   // 28897-28898
+		r = p - 1;                                           // 28899
+		if (dir > 0)                                         //   0<param_3
+			r = p + 1;
+	}
+	const qint64 len = s_docLen_0092801a(ctx);               // 28903
+	if (r >= len)                                            // 28904-28905
+		r = len;
+	if (r < 0)                                               // 28907-28908
+		r = 0;
+	return r;                                                // 28910
+}
+
 // FUN_00a66ae8(1031B)@decomp-0034.c:43589 — 批 81 骨架 → 批 84 升级 B
 //   (r7 §3:特殊路径 4 条已解,009c8bf2 唯一余 cited;fillRect 色槽
 //   按推断转写,asm spot check 未做 — 登记待测)。批 83:自 0x753e
@@ -3132,21 +3223,41 @@ hit:
 							return cand;            //   返命中位
 						goto step;                  // 9793 e0==-1 → 1c6
 					}
-					// 段 8 边界校验腿(9801-9846;候选 viable 才达 —
-					//   占位链下恒不达):FUN_00a1ff9c+FUN_0096bbc0 取
-					//   内容首(9803/9811)/FUN_00a20050+FUN_0096bbc0
-					//   取尾(9815/9822);候选在内容界内 → LAB_00a2e2ed/
-					//   137 回命中腿(9826);界外(LAB_00a2e406 9838)→
-					//   FUN_00925304(doc,cand,±1)跳选单步(9843;12B@
-					//   0030:20331 thunk → 009988e2 176B@0032:28889
-					//   全读:±1 逐字走读,逐字基元 FUN_0099881e 未解 —
-					//   cited — wave-2)+ cc=2→1(9850)内环重入(带
-					//   推进后 local_90 重包夹 — 内环体未转写;cc=1 时
-					//   9851 → LAB_00a2e326 重扫 / 前向臂 9852 → 07d
-					//   针搜重扫)— cited — wave-2(00a1ff9c/
-					//   00a20050/0096bbc0 SCI 承接面已核)
-					cc = 1;                         // 9850 local_cc=1(残腿同相)
-					Q_UNUSED(cc);
+					// 段 8 边界校验腿(9801-9846;候选 viable 才达):
+					//   FUN_00a1ff9c+FUN_0096bbc0 取内容首(9803/9811)/
+					//   FUN_00a20050+FUN_0096bbc0 取尾(9815/9822)→
+					//   现选区界 = SCI 选区承接(50a/50b 三真身:posCmp
+					//   41B×2@0031:41015/41032 + 0096bbc0 *(+8) 5B)。
+					//   后向(9803-9819,selMode==0):首> cand 或 尾>
+					//   candEnd → LAB_00a2e137/2ed 命中腿(9826);前向
+					//   (9829-9837):首<cand 或 尾<candEnd → 2ed 同;
+					//   界外(LAB_00a2e406 9838)→ FUN_00925304(doc,
+					//   candEnd,±1)跳选单步(9843;00925304 12B thunk →
+					//   009988e2 176B@0032:28889 全读:FUN_0099881e
+					//   词跳步基元 196B 全读 = 本文件 static
+					//   s_wordStep_0099881e 真身)+ cc=2→1(9850)内环
+					//   重入(带推进后 local_c8 重包夹 — 推进结果不回写
+					//   语料 9843 调用即弃 → 内环重入腿 = 语料恒 cc=1
+					//   后 9851 → LAB_00a2e326/9852 针搜重扫,同 our
+					//   step 腿;0x3c 步进计数同 hit 腿 9779 同相)
+					{
+						// a1ff9c→0096c0c0=posCmp 取小=选区首(SCI selstart);
+						//   a20050→0096c0ea=取大=选区尾(SCI selend)
+						const qint64 selB = send(SCI_GETSELECTIONSTART);
+						const qint64 selE = send(SCI_GETSELECTIONEND);
+						bool inSel;                         // 包夹判定(→e137/2ed 命中)
+						if (!selMode)                       // 9811-9818 后向
+							inSel = selB > cand || selE > candEnd;
+						else                                // 9831-9837 前向
+							inSel = selB < cand || selE < candEnd;
+						if (!inSel) {                       // 9838 e406 界外
+							// 9843:FUN_00925304(doc,candEnd,±1)跳选单步
+							//   (真身 s_wordStep_0099881e;返回值语料即弃)
+							s_wordStep_0099881e(m_ctx, candEnd, selMode ? 1 : -1);
+						}
+					}
+					cc = 1;                         // 9850 local_cc=1(重入门)
+					Q_UNUSED(cc);                   //   内环未建模 → 仅登记
 				}
 step:;
 				// 段 11 步进(9859-9887)

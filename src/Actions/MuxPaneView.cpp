@@ -86,3 +86,17 @@ void MuxPaneView::initThemeDir()
 	    QCoreApplication::applicationDirPath() +
 	    QStringLiteral("/global/themes/")); // FUN_00753fc6 @0023:19097
 }
+
+// === setTitle(QString) ===
+// 转写 FUN_008de224(0028:25516,57B):operator==(this+0x38,param_2)
+//   相等即返 @008de22d;否则 QString::operator= 赋值 @008de23b →
+//   FUN_0091ddb8(this,&m_title)(QMetaObject::activate,MuxPane
+//   staticMetaObject 011abde0,idx0,&arg)@008de243-4f = nameChanged
+//   (idx0 名按 qmo_extract QMetaObject 权威)。
+void MuxPaneView::setTitle(const QString &title)
+{
+	if (m_title == title)                        // operator== @008de224-2d
+		return;
+	m_title = title;                             // QString::operator= @008de23b
+	emit nameChanged(m_title);                   // FUN_0091ddb8 @008de243-4f
+}

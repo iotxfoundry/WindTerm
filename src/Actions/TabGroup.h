@@ -36,6 +36,10 @@ public:
                           const QIcon &icon);                            // FUN_005a7800
     void assignTabProperty(int index, const QString &value);             // FUN_005a8818(cited)
     void setCloseButtonsVisible(bool on);                                // FUN_005a84f6
+    // setTabText(int,QString)— FUN_005ab09e(0018:24913,218B)落点:
+    //   FUN_005a6fbe 取 +0x58 tabBar index 旧文 → 比对相等即返 →
+    //   FUN_005a7c74(+0x58,index,title)写新文(写函数 cited — wave-2)。
+    void setTabText(int index, const QString &title);                    // FUN_005ab09e
 
 signals:
     void tabLayoutChanged();                                             // activate idx0(01197f40)
@@ -94,6 +98,9 @@ public:
     QWidget *currentWidget() const { return m_f60->currentWidget(); }    // FUN_005ab316(0018:25098)
     QWidget *stackWidgetAt(int i) const { return m_f60->widget(i); }     // FUN_005abbd0(0018:25762)
     int stackIndexOf(QWidget *w) const { return m_f60->indexOf(w); }     // FUN_005ab6c2(0018:25321)
+    // setTabTitle(int,QString)— FUN_005ab09e(0018:24913)归辖面:
+    //   this+0x58 TabBar setTabText(真身见 TabBar::setTabText)。
+    void setTabTitle(int index, const QString &title) { m_f58->setTabText(index, title); } // FUN_005ab09e
 
     int insertPage(int index, QWidget *page, const QString &title,
                    const QIcon &icon, const QString &tooltip);           // FUN_005abe1c

@@ -58,7 +58,8 @@ struct PaneDescriptor;   // 定义在 MuxWindow.cpp(布局不进产品头,见 re
 class MuxWindow : public QWidget {  // 批 91 K3 勘误闭环:成员槽位语义定案(008e0bb2 全读测绘)
   //  +0x48 = select-pane index 缓存(pane->+0x30)
   //  +0x78/+0x80 = QPointer<MuxPane> 双槽(命中 pane 消费点落定)
-  //  +0x44 = 仅 ctor -1,无消费点(未解)
+  //  +0x44 = 窗口序号键(消费点 FUN_008da226 @0028:22312 按序查窗口;
+  //          勘正于 findPane 批,原注「仅 ctor -1 无消费点」随之作废)
 
     Q_OBJECT
 
@@ -70,6 +71,12 @@ public:
     // FUN_0083f830(0026:32772,105B)归辖落点:"select-pane -t %1"
     //   .arg(paneIndex)→ FUN_0083eaa6(pane)(tmux 发送门;链见 .cpp, cited)
     void sendSelectPane(MuxPaneView *pane, int paneIndex);
+
+    // FUN_008da01e(0028:22186,84B)归辖落点:会话宿主 desktop 面板容器
+    //   按面板 +0x30 序号查 MuxPane(消费面 = mux_restorePaneSplitter
+    //   @0026:29862 / FUN_0083b240 @0026:29501 / 0026:42850);desktop
+    //   类未复刻 → void* 容器宿主直读(体见 .cpp)
+    static MuxPaneView *findPane(void *desktop, int paneIndex);
 
     // mux_restorePaneSplitter(903B,0026:29862)。语料为自由函数:
     // (会话宿主*、配置容器、QSplitter*、页序、面板描述符*);QSplitter
@@ -98,7 +105,8 @@ private:
     QList<quint64> m_f30;   // 语料 +0x30(QListData::shared_null;节点型未解 cited)
     quint64 m_f38;          // 语料 +0x38 ← 0(消费点未读 cited — wave-2)
     QString m_f40;          // 语料 +0x40/0x41 ← param_2(标题;拷贝构造展开)
-    int m_f44;              // 语料 +0x44 ← -1(语义未解 cited — wave-2)
+    int m_f44;              // 语料 +0x44 ← -1(消费点 = FUN_008da226 窗口序号键
+                                  //   @0028:22312;勘正于 findPane 批 — 非未解)
     int m_f48;              // 语料 +0x48(消费点 008e0fb5:pane index 缓存 vs pane->+0x30)
     QString m_f58;          // 语料 +0x58(session 串槽;写入面 cited)
     QString m_f60;          // 语料 +0x60 ← QMetaObject::tr(0xc8c60e;字面 cited)

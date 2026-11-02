@@ -1852,6 +1852,34 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (0x7543 单写域收口)
 - 验证:make 零错;ctest 15/15;engtest3 直跑 OK
 
+### 批 100(2026-11-02)三 lane:restorePaneSplitter 收尾/ApplicationTheme timer+MainWindowFace/段 8 跳选 ✅ ctest 15/15
+- **批 A:restorePaneSplitter 收尾**(写域扩张登记:MuxPaneView/
+  MuxPaneGroup/TabGroup 为标题 setter 消费链,内容合规):findPane
+  (FUN_008da01e 84B 真身,desktop+0x38 QList 迭代惯式)/MuxPaneView
+  ::setTitle(FUN_008de224 57B 真身,+signal nameChanged(qmo 权威
+  勘正原草拟 titleChanged))/标题同步链 FUN_008df06e→TabBar::
+  setTabText(FUN_005ab09e 218B 真身)/两勘正:paneMismatch 门精确形
+  (cur==nullptr‖paneIndex 不等,原四连判多写两条件)/MuxPaneGroup
+  parent = QSharedPointer 解出对象;initThemeDir 移出 signals 段
+  (moc 误注册修复);残余 cited 5(tr 字面/setContentsMargins 折叠/
+  sendSelectPane +0x160/PaneDescriptor 字段)
+- **批 B:ApplicationTheme timer + MainWindowFace**:clearClosedSidebars
+  (FUN_00754f46 331B 真身:screens 倒序遍历→contains→disconnect→
+  delete→removeAt;节点析构链+全局仓发布 cited)/throttleRelease
+  (00753550 437B cited:+0x40 容器递归墙,容器类型未解不补位)/
+  **MainWindowFace.{h,cpp} 新**:FUN_007662e6(109B)全体真身
+  (KitBar→+0x50/QStackedWidget→+0x58/addToolBar/setCentralWidget/
+  bar hide;汇编 0076633f 勘补 Ghidra 丢参);两 timer connect 接线
+- **批 C:0x4f00 段 8/跳选真身**:六 static helper(s_wordStep
+  0099881e 196B 全转写/s_wordClass 00998678 298B 半转写 QArrayData
+  宽度表 cited→0/s_cursorAdvance 108B 多字节臂 cited/s_cursorBack
+  79B/s_isCrlfAt 59B/s_byteAt·s_docLen 真身)+ 段 8 接线(选区界
+  00a1ff9c/00a20050 SCI 承接/包夹判定 9811-9837/界外 wordStep 调用
+  返回值语料即弃;9851 内环重入腿未建模登记)—— ⚠ 任务书"298B=
+  0099881e"勘正:298B 实为 00998678,两函数均全读
+- 验证:cmake 重跑(MainWindowFace 收编/moc 变更)+ make 零错;
+  ctest 15/15;engtest3 直跑 OK
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

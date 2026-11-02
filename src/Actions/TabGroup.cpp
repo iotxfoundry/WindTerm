@@ -78,6 +78,17 @@ void TabBar::assignTabProperty(int index, const QString &value) // FUN_005a8818
 	(void)value;
 }
 
+// === setTabText(int,QString) ===
+// 转写 FUN_005ab09e(0018:24913,218B):FUN_005a6fbe(+0x58,index,1)
+//   (QTabBar::tabText 读面)→ operator== 与 param_3 相等即返 →
+//   FUN_005a7c74(+0x58,index,title)写(体未读 → cited,调用形照语料)。
+void TabBar::setTabText(int index, const QString &title) // FUN_005ab09e
+{
+	if (QTabBar::tabText(index) == title)        // FUN_005a6fbe @005ab0a1-d
+		return;                                  // @005ab130
+	// FUN_005a7c74(tabBar,index,title)@005ab136-42 — cited — wave-2(体未读)
+}
+
 // === onCurrentChanged(int) ===
 // 语料 FUN_005a8376(0018:22922,383B)依赖 QTabBarPrivate
 //   (normalizedScrollRect/makeVisible/layoutWidgets)→ Qt 私有类

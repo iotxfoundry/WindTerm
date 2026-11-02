@@ -29,6 +29,12 @@ public:
     int tabCount() const;                                // FUN_008de59c
     MuxPaneView *currentPane() const;                    // FUN_008de3b2(0028:25616)
 
+    // 两个归辖转发面(FUN_008df06e 面板标题同步 @0028:26161 消费):
+    //   FUN_005ab6c2 / FUN_005ab09e 均为 +0x38 TabGroup 槽操作
+    //   (体在 .cpp — TabGroup 仅前置于本头)。
+    int stackIndexOf(QWidget *w) const;                                            // FUN_005ab6c2(+0x38)
+    void setTabTitle(int index, const QString &title);                             // FUN_005ab09e(+0x38)
+
 private:
     void attachChildWidgets();                           // s_tabbar_doubleClickAction_8de936
     void connectGroupSignals();                          // FUN_008de5a6

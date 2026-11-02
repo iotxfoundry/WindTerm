@@ -143,6 +143,21 @@ int MuxPaneGroup::tabCount() const
 	return m_f38->count(); // FUN_005abbda @008de59f
 }
 
+// === stackIndexOf(QWidget*) / setTabTitle(int,QString) ===
+// 归辖转发面(FUN_008df06e 面板标题同步 @0028:26161 消费):
+//   FUN_005ab6c2(tabGroup,w)= stack indexOf(0018:25321,9B);
+//   FUN_005ab09e(tabGroup,idx,title)= TabBar::setTabText 面
+//   (0018:24913,218B;真身在 TabBar::setTabText)。
+int MuxPaneGroup::stackIndexOf(QWidget *w) const
+{
+	return m_f38->stackIndexOf(w); // FUN_005ab6c2(+0x38)@0018:25321
+}
+
+void MuxPaneGroup::setTabTitle(int index, const QString &title)
+{
+	m_f38->setTabTitle(index, title); // FUN_005ab09e(+0x38)@0018:24913
+}
+
 // === currentPane() ===
 // 转写 FUN_008de3b2(0028:25616,53B):FUN_005ab316(+0x38)
 //   = stack currentWidget → dynamic_cast<MuxPane>(typeinfo 011abb90 =

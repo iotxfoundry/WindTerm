@@ -43,6 +43,13 @@ public:
     //   @008e0fb5,pane index 比对/缓存;本体无独立函数,直译成员读)。
     int paneIndex() const { return m_f30; }
 
+    // setTitle(QString)— FUN_008de224(0028:25516,57B)落点:
+    //   比对 +0x38 旧值相等即返;否则赋值 + 发 nameChanged(信号 0,
+    //   PTR_staticMetaObject_011abde0,FUN_0091ddb8 @0028:13669,39B;
+    //   activate 形参 2 = &m_title;名按 qmo_extract 权威)。本类信号
+    //   nameChanged(idx0)见下。
+    void setTitle(const QString &title);
+
     // cited 预留接线(库内零调用点,不发明触发时机):
     //   语料 FUN_00766192(0023:33030,65B)创建 JsEngine(0064ab10)
     //   存宿主 +0x48 后即调 s_MuxPane_64b102(pvVar1)(0023:33040-44);
@@ -59,6 +66,16 @@ public:
     void attachJsEngine(JsEngine *engine, QObject *kingMeta,
                         QObject *appBridge, QObject *windowBridge);
 
+    // MuxPane 类信号面(qmo_extract QMetaObject 权威,qmo.json):
+    //   idx0 = nameChanged(QString)(唯一信号;发射点 = setTitle
+    //   FUN_008de224 @008de24f 的 FUN_0091ddb8)。信号名按权威表
+    //   落 nameChanged(非 title——面板名变更语义,TabBar 换题
+    //   消费见 FUN_008df06e 链)。
+    //   (落点勘定:MuxPaneView = 语料 MuxPane widget 真身 — 类头注。)
+signals:
+    void nameChanged(const QString &name); // idx0(FUN_0091ddb8;QMetaObject 权威)
+
+public:
     // 主题目录装配期一次调用:FUN_00753fc6(0023:19097,387B)=
     //   applicationDirPath() + "/global/themes/"(ApplicationTheme
     //   +0x18 themes 列表)。语料构造链 _INIT_90(0051fba0,0016:13889)
@@ -70,6 +87,8 @@ public:
 private:
     int m_f30;                    // 语料 +0x30:FUN_008de0b0 返回值落点(DAT_011be6c8 计数;值语义未解,cited — wave-2)
     MuxPaneType m_type;           // 语料 +0x34:param_2(MuxPane::Type)
-    QString m_title;              // 语料 +0x38:shared_null 起步;setter 面 = FUN_008de224(cited — wave-2,不在本批写域)
+    QString m_title;              // 语料 +0x38:shared_null 起步;面板名槽(setter = setTitle/FUN_008de224;.cpp)
     QWidget *m_central = nullptr; // 语料 +0x40:central 槽(ctor 置 0)
+    // 语料 +0x208 QString 槽(仅 FUN_0083b240 标题串写入面 @0026:29501
+    //   读到;消费面未解)— 不落成员(cited — wave-2)
 };

@@ -9,14 +9,14 @@
 class QTimer;
 class QWidget;
 
-// ApplicationTheme —— DAT_011c1ce0 单例 cited 档(p3_notes_kg §4;铁律 6)。
+// ApplicationTheme —— DAT_011c1ce0 单例(vtable=ApplicationTheme;铁律 6)。
 // 初值链:_INIT_90(decomp-part-0016.c:13896)→ DAT_011c1ce0 =
 // FUN_007538f6()(121B,0023:18668,__cxa_guard 懒建)→
 // FUN_00753706(&DAT_011c1d20)(470B,0023:18597)= new ApplicationTheme:
 //   vtable=ApplicationTheme → +0x10/+0x18/+0x20 QList shared_null ×3 →
 //   +0x28 new QTimer(单发腿)/+0x50 new QTimer(节流腿),两 timer
-//   timeout 各 connect functor(FUN_00754f46 / FUN_00753550 — 槽体
-//   未读,cited — wave-2);__cxa_atexit(FUN_00753ac8,&DAT_011c1d20)
+//   timeout connectImpl(FUN_00754f46 / FUN_00753550 — 槽体已读,
+//   0023:19682/18501);__cxa_atexit(FUN_00753ac8,&DAT_011c1d20)
 //   (ApplicationTheme_dtor 312B 撤 timer/清表 — Qt5 父子所有权承接)。
 // 存储槽 DAT_011c1d20 / 守卫 DAT_011c1d08 / 取消门 DAT_011c1d78 < -1
 // → return 0(静态局部形态无取消门 — 平台语义,注明不照抄)。
@@ -33,11 +33,18 @@ public:
 	static ApplicationTheme *instance();
 
 private:
+	// 两 QTimer timeout 槽(FUN_00754f46 / FUN_00753550,0023:19682/18501;
+	// connectImpl 接线 @007537d7/00753823)。ApplicationTheme 无
+	// staticMetaObject 语料实证(ctor connectImpl 直挂槽函数指针),
+	// 槽成员不加 Q_OBJECT 面。
+	void clearClosedSidebars();   // FUN_00754f46(331B,0023:19682)单发腿
+	void throttleRelease();       // FUN_00753550(437B,0023:18501)节流腿
+
 	QList<void *> m_f10;         // +0x10 QList shared_null @00753706 域(消费面未解,cited)
 	QList<void *> m_f18;         // +0x18 QList shared_null(cited)
-	QList<void *> m_f20;         // +0x20 QList shared_null(cited)
-	QTimer *m_f28;               // +0x28 new QTimer(单发腿;connect functor 00754f46 — cited)
-	QTimer *m_f50;               // +0x50 new QTimer(节流腿;connect functor 00753550 — cited)
+	QList<void *> m_f20;         // +0x20 QList shared_null(FUN_00754f46 S1 倒序消费)
+	QTimer *m_f28;               // +0x28 new QTimer(单发腿;timeout → clearClosedSidebars)
+	QTimer *m_f50;               // +0x50 new QTimer(节流腿;timeout → throttleRelease,cited)
 };
 
 // s_king_refreshWidgetStyle(00752640,67B,decomp-part-0023.c:17850)真身:
