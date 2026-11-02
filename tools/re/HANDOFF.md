@@ -3,39 +3,44 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-11-01 第十次交接,批 88)
+## 一句话状态(2026-11-02 第十一次交接,批 99)
 
-**Phase 3 全量清点闭环:语料全集 190/我方 176+批 77-88 补齐;差集
-清零(薄7中1大1 落/区间10 无体登记/0x75dc 注销定案+二进制补证)**。
-**批 79-88 十连批**:markers 全链(D 布局 0x70/读侧 16/构建者六方法/
-迁移腿 6/6 migrateLayer/regionScan 1407B/0x7543 驱动装配+QUIRKS 26·27
-定案)/渲染核(S1-S6 全/a66ae8 升级 B/hotSpot/parsePairDef/68b18/
-selection 三函数/PairColor zstd 委托/M3 26 槽)/keymap(装载翼/匹配翼
-feedKey ~全/matchTrie §4-§10·§13-15/ctrl=boost xpressive 定案/§12
-宿主=Qt 导入 QMainWindow 破案+attachHost)/Telnet 全链(装配五元组/
-头勘正/ProxyCommandSocket/spawn S1-S5/onReadyRead=纯转发破案)/
-JsEngine 重做/MuxPaneView/装配链三层+MuxWindow+KitBar/测试 12 项
-(markerstest 54 断言/runstyles 41/rendermath 14/renderpix 11)。
+**批 79-99 二十一连批闭环**:markers 全链闭环(D 0x70 布局/读侧 16/
+构建者六方法+markersCtxInit/迁移腿 6/6 migrateLayer/regionScan 1407B
+/0x7543 驱动装配+wireSlot10/QUIRKS 26·27 定案+entryValueAt 修正);
+渲染核全链(S1-S6 全/a66ae8 骨架+0x7547 接线/hotSpot/parsePairDef/
+68b18/selection 三函数+Span56 成员化/PairColor zstd 委托+ZstdFace/
+M3 26 槽/codec memo CodecMemo 五真身);keymap 双翼+matchTrie
+§4-§15(§4-10 真身/§11 谓词 boost/§12 宿主=Qt 导入 QMainWindow
+破案/§13-15 真身);Telnet 全链(装配五元组/头勘正/ProxyCommandSocket/
+spawn S1-S5/onReadyRead=纯转发破案);UI 界面五级装配链运行验证
+(15/15);replaceText 0x4f00·0x4eff 真身;phase5_px 像素差分骨架
+(单点探针全链实证);King 面+ApplicationTheme;测试 15 项
+(markerstest 70 断言/runstyles 41/rendermath 14/renderpix 11/
+keymap 19/proxysock 5/uiassemble 17/kitbar 11/mwctest 4/
+renderpixtest 11)。
 
-**EXT-BOUNDARY 定案**:0x11a6c00 = Qt 导入 QMainWindow::staticMetaObject
-(批 50/71 注记再勘);keymap 谓词 = boost xpressive matchable_ex;
-PairColor zstd 委托;libssh 117/QJSEngine 45。
+**EXT-BOUNDARY 定案累积**:0x11a6c00 = Qt 导入 QMainWindow::staticMetaObject
+(三勘)/keymap 谓词+挂链 = boost xpressive matchable_ex/PairColor
+zstd 委托/libssh 117/QJSEngine 45/regex Onigmo 前置。
 
-## 下一批队列(批 89 入口)
+## 下一批队列(批 100 入口)
 
-1. **replaceText 族真身**(0x4f00/0x4eff:0034:13032 体 + FUN_00a2de1c
-   1663B;notifyTextChanged 挂点 0034:12998 随批)—— selection 事件
-   链闭环前置
-2. **markers 关键词装载批**(builder 面 6 cited:00a83494/480/36f8/
-   3e0a/39cc/3bd0 + 009f887e 行面×3)—— regionScan 真值前置
-3. **matchTrie 谓词/挂链**(boost 腿 EXT-BOUNDARY 永久 cited;§11
-   挂链 splice 同域)
-4. **行为门集中批**(upgrade 相位/0x7547 空样式表默认色回填/
-   markWrite 悬漏 delete 同相项)
-5. **MuxWindow 槽体**(FUN_008e0bb2 1323B)/KitBar 9.7KB(大,后置)
-6. **0x75dc 来源面**(已注销定案;若未来发现间接调用面再回查)
+1. **markers slot10 语义重对**(批 99 R2 勘正:slot10 = 0x48
+   doc-scan 对象非 ScannerX;wireSlot10 已接 0x7543;行面 ×3 经
+   door→face10→bank 可达性待 builder 实例接线)
+2. **c1c2 内层深腿**(子 run 重门三怪癖已落;runstylesUpgrade len 参
+   残寄/da64 resetState·delete 腿 cited)—— 行为门
+3. **0x4f00 段 8/跳选**(FUN_0099881e 298B 未解)+ 0x4eff 搜索腿
+   激活(needlePair 升真身:codec 大体 canEncode/convCtor 已落
+   CodecMemo 真身面)
+4. **行为门集中批**(upgrade 相位/0x7547 markerBand 桩回填条件/
+   markWrite 悬漏 delete 已补)
+5. **MuxWindow 槽体 008e0bb2 真身批 92 已落**;KitBar S5/S6 回填
+   (actionFactory/King__buildKeySequence,等 MainWindow 布局建模)
+6. **0x75dc 来源面**(已注销二进制定案;间接调用面再查挂账)
 
-## 一句话状态(2026-10-30 第九次交接)## 一句话状态(2026-10-29 第四次交接)
+## 一句话状态(2026-11-01 第十次交接)## 一句话状态(2026-10-30 第九次交接)## 一句话状态(2026-10-29 第四次交接)
 
 **Phase 0/1/2 ✅;Phase 4b 渲染层+键盘闭环 ✅;Phase 5 差分管线:
 自包含基线 + 60 序列(含 decaln/wrap_edge 回归)** 56/60 MATCH;
