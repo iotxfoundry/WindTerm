@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "rea": {
+        "type": "local",
+        "command": ["/home/pana/.bun/bin/rea", "mcp"],
+        "environment": {
+          "GHIDRA_INSTALL_DIR": "/home/pana/tools/ghidra_12.1.4_PUBLIC",
+          "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64",
+          "REA_KUNA_COMMAND": "/home/pana/.local/share/rea/bin/kuna",
+          "REA_JADX_MCP_JAR": "/home/pana/.local/share/rea/android/jadx-headless-mcp-0.7.1-all.jar"
+        }
+      },
+      "ida": {
+        "type": "remote",
+        "url": "http://localhost:13337/mcp"
+      }
+    }
+  }
+}

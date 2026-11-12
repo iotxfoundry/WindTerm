@@ -124,7 +124,7 @@ tbc_all(HT flush 链)/crlf(v3)/wrap_edge(行池)。
   已随 exec-sleep 哑化消解,待复核)
 - m_writeTemplate 生命周期(payload 域 0x10101 junk 写入者)
 - convertRowToHistory(007a9582)RunStyles 文档桥
-- REA 的 MCP 通道需宿主重载(当前用 python frida 直驱)
+- ~~REA 的 MCP 通道~~已解决(2026-11-13):项目级 opencode.json 配置 rea(stdio,207 工具,含 Ghidra/Kuna/JADX env)+ ida(remote localhost:13337/mcp,ida-pro-mcp 1.4.0;IDA 开着才连得上);python frida 直驱仍可作备用
 
 ## 环境速查
 
