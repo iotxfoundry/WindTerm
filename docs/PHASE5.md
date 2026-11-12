@@ -1912,6 +1912,40 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:cmake 重跑(MatchEngine/wordsteptest 收编)+ make 零错;
   **ctest 16/16**;engtest3/wordsteptest 直跑 OK
 
+### 批 102(2026-11-13)四 lane:00b422d0 边界定案/scannerResetState 真身/len 参破案/0x75dc 闭环 ✅ ctest 16/16
+
+- **L1 bufferScan00b422d0 边界定案**(推翻转写路线):函数直调
+  regex_nfa_compile(00b3cc80 20839B)/regexp_match_dispatch(00b3b730)
+  命名符号,邻域 onig_*/regex_*/xpr_* 命名密集,消费对象 = 编译后
+  regex 对象 → 本体 = Onigmo-改 搜索驱动(≈onig_search)。EXT-BOUNDARY
+  第一方组件定案 → **停止逆向**,行为由 src/Onigmo 移植校准委托
+  (libonig.a 已链);MatchEngine.h/.cpp cited 语义勘正(cited —
+  wave-2 → 边界委托),激活批需 CALIBRATION。与批 101 执行腿
+  00ad74a0 同判。
+- **L2a scanner_resetState 升真身**:FUN_009cc2d4(140B @0032.c:67038)
+  全读转写 MarkersStore.h `scannerResetState`(六 holder 槽 +0x10..+0x38
+  非空 → vtable+8 释放虚调 → 槽清零;槽本体归 operator_delete(0x40)
+  拆除)— 0095da64 prune 腿闭环,EditorEngine c1c2 ③ 接线;vtbl
+  cited 恒 null,虚调腿随 vtbl 波次激活(空守卫为建模壳非语料行为)。
+- **L2b upgrade len 参残寄 asm 破案**(kuna disassemble 0x95c1c2):
+  RCX = R14 = re−rs(0x95c3e5 vt40→R14 / 0x95c42d SUB R14,R12 /
+  0x95c59d MOV RCX,R14;0x890880 get_chars_locked 同源同参)→ 壳期
+  取整 run **恰同相,勘正闭环零改动**(EditorEngine.cpp 注记升格)。
+- **L3 markerBand 桩回填前置登记**:FUN_00927a78(365B,<500B 可升)
+  本体全读 = M=*(ctx+0xf0) 跟踪器上线性/游程双模首带查询(带
+  [start,end+1),saved=f&1/unsaved=(f>>1)&1);前置 = 七函数族
+  (0099a3c0/b36c/a47a/a4b2/b4c8/a4ea/a448)+ 0xf0 字段建模 — 全部
+  未落地,桩维持;renderpixtest b 组五点纯色已钉桩态(回填须同步
+  更新)。批 96 upgrade 相位/markWrite 悬漏已消解,本条为队尾。
+- **L4 0x75dc 间接调用面闭环**:批 81/82 定案(直接调用零/数据段)
+  后补全二进制 4 字节 LE 扫描:0x75dc = **0 命中**,对照 0x75db =
+  3 命中(0x1bf39c/0x531ff1/0x64499d)— 间接面注销定案闭环,HANDOFF
+  队列第 6 项消账。
+- 验证:cmake --build 零错;**ctest 16/16**;dlopen OK。
+  附:批 100 误入库 np/re(37MB×2 PostScript)git rm + .gitignore
+  (用户裁决);批 102 全程 kuna CLI 直接查汇编(RE 语料优先级链
+  首位实证:残寄类悬案 kuna 一步破)。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

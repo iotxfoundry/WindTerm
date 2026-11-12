@@ -159,10 +159,13 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 	    : engEntry00936cf1(lineDoc, needle, from, winEnd);      // 26288
 }
 
-// FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — cited — wave-2。
-//   (>500B 体量,regex NFA 编译/匹配双路 + flags 0x800 门 + 0x70/0x74/
-//   0x1c0 步进门 + 回收 free 腿 — 结构全读,语义未解不转写;恒未命中
-//   → -1 承载,searchNeedle 占位同相)
+// FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — cited — 边界委托(批 102
+//   勘定):函数体直调 regex_nfa_compile(00b3cc80 20839B)/regexp_match_dispatch
+//   (00b3b730)/regex_match_execute 等命名引擎符号,邻域全为 onig_*/regex_*
+//   命名区,消费对象 = 编译后 regex 对象(选项位/方法表/最小长域)—
+//   本体 = Onigmo-改 搜索驱动(≈onig_search)。EXT-BOUNDARY 第一方组件
+//   定案:Onigmo-改 子系统停止逆向,行为由 src/Onigmo 移植校准/libonig
+//   委托承接;激活批需 CALIBRATION 记录。恒 -1 占位与 searchNeedle 同相。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to)
 {
 	Q_UNUSED(needlePair);

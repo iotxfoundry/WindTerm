@@ -235,6 +235,24 @@ inline void migU16S(ValueTable *b) { mkU16S(b, 4); migrateLayer<RS8 , RS16>(b->h
 inline void migU32S(ValueTable *b) { mkU32S(b, 5); migrateLayer<RS8 , RS32>(b->holders[5], &b->holders[3], 0xffu);   }  // 009cfae6 u8S→u32S(ctor 009cf400)
 inline void migU32Sb(ValueTable *b){ mkU32S(b, 5); migrateLayer<RS16, RS32>(b->holders[5], &b->holders[4], 0xffffu); }  // 009cfd0a u16S→u32S(ctor 009cf400)
 
+// scanner_resetState — FUN_009cc2d4(140B @0032.c:67038)真身(批 102;0095da64
+//   prune 腿闭环):六 holder 槽(+0x10..+0x38)非空 → vtable+8 释放虚调 →
+//   槽清零;槽对象本体不摘(归 operator_delete(0x40) 整体拆除)。vtbl cited
+//   恒 null(mk3 壳期)— 虚调腿随 vtbl 波次激活,空守卫为建模壳非语料行为。
+inline void scannerResetState(ValueTable *t)
+{
+    for (void *&slot : t->holders) {
+        if (!slot)
+            continue;
+        RsHolder20 *h = static_cast<RsHolder20 *>(slot);
+        if (h->vtbl) {                                        // 语料 **(slot)+8 thiscall
+            using Release = void (*)(void *);
+            reinterpret_cast<Release>(h->vtbl)[1](h);
+        }
+        slot = nullptr;                                       // *(undefined8 *)(槽) = 0
+    }
+}
+
 // ============ runstylesUpgrade — FUN_009cd554(920B @0032.c:68157)分段转写 ============
 // plain 梯 kind0/1/2=holders[0..2],Skip 梯 kind3/4/5=holders[3..5];迁移腿不返回 true
 // (q5)/goto 直灌,返回值 = 灌值腿结果。

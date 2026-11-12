@@ -3,9 +3,14 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-11-02 第十一次交接,批 99)
+## 一句话状态(2026-11-13 第十二次交接,批 102)
 
-**批 79-99 二十一连批闭环**:markers 全链闭环(D 0x70 布局/读侧 16/
+**批 102 四 lane**:00b422d0 边界定案(Onigmo-改 搜索驱动,停逆向,
+src/Onigmo 委托,EXT-BOUNDARY 登记);scannerResetState 009cc2d4
+真身(prune 腿闭环);upgrade len 参残寄 kuna asm 破案(RCX=re−rs,
+壳期同相零改动);markerBand 00927a78 桩回填前置登记(七函数族
+未建模);0x75dc 全二进制扫描闭环(间接面 0 命中)。np/re 37MB 误
+入库 git rm。**批 79-99 二十一连批闭环**:markers 全链闭环(D 0x70 布局/读侧 16/
 构建者六方法+markersCtxInit/迁移腿 6/6 migrateLayer/regionScan 1407B
 /0x7543 驱动装配+wireSlot10/QUIRKS 26·27 定案+entryValueAt 修正);
 渲染核全链(S1-S6 全/a66ae8 骨架+0x7547 接线/hotSpot/parsePairDef/
@@ -24,21 +29,21 @@ renderpixtest 11)。
 (三勘)/keymap 谓词+挂链 = boost xpressive matchable_ex/PairColor
 zstd 委托/libssh 117/QJSEngine 45/regex Onigmo 前置。
 
-## 下一批队列(批 100 入口)
+## 下一批队列(批 103 入口)
 
-1. **markers slot10 语义重对**(批 99 R2 勘正:slot10 = 0x48
-   doc-scan 对象非 ScannerX;wireSlot10 已接 0x7543;行面 ×3 经
-   door→face10→bank 可达性待 builder 实例接线)
-2. **c1c2 内层深腿**(子 run 重门三怪癖已落;runstylesUpgrade len 参
-   残寄/da64 resetState·delete 腿 cited)—— 行为门
-3. **0x4f00 段 8/跳选**(FUN_0099881e 298B 未解)+ 0x4eff 搜索腿
-   激活(needlePair 升真身:codec 大体 canEncode/convCtor 已落
-   CodecMemo 真身面)
-4. **行为门集中批**(upgrade 相位/0x7547 markerBand 桩回填条件/
-   markWrite 悬漏 delete 已补)
-5. **MuxWindow 槽体 008e0bb2 真身批 92 已落**;KitBar S5/S6 回填
-   (actionFactory/King__buildKeySequence,等 MainWindow 布局建模)
-6. **0x75dc 来源面**(已注销二进制定案;间接调用面再查挂账)
+1. **c1c2 内层余 cited**:p6 残寄/入口/p4==2 去重向量(FUN_00926ddc
+   0x95c505 已定位)/R·T 段/迭代器 — 行为门待 kuna asm 逐腿勘正
+2. **markerBand M 跟踪器建模**(批 102 L3 前置):七函数族
+   0099a3c0/b36c/a47a/a4b2/b4c8/a4ea/a448 + ctx+0xf0 → 00927a78
+   365B 随批升真身(现有桩语义批注已录)
+3. **0x4eff 搜索腿激活**:bufferScan00b422d0 = Onigmo-改 边界委托
+   (批 102 L1)—— 激活 = src/Onigmo 调用面移植 + CALIBRATION 记录
+4. **MuxWindow 槽体 008e0bb2 真身批 92 已落**;KitBar S5/S6 回填
+   批 98 已落(HANDOFF 第 5 项消账);余 KitWindow/MuxWindow/dialog
+   四槽落点缺(批 101 L2)
+5. **Phase 4a 注册表插入侧**(语料无直呼者,cited 挂账)+ Phase 4c
+   SplitterGroup
+6. ~~0x75dc 来源面~~(批 102 L4 闭环);~~KitBar S5/S6~~(批 98)
 
 ## 一句话状态(2026-11-01 第十次交接)## 一句话状态(2026-10-30 第九次交接)## 一句话状态(2026-10-29 第四次交接)
 

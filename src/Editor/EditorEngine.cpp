@@ -2443,8 +2443,13 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			const qint64 lineCount = send(SCI_GETLINECOUNT, 0, 0);
 			char savedF = 1, unsavedF = 0;               // 00a72d4e 预置(原样)
 			auto markerBand = [&](qint64 from) -> QPair<qint64, qint64> {
-				// FUN_00927a78(365B)— cited — wave-2(*(M+0xf0)
-				//   flagmask 族未落地;桩 = 无带,安全缺省)
+				// FUN_00927a78(365B)— cited — 桩回填前置(批 102 登记):
+				//   M=*(ctx+0xf0) 修改行跟踪器建模(0099a3c0 模态/
+				//   0099b36c 行标志/0099a47a runAt/0099a4b2 runCount/
+				//   0099b4c8 runFlag/0099a4ea runStart/0099a448 runEnd
+				//   七函数族+0xf0 字段);本体全读 = 线性/游程双模首带
+				//   查询,带语义 [start, end+1),saved=f&1/unsaved=(f>>1)&1
+				//   (renderpixtest b 组钉住桩态,回填时须同步更新)
 				Q_UNUSED(from);
 				return {-1, -1};
 			};
@@ -2724,17 +2729,21 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 							m_ctx.charUsedView->FillRange(int(rs), 1, len);
 					}
 					// upgrade 腿(L28877):run 值清零 → prune 触发面;
-					//   len 参反编译器丢弃(RCX),壳期取整 run — cited — wave-2
+					//   len 参残寄批 102 asm 破案:RCX=R14=re−rs
+					//   (0x95c3e5 vt40→R14 / 0x95c42d SUB R14,R12 /
+					//   0x95c59d MOV RCX,R14;0x890880 get_chars_locked
+					//   同源同参)— 壳期取整 run 恰同相,勘正闭环零改动
 					if (j < m_ctx.runVector.size())          // i<count 再验(L28879)
 						wt::runstylesUpgrade(rj, rs, 0, re - rs);
 					// ③ prune 一次(FUN_0095da64 @0031:30016;正向逐个摘
 					//   ≡ 全摘;delete 腿已补:语料 0095da64 命中后
 					//   scanner_resetState + operator_delete(0x40) 再
-					//   0095da30 摘;resetState 腿仍 cited — wave-2)
+					//   0095da30 摘;resetState 腿批 102 升真身 009cc2d4)
 					for (int q = m_ctx.runVector.size() - 1; q >= 0; --q) {
 						wt::ValueTable *qe = m_ctx.runVector[q];
 						if (wt::vcallSlot(qe->delegate, 0x30) == 1 &&
 						    wt::MarkersStore::runValueWordAt(qe, 0) == 0) {
+							wt::scannerResetState(qe);   // 009cc2d4 六槽释放虚调+清零
 							delete qe;                   // 0095da64 operator_delete(_,0x40)
 							m_ctx.runVector.remove(q);   // da30 memmove 左移
 						}

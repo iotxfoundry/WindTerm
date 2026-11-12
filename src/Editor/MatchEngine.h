@@ -56,11 +56,12 @@ quint64 engEntry0093830d(const void *lineDoc, const GrepNeedle448 *needle,
 quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
                     quint64 from, qint64 winEnd);
 
-// FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — 缓冲扫描引擎
-//   (regex NFA 面:regex_nfa_compile/regexp_match_dispatch/FUN_00b3bcf0
-//   族;>500B 未解 — cited — wave-2)。thunk 链:0092547e → 00a8395c
-//   (42B)→ 00a83946(21B 门)→ 00b42e10(28B)→ 本体。参数面 9 形参
-//   映射未解(00a8395c 7 实参未恢复)— searchNeedle 三参直传承载(登记)。
+// FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — 缓冲扫描引擎 — **边界
+//   委托(批 102 勘定)**:直调 regex_nfa_compile(00b3cc80 20839B)/
+//   regexp_match_dispatch(00b3b730)命名符号,本体 = Onigmo-改 搜索
+//   驱动(≈onig_search),EXT-BOUNDARY 第一方组件 → 停止逆向,行为由
+//   src/Onigmo 移植校准委托承接(激活批需 CALIBRATION)。thunk 链:
+//   0092547e → 00a8395c(42B)→ 00a83946(21B 门)→ 00b42e10(28B)→ 本体。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to);
 
 } // namespace MatchEngine

@@ -12,3 +12,7 @@ __pycache__/
 .claude/
 .opencode/
 frida_binding.node
+
+# phase5_px 工作残留(可重生成)
+/np
+/re

@@ -24,6 +24,17 @@ src/ 本就包含官方开源的 6 个第一方组件(TelnetProtocol/Pty/Utility
 Widgets/libssh-改/Onigmo-改,Apache-2.0;勿重复 clone)——**对应子系统停止逆向,
 改为移植/校准**。终端核心不在其中 = 逆向边界的权威确认。
 
+### Onigmo-改 边界精确化(2026-11-13 批 102)
+
+- **00b4xxxx 正则引擎区停逆向**:FUN_00b422d0(2750B 缓冲扫描驱动,
+  ≈onig_search)直调 regex_nfa_compile(00b3cc80 20839B)/
+  regexp_match_dispatch(00b3b730)/regex_match_execute 等命名符号,
+  邻域 onig_*/regex_*/xpr_* 命名密集 — 全区属 Onigmo-改 实现。
+- 执行腿先例:批 101 markers 执行腿 00ad74a0 已 cited 同判。
+- 委托路径:src/Onigmo 源树 + lib/libonig.a(2.1M 预构建已链);
+  业务侧(EditorEngine 0x4eff 搜索腿/MatchEngine::bufferScan00b422d0)
+  保持 cited 占位,激活批移植 onig 调用面并按 CALIBRATION 记录。
+
 ## 使用规则
 
 1. 转写中遇到疑似外库实现(算法密度高、无 WindTerm 业务状态、
