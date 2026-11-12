@@ -62,6 +62,28 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 //   驱动(≈onig_search),EXT-BOUNDARY 第一方组件 → 停止逆向,行为由
 //   src/Onigmo 移植校准委托承接(激活批需 CALIBRATION)。thunk 链:
 //   0092547e → 00a8395c(42B)→ 00a83946(21B 门)→ 00b42e10(28B)→ 本体。
+//
+//   批 105 取证结论(kuna CLI 全实证;激活未落行为码 — 任务书失败条款):
+//   ① 0x448 GrepNeedle448 无编译产物字段:operator_new(0x448)@0089a0a0
+//     产腿 → refs{1,1}+vt 0x1192460 → convCtor(&v7[2]) 写域 conv+0x10..
+//     +0x437 恰满 0x448-0x10 头 — 零剩余字节,无 regex 编译体指针;
+//     SIMD/掩码腿(engDispatch)与 onig 引擎(00b422d0)对象布局零重叠。
+//   ② canOld=true 搜索腿正则来源不在针对象:0x4eff @0xa33001 调
+//     sub_92547e(doc, v7, v21, &v10, v21)— param_4 = &v10 =
+//     canEncodeMemo(0089b85e→00a8450a Uint32Bimap 0x20 ctl)缓存对象
+//     (00a32d30 实证),非 onig regex;搜索正则由 doc+0x1098
+//     FindContext 深腿持有(cited),编译 = Onigmo-改 惰性编译栈
+//     (FUN_00ad7360 304B/FUN_00ad2ae0 17929B,批 101 三源互证),
+//     业务区零 onig_new 直调(kuna xrefs --to onig_new 无名命中;
+//     语料 49M onig_new/regex_compile/REG_COMPILE 零命中;批 103 L3 同判)。
+//   ③ b422d0 param_2 正则对象布局(kuna 反编译 0x00b422d0 实测):
+//     +0x48 编码 vtable(*vt+0x90 step_back/+0x28 mbc_enc_len/+0x38
+//     is_mbc_newline — Onigmo-改 iterator 面)/+0x50,+0x51 选项位/
+//     +0x70,+0x74,+0x78 优化标志/+0x80,+0x88 minLen,maxLen/+0x1c0
+//     精确串指针/regex+0x14 捕获对容量(b41ee0 扩容面)— 与
+//     GrepNeedle448 布局零重叠;onig_new 语法/编码选项实参在业务区
+//     不可达 — 激活缺证:FindContext 深腿正则条目构造链(doc+0x1098
+//     → 编译栈入参),不猜选项(铁律 3)。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to);
 
 } // namespace MatchEngine

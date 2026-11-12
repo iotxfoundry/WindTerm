@@ -114,3 +114,47 @@
 (Algorithm,QByteArray,QByteArray,int,ulong);Cryptographic 为
 Qt/OpenSSL 薄胶水(AES-256-CBC,key=pbkdf2[0..32),iv=[32..48),
 SHA3-512 PBKDF2×100000,salt=base64(SHA512(number(generate64))))。
+
+## 批 105:0x4eff 正则搜索腿取证(未激活;Onigmo-改 边界委托复核)
+
+> 任务书失败条款触发:第 1 步取证**未拿到 onig_new 语法/编码选项实参**
+> → 不落行为码,零新增 TU,仅 MatchEngine.h cited 注记补取证结论。
+
+### 取证结论(2026-11-13,kuna CLI 全实证)
+
+1. **0x448 GrepNeedle448 无 regex 编译产物字段**(任务书假定勘正):
+   - 产腿 = 0089a0a0(operator_new(0x448)@0xa32d57 反汇编实证)→
+     refs{1,1} + vtable 0x1192460 → convCtor(&v7[2])(00a32d5c 面)。
+   - convCtor(0089c450)写域 = conv+0x10..+0x437(skip 表 +0x414 止/
+     allowedBits +0x418/SIMD 三块 +0x420/428/430)恰满 0x448−0x10 头
+     — **零剩余字节**,无 OnigRegex 指针落点。
+   - 00b422d0 param_2 正则对象与 GrepNeedle448 布局零重叠(见 3)。
+2. **canOld=true 搜索腿的正则不在针对象**(0xa33001 调用点反汇编):
+   - sub_92547e(doc, v7, v21, &v10, v21):param_4 = &v10 =
+     canEncodeMemo(0089b85e → 00a8450a Uint32Bimap 0x20 ctl)缓存对象
+     (00a32d30 实证),非 onig regex 对象。
+   - 搜索正则由 doc+0x1098 FindContext 深腿持有(cited);编译 =
+     Onigmo-改 惰性编译栈(FUN_00ad7360 304B/FUN_00ad2ae0 17929B,
+     批 101 三源互证)。
+   - 业务区(0093/0095/00a3)零 onig_new 直调:kuna xrefs --to onig_new
+     无名命中;语料 49M onig_new/regex_compile/REG_COMPILE 零命中
+     (批 103 L3 勘察同判)。
+3. **b422d0 param_2 正则对象布局**(kuna 反编译 0x00b422d0 实测;
+   Onigmo-改 扩展 regex_t,上游 regex_t 无此域):
+   | 偏移 | 域 | 证据 |
+   |---|---|---|
+   | +0x48 | 编码/迭代 vtable | *vt+0x90 step_back / +0x28 mbc_enc_len / +0x38 is_mbc_newline / +0x08 mbc_enc_len(0xb422d0 内尾调) |
+   | +0x50/+0x51 | 选项位(&0x10 find_longest 类 / &0x80) | 0xb42888 分支 |
+   | +0x70/+0x74/+0x78 | 优化标志(int/int/u32,&4/&1/&8/&0x10/&0x8000 分支) | 0xb4240x/0xb427a8 |
+   | +0x80/+0x88 | minLen/maxLen(ulong) | 0xb42a53 边界剪枝 |
+   | +0x1c0 | 精确串指针(优化跳过面) | 0xb4257c |
+   | +0x14 | 捕获对容量(regex_nfa_compile b41ee0 扩容面) | sub_b421c0 |
+4. **激活缺证清单**(下次接手入口):
+   - FindContext(doc+0x1098)正则条目构造链:findStr → onig 编译栈
+     (00ad7360/00ad2ae0)入参(语法 ONIG_SYNTAX_*/编码 ONIG_ENCODING_*
+     /选项 ONIG_OPTION_*/SE_ONIG_OPTION_WHOLEWORD 扩展位)。
+   - 搜索器(doc+0x88)sub_b422d0 param_2 对象的装载点(谁写 +0x48
+     vtable 与优化域)。
+   - 取到 1/2 后按本文件"校准协议"逐句映射 onig_new/onig_search 形参
+     (libonig.a 委托面已就绪:四符号 nm 实证;OnigIterator = {at,ptr}
+     16B 回调结构,oniguruma.h:118-122)。
