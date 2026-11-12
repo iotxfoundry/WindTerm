@@ -1946,6 +1946,37 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (用户裁决);批 102 全程 kuna CLI 直接查汇编(RE 语料优先级链
   首位实证:残寄类悬案 kuna 一步破)。
 
+### 批 103(2026-11-13)三 lane:c91e thunk 勘正三处/M 跟踪器七函数全读/Onigmo 激活勘察 ✅ ctest 16/16
+
+- **L1 c91e thunk 寄存器洗牌勘正**(kuna disassemble 0x95c91e):
+  13B thunk **非尾跳直通** — `MOV R9D,ECX / XOR R8D,R8D / XOR ECX,ECX /
+  JMP` → **p4 恒 0 / p5 恒 0 / p6 = 调用者 i**(勘正批 83 三处:p4=i、
+  p5=sv、p6=-1 全错)。四调用点(c92c 0x95c9d3/cac6 0x95cc1f/cc6a
+  0x95cc73/d4c8 0x95d682)全经 thunk → elem 门生效集 = **j==i 单元素**;
+  p4==1 掩码腿/p4==2 去重腿经此路恒不达(体保留待直呼面)。入口
+  FUN_0095c086(316B)= scan-context ensure(0x20/0x60/0x30 三对象,
+  vt 0x1192298/0x1192278,0092801a threadCtx 面)— cited 升级注记。
+  迭代器收尾分支条件破案(0x95ca7a):c92c ok 累积 R13B(0x95c9da
+  CMOVNZ)非零 → 0xa161d8,零 → 0xa162b6。
+- **L2 M 跟踪器七函数全读 + 布局定案**(建模落地留批 104):M =
+  {inner};inner = {+0x10 RS8 游程面(null = flat 回退), +0x18 文档
+  面{+0x08 字节数组, +0x14 总行数, +0x18/+0x1c 两段加载偏移}};
+  0099a3c0(12B 模态 = inner+0x10 非零)/0099a47a(56B runAt,vt+0x28
+  → runstyles_fill_range 面)/0099a4b2(56B runCount,vt+0x30 →
+  runs_count)/0099a4ea(46B runStart,vt+0x38 → run_start_at)/
+  0099a448(49B runEnd,vt+0x40 → run_start_at(u+1))/0099b36c(339B
+  行标志,flat 两段读 + runlist RS8 经 GB 面 QReadWriteLock)/
+  0099b4c8(262B 游程标志)。**新发现:zstd 压缩腿**(00889cde,与
+  0095dae4 zstd_ctxCreate 同族)— 行修改日志带压缩,完整建模 =
+  独立批量(markerBand 00927a78 升真身随后)。
+- **L3 Onigmo 激活勘察**(0x4eff 前置):src/Onigmo 全源码树在库
+  (regcomp/regexec/regext — regex_nfa_* 命名族即 regext.c 扩展搜
+  索同源);lib/libonig.a 导出 onig_new/onig_free/onig_search/
+  onig_error_code_to_format(委托面就绪);业务区(0093/0095)零
+  onig_* 直调 — 引擎边界纯在 00b4xxxx(批 102 L1 定案一致)。激活
+  批 = onig_new 语法/编码选项取证 + onig_search 缓冲映射 + CALIBRATION。
+- 验证:cmake --build 零错;**ctest 16/16**;dlopen OK。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

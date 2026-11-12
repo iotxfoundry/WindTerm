@@ -2675,15 +2675,21 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			const qint64 s = wt::vcallSlotArg(r->delegate, 0x38, at);   // vt+0x38 run 起
 			const qint64 e = wt::vcallSlotArg(r->delegate, 0x40, at);   // vt+0x40 run 止
 			// ===== FUN_0095c91e(13B thunk)→ FUN_0095c1c2(1857B @0031:28734)
-			//   内层真身化(批 83;76d §4 三怪癖)。c91e = 尾跳直通:
-			//   p4 = i(批 76b 尾跳勘定);p5 = sv(run 值字面形态);
-			//   p6 = 残寄不可读 → 壳期取 -1(全选)— cited — wave-2。
-			//   入口 FUN_0095c086(复位/ensure 腿)— cited — wave-2。
+			//   内层真身化(批 83;76d §4 三怪癖)。c91e 批 103 asm 勘正:
+			//   **非尾跳直通 — 寄存器洗牌**(0x95c91e MOV R9D,ECX /
+			//   0x95c921 XOR R8D,R8D / 0x95c924 XOR ECX,ECX / JMP)→
+			//   p4 恒 0 / p5 恒 0 / p6 = i(勘正批 83 三处:p4=i、
+			//   p5=sv、p6=-1 全错;四调用点 0x95c9d3/0x95cc1f/0x95cc73/
+			//   0x95d682 全经此 thunk → p4==1/2 掩码腿经此路恒不达,
+			//   体保留待直呼面;elem 门生效集 = j==i 单元素)。
+			//   入口 FUN_0095c086(316B scan-context ensure:0x20/0x60/
+			//   0x30 三对象 vt 0x1192298/0x1192278,0092801a threadCtx
+			//   面)— cited — wave-2。
 			qint64 sMin = s, sMax = e;                   // L28745-28749 swap 归一
 			if (e < s) { sMin = e; sMax = s; }
-			const int p4 = i;
-			const quint64 p5 = sv;
-			const qint64 p6 = -1;                        // cited — wave-2
+			const int p4 = 0;                            // thunk 0x95c924 XOR ECX,ECX
+			const quint64 p5 = 0;                        // thunk 0x95c921 XOR R8D,R8D
+			const qint64 p6 = i;                         // thunk 0x95c91e MOV R9D,ECX
 			for (int j = m_ctx.runVector.size() - 1; j >= 0; --j) {  // L28787 elem 逆序
 				if (!(p4 != 0 || p6 == -1 || p6 == j))   // LAB_0095c240 选 elem 门
 					continue;
@@ -2755,7 +2761,9 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				}
 			}
 		}
-		// FUN_00a162b6(iter 收尾)/FUN_00a161d8(221B)— cited — wave-2
+		// FUN_00a162b6(iter 收尾)/FUN_00a161d8(221B)— cited — wave-2;
+		//   分支条件批 103 asm(0x95ca7a):c92c ok 累积 R13B(0x95c9da
+		//   CMOVNZ)非零 → 0xa161d8(迭代器),零 → 0xa162b6
 		// vt+0xa0 刷新(true → 刷新)— cited(Phase-4b)
 		return QVariant(0);
 	}

@@ -3,9 +3,13 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-11-13 第十二次交接,批 102)
+## 一句话状态(2026-11-13 第十三次交接,批 103)
 
-**批 102 四 lane**:00b422d0 边界定案(Onigmo-改 搜索驱动,停逆向,
+**批 103 三 lane**:c91e thunk 寄存器洗牌勘正(p4=0/p5=0/p6=i,
+批 83 三处纠错,elem 门=j==i 单元素,p4==1/2 腿经 thunk 恒不达);
+M 跟踪器七函数全读 + 布局定案(RS8 游程面/flat 两段文档面/zstd
+压缩腿新发现,建模留批 104);Onigmo 激活勘察(src/Onigmo 全树 +
+libonig 委托面就绪,业务区零 onig 直调)。**批 102 四 lane**:00b422d0 边界定案(Onigmo-改 搜索驱动,停逆向,
 src/Onigmo 委托,EXT-BOUNDARY 登记);scannerResetState 009cc2d4
 真身(prune 腿闭环);upgrade len 参残寄 kuna asm 破案(RCX=re−rs,
 壳期同相零改动);markerBand 00927a78 桩回填前置登记(七函数族
@@ -29,21 +33,20 @@ renderpixtest 11)。
 (三勘)/keymap 谓词+挂链 = boost xpressive matchable_ex/PairColor
 zstd 委托/libssh 117/QJSEngine 45/regex Onigmo 前置。
 
-## 下一批队列(批 103 入口)
+## 下一批队列(批 104 入口)
 
-1. **c1c2 内层余 cited**:p6 残寄/入口/p4==2 去重向量(FUN_00926ddc
-   0x95c505 已定位)/R·T 段/迭代器 — 行为门待 kuna asm 逐腿勘正
-2. **markerBand M 跟踪器建模**(批 102 L3 前置):七函数族
-   0099a3c0/b36c/a47a/a4b2/b4c8/a4ea/a448 + ctx+0xf0 → 00927a78
-   365B 随批升真身(现有桩语义批注已录)
-3. **0x4eff 搜索腿激活**:bufferScan00b422d0 = Onigmo-改 边界委托
-   (批 102 L1)—— 激活 = src/Onigmo 调用面移植 + CALIBRATION 记录
-4. **MuxWindow 槽体 008e0bb2 真身批 92 已落**;KitBar S5/S6 回填
-   批 98 已落(HANDOFF 第 5 项消账);余 KitWindow/MuxWindow/dialog
-   四槽落点缺(批 101 L2)
-5. **Phase 4a 注册表插入侧**(语料无直呼者,cited 挂账)+ Phase 4c
-   SplitterGroup
-6. ~~0x75dc 来源面~~(批 102 L4 闭环);~~KitBar S5/S6~~(批 98)
+1. **M 跟踪器建模落地**(批 103 L2 前置已清):inner/doc-face/
+   RS8 游程/zstd 腿建模 + initDoc +0xf0 接线 → markerBand
+   00927a78(365B 本体已全读)随批升真身
+2. **0x4eff 搜索腿激活**:onig_new 语法/编码取证 → onig_search
+   映射 + CALIBRATION(批 103 L3 勘察就绪)
+3. **c1c2 余 cited**:R·T 段(T 段 0x95c62a 行扫描)/ok 返回值
+   R12D 全路径/迭代器两函数体;~~p6 残寄~~(批 103 L1 闭环,
+   p4/p5/p6=0/0/i);p4==2 去重向量(FUN_00926ddc 0x95c505)待
+   ctx+8 store 建模
+4. **四槽落点缺**(KitWindow/MuxWindow/dialog,批 101 L2)+
+   Phase 4a 注册表插入侧 / Phase 4c SplitterGroup
+5. ~~0x75dc 来源面~~(批 102 L4 闭环);~~KitBar S5/S6~~(批 98)
 
 ## 一句话状态(2026-11-01 第十次交接)## 一句话状态(2026-10-30 第九次交接)## 一句话状态(2026-10-29 第四次交接)
 
