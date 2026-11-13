@@ -2196,6 +2196,40 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 + dlopen OK**。
   原版侧捕获(5b 对表)阻塞于 ptrace_scope=0(用户手动步骤)。
 
+### 批 121(2026-11-13)Phase 5b 原版捕获对表(C 1/3 MATCH;A/B 18 NOT-RUN 事故收口)⚠ 事故 1 起 ✅ ctest 19/19
+
+- **原版捕获通道定案**(phase5_editor.py 新,tools/re/phase5/):
+  editor = 00a418c4 钩 a[1](0x1270B EditorContext);**armed 单命令
+  队列**(rpc.arm → 下一自然 dispatch 钩内消费 = GUI 线程;xdotool
+  空格回显触发,phase5_px 同源实证)。0x1270B vtable+0x1c0 直呼不可行
+  (表尾槽 = 0,QUIRKS 29);dispatch 本体五参直呼钩内成立。
+- **C 族 0x7576 三序列原版读数**:ret=0/userType=1(bool)/runVec=0/
+  charUsedPtr=null ×3。C1 **MATCH**(L29033 空 runvector 门双侧同相);
+  C2/C3 MISMATCH = 构型不可达(原版壳期 c92c obj runvector 空/charUsed
+  未建;C3 等价装配留后续批),ret 维同相。**ctx 读格勘正**:宿主 =
+  c92c 对象 *(editor+0x10a0) 槽[0x2f]/[0x30](FUN_009585a2 26049;
+  QUIRKS 30),editor+0x178 直读 = 垃圾(0x1000d0000 实锤)。
+- **⚠ 事故(1 起)+ 根因**:armed 0x4f00 op 桥面直填(flags=0/type=3)
+  → 目标实例死(script destroyed)。根因(语料静读):手填 op 无 codec
+  memo → cursorSearch 段 9 FUN_0092547e → FUN_00a83946(needle[0]
+  非 0 门,桥面垃圾过门)→ **FUN_00b422d0 把 0x40B 桥面当 Onigmo-改
+  regex_t 解引**(+0x48 vtable/+0x70..0x80 优化域,批 110 定案)→
+  野读段错误。**收口**:A/B 族 18 序列 NOT-RUN(op-bridge disabled
+  安全门);安全通道 = 先置原版 find/replace 串域(doc+0xe0 codec
+  memo setter 命令面待定位)再 dispatch — 留后续批。原版重启一次
+  (专用 Xvfb 实例,任务书收口条款)。
+- **RUBY 语法假设裁决:维持假设(零反例;推演 + 字节级直证维持)**:
+  b116/drive 六样例(literal 6/possessive 4/hyperlink 3/subexp-call 8/
+  brace-hex 1/datetime 3)与我方 OnigSearch 委托逐样例同相;原版
+  dispatch 面直证缺位(壳期 find 串空 → 产腿 null → 12665 门 ret 0,
+  对语法无判别力);证伪条件登记(置真 find 串后命中位 ≠ RUBY 推演
+  → 列反例)。详见 tools/re/phase5/5B-REPORT.md。
+- **对表**:phase5_editor_compare.py → **1/21 MATCH**(C1)/2 MISMATCH
+  (C2/C3,仪器非行为)/18 NOT-RUN;产物 phase5_editor_original.json
+  (21 行)。QUIRKS 29/30 登记。
+- 验证:worktree ctest **19/19**;engtest5 直跑 61 断言 fail=0(我方
+  基线覆盖重生成同相);零产品码改动。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

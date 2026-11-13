@@ -65,3 +65,14 @@
    008e0f87/92 为原地 byte cmp(非 QString 解引用);setPaneZoom S7
    gate 体 = FUN_008dfd9b/d93 只翻 +0x40(0↔1),+0x41 不触。
    裁决 = **错转写修正**(非怪癖登记);本条留档 Ghidra 误型模式。
+29. **0x1270B EditorContext vtable+0x1c0 = 0(批 121 仪器登记)**:
+   0x1270B 对象(ScintillaQt vptr 0x11ae558)表尾 +0x1c0 槽 = 0;
+   sendEditor +0x1c0 尾调形态属 **TextView+0x58 引擎子对象**(VTABLE-
+   MAP 槽表 51 槽 +0x198 止一致)——非缺陷;phase5 仪器经 0x1c0 直呼
+   0x1270B 即 access violation,改走 00a418c4 armed 钩(批 121)。
+30. **runvector/charUsed 宿主 = c92c 对象(批 121 实测勘正)**:原版
+   runvector(charUsed)挂 *(editor+0x10a0) 的槽 [0x2f]/[0x30]
+   (FUN_009585a2 ctor 26062/26063 清零面;0x4f00 22852 param_2[0x214]
+   = c92c 载体);我方 EditorContext 平铺 ctx+0x178/0x180 = 承载替
+   (消费面全走 case 内,行为同相布局不同构)。editor+0x178 直读 =
+   垃圾(批 121 0x1000d0000 实锤)— 仪器读格必须经 c92c obj。
