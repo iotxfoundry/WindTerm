@@ -47,10 +47,12 @@ struct PaneDescriptor;   // 定义在 MuxWindow.cpp(布局不进产品头,见 re
 //                   ELF .data.rel.ro 实证;metaObject 真身 011ac040;
 //                   staticMetaObject PTR_staticMetaObject_011ac2a0,
 //                   ctor tr 引用 @008e099e → Q_OBJECT 实证)
-// 成员槽:+0x30 QList(shared_null)/+0x38 ← 0/+0x40 QString(param_2 标题)/
-//   +0x44/+0x48 int ← -1(ctor 8B 写覆盖两 int;+0x48 消费点 = 槽体
-//   S9 @008e0fb5,pane index 缓存)/+0x58 QString(session 串槽,
-//   s_session__tmux_842414 写入面 "session::tmux")/+0x60 QString(tr)/
+// 成员槽:+0x30 QList(shared_null)/+0x38 ← 0/+0x40 BYTE ← 1 + +0x41 BYTE
+//   ← param_2(asm 008e0980/84 byte 写;反编译 QString 型系误型,批 108
+//   勘误;+0x41 调用点全过 0/1:0026:34935/35050、0028:23402/23425 = 0,
+//   0026:41775 = 1)/+0x44/+0x48 int ← -1(ctor 8B 写覆盖两 int;+0x48
+//   消费点 = 槽体 S9 @008e0fb5,pane index 缓存)/+0x58 QString(session
+//   串槽,s_session__tmux_842414 写入面 "session::tmux")/+0x60 QString(tr)/
 //   +0x68 parent/+0x70 SplitterGroup*/+0x78/+0x80 = QPointer<MuxPane>
 //   双槽(槽体 S9 @008e0fc7-d4 存储)。
 // 注:mp 笔记 §5 "FUN_008dfee8 = +0x78/0x80 初始化" 系猜测 —— 体读
@@ -64,7 +66,10 @@ class MuxWindow : public QWidget {  // 批 91 K3 勘误闭环:成员槽位语义
     Q_OBJECT
 
 public:
-    MuxWindow(const QString &title, QWidget *parent);          // s_MuxWindow_8e0938
+    // s_MuxWindow_8e0938:param_2 = +0x41 BYTE 旗标(asm 008e0984 byte 写;
+    //   五调用点 0/1 字面,无 QString 形参 — 原"标题"建模勘误,批 108;
+    //   默认 false = 调用点众数 0/1:0,0026:41775 = 1)
+    explicit MuxWindow(bool tmuxBranch, QWidget *parent = nullptr);
 
     QSplitter *splitter() const;                               // FUN_008e01ac(+0x70→+0x30;体见 .cpp)
 
@@ -77,13 +82,20 @@ public:
     //   批 106 勘定 +0x40 = zoom 占位页槽)。
     bool isZoomed() const;
 
+    // 批 108 BYTE 双旗标只读取面(asm 读点直译;消费点见 .cpp):
+    //   +0x41 读点 008e0f87(槽体 S9)/008dba16(FUN_008db9e4)/22972
+    //   (FUN_008dadfa);+0x40 读点 008e0f92(槽体 S9)+0x41 门后。
+    bool isTmuxBranch() const { return m_f41; }              // byte [win+0x41]
+    bool isZoomGate() const { return m_f40; }                // byte [win+0x40]
+
     // FUN_008e04ae(0028:27504,1095B,asm 全读)。pane 关闭确认/zoom 切换
     //   归辖面(pane_confirmClose/008df5f8 消费):group 上溯(pane 父链 cast
     //   MuxPaneGroup 011abe10)→ stackCurrent 判定 → confirm 时标题追
     //   " [Zoomed]"(tr 0xcb77bb," [%1]" 0xc8ad1c)→ FUN_008df06e tab 同步 →
     //   FUN_005a2518 切换 → 尾 pane->setFocus(3)。gate 段(MuxWindow +0x40
-    //   BYTE 旗标,ctor 8e0980/8e0984 与 8dfd9b/93 三源)成员未建模(m_f40
-    //   QString 勘误纠缠)→ 该段 cited。逐段注见 .cpp。
+    //   BYTE 旗标,ctor 8e0980/8e0984 与 8dfd9b/93 三源)本批勘正建模
+    //   m_f40(bool;QScopedValueRollback 直译 = 清 0 → 尾置 1,见 .cpp)。
+    //   逐段注见 .cpp。
     void setPaneZoom(MuxPaneView *pane, bool confirm);
 
     // pane_confirmClose(0028:26554,915B,asm 全读)归辖落点:this 上溯
@@ -126,7 +138,14 @@ private:
 
     QList<quint64> m_f30;   // 语料 +0x30(QListData::shared_null;节点型未解 cited)
     quint64 m_f38;          // 语料 +0x38 ← 0(消费点未读 cited — wave-2)
-    QString m_f40;          // 语料 +0x40/0x41 ← param_2(标题;拷贝构造展开)
+    bool m_f40 = true;      // 语料 +0x40 BYTE ← 1 @008e0980(写点 FUN_008dfd93 ←1
+                            //   @008dfd96/FUN_008dfd9b ←0 @008dfd9e;读点槽体 S9
+                            //   @008e0f92 byte cmp — 三源同证 BYTE;原 QString
+                            //   m_f40 建模勘误,批 108)
+    bool m_f41 = false;     // 语料 +0x41 BYTE ← param_2 @008e0984(ctor 实参全过
+                            //   0/1;读点 008e0f87 byte cmp/FUN_008db9e4 008dba16
+                            //   byte cmp/FUN_008dadfa 语料 22972 char cmp —
+                            //   tmux window 分支旗标;批 108 勘误新增)
     int m_f44;              // 语料 +0x44 ← -1(消费点 = FUN_008da226 窗口序号键
                                   //   @0028:22312;勘正于 findPane 批 — 非未解)
     int m_f48;              // 语料 +0x48(消费点 008e0fb5:pane index 缓存 vs pane->+0x30)

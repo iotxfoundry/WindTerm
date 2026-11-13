@@ -57,3 +57,11 @@
    u32Obj = 复合载体{vtbl;runs@+0x08;styles@+0x10},读腿 39462 收
    *(+0x10)=styles,landed holderRs=*(+0x10) 与语料同解引,形态正确;
    补出处 39486/39462。残余 GB-vs-RS 差异维持原登记委托怪癖。
+28. **MuxWindow +0x40/+0x41 BYTE 双旗标(批 108 定案,勘误登记)**:
+   ctor s_MuxWindow_8e0938 asm 008e0980/84 = byte 写(+0x40←1、+0x41←
+   param_2),Ghidra 反编译语料 QString 型系 8B 槽对齐误型(实参 ESI
+   8B 截 R12B,五调用点全 0/1 字面);原 m_f40 QString("标题")建模系
+   误型转写,已勘正为 bool m_f40(=1)/m_f41(=param_2)。S9 门
+   008e0f87/92 为原地 byte cmp(非 QString 解引用);setPaneZoom S7
+   gate 体 = FUN_008dfd9b/d93 只翻 +0x40(0↔1),+0x41 不触。
+   裁决 = **错转写修正**(非怪癖登记);本条留档 Ghidra 误型模式。

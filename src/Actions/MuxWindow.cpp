@@ -33,33 +33,36 @@ struct PaneDescriptor {                 // 0x28B;+0x18 int(唯一实证消费面
     void *f20;                          // +0x20 指针(语义未解 — wave-2)
 };
 
-// === MuxWindow(QString,QWidget*) ===
-// 转写 s_MuxWindow_8e0938(0028:27695,289B):
-//   QWidget::QWidget(param_1,param_3,0) → vtable=MuxWindow(011ac070 族)→
-//   +0x30 QList(shared_null)→ +0x38 ← 0 → +0x40/0x41 ← param_2(标题)→
-//   +0x44/+0x4c ← -1 → +0x58 串 shared_null → +0x60 = tr(0xc8c60e,
+// === MuxWindow(bool,QWidget*) ===
+// 转写 s_MuxWindow_8e0938(0028:27695,289B;asm 008e0938-a71 全读):
+//   QWidget::QWidget(param_1,param_3,0) → vtable=MuxWindow(011ac088 族)→
+//   +0x30 QList(shared_null)→ +0x38 ← 0 → +0x40 BYTE ← 1 @008e0980、
+//   +0x41 BYTE ← param_2 @008e0984(byte 写;Ghidra QString 型系 8B 槽
+//   对齐误型 — param_2 实参寄存器 ESI 8B 截 R12B,五调用点全 0/1,批 108
+//   勘误)→ +0x44/+0x4c ← -1 → +0x58 串 shared_null → +0x60 = tr(0xc8c60e,
 //   staticMetaObject 011ac2a0)→ +0x68 ← param_3 → +0x78/+0x80 ← 0 →
 //   objectName("MuxWindow")@008e09f1 → FUN_008dffa0(装配)→
 //   FUN_008dfee8(焦点接线)。
 // (mp 笔记 §5 称 FUN_008dfee8 为 +0x78/0x80 初始化,体读证伪:
 //   实为 focusChanged connect;见 MuxWindow.h 注。)
-MuxWindow::MuxWindow(const QString &title, QWidget *parent)
+MuxWindow::MuxWindow(bool tmuxBranch, QWidget *parent)
 	: QWidget(parent)
-	, m_f30()               // *(this+0x30) = QListData::shared_null @008e0985
-	, m_f38(0)              // *(this+0x38) = 0 @008e098d
-	, m_f40(title)          // param_1[0x40]=1 / [0x41]=param_2 @008e0995-9a(拷贝构造展开)
-	, m_f44(-1)             // *(this+0x44) = -1 @008e09a2
-	, m_f48(-1)             // *(this+0x48) = -1 @008e09a6(ctor 8B 写覆盖 +0x44/+0x48 两 int)
-	, m_f58()               // *(this+0x58) = QArrayData::shared_null @008e09b2
-	, m_f60()               // QMetaObject::tr(this+0x60,011ac2a0,0xc8c60e)@008e099e(字面 cited)
-	, m_f68(parent)         // *(this+0x68) = param_3 @008e09a6
-	, m_f70(nullptr)        // *(this+0x70) = 0 @008e09ae
-	, m_f78()               // *(this+0x78) = 0 / *(this+0x80) = 0 @008e09b6-be
+	, m_f30()               // *(this+0x30) = QListData::shared_null @008e097d
+	, m_f38(0)              // *(this+0x38) = 0 @008e0978
+	, m_f40(true)           // *(this+0x40) = byte 1 @008e0980
+	, m_f41(tmuxBranch)     // *(this+0x41) = byte param_2 @008e0984(MOV [rbx+0x41],R12B)
+	, m_f44(-1)             // *(this+0x44) = -1 @008e098f
+	, m_f48(-1)             // *(this+0x48) = -1 @008e098f(ctor 8B 写覆盖 +0x44/+0x48 两 int)
+	, m_f58()               // *(this+0x58) = QArrayData::shared_null @008e099e
+	, m_f60()               // QMetaObject::tr(this+0x60,011ac2a0,0xc8c60e)@008e09b9(字面 cited)
+	, m_f68(parent)         // *(this+0x68) = param_3 @008e09be
+	, m_f70(nullptr)        // *(this+0x70) = 0 @008e09c2
+	, m_f78()               // *(this+0x78) = 0 / *(this+0x80) = 0 @008e09c2-ca
 	                        //   (QPointer<MuxPane> 默认构造 = 双槽清零,等价)
 {
 	setObjectName(QStringLiteral("MuxWindow")); // @008e09f1-a06
 	muxWindowAssemble();     // FUN_008dffa0 @008e0a24-30
-	connectFocusChanged();   // FUN_008dfee8 @008e0a34-40
+	connectFocusChanged();   // FUN_008dfee8 @008e0a29-2c
 }
 
 // === splitter() ===
@@ -192,9 +195,14 @@ void MuxWindow::setPaneZoom(MuxPaneView *pane, bool confirm)
 	const int idx = group->stackIndexOf(pane);              // FUN_005ab6c2 @008df07e
 	if (idx != -1)                                          // 008df083-6
 		group->setTabTitle(idx, title);                     // FUN_005ab09e @008df08e
-	// S7 gate 段(+0x40 BYTE 0→1)— cited(见头注;成员未建模)
+	// S7 gate 段 @008e06ca-64/8e0764(批 108 勘正落码;QScopedValueRollback
+	//   直译):gate 体 = FUN_008dfd9b(win)→ +0x40 BYTE ← 0 @008dfd9e,
+	//   尾撤防 FUN_008dfd93(win)→ +0x40 BYTE ← 1 @008dfd96(asm 体读
+	//   008dfd93-a4;仅 +0x40 参与,+0x41 不触)。
 	if (groupRef != nullptr) {                              // 008e06a5-c4(QPointer 活)
+		m_f40 = false;                                      // FUN_008dfd9b @008e0764(+0x40←0)
 		m_f70->toggleZoomPage(group, confirm);              // FUN_005a2518 @008e07bd
+		m_f40 = true;                                       // FUN_008dfd93 @008e07d4-ec(+0x40←1)
 	}
 	if (paneRef != nullptr)                                 // S8 @008e080b-29
 		pane->setFocus(Qt::ActiveWindowFocusReason);        // 008e082f-39(原因 3)
@@ -332,13 +340,16 @@ void MuxWindow::onFocusChanged(QWidget *old, QWidget *now)
 			if (pane == nullptr)
 				continue;
 			// S9:命中 pane @008e0f7f-10d2。
-			//   ① 标题 QString +0x40/+0x41 非空判定 @008e0f87-92
+			//   ① +0x41/+0x40 BYTE 旗标双非零判定 @008e0f87-92(byte cmp;
+			//     批 108 勘正:原按 QString isEmpty 建模 — asm 无 QString
+			//     槽解引用,两 byte 原地 cmp)
 			//   ② pane index 二次 cast @008e0f9e(011abb90→011a7470,
 			//     011abb90 = MuxPane typeinfo)与 +0x48 比对 @008e0fb5
 			//   ③ 同步 +0x48 = pane->+0x30 @008e10c7 → 发送腿(见下)
 			//   ④ QPointer 存储 @008e0fc7-d4(getAndRef + pane 指针)
-			if (!m_f40.isEmpty() &&                      // [0x41]/[0x40] @008e0f87/0f92
-			    m_f48 != pane->paneIndex()) {            // pane->+0x30 @008e0fb5
+			if (m_f41 &&                                  // byte [win+0x41] @008e0f87
+			    m_f40 &&                                  // byte [win+0x40] @008e0f92
+			    m_f48 != pane->paneIndex()) {             // pane->+0x30 @008e0fb5
 				m_f48 = pane->paneIndex();           // *(this+0x48) @008e10c7
 				sendSelectPane(pane, m_f48);         // FUN_0083f830 @008e10ce
 			}

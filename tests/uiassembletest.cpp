@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 	       "d: 不可折叠(setChildrenCollapsible(false) @005a22c2)");
 
 	// ======== e. MuxWindow ctor(s_MuxWindow_8e0938;装配 FUN_008dffa0)========
-	MuxWindow win(QStringLiteral("asmoke"), nullptr);
+	MuxWindow win(false, nullptr); // param_2 = +0x41 BYTE(批 108 勘误)
 	expect(win.splitter() != nullptr,
 	       "e: splitter() 非 null(FUN_008e01ac = +0x70→+0x30)");
 	SplitterGroup *wsg = win.findChild<SplitterGroup *>();

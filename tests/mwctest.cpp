@@ -19,7 +19,8 @@ int main(int argc, char **argv)
 	int fails = 0;
 	QWidget *out = nullptr; // 常驻焦点外顶层
 
-	MuxWindow win(QStringLiteral("smoke"), nullptr);
+	MuxWindow win(false, nullptr); // ctor param_2 = +0x41 BYTE 旗标(008e0984;
+	                               //   非 tmux 腿调用点全 0:0026:34935 等)
 	win.resize(300, 200);
 
 	MuxPaneGroup *group = new MuxPaneGroup(true, &win); // S3 findChildren 面
@@ -72,6 +73,16 @@ int main(int argc, char **argv)
 	//     装配后 ph 空 → false;MuxWindow::isZoomed(FUN_008e01a2)同相
 	if (win.isZoomed())
 		++fails; // FUN_005a23c6:*(+0x40)==0 → false(未 zoom 基线)
+
+	// b1b. MuxWindow BYTE 双旗标语料语义(批 108 勘正落码):
+	//      ctor +0x40 ← 1 @008e0980 / +0x41 ← param_2 @008e0984(byte 写);
+	//      setPaneZoom S7 gate 体只翻 +0x40(FUN_008dfd9b←0 @008e0764 /
+	//      FUN_008dfd93←1 @008e07d4),+0x41 不触。无 pane 路径(pane==0
+	//      @008e04ae 直返)不进 gate → +0x40 保持 ctor 值 1。
+	if (win.isTmuxBranch() != false)
+		++fails; // +0x41 == param_2(false)
+	if (win.isZoomGate() != true)
+		++fails; // +0x40 == ctor 1
 
 	// b2. onTabBlankRequested(FUN_008df5f8)/confirmCloseCurrentPane
 	//     (FUN_008dfa8c)/renamePane(008df0a4)均为私有槽;测试面走
