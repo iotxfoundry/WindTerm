@@ -9,8 +9,9 @@
 //   M(0x10) = {+0x00 inner, +0x08 默认旗标字节(b142 param_2)};
 //   inner(0x20) = {+0x00 回指 M, +0x08 累计行数(bbb0 头 *(inner+8)+=len),
 //                  +0x10 RS8 游程面(null=flat 回退), +0x18 文档面};
-//   面(0x20) = {+0x00 vt cited, +0x08 字节数组, +0x14 int 总行数,
-//               +0x18 int 段界, +0x1c int 尾段偏移}(两段读语义 0099b36c)。
+//   面(0x20) = {+0x00 vt cited, +0x08 字节数组, +0x10 int 容量(0088a016 步进),
+//               +0x14 int 总行数, +0x18 int 段界, +0x1c int 尾段偏移}
+//               (两段读语义 0099b36c;容量机 39853..39858)。
 //   游程面 H(0x20,bbb0 迁移腿 puVar7 形)= {+0x00 vt cited(Uint8RunStyles 族;
 //     身份槽 +0x28/+0x30/+0x38/+0x40 = vt5/6/7/8 — a47a/a4b2/a4ea/a448 检查),
 //     +0x08 runs 面(委托形态直存 RS8 — MarkersStore §1 同怪癖), +0x10 D2 面。
@@ -18,10 +19,21 @@
 //     subface(kwcMemo QHash 坍缩同款怪癖登记),GB 密排路随壳消失。
 // 七函数(0032.c):0099a3c0(30434)/0099a448(30475)/0099a47a(30498)/
 //   0099a4b2(30521)/0099a4ea(30544)/0099b36c(31287)/0099b4c8(31363)。
+// 写侧族(批 107):0099b152(31173,11B 追加转发)/0099b15e(31183,517B 单行置标志)
+//   — 调用点:FUN_00926ac0(0030.c:21901,CSuperBufferBase_h9805cc 0032.c:9536 转发)
+//   / session_stop_handlers(0030.c:28779,保存腿 flag&0xfb)/FUN_00957fb6
+//   (0031.c:25592)/FUN_009597fa(0031.c:26962)/0095bexx(0031.c:28641)。
+// bbb0 写尾两段机(31721..31871):segBound<pos → gapbuf_shrink(pos) 移位;
+//   容量不足(tailOff<len)→ FUN_0088a016(221B @0027.c:39819,gap 机扩容:
+//   cap<0x2000001→+cap/2 否则 +cap/4,realloc 后尾段 memmove 重建 gap);
+//   pos==segBound 跳 shrink(3745/3758 kuna branch-flip 同相)。
+//   ctor 可达路(pos=0/segBound=0)走 else 腿:shrink(0)+8a016 同序。
 // cited — wave-2:zstd 压缩腿 FUN_00889cde(280B @0027.c:39620)、QReadWriteLock
-//   锁腿、FUN_0088a016/gapbuf_shrink 容量两段机、bbb0 0xfffff 迁移腿与 run 模式
-//   灌值腿(LAB_0099bf2b)——本批不建模(任务书批 104 裁定)。
-//   写侧族(b152/b15e/flagmask_set_range/bbb0 增量)不在七函数 — 单列批。
+//   锁腿、bbb0 0xfffff 迁移腿(puVar7 建 Uint8RunStyles + piecetable + GB
+//   0099bc2c..0099be0a — piecetable_init 0096a2f8/FUN_0093fc60/GAP 壳全链
+//   依赖外库承载,坍缩建模会破坏读路 invariants)与 run 灌值腿
+//   (LAB_0099bf2b = Uint8RunStyles_dtor 008912e8 + gapbuffer_get_chars_locked
+//   00890880 2599B — 委托形态 RunStyles FillRange 承载留游程激活批)。
 #pragma once
 
 #include <QtGlobal>
@@ -45,11 +57,55 @@ struct ModTrackFace;
 struct ModTrackFace {
     void    *vt = nullptr;               // +0x00 cited — wave-2(GB 面 vt;我方读路不经)
     quint8  *bytes = nullptr;            // +0x08 字节数组(bbb0 尾 gapbuf 直写面)
-    quint32 _r10 = 0;                    // +0x10 语料分区缓存面 — cited(密排路不触)
+    int      cap = 0;                    // +0x10 容量(0088a016 39854 步进)
     int      total = 0;                  // +0x14 总行数(bbb0 尾 *(f+0x14)+=len)
     int      segBound = 0;               // +0x18 段界(两段读第一段界)
     int      tailOff = 0;                // +0x1c 尾段偏移(第二段基 = idx+tailOff)
 };
+
+// ============ 两段容量机(0027.c;bbbo 写尾调用链)============
+
+// gapbuf_shrink — FUN_00889e2e(95B @0027.c:39714):gap 推移到 param_2。
+//   pos<segBound:尾段左移 [pos, segBound) → pos+tailOff(31719..31723);
+//   否则尾段右移 [segBound,pos) → segBound+tailOff(31725..31729)。
+//   两腿均 *0x18 = pos(31724/31730)。全零数组承载:同 memmove 语义直拷。
+inline void gapShrink(ModTrackFace *f, int pos)
+{
+    if (pos < f->segBound) {                         // 39721
+        for (int i = pos; i < f->segBound; ++i)      // memmove(tail+pos, head+pos, bound-pos)
+            f->bytes[i + f->tailOff] = f->bytes[i];
+    } else {
+        for (int i = f->segBound; i < pos; ++i)      // memmove(head+bound, tail+bound, pos-bound)
+            f->bytes[i] = f->bytes[i + f->tailOff];
+    }
+    f->segBound = pos;                               // 39724/39730
+}
+
+// FUN_0088a016(221B @0027.c:39819)gap 扩容。cap<0x2000001 → +cap/2,否则
+//   +cap/4(39824..39828);负/零新容量 → runtime_error throw(39832..39845,
+//   载体 new 抛 bad_alloc 同失效路径);realloc 成功后尾段 memmove 到
+//   [oldTail+grow+segBound)(39852..39855)→ *0x1c = grow+oldTail(39858)。
+//   增量回退腿 39864..39868(δ>>2<9 停)— 载体 new 单轮即终,不承载(怪癖登记)。
+//   参数 = len(39853 v2=+a1);我方扩到 total+2*len+grow 界(全量数组承载
+//   不留 gap 空洞,write 尾步进同相)。
+inline void gapRealloc(ModTrackFace *f, int len)
+{
+    const int oldCap  = f->cap;                      // 语料 +0x10 容量(独立于 total)
+    const int segB    = f->segBound;
+    const int oldTail = f->tailOff;
+    const int grow = oldCap < 0x2000001 ? oldCap / 2 : oldCap / 4;   // 39824..39828
+    const int newTail = grow + len + oldTail;        // 39852 v3 = δ+len+oldTail
+    quint8 *nb = new quint8[size_t(oldCap) + size_t(len) + size_t(grow) + 1];
+    for (int i = 0; i < segB; ++i)                   // 头段原位
+        nb[i] = f->bytes[i];
+    for (int i = 0; i < f->total - segB; ++i)        // 39855 尾段搬新偏移
+        nb[newTail + segB + i] = f->bytes[oldTail + segB + i];
+    delete[] f->bytes;
+    f->bytes   = nb;                                 // 39853 *0x08
+    f->cap     = oldCap + len + grow;                // 39854 *0x10
+    f->tailOff = newTail;                            // 39858 *0x1c = v3
+}
+
 
 // 游程面 H = Uint8RunStyles(0x20;bbb0 迁移腿 puVar7 形)
 struct ModTrackRunFace {
@@ -96,28 +152,38 @@ struct ModTrack {
         modAppendRange(0, 1, defaultFlag);           // 31155 FUN_0099bbb0(inner,0,1,flag)
     }
 
-    // FUN_0099bbb0(1296B @0032.c:31704)flat 追加腿 — ctor 可达路(新面 pos=0/len=1)。
-    //   头部 31718..31719:*(inner+8) += len;31720 迁移门(0xfffff)— cited —
-    //   wave-2;31721 run 模式灌值腿(LAB_0099bf2b)— cited — wave-2。
-    //   31872..31905 gapbuf 容量/两段机(FUN_0088a016/gapbuf_shrink)— cited —
-    //   wave-2;ctor 可达路(新面 segBound=0/tailOff=0/pos==segBound)直写同相
-    //   (怪癖登记:承载坍缩为数组重分配,两段机随写侧批升级)。
+    // FUN_0099bbb0(1296B @0032.c:31704)写侧主体。头部(31718..31720):
+    //   *(inner+8)+=len;0xfffff 迁移门 — cited(见头注)。flat 腿 31721..31871:
+    //   len<1/pos<0/pos>total → return(31866..31871);segBound<pos → shrink(pos)
+    //   把 gap 推到写点(31838 gapbuf_shrink 0027.c:39714);容量不足 tailOff<len
+    //   → FUN_0088a016 扩容(0027.c:39819);memset 灌值(31906..31910,1 字节特判
+    //   同相);尾步进 total+=len/segBound+=len/tailOff-=len(31911..31913)。
+    //   语料序:pos<segBound 腿 = 8a016 先(容量)→ shrink 后(31735..31741);
+    //   pos>segBound 腿 = shrink 先 → 8a016(31744..31751)。kuna 0099bbb0
+    //   branch-flip 互证(v14<=v1 → else 31746 直跳 cb)。
     void modAppendRange(int pos, int len, quint8 flag)
     {
         if (len < 1 || pos < 0 || inner->flat->total < pos)
-            return;                                  // 31866..31871 门(len<1/pos<0/越界)
-        inner->lineCount += len;                     // 31718..31719 *(inner+8) += len
+            return;                                  // 31866..31871 门
+        inner->lineCount += len;                     // 31718..31919 *(inner+8) += len
         ModTrackFace *f = inner->flat;
-        // 31872..31905 容量腿 — cited;承载等价:重分配容纳 [head|tail] 全量
-        // (怪癖登记:gap 空洞布局不承载,两段读语义由 segBound/tailOff 保留)
-        quint8 *nb = new quint8[size_t(f->total) + size_t(len)];
-        if (f->bytes) {
-            for (int i = 0; i < f->total; ++i) nb[i] = f->bytes[i];
-            delete[] f->bytes;
+        const int bound = f->segBound;               // 31724 iVar13
+        if (bound < pos) {
+            gapShrink(f, pos);                       // 31744..31745 shrink 先
+            if (f->tailOff < len)                    // 31746..31747
+                gapRealloc(f, len);                  // 31748 8a016(返回即定界)
+        } else {
+            if (f->tailOff < len)                    // 31734..31735 容量先
+                gapRealloc(f, len);                  // 31736 8a016
+            if (pos != f->segBound)                  // 31739..31740(v14==v1 跳 cb)
+                gapShrink(f, pos);                   // 31741 shrink 后
         }
-        f->bytes = nb;
-        for (int i = 0; i < len; ++i)                // 31906..31910 *__s = flag(memset 同相)
-            f->bytes[pos + i] = flag;
+        quint8 *s = f->bytes + f->segBound;          // 31903 __s = segBound+bytes
+        if (len == 1)                                // 31904..31905 单字节特判同相
+            *s = flag;
+        else
+            for (int i = 0; i < len; ++i)            // 31906..31910 memset 同相
+                s[i] = flag;
         f->total    += len;                          // 31911 *(f+0x14) += len
         f->segBound += len;                          // 31912 *(f+0x18) += len
         f->tailOff  -= len;                          // 31913 *(f+0x1c) -= len
@@ -154,7 +220,76 @@ struct ModTrack {
     }
 };
 
-// ============ 七函数族(0032.c;inline 转写)============
+// mtRunFlagAt — b15e 同构读辅助(FUN_0088ff00 31287 前置读面:两段字面同构)
+inline quint8 mtRunFlagAt(const Scintilla::RunStyles<int, char> *, const ModTrackFace *f, int run)
+{
+    if (run < f->segBound)                           // 31302..31304
+        return run < 0 ? quint8(0) : f->bytes[run];
+    if (run < f->total)                              // 31305..31306
+        return f->bytes[run + f->tailOff];           // 31307
+    return 0;                                        // 31308
+}
+
+// ============ 写侧族(0032.c;批 107)============
+
+// FUN_0099b152(11B @0032.c:31173):追加转发 — FUN_0099bbb0(*param_1,pos,len,flag)。
+//   调用点:00926ac0(0030.c:21901)/FUN_00957fb6(0031.c:25592,flag=0x10|~)
+//   /FUN_009597fa(0031.c:26962)/0095bexx(0031.c:28641)。
+inline void mtAppendRange(ModTrack *m, int pos, int len, quint8 flag)
+{ m->modAppendRange(pos, len, flag); }               // 31175 tail-call 同体
+
+// FUN_0099b15e(517B @0032.c:31183)单行置标志。语料全读(kuna 互证):
+//   flat 支(31190..31200):pos<segBound(<0 拒)→ bytes[pos]=flag;
+//   segBound<=pos<total → bytes[pos+tailOff]=flag;越界拒。
+//   游程支(31202..31286):runAt(u+1)/runAt(u-1) 同值 → delete_chars+insert_space_b
+//   run 合并(31210..31215/31260..31266);per-run 旗标直写(31230..31286,两段同构)。
+//   GB 密排/FUN_0088f940 线程缓存腿 — cited;我方 runs 恒 null 壳期 + runFlags
+//   face 直存(坍缩注记同 b36c),run 支承载:合并腿 = RS DeleteRange+InsertSpace
+//   (0096a06e/00940400 委托同相),旗标写 = runFlags face 两段直写。
+inline void mtSetLineFlag(ModTrack *m, int line, quint8 flag)
+{
+    ModTrackInner *in = m->inner;                    // 31186 *(param_1+8)
+    if (!in->runs) {                                 // 31187..31189 runs==0
+        ModTrackFace *f = in->flat;                  // 31188 +0x18
+        if (line < f->segBound) {                    // 31190..31192
+            if (line < 0)                            // 31193..31195
+                return;
+        } else {
+            if (f->total <= line)                    // 31196..31198
+                return;
+            line += f->tailOff;                      // 31199
+        }
+        f->bytes[line] = flag;                       // 31200
+        return;
+    }
+    Scintilla::RunStyles<int, char> *rs = in->runs->rs;   // 31202 +0x08
+    ModTrackFace *rf = in->runs->runFlags;           // 31204..31205 +0x10 面
+    const int cnt = rs->Runs();                      // 31203 runs_count 00968a72
+    // run(u+1) 同值 → 吸后 run(31208..31215):delete_chars(u+1,1)+insert_space_b(u+1,1)
+    if (line + 1 < cnt && mtRunFlagAt(rs, rf, line + 1) == flag) {
+        rs->DeleteRange(line + 1, 1);                // 31213 runstyles_delete_chars 0096a06e
+        rs->InsertSpace(line + 1, 1);                // 31214 insert_space_b 00940400
+    }
+    // run(u-1) 同值 → 吸前 run 后返回(31257..31266)
+    if (line >= 1) {
+        if (mtRunFlagAt(rs, rf, line - 1) == flag) {
+            rs->DeleteRange(line, 1);                // 31262
+            rs->InsertSpace(line, 1);                // 31263
+            return;                                  // 31264..31266 tail
+        }
+    }
+    // per-run 旗标写(31230..31286 扁平化;两段同构 face 直写)
+    if (line < rf->segBound) {
+        if (line < 0)
+            return;                                  // 31233..31236
+        rf->bytes[line] = flag;                      // LAB_0099b1f6 31237
+        return;
+    }
+    if (rf->total <= line)                           // 31283..31285 尾门
+        return;
+    rf->bytes[line + rf->tailOff] = flag;            // 31286
+}
+
 
 // FUN_0099a3c0(12B @0032.c:30434)模态:*(*param_1+0x10) != 0 = 游程
 inline bool mtRunMode(const ModTrack *m)

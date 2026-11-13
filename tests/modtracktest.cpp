@@ -1,6 +1,7 @@
-// 批 104:M 修改行跟踪器行为门(七函数族 + markerBand 00927a78 线性支)
-// 铁律 5:断言语料行为,每条断言带语料锚;逐条手工写。游程支(wt 侧 run 迁移
-// 写腿未落地)仅测 flat 路径语义 — 与语料 flat 分支同相。
+// 批 104/107:M 修改行跟踪器行为门(七函数族 + markerBand 00927a78 线性支
+// + 写侧 b152/b15e/bbb0 两段机)。铁律 5:断言语料行为,每条断言带语料锚;
+// 逐条手工写。游程支(wt 侧 run 迁移写腿未落地)仅测 flat 路径语义 —
+// 与语料 flat 分支同相。
 #include "ModTrack.h"
 #include <cstdio>
 
@@ -25,8 +26,8 @@ int main()
 		       "a: ctor 建 flat 面(0099b142(,5)→0099b07a)");
 		expect(m.inner->lineCount == 1, "a: bbb0 头 *(inner+8)+=1(0032.c:31718)");
 		ModTrackFace *f = m.inner->flat;
-		expect(f->total == 1 && f->segBound == 1 && f->tailOff == -1,
-		       "a: bbb0 尾 total/segBound/tailOff 步进(0032.c:31911..31913)");
+		expect(f->total == 1 && f->segBound == 1 && f->tailOff == 0,
+		       "a: bbb0 尾 total/segBound/tailOff 步进(31911..31913;gap 机 tailOff= grow+len+oldTail-len=0,批 104 载荷 -1 怪癖消解)");
 		expect(f->bytes[0] == 5, "a: 首行旗标 = 5(bbb0 memset 腿 0032.c:31906)");
 
 		// a3c0 模态(0032.c:30434):inner+0x10 == 0 → flat
@@ -116,10 +117,70 @@ int main()
 		ModTrack m;
 		m.modAppendRange(1, 1, 4);
 		ModTrackFace *f = m.inner->flat;
-		expect(f->total == 2 && f->tailOff == -2 && f->segBound == 2,
-		       "c7: 两段机偏移步进(31911..31913)");
+		expect(f->total == 2 && f->tailOff == 0 && f->segBound == 2,
+		       "c7: 两段机偏移步进(31911..31913;tailOff=grow 收敛 0,批 107 gap 机)");
 		expect(wt::mtFaceRead(f, 0) == 5 && wt::mtFaceRead(f, 1) == 4,
 		       "c7: 两段读 idx/idx+tailOff(31305/31307)");
+	}
+
+	// ===== d. 写侧批 107(b152 追加/b15e 置标志/两段容量机)=====
+	// d1: modAppendRange ≡ FUN_0099b152(31173:tail-call bbb0 同体)
+	{
+		ModTrack m;
+		wt::mtAppendRange(&m, 1, 1, 4);              // 31175 → bbb0(1,1,4)
+		expect(m.inner->flat->total == 2 && wt::mtLineFlag(&m, 1) == 4,
+		       "d1: FUN_0099b152 追加转发(31173..31176 tail-call bbb0)");
+	}
+	// d2: mtSetLineFlag flat 支(31187..31200:两段门 + 直写)
+	{
+		ModTrack m;
+		m.modAppendRange(1, 1, 4);                   // 行 1=modified;行 0=5
+		wt::mtSetLineFlag(&m, 0, 4);                 // 31190..31192 首段写
+		expect(wt::mtLineFlag(&m, 0) == 4, "d2: b15e 首段写(31200 bytes[pos]=flag)");
+		wt::mtSetLineFlag(&m, 1, 2);                 // 31196..31199 尾段写(pos+tailOff)
+		expect(wt::mtLineFlag(&m, 1) == 2, "d2: b15e 尾段写(31199 pos+=tailOff)");
+		wt::mtSetLineFlag(&m, 5, 1);                 // 31196..31198 越界拒
+		expect(m.inner->flat->total == 2, "d2: b15e 越界拒(31198 total<=pos return)");
+		wt::mtSetLineFlag(&m, -1, 1);                // 31193..31195 负拒
+		expect(wt::mtLineFlag(&m, -1) == 0, "d2: b15e 负拒(31194 pos<0 return)");
+	}
+	// d3: b15e 游程支壳期同相(恒 flat — runs null 不入 31202 支)
+	{
+		ModTrack m;
+		m.modAppendRange(1, 1, 4);
+		expect(!wt::mtRunMode(&m), "d3: b15e 游程支门(31187 runs==0 → flat)");
+	}
+	// d4: 两段容量机升级(bbb0 写尾 31721..31871;多行追加后读回同相)
+	{
+		ModTrack m;
+		for (int i = 0; i < 5; ++i)
+			m.modAppendRange(i + 1, 1, 4);           // 6 行,行 1..5=4
+		const ModTrackFace *f = m.inner->flat;
+		expect(f->total == 6 && f->segBound == 6,
+		       "d4: 六次追加步进(31911..31912 total/segBound;tailOff=gap 机 grow 残余)");
+		bool ok = wt::mtLineFlag(&m, 0) == 5;
+		for (int i = 1; i < 6; ++i) ok = ok && wt::mtLineFlag(&m, i) == 4;
+		expect(ok, "d4: 两段读回全部同相(31305/31307 idx/idx+tailOff)");
+	}
+	// d5: 交错置标志 + 追加(容量机 gapShrink/gapRealloc 腿反复)
+	{
+		ModTrack m;
+		m.modAppendRange(1, 1, 4);
+		m.modAppendRange(2, 1, 2);
+		m.modAppendRange(3, 1, 4);
+		wt::mtSetLineFlag(&m, 2, 4);                 // 尾段写穿插
+		wt::mtSetLineFlag(&m, 0, 4);                 // 首段写穿插
+		expect(wt::mtLineFlag(&m, 0) == 4 && wt::mtLineFlag(&m, 1) == 4 &&
+		       wt::mtLineFlag(&m, 2) == 4 && wt::mtLineFlag(&m, 3) == 4,
+		       "d5: 交错写/追加后两段读同相(b15e 31200/31286)");
+	}
+	// d6: bbb0 门(len<1/pos<0/pos>total)— 写侧批复核(31866..31871)
+	{
+		ModTrack m;
+		m.modAppendRange(9, 1, 4);                   // pos>total 拒
+		m.modAppendRange(1, 0, 4);                   // len<1 拒
+		expect(m.inner->flat->total == 1 && m.inner->lineCount == 1,
+		       "d6: bbb0 门 len<1/pos>total 拒(31866..31871)");
 	}
 
 	printf("fail=%d\n", g_fail);
