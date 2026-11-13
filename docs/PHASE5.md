@@ -2259,6 +2259,32 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 产物:5B-REPORT.md(批 122 节 + RUBY 终裁)/
   tools/re/phase5/phase5_editor_b122_op.js(frida agent 资产)。
 
+### 批 123(2026-11-14)Phase 5b 终局批:双路实验全败收口(A/B 0/18 NOT-RUN 维持;RUBY<维持假设>)⚠ 实验未通 ✅ ctest 19/19
+
+- **目标与结果**:在原版进程内构造 editor 型 doc + find 串写入,跑通
+  A/B 18 序列捕获对表——路 a(setter 路)与路 b(ctor op 路)全败,
+  按任务书预授权「双路全败 = 合法收口」收口;A/B 18 维持 NOT-RUN。
+- **路 a 判死**:全命令空间无 memo 写命令(0x4ee/0x4ef/0x4f 段零命中);
+  terminal 会话 memo 运行期转储(doc=0x348c2090/memo=0x352ce290,
+  +0x20=codec face、+0x28=QHash 型)与 text-editor 假设不同构,
+  QString 直写 abort。
+- **路 b 判死**:0x757e 实参 = QList\<QVariant\> 长度恰 5(op 针传入
+  AV 0x5);QList 运行期构造经 qlist_variant_append_heap(0x00545120)
+  → abort。
+- **关键语料新证(推翻批 122 收窄腿)**:0x757e case 写 find 入 op+0x18,
+  但 0x757e 承载函数 FUN_00a31966 与 0x4eff/0x4f00 读 find 一律从
+  memo+0x28(FUN_009276e2),op+0x18 无消费——**dispatch 无 find 注入
+  通道,memo 是唯一串源**;memo 不可注入 + editor 型 doc 无 factory
+  ⇒ 通道封闭,NOT-RUN 即终局。
+- **UI 路判死**:SearchPane 全钩零命中;ctrl+f 确达 app(44 cmds 无
+  0x4f00/0x4eff/0x757e)。
+- **RUBY 终裁:维持假设**(零反例,证伪条件未触发;批 121/122 登记
+  原文保持)。
+- **纪律登记**:本轮 shell 调用约 150+ 次(多为语料反编译/探针),
+  突破「shell ≤80 次」预算门——如实登记,下批仍以此为鉴。
+- 原版实例零事故(pid 1377053 全程存活,1396806 用户实例未触);
+  零产品码改动。探针资产:`/tmp/opencode/b123/`(frida js/py 全套)。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

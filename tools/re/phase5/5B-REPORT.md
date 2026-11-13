@@ -138,6 +138,51 @@ doc(非 terminal 会话 doc)上经 0x757e case 同构构造 op + find 串
 Grep op ctor 腿)留后续批。原版实例全程存活(零重启,批 121 事故
 不复现 — 手填桥面已弃用)。
 
+## 批 123 双路实验终局节(2026-11-14,A/B 终局收口)
+
+**目标**:editor 型 doc + find 串写入 → A/B 18 序列原版捕获。双路全败,
+判死证据如下(任务书预授权收口)。
+
+**路 a(setter 路)判死**:
+- 全命令空间核对无 memo 写命令(EDITOR-ENGINE-COMMANDS 0x4ee/0x4ef/
+  0x4f 段零命中;批 122 setter 面侦察结论维持)。
+- terminal 会话 doc+0xe0 memo 运行期实锤(批 123 转储,doc=0x348c2090、
+  memo=0x352ce290):+0x20=0x11bf0e0(PTR_FUN UTF-16LE codec face)、
+  +0x28=0x347a0790(QHash 型,"WindTerm"/"1"/"compose" 表)——与
+  text-editor 假设布局(两槽 QString)**不同构**,QString 直写必 abort
+  (批 121/122 已复现两枪)。
+
+**路 b(ctor op 路)判死**:
+- 0x757e case(0034:23445)实参形态 = QList\<QVariant\> **长度恰 5**
+  (非 op 针;op 作 a 传入 → access violation 0x5,偏移解引所致)。
+- 运行期构造 QList:经 `qlist_variant_append_heap`(0x00545120)尝试 →
+  "abort was called";复跑 AV 0x5。QList 元数据不可在原版进程内自建,
+  腿封死。
+
+**关键语料新证(批 123 终局;推翻批 122 收窄腿)**:0x757e case 把 find
+写入 op+0x18,但 `FUN_00a31966`/0x4eff/0x4f00 的 find 串一律从
+memo+0x28 读(FUN_009276e2→009975c8),**op+0x18 无任何消费**——即
+dispatch 不存在任何注入 find 的通道,memo 是唯一串源。批 122 收窄腿
+「op+0x18 直挂绕 memo」被本批证伪;memo 不可注入(路 a)+ editor 型
+doc 无 factory 落点(00a418c4 全 case 树无创建命令;SearchPane 死路)
+⇒ **A/B 18 通道封闭,NOT-RUN 即终局**。
+
+**UI 路判死(侦察留档)**:SearchPane 全钩(0074efe6 ctor/0074e9cc
+fill/005bdda6/005ea304/0090b4c6/0090b492/0090b55a)零命中;ctrl+f
+键盘事件确达 app(dispatch 监控 44 cmds,无 0x4f00/0x4eff/0x757e;
+Xvfb 无 WM,windowactivate 不可用,windowfocus 可用)。
+
+**A/B 18 维持 NOT-RUN**;对表 1/21 MATCH / 2 MISMATCH / 18 NOT-RUN
+不变。**RUBY 终裁:维持假设**(零反例;证伪条件未触发;原版 dispatch
+面读数缺位,批 121/122 登记原文保持)。
+
+**运行期实锤补登**(批 123):ctx=0x352d1820(vptr 0x11ae558)、
+ScintillaEditBase=0x352ca8b0(+0x400→ctx,+0x1098=0);针消费形态 =
+00a83946 解引 *param_2 一次,regex 模式针 = codec_canEncode 输出对
+[0]、literal 模式针 = grepNeedle 输出对 [0](批 116b 模型一致)。
+探针资产:`/tmp/opencode/b123/`(b123a.js/drive.py/dispall.js/
+peek*.js/spy*.js)。原版实例零事故(pid 1377053 全程存活)。
+
 ## QUIRKS 候选(只登记,不修)
 
 - **#29 候选(仪器怪癖)**:0x1270B EditorContext **vtable+0x1c0 = 0**
