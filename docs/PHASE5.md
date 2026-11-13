@@ -2113,6 +2113,45 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:**ctest 17/17 + dlopen OK**;EditorContext.h charUsedView/去重腿
   头注定型,EditorEngine.cpp 0x7576 case 注记升级。
 
+### 批 110/114/116(2026-11-13)第三轮 M1 车道 + 批 114b/116b 主控勘误(里程碑 M1 达成)✅ ctest 18/18
+
+- **批 110 Onigmo-改 face 定案(取证收口)**:00aa1f70/00aa1f80 =
+  malloc/free 尾调用(kuna 直证,编码钩子候选证伪);0xd35f40 =
+  **ASCII case-fold 表**(A-Z→a-z,勘正主控"恒等表"误判);dat_d15860 =
+  编译环境 face 0x48B{alloc,free,ctx,fold 表,限长∞,u16{2,5},flags} —
+  语法 op/op2 域零消费(00a9c780 硬编码)→ ONIG_SYNTAX_*/ENCODING_*
+  映射无落点 → 激活形态改判(见批 116)。CALIBRATION 批 110 节。
+- **批 114 flagmask 位面机**:flagmaskSetRange(0099b740,31520..31716
+  全读:(cur&~clr)|set;flat 两段逐行/runs 单 run 特判+头中尾三段+
+  c10e 合并腿)+ M+0x28 行槽登记 + mtBit4SetClr(00958048)/
+  mtLineSlotClrBit3(00958108)调点辅助;f 组 34 断言。runs 支怪癖
+  (尾段读 face[runAtEnd 槽]/头段覆写域)按语料字面登记。
+- **批 114b 主控改接(T 段调点位面)**:0x95c7a7/0x95c88e/0x95c848
+  三处整字节写 → mtBit4SetClr(asm 契约:0x95c88e EDX=1 恒 set);
+  fA/fB 勘正 bit4 位(958750 = b36c>>4&1 @26191,批 113 整字节近似
+  消解);收前缀门归位 +0x168 守卫(0x95c736 JZ 语义)。批 113 风险
+  闭环,残项 = 958108 ctx+0x28 行槽接线(ctor 证据缺,cited)。
+- **批 116 0x4eff onig 委托激活(M1-①)**:OnigSearch.{h,cpp} 新
+  (onig_new RUBY+UTF-8+case 位/onig_search OnigIterator/单槽惰性
+  编译缓存 ↔ 00ad7360);bufferScan00b422d0 激活;语法假设 =
+  ONIG_SYNTAX_RUBY 经 **5 真实样例对账**(triggers.config ×2 +
+  linux.lexer ×3:\g<X> 子例程调用 + ++ 占有量词 → RUBY 唯一上游;
+  Java/Perl 无 ESC_G_SUBEXP_CALL)— 假设显式登记 CALIBRATION。
+  libonig PIC 化替身(tools/re/onigpic.sh:strip-debug + -Bsymbolic;
+  lib/ 原件只读,替身落 build/)。onigtest 新 24 断言。
+- **批 116b 主控勘误(ASLR 段错误根因)**:bufferScan 双层解引 =
+  searcher 槽形态误推;语料 param_4 = **针对象指针(单层)** —
+  改单层 + needle[0] 门以 null 门承接(壳无 vtable,批 105 定案;
+  literal=0 档首八字可零);onigtest makePair 同步单层。
+  wordsteptest 1/5 ASLR SEGV 根除(根因 = 首八字 {literal=1} 被
+  当指针解引)。
+- **M1 终局核对**:①0x4eff 激活 ✅(假设登记)②c1c2 剩余定案 ✅
+  (批 115:去重查腿真身/busy 真身 009e975a 缺构造点登记/入口 =
+  外库边界面坍缩/迭代器壳态全腿关)③M+0x28/flagmask ✅(批 114+
+  114b;残项 958108 行槽接线 ctor 证据缺)④迁移腿 0099bc2c 裁决 ✅
+  (批 111:piecetable/线程池链不可脱离外库 → 边界登记)。**里程碑
+  M1 达成,按用户终点条件停止开车道。**
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
