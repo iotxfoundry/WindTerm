@@ -277,6 +277,165 @@ int main()
 		       "e5: 合并腿 Length 不变 Runs 收敛(31213..31214 delete/insert 等长)");
 	}
 
+	// ===== f. flagmask_set_range 0099b740 位面机(批 114;0032.c:31520..31716)=====
+	// f1: flat 支 set/clr 不扰其他位(31543 位面 (~clr&cur)|set)
+	{
+		ModTrack m;                                  // 行 0 旗标 5 = bit0|bit2
+		expect(wt::flagmaskSetRange(&m, 0, 0x10, 0, 1) == 1,
+		       "f1: set bit4 → 返回 1(25630/31554 位面差)");
+		expect(m.inner->flat->bytes[0] == 0x15,
+		       "f1: set 0x10 → 5|0x10=0x15(bit0/bit2 不扰 — 位面非整字节)");
+		expect(wt::flagmaskSetRange(&m, 0, 0, 0x10, 1) == 1,
+		       "f1: clr bit4 → 返回 1(25634/31543 位面差)");
+		expect(m.inner->flat->bytes[0] == 5,
+		       "f1: clr 0x10 → 回 5(其余位原样)");
+		// 同值 trim no-op(31548 位面相等 → 不写不报)
+		expect(wt::flagmaskSetRange(&m, 0, 0x01, 0, 1) == 0,
+		       "f1: set 已有 bit0 → 0(31548 cur==v trim)");
+		expect(m.inner->flat->bytes[0] == 5, "f1: trim 不写");
+		expect(wt::flagmaskSetRange(&m, 0, 8, 0, 1) == 1,
+		       "f1: set bit3 → 1(5|8=13)");
+		expect(wt::flagmaskSetRange(&m, 0, 0, 8, 1) == 1,
+		       "f1: clr bit3(25700 958108 腿)→ 1");
+		expect(m.inner->flat->bytes[0] == 5,
+		       "f1: clr 8 → 回 5(其余位原样)");
+		expect(wt::flagmaskSetRange(&m, 0, 0, 8, 1) == 0,
+		       "f1: 无 bit3 再 clr → 0(位面无差不报)");
+		// 越界行 + set!=0 → 返 1 不写(31575..31577 语料字面)
+		expect(wt::flagmaskSetRange(&m, 99, 0x10, 0, 1) == 1,
+		       "f1: 越界 + set!=0 → 返 1(31576)");
+		expect(m.inner->flat->total == 1, "f1: 越界不写(31577)");
+		expect(wt::flagmaskSetRange(&m, 99, 0, 0x10, 1) == 0,
+		       "f1: 越界 + set==0 → 返 0(31575)");
+	}
+	// f2: flat 支 count 范围 + 溢出门(31531..31534)
+	{
+		ModTrack m;
+		m.modAppendRange(1, 3, 1);                   // 行 1..3 = 1
+		expect(wt::flagmaskSetRange(&m, 1, 2, 1, 3) == 1,
+		       "f2: 3 行位面写(set2 clr1)→ 1");
+		for (int i = 1; i <= 3; ++i)
+			expect(m.inner->flat->bytes[i] == 2,
+			       "f2: 行 i → (1&~1)|2=2");
+		expect(m.inner->flat->bytes[0] == 5, "f2: 行 0 不在范围不动");
+		expect(wt::flagmaskSetRange(&m, 0, 1, 0, -1) == 0,
+		       "f2: count<0 溢出门 end<=pos → 0(31533)");
+	}
+	// f3: runs 支 — 单 run 特判腿(31582..31595;装置面同 e 组注入)
+	{
+		ModTrack m;
+		m.modAppendRange(1, 3, 4);
+		auto *rs = new Scintilla::RunStyles<int, char>();
+		rs->InsertSpace(0, 4);
+		for (int i = 0; i < 4; ++i)                  // 每行独立 run(值 4)
+			rs->FillRange(i, char(4), 1);
+		wt::ModTrackFace *rf = new wt::ModTrackFace;
+		rf->bytes = new quint8[8]; rf->cap = 8;
+		rf->total = rf->segBound = 4; rf->tailOff = 0;
+		for (int i = 0; i < 4; ++i) rf->bytes[i] = 4;
+		wt::modAttachRunFace(&m, rs, rf);
+		// 单 run 特判腿(31587..31594):pos=0,count=1 → rf[pos] 位面直写
+		expect(wt::flagmaskSetRange(&m, 0, 0x10, 0, 1) == 1,
+		       "f3: runs 单 run set bit4 → 1(31593)");
+		expect(rf->bytes[0] == 0x14,
+		       "f3: rf[0] = 4|0x10=0x14(bit2 不扰 — 位面直写行槽)");
+		expect(rf->bytes[1] == 4 && rf->bytes[2] == 4 && rf->bytes[3] == 4,
+		       "f3: 其余行不扰(位面)");
+		expect(wt::flagmaskSetRange(&m, 0, 0, 0x10, 1) == 1,
+		       "f3: clr bit4 → 1(31593 对称)");
+		expect(rf->bytes[0] == 4, "f3: 回 4");
+		// RS 值面不动(b740 只写 flag 面)
+		expect(rs->ValueAt(0) == 4, "f3: RS 值面不被位面写扰动");
+		// 同值 trim(31590)
+		expect(wt::flagmaskSetRange(&m, 0, 4, 0, 1) == 0,
+		       "f3: set 已有 bit2 → 0(31590 trim)");
+	}
+	// f4: runs 支 — 多 run 跨段(31624..31714;装置 rs [0,2)=4 [2,4)=2)
+	{
+		ModTrack m;
+		m.modAppendRange(1, 3, 4);
+		auto *rs = new Scintilla::RunStyles<int, char>();
+		rs->InsertSpace(0, 4);
+		for (int i = 0; i < 2; ++i) rs->FillRange(i, char(4), 1);   // 行 0/1=4
+		for (int i = 2; i < 4; ++i) rs->FillRange(i, char(2), 1);   // 行 2/3=2
+		wt::ModTrackFace *rf = new wt::ModTrackFace;
+		rf->bytes = new quint8[8]; rf->cap = 8;
+		rf->total = rf->segBound = 4; rf->tailOff = 0;
+		rf->bytes[0] = rf->bytes[1] = 4; rf->bytes[2] = rf->bytes[3] = 2;
+		wt::modAttachRunFace(&m, rs, rf);
+		// count=4 跨两 run(头段 run0=[0,2) + 尾段;31603..31714)。
+		//   语料怪癖(31700..31706 字面):头段写 face[pos..pos+n) = face[0..2)
+		//   → face[runAtEnd=1] 被覆写为 5;尾段 cur=face[1]=5 → 同值跳,
+		//   尾段 [2,4) 不写。ret=1(头段已写),rf[2..3] 保持 2 — 位面机
+		//   在 [pos,r1End) 头段 + 越界尾 run 槽(索引 1 < 2 行)上操作,
+		//   行槽域 [2,4) 无写 — 怪癖登记(语料同相,不修)。
+		expect(wt::flagmaskSetRange(&m, 0, 1, 0, 4) == 1,
+		       "f4: 跨 run set bit0 → 1(头段 [0,2) 写)");
+		expect(rf->bytes[0] == 5 && rf->bytes[1] == 5,
+		       "f4: 头段行 0/1 = 4|1=5(31636..31638)");
+		expect(rf->bytes[2] == 2 && rf->bytes[3] == 2,
+		       "f4: 尾段同值跳怪癖(31700..31706 cur=face[runAtEnd 槽]=5)"
+		       " → 行 2/3 不写(语料字面)");
+		// clr bit0(0,4):头段 [0,2) 写回;尾段 cur=face[1]=4 → 同值跳
+		expect(wt::flagmaskSetRange(&m, 0, 0, 1, 4) == 1, "f4: clr bit0 → 1");
+		expect(rf->bytes[0] == 4 && rf->bytes[1] == 4 && rf->bytes[2] == 2,
+		       "f4: 头段回 4/尾段同值跳(同怪癖)");
+		// pos=2,count=1:run0=1,r1End=StartPos(2)=4,end=3 → 头段腿:
+		//   cur=face[1]=4 → v=12? 8|4=12;异值 → 头段写 n=min(4-2,1)=1
+		//   → face[2]=12;中段 run1..runAtEnd(IdxOf(3)=1) 空;
+		//   尾段 cur=face[runAtEnd=1]=4(未动)→ v=12 差 → 写 [2,3) v=12?
+		//   语料:cur=face[iVar3=1]=4;v=(8|4)=12 → gapbuffer(face[2],1) = 12
+		expect(wt::flagmaskSetRange(&m, 2, 8, 0, 1) == 1, "f4: [2,1) set bit3 → 1");
+		expect(rf->bytes[2] == 12,
+		       "f4: 行2 = 2|8|4=12(头段写;rf 槽位域 face[2])");
+		expect(rf->bytes[0] == 4 && rf->bytes[1] == 4,
+		       "f4: 行 0/1 不动");
+		// 二轮写 [2,1):头段读 face[run0 槽=1]=4(槽位域 ≠ 行 2)→ v=12 差
+		//   → 头段再写 face[2]=12 回 1 — 语料字面(头段读槽 = run0 号,
+		//   非 pos 行;同值 trim 不触发 — 怪癖登记)
+		expect(wt::flagmaskSetRange(&m, 2, 8, 0, 1) == 1,
+		       "f4: 二轮写回 1(头段读 face[run0 槽] 差 — 语料字面 31624..31639)");
+		expect(rf->bytes[2] == 12, "f4: face[2] 保持 12");
+		// pos=2,count=2:头段 n=min(r1End-pos=2,2)=2 → face[2]=face[3]=12;
+		//   尾段:runAtEnd=IdxOf(4)=1,cur=face[1]=12(头段覆写)→ v=12 同值
+		//   → 尾段跳;回 1(头段已写)。face[1] 不动 — 语料字面
+		expect(wt::flagmaskSetRange(&m, 2, 8, 0, 2) == 1,
+		       "f4: [2,2) set bit3 → 1(头段写 face[2..4))");
+		expect(rf->bytes[1] == 12 && rf->bytes[2] == 12,
+		       "f4: 头段写 face[2..4) 越尾 → 尾段 gapbuffer(face[stEnd=2],"
+		       "end-2=2) 值 12 写 [2,4) 但 cur=face[runAtEnd 槽=1]=4→差 → "
+		       "语料 face[1] 覆写腿(gapbuffer face[1]) — 值 12;face[3] "
+		       "保持 2(尾段写域 [stEnd,end) = [2,4) 行槽 — 语料同相,"
+		       "装置无尾哨)");
+		// 四轮:头段 cur=face[run0 槽=1]=12 → v=12 同值 → 不写;b887 尾判:
+		//   runAtEnd=IdxOf(4)=1,cur=face[1]=12 → v 同值 → 全 trim 回 0
+		//   (装置态:face[1]=12 后续四轮恒差=0;语料同相)
+		expect(wt::flagmaskSetRange(&m, 2, 8, 0, 2) == 0,
+		       "f4: 四轮全同值 → 0(31630→b887 + 尾段 trim)");
+		expect(rf->bytes[1] == 12 && rf->bytes[2] == 12 && rf->bytes[3] == 2,
+		       "f4: 终态 face[1..2]=12/face[3]=2(语料尾段写域 [stEnd,end)"
+		       " 未触 face[3] — 怪癖字面)");
+		expect(wt::flagmaskSetRange(&m, 2, 8, 0, 2) == 0,
+		       "f4: 全程同值 → 0(31630→b887/31661 trim)");
+	}
+	// f5: 0x95 调点辅助(25618/25681 语义经 b740 位面)
+	{
+		ModTrack m;
+		wt::mtBit4SetClr(&m, 0, 1);                  // 25630 set 0x10
+		expect(m.inner->flat->bytes[0] == 0x15, "f5: 958048 flag!=0 → 5|0x10(25630)");
+		wt::mtBit4SetClr(&m, 0, 0);                  // 25634 clr 0x10
+		expect(m.inner->flat->bytes[0] == 5, "f5: 958048 flag==0 → clr 0x10(25634)");
+		long slot = 100;                             // *(ctx+0x28) 行槽
+		wt::mtLineSlotClrBit3(&m, &slot, 7);         // 25691..25701
+		expect(slot == 6, "f5: 958108 行槽 min(7-1,100)=6(25695..25699)");
+		wt::mtLineSlotClrBit3(&m, &slot, 3);
+		expect(slot == 2, "f5: 行槽再收敛 min(3-1,6)=2");
+		wt::mtLineSlotClrBit3(&m, &slot, 1);
+		expect(slot == 0, "f5: min(1-1,2)=0");
+		expect(m.inner->flat->bytes[0] == 5,
+		       "f5: clr bit3 位面不扰 bit0/bit2(25700)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

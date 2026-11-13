@@ -19,6 +19,7 @@
 //     subface(kwcMemo QHash 坍缩同款怪癖登记),GB 密排路随壳消失。
 // 七函数(0032.c):0099a3c0(30434)/0099a448(30475)/0099a47a(30498)/
 //   0099a4b2(30521)/0099a4ea(30544)/0099b36c(31287)/0099b4c8(31363)。
+//   (批 114 增:0099b740 flagmask_set_range — 位面写侧,见 mtRunIndexOf 后)
 // 写侧族(批 107):0099b152(31173,11B 追加转发)/0099b15e(31183,517B 单行置标志)
 //   — 调用点:FUN_00926ac0(0030.c:21901,CSuperBufferBase_h9805cc 0032.c:9536 转发)
 //   / session_stop_handlers(0030.c:28779,保存腿 flag&0xfb)/FUN_00957fb6
@@ -262,12 +263,14 @@ inline void modAttachRunFace(ModTrack *m, Scintilla::RunStyles<int, char> *rs,
 //   flat 支(31190..31200):pos<segBound(<0 拒)→ bytes[pos]=flag;
 //   segBound<=pos<total → bytes[pos+tailOff]=flag;越界拒。
 //   游程支(31202..31286):runAt(u+1)/runAt(u-1) 同值 → delete_chars+insert_space_b
-//   run 合并(31210..31215/31260..31266);per-run 旗标直写(31230..31286,两段同构)。
-//   GB 密排/FUN_0088f940 线程缓存腿 — cited;游程支运行承载(批 111 驱动,
+//   run 合并(31210..31215/31260..31266);per-run 旗标直写(31230..31286,两段同构)。/FUN_0088f940 线程缓存腿 — cited;游程支运行承载(批 111 驱动,
 //   测试经 modAttachRunFace 装置注入;产品侧迁移腿仍 cited):
 //   合并腿 = RS DeleteRange+InsertSpace(0096a06e/00940400 委托同相;
 //   语料 31210..31215/31260..31266,值域 009cd3da 内),旗标写 =
 //   runFlags face 两段直写(31230..31286 同构 mtFaceRead 两段语义)。
+//   批 114 复核:本转写 param_3 整字节写 = 语料 31183 字面同相(b15e 无
+//   位面机 — 位面语义在调点层 0x958048/0x958108 → b740,见 mtBit4SetClr/
+//   mtLineSlotClrBit3/flagmaskSetRange;EditorEngine 调点 rewire 下批解禁)。
 inline void mtSetLineFlag(ModTrack *m, int line, quint8 flag)
 {
     ModTrackInner *in = m->inner;                    // 31186 *(param_1+8)
@@ -312,7 +315,6 @@ inline void mtSetLineFlag(ModTrack *m, int line, quint8 flag)
     rf->bytes[line + rf->tailOff] = flag;            // 31286
 }
 
-
 // FUN_0099a3c0(12B @0032.c:30434)模态:*(*param_1+0x10) != 0 = 游程
 inline bool mtRunMode(const ModTrack *m)
 { return m && m->inner && m->inner->runs != nullptr; }
@@ -347,18 +349,29 @@ inline qint64 mtRunStartPos(const Scintilla::RunStyles<int, char> *rs, int run)
         run = 0;                                     // 38491..38492
     if (run == 0)
         return 0;                                    // b_0 = 0(空界)
+    if (run == count)                                // 38497 run==count → 尾界表
+        return rs->Length();                         //   b_cnt = 尾界(009694fe
+                                                     //   +0x20 尾哨腿同相)
     return rs->FindNextChange(run - 1, rs->Length());// b_run(界走等价)
 }
 
-// runstyles_fill_range(RS,pos)(00969910 514B @0031.c:38506)≡ RunFromPosition
-// (RunStyles.cxx:33;0032.c:37040 调点同参互证)— 委托承载:界走计数等价
+// runstyles_fill_range(RS,pos)(00969910 514B @0031.c:38506)等价转写:
+//   语料非直线二分:pos<Length 门(38586 param_2 < *(p+0x28) 直线腿)—
+//   pos 超尾 → 不进二分,返回 lVar6 = runs-1(38576 cnt-1 起值)。批 114
+//   复核:pos==Length 时二分腿 lVar6 收敛于 runs-1(38588..38599 界钳);
+//   映射 = [0, Length] 闭区间单调,超界钳 cnt-1。RunFromPosition 上游
+//   PartitionFromPosition 对 pos==Length 返回 Partitions()(=runs,越界)
+//   — 直线钳腿同相:超界返回 runs-1(38576/38604 lVar6)。
 inline int mtRunIndexOf(const Scintilla::RunStyles<int, char> *rs, int pos)
 {
     if (!rs || pos < 0)
         return 0;
+    const int count = int(rs->Runs());               // 38513 runs_count
+    if (pos >= rs->Length())                         // 38586 门(超尾不进二分)
+        return count > 0 ? count - 1 : 0;            // 38576 lVar6 起值/空守卫
     int run = 0;
     qint64 b = 0;
-    for (;;) {
+    for (;;) {                                       // 38588..38599 二分等价(线性)
         const qint64 nxt = rs->FindNextChange(b, rs->Length());
         if (nxt <= b || nxt > pos)
             break;
@@ -368,6 +381,183 @@ inline int mtRunIndexOf(const Scintilla::RunStyles<int, char> *rs, int pos)
     return run;
 }
 
+// FUN_0099b740 flagmask_set_range(1121B @0032.c:31520..31716;批 114,kuna 互证)。
+//   位面写:(cur & ~clr) | set — 非整字节覆盖。返回 1 = 有变化(位面差才写,
+//   同值 trim no-op 31548/31561/31568)。flat 支(31529..31578):M+0x18 文档面
+//   逐行两段写;越界行(<0/≥total)set!=0 → 返回 1 但不写(31536/31576 语料字面)。
+//   runs 支(31579..31716):inner+0x10 H 面 — fill_range(pos)→run0(31587
+//   00969910 委托同 mtRunIndexOf),flag 面 = H+0x10 D2(索引空间 = run,
+//   0088ff00(31287 前置)读/两段写;c10e 合并腿 31599 → FUN_0099c10e
+//   31922:邻 run 同值 delete_chars+insert_space_b 摘界合并,委托 RS 同 b15e)。
+//   GB 密排/0088f940 线程缓存腿 — cited — wave-2(头注批 111 同判定)。
+//   runs 支承载(装置面,modAttachRunFace 注记):run0..end 边界经
+//   mtRunIndexOf/mtRunStartPos 委托;头/中/尾三段位面写 31599..31716 字面同构。
+//   (体在 mtRunIndexOf 定义之后 — 坑 3 依赖序;下行声明即定义点)
+inline quint8 flagmaskSetRange(ModTrack *m, long pos, quint8 set, quint8 clr, long count)
+{
+    if (!m || !m->inner)
+        return 0;                                    // 壳期守卫(语料调点均在 init 后)
+    quint8 changed = 0;                              // uVar9
+    if (!m->inner->runs) {                           // 31529 *(param_1+0x18)==0 flat 支
+        ModTrackFace *f = m->inner->flat;            //   lVar11 = *(lVar1+0x18)
+        const long end = pos + count;                // 31531 param_5 = p5+p2
+        if (end <= pos)
+            return 0;                                // 31532..31534 溢出门
+        for (long i = pos; i < end; ++i) {           // 31535..31577 do-while 字面
+            if (i < f->segBound) {                   // 31537..31540
+                if (i < 0) {                         // 31541..31543
+                    if (set != 0)
+                        changed = 1;                 // 31543 LAB_0099b7ef(不写)
+                    continue;
+                }
+                quint8 *p = &f->bytes[i];            // 31542 pbVar4
+                const quint8 v = quint8((~clr & *p) | set);   // 31543 位面
+                if (*p != v) { *p = v; changed = 1; }         // 31544/31553/31554
+            } else if (i < f->total) {               // 31545..31547 尾段
+                quint8 *p = &f->bytes[i + f->tailOff];        // 31546 +0x1c
+                const quint8 v = quint8((~clr & *p) | set);
+                if (*p != v) { *p = v; changed = 1; }         // 31553..31555
+            } else {
+                if (set != 0)
+                    changed = 1;                        // 31575..31577(不写)
+            }
+        }
+        return changed;                              // 31578
+    }
+    // runs 支(31579..31716)
+    Scintilla::RunStyles<int, char> *rs = m->inner->runs->rs;      // +0x08
+    ModTrackFace *rf = m->inner->runs->runFlags;     // +0x10 flag 面(D2 索引=run)
+    const long end = pos + count;
+    if (end < 2) {                                   // 31582..31583 单 run 特判腿
+        if (end != 1)
+            return 0;                                // 31584..31586 count<1
+        const int run0 = mtRunIndexOf(rs, int(pos)); // 31587 runstyles_fill_range
+        const quint8 cur = mtRunFlagAt(rs, rf, run0);// 31588 FUN_0088ff00
+        const quint8 v = quint8((set | cur) & ~clr); // 31589
+        if (cur == v)
+            return 0;                                // 31590..31592
+        rf->bytes[pos] = v;                          // 31593 gapbuffer_get_chars_locked
+        return 1;                                    //   (lVar1,pos,v,1,0)→face[pos](1B)
+    }
+    const int run0 = mtRunIndexOf(rs, int(pos));     // 31597
+    const int run1 = run0 + 1;                       // 31598 iVar12
+    const qint64 r1End = mtRunStartPos(rs, run1);    // 31599 run_start_at(run1)
+    const quint8 inv = quint8(~clr);                 // 31602 param_4 = ~clr
+    quint8 v0 = 0;                                   // bVar10 头段值(两腿共用写)
+    bool headWrite = false;                          // 31643 gapbuffer 触发
+    if (r1End == end) {                              // 31603..31621 全程落 run0
+        const qint64 r0Start = mtRunStartPos(rs, run0);       // 31607
+        if (pos == r0Start) {                        // 31608 起点即界 → 单 run 写
+            const quint8 cur = mtRunFlagAt(rs, rf, run0);     // 31609
+            const quint8 v = quint8((set | cur) & inv);
+            if (cur == v)
+                return 0;                            // 31613..31614
+            // FUN_0099c10e(H,run0,v,1)(31615)单 run 换值:合并腿 — 委托 RS 同相
+            const int cnt = rs->Runs();              // 31931 runstyles_runs_count
+            if (run1 < cnt && mtRunFlagAt(rs, rf, run1) == v) {  // 31937..31940
+                rs->DeleteRange(run1, 1);            // 31942 runstyles_delete_chars
+                rs->InsertSpace(run1, 1);            // 31943 insert_space_b(等价腿,
+            }                                        //   RemovePartition 私有 — e3 注记同)
+            if (run0 >= 1 && mtRunFlagAt(rs, rf, run0 - 1) == v) {// 31948..31953
+                rs->DeleteRange(run0, 1);
+                rs->InsertSpace(run0, 1);
+                return 1;                            // 31956..31957
+            }
+            // 31959..31964 两段直写(run 索引 = rf 槽位;同 b15e 两段语义)
+            if (run0 < rf->segBound)
+                rf->bytes[run0] = v;
+            else if (run0 < rf->total)
+                rf->bytes[run0 + rf->tailOff] = v;
+            return 1;                                // 31616
+        }
+        const quint8 cur = mtRunFlagAt(rs, rf, run0);// 31618
+        v0 = quint8((cur | set) & inv);
+        if (cur == v0)
+            return 0;                                // 31621..31622(直返,非落 b887)
+        headWrite = true;                            // → 31643 共写腿
+    } else {                                         // 31624..31631 跨 run 头段
+        const quint8 cur = mtRunFlagAt(rs, rf, run0);
+        v0 = quint8((cur | set) & inv);
+        if (cur == v0)
+            ;                                        // 31630 → b887(不写,走尾判)
+        else
+            headWrite = true;
+    }
+    if (headWrite) {                                 // 31633..31646 共写腿
+        const long n = (r1End - pos) < count ? (r1End - pos) : count;
+        for (long i = pos; i < pos + n; ++i)         // 31636..31638 gapbuffer(face[pos],n)
+            rf->bytes[i] = v0;
+        changed = 1;                                 // 31639
+    }
+    if (end <= r1End)                                // LAB_0099b887 31640..31643
+
+    if (end <= r1End)                                // LAB_0099b887 31640..31643
+        return changed;
+    // 中段腿(31644..31697):run1..fill(end)-1 逐 run 位面写(界每轮 fill(end)
+    //   定;out-of-range+set!=0→1 不写 31685 语料字面同 flat 支;face 索引
+    //   lVar5 与 run 号锁步 31695..31696)
+    const int runAtEnd = mtRunIndexOf(rs, int(end)); // 31644 runstyles_fill_range(end)
+    for (int u = run1, faceIdx = run1; u < runAtEnd; ++u, ++faceIdx) {
+        const quint8 cur = mtRunFlagAt(rs, rf, u);   // 31653 FUN_0088ff00
+        const quint8 v = quint8((set | cur) & inv);
+        if (cur == v)                                // 31658..31661
+            continue;
+        if (faceIdx < rf->segBound) {                // 31664..31667 两段写
+            if (faceIdx < 0) {
+                if (set != 0)
+                    changed = 1;                     // LAB_0099ba07(不写)
+                continue;
+            }
+            rf->bytes[faceIdx] = v;                  // 31676
+            changed = 1;
+        } else if (faceIdx < rf->total) {            // 31681..31690
+            rf->bytes[faceIdx + rf->tailOff] = v;    // 31688
+            changed = 1;
+        } else {
+            if (set != 0)
+                changed = 1;                         // 31691(不写)
+        }
+    }
+    // 尾段腿(31700..31714):runAtEnd = fill(end)(中段循环计数,非重新查;
+    //   cur 读 = face[runAtEnd 槽];位面差 → gapbuffer(face[run_start_at
+    //   (runAtEnd)], end-run_start_at) = 尾 run 全段写,回 1
+    const quint8 cur = mtRunFlagAt(rs, rf, runAtEnd);// 31700 FUN_0088ff00(lVar6,iVar3)
+    const quint8 v = quint8((set | cur) & inv);      // 31701
+    if (cur != v) {                                  // 31702..31704
+        const long stEnd = mtRunStartPos(rs, runAtEnd);       // 31646 run_start_at
+        for (long i = stEnd; i < end; ++i)           // 31705 gapbuffer(face[stEnd],end-stEnd)
+            rf->bytes[i] = v;
+        return 1;                                    // 31706..31707
+    }
+    return changed;                                  // 31708..31709
+}
+
+// ============ 0x95 face 调点辅助(0031.c:25618/25681;批 114)============
+// M+0x28 行槽:0x95 引擎 face 标量字段(非外库面;消费点 0095809e 25695
+//   *(ctx+0x28) 与行号比较/25693 写)。批 113 EditorEngine 调点(0x95c7a7/
+//   0x95c7b4/0x95c88e)仍走整字节 mtSetLineFlag(本批禁写 EditorEngine.cpp —
+//   约束登记);b15e 转写本身与语料同相(param_3 整字节 = 31183 字面),
+//   分歧在 0x958048/0x958108 调点层,rewire 留下批 EditorEngine 解禁批。
+
+// FUN_00958048(47B @0031.c:25618)bit4 位面:flag!=0 → b740(set 0x10,25630)
+//   / flag==0 → b740(clr 0x10,25634);+0x168==0 → 直返(25623)。
+inline void mtBit4SetClr(ModTrack *m, long line, quint8 flag)
+{
+    if (flag != 0)
+        flagmaskSetRange(m, line, 0x10, 0, 1);       // 25630
+    else
+        flagmaskSetRange(m, line, 0, 0x10, 1);       // 25634
+}
+
+// FUN_00958108(78B @0031.c:25681)DL==0 腿(25691..25701):行槽 min 收敛
+//   *(ctx+0x28)=min(line-1, *(ctx+0x28))(25693..25699 CMOV)+ b740(clr bit3);
+//   DL!=0 → b740(set 8,25702)。槽 = 调用方面标量(引擎 ctx +0x28 承接)。
+inline void mtLineSlotClrBit3(ModTrack *m, long *slot, long line)
+{
+    if (slot && line - 1 < *slot)
+        *slot = line - 1;                            // 25695..25699(负向 min)
+    flagmaskSetRange(m, line, 0, 8, 1);              // 25700
+}
 // FUN_0099a47a(56B @0032.c:30498)runAt:line → run 索引
 //   flat:param_2 直通(30505);游程:vt+0x28 → runstyles_fill_range(30510)
 inline int mtRunAt(const ModTrack *m, int line)
