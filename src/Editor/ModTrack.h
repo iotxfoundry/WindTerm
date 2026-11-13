@@ -31,9 +31,15 @@
 // cited — wave-2:zstd 压缩腿 FUN_00889cde(280B @0027.c:39620)、QReadWriteLock
 //   锁腿、bbb0 0xfffff 迁移腿(puVar7 建 Uint8RunStyles + piecetable + GB
 //   0099bc2c..0099be0a — piecetable_init 0096a2f8/FUN_0093fc60/GAP 壳全链
-//   依赖外库承载,坍缩建模会破坏读路 invariants)与 run 灌值腿
+//   依赖外库承载,坍缩建模会破坏读路 invariants)。批 111 判定:不可脱离外库
+//   转写 — piecetable_init 0096a2f8(0031.c:39050;Partitioning vt + Uint32PieceTable
+//   0x60 内嵌 GB + QThread::currentThreadId + DAT_011be6f0 全局计数器)+ FUN_0093fc60
+//   (546B,spinlock_lock_backoff/线程缓存)+ FUN_0088f940(1448B 线程缓存管理)三链
+//   皆 QThreadPool/QReadWriteLock 形态,缺改版头不自造。运行时驱动改为测试装置:
+//   tests/modtracktest e 组按坍缩承载注入等价面(RS8 + runFlags;装置非产品行为码),
+//   与 run 灌值腿
 //   (LAB_0099bf2b = Uint8RunStyles_dtor 008912e8 + gapbuffer_get_chars_locked
-//   00890880 2599B — 委托形态 RunStyles FillRange 承载留游程激活批)。
+//   00890880 2599B — 委托形态 RunStyles FillRange 承载留游程激活批)互补。
 #pragma once
 
 #include <QtGlobal>
@@ -238,14 +244,30 @@ inline quint8 mtRunFlagAt(const Scintilla::RunStyles<int, char> *, const ModTrac
 inline void mtAppendRange(ModTrack *m, int pos, int len, quint8 flag)
 { m->modAppendRange(pos, len, flag); }               // 31175 tail-call 同体
 
+// modAttachRunFace — 批 111 测试装置(非产品行为码):语料 runs 面构造腿 =
+//   bbb0 0xfffff 迁移门(lVar6>0xfffff 且 runs==0 → operator_new(0x20)+
+//   piecetable_init+GB 壳 + Uint8RunStyles_vtable 挂 inner+0x10,31726..31865
+//   全链 cited,见头注批 111 判定)。测试按坍缩承载注入等价面:RS8 委托 +
+//   runFlags 两段 face(bbb0 灌值腿 LAB_0099bf2b 迁移值经 runFlags 承载)。
+inline void modAttachRunFace(ModTrack *m, Scintilla::RunStyles<int, char> *rs,
+                             ModTrackFace *runFlags)
+{
+    ModTrackRunFace *h = new ModTrackRunFace;        // 0099bc2c operator_new(0x20) 形
+    h->rs = rs;                                      // puVar7[1](坍缩直存,怪癖登记)
+    h->runFlags = runFlags;                          // puVar7[2](GB 0x30 壳坍缩)
+    m->inner->runs = h;                              // *(param_1+0x10) = puVar7(31865)
+}
+
 // FUN_0099b15e(517B @0032.c:31183)单行置标志。语料全读(kuna 互证):
 //   flat 支(31190..31200):pos<segBound(<0 拒)→ bytes[pos]=flag;
 //   segBound<=pos<total → bytes[pos+tailOff]=flag;越界拒。
 //   游程支(31202..31286):runAt(u+1)/runAt(u-1) 同值 → delete_chars+insert_space_b
 //   run 合并(31210..31215/31260..31266);per-run 旗标直写(31230..31286,两段同构)。
-//   GB 密排/FUN_0088f940 线程缓存腿 — cited;我方 runs 恒 null 壳期 + runFlags
-//   face 直存(坍缩注记同 b36c),run 支承载:合并腿 = RS DeleteRange+InsertSpace
-//   (0096a06e/00940400 委托同相),旗标写 = runFlags face 两段直写。
+//   GB 密排/FUN_0088f940 线程缓存腿 — cited;游程支运行承载(批 111 驱动,
+//   测试经 modAttachRunFace 装置注入;产品侧迁移腿仍 cited):
+//   合并腿 = RS DeleteRange+InsertSpace(0096a06e/00940400 委托同相;
+//   语料 31210..31215/31260..31266,值域 009cd3da 内),旗标写 =
+//   runFlags face 两段直写(31230..31286 同构 mtFaceRead 两段语义)。
 inline void mtSetLineFlag(ModTrack *m, int line, quint8 flag)
 {
     ModTrackInner *in = m->inner;                    // 31186 *(param_1+8)

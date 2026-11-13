@@ -2051,10 +2051,43 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   **ctest 17/17 + dlopen OK**。批 107 车道事故记录:首轮输出预算
   三次截断零产物,原会话复活 + 硬输出上限 + 范围降档后成功。
 
+### 批 111(2026-11-13)M 跟踪器游程支运行时驱动回归(批 107 跳过项收口)✅ ctest 17/17
+
+- **游程支驱动(modtracktest e 组,9 断言)**:批 107 注记"runs 恒 null
+  壳期无路径"缺口补运行时驱动 — e0 模态门(30434 runs!=0)/e1 七函数
+  游程读路(a4b2 30528 runs_count=1/a47a 30510 行→run/a4ea 30554 起点/
+  a448 30584 止/b4c8 31378 D2 直读/b36c 31299..31327)/e2 b15e 游程支
+  per-run 旗标直写(31230..31286,LAB_0099b1f6)/e3 RS 合并腿
+  (31208..31215 吸后 + 31257..31266 吸前;语料 del(u±1,1)+ins(u±1,1)
+  = 摘界 u±1,0096a06e FUN_00968a60 界列表腿 — RunStyles 无公开摘界
+  API(RemovePartition 私有),等价腿 = FillRange(run 灌邻值,trim→同值
+  并;Runs−1/Length 不变;FillRange :146-148 同值 trim no-op 断言)/
+  e4 markerBand 游程支(23615..23619 带查询 + 23617 from 钳 + 23625..23627
+  全 saved-only 腿)。**runs 面构造 = 测试装置**(modAttachRunFace;
+  语料构造腿 = bbb0 0xfffff 迁移门 cited,见下)— 非产品行为码,头注注明。
+- **0xfffff 迁移腿取证(0099bc2c,0032.c:31726..31865)**:不可脱离
+  外库转写。读链:bbb0 迁移门(lVar6>0xfffff 且 runs==0)→
+  operator_new(0x20) H 壳 → operator_new(0x60) piecetable_init
+  (0096a2f8 0031.c:39050:Partitioning_vtable + Uint32PieceTable 0x60
+  内嵌 GB 壳 + QThread::currentThreadId + DAT_011be6f0 全局计数器)+
+  FUN_0093fc60(546B,0031.c:5247:spinlock_lock_backoff/线程缓存/
+  QMapDataBase 释放)+ FUN_0088f940(1448B 线程缓存管理)→
+  gapbuffer_reallocate → Uint8RunStyles_vtable 挂 inner+0x10 →
+  灌值腿 LAB_0099bf2b(gapbuffer_get_chars_locked 00890880 2599B 迁移
+  flat 值逐 run 搬运)。三链皆 QThreadPool/QReadWriteLock/线程缓存形态,
+  改版底座头不在库 — 缺证不转写(铁律 3);产品侧仍 cited,迁移激活
+  挂"待解"清单。
+- 验证:**ctest 17/17 + dlopen OK**;ModTrack.h 头注批 111 判定 +
+  modAttachRunFace 装置注记;modtracktest 首注更新。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
 - **Phase 4a 注册表插入侧**:语料无直呼者(批 29 A3,cited 挂账)
+- **批 111 残留**:ModTrack 游程支产品侧构造腿(0xfffff 迁移门
+  piecetable 链)不可脱离外库转写(判定与证据见 PHASE5 批 111);
+  运行时驱动以测试装置承载(modAttachRunFace),产品侧接线待
+  piecetable/GB 底座激活批
 - 130+ 扩谱;Phase 4c(SplitterGroup);触发器/词法;5b/5c
 
 ## 复现
