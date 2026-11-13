@@ -84,6 +84,39 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 //     GrepNeedle448 布局零重叠;onig_new 语法/编码选项实参在业务区
 //     不可达 — 激活缺证:FindContext 深腿正则条目构造链(doc+0x1098
 //     → 编译栈入参),不猜选项(铁律 3)。
+//   ④ 批 109 编译栈深取证(kuna 全链反编译,2026-11-13;仍未达激活门槛):
+//     · 调用链全图:00a81655(210B 编译门)→ 00a9c780(22512B,Onigmo-改
+//       parse+compile 本体,签名 (pat*,len,option,err_code*,err_pos*,syntax*)
+//       6 参 — 上游 onig_new 7 参无此形,regex** 出参改返回值 = 改版差异
+//       之一)→ 唯一编译门调用方 00ad7360(304B 惰性编译门,产物挂对象
+//       a0[4]=+0x20 槽;0xa816d1 唯一上游)。构造器族:00a81a88(450B ←
+//       00a81c4a 200B ctor ← 0x80a2c5/0x89c0fb/0xa84f32 三调用点)/
+//       00a848d6(207B ← 00a140b2(368B QByteArray→std::string 桥)←
+//       00a144d2(1112B:序列化 "//…//" 剥壳与 /*…*/ 分支 ← 00a15ef6
+//       (90B)← 00a121a0(1600B 文档模型循环))。消费侧:doc+0x88
+//       searcher sub_a83c7a(400B)取 *(needle+0x18)=regex 对象 →
+//       FUN_00ad74a0(431B,Onigmo-改 onig_search 等价:param_6=region,
+//       +0x18/+0x20/+0x40 结果写面)。
+//     · 正则条目不在 FindContext 自身:构造产物挂 *调用方对象* +0x0
+//       (a81a88/a848d6 均 a0->field_0x0=regex);doc+0x1098 仅经
+//       9975c8(槽[5]=+0x28)取 pattern 串源(getter 9276e2/927600
+//       ← editor_replaceAll 12551-12557);编译时机 = 各上游调用点,
+//       非 doc 持有编译栈(批 105 缺证清单 1 勘正)。
+//     · 语法/编码仍缺证:①编码 — a81655→a9c780 直调无 encoding 参
+//       (编码进 a9c780 内部);旁支编译栈 00b3b090→00b39830 传全局
+//       DAT_011becc8 作 encoding,唯一写点 00b39540(9B setter)
+//       kuna xrefs = 0(运行不写 → 取 0;ONIG_ENCODING_* 对应值
+//       无实证)。②语法 — a9c780 内默认语法 = &dat_d15860(a5==0
+//       时),数据地址无符号对照(上游 OnigDefaultSyntax=
+//       ONIG_SYNTAX_RUBY 仅候选);业务三调用点(a81a88/a848d6/
+//       a82450)语法参恒 0 → 运行值 = dat_d15860,内容不可达。
+//       ③选项位 — a81655 入口重组(0x2000000→|0x80000000; a1→
+//       |0x8000008; a2→|0x20)与 Onigmo-改位面吻合,但多调用点
+//       option 恒 0 → 非正向证据。
+//     · 裁决:证据不齐(编码/语法运行值零实证)→ 本批零行为码;
+//       下批入口 = dat_d15860 数据段转储(对照 src/Onigmo
+//       OnigSyntaxType 布局逐域比对)+ DAT_011becc8 运行时观察
+//       (实验锚)。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to);
 
 } // namespace MatchEngine

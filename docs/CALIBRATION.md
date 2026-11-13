@@ -158,3 +158,51 @@ SHA3-512 PBKDF2×100000,salt=base64(SHA512(number(generate64))))。
    - 取到 1/2 后按本文件"校准协议"逐句映射 onig_new/onig_search 形参
      (libonig.a 委托面已就绪:四符号 nm 实证;OnigIterator = {at,ptr}
      16B 回调结构,oniguruma.h:118-122)。
+## 批 109:FindContext→编译栈 深腿取证(未激活;缺证清单 1/2 收口)
+
+> 结论:**仍未达激活门槛** — 编码/语法运行值零实证,零行为码。
+> 缺证清单 1 勘正(条目不在 FindContext 自身)/ 2 收口(装载点已定)。
+
+### 编译栈调用链(kuna 全链反编译,2026-11-13)
+
+- **编译门**:00a81655(210B,唯一编译入口封装,上游 0xa816d1)→
+  00a9c780(22512B,Onigmo-改 parse+compile 本体)→ 唯一编译调用方
+  00ad7360(304B 惰性编译门,产物挂对象 a0[4]=+0x20 槽)。
+  - **改版差异标注**(对 src/Onigmo/regcomp.c:5941 onig_new 7 参):
+    a9c780 签名 6 参 (pat*, len, option, err_code*, err_pos*, syntax*)
+    — regex** 出参改返回值、OnigErrorInfo* 拆 err_code*/err_pos* 两出参、
+    **无 encoding 形参**(编码硬连内部);error code 正值域(0x74 等,
+    上游为负值域)与上游 -100 域不同。
+- **构造器族**(全部已反编译):
+  - 00a81a88(450B)← 00a81c4a(200B ctor:选项两字域 field_0x48/0x4c、
+    field_0x50 位面基值 |0x1a)← 0x80a2c5/0x89c0fb/0xa84f32 三调用点。
+  - 00a848d6(207B)← 00a140b2(368B QByteArray→std::string 桥,选项恒
+    (1,1,0x2000,0))← 00a14222(300B Qt 装载腿)/00a144d2(1112B:序列化
+    "//…//" 剥壳与 /*…*/ 分支)← 00a15ef6(90B)← 00a121a0(1600B)。
+- **消费侧**:searcher 复位 a83622 → sub_a83c7a(400B)取
+  *(needle+0x18)=regex 对象 → FUN_00ad74a0(431B,Onigmo-改 onig_search
+  等价:param_6=region,+0x18/+0x20/+0x40 结果写面)。
+
+### FindContext 条目勘正(缺证清单 1 收口)
+
+- 构造产物**不在 FindContext**:a81a88/a848d6 均写调用方对象 +0x0;
+  doc+0x1098 仅经 9975c8(+0x28 槽[5])供 pattern 串源(getter
+  9276e2/927600,editor_replaceAll 12551-12557 取串)。编译时机 =
+  各上游调用点,非 doc 持有编译栈。
+
+### 语法/编码/选项证据状态(不齐 → 不激活)
+
+| 项 | 证据 | 状态 |
+|---|---|---|
+| 语法 | a9c780 默认 = &dat_d15860(a5==0);业务三调用点(a81a88/a848d6/a82450)语法参恒 0 | ❌ dat_d15860 数据内容不可达(无符号对照);上游 ONIG_SYNTAX_RUBY 仅候选 |
+| 编码 | a9c780 无 encoding 形参;旁支栈 00b3b090→00b39830 传 DAT_011becc8,唯一写点 00b39540(9B)xrefs=0 → 运行值 0 | ❌ ONIG_ENCODING_* 对应值无实证 |
+| 选项 | a81655 入口重组(0x2000000→0x80000000; a1→0x8000008; a2→0x20);a140b2 恒 0x2000 | ⚠️ 位面吻合但多调用点恒 0,非正向证据 |
+
+### 下批入口
+
+1. dat_d15860 数据段转储(需 IDA 或 memdump)对照 src/Onigmo
+   OnigSyntaxType 布局逐域比对 → 定语法值。
+2. DAT_011becc8 运行时观察(实验锚,非产品码)→ 定 ONIG_ENCODING_*。
+3. 两值到手后按"校准协议"逐句映射 bufferScan00b422d0 委托
+   (libonig.a onig_new/onig_search/onig_free 已就绪)。
+
