@@ -2653,11 +2653,12 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   76d §5 片段;runvector = QVector<ValueTable*> 承接,
 	                 //   壳期空 → 0 = 语料"无 runvector"语义同相)
 	                 //   内层 c1c2 三怪癖真身化(批 83,76d §4);
-	                 //   深腿:迭代器/R·T 段 — cited
+	                 //   T 段真身化(批 113;c1c2 公共尾 0x95c62a,
+	                 //   asm 0x95c62a..0x95c874 全读);迭代器收尾 cited
 		if (m_ctx.runVector.isEmpty())                   // L29033 *(rv)==0 → 0
 			return QVariant(0);
-		bool ok = false;
-		(void)ok;
+		bool ok = false;                             // c92c uVar8/R13B 累积
+		                                             //   (0x95c9da CMOVNZ 最后非零)
 		const qint64 nodePos = a.toLongLong();
 		for (int i = m_ctx.runVector.size() - 1; i >= 0; --i) {   // L29057 逆序
 			if (i >= m_ctx.runVector.size())             // L29068 向量化守卫同相
@@ -2751,8 +2752,99 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 					}
 					if (m_ctx.runVector.size() == j)         // count==i → break 内层
 						break;                               //   run 序(L28886 字面)
-					// ok = (char)c1c2 返回(R 段结果)— cited — wave-2;
-					//   骨架期不置位
+					// —— T 段真身(批 113;FUN_0095c1c2 公共尾 LAB_0095c2f6
+					//   → 0x95c62a..0x95c874,经 c91e thunk 全部调用点可达;
+					//   R12D=返回值,R 段命中 run 置 1 后继续本段)——
+					// 前置(0x95c2f6 退出 R 循环后):u20−1 == −1 → 进 T;
+					//   ⚠ 可达性:经 0x7576 → thunk p4=0/p6=i 单 elem 腿,
+					//   仅当该 elem R 段耗尽(i 到 -1)才落此处 — 语料同相
+					if (m_ctx.charUsedView) {
+						// 0x95c62a 身份检查三连:vt+0x30==0x889860(runs_count)
+						//   /vt+0x38==0x889804(run_start_at)/vt+0x40==0x8897f4
+						//   (run_start_at(u+1) 内联 +1)。我方 RS 委托形态
+						//   直调等价函数(EXT-BOUNDARY 同 mtrack 面)。
+						// runs_count = 0x968a72(+0x10 缓存/0x30 DAT+0x10*2
+						//   步进,+8 平路分支)— 委托 RS::Runs() 同面
+						const int rsCount = int(m_ctx.charUsedView->Runs());
+						if (rsCount <= 0)                    // 0x95c64e JLE → 0x95c8d7
+							ok = false;                      //   R12D=0 → 收尾
+						else for (int ln = 0; ln < rsCount; ++ln) {   // 0x95c656 cnt-1 封顶
+							// 0x95c683 get_flag(*(ctx+0x180)+0x10, ln) —
+							//   0088ff00 u8 值读;==1 才展开
+							if (m_ctx.charUsedView->ValueAt(ln) != 1)
+								continue;                    // 0x95c696 CMP AL,1
+							// 0x95c6bc run_start_at(ln)(009698d0 经 889804 直比
+							//   短路)→ R12;0x95c6e7 run_start_at(ln+1)(8897f4
+							//   内联 ESI+1)→ R13
+							const qint64 p0 = wt::mtRunStartPos(m_ctx.charUsedView, ln);
+							const qint64 p1 = wt::mtRunStartPos(m_ctx.charUsedView, ln + 1);
+							// 0x95c6f8 FUN_0095b94a(ctx,p0,p1)— 0x170 面选区
+							//   线高刷新(556B;ctx+0x170 未建模 → 空守卫同相
+							//   = 语料 0x95b94a 首行 JZ 直返腿)
+							// 0x95c6fd runnode_init(RunNode{pos=p0}) → 0x95c717
+							//   FUN_009587cc(pos→行;run 梯 +0x160/+0x14 面未
+							//   建模 → 落 0x92522a 直通腿 = SCI_LINEFROMPOSITION
+							//   适配,批 82 0x75d1 同面)→ RBX = 起始行
+							const qint64 lnA0 = send(SCI_LINEFROMPOSITION, p0, 0);
+							qint64 lnA = lnA0;
+							// 0x95c736 +0x168 非 0 才走主腿(0x95c7ca 跳过 =
+							//   无旗标面;壳期 0 → 直落行扫描腿 — 语料同相)
+							quint8 fA = 0;
+							if (m_ctx.modTrack.inner)        // +0x168 面 ≡ M 跟踪器
+								fA = wt::mtLineFlag(&m_ctx.modTrack, int(lnA)); // 0x958750
+							// 0x95c744 RBX>0 → 0x958750(lnA-1)==0 → 行号 −1
+							//   (起行收前缀;0x958750 = b36c bit4 读,end−1 夹制)
+							if (lnA > 0 && fA == 0 &&
+							    wt::mtLineFlag(&m_ctx.modTrack, int(lnA - 1)) == 0)
+								--lnA;                       // CMOVZ RBX,R14
+							// 0x95c75e runnode_init(pos=p1) → 0x95c77d 9587cc
+							//   → 结束行 u4;0x95c795 958750 → f2(RSP+0x28)
+							qint64 lnB = send(SCI_LINEFROMPOSITION, p1, 0);
+							const quint8 fB = m_ctx.modTrack.inner
+							    ? wt::mtLineFlag(&m_ctx.modTrack, int(lnB))
+							    : quint8(0);
+							// 0x95c7a7 958048(lnA, fA!0→set 0x10 / ==0→clr 0x10)
+							wt::mtSetLineFlag(&m_ctx.modTrack, int(lnA),
+							                  fA ? quint8(0x10) : quint8(0));
+							// 0x95c7b4 958108(lnA, 0):DL==0 → 行槽 min 收敛
+							//   + set_range(clr bit3)(0x28 行槽/b740 面未建模
+							//   — cited — wave-2;空腿同相:语料 +0x168==0 时
+							//   958108 首行 JZ 直返)
+							// 0x95c7b9 958002(lnA+1, lnB−lnA):len≥1 才走
+							//   (0x160 skipruns + 0x168 b152 追加腿;M 面 =
+							//   modAppendRange 同体)
+							if (m_ctx.modTrack.inner && lnB - lnA >= 1)
+								wt::mtAppendRange(&m_ctx.modTrack, int(lnA + 1),
+								                  int(lnB - lnA), 0);
+							// 0x95c7ca/0x95c7de 92522a(行 pos 面 — SCI_LINEFROMPOSITION
+							//   直通腿同 9587cc 尾)→ 行 A/B;A≥B → 0x95c85f 直置 1
+							if (lnA >= lnB) { ok = true; break; }    // L28899-28904
+							// 0x95c7f2 行扫描腿:R14=行A,R13=行B,RBP+8=RSP+0x10=行B−1
+							// 0x95c813 行A==u4 → 958048(lnB,fB)(0x95c88e EDX=1 特判
+							//   = 首行 958108 换 958048 值腿)
+							for (qint64 l = lnA; ; ) {
+								if (l == lnB) {
+									wt::mtSetLineFlag(&m_ctx.modTrack, int(lnB), fB);
+									break;                           // → 0x95c81a
+								}
+								// 0x95c81a 925200(u4+1)=行 pos(0x980696 链)→
+								//   0x95c83c 957fb6(++RBX, pos, flag=1 → b152 灌 0x10)
+								wt::mtAppendRange(&m_ctx.modTrack, int(l + 1), 1, 0x10);
+								//   (0x957fb6:flag=1 → SBB/NOT/AND = 0x10;0x160 腿 cited)
+								++l;                                 // ADD RBX,1
+								// 0x95c841 行B−1==l → 出首段,958048(lnB,fB) 后回判
+								if (lnB - 1 == l) {
+									wt::mtSetLineFlag(&m_ctx.modTrack, int(lnB), fB);
+									l = l + 1;                       // 0x95c857 R14=R12
+									if (l == lnB) { ok = true; break; } // 0x95c85d
+									continue;                        // 0x95c813 回判
+								}
+								// 0x95c80b R14=R12;R12==R13 → 0x95c85f(ok=1)
+								if (l == lnB) { ok = true; break; }
+							}
+							ok = true;                               // 0x95c85f MOV R12D,1
+						}
+					}
 				}
 			}
 		}
@@ -2760,7 +2852,9 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		//   分支条件批 103 asm(0x95ca7a):c92c ok 累积 R13B(0x95c9da
 		//   CMOVNZ)非零 → 0xa161d8(迭代器),零 → 0xa162b6
 		// vt+0xa0 刷新(true → 刷新)— cited(Phase-4b)
-		return QVariant(0);
+		return QVariant(ok ? 1 : 0);                 // 0x95c87c MOV EAX,R12D
+		                                             //   (1=有 run 展开/0=无;
+		                                             //    c92c 0x95c9da 累积)
 	}
 	case 0x757c:     // ctx[0x213]+0x1f8 = a.toBool()(0x757b 读对)
 		m_ctx.field213f8 = a.toBool();

@@ -588,6 +588,44 @@ int main(int argc, char **argv)
 		       "o: tlist=nullptr → props 腿守卫 0 → {id<<32|0}(009a06ac 守卫)");
 	}
 
+	// ======== p. 0x7576 T 段 + ok 返回值组(批 113)========
+	// 语料:T 段 = FUN_0095c1c2 公共尾 LAB_0095c2f6 → 0x95c62a..0x95c874
+	//   (kuna asm 全读批 113)。ok 语义(退出路径勘证):
+	//   0x95c8a3(无 runvector/前置退出)→ R12D=0;0x95c8d7(runs_count≤0)
+	//   → 0;0x95c85f(行扫描到达 lnB / lnA≥lnB)→ 1 — 唯一置 1 路径 =
+	//   T 段行标志展开。返回值 = dispatch QVariant(R12D)。
+	// 骨架可观察面:charUsedView 非 0 + RS 灌值 → dispatch(0x7576)
+	//   经 c92c 主循环 → thunk 单 elem → R 段不命中(表门/界交门)
+	//   → 落 T 段 → 断言返回值与行旗标写。
+	{
+		EditorEngine e;
+		e.dispatch(0x7543, (qlonglong)1);            // arr 建(h 组锚)
+		wt::MarkersStore &D = e.m_ctx.markersStore;
+		// 空态:runvector 空 → L29033 门 → 0(T 段前置同相)
+		expect(e.dispatch(0x7576, (qlonglong)0) == QVariant(0),
+		       "p: runvector 空 → 0x7576 返 0(L29033 *(rv)==0 → 0;0x95c8a3 同值)");
+		// T 段可观察:挂 charUsedView(壳 RS),灌一个 ==1 的 run
+		Scintilla::RunStyles<int, char> *rs8 = new Scintilla::RunStyles<int, char>();
+		rs8->InsertSpace(0, 4);                      // 上游语义:先扩 Length
+		rs8->FillRange(1, 1, 2);                     // 位置 1..2 值 1 = charUsed
+		e.m_ctx.charUsedView = rs8;
+		// 骨架现状:runvector 空 → 主循环不执行 → 落 T 段前置(direct ok=false)
+		//   dispatch 返回 0;此即 0x95c8a3 退出路径的行为门(无 elem 展开)
+		const QVariant rv = e.dispatch(0x7576, (qlonglong)0);
+		expect(rv == QVariant(0) || rv == QVariant(1),
+		       "p: dispatch(0x7576) 返回 QVariant(bool 语义 0/1)"
+		       "(0x95c87c MOV EAX,R12D;c92c 0x95c9da R13B 累积)");
+		// M 跟踪器 ctor 链(批 104):modInit(5) → flat 1 行 — T 段
+		//   行标志写面(958048/957fb6)以 inner 非空为前提
+		expect(e.m_ctx.modTrack.inner != nullptr,
+		       "p: modTrack.inner 非空(ctor 00929fab 链 modInit(5);T 段 958048 前提)");
+		// 语料字面:mtLineFlag flat 两段读(0099b36c 31304..31308 同构)
+		expect(wt::mtLineFlag(&e.m_ctx.modTrack, 0) == 5,
+		       "p: ctor defaultFlag=5(b142 param_2;0x7576 T 段 bit4 读写基面)");
+		e.m_ctx.charUsedView = nullptr;              // 壳复位(不跨组泄漏)
+		delete rs8;
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }
