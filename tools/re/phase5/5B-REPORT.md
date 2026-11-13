@@ -1,4 +1,4 @@
-# 5B-REPORT — Phase 5b 原版捕获对表(批 121,2026-11-13)
+# 5B-REPORT — Phase 5b 原版捕获对表(批 121/122,2026-11-13)
 
 > M3-① 原版侧捕获 + 对表。驱动:`tools/re/phase5/phase5_editor.py`
 > (00a418c4 armed 钩通道);我方基线:`/tmp/opencode/phase5_seq_editor.json`
@@ -61,12 +61,16 @@
    得 0x1000d0000 垃圾,批 121 实测勘正(语料 c92c obj 独立承载,
    我方 EditorContext 平铺 = 承载替,语义同相)。
 
-## RUBY 语法假设裁决节(任务书指定)
+## RUBY 语法假设裁决节(任务书指定;批 122 终裁)
 
-**裁决:维持假设(推演 + 既有字节级对账);原版 dispatch 面直证未获
-(见 NOT-RUN 根因),不构成证伪。**
+**裁决:维持假设(推演 + 字节级对账;批 122 原版 dispatch 面直证仍未获,
+证伪条件未触发,零反例)。**直证缺位根因与安全通道状态见
+"批 122 安全通道侦察节"——A 族原版命中位读数在本批未取得,
+Ruby 推演值(engtest5 A1-A5 hit,与 b116/drive 六样例 OnigSearch
+委托逐样例同源)维持为唯一可对账锚;证伪条件登记保持原样
+(置真 find 串后原版命中位 ≠ RUBY 推演 → 列反例)。
 
-- **推演链**(批 116 CALIBRATION,与本批复核一致): possessive `++`
+- **推演链**(批 116 CALIBRATION,批 122 复核一致): possessive `++`
   (OP2_PLUS_POSSESSIVE_REPEAT)+ `\g<X>` 子例程(ESC_G_SUBEXP_CALL)
   同时被 triggers.config/linux.lexer 真实样例要求 → 上游 Onigmo 语法规
   格中 **RUBY 是唯一同时覆盖二者的语法**(Java regsyntax.c:162-182 /
@@ -77,14 +81,62 @@
   hyperlink 3/subexp-call 8/brace-hex 1/datetime 3)— 我方引擎腿
   OnigSearch 委托与上游 onig_search RUBY 语义逐样例同相;engtest5
   A1-A5 的 hit 值与此同源。
-- **原版侧 dispatch 直证缺位原因**:0x4eff 针产腿(FUN_0089a0a0 →
-  codec_convCtor 0089c450)的真针对象依赖原版 find 串域(非空 find 串
-  且 codec 门过)——壳期原版 find 串空 → 产腿 null → 12665 门 → ret 0
-  (该读数本身与"空 find 串域"语义同相,但对 RUBY 语法无判别力)。
-  置真 find 串需先解 doc+0xe0 codec memo setter 面批。
-- **证伪条件(登记)**:若后续批置真 find 串后,原版对 possessive/子例
-  程样例的命中位 ≠ RUBY 推演值(如命中数/位置与 Java/Perl 语法推演
-  吻合)→ 证伪;反例清单将随该批对表逐条列。当前零反例。
+- **批 122 新增证据(非判别)**:原版侧 Grep op 运行期构造
+  (operator_new(0x68)+FUN_00899fba ctor)打通且实例稳定;0x4eff
+  段 A 的 find 串源 = doc+0xe0 memo +0x28(FUN_009276e2,corpus
+  12551/12816/30059 三面同读)— 通道形态成立但对语法无判别力
+  (find 串 setter 面未收敛,A 族 11 序列原版读数缺位)。
+- **证伪条件(登记,批 121 原文保持)**:后续批置真 find 串后,原版
+  对 possessive/子例程样例的命中位 ≠ RUBY 推演值(如命中数/位置与
+  Java/Perl 语法推演吻合)→ 证伪;反例清单随该批对表逐条列。
+  当前零反例。
+
+## 批 122 安全通道侦察节(M3-① 收官批,2026-11-13)
+
+**目标**(批 121 遗留):定位 doc+0xe0 find/replace setter 命令面 →
+安全注入 A/B 18 序列 → 5b 终版。
+
+**通道形态三层定案(语料 + 运行期双面)**:
+
+1. **find/replace 串源(语料三面同读)**:0x4eff(editor_replaceAll
+   12551)/0x4f00(editor_replaceText 12856)/FUN_00a31966(0x757e
+   Grep,11986)的 find 串实参全部 = **FUN_009276e2(*(ed+0x1098))**
+   = doc+0xe0 memo +0x28;replace 串 = FUN_00927600 = memo +0x20
+   (00927600/009276e2 = 009975c2/009975c8 五字节 thunk,0032:27846/
+   27855)。⇒ 0x4eff/0x4f00 的针语料面是 **doc 级持久搜索状态**,
+   非 dispatch 实参携带。
+2. **op 构造腿(语料 + 运行期直证)**:SearchPane 消费链 =
+   s_SearchPane_5bdda6(0034:39873,signal searchRequest 槽)→ op
+   以 QVariant(qint64)入 0x4f00/0x4eff;op 本体 = SearchPane 成员
+   +0x110(ctor 0074efe6 0034:14860 operator_new(0x68)+FUN_00899fba
+   Grep ctor;填充 = FUN_0074e9cc 1084B 0034:14590:op+0x0c flags/
+   +0x10 type byte(DAT_00ca2356[param_2] 表)/+0x18 find/+0x20
+   replace/+0x28 where,00899d2c reset 复位)。terminal 路线 =
+   dispatch 0x757e case 内联同构构造(0034:23476,operator_new(0x68)
+   +00899fba+flags 位映射+FUN_00a31966)。**运行期实测**:
+   frida 内 operator_new(0x68)+FUN_00899fba 构造成功、实例稳定
+   (批 121 手填 op 桥面死道正式闭合 —— 安全通道 = 真 ctor op)。
+3. **setter 面未收敛(30 分钟门触发,收口)**:
+   - 静态:无独立 "写 memo+0x28/+0x20" 命令号(EDITOR-ENGINE-
+     COMMANDS 0x4ee/0x4ef 段零命中);写路径候选 = SearchPane
+     FUN_0074e9cc(UI 对话框装配,非 dispatch 命令)。
+   - 运行期:terminal 会话 doc 的 +0xe0 对象转储与 text-editor doc
+     假设布局不同构(+0x28 槽指向 codec 名对象"WindTerm",非
+     QString shared_null 形态;批 121 c92c 同款会话差异)——
+     memo+0x28 直写 QString::operator= 触发 Qt abort(目标非
+     QString 承载),op 桥面写 +0x18/+0x20 腿未走完。
+   - doc 文本注入腿:dispatch SCI_ADDTEXT(2001)/INSERTTEXT(2003)/
+     SETTEXT(2181)/CLEARALL(2004) 在 terminal 会话 engine 上
+     返回 void 且不落 doc(docLen 恒 ~553 会话回显态;0x7d3 不在
+     00a418c4 case 树,SCI 文本变异走 vtable+0x1c0 嵌套对象腿,
+     直呼不达)。
+
+**结论**:A/B 18 维持 NOT-RUN;通道剩余工作已收窄为「editor 型
+doc(非 terminal 会话 doc)上经 0x757e case 同构构造 op + find 串
+写入(0x757e/FUN_00a31966 路线 op+0x18 直挂,绕 memo)」一条腿 —
+探针资产 tools/re/phase5/phase5_editor_b122_op.js(frida agent,
+Grep op ctor 腿)留后续批。原版实例全程存活(零重启,批 121 事故
+不复现 — 手填桥面已弃用)。
 
 ## QUIRKS 候选(只登记,不修)
 

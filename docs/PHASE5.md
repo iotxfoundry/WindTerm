@@ -2230,6 +2230,35 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:worktree ctest **19/19**;engtest5 直跑 61 断言 fail=0(我方
   基线覆盖重生成同相);零产品码改动。
 
+### 批 122(2026-11-13)Phase 5b 收官批:安全注入通道侦察(A/B 18 NOT-RUN 维持;通道形态定案)✅ ctest 19/19
+- **安全通道三层定案**(5B-REPORT 批 122 节,语料+运行期双面):
+  ① 0x4eff/0x4f00/FUN_00a31966 的 find 串源 = doc+0xe0 memo +0x28
+  (FUN_009276e2→009975c8;replace = +0x20)— doc 级持久搜索状态,
+  非 dispatch 实参;② op 构造腿 = Grep 0x68 体(FUN_00899fba ctor,
+  SearchPane+0x110 成员 / 0x757e case 0034:23476 内联同构),填充面
+  FUN_0074e9cc(+0x0c flags/+0x10 type/+0x18 find/+0x20 repl)+
+  00899d2c reset — **frida 内真 ctor op 运行期构造成功**(批 121
+  手填桥面死道正式闭合);③ setter 面 30 分钟门未收敛:无独立
+  memo 写命令号(0x4ee/0x4ef 段零命中),写路径候选 = SearchPane
+  UI 装配 FUN_0074e9cc(非 dispatch);terminal 会话 doc +0xe0 对象
+  与 text-editor 假设布局不同构(+0x28 = codec 名对象,c92c 同款
+  会话差异),QString 直写 abort;SCI 文本变异直呼不落 doc(0x7d3
+  不在 00a418c4 case 树,走 vtable+0x1c0 嵌套腿)。
+- **A/B 18 维持 NOT-RUN**(通道剩余工作收窄为 editor 型 doc +
+  0x757e 同构 op + op+0x18 find 直挂一条腿;探针
+  phase5_editor_b122_op.js 留后续批);C 族 1/3 MATCH 不变;
+  对表 1/21 MATCH / 2 MISMATCH / 18 NOT-RUN 维持。
+- **RUBY 终裁:维持假设(零反例;证伪条件未触发)** — 批 122
+  原版 dispatch 面读数未取得(setter 未通),A 族原版命中位 vs
+  Ruby 推演对表缺位;5B-REPORT 裁决节已按任务书替换"维持假设"
+  措辞为终裁形态(推演链 + b116/drive 六样例字节级直证 + 证伪
+  条件登记保持)。
+- **原版实例零事故**:全程单实例存活,零重启(手填 op 桥面弃用,
+  真 ctor op 稳定;批 121 事故不复现)。
+- 验证:worktree ctest **19/19**;零产品码改动。
+- 产物:5B-REPORT.md(批 122 节 + RUBY 终裁)/
+  tools/re/phase5/phase5_editor_b122_op.js(frida agent 资产)。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
