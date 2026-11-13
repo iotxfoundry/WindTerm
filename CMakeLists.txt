@@ -18,6 +18,27 @@ set(SCINTILLA_CORE ${LIB_OUT}/libscintilla_core.a)
 set(SCINTILLA_QT    ${LIB_OUT}/libscintilla_qt.a)
 set(YAML_CPP       ${LIB_OUT}/libyaml-cpp.a)
 set(JSONCPP        ${LIB_OUT}/libjsoncpp.a)
+# 批 116:Onigmo 上游静态库(EXT-BOUNDARY 委托;src/Onigmo 同源树)。
+# 预构建 lib/libonig.a 为非 PIC(带 debug 绝对重定位 + 数据符号 PC32 直
+# 寻)— 直链 .so 报 "recompile with -fPIC"。构建时产出 PIC 化替身:
+# 提取 → objcopy --strip-debug(去 debug 绝对域)→ 重归档;链接侧
+# -Wl,-Bsymbolic 绑定数据符号 PC32(OnigDefaultCaseFoldFlag 等;
+# 内部绑定语义对正则引擎无互插需求,同相)。替身落 build/(lib/ 只读)。
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/onigpic)
+set(ONIG_PIC ${CMAKE_BINARY_DIR}/onigpic/libonigpic.a)
+find_program(AR_EXEC ar REQUIRED)
+find_program(OBJCOPY_EXEC objcopy REQUIRED)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/onigpic/obj)
+add_custom_command(
+  OUTPUT ${ONIG_PIC}
+  COMMAND bash ${CMAKE_SOURCE_DIR}/tools/re/onigpic.sh
+          ${CMAKE_BINARY_DIR}/onigpic ${AR_EXEC} ${OBJCOPY_EXEC} ${LIB_OUT}/libonig.a
+  DEPENDS ${LIB_OUT}/libonig.a
+  COMMENT "onig: PIC 化替身(strip-debug;批 116)"
+  VERBATIM)
+add_custom_target(onigpic ALL DEPENDS ${ONIG_PIC})
+set(ONIG ${ONIG_PIC})
 
 option(BUILD_DEPS "Rebuild external static libs from source" OFF)
 
@@ -59,6 +80,9 @@ else()
         "Or build manually per tools/re/BUILD.md")
     endif()
   endforeach()
+  if(NOT EXISTS ${LIB_OUT}/libonig.a)
+    message(FATAL_ERROR "Missing pre-built library: ${LIB_OUT}/libonig.a")
+  endif()
   add_custom_target(rebuild_deps SOURCES "")
 endif()
 
@@ -134,7 +158,7 @@ set_target_properties(WindTermRe PROPERTIES
   OUTPUT_NAME WindTermRe
   BUILD_RPATH_USE_ORIGIN TRUE)   # 防 repo lib/ 污染 RUNPATH(Phase 5)
 
-target_include_directories(WindTermRe PRIVATE ${WT_INCLUDES})
+target_include_directories(WindTermRe PRIVATE ${WT_INCLUDES} ${CMAKE_SOURCE_DIR}/src/Onigmo)
 # 静态嵌入库源码树(src/spdlog|fmt|dtl)已在 src/ 归位(header-only);
 # 不加全局 include——调用点转写时按 TU 局部 -I 接线(全局路径会
 # 与 Scintilla/Qt 头冲突,实测 6k 错)
@@ -142,9 +166,10 @@ target_link_libraries(WindTermRe
   Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Qml Qt5::Svg
   ${SCINTILLA_QT} ${SCINTILLA_CORE}
   ${YAML_CPP} ${JSONCPP}
+  ${ONIG} -Wl,-Bsymbolic
   ${LIB_OUT}/libssh.so.4
 )
-add_dependencies(WindTermRe rebuild_deps)
+add_dependencies(WindTermRe rebuild_deps onigpic)
 
 enable_testing()
 add_subdirectory(tests)

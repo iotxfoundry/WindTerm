@@ -130,6 +130,14 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 //     · 语法 op/op2/behavior 域零消费(硬编码进 a9c780)→ 上游
 //       ONIG_SYNTAX_*/ONIG_ENCODING_* 映射无落点,libonig 委托缺
 //       syntax/encoding 实参 — 零行为码(详 docs/CALIBRATION.md 批 110)。
+//   ⑥ 批 116 激活定案(2026-11-13;CALIBRATION 批 116 对账):
+//     语法假设 = ONIG_SYNTAX_RUBY(五真实样例对账:possessive ++ 与
+//     \g<X> 子例程调用同时要求 → RUBY 唯一上游覆盖,Java/Perl 无
+//     ESC_G_SUBEXP_CALL;(*UTF) 前缀 = WindTerm 层剥壳非语法域)。
+//     委托形态 = onig_new(RUBY+UTF-8)+ onig_search 字节承载替
+//     (OnigIterator{onig_default_charat};OnigSearch.cpp 逐句映射,
+//     CALIBRATION 批 116 逐句条目)。缓冲字节契约 = 0x4eff case
+//     needlePair(conv+0x08 针字节/+0x01 case 位)→ bufferScan。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to);
 
 } // namespace MatchEngine

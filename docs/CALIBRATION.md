@@ -273,3 +273,75 @@ SHA3-512 PBKDF2×100000,salt=base64(SHA512(number(generate64))))。
 3. b422d0 委托激活路径再确认:GrepNeedle448 与 onig regex 对象
    布局零重叠(批 105 ①)— 委托需自建转换层,校准协议逐句映射
    仍待 1/2 收口后启动。
+
+## 批 116:0x4eff 激活(onig 委托;语法假设:RUBY 对账成立)
+
+> 结论:**bufferScan00b422d0 激活**(新形态:onig_new RUBY 预编译 +
+> onig_search 委托;批 110"传参委托不可行"定案保持 — 语法假设显式
+> 登记,非枚举映射)。ctest 18/18;dlopen OK。
+
+### 语法假设的可对账验证(任务书步骤 1;不依赖运行原版)
+
+真实样例 5 条(triggers.config Hyperlink/解压触发器 ×2、linux.lexer
+command/ip/datetime 原文)→ 特性域推演 vs 上游 OnigSyntaxRuby
+(regparse.c:38-62)逐域比对:
+
+| 特性 | 样例来源 | Ruby op 域 | 冲突? |
+|---|---|---|---|
+| possessive `++` | triggers/ip.lexer | OP2_PLUS_POSSESSIVE_REPEAT(:50) | 无 |
+| `(?<name>)` 命名组 | triggers/lexer | OP2_QMARK_LT_NAMED_GROUP(:47) | 无 |
+| `\g<X>` 子例程调用 | linux.lexer ip | OP2_ESC_G_SUBEXP_CALL(:49) | 无 |
+| `(?<X>){0}` 零宽组 | 同上 | QMARK_LT + BV_MULTIPLEX(:62) | 无 |
+| `(?ix)(?-m)` 内联选项 | triggers | OP2_OPTION_RUBY(:46;i/m/x 子集) | 无 |
+| `\x{e0b0}` | lexer command | OP_ESC_X_BRACE_HEX8(:41) | 无 |
+| lookbehind `(?<=)` | lexer/triggers | SYN_GNU_REGEX_BV(:58) | 无 |
+| `#` 注释(x 模式) | triggers | ONIG_OPTION_EXTEND | 无 |
+| `(*UTF)` 前缀 | lexer ×6 | 非语法域:WindTerm 层剥壳(xpr_compileStr 00a84ade find("(*UTF")+指针切换 011bf020/0e0,语料直证)→ **不进入语法对账** | — |
+
+**反证候选勘落**:Java(regsyntax.c:162-182)有 ++ 无 ESC_G_SUBEXP_CALL;
+Perl(:244-279)同缺 → `\g<X>` 与 `++` 同时要求的唯一上游语法 =
+RUBY。**假设成立**。
+
+### 委托逐句映射(src/Editor/OnigSearch.cpp;铁律 1 落点)
+
+| 语料(Onigmo-改) | 委托(上游同源) | 备注 |
+|---|---|---|
+| 00a81655 编译门(210B) | onig_new(regcomp.c:5941) | 上游 7 参;Onigmo-改 6 参 = regex** 出参改返回值 + 拆 einfo(批 109 改版差异)— 承载同构 |
+| dat_d15860 face([0]alloc/[1]free) | onig_free 内建 xmalloc/释放 | 批 110 face = 编译环境;委托由上游自管(alloc face 00aa1f70=malloc 直证同效) |
+| 0xd35f40 ASCII fold 表 | UTF-8 编码 case-fold(ONIG_ENCODING_UTF8) | 批 110:256B A-Z→a-z;`\x{...}` 样例域 → UTF-8 假设(与 RUBY 同登记) |
+| 00ad7360 惰性编译门(产物挂 +0x20 槽) | bufferScan 单槽缓存(换 pattern 释旧) | 缓存语义同相;编译时机 = 各上游调用点(批 109 勘正一致) |
+| FUN_00b422d0(2750B ≈onig_search) | onig_search(regexec.c:3905) | 字节承载替 = OnigIterator{onig_default_charat}(regexec.c:4375 直读 *(ptr+pos);语料 +0x48 vtable iterator 面同构) |
+| 00a83946 门(*param_2!=0;门不中 -1) | bufferScan/search null 门 | 契约同相 |
+| 00aa1f80 free 尾调用 | onig_region_free + onig_free | face 同效 |
+| 返回契约(命中绝对位/-1) | ONIG_MISMATCH(-1)→ -1 | 0x4eff 段 E 12719 消费同相 |
+
+**门转写**(MatchEngine.cpp bufferScan00b422d0):needlePair null →
+-1(00a83946);needle->len<=0 → -1(26272);区间门 32611/32614
+(to<from)由 onig_search start/range 语义承接(start = 匹配起点下界
+— 行为对账 d 组/a3/c3 断言实证)。
+
+### 假设登记行(铁律 3 显式声明)
+
+- 语法 = ONIG_SYNTAX_RUBY:五样例对账成立(上表),**非语料直证**
+  — dat_d15860 内容不可达(批 109/110 定案维持)。
+- 编码 = ONIG_ENCODING_UTF8:`(*UTF)` 剥壳腿 + `\x{...}` 域佐证;
+  DAT_011becc8 旁支 face 未定案(批 110 观察项,与本链无关)。
+- 消费面:0x4eff case canOld 腿(searchNeedle → 本引擎);scanMask
+  掩码腿不动(engDispatch 四引擎 cited 保持)。
+
+### libonig.a 非 PIC 域勘定(构建面)
+
+预构建库含 debug 绝对重定位 + 数据符号 PC32 直寻(OnigDefaultCaseFoldFlag
+×4 等;全库 .debug 节 R_X86_64_32 ×1608)— 直链 .so 报 "recompile
+with -fPIC"。构建替身:onigpic.sh(ar x + objcopy --strip-debug +
+重归档)→ -Wl,-Bsymbolic 绑定数据符号(内部绑定对正则引擎无互插
+需求,同相)。lib/libonig.a 原件不动。
+
+### 测试(tests/onigtest.cpp;ctest 注册 18 号)
+
+a(命中契约)/b(无匹配 -1 + 门同相 ×4)/c(wrapper literal+case 档
+×3)/d(语法样例对账 ×5 组 10 断言,expect 值 = 手工推演 vs 运行一致,
+含 d3 边界 `\b` 词界推演 8)/e(缓存腿 ×3)。**对账期间勘正 2 处**:
+a3/c3 期望值错(把"命中位置"当"起点下界")— 运行值与手工语义推演
+复推一致后修正断言,非迁就实现(语义 = onig_search start 参数契约,
+regexec.c:4134 起注释)。

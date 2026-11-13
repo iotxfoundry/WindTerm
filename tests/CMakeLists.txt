@@ -7,7 +7,7 @@ set(TEST_ENV
   "QT_QPA_PLATFORM=offscreen"
 )
 
-foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 markerstest wordsteptest keymaptest proxysocktest rendermathtest renderpixtest runstylestest mwctest uiassembletest kitbartest modtracktest)
+foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 markerstest wordsteptest keymaptest proxysocktest rendermathtest renderpixtest runstylestest mwctest uiassembletest kitbartest modtracktest onigtest)
   add_executable(${t} ${t}.cpp)
   target_include_directories(${t} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/Sessions
@@ -24,8 +24,9 @@ foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 markerstest wordste
     ${CMAKE_SOURCE_DIR}/src/yaml-cpp/include
     ${CMAKE_SOURCE_DIR}/src/jsoncpp/include
     ${CMAKE_SOURCE_DIR}/src/libssh/include
+    ${CMAKE_SOURCE_DIR}/src/Onigmo
   )
-  target_link_libraries(${t} WindTermRe Qt5::Core Qt5::Gui Qt5::Widgets ssh)
+  target_link_libraries(${t} WindTermRe Qt5::Core Qt5::Gui Qt5::Widgets ssh ${ONIG_PIC})
   add_test(NAME ${t} COMMAND ${t})
   set_tests_properties(${t} PROPERTIES
     ENVIRONMENT "${TEST_ENV}"

@@ -1,6 +1,7 @@
 #include "MatchEngine.h"
 
 #include "CodecMemo.h"   // GrepNeedle448 完整型(0x448;批 93 convCtor 构造链)
+#include "OnigSearch.h"  // 批 116:0x4eff 引擎腿委托(批 102 EXT-BOUNDARY 激活)
 
 // 批 94 定案 1:1 方案落地。每行出处:语料 tools/re/decomp/
 // decomp-part-0030.c(eng 四函数 + 分派器)/ decomp-part-0037.c
@@ -159,19 +160,35 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 	    : engEntry00936cf1(lineDoc, needle, from, winEnd);      // 26288
 }
 
-// FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — cited — 边界委托(批 102
-//   勘定):函数体直调 regex_nfa_compile(00b3cc80 20839B)/regexp_match_dispatch
-//   (00b3b730)/regex_match_execute 等命名引擎符号,邻域全为 onig_*/regex_*
-//   命名区,消费对象 = 编译后 regex 对象(选项位/方法表/最小长域)—
-//   本体 = Onigmo-改 搜索驱动(≈onig_search)。EXT-BOUNDARY 第一方组件
-//   定案:Onigmo-改 子系统停止逆向,行为由 src/Onigmo 移植校准/libonig
-//   委托承接;激活批需 CALIBRATION 记录。恒 -1 占位与 searchNeedle 同相。
+// FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — 批 116 激活:OnigSearch
+//   委托薄包装(批 102 EXT-BOUNDARY 勘定;恒 -1 占位退役)。逐句映射:
+//   · 门 32611(param_4<param_6 return -1)/32614(param_6<param_3
+//     return -1)→ 本包装 to/from 契约校验同相(bufferScan 内 search
+//     门前置);needlePair null → -1(00a83946 *param_2 门)。
+//   · 引擎主体(regex_nfa_compile/regexp_match_dispatch NFA 搜索环)
+//     = onig_search(regexec.c:3905)委托 — Onigmo-改 与上游同源,
+//     行为由 libonig.a 承接(EXT-BOUNDARY 注册表;CALIBRATION 批 116)。
+//   · 返回契约:命中绝对字节位 / -1(0x4eff 段 E 12719 LAB_00a33299
+//     消费同相)。
+//   · 语法/编码假设(RUBY/UTF-8)= CALIBRATION 批 116 对账定案,
+//     非语料直证 — 假设登记行(铁律 3:不猜已显式声明)。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to)
 {
-	Q_UNUSED(needlePair);
-	Q_UNUSED(from);
-	Q_UNUSED(to);
-	return -1;  /* cited — wave-2 */
+	if (needlePair == nullptr
+	    || *(void *const *)needlePair == nullptr)   // 00a83946 门(同相)
+		return -1;
+	const GrepNeedle448 *needle =
+	    *(const GrepNeedle448 *const *)needlePair;  // conv 基载体
+	if (needle->len <= 0)                           // 26272 nlen<=0 门同相
+		return -1;
+	// 针字节(conv+0x08 QByteArray)+ case 位(conv+0x01)→ 委托。
+	// 主题承载 = setSubject 静态缝(登记承载替;调用方 = 0x4eff case
+	// 文档字节 — 本函数内 set,search 内消费,无跨调用残留)。
+	OnigSearch::setSubject(needle->bytes.constData(), needle->bytes.size());
+	const qint64 hit = OnigSearch::bufferScan(needle->bytes.constData(),
+	    needle->len, needle->caseFlag != 0, from, to);
+	OnigSearch::clearSubject();
+	return hit;
 }
 
 } // namespace MatchEngine
