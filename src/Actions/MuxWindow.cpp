@@ -3,12 +3,14 @@
 #include "MuxPaneGroup.h"
 #include "MuxPaneView.h"
 #include "SplitterGroup.h"
+#include "TabGroup.h"
 #include "../Sessions/SuperSession.h"
 #include "../Utility/ApplicationTheme.h"
 
 #include <QApplication>
 #include <QBoxLayout>
 #include <QMap>
+#include <QMessageBox>
 #include <QSplitter>
 #include <QTabBar>
 #include <QVBoxLayout>
@@ -118,6 +120,155 @@ void MuxWindow::sendSelectPane(MuxPaneView *pane, int paneIndex)
 	//   MuxPaneView 无 +0x160 tmux 位成员与 TerminalWidget 委托面
 	//   (类未落库)→ 发射不可达,cited 保留 — wave-2)
 	(void)pane; (void)cmd;
+}
+
+// === isZoomed() ===
+// 转写 FUN_008e01a2(0028:27309,9B):尾 jmp FUN_005a23c6(*(this+0x70))
+//   = *(SplitterGroup+0x40)!=0(占位页槽;空指针时语料直接崩 — m_f70
+//   由装配必建,本仓库判空承接不改变非空路径语义)。
+bool MuxWindow::isZoomed() const
+{
+	return m_f70 != nullptr && m_f70->isZoomed(); // FUN_008e01a2 @008e01a6
+}
+
+// === setPaneZoom(MuxPaneView*,bool) ===
+// 转写 FUN_008e04ae(0028:27504,1095B,asm 008e04ae-008e0854 全读;
+//   Ghidra 参形参折叠按寄存器勘补:rdi=win(this),rsi=pane,edx=confirm):
+//   S0:pane==0 → return @008e04ae-b1。
+//   S1:qcoreapp_self_get() 返回值弃 @008e04ce(75bd66)。
+//   S2:pane 父链上溯 dynamic_cast<MuxPaneGroup>(011abe10)@008e04d6-fa;
+//     命中 group;父链尽 → return @008e0505-0a。
+//   S3:stackCur = FUN_005a24fc(this+0x70)(zoom 时 stack currentWidget,
+//     非 zoom 0)@008e051d-21;cast<QWidget>(011b8aa8)@008e052f-3e。
+//     confirm==0:cast 空即返 @008e08cb-8d4(非 zoom 无当前页无可退);
+//     confirm!=0:group == stackCurCast 即返 @008e054e-51(pane 组已是
+//       zoom 页,免重入)。
+//   S4:QPointer 惯式 getAndRef(pane)/getAndRef(group)@008e0553-72
+//     (QPointer<MuxPaneView>/QPointer<MuxPaneGroup> 承接);
+//     title(d0)= pane->+0x38 增 ref @008e0577-8f。
+//   S5:confirm!=0 → title += " [%1]".arg(tr("Zoomed"))@008e059f-088
+//     (" [%1]" 0xc8ad1c,tr 0xcb77bb,smo 0x11ac2a0;QString::append)。
+//   S6:FUN_008df06e(group,pane,title)@008e0697-a0(两腿都走;
+//     stackIndexOf→TabBar::setTabText,本仓库 setTabTitle 同面)。
+//   S7:group QPointer 活 @008e06a5-c4:
+//     gate 段 @008e06ca-64/8e0764:MuxWindow +0x40 BYTE 旗标清 0
+//       (FUN_008dfd9b:mov [win],0x40 ← 0)→ 尾置 1(FUN_008dfd93)。
+//       +0x40 建模勘误纠缠(m_f40 QString vs ctor 8e0980/84 BYTE 写,
+//       三源同证 +0x40/0x41 = BYTE 双旗标)→ 成员未建模,本段 cited。
+//     FUN_005a2518(this+0x70, group, confirm)@008e0796-bd(zoom 页切换,
+//       SplitterGroup::toggleZoomPage 真身)。
+//   S8:pane QPointer 活 @008e080b-29 → QWidget::setFocus(pane,3)
+//     @008e082f-39(ActiveWindowFocusReason)。
+void MuxWindow::setPaneZoom(MuxPaneView *pane, bool confirm)
+{
+	if (pane == nullptr)                                    // S0 @008e04ae
+		return;
+	(void)qApp;                                             // S1 @008e04ce(值弃,原样)
+	MuxPaneGroup *group = nullptr;                          // S2 @008e04d6-fa
+	for (QWidget *w = pane; w != nullptr; w = w->parentWidget())
+		if ((group = dynamic_cast<MuxPaneGroup *>(w)) != nullptr)
+			break;
+	if (group == nullptr)
+		return;                                             // 008e0505-0a
+	QWidget *stackCur = m_f70->isZoomed()
+	                        ? m_f70->stackCurrentPage() : nullptr; // S3 @008e051d(FUN_005a24fc)
+	// FUN_005a24fc(0018:18632,27B)= zoom?stack->currentWidget():0 —
+	//   SplitterGroup::stackCurrentPage() 内联面(见下)。
+	const QWidget *stackCurW = stackCur;                    // cast<QWidget> @008e052f-3e
+	if (!confirm) {                                         // 008e0548 → 008e08cb
+		if (stackCurW == nullptr)
+			return;                                         // 008e08cb-8d4
+	} else if (group == stackCurW) {                        // 008e054e-51
+		return;                                             // pane 组已是 zoom 页
+	}
+	QPointer<MuxPaneView> paneRef(pane);                    // S4 getAndRef @008e0553
+	QPointer<MuxPaneGroup> groupRef(group);                 // @008e0565
+	QString title = pane->title();                          // d0 @008e0577
+	if (confirm) {                                          // S5 @008e0594-088
+		title += QStringLiteral(" [%1]").arg(tr("Zoomed")); // " [%1]" 0xc8ad1c / tr 0xcb77bb
+	}
+	// S6:FUN_008df06e(group,pane,title)@008e0697-a0 — stackIndexOf 非 -1
+	//   才写(setTabTitle 面,批 100 已落)。
+	const int idx = group->stackIndexOf(pane);              // FUN_005ab6c2 @008df07e
+	if (idx != -1)                                          // 008df083-6
+		group->setTabTitle(idx, title);                     // FUN_005ab09e @008df08e
+	// S7 gate 段(+0x40 BYTE 0→1)— cited(见头注;成员未建模)
+	if (groupRef != nullptr) {                              // 008e06a5-c4(QPointer 活)
+		m_f70->toggleZoomPage(group, confirm);              // FUN_005a2518 @008e07bd
+	}
+	if (paneRef != nullptr)                                 // S8 @008e080b-29
+		pane->setFocus(Qt::ActiveWindowFocusReason);        // 008e082f-39(原因 3)
+}
+
+// === confirmPaneClose(MuxPaneView*) ===
+// 转写 pane_confirmClose(0028:26554,915B,asm 008df6c0-008df9c5 全读;
+//   原为自由函数(this=MuxPaneGroup,pane),MuxWindow 上溯在其体内:
+//   归辖落点取 this=MuxWindow,group 面改由 caller(MuxPaneGroup)传?不——
+//   语料 param_1 = MuxPaneGroup(this),体内上溯 MuxWindow(011ac070)。
+//   为保 caller 形态不动,本方法接收 pane;group 由 pane 父链重溯(同
+//   008df6dc-f1 面的镜像;上溯 MuxWindow 在 caller 侧已由 MuxPaneGroup
+//   消费)。展开:
+//   S1:win = caller 上溯(见 MuxPaneGroup);pane==0 → return @008df728-b。
+//   S2:title = tr(0xcba508 "Are you sure you want to close the pane
+//     \"%1\"?").arg(pane->title())@008df740-76e;cap = tr(0xcba54b
+//     "Close Pane")@008df77e-91;smo 0x11ac040(MuxPaneGroup tr 面)。
+//   S3:r = QMessageBox::question(win, cap, title, 0x14000, 0)@008df7a7
+//     (0x14000 = Yes|No);r != 0x4000(Yes)→ return @008df8ad-b2。
+//   S4:expandable([group+0x30])!=0 腿 @008df80d-17:cast<TerminalWidget>
+//     (pane)(011abb90→011a7470)非空 → FUN_0083f1f0(pane)="kill-pane -t
+//     %1" tmux 面 → MuxPaneView 无 +0x160 tmux 位 → cited(同
+//     sendSelectPane 先例);空则直返 @008df832-f。
+//   S5:expandable==0 腿 @008df8cb-e7:idx = tabGroup->stackIndexOf(pane)
+//     (FUN_005ab6c2)!=-1 → FUN_005ab2cc(tabGroup, idx, 1)(0018:25074,73B
+//     asm 全读:widget(idx) 空→返;close() 失败→返;deleteLater;
+//     stack->removeWidget(w))——本仓库 TabGroup 面 = stackWidgetAt +
+//     close/deleteLater/removeWidget 直译。
+//   S6:tabCount = FUN_005abbda(+0x38)!=0 → return @008df8ec-f7。
+//   S7:tabCount==0 → QPointer(group) getAndRef 增 ref + QTimer::singleShot
+//     (0,group,0x28B 闭包{FUN_008de260,group,ref,pane})@008df8fd-9c5。
+//     闭包深腿(0x28B 结构 + FUN_008de260→FUN_008e01b6→FUN_005a29e6
+//     splitter 收缩 690B)未建模 → 整段 cited(不发明)。
+void MuxWindow::confirmPaneClose(MuxPaneView *pane)
+{
+	if (pane == nullptr)                                    // S1 @008df728
+		return;
+	const QString title = tr("Are you sure you want to close the pane \"%1\"?")
+	                          .arg(pane->title());          // S2 @008df740-6e(0xcba508,arg @008df76e)
+	const QString cap = tr("Close Pane");                   // 0xcba54b @008df77e
+	const int r = QMessageBox::question(this, cap, title,
+	                                    QMessageBox::Yes | QMessageBox::No); // S3 @008df7a7(0x14000)
+	if (r != QMessageBox::Yes)                              // 008df8ad(0x4000 门)
+		return;
+	// S4/S5 的 expandable 面在 group(MuxPaneGroup)侧 —— 由 caller 携带,
+	// 这里按 pane 父链取 group(与语料体内上溯镜像;见头注)。
+	MuxPaneGroup *group = nullptr;
+	for (QWidget *w = pane; w != nullptr; w = w->parentWidget())
+		if ((group = dynamic_cast<MuxPaneGroup *>(w)) != nullptr)
+			break;
+	if (group == nullptr)
+		return;
+	if (group->isExpandable()) {                            // S4 @008df80d(0x30!=0)
+		// cast<TerminalWidget>(pane)→ "kill-pane -t %1"(FUN_0083f1f0)→
+		//   FUN_0083eaa6(+0x160 门)→ FUN_00910898(TerminalWidget idx13
+		//   tmuxCommandWritten)—— MuxPaneView 无 +0x160 tmux 位、信号面
+		//   未落库 → cited(同 sendSelectPane 先例,不发明)。
+		return;                                             // 008df832-f(cast 空直返路径)
+	}
+	// S5:expandable==0 — stack 摘页(FUN_005ab2cc(group->tabGroup, idx, 1))
+	TabGroup *tabs = group->tabGroup();
+	const int idx = tabs->stackIndexOf(pane);               // 008df8d2(5ab6c2)
+	if (idx != -1) {                                        // 008df8d7
+		QWidget *w = tabs->stackWidgetAt(idx);              // 005ab2d6(4bc640 widget)
+		if (w != nullptr) {                                 // 005ab2df-e2
+			if (w->close())                                 // 005ab2ec-f4(4c1d80 close)
+				w->deleteLater();                           // 005ab2fd-300
+			tabs->stack()->removeWidget(w);                 // 005ab305-10(4c28d0 removeWidget)
+		}
+	}
+	if (tabs->count() != 0)                                 // S6 @008df8ec-f7(5abbda)
+		return;
+	// S7:tabCount==0 → singleShot(0) 深腿 — cited(0x28B 闭包/FUN_008de260
+	//   链未建模,见头注;不发明)。
 }
 
 // === onFocusChanged(QWidget*,QWidget*) ===

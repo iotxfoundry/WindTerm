@@ -25,9 +25,19 @@ public:
 
     void addPage(QWidget *w);                  // FUN_005a225c
     QSplitter *splitter() const { return m_f30; } // 语料 +0x30(FUN_008e01ac 对侧取面)
+    // FUN_005a23c6(0018:18578,9B,反汇编勘定):*(this+0x40)!=0 —— +0x40 消费点
+    //   随批 106 定案(005a2518 占位页槽/008e01a2 zoom 判定),批 103 前"未读"注作废。
+    bool isZoomed() const { return m_f40 != 0; } // FUN_005a23c6(9B)
+    // FUN_005a24fc(0018:18632,27B,asm 全读):zoom 时 stack(+0x38)
+    //   currentWidget,否则 0。
+    QWidget *stackCurrentPage() const { return isZoomed() ? m_f38->currentWidget() : nullptr; } // FUN_005a24fc
+    // FUN_005a2518(0018:18651,585B,asm 全读):zoom 页切换(param_3=zoom)。
+    //   逐段转写见 .cpp; Fun_005a236c 焦点深潜(setFocus ActiveWindowFocusReason)。
+    void toggleZoomPage(QWidget *page, bool zoom); // FUN_005a2518
 
 private:
     QSplitter *m_f30;          // 语料 +0x30
     QStackedLayout *m_f38;     // 语料 +0x38
-    quint64 m_f40;             // 语料 +0x40 ← 0(消费点未读 cited)
+    QWidget *m_f40;            // 语料 +0x40(zoom 占位页槽;消费点 FUN_005a23c6/FUN_005a2518
+                               //   ——批 106 勘正:原注 quint64"未读"系消费点未解)
 };

@@ -41,13 +41,19 @@ private:
     void attachChildWidgets();                           // s_tabbar_doubleClickAction_8de936
     void connectGroupSignals();                          // FUN_008de5a6
 
-    void confirmCloseCurrentPane();                      // FUN_008dfa8c(0028:26729)
-    void showConfigMenu();                               // s_MuxPaneGroup_8de2d4(0028:25588;cited)
+    void confirmCloseCurrentPane();                      // FUN_008dfa8c(0028:26729;批 106 真身)
+    void showConfigMenu();                               // s_MuxPaneGroup_8de2d4(0028:25588;cited — KitWindow 承载缺)
     void focusCurrentPane();                             // FUN_008defbc(0028:26100)
-    void onTabBlankRequested();                          // FUN_008df5f8 链(0028:26480;cited)
-    void closeCurrentPane(int index);                    // FUN_008dfa76(0028:26716)
-    void renamePane(int index);                          // FUN_008df466(0028:26325;cited)
+    void onTabBlankRequested();                          // FUN_008df5f8(0028:26480;批 106 真身,tmux 腿 cited)
+    void closeCurrentPane(int index);                    // FUN_008dfa76(0028:26716;批 106 真身)
+    void renamePane(int index);                          // FUN_008df466(0028:26325;批 106 真身)
 
     bool m_f30;          // 语料 +0x30(expandable)
     TabGroup *m_f38;     // 语料 +0x38(TabGroup "PaneGroup" 槽)
+
+public:
+    // 语料字节位只读面(inline;消费点 = MuxWindow::confirmPaneClose
+    //   S4 @008df80d 读 +0x30 分叉 / S5 读 +0x38 摘页 — 批 106 归辖)。
+    bool isExpandable() const { return m_f30; }
+    TabGroup *tabGroup() const { return m_f38; }
 };

@@ -1,11 +1,15 @@
 #include "MuxPaneGroup.h"
 
 #include "MuxPaneView.h"
+#include "MuxWindow.h"
 #include "TabGroup.h"
 
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include <QTabBar>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QRegularExpression>
 
 // === MuxPaneGroup(bool,QWidget*) ===
 // 转写 s_MuxPaneGroup_8dece0(0028:25950,189B):
@@ -186,30 +190,39 @@ MuxPaneView *MuxPaneGroup::paneAtCurrentIndex() const
 }
 
 // === confirmCloseCurrentPane() ===
-// 转写 FUN_008dfa8c(0028:26729,21B):FUN_008de3b2(currentPane)→
-//   pane_confirmClose(this,pane)。pane_confirmClose(0028:26736,915B)
-//   已在库读体:父链上溯 dynamic_cast<MuxWindow>(011ac070)→
-//   FUN_008e04ae(win,pane,confirm)(1095B 未读)确认弹面 →
-//   MuxWindow 槽未入库 → 尾调 cited(体引用见 pane_confirmClose
-//   @decomp-part-0028.c:26736)。
+// 转写 FUN_008dfa8c(0028:26729,21B,asm 全读):FUN_008de3b2(currentPane)
+//   → 尾 jmp pane_confirmClose(this,pane)@008dfa9c。pane_confirmClose
+//   (0028:26554,915B)asm 全读 → 归辖 MuxWindow::confirmPaneClose
+//   (批 106 真身;上溯 MuxWindow(011ac070)在此处对位):
+//   上溯命中 → win->confirmPaneClose(pane);未命中 → 语料早返 @008df709-14。
 void MuxPaneGroup::confirmCloseCurrentPane()
 {
 	MuxPaneView *pane = currentPane(); // FUN_008de3b2 @008dfa8c
-	// pane_confirmClose(this,pane)— cited — wave-2(915B:MuxWindow 011ac070
-	//   上溯 + FUN_008e04ae 确认链;MuxWindow 槽未入库,不发明)
+	for (QWidget *w = this; w != nullptr; w = w->parentWidget()) {
+		if (auto *win = dynamic_cast<MuxWindow *>(w)) { // 011ac070 @008df6f1-fc
+			win->confirmPaneClose(pane);                // pane_confirmClose @008dfa9c
+			return;
+		}
+	}
+	// 上溯尽未命中 MuxWindow → 语料直返(008df709-14);pane 值弃(原样)
 	(void)pane;
 }
 
 // === closeCurrentPane(int) ===
-// 转写 FUN_008dfa76(0028:26716,21B):FUN_008def86(stack widget
-//   currentIndex,同 confirmClose 的 currentPane 面)→
-//   pane_confirmClose(this,pane)。index 实参语料未消费,照抄。
+// 转写 FUN_008dfa76(0028:26716,21B,asm 全读):FUN_008def86(stack widget
+//   currentIndex,同 confirmClose 的 currentPane 面)→ 尾 jmp
+//   pane_confirmClose(this,pane)@008dfa86。index 实参语料未消费,照抄。
 void MuxPaneGroup::closeCurrentPane(int index)
 {
-	(void)index;                           // 语料 param_2 未消费 @008dfa76
-	MuxPaneView *pane = paneAtCurrentIndex(); // FUN_008def86 @008dfa79
-	// pane_confirmClose(this,pane)— cited — wave-2(同上,0028:26736)
-	(void)pane;
+	(void)index;                               // 语料 param_2 未消费 @008dfa76
+	MuxPaneView *pane = paneAtCurrentIndex();  // FUN_008def86 @008dfa7a
+	for (QWidget *w = this; w != nullptr; w = w->parentWidget()) {
+		if (auto *win = dynamic_cast<MuxWindow *>(w)) { // 011ac070 @008df6f1-fc
+			win->confirmPaneClose(pane);           // pane_confirmClose @008dfa86
+			return;
+		}
+	}
+	(void)pane;                                // 同上,语料早返
 }
 
 // === focusCurrentPane() ===
@@ -224,55 +237,151 @@ void MuxPaneGroup::focusCurrentPane()
 }
 
 // === showConfigMenu() ===
-// 转写 s_MuxPaneGroup_8de2d4(0028:25588,214B)已读体:
-//   qcoreapp_self_get → 父链上溯 dynamic_cast<KitWindow>(011ab390)
-//   → FUN_006926a0(0021:18550,34B = KitWindow windowAction vcall
-//   +0x1f0 取 QMenu*)→ QByteArray("MuxPaneGroup")→
-//   FUN_00692ef0(0021:18914,310B = QMenu 查找/新建面)→
-//   FUN_005ac790(0028:26415,275B):findChild<QToolButton*>("ConfigButton")
-//   → setAutoRaise(true)→ mapToGlobal(btn)→ QMenu::exec →
-//   setAutoRaise(true)→ postEvent(btn,QEvent(0xb = Leave))。
-// KitWindow 未入库(011ab390 上溯无落点)→ 头尾照抄、KitWindow 面 cited。
+// 转写 s_MuxPaneGroup_8de2d4(0028:25588,214B,asm 008de2d4-008de3a3 全读):
+//   qcoreapp_self_get 值弃 @008de2e1 → 父链上溯 dynamic_cast<KitWindow>
+//   (011ab390,typeinfo 名 "9KitWindow" ELF 实证)@008de2f1-30f;未命中
+//   → 直返 @008de319(无任何菜单操作);命中 → FUN_006926a0(0021:18550,
+//   34B,asm 全读:vcall *(kitwin)+0x1f0 取 QMenu*)→ QByteArray("MuxPaneGroup",
+//   @0xd0ea78)→ FUN_00692ef0(0021:18914,310B,asm 全读:QByteArray 匹配
+//   遍历查/新建 QMenu(tr 取页菜单串))→ FUN_005ac790(0018:26415,275B,
+//   asm 全读:name==null 早返;findChild<QToolButton*>("ConfigButton",
+//   @0xd0e8d9,QToolButton smo)→ setAutoRaise(false)@005ac81f(mapToGlobal
+//   前,反汇编勘正 Ghidra true 误读)→ QPoint(0,btn->width()+1)
+//   @005ac802-16(crect x2-x1+1)→ QWidget::mapToGlobal →
+//   QMenu::exec(pos,nullptr)@005ac83c → setAutoRaise(true)@005ac849 →
+//   new QEvent(0xb=Leave)→ QCoreApplication::postEvent(btn,ev,0)
+//   @005ac84e-70。
+// KitWindow 类无仓库承载(011ab390 上溯无落点;主窗口宿主未建模)→
+//   上溯恒不命中 = 语料直返路径 → 本方法整体保持 cited(尾段可转写面
+//   已全读,待 KitWindow 入库接线)。
 void MuxPaneGroup::showConfigMenu()
 {
-	/* s_MuxPaneGroup_8de2d4 — cited — wave-2(KitWindow 上溯 011ab390 无落点;
-	   可转写尾段:FUN_005ac790 = findChild<QToolButton*>("ConfigButton")
-	   → mapToGlobal → QMenu::exec → postEvent(Leave),待 KitWindow
-	   FUN_006926a0/00692ef0 菜单源入库后接线) */
+	/* s_MuxPaneGroup_8de2d4 — cited — wave-2(KitWindow 上溯 011ab390 无承载:
+	   类不存在(主窗口宿主未建模)→ 上溯不命中即语料直返。全读面在案:
+	   FUN_006926a0(34B vcall+0x1f0)/FUN_00692ef0(310B QMenu 查建)/
+	   FUN_005ac790(275B 尾段:setAutoRaise(false)→exec→true→postEvent
+	   Leave)—— 待 KitWindow 入库后按注接线,不发明) */
 }
 
 // === onTabBlankRequested() ===
-// 转写 FUN_008df5f8(0028:26480,193B)= thunk 同体(008df6ba,5B):
-//   父链上溯 dynamic_cast<MuxWindow>(011ac070)→ FUN_008e01a2(0028:27309,
-//   9B = FUN_005a23c6(+0x70 SplitterGroup 的 QStackedLayout +0x40)
-//   = zoom 判定)→ *this+0x30(expandable)==0 腿:FUN_008de3b2(currentPane)
-//   → FUN_008e04ae(win,pane,~zoom)(1095B 未读);
-//   else 腿:currentPane → dynamic_cast<TerminalWidget>(011a7470)
-//   → FUN_0083fb6e(pane,~zoom)(0026:32899,166B 已读:tmux
-//   "resize-pane"+" -t %%1" 指令串 → FUN_0083eaa6)。MuxWindow/
-//   TerminalWidget/008e04ae 未入库 → 全分支 cited(体引用在案)。
+// 转写 FUN_008df5f8(0028:26480,193B,asm 008df5f8-008df6b4 全读)=
+//   thunk 同体(008df6ba,5B jmp):
+//   S1:qcoreapp_self_get() 值弃 @008df603;
+//   S2:父链上溯 dynamic_cast<MuxWindow>(011ac070)@008df60b-2c;未命中
+//     → return @008df63e-46;
+//   S3:zoom = FUN_008e01a2(win)(FUN_005a23c6 +0x40 占位槽;本仓库
+//     MuxWindow::isZoomed)@008df647-4a;
+//   S4:+0x30(expandable)==0 腿 @008df651-74:FUN_008de3b2(currentPane)
+//     → 尾 FUN_008e04ae(win,pane,~zoom)(1095B asm 全读 → 本仓库
+//     MuxWindow::setPaneZoom 真身);
+//   S5:expandable!=0 腿 @008df679-b4:currentPane 空 → return;
+//     cast<TerminalWidget>(pane)(011abb90→011a7470)空 → return;
+//     非空 → FUN_0083fb6e(pane,~zoom)(0026:32899,166B asm 全读:
+//     "resize-pane" 0xcb76ac,zoom 时追加 " -Z" 0xcb76b8(FUN_0069e842
+//     = qstring_append_ascii)," -t %%1" 0xcb7589 .arg(pane+0x30) →
+//     FUN_0083eaa6(pane,cmd)(0026:32168,25B asm 全读:pane+0x160==1
+//     且串非空 → FUN_00910898 = QMetaObject::activate(pane,
+//     staticMetaObject 011a7c00 = TerminalWidget,idx 0xd = 13 =
+//     tmuxCommandWritten(QString),qmo 权威))。MuxPaneView 无 +0x160
+//     tmux 位成员、信号面未落库 → S5 尾链 cited(同 sendSelectPane
+//     先例,不发明;S1-S4 落真身)。
 void MuxPaneGroup::onTabBlankRequested()
 {
-	/* FUN_008df5f8 — cited — wave-2
-	   (MuxWindow 011ac070 上溯 + FUN_008e01a2 zoom 面 +
-	    FUN_008e04ae(1095B)/FUN_0083fb6e(tmux resize-pane 面已读,
-	    TerminalWidget 落点未入库)均无落点,不发明) */
+	// S2:MuxWindow 上溯
+	MuxWindow *win = nullptr;
+	for (QWidget *w = this; w != nullptr; w = w->parentWidget()) {
+		if ((win = dynamic_cast<MuxWindow *>(w)) != nullptr) // 011ac070 @008df624
+			break;
+	}
+	if (win == nullptr)
+		return;                                            // 008df63e-46
+	const bool zoom = win->isZoomed();                     // S3 FUN_008e01a2 @008df647
+	if (!m_f30) {                                          // S4 expandable==0 @008df651
+		win->setPaneZoom(currentPane(), !zoom);            // FUN_008de3b2 → FUN_008e04ae @008df65b-74
+		return;
+	}
+	// S5:tmux resize-pane 腿 — 尾链 cited(见上注)
+	(void)zoom;
+	MuxPaneView *pane = currentPane();                     // FUN_008de3b2 @008df67c
+	// cast<TerminalWidget>(pane) → FUN_0083fb6e(pane,~zoom) →
+	//   FUN_0083eaa6 → FUN_00910898 activate — TerminalWidget 落点在库
+	//   但 MuxPaneView +0x160 tmux 位未建模 → 发射不可达,cited 保留。
+	(void)pane;
 }
 
 // === renamePane(int) ===
-// 转写 FUN_008df466(0028:26325,87B):mux_renamePaneDialog(this,index,
-//   &out QString)→ out 串 ref 处理(dealloc 路径;结果被弃 = 语料原样)。
-// mux_renamePaneDialog(008df0a4,904B)已在库读体:index==-1 时取
-//   tabbar currentIndex → FUN_008def86 取 pane;FUN_005ab180(+0x38,
-//   idx,1)取 tab 文 → *+0x30==0 腿:QInputDialog::getText(标题/标签
-//   tr @011ac040,0xcba4e8/0xcba53f);else 腿:正则
-//   "\d+:(?<paneName>.+?)( \[Synced\])?( \[Zoomed\])?$" 抽 paneName;
-//   新文异于旧文 → *+0x30==0 时 FUN_008df06e(标题同步链)/else
-//   FUN_0091dde0(pane,pane+0x30,name)(MuxPane 信号 1 发射面,
-//   0030:13684)。dialog/QInputDialog/正则面均无入库落点 → 尾调 cited。
+// 转写 FUN_008df466(0028:26325,87B,asm 全读):out 初始化 shared_null →
+//   mux_renamePaneDialog(this,index,&out)→ out 弃(LOCAL 弦外无消费,
+//   dealloc 路径 = 语料原样)。
+// mux_renamePaneDialog(008df0a4,904B,asm 008df0a4-008df254 全读):
+//   S1:index==-1 → FUN_005ab5ca(+0x38)(asm:rdi=[this+0x38];+0x58 tabbar;
+//     4c2720 = QTabBar::currentIndex)@008df267-70;
+//   S2:pane = FUN_008def86(this,index);空 → return @008df0cf-d5;
+//   S3:tabText = FUN_005ab180(&tabText,this+0x38,index,1)(4c2720 同面
+//     = QTabBar::tabText)@008df0db-ef;
+//   S4/S5 预填序(expandable 分叉只影响预填方式,汇合同一交互面):
+//     expandable==0 @008df0f4-8:out 非空早跳 S6 @008df0fe-07
+//       (FUN_008df466 的 out 恒空 → 必走);否则落 getText @008df10d;
+//     expandable!=0 @008df278-c8:
+//       re = QRegularExpression("\\d+:(?<paneName>.+?)( \\[Synced\\])?
+//         ( \\[Zoomed\\])?$",NoPatternOption)(pattern 0xcba4b0,0x31 字节);
+//       m = re.match(tabText,0,Normal,无 options)@008df2c8-de;
+//       m.hasMatch()@008df2e3-eb → tabText = m.captured("paneName")
+//         @008df2f3-2a(name 0xcba536);再 out 非空跳 S6 @008df38e-97;
+//         out 仍空 → 同落 getText @008df39d(→008df10d);
+//     getText @008df10d-91:result = QInputDialog::getText(this,title,
+//       label,Normal(0),tabText,ok=nullptr,flags=0,hints=0)(4bcea0;
+//       label tr 0xcba4e8/title tr 0xcba53f);out ← result(指针交换)
+//       @008df184-91;
+//   S6(两腿汇合 @008df1eb):out == tabText → 尾 @008df1f6-8;
+//     out 空 → 尾 @008df1fa-203;
+//     expandable==0 → FUN_008df06e(this,pane,out)@008df400-09(53B asm
+//       全读:stackIndexOf(pane)!=-1 → FUN_005ab09e(+0x38,idx,out)
+//       = setTabText;本仓库 setTabTitle 同面);
+//     expandable!=0 → FUN_0091dde0(pane,pane->+0x30,out)@008df20f-1a
+//       (0030:13684,59B asm 全读:QMetaObject::activate(pane,smo
+//       011abde0 = MuxPane,idx 1 = requestTmuxRenamePane(qmo 权威),
+//       args{paneIndex,name})。MuxPaneView 信号面仅 nameChanged(idx0)
+//       → idx1 无承载 → cited(不发明)。
 void MuxPaneGroup::renamePane(int index)
 {
-	(void)index; /* mux_renamePaneDialog — cited — wave-2(904B 已读:
-	   QInputDialog::getText / 正则抽名 / FUN_008df06e 标题同步链,
-	   dialog 与 KitWindow 落点未入库,不发明) */
+	QString out;                                           // FUN_008df466 @008df472(shared_null)
+	if (index == -1)                                       // S1 @008df0b8
+		index = m_f38->tabBar()->currentIndex();           // FUN_005ab5ca @008df267
+	MuxPaneView *pane = paneAtCurrentIndex();              // S2 FUN_008def86 @008df0ca
+	if (pane == nullptr)
+		return;                                            // @008df0d5
+	QString tabText = m_f38->tabBar()->tabText(index);     // S3 FUN_005ab180 @008df0db(QTabBar::tabText)
+	if (m_f30 != 0) {                                      // S5 @008df278
+		static const QRegularExpression re(
+		    QStringLiteral("\\d+:(?<paneName>.+?)( \\[Synced\\])?( \\[Zoomed\\])?$")); // 0xcba4b0,0x31
+		QRegularExpressionMatch m = re.match(tabText, 0,
+		                                    QRegularExpression::NormalMatch); // @008df2c8
+		if (m.hasMatch())                                  // @008df2e3
+			tabText = m.captured(QStringLiteral("paneName")); // @008df2f3(name 0xcba536)
+		// @008df38e-97:out 非空 → S6(恒假,FUN_008df466 面 out 恒空);
+		//   out 空 → 同落 getText @008df39d(→008df10d)— 直落。
+	}
+	{                                                      // S4 尾/S5 尾汇合 @008df10d-91
+		const QString label = tr("Input a new name for this pane:"); // 0xcba4e8 @008df11a
+		const QString title = tr("Rename Pane");           // 0xcba53f @008df13d
+		out = QInputDialog::getText(this, title, label,
+		                            QLineEdit::Normal, tabText,
+		                            nullptr, 0, 0);        // @008df153-7f(ok=null,flags=0,hints=0)
+	}
+	// S6 @008df1eb
+	if (out == tabText)                                    // @008df1eb-8(相等 → 尾)
+		return;
+	if (out.isEmpty())                                     // @008df1fa-203(out 空 → 尾)
+		return;
+	if (m_f30 == 0) {                                      // @008df205-9
+		const int idx = m_f38->stackIndexOf(pane);         // FUN_008df06e @008df07e
+		if (idx != -1)                                     // @008df083
+			m_f38->setTabTitle(idx, out);                  // FUN_005ab09e @008df08e
+		return;
+	}
+	// FUN_0091dde0(pane,pane->paneIndex(),out)— MuxPane 信号 idx1
+	//   requestTmuxRenamePane 发射;MuxPaneView 无该信号承载 → cited。
+	(void)pane;
 }
+

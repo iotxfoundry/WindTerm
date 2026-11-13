@@ -2,13 +2,16 @@
 // onFocusChanged 槽体真身(批 92,FUN_008e0bb2):验证 S4-S6 tab bar
 // state 翻转腿(008e0da5:祖先→"Active";S2 锚 = win.focusWidget(),
 // 窗口失活保持 — 008e0c9e 反汇编)、S8-S9 焦点链回溯不崩、S0/S10
-// 更新禁更撤防(FUN_008dfd89→008dfd7c)。
+// 更新禁更撤防(FUN_008dfd89→008dfd7c);批 106:b1 SplitterGroup
+// isZoomed(FUN_005a23c6)初值 / b2 onTabBlankRequested(FUN_008df5f8)
+// 无 win 上溯早返 / b3 renamePane(008df0a4)无 pane 早返。
 #include <QApplication>
 #include <QTabBar>
 #include <QTimer>
 #include <cstdio>
 #include "Actions/MuxWindow.h"
 #include "Actions/MuxPaneGroup.h"
+#include "Actions/TabGroup.h"
 
 int main(int argc, char **argv)
 {
@@ -62,6 +65,32 @@ int main(int argc, char **argv)
 	// S0/S1+S10 更新禁更腿:槽外沿(enabled 默认 true)
 	if (!win.updatesEnabled())
 		++fails; // FUN_008dfd7c 撤防后必须回 true
+
+	// ======== 批 106:界面四槽落点 ========
+
+	// b1. SplitterGroup::isZoomed(FUN_005a23c6 9B:+0x40 占位槽!=0)初值
+	//     装配后 ph 空 → false;MuxWindow::isZoomed(FUN_008e01a2)同相
+	if (win.isZoomed())
+		++fails; // FUN_005a23c6:*(+0x40)==0 → false(未 zoom 基线)
+
+	// b2. onTabBlankRequested(FUN_008df5f8)/confirmCloseCurrentPane
+	//     (FUN_008dfa8c)/renamePane(008df0a4)均为私有槽;测试面走
+	//     MuxPaneGroup 内嵌 TabGroup 的公共信号链(ctor
+	//     connectGroupSignals 六条已在库 FUN_008de5a6):无 tab → pane
+	//     空早返路径,直发不崩即同相。
+	{
+		MuxPaneGroup orphan(false, nullptr); // 无 win 父链(上溯早返同相)
+		TabGroup *tg = orphan.findChild<TabGroup *>(QStringLiteral("PaneGroup"));
+		if (tg == nullptr) {
+			printf("mwc_smoke: FAIL (no PaneGroup TabGroup)\n");
+			++fails;
+		} else {
+			emit tg->closeRequested();        // sig7 → FUN_008dfa8c(pane 空 → confirmPaneClose S1)
+			emit tg->tabCloseRequested(-1);   // sig3 → FUN_008dfa76(index 未消费)
+			emit tg->tabRenameRequested(-1);  // sig6 → FUN_008df466(-1→currentIndex;无 tab → S2 早返)
+			emit tg->tabBlankRequested();     // sig2 → FUN_008df5f8(无 win 上溯早返)
+		}
+	}
 
 	printf("mwc_smoke: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
 	return fails ? 1 : 0;

@@ -72,6 +72,28 @@ public:
     //   .arg(paneIndex)→ FUN_0083eaa6(pane)(tmux 发送门;链见 .cpp, cited)
     void sendSelectPane(MuxPaneView *pane, int paneIndex);
 
+    // FUN_008e01a2(0028:27309,9B,asm 全读)= FUN_005a23c6(+0x70)
+    //   (SplitterGroup 占位页槽非空;SplitterGroup::isZoomed 承接,
+    //   批 106 勘定 +0x40 = zoom 占位页槽)。
+    bool isZoomed() const;
+
+    // FUN_008e04ae(0028:27504,1095B,asm 全读)。pane 关闭确认/zoom 切换
+    //   归辖面(pane_confirmClose/008df5f8 消费):group 上溯(pane 父链 cast
+    //   MuxPaneGroup 011abe10)→ stackCurrent 判定 → confirm 时标题追
+    //   " [Zoomed]"(tr 0xcb77bb," [%1]" 0xc8ad1c)→ FUN_008df06e tab 同步 →
+    //   FUN_005a2518 切换 → 尾 pane->setFocus(3)。gate 段(MuxWindow +0x40
+    //   BYTE 旗标,ctor 8e0980/8e0984 与 8dfd9b/93 三源)成员未建模(m_f40
+    //   QString 勘误纠缠)→ 该段 cited。逐段注见 .cpp。
+    void setPaneZoom(MuxPaneView *pane, bool confirm);
+
+    // pane_confirmClose(0028:26554,915B,asm 全读)归辖落点:this 上溯
+    //   MuxWindow(011ac070)在 caller(MuxPaneGroup::confirmCloseCurrentPane
+    //   /closeCurrentPane); QMessageBox::question(win,tr 0xcba54b,
+    //   tr 0xcba508.arg(pane->title()),Yes|No=0x14000)==Yes(0x4000) 腿 →
+    //   pane 关闭(展开见 .cpp);尾 tabCount==0 singleShot(0,0x28B 闭包
+    //   FUN_008de260)深腿 cited。
+    void confirmPaneClose(MuxPaneView *pane);
+
     // FUN_008da01e(0028:22186,84B)归辖落点:会话宿主 desktop 面板容器
     //   按面板 +0x30 序号查 MuxPane(消费面 = mux_restorePaneSplitter
     //   @0026:29862 / FUN_0083b240 @0026:29501 / 0026:42850);desktop
