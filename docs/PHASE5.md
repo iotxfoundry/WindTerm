@@ -1977,6 +1977,43 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   批 = onig_new 语法/编码选项取证 + onig_search 缓冲映射 + CALIBRATION。
 - 验证:cmake --build 零错;**ctest 16/16**;dlopen OK。
 
+### 批 104-106(2026-11-13)子任务三车道并行:markerBand 升真身/0x4eff 取证/四槽 3/4 ✅ ctest 17/17
+
+> 首次 worktree 隔离三车道(fixer 子任务 ×3),主控合流;本节主控统一记。
+
+- **批 104 M 跟踪器建模 + markerBand 升真身**:src/Editor/ModTrack.h
+  新(343B:M/inner/文档面两段/RS8 游程面布局;七函数族 inline 全转写
+  0099a3c0/47a/4b2/4ea/448/b36c/b4c8 + 00927a78 mtMarkerBand 逐段行号
+  锚)。**ctor 链破案**:M 构造点 = FUN_00929bf8 editor_engineCtor
+  (0030.c:25997..26005,00929fab operator_new(0x10)+b142(,5)),析构
+  FUN_0099a362 — +0xf0 挂账消解。EditorContext 挂 modTrack;renderpixtest
+  b 组桩态注记勘正;modtracktest 新 17 断言(flat 支带查询/两段读/
+  from 门/saved 出参)。cited 登记头注:zstd 腿 00889cde/QReadWriteLock/
+  bbb0 迁移门/run 灌值腿 LAB_0099bf2b(游程支无运行时路径,写侧批
+  接入时按 31872..31905 两段机升级)。
+- **批 105 0x4eff 取证(未激活,任务书失败条款)**:针对象勘正 —
+  GrepNeedle448 **无 regex 编译产物字段**(operator_new(0x448)@0089a0a0
+  → convCtor 写域恰满 0x448−0x10,零剩余字节);canOld 搜索腿 param_4
+  = canEncodeMemo(0089b85e)ctl 对象非 onig regex;搜索正则住
+  doc+0x1098 FindContext 深腿(编译栈 00ad7360/00ad2ae0);业务区零
+  onig_new 直调(kuna xrefs + 语料 49M 双源零命中)。b422d0 param_2
+  扩展 regex_t 布局实测(+0x48 iterator vt/+0x50 选项位/+0x80,88
+  minLen,maxLen/+0x1c0 精确串)。**激活缺证**:FindContext→编译栈
+  入参(语法/编码不猜,铁律 3)— CALIBRATION 激活清单已录。
+- **批 106 界面四槽落点 3/4**:①confirmClose/closeCurrentPane →
+  MuxWindow::confirmPaneClose(pane_confirmClose 008df6c0 915B)②
+  onTabBlankRequested → setPaneZoom(FUN_008e04ae 1095B)+ SplitterGroup
+  isZoomed/stackCurrentPage/toggleZoomPage(005a23c6/24fc/2518 585B
+  asm 全读)③renamePane 全链(QRegularExpression 0xcba4b0 +
+  QInputDialog::getText 汇合腿)④showConfigMenu 保持 cited(KitWindow
+  011ab390 无承载,005ac790 275B 全读在注)。mwctest +3 断言。
+  **勘误挂账**:MuxWindow +0x40/0x41 BYTE 双旗标(ctor asm 三源同证)
+  与 m_f40 QString 建模冲突 — 只登记未修(连锁 moc/mwctest),
+  008e0bb2(批 92 S9)按 QString 建模的语义偏差待重估。
+- 验证:三车道各自独立门(worktree 全新 cmake + ctest + dlopen)后
+  主控逐批 cherry-pick 合流,主线终态 **ctest 17/17 + dlopen OK**;
+  并行收益:三批墙钟 ≈ 单批串行 1/3,零写冲突(任务书分域生效)。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

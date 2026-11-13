@@ -3,9 +3,15 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-11-13 第十三次交接,批 103)
+## 一句话状态(2026-11-13 第十三次交接,批 106)
 
-**批 103 三 lane**:c91e thunk 寄存器洗牌勘正(p4=0/p5=0/p6=i,
+**批 104-106 三车道并行(worktree 隔离,主控合流)**:批 104 M 跟踪器
+建模(ModTrack.h;ctor 链 editor_engineCtor 00929bf8 破案,+0xf0 消解)
++ markerBand 00927a78 升真身 + modtracktest 17 断言;批 105 0x4eff
+取证未激活(针对象无编译产物字段勘正,正则住 FindContext 深腿,
+选项不可达不猜,CALIBRATION 激活清单);批 106 四槽 3/4 真身
+(confirmPaneClose/setPaneZoom/renamePane;showConfigMenu KitWindow
+无承载),MuxWindow BYTE 旗标勘误挂账。**批 103 三 lane**:c91e thunk 寄存器洗牌勘正(p4=0/p5=0/p6=i,
 批 83 三处纠错,elem 门=j==i 单元素,p4==1/2 腿经 thunk 恒不达);
 M 跟踪器七函数全读 + 布局定案(RS8 游程面/flat 两段文档面/zstd
 压缩腿新发现,建模留批 104);Onigmo 激活勘察(src/Onigmo 全树 +
@@ -33,20 +39,22 @@ renderpixtest 11)。
 (三勘)/keymap 谓词+挂链 = boost xpressive matchable_ex/PairColor
 zstd 委托/libssh 117/QJSEngine 45/regex Onigmo 前置。
 
-## 下一批队列(批 104 入口)
+## 下一批队列(批 107 入口)
 
-1. **M 跟踪器建模落地**(批 103 L2 前置已清):inner/doc-face/
-   RS8 游程/zstd 腿建模 + initDoc +0xf0 接线 → markerBand
-   00927a78(365B 本体已全读)随批升真身
-2. **0x4eff 搜索腿激活**:onig_new 语法/编码取证 → onig_search
-   映射 + CALIBRATION(批 103 L3 勘察就绪)
-3. **c1c2 余 cited**:R·T 段(T 段 0x95c62a 行扫描)/ok 返回值
-   R12D 全路径/迭代器两函数体;~~p6 残寄~~(批 103 L1 闭环,
-   p4/p5/p6=0/0/i);p4==2 去重向量(FUN_00926ddc 0x95c505)待
-   ctx+8 store 建模
-4. **四槽落点缺**(KitWindow/MuxWindow/dialog,批 101 L2)+
-   Phase 4a 注册表插入侧 / Phase 4c SplitterGroup
-5. ~~0x75dc 来源面~~(批 102 L4 闭环);~~KitBar S5/S6~~(批 98)
+1. **M 跟踪器写侧批**:b152/b15e/flagmask_set_range 写侧函数 +
+   bbb0 迁移门/两段容量机(31872..31905)→ 游程支激活(批 104
+   ModTrack.h 读侧已就位;两段承载重分配→gap 机升级)
+2. **0x4eff 激活取证续**:FindContext(doc+0x1098)深腿本体
+   FUN_00ad2ae0(17929B)读 + onig 编译栈入参(语法/编码)取证
+   — 缺证清单在 CALIBRATION
+3. **MuxWindow +0x40/0x41 BYTE 双旗标勘误**(批 106 发现:m_f40
+   QString 建模与 ctor asm 三源冲突;008e0bb2 批 92 S9 语义偏差重估,
+   连锁 moc/mwctest)
+4. **showConfigMenu KitWindow 承载建模**(011ab390;005ac790 275B
+   全读在注)+ c1c2 R·T 段(T 段 0x95c62a)
+5. Phase 4a 注册表插入侧 / Phase 4c SplitterGroup(部分槽体批 106
+   已落)/ 130+ 扩谱
+6. ~~四槽落点~~(批 106 3/4);~~p6 残寄~~(批 103);~~KitBar S5/S6~~(批 98)
 
 ## 一句话状态(2026-11-01 第十次交接)## 一句话状态(2026-10-30 第九次交接)## 一句话状态(2026-10-29 第四次交接)
 
