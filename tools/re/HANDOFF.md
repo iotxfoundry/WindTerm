@@ -3,15 +3,20 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-11-13 第十七次交接,批 120 · M3 进行中)
+## 一句话状态(2026-11-13 第十九次交接,批 122 · M3 收官)
 
-**M3「Phase 5b 行为对比 + vtable 清偿」**:② vtable 转储定案 ✅
+**M3「Phase 5b 行为对比 + vtable 清偿」收官**:② vtable 转储定案 ✅
 (批 119:scanMask 双 cited 清偿,engVt50Block/engVt28Class 真身,
-三 vtable 两源身份);① 我方侧基线冻结 ✅(批 120 engtest5:21 序列
-61 断言,phase5 同格式 JSON);**原版侧捕获阻塞于 ptrace_scope=0
-(用户手动 sudo,执行后发原版侧捕获批即完成 5b 对表)**。此前:
-M2「编辑器残项清零」达成(批 117/118);M1「编辑器搜索链闭环」
-达成(批 116b)。本会话累计批 102-120 共 **19 个实现批**,ctest
+三 vtable 两源身份);① Phase 5b **通道与构造双突破但 A/B 对表未满**:
+armed 0x418c4 钩 + editor ctx 桥(批 121)/ frida 真 ctor op 运行期
+构造成功(批 122,Grep 0x68 体 FUN_00899fba)/ C 族 1 MATCH(C2/C3
+仪器性)/**A/B 18 NOT-RUN 维持** — 解锁路径已钉死:terminal 与
+editor 两种 doc +0xe0 承载不同构(QString 直写 abort),欠「editor
+型 doc + find 串写入」一次实验(phase5_editor_b122_op.js ctor 腿
+资产已留)。RUBY 终裁:**维持假设,零反例**(字节级六样例直证我方
+侧;原版侧直证随 A/B)。QUIRKS #29/#30 新增。此前:M2「编辑器残项
+清零」达成(批 117/118);M1「编辑器搜索链闭环」达成(批 116b)。
+本会话累计批 102-122 共 **21 个实现批**,ctest
 **18/18** + dlopen OK,本地领先远端未推。**批 107-109 第二轮三车道并行**:批 107 M 跟踪器写侧(0099b152/
 0099b15e + 两段容量机 0088a016/00889e2e 真身;0xfffff 迁移腿/
 灌值腿仍 cited 外库链;车道首轮输出耗尽零产物,原会话复活+范围
