@@ -266,6 +266,10 @@ qint64 CodecMemo::searchNeedle(const void *needlePair, qint64 from, qint64 to)
 //   本过滤式恒 -1 同相);pack64 返回:hi16 = 候选掩码,lo48 = 位置;
 //   逐位过滤(候选 & allowed==0 才收,弃位换下一候选);param_2 += 0x10
 //   步进;lo48==0xffff... 哨兵 → 出环(语料尾值残留同相 → -1)。
+//   批 118 kuna 对账:分派双处均显式携 4 参(kuna 0092a596:v5 =
+//   sub_936cf1(v2,v5,a1,a2),v2 = ((ulong*)a0)[0x1f] = *(a0+0xf8));
+//   Ghidra 语料首扫两臂无参为反编译器跨块寄存器残缺,非语料差异 —
+//   engDispatch 四参调用全八臂同形(转写已同相,零改动)。
 qint64 CodecMemo::scanMask(const void *needlePair, qint64 from, qint64 to)
 {
 	const GrepNeedle448 *needle = *(const GrepNeedle448 *const *)needlePair;

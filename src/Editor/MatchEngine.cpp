@@ -9,11 +9,18 @@
 
 namespace MatchEngine {
 
-// —— vt 承载占位(eng 笔记 §4 深腿 2)——
-// vt+0x50 块取 vcall(lineDoc,pos)→16B 块;lineDoc vtable 面落点未解
-//   — cited — wave-2。占位 = 恒零 16B 块(静态);活性消费面 0x4f00
-//   nlen<=0 门(26272)/0x4eff needlePair null 门(12665)不可达 —
-//   占位同相(与批 93 scanEngine 恒哨兵同效)。
+// —— vt 承载占位(eng 笔记 §4 深腿 2;批 118 定案盘点)——
+// vt+0x50 块取 vcall(lineDoc,pos)→16B 块 — cited — wave-2。
+//   语料形态完整已对账(decomp-part-0030.c:34638 + kuna 0093632d 双源:
+//   v2 = *(lineDoc+0xf8) buffer 对象;vcall = *(vt(v2)+0x50)(v2,pos),
+//   返回 16B 块指针)— 缺证 = 落点槽内容:doc+0xf8 = CSuperBufferBase
+//   派生 buffer(00927ec8 __dynamic_cast 面),其 vtable+0x50 槽函数/
+//   16B 块语义未解(Editor 主 vtable 0x11afd30 +0x50 = Editor_vt12
+//   void(self) 签名不符 — VTABLE-MAP 槽 10 排除;需 buffer vtable
+//   .data.rel.ro 转储 + 槽函数语义两证,同批 58b 方法论)。占位 =
+//   恒零 16B 块(静态);活性消费面 0x4f00 nlen<=0 门(26272)/0x4eff
+//   needlePair null 门(12665)不可达 — 占位同相(与批 93 scanEngine
+//   恒哨兵同效)。
 static const char *engVt50Block(const void *lineDoc, qint64 pos)
 {
 	Q_UNUSED(lineDoc);
@@ -21,7 +28,11 @@ static const char *engVt50Block(const void *lineDoc, qint64 pos)
 	return "";                                        // 16B 恒零块承载
 }
 
-// vt+0x28 任意类→类 id byte vcall(37865)— 同上 cited — wave-2。
+// vt+0x28 任意类→类 id byte vcall(37865)— cited — wave-2。
+//   语料形态完整已对账(kuna 00936cf1 尾逐字:v1 = *(void**)(vt(v2)
+//   +0x28);a2 = *(int*)(needle + cls*4 + 0x14) + a2 + 0xf — skip
+//   算式腿已真身,见 engScan UseSkip 腿)— 缺证 = 类 id byte 语义/
+//   落点槽(同 engVt50Block buffer vtable 转储批)。
 //   占位恒 0(skip[0] convCtor 默认 len+1 → 有界推进)。
 static int engVt28Class(const void *lineDoc, qint64 pos)
 {

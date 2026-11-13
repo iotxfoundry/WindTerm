@@ -46,6 +46,7 @@
 // EditorEngine/EditorContext 均无 Q_OBJECT,不触发 moc ABI 面)。
 #define private public
 #include "EditorEngine.h"
+#include "CodecMemo.h"   // 批 118 g 组:scanMask 直呼(0x448 契约钉住)
 #undef private
 #include "Scintilla.h"
 #include <QApplication>
@@ -312,6 +313,38 @@ int main(int argc, char **argv)
 		       "no-op 同相)");
 		expect(r == QVariant((qlonglong)-1),
 		       "f: 段 D 后 lambda 走查同 b → -1(9851-9853 死路同锚)");
+	}
+
+	// ======== g. scanMask 掩码腿直呼(批 118;needlePair 契约钉住)========
+	// 语料:FUN_0092a596(467B)@0030:26261;2626c lVar4 = *param_4 —
+	//   param_4 = wrapper 槽,解引一次得针对象(0x4eff 12006 调用点传
+	//   &local_88 = FUN_0089a0a0 出参槽同形);0x4f00 段 5/0x4eff 掩码
+	//   臂 EditorEngine 载体 needleCar 首八字 = literal(值字节)→
+	//   直呼即伪指针 — 语料路径本体不入 wrapper 解引面(批 100 裁决②
+	//   同锚)。批 116b 契约:针对象 = 单层指针,wrapper→针恰一次解引。
+	{
+		// g1 wrapper 形态:pair[0] = &needle(语料 2626c 单次解引)
+		GrepNeedle448 needle{};                      // 壳态:len=0 literal=1
+		const void *pair[1] = { &needle };
+		expect(CodecMemo::scanMask(pair, 0, 8) == -1,
+		       "g1: len=0 → -1(26272 nlen<=0 门真身)");
+		// g2 正常针 + 占位引擎:唯一安全直呼构型 = 首扫即哨兵(engScan
+		//   34634 to<=from 门先于 engVt50Block/表解引 — tbl 承载为
+		//   convCtor cited 空(null),越门构型必崩:原版表由编码器
+		//   折叠面/广播面填充,占位零值不可解引 — 占位活性不可达
+		//   同相证明:两产品调用面均门先行,0x4f00 len=0(26272)/
+		//   0x4eff 针 null(12665),表腿永不达)
+		needle.len = 2;
+		needle.allowedBits = 0;                      // 262b4 门恒收(不达)
+		expect(CodecMemo::scanMask(pair, 0, 1) == -1,
+		       "g2: scanEnd=to-(nlen-1)<=from → -1(26274/34634 边界哨兵"
+		       "先于引擎表腿;表 null 承载占位 — convCtor cited 面)");
+		// g3 区间界(非 case 档 caseFlag=0 → 双表 literal 引擎 3830d;
+		//   同哨兵序)
+		needle.len = 16;
+		expect(CodecMemo::scanMask(pair, 4, 16) == -1,
+		       "g3: to-(nlen-1)<=from → -1(26274 scanEnd 边界;engScan "
+		       "34634 门同相)");
 	}
 
 	printf("fail=%d\n", g_fail);
