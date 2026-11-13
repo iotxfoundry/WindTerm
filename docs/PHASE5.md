@@ -2152,6 +2152,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (批 111:piecetable/线程池链不可脱离外库 → 边界登记)。**里程碑
   M1 达成,按用户终点条件停止开车道。**
 
+### 批 117/118(2026-11-13)M2 编辑器残项清零:行槽接线真身/busy 腿边界登记/scanMask 定案 ✅ ctest 18/18
+
+- **批 117 残项① 行槽接线真身**:ctor 证据链闭合 — editor_engineCtor
+  25911 `param_1[0x28] = INT64_MAX` → EditorContext::modLineSlot28
+  建模 + 0x95c7b4 接线 mtLineSlotClrBit3(cited 摘除);f6 组 5 断言
+  (INT64_MAX 初值/收敛/bit3 联动);mtLineSlotClrBit3 签名
+  long*→qint64*(LP64 同宽零行为差)。
+- **批 117 残项② busy 腿边界登记收口**(批 111 判例):0092bb20 =
+  doc 批处理通知器(kuna xrefs 唯一调用点 0092bd78 待发缓冲合并机,
+  12 处 doc 写路径调用,与 doc 生命周期锁死);busy 位读链
+  009e7bce→00a0ce84(232B)自旋锁 + nanosleep 指数退避 = 线程池
+  形态外库底座;扫描索引面皆分页级 vt 调用 — 不可脱离外库转写,
+  证据全录 EditorContext 去重腿头注;查腿真身 dedupProbePts 保持
+  壳态同相。
+- **批 118 scanMask 掩码腿定案(0/2 落真身,正确拒绝发明)**:两
+  缺口 = doc+0xf8 CSuperBufferBase 派生 buffer vtable +0x50/+0x28
+  槽内容 — 形态已 kuna 双源对账(decomp-0030.c:34638 + 0093632d/
+  00936cf1 逐字;Editor 主 vtable +0x50 签名不符已排除),缺证 =
+  .data.rel.ro 转储 + 槽语义两证(同批 58b 方法论)→ cited 保留 +
+  定案注记;scanMask 分派 4 参勘正(Ghidra 残缺非语料差异,engDispatch
+  零改动同相)。wordsteptest g 组 3 断言(len=0 门/边界哨兵/批 116b
+  单层解引契约防回退)。
+- 验证:两车道独立门 + 主控合流,主线终态 **ctest 18/18 + dlopen OK**。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
