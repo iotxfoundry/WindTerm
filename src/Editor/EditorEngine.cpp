@@ -2788,28 +2788,33 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 							const qint64 lnA0 = send(SCI_LINEFROMPOSITION, p0, 0);
 							qint64 lnA = lnA0;
 							// 0x95c736 +0x168 非 0 才走主腿(0x95c7ca 跳过 =
-							//   无旗标面;壳期 0 → 直落行扫描腿 — 语料同相)
+							//   无旗标面 → 不收前缀/无旗标写,直落行扫描 —
+							//   收前缀块在守卫内,批 115 勘正批 113 出守卫形态)
 							quint8 fA = 0;
-							if (m_ctx.modTrack.inner)        // +0x168 面 ≡ M 跟踪器
-								fA = wt::mtLineFlag(&m_ctx.modTrack, int(lnA)); // 0x958750
-							// 0x95c744 RBX>0 → 0x958750(lnA-1)==0 → 行号 −1
-							//   (起行收前缀;0x958750 = b36c bit4 读,end−1 夹制)
-							if (lnA > 0 && fA == 0 &&
-							    wt::mtLineFlag(&m_ctx.modTrack, int(lnA - 1)) == 0)
-								--lnA;                       // CMOVZ RBX,R14
+							if (m_ctx.modTrack.inner) {      // 0x95c736 主腿门
+								// 0x95c732 958750 → bit4 位(@0031.c:26191
+								//   b36c>>4&1;整字节读为批 113 近似,已勘正)
+								fA = quint8((wt::mtLineFlag(&m_ctx.modTrack, int(lnA)) >> 4) & 1);
+								// 0x95c744 RBX>0 → 958750(lnA-1)==0 → 行号 −1
+								//   (起行收前缀;bit4 位判,同 958750 语义)
+								if (lnA > 0 && fA == 0 &&
+								    ((wt::mtLineFlag(&m_ctx.modTrack, int(lnA - 1)) >> 4) & 1) == 0)
+									--lnA;                       // CMOVZ RBX,R14
+							}
 							// 0x95c75e runnode_init(pos=p1) → 0x95c77d 9587cc
-							//   → 结束行 u4;0x95c795 958750 → f2(RSP+0x28)
+							//   → 结束行 u4;0x95c795 958750 → f2(RSP+0x28,bit4 位)
 							qint64 lnB = send(SCI_LINEFROMPOSITION, p1, 0);
 							const quint8 fB = m_ctx.modTrack.inner
-							    ? wt::mtLineFlag(&m_ctx.modTrack, int(lnB))
+							    ? quint8((wt::mtLineFlag(&m_ctx.modTrack, int(lnB)) >> 4) & 1)
 							    : quint8(0);
-							// 0x95c7a7 958048(lnA, fA!0→set 0x10 / ==0→clr 0x10)
-							wt::mtSetLineFlag(&m_ctx.modTrack, int(lnA),
-							                  fA ? quint8(0x10) : quint8(0));
+							// 0x95c7a7 958048(lnA, fA!=0→set 0x10/==0→clr 0x10)
+							//   (@0031.c:25618 位面机;批 114 mtBit4SetClr —
+							//   批 113 整字节写风险消解)
+							wt::mtBit4SetClr(&m_ctx.modTrack, int(lnA), fA);
 							// 0x95c7b4 958108(lnA, 0):DL==0 → 行槽 min 收敛
-							//   + set_range(clr bit3)(0x28 行槽/b740 面未建模
-							//   — cited — wave-2;空腿同相:语料 +0x168==0 时
-							//   958108 首行 JZ 直返)
+							//   + set_range(clr bit3)— 位面机已就位(批 114
+							//   mtLineSlotClrBit3),待 ctx+0x28 行槽 ctor 证据
+							//   建模接线 — cited — wave-2(M1-③ 残项)
 							// 0x95c7b9 958002(lnA+1, lnB−lnA):len≥1 才走
 							//   (0x160 skipruns + 0x168 b152 追加腿;M 面 =
 							//   modAppendRange 同体)
@@ -2824,17 +2829,17 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 							//   = 首行 958108 换 958048 值腿)
 							for (qint64 l = lnA; ; ) {
 								if (l == lnB) {
-									wt::mtSetLineFlag(&m_ctx.modTrack, int(lnB), fB);
-									break;                           // → 0x95c81a
+									wt::mtBit4SetClr(&m_ctx.modTrack, int(lnB), 1);
+									break;                           // → 0x95c81a(0x95c88e EDX=1 恒 set bit4)
 								}
 								// 0x95c81a 925200(u4+1)=行 pos(0x980696 链)→
 								//   0x95c83c 957fb6(++RBX, pos, flag=1 → b152 灌 0x10)
 								wt::mtAppendRange(&m_ctx.modTrack, int(l + 1), 1, 0x10);
 								//   (0x957fb6:flag=1 → SBB/NOT/AND = 0x10;0x160 腿 cited)
 								++l;                                 // ADD RBX,1
-								// 0x95c841 行B−1==l → 出首段,958048(lnB,fB) 后回判
+								// 0x95c841 行B−1==l → 出首段,958048(lnB,f2) 后回判
 								if (lnB - 1 == l) {
-									wt::mtSetLineFlag(&m_ctx.modTrack, int(lnB), fB);
+									wt::mtBit4SetClr(&m_ctx.modTrack, int(lnB), fB);
 									l = l + 1;                       // 0x95c857 R14=R12
 									if (l == lnB) { ok = true; break; } // 0x95c85d
 									continue;                        // 0x95c813 回判
