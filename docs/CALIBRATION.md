@@ -220,3 +220,56 @@ SHA3-512 PBKDF2×100000,salt=base64(SHA512(number(generate64))))。
 3. 两值定案后按"校准协议"逐句映射 bufferScan00b422d0 委托
    (libonig.a onig_new/onig_search/onig_free 已就绪)。
 
+
+## 批 110:Onigmo-改 face 定案取证(未激活;face 语义三源定案,枚举映射缺证)
+
+> 结论:**零行为码**。dat_d15860/DAT_011becc8 face 语义定案(见下),
+> 但与上游 ONIG_SYNTAX_*/ONIG_ENCODING_* 枚举的映射仍无证据 —
+> 改版结构非上游布局,libonig 委托激活继续挂起。
+
+### face 语义定案(kuna 函数体 + xrefs + ELF 静态转储三源互证,2026-11-13)
+
+- **00aa1f70(5B)= malloc 尾调用;00aa1f80(5B)= free 尾调用**
+  (kuna 反编译直证)— 非编码钩子(任务书候选证伪)。
+- **dat_d15860 = 编译环境 face(Onigmo-改 语法 face 容器,0x48B)**:
+  - 消费点唯一:kuna xrefs --to 0xd15860 = 1 hit @a9c7ee(sub_a9c780,
+    编译本体)— a5==0 时默认 face。a81655 param_5!=0 时改用
+    aa2060(0) 堆构造同构 0x48B 对象(默认分支逐域写 dat_d15860
+    的镜像值)→ **静态 dat = 堆 face 的原型**。
+  - 域语义(a9c780 消费面 + aa2060 默认值两源一致):
+    `[0]=alloc(aa1f70) [1]=free(aa1f80) [2]=ctx [3],[4]=0
+     [5]=0xd35f40 折叠表 [6]=-1(pattern 长度上限=∞;v77=strlen
+     检查 v19[6]<len 才报 0xbc)[7]=u16{2,5}+u32{0xfa}
+     [8]=flags u32(静态 0;检查 &0xffffff80 / &0xc)`
+  - aa24c0/aa24f0/aa2510/aa2520 setter 族:+0x38 short(1..2)/
+    +0x3a short(1..6)/+0x3c u32/+0x40 u32 = 运行期可变域。
+- **0xd35f40 = ASCII case-fold 表(256B,非恒等表!)**:ELF 转储
+  实测 A-Z(0x41-0x5A)→ a-z(0x61-0x7A),其余字节恒等 —
+  主控"恒等表/定长单字节编码 face"推断**勘正**:256B 是
+  忽略大小写折叠表(消费:a9c780 v24 默认,face[5] 覆盖)。
+- **dat_d158a8(同区邻接表)= 对象 vtable(9 项 fn)**:
+  `{aa1f80, aa26b0×6, aa2728×2}`;aa1f90(size,parent)分配
+  {alloc_fn, vt=dat_d158a8} 2 头继承对象 — C++ 虚表继承模式;
+  aa26b0/aa2728 = pattern 字节扫描虚方法(0x55-0x61 switch,
+  0x0f/0x10 特判 = UTF-8 双字节窗)。**上游 meta_char_table
+  对照不成立**(全指针同值,非 CodePoint 常量),仅形态候选。
+- **DAT_011becc8 = 旁支编译栈的独立 face**:唯一写点 b39540
+  (9B setter)xrefs=0;00b39830(编译门)直接引用 — face 与
+  dat_d15860 无关,不属上游 OnigEncodingTypeSt 布局({0x73,0x73}
+  非 min/max_enc_len)。语义未定案,维持观察项。
+
+### 缺证清单(激活剩余)
+
+1. **语法 op/op2/behavior 位面不在 face 内**:a9c780 对 v19 仅消费
+   [0]/[1]/[2]/[5]/[6]/[7]/[8](alloc/free/ctx/fold 表/限额/u16/flags)
+   — 上游 OnigSyntaxType 四整数域(op/op2/behavior/options)零消费,
+   语法行为已硬编码进 a9c780 内部(改版去可变语法)。上游
+   ONIG_SYNTAX_RUBY 等枚举映射**无落点** → libonig onig_new
+   委托无 syntax 实参可给。
+2. **编码 face 无上游对应**:编译主链(a81655→a9c780)无 encoding
+   形参,编码行为进 a9c780 内部(d35f40 ASCII fold 表 = 唯一编码
+   面证据,指向 ASCII/单字节,但非上游 face 结构)。ONIG_ENCODING_*
+   映射无证据。
+3. b422d0 委托激活路径再确认:GrepNeedle448 与 onig regex 对象
+   布局零重叠(批 105 ①)— 委托需自建转换层,校准协议逐句映射
+   仍待 1/2 收口后启动。

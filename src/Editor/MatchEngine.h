@@ -117,6 +117,19 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 //       下批入口 = dat_d15860 数据段转储(对照 src/Onigmo
 //       OnigSyntaxType 布局逐域比对)+ DAT_011becc8 运行时观察
 //       (实验锚)。
+//   ⑤ 批 110 face 定案取证(kuna + xrefs + ELF 转储,2026-11-13;未激活):
+//     · 00aa1f70=malloc 尾调用/00aa1f80=free 尾调用(kuna 直证,编码
+//       钩子候选证伪);dat_d15860 = 编译环境 face 0x48B:
+//       [0]alloc [1]free [2]ctx [3,4]0 [5]=0xd35f40 fold 表 [6]=-1
+//       (pattern 限长 ∞) [7]=u16{2,5}+u32{0xfa} [8]=flags — 消费点
+//       唯一 @a9c780(a9c7ee);aa2060(0) 堆构造为同构镜像(a81655
+//       param_5 腿)。
+//     · 0xd35f40 勘正 = ASCII case-fold 表 256B(A-Z→a-z,余恒等),
+//       非恒等表/非编码 face;dat_d158a8 = 9 项 vtable{free,aa26b0×6,
+//       aa2728×2}(aa1f90 继承构造,aa26b0/28 = pattern 扫描虚方法)。
+//     · 语法 op/op2/behavior 域零消费(硬编码进 a9c780)→ 上游
+//       ONIG_SYNTAX_*/ONIG_ENCODING_* 映射无落点,libonig 委托缺
+//       syntax/encoding 实参 — 零行为码(详 docs/CALIBRATION.md 批 110)。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to);
 
 } // namespace MatchEngine
