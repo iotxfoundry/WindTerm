@@ -408,9 +408,13 @@ public:
 	//   ctor = editor_engineCtor 00929fab..00929fe1;析构 = a362(0030.c:29905);
 	//   flat 模式(游程腿 = 写侧 run 迁移,单列批)→ markerBand 走线性支同相。
 	wt::ModTrack modTrack;
-	// char-used 视图(批 75 勘察:*(ctx+0x180) = 0x20 壳{vtbl, RS8,
-	//   密排 GapBuffer} ≡ RunStyles::FillRange;路线 A = RS8 委托坍缩,
-	//   与 MarkersStore rsFill8 同面;ret 1=吸收/0=新写 与 changed
+	// char-used 视图(*(ctx+0x180);批 75 勘察 + 批 115 定型:FUN_0095c086
+	//   292B @0031:28685 全读 — 0x20{vtbl→Uint8RunStyles_vtable,+0x08
+	//   pieceTable 0x60(piecetable_init,+0x18 threadCtx = 0092801a(doc)
+	//   种子),+0x10 GapBuffer 0x30(GapBuffer_dtor 后 gapbuffer_reallocate
+	//   (0,0,2) 重开)};pieceTable/GapBuffer/threadCtx 外库边界面 → 我方
+	//   RS8 委托坍缩(路线 A 惯例,rsFill8 同面);ensure 重建腿 0x95c19d
+	//   vt+0x08(D1 链)旧象释放 ≡ delete;ret 1=吸收/0=新写 与 changed
 	//   不同相 = QUIRKS 候选,76c 笔记)
 	Scintilla::RunStyles<int, char> *charUsedView = nullptr;
 	// runvector(批 82 勘察:ctx+0x178 = 0x28{count,docState,begin,end,cap}
@@ -418,6 +422,25 @@ public:
 	QVector<wt::ValueTable *> runVector;
 	void *runSeed = nullptr;                        // rv[1] = FUN_0092801a(doc) 种子
 	QVector<quint32> styleProps190;                 // ctx+0x190 Uint32Bimap→QList(第六视图,76b 漏列补)
+	// p4==2 去重腿(批 115 收口;0031.c:28844-28864 全读):语料 = FUN_00926ddc
+	//   (*(ctx+8),rs,re,props&0x3fff,&pts) + pts 5-long 步进线性查。
+	//   *(ctx+8) = 标记引擎对象(0092bb20 槽面 0x90..0x200 同构;+0xb8 busy
+	//   位;构造点未建模)→ busy 腿(真身 FUN_009e975a 539B @0033.c:15148:
+	//   009e83ea 分页标记扫描,素 {nextStart,nextEnd,start,end,props} 经
+	//   009ef31a 追加)整体 cited — wave-2(铁律 3 缺证不转写);pts = 调用局
+	//   临时两点向量(0095c4fd 三连 0 初始化)非 ctx 持久。壳态 busy 恒 0 →
+	//   非 busy 腿 = pts 对回卷(FUN_00926ddc L22329-22331:pts[1] = pts[0];
+	//   空对恒等 no-op)→ 查腿扫 0 素恒无命中(同相直落界交判定)
+	struct DedupRec { qint64 nextStart; qint64 nextEnd; qint64 start; qint64 end; qint64 props; };
+	// 查腿真身(L28849-28864;busy 腿激活后同函数承载):自 pts+0x10(素 0
+	//   槽 2)起 ÷5 步进,素槽 2/3 ==(rs,re) 命中 → 跳此 run(L28864 goto)
+	static bool dedupProbePts(const QVector<DedupRec> &pts, qint64 rs, qint64 re)
+	{
+		for (int k = 0; k < pts.size(); ++k)
+			if (pts.at(k).start == rs && pts.at(k).end == re)
+				return true;
+		return false;
+	}
 	QVector<RunNode> markers;
 	int markerInsert(const RunNode &n)
 	{

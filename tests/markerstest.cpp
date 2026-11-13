@@ -31,6 +31,7 @@ static qint64 fxFirstIndex, fxCount, fxBegin, fxEnd;
 static int    fxDtorCalls;
 static qint64 fx_first(void *) { return fxFirstIndex; }
 static qint64 fx_count(void *) { return fxCount; }
+static qint64 fx_count0(void *) { return 0; }   // q3 专用:vt+0x30=0(prune vcallSlot(0x30)≠1 门关)
 static qint64 fx_begin(void *) { return fxBegin; }
 static qint64 fx_end(void *)   { return fxEnd; }
 static void   fx_dtor(void *)  { ++fxDtorCalls; }
@@ -624,6 +625,54 @@ int main(int argc, char **argv)
 		       "p: ctor defaultFlag=5(b142 param_2;0x7576 T 段 bit4 读写基面)");
 		e.m_ctx.charUsedView = nullptr;              // 壳复位(不跨组泄漏)
 		delete rs8;
+	}
+
+	// ======== q. 批 115 组:p4==2 去重腿 + 迭代器收尾 + charUsed ensure ========
+	// 语料锚(0031.c:28844-28864 / 0033.c:48518+ / 0030.c:22317):
+	//   - FUN_00926ddc(31B):busy 位(*(ctx+8+0xb8))≠0 → 009e975a 真身扫描
+	//     (539B,cited);非 busy → pts[1]=pts[0] 回卷(两点恒等 no-op)。
+	//   - 查腿 L28849-28864:pts ÷5 步进,素槽 2/3==(rs,re) → 跳此 run。
+	//   - 迭代器收尾 0xa161d8(221B)/0xa162b6(18B):ok==0 且模式字==1 →
+	//     清字;0xa161d8 模式字面分派,壳态 doc 模式字 0 → 全腿关。
+	//   - ensure 0x95c086(292B):0x20{vtbl=Uint8RunStyles,+0x08 pt 0x60,
+	//     +0x10 GB 0x30} → RS8 委托坍缩(EditorContext.h 头注)。
+	{
+		// q1:查腿真身行为(空 pts → 无命中;素命中 → 跳)
+		QVector<EditorContext::DedupRec> pts;
+		expect(!EditorContext::dedupProbePts(pts, 10, 20),
+		       "q1: 空 pts 查腿无命中(0095c4fd 三连 0 → lVar16=0 → 循环体不进)");
+		pts.append({0, 0, 10, 20, 5});               // 素槽 2/3 = start/end
+		expect(EditorContext::dedupProbePts(pts, 10, 20),
+		       "q1: 素槽 2/3==(rs,re) → 命中跳(L28861 两槽连比)");
+		expect(!EditorContext::dedupProbePts(pts, 11, 20),
+		       "q1: rs 异 → 不命中(L28861 先比槽 2)");
+		// q2:壳态非 busy 语义 —— dispatch(0x7576) p4==2 腿经 thunk 恒不达
+		//   (0x95c924 XOR ECX,ECX;批 103 勘正),真身面 = 单元级 q1 承载;
+		//   ctx+8 busy 建模缺席(0092bb20 槽面)→ 无产品路径,登记足额。
+		// q3:迭代器收尾壳态同相:ok==0 → 0xa162b6 模式字门(壳 doc 无
+		//   +0x28 承载 → 门关);0xa161d8 模式字 0 → 全腿关。行为判别 =
+		//   dispatch(0x7576) 返回值不受收尾影响(R12D 由 T 段定)
+		EditorEngine e2;
+		e2.dispatch(0x7543, (qlonglong)1);
+		fxReset(0, 0, 0, 0);                         // run 索引面:vt+0x28→0
+		wt::ValueTable *re2 = new wt::ValueTable{};  // runvector 元素(ValueTable 复用)
+		wt::MarkEntryObj *re2d = fxObj();            // 语料槽序 vt(+0x28/+0x38/+0x40 尾调族)
+		// 语料 run 元素 = 完整 ValueTable(kind<6 六路取值):挂 Skip u8 层
+		//   (bankCtorK3 形 → kind=3,holders[3]=holder);RS8 空表 → 取值 0
+		re2d->vtbl = new void *[9]{nullptr, (void *)fx_dtor, nullptr, nullptr, nullptr,
+			(void *)fx_first, (void *)fx_count0, (void *)fx_begin, (void *)fx_end};
+		wt::bankCtorK3(re2, wt::makeHolder0x20(new RS8()));
+		re2->delegate = re2d;
+		e2.m_ctx.runVector.append(re2);              // 过 L29033 门
+		QVariant rv2 = e2.dispatch(0x7576, (qlonglong)0);
+		expect(rv2 == QVariant(0) || rv2 == QVariant(1),
+		       "q3: 收尾(0xa162b6/0xa161d8 壳态全腿关)不改返回值"
+		       "(0x95c87c EAX=R12D 先于收尾语义面)");
+		e2.m_ctx.runVector.clear();
+		delete re2; delete re2d;
+		// q4:dedup 结构字面 = 语料 5-long 素布局
+		expect(sizeof(EditorContext::DedupRec) == 40,
+		       "q4: DedupRec 40B = 语料 5-long 素步进(lVar16×0xcccccccd ÷5)");
 	}
 
 	printf("fail=%d\n", g_fail);

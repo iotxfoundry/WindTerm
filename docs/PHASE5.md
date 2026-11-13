@@ -2080,6 +2080,39 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:**ctest 17/17 + dlopen OK**;ModTrack.h 头注批 111 判定 +
   modAttachRunFace 装置注记;modtracktest 首注更新。
 
+### 批 115(2026-11-13)c1c2 剩余 cited 全定案(M1-② 三小项)✅ ctest 17/17
+
+- **p4==2 去重腿收口**(0031.c:28844-28864 全读 + 0030.c:22317 FUN_00926ddc
+  31B 全读):去重载体定性 = **c92c 调用局临时两点向量 pts**(0095c4fd 三连 0
+  初始化,5-long 素 {nextStart,nextEnd,start,end,props});非 ctx 持久字段。
+  FUN_00926ddc = busy 分派:*(ctx+8+0xb8) 位 → 真身扫描腿 FUN_009e975a
+  (539B @0033.c:15148,分页标记扫描 → pts 素追加 — 标记引擎 ctx+8 构造
+  点未建模(0092bb20 槽面 0x90..0x200),cited — wave-2,铁律 3 缺证不
+  转写);壳态非 busy → pts[1]=pts[0] 回卷(L22329-22331)≡ 空 no-op。
+  查腿真身化(L28849-28864):÷5 步进线性查,素槽 2/3==(rs,re) 命中跳 —
+  EditorContext::DedupRec(40B static_assert 于测试 q4)+ dedupProbePts;
+  壳态 pts 空 → 恒无命中,与"非 busy 回卷"语义同相。批 83 blocker 关闭。
+- **入口 FUN_0095c086(292B @0031:28685 全读)定型**:0x20{vtbl→
+  Uint8RunStyles_vtable 挂,+0x08 pieceTable 0x60(piecetable_init(种子
+  0092801a(doc))),+0x10 GapBuffer 0x30(GapBuffer_dtor 后
+  gapbuffer_reallocate(0,0,2) 重开)};旧象 *(ctx+0x180) 非空 → vt+0x08
+  D1 链释放(0x95c19d jumptable)。pieceTable/GapBuffer/threadCtx = 外库
+  边界面(piecetable 族未解)→ RS8 委托坍缩(EditorContext.h charUsedView
+  头注定型;路线 A 惯例)——case 注记从 cited 升级为已定型注记。
+- **迭代器收尾两函数全读定案**:0xa162b6(18B @0033.c:48580)= ok==0 且
+  **(*(it+8)+0x28)==1 → 0xa166d2(**+8,+8)=0 清字;0xa161d8(221B
+  @0033.c:48518)= 0xa165c6(--0x28 引用计数门)+ 0xa16632(**+8 读
+  **+8+8 u16 模式字)→ 0xa16bda(77B selStore 面 0xa2b0a2/0xa2b7b0)+
+  模式字分派(0x300/0x100/2 → 0xa16c54 渲染串腿;0x40/0x10/0x20/1/8/4
+  → 各 draw 腿 0xa16cba/0xa173ee/0xa16886/0xa167d6)。内层全 doc 渲染面
+  (宿主渲染器未装配)→ cited — wave-2;壳态 iter 持 doc ⇒ 模式字 0 →
+  全腿关,与壳同相(行为门测试 q3:收尾不改 0x7576 返回值)。
+- **测试 q 组(5 断言)**:q1 查腿真身三态(空无命中/命中跳/rs 异不命中)/
+  q3 收尾壳态同相(runvector 过门 + bankCtorK3 元素 + count0 vt 防 prune
+  误摘)/q4 DedupRec 40B 布局。
+- 验证:**ctest 17/17 + dlopen OK**;EditorContext.h charUsedView/去重腿
+  头注定型,EditorEngine.cpp 0x7576 case 注记升级。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

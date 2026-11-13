@@ -2654,7 +2654,8 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   壳期空 → 0 = 语料"无 runvector"语义同相)
 	                 //   内层 c1c2 三怪癖真身化(批 83,76d §4);
 	                 //   T 段真身化(批 113;c1c2 公共尾 0x95c62a,
-	                 //   asm 0x95c62a..0x95c874 全读);迭代器收尾 cited
+	                 //   asm 0x95c62a..0x95c874 全读);入口 0x95c086
+	                 //   ensure + 去重腿 + 迭代器收尾(批 115,见体内)
 		if (m_ctx.runVector.isEmpty())                   // L29033 *(rv)==0 → 0
 			return QVariant(0);
 		bool ok = false;                             // c92c uVar8/R13B 累积
@@ -2678,9 +2679,10 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			//   p5=sv、p6=-1 全错;四调用点 0x95c9d3/0x95cc1f/0x95cc73/
 			//   0x95d682 全经此 thunk → p4==1/2 掩码腿经此路恒不达,
 			//   体保留待直呼面;elem 门生效集 = j==i 单元素)。
-			//   入口 FUN_0095c086(316B scan-context ensure:0x20/0x60/
-			//   0x30 三对象 vt 0x1192298/0x1192278,0092801a threadCtx
-			//   面)— cited — wave-2。
+			//   入口 FUN_0095c086(292B @0031:28685,批 115 定型 —
+			//   EditorContext.h charUsedView 头注;0x20/0x60/0x30
+			//   三对象 + 旧象 D1 释放 + Uint8RunStyles_vtable 挂;
+			//   pieceTable/GapBuffer 外库边界面 → RS8 委托坍缩)。
 			qint64 sMin = s, sMax = e;                   // L28745-28749 swap 归一
 			if (e < s) { sMin = e; sMax = s; }
 			const int p4 = 0;                            // thunk 0x95c924 XOR ECX,ECX
@@ -2715,9 +2717,18 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 							continue;                    // 掩码异 → 跳此 run
 						}
 					} else if (p4 == 2) {
-						// p4==2 去重向量腿 FUN_00926ddc(ctx+8,rs,re,
-						//   props&0x3fff)+ 5-long 步进线性查,命中即跳
-						//   — cited — wave-2(去重 store 未建模,不落)
+						// p4==2 去重向量腿(批 115;0031.c:28844-28864 全读):
+						//   pts = 调用局临时两点向量(0 初值化,随迭代重置)
+						QVector<EditorContext::DedupRec> pts;
+						// FUN_00926ddc(*(ctx+8),rs,re,props&0x3fff):busy
+						//   位(*(+0xb8))→ 真身扫描腿 009e975a(539B,分页
+						//   标记扫描 → pts 素追加,cited — wave-2:标记引擎
+						//   ctx+8 构造点未建模);壳态非 busy → pts[1]=pts[0]
+						//   回卷腿(L22329-22331)≡ 空 pts no-op 同相
+						// 5-long 步进线性查(L28849-28864):素槽 2/3
+						//   ==(rs,re) → 命中跳此 run
+						if (EditorContext::dedupProbePts(pts, rs, re))
+							continue;
 					}
 					// ② 界交判定不夹交(L28869):runStart<s || e<runEnd
 					//   即跳;命中标整 run
@@ -2853,9 +2864,23 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				}
 			}
 		}
-		// FUN_00a162b6(iter 收尾)/FUN_00a161d8(221B)— cited — wave-2;
-		//   分支条件批 103 asm(0x95ca7a):c92c ok 累积 R13B(0x95c9da
-		//   CMOVNZ)非零 → 0xa161d8(迭代器),零 → 0xa162b6
+		// 迭代器收尾真身(批 115;0xa161d8 221B @0033.c:48518 /
+		//   0xa162b6 18B @0033.c:48580 全读):iter = c92c 调用局
+		//   editctx_beginIter(local_58,*param_1,&local_5c) 栈迭代器
+		//   (40B;E+0x3d 引用计数门 0xa165c6/--0x28、0xa16632 读
+		//   **(+8)+8 u16 类型字)。ok==0 → 0xa162b6:仅 **(it+8)+0x28
+		//   (选区模式 int)==1 → 0xa166d2(**+8,+8)=0 清字;0xa161d8
+		//   恒调:模式字 u16 命中 0x300/0x100/2 → 0xa16c54 渲染腿
+		//   (runstyles_runnode_init 串面)/ 0x20 → 0xa16cba(箭头)/
+		//   0x40/0x10/1/8/4 → 各 draw 腿(00a16bda 77B 0xa2b0a2/
+		//   0xa2b7b0 selStore 面)—— 内层 0xa16886/0xa167d6/0xa173ee
+		//   皆 doc 渲染面(0x30 GB/0x48 node),选区/渲染族 cited —
+		//   wave-2(宿主渲染器未装配;壳态 iter 持 doc ⇒ 模式字读
+		//   doc+8 已建模面 0 → 全腿关,与壳同相)。分支条件批 103
+		//   asm(0x95ca7a):c92c ok 累积 R13B(0x95c9da CMOVNZ)
+		//   非零 → 0xa161d8,零 → 0xa162b6 前置(恒 0xa161d8 尾随)
+		if (!ok)
+			;                                        // 0xa162b6 模式字腿:壳态 doc+0x28=0 → 直返
 		// vt+0xa0 刷新(true → 刷新)— cited(Phase-4b)
 		return QVariant(ok ? 1 : 0);                 // 0x95c87c MOV EAX,R12D
 		                                             //   (1=有 run 展开/0=无;
