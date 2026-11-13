@@ -2176,6 +2176,26 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   单层解引契约防回退)。
 - 验证:两车道独立门 + 主控合流,主线终态 **ctest 18/18 + dlopen OK**。
 
+### 批 119/120(2026-11-13)M3 双车道:vtable 转储清偿/engtest5 我方基线 ✅ ctest 19/19
+
+- **批 119 buffer vtable 槽转储定案**(scanMask 双 cited 清偿):
+  三 vtable 身份两源定案(ctor imm 980387/9818b6/989efe × typeinfo
+  名串 0x11ad708/790/8e8;基 0x11ad728/32 0x11ad818/64 0x11ad910)
+  → +0x28 = charAt(00981b2a/009c784c)、+0x50 = block16(00982212→
+  009c7cd0)。engVt50Block/engVt28Class 升真身(docBytes 直读承载,
+  nullptr = 壳态同相,产品调点零改动);h 组 3 断言(engScan 首次
+  全活性走查:lane0 命中 pack/miss 哨兵/skip 有界推进)。残项:
+  scanMask 活性接线挂 buffer 承载批(engDispatch 现传 nullptr);
+  static 16B scratch 出参承载替单线程同相已登记 CALIBRATION。
+- **批 120 Phase 5b 我方序列驱动器 engtest5**:21 序列(0x4eff
+  正则 11:五 RUBY 样例+literal/icase/无命中/越界/空域变体;0x4f00
+  词步进 7:wordsteptest 构型一比一;markers/0x7576 插入 3)→
+  /tmp/opencode/phase5_seq_editor.json(phase5 同格式,原版捕获批
+  直接对表);61 断言基线冻结。C3 构型发现 props 门壳期跳过形态
+  (styleProps190 需注入)— 登记 ENG5-SEQS.md,原版对表需等价装配。
+- 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 + dlopen OK**。
+  原版侧捕获(5b 对表)阻塞于 ptrace_scope=0(用户手动步骤)。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
