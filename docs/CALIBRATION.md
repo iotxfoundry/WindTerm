@@ -200,9 +200,23 @@ SHA3-512 PBKDF2×100000,salt=base64(SHA512(number(generate64))))。
 
 ### 下批入口
 
-1. dat_d15860 数据段转储(需 IDA 或 memdump)对照 src/Onigmo
-   OnigSyntaxType 布局逐域比对 → 定语法值。
-2. DAT_011becc8 运行时观察(实验锚,非产品码)→ 定 ONIG_ENCODING_*。
-3. 两值到手后按"校准协议"逐句映射 bufferScan00b422d0 委托
+1. ~~dat_d15860 数据段转储~~(**已完成,主控静态转储 2026-11-13**,
+   ELF program headers 直接读,无需 IDA/memdump):
+   - dat_d15860 = `{q:0xaa1f70(.text fn), q:0xaa1f80(.text fn), 0, 0, 0,
+     q:0xd35f40(.rodata 恒等字节表), −1, bytes{02,05,00,fa}}` —
+     **函数表头结构,非上游 OnigSyntaxType 字面布局**(上游首域
+     options 为整数)。布局对照需 Onigmo-改 改版头(库内只有上游
+     src/Onigmo),结构性结论:改版语法 face 带函数表头 + 恒等表 +
+     {2,5,250} 数值域 — 不能直接映射 ONIG_SYNTAX_*。
+   - DAT_011becc8 = `{q:0x40000000, {0x73,0x73}, q:0x11bf020(自引
+     .data), q:0x600360167ff7d556, q:0x100880a0001b, 0x5c, 0, 0}` —
+     同样无法映射上游 OnigEncodingTypeSt 字面。
+   - **结论修正**:两个"运行值"的形态是改版 face 结构,激活映射
+     需要先逆向改版 face 布局(00aa1f70/00aa1f80 两函数 + 0xd35f40
+     表消费点),而非对照上游语法枚举。入口转为:读 00aa1f70/
+     00aa1f80 函数体定 face 语义 → 反推 dat_d15860 域含义。
+2. DAT_011becc8 运行时观察(实验锚)仍可选 — 静态转储已给形态,
+   运行时仅确认写点 00b39540(xrefs=0)是否真未执行。
+3. 两值定案后按"校准协议"逐句映射 bufferScan00b422d0 委托
    (libonig.a onig_new/onig_search/onig_free 已就绪)。
 

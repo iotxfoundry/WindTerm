@@ -2014,6 +2014,43 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   主控逐批 cherry-pick 合流,主线终态 **ctest 17/17 + dlopen OK**;
   并行收益:三批墙钟 ≈ 单批串行 1/3,零写冲突(任务书分域生效)。
 
+### 批 107-109(2026-11-13)第二轮三车道并行:M 跟踪器写侧/BYTE 旗标勘误/FindContext 取证 ✅ ctest 17/17
+
+- **批 107 M 跟踪器写侧**(车道首轮输出预算耗尽零产物,原会话复活
+  +范围降档后完成——教训:大语料读取型任务书必须带输出上限):
+  0099b152(mtAppendRange 31173)/0099b15e(mtSetLineFlag 31183,
+  flat+游程支)真身;两段容量机 gapShrink(00889e2e)/gapRealloc
+  (0088a016)真身化,face +0x10 容量语义按语料步进(31721..31913
+  语料序);bbb0 写尾同相。modtracktest +6 组写侧断言(d1-d6),
+  批 104 载荷 -1 近似勘正为 gap 机语义。仍 cited:0xfffff 迁移腿
+  (0099bc2c piecetable 链)/LAB_0099bf2b(Uint8RunStyles_dtor+
+  get_chars_locked)/zstd/锁/负容量 throw 腿。游程支 RS 合并腿
+  仅注记(runs 恒 null 壳期无路径,待运行时驱动批回归)。
+- **批 108 MuxWindow BYTE 旗标勘误(裁决:错转写修正)**:ctor asm
+  三源(008e0980 byte←1/008e0984 byte←param_2/S7 gate 008dfd93/9b
+  仅 +0x40 参与)+ 读点三证(008e0f87/0f92 原地 byte cmp/008db9e4/
+  008dadfa char 判)+ 调用点五处实参全 0/1 — m_f40 QString =
+  **Ghidra 8B 槽误型**,修正 bool 双旗标(+0x40 恒 true/+0x41=tmux
+  分支);S7 gate/setPaneZoom 落码(008e0764/07bd/07d4),S9 门
+  008e0bb2 语义重估为 byte 判(008e0f87/0f92)。QUIRKS #28 登记
+  误型模式;基线回退验证排除假阳。
+- **批 109 FindContext 取证(未激活,失败条款)**:编译栈调用链
+  全图(00a81655 门 210B → 00a9c780 22512B 本体 ← 00ad7360 惰性门;
+  构造器族 00a81a88/00a81c4a/00a848d6 ← 00a140b2 QByteArray 桥
+  选项恒 (1,1,0x2000,0) ← 00a144d2 序列化剥壳);消费侧 a83c7a 取
+  *(needle+0x18) regex → 00ad74a0(431B onig_search 等价)。条目
+  勘正:regex 构造产物挂调用方对象 +0x0,doc+0x1098 仅供 pattern
+  串源(9975c8 槽[5])。改版差异:onig_new 六参无 encoding 形参/
+  regex** 出参改返回/错误码正值域。**激活双卡点**(语法/编码运行
+  值不可达):dat_d15860(语法 face)= {fnptr 0xaa1f70,0xaa1f80,
+  0,0,0,→0xd35f40 恒等表,−1,{02,05,00fa}} — 函数表头结构,非上游
+  OnigSyntaxType 字面布局(主控静态转储);DAT_011becc8(编码 face)
+  = 0x40000000 头 + {0x73,0x73} + 自引 0x11bf020 — 同样无法映射
+  上游 OnigEncodingTypeSt。布局对照需改版头文件(库内无)— 不猜。
+- 验证:三车道各自独立门后主控逐批 cherry-pick,主线终态
+  **ctest 17/17 + dlopen OK**。批 107 车道事故记录:首轮输出预算
+  三次截断零产物,原会话复活 + 硬输出上限 + 范围降档后成功。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)

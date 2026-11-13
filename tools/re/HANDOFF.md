@@ -3,9 +3,16 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-11-13 第十三次交接,批 106)
+## 一句话状态(2026-11-13 第十四次交接,批 109)
 
-**批 104-106 三车道并行(worktree 隔离,主控合流)**:批 104 M 跟踪器
+**批 107-109 第二轮三车道并行**:批 107 M 跟踪器写侧(0099b152/
+0099b15e + 两段容量机 0088a016/00889e2e 真身;0xfffff 迁移腿/
+灌值腿仍 cited 外库链;车道首轮输出耗尽零产物,原会话复活+范围
+降档救回);批 108 MuxWindow BYTE 旗标勘误(**错转写修正**:m_f40
+QString = Ghidra 8B 槽误型 → bool 双旗标,S7/S9 落码,QUIRKS #28);
+批 109 FindContext 取证未激活(编译栈全图 00a81655→00a9c780←
+00ad7360;双卡点 = 改版语法/编码 face 静态转储完成,布局对照需
+改版头,激活入口改为读 00aa1f70/00aa1f80 函数体)。**批 104-106**:M 跟踪器
 建模(ModTrack.h;ctor 链 editor_engineCtor 00929bf8 破案,+0xf0 消解)
 + markerBand 00927a78 升真身 + modtracktest 17 断言;批 105 0x4eff
 取证未激活(针对象无编译产物字段勘正,正则住 FindContext 深腿,
@@ -39,22 +46,20 @@ renderpixtest 11)。
 (三勘)/keymap 谓词+挂链 = boost xpressive matchable_ex/PairColor
 zstd 委托/libssh 117/QJSEngine 45/regex Onigmo 前置。
 
-## 下一批队列(批 107 入口)
+## 下一批队列(批 110 入口)
 
-1. **M 跟踪器写侧批**:b152/b15e/flagmask_set_range 写侧函数 +
-   bbb0 迁移门/两段容量机(31872..31905)→ 游程支激活(批 104
-   ModTrack.h 读侧已就位;两段承载重分配→gap 机升级)
-2. **0x4eff 激活取证续**:FindContext(doc+0x1098)深腿本体
-   FUN_00ad2ae0(17929B)读 + onig 编译栈入参(语法/编码)取证
-   — 缺证清单在 CALIBRATION
-3. **MuxWindow +0x40/0x41 BYTE 双旗标勘误**(批 106 发现:m_f40
-   QString 建模与 ctor asm 三源冲突;008e0bb2 批 92 S9 语义偏差重估,
-   连锁 moc/mwctest)
-4. **showConfigMenu KitWindow 承载建模**(011ab390;005ac790 275B
-   全读在注)+ c1c2 R·T 段(T 段 0x95c62a)
-5. Phase 4a 注册表插入侧 / Phase 4c SplitterGroup(部分槽体批 106
-   已落)/ 130+ 扩谱
-6. ~~四槽落点~~(批 106 3/4);~~p6 残寄~~(批 103);~~KitBar S5/S6~~(批 98)
+1. **Onigmo-改 face 定案**(0x4eff 激活前置):读 00aa1f70/
+   00aa1f80 函数体 + 0xd35f40 表消费点 → dat_d15860 域语义反推
+   (批 109 静态转储已给形态,见 CALIBRATION)
+2. **M 跟踪器运行时驱动批**:游程支 RS 合并腿回归(b15e 首次
+   落码,壳期无路径)+ 0xfffff 迁移腿(0099bc2c piecetable 链)
+   取证,可考虑与 markers 运行时驱动合批
+3. **showConfigMenu KitWindow 承载建模**(011ab390;005ac790
+   275B 全读在注)+ c1c2 R·T 段(T 段 0x95c62a)
+4. **FUN_008da226 消费面核对**(批 108 风险登记:+0x44 窗口序号
+   键与 BYTE 旗标交互)
+5. Phase 4a 注册表插入侧 / Phase 4c SplitterGroup 余项 / 130+ 扩谱
+6. ~~MuxWindow BYTE 旗标~~(批 108 闭环);~~M 跟踪器写侧~~(批 107)
 
 ## 一句话状态(2026-11-01 第十次交接)## 一句话状态(2026-10-30 第九次交接)## 一句话状态(2026-10-29 第四次交接)
 
