@@ -43,7 +43,8 @@ int main(int argc, char **argv)
 	       "qRound(30.4)=30/qRound(100.6)=101)");
 
 	// ======== b. 全图像素 = QColor(0,0,0,19)(S1 fill 00a72b6e)========
-	// S4 markerBand cited 桩无带(EditorEngine.cpp:2177-2182)/S5 grep
+	// S4 markerBand 批 104 真身:壳期 M 全行旗标 5((f&3)==1 saved-only
+	//   skip)→ 无带(0030.c:23585/23625..23627 语料同相)/S5 grep
 	//   注册占位(2205-2211)/S6 eSerialEntries 空 → 零迭代(2215
 	//   range-for)→ 空态图像 = 纯 S1 fill;四角+中心五点抽样。
 	const QColor fillRef(0, 0, 0, 19);           // QColor(0x13)=alpha19

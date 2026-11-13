@@ -14,6 +14,7 @@
 #include <QVariant>
 #include <QHash>
 #include "MarkersStore.h"
+#include "ModTrack.h"
 #include <QVariantList>
 #include "RunNode.h"
 
@@ -403,6 +404,10 @@ public:
 	void wireSlot10()
 	{ markersStore.setSlot10(docScan48); }
 	QHash<QString, QColor> styleTable; // 样式表占位(0x7547 S3;+0xe00 面未建模)
+	// M 修改行跟踪器(doc+0xf0;批 104 建模;ModTrack.h 生命周期头注)
+	//   ctor = editor_engineCtor 00929fab..00929fe1;析构 = a362(0030.c:29905);
+	//   flat 模式(游程腿 = 写侧 run 迁移,单列批)→ markerBand 走线性支同相。
+	wt::ModTrack modTrack;
 	// char-used 视图(批 75 勘察:*(ctx+0x180) = 0x20 壳{vtbl, RS8,
 	//   密排 GapBuffer} ≡ RunStyles::FillRange;路线 A = RS8 委托坍缩,
 	//   与 MarkersStore rsFill8 同面;ret 1=吸收/0=新写 与 changed

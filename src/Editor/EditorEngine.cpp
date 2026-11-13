@@ -2442,18 +2442,13 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			// 坐标序定案(b1b §4):QRectF(0, y0, bw, y1-y0),行向沿 y
 			const qint64 lineCount = send(SCI_GETLINECOUNT, 0, 0);
 			char savedF = 1, unsavedF = 0;               // 00a72d4e 预置(原样)
-			auto markerBand = [&](qint64 from) -> QPair<qint64, qint64> {
-				// FUN_00927a78(365B)— cited — 桩回填前置(批 102 登记):
-				//   M=*(ctx+0xf0) 修改行跟踪器建模(0099a3c0 模态/
-				//   0099b36c 行标志/0099a47a runAt/0099a4b2 runCount/
-				//   0099b4c8 runFlag/0099a4ea runStart/0099a448 runEnd
-				//   七函数族+0xf0 字段);本体全读 = 线性/游程双模首带
-				//   查询,带语义 [start, end+1),saved=f&1/unsaved=(f>>1)&1
-				//   (renderpixtest b 组钉住桩态,回填时须同步更新)
-				Q_UNUSED(from);
-				return {-1, -1};
-			};
-			QPair<qint64, qint64> band = markerBand(0);  // 00927a78
+			Q_UNUSED(savedF); Q_UNUSED(unsavedF);
+			// FUN_00927a78(365B @0030.c:23559..23632)真身(批 104):
+			//   M = m_ctx.modTrack(ctx+0xf0 承接;ctor 00929fab 链 EditorContext 内);
+			//   线性支/游程支/半开收尾逐段转写 ModTrack.h mtMarkerBand(行号锚在彼);
+			//   游程腿(b152/bbbb0 迁移)未落 → 恒 flat 模式 = 线性支同相。
+			QPair<qint64, qint64> band = wt::mtMarkerBand(
+			    &m_ctx.modTrack, 0, lineCount);          // 00927a78(from=0,面恒缺省)
 			qint64 st = band.first, en = band.second;
 			if (st != -1) {
 				// 逐带 fillRect(QRectF(0, y0, bw, y1-y0), 色按
