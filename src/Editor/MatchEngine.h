@@ -52,7 +52,8 @@ quint64 engEntry0093830d(const void *lineDoc, const GrepNeedle448 *needle,
 //   len<0xc 分短/长(体在 .cpp — 读针门字段需完整型)。
 //   lineDoc 承载替:语料 param_1+0xf8 解引用(26280/26316)→ 直收
 //   lineDoc 承载(EditorContext +0xf8 = 布尔位,布局不同构 — 登记;
-//   活性消费面同 vt 承载占位注)。
+//   批 119:vt 槽真身 = docBytes 直读承载(engVt50Block/engVt28Class),
+//   活性接线挂 buffer 承载批 — 当前调用面传 nullptr = 壳态同相)。
 quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
                     quint64 from, qint64 winEnd);
 

@@ -345,3 +345,46 @@ a(命中契约)/b(无匹配 -1 + 门同相 ×4)/c(wrapper literal+case 档
 a3/c3 期望值错(把"命中位置"当"起点下界")— 运行值与手工语义推演
 复推一致后修正断言,非迁就实现(语义 = onig_search start 参数契约,
 regexec.c:4134 起注释)。
+
+## 批 119:buffer vtable 槽转储定案(engVt50Block/engVt28Class 升真身)
+
+> 结论:scanMask 双 cited 缺口清偿 —— +0x28/+0x50 槽语义两证成立,占位
+> 升真身(MatchEngine.cpp,docBytes 直读承载);wordsteptest h 组 3 断言。
+> ctest 18/18;dlopen OK。
+
+### 转储与两证(qmo_extract.py 法:LOAD 段映射 + .data.rel.ro 直读 +
+RELATIVE 重定位解析)
+
+- **vtable 三体身份(ctor imm × typeinfo 名串两源)**:
+  | 类 | vtable 体 | vptr(体+0x10) | typeinfo | 名串 |
+  |---|---|---|---|---|
+  | CSuperBufferBase | 0x11ad718 | 0x11ad728 | 0x11ad708 | "16CSuperBufferBase"(0xce95e0) |
+  | CSuperBuffer32 | 0x11ad808 | 0x11ad818 | 0x11ad790 | "14CSuperBuffer32"(si-base→基) |
+  | CSuperBuffer64 | 0x11ad900 | 0x11ad910 | 0x11ad8e8 | "14CSuperBuffer64"(si-base→基) |
+  ctor imm 直证:FUN_00980380 @980387(mov $0x11ad718,+0x10;0032.c:9403)/
+  FUN_009818aa @9818b6(:10506)/ FUN_00989ef2 @989efe(:17145)。
+- **+0x28 槽 = charAt(self,pos)→u8**(kuna 00936cf1 尾 v1 解引对账):
+  32 = CSuperBuffer32_vt5 00981b2a(0032.c:10577,越界→DAT_011c26b1
+  .bss 零;锁路同返 0);64 = 00989e8c → Snapshot64_h9c784c 009c784c
+  (:63492,"pos<0‖pos≥+0x10→0")。= FUN_009284aa byteAt vcall 同面
+  (EditorEngine.cpp:48 docBytes 承载先例)。
+- **+0x50 槽 = block16(self,pos)→16B 块指针**(decomp-0030.c:34638
+  vcall 形态对账):32 = CSuperBuffer32_vt10 00982212(0032.c:10948;
+  pos+0xf 段内直返段指针/跨界清零 +0x30 出参 + memcpy + 尾填
+  FUN_00989740);64 = 00989ec0(:17102)→ FUN_009c7cd0(:63742)同构。
+- **engScan 消费对账**:34638/34674/36132 lane 窗口块取 ↔ vt+0x50;
+  37865/42667 skip cls ↔ vt+0x28。+0x58(vt11/CSuperBufferBase_vt11
+  00935bf0 纯净载荷)= 0x755a bufferString vcall 面(既有注记吻合)。
+
+### 承载替登记(铁律 6 边界)
+
+lineDoc 载体 = const QByteArray*(docBytes 直读);nullptr = 壳态恒零块/
+类 0(与批 118 占位同相)。block16 跨界出参 = 文件级 static 16B(语料
+per-object buffer+0x30 槽)。产品 scanMask/engDispatch 现传 nullptr —
+活性接线挂 buffer 承载批(+0xf8 对象建模),分派器零改动。
+
+### 测试(wordsteptest h 组;modAttachRunFace 装置判例)
+
+h1(1B doc 'a' 单字节针 lane0 命中 pack 形)/h2('b' 针 miss 步进 →
+34634 门哨兵)/h3(len=2 36cf1 skip 腿 charAt 越界→0 有界推进哨兵)。
+engScan 在 vt 真身承载下首次全活性走查(此前仅门先行哨兵)。

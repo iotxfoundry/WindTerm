@@ -47,6 +47,7 @@
 #define private public
 #include "EditorEngine.h"
 #include "CodecMemo.h"   // 批 118 g 组:scanMask 直呼(0x448 契约钉住)
+#include "MatchEngine.h" // 批 119 h 组:engDispatch 活性腿直验(vt 槽真身)
 #undef private
 #include "Scintilla.h"
 #include <QApplication>
@@ -345,6 +346,52 @@ int main(int argc, char **argv)
 		expect(CodecMemo::scanMask(pair, 4, 16) == -1,
 		       "g3: to-(nlen-1)<=from → -1(26274 scanEnd 边界;engScan "
 		       "34634 门同相)");
+	}
+
+	// ======== h. vt 槽真身直呼(批 119 转储定案;engScan 承载直验)========
+	// 语料:buffer vtable .data.rel.ro 转储 + ctor imm/typeinfo 两源
+	//   (MatchEngine.cpp 批 119 头注;decomp-part-0032.c 槽行号)。
+	//   MatchEngine 内部 static 无公有面 → 经 engDispatch 活性腿直验:
+	//   针 simdBlocks 手填(literal=1 短针 3632d 单表腿;blockquote =
+	//   engVt50Block 真身 16B 读),断言命中位/步进越过 34634 门 —
+	//   modAttachRunFace 装置判例(语料构造腿 cited → 装置注入)。
+	{
+		// h1 block16 直验:charAt/block16 越界→0(00981b2a :10583
+		//   DAT_011c26b1 面 / 00982212 尾填 0)
+		GrepNeedle448 needle{};                      // 壳态
+		needle.literal = 1;
+		needle.len = 1;
+		const char docBytes[] = {'a'};
+		QByteArray doc(docBytes, 1);
+		needle.simdBlocks = new char[0x10]();        // 单字节广播 'a'(54430 形)
+		for (int i = 0; i < 0x10; ++i)
+			static_cast<char *>(needle.simdBlocks)[i] = 'a';
+		// 首窗 = doc[0]='a' == tbl[0]='a' → lane0 命中 nlen=1 → tail:
+		// pack = hi16<<0x30 | 0(命中位 0 + 窗 0)
+		const quint64 p1 = MatchEngine::engDispatch(&doc, &needle, 0, 1);
+		expect(p1 == (quint64(1) << 0x30),
+		       "h1: 1B doc 'a' 单字节针 → lane0 命中(3632d lane0 34639/"
+		       "vt+0x50 真身 16B 读;36125 tail pack hi16=1)");
+		// h2 非命中:'b' 针 → lane0 掩码 0 → miss 步进 pos+=0x10 → 34634
+		//   门 to(1)<=from(0x10) → 哨兵
+		static_cast<char *>(needle.simdBlocks)[0] = 'b';
+		for (int i = 1; i < 0x10; ++i)
+			static_cast<char *>(needle.simdBlocks)[i] = 'b';
+		const quint64 p2 = MatchEngine::engDispatch(&doc, &needle, 0, 1);
+		expect(p2 == Q_UINT64_C(0xffffffffffff),
+		       "h2: 'b' 针 1B doc → miss 34673 → 36216 步进 → 34634 门 →"
+		       "哨兵(vt+0x50 真身承载下 engScan 全活性)");
+		// h3 skip 腿 charAt 真身:2B 针 len>=2 走 lane1(+0x10 门 36124 前
+		//   lane1=doc 越界 → 0 → 掩码 0 → miss);UseSkip 腿(36cf1)经
+		//   vt+0x28 charAt(nlen+pos+0xf=0x21 越界→0)→ skip[0]=2 →
+		//   from=0x10+0xf=0x1f → 门 → 哨兵(有界推进,无整型回卷)
+		needle.len = 2;
+		needle.skip['b'] = 2;                        // convCtor 54445 覆写形
+		const quint64 p3 = MatchEngine::engDispatch(&doc, &needle, 0, 0x40);
+		expect(p3 == Q_UINT64_C(0xffffffffffff),
+		       "h3: len=2 'b' 针 1B doc → 36cf1 skip 腿:vt+0x28 charAt"
+		       "(0x21)越界→0(批 119 真身)→ skip[0]=2 有界推进 → 哨兵");
+		delete[] static_cast<char *>(needle.simdBlocks);
 	}
 
 	printf("fail=%d\n", g_fail);

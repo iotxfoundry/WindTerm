@@ -1,5 +1,7 @@
 #include "MatchEngine.h"
 
+#include <QByteArray>     // 批 119:vt 载体 docBytes 直读(charAt/block16 承载)
+
 #include "CodecMemo.h"   // GrepNeedle448 完整型(0x448;批 93 convCtor 构造链)
 #include "OnigSearch.h"  // 批 116:0x4eff 引擎腿委托(批 102 EXT-BOUNDARY 激活)
 
@@ -9,36 +11,61 @@
 
 namespace MatchEngine {
 
-// —— vt 承载占位(eng 笔记 §4 深腿 2;批 118 定案盘点)——
-// vt+0x50 块取 vcall(lineDoc,pos)→16B 块 — cited — wave-2。
-//   语料形态完整已对账(decomp-part-0030.c:34638 + kuna 0093632d 双源:
-//   v2 = *(lineDoc+0xf8) buffer 对象;vcall = *(vt(v2)+0x50)(v2,pos),
-//   返回 16B 块指针)— 缺证 = 落点槽内容:doc+0xf8 = CSuperBufferBase
-//   派生 buffer(00927ec8 __dynamic_cast 面),其 vtable+0x50 槽函数/
-//   16B 块语义未解(Editor 主 vtable 0x11afd30 +0x50 = Editor_vt12
-//   void(self) 签名不符 — VTABLE-MAP 槽 10 排除;需 buffer vtable
-//   .data.rel.ro 转储 + 槽函数语义两证,同批 58b 方法论)。占位 =
-//   恒零 16B 块(静态);活性消费面 0x4f00 nlen<=0 门(26272)/0x4eff
-//   needlePair null 门(12665)不可达 — 占位同相(与批 93 scanEngine
-//   恒哨兵同效)。
+// —— vt 承载真身(批 119 buffer vtable 槽转储定案;批 118 形态对账升级)——
+// 转储方法(qmo_extract.py 同法):readelf -lW LOAD 段映射 + .data.rel.ro
+//   (VA 0x117eba0/file 0xb7eba0)直读 + R_X86_64_RELATIVE 重定位解析。
+//   两源定案:①ctor imm(vptr 写入常数)②typeinfo 名串:
+//   CSuperBufferBase 体 0x11ad718/vptr 0x11ad728(ctor FUN_00980380
+//   `mov $0x11ad718,+0x10` @980387;decomp-part-0032.c:9403;ti 0x11ad708
+//   = "16CSuperBufferBase");
+//   CSuperBuffer32 体 0x11ad808/vptr 0x11ad818(ctor FUN_009818aa @9818b6,
+//   0032.c:10506/10509;ti 0x11ad790 = "14CSuperBuffer32",si-base→基);
+//   CSuperBuffer64 体 0x11ad900/vptr 0x11ad910(ctor FUN_00989ef2 @989efe,
+//   0032.c:17145;ti 0x11ad8e8 = "14CSuperBuffer64")。
+//   槽语义(vptr 相对;行号 @decomp-part-0032.c):
+//   · +0x28 = charAt:CSuperBuffer32_vt5 00981b2a(:10577;越界/负位 →
+//     DAT_011c26b1(.bss 零)=0;锁路同返 0);64 同面 00989e8c →
+//     Snapshot64_h9c784c 009c784c(:63492,"pos<0||pos>=+0x10 长度→0")。
+//   · +0x50 = block16:CSuperBuffer32_vt10 00982212(:10948;pos+0xf 段内
+//     直返段指针,跨界清零 buffer+0x30 16B 出参 + memcpy + 尾填
+//     FUN_00989740);64 = 00989ec0(:17102)→ FUN_009c7cd0(:63742)同构。
+//   engScan 消费对账:34638/34674/36132 lane 窗口块取 ↔ vt+0x50;37865/
+//   42667 skip cls ↔ vt+0x28 charAt(= FUN_009284aa byteAt vcall 同面,
+//   EditorEngine.cpp:48 docBytes 承载先例)。
+//   载体:lineDoc = const QByteArray*(docBytes 承载替;nullptr = 壳态 →
+//   恒零块/类 0,与批 118 占位同相 — product scanMask 现传 nullptr,
+//   活性接线挂 buffer 承载批,engDispatch/scanMask 零改动)。block16 跨界
+//   出参 = 文件级 static 16B(语料 per-object buffer+0x30 槽 — 承载替登记)。
 static const char *engVt50Block(const void *lineDoc, qint64 pos)
 {
-	Q_UNUSED(lineDoc);
-	Q_UNUSED(pos);
-	return "";                                        // 16B 恒零块承载
+	if (lineDoc == nullptr)
+		return "";                                    // 壳态恒零 16B(同相)
+	const QByteArray *doc = static_cast<const QByteArray *>(lineDoc);
+	static char scratch[0x10];                        // vt10 buffer+0x30 出参承载替
+	if (pos + 0x10 <= doc->size())                    // :10985 段内直返臂
+		return doc->constData() + pos;
+	int i = 0;
+	if (pos < doc->size()) {                          // :10989-10992 清零+memcpy
+		for (; i < 0x10 && pos + i < doc->size(); ++i)
+			scratch[i] = doc->constData()[pos + i];
+	}
+	for (; i < 0x10; ++i)                             // :10994 尾填(FUN_00989740/
+		scratch[i] = char(0);                         //   009c7a84 面;越界读=0 同相)
+	return scratch;
 }
 
-// vt+0x28 任意类→类 id byte vcall(37865)— cited — wave-2。
-//   语料形态完整已对账(kuna 00936cf1 尾逐字:v1 = *(void**)(vt(v2)
-//   +0x28);a2 = *(int*)(needle + cls*4 + 0x14) + a2 + 0xf — skip
-//   算式腿已真身,见 engScan UseSkip 腿)— 缺证 = 类 id byte 语义/
-//   落点槽(同 engVt50Block buffer vtable 转储批)。
-//   占位恒 0(skip[0] convCtor 默认 len+1 → 有界推进)。
+// vt+0x28 任意类→类 id byte vcall(37865)真身(批 119 转储升级)。
+//   kuna 00936cf1 尾逐字:v1 = *(void**)(vt(v2)+0x28);a2 = *(int*)(needle
+//   + cls*4 + 0x14) + a2 + 0xf — skip 算式腿已真身(engScan UseSkip 腿)。
+//   槽 = charAt(上注 00981b2a/009c784c):越界→0;载体同 engVt50Block。
 static int engVt28Class(const void *lineDoc, qint64 pos)
 {
-	Q_UNUSED(lineDoc);
-	Q_UNUSED(pos);
-	return 0;                                         // 类 0 承载
+	if (lineDoc == nullptr)
+		return 0;                                     // 壳态类 0(同相)
+	const QByteArray *doc = static_cast<const QByteArray *>(lineDoc);
+	if (pos < 0 || pos >= doc->size())
+		return 0;                                     // :10583 越界→DAT_011c26b1=0
+	return quint8(doc->constData()[pos]);             // charAt 真身承载
 }
 
 // —— ENG<IsLiteral,UseSkip> 模板体 ——
@@ -64,7 +91,7 @@ static quint64 engScan(const void *lineDoc, const GrepNeedle448 *needle,
 	quint16 acc = 0;
 	const char *blk;
 	for (;;) {
-		blk = engVt50Block(lineDoc, qint64(from));    // 34638 — cited — wave-2
+		blk = engVt50Block(lineDoc, qint64(from));    // 34638 vt+0x50 真身(批 119)
 		if constexpr (IsLiteral) {                    // 37957/37975 lane0 双表 OR
 			acc = engCmp16(blk, tbl2);                //   +0x430 对(37958)
 			acc = quint16(acc | engCmp16(blk, tbl1)); //   +0x428 对(37975)
@@ -78,7 +105,7 @@ static quint64 engScan(const void *lineDoc, const GrepNeedle448 *needle,
 		{   // 34674-36124 展开 lane1..31(34710..36124 门链 <2..<0x21)
 			int lane = 1;
 			for (;;) {
-				blk = engVt50Block(lineDoc, qint64(from) + lane);  // 34674 — cited
+				blk = engVt50Block(lineDoc, qint64(from) + lane);  // 34674 vt+0x50(批 119)
 				quint16 m;                            // 39127/39150 双表读序
 				if constexpr (IsLiteral) {
 					m = engCmp16(blk, tbl1 + lane * 0x10);       // +0x428(39127)
@@ -100,7 +127,7 @@ static quint64 engScan(const void *lineDoc, const GrepNeedle448 *needle,
 			qint64 off = 0x200;                       // 36130 lVar7(表偏移)
 			int i = 0x20;                             // 36131 iVar8
 			while (i < nlen) {                        // 36183 do-while(iVar8<len)
-				blk = engVt50Block(lineDoc, pos);     // 36132 — cited — wave-2
+				blk = engVt50Block(lineDoc, pos);     // 36132 vt+0x50(批 119)
 				quint16 m;                            // 40166/40204 双表读序
 				if constexpr (IsLiteral) {
 					m = engCmp16(blk, tbl1 + off);    // auVar73(+0x428,40166)
@@ -120,8 +147,8 @@ static quint64 engScan(const void *lineDoc, const GrepNeedle448 *needle,
 		}
 	miss:                                             // 36216(A/C)/37865(B/D)
 		if constexpr (UseSkip) {                      // bad-char 类跳表腿
-			const int cls = engVt28Class(lineDoc,     // 37865 vt+0x28(len+pos+0xf)
-			    qint64(nlen) + qint64(from) + 0xf);   //   — cited — wave-2
+			const int cls = engVt28Class(lineDoc,     // 37865 vt+0x28 charAt 真身
+			    qint64(nlen) + qint64(from) + 0xf);   //   (批 119 转储)
 			from = quint64(qint64(needle->skip[cls])  // 37866 *(int*)(needle+
 			    + qint64(from) + 0xf);                //   0x14+cls*4)+pos+0xf
 		} else {
