@@ -16,6 +16,7 @@
 #include "MarkersStore.h"
 #include "ModTrack.h"
 #include <QVariantList>
+#include <limits>
 #include "RunNode.h"
 
 class EditorContext
@@ -408,6 +409,9 @@ public:
 	//   ctor = editor_engineCtor 00929fab..00929fe1;析构 = a362(0030.c:29905);
 	//   flat 模式(游程腿 = 写侧 run 迁移,单列批)→ markerBand 走线性支同相。
 	wt::ModTrack modTrack;
+	// ctx+0x28 行槽(editor_engineCtor 25911 param_1[0x28]=0x7fff…f =
+	//   INT64_MAX;消费点 958108 @0031.c:25693/25699 min 收敛负向)
+	qint64 modLineSlot28 = std::numeric_limits<qint64>::max();
 	// char-used 视图(*(ctx+0x180);批 75 勘察 + 批 115 定型:FUN_0095c086
 	//   292B @0031:28685 全读 — 0x20{vtbl→Uint8RunStyles_vtable,+0x08
 	//   pieceTable 0x60(piecetable_init,+0x18 threadCtx = 0092801a(doc)
@@ -424,13 +428,25 @@ public:
 	QVector<quint32> styleProps190;                 // ctx+0x190 Uint32Bimap→QList(第六视图,76b 漏列补)
 	// p4==2 去重腿(批 115 收口;0031.c:28844-28864 全读):语料 = FUN_00926ddc
 	//   (*(ctx+8),rs,re,props&0x3fff,&pts) + pts 5-long 步进线性查。
-	//   *(ctx+8) = 标记引擎对象(0092bb20 槽面 0x90..0x200 同构;+0xb8 busy
-	//   位;构造点未建模)→ busy 腿(真身 FUN_009e975a 539B @0033.c:15148:
+	//   *(ctx+8) = 标记引擎对象(doc+0xb8;0092bb20 槽面 0x90..0x200 同构;+0xb8 busy
+	//   位)→ busy 腿(真身 FUN_009e975a 539B @0033.c:15148:
 	//   009e83ea 分页标记扫描,素 {nextStart,nextEnd,start,end,props} 经
 	//   009ef31a 追加)整体 cited — wave-2(铁律 3 缺证不转写);pts = 调用局
 	//   临时两点向量(0095c4fd 三连 0 初始化)非 ctx 持久。壳态 busy 恒 0 →
 	//   非 busy 腿 = pts 对回卷(FUN_00926ddc L22329-22331:pts[1] = pts[0];
 	//   空对恒等 no-op)→ 查腿扫 0 素恒无命中(同相直落界交判定)
+	//   批 117 裁决(照批 111 判例,边界登记收口):busy 腿不可脱离外库转写。
+	//   ①构造链:0092bb20(599B @0030.c:27236)= doc 批处理通知器,唯一调用点
+	//     0092bd78(32B @27330,待发缓冲 +0x1b8 合并机,12 处 doc 写路径调用)→
+	//     与 doc 生命周期锁死,非独立可构造;00926ddc 调点 (ctx+8) = doc+0xb8
+	//     标记引擎槽(kuna xrefs:0092bb20 仅 0x92bd93 一跳)。
+	//   ②承载链:busy 位面读 FUN_009e7bce→FUN_00a0ce84(232B @0033.c:40874)=
+	//     LOCK 自旋 + nanosleep 指数退避线程锁(批 111 piecetable/线程缓存同族
+	//     — QThreadPool 形态,改版底座头不在库,缺证不转写)。
+	//   ③扫描索引面:009e83ea=**(*(mark)+0x20) 分页表 / 009e844a→vt+0x30
+	//     skipruns 分页数 / 009e8942 边界游程走查(u16 bit14-15 方向)— 皆分页
+	//     级 vt 调用,承载= 009e9ad8 写侧同源;坍缩建模破坏读路 invariants。
+	//   壳态维持:busy 恒 0 → 非 busy 回卷腿,dedupProbePts 空对同相。
 	struct DedupRec { qint64 nextStart; qint64 nextEnd; qint64 start; qint64 end; qint64 props; };
 	// 查腿真身(L28849-28864;busy 腿激活后同函数承载):自 pts+0x10(素 0
 	//   槽 2)起 ÷5 步进,素槽 2/3 ==(rs,re) 命中 → 跳此 run(L28864 goto)

@@ -2722,9 +2722,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 						QVector<EditorContext::DedupRec> pts;
 						// FUN_00926ddc(*(ctx+8),rs,re,props&0x3fff):busy
 						//   位(*(+0xb8))→ 真身扫描腿 009e975a(539B,分页
-						//   标记扫描 → pts 素追加,cited — wave-2:标记引擎
-						//   ctx+8 构造点未建模);壳态非 busy → pts[1]=pts[0]
-						//   回卷腿(L22329-22331)≡ 空 pts no-op 同相
+						//   标记扫描 → pts 素追加)— 批 117 边界登记收口
+						//   (构造链 0092bd78/锁链 a0ce84/分页索引面三卡,
+						//   判定详见 EditorContext.h 去重腿头注);壳态非
+						//   busy → pts[1]=pts[0] 回卷腿(L22329-22331)
+						//   ≡ 空 pts no-op 同相
 						// 5-long 步进线性查(L28849-28864):素槽 2/3
 						//   ==(rs,re) → 命中跳此 run
 						if (EditorContext::dedupProbePts(pts, rs, re))
@@ -2823,9 +2825,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 							//   批 113 整字节写风险消解)
 							wt::mtBit4SetClr(&m_ctx.modTrack, int(lnA), fA);
 							// 0x95c7b4 958108(lnA, 0):DL==0 → 行槽 min 收敛
-							//   + set_range(clr bit3)— 位面机已就位(批 114
-							//   mtLineSlotClrBit3),待 ctx+0x28 行槽 ctor 证据
-							//   建模接线 — cited — wave-2(M1-③ 残项)
+							//   + set_range(clr bit3)(@0031.c:25681 全读;位面机
+							//   批 114 mtLineSlotClrBit3;行槽 ctor 证据
+							//   25911 param_1[0x28]=INT64_MAX,批 117 接线)
+							wt::mtLineSlotClrBit3(&m_ctx.modTrack,
+							                      &m_ctx.modLineSlot28, lnA);
 							// 0x95c7b9 958002(lnA+1, lnB−lnA):len≥1 才走
 							//   (0x160 skipruns + 0x168 b152 追加腿;M 面 =
 							//   modAppendRange 同体)

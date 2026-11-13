@@ -3,7 +3,14 @@
 // 行为,每条断言带语料锚;逐条手工写。e 组 runs 面为测试装置注入
 // (modAttachRunFace;语料构造腿 0xfffff 迁移门 cited — 非产品行为码)。
 #include "ModTrack.h"
+// 测试专用可达缝(同 markerstest 判例:m_ctx private → #define private public
+// 仅本 TU;EditorEngine 无 Q_OBJECT,不触 moc ABI 面)
+#define private public
+#include "EditorEngine.h"
+#undef private
 #include <cstdio>
+#include <limits>
+#include <QApplication>
 
 static int g_fail = 0;
 static void expect(bool ok, const char *name)
@@ -13,8 +20,9 @@ static void expect(bool ok, const char *name)
 		g_fail++;
 }
 
-int main()
+int main(int argc, char **argv)
 {
+	QApplication app(argc, argv);                // EditorEngine 构造 QWidget 面前置
 	using wt::ModTrack;
 	using wt::ModTrackFace;
 
@@ -425,7 +433,7 @@ int main()
 		expect(m.inner->flat->bytes[0] == 0x15, "f5: 958048 flag!=0 → 5|0x10(25630)");
 		wt::mtBit4SetClr(&m, 0, 0);                  // 25634 clr 0x10
 		expect(m.inner->flat->bytes[0] == 5, "f5: 958048 flag==0 → clr 0x10(25634)");
-		long slot = 100;                             // *(ctx+0x28) 行槽
+		qint64 slot = 100;                           // *(ctx+0x28) 行槽
 		wt::mtLineSlotClrBit3(&m, &slot, 7);         // 25691..25701
 		expect(slot == 6, "f5: 958108 行槽 min(7-1,100)=6(25695..25699)");
 		wt::mtLineSlotClrBit3(&m, &slot, 3);
@@ -434,6 +442,24 @@ int main()
 		expect(slot == 0, "f5: min(1-1,2)=0");
 		expect(m.inner->flat->bytes[0] == 5,
 		       "f5: clr bit3 位面不扰 bit0/bit2(25700)");
+	}
+	// f6: 0x7576 T 段联动(批 117):EditorContext 行槽 ctor 初值 + 收敛
+	//   ctor 证据 = editor_engineCtor 25911 param_1[0x28]=0x7f…ff(INT64_MAX);
+	//   接线 = EditorEngine.cpp 0x95c7b4 → mtLineSlotClrBit3(&modTrack,&slot,lnA)
+	{
+		EditorEngine e;
+		e.dispatch(0x7543, (qlonglong)1);            // arr 建(同 p 组装置)
+		expect(e.m_ctx.modLineSlot28 == std::numeric_limits<qint64>::max(),
+		       "f6: 行槽 ctor 初值 INT64_MAX(editor_engineCtor 25911"
+		       "param_1[0x28]=0x7fffffffffffffff)");
+		// 联动:行槽按 min 收敛 + bit3 位面清(同 f5 语义,ctx 槽承接)
+		wt::mtLineSlotClrBit3(&e.m_ctx.modTrack, &e.m_ctx.modLineSlot28, 4);
+		expect(e.m_ctx.modLineSlot28 == 3,
+		       "f6: ctx 槽 min(4-1,INT64_MAX)=3(958108 25695..25699)");
+		expect((wt::mtLineFlag(&e.m_ctx.modTrack, 0) & 8) == 0,
+		       "f6: 行 0 bit3 已清(25700 b740 clr 8;初值 5 无 bit3 同相)");
+		wt::mtLineSlotClrBit3(&e.m_ctx.modTrack, &e.m_ctx.modLineSlot28, 2);
+		expect(e.m_ctx.modLineSlot28 == 1, "f6: 再收敛 min(2-1,3)=1");
 	}
 
 	printf("fail=%d\n", g_fail);

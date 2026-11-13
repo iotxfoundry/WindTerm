@@ -552,7 +552,7 @@ inline void mtBit4SetClr(ModTrack *m, long line, quint8 flag)
 // FUN_00958108(78B @0031.c:25681)DL==0 腿(25691..25701):行槽 min 收敛
 //   *(ctx+0x28)=min(line-1, *(ctx+0x28))(25693..25699 CMOV)+ b740(clr bit3);
 //   DL!=0 → b740(set 8,25702)。槽 = 调用方面标量(引擎 ctx +0x28 承接)。
-inline void mtLineSlotClrBit3(ModTrack *m, long *slot, long line)
+inline void mtLineSlotClrBit3(ModTrack *m, qint64 *slot, qint64 line)
 {
     if (slot && line - 1 < *slot)
         *slot = line - 1;                            // 25695..25699(负向 min)
