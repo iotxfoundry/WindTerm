@@ -36,7 +36,6 @@ static void expect(bool ok, const char *name)
 //   0x4eff case 12664 lVar7 = local_158 同形)。测试单线程 → 静态槽。
 static QByteArray g_bytes;
 static GrepNeedle448 g_car;
-static void *g_pair[1];
 static const void *makePair(const char *needle, int len, bool icase)
 {
 	g_car = GrepNeedle448{};
@@ -45,8 +44,8 @@ static const void *makePair(const char *needle, int len, bool icase)
 	g_car.len = len;
 	g_car.literal = 0;                           // convCtor 置 1;canOld 门读位
 	g_car.caseFlag = icase ? 1 : 0;
-	g_pair[0] = &g_car;
-	return g_pair;                               // pair[0] = 针对象(双层解引)
+	return &g_car;                              // 语料 param_4 = 针对象指针(单层;
+	                                            //   批 116 双层槽形态勘误,批 116b)
 }
 
 int main(int argc, char **argv)

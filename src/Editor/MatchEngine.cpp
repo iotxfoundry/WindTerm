@@ -174,11 +174,17 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 //     非语料直证 — 假设登记行(铁律 3:不猜已显式声明)。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to)
 {
-	if (needlePair == nullptr
-	    || *(void *const *)needlePair == nullptr)   // 00a83946 门(同相)
-		return -1;
+	if (needlePair == nullptr)                      // 00a83946 needle[0]!=0 门:
+		return -1;                                  //   真载体首八字 = conv vtable
+	                                                    //   恒非零;我方壳无 vtable
+	                                                    //   (批 105:0x448 无编译产物),
+	                                                    //   literal=0 档首八字可为零 —
+	                                                    //   门以 null 门承接(壳态等价)
 	const GrepNeedle448 *needle =
-	    *(const GrepNeedle448 *const *)needlePair;  // conv 基载体
+	    static_cast<const GrepNeedle448 *>(needlePair); // 语料 param_4 = 针对象
+	                                                    //   指针(单层;批 116 双层
+	                                                    //   解引 = searcher 槽形态
+	                                                    //   误推,批 116b 勘正)
 	if (needle->len <= 0)                           // 26272 nlen<=0 门同相
 		return -1;
 	// 针字节(conv+0x08 QByteArray)+ case 位(conv+0x01)→ 委托。
