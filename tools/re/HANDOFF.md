@@ -3,20 +3,20 @@
 > 用途:新会话冷启动。先读 AGENTS.md → 本文件 → docs/PLAN.md →
 > docs/QUIRKS.md(22 条)→ docs/PHASE5.md(差分对比专篇),即可续作。
 
-## 一句话状态(2026-11-13 第十九次交接,批 122 · M3 收官)
+## 一句话状态(2026-11-14 第二十次交接,批 123 · M3+5b 终局)
 
-**M3「Phase 5b 行为对比 + vtable 清偿」收官**:② vtable 转储定案 ✅
-(批 119:scanMask 双 cited 清偿,engVt50Block/engVt28Class 真身,
-三 vtable 两源身份);① Phase 5b **通道与构造双突破但 A/B 对表未满**:
-armed 0x418c4 钩 + editor ctx 桥(批 121)/ frida 真 ctor op 运行期
-构造成功(批 122,Grep 0x68 体 FUN_00899fba)/ C 族 1 MATCH(C2/C3
-仪器性)/**A/B 18 NOT-RUN 维持** — 解锁路径已钉死:terminal 与
-editor 两种 doc +0xe0 承载不同构(QString 直写 abort),欠「editor
-型 doc + find 串写入」一次实验(phase5_editor_b122_op.js ctor 腿
-资产已留)。RUBY 终裁:**维持假设,零反例**(字节级六样例直证我方
-侧;原版侧直证随 A/B)。QUIRKS #29/#30 新增。此前:M2「编辑器残项
-清零」达成(批 117/118);M1「编辑器搜索链闭环」达成(批 116b)。
-本会话累计批 102-122 共 **21 个实现批**,ctest
+**5b 终局判定(批 123 双路实验)**:A/B 18 序列 **通道封闭,NOT-RUN
+即终局** — 0x757e 写 op+0x18 但 FUN_00a31966/0x4eff/0x4f00 读 find
+一律 memo+0x28(op+0x18 零消费)⇒ dispatch 无 find 注入通道,memo
+唯一串源(批 122「op+0x18 绕 memo」假设证伪);路 a setter 死(memo
++0x28 实为 QHash 型)/路 b ctor op 死(0x757e 实参 QList×5 非 op,
+AV)。RUBY 终裁:**维持假设零反例,证伪通道随批 123 关闭**(理论
+备选 = SearchPane UI 自动化输入向量,未试)。总表:1/21 MATCH、
+2 MISMATCH(仪器)、18 NOT-RUN(通道封闭)。**M3 收官**(批 119
+vtable 清偿 + 批 121-123 5b 通道/构造/终局三步);此前 M2(117/118)、
+M1(116b)。本会话累计批 102-123 共 **22 个实现批**,ctest **19/19**
++ dlopen OK,本地领先远端未推。环境已清:原版/Xvfb 拆除,ptrace
+恢复 1(重开需 sudo)。**批 107-109 第二轮三车道并行**:c91e thunk 寄存器洗牌勘正(p4=0/p5=0/p6=i,
 **18/18** + dlopen OK,本地领先远端未推。**批 107-109 第二轮三车道并行**:批 107 M 跟踪器写侧(0099b152/
 0099b15e + 两段容量机 0088a016/00889e2e 真身;0xfffff 迁移腿/
 灌值腿仍 cited 外库链;车道首轮输出耗尽零产物,原会话复活+范围
