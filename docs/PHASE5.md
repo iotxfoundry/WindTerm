@@ -4,19 +4,23 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 131,2026-11-14 — 当前真值层)
+## 结论快照(截至批 136b,2026-11-14 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-131)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-136b)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
-> 「勘正谱系」表为准**(八条勘正链已在谱系表显式化)。
+> 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(七项全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(十一项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
 扩谱首批(124/125)→ M5 扩谱二批 + scanMask 活性(126/127)→ M6
 initDoc 零点 + transient 根治 + 扩谱三批(128/129)→ M7 扩谱四批 +
-KitWindow 方案书(130/131)。
+KitWindow 方案书(130/131)→ M8 文档整备(单页当前态/快照/谱系)→
+M9 巨 switch WT 段全清 + KitWindowFace(132/133)→ M10 工厂接线 +
+eNodes 侦察方案书(134/135)→ M11 eNodes 建模 + 扩谱五批 EXT 段
+(136/137/**136b 布局勘正**;W 族 13/20;键型勘正 int;16 条
+static_assert 偏移锁)。
 
 ### 编辑引擎子系统当前真值
 
@@ -28,8 +32,9 @@ KitWindow 方案书(130/131)。
 | 0x4eff 正则搜索 | **已激活**(批 116/116b):OnigSearch 委托(onig_new RUBY 预编译 + onig_search);RUBY 语法 = 永久假设(批 124 终裁,双证伪通道封闭,零反例) |
 | bufferScan 引擎 | Onigmo-改 边界委托(EXT-BOUNDARY;单层针指针契约,批 116b 勘正);engVt50Block/engVt28Class 真身(批 119 转储定案) |
 | scanMask | 活性接线 ✅(批 127 buffer 承载建模 + s_scanCarrier 缝;0x7543 initDoc 零接线点定案,批 128) |
-| 巨 switch 扩谱 | 累计 52 条真身(四批 9+14+15+14),余 ~18 条;markerstest q/r/s/t/u 组 71 断言 |
-| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);方案书 KITWINDOW-RECON.md 就绪,转写车道免侦察直执 |
+| 巨 switch 扩谱 | 扩谱五批 66 条 + **批 137 EXT 段余量 32 条(真身 6/cited 26)**;WT 段全清零未审(批 132);余 17 叶登记(markerstest q/r/s/t/u/v/w/x 组) |
+| eNodes 节点层 | ENodes.h 建模(批 136/136b):DocumentTask 0x30B/ScanTask 0xB0 字段级 + ctor 全字面;E+0x2d8 键型勘正 int;W 族 13/20;16 条 static_assert 语料偏移锁;6 条 cited 腿激活 + 0x754f 误接勘误 |
+| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身落库(批 134,menu() 腿经 CTerminalConfig 真单例) |
 
 ### 5b 行为对比终局(批 121-123)
 
@@ -42,7 +47,8 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 
 1. RUBY 假设无行为级证明(见上)。
 2. 0x7545 序列化格式断言未覆盖真值路径(收集腿空 data 占位)。
-3. 扩谱余 ~18 条 + 节点应用族(0x75e4/0x75aa,待节点层建模)。
+3. 扩谱余 17 叶(TextEdit 侧/SCI 快速段;节点层就位后可重审)+
+   W 族余 7 函数 + 节点应用族剩余面(0x75e4 半身)。
 4. editor 型 doc +0xe0 承载未建模(批 122 登记)。
 
 ## 已实证(v1,2026-10-28)

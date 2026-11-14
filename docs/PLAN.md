@@ -15,24 +15,24 @@
 
 ---
 
-## 总览(2026-11-14 批 131;历史明细见 docs/PHASE5.md 批次流水)
+## 总览(2026-11-14 批 136b;历史明细见 docs/PHASE5.md 批次流水)
 
 | 阶段 | 状态 |
 |---|---|
 | Phase 0 基础设施 | ✅ |
 | Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
-| Phase 3 编辑引擎 customDispatch | ⏳ 本会话批 102-131 扩谱 +52 条(四批 9+14+15+14)/余 ~18;modTrack 全建模/搜索链激活/位面机;详见 PHASE5 结论快照 |
+| Phase 3 编辑引擎 customDispatch | ⏳ 本会话批 102-137 扩谱(五批 66 + EXT 32)/WT 段全清/eNodes 节点层建模/搜索链激活;详见 PHASE5 结论快照 |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 4c 主窗口 | ⬜(KitWindow 方案书就绪 KITWINDOW-RECON.md;SplitterGroup 部分槽体批 118) |
+| Phase 4c 主窗口 | ⬜(KitWindowFactory 真身落库批 134;SplitterGroup 部分槽体批 118) |
 | Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⬜** |
 | 会话装配 | ✅ 管理收口(批 29) |
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
-| 组件重做(铁律 6) | ⏳ 本会话 M1-M5:ModTrack 全建模/搜索链激活/位面机/scanMask 活性接线/BYTE 旗标勘正;余:busy 腿(外库登记)/节点应用族/0x7545 真值路径 |
+| 组件重做(铁律 6) | ⏳ 本会话 M1-M11:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层;余:busy 腿(外库登记)/W 族 7 函数/0x7545 真值路径 |
 
 测试矩阵:**ctest 19/19**(e2eterm 25 + recheck 22 + engtest×2 +
-markerstest q·r·s·t·u 组 71 + modtracktest 22 + onigtest 24 +
+markerstest q·r·s·t·u·v·w·x 组 + modtracktest 22 + onigtest 24 +
 engtest5 61 + wordsteptest g·i 组 + keymap/telnet/pty/shellsession/
 telnetsocket/echo_semantics/actions/kitbar/uiassemble/rendermath/
 renderpix/proxysock 全家;wordsteptest transient 已根治,批 128)。
