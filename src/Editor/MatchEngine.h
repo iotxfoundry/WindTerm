@@ -52,10 +52,17 @@ quint64 engEntry0093830d(const void *lineDoc, const GrepNeedle448 *needle,
 //   len<0xc 分短/长(体在 .cpp — 读针门字段需完整型)。
 //   lineDoc 承载替:语料 param_1+0xf8 解引用(26280/26316)→ 直收
 //   lineDoc 承载(EditorContext +0xf8 = 布尔位,布局不同构 — 登记;
-//   批 119:vt 槽真身 = docBytes 直读承载(engVt50Block/engVt28Class),
-//   活性接线挂 buffer 承载批 — 当前调用面传 nullptr = 壳态同相)。
+//   批 119:vt 槽真身 = docBytes 直读承载(engVt50Block/engVt28Class))。
+//   批 127:engDispatch 内 null → s_scanCarrier 承接(活性缝,挂线 =
+//   initDoc 驱动批);未挂线保持 null = 壳态守卫(同相)。
 quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
                     quint64 from, qint64 winEnd);
+
+// 批 127:scanMask 活性接线 — +0xf8 buffer 承载缝(见 MatchEngine.cpp
+//   缝注记:载体 = docBytes 直读;attach/detach = initDoc/拆链驱动面)。
+void attachScanCarrier(const void *lineDoc);   // +0xf8 槽挂线(00929fe1 面)
+void detachScanCarrier();                      // 拆线(0092f852 面)
+bool carrierLive();                            // 缝非空读面(scanLineDoc 门)
 
 // FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — 缓冲扫描引擎 — **边界
 //   委托(批 102 勘定)**:直调 regex_nfa_compile(00b3cc80 20839B)/

@@ -36,10 +36,22 @@ namespace MatchEngine {
 //   恒零块/类 0,与批 118 占位同相 — product scanMask 现传 nullptr,
 //   活性接线挂 buffer 承载批,engDispatch/scanMask 零改动)。block16 跨界
 //   出参 = 文件级 static 16B(语料 per-object buffer+0x30 槽 — 承载替登记)。
+//   批 127 补:engDispatch 入口于 lineDoc==null 时以 s_scanCarrier 承接
+//   (下方分派器前定义);s_scanCarrier 挂线后 null 分支仅剩未挂壳态。
+namespace {
+const void *s_scanCarrier = nullptr;   // +0xf8 槽承载缝(壳态 null;
+                                       //   批 127 fwd:engDispatchImpl 先用)
+// 壳态恒零 16B 块(engVt50Block null 分支;批 118/119 同相语义 —
+//   语料 = buffer+0x30 出参清零面,非 "" 字面量:engCmp16 读满 16B,
+//   "" 只有 1B → 越界 .rodata 未定义读,批 127 i5 断言暴露)
+const char s_zeroBlock[0x10] = {0};
+}
 static const char *engVt50Block(const void *lineDoc, qint64 pos)
 {
 	if (lineDoc == nullptr)
-		return "";                                    // 壳态恒零 16B(同相)
+		return s_zeroBlock;                           // 壳态恒零 16B(同相;
+		                                              //   批 127:静态 16 零块,
+		                                              //   免 "" 1B 越界读)
 	const QByteArray *doc = static_cast<const QByteArray *>(lineDoc);
 	static char scratch[0x10];                        // vt10 buffer+0x30 出参承载替
 	if (pos + 0x10 <= doc->size())                    // :10985 段内直返臂
@@ -185,10 +197,14 @@ quint64 engEntry0093830d(const void *lineDoc, const GrepNeedle448 *needle,
 	return engScan<true, true>(lineDoc, needle, from, to);
 }
 
-// 分派判式(26276-26288/26314-26326 两处同构)真身。
+// 分派判式(26276-26288/26314-26326 两处同构)真身。批 127:lineDoc
+//   null 时以载体缝承接(+0xf8 attached → &docBytes;壳态保持 null 同相)。
 quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
                     quint64 from, qint64 winEnd)
 {
+	if (lineDoc == nullptr)
+		lineDoc = s_scanCarrier;      // 0092a596 param_1+0xf8 解引承载缝
+	// (判式体下行)
 	if (needle->literal == 0)                         // 26276 *(char*)(lVar4+1)=='\0'
 		return needle->len < 0xc                      // 26277 iVar1<0xc
 		    ? engEntry009376d1(lineDoc, needle, from, winEnd)   // 26278
@@ -196,6 +212,30 @@ quint64 engDispatch(const void *lineDoc, const GrepNeedle448 *needle,
 	return needle->len < 0xc                          // 26284
 	    ? engEntry0093632d(lineDoc, needle, from, winEnd)       // 26285
 	    : engEntry00936cf1(lineDoc, needle, from, winEnd);      // 26288
+}
+
+// —— 批 127:scanMask 活性接线 —— +0xf8 buffer 承载缝。
+//   语料:engDispatch 消费者 FUN_0092a596(26276/26314)解引 *(param_1
+//   +0xf8) 传真体;+0xf8 槽由 editor_engineCtor 00929fdd..00929fe1
+//   建 32 型(FUN_009818aa)/ 00927f16 置换(0x48B,false→32 型 /
+//   true→64 型 FUN_00989ef2)/ 0092f852 拆链置 null。我方承载替:
+//   vtable 槽 charAt/block16 语义已由批 119 真身按 docBytes 直读
+//   同相承接 → 缝只持载体指针(engVt50Block/engVt28Class 的
+//   const QByteArray* 直读面),不建 CSuperBuffer 对象(类型面
+//   0x48/0x70 槽 = 引用档,需时单批升真)。
+//   守卫:未挂线 → engDispatch 收 null → 壳态(恒零块/类 0,批 118/
+//   119 同相);挂线 = initDoc 驱动批(EditorEngine 侧,本批只落缝)。
+void attachScanCarrier(const void *lineDoc)   // initDoc 接线(00929fe1 面)
+{
+	s_scanCarrier = lineDoc;
+}
+void detachScanCarrier()                      // 拆链(0092f852 面)
+{
+	s_scanCarrier = nullptr;
+}
+bool carrierLive()                            // 缝读面(0x7543 短路门同形)
+{
+	return s_scanCarrier != nullptr;
 }
 
 // FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — 批 116 激活:OnigSearch

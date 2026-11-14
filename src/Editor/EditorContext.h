@@ -15,7 +15,9 @@
 #include <QHash>
 #include "MarkersStore.h"
 #include "ModTrack.h"
+#include "MatchEngine.h" // 批 127:+0xf8 载体缝(ctor 挂线/dtor 拆链)
 #include <QVariantList>
+#include <QColor>        // 批 127:隐式 dtor 实例化 QHash<QString,QColor> 需全型
 #include <limits>
 #include "RunNode.h"
 
@@ -216,9 +218,39 @@ public:
 	quint64 pairCacheFc8 = 0;        // +0xfc8
 
 	// --- buffer/状态簇(0x7556-0x7564;+0x1098 buffer / +0xed8 状态)---
+	// doc+0xf8 buffer 载体(批 127 活性接线):ctor = editor_engineCtor
+	//   00929fdd..00929fe1(operator_new(0x48) → FUN_009818aa = buffer32
+	//   vptr 0x11ad818;置换 00927f16 false→009818aa / true→00989ef2 =
+	//   buffer64 vptr 0x11ad910;析构 vt+8,拆链 0092f852 同面)。
+	//   32 型 = CSuperBuffer32(0x48B;基 +0x40 = 0x48 体段:0x00 vptr /
+	//   +0x08 blockRef(0x30B,00a5f4ca)/ +0x10 styleArr(0x20B,0096820e)
+	//   / +0x18 caseFlag/长度 +0x20 数据指针 / +0x40 派生段);64 型 =
+	//   CSuperBuffer64(FUN_00989ef2 → FUN_009c7114 0x70B 快照,同 +0x40)。
+	//   vtable 槽消费面(批 119 转储):+0x28 charAt / +0x50 block16 /
+	//   +0x58 string(0x755a)。engDispatch 载体 = docBytes 直读(charAt/
+	//   block16 语义 = 批 119 真身已同相);isSuperBuffer = 00927ec8
+	//   dynamic_cast(buffer64 命中)/ bufferModeB = 00927f16 选型位。
+	//   engScan 载体接缝(批 127):FUN_0092a596 26276/26314 解引
+	//   *(doc+0xf8) 传真体 → 承载替 = docBytes 平铺(&docBytes);attached
+	//   false = 槽 null(壳态恒零块/类 0,批 118/119 同相)。
 	bool isSuperBuffer = false;      // +0xf8 动态类型 cast(00927ec8)
 	QString bufferString;            // 0x755a(vt+0x58 虚调用 — cited)
-	bool bufferModeB = false;        // 0x755b(+0xf8 对象置换 0x48B — cited)
+	bool bufferModeB = false;        // 0x755b(+0xf8 对象置换 0x48B 选型位,
+	                                 //   FUN_00927f16 param_2 直证)
+	bool superBufferAttached = false; // +0xf8 槽非空门(editor_engineCtor
+	                                  //   00929fe1 即建 32 型 → 真载体;壳态
+	                                  //   false → engDispatch 传 nullptr 同相)
+	                                  //   置换接缝:0x755b(FUN_00927f16)真身
+	                                  //   时同步置位;析构链 0092f852 → false。
+	// +0xf8 载体取面(批 127):engDispatch param_1 承接 — attached →
+	//   &docBytes(charAt/block16 语义 = buffer vtable 槽批 119 真身,
+	//   docBytes 直读承载同相);壳态 → nullptr(恒零块/类 0 同相)。
+	//   ctor 挂线(00929fe1 引擎 ctor 即建 32 型)/dtor 拆链(0092f852)
+	//   经 MatchEngine::attach/detachScanCarrier RAII 承接(对象生命期
+	//   = 槽生命期平铺;this 悬垂守卫 — detach 于析构先行)。
+	const void *scanLineDoc() const
+	{ return (superBufferAttached && MatchEngine::carrierLive())
+	    ? static_cast<const void *>(&docBytes) : nullptr; }
 	quint32 stateEd8 = 0;            // bit1=0x755c/7561 布尔 bit2=脏 bits3+=ms
 	quint32 valDd0 = 0;              // +0xdd0(0x7563 set)
 	int val1ba = 0;                  // 0x755f 查询
@@ -598,6 +630,20 @@ public:
 	{
 		// FUN_00a1fd8c:变更时 vtable+0xa0 视图刷新 — cited
 		marginTrackChange = on;
+	}
+	// —— 批 127:+0xf8 buffer 载体 RAII ——
+	// ctor(= editor_engineCtor 尾段:00929fdd..00929fe1 建 buffer32,
+	//   槽即非空)→ 挂线;dtor(= FUN_0092f852 doc 拆链)→ 拆线。
+	//   scanLineDoc() = engDispatch param_1 承接(attached → &docBytes)。
+	EditorContext()
+	{
+		superBufferAttached = true;              // 00929fe1 置真载体
+		MatchEngine::attachScanCarrier(&docBytes);
+	}
+	~EditorContext()
+	{
+		MatchEngine::detachScanCarrier();        // 0092f852 拆链置 null
+		superBufferAttached = false;
 	}
 };
 

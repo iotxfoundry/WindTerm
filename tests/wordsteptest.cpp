@@ -394,6 +394,71 @@ int main(int argc, char **argv)
 		delete[] static_cast<char *>(needle.simdBlocks);
 	}
 
+	// ======== i. scanMask 活性接线(批 127;+0xf8 buffer 承载建模)========
+	//   语料:engDispatch 消费者 = CodecMemo::scanMask(FUN_0092a596
+	//   26276/26314 *param_1+0xf8 解引);载体 ctor = editor_engineCtor
+	//   00929fdd..00929fe1(buffer32 即建)/ 置换 0x755b(00927f16)/
+	//   拆链 0092f852。我方 RAII:EditorContext ctor 挂线 &docBytes。
+	{
+		EditorContext ctx;
+		expect(ctx.superBufferAttached
+		       && ctx.scanLineDoc() == static_cast<const void *>(&ctx.docBytes),
+		       "i1: ctor 挂线(00929fe1 面)→ scanLineDoc = &docBytes"
+		       "(批 119 vt 槽真身承载;真载体活性)");
+		// 活性穿透:engDispatch(null,…) → 缝承接 → docBytes 直读
+		ctx.docBytes = QByteArray("xab");            // 3B 载体
+		GrepNeedle448 needle{};                      // literal=1 短针腿
+		needle.len = 1;
+		needle.simdBlocks = new char[0x10]();        // 'b' 单字节广播
+		for (int i = 0; i < 0x10; ++i)
+			static_cast<char *>(needle.simdBlocks)[i] = 'b';
+		// 首窗 [x,a,b,0…]:lane2='b' 命中 → nlen=1 → tail:hi16=bit2,
+		// lo48=窗 0(262b0 = lane+lo48 消费面)
+		const quint64 pi = MatchEngine::engDispatch(
+		    static_cast<const void *>(nullptr), &needle, 0, 3);
+		expect(pi == (quint64(4) << 0x30),
+		       "i2: engDispatch(null)→ 缝承接 &docBytes → 'b'@2 lane2 命中"
+		       "(scanMask 产品调点真活性;36125 tail pack hi16=4)");
+		// skip 腿活性(charAt 真身,批 119 对账):36cf1 长针
+		needle.len = 2;
+		needle.skip['x'] = 2;                        // convCtor 覆写形
+		static_cast<char *>(needle.simdBlocks)[0] = 'x';
+		static_cast<char *>(needle.simdBlocks)[1] = 'x';
+		// 首窗 [x,a,…]:lane0='x' 命中,lane1='a'≠'x' → 掩码 0 → miss
+		// → vt+0x28 charAt(2+0+0xf=0x11 越界)→ 0 → skip[0]=2 →
+		// from=0x10+0xf=0x1f → 门(0x1f>=3)→ 哨兵
+		{
+			needle.skip[0] = 2;
+			const quint64 ps = MatchEngine::engDispatch(
+			    static_cast<const void *>(nullptr), &needle, 0, 3);
+			expect(ps == Q_UINT64_C(0xffffffffffff),
+			       "i3: 36cf1 skip 腿活性:charAt(0x11)越界→0 → skip[0]=2"
+			       "有界推进 → 哨兵(批 119 CALIBRATION 对账)");
+		}
+		delete[] static_cast<char *>(needle.simdBlocks);
+		{
+			MatchEngine::detachScanCarrier();    // 0092f852 拆链面直验
+			EditorContext d;                     // ctor 00929fe1 面 → 重挂(缝活性)
+			MatchEngine::detachScanCarrier();    // 再拆 → 壳态
+			expect(ctx.scanLineDoc() == nullptr,
+			       "i4: detachScanCarrier(0092f852 拆链)→ 缝 null → "
+			       "engDispatch(null)回壳态守卫");
+			// 拆链后 null 壳态:1B doc 'a' 无载体 → 恒零块 → miss
+			GrepNeedle448 n2{};
+			n2.literal = 1; n2.len = 1;
+			n2.simdBlocks = new char[0x10]();
+			for (int i = 0; i < 0x10; ++i)
+				static_cast<char *>(n2.simdBlocks)[i] = 'a';
+			expect(MatchEngine::engDispatch(
+			           static_cast<const void *>(nullptr), &n2, 0, 1)
+			       == Q_UINT64_C(0xffffffffffff),
+			       "i5: 拆链后 engDispatch(null)→ 壳态恒零块 → miss →"
+			       "哨兵(批 118 同相守卫)");
+			delete[] static_cast<char *>(n2.simdBlocks);
+		}
+		MatchEngine::attachScanCarrier(&ctx.docBytes); // 恢复缝(ctx 尾 dtor 再拆,幂等)
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }
