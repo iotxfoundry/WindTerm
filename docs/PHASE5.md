@@ -4,6 +4,47 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
+## 结论快照(截至批 131,2026-11-14 — 当前真值层)
+
+> **读法**:本节为当前真值;下方批次流水(批 20-131)为审计轨迹,
+> 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
+> 「勘正谱系」表为准**(八条勘正链已在谱系表显式化)。
+
+### 里程碑状态(七项全部达成,定义见 HANDOFF 总账)
+
+M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
+清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
+扩谱首批(124/125)→ M5 扩谱二批 + scanMask 活性(126/127)→ M6
+initDoc 零点 + transient 根治 + 扩谱三批(128/129)→ M7 扩谱四批 +
+KitWindow 方案书(130/131)。
+
+### 编辑引擎子系统当前真值
+
+| 面 | 状态 |
+|---|---|
+| c1c2 内层(0x7576) | 真身(thunk p4/p5/p6=0/0/i 勘正后);T 段真身 + 位面写;残:busy 腿(外库登记)/入口 0095c086(外库边界面坍缩)/p4==2 busy 位(同) |
+| M 修改行跟踪器 | ModTrack.h 全建模:读侧七函数/写侧 b152·b15e/位面机 flagmaskSetRange/两段容量机;游程支 RS 合并腿测试装置承载;迁移腿外库登记 |
+| markerBand(00927a78) | 真身(经 modTrack);T 段调点已改位面(mtBit4SetClr);残:958108 ctx+0x28 已接线(批 117) |
+| 0x4eff 正则搜索 | **已激活**(批 116/116b):OnigSearch 委托(onig_new RUBY 预编译 + onig_search);RUBY 语法 = 永久假设(批 124 终裁,双证伪通道封闭,零反例) |
+| bufferScan 引擎 | Onigmo-改 边界委托(EXT-BOUNDARY;单层针指针契约,批 116b 勘正);engVt50Block/engVt28Class 真身(批 119 转储定案) |
+| scanMask | 活性接线 ✅(批 127 buffer 承载建模 + s_scanCarrier 缝;0x7543 initDoc 零接线点定案,批 128) |
+| 巨 switch 扩谱 | 累计 52 条真身(四批 9+14+15+14),余 ~18 条;markerstest q/r/s/t/u 组 71 断言 |
+| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);方案书 KITWINDOW-RECON.md 就绪,转写车道免侦察直执 |
+
+### 5b 行为对比终局(批 121-123)
+
+总表 **1/21 MATCH、2 MISMATCH(仪器性)、18 NOT-RUN(通道封闭)**。
+原版侧 find 注入通道不存在(memo 唯一串源,op+0x18 零消费,批 123
+证伪批 122 绕行);UI 向量判死(quick-find ≠ SearchPane 三框,批 124)。
+RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未试)。
+
+### 开放风险(现役)
+
+1. RUBY 假设无行为级证明(见上)。
+2. 0x7545 序列化格式断言未覆盖真值路径(收集腿空 data 占位)。
+3. 扩谱余 ~18 条 + 节点应用族(0x75e4/0x75aa,待节点层建模)。
+4. editor 型 doc +0xe0 承载未建模(批 122 登记)。
+
 ## 已实证(v1,2026-10-28)
 
 ### 环境与管线
@@ -2382,15 +2423,16 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 ×3 稳定 +
   dlopen OK**。扩谱累计 52 条(9+14+15+14),余 ~18 条续批。
 
-### 待解(批 30 后剩余)
+### 待解(批 131 后残余;现役队列以 HANDOFF「现役队列」为准)
+
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
 - **Phase 4a 注册表插入侧**:语料无直呼者(批 29 A3,cited 挂账)
-- **批 111 残留**:ModTrack 游程支产品侧构造腿(0xfffff 迁移门
-  piecetable 链)不可脱离外库转写(判定与证据见 PHASE5 批 111);
-  运行时驱动以测试装置承载(modAttachRunFace),产品侧接线待
-  piecetable/GB 底座激活批
-- 130+ 扩谱;Phase 4c(SplitterGroup);触发器/词法;5b/5c
+- **ModTrack 游程支产品侧构造腿**(0xfffff 迁移门 piecetable 链):
+  外库边界登记(批 111/117);运行时驱动以测试装置承载
+  (modAttachRunFace),产品侧接线待 piecetable/GB 底座激活批
+- 其余现役项见 HANDOFF「现役队列」(扩谱余 ~18 条/KitWindow 转写/
+  Phase 4a·4c·5c)
 
 ## 复现
 

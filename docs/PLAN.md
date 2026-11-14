@@ -15,25 +15,29 @@
 
 ---
 
-## 总览(2026-10-28 会话末)
+## 总览(2026-11-14 批 131;历史明细见 docs/PHASE5.md 批次流水)
 
 | 阶段 | 状态 |
 |---|---|
 | Phase 0 基础设施 | ✅ |
 | Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
-| Phase 3 编辑引擎 customDispatch | ⏳ 批 1-7(runnode 模型 + 93 WT case;详见 Phase 3 节) |
+| Phase 3 编辑引擎 customDispatch | ⏳ 本会话批 102-131 扩谱 +52 条(四批 9+14+15+14)/余 ~18;modTrack 全建模/搜索链激活/位面机;详见 PHASE5 结论快照 |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;工作区布局装载 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 5 行为对比 | ✅ **98 序列 98/98 MATCH 全绿**(批 30 收官:tbc3 = +0x101 流回显 QUIRKS 22,驱动 resetState+稳定性网;详见 docs/PHASE5.md) |
-| 会话装配 | ✅ **管理收口**(批 29:ShellSession::stop + TelnetSession 网络接线 RFC 默认拒绝;telnetsocket_test + stop 冒烟;ctest 11/11) |
-| 新组件四件 | ✅ KeymapEngine(wind.keymaps 531 条)/ TelnetCommander IAC 状态机 / UnixPty+Pty 入构建 / TelnetProtocol 同版验证(见 docs/CALIBRATION.md) |
-| 组件重做(铁律 6) | ⏳ **cited 全清(批 47-52,16→0)** + **Phase 3 补全 15/70**(批 57-1/2/59/63);组件语料转写态:ActionFactory/ThemeIcons(QtSvg 委托)/JsEngine/MuxPaneJs/MuxPane 壳/SuperKeymap/KeymapEngine YAML 装载/TelnetCommander 槽体(session.term 分类器)/EditorContext 文档层;待转写 = keymap 匹配体(0067500e,9978B)/markers 对象内部层(0099d1f6 族)/TelnetSession 装配(五元组)/ShellSession 装配 | **批 88:测试 12 项(markerstest 54/runstyles 41/rendermath 14/renderpix 11 断言);Telnet 全链/装配链五级/keymap 双翼落地** **批 99:测试 15 项(markerstest 70/9 其他 41+14+11+19+5+17+11+4 断言);UI 五级装配链运行验证 15/15;codec memo/replaceText/regionScan 全落**
+| Phase 4c 主窗口 | ⬜(KitWindow 方案书就绪 KITWINDOW-RECON.md;SplitterGroup 部分槽体批 118) |
+| Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⬜** |
+| 会话装配 | ✅ 管理收口(批 29) |
+| 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
+| 组件重做(铁律 6) | ⏳ 本会话 M1-M5:ModTrack 全建模/搜索链激活/位面机/scanMask 活性接线/BYTE 旗标勘正;余:busy 腿(外库登记)/节点应用族/0x7545 真值路径 |
 
-测试矩阵:**ctest 11/11**(e2eterm 25 + recheck 22 + engtest×2 +
-sshsmoke + keymap/telnet/pty/shellsession/telnetsocket 五冒烟;
-engtest3 ctest 态间歇——直跑复核)。
+测试矩阵:**ctest 19/19**(e2eterm 25 + recheck 22 + engtest×2 +
+markerstest q·r·s·t·u 组 71 + modtracktest 22 + onigtest 24 +
+engtest5 61 + wordsteptest g·i 组 + keymap/telnet/pty/shellsession/
+telnetsocket/echo_semantics/actions/kitbar/uiassemble/rendermath/
+renderpix/proxysock 全家;wordsteptest transient 已根治,批 128)。
 gen_stubs 70→5。测试策略与保真约束见下方"测试策略"块。
+里程碑 M1-M7 达成记录:tools/re/HANDOFF.md「里程碑总账」。
 
 ---
 
@@ -352,19 +356,20 @@ FUN_009a088e/00920442/00925bd4)——解锁 0x756d/756e/75a3
 
 ---
 
-## Phase 5 — 行为一致验证 ⏳(98 序列 96/98;2 红定性挂账——见 docs/PHASE5.md 批 26-28)
+## Phase 5 — 行为一致验证 ⏳(终端栈 98/98 ✅ 批 30;5b 终局批 123;5c ⬜——见 docs/PHASE5.md)
 
-### 5a. 离屏终端渲染 ⬜
-- 加载 wind.config → CTerminalConfig 填充
-- 新建 SuperSession(offscreen)→ 终端渲染序列
-- 对比原二进制 offscreen 输出
+### 5a. 离屏终端渲染 ✅(批 30:98 序列 98/98 MATCH;管线与复现见 docs/PHASE5.md「复现」节)
 
-### 5b. 编辑引擎行为对比 ⬜
-- 对同一输入文本:EditorEngine 336 命令 vs 原二进制
-  (需原二进制同一 SCI 消息序列回放)
+### 5b. 编辑引擎行为对比 🟥 终局(批 121-123)
+- 通道定案:armed 0x418c4 钩 + editor ctx 桥 + frida 真 ctor op(批
+  121/122);**find 注入通道不存在**(memo 唯一串源,op+0x18 零消费)
+  + UI 向量判死(批 124)→ **A/B 18 序列 NOT-RUN 即终局**
+- 总表 1/21 MATCH、2 MISMATCH(仪器性);工具资产:phase5_editor.py/
+  phase5_editor_compare.py/phase5_editor_b122_op.js(免侦察重开)
+- RUBY 语法假设永久化(批 124 终裁;理论备选 = SearchPane UI 自动化,未试)
 
 ### 5c. 会话持久化对比 ⬜
-- .wind/ 目录生成与加载对比
+- .wind/ 目录生成与加载对比(需我方可运行应用 — Phase 4c 前置)
 
 ---
 
