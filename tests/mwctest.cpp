@@ -6,11 +6,15 @@
 // isZoomed(FUN_005a23c6)初值 / b2 onTabBlankRequested(FUN_008df5f8)
 // 无 win 上溯早返 / b3 renamePane(008df0a4)无 pane 早返。
 #include <QApplication>
+#include <QMainWindow>
 #include <QMenu>
 #include <QTabBar>
 #include <QTimer>
 #include <cstdio>
 #include "Actions/KitWindowFace.h"
+#include "Actions/KitBar.h"
+#include "Actions/KitWindowFactory.h"
+#include "Actions/MainWindowFace.h"
 #include "Actions/MuxWindow.h"
 #include "Actions/MuxPaneGroup.h"
 #include "Actions/TabGroup.h"
@@ -157,6 +161,55 @@ int main(int argc, char **argv)
 	if (m == nullptr)
 		++fails; // S3:容器空跳 S2 → tr 新建 QMenu @00692fbf-030
 	delete m;
+
+	// ======== 批 134:工厂接线(FUN_0089d752 ← s_HistoryHints_7664a2)========
+
+	// d1. 工厂分派(FUN_0089d752 三分支 + 未知 null)—— 用 MainWindowFace
+	//     装配真宿主(QMainWindow)+ Slots 面,产物挂 stack 页(不造真
+	//     窗口:产物即 KitWindowFace 派生壳,ctor 只 parent+acceptDrops)。
+	QMainWindow mwHost;      // 语料 param_1 = QMainWindow(MainWindowFace 面)
+	mwHost.resize(200, 100);
+	MainWindowFace mf(&mwHost); // FUN_007662e6 面(批 100):bar→f50/stack→f58
+	MainWindowFace::Slots sl = mf.hostSlots();
+	KitWindowFace *edW = kitWindowFactory(QStringLiteral("Editor"), &mwHost);
+	if (edW == nullptr || edW->objectName() != QStringLiteral("EditorWindow"))
+		++fails; // @0089d75a → EditorWindow(0xd0)+ objectName @005e970d
+	KitWindowFace *buyW = kitWindowFactory(QStringLiteral("Buy"), &mwHost);
+	if (buyW == nullptr || buyW->objectName() != QStringLiteral("EditorWindow"))
+		++fails; // @0089d7ed(DAT_00d0eaa4="Buy" 二进制实读)→ EditorWindow 同型腿
+	if (dynamic_cast<TerminalWindowFace *>(edW) != nullptr)
+		++fails; // Editor 腿落 EditorWindow 面(非 Terminal)@0089d799
+	KitWindowFace *bad = kitWindowFactory(QStringLiteral("Nope"), &mwHost);
+	if (bad != nullptr)
+		++fails; // @0089d846 未知类型 → null(调用点卫 0x7664cf)
+	if (kitWindowFactory(QString(), &mwHost) != nullptr)
+		++fails; // 空串同未知腿
+
+	// d2. 页挂接线(s_HistoryHints_7664a2 面):hints 腿 setProperty 双
+	//     记(@0x766507 "History"/@0x76652f "HistoryHints")+ stack 页数
+	//     + KitBar 登记对账(@0x766543/0x766565);select 腿 setCurrentIndex
+	//     (@0x766587);null 腿直返(上面 bad 未入页即间接对账)。
+	kitWindowAttachPage(sl, &mwHost, QStringLiteral("Editor"), true,
+	                    QByteArrayLiteral("hh"), 7); // hints 非空 → 双 setProperty
+	kitWindowAttachPage(sl, &mwHost, QStringLiteral("Terminal"), false,
+	                    QByteArray(), 0); // hints 空 → 跳双腿 @0x7664e8
+	if (sl.f58->count() != 2)
+		++fails; // 两页:Editor(select=true)+ Terminal(hints 空腿)
+	if (sl.f58->currentIndex() != 0)
+		++fails; // select 腿:Editor 页 index0 setCurrentIndex @0x766587
+	QWidget *edPage = sl.f58->widget(0);
+	if (edPage == nullptr || edPage->property("History").toByteArray() != QByteArrayLiteral("hh"))
+		++fails; // @0x766507:QVariant(QByteArray) → "History"
+	if (edPage == nullptr || edPage->property("HistoryHints").toInt() != 7)
+		++fails; // @0x76652f:QVariant(int) → "HistoryHints"
+	if (sl.f58->widget(1) == nullptr || sl.f58->widget(1)->property("History").isValid())
+		++fails; // hints 空 → 双腿跳过(无属性落)
+	if (sl.f50->buttonForIndex(0) == nullptr || sl.f50->buttonForIndex(1) == nullptr)
+		++fails; // addKit 两记:@0x766565(FUN_008b346e index=addWidget 返回)
+	if (sl.f50->buttonForIndex(2) != nullptr)
+		++fails; // null 工厂腿不入页 → kit 钮恰两记(bad/空串直返)
+	delete edW;
+	delete buyW;
 
 	printf("mwc_smoke: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
 	return fails ? 1 : 0;
