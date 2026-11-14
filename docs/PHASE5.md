@@ -2304,6 +2304,35 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   槽/0x7541 field160 腿(风险:skiprunnodes 下滚动落点或偏)。
 - 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 + dlopen OK**。
 
+### 批 126/127(2026-11-14)M5 双车道:巨 switch 扩谱二批 14 条/scanMask 活性接线 ✅ ctest 19/19
+
+- **批 127 scanMask 活性接线**(批 119 nullptr 壳态消解):+0xf8
+  buffer 承载建模(ctor 证据 00929fe1:operator_new(0x48)→
+  FUN_009818aa vptr 0x11ad818,editor_engineCtor 25992-26012)+
+  EditorContext 挂线/dtor 拆链(0092f852)+ bufferModeB 勘正(0x48B
+  选型位 00927f16 直证);engDispatch null 分支接 s_scanCarrier 承载缝
+  (attach/detach/carrierLive 三缝);engVt50Block 壳态勘正(旧 `""`
+  1B → 16 零块,engCmp16 越界 .rodata 被 i5 断言暴露);i 组 5 断言
+  (缝穿透 'b'@2 lane2 命中/skip 有界/拆链守卫)。载体缝 = 进程级
+  单例(语料 op 级→进程级,单会话单线程同相,登记承载替);残项 =
+  EditorEngine 0x7543 initDoc 驱动挂线(任务书限域,EditorEngine 批)。
+- **批 126 巨 switch 扩谱二批 14 条真身**:margin 族 6(0x7590
+  QVariantMap 位解包/0x7591 非空名 QStringList 勘正/0x7592 +0x1ae 门/
+  0x7594 左移压缩删/0x7595 整表清/0x7590 默认腿)+ hex/eol 2(0x7579
+  FUN_00a21b2c kind 归一 0→2/0x757b +0x1f8 读)+ 视口/选区/列表 6
+  (0x75a8 非 hex 臂 dv=max(d38,d20)+hexViewHeight 新字段/0x75a0
+  line==-1 SCI 承接/0x75e3 选区四元组/0x75c9-cc doc+0x108 列表面
+  docObjList 新字段)。markerstest s 组 28 断言。仍 cited:0x757f/
+  7581/7588/758d/75a8 hex 臂(+0x10a0 obj)/75aa/75cb·cc 节点腿
+  (eNodes 键型失配)/75e5;0x7545 序列化导出(892B+707B)与 0x7588
+  行内游走留后续。
+- **⚠ 观测一次 transient**:批 126 合流门首次跑 wordsteptest
+  1 失败(单次),后续 10 直跑 + 6 gdb-ASLR + 5 全量共 21 次零复现,
+  重跑通过 — 判 transient 非确定性回归(engtest3 XOR 间歇同款先例),
+  登记观察。
+- 验证:两车道独立门 + 主控合流,主线终态 **ctest 19/19 + dlopen OK**
+  (5 连跑复验)。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
