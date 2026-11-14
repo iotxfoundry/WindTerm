@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 136b,2026-11-14 — 当前真值层)
+## 结论快照(截至批 141,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-136b)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-141)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(十一项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(十二项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -20,7 +20,9 @@ KitWindow 方案书(130/131)→ M8 文档整备(单页当前态/快照/谱系)�
 M9 巨 switch WT 段全清 + KitWindowFace(132/133)→ M10 工厂接线 +
 eNodes 侦察方案书(134/135)→ M11 eNodes 建模 + 扩谱五批 EXT 段
 (136/137/**136b 布局勘正**;W 族 13/20;键型勘正 int;16 条
-static_assert 偏移锁)。
+static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
+真身(138)/EXT 叶全清 34 条(139)/CGlobalConfigFace + menu() 容器型
+定案(140)/4a 注册表 Logger 插入侧(141)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -32,9 +34,9 @@ static_assert 偏移锁)。
 | 0x4eff 正则搜索 | **已激活**(批 116/116b):OnigSearch 委托(onig_new RUBY 预编译 + onig_search);RUBY 语法 = 永久假设(批 124 终裁,双证伪通道封闭,零反例) |
 | bufferScan 引擎 | Onigmo-改 边界委托(EXT-BOUNDARY;单层针指针契约,批 116b 勘正);engVt50Block/engVt28Class 真身(批 119 转储定案) |
 | scanMask | 活性接线 ✅(批 127 buffer 承载建模 + s_scanCarrier 缝;0x7543 initDoc 零接线点定案,批 128) |
-| 巨 switch 扩谱 | 扩谱五批 66 条 + **批 137 EXT 段余量 32 条(真身 6/cited 26)**;WT 段全清零未审(批 132);余 17 叶登记(markerstest q/r/s/t/u/v/w/x 组) |
-| eNodes 节点层 | ENodes.h 建模(批 136/136b):DocumentTask 0x30B/ScanTask 0xB0 字段级 + ctor 全字面;E+0x2d8 键型勘正 int;W 族 13/20;16 条 static_assert 语料偏移锁;6 条 cited 腿激活 + 0x754f 误接勘误 |
-| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身落库(批 134,menu() 腿经 CTerminalConfig 真单例) |
+| 巨 switch 扩谱 | **全清**:五批 66 + EXT 32(批 137)+ 叶 34(批 139:真身 2/cited 32,差集重 derive);0x4ec2=20162 门漏叶勘误已截获;markerstest q/r/s/t/u/v/w/x/y/z 组 |
+| eNodes 节点层 | W 族 **19/20**(余 96f782/96f6fe inner 词法面 cited);0x75e4/75aa/7581/75c8/75f6 真身(批 138);96f80a 旗位/96fb1e 清偿/96d89e QHash 收集/92601a 组播底座真身;E+0x2d8 键型 int;16 条 static_assert 锁 |
+| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);K 效消费面只触 +0x28/+0x38 |
 
 ### 5b 行为对比终局(批 121-123)
 
@@ -46,10 +48,49 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 ### 开放风险(现役)
 
 1. RUBY 假设无行为级证明(见上)。
-2. 0x7545 序列化格式断言未覆盖真值路径(收集腿空 data 占位)。
-3. 扩谱余 17 叶(TextEdit 侧/SCI 快速段;节点层就位后可重审)+
-   W 族余 7 函数 + 节点应用族剩余面(0x75e4 半身)。
-4. editor 型 doc +0xe0 承载未建模(批 122 登记)。
+2. 0x7545 序列化格式断言未覆盖真值路径(收集腿空 data 占位;节点层
+   已就位,可开批)。
+3. W 族尾:inner 词法面 96f782/96f6fe;0x75e4 刷新深腿
+   (00a1fb0e/00a1fbaa)cited。
+4. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
+   0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
+   EditorContext.h 头扩展)。
+5. 注册表插入侧余量:Term(+0x20)/Transfer(+0x28)/Commander(kind0)
+   插入侧语料未定位挂账;logger 建腿 007c1b38/007c24c8(5980B)cited。
+6. CGlobalConfigFace yaml 装载腿(008a99de/008aa39e)cited →
+   groupNames() 运行期恒空(机制原样);CTerminalConfig 双 Meyers
+   合一待容器真身批。
+
+### 批 138/139/140/141(2026-11-15)M12 四车道:W 族收尾 + EXT 全清 + Config face + 4a 插入侧 ✅ ctest 20/20 ×5
+
+- **批 138 eNodes W 族收尾 + 应用族(W 19/20)**:96f80a 旗位面
+  (+0x60 modeC∈[10,11] 门/440f8 字面)/96fb1e 清偿(4423x ref 双降
+  链+deallocate)/96d89e QHash 收集/92601a+926356+9263fa 组播底座
+  真身;EditorEngine 0x75e4 升真身/0x75aa 前奏/0x7581 rs·re 面/
+  0x75c8 勘正 -1/0x75f6 接 96d89e;y 组 11 断言。余 inner 词法面
+  96f782/96f6fe cited;0x7545 按任务书未碰。
+- **批 139 EXT 叶全清(34 条:真身 2/cited 32)**:差集重 derive
+  勘正任务书"17 叶"起点;真身 0x4ed5 exchangeCaretAnchor(975bf2→
+  96c212 两节点对换)/0x4ec2 lexer 门(926e6a;**dispatch 门勘误
+  修复:20162 落 SCI/EXT 边界下沿,原 cmd>=20163 漏叶**);cited 32
+  逐条带锚(大小写状态机/formatter 门/encoding face/fold 等,需
+  EditorContext 头扩展的字段族均未动头);z 组 8 断言。
+- **批 140 CGlobalConfigFace + menu() 容器型校正**:face 落库
+  (groupNames() = FUN_005df958 +0xa8 串表遍历,滤 "::" 前缀;双
+  instance() 库内唯一副本防跨 DSO 双份);**基类归属实读勘正:两
+  Config 单例基构造 = FUN_008a71e4 CGlobalConfig,侦察候选
+  SharedConfig 系独立 0x18B 小类非基类 → face 平铺不发明树**;
+  KitWindowFace menu() 虚返回 void*→CGlobalConfigFace*(批 133
+  风险条款兑现);mwctest d3/d4(身份恒同/Editor≠Terminal/空表
+  机制原样)。
+- **批 141 4a 注册表 Logger 插入侧**:insertLoggerSession 转写
+  FUN_007da228(size==5 卫/toInt×3+toString×2 对位/失败拆除腿);
+  **任务书判读勘正(三源):FUN_007da228 = +0x40 Logger 表插入侧,
+  非 Term**;信号 FUN_00912264 = loggerCreated(qmo idx5);建腿
+  007c1b38/007c24c8(5980B)cited;reginserttest 插入→移除往返
+  (ctest 19→**20**)。
+- 验证:四车道独立门 + 主控顺序合流(138→141→140→139;cherry-pick
+  零冲突;y/z 组插入锚错开);主仓终门 ctest 20/20 ×5 + dlopen OK。
 
 ## 已实证(v1,2026-10-28)
 

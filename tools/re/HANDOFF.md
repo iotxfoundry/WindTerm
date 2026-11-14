@@ -8,9 +8,23 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-14 第二十七次交接,批 136b · M11 达成)
+## 一句话状态(2026-11-15 第二十八次交接,批 141 · M12 达成)
 
-**M11「eNodes 建模 + 扩谱五批」达成(用户定),车道停开**:①eNodes
+**M12「eNodes 收尾 + EXT 全清 + Config face + 4a 插入侧」达成(用户
+定,四车道并行),车道停开**:①eNodes W 族 **19/20**(余 inner 词法
+面 96f782/96f6fe cited)+ 0x75e4/75aa/7581/75c8/75f6 应用族真身
+(批 138)②EXT 叶全清 **34 条**(真身 2/cited 32;0x4ec2=20162 门
+漏叶勘误;差集重 derive 勘正"17 叶"起点,批 139)③CGlobalConfigFace
++ menu() 容器型定案(**两 Config 单例基构造 = FUN_008a71e4
+CGlobalConfig,SharedConfig 系独立小类非基类**——侦察候选被 ctor
+首句实读勘正;批 140)④4a 注册表 **Logger 表**插入侧
+insertLoggerSession(FUN_007da228;**任务书"Term 表"判读被三源
+勘正**;Term/Commander 插入侧仍挂账,批 141)。ctest 19→**20**
+(reginserttest);主仓终门 20/20 ×5 + dlopen OK。
+此前:M11(136/137/136b)、M10(134/135)、M9(132/133)、M8 文档
+整备、M1-M7。
+
+**M11「eNodes 建模 + 扩谱五批」达成(批 136/137/136b)**:①eNodes
 建模(ENodes.h W 族 13/20;EditorContext 键型勘正 int;6 条 cited 腿
 激活 + 0x754f 误接勘误)②扩谱五批 EXT 段余量 32 条(真身 6/cited 26,
 17 叶登记余量)③**批 136b 主控布局勘正**:ENodeTask 虚 D1 编译器
@@ -87,21 +101,24 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4eff 激活形态 = 预编译缺省语法(引擎硬编码,无参数化入口) | 批 110(face 定案) | 批 109 传参假定 |
 | 0x7555/7557 非批 77 同体 | 批 130(清点) | 批 77 清点 |
 | dat_d15860 = 编译环境 face(fold 表非恒等) | 批 110 | 主控批 109 静态转储初判 |
+| FUN_007da228 = +0x40 **Logger** 表插入侧(三源:ctor vtable/loggerRemoved 配对/qmo idx5) | 批 141 | 批 141 任务书判读"Term 表" |
+| 两 Config 单例基构造 = FUN_008a71e4 **CGlobalConfig**;SharedConfig = 独立 0x18B 小类非基类 → face 平铺 | 批 140(ctor 首句实读) | 批 138 侦察:SharedConfig 基类候选 |
+| 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 
-## 现役队列(批 132 入口,按需开批)
+## 现役队列(批 141 后,按需开批)
 
-1. **巨 switch 扩谱续批**:余 ~18 条(批 125/126/129/130 模式可复制;
-   深腿留账:0x7545 序列化导出 892B+707B trie 收集/0x7588 行内游走/
-   0x75a8 hex 臂 +0x10a0 obj/0x75cb·cc eNodes 键型失配/0x75e4·75aa
-   节点应用族待节点层建模/0x7545 收集腿真值路径)
-2. **KitWindow 转写车道**:照 tools/re/KITWINDOW-RECON.md 方案书
-   直执(KitWindowFace 壳 + showConfigMenu 三段真身;免侦察)
-3. **Phase 4a 注册表插入侧**(批 29 A3 挂账)/ Phase 4c SplitterGroup
-   余项 / 触发器·词法
-4. **Phase 5c 会话持久化对比**(PLAN 终点;需我方可运行应用 —
-   Phase 4c 前置)
-5. 0x4eff 余项:DAT_011becc8 运行时观察(批 110 观察项)/scanMask
-   活性接线后的原版侧对表(需 UI 向量,未试)
+1. **KitWindow 宿主接线批(Phase 4c)**:kitWindowAttachPage 于
+   FUN_0075e3fe 对位恢复路径;CGlobalConfig yaml 装载腿
+   (008a99de/008aa39e)cited 真身化 + CTerminalConfig 双 Meyers
+   合一(KITWINDOW-RECON 未解余项)
+2. **0x7545 序列化真值路径**(节点层已就位;收集腿 892B+707B)
+3. **注册表余量**:Term(+0x20)/Transfer(+0x28)/Commander(kind0)
+   插入侧语料未定位挂账;logger 建腿 007c1b38/007c24c8(5980B)
+   真身化(插入了裸 QObject 占位)
+4. **W 族尾**:96f782/96f6fe inner 词法面;0x75e4 刷新深腿
+   (00a1fb0e/00a1fbaa)
+5. Phase 4c SplitterGroup 余项 / Phase 5c 会话持久化对比(需我方可
+   运行应用)/ 0x4eff DAT_011becc8 运行时观察
 
 ## 已知开放问题
 
@@ -113,7 +130,7 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 
 ## 环境速查
 
-- ctest 门:`cd build && ctest`(19 项;engtest3 ctest 态间歇 —
+- ctest 门:`cd build && ctest`(**20 项**;engtest3 ctest 态间歇 —
   直跑复核;wordsteptest transient 已根治,批 128)。
 - RE 探针:tools/re/metatest/(手工 g++;**改含内联成员的头后必须
   重编**,踩坑 15)。
