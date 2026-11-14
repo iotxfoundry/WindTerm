@@ -537,19 +537,18 @@ public:
 	}
 	// FUN_0092e5e8(280B)@0030.c:29237:kind 应用(0x7581 false 腿/
 	//   00a28316 承接)。rec=null 腿:现存 → 9264ba+926356(0x3f0
-	//   组播 cited)+9263fa+92e524;rec≠null:查/建 → 96d022(rec
-	//   属性比对 — a837f6 cited,ENODES-RECON 未解 #1 → 语料
-	//   rec==null 时恒 true 早返同相;rec!=null 恒 false 续行同相
-	//   壳)→ 现存停广播+96fb1e 清偿 → 96f80a 插 → 96d620 → 92596c。
+	//   组播,批 138 真身)+9263fa(经 9264ba)+92e524;rec≠null:
+	//   查/建 → 96d022(rec 属性比对 — a837f6 cited,ENODES-RECON
+	//   未解 #1 → rec!=null 恒 false 续行同相壳)→ 现存停广播+
+	//   96fb1e 清偿 → 96f80a 插 → 96d620 → 92596c。
 	void eNodeApplyScan(int kind, const void *rec, qint64 rs, qint64 re)
 	{
 		wt::ENodeScan *t = eNodeFindScan(kind, 0);
 		if (rec == nullptr) {
 			if (t != nullptr) {
 				eNodeStopOne(t);                 // 9264ba
-				// 926356(cmd 0x3f0 组播)— cited — wave-2(底座
-				//   92601a 监听者面未建模,ENODES-RECON 未解 #2)
-				// 9263fa(kind 组播)— cited — wave-2
+				eNodeEmit0x3f0(                  // 926356(cmd 0x3f0,批 138 真身;
+				    quint64(rs), quint64(re));   //   载荷 p3=rs/p4=re 调面字面)
 				eNodeClearKind(kind, 0);         // 92e524
 			}
 			return;
@@ -562,24 +561,53 @@ public:
 			eNodeStopOne(t);                     // 9264ba
 			t->runClear0096fb1e();               // 96fb1e 旧 run 清偿
 		}
-		// 96d022(rec 属性比对;rec!=null 壳 → 恒不早返)→ 96f80a
+		// 96d022(rec 属性比对;rec!=null → 恒不早返同相壳)→ 96f80a
 		t->runInsert0096f80a(rec, -1);
 		t->dirtyClamp0096d620(rs, re);           // 96d620
 		eNodeDispatch(t);                        // 92596c
 	}
+	// FUN_0092601a(46B)@0030.c:21386:emit 底座 — E+0x70..+0x78
+	//   监听者 QList 遍历,逐项 `(**(obj vptr+0x38))(obj, evs)`。
+	//   监听者挂接面(ENODES-RECON 未解 #2)未建模 → 空表零迭代
+	//   同相;事件载荷销毁面 924f02(35B@19894:槽 ref 双降)—
+	//   本批登记,eNodeEmitKind/0x3f0 直调此空底座。
+	void eNodeEmitDispatch()
+	{
+		// E+0x70 监听者表未建模(未解 #2)→ 零迭代同相
+	}	// FUN_00926356(140B)@0030.c:21542:cmd 0x3f0 组播(SciSchemeChange
+	//   事件 0x38:new(1,1,vt=935bf3)+FUN_00a1c7cc(ev,0x3f0,p3,p4)+
+	//   vt→935d9d + 92601a + 尾 924f02)— 批 138 真身(cmd 字面 +
+	//   底座接线;监听者空表 → 零投递同相)。
+	void eNodeEmit0x3f0(quint64 a3, quint64 a4)
+	{
+		Q_UNUSED(a3); Q_UNUSED(a4);   // 事件载荷(+0x18=p4/+0x20=p3)
+		eNodeEmitDispatch();          // 92601a 底座
+	}
+	// FUN_009263fa(168B)@0030.c:21570:kind∈[5,7] 组播 — cmd 门字面:
+	//   6 → 0x3f9;否则 0x3f8 + (kind==7)*2(语料 `(c=='\a')+0x3f8+
+	//   (uint)(c=='\a')`);SciHighlight 事件 0x28(00a1c584)+ 92601a
+	//   + 924f02 — 批 138 真身。
+	void eNodeEmitKind(qint8 kind)
+	{
+		if (quint8(kind - 5) >= 3)    // (byte)(param_2-5)<3 门
+			return;
+		const int cmd = (kind == 6)
+		    ? 0x3f9
+		    : 0x3f8 + 2 * int(kind == 7);   // 0x3f8+(c==7)+(c==7) 字面
+		Q_UNUSED(cmd);                // SciHighlight ev — 底座同上
+		eNodeEmitDispatch();
+	}
 	// FUN_009264ba(81B)@0030.c:21608:停广播(非零 stopped 跳 →
 	//   ScanTask → 9263fa kind∈[5,7] emit → 9637ea 停机)。
-	//   emit 底座 92601a(E+0x70 监听者列表 vt+0x38 调)—— 监听者
-	//   挂接面未建模(ENODES-RECON 未解 #2)→ 组播腿 cited。
+	//   组播腿 9263fa 批 138 真身化(底座 92601a 零监听同相)。
 	void eNodeStopOne(void *v)
 	{
 		if (v == nullptr || static_cast<wt::ENodeTask *>(v)->stopped != 0)
 			return;
 		auto *t = static_cast<wt::ENodeTask *>(v);
 		auto *scan = dynamic_cast<wt::ENodeScan *>(t);   // __dynamic_cast 4b0→588
-		if (scan != nullptr && quint8(scan->kind - 5) < 3) {
-			// 9263fa(kind∈[5,7] → cmd 0x3f9/0x3f8/0x3f9 组播)— cited — wave-2
-		}
+		if (scan != nullptr)
+			eNodeEmitKind(scan->kind);       // 9263fa(kind 字面门内组播)
 		t->stop009637ea();
 	}
 	// FUN_0092e44e(195B)@0030.c:29141:0x754d 全停(++E+0x128;

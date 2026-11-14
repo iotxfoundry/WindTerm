@@ -15,6 +15,9 @@
 //    *(p+0x18)+0x12c 计数),非 0。
 //  - 96f606 不调 9637b8;92b56e 落 kind==8 才调(方案书骨架笔误)。
 #include <QVector>
+#include <QHash>
+#include <QString>
+#include <QArrayData>
 #include <QRunnable>
 #include <QtGlobal>
 
@@ -168,9 +171,10 @@ struct ENodeScan : ENodeTask {
 	}
 	// FUN_0096f80a(306B)@0031.c:44074:run 列表插入(idx=-1 尾插;
 	//   kind==7 → +0x4c 计数)+ 0x60/61/62 旗位 |= record 首字节
-	//   位面(b&1 / b>>1&1 / b>>4&1)—— record 载荷布局未读
-	//   (ENODES-RECON 未解 #1)→ 旗位面 cited;尾 FUN_0096f782
-	//   (135B)整理面 cited。
+	//   位面(b&1 / b>>1&1 / b>>4&1;批 138 旗位真身:@44074 语料
+	//   `pbVar2=(byte*)*param_2; bVar1=*pbVar2` — modeC∈[10,11]
+	//   才 +0x60 |= b&1;+0x61/62 恒置)。尾 FUN_0096f782
+	//   (135B 整理面)仍 cited — wave-2(96c934/96cb* inner 面)。
 	void runInsert0096f80a(const void *rec, int idx)
 	{
 		if (rec == nullptr)
@@ -181,19 +185,71 @@ struct ENodeScan : ENodeTask {
 		anchorRunsFace();
 		if (modeC == 7)
 			*(reinterpret_cast<quint32 *>(&f48) + 1) = quint32(runsSlots.size()); // +0x4c
-		// +0x60/61/62 旗位(record 首字节位面)— cited — wave-2
+		const quint8 b = *static_cast<const quint8 *>(rec);   // 440e4 bVar1
+		quint8 *fb = reinterpret_cast<quint8 *>(&f60);        // 0x60/61/62 旗位字节
+		if (quint32(modeC) - 10 < 2)                          // [10,11] 门
+			fb[0] |= quint8(b & 1);                           // +0x60
+		fb[1] |= quint8((b >> 1) & 1);                        // +0x61(恒)
+		fb[2] |= quint8((b >> 4) & 1);                        // +0x62(恒)
 		// FUN_0096f782 — cited — wave-2
 	}
-	// FUN_0096fb1e(245B)@0031.c:44231:列表清偿(0x20 记录逐项
-	//   +0x18/+8 解引用计数链 — record 载荷未读 → cited)+ 尾:
-	//   end=begin、*(u16*)(+0x61)=0、FUN_0096f6fe(131B scanner
-	//   复位,inner+8 解引面)— 壳态 inner=nullptr → cited。
+	// FUN_0096fb1e(245B)@0031.c:44231:列表清偿(0x20 记录逐项:
+	//   +0x18 QArrayData qatomic_int_deref → 0 → QArrayData::
+	//   deallocate(2,8);+0x08 对象 ref@+8 降 0 → vt+0x10 槽、
+	//   ref@+0xc 降 0 → vt+0x18 槽 — 批 138 清偿真身 @4423x)+
+	//   尾:end=begin、*(u16*)(+0x61)=0、FUN_0096f6fe(131B scanner
+	//   复位;首行解引 inner(+0xa8)→ 壳态 null 不可达 → cited,
+	//   其尾 926356/9263fa 组播已真身化见 EditorContext 广播族)。
 	void runClear0096fb1e()
 	{
+		for (void *slot : runsSlots) {   // 0x20 步进(承载替 slots)
+			char *rec = static_cast<char *>(slot);
+			if (rec == nullptr)          // 语料槽恒记录;空槽防御同相
+				continue;
+			void *d = *reinterpret_cast<void **>(rec + 0x18);
+			if (d != nullptr && --*static_cast<int *>(d) == 0)
+				QArrayData::deallocate(static_cast<QArrayData *>(d),
+				    2, 8);                   // 44247 语料字面
+			void *o = *reinterpret_cast<void **>(rec + 0x08);
+			if (o == nullptr)
+				continue;
+			int *r8 = reinterpret_cast<int *>(static_cast<char *>(o) + 8);
+			if (*r8-- == 1) {        // 旧值==1 → vt+0x10 槽(4425x)
+				using Fn = void (*)(void *);
+				reinterpret_cast<Fn>(*reinterpret_cast<void **>(
+				    *static_cast<void **>(o) + 0x10))(o);
+				int *rc = reinterpret_cast<int *>(
+				    static_cast<char *>(o) + 0xc);
+				if (*rc-- == 1)      // 旧值==1 → vt+0x18 槽(4427x)
+					reinterpret_cast<Fn>(*reinterpret_cast<void **>(
+					    *static_cast<void **>(o) + 0x18))(o);
+			}
+		}
 		runsSlots.clear();
 		anchorRunsFace();         // 语料 end=begin(+0x38=+0x30)
 		*reinterpret_cast<quint16 *>(reinterpret_cast<quint8 *>(&f60) + 1) = 0; // +0x61
-		// 0x20 记录解引清偿 + 96f6fe scanner 复位 — cited — wave-2
+		// FUN_0096f6fe — cited — wave-2(inner +0xa8 壳态 null 不可达)
+	}
+	// FUN_0096d89e(357B)@0031.c:42715:run 列表 → QHash<QString,dptr>
+	//   收集(0x75f6/0x7545 消费面)。0x20 记录 +0x18 = QString::d;
+	//   d->size(+4)==0 跳过(42735 门);键/值同 d(QHash 插入共享
+	//   引用,d unref 面由 QHash 键析构承接 — QString 单指针 Qt5
+	//   布局,dptr 重建同构)。消费腿 933830 词表差分仍 cited。
+	void runCollect0096d89e(QHash<QString, void *> &out) const
+	{
+		for (void *slot : runsSlots) {
+			const char *rec = static_cast<const char *>(slot);
+			if (rec == nullptr)          // 空槽防御(壳态承载替)
+				continue;
+			void *d = *reinterpret_cast<void *const *>(rec + 0x18);
+			if (d == nullptr)
+				continue;
+			if (*reinterpret_cast<const int *>(
+			        static_cast<const char *>(d) + 4) == 0)
+				continue;                // 42735 d->size==0 门
+			out.insert(*reinterpret_cast<const QString *>(
+			    static_cast<const void *>(&d)), d);   // 4274x 插入
+		}
 	}
 };
 
