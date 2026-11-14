@@ -32,6 +32,8 @@
 // 0019.c:22268)— 与 CGlobalConfig 继承链语料未证 → face 平铺落
 // CGlobalConfig 名下,不发明继承树(铁律 6;任务书条款兑现)。
 
+#include <QByteArray>
+#include <QCoreApplication>
 #include <QList>
 #include <QString>
 #include <QVariant>
@@ -50,14 +52,33 @@ class SharedConfigHandlerFace
 {
 public:
 	SharedConfigHandlerFace() = default; // FUN_008aabae:全零 + QVariant 缺省
+	~SharedConfigHandlerFace()
+	{
+		clearChildren();      // cglobalconfig_destructor_full(8355B,0027.c:61390)
+		delete[] m_begin;     //   子树+数组消偿面 cited(8355B 不逐句;语义 = 空表)
+	}
 
-	SharedConfigHandlerFace *m_begin = nullptr; // children begin(语料 +0x08)
-	SharedConfigHandlerFace *m_end = nullptr;   // children end(语料 +0x10;
-	                                            //   容器视角 +0x38 = FUN_00692ef0
-	                                            //   迭代终判读位)
-	SharedConfigHandlerFace *m_cap = nullptr;   // children cap(语料 +0x18)
+	// FUN_008accc8(324B,0027.c:66458):new 子节点(键 QVariant@+0x20 ←
+	// QByteArray(FUN_008aabae 尾段转写;FUN_006926c2 键面同相)+ 父指针
+	// @+0x28 ← 本节点(@008acc82 local_70[5]=param_2))→ push 入 children
+	// 末位;满则重配(FUN_008ac9d0 299B cited — 扩容腿语义 = 末位插入,
+	//   增长因子语料内部未读)→ 返回新子节点(返回迭代器 face:ret[1] =
+	//   新子槽位 @008acd2x 实读,**(iter+8) = 子节点,FUN_008a971e 消费同相)。
+	SharedConfigHandlerFace *appendChild(const QByteArray &key);
+
+	// FUN_008aaae2(126B,0027.c:64240):children 递归消偿 — 逐子递归 +
+	// 析构 + operator_delete;end 回退 begin(begin/cap 保留,重配复用面)。
+	void clearChildren();
+
+	SharedConfigHandlerFace **m_begin = nullptr; // children begin(语料 +0x08)
+	SharedConfigHandlerFace **m_end = nullptr;   // children end(语料 +0x10;
+	                                             //   容器视角 +0x38 = FUN_00692ef0
+	                                             //   迭代终判读位)
+	SharedConfigHandlerFace **m_cap = nullptr;   // children cap(语料 +0x18)
 	QVariant m_value;                           // 键/值 QVariant(语料 +0x20;
 	                                            //   QString 键面见 FUN_006926c2)
+	SharedConfigHandlerFace *m_parent = nullptr; // 语料 +0x28(FUN_008accc8
+	                                             //   @008acc82 挂父写位)
 };
 
 // CGlobalConfigFace — menu() 返回容器 face(两腿单例公共基,见头注)。
@@ -80,8 +101,7 @@ public:
 	// 0019.c:22770,实参 = Editor 单例 DAT_011c12e0):遍历 +0xa8 QList,
 	// 元素 entry+8 char* → QString::fromUtf8_helper(@005df9a3)→ 非空
 	// (@005df99b,size!=0)且 startsWith("::",cs=1) 为假(@005dfa46-4a)
-	// 才 append(@005dfa6f-83)。entry 对象/装载链(FUN_008aa39e/
-	// s_FilterEdit_8a9d3c 各 800B)cited → 表运行期恒空,机制原样。
+	// 才 append(@005dfa6f-83)。
 	QList<QString> groupNames() const
 	{
 		QList<QString> out; // *param_1 = shared_null @005df96a
@@ -99,7 +119,59 @@ protected:
 	                               //   未落成员 cited)
 	~CGlobalConfigFace() = default;
 
-	SharedConfigHandlerFace m_groups;    // 语料 +0x28(FUN_008a71e4 [5])
+public:
+	// === yaml 装载腿真身(批 142;委托真 yaml-cpp,EXT-BOUNDARY/ConfigBridge
+	// 判例 — 解析器实现不逆向,装载编排 = 语料函数转写)===
+
+	// FUN_008a58f0(390B,0027.c:60279)configPath 面:applicationDirPath()
+	// + "/configs/menu.config"(DAT_00cb9da0 二进制实读;0x17 腿 = "/configs/
+	// toolbar.config" @DAT_00cb9d40)+ vt+8(selfName)→ toLower 拼尾。
+	// 返回完整路径(库内只消费最终串;语法面 = 三段拼接同相)。
+	QString configPath(const char *tail, int tailLen) const
+	{
+		QString path = QCoreApplication::applicationDirPath(); // @008a5923
+		path += QStringLiteral("/configs/");                   // DAT_00cba75c 后缀段实读
+		const char *self = configSelfName();                   // vt+8 vcall @008a594e
+		path += QString::fromLatin1(self) .toLower();          // @008a5967-81(toLower)
+		path += QString::fromLatin1(tail, tailLen);            // @008a5986-8e
+		return path;
+	}
+
+	// 虚 vt+8 槽:CGlobalConfig 基 vtable 槽 1(+0x08)= __cxa_pure_virtual
+	// (0xbec350 vtable 实读)→ 子类提供类名(消费面 = configPath toLower)。
+	virtual const char *configSelfName() const = 0;
+
+	// FUN_008a99de(800B,0027.c:63432)yaml 装载腿 — Groups(+0x28):
+	// S1 configPath(menu.config)@008a9a1d;S2 yaml_loadFile @008a9a5d
+	// (cVar5 结果透传,失败 → 直返不触摸树);S3 FUN_008aaae2(+0x28)
+	// 清树 @008a9add;S4 顶层 sequence 逐元素:组键 QByteArray←元素
+	// (@008a9b21 operator=)→ FUN_008accc8(+0x28,键)挂树(@008a9b2b)
+	// → FUN_008af4760(树,根值,"键" std::string)下钻(@008a9b6e)
+	// → FUN_008a971e(646B,0027.c:63338)元素内嵌 Actions 面转写:
+	//   每 entry {Action|Menu|Separator}:kind 位面(0x08 byte)+ 名串
+	//   (@008a9836/008a9910/008a98ca)+ 子节点挂 FUN_008accc8 @008a9873
+	//   + Menu 节点 "Actions" 子序列递归(@008a9990)。
+	// yaml-cpp 委托:LoadFile 解析 + 根 sequence 遍历;根非 sequence 或
+	// 文件不可读 → false 同相(@008a9a6a 直返腿)。
+	bool loadGroups();
+
+	// FUN_008aa39e(800B,0027.c:63770)yaml 装载腿 — Views(+0x60):
+	// 同 FUN_008a99de 全相(仅 +0x28→+0x60、tail=toolbar.config、下钻腿
+	// s_FilterEdit_8a9d3c(1489B,0027.c:63575)七 kind 位面转写:Action
+	// 3/ToolBar 2/Label 4/Separator 0/Spacer 1/AddressBar 5/FilterEdit 6
+	// @008a9dcf-008a9b21 区段;Separator 名=asCString 缺省 "",
+	// Action 的 Menu/Popup 名腿 + Columns nibble + Style QMetaEnum 低位)。
+	bool loadViews();
+
+	// FUN_008aa896(78B,0027.c:64033)装载编排校验尾:vt+0x18 vcall &
+	// vt+0x28 vcall(thunk_FUN_008aa6fc 同体直调:reopen.history 读腿
+	// cited — QFile+QDataStream 消费面,+0x98 map "recent" cap 999)四路
+	// AND 返回。yaml 两腿真身化后 = loadGroups & loadViews;vt 两槽 cited。
+	bool ensureLoaded();
+
+	SharedConfigHandlerFace m_groups;    // 语料 +0x28(FUN_008a71e4 [5];
+	                                     //   yaml 装载腿根)
+	SharedConfigHandlerFace m_views;     // 语料 +0x60(FUN_008a71e4 [0xc])
 	QList<void *> m_configEntries;       // 语料 +0xa8(两 ctor 均 shared_null:
 	                                     //   FUN_005df8ae [0x15]/FUN_00809b90
 	                                     //   [0x15];元素 entry 对象 cited)
@@ -118,6 +190,7 @@ public:
 
 private:
 	CEditorConfigFace() = default; // FUN_005df8ae(基构造 + 字段缺省同相)
+	const char *configSelfName() const override { return "Editor"; } // vt+8 槽(消费面 = configPath toLower "editor";类名 0xc8c5d0)
 };
 
 // CTerminalConfigFace — Terminal 腿 menu() 视图(语料同一单例对象
@@ -125,15 +198,24 @@ private:
 // 两面共存见 KitWindowFactory.cpp terminalConfigAsFace 注记;ctor
 // FUN_00809b90 432B,0025.c:43201 = FUN_008a71e4 基 + vtable 换写 +
 // +0xa8 shared_null + 值面成员族)。Meyers FUN_00809d78(121B,
-// 0025.c:43289)同 Editor 腿形态(instance() 体同在 cpp 侧)。
+// 0025.c:43289)同 Editor 腿形态(见下批 142 合一注)。
+// CTerminalConfigFace — Terminal 腿 menu() 视图。批 142 双 Meyers 合一:
+// 语料 CTerminalConfig 单例对象 DAT_011c2220 = menu() 容器本体(FUN_00858fce
+// 返回 FUN_00809d78 结果,同址)— CTerminalConfig 私有继承本 face,
+// 不再有独立静态 face 对象(容器面由 CTerminalConfig::face() 回同一对象)。
+// ctor FUN_00809b90 432B,0025.c:43201 = FUN_008a71e4 基 + vtable 换写 +
+// +0xa8 shared_null + 值面成员族。
 class CTerminalConfigFace : public CGlobalConfigFace
 {
 public:
-	static CTerminalConfigFace *instance(); // FUN_00809d78 face 视图(cpp 侧)
+	// 语料无独立 Meyers(FUN_00809d78 返回 CTerminalConfig 单例 = 本 face
+	// 子对象);合一后由 CTerminalConfig::face() 承载(批 142)。
 
 private:
 	CTerminalConfigFace() = default; // FUN_00809b90(基构造 + 字段缺省同相;
 	                                 //   值面成员族在 CTerminalConfig 真单例)
+	const char *configSelfName() const override { return "Terminal"; } // vt+8 槽(消费面 = configPath toLower "terminal";类名 0xcb1163)
+	friend class CTerminalConfig;
 };
 
 #endif // CGLOBALCONFIGFACE_H

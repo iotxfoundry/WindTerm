@@ -19,10 +19,24 @@
 #include <QString>
 #include <QVariant>
 
-class CTerminalConfig
+#include "CGlobalConfigFace.h"
+
+// 批 142 双 Meyers 合一形态:CTerminalConfig 私有继承 CTerminalConfigFace
+// (组合/包装形态 — 不发明虚继承树;语料 = 基构造 + vtable 换写,即
+// CTerminalConfig IS-A CGlobalConfig,这里以 face 私有基承载同一事实)。
+// 值面(m_values 族,SESSION-CONFIG-LAYER 先批)与容器面(+0x28/+0x60
+// handler、+0xa8 entries)共存于同一对象,menu() 容器 = 单例本体。
+class CTerminalConfig : private CTerminalConfigFace
 {
 public:
 	static CTerminalConfig *instance();   // FUN_00809d78
+
+	// 批 142 双 Meyers 合一(KITWINDOW-RECON §未解 1 收口):语料
+	// CTerminalConfig 单例对象 IS-A CGlobalConfig 基(两 ctor 首句同
+	// FUN_008a71e4,CGlobalConfigFace.h 头注)→ 值面单例私有继承
+	// CTerminalConfigFace,face() 返回同一对象的 face 面(menu() 容器 =
+	// 值面单例本体,FUN_00858fce/DAT_011c2200 同址语义)。
+	static class CTerminalConfigFace *face();
 
 	void setConfigPath(const QString &path);   // wind.config 位置
 	void setOverridePath(const QString &path);   // user.config 覆写层(CONFIG-SCHEMAS 装载顺序)

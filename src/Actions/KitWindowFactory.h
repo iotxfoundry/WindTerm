@@ -72,6 +72,12 @@ void kitWindowAttachPage(MainWindowFace::Slots host, QMainWindow *mainWindow,
                          const QString &type, bool select,
                          const QByteArray &hints, int hintValue);
 
-// Terminal 腿 face 转接(批 140):语料 CTerminalConfig 单例对象 =
-// menu() 容器(KitWindowFactory.cpp 注记;KITWINDOW-RECON §未解 1 余项)。
+// FUN_0075e3fe(332B,0023.c:27332)对位恢复路径(批 142 宿主接线):
+// window_activeMainPane()==0 腿 → FUN_007665ae("Terminal" 首页);
+// pane 活动腿(几何恢复)不在本面(cited)。
+void kitWindowRestoreFirstPage(MainWindowFace::Slots host, QMainWindow *mainWindow);
+
+// Terminal 腿 face 转接(批 140;批 142 双 Meyers 合一 — 同一单例的
+// face 基面):语料 CTerminalConfig 单例对象 = menu() 容器
+// (KitWindowFactory.cpp 注记;KITWINDOW-RECON §未解 1 收口)。
 CGlobalConfigFace *terminalConfigAsFace();

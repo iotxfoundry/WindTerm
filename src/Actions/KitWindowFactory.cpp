@@ -1,48 +1,49 @@
 #include "KitWindowFactory.h"
 
+#include <QApplication>
 #include <QStackedWidget>
 #include <QVariant>
 
 #include "KitBar.h"
+#include "MuxPane.h"
 #include "Editor/CGlobalConfigFace.h"
 #include "Editor/CTerminalConfig.h"
 
 // Terminal 腿面转接:语料 CTerminalConfig 单例对象(DAT_011c2220)即
 // menu() 返回容器(IS-A CGlobalConfig 基,CGlobalConfigFace.h 头注)。
-// CTerminalConfig 类字段面(Sessions 消费的值 API,先批落库)与容器
-// +0x28/+0xa8 字段族共存于同一语料对象;face 焊接点 = CTerminalConfigFace
-// Meyers(同址对位 FUN_00809d78 返回对象;终归一:值面与 face 面最终
-// 均回同一静态对象面 —— 两面合一属后续容器真身批,当前双 Meyers 与
-// 语料"一对象双面"差记 KITWINDOW-RECON §未解 1 余项)。
+// 批 142 双 Meyers 合一:CTerminalConfig 私有继承 CTerminalConfigFace,
+// face() = 同一单例的 face 基面(值面 + 容器面共一对象,不再双静态)。
 CGlobalConfigFace *terminalConfigAsFace()
 {
-	return CTerminalConfigFace::instance(); // DAT_011c2220 face 视图
+	return CTerminalConfig::face(); // DAT_011c2220 face 视图(= 单例本体)
 }
 
 // EditorWindowFace::menu — FUN_005e97d2(39B,0019.c:22781):
 //   DAT_011c12e0 懒缓存 → FUN_005df8d6(CEditorConfig Meyers 单例,face
-//   批 140 落库)→ FUN_008aa896 校验尾(cited)。单例身份恒同一对象 →
-//   一次缓存后恒返(DAT 懒缓存同相)。
+//   批 140 落库)→ FUN_008aa896 校验尾(批 142:两 yaml 装载腿真身化
+//   入 ensureLoaded)。单例身份恒同一对象 → 一次缓存后恒返(DAT 懒缓存同相)。
 CGlobalConfigFace *EditorWindowFace::menu()
 {
 	static CGlobalConfigFace *s_editorConfigSingleton = nullptr; // DAT_011c12e0
-	if (s_editorConfigSingleton == nullptr)
+	if (s_editorConfigSingleton == nullptr) {
 		s_editorConfigSingleton = CEditorConfigFace::instance(); // FUN_005df8d6 @005e97da
+		s_editorConfigSingleton->ensureLoaded();                 // FUN_008aa896 @005e97e2
+	}
 	return s_editorConfigSingleton;                 // @005e97d6 非空直返
 }
 
 // TerminalWindowFace::menu — FUN_00858fce(39B,0026.c:50296):
 //   DAT_011c2200 懒缓存 → FUN_00809d78(= CTerminalConfig::instance(),
-//   src/Editor/CTerminalConfig.cpp 已落库)→ FUN_008aa896 校验尾
-//   (cited)。语料单例 IS-A CGlobalConfig 基(两 ctor 首句同
-//   FUN_008a71e4;src/Editor/CGlobalConfigFace.h 头注)→ CTerminalConfig
-//   经 face 转接面回 CGlobalConfigFace(批 140 焊接;其值面仍走真单例)。
+//   src/Editor/CTerminalConfig.cpp 已落库)→ FUN_008aa896 校验尾(cited;
+//   批 142 两 yaml 装载腿真身化入 ensureLoaded)。语料单例 IS-A
+//   CGlobalConfig 基(两 ctor 首句同 FUN_008a71e4)→ CTerminalConfig
+//   经 face 转接面回 CGlobalConfigFace(批 142 双 Meyers 合一:同一对象)。
 CGlobalConfigFace *TerminalWindowFace::menu()
 {
 	static CGlobalConfigFace *s_terminalConfigSingleton = nullptr; // DAT_011c2200
 	if (s_terminalConfigSingleton == nullptr) {
-		CTerminalConfig::instance();               // FUN_00809d78 @00858fd6
-		s_terminalConfigSingleton = terminalConfigAsFace(); // DAT_011c2200 缓存
+		s_terminalConfigSingleton = terminalConfigAsFace(); // FUN_00809d78 @00858fd6(合一:face=单例本体)
+		s_terminalConfigSingleton->ensureLoaded();          // FUN_008aa896 @00858fde(装载校验尾)
 	}
 	return s_terminalConfigSingleton;               // @00858fd0 非空直返
 }
@@ -86,4 +87,31 @@ void kitWindowAttachPage(MainWindowFace::Slots host, QMainWindow *mainWindow,
 	if (select)
 		host.f58->setCurrentIndex(index); // param_3!=0 @0x766548→58b
 	host.f50->addKit(index, type, QString()); // FUN_008b346e @0x766565(icon=shared_null 空 QString)
+}
+
+// === kitWindowRestoreFirstPage — FUN_0075e3fe(332B,0023.c:27332)对位
+// 恢复路径(批 142 宿主接线;KITWINDOW-RECON Q4 接线结论兑现):
+//   语料 window_activeMainPane(105B,0023.c:25789)==0 腿 @0075e3fe-4a:
+//   无活动 pane → FUN_007665ae(122B,0023.c:33235)= s_HistoryHints
+//   ("Terminal",select=0,hints=shared_null,hintValue=1)—— "Terminal"
+//   首页建立;有活动 pane → saveGeometry/FUN_007669b2/FUN_00766c26 几何
+//   恢复腿(本接线域外,cited)。activeMainPane 门 = QApplication::
+//   activeWindow() 祖先链 dynamic_cast(MuxPane 面,011a69d0)@0075c0be。
+// 本接线 = 无 pane 腿挂 MainWindowFace::Slots(装配面判例 mwctest d1/d2);
+// 产品启动链(mainWindow_connectSignals 0076b9ec 第 3 步 FUN_0076663e →
+// FUN_007662e6 装配)无我方可运行消费点 → mwctest 级接线 + 报告,不发明
+// 启动路径(KITWINDOW-RECON Q4 同判)。
+void kitWindowRestoreFirstPage(MainWindowFace::Slots host, QMainWindow *mainWindow)
+{
+	QWidget *aw = QApplication::activeWindow(); // @0075c0be 首句
+	bool hasMainPane = false;
+	for (QWidget *w = aw; w != nullptr; w = w->parentWidget())
+		if (dynamic_cast<MuxPane *>(w) != nullptr) { // __dynamic_cast 011a69d0
+			hasMainPane = true;
+			break;
+		}
+	if (hasMainPane)
+		return; // activeMainPane!=0 → 几何恢复腿,页插不在本接线域
+	kitWindowAttachPage(host, mainWindow, QStringLiteral("Terminal"), false,
+	                    QByteArray(), 1); // FUN_007665ae:select=0/hints 空/hintValue=1
 }

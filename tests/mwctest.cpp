@@ -19,6 +19,7 @@
 #include "Actions/MuxPaneGroup.h"
 #include "Actions/TabGroup.h"
 #include "Editor/CGlobalConfigFace.h"
+#include "Editor/CTerminalConfig.h"
 
 int main(int argc, char **argv)
 {
@@ -241,6 +242,51 @@ int main(int argc, char **argv)
 		++fails; // 两腿异容器(语料双单例地址 011c1300/011c2220)
 	if (tmMenu1 != static_cast<CGlobalConfigFace *>(terminalConfigAsFace()))
 		++fails; // Terminal 腿返回 = face 转接单例(KitWindowFactory.cpp)
+
+	// ======== 批 142:yaml 装载腿 + 双 Meyers 合一 + 宿主接线 ========
+
+	// d5. 双 Meyers 合一(KITWINDOW-RECON §未解 1 收口):CTerminalConfig
+	//     单例与 face 容器 = 同一对象双面 — face() 返回值面单例本体
+	//     (私有基 upcast 同址;语料 FUN_00858fce 返回 FUN_00809d78 结果)。
+	if (static_cast<CGlobalConfigFace *>(CTerminalConfig::face())
+	    != static_cast<CGlobalConfigFace *>(tmMenu1))
+		++fails; // face 面 == menu() 返回容器面(合一判)
+	if (tmMenu1 == CEditorConfigFace::instance())
+		++fails; // Editor≠Terminal 恒(两 Config 异对象,语料 011c1300/011c2220)
+	CTerminalConfig *tval = CTerminalConfig::instance();
+	if (static_cast<CGlobalConfigFace *>(tval->face())
+	    != static_cast<CGlobalConfigFace *>(terminalConfigAsFace()))
+		++fails; // 值面单例的 face == terminalConfigAsFace(同址双面)
+
+	// d6. yaml 装载腿真身(批 142;真库委托):menu() 懒缓存腿已跑
+	//     ensureLoaded(FUN_008aa896 编排)。测试树 applicationDirPath
+	//     无 configs/menu.config → loadGroups/loadViews false 同相
+	//     (@008a9a6a 直返腿,树不触摸),不崩即机制面;groupNames()
+	//     (+0xa8 读面,批 140)不受装载腿影响(FUN_008a99de 只写
+	//     +0x28/+0x60,写面实读)→ 仍空表。
+	if (!static_cast<CEditorConfigFace *>(edMenu1)->groupNames().isEmpty())
+		++fails; // +0xa8 非装载腿目标(批 140 判保持)
+
+	// d7. 宿主接线(FUN_0075e3fe 无 pane 腿 → FUN_007665ae):装配面
+	//     (mwHost 链)无活动 MuxPane → "Terminal" 首页第三页挂入
+	//     (hints 空 → 无 setProperty 双腿;select=0 → 不改 currentIndex)。
+	kitWindowRestoreFirstPage(sl, &mwHost);
+	if (sl.f58->count() != 3)
+		++fails; // FUN_007665ae:Terminal 首页(s_HistoryHints "Terminal")
+	if (sl.f58->currentIndex() != 0)
+		++fails; // select=0 → setCurrentIndex 不触发(@0x766548 门)
+	if (sl.f58->widget(2) == nullptr
+	    || sl.f58->widget(2)->objectName() != QStringLiteral("TerminalWindow"))
+		++fails; // 第三页 = TerminalWindow face(s_TerminalWindow_859902)
+	if (sl.f58->widget(2) != nullptr && sl.f58->widget(2)->property("History").isValid())
+		++fails; // hints=shared_null → 双 setProperty 跳过
+	if (sl.f50->buttonForIndex(2) == nullptr)
+		++fails; // addKit 第三记(FUN_008b346e)
+
+	// d8. restore 无去重(语料 FUN_007665ae 无已存在检查)→ 二调再挂。
+	kitWindowRestoreFirstPage(sl, &mwHost);
+	if (sl.f58->count() != 4)
+		++fails; // 二调再挂(语料幂等性缺省同相 — 不发明去重)
 
 	delete edW;
 	delete buyW;

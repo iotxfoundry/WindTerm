@@ -13,9 +13,19 @@ CTerminalConfig::CTerminalConfig()
 
 CTerminalConfig *CTerminalConfig::instance()
 {
-	// FUN_00809d78: guard-protected Meyers singleton at DAT_011c2220
+	// FUN_00809d78: guard-protected Meyers singleton at DAT_011c2220.
+	// 批 142:同一对象承载值面 + CGlobalConfigFace 容器面(私有基),
+	// DAT_011c2220 双面同址语料形态。
 	static CTerminalConfig cfg;
 	return &cfg;
+}
+
+// CTerminalConfig::face — FUN_00858fce 对位真身(FUN_00858fce 39B,
+// 0026.c:50296:DAT_011c2200 懒缓存 ← FUN_00809d78):合一后 = 同一单例
+// 的 face 基面(无第二静态对象;upcast 同址)。
+CTerminalConfigFace *CTerminalConfig::face()
+{
+	return CTerminalConfig::instance(); // IS-A CTerminalConfigFace(私有基)
 }
 
 void CTerminalConfig::setConfigPath(const QString &path)
