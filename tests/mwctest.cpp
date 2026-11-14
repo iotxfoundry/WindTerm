@@ -20,6 +20,7 @@
 #include "Actions/TabGroup.h"
 #include "Editor/CGlobalConfigFace.h"
 #include "Editor/CTerminalConfig.h"
+#include "Actions/StartupChain.h"
 
 int main(int argc, char **argv)
 {
@@ -287,6 +288,26 @@ int main(int argc, char **argv)
 	kitWindowRestoreFirstPage(sl, &mwHost);
 	if (sl.f58->count() != 4)
 		++fails; // 二调再挂(语料幂等性缺省同相 — 不发明去重)
+
+	// ======== 批 149:启动链 ========
+
+	// s1. 链函数可调:FUN_007626ce 语料序(translator/配置读/恢复门/
+	//     失败腿/singleShot 尾)— 恢复门 FUN_0075ffcc cited 占位返回
+	//     "未恢复"同相 → 失败腿 kitWindowRestoreFirstPage 必走
+	//     (无 pane → "Terminal" 首页,d5-d8 判例形态)。
+	int before = sl.f58->count();
+	startupChain(sl, &mwHost);
+	if (sl.f58->count() != before + 1)
+		++fails; // 失败腿 = 建 "Terminal" 首页(@007628a7 FUN_0075e3fe)
+	if (sl.f58->widget(sl.f58->count() - 1) == nullptr
+	    || sl.f58->widget(sl.f58->count() - 1)->objectName()
+	       != QStringLiteral("TerminalWindow"))
+		++fails; // 新页 = TerminalWindow face(s_TerminalWindow_859902)
+
+	// s2. 恢复门失败同相:FUN_0075ffcc cited 占位恒 false → select=0
+	//     (FUN_007665ae select=0)→ currentIndex 不被链改动(d7 判同)。
+	if (sl.f58->currentIndex() != 0)
+		++fails; // 链不改选页(@007628a5-ab 门腿同相)
 
 	delete edW;
 	delete buyW;
