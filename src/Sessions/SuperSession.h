@@ -67,8 +67,11 @@ public slots:
 	void removeTransfer(const QUuid &transferUuid);
 	void removeLogger(const QUuid &loggerUuid);
 	// FUN_007da228 转写面(+0x40 Logger 表插入;信号 loggerCreated
-	// = 00912264 activate idx5,IMPL-ADDRESSES #5 权威)
+	// = 00912264 idx5)+ 批 144 插入面(Term=FUN_007d9776 共体
+	// Commander;Transfer=FUN_007daedc;信号 idx qmo 权威)
 	void insertLogger(const QUuid &loggerUuid, const QVariantList &settings);
+	void insertTerm(const QUuid &termUuid, const QString &name);
+	void insertTransfer(const QUuid &transferUuid, const QString &name);
 	void flushLogger(const QUuid &loggerUuid);
 	void pauseLogger(const QUuid &loggerUuid);
 	void resumeLogger(const QUuid &loggerUuid);
@@ -80,7 +83,7 @@ signals:
 	void stateChanged(King::SessionState oldState, King::SessionState state);
 	void errorOccurred(const QString &context, int code);
 	void commanderCreated(const QUuid &commanderUuid);
-	void termCreated(const QUuid &commanderUuid);
+	void termCreated(const QUuid &commanderUuid, const QString &name);
 	void transferCreated(const QUuid &transferUuid);
 	void loggerCreated(const QUuid &loggerUuid);
 	void loggerRemoved(const QUuid &loggerUuid);

@@ -21,6 +21,10 @@ void SuperSession::removeTransfer(const QUuid &id)   { if (m_d) m_d->removeRegis
 void SuperSession::removeLogger(const QUuid &id)     { if (m_d) m_d->removeRegistry(3, id); }
 void SuperSession::insertLogger(const QUuid &id, const QVariantList &settings)
                                                      { if (m_d) m_d->insertLoggerSession(id, settings); }
+void SuperSession::insertTerm(const QUuid &id, const QString &name)
+                                                     { if (m_d) m_d->insertTermSession(id, name); }
+void SuperSession::insertTransfer(const QUuid &id, const QString &name)
+                                                     { if (m_d) m_d->insertTransferSession(id, name); }
 void SuperSession::flushLogger(const QUuid &id)  { if (m_d) m_d->loggerOp(id, 0); }
 void SuperSession::pauseLogger(const QUuid &id)  { if (m_d) m_d->loggerOp(id, 1); }
 void SuperSession::resumeLogger(const QUuid &id) { if (m_d) m_d->loggerOp(id, 2); }

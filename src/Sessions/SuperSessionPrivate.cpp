@@ -241,30 +241,77 @@ void SuperSessionPrivate::linkCommanderSession(SuperCommander *commander,
 // FUN_007da228(475B,0025.c:7540)转写:Logger 表插入。
 // 入参核对(语料 @007da25a-2f1):param_3 = QVariantList(判空差
 // ==5)+ 五 QVariant —— toInt×3(cVar2/cVar3/uVar4)+ toString×2。
-// ctor FUN_007c1b38(90B,0024.c:30589):SessionLogger_vtable +
-// +0x10 session/+0x18 清零/+0x20..+0x30 QString 双槽/+0x38/+0x40
-// shared_ptr 清;腿体 FUN_007c24c8(5980B,0024.c:31047)体量大
-// 且下行层未开 → cited 引地址,不发明(铁律 3)。
+// ctor FUN_007c1b38(90B,0024.c:30589)= SessionLogger 字段初始化面
+// (批 144 转写,见 SuperSessionPrivate.h);腿体 FUN_007c24c8
+// (5980B,0024.c:31047)= spdlog logger/sink 建腿(spdlog 下行层
+// 外库边界,EXT-BOUNDARY)→ cited 引地址,不发明(铁律 3)。
 // 失败腿 vtable+0x20 拆除 @007da3d7 保留;成功腿 spinlock@+0x61 →
 // FUN_007e159e(this+0x40)插入 → FUN_00912264 = loggerCreated
-// (activate idx5;IMPL-ADDRESSES #5,0030.c:1683)。单线程重建
-// 免锁,注记照 007da178 判例。
+// (idx5;IMPL-ADDRESSES #5,0030.c:1683)。单线程重建免锁,注记
+// 照 007da178 判例。
 void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
                                               const QVariantList &settings)
 {
 	if (settings.size() != 5)  // 语料:*(int*)(l+0xc)-*(int*)(l+8)!=5 → return
 		return;
-	const int a0 = settings[0].toInt();   // @007da25a
-	const int a1 = settings[1].toInt();   // @007da262
-	const int a2 = settings[2].toInt();   // @007da26a
-	const QString s3 = settings[3].toString();  // @007da2dd
-	const QString s4 = settings[4].toString();  // @007da2ed
-	void *logger = new (std::nothrow) QObject();  // operator_new(0x48)@007da315
+	const int a0 = settings[0].toInt();   // @007da25a(cVar2,→腿体 param_4)
+	const int a1 = settings[1].toInt();   // @007da262(cVar3,→param_5)
+	const int a2 = settings[2].toInt();   // @007da26a(uVar4,→param_6)
+	const QString s3 = settings[3].toString();  // @007da2dd(→param_7)
+	const QString s4 = settings[4].toString();  // @007da2ed(→param_8)
+	// operator_new(0x48) @007da317 → FUN_007c1b38(logger, session, 0)
+	SessionLogger *logger = new (std::nothrow) SessionLogger(q);
 	if (!logger)
 		return;
-	// FUN_007c1b38 ctor + FUN_007c24c8 腿体(5980B)建腿 — cited
-	// (依赖 SessionLogger 下行层未开;体量引用地址,不发明)
+	// FUN_007c24c8 腿体(5980B):spdlog 建腿 — cited(spdlog 外库边界;
+	// 成功返回 1 才走插入腿 @007da3d7,此处按成功腿注册)
 	// 成功腿 @007da3d7:spinlock@+0x61(单线程免锁)→ 插入 +0x40
 	m_registry[3].insert(id, logger);      // FUN_007e159e(311B)QMap 插入原语
 	emit q->loggerCreated(id);             // FUN_00912264(42B,idx5)
+}
+
+// FUN_007d9776(1596B,0025.c:7110)转写:Term(+Commander)表插入。
+// 语料体:007d6cee 查 Commander 表既有节点 → 命中即复用(不再建);
+// 未命中 → option("session.protocol") qstricmp 分派便携 ctor 族
+// (Tcp 00876a16/Telnet 0085f520/SSH 008699b0/Serial 0086ff6c/Shell
+// 008750e6,对象 ≥0x128B)→ 007cd120 主升面 + connect 同步信号
+// (007da178 捕获体)→ spinlock@+0x61 → QMap node(0x30:+0x18 uuid
+// +0x20 commander 强ref +0x28 session)→ FUN_00912312(idx3)
+// termCreated(uuid,name)。下行 ctor/主升层未开 → 对象 cited 空壳
+// (登记于各 ctor 地址),表/信号行为真实现。
+void SuperSessionPrivate::insertTermSession(const QUuid &id,
+                                            const QString &name)
+{
+	if (m_registry[0].contains(id))        // 007d6cee 命中 → 复用,不重建
+		return;
+	void *commander = new (std::nothrow) QObject();  // 便携 ctor 族 cited
+	                                       // (00876a16 等,下行层未开)
+	if (!commander)
+		return;
+	m_registry[0].insert(id, commander);   // node 0x30 @007d9b0f(强ref 简化)
+	m_registry[1].insert(id, commander);   // session.term 设置 @007d9d46:
+	                                       // commander 表 node 同值挂 Term 表
+	emit q->termCreated(id, name);         // FUN_00912312(idx3)
+}
+
+// FUN_007daedc(1803B,0025.c:8036)转写:Transfer 表插入。
+// 语料体:option("session.protocol") qstricmp "Sftp"/"SSH" →
+// FUN_008e81b2(obj,0x88B)/否则 FUN_008e3784(obj,0x88B);sftp.*
+// 三 option(bool)→ 对象 +0x58 位域 @007db26a;spinlock@+0x61 →
+// QMap node(0x28:+0x8 uuid/+0x10 obj)@007db316;FUN_0061b448
+// 挂全局线程池;非 Sftp/SSH 协议才发 transferCreated(FUN_009122e8
+// idx10,@007db4a3)。下行 ctor 0x88B 未开 → cited 空壳。
+void SuperSessionPrivate::insertTransferSession(const QUuid &id,
+                                                const QString &name)
+{
+	const QString proto =
+	    q->option("session.protocol").toString();  // @007daf2f-54
+	void *transfer = new (std::nothrow) QObject(); // 008e81b2/008e3784 cited
+	if (!transfer)
+		return;
+	m_registry[2].insert(id, transfer);    // node 0x28 @007db316
+	// FUN_0061b448(DAT_011c1680, obj)线程池挂载 — cited(线程池层未开)
+	if (proto.compare("Sftp", Qt::CaseInsensitive) != 0 &&
+	    proto.compare("SSH", Qt::CaseInsensitive) != 0)
+		emit q->transferCreated(id);       // @007db4a3 协议卫,idx10
 }

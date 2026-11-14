@@ -58,6 +58,47 @@ int main(int argc, char **argv)
 	printf("INFO: 重复移除 removed.count=%d(现转写面无条件发;语料卫属"
 	       " 007d4bfa 查找腿,cited 待真身化)\n", removed.count());
 
+	// ======== e. 批 144:SessionLogger 非占位(ctor FUN_007c1b38
+	// 字段面转写:+0x10 session / +0x20/+0x28 QString 槽 / shared_ptr
+	// 清零;SessionLogger_dtor 007c1bba 析构对称)========
+	{
+		SessionLogger lg(&s);
+		expect(lg.m_session == &s, "e: +0x10 session(param_2 直存 @007c1b52)");
+		expect(lg.m_flags18 == 0 && lg.m_state30 == nullptr &&
+		       lg.m_sink38 == nullptr && lg.m_sink40 == nullptr,
+		       "e: +0x18 清零/+0x30..+0x40 shared_ptr 清(007c1b5b-6f)");
+		expect(lg.m_s20.isNull() && lg.m_s28.isNull(),
+		       "e: +0x20/+0x28 QString shared_null(@007c1b63-6a)");
+	}
+
+	// ======== f. +0x20 Term 表插入(FUN_007d9776):Commander 共体
+	// → termCreated(idx3,FUN_00912312)→ 重复插入复用不再发 ========
+	QSignalSpy termSpy(&s, &SuperSession::termCreated);
+	const QUuid tid = QUuid::createUuid();
+	d.insertTermSession(tid, "termA");
+	expect(termSpy.count() == 1, "f: termCreated×1(FUN_00912312 idx3)");
+	if (termSpy.count() == 1)
+		expect(termSpy.at(0).at(0).value<QUuid>() == tid &&
+		       termSpy.at(0).at(1).toString() == "termA",
+		       "f: 信号载荷 uuid+name 对位(param_2/node+0x18)");
+	d.insertTermSession(tid, "termA");
+	expect(termSpy.count() == 1 && d.registry()[0].size() == 1 &&
+	       d.registry()[1].size() == 1,
+	       "f: 复用卫(007d6cee 命中不重建)+ Commander/Term 双表同 uuid");
+	d.removeRegistry(0, tid);
+	d.removeRegistry(1, tid);
+	expect(d.registry()[0].isEmpty() && d.registry()[1].isEmpty(),
+	       "f: 往返 removeRegistry 双表清");
+
+	// ======== g. +0x28 Transfer 表插入(FUN_007daedc):transferCreated
+	// 仅非 Sftp/SSH 协议发(@007db4a3)========
+	QSignalSpy transferSpy(&s, &SuperSession::transferCreated);
+	const QUuid xid = QUuid::createUuid();
+	d.insertTransferSession(xid, "xferA");
+	// 仓库 CTerminalConfig 默认无 session.protocol → 空 ≠ Sftp/SSH → 发
+	expect(transferSpy.count() == 1, "g: transferCreated×1(idx10;协议卫放行)");
+	d.removeRegistry(2, xid);
+
 	printf(g_fail ? "FAIL(%d)\n" : "ALL PASS\n", g_fail);
 	return g_fail ? 1 : 0;
 }
