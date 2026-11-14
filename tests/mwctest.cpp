@@ -18,6 +18,7 @@
 #include "Actions/MuxWindow.h"
 #include "Actions/MuxPaneGroup.h"
 #include "Actions/TabGroup.h"
+#include "Editor/CGlobalConfigFace.h"
 
 int main(int argc, char **argv)
 {
@@ -129,11 +130,11 @@ int main(int argc, char **argv)
 	class TestKit : public KitWindowFace {
 	public:
 		int menuCalls = 0;
-		void *menu() override { // 槽 62 对位(0x5e97d2/0x858fce 同型)
+		CGlobalConfigFace *menu() override { // 槽 62 对位(0x5e97d2/0x858fce 同型)
 			++menuCalls;
 			if (g_menu == nullptr)
 				g_menu = new QMenu;
-			return g_menu;
+			return reinterpret_cast<CGlobalConfigFace *>(g_menu);
 		}
 	} kit;
 	kit.setParent(&win);
@@ -208,6 +209,39 @@ int main(int argc, char **argv)
 		++fails; // addKit 两记:@0x766565(FUN_008b346e index=addWidget 返回)
 	if (sl.f50->buttonForIndex(2) != nullptr)
 		++fails; // null 工厂腿不入页 → kit 钮恰两记(bad/空串直返)
+
+	// ======== 批 140:menu() 两腿单例身份(CGlobalConfigFace 面)========
+
+	// d3. Editor 腿(FUN_005e97d2):返回 CEditorConfig 单例非空;两页
+	//     Editor 窗(Buy 同型腿)菜单身份恒同一对象(DAT_011c12e0 懒缓存
+	//     语义 — 工厂每次新窗,菜单容器唯一)。
+	CGlobalConfigFace *edMenu1 = static_cast<EditorWindowFace *>(edW)->menu();
+	if (edMenu1 == nullptr)
+		++fails; // FUN_005df8d6 Meyers 单例非 null @005e97da
+	CGlobalConfigFace *edMenu2 = static_cast<EditorWindowFace *>(buyW)->menu();
+	if (edMenu2 != edMenu1)
+		++fails; // DAT_011c12e0 缓存 → 两腿同一单例(FUN_005df8d6)
+	if (edMenu1 != CEditorConfigFace::instance())
+		++fails; // 返回 = face 单例本体(FUN_005df8d6 → DAT_011c1300)
+	if (!static_cast<CEditorConfigFace *>(edMenu1)->groupNames().isEmpty())
+		++fails; // FUN_005df958 @005df96a:装载链 cited → +0xa8 空表 →
+	             //   返回空 QList(机制原样,非空列表待容器真身批)
+
+	// d4. Terminal 腿(FUN_00858fce):返回 CTerminalConfig 容器面非空;
+	//     与 Editor 腿互异单例(DAT_011c12e0 ≠ DAT_011c2200);身份恒同。
+	CGlobalConfigFace *tmMenu1 = static_cast<TerminalWindowFace *>(
+	    sl.f58->widget(1))->menu();
+	if (tmMenu1 == nullptr)
+		++fails; // FUN_00809d78 单例非 null @00858fd6
+	CGlobalConfigFace *tmMenu2 = static_cast<TerminalWindowFace *>(
+	    sl.f58->widget(1))->menu();
+	if (tmMenu2 != tmMenu1)
+		++fails; // DAT_011c2200 缓存 → 同一 face 单例
+	if (tmMenu1 == edMenu1)
+		++fails; // 两腿异容器(语料双单例地址 011c1300/011c2220)
+	if (tmMenu1 != static_cast<CGlobalConfigFace *>(terminalConfigAsFace()))
+		++fails; // Terminal 腿返回 = face 转接单例(KitWindowFactory.cpp)
+
 	delete edW;
 	delete buyW;
 

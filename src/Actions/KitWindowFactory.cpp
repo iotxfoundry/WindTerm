@@ -4,30 +4,47 @@
 #include <QVariant>
 
 #include "KitBar.h"
+#include "Editor/CGlobalConfigFace.h"
 #include "Editor/CTerminalConfig.h"
 
-// EditorWindowFace::menu — FUN_005e97d2(39B,0019.c:22781):
-//   DAT_011c12e0 懒单例 → FUN_005df8d6(CEditorConfig Meyers 构造,
-//   ctor 005df8ae = FUN_008a71e4 + CEditorConfig_vtable)→ FUN_008aa896
-//   校验尾。CEditorConfig 类未建模(cited — KITWINDOW-RECON 未解 1:
-//   容器类名/008a99de·8aa39e 四腿未转写)→ 静态 nullptr 承接懒单例
-//   槽位,不发明构造面。
-void *EditorWindowFace::menu()
+// Terminal 腿面转接:语料 CTerminalConfig 单例对象(DAT_011c2220)即
+// menu() 返回容器(IS-A CGlobalConfig 基,CGlobalConfigFace.h 头注)。
+// CTerminalConfig 类字段面(Sessions 消费的值 API,先批落库)与容器
+// +0x28/+0xa8 字段族共存于同一语料对象;face 焊接点 = CTerminalConfigFace
+// Meyers(同址对位 FUN_00809d78 返回对象;终归一:值面与 face 面最终
+// 均回同一静态对象面 —— 两面合一属后续容器真身批,当前双 Meyers 与
+// 语料"一对象双面"差记 KITWINDOW-RECON §未解 1 余项)。
+CGlobalConfigFace *terminalConfigAsFace()
 {
-	static void *s_editorConfigSingleton = nullptr; // DAT_011c12e0(cited)
+	return CTerminalConfigFace::instance(); // DAT_011c2220 face 视图
+}
+
+// EditorWindowFace::menu — FUN_005e97d2(39B,0019.c:22781):
+//   DAT_011c12e0 懒缓存 → FUN_005df8d6(CEditorConfig Meyers 单例,face
+//   批 140 落库)→ FUN_008aa896 校验尾(cited)。单例身份恒同一对象 →
+//   一次缓存后恒返(DAT 懒缓存同相)。
+CGlobalConfigFace *EditorWindowFace::menu()
+{
+	static CGlobalConfigFace *s_editorConfigSingleton = nullptr; // DAT_011c12e0
+	if (s_editorConfigSingleton == nullptr)
+		s_editorConfigSingleton = CEditorConfigFace::instance(); // FUN_005df8d6 @005e97da
 	return s_editorConfigSingleton;                 // @005e97d6 非空直返
 }
 
 // TerminalWindowFace::menu — FUN_00858fce(39B,0026.c:50296):
-//   DAT_011c2200 懒单例 → FUN_00809d78(= CTerminalConfig::instance(),
+//   DAT_011c2200 懒缓存 → FUN_00809d78(= CTerminalConfig::instance(),
 //   src/Editor/CTerminalConfig.cpp 已落库)→ FUN_008aa896 校验尾
-//   (cited,未解 1;型差:void* 不透明面对位批 133 头注)。
-void *TerminalWindowFace::menu()
+//   (cited)。语料单例 IS-A CGlobalConfig 基(两 ctor 首句同
+//   FUN_008a71e4;src/Editor/CGlobalConfigFace.h 头注)→ CTerminalConfig
+//   经 face 转接面回 CGlobalConfigFace(批 140 焊接;其值面仍走真单例)。
+CGlobalConfigFace *TerminalWindowFace::menu()
 {
-	static void *s_terminalConfigSingleton = nullptr; // DAT_011c2200
-	if (s_terminalConfigSingleton == nullptr)
-		s_terminalConfigSingleton = CTerminalConfig::instance(); // FUN_00809d78 @00858fd6
-	return s_terminalConfigSingleton;                 // @00858fd0 非空直返
+	static CGlobalConfigFace *s_terminalConfigSingleton = nullptr; // DAT_011c2200
+	if (s_terminalConfigSingleton == nullptr) {
+		CTerminalConfig::instance();               // FUN_00809d78 @00858fd6
+		s_terminalConfigSingleton = terminalConfigAsFace(); // DAT_011c2200 缓存
+	}
+	return s_terminalConfigSingleton;               // @00858fd0 非空直返
 }
 
 // === kitWindowFactory — FUN_0089d752(246B,0027.c:55302)===

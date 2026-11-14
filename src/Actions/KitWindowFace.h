@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 
+#include "Editor/CGlobalConfigFace.h"
+
 // KitWindowFace —— 语料 KitWindow(typeinfo 011ab390,名 "9KitWindow" ELF
 // 实读)承载面壳(MainWindowFace 判例批 100;铁律 6:抽象身份 + 纯虚 menu()。
 // showConfigMenu 消费清单 = 零实例字段 + 一记虚调用 —— KITWINDOW-RECON.md
@@ -31,8 +33,10 @@ public:
 	virtual ~KitWindowFace() = default;
 	// vtable 槽 62(+0x1f0)纯虚;子类实现:EditorWindow 0x5e97d2 /
 	//   TerminalWindow 0x858fce(懒单例容器 + FUN_008aa896 校验尾)。
-	//   返回 = menu 容器(懒单例对象,非 KitWindow 实例字段);容器确切
-	//   类名未解(KITWINDOW-RECON §未解 1:消费面 FUN_00692ef0 仅 +0x28
-	//   列表偏移可读)→ menu() 腿 typed void* 不透明,cited 不发明容器类。
-	virtual void *menu() = 0;
+	//   返回 = Config 系单例(批 140 定案:Editor 腿 CEditorConfig 单例
+	//   FUN_005df8d6 / Terminal 腿 CTerminalConfig 单例 FUN_00809d78,两
+	//   单例 IS-A CGlobalConfig 基,src/Editor/CGlobalConfigFace.h 头注);
+	//   K 效消费面 FUN_00692ef0 只触 +0x28/+0x38 → face 即 CGlobalConfigFace
+	//   字段面(批 133 头注风险条款兑现)。
+	virtual CGlobalConfigFace *menu() = 0;
 };

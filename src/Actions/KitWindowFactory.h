@@ -5,6 +5,7 @@
 #include <QString>
 #include <QWidget>
 
+#include "Editor/CGlobalConfigFace.h"
 #include "KitWindowFace.h"
 #include "MainWindowFace.h"
 
@@ -18,8 +19,7 @@
 //   @005e96be + +0xb8/+0xc0/+0xc8 清零族(cited,壳不落)+ objectName
 //   "EditorWindow"(fromLatin1 @005e970d-26)。menu() = FUN_005e97d2
 //   (39B,0019.c:22781):懒单例 DAT_011c12e0 ← FUN_005df8d6(CEditorConfig
-//   Meyers,ctor 005df8ae;类未建模 → cpp 侧静态 nullptr 承载,cited
-//   不发明)。
+//   Meyers,ctor 005df8ae;批 140 face 落库 src/Editor/CGlobalConfigFace.h)。
 class EditorWindowFace : public KitWindowFace {
 public:
 	explicit EditorWindowFace(QWidget *parent = nullptr)
@@ -27,7 +27,7 @@ public:
 	{
 		setObjectName(QStringLiteral("EditorWindow")); // @005e970d-26
 	}
-	void *menu() override; // FUN_005e97d2(39B)— cpp 侧(静态单例承载)
+	CGlobalConfigFace *menu() override; // FUN_005e97d2(39B)— cpp 侧
 };
 
 // TerminalWindowFace — s_TerminalWindow_859902(296B,0026.c:50716):
@@ -37,7 +37,7 @@ public:
 //   "TerminalWindow"(@008599c4-dd)。menu() = FUN_00858fce(39B,
 //   0026.c:50296):懒单例 DAT_011c2200 ← FUN_00809d78(= CTerminalConfig::
 //   instance(),src/Editor 已落库)+ FUN_008aa896 校验尾(cited —
-//   KITWINDOW-RECON 未解 1 四腿未转写)。
+//   FUN_008a99de/008aa39e yaml 装载腿;KITWINDOW-RECON §未解 1 余项)。
 class TerminalWindowFace : public KitWindowFace, private QAbstractNativeEventFilter {
 public:
 	explicit TerminalWindowFace(QWidget *parent = nullptr)
@@ -45,7 +45,7 @@ public:
 	{
 		setObjectName(QStringLiteral("TerminalWindow")); // @008599c4-dd
 	}
-	void *menu() override; // FUN_00858fce(39B)— cpp 侧
+	CGlobalConfigFace *menu() override; // FUN_00858fce(39B)— cpp 侧
 	bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) override
 	{
 		Q_UNUSED(eventType); Q_UNUSED(message); Q_UNUSED(result);
@@ -71,3 +71,7 @@ KitWindowFace *kitWindowFactory(const QString &type, QWidget *parent);
 void kitWindowAttachPage(MainWindowFace::Slots host, QMainWindow *mainWindow,
                          const QString &type, bool select,
                          const QByteArray &hints, int hintValue);
+
+// Terminal 腿 face 转接(批 140):语料 CTerminalConfig 单例对象 =
+// menu() 容器(KitWindowFactory.cpp 注记;KITWINDOW-RECON §未解 1 余项)。
+CGlobalConfigFace *terminalConfigAsFace();
