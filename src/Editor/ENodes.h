@@ -17,6 +17,7 @@
 #include <QVector>
 #include <QHash>
 #include <QString>
+#include <QByteArray>
 #include <QArrayData>
 #include <QRunnable>
 #include <QtGlobal>
@@ -191,7 +192,110 @@ struct ENodeScan : ENodeTask {
 			fb[0] |= quint8(b & 1);                           // +0x60
 		fb[1] |= quint8((b >> 1) & 1);                        // +0x61(恒)
 		fb[2] |= quint8((b >> 4) & 1);                        // +0x62(恒)
-		// FUN_0096f782 — cited — wave-2
+		runRefresh0096f782();          // 440f8 尾 FUN_0096f782(批 143 真身)
+	}
+	// FUN_0096c934(46B)@0031.c:41686(kuna @0x96c934):词法刷新门
+	//   — kind==7 ‖ modeC∈[9,11](u32(u−9)<=2)
+	bool gateLex0096c934() const
+	{
+		return kind == 7 || quint32(modeC - 9) <= 2;
+	}
+	// FUN_0096cb9a(13B)kuna @0x96cb9a:+0x50 = tag(run 列表 tag 面)
+	void lexTag0096cb9a(quint64 tag) { f50 = tag; }
+	// FUN_0096cba2(31B)kuna @0x96cba2:+0x68 收敛(tag<=旧 且不强制 → 跳)
+	void lexClamp0096cba2(quint64 tag, bool force)
+	{
+		if (f68 <= tag && !force)
+			return;
+		f68 = tag;
+	}
+	// FUN_0096f782(135B)@0031.c:44042 — 真身(控制流 + 节点字段面):
+	//   词法门开:tag = 0096c912→0092801a(*(E+0xf8)+0x28) — CSuperBuffer
+	//   体段面,我方 +0xf8 平铺 docBytes 不可达 → 0 同相(cited);
+	//   scanner 逐项 |4(0096cb3c/b6c/b84 → inner+8 解引)→ 我方 inner
+	//   壳态 null → n=0 零迭代同相(cited);f68 收敛(强制)+ f50=tag。
+	//   门关:runReset0096f6fe()。
+	void runRefresh0096f782()
+	{
+		if (gateLex0096c934()) {
+			const quint64 tag = 0;       // 0096c912 — cited(+0xf8 平铺)
+			// 0096cb3c/b6c/b84 scanner |4 链 — cited(inner null)
+			lexClamp0096cba2(tag, true); // 0096cba2(tag,1)
+			lexTag0096cb9a(tag);         // 0096cb9a
+			return;
+		}
+		runReset0096f6fe();
+	}
+	// FUN_0096f6fe(131B)@0031.c:44010 — 真身(节点字段面):inner+8
+	//   scanner 复位(009cc2d4 + delete 0x40)+ 00970850 词法重建 —
+	//   inner 壳态 null 不可达 → cited;f68 ← 0(0096cba2(0,0) 真身:
+	//   旧值>0 才写,语义等价收敛);9635d8 门开 → 尾组播 926356
+	//   (0x3f0,0,tag)/9263fa(kind)— 底座 92601a 监听者表未建模
+	//   (ENODES-RECON 未解 #2)零投递同相;p18=E 调面在案(cited)。
+	void runReset0096f6fe()
+	{
+		// inner+8 复位 + 00970850 — cited(inner null)
+		lexClamp0096cba2(0, false);      // 0096cba2(this,0,0)
+		if (!gate009635d8())
+			return;
+		// 00926356(E,0,tag=cited 0)/ 009263fa(E,kind)— cited(未解 #2)
+	}
+	// FUN_0096d022(108B)@0031.c:42268(kuna 全读):run 列表逐项
+	//   (0x20 步进)payload(+0x10)比对 00a837f6(...,0) — 命中返 1;
+	//   走完无命中返 0(rec!=null 调面;rec==0 臂 = 语料字面真,
+	//   调用方 92e5e8 已门 *a2!=0 — 原样不达)。
+	bool runMatch0096d022(const void *rec) const
+	{
+		if (rec == nullptr)              // v3==0 尾返(92e5e8 门后不达)
+			return true;
+		for (void *slot : runsSlots) {
+			const char *r = static_cast<const char *>(slot);
+			if (r == nullptr)            // 空槽防御(壳态承载替)
+				continue;
+			if (payloadEq00a837f6(
+			        *reinterpret_cast<void *const *>(r + 0x10),
+			        *reinterpret_cast<void *const *>(
+			            static_cast<const char *>(rec) + 0x10),
+			        false))
+				return true;             // 42276 命中即返
+		}
+		return false;
+	}
+	// FUN_00a837f6(157B)@0035.c:346(kuna 全读):payload 相等 —
+	//   同指 1;均非空:+0x08 size 相等 ∧ memcmp(+0x00 data,size)
+	//   ==0 ∧ +0x48 相等 → 尾臂:a2!=0(styled,branch-flip 实为
+	//   a2!=0 面):~*(u32*)(x+0x58+0xc)&x+0x50 == ~*(u32*)(y+0x58
+	//   +0xc)&y+0x50 ∧(y+0x58!=0x11befa0 → x+0x58==0x11befa0);
+	//   a2==0(裸;0x7545/92e5e8 调面恒 0):+0x50 相等 ∧ +0x58 相等。
+	static bool payloadEq00a837f6(const void *x, const void *y, bool styled)
+	{
+		if (x == y)
+			return true;
+		if (x == nullptr || y == nullptr)
+			return false;
+		const char *cx = static_cast<const char *>(x);
+		const char *cy = static_cast<const char *>(y);
+		const quint32 sx = *reinterpret_cast<const quint32 *>(cx + 8);
+		if (sx != *reinterpret_cast<const quint32 *>(cy + 8))
+			return false;
+		if (memcmp(*reinterpret_cast<const void *const *>(x),
+		           *reinterpret_cast<const void *const *>(y), sx) != 0)
+			return false;
+		if (*reinterpret_cast<const quint64 *>(cx + 0x48)
+		    != *reinterpret_cast<const quint64 *>(cy + 0x48))
+			return false;
+		const quint64 x58 = *reinterpret_cast<const quint64 *>(cx + 0x58);
+		const quint64 y58 = *reinterpret_cast<const quint64 *>(cy + 0x58);
+		if (!styled)
+			return *reinterpret_cast<const quint64 *>(cx + 0x50)
+			    == *reinterpret_cast<const quint64 *>(cy + 0x50)
+			    && x58 == y58;
+		quint32 v = ~*reinterpret_cast<const quint32 *>(x58 + 0xc)
+		    & *reinterpret_cast<const quint32 *>(cx + 0x50);
+		const bool eq = (~*reinterpret_cast<const quint32 *>(y58 + 0xc)
+		                    & *reinterpret_cast<const quint32 *>(cy + 0x50))
+		    == v;
+		return eq && (y58 == 0x11befa0 || x58 == 0x11befa0);
 	}
 	// FUN_0096fb1e(245B)@0031.c:44231:列表清偿(0x20 记录逐项:
 	//   +0x18 QArrayData qatomic_int_deref → 0 → QArrayData::
@@ -228,7 +332,8 @@ struct ENodeScan : ENodeTask {
 		runsSlots.clear();
 		anchorRunsFace();         // 语料 end=begin(+0x38=+0x30)
 		*reinterpret_cast<quint16 *>(reinterpret_cast<quint8 *>(&f60) + 1) = 0; // +0x61
-		// FUN_0096f6fe — cited — wave-2(inner +0xa8 壳态 null 不可达)
+		runReset0096f6fe();       // 44247 尾 0096f6fe(批 143:节点字段面真身;
+		                          //   inner 词法腿 cited — null 不可达,门关即止)
 	}
 	// FUN_0096d89e(357B)@0031.c:42715:run 列表 → QHash<QString,dptr>
 	//   收集(0x75f6/0x7545 消费面)。0x20 记录 +0x18 = QString::d;
@@ -290,6 +395,109 @@ struct ENodeRunner : QRunnable {
 		setAutoDelete(true);
 	}
 	void run() override {}        // 0x96aca0 — cited — wave-2
+};
+
+} // namespace wt
+
+// --- 0x7545 record 载荷面(批 143;语料 CSuperBufferBase 族,0035.c)---
+namespace wt {
+
+// FUN_00a92326 varint_append(143B)@0035.c:11411(kuna 反汇编 @0xa92326
+//   全读):LEB128 变体 — v = x*2+1(奇尾标非末字节);n = 64-BSR(x|1)
+//   逆前导;n=字节序号(≥57 特例:x 原样 1B)。append(v<<((63-n)/7*7? —
+//   语料乘链 = (63-n)/7*511*...*4*8·3f7 分解 → 等价移位 s=(63-n)/7*7)。
+//   x=0 → v=1,BSR 未定义保护(语料 (x|1) 面同相)。
+inline void varintAppend00a92326(QByteArray &out, quint64 x)
+{
+	int n = 0;
+	quint64 probe = x | 1;
+	while (probe != 1) {             // BSR(x|1) 循环形(==1 → 63-n=0)
+		probe >>= 1;
+		++n;
+	}
+	// 63-n = 63-n … 语料 n = 63-BSR → 我方 BSR 循环计 n' = BSR;
+	//   uVar2 = 0x3f ^ BSR = 63-BSR;EAX = 0x40-uVar2 = BSR+1;
+	//   JG 0x38 → BSR+1 > 56(x 高位满 8B)特例:x 原样 1B
+	const int bsr = n;               // BSR(x|1)
+	if (bsr + 1 > 0x38) {            // 0xa9234c JG → 特例臂
+		out.append(char(quint8(x)));
+		return;
+	}
+	const int sh = ((0x3f - bsr) / 7) * 7;   // 0xa92357-0xa9237d 乘链 = /7*7
+	const quint64 v = (x * 2 + 1) << sh;     // 0xa92387 LEA v=x*2+1
+	out.append(reinterpret_cast<const char *>(&v), 8);  // CALL 0x4bf640(8B append)
+}
+// FUN_00a924ba CSuperBuffer ctor(35B)@0035.c:11528:{d=shared_null,
+//   off=-1,last=0,cnt=0} — 承载替:offset 流,语料 0x20 头 + QByteArray
+//   体 → 我方 QByteArray data + qint64 off/last 字段(怪癖登记)
+struct WBuffer {
+	QByteArray data;                 // +0x00 d(shared_null ≡ 空)
+	qint64 off = -1;                 // +0x08 last 写入行(ctor -1)
+	quint64 last = 0;                // +0x10 语料 last 行游标
+	quint64 cnt = 0;                 // +0x18 run 计数(bit63 = 直写旗)
+	// FUN_00a925d0(102B)@0035.c:11575(kuna 全读):off 相同 → cnt++;
+	//   否则 flush00a92502() + off=v + cnt=1(bit63 保持)
+	void sameOff00a925d0(qint64 v)
+	{
+		if (off == v) {
+			cnt = (cnt & 0x8000000000000000ull)
+			    | ((cnt + 1) & 0x7fffffffffffffffull);
+			return;
+		}
+		flush00a92502();
+		off = v;
+		cnt = (cnt & 0x8000000000000000ull) | 1;
+	}
+	// FUN_00a92636(32B)@0035.c:11614:delta 编码 — sameOff(v-(off))+
+	//   last=v(偏移面:语料 +0x10 last;调面 = trie 行值)
+	void delta00a92636(quint64 line)
+	{
+		sameOff00a925d0(qint64(line) - last);   // ⚠ 语料 off 面 = last
+		last = line;                            //   游标差(delta 链真身
+		                                        //   a92636 v-(+0x10);+0x08
+		                                        //   语义 = delta 差)
+	}
+	// FUN_00a92502(109B)@0035.c:11554(kuna 全读):cnt==0 → 直返;
+	//   bit63=0 → varint(off)/bit63=1 → varint(zigzag(off)) 00a923b5
+	//   (00a922f0 zigzag = x*2^x>>63 — kuna 全读);cnt≥2 → append('\0')
+	//   + varint(cnt)。
+	void flush00a92502()
+	{
+		if ((cnt & 0x7fffffffffffffffull) == 0)
+			return;
+		if (cnt & 0x8000000000000000ull)      // +0x1f 符号字节面
+			varintAppend00a92326(data,        // 00a923b5:zigzag 先
+			    (quint64(off) * 2) ^ quint64(off >> 63));
+		else
+			varintAppend00a92326(data, quint64(off));
+		if ((cnt & 0x7fffffffffffffffull) < 2)
+			return;
+		data.append(char(0));                 // QByteArray::append('\0')
+		varintAppend00a92326(data, cnt & 0x7fffffffffffffffull);
+	}
+};
+// FUN_0093f7aa trie(707B)@0031.c:4985(kuna 全读;0030.c:32257 语料
+//   同体)— B 树形行集合(0x30 根:{flag,tag,depth,data*} + 槽数组
+//   0x10 起 8B/槽 + 0x100 子指针区);插入腿 0x30 容量 30 满 → 0093f250
+//   分裂 + 0093d5a0 交换(承载替:QVector<qint64> 有序集 — 槽语义
+//   [v4*8+0x10]=line 序列,插入序保持;分裂面 = QVector 内部重排,
+//   怪癖登记;遍历序 = 行升序 — 0x7545 walk 走查同序)。
+//   消费面(9334x 走查)只读行值序列 → 承载替同相;0x1e 容量常量字面。
+struct WNodeTrie {
+	QVector<qint64> lines;           // 0x30 根槽面承载(升序)
+	bool root00933366() const { return !lines.isEmpty(); }  // 0093334x 根非空门
+	void insert0093f7aa(qint64 line)        // 0093f7aa 插入腿(末槽写入)
+	{
+		lines.append(line);
+	}
+	// 009334x 全走查(语料 do-while:pcVar4=+8 首,0x10+v14*8 逐槽,
+	//   00a92636(line) — 子树跳面 0x100 链 = 承载替直序遍历)
+	template <typename F>
+	void walk00933472(F &&emitLine) const
+	{
+		for (qint64 v : lines)
+			emitLine(quint64(v));
+	}
 };
 
 } // namespace wt

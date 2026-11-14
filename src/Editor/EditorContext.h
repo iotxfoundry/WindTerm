@@ -538,8 +538,7 @@ public:
 	// FUN_0092e5e8(280B)@0030.c:29237:kind 应用(0x7581 false 腿/
 	//   00a28316 承接)。rec=null 腿:现存 → 9264ba+926356(0x3f0
 	//   组播,批 138 真身)+9263fa(经 9264ba)+92e524;rec≠null:
-	//   查/建 → 96d022(rec 属性比对 — a837f6 cited,ENODES-RECON
-	//   未解 #1 → rec!=null 恒 false 续行同相壳)→ 现存停广播+
+	//   查/建 → 96d022(rec 比对 — a837f6 批 143 真身)→ 现存停广播+
 	//   96fb1e 清偿 → 96f80a 插 → 96d620 → 92596c。
 	void eNodeApplyScan(int kind, const void *rec, qint64 rs, qint64 re)
 	{
@@ -561,7 +560,8 @@ public:
 			eNodeStopOne(t);                     // 9264ba
 			t->runClear0096fb1e();               // 96fb1e 旧 run 清偿
 		}
-		// 96d022(rec 属性比对;rec!=null → 恒不早返同相壳)→ 96f80a
+		if (t->runMatch0096d022(rec))            // 96d022(a837f6 批 143 真身)
+			return;                              // 92e6b2 命中即止(语料字面)
 		t->runInsert0096f80a(rec, -1);
 		t->dirtyClamp0096d620(rs, re);           // 96d620
 		eNodeDispatch(t);                        // 92596c

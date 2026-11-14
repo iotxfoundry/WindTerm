@@ -1554,6 +1554,154 @@ int main(int argc, char **argv)
 		       "z3: 0x4ebc cited 0(9276e2 face 未建模)");
 	}
 
+	// ======== aa. 批 143 组:W 尾 inner 词法面 + 0x7545 真值路径 ========
+	// 语料锚:96f782@0031.c:44042(kuna @0x96f782 全读)/ 96f6fe@44010
+	//   (kuna)/ 96d022@42268(kuna 全读)/ a837f6@0035.c:346(kuna 全读)
+	//   / 970850(kuna 全读,inner 0x18 词法重建)/ 933366@0030.c:32257
+	//   (收集 9334x+序列化 9335a)/ 93f7aa@0031.c:4985(kuna 全读,trie)
+	//   / a92326 varint@0035.c:11411(反汇编)/ a924ba ctor@11528 /
+	//   a92502 flush@11554 / a925d0@11575 / a92636 delta@11614(kuna 全读)
+	{
+		// aa1:runRefresh0096f782 门臂(96c934 kind==7 ‖ modeC∈[9,11]
+		//   字面;开 → f68 收敛+ f50=tag;关 → runReset0096f6fe)
+		EditorEngine e1;
+		auto *s7 = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(7, 0));
+		s7->f50 = 9;
+		s7->runRefresh0096f782();        // kind=7 门开
+		expect(s7->f50 == 0 && s7->f68 == 0,
+		       "aa1: 96f782 开臂:0096cba2(tag,1) 强制收敛 f68=0(cited tag)"
+		       " + 0096cb9a f50=0;scanner |4 链 inner null 零迭代同相");
+		s7->f50 = 9;
+		s7->runInsert0096f80a(nullptr, -1);  // rec=null → 96ca00 cited 早返
+		expect(s7->f50 == 9 && s7->runsSlots.isEmpty(),
+		       "aa1: 96f80a rec=null → 96ca00 cited 即止(旗位不触)");
+		auto *s1 = static_cast<wt::ENodeTask *>(e1.m_ctx.eNodeGet(1, 0));
+		auto *scan1 = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(5, 0));
+		scan1->runRefresh0096f782();     // kind=5 门关 → 96f6fe 臂
+		expect(scan1->f68 == 0,
+		       "aa1: 96f782 关臂 → 96f6fe 真身(节点字段面):9635d8 门"
+		       " state=2 开 → 尾组播 cited(未解 #2 零投递);96cba2(0,0)");
+		expect(s1->modeC == 0 && e1.m_ctx.eNodes.size() == 3,
+		       "aa1: w1 树回归(0x30/0xb0 两族 + kind=5 共 3 键)");
+
+		// aa2:runReset0096f6fe 门关臂(9635d8 [1,2] 门关 → f68 收敛即止)
+		EditorEngine e2;
+		auto *s8 = static_cast<wt::ENodeScan *>(e2.m_ctx.eNodeGet(8, 9));
+		expect(s8->gate009635d8() == false,
+		       "aa2: kind=8 mode=9 → state=0 → 9635d8 门关(w1 同相)");
+		s8->f68 = 5;
+		s8->runReset0096f6fe();          // 门关 → 96cba2(0,0):f68<=0 假 → 写 0
+		expect(s8->f68 == 0,
+		       "aa2: 96f6fe 门关臂:0096cba2(this,0,0) → f68=0;组播腿不达");
+
+		// aa3:runMatch0096d022 + payloadEq00a837f6(裸腿:memcmp+0x48
+		//   +0x50/+0x58;同指短路)
+		EditorEngine e3;
+		auto *sc = static_cast<wt::ENodeScan *>(e3.m_ctx.eNodeGet(5, 0));
+		quint8 d0[8] = {'a', 'b', 'c'}, d1[8] = {'a', 'X', 'c'};
+		quint8 rec[0x20] = {};
+		quint64 pay0[16] = {};           // payload:+0x00 data*/+0x08 size
+		                                 //   +0x48 tag +0x50 +0x58
+		pay0[0] = quint64(reinterpret_cast<uintptr_t>(d0));  // data*
+		pay0[1] = 3;                     // size=3
+		pay0[9] = 0x77;                  // +0x48
+		pay0[10] = 7; pay0[11] = 7;      // +0x50/+0x58(裸腿全同基)
+		*reinterpret_cast<void **>(rec + 0x10) = pay0;
+		sc->runInsert0096f80a(rec, -1);
+		expect(sc->runMatch0096d022(rec) == true,
+		       "aa3: 96d022 同 payload 插入后命中(a837f6 同指短路,1)");
+		quint64 pay1[16] = {};
+		pay1[0] = quint64(reinterpret_cast<uintptr_t>(d1));  // data 异 1B
+		pay1[1] = 3;                     // 同 size
+		pay1[9] = 0x77;                  // 同 +0x48
+		pay1[10] = 7; pay1[11] = 7;      // +0x50/+0x58(裸腿必比)
+		quint8 rec2[0x20] = {};
+		*reinterpret_cast<void **>(rec2 + 0x10) = pay1;
+		expect(sc->runMatch0096d022(rec2) == false,
+		       "aa3: memcmp(d0,d1,3) data[1] 异 → 0(42276 走查无命中)");
+		d1[1] = 'b';                     // data 恢复同 → 裸腿全同
+		expect(sc->runMatch0096d022(rec2) == true,
+		       "aa3: 裸腿全同(data 同 ∧ +0x48 同 ∧ +0x50 相等 ∧"
+		       " +0x58 相等)→ 1(a837f6 尾臂字面)");
+		expect(sc->runMatch0096d022(nullptr) == true,
+		       "aa3: rec=null 尾臂字面真(92e5e8 调面已门 — 不达同相)");
+
+		// aa4:eNodeApplyScan 96d022 命中即止(92e6b2 字面;同 rec
+		//   重灌 → runs 不重复)
+		EditorEngine e4;
+		auto *sc4 = static_cast<wt::ENodeScan *>(e4.m_ctx.eNodeGet(5, 0));
+		quint8 dd0[8] = {'x', 'y'}, dd1[8] = {'x', 'z'};
+		quint8 rec3[0x20] = {};
+		quint64 pay3[16] = {};
+		pay3[0] = quint64(reinterpret_cast<uintptr_t>(dd0));  // data*
+		pay3[1] = 2; pay3[9] = 0x48;                   // size2/+0x48
+		pay3[10] = 7; pay3[11] = 7;                    // +0x50/+0x58
+		*reinterpret_cast<void **>(rec3 + 0x10) = pay3;
+		e4.m_ctx.eNodeApplyScan(5, rec3, 10, 20);
+		expect(sc4->runsSlots.size() == 1,
+		       "aa4: 首灌 → 96f80a 插入(size=1;y1 同相)");
+		e4.m_ctx.eNodeApplyScan(5, rec3, 10, 20);
+		expect(sc4->runsSlots.size() == 1,
+		       "aa4: 96d022 命中 → 92e6b2 即止(runs 不重灌;语料字面)");
+		quint64 pay4[16] = {};
+		pay4[0] = quint64(reinterpret_cast<uintptr_t>(dd1));  // data[1] 异
+		pay4[1] = 2; pay4[9] = 0x48;     // size/+0x48 同
+		pay4[10] = 7; pay4[11] = 7;      // +0x50/+0x58 同
+		quint8 rec4[0x20] = {};
+		*reinterpret_cast<void **>(rec4 + 0x10) = pay4;
+		e4.m_ctx.eNodeApplyScan(5, rec4, 30, 40);
+		// 语料勘注(a837f6 ≠ ⇒ 96d022=0 → 92e6b2 不即止):
+		//   现存臂 96fb1e 清偿(批 138 真身 — slots clear 后重锚)
+		//   → 96f80a 单插 → size 回 1(非 2;清偿腿在插入前)
+		expect(sc4->runsSlots.size() == 1 && sc4->dirtyHi == 40,
+		       "aa4: 异 payload → 96d022=0 → 96fb1e 清偿 + 96f80a 重灌"
+		       "(size=1 清后单插;语料序 92e6b5-92e6c8)+ 96d620 max"
+		       "(Hi=40)");
+
+		// aa5:0x7545 真值路径(trie 收集 93f7aa + varint 序列化
+		//   a92326/a92502/a92636;非空 data 断言)
+		EditorEngine e5;
+		e5.dispatch(SCI_ADDTEXT, (qlonglong)200, QByteArray());
+		QVariantList ls{qlonglong(3), qlonglong(3), qlonglong(10),
+		                qlonglong(-1), qlonglong(500)};
+		e5.dispatch(0x7545, QStringLiteral("mkA"), ls);
+		expect(e5.m_ctx.eSerialEntries.size() == 1,
+		       "aa5: 0x7545 非空收集 → 00933446 双门开 → 序列化 append");
+		{
+			QByteArray ent0 = e5.m_ctx.eSerialEntries.at(0);
+			QDataStream r5(ent0);
+			QByteArray nm, mod, dat;
+			r5 >> nm >> mod >> dat;
+			// delta 链字节级真值(承载替语义:delta v = line-last;
+			//   ctor last=0 → delta(3)=3/delta(3)=0(同 off → cnt=2)/
+			//   delta(10)=10 → 3 段 varint(8B)+\0+varint(2) = 17B):
+			//   varint 承载替 8B 值序(v=x*2+1<<sh 字面)
+			expect(dat.size() == 24,
+			       "aa5: data = varint(3)+varint(0)+varint(10) = 24B"
+			       "(a925d0 同值 cnt++/a92636 last 差值/a92502 flush"
+			       " 终结;delta(3) 重入 off=0 新段 — 承载替 8B 值序"
+			       " — 怪癖登记)");
+		}
+		e5.dispatch(0x7545, QStringLiteral("mkA"));
+		expect(e5.m_ctx.eSerialEntries.isEmpty(),
+		       "aa5: 同名重加 → 00930338 先删(收集空 → 门关)→ 表空"
+		       "(t3 回归)");
+		expect(e5.dispatch(0x7545, QStringLiteral("mkB"),
+		                    QVariantList{qlonglong(0)}) == QVariant(0),
+		       "aa5: 单行收集 → append 走通");
+		expect(e5.m_ctx.eSerialEntries.size() == 1,
+		       "aa5: 第二条目在表(删除腿只命中同名 mkA)");
+
+		// aa6:0x75e4 深腿勘正注回归(96bbb4/a28ffc 面字面 — 壳态门关)
+		EditorEngine e6;
+		expect(e6.dispatch(0x75e4, false) == QVariant(0)
+		       && e6.m_ctx.flag1083 == false,
+		       "aa6: 0x75e4 false 写走通(a2cea8 门序 — y5 回归;"
+		       "+0x1140 惰建/行走/括号腿视图层 cited)");
+		expect(e6.dispatch(0x75e4, false) == QVariant(0),
+		       "aa6: 同值再写门关(y5 回归)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

@@ -2787,14 +2787,15 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	}
 	case 0x7545: {   // FUN_00933366(892B,0030.c:32257 全读)addScrollBarMark:
 	                 //   ① FUN_00930338(E,name,0) 先删同名(0x7549 同体
-	                 //   删除腿,0x414 广播 absent);② 收集腿 =
-	                 //   FUN_0093f7aa(707B trie,cited — 行位图收集);
+	                 //   删除腿,0x414 广播 absent);② 收集腿 = FUN_0093f7aa
+	                 //   (707B trie — 批 143 真身化 ENodes 层,wNodeTrie);
 	                 //   ③ 序列化腿(933446-9335b4):CSuperBuffer
-	                 //   (00a924ba ctor shared_null/-1/0/0)+ QDataStream
-	                 //   << toUtf8(name) << toUtf8(toUpper(modstr))
-	                 //   << buffer → E+0x250 append;④ SciScrollBarMark-
-	                 //   Event(0x414) 广播 cited —— 删除+序列化真身化批 129
-	                 //   (modstr 语义未建模 → 空串占位,登记)
+	                 //   (00a924ba ctor shared_null/-1/0/0)+ trie 全走查
+	                 //   00a92636(批 143 varint 真身,WBuffer)+ 00a92502
+	                 //   终结 + QDataStream << toUtf8(name)
+	                 //   << toUtf8(toUpper(modstr)) << buffer → E+0x250
+	                 //   append;④ SciScrollBarMark-Event(0x414) 广播
+	                 //   —— modstr 语义未建模 → 空串占位,登记
 		const QByteArray name = a.toString().toUtf8();
 		// ① 00930338(param_3=0 → 无 0x415 广播):命中删 + 即止
 		for (int i = 0; i < m_ctx.eSerialEntries.size(); ++i) {
@@ -2806,18 +2807,30 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				break;                                    // LAB_009304b8 即止
 			}
 		}
-		// ② 收集腿:QVariantList(a) 逐项 toLongLong,-1<line<len
-		//   (009333dd 三连门)→ FUN_0093f7aa 收集 — trie — cited
-		//   → 收集结果 = 空 data 占位(登记;00933447 门 *param_2+4!=0
-		//   && local_a8!=0 不达 → 序列化腿不执行同相)
-		const QByteArray data;                           // ③ 收集 cited 占位空
-		if (!data.isEmpty()) {                           // 00933446 双门代理
-			QByteArray buf;
-			QDataStream w(&buf, QIODevice::WriteOnly);   // 0093353e
-			w << name;                                   // 0093354a toUtf8(name)
+		// ② 收集腿:QVariantList(b) 逐项 toLongLong(v13 可转判,
+		//   009333dd)-1<line<textLength(00925570) → 0093f7aa 插入
+		wt::WNodeTrie trie;                              // local_a8 根
+		const long long tl = send(SCI_GETLENGTH);        // 00925570
+		const QVariantList lines = b.value<QVariantList>();
+		for (const QVariant &lv : lines) {               // puVar12 循环
+			bool ok = false;
+			const qlonglong line = lv.toLongLong(&ok);   // v13 转换判
+			if (ok && line >= 0 && line < tl)            // 009333dd 三连门
+				trie.insert0093f7aa(line);               // 0093f7aa
+		}
+		// ③ 门:*(int*)(*param_2+4)!=0(name 非空)∧ trie 根非空
+		if (!name.isEmpty() && trie.root00933366()) {
+			wt::WBuffer buf;                             // 00a924ba ctor
+			trie.walk00933472([&buf](quint64 line) {     // 9334x 走查
+				buf.delta00a92636(line);                 // 00a92636
+			});
+			buf.flush00a92502();                         // 00a92502
+			QByteArray out;
+			QDataStream w(&out, QIODevice::WriteOnly);   // 0093353e
+			w << name;                                   // 0093354a
 			w << QByteArray();                           // 00933579 toUpper(modstr) cited
-			w << data;                                   // 00933581
-			m_ctx.eSerialEntries.append(buf);            // 009335b4 FUN_00546bae
+			w << buf.data;                               // 00933581
+			m_ctx.eSerialEntries.append(out);            // 009335b4 FUN_00546bae
 		}
 		// ④ 0x414 广播(FUN_00a1c7fc/FUN_00925c5e)— cited
 		return QVariant(0);
@@ -3659,29 +3672,34 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   域语义未解 — cited
 		return QVariant(0);
 	case 0x75e4: {   // 0034.c:24025 全读:*(char*)(E+0x1083)!=toBool →
-	                 //   写 + FUN_00a2cea8(1259B,0034.c:8979 全读)。
-	                 //   刷新体序(批 138 真身化,@8979 头读):
+	                 //   写 + FUN_00a2cea8(1259B,0034.c:8979 kuna 全读
+	                 //   @0xa2cea8;批 143 深腿注勘正)。
 	                 //   ① E+0x21e 节点有效门(96bbb4 = ~*(n+8)>>63,
-	                 //   RunNode::isValid 同面)— 关 → 00a1fb0e 块腿
-	                 //   (caret_isBlockStyle 门分叉)
-	                 //   ② 门开:caret 块对象 +0x228 惰建(0x18;
-	                 //   旧对象 delete)+ 00a1f7e2 文档矩形 + 行走
-	                 //   (00a20604(ed,1) 尾行 → 00a20580 首行,逐行
-	                 //   runnode 对 00a1fbaa + 009780ce 比对命中 →
-	                 //   行号入 +0x228 列表)
-	                 //   ③ 尾:括号腿 editor_matchBracket(00a2cf77
-	                 //   循环 = +0x228 逐行,else 单对 +0x20d)+ vt+0xb8
-	                 //   槽非 00a1e438 才虚调
-	                 //   —— 深腿(0x228 惰建/runnode 对/matchBracket)
-	                 //   = 视图层未建模 → cited — wave-2;门判/字段
-	                 //   写真身(变更才动作字面)
+	                 //   RunNode::isValid 同面)— 开 → a22d46(区间重绘
+	                 //   真身:be24 两节点对 + 96c50e 相交门 + 0x98 槽
+	                 //   虚调;区间 = 全文面 — cited 视图层)
+	                 //   — 关 → 00a1fb0e(a52974:caret 面重绘,+0x10c0
+	                 //   对象 — cited)+ a28ffc 门(+0x10ec==2 ∧
+	                 //   *(char*)(E+0x1067)==2,kuna 真身)→ a22d46
+	                 //   else 腿 + +0x1140 惰建(0x18 {0,0,0};旧对象
+	                 //   delete)+ 首行 a20580→末行 a20604(ed,1) 行走:
+	                 //   hexMode(+0x1128)→ 958498/958a80 对,否则
+	                 //   a1fbaa(ed,line,0/1,1) 行起讫对(95afa8 视图
+	                 //   测量 cited — SCI 承接面登记);9780ce(+0x1038,
+	                 //   起讫对)命中 → 行号入 +0x1140(满 append/
+	                 //   a4b8b0 增补 cited)
+	                 //   ③ 尾:括号腿 = +0x1140 逐行 a22d46(else 单对)
+	                 //   + doc+0xb8 槽非 00a1e438(空体 no-op 判例)才虚调
+	                 //   —— 门/惰建/行走骨架 = 批 143 勘正注;视图测量
+	                 //   腿(95afa8/9780ce/matchBracket)cited — wave-2
 		const bool v = a.toBool();
 		if (m_ctx.flag1083 != v) {           // 00a4294x cVar9 != cVar12 门
 			m_ctx.flag1083 = v;
 			// FUN_00a2cea8:①+0x21e 门(块腿 00a1fb0e — cited)
-			// ② caret 块 + 逐行 runnode 对(00a1fbaa/009780ce — cited)
-			// ③ editor_matchBracket 括号腿 — cited — wave-2
-			//    (vt+0xb8 槽虚调 = 视图脏标 — cited)
+			//   a28ffc 门面:caretShape==2 ∧ modeB(壳态字段未建模,
+			//   门关同相)+ +0x1140 惰建 {0,0,0}(行列表 — 空行走同相)
+			// ② 逐行 runnode 对(a1fbaa/9780ce — cited)
+			// ③ +0x1140 逐行 a22d46 括号腿 + doc+0xb8 虚调 — cited
 		}
 		return QVariant(0);
 	}
