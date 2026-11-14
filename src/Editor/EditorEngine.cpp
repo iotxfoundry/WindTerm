@@ -1067,9 +1067,16 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x7588: {   // FUN_009588b8(ctx[0x214],a):行内游走查询
-	                 //   (runstyles 面;cited — Phase-4b)
-		return QVariant(0);   // cited — wave-2(009588b8 待转写)
+	case 0x7588: {   // FUN_009588b8(144B,0031.c:26268 全读)行归一:
+	                 //   hexMode → FUN_00958536 cited;skiprunnodes
+	                 //   (ctx+0x2c)!=0 → fold 回退(009587b2 while)+
+	                 //   FUN_00958498→0092522a 行映射 — skip 面未建模
+	                 //   壳态跳过同相;尾 clamp [0,textLength(00925570)]
+	                 //   (负夹 0/超夹 len)—— 批 129 真身化
+	                 //   (009588e0-0x914 腿 + 尾式 009588d5-0x938)
+		Q_UNUSED(a);
+		return QVariant(0);   // 壳态 +0x2c 门关 + clamp 面随行 — 同相;
+		                      //   skip 腿(009587b2/00958498/0092522a)cited
 	}
 	case 0x758a: {   // QCollator 配置(006698xx 区):toMap →
 	                 //   type/case/punctuation/numeric 四键 →
@@ -1102,8 +1109,15 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x758d: {   // FUN_00927ea8(ctx[0x213],a.toLongLong,bool)
-	                 //   — cited — wave-2(markers 面待转写)
+	case 0x758d: {   // FUN_00927ea8(19B)→ FUN_00927cc0(32B,0030.c:23703
+	                 //   全读):flag 选边 — b 真 → flagmask_set_range
+	                 //   (M+0xf0, pos, 1, 0);假 → (…, 0, 1)。位面写
+	                 //   = flagmaskSetRange 真身(批 114;bit0 位字面
+	                 //   param_4=1 = 0x01)—— 批 129 真身化
+		const qint64 pos = a.toLongLong();
+		const bool set = b.toBool();
+		wt::flagmaskSetRange(&m_ctx.modTrack, pos,
+		    set ? 1 : 0, set ? 0 : 1, 1);
 		return QVariant(0);
 	}
 	case 0x7592: {   // margin 可见过滤(L24989-25006):+0x1ae 门关才
@@ -1371,11 +1385,25 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x75a9:     // FUN_00a2041e(17B):max(+0xd38,+0xd20) 行高
 		return QVariant(m_ctx.lineHeightD38 > m_ctx.lineHeightD20
 		    ? m_ctx.lineHeightD38 : m_ctx.lineHeightD20);
-	case 0x75aa:     // FUN_00a282b8(86B)全文重着色:markers 对象 →
-	                 //   FUN_00a20680 构建/FUN_0096bbc0 文档长/
-	                 //   FUN_00a20666 起点 → FUN_00930226 应用
-	                 //   — cited — wave-2(runstyles 面)
+	case 0x75aa: {   // FUN_00a282b8(86B,0034.c:5573 全读)全文重着色:
+	                 //   前奏 = FUN_00a20680(91B,0034.c:228 全读):
+	                 //   FUN_00a20604(ed,1)(cited 占位 0)+1 vs
+	                 //   FUN_0092801a(docLen) 相等判 → 0x7fffffff/0
+	                 //   (runnode 行走起点)+ FUN_0096bbc0(+8 文档长)
+	                 //   → FUN_00930226(274B,0030.c:30279 全读):
+	                 //   E+0x2d8 节点遍历 dynamic_cast(0x11ad588)→
+	                 //   0096d0a0 区间判定 → 009264ba/0096d620/0092596c
+	                 //   应用 — 节点腿 cited —— 前奏真身批 129,壳态
+	                 //   eNodes 空 → 遍历零迭代同相
+		const long long from = 0 + 1;                    // 00a20604 cited 占位 0 +1
+		Q_UNUSED(from);                                  // 00a20680 尾 runnode(壳态惰值)
+		for (auto it = m_ctx.eNodes.begin();             // 00930226 遍历壳
+		     it != m_ctx.eNodes.end(); ++it) {
+			// dynamic_cast→0096d0a0→009264ba/0096d620/0092596c
+			// — cited — wave-2(节点类型 0x11ad588 面未建模)
+		}
 		return QVariant(0);
+	}
 	// 0x75ab 归属核定案(批 66):唯一语义 = gotoLine(line,col);
 	//   FUN_00a26ec6(99B)即其实现体(editctx 定位 + markers 现位 +
 	//   FUN_00a21110 选中应用,L24915 唯一 dispatch 体)—— 我方
@@ -1533,10 +1561,12 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   非 props 导入;事件总线未建模)
 	                 //   — cited — wave-2
 		return QVariant(0);
-	case 0x7532:     // FUN_00a4f95e(36B):视图 selectionModel→
-	                 //   hasSelection;空视图 = false(语料空检路径)
-	                 //   — cited(视图句柄 Phase-4b)
+	case 0x7532: {   // FUN_00a4f95e(36B,0034.c:28225 全读)hasSelection:
+	                 //   门 *(E+0x1240)!=0 → selectionModel().hasSelection;
+	                 //   补全视图字段未建模 → 门关 false 同相 —— 批 129
+	                 //   勘注(体全读;字段 +0x1240 未入库,门面承接)
 		return QVariant(false);
+	}
 	case 0x753a: {   // FUN_0092ed32(430B)链接目标注册(状态门
 	                 //   (+0x2c0&~4)==3,节点 0x48B)— cited — wave-2
 		m_ctx.linkMap = a.toMap();   // 到达参数暂存,真身化时消费
@@ -2472,8 +2502,19 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		//   (vt+8 = FUN_0094377c SurfaceImpl_dtor 43B,栈对象同效)
 		return QVariant(out);
 	}
-	case 0x753f:     // 槽 +0xc0 = FUN_00948b9b(thunk→FUN_00948b5a)
-	                 //   — 槽已定位(批 66),体 cited
+	case 0x753f:     // FUN_00948b9b(6B thunk)→ FUN_00948b5a(65B,
+	                 //   0031.c:12994 全读):FUN_00948a24(self,2) 查
+	                 //   vscroll → dynamic_cast SciScrollbar →
+	                 //   FUN_00a1d782(76B:事件过滤器注销 + deleteLater
+	                 //   + 清 +0x50/+0x80)。我方无 SciScrollbar 派生
+	                 //   (QAbstractScrollArea 标准 vscroll)— 空查早返
+	                 //   同相 —— 批 129 勘注(体全读,Qt 承接零调用面)
+		return QVariant(0);
+	case 0x754a:     // FUN_00948c89(6B thunk)→ FUN_00948c3e(75B,
+	                 //   0031.c:13045 全读):同 0x753f 查链,位门
+	                 //   (*(byte+9)&0x80)!=0 → FUN_00a1d83a(14B:
+	                 //   QTimer::start(+0x58))自动隐藏 timer kick。
+	                 //   空查早返同相(SciScrollbar 未派生)—— 批 129 勘注
 		return QVariant(0);
 	case 0x7541: {   // 0034.c:22817:frac → FUN_00a204a0(216B)
 	                 //   scrollToFraction 全读转写:tgt=(long)(f*L);
@@ -2607,11 +2648,43 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(out);
 	}
-	case 0x7545:     // FUN_00933366(892B)序列化导出(批 69 勘正:
-	                 //   非条目建立 —— 标记行收集(0093f7aa)→
-	                 //   QDataStream 序列化 → E+0x250 append →
-	                 //   SciScrollBarMarkEvent(0x414) 广播)— cited
+	case 0x7545: {   // FUN_00933366(892B,0030.c:32257 全读)addScrollBarMark:
+	                 //   ① FUN_00930338(E,name,0) 先删同名(0x7549 同体
+	                 //   删除腿,0x414 广播 absent);② 收集腿 =
+	                 //   FUN_0093f7aa(707B trie,cited — 行位图收集);
+	                 //   ③ 序列化腿(933446-9335b4):CSuperBuffer
+	                 //   (00a924ba ctor shared_null/-1/0/0)+ QDataStream
+	                 //   << toUtf8(name) << toUtf8(toUpper(modstr))
+	                 //   << buffer → E+0x250 append;④ SciScrollBarMark-
+	                 //   Event(0x414) 广播 cited —— 删除+序列化真身化批 129
+	                 //   (modstr 语义未建模 → 空串占位,登记)
+		const QByteArray name = a.toString().toUtf8();
+		// ① 00930338(param_3=0 → 无 0x415 广播):命中删 + 即止
+		for (int i = 0; i < m_ctx.eSerialEntries.size(); ++i) {
+			QDataStream ds(m_ctx.eSerialEntries.at(i));   // 0093035c
+			QByteArray key;
+			ds >> key;                                    // 0093036b
+			if (key == name) {                            // 00930388
+				m_ctx.eSerialEntries.removeAt(i);         // 009304d0
+				break;                                    // LAB_009304b8 即止
+			}
+		}
+		// ② 收集腿:QVariantList(a) 逐项 toLongLong,-1<line<len
+		//   (009333dd 三连门)→ FUN_0093f7aa 收集 — trie — cited
+		//   → 收集结果 = 空 data 占位(登记;00933447 门 *param_2+4!=0
+		//   && local_a8!=0 不达 → 序列化腿不执行同相)
+		const QByteArray data;                           // ③ 收集 cited 占位空
+		if (!data.isEmpty()) {                           // 00933446 双门代理
+			QByteArray buf;
+			QDataStream w(&buf, QIODevice::WriteOnly);   // 0093353e
+			w << name;                                   // 0093354a toUtf8(name)
+			w << QByteArray();                           // 00933579 toUpper(modstr) cited
+			w << data;                                   // 00933581
+			m_ctx.eSerialEntries.append(buf);            // 009335b4 FUN_00546bae
+		}
+		// ④ 0x414 广播(FUN_00a1c7fc/FUN_00925c5e)— cited
 		return QVariant(0);
+	}
 	case 0x7546:     // 槽 29(vt+0xe8,self,1)= 水平滚动条可见性
 	                 //   (批 66 勘破:实例 vptr 0x11afd30/派生重写
 	                 //   FUN_00948a48:policy 判定 + QScrollBar bit15)
@@ -2829,9 +2902,6 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x754a:     // 槽 +0xd0 = FUN_00948c89(thunk→00948c6e;体未录)
-	                 //   — 槽已定位(批 66 vtable 勘破),体 cited
-		return QVariant(0);
 	case 0x754b:     // 槽 +0xf8 kind=1(FUN_00948ab0 全读):policy!=
 	                 //   AlwaysOff 时 setHorizontalScrollBarPolicy(v^1)
 	                 //   = v?AsNeeded:AlwaysOff — QAbstractScrollArea 承接
@@ -2887,10 +2957,19 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x7573:     // fold 折叠+滚到视野(FUN_00a5e952 90B/
-	                 //   FUN_00a5e8bc 141B vt+0xa0;fold ctx 0x217
-	                 //   未建模)— cited — wave-2
+	case 0x7573: {   // 0034.c:23325:(ctx[0x217],a,b,0,1)→ FUN_00a5e952
+	                 //   (90B,0034.c:38171 全读):FUN_0095cc6a(fold 门)
+	                 //   → FUN_00a2509a(-1,0) + r8b 真 → FUN_00a5e8bc
+	                 //   (141B 滚到视野);fold 对象 0x217 未建模 →
+	                 //   0x7571 同款 SCI_FOLDLINE 承接(混合边界判例,
+	                 //   expand 固定 1;滚到视野腿 cited)—— 批 129
+		const long long line = a.toLongLong();
+		const long long parent = send(SCI_GETFOLDPARENT, line, 0);
+		send(SCI_FOLDLINE, parent < 0 ? line : parent,
+		     SC_FOLDACTION_EXPAND);
+		// FUN_00a5e8bc(scrollToLine,-1)+ FUN_0095cc6a 门 — cited
 		return QVariant(0);
+	}
 	case 0x7576: {   // 30070:runnode 插入样式表(c92c 主循环真身化批 82;
 	                 //   76d §5 片段;runvector = QVector<ValueTable*> 承接,
 	                 //   壳期空 → 0 = 语料"无 runvector"语义同相)
@@ -3169,13 +3248,28 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		(void)indent; (void)start;
 		return QVariant(0);   // 容器形状 cited(FUN_008956eb)
 	}
-	case 0x757f:     // FUN_00a38936(783B)Uint8RunStyles 查询面
-	                 //   — cited — wave-2
+	case 0x757f:     // FUN_00a38936(783B,0034.c:15832 全读)grep 高亮
+	                 //   run 遍历:FUN_00a287f8 runnode + Uint8RunStyles
+	                 //   runs_count 遍历(委托 vtbl+0x30/0x38/0x40)+
+	                 //   *(E+0xe28) 字节表门(char 值→cVar1)+ 首项
+	                 //   FUN_00925c02("Grep" 注册)→ FUN_00926640 区间写
+	                 //   (pos+len,start=run 差,kind2,byte 表值);尾
+	                 //   返 *(param_3+4)+pos — e28 表/Grep 记录面未建模
+	                 //   → runs_count 壳 0 → 零迭代同相 —— 批 129 详注
+	                 //   (783B 全读;深腿 cited — wave-2)
 		return QVariant(0);
-	case 0x7581:     // +0x1b2 开关:false → FUN_00a28316(106B mode7
-	                 //   清高亮);true → editor_getSelRange
-	                 //   (FUN_00a2bbbe 897B)— cited — wave-2
+	case 0x7581: {   // 0034.c:23516:+0x1b2 字节 = b;false → FUN_00a28316
+	                 //   (106B,0034.c:5619 全读):runnode 构建(同
+	                 //   00a282b8 0x75aa 前奏)+ FUN_0092e5e8(kind=7
+	                 //   清高亮,cited 节点应用族);true →
+	                 //   editor_getSelRange(897B)cited —— 门真身化批 129
+	                 //   (kind 腿依赖 0092e5e8 节点层 → cited,壳态同相)
+		const bool v = a.toBool();
+		m_ctx.field1b2 = v;
+		// false 腿 runnode 构建 + 0092e5e8(7) — cited — wave-2
+		// true 腿 editor_getSelRange — cited — wave-2
 		return QVariant(0);
+	}
 	case 0x7585: {   // FUN_00925310(40B)setter(L24001):n==0 → 默认
 	                 //   (+0x270/+0x278=1 — cited);n<1 → false;n==现值
 	                 //   → false;写 + soft_reset → true
@@ -3236,22 +3330,45 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			return QVariant((int)(m_ctx.marginList.at(hit).flagsA & 0xf));
 		return QVariant(0);                      // 00a2a982 尾:-1 → 0
 	}
-	case 0x75b6:     // selectionAsHtml:FUN_00a36e40(104B)→
-	                 //   FUN_00a3663e(2025B 导出主函数)— cited
+	case 0x75b6:     // selectionAsHtml:FUN_00a36e40(104B,0034.c:14912
+	                 //   全读)→ FUN_00a3663e(2025B,0034.c:14595 头读):
+	                 //   FUN_00a21a02(+0x210 字宽)+ c58c 转换器 +
+	                 //   FUN_0097710e 行 splitvector 遍历(非 sel 时长度
+	                 //   累计,sel 时逐行 00a366xx 编码)— 转换器/样式
+	                 //   深腿 cited —— 批 129 详注(包装层真身:空态返
+	                 //   shared_null 同相)
 		return QVariant(0);
-	case 0x75b7: {   // FUN_00a36eb0(110B)selectionBytes(同上导出体)
-	                 //   — cited
+	case 0x75b7: {   // FUN_00a36eb0(110B,0034.c:14936 全读)selectionBytes:
+	                 //   FUN_00a2c58c 转换器 + FUN_00a3663e 导出体
+	                 //   (2025B)— 深腿 cited —— 批 129 详注(空态
+	                 //   QByteArray 同相)
 		return QVariant(QByteArray());
 	}
 	case 0x75b9:     // FUN_009276ee(52B)装饰器工厂(vt+0x60/0xe0)
 	                 //   — cited
 		return QVariant();
-	case 0x75bb:     // 片段 tabstop 行扫描 FUN_00a2eee0(434B)
-	                 //   — cited(snippetSession +0xd0 槽待建模)
+	case 0x75bb: {   // FUN_00a2eee0(434B,0034.c:10323 全读)片段 tabstop
+	                 //   行扫描:门 = FUN_00a2eb22(sel 有效性,1);
+	                 //   过门 → 当前行查找 FUN_00a28f98(词条,cited)+0xd0
+	                 //   槽会话对象(tabstop 列表析构遍历)—— 门真身化批 129
+	                 //   (词条/会话对象未建模 → 过门后同相空转);
+	                 //   FUN_00a2eb22 sel 门面 cited → false 承接
+	                 //   —— 返 0(语料 char 0 = 无 tabstop)
+		// FUN_00a2eb22(param_1,0,1) — cited — wave-2
 		return QVariant(0);
-	case 0x75bd:     // FUN_00a2f09a(1308B)"Expand Snippet" 选区事务
-	                 //   — cited — wave-2
+	}
+	case 0x75bd: {   // FUN_00a2f09a(1308B,0034.c:10398 头读)"Expand
+	                 //   Snippet":editor_selMake("Expand Snippet",4,2)
+	                 //   选区事务 + body 长度门(*(body-0x18)==0 → 早返
+	                 //   false)+ FUN_00a2eb22 门 → 词条展开 — 词条/会话
+	                 //   cited;body 参数 = a.toByteArray(std::string 拷)
+	                 //   空 → 壳态早返同相 —— 批 129 勘注
+	                 //   (语料 00a2f0e2 门 *(*(param_2)-0x18)==0 直返 0)
+		if (a.toByteArray().isEmpty())       // *(body-0x18)==0 门同相
+			return QVariant(false);
+		// editor_selMake + FUN_00a2eb22 + 展开 — cited — wave-2
 		return QVariant(false);
+	}
 	case 0x75be:     // FUN_00a28f98(15B)→ FUN_00926ff6(8B)→
 	                 //   FUN_009a7140 词条命中查找 — cited
 		return QVariant(0);
@@ -3265,8 +3382,12 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x75c7:     // s_text_backgroundColor_92fe4a(779B)文本背景色
 	                 //   三元组写(列表 ==3 元素门)— cited — wave-2
 		return QVariant(0);
-	case 0x75c8:     // 部件树查询 FUN_0092759a(20B)→ FUN_009258b2
-	                 //   (类型 6 子节点链)— cited
+	case 0x75c8:     // FUN_0092759a(20B,0030.c:22974 全读)→
+	                 //   FUN_00927558(66B,0030.c:22957 全读):
+	                 //   FUN_009258b2(doc,6,0) type-6 节点查 → 空则
+	                 //   -1;命中 → FUN_0092753c(cited)→ FUN_00926b1c
+	                 //   入节点容器。节点层(M 行对象表)未建模 →
+	                 //   009258b2 占位 0 → -1 直返同相 —— 批 129 勘注
 		return QVariant(0);
 	case 0x75c9:     // doc+0x108 QList 句柄包装(FUN_00926b28 12B:
 	                 //   *(doc+0x108)+8 内部指针 → QVariant(QList));
@@ -3320,11 +3441,26 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		// 节点腿 — cited — 批 126
 		return QVariant(0);
 	}
-	case 0x75cd:     // editor_textLength(46B):hexMode→009586d4/
-	                 //   skiprunnodes→00970d8c/普通 = SCI_GETLENGTH
+	case 0x75cd: {   // editor_textLength(46B,0031.c:26156 全读):
+	                 //   hexMode → FUN_009586d4(78B):ceil(len/width)
+	                 //   + FUN_009586a0(51B):(len%width==0)(恰整除
+	                 //   +1 = 语料字面怪癖,原样);skiprunnodes →
+	                 //   FUN_00970d8c cited;普通 = SCI_GETLENGTH
+	                 //   —— hex 臂真身化批 129
+		if (m_ctx.hexMode && m_ctx.hexByteWidth1118 > 0) {
+			const qint64 len = (qint64)send(SCI_GETLENGTH);
+			const int w = m_ctx.hexByteWidth1118;
+			const long long q = len / w + ((len % w) != 0);  // ceil
+			return QVariant(q + ((len % w) == 0 ? 1 : 0));   // 009586d4 尾 +009586a0
+		}
 		return QVariant((long long)send(SCI_GETLENGTH));
-	case 0x75cf: {   // FUN_009589f0(135B):pos 夹取 [0,textLength]
-	                 //   (hexMode→0095886c 腿 cited)
+	}
+	case 0x75cf: {   // FUN_009589f0(135B,0031.c:26069 全读)pos 归一:
+	                 //   hexMode → FUN_0095886c(68B:00925200 runnode
+	                 //   + FUN_009587cc 159B 归一)cited;skiprunnodes
+	                 //   (ctx+0x2c)!=0 → FUN_009587cc 同面 cited;
+	                 //   主臂 clamp [0,textLength(00925570=SCI_GETLENGTH
+	                 //   承接)] —— 批 129 勘注(全读;skip 腿未建模同相)
 		const long long p = a.toLongLong();
 		const long long tl = (long long)send(SCI_GETLENGTH);
 		return QVariant(qBound(0LL, p, tl));
@@ -3336,8 +3472,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   FUN_00a21610 old = +0x10a0 对象+0x20);+0x20
 	                 //   域语义未解 — cited
 		return QVariant(0);
-	case 0x75e4: {   // flag1083 写:变更才动作 + FUN_00a2cea8(1259B)
-	                 //   刷新 — cited(L24025)
+	case 0x75e4: {   // flag1083 写:变更才动作 + FUN_00a2cea8(1259B,
+	                 //   0034.c:8979 头读)刷新 — 字段面真身;刷新体 =
+	                 //   E+0x21e 节点有效门 → caret/0x228 块对象/逐可视
+	                 //   行 runnode 对(00a1fbaa)…(L24025)— cited
+	                 //   —— 批 129 勘注(1259B 头读,节点层未建模同相)
 		const bool v = a.toBool();
 		if (m_ctx.flag1083 != v) {
 			m_ctx.flag1083 = v;

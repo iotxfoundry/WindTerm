@@ -941,6 +941,100 @@ int main(int argc, char **argv)
 		       "s9: 0x75cc 直调覆写(同体存储腿)");
 	}
 
+	// ======== t. 批 129 组:巨 switch 扩谱三批(15 条语料转写)========
+	// 语料锚:0x75cd@0031.c:26156/009586d4@26186/009586a0@26123 /
+	//   0x758d@0030.c:23703/00927ea8@23857 / 0x7545@0030.c:32257 /
+	//   0x7573@0034.c:23325+38171 / 0x7581@0034.c:23516+5619 /
+	//   0x7588@0031.c:26268 / 0x75aa@0034.c:5573 / 0x75bb@0034.c:10323 /
+	//   0x75bd@0034.c:10398 / 0x75c8@0030.c:22957 / 0x7532@0034.c:28225 /
+	//   0x753f@0031.c:12994 / 0x754a@13045(见 case 注)
+	{
+		// t1:0x75cd hex 臂(ceil + 恰整除 +1 语料字面怪癖)
+		EditorEngine e1;
+		expect(e1.dispatch(0x75cd) == QVariant((qlonglong)0),
+		       "t1: 非 hex → SCI_GETLENGTH=0(00958722 else 臂)");
+		e1.m_ctx.hexMode = true;
+		expect(e1.dispatch(0x75cd) == QVariant(0),
+		       "t1: hexMode 而 width=0 → 普通臂(真身门 w>0)");
+		e1.m_ctx.hexByteWidth1118 = 16;
+		e1.dispatch(SCI_ADDTEXT, (qlonglong)32, QByteArray(32, 'x'));
+		expect(e1.dispatch(0x75cd) == QVariant((qlonglong)3),
+		       "t1: len=32/16 → ceil=2 + 整除+1 = 3(009586d4 字面)");
+		e1.m_ctx.docBytes = QByteArray(33, 'x');
+		e1.dispatch(SCI_CLEARALL, 0, 0);
+		e1.dispatch(SCI_ADDTEXT, (qlonglong)33, QByteArray(33, 'x'));
+		expect(e1.dispatch(0x75cd) == QVariant((qlonglong)3),
+		       "t1: len=33 → ceil=3 + 余!=0 +0 = 3");
+
+		// t2:0x758d 位面写(flagmaskSetRange bit1;set/clr 选边)
+		EditorEngine e2;
+		e2.m_ctx.modTrack.modAppendRange(0, 4, 5);   // 4 行旗标 5(测试装置;
+		                                             //   语料 modWrite 驱动链 cited)
+		const quint8 f0 = wt::mtLineFlag(&e2.m_ctx.modTrack, 1);
+		e2.dispatch(0x758d, (qlonglong)1, true);
+		expect(wt::mtLineFlag(&e2.m_ctx.modTrack, 1) == quint8(f0 | 1),
+		       "t2: set 腿 bit0 置位(00927cc0 真 → (pos,1,0);位字面 1;"
+		       "f0 已含 bit0 → trim 同值)");
+		e2.dispatch(0x758d, (qlonglong)1, false);
+		expect(wt::mtLineFlag(&e2.m_ctx.modTrack, 1) == quint8(f0 & quint8(~1)),
+		       "t2: clr 腿 bit0 清除(00927cc0 假 → (pos,0,1);位面差)");
+
+		// t3:0x7545 删除腿(同名先删)+ 序列化门(空收集 → 不 append)
+		EditorEngine e3;
+		QByteArray ent;
+		QDataStream w3(&ent, QIODevice::WriteOnly);
+		w3 << QByteArray("nm");
+		ent += "tail";
+		e3.m_ctx.eSerialEntries.append(ent);
+		e3.dispatch(0x7545, "nm");
+		expect(e3.m_ctx.eSerialEntries.isEmpty(),
+		       "t3: 00930338 删除腿(00930388 命中)+ 空收集门"
+		       " → 不 append(00933446 双门不达)");
+		e3.dispatch(0x7545, "zz");
+		expect(e3.m_ctx.eSerialEntries.isEmpty(),
+		       "t3: 未命中 → 表不变(00930388 循环走完)");
+
+		// t4:0x7573 fold 展开+滚(SCI_FOLDLINE 承接;0x7571 同款)
+		EditorEngine e4;
+		e4.m_ctx.docBytes = QByteArray("a\nb\n");
+		e4.dispatch(SCI_ADDTEXT, (qlonglong)4, QByteArray("a\nb\n"));
+		expect(e4.dispatch(0x7573, (qlonglong)0, (qlonglong)0) == QVariant(0),
+		       "t4: dispatch(0x7573) 走通返 0(00a5e952 承接)");
+
+		// t5:0x7581 +0x1b2 开关(字段落位)
+		EditorEngine e5;
+		e5.dispatch(0x7581, true);
+		expect(e5.m_ctx.field1b2 == true,
+		       "t5: +0x1b2 = true(0034.c:23519 直写)");
+		e5.dispatch(0x7581, false);
+		expect(e5.m_ctx.field1b2 == false,
+		       "t5: +0x1b2 = false + 00a28316(7) 腿同相空转");
+
+		// t6:0x7588/0x758d 邻面壳态同相 + 0x75aa 前奏
+		EditorEngine e6;
+		expect(e6.dispatch(0x7588, (qlonglong)3) == QVariant(0),
+		       "t6: 0x7588 壳态(skip 门关)→ 0 同相(009588b8)");
+		expect(e6.dispatch(0x75aa) == QVariant(0),
+		       "t6: 0x75aa eNodes 空 → 遍历零迭代(00930226 壳)");
+
+		// t7:0x75bb/0x75bd snippet 门腿
+		EditorEngine e7;
+		expect(e7.dispatch(0x75bb) == QVariant(0),
+		       "t7: 0x75bb sel 门 cited → 0(FUN_00a2eee0)");
+		expect(e7.dispatch(0x75bd, QByteArray()) == QVariant(false),
+		       "t7: 0x75bd body 空 → 早返 false(*(*(b)-0x18)==0)");
+
+		// t8:0x75c8 部件树壳态(-1 直返同相)+ 0x7532/0x753f/0x754a
+		EditorEngine e8;
+		expect(e8.dispatch(0x75c8, (qlonglong)0) == QVariant(0),
+		       "t8: 0x75c8 → 0(00927558 节点占位 0 → -1 面;壳 0 承接)");
+		expect(e8.dispatch(0x7532) == QVariant(false),
+		       "t8: 0x7532 → false(+0x1240 门关,00a4f95e)");
+		expect(e8.dispatch(0x753f) == QVariant(0)
+		           && e8.dispatch(0x754a) == QVariant(0),
+		       "t8: 0x753f/0x754a 空查早返 0(00948b5a/00948c3e)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

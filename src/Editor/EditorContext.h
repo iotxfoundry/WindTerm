@@ -33,6 +33,7 @@ public:
 	signed char field1067 = 0;   // +0x1067(0x7535 写/FUN_00a30d26)
 	int hexField210 = 0;         // +0x1098 对象 +0x210(FUN_00a21b1e)
 	int field1b1 = 0;            // +0x1b1(0x7586 写)
+	bool field1b2 = false;       // +0x1b2(0x7581 写;高亮跟随开关)
 	bool flagD84 = false;        // +0xd84(0x7588 邻区写)
 	bool flagD8d = false;        // +0xd8d(0x758b 写)
 	bool flag1ae = false;        // +0x1ae(0x7593 写)
