@@ -183,6 +183,9 @@ public:
 	bool marginFlag1ac = false;      // +0x1ac
 	bool marginFlag1ad = false;      // +0x1ad
 	bool marginFlag1ae = false;      // +0x1ae
+	// 0x7594/0x7595 的 marginList 侧移除/清空(批 126 落到命令体内;
+	// 本成员保留给 margin 定义列的旧承载,margins() 0x7591 已改
+	// marginList 名单读 —— 语料 +0x1ab 向量与 marginList 同物)
 	void removeMargin(const QString &name)
 	{
 		// FUN_00a4bc60(387B):按名移除,后续元素前移
@@ -207,6 +210,8 @@ public:
 
 	// --- 视口/滚动(0x75b2-75b5;FUN_00a169cc/00a167ac 对)---
 	int viewportFlag2c = 0;          // 视口对象 +0x2c 字节(0x75b4 写)
+	double hexViewHeight = 0.0;      // +0x10a0 obj+0x18 视口高(0x75a8 读;
+	                                 //   写侧 00a21576 装配面 cited — 批 126)
 
 	// --- margin 元数据(0x7567/7568)---
 	double marginWidth = 0;          // +0x1a2(double)
@@ -535,6 +540,9 @@ public:
 	// --- 语法名(ed+0xfd8;M4 表;parsePairDef styleLookup/markerFill key)---
 	//   写侧未落 → nullptr(空名 → 0092671c _Rep len==0 早退,同相)
 	const char *syntaxNameFd8 = nullptr;   // *(char**)(*ed+0xfd8)
+	QVariantList docObjList;           // doc+0x108 QList 面(0x75c9 读/
+	                                   //   0x75ca 空检/0x75cb·0x75cc 置;
+	                                   //   0092fb40 全等 no-op 同构 — 批 126)
 	// --- pairDef 表(ed+0x10e0;批 79;r6 §2/FUN_00a6b37e)---
 	//   FUN_00a24e72(12B)@0034:3596 = *(ed+0x10e0)+8;数组 *(base+8)..*(base+0x10),
 	//   24B/项;写侧未落 → 缺省空表(parsePairDef 空表早退同相)

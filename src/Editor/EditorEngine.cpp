@@ -521,8 +521,84 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant(m_ctx.hexBase);
 	}
 	// --- margin 链批(Phase-3 批 2)---
-	case 0x7591:     // margins(FUN_00a4bc60 邻位;返回定义列)
-		return QVariant(m_ctx.margins);
+	case 0x7591: {   // margins(L22561-22581):+0x1ab/0x1ac 向量遍历,
+	                 //   名长非 0 条目 → QStringList;空串条目跳过
+	                 //   (00a47538 *(int*)(*e+4)!=0 门)—— 批 126
+		QStringList names;
+		for (int i = 0; i < m_ctx.marginList.size(); ++i) {
+			const EditorContext::MarginEntry &e =
+			    m_ctx.marginList.at(i);
+			if (!e.name.isEmpty())            // 00a47538 名长门
+				names.append(e.name);         // cstr_toQStr(00a47543)
+		}
+		return QVariant(names);               // QStringList 包 QVariant
+	}
+	case 0x7590: {   // margin(name)→QVariantMap(L23640-23960 >0x758f
+	                 //   默认腿;名比对 FUN_005445c4 00a46656;未命中
+	                 //   → 空表;命中 → 键集逐位解包:name/index/
+	                 //   visible(true 00a46793)/symbol(+0xc u32 仅
+	                 //   位尾类型链后 00a46805)/trackChange(bit5>>
+	                 //   5 00a46886)/trackSelection(bit6)/width(&0xfff)/
+	                 //   leftPadding(+0x12>>6)/rightPadding(>>0xc&
+	                 //   0x3ff)/type(b1>>6 尾 00a49dfx 链:1 blank/2
+	                 //   fold/3 number/4 symbol/5 text/6 timestamp)/
+	                 //   border(b1>>4&3:0 dots/2 line)/cursor(u16>>
+	                 //   7&0xf:2 arrow/7 reverseArrow)/alignment(
+	                 //   b1>>3&3:0 left/1 right/2 center))—— 批 126
+		const QByteArray want = a.toByteArray();      // 00a46656 门参
+		const EditorContext::MarginEntry *hit = nullptr;
+		int idx = -1;
+		for (int i = 0; i < m_ctx.marginList.size(); ++i) {
+			if (m_ctx.marginList.at(i).name.toUtf8() == want) {
+				hit = &m_ctx.marginList.at(i);        // 00a46656 命中
+				idx = i;
+				break;
+			}
+		}
+		if (!hit)
+			return QVariant(QVariantMap());           // 空表(00a46e98)
+		QVariantMap m;
+		m.insert(QStringLiteral("name"), hit->name);  // 00a4667b
+		m.insert(QStringLiteral("index"), idx);       // 00a46715
+		m.insert(QStringLiteral("visible"),
+		    bool(hit->flagsB & 0x80));                // 00a46793 bit7
+		m.insert(QStringLiteral("symbol"), hit->symbol);  // 00a46805
+		m.insert(QStringLiteral("trackChange"),
+		    bool((hit->flagsB >> 5) & 1));            // 00a46886 bit5
+		m.insert(QStringLiteral("trackSelection"),
+		    bool((hit->flagsB >> 6) & 1));            // bit6(00a4689x)
+		m.insert(QStringLiteral("width"),
+		    uint(hit->flagsC & 0xfff));               // 00a468cx
+		m.insert(QStringLiteral("leftPadding"),
+		    uint(hit->flagsD >> 6));                  // 00a468fx
+		m.insert(QStringLiteral("rightPadding"),
+		    uint((quint32(quint16(hit->flagsC)
+		        | (quint32(quint16(hit->flagsD)) << 16)) >> 0xc)
+		        & 0x3ff));                            // 00a4691x
+		static const char *kTypes[] = { "blank", "fold", "number",
+		    "symbol", "text", "timestamp" };          // 00a49dfx 链
+		const quint8 ty = hit->flagsA & 0x0f;
+		m.insert(QStringLiteral("type"),
+		    (ty >= 1 && ty <= 6) ? QLatin1String(kTypes[ty - 1])
+		                         : QLatin1String("symbol"));  // 尾支
+		const quint8 bo = (hit->flagsA >> 4) & 3;     // 00a49exx
+		m.insert(QStringLiteral("border"),
+		    bo == 2 ? QLatin1String("line")
+		            : QLatin1String("dots"));         // 0/1 → dots
+		const quint16 u16a = quint16(hit->flagsA)
+		    | (quint16(hit->flagsB) << 8);            // u16(+0x0a) 视角
+		const quint8 cu = quint8((u16a >> 7) & 0xf);  // 00a49e27
+		m.insert(QStringLiteral("cursor"),
+		    cu == 2 ? QLatin1String("arrow")
+		            : (cu == 7 ? QLatin1String("reverseArrow")
+		                       : QLatin1String("arrow")));  // 默认臂同相
+		const quint8 av = (hit->flagsB >> 3) & 3;     // 00a49eb1
+		m.insert(QStringLiteral("alignment"),
+		    av == 1 ? QLatin1String("right")
+		            : (av == 0 ? QLatin1String("left")
+		                       : QLatin1String("center")));
+		return QVariant(m);
+	}
 	// --- pair 高亮/片段批(Phase-3 批 2 续)---
 	case 0x7583:     // pairHighlightUnmatched(FUN_00a10c68:置枚举 2;
 	                 //  editctx 迭代腿 FUN_00a2398e — cited)
@@ -774,8 +850,23 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	}
 	case 0x75e2:     // +0x1083 查询
 		return QVariant((bool)m_ctx.flag1083);
-	case 0x75e3:     // FUN_00a2e9e2(296B QVariant 组装)——cited
-		return QVariant();
+	case 0x75e3: {   // 选区四元组(L10135-10192,FUN_00a2e9e2 296B):
+	                 //   flag1083 门(00a2e9e7 关 → 空表);选区节点
+	                 //   FUN_00975bb8 → 两 pos 相等(bb04,空选区)→ 空表
+	                 //   (00a2ea5c);否则 min/max 节点(0096c0c0/c0ea
+	                 //   posCmp)→ [FUN_00a2a0ea 列,FUN_00a2a15e 文本]
+	                 //   × 2 = colAt/textUpTo 承接 —— 批 126
+		if (!m_ctx.flag1083)                 // 00a2e9e7 门
+			return QVariant(QVariantList());
+		const sptr_t s = send(SCI_GETSELECTIONSTART, 0, 0);
+		const sptr_t e = send(SCI_GETSELECTIONEND, 0, 0);
+		if (s == e)                          // 00a2ea5c bb04 同位
+			return QVariant(QVariantList());
+		const long long lo = qMin<sptr_t>(s, e);  // 0096c0c0 min
+		const long long hi = qMax<sptr_t>(s, e);  // 0096c0ea max
+		return QVariant(QVariantList{
+		    colAt(lo), textUpTo(lo), colAt(hi), textUpTo(hi)});
+	}
 	case 0x75e5:     // FUN_00a3175e 动作 —— cited
 		return QVariant(0);
 	case 0x75e6: {   // 配色读取:"line.caret.remote" 且 +0xedc 非空 → 远程
@@ -858,12 +949,36 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x75ff:     // +0xd8 obj 写(FUN_009271e4 → 009af2d6)
 		m_ctx.bufObjField = a.toLongLong();
 		return QVariant(0);
-	case 0x7594:     // removeMargin(FUN_00a4bc60:按名移除)
-		m_ctx.removeMargin(a.toString());
+	case 0x7594: {   // removeMargin(L24972-24986):+0x1ae 门开 → 跳;
+	                 //   否则逐条目名比对(FUN_005445c4 00a4658x),
+	                 //   命中 → FUN_00a4bc60(387B)左移压缩删该条,
+	                 //   任意删除才 soft_reset(L22555 joined 尾)
+	                 //   —— 批 126
+		if (m_ctx.flag1ae)                   // L24973 门
+			return QVariant(0);
+		bool removed = false;                // local_158
+		for (int i = m_ctx.marginList.size() - 1; i >= 0; --i) {
+			// 语料正序迭代 + 即位压缩;逆序等价(删除不重叠)
+			if (m_ctx.marginList.at(i).name.toUtf8()
+			    == a.toByteArray()) {          // FUN_005445c4 同构
+				m_ctx.marginList.removeAt(i);  // FUN_00a4bc60 承接
+				removed = true;                // 00a4658x cVar9 → 记位
+			}
+		}
+		// session_view_soft_reset(removed!=0)— cited(Phase-4 视图)
 		return QVariant(0);
-	case 0x7595:     // clearMargins(inline:四标志清零)
-		m_ctx.clearMarginFlags();
+	}
+	case 0x7595: {   // clearMargins(L25012-25036):+0x1ae 门关才执行
+	                 //   —— 释放整表(+0x1ab/0x1ac/0x1ad 清零,QList
+	                 //   clear 承接 FUN_00952088 135B = 引用释放)+
+	                 //   soft_reset —— 批 126
+		if (m_ctx.flag1ae)                   // L25013 门
+			return QVariant(0);
+		m_ctx.marginList.clear();            // 0x1ab..0x1ad 清零语义
+		// FUN_00952088(local_78) = 临时表释放(QList 析构承接)
+		// session_view_soft_reset — cited(Phase-4 视图)
 		return QVariant(0);
+	}
 	case 0x75d6: {   // setWordSeparators(FUN_009279ec:flag 选 +0x288/+0x280 槽)
 		const QString text = b.toString();
 		if (a.toBool())
@@ -908,6 +1023,25 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	}
 	case 0x7578: {   // FUN_00a21b1e(14B):markers 对象 +0x210 int 查询
 		return QVariant((int)m_ctx.hexField210);
+	}
+	case 0x7579: {   // setEol(L23390-23397 0x757a 前默认腿 →
+	                 //   FUN_00a21b2c 62B,0034.c:1256):field1067 门
+	                 //   (00a21b32 ==0 早退);kind 归一 0→2(00a21b3e
+	                 //   落点)/1/2/3 直通,域外跳;写 *(M+0x210)=
+	                 //   hexField210 —— 与 0x757a(00a21b6a 行规整版)
+	                 //   异体 —— 批 126
+		if (m_ctx.field1067 == 0)                        // 00a21b32 门
+			return QVariant(0);
+		int kind = a.toInt();
+		if (kind != 0) {                                 // 00a21b36
+			if (kind == 1 || kind == 2 || kind == 3)     // 00a21b3a/b/e
+				;
+			else
+				return QVariant(0);                      // 00a21b47 域外跳
+		} else
+			kind = 2;                                    // 00a21b3e 0→2
+		m_ctx.hexField210 = kind;                        // 00a21b44 写
+		return QVariant(0);
 	}
 	case 0x757a: {   // 0034.c:23386 → FUN_00a21b6a(412B,0034.c:1284):
 	                 //   hex eol 应用:field1067 门;kind∈{1,2,3} →
@@ -972,9 +1106,12 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   — cited — wave-2(markers 面待转写)
 		return QVariant(0);
 	}
-	case 0x7592: {   // margin 可见过滤:toStringList → 名单外条目
-	                 //   bit7 置隐 → session_view_soft_reset
-	                 //   (cited — Phase-4 视图)
+	case 0x7592: {   // margin 可见过滤(L24989-25006):+0x1ae 门关才
+	                 //   执行 —— toStringList → 名单外条目 bit7 置隐
+	                 //   (00a47exx Qt::CaseInsensitive=1)→ soft_reset
+	                 //   —— 门补齐批 126
+		if (m_ctx.flag1ae)                   // L24990 门
+			return QVariant(0);
 		const QStringList names = a.toStringList();
 		for (auto &e : m_ctx.marginList)
 			e.hidden = !names.contains(e.name, Qt::CaseInsensitive);
@@ -1164,13 +1301,20 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant(qlonglong(
 		    m_ctx.markersStore.resolveLine(a.toUInt())));
 	}
-	case 0x75a0: {   // L24799:line==-1 → 当行解析四函数(cited,维持
-	                 //   line=0)→ FUN_00926e52(24B):*out=0 + 
+	case 0x75a0: {   // L24799:line==-1 → FUN_00975bc6(21B)当前行链
+	                 //   (scintilla_get_text_range(cur,+0x40) 节点 →
+	                 //   FUN_0096bbc0 pos → FUN_0092522a buffer 行映射
+	                 //   → FUN_00928404 首个谓词失败位)—— 混合边界
+	                 //   SCI 承接:当前行(FUN_00928404 谓词面 =
+	                 //   docNextNonMatching 已转写;壳态谓词恒真 →
+	                 //   行尾 = 本行起点 = SCI_LINEFROMPOSITION 同相)
+	                 //   —— 批 126;→ FUN_00926e52(24B):*out=0 +
 	                 //   FUN_009a07d8(批 67a 真身化 nearestIdFrom)
 		long line = a.toLongLong();
 		if (line == -1) {
-			// FUN_00975bc6/0096bbc0/0092522a/00928404 — cited
-			line = 0;
+			// FUN_00975bc6 链 → SCI 当前行承接(混合边界)
+			line = send(SCI_LINEFROMPOSITION,
+			    send(SCI_GETCURRENTPOS, 0, 0), 0);
 		}
 		quint32 id = 0;                                      // FUN_00926e52:*param_3=0
 		if (m_ctx.markersStore.arr)                          // +0xc0 门 ⇔ M 非空
@@ -1199,12 +1343,31 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		const int dir = b.toBool() ? 1 : -1;     // 00a48b83 -(uint)(c==0)|1
 		return QVariant((long long)s_wordStep_0099881e(m_ctx, pos, dir));
 	}
-	case 0x75a8:     // FUN_00a21576(153B)可见行数:dv = max(
-	                 //   +0xd38,+0xd20);field1067==2 →
-	                 //   (+0x10a0 对象+0x18)/dv;否则 FUN_00a1f7e2
-	                 //   文档高-滚动偏移;clamp ≥1;门 FUN_00a20b94
-	                 //   — cited — wave-2(分支选择待转写)
-		return QVariant(0);
+	case 0x75a8: {   // 可见行数(L989-1027,FUN_00a21576 153B 全读):
+	                 //   dv = max(+0xd38,+0xd20)(00a21578);两臂共用
+	                 //   int(h/dv − 1.0) 夹 ≥1(00a215e0/c2);1067==2
+	                 //   且门开 → (+0x10a0 obj+0x18)/dv(视口对象面
+	                 //   cited);否则:门关 → FUN_00a1f7e2 文档矩形
+	                 //   h=高−y(00a215ce;SCI_LINESONSCREEN 同面承接,
+	                 //   混合边界),门开 → *(obj+0x18) 同 cited
+	                 //   —— 批 126(非 hex 臂真身)
+		const double dv =
+		    m_ctx.lineHeightD38 > m_ctx.lineHeightD20
+		        ? m_ctx.lineHeightD38 : m_ctx.lineHeightD20;  // 00a21578
+		if (dv <= 0.0)                       // 语料除零原样 → INT 极值
+			return QVariant(1);              // clamp ≥1 承接(壳态)
+		if (m_ctx.field1067 == 2) {          // 00a21590 hex 臂
+			if (m_ctx.hexViewHeight != 0.0)  // FUN_00a20b94 门(代理)
+				return QVariant(int(
+				    m_ctx.hexViewHeight / dv));  // 00a2159c(无 −1 原样)
+			return QVariant(1);              // 门关 → 末臂 clamp
+		}
+		if (m_ctx.hexViewHeight != 0.0)      // 00a215d3 门(同 obj 面)
+			return QVariant(qMax(1, int(
+			    m_ctx.hexViewHeight / dv - 1.0)));   // 00a215e0 −1.0
+		const int los = (int)send(SCI_LINESONSCREEN, 0, 0);  // 00a215ce
+		return QVariant(qMax(1, int(los / dv - 1.0)));       // 尾式
+	}
 	case 0x75a9:     // FUN_00a2041e(17B):max(+0xd38,+0xd20) 行高
 		return QVariant(m_ctx.lineHeightD38 > m_ctx.lineHeightD20
 		    ? m_ctx.lineHeightD38 : m_ctx.lineHeightD20);
@@ -2969,6 +3132,9 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		                                             //   (1=有 run 展开/0=无;
 		                                             //    c92c 0x95c9da 累积)
 	}
+	case 0x757b:     // +0x1f8 读(L23391 0x757a<param_3 默认腿;
+	                 //   FUN_005cbaa6 调面 0x5cbaa6 toBool —— 批 126)
+		return QVariant((bool)m_ctx.field213f8);
 	case 0x757c:     // ctx[0x213]+0x1f8 = a.toBool()(0x757b 读对)
 		m_ctx.field213f8 = a.toBool();
 		return QVariant(0);
@@ -3102,18 +3268,58 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x75c8:     // 部件树查询 FUN_0092759a(20B)→ FUN_009258b2
 	                 //   (类型 6 子节点链)— cited
 		return QVariant(0);
-	case 0x75c9:     // doc+0x108 QList 内部句柄包装(FUN_00926b28 12B)
-	                 //   — cited(返空)
-		return QVariant();
-	case 0x75ca:     // 列表首节点 begin!=end → 非空(FUN_00926afe 21B)
-	                 //   — cited(返 false)
-		return QVariant(false);
-	case 0x75cb:     // marker 插入 FUN_009301a8(109B)→ FUN_0092fb40
-	                 //   (634B 标记树)+ FUN_00a20666/00a20680 游标行
-	                 //   — cited — wave-2
+	case 0x75c9:     // doc+0x108 QList 句柄包装(FUN_00926b28 12B:
+	                 //   *(doc+0x108)+8 内部指针 → QVariant(QList));
+	                 //   字段面 = docObjList 承接(批 58 docBytes 同款
+	                 //   载体法)—— 批 126
+		return QVariant(m_ctx.docObjList);
+	case 0x75ca:     // 列表首节点 begin!=end → 非空(FUN_00926afe 21B:
+	                 //   *(l+8) 节点 +0xc != +0x8)—— 批 126
+		return QVariant(!m_ctx.docObjList.isEmpty());
+	case 0x75cb: {   // setMarkers(FUN_009301a8 109B → FUN_0092fb40
+	                 //   634B,0030.c:30038):列表与 doc+0x108 现值
+	                 //   逐项 QVariant::cmp 全等 → no-op(0092fb4x
+	                 //   同长同值门);否则 docObjList = 新列表 +
+	                 //   type-6 节点拆挂(FUN_009258b2(doc,6,0) →
+	                 //   FUN_009264ba/FUN_0092e524 — eNodes 键型
+	                 //   QString vs 语料 int 键型失配,节点腿 cited)
+	                 //   + 逐条目节点插入(0096f80a)/脏区间(0096d620)
+	                 //   /重排(0092596c)同 cited;尾 FUN_009c934e(
+	                 //   *(doc+0x108),list)发布 — cited —— 存储腿
+	                 //   真身化批 126
+		const QVariantList list = a.toList();
+		bool same = list.size() == m_ctx.docObjList.size();
+		if (same) {
+			for (int i = 0; i < list.size(); ++i)
+				if (list.at(i) != m_ctx.docObjList.at(i)) {
+					same = false;              // QVariant::cmp 门
+					break;
+				}
+		}
+		if (same)                            // 0092fb4x 全等 no-op
+			return QVariant(0);
+		m_ctx.docObjList = list;             // doc+0x108 置新
+		// type-6 节点拆挂/插入/脏区间/重排/发布 — cited — 批 126
 		return QVariant(0);
-	case 0x75cc:     // FUN_0092fb40 直调批量设标记列表 — cited
+	}
+	case 0x75cc: {   // FUN_0092fb40 直调版(无 0x75cb 前缀解析链):
+	                 //   同体存储腿(FUN_00a20666/00a20680 游标行参
+	                 //   b/c 仅传节点腿,cited)—— 批 126
+		const QVariantList list = a.toList();
+		bool same = list.size() == m_ctx.docObjList.size();
+		if (same) {
+			for (int i = 0; i < list.size(); ++i)
+				if (list.at(i) != m_ctx.docObjList.at(i)) {
+					same = false;
+					break;
+				}
+		}
+		if (same)
+			return QVariant(0);
+		m_ctx.docObjList = list;
+		// 节点腿 — cited — 批 126
 		return QVariant(0);
+	}
 	case 0x75cd:     // editor_textLength(46B):hexMode→009586d4/
 	                 //   skiprunnodes→00970d8c/普通 = SCI_GETLENGTH
 		return QVariant((long long)send(SCI_GETLENGTH));

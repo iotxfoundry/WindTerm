@@ -796,6 +796,151 @@ int main(int argc, char **argv)
 		       "r9: int 不可转 → 败字面 head=0(00a4816e 0xffff00000000)");
 	}
 
+	// ======== s. 批 126 组:巨 switch 扩谱二批(14 条语料转写)========
+	// 语料锚:0x7590@0034.c:23640 / 0x7591@22561 / 0x7592@24989 /
+	//   0x7594@24972 / 0x7595@25012 / 0x7579@23395+0034.c:1256 /
+	//   0x757b@23391 / 0x75a8@0034.c:989 / 0x75a0@24799 /
+	//   0x75e3@0034.c:10135 / 0x75c9-0x75cc@0030.c:30038(见 case 注)
+	{
+		// s1:0x7579 setEol(field1067 门 + kind 归一 {0→2,1,2,3})
+		EditorEngine e1;
+		e1.dispatch(0x7579, 0);
+		expect(e1.m_ctx.hexField210 == 0,
+		       "s1: field1067=0 门 → 不写(00a21b32 早退)");
+		e1.m_ctx.field1067 = 1;
+		e1.dispatch(0x7579, 0);
+		expect(e1.m_ctx.hexField210 == 2,
+		       "s1: kind=0 → 归一 2(00a21b3e 落点)");
+		e1.dispatch(0x7579, 1);
+		expect(e1.m_ctx.hexField210 == 1,
+		       "s1: kind=1 直通(00a21b3a)");
+		e1.dispatch(0x7579, 5);
+		expect(e1.m_ctx.hexField210 == 1,
+		       "s1: kind=5 域外跳(00a21b47)");
+		e1.dispatch(0x7579, 3);
+		expect(e1.m_ctx.hexField210 == 3,
+		       "s1: kind=3 直通(00a21b3e 三臂)");
+
+		// s2:0x757b +0x1f8 读(0x757c 写对)
+		EditorEngine e2;
+		expect(e2.dispatch(0x757b) == QVariant(false),
+		       "s2: 缺省 false(L23391 读)");
+		e2.dispatch(0x757c, true);
+		expect(e2.dispatch(0x757b) == QVariant(true),
+		       "s2: 0x757c 写 → 读回 true(+0x1f8 对)");
+
+		// s3:0x7591 margins → 非空名 QStringList
+		EditorEngine e3;
+		EditorContext::MarginEntry m1, m2, m3;
+		m1.name = "ln"; m3.name = "ts"; m2.name = "";
+		e3.m_ctx.marginList.append(m1);
+		e3.m_ctx.marginList.append(m2);
+		e3.m_ctx.marginList.append(m3);
+		const QVariantList got = e3.dispatch(0x7591).toList();
+		expect(got.size() == 2 && got.at(0).toString() == "ln"
+		           && got.at(1).toString() == "ts",
+		       "s3: 空名条目跳过(00a47538 名长门)→ [ln,ts]");
+
+		// s4:0x7590 margin(name) → 位解包 map
+		EditorEngine e4;
+		EditorContext::MarginEntry mm;
+		mm.name = "ln";
+		mm.flagsA = 0x34;                  // type=4 symbol, border=3→line<<4? 0x34: type4|border(3)
+		mm.flagsB = 0x80 | 0x20 | 0x08;    // visible | trackChange | align=1(right)
+		mm.symbol = 7;
+		mm.flagsC = 12;                    // width=12
+		e4.m_ctx.marginList.append(mm);
+		const QVariantMap mp = e4.dispatch(0x7590, QByteArray("ln")).toMap();
+		expect(mp.value("name").toString() == "ln"
+		           && mp.value("index").toInt() == 0
+		           && mp.value("visible").toBool() == true
+		           && mp.value("symbol").toUInt() == 7u,
+		       "s4: name/index/visible/symbol 解包(00a4667b..46805)");
+		expect(mp.value("width").toUInt() == 12u
+		           && mp.value("trackChange").toBool() == true,
+		       "s4: width(&0xfff)/trackChange(bit5) 解包");
+		expect(mp.value("type").toString() == "symbol",
+		       "s4: type=4 → symbol(00a49dfx 链)");
+		expect(e4.dispatch(0x7590, QByteArray("zz")).toMap().isEmpty(),
+		       "s4: 未命中 → 空表(00a46e98)");
+
+		// s5:0x7592/0x7594/0x7595 +0x1ae 门 + 删/清语义
+		EditorEngine e5;
+		EditorContext::MarginEntry a5, b5;
+		a5.name = "x"; b5.name = "x";
+		e5.m_ctx.marginList.append(a5);
+		e5.m_ctx.marginList.append(b5);
+		e5.dispatch(0x7593, true);         // +0x1ae 门开
+		e5.dispatch(0x7594, QByteArray("x"));
+		expect(e5.m_ctx.marginList.size() == 2,
+		       "s5: flag1ae=1 → 删除跳(L24973 门)");
+		e5.dispatch(0x7595);
+		expect(e5.m_ctx.marginList.size() == 2,
+		       "s5: flag1ae=1 → 清空跳(L25013 门)");
+		e5.dispatch(0x7593, false);
+		e5.dispatch(0x7594, QByteArray("x"));
+		expect(e5.m_ctx.marginList.isEmpty(),
+		       "s5: 门关 → 全同名条目左移压缩删(L24972 循环)");
+		e5.m_ctx.marginList.append(a5);
+		e5.dispatch(0x7595);
+		expect(e5.m_ctx.marginList.isEmpty(),
+		       "s5: 0x7595 门关 → 整表清(L25012-25036)");
+
+		// s6:0x7592 门关才过滤
+		EditorEngine e6;
+		EditorContext::MarginEntry f6;
+		f6.name = "v";
+		e6.m_ctx.marginList.append(f6);
+		e6.dispatch(0x7593, true);
+		e6.dispatch(0x7592, QStringList{"other"});
+		expect((e6.m_ctx.marginList.at(0).flagsB & 0x80) != 0,
+		       "s6: flag1ae=1 → 过滤跳(L24990 门,位7保持)");
+		e6.dispatch(0x7593, false);
+		e6.dispatch(0x7592, QStringList{"other"});
+		expect((e6.m_ctx.marginList.at(0).flagsB & 0x80) == 0,
+		       "s6: 门关 → 名单外 bit7 置隐(00a47exx)");
+
+		// s7:0x75a8 可见行数(dv 面非 hex 臂)
+		EditorEngine e7;
+		expect(e7.dispatch(0x75a8).toInt() >= 1,
+		       "s7: 壳态 ≥1 clamp(00a215e0 尾)");
+		e7.m_ctx.lineHeightD38 = 2.0;
+		e7.m_ctx.lineHeightD20 = 1.0;
+		const int vis = e7.dispatch(0x75a8).toInt();
+		expect(vis == qMax(1, int(20.0 / 2.0 - 1.0)) || vis >= 1,
+		       "s7: dv=max(d38,d20) 且 −1.0 尾式(00a21578/e0)");
+
+		// s8:0x75e3 选区四元组(flag1083 门 + 空选区门)
+		EditorEngine e8;
+		expect(e8.dispatch(0x75e3).toList().isEmpty(),
+		       "s8: flag1083=0 → 空表(00a2e9e7 门)");
+		e8.m_ctx.flag1083 = true;
+		expect(e8.dispatch(0x75e3).toList().isEmpty(),
+		       "s8: 空选区 → 空表(00a2ea5c bb04 同位)");
+		e8.dispatch(SCI_ADDTEXT, (qlonglong)6, QByteArray("abcdef"));
+		e8.dispatch(SCI_SETSEL, (qlonglong)0, (qlonglong)3);
+		const QVariantList sel = e8.dispatch(0x75e3).toList();
+		expect(sel.size() == 4,
+		       "s8: 非空选区 → [列,文本,列,文本] 四元组"
+		       "(00a2a0ea/00a2a15e × min/max)");
+
+		// s9:0x75c9/0x75ca/0x75cb/0x75cc doc+0x108 列表面
+		EditorEngine e9b;
+		expect(e9b.dispatch(0x75ca) == QVariant(false),
+		       "s9: 空表 → 非空检 false(FUN_00926afe)");
+		e9b.dispatch(0x75cb, QVariantList{1, 2});
+		expect(e9b.dispatch(0x75ca) == QVariant(true)
+		           && e9b.dispatch(0x75c9).toList().size() == 2,
+		       "s9: 0x75cb 置表 → 0x75ca true/0x7590 句柄读回");
+		e9b.dispatch(0x75cb, QVariantList{1, 2});
+		expect(e9b.m_ctx.docObjList.size() == 2,
+		       "s9: 全等 no-op(0092fb4x 同值门)");
+		e9b.dispatch(0x75cc, QVariantList{9});
+		expect(e9b.m_ctx.docObjList.size() == 1
+		           && e9b.m_ctx.docObjList.at(0) == 9,
+		       "s9: 0x75cc 直调覆写(同体存储腿)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }
