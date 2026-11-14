@@ -8,9 +8,19 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-14 第二十六次交接,批 135 · M10 达成)
+## 一句话状态(2026-11-14 第二十七次交接,批 136b · M11 达成)
 
-**M10「KitWindowFace 工厂接线 + eNodes 侦察」达成(用户定),车道停开**:
+**M11「eNodes 建模 + 扩谱五批」达成(用户定),车道停开**:①eNodes
+建模(ENodes.h W 族 13/20;EditorContext 键型勘正 int;6 条 cited 腿
+激活 + 0x754f 误接勘误)②扩谱五批 EXT 段余量 32 条(真身 6/cited 26,
+17 叶登记余量)③**批 136b 主控布局勘正**:ENodeTask 虚 D1 编译器
+vptr 与显式 vtbl 成员双计 +0x00 槽 → 全字段 +8 漂移(删 vtbl 成员,
+runs face 语料原生 begin/end,16 条 static_assert 偏移锁);
+markerstest w/x 组冲突解 + int 键 + 真对象夹具(裸缓冲析构段错误
+根除)。⚠ 门盲区双踩登记:markerstest 编译失败被旧二进制 ctest
+假阳性掩盖(136/137 两车道同踩)——构建门必查退出码。
+
+**M10「KitWindowFace 工厂接线 + eNodes 侦察」达成(批 134/135)**:
 ①KitWindowFactory.{h,cpp} 真(工厂三分派/页挂 s_HistoryHints 全读/
 menu() 腿经 CTerminalConfig 真单例,CEditorConfig cited 不发明;
 mwctest d1/d2 零真窗口)②eNodes 侦察方案书(ENODES-RECON.md 245 行:

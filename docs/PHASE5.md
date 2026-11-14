@@ -2478,6 +2478,35 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   grep "error" 漏报链接期 undefined reference)— 重配后 **ctest
   19/19 ×3 + dlopen OK**。门教训登记:构建门必须查退出码,非 grep。
 
+### 批 136/137/136b(2026-11-14)M11 双车道:eNodes 建模 + 扩谱五批 EXT 段 + 布局勘正 ✅ ctest 19/19 ×5
+
+- **批 136 eNodes 建模(方案书 Q4 直执,W 族 13/20)**:ENodes.h 新
+  (DocumentTask 0x30B/ScanTask 0xB0/TaskRunner 0x28 字段级;ctor
+  963590/96f606/9637b8 全字面;W1 门族/run 面/dirty 三函数)+
+  EditorContext 键型勘正(**QMap 键型 char 实锤 → int**)、双池
+  ctor/dtor、树面/应用族挂线;EditorEngine 6 条 cited 腿激活(0x75aa/
+  754d/754e/7581 false/75cb·cc/75f6)+ 0x754f 误接勘误(SCI_GETREADONLY
+  → 9305e6 真身)。markerstest w 组 12 断言。半身/cited 8 处如实保留。
+  ⚠ 本批埋雷(136b 拆除):ENodeTask **虚 D1 + 显式 vtbl 成员双计
+  +0x00 槽** → 全字段 +8 漂移;markerstest 编译失败被旧二进制 ctest
+  假阳性掩盖(车道门盲区,批 137 同踩)。
+- **批 137 扩谱五批(EXT 段余量 32 条:真身 6/cited 26)**:任务书
+  "余量"勘正 = EXT 段(0x4ed4-0x4f02 区)非 WT 段 — 真身 6(0x4ed4
+  选区类型 toggle 975c46/0x4ee9 越界门 00a28d1e/0x4ef8 kind-5 门/
+  0x4ef9 kind 活跃查 9306ba+96d094/0x4efa lexer 门 926c6e/0x4efd
+  markers 门 926dfc/0x4f02 moveTo 24 名全表 00a2f82a)+ cited 26
+  逐条带因;17 叶登记余量。markerstest x 组 18 断言(合流时更名避撞)。
+- **批 136b 主控布局勘正**(ASLR 段错误 + 编译失败双暴露后定案):
+  ①删显式 vtbl 成员(编译器 vptr = 语料 +0x00 vtable 槽,双计致
+  ENodeScan 全字段 +8:runs face 0x40 ≠ 语料 0x30)②runs face 改
+  语料原生 begin/end 双指针 + runsSlots 承载替类尾追加(不挤真身
+  偏移)③**16 条 static_assert 语料偏移锁**(kind 0x08/c2c 0x2c/
+  runs 0x30·38/f60/dirty 78·80·88/inner a8)④markerstest 冲突解
+  (w/x 组更名避撞)+ int 键勘正 + w3/w4 eNodeGet 真对象夹具(裸
+  缓冲塞 map → 析构 D1 链段错误根除;批 137 裸字节断言改真 API)。
+- 验证:两车道独立门 + 主控合流;**批 136b 后 static_assert 全过
+  (语料偏移锁定)+ ctest 19/19 ×5 + dlopen OK**。
+
 ### 待解(批 131 后残余;现役队列以 HANDOFF「现役队列」为准)
 
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
