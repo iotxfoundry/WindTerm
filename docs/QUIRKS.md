@@ -97,3 +97,11 @@
    只构造安全构型(双堆掩码腿 + 裸腿互补;哨兵+堆 UB 构型不写,
    本条登记)。75df8d(MOV EDX,1 @FUN_0074dda2 尾)= styled=1
    唯一调用面(0x96d06d 恒 0 腿已由 aa3 钉)。
+33. **toggleZoomPage unzoom 腿死路(批 148 登记,原样未修)**:unzoom
+   腿 `ph->parentWidget()` = 本组自身(stack reparent 后非 splitter)
+   → cast null → 整腿跳过 → m_f40 不清 → isZoomed 恒真。Qt5.15
+   本机 probe 实测同相;原版同构推测同死(5c 期仪器可裁)。转写按
+   语料字面,守门断言钉住(sgtest zoom 怪癖守门)。
+34. **loadViews tail 22 字符截断(批 147 strace 实证)**:views 腿
+   配置路径尾截 22 字符 → "toolbar.confi"(尾 g 丢失);groups 腿
+   无此截断。转写原样保留;消费腿按路径匹配时须知此怪癖。

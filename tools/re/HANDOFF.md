@@ -8,7 +8,21 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第二十九次交接,批 144 · M13 达成)
+## 一句话状态(2026-11-15 第三十次交接,批 149 · M14 达成)
+
+**M14「注册表面 + eNodes 深层 + 树深下钻 + SplitterGroup + 启动链」
+达成(用户定,五车道并行),车道停开**:①注册表面余量(logger 腿体
+buildLeg 真身,spdlog sink 三段 EXT-BOUNDARY cited;SessionTransfer
+真对象 008ec79a 字段面;批 145)②eNodes 深层(WNodeInner +0xa8/
+inner 链真身/trie 有序插入;scanner 词法重建面 cited;QUIRKS #31·32;
+批 146)③Config 树深下钻(loadGroupsElement/loadViewsElement 真身;
+**configPath 勘正 = DAT_00cba75c "/" 单字符**,批 140 槽内嵌串误读;
+批 147)④SplitterGroup 余项(差集 7 项:真身 3/定案 4;removePage
+690B asm 全读;sgtest 新建,ctest 20→**21**;批 148)⑤启动链对位
+(startupChain FUN_007626ce 语料序,深度腿 cited 全登记 Phase 4a;
+批 149)。QUIRKS #33·34 新登。主仓终门 ctest **21/21** ×5 + dlopen OK。
+此前:M13(142-144)、M12(138-141)、M11(136/137/136b)、M10(134/135)、
+M9(132/133)、M8 文档整备、M1-M7。
 
 **M13「宿主接线 + W 尾/0x7545 真值 + 注册表余量」达成(用户定,三
 车道并行),车道停开**:①KitWindow 宿主接线(yaml 装载腿真库委托
@@ -116,25 +130,30 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | FUN_007da228 = +0x40 **Logger** 表插入侧(三源:ctor vtable/loggerRemoved 配对/qmo idx5) | 批 141 | 批 141 任务书判读"Term 表" |
 | 两 Config 单例基构造 = FUN_008a71e4 **CGlobalConfig**;SharedConfig = 独立 0x18B 小类非基类 → face 平铺 | 批 140(ctor 首句实读) | 批 138 侦察:SharedConfig 基类候选 |
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
+| configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 144 后,按需开批)
+## 现役队列(批 149 后,按需开批)
 
-1. **启动路径接线(Phase 4a 余项)**:kitWindowRestoreFirstPage 现仅
-   mwctest 级——产品启动链消费点定位 + 工作区布局装载;CGlobalConfig
-   树深下钻面(00af4760/008a971e 元素体内嵌 kind 位面)真身化
-2. **注册表面余量**:logger 腿体 007c24c8(5980B spdlog 面,外库
-   边界)/Transfer 对象 ctor 008e81b2·008e3784(0x88B)真身化
-3. **eNodes 深层**:scanner inner 链(96cb3c/b6c/b84)+ 00970850
-   词法重建 + 96f250 trie 分裂(承载替坍缩怪癖 QUIRKS #31);
-   00a837f6 styled 腿断言补(调用面带 styled=1 时)
-4. Phase 4c SplitterGroup 余项 / Phase 5c 会话持久化对比(需我方可
-   运行应用)/ 0x4eff DAT_011becc8 运行时观察
+1. **Phase 4a 转写批(启动链深度腿)**:0075ffcc→00766c26 恢复腿
+   (QDataStream 魔数 0xb9e7e600)/0076913f(5958B 保存恢复类型)/
+   8d2f7e startupSessions/522056 工作区装载器(9063B)/wind.config
+   JSON 默认层;007626ce 挂点信号接线面侦察(语料无代码调用者)
+2. **注册表下行**:spdlog sink 构造三段(外库边界真库委托面)/
+   Transfer 下行网络/fsModel(008e8150/008eadd6/008e533d)/
+   SessionLogger q+0x10 虚 label 位
+3. **eNodes 词法重建**:00970850 栈(editctx_initThread/93fc60/
+   gapbuffer_reallocate)+ 9cd3da/9cd91e 词法引擎体;styled 哨兵 UB
+   构型 5c 期仪器裁决
+4. MuxWindow 归辖:008e0428/008e0a72 zoomed-pane 取面(宿主
+   0084dd5a 未复刻)/ Phase 4c SplitterGroup 下行 / Phase 5c(需
+   可运行应用)/ 0x4eff DAT_011becc8 运行时观察(需 ptrace 环境变更)
 
 ## 已知开放问题
 
 - wordsteptest transient 已根治(批 128,i3 simdBlocks 勘误);
   若复现超 1/20 失败率须重开排查。
-- 0x7545 序列化格式断言未覆盖真值路径(收集腿空 data 占位)。
+- 0x7545 真值路径已开通(批 143;varint 承载替值序怪癖 QUIRKS #31,
+  字节级对表留 5c 期)。
 - editor 型 doc +0xe0 承载与 terminal 型不同构,未建模(批 122 登记)。
 - 0x7564 勘正(批 130)的他处 dispatch 消费者 xref 未查。
 

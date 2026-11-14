@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 144,2026-11-15 — 当前真值层)
+## 结论快照(截至批 149,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-144)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-149)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(十三项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(十四项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -25,7 +25,9 @@ static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
 定案(140)/4a 注册表 Logger 插入侧(141)** → **M13 三车道:KitWindow
 宿主接线 + yaml 装载腿 + 双 Meyers 合一(142)/W 尾 inner 词法面 +
 0x7545 真值路径开通(143)/注册表余量 Term·Transfer 插入侧(144;
-四表插入侧全定案)**。
+四表插入侧全定案)** → **M14 五车道:注册表面余量(145)/eNodes 深层
+(146)/Config 树深下钻(147;configPath 勘正"/")/SplitterGroup 余项
+(148;差集 7 项真身 3 定案 4)/启动链对位接线(149)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -38,8 +40,8 @@ static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
 | bufferScan 引擎 | Onigmo-改 边界委托(EXT-BOUNDARY;单层针指针契约,批 116b 勘正);engVt50Block/engVt28Class 真身(批 119 转储定案) |
 | scanMask | 活性接线 ✅(批 127 buffer 承载建模 + s_scanCarrier 缝;0x7543 initDoc 零接线点定案,批 128) |
 | 巨 switch 扩谱 | **全清**:五批 66 + EXT 32(批 137)+ 叶 34(批 139:真身 2/cited 32,差集重 derive);0x4ec2=20162 门漏叶勘误已截获;markerstest q/r/s/t/u/v/w/x/y/z 组 |
-| eNodes 节点层 | **W 族 20/20 尾清**(批 143:96f782/96f6fe 词法门·复位/96cba2 收敛真身;scanner inner 链 cited);**0x7545 真值路径开通**(0093f7aa trie + 00a92326 varint 序列化 + 非空 data 断言);96d022 runMatch 真值接 92e5e8(命中即止);应用族 0x75e4/75aa/7581/75c8/75f6 真身;16 条 static_assert 锁 |
-| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);**yaml 装载腿真身 + 双 Meyers 合一 + kitWindowRestoreFirstPage(批 142,FUN_0075e3fe 对位;产品启动链无消费点 → mwctest 级接线)** |
+| eNodes 节点层 | W 族 20/20 + **深层(批 146)**:WNodeInner 承接 +0xa8(96f606 尾字面)/inner 链 96cb3c·b6c·b84 真身(null 臂字面保留)/runRefresh |4 链/runReset 坍缩/dtor 96d684/trie 有序插入;scanner 词法重建 00970850 cited;**0x7545 真值路径开通**(0093f7aa trie + 00a92326 varint + 非空 data 断言);96d022 runMatch 命中即止;16 条 static_assert 锁 |
+| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);**yaml 装载腿真身 + 双 Meyers 合一 + kitWindowRestoreFirstPage(批 142,FUN_0075e3fe 对位)**;**树深下钻真身(批 147)**:loadGroupsElement(008a971e Action3/Menu2/Separator0 三级递归)+ loadViewsElement(s_FilterEdit 七 kind 位面/Columns 内省);configPath 勘正 = DAT_00cba75c "/" 单字符;**启动链(批 149)**:startupChain FUN_007626ce 语料序,恢复门/工作区装载 cited 占位 |
 
 ### 5b 行为对比终局(批 121-123)
 
@@ -54,16 +56,51 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 2. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
    0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
    EditorContext.h 头扩展)。
-3. eNodes scanner inner 链(96cb3c/b6c/b84 位或链;inner null 壳态
-   不可达)与 00970850 词法重建 cited;96f250 trie 分裂承载替坍缩
-   (遍历序同相,QUIRKS #31)。
-4. logger 建腿腿体 007c24c8(5980B spdlog 面)外库边界 cited —
-   logger sink 行为仍空;Transfer 对象 ctor(008e81b2/008e3784
-   0x88B)cited 空壳。
-5. CGlobalConfigFace 树深下钻面(00af4760/008a971e 元素体内嵌
-   Action/Menu kind 位面)仅注记 — 装载腿当前只落顶层组名;产品
-   启动链无消费点,宿主接线仅 mwctest 级(启动路径 Phase 4a 余项)。
-6. 00a837f6 styled 腿(调面恒 0)未测 — 后续调用面带 styled=1 需补断言。
+3. eNodes scanner 词法重建面(00970850 栈/editctx_initThread/93fc60/
+   gapbuffer_reallocate 与 9cd3da/9cd91e 词法引擎体)未读 — scanner
+   恒 null,cited 分段;styled 哨兵 UB 构型(QUIRKS #32)待 5c 期
+   仪器裁决。
+4. 注册表下行:spdlog sink/logger 构造段三段 cited(EXT-BOUNDARY);
+   Transfer 下行网络/fsModel 面(008e8150/008eadd6/008e533d)cited;
+   SessionLogger label 近似面待 q+0x10 虚位真身化批。
+5. 启动链深度腿全 cited(Phase 4a 挂账):0075ffcc→00766c26 恢复腿
+   (魔数 0xb9e7e600)/0076913f(5958B)/8d2f7e startupSessions/
+   522056 工作区装载器/wind.config JSON 默认层;007626ce 无代码
+   调用者(信号接线面证据不足,不发明)。
+6. SplitterGroup 归辖挂账:008e0428/008e0a72(MuxWindow zoomed-pane
+   取面,调用宿主 0084dd5a 未复刻);toggleZoomPage 死腿(QUIRKS
+   #33)/views tail 截断(QUIRKS #34)原样保留。
+
+### 批 145/146/147/148/149(2026-11-15)M14 五车道:注册表面 + eNodes 深层 + 树深下钻 + SplitterGroup + 启动链 ✅ ctest 21/21 ×5
+
+- **批 145 注册表面余量**:logger 腿体 FUN_007c24c8 分面(buildLeg
+  真身:启用卫@007c24e0/label@007c2528/标志尾@007c35e8-ee;spdlog
+  sink 构造/pattern 装配/state 三段 EXT-BOUNDARY cited);SessionTransfer
+  真对象(008ec79a 字段面:+0x50·54=0x1a4·0x1ed/+0x58 bit0..2 默认 1;
+  下行网络面 cited);reginserttest h/i 组 13 断言 + b 组启用门语义修正。
+- **批 146 eNodes 深层**:WNodeInner 承接 +0xa8(44000-44005 字面);
+  96cb3c/b6c/b84 真身(kuna 全读,null 臂字面保留);runRefresh 逐项
+  |4 链(4405c/4406c/44077)/runReset inner+8 复位坍缩/dtor 96d684;
+  WNodeTrie 有序 upper_bound(93f7aa 门字面);bb1 组断言;QUIRKS
+  #31 补同相证据 + #32 styled 哨兵 UB 登记。
+- **批 147 Config 树深下钻**:loadGroupsElement/loadViewsElement
+  真身(kind 位面 Action3/Menu2/Separator0 + 七 kind + Columns 内省
+  @008a9eb8-f0);children 值对象三段槽(+0x8/+0x10 kind|Columns/
+  +0x11 bit3,008aabae/008acb70 实读);**configPath 勘正:DAT_00cba75c
+  = "/" 单字符(批 140 "/configs/" 系槽内嵌串误读)**;loadViews
+  tail 22 字符截断怪癖原样(QUIRKS #34);mwctest d9/d9a/d9b。
+- **批 148 SplitterGroup 余项**:差集自 derive(kuna xrefs + 全二进制
+  四路扫描双源)= 7 项:真身 3(removePage FUN_005a29e6 690B asm
+  全读/装配 setSpacing+margins)/定案 4(swap 孤儿/insertPane 孤儿
+  链/moc+dtor 生成同构/MuxWindow 归辖 2 项挂账);sgtest 新建 14
+  断言(ctest 20→**21**);toggleZoomPage 死腿 QUIRKS #33。
+- **批 149 启动链对位接线**:StartupChain 新落(startupChain 语料序
+  逐语句;themeGui "dige-black" 缺省/lockScreenTimeout 读真腿/失败腿
+  kitWindowRestoreFirstPage 真调;恢复门 0075ffcc cited 恒 false 同相);
+  深度腿 cited 全登记(Phase 4a);mwctest 尾部 s1/s2。
+- 验证:五车道独立门 + 主控合流(145→146→149→148→147;mwctest
+  d9/批149 邻接冲突一处程序化解);主仓终门 ctest **21/21** ×5 +
+  dlopen OK。
 
 ### 批 142/143/144(2026-11-15)M13 三车道:宿主接线 + W 尾/0x7545 真值 + 注册表余量 ✅ ctest 20/20 ×5
 
