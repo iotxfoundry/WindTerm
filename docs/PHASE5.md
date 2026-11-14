@@ -2447,6 +2447,37 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 ×3 稳定 +
   dlopen OK**。
 
+### 批 134/135(2026-11-14)M10 双车道:KitWindowFace 工厂接线/eNodes 侦察方案书 ✅ ctest 19/19
+
+- **批 134 KitWindowFace 工厂接线**(方案书 §4 直执):KitWindowFactory.{h,cpp}
+  新 — EditorWindowFace/TerminalWindowFace 两壳(sizeof 0xd0/0x110,
+  Terminal 副基 QAbstractNativeEventFilter @0085991e 壳态 false)+
+  kitWindowFactory(FUN_0089d752 三分支:"Editor"→0xd0/"Terminal"→
+  0x110/"Buy"(DAT_00d0eaa4 二进制实读)→EditorWindow 同型/未知→null
+  @0089d846)+ kitWindowAttachPage(s_HistoryHints_7664a2 244B 全读:
+  hints 双腿 setProperty "History"/"HistoryHints"(名串 0x11820e0/e8
+  经 .relro 重定位 +0x600000 映射勘正 Ghidra 串参面)→ stack addWidget
+  @0x766543 → select @0x766587 → KitBar addKit @0x766565);menu() 腿:
+  EditorWindowFace = 懒单例 nullptr 承接 DAT_011c12e0(CEditorConfig
+  未建模,cited 不发明)/TerminalWindowFace = CTerminalConfig::instance()
+  (00809d78 已落库)。mwctest d1/d2(MainWindowFace 真宿主装配,零
+  真窗口)。
+- **批 135 eNodes 节点层侦察方案书**(ENODES-RECON.md 245 行,零产品码):
+  两级载体定案(E+0x2d8 QMapDataBase **键型 char 非 QString — 我方
+  EditorContext.h:419 键型失配实锤,后续建模必改**);值 = DocumentTask
+  0x30B(TI 0x11ad4b0/vptr 0x11ad4e8)+ ScanTask 0xB0(0x11ad588/
+  0x11ad650)字段级清单 + TaskRunner 0x28;生命周期 = 懒工厂 92b56e/
+  双池 E+0x110·118/dtor 92f62e 逐值虚 D1(与批 117 busy 载体不相交
+  定界);九条应用族消费清单 + 共性面 11 函数;Q4 方案书(ENodes.h
+  骨架/QMap<int> 改型两行接线/W1-W4 可转写族 20 函数);5 条未解
+  如实登记(96d022/a837f6、92601a 投递底座、+0x24 写侧、inner 面、
+  kind-4 族 xref);9637b8 `(mode==8)?2:0` 非对称分支建模车道须按
+  字面勿"修"。
+- 验证:两车道独立门 + 主控合流;主线门曾 1 失败 = **合流未重跑
+  cmake configure**(新 .cpp 需重扫 GLOB,AGENTS.md 明文坑;我的门
+  grep "error" 漏报链接期 undefined reference)— 重配后 **ctest
+  19/19 ×3 + dlopen OK**。门教训登记:构建门必须查退出码,非 grep。
+
 ### 待解(批 131 后残余;现役队列以 HANDOFF「现役队列」为准)
 
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;

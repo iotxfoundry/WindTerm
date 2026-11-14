@@ -8,9 +8,17 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-14 第二十五次交接,批 133 · M9 达成)
+## 一句话状态(2026-11-14 第二十六次交接,批 135 · M10 达成)
 
-**M9「巨 switch 全清 + KitWindowFace 真身」达成(用户定),车道停开**:
+**M10「KitWindowFace 工厂接线 + eNodes 侦察」达成(用户定),车道停开**:
+①KitWindowFactory.{h,cpp} 真(工厂三分派/页挂 s_HistoryHints 全读/
+menu() 腿经 CTerminalConfig 真单例,CEditorConfig cited 不发明;
+mwctest d1/d2 零真窗口)②eNodes 侦察方案书(ENODES-RECON.md 245 行:
+E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
+级清单/W1-W4 可转写族 20 函数方案)。⚠ 门教训登记:合流新 .cpp 必须
+重跑 cmake configure(GLOB 坑),构建门查退出码非 grep "error"。
+
+**M9「巨 switch 全清 + KitWindowFace 真身」达成(批 132/133)**:
 ①WT 段(0x7531-0x75ff)**全清零未审项**(批 132:真身 12/cited 3/
 缺省空 3,除 0x75dc 定案不存在;扩谱五批累计 66 条,v 组 17 断言)
 ②KitWindowFace 壳 + showConfigMenu 三段真身(方案书直执,menu()
