@@ -2333,6 +2333,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:两车道独立门 + 主控合流,主线终态 **ctest 19/19 + dlopen OK**
   (5 连跑复验)。
 
+### 批 128/129(2026-11-14)M6 双车道:initDoc 挂线零点定案 + transient 根治/扩谱三批 15 条 ✅ ctest 19/19
+
+- **批 128 initDoc 挂线零点定案**:语料全读证伪预设 — FUN_0092ef06
+  拆建腿(0030.c:29560-29627)只放 +0x98..+0xd0 七槽,**+0xf8 buffer
+  不在其列**;engine dtor 0092f62e(29917)才拆 → 挂线点 = engine ctor
+  (00929fdd..00929fe1),批 127 EditorContext RAII 已精确对位语料时序
+  (换缓冲全程缝持续)→ **零新增接线点**,0x7543 case 头补证据链注记。
+  **批 126 transient 真因根治**:wordsteptest i3 simdBlocks 只填 0x10
+  而 len=2 需 len<<4=0x20(convCtor 54421 广播面)→ lane1 表越界读堆
+  = 时变断言;0x10→0x20 勘误后 **37 连跑零失败**,新增 i6/i7/i8
+  (0x7543 dispatch 驱动活性直验,免装置真载体)。
+- **批 129 扩谱三批 15 条**:真身 5(0x7545 00933366 删除腿+序列化门/
+  0x75cd 009586d4 hex 臂 ceil+恰整除+1 字面怪癖/0x758d 00927cc0
+  flagmaskSetRange 位面写 set/clr 选边/0x7573 00a5e952 SCI_FOLDLINE
+  承接/0x7581 +0x1b2 字段落位)+ 勘注门腿 10(0x7532/753f/754a/7588/
+  75aa/75bb/75bd/75c8/75cf/757f/75b6/75b7/75e4 语料体全读壳态同相
+  精确化)。markerstest t 组 15 断言(0x75cd 怪癖/0x758d 位面差/
+  0x7545 删+门)。仍 cited:0x75e4/0x75aa 节点应用族(节点层未建模)。
+  风险登记:0x7545 收集腿空 data 占位(原版 trie 收集后 data 非空,
+  序列化格式断言未覆盖真值路径)。纪律登记:shell ~70 超预算 60
+  (车道如实自报)+ 一次重复 case 体事故(已修复逐块核对)。
+- 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 ×3 连跑稳定 +
+  dlopen OK**(批 128 transient 根治后无复发)。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
