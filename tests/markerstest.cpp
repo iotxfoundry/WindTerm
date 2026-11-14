@@ -1142,6 +1142,101 @@ int main(int argc, char **argv)
 		       "u10: 0x7539 flag240=1 直写落位 cited → 0");
 	}
 
+	// ======== v. 批 132 组:巨 switch 全清批(余 15 条语料转写)========
+	// 语料锚:0x7534@0034.c:22744/005b6b4c / 0x7540@22827 / 0x7542@22822
+	//   /00930c42@0030.c:30727 / 0x7550@22928/0092e270@0030.c:29035 /
+	//   0x7570·7574@23320-23337 / 0x7587@23988 / 0x7589@23981/
+	//   00a53be6@0034.c:31263/00927952@0030.c:23417 / 0x758e@23630 /
+	//   0x75a2@24879/00926e1c@0030.c:22359 / 0x75a4@24876 /
+	//   0x75b0@24562 / 0x75ce@24081/00958a80@0031.c:26418 /
+	//   0x75f6@24429/00933830@0030.c:32465(见 case 注)
+	{
+		// v1:0x7534/0x753b 编辑模式读(+0x1067)
+		EditorEngine e1;
+		e1.m_ctx.field1067 = 2;
+		expect(e1.dispatch(0x7534) == QVariant(2),
+		       "v1: 0x7534 读 +0x1067 = 2(0034.c:22744 char 直读)");
+		expect(e1.dispatch(0x753b) == QVariant(2),
+		       "v1: 0x753b 同腿读 2(005b79b2 toMap 面同相)");
+
+		// v2:0x7542 行表 null 臂 + 0x7540 虚槽 cited
+		EditorEngine e2;
+		expect(e2.dispatch(0x7542) == QVariant((qlonglong)0),
+		       "v2: 0x7542 editor_line_at 行表 null → 0(00930c42)");
+		expect(e2.dispatch(0x7540, (qlonglong)1) == QVariant(0),
+		       "v2: 0x7540 vt+0xc8 cited → 0(0034.c:22827)");
+
+		// v3:0x7587 flagD84 写门
+		EditorEngine e3;
+		e3.dispatch(0x7587, true);
+		expect(e3.m_ctx.flagD84 == true,
+		       "v3: 0x7587 +0xd84 = true(0034.c:23992 变更写)");
+		e3.dispatch(0x7587, true);
+		expect(e3.m_ctx.flagD84 == true, "v3: 同值不再写(00a48xx 门)");
+
+		// v4:0x7589 首非空面(hex 臂行归一/普通臂行首承接)
+		EditorEngine e4;
+		e4.dispatch(SCI_ADDTEXT, (qlonglong)9,
+		    QByteArray("ab\n  cd\nxy"));
+		expect(e4.dispatch(0x7589, (qlonglong)4) == QVariant((qlonglong)3),
+		       "v4: 0x7589 pos=4 → 行首 3(00927952 壳态同相)");
+		e4.m_ctx.hexMode = true;
+		expect(e4.dispatch(0x7589, (qlonglong)0) == QVariant((qlonglong)0),
+		       "v4: hexMode → 00958498(pos+1) 行归一面");
+
+		// v5:0x75a4 flagEc3 读 + 0x75a2 markWrite 面
+		EditorEngine e5;
+		expect(e5.dispatch(0x75a4) == QVariant(false),
+		       "v5: 0x75a4 读 +0xec3 = false(0034.c:24876)");
+		e5.m_ctx.flagEc3 = true;
+		expect(e5.dispatch(0x75a4) == QVariant(true),
+		       "v5: 0x75a5 写对后读 true(005b7f4c toBool)");
+		expect(e5.dispatch(0x75a2, (qlonglong)1) == QVariant(0),
+		       "v5: 0x75a2 markWrite 门走通(00926e1c → 009a088e)");
+
+		// v6:0x75b0 滚动条空查 0
+		EditorEngine e6;
+		expect(e6.dispatch(0x75b0, 1) == QVariant((qlonglong)0),
+		       "v6: 0x75b0 sb 空查 → 0(0034.c:24566 null 臂)");
+
+		// v7:0x75ce 行尾(hex 臂 pos+1 行首)
+		EditorEngine e7;
+		e7.dispatch(SCI_ADDTEXT, (qlonglong)9,
+		    QByteArray("ab\n  cd\nxy"));
+		expect(e7.dispatch(0x75ce, (qlonglong)0) == QVariant((qlonglong)2),
+		       "v7: 0x75ce pos=0 → 行尾 2(0092520c 承接)");
+		e7.m_ctx.hexMode = true;
+		expect(e7.dispatch(0x75ce, (qlonglong)0) == QVariant((qlonglong)0),
+		       "v7: hexMode → 009584c6(pos+1) → 0095846c 字节行 0");
+
+		// v8:0x75f6 快照名短路
+		EditorEngine e8;
+		e8.dispatch(0x75f6, "snapA");
+		expect(e8.m_ctx.snapshotName8 == QStringLiteral("snapA"),
+		       "v8: 0x75f6 置 M+0x2b8(00933838 赋值)");
+		e8.dispatch(0x75f6, "snapA");
+		expect(e8.m_ctx.snapshotName8 == QStringLiteral("snapA"),
+		       "v8: 同值短路(00933848 operator== 门)");
+		e8.dispatch(0x75f6, "snapB");
+		expect(e8.m_ctx.snapshotName8 == QStringLiteral("snapB"),
+		       "v8: 异值覆写 + 遍历 cited(壳态零迭代)");
+
+		// v9:0x7570/0x7574/0x758e 缺省空 QVariant no-op
+		EditorEngine e9;
+		expect(e9.dispatch(0x7570) == QVariant(),
+		       "v9: 0x7570 else 链尾空 QVariant(00a41e00)");
+		expect(e9.dispatch(0x7574) == QVariant(),
+		       "v9: 0x7574 同相(23320-23337 未命中)");
+		expect(e9.dispatch(0x758e) == QVariant(),
+		       "v9: 0x758e else 落空(23630 区)");
+
+		// v10:0x7550 双列表深腿 cited 走通
+		EditorEngine e10;
+		expect(e10.dispatch(0x7550, QStringList{"a"},
+		    QStringList{"b"}) == QVariant(0),
+		       "v10: 0x7550 过门返 0(0092e270 深腿 cited)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

@@ -262,6 +262,9 @@ public:
 	int val1ba = 0;                  // 0x755f 查询
 	double val1bb = 0;               // 0x7560 查询(double)
 
+	// 0x75f6 快照名(M+0x2b8;FUN_00933830 0x75f6 读对,批 132)
+	QString snapshotName8;
+
 	// --- 尾块状态(0x75d0-0x75ff;disp 24100-24518)---
 	bool flag1bc = false;            // 0x75d7 查询 / 0x75db 写(+soft_reset)
 	int fontScale = 0;               // doc+0x14(00a218dc);0x75d9 夹 [0,10000]

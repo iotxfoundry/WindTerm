@@ -4159,6 +4159,135 @@ step:;
 		//   wave-2(RAII 承载零操作);return iVar4
 		return QVariant(hits);
 	}
+	case 0x7534:     // 0034.c:22744 else 腿(0x7533<param<0x753d 除 0x7535):
+	                 //   QVariant((int)*(char*)(this+0x1067)) 读编辑模式
+	                 //   (0x7535 FUN_00a30d26 写对)— 真身(批 132;
+	                 //   005b6b4c 包装面 toInt 同相)
+		return QVariant((int)m_ctx.field1067);
+	case 0x753b:     // 同 0x7534 else 腿(0034.c:22744;005b79b2 包装面
+	                 //   toMap 消费 — int→QVariantMap 空 map 同相)
+		return QVariant((int)m_ctx.field1067);
+	case 0x7540: {   // 0034.c:22827 else 腿(0x753f<param<0x7541):
+	                 //   vt+0xc8(this,toLongLong(a)) 虚槽调用 — 行跳
+	                 //   面(0x7541 scrollToFraction 邻位)— 我方无
+	                 //   派生 vtable 槽(cited;零实例字段一虚调用面,
+	                 //   KitWindow 侦察方案书 62 槽同型)—— 批 132
+		(void)a;
+		return QVariant(0);
+	}
+	case 0x7542: {   // 0034.c:22822 腿(0x7541<param):editor_line_at
+	                 //   (M,0)@00930c42(140B,0030.c:30727 全读):
+	                 //   *(M+600) 行对象表壳态 null → 直返 0;
+	                 //   005b97cc 包装面 toULongLong 同相 —— 批 132
+		return QVariant((qlonglong)0);   // editor_line_at 行表 null 臂
+	}
+	case 0x7550: {   // 0034.c:22928 else 腿(0x754e<param<0x7552):
+	                 //   FUN_0092e270(M,toStringList(a),toStringList(b))
+	                 //   (34B,0030.c:29035 全读)= FUN_0092e03a(557B
+	                 //   节点清理 cited)+ FUN_0092b6b6(843B 撤销组
+	                 //   构建 cited)— 双列表消费深腿 — cited(批 132)
+		(void)a; (void)b;
+		return QVariant(0);
+	}
+	case 0x7570:     // 0034.c:23320-23337 else 链尾(0x756d..0x7571
+	                 //   逐一 == 判后未命中)→ goto LAB_00a41e00 =
+	                 //   空 QVariant(25403:*(param_1)=0)+0x80000000)
+	                 //   —— no-op 缺省同相(批 132 语料定位)
+		return QVariant();
+	case 0x7574:     // 同 0x7570 else 链尾(==0x7571/0x7572/0x7573 均未
+	                 //   中,<0x7570 亦否)→ 空 QVariant no-op 同相
+		return QVariant();
+	case 0x7587: {   // 0034.c:23988 腿(0x7586<param<0x7588):+0xd84
+	                 //   字节 = a.toBool();变更 → vt+0xa0 刷新
+	                 //   (cited — Phase-4b 视图腿)—— 批 132
+		const bool v = a.toBool();
+		if (m_ctx.flagD84 != v) {
+			m_ctx.flagD84 = v;
+			// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
+		}
+		return QVariant(0);
+	}
+	case 0x7589: {   // 0034.c:23981 else 腿(≥0x7588):FUN_00a53be6
+	                 //   (30B,0034.c:31263 全读)→ +0x1128 开 →
+	                 //   FUN_00958498(pos+1 行归一)/关 → FUN_00927952
+	                 //   (100B,0030.c:23417 全读)首非空下探(循环腿
+	                 //   00927940 谓词 cited)— 首非空面 = SCI 承接
+	                 //   (0x75a7 词跳步同款混合边界)—— 批 132
+		const qint64 pos = a.toLongLong();
+		if (m_ctx.hexMode)
+			return QVariant((qlonglong)send(SCI_LINEFROMPOSITION,
+			    pos + 1, 0));                    // 00958498(pos+1) 面
+		long long p = send(SCI_POSITIONFROMLINE,
+		    send(SCI_LINEFROMPOSITION, pos, 0), 0);  // 00980696 行首
+		const long long eol = send(SCI_GETLINEENDPOSITION,
+		    send(SCI_LINEFROMPOSITION, pos, 0), 0);  // 0098086c 行尾
+		// FUN_00927940 谓词面 cited — 壳态恒真 → 直返行首同相
+		Q_UNUSED(eol);
+		return QVariant((qlonglong)p);
+	}
+	case 0x758e:     // 0034.c:23630 else 落空(0x758d<param<0x758f,
+	                 //   ==0x758f/>0x758f 皆否)→ 空 QVariant no-op
+	                 //   同相(批 132 语料定位)
+		return QVariant();
+	case 0x75a2: {   // 0034.c:24879 else 腿(==0x75a3 否):FUN_00926e1c
+	                 //   (M,toUInt(a),toULongLong(b))(33B,0030.c:
+	                 //   22359 全读):*out={0,0} + +0xc0 门 →
+	                 //   FUN_009a088e(215B markWrite 深腿,批 86 已
+	                 //   落 markWrite 承载)—— 真身门 + markWrite 面
+	                 //   (批 132;0x75a3 标记读对同族;arr 门 = 语料
+	                 //   +0xc0 ==0 直返,FUN_00926e1c 首腿)
+		if (m_ctx.markersStore.arr)          // +0xc0 门(22369)
+			m_ctx.markersStore.markWrite(0, 1, a.toULongLong());
+		return QVariant(0);
+	}
+	case 0x75a4:     // 0034.c:24876 腿(0x75a3<param<0x75a5):
+	                 //   QVariant(*(bool*)((long)this+0xec3)) 读
+	                 //   (0x75a5 FUN_00a2d3ec 写对)— 真身(批 132;
+	                 //   005b7f4c 包装面 toBool 同相)
+		return QVariant(m_ctx.flagEc3);
+	case 0x75b0: {   // 0034.c:24562 腿(0x75af<param<0x75b2):vt+0xe0
+	                 //   (this,toInt(a)) 滚动条查 → null → 0;
+	                 //   命中 → *(sb+0x30)(与 0x75b2 max 槽同源,
+	                 //   槽位差异 = 0x30 vs max 面)— SciScrollbar
+	                 //   未派生(0x753f 判例)→ 空查 0 同相 —— 批 132
+		(void)a;
+		return QVariant((qlonglong)0);
+	}
+	case 0x75ce: {   // 0034.c:24081 腿(0x75cd<param):editor_lineEndIdx
+	                 //   (179B,0031.c:26418 全读):hexMode →
+	                 //   FUN_009584c6(pos+1 行归一)/skiprunnodes
+	                 //   (ctx+0x2c)腿 cited/主臂 = FUN_0092520c 行尾
+	                 //   (FUN_0098086c 68B 全读@0032:9765:行首(pos+1)
+	                 //   −1 尾钳)— SCI 承接(0x75d1 行映射同款;
+	                 //   \r 对修复腿 009284aa byteAt — 适配保留)
+	                 //   —— 批 132
+		const qint64 pos = a.toLongLong();
+		const long long line = send(SCI_LINEFROMPOSITION, pos, 0);
+		long long eol = send(SCI_GETLINEENDPOSITION, line, 0);
+		if (m_ctx.hexMode)
+			// FUN_009584c6(pos+1) → FUN_00958498 → FUN_0095846c:
+			//   hex 字节位面 pos+1 → 字节行(×width clamp 面) —
+			//   SCI 承接 = pos+1 所在行行首(0032.c:9765 形)
+			eol = send(SCI_POSITIONFROMLINE,
+			    send(SCI_LINEFROMPOSITION, pos + 1, 0), 0);
+		                                     // 009586d4 邻域 \r 修复
+		                                     //   腿(009284aa)— cited
+		return QVariant(eol);
+	}
+	case 0x75f6: {   // 0034.c:24429 腿(0x75f5<param<0x75f7 且 !=0x75f7):
+	                 //   FUN_00933830(M,toString(a))(1544B,0030.c:
+	                 //   32465 全读):M+0x2b8 同值短路 → *(M+0x2b8)=
+	                 //   串 + FUN_00925a78 缓存失效 + E+0x2d8 type==8
+	                 //   节点遍历(QHash 键收集/发布 1544B 深腿)—
+	                 //   eNodes 键型失配(0x75cb 判例)→ 门+存储腿真身、
+	                 //   遍历 cited(壳态零迭代同相)—— 批 132
+		const QString s = a.toString();
+		if (s != m_ctx.snapshotName8) {
+			m_ctx.snapshotName8 = s;         // M+0x2b8 置新
+			// FUN_00925a78() + E+0x2d8 type-8 遍历 — cited — 批 132
+		}
+		return QVariant(0);
+	}
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 		// std::string 返回族/hexBase…):真名与语义锚见
