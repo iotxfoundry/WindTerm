@@ -421,6 +421,43 @@ MuxPaneView *MuxWindow::findPane(void *desktop, int paneIndex)
 	return nullptr;                                      // @008da19c
 }
 
+// === zoomedPane() ===
+// 转写 FUN_008e0428(0028:27473,126B):lVar1 = FUN_005a24fc(*(this+0x70))
+//   = m_f70->stackCurrentPage()(zoom 时 stack currentWidget,非 zoom → 0;
+//   SplitterGroup 内联面);0 → 返 0;否则 qt_qFindChild_helper(lVar1,空名,
+//   smo 011abde0 = MuxPaneView,recursive=1)= stackCurrentPage()->findChild
+//   <MuxPaneView*>()。live 调用点 0084dd5a 宿主两处(@0084e155 zoom 拆解
+//   腿/@0084eece zoomed 标题比对腿),宿主 5076B 未复刻 → 本批取面真身。
+// QUIRKS #33 死腿闭环核对(只注记,不修):zoom 落位后 stackCurrentPage
+//   = 占位页 ph(Qt5.15 本机 probe 同相;sgtest f1),ph 无 MuxPaneView
+//   子件 → 本取面恒 0 → 宿主 @0084e151 unzoom 腿与 @0084eece " [Zoomed]"
+//   追加腿双跳过 = 语料字面同相死路(unzoom 恢复仅余 toggleZoomPage
+//   unzoom 腿,而该腿 cast null 已死 — #33 原样)。
+MuxPaneView *MuxWindow::zoomedPane() const
+{
+	QWidget *cur = m_f70 != nullptr ? m_f70->stackCurrentPage()
+	                                : nullptr; // FUN_005a24fc @008e042f
+	if (cur == nullptr)                        // @008e0434-46
+		return nullptr;
+	return cur->findChild<MuxPaneView *>(QString()); // @008e045f(qt_qFindChild_helper smo 011abde0)
+}
+
+// === paneByIndex(int) ===
+// 转写 FUN_008e0a72(0028:27741,303B):qt_qFindChildren_helper(this,空名,
+//   smo 011abde0 = MuxPaneView,recursive=1)→ qlist detach 惯式 → 逐节点
+//   *(pane+0x30) == param_2 线性扫,首命中释放表返回该 pane;扫尽 → 0。
+//   live 调用点 0084dd5a 宿主 @0084e8b2(select/zoom 双旗腿),宿主未复刻
+//   → 本批取面真身。
+MuxPaneView *MuxWindow::paneByIndex(int paneIndex) const
+{
+	const QList<MuxPaneView *> panes = findChildren<MuxPaneView *>(QString()); // @008e0ab1
+	for (MuxPaneView *pane : panes) {                  // @008e0b8e-c0(qlist 迭代直译)
+		if (paneIndex == pane->paneIndex())            // *(pane+0x30) @008e0bb0
+			return pane;                               // 首命中 @008e0bb6-b8
+	}
+	return nullptr;                                    // @008e0b47(扫尽)
+}
+
 // === restorePaneSplitter(SuperSession*,void*,uint,const PaneDescriptor&) ===
 // 转写 mux_restorePaneSplitter(0026:29862,903B)。语料为自由函数
 //   (会话宿主*、配置容器 param_2、QSplitter* param_3、页序 param_4、

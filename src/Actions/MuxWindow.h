@@ -112,6 +112,22 @@ public:
     //   类未复刻 → void* 容器宿主直读(体见 .cpp)
     static MuxPaneView *findPane(void *desktop, int paneIndex);
 
+    // FUN_008e0428(0028:27473,126B)归辖落点:zoomed-pane 取面 —
+    //   m_f70->stackCurrentPage()(FUN_005a24fc,非 zoom → 0)非空时
+    //   qt_qFindChild_helper(空名,smo 011abde0 = MuxPaneView,recursive=1)。
+    //   live 调用点:0084dd5a 宿主 @0084e155(zoom 拆解腿:非空 →
+    //   FUN_008e04ae(win,pane,0) 先 unzoom)/@0084eece(zoomed 页标题
+    //   " [Zoomed]" 追加比对腿)。
+    MuxPaneView *zoomedPane() const;
+
+    // FUN_008e0a72(0028:27741,303B)归辖落点:win 全域
+    //   findChildren<MuxPaneView*>(空名,smo 011abde0)后按 pane->+0x30
+    //   == paneIndex 线性扫首命中(qlist 迭代惯式直译,体见 .cpp)。
+    //   live 调用点:0084dd5a 宿主 @0084e8b2(select/zoom 双旗腿:
+    //   FUN_00876f8e → FUN_008e034a select-pane;FUN_00876fd6 →
+    //   FUN_008e04ae(win,pane,1) zoom)。
+    MuxPaneView *paneByIndex(int paneIndex) const;
+
     // mux_restorePaneSplitter(903B,0026:29862)。语料为自由函数:
     // (会话宿主*、配置容器、QSplitter*、页序、面板描述符*);QSplitter
     // 形参在调用点以 FUN_008e01ac(muxWindow) 形态取自本类

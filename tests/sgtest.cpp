@@ -4,6 +4,8 @@
 //     @005a22cb-df(批 148 由 cited 升真身;import 符号实证)
 //   removePage(QWidget*) = FUN_005a29e6(690B,asm 全读转写):
 //     首卫/ancestor 门/parent cast 门/close 门/嵌套收缩/递归自卷
+//   批 153:MuxWindow 归辖取面真身(FUN_008e0428 zoomedPane/
+//     FUN_008e0a72 paneByIndex;g 组)+ QUIRKS #33 死腿闭环注记(g4)
 // 批 118 已落槽体(ctor/isZoomed/stackCurrentPage/toggleZoomPage)不在此
 // 重复断言( mwctest b1 + uiassembletest d 已守)。
 // 无头惯例:QApplication + offscreen(tests/uiassembletest.cpp 同面)。
@@ -11,6 +13,9 @@
 #include <QPointer>
 #include <QSplitter>
 #include <cstdio>
+#include "Actions/MuxPaneGroup.h"
+#include "Actions/MuxPaneView.h"
+#include "Actions/MuxWindow.h"
 #include "Actions/SplitterGroup.h"
 
 static int g_fail = 0;
@@ -111,6 +116,30 @@ int main(int argc, char **argv)
 	expect(sg.isZoomed(),
 	       "f2: unzoom 腿 ph->parent 非 splitter cast null → 腿跳过,"
 	       "isZoomed 保持真(语料死腿 @005a265d-6d;实测同相)");
+
+	// ======== g. MuxWindow 归辖取面真身(批 153;FUN_008e0428/008e0a72)===
+	// 语料链:restorePaneSplitter 五级装配(批判例 f 形态,uiassembletest
+	// 同面)→ 取面按 corpus 语义断言;Qt5.15 本机 probe 同相。
+	MuxWindow gwin(false, nullptr);
+	MuxPaneGroup *ggroup = new MuxPaneGroup(true, nullptr);
+	MuxPaneView *gpane = new MuxPaneView(nullptr, TypeTerminal);
+	gwin.splitter()->addWidget(ggroup);
+	ggroup->addTab(gpane, /*normal=*/false);
+	expect(gwin.paneByIndex(0) == gpane,
+	       "g1: paneByIndex(0)==pane(FUN_008e0a72:findChildren 全域扫 +"
+	       "pane->+0x30 比对 @008e0bb0;paneIndex 语料 ctor 0 起步)"
+	       );
+	expect(gwin.paneByIndex(7) == nullptr,
+	       "g2: paneByIndex(未命中)==null(扫尽返 0 @008e0b47)");
+	expect(gwin.zoomedPane() == nullptr,
+	       "g3: 非 zoom 态取面 null(FUN_008e0428:stackCurrentPage 非"
+	       "zoom 返 0 → 直返 @008e0434;FUN_005a24fc)");
+	gwin.findChild<SplitterGroup *>()->toggleZoomPage(ggroup, true); // zoom 腿(FUN_005a2518)
+	expect(gwin.zoomedPane() == nullptr,
+	       "g4: zoom 态取面 null(stackCurrentPage = 占位页 ph,ph 无 "
+	       "MuxPaneView 子件 — Qt5.15 probe 同相;QUIRKS #33 死腿闭环:"
+	       "宿主 0084e151 unzoom 腿/0084eece [Zoomed] 追加腿双跳过 = 语料"
+	       "字面同相死路,只注记不修)");
 
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
