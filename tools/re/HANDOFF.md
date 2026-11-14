@@ -8,7 +8,19 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第二十八次交接,批 141 · M12 达成)
+## 一句话状态(2026-11-15 第二十九次交接,批 144 · M13 达成)
+
+**M13「宿主接线 + W 尾/0x7545 真值 + 注册表余量」达成(用户定,三
+车道并行),车道停开**:①KitWindow 宿主接线(yaml 装载腿真库委托
+真身/双 Meyers 合一 = CTerminalConfig 私有继承 face 同址 upcast/
+kitWindowRestoreFirstPage FUN_0075e3fe 对位,产品启动链无消费点 →
+mwctest 级,批 142)②W 尾 **20/20 清**(96f782/96f6fe 词法门·复位)+
+**0x7545 真值路径开通**(0093f7aa trie + 00a92326 varint + 非空
+data 断言;96d022 runMatch 命中即止;批 143)③注册表四表插入侧
+**全定案**:Logger(141)/Term FUN_007d9776/Transfer FUN_007daedc
+(144)/Commander 与 Term 共体无独立原语(144 定案);SessionLogger
+ctor 真身(腿体 spdlog 外库 cited)。markerstest **273 断言** fail=0;
+主仓终门 ctest 20/20 ×5 + dlopen OK。
 
 **M12「eNodes 收尾 + EXT 全清 + Config face + 4a 插入侧」达成(用户
 定,四车道并行),车道停开**:①eNodes W 族 **19/20**(余 inner 词法
@@ -105,19 +117,17 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 两 Config 单例基构造 = FUN_008a71e4 **CGlobalConfig**;SharedConfig = 独立 0x18B 小类非基类 → face 平铺 | 批 140(ctor 首句实读) | 批 138 侦察:SharedConfig 基类候选 |
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 
-## 现役队列(批 141 后,按需开批)
+## 现役队列(批 144 后,按需开批)
 
-1. **KitWindow 宿主接线批(Phase 4c)**:kitWindowAttachPage 于
-   FUN_0075e3fe 对位恢复路径;CGlobalConfig yaml 装载腿
-   (008a99de/008aa39e)cited 真身化 + CTerminalConfig 双 Meyers
-   合一(KITWINDOW-RECON 未解余项)
-2. **0x7545 序列化真值路径**(节点层已就位;收集腿 892B+707B)
-3. **注册表余量**:Term(+0x20)/Transfer(+0x28)/Commander(kind0)
-   插入侧语料未定位挂账;logger 建腿 007c1b38/007c24c8(5980B)
-   真身化(插入了裸 QObject 占位)
-4. **W 族尾**:96f782/96f6fe inner 词法面;0x75e4 刷新深腿
-   (00a1fb0e/00a1fbaa)
-5. Phase 4c SplitterGroup 余项 / Phase 5c 会话持久化对比(需我方可
+1. **启动路径接线(Phase 4a 余项)**:kitWindowRestoreFirstPage 现仅
+   mwctest 级——产品启动链消费点定位 + 工作区布局装载;CGlobalConfig
+   树深下钻面(00af4760/008a971e 元素体内嵌 kind 位面)真身化
+2. **注册表面余量**:logger 腿体 007c24c8(5980B spdlog 面,外库
+   边界)/Transfer 对象 ctor 008e81b2·008e3784(0x88B)真身化
+3. **eNodes 深层**:scanner inner 链(96cb3c/b6c/b84)+ 00970850
+   词法重建 + 96f250 trie 分裂(承载替坍缩怪癖 QUIRKS #31);
+   00a837f6 styled 腿断言补(调用面带 styled=1 时)
+4. Phase 4c SplitterGroup 余项 / Phase 5c 会话持久化对比(需我方可
    运行应用)/ 0x4eff DAT_011becc8 运行时观察
 
 ## 已知开放问题

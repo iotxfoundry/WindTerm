@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 141,2026-11-15 — 当前真值层)
+## 结论快照(截至批 144,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-141)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-144)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(十二项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(十三项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -22,7 +22,10 @@ eNodes 侦察方案书(134/135)→ M11 eNodes 建模 + 扩谱五批 EXT 段
 (136/137/**136b 布局勘正**;W 族 13/20;键型勘正 int;16 条
 static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
 真身(138)/EXT 叶全清 34 条(139)/CGlobalConfigFace + menu() 容器型
-定案(140)/4a 注册表 Logger 插入侧(141)**。
+定案(140)/4a 注册表 Logger 插入侧(141)** → **M13 三车道:KitWindow
+宿主接线 + yaml 装载腿 + 双 Meyers 合一(142)/W 尾 inner 词法面 +
+0x7545 真值路径开通(143)/注册表余量 Term·Transfer 插入侧(144;
+四表插入侧全定案)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -35,8 +38,8 @@ static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
 | bufferScan 引擎 | Onigmo-改 边界委托(EXT-BOUNDARY;单层针指针契约,批 116b 勘正);engVt50Block/engVt28Class 真身(批 119 转储定案) |
 | scanMask | 活性接线 ✅(批 127 buffer 承载建模 + s_scanCarrier 缝;0x7543 initDoc 零接线点定案,批 128) |
 | 巨 switch 扩谱 | **全清**:五批 66 + EXT 32(批 137)+ 叶 34(批 139:真身 2/cited 32,差集重 derive);0x4ec2=20162 门漏叶勘误已截获;markerstest q/r/s/t/u/v/w/x/y/z 组 |
-| eNodes 节点层 | W 族 **19/20**(余 96f782/96f6fe inner 词法面 cited);0x75e4/75aa/7581/75c8/75f6 真身(批 138);96f80a 旗位/96fb1e 清偿/96d89e QHash 收集/92601a 组播底座真身;E+0x2d8 键型 int;16 条 static_assert 锁 |
-| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);K 效消费面只触 +0x28/+0x38 |
+| eNodes 节点层 | **W 族 20/20 尾清**(批 143:96f782/96f6fe 词法门·复位/96cba2 收敛真身;scanner inner 链 cited);**0x7545 真值路径开通**(0093f7aa trie + 00a92326 varint 序列化 + 非空 data 断言);96d022 runMatch 真值接 92e5e8(命中即止);应用族 0x75e4/75aa/7581/75c8/75f6 真身;16 条 static_assert 锁 |
+| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);**yaml 装载腿真身 + 双 Meyers 合一 + kitWindowRestoreFirstPage(批 142,FUN_0075e3fe 对位;产品启动链无消费点 → mwctest 级接线)** |
 
 ### 5b 行为对比终局(批 121-123)
 
@@ -48,18 +51,46 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 ### 开放风险(现役)
 
 1. RUBY 假设无行为级证明(见上)。
-2. 0x7545 序列化格式断言未覆盖真值路径(收集腿空 data 占位;节点层
-   已就位,可开批)。
-3. W 族尾:inner 词法面 96f782/96f6fe;0x75e4 刷新深腿
-   (00a1fb0e/00a1fbaa)cited。
-4. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
+2. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
    0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
    EditorContext.h 头扩展)。
-5. 注册表插入侧余量:Term(+0x20)/Transfer(+0x28)/Commander(kind0)
-   插入侧语料未定位挂账;logger 建腿 007c1b38/007c24c8(5980B)cited。
-6. CGlobalConfigFace yaml 装载腿(008a99de/008aa39e)cited →
-   groupNames() 运行期恒空(机制原样);CTerminalConfig 双 Meyers
-   合一待容器真身批。
+3. eNodes scanner inner 链(96cb3c/b6c/b84 位或链;inner null 壳态
+   不可达)与 00970850 词法重建 cited;96f250 trie 分裂承载替坍缩
+   (遍历序同相,QUIRKS #31)。
+4. logger 建腿腿体 007c24c8(5980B spdlog 面)外库边界 cited —
+   logger sink 行为仍空;Transfer 对象 ctor(008e81b2/008e3784
+   0x88B)cited 空壳。
+5. CGlobalConfigFace 树深下钻面(00af4760/008a971e 元素体内嵌
+   Action/Menu kind 位面)仅注记 — 装载腿当前只落顶层组名;产品
+   启动链无消费点,宿主接线仅 mwctest 级(启动路径 Phase 4a 余项)。
+6. 00a837f6 styled 腿(调面恒 0)未测 — 后续调用面带 styled=1 需补断言。
+
+### 批 142/143/144(2026-11-15)M13 三车道:宿主接线 + W 尾/0x7545 真值 + 注册表余量 ✅ ctest 20/20 ×5
+
+- **批 142 KitWindow 宿主接线**:yaml 装载腿真身化(FUN_008a99de/
+  008aa39e 委托真 yaml-cpp,ConfigBridge 判例;路径腿 tail
+  "/configs/menu|toolbar.config" 二进制实读 0xcb9da0/0xcb9d40;
+  ensureLoaded 四路 AND/appendChild·clearChildren children 数组对位);
+  **双 Meyers 合一**(CTerminalConfig 私有继承 face,face() 同址
+  upcast,不发明继承树);kitWindowRestoreFirstPage 真身
+  (FUN_0075e3fe 无 pane 腿 → 007665ae "Terminal" 首页;activeMainPane
+  门 = activeWindow 祖先链 dynamic_cast<MuxPane>@0075c0be);mwctest
+  d5-d8。
+- **批 143 W 尾 + 0x7545 真值路径**:记录布局裁定(96f782 门开
+  scanner 逐项 |4 + f68 收敛 + f50=tag;96f6fe inner+8 scanner 复位 +
+  00970850 词法重建;96d022 payload 经 00a837f6 memcmp 比对命中返 1
+  → 92e5e8 命中即止);0x7545 三腿真值(0093f7aa trie 收集 + 00a92326
+  varint LEB128 变体序列化 + 非空 data append;承载替 8B 值序怪癖
+  QUIRKS #31);aa 组 19 断言;**16 条 static_assert 零字段追加恒过**。
+- **批 144 注册表余量**:SessionLogger ctor 007c1b38 字段面真身
+  (腿体 007c24c8 spdlog 外库边界 cited);**四表插入侧全定案**:
+  Term(+0x20)= FUN_007d9776(1596B,复用卫/termCreated idx3)/
+  Transfer(+0x28)= FUN_007daedc(1803B,协议卫/transferCreated
+  idx10;对象 ctor 0x88B cited)/Commander(kind0)= 定案与 Term 共体
+  (007d9776 node 双值,无独立原语);termCreated 加 name 参(qmo
+  argc=2 权威);reginserttest e/f/g 组 9 断言。
+- 验证:三车道独立门 + 主控顺序合流(144→142→143 零冲突);主仓
+  终门 ctest 20/20 ×5 + dlopen OK;markerstest 273 断言 fail=0。
 
 ### 批 138/139/140/141(2026-11-15)M12 四车道:W 族收尾 + EXT 全清 + Config face + 4a 插入侧 ✅ ctest 20/20 ×5
 

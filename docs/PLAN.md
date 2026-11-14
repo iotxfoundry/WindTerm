@@ -15,24 +15,24 @@
 
 ---
 
-## 总览(2026-11-15 批 141;历史明细见 docs/PHASE5.md 批次流水)
+## 总览(2026-11-15 批 144;历史明细见 docs/PHASE5.md 批次流水)
 
 | 阶段 | 状态 |
 |---|---|
 | Phase 0 基础设施 | ✅ |
 | Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
-| Phase 3 编辑引擎 customDispatch | ⏳ **巨 switch 全清**(WT 段批 132/EXT 段批 137+139)/eNodes 节点层 W19/20/搜索链激活;详见 PHASE5 结论快照 |
-| Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;注册表 Logger 插入侧 ✅(批 141);工作区布局装载 ⬜ |
+| Phase 3 编辑引擎 customDispatch | ⏳ **巨 switch 全清**(WT+EXT)+ eNodes 节点层 20/20 + **0x7545 真值路径开通**(批 143)/搜索链激活;详见 PHASE5 结论快照 |
+| Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;**注册表四表插入侧全定案**(批 141/144);工作区布局装载+产品启动链接线 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 4c 主窗口 | ⬜(KitWindowFactory+CGlobalConfigFace 真身批 134/140;宿主接线/SplitterGroup 余项) |
+| Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身(134/140)+ yaml 装载腿 + 宿主接线 mwctest 级(142);SplitterGroup 余项 |
 | Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⬜** |
 | 会话装配 | ✅ 管理收口(批 29) |
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
-| 组件重做(铁律 6) | ⏳ M1-M12:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层 W19/20;余:busy 腿(外库登记)/W 尾 inner 词法面/0x7545 真值路径 |
+| 组件重做(铁律 6) | ⏳ M1-M13:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层 20/20+0x7545 真值;余:busy 腿(外库登记)/scanner inner 链/spdlog 腿体 |
 
 测试矩阵:**ctest 20/20**(e2eterm 25 + recheck 22 + engtest×2 +
-markerstest q·r·s·t·u·v·w·x·y·z 组 + reginserttest + modtracktest 22 + onigtest 24 +
+markerstest q·r·s·t·u·v·w·x·y·z·aa 组 273 断言 + reginserttest + modtracktest 22 + onigtest 24 +
 engtest5 61 + wordsteptest g·i 组 + keymap/telnet/pty/shellsession/
 telnetsocket/echo_semantics/actions/kitbar/uiassemble/rendermath/
 renderpix/proxysock 全家;wordsteptest transient 已根治,批 128)。
