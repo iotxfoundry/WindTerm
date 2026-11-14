@@ -2357,6 +2357,31 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 ×3 连跑稳定 +
   dlopen OK**(批 128 transient 根治后无复发)。
 
+### 批 130/131(2026-11-14)M7 双车道:扩谱四批 14 条/KitWindow 侦察方案书 ✅ ctest 19/19
+
+- **批 130 扩谱四批 14 条(含 3 误挂勘正)**:0x7555/0x7557 勘误真身
+  (旧"批 77 同体"清点证伪)/0x7562 新 case(FUN_00a2d5d0 自 0x7564
+  勘正归位)/0x7564 clamp[0,5]→val1bb/0x7569·756b 新 case(fieldD9c
+  写门/flag227 读)/0x75ac pos<0 门(00a26f32 全读)/0x75fd 新 case
+  (obj+0x20 写,0x75ff 异槽勘误注记)/0x75fa·fb hex 门(00a2a6e6 全读)/
+  0x7551 勘注门(撤 appendText 误接)/0x7539 勘注。markerstest u 组
+  16 断言。仍 cited:0x7555/7557 行级替换腿(00a2546a)/0x7551 iter
+  深腿/0x7539 字段落位/0x75fd elapsed/0x75fa·fb 时间戳深度。
+  风险登记:0x7564 勘正的他处 dispatch 消费者 xref 未查。
+- **批 131 KitWindow 侦察方案书**(零产品码,KITWINDOW-RECON.md
+  155 行,22 处地址引证):KitWindow = **抽象 QMainWindow 子类**
+  (ctor FUN_008cc692 214B,双 vptr 0x11ab3b8/0x11ab620,sizeof=0xb8,
+  字段 +0x30..+0xb0 全录);menu() = 槽 62 **纯虚**(EditorWindow
+  0x5e97d2/TerminalWindow 0x858fce 覆)→ showConfigMenu 消费 =
+  **零实例字段 + 一虚调用**;方案书三步 diff 前置(KitWindowFace 壳
+  + kitFindOrCreateGroupMenu 00692ef0/kitPopupConfigButton 005ac790
+  两段真身);工厂接线 FUN_0089d752 ← s_HistoryHints_7664a2 →
+  MainWindow+0x58 stack(**不挂 EditorEngine**)。未解三项如实登记
+  (menu() 容器类名/槽 55-74 命名/008cc84e 序列化面)。转写车道从此
+  免侦察直执。
+- 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 ×3 稳定 +
+  dlopen OK**。扩谱累计 52 条(9+14+15+14),余 ~18 条续批。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
