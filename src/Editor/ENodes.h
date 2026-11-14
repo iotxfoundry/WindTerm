@@ -23,9 +23,11 @@ class EditorContext; // ENodeRunner 前向(仅存指针)
 namespace wt {
 
 // ENodeTask — 语料 DocumentTask(TI 0x11ad4b0,0x30B)
+// ⚠ 布局勘正(批 136b):本类含虚 D1 → 编译器 vptr 占 +0x00 = 语料
+//   +0x00 vtable 槽(原显式 vtbl 成员双计 vptr 致全字段 +8 漂移,已删)。
+//   static_assert 锁定语料偏移于类尾。
 struct ENodeTask {
-	void *vtbl = nullptr;         // +0x00 cited — 0x11ad4e8(我方读路不经 vt,槽面由成员体承载)
-	qint8 kind = 0;               // +0x08 kind 键值(0x754d [5,8] 门;92e524 匹配键)
+	qint8 kind = 0;               // +0x08 kind 键值(0x754d [5,8] 门;92e524 匹配键;raw 门读 +8)
 	qint32 modeC = 0;             // +0x0c(9637b8 kind==8 腿 = mode;9635d0 ==a2 门)
 	quint8 state = 0;             // +0x10 kind∈[5,7]→2;9637b8 重置;9635d8 门 ∈[1,2]
 	quint8 _r11[3] = {};
@@ -34,12 +36,13 @@ struct ENodeTask {
 	quint8 _r21[3] = {};
 	quint32 p24 = 0;              // +0x24(9637da 分发门 ==0;9635e6 进出 ±1)
 	quint8 stopped = 1;           // +0x28 963590 字面 1;9264ba 非零跳;9637ea 置 1;9637da 清 0
-	virtual ~ENodeTask() = default; // 虚 D1 槽(语料 slot0=0x9638a6 D1/slot1 D0)
+	virtual ~ENodeTask() = default; // 虚 D1 槽(语料 slot0=0x9638a6 D1/slot1 D0;
+	                                //   编译器 vptr = 语料 +0x00 vtable 槽)
 
-	// FUN_00963590(64B)@0031.c:34095 — 全字面转写
+	// FUN_00963590(64B)@0031.c:34095 — 全字面转写(vtbl 槽 = 编译器
+	//   vptr 承接,语料 ctor 写真 vtable 地址 — 同位同语义)
 	void ctor00963590(qint8 k, quint64 e)
 	{
-		vtbl = nullptr;                       // cited — 0x11ad4e8
 		kind = k;
 		modeC = 0;
 		state = 0;
@@ -72,11 +75,12 @@ struct ENodeTask {
 
 // ENodeScan — 语料 ScanTask(TI 0x11ad588,0xB0;ctor = 963590 + 扩展段)
 struct ENodeScan : ENodeTask {
-	quint32 c2c = 0;              // +0x2c 96f606 字面 4
-	quint8 _r30[4] = {};
-	QVector<void *> runs;         // +0x30.. 语料 begin/end QList(0x20 步进记录)
-	                              //   → QVector 承载(96d094 非空门 = !isEmpty;
-	                              //   96fb1e 清偿 → clear;批 127 载体缝同款怪癖)
+	quint32 c2c = 0;              // +0x2c 96f606 字面 4(GCC dsize:基尾垫承接)
+	                              //   ⚠ 勿加占位数组 — 会把 runs face 顶出语料 +0x30
+	void *runsF30 = nullptr;      // +0x30 语料 runs face begin(96d094 [6];
+	                              //   96fb1e 清偿 end=begin)
+	void *runsF38 = nullptr;      // +0x38 语料 runs face end(96d094 [7];
+	                              //   非空门 = [6]!=[7])
 	quint64 f40 = 0, f48 = 0, f50 = 0, f58 = 0;   // +0x40..+0x58(0x4c 覆 f48 高半)
 	quint64 f60 = 0x1000000;      // +0x60 96f606 字面(0x60/61/62 旗位字节)
 	quint64 f68 = 0;
@@ -88,6 +92,26 @@ struct ENodeScan : ENodeTask {
 	quint64 f90 = 0, f98 = 0, fa0 = 0;
 	void *inner = nullptr;        // +0xa8 operator_new(0x18){回指,+0x10:0}
 	                              //   + FUN_00970850 — cited — wave-2(壳期 nullptr)
+	QVector<void *> runsSlots;    // 槽承载替(语料 0x20 记录槽数组;类尾
+	                              //   追加 — 不挤真身字段;begin/end 指向其
+	                              //   首尾,QVector 重排失效 → anchorRunsFace
+	                              //   重锚;壳态单线程同相,登记承载替)
+
+	// runs face 重锚(槽承载替;语料 begin/end 指向槽数组首尾)
+	void anchorRunsFace()
+	{
+		runsF30 = slotsData();
+		runSetEnd();
+	}
+	void *slotsData() const
+	{
+		return const_cast<void *>(static_cast<const void *>(runsSlots.constData()));
+	}
+	void runSetEnd()
+	{
+		runsF38 = reinterpret_cast<void *>(reinterpret_cast<char *>(runsF30)
+		    + runsSlots.size() * sizeof(void *));
+	}
 
 	// FUN_0096f606(229B)@0031.c:43974 — 全字面转写(不调 9637b8:
 	//   92b56e 落 kind==8 才尾调)
@@ -95,7 +119,8 @@ struct ENodeScan : ENodeTask {
 	{
 		ctor00963590(k, 0);       // E 由 92b56e 调面补(eNodeGet 写 p18)
 		c2c = 4;
-		runs.clear();
+		runsSlots.clear();
+		anchorRunsFace();         // 语料 end=begin
 		f40 = f48 = f50 = f58 = 0;
 		f60 = 0x1000000;
 		f68 = 0;
@@ -115,7 +140,7 @@ struct ENodeScan : ENodeTask {
 			state = 1;
 	}
 	// FUN_0096d094(12B)@0031.c:42296:[+0x38]!=[+0x30] 非空门
-	bool runsNonEmpty0096d094() const { return !runs.isEmpty(); }
+	bool runsNonEmpty0096d094() const { return runsF30 != runsF38; }
 	// FUN_0096d0a0(61B)@0031.c:42306:非空门 ∧ (+0x78==rs → +0x80!=re)
 	bool dirtyTest0096d0a0(qint64 rs, qint64 re) const
 	{
@@ -150,11 +175,12 @@ struct ENodeScan : ENodeTask {
 	{
 		if (rec == nullptr)
 			return;               // *param_2==0 → FUN_0096ca00 — cited
-		if (idx == -1)            // (end-begin)>>5 尾插
-			idx = runs.size();
-		runs.insert(idx, const_cast<void *>(rec)); // 96c868 尾插/9701b0 扩容 → QVector
+		if (idx == -1)            // (end-begin)>>5 尾插(语料 0x20 记录步进)
+			idx = runsSlots.size();
+		runsSlots.insert(idx, const_cast<void *>(rec)); // 96c868 尾插/9701b0 扩容 → slots 承载
+		anchorRunsFace();
 		if (modeC == 7)
-			*(reinterpret_cast<quint32 *>(&f48) + 1) = quint32(runs.size()); // +0x4c
+			*(reinterpret_cast<quint32 *>(&f48) + 1) = quint32(runsSlots.size()); // +0x4c
 		// +0x60/61/62 旗位(record 首字节位面)— cited — wave-2
 		// FUN_0096f782 — cited — wave-2
 	}
@@ -164,11 +190,34 @@ struct ENodeScan : ENodeTask {
 	//   复位,inner+8 解引面)— 壳态 inner=nullptr → cited。
 	void runClear0096fb1e()
 	{
-		runs.clear();             // 语料 end=begin(+0x38=+0x30)
+		runsSlots.clear();
+		anchorRunsFace();         // 语料 end=begin(+0x38=+0x30)
 		*reinterpret_cast<quint16 *>(reinterpret_cast<quint8 *>(&f60) + 1) = 0; // +0x61
 		// 0x20 记录解引清偿 + 96f6fe scanner 复位 — cited — wave-2
 	}
 };
+
+
+// 语料偏移锁(批 136b:vptr 双计勘正后锁定;ENodeTask 含虚 D1 →
+//   编译器 vptr = 语料 +0x00 vtable 槽;offsetof 于多态类为 GCC 扩展,
+//   警告 -Winvalid-offsetof 预期内)
+static_assert(offsetof(wt::ENodeTask, kind) == 0x08, "corpus +0x08 kind");
+static_assert(offsetof(wt::ENodeTask, modeC) == 0x0c, "corpus +0x0c modeC");
+static_assert(offsetof(wt::ENodeTask, state) == 0x10, "corpus +0x10 state");
+static_assert(offsetof(wt::ENodeTask, p18) == 0x18, "corpus +0x18 p18");
+static_assert(offsetof(wt::ENodeTask, spin20) == 0x20, "corpus +0x20 spin");
+static_assert(offsetof(wt::ENodeTask, p24) == 0x24, "corpus +0x24 p24");
+static_assert(offsetof(wt::ENodeTask, stopped) == 0x28, "corpus +0x28 stopped");
+static_assert(offsetof(wt::ENodeScan, c2c) == 0x2c, "corpus +0x2c c2c");
+static_assert(offsetof(wt::ENodeScan, runsF30) == 0x30, "corpus +0x30 runs begin");
+static_assert(offsetof(wt::ENodeScan, runsF38) == 0x38, "corpus +0x38 runs end");
+static_assert(offsetof(wt::ENodeScan, f40) == 0x40, "corpus +0x40");
+static_assert(offsetof(wt::ENodeScan, f60) == 0x60, "corpus +0x60 flags");
+static_assert(offsetof(wt::ENodeScan, spin) == 0x70, "corpus +0x70 spin");
+static_assert(offsetof(wt::ENodeScan, dirtyLo) == 0x78, "corpus +0x78 dirtyLo");
+static_assert(offsetof(wt::ENodeScan, dirtyHi) == 0x80, "corpus +0x80 dirtyHi");
+static_assert(offsetof(wt::ENodeScan, cursor) == 0x88, "corpus +0x88 cursor");
+static_assert(offsetof(wt::ENodeScan, inner) == 0xa8, "corpus +0xa8 inner");
 
 // ENodeRunner — 语料 DocumentTaskRunner(0x28,TI 0x11ad4c0,vptr
 //   0x11ad508;ctor FUN_009638d2 33B @0031.c:34356:{+0x08=0,

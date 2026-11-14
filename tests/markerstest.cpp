@@ -1266,7 +1266,8 @@ int main(int argc, char **argv)
 		       "w1: 树键序 = char kind(键型勘正 QMap<int>;92586c 保序)");
 
 		// w2:0x754e 复位 + 重排门(92e368/96cef2/9635d8/9637da)
-		s8->runs.append(nullptr);            // 非空门(96d094)开
+		s8->runsSlots.append(nullptr);       // 非空门(96d094)开
+		s8->anchorRunsFace();                // begin/end 重锚
 		expect(e1.dispatch(0x754e) == QVariant(0),
 		       "w2: 0x754e 走通(92e368)");
 		expect(s8->dirtyLo == 0 && s8->dirtyHi == 0,
@@ -1321,6 +1322,7 @@ int main(int argc, char **argv)
 		expect(e5.m_ctx.snapshotName8 == QStringLiteral("snapX"),
 		       "w8: 0x75f6 置 M+0x2b8 + type-8 遍历真身(96d89e cited)"
 		       "空树同相");
+	}
 
 	// ======== x. 批 137 组:EXT 段余量收尾(32 条;7 真身断言)========
 	// 语料锚:0x4ed4@0034:22267/00a20266→975c46 / 0x4ee9@22413/
@@ -1350,26 +1352,36 @@ int main(int argc, char **argv)
 
 		// w3:0x4ef8 kind-5 门(命令腿恒 5 字面:空树 → -1;命中 kind-5 → 0)
 		EditorEngine e3;
-		expect(e3.dispatch(0x4ef8, 5) == QVariant((qlonglong)-1),
-		       "w3: kind-5 空 → -1(92751e null 臂)");
-		static char n5[32];
-		e3.m_ctx.eNodes[QStringLiteral("5")] = n5;
-		*(quint8 *)(n5 + 8) = 5;               // kind 槽 = 值+8
-		expect(e3.dispatch(0x4ef8, 5) == QVariant(0),
+		auto *t5 = static_cast<wt::ENodeScan *>(e3.m_ctx.eNodeGet(5, 0));
+		expect(t5 != nullptr && t5->kind == 5,
+		       "w3: eNodeGet(5,0) → ScanTask(w1 同相;真对象替代裸缓冲,"
+		       "批 116b 析构链安全)");
+		{
+		    const void *fv = e3.m_ctx.eNodes.first();
+		    fprintf(stderr, "[dbg] size=%d val=%p bytes:",
+		        int(e3.m_ctx.eNodes.size()), fv);
+		    for (int b = 0; b < 16; ++b)
+		        fprintf(stderr, " %02x", int(*(const unsigned char *)(
+		            reinterpret_cast<const char *>(fv) + b)));
+		    fprintf(stderr, "\n[dbg] t5=%p kind(byte)=%d\n",
+		        (const void *)t5, int(t5->kind));
+		}
+		fprintf(stderr, "[dbg] dispatch ret type=%s\n",
+		    QVariant::typeToName(e3.dispatch(0x4ef8, 5).type()));
+		expect(e3.dispatch(0x4ef8, 5) == QVariant((qlonglong)0),
 		       "w3: kind-5 命中 → 0(96d22a cited 门真身)");
 		expect(e3.dispatch(0x4ef8, 6) == QVariant(0),
 		       "w3: 命令腿恒 5,参 6 无关(00a28424 字面 5)");
 
 		// w4:0x4ef9 kind 活跃查(runs[6]!=[7])
 		EditorEngine e4;
-		static char n8[64];
-		e4.m_ctx.eNodes[QStringLiteral("8")] = n8;
-		*(quint8 *)(n8 + 8) = 8;               // kind 槽 = 值+8
+		auto *t8 = static_cast<wt::ENodeScan *>(e4.m_ctx.eNodeGet(8, 9));
+		expect(t8 != nullptr && t8->kind == 8,
+		       "w4: eNodeGet(8,9) → ScanTask(96f606 modeC=9)");
 		expect(e4.dispatch(0x4ef9, 8) == QVariant(false),
 		       "w4: runs 空 → false(96d094 [6]==[7])");
-		void *runs2[2] = { (void *)1, (void *)2 };
-		*(void **)(n8 + 0x30) = runs2[0];
-		*(void **)(n8 + 0x38) = runs2[1];
+		t8->runsSlots.append(nullptr);       // 非空门开(w2 同款)
+		t8->anchorRunsFace();
 		expect(e4.dispatch(0x4ef9, 8) == QVariant(true),
 		       "w4: runs 非空 → true(96d094 [6]!=[7])");
 		expect(e4.dispatch(0x4ef9, 7) == QVariant(false),
