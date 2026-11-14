@@ -4327,6 +4327,211 @@ step:;
 		}
 		return QVariant(0);
 	}
+	// --- 批 137:EXT 段余量收尾(0x4ec3..0x4f04;语料 = 巨 switch
+	//     decomp-part-0034.c:20740-25432 差集 32 叶)---
+	case 0x4ec3: {  // 0034.c:22543 lexer-face 查询(00926e76:M+0xc8 门 →
+	                //   FUN_0098e632 337B trigger 行走/区间面)—— lexer
+	                //   face 对象未建模(bufferLexer 仅门面)→ cited
+	                //   (壳态 M+0xc8==0 → return 0 同相)
+		return QVariant((qlonglong)0);   // 00926e7c null 臂
+	}
+	case 0x4ec5:    // 0034.c:22533 +0x20c 字节 = a.toBool() — 字段未入库
+	                //   (EditorContext.h 本批禁改;0x7539 判例)→ cited
+		return QVariant(0);
+	case 0x4ec6:    // 0034.c:22263 QVariant(*(u8*)(this+0x20c)) 读
+	                //   (0x4ec5 写对)— 同上 cited → false 同相
+		return QVariant(false);
+	case 0x4ec7:    // 0034.c:22284 FUN_00927ce0(11B)→ 99b5d6(M+0xf0,
+	                //   pos, 1):ModTrack 位读 (byte&mask)==mask —
+	                //   读原语未落(set 族已落 114)→ cited false
+		return QVariant(false);
+	case 0x4ec8:    // 0034.c:22296 927e22 → 99b5d6(…,2) bit1 — 同上 cited
+		return QVariant(false);
+	case 0x4ec9:    // 0034.c:22276 927a68 → 9b413e(M+0xe8,bool)词行走
+	                //   对象构造(188B)→ u64 — 深腿 cited 0
+		return QVariant((qlonglong)0);
+	case 0x4ecd:    // 0034.c:22272 activateNextSelection(00a237a6 44B
+	                //   全读):store 计数门(974800/974856)+ 9757e6
+	                //   current=(cur+1)%count + 974a40/96c714 节点重
+	                //   标 + a235ce 激活 — store current 槽/重标腿未
+	                //   建模 → cited(壳态 count<2 no-op 同相)
+		return QVariant(0);
+	case 0x4ece:    // 0034.c:22280 activatePreviousSelection(00a23808
+	                //   同构,975712 cur==0→count-1)— 同上 cited
+		return QVariant(0);
+	case 0x4ecf:    // 0034.c:22322 lockSelection(00a2386a 28B 全读):
+	                //   97881e(store)+0x48 清 + 逐行 runnode +
+	                //   current=count-1 — 深腿 cited(壳态 count==0
+	                //   97881e 尾 count-1 no-op 同相)
+		return QVariant(0);
+	case 0x4ed0: {  // 0034.c:22326 dropSelection(00a23894 44B 全读):
+	                //   idx = a≥1 ? a : current;976b00(store,idx)
+	                //   越界早退 + a235ce 重激活 — 壳态 count==0 →
+	                //   976b00 首门 return 同相;摘除腿 cited
+		const int idx = a.toInt();
+		Q_UNUSED(idx);                   // 976b00 store 空早退(cited)
+		return QVariant(0);
+	}
+	case 0x4ed2:    // 0034.c:22334 splitSelection(00a20198 → 978872
+	                //   173 行:逐行 run 拆分 977248/9786fa)— 深腿
+	                //   cited(壳态空文档零拆分同相)
+		return QVariant(0);
+	case 0x4ed4: {  // 0034.c:22267 selectionType toggle(00a20266 →
+	                //   975c46 全读):逐选区 96c666(rect:byte3&
+	                //   0xc0==0x80)→ 96c700(sel,1) 流;否则 2 矩
+	                //   —— Span56.flagWord 位30-31 承载(96bd68
+	                //   byte3|flag<<6 面)—— 真身(批 137)
+		const quint32 u32 = 0x40000000u;              // 96c700 v=1 流
+		const quint32 rct = 0x80000000u;              // v=2 矩
+		auto tog = [u32, rct](quint32 &w) {
+		    w = (w & 0x3fffffffu) |
+		        (((w >> 30) == 2u) ? u32 : rct);      // 96c666/96c700
+		};
+		tog(m_ctx.selStore.anchor.flagWord);
+		for (auto &sp : m_ctx.selStore.extras)
+			tog(sp.flagWord);
+		return QVariant(0);
+	}
+	case 0x4ee4:    // 0034.c:22378 tabify(00a385ee 231B 全读):样式
+	                //   blank-run 源(Uint8RunStyles 风格标记)→
+	                //   92c628 逐行 tab 对齐换算 — 样式 run 标记面未
+	                //   建模 → 空集 no-op 同相 — cited
+		return QVariant(0);
+	case 0x4ee6:    // 0034.c:22336 untabify(00a286a2 68B 头读):选区
+	                //   逐 blank-run 转换(96bc1a/92c628 族)— 深腿
+	                //   cited(壳态空选区 no-op 同相)
+		return QVariant(0);
+	case 0x4ee8:    // 0034.c:22402 选区快照序列化(00a1fc18 → 9766a6
+	                //   → 97623a 62B 头读:计数/游标/6 节点逐字段
+	                //   写入)— 序列化体未读 → cited 空 QByteArray
+		return QVariant(QByteArray());
+	case 0x4ee9: {  // 0034.c:22413 选区越界校验(00a28d1e 88B 全读):
+	                //   逐选区 end>docLen → 978f7c 转储(62B+ 深腿)
+	                //   → false;hexMode → a28c70 cited;真值 true
+	                //   —— 校验门真身 + 转储腿 cited(批 137)
+		const qint64 len = (qint64)send(SCI_GETLENGTH);
+		auto chk = [len](const EditorContext::Span56 &sp) {
+		    return sp.n0.pos > len || sp.n1.pos > len;    // 00a4233x 门
+		};
+		if (chk(m_ctx.selStore.anchor))
+			return QVariant(false);      // 978f7c 转储腿 — cited
+		for (const auto &sp : m_ctx.selStore.extras)
+			if (chk(sp))
+				return QVariant(false);
+		// hexMode → FUN_00a28c70 hex 快照腿 — cited(壳态同相)
+		return QVariant(true);                        // 00a4240x 尾
+	}
+	case 0x4eeb:    // 0034.c:22358 样式记录插入(9257a8 → 92043a →
+	                //   923650 336B:doc+0x100 0x40 记录 deque 二分
+	                //   插入)— 样式视图未建模 → cited no-op
+		return QVariant(0);
+	case 0x4eed:    // 0034.c:22369 样式记录读(9257f0:doc+0x100 vt+0x28
+	                //   styleAt/skiprunstyles)— cited 0
+		return QVariant(0);
+	case 0x4eef:    // 0034.c:20822 行宽查询(928454:doc+0x100 vt+0x40
+	                //   ==92128e → 972abe(idx+1)/vcall)— cited 0
+		return QVariant(0);
+	case 0x4ef0:    // 0034.c:22631 props 低 5 位查(93499e → 9347c2
+	                //   RS32 值 & 91f328 0x1f 掩码)— doc+0x100 cited 0
+		return QVariant(0);
+	case 0x4ef1:    // 0034.c:22647 props 记录取(93493e → 91f288:
+	                //   +0x98 deque[idx] QByteArray)— cited 空
+		return QVariant(QByteArray());
+	case 0x4ef2:    // 0034.c:22620 props 记录取+特串(93496e → 925722:
+	                //   0x15/0x16 → dat_11823d8/11823b8 字面串,否则
+	                //   91f288)— cited 空
+		return QVariant(QByteArray());
+	case 0x4ef3:    // 0034.c:22666 选区存储置换(00a2e858 → a2e4e6
+	                //   351B + a28316 → 92e5e8 节点应用族)— store
+	                //   壳态 null → a2e4e6 早退同相 + 92e5e8 cited
+	                //   (0x7581 判例同款)
+		return QVariant(0);
+	case 0x4ef5:    // 0034.c:22671 editor_getSelRange(897B)选区 runnode
+	                //   块写入 editctx iter — iter 块未建模
+	                //   (0x7551 判例)— cited no-op
+		return QVariant(0);
+	case 0x4ef8: {  // 0034.c:22615 → FUN_00a28424(M,5) 61B 全读(命令腿
+	                //   恒 5 字面):
+	                //   单选区 → sel 起/止(96bbc0),否则 {-1,-1};
+	                //   9258b2(M,5,0) kind-5 树查(key≥5 首命中);
+	                //   null 任务 → 92751e 早退 -1;命中 → 96d22a
+	                //   节点应用 cited —— kind 门真身(批 137)
+		const qint64 def = -1;
+		qint64 s0 = def, s1 = def;
+		if (send(SCI_GETSELECTIONS) == 1) {           // 00a2842c count 门
+			s0 = send(SCI_GETSELECTIONSTART);         // 00a28436 a1ff9c 面
+			s1 = send(SCI_GETSELECTIONEND);           // 00a28448 a20050 面
+		}
+		for (auto it = m_ctx.eNodes.begin();          // 9258b2 kind 查找
+		     it != m_ctx.eNodes.end(); ++it) {
+			void *v = it.value();
+			if (v && quint8(*(const quint8 *)(reinterpret_cast<
+			        const char *>(v) + 8)) == 5) {
+				// 96d22a(task, extrasRunlist, s0, s1)— cited
+				return QVariant(0);
+			}
+		}
+		Q_UNUSED(s0); Q_UNUSED(s1);
+		return QVariant((qlonglong)-1);               // 92751e null 臂
+	}
+	case 0x4ef9: {  // 0034.c:22703 kind 活跃查(00a28388 → 9306ba 66B
+	                //   全读):939d14 kind 树查 → 逐项 dynamic_cast
+	                //   ScanTask → 96d094 runs[6]!=[7] 非空 → bool
+	                //   —— kind 门 + runs 面真身(批 137)
+		const qint8 kind = qint8(a.toInt());
+		for (auto it = m_ctx.eNodes.begin();
+		     it != m_ctx.eNodes.end(); ++it) {
+			void *v = it.value();
+			if (!v || quint8(*(const quint8 *)(
+			        reinterpret_cast<const char *>(v) + 8)) != kind)
+				continue;                              // 939d14 kind 门
+			const void *const *q = reinterpret_cast<
+			    void *const *>(reinterpret_cast<const char *>(v) + 0x30);
+			if (q[0] != q[1])                          // 96d094 非空
+				return QVariant(true);
+		}
+		return QVariant(false);                        // 9306ba 尾 0
+	}
+	case 0x4efa:    // 0034.c:22708 lexer 门读(926c6e:M+0x98 != 0)——
+	                //   bufferLexer 代理真身(0x4ec2 同面异令)
+		return QVariant(m_ctx.bufferLexer != nullptr);
+	case 0x4efb:    // 0034.c:22676 M+0xa8 门读(926d1a)— 对象未建模
+	                //   → cited false(壳态同相)
+		return QVariant(false);
+	case 0x4efd:    // 0034.c:22682 M+0xc0 门读(926dfc)= markersStore
+	                //   .arr — 真身(批 132 读侧同源)
+		return QVariant(m_ctx.markersStore.arr != nullptr);
+	case 0x4f01:    // 0034.c:22724 activatePrevSelection·commit 面
+	                //   (00a28662 34B 全读):store[+0x1f7] anchor
+	                //   有效门(96beb4)→ a20fb0 应用 + a235ce 激活
+	                //   caret 0xffffffff — store 壳态 null 早退同相
+	                //   → cited
+		return QVariant(0);
+	case 0x4f02: {  // 0034.c:22719 moveTo kind 映射(00a2f82a 267B 全读:
+	                //   24 名静态表 guard+atexit 初始化 + toLower 查
+	                //   询,未知 → 0;本命令仅返 kind,执行在调用面)
+	                //   —— 真身(批 137;语料字面全表转写)
+		const QByteArray n = a.toByteArray().toLower();
+		static const struct { const char *nm; qint8 k; } tbl[] = {
+		    {"char", 1}, {"wordpart", 4}, {"wordend", 3},
+		    {"wordstart", 2}, {"segmentend", 5}, {"segmentstart", 6},
+		    {"line", 7}, {"linehome", 8}, {"linestart", 9},
+		    {"lineend", 10}, {"page", 11}, {"stutteredpage", 13},
+		    {"paragraph", 14}, {"paragraphcolumn", 15},
+		    {"command", 16}, {"fold", 17}, {"indentation", 18},
+		    {"pair", 19}, {"pairstart", 20}, {"pairend", 21},
+		    {"scope", 22}, {"documentstart", 23}, {"documentend", 24},
+		};
+		for (const auto &e : tbl)
+			if (n == e.nm)
+				return QVariant((int)e.k);
+		return QVariant(0);                            // 00a2fd9c miss
+	}
+	case 0x4f04:    // 0034.c:22753 cancelMultipleSelections(00a20104 →
+	                //   978638:current 对 be24 打包 → 9783fa history
+	                //   +0x80 push + 97565a 复位)— history deque 未
+	                //   建模 → cited(壳态同相)
+		return QVariant(0);
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 		// std::string 返回族/hexBase…):真名与语义锚见

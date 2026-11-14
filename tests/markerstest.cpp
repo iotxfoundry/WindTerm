@@ -1321,6 +1321,85 @@ int main(int argc, char **argv)
 		expect(e5.m_ctx.snapshotName8 == QStringLiteral("snapX"),
 		       "w8: 0x75f6 置 M+0x2b8 + type-8 遍历真身(96d89e cited)"
 		       "空树同相");
+
+	// ======== x. 批 137 组:EXT 段余量收尾(32 条;7 真身断言)========
+	// 语料锚:0x4ed4@0034:22267/00a20266→975c46 / 0x4ee9@22413/
+	//   00a28d1e@0034:4220 / 0x4ef8@22615/00a28424@0034:5981 /
+	//   0x4ef9@22703/009306ba@0030.c:5881 / 0x4efa@22708/926c6e /
+	//   0x4efd@22682/926dfc / 0x4f02@22719/00a2f82a@0034:8391(见 case 注)
+	{
+		// w1:0x4ed4 selectionType toggle(flagWord 位30-31)
+		EditorEngine e1;
+		e1.m_ctx.selStore.anchor.flagWord = 0x80000000u;   // 矩
+		e1.dispatch(0x4ed4);
+		expect(e1.m_ctx.selStore.anchor.flagWord == 0x40000000u,
+		       "w1: 0x4ed4 矩→流(975c46 96c666→96c700 v=1)");
+		e1.dispatch(0x4ed4);
+		expect(e1.m_ctx.selStore.anchor.flagWord == 0x80000000u,
+		       "w1: 流→矩(v=2 96c700 低位 0x3fffffff 保持)");
+
+		// w2:0x4ee9 选区越界校验(空 store → true;越界 → false)
+		EditorEngine e2;
+		e2.dispatch(SCI_ADDTEXT, (qlonglong)4, QByteArray("abcd"));
+		expect(e2.dispatch(0x4ee9) == QVariant(true),
+		       "w2: 空选区 → true(00a28d1e 零迭代尾)");
+		e2.m_ctx.selStore.anchor.n0.pos = 2;
+		e2.m_ctx.selStore.anchor.n1.pos = 99;
+		expect(e2.dispatch(0x4ee9) == QVariant(false),
+		       "w2: end>docLen → false(00a4233x 门)");
+
+		// w3:0x4ef8 kind-5 门(命令腿恒 5 字面:空树 → -1;命中 kind-5 → 0)
+		EditorEngine e3;
+		expect(e3.dispatch(0x4ef8, 5) == QVariant((qlonglong)-1),
+		       "w3: kind-5 空 → -1(92751e null 臂)");
+		static char n5[32];
+		e3.m_ctx.eNodes[QStringLiteral("5")] = n5;
+		*(quint8 *)(n5 + 8) = 5;               // kind 槽 = 值+8
+		expect(e3.dispatch(0x4ef8, 5) == QVariant(0),
+		       "w3: kind-5 命中 → 0(96d22a cited 门真身)");
+		expect(e3.dispatch(0x4ef8, 6) == QVariant(0),
+		       "w3: 命令腿恒 5,参 6 无关(00a28424 字面 5)");
+
+		// w4:0x4ef9 kind 活跃查(runs[6]!=[7])
+		EditorEngine e4;
+		static char n8[64];
+		e4.m_ctx.eNodes[QStringLiteral("8")] = n8;
+		*(quint8 *)(n8 + 8) = 8;               // kind 槽 = 值+8
+		expect(e4.dispatch(0x4ef9, 8) == QVariant(false),
+		       "w4: runs 空 → false(96d094 [6]==[7])");
+		void *runs2[2] = { (void *)1, (void *)2 };
+		*(void **)(n8 + 0x30) = runs2[0];
+		*(void **)(n8 + 0x38) = runs2[1];
+		expect(e4.dispatch(0x4ef9, 8) == QVariant(true),
+		       "w4: runs 非空 → true(96d094 [6]!=[7])");
+		expect(e4.dispatch(0x4ef9, 7) == QVariant(false),
+		       "w4: kind 异 → false(939d14 门)");
+
+		// w5:0x4efa lexer 门 + 0x4efd markers 门
+		EditorEngine e5;
+		expect(e5.dispatch(0x4efa) == QVariant(false),
+		       "w5: 0x4efa lexer null → false(926c6e +0x98 门)");
+		e5.m_ctx.bufferLexer = (void *)1;
+		expect(e5.dispatch(0x4efa) == QVariant(true),
+		       "w5: lexer 命中 → true");
+		expect(e5.dispatch(0x4efd) == QVariant(false),
+		       "w5: 0x4efd arr null → false(926dfc +0xc0 门)");
+		e5.m_ctx.markersStore.arr = (wt::MarkersArray *)1;
+		expect(e5.dispatch(0x4efd) == QVariant(true),
+		       "w5: arr 命中 → true");
+
+		// w6:0x4f02 moveTo kind 全表映射(语料 24 名字面)
+		EditorEngine e6;
+		expect(e6.dispatch(0x4f02, QByteArray("char")) == QVariant(1),
+		       "w6: char → 1(00a2f82a 表[0])");
+		expect(e6.dispatch(0x4f02, QByteArray("WORDPART"))
+		           == QVariant(4),
+		       "w6: WORDPART 大写归一 → 4(toLower 00a2fd56)");
+		expect(e6.dispatch(0x4f02, QByteArray("documentend"))
+		           == QVariant(24),
+		       "w6: documentend → 24(表尾 v9[2]=0x18)");
+		expect(e6.dispatch(0x4f02, QByteArray("nosuch")) == QVariant(0),
+		       "w6: 未知 → 0(00a2fd9c miss 臂)");
 	}
 
 	printf("fail=%d\n", g_fail);
