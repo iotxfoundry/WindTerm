@@ -16,6 +16,54 @@
 
 class SuperSession;
 
+// SessionTransfer(语料 LocalTransfer/SftpTransfer 公共基 =
+// s_filer_hiddenItemsVisible_8ec79a,502B,0028.c:38135):+0x28 表值
+// (QMap node 0x28:+0x8 uuid/+0x10 obj)。批 145 ctor 字段面真身化
+// —— 基体 008ec79a(Sftp/Local Transfer 共同基 ctor)+ 下行
+// FUN_008e81b2(Sftp,60B)/FUN_008e3784(Local,106B)::
+//   +0x00 vtable 置换(+0x10 session 覆写 @8ec7*由下行)/
+//   +0x10 session(param_2)/+0x18/+0x20 清/+0x28..+0x48 容器清/
+//   +0x40 filer.hiddenItemsVisible(global_setting_get @8ec875)/
+//   +0x50/+0x54 = 0x1a4/0x1ed(@8ec9* 常量对;FUN_008eb532/540 卫同值)
+//   +0x58 bit0..2 = 1(默认 sftp 位 @8ec8*)/+0x59 清/+0x5c..+0x6c 清/
+//   +0x78 容器清。
+// 下行依赖 cited:Sftp=FUN_008e8150(98B:session==+0x80 短路;
+//   SftpTransfer_h8e72d6→FUN_008ecc38 清单)+ FUN_008eadd6(637B
+//   connectImpl 信号族)→ 网络/fsModel 面,未开;cited 逐地址登记。
+//   Local:FUN_008e533d(130B QTimer lambda;FUN_008e4fea 下行未开)。
+class SessionTransfer : public QObject
+{
+public:
+	// FUN_008e81b2(param_2=session,param_3=0)/FUN_008e3784(…,1):
+	// 二者公共基 = 008ec79a 字段面;下行差异仅 vtable + 条件 lambda
+	// (008e3784 param_3!=0 → QTimer::singleShotImpl 0x18 lambda)
+	// —— 本树对象共用字段面,vtable 差异以 m_isSftp 记录(下行层
+	// 未开,注记照 insertTermSession 便携 ctor 族判例)。
+	explicit SessionTransfer(bool sftp, QObject *session)
+		: QObject(nullptr), m_session(session), m_isSftp(sftp) {}
+
+	QObject *m_session = nullptr;        // +0x10(008ec79a @base: param_2)
+	bool m_isSftp = false;               // vtable 分派面(Sftp/Local,008e81b2/3784)
+	void *m_model18 = nullptr;           // +0x18(008ec8e2 sink 挂点,清零)
+	void *m_model20 = nullptr;           // +0x20(shared_ptr,清零)
+	int m_hiddenItems40 = 0;             // +0x40(global_setting_get "filer.hiddenItemsVisible" @008ec875)
+	int m_perm50 = 0x1a4;                // +0x50 文件创建权限 0o644(@8ec9*)
+	int m_perm54 = 0x1ed;                // +0x54 目录创建权限 0o755(@8ec9*)
+	unsigned char m_bits58 = 7;          // +0x58 bit0..2 默认全 1(@8ec8* |7)
+
+	// 007daedc @007db26a-2a9:sftp.* 三 option 位写入(bit0 直接,
+	// bit1/bit2 移位合写)+ FUN_008eb532/540(13B×2:0 → 0x1a4/0x1ed)
+	void applySftpOptions(unsigned fixInvalid, unsigned preserveFile,
+	                      unsigned preserveFolder)
+	{
+		m_bits58 = (unsigned char)((m_bits58 & 0xf8) | (fixInvalid & 1) |
+		                           ((preserveFile & 1) << 1) |
+		                           ((preserveFolder & 1) << 2));   // @007db26a
+	}
+	void setFilePerm(int v)  { m_perm50 = v ? v : 0x1a4; }  // FUN_008eb532(13B)
+	void setFolderPerm(int v) { m_perm54 = v ? v : 0x1ed; } // FUN_008eb540(13B)
+};
+
 // SessionLogger(语料 SessionLogger_vtable 类,0024.c 区):+0x40 表值。
 // ctor FUN_007c1b38(90B,0024.c:30589)字段初始化面转写 —— QObject 基
 // (param_3=parent)+ vtable 置换 + +0x10 session + +0x18 清零 +
@@ -40,6 +88,18 @@ public:
 	void *m_state30 = nullptr;           // +0x30(session_state,007c350a 换新)
 	void *m_sink38 = nullptr;            // +0x38(spdlog logger,007c334a 存)
 	void *m_sink40 = nullptr;            // +0x40(spdlog sink,007c3356 存)
+	unsigned char m_flags19 = 0;         // +0x19:bit0=启用(腿尾 @007c35e8=param_4);
+	                                     // bit2=keepFlag(removeRegistry 007db8ee 免拆位)
+
+	// 建腿调面 = FUN_007c24c8(5980B,0024.c:31047)分面转写(批 145):
+	// 真实现 = 启用卫/+0x28 label/标志尾;cited 三段见 SuperSessionPrivate.cpp
+	// (pattern/路径装配、spdlog sink/logger 构造、formatter/state 尾段)。
+	// 参形照语料:param_2=target 串(007d5b1a)/param_3=label(007d4d9c)/
+	// param_4=启用/param_5=标志字节(bit0=append)/param_6=轮转字节/
+	// param_7=文件名 pattern/param_8=行 pattern。
+	bool buildLeg(const QString &target, const QString &label, bool enable,
+	              unsigned char flags, int rotateBytes,
+	              const QString &fileNamePattern, const QString &linePattern);
 };
 
 class SuperSessionPrivate
@@ -78,11 +138,12 @@ public:
 
 	// +0x28 Transfer 表插入侧 = FUN_007daedc(1803B,0025.c:8036):
 	// option "session.protocol" qstricmp Sftp/SSH → FUN_008e81b2
-	// (0x88B)/else FUN_008e3784(0x88B)+ sftp.* 三 option 位写入
-	// (对象 +0x58 bit0/1/2 @007db26a)+ spinlock@+0x61 → QMap 插入
-	// node(0x28,+0x8 uuid/+0x10 对象)+ FUN_0061b448 挂线程池 →
+	// /else FUN_008e3784(批 145:对象真身 SessionTransfer,基体
+	// 008ec79a 字段面)+ sftp.* option 读 → 位/权限写(真实现,
+	// FUN_008eb532/540)+ spinlock@+0x61 → QMap 插入 node(0x28,
+	// +0x8 uuid/+0x10 对象)+ FUN_0061b448 挂线程池(cited)→
 	// transferCreated = FUN_009122e8(idx10,1 参;仅非 Sftp/SSH 协议
-	// 发,@007db4a3)。下行 ctor 0x88B 未开 → cited 空壳。
+	// 发,@007db4a3)。下行网络/fsModel 面 → cited(见 SessionTransfer 注)。
 	void insertTransferSession(const QUuid &id, const QString &name);
 
 	// FUN_007da178(168B,批 43/47 转写):commander→session 链 ——

@@ -259,15 +259,70 @@ void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
 	const int a2 = settings[2].toInt();   // @007da26a(uVar4,→param_6)
 	const QString s3 = settings[3].toString();  // @007da2dd(→param_7)
 	const QString s4 = settings[4].toString();  // @007da2ed(→param_8)
-	// operator_new(0x48) @007da317 → FUN_007c1b38(logger, session, 0)
+	// 参源 @007da2fd-31b:param_2=target = s_session_target_7d5b1a
+	// (228B,0025.c:4577:option("session.label") 空 → option("session.target"));
+	// param_3=label = FUN_007d4d9c(39B,q+0x10 vtable+0x68 虚 label;
+	// 本树无该虚位 → option("session.label") 近似,注记登记);
+	// operator_new(0x48) → FUN_007c1b38(logger, session, 0)。
+	// 腿体 FUN_007c24c8 调面真实现 = SessionLogger::buildLeg(启
+	// 用卫/+0x28 label/标志尾);cited 三段(pattern 装配/spdlog sink·
+	// logger 构造/formatter·state)逐地址登记于其体。失败腿
+	// @007da3d7 前卫:vtable+0x20 拆除 → delete。
+	QString target = q->option("session.label").toString();   // @007d5b56
+	if (target.isEmpty())
+		target = q->option("session.target").toString();      // @007d5ba6
+	const QString label = q->option("session.label").toString(); // FUN_007d4d9c 近似
 	SessionLogger *logger = new (std::nothrow) SessionLogger(q);
 	if (!logger)
 		return;
-	// FUN_007c24c8 腿体(5980B):spdlog 建腿 — cited(spdlog 外库边界;
-	// 成功返回 1 才走插入腿 @007da3d7,此处按成功腿注册)
+	// @007da36a:cVar2 = FUN_007c24c8(logger,target,label,a0,a1,a2,s3,s4)
+	if (!logger->buildLeg(target, label, a0 != 0, (unsigned char)a1, a2, s3, s4)) {
+		delete logger;                     // 语料 vtable+0x20 拆除腿
+		return;
+	}
 	// 成功腿 @007da3d7:spinlock@+0x61(单线程免锁)→ 插入 +0x40
 	m_registry[3].insert(id, logger);      // FUN_007e159e(311B)QMap 插入原语
 	emit q->loggerCreated(id);             // FUN_00912264(42B,idx5)
+}
+
+// FUN_007c24c8(5980B,0024.c:31047)腿体调面(批 145)。分面:
+// 【真实现】@007c24e0 param_4==0 → return 0(启用卫);@007c2528
+// +0x28 = param_3(label);@007c35e2-ee 尾:+0x19 = param_4(启用
+// 字节;bit2 = 007db8ee keepFlag 读面)、+0x18 bit0 = param_5>>2&1。
+// 【cited ① pattern 装配段 @007c259c-2f9a】%token 替换引擎
+// (FUN_007c4440/007c4980/007c5780/007c5970/007c6570/007c5882 族 +
+// session_state_init 007c4a30,下行 token 层未开)+ Windows 保留名
+// 卫(CON/PRN/COM1-9/LPT1-9 @007c2b36-2e4a)+ 路径归一
+// (FUN_008063d6 "/logs/" + cfg_ensureProfileDir 005d7dae
+// "%1/profiles/%2/%3" mkpath)+ 保留名前缀插入 → +0x20 完整路径。
+// 【cited ② spdlog sink/logger 构造段 @007c3751-3388】param_6<1:
+// 基础 file sink(operator_new 0x48/0xb0,FUN_005fe1d4,logfile_open)
+// ;否则轮转 sink(0x68,maxsize=min(param_6,0x3fffff)<<10,fstat);
+// → operator_new(200) spdlog logger(PTR_FUN_011868c8)+ FUN_007c44a4
+// sink 绑定 + FUN_007c4cf0 registry + logger_register_unique
+// (00612a90)→ +0x38 logger/+0x40 sink(spdlog 外库边界,
+// EXT-BOUNDARY,实现不逆向)。
+// 【cited ③ formatter/state 尾段 @007c3388-3588】"%v"+"\n"
+// pattern_formatter(operator_new 0xb0,FUN_005fd340)+ set_formatter
+// (FUN_005f5bc0);m_sink38 非 0 时:行 pattern(param_8,空 →
+// "[%Y-%m-%d %H:%M:%S] %v")→ session_state_init(0x48B)→ +0x30,
+// FUN_007c6570(state,label)/FUN_007c5882(state,'n',…) token 引擎
+// 同族 cited。param_5 bit0 = append(local_2d8 @007c2500 → logfile_open)。
+bool SessionLogger::buildLeg(const QString &target, const QString &label,
+                             bool enable, unsigned char flags, int rotateBytes,
+                             const QString &fileNamePattern,
+                             const QString &linePattern)
+{
+	(void)target;            // cited ①(%h/UnknownIP 装配腿)
+	(void)rotateBytes;       // cited ②(轮转 sink 腿)
+	(void)fileNamePattern;   // cited ①(+0x20 装配路径;现保原样不装配)
+	(void)linePattern;       // cited ③(state 行 pattern 腿)
+	if (!enable)             // @007c24e0
+		return false;
+	m_s28 = label;           // @007c2528 QString::operator=(+0x28, param_3)
+	m_flags19 = enable ? 1 : 0;                   // @007c35e8
+	m_flags18 = (unsigned char)((flags >> 2) & 1); // @007c35ee &1
+	return true;             // 语料成功尾 return 1 @007c3600
 }
 
 // FUN_007d9776(1596B,0025.c:7110)转写:Term(+Commander)表插入。
@@ -296,22 +351,40 @@ void SuperSessionPrivate::insertTermSession(const QUuid &id,
 
 // FUN_007daedc(1803B,0025.c:8036)转写:Transfer 表插入。
 // 语料体:option("session.protocol") qstricmp "Sftp"/"SSH" →
-// FUN_008e81b2(obj,0x88B)/否则 FUN_008e3784(obj,0x88B);sftp.*
-// 三 option(bool)→ 对象 +0x58 位域 @007db26a;spinlock@+0x61 →
-// QMap node(0x28:+0x8 uuid/+0x10 obj)@007db316;FUN_0061b448
-// 挂全局线程池;非 Sftp/SSH 协议才发 transferCreated(FUN_009122e8
-// idx10,@007db4a3)。下行 ctor 0x88B 未开 → cited 空壳。
+// FUN_008e81b2(obj,0x88B)/否则 FUN_008e3784(obj,0x88B)。
+// 批 145:对象 ctor 真身化 —— SessionTransfer(008ec79a 基体字段面,
+// 见头文件);下行依赖(Sftp 008e8150/008e8add6 connect 族/Local
+// 008e533d QTimer lambda)网络/fsModel 面 → cited 逐地址登记于头。
+// sftp.* option 读 @007db0dc-232(fileCreationPermissions/
+// folderCreationPermissions toUInt + fixInvalidPathCharacters/
+// preserveOriginalFileModifyTime/preserveOriginalFolderModifyTime
+// toBool)→ +0x58 位写 + FUN_008eb532/540 权限写(真实现)。
+// spinlock@+0x61 → QMap node(0x28:+0x8 uuid/+0x10 obj)@007db316;
+// FUN_0061b448 挂全局线程池(DAT_011c1680)→ cited(线程池层未开);
+// 非 Sftp/SSH 协议才发 transferCreated(FUN_009122e8 idx10,@007db4a3)。
 void SuperSessionPrivate::insertTransferSession(const QUuid &id,
                                                 const QString &name)
 {
+	(void)name;                            // 语料参数仅透传 signal 面
 	const QString proto =
 	    q->option("session.protocol").toString();  // @007daf2f-54
-	void *transfer = new (std::nothrow) QObject(); // 008e81b2/008e3784 cited
+	const bool sftp = proto.compare("Sftp", Qt::CaseInsensitive) == 0 ||
+	                  proto.compare("SSH", Qt::CaseInsensitive) == 0;
+	// @007dafa9/007db3d6:operator_new(0x88) → FUN_008e81b2/008e3784
+	SessionTransfer *transfer = new (std::nothrow) SessionTransfer(sftp, q);
 	if (!transfer)
 		return;
+	// sftp.* options(007daedc 下行;default 对 0x1a4/0x1ed = @8ec9*)
+	transfer->setFilePerm(q->option("sftp.fileCreationPermissions")
+	                          .toByteArray().toUInt(nullptr));        // @007db0dc
+	transfer->setFolderPerm(q->option("sftp.folderCreationPermissions")
+	                            .toByteArray().toUInt(nullptr));      // @007db138
+	transfer->applySftpOptions(
+	    q->option("sftp.fixInvalidPathCharacters").toBool() ? 1u : 0u,   // @007db19a
+	    q->option("sftp.preserveOriginalFileModifyTime").toBool() ? 1u : 0u, // @007db1db
+	    q->option("sftp.preserveOriginalFolderModifyTime").toBool() ? 1u : 0u); // @007db21c
 	m_registry[2].insert(id, transfer);    // node 0x28 @007db316
 	// FUN_0061b448(DAT_011c1680, obj)线程池挂载 — cited(线程池层未开)
-	if (proto.compare("Sftp", Qt::CaseInsensitive) != 0 &&
-	    proto.compare("SSH", Qt::CaseInsensitive) != 0)
-		emit q->transferCreated(id);       // @007db4a3 协议卫,idx10
+	if (!sftp)
+		emit q->transferCreated(id);       // @007db4a3 卫,idx10
 }

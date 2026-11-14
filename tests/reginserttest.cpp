@@ -37,7 +37,9 @@ int main(int argc, char **argv)
 	expect(created.count() == 0, "a: size==4 卫拦(@007da25a !=5 return)");
 
 	// ======== b. 插入:五 QVariant 参形 → loggerCreated(idx5)========
-	d.insertLoggerSession(id, QVariantList{0, 1, 2, QString("label"), QString("path")});
+	// (批 145:settings[0] = 启用字节 param_4;0 → 建腿卫拦不注册
+	// @007c24e0,故启用=1 走成功腿)
+	d.insertLoggerSession(id, QVariantList{1, 1, 2, QString("label"), QString("path")});
 	expect(created.count() == 1, "b: loggerCreated×1(FUN_00912264 idx5)");
 	if (created.count() == 1)
 		expect(created.at(0).at(0).value<QUuid>() == id,
@@ -98,6 +100,74 @@ int main(int argc, char **argv)
 	// 仓库 CTerminalConfig 默认无 session.protocol → 空 ≠ Sftp/SSH → 发
 	expect(transferSpy.count() == 1, "g: transferCreated×1(idx10;协议卫放行)");
 	d.removeRegistry(2, xid);
+
+	// ======== h. 批 145:SessionTransfer 非占位(基体 008ec79a ctor
+	// 字段面真身:+0x10 session/+0x50/+0x54 = 0x1a4/0x1ed 常量对/
+	// +0x58 bit0..2 默认 1@sftp)========
+	{
+		SessionTransfer t(false, &s);
+		expect(t.m_session == &s, "h: +0x10 session(008ec79a @base param_2)");
+		expect(t.m_perm50 == 0x1a4 && t.m_perm54 == 0x1ed,
+		       "h: +0x50/+0x54 = 0x1a4/0x1ed(008ec9* 常量对;8eb532/540 卫)");
+		expect((t.m_bits58 & 7) == 7, "h: +0x58 bit0..2 默认全 1(@8ec8* |7)");
+		t.setFilePerm(0);            // FUN_008eb532(13B):0 → 0x1a4
+		t.setFolderPerm(0);          // FUN_008eb540(13B):0 → 0x1ed
+		expect(t.m_perm50 == 0x1a4 && t.m_perm54 == 0x1ed,
+		       "h: 8eb532/540 零值卫回退 0x1a4/0x1ed");
+		t.applySftpOptions(0, 1, 0); // @007db26a 位写
+		expect(t.m_bits58 == 0x2, "h: sftp.* 三 option 位写(@007db26a bit1)");
+		SessionTransfer st(true, &s);
+		expect(st.m_isSftp, "h: Sftp 协议分派面(008e81b2 vs 008e3784)");
+	}
+
+	// ======== i. 批 145:logger 建腿调面可达性(不打真 sink)========
+	// FUN_007c24c8 分面:启用卫 @007c24e0(false→return 0)/+0x28 label
+	// @007c2528/标志尾 @007c35e2-ee(+0x19 启用位/+0x18 bit0);
+	// spdlog sink/logger 构造段 @007c3751-3388 = cited(EXT-BOUNDARY,
+	// 不打真 sink)→ 本断言只走调面真实现部分。
+	{
+		SessionLogger lg(&s);
+		expect(!lg.buildLeg(QString(), QString(), false, 0, 0, QString(), QString()),
+		       "i: 启用卫 @007c24e0(param_4==0 → return 0)");
+		expect(lg.m_flags19 == 0, "i: 卫后 +0x19 未置(早退)");
+		expect(lg.buildLeg("tgt", "lbl", true, 0x04, 0, QString(), QString()),
+		       "i: 建腿成功腿 return 1(@007c3600)");
+		expect(lg.m_s28 == "lbl", "i: +0x28 label(@007c2528 operator=)");
+		expect(lg.m_flags19 == 1, "i: +0x19 = 启用字节(@007c35e8)");
+		expect(lg.m_flags18 == 1,
+		       "i: +0x18 bit0 = param_5>>2&1(@007c35ee;0x04→1)");
+		// spdlog 下行(m_sink38/40)仍为空 — cited 段未执行,如实登记
+		expect(lg.m_sink38 == nullptr && lg.m_sink40 == nullptr,
+		       "i: sink/logger cited 段不打真 sink(EXT-BOUNDARY)");
+	}
+	// i-2:插入腿可达 —— insertLoggerSession 五参走 buildLeg 成功腿
+	QSignalSpy created2(&s, &SuperSession::loggerCreated);
+	const QUuid id2 = QUuid::createUuid();
+	s.setOption("session.label", "lblA");
+	s.setOption("session.target", "tgtA");
+	d.insertLoggerSession(id2, QVariantList{1, 0, 0, QString(), QString()});
+	expect(created2.count() == 1 && d.registry()[3].size() == 1,
+	       "i-2: 建腿成功→注册+信号(@007da3d7 成功腿)");
+	// 启用=0 → 卫拦 → 拆除腿(delete @007da3d7 前卫),不注册不发
+	const QUuid id3 = QUuid::createUuid();
+	d.insertLoggerSession(id3, QVariantList{0, 0, 0, QString(), QString()});
+	expect(created2.count() == 1 && d.registry()[3].size() == 1,
+	       "i-2: 启用=0 卫拦 → 拆除腿不注册(@007c24e0 卫)");
+	d.removeRegistry(3, id2);
+
+	// i-3:Transfer 插入腿真对象落表(非占位 void*;sftp.* 默认权限
+	// —— SuperSession::setOption 经 m_d(测试不接线)→ 直接断默认值)
+	QSignalSpy transferSpy2(&s, &SuperSession::transferCreated);
+	const QUuid xid2 = QUuid::createUuid();
+	d.insertTransferSession(xid2, "xferB");
+	expect(transferSpy2.count() == 1 && d.registry()[2].size() == 1,
+	       "i-3: Transfer 真对象落表+信号(idx10)");
+	SessionTransfer *placed = static_cast<SessionTransfer *>(
+	    d.registry()[2].value(xid2, nullptr));
+	expect(placed && placed->m_session == &s && !placed->m_isSftp &&
+	       placed->m_perm50 == 0x1a4 && placed->m_perm54 == 0x1ed,
+	       "i-3: 落表对象字段可查(sftp.* option 空 → 0x1a4/0x1ed 卫回退)");
+	d.removeRegistry(2, xid2);
 
 	printf(g_fail ? "FAIL(%d)\n" : "ALL PASS\n", g_fail);
 	return g_fail ? 1 : 0;
