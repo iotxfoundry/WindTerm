@@ -26,6 +26,15 @@ public:
 	void removeRegistry(int kind, const QUuid &id);
 	void loggerOp(const QUuid &id, int op);
 
+	// FUN_007da228(475B,0025.c:7540)= +0x40 Logger 表插入侧
+	// (session_applySetting 007dc146 case 0xd @007dc4d8 调用)。
+	// 语料三源定 kind:ctor 007c1b38 置 SessionLogger_vtable;配对
+	// 移除 007db8ee@+0x40 发 loggerRemoved;信号 00912264 =
+	// activate(idx5)= loggerCreated(IMPL-ADDRESSES #5)。任务书原
+	// 记"Term 表"系判读偏差,+0x20 Term 插入侧语料未定位不猜。
+	// 五 QVariant 参(int×3 + QString×2,@007da25a-2f1 解引用面)
+	void insertLoggerSession(const QUuid &id, const QVariantList &settings);
+
 	// FUN_007da178(168B,批 43/47 转写):commander→session 链 ——
 	// FUN_007d6cee(119B)查注册表节点(spinlock@+0x61 + FUN_007ddad0
 	// map@+0x18 查)→ dynamic_cast 校验 → session 非空写

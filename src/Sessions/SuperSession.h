@@ -66,6 +66,9 @@ public slots:
 	void removeTerm(const QUuid &commanderUuid);
 	void removeTransfer(const QUuid &transferUuid);
 	void removeLogger(const QUuid &loggerUuid);
+	// FUN_007da228 转写面(+0x40 Logger 表插入;信号 loggerCreated
+	// = 00912264 activate idx5,IMPL-ADDRESSES #5 权威)
+	void insertLogger(const QUuid &loggerUuid, const QVariantList &settings);
 	void flushLogger(const QUuid &loggerUuid);
 	void pauseLogger(const QUuid &loggerUuid);
 	void resumeLogger(const QUuid &loggerUuid);

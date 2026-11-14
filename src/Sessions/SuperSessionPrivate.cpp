@@ -3,6 +3,8 @@
 #include "SuperSession.h"
 
 #include <QMap>
+#include <QVariantList>
+#include <new>
 #include "../Editor/CTerminalConfig.h"
 
 // 混合实现:逆向信号/方法名(moc 权威)× 真 libssh API。
@@ -234,4 +236,35 @@ void SuperSessionPrivate::linkCommanderSession(SuperCommander *commander,
 	}
 	m_commanderLinks.insert(commander, commander); // 语料 node+0x20
 	commander->m_session = session;                // 语料 value+0x48 = session
+}
+
+// FUN_007da228(475B,0025.c:7540)转写:Logger 表插入。
+// 入参核对(语料 @007da25a-2f1):param_3 = QVariantList(判空差
+// ==5)+ 五 QVariant —— toInt×3(cVar2/cVar3/uVar4)+ toString×2。
+// ctor FUN_007c1b38(90B,0024.c:30589):SessionLogger_vtable +
+// +0x10 session/+0x18 清零/+0x20..+0x30 QString 双槽/+0x38/+0x40
+// shared_ptr 清;腿体 FUN_007c24c8(5980B,0024.c:31047)体量大
+// 且下行层未开 → cited 引地址,不发明(铁律 3)。
+// 失败腿 vtable+0x20 拆除 @007da3d7 保留;成功腿 spinlock@+0x61 →
+// FUN_007e159e(this+0x40)插入 → FUN_00912264 = loggerCreated
+// (activate idx5;IMPL-ADDRESSES #5,0030.c:1683)。单线程重建
+// 免锁,注记照 007da178 判例。
+void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
+                                              const QVariantList &settings)
+{
+	if (settings.size() != 5)  // 语料:*(int*)(l+0xc)-*(int*)(l+8)!=5 → return
+		return;
+	const int a0 = settings[0].toInt();   // @007da25a
+	const int a1 = settings[1].toInt();   // @007da262
+	const int a2 = settings[2].toInt();   // @007da26a
+	const QString s3 = settings[3].toString();  // @007da2dd
+	const QString s4 = settings[4].toString();  // @007da2ed
+	void *logger = new (std::nothrow) QObject();  // operator_new(0x48)@007da315
+	if (!logger)
+		return;
+	// FUN_007c1b38 ctor + FUN_007c24c8 腿体(5980B)建腿 — cited
+	// (依赖 SessionLogger 下行层未开;体量引用地址,不发明)
+	// 成功腿 @007da3d7:spinlock@+0x61(单线程免锁)→ 插入 +0x40
+	m_registry[3].insert(id, logger);      // FUN_007e159e(311B)QMap 插入原语
+	emit q->loggerCreated(id);             // FUN_00912264(42B,idx5)
 }
