@@ -1,5 +1,6 @@
 #include "CTerminalConfig.h"
 
+#include <QCoreApplication>
 #include <QFile>
 #include <json/json.h>
 
@@ -75,9 +76,24 @@ void CTerminalConfig::reload()
 {
 	m_values.clear();
 	m_loaded = true;
-	QFile f(m_configPath);
-	if (f.open(QIODevice::ReadOnly))
-		parseInto(f.readAll(), m_values);
+	// 全局默认层(s_wind_config_5d7f8e,782B,0019.c:9781):
+	//   @005d80f1 appdir + "/global/wind.config"(FUN_005d7cf8 174B 拼
+	//   序:applicationDirPath + "/" + "global/" + "wind.config" 字面
+	//   @005d80fa-d8)→ 源 1 槽(FUN_00a7e78a);值面加载序 = wind.config
+	//   基线 → user.config 覆写(005d8180,CONFIG-SCHEMAS 装载顺序;
+	//   yaml_loadFile 三层源链 FUN_00a7fe9a @59852:源0 → 源4 → 源8 →
+	//   缺省参,miss 链逐层回落)。配置路径未显式注入时自动拼全局层
+	//   (configPath 语义同相;m_configPath 显式注入 = 测试缝优先)。
+	if (!m_configPath.isEmpty()) {
+		QFile f(m_configPath);
+		if (f.open(QIODevice::ReadOnly))
+			parseInto(f.readAll(), m_values);
+	} else {
+		QFile g(QCoreApplication::applicationDirPath()
+		        + QStringLiteral("/global/wind.config")); // @005d80fa-d8
+		if (g.open(QIODevice::ReadOnly))
+			parseInto(g.readAll(), m_values);   // 默认层基线(权威默认)
+	}
 	if (!m_overridePath.isEmpty()) {
 		QFile u(m_overridePath);
 		if (u.open(QIODevice::ReadOnly))

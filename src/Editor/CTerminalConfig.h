@@ -38,7 +38,9 @@ public:
 	// 值面单例本体,FUN_00858fce/DAT_011c2200 同址语义)。
 	static class CTerminalConfigFace *face();
 
-	void setConfigPath(const QString &path);   // wind.config 位置
+	// wind.config 位置(空 = appdir/global/wind.config 全局默认层自动层,
+	// 批 150;显式注入 = 测试/宿主缝优先 — setConfigPath 契约保持)
+	void setConfigPath(const QString &path);
 	void setOverridePath(const QString &path);   // user.config 覆写层(CONFIG-SCHEMAS 装载顺序)
 	void reload();
 	QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;

@@ -6,12 +6,16 @@
 // isZoomed(FUN_005a23c6)初值 / b2 onTabBlankRequested(FUN_008df5f8)
 // 无 win 上溯早返 / b3 renamePane(008df0a4)无 pane 早返。
 #include <QApplication>
+#include <QCoreApplication>
+#include <QDataStream>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QMainWindow>
 #include <QMenu>
 #include <QTabBar>
 #include <QTimer>
+#include <QWidget>
 #include <cstdio>
 #include "Actions/KitWindowFace.h"
 #include "Actions/KitBar.h"
@@ -416,6 +420,75 @@ int main(int argc, char **argv)
 	//     (FUN_007665ae select=0)→ currentIndex 不被链改动(d7 判同)。
 	if (sl.f58->currentIndex() != 0)
 		++fails; // 链不改选页(@007628a5-ab 门腿同相)
+
+	// ======== 批 150:e 组 — 恢复门真身(FUN_0075ffcc)+ 分发壳 ========
+
+	// e1. 魔数不配 → first-page 腿:夹具文件魔数错(0xdeadbeef)→
+	//     掩码门 false(@2842e else 腿)→ startupChain 走失败腿建
+	//     "Terminal" 首页(s1 判同相)。
+	{
+		const QString hist = QCoreApplication::applicationDirPath()
+		                     + QStringLiteral("/global/reopen.history"); // @005dd570 拼序
+		QDir().mkpath(QFileInfo(hist).absolutePath()); // cfg_ensureProfileDir mkpath 腿
+		QByteArray fakeBlob;
+		{
+			QDataStream w(&fakeBlob, QIODevice::WriteOnly);
+			w << quint32(0xdeadbeefu);          // 魔数不配(掩码门挡)
+		}
+		QFile f(hist);
+		f.open(QIODevice::WriteOnly | QIODevice::Truncate);
+		f.write(fakeBlob);
+		f.close();
+		const int beforeE1 = sl.f58->count();
+		if (startupRestoreGate(sl, &mwHost, hist))
+			++fails; // 魔数不配 → 门 false(@2842e else 腿)
+		if (sl.f58->count() != beforeE1)
+			++fails; // 门 false 不挂页(直接返 false,链外走 first-page)
+		// 链级同相:s2 后链已跑过一次(状态文件此时在)—— startupChain
+		// 缺省 historyPath = appdir/global/reopen.history;此刻魔数不配
+		// → 失败腿再挂一页(first-page 判例 d8 幂等缺省同相)。
+		const int beforeChain = sl.f58->count();
+		startupChain(sl, &mwHost); // 门 false → FUN_0075e3fe 再挂首页
+		if (sl.f58->count() != beforeChain + 1)
+			++fails; // 魔数不配 → first-page 腿(@007628a7)
+	}
+
+	// e2. 魔数配 + payload 合法 → 恢复分发可达(壳级):b9e7e600 魔数 +
+	//     1 窗(geometry 空 + payload 页名 "Terminal")→ 门 true +
+	//     分发壳页挂(attachPage 面,terminalConfigAsFace 已缓存)。
+	{
+		QByteArray payload;
+		{
+			QDataStream w(&payload, QIODevice::WriteOnly);
+			w << quint32(1)      // 页数 local_c8
+			  << quint32(0)      // currentIndex local_c4
+			  << QString(QStringLiteral("Terminal")) // 页名(@008c9e64 面)
+			  << QByteArray();   // 页 payload 空(local_b8)
+		}
+		QByteArray blob;
+		{
+			QDataStream w(&blob, QIODevice::WriteOnly);
+			w << quint32(0xb9e7e600u) // 魔数恰等(掩码门过)
+			  << quint32(1)           // 窗数 local_74
+			  << QByteArray()         // geometry 空(shared_null 同相)
+			  << payload;             // 窗 payload
+		}
+		const QString hist = QCoreApplication::applicationDirPath()
+		                     + QStringLiteral("/global/reopen.history");
+		QFile f(hist);
+		f.open(QIODevice::WriteOnly | QIODevice::Truncate);
+		f.write(blob);
+		f.close();
+		const int beforeE2 = sl.f58->count();
+		if (!startupRestoreGate(sl, &mwHost, hist))
+			++fails; // 魔数配 + count=1 → 门 true(local_91)
+		if (sl.f58->count() != beforeE2 + 1)
+			++fails; // 分发壳页挂 1 页(s_HistoryHints @33637)
+		QWidget *restoredPage = sl.f58->widget(sl.f58->count() - 1);
+		if (restoredPage == nullptr
+		    || restoredPage->objectName() != QStringLiteral("TerminalWindow"))
+			++fails; // 页名 "Terminal" → 工厂 Terminal 腿(@0089d7df)
+	}
 
 	delete edW;
 	delete buyW;
