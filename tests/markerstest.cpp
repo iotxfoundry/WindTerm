@@ -1035,6 +1035,113 @@ int main(int argc, char **argv)
 		       "t8: 0x753f/0x754a 空查早返 0(00948b5a/00948c3e)");
 	}
 
+	// ======== u. 批 130 组:巨 switch 扩谱四批(14 条语料转写)========
+	// 语料锚:0x7555@0034:22999/00a289b6@5891/00a25808@3996 /
+	//   0x7557@23005 / 0x7562@00a2d5d0@9294 / 0x7564@23151 /
+	//   0x7569@23249 / 0x756b@23244 / 0x75ac@00a26f32@4856 /
+	//   0x75fd@24537/009271be@22696/009af2b2@45298 /
+	//   0x75fa@00a2a6e6@7263 / 0x7551@22895(见 case 注)
+	{
+		// u1:0x7555 insertTextAt(夹取 + SCI_INSERTTEXT 承接;
+		//   docBytes 不自动回填 — SCI 面,长度经 0x75cd 直验)
+		EditorEngine e1;
+		e1.dispatch(SCI_ADDTEXT, (qlonglong)2, QByteArray("ab"));
+		e1.dispatch(0x7555, QByteArray("XY"), (qlonglong)1);
+		expect(e1.dispatch(0x75cd) == QVariant((qlonglong)4),
+		       "u1: 0x7555 pos=1 插入 XY(len 2→4;00a289b6 面)");
+		EditorEngine e1b;
+		e1b.dispatch(SCI_ADDTEXT, (qlonglong)2, QByteArray("ab"));
+		e1b.dispatch(0x7555, QByteArray("Z"), (qlonglong)99);
+		expect(e1b.dispatch(0x75cd) == QVariant((qlonglong)3),
+		       "u1: pos=99 夹到 len=2 → len 3(00a43aa7 min 门)");
+		EditorEngine e1c;
+		e1c.dispatch(SCI_ADDTEXT, (qlonglong)2, QByteArray("ab"));
+		e1c.dispatch(0x7555, QByteArray("Q"), (qlonglong)-5);
+		expect(e1c.dispatch(0x75cd) == QVariant((qlonglong)3),
+		       "u1: pos=-5 夹 0 → len 3(00a43ab2)");
+		EditorEngine e1d;
+		e1d.dispatch(SCI_ADDTEXT, (qlonglong)2, QByteArray("ab"));
+		expect(e1d.dispatch(0x7555, QByteArray(), (qlonglong)1)
+		           == QVariant(0)
+		       && e1d.dispatch(0x75cd) == QVariant((qlonglong)2),
+		       "u1: 空 bytes no-op(00a25818 data!=0 门)");
+
+		// u2:0x7557 壳态门(≥4 元素过门,<4 早返;深度 cited)
+		EditorEngine e2;
+		expect(e2.dispatch(0x7557, QVariantList{
+		           QByteArray("Z"), 0, 0, 0, 1}) == QVariant(0),
+		       "u2: 0x7557 过门返 0(FUN_00a20eb2 节点腿 cited)");
+		expect(e2.dispatch(0x7557, QVariantList{0, 1}) == QVariant(0),
+		       "u2: 0x7557 <4 元素早返(at(2)/at(3) 门)");
+
+		// u3:0x7562 FUN_00a2d5d0(秒→ms;批 130 误挂勘正)
+		EditorEngine e3;
+		e3.dispatch(0x7562, 2.0f);
+		expect((int)(e3.m_ctx.stateEd8 >> 3) == 2000,
+		       "u3: 0x7562 2.0s → ms=2000 bits3+(00a2d5d0 1000x)");
+		e3.dispatch(0x7562, 0.01f);
+		expect((int)(e3.m_ctx.stateEd8 >> 3) == 100,
+		       "u3: <0.1s 夹 100(FUN_00a2d5d0 iVar2<100)");
+
+		// u4:0x7564 clamp [0,5] → val1bb(批 130 勘误真身)
+		EditorEngine e4;
+		e4.dispatch(0x7564, 2.5f);
+		expect(e4.m_ctx.val1bb == 2.5, "u4: 2.5 直存(00a469f8 区内)");
+		e4.dispatch(0x7564, 9.0f);
+		expect(e4.m_ctx.val1bb == 5.0, "u4: >5 → 5.0(SSE 门)");
+		e4.dispatch(0x7564, -3.0f);
+		expect(e4.m_ctx.val1bb == 0.0, "u4: <=0 → 0.0");
+
+		// u5:0x7569 fieldD9c 写门 + 0x756b flag227 读
+		EditorEngine e5;
+		e5.dispatch(0x7569, (qlonglong)42);
+		expect(e5.m_ctx.fieldD9c == 42,
+		       "u5: 0x7569 +0xd9c = 42(0034:23252 变更写)");
+		e5.dispatch(0x7569, (qlonglong)42);
+		expect(e5.m_ctx.fieldD9c == 42, "u5: 同值不再写(00a46x 门)");
+		e5.dispatch(0x756c, true);
+		expect(e5.dispatch(0x756b) == QVariant(true),
+		       "u5: 0x756b 读 +0x227 = true(0034:23245)");
+
+		// u6:0x75ac pos<0 门(FUN_00a26f32 00a26f3c)
+		EditorEngine e6;
+		e6.dispatch(SCI_ADDTEXT, (qlonglong)4, QByteArray("abcd"));
+		expect(e6.dispatch(0x75ac, (qlonglong)-1) == QVariant(0),
+		       "u6: pos=-1 门关 no-op(00a26f3c 批 130 补)");
+		expect(e6.dispatch(0x75ac, (qlonglong)2) == QVariant(0),
+		       "u6: pos=2 走通(SCI_GOTOPOS 承接)");
+
+		// u7:0x75fd obj+0x20 写(FUN_009af2b2 elapsed 占位 0)
+		EditorEngine e7;
+		e7.dispatch(0x75fd, (qlonglong)500);
+		expect(e7.dispatch(0x75f9) == QVariant((qlonglong)500),
+		       "u7: 0x75fd 写 +0x20 → 0x7599 读回 500"
+		       "(009271be/009af2b2;elapsed 占位 0 cited)");
+
+		// u8:0x75fa/0x75fb hex 门(00a2a72f)
+		EditorEngine e8;
+		expect(e8.dispatch(0x75fa, true, (qlonglong)1) == QVariant(QString()),
+		       "u8: 非 hex → shared_null(00a2a72f 门)");
+		e8.m_ctx.field1067 = 2;
+		expect(e8.dispatch(0x75fb, false, (qlonglong)0) == QVariant(QString()),
+		       "u8: hex 走门 → 深度时间戳腿 cited 同相空");
+
+		// u9:0x7551 3 元门(批 130 勘注;旧 appendText 误接撤 —
+		//   语料深度 iter 腿不动文本 → len 不变)
+		EditorEngine e9;
+		e9.dispatch(SCI_ADDTEXT, (qlonglong)2, QByteArray("ab"));
+		expect(e9.dispatch(0x7551, QVariantList{
+		           (qlonglong)0, QByteArray("x"), true}) == QVariant(0),
+		       "u9: 3 元过门返 0(iter+FUN_00a287f8 cited)");
+		expect(e9.dispatch(0x75cd) == QVariant((qlonglong)2),
+		       "u9: 不再误追加文本(旧 appendText 撤)");
+
+		// u10:0x7539 勘注走通
+		EditorEngine e10;
+		expect(e10.dispatch(0x7539) == QVariant(0),
+		       "u10: 0x7539 flag240=1 直写落位 cited → 0");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

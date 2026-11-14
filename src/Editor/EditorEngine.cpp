@@ -397,9 +397,14 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	};
 	switch (cmd) {
 	// --- 文本 ---
-	case 0x7551: {   // appendText(0x75ab 变体;w=长度 l=文本)
-		QByteArray t = a.toByteArray();
-		send(SCI_ADDTEXT, t.size(), (sptr_t)t.constData());
+	case 0x7551: {   // 0034:22895 勘注(批 130):3 元列表门
+	                 //   [u64 节点,bytes,bool](iter 旗标 bool?0x200:0x2
+	                 //   00a4a1a6 字面)→ editctx iter + FUN_00a287f8
+	                 //   应用 — 深腿 cited;旧 appendText 误接撤
+		const QVariantList list = a.toList();
+		if (list.size() != 3)
+			return QVariant(0);                 // 00a48cdb size==3 门
+		// iter(0x2/0x200)+ FUN_00a287f8 节点应用 — cited
 		return QVariant(0);
 	}
 	case 0x7554: {   // subString(start,end) = SCI_GETTEXTRANGE
@@ -440,9 +445,16 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x75ab:     // gotoLine(line u64 in a, column int in b)
 		send(SCI_GOTOLINE, a.toULongLong());
 		return QVariant(0);
-	case 0x75ac:     // gotoPosition
-		send(SCI_GOTOPOS, a.toLongLong());
+	case 0x75ac: {   // gotoPosition(FUN_00a26f32 154B,0034:4856 全读
+	                 //   批 130 勘误补门):pos<0 → no-op(00a26f3c 直
+	                 //   return);runnode 选择应用(00a23206 败→
+	                 //   00a209e4)+ 00a21110 锚腿 — cited;pos 面 = SCI 承接
+		const long long pos = a.toLongLong();
+		if (pos < 0)                         // 00a26f3c 门(批 130 补)
+			return QVariant(0);
+		send(SCI_GOTOPOS, pos, 0);
 		return QVariant(0);
+	}
 	// --- 选择 ---
 	case 0x75b8: {   // selectionText(sep, useSep) = SCI_GETSELTEXT
 		const int len = (int)send(SCI_GETSELTEXT, 0, 0);
@@ -609,7 +621,20 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		m_ctx.snippetMode = false;
 		return QVariant(0);
 	// --- 批 3:清格式 / margin 元数据 / 视口滚动(语料 decomp-part-0034)---
-	case 0x7557:   // 0034:23003 else 腿 = 与 0x7558 同体(批 77 清点)
+	case 0x7557: {   // 0034:23005-23022 勘误真身(批 130;旧"与 0x7558
+	                 //   同体"证伪:0x7558 == 已进体,本腿独立)=
+	                 //   replaceRange:a→toByteArray(bytes)+toList
+	                 //   双消费(FUN_0069eb30)→ at(2)/at(3) 尾两 ll =
+	                 //   [from,to](QListData begin+2/3)→ runnode ×2 →
+	                 //   FUN_00a20eb2(ed,at3,at2,1)+ FUN_00a25808 bytes
+	                 //   替换 — 节点腿 cited;list 维度仅壳态占位
+		const QVariantList list = a.toList();
+		if (list.size() < 4)
+			return QVariant(0);                 // 防御门(语料 QListData
+		// FUN_00a20eb2 节点替换(FUN_00a25808 面同 0x7555)— cited   // 直读越界 UB)
+		(void)list;
+		return QVariant(0);
+	}
 	case 0x7558: {   // clearFormatting(FUN_00927a24 守卫 + FUN_00a26756)
 		if (m_ctx.snippetMode)             // FUN_009290e8 守卫(00a26756 头)
 			return QVariant(0);
@@ -690,7 +715,25 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x75bf:     // 片段会话活跃?(FUN_00926eb0:+0xd0 != 0)
 		return QVariant((bool)m_ctx.snippetMode);
 	// --- 批 4:buffer/状态簇(语料 disp 叶 22992-23145)---
-	case 0x7555:   // 0034:22997 <0x7557 默认腿 = 与 0x7556 同体(批 77 清点)
+	case 0x7555: {   // 0034:22999-23018 勘误真身(批 130;旧"与 0x7556
+	                 //   同体"批 77 清点证伪:0x7556 == 已 return,本
+	                 //   腿独立)= insertTextAt:a=bytes,pos=b 夹取
+	                 //   [0,docLen](0092801a)→ FUN_00a289b6(161B,
+	                 //   0034:5891 全读)"Insert Text" sel + FUN_00a21110
+	                 //   + FUN_00a25808(194B,0034:3996 全读)行级替换
+	                 //   深腿 FUN_00a254a6 — cited;插入面 = SCI 承接
+		const QByteArray bytes = a.toByteArray();
+		long long pos = b.toLongLong();
+		const long long len = (long long)send(SCI_GETLENGTH, 0, 0);
+		if (pos > len)                       // 00a43aa7 min 门
+			pos = len;
+		if (pos < 0)                         // 00a43ab2
+			pos = 0;
+		if (!bytes.isEmpty())                // 00a25818 data!=0 门
+			send(SCI_INSERTTEXT, pos, (sptr_t)bytes.constData());
+		// FUN_00a289b6 sel/应用腿 + FUN_00a254a6 — cited — 批 130
+		return QVariant(0);
+	}
 	case 0x7556:     // buffer 动态类型(FUN_00927ec8:+0xf8 cast != 0)
 		return QVariant((bool)m_ctx.isSuperBuffer);
 	case 0x7559: {   // collect(严格 5 元素 [str,bool,u64,ll,ll];
@@ -726,15 +769,10 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		m_ctx.stateEd8 = (m_ctx.stateEd8 & ~2u) | (v ? 2u : 0u) | 4u;
 		return QVariant(0);
 	}
-	case 0x7563: {   // FUN_00a2d648:+0xdd0 int + bit2 脏(+0xef0 镜像 cited)
-		const int v = a.toInt();
-		if (m_ctx.valDd0 != (quint32)v) {
-			m_ctx.valDd0 = (quint32)v;
-			m_ctx.stateEd8 |= 4;
-		}
-		return QVariant(0);
-	}
-	case 0x7564: {   // FUN_00a2d5d0:float 秒→ms 夹 100 → bits3+ + bit2
+	case 0x7562: {   // FUN_00a2d5d0(120B,0034:9294 全读;批 130 误挂
+	                 //   0x7564 勘正:语料 <0x7564 非 0x7563 腿):
+	                 //   float 秒→ms 夹 100 → +0xed8 bits3+ + bit2 脏
+	                 //   (+0xef0 镜像写,FUN_00a2cea8 刷新 cited)
 		int ms = (int)((double)a.toFloat() * 1000.0);
 		if (ms < 100)
 			ms = 100;
@@ -743,6 +781,33 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			    | ((quint32)(int)(float)ms << 3);
 			m_ctx.stateEd8 |= 4;
 		}
+		// +0xef0 镜像 + FUN_00a2cea8 — cited — 批 130
+		return QVariant(0);
+	}
+	case 0x7563: {   // FUN_00a2d648:+0xdd0 int + bit2 脏(+0xef0 镜像 cited)
+		const int v = a.toInt();
+		if (m_ctx.valDd0 != (quint32)v) {
+			m_ctx.valDd0 = (quint32)v;
+			m_ctx.stateEd8 |= 4;
+		}
+		return QVariant(0);
+	}
+	case 0x7564: {   // 0034:23151-23160 勘误真身(批 130;旧 FUN_00a2d5d0
+	                 //   误挂勘正至 0x7562):float 夹 [0,5.0](00a469f8
+	                 //   SSE 双比较字面)→ +0x1bb 存(long)截断 +
+	                 //   session_view_soft_reset — cited
+		float f = a.toFloat();
+		double d;
+		if (f > 5.0f)                        // 00a469f8 5.0 门
+			d = 5.0;
+		else if (f > 0.0f)
+			d = (double)f;
+		else
+			d = 0.0;
+		m_ctx.val1bb = d;                    // 语料 0x1bb 槽 = double 面
+		                                     //   (0x7560 读 (double);Ghidra
+		                                     //   long 视角为伪影,登记)
+		// session_view_soft_reset — cited(Phase-4)
 		return QVariant(0);
 	}
 	case 0x756d:     // 标记注册(FUN_00925c02:查得即返,否则插入 +
@@ -934,21 +999,46 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant(0);
 	case 0x75f9:     // +0xd8 obj+0x20 查询(空对象 → -1;FUN_00927170)
 		return QVariant((long long)m_ctx.bufObjField);
-	case 0x75fa:     // FUN_00a2a6e6(+0x1067==2 hex 子态;行文本+标记)——cited
-	case 0x75fb:     // 同上变体 —— cited
-		return QVariant(QString());
+	case 0x75fa: {   // FUN_00a2a6e6(188B,0034:7263 全读)批 130 真身门:
+	                 //   field1067==2(hex)才走(FUN_009588b8 pos→行 +
+	                 //   00925200 行界 ×2 + FUN_009273be 时间戳串 =
+	                 //   深腿 cited);非 hex → shared_null 同相;
+	                 //   param_5=1(0x75fa)/0(0x75fb)= 长/短格式腿
+	                 //   (009273be vs 009273f2)
+		if (m_ctx.field1067 != 2)            // 00a2a72f 门
+			return QVariant(QString());
+		return QVariant(QString());          // 时间戳深度腿 — cited
+	}
+	case 0x75fb: {   // 同上变体(param_5=0 短格式;009273f2)— 批 130
+		if (m_ctx.field1067 != 2)            // 00a2a72f 门
+			return QVariant(QString());
+		return QVariant(QString());          // 深度腿 — cited
+	}
 	case 0x75fc: {   // 时间戳格式(FUN_00927216:indexOf('z') → +0xd8+8 布尔;
 	                 //  串存 +0x290;margin 刷新 cited)
 		m_ctx.timestampFormat = a.toByteArray();
 		m_ctx.timestampHasZ = m_ctx.timestampFormat.indexOf('z') != -1;
 		return QVariant(0);
 	}
+	case 0x75fd: {   // 0034:24537-24541 新 case(批 130):FUN_009271be
+	                 //   (38B,0030:22696 全读)→ FUN_009af2b2(35B,
+	                 //   0032:45298 全读):*(obj+0x20) = v - elapsed
+	                 //   (QElapsedTimer;启动态未建模,elapsed 占位 0
+	                 //   — cited);obj+0x20 = bufObjField(0x75f9 读对
+	                 //   FUN_00927170;勘误注记:0x75ff 写 +0x28 为另槽)
+		m_ctx.bufObjField = a.toLongLong();  // v - elapsed(占位 0)
+		return QVariant(0);
+	}
 	case 0x75fe:     // 长时间戳格式存(disp 24506)
 		m_ctx.timestampLongFormat = a.toByteArray();
 		return QVariant(0);
-	case 0x75ff:     // +0xd8 obj 写(FUN_009271e4 → 009af2d6)
+	case 0x75ff: {   // +0xd8 obj 写(FUN_009271e4 38B → FUN_009af2d6 35B:
+	                 //   *(obj+0x28) = v - elapsed;批 130 勘误注记:+0x28
+	                 //   与 0x75f9 读 +0x20 异槽,字段未建模暂以
+	                 //   bufObjField 承接 — 落字段批勘正)
 		m_ctx.bufObjField = a.toLongLong();
 		return QVariant(0);
+	}
 	case 0x7594: {   // removeMargin(L24972-24986):+0x1ae 门开 → 跳;
 	                 //   否则逐条目名比对(FUN_005445c4 00a4658x),
 	                 //   命中 → FUN_00a4bc60(387B)左移压缩删该条,
@@ -997,6 +1087,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		m_ctx.mask1108 &= ~a.toULongLong();
 		return QVariant(0);
 	}
+	case 0x7539:     // 0034:22772 勘注(批 130 新 case;0x7537 清零对
+	                 //   L22761):*(byte*)(ctx[0x213]+0x240) = 1 直写
+	                 //   — 字段 +0x240 未入库(EditorContext.h 禁改批
+	                 //   130),落位 cited
+		return QVariant(0);
 	case 0x7533: {   // +0x21d 字节 = a.toBool()(00669xxx 区直写)
 		m_ctx.flag21d = a.toBool();
 		return QVariant(0);
@@ -3512,6 +3607,20 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			// (**+0xa0)(ctx) 刷新 — cited(Phase-4b 视图腿)
 		}
 		return QVariant(0);
+	}
+	case 0x7569: {   // 0034:23249-23255 勘注真身(批 130 新 case;语料
+	                 //   0x7567 <cmd else 腿):+0xd9c int 写(变更才写,
+	                 //   vt+0xa0 刷新 — cited Phase-4b)
+		const int v = a.toInt();
+		if (m_ctx.fieldD9c != v) {
+			m_ctx.fieldD9c = v;
+			// (**+0xa0)(ctx) 刷新 — cited
+		}
+		return QVariant(0);
+	}
+	case 0x756b: {   // 0034:23244 勘注真身(批 130 新 case;语料 0x756a
+	                 //   <cmd 腿):+0x227 字节读(0x756c 写对)
+		return QVariant((bool)m_ctx.flag227);
 	}
 	case 0x756c: {   // +0x227 字节 = a.toBool()(00669xxx 区直写)
 		m_ctx.flag227 = a.toBool();
