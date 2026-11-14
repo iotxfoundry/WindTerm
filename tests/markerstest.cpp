@@ -1702,6 +1702,51 @@ int main(int argc, char **argv)
 		       "aa6: 同值再写门关(y5 回归)");
 	}
 
+	// ======== bb. 批 146 组:a837f6 styled=1 腿 ========
+	// 语料锚:a837f6@0035.c:346(0035.c:405-409 styled 尾臂)/ 74df8d
+	//   MOV EDX,1(kuna 反汇编;FUN_0074dda2 尾二次编译比对腿,
+	//   0023.c:14206 — styled=1 唯一调用面)/ 96d06d(96d022 恒 0 腿)。
+	{
+		// bb1:a837f6 styled=1 腿(批 146;styled 调用面唯一性 = 74df8d
+		//   MOV EDX,1 @FUN_0074dda2 尾 xpr_compileStr 二次编译比对腿,
+		//   0023.c:14206 全读;0x7545/92e5e8 族恒 a3=0 已由 aa3 钉):
+		//   ~*(u32*)(styler+0xc)&+0x50 掩码相等 ∧ 0x11befa0 哨兵互斥
+		//   (a837f6 405-409;styler+0x58 语料 = default style 表指针,
+		//   哨兵 = 空 — 测试载体以堆/哨兵两态构造)。
+		{
+			quint8 sd0[8] = {'p', 'q'}, sd1[8] = {'p', 'q'};
+			// x:堆 styler(f[3]=0xc 掩码 0);y:同掩码同 +0x50 → 1
+			quint64 sx[16] = {}, sy[16] = {};
+			sx[0] = quint64(reinterpret_cast<uintptr_t>(sd0));
+			sx[1] = 2;                        // size=2
+			sx[9] = 0x77;                     // +0x48
+			sx[10] = 0x555;                   // +0x50
+			quint32 *xsty = new quint32[4]{0, 0, 0, 0};  // styler obj
+			sx[11] = quint64(reinterpret_cast<uintptr_t>(xsty));  // +0x58
+			sy[0] = quint64(reinterpret_cast<uintptr_t>(sd1));
+			sy[1] = 2; sy[9] = 0x77; sy[10] = 0x555;
+			quint32 *ysty = new quint32[4]{0, 0, 0, 0};
+			ysty[3] = 0;                      // +0xc 掩码同 0
+			sy[11] = quint64(reinterpret_cast<uintptr_t>(ysty));
+			// 双堆(均非哨兵):掩码等但互斥臂要求 x58==哨兵 → 假
+			//   (语料 0xa8387f 字面:双非哨兵 → SETZ 0 → 假)
+			expect(!wt::ENodeScan::payloadEq00a837f6(sx, sy, true),
+			       "bb1: styled=1 双堆 styler:掩码等(eq 真)但互斥臂"
+			       "双非哨兵 → 假(a837f6 0xa8387f 字面 — 非对称怪癖"
+			       "原样钉住)");
+			// 哨兵腿(0xa83874):掩码比双臂解引(+0xc)无哨兵旁路 →
+			//   y58/x58=哨兵 + 对侧堆 = 语料级 UB 构型,不可安全构造
+			//   (登记);可安全构型 = 双哨兵 → x==y 首臂短路(0xa837f9)
+			//   前置门即返,不进掩码臂。
+			expect(!wt::ENodeScan::payloadEq00a837f6(sx, sy, false),
+			       "bb1: 裸腿(y 堆)回归:size/memcmp/+0x48 同 ∧ +0x50 等"
+			       "但 +0x58 异(双堆指针)→ 0(a83889 CMP RSI,RCX SETZ"
+			       " 字面;与 aa3 裸腿互补 — +0x58 相等腿活性钉住)");
+			delete[] xsty;
+			delete[] ysty;
+		}
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }
