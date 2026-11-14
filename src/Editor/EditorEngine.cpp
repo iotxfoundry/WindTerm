@@ -749,9 +749,29 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   归位(语料 L24250;原标签 = 区间腿误切,批 65 勘察)
 		m_ctx.flag210 = a.toBool();
 		return QVariant(0);
-	case 0x75e0:     // QColor 写(userType 0x43 → +0xedc/+0x1dc 六字段
-	                 //   + FUN_00a2cea8 刷新,L24255 区)— cited — wave-2
+	case 0x75e0: {   // 0034.c:24206:QColor 写(userType==0x43 直读
+	                 //   constData;else convert(0x43)兜底,败 →
+	                 //   {0,0xffff,0,0,0,0} 字面);+0xedc u32 =
+	                 //   cspec+pad,ct[0..4] → +0xee0..+0xee8 u16×5;
+	                 //   +0xee0..0xee8 槽未建模 cited;00a2cea8 刷新
+	                 //   cited —— 字段面真身化批 125(+0xedc 落位)
+		quint16 raw[8] = {};
+		bool got = false;
+		if (a.userType() == QMetaType::QColor) {         // 00a4815a 0x43 门
+			memcpy(raw, a.constData(), qMin(sizeof(raw), sizeof(QColor)));
+			got = true;
+		} else if (a.canConvert<QColor>()) {             // 00a48187 convert
+			const QColor c = a.value<QColor>();
+			memcpy(raw, &c, qMin(sizeof(raw), sizeof(QColor)));
+			got = true;
+		}
+		m_ctx.remoteCaretFlag = got
+		    ? quint32(raw[0] | (quint32(raw[1]) << 16))  // +0xedc cspec+pad
+		    : 0u;                                        // 00a4816e 败字面
+		// +0xee0(raw[2]=0xffff 败字面)/+0xee2/+0xee4/+0xee6/+0xee8
+		// u16 槽未建模 — cited — 批 125
 		return QVariant(0);
+	}
 	case 0x75e2:     // +0x1083 查询
 		return QVariant((bool)m_ctx.flag1083);
 	case 0x75e3:     // FUN_00a2e9e2(296B QVariant 组装)——cited
@@ -888,6 +908,21 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	}
 	case 0x7578: {   // FUN_00a21b1e(14B):markers 对象 +0x210 int 查询
 		return QVariant((int)m_ctx.hexField210);
+	}
+	case 0x757a: {   // 0034.c:23386 → FUN_00a21b6a(412B,0034.c:1284):
+	                 //   hex eol 应用:field1067 门;kind∈{1,2,3} →
+	                 //   FUN_0092c482(44B)行 CR/CRLF 规整 +
+	                 //   *(M+0x210)=kind(= hexField210);行规整
+	                 //   FUN_0092c2b0(466B)与 kind==3 对修复
+	                 //   00a207ca 腿 — cited —— 批 125
+		if (m_ctx.field1067 == 0)                        // 00a21b7e 门
+			return QVariant(0);
+		const int kind = a.toInt();
+		if (kind == 1 || kind == 2 || kind == 3) {       // 00a21b8b/c04
+			// FUN_0092c2b0 逐行 CR/CRLF 规整 — cited — 批 125
+			m_ctx.hexField210 = kind;                    // 0092c482 尾
+		}
+		return QVariant(0);
 	}
 	case 0x7586: {   // +0x1b1 int = a.toInt();变更 → vtable+0xa0 刷新
 	                 //   (cited — Phase-4b 视图腿)
@@ -1142,24 +1177,28 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			m_ctx.markersStore.nearestIdFrom(line, &id);     // FUN_009a07d8
 		return QVariant(id);
 	}
-	case 0x75a5: {   // FUN_00a2d3ec(286B):+0xec3 = a.toBool();变更
-	                 //   且 +0x1128 → 逐行 run 失效(FUN_0096bf4a/
-	                 //   0096bfc8/0096bc28/0096bfce runstyles 族)+
-	                 //   +0xdd0 复位 — cited — wave-2(失效腿)
+	case 0x75a5: {   // 0034.c:24781 → FUN_00a2d3ec(286B,0034.c:9174):
+	                 //   +0xec3 = v(变更门);flag1128 时 +0xdd0 = v?1:0
+	                 //   (00a2d3c8/00a2d3e5 字面);v==0 逐行 run 失效
+	                 //   (0096bf4a)+ 尾 00a2d3d0/00a2d3be(00a20ab0 +
+	                 //   00a2cea8)— cited —— 字段面真身化批 125
 		const bool v = a.toBool();
 		if (m_ctx.flagEc3 != v) {
 			m_ctx.flagEc3 = v;
-			if (m_ctx.flag1128) {
-				// 逐行 run 失效 + FUN_00a20b94 门重算
-				// — cited — wave-2(runstyles 面)
-			}
+			if (m_ctx.flag1128)
+				m_ctx.valDd0 = v ? 1u : 0u;
+			// 逐行失效 + 00a2d3d0/00a2d3be 尾腿 — cited — 批 125
 		}
 		return QVariant(0);
 	}
-	case 0x75a7:     // FUN_009252f4(15B)→ FUN_0099881e(196B
-	                 //   word-walk 层:FUN_00a840fc 类进/00998678
-	                 //   类测/FUN_009975de CRLF)— cited — wave-2
-		return QVariant(0);
+	case 0x75a7: {   // 0034.c:24902:pos → FUN_009252f4(15B)→
+	                 //   FUN_0099881e(196B)词跳步;dir = -(b==0)|1
+	                 //   (b 真 → 1 / 假 → -1);真身 = 本文件 static
+	                 //   s_wordStep_0099881e(批 100 全读转写)—— 批 125
+		const qint64 pos = a.toLongLong();
+		const int dir = b.toBool() ? 1 : -1;     // 00a48b83 -(uint)(c==0)|1
+		return QVariant((long long)s_wordStep_0099881e(m_ctx, pos, dir));
+	}
 	case 0x75a8:     // FUN_00a21576(153B)可见行数:dv = max(
 	                 //   +0xd38,+0xd20);field1067==2 →
 	                 //   (+0x10a0 对象+0x18)/dv;否则 FUN_00a1f7e2
@@ -2273,11 +2312,35 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	case 0x753f:     // 槽 +0xc0 = FUN_00948b9b(thunk→FUN_00948b5a)
 	                 //   — 槽已定位(批 66),体 cited
 		return QVariant(0);
-	case 0x7541:     // FUN_00a204a0(216B)scrollToFraction:
-	                 //   target = f*len − lines*f 夹取 → scroll obj
-	                 //   +0x10c8{+0x30/+0x38/+0x3c} — cited(滚动
-	                 //   几何 Phase-4b)
+	case 0x7541: {   // 0034.c:22817:frac → FUN_00a204a0(216B)
+	                 //   scrollToFraction 全读转写:tgt=(long)(f*L);
+	                 //   lo=tgt−w/2 夹 0(w=min(L,16) 00a1fa2a);
+	                 //   hi=min(w+lo,L)(00a1fa88 内部即用 lo);
+	                 //   vis=00a20438=LINESONSCREEN 同面;tgt-=vis*f
+	                 //   夹 0;tgt<=lo → lo=(hi<=vis+tgt)?tgt:hi-vis-1;
+	                 //   L=958722 面 = hexMode?GETLENGTH:LINECOUNT
+	                 //   (field160 腿 cited);→ SETFIRSTVISIBLELINE
+	                 //   (00a166ba → 0x75b5 axis1 先例)—— 批 125
+		const double f = a.toDouble();
+		const long long L = m_ctx.hexMode
+		    ? (long long)send(SCI_GETLENGTH, 0, 0)
+		    : (long long)send(SCI_GETLINECOUNT, 0, 0);
+		const long long w = (L <= 0x10) ? L : 0x10;     // 00a1fa2a
+		long long tgt = (long)((double)L * f);          // 00a1f9e8
+		long long lo = tgt - w / 2;                     // 00a1fa4c
+		if (lo < 0)
+			lo = 0;
+		const long long hi = qMin(w + lo, L);           // 00a1fa88
+		const long long vis =
+		    qMax<long long>(1, send(SCI_LINESONSCREEN, 0, 0));
+		tgt -= (long long)((double)vis * f);            // 00a204c7
+		if (tgt <= -1)
+			tgt = 0;
+		if (tgt <= lo)                                  // 00a204d8
+			lo = (hi <= vis + tgt) ? tgt : hi - vis - 1;
+		send(SCI_SETFIRSTVISIBLELINE, lo, 0);
 		return QVariant(0);
+	}
 	case 0x7544: {   // FUN_00a4186e(86B)→ FUN_00a41552(649B 渲染核)
 	                 //   可视区 pixmap(pos..pos+lines,高参 −1=实际视高)
 	                 //   真身化(批 70)
@@ -2585,8 +2648,24 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	}
 	case 0x7548:     // 槽 29 kind=2 = 垂直滚动条可见性(同 0x7546)
 		return QVariant((bool)send(SCI_GETVSCROLLBAR));
-	case 0x7549:     // FUN_00930338(654B)— cited — wave-2
+	case 0x7549: {   // 0034.c:22876 else 腿:FUN_00930338(654B,0030.c:30325)
+	                 //   E+0x250 条目按名删:QDataStream>>key 与
+	                 //   toUtf8(name) memcmp 同构比较;命中 → removeAt
+	                 //   + 即止;SciScrollBarMarkEvent(0x415) 广播 —
+	                 //   cited(事件总线未建模)—— 批 125
+		const QByteArray name = a.toString().toUtf8();
+		for (int i = 0; i < m_ctx.eSerialEntries.size(); ++i) {
+			QDataStream ds(m_ctx.eSerialEntries.at(i));   // 0093035c
+			QByteArray key;
+			ds >> key;                                    // 0093036b
+			if (key == name) {                            // 00930388 同构
+				m_ctx.eSerialEntries.removeAt(i);         // 009304d0
+				// 0x415 广播 — cited — 批 125
+				break;                                    // 语料命中即 return
+			}
+		}
 		return QVariant(0);
+	}
 	case 0x754a:     // 槽 +0xd0 = FUN_00948c89(thunk→00948c6e;体未录)
 	                 //   — 槽已定位(批 66 vtable 勘破),体 cited
 		return QVariant(0);
@@ -2964,11 +3043,33 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		}
 		return QVariant(0);
 	}
-	case 0x758f:     // FUN_00a2a8c4(189B)margin 命中测试:point.x 按
-	                 //   width+padding 累计定位 → *(byte*)(e+10)&0xf
-	                 //   type — cited — wave-2(builder 字段域测绘
-	                 //   见 PHASE5 批 65 附)
-		return QVariant(0);
+	case 0x758f: {   // 0034.c:23631:QPoint → FUN_00a2a982(44B)→
+	                 //   FUN_00a2a8c4(189B)margin 命中:x 按 width
+	                 //   累计定位(三段宽 = flagsC&0xfff + flagsD>>6
+	                 //   + (u32>>12)&0x3ff;命中 → *(u8*)(e+10)&0xf
+	                 //   type;width==0 条目跳过;char≤0xff 臂恒真
+	                 //   — 语料原样;未命中 -1 → 0)—— 批 125
+		const int x = a.toPoint().x();
+		int hit = -1;
+		unsigned acc = 0;
+		for (int i = 0; i < m_ctx.marginList.size(); ++i) {
+			const EditorContext::MarginEntry &e = m_ctx.marginList.at(i);
+			const quint32 u32c = quint32(e.flagsC) | (quint32(e.flagsD) << 16);
+			const unsigned w = (e.flagsC & 0xfff) + (e.flagsD >> 6)
+			    + ((u32c >> 12) & 0x3ff);
+			if (w == 0)                          // 语料 v2==0 → 跳条目
+				continue;
+			const unsigned nxt = acc + w;
+			if (x >= int(acc) && x < int(nxt)) { // 00a2a905 双比较
+				hit = i;
+				break;
+			}
+			acc = nxt;
+		}
+		if (hit != -1)
+			return QVariant((int)(m_ctx.marginList.at(hit).flagsA & 0xf));
+		return QVariant(0);                      // 00a2a982 尾:-1 → 0
+	}
 	case 0x75b6:     // selectionAsHtml:FUN_00a36e40(104B)→
 	                 //   FUN_00a3663e(2025B 导出主函数)— cited
 		return QVariant(0);
@@ -3131,12 +3232,32 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		const long long to = b.toLongLong();
 		return QVariant(m_ctx.docSub(from, to));
 	}
-	case 0x7565:     // 0034:23050:pos → FUN_009284aa(13B)→ int
-	                 //   (批 77 清点薄条;体未读 —— cited — wave-2)
+	case 0x7565: {   // 0034.c:23050:pos → FUN_009284aa(13B,0030.c:24371)
+	                 //   byteAt → int(真身化批 125;vt+0x28 委托 =
+	                 //   docBytes 承接,越界读 0 同相 s_byteAt 先例)
+		return QVariant((int)(signed char)s_byteAt_009284aa(
+		    m_ctx, a.toLongLong()));
+	}
+	case 0x754e: {   // 0034.c:22923 <0x7550 默认腿:FUN_0092e368(212B)
+	                 //   E+0x2d8 节点遍历:type∈[1,2](009635d8)→ 槽
+	                 //   [0xf..0x11] 复位(0096cef2 40B 全读);重排腿
+	                 //   FUN_0092596c cited(线程池面)—— 批 125
+		for (auto it = m_ctx.eNodes.begin(); it != m_ctx.eNodes.end(); ++it) {
+			void *e = it.value();
+			if (!e)
+				continue;                        // 语料 *(long*)(n+8) 门
+			const unsigned t =
+			    *(const quint8 *)(reinterpret_cast<const char *>(e) + 8);
+			if (t - 1 <= 1) {                    // 009635d8:type-1<2
+				quint64 *q = reinterpret_cast<quint64 *>(e);
+				q[0xf] = 0x7fffffffffffffffull;  // 0096cef2:{-1,0,0}
+				q[0x10] = 0;
+				q[0x11] = 0;
+				// FUN_0092596c(232B)重排 — cited(线程池,批 125)
+			}
+		}
 		return QVariant(0);
-	case 0x754e:     // 0034:23602 <0x7550 默认腿:FUN_0092e368(session)
-	                 //   无参调用(1 行;体未读 —— cited — wave-2)
-		return QVariant(0);
+	}
 	case 0x7566: {   // FUN_0093079a(257B):charAt → ucs4 码点
 		return QVariant((uint)m_ctx.docCharCodeAt(a.toLongLong()));
 	}

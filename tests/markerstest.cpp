@@ -12,6 +12,10 @@
 #undef private
 #include "MarkersStore.h"
 #include <QApplication>
+#include <QColor>
+#include <QDataStream>
+#include <QIODevice>
+#include "Scintilla.h"
 #include <cstdio>
 
 static int g_fail = 0;
@@ -675,6 +679,121 @@ int main(int argc, char **argv)
 		// q4:dedup 结构字面 = 语料 5-long 素布局
 		expect(sizeof(EditorContext::DedupRec) == 40,
 		       "q4: DedupRec 40B = 语料 5-long 素步进(lVar16×0xcccccccd ÷5)");
+	}
+
+	// ======== r. 批 125 组:巨 switch 扩谱首批(9 条语料转写)========
+	// 语料锚:0x7565@0034.c:23050 / 0x754e@22923 / 0x757a@23386 /
+	//   0x758f@23631 / 0x75a5@24781 / 0x75a7@24902 / 0x7541@22817 /
+	//   0x7549@22876 / 0x75e0@24206(见 EditorEngine.cpp 各 case 注)
+	{
+		// r1:0x7565 byteAt → int(docBytes 承接;越界 0 同相)
+		EditorEngine e1;
+		e1.m_ctx.docBytes = QByteArray("a\xfe");
+		e1.dispatch(SCI_ADDTEXT, (qlonglong)2, QByteArray("a\xfe"));
+		expect(e1.dispatch(0x7565, (qlonglong)0) == QVariant(int('a')),
+		       "r1: dispatch(0x7565,0)==97(0034.c:23050 → 009284aa byteAt)");
+		expect(e1.dispatch(0x7565, (qlonglong)1)
+		           == QVariant(int((signed char)(quint8)0xfe)),
+		       "r1: ≥0x80 字节按 signed char 符号展开((int)cVar9)");
+		expect(e1.dispatch(0x7565, (qlonglong)99) == QVariant(0),
+		       "r1: 越界 → 0(vt+0x28 委托越界 0 同相;s_byteAt 先例)");
+
+		// r2:0x75a7 词跳步恒等近似(wordClass 恒 0 → ±0 步 = 恒等,
+		//   CRLF 腿/界钳真身随行 — s_wordStep_0099881e 批 100)
+		EditorEngine e2;
+		e2.m_ctx.docBytes = QByteArray("abc\r\nx");
+		expect(e2.dispatch(0x75a7, (qlonglong)2, true) == QVariant((qlonglong)2),
+		       "r2: 前向(b=1→dir1) 恒等(28859 wordClass=0 → 28895 不变)");
+		expect(e2.dispatch(0x75a7, (qlonglong)4, false) == QVariant((qlonglong)3),
+		       "r2: 后向(b=0→dir-1) 落 3(28897 CRLF 尾 p-1 腿)");
+		expect(e2.dispatch(0x75a7, (qlonglong)99, true) == QVariant((qlonglong)6),
+		       "r2: 界钳 28903-28908 → len=6");
+
+		// r3:0x758f margin 命中(三段宽累计 + type 低 4 位)
+		EditorEngine e3;
+		EditorContext::MarginEntry m1, m2;
+		m1.name = "a"; m1.flagsC = 10; m1.flagsA = 0x84;   // width=10,type=4
+		m2.name = "b"; m2.flagsC = 0;                       // width 0 → 跳
+		e3.m_ctx.marginList.append(m1);
+		e3.m_ctx.marginList.append(m2);
+		expect(e3.dispatch(0x758f, QPoint(5, 0)) == QVariant(4),
+		       "r3: x=5 命中条目0 → type=flagsA&0xf=4(00a2a982 尾读)");
+		expect(e3.dispatch(0x758f, QPoint(10, 0)) == QVariant(0),
+		       "r3: x=10 越出且条目1 width=0 跳过 → -1 → 0(00a2a982)");
+		expect(e3.dispatch(0x758f, QPoint(-1, 0)) == QVariant(0),
+		       "r3: x<0 不命中(acc<=x 门)→ 0");
+
+		// r4:0x757a hex eol 应用(field1067 门 + kind 白名单 + M+0x210)
+		EditorEngine e4;
+		e4.dispatch(0x757a, 2);
+		expect(e4.m_ctx.hexField210 == 0,
+		       "r4: field1067=0 门 → 不写(00a21b7e 直返)");
+		e4.m_ctx.field1067 = 1;
+		e4.dispatch(0x757a, 2);
+		expect(e4.m_ctx.hexField210 == 2,
+		       "r4: kind=2 → *(M+0x210)=2(0092c482 尾 00a21c04 腿)");
+		e4.dispatch(0x757a, 5);
+		expect(e4.m_ctx.hexField210 == 2,
+		       "r4: kind=5 非白名单 → 不变(00a21b6a 三臂外直返)");
+		e4.dispatch(0x757a, 1);
+		expect(e4.m_ctx.hexField210 == 1,
+		       "r4: kind=1 → *(M+0x210)=1(00a21b8b 腿)");
+
+		// r5:0x7549 序列化条目按名删(QDataStream>>key 前缀比较)
+		EditorEngine e5;
+		QByteArray ent1, ent2;
+		QDataStream w1(&ent1, QIODevice::WriteOnly);
+		w1 << QByteArray("name1");
+		ent1 += "tail";
+		QDataStream w2(&ent2, QIODevice::WriteOnly);
+		w2 << QByteArray("name2");
+		e5.m_ctx.eSerialEntries.append(ent1);
+		e5.m_ctx.eSerialEntries.append(ent2);
+		e5.dispatch(0x7549, "name1");
+		expect(e5.m_ctx.eSerialEntries.size() == 1
+		           && e5.m_ctx.eSerialEntries.at(0).startsWith(
+		               ent2.left(4)),
+		       "r5: 命中 name1 → 删条目0(00930388 memcmp/009304d0 remove)");
+		e5.dispatch(0x7549, "nameX");
+		expect(e5.m_ctx.eSerialEntries.size() == 1,
+		       "r5: 未命中 → 不删(循环走完无移除腿)");
+
+		// r6:0x75a5 overtype 开关(+0xec3 门 + flag1128 时 +0xdd0)
+		EditorEngine e6;
+		e6.m_ctx.valDd0 = 7;
+		e6.dispatch(0x75a5, true);
+		expect(e6.m_ctx.flagEc3 == true && e6.m_ctx.valDd0 == 7,
+		       "r6: flag1128=0 → +0xdd0 不动(00a2d3b7 else 腿直落)");
+		e6.m_ctx.flag1128 = true;
+		e6.dispatch(0x75a5, false);
+		expect(e6.m_ctx.valDd0 == 0,
+		       "r6: flag1128=1,v=0 → +0xdd0=0(00a2d3e5 字面)");
+		e6.dispatch(0x75a5, true);
+		expect(e6.m_ctx.valDd0 == 1,
+		       "r6: flag1128=1,v=1 → +0xdd0=1(00a2d3c8 字面)");
+		e6.dispatch(0x75a5, true);
+		expect(e6.m_ctx.flagEc3 == true,
+		       "r6: 同值再写 → 变更门直返(00a2d3af 门)");
+		e6.dispatch(0x75a5, false);
+		expect(e6.m_ctx.valDd0 == 0,
+		       "r6: v=0 → +0xdd0=0(00a2d3e5 字面)");
+
+		// r7/r8:0x7541 scrollToFraction / 0x754e 后台解析全停(冒烟)
+		EditorEngine e7;
+		expect(e7.dispatch(0x7541, 0.5) == QVariant(0),
+		       "r7: dispatch(0x7541) 走通返 0(00a204a0 夹取链真身)");
+		expect(e7.dispatch(0x754e) == QVariant(0),
+		       "r8: dispatch(0x754e) 壳态 eNodes 空 → 直返 0");
+
+		// r9:0x75e0 QColor 六字段写(+0xedc 落位/败字面)
+		EditorEngine e9;
+		e9.dispatch(0x75e0, QVariant(QColor(1, 2, 3)));
+		expect(e9.m_ctx.remoteCaretFlag == 1u,
+		       "r9: QColor(Rgb) → +0xedc = cspec(1)|pad<<16"
+		       "(00a4815a 0x43 直读腿)");
+		e9.dispatch(0x75e0, QVariant(123));
+		expect(e9.m_ctx.remoteCaretFlag == 0u,
+		       "r9: int 不可转 → 败字面 head=0(00a4816e 0xffff00000000)");
 	}
 
 	printf("fail=%d\n", g_fail);
