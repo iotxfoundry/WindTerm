@@ -17,6 +17,22 @@
 //   (非本类,勿挂)。
 // 结构:QStackedLayout(+0x38)为页容器,QSplitter(+0x30,Qt::Vertical,
 //   setChildrenCollapsible=false)为其中唯一页。
+// 批 148 余项差集三态定案(批 118 已落槽体除外;kuna xrefs + 全二进制
+//   call/jmp/rip-rel 扫描双源):
+//   removePage      FUN_005a29e6(690B)→ 真身(本批落,.cpp 逐段锚);
+//   装配 spacing/margins 两 cited 腿 → 升真身(import 符号实证);
+//   FUN_005a23d0(283B 两 pane 互换)→ 定案:零调用点孤儿死代码
+//     (call/jmp/rip-rel/.data 全零命中;不落码,原样保留);
+//   King::insertPane 005a277a(596B)+ thunk 008e041e(9B)→ 定案:孤儿链
+//     (thunk 零调用点 → insertPane 唯一调用点即 orphan;不落码);
+//   moc 三件 008f6c66/8f6c7e/8f6cc0 + dtor 四件 008f6cc6/8f6ce3/8f6d04/
+//     8f6d33 → 定案由 moc/编译器生成同构(Q_OBJECT methods=0 + 隐式 dtor,
+//     语料 dtor 仅尾调 QWidget::~QWidget 与隐式同相);
+//   FUN_008e01b6(15B MuxWindow thunk +0x70→removePage)/008e0428(126B
+//     findChild<MuxPane*> zoomed)/008e0a72(findChildren<MuxPane*>)→
+//     归辖 MuxWindow 面,live(0084dd5a/008e01c6);本批不落(闭包腿 S7
+//     cited 决定同面),挂账现役队列。
+//   functor 胶水 005a21f0/221a/2244/2251 → toggleZoomPage 内联已落(批 106)。
 class SplitterGroup : public QWidget {
     Q_OBJECT
 
@@ -34,6 +50,13 @@ public:
     // FUN_005a2518(0018:18651,585B,asm 全读):zoom 页切换(param_3=zoom)。
     //   逐段转写见 .cpp; Fun_005a236c 焦点深潜(setFocus ActiveWindowFocusReason)。
     void toggleZoomPage(QWidget *page, bool zoom); // FUN_005a2518
+    // FUN_005a29e6(0018:18817,690B,asm 005a29e6-005a2c9b 全读;批 148):
+    //   摘页 + splitter 收缩(页 close→hide→setParent(0)→deleting dtor;
+    //   父 splitter 空 → 递归上卷;剩 1 页 → 与上父 splitter 合并;
+    //   ≥2 页 → 邻页吸收 handleWidth+本页 size,removeAt,setSizes);
+    //   尾 FUN_005a236c 焦点深潜。语料调用点 = MuxWindow thunk
+    //   FUN_008e01b6(+0x70 面,批 148 归辖注记见 .cpp)。
+    void removePage(QWidget *page);            // FUN_005a29e6
 
 private:
     QSplitter *m_f30;          // 语料 +0x30
