@@ -1,5 +1,6 @@
 #include "MuxPaneGroup.h"
 
+#include "KitWindowFace.h"
 #include "MuxPaneView.h"
 #include "MuxWindow.h"
 #include "TabGroup.h"
@@ -7,6 +8,10 @@
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include <QTabBar>
+#include <QToolButton>
+#include <QMenu>
+#include <QEvent>
+#include <QCoreApplication>
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QRegularExpression>
@@ -239,28 +244,33 @@ void MuxPaneGroup::focusCurrentPane()
 // === showConfigMenu() ===
 // 转写 s_MuxPaneGroup_8de2d4(0028:25588,214B,asm 008de2d4-008de3a3 全读):
 //   qcoreapp_self_get 值弃 @008de2e1 → 父链上溯 dynamic_cast<KitWindow>
-//   (011ab390,typeinfo 名 "9KitWindow" ELF 实证)@008de2f1-30f;未命中
-//   → 直返 @008de319(无任何菜单操作);命中 → FUN_006926a0(0021:18550,
-//   34B,asm 全读:vcall *(kitwin)+0x1f0 取 QMenu*)→ QByteArray("MuxPaneGroup",
-//   @0xd0ea78)→ FUN_00692ef0(0021:18914,310B,asm 全读:QByteArray 匹配
-//   遍历查/新建 QMenu(tr 取页菜单串))→ FUN_005ac790(0018:26415,275B,
-//   asm 全读:name==null 早返;findChild<QToolButton*>("ConfigButton",
-//   @0xd0e8d9,QToolButton smo)→ setAutoRaise(false)@005ac81f(mapToGlobal
-//   前,反汇编勘正 Ghidra true 误读)→ QPoint(0,btn->width()+1)
-//   @005ac802-16(crect x2-x1+1)→ QWidget::mapToGlobal →
-//   QMenu::exec(pos,nullptr)@005ac83c → setAutoRaise(true)@005ac849 →
-//   new QEvent(0xb=Leave)→ QCoreApplication::postEvent(btn,ev,0)
-//   @005ac84e-70。
-// KitWindow 类无仓库承载(011ab390 上溯无落点;主窗口宿主未建模)→
-//   上溯恒不命中 = 语料直返路径 → 本方法整体保持 cited(尾段可转写面
-//   已全读,待 KitWindow 入库接线)。
+//   (011ab390)@008de2f1-30f;未命中 → 直返 @008de319(无任何菜单操作);
+//   命中 → FUN_006926a0(kitwin vcall +0x1f0 = menu() 槽 62 取容器)→
+//   QByteArray("MuxPaneGroup",@0xd0ea78)→ FUN_00692ef0 → 尾
+//   FUN_005ac790(pane+0x38 = TabGroup,"ConfigButton",menu)。
+// 三段真身:kitFindOrCreateGroupMenu(FUN_00692ef0)/kitPopupConfigButton
+//   (FUN_005ac790)见文件尾;KitWindow 上溯腿 = 本仓库 KitWindowFace
+//   (批 133 入库,011ab390 对位)。
+// S3 pane+0x38 = MuxPaneGroup::m_f38(TabGroup,批 71 定案);MENU容器经
+//   menu() 虚调用面(KITWINDOW-RECON Q2:FUN_006926a0 34B = vcall
+//   *(kitwin)+0x1f0,空指针卫 @006926ac 原样)。
 void MuxPaneGroup::showConfigMenu()
 {
-	/* s_MuxPaneGroup_8de2d4 — cited — wave-2(KitWindow 上溯 011ab390 无承载:
-	   类不存在(主窗口宿主未建模)→ 上溯不命中即语料直返。全读面在案:
-	   FUN_006926a0(34B vcall+0x1f0)/FUN_00692ef0(310B QMenu 查建)/
-	   FUN_005ac790(275B 尾段:setAutoRaise(false)→exec→true→postEvent
-	   Leave)—— 待 KitWindow 入库后按注接线,不发明) */
+	// S1:qcoreapp_self_get() 值弃 @008de2e1(原样)
+	KitWindowFace *kit = nullptr;
+	for (QWidget *w = this; w != nullptr; w = w->parentWidget()) {
+		if ((kit = dynamic_cast<KitWindowFace *>(w)) != nullptr) // 011ab390 @008de2f1-30f
+			break;
+	}
+	if (kit == nullptr)
+		return;                                  // @008de319(直返,无菜单操作)
+	void *container = kit->menu();               // FUN_006926a0 @008de331(+0x1f0 槽 62)
+	// S2:FUN_00692ef0(容器,QByteArray("MuxPaneGroup"),this)@008de33b-57
+	QMenu *menu = kitFindOrCreateGroupMenu(container,
+	                                      QByteArrayLiteral("MuxPaneGroup"),
+	                                      this); // 0021.c:18914
+	// S3:FUN_005ac790(+0x38,"ConfigButton",menu)@008de389
+	kitPopupConfigButton(m_f38, QStringLiteral("ConfigButton"), menu); // 0018.c:26415
 }
 
 // === onTabBlankRequested() ===
@@ -383,5 +393,63 @@ void MuxPaneGroup::renamePane(int index)
 	// FUN_0091dde0(pane,pane->paneIndex(),out)— MuxPane 信号 idx1
 	//   requestTmuxRenamePane 发射;MuxPaneView 无该信号承载 → cited。
 	(void)pane;
+}
+
+// === kitFindOrCreateGroupMenu(void*,QByteArray,QWidget*) ===
+// 转写 FUN_00692ef0(0021:18914,310B,asm 00692ef0-00693030 全读):
+//   S1:name 空(id==0)→ 返回 nullptr @00692ef7-a;
+//   S2:容器非空 → FUN_006926c2(&it,容器,容器+0x28,name)遍历
+//     +0x28 QList(006926c2 164B @0021:18568 全读:元素 = 迭代器对
+//     [begin,end] 返回;命中键 memcmp(qs->size()==name.size() &&
+//     memcmp(qs data))→ [hit,hit+1])→ [begin,end) 非空(未尾)→
+//     取 *begin 之 +0x20 槽对象 → QMetaObject::tr(串)→ 命中;
+//   S3:未命中 → QMetaObject::tr(name)(QObject 域)→ operator_new(0x30)
+//     QMenu::QMenu(menu,tr,parent)@00692fbf-0069301d → 返回新菜单。
+//   容器内部表示(cited — 批 133):容器 = menu() 返回的懒单例对象,
+//     确切类名未解(KITWINDOW-RECON §未解 1),+0x28 QList 节点含
+//     {QMenu*, name QString} 对面读自 FUN_00692a70(0021:18732,1119B
+//     全读:同容器遍历族,子菜单递归同型节点 +0x20 槽)。壳态(无
+//     KitWindow 实例)本腿不可达;容器落库时升级真身。
+//   本转写面:QList 节点语义经 QMenu 新建腿 + tr 汇合腿已定 —— 节点
+//     记录 (name → QMenu);QMenu 查建逻辑照抄;遍历腔 cited。
+QMenu *MuxPaneGroup::kitFindOrCreateGroupMenu(void *container,
+                                              const QByteArray &name,
+                                              QWidget *pane)
+{
+	if (name.isEmpty())                        // S1 @00692ef7(*(int*)(name+4)==0)
+		return nullptr;
+	// S2:@00692efc-27 — 容器 +0x28 QList 遍历查(FUN_006926c2 键面
+	//   已全读)→ 命中即取节点 QMenu 返回 — cited — wave-2(容器对象
+	//   与节点类型未定型,KITWINDOW-RECON §未解 1;查建腔见
+	//   FUN_006926c2/FUN_00692a70 在案,容器落库批升级)
+	Q_UNUSED(container);
+	// S3:@00692f68-030 — QMetaObject::tr(name) → operator_new(0x30)
+	//   QMenu::QMenu(menu,tr串,pane)照抄(新建腿全读)
+	return new QMenu(QObject::tr(name.constData()), pane); // @00692fbf-0069301d
+}
+
+// === kitPopupConfigButton(QWidget*,QString,QMenu*) ===
+// 转写 FUN_005ac790(0018:26415,275B,asm 005ac790-005ac8a3 全读):
+//   name 空 → findChild("") 同相(语料 strlen 面裸 NULL 卫 → -1 →
+//     fromAscii_helper(0,-1) = 空 QByteArray 语义,Qt findChild 同效);
+//   findChild<QToolButton*>(name) → 空 → 返回 @005ac7fd;
+//   非空:setAutoRaise(false)@005ac81f(SUB81 = this 调,真值反汇编
+//     勘正)→ mapToGlobal(QPoint(0,btn->width()+1))(QPoint(0,w+1)
+//     @005ac802-16,Ghidra 形态 = 第二参折叠)→ QMenu::exec(pos,nullptr)
+//     @005ac83c → setAutoRaise(true)@005ac849 → new QEvent(0xb=Leave)
+//     → QCoreApplication::postEvent(btn,ev,0)@005ac84e-70。
+void MuxPaneGroup::kitPopupConfigButton(QWidget *pane, const QString &name,
+                                        QMenu *menu)
+{
+	QToolButton *btn = pane->findChild<QToolButton *>(name); // qt_qFindChild_helper @005ac7cc
+	if (btn == nullptr)                        // @005ac7fd(空直返)
+		return;
+	btn->setAutoRaise(false);                  // @005ac81f
+	// QPoint(0,btn->width()+1)@005ac802-16(crect x2-x1+1)→ mapToGlobal
+	const QPoint pos = btn->mapToGlobal(QPoint(0, btn->width() + 1)); // @005ac82a
+	menu->exec(pos, nullptr);                  // QMenu::exec @005ac83c(壳态
+	                                           //   早退腿保证本行测试不可达)
+	btn->setAutoRaise(true);                   // @005ac849
+	QCoreApplication::postEvent(btn, new QEvent(QEvent::Leave), 0); // @005ac84e-70(0xb=Leave)
 }
 

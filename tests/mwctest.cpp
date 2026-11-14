@@ -6,9 +6,11 @@
 // isZoomed(FUN_005a23c6)初值 / b2 onTabBlankRequested(FUN_008df5f8)
 // 无 win 上溯早返 / b3 renamePane(008df0a4)无 pane 早返。
 #include <QApplication>
+#include <QMenu>
 #include <QTabBar>
 #include <QTimer>
 #include <cstdio>
+#include "Actions/KitWindowFace.h"
 #include "Actions/MuxWindow.h"
 #include "Actions/MuxPaneGroup.h"
 #include "Actions/TabGroup.h"
@@ -102,6 +104,59 @@ int main(int argc, char **argv)
 			emit tg->tabBlankRequested();     // sig2 → FUN_008df5f8(无 win 上溯早返)
 		}
 	}
+
+	// ======== 批 133:showConfigMenu 三段真身(壳态早退/虚调用路径)========
+
+	// c1. 壳态早退:orphan(块内)上溯无 KitWindowFace → 语料 008de2f1-319
+	//     直返。此处置于 win 链:win 上无 KitWindow 子类(dynamic_cast
+	//     失败)→ 同相直返;configRequested → showConfigMenu 直发不崩。
+	TabGroup *tg = group->findChild<TabGroup *>(QStringLiteral("PaneGroup"));
+	if (tg != nullptr)
+		emit tg->configRequested(); // s_MuxPaneGroup_8de2d4(win 链无 KitWindowFace)
+
+	// c2. 虚调用路径经测试子类:menu() 覆写计数(语料槽 62 +0x1f0;
+	//     面见 KITWINDOW-RECON Q2/FUN_006926a0 vcall)。group 父链改为
+	//     this → kit → win(对位 KitWindow ∈ MainWindow stack 页):
+	//     上溯命中 kit → menu() 恰一记。尾段 kitPopupConfigButton:语料
+	//     面有 "ConfigButton" 钮(expandable=true 分叉 008deb78 建)——
+	//     空 QMenu::exec 在 offscreen 阻塞不可测 → 钮改名令 findChild
+	//     miss → @005ac7fd 语料早返(exec 腿行为留宿主批验证)。
+	static QMenu *g_menu = nullptr; // 测试空菜单容器(menu() 返回面)
+	class TestKit : public KitWindowFace {
+	public:
+		int menuCalls = 0;
+		void *menu() override { // 槽 62 对位(0x5e97d2/0x858fce 同型)
+			++menuCalls;
+			if (g_menu == nullptr)
+				g_menu = new QMenu;
+			return g_menu;
+		}
+	} kit;
+	kit.setParent(&win);
+	group->setParent(&kit); // group 父链:this → kit(命中)→ win
+	QToolButton *cfgBtn = tg->findChild<QToolButton *>(QStringLiteral("ConfigButton"));
+	if (cfgBtn != nullptr)
+		cfgBtn->setObjectName(QStringLiteral("c133bypass")); // findChild miss → 早返
+	emit tg->configRequested();
+	if (kit.menuCalls != 1)
+		++fails; // 上溯命中 → vcall +0x1f0 恰一记(FUN_006926a0)
+	// kitPopupConfigButton 可调性 + 钮缺早退面(FUN_005ac790 @005ac7fd:
+	//   findChild 空 → 返回;menu 实参不触,传 null 同相)
+	MuxPaneGroup::kitPopupConfigButton(&kit, QStringLiteral("Nope"), nullptr);
+	delete g_menu;
+	g_menu = nullptr;
+	group->setParent(&win); // 恢复原链(后续不再上溯,原样)
+
+	// c3. kitFindOrCreateGroupMenu S1/S3 面(FUN_00692ef0):name 空 →
+	//     nullptr(@00692ef7);name 非空 + 容器空 → 新建腿 @00692fbf
+	//     (tr + operator_new(0x30))非 null,标 (owner)。
+	if (MuxPaneGroup::kitFindOrCreateGroupMenu(nullptr, QByteArray(), nullptr) != nullptr)
+		++fails; // S1:*(int*)(name+4)==0 → 0 @00692ef7
+	QMenu *m = MuxPaneGroup::kitFindOrCreateGroupMenu(
+	    nullptr, QByteArrayLiteral("MuxPaneGroup"), nullptr);
+	if (m == nullptr)
+		++fails; // S3:容器空跳 S2 → tr 新建 QMenu @00692fbf-030
+	delete m;
 
 	printf("mwc_smoke: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
 	return fails ? 1 : 0;

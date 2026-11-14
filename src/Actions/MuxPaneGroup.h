@@ -5,6 +5,7 @@
 class TabGroup;
 class MuxPaneView;
 class QToolButton;
+class QMenu;
 
 // MuxPaneGroup —— 语料 QWidget 子类(Phase 4c mp2,W3 定案)。
 // 语料落点:
@@ -31,6 +32,15 @@ public:
     MuxPaneView *paneAtCurrentIndex() const;             // FUN_008def86(0028:26083;
                                                          //   stack widget(currentIndex) cast 面)
 
+    // showConfigMenu 尾段三件(批 133 转写真身,公开 = 测试面):
+    //   kitFindOrCreateGroupMenu = FUN_00692ef0(0021:18914,310B;S2 容器
+    //     遍历腔 cited — 容器类未解 §未解 1)
+    //   kitPopupConfigButton = FUN_005ac790(0018:26415,275B 全读)
+    static QMenu *kitFindOrCreateGroupMenu(void *container,
+                                           const QByteArray &name, QWidget *pane);
+    static void kitPopupConfigButton(QWidget *pane, const QString &name,
+                                     QMenu *menu);
+
     // 两个归辖转发面(FUN_008df06e 面板标题同步 @0028:26161 消费):
     //   FUN_005ab6c2 / FUN_005ab09e 均为 +0x38 TabGroup 槽操作
     //   (体在 .cpp — TabGroup 仅前置于本头)。
@@ -42,7 +52,7 @@ private:
     void connectGroupSignals();                          // FUN_008de5a6
 
     void confirmCloseCurrentPane();                      // FUN_008dfa8c(0028:26729;批 106 真身)
-    void showConfigMenu();                               // s_MuxPaneGroup_8de2d4(0028:25588;cited — KitWindow 承载缺)
+    void showConfigMenu();                               // s_MuxPaneGroup_8de2d4(0028:25588;批 133 真身)
     void focusCurrentPane();                             // FUN_008defbc(0028:26100)
     void onTabBlankRequested();                          // FUN_008df5f8(0028:26480;批 106 真身,tmux 腿 cited)
     void closeCurrentPane(int index);                    // FUN_008dfa76(0028:26716;批 106 真身)
