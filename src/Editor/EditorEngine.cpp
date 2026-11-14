@@ -3383,6 +3383,13 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   状态应用 → +0x274 写;命中变更 →
 	                 //   FUN_0095cc7e + session_view_soft_reset +
 	                 //   FUN_00a243ae(0x10)( cited — Phase-4b 面)
+	                 //   批 128 挂线收口:拆建 FUN_0092ef06(0030.c:
+	                 //   29560-29627)只放 +0x98..+0xd0 七槽,+0xf8
+	                 //   buffer 不在其列 → 换缓冲全程缝持续(engine
+	                 //   dtor FUN_0092f62e 0030.c:29917 vt+8 才拆)→
+	                 //   ctor/dtor 缝(EditorContext RAII,批 127)=
+	                 //   语料挂线点,0x7543 腿零新增码;驱动活性断言
+	                 //   wordsteptest i6/i7(经本命令面直验)
 		const quint64 bufId = a.toULongLong();
 		if (m_ctx.currentBufferId == bufId)
 			return QVariant(0);              // 语料同 id 短路

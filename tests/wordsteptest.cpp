@@ -422,11 +422,16 @@ int main(int argc, char **argv)
 		// skip 腿活性(charAt 真身,批 119 对账):36cf1 长针
 		needle.len = 2;
 		needle.skip['x'] = 2;                        // convCtor 覆写形
-		static_cast<char *>(needle.simdBlocks)[0] = 'x';
-		static_cast<char *>(needle.simdBlocks)[1] = 'x';
-		// 首窗 [x,a,…]:lane0='x' 命中,lane1='a'≠'x' → 掩码 0 → miss
-		// → vt+0x28 charAt(2+0+0xf=0x11 越界)→ 0 → skip[0]=2 →
-		// from=0x10+0xf=0x1f → 门(0x1f>=3)→ 哨兵
+		// convCtor 54421 广播面:len<<4 = 0x20B(每 lane 16B 全 'x');
+		//   批 128 勘误:旧只填 0x10 → lane1 表越界读堆(36265
+		//   tbl0+0x10)→ 断言时好时坏(批 126 transient 真因定位)
+		delete[] static_cast<char *>(needle.simdBlocks);
+		needle.simdBlocks = new char[0x20]();
+		for (int i = 0; i < 0x20; ++i)
+			static_cast<char *>(needle.simdBlocks)[i] = 'x';
+		// 首窗 [x,a,…]:lane0='x' 命中,lane1='a'≠'x'(tbl1 全 'x')
+		// → 掩码 0 → miss → vt+0x28 charAt(2+0+0xf=0x11 越界)→ 0 →
+		// skip[0]=2 → from=0x11+0xf=0x20 → 门(0x20>=3)→ 哨兵
 		{
 			needle.skip[0] = 2;
 			const quint64 ps = MatchEngine::engDispatch(
@@ -457,6 +462,41 @@ int main(int argc, char **argv)
 			delete[] static_cast<char *>(n2.simdBlocks);
 		}
 		MatchEngine::attachScanCarrier(&ctx.docBytes); // 恢复缝(ctx 尾 dtor 再拆,幂等)
+
+		// ======== i6/i7. initDoc 驱动挂线活性(批 128;0x7543 面)========
+		//   语料:0x7543 = FUN_0092f0f6 setCurrentBuffer(editor_initDoc
+		//   唯一调用点 0030.c:29770,经 doc+0x108 门 29757);拆建腿
+		//   FUN_0092ef06(0030.c:29560-29627)只放 +0x98..+0xd0 七槽
+		//   (+0xf8 buffer 不在列)→ 换缓冲全程缝持续;engine dtor
+		//   FUN_0092f62e 0030.c:29917 ***(param_1+0xf8) vt+8 才拆。
+		//   挂线点 = engine ctor(00929fdd..00929fe1 建 32 型)→ 我方
+		//   EditorContext RAII(批 127)即语料时序;本组经 0x7543
+		//   dispatch 直验驱动活性(wordsteptest 无需测试装置即走真载体)。
+		{
+			EditorEngine e;                          // ctor 挂线(缝活性)
+			expect(e.m_ctx.scanLineDoc()
+			       == static_cast<const void *>(&e.m_ctx.docBytes),
+			       "i6: 0x7543 驱动前缝已活(engine ctor 00929fe1 即建 32 型,"
+			       "RAII 挂线 = 语料时序;FUN_0092ef06 不拆 +0xf8)");
+			e.m_ctx.docBytes = QByteArray("xab");    // 3B 载体(缝直读)
+			e.dispatch(0x7543, (qlonglong)1);        // initDoc 驱动面
+			expect(e.m_ctx.scanLineDoc()
+			       == static_cast<const void *>(&e.m_ctx.docBytes),
+			       "i7: 0x7543 后缝持续(FUN_0092ef06 只放 +0x98..0xd0,"
+			       "buffer 缝不拆 — 0030.c:29560-29627 全读)");
+			// 驱动活性穿透:dispatch 后 engDispatch(null) → 缝 → 真载体
+			GrepNeedle448 n3{};                      // literal 短针腿
+			n3.len = 1;
+			n3.simdBlocks = new char[0x10]();
+			for (int i = 0; i < 0x10; ++i)
+				static_cast<char *>(n3.simdBlocks)[i] = 'b';
+			expect(MatchEngine::engDispatch(
+			           static_cast<const void *>(nullptr), &n3, 0, 3)
+			       == (quint64(4) << 0x30),
+			       "i8: 0x7543 后 engDispatch(null)→ 缝承接 → 'b'@2 命中"
+			       "(wordsteptest 免装置真载体;scanMask 产品调点同相)");
+			delete[] static_cast<char *>(n3.simdBlocks);
+		}                                        // e 尾 dtor 拆链(29917 面)
 	}
 
 	printf("fail=%d\n", g_fail);
