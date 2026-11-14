@@ -13,6 +13,9 @@
 #include <QString>
 #include <QVariant>
 #include <QHash>
+#include <QThreadPool>       // 批 136:ePoolA/E+0x110 · ePoolB/E+0x118
+#include <QThread>           // 批 136:idealThreadCount 池宽
+#include "ENodes.h"          // 批 136:eNodes 值对象(DocumentTask/ScanTask/Runner)
 #include "MarkersStore.h"
 #include "ModTrack.h"
 #include "MatchEngine.h" // 批 127:+0xf8 载体缝(ctor 挂线/dtor 拆链)
@@ -415,11 +418,215 @@ public:
 	// markers 读侧真身(批 67a;与下行行为模型并存,构建者批后接管门)
 	wt::MarkersStore markersStore;
 	// E 对象面(批 69 勘正:原误挂 MarkersStore;E=doc+0xc0 宿主态)
-	quint32 eStopCount = 0;            // E+0x128(0x754d 停机计数)
-	QMap<QString, void *> eNodes;      // E+0x2d8(0x754d 遍历;值+8=type)
+	quint32 eStopCount = 0;            // E+0x128(0x754d 停机计数;92596c
+	                                   //   kind∈[5,8] 兼作 task serial — 同槽
+	                                   //   两用怪癖,批 136 原样登记)
+	int eSerialA = 0;                  // E+0x124(92596c kind∈[1,4] 取号)
+	QMap<int, void *> eNodes;          // E+0x2d8(0x754d 遍历;键型勘正批 136:
+	                                   //   语料 key = char kind — 92b56e
+	                                   //   `*(char*)(node+0x18)=a1` / 92586c
+	                                   //   `a1<=*(char*)(node+0x18)` 实读;
+	                                   //   QMap<int> 保序同构;值 = wt::ENodeTask*)
 	QList<QByteArray> eSerialEntries;  // E+0x250(0x7545 序列化导出 append)
 	QString eName;                     // E+0x2b8
-	void *ePool = nullptr;             // E+0x118(线程池,0x754d)
+	// 双线程池(批 136 拆单槽 ePool;engine ctor 0092a08e..0092a0ee
+	//   @0030.c:26039-26071:operator_new(0x10)+QThreadPool(0)+
+	//   setMaxThreadCount(idealThreadCount) ×2)—— QThreadPool 真库
+	//   委托(外库边界惯例,批 111 同面)。
+	QThreadPool *ePoolA = nullptr;     // E+0x110 池 A(kind∈[1,4] 任务)
+	QThreadPool *ePoolB = nullptr;     // E+0x118 池 B(kind∈[5,8] 任务)
+	EditorContext()
+	{
+		superBufferAttached = true;              // 00929fe1 置真载体
+		MatchEngine::attachScanCarrier(&docBytes);
+		// 池 A/B 构造(0092a08e/0092a0ea 双腿字面)
+		ePoolA = new QThreadPool;                // 0092a08e
+		ePoolA->setMaxThreadCount(QThread::idealThreadCount()); // 0092a0d3
+		ePoolB = new QThreadPool;                // 0092a0ea
+		ePoolB->setMaxThreadCount(QThread::idealThreadCount()); // 0092a122
+	}
+	~EditorContext()
+	{
+		// eNodes 销毁链(批 136;engine dtor FUN_0092f62e @0030.c:
+		//   29809 全读:92e512 全停 → 树遍历逐值 `**(vptr+8)()` 虚 D1
+		//   → freeTree/freeData —— 无独立 delete 权,节点生存期 ⊂ E;
+		//   C++ QMap 值析构 + delete 同构)
+		for (auto it = eNodes.begin(); it != eNodes.end(); ++it) {
+			// 语料 `(**(vptr+8))()` = 单独析构(Itanium D1 非 deleting)
+			delete reinterpret_cast<wt::ENodeTask *>(it.value());
+		}
+		eNodes.clear();
+		// 池析构(0092f62e 尾:vt+0x20 虚调 = QThreadPool dtor)
+		if (ePoolA) ePoolA->waitForDone();       // 92e44e waitForDone 同面收尾
+		if (ePoolB) ePoolB->waitForDone();
+		delete ePoolA;
+		delete ePoolB;
+		MatchEngine::detachScanCarrier();        // 0092f852 拆链置 null
+		superBufferAttached = false;
+	}
+	// —— eNodes 树面(批 136 W1;载体 = eNodes QMap 保序坍缩,939f06
+	//   detach ≈ QMap 写时分离 → 我方直写同相)——
+	// FUN_0092586c(69B)@0030.c:20824:树找首 key≥kind → 值(kind!=8 门;
+	//   QMap lowerBound 保序同构)
+	void *eNodeFind(int kind)
+	{
+		auto it = eNodes.lowerBound(kind);
+		return (it != eNodes.end() && it.key() == kind) ? it.value() : nullptr;
+	}
+	// FUN_009258b2(185B)@0030.c:20859:kind 查找 + ScanTask 下行。
+	//   kind==8:mode∈[9,11] 线性遍历 9635d0(+0xc==mode)匹配现存
+	//   kind-8 节点(QMapNodeBase::nextNode ≡ QMap 迭代);否则走 92586c。
+	//   命中 → dynamic_cast(4b0→588)≡ static_cast<ENodeScan*>。
+	wt::ENodeScan *eNodeFindScan(int kind, int mode)
+	{
+		if (kind == 8 && quint32(mode - 9) > 2) {  // (2 < mode-9) 语料门
+			wt::ENodeScan *hit = nullptr;
+			for (auto it = eNodes.find(8); it != eNodes.end() && it.key() == 8; ++it) {
+				auto *t = static_cast<wt::ENodeTask *>(it.value());
+				if (t->gate009635d0(mode)) {
+					hit = static_cast<wt::ENodeScan *>(t);  // __dynamic_cast 4b0→588
+					break;
+				}
+			}
+			return hit;
+		}
+		void *v = eNodeFind(kind);
+		return v ? static_cast<wt::ENodeScan *>(static_cast<wt::ENodeTask *>(v)) : nullptr;
+	}
+	// FUN_0092b56e(306B)@0030.c:27031:懒工厂(唯一构造点)。
+	//   kind≠8:92586c 命中复用;kind∈[1,4] → new 0x30 DocumentTask;
+	//   否则 0xb0 ScanTask(96f606)。kind==8:mode∈[9,11] 先 9258b2
+	//   现存复用,否则 ScanTask(8)+9637b8(mode)。命中插树。
+	void *eNodeGet(int kind, int mode)
+	{
+		if (kind != 8) {
+			if (void *v = eNodeFind(kind))
+				return v;
+			if (quint8(kind - 1) < 4) {          // (byte)(k-1)<4 → 0x30 族
+				wt::ENodeTask *t = new wt::ENodeTask();
+				t->ctor00963590(quint8(kind), quint64(reinterpret_cast<uintptr_t>(this)));
+				eNodes.insert(kind, t);
+				return t;
+			}
+		} else if (quint32(mode - 9) <= 2) {     // mode∈[9,11] 复用腿
+			if (void *v = eNodeFindScan(8, mode))
+				return v;
+		}
+		wt::ENodeScan *t = new wt::ENodeScan();
+		t->ctor0096f606(quint8(kind));
+		t->p18 = quint64(reinterpret_cast<uintptr_t>(this)); // 92b56e ctor 参 = E
+		if (kind == 8)
+			t->mode009637b8(mode);               // ⚠ 语料仅 kind==8 尾调
+		eNodes.insert(kind, t);
+		return t;
+	}
+	// FUN_0092e524(196B)@0030.c:29190:同 kind 全清(9635d0 匹配 →
+	//   虚槽 +8 D1 ≡ delete + 939f20 摘树 ≡ erase)
+	void eNodeClearKind(int kind, int mode)
+	{
+		auto it = eNodes.begin();
+		while (it != eNodes.end()) {
+			auto *t = static_cast<wt::ENodeTask *>(it.value());
+			if (t->kind == kind && t->gate009635d0(mode)) {
+				delete t;                        // vt+8 D1(非 deleting)
+				it = eNodes.erase(it);
+			} else {
+				++it;
+			}
+		}
+	}
+	// FUN_0092e5e8(280B)@0030.c:29237:kind 应用(0x7581 false 腿/
+	//   00a28316 承接)。rec=null 腿:现存 → 9264ba+926356(0x3f0
+	//   组播 cited)+9263fa+92e524;rec≠null:查/建 → 96d022(rec
+	//   属性比对 — a837f6 cited,ENODES-RECON 未解 #1 → 语料
+	//   rec==null 时恒 true 早返同相;rec!=null 恒 false 续行同相
+	//   壳)→ 现存停广播+96fb1e 清偿 → 96f80a 插 → 96d620 → 92596c。
+	void eNodeApplyScan(int kind, const void *rec, qint64 rs, qint64 re)
+	{
+		wt::ENodeScan *t = eNodeFindScan(kind, 0);
+		if (rec == nullptr) {
+			if (t != nullptr) {
+				eNodeStopOne(t);                 // 9264ba
+				// 926356(cmd 0x3f0 组播)— cited — wave-2(底座
+				//   92601a 监听者面未建模,ENODES-RECON 未解 #2)
+				// 9263fa(kind 组播)— cited — wave-2
+				eNodeClearKind(kind, 0);         // 92e524
+			}
+			return;
+		}
+		if (t == nullptr) {
+			t = static_cast<wt::ENodeScan *>(eNodeGet(kind, 0));  // 92b56e
+			if (t == nullptr)
+				return;
+		} else {
+			eNodeStopOne(t);                     // 9264ba
+			t->runClear0096fb1e();               // 96fb1e 旧 run 清偿
+		}
+		// 96d022(rec 属性比对;rec!=null 壳 → 恒不早返)→ 96f80a
+		t->runInsert0096f80a(rec, -1);
+		t->dirtyClamp0096d620(rs, re);           // 96d620
+		eNodeDispatch(t);                        // 92596c
+	}
+	// FUN_009264ba(81B)@0030.c:21608:停广播(非零 stopped 跳 →
+	//   ScanTask → 9263fa kind∈[5,7] emit → 9637ea 停机)。
+	//   emit 底座 92601a(E+0x70 监听者列表 vt+0x38 调)—— 监听者
+	//   挂接面未建模(ENODES-RECON 未解 #2)→ 组播腿 cited。
+	void eNodeStopOne(void *v)
+	{
+		if (v == nullptr || static_cast<wt::ENodeTask *>(v)->stopped != 0)
+			return;
+		auto *t = static_cast<wt::ENodeTask *>(v);
+		auto *scan = dynamic_cast<wt::ENodeScan *>(t);   // __dynamic_cast 4b0→588
+		if (scan != nullptr && quint8(scan->kind - 5) < 3) {
+			// 9263fa(kind∈[5,7] → cmd 0x3f9/0x3f8/0x3f9 组播)— cited — wave-2
+		}
+		t->stop009637ea();
+	}
+	// FUN_0092e44e(195B)@0030.c:29141:0x754d 全停(++E+0x128;
+	//   池 B clear + waitForDone;kind∈[5,8] 逐节点 9264ba)
+	void eNodeStopAll()
+	{
+		++eStopCount;                            // LOCK 面 ≡ 单线程 ++
+		ePoolB->clear();                         // QThreadPool::clear
+		for (auto it = eNodes.begin(); it != eNodes.end(); ++it) {
+			auto *t = static_cast<wt::ENodeTask *>(it.value());
+			if (t && quint8(t->kind - 5) < 4)
+				eNodeStopOne(t);
+		}
+		ePoolB->waitForDone();
+	}
+	// FUN_0092e368(211B)@0030.c:29089:0x754e 遍历复位(dynamic_cast →
+	//   9635d8 → 96cef2 → 92596c)
+	void eNodeResetDirty()
+	{
+		for (auto it = eNodes.begin(); it != eNodes.end(); ++it) {
+			auto *t = dynamic_cast<wt::ENodeScan *>(
+			    static_cast<wt::ENodeTask *>(it.value()));
+			if (t == nullptr || !t->gate009635d8())
+				continue;
+			t->dirtyReset0096cef2();
+			eNodeDispatch(t);                    // 92596c
+		}
+	}
+	// FUN_0092596c(215B)@0030.c:20898:重排分发。9637da 门 →
+	//   kind∈[1,4]:Runner(serial=E+0x124++)→ 池 A;kind∈[5,8]:
+	//   ScanTask 96d094 非空门 + serial=E+0x128 → 池 B。
+	void eNodeDispatch(wt::ENodeTask *t)
+	{
+		if (t == nullptr)
+			return;
+		if (!t->dispGate009637da())
+			return;
+		if (quint8(t->kind - 1) < 4) {
+			const int serial = eSerialA++;       // *(E+0x124)++(uVar1 旧值入 Runner;
+			                                     //   语料 uVar1 = ++ 前读 — 原样)
+			ePoolA->start(new wt::ENodeRunner(this, t, serial));
+		} else if (quint8(t->kind - 5) < 4) {
+			auto *scan = dynamic_cast<wt::ENodeScan *>(t);
+			if (scan != nullptr && scan->runsNonEmpty0096d094())
+				ePoolB->start(new wt::ENodeRunner(this, t, int(eStopCount)));
+		}
+	}
 	// --- lexer/scanner 面(批 markers 翻真①②③;buffer+0x108)---
 	void *bufferLexer = nullptr;       // buffer+0x108 原始槽(lexer/scanner obj;工厂
 	                                   //   FUN_00930f9e 短路链 *(*(E+0x258)+0x108) 平铺;
@@ -647,16 +854,7 @@ public:
 	// ctor(= editor_engineCtor 尾段:00929fdd..00929fe1 建 buffer32,
 	//   槽即非空)→ 挂线;dtor(= FUN_0092f852 doc 拆链)→ 拆线。
 	//   scanLineDoc() = engDispatch param_1 承接(attached → &docBytes)。
-	EditorContext()
-	{
-		superBufferAttached = true;              // 00929fe1 置真载体
-		MatchEngine::attachScanCarrier(&docBytes);
-	}
-	~EditorContext()
-	{
-		MatchEngine::detachScanCarrier();        // 0092f852 拆链置 null
-		superBufferAttached = false;
-	}
+	//   (批 136:池构造/eNodes 销毁链已并入上方 ctor/dtor)
 };
 
 #endif // EDITORCONTEXT_H

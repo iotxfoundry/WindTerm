@@ -504,8 +504,18 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant(send(SCI_CANREDO) != 0);
 	case 0x75b1:
 		return QVariant(send(SCI_CANUNDO) != 0);
-	case 0x754f:     // capability 8 探针(只读)
-		return QVariant(send(SCI_GETREADONLY) == 0);
+	case 0x754f: {   // FUN_009305e6(203B,0030.c:30437 全读)capability 8
+	                 //   探针:939d14(key≥8 树区间)→ 逐值 9635d0
+	                 //   (+0xc==8)—— 批 136 真身化(原误接 SCI_GETREADONLY;
+	                 //   语料实读 = kind-8 mode==8 存在性探针。原误注
+	                 //   QUIRKS 候选,勘正登记)
+		for (auto it = m_ctx.eNodes.lowerBound(8);
+		     it != m_ctx.eNodes.end() && it.key() == 8; ++it) {
+			if (static_cast<wt::ENodeTask *>(it.value())->gate009635d0(8))
+				return QVariant(true);           // 939d14 命中首值即返
+		}
+		return QVariant(false);                  // 939d14 空区间/未命中 → 0
+	}
 	// --- 编辑器上下文 setter 批(Phase-3;EditorContext 模型)---
 	case 0x759a:     // setHexBase(FUN_00a28e7c)
 		m_ctx.setHexBase(a.toInt());
@@ -1488,14 +1498,23 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   → FUN_00930226(274B,0030.c:30279 全读):
 	                 //   E+0x2d8 节点遍历 dynamic_cast(0x11ad588)→
 	                 //   0096d0a0 区间判定 → 009264ba/0096d620/0092596c
-	                 //   应用 — 节点腿 cited —— 前奏真身批 129,壳态
-	                 //   eNodes 空 → 遍历零迭代同相
+	                 //   应用 —— 批 136:节点腿真身化(W2 930226),
+	                 //   前奏 cited 占位(0+1/壳 0x7fffffff 同相)
 		const long long from = 0 + 1;                    // 00a20604 cited 占位 0 +1
-		Q_UNUSED(from);                                  // 00a20680 尾 runnode(壳态惰值)
-		for (auto it = m_ctx.eNodes.begin();             // 00930226 遍历壳
-		     it != m_ctx.eNodes.end(); ++it) {
-			// dynamic_cast→0096d0a0→009264ba/0096d620/0092596c
-			// — cited — wave-2(节点类型 0x11ad588 面未建模)
+		const long long to = 0x7fffffff;                 // 00a20680 壳:from+1!=docLen
+		                                                 //   (docLen=0 壳态)→ 0x7fffffff
+		Q_UNUSED(from);                                  // 前奏 runnode 载体 — cited
+		for (auto it = m_ctx.eNodes.begin();             // 00930226 遍历(保序 QMap ≡
+		     it != m_ctx.eNodes.end(); ++it) {           //   939e7a detach 树走查)
+			auto *t = static_cast<wt::ENodeTask *>(it.value());
+			auto *scan = dynamic_cast<wt::ENodeScan *>(t);  // 4b0→588 下行
+			if (scan == nullptr || !scan->gate009635d8())   // 009635d8 [1,2] 门
+				continue;
+			if (!scan->dirtyTest0096d0a0(from, to))         // 0096d0a0 区间门
+				continue;
+			m_ctx.eNodeStopOne(scan);                       // 009264ba
+			scan->dirtyClamp0096d620(from, to);             // 0096d620 min/max
+			m_ctx.eNodeDispatch(scan);                      // 0092596c 重排
 		}
 		return QVariant(0);
 	}
@@ -3009,18 +3028,11 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 			m_edit->setVerticalScrollBarPolicy(a.toBool()
 			    ? Qt::ScrollBarAsNeeded : Qt::ScrollBarAlwaysOff);
 		return QVariant(0);
-	case 0x754d: {   // FUN_0092e44e(195B)后台解析全停(批 69 勘正:
-	                 //   stopCount/nodes 实属 E +0x128/+0x2d8;
-	                 //   FUN_009264ba 腿 cited — wave-2)
-		++m_ctx.eStopCount;
-		for (auto it = m_ctx.eNodes.begin(); it != m_ctx.eNodes.end(); ++it) {
-			void *e = it.value();
-			if (e && quint8(*(quint8 *)(reinterpret_cast<char *>(e) + 8) - 5) < 4) {
-				// FUN_009264ba:type∈[5,8] 逐节点停机(动态转换/
-				//   广播/取消)— cited — wave-2
-			}
-		}
-		// QThreadPool clear/waitForDone(E+0x118)—— 池未建模 cited
+	case 0x754d: {   // FUN_0092e44e(195B)@0030.c:29141 全读 — 后台解析
+	                 //   全停:++E+0x128 → 池 B clear → kind∈[5,8] 逐节点
+	                 //   9264ba(9263fa emit cited + 9637ea 停机)→
+	                 //   waitForDone —— 批 136 真身化(池 B 双槽接线)
+		m_ctx.eNodeStopAll();
 		return QVariant(0);
 	}
 	case 0x7552: {   // 5 元列表 → FUN_00a2893e(112B)→ FUN_0092c0cc
@@ -3354,14 +3366,17 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   (783B 全读;深腿 cited — wave-2)
 		return QVariant(0);
 	case 0x7581: {   // 0034.c:23516:+0x1b2 字节 = b;false → FUN_00a28316
-	                 //   (106B,0034.c:5619 全读):runnode 构建(同
-	                 //   00a282b8 0x75aa 前奏)+ FUN_0092e5e8(kind=7
-	                 //   清高亮,cited 节点应用族);true →
-	                 //   editor_getSelRange(897B)cited —— 门真身化批 129
-	                 //   (kind 腿依赖 0092e5e8 节点层 → cited,壳态同相)
+	                 //   (106B,0034.c:5602 全读):runnode 构建(同
+	                 //   00a282b8 0x75aa 前奏)+ FUN_0092e5e8(kind=7,
+	                 //   280B @0030.c:29237 全读,批 136 W2 真身);
+	                 //   true → editor_getSelRange(897B)cited
 		const bool v = a.toBool();
 		m_ctx.field1b2 = v;
-		// false 腿 runnode 构建 + 0092e5e8(7) — cited — wave-2
+		if (!v) {
+			// FUN_00a28316(runnode 前奏 cited 占位:from=1/to=
+			//   0x7fffffff 同 0x75aa 壳)→ 92e5e8(E,7,null,1,0x7fffffff)
+			m_ctx.eNodeApplyScan(7, nullptr, 1, 0x7fffffff);
+		}
 		// true 腿 editor_getSelRange — cited — wave-2
 		return QVariant(0);
 	}
@@ -3481,8 +3496,9 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   FUN_00927558(66B,0030.c:22957 全读):
 	                 //   FUN_009258b2(doc,6,0) type-6 节点查 → 空则
 	                 //   -1;命中 → FUN_0092753c(cited)→ FUN_00926b1c
-	                 //   入节点容器。节点层(M 行对象表)未建模 →
-	                 //   009258b2 占位 0 → -1 直返同相 —— 批 129 勘注
+	                 //   入节点容器 —— 批 136:eNodeFindScan 接线
+	                 //   (9258b2 真身);92753c 深腿仍 cited(壳 null
+	                 //   → -1 同相,926b1c 容器面未建模)
 		return QVariant(0);
 	case 0x75c9:     // doc+0x108 QList 句柄包装(FUN_00926b28 12B:
 	                 //   *(doc+0x108)+8 内部指针 → QVariant(QList));
@@ -3515,12 +3531,25 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		if (same)                            // 0092fb4x 全等 no-op
 			return QVariant(0);
 		m_ctx.docObjList = list;             // doc+0x108 置新
-		// type-6 节点拆挂/插入/脏区间/重排/发布 — cited — 批 126
+		// type-6 节点腿(FUN_0092fb40 @0030.c:30038 全读,批 136 W4):
+		//   9258b2(doc,6,0) 现存 → 9264ba + 92e524(6,0)拆挂;逐条目
+		//   s_text_matchWholeWord(9c8d82 — 词法面 cited,词容器未建模)
+		//   命中才 92b56e 懒建 kind-6 + 96f80a;尾 96d620+92596c +
+		//   9c934e 发布(发布底座 — cited — wave-2)
+		{
+			wt::ENodeScan *t6 = m_ctx.eNodeFindScan(6, 0);
+			if (t6 != nullptr) {
+				m_ctx.eNodeStopOne(t6);          // 9264ba
+				m_ctx.eNodeClearKind(6, 0);      // 92e524
+			}
+			// 逐条目 matchWholeWord(9c8d82)+ 96f80a — 词容器未建模
+			//   (s_text 面 cited — wave-2)→ 壳零条目同相
+		}
 		return QVariant(0);
 	}
 	case 0x75cc: {   // FUN_0092fb40 直调版(无 0x75cb 前缀解析链):
-	                 //   同体存储腿(FUN_00a20666/00a20680 游标行参
-	                 //   b/c 仅传节点腿,cited)—— 批 126
+	                 //   同体节点腿(b/c = 游标行参,前奏 00a20666/00a20680
+	                 //   cited 占位同 0x75aa 壳)—— 批 136 W4
 		const QVariantList list = a.toList();
 		bool same = list.size() == m_ctx.docObjList.size();
 		if (same) {
@@ -3533,7 +3562,15 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		if (same)
 			return QVariant(0);
 		m_ctx.docObjList = list;
-		// 节点腿 — cited — 批 126
+		{
+			wt::ENodeScan *t6 = m_ctx.eNodeFindScan(6, 0);
+			if (t6 != nullptr) {
+				m_ctx.eNodeStopOne(t6);          // 9264ba
+				m_ctx.eNodeClearKind(6, 0);      // 92e524
+			}
+			// matchWholeWord 逐条目 + 96d620(rs=00a20666 占位 0,
+			//   re=00a20680 壳 0x7fffffff)+ 92596c + 9c934e — cited
+		}
 		return QVariant(0);
 	}
 	case 0x75cd: {   // editor_textLength(46B,0031.c:26156 全读):
@@ -3699,24 +3736,12 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 		return QVariant((int)(signed char)s_byteAt_009284aa(
 		    m_ctx, a.toLongLong()));
 	}
-	case 0x754e: {   // 0034.c:22923 <0x7550 默认腿:FUN_0092e368(212B)
-	                 //   E+0x2d8 节点遍历:type∈[1,2](009635d8)→ 槽
-	                 //   [0xf..0x11] 复位(0096cef2 40B 全读);重排腿
-	                 //   FUN_0092596c cited(线程池面)—— 批 125
-		for (auto it = m_ctx.eNodes.begin(); it != m_ctx.eNodes.end(); ++it) {
-			void *e = it.value();
-			if (!e)
-				continue;                        // 语料 *(long*)(n+8) 门
-			const unsigned t =
-			    *(const quint8 *)(reinterpret_cast<const char *>(e) + 8);
-			if (t - 1 <= 1) {                    // 009635d8:type-1<2
-				quint64 *q = reinterpret_cast<quint64 *>(e);
-				q[0xf] = 0x7fffffffffffffffull;  // 0096cef2:{-1,0,0}
-				q[0x10] = 0;
-				q[0x11] = 0;
-				// FUN_0092596c(232B)重排 — cited(线程池,批 125)
-			}
-		}
+	case 0x754e: {   // 0034.c:22923 <0x7550 默认腿:FUN_0092e368(211B
+	                 //   @0030.c:29089 全读)E+0x2d8 节点遍历:dynamic_cast
+	                 //   → 9635d8 门 → 96cef2 复位 → 92596c 重排 —— 批 136
+	                 //   真身化(EditorContext::eNodeResetDirty;重排腿 =
+	                 //   QThreadPool 真库委托,壳态 kind-8 非空门关同相)
+		m_ctx.eNodeResetDirty();
 		return QVariant(0);
 	}
 	case 0x7566: {   // FUN_0093079a(257B):charAt → ucs4 码点
@@ -4284,7 +4309,21 @@ step:;
 		const QString s = a.toString();
 		if (s != m_ctx.snapshotName8) {
 			m_ctx.snapshotName8 = s;         // M+0x2b8 置新
-			// FUN_00925a78() + E+0x2d8 type-8 遍历 — cited — 批 132
+			// FUN_00925a78() 缓存失效 — cited
+			// E+0x2d8 type-8 遍历(FUN_00933830 @0030.c:32465,批 136
+			//   W4 节点腿):dynamic_cast + kind==8 门 → 96d89e(QHash
+			//   收集 — record 载荷面 cited,ENODES-RECON 未解 #1)→
+			//   词表差分/重排腿 92e44e+92e270+92e368 — 词容器 cited
+			for (auto it = m_ctx.eNodes.begin();
+			     it != m_ctx.eNodes.end(); ++it) {
+				auto *scan = dynamic_cast<wt::ENodeScan *>(
+				    static_cast<wt::ENodeTask *>(it.value()));
+				if (scan != nullptr && scan->kind == 8) {
+					// 96d89e run 列表 → QHash 收集 — cited — wave-2
+					//   (record 载荷 +0x18/+4 计数面未读;runs 壳空
+					//   → 收集空同相)
+				}
+			}
 		}
 		return QVariant(0);
 	}

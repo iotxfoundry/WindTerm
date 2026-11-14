@@ -1237,6 +1237,92 @@ int main(int argc, char **argv)
 		       "v10: 0x7550 过门返 0(0092e270 深腿 cited)");
 	}
 
+	// ======== w. 批 136 组:eNodes 建模(ENodes.h;W1-W4 激活)========
+	// 语料锚:963590@0031.c:34095 / 96f606@43974 / 9637b8@34252 /
+	//   92b56e@0030.c:27031 / 9258b2@20859 / 92e44e@29141 / 92e524@29190 /
+	//   92e368@29089 / 930226@30279 / 92fb40@30038 / 9305e6@30437 /
+	//   96d620@0031.c:42559 / 96cef2@42193 / 96d0a0@42306 / 96d094@42296
+	{
+		// w1:ctor 字面(963590/96f606/9637b8)
+		EditorEngine e1;
+		auto *t = static_cast<wt::ENodeTask *>(e1.m_ctx.eNodeGet(1, 0));
+		expect(t != nullptr && t->kind == 1 && t->state == 0
+		       && t->stopped == 1 && t->modeC == 0,
+		       "w1: kind=1 → 0x30 族 DocumentTask(963590 字面:"
+		       "state=0/stopped=1/modeC=0)");
+		auto *s8 = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(8, 9));
+		expect(s8 != nullptr && s8->kind == 8 && s8->modeC == 9
+		       && s8->state == 0 && s8->c2c == 4 && s8->f60 == 0x1000000ull,
+		       "w1: kind=8 mode=9 → ScanTask(96f606+9637b8:modeC=9,"
+		       "state=(9==8)*2=0 字面,c2c=4,f60=0x1000000)");
+		expect(e1.m_ctx.eNodeGet(8, 10) == static_cast<void *>(s8),
+		       "w1: kind=8 mode∈[9,11] → 9258b2 mode 现存复用");
+		auto *s5 = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(5, 0));
+		expect(s5 != nullptr && s5->state == 2,
+		       "w1: kind=5 → ScanTask 走 92b56e else 臂(963590 尾:"
+		       "kind∈[5,7] → state=2;9637b8 不调)");
+		expect(e1.m_ctx.eNodes.size() == 3 && e1.m_ctx.eNodes.firstKey() == 1
+		       && e1.m_ctx.eNodes.lastKey() == 8,
+		       "w1: 树键序 = char kind(键型勘正 QMap<int>;92586c 保序)");
+
+		// w2:0x754e 复位 + 重排门(92e368/96cef2/9635d8/9637da)
+		s8->runs.append(nullptr);            // 非空门(96d094)开
+		expect(e1.dispatch(0x754e) == QVariant(0),
+		       "w2: 0x754e 走通(92e368)");
+		expect(s8->dirtyLo == 0 && s8->dirtyHi == 0,
+		       "w2: kind=8 state=0 → 9635d8 [1,2] 门关 → 不复位"
+		       "(92e368 语料门,原样)");
+		expect(s5->dirtyLo == 0x7fffffffffffffffll && s5->dirtyHi == 0
+		       && s5->cursor == 0,
+		       "w2: kind=5 state=2 门开 → 96cef2 复位 {MAX,0,0}");
+
+		// w3:0x754d 全停(92e44e)
+		e1.m_ctx.eStopCount = 41;
+		expect(e1.dispatch(0x754d) == QVariant(0),
+		       "w3: 0x754d 走通(92e44e)");
+		expect(e1.m_ctx.eStopCount == 42 && e1.m_ctx.ePoolB != nullptr,
+		       "w3: ++E+0x128(LOCK 面 ≡ 单线程 ++;池 B 拆槽批 136)");
+
+		// w4:0x754f capability 探针(9305e6 勘正接线:9635d0 ==8 门)
+		expect(e1.dispatch(0x754f).toBool() == false,
+		       "w4: kind-8 modeC=9≠8 → 9305e6 未命中 false");
+		auto *s8b = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(8, 8));
+		expect(s8b != nullptr && s8b->modeC == 8 && s8b->state == 2,
+		       "w4: mode=8 不在复用腿 → 新建 + 9637b8:modeC=8/state=2"
+		       "((8==8)*2 字面)");
+		expect(e1.dispatch(0x754f).toBool() == true,
+		       "w4: kind-8 modeC==8 → 9305e6 命中 true");
+
+		// w5:0x7581 false 腿 kind=7 应用(92e5e8)
+		EditorEngine e2;
+		e2.dispatch(0x7581, false);
+		expect(e2.m_ctx.eNodes.isEmpty(),
+		       "w5: 0x7581 false → 92e5e8(7)rec=null:无现存 → 零建同相");
+		expect(e2.m_ctx.field1b2 == false, "w5: +0x1b2=false(0034.c:23519)");
+
+		// w6:0x75cb/0x75cc kind-6 拆挂(92fb40)
+		EditorEngine e3;
+		e3.dispatch(0x75cb, QVariantList{1, 2});
+		expect(e3.m_ctx.docObjList.size() == 2 && e3.m_ctx.eNodes.isEmpty(),
+		       "w6: 0x75cb 存储 + kind-6 拆挂(92fb40;词容器壳零条目)");
+		e3.dispatch(0x75cb, QVariantList{1, 2});
+		expect(e3.m_ctx.docObjList.size() == 2,
+		       "w6: 全等 no-op(0092fb4x 同长同值门)");
+
+		// w7:0x75aa 区间门(930226)
+		EditorEngine e4;
+		expect(e4.dispatch(0x75aa) == QVariant(0),
+		       "w7: 0x75aa 前奏 cited 占位(from=1/to=0x7fffffff)+ "
+		       "930226 真身遍历空树同相");
+
+		// w8:0x75f6 type-8 遍历(933830 节点腿)
+		EditorEngine e5;
+		e5.dispatch(0x75f6, "snapX");
+		expect(e5.m_ctx.snapshotName8 == QStringLiteral("snapX"),
+		       "w8: 0x75f6 置 M+0x2b8 + type-8 遍历真身(96d89e cited)"
+		       "空树同相");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }
