@@ -2285,6 +2285,25 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 原版实例零事故(pid 1377053 全程存活,1396806 用户实例未触);
   零产品码改动。探针资产:`/tmp/opencode/b123/`(frida js/py 全套)。
 
+### 批 124/125(2026-11-14)M4 双车道:RUBY 终裁永久化/巨 switch 扩谱首批 ✅ ctest 19/19
+
+- **批 124 RUBY 直证终局(UI 向量,判定:不通 → 假设永久化)**:
+  ctrl+shift+f 查找条确可开(OCR 证,勘正批 123 误读)、xdotool 输入
+  成功,但 frida 双钩(getter 009276e2/消费链 0074e9cc)全程 **零 memo
+  命中** — 查找条(quick-find)与语料 SearchPane(find/repl/where
+  三框)非同一面。两条证伪通道(注入批 123/UI 批 124)均实证封闭 →
+  RUBY 假设**永久化登记**(零反例,现有仪器下不可证伪 — 诚实终点)。
+  证据:/tmp/opencode/b124_*.png + hook 日志。shell 仅 14 次(护栏生效)。
+- **批 125 巨 switch 扩谱首批 9 条真身**:0x7565(byteAt signed char
+  展开)/0x754e(eNodes type∈[1,2] 槽复位)/0x757a(hexField210 kind
+  门)/0x758f(margin 三段宽累计→flagsA&0xf)/0x75a5(flag1128 valDd0)/
+  0x75a7(词跳步接 s_wordStep)/0x7541(scrollToFraction 夹取链全读 →
+  SETFIRSTVISIBLELINE)/0x7549(eSerialEntries 按名删)/0x75e0(QColor
+  六字段 + +0xedc cspec)。markerstest r 组 17 断言(含 CRLF 尾 p-1 腿/
+  三点对照/删·不删/直读·败字面)。cited 登记:0x415 广播/+0xee0..ee8
+  槽/0x7541 field160 腿(风险:skiprunnodes 下滚动落点或偏)。
+- 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 + dlopen OK**。
+
 ### 待解(批 30 后剩余)
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
   suite 净基线下永不触发,随 pending v3 族补)
