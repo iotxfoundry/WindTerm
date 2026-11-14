@@ -1512,6 +1512,48 @@ int main(int argc, char **argv)
 		       "w6: 未知 → 0(00a2fd9c miss 臂)");
 	}
 
+	// ======== z. 批 139 组:扩谱 17 叶重审(真身 1 + 壳态同相锚)========
+	// 语料锚:0x4ed5@0033.c:57918/00a202b0→975bf2@0032:2779→96c212
+	//   @0031:41188(见 case 注);0x4e28@0034:22478/930ec0@0030:30907
+	//   (-1 短路腿 = *(M+0xb0)!=0);0x4ec2@22537/926e6a@0030:22403
+	{
+		// z1:0x4ed5 exchangeCaretAnchor(975bf2 逐选区 96c212 两节点对换)
+		EditorEngine e1;
+		e1.dispatch(SCI_ADDTEXT, (qlonglong)4, QByteArray("abcd"));
+		e1.m_ctx.selStore.anchor.n0 = RunNode::make(1, 0, false);
+		e1.m_ctx.selStore.anchor.n1 = RunNode::make(3, 0, false);
+		e1.m_ctx.selStore.extras.append(EditorContext::Span56());
+		e1.m_ctx.selStore.extras[0].n0 = RunNode::make(2, 0, false);
+		e1.m_ctx.selStore.extras[0].n1 = RunNode::make(0, 0, false);
+		e1.dispatch(0x4ed5);
+		expect(e1.m_ctx.selStore.anchor.n0.pos == 3
+		       && e1.m_ctx.selStore.anchor.n1.pos == 1,
+		       "z1: 0x4ed5 anchor n0/n1 对换(96c212 3 槽暂存)");
+		expect(e1.m_ctx.selStore.extras[0].n0.pos == 0
+		       && e1.m_ctx.selStore.extras[0].n1.pos == 2,
+		       "z1: 0x4ed5 extras 对换(975bf2 逐选区 do-while)");
+		expect(e1.m_ctx.selStore.anchor.flagWord == 0,
+		       "z1: 0x4ed5 flagWord@+0 不动(96c212 仅 +8/+0x20)");
+
+		// z2:0x4e28 formatter 活跃查 — 930ec0(-1) 短路腿 *(M+0xb0)!=0,
+		//     对象未建模 → false;0x4ec2 lexer 门 — bufferLexer 代理真身
+		EditorEngine e2;
+		expect(e2.dispatch(0x4e28) == QVariant(false),
+		       "z2: 0x4e28 壳态 false(930ec0 -1 腿 +0xb0==0)");
+		expect(e2.dispatch(0x4ec2) == QVariant(false),
+		       "z2: 0x4ec2 lexer null → false(926e6a +0xc8 门)");
+		e2.m_ctx.bufferLexer = (void *)1;
+		expect(e2.dispatch(0x4ec2) == QVariant(true),
+		       "z2: 0x4ec2 lexer 命中 → true(0x4efa 同面异令)");
+
+		// z3:0x4ebb/0x4ebc codec obj +0x20/+0x28 读 — face 未建模 cited 0
+		EditorEngine e3;
+		expect(e3.dispatch(0x4ebb) == QVariant((qlonglong)0),
+		       "z3: 0x4ebb cited 0(9276e2 face 未建模)");
+		expect(e3.dispatch(0x4ebc) == QVariant((qlonglong)0),
+		       "z3: 0x4ebc cited 0(9276e2 face 未建模)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

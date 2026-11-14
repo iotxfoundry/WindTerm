@@ -335,7 +335,10 @@ QVariant EditorEngine::scintillaDelegate(uint cmd, const QVariant &a,
 QVariant EditorEngine::dispatch(uint cmd, const QVariant &a, const QVariant &b)
 {
 	// standard SCI_* -> real Scintilla; WindTerm EXT/WT -> custom layer
-	if (cmd >= 20163)   // EXT 20163-20228 / WT 30001-30166
+	// ⚠ 0x4ec2(20162)= 语料 EXT 叶(926e6a lexer 门)落 SCI/EXT 边界
+	//   下沿 — Scintilla 4.4.6 命令表无 20162 定义,直委无定义行为 →
+	//   截获入 customDispatch(批 139 扩谱重审;原 20163 门漏该叶)
+	if (cmd >= 20163 || cmd == 0x4ec2)
 		return customDispatch(cmd, a, b);
 	return scintillaDelegate(cmd, a, b);
 }
@@ -4597,6 +4600,127 @@ step:;
 				return QVariant((int)e.k);
 		return QVariant(0);                            // 00a2fd9c miss
 	}
+	// --- 批 139:扩谱 17 叶重审(节点层就位后差集重 derive;语料 =
+	//     巨 switch a418c4/a3b36a/a51db8 ==臂 + 隐式区间臂差集 34 叶:
+	//     0x4e21..0x4ee2;真身 2/cited 32。formatter(+0xb0)/lexer face
+	//     (+0xc8 深腿)/encoding(+0xe0)/fold(0x217)/selection-apply
+	//     (+0x10b0)/+0x213·+0x214 字段族均未建模 → 壳态门关同相)---
+	case 0x4e21:    // 0034.c:17444 makeTitleCase(00a24660 496B:selMake
+	                //   "Change Selection Case" + 92c7e6 593B → 927722
+	                //   1167B ucs4 逐字 toTitleCase 状态机 — 深腿 cited;
+	                //   壳态空选区 no-op 同相)
+		return QVariant(0);
+	case 0x4e22:    // 0034.c:17437 makeInverseCase(a24660(M,3) mode 3
+	                //   字母/数字界反转 — 同上深腿 cited)
+		return QVariant(0);
+	case 0x4e23:    // 0034.c:22429 M+0x214 ^= 1;归零 → +0x230=0 +
+	                //   a4d0e2(+0x228 QList 清)—— 字段族未入库
+	                //   (0x7539 判例;EditorContext.h 并行车道禁改)→ cited
+		return QVariant(0);
+	case 0x4e25:    // 0034.c:22461 autoFormat 区间(a24866 134B:930ec0
+	                //   M+0xb0 门 → formatter 对象未建模 → 门关早退同相)
+		return QVariant(0);
+	case 0x4e26:    // 0034.c:22466 checkAutoFormat(a248f4 770B 首腿同门
+	                //   930ec0 → cited 同相)
+		return QVariant(0);
+	case 0x4e27:    // 0034.c:22471 autoFormat 单点(9cff30 守卫 +
+	                //   92d76e 103B:M+0xb0 门 → 0 — cited)
+		return QVariant(0);
+	case 0x4e28:    // 0034.c:22478 formatter 活跃查(930ec0(-1) =
+	                //   *(M+0xb0)!=0 — 对象未建模 → cited false 壳态同相)
+		return QVariant(false);
+	case 0x4e2e:    // 0034.c:22470 increaseLineIndent(a3a0a6 806B:
+	                //   930fec 722B/92ca48 缩进深腿 — 空文档 no-op 同相 cited)
+		return QVariant(0);
+	case 0x4e2f:    // 0034.c:22474 decreaseLineIndent(同体 mode 0 — cited)
+		return QVariant(0);
+	case 0x4e37:    // 0034.c:22422 trimLeading(a35652 851B 样式 blank-run
+	                //   游走 92934c/92c1ba — 深腿 cited;壳态同相)
+		return QVariant(0);
+	case 0x4e38:    // 0034.c:22494 trimTrailing(同体 mode 1 — cited)
+		return QVariant(0);
+	case 0x4e49:    // 0034.c:22499 comment mode 1(a39778 2314B:lexer face
+	                //   926cb8/926ce0 门族 0 → 注释腿关 — cited 同相)
+		return QVariant(0);
+	case 0x4e4a:    // 0034.c:22490 comment mode 2(同上 cited)
+		return QVariant(0);
+	case 0x4e4b:    // 0034.c:22506 comment mode 0(<0x4e4c 隐式臂;TEXTEDIT
+	                //   表 comment() — 同上 cited)
+		return QVariant(0);
+	case 0x4e4c:    // 0034.c:22502 uncomment(a38c56 2793B QBitArray 逐行
+	                //   lexer face 深腿 — cited 同相)
+		return QVariant(0);
+	case 0x4e75:    // 0034.c:22509 encoding set(951844 63B:+8 面 +0xe00 写
+	                //   → 959890 全程样式失效 + margin 刷新 + soft_reset
+	                //   — encoding face 未建模;0x7567 判例)→ cited
+		return QVariant(0);
+	case 0x4e8c:    // 0034.c:22485 fold 对象刷新(a5ebb0 80B:926da0(+0xb8 门)
+	                //   → 95cc9c 选区重算 — 0x217 fold 对象未建模
+	                //   (0x7573 判例)→ cited 同相)
+		return QVariant(0);
+	case 0x4eba:    // 0034.c:22550 encoding set u64(9276d6 → 999202 132B
+	                //   codec face +0x20/+0x28 写 + toUcs4 + soft_reset —
+	                //   face 未建模 → cited;返回腿空同相)
+		return QVariant(0);
+	case 0x4ebb:    // 0034.c:22545 codec obj+0x20 读(9276e2→9975c2)——
+	                //   encoding face 未建模 → cited 0
+		return QVariant((qlonglong)0);
+	case 0x4ebc:    // 0034.c:22521 codec obj+0x28 读(9276e2→9975c8)— cited 0
+		return QVariant((qlonglong)0);
+	case 0x4ec2: {  // 0034.c:22537 lexer-face 门读(926e6a:M+0xc8 != 0)——
+	                //   bufferLexer 代理真身(批 137 0x4efa 同面异令判例)
+		return QVariant(m_ctx.bufferLexer != nullptr);
+	}
+	case 0x4ed5: {  // 0033.c:57918 exchangeCaretAnchor(00a202b0 65B →
+	                //   975bf2 83B@0032:2779 逐选区 → 96c212 79B@0031:
+	                //   41188 n0/n1 两 24B 节点对换;974f3c +0x48 门壳态
+	                //   恒走)— 真身(批 139;Span56 n0@+8/n1@+0x20 对位,
+	                //   flagWord@+0 保持)
+		auto sw = [](EditorContext::Span56 &sp) {
+			const RunNode t = sp.n0;                   // 96c212 3 槽暂存
+			sp.n0 = sp.n1;
+			sp.n1 = t;
+		};
+		sw(m_ctx.selStore.anchor);
+		for (auto &sp : m_ctx.selStore.extras)
+			sw(sp);
+		return QVariant(0);
+	}
+	case 0x4ed6:    // 0034.c:17440 transposeChar(a3643e 486B mode 0 →
+	                //   2720c 1948B 逐字符对换深腿 — 空选区 no-op cited)
+		return QVariant(0);
+	case 0x4ed7:    // 0034.c:17432 transposeWord(a3643e mode 2 → a359c6
+	                //   view 游走深腿 — cited)
+		return QVariant(0);
+	case 0x4ed8:    // 0034.c:17451 transposeLine(<0x4eda 隐式臂 mode 1 — cited)
+		return QVariant(0);
+	case 0x4ed9:    // 0034.c:17448 deleteLine(a26118 736B mode 2 → 逐行
+	                //   runnode + a25e5a 应用深腿 — 空文档 no-op cited)
+		return QVariant(0);
+	case 0x4eda:    // 0034.c:17455 deleteLineToStart(else 臂 mode 0 — cited)
+		return QVariant(0);
+	case 0x4edb:    // 0034.c:17428 deleteLineToEnd(a26118 mode 1 — cited)
+		return QVariant(0);
+	case 0x4edc:    // 0034.c:17467 deleteWord(a26428 760B mode 2 →
+	                //   92ad80 614B/92aff6 词边界深腿 — cited 同相)
+		return QVariant(0);
+	case 0x4edd:    // 0034.c:17465 deleteWordToStart(a26428 mode 0 — cited)
+		return QVariant(0);
+	case 0x4ede:    // 0034.c:17470 deleteWordToEnd(else 臂 mode 1 — cited)
+		return QVariant(0);
+	case 0x4edf:    // 0034.c:17459 selectKind(a27a40 16B → a592ae 332B
+	                //   ed+0x10b0 selection-apply 对象未建模 → 空迭代
+	                //   no-op cited)
+		return QVariant(0);
+	case 0x4ee0:    // 0034.c:29801+17479 motion dispatch(a51db8 前奏
+	                //   kind 7/0xb QKeyEvent +0x1240 对象 + a26fe6 →
+	                //   a5640a 1570B motion 执行器 — +0x10b0 未建模 cited)
+		return QVariant(0);
+	case 0x4ee1:    // 0034.c:17474 selectTo mode 1(a271a2 → a56a5e 1780B
+	                //   选区伸展 — +0x10b0 对象未建模 cited)
+		return QVariant(0);
+	case 0x4ee2:    // 0034.c:17484 selectTo mode 2(同上 cited)
+		return QVariant(0);
 	case 0x4f04:    // 0034.c:22753 cancelMultipleSelections(00a20104 →
 	                //   978638:current 对 be24 打包 → 9783fa history
 	                //   +0x80 push + 97565a 复位)— history deque 未
