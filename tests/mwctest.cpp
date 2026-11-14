@@ -6,6 +6,8 @@
 // isZoomed(FUN_005a23c6)初值 / b2 onTabBlankRequested(FUN_008df5f8)
 // 无 win 上溯早返 / b3 renamePane(008df0a4)无 pane 早返。
 #include <QApplication>
+#include <QDir>
+#include <QFile>
 #include <QMainWindow>
 #include <QMenu>
 #include <QTabBar>
@@ -288,6 +290,112 @@ int main(int argc, char **argv)
 	kitWindowRestoreFirstPage(sl, &mwHost);
 	if (sl.f58->count() != 4)
 		++fails; // 二调再挂(语料幂等性缺省同相 — 不发明去重)
+
+	// ======== 批 147:树深下钻真身(FUN_008a971e / s_FilterEdit_8a9d3c)========
+
+	// d9. 夹具 yaml 真库装载 → children 树深度断言。夹具写 applicationDirPath()
+	//     /editor/configs/(FUN_008a58f0 拼序实读:strace 008a58f0 →
+	//     dir + "/" + selfName.toLower() + tail,tail 全段 "/configs/...")。
+	{
+		const QString cfgDir = QCoreApplication::applicationDirPath()
+		                       + QStringLiteral("/editor/configs");
+		QDir().mkpath(cfgDir);
+		// 夹具 = 真配置形态(menu.config 顶层 map 序列 + Menu/Actions 三级
+		// 树,与 terminal/configs/menu.config "Set Tab &Color" 同构;
+		// toolbar.config Action Menu 腿同 terminal/configs/toolbar.config)。
+		{
+			QFile f(cfgDir + QStringLiteral("/menu.config"));
+			f.open(QIODevice::WriteOnly | QIODevice::Truncate);
+			f.write(
+"- { \"Kit\" : [\n"
+"    { \"Menu\" : \"Session\" },\n"
+"    { \"Separator\" : true },\n"
+"    { \"Menu\" : \"Hex &Base\", \"Actions\" : [\n"
+"        { \"Action\" : \"Text.HexBaseBinary\" },\n"
+"        { \"Separator\" : true } ] } ] }\n");
+			f.close(); // 装载前落盘(QFile 析构在作用域尾 — 显式关)
+		}
+		{
+			QFile f(cfgDir + QStringLiteral("/toolbar.confi")); // Views 腿 tail
+			// 22 字符截断怪癖(FUN_008aa39e fromLatin1(tail,0x17-1) 原样)
+			f.open(QIODevice::WriteOnly | QIODevice::Truncate);
+			f.write(
+"- { \"Standard\" : [\n"
+"    { \"Action\" : \"Terminal.NewSession\", \"Menu\" : \"Open Recent\" },\n"
+"    { \"Separator\" : true },\n"
+"    { \"AddressBar\" : true } ] }\n");
+			f.close();
+		}
+		CEditorConfigFace *cfg = CEditorConfigFace::instance();
+		if (!cfg->loadGroups() || !cfg->loadViews())
+			++fails; // S2 yaml_loadFile true 腿(@008a9a5d cVar5 透传)
+		// d9a. Groups 树深:顶层 "Kit" → 二级 Menu(2)/Separator(0,名空)/
+		//      Menu "Hex &Base" → 三级 "Actions"(Action 3/Sep 0)。
+		if (cfg->m_groups.m_end - cfg->m_groups.m_begin != 1)
+			++fails; // 顶层恰一组(FUN_008accc8 @008a9b2b)
+		SharedConfigHandlerFace *kit = (cfg->m_groups.m_end ==
+		    cfg->m_groups.m_begin) ? nullptr : cfg->m_groups.m_begin[0];
+		if (kit == nullptr || kit->m_value.toString() != QStringLiteral("Kit"))
+			++fails; // 组键 QVariant(FUN_006926c2 键面)
+		if (kit != nullptr) {
+			if (kit->m_end - kit->m_begin != 3)
+				++fails; // 二级 3 元素(FUN_008a971e 序)
+			SharedConfigHandlerFace **els = kit->m_begin;
+			if (els[0]->m_value.toString() != QStringLiteral("Session")
+			    || els[0]->kind() != 2)
+				++fails; // Menu kind=2(@008a991c 低 nibble|2)
+			if (!els[1]->m_value.toString().isEmpty() || els[1]->kind() != 0)
+				++fails; // Separator 名空(@008a9943 clear)+ kind=0(@008a993e)
+			if (els[2]->m_value.toString() != QStringLiteral("Hex &Base")
+			    || els[2]->kind() != 2)
+				++fails; // Menu 名 = "Menu" 键值(@008a9910-2b)
+			if (els[2]->m_end - els[2]->m_begin != 2)
+				++fails; // 三级 "Actions" 递归(@008a9990)
+			SharedConfigHandlerFace **sub = els[2]->m_begin;
+			if (els[2]->m_begin != nullptr) {
+				if (sub[0]->m_value.toString()
+				        != QStringLiteral("Text.HexBaseBinary")
+				    || sub[0]->kind() != 3)
+					++fails; // Action kind=3(@008a982c)+ 名键值
+				if (!sub[1]->m_value.toString().isEmpty() || sub[1]->kind() != 0)
+					++fails; // 三级 Separator 同腿
+				if (sub[0]->m_parent != els[2])
+					++fails; // 挂父写位(@008acc82 local_70[5]=param_2)
+			}
+		}
+		// d9b. Views 树深:Action k=3 + popup 名/bit3 + Columns 内省;
+		//      Separator k=0;AddressBar k=5 名空。
+		if (cfg->m_views.m_end - cfg->m_views.m_begin != 1)
+			++fails;
+		SharedConfigHandlerFace *stdv = (cfg->m_views.m_end ==
+		    cfg->m_views.m_begin) ? nullptr : cfg->m_views.m_begin[0];
+		if (stdv == nullptr
+		    || stdv->m_value.toString() != QStringLiteral("Standard"))
+			++fails;
+		if (stdv != nullptr) {
+			if (stdv->m_end - stdv->m_begin != 3)
+				++fails; // Action/Sep/AddressBar
+			SharedConfigHandlerFace **els = stdv->m_begin;
+			if (els[0]->m_value.toString() != QStringLiteral("Terminal.NewSession")
+			    || els[0]->kind() != 3)
+				++fails; // Action(@008a9dd4)
+			if (els[0]->popupName() != QByteArrayLiteral("Open Recent")
+			    || !els[0]->popupFlag())
+				++fails; // Menu 名入值对象 +0x8 槽(@008a9e50-6c)+ bit3 置
+			if (els[0]->columns() != 1)
+				++fails; // 内省腿(@008a9eb8-f0):bit3 置名非空 → cVar1 =
+			             //   (-((d7&8)==0)&2)+1 = (-(0)&2)+1 = 1(负零清零;
+			             //   "Columns" 键缺省 0 → 内省腿替换)
+			if (els[1]->m_value.toString() != QStringLiteral("true")
+			    || els[1]->kind() != 0)
+				++fails; // Separator kind=0;名 = 键值(s_FilterEdit @008aa218-38
+			             //   asCString 腿 ≠ Groups 空名 — "true" 字面同相)
+			if (els[2]->kind() != 5 || !els[2]->m_value.toString().isEmpty())
+				++fails; // AddressBar k=5 名空(@008aa292)
+		}
+		QFile::remove(cfgDir + QStringLiteral("/menu.config"));
+		QFile::remove(cfgDir + QStringLiteral("/toolbar.confi"));
+	}
 
 	// ======== 批 149:启动链 ========
 

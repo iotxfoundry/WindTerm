@@ -79,6 +79,35 @@ public:
 	                                            //   QString 键面见 FUN_006926c2)
 	SharedConfigHandlerFace *m_parent = nullptr; // 语料 +0x28(FUN_008accc8
 	                                             //   @008acc82 挂父写位)
+
+	// === 批 147:元素体 kind 位面槽(语料值对象 = 堆 0x18B 三段结构)===
+	// FUN_008aabae(187B,0027.c:64298)值拷贝面实读:heap 0x18B = {BA 名
+	// @+0(q0 引用计)、BA popup @+8(q8 引用计)、ushort 位面 @+0x10} —
+	// 装载腿栈对 {local_e8 名, local_e0 popup} + {local_d8/local_d7 位}
+	// 三段整拷(FUN_008acb70/008aabae 双路径同相)。消费面:menu 查建腿
+	// FUN_00692a70 读值对象 +0x10 低 nibble 判 kind(2=Menu addMenu /
+	// 3=Action addAction / 0=Separator addSeparator @00692c9f 腔)。
+	QByteArray m_popup;      // 值对象 +0x08 槽(Action kind 的 Menu/Popup 名腿,
+	                         //   s_FilterEdit_8a9d3c @008a9e50/@008aa10f 写)
+	unsigned char m_bits0 = 0; // 值对象 +0x10:低 nibble kind 位面,高 nibble
+	                         //   Columns(s_FilterEdit @008a9ea8);Groups 腿
+	                         //   高 nibble = 语料栈残留(未初始化;转写取 0,
+	                         //   原版非确定 — 怪癖注记,消费只读低 nibble)
+	unsigned char m_bits1 = 0; // 值对象 +0x11:bit3 popup 旗(@008a9e70 置/
+	                         //   @008aa138 清),低 3 位 Style QMetaEnum
+	                         //   (cited — King QMetaEnum 面不在库,真配置
+	                         //   无 "Style" 键 → 恒 0 缺省腿;不发明)
+
+	// 批 147 kind 位面槽访问(装载腿写、menu 消费腿读;消费面 = 值对象
+	// +0x10 低 nibble,FUN_00692a70 @00692c9f 腔:2 addMenu/3 addAction/
+	// 0 addSeparator — 1/4/5/6 仅 Views 域,s_FilterEdit_8a9d3c 无 menu 腿)
+	int kind() const { return m_bits0 & 0xf; }
+	void setKind(int k) { m_bits0 = (unsigned char)((m_bits0 & 0xf0) | (k & 0xf)); } // @008a9836 区段
+	unsigned char columns() const { return m_bits0 >> 4; } // 高 nibble(s_FilterEdit @008a9ea8)
+	void setColumns(unsigned char c) { m_bits0 = (unsigned char)((m_bits0 & 0xf) | (c << 4)); }
+	const QByteArray popupName() const { return m_popup; } // 值对象 +0x8 槽(Action 名腿)
+	void setPopup(const QByteArray &p) { m_popup = p; m_bits1 |= 8; } // @008a9e70 bit3 置
+	bool popupFlag() const { return (m_bits1 & 8) != 0; }
 };
 
 // CGlobalConfigFace — menu() 返回容器 face(两腿单例公共基,见头注)。
@@ -124,19 +153,22 @@ public:
 	// 判例 — 解析器实现不逆向,装载编排 = 语料函数转写)===
 
 	// FUN_008a58f0(390B,0027.c:60279)configPath 面:applicationDirPath()
-	// + "/configs/menu.config"(DAT_00cb9da0 二进制实读;0x17 腿 = "/configs/
-	// toolbar.config" @DAT_00cb9d40)+ vt+8(selfName)→ toLower 拼尾。
-	// 返回完整路径(库内只消费最终串;语法面 = 三段拼接同相)。
+	// + DAT_00cba75c(char* 实读 @0xcba75c = "/" 单字符,qstring_assign_
+	// from_ascii strlen 面)+ vt+8(selfName)→ toLower 拼尾 → tail。
+	// 语料实序:dir → "/" → selfName.toLower() → tail(批 140 注 "/configs/"
+	// 系误读 DAT_00cb9d40 槽内嵌串;真拼序 = dir/self/configs/tail 由
+	// selfName 腿?否 — tail 串自含 "/configs/menu.config" 全段)。
+	// strace 实证:目录序 appdir/editor/configs/menu.config(self 段插
+	// dir 后,configs 段由 tail 全段承载)。
 	QString configPath(const char *tail, int tailLen) const
 	{
 		QString path = QCoreApplication::applicationDirPath(); // @008a5923
-		path += QStringLiteral("/configs/");                   // DAT_00cba75c 后缀段实读
+		path += QLatin1String("/");                            // DAT_00cba75c = "/" 实读
 		const char *self = configSelfName();                   // vt+8 vcall @008a594e
-		path += QString::fromLatin1(self) .toLower();          // @008a5967-81(toLower)
+		path += QString::fromLatin1(self).toLower();           // @008a5967-81(toLower)
 		path += QString::fromLatin1(tail, tailLen);            // @008a5986-8e
 		return path;
 	}
-
 	// 虚 vt+8 槽:CGlobalConfig 基 vtable 槽 1(+0x08)= __cxa_pure_virtual
 	// (0xbec350 vtable 实读)→ 子类提供类名(消费面 = configPath toLower)。
 	virtual const char *configSelfName() const = 0;
