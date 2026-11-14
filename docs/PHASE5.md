@@ -2423,6 +2423,30 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 ×3 稳定 +
   dlopen OK**。扩谱累计 52 条(9+14+15+14),余 ~18 条续批。
 
+### 批 132/133(2026-11-14)M9 双车道:巨 switch 全清/KitWindowFace 真身 ✅ ctest 19/19
+
+- **批 132 巨 switch 全清**:WT 段(0x7531-0x75ff)除 0x75dc(批 80
+  定案不存在)外**全部三态收口,零未审项** — 新 15 case:真身 12
+  (0x7534/0x753b 编辑模式读 22744/0x7542 行表 null 30727/0x7587
+  flagD84 23988/0x7589 首非空 31263+23417/0x75a2 markWrite 22359/
+  0x75a4 flagEc3 读 24876/0x75b0 sb 空查 24562/0x75ce 行尾 26418/
+  0x75f6 快照名 32465)+ cited 3(0x7540 vt+0xc8/0x7550 双列表
+  29035+843B/0x75f6 遍历腿)+ 缺省空 QVariant 3(0x7570/7574/758e
+  语料 else 链尾)。EditorContext +snapshotName8(M+0x2b8,00933830
+  读对);markerstest v 组 17 断言。巨 switch 扩谱五批累计 66 条
+  (9+14+15+14+15+12),任务书深腿既往批已落零重复。
+- **批 133 KitWindowFace 壳 + showConfigMenu 三段真身**(方案书
+  直执):KitWindowFace.h 新(QMainWindow 派生,ctor FUN_008cc692
+  仅 parent+setAcceptDrops,menu() 纯虚 void* 面 — 容器类名未解
+  不发明);MuxPaneGroup showConfigMenu cited 块 → 三段真身(S1
+  dynamic_cast<KitWindowFace> 011ab390 对位/S2 查建腿容器遍历腔
+  cited(未解 1)+新建 QMenu 腿真身 00692fbf/S3 kitPopupConfigButton
+  FUN_005ac790 275B 逐句);mwctest c1-c3(壳态早退/虚调用恰一记/
+  S1-S3 面对账)。风险:真容器落库时 menu 签名或需随容器类型校正
+  (头注已记)。
+- 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 ×3 稳定 +
+  dlopen OK**。
+
 ### 待解(批 131 后残余;现役队列以 HANDOFF「现役队列」为准)
 
 - **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
