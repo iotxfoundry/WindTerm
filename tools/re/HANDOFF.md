@@ -8,7 +8,20 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第三十次交接,批 149 · M14 达成)
+## 一句话状态(2026-11-15 第三十二次交接,批 152 · M15 达成)
+
+**M15「恢复腿 + 注册表下行 + 词法重建 + MuxWindow 取面」达成(用户
+定,四车道并行),车道停开**:①启动链恢复腿真身(startupRestoreGate
+FUN_0075ffcc 魔数 0xb9e7e600 + startupRestoreDispatch 00766c26 分发
+壳/&4==0 页挂真调;wind.config 默认层 jsoncpp 委托,批 150)②注册
+表下行(SpdlogFace 真库委托面 null_sink 截停/Transfer attachSftp·
+connectFaces 真身/virtualLabel 近面,批 151)③eNodes 词法重建
+(rebuild00970850 栈面转写 → **inner 非恒 null**,|4 链非退化;
+96cb3c/b6c/b84 三路复用;QUIRKS #35,批 152)④MuxWindow 归辖取面
+(zoomedPane/paneByIndex 真身;宿主 0084dd5a cited 分段;批 153)。
+主仓终门 ctest **21/21** ×5 + dlopen OK。
+此前:M14(145-149)、M13(142-144)、M12(138-141)、M11(136/137/136b)、
+M10(134/135)、M9(132/133)、M8 文档整备、M1-M7。
 
 **M14「注册表面 + eNodes 深层 + 树深下钻 + SplitterGroup + 启动链」
 达成(用户定,五车道并行),车道停开**:①注册表面余量(logger 腿体
@@ -132,21 +145,20 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 149 后,按需开批)
+## 现役队列(批 152 后,按需开批)
 
-1. **Phase 4a 转写批(启动链深度腿)**:0075ffcc→00766c26 恢复腿
-   (QDataStream 魔数 0xb9e7e600)/0076913f(5958B 保存恢复类型)/
-   8d2f7e startupSessions/522056 工作区装载器(9063B)/wind.config
-   JSON 默认层;007626ce 挂点信号接线面侦察(语料无代码调用者)
-2. **注册表下行**:spdlog sink 构造三段(外库边界真库委托面)/
-   Transfer 下行网络/fsModel(008e8150/008eadd6/008e533d)/
-   SessionLogger q+0x10 虚 label 位
-3. **eNodes 词法重建**:00970850 栈(editctx_initThread/93fc60/
-   gapbuffer_reallocate)+ 9cd3da/9cd91e 词法引擎体;styled 哨兵 UB
-   构型 5c 期仪器裁决
-4. MuxWindow 归辖:008e0428/008e0a72 zoomed-pane 取面(宿主
-   0084dd5a 未复刻)/ Phase 4c SplitterGroup 下行 / Phase 5c(需
-   可运行应用)/ 0x4eff DAT_011becc8 运行时观察(需 ptrace 环境变更)
+1. **Phase 4a 大批:522056 工作区装载器(9063B,独立批)** +
+   启动链余量(&4 尾段 setWindowState/Opacity、8d2f7e
+   startupSessions 3122B、0076f4d6、0075e0f8 765B);007626ce 挂点
+   信号接线面侦察(语料无代码调用者)
+2. **注册表下行余量**:pattern 装配段①/formatter state 尾段③
+   (token 引擎下行);virtualLabel 真虚调面(协议对象层真身化)
+3. **eNodes 深引擎**:editctx_initThread/piecetable_init/
+   gapbuffer_reallocate/93fc60(缺改版底座头,批 111 判例;重开需
+   底座头改版);styled 哨兵 UB 5c 期仪器裁决
+4. MuxWindow 宿主 0084dd5a 复刻批(5076B:标题 arg/detach 窗口腿/
+   空窗面)/ Phase 4c SplitterGroup 下行 / Phase 5c(需可运行应用)/
+   0x4eff DAT_011becc8 运行时观察(需 ptrace 环境变更)
 
 ## 已知开放问题
 
