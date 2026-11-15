@@ -118,6 +118,14 @@ void Splitter::setMainIndex(int mainIndex) {
 	m_mainIndex = mainIndex;
 }
 
+// FUN_008ca062(52B,0028.c:11457)真身:QSplitter::widget(index) 非空 →
+//   deleteLater @008ca072;QSplitter::insertWidget(index, widget) @008ca077。
+void Splitter::replaceIndex(int index, QWidget *widget) {
+	if (QWidget *old = this->widget(index)) // @008ca06a
+		old->deleteLater();                  // @008ca072
+	insertWidget(index, widget);             // @008ca077
+}
+
 bool Splitter::eventFilter(QObject *obj, QEvent *event) {
 	if (event->type() == QEvent::MouseButtonDblClick) {
 		if (QSplitterHandle *handle = dynamic_cast<QSplitterHandle *>(obj)) {

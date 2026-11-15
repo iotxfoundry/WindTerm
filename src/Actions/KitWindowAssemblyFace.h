@@ -22,6 +22,10 @@ QStatusBar *kitStatusbarBuild(CGlobalConfigFace *container, QWidget *hostPane);
 // 008c9f8c(54B,0028.c:11401):构建 → setStatusBar。
 void kitStatusbarAssemble(KitWindowFace *host);
 
+// 008b8694(79B,0027.c:75790):父链上溯 dynamic_cast → KitWindow
+//   (RTTI 011ab390 = "9KitWindow");未命中 nullptr。菜单/弹窗族共同前置腿。
+KitWindowFace *kitWindowAncestor(QObject *object);
+
 // King::assembleCentralSplitters(1010B,0028.c:13782):七槽中央树
 //   (+0x38..+0x68)+ 朝向/sizes/setCentralWidget(+0x68)。
 void kitCentralSplittersAssemble(KitWindowFace *host);

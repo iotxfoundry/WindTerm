@@ -245,3 +245,15 @@ void KitWindowFace::kitSlotSetVisible(int id, bool visible)
 // 008ca168(7B)/008ca170(10B):隐藏/显示 = kitSlotSetVisible(id, 0/1)。
 void KitWindowFace::kitSlotHide(int id) { kitSlotSetVisible(id, false); }
 void KitWindowFace::kitSlotShow(int id) { kitSlotSetVisible(id, true); }
+
+// 008b8694(79B,0027.c:75790)KitWindow 祖先上溯:dynamic_cast<011ab390>
+//   ("9KitWindow" RTTI)逐级 parentWidget 链;未命中 0 @008b86d?。
+KitWindowFace *kitWindowAncestor(QObject *object)
+{
+	while (object != nullptr) {
+		if (auto *kit = dynamic_cast<KitWindowFace *>(object))
+			return kit; // @008b86b? dynamic_cast 命中
+		object = object->parent();
+	}
+	return nullptr;
+}

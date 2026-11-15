@@ -37,6 +37,9 @@ public:
 	void setIndexVisible(int index, bool visible);
 
 	void setMainIndex(int mainIndex);
+	// FUN_008ca062(52B,0028.c:11457):槽位替换 — 旧 widget deleteLater 后
+	//   insertWidget(index, 新 widget)(语料 receiver = this,实参面照录)。
+	void replaceIndex(int index, QWidget *widget);
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);
