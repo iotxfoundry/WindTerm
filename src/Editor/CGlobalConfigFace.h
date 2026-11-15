@@ -313,4 +313,19 @@ class QAction;
 QAction *colorMenuAddEntry(QMenu *menu, const QString &text,
                            const QByteArray &colorName);
 
+// 00719dee(1111B,0022.c:42621 区"会话颜色菜单")颜色表(顺序 = 语料
+//   add 顺序;值 = "#AARRGGBB" 0x80 alpha;末项 "&Empty" 值为空串,
+//   0xc89716 实读)。
+struct ColorMenuEntry {
+	const char *label;
+	const char *value;
+};
+const ColorMenuEntry *sessionColorEntries(int *count);
+
+// 同函数 find-or-create 腿:owner 下已有 QMenu(child,递归=1)→ 直返;
+//   否则建:"&Color..." action → 分隔 → 12 色 → 分隔 → "&Empty" →
+//   connect(triggered → s_session_color_70a6cd 466B cited)。
+//   popup 锚点 = mapToGlobal(width+1, 0)(d+0x20-d+0x18 实读)。
+QMenu *sessionColorMenu(QWidget *owner);
+
 #endif // CGLOBALCONFIGFACE_H

@@ -441,3 +441,51 @@ QAction *colorMenuAddEntry(QMenu *menu, const QString &text,
 	act->setData(QVariant(colorName)); // @0070a678
 	return act;
 }
+
+// 00719dee(1111B)会话颜色菜单颜色表(顺序/add 面逐条实读):
+static const ColorMenuEntry kSessionColors[] = {
+    {"&Dark Cyan", "#80008B8B"},          {"&Deep Pink", "#80FF1493"},
+    {"&Forest Green", "#80228B22"},       {"&Goldenrod", "#80DAA520"},
+    {"&Indian Red", "#80CD5C5C"},         {"&Medium Orchid", "#80BA55D3"},
+    {"&Medium Slate Blue", "#807B68EE"},  {"&Olive", "#80808000"},
+    {"&Red", "#80FF0000"},                {"&Royal Blue", "#804169E1"},
+    {"&Steel Blue", "#804682B4"},         {"&Teal", "#80008080"},
+    {"&Empty", ""}, // 0xc89716 实读;空值 = 清除
+};
+
+const ColorMenuEntry *sessionColorEntries(int *count)
+{
+	if (count != nullptr)
+		*count = static_cast<int>(sizeof(kSessionColors) / sizeof(kSessionColors[0]));
+	return kSessionColors;
+}
+
+// 00719dee 建菜单腿真身:
+//   child = qt_qFindChild_helper(owner, 空名, QMenu smo, 递归=1)非空 → 直返
+//     @00719e64;否则 new QMenu(owner) → addAction("&Color...")(0x30 字节
+//     QAction + 9 字符名)@00719ecc → addSeparator →
+//     12 色 colorMenu_addEntry(hex 实参)@00719f3e-1a13c → addSeparator →
+//     colorMenu_addEntry("&Empty", "")@0071a16e →
+//     connect(triggered → s_session_color_70a6cd)(466B,cited)→
+//     返回菜单(调用方 popup 于 mapToGlobal(width+1, 0)@00719e4x)。
+QMenu *sessionColorMenu(QWidget *owner)
+{
+	if (owner == nullptr)
+		return nullptr;
+	if (QMenu *existing = owner->findChild<QMenu *>()) // @00719e64(递归=1)
+		return existing;
+	QMenu *menu = new QMenu(owner);                  // @00719ecc
+	menu->addAction(QStringLiteral("&Color..."));    // @00719efd
+	menu->addSeparator();                            // @00719f2x
+	int n = 0;
+	const ColorMenuEntry *entries = sessionColorEntries(&n);
+	for (int i = 0; i < n - 1; ++i) // 12 色
+		colorMenuAddEntry(menu, QString::fromLatin1(entries[i].label),
+		                  QByteArray(entries[i].value)); // @00719f3e-1a13c
+	menu->addSeparator();                            // @0071a14x
+	colorMenuAddEntry(menu, QString::fromLatin1(entries[n - 1].label),
+	                  QByteArray());                 // "&Empty" @0071a16e
+	// connect(menu, &QMenu::triggered, owner, s_session_color_70a6cd)
+	//   @0071a225 — 槽体 466B 未转写,cited 不落接线。
+	return menu;
+}
