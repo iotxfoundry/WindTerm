@@ -177,7 +177,23 @@ void KitDockFace::splitPane()
 	if (dock == nullptr)
 		return;
 	splitter->insertWidget(index + 1, dock); // @008b90xx
-	// 尺寸平分腿(rect 私有 + 表 + setSizes)@008b914x-921x — cited。
+	// 尺寸平分腿 @008b910x-921x:
+	//   count = sp->count();orientation == Qt::Horizontal(1)→ d+0x1c-d+0x14
+	//   (= width),否则 d+0x20-d+0x18(= height);
+	//   cell = (extent + 1) / count;cell < 2 → 1;
+	//   FUN_0064a7a8(&table, count, &cell)(表填充)+ FUN_008b9590 展开为
+	//   int 表 → setSizes。(两个表助手以 QList<int> 直填等价。)
+	const int count = splitter->count();
+	const int extent = (splitter->orientation() == Qt::Horizontal)
+	                       ? splitter->width()
+	                       : splitter->height();
+	int cell = (extent + 1) / count;
+	if (cell < 2)
+		cell = 1;
+	QList<int> sizes;
+	for (int i = 0; i < count; ++i)
+		sizes.append(cell);
+	splitter->setSizes(sizes);
 }
 
 // dock_toggleFloat(866B)真身(asm/反编译双读):
