@@ -45,7 +45,7 @@ QMessageBox *msgboxBuildRich(const QString &name, const QString &remotePath,
 		check = new QCheckBox(QObject::tr("Stop watching this file")); // 0xc90216
 	}
 
-	setAttribute(box, static_cast<Qt::WidgetAttribute>(0x37), true); // @00615f27
+	box->setAttribute(static_cast<Qt::WidgetAttribute>(0x37), true); // @00615f27
 	box->setWindowFlags(box->windowFlags() | Qt::WindowFlags(0x40000));
 	box->setText(body);
 	box->setWindowTitle(QObject::tr("Upload File")); // 0xc90241
