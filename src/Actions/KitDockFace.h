@@ -69,6 +69,11 @@ public:
 	//   几何面:d+0x14..0x20 = QRect 四边(asm 公式 +0x44 = x+(right-left))
 	//     → 等价 QRect(mapToGlobal(0,0), size()).
 	void setFloating(bool floating);
+	// FUN_008b8be4(125B,0027.c:76070)槽内可见性:
+	//   私有位(d+9 & 0x80)为 0 → 0(疑 WA_WState_Hidden,本面以 isHidden()
+	//   承接并注记);父非 QSplitter → 1;否则
+	//   kitSlotVisible(kitSlotIdOf(sp))。
+	bool isSlotVisible() const;
 	bool isFloating() const { return m_f39; } // +0x39
 	bool isDocked() const { return !m_f39; }  // 008b8c76(8B):+0x39 ^ 1
 	void setFloating(bool on) { m_f39 = on; }

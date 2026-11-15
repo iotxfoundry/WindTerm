@@ -287,3 +287,27 @@ void KitDockFace::changeEvent(QEvent *event)
 	show();
 	setFloating(false); // dock_toggleFloat(this, 0) — 归位
 }
+
+// FUN_008b8be4(125B,0027.c:76070)真身:
+//   @008b8be4 if ((*(byte*)(*(this+0x28)+9) & 0x80) == 0) return 0;
+//     语料直读 QWidget d+9 bit 0x80(私有位,疑 WA_WState_Hidden)——
+//     本面以 isHidden() 承接(cited 等价,待核)。
+//   @008b8bex 父空 → 1;父 cast QSplitter 失败 → 1;
+//   @008b8bfx kit = 祖先;id = kitSlotIdOf(kit, sp);
+//     return kitSlotVisible(kit, id)(008ca0de)。
+bool KitDockFace::isSlotVisible() const
+{
+	if (!isHidden()) // 语料 d+9 & 0x80 == 0 → 0(cited 等价面)
+		return false;
+	QWidget *p = parentWidget();
+	if (p == nullptr)
+		return true;
+	auto *sp = dynamic_cast<QSplitter *>(p);
+	if (sp == nullptr)
+		return true;
+	auto *kit = kitWindowAncestor(const_cast<KitDockFace *>(this)); // 008b8694
+	if (kit == nullptr)
+		return true;
+	const int id = kit->kitSlotIdOf(sp); // 008ca0b8
+	return kit->kitSlotVisible(id);      // 008ca0de
+}
