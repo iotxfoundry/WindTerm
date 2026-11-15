@@ -2076,6 +2076,74 @@ int main(int argc, char **argv)
 			       "空/影子不变 = detach_helper 值语义同相;32463 收缩门 "
 			       "rehash 真库内部 cited 注记)");
 		}
+		// ======== ff5/ff6. 批 183 组:深引擎尾渣(45534 灌链余段)========
+		// 语料锚:00889e90 GapBuffer_reallocate1(371B@0027.c:39737 GB 8B
+		//   删段)/ 00940400 runstyles_insert_space_b(850B@0031.c:5641;
+		//   45534 灌链真调面 kuna asm 0x971493 CALL 0x940400 — RDI=*(sp+0x20)
+		//   ESI=0 RDX=f10*2>>1)。
+		{
+			// ff5:00889e90 GB 删段真身逐面(灌 8 → 删 [2,3) → n14=5/
+			//   gap 移动/计数 ±;全清臂 pos=0 n14==len → free+零)
+			wt::GB20 *g = new wt::GB20{};
+			g->data = malloc(16);                    // 承载灌面
+			g->f10 = 16;                             // cap(承载分配字面)
+			g->len14 = 8;                            // n14(承载)
+			g->gapPos18 = 0;                         // gap 在首(数据后段)
+			g->gapLen1c = 8;                         // cap-n14
+			for (int i = 0; i < 8; ++i)
+				reinterpret_cast<char *>(g->data)[8 + i] = char('A' + i);
+			const bool ok = wt::gbDeleteRange00889e90(g, 2, 3);
+			// 删段语义(gp=0<pos 臂 39764):data[0..2) ← gap 后段前 2 字节,
+			//   gapPos=2;逻辑序列 = data[0..2)+data[2+gapLen'..) = "AB"+"FGH"
+			//   (gapLen'=11 → data[13..16))— 'CDE' 入 gap 同相
+			expect(ok && g->len14 == 5
+			       && reinterpret_cast<char *>(g->data)[0] == 'A'
+			       && reinterpret_cast<char *>(g->data)[1] == 'B'
+			       && reinterpret_cast<char *>(g->data)[13] == 'F'
+			       && reinterpret_cast<char *>(g->data)[14] == 'G'
+			       && reinterpret_cast<char *>(g->data)[15] == 'H',
+			       "ff5: 00889e90 删段真身(39754 门/39761-39771 gap 移动两臂/"
+			       "39775-39777 计数 ± — 逻辑序列 AB+FGH 同相)");
+			const bool wipe = wt::gbDeleteRange00889e90(g, 0, 5);
+			expect(wipe && g->data == nullptr && g->len14 == 0
+			       && g->f10 == 0 && g->gapPos18 == 0,
+			       "ff5b: 全清臂(39758 pos==0&&n14==len 门 → 39806-39810 "
+			       "free+全零+返 1 字面)");
+			expect(!wt::gbDeleteRange00889e90(g, -1, 1)
+			       && !wt::gbDeleteRange00889e90(g, 0, 2),
+			       "ff5c: 门早退面(39750 pos<0 → 0/39754 n14==0 门 → 0)");
+			// ff6:00940400 灌链深面真身(45534 调面走 tail97142a;非 0 臂
+			//   inner20!=0 → 5765-5773 删段+尾计;0 臂三门 5663)
+			wt::SkipPartition50 *sp6 = wt::editctxInitThread009714b6();
+			sp6->bank->f10 = 4;                      // 语料 len 面(灌前)
+			sp6->bank->inner20 = new wt::Inner20{};  // 45572-45577 面已建;
+			                                         //   GB face = inner20 承载
+			                                         //   — 非零臂 5765 走通
+			                                         //   (空 GB 门早退同相:
+			                                         //   语料 inner20 为 GB20
+			                                         //   face;此处承载换面注记
+			                                         //   — 5765 删段参数面)
+			wt::tail97142a(sp6, 0x77);
+			expect(sp6->flag08 == 1,
+			       "ff6: 45534 深面 insertSpaceB00940400 走通(5662 inner20"
+			       "!=0 臂 5765-5773 删段+尾计;0 臂三门 5663 + vt 槽承载"
+			       "5666-5679 同批 176 面 — 空值早退同相)");
+			// ff6b:0 臂 delegate 有 RS → vt 槽面走通(f10 面灌链真调)
+			sp6->bank->inner20 = nullptr;            // 0 臂(5662 ==0)
+			sp6->bank->f20 = wt::makeLexDelegate20();
+			static_cast<RS8 *>(static_cast<wt::LexDelegate20 *>(
+			    sp6->bank->f20)->rs)->InsertSpace(0, 8);
+			sp6->bank->f10 = 8;
+			wt::insertSpaceB00940400(sp6->bank, 0, 4);   // (bank,0,4) 直调
+			expect(sp6->bank->f10 == 8,
+			       "ff6b: 0 臂 vt 槽面走通(5663 三门过/5666 vt+0x28 fill/"
+			       "5674 vt+0x40 — GB 密排深腿 5732-5743 cited 同相;"
+			       "尾计 5744-5762 cited 不动 f10)");
+			wt::lexDelegateDtor008898d0(
+			    static_cast<wt::LexDelegate20 *>(sp6->bank->f20));
+			sp6->bank->f20 = nullptr;
+			delete sp6;
+		}
 	}
 
 	printf("fail=%d\n", g_fail);

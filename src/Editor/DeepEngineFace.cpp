@@ -38,15 +38,11 @@ void tail97142a(SkipPartition50 *sp, quint64 seed)
 	pieceTableInit(pt, seed);                     // 45530-45531
 	sp->ptB = pt;                                 // 45532
 	// 45534 runstyles_insert_space_b(*(sp+0x20),0,*(+0x10)*2>>1) — 批 176
-	//   升真(灌入目标 = sp+0x20 bank 的 RS 面;承载 = bank->f20 delegate
-	//   +8 RS8(怪癖 #35 同物异计)— 现役 RS 判例 RunStyles.cxx:186
-	//   InsertSpace 真库委托;0x30 bank 语料 850B 深链
-	//   5641@0031.c:5641 gapbuf_styleRange/00933738 hash remove cited;
-	//   delegate 空壳态 = 语料深引擎 delegate 构造点 cited — 跳过同相)
-	if (LexDelegate20 *dlg = static_cast<LexDelegate20 *>(sp->bank->f20)) {
-		if (RS8 *rs = static_cast<RS8 *>(dlg->rs))       // 45534 (bank,0,len)
-			rs->InsertSpace(0, qint64((quint64(sp->bank->f10) * 2) >> 1));
-	}
+	//   升真;批 183 深面 insertSpaceB00940400 升真(850B @0031.c:5641
+	//   全读 — asm 0x971493 CALL 0x940400 调面字面;旧 InsertSpace 快面
+	//   = 全臂 delegate 路同相 — 见该函数逐行出处)
+	insertSpaceB00940400(sp->bank, 0,
+	    qint64((quint64(sp->bank->f10) * 2) >> 1));   // 45534 (bank,0,len)
 	sp->flag08 = 1;                               // 45535 (+8)=1
 }
 
@@ -252,6 +248,166 @@ qint64 hashRemove00933738(void **hashSlot, const void *keyPacked)
 	                                             //   内,深桶重排真库内部
 	                                             //   同相 — QHashData::rehash
 	                                             //   cited 注记)
+}
+
+// --- 批 183:45534 RS 灌链余段真身 ---
+// FUN_00889e90 GapBuffer_reallocate1(371B)@0027.c:39737 全读 — GB 8B 版
+//   删段真身(gapbuf_shrink00889e2e/gbGrow0088a016 同 GB 族;返回 char)。
+//   39750 pos<0→0 / 39753-39757 门+clamp / 39758-39810 全清臂(free+全零
+//   +返 1)/ 39761-39771 gap 移动两臂(memmove)/ 39775-39777 计数 ±/
+//   39779-39803 0x100000·0.6 收缩臂(39783 shrink → asm 0x889f68 面
+//   CMP ESI,[RBP+0x18]:iVar5=n14 传参 — 无参 shrink = shrink 到 n14;
+//   39787 负长 runtime_error 字面)/ 39804 返 1。
+bool gbDeleteRange00889e90(GB20 *g, int pos, int len)
+{
+	if (pos < 0)                                    // 39750-39752
+		return false;
+	int n14 = int(g->len14);                        // 39753 *(+0x14)
+	if (pos >= n14 || len <= 0)                     // 39754 门 → 39812/39813 返 0
+		return false;
+	if (n14 < pos + len)                            // 39755-39757 clamp
+		len = n14 - pos;
+	if (pos != 0 || n14 != len) {                   // 39758 全清门(else 臂)
+		int gp = int(g->gapPos18);                  // 39759
+		if (gp != pos) {                            // 39761
+			char *base = reinterpret_cast<char *>(g->data);   // 39762 *(+8)
+			if (gp < pos)                           // 39763 两臂
+				memmove(base + gp, base + gp + g->gapLen1c,
+				        size_t(pos - gp));          // 39764-39765
+			else
+				memmove(base + g->gapLen1c + pos, base + pos,
+				        size_t(gp - pos));          // 39768-39769
+			g->gapPos18 = quint32(pos);             // 39771
+			n14 = int(g->len14);                    // 39772 重读
+			gp = int(g->gapLen1c);                  // 39773 重读
+		}
+		n14 = n14 - len;                            // 39775
+		g->len14 = quint32(n14);                    // 39776
+		g->gapLen1c = quint32(len + gp);            // 39777
+		int cap = int(g->f10);                      // 39778
+		if (0x100000 < cap &&
+		    double(n14) < double(cap) * 0.6) {      // 39779-39780 收缩门
+			int want = (n14 >> 8) + n14;            // 39781
+			if (n14 != int(g->gapPos18))            // 39782
+				gbShrink00889e2e(g, n14);           // 39783(无参 shrink =
+				                                    //   asm ESI=n14 面)
+			if (want < 1) {                         // 39785
+				if (want != 0)                      // 39786
+					throw std::runtime_error(       // 39787-39791 字面
+					    "GapBuffer::ReAllocate: negative size.");
+			} else {
+				void *p = realloc(g->data, size_t(want));   // 39795
+				if (p != nullptr) {                 // 39796
+					g->data = p;                    // 39797-39798
+					g->f10 = quint32(want);
+					g->gapLen1c = quint32(int(g->gapLen1c) + (want - cap));
+				                                    // 39799
+				}
+			}
+		}
+		return true;                                // 39804
+	}
+	free(g->data);                                  // 39806-39809 全清臂
+	g->data = nullptr;                              //   (+8=0)
+	g->f10 = 0;                                     //   (+0x10 8B 清零 →
+	g->len14 = 0;                                   //    f10+len14 同清)
+	g->gapPos18 = 0;                                //   (+0x18 8B 清零 →
+	g->gapLen1c = 0;                                //    gapPos+gapLen 同清)
+	return true;                                    // 39810
+}
+
+// FUN_00940400 runstyles_insert_space_b(850B)@0031.c:5641 全读 — 45534
+//   灌链深面真身(kuna asm 0x971493:CALL 0x940400,RDI=*(sp+0x20)/
+//   ESI=0(971491 XOR)/RDX=*(RDI+0x10)*2>>1(971486-97148e))。
+//   bank+0x18 inner20==0 门(5662):
+//   • 非 0 臂(5765-5773)= GapBuffer_reallocate1 删段(bank,0,len 调面
+//     5766 GapBuffer_reallocate1(*(bank+0x18),pos,len))+ 成功尾计
+//     (5768-5771 n=(f10-len)*2>>1;+0x10/0x14 高半字面)
+//   • 0 臂(5663-5762)三门(5663 -1<pos<len·2>>1 · 0<len)后:
+//     vt+0x28 fill 槽(CMP 008897ae 恒等 → fill_range(*(dlg+8)) Ghidra
+//     丢参面 = 我方 iFill 承载面(批 176 fill pos 形同相)/ vt+0x40
+//     (iFill+1 面)/ 5681 end<endPos 门 → vt+0x28 fill(endPos)二处 +
+//     逐 run 清偿循环(5689-5730:i<gapPos 直臂/i<len gap 偏移臂/越界
+//     null — 密排选取同 lexStackClear 5272-5284 同形;spinlock_lock_
+//     backoff 0093fce1 族单线程坍缩注记(批 145 判例)+ hashRemove00933738
+//     真身(5707 调面 (bank+0x28)+0x40)+ cacheEntryRelease 真身
+//     (5722-5726))+ 尾两 styleRange 面与 vt15(5732-5743 — GB 深腿
+//     cited;RS vt15 1064B@43808 同外库边界收账族)+ f10 尾计
+//     (5744-5748)+ 0x2000001 分臂(5749-5762:GapBuffer_dtor/
+//     gapbuffer_build_line_index/LOCK 计数 cited)。
+//   我方 bank->f28(=bank+0x28 管理器槽)构造三源恒 0(44925-44938/
+//   45567/39077)→ 语料构造面深腿非零 cited,清偿臂我方不达同相
+//   (pvVar8 恒 null);vt 槽恒等分派面走 delegate 承载(怪癖 #35)。
+void insertSpaceB00940400(Bank30 *bank, qint64 pos, qint64 len)
+{
+	if (bank->inner20 != nullptr) {                 // 5662 *(param_1+0x18)
+		// 5765-5773 非 0 臂:GapBuffer_reallocate1(*(bank+0x18),pos,len)
+		if (gbDeleteRange00889e90(static_cast<GB20 *>(bank->inner20),
+		                          int(pos), int(len))) {          // 5766-5767
+			quint64 cnt = quint64(quint64(bank->f10) * 2 >> 1) - quint64(len);
+			                                                // 5768-5769
+			bank->f10 = quint32(cnt);               // 5770
+			bank->mask14 = quint32(cnt >> 32) & 0x7fffffff
+			             | (bank->mask14 & 0x80000000);   // 5771
+		}
+		return;
+	}
+	const qint64 len10 = qint64((quint64(bank->f10) * 2) >> 1);
+	if (!(pos >= 0 && pos < len10 && len > 0))      // 5663 三门
+		return;
+	LexDelegate20 *dlg = static_cast<LexDelegate20 *>(bank->f20);
+	                                                // 5664/5673 *(+0x20)
+	if (dlg == nullptr || dlg->rs == nullptr)       // 空 delegate/RS 壳态
+		return;                                     //   (语料空值面同相)
+	const qint64 iFill = lexVtFillRangeSlot008897ae(dlg);
+	                                                // 5666-5671 vt+0x28
+	                                                //   (fill pos 形 Ghidra
+	                                                //   丢参 — 批 176 同相)
+	const qint64 endPos = len + pos;                // 5672 local_58
+	const qint64 iNext = lexVtRunStartNextSlot0088981c(dlg, iFill);
+	                                                // 5674-5679 vt+0x40
+	if (iNext < endPos) {                           // 5681 门
+		const qint64 iEnd = lexVtFillRangeSlot008897ae(dlg);
+		                                                // 5683-5688 二处
+		                                                //   fill(endPos)
+		                                                //   (承载面同上同相)
+		qint64 i7 = iFill + 1;                      // 5689 iVar7
+		if (i7 < iEnd) {                            // 5690 门
+			GB20 *gbFace = dlg->gb
+			    ? static_cast<GB20 *>(dlg->gb) : nullptr;
+			                                        // 5694-5695 *(+0x10)
+			                                        //   密排 face(同
+			                                        //   lexStackClear 5269)
+			for (qint64 off = i7 << 3; i7 != iEnd;  // 5691/5728-5730 闭环
+			     ++i7, off += 8) {
+				// 5693-5715 GB 密排选取 + spin 坍缩 + hash remove + 释放臂
+				void *pv = nullptr;                 // 5701/5704 越界字面
+				if (gbFace != nullptr && i7 < qint64(gbFace->gapPos18)
+				    && gbFace->data != nullptr && i7 >= 0) {
+					pv = *reinterpret_cast<void **>(
+					    reinterpret_cast<char *>(gbFace->data) + off);
+				} else if (gbFace != nullptr && gbFace->data != nullptr
+				    && i7 < qint64(gbFace->len14)) {
+					pv = *reinterpret_cast<void **>(
+					    reinterpret_cast<char *>(gbFace->data)
+					    + size_t(i7 + qint64(gbFace->gapLen1c)) * 8);
+				}
+				// spinlock_lock_backoff(bank+0x28)(5702/5718 — 单线程
+				//   坍缩注记,批 145 判例;00933738 门 (d+0x14)!=0 面
+				//   我方 QHash erase 内承接同相 — 语料调面 5707 在
+				//   (bank+0x28)+0x40 管理器域,我方 f28 恒 0 → 不达;
+				//   hashRemove 真身见 lexStackClear 5286-5290 同臂)
+				if (pv != nullptr)                  // 5722
+					cacheEntryRelease(pv);          // 5723-5725 释放臂真身
+			}
+		}
+		// 5732-5743 两 styleRange(bank GB face 深腿 cited)+ vt15 灌 0
+		//   (0088f430 1064B — 45534 主灌腿上位的 style 拆面;RS 承载 =
+		//   FillRange(iFill,0,-len) 字面 43829-43842 同相 not-taken 面)
+		//   — cited(铁律 3;GB 密排深腿)
+	}
+	// 5744-5762 f10 尾计 + 0x2000001 分臂(GapBuffer_dtor/build_line_
+	//   index/LOCK 计数 — cited)
 }
 
 // FUN_007b5270(601B)@0024.c:21889 — GB 段删除骨架门真身:

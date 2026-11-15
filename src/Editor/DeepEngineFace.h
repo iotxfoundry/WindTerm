@@ -79,8 +79,10 @@ static_assert(offsetof(SkipPartition50, spin48)    == 0x48, "sp +0x48 spin 字�
 void tail97142a(SkipPartition50 *sp, quint64 seed);
 
 // editctx_initThread 字段前奏真身(9714b6 @0031.c:45556-45596 逐字面;
-//   尾 FUN_0097142a(123B @0031.c:45510)深引擎腿 cited — piecetable_init/
-//   runstyles_insert_space_b 不落,字段面 seedCnt28 停在 prologue 值 1)。
+//   尾 FUN_0097142a(123B @0031.c:45510)深引擎腿 — piecetable_init 真身 +
+//   runstyles_insert_space_b 批 183 升真 insertSpaceB00940400(850B 全读,
+//   45534 灌链真调面 0x971493 CALL 0x940400;字段面 seedCnt28 停在
+//   prologue 值 1)。
 inline SkipPartition50 *editctxInitThread009714b6()
 {
 	SkipPartition50 *p = new SkipPartition50{};
@@ -204,11 +206,36 @@ void gbGrow0088a016(GB20 *g, int grow);
 //   QHash<u64,CacheEntry30*> 形 — 键 u64 = GB 条目指针值,桶链值字面),
 //   param_2 = &键(local_50 密排 {key});返回移除计数。
 //   5260 delegate vt+0x30 计数源语料形态见 lexStackClear 注。
+//   批 183 rehash 真库内部定性确认(kuna asm 抽验):32457 CALL 0x4c13c0
+//   = PLT JMP [0x11bd158] → nm `U _ZN9QHashData6rehashEi@Qt_5` —
+//   QHashData::rehash 真库符号导入,非语料自有面;同相注记收账
+//   (EXT-BOUNDARY 判例:真库内部不逆向),无自有转写腿。
 qint64 hashRemove00933738(void **hashSlot, const void *keyPacked);
 // 批 178:QHash 分离担查真身(009250ac 98B 全读 = QHashData::detach_helper
 //   → ref--/free_helper → 新 d 挂回;我方 QHash 隐式共享值语义承载面 —
 //   节点表 O(n) 重建 = QHash detacher 同相,键 u64 直读直比 0088a25c 同构)。
 void detachShadowQHash(QHash<void *, void *> &h);
+// 批 183:45534 灌链余段升真(97142a 45529 邻域读体 — 逐成员出处):
+// FUN_00889e90 GapBuffer_reallocate1(371B)@0027.c:39737 全读 — GB 8B 删段
+//   真身(39750 pos<0 → 0 / 39754 门 / 39755-39757 clamp / 39758 wipe 臂
+//   free+全零 39806-39810 / 39761-39771 gap 移动两臂 / 39775-39777 计数 ±/
+//   39779-39803 0x100000*0.6 收缩臂(gbShrink00889e2e — asm 0x889f69
+//   CMP ESI,[RBP+0x18] ESI=n14 面 + 负长 runtime_error 字面 39787)/
+//   39804 返 1)。
+// FUN_00940400 runstyles_insert_space_b(850B)@0031.c:5641 全读 — 45534 灌链
+//   深面真身(kuna asm 0x971493 CALL 0x940400:RDI=*(sp+0x20)/ESI=0(971491
+//   XOR)/RDX=len f10*2>>1):inner20!=0 臂(5765)= gbDeleteRange 真身 +
+//   f10/mask 尾计(5768-5771);inner20==0 全臂(5662-5762)= 三门(5663)+
+//   delegate vt+0x28/0x40/0x38 槽分派(5666-5688/5735-5740 — 批 176 承载
+//   slot 面;fill 两处调面 Ghidra 丢参同相)+ 逐 run 清偿循环(5690-5730:
+//   dlg GB 密排选取同 lexStackClear 形 + spinlock 坍缩注记(批 145 判例)+
+//   00933738 hashRemove + cacheEntryRelease 真身)+ 尾计(5744-5748)/
+//   0x2000001 分臂(5749-5762 — GapBuffer_dtor 1421B @42087/
+//   gapbuffer_build_line_index 2773B @42390/LOCK 计数 cited);
+//   bank+0x28 管理器 = f28 — 构造三源 [5]=0(44925-44938/45567/39077)
+//   → 深腿构造非零 cited,我方清偿臂不达同相。
+bool gbDeleteRange00889e90(GB20 *g, int pos, int len);                    // ODR — 批 183
+void insertSpaceB00940400(Bank30 *bank, qint64 pos, qint64 len);          // ODR — 批 183
 // FUN_007b5270(601B)@0024.c:21889 — GB 段删除(bank, pos, len;96a280 种子
 //   腿 39045 调面 (bank,0,len))— 骨架门真身(21919-21923);段插体
 //   0x18!=0 臂(FUN_007abef6 324B GB 删段)f10 尾计 cited。
@@ -249,6 +276,25 @@ void pieceTableInit(PieceTable60 *pt, quint64 seed);                      // ODR
 // FUN_0088e5a0 gapbuffer_reallocate(3525B @0027.c:43226)— 缓冲重排:
 //   (gb, pos, w, len);容量门 0x4000000(43239)+ GB face *(gb+0x18);
 //   可达面真身(判空/门/守卫早退),门内重排体/超门 cache 腿 cited。
+//   批 183 超门 0x3fffff 分段族收账注记(批 178 定性:上游 GapBuffer
+//   算法面 = 外库边界,EXT-BOUNDARY 判例 — 不逆向,逐成员行号收账):
+//   • 0x5fffff 条目 GB 收缩臂:43415 `0x5fffff < *(lVar22+0x14)` →
+//     43416 runbounds_get_a(param_1,local_88+0x400000);
+//     gapbuffer_get_chars_locked 44843-44846 同臂(00890880 @44684)
+//   • 0x400000 分段灌循环:43433 `0x3fffff < param_4` → 43434 pos 界;
+//     43436-43572 逐段 operator_new(0x30){0…}+QReadWriteLock(0)@+0x20
+//     (43441-43448)+ 0x400000 memset(43568)+ 计数 ±(43569-43571);
+//     43575-43577 fill_range/fill_value_range/gapbuf_insert;
+//     43797-43804 LAB_0088e759 段进位(43798 pos+0x400000/43803 界门)
+//   • runbounds_get_a 尾段:43432 全段腿 + 43179-43191 superbuf_insertRuns
+//     收缩循环(43181 +0x3fffff/43183 >>0x16/43187 调面;entry 0088bb40
+//     1247B @0027.c:41144 — 外库边界同相收账)
+//   • 旧缓存清偿族:0088c088(115B @41341;QMap remove-all:qmap_detach
+//     41355/freeNodeAndRebalance 41382)、0088c0fc(437B @41390;spinlock
+//     backoff 41406-41442 + 0088c088 消费 41490 + 清零 + operator_delete
+//     0x38 @41493)、GapBuffer_dtor(1421B @42087;inner20 free/delete
+//     42113-42117 + 0x38 旧缓存 0088c088 消费 42290-42292 + QMap/QHash/
+//     QList dispose 42193-42300)
 void gapBufferReallocate(Bank30 *gb, quint64 pos, quint8 w, quint64 len); // ODR — 批 160
 // FUN_0093fc60(546B @0031.c:5247)— 词法栈老 runs/线程缓存清偿 walker:
 //   早退门(5257-5259)+ 逐槽清偿循环 + 尾 vt 换面析构链(5328-5345)+
