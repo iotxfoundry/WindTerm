@@ -511,12 +511,7 @@ QByteArray MuxPaneGroup::sessionTitleBlob() const
 {
 	QByteArray blob;
 	QDataStream os(&blob, QIODevice::WriteOnly); // @008bbae9(WriteOnly=2)
-	// owner 名(008ba210):祖先 KitWindow → menu() → configSelfName(vt+8)
-	QString owner;
-	if (KitWindowFace *kit = kitWindowAncestor(const_cast<MuxPaneGroup *>(this))) {
-		if (CGlobalConfigFace *cfg = kit->menu())
-			owner = QString::fromLatin1(cfg->configSelfName());
-	}
+	const QString owner = ownerConfigName(); // 008ba210
 	int current = m_f38 != nullptr ? m_f38->tabBar()->currentIndex() : -1; // @008b9b34
 	const int n = m_f38 != nullptr ? m_f38->count() : 0;                   // @008b9b2a
 	QList<MuxPaneView *> keep;
@@ -696,4 +691,17 @@ bool MuxPaneGroup::parseSessionRestoreBlob(const QByteArray &blob, quint32 magic
 		entries->append(e);
 	}
 	return true;
+}
+
+// FUN_008ba210(49B,0027.c:77394)组归属配置名真身:
+//   pane = widget_findAncestorPane(this);非空 → menu()(vt+0x1f0)再
+//   vt+8(configSelfName)—— 本仓承接 = 祖先 KitWindowFace::menu()
+//   → CGlobalConfigFace::configSelfName()。
+QString MuxPaneGroup::ownerConfigName() const
+{
+	if (KitWindowFace *kit = kitWindowAncestor(const_cast<MuxPaneGroup *>(this))) {
+		if (CGlobalConfigFace *cfg = kit->menu())
+			return QString::fromLatin1(cfg->configSelfName());
+	}
+	return QString();
 }

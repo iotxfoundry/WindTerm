@@ -36,6 +36,10 @@ public:
     //   → 有效才 setTabColor(008b9b3e)。
     void pickTabColor(MuxPaneView *pane);
 
+    // FUN_008ba210(49B,0027.c:77394)组归属配置名:
+    //   祖先 pane 的 menu()(vt+0x1f0)再 vt+8(configSelfName)。
+    QString ownerConfigName() const;
+
     // s_RenamedTitle_8bb3e6(1693B,0028.c:3)会话恢复帧(读侧)解析面:
     //   >>int count >>int current;count==0 → 默认会话腿;
     //   逐项:>>QString name >>QByteArray payload;(magic > 0xb9e7e615 →
