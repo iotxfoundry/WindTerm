@@ -38,6 +38,14 @@ public:
 	//   text = item->data(0x101).toString();→ rowIndexByName(text)。
 	int currentListRowIndex() const;
 
+	// FUN_0072d0f2(242B,0022.c:53821)整行复位/使能:
+	//   !enable → 逐控件清零(edit.clear / combo.setCurrentIndex(0) /
+	//   spin.setValue(0) / check.setChecked(false) / +0x98 子件重置
+	//   FUN_0056672a(w,0,0,0) cited / label.clear);
+	//   然后按 enable 逐控件 setEnabled(实参同值)。
+	//   注:各清零调用的实参 Ghidra 丢/折叠,按清零语义 0/false 落并注记。
+	void resetRow(bool enable);
+
 	// 语料字段族(供后续 loadWidgets/reset 腿使用)
 	QLabel *m_label30 = nullptr;         // +0x30
 	QAbstractButton *m_check38 = nullptr; // +0x38
