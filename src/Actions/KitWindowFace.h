@@ -112,4 +112,7 @@ public:
 	// 008ca17a(110B,0028.c:11586)子件槽恢复:子件父级为 QSplitter →
 	//   kitSlotIdOf + kitSlotShow(信号 arg 为 false 腿才执行)。
 	void kitRestoreSlotOfChild(QWidget *child);
+	// 008ca17a(110B)槽体:浮停变更信号(bool)——arg 非 0 直返;
+	//   sender(cast 011aaed0)非空 → kitRestoreSlotOfChild(sender)。
+	void kitOnDockFloatChanged(bool floating);
 };

@@ -528,11 +528,13 @@ KitDockFace *kitCreateDock(bool withExpand, QWidget *parent)
 	KitDockFace *dock = new KitDockFace(withExpand, parent); // @0089d9d8(0x58)
 	dock->tabGroup()->tabBar()->setSelectionBehaviorOnRemove(
 	    static_cast<QTabBar::SelectionBehavior>(behavior)); // @0089d9e0
-	// idx0 → FUN_008ce100(= KitWindowFace::kitSetSlotExpanded,真身);
-	// idx1 → FUN_008ca17a(= kitRestoreSlotOfChild,cited 接线 — 信号名未取证)。
+	// idx0 → FUN_008ce100(= kitSetSlotExpanded);idx1 → FUN_008ca17a
+	//   (= kitOnDockFloatChanged)— 两腿均真身(批 214/233)。
 	if (KitWindowFace *kit = kitWindowAncestor(dock)) {
 		QObject::connect(dock, &KitDockFace::expandRequested, kit,
 		                 &KitWindowFace::kitSetSlotExpanded);
+		QObject::connect(dock, &KitDockFace::floatingChanged, kit,
+		                 &KitWindowFace::kitOnDockFloatChanged);
 	}
 	QObject::connect(panel, &QObject::destroyed, dock,
 	                 &QObject::deleteLater); // @0089daxx
@@ -679,4 +681,18 @@ void kitPanelRemoveByName(TabGroup *tabs, const QString &name)
 	const int index = kitPanelIndexByName(tabs, name); // @008b85ba
 	if (index != -1)
 		kitPanelRemoveAt(tabs, index); // @008b85c4
+}
+
+// 008ca17a(110B,0028.c:11586)槽体真身:
+//   param_2 != 0 → 直返;QObject::sender() 空 → 返;sender cast 011aaed0
+//   命中 → parentWidget → dynamic_cast<QSplitter*> → kitSlotIdOf →
+//   kitSlotShow(见 kitRestoreSlotOfChild)。
+void KitWindowFace::kitOnDockFloatChanged(bool floating)
+{
+	if (floating) // 语料 param_2 != 0 → return
+		return;
+	auto *dock = qobject_cast<QWidget *>(sender()); // cast 011aaed0 面
+	if (dock == nullptr)
+		return;
+	kitRestoreSlotOfChild(dock);
 }
