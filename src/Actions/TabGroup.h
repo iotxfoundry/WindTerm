@@ -34,8 +34,8 @@ public:
 
     int insertTabWithMeta(int index, const QString &title,
                           const QIcon &icon);                            // FUN_005a7800
-    void assignTabProperty(int index, const QString &value);             // FUN_005a8818(cited)
-    void setCloseButtonsVisible(bool on);                                // FUN_005a84f6
+    void assignTabProperty(int index, const QString &value);             // FUN_005a8818(真身批 208)
+    void setCloseButtonsVisible(bool on);                                // FUN_005a84f6(真身批 208)
     // setTabText(int,QString)— FUN_005ab09e(0018:24913,218B)落点:
     //   FUN_005a6fbe 取 +0x58 tabBar index 旧文 → 比对相等即返 →
     //   FUN_005a7c74(+0x58,index,title)写新文(写函数 cited — wave-2)。
@@ -49,6 +49,11 @@ private slots:
     void onTabMoved(int from, int to);                                   // FUN_005a7fa7(cited)
 
 private:
+    // 批 208 私有件(QTabBar 公开 API 面,非 Qt 私有结构):
+    QToolButton *sideButtonAt(int index) const;   // FUN_005a6c0e(84B):tabButton+cast
+    void setSideButton(int index, QWidget *w);    // FUN_005a824c(290B):状态门 + setTabButton
+    QToolButton *makeCloseButton(int index);      // FUN_005a6d42(552B)头段:CloseButton 钮
+
     bool m_f30;        // 语料 +0x30(FUN_005a84f6 参数 1 起步)
     bool m_f31;        // 语料 +0x31 ← 1(s_TextLabel_5a859a @005a85e8)
     QString m_f38;     // 语料 +0x38 ← "None"(助记模式;s_FirstNine_5a6b5a 消费)

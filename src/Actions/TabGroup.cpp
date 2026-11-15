@@ -45,18 +45,74 @@ TabBar::TabBar(QWidget *parent)
 }
 
 // === setCloseButtonsVisible(bool) ===
-// 转写 FUN_005a84f6(0018:22994,163B,已读体):+0x30 ← param_2 →
-//   遍历每 tab:FUN_005a6c0e 取钮(cast 面)在 → on 且非当前 tab →
-//   deleteLater+FUN_005a824c(0)拆;钮缺 → on 或非当前 →
-//   s_CloseButton_5a6d42 新建 + FUN_005a824c 挂。s_CloseButton_5a6d42/
-//   FUN_005a824c(QTabBarPrivate 私有面)不入库 → 循环体 cited,
-//   开尾照抄。
-void TabBar::setCloseButtonsVisible(bool on) // FUN_005a84f6
+// 转写 FUN_005a84f6(163B,0018:22994,asm 全读):+0x30 = on;
+//   逐 i<count:btn = FUN_005a6c0e(i)(QTabBar::tabButton(index,+0x40 位)
+//   → dynamic_cast<QToolButton*>);btn 在 → on && currentIndex()!=i →
+//   btn->deleteLater + FUN_005a824c(i,0);btn 不在 → on && currentIndex()!=i
+//   → 跳过;否则 s_CloseButton_5a6d42(i) 建钮 + FUN_005a824c(i,btn);
+//   尾 QWidget::update()@005a8567。
+void TabBar::setCloseButtonsVisible(bool on)
 {
-	m_f30 = on; // *(this+0x30) = param_2 @005a84fb
-	// 每 tab 关闭钮增删循环 @005a8501-856 — cited — wave-2
-	//   (s_CloseButton_5a6d42/FUN_005a824c/QTabBarPrivate 私有依赖)
-	QWidget::update(); // @005a8567
+	m_f30 = on; // *(this+0x30) = param_2 @005a84f6
+	const int n = count();
+	for (int i = 0; i < n; ++i) {
+		QToolButton *btn = sideButtonAt(i); // FUN_005a6c0e @005a8511
+		if (btn != nullptr) {
+			if (on && currentIndex() != i) { // @005a852x
+				btn->deleteLater();          // @005a854x
+				setSideButton(i, nullptr);   // FUN_005a824c @005a855x
+			}
+			continue; // LAB_005a851d
+		}
+		if (on && currentIndex() != i) // @005a851x
+			continue;
+		setSideButton(i, makeCloseButton(i)); // s_CloseButton_5a6d42 @005a8558
+	}
+	update(); // @005a8567
+}
+
+// 005a6c0e(84B,0018:21803)真身:index<0 或 >=count → 0;
+//   QTabBar::tabButton(index,+0x40 位置位)→ dynamic_cast<QToolButton*>(0)。
+QToolButton *TabBar::sideButtonAt(int index) const
+{
+	if (index < 0 || index >= count())
+		return nullptr;
+	QWidget *w = tabButton(index, static_cast<QTabBar::ButtonPosition>(m_f40));
+	return dynamic_cast<QToolButton *>(w);
+}
+
+// 005a824c(290B,0018:22871)真身:
+//   m_f68 列表 detach 后取 index 处值(state 串);w 为空 或 state 不属
+//   {"Normal"(DAT_00cb99b6),"Pinned"} → QTabBar::setTabButton(index,+0x40,w);
+//   否则 w->deleteLater()(状态位不给关闭钮)。
+void TabBar::setSideButton(int index, QWidget *w)
+{
+	if (index < 0 || index >= m_f68.size())
+		return; // 语料无显式钳制,此处按列表边界同相护位
+	const QString state = m_f68.at(index).toString();
+	if (w == nullptr || (state != QLatin1String("Normal")
+	                     && state != QLatin1String("Pinned")))
+		setTabButton(index, static_cast<QTabBar::ButtonPosition>(m_f40), w);
+	else if (w != nullptr)
+		w->deleteLater();
+}
+
+// s_CloseButton_5a6d42(552B,0018:21918)头段真身:
+//   new QToolButton(0x30,this)@005a6d67 → objectName "CloseButton"@005a6da1
+//   → tooltip tr("Close Tab")(0xc8b231 实读)@005a6de8 → setFocusPolicy(0)
+//   @005a6e2x → state = FUN_005a6d00(this,index) → setProperty("state",state)
+//   @005a6e43 → connect(clicked, this, FUN_005a6c62)(关闭页槽 68B,cited)。
+QToolButton *TabBar::makeCloseButton(int index)
+{
+	QToolButton *btn = new QToolButton(this);            // @005a6d67
+	btn->setObjectName(QStringLiteral("CloseButton"));   // @005a6da1
+	btn->setToolTip(tr("Close Tab"));                    // @005a6de8(0xc8b231)
+	btn->setFocusPolicy(Qt::NoFocus);                    // @005a6e2x(esi=0)
+	const QString state = m_f68.value(index).toString(); // FUN_005a6d00 读面
+	btn->setProperty("state", QVariant(state));          // @005a6e43
+	// connect(btn, &QAbstractButton::clicked, this, FUN_005a6c62)@005a6e6e
+	//   — 关闭页槽体(68B)未转写,cited 不落接线。
+	return btn;
 }
 
 // === insertTabWithMeta(int,QString,QIcon) ===
@@ -84,29 +140,37 @@ int TabBar::insertTabWithMeta(int index, const QString &title,
 }
 
 // === assignTabProperty(int,QString) ===
-// 转写 FUN_005a8818(0018:23122,631B,已读体):index 钳制(负/越界返)→
-//   +0x68 QVariant 列表按 index 补空(qlist_qvariant_append)→ detach →
-//   列内旧值 operator== 相等即返 → QString::operator= 写新值 →
-//   FUN_005a6c0e(tabButton@+0x40 位 cast QToolButton)取关闭钮 →
-//   分叉:值=="Normal"/"Pinned" → 钮 deleteLater + FUN_005a824c(置 0);
-//   否则:(+0x30==0 或 index==currentIndex)→ 钮缺则
-//   s_CloseButton_5a6d42 新建 + FUN_005a824c 挂;钮在则
-//   setProperty("state",值);s_king_refreshWidgetStyle(DAT_011c1ce0)→
-//   尾 tabRect + update()。钮面 FUN_005a6c0e/005a824c/s_CloseButton_5a6d42
-//   (QTabBarPrivate 私有依赖)不入库 → 状态面 cited、头尾照抄。
-void TabBar::assignTabProperty(int index, const QString &value) // FUN_005a8818
+// 转写 FUN_005a8818(631B,0018:23122,asm/反编译双读):
+//   @005a8832 index 钳制(负/越界返)→ +0x68 列表按 index 补空
+//   (qlist_qvariant_append)→ 旧值 operator== 新值 → 相等即返 →
+//   QString::operator= 写新值 →钮取 FUN_005a6c0e(005a890f)→
+//   值=="Normal"/"Pinned" → 钮 deleteLater + FUN_005a824c(置 0)@005a8945;
+//   否则:钮缺 → s_CloseButton_5a6d42 建 + FUN_005a824c 挂;钮在 →
+//   setProperty("state",值)→ s_king_refreshWidgetStyle(app,钮,false)
+//   @005a8a0x(cited:状态刷新腿)→ tabRect + QWidget::update()@005a89b5。
+void TabBar::assignTabProperty(int index, const QString &value)
 {
-	if (index < 0 || index >= count()) // 005a8832 钳制(负/越界直返)
+	if (index < 0 || index >= count()) // @005a8832
 		return;
-	// +0x68 列表按 index 补空(qlist_qvariant_append @005a8896-8c2)— cited
-	//   — wave-2(补齐流依赖私有结构)
-	// 列内旧值 ==param_3 相等即返 @005a88e2-8f — cited — wave-2
-	// QString::operator= 写 @005a8907;FUN_005a6c0e 取钮 @005a890f
-	// "Normal"/"Pinned" → 钮删腿 @005a8945-968;s_CloseButton_5a6d42/
-	//   FUN_005a824c/setProperty("state")/s_king_refreshWidgetStyle
-	//   @005a89a5-8a5 — cited — wave-2(关闭钮私有面不入库)
-	// tabRect + QWidget::update @005a89b5-8bd — cited — wave-2
-	(void)value;
+	while (m_f68.size() <= index) // 补空 @005a8896-8c2
+		m_f68.append(QVariant());
+	if (m_f68.at(index).toString() == value) // 相等即返 @005a88e2
+		return;
+	m_f68[index] = value;            // operator= @005a8907
+	QToolButton *btn = sideButtonAt(index); // FUN_005a6c0e @005a890f
+	if (value == QLatin1String("Normal") || value == QLatin1String("Pinned")) {
+		if (btn != nullptr)
+			btn->deleteLater();      // @005a8945
+		setSideButton(index, nullptr); // FUN_005a824c @005a89xx
+	} else if (btn == nullptr) {
+		setSideButton(index, makeCloseButton(index)); // @005a89a5
+	} else {
+		btn->setProperty("state", value); // @005a89xx
+		// s_king_refreshWidgetStyle(app, btn, false)@005a8a0x — cited
+		//   (unpolish/polish 腿,StatusBarFace.cpp 同函数已转写;
+		//    跨文件私有件不复制,留 cited)。
+	}
+	update(); // tabRect + update @005a89b5-8bd
 }
 
 // === setTabText(int,QString) ===
