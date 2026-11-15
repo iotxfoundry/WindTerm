@@ -65,6 +65,15 @@ public:
 	//   +0x88 非空 → 直返;否则 g = currentPaneGroup() →
 	//   FUN_008bca9e(g,1)(= MuxPaneGroup::currentView(true))。
 	QWidget *activeView();
+	// FUN_008cad6a(237B,0028.c:12262)焦点收敛:
+	//   w = activeView();空 → 0;w->activateWindow();父链找 cast 011ab930
+	//   (KitDock)→ FUN_008d9764(dock) 内层页 → setFocus(3);无 dock →
+	//   w->setFocus(3);返回 1。
+	bool focusActiveView();
+	// FUN_008cb0c0(24B)/FUN_008cb0a0(31B)dock 尾刷新:
+	//   focusActiveView() 失败 → g = currentPaneGroup() 非空 →
+	//   FUN_008b9838(g)(找 0119aec0 子件 → FUN_00548630(w,1),cited)。
+	void refreshAfterDockChange();
 	// +0x80 当前页组缓存(FUN_008ca6ca 首读;ctor 清零 @0x8cc70x)。
 	QWidget *m_f80 = nullptr;
 	// FUN_008ca6ca(170B,0028.c:11922)当前页组:

@@ -78,16 +78,15 @@ void KitDockFace::closeWithCollapse()
 						const int id = kit->kitSlotIdOf(sp); // 008ca0b8
 						kit->kitSlotHide(id);                // 008ca168
 					}
-					// 尾刷新腿 FUN_008cb0c0(kit,3)@008b8738 — cited
-					//   (24B 包装:008cad6a 门 + 008cb0a0 体未转写)
+					kit->refreshAfterDockChange(); // 008cb0c0 @008b8738
 					return;
 				}
 			}
 		}
 	}
 	deleteLater(); // @008b8718
-	// 尾:kit = kitWindowAncestor(this) @008b8730;非空 →
-	//   FUN_008cb0c0(kit,3)@008b8738 — cited(同上)。
+	if (KitWindowFace *kit = kitWindowAncestor(this)) // @008b8730
+		kit->refreshAfterDockChange();                // 008cb0c0 @008b8738
 }
 
 // FUN_008b7f60(591B,0027.c:75393)四路接线真身(信号为 TabGroup 索引面,

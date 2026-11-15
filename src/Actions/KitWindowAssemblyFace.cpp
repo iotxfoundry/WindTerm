@@ -18,6 +18,7 @@
 #include <QVariant>
 
 #include "Actions/KitDockFace.h"
+#include "Actions/MuxPaneView.h"
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFactory.h"
 #include "Actions/StatusBarFace.h"
@@ -760,4 +761,45 @@ QWidget *KitWindowFace::activeView()
 	if (group != nullptr)
 		return group->currentView(true); // 008bca9e(g,1)
 	return nullptr;
+}
+
+// FUN_008cad6a(237B,0028.c:12262)焦点收敛真身:
+//   @008cad6a w = FUN_008cabee()(= activeView());空 → 0;
+//   @008cad7x w->activateWindow()(cast 011925c8 后);
+//   @008cad9x 父链 cast 011ab930(KitDock)命中 →
+//     inner = FUN_008d9764(dock)(33B:008d972e + 008dfe24,内层页,
+//     cited);非空 → inner->setFocus(3);返回 1;
+//   无 dock 命中 → w->setFocus(3)@008cadfx;返回 1。
+bool KitWindowFace::focusActiveView()
+{
+	QWidget *w = activeView(); // 008cabee
+	if (w == nullptr)
+		return false;
+	w->activateWindow(); // @008cad7x
+	for (QWidget *p = w; p != nullptr; p = p->parentWidget()) {
+		if (dynamic_cast<KitDockFace *>(p) != nullptr) { // 011ab930 cast
+			// FUN_008d9764(dock) 内层页 — cited(33B 体未转写)
+			QWidget *inner = nullptr;
+			if (inner != nullptr)
+				inner->setFocus(Qt::OtherFocusReason); // 3
+			return true;
+		}
+	}
+	w->setFocus(Qt::OtherFocusReason); // 3 @008cadfx
+	return true;
+}
+
+// FUN_008cb0c0(24B,0028.c:12455)+FUN_008cb0a0(31B,0028.c:12439)真身:
+//   @008cb0c0 if (FUN_008cad6a()) return;FUN_008cb0a0(this);
+//   @008cb0a0 p = FUN_008ca6ca()(= currentPaneGroup());非空 →
+//     FUN_008b9838(p)(79B:findChild<0119aec0>(p,递归)→ FUN_00548630(w,1),
+//     地址栏激活面 — cited)。
+void KitWindowFace::refreshAfterDockChange()
+{
+	if (focusActiveView()) // 008cad6a
+		return;
+	QWidget *group = currentPaneGroup(); // 008ca6ca
+	if (group != nullptr) {
+		// FUN_008b9838(group)@008cb0a0 — cited(子件查 + 00548630(w,1))
+	}
 }
