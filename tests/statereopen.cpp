@@ -16,6 +16,8 @@
 #include "Actions/MainWindowFace.h"
 #include "Actions/StartupChain.h"
 #include "Actions/StateStore.h"
+#include "Editor/ProfileLoader.h"
+#include "Sessions/WorkspaceLoader.h"
 
 int main(int argc, char **argv)
 {
@@ -117,6 +119,122 @@ int main(int argc, char **argv)
 
 	delete pg0;
 	delete pg1;
+
+	// ── t6. 三件套保存侧(批 168):8051f2/80ee76/80efd2/805398/
+	//     8069b0/810c4e 对偶 + 522056 骨架读回对账 ──
+	{
+		QVariantList lib;
+		const QString u1 = QStringLiteral(
+		    "11111111-1111-1111-1111-111111111111");
+		const QString u2 = QStringLiteral(
+		    "22222222-2222-2222-2222-222222222222");
+		QVariantMap s1;
+		s1.insert(QStringLiteral("session.uuid"), u1);
+		s1.insert(QStringLiteral("text"), QStringLiteral("t1"));
+		s1.insert(QStringLiteral("data"), QStringLiteral("d1"));
+		if (!SessionStore::upsert(lib, s1, false))
+			++fails; // 8069b0 param_3==0 → 1(@00806axx)
+		if (lib.size() != 1)
+			++fails; // 805398 追加腿
+		QVariantMap s0;
+		s0.insert(QStringLiteral("session.uuid"), QString());
+		if (SessionStore::upsert(lib, s0, false))
+			++fails; // 空 uuid 卫 → 0
+		if (lib.size() != 1)
+			++fails; // 空 uuid 不追加
+		const QVariantMap back = Workspace::sessionByUuid(lib, u1);
+		if (back.value(QStringLiteral("text")).toString()
+		        != QStringLiteral("t1")
+		    || back.value(QStringLiteral("data")).toString()
+		           != QStringLiteral("d1"))
+			++fails; // 810056 读回对账
+		if (!SessionStore::setField(lib, u1, QStringLiteral("text"),
+		                            QStringLiteral("t2"), false))
+			++fails; // 810c4e 值变 → 1
+		if (Workspace::sessionByUuid(lib, u1)
+		        .value(QStringLiteral("text"))
+		        .toString()
+		    != QStringLiteral("t2"))
+			++fails; // set 读回
+		if (SessionStore::setField(lib, u1, QStringLiteral("text"),
+		                           QStringLiteral("t2"), false))
+			++fails; // 对等门(FUN_00aef040)→ 0
+		if (!SessionStore::setField(lib, u1, QStringLiteral("data"),
+		                            QVariant(), false))
+			++fails; // null → removeMember 腿 → 1
+		if (Workspace::sessionByUuid(lib, u1).contains(
+		        QStringLiteral("data")))
+			++fails; // 摘键读回
+		QVariantMap s1b;
+		s1b.insert(QStringLiteral("session.uuid"), u1);
+		s1b.insert(QStringLiteral("text"), QStringLiteral("t3"));
+		s1b.insert(QStringLiteral("data"), QStringLiteral("d3"));
+		if (!SessionStore::replaceByUuid(lib, u1, s1b))
+			++fails; // 8051f2 命中
+		if (lib.size() != 1)
+			++fails; // 替换不增
+		if (Workspace::sessionByUuid(lib, u1)
+		        .value(QStringLiteral("data"))
+		        .toString()
+		    != QStringLiteral("d3"))
+			++fails; // 换写读回
+		if (SessionStore::replaceByUuid(lib, u2, s1b))
+			++fails; // 未命中 → 0
+		if (!SessionStore::takeByUuid(lib, u1))
+			++fails; // 80ee76 首命中摘除
+		if (!lib.isEmpty())
+			++fails; // count-1
+		if (SessionStore::takeByUuid(lib, u1))
+			++fails; // 二次摘除 → 0
+		// 80efd2 倒序组摘除 + removed 注入缝
+		QVariantList lib2;
+		const QString uA = QStringLiteral(
+		    "aaaaaaaa-1111-1111-1111-111111111111");
+		const QString uB = QStringLiteral(
+		    "bbbbbbbb-2222-2222-2222-222222222222");
+		const QString uC = QStringLiteral(
+		    "cccccccc-3333-3333-3333-333333333333");
+		QVariantMap ga, gb, gc;
+		ga.insert(QStringLiteral("session.uuid"), uA);
+		ga.insert(QStringLiteral("session.group"),
+		          QStringLiteral("临时IP设备"));
+		gb.insert(QStringLiteral("session.uuid"), uB);
+		gb.insert(QStringLiteral("session.group"),
+		          QStringLiteral("临时IP设备"));
+		gc.insert(QStringLiteral("session.uuid"), uC);
+		gc.insert(QStringLiteral("session.group"),
+		          QStringLiteral("本地设备"));
+		lib2 << ga << gb << gc;
+		QVariantList removed;
+		if (!SessionStore::takeByGroup(lib2, QStringLiteral("临时IP设备"),
+		                               &removed))
+			++fails; // uVar6 OR 累积
+		if (removed.size() != 2 || lib2.size() != 1)
+			++fails; // 摘除计数对账
+		if (Workspace::sessionByUuid(lib2, uC).isEmpty())
+			++fails; // 别组保留
+		// 磁盘腿:806958 对偶(ProfileLoader::saveSessions 现役)
+		QVariantMap sd;
+		sd.insert(QStringLiteral("session.uuid"), u2);
+		sd.insert(QStringLiteral("text"), QStringLiteral("tS"));
+		sd.insert(QStringLiteral("data"), QStringLiteral("dS"));
+		QVariantList lib3;
+		lib3 << sd;
+		ProfileLoader pl(tmpDir.path()
+		                 + QStringLiteral("/profiles.save"));
+		if (!pl.saveSessions(lib3) || pl.loadSessions().size() != 1)
+			++fails; // 落盘/读回对账
+		// 522056 骨架读回(text/data/uuid 对账;批 154 读侧)
+		QString title = QStringLiteral("  ws  ");
+		Workspace::LoaderResult lr =
+		    Workspace::workspaceLoader(nullptr, nullptr, title, lib3);
+		if (title != QStringLiteral("ws"))
+			++fails; // trimmed 门 @005220c0
+		if (!lr.keys.contains(QStringLiteral("dS"))
+		    || !lr.kinds.contains(3))
+			++fails; // data 键 + kind3(非 Terminal/Browser 腿)
+	}
+
 	printf("statereopen: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
 	return fails ? 1 : 0;
 }

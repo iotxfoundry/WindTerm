@@ -6,7 +6,8 @@
 #include <QFileInfo>
 #include <QStackedWidget>
 
-#include "WorkspaceLoader.h" // collectorPaneTypeName(FUN_008c9e64 真身)
+#include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
+#include "WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
 
 // === stateStoreSerializePages — FUN_007669b2(571B,0023.c:33468)
 // 窄面真身(头注全出处;&4 段 cited 不落;8cf0c8 页 payload cited
@@ -113,4 +114,159 @@ bool stateStoreWriteReopenHistory(const QList<SavedWindowNode> &table,
 	if (!f.open(QIODevice::WriteOnly))
 		return false; // cVar1='\0' → bVar3=false @005dd770-76
 	return f.write(blob) == qint64(blob.size()); // @005dd781-86
+}
+
+// === SessionStore — 三件套 text/data/session.uuid 保存侧(批 168,
+// 出处清单见 StateStore.h 头注;数组承载替 = QVariantList 注入面)。===
+
+// FUN_00aef040(401B,0035.c:65951)同型比值对偶:异型即不等
+//   (@00aef05b 同型门);null==null 相等(语料 case 0 双空同相)。
+static bool sessionTrioVariantEqual(const QVariant &a, const QVariant &b)
+{
+	if (a.userType() != b.userType())
+		return false; // 不同型不等(@00aef05b 门)
+	switch (a.userType()) {
+	case QMetaType::UnknownType: return true; // null==null(case 0)
+	case QMetaType::Bool:
+		return a.toBool() == b.toBool(); // case 5
+	case QMetaType::Int:
+	case QMetaType::LongLong:
+		return a.toLongLong() == b.toLongLong(); // case 1/2
+	case QMetaType::Double:
+		return a.toDouble() == b.toDouble(); // case 3
+	case QMetaType::QString:
+		return a.toString() == b.toString(); // case 4
+	default:
+		return a == b; // 容器等 — QVariant 对等承载
+	}
+}
+
+// 8051f2(304B,0025.c:40618)uuid 替换腿:空数组/空 uuid 卫
+// (@0080528x 门)→ 顺序扫 json_get_string_default("session.uuid")
+// 对等 → json_value_swap 槽位整条换写(lib[i]=session 同相)。
+bool SessionStore::replaceByUuid(QVariantList &library,
+                                 const QString &uuid,
+                                 const QVariantMap &session)
+{
+	if (uuid.isEmpty()) // *(int *)(*(long *)param_2 + 4) == 0 卫
+		return false;
+	for (int i = 0; i < library.size(); ++i) { // +0xe0 数组腿
+		const QVariantMap m = library.at(i).toMap();
+		if (m.value(QStringLiteral("session.uuid")).toString() == uuid) {
+			library[i] = session; // json_value_swap @008052f3-2a
+			return true;
+		}
+	}
+	return false; // 尾 return 0 同相
+}
+
+// 80ee76(316B,0025.c:45867)uuid 摘除腿:首命中
+//   json_value_remove_take(+0xe0,i,out)→ return;80eb6c 重命名
+//   前置腿 cited(KitView 遍历域,见头注)。
+bool SessionStore::takeByUuid(QVariantList &library, const QString &uuid)
+{
+	if (uuid.isEmpty()) // param_2 空串卫 @0080ef21 前
+		return false;
+	for (int i = 0; i < library.size(); ++i) { // +0xe0 数组腿
+		const QVariantMap m = library.at(i).toMap();
+		if (m.value(QStringLiteral("session.uuid")).toString() == uuid) {
+			library.removeAt(i); // json_value_remove_take @0080ef6d-f2
+			return true;
+		}
+	}
+	return false; // 尾 return 0
+}
+
+// 80efd2(365B,0025.c:45917)组摘除腿:倒序逐项
+//   s_session_group_805a3e(195B 组腿)compare == 0 → 逐项
+//   remove_take,uVar6 OR 累积;removed 注入缝 = 测试对账(语料
+//   逐项析构,收集不发明行为面)。
+bool SessionStore::takeByGroup(QVariantList &library,
+                               const QString &group, QVariantList *removed)
+{
+	bool any = false; // uVar6 OR 累积同相
+	for (int i = library.size() - 1; i >= 0; --i) { // 倒序 @0080f0a0
+		const QVariantMap m = library.at(i).toMap();
+		if (m.value(QStringLiteral("session.group")).toString() == group) {
+			if (removed != nullptr)
+				removed->append(library.at(i)); // 对账缝(见头注)
+			library.removeAt(i); // json_value_remove_take @0080f0f4
+			any = true;          // uVar6 |= uVar3
+		}
+	}
+	return any;
+}
+
+// 805398(139B,0025.c:40687)追加腿:+0xe0 空则数组初始化
+//   (json_value_init_by_type(,6)array 同相 — QVariantList 默认空
+//   同相);FUN_00af5c40(227B)arrayAt 尾交换插入 → append;
+//   FUN_00805342 +0xe8 QHash 缓存清 cited(注入库无缓存)。
+void SessionStore::append(QVariantList &library,
+                          const QVariantMap &session)
+{
+	library.append(session); // @008053bd-06 arrayAt 尾插同相
+}
+
+// 8069b0(211B,0025.c:41501)upsert 腿:json_get_string_default
+//   ("session.uuid","")空 → 0(@008069bx 卫);8051f2 命中替换否则
+//   805398 追加(@00806a35-bb);param_3!=0 → 806958 保存腿。
+bool SessionStore::upsert(QVariantList &library,
+                          const QVariantMap &session, bool save,
+                          const QString &profilePath)
+{
+	const QString uuid = session.value(QStringLiteral("session.uuid"))
+	                         .toString();
+	if (uuid.isEmpty()) // *(int *)(local_a0 + 4) == 0 → 0
+		return false;
+	if (!replaceByUuid(library, uuid, session)) // 8051f2 @00806a35
+		append(library, session);               // 805398 @00806a4x
+	if (!save)                                  // param_3==0 → 1
+		return true;
+	// 806958(80B,0025.c:41482)config_saveFile("/user.sessions")
+	//   = ProfileLoader::saveSessions 现役对偶(批 169);路径腿
+	//   806904 "/user.sessions" 现役同面;profilePath 空 = 语料
+	//   内部面(defaultProfilePath 同相)。
+	ProfileLoader pl(profilePath.isEmpty()
+	                     ? ProfileLoader::defaultProfilePath()
+	                     : profilePath);
+	return pl.saveSessions(library); // config_saveFile 对账 bool
+}
+
+// 810c4e(258B,0025.c:46974)字段对等 set 腿:810056 定位未中 → 0;
+//   json_get_string_default(key,DAT_00d38120 null 缺省)旧值与新值
+//   FUN_00aef040 同型比值;值变 → 非 null set(json_value_swap)/
+//   null removeMember → 8069b0(param_5)收尾。返回 = 变更与否。
+// 注记(null 摘除语义):语料 removeMember 空缺省(DAT_00d38120
+//   json null)对位 — 本承载替中 entry 缺键 == QVariant null;当
+//   旧值与新值同为 null(json 双 null,FUN_00aef040 case 0 相等)
+//   → 无变更返 0;键存在且新值 null → removeMember 腿变更返 1。
+bool SessionStore::setField(QVariantList &library, const QString &uuid,
+                            const QString &key, const QVariant &value,
+                            bool save, const QString &profilePath)
+{
+	const int idx = [&library, &uuid]() -> int { // 810056 对位
+		for (int i = 0; i < library.size(); ++i) {
+			const QVariantMap m = library.at(i).toMap();
+			if (m.value(QStringLiteral("session.uuid")).toString()
+			    == uuid)
+				return i;
+		}
+		return -1;
+	}();
+	if (idx < 0)
+		return false; // 810056 未中 → 0 @00810c9x
+	QVariantMap entry = library.at(idx).toMap();
+	const QVariant oldVal = entry.value(key); // 缺失 = null 缺省同相
+	// 语料对位:json_get_string_default 旧值取自存储条目(键存在才
+	//   有值);键不存在 = null 缺省与新 null 对等 — 对等门先行。
+	if (sessionTrioVariantEqual(oldVal, value))
+		return false; // FUN_00aef040 对等 → 不写(uVar2=0)
+	if (!value.isNull())
+		entry.insert(key, value); // json_value_swap set @00810ce5-f4
+	else
+		entry.remove(key); // json_removeMember @00810d0x null 腿
+	library[idx] = entry;  // 原位同相(语料指针面直写)
+	// 8069b0 收尾(@00810d08-45;uuid 未变 → 8051f2 替换腿同相)。
+	const bool saved = upsert(library, entry, save, profilePath);
+	return saved;
 }

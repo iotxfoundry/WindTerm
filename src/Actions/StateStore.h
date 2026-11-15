@@ -3,6 +3,9 @@
 #include <QList>
 #include <QMainWindow>
 #include <QString>
+#include <QVariant>
+#include <QVariantList>
+#include <QVariantMap>
 
 #include "MainWindowFace.h"
 #include "StartupChain.h" // startupReopenHistoryPath 缺省参路径腿(批 150)
@@ -71,3 +74,64 @@ void stateStoreRemoveWindow(MainWindowFace::Slots winSlots,
 bool stateStoreWriteReopenHistory(const QList<SavedWindowNode> &table,
                                   const QString &historyPath =
                                       startupReopenHistoryPath());
+
+// ── 批 168(M19-④)三件套 text/data/session.uuid 保存侧 ──
+// 探锚 FUN_0076913f(5958B,0023.c:35353)定性 = QMetaType 注册族
+//   (KitWindow smeta 0x11ab660 等 registerNormalizedType ×~20;
+//   pthread_once 注册腿 FUN_0076663e(114B,0023.c:33272),唯一
+//   调用点 = mainWindow_connectSignals FUN_0076b9ec 第 2 步
+//   @0076ba05 CALL 汇编实读)— 元类型面,非写腿本体。
+// 写腿 = CTerminalConfig(DAT_011c2200)+0xe0 user.sessions 数组族
+//   (读侧 = 522056 三件套解析批 154 / 810056 sessionByUuid 对偶):
+//   8051f2(304B,0025.c:40618)uuid 替换;80ee76(316B,0025.c:45867)
+//   uuid 摘除;80efd2(365B,0025.c:45917)组摘除(倒序);
+//   805398(139B,0025.c:40687)追加(+0xe8 QHash 缓存清 cited);
+//   8069b0(211B,0025.c:41501)upsert;810c4e(258B,0025.c:46974)
+//   字段对等 set(FUN_00aef040 401B,0035.c:65951 同型比值)。
+//   保存腿 806958(80B,0025.c:41482)+ 路径腿 806904(75B,0025.c:
+//   41467 "/user.sessions")= ProfileLoader::saveSessions 现役对偶
+//   (批 169);80eb6c(720B,0025.c:45772)摘除前活动视图重命名腿
+//   cited(KitView 0x11a8c20 遍历域;variantmap_set 00a86184 =
+//   QMap 写面已同相承载)。导入族 805b1a/816cae/80cd46/81371e/
+//   815268(putty/openssh/shell 分组判定+条目生成)cited。
+// 数组承载替 = QVariantList 注入面(批 154 判例);条目 = QVariantMap
+//   扁平点号键(SessionManager 判例)。profilePath 缺省空 = 语料
+//   内部面;显式实参 = 测试注入缝(批 150 historyPath 同判)。
+namespace SessionStore {
+
+// 8051f2 对偶:线性扫 session.uuid==uuid → 整条替换(lib[i]=session
+// = json_value_swap 槽位换写同相);命中 true,否则 false。
+bool replaceByUuid(QVariantList &library, const QString &uuid,
+                   const QVariantMap &session);
+
+// 80ee76 对偶:顺序首命中摘除(json_value_remove_take 同相;
+// 空数组/空 uuid 卫 → false;80eb6c 重命名前置腿 cited 不落)。
+bool takeByUuid(QVariantList &library, const QString &uuid);
+
+// 80efd2 对偶:倒序逐项 value("session.group")(805a3e 195B 组腿
+// 内联同相)命中摘除;removed!=nullptr 注入缝收集(语料逐项析构,
+// 收集 = 测试对账缝);返回任一命中(语料 uVar6 OR 累积同相)。
+bool takeByGroup(QVariantList &library, const QString &group,
+                 QVariantList *removed = nullptr);
+
+// 805398 对偶:+0xe8 QHash 缓存清 cited(注入库无缓存同相)→
+// 数组尾插(FUN_00af5c40 arrayAt 尾交换插入同相)。
+void append(QVariantList &library, const QVariantMap &session);
+
+// 8069b0 对偶:uuid 空 → false(@008069bx 卫腿);8051f2 命中替换
+// 否则 805398 追加;save → 806958 保存腿(ProfileLoader::saveSessions
+// 现役;profilePath 空 → defaultProfilePath 内部面)。返回 = 命中/
+// 保存结果(语料 param_3!=0 → 806958 结果;==0 → 1 同相)。
+bool upsert(QVariantList &library, const QVariantMap &session,
+            bool save, const QString &profilePath = QString());
+
+// 810c4e 对偶:sessionByUuid 定位未中 → false;旧值(key 缺失 =
+// QVariant null,DAT_00d38120 缺省同相)与新值同型比值
+// (FUN_00aef040:同型才比,null==null 相等);值变 → set /
+// value.isNull() → removeMember → 8069b0 收尾(save 同上)。
+// 返回 = 变更与否(语料 uVar2 同相)。
+bool setField(QVariantList &library, const QString &uuid,
+              const QString &key, const QVariant &value, bool save,
+              const QString &profilePath = QString());
+
+} // namespace SessionStore
