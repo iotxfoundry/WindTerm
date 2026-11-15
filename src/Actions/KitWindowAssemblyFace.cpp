@@ -824,3 +824,19 @@ void KitWindowFace::activateCrumbsOf(QWidget *group)
 	if (auto *crumbs = group->findChild<BreadCrumbFace *>()) // 0119aec0 面
 		crumbs->setCrumbsActive(true); // FUN_00548630(child, 1)
 }
+
+// FUN_008c9fc2(55B,0028.c:11418)+FUN_006741a0(55B,0020.c:61606)真身:
+//   @008c9fc2 if (+0xa0 != 0) return;pv = operator_new(0x20)+
+//   FUN_006741a0(pv)(ctor:@006741a0 *p = new QListData(shared_null);
+//   p[1] = &DAT_011c5118; *(int*)(p+0x10) = 2; p[3] = &DAT_011c5118)
+//   → +0xa0 = pv。
+void KitWindowFace::ensureStateA0()
+{
+	if (m_fA0 != nullptr) // @008c9fc2 空卫
+		return;
+	auto *state = new StateA0(); // @008c9fc2(operator_new(0x20))
+	// ctor 面:@006741a0 —— list = QListData::shared_null(值承载同相),
+	//   p8/p18 = &DAT_011c5118(共享常量,语义 cited),i10 = 2。
+	state->list.clear(); // shared_null 等价
+	m_fA0 = state;       // @008c9fex 写回
+}

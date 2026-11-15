@@ -59,6 +59,18 @@ public:
 	Splitter *m_split0x58 = nullptr;
 	Splitter *m_split0x60 = nullptr;
 	Splitter *m_split0x68 = nullptr;
+	// +0xa0 懒建状态件(0x20 字节;ctor FUN_006741a0:
+	//   +0x00 QList(shared_null)/+0x08 &DAT_011c5118(共享常量,cited)/
+	//   +0x10 int=2/+0x18 同上)。ensureStateA0 = FUN_008c9fc2(55B):
+	//   +0xa0 非空直返,否则 new+ctor。
+	struct StateA0 {
+		QList<void *> list; // +0x00
+		void *p8 = nullptr; // +0x08
+		int i10 = 2;        // +0x10
+		void *p18 = nullptr; // +0x18
+	};
+	void *m_fA0 = nullptr; // +0xa0
+	void ensureStateA0();
 	// +0x88 当前视图缓存(FUN_008cabee 首读;ctor 清零)。
 	QWidget *m_f88 = nullptr;
 	// FUN_008cabee(49B,0028.c:12130)当前视图:
