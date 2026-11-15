@@ -57,11 +57,26 @@ public:
 	void updateExpandButton(bool expanded);
 	TabGroup *tabGroup() const { return m_tabs; } // +0x30
 
+	// dock_toggleFloat(866B,0027.c:76287 邻)浮停状态机:
+	//   归位腿(!floating):kitSlotSplitter(+0x4c)非空 → 记录全局矩形 →
+	//     setWindowFlags(0)→ insertWidget(+0x50)→ show;
+	//   浮出腿:父须 QSplitter → 退化矩形重算 → +0x4c = kitSlotIdOf(sp)/
+	//     +0x50 = sp->indexOf(this) → 父仅 1 子且祖为 QSplitter →
+	//     尺寸并入邻格后本格置 0(grandparent->setSizes)→ setParent(0)+
+	//     setWindowFlags(d->flags | Qt::Window)→ show → singleShot(0,
+	//     FUN_008b7cdb cited);
+	//   尾:+0x39 = 新值 + emit 信号 idx1(= floatingChanged)。
+	//   几何面:d+0x14..0x20 = QRect 四边(asm 公式 +0x44 = x+(right-left))
+	//     → 等价 QRect(mapToGlobal(0,0), size()).
+	void setFloating(bool floating);
 	bool isFloating() const { return m_f39; } // +0x39
 	bool isDocked() const { return !m_f39; }  // 008b8c76(8B):+0x39 ^ 1
 	void setFloating(bool on) { m_f39 = on; }
 
 signals:
+	// qmeta 索引 idx1(FUN_0091a80c activate idx1,实参 bool)——浮停变更;
+	//   语料名未取证,按语义命名 floatingChanged(cited 名)。
+	void floatingChanged(bool floating);
 	// qmeta 索引 idx0(FUN_0091a7d8 activate idx0,实参 bool)——
 	//   语料名未取证,按转发面命名为 expandRequested(cited 名)。
 	void expandRequested(bool expanding);
@@ -77,4 +92,12 @@ private:
 	TabGroup *m_tabs = nullptr; // +0x30(语料 4 路接线与页操作共同宿主)
 	bool m_withExpand = false; // +0x38 ExpandButton 门控(批 216 勘正)
 	bool m_f39 = false;        // +0x39 浮停旗标
+	// 浮停几何/位置槽(语料 +0x3c/+0x40/+0x44/+0x48 全局矩形四边;
+	//   +0x4c 槽 id;+0x50 splitter 内 index)
+	int m_left3c = 0;
+	int m_top40 = 0;
+	int m_right44 = 0;
+	int m_bottom48 = 0;
+	int m_slot4c = 0;
+	int m_splitIndex50 = 0;
 };

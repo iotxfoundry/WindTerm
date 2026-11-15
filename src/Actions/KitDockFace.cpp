@@ -1,10 +1,13 @@
 // KitDockFace.cpp — 语料 KitDock 两段转写(批 207)
+#include <QRect>
 #include <QSplitter>
+#include <QTimer>
 #include <QToolButton>
 #include <QVBoxLayout>
 
 #include "Actions/KitDockFace.h"
 #include "Actions/KitWindowAssemblyFace.h"
+#include "Actions/KitWindowFace.h"
 #include "Actions/TabGroup.h"
 #include "Actions/ThemeIcons.h"
 
@@ -174,4 +177,74 @@ void KitDockFace::splitPane()
 		return;
 	splitter->insertWidget(index + 1, dock); // @008b90xx
 	// 尺寸平分腿(rect 私有 + 表 + setSizes)@008b914x-921x — cited。
+}
+
+// dock_toggleFloat(866B)真身(asm/反编译双读):
+//   @008b8ce6 if (+0x39 == 新值) return;
+//   归位(!floating):slot = 008ca096(kit,+0x4c)@008b8d0x;非空 →
+//     记录矩形 → setWindowFlags(0) → insertWidget(+0x50) → show;
+//   浮出:父 cast QSplitter 失败 → 整腿跳过;否则:
+//     @008b8dxx 若 (+0x44 < +0x3c || +0x48 < +0x40) → 重算矩形;
+//     +0x4c = 008ca0b8(kit, sp);+0x50 = sp->indexOf(this);
+//     若 sp->count()==1 且 sp 父 cast QSplitter(gp)成功:
+//       sizes = sp->sizes();gi = gp->indexOf(sp);
+//       gi==0 → sizes[1]+=sizes[0];否则 sizes[gi-1]+=sizes[gi];
+//       sizes[gi]=0;gp->setSizes(sizes)@008b8e16-9042;
+//     setParent(0)(实参丢,浮窗无父)@008b90xx;
+//     setWindowFlags(d->flags | 1)(Qt::Window)@008b90xx;
+//     show();QTimer::singleShot(0,this,FUN_008b7cdb)@008b90xx;
+//   尾:+0x39 = 新值 → 0091a80c(this,新值)(信号 idx1)。
+void KitDockFace::setFloating(bool floating)
+{
+	if (m_f39 == floating) // @008b8ce6
+		return;
+	if (!floating) {
+		KitWindowFace *kit = kitWindowAncestor(this);
+		QSplitter *slot = kit != nullptr ? kit->kitSlotSplitter(m_slot4c) : nullptr;
+		if (slot != nullptr) {
+			const QRect g(mapToGlobal(QPoint(0, 0)), size());
+			m_left3c = g.left();      // +0x3c
+			m_top40 = g.top();        // +0x40
+			m_right44 = g.right();    // +0x44 = x + (right-left)
+			m_bottom48 = g.bottom();  // +0x48
+			setWindowFlags(Qt::Widget); // 语料 setWindowFlags(0)
+			slot->insertWidget(m_splitIndex50, this);
+			show();
+		}
+	} else {
+		auto *sp = dynamic_cast<QSplitter *>(parentWidget());
+		if (sp != nullptr) {
+			if (m_right44 < m_left3c || m_bottom48 < m_top40) {
+				const QRect g(mapToGlobal(QPoint(0, 0)), size());
+				m_left3c = g.left();
+				m_top40 = g.top();
+				m_right44 = g.right();
+				m_bottom48 = g.bottom();
+			}
+			KitWindowFace *kit = kitWindowAncestor(this);
+			if (kit != nullptr)
+				m_slot4c = kit->kitSlotIdOf(sp); // 008ca0b8
+			m_splitIndex50 = sp->indexOf(this);
+			if (sp->count() == 1) {
+				if (auto *gp = dynamic_cast<QSplitter *>(sp->parentWidget())) {
+					QList<int> sizes = sp->sizes();
+					const int gi = gp->indexOf(sp);
+					if (gi == 0)
+						sizes[1] = sizes[1] + sizes[0];
+					else if (gi > 0)
+						sizes[gi - 1] = sizes[gi - 1] + sizes[gi];
+					if (gi >= 0 && gi < sizes.size())
+						sizes[gi] = 0;
+					gp->setSizes(sizes);
+				}
+			}
+			setParent(nullptr); // 语料实参 Ghidra 丢(浮窗 = 无父)
+			setWindowFlags(windowFlags() | Qt::Window);
+			show();
+			// QTimer::singleShot(0, this, FUN_008b7cdb)@008b90xx — 闭包体
+			//   (8b7cdb 59B)未转写,cited 不落。
+		}
+	}
+	m_f39 = floating;              // +0x39 写
+	emit floatingChanged(floating); // 0091a80c(信号 idx1)
 }
