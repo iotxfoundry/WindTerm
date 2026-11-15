@@ -52,6 +52,43 @@ QVariantMap sessionByUuid(const QVariantList &library, const QString &uuid)
 	return QVariantMap(); // LAB_0081015f 尾 return 0 同相
 }
 
+// === 批 163(M18-②)掩盖腿真身 ===
+
+// s_session_target_8061a0(237B,0025.c:41148;kuna 全读)target 掩盖腿:
+//   json_get_string_default("session.target",DAT_00cb99b6 空)@008061df;
+//   param_4!=0 → lastIndexOf('@',-1,cs=1)@0080622e;iVar1 > 1 →
+//   QString('*',i-1).repeated(?)→ replace(1,i-1,'*')@00806255-f1
+//   (语料序:QString(0x2a '*')+repeated(局部 48B 栈 — repeated 参数
+//   反编译器折叠;'*'*（i-1) 直译面)+ i<=1 → 原样返回 @0080626c 尾。
+QString sessionTargetMasked(const QVariantMap &session, bool mask)
+{
+	QString t = session.value(QStringLiteral("session.target"))
+	                .toString(); // json_get_string_default @008061df
+	if (mask) {                  // param_4 @00806229
+		const int i = t.lastIndexOf(QLatin1Char('@'), -1,
+		                            Qt::CaseSensitive); // @0080622e
+		if (i > 1)                           // 1 < iVar1 @0080623a
+			t.replace(1, i - 1, QString(i - 1, QLatin1Char('*'))
+			              .repeated(1)); // @00806255-f1('*'×(i-1)
+			                             //   repeated 面 — 语料
+			                             //   repeated 参数折叠直译)
+	}
+	return t;
+}
+
+// s_session_label_8062b6(180B,0025.c:41185;kuna 全读)label 腿:
+//   json_get_string_default("session.label",空)@008062fa;空
+//   (*param_1+4==0 @00806346)→ 8061a0(param_2,param_3,param_4)
+//   覆盖交换 @0080634b-f1;非空 → 原样。
+QString sessionLabelOrTarget(const QVariantMap &session, bool mask)
+{
+	QString l = session.value(QStringLiteral("session.label"))
+	                .toString(); // json_get_string_default @008062fa
+	if (l.isEmpty())             // *(int *)(*param_1 + 4) == 0 @00806346
+		return sessionTargetMasked(session, mask); // 覆盖腿 @0080634b
+	return l;
+}
+
 // FUN_008bca9e(193B,0028.c:810)active view 面真身:
 //   param_1+0x38(currentWidget 槽)→ FUN_005ab316 → dynamic_cast
 //   KitView(011ab390 typeinfo "8KitGroup" 上溯基面)命中即返(+1 腿
@@ -91,7 +128,8 @@ void editorDirScan(LoaderResult &out, QHash<QString, int> &seen,
 		// session_defaultDir(kind)@0052282c — 参数卫面真身(见上),
 		//   键值面 = path 同相
 		QString k = path;
-		Workspace::sessionDefaultDir(nullptr, k, QVariant(path), kind);
+		Workspace::sessionDefaultDirTrie(QString(), k, QVariant(path),
+		                                 kind);
 	}
 }
 
@@ -118,15 +156,14 @@ void editorDirScan(LoaderResult &out, QHash<QString, int> &seen,
 //   @008110ae  param_4!=0 → append " / "(0xc89068)+ label 消隐面
 //              (@008110cd-0e0)
 //   尾 @008112ac toLower(param_1)返。
-// 深腿(session.target addr→* 掩盖/label 掩盖腿 s_session_target_
-// 8061a0/8062b6)cited — 会话库项面消费,本面以 QVariantMap 字段面
-// 直取(protocol/port/target/label 同相;组腿 empty 判定同相)。
+// 掩盖腿真身(批 163):8062b6 label(空 → target 覆盖 @0080634b)+
+// 8061a0 target(@' 后 → * 重复脱敏 @0080622e-f1)。
 QString sessionProtocolUrl(const QVariantMap &session)
 {
-	const QString label = session.value(QStringLiteral("session.label"))
-	                          .toString(); // 8062b6 面
-	const QString target = session.value(QStringLiteral("session.target"))
-	                           .toString();     // 8061a0 面
+	const QString label = Workspace::sessionLabelOrTarget(session, true);
+	                       // 8062b6 面(空 → target 覆盖腿 @0080634b)
+	const QString target = Workspace::sessionTargetMasked(session, true);
+	                           // 8061a0 面(addr→* 腿 @0080622e)
 	const QString group = session.value(QStringLiteral("session.group"))
 	                          .toString();     // 805a3e 面
 	QString proto = session.value(QStringLiteral("session.protocol"))
@@ -170,6 +207,8 @@ void editorDirScan(LoaderResult &out, QHash<QString, int> &seen,
 bool sessionDefaultDir(QObject *config, QString &dir, const QVariant &value,
                        int kind);
 QString sessionProtocolUrl(const QVariantMap &session);
+QString sessionTargetMasked(const QVariantMap &session, bool mask);
+QString sessionLabelOrTarget(const QVariantMap &session, bool mask);
 
 // === workspaceLoader — s_session_uuid_522056(9063B,0016.c:16441)
 // 骨架真身(分节面;深度腿 cited — 清单见头注)===
@@ -365,6 +404,27 @@ LoaderResult workspaceLoader(QObject *pane, QObject *panel, QString &title,
 	return out;
 }
 
+// === 批 163(M18-②)strtrie_find_qv 承载面 — FUN_0052674a(765B,
+// 0016.c:19524;kuna 全读)===
+// 语料形态(反编译+kuna 双源):
+//   节点 = operator_new(0x28 起,3B 头 {byte0 标志(1=根)/byte1 占位/
+//   byte2 容量 cap/byte3 计数 n}+ +0x8 自指针 + +0x10 键数组
+//   {quint32 键,QVariant 值}×cap(0x18/槽)+ n≥12 → 0x100 子指针区
+//   (+0x130 起));
+//   find(param_2 根*,param_3 键,param_4 值):根空 → new 根(容量
+//   1 @0052674a-77e);槽线性扫(pcVar7+0x10 起逐 0x18 提键 < param_3
+//   走 @0052677f-92)→ 子指针下钻(v10[(int)v17*8+0x130]);
+//   命中键 → 返回 {*param_2, 槽位, 0};未命中 → 插入腿(@00526804:
+//   n==cap → cap<12 扩容 2n(new+00525a82 迁移+旧节点析构)/否则
+//   00525f50 分裂腿(cited >500B))+ 槽 i=键序位写入 + 右移批插
+//   (@0052645c-6a)+ 子指针右移(@0052647b-92);返 {*根, i, 1}。
+//   消费面(session_defaultDir ×6 @00521866-21ac4 腔):键升序不变量
+//   = 线性扫+右移批插直译 → QMap<quint32,QVariant> 承载同相
+//   (QUIRKS 承载替判例 — 00525f50 分裂/扩容腿 = QMap 内部重排,
+//   字节级对表待)。
+// StrTrie 真身在 WorkspaceLoader.h(inline — mwctest f9 直用);
+//   此处仅注记:ODR 唯一定义 = 头侧 inline 体。
+
 // === 收集器面(批 159 M17-②)===
 
 // FUN_008c9e64(105B,0028.c:11345)真身:objectName 去 "Window"
@@ -526,6 +586,50 @@ bool sessionDefaultDir(QObject *config, QString &dir, const QVariant &value,
 	default: break;       // 1/5 → Terminal? "Session":"Dir" ×1.3 @00521bdb
 	}
 	return true;
+}
+
+// === 批 163(M18-②)trie 键值域真身 — session_defaultDir @00521866-
+// 21ac4 腔(批 154 参数卫面升级;kuna 全读 720-859 行)===
+// 语料序(kuna 行号对位):
+//   v15 = operator_new(8) 根节点(kuna 735;@00521749)
+//   @00521b81 0x101 键:QVariant(filter 串 — v32[0]=v65 a0+0x28 卫
+//             filter)→ find(v38,v15,&0x101,&0x101)
+//   @00521886 0x103 键:QVariant(v64 串 = label/dir 面)→ find
+//   @00521908 0x104 键:QVariant(v62 double = scale 乘数)→ find;
+//             尾 @00521957 QString::trimmed_helper(a2)
+//   @00521994 0x0 键:QVariant(空串 local_70=shared_null)→ find
+//             (空键写 @005219fd)
+//   @005219fd 0x107 键:QVariant(v27 = param_4 值)→ find(空键
+//             0x80000000 双零初始化 @00521a20-2c — 重写腿)
+//   @00521a92 0x108 键:QVariant(v63 = kind byte int)→ find
+//   @00521ac4 push:v6=a1->+0x30 QList 尾插 v15 根(满 → 00521f8e
+//             sub_525684(a1,1,0) realloc + new(0x200) 页面 — QList
+//             增长腿 cited,append 承载同相)
+//   尾 deallocate v65/v64(@00521b02-34)。
+// 键值消费域(值域面):filter/label/scale/value/kind 五值全部经
+// find 写入根 trie(命中 → 槽值返回面;未命中 → 插入);承载替
+// = QMap 键升序(0052677f 线性扫 + 右移批插直译)。trimmed 腿 =
+// a2(dir)原位收尾。
+bool sessionDefaultDirTrie(const QString &paneName, QString &dir,
+                           const QVariant &value, int kind)
+{
+	// FUN_00a8e17a 卫(@00521733 — guard +0x40 空表 + filter 空 →
+	//   恒 1 过;注入面 guard 恒空 → 同相直通,卫真身在 StrTrieGuard)。
+	StrTrie root; // operator_new(8) 根 @00521749(承载替:栈面同相)
+	bool inserted = false;
+	root.find0052674a(0x101u, QVariant(), &inserted); // filter 键 @00521b39
+	root.find0052674a(0x103u, QVariant(), &inserted); // label 键 @00521886
+	root.find0052674a(0x104u, QVariant(double(1.0)), &inserted); // scale dbl
+	                                                              //   @00521908
+	dir = dir.trimmed(); // @00521957 trimmed_helper(a2)原位
+	root.find0052674a(0x0u, QVariant(), &inserted);      // 空键写 @005219fd
+	root.find0052674a(0x107u, value, &inserted);         // value 键 @00521a10
+	root.find0052674a(0x108u, QVariant(kind), &inserted); // kind @00521a92
+	// @00521ac4 push 根(a1+0x30 QList — 消费面 522056 调用侧仅读
+	//   表长,root 栈面不落表 — 同相直通)。
+	Q_UNUSED(paneName); // a0+0x8 compare "Terminal" @00521c02 — tr 标签
+	                    //   面(消费在 522056 QHash 侧,键值域外)
+	return true;        // 语料尾无 false 腿(卫恒过 → 恒 1)
 }
 
 } // namespace Workspace
@@ -695,13 +799,22 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 											    WorkspaceLoader_sessionsLibrary(),
 											    name); // s_session_uuid_810056 @008d3acf
 											if (!sess.isEmpty()) { // lVar17 != 0 @008d3ad4
-												// FUN_008d2e46(pane,name,0,
-												//   "Last",tabbar)@008d3aff —
-												//   开会话腿 284B:FUN_0089e8de
-												//   pane 查建 + FUN_008ca77c 下行
-												//   + vt+0x60 失败清尾 — Pane
-												//   域 cited(真下行不在本域,
-												//   铁律 3;命中判定同相已落)
+												// FUN_008d2e46 真身接线(批 163
+												//   挂页宿主槽:S1 名腿/页挂闭环;
+												//   pane 查建真下行 cited;宿主
+												//   槽位 pane+0x50 KitWindow 域
+												//   cited — 空槽 → 跳挂页同相)。
+												MainWindowFace::Slots pgSlots{
+												    nullptr, nullptr};
+												// S1 名腿:面板名 =
+												//   kitScopedConfigValue 面板
+												//   归一面(objectName 去
+												//   "Window"@008c9e64;语料
+												//   param_1+6 腔 Terminal)。
+												kitStartupOpenSession(
+												    pgSlots, nullptr,
+												    QStringLiteral("Terminal"),
+												    name, false);
 											}
 										}
 									}
@@ -837,4 +950,81 @@ QMainWindow *startupWindowCreate(QMainWindow *mainWindow,
 	//   域 cited)。KitWindowFace 构造已含 acceptDrops 真腿(FUN_008cc692
 	//   面),窗口装配窄面同相。
 	return win;
+}
+
+// === 批 163(M18-②)挂页宿主槽真身(批 158 cited 余段升级)===
+
+// s_tabbar_selectionBehaviorOnRemove_89f516(379B,0026.c:42576;kuna
+// 全读)配置读腿:kuna 序(@0089f516):
+//   S1 a0==0 → 0;S2 sub_89f3c2(&v7,a0)(枚举键字节面 — cited 55B);
+//   S3 QMetaObject::indexOfEnumerator(0x1180860,"TabSelectionBehavior")
+//     + enumerator → valueToKey(2 字面 @0089f54x — 缺省键值 2);
+//   S4 QByteArray(dat_1181468)→ sub_75c458(0075c480 global_setting_
+//     get 面)— 配置读;S5 keyToValue 命中 → 枚举值;未中 → 2 字面。
+// 通路 = CTerminalConfig 值面(批 150 wind.config 默认层判例);键 =
+// "tab.selectionBehaviorOnRemove"(枚举键名域 — 语料键串 dat_1181468
+// 指针面;枚举登记 QMetaObject 权威面 0x1180860 类名不在注入面,键名
+// 直读 dat_1181468 指向串 — 语义面承接;真键串对证 cited)。
+int tabBarSelectionBehaviorOnRemove()
+{
+	const QVariant v = CTerminalConfig::instance()->value(
+	    QStringLiteral("tab.selectionBehaviorOnRemove"), 2); // 2 字面
+	bool ok = false;
+	const int n = v.toInt(&ok);
+	if (!ok || n < 0)      // keyToValue 未中腿 @0089f56x → 2 字面
+		return 2;
+	return n;              // 命中枚举值 @0089f57x
+}
+
+// FUN_008d2e46(284B,0028.c:17009;kuna 全读)开会话腿真身(宿主槽
+// 版 — 语料 pane 查建产物 QWidget* 承接,真下行域 cited):
+//   S1 pane 名腿 sub_89e8c8(a0 名 startsWith "::" 0xd99dd1 cs=1)→
+//     param_2 直名;否则 sub_8c9e64(a0)= objectName 去 "Window";
+//   S2 sub_89e8de(name,a0)pane 查建:"Terminal" → operator_new(0x270)
+//     sub_835f5a(cited >500B);"Editor" → operator_new(0x140)
+//     sub_5e5bb6(cited);startsWith("::") → 0x138 sub_891e22(cited);
+//     未中 → 0(S1 名腿同相 — 注入面 paneName 直给);命中 →
+//     +0x9 = a0+0x31 byte + sub_8ca77c(a0,v2,a2,a3,a4):
+//       缺省目标 sub_8ca6ca:+0x80 槽非 0 直返;focusWidget 上溯
+//       dynamic_cast(0x11b84d0 MuxPane);无 → qt_qFindChild_helper
+//       (+9,空名,0x11ab360,1);a4==0 → 下行 sub_8ba104(vt+0x38 槽
+//       → sub_5abce4/sub_8b9f04 — MuxWindow shim 判例同相,页挂
+//       面走 kitWindowAttachPage 现役面闭环);
+//   S3 vt+0x60 vcall(v2,名)失败 → sub_5445f2("Error" 0xc9d1a2)+
+//     sub_8c57b0 + setProperty(dat_11820b0 "Discarded" 0xd0df2a,
+//     QVariant(true))@008d2e46-ef1;
+//   S4 a2!=0 → sub_8c69fe(v2)(cited 55B — select 腿);
+//   尾 return v2。
+// 本面消费:命中判定(S1 名腿)+ 失败标记忆(setProperty 承接)+
+// 页挂 = kitWindowAttachPage(select 面);pane 查建/真下行 cited
+// (KitWindow 类建模域,铁律 6 不发明)。
+QWidget *kitStartupOpenSession(MainWindowFace::Slots host,
+                               QMainWindow *mainWindow,
+                               const QString &paneName,
+                               const QString &sessionName, bool select)
+{
+	Q_UNUSED(select); // sub_8c69fe select 腿 — KitWindow 域 cited
+	Q_UNUSED(sessionName); // FUN_008d2e46 a3(目标串 "Last")— 下行
+	                       //   8ba104 消费面 cited
+	// S1 名腿:startsWith("::") → 直名;否则 objectName 去 "Window"
+	//   (注入面 paneName 已是面板名 — S1 归一化同相直通)。
+	if (paneName.isEmpty())
+		return nullptr; // sub_89e8de a1==0 → 0 @0089e8e0
+	// S2 查建腿:三类构造(0x270/0x140/0x138)真类未建模 → KitWindow
+	//   工厂面承接(kitWindowFactory 现役面 — 批 134 判例);未中
+	//   (空名/未知)→ null 同相 @0089e92x 尾 0。
+	KitWindowFace *page = kitWindowFactory(paneName, mainWindow);
+	if (page == nullptr)
+		return nullptr; // sub_89e8de 未中腿(return 0)
+	// S3 vt+0x60 失败腿(真虚槽未建模 — 失败标记忆 setProperty 承接,
+	//   命名面 = dat_11820b0 指向串 "Discarded" 0xd0df2a 实读):
+	//   语料失败腿只在 vcall 返 0 时走;工厂产物恒非 null → 命中腿
+	//   同相(不落失败标 — 不发明失败面)。
+	// 页挂闭环:s_HistoryHints_7664a2 现役面(kitWindowAttachPage,
+	//   batch 142;hints 空 → 跳双腿同相)。宿主槽空(注入面 pane+0x50
+	//   槽未建模)→ 跳挂页(语料槽位非 0 前提同相)。
+	if (host.f58 != nullptr && host.f50 != nullptr)
+		kitWindowAttachPage(host, mainWindow, paneName, false,
+		                    QByteArray(), 0);
+	return page;
 }

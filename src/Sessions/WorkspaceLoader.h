@@ -5,9 +5,11 @@
 #include <QMainWindow>
 #include <QString>
 #include <QStringList>
+#include <QMap>
 #include <QVariantList>
 
 #include "Actions/KitWindowFace.h"
+#include "Actions/MainWindowFace.h"
 
 // 批 154(M16-①)— 工作区装载器分段 + 启动余量。
 // 段清单(铁律 1/3/6:每行有出处;cited 段挂地址清单,不发明):
@@ -117,6 +119,33 @@ public:
 LoaderResult workspaceLoader(QObject *pane, QObject *panel, QString &title,
                              const QVariantList &sessionLibrary);
 
+// ── 批 163(M18-②)strtrie_find_qv 承载面(session_defaultDir 键值域)──
+//
+// FUN_0052674a strtrie_find_qv(765B,0016.c:19524)承载替(kuna 全读;
+// 键升序不变量 = 槽线性扫 + 右移批插直译 → QMap 承载同相;inline —
+// mwctest f9 直用):
+struct StrTrie
+{
+	QMap<quint32, QVariant> cells; // 槽线性扫+右移批插 → 键升序承载
+	QVariant find0052674a(quint32 key, const QVariant &value,
+	                      bool *inserted) // 命中槽值/新插零值
+	{
+		auto it = cells.constFind(key); // @0052677f 线性扫(< key 走)
+		*inserted = (it == cells.cend());
+		if (*inserted)
+			cells.insert(key, value); // @00526804 插入腿(右移批插
+			                          //   = QMap 序保持同相)
+		else
+			return it.value(); // 命中 {*root,i,0} 面
+		return QVariant();     // 未命中返 {*root,i,1} 零值同相
+	}
+};
+// FUN_00521702 @00521866-21ac4 trie 腔真身(×6 find + trimmed +
+// push 根):返回恒 1(卫恒过 — guard 空表同相);dir 原位 trimmed
+// (@00521957)。
+bool sessionDefaultDirTrie(const QString &paneName, QString &dir,
+                           const QVariant &value, int kind);
+
 // ── 批 159(M17-②)收集器/defaultDir/扫描/protocol 面 ──
 
 // FUN_008c9e64(105B,0028.c:11345):objectName 去 "Window"
@@ -136,22 +165,29 @@ QList<QString> collectorEditorFilePaths(const QObject *pane);
 // 对位面 — MuxPane/KitView 上溯腿 cited)。
 QWidget *collectorActiveView(const QObject *panel);
 
-// FUN_00521702(2297B,0016.c:15428)session_defaultDir 参数卫面:
-// kind 分派标量/tr 标签/1.3·1.5·1.1·2.0 scale 乘数已转写(.rodata
-// 实读),trie 键值消费域(strtrie_find_qv ×5 @00521866 腔)与
-// case 8 段(语料 bad-instruction 0xc89127)cited。
-bool sessionDefaultDir(QObject *config, QString &dir, const QVariant &value,
-                       int kind);
+
 
 // s_session_protocol_810d6e(1760B,0025.c:47022)URL 拼面:protocol://
 // [group/]target[:port](SSH:22/Telnet:23 缺省腿)+ " / " label 腿 +
-// toLower 尾;session.target addr→* 掩盖腿(8061a0/8062b6)cited。
+// toLower 尾;掩盖腿真身 s_session_target_8061a0(237B)/
+// s_session_label_8062b6(180B,批 163)。
 QString sessionProtocolUrl(const QVariantMap &session);
 
 // 810056 对位查面(uuid→条目):user.sessions 数组线性扫 session.uuid
 // (s_session_uuid_810056,1408B,0025.c:46473;DAT_011c2200+0xe0 +
 // +0xf0 双源腿 — 本面单源 = 注入库,QHash 缓存腿 0xe8 cited)。
 QVariantMap sessionByUuid(const QVariantList &library, const QString &uuid);
+
+// s_session_target_8061a0(237B,0025.c:41148)target 掩盖腿真身:
+//   json_get_string_default("session.target",空)→ param_4!=0 且
+//   lastIndexOf('@',-1,cs=1) > 1 → replace(1, idx-1, '*' 重复
+//   idx-1 次)(@0080622e-f1;addr→* 脱敏)。
+QString sessionTargetMasked(const QVariantMap &session, bool mask);
+
+// s_session_label_8062b6(180B,0025.c:41185)label 腿真身:
+//   json_get_string_default("session.label",空);空 → target 覆盖
+//   (8061a0 mask 腿同参 @0080634b-f1)。
+QString sessionLabelOrTarget(const QVariantMap &session, bool mask);
 
 } // namespace Workspace
 
@@ -208,6 +244,38 @@ QVariantMap sessionByUuid(const QVariantList &library, const QString &uuid);
 // (@008d3b60,flags&1==0 时 — 非 startup 链,cited)。
 bool kitStartupSessions(QObject *panel, const QByteArray &payload,
                         quint32 flags);
+
+// s_kit_startupSessions_8d2f7e 挂页宿主槽(批 163 升真身段):
+//   s_tabbar_selectionBehaviorOnRemove_89f516(pageType byte)—
+//   379B,0026.c? 语料:QMetaEnum("TabSelectionBehavior" 0x1180860)
+//   valueToKey(2)→ config QByteArray 键 → 0075c480 global_setting_get
+//   → keyToValue(缺省 2 @0089f51x);退化为配置读面(CTerminalConfig
+//   "tab.selectionBehaviorOnRemove" 缺省 2 — 枚举键面 qmo_extract
+//   判例;深枚举登记 cited)。
+//   openSessionLegPane = FUN_008d2e46(284B)真身:
+//     pane 名腿 = sub_89e8c8(panel 名 startsWith "::" 0xd99dd1)→
+//     param_2 直名;否则 8c9e64(objectName 去 "Window")→
+//     sub_89e8de(pane 查建:"Terminal" → operator_new(0x270)
+//     sub_835f5a(cited);"Editor" → 0x140 sub_5e5bb6(cited);
+//     其他 startsWith("::") → 0x138 sub_891e22(cited);未中 → 0);
+//     命中 → +0x9 = panel+0x31 byte + sub_8ca77c 下行(缺省目标
+//     sub_8ca6ca:focusWidget 上溯 MuxPane 动态 cast;无 → +9 stack
+//     当前 0x11ab360 查;下行 addWidget+activate 8b9f04 — MuxWindow
+//     域 shim 判例同相,页挂面走宿主槽)+ vt+0x60 失败腿
+//     (sub_5445f2 "Error" 0xc9d1a2 + setProperty dat_11820b0
+//     "Discarded"/QVariant(true))+ param_3!=0 → sub_8c69fe(cited)。
+//   本面以 MainWindowFace::Slots 承接宿主(页挂 = kitWindowAttachPage
+//   现役面闭环 — 语料 pane+0x50/+9 槽对位 f50/f58;pane 查建产物
+//   QWidget* 承载返回,真 KitWindow 类建模域 cited)。
+QWidget *kitStartupOpenSession(MainWindowFace::Slots host,
+                               QMainWindow *mainWindow,
+                               const QString &paneName,
+                               const QString &sessionName, bool select);
+
+// 窗条切换腿(批 163 挂页宿主槽延伸:@008d34c3 vt+0x1d0 虚槽
+// "MenuBar"/"StatusBar"/"ToolBar",!b 切换 — 槽位经 setProperty 承接
+// 已落 kitStartupSessions;本函数 = 89f516 配置读腿复用面)。
+int tabBarSelectionBehaviorOnRemove();
 
 // FUN_008cba1c(253B,0028.c:12847)键前缀化真身:QByteArray 键 →
 // QString → FUN_008c9e64(panel)objectName 去 "Window" →

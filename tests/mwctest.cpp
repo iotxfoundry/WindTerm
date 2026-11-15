@@ -706,19 +706,26 @@ int main(int argc, char **argv)
 	}
 
 	// f7. session_defaultDir 参数卫面(521702 批 159):kind 分派
-	//     标量腿(applet 尾 2.0 腿/kind<=3 separator 腿)。
+	//     标量腿(applet 尾 2.0 腿/kind<=3 separator 腿)— 批 163 起
+	//     键值域真身 sessionDefaultDirTrie(返回恒 1 卫面同相:kind
+	//     标量腿已并入 522056 调用侧;此处断言恒 1 + trimmed 腿)。
 	{
 		QString d = QStringLiteral("/opt/my.applet");
-		if (!Workspace::sessionDefaultDir(nullptr, d, QVariant(), 1))
-			++fails; // kind<=3 卫腿 @00521776(applet 尾命中)
-		QString d2 = QStringLiteral("/home/u/term");
-		if (!Workspace::sessionDefaultDir(nullptr, d2, QVariant(), 2))
-			++fails; // kind=2 defaultDir 腿 @005217ad(1.5 标量域)
+		if (!Workspace::sessionDefaultDirTrie(QStringLiteral("Terminal"),
+		                                      d, QVariant(), 1))
+			++fails; // 卫恒 1 同相(@00521733 guard 空表腿)
+		QString d2 = QStringLiteral("  /home/u/term  ");
+		if (!Workspace::sessionDefaultDirTrie(QStringLiteral("Terminal"),
+		                                      d2, QVariant(), 2))
+			++fails;
+		if (d2 != QStringLiteral("/home/u/term"))
+			++fails; // trimmed_helper 原位腿 @00521957
 		QString d3;
-		if (Workspace::sessionDefaultDir(nullptr, d3, QVariant(), 8))
-			++fails; // case 8 语料 bad-instruction 段 → false 同相
-		if (!Workspace::sessionDefaultDir(nullptr, d3, QVariant(), 7))
-			++fails; // kind=7 Recent 腿 @00521c75
+		if (!Workspace::sessionDefaultDirTrie(QStringLiteral("Terminal"),
+		                                      d3, QVariant(), 8))
+			++fails; // kind=8 → CMP 7 JA 腿(@00521e92)直入 trie 腔
+			         //   → 正常返 1(0xc89127 bad-instruction 段
+			         //   = switch 表内不可达域,批 159 面勘正)
 	}
 
 	// f8. kitStartupSessions splitter 段消费接线(批 158):splitter 布局
@@ -736,6 +743,101 @@ int main(int argc, char **argv)
 		QWidget s6Host;
 		if (!kitStartupSessions(&s6Host, s6, 1u))
 			++fails; // 空 splitter 段:读游消费直过 → return 1(@008d3c17)
+	}
+
+	// f9. 批 163:trie 键值域(StrTrie/0052674a 承载面)+ 掩盖腿
+	//     (8061a0/8062b6)+ 挂页宿主槽(8d2e46 面)。
+	{
+		// strtrie_find_qv 承载面:命中返槽值/未命中插入返零
+		//   (@0052677f 线性扫 + @00526804 插入腿)。
+		Workspace::StrTrie t; // cpp 侧 StrTrie(WorkspaceLoader.h 文档注记块已删)
+		bool ins = false;
+		if (!t.find0052674a(0x101u, QVariant(7), &ins).isNull() || !ins)
+			++fails; // 首查未命中 → 零值 + inserted=1(@00526804)
+		if (t.find0052674a(0x101u, QVariant(9), &ins) != QVariant(7) || ins)
+			++fails; // 二查命中 → 槽值 7(@0052677f 命中面)
+		// 键升序不变量(右移批插直译 — QMap 序承载同相)
+		t.find0052674a(0x103u, QVariant(), &ins);
+		t.find0052674a(0x0u, QVariant(), &ins);
+		QList<quint32> ks = t.cells.keys();
+		if (ks != (QList<quint32>() << 0u << 0x101u << 0x103u))
+			++fails; // 升序(@0052645c 右移批插直译)
+
+		// sessionDefaultDirTrie(521702 trie 腔):trimmed 腿 @00521957。
+		QString dd = QStringLiteral("  /opt/x  ");
+		if (!Workspace::sessionDefaultDirTrie(QStringLiteral("Terminal"),
+		                                      dd, QVariant(), 1))
+			++fails;
+		if (dd != QStringLiteral("/opt/x"))
+			++fails; // trimmed_helper 原位腿 @00521957
+
+		// 8061a0 掩盖腿:'@' 后 → '*'(i-1 次);i<=1 → 原样。
+		QVariantMap m1;
+		m1.insert(QStringLiteral("session.target"),
+		          QStringLiteral("user@host.example"));
+		if (Workspace::sessionTargetMasked(m1, true)
+		    != QStringLiteral("u***@host.example"))
+			++fails; // replace(1,i-1,'*'×(i-1))@00806255-f1
+		             //   (i=4 → 3 星)
+		if (Workspace::sessionTargetMasked(m1, false)
+		    != QStringLiteral("user@host.example"))
+			++fails; // param_4=0 → 原样 @00806229
+		QVariantMap m2;
+		m2.insert(QStringLiteral("session.target"),
+		          QStringLiteral("plainhost"));
+		if (Workspace::sessionTargetMasked(m2, true)
+		    != QStringLiteral("plainhost"))
+			++fails; // 无 '@'(idx=-1)→ 原样腿
+		QVariantMap m3;
+		m3.insert(QStringLiteral("session.target"),
+		          QStringLiteral("a@b"));
+		if (Workspace::sessionTargetMasked(m3, true)
+		    != QStringLiteral("a@b"))
+			++fails; // i==1 不 >1 → 原样 @0080623a 门
+
+		// 8062b6 label 腿:空 → target 覆盖;非空 → 原样。
+		QVariantMap m4;
+		m4.insert(QStringLiteral("session.target"),
+		          QStringLiteral("u@h"));
+		if (Workspace::sessionLabelOrTarget(m4, true)
+		    != QStringLiteral("u@h"))
+			++fails; // label 空 → target 覆盖 @0080634b
+		m4.insert(QStringLiteral("session.label"), QStringLiteral("L"));
+		if (Workspace::sessionLabelOrTarget(m4, true)
+		    != QStringLiteral("L"))
+			++fails; // label 非空 → 原样 @00806346
+
+		// protocol URL 面掩盖腿同相:target 含 '@' → URL 已脱敏。
+		QVariantMap m5;
+		m5.insert(QStringLiteral("session.protocol"),
+		          QStringLiteral("SSH"));
+		m5.insert(QStringLiteral("session.target"),
+		          QStringLiteral("secret@corp.io"));
+		m5.insert(QStringLiteral("session.port"), 22);
+		const QString u = Workspace::sessionProtocolUrl(m5);
+		if (u != QStringLiteral("ssh://s*****@corp.io"))
+			++fails; // 8061a0 真腿入 URL(@00810dce 消费;i=6 → 5 星)
+
+		// tabBarSelectionBehaviorOnRemove(89f516 面):配置未命中
+		//   → 2 字面(缺省键值 @0089f54x)。
+		if (tabBarSelectionBehaviorOnRemove() != 2)
+			++fails;
+
+		// kitStartupOpenSession(8d2e46 宿主槽面):命中 → 页挂产物;
+		//   未知名 → null(@0089e92x 尾 0)。
+		MainWindowFace::Slots emptySlots{nullptr, nullptr};
+		if (kitStartupOpenSession(emptySlots, &mwHost,
+		                                     QStringLiteral("Nope"),
+		                                     QStringLiteral("s"), false)
+		    != nullptr)
+			++fails; // 工厂未中腿 → null(sub_89e8de 未中同相)
+		QWidget *pg = kitStartupOpenSession(
+		    emptySlots, &mwHost, QStringLiteral("Editor"),
+		    QStringLiteral("s"), false);
+		if (pg == nullptr)
+			++fails; // 命中腿产物非 null(空宿主槽 → 跳挂页同相)
+		else
+			delete pg; // 工厂产物自持(未入 stack — 测试消偿)
 	}
 
 	delete edW;
