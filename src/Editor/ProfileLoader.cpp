@@ -80,9 +80,23 @@ bool ProfileLoader::saveSessions(const QVariantList &sessions) const
 	QFile f(m_profilePath + QStringLiteral("/terminal/user.sessions"));
 	if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate))
 		return false;
+	// 批 171 序列化同构(config_saveFile 底座 00a801c6 → FUN_00aef8c0
+	// ctor → 00d38620 vtable[2]=FUN_00afc1b0 0035.c:75571):
+	//   缩进 = FUN_00af8810(0035.c:73112)流态 0x40000004a(asm 0xaef849
+	//   movabs 实读)→ +0x34=4 空格(FUN_00af8a00 0035.c:73222 缩进串)/
+	//   +0x30=74 rightMargin;键值分隔 " : "(json_toStream 00afb830
+	//   0035.c:75489 区段 append);中文原样 UTF-8(jsoncpp_writeString
+	//   00afa810 0035.c:74563 全 >0x1f raw 直包 → emitUTF8=true);
+	//   尾换行(FUN_00afc1b0 @00afc1d6 append "\n");profiles.config
+	//   原版产物样本实证同相({\n    "path" : "~"\n})。
+	// 键序差 cited:jsoncpp std::map 字典序 vs 原版成员向量插入序
+	//   (FUN_00af34a0 直扫)——读回等价,无键序语义消费实证。
 	Json::StreamWriterBuilder wb;
-	wb.settings_["indentation"] = "    ";
-	f.write(Json::writeString(wb, root).c_str());
+	wb.settings_["indentation"] = "    ";   // +0x34 = 4(0xaef849)
+	wb.settings_["emitUTF8"] = true;        // 00afa810 raw-emit 形态
+	std::string doc = Json::writeString(wb, root);
+	doc += '\n';                            // FUN_00afc1b0 尾 \n
+	f.write(doc.data(), (qint64)doc.size());
 	return true;
 }
 
@@ -149,7 +163,14 @@ bool ProfileLoader::saveConfigPath(const QString &dirAbs,
 	if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate))
 		return false;                       // config_saveFile open 失败腿
 	                                        //   (QMessageBox 交互腿不落 — 宿主域 cited)
+	// 批 171 同构(批 169 注升级):缩进 4 空格/" : "/尾 \n 同
+	// config_saveFile 底座(0035.c:73112+75571;profiles.config 原版
+	// 产物样本 {"path" : "~"} 4 空格实证)。
 	Json::StreamWriterBuilder wb;            // FUN_00aef8c0 序列化底座 jsoncpp 委托
-	f.write(Json::writeString(wb, root).c_str());
+	wb.settings_["indentation"] = "    ";    // +0x34 = 4(0xaef849)
+	wb.settings_["emitUTF8"] = true;         // 00afa810 raw-emit
+	std::string doc = Json::writeString(wb, root);
+	doc += '\n';                             // FUN_00afc1b0 尾 \n
+	f.write(doc.data(), (qint64)doc.size());
 	return true;                            // @00a803b4 尾返 1
 }

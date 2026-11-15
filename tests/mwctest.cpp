@@ -980,6 +980,169 @@ int main(int argc, char **argv)
 		//   对账,读侧解析腿("~"→homePath 插入 @005d88d4)真身在库。
 	}
 
+	// f12. 批 171:user.sessions 序列化同构 roundtrip(config_saveFile
+	//      底座 00a801c6 → 00aef8c0 → 00d38620 vtable[2]=00afc1b0)。
+	//      语料形态断言:缩进 4 空格(FUN_00af8810 0035.c:73112 流态
+	//      0x40000004a,+0x34=4 asm 0xaef849 实读)/ 键值 " : " 分隔
+	//      (json_toStream 00afb830 0035.c:75489)/ 中文原样 UTF-8
+	//      (jsoncpp_writeString 00afa810 0035.c:74563 全 >0x1f raw
+	//      直包,无 \uXXXX 深转义)/ 尾换行(FUN_00afc1b0 @00afc1d6
+	//      append "\n")/ 顶层数组-of-对象三层嵌套(json_toStream
+	//      case7 + FUN_00afc4f0 case6 实证形态)。键序差 cited 登记
+	//      (jsoncpp 字典序 vs 原版 FUN_00af34a0 插入序;读回等价)。
+	{
+		int f12 = 0; // 本地细分(诊断后收敛)
+		const QString prof = QStringLiteral("/tmp/wt-b171-fake");
+		QVariantList lib;
+		{
+			QVariantMap s;
+			s.insert(QStringLiteral("session.uuid"),
+			         QStringLiteral("u-171-a"));
+			s.insert(QStringLiteral("session.label"),
+			         QStringLiteral("中文终端"));          // raw UTF-8 腿
+			s.insert(QStringLiteral("session.host"),
+			         QString());                            // 空串腿
+			s.insert(QStringLiteral("session.port"), 3023);
+			s.insert(QStringLiteral("session.keepAlive"), true);
+			lib.append(s);
+		}
+		{
+			QVariantMap s;
+			s.insert(QStringLiteral("session.uuid"),
+			         QStringLiteral("u-171-b"));
+			s.insert(QStringLiteral("session.label"),
+			         QStringLiteral("β-portçais"));        // 非 BMP 外多字节
+			s.insert(QStringLiteral("session.port"), 22);
+			lib.append(s);
+		}
+		if (!ProfileLoader(prof).saveSessions(lib))
+			++f12; // 写腿成功(config_saveFile 同相返回 1 @00a803b4)
+		QFile f(prof + QStringLiteral("/terminal/user.sessions"));
+		if (!f.open(QIODevice::ReadOnly))
+			++f12;
+		else {
+			const QByteArray raw = f.readAll();
+			if (!raw.startsWith("[\n"))
+				++f12; // 顶层 [ 直落(无 BOM;ofstream 直写同相)
+			if (!raw.contains("\n    {"))
+				++f12; // 数组元素缩进 4 空格(FUN_00af8a00 缩进串)
+			if (!raw.contains("\"session.label\" : \"中文终端\""))
+				++f12; // " : " 分隔 + 中文原样(00afa810 raw 直包)
+			if (raw.contains("\\u"))
+				++f12; // 无 \uXXXX 深转义(emitUTF8 同相)
+			if (!raw.contains("\"session.host\" : \"\""))
+				++f12; // 空串落 ""(jsoncpp_writeString 空引号腿)
+			if (!raw.contains("\"session.port\" : 3023")
+			    || !raw.contains("\"session.keepAlive\" : true"))
+				++f12; // 数字/布尔字面(json_toStream case2/5)
+			if (!raw.endsWith("]\n"))
+				++f12; // 尾换行(FUN_00afc1b0 @00afc1d6;顶层数组 → ]\n)
+			// 读回对账(loadSessions 承载替)
+			const QVariantList back = ProfileLoader(prof).loadSessions();
+			if (back.size() != 2)
+				++f12;
+			else {
+				const QVariantMap a = back.at(0).toMap();
+				if (a.value(QStringLiteral("session.label"))
+				        != QStringLiteral("中文终端")
+				    || !a.value(QStringLiteral("session.host"))
+				            .toString().isEmpty()
+				    || a.value(QStringLiteral("session.port")).toInt() != 3023
+				    || !a.value(QStringLiteral("session.keepAlive")).toBool())
+					++f12; // 中文/空串/int/bool 读回同相
+				if (back.at(1).toMap()
+				        .value(QStringLiteral("session.label"))
+				        != QStringLiteral("β-portçais"))
+					++f12; // 多字节读回
+			}
+		}
+		// saveConfigPath 同底座同构(批 169 f11 产物形态复核):
+		//   "path" : "~" 4 空格缩进 + 尾 \n(原版 profiles.config 样本)
+		if (!ProfileLoader(QStringLiteral("/tmp/wt-b171-fake"))
+		        .saveConfigPath(QDir::homePath() + QStringLiteral("/sub"),
+		                        QString()))
+			++f12;
+		{
+			QFile c(QCoreApplication::applicationDirPath()
+			        + QStringLiteral("/profiles.config"));
+			if (c.open(QIODevice::ReadOnly)) {
+				const QByteArray raw = c.readAll();
+				if (!raw.contains("\"path\" : \"~/sub\"") || !raw.endsWith("\n"))
+					++f12; // " : " + 尾 \n(原版样本同相;homePath 折叠
+					       //   腿 @005d8f99 与批 169 f11 同串)
+			}
+		}
+		fails += f12;
+	}
+
+	// f12. 批 171:user.sessions 序列化同构 roundtrip(config_saveFile
+	//      00a801c6 底座 FUN_00aef8c0→00afc1b0 序;4 空格缩进/" : "分隔
+	//      /中文 raw UTF-8/尾 \n;00806958 写者面)。中文/嵌套/空串
+	//      sessions → save → 格式断言 → load 对账。
+	{
+		QVariantList sessions;
+		QVariantMap a;
+		a.insert(QStringLiteral("session.label"),
+		         QStringLiteral("中文会话"));          // 非 ASCII raw 腿
+		a.insert(QStringLiteral("session.target"),
+		         QStringLiteral("host中文"));          // 串内中文
+		a.insert(QStringLiteral("session.port"), 2222);
+		QVariantMap b;
+		b.insert(QStringLiteral("session.label"), QString()); // 空串腿
+		b.insert(QStringLiteral("nested.sub"), true); // 点号键(平铺)
+		sessions << a << b;
+		const QString dir = QStringLiteral("/tmp/wt-b171-fixture");
+		ProfileLoader pl(dir);
+		QDir().mkpath(dir + QStringLiteral("/terminal"));
+		if (!pl.saveSessions(sessions))
+			++fails; // 00806958 +0x1c 槽写者成功腿
+		QFile f(dir + QStringLiteral("/terminal/user.sessions"));
+		if (!f.open(QIODevice::ReadOnly))
+			++fails;
+		else {
+			const QByteArray raw = f.readAll();
+			// 格式断言(config_saveFile 底座序):4 空格缩进 + " : " +
+			//   尾 \n + 中文 raw UTF-8(非 \uXXXX 转义)
+			if (!raw.startsWith("["))
+				++fails; // 数组根(json_toStream case6/7 面)
+			if (!raw.contains("\n        \"session.label\" : "))
+				++fails; // 缩进 4 空格/层(00af8a00;数组根 → 元素 2 层
+				             //   = 8 空格。语料直接标量缩进腿同参)+
+				             //   " : "(00afbc26 段)
+			if (!raw.endsWith("\n"))
+				++fails; // 尾 \n(00afc1b0 尾 append 0xca995c=0x0a 实读)
+			if (!raw.contains("\"中文会话\""))
+				++fails; // 中文 raw UTF-8(00afa810:>0x1f 逐字节 raw
+			             //   直包,无 \u 转义腿)
+			if (raw.contains("\\u"))
+				++fails; // \uXXXX 转义缺席(raw 直包同相)
+			// load 对账(loadSessions 读侧对称;空串/点号键/端口三型)
+			const QVariantList back = pl.loadSessions();
+			if (back.size() != 2)
+				++fails;
+			else {
+				const QVariantMap ra = back.first().toMap();
+				if (ra.value(QStringLiteral("session.label"))
+				        != QStringLiteral("中文会话")
+				    || ra.value(QStringLiteral("session.target"))
+				        != QStringLiteral("host中文")
+				    || ra.value(QStringLiteral("session.port")).toInt()
+				        != 2222)
+					++fails; // 中文往返 + int 型(00afa810 raw 直包 +
+					         //   loadSessions asInt 腿)
+				const QVariantMap rb = back.last().toMap();
+				if (!rb.contains(QStringLiteral("session.label"))
+				    || rb.value(QStringLiteral("session.label"))
+				           .toString()
+				           != QString())
+					++fails; // 空串往返(00afa810 "\"\"" 腿同相)
+				if (!rb.contains(QStringLiteral("nested.sub")))
+					++fails; // 点号键平铺往返(jsoncpp string 键)
+			}
+		}
+	}
+
 	printf("mwc_smoke: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
+
 	return fails ? 1 : 0;
 }
