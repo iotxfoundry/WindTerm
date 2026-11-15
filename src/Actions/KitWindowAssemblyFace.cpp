@@ -577,3 +577,24 @@ void KitWindowFace::kitRestoreSlotOfChild(QWidget *child)
 	const int id = kitSlotIdOf(sp); // FUN_008ca0b8
 	kitSlotShow(id);                // FUN_008ca170
 }
+
+// 008d2f7e 中段单页恢复腿(asm 0x8d3234-0x8d3260 逐条):
+//   rdi = [this+0x50](容器 widget),rsi = splitter →
+//   QWidget::isAncestorOf(splitter)(+0x8d323c)→ movzbl al → esi;
+//   89d860(this, withExpand)(+0x8d3247,返回 dock);
+//   8b881c(dock, pageBlob)(+0x8d3255)→ kitPanelsRestore;
+//   QSplitter::addWidget(splitter, dock)(+0x8d3260)。
+KitDockFace *kitDockRestorePage(KitWindowFace *kit, QSplitter *splitter,
+                                const QByteArray &pageBlob)
+{
+	if (kit == nullptr || splitter == nullptr)
+		return nullptr;
+	const bool withExpand =
+	    kit->m_split0x50 != nullptr && kit->m_split0x50->isAncestorOf(splitter); // @0x8d323c
+	KitDockFace *dock = kitCreateDock(withExpand, kit);       // @0x8d3247(89d860)
+	if (dock == nullptr)
+		return nullptr;
+	kitPanelsRestore(dock->tabGroup(), pageBlob);             // @0x8d3255(8b881c)
+	splitter->addWidget(dock);                                // @0x8d3260
+	return dock;
+}

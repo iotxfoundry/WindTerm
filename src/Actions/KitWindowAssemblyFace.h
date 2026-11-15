@@ -92,6 +92,14 @@ int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
 class KitDockFace;
 KitDockFace *kitCreateDock(bool withExpand, QWidget *parent);
 
+// 恢复链单页腿(008d2f7e 中段 @asm 0x8d3234-0x8d3260):
+//   withExpand = kit->+0x50->isAncestorOf(splitter)(rdi=+0x50,rsi=splitter);
+//   dock = kitCreateDock(withExpand, kit)(89d860)@0x8d3247;
+//   kitPanelsRestore(dock->tabGroup(), pageBlob)(8b881c)@0x8d3255;
+//   splitter->addWidget(dock)(QSpin… QSplitter::addWidget)@0x8d3260。
+KitDockFace *kitDockRestorePage(KitWindowFace *kit, QSplitter *splitter,
+                                const QByteArray &pageBlob);
+
 // 008b84b6(251B,0027.c:75629)按名查页位:归一名 → 逐 i<count
 //   stackWidgetAt(i)->objectName() == 名 → i;无 → -1(008b83ee 53B 取页)。
 int kitPanelIndexByName(TabGroup *tabs, const QString &rawName);
