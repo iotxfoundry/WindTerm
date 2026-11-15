@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QDialog>
+#include <QJsonObject>
 #include <QList>
 
 class QCheckBox;
@@ -29,6 +30,13 @@ class RunToolDialogFace : public QDialog {
 public:
 	explicit RunToolDialogFace(QWidget *parent = nullptr); // ctor 00707f8e
 	void setupUi();                                        // 00707ada
+
+	// FUN_00708402(1825B,0022.c:35342)命令对象构造:
+	//   文案 = +0x40 currentText();空 → 返空对象;
+	//   obj["command"] = 文案@0070846a;obj["stdin"] = +0x58 组选中单选
+	//   property("data").toString()@007085d7;obj["stdout"] = +0x60 组同面
+	//   @0086xx(键 "stdout" 6);尾腿(0xc91414 串)cited。
+	QJsonObject buildCommandObject() const;
 
 	// 语料 ctor(00707f8e 1116B)两张表(+0x68 6 项 / +0x70 8 项,
 	//   每项 = {值 BA,标签 BA},FUN_00708c5e(count) 装配):

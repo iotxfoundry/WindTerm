@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QJsonObject>
 #include <QRadioButton>
 #include <QToolButton>
 #include <QVBoxLayout>
@@ -89,4 +90,34 @@ RunToolDialogFace::RunToolDialogFace(QWidget *parent)
 		m_items70.append(e); // @007081c3(8 项)
 	setupUi();               // @0070839e
 	// FUN_0070716e(this)@007083a4 — cited(装配后处理体未转写)。
+}
+
+// FUN_00708402(1825B,0022.c:35342)真身(键面):
+//   @00708402 文案 = QComboBox::currentText();空 → 尾腿;
+//   @0070846a obj["command"] = 文案;
+//   @00708513 +0x58 组 findChildren<QRadioButton> → isChecked 项的
+//     property("data").toString() → obj["stdin"]@007085d7;
+//   @007086xx 同面 +0x60 组 → obj["stdout"](键 6 字符);
+//   尾腿(QString 0xc91414)cited。
+QJsonObject RunToolDialogFace::buildCommandObject() const
+{
+	QJsonObject obj;
+	const QString text = m_combo40 != nullptr ? m_combo40->currentText() : QString();
+	if (text.isEmpty()) // @00708402 空文案腿
+		return obj;
+	obj.insert(QStringLiteral("command"), text); // @0070846a
+	auto checkedData = [](QGroupBox *box) -> QString {
+		if (box == nullptr)
+			return QString();
+		const QList<QRadioButton *> radios = box->findChildren<QRadioButton *>();
+		for (QRadioButton *r : radios) {
+			if (r->isChecked()) // @00708586
+				return r->property("data").toString(); // @007085a8
+		}
+		return QString();
+	};
+	obj.insert(QStringLiteral("stdin"), checkedData(m_group58));  // @007085d7
+	obj.insert(QStringLiteral("stdout"), checkedData(m_group60)); // "stdout"
+	// 尾腿(0xc91414 串面)— cited。
+	return obj;
 }
