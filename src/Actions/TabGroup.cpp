@@ -982,3 +982,11 @@ void TabGroup::applyTabShape()
 	if (m_f58 != nullptr)
 		m_f58->setShape(static_cast<QTabBar::Shape>(shape));
 }
+
+// FUN_005a9860(507B,0018.c:23894)真身(表查面):
+//   @005a9860 表空 → 0;QHashData::detach_helper → hash 查(key qHash +
+//   桶链 operator== @005a98xx)→ 命中返回 node+0x14 值;未命中 → iVar5-0。
+int TabBar::shortcutForTitle(const QString &title) const
+{
+	return m_titleShortcuts.value(title, 0); // QHash 查等价
+}

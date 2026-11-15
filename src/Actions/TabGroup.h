@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QLabel>
+#include <QHash>
 #include <QList>
 #include <QMap>
 #include <QString>
@@ -72,6 +73,10 @@ public:
     //   QListData::detach_grow(index) → 后段逐节点 0x10 深拷贝
     //   (u32+u64+u16 三段拷贝实证 = TabNode 布局)→ 目标位写入。
     void insertNodeAt(int index, const TabNode &node);
+    // FUN_005a9860(507B,0018:23894)标题→快捷键表查(+0x1d8 QHash):
+    //   detach 后按 key 查 node+0x14 值;未命中 0。
+    int shortcutForTitle(const QString &title) const;
+    QHash<QString, int> m_titleShortcuts; // +0x1d8 表(值承载)
     // FUN_005a6b1c(62B,0018:21740)展开态恢复:
     //   私有位 +0x1c8(d)为 0 → 返;否则 +0x213 = !expanding();
     //   setExpanding(+0x213)(实参 Ghidra 丢,cited)。
