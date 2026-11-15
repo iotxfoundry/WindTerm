@@ -1,4 +1,5 @@
 // KitDockFace.cpp — 语料 KitDock 两段转写(批 207)
+#include <QEvent>
 #include <QRect>
 #include <QSplitter>
 #include <QTimer>
@@ -252,4 +253,22 @@ void KitDockFace::setFloating(bool floating)
 	}
 	m_f39 = floating;              // +0x39 写
 	emit floatingChanged(floating); // 0091a80c(信号 idx1)
+}
+
+// 008b9050(66B,0027.c:76265)changeEvent 真身:
+//   @008b9050 *(short*)(event+0x10) != 0x69(QEvent::WindowStateChange)→ 返;
+//   @008b905a windowState() & 1(WindowMinimized)== 0 → 返;
+//   hide() → setWindowState(0) → show() → dock_toggleFloat(this,0)。
+void KitDockFace::changeEvent(QEvent *event)
+{
+	if (event == nullptr)
+		return;
+	if (event->type() != QEvent::WindowStateChange) // 0x69
+		return;
+	if ((windowState() & Qt::WindowMinimized) == 0) // & 1
+		return;
+	hide();
+	setWindowState(Qt::WindowNoState); // 0
+	show();
+	setFloating(false); // dock_toggleFloat(this, 0) — 归位
 }

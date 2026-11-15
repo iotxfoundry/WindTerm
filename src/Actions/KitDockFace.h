@@ -81,6 +81,13 @@ signals:
 	//   语料名未取证,按转发面命名为 expandRequested(cited 名)。
 	void expandRequested(bool expanding);
 
+protected:
+	// 008b9050(66B,0027.c:76265)changeEvent:事件 type == 0x69
+	//   (QEvent::WindowStateChange)且 windowState & 1(WindowMinimized)→
+	//   hide → setWindowState(0)→ show → dock_toggleFloat(this,0)(归位)。
+	//   语料无基类转发,golden 保持不转发(注)。
+	void changeEvent(QEvent *event) override;
+
 private slots:
 	// FUN_008b7d08(187B,0027.c:75296)页切换槽:stackWidgetAt(idx) →
 	//   cast 011ab690(KitPane)→ setFocus(3)→ 同步 windowIcon/windowTitle。
