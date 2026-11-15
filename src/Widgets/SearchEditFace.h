@@ -16,6 +16,10 @@ class SearchEditFace : public QLineEdit {
 public:
 	explicit SearchEditFace(QWidget *parent = nullptr); // searchEdit_init
 
+	// FUN_0058dac2(18B,0018.c:5565)占位文案:QLineEdit::setPlaceholderText
+	//   + FUN_0058d4dc(this)(后续(sub-assembly cited))。
+	void setPlaceholder(const QString &text);
+
 protected:
 	void *m_f30 = nullptr;  // +0x30
 	void *m_f38 = nullptr;  // +0x38

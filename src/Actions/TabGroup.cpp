@@ -724,3 +724,12 @@ void TabBar::relayoutSideButtons()
 	}
 	m_f40 = side;
 }
+
+// FUN_005a6d00(65B,0018.c:21888)页状态取值真身:
+//   index < 0 或 >= (+0x68 表元素数) → 无效;否则取该项(引用计数 +1)。
+QVariant TabBar::tabStateAt(int index) const
+{
+	if (index < 0 || index >= m_f68.size())
+		return QVariant();
+	return m_f68.at(index);
+}

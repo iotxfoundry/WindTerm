@@ -26,7 +26,15 @@ FilterEditFace::FilterEditFace(QWidget *parent)
 {
 	m_timer78 = new QTimer(this); // @0057eb47(0x20 字节)
 	// timer 自身 +0x1c |= 1(QTimer 私有单发位)→ cited 不落。
-	// FUN_0057eb02(this, 300) → cited(延时/间隔面)。
-	// tr(0xc893d4) + FUN_0058dac2(this, 文本) → cited(提示文案面)。
+	m_timer78->setInterval(300); // FUN_0057eb02(9B)= QTimer::setInterval(+0x78, 300)
+	setPlaceholder(tr("Filter")); // tr(0xc893d4)= "Filter"+FUN_0058dac2(批 268)
 	// s_king__clear_57e86e(this) + FUN_0057e662(this) → cited(清除钮/子件)。
+}
+
+// FUN_0058dac2(18B,0018.c:5565)真身:
+//   QLineEdit::setPlaceholderText(text)+ FUN_0058d4dc(this)(后续腿,cited)。
+void SearchEditFace::setPlaceholder(const QString &text)
+{
+	setPlaceholderText(text); // @0058dac2
+	// FUN_0058d4dc(this)@0058dac2 — cited(体未转写)
 }
