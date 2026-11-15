@@ -17,6 +17,8 @@
 //   槽 0/1 均走该发射体(008f7e70 static_metacall);信号名/参数语义
 //   未取证 → 本面不声明信号(cited,防造签名)。
 class QAbstractButton;
+class QToolButton;
+class QVBoxLayout;
 
 class MessageBarFace : public QWidget {
 	Q_OBJECT
@@ -38,9 +40,19 @@ public:
 	//     FUN_00767b4a(pane),cited)。
 	void wireButtons();
 
+	// s_ExpandButton_5984be(1021B,0018.c:12599)子件装配(名误导,实为 bar 装配):
+	//   +0x40 = QToolButton "CloseButton"(tooltip tr("Close") 0xc89b49/
+	//     focusPolicy(0));+0x38 = QToolButton "ExpandButton"(tooltip
+	//     tr("Expand") 0xc8afe8/focusPolicy(0)/icon "king::shrink");+0x30 =
+	//     QVBoxLayout;hbox = QHBoxLayout(边距 = style pixelMetric 0x4e/0x50;
+	//     间距 folded)→ addLayout(+0x30)+addWidget(+0x38)+addWidget(+0x40)
+	//     → setLayout(hbox)。
+	void assembleChildren();
+
 private:
-	QAbstractButton *m_f38 = nullptr; // +0x38(按钮之一,装配面见 005984be)
-	QAbstractButton *m_f40 = nullptr; // +0x40(按钮之二)
+	QToolButton *m_f38 = nullptr; // +0x38 ExpandButton
+	QToolButton *m_f40 = nullptr; // +0x40 CloseButton
+	QVBoxLayout *m_f30 = nullptr; // +0x30(内容竖排;标签加入点 cited)
 	void *m_f48 = nullptr;   // +0x48(ctor 清零,语义 cited)
 	quint8 m_flags50 = 0;    // +0x50(低 2 位清零)
 	QString m_f58;           // +0x58 shared_null 初值

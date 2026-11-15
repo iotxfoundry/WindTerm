@@ -1,7 +1,13 @@
 // MessageBarFace.cpp — 语料 MessageBar ctor 转写(批 244)
 #include "MessageBarFace.h"
 
+#include "Actions/ThemeIcons.h"
+
 #include <QAbstractButton>
+#include <QStyle>
+#include <QToolButton>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 // FUN_0059af30(262B,0018.c:14395)ctor:
 //   @0059af30 QWidget(parent,0);vtable MessageBar;
@@ -24,7 +30,8 @@ MessageBarFace::MessageBarFace(QWidget *parent)
 	// s_ExpandButton_5984be(this)+FUN_0059834c(this):
 	//   前者 1021B 子件装配(两按钮 +0x38/+0x40)cited;
 	//   后者(接线)本批真身。
-	wireButtons();
+	assembleChildren(); // s_ExpandButton_5984be @0059afcx(批 257)
+	wireButtons();      // FUN_0059834c @0059afcx
 }
 
 // FUN_0059834c(369B,0018.c:12556)三路接线真身:
@@ -52,4 +59,38 @@ void MessageBarFace::wireButtons()
 		/* FUN_0059814a:父链 cast MuxPane(011a69d0) → FUN_00767b4a(pane)
 		   @0059814a — cited 不落 */
 	});
+}
+
+// s_ExpandButton_5984be(1021B,0018.c:12599)装配真身:
+//   @005984e1 +0x40 = new QToolButton(0);@0059850x +0x38 = new QToolButton(0);
+//   @00598515 +0x30 = new QVBoxLayout();hbox = new QHBoxLayout();
+//   @0059853x "CloseButton"/focusPolicy(0)/tooltip tr("Close")(0xc89b49);
+//   @00598624 "ExpandButton"/focusPolicy(0)/tooltip tr("Expand")(0xc8afe8);
+//   @005986cc icon = theme_icon_load_svg(app,"king::shrink","");
+//   @00598743 vbox setContentsMargins/setSpacing(Ghidra 折叠→按 0,cited);
+//   hbox 边距 = style()->pixelMetric(0x4e)/pixelMetric(0x50)@005987xx;
+//   hbox->addLayout(vbox)@005987xx → addWidget(+0x38)→ addWidget(+0x40)
+//   → this->setLayout(hbox)@005988xx。
+void MessageBarFace::assembleChildren()
+{
+	m_f40 = new QToolButton(nullptr); // @005984e1
+	m_f40->setObjectName(QStringLiteral("CloseButton")); // @00598577
+	m_f40->setToolTip(tr("Close"));                      // 0xc89b49 @005985c2
+	m_f40->setFocusPolicy(Qt::NoFocus);                  // @0059861x(esi=0)
+	m_f38 = new QToolButton(nullptr); // @005984fc
+	m_f38->setObjectName(QStringLiteral("ExpandButton")); // @00598624
+	m_f38->setToolTip(tr("Expand"));                      // 0xc8afe8 @0059866f
+	m_f38->setFocusPolicy(Qt::NoFocus);                   // @005986bx
+	m_f38->setIcon(ThemeIcons::loadSvg(QStringLiteral("king::shrink"),
+	                                   QString())); // @005986cc
+	m_f30 = new QVBoxLayout(); // @00598515
+	// vbox setContentsMargins/setSpacing 实参 Ghidra 折叠 → cited(按 0)
+	auto *hbox = new QHBoxLayout(); // @0059852e
+	const int m1 = style()->pixelMetric(static_cast<QStyle::PixelMetric>(0x4e)); // @005987xx
+	const int m2 = style()->pixelMetric(static_cast<QStyle::PixelMetric>(0x50));
+	hbox->setContentsMargins(m1, 0, m2, 0); // 四边实参取两 pixelMetric(折叠)
+	hbox->addLayout(m_f30);   // @005987xx
+	hbox->addWidget(m_f38);   // +0x38
+	hbox->addWidget(m_f40);   // +0x40
+	setLayout(hbox);          // @005988xx
 }
