@@ -137,7 +137,7 @@ int TabBar::insertTabWithMeta(int index, const QString &title,
 	m_f68.insert(idx, QVariant());
 	m_f70.insert(idx, QVariant());
 	idx = QTabBar::insertTab(idx, title); // 005a79c4
-	// tabbar_assignMnemonics(this)— cited — wave-2(未读)
+	assignMnemonics(); // tabbar_assignMnemonics @005a78xx(批 290 真身)
 	return idx;
 }
 
@@ -216,7 +216,7 @@ void TabBar::onTabMoved(int from, int to) // FUN_005a7fa7
 {
 	// 三 QList detach+move @005a7f3f-7c6 — cited — wave-2
 	//   (节点表示未解;QListData::move 非公开 API)
-	// tabbar_assignMnemonics(this)@005a7f7c — cited — wave-2(未读)
+	assignMnemonics(); // tabbar_assignMnemonics @005a7f7c(批 290 真身)
 	(void)from;
 	(void)to;
 }
