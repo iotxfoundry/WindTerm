@@ -15,7 +15,7 @@
 
 ---
 
-## 总览(2026-11-15 批 157;历史明细见 docs/PHASE5.md 批次流水)
+## 总览(2026-11-15 批 158;历史明细见 docs/PHASE5.md 批次流水)
 
 | 阶段 | 状态 |
 |---|---|
@@ -23,13 +23,13 @@
 | Phase 1 Screen 层收口 | ✅(cited 38→行级注;深项移 4b) |
 | Phase 2 TerminalCore/SuperSession | ✅(尾项 convertRowToHistory 移 4b 文档模型) |
 | Phase 3 编辑引擎 customDispatch | ⏳ **巨 switch 全清**(WT+EXT)+ eNodes 节点层 20/20 含深层 + **0x7545 真值路径开通**/搜索链激活;详见 PHASE5 结论快照 |
-| Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;注册表四表插入侧全定案(141/144/151);启动链+恢复门真身(149/150);**WorkspaceLoader 522056 定面骨架 + kitStartupSessions 真身(154)**;收集器/Editor 扫描深腿 ⬜ |
+| Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;注册表四表插入侧全定案(141/144/151);启动链+恢复门真身(149/150);**WorkspaceLoader:522056 定面/骨架/收集器三函数/defaultDir/扫描/protocolUrl 真身(154/159)**;trie 键值域/挂页宿主槽 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身含树深(134/140/142/147);SplitterGroup 余项收口(148);**MuxWindow 取面 + 宿主 0084dd5a 分段复刻(153/157,余 3 深腿批 158)** |
+| Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身含树深(134/140/142/147);SplitterGroup 余项收口(148);**MuxWindow 取面 + 宿主深腿真身(153/157/158)**;S4-S6/pane 树重建 cited 批 158 后续 |
 | Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⬜** |
 | 会话装配 | ✅ 管理收口(批 29) |
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
-| 组件重做(铁律 6) | ⏳ M1-M16:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头(DeepEngineFace)/0x7545 真值;余:busy 腿(外库登记)/深引擎实现体 ODR/token 引擎 'h'·'n' 腿 |
+| 组件重做(铁律 6) | ⏳ M1-M17:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头 ODR/0x7545 真值;余:busy 腿(外库登记)/深引擎 vt 槽承载/token 渲染引擎 |
 
 测试矩阵:**ctest 21/21**(e2eterm 25 + recheck 22 + engtest×2 +
 markerstest q·r·s·t·u·v·w·x·y·z·aa·bb 组 274 断言 + reginserttest + **sgtest 14** + modtracktest 22 + onigtest 24 +

@@ -8,7 +8,23 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第三十三次交接,批 157 · M16 达成)
+## 一句话状态(2026-11-15 第三十四次交接,批 158 · M17 达成)
+
+**M17「宿主深腿 + 收集器 + ODR 激活 + token 腿」达成(用户定,四
+车道分段式),车道停开**:①MuxWindow 宿主深腿(retitleGroupPane/
+muxSplitterMoved S0-S3/restoreState Shim 几何腿/S4 壳级;**旗标 0x58
+POD 实读定案 0x2f 位旗**)+ kitStartupSessions splitter 段读游消费
+(批 158)②522056 收集器三函数/sessionDefaultDir/editorDirScan/
+sessionProtocolUrl 真身 + 骨架三腿接线(批 159)③深引擎 ODR 激活
+(DeepEngineFace.cpp:三调面字段面/容量门/清偿早退门;**逐槽清偿臂
+定案 = vt 槽不可承载零迭代同相**;批 160)④'h'/'n' 自有 token 腿 +
+SessionTokenState 0x48B 窄面 + **TcpBridge 生产 face(q+0x10 = iface
+调整指针定案)**(批 161)。⚠ 合流教训:M16 车道组名撞车(f6)冲突解
+丢闭 `}` → 陈旧二进制假阳性绿——构建门后必查退出码,grep 计数非零
+即排查。主仓终门 ctest **21/21** ×5 + dlopen OK。
+此前:M16(154-157)、M15(150-153)、M14(145-149)、M13(142-144)、
+M12(138-141)、M11(136/137/136b)、M10(134/135)、M9(132/133)、
+M8 文档整备、M1-M7。
 
 **M16「工作区装载 + token 引擎 + 底座头 + MuxWindow 宿主」达成(用户
 定,四车道分段式),车道停开**:①WorkspaceLoader 新落(522056 定面
@@ -160,20 +176,20 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 157 后,按需开批)
+## 现役队列(批 158 后,按需开批)
 
-1. **MuxWindow 宿主批 158**:S4 重排(0084c145 sort 7044B)/
-   muxSplitterMoved(008e12c0 951B)/restoreState(0084b483 1079B)/
-   0x10 重题腿;QVariant POD 旗标字节布局解(旗标真路径 wave-2)
-2. **Phase 4a 余**:522056 收集器(8d0cf2/8d097c)/session_defaultDir
-   (2297B)/Editor 目录扫描/810d6e protocol;kitStartupSessions
-   splitter 段消费(SplitterGroup 批接);kit.* 真键实机对证
-3. **eNodes 深引擎激活批**:DeepEngineFace 调面接 ODR 定义
-   (93fc60 walker 清偿/97142a/88e5a0/96a2f8);styled 哨兵 UB 5c 期
-   仪器裁决
-4. 注册表下行余量(pattern ① 'h'/'n' 自有 token 腿/session_state
-   0x48B/协议对象构造深依赖)/ Phase 4c SplitterGroup 下行 /
-   Phase 5c(需可运行应用)/ 0x4eff 观察(需 ptrace 环境变更)
+1. **MuxWindow 深腿余**:S4-S6 表值/QTimer 段/pane 树重建 cited;
+   0x10 腿宿主接线(池生产者写侧);collectorMuxChildren 嵌套页
+   对位复核
+2. **Phase 4a 余**:522056 trie 键值域(strtrie_find_qv ×5)/target
+   掩盖腿(8061a0/8062b6)/kitStartupSessions 挂页宿主槽;kit.* 真键
+   实机对证
+3. **eNodes vt 槽承载批**:DeepEngineFace 实现体余段(93fc60 逐槽
+   清偿臂/88e5a0 重排体/007b5270)需 vt 槽承载先落;styled 哨兵 UB
+   5c 期仪器裁决
+4. 注册表下行余量(%A..%z 渲染引擎 007c5970 2712B/TcpBridge
+   connectImpl×4)/ Phase 4c SplitterGroup 下行 / Phase 5c(需可
+   运行应用)/ 0x4eff 观察(需 ptrace 环境变更)
 
 ## 已知开放问题
 
