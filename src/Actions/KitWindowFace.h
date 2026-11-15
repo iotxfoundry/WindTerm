@@ -1,13 +1,20 @@
 #pragma once
 
+#include <QByteArray>
 #include <QMainWindow>
+#include <QSplitter>
 
 #include "Editor/CGlobalConfigFace.h"
+#include "Widgets/Splitter.h"
 
 // KitWindowFace —— 语料 KitWindow(typeinfo 011ab390,名 "9KitWindow" ELF
 // 实读)承载面壳(MainWindowFace 判例批 100;铁律 6:抽象身份 + 纯虚 menu()。
 // showConfigMenu 消费清单 = 零实例字段 + 一记虚调用 —— KITWINDOW-RECON.md
 // Q2 实证"KitWindow 实例字段被读数 = 0",故本壳不落数据成员。
+// ⚠ 批 192 勘正:Q2"字段零消费"只对 showConfigMenu 面成立;延迟装配链
+//   008d3cc2 / 008cd068 / 008d2f7e 直读 +0x30 门与 +0x38..+0x68 七槽
+//   (ctor 0x8cc6ba-c6f7 + 装配腿写面,≥2 源一致),故落字段族(见下);
+//   +0x70 / +0x78..+0x90 / +0x98 / +0xa0..+0xb0 无本波消费面 → cited 不落。
 // ctor 字段初始化面证据在案(FUN_008cc692,214B,decomp-part-0028.c:13331
 // 全读):+0x30 WORD=0x0101(+0x30/+0x31 双 BYTE)/+0x38..+0x68 七 qw 槽位族 /
 // +0x70 BYTE=1 / +0x78..+0x90 四 qw / +0x98 QList shared_null / +0xa0..+0xb0
@@ -19,11 +26,15 @@
 // 不造实例(批 133 任务书§4)。
 class KitWindowFace : public QMainWindow {
 public:
-	// FUN_008cc692(214B,0028.c:13331):QMainWindow(parent,flags0)
-	//   @0x8cc69a + 尾 setAcceptDrops(true)(try 段 @0x8cc75c)。字段面
-	//   见类注(壳不落 → 无清零体)。
+	// FUN_008cc692(214B,0028.c:13331):QMainWindow(parent,flags0) @0x8cc69b
+	//   + 字段初值族 @0x8cc6ba-c6f7 + 尾 setAcceptDrops(true) @0x8cc75c。
+	//   初值照记录:+0x30 WORD=0x0101 → 两 BYTE 皆 1;+0x38..+0x68 七槽 = 0。
+	//   (+0x70 BYTE=1 / +0x98 QList shared_null / +0xa0..+0xb0 = 0 属未落
+	//    字段族,cited——见类注。)
 	explicit KitWindowFace(QWidget *parent = nullptr)
-		: QMainWindow(parent, Qt::WindowFlags(0)) // @0x8cc69a
+		: QMainWindow(parent, Qt::WindowFlags(0)) // @0x8cc69b
+		, m_assemble0x30(1)                       // movw $0x101,0x30(%rbx) @0x8cc6ba
+		, m_flag0x31(1)
 	{
 		setAcceptDrops(true); // @0x8cc75c
 	}
@@ -31,6 +42,23 @@ public:
 	//   QMainWindow 析构(语料 +0xa0 FUN_00674550+delete(0x20)/+0x98
 	//   FUN_008d60a0 detach 消解腿属字段族,未落不发明)。
 	virtual ~KitWindowFace() = default;
+	// ── 字段族(批 192;ctor 偏移实读 + 装配腿写面 ≥2 源)──────────────
+	// +0x30 = 装配待命门:008d3cc2 首门 cmpb 0x30 @0x8d3cc2 / 清零
+	//   movb 0x30 @0x8d3d17;008d2f7e movzbl 0x30 @0x8d2f8f(门 != 0 → 返 0)。
+	quint8 m_assemble0x30 = 1;
+	// +0x31 ctor 同 WORD 高字节;深段(008d2f7e 选择行为腿)消费,本波不读。
+	quint8 m_flag0x31 = 1;
+	// +0x38..+0x50 四 QSplitter(QWidget*0):
+	//   operator_new(0x30)+QSplitter ctor @0x8cd08b/0x8cd0a6/0x8cd0c1/0x8cd0dc。
+	QSplitter *m_split0x38 = nullptr;
+	QSplitter *m_split0x40 = nullptr;
+	QSplitter *m_split0x48 = nullptr;
+	QSplitter *m_split0x50 = nullptr;
+	// +0x58..+0x68 三 Splitter 子类(0x38 字节):operator_new + 
+	//   Splitter::Splitter(QWidget*0) @0x8cd0f7/0x8cd112/0x8cd12d。
+	Splitter *m_split0x58 = nullptr;
+	Splitter *m_split0x60 = nullptr;
+	Splitter *m_split0x68 = nullptr;
 	// vtable 槽 62(+0x1f0)纯虚;子类实现:EditorWindow 0x5e97d2 /
 	//   TerminalWindow 0x858fce(懒单例容器 + FUN_008aa896 校验尾)。
 	//   返回 = Config 系单例(批 140 定案:Editor 腿 CEditorConfig 单例
@@ -39,4 +67,19 @@ public:
 	//   K 效消费面 FUN_00692ef0 只触 +0x28/+0x38 → face 即 CGlobalConfigFace
 	//   字段面(批 133 头注风险条款兑现)。
 	virtual CGlobalConfigFace *menu() = 0;
+	// ── 装配腿虚槽(批 192;调用点 = 008d3cc2/008c9ee4,asm 取证)────────
+	// +0x210:非默认实现才调用(cmp 目标 FUN_008c99b6 = 1 字节 ret)——
+	//   本类默认 no-op 与之同相 @0x8d3cf0-0x8d3de5。
+	virtual void kitAssembleHook() {}
+	// +0x208:startupSessions 失败腿 @0x8d3db9;默认实现未取证 → cited 空体。
+	virtual void kitAssembleFailHook() {}
+	// +0x250:装配尾必调 @0x8d3dc5;默认实现未取证 → cited 空体。
+	virtual void kitAssembleFinishHook() {}
+	// +0x218:菜单栏角落件 @0x8c9f3e;默认实现未取证 → cited nullptr。
+	virtual QWidget *kitCornerWidget() { return nullptr; }
+	// FUN_008d3cc2(296B,0028.c:17649)延迟装配门 → KitWindowAssemblyFace.cpp
+	void kitWindowAssembleDeferred();
+	// s_kit_startupSessions_8d2f7e(3122B,0028.c:17278)cited 契约占位 →
+	//   KitWindowAssemblyFace.cpp(体属批 193;当前 payload 恒空,返回 0 同相)
+	bool kitWindowStartupSessions(const QByteArray &history, int hints);
 };

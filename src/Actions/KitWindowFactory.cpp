@@ -50,8 +50,8 @@ QMenu *kitFindOrCreateGroupMenu(CGlobalConfigFace *container,
 //   标题合成面 cited — KitBar.cpp:176 同判,不发明)→ 容器组腿
 //   buildMenuBarGroupMenus("Kit",host)(@00693130-6;组名 "Kit" =
 //   FUN_008c9ee4 实参 QByteArray("Kit")@008c9f1a 二进制面)→ vt+0x218
-//   cornerWidget 非空 → setCornerWidget(w,1)(cited — 宿主槽未建模,
-//   不发明)→ setMenuBar 归 008c9ee4 宿主腿(调用方)。
+//   cornerWidget 腿归 008c9ee4 域(批 192:kitMenubarAssemble 真身,
+//   KitWindowFace::kitCornerWidget)→ setMenuBar 归 008c9ee4 宿主腿。
 QMenuBar *kitMenuBarBuild(CGlobalConfigFace *container, QWidget *hostPane)
 {
 	QMenuBar *bar = new QMenuBar(hostPane);            // @00693060-64
@@ -60,7 +60,6 @@ QMenuBar *kitMenuBarBuild(CGlobalConfigFace *container, QWidget *hostPane)
 	// (@006930e5-f4;合成面未落库,同 KitBar 判)。
 	container->m_groups.buildMenuBarGroupMenus(
 	    bar, QByteArrayLiteral("Kit"), hostPane);      // @00693130-6(008c9ee4 实参 "Kit")
-	// vt+0x218 cornerWidget 腿 cited(@0069306c-74;宿主 vtable 槽未建模)
 	return bar;                                        // @0069307c
 }
 
