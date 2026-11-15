@@ -68,6 +68,13 @@ public:
 	//   本面以 QStringList 承载"名面"(行内其余 0x40 字节字段 cited)。
 	int rowIndexByName(const QString &name) const;
 
+	// FUN_0072eb15(720B,0022.c:54947)kind 组合框变化腿:
+	//   kind = currentData()(语料经 QMetaType::registerNormalizedType
+	//     动态注册的 4 字节类型取面,等价 toInt)→ edit60->setText(
+	//     kind == 1 ? tr("Any")(0xc9d355) : 空串)→ 使能/数值两腿
+	//     Ghidra 折叠 → cited → 尾 refreshRows(-1)。
+	void onKindComboChanged();
+
 	// FUN_0072dd12(1872B)行表重建(被 0072e49a/0072e4c8 以 -1 调用;
 	//   体未转写 → cited 空实现,保留签名)。
 	void refreshRows(int index);

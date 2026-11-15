@@ -204,9 +204,7 @@ void SettingsPageFace::connectSignals()
 	if (m_combo58 != nullptr) {
 		connect(m_combo58,
 		        QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-		        [this](int) {
-			        /* ⑦ FUN_0072eb15(720B)未转写 — cited 不落 */
-		        });
+		        [this](int) { onKindComboChanged(); }); // ⑦ 0072eb15
 	}
 	if (m_listB0 != nullptr && m_listB0->selectionModel() != nullptr) {
 		connect(m_listB0->selectionModel(),
@@ -226,4 +224,24 @@ void SettingsPageFace::connectSignals()
 			        loadWidgets(a, b);
 		        });
 	}
+}
+
+// FUN_0072eb15(720B,0022.c:54947)kind 组合框变化真身(核心段):
+//   @0072eb69 kind = currentData()(语料 = QMetaType::registerNormalizedType
+//     注册的 4 字节类型;DAT_011c1c74 缓存 type id,userType 不符则
+//     QVariant::convert —— 语义等价 currentData().toInt());
+//   @0072eba2 edit60 = this+0x60;kind == 1 → tr("Any")(0xc9d355)
+//     @0072ebxx;否则空串;@0072ebb4 setText;
+//   @0072ed7x 使能/数值两腿(edit60/spin68)Ghidra 折叠 — cited;
+//   尾 @0072edxx refreshRows(-1)(FUN_0072dd12)。
+void SettingsPageFace::onKindComboChanged()
+{
+	if (m_combo58 == nullptr)
+		return;
+	const int kind = m_combo58->currentData().toInt(); // 等价自定义 4 字节类型
+	if (m_edit60 != nullptr) {
+		m_edit60->setText(kind == 1 ? tr("Any") : QString()); // @0072ebb4
+	}
+	// 使能/spin68 数值两腿 @0072ed7x — cited(Ghidra 折叠,常量不可考)。
+	refreshRows(-1); // @0072edxx
 }
