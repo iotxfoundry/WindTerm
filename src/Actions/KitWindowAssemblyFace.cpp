@@ -267,3 +267,63 @@ QMenu *kitTabGroupPopupMenu(KitWindowFace *host)
 	                                QByteArrayLiteral("TabGroup Popup"),
 	                                host); // @008ca03d
 }
+
+// ── 面板工厂腿(批 203)──────────────────────────────────────────────
+// 0089ede8(232B)先把 "Pane" 后缀喂给 0089ebe2(278B):
+//   @0089ebe2 QString::endsWith(name,"Pane",cs=1) 假 → name.append("Pane");
+//   随后首字符:空串 resize(1,' '),否则取首 QChar → QChar::toUpper →
+//   写回首字符(ushort 直写)。语义 = "explorer" → "ExplorerPane"。
+QString kitPaneNameNormalized(const QString &rawName)
+{
+	QString name = rawName;
+	if (!name.endsWith(QStringLiteral("Pane"), Qt::CaseInsensitive)) // @0089ebe2
+		name.append(QStringLiteral("Pane"));
+	if (name.isEmpty())
+		name.resize(1, QLatin1Char(' '));
+	name[0] = name.at(0).toUpper(); // QChar::toUpper 写回首字符
+	return name;
+}
+
+// s_ExplorerPane_89eed8 compare 链(全部 QString::compare_helper(...,1),
+//   即 CaseInsensitive)+ operator_new 字节 + ctor 地址:
+//   ExplorerPane 0x58 s_ExplorerPane_72fbee @0089efa2
+//   FilerPane    0x78 s_FilerPane_730c20    @0089f145
+//   OutlinePane  0x90 s_OutlinePane_745dea  @0089f128(守卫 cast 0119ee10|011a7c40)
+//   OutputPane   0x48 s_OutputPane_7489c0   @0089f18d
+//   SearchPane   0x148 s_SearchPane_74efe6  @0089f1f7
+//   SenderPane   0xa8 s_SenderPane_734dc2   @0089f269(守卫 011a7c40)
+//   SessionPane  0x68 s_SessionPane_73cb1e  @0089f2db(守卫 011a7c40)
+//   ShellPane    0x60 s_ShellPane_74feb4    @0089f30e
+//   TransferPane 0x60 s_TransferPane_733a18 @0089f36f(守卫 011a7c40)
+static const KitPaneSpec kKitPaneSpecs[] = {
+    {"ExplorerPane", 0x58, "s_ExplorerPane_72fbee"},
+    {"FilerPane", 0x78, "s_FilerPane_730c20"},
+    {"OutlinePane", 0x90, "s_OutlinePane_745dea"},
+    {"OutputPane", 0x48, "s_OutputPane_7489c0"},
+    {"SearchPane", 0x148, "s_SearchPane_74efe6"},
+    {"SenderPane", 0xa8, "s_SenderPane_734dc2"},
+    {"SessionPane", 0x68, "s_SessionPane_73cb1e"},
+    {"ShellPane", 0x60, "s_ShellPane_74feb4"},
+    {"TransferPane", 0x60, "s_TransferPane_733a18"},
+};
+
+const KitPaneSpec *kitPaneSpecs(int *count)
+{
+	if (count != nullptr)
+		*count = static_cast<int>(sizeof(kKitPaneSpecs) / sizeof(kKitPaneSpecs[0]));
+	return kKitPaneSpecs;
+}
+
+// 查面腿 @0089ef1b:qt_qFindChild_helper(kit, 归一名, QWidget smo 011ab900,
+//   Flags=1 递归)命中即返;未命中 → 建面(cited:我方 FilerPane/OutputPane/
+//   SessionPane/TransferPane 非 QWidget 子类,造 glue = 自造,不做)。
+QWidget *kitPanelFindOrCreate(QWidget *kit, const QString &rawName)
+{
+	const QString name = kitPaneNameNormalized(rawName); // @0089ede8
+	if (kit == nullptr)
+		return nullptr;
+	if (QWidget *found = kit->findChild<QWidget *>(name)) // @0089ef1b(递归=1)
+		return found;
+	// 建面分派 + 尾部 hide/双 connect @0089efa2-0089f3c1 — cited 未落。
+	return nullptr;
+}

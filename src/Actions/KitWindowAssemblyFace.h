@@ -31,6 +31,26 @@ KitWindowFace *kitWindowAncestor(QObject *object);
 class QMenu;
 QMenu *kitTabGroupPopupMenu(KitWindowFace *host);
 
+// ── 面板工厂(s_ExplorerPane_89eed8,1185B,0027.c:56200)─────────────
+// 0089ede8(232B)+0089ebe2(278B)面板名归一:不以 "Pane" 结尾(忽略大小写)
+//   → 追加 "Pane" @0089ebe2;空串 resize(1,' ') → 首字母 toUpper。
+QString kitPaneNameNormalized(const QString &rawName);
+
+// 建面分派表(语料 compare 链顺序,大小写不敏感;objectSize = operator_new 字节)。
+struct KitPaneSpec {
+	const char *name;
+	int objectSize;
+	const char *ctor;
+};
+// 返回 9 条静态表(见 .cpp 逐条地址)。
+const KitPaneSpec *kitPaneSpecs(int *count);
+
+// 查面腿:归一名 → findChild<QWidget>(递归)@0089ef1b 命中即返;
+//   未命中 → 建面分派(cited:我方 pane 类非 QWidget 承载,不造 glue)
+//   → 当前返回 nullptr。尾部 hide + 双 connect(信号 FUN_0091d368/
+//   FUN_0091d378 → 槽)cited。
+QWidget *kitPanelFindOrCreate(QWidget *kit, const QString &rawName);
+
 // King::assembleCentralSplitters(1010B,0028.c:13782):七槽中央树
 //   (+0x38..+0x68)+ 朝向/sizes/setCentralWidget(+0x68)。
 void kitCentralSplittersAssemble(KitWindowFace *host);
