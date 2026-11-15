@@ -100,3 +100,11 @@ void MuxPaneView::setTitle(const QString &title)
 	m_title = title;                             // QString::operator= @008de23b
 	emit nameChanged(m_title);                   // FUN_0091ddb8 @008de243-4f
 }
+
+// FUN_008c54a4(58B,0028.c:7553)页元数据取值真身:
+//   FUN_00a85f62(this+0x20, key, invalid)(0035:2595 qmap_lower_bound_find;
+//   未命中 → 无效 QVariant)。本面 = QMap::value(键) 同相。
+QVariant MuxPaneView::metaValue(const QString &key) const
+{
+	return m_meta20.value(key); // @008c54a4
+}

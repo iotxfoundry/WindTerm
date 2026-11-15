@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QString>
+#include <QMap>
+#include <QVariant>
 #include <QWidget>
 
 // MuxPaneView —— 语料 MuxPane 面板 widget(QWidget)真身(Phase 4c,mp lane)。
@@ -38,6 +40,13 @@ public:
     // 标题槽只读面:语料 FUN_008de3e8(0028:25642)跨对象直读页 +0x38
     //   (MuxPaneGroup::addTab 转写消费);本体无独立 getter 函数(inline 槽)。
     const QString &title() const { return m_title; }
+
+    // 页元数据表(语料 +0x20 = QMap<QString,QVariant>;取面
+    //   FUN_008c54a4(58B,0028.c:7553)→ FUN_00a85f62(385B,0035:2595
+    //   qmap_lower_bound_find,缺省 invalid QVariant))。键实例:
+    //   "Url"(0xcb6fcc)/"State"/"RenamedTitle"。
+    QVariant metaValue(const QString &key) const; // FUN_008c54a4
+    QMap<QString, QVariant> m_meta20;            // 语料 +0x20
 
     // 语料 +0x30 只读面(inline getter;消费点 = MuxWindow 槽体 S9
     //   @008e0fb5,pane index 比对/缓存;本体无独立函数,直译成员读)。

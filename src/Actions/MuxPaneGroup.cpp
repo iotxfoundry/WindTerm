@@ -478,14 +478,12 @@ MuxPaneView *MuxPaneGroup::paneAtIndex(int index) const
 
 // FUN_008c5578(59B,0028.c:7611)页名真身:
 //   FUN_008c54a4(item, "Url")(键 0xcb6fcc 实读)→ QVariant::toString。
-//   注:语料取面 = 内部 QVariantMap(item+0x20) 经 FUN_00a85f62 表取;
-//   我方 MuxPaneView 未建该 map → 以 Qt 动态属性承载(cited 适配,
-//   键名/取值语义同相;map 建模后替换)。
+//   注:批 228 起走 m_meta20(+0x20 QMap)真身面,不再用动态属性适配。
 QString MuxPaneGroup::paneUrl(const MuxPaneView *pane)
 {
 	if (pane == nullptr)
 		return QString();
-	return pane->property("Url").toString(); // @008c5578
+	return pane->metaValue(QStringLiteral("Url")).toString(); // @008c5578
 }
 
 // FUN_008c5534(59B,0028.c:7617)页状态真身:同面,键 "State"。
@@ -493,7 +491,7 @@ QString MuxPaneGroup::paneState(const MuxPaneView *pane)
 {
 	if (pane == nullptr)
 		return QString();
-	return pane->property("State").toString(); // @008c5534
+	return pane->metaValue(QStringLiteral("State")).toString(); // @008c5534
 }
 
 // s_RenamedTitle_8bbab6(850B,0028.c:226)组会话帧真身(函数名取自其内
