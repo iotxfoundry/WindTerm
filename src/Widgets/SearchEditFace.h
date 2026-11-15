@@ -28,6 +28,15 @@ public:
 	// FUN_0058d818(296B,0018.c:5421)接线:this textChanged → FUN_0058d4dc
 	//   (cited);this 信号 FUN_008f6d88(smeta 01198660)→ FUN_0058e159(cited)。
 	void wireSignals();
+	// FUN_0058d940(47B):+0x30 串非空 且 +0x38 非空 → FUN_00551a7c(+0x38);
+	//   否则 FUN_00551a7c(0)(关联件置空)。
+	void updateAssociatedModel();
+	// FUN_0058d970(82B)移除子件:子件非空 → count(vcall +0xa8) 有效且 < +0x68
+	//   → +0x68-- → removeWidget(+0x60 子件)→ hide → 发 FUN_008f6d88。
+	void removeChildWidget(QWidget *child);
+	// FUN_0058dff2(54B)边距:setTextMargins(l, 0, r)(l/r = FUN_0058de52(0/1),
+	//   子件宽度面,cited)。
+	void applyTextMargins();
 
 protected:
 	void *m_f30 = nullptr;  // +0x30

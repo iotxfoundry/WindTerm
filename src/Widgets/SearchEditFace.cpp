@@ -74,3 +74,33 @@ void SearchEditFace::wireSignals()
 	// connect(this, FUN_008f6d88, this, FUN_0058e159, flags 0x82)@0058d8xx —
 	//   信号/槽体未转写,cited 不落接线。
 }
+
+// FUN_0058d940(47B,0018.c:5459)真身:
+//   +0x30 串非空 且 +0x38 非空 → FUN_00551a7c(+0x38);否则 FUN_00551a7c(0)。
+void SearchEditFace::updateAssociatedModel()
+{
+	// FUN_00551a7c(关联件|0)@0058d940 — cited(体未转写)
+}
+
+// FUN_0058d970(82B,0018.c:5482)真身:
+//   child 非空 → i = vcall(child|+0x60, +0xa8)(计数面);0 <= i < +0x68 →
+//   +0x68--;removeWidget(child);child->hide();发 FUN_008f6d88(this)。
+void SearchEditFace::removeChildWidget(QWidget *child)
+{
+	if (child == nullptr)
+		return;
+	// vcall(+0xa8) 计数面 + FUN_008f6d88 发射 — cited(体未转写)
+	if (m_f60 != nullptr)
+		m_f60->removeWidget(child); // @0058d9xx
+	child->hide();
+}
+
+// FUN_0058dff2(54B,0018.c:5788)真身:
+//   l = FUN_0058de52(this,0);r = FUN_0058de52(this,1);
+//   QLineEdit::setTextMargins(l, 0, r)。
+void SearchEditFace::applyTextMargins()
+{
+	const int left = 0;  // FUN_0058de52(this,0) — cited(子件宽度面)
+	const int right = 0; // FUN_0058de52(this,1) — cited
+	setTextMargins(left, 0, right);
+}
