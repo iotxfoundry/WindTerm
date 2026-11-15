@@ -1,6 +1,7 @@
 // StatusBarFace.cpp — 语料状态栏子类三段转写(批 196)
 // 语料:decomp-part-0018.c(18966/19022/21306)+ /opt ELF asm 实参核。
 #include <QLabel>
+#include <QStyle>
 #include <QTimer>
 
 #include "Actions/StatusBarFace.h"
@@ -69,7 +70,46 @@ void StatusBarFace::onMessageTimeout()
 	if (m_label == nullptr)
 		return; // @005a657a
 	m_label->setText(tr("Ready")); // @005a65aa
-	// FUN_005a620e(this,"Normal")@005a6609 — cited(状态串腿未转写,
-	//   串 "Normal" 0xd0... 实读;调用点保留注释不发明)
+	setFaceMessageLevel(QStringLiteral("Normal")); // @005a6609(FUN_005a620e)
 	emit messageChanged(QString()); // @005a6636
+}
+
+// s_king_refreshWidgetStyle(67B,0023.c:17850)真身:style()->unpolish(w)
+//   (vt+0x68)@0x75265e → style()->polish(w)(vt+0x60)@0x75266a →
+//   repaint 位非 0 → w->repaint()。首参语料未消费(rdi 被 rsi 覆盖)。
+static void kingRefreshWidgetStyle(QWidget *widget, bool repaint)
+{
+	QStyle *st = widget->style(); // @0x75264d
+	st->unpolish(widget);         // vtable +0x68 @0x75265e
+	st->polish(widget);           // vtable +0x60 @0x75266a
+	if (repaint)
+		widget->repaint();        // @0x75267x
+}
+
+// FUN_005a620e(787B,0018.c:21177)消息级别染色真身(asm 0x5a620e-0x5a6549):
+//   old = property("messageLevel").toString()@0x5a623a(名 0xd0dfa6 实读);
+//   ready = tr("Ready")@0x5a6270;labelText = +0x30?text():"" @0x5a6280;
+//   labelText == ready → level 清空 @0x5a628b-2ae;level == old → 返回
+//   @0x5a62bd;否则 setUpdatesEnabled(false)@0x5a6317 → setProperty
+//   ("messageLevel", 空?QVariant():QVariant(level))@0x5a6345 →
+//   findChildren<QWidget>(递归)@0x5a6380 逐个 refreshStyle(repaint=0)
+//   @0x5a63e9 → 本件 refreshStyle @0x5a6407 → setUpdatesEnabled(true)
+//   @0x5a6414。
+void StatusBarFace::setFaceMessageLevel(const QString &level)
+{
+	const QString old = property("messageLevel").toString(); // @0x5a623a
+	const QString ready = tr("Ready");                       // @0x5a6270
+	const QString labelText = m_label != nullptr ? m_label->text() : QString(); // @0x5a6280
+	QString next = level;
+	if (labelText == ready) // @0x5a628b
+		next.clear();
+	if (next == old) // @0x5a62bd
+		return;
+	setUpdatesEnabled(false); // @0x5a6317(esi=0)
+	setProperty("messageLevel", next.isEmpty() ? QVariant() : QVariant(next)); // @0x5a6345
+	const QList<QWidget *> kids = findChildren<QWidget *>(); // @0x5a6380(递归=1)
+	for (QWidget *w : kids)
+		kingRefreshWidgetStyle(w, false); // @0x5a63e9(edx=0)
+	kingRefreshWidgetStyle(this, false);  // @0x5a6407(edx=0)
+	setUpdatesEnabled(true);              // @0x5a6414(esi=1)
 }
