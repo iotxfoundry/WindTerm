@@ -845,3 +845,19 @@ void TabBar::assignMnemonics()
 		}
 	}
 }
+
+// FUN_005a6fbe(213B,0018.c:22015)节点标题读面真身:
+//   @005a6fbe index < 0 或 >= +0x70 表元素数 → 空;
+//   取节点标题(m_titles60 承载,+0x08 面)@005a70xx;
+//   withMnemonics(char param_4)且节点 +0x10 非空 → 追加 0xca0e1c 串
+//   (助记符后缀面,cited)。
+QString TabBar::nodeTitleAt(int index, bool withMnemonics) const
+{
+	if (index < 0 || index >= count())
+		return QString();
+	QString title = index < m_titles60.size() ? m_titles60.at(index) : QString();
+	if (!withMnemonics)
+		return title;
+	// 节点 +0x10 非空 → 追加 0xca0e1c(助记符后缀)— cited(键面未读)
+	return title;
+}

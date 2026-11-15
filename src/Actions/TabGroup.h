@@ -53,6 +53,10 @@ public:
     QVariant tabStateAt(int index) const;
     // FUN_005ab180(21B,0018:24960 邻)页文:QTabBar::tabText 包装。
     QString tabTextAt(int index) const;
+    // FUN_005a6fbe(213B,0018:22015)节点标题读面:
+    //   index 越界 → 空;节点标题(+0x08 面)→ withMnemonics 且节点 +0x10 非空
+    //   → 追加 0xca0e1c 串(cited)。
+    QString nodeTitleAt(int index, bool withMnemonics) const;
     // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。
