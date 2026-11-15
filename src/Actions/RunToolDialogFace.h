@@ -38,6 +38,12 @@ public:
 	//   @0086xx(键 "stdout" 6);尾腿(0xc91414 串)cited。
 	QJsonObject buildCommandObject() const;
 
+	// FUN_00707320(1849B,0022.c:32182)单选文案铺设:
+	//   +0x58 组 findChildren<QRadioButton> 逐项:property("data") BA →
+	//   在 +0x68 表按 BA 等值查(@007074bd memcmp)→ setText(tr(标签))
+	//   @007074c8;+0x60 组同面用 +0x70 表(@0070754f 起)。
+	void applyRadioLabels();
+
 	// 语料 ctor(00707f8e 1116B)两张表(+0x68 6 项 / +0x70 8 项,
 	//   每项 = {值 BA,标签 BA},FUN_00708c5e(count) 装配):
 	//   +0x68:""/&None、${CurrentChar}/Current &Char、${CurrentWordText}/

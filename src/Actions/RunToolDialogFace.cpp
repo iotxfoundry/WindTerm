@@ -39,12 +39,12 @@ void RunToolDialogFace::setupUi()
 			radio->setProperty("data",
 			                   QVariant(QByteArray(item.value))); // 0xc8977d
 			box->addWidget(radio);            // @00707cxx
-			// 标签(item.label)由 FUN_00707320(this,this) 铺设 — cited。
+			// 标签由 applyRadioLabels()(FUN_00707320)铺设。
 		}
 		box->addStretch();                    // @00707bef
 		pass.box->setLayout(box);             // @00707cxx
 	}
-	// FUN_00707320(this, this)@00707cxx — cited(文案/行装配体)
+	applyRadioLabels();                       // FUN_00707320 @00707cxx(批 323)
 	m_check30->setChecked(false);             // 实参折叠 — cited
 	m_buttons38->addButton(QDialogButtonBox::Ok);    // 0x400
 	m_buttons38->addButton(QDialogButtonBox::Apply); // 0x400000
@@ -120,4 +120,29 @@ QJsonObject RunToolDialogFace::buildCommandObject() const
 	obj.insert(QStringLiteral("stdout"), checkedData(m_group60)); // "stdout"
 	// 尾腿(0xc91414 串面)— cited。
 	return obj;
+}
+
+// FUN_00707320(1849B,0022.c:32182)真身:
+//   两轮:组(+0x58/+0x60)内 findChildren<QRadioButton>(递归)逐项:
+//     data = property("data").toByteArray();
+//     表(+0x68/+0x70)逐条 BA 等长 memcmp(@007074bd)→ 命中 →
+//     setText(tr(标签))@007074c8 并 break。
+void RunToolDialogFace::applyRadioLabels()
+{
+	auto apply = [this](QGroupBox *box, const QList<Entry> &items) {
+		if (box == nullptr)
+			return;
+		const QList<QRadioButton *> radios = box->findChildren<QRadioButton *>();
+		for (QRadioButton *radio : radios) {
+			const QByteArray data = radio->property("data").toByteArray();
+			for (const Entry &e : items) {
+				if (data == QByteArray(e.value)) { // @007074bd
+					radio->setText(tr(e.label));   // @007074c8
+					break;
+				}
+			}
+		}
+	};
+	apply(m_group58, m_items68); // @0070736f 起
+	apply(m_group60, m_items70); // @0070754f 起
 }
