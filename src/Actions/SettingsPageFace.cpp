@@ -8,6 +8,7 @@
 #include <QListWidget>
 #include <QSpinBox>
 #include <QListWidgetItem>
+#include <QStandardItem>
 
 // FUN_0072d1e4(112B,0022.c:53854)按名查行真身:
 //   lVar3 = *(this+0xb8)(行表);iVar1 = 元素数(+4 槽);
@@ -15,12 +16,95 @@
 //   命中 → i;走到末位仍未命中 → 0xffffffff(-1)。
 int SettingsPageFace::rowIndexByName(const QString &name) const
 {
-	const int n = m_rowNamesB8.size(); // 行表元素数
+	const int n = m_rowsB8.size(); // 行表元素数
 	for (int i = 0; i < n; ++i) {
-		if (m_rowNamesB8.at(i) == name) // 行首 QString 比对 @0072d1e4
+		if (m_rowsB8.at(i).name == name) // 行首 QString 比对 @0072d1e4
 			return i;
 	}
 	return -1; // 0xffffffff
+}
+
+// FUN_0072e4f6(932B,0022.c:54715)行装载真身(asm 0x72e5xx-0x72e858 逐实参):
+//   @0072e4f6 alt 有效(first/second >= 0 且 item 非空)→ FUN_0072dd12(this)
+//     (1872B 行表重建,cited);
+//   @0072e5xx item 坐标无效 → resetRow(false);否则 resetRow(item != 0);
+//   @0072e5xx 坐标无效/项空 → return;
+//   @0072e5a2 name = item->data(0x101).toString();
+//   @0072e5b5 idx = rowIndexByName(name);idx == -1 → resetRow(false);否则:
+//     @0072e62a combo48->findData(row+0x08, UserRole=0x100, MatchExactly=0x10)
+//       → blockSignals 包裹 → setCurrentIndex(命中值);
+//     @0072e689 combo58->findData(QVariant(row+0x18 int)) 同包裹 setCurrentIndex;
+//     @0072e6f8 edit50->setText(row+0x10);
+//     @0072e701 spin70->setValue(u16 row+0x34);
+//     @0072e70e if (row+0x18 == 1):edit60->setText(tr("Any"))@0072e815
+//       + spin68->setValue(0)@0072e836 + setEnabled(edit60,false)/
+//       setEnabled(spin68,false)@0072e83b/846;
+//     else:edit60->setText(row+0x38)@0072e71f + spin68->setValue(u16 row+0x36)
+//       @0072e72c;
+//     @0072e741 FUN_0056647e(+0x98, row+0x20, 4)(cited);
+//     @0072e765 FUN_0056672a(+0x98, flags<=1, (flags&~2)==0, 0)(cited);
+//     @0072e76a check38->setChecked(row+0x2c != 0);
+//     @0072e7xx check40->setChecked(row+0x2d != 0);
+//     @0072e7xx FUN_0072d304(this,row)(1257B cited)。
+void SettingsPageFace::loadWidgets(const SettingsItemRef &item,
+                                   const SettingsItemRef &alt)
+{
+	if (alt.first >= 0 && alt.second >= 0 && alt.item != nullptr) {
+		/* FUN_0072dd12(this)@0072e4f6 — cited(1872B 行表重建体未转写) */
+	}
+	const bool itemValid = item.first >= 0 && item.second >= 0 && item.item != nullptr;
+	resetRow(itemValid); // FUN_0072d0f2 @0072e5xx(实参 = 项非空)
+	if (item.first < 0 || item.second < 0 || item.item == nullptr)
+		return;
+	const QString name = item.item->data(0x101).toString(); // @0072e5a2
+	const int idx = rowIndexByName(name);                   // @0072e5b5
+	if (idx == -1) {
+		resetRow(false);
+		return;
+	}
+	const SettingsRow &row = m_rowsB8.at(idx);
+	if (m_combo48 != nullptr) { // 组合框 1(键 row+0x08)
+		const int found = m_combo48->findData(row.comboKey, Qt::UserRole,
+		                                      Qt::MatchExactly); // 0x100/0x10
+		m_combo48->blockSignals(true);
+		m_combo48->setCurrentIndex(found);
+		m_combo48->blockSignals(false);
+	}
+	if (m_combo58 != nullptr) { // 组合框 2(键 row+0x18 int)
+		const int found = m_combo58->findData(QVariant(row.kind), Qt::UserRole,
+		                                      Qt::MatchExactly);
+		if (found != -1) {
+			m_combo58->blockSignals(true);
+			m_combo58->setCurrentIndex(found);
+			m_combo58->blockSignals(false);
+		}
+	}
+	if (m_edit50 != nullptr)
+		m_edit50->setText(row.edit50Text); // @0072e6f8
+	if (m_spin70 != nullptr)
+		m_spin70->setValue(row.spin70); // @0072e701(u16)
+	if (row.kind == 1) { // @0072e70e
+		if (m_edit60 != nullptr) {
+			m_edit60->setText(tr("Any")); // 0xc9d355 @0072e815
+			m_edit60->setEnabled(false);  // @0072e83b
+		}
+		if (m_spin68 != nullptr) {
+			m_spin68->setValue(0);       // @0072e836
+			m_spin68->setEnabled(false); // @0072e846
+		}
+	} else {
+		if (m_edit60 != nullptr)
+			m_edit60->setText(row.edit60Text); // @0072e71f(row+0x38)
+		if (m_spin68 != nullptr)
+			m_spin68->setValue(row.spin68);    // @0072e72c(u16 row+0x36)
+	}
+	/* FUN_0056647e(m_widget98, row+0x20, 4)@0072e741 — cited */
+	/* FUN_0056672a(m_widget98, flags<=1, (flags&~2)==0, 0)@0072e765 — cited */
+	if (m_check38 != nullptr)
+		m_check38->setChecked(row.check38 != 0); // @0072e76a
+	if (m_check40 != nullptr)
+		m_check40->setChecked(row.check40 != 0);
+	/* FUN_0072d304(this, row)@0072e7xx — cited(1257B) */
 }
 
 // FUN_0072d254(160B,0022.c:53900)当前列表项 → 行索引真身:

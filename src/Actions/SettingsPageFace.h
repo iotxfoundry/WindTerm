@@ -5,6 +5,7 @@
 #include <QWidget>
 
 class QAbstractButton;
+class QStandardItem;
 class QComboBox;
 class QLabel;
 class QLineEdit;
@@ -22,6 +23,38 @@ class QSpinBox;
 //   FUN_0072d1e4(112B):+0xb8 行表(0x48 字节/行,首字段 QString 名)线性查。
 //   FUN_0072d254(160B):+0xb0 QListWidget 当前项 data(0x101)→ 行索引。
 // 注:字段偏移 = 语料直读;本类不复制偏移布局(仅字段族对位)。
+//
+// SettingsRow — 语料行节点(0x48 字节,批 256 asm 逐字段实证):
+//   +0x00 QString 名(0072d1e4 比对;item data(0x101))
+//   +0x08 QString 组合框键(combo48 findData,UserRole)
+//   +0x10 QString edit50 文本(as `lea 0x10(%rbp)` 实证)
+//   +0x18 int(combo58 findData 键;== 1 分支判据)
+//   +0x20 4 项子件值(FUN_0056647e(count=4)消费)
+//   +0x2c byte → check38/+0x2d byte → check40(`movzbl 0x2c(%rbp)`)
+//   +0x30 uint flags((flags<=1) 与 ((flags & ~2)==0) 两腿)
+//   +0x34 u16 → spin70 / +0x36 u16 → spin68(`movzwl 0x34/0x36(%rbp)`)
+//   +0x38 QString edit60 文本(else 腿 `lea 0x38(%rbp)`)
+struct SettingsRow {
+	QString name;        // +0x00
+	QString comboKey;    // +0x08
+	QString edit50Text;  // +0x10
+	int kind = 0;        // +0x18
+	QStringList childValues; // +0x20(4 项)
+	quint8 check38 = 0;  // +0x2c
+	quint8 check40 = 0;  // +0x2d
+	quint32 flags = 0;   // +0x30
+	quint16 spin70 = 0;  // +0x34
+	quint16 spin68 = 0;  // +0x36
+	QString edit60Text;  // +0x38
+};
+
+// loadWidgets 入参面(调用方 item 引用:{int,int,int,QStandardItem*})
+struct SettingsItemRef {
+	int first = -1;
+	int second = -1;
+	int pad = 0;
+	const QStandardItem *item = nullptr;
+};
 class SettingsPageFace : public QWidget {
 	Q_OBJECT
 public:
@@ -32,6 +65,14 @@ public:
 	//   命中 → 行索引;未命中 → -1。
 	//   本面以 QStringList 承载"名面"(行内其余 0x40 字节字段 cited)。
 	int rowIndexByName(const QString &name) const;
+
+	// FUN_0072e4f6(932B,0022.c:54715)行装载真身:
+	//   alt 有效 → FUN_0072dd12(this)(1872B cited);
+	//   item 坐标无效 → resetRow(false),否则 resetRow(item 非空);
+	//   坐标仍无效/项空 → 返;
+	//   name = item->data(0x101).toString();idx = rowIndexByName;
+	//   idx == -1 → resetRow(false);否则逐控件装载(见 .cpp 逐地址)。
+	void loadWidgets(const SettingsItemRef &item, const SettingsItemRef &alt);
 
 	// FUN_0072d254(160B,0022.c:53900)当前列表项 → 行索引:
 	//   item = QListWidget::item(+0xb0,当前行);空 → -1;
@@ -58,7 +99,7 @@ public:
 	QSpinBox *m_spin70 = nullptr;        // +0x70
 	QWidget *m_widget98 = nullptr;       // +0x98(FUN_0056672a 消费)
 	QListWidget *m_listB0 = nullptr;     // +0xb0
-	QStringList m_rowNamesB8;            // +0xb8 行表名面(行节点 0x48 字节)
+	QList<SettingsRow> m_rowsB8;         // +0xb8 行表(0x48 字节/行)
 	// 行节点(0x48 字节)字段证据(待建模,批 246 记录):
 	//   +0x00 QString 名(0072d1e4 比对字段)
 	//   +0x08 QVariant/值(0072e4f6 组合框 findData 取此行字段)
