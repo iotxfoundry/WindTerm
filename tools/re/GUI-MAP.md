@@ -88,3 +88,80 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - 证据不足:KitWindow ctor 008fc2f8 57B 疑薄转发(深装配在 008d3cc2);
   EditorWindow ctor 地址未取证(仅 0089d795 new 0xd0 锚);PopupWidget 语料
   对应未核。
+
+## 追加:批 192-235 落地与勘正(2026-11-16)
+
+> 本节 = 已真身化的语料面索引(后续批直接引用,勿重复推导)。
+> 铁律 7:全部未过编译门。
+
+### 主窗/装配(P1)
+- `008d3cc2`(296B)延迟装配门:gate +0x30 → 菜单栏 → 状态栏 → 中央树 →
+  钩 +0x210 → 三连线(008cd822,cited 槽)→ 清 gate → property
+  "History"/"HistoryHints"(0x11820e8/0x11820e0 实读)→ startupSessions →
+  失败 +0x208 / 尾 +0x250。落 `KitWindowFace::kitWindowAssembleDeferred`。
+- `008c9ee4`(159B)菜单栏腿 / `008c9f8c`(54B)状态栏腿 /
+  `King::assembleCentralSplitters`(1010B)**中央七槽树**:
+  `+0x68[+0x58[+0x38,+0x60[+0x48],+0x40],+0x50]`(asm 还原接收者),
+  朝向 0x38/0x40/0x60/0x68=Vertical,sizes [1000,4000,1000]/[4000,2000]。
+- 槽位访问族:id 1/2/8 ↔ `+0x38/+0x40/+0x50`;id 1·2 经 +0x58 idx0/2,
+  id 8 经 (+0x70==1 ? +0x68 : +0x60) idx1(`008ca096/b8/de/120/168/170`)。
+- `008ce100`(244B)展开/收起(+0x50 findChildren<KitDock> 同步展开钮);
+  `008ca17a`(110B)子件槽恢复。
+- 字段族(ctor 0x8cc6ba-c6f7 实读):+0x30 WORD=0x0101(门/旗标)/
+  +0x38..+0x68 七槽 / **+0x70 BYTE 语义勘正** = states 段写入的判选位
+  (pane+0xe = 0xe*8 = 0x70,双源)。
+
+### 面板/页体系(P2)
+- 面板名归一 `0089ede8`+`0089ebe2`:不以 "Pane" 结尾(忽略大小写)则追加,
+  首字母大写。
+- 面板工厂 `s_ExplorerPane_89eed8`(1185B):归一名 → findChild 命中即返;
+  **9 条分派表**(Explorer 0x58/Filer 0x78/Outline 0x90/Output 0x48/
+  Search 0x148/Sender 0xa8/Session 0x68/Shell 0x60/Transfer 0x60)。
+- 页挂 `008b8226`(399B)/页恢复 `008b881c`(485B)/页显 `008b8a26`+`008b8abe`/
+  批量 `008b8acc`/查名 `008b84b6`/摘页 `008b83dc`+`005ab2cc`/开关 `008b8b7c`/
+  按说明插 `008b8bb8`+`005abce4`(First/Last/Before/After/数字)/按名摘 `008b85ba`。
+- 恢复链单页腿(asm 0x8d3234-3260):withExpand = (+0x50)->isAncestorOf(sp)
+  → kitCreateDock → kitPanelsRestore → addWidget。
+- splitter 布局段 `kitSplittersRestore`(8d302f-3317):三槽 [+0x38,+0x40,+0x50];
+  states 段 `kitSplittersStatesRestore`(8d3323-340x):>>bool→+0x70 +
+  三槽 [+0x68,+0x58,+0x60]。
+
+### KitDock 域(P6)
+- ctor `008b81b0`(109B):+0x30 TabGroup/+0x38 **bool** withExpand(勘正)/
+  +0x39 浮停位/+0x3c..+0x48 全局矩形四边/+0x4c 槽 id/+0x50 splitter index。
+- 子件装配 `s_ExpandButton_8b7dd4`(371B,名误导):TabGroup"PaneGroup"+
+  Expand/Config/Close 三钮+QVBoxLayout(addWidget tabs + tabs->stack())。
+- 四路接线 `008b7f60`(591B)+槽真身 `008b7d08`(切页同步图标标题)/
+  `008b7ca0`(展开转发,非浮停)。
+- 创建腿 `s_89d860`(1346B):配置 tabbar.selectionBehaviorOnRemove +
+  `QTabBar::setSelectionBehaviorOnRemove`(公开 API)+destroyed→deleteLater。
+- 浮停 `dock_toggleFloat`(866B):几何面 **d+0x14..0x20 = QRect 四边** →
+  `QRect(mapToGlobal(0,0),size())`;单子 splitter 尺寸并入邻格;
+  尾信号 idx1(floatingChanged);尾闭包 8b7cdb = setGeometry(矩形)。
+- 收起 `008b86e4`(153B)/切分 `008b9092`(375B)/展开钮 `s_ExpandButton_5ab32a`(584B)。
+
+### TabBar/TabGroup 勘正(P6)
+- **`005a80f8`/`005a6c0e` 是 QTabBar 公开 API(setTabButton/tabButton)**,
+  非 Qt 私有结构 → `assignTabProperty`(631B)/`setCloseButtonsVisible`(163B)/
+  CloseButton 建钮三件真身化(tooltip "Close Tab" 0xc8b231 实读)。
+- `005ac8d0`(191B)=replacePage;`005abce4`(301B)=页位说明解析。
+
+### 状态栏(P3)
+- 子类 `FUN_005a2d26`(252B)→`StatusBarFace`;`showMessage`(654B):
+  空串→tr("Ready")(0xc8b211)+label 永久件+超时表;超时槽(325B)回 "Ready"。
+- 染色腿 `005a620e`(787B):属性 "messageLevel"(0xd0dfa6 实读)+
+  `s_king_refreshWidgetStyle`(67B,unpolish/polish)。
+- `setSizePolicy(0x5d0000)` 按系统 Qt5 Bits 解得 horPolicy=13(非法)→
+  **未解码,保持 cited**(防发明)。
+
+### 组会话帧(5c blobB)
+- `s_RenamedTitle_8bbab6`(850B)主体 → `MuxPaneGroup::sessionTitleBlob`:
+  收集(空页/空 Url 递减 cur、"::" 前缀过滤 0xd99dd1)→ <<cur<<count →
+  逐项 <<Url <<会话态 <<颜色 <<(Terminal 腿 RenamedTitle)。
+- `KitView_vt9`(008c4ec8,119B)= `property("History").toByteArray()`
+  (名 0x11820e8 实读;未初始化腿虚槽 +0xb0 cited)。
+- 页元数据表 = 语料 `+0x20 QMap<QString,QVariant>`(008c54a4→00a85f62),
+  键 "Url"/"State"/"RenamedTitle" → `MuxPaneView::m_meta20`。
+- blobB 组块(8cf62f-8ff):BFS 帧 `<<index <<count <<saveState`,
+  子件 QSplitter→kind1 入队 / MuxPaneGroup(**= 语料 KitGroup 011ab130**)
+  →kind2 + (isLast ? sessionTitleBlob : 空 BA)。
