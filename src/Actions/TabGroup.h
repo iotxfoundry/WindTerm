@@ -78,6 +78,11 @@ public:
     //   组级包装(9B)= 命中腿转发。
     void activateIndex(int index);
     int indexAtPoint(const QPoint &pos) const;
+
+public:
+    // 005ab5c0(9B)/005ab316(9B)组级包装:TabBar 命中/当前页取面。
+    int indexAtPointOf(const QPoint &pos) const { return m_f58->indexAtPoint(pos); }
+    QWidget *currentPage() const { return m_f60 != nullptr ? m_f60->currentWidget() : nullptr; }
     // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。
