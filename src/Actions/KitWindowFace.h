@@ -131,6 +131,11 @@ public:
 	//   gate → 空负载 → magic(0xb9e7e615 旧格式门)→ splitter 段 →
 	//   states 段 → bars 段(0xb9e7e621 门)→ 尾钩 0x240(cited)。
 	bool kitWindowStartupSessions(const QByteArray &history, int hints);
+	// FUN_008ce8f6(1347B,0028.c:14741)旧格式恢复(< 0xb9e7e615):
+	//   同三槽结构(FUN_008d7840 [+0x38,+0x40,+0x50])→ 逐 splitter
+	//   >>int 页数 → 逐页 >>BA → kitDockRestorePage(89d860+8b881c+addWidget)。
+	//   旧帧尾部差异段未逐句核对 → cited 注记。
+	bool kitStartupSessionsLegacy(const QByteArray &payload);
 	// s_kit_startupSessions 尾段(栏可见性,0028.c:17450 域)→ cpp
 	bool kitWindowBarsRestore(const QByteArray &frame, quint32 magic, quint32 flags);
 	// ── 槽位访问族(批 198;id 字面 1/2/8 = asm 立即数)───────────────

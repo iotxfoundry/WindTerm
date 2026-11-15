@@ -149,7 +149,7 @@ bool KitWindowFace::kitWindowStartupSessions(const QByteArray &history, int hint
 	quint32 magic = 0;
 	in >> magic; // local_10c @008d2ff9
 	if (magic < 0xb9e7e615u)
-		return false; // FUN_008ce8f6(1347B 旧格式)cited
+		return kitStartupSessionsLegacy(history); // FUN_008ce8f6(1347B)
 	QByteArray splitterBlob;
 	in >> splitterBlob;                      // @008d302f
 	kitSplittersRestore(this, splitterBlob); // 批 218(8d304b-3317)
@@ -846,4 +846,29 @@ void KitWindowFace::ensureStateA0()
 	//   p8/p18 = &DAT_011c5118(共享常量,语义 cited),i10 = 2。
 	state->list.clear(); // shared_null 等价
 	m_fA0 = state;       // @008c9fex 写回
+}
+
+// FUN_008ce8f6(1347B,0028.c:14741)旧格式恢复真身(结构面):
+//   @008ce8f6 payload 空 → 0;三槽 [+0x38,+0x40,+0x50](FUN_008d7840)
+//   @008ce967 → 逐 splitter:@008cea1a >>int 页数 → 逐页 >>QByteArray →
+//   uVar4 = (+0x50)->isAncestorOf(?) → s_89d860(this,uVar4) 建 dock →
+//   FUN_008b881c(dock, BA) → QSplitter::addWidget。
+bool KitWindowFace::kitStartupSessionsLegacy(const QByteArray &payload)
+{
+	if (payload.isEmpty())
+		return false;
+	QDataStream in(payload); // @008ce8f6
+	QSplitter *slots[3] = {m_split0x38, m_split0x40, m_split0x50}; // 8d7840 三槽
+	for (QSplitter *sp : slots) {
+		if (sp == nullptr)
+			continue;
+		int count = 0;
+		in >> count; // @008cea1a
+		for (int i = 0; i < count; ++i) {
+			QByteArray ba;
+			in >> ba;
+			kitDockRestorePage(this, sp, ba); // 89d860+8b881c+addWidget
+		}
+	}
+	return true;
 }
