@@ -390,16 +390,38 @@ bool kitPanelsRestore(TabGroup *tabs, const QByteArray &blob)
 //   kit = 008b8694(this)@008b8a2x;panel = 89eed8(名, kit)@008b8a5f;
 //   panel != 0 → FUN_008b8226(this,panel,param_3,param_4)@008b8a7d
 //   (008b83ce = 同面 idx=-1 包装 @008b83ce 13B)。
-void kitPanelShow(TabGroup *tabs, const QString &name, int index, bool select)
+int kitPanelShow(TabGroup *tabs, const QString &name, int index, bool select)
 {
 	if (tabs == nullptr)
-		return;
+		return -1;
 	QWidget *panel = kitPanelFindOrCreate(kitWindowAncestor(tabs), name); // @008b8a5f
-	if (panel != nullptr)
-		kitPanelAdd(tabs, panel, index, select); // @008b8a7d
+	if (panel == nullptr)
+		return -1;
+	return kitPanelAdd(tabs, panel, index, select); // @008b8a7d(返回 idx 透传)
 }
 
-void kitPanelShowBack(TabGroup *tabs, const QString &name, bool select)
+int kitPanelShowBack(TabGroup *tabs, const QString &name, bool select)
 {
-	kitPanelShow(tabs, name, -1, select); // 008b8abe → 008b8a26(idx=-1)
+	return kitPanelShow(tabs, name, -1, select); // 008b8abe → 008b8a26(idx=-1)
+}
+
+// 008b8acc(175B,0027.c:76005)批量页恢复:
+//   FUN_005abbda(tabs) 前置计数调用 @008b8acc(值未消费);名表空 → -1;
+//   逐 i:blockSignals(实参 Ghidra 丢,循环内 true / 尾 false 同相)+
+//   kitPanelShowBack(name[i], currentIndex==i)@008b8b1x;
+//   currentIndex 命中项记录返回 idx。尾 blockSignals(false)。
+int kitPanelsRestoreList(TabGroup *tabs, const QList<QString> &names,
+                         int currentIndex)
+{
+	if (tabs == nullptr || names.isEmpty()) // @008b8axx(<1 → 0xffffffff)
+		return -1;
+	int ret = -1;
+	for (int i = 0; i < names.size(); ++i) {
+		tabs->blockSignals(true); // cited 实参(循环内)
+		if (kitPanelShowBack(tabs, names.at(i), currentIndex == i) != -1
+		    && currentIndex == i)
+			ret = currentIndex;
+	}
+	tabs->blockSignals(false); // 尾(实参 cited 同相)
+	return ret;
 }
