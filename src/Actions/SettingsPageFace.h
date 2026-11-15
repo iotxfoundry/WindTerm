@@ -1,10 +1,12 @@
 #pragma once
 
+#include <QDialog>
 #include <QString>
 #include <QStringList>
-#include <QWidget>
 
 class QAbstractButton;
+class QDialogButtonBox;
+class QModelIndex;
 class QStandardItem;
 class QComboBox;
 class QLabel;
@@ -55,16 +57,31 @@ struct SettingsItemRef {
 	int pad = 0;
 	const QStandardItem *item = nullptr;
 };
-class SettingsPageFace : public QWidget {
+class SettingsPageFace : public QDialog { // 语料:连接 accept/reject → QDialog
 	Q_OBJECT
 public:
-	explicit SettingsPageFace(QWidget *parent = nullptr) : QWidget(parent) {}
+	explicit SettingsPageFace(QWidget *parent = nullptr) : QDialog(parent) {}
 
 	// FUN_0072d1e4(112B,0022.c:53854)按名查行:
 	//   行表(+0xb8)逐行(步长 0x48)取首字段 QString 与 name 比对,
 	//   命中 → 行索引;未命中 → -1。
 	//   本面以 QStringList 承载"名面"(行内其余 0x40 字节字段 cited)。
 	int rowIndexByName(const QString &name) const;
+
+	// FUN_0072dd12(1872B)行表重建(被 0072e49a/0072e4c8 以 -1 调用;
+	//   体未转写 → cited 空实现,保留签名)。
+	void refreshRows(int index);
+
+	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
+	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
+	//     (字符串形 "2accepted()"/"1accept()");
+	//   +0xa8 两路自定义信号(FUN_008ef798/FUN_008ef7fc,smeta 01193440)
+	//     → FUN_0072db3c/FUN_0072e8d2(cited);
+	//   +0x50 QLineEdit::textEdited → FUN_0072e49a(= refreshRows(-1));
+	//   +0x98 信号(FUN_008faeac)→ FUN_0072e4c8(= refreshRows(-1));
+	//   +0x58 QComboBox::currentIndexChanged → FUN_0072eb15(cited 720B);
+	//   +0xb0 selectionModel currentChanged → settings_loadWidgets(行装载)。
+	void connectSignals();
 
 	// FUN_0072e4f6(932B,0022.c:54715)行装载真身:
 	//   alt 有效 → FUN_0072dd12(this)(1872B cited);
@@ -98,6 +115,8 @@ public:
 	QSpinBox *m_spin68 = nullptr;        // +0x68
 	QSpinBox *m_spin70 = nullptr;        // +0x70
 	QWidget *m_widget98 = nullptr;       // +0x98(FUN_0056672a 消费)
+	QDialogButtonBox *m_buttons78 = nullptr; // +0x78(accept/reject 面)
+	QWidget *m_widgetA8 = nullptr;       // +0xa8(自定义信号宿主,cited 类)
 	QListWidget *m_listB0 = nullptr;     // +0xb0
 	QList<SettingsRow> m_rowsB8;         // +0xb8 行表(0x48 字节/行)
 	// 行节点(0x48 字节)字段证据(待建模,批 246 记录):

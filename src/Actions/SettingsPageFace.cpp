@@ -8,7 +8,13 @@
 #include <QListWidget>
 #include <QSpinBox>
 #include <QListWidgetItem>
+#include <QComboBox>
+#include <QDialogButtonBox>
+#include <QItemSelectionModel>
+#include <QLineEdit>
+#include <QSpinBox>
 #include <QStandardItem>
+#include <QStandardItemModel>
 
 // FUN_0072d1e4(112B,0022.c:53854)按名查行真身:
 //   lVar3 = *(this+0xb8)(行表);iVar1 = 元素数(+4 槽);
@@ -161,5 +167,63 @@ void SettingsPageFace::resetRow(bool enable)
 	for (QWidget *w : group) {
 		if (w != nullptr)
 			w->setEnabled(enable);
+	}
+}
+
+// FUN_0072dd12(1872B)行表重建 — cited 空实现(体未转写)。
+void SettingsPageFace::refreshRows(int index)
+{
+	(void)index; // cited — 1872B 体(行表重建/过滤)未转写
+}
+
+// FUN_0072bbe2(935B,0022.c:53137)八路接线真身:
+//   ① connect(+0x78, accepted, this, accept)("2accepted()"/"1accept()")
+//   ② connect(+0x78, rejected, this, reject)
+//   ③ connect(+0xa8, FUN_008ef798, this, FUN_0072db3c)     — cited
+//   ④ connect(+0xa8, FUN_008ef7fc, this, FUN_0072e8d2)     — cited
+//   ⑤ connect(+0x50, textEdited, this, FUN_0072e49a)=(refreshRows(-1))
+//   ⑥ connect(+0x98, FUN_008faeac, this, FUN_0072e4c8)=(refreshRows(-1))
+//   ⑦ connect(+0x58, currentIndexChanged, this, FUN_0072eb15) — cited(720B)
+//   ⑧ connect(+0xb0 selectionModel::currentChanged, this, settings_loadWidgets)
+//      — 语料直接把两个 QModelIndex 当 (行引用,交替引用) 传入。
+void SettingsPageFace::connectSignals()
+{
+	if (m_buttons78 != nullptr) {
+		connect(m_buttons78, &QDialogButtonBox::accepted, this,
+		        &QDialog::accept); // ①"2accepted()"→"1accept()"
+		connect(m_buttons78, &QDialogButtonBox::rejected, this,
+		        &QDialog::reject); // ②
+	}
+	// ③④ +0xa8 两路自定义信号(体 FUN_0072db3c/FUN_0072e8d2 未转写)— cited。
+	if (m_edit50 != nullptr) {
+		connect(m_edit50, &QLineEdit::textEdited, this, [this](const QString &) {
+			refreshRows(-1); // ⑤ FUN_0072e49a → 0072dd12(this,-1)
+		});
+	}
+	// ⑥ +0x98 信号(FUN_008faeac,类 0119d620 未建模)→ refreshRows(-1) — cited。
+	if (m_combo58 != nullptr) {
+		connect(m_combo58,
+		        QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+		        [this](int) {
+			        /* ⑦ FUN_0072eb15(720B)未转写 — cited 不落 */
+		        });
+	}
+	if (m_listB0 != nullptr && m_listB0->selectionModel() != nullptr) {
+		connect(m_listB0->selectionModel(),
+		        &QItemSelectionModel::currentChanged, this,
+		        [this](const QModelIndex &cur, const QModelIndex &prev) {
+			        // ⑧ 语料:currentChanged(cur,prev) → loadWidgets(cur,prev)
+			        //   本项目 QModelIndex 与 SettingsItemRef 字段对齐由
+			        //   model()->data(index,0x101) 取面承担(cited 适配:
+			        //   模型项解析面未取证)。
+			        SettingsItemRef a;
+			        a.first = cur.row();
+			        a.second = cur.column();
+			        a.item = nullptr; // 项解析 cited(经 model data 取面)
+			        SettingsItemRef b;
+			        b.first = prev.row();
+			        b.second = prev.column();
+			        loadWidgets(a, b);
+		        });
 	}
 }
