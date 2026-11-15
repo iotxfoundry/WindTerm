@@ -4,6 +4,7 @@
 #include "Actions/ThemeIcons.h"
 
 #include <QAbstractButton>
+#include <QPushButton>
 #include <QStyle>
 #include <QToolButton>
 #include <QVBoxLayout>
@@ -93,4 +94,17 @@ void MessageBarFace::assembleChildren()
 	hbox->addWidget(m_f38);   // +0x38
 	hbox->addWidget(m_f40);   // +0x40
 	setLayout(hbox);          // @005988xx
+}
+
+// FUN_0059b046(393B,0018.c:14437)真身:
+//   @0059b046 findChildren<QPushButton>(this, 空名, 递归=1);
+//   逐项 QAbstractButton::text() == 参数 → 返回该项;遇空表 → 0。
+QPushButton *MessageBarFace::findButtonByText(const QString &text) const
+{
+	const QList<QPushButton *> buttons = findChildren<QPushButton *>();
+	for (QPushButton *b : buttons) {
+		if (b->text() == text) // @0059b119 operator==
+			return b;
+	}
+	return nullptr;
 }

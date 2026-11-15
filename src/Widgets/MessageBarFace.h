@@ -49,6 +49,12 @@ public:
 	//     → setLayout(hbox)。
 	void assembleChildren();
 
+	// FUN_0059b046(393B,0018.c:14437)按文本查按钮:
+	//   findChildren<QPushButton>(空名, 递归=1)逐个 text() 比对;
+	//   命中返回按钮,否则 nullptr。
+	class QPushButton;
+	QPushButton *findButtonByText(const QString &text) const;
+
 private:
 	QToolButton *m_f38 = nullptr; // +0x38 ExpandButton
 	QToolButton *m_f40 = nullptr; // +0x40 CloseButton
