@@ -691,6 +691,23 @@ int main(int argc, char **argv)
 			++fails; // kind=7 Recent 腿 @00521c75
 	}
 
+	// f8. kitStartupSessions splitter 段消费接线(批 158):splitter 布局
+	//     段读游真身(页数头 int + 尾 restoreState 段)+ states 表逐项
+	//     读游(@008d3380-9d);挂页腿宿主槽 cited(同相);空 payload/
+	//     非 flags&1 门面复验(批 154 已守读游推进,此处防回归)。
+	{
+		QByteArray s6;
+		{
+			QDataStream w(&s6, QIODevice::WriteOnly);
+			w << quint32(0xb9e7e623u); // version(现行写侧 ≥ 门)
+			w << QByteArray();         // splitter 布局段(空表,读游直过)
+			w << QByteArray();         // states 表段
+		}
+		QWidget s6Host;
+		if (!kitStartupSessions(&s6Host, s6, 1u))
+			++fails; // 空 splitter 段:读游消费直过 → return 1(@008d3c17)
+	}
+
 	delete edW;
 	delete buyW;
 

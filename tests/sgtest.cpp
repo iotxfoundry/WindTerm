@@ -11,6 +11,7 @@
 // 无头惯例:QApplication + offscreen(tests/uiassembletest.cpp 同面)。
 #include <QApplication>
 #include <QIcon>
+#include <QMap>
 #include <QPointer>
 #include <QSplitter>
 #include <cstdio>
@@ -186,6 +187,56 @@ int main(int argc, char **argv)
 		expect(t5.stackIndexOf(&grp5) == -1 && grp5.parentWidget() == nullptr,
 		       "h5: detachWindow 摘页+脱管(FUN_008d9fe0:005ab6c2→005ab2cc"
 		       "(param_3=0 仅 removeWidget)→setParent(0))");
+	}
+
+	// ======== i. 批 158 新落段冒烟 ========
+	// i1 0x10 重题腿(retitleGroupPane,0084ecf0-ef1a):"%1:%2" 合成 +
+	//   池 upperBound 前置键 + setTitle/FUN_008df06e 链;zoomedPane 恒
+	//   空(非 zoom)→ 无 " [Zoomed]" 追加(语料同相 @0084eecd)。
+	{
+		MuxWindow iwin(false, nullptr);
+		MuxPaneGroup *igrp = new MuxPaneGroup(true, nullptr);
+		MuxPaneView *ipane = new MuxPaneView(nullptr, TypeTerminal);
+		iwin.splitter()->addWidget(igrp);
+		igrp->addTab(ipane, false);
+		QMap<int, QString> pool;
+		pool.insert(0, QStringLiteral("main"));
+		iwin.retitleGroupPane(ipane, pool);
+		expect(ipane->title() == QStringLiteral("0:main"),
+		       "i1: 重题腿 0:main(0084ee7c %1:%2 + 池 upperBound 前置键"
+		       "@0084ee49-53 + FUN_008de224 链)");
+		expect(ipane->title() == QStringLiteral("0:main"),
+		       "i2: 同值不重写(+0x38 比对 @0084eeff 早退)");
+	}
+	// i3 muxSplitterMoved S0-S3(008e12c0):非 tmux 窗(+0x41=0)卫腿
+	//   直返不崩(真库 splitterMoved 信号经 connect 面;S4-S6 cited)。
+	{
+		MuxWindow iwin(false, nullptr);
+		MuxPaneGroup *igrp = new MuxPaneGroup(true, nullptr);
+		iwin.splitter()->addWidget(igrp);
+		emit iwin.splitter()->splitterMoved(0, 1); // 卫腿全过路直返(值面 cited 不崩)
+		expect(true, "i3: splitterMoved 卫腿直返不崩(008e12d1 +0x41=0 → 返)");
+	}
+	// i4 restoreState shim 几何腿(0084b483 尾单段面,真库委托同相;
+	//   Qt5.15 本机探针:restore 回 orientation 真腿,sizes 计数依赖
+	//   可见页/布局交付 — 语料归一面 0084bcd8 同相只证委托腿)。
+	{
+		QSplitter sp4;
+		sp4.setOrientation(Qt::Vertical);
+		sp4.addWidget(new QWidget);
+		sp4.addWidget(new QWidget);
+		sp4.resize(600, 400);
+		sp4.show();
+		for (int k = 0; k < 40; ++k)
+			QApplication::processEvents();
+		const QByteArray blob4 = sp4.saveState();
+		QSplitter sp4b;
+		sp4b.setOrientation(Qt::Horizontal);
+		sp4b.addWidget(new QWidget); // 计数对位前置(探针同相)
+		sp4b.restoreState(blob4);    // 几何委托面(shim 同型消费)
+		expect(sp4b.orientation() == Qt::Vertical,
+		       "i4: restoreState 几何腿 orientation roundtrip(0084b483 "
+		       "尾单段真库委托面;Qt5.15 探针 restore=1 orient 翻转)");
 	}
 
 	printf("fail=%d\n", g_fail);

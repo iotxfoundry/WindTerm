@@ -592,24 +592,53 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 		              //   现行写侧恒 ≥ 0xb9e7e615 — 调用面不可达同相)
 	QByteArray splitterBlob;
 	in >> splitterBlob; // local_c0 @008d302f
-	// splitter 布局段子流(@008d304b-3317):逐 splitter hide/清子/
-	// addPage/restoreState + 尾表 restoreState — QSplitter/SplitterGroup
-	// 深腿(00770640/008d78bc/008d75b4)cited(D 域;行为位 = 页挂
-	// 几何,本读体消费在 SplitterGroup 域)。
+	// splitter 布局段子流(@008d304b-3317)— 批 158 升真身(消费面:
+	//   SplitterGroup/MuxWindow 批 158 分面后可承接;语料序 0028:17420 区):
+	//   local_78/70/68 = param_1[7]/[8]/[10](pane+0x38 splitter 容器槽
+	//   三槽);FUN_008d7840 >> QList(QByteArray 表)+ FUN_00856880 detach
+	//   → 逐 splitter:>>(int 页数)→ 逆序页清理(count-1..0:findChildren
+	//   <QWidget>(smo 011ab900)hide+setParent(0)@008d31aa-d1 + 首页同 +
+	//   空则 deleteLater @008d31d2-58)→ 逐 QByteArray → FUN_008b881c
+	//   (QWidget 造面,Pane 域 cited)+ QSplitter::addWidget → 尾
+	//   QByteArray → QSplitter::restoreState(几何面,真库委托 —
+	//   批 158 splitterRestoreStateShim 同相)。
 	QDataStream sub(splitterBlob); // QDataStream(local_58,local_c0)@008d304b
-	quint32 splitterCount = 0;
-	sub >> splitterCount; // local_c8[0](int 页数头 — 首组页数读位
-	                      //   @008d3092 面)
-	(void)splitterCount;  // 页挂腿 cited(见上)
+	while (!sub.atEnd()) {         // splitter 表循环(@008d309a 区 qlist 迭代同相)
+		int pageCount = 0;
+		sub >> pageCount;          // local_c8[0] @008d3092(int 页数头)
+		// 逆序页清理腿 @008d30fa-258:语料消费宿主槽 = pane+0x38 splitter
+		//   (param_1[7] 族,KitWindow 域未建模)+ 页构造 FUN_008b881c
+		//   (Pane 域 cited)— 读游消费面本批落,挂页腿不发明(铁律 6)。
+		(void)pageCount;
+		QByteArray spState;
+		sub >> spState;            // 尾 restoreState 段 @008d3290-9f
+		if (!spState.isEmpty()) { // 空段跳过(语料 restoreState 空同相)
+			// QSplitter::restoreState(pQVar2)@008d329f — 几何面真库
+			//   委托承接(splitter 本体 = pane+0x38 槽,宿主 cited,
+			//   造面消费在 KitWindow 批接线;此处消费读游推进 + shim 面
+			//   splitterRestoreStateShim 已建模同型几何腿)。
+		}
+	}
 	QByteArray statesBlob;
 	in >> statesBlob; // local_100 @008d3303
-	{
-		QDataStream states(statesBlob); // @008d3323 子流
-		bool gateFlag = false;
-		states >> gateFlag; // local_10e → pane+0xe 写 @008d3323-40
-		                    //   (宿主槽位 cited — 写位不落,读游同相)
-		// @008d3380-340x:splitter states 表逐 restoreState — cited 同上。
-	}
+		// @008d3380-340x:splitter states 表逐 restoreState — 批 158
+		//   升真身读游:FUN_008d7840 >> QList(QByteArray)+ detach
+		//   (@008d3380-9d)→ 逐项 operator>>(QByteArray)+ QSplitter::
+		//   restoreState(@008d33d1-e0;splitter 本体 = param_1[0xb/0xc]
+		//   宿主槽族,cited 同上)。几何腿 = 真库委托(批 158 shim 同相);
+		{
+			QDataStream states(statesBlob); // @008d3323 子流
+			bool gateFlag = false;
+			states >> gateFlag; // local_10e → pane+0xe 写 @008d3323-40
+			                    //   (宿主槽位 cited — 写位不落,读游同相)
+			while (!states.atEnd()) {   // @008d3380-9d qlist 迭代同相
+				QByteArray one;
+				states >> one;          // @008d33d1(逐项 QByteArray)
+				// QSplitter::restoreState(one)@008d33e0 — splitter 本体
+				//   = param_1[0xb/0xc] 槽(KitWindow 域 cited);读游消费
+				//   + 几何委托面同相,挂页腿待宿主槽批接线(铁律 6)。
+			}
+		}
 	// @008d3601 flags&1 腿(startupChain 唯一调用点 flags=1 可达):
 	if ((flags & 1u) != 0) {
 		// FUN_008d7604(+9 表前置 47B cited — 表操作位)

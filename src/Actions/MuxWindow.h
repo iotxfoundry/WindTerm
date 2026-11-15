@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QList>
+#include <QMap>
 #include <QPointer>
 #include <QString>
 #include <QWidget>
@@ -155,6 +156,17 @@ public:
     int windowIndex() const;                            // *(win+0x44)(FUN_008da226 键)
     void setWindowIndex(int idx);                       // @0084e705
     void setAuxFields(int f4c, int f50);                // @0084e71c/26(POD 源值未解 — wave-2)
+
+    // 0x10 活性重题腿真身(批 158;0084ecf0-ef1a 窄面):组上溯
+    //   (pane 父链 cast MuxPaneGroup 011abe10)→ QMap<int,QString> 池
+    //   upperBound 形(@0084ee00-4d,QMapDataBase 走查直读)→ "%1:%2"
+    //   (0xc9d359 实读).arg(组索引).arg(池值)@0084ee7c-b3 →
+    //   zoomedPane==页 比对 @0084eecd → 命中追 " [%1]".arg(tr(smo
+    //   011a7c00,0xcb77bb "Zoomed"))(" [%1]" 0xc8ad1c 实读)@0084ef84-b6
+    //   → 页+0x38 title 不等 → FUN_008de224 setTitle + FUN_008df06e
+    //   组同步 @0084eefd-0b。QMap 池(组名池,生产者写侧未解)→ 参数
+    //   承载(调用点写侧 cited;铁律 6:池本体不发明)。
+    void retitleGroupPane(MuxPaneView *pane, const QMap<int, QString> &namePool); // 0084ecf0-ef1a
 
     // mux_restorePaneSplitter(903B,0026:29862)。语料为自由函数:
     // (会话宿主*、配置容器、QSplitter*、页序、面板描述符*);QSplitter
