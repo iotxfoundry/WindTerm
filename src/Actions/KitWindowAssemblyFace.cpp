@@ -385,3 +385,21 @@ bool kitPanelsRestore(TabGroup *tabs, const QByteArray &blob)
 	tabs->blockSignals(false); // 尾复原
 	return true;               // @008b89c6
 }
+
+// 008b8a26(143B,0027.c:75960)页显真身:
+//   kit = 008b8694(this)@008b8a2x;panel = 89eed8(名, kit)@008b8a5f;
+//   panel != 0 → FUN_008b8226(this,panel,param_3,param_4)@008b8a7d
+//   (008b83ce = 同面 idx=-1 包装 @008b83ce 13B)。
+void kitPanelShow(TabGroup *tabs, const QString &name, int index, bool select)
+{
+	if (tabs == nullptr)
+		return;
+	QWidget *panel = kitPanelFindOrCreate(kitWindowAncestor(tabs), name); // @008b8a5f
+	if (panel != nullptr)
+		kitPanelAdd(tabs, panel, index, select); // @008b8a7d
+}
+
+void kitPanelShowBack(TabGroup *tabs, const QString &name, bool select)
+{
+	kitPanelShow(tabs, name, -1, select); // 008b8abe → 008b8a26(idx=-1)
+}

@@ -59,6 +59,12 @@ QWidget *kitPanelFindOrCreate(QWidget *kit, const QString &rawName);
 class TabGroup;
 int kitPanelAdd(TabGroup *tabs, QWidget *panel, int index, bool select);
 
+// 008b8a26(143B,0027.c:75960)页显:panel = 工厂(名, KitWindow 祖先)
+//   → 非空 → kitPanelAdd(tabs,panel,index,select)。008b8abe(13B)同面
+//   index = -1(尾页)。
+void kitPanelShow(TabGroup *tabs, const QString &name, int index, bool select);
+void kitPanelShowBack(TabGroup *tabs, const QString &name, bool select);
+
 // 008b881c(485B,0027.c:75873)页恢复(blob 空 → false):
 //   >>count >>current → 逐 i:>>panelName >>propBA → blockSignals(current != i)
 //   @008b8899 → panel = 工厂(归一名 find-or-create)→ 非空 →
