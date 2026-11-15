@@ -138,6 +138,10 @@ public:
 	QString m_s28;                       // +0x28(腿体 @007c2528 operator= ← 文件名参;
 	                                     // 参源 list[3]/list[4] 折叠未定,不猜,保默认)
 	void *m_state30 = nullptr;           // +0x30(session_state,007c350a 换新)
+	// 批 161:session_state 0x48B 窄面真身(007c4a30 字段面;深依赖
+	// QDateTime/token 渲染引擎 007c5970 cited)——语料 +0x30 指向
+	// 0x48B 块,本树以值成员承接(buildLeg 置指针面),析构自动对称。
+	Ext::SessionTokenState m_state;
 	void *m_sink38 = nullptr;            // +0x38(spdlog logger*,007c39ac 存)
 	void *m_sink40 = nullptr;            // +0x40(spdlog logger 持有块,007c39b7 存)
 	unsigned char m_flags19 = 0;         // +0x19:bit0=启用(腿尾 @007c35e8=param_4);

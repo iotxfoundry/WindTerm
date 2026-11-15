@@ -284,6 +284,12 @@ void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
 		delete logger;                     // 语料 vtable+0x20 拆除腿
 		return;
 	}
+	// 批 161:'h'(host)/'n'(name)自有 token 腿升真 —— 语料
+	// @007c27d5-295c:h ← +0x28 label(virtualLabel 空 → "UnknownIP" 卫),
+	// n ← target 名参,对 state 行缓冲字面替换(007c5882 簿记)。
+	// (语料此处 state 已 init @007c350a,'h'/'n' 先于 %Y..%v 渲染)
+	logger->m_state.applyHost(logger->m_s28);          // @007c2864
+	logger->m_state.applyName(target);                 // @007c2931
 	// 成功腿 @007da3d7:spinlock@+0x61(单线程免锁)→ 插入 +0x40
 	m_registry[3].insert(id, logger);      // FUN_007e159e(311B)QMap 插入原语
 	emit q->loggerCreated(id);             // FUN_00912264(42B,idx5)
@@ -334,10 +340,19 @@ bool SessionLogger::buildLeg(const QString &target, const QString &label,
 	                                             rotateBytes);
 	m_sink38 = leg.loggerRaw;      // @007c39ac *(param_1+0x38) = p_Var18+0x10
 	m_sink40 = leg.loggerOwn.get(); // @007c39b7 *(param_1+0x40) = p_Var18
-	if (m_sink38)   // cited ③ 行 pattern 腿(@007c34c8:m_sink38 非 0)
+	if (m_sink38) {  // cited ③ 行 pattern 腿(@007c34c8:m_sink38 非 0)
 		Ext::applyLinePattern(m_sink38, linePattern);
-	m_state30 = this;              // 占位标记防重复建腿(见下;语料 +0x30
-	                               // 为 session_state 0x48B,cited ③)
+		// 批 161:session_state 0x48B 下行窄面真身(@007c350a
+		// operator_new(0x48) → 007c4a30 init):行 pattern(空 →
+		// "[%Y-%m-%d %H:%M:%S] %v" @007c3500)→ state.init;+0x30
+		// 指针面对位(语料 operator_new 块 ↔ m_state 值成员)。
+		m_state.init(linePattern.isEmpty()
+		                 ? QByteArrayLiteral("[%Y-%m-%d %H:%M:%S] %v")
+		                 : linePattern.toUtf8());   // @007c4a30 体
+		m_state30 = &m_state;          // @007c3518 *(param_1+0x30) = 新块
+	}
+	// (m_state30 旧指针语义:语料换新时旧块 QDateTime/QString 析构 +
+	// operator_delete @007c3524 —— 值成员析构自动对称,无泄漏面)
 	m_flags19 = enable ? 1 : 0;                   // @007c35e8
 	m_flags18 = (unsigned char)((flags >> 2) & 1); // @007c35ee &1
 	return true;             // 语料成功尾 return 1 @007c3600

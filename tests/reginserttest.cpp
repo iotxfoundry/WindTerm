@@ -5,6 +5,8 @@
 // 插入信号 = FUN_00912264 activate idx5(IMPL-ADDRESSES #5)。
 // 語料五 QVariant 参形(settings.size()==5 卫 @007da25a)。
 #include <QCoreApplication>
+#include <QHostAddress>
+#include <QTcpSocket>
 #include <QVariantList>
 // QSignalSpy 需 Qt5Test:仿 kitbartest 判例(find_package 已在文件尾)
 #include <QtTest/qsignalspy.h>
@@ -12,6 +14,7 @@
 #include <cstdio>
 #include "SuperSession.h"
 #include "SuperSessionPrivate.h"
+#include "TcpBridge.h"
 #include "Ext/SpdlogFace.h"
 
 static int g_fail = 0;
@@ -302,6 +305,117 @@ int main(int argc, char **argv)
 		d.setProtocolSlot(nullptr);
 		expect(lk.virtualLabel().isNull(),
 		       "k: 空臂 = shared_null(@007d4da7)");
+		d.setProtocolSlot(oldSlot);
+	}
+
+	// ======== l. 批 161:自有 token 腿('h'/'n')+ state 下行窄面 +
+	// 协议对象构造(TcpBridge face 生产窗)========
+	{
+		// l-1:'h' 腿 UnknownIP 卫(@007c27d5 空串 → "UnknownIP";
+		// @007c2864 replace 簿记)
+		Ext::SessionTokenState st;
+		Ext::initLineState(st, QStringLiteral("H=%h N=%n %% end")); // 空行 pattern → 默认,这里用显式
+		st.applyHost(QString());       // label 空 → 卫臂
+		expect(st.buf == QByteArrayLiteral("H=UnknownIP N=   % end"),
+		       "l: 'h' 空 label → UnknownIP 卫(@007c27d5→@007c2864)");
+		st.applyName(QStringLiteral("sessA"));   // @007c2931
+		expect(st.buf == QByteArrayLiteral("H=UnknownIP N=sessA % end"),
+		       "l: 'n' name 替换(@007c2931)");
+		st.applyHost(QStringLiteral("10.0.0.7"));  // 非空 label 臂
+		expect(st.buf == QByteArrayLiteral("H=10.0.0.7 N=sessA % end"),
+		       "l: 'h' 非空臂直替换(@007c3673 toUtf8 臂)");
+		// 偏移簿记:两 token 替换后 pos 累加正确(007c5882 同构面)
+		expect(st.tokens.size() == 2 &&
+		       st.tokens[0].oldLen == 8 && st.tokens[1].oldLen == 5,
+		       "l: 替换簿记 oldLen 换新(@007c58c2)");
+		// '%%' 字面腿(@007c360e)+ default 腿不吞字节(@007c36c2)
+		Ext::SessionTokenState st2;
+		Ext::initLineState(st2, QStringLiteral("a%qb%%c"));
+		expect(st2.buf == QByteArrayLiteral("a%qb%c"),
+		       "l: %% 字面 + 未知 %q 逐字(@007c360e/007c36c2)");
+		// 默认行 pattern 腿(@007c3500 空 → "[%Y-%m-%d %H:%M:%S] %v")
+		Ext::SessionTokenState st3;
+		Ext::initLineState(st3, QString());
+		expect(st3.tokens.size() == 7 && st3.buf.size() == 22,
+		       "l: 默认 pattern 7 token 占位(@007c3500→007c4a30)");
+		// state 窄面字段(007c4a30 ctor 写点:init/lastMsecs 初值)
+		expect(st3.initMsecs > 0 && st3.lastMsecs == -1,
+		       "l: state 字段面(@007c4aa6 currentMSecs/+0x20 全 1 初值)");
+		// buildLeg 落位:m_sink38 非 0 时 state 指针 = 成员对位(@007c3518)
+		SessionLogger lgb(&s);
+		expect(lgb.buildLeg("tgt", "lblL", true, 0, 0, QString(),
+		                    QStringLiteral("[%h/%n] %v")),
+		       "l: 建腿带行 pattern(007c34c8 腿)");
+		// pattern "[%h/%n] %v":%h/%n 时间族占位 2B,%v 记 token。
+		// 语料建腿此处 'h'/'n' 尚未替换(state init 后先 %Y.. 渲染,
+		// 替换发生在 buildLeg 内联腿 @007c27d5-295c —— 树面 = 插入腿
+		// 侧 applyHost/applyName)。
+		expect(lgb.m_state30 == &lgb.m_state &&
+		       lgb.m_state.tokens.size() == 3,
+		       "l: +0x30 state 指针对位+token 记录(@007c3518/007c4980)");
+		expect(lgb.m_state.buf == QByteArrayLiteral("[  /  ]   "),
+		       "l: buildLeg state 行缓冲 = pattern 前置替换基(替换前)");
+		// 建腿后随插腿同构:'h'=m_s28(此测 lblL 非空 → 直替换臂
+		// @007c3673)/'n'=target("tgt")
+		lgb.m_state.applyHost(lgb.m_s28);
+		lgb.m_state.applyName(QStringLiteral("tgt"));
+		expect(lgb.m_state.buf == QByteArrayLiteral("[lblL/tgt]   "),
+		       "l: 建腿 h/n 替换语义(非空直臂 + target 名)");
+		// 插入腿:'h'/'n' 已随 insertLoggerSession 替换(@007c27d5-295c)
+		const QUuid lid = QUuid::createUuid();
+		d.setProtocolSlot(nullptr);    // 空 label → UnknownIP 卫臂
+		d.insertLoggerSession(lid, QVariantList{1, 0, 0, QString(),
+		                       QStringLiteral("S=%s/%h/%n")});
+		SessionLogger *lp = static_cast<SessionLogger *>(
+		    d.registry()[3].value(lid, nullptr));
+		// target 参 = option("session.label"→"session.target")(007d5b1a
+		// 调面,本测未设 → 空);'n' 空 → 0 长替换(删占位);'h' ←
+		// virtualLabel(槽空 → shared_null → UnknownIP 卫臂)。
+		expect(lp && lp->m_state.buf == QByteArrayLiteral("S=%s/UnknownIP/"),
+		       "l: 插入腿 h=UnknownIP(n 空 → 0 长删占位,@007c2931)");
+		d.removeRegistry(3, lid);
+	}
+
+	// ======== m. 批 161:协议对象构造窄面 —— TcpBridge face 生产窗
+	// (00875ffe/0x38 最小窗;TcpBridge_vt13/14 label 生产)========
+	{
+		TcpBridge br;
+		// SessionProtocolFace 虚身份:virtualLabel 经 q+0x10 调 +0x68 槽。
+		// q+0x10 槽 = 协议对象指针(consumer 直按 SessionProtocolFace
+		// 虚面调,static_cast<void* 无调整 —— 多继承偏移由存入侧承担,
+		// 语料 007d846e 工厂存 +0x10 槽 = 调整后指针形态)。
+		void *oldSlot = d.protocolSlot();
+		d.setProtocolSlot(static_cast<SessionProtocolFace *>(&br));
+		expect(d.protocolSlot() != nullptr,
+		       "m: TcpBridge 挂 q+0x10 协议槽(007d846e 工厂腿形态;"
+		       "槽存 iface 调整指针)");
+		// vt13(008762f4):socket 未连 → peerAddress 空 → 空 label
+		SessionLogger lb(&s);
+		expect(lb.virtualLabel().isEmpty(),
+		       "m: TcpBridge_vt13 空态 label = 空(peerAddress 空臂)");
+		expect(br.peerNameLabel().isEmpty(),
+		       "m: TcpBridge_vt14 peerName 空态 = 空(00876334)");
+		// 挂真 socket(QTcpSocket 对位)→ 派生挂点经 connectToHost 前的
+		// 卫臂:直接以 QTcpSocket 子类注 peerAddress(语料 socket 恒在
+		// —— 语料侧 connectToHost 已发生时才有值,此处近面驱动)。
+		class LblSock : public QTcpSocket {
+		public:
+			void prime(const QHostAddress &a, const QString &n) {
+				setPeerAddress(a);      // protected 面,子类可达(同语料
+				setPeerName(n);         //   引擎内部写点)
+			}
+		} sock;
+		sock.setParent(&br);
+		sock.prime(QHostAddress(QStringLiteral("127.0.0.1")),
+		           QStringLiteral("localhost"));
+		expect(lb.virtualLabel() == QStringLiteral("127.0.0.1"),
+		       "m: vt13 label = peerAddress().toString()(@00876314)");
+		expect(br.peerNameLabel() == QStringLiteral("localhost"),
+		       "m: vt14 peerName 生产(@00876334 peerName)");
+		// 生产链"构造可产":TcpBridge 可 new 且落 SessionProtocolFace
+		SessionProtocolFace *fp = &br;
+		expect(fp != nullptr && lb.virtualLabel() == QStringLiteral("127.0.0.1"),
+		       "m: face 身份可产(virtualLabel 真虚调消费链)");
 		d.setProtocolSlot(oldSlot);
 	}
 
