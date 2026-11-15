@@ -670,3 +670,13 @@ StatusBarFace *kitStatusBarFace(QMainWindow *win)
 		return nullptr;
 	return dynamic_cast<StatusBarFace *>(win->statusBar()); // @008cb0d8
 }
+
+// 008b85ba(20B,0027.c:7568x)按名摘页真身:
+//   uVar1 = FUN_008b84b6(this)@008b85ba;FUN_008b83dc(this,uVar1)@008b85c4
+//   (idx == -1 时 008b83dc 内部直返)。
+void kitPanelRemoveByName(TabGroup *tabs, const QString &name)
+{
+	const int index = kitPanelIndexByName(tabs, name); // @008b85ba
+	if (index != -1)
+		kitPanelRemoveAt(tabs, index); // @008b85c4
+}

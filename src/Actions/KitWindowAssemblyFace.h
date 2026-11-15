@@ -127,6 +127,10 @@ int kitPanelIndexByName(TabGroup *tabs, const QString &rawName);
 //   (param_3 非 0 腿含 close() 门 + deleteLater,此处实参 0)。
 void kitPanelRemoveAt(TabGroup *tabs, int index);
 
+// 008b85ba(20B,0027.c:7568x)按名摘页:i = 008b84b6(按名查);
+//   i != -1 → 008b83dc(摘页)。无命中直返。
+void kitPanelRemoveByName(TabGroup *tabs, const QString &name);
+
 // 008b8b7c(60B,0027.c:7606x)面板开关:按名查到 → 摘页;未查到 →
 //   尾插并选中(kitPanelShowBack(name,true))。
 int kitPanelToggle(TabGroup *tabs, const QString &name);
