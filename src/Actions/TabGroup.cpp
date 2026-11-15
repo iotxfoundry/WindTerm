@@ -753,3 +753,10 @@ QString TabBar::tabTextAt(int index) const
 {
 	return tabText(index); // @005ab180
 }
+
+// 005ab5a8(13B)真身:FUN_005a84f6(*(this+0x58), on) 的组级包装。
+void TabGroup::setCloseButtonsVisible(bool on)
+{
+	if (m_f58 != nullptr)
+		m_f58->setCloseButtonsVisible(on); // @005ab5a8
+}

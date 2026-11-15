@@ -149,6 +149,8 @@ public:
     // 008b9b3e(9B)/008b9bf4(18B):组级页色存取(+0x38 TabBar 转发)。
     void setTabColor(int index, const QColor &color);
     QColor tabColor(int index) const;
+    // 005ab5a8(13B,0018:25234邻)组级关闭钮开关(+0x58 TabBar 转发)。
+    void setCloseButtonsVisible(bool on);
     void setDocumentMode(bool on) { m_f58->setDocumentMode(on); }        // FUN_005ac652(0018:26334)
     void setAutoHide(bool on) { m_f58->setAutoHide(on); }                // FUN_005ab89c(0018:25523)
     void setUsesScrollButtons(bool on);                                  // FUN_005ac522(0018:26271)
