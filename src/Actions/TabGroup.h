@@ -61,6 +61,9 @@ signals:
     void tabLayoutChanged();                                             // activate idx0(01197f40)
 
 private slots:
+    // FUN_005a6c62(68B,0018:22015 邻)侧钮点击:
+    //   sender 逐 i 与 tabButton(i) 比对命中 → emit tabCloseRequested(i)。
+    void onSideButtonClicked();
     void onCurrentChanged(int index);                                    // FUN_005a8376(cited)
     void onTabMoved(int from, int to);                                   // FUN_005a7fa7(cited)
 

@@ -112,8 +112,8 @@ QToolButton *TabBar::makeCloseButton(int index)
 	btn->setFocusPolicy(Qt::NoFocus);                    // @005a6e2x(esi=0)
 	const QString state = m_f68.value(index).toString(); // FUN_005a6d00 读面
 	btn->setProperty("state", QVariant(state));          // @005a6e43
-	// connect(btn, &QAbstractButton::clicked, this, FUN_005a6c62)@005a6e6e
-	//   — 关闭页槽体(68B)未转写,cited 不落接线。
+	connect(btn, &QAbstractButton::clicked, this,
+	        &TabBar::onSideButtonClicked); // FUN_005a6c62 @005a6e6e
 	return btn;
 }
 
@@ -732,4 +732,18 @@ QVariant TabBar::tabStateAt(int index) const
 	if (index < 0 || index >= m_f68.size())
 		return QVariant();
 	return m_f68.at(index);
+}
+
+// FUN_005a6c62(68B,0018.c:22015 邻)侧钮点击真身:
+//   snd = QObject::sender();逐 i<count:tabButton(i)(005a6c0e) == snd →
+//   发 tabCloseRequested(i) 并返回。
+void TabBar::onSideButtonClicked()
+{
+	QObject *snd = sender();
+	for (int i = 0; i < count(); ++i) {
+		if (sideButtonAt(i) == snd) { // 005a6c0e
+			emit tabCloseRequested(i);
+			return;
+		}
+	}
 }
