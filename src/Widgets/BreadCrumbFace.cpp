@@ -1,7 +1,9 @@
 // BreadCrumbFace.cpp — 语料 BreadCrumb 基面(批 252)
 #include "BreadCrumbFace.h"
 
+#include <QCursor>
 #include <QHBoxLayout>
+#include <QTimer>
 
 // FUN_00548546(110B,0017.c:16245)ctor 真身:
 //   @00548546 QWidget(parent,0);@0054856x +0x38/+0x40 = 0;
@@ -33,7 +35,8 @@ void BreadCrumbFace::setCrumbsActive(bool active)
 {
 	if (m_edit30 == nullptr)
 		return;
-	// FUN_0054d22a(m_edit30, active)@00548630 — cited(编辑件类未建模)。
+	if (m_crumb30 != nullptr)
+		m_crumb30->setActive(active); // FUN_0054d22a @00548630
 	if (active)
 		m_edit30->setFocus(Qt::MenuBarFocusReason); // 7 @0054864x
 }
@@ -47,4 +50,24 @@ AddressBarFace::AddressBarFace(QWidget *parent)
 {
 	setObjectName(QStringLiteral("AddressBar")); // @00521242-57
 	// connect(edit30(), 信号 FUN_008f826e, this, FUN_005247c5)@00521178 — cited。
+}
+
+// FUN_0054d22a(197B,0017.c:19741)激活切换真身:
+//   @0054d22a +0x74 = active;!active → +0xb8 QTimer::start();
+//   active → QLineEdit::text() + setSelection(0);
+//   cursor = QCursor(active ? 4(IBeam) : 0(Arrow)) → setCursor;
+//   setAttribute(2, !active) → update()。
+void CrumbEditFace::setActive(bool active)
+{
+	m_flags74 = active ? 1 : 0; // +0x74
+	if (!active) {
+		if (m_timerB8 != nullptr)
+			m_timerB8->start(); // @0054d24x
+	} else {
+		text();
+		setSelection(0); // @0054d25d
+	}
+	setCursor(QCursor(active ? Qt::IBeamCursor : Qt::ArrowCursor)); // @0054d278
+	setAttribute(static_cast<Qt::WidgetAttribute>(2), !active);     // 2 = 语料立即数
+	update();
 }

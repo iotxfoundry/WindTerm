@@ -1,6 +1,26 @@
 #pragma once
 
+#include <QLineEdit>
 #include <QWidget>
+
+class QTimer;
+
+// CrumbEditFace — 语料地址栏编辑件(0xd8 字节,FUN_0054e188 ctor 未转写)
+// 的行为面(批 275)。字段证据:
+//   +0x74 byte 激活位 / +0xb8 QTimer*(FUN_0054d22a 两处消费)。
+class CrumbEditFace : public QLineEdit {
+	Q_OBJECT
+public:
+	// FUN_0054d22a(197B,0017.c:19741)激活切换:
+	//   +0x74 = active;!active → +0xb8 timer->start();active →
+	//   setSelection(0);cursor = QCursor(active ? IBeam(4) : Arrow(0));
+	//   setAttribute(2, !active);update()。
+	void setActive(bool active);
+
+private:
+	quint8 m_flags74 = 0;        // +0x74
+	QTimer *m_timerB8 = nullptr; // +0xb8
+};
 
 // BreadCrumbFace — 语料 BreadCrumb(QWidget 子类)基面(批 252)。
 // ctor FUN_00548546(110B,0017.c:16245):
@@ -23,10 +43,12 @@ public:
 	// FUN_00548630(55B,0017.c:16344)
 	void setCrumbsActive(bool active);
 
-	QWidget *edit30() const { return m_edit30; } // +0x30(编辑控件,cited 类)
+	QWidget *edit30() const { return m_edit30; } // +0x30(编辑件)
+	CrumbEditFace *crumbEdit() const { return m_crumb30; }
 
 private:
-	QWidget *m_edit30 = nullptr; // +0x30
+	QWidget *m_edit30 = nullptr;          // +0x30(基类视图面)
+	CrumbEditFace *m_crumb30 = nullptr;   // +0x30(编辑件本体)
 	void *m_f38 = nullptr;       // +0x38(ctor 清零,语义 cited)
 	void *m_f40 = nullptr;       // +0x40(ctor 清零,语义 cited)
 };
