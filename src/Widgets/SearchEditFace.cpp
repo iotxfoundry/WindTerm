@@ -2,6 +2,7 @@
 #include "SearchEditFace.h"
 
 #include <QCursor>
+#include <QFocusEvent>
 
 #include "Actions/ThemeIcons.h"
 
@@ -75,7 +76,7 @@ void SearchEditFace::buildLayout()
 void SearchEditFace::wireSignals()
 {
 	connect(this, &QLineEdit::textChanged, this, [this](const QString &) {
-		/* FUN_0058d4dc(this)@0058d818 — cited(体未转写) */
+		onTextReverted(); // FUN_0058e159(批 284)
 	});
 	// connect(this, FUN_008f6d88, this, FUN_0058e159, flags 0x82)@0058d8xx —
 	//   信号/槽体未转写,cited 不落接线。
@@ -127,4 +128,29 @@ void FilterEditFace::buildClearButton()
 	m_clear70->setToolTip(tr("&Clear"));               // 0xc9e7b8 @0057e990
 	m_clear70->hide();                                 // @0057e9ab
 	// boxlayout_insertRtlAware(this, m_clear70, 1)@0057e9c0 — cited。
+}
+
+// FUN_0058e159(59B,0018.c:5824)真身:
+//   if ((d+9 & 0x80) == 0)(疑未隐藏,cited 等价 isHidden())→
+//   FUN_0058dff2(this)(= applyTextMargins)。
+void SearchEditFace::onTextReverted()
+{
+	if (!isHidden()) // 私有位 cited 等价面
+		applyTextMargins(); // 0058dff2
+}
+
+// FUN_0057ea5e(120B,0017.c:55411)真身:
+//   QLineEdit::focusInEvent(e) → r = e->reason();
+//   r != 4(弹窗) 且 r != 7(菜单栏)→ QTimer::singleShot(0,(FUN_0057e55a));
+//   FUN_008f92e2(this,1,r)(cited)。
+void FilterEditFace::focusInEvent(QFocusEvent *event)
+{
+	QLineEdit::focusInEvent(event);
+	const int reason = static_cast<int>(event->reason());
+	if (reason != Qt::PopupFocusReason && reason != Qt::MenuBarFocusReason) {
+		QTimer::singleShot(0, this, [this]() {
+			/* FUN_0057e55a(this)@0057ea5e — cited */
+		});
+	}
+	// FUN_008f92e2(this, 1, reason)@0057ea5x — cited。
 }

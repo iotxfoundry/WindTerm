@@ -4,6 +4,7 @@
 #include <QList>
 
 class QHBoxLayout;
+class QFocusEvent;
 class QTimer;
 class QToolButton;
 
@@ -38,6 +39,9 @@ public:
 	// FUN_0058dff2(54B)边距:setTextMargins(l, 0, r)(l/r = FUN_0058de52(0/1),
 	//   子件宽度面,cited)。
 	void applyTextMargins();
+	// FUN_0058e159(59B,0018:5824)文本同步腿:私有位(d+9&0x80)==0
+	//   (疑未隐藏)→ applyTextMargins()。
+	void onTextReverted();
 
 protected:
 	void *m_f30 = nullptr;  // +0x30
@@ -61,6 +65,12 @@ class FilterEditFace : public SearchEditFace {
 	Q_OBJECT
 public:
 	explicit FilterEditFace(QWidget *parent = nullptr); // FUN_0057eb0c
+
+protected:
+	// FUN_0057ea5e(120B,0017.c:55411)focusIn:基类 → reason 非 4(Popup)
+	//   非 7(MenuBar) → singleShot(0,FUN_0057e55a cited);
+	//   FUN_008f92e2(this,1,reason)(cited)。
+	void focusInEvent(QFocusEvent *event) override;
 
 	// s_king__clear_57e86e(442B,0017.c:55328)清除钮:
 	//   +0x70 = new QToolButton(this)(0x30)→ setAutoRaise(cited 实参)→
