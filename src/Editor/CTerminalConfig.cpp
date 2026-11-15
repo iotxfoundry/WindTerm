@@ -47,6 +47,49 @@ void CTerminalConfig::setOverridePath(const QString &path)
 	m_loaded = false;
 }
 
+// 批 174 复合缺口收口:yaml_toQVariant(FUN_00a7ecde,1302B,
+// 0034.c:59107)真身转写 — Json::Value → QVariant 全型面
+// (jsoncpp ValueType 0-7 + default):
+//   case0 null   → 空 QVariant(parseInto 不落:FUN_00a7fe9a miss 链
+//                  @00a7ff03/@00a7ff52 json_isNullType → 下一源/缺省,
+//                  平铺 map 承载 = null 即未在此层设定);
+//   case1/2      → int64(case2 语料 QVariant(u64),现役 (qlonglong)
+//                  批 150 形态保持 — 值域同相);case3 real;
+//                  case4 string fromUtf8;case5 bool;
+//   case6 array  → 递归 QVariantList(@00a7ed2d qlist 循环 append);
+//   case7 object → 递归 QVariantMap(@00a7edd0 成员向量 FUN_00af34a0
+//                  + QMap 插入);
+//   default      → json_value_as_string → QByteArray(@00a7f0f4)。
+// 消费面现无(searchEngines/margins 族现役读点零;wind.config 五复合
+// 键盘点见 5C-REPORT 批 171 矩阵)→ 承载档,cited 待消费点开批。
+static QVariant jsonValueToVariant(const Json::Value &v)
+{
+	switch (v.type()) {
+	case Json::nullValue:    return QVariant();   // case0
+	case Json::intValue:
+	case Json::uintValue:    return (qlonglong)v.asInt64();   // case1/2
+	case Json::realValue:    return v.asDouble();             // case3
+	case Json::stringValue:
+		return QString::fromStdString(v.asString());          // case4 @00a7efeb
+	case Json::booleanValue: return v.asBool();               // case5
+	case Json::arrayValue: {                       // case6 @00a7ed2d
+		QVariantList list;
+		for (const Json::Value &e : v)
+			list.append(jsonValueToVariant(e));    // 递归同相
+		return list;
+	}
+	case Json::objectValue: {                      // case7 @00a7edd0
+		QVariantMap map;
+		for (auto it = v.begin(); it != v.end(); ++it)
+			map.insert(QString::fromStdString(it.name()),
+			           jsonValueToVariant(*it));
+		return map;
+	}
+	default:                                       // @00a7f0f4
+		return QVariant(QByteArray(v.asString().c_str()));
+	}
+}
+
 static void parseInto(const QByteArray &raw, QVariantMap &out)
 {
 	Json::CharReaderBuilder b;
@@ -57,18 +100,13 @@ static void parseInto(const QByteArray &raw, QVariantMap &out)
 	if (!reader->parse(raw.constData(), raw.constData() + raw.size(), &root, &errs)
 	    || !root.isObject())
 		return;
-	// 扁平点号键,直接进 map(二进制的 session_optGet 家族语义)
+	// 扁平点号键,直接进 map(二进制的 session_optGet 家族语义);
+	// 值面 = yaml_toQVariant 全型(批 174 jsonValueToVariant)。
 	for (auto it = root.begin(); it != root.end(); ++it) {
-		const Json::Value &v = *it;
-		const QString key = QString::fromStdString(it.name());
-		switch (v.type()) {
-		case Json::booleanValue: out.insert(key, v.asBool()); break;
-		case Json::intValue:
-		case Json::uintValue:    out.insert(key, (qlonglong)v.asInt64()); break;
-		case Json::realValue:    out.insert(key, v.asDouble()); break;
-		case Json::stringValue:  out.insert(key, QString::fromStdString(v.asString())); break;
-		default: break;   // 复杂值:数组/对象按需扩展
-		}
+		const QVariant val = jsonValueToVariant(*it);
+		if (!val.isValid())
+			continue;   // case0 null → miss 链不落(FUN_00a7fe9a)
+		out.insert(QString::fromStdString(it.name()), val);
 	}
 }
 

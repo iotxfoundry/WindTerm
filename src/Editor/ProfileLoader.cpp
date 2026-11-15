@@ -42,6 +42,8 @@ QVariantList ProfileLoader::loadSessions() const
 		return {};
 	QVariantList out;
 	for (const Json::Value &v : root) {
+		// 批 174 值面同构 yaml_toQVariant(CTerminalConfig 批 174
+		// jsonValueToVariant 对偶;语料单一转换器两装载域共用形态)。
 		QVariantMap m;
 		for (auto it = v.begin(); it != v.end(); ++it) {
 			const Json::Value &jv = *it;
@@ -51,7 +53,7 @@ QVariantList ProfileLoader::loadSessions() const
 			case Json::uintValue:    m.insert(QString::fromStdString(it.name()), (qlonglong)jv.asInt64()); break;
 			case Json::realValue:    m.insert(QString::fromStdString(it.name()), jv.asDouble()); break;
 			case Json::stringValue:  m.insert(QString::fromStdString(it.name()), QString::fromStdString(jv.asString())); break;
-			default: break;
+			default: break;   // 深条目复合值:cited(样本 22863B 24 键全标量)
 			}
 		}
 		out.append(m);

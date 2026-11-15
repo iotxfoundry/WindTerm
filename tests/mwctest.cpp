@@ -1142,6 +1142,80 @@ int main(int argc, char **argv)
 		}
 	}
 
+	// f13. 批 174:wind.config 复合缺口承载 + user.sessions 样本对表。
+	//      五复合缺口(yaml_toQVariant FUN_00a7ecde 全型面):数组→
+	//      QVariantList(case6 @00a7ed2d)/对象→QVariantMap(case7
+	//      @00a7edd0)/null→miss 链不落(FUN_00a7fe9a @00a7ff03 json_
+	//      isNullType → 下一源/缺省)。样本对表:tools/re/phase5/5c/
+	//      original/user.sessions(原版 22863B,49 条目 24 键全标量,
+	//      od 实证 [\n + 4 空格逐层 + " : " + 尾 ]\n)↔ 我方 saveSessions
+	//      f12 产物框架同相(缩进/分隔/UTF-8/尾 \n;键序差 cited D3)。
+	{
+		CTerminalConfig *cfg = CTerminalConfig::instance();
+		cfg->setConfigPath(QStringLiteral("/nonexistent/b174-wind.config"));
+		cfg->setOverridePath(QString());
+		cfg->reload();
+		// 一、复合值承载(yaml_toQVariant 消费面现无 → 承载档)
+		cfg->setValue(QStringLiteral("application.searchEngines"),
+		              QVariant(QVariantList{
+		                  QVariantMap{{QStringLiteral("text"),
+		                               QStringLiteral("Google")}}}));
+		QVariant se = cfg->value(QStringLiteral("application.searchEngines"));
+		if (se.type() != QVariant::List || se.toList().size() != 1
+		    || se.toList().first().toMap()
+		               .value(QStringLiteral("text"))
+		               != QStringLiteral("Google"))
+			++fails; // 数组→QVariantList 承载(case6 @00a7ed2d 递归形态)
+		cfg->setValue(QStringLiteral("text.margins"),
+		              QVariant(QVariantList{
+		                  QVariantMap{{QStringLiteral("name"),
+		                               QStringLiteral("symbol")}}}));
+		if (cfg->value(QStringLiteral("text.margins"))
+		        .toList()
+		        .first()
+		        .toMap()
+		        .value(QStringLiteral("name"))
+		    != QStringLiteral("symbol"))
+			++fails; // 对象数组→QVariantList-of-QVariantMap(text.margins
+			         //   5 元素形态承载;消费面现无 → cited 待消费批)
+		// 二、parseInto 复合腿:真实 JSONC 装载(wind.config 同形态)
+		const QString jf = QStringLiteral("/tmp/wt-b174-wind.config");
+		{
+			QFile f(jf);
+			f.open(QIODevice::WriteOnly | QIODevice::Truncate);
+			f.write("{\n"
+			        "  \"application.searchEngines\": [\n"
+			        "    { \"text\": \"Bing\", \"url\": \"https://b.com\" }\n"
+			        "  ],\n"
+			        "  \"text.hiddenMargins\": [\"symbol\", \"timestamp\"],\n"
+			        "  \"focusMode.settings\": null,\n"
+			        "  \"terminal.bellStyle\": \"Audible\"\n"
+			        "}\n");
+		}
+		cfg->setConfigPath(jf);
+		cfg->reload();
+		const QVariant hm = cfg->value(QStringLiteral("text.hiddenMargins"));
+		if (hm.type() != QVariant::List || hm.toList().size() != 2
+		    || hm.toList().at(1).toString()
+		               != QStringLiteral("timestamp"))
+			++fails; // 字符串数组承载(case6;wind.config L101 原值形态)
+		const QVariant se2 =
+		    cfg->value(QStringLiteral("application.searchEngines"));
+		if (se2.type() != QVariant::List || se2.toList().size() != 1
+		    || se2.toList().first().toMap()
+		               .value(QStringLiteral("url"))
+		               != QStringLiteral("https://b.com"))
+			++fails; // 对象数组 parseInto 腿(@00a7edd0 case7 递归 map)
+		if (cfg->contains(QStringLiteral("focusMode.settings")))
+			++fails; // null → miss 不落(FUN_00a7fe9a @00a7ff03 json_
+			         //   isNullType → 下一源/缺省;非空 QVariant 承载)
+		if (cfg->value(QStringLiteral("terminal.bellStyle"))
+		    != QStringLiteral("Audible"))
+			++fails; // 标量键复合腿旁路不回归
+		cfg->setConfigPath(QStringLiteral("/nonexistent/b174-wind.config"));
+		cfg->reload();   // 测试卫生:复合键不残留(后续批次基线态)
+	}
+
 	printf("mwc_smoke: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
 
 	return fails ? 1 : 0;

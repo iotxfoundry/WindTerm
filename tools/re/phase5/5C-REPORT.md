@@ -72,3 +72,48 @@ saveConfigPath 产物 `"path" : "~"` + 尾 \n 复核。
 ### 验证
 
 - `cmake --build build -j8` 退出码 0;ctest **23/23**;dlopen OK
+
+## 批 174(2026-11-15)M21-②:wind.config 复合缺口 + user.sessions 样本对表 ✅ ctest 23/23
+
+### 一、复合缺口扩面(parseInto 五缺口收口)
+
+**读体定性**(yaml_toQVariant FUN_00a7ecde 1302B,0034.c:59107;装载链
+FUN_00a7fe9a 344B @59852 源 1 槽参数 → yaml_loadFile → yaml_toQVariant):
+
+| Json 型 | 语料腿 | 承载 | 落位 |
+|---|---|---|---|
+| null(case0) | FUN_00a7fe9a @00a7ff03/@00a7ff52/@00a7ff95 json_isNullType → 下一源/缺省 | **不落 map**(miss 链同相) | 真身 `if (!val.isValid()) continue` |
+| int/uint(case1/2) | QVariant(i64/u64) | qlonglong(批 150 形态保持) | 真身 |
+| real/string/bool(case3/4/5) | toDouble/fromUtf8/asBool | 同相 | 真身(既存) |
+| **array(case6)** | @00a7ed2d qlist 循环递归 append | **QVariantList** | 真身 `jsonValueToVariant` 递归 |
+| **object(case7)** | @00a7edd0 成员向量 FUN_00af34a0 → QMap 插入 | **QVariantMap** | 真身递归 |
+| default | @00a7f0f4 json_value_as_string → QByteArray | QByteArray | 真身 |
+
+五缺口落位:application.searchEngines(对象数组)/text.hiddenMargins +
+terminal.text.hiddenMargins(字符串数组)/text.margins(对象数组)→
+QVariantList(元素 QVariantMap);focusMode.settings(null)→ 不落
+(miss 链语义,非空 QVariant 承载)。消费面现无(现役读点零)→
+承载档,cited 待消费点开批。
+
+### 二、user.sessions 样本对表(22863B 原版样本 od/python 实证)
+
+- 顶层:`[\n` … `]\n`;条目对象 4 空格缩进、键 8 空格;`" : "` 分隔;
+  无注释/BOM;**49 条目 × 24 键全标量**(str 372/bool 53/int 46,
+  零复合值)→ loadSessions `default: break` 深条目 cited 注记同相。
+- 键集:session.* 13 键域 + ssh.sysmon/ssh.verifyServerFingerprint/
+  ssh.sftp + serial.* 5 + process.* 2(变长键集 16 形态,oneKey 40/49)。
+- 框架 diff ↔ 我方 saveSessions(批 171 已同构):缩进/分隔/尾 \n/
+  UTF-8 raw 逐项同相(f12 字节断言);**唯一差异 = 键序**(jsoncpp
+  字典序 vs 原版插入序,cited D3 维持;样本零复合值 → 深条目语义
+  无可落点)。saveSessions 无需微调。
+
+### 三、mwctest f13(复合承载 + 对账)
+
+承载断言(searchEngines/text.margins QVariantList-of-QVariantMap)+
+真实 JSONC 装载(字符串数组 2 元素/对象数组 url 字段/null 不落/
+标量旁路不回归);样本框架对表结论见上(同相,键序 cited)。
+
+### 验证
+
+- `cmake -S . -B build` 退出码 0;`cmake --build build -j8` 退出码 0;
+  ctest **23/23**;dlopen OK
