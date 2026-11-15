@@ -57,6 +57,13 @@ public:
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。
     void removeTabNodes(int index);
+    // tabbar_assignMnemonics(756B,0018.c:22061)助记符指派:
+    //   逐页 text = tabTextAt(i)(005a6fbe,含助记符腿);s_FirstNine_5a6b5a
+    //   命中 → 前缀 "%1."(i+1);标题变化 → releaseShortcut +
+    //   grabShortcut(QKeySequence::mnemonic(text)) + setShortcutEnabled。
+    //   快捷键 id 存节点 +0x04、标题存节点 +0x08(本面以 m_mnemonicIds
+    //   QStringList/ids 承接,cited 映射)。
+    void assignMnemonics();
     // FUN_005a7b66(269B,0018:22507)页色设置:越界返;+0x60 表补齐默认 →
     //   旧值 != 新值才写 → 尾重绘。
     void setTabColor(int index, const QColor &color);
@@ -98,6 +105,8 @@ private:
         quint16 fc = 0;                 // +0x0c
     };
     QList<TabNode> m_f60; // 语料 +0x60(节点表)
+    QStringList m_titles60;   // 节点 +0x08 标题面(映射承载)
+    QList<int> m_shortcutIds; // 节点 +0x04 快捷键 id 面
     QList<QVariant> m_f68; // 语料 +0x68(QVariant 列表,FUN_005a8818 消费,cited)
     QList<QVariant> m_f70; // 语料 +0x70(0x18 字节节点,表示 cited — wave-2)
     void *m_f78;       // 语料 +0x78 ← 0

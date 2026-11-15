@@ -813,3 +813,35 @@ void TabGroup::updateGroupButton(const QString &text)
 	btn->setText(text);                                // @005abb0x
 	btn->setToolTip(tr("Group %1").arg(text));          // 0xca1863 @005abb07
 }
+
+// tabbar_assignMnemonics(756B,0018.c:22061)真身(主循环):
+//   @005a70a6 count < 1 → 返;逐 i<count:
+//     title = FUN_005a6fbe(this,i,+0x31 助记符位)(005a7800 邻);
+//     s_FirstNine_5a6b5a(this,i) 命中 → 前缀 "%1."(i+1)@005a7175;
+//     标题与节点(+0x08)不同 → FUN_005a9860(+0x1d8 表,旧标题)+
+//       节点标题 = 新标题 + QWidget::releaseShortcut +
+//       id = grabShortcut(QKeySequence::mnemonic(title),1) → 节点 +0x04;
+//       setShortcutEnabled(id != 0)@005a7241。
+//   s_FirstNine_5a6b5a / FUN_005a9860 两腿 cited(未转写)。
+void TabBar::assignMnemonics()
+{
+	const int n = count();
+	if (n < 1)
+		return;
+	while (m_titles60.size() < n)
+		m_titles60.append(QString());
+	while (m_shortcutIds.size() < n)
+		m_shortcutIds.append(0);
+	for (int i = 0; i < n; ++i) {
+		QString title = tabTextAt(i); // 005a6fbe(助记符腿 cited)
+		// s_FirstNine_5a6b5a(this,i)@005a71xx — cited(前九快捷键判定)
+		if (m_titles60.at(i) != title) {
+			// FUN_005a9860(tabBar+0x1d8, 旧标题) — cited
+			m_titles60[i] = title;
+			releaseShortcut(m_shortcutIds.at(i));
+			const int id = grabShortcut(QKeySequence::mnemonic(title), 1); // @005a7222
+			m_shortcutIds[i] = id;
+			setShortcutEnabled(id != 0); // @005a7241
+		}
+	}
+}
