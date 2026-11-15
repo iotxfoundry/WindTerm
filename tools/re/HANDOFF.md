@@ -8,7 +8,27 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第三十六次交接,批 168 · M19 达成 · 5c 起步)
+## 一句话状态(2026-11-15 第三十七次交接,批 176 · M21 达成)
+
+**M21「payload 帧 + 复合缺口 + MuxWindow 尾清 + 尾余合并腿」达成
+(用户定,四车道分段式),车道停开**:①页 payload 序列化升真
+(8cf0c8 2233B 读体定案 = **骨架帧四段:0xb9e7e626 魔数 + blobA
+splitter/tabbar 树 + blobB 旗标+states+LastSessions + blobC 三
+bool + 尾钩 vtable+0x248**,原版 674B 位级反推;StateStore 腿升真
+骨架帧,深段 cited;批 173)②wind.config 五复合缺口
+(jsonValueToVariant FUN_00a7ecde 递归真身)+ **user.sessions 原版
+样本 22863B 对表:49 条目×24 键全标量,saveSessions 框架逐项同相**
+(键序差 cited;批 174)③MuxWindow 尾清(008e1125 411B T1-T7/
+moveTab 升真/**宿主 S4 比较器微差实测同相闭环**;批 175)④深引擎
++注册表尾余(hash remove QHash 承载/三 delegate 槽/RS 灌链 + ptB
+D1 承载型修正拆段错误雷;%z 真库承接/dial 声明层;批 176)。主仓
+终门 ctest **23/23** ×5 + dlopen OK。⚠ 主控合流两次踩锚点截断陷阱
+(批 171 复活交付哈希混淆/PHASE5 快照区多轮编辑错位)——docs 大段
+编辑一律 python 区段重排,不再用长 oldString 猜锚。
+此前:M20(170-172)、M19(166-169/168)、M18(162-165)、M17(158-161)、
+M16(154-157)、M15(150-153)、M14(145-149)、M13(142-144)、
+M12(138-141)、M11(136/137/136b)、M10(134/135)、M9(132/133)、
+M8 文档整备、M1-M7。
 
 **M19「5c 转向五腿」达成(用户定,盘点 + 三 fixer + 续推),Phase 5c
 起步**:①持久化全景盘点矩阵(explorer;reopen 写侧 FUN_0076073a+
@@ -209,20 +229,20 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 168 后,按需开批)
+## 现役队列(批 176 后,按需开批)
 
-1. **5c 对表驱动批(需原版侧环境)**:原版 Xvfb 重开(sudo 步骤待
-   用户确认)→ 采集原版 reopen.history/wind.config/user.sessions
-   产物 → appboot 我方产物字节 diff(魔数 0xb9e7e626 写侧单源,
-   原版产物二次验证)
-2. **wind.config/三件套对表**(盘点矩阵余项;wind.config 只读对
-   /opt 实证文件)
-3. **StateStore aboutToQuit 产品挂点**(SuperApplication 宿主批;
-   现仅注记)
-4. 各域尾渣(按需):MuxWindow 008e1125 槽体/introsort;eNodes
-   hash remove 深面/超门分段族;trie 分裂腿;注册表 %A..%z 深
-   QDateTime 时区/TcpBridge 真拨号;Phase 5c 深化 / 0x4eff 观察
-   (需 ptrace 环境变更)
+1. **5c 字节级对表**:原版 reopen.history 789B 已采集(批 170)→
+   payload 帧骨架已真身(批 173)→ 余 = blobA splitter/tabbar 树
+   实体/blobB LastSessions 组块/尾钩体真身化后全帧对表
+2. **wind.config 5 复合键消费面**(searchEngines/hiddenMargins×2/
+   text.margins 数组承载已落批 174,消费面现无);%z 渲染深跳表
+   逐字节核对;TcpBridge 真拨号(声明层已落)
+3. **MuxWindow/StateStore 余**:introsort 7044B 本体(标准算法
+   可引库)/008e1125 行高桥 005b86c0·vt+0x1a8 消费/00933738 rehash
+   体/97142a RS 灌链余段;SuperApplication 宿主接线(aboutToQuit
+   产品挂点)
+4. Phase 4a 尾渣(trie 分裂腿/星数逐字节/键串对证;kit.* 需实机)/
+   Phase 5c 深化 / 0x4eff 观察(需 ptrace 环境变更)
 
 ## 已知开放问题
 

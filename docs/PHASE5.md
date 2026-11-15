@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 171,2026-11-15 — 当前真值层)
+## 结论快照(截至批 176,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-171)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-176)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(十九项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(二十项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -48,7 +48,12 @@ profiles.config 写侧(169)/三件套保存侧 SessionStore 六函数(168;
 (5c 对表轮):reopen 原版采集 + 布局 diff 全 MATCH(170;报告
 tools/re/phase5/5c/5C-REPORT.md + 5C-REPORT.md 双件)/wind.config
 122 键盘点 + 序列化同构(171;报告 5C-REPORT.md)/aboutToQuit
-挂点闭环(172)**。
+挂点闭环(172)** → **M21 四车道:页 payload 序列化升真(173;
+**帧结构四段定案:魔数+blobA/blobB/blobC+尾钩,原版 674B 位级
+反推**)/wind.config 复合缺口 + 样本对表(174;**122 键 117 标量
+全覆盖·0 值型错配;原版 49 条目×24 键全标量框架逐项同相**)/
+MuxWindow 尾清(175;**比较器微差实测同相闭环**)/深引擎 + 注册表
+尾余合并腿(176;hash remove/三 delegate 槽/RS 灌链真身)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -78,26 +83,55 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 2. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
    0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
    EditorContext.h 头扩展)。
-3. eNodes 深引擎尾余:00933738 hash remove 深面/88e5a0 超门
-   0x3fffff 分段族/007b5270 门内段插体(delegate vt+0x28/0x38/0x40
-   族)/97142a 45534 RS 灌链 cited;ee3b 慢路 vcall 臂仅注记(恒等
-   恒真,语料同构);styled 哨兵 UB(#32)/glibc 复址(#35)待 5c 期
-   仪器裁决。
-4. 注册表下行尾余:%A..%z 深 QDateTime 时区 cited/TcpBridge 真拨号
-   cited(状态机·信号面已真身,批 165);pattern 'h'/'n'/state 已
-   真身(批 161)。
+3. eNodes 尾余:00933738 hash remove 已真身(批 176 QHash 承载,
+   rehash 体 cited)/88e5a0 超门 0x3fffff 分段族/007b5270 门内段
+   插体三 delegate 槽已真身(批 176)/97142a RS 灌链已真身(批 176);
+   styled 哨兵 UB(#32)/glibc 复址(#35)待 5c 期仪器裁决。
+4. 注册表下行尾余:%z 时区面真库 QDateTime 承接已落(批 176,深跳表
+   逐字节核对 cited)/TcpBridge dial 声明层落(批 176),真拨号行为
+   不逆向;'h'/'n'/state/payload 骨架帧已真身(批 161/173)。
 5. 启动链余量(Phase 4a):trie 分裂腿(00525f50)/星数语义(i-1 直译
    面,未逐字节对表)/tabBarSelectionBehaviorOnRemove 键串语义面
    承接(dat_1181468 对证 cited);kit.* 真键实机对证。
-6. MuxWindow:008e1125 槽体(411B)/introsort/moveTab 深腿 cited;
-   宿主 S4 比较器无效 QVariant 双 false 腿微差(元素恒有效,同相,
-   cited);0x10 宿主读侧未初始化槽 UB 原样(铁律 2)。
+6. MuxWindow 尾余:introsort 7044B 本体 cited(标准算法)/008e1125
+   行高桥 005b86c0·vt+0x1a8 消费 cited;宿主读侧未初始化槽 UB 原样
+   (铁律 2);0x10 宿主接线(池生产者写侧)。
 7. 5c 对表余项(批 166-172 后):reopen 写侧魔数 0xb9e7e626 汇编
    实读(读侧 0xb9e7e600 掩码门)——字节级对表以原版产物二次验证
-   (原版 789B 已采集,批 170);三件套星数语义(i-1 直译)未逐字节
-   对表;StateStore aboutToQuit 产品挂点已闭环(appboot 全生命周期,
-   批 172;SuperApplication 宿主接线仍 cited);页 payload 674B 深消费
-   (8cf0c8) cited。
+   (原版 789B 已采集,批 170);payload 骨架帧已真身(批 173),blobA
+   实体/尾钩体/LastSessions 组块 cited;三件套星数语义(i-1 直译)
+   未逐字节对表;aboutToQuit 产品挂点已闭环(appboot 全生命周期,
+   批 172;SuperApplication 宿主接线仍 cited)。
+
+### 批 173/174/175/176(2026-11-15)M21 四车道(分段式):payload 帧 + 复合缺口 + MuxWindow 尾清 + 尾余合并腿 ✅ ctest 23/23 ×5
+
+- **批 173 页 payload 序列化升真**:8cf0c8(2233B)读体分面定案 —
+  页 payload = 骨架帧四段(0xb9e7e626 魔数 + blobA splitter/tabbar
+  树 + blobB pane+0x70 旗标+splitter states+LastSessions 组块 +
+  blobC MenuBar/StatusBar/ToolBar 三 bool + 尾钩 vtable+0x248),
+  原版 674B 实物位级反推逐段对齐;StateStore 腿升真骨架帧
+  (stateStoreSerializePagePayload),blobA 实体/尾钩体/LastSessions
+  组块 cited 分段;t7 框架对账(20B vs 674B 帧结构同构,体量差仅记录)。
+- **批 174 wind.config 复合缺口 + 样本对表**:jsonValueToVariant
+  (FUN_00a7ecde 全型面)递归真身 → 五缺口落位(4 数组 QVariantList/
+  对象 QVariantMap 承载 + focusMode.settings null miss 不落);
+  user.sessions 原版样本 22863B 实证 49 条目×24 键全标量(str 372/
+  bool 53/int 46)→ saveSessions 框架逐项同相(键序差 cited D3 维持);
+  mwctest f13。
+- **批 175 MuxWindow 尾清**:008e1125(411B)全读 T1-T7 真身
+  (表尾卫/活门/差分除行高/shared_null 归位+逐节点 delete);moveTab
+  (008da1bc)升真(桌面活判定 +0x1c8 asm 实读);**宿主 S4 比较器
+  微差实测同相闭环**(invalid/invalid 双 false、valid/invalid 同符
+  号,cited 挂账撤,首版断言方向写反已自纠);introsort 7044B 本体
+  cited 维持(标准算法);sgtest k1-k2。
+- **批 176 深引擎 + 注册表尾余**:00933738 hash remove 真身(QHash
+  承载,深桶 rehash 体 cited)/007b5270 门内三 delegate 槽(008897ae/
+  00889810/0088981c)/97142a 45534 InsertSpace 灌链升真 + **ptB D1
+  承载型修正 = PieceTable60(修掉第二次尾调段错误)**;%z 时区面
+  真库 QDateTime 承接/TcpBridge dial 声明层(00876864→0065f572);
+  markerstest ff 6 断言/reginserttest n-3。
+- 验证:四车道独立门 + 主控合流(174→173→175→176 零冲突);主仓
+  终门 ctest **23/23** ×5 + dlopen OK。
 
 ### 批 170/171/172(2026-11-15)M20 三车道(5c 对表轮):原版采集 + 盘点同构 + 挂点闭环 ✅ ctest 23/23 ×5
 

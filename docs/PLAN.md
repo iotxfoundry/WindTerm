@@ -15,7 +15,7 @@
 
 ---
 
-## 总览(2026-11-15 批 168;历史明细见 docs/PHASE5.md 批次流水)
+## 总览(2026-11-15 批 176;历史明细见 docs/PHASE5.md 批次流水)
 
 | 阶段 | 状态 |
 |---|---|
@@ -29,7 +29,7 @@
 | Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⏳(M19 起步)**:盘面矩阵 ✅(盘点)/我方载体 ✅(appboot 166)/reopen 写读闭环 ✅(167)/三件套+kit+profiles 写侧 ✅(168/169);字节级对表 ⬜(需原版侧环境) |
 | 会话装配 | ✅ 管理收口(批 29) |
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
-| 组件重做(铁律 6) | ⏳ M1-M18:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头 ODR+vt 承载+清偿臂/0x7545 真值;余:busy 腿(外库登记)/hash remove 深面/渲染深 QDateTime 时区 |
+| 组件重做(铁律 6) | ⏳ M1-M21:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头 ODR+vt 承载+清偿臂+RS 灌链/0x7545 真值;余:busy 腿(外库登记)/hash remove rehash 体/超门分段族 |
 
 测试矩阵:**ctest 21/21**(e2eterm 25 + recheck 22 + engtest×2 +
 markerstest q·r·s·t·u·v·w·x·y·z·aa·bb 组 274 断言 + reginserttest + **sgtest 14** + modtracktest 22 + onigtest 24 +
