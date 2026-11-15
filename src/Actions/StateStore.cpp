@@ -54,9 +54,10 @@
 //     QVariant null → toByteArray 空 BA —— 注:语料 toByteArray(null
 //     QVariant) = 空 BA(0 长度)非 null;样本三 tab 全 null(-1)与
 //     paneIndex 全 0 或无属性窗同相 — 本面按语料分支直译)。
-// 前置浮停副作用腿(8cf1f3-24a):findChildren<KitDock*>(pane) 逐
-//   dock+0x39 flag → dock_toggleFloat(dock,0)(8b8ce6 866B)— 无字节
-//   产物,cited 不落(铁律 6;样本帧零痕迹)。
+// 前置浮停副作用腿(8cf1f3-24a):findChildren<KitDock*>(pane)(smo
+//   011ab100)逐 dock+0x39 flag(FUN_008b8c62 5B = byte 读)非零 →
+//   dock_toggleFloat(dock,0)(8b8ce6 866B)— 无字节产物,cited 不落
+//   (铁律 6;样本帧零痕迹)。
 // blobB 逐 splitter saveState 段(@8cf412-456)同面承接:
 //   param_2[0xb/0xc] 迭代对(QSplitter* 表第二族,8cf40a 同 8d7840)→
 //   我方现役树单族(MuxWindow::splitter() 唯一)→ 语料两族对位:
@@ -70,8 +71,30 @@ QByteArray stateStoreSerializeSplitterBlob(const KitWindowFace *pane)
 	QByteArray blob; // local_b8 shared_null @008cf1a3
 	if (pane == nullptr)
 		return blob; // param_2 卫(调用契约外零消费同相)
-	// 前置浮停副作用腿(@8cf1f3-24a):dock_toggleFloat 866B cited —
-	//   无字节产物,不落(见块注;铁律 6)。
+	// 前置浮停副作用腿(@8cf1f3-24a):dock_toggleFloat(8b8ce6 866B,
+	//   批 180 全读定性)——
+	//   门:dock+0x39 != float;尾写 +0x39 = float + KitDock 信号
+	//     floating(bool)(smo 0x11ab100 methodCount 12,idx1
+	//     "floating" attrs 0x6 信号,QMetaObject 实读)emit 91a80c。
+	//   float=1 浮出腿:hostSp = parentWidget+0x10 cast QSplitter;
+	//     未存 saved rect 腿(dock+0x3c > +0x44 / +0x40 > +0x48)→
+	//     mapToGlobal 存 +0x3c/+0x40 + 尺寸(+0x28 geometry w/h)存
+	//     +0x44/+0x48;+0x4c = 8ca0b8(kit 上溯 8b8694,hostSp)槽位号
+	//     (1/2/8 → kit+0x38/+0x40/+0x50 三 QSplitter 槽表 8ca096);
+	//     +0x50 = hostSp->indexOf(dock);hostSp.count()==1 且 outerSp =
+	//     hostSp.parent cast QSplitter → sizes 吸收(hostSp 尺寸加邻位,
+	//     自位清零,setSizes)+ setParent(kit)+ setWindowFlags(
+	//     kit+0x28 layout flags |1)+ show + QTimer::singleShot(0,
+	//     8b7cdb 闭包 setGeometry(savedRect))复位几何。
+	//   float=0 回位腿:kit = 8b8694 上溯;slotSp = 8ca096(kit,+0x4c);
+	//     saved rect 未存腿同上;setWindowFlags(0);slotSp->
+	//     insertWidget(+0x50,dock);show。
+	//   邻接族(FUN_008b9050 showEvent 0x69 腿 + FUN_008b86e4 deleteLater
+	//     + Splitter 子类 handle 折叠 5a1c70/5a1cfc/5a1ebc/5a2096/
+	//     eventFilter,smdat 0x11981a0 showIndex/hideIndexRequested)。
+	//   我方承接:KitDock 类未建模(现役树零实例)→ 8cf1f3 findChildren
+	//     <KitDock*> 循环不可达同相,cited 不落(铁律 6;零字节产物,
+	//     样本帧零痕迹同相)。
 	// 表源:@8cf245-85 pane+0x38 迭代对 → 我方现役承载 =
 	//   findChildren<MuxWindow*>(pane)(只读引用;非 pane 直子域同相 —
 	//   qt_qFindChildren_helper recursive=1 @8cf1f3)。
@@ -188,9 +211,25 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 			b << ss;                               // @8cf452
 		}
 		if ((flags & 1u) != 0) {
-			// LastSessions 组块 @008cf62f-8ff cited(FUN_008cba1c 设置
-			//   读 + kind 2/1 逐项腿,850B s_RenamedTitle 邻档;句柄表
-			//   迭代变换静态定序不唯一 — 铁律 3 不猜)— 不落。
+			// LastSessions 组块外框(批 180 位级反推,样本 110..417
+			//   byte-perfect,tools/re/phase5/5c/dump_lastsessions.py):
+			//   [int count][BA 根 splitter saveState][逐 widget:
+			//     char kind + kind==2 → <<BA title] — kind 写 =
+			//     operator<<(char)(asm 8cf783 ESI=1 / 8cf842 ESI=2 →
+			//     PLT 11b9ef8 <<(char) 实读);widget cast 分叉:
+			//     QSplitter(ti 11b8958 import 符号)→ 1(句柄入表,
+			//     零字节产物)/ KitGroup(ti 011ab130,"8KitGroup"
+			//     .data.rel.ro 名实读)→ 2 + title BA。样本外框:
+			//     count=1 + 根 ss 27B + 1×(kind2 + title 267B)。
+			//   title BA 内层 = [int 1][int 2]{BA uuid(UTF-16)+
+			//     BA 会话态}×2 + 15B 尾标(0000ffff 00000000_00000000
+			//     ffffffff 同构 ×2)— 写体 = s_RenamedTitle_8bbab6
+			//     (850B)深域 cited(铁律 3;内层读侧 SpecificSessions
+			//     四槽消费已批 158 面)。
+			//   句柄表迭代(push @8cf6cd / erase @8cf740)静态定序
+			//     不唯一 — 组块写面不落,cited 维持(铁律 3;
+			//     count/根 ss 载体 = param_1[9] LastSessions splitter
+			//     槽位宿主域未建模,铁律 6)。
 		}
 	}
 	out << blobB; // @008cf490
@@ -204,10 +243,23 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 		                              //   位域腿 cited → false 缺省)
 	}
 	out << blobC; // @008cf587
-	// 尾钩 vtable+0x248 != FUN_008d5bf4(@008cf960)→ 虚调产出(原版
-	//   样本尾 9B 00000005 00000000 00 = 钩体产物)— KitWindowFace 壳
-	//   零虚槽声明(22 虚零消费判例,KitWindowFace.h 头注)→ 钩腿
-	//   cited 不落(铁律 6;恢复侧 startupChain 对页 payload 掩码门
+	// 尾钩 vtable+0x248 != FUN_008d5bf4(@008cf960)→ 虚调(本批定性,
+	//   asm/kuna 双源;QuickBar 窗条面):
+	//   - TerminalWindow vt 0x11a7c80 +0x248 = FUN_0085ae68(220B)读侧
+	//     face(>>BA → 子流 >>bool 可见 >>int count >>QString×count
+	//     经 85e0c0 QVariantList;param_3&4 门;!visible → 8595c8
+	//     hide)+0x240 默认腿(FUN_008d1014/8d5bee)双窗同值;
+	//   - 写侧镜像 = FUN_008596b8(395B,0026.c:50614):QuickBar 懒建
+	//     (sub_56e26e ctor,objectName "QuickBar" 0xd0e6d4 实读,存
+	//     +0xd8/+0xe0 QPointer 对)→ <<BA[<<bool 可见位(quickBar
+	//     QWidgetData 字位 >>0xf&1)][<<int names count(+0x68 表)]-
+	//     [<<QString 逐项] — 样本尾 9B = BA(5B:00+00000000)= 可见
+	//     false + 空表 byte-perfect 同相;
+	//   - EditorWindow vt 0x119ee30 +0x248 = FUN_008d5bee(默认 6B
+	//     return-1)→ Editor 页零尾段(样本单 Terminal 页同相)。
+	//   KitWindowFace 壳零虚槽声明(22 虚零消费判例,KitWindowFace.h
+	//   头注)+ QuickBar 宿主槽 +0xd8/+0xe0 未建模(铁律 6)→ 钩腿
+	//   cited 不落(恢复侧 startupChain 对页 payload 掩码门
 	//   &0xb9e7e600 + 头三段消费,尾钩段零消费闭环)。
 	return blob; // *param_1 = local_d8 @008cf988
 }

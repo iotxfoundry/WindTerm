@@ -333,6 +333,65 @@ int main(int argc, char **argv)
 		// Editor 页 cast 未命中腿?—— EditorWindow 亦 KitWindowFace 子类
 		//   (命中);真"未命中"腿由非 KitWindow 页承载,无现役产物面
 		//   (011ab390 cast 面 = 页工厂全部产物;空 BA 腿不测)。
+		// ── 批 180(M23-①)全帧字节对表(核心交付)──
+		// 对等状态:单窗(mw)双页(Terminal+Editor,cur=1)带实体树
+		//   (表 = t3 快照,页删除前捕获 — 稳定对账面);原版 789B
+		//   样本 = 1 窗 1 Terminal 页(cur=0),页数环境差仅记。
+		{
+			QList<SavedWindowNode> frameTable = table; // t3 快照承载
+			const QString histFrame =
+			    tmpDir.path() + QStringLiteral("/global/frame.history");
+			if (!stateStoreWriteReopenHistory(frameTable, histFrame))
+				++fails; // 全帧落盘对账 bool(FUN_005dd6fc)
+			QFile ff(histFrame);
+			const QByteArray whole =
+			    ff.open(QIODevice::ReadOnly) ? ff.readAll() : QByteArray();
+			// 帧级字段序断言(QDataStream BE 语法,位面直译):
+			if (whole.size() < 12)
+				++fails; // 魔数+count 最短帧
+			if (static_cast<quint32>(quint8(whole.at(0))) != 0xb9u
+			    || static_cast<quint32>(quint8(whole.at(1))) != 0xe7u
+			    || static_cast<quint32>(quint8(whole.at(2))) != 0xe6u
+			    || static_cast<quint32>(quint8(whole.at(3))) != 0x26u)
+				++fails; // @0076076f 魔数(样本 b9e7e626 同相)
+			// 窗段三字段序:<<geometry <<payload <<bool(@28702-06;
+			//   读侧 startupRestoreGate 对偶序同相)。
+			QDataStream fin(whole);
+			quint32 fmagic = 0;
+			quint32 fcount = 0;
+			fin >> fmagic >> fcount;
+			if (fcount != 1)
+				++fails; // 单窗帧(样本同构;t3 快照 count=1)
+			QByteArray fGeom, fPayload;
+			quint8 fFocus = 0;
+			fin >> fGeom >> fPayload >> fFocus; // 窗段序对账
+			if (fin.status() != QDataStream::Ok)
+				++fails; // 帧自洽(全字段读尽)
+			if (fGeom != table.at(0).geometry)
+				++fails; // geometry 对账(t3 saveGeometry 快照)
+			if (fPayload != table.at(0).payload)
+				++fails; // payload 对账(7669b2 窄面快照)
+			if (fFocus != 0)
+				++fails; // +0x31 cited 缺省 0(样本 bool=0 同相)
+			// payload 页帧字段序(count/current/页名/payload BA):
+			QDataStream pin(fPayload);
+			quint32 pageCount = 0, pageCur = 0;
+			pin >> pageCount >> pageCur; // @007669ef-ff
+			if (pageCount != 2 || pageCur != 1)
+				++fails; // 双页 cur=1(夹具态;样本 1 页 cur=0 环境差
+				         //   仅记 — 框架字段序同相)
+			// 页段:<<QString 名(16B UTF-16 长度头)+ <<BA payload
+			// (@00766aaf / 00766a3c-40)在位性:
+			quint32 nameLen = 0;
+			pin >> nameLen;
+			if (nameLen == 0 || nameLen % 2 != 0)
+				++fails; // UTF-16 字节长头(样本 16 = "Terminal"×2 同相)
+			// 原版 789B 帧对账结论(框架级,任务书三态记账):
+			//   magic/窗段序/页帧序 = MATCH;t4 roundtrip + t7 骨架帧
+			//   断言对 blobA/B/C 段序逐项覆盖 — 本块收敛帧级字段序
+			//   + 对账读回(框架 MATCH;深段差 = LastSessions 组块/
+			//   尾钩段 cited 仅记)。
+		}
 	}
 
 	printf("statereopen: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);

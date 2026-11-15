@@ -117,3 +117,120 @@ QVariantList(元素 QVariantMap);focusMode.settings(null)→ 不落
 
 - `cmake -S . -B build` 退出码 0;`cmake --build build -j8` 退出码 0;
   ctest **23/23**;dlopen OK
+
+## 批 180(2026-11-15)M23-①:5c 收官冲刺 — 全帧字节对表执行 ✅ ctest 23/23
+
+### 一、三段落位(真身/cited 三态)
+
+| 段 | 定性 | 落位 |
+|---|---|---|
+| **blobB LastSessions 组块外框** | 位级反推 byte-perfect(样本 110..417) | 外框字节序框架记档(`5c/dump_lastsessions.py` + StateStore.cpp 块注);**写面 cited** |
+| **浮停腿 dock_toggleFloat(866B)** | 全读定性(asm/decomp 双源) | cited 维持(KitDock 类未建模,现役树零实例 → 8cf1f3 循环不可达同相;零字节产物) |
+| **尾钩 vtable+0x248** | 定性 = **QuickBar 窗条面** | cited 维持(QuickBar 宿主槽 +0xd8/+0xe0 未建模) |
+
+**blobB LastSessions 外框**(样本实证,count=1 + 根 ss 27B + 1 条 kind2):
+
+```
+[int count][BA 根 splitter saveState][逐 widget: char kind
+  kind==1(QSplitter cast,ti 11b8958 import)→ 句柄入表零字节
+  kind==2(KitGroup cast,ti 011ab130 "8KitGroup" 实读)→ <<BA title]
+title BA 内层 = [int 1][int 2]{BA uuid UTF-16 + BA 会话态}×2
+  + 15B 尾标(0000ffff 00000000_00000000 ffffffff 同构 ×2)
+```
+
+- kind 写 = `operator<<(char)`(asm 8cf783 ESI=1 / 8cf842 ESI=2 →
+  PLT 11b9ef8 `QDataStream::operator<<(char)` 实读;先前"int kind"
+  误读勘正 — 1B 字节序在样本上 byte-perfect 收敛,int 序不解析)。
+- title 内层样本页:uuid `48149a6b-fe0d-406b-993e-add4713e4d7a`
+  (state 34B)/`3a0fce24-4412-4668-bab1-103b61ff2f68`(state 35B)。
+- 写面 cited 因:句柄表迭代(push @8cf6cd / erase @8cf740)静态定序
+  不唯一 + param_1[9] LastSessions splitter 槽位宿主域未建模
+  (铁律 3/6);title 写体 s_RenamedTitle_8bbab6(850B)深域 cited。
+
+**dock_toggleFloat 全读定性**(承接面注记,StateStore.cpp 块注全出处):
+
+- 门 `dock+0x39 != float`(FUN_008b8c62 5B = byte 读);尾写 +0x39
+  + KitDock 信号 `floating(bool)` emit(91a80c;KitDock smo 0x11ab100
+  QMetaObject 实读:12 方法,floating Q_PROPERTY + floating(bool)
+  信号 attrs 0x6)。
+- 浮出腿:hostSp cast(QSplitter)→ saved rect(mapToGlobal +0x3c/
+  +0x40 + 尺寸 +0x44/+0x48)→ 槽位号 +0x4c(8ca0b8:kit+0x38/+0x40/
+  +0x50 三 QSplitter 槽表,8ca096 取面)→ +0x50 = indexOf;单子
+  吸收腿(sizes 邻位合并/自位清零 setSizes)→ setParent(kit)+
+  setWindowFlags(layout flags|1)+ show + singleShot(0,8b7cdb
+  setGeometry 复位)。
+- 回位腿:8ca096(kit,+0x4c)取槽 splitter → insertWidget(+0x50)
+  + setWindowFlags(0) + show。
+- 邻接族:showEvent 0x69 腿(8b9050)/ deleteLater 腿(8b86e4)/
+  Splitter 子类 handle 折叠(5a1c70/5a1cfc/5a1ebc/5a2096 + eventFilter
+  双击,smdat 0x11981a0 showIndex/hideIndexRequested 信号,"ratio"
+  handle 属性缺省 0.18 @c8b190 实读)。
+
+**尾钩定性**(vtable 槽位表 .data.rel.ro 实读):
+
+| 槽 | TerminalWindow(vt 0x11a7c80) | EditorWindow(vt 0x119ee30) |
+|---|---|---|
+| +0x240 恢复钩 | FUN_008d1014 | FUN_008d1014 |
+| +0x248 保存钩 | **FUN_0085ae68(220B 读 face)** | FUN_008d5bee(默认 6B return-1) |
+| +0x250 | FUN_008d5bf4(空腿判别锚) | FUN_008d5bf4 |
+
+- 写体 = FUN_008596b8(395B,0026.c:50614):QuickBar 懒建
+  (sub_56e26e ctor,objectName "QuickBar" @0xd0e6d4 实读,存宿主
+  +0xd8/+0xe0 QPointer 对)→ `<<BA[<<bool 可见位][<<int 表长]
+  [<<QString 逐项]`(+0x68 names 表)。
+- **样本尾 9B byte-perfect 同相** = `BA(5B: 00 + 00000000)` =
+  可见 false + 空表(先前"00000005 00000000 00"误拆勘正 — 首段
+  是 BA 长度头 5,非记录字段)。
+- 读 face 85ae68:>>BA → 子流 >>bool/>>int/>>QString×(85e0c0
+  QVariantList<QString> 承载)→ flags&4 门 → 85ae06 属性回写
+  (QuickBar +0x68 表)+ !visible → 8595c8 hide。
+- cited 因:QuickBar 宿主槽 +0xd8/+0xe0 未建模 + KitWindowFace
+  壳零虚槽声明(22 虚零消费判例,铁律 6)。
+
+### 二、全帧字节对表(核心交付)
+
+对等状态(探针 `frameprobe`,产物 `5c/ours/frame.history` 175B):
+单窗 713×451 + 双页 Terminal/Editor(cur=1)带实体树 → 摘除入表 →
+写面落盘。原版 789B(`5c/original/reopen.history`)= 1 窗 66B 几何 +
+1 Terminal 页(cur=0)。
+
+| 帧级 | 原版 789B | 我方 175B | 结论 |
+|---|---|---|---|
+| 魔数 @0076076f | b9e7e626 | b9e7e626 | **MATCH** |
+| 窗数 | 1 | 1 | **MATCH** |
+| 窗段序 geo→payload→bool | ✓ | ✓(t8 读回三字段逐项 ==) | **MATCH** |
+| bool(focusMode cited 0) | 0 | 0 | **MATCH** |
+| 页帧序 count→cur→(名+BA)× | 1/0 | 2/1(夹具态,环境差) | **框架 MATCH**(字段序同相) |
+| 页名 UTF-16 BA 头 | 16("Terminal") | 16/12("Terminal"/"Editor") | **MATCH**(编码同相) |
+| payload BA 头 | 706 | 92/20 | 框架 MATCH(体量环境差) |
+| 帧 consumed==size | ✓ | ✓ | **MATCH**(零尾渣) |
+| kit 魔数 | b9e7e626 | b9e7e626 | **MATCH** |
+| kit 段序 A→B→C | ✓ | ✓ | **MATCH** |
+| blobB 旗标字节 | 01 | 01 | **MATCH** |
+| blobC 三 bool | 00 00 00 | 00 00 00 | **MATCH** |
+| blobA 树段 | 229B(3 splitter 实体) | null(探针零树)/t7 夹具 20B 实体段 | 框架 MATCH(批 177 实体面) |
+| blobB saveState 段 | 31/35/27/0 | 空/夹具逐段 | 框架 MATCH(批 177 面对账) |
+| LastSessions 组块 | 307B(外框上表) | 无(flags&1 测试面零条件) | cited 仅记 |
+| 尾钩段 | 9B(BA[00][00000000]) | 无(壳零虚槽) | cited 仅记 |
+
+**三态记账结论:全帧 = 框架 MATCH + 深段 cited** — 魔数/段序/各段
+长度构成/记录框架逐项对账通过(上表 14 项);深段差 = LastSessions
+组块(写面句柄表定序不唯一)+ 尾钩段(QuickBar 宿主槽未建模)+
+blobA 树深(几何环境差),全部 cited 仅记、逐段有落点。测试 t8
+(statereopen)固化帧级字段序断言(魔数/单窗/三字段序读回 ==
+t3 快照/页帧 count/UTF-16 头),字节级随环境几何漂移仅框架锚。
+
+### 三、新采样与工具
+
+- `5c/original/kitframe-blobA-229B.bin` / `kitframe-blobB-417B.bin`
+  (原版 kit 帧两段切出,批 177 反推复核面)
+- `5c/ours/frame.history`(175B 对等状态全帧产物)
+- `5c/parse_reopen_frame.py`(全帧解析器:窗段/页帧/kit 三段/blobA
+  逐 splitter/blobB 旗标+ss 表+LastSessions 组块,框架级零发明)
+- `5c/dump_lastsessions.py`(组块外框 byte-perfect 验证器)
+- statereopen.cpp t8 块(帧级字段序断言;tmpDir 快照承载)
+
+### 验证
+
+- `cmake -S . -B build` 退出码 0;`cmake --build build -j8` 退出码 0;
+  ctest **23/23**;dlopen OK

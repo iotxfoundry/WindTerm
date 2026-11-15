@@ -81,9 +81,10 @@ QByteArray stateStoreSerializeSplitterBlob(const KitWindowFace *pane);
 //     段 — 逐段 <<BA 语法位级对账)+ flags&1
 //     LastSessions 组块(@008cf62f-8ff:FUN_008cba1c 253B 设置读 +
 //     逐项 kind char 2=命名页(s_RenamedTitle_8bbab6 850B BA)/
-//     kind 1=splitter+句柄计数 — cited;样本 145B 起组块字节位级
-//     反推失败于句柄表迭代变换 — 静态定序不唯一,铁律 3 宁空不猜)
-//     → 旗标+四 saveState 帧(组块 cited 不落);
+//     kind 1=splitter+句柄计数 — 外框字节序批 180 位级反推
+//     byte-perfect([int][BA 根 ss][char kind][BA title],见 .cpp
+//     块注 + 5c/dump_lastsessions.py);title 内层/句柄表迭代 cited)
+//     → 旗标+四 saveState 帧(组块写面 cited 不落);
 //   blobC(样本 3B)= MenuBar/StatusBar/ToolBar 三可见 bool
 //     (FUN_008cefe4 212B,QWidgetData +0x28+8 位 0x10000 位域腿
 //     未解)cited → 三 false 缺省(样本 00 00 00 同相)。
@@ -93,6 +94,18 @@ QByteArray stateStoreSerializeSplitterBlob(const KitWindowFace *pane);
 //   恒态不发明)。
 QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
                                           quint32 flags);
+
+// ── 批 180(M23-①)尾钩定性记要(vtable+0x248 = QuickBar 窗条面)──
+//  vtable 实读(TerminalWindow vt 0x11a7c80 / EditorWindow 0x119ee30,
+//  .data.rel.ro 槽位表):+0x240 恢复钩(两窗同 = FUN_008d1014)/
+//  +0x248 保存钩(Terminal = FUN_0085ae68 读 face 220B / Editor =
+//  FUN_008d5bee 默认 6B)/ +0x250(FUN_008d5bf4 空腿判别锚)。
+//  写体 = FUN_008596b8(395B,0026.c:50614):BA[bool 可见位]
+//  [int 表长][QString 逐项] — 样本尾 9B byte-perfect 同相(可
+//  false + 空表)。QuickBar = 懒建 QWidget 子件(sub_56e26e ctor,
+//  objectName "QuickBar" 0xd0e6d4 实读,QList<QString> names +0x68,
+//  存宿主 +0xd8/+0xe0 QPointer 对)。出处细目见 StateStore.cpp
+//  页 payload 块注;承接维持 cited(QuickBar 宿主槽未建模,铁律 6)。
 
 // FUN_00760872(344B,0023.c:28740)单窗摘除+入表真身:
 //   FUN_00764d74(170B,0023.c:31906)窗表 removeAll 对位(@7608a1-8f2
