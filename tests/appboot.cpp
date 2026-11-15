@@ -15,6 +15,7 @@
 #include "Actions/MainWindowFace.h"
 #include "Actions/StartupChain.h"
 #include "Actions/StateStore.h" // 批 172:aboutToQuit 挂点真身
+#include "Actions/SuperApplicationFace.h" // 批 179:face 级挂点
 
 int main(int argc, char **argv)
 {
@@ -105,6 +106,69 @@ int main(int argc, char **argv)
 			++fails; // 页名对账(逐页 QString → 工厂腿)
 		if (sl2.f58->currentIndex() != 0)
 			++fails; // currentIndex 对账(payload local_c4=0)
+	}
+
+	// ======== 批 179(M22-③):SuperApplicationFace 产品挂点(尾部追加;
+	// 既有断言不动)— appboot 装配升 face 级:启动链经 face 调度
+	// (startupApplication = thunk FUN_00762925 case1 → 7626ce 序)+ 分派
+	// 面可达(h90e0b4 case4/case5)+ aboutToQuit→写面挂 face(FUN_00760856
+	// 挂点,批 172 appboot 级接线升 face 级;s_WindTerm_75be40 connectImpl
+	// 0x75bf6f 汇编实读)。
+	{
+		QTemporaryDir tmpDir3;
+		if (!tmpDir3.isValid()) {
+			printf("appboot: FAIL (tmpdir3)\n");
+			return 1;
+		}
+		const QString hist3 = tmpDir3.path()
+		                      + QStringLiteral("/global/reopen.history");
+		SuperApplicationFace appFace(nullptr, hist3); // ctor = FUN_0075dba4 槽位面
+
+		// face 调度启动链(新装配态,免扰既有断言;门 false 腿同前判例)
+		QMainWindow mwHost3;
+		MainWindowFace mf3(&mwHost3);
+		MainWindowFace::Slots sl3 = mf3.hostSlots();
+		if (sl3.f50 == nullptr || sl3.f58 == nullptr) {
+			printf("appboot: FAIL (face slots null)\n");
+			return 1;
+		}
+		mwHost3.show();
+		appFace.startupApplication(sl3, &mwHost3); // 00762925 case1 → 7626ce
+		if (sl3.f58->count() != 1)
+			++fails; // 门 false(无状态文件)→ 失败腿恰一页
+		if (sl3.f58->widget(0) == nullptr
+		    || sl3.f58->widget(0)->objectName() != QStringLiteral("TerminalWindow"))
+			++fails; // 7626ce 尾恢复腿产物页名
+
+		// case4 分派(window_activeMainPane 105B:activeWindow 空腿 +
+		// 父链 MuxPane cast 未命中 → 0)—— offscreen 无活动 MuxPane。
+		QWidget *pane = appFace.dispatchMetacall(4, sl3, &mwHost3);
+		if (pane != nullptr)
+			++fails; // @25802/25812 未命中腿
+
+		// case5 恢复路径分派(FUN_0075e3fe → 批 142 真身):门 false →
+		// 失败腿建 "Terminal" 首页;返回 = 语料尾 return pQVar3 窗面。
+		QMainWindow mwHost4;
+		MainWindowFace mf4(&mwHost4);
+		MainWindowFace::Slots sl4 = mf4.hostSlots();
+		QWidget *r4 = appFace.dispatchMetacall(5, sl4, &mwHost4);
+		if (r4 == nullptr)
+			++fails; // case5 返回窗面非空(31639-41 写回 argv 面)
+		if (sl4.f58->count() != 1)
+			++fails; // case5 页挂腿对账
+		if (sl4.f58->widget(0) == nullptr
+		    || sl4.f58->widget(0)->objectName() != QStringLiteral("TerminalWindow"))
+			++fails; // case5 页名(007665ae "Terminal")
+
+		// aboutToQuit 挂 face:closeAllScan 装配窗集(FUN_007609d2 case3
+		//   逐窗摘除腿对位)→ 事件循环退出触发 face 槽(FUN_00760856 真身
+		//   → stateStoreAboutToQuit;hist3 注入缝)→ 落盘对账。
+		appFace.closeAllScan(sl4, &mwHost4);
+		QTimer::singleShot(0, &app, SLOT(quit()));
+		app.exec(); // aboutToQuit → aboutToQuitWrite(FUN_00760856)
+		QFile hf3(hist3);
+		if (!hf3.open(QIODevice::ReadOnly) || hf3.size() < 16)
+			++fails; // face 级写面落盘(FUN_0076073a + 005dd6fc)
 	}
 
 	printf("appboot: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
