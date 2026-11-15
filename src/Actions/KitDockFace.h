@@ -73,6 +73,11 @@ public:
 	//   私有位(d+9 & 0x80)为 0 → 0(疑 WA_WState_Hidden,本面以 isHidden()
 	//   承接并注记);父非 QSplitter → 1;否则
 	//   kitSlotVisible(kitSlotIdOf(sp))。
+	// FUN_008d9764(33B)+008d972e(53B)内层页:
+	//   v = 008d972e(dock)= TabGroup(+0x30)->currentWidget() cast 011ac070;
+	//   非空 → 008dfe24(v)(195B 焦点/缓存收敛,cited)。
+	QWidget *innerPage();
+
 	bool isSlotVisible() const;
 	bool isFloating() const { return m_f39; } // +0x39
 	bool isDocked() const { return !m_f39; }  // 008b8c76(8B):+0x39 ^ 1

@@ -10,6 +10,7 @@
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFace.h"
 #include "Actions/TabGroup.h"
+#include "Actions/MuxPaneView.h"
 #include "Actions/ThemeIcons.h"
 
 // FUN_008b81b0(109B,0027.c:75478)ctor:
@@ -310,4 +311,21 @@ bool KitDockFace::isSlotVisible() const
 		return true;
 	const int id = kit->kitSlotIdOf(sp); // 008ca0b8
 	return kit->kitSlotVisible(id);      // 008ca0de
+}
+
+// FUN_008d972e(53B)+FUN_008d9764(33B)内层页真身:
+//   @008d972e w = FUN_005ab316(*(this+0x30))(= TabGroup::currentWidget)
+//     → cast 011ac070(页类);空 → 0;
+//   @008d9764 v = 008d972e(this);非空 → 008dfe24(v)(195B:focusWidget 上溯
+//     cast 011abb90 / 011abe10(+0x78/+0x80 缓存)→ 内层视图,cited)。
+QWidget *KitDockFace::innerPage()
+{
+	if (m_tabs == nullptr)
+		return nullptr;
+	QWidget *w = m_tabs->currentWidget(); // @008d972e(FUN_005ab316)
+	if (w == nullptr)
+		return nullptr;
+	// cast 011ac070 面(页类未定位 → 以 QWidget 承接)+ 008dfe24(v) 焦点
+	//   收敛腿 — cited(195B 体未转写)。
+	return w;
 }
