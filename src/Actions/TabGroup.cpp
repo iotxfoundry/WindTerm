@@ -760,3 +760,42 @@ void TabGroup::setCloseButtonsVisible(bool on)
 	if (m_f58 != nullptr)
 		m_f58->setCloseButtonsVisible(on); // @005ab5a8
 }
+
+// FUN_005a7db8(495B,0018.c:22727)节点摘除真身:
+//   @005a7db8 index < 0 → 返;+0x60 表 index < size → 删节点(0x10)+remove;
+//   +0x68 表同(+QVariant 引用计数);+0x70 表同。
+//   本仓三表均 QList<QVariant> 值承载 → removeAt 等价。
+void TabBar::removeTabNodes(int index)
+{
+	if (index < 0)
+		return;
+	if (index < m_f60.size())
+		m_f60.removeAt(index);
+	if (index < m_f68.size())
+		m_f68.removeAt(index);
+	if (index < m_f70.size())
+		m_f70.removeAt(index);
+}
+
+// FUN_005a8376(383B,0018.c:22922)当前页切换真身(关闭钮可见性维护):
+//   @005a8376 if (+0x30 == 0 || count <= 0) return;
+//   逐 i<count:@005a83xx i == index → 状态串非空 → s_CloseButton_5a6d42(i)
+//     + FUN_005a824c(i,btn);否则若 i == index 跳过,i != index →
+//     FUN_005a6c0e(i) 非空 → deleteLater + FUN_005a824c(i,0)。
+void TabBar::onCurrentChanged(int index)
+{
+	if (!m_f30 || count() <= 0) // +0x30 关闭钮开关
+		return;
+	for (int i = 0; i < count(); ++i) {
+		if (i == index) {
+			if (!tabStateAt(index).toString().isEmpty()) { // 状态串非空
+				setSideButton(index, makeCloseButton(index)); // 005a6d42→005a824c
+			}
+			continue;
+		}
+		if (QToolButton *btn = sideButtonAt(i)) {
+			btn->deleteLater();
+			setSideButton(i, nullptr); // 005a824c(i,0)
+		}
+	}
+}

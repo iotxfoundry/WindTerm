@@ -49,6 +49,10 @@ public:
     QVariant tabStateAt(int index) const;
     // FUN_005ab180(21B,0018:24960 邻)页文:QTabBar::tabText 包装。
     QString tabTextAt(int index) const;
+    // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
+    //   三表各自 remove(index)(语料为节点指针+QListData::remove;
+    //   本面值承载等价)。
+    void removeTabNodes(int index);
     // FUN_005a7b66(269B,0018:22507)页色设置:越界返;+0x60 表补齐默认 →
     //   旧值 != 新值才写 → 尾重绘。
     void setTabColor(int index, const QColor &color);
@@ -66,7 +70,7 @@ private slots:
     // FUN_005a6c62(68B,0018:22015 邻)侧钮点击:
     //   sender 逐 i 与 tabButton(i) 比对命中 → emit tabCloseRequested(i)。
     void onSideButtonClicked();
-    void onCurrentChanged(int index);                                    // FUN_005a8376(cited)
+    void onCurrentChanged(int index);                                    // FUN_005a8376(真身批 283)
     void onTabMoved(int from, int to);                                   // FUN_005a7fa7(cited)
 
 private:
