@@ -29,6 +29,14 @@ public:
     void detachPane(MuxPaneView *page);                  // FUN_008dedae(0028:25986;addTab 对偶)
     int tabCount() const;                                // FUN_008de59c
     MuxPaneView *currentPane() const;                    // FUN_008de3b2(0028:25616)
+    // FUN_008b9890(149B,0027.c:76790)第 index 页:TabGroup(+0x38)
+    //   stackWidgetAt(i)(FUN_005abbd0)→ cast 011925c8 → MuxPaneView;
+    //   011ab930 腿(KitDock → FUN_008da7a8 取内层)cited。
+    MuxPaneView *paneAtIndex(int index) const;
+    // FUN_008c5578(59B,0028.c:7611)页名:属性 "Url"(0xcb6fcc 实读)
+    //   → toString(FUN_008c54a4 键读面)。
+    static QString paneUrl(const MuxPaneView *pane);
+
     MuxPaneView *paneAtCurrentIndex() const;             // FUN_008def86(0028:26083;
                                                          //   stack widget(currentIndex) cast 面)
 

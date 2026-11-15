@@ -454,3 +454,27 @@ void MuxPaneGroup::kitPopupConfigButton(QWidget *pane, const QString &name,
 	QCoreApplication::postEvent(btn, new QEvent(QEvent::Leave), 0); // @005ac84e-70(0xb=Leave)
 }
 
+
+// FUN_008b9890(149B,0027.c:76790)第 index 页真身:
+//   w = FUN_005abbd0(this+0x38)(= TabGroup::stackWidgetAt)@008b9890-9a;
+//   cast 011925c8 命中 → 该页;否则 cast 011ab930 → FUN_008da7a8 取内层
+//   → 再 cast 011925c8(KitDock 内层腿,cited 不落);未命中 → 0。
+MuxPaneView *MuxPaneGroup::paneAtIndex(int index) const
+{
+	QWidget *w = m_f38 != nullptr ? m_f38->stackWidgetAt(index) : nullptr; // @008b9890
+	if (w == nullptr)
+		return nullptr;
+	if (auto *view = dynamic_cast<MuxPaneView *>(w)) // 011925c8 面
+		return view;
+	// 011ab930(KitDock)腿:内层页取面 FUN_008da7a8 — cited(未转写)。
+	return nullptr;
+}
+
+// FUN_008c5578(59B,0028.c:7611)页名真身:
+//   FUN_008c54a4(item, "Url")(键 0xcb6fcc 实读)→ QVariant::toString。
+QString MuxPaneGroup::paneUrl(const MuxPaneView *pane)
+{
+	if (pane == nullptr)
+		return QString();
+	return pane->property("Url").toString(); // @008c5578
+}
