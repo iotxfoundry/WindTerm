@@ -1747,6 +1747,121 @@ int main(int argc, char **argv)
 		}
 	}
 
+	// ======== cc. 批 152 组:eNodes 词法重建(inner 构造面)========
+	// 语料锚:00970850(746B@0031.c:44895,kuna 全读 — inner 词法重建:
+	//   holder=new(0x20)/editctx_initThread(new 0x50)/93fc60 清偿/
+	//   gapbuffer_reallocate/new(0x20) 词法栈换新/scanner=new(0x40)
+	//   9cc22c)/ 9cc22c(55B@0032.c:66987)= bankCtorK3 同体 /
+	//   9cc2d4(140B@0032.c:67038)= scannerResetState 六槽释放同体 /
+	//   9cd3da(155B@0032.c:68073)= runValueWordAt 六路同体 / 9cd91e
+	//   (1221B@0032.c:68292)= runstylesUpgrade 同构 / 9cc3a0(10B
+	//   @0032.c:67145)= delegate vt+0x30 尾调(Runs 面)/ editctx_initThread
+	//   (9714b6@0031.c:45546)、piecetable_init(96a2f8)、gapbuffer_
+	//   reallocate(88e5a0 3525B)、93fc60(546B)= 深引擎 cited(批 111
+	//   判例 — 改版底座头不在库)。QUIRKS #32 仪器面注:styled 哨兵 UB
+	//   构型(哨兵+堆混解引)不可安全构造 — 裁决需原版进程内仪器
+	//   (哨兵页可读性随进程状态,须 frida/phase5 直读 0x11befa0 页
+	//   映射状态;本测试不构造,登记于 bb1 构型注 + 本组头注)。
+	{
+		// cc1:inner 构造面非恒 null(ctor0096f606 → rebuild00970850
+		//   非退化:scanner=K3 ValueTable,holder=RsHolder20 带活 RS8;
+		//   打真引擎前的栈字段面可达性)
+		EditorEngine e1;
+		auto *s5 = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(5, 0));
+		auto *in = static_cast<wt::WNodeInner *>(s5->inner);
+		expect(in != nullptr && in->back == s5 && in->f10 == 0,
+		       "cc1: inner 0x18{回指,+0x10:0}(96f606 尾 44000-44005 字面)");
+		auto *sc = static_cast<wt::ValueTable *>(in->scanner);
+		expect(sc != nullptr && sc->kind == 3 && sc->delegate == in->holder,
+		       "cc1: scanner=9cc22c K3 形{kind=3,delegate=styler,0,0,0,"
+		       "styler,0,0}(55B 全读同体;holder 承载 styler 槽)");
+		expect(in->holder != nullptr
+		       && wt::holderRs(in->holder) != nullptr,
+		       "cc1: holder=new(0x20) 词法栈承载(RsHolder20;RS8 活体 —"
+		       " 00970850 栈面真身;threadCtx/editctx 深引擎 cited)");
+		// cc2:词法栈字段面可达(96cb3c Runs 计数 — 初始空 RS8 → 1 分区?
+		//   Runs()=Partitions()=len-1+1 — 空 RS8 len=0 → Runs=1?实测
+		//   RunStyles 空 = Runs()1(语料 runs_count = 值游程族;我方
+		//   Scintilla Runs 语义 = 分区数含哨兵 — 承载替值序怪癖,登记)
+		expect(s5->lexRescanCount0096cb3c() >= 0,
+		       "cc2: 96cb3c → 9cc3a0 Runs() — 承载替分区计数可达(非退化"
+		       "路径;Scintilla Runs=分区数,语料 runs_count=值游程数 —"
+		       " 底座同物异计,怪癖登记,断言仅可达性)");
+		// 96d620 灌值后 96cb6c 六路取值(9cd3da 同体;K3 → holders[3] u8S)
+		s5->dirtyClamp0096d620(0, 8);
+		RS8 *rsA = static_cast<RS8 *>(wt::holderRs(in->holder));
+		rsA->InsertSpace(0, 4);              // 上游语义:先扩 Length
+		rsA->FillRange(0, char(7), 4);       // 灌 4 格 style=7(测试载体;
+		                                     //   语料灌腿 = 9cd91e upgrade 面)
+		expect(s5->lexItemAt0096cb6c(3) == 7 && s5->lexItemAt0096cb6c(9) == 0,
+		       "cc2: 96cb6c → 9cd3da K3 路 holders[3] valueAt(idx=3)=7/"
+		       "越界(9)=0(六路同体真身;0088ff00 越界→0)");
+		// cc3:96cb84 置值腿(9cd91e 同构 → runstylesUpgrade 单点灌 len=1;
+		//   K3 相邻同值拆面/迁移腿 = MarkersStore migU* 同族)
+		s5->lexSetItemAt0096cb84(2, 9);      // 单点 style=9(pos=2)
+		expect(s5->lexItemAt0096cb6c(2) == 9,
+		       "cc3: 96cb84 → 9cd91e case3 灌值腿(runstylesUpgrade "
+		       "u8S 单点 len=1;回读 9cd3da=9 闭环)");
+		expect(static_cast<RS8 *>(wt::holderRs(in->holder))->Length() >= 3,
+		       "cc3: upgrade 灌后 RS 长度 ≥3(9cf5e2 尾 FUN_007b7c80 灌面"
+		       " — 承载 FillRange(2,9,1) 同相;rsprobe 实测 FillRange 自扩)");
+		// cc4:runRefresh |4 链非退化(96f782 门开:96cb3c n>0 → 逐项
+		//   cb6c|4 → cb84 灌 — 语料 4405c/4406c/44077 全链)
+		{
+			auto *s7 = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(7, 0));
+			auto *in7 = static_cast<wt::WNodeInner *>(s7->inner);
+			RS8 *rs7 = static_cast<RS8 *>(wt::holderRs(in7->holder));
+			rs7->InsertSpace(0, 4);          // 4 格(970850 灌链承载)
+			rs7->FillRange(0, char(2), 4);   // style=2 → |4 后 =6
+			const int n7 = s7->lexRescanCount0096cb3c();
+			s7->runRefresh0096f782();        // 96f782 门开(4406c 链)
+			// ccprobe 实钉:cb3c=1/cb6c(0)=2 → post v0=6 v3=2 —
+			//   4406c 迭代按 i 覆盖(cb6c(i)|4 → cb84);i 走 [0,n) 且
+			//   空栈端界门(RS probe fill(0,7,8) no-change)同相;
+			//   Runs 分区计(空=1)vs 语料 runs_count(值游程)— 底座
+			//   异计怪癖登记;断言:迭代腿跑通 + 覆盖位面(i=0 必染 6)
+			expect(n7 >= 1 && s7->lexItemAt0096cb6c(0) == 6,
+			       "cc4: 96f782 |4 链非退化:cb3c n>=1 → cb6c 读 2 |4=6 →"
+			       " cb84 灌(4405c/4406c/44077 全链;ccprobe 实钉 v0=6;"
+			       "Runs 分区计底座异计 — QUIRKS 登记面;cc5 重建腿同函数)");
+		}
+		// cc5:runReset0096f6fe 重建腿(9cc2d4 释放 + 00970850 重建;
+		//   96cba2(0,0) f68 收敛)。⚠ 指针面注:我方 new 返先前 delete
+		//   的同址(glibc tcache 首轮返还概率高;语料 operator_new/
+		//   delete 同池亦然)— 指针恒等非语料违例,断言只钉非 null +
+		//   K3 形 + 空栈(指针非恒定断言不写 — glibc 分配器可复址,
+		//   ccprobe 实测 eq=1;登记怪癖)。
+		{
+			wt::ValueTable *old = static_cast<wt::ValueTable *>(
+			    static_cast<wt::WNodeInner *>(s5->inner)->scanner);
+			s5->runReset0096f6fe();
+			auto *in5 = static_cast<wt::WNodeInner *>(s5->inner);
+			expect(in5->scanner != nullptr,
+			       "cc5: 96f6fe 重建腿:9cc2d4 释放旧 scanner + 00970850 "
+			       "重建非 null(44021-44027;glibc 复址可同指 — 不比指针)");
+			auto *sc5 = static_cast<wt::ValueTable *>(in5->scanner);
+			(void)old;
+			expect(sc5->kind == 3
+			       && static_cast<RS8 *>(wt::holderRs(sc5->delegate))
+			           ->Length() == 0,
+			       "cc5: 重建后 K3 形 + 空栈(gapbuffer_reallocate(0,0,2)"
+			       " 值面同相 — 深引擎 cited)");
+			expect(s5->f68 == 0,
+			       "cc5: 96cba2(0,0) 收敛 f68=0(96f6fe 尾;aa2 同相回归)");
+		}
+		// cc6:析构清偿链(ENodeScan D1 → 9cc2d4+delete 0x40 → delete
+		//   0x18;96d684 面;无泄漏/无崩溃即同相)
+		{
+			EditorEngine e6;
+			auto *s6 = static_cast<wt::ENodeScan *>(e6.m_ctx.eNodeGet(8, 9));
+			static_cast<wt::WNodeInner *>(s6->inner);
+			// kind=8 mode=9 state=0(9637b8 门);e6 析构走 D1 链
+			expect(s6->gate009635d8() == false,
+			       "cc6: 析构前置 — kind=8 mode=9 state=0(9635d8 门关;"
+			       "D1 链 9cc2d4→delete0x40→delete0x18 走通即 96d684 同相)");
+		}
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

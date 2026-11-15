@@ -105,3 +105,12 @@
 34. **loadViews tail 22 字符截断(批 147 strace 实证)**:views 腿
    配置路径尾截 22 字符 → "toolbar.confi"(尾 g 丢失);groups 腿
    无此截断。转写原样保留;消费腿按路径匹配时须知此怪癖。
+35. **词法栈 Runs 计数底座异计(批 152 登记)**:语料 9cc3a0 =
+   delegate vt+0x30(runs 计数底座 — 96cbb8 调面 runstyles_runs_count
+   值游程族);我方委托 Scintilla RunStyles::Runs() = 分区数含哨兵
+   (空栈=1,值游程≥1 时=分区数)。同物异计(96f782 |4 链迭代上界
+   视角不同);灌值腿 FillRange 空栈端界门(end>Length→no-change)
+   为上游语义,rsprobe 实钉。96f6fe 重建腿 glibc 可复址(旧/新
+   scanner 同指概率高)— 指针恒等非语料违例,cc5 不比指针。
+   深引擎(editctx_initThread 0x50/piecetable_init 96a2f8/
+   gapbuffer_reallocate 88e5a0/93fc60)承 cited — 批 111 判例。

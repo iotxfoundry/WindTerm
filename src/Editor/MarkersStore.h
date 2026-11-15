@@ -859,6 +859,8 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B 语料尾;
         return runValueWordAt(arr->bank, idx);           // 同面换元素(批 82:runvector 复用)
     }
     // 六路取值参数化版(批 82:0x7576 runvector 元素 = ValueTable 复用)
+    // — MarkersStore 成员(批 152:ENodes 词法面 9cd3da 同体复用经
+    //   wt::MarkersStore::runValueWordAt 静态调;迁成员外会动布局面,原位复用)
     static quint64 runValueWordAt(const ValueTable *b, int idx)
     {
         if (!b)                                          // runvector 壳期守卫

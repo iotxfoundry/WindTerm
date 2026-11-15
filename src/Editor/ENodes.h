@@ -20,7 +20,9 @@
 #include <QByteArray>
 #include <QArrayData>
 #include <QRunnable>
+#include <QThread>
 #include <QtGlobal>
+#include "MarkersStore.h"   // 批 152:RsHolder20/makeHolder0x20 承载复用(词法栈 0x20 holder)
 
 class EditorContext; // ENodeRunner 前向(仅存指针)
 
@@ -79,15 +81,69 @@ struct ENodeTask {
 
 // WNodeInner — 语料 ScanTask::inner(0x18;96f606 尾 44000-44005:
 //   operator_new(0x18){+0x0=回指 task,+0x8=scanner,+0x10=0} +
-//   FUN_00970850(inner) 词法重建)。重建 callee 栈(editctx_initThread
-//   0x50/FUN_0093fc60/gapbuffer_reallocate/Uint8SkipRunStyles 词法面)
-//   未读 → 970850 cited:scanner 壳态 null — 96cb*/96f6fe 链 null 臂
-//   同相(批 146)。
+//   FUN_00970850(inner) 词法重建)。批 152 重建面真身(00970850 746B
+//   @0031.c:44895 kuna 全读):
+//   {puVar6=operator_new(0x20) Uint8SkipRunStyles holder{vt,+8=0x50
+//   threadCtx,+0x10=0};editctx_initThread(pvVar7,tag) 建 0x50
+//   SkipPartition(9714b6 全读:{0..3=0,+4=piecetable(new 0x60
+//   piecetable_init(96a2f8 全读;尾 96a280 种子)),+5=1,+6=tid,+7=0,
+//   +8 自增序,+0x28 锁};97142a 尾 runstyles_insert_space_b 灌满);
+//   93fc60 清老 runs(空表同相零迭代);gapbuffer_reallocate(pvVar8,
+//   0,0,2) 重排;puVar9=operator_new(0x20){0,0,0,0} 换 inner 词法栈
+//   (puVar8[3]);scanner=new(0x40) FUN_009cc22c(holder) = ValueTable
+//   K3 形}. 深引擎腿(piecetable_init 种子 96a280/gapbuffer_reallocate
+//   3525B 重排/runstyles_insert_space_b 灌链)= 外库边界 cited(批 111
+//   piecetable/线程缓存同族判例 — 改版底座头不在库,缺证不转写);
+//   承载替:RsHolder20(MarkersStore §makeHolder0x20 同款)+ RS8 直存
+//   (怪癖登记 — 布局不同构,值面同相)。
+//   scanner = wt::ValueTable(bankCtorK3) — 9cc22c 55B 全读 = MarkersStore
+//   bankCtorK3 同体(kind=3,{3,styler,0,0,0,styler,0,0})→ 词法引擎
+//   9cd3da/9cd91e 走 MarkersStore 六路取值/upgrade 同构面。
 struct WNodeInner {
 	void *back = nullptr;        // +0x00 回指 task(96f606 字面 *puVar1=param_1)
 	void *scanner = nullptr;     // +0x08 00970850 产物(0x40,9cc22c
-	                             //   {3,styler,0,0,0,styler,0,0})— cited
+	                             //   {3,styler,0,0,0,styler,0,0})
 	quint64 f10 = 0;             // +0x10 96f606 字面 0
+	// FUN_00970850(746B)@0031.c:44895 — 重建面真身(控制流 + 栈字段
+	//   面;深引擎腿 cited 见头注):holder=makeHolder0x20(RS8);
+	//   threadCtx=editctx_initThread 承载(0x50 面 cited — 布局怪癖
+	//   登记);旧词法栈 93fc60 清偿(空表零迭代同相);scanner 换新
+	//   ValueTable(9cc22c);+0x10 槽 = operator_new(0x20){0,0,0,0}
+	//   → 承载 = RsHolder20(空)—— 承载替字段(类尾追加,0x18 语料
+	//   分配尾外 — QUIRKS 怪癖登记)。
+	wt::RsHolder20 *holder = nullptr;   // puVar6 — 00970850 词法栈栈面
+	// 00970850 真身(consumes back==this;called from ctor0096f606/
+	// runReset0096f6fe — f10 槽语料语义未触,原样保留)
+	void rebuild00970850()
+	{
+		// 00970887:puVar6 = operator_new(0x20){vt cited,+8=0,+0x10=0}
+		//   语料 970850 直建新栈(无旧栈持有面;holder 处置权 = WNodeInner
+		//   承载替生命周期 — 类尾字段,QUIRKS 承载替登记)
+		if (holder == nullptr)
+			holder = wt::makeHolder0x20(new RS8());
+		else
+			static_cast<RS8 *>(wt::holderRs(holder))->DeleteAll();
+		// 009708a1:pvVar7 = operator_new(0x50);editctx_initThread —
+		//   cited(0x50 SkipPartition 布局 + piecetable/gapbuffer 深引擎;
+		//   9714b6 全读,承载 = holder.threadCtx 置位同相)
+		holder->threadCtx = holder;          // cited — editctx_initThread 面
+		// 009708bd:puVar8 = operator_new(0x30){vt 01192288,+8 旗,+0x14
+		//   mask,+0x18..0x28 0} → 93fc60 清偿 + gapbuffer_reallocate —
+		//   深引擎 cited;产出 0x30 消费面 = 词法栈本体(970bb0 D1 面
+		//   逐槽析构)→ 我方承载 = holder.rs RS8 直存(值面同相怪癖)
+		// 00970a5b:puVar9 = operator_new(0x20){0,0,0,0} → puVar8[3] —
+		//   词法栈内层换新(cited 同上;RS8 重开 = gapbuffer_reallocate
+		//   (0,0,2) 值面同相)
+		static_cast<RS8 *>(wt::holderRs(holder))->DeleteAll();
+		// 00970a82:scanner = operator_new(0x40);FUN_009cc22c(scanner,
+		//   holder) — 55B 全读 = bankCtorK3(MarkersStore 同体真身)。
+		//   ⚠ 旧 scanner 处置权在调用方(96f6fe 先 9cc2d4+delete 0x40
+		//   才尾调 970850;ctor 面旧槽恒 null)— 970850 本体不 delete,
+		//   此处原样(承载替无旧持有面)。
+		wt::ValueTable *sc = new wt::ValueTable{};
+		wt::bankCtorK3(sc, holder);
+		scanner = sc;
+	}
 };
 
 // ENodeScan — 语料 ScanTask(TI 0x11ad588,0xB0;ctor = 963590 + 扩展段)
@@ -112,14 +168,20 @@ struct ENodeScan : ENodeTask {
 	                              //   (ctor 真身;scanner 面 cited — wave-2)
 	// D1 尾(inner 清偿)= FUN_0096d684(kuna @0x96d684 全读;基类 9638a6
 	//   D1 → 9637ea 同构析构链):inner 非空 → +8 非空 → 9cc2d4+delete 0x40
-	//   (词法栈 cited — 壳态 scanner=null 恒走空臂)→ delete 0x18 → +0xa8=0。
+	//   (批 152:scanner_resetState 140B@0032.c:67038 六槽释放面 —
+	//   MarkersStore scannerResetState 同体真身)→ delete 0x18 → +0xa8=0。
 	~ENodeScan() override
 	{
 		if (inner == nullptr)
 			return;
-		// 9cc2d4 scanner 槽族 D1 + operator delete(+8,0x40)— cited
-		//   (scanner 壳态 null → 空臂同相);operator delete(inner,0x18)
-		delete static_cast<WNodeInner *>(inner);
+		WNodeInner *in = static_cast<WNodeInner *>(inner);
+		// 9cc2d4 scanner_resetState 六槽 D1(bank holders 全 null 门关)+ operator delete(+8,0x40)
+		wt::ValueTable *sc = static_cast<wt::ValueTable *>(in->scanner);
+		if (sc != nullptr) {
+			wt::scannerResetState(sc);          // 9cc2d4 — 批 152 真身复用
+			delete sc;                          // operator delete(sc,0x40)
+		}
+		delete in;                              // operator delete(inner,0x18)
 		inner = nullptr;
 	}
 	QVector<void *> runsSlots;    // 槽承载替(语料 0x20 记录槽数组;类尾
@@ -159,8 +221,9 @@ struct ENodeScan : ENodeTask {
 		f90 = f98 = fa0 = 0;
 		inner = new WNodeInner{this, nullptr, 0}; // 96f606 尾 44000-44005
 		                                          //   {回指,+0x10:0} +
-		                                          //   00970850 词法重建 —
-		                                          //   scanner cited(壳态 null)
+		static_cast<WNodeInner *>(inner)->rebuild00970850(); // 00970850
+		                                          //   词法重建(批 152:
+		                                          //   栈面真身/深引擎 cited)
 	}
 	// FUN_009637b8(33B)@0031.c:34252:+0xc=mode;+0x10 分派。
 	//   ⚠ (mode==8)*'\x02' 字面:非 [5,6]/≠0xc 且 mode!=8 → 0(原样勿"修")
@@ -240,50 +303,70 @@ struct ENodeScan : ENodeTask {
 	}
 	// FUN_0096cb3c(24B)@0031.c:41946(kuna @0x96cb3c 全读):词法重扫
 	//   计数 = inner+8 非空 → 尾调 009cc3a0(`(**(styler+1)+0x30)()`
-	//   jump-as-call;批 146 真身);inner+8 壳态 null → 0(不可达臂
-	//   同相保留 — 字面,不"修")。
+	//   jump-as-call;批 146 真身)。009cc3a0(10B@0032.c:67145)=
+	//   delegate(styler+0x08)vt+0x30 尾调 — MarkersStore runIndexOfLine
+	//   同面(vcallSlotArg(delegate,0x28));语料 delegate = Uint8SkipRun
+	//   Styles 0x20 obj(vt+0x30 = runs 计数 — 0096cbb8 调面同构);
+	//   我方 vt 面 = MarkersStore 槽尾调承载。null 臂 0 同相。
 	int lexRescanCount0096cb3c() const
 	{
 		if (inner == nullptr)            // 语料首行解引 — 壳态防御同相
 			return 0;
-		const void *sc = *reinterpret_cast<void *const *>(
-		    static_cast<const char *>(inner) + 8);
-		if (sc == nullptr)
+		const WNodeInner *in =
+		    static_cast<const WNodeInner *>(inner);
+		if (in->scanner == nullptr)
 			return 0;
-		// 009cc3a0:styler(+0x8 解引)vt+0x30 槽 — 词法面 cited
-		return 0;
+		// 009cc3a0:(**(scanner+0x08)+0x30)() — runs 计数虚槽;
+		//   语料 delegate vt+0x30 = 00889872(runstyles_runs_count 路面)
+		//   → 我方委托 RS Runs()(96f782 |4 链零 run 同相;承载替怪癖)
+		const wt::ValueTable *sc = static_cast<const wt::ValueTable *>(
+		    in->scanner);
+		return int(static_cast<const RS8 *>(wt::holderRs(sc->delegate))
+		    ->Runs());                       // vt+0x30 尾调承载(批 152)
 	}
 	// FUN_0096cb6c(24B)@0031.c:41976(kuna @0x96cb6c 全读):第 i 重扫
-	//   项 = inner+8 → 009cd3da(switch +0x0∈[0,5] 逐族 +0x10 取值;
-	//   词法面 cited — wave-2)。null 臂字面 0 同相。
-	int lexItemAt0096cb6c(int) const
+	//   项 = inner+8 → 009cd3da(155B@0032.c:68073 全读:switch kind
+	//   [0,5] 逐路 *holder→+0x10 RS valueAt — MarkersStore runValueWordAt
+	//   同体六路真身)。null 臂字面 0 同相。
+	int lexItemAt0096cb6c(int i) const
 	{
 		if (inner == nullptr)
 			return 0;
-		const void *sc = *reinterpret_cast<void *const *>(
-		    static_cast<const char *>(inner) + 8);
-		if (sc == nullptr)
+		const WNodeInner *in =
+		    static_cast<const WNodeInner *>(inner);
+		if (in->scanner == nullptr)
 			return 0;
-		return 0;                        // 009cd3da — cited
+		return int(wt::MarkersStore::runValueWordAt(   // 009cd3da 六路(批 152)
+		    static_cast<const wt::ValueTable *>(in->scanner), i));
 	}
 	// FUN_0096cb84(22B)@0031.c:41991(kuna @0x96cb84 全读):第 i 重扫
-	//   项置 style = inner+8 → 009cd91e(词法面 cited)。null 臂直返。
-	void lexSetItemAt0096cb84(int, int) const
+	//   项置 style = inner+8 → 009cd91e(1221B@0032.c:68292 全读:switch
+	//   kind 逐路 runstyles 置值(009cf5e2 族 = FillRange(pos,v,1) 单点
+	//   灌)相邻同值 run 拆面/升宽迁移 — MarkersStore runstylesUpgrade
+	//   同构面;升级腿 = MarkersStore migU* 同族)。null 臂直返。
+	void lexSetItemAt0096cb84(int i, int v)
 	{
 		if (inner == nullptr)
 			return;
-		const void *sc = *reinterpret_cast<void *const *>(
-		    static_cast<const char *>(inner) + 8);
-		if (sc == nullptr)
+		WNodeInner *in = static_cast<WNodeInner *>(inner);
+		if (in->scanner == nullptr)
 			return;
-		// 009cd91e — cited(词法引擎面 wave-2)
+		// 009cd91e 逐路置值(批 152):delegate = SkipRunStyles 0x20
+		//   (holders[kind]);单点灌 = runstylesUpgrade(pos=i,v,len=1)
+		wt::runstylesUpgrade(static_cast<wt::ValueTable *>(in->scanner),
+		    i, quint32(v), 1);
 	}
 	// FUN_0096f782(135B)@0031.c:44042 — 真身(控制流 + 节点字段面):
 	//   词法门开:tag = 0096c912→0092801a(*(E+0xf8)+0x28) — CSuperBuffer
 	//   体段面,我方 +0xf8 平铺 docBytes 不可达 → 0 同相(cited);
-	//   scanner 逐项 |4(0096cb3c/b6c/b84 → inner+8 解引)→ 我方 inner
-	//   壳态 null → n=0 零迭代同相(cited);f68 收敛(强制)+ f50=tag。
-	//   门关:runReset0096f6fe()。
+	//   scanner 逐项 |4(0096cb3c/b6c/b84 → inner+8 解引)→ 批 152 起
+	//   inner scanner 非恒 null — n=Runs() 面可走非退化路径(初始 RS8
+	//   空 → n=0 零迭代同相;真引擎面 970850 深引擎 cited);f68 收敛
+	//   (强制)+ f50=tag。门关:runReset0096f6fe()。
+	//   (0096cb3c/b6c/b84 → inner+8 解引)→ 批 152 起 scanner 非恒 null:
+	//   初始空 RS8 → n=Runs()=0 零迭代同相;灌值后走真迭代(lexSetItem
+	//   → runstylesUpgrade 单点灌)。
+
 	void runRefresh0096f782()
 	{
 		if (gateLex0096c934()) {
@@ -300,20 +383,26 @@ struct ENodeScan : ENodeTask {
 		runReset0096f6fe();
 	}
 	// FUN_0096f6fe(131B)@0031.c:44010 — 真身(节点字段面):inner+8
-	//   scanner 复位(009cc2d4 + delete 0x40)+ 00970850 词法重建 —
-	//   inner 批 146 真身(WNodeInner);+8 复位/重建 callee(9cc2d4
-	//   逐槽 D1 / 970850 editctx_initThread·93fc60·gapbuffer_reallocate
-	//   词法栈)未读 → cited:scanner 置 null 同相(零扫描面);f68 ← 0
-	//   (0096cba2(0,0) 真身:旧值>0 才写,语义等价收敛);9635d8 门开 →
-	//   尾组播 926356(0x3f0,0,tag)/9263fa(kind)— 底座 92601a 监听者
-	//   表未建模(ENODES-RECON 未解 #2)零投递同相;p18=E 调面在案(cited)。
+	//   scanner 复位(009cc2d4 六槽释放 + delete 0x40 — 批 152 真身复用
+	//   scannerResetState)+ 00970850 词法重建(rebuild00970850 批 152
+	//   栈面真身/深引擎 cited);f68 ← 0(0096cba2(0,0) 真身:旧值>0
+	//   才写,语义等价收敛);9635d8 门开 → 尾组播 926356(0x3f0,0,tag)/
+	//   9263fa(kind)— 底座 92601a 监听者表未建模(ENODES-RECON 未解 #2)
+	//   零投递同相;p18=E 调面在案(cited)。
 	void runReset0096f6fe()
 	{
-		// 96f6fe 44021-44027:inner+8 复位 + 00970850 重建 — 词法栈
-		//   cited → scanner 直清(WNodeInner 字面 +0x8=0 同相)
-		if (inner != nullptr)
-			*reinterpret_cast<void **>(static_cast<char *>(inner) + 8)
-			    = nullptr;               // 9cc2d4+delete+970850 cited 坍缩
+		// 96f6fe 44021-44027:inner+8 复位 + 00970850 重建(批 152 真身)
+		if (inner != nullptr) {
+			WNodeInner *in = static_cast<WNodeInner *>(inner);
+			wt::ValueTable *sc = static_cast<wt::ValueTable *>(in->scanner);
+			if (sc != nullptr) {
+				wt::scannerResetState(sc);   // 009cc2d4(140B)真身复用
+				delete sc;                   // operator delete(sc,0x40)
+				sc = nullptr;                // 悬垂守卫(承载替字面)
+			}
+			in->scanner = nullptr;           // *(lVar1+8)=0
+			in->rebuild00970850();           // 00970850(746B;批 152)
+		}
 		lexClamp0096cba2(0, false);      // 0096cba2(this,0,0)
 		if (!gate009635d8())
 			return;
@@ -423,8 +512,8 @@ struct ENodeScan : ENodeTask {
 		anchorRunsFace();         // 语料 end=begin(+0x38=+0x30)
 		*reinterpret_cast<quint16 *>(reinterpret_cast<quint8 *>(&f60) + 1) = 0; // +0x61
 		runReset0096f6fe();       // 44247 尾 0096f6fe(批 143:节点字段面真身;
-		                          //   inner 词法腿批 146 真身(WNodeInner;
-		                          //   scanner 词法栈 cited — 门关即止))
+		                          //   inner 词法腿批 152 真身(9cc2d4 六槽+
+		                          //   00970850 rebuild — 深引擎 cited))
 	}
 	// FUN_0096d89e(357B)@0031.c:42715:run 列表 → QHash<QString,dptr>
 	//   收集(0x75f6/0x7545 消费面)。0x20 记录 +0x18 = QString::d;
