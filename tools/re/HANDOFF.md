@@ -263,7 +263,7 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 ## 现役队列(批 183 后,按需开批)
 
 > **⚠ 测试冻结令生效(2026-11-16,AGENTS.md 最高优先级):以下各批
-> 只做转写+引用+build+commit;不写测试、不跑 ctest/dlopen。已有
+> 只做转写+引用+commit(铁律 7:不编译不测试)。已有
 > 25 个测试二进制留作收尾期回归网。**
 
 1. **5c 余深段**:blobB LastSessions 组块写面(外框 byte-perfect
