@@ -1,6 +1,8 @@
 // SearchEditFace.cpp — 语料 SearchEdit / FilterEdit 两个 ctor(批 255)
 #include "SearchEditFace.h"
 
+#include <QHBoxLayout>
+#include <QStyle>
 #include <QTimer>
 
 // searchEdit_init(131B,0018.c:5832)ctor 真身:
@@ -12,6 +14,8 @@ SearchEditFace::SearchEditFace(QWidget *parent)
 	: QLineEdit(parent) // @0058e0ce
 {
 	// 字段族按语料初值(见头注);注意 m_f48 初值 0x7fffffff 已在成员初始化。
+	buildLayout();  // FUN_0058e028 @0058e13x
+	wireSignals();  // FUN_0058d818 @0058e14x
 }
 
 // FUN_0057eb0c(200B,0017.c:55458)FilterEdit ctor 真身:
@@ -37,4 +41,36 @@ void SearchEditFace::setPlaceholder(const QString &text)
 {
 	setPlaceholderText(text); // @0058dac2
 	// FUN_0058d4dc(this)@0058dac2 — cited(体未转写)
+}
+
+// FUN_0058e028(158B,0018.c:5803)布局真身:
+//   @0058e028 margin = style()->pixelMetric(5,0,0) 经 FUN_0075263e 换算
+//     (double→int;换算面 cited);
+//   +0x60 = new QHBoxLayout @0058e07b → setContentsMargins(m,m,m,m)
+//     → setSpacing(折叠,cited) → addStretch @0058e09x → setLayout(this)
+//     → FUN_0058dff2(this)(cited)。
+void SearchEditFace::buildLayout()
+{
+	const int metric =
+	    style()->pixelMetric(static_cast<QStyle::PixelMetric>(5)); // @0058e028
+	// FUN_0075263e((double)metric, app, this) 换算 → int — cited(换算体未转写)
+	const int margin = metric;
+	m_f60 = new QHBoxLayout(); // @0058e07b
+	m_f60->setContentsMargins(margin, margin, margin, margin);
+	m_f60->addStretch(); // @0058e09x
+	setLayout(m_f60);
+	// FUN_0058dff2(this)@0058e0c0 — cited。
+}
+
+// FUN_0058d818(296B,0018.c:5421)接线真身:
+//   connect(this, textChanged, this, FUN_0058d4dc);
+//   connect(this, 信号 FUN_008f6d88(smeta 01198660), this, FUN_0058e159,
+//     flags 0x82 = UniqueConnection|QueuedConnection)。
+void SearchEditFace::wireSignals()
+{
+	connect(this, &QLineEdit::textChanged, this, [this](const QString &) {
+		/* FUN_0058d4dc(this)@0058d818 — cited(体未转写) */
+	});
+	// connect(this, FUN_008f6d88, this, FUN_0058e159, flags 0x82)@0058d8xx —
+	//   信号/槽体未转写,cited 不落接线。
 }
