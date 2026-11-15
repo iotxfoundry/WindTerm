@@ -969,3 +969,16 @@ void TabGroup::onTabLayoutChanged()
 	// +0x80/+0x88 滚动钮 d-ptr 位面 — cited(不可移植)
 	setScrollState(true);
 }
+
+// FUN_005ab814(113B,0018.c:25447)应用页形真身:
+//   @005ab814 mode = +0x50;mirror = (+0x54 != 0);
+//   shape = mode | (mirror ? 4 : 0)(0/1/2/3 → 0/1/2/3 或 4/5/6/7)→
+//   TabBar::setShape(shape)@005ab8xx。
+void TabGroup::applyTabShape()
+{
+	int shape = m_f50 & 3;          // +0x50(模式 0..3)
+	if (m_f54 != 0)                 // +0x54(镜像)
+		shape |= 4;
+	if (m_f58 != nullptr)
+		m_f58->setShape(static_cast<QTabBar::Shape>(shape));
+}

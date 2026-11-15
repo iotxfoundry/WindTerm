@@ -208,6 +208,10 @@ public:
 
     void setHoverTimer(double seconds);                                  // FUN_005ad4a6
     void setTabShapeMode(int mode);                                      // FUN_005ab88a(0018:25502)
+    // FUN_005ab814(113B,0018:25447)应用页形:
+    //   shape = (+0x50 模式 0..3) | ((+0x54 镜像) ? 4 : 0) →
+    //   TabBar::setShape(shape)。
+    void applyTabShape();
     // 008b9b3e(9B)/008b9bf4(18B):组级页色存取(+0x38 TabBar 转发)。
     void setTabColor(int index, const QColor &color);
     QColor tabColor(int index) const;
