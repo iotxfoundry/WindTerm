@@ -210,11 +210,19 @@ void KitWindowFace::kitWindowAssembleDeferred()
 	kitStatusbarAssemble(this);        // @0x8d3ce0 → 008c9f8c
 	kitCentralSplittersAssemble(this); // @0x8d3ce8 → 008cd068
 	kitAssembleHook();                 // +0x210(非默认才调)@0x8d3cf0/0x8d3de5
-	// 008cd822(494B,0028.c:14039)三连线 — 槽体皆未转写 → cited 不落接线:
-	//   ① sender=this 信号 FUN_0091b376 → 槽 FUN_008d5c6f,smeta 011ab660
-	//   ② sender=qApp QApplication::focusChanged → 槽 FUN_008cd4a2(856B)
-	//   ③ sender=qApp 信号 FUN_0090e084 → 宿主信号 0x221 → FUN_008d5fbc,
-	//      smeta 011a6ce0
+	// 008cd822(494B,0028.c:14039)三连线:
+	//   ① connect(this, 信号 FUN_0091b376, this, 槽 FUN_008d5c6f,
+	//      smeta 011ab660)— 信号/槽体未转写,cited;
+	//   ② connect(qApp, QApplication::focusChanged, this, FUN_008cd4a2)
+	//      — 接线面真身(槽体 856B cited);
+	//   ③ connect(qApp, 信号 FUN_0090e084, 宿主信号 0x221 → FUN_008d5fbc,
+	//      smeta 011a6ce0)— cited。
+	QObject::connect(qApp, &QApplication::focusChanged, this,
+	                 [this](QWidget *oldFocus, QWidget *newFocus) {
+		                 Q_UNUSED(oldFocus);
+		                 Q_UNUSED(newFocus);
+		                 /* FUN_008cd4a2(856B)@008cd4a2 — cited 槽体 */
+	                 });
 	ensureStateA0(); // 008c9fc2 @0x8d3d12(+0xa0 懒件,批 292 真身)
 	m_assemble0x30 = 0; // movb $0x0,0x30(%rbx) @0x8d3d17
 	// property 名实读:.data.rel.ro 0x11820e8→0xc9e544 = "History"(QByteArray 值)
