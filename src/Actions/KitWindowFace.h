@@ -59,6 +59,13 @@ public:
 	Splitter *m_split0x58 = nullptr;
 	Splitter *m_split0x60 = nullptr;
 	Splitter *m_split0x68 = nullptr;
+	// +0x80 当前页组缓存(FUN_008ca6ca 首读;ctor 清零 @0x8cc70x)。
+	QWidget *m_f80 = nullptr;
+	// FUN_008ca6ca(170B,0028.c:11922)当前页组:
+	//   +0x80 非空 → 直返;否则 QApplication::focusWidget() 上溯
+	//   cast 011ab130(MuxPaneGroup/KitGroup 同址 +0x38 TabGroup);
+	//   无 → findChild<011ab360>(+0x48,递归)。
+	QWidget *currentPaneGroup();
 	// +0x70 BYTE=1(ctor movb $0x1,0x70 @0x8cc6f8)— 槽 8 的 splitter 选择位:
 	//   1 → +0x68,否则 +0x60(008ca0de 0x8ca0f5 cmpb/cmovne 实读)。
 	quint8 m_flag0x70 = 1;

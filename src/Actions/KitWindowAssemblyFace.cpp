@@ -10,6 +10,7 @@
 //   008cd822 三连线(cited) → 008c9fc2 +0xa0 懒件(cited) → 清 gate →
 //   property "History"/"HistoryHints" → s_kit_startupSessions_8d2f7e →
 //   失败腿 +0x208 → 尾钩 +0x250。
+#include <QApplication>
 #include <QDataStream>
 #include <QMenuBar>
 #include <QSplitter>
@@ -21,6 +22,8 @@
 #include "Actions/KitWindowFactory.h"
 #include "Actions/StatusBarFace.h"
 #include <QMainWindow>
+#include "Actions/MuxWindow.h"
+#include "Actions/MuxPaneGroup.h"
 #include "Actions/TabGroup.h"
 #include "WorkspaceLoader.h"
 #include "Widgets/Splitter.h"
@@ -725,4 +728,23 @@ void KitWindowFace::kitOnDockFloatChanged(bool floating)
 	if (dock == nullptr)
 		return;
 	kitRestoreSlotOfChild(dock);
+}
+
+// FUN_008ca6ca(170B,0028.c:11922)当前页组真身:
+//   @008ca6ca if (+0x80 != 0) return +0x80;         // 缓存槽
+//   @008ca6xx w = QApplication::focusWidget();上溯 cast 011ab130
+//     (= KitGroup,与 MuxPaneGroup 同址 +0x38 TabGroup)命中即返;
+//   @008ca75b 无 → findChild<011ab360>(+0x48 容器,递归=1)(011ab360 =
+//     MuxWindow 族)。
+QWidget *KitWindowFace::currentPaneGroup()
+{
+	if (m_f80 != nullptr) // +0x80 缓存
+		return m_f80;
+	for (QWidget *w = QApplication::focusWidget(); w != nullptr;
+	     w = w->parentWidget()) {
+		if (auto *group = dynamic_cast<MuxPaneGroup *>(w)) // 011ab130 cast
+			return group;
+	}
+	// findChild<011ab360>(+0x48,递归=1) @008ca75b
+	return m_split0x48 != nullptr ? m_split0x48->findChild<MuxWindow *>() : nullptr;
 }
