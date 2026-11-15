@@ -96,6 +96,10 @@ public:
 	//   rowListItem(0072bf8a)→ insertItem(count)→ 空表 resetRow(false);
 	//   否则 resetRow(true)+list setFocus(3)+setCurrentItem(item0, 0x13)。
 	void rebuildRowsFromGlobal();
+	// FUN_0072d304(1257B,0022.c:53931)后处理:
+	//   kind==1 → 文案 = FUN_006a2de4(row) + 0xc8a19a + 0xc9d328 拼接;
+	//   +0x80 QLabel 空则新建 → setText;余腿 cited。
+	void updateInfoLabel(const SettingsRow &row);
 
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
@@ -140,6 +144,7 @@ public:
 	QSpinBox *m_spin68 = nullptr;        // +0x68
 	QSpinBox *m_spin70 = nullptr;        // +0x70
 	QWidget *m_widget98 = nullptr;       // +0x98(FUN_0056672a 消费)
+	QLabel *m_label80 = nullptr;         // +0x80(说明标签)
 	QDialogButtonBox *m_buttons78 = nullptr; // +0x78(accept/reject 面)
 	QWidget *m_widgetA8 = nullptr;       // +0xa8(自定义信号宿主,cited 类)
 	QListWidget *m_listB0 = nullptr;     // +0xb0

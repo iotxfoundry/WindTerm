@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
+#include <QLabel>
 #include <QSpinBox>
 #include <QListWidgetItem>
 #include <QComboBox>
@@ -334,4 +335,23 @@ void SettingsPageFace::rebuildRowsFromGlobal()
 	m_listB0->setFocus(Qt::OtherFocusReason); // 3
 	if (QListWidgetItem *first = m_listB0->item(0))
 		m_listB0->setCurrentItem(first, QItemSelectionModel::ClearAndSelect); // 0x13
+}
+
+// FUN_0072d304(1257B,0022.c:53931)后处理真身(标签腿):
+//   @0072d304 FUN_006a2f66(&desc, row+0x30)(cited);
+//   kind == 1 → desc = FUN_006a2de4(row)(cited)+ QString(0xc8a19a)+
+//     QString(0xc9d328) 拼接 @0072d54c-5a7;
+//   +0x80 空 → new QLabel(0x30)→ 赋 +0x80 @0072d75c;setText(desc)。
+//   其余腿(图标/布局)cited。
+void SettingsPageFace::updateInfoLabel(const SettingsRow &row)
+{
+	QString desc;
+	// FUN_006a2f66(&desc, row.flags)/FUN_006a2de4(row) — cited
+	if (row.kind == 1) {
+		// desc = FUN_006a2de4(row) + 0xc8a19a + 0xc9d328 — cited(串面未读)
+	}
+	if (m_label80 == nullptr) {
+		m_label80 = new QLabel(this); // @0072d75c(0x30 字节)
+	}
+	m_label80->setText(desc);
 }
