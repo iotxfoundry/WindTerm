@@ -7,7 +7,7 @@ set(TEST_ENV
   "QT_QPA_PLATFORM=offscreen"
 )
 
-foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 engtest5 markerstest wordsteptest keymaptest proxysocktest rendermathtest renderpixtest runstylestest mwctest uiassembletest kitbartest modtracktest onigtest reginserttest sgtest)
+foreach(t e2eterm recheck engtest engtest2 engtest3 engtest4 engtest5 markerstest wordsteptest keymaptest proxysocktest rendermathtest renderpixtest runstylestest mwctest uiassembletest kitbartest modtracktest onigtest reginserttest sgtest appboot)
   add_executable(${t} ${t}.cpp)
   target_include_directories(${t} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/Sessions
