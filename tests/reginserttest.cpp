@@ -15,6 +15,7 @@
 #include "SuperSession.h"
 #include "SuperSessionPrivate.h"
 #include "TcpBridge.h"
+#include "ProxyCommandSocket.h"
 #include "Ext/SpdlogFace.h"
 
 static int g_fail = 0;
@@ -28,6 +29,7 @@ static void expect(bool ok, const char *name)
 int main(int argc, char **argv)
 {
 	QCoreApplication app(argc, argv);
+	qRegisterMetaType<King::SessionState>("King::SessionState");   // n 组 stateChanged 载荷
 	SuperSession s;
 	// SuperSession ctor 不自建 m_d(语料:由派生会话层接线);
 	// 注册表面直测 Private(q 挂 s,信号经 emit q->... 照发)
@@ -417,6 +419,117 @@ int main(int argc, char **argv)
 		expect(fp != nullptr && lb.virtualLabel() == QStringLiteral("127.0.0.1"),
 		       "m: face 身份可产(virtualLabel 真虚调消费链)");
 		d.setProtocolSlot(oldSlot);
+	}
+
+	// ======== n. 批 165:%A..%z 时间 token 渲染引擎(007c5970)+
+	// TcpBridge connectImpl×4 状态面 ========
+	{
+		// n-1:token 语义对账 —— 渲染产物样例(007c1f2c 调面,真库
+		// pattern_formatter format;铁律 5:断言语料映射,产物 = 同值
+		// 字符串对账,见 SpdlogFace.h 映射表)
+		SessionLogger ln(&s);
+		expect(ln.buildLeg("tgtN", "lblN", true, 0, 0, QString(),
+		                    QStringLiteral("[%Y-%m-%d %H:%M:%S] %v")),
+		       "n: 建腿带时间行 pattern(007c34c8 腿;state init)");
+		// 去重门:msecs==lastMsecs(-1) 初次必渲染;second 同值跳过
+		const long long t0 = ln.m_state.initMsecs;
+		QByteArray l1 = Ext::formatSampleLine(ln.m_sink38, ln.m_state,
+		                                      t0, QByteArrayLiteral("msgA"));
+		expect(l1.contains("msgA"),
+		       "n: %v = msg 字节(007c5a3a replace;spdlog format 承接)");
+		expect(ln.m_state.lastMsecs == t0,
+		       "n: 去重键写回(+0x20 = msecs @007c59b3)");
+		const QByteArray bufAfter1 = ln.m_state.buf;
+		QByteArray l2 = Ext::formatSampleLine(ln.m_sink38, ln.m_state,
+		                                      t0, QByteArrayLiteral("msgA"));
+		expect(ln.m_state.buf == bufAfter1,
+		       "n: msecs==+0x20 去重门:token 不动(@007c5997 return)");
+		// 拆秒面:delta 60s 内 → secPart/msecPart(@007c6322-6357)
+		const long long t1 = t0 + 5432;
+		Ext::formatSampleLine(ln.m_sink38, ln.m_state, t1,
+		                      QByteArrayLiteral("msgB"));
+		expect(ln.m_state.secPart == 5 && ln.m_state.msecPart == 432,
+		       "n: 拆秒 secPart/msecPart(delta/1000,%1000 @007c6353)");
+		expect(ln.m_state.buf.contains("msgB"),
+		       "n: %v 换新(msgB @007c5a52 oldLen 簿记)");
+		// 分钟锚刷新门:delta > 59999 → 锚 addMSecs+截秒+bVar4 置位
+		// (锚 = t0 带秒余;截秒后 delta = t2-锚epoch = 秒余 ∈ [0,60000)
+		// —— 语料同相:secPart = 截秒差,非整 120)
+		const long long t2 = t0 + 120000;
+		Ext::formatSampleLine(ln.m_sink38, ln.m_state, t2,
+		                      QByteArrayLiteral("msgC"));
+		const int secC = ln.m_state.secPart;
+		// delta2 = t0 的分内秒余(sec*1000+ms),msecPart = t0.ms 残余
+		expect(secC >= 0 && secC < 60 &&
+		       ln.m_state.msecPart == int(t2 - ln.m_state.baseMsecs -
+		                                  secC * 1000),
+		       "n: 60s+ delta 拆秒(锚截秒后 delta=分内余 @007c6314/6353)");
+		// 锚面:m_anchor 截秒(秒/毫秒 = 0,@007c63dc setHMS(h,m,0))
+		expect(ln.m_state.m_anchor.time().second() == 0 &&
+		       ln.m_state.m_anchor.time().msec() == 0,
+		       "n: 分钟锚截秒(setHMS h,m,0 @007c63dc)");
+		// 默认 pattern 值域样例:%Y 4 位 / %m %d %H %M %S 2 位补零
+		// (产物对账:语料 number+rightJustified 面)
+		const QString rendered = QString::fromUtf8(l1);
+		expect(!rendered.isEmpty() && rendered.contains("msgA") &&
+		       rendered.endsWith("\n"),
+		       "n: format 产物样例带 eol(\\n @007c3388 pattern_formatter)");
+		// token 同值卫:锚族 lastVal 换字段值;'v' lastVal 清 0(@007c5a67)
+		bool vTokenZeroed = false;
+		for (const auto &tk : ln.m_state.tokens)
+			if (tk.c == 'v')
+				vTokenZeroed = (tk.lastVal == 0);
+		expect(vTokenZeroed,
+		       "n: 'v' lastVal 清 0(@007c5a67 四字节清零)");
+
+		// n-2:connectImpl 状态面可达 —— TcpBridge ctored socket 挂点
+		// + 信号面(FUN_00875ffe 4 连接;直发 Qt 信号 = 语料 connectImpl
+		// 触发原路,不经网络 —— proxysocktest 判例)
+		{
+			TcpBridge br2;
+			QSignalSpy stateSpy(&br2, &SuperBridge::stateChanged);
+			QSignalSpy attachSpy(&br2, &SuperBridge::attached);
+			QSignalSpy detachSpy(&br2, &SuperBridge::detached);
+			QSignalSpy errSpy(&br2, &SuperBridge::errorOccurred);
+			QSignalSpy rrSpy(&br2, &SuperBridge::readyRead);
+			ProxyCommandSocket *sock =
+			    br2.findChild<ProxyCommandSocket *>();
+			expect(sock != nullptr,
+			       "n: ctor +0x30 = ProxyCommandSocket(0065f0a0 以桥为 parent)");
+			// connected → setState(3)+attached(00875eb0 腿)
+			emit sock->connected();
+			expect(attachSpy.count() == 1,
+			       "n: connected → attached×1(00875eb0→00911e28 idx0)");
+			expect(stateSpy.count() == 1 &&
+			       stateSpy.at(0).at(0).toInt() == 3,
+			       "n: connected → stateChanged(3)(007c85dc→00911ef2)");
+			// 同值去重门:再发 connected(3)==3 且 3-8U 无符号大 → 不去重?
+			// 语料门 `(s==+0x2c)&&(1<s-8U)`:s=3 → 3-8U 巨值 >1 → 真值 →
+			// 同值且真 → return(去重!);QUIRKS 候选:非 Auth 区同值也去重
+			emit sock->connected();
+			expect(attachSpy.count() == 2 && stateSpy.count() == 1,
+			       "n: 同值去重(007c85dc (s==+0x2c)&&(1<s-8U) — 3 同值拦,"
+			       "attached 直发不去重=语料信号原路)");
+			// readyRead → readyRead 转发(008698c0→00911e60 idx5)
+			emit sock->readyRead();
+			expect(rrSpy.count() == 1,
+			       "n: readyRead 纯转发×1(008698c0→00911e60)");
+			// errorOccurred → stateChanged(0)+errorOccurred(code,errStr)
+			// (00875f1f:65d202==0 Unconnected 直连臂 → setState(0))
+			emit sock->errorOccurred(QAbstractSocket::ConnectionRefusedError);
+			expect(stateSpy.count() == 2 && stateSpy.at(1).at(0).toInt() == 0,
+			       "n: errorOccurred → setState(0)(0065d202==0 臂 @00875faa)");
+			expect(errSpy.count() == 1 && errSpy.at(0).at(0).toInt() ==
+			       int(QAbstractSocket::ConnectionRefusedError) &&
+			       errSpy.at(0).at(1).toString() == sock->errorString(),
+			       "n: errorOccurred(code,errStr) 对位(00911eb6 idx4)");
+			// connected 已收 → disconnected 腿:closeLeg = detaching →
+			// disconnectProxy → setState(0)(去重门:0==0 且 0-8U<=1 →
+			// 不拦 → 重发?0-8U 巨值>1 → 拦!)= 语料门原样;detached 直发
+			emit sock->disconnected();
+			expect(detachSpy.count() == 1,
+			       "n: disconnected → detached×1(0087687c→00911e38 idx2)");
+		}
 	}
 
 	printf(g_fail ? "FAIL(%d)\n" : "ALL PASS\n", g_fail);
