@@ -365,7 +365,12 @@ void TabGroup::fullAssemble()
 	m_f60 = new QStackedWidget(this);
 	// QFrame::setLineWidth(实参 Ghidra 折叠)— cited — wave-2
 	// connect QStackedWidget::widgetRemoved → FUN_005aa720 @005aee78-8a
-	connect(m_f60, &QStackedWidget::widgetRemoved, this, &TabGroup::onWidgetRemoved);
+	// 005aa720(9B):FUN_005a7db8(tabBar[, index])—— index 由
+	//   QStackedWidget::widgetRemoved(int) 提供(cited 适配);
+	//   005a7db8 = TabBar 三表 removeAt(批 283 真身)。
+	connect(m_f60, &QStackedWidget::widgetRemoved, this, [this](int index) {
+		m_f58->removeTabNodes(index);
+	});
 
 	// new TabBar → +0x58 @005aef45-49(s_TextLabel_5a859a)
 	m_f58 = new TabBar(this);
