@@ -151,3 +151,27 @@ void KitDockFace::updateExpandButton(bool expanded)
 	btn->setToolTip(expanded ? tr("Shrink") : tr("Expand")); // @005ab45e/0x514
 	btn->setProperty("expanded", QVariant(expanded));        // @005ab4b6
 }
+
+// 008b9092(375B,0027.c:76287)切分页真身(结构段):
+//   p = parentWidget(this) → 须 cast QSplitter,否则 0 @008b9092-а0;
+//   index = QSplitter::indexOf(this)@008b90xx;
+//   withExpand = *(byte*)(this+0x38)(= m_withExpand,与批 216 勘正一致);
+//   kit = 008b8694(this);dock = 89d860(kit, withExpand)@008b90xx;
+//   splitter->insertWidget(index+1, dock)@008b90xx;
+//   随后:count/orientation → 每格尺寸 = (extent+1)/count
+//   (d+0x14/0x18/0x1c/0x20 rect 面,私有 → cited)→ 尺寸表
+//   (FUN_0064a7a8/FUN_008b9590)→ setSizes — cited 整段未落。
+void KitDockFace::splitPane()
+{
+	auto *splitter = dynamic_cast<QSplitter *>(parentWidget()); // @008b9092
+	if (splitter == nullptr)
+		return;
+	const int index = splitter->indexOf(this); // @008b90xx
+	const bool withExpand = m_withExpand;      // +0x38
+	KitWindowFace *kit = kitWindowAncestor(this); // 008b8694
+	KitDockFace *dock = kitCreateDock(withExpand, kit); // 89d860 @008b90xx
+	if (dock == nullptr)
+		return;
+	splitter->insertWidget(index + 1, dock); // @008b90xx
+	// 尺寸平分腿(rect 私有 + 表 + setSizes)@008b914x-921x — cited。
+}

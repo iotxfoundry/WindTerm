@@ -29,6 +29,11 @@ public:
 	//   否则 deleteLater。尾:kit 存在 → FUN_008cb0c0(kit,3)(cited)。
 	void closeWithCollapse();
 
+	// 008b9092(375B,0027.c:76287)切分页(用户动作):父须为 QSplitter →
+	//   index+1 处插入新 KitDock(withExpand = +0x38 同值)@008b90xx;
+	//   尺寸平分腿(QWidget d-ptr rect 面)+ 表 setSizes → cited 未落。
+	void splitPane();
+
 	// FUN_008b7f60(591B,0027.c:75393)四路接线(+0x30 = TabGroup):
 	//   tabActivated(idx0)→FUN_008b7d08(本面真身)/
 	//   closeRequested(idx7)→FUN_008b86e4(closeWithCollapse)/
