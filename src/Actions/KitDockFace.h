@@ -33,6 +33,13 @@ public:
 	//   expandRequested(idx9)→FUN_008b7ca0(本面真身:非浮停才转发
 	//   自身信号 idx0,FUN_0091a7d8 实证)。
 	void wireTabGroup(TabGroup *tabs);
+
+	// s_ExpandButton_8b7dd4(371B,0027.c:75331)子件装配(名取自函数头,
+	//   实为 KitDock 装配):TabGroup(0xa8)@008b7df1 → objectName
+	//   "PaneGroup" → (+0x38 非空时)ExpandButton → ConfigButton →
+	//   CloseButton(三个 createButton(name,1))→ QVBoxLayout →
+	//   addWidget(tabGroup)+ addWidget(tabGroup->stack())→ setLayout。
+	void assembleChildren();
 	TabGroup *tabGroup() const { return m_tabs; } // +0x30
 
 	bool isFloating() const { return m_f39; } // +0x39

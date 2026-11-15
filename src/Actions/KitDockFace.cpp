@@ -1,5 +1,6 @@
 // KitDockFace.cpp — 语料 KitDock 两段转写(批 207)
 #include <QSplitter>
+#include <QVBoxLayout>
 
 #include "Actions/KitDockFace.h"
 #include "Actions/KitWindowAssemblyFace.h"
@@ -15,8 +16,33 @@ KitDockFace::KitDockFace(QWidget *slot38, QWidget *parent)
 	, m_f39(false)                        // @008b81d0(+0x39)
 {
 	setFocusPolicy(Qt::NoFocus); // @008b8215(esi=0)
-	// s_ExpandButton_8b7dd4(this)@008b821x + FUN_008b7f60(this)@008b821x
-	//   — 子件装配面未转写,cited 不落(铁律 6:不造子件)。
+	assembleChildren();           // s_ExpandButton_8b7dd4 @008b821x(真身,批 212)
+	wireTabGroup(m_tabs);         // FUN_008b7f60 @008b821x(真身,批 211)
+}
+
+// s_ExpandButton_8b7dd4(371B,0027.c:75331)子件装配真身(函数名取自其
+//   首个被调函数,实际语义 = KitDock 装配):
+//   TabGroup(0xa8)@008b7df1(s_TabGroup_5af896,tabs parent=0)→
+//   +0x30 写回 → setObjectName("PaneGroup")@008b7e2c →
+//   +0x38 非空 → createButton("ExpandButton",1)@008b7e6x →
+//   createButton("ConfigButton",1) → createButton("CloseButton",1) →
+//   QVBoxLayout(0x20)@008b7e98 → setContentsMargins/setSpacing(实参
+//   Ghidra 折叠,按 0 落—cited)→ addWidget(tabs)@008b7ee8 →
+//   addWidget(tabs->stack())(FUN_005ab6e8)@008b7f0x → setLayout @008b7f3x。
+void KitDockFace::assembleChildren()
+{
+	m_tabs = new TabGroup(nullptr);              // @008b7df1
+	m_tabs->setObjectName(QStringLiteral("PaneGroup")); // @008b7e2c
+	if (m_f38 != nullptr)                        // @008b7e5x(+0x38 门)
+		m_tabs->createButton(QStringLiteral("ExpandButton"), true);
+	m_tabs->createButton(QStringLiteral("ConfigButton"), true); // @008b7e8x
+	m_tabs->createButton(QStringLiteral("CloseButton"), true);  // @008b7e9x
+	auto *box = new QVBoxLayout();               // @008b7e98
+	box->setContentsMargins(0, 0, 0, 0);         // 实参折叠 — cited(按 0)
+	box->setSpacing(0);                          // 实参折叠 — cited(按 0)
+	box->addWidget(m_tabs);                      // @008b7ee8
+	box->addWidget(m_tabs->stack());             // @008b7f0x(FUN_005ab6e8)
+	setLayout(box);                              // @008b7f3x
 }
 
 // FUN_008b86e4(153B,0027.c:75642)收起行为:
