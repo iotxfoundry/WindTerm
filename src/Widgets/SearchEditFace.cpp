@@ -76,7 +76,8 @@ void SearchEditFace::buildLayout()
 void SearchEditFace::wireSignals()
 {
 	connect(this, &QLineEdit::textChanged, this, [this](const QString &) {
-		onTextReverted(); // FUN_0058e159(批 284)
+		onTextReverted();   // FUN_0058e159(批 284)
+		syncEmptyState();   // FUN_0058d4dc(批 286)
 	});
 	// connect(this, FUN_008f6d88, this, FUN_0058e159, flags 0x82)@0058d8xx —
 	//   信号/槽体未转写,cited 不落接线。
@@ -153,4 +154,24 @@ void FilterEditFace::focusInEvent(QFocusEvent *event)
 		});
 	}
 	// FUN_008f92e2(this, 1, reason)@0057ea5x — cited。
+}
+
+// FUN_0058d4dc(134B,0018.c:5238)真身:
+//   @0058d4dc len = QLineEdit::text().size();flag = this+0x6c;
+//   flag < 1 → flag != 0 直返 / len < 1 直返;flag >= 1 → len != 0 直返;
+//   动作:@0058d53x s_king_refreshWidgetStyle(app, this, 1)(= unpolish/
+//   polish + repaint)→ this+0x6c = len。
+void SearchEditFace::syncEmptyState()
+{
+	const int len = text().size();
+	if (m_f6c > 0 ? (len != 0) : (len < 1))
+		return;
+	// s_king_refreshWidgetStyle(app, this, true)@0058d53x —— 同
+	//   StatusBarFace.cpp 的 67B 体(unpolish/polish + repaint),
+	//   本面内联等价(跨文件私有件不复用)。
+	QStyle *st = style();
+	st->unpolish(this);
+	st->polish(this);
+	repaint();
+	m_f6c = len;
 }

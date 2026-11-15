@@ -42,6 +42,11 @@ public:
 	// FUN_0058e159(59B,0018:5824)文本同步腿:私有位(d+9&0x80)==0
 	//   (疑未隐藏)→ applyTextMargins()。
 	void onTextReverted();
+	// FUN_0058d4dc(134B,0018.c:5238)空态同步:
+	//   len = text().size();flag = +0x6c;
+	//   flag>0 需 len==0、flag==0 需 len>=1 才动作(否则直返);
+	//   动作 = s_king_refreshWidgetStyle(app,this,true)(重绘)+ +0x6c = len。
+	void syncEmptyState();
 
 protected:
 	void *m_f30 = nullptr;  // +0x30
@@ -52,6 +57,7 @@ protected:
 	quint8 m_f58 = 0;       // +0x58 byte
 	void *m_f68 = nullptr;  // +0x68
 	QHBoxLayout *m_f60 = nullptr; // +0x60(布局)
+	int m_f6c = 0;                // +0x6c(上次文本长度态)
 };
 
 // FilterEditFace — 语料 FilterEdit : SearchEdit(toolbar kind 6)。
