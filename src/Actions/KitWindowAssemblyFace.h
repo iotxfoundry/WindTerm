@@ -4,9 +4,13 @@
 #include <QStatusBar>
 #include <QString>
 
-class QMenuBar;
-class KitWindowFace;
 class CGlobalConfigFace;
+class KitDockFace;
+class KitWindowFace;
+class QMenu;
+class QMenuBar;
+class QSplitter;
+class TabGroup;
 
 // KitWindowAssemblyFace — KitWindow 延迟装配链(批 192,P1 · GUI-MAP ①):
 // 语料锚 = FUN_008d3cc2(296B,0028.c:17649)调用序;各段地址见实现处注。
@@ -30,7 +34,6 @@ KitWindowFace *kitWindowAncestor(QObject *object);
 
 // 008ca002(87B,0028.c:11430)TabGroup 弹菜单:menu() 容器 +
 //   kitFindOrCreateGroupMenu("TabGroup Popup")(批 189 真身)→ QMenu。
-class QMenu;
 QMenu *kitTabGroupPopupMenu(KitWindowFace *host);
 
 // ── 面板工厂(s_ExplorerPane_89eed8,1185B,0027.c:56200)─────────────
@@ -58,7 +61,6 @@ QWidget *kitPanelFindOrCreate(QWidget *kit, const QString &rawName);
 //   (FUN_005abe1c)@008b825x;idx!=-1 → connect(panel::windowIconChanged →
 //   host 槽 FUN_008b842d,cited);select → tabBar->setCurrentIndex(idx)
 //   (FUN_005ab5d4)。panel 空 → -1。
-class TabGroup;
 int kitPanelAdd(TabGroup *tabs, QWidget *panel, int index, bool select);
 
 // 008b8a26(143B,0027.c:75960)页显:panel = 工厂(名, KitWindow 祖先)
@@ -89,7 +91,6 @@ int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
 //   @0089d9d8;dock->tabs->tabBar()->setSelectionBehaviorOnRemove(behavior)
 //   (FUN_008b8680 → 005abbc6 公开 API)@0089d9e0;双 connect + 尾部
 //   connect(panel::destroyed → dock::deleteLater)@0089daxx。
-class KitDockFace;
 KitDockFace *kitCreateDock(bool withExpand, QWidget *parent);
 
 // 008d2f7e 中段 splitter 布局段恢复(8d302f-8d3317):
