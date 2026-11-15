@@ -40,6 +40,13 @@ public:
 	//   CloseButton(三个 createButton(name,1))→ QVBoxLayout →
 	//   addWidget(tabGroup)+ addWidget(tabGroup->stack())→ setLayout。
 	void assembleChildren();
+
+	// s_ExpandButton_5ab32a(584B,0018.c:25117)展开钮状态:
+	//   findChild<QToolButton>("ExpandButton",递归)空 → 返;图标名
+	//   expanded ? "king::expand" : "king::shrink"(0xc8b03a/0xc8aff4 实读)
+	//   → ThemeIcons::loadSvg → setIcon;tooltip expanded ? "Shrink" :
+	//   "Expand"(0xc8b041/0xc8afe8)→ setToolTip;setProperty("expanded",b)。
+	void updateExpandButton(bool expanded);
 	TabGroup *tabGroup() const { return m_tabs; } // +0x30
 
 	bool isFloating() const { return m_f39; } // +0x39

@@ -554,8 +554,14 @@ void KitWindowFace::kitSetSlotExpanded(bool expanded)
 		sp->showIndex(0); // FUN_005a1cfc @008ce13x
 	else
 		sp->hideIndex(0); // FUN_005a1ebc(索引位语料丢,按同槽 0 落)
-	// findChildren<KitDock>(+0x50 容器,递归)逐个同步展开钮 @008ce1aa —
-	//   s_ExpandButton_5ab32a(584B)图标腿未转写,故本波不遍历(注释留位)。
+	// findChildren<KitDock>(+0x50 容器,递归)@008ce165 逐个同步展开钮
+	//   (FUN_008b8c68 13B → s_ExpandButton_5ab32a 584B,批 215 真身)
+	//   @008ce1aa。
+	if (QWidget *box = m_split0x50) { // +0x50 容器(findChildren 根)
+		const QList<KitDockFace *> docks = box->findChildren<KitDockFace *>();
+		for (KitDockFace *dock : docks)
+			dock->updateExpandButton(expanded);
+	}
 }
 
 // 008ca17a(110B,0028.c:11586)子件槽恢复真身:

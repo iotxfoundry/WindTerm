@@ -1,10 +1,12 @@
 // KitDockFace.cpp — 语料 KitDock 两段转写(批 207)
 #include <QSplitter>
+#include <QToolButton>
 #include <QVBoxLayout>
 
 #include "Actions/KitDockFace.h"
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/TabGroup.h"
+#include "Actions/ThemeIcons.h"
 
 // FUN_008b81b0(109B,0027.c:75478)ctor:
 //   QWidget::QWidget(this,param_3,0)@008b81b8;+0x38 = param_2 @008b81c8;
@@ -126,4 +128,26 @@ void KitDockFace::onExpandRequested(bool expanding)
 {
 	if (!m_f39)
 		emit expandRequested(expanding);
+}
+
+// s_ExpandButton_5ab32a(584B,0018.c:25117)真身:
+//   btn = findChild<QToolButton>("ExpandButton",递归=1)@005ab37e,空 → 返;
+//   图标名 expanded ? "king::expand" : "king::shrink"@005ab3b0
+//   (0xc8b03a/0xc8aff4 实读)→ theme_icon_load_svg(app,名,"")@005ab3fe
+//   → setIcon@005ab405;tooltip expanded ? tr("Shrink") : tr("Expand")
+//   (0xc8b041/0xc8afe8 实读)@005ab45e/@005ab514 → setToolTip@005ab47a;
+//   setProperty("expanded", QVariant(expanded))@005ab4b6。
+void KitDockFace::updateExpandButton(bool expanded)
+{
+	if (m_tabs == nullptr)
+		return;
+	QToolButton *btn = m_tabs->findChild<QToolButton *>(
+	    QStringLiteral("ExpandButton")); // @005ab37e(递归=1)
+	if (btn == nullptr)
+		return;
+	const QString iconName = expanded ? QStringLiteral("king::expand")
+	                                  : QStringLiteral("king::shrink"); // @005ab3b0
+	btn->setIcon(ThemeIcons::loadSvg(iconName, QString())); // @005ab3fe-405
+	btn->setToolTip(expanded ? tr("Shrink") : tr("Expand")); // @005ab45e/0x514
+	btn->setProperty("expanded", QVariant(expanded));        // @005ab4b6
 }
