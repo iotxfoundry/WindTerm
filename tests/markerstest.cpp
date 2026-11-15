@@ -1960,12 +1960,21 @@ int main(int argc, char **argv)
 		       "ee3: 93fc60 零迭代早退(5257-5259 [5]=0 null 门;清偿循环"
 		       "计数源 vt+0x30 恒等检查不可承载 cited — 批 152 QUIRKS #35"
 		       " 空表同相)");
-		// ee3b:非空臂尾槽清零真身(5347;循环体 cited)
-		gb->f20 = &gb;                                     // 非零哨兵(仅清零面探测)
-		wt::lexStackClear(gb);
-		expect(gb->f20 == nullptr,
-		       "ee3b: 尾 *(param_1+0x20)=0 真身(5347 字面;逐槽清偿臂"
-		       " GB 密排/vt 换面析构链 5328-5345 cited)");
+		// ee3b:非空臂尾槽清零真身(5347;批 164 vt 承载后清偿臂/析构链
+		//   真身可达 — delegate 形构造走全臂)
+		{
+			wt::LexDelegate20 *dlg = wt::makeLexDelegate20();
+			gb->f20 = dlg;                                 // 承载 delegate(0x20 形)
+			wt::lexStackClear(gb);
+			expect(gb->f20 == nullptr,
+			       "ee3b: 尾 *(param_1+0x20)=0 真身(5347 字面;vt+0x30 承载"
+			       "命中 — Runs() 快路 5263 + 清偿循环 + vt+8 换面析构链"
+			       "5328-5345 真身走通:RS D1/GB free/delete 0x20/本体 delete)");
+		}
+		// ee3c:非承载形(裸指针哨兵)→ 慢路 vcall 同槽注记面 — 语料非恒等
+		//   delegate(自定义 vt)同臂;不崩即同相(vcall 槽需真实 vptr,
+		//   哨兵非对象 → 语料恒等门开时不可达该臂;承载替:跳过非恒等臂)
+		gb->f20 = nullptr;
 		delete gb;
 		// ee4:ENodes 消费面接线 — rebuild00970850 调真定义(44940
 		//   93fc60 / 45047 gapbuffer_reallocate 按语料序)

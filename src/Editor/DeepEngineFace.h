@@ -7,7 +7,9 @@
 // 语料地址均为 Ghidra 基址;出处逐字段标注。
 #include <QtGlobal>
 #include <QThread>
+#include <QReadWriteLock>
 #include <stddef.h>
+#include "MarkersStore.h"  // RS8(RunStyles 委托)/vcallSlot 槽尾调(批 152 判例)
 
 namespace wt {
 
@@ -35,6 +37,9 @@ static_assert(offsetof(Bank30, packed8) == 0x08, "bank +0x08 packed");
 static_assert(offsetof(Bank30, mask14)  == 0x14, "bank +0x14 mask");
 static_assert(offsetof(Bank30, inner20) == 0x18, "bank +0x18 [3] inner");
 static_assert(offsetof(Bank30, f28)     == 0x28, "bank +0x28 [5]");
+
+// 97142a 尾面声明(批 164 升真 — DeepEngineFace.cpp 定义;SkipPartition50
+//   见下方 struct — 声明置于其后由使用点约束)
 
 // 纯字段 ctor:operator_new(0x30){vt cited,packed=0x100000000,mask,
 //   inner(0x20){0,0,0,0},0,0} — 96a2f8 39060-39077 / 9714b6 45562-45578 /
@@ -67,6 +72,9 @@ static_assert(offsetof(SkipPartition50, seedCnt28) == 0x28, "sp +0x28 [5] seedcn
 static_assert(offsetof(SkipPartition50, tid30)     == 0x30, "sp +0x30 [6] tid");
 static_assert(offsetof(SkipPartition50, serial40)  == 0x40, "sp +0x40 [8] serial");
 static_assert(offsetof(SkipPartition50, spin48)    == 0x48, "sp +0x48 spin 字节");
+
+// 97142a 尾面(批 164 升真 — 123B @0031.c:45510;声明紧随 SkipPartition50)
+void tail97142a(SkipPartition50 *sp, quint64 seed);
 
 // editctx_initThread 字段前奏真身(9714b6 @0031.c:45556-45596 逐字面;
 //   尾 FUN_0097142a(123B @0031.c:45510)深引擎腿 cited — piecetable_init/
@@ -108,6 +116,93 @@ static_assert(offsetof(PieceTable60, tid40)    == 0x40, "pt +0x40 tid");
 static_assert(offsetof(PieceTable60, serial50) == 0x50, "pt +0x50 serial");
 static_assert(offsetof(PieceTable60, spin58)   == 0x58, "pt +0x58 spin 字节");
 
+// ---- vt 槽承载面(批 164:M18-③)— 函数指针槽形态 ----
+// 语料 bank+0x20 delegate = Uint8RunStyles wrapper 0x20 对象 {vt,+8 RS,+0x10
+//   条目 GB}(尾链 5345 operator_delete(dlg,0x20) + 0027.c:39381 vt14 96B 同
+//   体三源:93fc60 尾链 5328-5345 / 41586-41600 / 42638-42652);vt 槽消费 =
+//   CMP 恒等检查 → 快路真身 / 慢路 vcall(asm 判例:kuna 0x93fc60
+//   MOV RDX,[RAX]; MOV RDX,[RDX+0x30]; CMP RDX,0x889872)。我方承载 =
+//   函数指针槽(语料调用形态;恒等检查 = 槽指针同一 — MarkerEntryObj fx_*
+//   判例;单承载面恒等恒真 → 慢路同槽注记)。
+// --- GB20 — 语料 GB face(delegate+0x10 条目 GB / bank+0x18 字节 GB 同形
+//     0x20 分配:93fc60 密排消费 {+8 data,+0x14 len,+0x18 gapPos,+0x1c
+//     gapLen} 5275-5284 / 88e5a0 门内重排 43247-43310 / 尾链 free(+8)+
+//     delete 0x20 5341-5343)---
+struct GB20 {
+	void    *f00 = nullptr;    // +0x00(未触)
+	void    *data = nullptr;   // +0x08 条目/字节数组基(free 面 5302/39391)
+	quint32  f10 = 0;          // +0x10 cap 面(0088a016 读写字面)
+	quint32  len14 = 0;        // +0x14 长度(5278 门/43232 门)
+	quint32  gapPos18 = 0;     // +0x18 gap 位(5276 门/gapbuf_shrink 写)
+	quint32  gapLen1c = 0;     // +0x1c gap 长(5280 偏移/43248 门)
+};
+static_assert(sizeof(GB20) == 0x20, "GB 0x20 分配(5342/39392 delete 字面)");
+static_assert(offsetof(GB20, data)     == 0x08, "gb +0x08 data");
+static_assert(offsetof(GB20, len14)    == 0x14, "gb +0x14 len");
+static_assert(offsetof(GB20, gapPos18) == 0x18, "gb +0x18 gapPos");
+static_assert(offsetof(GB20, gapLen1c) == 0x1c, "gb +0x1c gapLen");
+
+// --- CacheEntry30 — 线程缓存 RWLock 条目(88e5a0 构造 43523-43530 字面:
+//     {[0]=0,+8 data 0,[2..5]=0,QReadWriteLock(0)@+0x20,+0x28 byte=0,
+//     +0x2c 0};93fc60 释放 5301-5304:~RWLock(+0x20)/free(+8)/delete 0x30)---
+struct CacheEntry30 {
+	void          *f00 = nullptr;  // [0] 字面 0(43524)
+	void          *data = nullptr; // +0x08(43525;free 面 5302)
+	quint64        _r10[2] = {};   // +0x10..+0x1f(43526/43527 字面 0)
+	QReadWriteLock rw{};           // +0x20 QReadWriteLock(0) 真库就地(43528)
+	quint8         f28 = 0;        // +0x28 字节(43529)
+	quint8         _r29[3] = {};
+	quint32        flag2c = 0;     // +0x2c(43530;5298 门消费)
+	// 0x30 分配尾(operator_delete(e,0x30) 5303)
+};
+static_assert(sizeof(CacheEntry30) == 0x30, "条目 0x30(88e5a0 43523/93fc60 5303)");
+
+// --- LexDelegate20 — bank+0x20 delegate 承载 face({vt,+8 RS,+0x10 GB} 0x20;
+//     93fc60 计数源 5262 delegate+8 = RS(vt14 D1 面 5316);密排源 5274
+//     delegate+0x10 = GB;构造三源恒 null → 本 ctor 仅承载/测试面)---
+	struct LexDelegate20 {
+	void *vtbl = nullptr;      // +0x00 cited — PTR_FUN_01192288 族;承载 = 槽指针面
+	void *rs = nullptr;        // +0x08 RS(承载 RS8* — 怪癖 #35 同物异计)
+	void *gb = nullptr;        // +0x10 条目 GB(GB20 承载)
+	void *_r18 = nullptr;      // +0x18 分配尾(0x20 字面 — 39381 族)
+};
+static_assert(sizeof(LexDelegate20) == 0x20, "delegate 0x20(5345 delete 字面)");
+
+// 槽承载(CMP 恒等对象;快路 = 具名承载函数,慢路 = 同槽 vcall 注记):
+qint64 lexDelegateRuns00889872(void *self);   // vt+0x30 — 00889860/00889872 18B
+                                              //   同体(0027.c:39335/39347:
+                                              //   runstyles_runs_count(*(self+8)));
+                                              //   承载 RS8::Runs()(怪癖 #35)
+void   lexDelegateDtor008898d0(void *self);   // vt+8 D1 — Uint8RunStyles_vt14 96B
+                                              //   (0027.c:39381 字面:换面+RS D1
+                                              //   +GB free/delete+本体 delete)
+// vt+0x28 fill_range(008897ae)/vt+0x38 run_start_at(00889810)槽 — 88e5a0/
+//   007b5270 门内臂消费,体未读 → cited 不落(铁律 3)。
+extern qint64 (*lexVtRunsSlot)(void *);       // 5262 CMP 0x889872 恒等面
+extern void   (*lexVtDtorSlot)(void *);       // 5311 CMP vt14 恒等面
+
+// 承载构造面(语料 delegate 构造点在深腿 cited;空 RS8 + 空 GB20 — 测试/后批)
+inline LexDelegate20 *makeLexDelegate20()
+{
+	LexDelegate20 *d = new LexDelegate20{};
+	d->rs = new RS8();          // +8 RS 承载(RS8 直存怪癖)
+	d->gb = new GB20{};         // +0x10 条目 GB(0x20 字面)
+	return d;
+}
+
+// 条目释放臂真身(5301-5304 逐字面:~RWLock/free(+8)/operator_delete 0x30)
+void cacheEntryRelease(void *ent);
+// GB 密排 helper 真身(gapbuf_shrink 8B 版 95B @0027.c:39714 / FUN_0088a016
+//   realloc 扩 221B @39819 — 逐字面;shrink4 = ×4 元素版另一 GB 族不落)
+void gbShrink00889e2e(GB20 *g, int to);
+void gbGrow0088a016(GB20 *g, int grow);
+// FUN_007b5270(601B)@0024.c:21889 — GB 段删除(bank, pos, len;96a280 种子
+//   腿 39045 调面 (bank,0,len))— 骨架门真身(21919-21923);段插体(delegate
+//   vt+0x28/+0x40/+0x38 恒等分派 + 007a7d76/007b3960/RunStyles32_removeRange
+//   007ae172 564B/007b4c50/007b4e70 深族)与 0x18!=0 臂(FUN_007abef6 324B
+//   GB 删段)f10 尾计 cited。
+void sectionRemove007b5270(Bank30 *bank, qint64 pos, qint64 len);         // ODR — 批 164
+
 // ---- 调面声明(批 160:ODR 定义落 src/Editor/DeepEngineFace.cpp;
 //   可读段真身,深引擎腿逐处标注 cited — 见 .cpp 逐行出处)----
 // FUN_0096a2f8 piecetable_init(248B @0031.c:39050)— 0x60 Partitioning
@@ -119,10 +214,10 @@ void pieceTableInit(PieceTable60 *pt, quint64 seed);                      // ODR
 //   可达面真身(判空/门/守卫早退),门内重排体/超门 cache 腿 cited。
 void gapBufferReallocate(Bank30 *gb, quint64 pos, quint8 w, quint64 len); // ODR — 批 160
 // FUN_0093fc60(546B @0031.c:5247)— 词法栈老 runs/线程缓存清偿 walker:
-//   早退门(5257-5259)+ 尾槽清零(5347)真身;逐槽清偿循环(GB 密排
-//   槽选取/spin backoff/00933738 hash remove/0x30 条目 RWLock 释放)
-//   与尾 vt 换面析构链(5328-5345)cited — 循环计数源 delegate vt 槽
-//   不可承载(语料 vt+0x30 恒等检查),构造三源 [4] 恒 0 → 零迭代同相。
-void lexStackClear(Bank30 *gb);                                           // ODR — 批 160
+//   早退门(5257-5259)+ 逐槽清偿循环 + 尾 vt 换面析构链(5328-5345)+
+//   尾槽清零(5347)— 批 164 vt 槽承载后升真(清偿臂/析构链转写;
+//   RWLock/spin 单线程坍缩注记 — 批 145/152 判例;深 hash 面 00933738
+//   240B@0030.c:32409 QHashData::freeNode/rehash cited)。
+void lexStackClear(Bank30 *gb);                                           // ODR — 批 160/164
 
 } // namespace wt
