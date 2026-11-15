@@ -540,9 +540,10 @@ QByteArray MuxPaneGroup::sessionTitleBlob() const
 	os << keep.size();                      // @008bbc0x(项数)
 	for (MuxPaneView *item : keep) {
 		os << paneUrl(item);                 // QString @008bbcce
-		// KitView_vt9(item) 会话态 BA @008bbcf6 — 虚槽未转写,cited:
-		//   本波写空 BA(与无会话态页同相),真身化后替换。
-		os << QByteArray();
+		// KitView_vt9(item) 会话态 BA @008bbcf6 — 批 235 真身:
+		//   property("History").toByteArray();未初始化腿(+0x08 旗标 →
+		//   虚槽 +0xb0,cited)以"属性缺失 = 空 BA"同相承接。
+		os << item->historyBlob();
 		// 颜色 008b9bf4 → 005aba32(TabBar,idx)@008bbdxx — cited:
 		os << QColor();
 		if (owner == QLatin1String("Terminal"))

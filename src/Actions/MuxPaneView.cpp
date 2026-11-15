@@ -108,3 +108,12 @@ QVariant MuxPaneView::metaValue(const QString &key) const
 {
 	return m_meta20.value(key); // @008c54a4
 }
+
+// KitView_vt9(119B,0028.c:7156)会话态真身:
+//   asm @008c4ec8:cmpb +0x08 旗标 == 0 → vcall 虚槽 +0xb0(未初始化腿,
+//   本波 cited 空 BA);否则 property("History")(0x11820e8 实读)
+//   → QVariant::toByteArray。
+QByteArray MuxPaneView::historyBlob() const
+{
+	return property("History").toByteArray(); // @008c4f0d-28
+}

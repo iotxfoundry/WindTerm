@@ -46,6 +46,10 @@ public:
     //   qmap_lower_bound_find,缺省 invalid QVariant))。键实例:
     //   "Url"(0xcb6fcc)/"State"/"RenamedTitle"。
     QVariant metaValue(const QString &key) const; // FUN_008c54a4
+    // KitView_vt9(119B,0028.c:7156)会话态 BA:对象 +0x08 旗标为 0 →
+    //   虚槽 +0xb0(未转写);否则 QObject::property("History")
+    //   (名 0x11820e8 实读)→ toByteArray。
+    QByteArray historyBlob() const;
     QMap<QString, QVariant> m_meta20;            // 语料 +0x20
 
     // 语料 +0x30 只读面(inline getter;消费点 = MuxWindow 槽体 S9
