@@ -799,3 +799,16 @@ void TabBar::onCurrentChanged(int index)
 		}
 	}
 }
+
+// s_TabGroupButton_5aba4e(352B,0018.c:25724)真身:
+//   @005aba4e findChild<QToolButton>("TabGroupButton",递归=1)空 → 返;
+//   @005abb0x setText(text);tr("Group %1")(0xca1863)@005abb07 →
+//   QString::arg(text)→ setToolTip。
+void TabGroup::updateGroupButton(const QString &text)
+{
+	QToolButton *btn = findChild<QToolButton *>(QStringLiteral("TabGroupButton"));
+	if (btn == nullptr)
+		return;
+	btn->setText(text);                                // @005abb0x
+	btn->setToolTip(tr("Group %1").arg(text));          // 0xca1863 @005abb07
+}

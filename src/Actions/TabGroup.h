@@ -36,7 +36,11 @@ public:
     int insertTabWithMeta(int index, const QString &title,
                           const QIcon &icon);                            // FUN_005a7800
     void assignTabProperty(int index, const QString &value);             // FUN_005a8818(真身批 208)
-    void setCloseButtonsVisible(bool on);                                // FUN_005a84f6(真身批 208)
+    void setCloseButtonsVisible(bool on);
+    // s_TabGroupButton_5aba4e(352B,0018:25724)组按钮文本:
+    //   findChild<QToolButton>("TabGroupButton",递归)空 → 返;
+    //   setText(text)+ setToolTip(tr("Group %1").arg(text))(0xca1863 实读)。
+    void updateGroupButton(const QString &text);                                // FUN_005a84f6(真身批 208)
     // setTabText(int,QString)— FUN_005ab09e(0018:24913,218B)落点:
     //   FUN_005a6fbe 取 +0x58 tabBar index 旧文 → 比对相等即返 →
     //   FUN_005a7c74(+0x58,index,title)写新文(写函数 cited — wave-2)。
