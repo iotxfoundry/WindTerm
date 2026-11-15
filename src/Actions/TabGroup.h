@@ -69,6 +69,12 @@ public:
     //   私有位 +0x1c8(d)为 0 → 返;否则 +0x213 = !expanding();
     //   setExpanding(+0x213)(实参 Ghidra 丢,cited)。
     void restoreExpandingState();
+    // FUN_005a6bcc(32B,0018:21785)/FUN_005a6bec(34B)/FUN_005ab5c0(9B):
+    //   激活:restoreExpandingState() + QTabBar::setCurrentIndex;
+    //   命中:restoreExpandingState() + QTabBar::tabAt(point);
+    //   组级包装(9B)= 命中腿转发。
+    void activateIndex(int index);
+    int indexAtPoint(const QPoint &pos) const;
     // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。

@@ -902,3 +902,19 @@ void TabBar::restoreExpandingState()
 	m_saved213 = expanding() ? 0 : 1;      // @005a6b1c
 	setExpanding(m_saved213 != 0);         // 实参 cited(疑 +0x213)
 }
+
+// FUN_005a6bcc(32B,0018.c:21785)真身:
+//   FUN_005a6b1c(this)(= restoreExpandingState)+ QTabBar::setCurrentIndex。
+void TabBar::activateIndex(int index)
+{
+	restoreExpandingState(); // 005a6b1c
+	setCurrentIndex(index);  // @005a6bcc
+}
+
+// FUN_005a6bec(34B,0018.c:21798)真身:
+//   FUN_005a6b1c(this)+ QTabBar::tabAt(point)(返回命中索引)。
+int TabBar::indexAtPoint(const QPoint &pos) const
+{
+	const_cast<TabBar *>(this)->restoreExpandingState(); // 005a6b1c
+	return tabAt(pos);                                   // @005a6bec
+}
