@@ -27,6 +27,15 @@ public:
 	bool saveSessions(const QVariantList &sessions) const;  // FUN_00806958 对偶
 	QVariantMap loadConfig(const QString &relPath) const;   // 任意 profile 内 JSON
 
+	// 批 169:s_profiles_config_5d8c30(979B,0019.c:10368)写侧真身 —
+	// 路径规范化(fromNativeSeparators;同值短路 @005d8cb1;空/不存在
+	// → "." 缺省 @0xc9dabd 实读;== appdir → "." @005d8f15 区段;homePath
+	// 前缀 → "~" 折叠 @005d8f99)→ appdir + "/profiles.config"
+	// (0x88c3c3 字面)json "path" 键回写 + config_saveFile(00a801c6)
+	// 序列化面。dirAbs = 入参绝对目录;oldDir = 当前读侧值
+	// (s_profiles_config_5d8732 面)——同值短路对偶。
+	bool saveConfigPath(const QString &dirAbs, const QString &oldDir) const;
+
 private:
 	QString m_profilePath;
 };

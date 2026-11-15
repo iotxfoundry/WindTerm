@@ -1,7 +1,9 @@
 #include "ProfileLoader.h"
 
+#include <QCoreApplication>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QStandardPaths>
 #include <QVariantMap>
 #include <json/json.h>
@@ -105,4 +107,49 @@ QVariantMap ProfileLoader::loadConfig(const QString &relPath) const
 		}
 	}
 	return out;
+}
+
+// === 批 169:s_profiles_config_5d8c30(979B,0019.c:10368)写侧真身 —
+// 调用点 sub_75bcd3+0x72 / sub_7625b6+0x9f(kuna xrefs;profile 目录
+// 变更交互腿)。语料序:
+//   @005d8c69  fromNativeSeparators(入参);
+//   @005d8ca6  == 旧值(+0x30)→ 短路直返(仅改路径时回写语义);
+//   @005d8cc7  applicationDirPath() + QDir(入参);
+//   @005d8cf9  入参空或目录不存在 → "."(0xc9dabd 单字符实读);
+//   @005d8d2b  QDir==appdir → "." 同串(005d8f15 区段);
+//   @005d8d53  homePath 前缀 → "~"(0x7e)折叠(@005d8f99);
+//   @005d8d86  拼串 appdir + "/" + "profiles.config"(0x88c3c3 字面);
+//   @005d8e25  json root + "path" 键赋值(json_value_assign_stdstring
+//              @005d8e94 / json_assign_cstring "path")→ config_saveFile
+//              (00a801c6,0034.c:59978;序列化底座 std::ofstream,
+//              jsoncpp 委托 EXT-BOUNDARY 判例)。
+bool ProfileLoader::saveConfigPath(const QString &dirAbs,
+                                   const QString &oldDir) const
+{
+	QString dir = QDir::fromNativeSeparators(dirAbs);        // @005d8c69
+	if (dir == oldDir)                                       // @005d8ca6 短路
+		return true;                                         // 不回写同相
+	const QString appDir = QCoreApplication::applicationDirPath();
+	// 目录存在性腿(@005d8cf9 QDir::exists 门)转写:空/不存在 → "."。
+	// 语料 QDir(local_c0, param_2) 后 exists 检查 — 折叠腿(~)对存在
+	// 与否同相(本函数只归一存储形,不建目录 — 005d8d27 QDir ctor 面)。
+	if (dir.isEmpty() || !QDir(dir).exists())                // @005d8cf9 门
+		dir = QStringLiteral(".");                           // 0xc9dabd "."
+	else if (QDir(dir) == QDir(appDir))                      // @005d8d2b
+		dir = QStringLiteral(".");                           // @005d8f15 区段
+	else if (dir.startsWith(QDir::homePath())) {             // @005d8d53
+		dir.replace(QDir::homePath(), QStringLiteral("~"));  // @005d8f99 "0x7e"
+	}
+	const QString cfgPath = QCoreApplication::applicationDirPath()
+	                        + QStringLiteral("/profiles.config"); // @005d8d86-0x88c3c3
+	Json::Value root(Json::objectValue);   // json_value_init_by_type(,7)→object
+	root["path"] = dir.toStdString();      // json_assign_cstring "path" + assign
+	QDir().mkpath(QFileInfo(cfgPath).path());   // config_saveFile mkpath 腿 @00a80499
+	QFile f(cfgPath);
+	if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate))
+		return false;                       // config_saveFile open 失败腿
+	                                        //   (QMessageBox 交互腿不落 — 宿主域 cited)
+	Json::StreamWriterBuilder wb;            // FUN_00aef8c0 序列化底座 jsoncpp 委托
+	f.write(Json::writeString(wb, root).c_str());
+	return true;                            // @00a803b4 尾返 1
 }

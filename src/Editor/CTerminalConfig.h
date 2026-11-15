@@ -47,6 +47,15 @@ public:
 	bool contains(const QString &key) const { return m_values.contains(key); }
 	void setValue(const QString &key, const QVariant &value);   // SuperSession::setOption 下层
 
+	// 批 169:FUN_008cbb2e(242B,0028.c:12894)现役 setter face 键面
+	// (toLower + 剥 "kit." 前缀,760b2c @00760b86/bf1)→ 值面写。
+	void setValueKitScoped(const QByteArray &key, const QVariant &value);
+	// 批 169:s_kit_startupSessions_6e6e75(340B,0022.c:12550)写端
+	// 三态单选钮腿(逐钮 isChecked 序:首钮→"SpecificSessions"/
+	// 次钮→"NoSessions"/末钮→"LastSessions")。
+	void setStartupSessions(bool specificChecked, bool noSessionsChecked,
+	                        bool lastChecked);
+
 	// ctor defaults (FUN_00809b90)
 	QString defaultPrompt() const { return m_defaultPrompt; }
 	const QRegularExpression &promptTrimRegex() const { return m_trimRegex; }

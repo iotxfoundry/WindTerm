@@ -30,6 +30,12 @@
 #include "Editor/CTerminalConfig.h"
 #include "Actions/StartupChain.h"
 #include "Sessions/WorkspaceLoader.h"
+#include "Editor/ProfileLoader.h"
+
+#include <json/json.h>
+
+#include <QDateTime>
+#include <memory>
 
 int main(int argc, char **argv)
 {
@@ -842,6 +848,137 @@ int main(int argc, char **argv)
 
 	delete edW;
 	delete buyW;
+
+	// ======== 批 169:f 组尾 — kit.startupSessions 写端 + profiles.config 写侧 ========
+
+	// f10. s_kit_startupSessions_6e6e75 三态键值映射(@006e6f81 首钮
+	//      "SpecificSessions" / @006e6ee0 次钮 "NoSessions" / @006e6f29
+	//      末钮 "LastSessions";三钮皆假 → LAB_006e6f8e 直过不写)+ 键
+	//      归一面(8cbb2e→760b2c:toLower + 剥 "kit" 段)。键形怪癖
+	//      注记:语料 regex "^kit(?=\.)" lookahead 零宽,QString::
+	//      replace 语义 Qt 实测吞 "kit" 留 "."(".startupsessions"),
+	//      但库内 replace(QRegularExpression)重载连 "." 同吞
+	//      (Qt5.15.13 实测 "startupsessions")— 写(8cbb2e)读
+	//      (8cba1c)两通路同 regex 同形键,对称闭环成立;恢复分发
+	//      &4 门批 150/154 kitStartupSessions 腿消费同键。
+	{
+		CTerminalConfig *cfg = CTerminalConfig::instance();
+		cfg->setConfigPath(QStringLiteral("/nonexistent/wind.config"));
+		cfg->setValue(QStringLiteral("startupsessions"),
+		              QStringLiteral("preset")); // 前置观测基线
+		cfg->setValueKitScoped(QByteArrayLiteral("kit.startupSessions"),
+		                       QStringLiteral("probe"));
+		cfg->setStartupSessions(false, true, false);
+		if (cfg->value(QStringLiteral("startupsessions"))
+		    != QStringLiteral("NoSessions"))
+			++fails; // 次钮腿 @006e6ee0
+		// 键落位同相:kit.* 裸键不落(键面归一 @00760b86/bf1)。
+		if (cfg->contains(QStringLiteral("kit.startupSessions")))
+			++fails;
+		cfg->setStartupSessions(true, false, false);
+		if (cfg->value(QStringLiteral("startupsessions"))
+		    != QStringLiteral("SpecificSessions"))
+			++fails; // 首钮腿 @006e6f81
+		cfg->setStartupSessions(false, false, true);
+		if (cfg->value(QStringLiteral("startupsessions"))
+		    != QStringLiteral("LastSessions"))
+			++fails; // 末钮腿 @006e6f29
+		cfg->setStartupSessions(false, false, false);
+		if (cfg->value(QStringLiteral("startupsessions"))
+		    != QStringLiteral("LastSessions"))
+			++fails; // 三钮皆假 → 不写(LAB_006e6f8e 直过,值保持)
+		// 键面归一验证:大写 "KIT.StartupSessions" 同相落位
+		//   (toLower @00760b86;写 8cbb2e 面 ↔ 读 8cba1c 面同 regex
+		//   闭环)。
+		cfg->setValueKitScoped(QByteArrayLiteral("KIT.StartupSessions"),
+		                       QStringLiteral("LastSessions"));
+		if (cfg->value(QStringLiteral("startupsessions"))
+		    != QStringLiteral("LastSessions"))
+			++fails;
+	}
+
+	// f11. profiles.config 写侧 roundtrip(s_profiles_config_5d8c30 写 +
+	//      5d8732 读对称):写目录 → "path" 回写 → 读面(StartupChain
+	//      startupProfileDir 同相解析;fold:"~" ↔ homePath 双向)。测试
+	//      applicationDirPath 锚定(appdir/profiles.config)→ 测试树
+	//      build/tests 内写;读侧对账 = root["path"] 直读(5d8732 面
+	//      解析同构;读侧真身 StartupChain::startupProfileDir 在库,
+	//      appdir 锚定不可注家目录 — 机制对账已足)。
+	{
+		const QString home = QDir::homePath();
+		// 归一腿:不存在目录 → "."(0xc9dabd)
+		{
+			QFile c(QCoreApplication::applicationDirPath()
+			        + QStringLiteral("/profiles.config"));
+			c.remove(); // 基线清(测试树共享段顺序稳态)
+		}
+		if (!ProfileLoader(QStringLiteral("/tmp/wt-b169-fake"))
+		        .saveConfigPath(QStringLiteral("/no/such/dir"), QString()))
+			++fails; // 缺目录 → 缺省 "." 回写仍成功(@005d8cf9)
+		{
+			QFile c(QCoreApplication::applicationDirPath()
+			        + QStringLiteral("/profiles.config"));
+			if (!c.open(QIODevice::ReadOnly))
+				++fails; // config_saveFile 产物存在(写侧 open 失败腿外)
+			else {
+				const QByteArray raw = c.readAll();
+				Json::Value root;
+				Json::CharReaderBuilder b;
+				std::unique_ptr<Json::CharReader> r(b.newCharReader());
+				std::string errs;
+				if (!r->parse(raw.constData(), raw.constData() + raw.size(),
+				              &root, &errs)
+				    || !root.isObject()
+				    || root["path"].asString() != ".")
+					++fails; // "path"="."(@005d8cf9 缺省腿 + @005d8e94 赋值)
+			}
+		}
+		// homePath 折叠腿(@005d8f99 "~"):写入 → 读回替换(目录实存
+		//   fixture — QDir::exists 门 @005d8cf9 真腿)
+		QDir().mkpath(home + QStringLiteral("/sub"));
+		if (!ProfileLoader(QStringLiteral("/tmp/wt-b169-fake"))
+		        .saveConfigPath(home + QStringLiteral("/sub"), QString()))
+			++fails; // saveConfigPath 成功腿
+		{
+			QFile c(QCoreApplication::applicationDirPath()
+			        + QStringLiteral("/profiles.config"));
+			if (!c.open(QIODevice::ReadOnly))
+				++fails; // 回写产物可读
+			else {
+				const QByteArray raw = c.readAll();
+				Json::Value root;
+				Json::CharReaderBuilder b;
+				std::unique_ptr<Json::CharReader> r(b.newCharReader());
+				std::string errs;
+				if (!r->parse(raw.constData(), raw.constData() + raw.size(),
+				              &root, &errs)
+				    || root["path"].asString() != "~/sub")
+					++fails; // homePath → "~" 折叠(@005d8f99;读侧 5d8732
+					         //   "~" 前缀 homePath 插入对称腿 @005d88d4)
+			}
+		}
+		// 同值短路(@005d8ca6):oldDir == 规范化入参 → 不触摸文件。
+		//   mtime 前后判不可靠(同秒粒度),改 size+content 双证:短路腿
+		//   直返,文件字节不重写。
+		{
+			const QString cfgFile = QCoreApplication::applicationDirPath()
+			                        + QStringLiteral("/profiles.config");
+			QFile c(cfgFile);
+			c.open(QIODevice::ReadOnly);
+			const QByteArray before = c.readAll();
+			c.close();
+			if (!ProfileLoader(QStringLiteral("/tmp/wt-b169-fake"))
+			        .saveConfigPath(home + QStringLiteral("/sub"),
+			                        QStringLiteral("~/sub")))
+				++fails;
+			c.open(QIODevice::ReadOnly);
+			if (c.readAll() != before)
+				++fails; // 短路 → 文件未重写(@005d8ca6 直返)
+		}
+		// 读侧对称确认(5d8732 真身 = StartupChain::startupProfileDir,
+		//   static 面):appdir 锚定无法注家目录 — 机制面已由 f11 直读
+		//   对账,读侧解析腿("~"→homePath 插入 @005d88d4)真身在库。
+	}
 
 	printf("mwc_smoke: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
 	return fails ? 1 : 0;
