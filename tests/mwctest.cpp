@@ -1216,6 +1216,63 @@ int main(int argc, char **argv)
 		cfg->reload();   // 测试卫生:复合键不残留(后续批次基线态)
 	}
 
+	// f14. 批 181:M23-② 尾渣 — 星数逐字节对表 + 键串对证 + 分裂
+	//      门面。样本 tools/re/phase5/5c/original/user.sessions(22863B,
+	//      49 条目):'*' 计 0(存储态原样;8061a0 掩盖为显示面),
+	//      '@' 字段 10 处 od 实读(offset 801 "root@192.168.1.201" i=4
+	//      → 显示 'r***@…';offset 1240 "neardi@192.168.1.106" i=6 →
+	//      'n*****@…')↔ 我方 sessionTargetMasked 同相。
+	{
+		QVariantMap s1;
+		s1.insert(QStringLiteral("session.target"),
+		          QStringLiteral("root@192.168.1.201")); // 样本 offset 801
+		if (Workspace::sessionTargetMasked(s1, true)
+		    != QStringLiteral("r***@192.168.1.201"))
+			++fails; // i=4 → replace(1,3,'***')(od 801 区字节直译;
+			         //   语料 i>1 门 @0080623a)
+		QVariantMap s2;
+		s2.insert(QStringLiteral("session.target"),
+		          QStringLiteral("neardi@192.168.1.106")); // offset 1240
+		if (Workspace::sessionTargetMasked(s2, true)
+		    != QStringLiteral("n*****@192.168.1.106"))
+			++fails; // i=6 → 5 星(样本 10 处 '@' 字段同面)
+		QVariantMap s3;
+		s3.insert(QStringLiteral("session.target"),
+		          QStringLiteral("root@39.100.119.145")); // offset 19867
+		if (Workspace::sessionTargetMasked(s3, true)
+		    != QStringLiteral("r***@39.100.119.145"))
+			++fails; // i=4 → 3 星(样本第 6 处)
+
+		// tabBarSelectionBehaviorOnRemove 键串对证(dat_1181468 →
+		//   0xd0ed40 32B "tabbar.selectionBehaviorOnRemove";valueToKey
+		//   (2)= SelectPreviousTab — global/wind.config L37 同相):
+		//   未配置 → 缺省 2(@0089f548)。
+		if (tabBarSelectionBehaviorOnRemove() != 2)
+			++fails;
+		// 配置面同相:键串实读字面写入 → 枚举值 2(SelectPreviousTab
+		//   @KING-ENUMS-AUTHORITATIVE;keyToValue 命中腿)。
+		CTerminalConfig *cfg = CTerminalConfig::instance();
+		cfg->setValue(QStringLiteral("tabbar.selectionBehaviorOnRemove"),
+		              2);
+		if (tabBarSelectionBehaviorOnRemove() != 2)
+			++fails;
+		cfg->setValue(QStringLiteral("tabbar.selectionBehaviorOnRemove"),
+		              0);
+		if (tabBarSelectionBehaviorOnRemove() != 0)
+			++fails; // SelectLeftTab 命中枚举值腿 @0089f678 面
+		cfg->setValue(QStringLiteral("tabbar.selectionBehaviorOnRemove"),
+		              QStringLiteral("notAnEnum"));
+		if (tabBarSelectionBehaviorOnRemove() != 2)
+			++fails; // keyToValue 未中 → 2 字面(@0089f66a-72)
+		cfg->setValue(QStringLiteral("tabbar.selectionBehaviorOnRemove"),
+		              QVariant());
+
+		// 00525f50 分裂触发计数门(真身):cap 0xc @00526845;承载替
+		//   QMap 无容量 → 门面常量钉住(QUIRKS #31 同相判例)。
+		if (Workspace::StrTrie::splitGateCapacity != 12)
+			++fails;
+	}
+
 	printf("mwc_smoke: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);
 
 	return fails ? 1 : 0;

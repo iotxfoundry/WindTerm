@@ -421,7 +421,10 @@ LoaderResult workspaceLoader(QObject *pane, QObject *panel, QString &title,
 //   消费面(session_defaultDir ×6 @00521866-21ac4 腔):键升序不变量
 //   = 线性扫+右移批插直译 → QMap<quint32,QVariant> 承载同相
 //   (QUIRKS 承载替判例 — 00525f50 分裂/扩容腿 = QMap 内部重排,
-//   字节级对表待)。
+//   字节级对表待;分裂触发计数门真身化见头侧 splitGateCapacity —
+//   批 181:00525f50 kuna 全读,左兄逐槽交换/子指针迁移/上溢换根
+//   0x1a8/前插 0x198/0x130 全布局面,产出序列恒升序,承载无观测
+//   差,重建体维持 cited)。
 // StrTrie 真身在 WorkspaceLoader.h(inline — mwctest f9 直用);
 //   此处仅注记:ODR 唯一定义 = 头侧 inline 体。
 
@@ -962,13 +965,18 @@ QMainWindow *startupWindowCreate(QMainWindow *mainWindow,
 //   S4 QByteArray(dat_1181468)→ sub_75c458(0075c480 global_setting_
 //     get 面)— 配置读;S5 keyToValue 命中 → 枚举值;未中 → 2 字面。
 // 通路 = CTerminalConfig 值面(批 150 wind.config 默认层判例);键 =
-// "tab.selectionBehaviorOnRemove"(枚举键名域 — 语料键串 dat_1181468
-// 指针面;枚举登记 QMetaObject 权威面 0x1180860 类名不在注入面,键名
-// 直读 dat_1181468 指向串 — 语义面承接;真键串对证 cited)。
+// "tabbar.selectionBehaviorOnRemove"(批 181 对证:kuna read
+// dat_1181468 → 0xd0ed40 逐字节 32B "tabbar.selectionBehaviorOnRemove
+// \0" 实读 — 原 "tab." 前缀为猜,修正;与 global/wind.config L37 同相;
+// 枚举 0x1180860 TabSelectionBehavior 权威值域 KING-ENUMS-
+// AUTHORITATIVE:0 SelectLeftTab/1 SelectRightTab/2 SelectPreviousTab;
+// kuna 全读:valueToKey(2) 缺省 @0089f548-5a,keyToValue 命中枚举值/
+// 未中 2 字面 @0089f66a-72 — 语义面承接)。
 int tabBarSelectionBehaviorOnRemove()
 {
 	const QVariant v = CTerminalConfig::instance()->value(
-	    QStringLiteral("tab.selectionBehaviorOnRemove"), 2); // 2 字面
+	    QStringLiteral("tabbar.selectionBehaviorOnRemove"),
+	    2); // 2 字面(dat_1181468 键 + valueToKey(2) @0089f548)
 	bool ok = false;
 	const int n = v.toInt(&ok);
 	if (!ok || n < 0)      // keyToValue 未中腿 @0089f56x → 2 字面

@@ -127,6 +127,16 @@ LoaderResult workspaceLoader(QObject *pane, QObject *panel, QString &title,
 struct StrTrie
 {
 	QMap<quint32, QVariant> cells; // 槽线性扫+右移批插 → 键升序承载
+	// 分裂触发计数门真身(00525f50 2042B,0016.c:19112;kuna 全读 —
+	// 插入腿调用点 @00526836-54:strtrie_find_qv 满槽 n==cap 时
+	// cap<12 → 2n 扩容(00525a82 迁移);cap≥12 → FUN_00525f50 分裂。
+	// 重建体(左兄有 room → 逐槽 0x18 交换搬 i 个 + 子指针 +0x130 区
+	// 迁移 + 上溢换根 0x1a8 节点;无 room → 新 0x198/0x130 节点
+	// 00525c5e 前插)仅重排内存布局,产出序列恒升序 — QMap 承载无
+	// 容量概念 → 门恒不触发,分裂无观测差(QUIRKS #31 同相判例);
+	// 重建体 cited)。
+	static constexpr int splitGateCapacity = 12; // 0xc cap 上限
+	                                             //   @00526845
 	QVariant find0052674a(quint32 key, const QVariant &value,
 	                      bool *inserted) // 命中槽值/新插零值
 	{
