@@ -141,6 +141,8 @@ private:
     QList<TabNode> m_f60; // 语料 +0x60(节点表)
     QStringList m_titles60;   // 节点 +0x08 标题面(映射承载)
     QList<int> m_shortcutIds; // 节点 +0x04 快捷键 id 面
+    quint8 m_flag68 = 0;      // +0x68(布局变化门)
+    quint8 m_scroll69 = 0;    // +0x69(滚动态)
     quint8 m_dirty1c8 = 0;    // 私有位 +0x1c8(展开态需恢复标记)
     quint8 m_saved213 = 0;    // 私有位 +0x213(保存值)
     QList<QVariant> m_f68; // 语料 +0x68(QVariant 列表,FUN_005a8818 消费,cited)

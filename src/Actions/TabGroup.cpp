@@ -944,3 +944,28 @@ void TabBar::insertNodeAt(int index, const TabNode &node)
 		index = m_f60.size();
 	m_f60.insert(index, node);
 }
+
+// FUN_005ab79a(62B,0018.c:25407)真身:
+//   @005ab79a if (+0x69 == on) return;+0x69 = on;
+//   QTimer::singleShot(0,this,FUN_005aa862)(闭包体 cited)。
+void TabGroup::setScrollState(bool on)
+{
+	if (m_scroll69 == (on ? 1 : 0)) // +0x69
+		return;
+	m_scroll69 = on ? 1 : 0;
+	QTimer::singleShot(0, this, [this]() {
+		/* FUN_005aa862(this)@005ab79a — cited(闭包体未转写) */
+	});
+}
+
+// FUN_005ab7d8(59B,0018.c:25427)真身:
+//   @005ab7d8 if (+0x68 == 0) return;
+//   滚动钮(+0x80)私有位(d+9 & 0x80)==0 → setScrollState((+0x88)->d+8 >>15 &1);
+//   否则 setScrollState(1)。私有位面 cited。
+void TabGroup::onTabLayoutChanged()
+{
+	if (!m_flag68) // +0x68
+		return;
+	// +0x80/+0x88 滚动钮 d-ptr 位面 — cited(不可移植)
+	setScrollState(true);
+}
