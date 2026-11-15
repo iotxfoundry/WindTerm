@@ -846,25 +846,27 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 	if (((flags & 4u) != 0) || version > 0xb9e7e621u) {
 		QByteArray uiBlob;
 		in >> uiBlob; // local_a8 @008d346b
-		QDataStream ui(uiBlob); // @008d348b 子流
-		bool menuBar = false, statusBar = false;
-		ui >> menuBar;  // local_c8 @008d349b
-		// vt+0x1d0("MenuBar",!b)@008d34c3 — 窗条切换虚槽(KitWindow
-		//   域 cited;串 "MenuBar" 0x11826a0 实读)。行为承接:
-		if (panel != nullptr)
-			panel->setProperty("menuBarVisible", !menuBar); // 槽位 face 承接
-			// (语料槽位未建模 — setProperty 命名面不发明真名;语料
-			//   vcall 消费在 KitWindow 批,cited 占位同相可见性)
-		ui >> statusBar; // local_c0 @008d34d6
-		if (panel != nullptr)
-			panel->setProperty("statusBarVisible", !statusBar); // @008d350e
-			//   ("StatusBar" 0x1182668 实读;cited 同上)
-		if (((flags & 4u) != 0) || version > 0xb9e7e622u) {
-			bool toolBar = false;
-			ui >> toolBar; // local_b8 @008d3534
+		if (auto *kit = dynamic_cast<KitWindowFace *>(panel)) {
+			// 真身(批 193):KitWindow 域虚槽 +0x1d0 三腿
+			//   (kitWindowBarsRestore,含 0xb9e7e622 第二门)
+			kit->kitWindowBarsRestore(uiBlob, version, flags); // @008d347b-356c
+		} else {
+			QDataStream ui(uiBlob); // @008d348b 子流
+			bool menuBar = false, statusBar = false;
+			ui >> menuBar;  // local_c8 @008d349b
+			// 宿主非 KitWindow(face 承接腿,cited):语料 = vt+0x1d0
+			//   ("MenuBar" 0x11826a0 实读)@008d34c3 — 真身见 KitWindow 域。
 			if (panel != nullptr)
-				panel->setProperty("toolBarVisible", !toolBar); // @008d356c
-				//   ("ToolBar" 腿;version>0xb9e7e622 门同相)
+				panel->setProperty("menuBarVisible", !menuBar);
+			ui >> statusBar; // local_c0 @008d34d6
+			if (panel != nullptr)
+				panel->setProperty("statusBarVisible", !statusBar); // @008d350e
+			if (((flags & 4u) != 0) || version > 0xb9e7e622u) {
+				bool toolBar = false;
+				ui >> toolBar; // local_b8 @008d3534
+				if (panel != nullptr)
+					panel->setProperty("toolBarVisible", !toolBar); // @008d356c
+			}
 		}
 	}
 	// @008d3ba9 vt+0x240 != FUN_008d5bee → vcall(stream,flags)— 下行
