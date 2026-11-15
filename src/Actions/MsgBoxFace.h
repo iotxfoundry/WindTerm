@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QString>
+#include <QStringList>
 
 class QMessageBox;
 class QWidget;
@@ -22,3 +23,13 @@ class QWidget;
 QMessageBox *msgboxBuildRich(const QString &name, const QString &remotePath,
                              const QString &third, bool watcher,
                              QWidget *parent = nullptr);
+
+// file_showErrorBox(820B,0017.c:51861)复制目标错误框:
+//   目标路径尾 '/' 去掉;逐项 QFileInfo::isDir 且 != 目标且目标含该项 →
+//   从表移除(子目录判定);表非空 → QMessageBox(parent)+
+//   setAttribute(0x37)+ setWindowTitle(tr("Copy")(0xcba936))+
+//   setText(tr("The destination folder is a subfolder of the source
+//   folder:\n%1")(0xc8a740).arg(路径))+ setIcon(2=Warning)+
+//   setDetailedText(表 join '\n')+ vt+0x1a0(cited)。
+QMessageBox *fileShowErrorBox(QWidget *parent, const QStringList &paths,
+                              const QString &path);

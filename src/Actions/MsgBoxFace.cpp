@@ -2,6 +2,7 @@
 #include "MsgBoxFace.h"
 
 #include <QCheckBox>
+#include <QFileInfo>
 #include <QMessageBox>
 
 // msgbox_buildRich(918B,0019.c:55557)真身(结构面):
@@ -55,5 +56,42 @@ QMessageBox *msgboxBuildRich(const QString &name, const QString &remotePath,
 	if (check != nullptr)
 		box->setCheckBox(check);
 	Q_UNUSED(parent); // 语料 parent 面为 0(new QMessageBox(0))
+	return box;
+}
+
+// file_showErrorBox(820B,0017.c:51861)真身:
+//   @00579ba0 +0x88/+0x90 前置门(vcall+0x70 != 默认且为真);
+//   @00579c1c 目标路径 endsWith('/') → 去掉末字符;
+//   @00579c6a 逐项(cs=1 indexOf)判定:isDir 且 != 目标 且目标含该项 →
+//     QListData::remove(子目录剔除);
+//   @00579cd7 表非空 → new QMessageBox(parent)(0x30)→
+//     setAttribute(0x37,1)@00579ce9 → setWindowTitle(tr("Copy")
+//     0xcba936)@00579d1a → setText(tr(0xc8a740).arg(路径))@00579d57 →
+//     setIcon(2 = Warning)@00579d7f → setDetailedText(join '
+')@00579d9f →
+//     vt+0x1a0(this)(cited:show/exec 面)。
+QMessageBox *fileShowErrorBox(QWidget *parent, const QStringList &paths,
+                              const QString &path)
+{
+	QString target = path;
+	if (target.endsWith(QLatin1Char('/'))) // @00579c1c
+		target.chop(1);
+	QStringList keep;
+	for (const QString &item : paths) { // @00579c6a 子目录剔除
+		if (QFileInfo(item).isDir() && item != target
+		    && target.contains(item, Qt::CaseInsensitive))
+			continue;
+		keep.append(item);
+	}
+	if (keep.isEmpty())
+		return nullptr;
+	auto *box = new QMessageBox(parent); // @00579cd7(0x30)
+	box->setAttribute(Qt::WA_DeleteOnClose, true); // 0x37 @00579ce9
+	box->setWindowTitle(QObject::tr("Copy"));      // 0xcba936 @00579d1a
+	box->setText(QObject::tr("The destination folder is a subfolder of the "
+	                         "source folder:\n%1").arg(target)); // 0xc8a740
+	box->setIcon(QMessageBox::Warning); // 2 @00579d7f
+	box->setDetailedText(keep.join(QLatin1Char('\n'))); // @00579d9f
+	// vt+0x1a0(this)@00579dba — cited(展示面)
 	return box;
 }
