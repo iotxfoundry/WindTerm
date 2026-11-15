@@ -546,7 +546,7 @@ QByteArray MuxPaneGroup::sessionTitleBlob() const
 		os << item->historyBlob();
 		// 颜色:008b9bf4 → 005aba32(TabBar,idx)@008bbdxx → 005a6ca6
 		//   页色取值(批 239 真身)。
-		os << (m_f38 != nullptr ? m_f38->tabBar()->tabColor(indexOfPane(item))
+		os << (m_f38 != nullptr ? m_f38->tabColor(indexOfPane(item))
 		                        : QColor());
 		if (owner == QLatin1String("Terminal"))
 			os << item->property("RenamedTitle").toString(); // @008bbd4f

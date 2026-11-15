@@ -671,3 +671,33 @@ QColor TabBar::tabColor(int index) const
 		return QColor(); // 语料缺省结构(无效色)
 	return m_colors60.at(index);
 }
+
+// FUN_005a7b66(269B,0018:22507)页色设置真身:
+//   @005a7b66 index 越界(负/>=页数)→ 返;
+//   +0x60 表循环补齐(缺省 QColor 结构 0/0xffff/0/0)@005a7bxx;
+//   detach → 旧值 operator!= → 不等才写 @005a7c1x;
+//   尾 tabRect + update(@005a7c5x 区,未全读→注)。
+void TabBar::setTabColor(int index, const QColor &color)
+{
+	if (index < 0 || index >= count())
+		return;
+	while (m_colors60.size() <= index) // 补齐默认
+		m_colors60.append(QColor());   // 语料缺省结构(无效色)
+	if (m_colors60.at(index) == color) // operator!= 门
+		return;
+	m_colors60[index] = color;
+	update(); // 尾重绘
+}
+
+// 008b9b3e(9B,0027.c:76984)/008b9bf4(18B,0027.c:77086):组级转发
+//   (005aba44/005aba32 → TabBar +0x58 面)。
+void TabGroup::setTabColor(int index, const QColor &color)
+{
+	if (m_f58 != nullptr)
+		m_f58->setTabColor(index, color); // @008b9b3e
+}
+
+QColor TabGroup::tabColor(int index) const
+{
+	return m_f58 != nullptr ? m_f58->tabColor(index) : QColor(); // @008b9bf4
+}
