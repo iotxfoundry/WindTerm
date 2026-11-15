@@ -141,6 +141,12 @@ bool KitWindowFace::kitWindowStartupSessions(const QByteArray &history, int hint
 	in >> statesBlob;                            // @008d3303
 	kitSplittersStatesRestore(this, statesBlob); // 批 219(8d3323-340x)
 	const quint32 flags = static_cast<quint32>(hints);
+	// 注:中段 flags 分叉(语料 @008d35b9-0x8d3ba8)未在本函数重复实现:
+	//   flags&1 → LastSessions 组读(组帧 >>group>>count>>name + kind 2/1/
+	//     其他 + SpecificSessions 四槽 + 组尾 restoreState)=
+	//     Workspace::kitStartupSessions 真身面(本仓已落,深腿 cited);
+	//   flags&2(&1==0 腿)→ 单 splitter 复挂 >>BA + addWidget(+0x48)+
+	//     restoreState(@008d3b60)= cited。
 	if ((flags & 4u) != 0 || magic > 0xb9e7e621u) {
 		QByteArray barsBlob;
 		in >> barsBlob;                               // @008d346b
