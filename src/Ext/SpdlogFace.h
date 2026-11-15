@@ -70,6 +70,28 @@ inline void flushSessionLogger(void *loggerRaw)
 		static_cast<spdlog::logger *>(loggerRaw)->flush();
 }
 
+// cited ③ 行 pattern 腿(@007c34c8-3500):session_state 行 pattern
+// (param_8;空 → "[%Y-%m-%d %H:%M:%S] %v" 字面 @007c3500)→ formatter
+// 重设(local 时型;真库委托 pattern_formatter,set_formatter 同
+// FUN_005f5bc0 调面)。返回 false = null 卫/异常(语料 pattern 腿
+// 失败不中断建腿,cited)。
+inline bool applyLinePattern(void *loggerRaw, const QString &linePattern)
+{
+	if (!loggerRaw)
+		return false;
+	try {
+		static_cast<spdlog::logger *>(loggerRaw)->set_formatter(
+		    std::make_unique<spdlog::pattern_formatter>(
+		        linePattern.isEmpty()
+		            ? std::string("[%Y-%m-%d %H:%M:%S] %v")
+		            : linePattern.toStdString(),
+		        spdlog::pattern_time_type::local, std::string("\n")));
+	} catch (...) {
+		return false;
+	}
+	return true;
+}
+
 } // namespace Ext
 
 #endif // EXT_SPDLOGFACE_H

@@ -10,6 +10,7 @@
 #include <QList>
 #include <libssh/libssh.h>
 #include "../Ext/SpdlogFace.h"
+#include "SessionProtocol.h"
 
 // SuperSession 的 SSH 认证/主机校验实现(混合架构:真 libssh)。
 // 逆向语义锚:SSH-INTERNALS.md;信号族(moc 真名)见 SuperSession.h。
@@ -144,15 +145,17 @@ public:
 
 	// 批 151:q+0x10 虚 label 位真身 —— FUN_007d4d9c(39B,0025.c:4080)
 	// 转写:param_2+0x10(q 的协议/对象槽)非空 → 虚表 +0x68 调面取
-	// label(返回 QString,返回槽 param_1);空 → shared_null。本树
-	// SuperSession 无虚 +0x68(moc 面无 label 虚方法)→ 判空臂全同,
-	// 非空臂按 m_protocol 非 0 卫近似(原 q+0x10 = 协议对象槽,见
-	// SuperSession.h m_protocol 注),近面照批 145 注记判例。
+	// label(返回 QString,返回槽 param_1);空 → shared_null。
+	// 批 155 升真:非空臂 = SessionProtocolFace::label() 真虚调
+	// (m_protocol 挂点,测试经 setProtocolSlot 注入);空臂全同
+	// @007d4da7。
 	QString virtualLabel() const;
 
 	// 建腿调面 = FUN_007c24c8(5980B,0024.c:31047)分面转写(批 145):
-	// 真实现 = 启用卫/+0x28 label/标志尾;cited 三段见 SuperSessionPrivate.cpp
-	// (pattern/路径装配、spdlog sink/logger 构造、formatter/state 尾段)。
+	// 真实现 = 启用卫/+0x28 label/标志尾;①/② cited 见
+	// SuperSessionPrivate.cpp(pattern/路径装配、spdlog sink/logger
+	// 构造);③ formatter/state 尾段行 pattern 腿批 155 升真
+	// (Ext::applyLinePattern 真库委托,@007c34c8)。
 	// 参形照语料:param_2=target 串(007d5b1a)/param_3=label(007d4d9c)/
 	// param_4=启用/param_5=标志字节(bit0=append)/param_6=轮转字节/
 	// param_7=文件名 pattern/param_8=行 pattern。
@@ -243,6 +246,11 @@ public:
 
 	// 测试行为门访问(仅 reginserttest;表内容非行为面)
 	const QMap<QUuid, void *> *registry() const { return m_registry; }
+
+	// 批 155:q+0x10 协议槽测试门(m_protocol = void* 挂点;真对象由
+	// 下行 ctor 族 cited —— 仅测试注入口,非产品行为面)
+	void *protocolSlot() const;
+	void setProtocolSlot(void *p);
 
 private:
 	SuperSession *q;

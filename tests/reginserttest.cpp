@@ -264,6 +264,47 @@ int main(int argc, char **argv)
 		       "j: Local 腿 param_3=1 → 0x18 lambda 位(@008e37be)");
 	}
 
+	// ======== k. 批 155:协议虚面真虚分派 —— SessionProtocolFace::
+	// label()(FUN_007d4d9c 非空臂 @007d4da2 虚表 +0x68;桥真身链
+	// TcpBridge_vt13 008762f4/SshBridge_vt13 00862692 socket
+	// peerAddress,cited)========
+	class KProto : public SessionProtocolFace {
+	public:
+		QString label() const override
+		{ return QStringLiteral("kproto"); }
+	};
+	class KProto2 : public SessionProtocolFace {
+	public:
+		QString label() const override
+		{ return QStringLiteral("kproto2"); }
+	};
+	{
+		SessionLogger lk(&s);
+		KProto p1;
+		KProto2 p2;
+		void *oldSlot = d.protocolSlot();
+		d.setProtocolSlot(&p1);
+		expect(lk.virtualLabel() == QStringLiteral("kproto"),
+		       "k: 协议虚分派 KProto label(@007d4da2 +0x68 虚调)");
+		d.setProtocolSlot(&p2);
+		expect(lk.virtualLabel() == QStringLiteral("kproto2"),
+		       "k: 第二实现 KProto2 虚分派(换 vtable 即换腿)");
+		// 插入腿 label:virtualLabel 参源(007da307)→ +0x28
+		const QUuid kid = QUuid::createUuid();
+		d.insertLoggerSession(kid, QVariantList{1, 1, 0,
+		                        QString(), QString()});
+		SessionLogger *lkl = static_cast<SessionLogger *>(
+		    d.registry()[3].value(kid, nullptr));
+		expect(lkl && lkl->m_s28 == QStringLiteral("kproto2"),
+		       "k: 插入腿 +0x28 = virtualLabel 真虚值"
+		       "(@007c2528←007da307)");
+		d.removeRegistry(3, kid);
+		d.setProtocolSlot(nullptr);
+		expect(lk.virtualLabel().isNull(),
+		       "k: 空臂 = shared_null(@007d4da7)");
+		d.setProtocolSlot(oldSlot);
+	}
+
 	printf(g_fail ? "FAIL(%d)\n" : "ALL PASS\n", g_fail);
 	return g_fail ? 1 : 0;
 }
