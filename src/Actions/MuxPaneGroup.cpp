@@ -582,3 +582,15 @@ int MuxPaneGroup::indexOfPane(QWidget *pane) const
 	}
 	return -1;
 }
+
+// 008b9ad4(86B,0027.c:76920)换页真身:
+//   i = FUN_008b99f6(this, oldPane)@008b9ad4;i != -1 →
+//   w = (new 非空 ? cast 011925c8(new) : 0);FUN_005ac8d0(tabs,i,w)。
+void MuxPaneGroup::replacePane(QWidget *oldPane, QWidget *newWidget)
+{
+	const int index = indexOfPane(oldPane); // 008b99f6
+	if (index == -1)
+		return;
+	QWidget *page = newWidget; // cast 011925c8 面(非空才取)
+	m_f38->replacePage(index, page); // FUN_005ac8d0
+}

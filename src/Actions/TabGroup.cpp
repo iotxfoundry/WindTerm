@@ -638,3 +638,24 @@ void TabGroup::setTabsClosable(bool on)
 // === onTabCloseRequested(int) ===
 // 语料连接面:QTabBar::tabCloseRequested → FUN_008fb5e0(activate 信号3
 //   = tabCloseRequested)信号转发。
+
+// FUN_005ac8d0(191B,0018:26480)换页真身:
+//   old = QStackedWidget::widget(this+0x60,index)@005ac8d0;空或等于新页 → 返;
+//   blockSignals(+0x60, on)@005ac91x → old->deleteLater()@005ac92x →
+//   i = currentIndex()@005ac94x → insertWidget(index, 新页)@005ac95x →
+//   removeWidget(old)@005ac97x → index <= i → setCurrentIndex(i)@005ac98x →
+//   blockSignals(off)。(两处实参 Ghidra 丢,按开关语义落 true/false 与 i)
+void TabGroup::replacePage(int index, QWidget *page)
+{
+	QWidget *old = m_f60 != nullptr ? m_f60->widget(index) : nullptr;
+	if (old == nullptr || old == page)
+		return;
+	m_f60->blockSignals(true); // @005ac91x
+	old->deleteLater();        // @005ac92x
+	const int current = m_f60->currentIndex(); // @005ac94x
+	m_f60->insertWidget(index, page);          // @005ac95x
+	m_f60->removeWidget(old);                  // @005ac97x
+	if (index <= current)
+		m_f60->setCurrentIndex(current);       // @005ac98x
+	m_f60->blockSignals(false);
+}

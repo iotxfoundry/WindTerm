@@ -29,6 +29,10 @@ public:
     void detachPane(MuxPaneView *page);                  // FUN_008dedae(0028:25986;addTab 对偶)
     int tabCount() const;                                // FUN_008de59c
     MuxPaneView *currentPane() const;                    // FUN_008de3b2(0028:25616)
+    // 008b9ad4(86B,0027.c:76920)换页:i = indexOfPane(old);i != -1 →
+    //   TabGroup::replacePage(i, new)(FUN_005ac8d0)。
+    void replacePane(QWidget *oldPane, QWidget *newWidget);
+
     // FUN_008b99f6(221B,0027.c:76894)页索引:stackIndexOf(pane) 命中即返;
     //   否则沿 parent 链找 KitDock(011ab930)→ stackIndexOf(dock);无 → -1。
     int indexOfPane(QWidget *pane) const;

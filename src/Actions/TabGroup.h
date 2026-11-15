@@ -111,6 +111,12 @@ public:
                    const QIcon &icon, const QString &tooltip);           // FUN_005abe1c
     int insertPageBack(QWidget *page, const QString &title,
                        const QIcon &icon, const QString &tooltip);       // FUN_005abf12
+    // FUN_005ac8d0(191B,0018:26480)换页:old = stack->widget(index);
+    //   old 空或 == 新页 → 返;blockSignals(on)→ old deleteLater →
+    //   insertWidget(index,新)@005ac91a → removeWidget(old)→
+    //   index <= 旧当前页 → setCurrentIndex(旧当前页)@005ac98x →
+    //   blockSignals(off)。
+    void replacePage(int index, QWidget *page);
 
     QToolButton *createButton(const QString &name, bool grabFocus);      // s_TabGroupButton_5acc3e(0018:26645)
     QToolButton *createToolButton(QWidget *parent, const QString &name,
