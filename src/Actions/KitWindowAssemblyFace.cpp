@@ -12,6 +12,7 @@
 //   失败腿 +0x208 → 尾钩 +0x250。
 #include <QApplication>
 #include <QDataStream>
+#include <QTimer>
 #include <QMenuBar>
 #include <QSplitter>
 #include <QStatusBar>
@@ -56,10 +57,20 @@ QMenuBar *kitMenubarAssemble(KitWindowFace *host)
 //   0,0,0,{FUN_006933ea,bar,cfg}) @0x6928d5(cited 回调体)。
 QStatusBar *kitStatusbarBuild(CGlobalConfigFace *container, QWidget *hostPane)
 {
-	Q_UNUSED(container); // 语料:仅作 singleShot 闭包第二实参(cited 腿)
+	Q_UNUSED(container); // 语料:仅作 singleShot 闭包第二实参(见下)
 	StatusBarFace *bar = new StatusBarFace(hostPane); // @0x692778(FUN_005a2d26)
 	bar->setObjectName(QStringLiteral("StatusBar"));  // @0x6927b0-7c7(语料重赋同值)
 	bar->showFaceMessage(QString(), 0);               // @0x692877(FUN_005a2e58)
+	// @0x6928d5:cfg 非空 → QTimer::singleShotImpl(0,0,0,{FUN_006933ea,
+	//   bar, cfg})——回调体(117B)= FUN_008a5c98(cfg).toList() →
+	//   FUN_005a4432(bar,&list)(两腿 cited,体未转写)。
+	if (container != nullptr) {
+		QTimer::singleShot(0, bar, [container]() {
+			/* FUN_008a5c98(container)→ FList / FUN_005a4432(bar,list)
+			   @006933ea — cited */
+			Q_UNUSED(container);
+		});
+	}
 	return bar;                                       // @rax → setStatusBar 实参
 }
 
