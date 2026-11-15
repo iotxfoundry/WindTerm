@@ -1862,6 +1862,58 @@ int main(int argc, char **argv)
 		}
 	}
 
+	// ======== dd. 批 156 组:深引擎底座头(DeepEngineFace.h)========
+	// 语料锚:9714b6(editctx_initThread 272B@0031.c:45546)/96a2f8
+	//   (piecetable_init 248B@39050)/96a280(种子 120B@39032)/88e5a0
+	//   (gapbuffer_reallocate 3525B@0027.c:43226)/93fc60(546B@5247)
+	//   — 底座头 = 声明层(EXT-BOUNDARY src/Ext 判例;批 111/117
+	//   "重开需改版底座头"挂账落库),偏移锁在头内 static_assert。
+	{
+		// dd1:SkipPartition50 字段前奏真身(9714b6 45556-45596 逐字面)
+		wt::SkipPartition50 *sp = wt::editctxInitThread009714b6();
+		expect(sp != nullptr && sp->vtbl == nullptr && sp->flag08 == 0
+		       && sp->ptA == nullptr && sp->ptB == nullptr,
+		       "dd1: sp50 {vt cited,[1..3]=0}(9714b6 45556-45560 字面)"
+		       " — 97142a 尾深引擎腿 cited 不落(字段停 prologue)");
+		expect(sp->bank != nullptr && sp->bank->packed8 == 0x100000000ull
+		       && sp->bank->mask14 == 0 && sp->bank->f10 == 0
+		       && sp->bank->f20 == nullptr && sp->bank->f28 == nullptr,
+		       "dd1: sp50.bank = 970850 44925-44938 0x30 字面{+8=0x1_0000_0000,"
+		       "+0x14&0x80000000,[3..5]=0}(三源同构:96a2f8/9714b6/970850)");
+		const wt::Inner20 *bi = static_cast<const wt::Inner20 *>(
+		    sp->bank->inner20);
+		expect(sp->bank->inner20 != nullptr
+		       && bi->w[0] == 0 && bi->w[3] == 0,
+		       "dd1: bank.inner20 = operator_new(0x20){0,0,0,0}(44985-44990"
+		       " / 39070-39075 / 45572-45577 三处逐字面同构)");
+		expect(sp->seedCnt28 == 1 && sp->f38 == 0 && sp->spin48 == 0,
+		       "dd1: sp50 [5]=1(45582 prologue)/[7]=0(45586)/spin=0(45590)");
+		expect(sp->tid30 == quint64(QThread::currentThreadId()),
+		       "dd1: [6] = QThread::currentThreadId()(45584)");
+		// dd2:serial 全局自增序(DAT_011be6f8 LOCK 面 45592-45596)
+		wt::SkipPartition50 *sp2 = wt::editctxInitThread009714b6();
+		expect(sp2->serial40 == sp->serial40 + 1,
+		       "dd2: [8] 自增序(DAT_011be6f0 族;96a2f8 39088-39092 同构)");
+		// dd3:ENodeScan::ctor0096f606 走新真身段(sp50/lexBank30 落位)
+		EditorEngine e1;
+		auto *s5 = static_cast<wt::ENodeScan *>(e1.m_ctx.eNodeGet(5, 0));
+		auto *in = static_cast<wt::WNodeInner *>(s5->inner);
+		expect(in->sp50 != nullptr && in->sp50->bank != nullptr
+		       && in->holder != nullptr,
+		       "dd3: 970850 真身段升级 — sp50=9714b6 字段前奏/bank30="
+		       "44925-44938(深引擎腿 97142a/93fc60/88e5a0 cited 调面在头)");
+		// dd4:底座头结构偏移锁(头内 16 条)恒过 + Inner20/Bank30 尺寸
+		expect(sizeof(wt::Inner20) == 0x20 && sizeof(wt::Bank30) == 0x30
+		       && sizeof(wt::SkipPartition50) == 0x50
+		       && sizeof(wt::PieceTable60) == 0x60,
+		       "dd4: 底座头尺寸锁 0x20/0x30/0x50/0x60(分配字面 44920/44925/"
+		       "45561/45531)+ 偏移锁 16 条(头内 static_assert 编译期恒过)");
+		// dd5:析构清偿(承载替生命周期;97142a 45523-45527 虚 D1 链
+		//   + 44945-44950 逐槽清偿 → 我方 delete 链走通即同相)
+		delete sp; delete sp2;
+		expect(true, "dd5: sp50 清偿走通(97142a D1 面承载替;无泄漏)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

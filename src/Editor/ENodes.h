@@ -23,6 +23,7 @@
 #include <QThread>
 #include <QtGlobal>
 #include "MarkersStore.h"   // 批 152:RsHolder20/makeHolder0x20 承载复用(词法栈 0x20 holder)
+#include "DeepEngineFace.h" // 批 156:深引擎底座头(API 面;偏移锁+调面声明,实现 cited)
 
 class EditorContext; // ENodeRunner 前向(仅存指针)
 
@@ -112,6 +113,19 @@ struct WNodeInner {
 	//   → 承载 = RsHolder20(空)—— 承载替字段(类尾追加,0x18 语料
 	//   分配尾外 — QUIRKS 怪癖登记)。
 	wt::RsHolder20 *holder = nullptr;   // puVar6 — 00970850 词法栈栈面
+	// 批 156:009708a1 0x50 SkipPartition 字段真身(编辑底座头
+	//   DeepEngineFace::SkipPartition50 — 偏移锁+prologue;97142a 尾
+	//   深引擎腿 cited 不落,字段停 prologue 同相)。承载于 holder
+	//   (RsHolder20.threadCtx 槽 = 语料 puVar6[1] 同槽 — 44924 写)。
+	wt::SkipPartition50 *sp50 = nullptr;
+	// 析构清偿(承载替生命周期;语料 970850 产物处置权在消费链 D1:
+	//   97142a 45523/45527 虚 D1 ptA/ptB + 44945-44950 bank30 逐槽
+	//   QMap/QHash/QList 清偿 + operator_delete 0x50 — inner D1 面)。
+	~WNodeInner()
+	{
+		delete sp50;             // SkipPartition50(含 bank30/inner20 逐级)
+		delete holder;
+	}
 	// 00970850 真身(consumes back==this;called from ctor0096f606/
 	// runReset0096f6fe — f10 槽语料语义未触,原样保留)
 	void rebuild00970850()
@@ -127,13 +141,21 @@ struct WNodeInner {
 		//   cited(0x50 SkipPartition 布局 + piecetable/gapbuffer 深引擎;
 		//   9714b6 全读,承载 = holder.threadCtx 置位同相)
 		holder->threadCtx = holder;          // cited — editctx_initThread 面
+		// 批 156:editctx_initThread 字段前奏真身(9714b6 45556-45596
+		//   逐字面 → DeepEngineFace;tail 97142a 深引擎腿 cited)
+		sp50 = wt::editctxInitThread009714b6();
 		// 009708bd:puVar8 = operator_new(0x30){vt 01192288,+8 旗,+0x14
 		//   mask,+0x18..0x28 0} → 93fc60 清偿 + gapbuffer_reallocate —
 		//   深引擎 cited;产出 0x30 消费面 = 词法栈本体(970bb0 D1 面
-		//   逐槽析构)→ 我方承载 = holder.rs RS8 直存(值面同相怪癖)
+		//   逐槽析构)→ 我方承载 = holder.rs RS8 直存(值面同相怪癖)。
+		//   批 156:0x30 构造字段真身 → DeepEngineFace::makeBank30
+		//   (逐字面;93fc60 清偿臂/88e5a0 重排臂 = 调面声明 cited)
 		// 00970a5b:puVar9 = operator_new(0x20){0,0,0,0} → puVar8[3] —
 		//   词法栈内层换新(cited 同上;RS8 重开 = gapbuffer_reallocate
-		//   (0,0,2) 值面同相)
+		//   (0,0,2) 值面同相;批 156:Inner20 字段真身落 sp50->bank->
+		//   inner20 — 词法栈 0x30 本体 = editctx 产物 sp50[4] 同一
+		//   face(44924 puVar6[1]=pvVar7 + 44945 puVar8[5] 清偿链互证)
+		sp50->bank->inner20 = new wt::Inner20{};   // 44974-44979 {0,0,0,0}
 		static_cast<RS8 *>(wt::holderRs(holder))->DeleteAll();
 		// 00970a82:scanner = operator_new(0x40);FUN_009cc22c(scanner,
 		//   holder) — 55B 全读 = bankCtorK3(MarkersStore 同体真身)。
