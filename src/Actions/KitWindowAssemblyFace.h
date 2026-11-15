@@ -26,6 +26,11 @@ void kitStatusbarAssemble(KitWindowFace *host);
 //   (RTTI 011ab390 = "9KitWindow");未命中 nullptr。菜单/弹窗族共同前置腿。
 KitWindowFace *kitWindowAncestor(QObject *object);
 
+// 008ca002(87B,0028.c:11430)TabGroup 弹菜单:menu() 容器 +
+//   kitFindOrCreateGroupMenu("TabGroup Popup")(批 189 真身)→ QMenu。
+class QMenu;
+QMenu *kitTabGroupPopupMenu(KitWindowFace *host);
+
 // King::assembleCentralSplitters(1010B,0028.c:13782):七槽中央树
 //   (+0x38..+0x68)+ 朝向/sizes/setCentralWidget(+0x68)。
 void kitCentralSplittersAssemble(KitWindowFace *host);

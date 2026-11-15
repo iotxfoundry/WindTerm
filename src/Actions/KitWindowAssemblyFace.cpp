@@ -257,3 +257,13 @@ KitWindowFace *kitWindowAncestor(QObject *object)
 	}
 	return nullptr;
 }
+
+// 008ca002(87B,0028.c:11430)TabGroup 弹菜单真身:
+//   FUN_006926a0 → menu() @008ca002;QByteArray "TabGroup Popup" @008ca03d;
+//   FUN_00692ef0(容器,名,host)= kitFindOrCreateGroupMenu(批 189 真身)。
+QMenu *kitTabGroupPopupMenu(KitWindowFace *host)
+{
+	return kitFindOrCreateGroupMenu(host->menu(),
+	                                QByteArrayLiteral("TabGroup Popup"),
+	                                host); // @008ca03d
+}
