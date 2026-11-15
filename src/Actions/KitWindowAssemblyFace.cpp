@@ -112,18 +112,42 @@ void kitCentralSplittersAssemble(KitWindowFace *host)
 	host->setCentralWidget(host->m_split0x68);          // @0x8cd436
 }
 
-// s_kit_startupSessions_8d2f7e(3122B,0028.c:17278)— cited 契约占位,体属批 193:
-//   已核契约(asm 0x8d2f8f 起):gate +0x30 != 0 → return 0;payload 空 →
-//   return 0;否则以魔数 0xb9e7e615 / 0xb9e7e621 / 0xb9e7e622 三段恢复
-//   (splitter state / 会话槽 / MenuBar·StatusBar·ToolBar 可见性,后者
-//   = 虚槽 +0x1d0(名,+bool 取反))+ 尾钩 +0x240(默认 FUN_008d5bee
-//   return 1)。当前调用点 payload 恒空(History 属性未设)→ 返回 0 与
-//   语料同相;整体真身化后替换本占位。
+// s_kit_startupSessions_8d2f7e(3122B,0028.c:17278)恢复分发真身(批 237):
+//   @008d2f8f gate +0x30 非 0 → 0;payload 空 → 0;
+//   @008d2fe5 QDataStream + startTransaction;>> magic @008d2ff9;
+//   magic < 0xb9e7e615 → FUN_008ce8f6(1347B 旧格式,cited);
+//   >> QByteArray(splitter 段)@008d302f → kitSplittersRestore(批 218);
+//   >> QByteArray(states 段)@008d3303 → kitSplittersStatesRestore(批 219);
+//   (flags&4)|| magic > 0xb9e7e621 → >> QByteArray(bars 段)@008d346b →
+//     kitWindowBarsRestore(批 193);
+//   尾钩 +0x240(默认 FUN_008d5bee = return 1;非默认才调,参数
+//     (stream,flags))cited;return 1 @008d3c17。
 bool KitWindowFace::kitWindowStartupSessions(const QByteArray &history, int hints)
 {
-	Q_UNUSED(history);
-	Q_UNUSED(hints);
-	return false; // cited — 3122B 体前两段未转写(payload 空腿同相)
+	if (m_assemble0x30 != 0) // @008d2f8f(门 != 0 → 0)
+		return false;
+	if (history.isEmpty()) // 空负载腿
+		return false;
+	QDataStream in(history); // @008d2fe5
+	in.startTransaction();   // @008d2fef(失败腿回滚同相)
+	quint32 magic = 0;
+	in >> magic; // local_10c @008d2ff9
+	if (magic < 0xb9e7e615u)
+		return false; // FUN_008ce8f6(1347B 旧格式)cited
+	QByteArray splitterBlob;
+	in >> splitterBlob;                      // @008d302f
+	kitSplittersRestore(this, splitterBlob); // 批 218(8d304b-3317)
+	QByteArray statesBlob;
+	in >> statesBlob;                            // @008d3303
+	kitSplittersStatesRestore(this, statesBlob); // 批 219(8d3323-340x)
+	const quint32 flags = static_cast<quint32>(hints);
+	if ((flags & 4u) != 0 || magic > 0xb9e7e621u) {
+		QByteArray barsBlob;
+		in >> barsBlob;                               // @008d346b
+		kitWindowBarsRestore(barsBlob, magic, flags); // 批 193(8d347b-356c)
+	}
+	// 尾钩 +0x240:非默认才调 (stream, flags)@008d3ba9 — cited。
+	return true; // @008d3c17
 }
 
 // s_kit_startupSessions_8d2f7e 尾段(栏可见性)— 0028.c:17450-17540 域,

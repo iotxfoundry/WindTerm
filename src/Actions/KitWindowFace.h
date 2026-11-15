@@ -89,8 +89,9 @@ public:
 	}
 	// FUN_008d3cc2(296B,0028.c:17649)延迟装配门 → KitWindowAssemblyFace.cpp
 	void kitWindowAssembleDeferred();
-	// s_kit_startupSessions_8d2f7e(3122B,0028.c:17278)cited 契约占位 →
-	//   KitWindowAssemblyFace.cpp(体属批 194;当前 payload 恒空,返回 0 同相)
+	// s_kit_startupSessions_8d2f7e(3122B,0028.c:17278)恢复分发真身(批 237):
+	//   gate → 空负载 → magic(0xb9e7e615 旧格式门)→ splitter 段 →
+	//   states 段 → bars 段(0xb9e7e621 门)→ 尾钩 0x240(cited)。
 	bool kitWindowStartupSessions(const QByteArray &history, int hints);
 	// s_kit_startupSessions 尾段(栏可见性,0028.c:17450 域)→ cpp
 	bool kitWindowBarsRestore(const QByteArray &frame, quint32 magic, quint32 flags);
