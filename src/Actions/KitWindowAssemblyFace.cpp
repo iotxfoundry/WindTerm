@@ -633,3 +633,28 @@ bool kitSplittersRestore(KitWindowFace *kit, const QByteArray &splitterBlob)
 	}
 	return true;
 }
+
+// 008d2f7e states 段真身(@008d3323-0x8d340x):
+//   in >> bool(local_10e)@008d3323-40 → *(this+0xe) 写(0xe*8 = +0x70 =
+//   m_flag0x70,ctor 初值 1 同址 — 双源一致);
+//   local_58/50/48 = param_1[0xd]/[0xb]/[0xc](= +0x68/+0x58/+0x60)→
+//   FUN_008d7840 组表 → 逐项 operator>>(QByteArray)→
+//   QSplitter::restoreState @008d33d1-e0。
+bool kitSplittersStatesRestore(KitWindowFace *kit, const QByteArray &statesBlob)
+{
+	if (kit == nullptr || statesBlob.isEmpty())
+		return false;
+	QDataStream in(statesBlob); // @008d3323 子流
+	bool flag = false;
+	in >> flag;                       // local_10e @008d3323
+	kit->m_flag0x70 = flag ? 1 : 0;   // pane+0xe = +0x70 写
+	QSplitter *order[3] = {kit->m_split0x68, kit->m_split0x58,
+	                       kit->m_split0x60}; // [0xd]/[0xb]/[0xc]
+	for (QSplitter *sp : order) {
+		QByteArray one;
+		in >> one; // @008d33d1
+		if (sp != nullptr)
+			sp->restoreState(one); // @008d33e0(几何面真库)
+	}
+	return true;
+}

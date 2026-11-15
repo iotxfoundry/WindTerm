@@ -743,7 +743,10 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 		//   (@008d3380-9d)→ 逐项 operator>>(QByteArray)+ QSplitter::
 		//   restoreState(@008d33d1-e0;splitter 本体 = param_1[0xb/0xc]
 		//   宿主槽族,cited 同上)。几何腿 = 真库委托(批 158 shim 同相);
-		{
+		if (auto *kitWin2 = dynamic_cast<KitWindowFace *>(panel)) {
+		// 批 219:states 段真身(+0x70 旗标 + 三槽序 [+0x68,+0x58,+0x60])
+		kitSplittersStatesRestore(kitWin2, statesBlob);
+	} else {
 			QDataStream states(statesBlob); // @008d3323 子流
 			bool gateFlag = false;
 			states >> gateFlag; // local_10e → pane+0xe 写 @008d3323-40
@@ -756,6 +759,7 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 				//   + 几何委托面同相,挂页腿待宿主槽批接线(铁律 6)。
 			}
 		}
+	} // else(非 KitWindow 宿主 cited 腿)
 	// @008d3601 flags&1 腿(startupChain 唯一调用点 flags=1 可达):
 	if ((flags & 1u) != 0) {
 		// FUN_008d7604(+9 表前置 47B cited — 表操作位)

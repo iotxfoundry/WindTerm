@@ -98,6 +98,12 @@ KitDockFace *kitCreateDock(bool withExpand, QWidget *parent);
 //   → 尾 >>BA → QSplitter::restoreState。
 bool kitSplittersRestore(KitWindowFace *kit, const QByteArray &splitterBlob);
 
+// 008d2f7e states 段(@008d3323-0x8d340x):
+//   >>bool → 写 +0x70(语料 pane+0xe = 0xe*8 = 0x70,与 ctor 初值 1 同址);
+//   三槽序 [+0x68,+0x58,+0x60](param_1[0xd]/[0xb]/[0xc])→ 逐项 >>BA →
+//   QSplitter::restoreState。
+bool kitSplittersStatesRestore(KitWindowFace *kit, const QByteArray &statesBlob);
+
 // 恢复链单页腿(008d2f7e 中段 @asm 0x8d3234-0x8d3260):
 //   withExpand = kit->+0x50->isAncestorOf(splitter)(rdi=+0x50,rsi=splitter);
 //   dock = kitCreateDock(withExpand, kit)(89d860)@0x8d3247;
