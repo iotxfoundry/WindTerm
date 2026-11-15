@@ -759,7 +759,6 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 				//   + 几何委托面同相,挂页腿待宿主槽批接线(铁律 6)。
 			}
 		}
-	} // else(非 KitWindow 宿主 cited 腿)
 	// @008d3601 flags&1 腿(startupChain 唯一调用点 flags=1 可达):
 	if ((flags & 1u) != 0) {
 		// FUN_008d7604(+9 表前置 47B cited — 表操作位)
