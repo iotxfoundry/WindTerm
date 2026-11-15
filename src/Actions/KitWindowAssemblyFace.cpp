@@ -519,12 +519,12 @@ int kitPanelToggle(TabGroup *tabs, const QString &name)
 //   idx1(FUN_0091a80c)→ FUN_008ca17a — 槽体未转写,cited 不落;
 //   尾 connect(panel, &QObject::destroyed, dock, &QObject::deleteLater)
 //   @0089daxx(sender=panel / receiver=dock 实证)。
-KitDockFace *kitCreateDock(QWidget *panel, QWidget *parent)
+KitDockFace *kitCreateDock(bool withExpand, QWidget *parent)
 {
-	if (panel == nullptr) // @5534x 空卫
+	if (parent == nullptr) // @5534x 空卫(param_1 = 宿主)
 		return nullptr;
 	const int behavior = Workspace::tabBarSelectionBehaviorOnRemove(); // 配置腿
-	KitDockFace *dock = new KitDockFace(panel, parent); // @0089d9d8(0x58)
+	KitDockFace *dock = new KitDockFace(withExpand, parent); // @0089d9d8(0x58)
 	dock->tabGroup()->tabBar()->setSelectionBehaviorOnRemove(
 	    static_cast<QTabBar::SelectionBehavior>(behavior)); // @0089d9e0
 	// idx0 → FUN_008ce100(= KitWindowFace::kitSetSlotExpanded,真身);

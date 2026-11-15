@@ -90,7 +90,7 @@ int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
 //   (FUN_008b8680 → 005abbc6 公开 API)@0089d9e0;双 connect + 尾部
 //   connect(panel::destroyed → dock::deleteLater)@0089daxx。
 class KitDockFace;
-KitDockFace *kitCreateDock(QWidget *panel, QWidget *parent);
+KitDockFace *kitCreateDock(bool withExpand, QWidget *parent);
 
 // 008b84b6(251B,0027.c:75629)按名查页位:归一名 → 逐 i<count
 //   stackWidgetAt(i)->objectName() == 名 → i;无 → -1(008b83ee 53B 取页)。

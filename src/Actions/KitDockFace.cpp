@@ -12,9 +12,9 @@
 //   QWidget::QWidget(this,param_3,0)@008b81b8;+0x38 = param_2 @008b81c8;
 //   +0x39 = 0 @008b81d0;+0x3c = 0;+0x44 = -1;+0x4c = -1 @008b81d8-1f4;
 //   setFocusPolicy(0)@008b8215;s_ExpandButton_8b7dd4(this);FUN_008b7f60(this)。
-KitDockFace::KitDockFace(QWidget *slot38, QWidget *parent)
-	: QWidget(parent, Qt::WindowFlags(0)) // @008b81b8(param_3 = parent)
-	, m_f38(slot38)                       // @008b81c8(+0x38)
+KitDockFace::KitDockFace(bool withExpand, QWidget *parent)
+	: QWidget(parent, Qt::WindowFlags(0))  // @008b81b8(param_3 = parent)
+	, m_withExpand(withExpand)             // @008b81c8(+0x38,bool)
 	, m_f39(false)                        // @008b81d0(+0x39)
 {
 	setFocusPolicy(Qt::NoFocus); // @008b8215(esi=0)
@@ -35,7 +35,7 @@ void KitDockFace::assembleChildren()
 {
 	m_tabs = new TabGroup(nullptr);              // @008b7df1
 	m_tabs->setObjectName(QStringLiteral("PaneGroup")); // @008b7e2c
-	if (m_f38 != nullptr)                        // @008b7e5x(+0x38 门)
+	if (m_withExpand)                            // @008b7e5x(+0x38 门)
 		m_tabs->createButton(QStringLiteral("ExpandButton"), true);
 	m_tabs->createButton(QStringLiteral("ConfigButton"), true); // @008b7e8x
 	m_tabs->createButton(QStringLiteral("CloseButton"), true);  // @008b7e9x

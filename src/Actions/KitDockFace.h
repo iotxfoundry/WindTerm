@@ -7,7 +7,10 @@ class TabGroup;
 // KitDockFace — 语料 KitDock(QWidget 子类,qt_metacast "KitDock" 0091aa00;
 // smeta 011ab100)承载面(批 207)。
 // ctor FUN_008b81b0(109B,0027.c:75478):
-//   QWidget(param_3,0)@008b81b8 → 字段:+0x38 = param_2(实参槽,cited 语义)
+//   QWidget(param_3,0)@008b81b8 → 字段:+0x38 = param_2 = **bool**
+//   (ExpandButton 门控;批 216 勘正:s_ExpandButton_8b7dd4 的
+//   `if (+0x38 != 0) createButton("ExpandButton")` 与 call site
+//   89d860(param_2 = isAncestorOf 结果 bool)双源一致)
 //   / +0x39 = 0(浮停旗标,状态面 +0x39 双源:008b86e4 门 + StateStore
 //   dock_toggleFloat 注释)/ +0x3c = 0 / +0x44 = -1 / +0x4c = -1
 //   → setFocusPolicy(0)@008b8215 → s_ExpandButton_8b7dd4(this) cited
@@ -17,8 +20,8 @@ class TabGroup;
 class KitDockFace : public QWidget {
 	Q_OBJECT
 public:
-	// FUN_008b81b0:param_2 = +0x38 实参槽(语义 cited),parent = QWidget 父。
-	explicit KitDockFace(QWidget *slot38 = nullptr, QWidget *parent = nullptr);
+	// FUN_008b81b0:withExpand = +0x38(ExpandButton 门控),parent = QWidget 父。
+	explicit KitDockFace(bool withExpand = false, QWidget *parent = nullptr);
 
 	// FUN_008b86e4(153B,0027.c:75642)收起行为:
 	//   非浮停(+0x39 == 0)且父为 QSplitter 且 count() < 2 → 对应槽位
@@ -66,6 +69,6 @@ private slots:
 
 private:
 	TabGroup *m_tabs = nullptr; // +0x30(语料 4 路接线与页操作共同宿主)
-	QWidget *m_f38 = nullptr; // +0x38(ctor 实参槽,语义 cited)
-	bool m_f39 = false;       // +0x39 浮停旗标
+	bool m_withExpand = false; // +0x38 ExpandButton 门控(批 216 勘正)
+	bool m_f39 = false;        // +0x39 浮停旗标
 };
