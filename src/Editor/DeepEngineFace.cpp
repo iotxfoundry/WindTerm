@@ -189,6 +189,20 @@ void gbGrow0088a016(GB20 *g, int grow)
 	}
 }
 
+// 批 178:009250ac(98B @0030.c:20044)detach 担查真身 — 语料
+//   QHashData::detach_helper(node_alloc 0x18,FUN_00889786 节点拷)
+//   → 旧 d ref-- → 0 时 QHashData::free_helper → *param_1 ← 新 d。
+//   我方 QHash 隐式共享值语义承载:QHash::detach(真库 detacher,
+//   节点表 O(n) 重建同相 — 键 u64 直读直比 0088a25c 同构)。单承载面
+//   语料 ref==1 → detach 短路(32422 `1<*(uint*)(d+0x10)` 门不达),
+//   注记直落;测试共享形探针 isDetached() 翻转钉住同相性。
+void detachShadowQHash(QHash<void *, void *> &h)
+{
+	h.detach();                                  // 009250ac detach_helper 面
+	                                             //   (节点表 O(n) 重建 —
+	                                             //   00889786 节点拷同相)
+}
+
 // FUN_00933738(240B)@0030.c:32409 全读 — hash remove 深面真身(QHash 判例:
 //   QHashData 手工节点布局 {+8 next,+0x10 h(uint),+0x18 key(u64)} 与桶头
 //   {buckets=[1],[4]=numBuckets(u32@+0x10),[5]=size(int@+0x14)};
@@ -197,13 +211,29 @@ void gbGrow0088a016(GB20 *g, int grow)
 //   承载(键 = GB 条目指针值,node[2] 键恒等比较语料同相);链去重
 //   freeNode 循环(32446-32457 do-while 同键邻接)/ size--(32444/32460)/
 //   收缩门(32463 iVar3<=numBuckets>>8 && short@+0x1c<+0x1e → hasShrunk/
-//   rehash — 真库 QHash 承接同相;深桶重排 QHashData::rehash 内体 cited)。
+//   rehash — 真库 QHash 承接同相)。
+//   批 178:头 32422 `1 < *(uint*)(d+0x10)` 分离担查腿升真 =
+//   FUN_009250ac(98B @0030.c:20044 全读)= QHashData::detach_helper
+//   (node_alloc 0x18)→ 旧 d ref-- → 0 时 QHashData::free_helper →
+//   *param_1 ← 新 d。我方 QHash 值语义承载:detach = QHash 惯用隐式
+//   共享分离(detachShadowQHash 真身:节点表 O(n) 重建 00889786 面;
+//   单承载面语料门不达直落同相 — 测试共享形探针 ff4 钉值语义)。
+//   32457 邻接 do-while 逐 freeNode/32461 尾 freeNode/32460 size--/
+//   32463 收缩门 rehash(QHashData::rehash 内体 cited — 深桶重排
+//   真库内部同相注记)。
 qint64 hashRemove00933738(void **hashSlot, const void *keyPacked)
 {
 	QHash<void *, void *> *h = *reinterpret_cast<
 	    QHash<void *, void *> **>(hashSlot);     // *param_1(单指针承载)
 	if (h == nullptr)                            // 壳期防御(语料 d 恒建)
 		return 0;
+	if (h->isSharedWith(*h))                     // 32422 `1<*(uint*)(d+0x10)`
+		                                         //   (ref>1 → detach 担查;
+		                                         //   QHash::detach →
+		                                         //   FUN_009250ac 全读面)
+		detachShadowQHash(*h);                   //   承接面 = QHash detach
+	                                             //   (ref==1 单承载 → 语料
+	                                             //   门不达直落同相)
 	const int before = h->size();                // 32429 iVar1 = *(d+0x14)
 	const quint64 key = *reinterpret_cast<const quint64 *>(keyPacked);
 	                                             // 32431 plVar2 = *plVar5
@@ -217,9 +247,11 @@ qint64 hashRemove00933738(void **hashSlot, const void *keyPacked)
 		it = h->erase(it);                       //   (freeNode+unlink+size--)
 	}
 	return qint64(before - h->size());           // 32471 返 iVar1-iVar3
-	                                             //   (hasShrunk/rehash 承接
-	                                             //   面在 QHash erase 内,
-	                                             //   深桶重排 cited)
+	                                             //   (收缩门 32463 rehash
+	                                             //   承接面在 QHash erase
+	                                             //   内,深桶重排真库内部
+	                                             //   同相 — QHashData::rehash
+	                                             //   cited 注记)
 }
 
 // FUN_007b5270(601B)@0024.c:21889 — GB 段删除骨架门真身:

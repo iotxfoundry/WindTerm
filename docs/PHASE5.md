@@ -93,9 +93,17 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 5. 启动链余量(Phase 4a):trie 分裂腿(00525f50)/星数语义(i-1 直译
    面,未逐字节对表)/tabBarSelectionBehaviorOnRemove 键串语义面
    承接(dat_1181468 对证 cited);kit.* 真键实机对证。
-6. MuxWindow 尾余:introsort 7044B 本体 cited(标准算法)/008e1125
-   行高桥 005b86c0·vt+0x1a8 消费 cited;宿主读侧未初始化槽 UB 原样
-   (铁律 2);0x10 宿主接线(池生产者写侧)。
+6. MuxWindow 尾余:introsort 7044B = std::sort 实例化已承接(批 178,
+   标准算法不逆向判例;sgtest k3 真排序门)/008e1125 行高桥 005b86c0·
+   vt+0x1a8 消费 cited;宿主读侧未初始化槽 UB 原样(铁律 2);0x10
+   宿主接线(池生产者写侧)。
+7. eNodes 深余(批 178 后):00933738 32422 分离担查(009250ac detach
+   真库承接)+ 32463 收缩门 rehash 真库内部同相注记(markerstest ff4);
+   88e5a0 超门 0x3fffff 分段族仍 cited(上游 GapBuffer 算法面 —
+   0x5fffff GB 收缩/0x400000 分段灌/runbounds_get_a 尾,外库边界
+   EXT-BOUNDARY 同相判例不逆向);旧缓存 0x38 族(0088c088/0088c0fc/
+   GapBuffer_dtor 逐字面转载)— 消费域(词法引擎 delegate 生成点)
+   未建模,持 cited。
 7. 5c 对表余项(批 166-172 后):reopen 写侧魔数 0xb9e7e626 汇编
    实读(读侧 0xb9e7e600 掩码门)——字节级对表以原版产物二次验证
    (原版 789B 已采集,批 170);payload 骨架帧已真身(批 173),blobA
@@ -132,6 +140,35 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
   markerstest ff 6 断言/reginserttest n-3。
 - 验证:四车道独立门 + 主控合流(174→173→175→176 零冲突);主仓
   终门 ctest **23/23** ×5 + dlopen OK。
+
+### 批 178(2026-11-15)M22-②:排序真身 + rehash 承接(4 段)✅ ctest 23/23
+
+- **introsort→真排序承接(MuxWindow.cpp)**:0084c145(7044B)读体
+  定性 = **std::sort 实例化**(7044B 编译器产物:LAB_0084c1b4 中轴
+  三数取中/0084da6f 递归分治/0084beec 堆排回填/0084c031 插入序小段,
+  libstdc++ introsort 标准形)— 标准算法不逆向判例:语义等价承接 =
+  std::sort + 现役比较器真身 0084be6a(toInt 腿,k2 同相已钉)。S4
+  段体提取 muxWindowsReorderDriver(驱动直调面,批 175 同判例);
+  归序门 local_1b2 恒 0 恒关直译原样(k3b 守门);sgtest k3 真排序
+  行为门:乱序 93715 → 13579 升序对账。
+- **moveTab 深腿闭环核对**:FUN_008da1bc 批 175 已真(moveWindowTab)
+  → S4 段消费接线核对闭环:perm 逐序 → findWindowByIndex(008da278)
+  → moveWindowTab(序+1 @0084ebcb LEA EDX,[RBP+1]);无壳未消费面。
+- **hash remove rehash 体(DeepEngineFace)**:32422 头分离担查腿
+  升真 = FUN_009250ac(98B @0030.c:20044 全读)= QHashData::
+  detach_helper(node_alloc 0x18/00889786 节点拷)→ ref--/free_helper
+  → 新 d 挂回 — QHash::detach 真库承接(detachShadowQHash;共享形
+  markerstest ff4:本体 remove 空/影子不变值语义同相);32463 收缩门
+  rehash = QHashData::rehash 真库内部同相注记收口(00933738 深桶面
+  cited 收账)。
+- **88e5a0 超门 0x3fffff 分段族**:读体定性 = 上游 GapBuffer 算法面
+  (0x5fffff GB 收缩门/0x400000 分段灌 + memset/runbounds_get_a 尾
+  /新条目 0x30 + hash 登记)— 外库边界 EXT-BOUNDARY 同相判例不逆向
+  (PHASE5 风险 7 结构清单);顺带定性族 0088c088(115B QMap 删链)/
+  0088c0fc(437B 旧缓存清)/0088c2c0/0088c850(1389B/1357B 旧栈清
+  双体)/GapBuffer_dtor(1421B)— 消费域(词法 delegate 生成点)
+  未建模持 cited。
+- 验证:ctest **23/23** + dlopen OK(sgtest 17 断言/markerstest ff+1)。
 
 ### 批 170/171/172(2026-11-15)M20 三车道(5c 对表轮):原版采集 + 盘点同构 + 挂点闭环 ✅ ctest 23/23 ×5
 

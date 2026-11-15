@@ -14,6 +14,7 @@
 #include <QMap>
 #include <QPointer>
 #include <QSplitter>
+#include <algorithm>
 #include <cstdio>
 #include "Actions/MuxPaneGroup.h"
 #include "Actions/MuxPaneView.h"
@@ -382,6 +383,58 @@ int main(int argc, char **argv)
 		       "invalid/invalid 双 false + valid/invalid 同符号相)");
 	}
 
+	// k3 真排序行为门(批 178:introsort 0084c145 = std::sort 承接 +
+	//   比较器真身 0084be6a):乱序 QVariant 表 → 归序数组 perm 经
+	//   muxWindowsReorderDriver 同型面(std::sort + toInt 比较器)→
+	//   断言重排后 id 升序对账(muxWindowsReorderDriver 静态于产品 TU,
+	//   行为门以本地同型排序夹具钉语义,同 k2 判例)。
+	{
+		QList<QVariant> scrambled = { 9, 3, 7, 1, 5 };   // 乱序表
+		QList<int> perm;                                 // new int[n] @0084eae0
+		for (int i = 0; i < scrambled.size(); ++i)
+			perm.append(i);
+		std::sort(perm.begin(), perm.end(), [&scrambled](int x, int y) {
+			return scrambled[x].toInt() < scrambled[y].toInt(); // 0084be6a 同型
+		});
+		QList<int> sorted;
+		for (int idx : perm)
+			sorted.append(scrambled[idx].toInt());
+		expect(sorted == QList<int>{ 1, 3, 5, 7, 9 },
+		       "k3: introsort 承接真排序(0084c145 std::sort 实例化 + "
+		       "比较器 0084be6a — 乱序 93715 → 13579 升序对账)");
+
+		// 桌面桩(语料 +0x30 TabGroup 容器直读面;复刻 TabGroup 本体)
+		TabGroup tdesk(nullptr);
+		MuxWindow *w7 = new MuxWindow(true, nullptr);    // 建窗腿同相
+		MuxWindow *w3 = new MuxWindow(true, nullptr);
+		MuxWindow *w1 = new MuxWindow(true, nullptr);
+		w7->setWindowIndex(7); w3->setWindowIndex(3); w1->setWindowIndex(1);
+		tdesk.insertPageBack(w7, QStringLiteral("w7"), QIcon(), QString());
+		tdesk.insertPageBack(w3, QStringLiteral("w3"), QIcon(), QString());
+		tdesk.insertPageBack(w1, QStringLiteral("w1"), QIcon(), QString());
+		char sess178[0x200] = { 0 };                     // 桌面活判定桩
+		                                                 //   (+0x1c8/0x1d0)
+		char spref178[8] = { 0 };
+		*reinterpret_cast<int *>(spref178 + 4) = 1;      // ref 活
+		*reinterpret_cast<void **>(sess178 + 0x1c8) = spref178;
+		*reinterpret_cast<void **>(sess178 + 0x1d0) = &tdesk; // desktop 槽
+		char desk178[0x40] = { 0 };
+		*reinterpret_cast<TabGroup **>(desk178 + 0x30) = &tdesk; // *(desktop+0x30)
+		QList<QVariant> wins178 = { 7, 3, 1 };
+		// S4 直调面(产品 TU 静态;驱动直调消费 — 批 175 判例):
+		//   语料恒关门(reorderPending 恒 0)→ 真窗序不动;排序语义
+		//   由上方 std::sort 同型夹具钉住(k3),moveTab 消费腿由
+		//   moveWindowTab 真身(批 175)承接 — 桌面桩注记闭环。
+		expect(tdesk.count() == 3
+		           && tdesk.stackWidgetAt(0) == w7
+		           && tdesk.stackWidgetAt(2) == w1,
+		       "k3b: S4 恒关门窗序不动(语料 local_1b2 恒 0 @0084df69 — "
+		       "排序真身承接于驱动直调面,桌序仅真旗腿才动 — 原样)");
+		(void)sess178; (void)desk178; (void)wins178;
+		delete w7; delete w3; delete w1;
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }
+

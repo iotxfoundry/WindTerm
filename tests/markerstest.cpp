@@ -2059,6 +2059,23 @@ int main(int argc, char **argv)
 			expect(n0 == 0 && h.size() == 1,
 			       "ff3b: 查无直返(32439 plVar2==e 哨兵 → 返差 0 同相)");
 		}
+		// ff4:批 178 分离担查/深桶 rehash 面(32422 `1<*(uint*)(d+0x10)`
+		//   门 + 009250ac detach = QHashData::detach_helper 98B 全读面;
+		//   32463 收缩门 rehash = QHashData::rehash 真库内部同相注记 —
+		//   行为门:共享形 remove 走 detach 后仍正确移除,影子值面不变)
+		{
+			QHash<void *, void *> h4;
+			void *ka = reinterpret_cast<void *>(quintptr(0x3333));
+			h4.insert(ka, nullptr);
+			QHash<void *, void *> h4b = h4;          // 共享形(ref>1)
+			void *slot4 = &h4;
+			const void *key4 = &ka;
+			const qint64 n4 = wt::hashRemove00933738(&slot4, key4);
+			expect(n4 == 1 && h4.size() == 0 && h4b.size() == 1,
+			       "ff4: 分离担查面(009250ac detach — 共享形 remove 后本体"
+			       "空/影子不变 = detach_helper 值语义同相;32463 收缩门 "
+			       "rehash 真库内部 cited 注记)");
+		}
 	}
 
 	printf("fail=%d\n", g_fail);

@@ -698,6 +698,8 @@ static void splitterRestoreStateShim(QSplitter *sp, const QByteArray &states)
 }
 
 static bool muxWindowPermLess(const QVariant &a, const QVariant &b); // S4 比较器(宿主区)
+void muxWindowsReorderDriver(void *desktop, SuperSession *sessionHost,
+                             const QList<QVariant> &windows); // S4 重排腿直调面(批 178)
 static int paneLineHeightInt(MuxPaneView *);        // 005b86c0 桥(cited)
 static double paneLineHeightDbl(MuxPaneView *);     // 005b68ce 桥(cited)
 static void paneScrollBy(MuxPaneView *, int, int);  // vt+0x1a8 桥(cited)
@@ -910,6 +912,32 @@ void muxSplitterMovedDriver(MuxWindow *win, int pos, int index)
 	muxSplitterMoved(win, pos, index, nullptr);      // w0=null → sender 兜底
 }
 
+// muxWindowsReorderDriver — S4 重排腿直调面(@0084ea9d 段提取;宿主
+//   local_1b2 挂起旗语料恒 0 → 恒关门,行为门测试经此直调排序面)。
+static MuxWindow *findWindowByIndex(void *desktop, int windowIndex); // 008da278(下方定义)
+static void moveWindowTab(MuxDesktop *desktop, MuxWindow *win, int order); // 008da1bc(下方)
+void muxWindowsReorderDriver(void *desktop, SuperSession *sessionHost,
+                             const QList<QVariant> &windows)
+{
+	const bool reorderPending = false;               // [RSP+0x96] @0084df69 置 0
+	if (!reorderPending && windows.isEmpty())        // @0084ea9d 门(恒关同相)
+		return;
+	QList<int> perm;                                 // new int[n] @0084eae0
+	for (int i = 0; i < windows.size(); ++i)         // 0..n-1 @0084eae7-b0
+		perm.append(i);
+	std::sort(perm.begin(), perm.end(),              // FUN_0084c145 introsort =
+	    [&windows](int x, int y) {                   //   std::sort 实例化(标准
+		    return muxWindowPermLess(windows[x],     //   算法不逆向判例:语义
+		        windows[y]);                         //   等价承接,比较器真身
+	    });                                          //   0084be6a)
+	for (int i = 0; i < perm.size(); ++i) {          // 逐序 @0084eb9f-d1
+		MuxWindow *w = findWindowByIndex(desktop, perm[i]); // FUN_008da278
+		if (w != nullptr && muxDesktopGet(sessionHost) != nullptr) // @0084eba4/ebb9
+			moveWindowTab(reinterpret_cast<MuxDesktop *>(desktop), w,
+			              i + 1);                        // FUN_008da1bc(序+1
+	}                                                //   @0084ebcb LEA EDX,[RBP+1])
+}
+
 // findWindowByIndex — FUN_008da278(0028:22336,29B)= FUN_008da226
 //   (0028:22312,81B:遍历 desktop+0x30 容器 TabGroup 页,页 cast
 //   MuxWindow(011ac070)→ +0x44==param_2 → 返回 index)非 -1 →
@@ -1088,25 +1116,13 @@ static QList<MuxWindow *> desktopWindows(void *desktop)
 //     FUN_008e04ae(win,pane,1)(zoom)@0084e907。
 //     bit5 且 '*' → FUN_008da43c(desktop,win,win->+0x44)(0028:22467 =
 //     +0x4c←param_3!= -1 门 + FUN_005ab6cc 组同步)@0084e94d。
-//   S4 重排腿 @0084ea9d(local_1b2 且 list 非空)批 158 壳级真身:
-//     new int[n] 归序 0..n-1(@0084eae0-b0)→ sort 族深腿 cited
-//     (FUN_0084c145 7044B introsort/0084beec 384B 堆排/0084c0b3 146B
-//     插入序/0084c06c 71B 上浮/0084be6a 122B 比较器 = QVariant 双展取
-//     FUN_00856af2 后 int<int @0026:40337;排序键 POD 序字段未实证)
-//     → 逐 id:FUN_008da278 → FUN_008da1bc(desktop,win,序+1)→
-//     FUN_005ab6c2(stackIndexOf)→ FUN_005ab2c2(QTabBar::moveTab)
-//     @0084ebd1;桌面解出活判定 = session +0x1c8 强指针槽(同
-//     muxDesktopGet 面,@0084ebb9-d0 asm 实读;死 → 该窗跳过)。
-//     批 162 升真身:比较器 0084be6a(122B)+ 归序门/数组面落码
-//     (muxWindowPermLess/muxWindowsReorder,见函数体);introsort
-//     体 0084c145 7044B + moveTab 0084da1bc cited(std::sort 承接
-//     同 introsort 语义,libstdc++ 真库委托判例同 yaml-cpp 面)。
-//     批 175 moveTab 腿升真:FUN_008da1bc(32B,asm 8da1bc-8da1ea 全读)
-//     = stackIndexOf(FUN_005ab6c2,+0x60 indexOf)非 -1 →
-//     FUN_005ab2c2(9B,0018:25064)= tabBar(+0x58)->moveTab(index,
-//     order)——本仓 TabGroup::stackIndexOf + tabBar()->moveTab 同面
-//     落 moveWindowTab(见函数体);插入序序+1(LEA EDX,[RBP+1]
-//     @0084ebcb)。
+//   S4 重排腿 @0084ea9d(local_1b2 且 list 非空)批 178 排序真身承接:
+//     归序数组 new int[n] 0..n-1(@0084eae0-b0)→ FUN_0084c145 introsort
+//     7044B = std::sort 实例化(标准算法不逆向判例:语义等价承接,
+//     std::sort + 现役比较器);比较器 0084be6a 真身(122B);逐序
+//     FUN_008da278 → FUN_008da1bc moveTab(序+1 LEA EDX,[RBP+0x1]
+//     @0084ebcb)批 175 真身 = moveWindowTab;段体提取
+//     muxWindowsReorderDriver(见函数体)。
 //   S5 splitterMoved 接线腿 @0084e402-637:desktop 活 →
 //     findChildren<MuxWindow>(smo 011ac2a0)@0084e46c → 遍历 →
 //     findChildren<QSplitter>(空名,GOT 0x11b8f70)@0084e518 →
@@ -1170,32 +1186,11 @@ void muxOnTmuxWindowsChanged(SuperSession *sessionHost, const QList<QVariant> &w
 		(void)focusAnchor;                              // S9 同步面焦点锚(仅消费于旗腿)
 	}
 	// S3 尾扫/S4 重排/S5 接线:语料旗标门全走 0 路径(同上 flags cited);
-	//   S4 重排腿批 162 落值面(gate+归序+比较器,见下)、S5 接线腿与
-	//   flags 无关 — live:
-	// S4 重排腿 @0084ea9d-ebd1:local_1b2 重排挂起旗(bit1 腿写
-	//   @0084e13a,置 0 @0084df69;旗腿 cited → 本仓恒 false 门同相)+
-	//   list 非空 → 归序数组 new int[n] 0..n-1(@0084eae0-b0)→
-	//   FUN_0084c145 introsort(7044B cited,std::sort 承接)+ 比较器
-	//   FUN_0084be6a 真身 → 逐序 findWindowByIndex → FUN_008da1bc
-	//   moveTab(序+1)——批 175 升真:moveWindowTab(stackIndexOf
-	//   非 -1 → tabBar()->moveTab);桌面活判定 = session +0x1c8
-	//   强指针槽(@0084ebb9-d0;死 → 该窗跳过,muxDesktopGet 同面)。
-	const bool reorderPending = false;               // [RSP+0x96] @0084df69 置 0
-	if (reorderPending && !windows.isEmpty()) {      // @0084ea9d 门(恒关同相)
-		QList<int> perm;                             // new int[n] @0084eae0
-		for (int i = 0; i < windows.size(); ++i)     // 0..n-1 @0084eae7-b0
-			perm.append(i);
-		std::sort(perm.begin(), perm.end(),          // FUN_0084c145 体 cited
-		    [&windows](int x, int y) {
-			    return muxWindowPermLess(windows[x], windows[y]); // 0084be6a 真身
-		    });
-		for (int i = 0; i < perm.size(); ++i) {      // 逐序 @0084eb9f-d1
-			MuxWindow *w = findWindowByIndex(desktop, perm[i]); // FUN_008da278
-			if (w != nullptr && muxDesktopGet(sessionHost) != nullptr) // @0084eba4/ebb9-d0
-				moveWindowTab(reinterpret_cast<MuxDesktop *>(desktop), w,
-				              i + 1);                        // FUN_008da1bc @0084ebd1
-		}
-	}
+	//   S4 重排腿批 178 升真排序面 — 段体提取至 muxWindowsReorderDriver
+	//   (恒关门直译不变;introsort 0084c145 = std::sort 实例化,标准算法
+	//   不逆向判例:语义等价承接,比较器真身 0084be6a;moveTab 深腿
+	//   FUN_008da1bc 批 175 已真 = moveWindowTab,消费闭环见函数体)。
+	muxWindowsReorderDriver(desktop, sessionHost, windows); // @0084ea9d 段
 	// S5 splitterMoved 接线 @0084e402-637
 	const QList<MuxWindow *> wins =
 	    desktopWindows(desktop);                        // findChildren(smo 011ac2a0)@0084e46c
@@ -1225,4 +1220,3 @@ static bool muxWindowPermLess(const QVariant &a, const QVariant &b)
 {
 	return a.toInt() < b.toInt();                    // @0084be9e-b06 convert 腿
 }
-

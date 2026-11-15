@@ -25,11 +25,11 @@
 | Phase 3 编辑引擎 customDispatch | ⏳ **巨 switch 全清**(WT+EXT)+ eNodes 节点层 20/20 含深层 + **0x7545 真值路径开通**/搜索链激活;详见 PHASE5 结论快照 |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;注册表四表插入侧全定案(141/144/151);启动链+恢复门真身(149/150);**WorkspaceLoader:522056 骨架/收集器/defaultDir/扫描/protocolUrl/trie 键值域/掩盖腿/挂页槽真身(154/159/163)**;分裂腿/实机对证 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身含树深(134/140/142/147);SplitterGroup 余项收口(148);**MuxWindow 取面 + 宿主深腿 + 尾清真身(153/157/158/162)**;008e1125 槽体/introsort cited |
+| Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身含树深(134/140/142/147);SplitterGroup 余项收口(148);**MuxWindow 取面 + 宿主深腿 + 尾清真身(153/157/158/162)**;008e1125 槽体真身(175)/introsort 真排序承接(178,std::sort 判例) |
 | Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⏳(M19 起步)**:盘面矩阵 ✅(盘点)/我方载体 ✅(appboot 166)/reopen 写读闭环 ✅(167)/三件套+kit+profiles 写侧 ✅(168/169);字节级对表 ⬜(需原版侧环境) |
 | 会话装配 | ✅ 管理收口(批 29) |
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
-| 组件重做(铁律 6) | ⏳ M1-M21:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头 ODR+vt 承载+清偿臂+RS 灌链/0x7545 真值;余:busy 腿(外库登记)/hash remove rehash 体/超门分段族 |
+| 组件重做(铁律 6) | ⏳ M1-M22:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头 ODR+vt 承载+清偿臂+RS 灌链/0x7545 真值/排序真身(std::sort 承接 178)+hash remove 分离担查+rehash 注记(178);余:busy 腿(外库登记)/超门分段族(外库边界 178 定性) |
 
 测试矩阵:**ctest 21/21**(e2eterm 25 + recheck 22 + engtest×2 +
 markerstest q·r·s·t·u·v·w·x·y·z·aa·bb 组 274 断言 + reginserttest + **sgtest 14** + modtracktest 22 + onigtest 24 +

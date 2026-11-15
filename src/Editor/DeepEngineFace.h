@@ -198,13 +198,17 @@ void cacheEntryRelease(void *ent);
 //   realloc 扩 221B @39819 — 逐字面;shrink4 = ×4 元素版另一 GB 族不落)
 void gbShrink00889e2e(GB20 *g, int to);
 void gbGrow0088a016(GB20 *g, int grow);
-// FUN_00933738(240B @0030.c:32409)hash remove 深面 — QHash 手工节点链
-//   移除真身(QHash 判例:QHashData 手工桶/链布局逐字面;语料底座改版
-//   定性同 kwCacheFill 判例)。param_1 = &hashData 槽(单指针承载:
+// FUN_00933738(240B)@0030.c:32409 hash remove 深面 — QHash 承载真身
+//   (分离担查 009250ac detach 面 + 深桶 rehash 真库同相注记 — 批 178
+//   升真注记;param_1 = &hashData 槽(单指针承载:
 //   QHash<u64,CacheEntry30*> 形 — 键 u64 = GB 条目指针值,桶链值字面),
 //   param_2 = &键(local_50 密排 {key});返回移除计数。
 //   5260 delegate vt+0x30 计数源语料形态见 lexStackClear 注。
 qint64 hashRemove00933738(void **hashSlot, const void *keyPacked);
+// 批 178:QHash 分离担查真身(009250ac 98B 全读 = QHashData::detach_helper
+//   → ref--/free_helper → 新 d 挂回;我方 QHash 隐式共享值语义承载面 —
+//   节点表 O(n) 重建 = QHash detacher 同相,键 u64 直读直比 0088a25c 同构)。
+void detachShadowQHash(QHash<void *, void *> &h);
 // FUN_007b5270(601B)@0024.c:21889 — GB 段删除(bank, pos, len;96a280 种子
 //   腿 39045 调面 (bank,0,len))— 骨架门真身(21919-21923);段插体
 //   0x18!=0 臂(FUN_007abef6 324B GB 删段)f10 尾计 cited。
