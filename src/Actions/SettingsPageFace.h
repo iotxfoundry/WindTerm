@@ -91,6 +91,12 @@ public:
 	//   index 为 -1 时取列表当前行。
 	void commitCurrentRow(int index);
 
+	// FUN_0072edfe(521B,0022.c:55060 邻)重建列表:
+	//   行表 = FUN_006a4d90(DAT_011c1b00)(全局单例,cited)→ 逐行
+	//   rowListItem(0072bf8a)→ insertItem(count)→ 空表 resetRow(false);
+	//   否则 resetRow(true)+list setFocus(3)+setCurrentItem(item0, 0x13)。
+	void rebuildRowsFromGlobal();
+
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
 	//     (字符串形 "2accepted()"/"1accept()");

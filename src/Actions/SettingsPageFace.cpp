@@ -308,3 +308,30 @@ void SettingsPageFace::commitCurrentRow(int index)
 	// FUN_0072d84e(this,row) / item setData(0,名) / 图标刷新 /
 	// FUN_0056642a / FUN_0072d304 — 全部 cited(体未转写)。
 }
+
+// FUN_0072edfe(521B)重建列表真身:
+//   @0072edfe src = FUN_006a4d90(DAT_011c1b00)(全局行表单例,cited);
+//   +0xb8 ← src(refcount 拷贝);@0072efxx 逐行:FUN_0072bf8a(行)生成项 →
+//   QListWidget::insertItem(+0xb0, count)@0072efxx;
+//   @0072efxx count == 0 → FUN_0072d0f2(this,0);
+//   否则 FUN_0072d0f2(this,1)+ setFocus(+0xb0,3)+ item(0) 非空 →
+//   setCurrentItem(item, 0x13)。
+void SettingsPageFace::rebuildRowsFromGlobal()
+{
+	// FUN_006a4d90(DAT_011c1b00) 全局行表 — cited(源面未转写)
+	if (m_listB0 == nullptr)
+		return;
+	m_listB0->clear();
+	for (const SettingsRow &row : m_rowsB8) {
+		if (QListWidgetItem *item = rowListItem(row)) // 0072bf8a
+			m_listB0->insertItem(m_listB0->count(), item);
+	}
+	if (m_listB0->count() == 0) {
+		resetRow(false); // @0072efxx
+		return;
+	}
+	resetRow(true);
+	m_listB0->setFocus(Qt::OtherFocusReason); // 3
+	if (QListWidgetItem *first = m_listB0->item(0))
+		m_listB0->setCurrentItem(first, QItemSelectionModel::ClearAndSelect); // 0x13
+}
