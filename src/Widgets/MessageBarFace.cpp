@@ -52,8 +52,9 @@ void MessageBarFace::wireButtons()
 	}
 	if (m_f38 != nullptr) {
 		connect(m_f38, &QAbstractButton::clicked, this, [this]() {
-			/* FUN_0059ced9 → s_king__expand_59c9e2(this, !(+0x50>>1&1))
-			   @0059ced9 — 体未转写,cited 不落 */
+			// FUN_0059ced9(58B):s_king__expand_59c9e2(this,
+			//   !((+0x50 >> 1) & 1))
+			setExpanded(((m_flags50 >> 1) & 1) == 0);
 		});
 	}
 	connect(this, &QObject::destroyed, this, [this]() {
@@ -115,4 +116,20 @@ QPushButton *MessageBarFace::findButtonByText(const QString &text) const
 void MessageBarFace::emitMessage(int code, const QString &text)
 {
 	emit messageSignal(code, text); // 等价 activate idx0
+}
+
+// s_king__expand_59c9e2(882B,0018.c:15301)真身(结构面):
+//   @0059c9e2 子件表 this+0x60(QList<QMap<QString,QVariant>>)逐项:
+//     项["visible"] 更新(深面,cited);
+//   @0059cbxx +0x38 钮 tooltip = expanded ? tr("Shrink")(0xc8b041)
+//     : tr("Expand")(0xc8afe8)@0059cbxx → show()@0059ccxx;
+//   @0059cc24 s_IconLabel_59b1e0(this)(图标/标签重排,cited)。
+void MessageBarFace::setExpanded(bool expanded)
+{
+	// +0x60 子件表 "visible" 键面 — cited(深结构未转写)
+	if (m_f38 != nullptr) {
+		m_f38->setToolTip(expanded ? tr("Shrink") : tr("Expand")); // @0059cbxx
+		m_f38->show();                                             // @0059ccxx
+	}
+	// s_IconLabel_59b1e0(this)@0059cc24 — cited。
 }

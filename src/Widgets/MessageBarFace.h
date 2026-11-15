@@ -53,6 +53,12 @@ public:
 	//   idx0, {int code, QString text})—— 本面 = emit messageSignal。
 	void emitMessage(int code, const QString &text);
 
+	// s_king__expand_59c9e2(882B,0018.c:15301)展开/收起:
+	//   +0x60 子件表(QList<QMap<QString,QVariant>>)逐项改 "visible" 键
+	//   (cited 深面);+0x38 钮 tooltip = tr("Shrink")/tr("Expand")
+	//   (0xc8b041/0xc8afe8)→ show();尾 s_IconLabel_59b1e0(this)(cited)。
+	void setExpanded(bool expanded);
+
 	// FUN_0059b046(393B,0018.c:14437)按文本查按钮:
 	//   findChildren<QPushButton>(空名, 递归=1)逐个 text() 比对;
 	//   命中返回按钮,否则 nullptr。
