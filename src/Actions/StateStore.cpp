@@ -4,11 +4,146 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QSplitter>
 #include <QStackedWidget>
 
 #include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
 #include "KitWindowFactory.h"          // KitWindowFace(8cf0c8 cast 面)
 #include "WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
+
+#include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
+#include "KitWindowFactory.h"          // KitWindowFace(8cf0c8 cast 面)
+#include "MuxPaneGroup.h"              // MuxPaneGroup/tabGroup()(KitDock 对位,批 177)
+#include "MuxPaneView.h"               // MuxPaneView(KitPane 对位;paneIndex)
+#include "MuxWindow.h"                 // MuxWindow::splitter()(现役树只读)
+#include "TabGroup.h"                  // TabGroup tabBar()/count()(8b85d8/ce 面)
+#include "WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
+
+// === stateStoreSerializeSplitterBlob — 批 177(M22-①)blobA 实体真身。
+// 语料锚(8cf0c8 内 8cf245-837f 段;asm/反编译双源):
+//   表源:pane+0x38..+0x40 迭代对(FUN_008d7840 = QList<[first,last)>
+//     构造,8d75b4 逐元 append)— KitWindow+0x38 槽位族(KITWINDOW-
+//     RECON 1.4 七 qw)→ 我方现役承载 = pane 域 findChildren<MuxWindow*>
+//     → MuxWindow::splitter()(FUN_008e01ac +0x70→+0x30 只读引用面)。
+//   逐 splitter(元素 = QSplitter*,循环体 @8cf2c8-357 asm 全读):
+//     <<int(QSplitter::count)@8cf2d7-84;
+//     逐 i<count:widget(i)@8cf2f5 → __dynamic_cast(QWidget,7KitDock
+//       0x11aaed0)@8cf301 命中 → <<BA(FUN_008b921a)@8cf322 —
+//       KitDock cast 对位 = MuxPaneGroup(QSplitter 直子现役实体,
+//       sgtest f 形态;+0x30 TabGroup 槽语义对位 — 布局注);
+//     <<BA(QSplitter::saveState)@8cf348-57。
+//   无外层数量头(原版 229B 段反推实证:splitter 数不可预知,读侧
+//     FUN_008d2f7e 同构 while 迭代)。
+// FUN_008b921a(306B,0027.c:76356)tabbar serialize 直译:
+//   <<int(tabbar currentIndex)@8b9250(8b85d8→5ab5ca QTabBar::
+//     currentIndex,dock+0x30 TabGroup 槽 0xb tabBar)→ MuxPaneGroup
+//     对位 = tabGroup()->tabBar()->currentIndex();
+//   <<int(tabbar count)@8b9257(8b85ce→5abbda QTabBar::count);
+//   逐 i<count(8b92bb 门 iVar2<=iVar1):pane = stackWidgetAt(i)
+//     (8b83ee→5abbd0 QStackedWidget::widget + cast 7KitPane 0x11ab690
+//     → MuxPaneView 对位 — paneIndex @+0x30 槽位同形)命中 →
+//     <<QString(objectName)@8b92e2 + <<BA(pane 会话态)@8b929e。
+// pane 会话态 = FUN_008c37a4(84B,0028.c:6065;asm 008c37a4-e1 全读):
+//   pane+0x30 byte==0 → vcall vt+0x1d8(KitPane 默认 = 8c367e return-1,
+//     sret RDI 不动 → BA 保持 shared_null → << -1 null 序同相);
+//   !=0 → QObject::property(0xc9e544="History")@8c37c9-d6 →
+//     QVariant::toByteArray@8c37db(→ null QVariant 空串 BA;kitWindow
+//     AttachPage hints 腿设置面,KitWindowFactory.cpp 批 142 判例)。
+//   → MuxPaneView 直译:paneIndex()==0 → null BA(<<-1);!=0 →
+//     property("History").toByteArray()(现役树无 History 属性面时 =
+//     QVariant null → toByteArray 空 BA —— 注:语料 toByteArray(null
+//     QVariant) = 空 BA(0 长度)非 null;样本三 tab 全 null(-1)与
+//     paneIndex 全 0 或无属性窗同相 — 本面按语料分支直译)。
+// 前置浮停副作用腿(8cf1f3-24a):findChildren<KitDock*>(pane) 逐
+//   dock+0x39 flag → dock_toggleFloat(dock,0)(8b8ce6 866B)— 无字节
+//   产物,cited 不落(铁律 6;样本帧零痕迹)。
+// blobB 逐 splitter saveState 段(@8cf412-456)同面承接:
+//   param_2[0xb/0xc] 迭代对(QSplitter* 表第二族,8cf40a 同 8d7840)→
+//   我方现役树单族(MuxWindow::splitter() 唯一)→ 语料两族对位:
+//   [0xb/0xc] 表 = 现役 splitter 逐 saveState(样本实序 31/35/27/0
+//   四段位级对账;@8cf412 循环直译)。
+static QByteArray stateStoreTabbarBlob(QWidget *dock); // FUN_008b921a
+static QByteArray stateStorePaneStateBlob(QWidget *pane); // FUN_008c37a4
+
+QByteArray stateStoreSerializeSplitterBlob(const KitWindowFace *pane)
+{
+	QByteArray blob; // local_b8 shared_null @008cf1a3
+	if (pane == nullptr)
+		return blob; // param_2 卫(调用契约外零消费同相)
+	// 前置浮停副作用腿(@8cf1f3-24a):dock_toggleFloat 866B cited —
+	//   无字节产物,不落(见块注;铁律 6)。
+	// 表源:@8cf245-85 pane+0x38 迭代对 → 我方现役承载 =
+	//   findChildren<MuxWindow*>(pane)(只读引用;非 pane 直子域同相 —
+	//   qt_qFindChildren_helper recursive=1 @8cf1f3)。
+	QDataStream out(&blob, QIODevice::WriteOnly); // local_78 同构面
+	const QList<MuxWindow *> wins = pane->findChildren<MuxWindow *>();
+	for (MuxWindow *win : wins) { // 逐 mux(= 逐 splitter 表实体)
+		QSplitter *sp = win->splitter(); // FUN_008e01ac(+0x70→+0x30 只读)
+		if (sp == nullptr)
+			continue; // 表元素空位跳过(语料元素直取非空同相)
+		const int n = sp->count(); // QSplitter::count @8cf2d7
+		out << n; // @8cf2e4
+		for (int i = 0; i < n; ++i) { // @8cf2ee-3a 循环体
+			QWidget *w = sp->widget(i); // QSplitter::widget @8cf2f5
+			// __dynamic_cast(QWidget,KitDock)@8cf301 — MuxPaneGroup 对位
+			if (dynamic_cast<MuxPaneGroup *>(w) != nullptr) {
+				const QByteArray tb = stateStoreTabbarBlob(w); // 8b921a
+				out << tb; // @8cf32d
+			}
+		}
+		const QByteArray ss = sp->saveState(); // QSplitter::saveState @8cf348
+		out << ss; // @8cf353
+	}
+	return blob; // local_b8 → @8cf37b 由调用侧 << 承接
+}
+
+// === stateStoreTabbarBlob — FUN_008b921a(306B,0027.c:76356)直译。
+// dock 参数 = QSplitter 直子(KitDock 对位 = MuxPaneGroup);体序见
+// stateStoreSerializeSplitterBlob 块注。===
+static QByteArray stateStoreTabbarBlob(QWidget *dock)
+{
+	QByteArray blob; // *param_1 = shared_null @8b9248
+	auto *group = dynamic_cast<MuxPaneGroup *>(dock);
+	if (group == nullptr)
+		return blob; // cast 面同相(调用侧已 cast,卫 = 契约外)
+	TabGroup *tabs = group->tabGroup(); // dock+0x30 槽(8b81b0 ctor param_1+0x30)
+	if (tabs == nullptr)
+		return blob; // 槽位缺位 = shared_null 迭代零次同相
+	QDataStream out(&blob, QIODevice::WriteOnly); // @8b924c
+	out << tabs->tabBar()->currentIndex(); // 8b85d8→5ab5ca @8b9250
+	out << tabs->count(); // 8b85ce→5abbda QTabBar::count @8b9257
+	for (int i = 0; i < tabs->count(); ++i) { // @8b92bb iVar2<=iVar1 门
+		QWidget *pw = tabs->stackWidgetAt(i); // 8b83ee→5abbd0 widget(i)
+		if (pw == nullptr)
+			break; // i==count 腿(语料 while 反译;break 语义同相)
+		// cast 7KitPane 0x11ab690 — MuxPaneView 对位(paneIndex @+0x30 同形)
+		if (dynamic_cast<MuxPaneView *>(pw) == nullptr)
+			continue; // cast 未命中 → 语料下行同样走 objectName/会话态?
+		// 语料:cast 未命中也 <<(8b83ee 返回 0 时 uVar3=0 → objectName(0)
+		//   = 空 QString;8c37a4(0)解引用风险 = 语料原样 — 不修,铁律 2;
+		//   本面 pw 非 QWidget 域不可达,直译同相)。
+		out << pw->objectName(); // QObject::objectName @8b92e2
+		out << stateStorePaneStateBlob(pw); // 8c37a4 @8b929e
+	}
+	return blob;
+}
+
+// === stateStorePaneStateBlob — FUN_008c37a4(84B,0028.c:6065)直译。
+// pane+0x30 byte==0 → vt+0x1d8 默认腿(8c367e return-1,sret RDI 不动
+//   → BA 恒 shared_null → << -1 序);!=0 → property("History")→
+//   toByteArray(0x11820e8 串实读;asm 008c37ad-d6 全读)。===
+static QByteArray stateStorePaneStateBlob(QWidget *pane)
+{
+	auto *pv = dynamic_cast<MuxPaneView *>(pane);
+	if (pv == nullptr) {
+		// 非 MuxPaneView(cast 未命中域):语料 param_2+0x30 byte 直读
+		//   对位 = QWidget 无实例语义 → property 腿同面(零自研):
+		return pane->property("History").toByteArray(); // @8c37c9-db
+	}
+	if ((pv->paneIndex() & 0xff) == 0)
+		return QByteArray(); // shared_null(<<-1 null 序;vt 默认腿同相)
+	return pv->property("History").toByteArray(); // @8c37c9-db
+}
 
 // === stateStoreSerializePagePayload — FUN_008cf0c8(2233B,
 // 0028.c:15003)页 payload 骨架帧真身(批 173;出处清单见 StateStore.h
@@ -28,24 +163,34 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 	//   b9e7e626 实证,5C-REPORT 页 payload 深 diff 表)
 	out << quint32(0xb9e7e626u);
 	// blobA:pane+0x38 splitter 容器槽族序列化(@008cf1f3-357)——
-	//   KitWindow 实例槽位未建模(壳零字段判例)→ 空容器循环零次,
-	//   空 BA 帧(<< shared_null BA @008cf37b 同相;原版 229B 实体 =
-	//   槽位批升真时填)。
-	QByteArray blobA; // local_b8 @008cf1a3
+	//   批 177 升真 = stateStoreSerializeSplitterBlob(现役树只读面,
+	//   树深依赖浮停腿 cited;见 .cpp 块注 + 原版 229B 实物反推印证)。
+	const QByteArray blobA = stateStoreSerializeSplitterBlob(pane); // @8cf1a3
 	out << blobA; // @008cf37b
 	// blobB:(char)pane+0x70 旗标(ctor +0x70 BYTE=1,KitWindowFace.h
-	//   头注;样本 B[0]=01 实证)+ 逐 splitter saveState(cited 空表)
-	//   + flags&1 LastSessions 组块(cited,>500B 邻档)。
+	//   头注;样本 B[0]=01 实证)+ 逐 splitter saveState([0xb/0xc] 表,
+	//   批 177 同面承接:现役 MuxWindow::splitter() 逐 saveState)+
+	//   flags&1 LastSessions 组块(cited,>500B 邻档)。
 	QByteArray blobB; // local_d0 @008cf3bb
 	{
 		QDataStream b(&blobB, QIODevice::WriteOnly); // @008cf3bf
 		b << qint8(1); // (int)(char)param_2[0xe] ← ctor +0x70=1
 		               //   @008cf3cd(样本 B[0]=01 同相)
-		// param_2[0xb/0xc] splitter 表逐 saveState(@008cf412-456)—
-		//   槽位 cited → 表空循环零次(样本仅旗标单字节帧起同相)。
+		// param_2[0xb/0xc] splitter 表逐 saveState(@8cf412-456 循环直译;
+		//   表源同 blobA 现役承载 — 样本 31/35/27/0 四段位级对账)。
+		const QList<MuxWindow *> wins =
+		    pane->findChildren<MuxWindow *>(); // @8cf3f8-40a 同表源
+		for (MuxWindow *win : wins) {
+			QSplitter *sp = win != nullptr ? win->splitter() : nullptr;
+			if (sp == nullptr)
+				continue; // 表元素空位跳过同相
+			const QByteArray ss = sp->saveState(); // @8cf447
+			b << ss;                               // @8cf452
+		}
 		if ((flags & 1u) != 0) {
 			// LastSessions 组块 @008cf62f-8ff cited(FUN_008cba1c 设置
-			//   读 + kind 2/1 逐项腿,850B s_RenamedTitle 邻档)— 不落。
+			//   读 + kind 2/1 逐项腿,850B s_RenamedTitle 邻档;句柄表
+			//   迭代变换静态定序不唯一 — 铁律 3 不猜)— 不落。
 		}
 	}
 	out << blobB; // @008cf490

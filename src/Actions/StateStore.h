@@ -50,6 +50,13 @@ QByteArray stateStoreSerializePages(MainWindowFace::Slots host,
                                     quint32 flags);
 
 class KitWindowFace;
+class MuxWindow;
+
+// 批 177(M22-①)blobA splitter/tabbar 树实体真身 — 写侧面(函数落
+//   .cpp;出处在 .cpp 块注)。pane = KitWindowFace(现役树只读引用:
+//   findChildren<MuxWindow*> → SplitterGroup→QSplitter 面承接 pane+0x38
+//   表位;树深依赖浮停腿 cited 分段)。
+QByteArray stateStoreSerializeSplitterBlob(const KitWindowFace *pane);
 
 // FUN_008cf0c8(2233B,0028.c:15003)s_kit_startupSessions 页 payload
 // 序列化骨架真身(批 173,M21-①升真;原版 674B 实物帧实证,5C-REPORT):
@@ -61,15 +68,22 @@ class KitWindowFace;
 //   blobA(splitter/tabbar 树,样本 229B)= pane+0x38 容器槽族
 //     param_2[7/8/10](FUN_008d7840 逐 splitter <<count + 逐页
 //     <<FUN_008b921a tabbar serialize(306B:cur/count/逐 tab
-//     objectName+会话态 BA)+ <<QSplitter::saveState)— KitWindow
-//     实例槽位族未建模(KITWINDOW-RECON Q2 零字段判例)→ cited
-//     空 BA(容器空表循环零次同相);
+//     objectName+会话态 BA)+ <<QSplitter::saveState)— 批 177(M22-①)
+//     升真:stateStoreSerializeSplitterBlob(见 .cpp;原版 674B 实物
+//     blobA 229B 段逐字段位级反推印证 — 5c/original/reopen.history
+//     抽样:splitter0{count=2,tab70B(cur1+ExplorerPane/SessionPane
+//     双 null 态),tab34B(cur0+FilerPane),ss31B}+splitter1{count=1,
+//     tab8B(cur=-1 空表),ss27B}+splitter2{count=0,ss23B}=229B 尽);
+//     面板树深腿(浮停副作用 dock_toggleFloat 8b8ce6 866B;cited)。
 //   blobB(样本 417B)= (char)pane+0x70 旗标(ctor FUN_008cc692
 //     +0x70 BYTE=1,KitWindowFace.h 头注;样本 B[0]=01 同相)+
-//     param_2[0xb/0xc] 逐 splitter saveState(cited 空)+ flags&1
+//     param_2[0xb/0xc] 逐 splitter saveState(样本实序:31/35/27/0 四
+//     段 — 逐段 <<BA 语法位级对账)+ flags&1
 //     LastSessions 组块(@008cf62f-8ff:FUN_008cba1c 253B 设置读 +
 //     逐项 kind char 2=命名页(s_RenamedTitle_8bbab6 850B BA)/
-//     kind 1=splitter+句柄计数 — cited)→ 旗标单字节帧;
+//     kind 1=splitter+句柄计数 — cited;样本 145B 起组块字节位级
+//     反推失败于句柄表迭代变换 — 静态定序不唯一,铁律 3 宁空不猜)
+//     → 旗标+四 saveState 帧(组块 cited 不落);
 //   blobC(样本 3B)= MenuBar/StatusBar/ToolBar 三可见 bool
 //     (FUN_008cefe4 212B,QWidgetData +0x28+8 位 0x10000 位域腿
 //     未解)cited → 三 false 缺省(样本 00 00 00 同相)。

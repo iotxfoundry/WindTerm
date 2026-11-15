@@ -15,8 +15,13 @@
 #include "Actions/KitBar.h"
 #include "Actions/KitWindowFactory.h"
 #include "Actions/MainWindowFace.h"
+#include "Actions/MuxPaneGroup.h"
+#include "Actions/MuxPaneView.h"
+#include "Actions/MuxWindow.h"
+#include "Actions/SplitterGroup.h"
 #include "Actions/StartupChain.h"
 #include "Actions/StateStore.h"
+#include "Actions/TabGroup.h"
 #include "Editor/ProfileLoader.h"
 #include "Sessions/WorkspaceLoader.h"
 
@@ -269,9 +274,55 @@ int main(int argc, char **argv)
 		in >> a >> b >> c; // 三段 << BA 序(@008cf37b/490/587)
 		if (in.status() != QDataStream::Ok)
 			++fails; // 帧自洽(整读尽)
-		if (!a.isNull())
-			++fails; // blobA 槽位 cited(shared_null BA ↔ 样本 229B
-			         //   实体差 = 槽位批填;null BA = -1 序同相)
+		// ── 批 177(M22-①):blobA 树实体框架对账(带实体树夹具)──
+		// 夹具:活体 KitWindowFace 宿主(TerminalWindowFace;pg0 已 delete
+		//   于 t5 尾 — UAF 判例防)+ MuxWindow 现役树(只读引用面):
+		//   MuxPaneGroup(splitter 直子,KitDock 对位)+ TabGroup
+		//   insertPageBack 一页(MuxPaneView,objectName 对位)。
+		{
+			TerminalWindowFace hostPage; // 活体 KitWindowFace(壳零字段判例)
+			MuxWindow mwin(false, nullptr);
+			MuxPaneGroup *grp = new MuxPaneGroup(true, nullptr);
+			mwin.splitter()->addWidget(grp);
+			MuxPaneView *pv = new MuxPaneView(nullptr, TypeTerminal);
+			pv->setObjectName(QStringLiteral("PaneX"));
+			grp->addTab(pv, /*normal=*/false);
+			// 将 mwin 挂到宿主页域(findChildren 承接面):
+			mwin.setParent(&hostPage, Qt::Widget); // 显式 Widget 旗(非窗型)
+			const QByteArray a2 = stateStoreSerializeSplitterBlob(&hostPage);
+			if (a2.isEmpty())
+				++fails; // 树实体非空(blobA 段升真门)
+			QDataStream in2(a2);
+			int childCount = -1;
+			in2 >> childCount;
+			if (childCount != mwin.splitter()->count())
+				++fails; // <<int(QSplitter::count)@8cf2e4 对账
+			QByteArray tb, ss;
+			in2 >> tb >> ss; // tabbar BA + saveState BA(@8cf32d/8cf353)
+			if (tb.isEmpty() || ss.isEmpty())
+				++fails; // 双 BA 段在位
+			QDataStream tin(tb);
+			int cur = -1, tc = -1;
+			tin >> cur >> tc; // @8b9250/8b9257(cur/count 头)
+			if (tc != grp->tabGroup()->count() || tc != 1)
+				++fails; // tabbar count 对账
+			QString tabName;
+			QByteArray paneState;
+			tin >> tabName >> paneState; // @8b92e2/8b929e
+			if (tabName != QStringLiteral("PaneX"))
+				++fails; // tab objectName 对账
+			if (!paneState.isNull())
+				++fails; // paneIndex==0 → null BA(8c37a4 默认腿 -1 序)
+			if (static_cast<int>(ss.size()) !=
+			    mwin.splitter()->saveState().size())
+				++fails; // QSplitter::saveState 真库委托同长(几何差仅记)
+			mwin.setParent(nullptr, Qt::Widget); // 摘除(同旗对称)
+			(void)pv; // grp 树随 mwin 摘除后由 Qt 父链清偿(pv 归 grp)
+		}
+		// t7 帧对账(t7 夹具 mwin 已摘除 — 恢复基线):
+		// 原版 674B 段(blobA 229B)字段序对账 = 上面 tb/ss 拆解已覆盖
+		// (count→tab BA→saveState BA 序;内容级几何因环境差仅框架对账,
+		// 任务书指定)。
 		if (b.size() != 1 || quint8(b.at(0)) != 1)
 			++fails; // blobB = pane+0x70 旗标单字节(ctor +0x70=1;
 			         //   原版样本 B[0]=01 同相)
