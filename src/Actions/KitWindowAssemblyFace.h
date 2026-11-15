@@ -51,6 +51,21 @@ const KitPaneSpec *kitPaneSpecs(int *count);
 //   FUN_0091d378 → 槽)cited。
 QWidget *kitPanelFindOrCreate(QWidget *kit, const QString &rawName);
 
+// 008b8226(399B,0027.c:75484)页挂:host+0x30 = TabGroup 槽(以实参承接)——
+//   insertPage(index, panel, windowTitle, windowIcon, windowTitle)
+//   (FUN_005abe1c)@008b825x;idx!=-1 → connect(panel::windowIconChanged →
+//   host 槽 FUN_008b842d,cited);select → tabBar->setCurrentIndex(idx)
+//   (FUN_005ab5d4)。panel 空 → -1。
+class TabGroup;
+int kitPanelAdd(TabGroup *tabs, QWidget *panel, int index, bool select);
+
+// 008b881c(485B,0027.c:75873)页恢复(blob 空 → false):
+//   >>count >>current → 逐 i:>>panelName >>propBA → blockSignals(current != i)
+//   @008b8899 → panel = 工厂(归一名 find-or-create)→ 非空 →
+//   setProperty("History", QVariant(propBA))(0xc9e544)@008b892d →
+//   kitPanelAdd(tabs,panel,-1,current==i)@008b8901 → 尾 blockSignals(false)。
+bool kitPanelsRestore(TabGroup *tabs, const QByteArray &blob);
+
 // King::assembleCentralSplitters(1010B,0028.c:13782):七槽中央树
 //   (+0x38..+0x68)+ 朝向/sizes/setCentralWidget(+0x68)。
 void kitCentralSplittersAssemble(KitWindowFace *host);

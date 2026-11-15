@@ -19,6 +19,7 @@
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFactory.h"
 #include "Actions/StatusBarFace.h"
+#include "Actions/TabGroup.h"
 #include "Widgets/Splitter.h"
 
 // 008c9ee4(159B,0028.c:11376)菜单栏装配腿:
@@ -326,4 +327,61 @@ QWidget *kitPanelFindOrCreate(QWidget *kit, const QString &rawName)
 		return found;
 	// 建面分派 + 尾部 hide/双 connect @0089efa2-0089f3c1 — cited 未落。
 	return nullptr;
+}
+
+// 008b8226(399B,0027.c:75484)页挂真身:
+//   @008b8230 panel 空 → -1;title = panel->windowTitle()@008b826b;
+//   icon = panel->windowIcon()@008b827b;tooltip = windowTitle()@008b8295;
+//   idx = FUN_005abe1c(tabs,index,panel,title,icon,tooltip)@008b825x
+//   (= TabGroup::insertPage);idx != -1 → connect(panel 的
+//   QWidget::windowIconChanged → host,FUN_008b842d,host smo 承接)
+//   @008b830x — 槽体 cited 不落接线;param_4 != 0 →
+//   FUN_005ab5d4(tabs,idx)@008b83xx = tabBar 当前页切换。
+int kitPanelAdd(TabGroup *tabs, QWidget *panel, int index, bool select)
+{
+	if (tabs == nullptr || panel == nullptr) // @008b8230
+		return -1;
+	const QString title = panel->windowTitle(); // @008b826b
+	const QIcon icon = panel->windowIcon();     // @008b827b
+	const QString tooltip = panel->windowTitle(); // @008b8295
+	const int idx = tabs->insertPage(index, panel, title, icon, tooltip); // @008b8255
+	// connect(panel, &QWidget::windowIconChanged, host, FUN_008b842d)
+	//   @008b830x — 槽体未转写,cited 不落接线。
+	if (select && idx != -1)
+		tabs->tabBar()->setCurrentIndex(idx); // FUN_005ab5d4 @008b83xx
+	return idx;
+}
+
+// 008b881c(485B,0027.c:75873)页恢复真身:
+//   @008b883x blob 空 → 0;@008b884a QDataStream(blob);
+//   @008b8856/60 >>int count(local_80)>>int current(local_7c);
+//   循环(0 < count):>>QString(panelName)>>QByteArray(propBA)@008b8878-88x;
+//   tabs->blockSignals(current != i)@008b8899-a3(setne 实证);
+//   panel = 工厂(008b8694 祖先 + 89eed8 归一名 find-or-create)@008b88ab-8d3;
+//   panel 非空 → setProperty("History", QVariant(propBA))@008b892d
+//   (名 0xc9e544 = "History" ELF 实读)+ kitPanelAdd(tabs,panel,-1,current==i)
+//   @008b8901(FUN_008b83ce = 008b8226(idx=-1));尾 blockSignals(false);
+//   返回 1 @008b89c6。
+bool kitPanelsRestore(TabGroup *tabs, const QByteArray &blob)
+{
+	if (tabs == nullptr || blob.isEmpty()) // @008b883x
+		return false;
+	QDataStream in(blob); // @008b884a
+	int count = 0;
+	int current = 0;
+	in >> count >> current; // local_80 / local_7c @008b8856-60
+	KitWindowFace *kit = kitWindowAncestor(tabs); // 008b8694 @008b88ab
+	for (int i = 0; i < count; ++i) { // @008b887x
+		QString panelName;
+		QByteArray propBlob;
+		in >> panelName >> propBlob; // @008b8878-88x
+		tabs->blockSignals(current != i); // setne @008b8899-a3
+		QWidget *panel = kitPanelFindOrCreate(kit, panelName); // 89eed8 @008b88d3
+		if (panel != nullptr) {
+			panel->setProperty("History", QVariant(propBlob)); // @008b892d
+			kitPanelAdd(tabs, panel, -1, current == i); // 008b83ce @008b8901
+		}
+	}
+	tabs->blockSignals(false); // 尾复原
+	return true;               // @008b89c6
 }
