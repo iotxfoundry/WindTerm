@@ -133,3 +133,16 @@ void MessageBarFace::setExpanded(bool expanded)
 	}
 	// s_IconLabel_59b1e0(this)@0059cc24 — cited。
 }
+
+// FUN_0059cd82(306B)真身:
+//   @0059cdb3 id = map["id"](QMap 查,缺省无效 QVariant);
+//   @0059ce34 +0x58 QString = 文案(键面未读全 → cited);
+//   @0059ce3a FUN_0059ebe0(+0x60, map)(130B:= operator_new(8)+
+//     qmap_detach_copy → 表 append 深拷贝);
+//   @0059ce4a s_king__expand_59c9e2(this, (+0x50 >> 1) & 1)。
+void MessageBarFace::applyItem(const QVariantMap &item)
+{
+	Q_UNUSED(item.value(QStringLiteral("id"))); // 语料读 "id" 后未落消费面(cited)
+	m_items60.append(item);                     // FUN_0059ebe0 深拷贝 append 等价
+	setExpanded(((m_flags50 >> 1) & 1) != 0);   // @0059ce4a
+}

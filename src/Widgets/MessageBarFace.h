@@ -2,6 +2,7 @@
 
 #include <QList>
 #include <QString>
+#include <QVariantMap>
 #include <QWidget>
 
 // MessageBarFace — 语料 MessageBar(QWidget 子类,qt_metacast "MessageBar"
@@ -59,6 +60,11 @@ public:
 	//   (0xc8b041/0xc8afe8)→ show();尾 s_IconLabel_59b1e0(this)(cited)。
 	void setExpanded(bool expanded);
 
+	// FUN_0059cd82(306B,0018:25560 邻)行装载:
+	//   map["id"] 读取(QVariant)→ +0x58 QString ← 文案(键面未读,cited)→
+	//   +0x60 表 append 深拷贝(FUN_0059ebe0 130B)→ setExpanded(+0x50 bit1)。
+	void applyItem(const QVariantMap &item);
+
 	// FUN_0059b046(393B,0018.c:14437)按文本查按钮:
 	//   findChildren<QPushButton>(空名, 递归=1)逐个 text() 比对;
 	//   命中返回按钮,否则 nullptr。
@@ -72,5 +78,5 @@ private:
 	void *m_f48 = nullptr;   // +0x48(ctor 清零,语义 cited)
 	quint8 m_flags50 = 0;    // +0x50(低 2 位清零)
 	QString m_f58;           // +0x58 shared_null 初值
-	QList<void *> m_f60;     // +0x60 QList shared_null 初值(元素面 cited)
+	QList<QVariantMap> m_items60; // +0x60 行表(QMap<QString,QVariant> 值承载)
 };
