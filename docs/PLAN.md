@@ -25,7 +25,7 @@
 | Phase 3 编辑引擎 customDispatch | ⏳ **巨 switch 全清**(WT+EXT)+ eNodes 节点层 20/20 含深层 + **0x7545 真值路径开通**/搜索链激活;详见 PHASE5 结论快照 |
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;注册表四表插入侧全定案(141/144/151);启动链+恢复门真身(149/150);**WorkspaceLoader:522056 骨架/收集器/defaultDir/扫描/protocolUrl/trie 键值域/掩盖腿/挂页槽真身(154/159/163)**;分裂腿/实机对证 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
-| Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身含树深(134/140/142/147);SplitterGroup 余项收口(148);**MuxWindow 取面 + 宿主深腿 + 尾清真身(153/157/158/162)**;008e1125 槽体真身(175)/introsort 真排序承接(178,std::sort 判例) |
+| Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身含树深+菜单装载真身(134/140/142/147/189);SplitterGroup 收口(148);**MuxWindow 取面+宿主深腿+尾清+008e1125 真身(153/157/158/162/175)/introsort 真排序承接(178)**;**工具栏 ToolBarBuilder+设置壳 SettingsFace+SuperApplicationFace(190/191/179,未编译雷区铁律 7)** |
 | Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⏳(M19 起步)**:盘面矩阵 ✅(盘点)/我方载体 ✅(appboot 166)/reopen 写读闭环 ✅(167)/三件套+kit+profiles 写侧 ✅(168/169);字节级对表 ⬜(需原版侧环境) |
 | 会话装配 | ✅ 管理收口(批 29) |
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
