@@ -245,3 +245,19 @@ void SettingsPageFace::onKindComboChanged()
 	// 使能/spin68 数值两腿 @0072ed7x — cited(Ghidra 折叠,常量不可考)。
 	refreshRows(-1); // @0072edxx
 }
+
+// FUN_0072bf8a(219B,0022.c:53246)行 → 列表项真身:
+//   @0072bf8a operator_new(0x30)+QListWidgetItem(row+0x10 名,0,0);
+//   @0072bfb6 s_king__tunnelDynamicActive_6a2c16(&icon, row)(cited 图标面)
+//   → item->setData(1, QVariant(QIcon))@0072bfee;
+//   item->setData(3, QVariant(row+0x10))@0072c01f;
+//   item->setData(0x101, QVariant(row+0x00 名))@0072c048。
+QListWidgetItem *SettingsPageFace::rowListItem(const SettingsRow &row)
+{
+	auto *item = new QListWidgetItem(row.name); // @0072bf8a
+	// icon = s_king__tunnelDynamicActive_6a2c16(row)@0072bfb6 — cited
+	//   (行态→图标面,未转写;此处不设为空图标,避免发明)。
+	item->setData(3, QVariant(row.name));    // @0072c01f
+	item->setData(0x101, QVariant(row.name)); // @0072c048
+	return item;
+}

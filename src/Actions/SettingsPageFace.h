@@ -6,6 +6,7 @@
 
 class QAbstractButton;
 class QDialogButtonBox;
+class QListWidgetItem;
 class QModelIndex;
 class QStandardItem;
 class QComboBox;
@@ -67,6 +68,12 @@ public:
 	//   命中 → 行索引;未命中 → -1。
 	//   本面以 QStringList 承载"名面"(行内其余 0x40 字节字段 cited)。
 	int rowIndexByName(const QString &name) const;
+
+	// FUN_0072bf8a(219B,0022.c:53246)行 → 列表项:
+	//   new QListWidgetItem(row.name)(0x30 字节)→ icon =
+	//   s_king__tunnelDynamicActive_6a2c16(row)(按行态取图,cited)→
+	//   setData(1=DecorationRole, icon)/setData(3, name)/setData(0x101, name)。
+	static QListWidgetItem *rowListItem(const SettingsRow &row);
 
 	// FUN_0072eb15(720B,0022.c:54947)kind 组合框变化腿:
 	//   kind = currentData()(语料经 QMetaType::registerNormalizedType
