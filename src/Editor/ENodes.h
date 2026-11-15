@@ -145,18 +145,25 @@ struct WNodeInner {
 		//   逐字面 → DeepEngineFace;tail 97142a 深引擎腿 cited)
 		sp50 = wt::editctxInitThread009714b6();
 		// 009708bd:puVar8 = operator_new(0x30){vt 01192288,+8 旗,+0x14
-		//   mask,+0x18..0x28 0} → 93fc60 清偿 + gapbuffer_reallocate —
-		//   深引擎 cited;产出 0x30 消费面 = 词法栈本体(970bb0 D1 面
-		//   逐槽析构)→ 我方承载 = holder.rs RS8 直存(值面同相怪癖)。
+		//   mask,+0x18..0x28 0} → 44940 FUN_0093fc60 清偿(批 160 ODR
+		//   真身;新栈 f20 恒 0 → 零迭代早退同相)+ 45047 gapbuffer_
+		//   reallocate(批 160 ODR 真身可达面;GB face 密排 cited)→
+		//   产出 0x30 消费面 = 词法栈本体(970bb0 D1 面逐槽析构)→
+		//   我方承载 = holder.rs RS8 直存(值面同相怪癖)。
 		//   批 156:0x30 构造字段真身 → DeepEngineFace::makeBank30
-		//   (逐字面;93fc60 清偿臂/88e5a0 重排臂 = 调面声明 cited)
+		//   (逐字面)
 		// 00970a5b:puVar9 = operator_new(0x20){0,0,0,0} → puVar8[3] —
 		//   词法栈内层换新(cited 同上;RS8 重开 = gapbuffer_reallocate
 		//   (0,0,2) 值面同相;批 156:Inner20 字段真身落 sp50->bank->
 		//   inner20 — 词法栈 0x30 本体 = editctx 产物 sp50[4] 同一
 		//   face(44924 puVar6[1]=pvVar7 + 44945 puVar8[5] 清偿链互证)
 		sp50->bank->inner20 = new wt::Inner20{};   // 44974-44979 {0,0,0,0}
+		// 44940 FUN_0093fc60(批 160 ODR 真身;新栈零迭代早退同相)
+		wt::lexStackClear(sp50->bank);
 		static_cast<RS8 *>(wt::holderRs(holder))->DeleteAll();
+		// 45047 gapbuffer_reallocate(bank,0,0,2)(批 160 ODR 真身可达面;
+		//   初始 2 块初始灌 — GB face 重排密排腿 cited;承载 RS8 空栈)
+		wt::gapBufferReallocate(sp50->bank, 0, 0, 2);
 		// 00970a82:scanner = operator_new(0x40);FUN_009cc22c(scanner,
 		//   holder) — 55B 全读 = bankCtorK3(MarkersStore 同体真身)。
 		//   ⚠ 旧 scanner 处置权在调用方(96f6fe 先 9cc2d4+delete 0x40

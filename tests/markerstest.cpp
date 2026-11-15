@@ -1914,6 +1914,77 @@ int main(int argc, char **argv)
 		expect(true, "dd5: sp50 清偿走通(97142a D1 面承载替;无泄漏)");
 	}
 
+	// ======== ee. 批 160 组:DeepEngineFace ODR 定义(深引擎激活)========
+	// 语料锚:96a2f8 piecetable_init(248B@0031.c:39050)+ 96a280 种子腿
+	//   (120B@39032)/ 88e5a0 gapbuffer_reallocate(3525B@0027.c:43226,
+	//   容量门 0x4000000 @43239)/ 93fc60(546B@0031.c:5247 早退门
+	//   5257-5259 + 尾槽清零 5347)— ODR 定义落 DeepEngineFace.cpp。
+	{
+		// ee1:pieceTableInit 结构初始化/种子字段面(39050-39078 +
+		//   39032-39048 逐字面;尾 007b5270/0096a400 cited)
+		wt::PieceTable60 pt;
+		wt::pieceTableInit(&pt, 0x1234);
+		expect(pt.cnt38 == 2 && pt.v10 == -1 && pt.v18 == 0 && pt.v20 == 0
+		       && pt.seed28 == 0x1234 && pt.b08 == 1,
+		       "ee1: piecetable_init+种子腿真身段([7]=2(39034)/[2]=-1/"
+		       "[3]=[4]=0/[5]=seed(39039)/[1]=tag<0x1_0000_0000(39040)"
+		       " — 尾 007b5270/0096a400 段插入 cited)");
+		expect(pt.bank30 != nullptr
+		       && pt.bank30->packed8 == 0x100000000ull
+		       && pt.bank30->inner20 != nullptr,
+		       "ee1: pt.bank30 = makeBank30 字面(39060-39077 同构;"
+		       "vt Uint32PieceTable cited)");
+		// ee1b:serial50 自增序(DAT_011be6f0 面 39090-39092)+ b08 门
+		wt::PieceTable60 pt2;
+		wt::pieceTableInit(&pt2, quint64(0x1) << 32);
+		expect(pt2.serial50 == pt.serial50 + 1 && pt2.b08 == 0,
+		       "ee1b: [10] 自增序(DAT_011be6f0)+ b08=0(tag≥0x100000000"
+		       " 门翻转 — 39040 字面)");
+		// ee2:gapBufferReallocate 容量门/守卫(43239 门 0x4000000;
+		//   43240-43246 len<1 / pos≥0x80000000 早退;43235 face 判空)
+		wt::Bank30 *gb = wt::makeBank30();
+		wt::gapBufferReallocate(gb, 0, 0, 2);              // 45047 调面字面
+		expect(gb->inner20 != nullptr && gb->f10 == 0,
+		       "ee2: (bank,0,0,2) 初始灌走通(43235 face 非空;容量门"
+		       " 0x4000000 内 43240 len<1 早退面 — GB 重排体 cited,"
+		       "承载 RS8 空栈值面同相)");
+		wt::gapBufferReallocate(gb, quint64(0x1) << 32, 0, 0);  // 43244 pos 门
+		wt::gapBufferReallocate(gb, 0, 0, quint64(0x4000000));  // 43239 容量门
+		expect(gb->f10 == 0 && gb->mask14 == 0,
+		       "ee2b: pos≥0x80000000 早退(43244)/ len≥0x4000000 超门"
+		       "(43239 → styles_cache_create8 cited)—— 计数槽不动同相");
+		// ee3:lexStackClear 早退门 + 尾槽清零(5257-5259 字面 null 早返;
+		//   5347 *(param_1+0x20)=0)
+		wt::lexStackClear(gb);                             // f20 恒 0 → 5258 早返
+		expect(gb->f20 == nullptr,
+		       "ee3: 93fc60 零迭代早退(5257-5259 [5]=0 null 门;清偿循环"
+		       "计数源 vt+0x30 恒等检查不可承载 cited — 批 152 QUIRKS #35"
+		       " 空表同相)");
+		// ee3b:非空臂尾槽清零真身(5347;循环体 cited)
+		gb->f20 = &gb;                                     // 非零哨兵(仅清零面探测)
+		wt::lexStackClear(gb);
+		expect(gb->f20 == nullptr,
+		       "ee3b: 尾 *(param_1+0x20)=0 真身(5347 字面;逐槽清偿臂"
+		       " GB 密排/vt 换面析构链 5328-5345 cited)");
+		delete gb;
+		// ee4:ENodes 消费面接线 — rebuild00970850 调真定义(44940
+		//   93fc60 / 45047 gapbuffer_reallocate 按语料序)
+		EditorEngine e2;
+		auto *s7 = static_cast<wt::ENodeScan *>(e2.m_ctx.eNodeGet(7, 0));
+		auto *in2 = static_cast<wt::WNodeInner *>(s7->inner);
+		expect(in2->sp50 != nullptr && in2->sp50->bank != nullptr
+		       && in2->sp50->bank->f20 == nullptr,
+		       "ee4: 970850 接线 — 44940 lexStackClear(新栈零迭代早退)"
+		       " + 45047 gapBufferReallocate(0,0,2) 真定义可达"
+		       "(尾 [5] 槽清零同相;GB 密排面 cited)");
+		// ee5:重建腿(runReset → rebuild 二次走通 — 93fc60/88e5a0 重入)
+		s7->runReset0096f6fe();
+		expect(in2->sp50->bank->f20 == nullptr
+		       && in2->scanner != nullptr,
+		       "ee5: 96f6fe 重建腿二过 — 00970850 重入(9cc2d4 复位→"
+		       "9714b6 前奏→44940/45047 ODR 面)无悬挂");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

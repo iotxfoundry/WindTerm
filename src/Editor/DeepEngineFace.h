@@ -108,17 +108,21 @@ static_assert(offsetof(PieceTable60, tid40)    == 0x40, "pt +0x40 tid");
 static_assert(offsetof(PieceTable60, serial50) == 0x50, "pt +0x50 serial");
 static_assert(offsetof(PieceTable60, spin58)   == 0x58, "pt +0x58 spin 字节");
 
-// ---- 调面声明(实现 cited — wave-2;无定义,不 ODR 使用)----
+// ---- 调面声明(批 160:ODR 定义落 src/Editor/DeepEngineFace.cpp;
+//   可读段真身,深引擎腿逐处标注 cited — 见 .cpp 逐行出处)----
 // FUN_0096a2f8 piecetable_init(248B @0031.c:39050)— 0x60 Partitioning
-//   形底座,含 0x30 wrapper + Uint32PieceTable + 种子腿 96a280。
-void pieceTableInit(PieceTable60 *pt, quint64 seed);                      // cited — wave-2
+//   形底座,含 0x30 wrapper + Uint32PieceTable + 种子腿 96a280;
+//   尾 007b5270/0096a400 cited(批 111 判例)。
+void pieceTableInit(PieceTable60 *pt, quint64 seed);                      // ODR — 批 160
 // FUN_0088e5a0 gapbuffer_reallocate(3525B @0027.c:43226)— 缓冲重排:
-//   (gb, pos, w, len);容量门 0x4000000(43239)+ GB face *(gb+0x18)。
-void gapBufferReallocate(Bank30 *gb, quint64 pos, quint8 w, quint64 len); // cited — wave-2
+//   (gb, pos, w, len);容量门 0x4000000(43239)+ GB face *(gb+0x18);
+//   可达面真身(判空/门/守卫早退),门内重排体/超门 cache 腿 cited。
+void gapBufferReallocate(Bank30 *gb, quint64 pos, quint8 w, quint64 len); // ODR — 批 160
 // FUN_0093fc60(546B @0031.c:5247)— 词法栈老 runs/线程缓存清偿 walker:
-//   消费 bank+0x20 delegate(vt+0x30 runs 计数)+ bank+0x28 逐条目
-//   (0x50:{+0x18 旧条目,+0x28 spin,+0x30,+0x38 QMap,+0x40 QHash,
-//   +0x48 QList})清偿;尾 vt 换 PTR_Uint8RunStyles_vt13(5319)。
-void lexStackClear(Bank30 *gb);                                           // cited — wave-2
+//   早退门(5257-5259)+ 尾槽清零(5347)真身;逐槽清偿循环(GB 密排
+//   槽选取/spin backoff/00933738 hash remove/0x30 条目 RWLock 释放)
+//   与尾 vt 换面析构链(5328-5345)cited — 循环计数源 delegate vt 槽
+//   不可承载(语料 vt+0x30 恒等检查),构造三源 [4] 恒 0 → 零迭代同相。
+void lexStackClear(Bank30 *gb);                                           // ODR — 批 160
 
 } // namespace wt
