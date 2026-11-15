@@ -29,6 +29,12 @@ public:
     void detachPane(MuxPaneView *page);                  // FUN_008dedae(0028:25986;addTab 对偶)
     int tabCount() const;                                // FUN_008de59c
     MuxPaneView *currentPane() const;                    // FUN_008de3b2(0028:25616)
+    // 008cae58(241B,0028.c:12345 区)取色改页色:现有色无效 →
+    //   QColorDialog::getColor(QColor(Qt::GlobalColor 3=white), this,
+    //   tr("Tab Color")(0xcba05d 实读), 5=ShowAlphaChannel|DontUseNativeDialog)
+    //   → 有效才 setTabColor(008b9b3e)。
+    void pickTabColor(MuxPaneView *pane);
+
     // 008b9ad4(86B,0027.c:76920)换页:i = indexOfPane(old);i != -1 →
     //   TabGroup::replacePage(i, new)(FUN_005ac8d0)。
     void replacePane(QWidget *oldPane, QWidget *newWidget);

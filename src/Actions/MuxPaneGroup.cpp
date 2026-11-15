@@ -1,6 +1,7 @@
 #include "MuxPaneGroup.h"
 
 #include <QColor>
+#include <QColorDialog>
 #include <QDataStream>
 
 #include "KitWindowAssemblyFace.h"
@@ -596,4 +597,27 @@ void MuxPaneGroup::replacePane(QWidget *oldPane, QWidget *newWidget)
 		return;
 	QWidget *page = newWidget; // cast 011925c8 面(非空才取)
 	m_f38->replacePage(index, page); // FUN_005ac8d0
+}
+
+// 008cae58(241B)取色改页色真身(入口两层 qmetatype/组定位腿 cited,
+//   本面以 indexOfPane 等价承接):
+//   i = FUN_008b99f6(group, pane);i < 0 → 返;
+//   *color == 0(无效)→ tr("Tab Color")(0xcba05d 实读)+
+//   QColorDialog::getColor(QColor(3 = Qt::white), parent, title,
+//     5 = ShowAlphaChannel|DontUseNativeDialog)@008caf09;仍无效 → 返;
+//   FUN_008b9b3e(group, i, color)(= setTabColor)。
+void MuxPaneGroup::pickTabColor(MuxPaneView *pane)
+{
+	const int index = indexOfPane(pane); // 008b99f6
+	if (index < 0)
+		return;
+	QColor color = tabColor(index);      // 008b9bf4
+	if (!color.isValid()) {
+		color = QColorDialog::getColor(
+		    QColor(Qt::white), this, tr("Tab Color"),
+		    QColorDialog::ShowAlphaChannel | QColorDialog::DontUseNativeDialog); // @008caf09
+		if (!color.isValid())
+			return;
+	}
+	setTabColor(index, color); // 008b9b3e
 }
