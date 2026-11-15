@@ -111,7 +111,7 @@ void SettingsPageFace::loadWidgets(const SettingsItemRef &item,
 		m_check38->setChecked(row.check38 != 0); // @0072e76a
 	if (m_check40 != nullptr)
 		m_check40->setChecked(row.check40 != 0);
-	/* FUN_0072d304(this, row)@0072e7xx — cited(1257B) */
+	updateInfoLabel(row); // FUN_0072d304 @0072e7xx(批 296 真身)
 }
 
 // FUN_0072d254(160B,0022.c:53900)当前列表项 → 行索引真身:
