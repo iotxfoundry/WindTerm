@@ -74,6 +74,10 @@ public:
 	//   focusActiveView() 失败 → g = currentPaneGroup() 非空 →
 	//   FUN_008b9838(g)(找 0119aec0 子件 → FUN_00548630(w,1),cited)。
 	void refreshAfterDockChange();
+	// FUN_008b9838(79B,0027.c:76771):group 下 findChild<0119aec0>
+	//   (递归=1;语料类型即 BreadCrumb — 00548630 的 +0x30 编辑件面同相)
+	//   非空 → FUN_00548630(child,1)(= setCrumbsActive(true))。
+	void activateCrumbsOf(QWidget *group);
 	// +0x80 当前页组缓存(FUN_008ca6ca 首读;ctor 清零 @0x8cc70x)。
 	QWidget *m_f80 = nullptr;
 	// FUN_008ca6ca(170B,0028.c:11922)当前页组:

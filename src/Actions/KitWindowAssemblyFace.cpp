@@ -19,6 +19,7 @@
 
 #include "Actions/KitDockFace.h"
 #include "Actions/MuxPaneView.h"
+#include "Widgets/BreadCrumbFace.h"
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFactory.h"
 #include "Actions/StatusBarFace.h"
@@ -799,7 +800,17 @@ void KitWindowFace::refreshAfterDockChange()
 	if (focusActiveView()) // 008cad6a
 		return;
 	QWidget *group = currentPaneGroup(); // 008ca6ca
-	if (group != nullptr) {
-		// FUN_008b9838(group)@008cb0a0 — cited(子件查 + 00548630(w,1))
-	}
+	if (group != nullptr)
+		activateCrumbsOf(group); // FUN_008b9838 @008cb0a0
+}
+
+// FUN_008b9838(79B,0027.c:76771)真身:
+//   @008b9838 child = qt_qFindChild_helper(group, 空名, 0119aec0, 递归=1);
+//   非空 → FUN_00548630(child,1)(55B:= FL→ setCrumbsActive(true))。
+void KitWindowFace::activateCrumbsOf(QWidget *group)
+{
+	if (group == nullptr)
+		return;
+	if (auto *crumbs = group->findChild<BreadCrumbFace *>()) // 0119aec0 面
+		crumbs->setCrumbsActive(true); // FUN_00548630(child, 1)
 }
