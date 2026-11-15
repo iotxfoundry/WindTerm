@@ -1994,6 +1994,73 @@ int main(int argc, char **argv)
 		       "9714b6 前奏→44940/45047 ODR 面)无悬挂");
 	}
 
+	// ======== ff. 批 176 组:深引擎尾余升真(00933738/007b5270 门内槽/
+	//   97142a RS 灌链)========
+	// 语料锚:00933738(240B@0030.c:32409 hash remove)/ 008897ae/00889810/
+	//   0088981c(0027.c:39227/39287/39297 三 delegate 槽 18B/12B/15B)/
+	//   007a9c50/007a9d76/007a9d82(0024.c:13329/13509/13519 恒等目标同体)/
+	//   97142a 45534 runstyles_insert_space_b(0031.c:5641 850B 深链)。
+	{
+		// ff1:97142a RS 灌入面真身(45534 — bank f20 delegate RS8 承载
+		//   InsertSpace;RunStyles.cxx:186 真库委托面,现役 RS 判例;
+		//   空壳 delegate = 语料深腿构造点 cited — 跳过同相)
+		wt::SkipPartition50 *sp = wt::editctxInitThread009714b6();
+		wt::tail97142a(sp, 0x42);
+		expect(sp->flag08 == 1 && sp->seedCnt28 == 2 && sp->ptB != nullptr,
+		       "ff1: tail97142a 真身面([5]+1 45516/ptB 重建 45528-45532/"
+		       "[1]=1 45535;45534 灌入面升真 — 空壳 delegate 跳过同相,"
+		       "深链 gapbuf_styleRange/00933738 hash cited)");
+		// ff1b:非空 delegate RS 面 — makeLexDelegate20 挂 bank->f20 后
+		//   灌入面走通(RS8::InsertSpace 真库委托,45534 (bank,0,len) 形)
+		sp->bank->f20 = wt::makeLexDelegate20();
+		wt::tail97142a(sp, 0x43);
+		expect(sp->flag08 == 1,
+		       "ff1b: 45534 RS8::InsertSpace(0,f10*2>>1) 真库委托走通"
+		       "(现役 RS 判例;深链 cited)");
+		wt::lexDelegateDtor008898d0(
+		    static_cast<wt::LexDelegate20 *>(sp->bank->f20));
+		sp->bank->f20 = nullptr;
+		delete sp;
+		// ff2:007b5270 门内三 delegate 槽承载(21926-21972 恒等分派面;
+		//   空 RS 早退 = 语料空值面同相;有 RS → 槽面可达不崩)
+		{
+			wt::Bank30 *bank = wt::makeBank30();
+			wt::sectionRemove007b5270(bank, 0, 4);     // f20 恒 0 → 早退
+			expect(bank->f10 == 0,
+			       "ff2: 骨架门空 delegate 早退(21926 *(+0x20)=0 承载;"
+			       "门内深臂区间门不达同相 — 21945 local_50 门 cited)");
+			wt::LexDelegate20 *dlg = wt::makeLexDelegate20();
+			static_cast<RS8 *>(dlg->rs)->InsertSpace(0, 8);   // RS 现役灌
+			bank->f20 = dlg;
+			wt::sectionRemove007b5270(bank, 0, 4);     // 门内槽面走通
+			expect(bank->inner20 != nullptr,
+			       "ff2b: 门内三槽恒等分派走通(21928 vt+0x28 fill 承载"
+			       "008897ae/21937 vt+0x40 0088981c idx+1/21966 vt+0x38 —"
+			       "区间深臂 007a7d76/007b3960/007ae172 cited)");
+			wt::lexDelegateDtor008898d0(dlg);          // 清偿(承载面)
+			bank->f20 = nullptr;
+			delete bank;
+		}
+		// ff3:00933738 hash remove 深面(QHash 判例:键 u64 直读直比;
+		//   链去重 size-- 面 32444/32460;返差 = iVar1-iVar3 32471)
+		{
+			QHash<void *, void *> h;
+			void *k1 = reinterpret_cast<void *>(quintptr(0x5a5a5a));
+			void *k2 = reinterpret_cast<void *>(quintptr(0x5a5a5b));
+			h.insert(k1, nullptr); h.insert(k2, nullptr);
+			void *slot = &h;                           // *(param_1) 单指针
+			const void *key = &k1;                     // local_50 密排 {key}
+			const qint64 n = wt::hashRemove00933738(&slot, key);
+			expect(n == 1 && h.size() == 1,
+			       "ff3: hash remove 真身(32431 键查找 0088a25c 同构/"
+			       "erase+size-- 32460/返差 32471;hasShrunk/rehash 深桶"
+			       "重排 cited — QHash 承接同相)");
+			const qint64 n0 = wt::hashRemove00933738(&slot, key);
+			expect(n0 == 0 && h.size() == 1,
+			       "ff3b: 查无直返(32439 plVar2==e 哨兵 → 返差 0 同相)");
+		}
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

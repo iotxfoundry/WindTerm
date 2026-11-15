@@ -28,13 +28,25 @@ void tail97142a(SkipPartition50 *sp, quint64 seed)
 		delete static_cast<RS8 *>(sp->ptA);       //   承载 = RS8(97142a ptA=RS 槽 45523 重建写面同族)
 	sp->ptA = nullptr;                            // 45522
 	if (sp->ptB != nullptr)                       // 45523
-		delete static_cast<RS8 *>(sp->ptB);
+		delete static_cast<PieceTable60 *>(sp->ptB);   //   承载 = PieceTable60
+	                                              //   (45530 piecetable_init
+	                                              //   产物同型 — 虚 D1 链
+	                                              //   承载替;含 bank30/
+	                                              //   inner20 逐级)
 	sp->ptB = nullptr;                            // 45527
 	PieceTable60 *pt = new PieceTable60{};        // 45528 operator_new(0x60)
 	pieceTableInit(pt, seed);                     // 45530-45531
 	sp->ptB = pt;                                 // 45532
-	// 45534 runstyles_insert_space_b(*(sp+0x20),0,*(+0x10)*2>>1) — cited
-	//   (RS 灌链深引擎;RS8 InsertSpace 值面委托 = 45536 调面同族,批 152 #35)
+	// 45534 runstyles_insert_space_b(*(sp+0x20),0,*(+0x10)*2>>1) — 批 176
+	//   升真(灌入目标 = sp+0x20 bank 的 RS 面;承载 = bank->f20 delegate
+	//   +8 RS8(怪癖 #35 同物异计)— 现役 RS 判例 RunStyles.cxx:186
+	//   InsertSpace 真库委托;0x30 bank 语料 850B 深链
+	//   5641@0031.c:5641 gapbuf_styleRange/00933738 hash remove cited;
+	//   delegate 空壳态 = 语料深引擎 delegate 构造点 cited — 跳过同相)
+	if (LexDelegate20 *dlg = static_cast<LexDelegate20 *>(sp->bank->f20)) {
+		if (RS8 *rs = static_cast<RS8 *>(dlg->rs))       // 45534 (bank,0,len)
+			rs->InsertSpace(0, qint64((quint64(sp->bank->f10) * 2) >> 1));
+	}
 	sp->flag08 = 1;                               // 45535 (+8)=1
 }
 
@@ -71,6 +83,52 @@ void lexDelegateDtor008898d0(void *self)
 //   语料 CMP 立即数 = .text 地址,我方 = 具名函数指针同一)。
 qint64 (*lexVtRunsSlot)(void *) = &lexDelegateRuns00889872;   // vt+0x30
 void   (*lexVtDtorSlot)(void *) = &lexDelegateDtor008898d0;   // vt+8
+
+// --- 批 176:门内段插体三 delegate 槽真身(批 164 vt 承载判例)---
+// 008897ae(18B)@0027.c:39227 — vt+0x28 fill_range:runstyles_fill_range
+//   (*(param_1+8))。Ghidra 丢参(fill 的 pos 形;5641 同体形),承载 =
+//   RS8::FillRange(pos,char(0),len-pos) 剩余长面 — 返 run 索引
+//   (= PartitionFromPosition(pos),StartRun 对位;5641 fill 返 21928 同相)。
+qint64 lexVtFillRangeSlot008897ae(void *self)
+{
+	LexDelegate20 *d = static_cast<LexDelegate20 *>(self);
+	if (d->rs == nullptr)                        // 39229 *(param_1+8) 解引
+		return 0;                                // 空 RS 壳态防御同相
+	RS8 *rs = static_cast<RS8 *>(d->rs);
+	const qint64 at = rs->StartRun(0);           // fill pos 形态 = 0 段首
+	                                             //   (语料 Ghidra 丢参;
+	                                             //   21928 门内首 fill)
+	const qint64 len = rs->Length() - at;        // 剩余长(fill 面)
+	if (len <= 0)
+		return 0;                                // 38507 param_2<1 → 0
+	                                             //   (00969910 同相)
+	return qint64(rs->StartRun(rs->FillRange(int(at), char(0),
+	                                         int(len)).position));
+	                                             // fill 返 run 索引
+	                                             //   (21930 iVar4 承载)
+}
+// 00889810(12B)@0027.c:39287 — vt+0x38 run_start_at(idx 面):
+//   runstyles_run_start_at(*(param_1+8),param_2) → 009698d0 64B:
+//   clamp [0,runs) 后 FUN_009694fe + (+0x18<idx ? +0x20) — 承载 =
+//   RS8::StartRun(idx 面;PartitionFromPosition 对位,怪癖 #35)。
+qint64 lexVtRunStartSlot00889810(void *self, qint64 idx)
+{
+	LexDelegate20 *d = static_cast<LexDelegate20 *>(self);
+	if (d->rs == nullptr)
+		return 0;                                // 空 RS 壳态防御同相
+	return qint64(static_cast<RS8 *>(d->rs)->StartRun(int(idx)));
+}
+// 0088981c(15B)@0027.c:39297 — vt+0x40 run_start_at(idx+1 面):
+//   runstyles_run_start_at(*(param_1+8),param_2+1)(007a9d82 同体字面
+//   (long)(param_2+1))— 次-run 起点。
+qint64 lexVtRunStartNextSlot0088981c(void *self, qint64 idx)
+{
+	LexDelegate20 *d = static_cast<LexDelegate20 *>(self);
+	if (d->rs == nullptr)
+		return 0;
+	return qint64(static_cast<RS8 *>(d->rs)->StartRun(int(idx) + 1));
+	                                             // 007a9d82 (param_2+1) 字面
+}
 
 // 条目释放臂(5301-5304 逐字面):~RWLock(+0x20)/free(+8)/delete 0x30
 void cacheEntryRelease(void *ent)
@@ -131,13 +189,51 @@ void gbGrow0088a016(GB20 *g, int grow)
 	}
 }
 
+// FUN_00933738(240B)@0030.c:32409 全读 — hash remove 深面真身(QHash 判例:
+//   QHashData 手工节点布局 {+8 next,+0x10 h(uint),+0x18 key(u64)} 与桶头
+//   {buckets=[1],[4]=numBuckets(u32@+0x10),[5]=size(int@+0x14)};
+//   0088a25c/007ac5ae 127B 查找双源同构:hash = key>>0x1f ^ d->+0x24 ^ key)。
+//   批 176:5260/5707 调面(pcVar3+0x40,local_50)承接 = QHash<void*,void*>
+//   承载(键 = GB 条目指针值,node[2] 键恒等比较语料同相);链去重
+//   freeNode 循环(32446-32457 do-while 同键邻接)/ size--(32444/32460)/
+//   收缩门(32463 iVar3<=numBuckets>>8 && short@+0x1c<+0x1e → hasShrunk/
+//   rehash — 真库 QHash 承接同相;深桶重排 QHashData::rehash 内体 cited)。
+qint64 hashRemove00933738(void **hashSlot, const void *keyPacked)
+{
+	QHash<void *, void *> *h = *reinterpret_cast<
+	    QHash<void *, void *> **>(hashSlot);     // *param_1(单指针承载)
+	if (h == nullptr)                            // 壳期防御(语料 d 恒建)
+		return 0;
+	const int before = h->size();                // 32429 iVar1 = *(d+0x14)
+	const quint64 key = *reinterpret_cast<const quint64 *>(keyPacked);
+	                                             // 32431 plVar2 = *plVar5
+	                                             //   (0088a25c 查找:键
+	                                             //   u64 直读直比)
+	auto it = h->constFind(reinterpret_cast<void *>(key));
+	if (it == h->cend())                         // plVar2 == plVar8(e 哨兵)
+		return qint64(0);                        //   32439 返差 = 0 同相
+	while (it != h->cend()                       // 32446-32457 do-while 链
+	       && reinterpret_cast<quint64>(it.key()) == key) {   //   去重循环
+		it = h->erase(it);                       //   (freeNode+unlink+size--)
+	}
+	return qint64(before - h->size());           // 32471 返 iVar1-iVar3
+	                                             //   (hasShrunk/rehash 承接
+	                                             //   面在 QHash erase 内,
+	                                             //   深桶重排 cited)
+}
+
 // FUN_007b5270(601B)@0024.c:21889 — GB 段删除骨架门真身:
 //   21910 (bank+0x18)==0 门 / 21912-21915 (0<=pos<len 总量)/0<len 门;
-//   门内段插体(delegate vt+0x28 fill_range 007a9c50 恒等/vt+0x40
-//   run_start_at 007a9d82/007a7d76 拆段/007b3960 325B/RunStyles32_
-//   removeRange 007ae172 564B/f10 尾计 21973-21977 + 0x2000001 分臂
-//   007b4c50/007b4e70)深族 cited(铁律 3;970850/96a280 调面 len=len*2>>1
-//   同字面 — 39045/45047)。0x18!=0 臂(FUN_007abef6 324B GB 删段)同 cited。
+//   门内段插体批 176 升真(21926-21943 三 delegate 槽恒等分派面):
+//   vt+0x28 fill_range CMP 007a9c50 → 快路 runstyles_fill_range(dlg[1])/慢
+//   路 vcall → 承载 lexVtFillRangeSlot008897ae(fill pos 形 Ghidra 丢参,
+//   RS8 FillRange 剩余长面);vt+0x40 run_start_at CMP 007a9d82(idx+1)/
+//   vt+0x38 CMP 007a9d76(idx)→ lexVtRunStartSlot 族承载(00889810/1c 同体);
+//   区间深臂(local_50<local_58 → 007a7d76 拆段循环 21950-21955 +
+//   007b3960 ×2 21957/21968 + RunStyles32_removeRange 21974 + f10 尾计
+//   21975-21977 + 0x2000001 分臂 007b4c50/007b4e70/LOCK 计数 21982-21986)
+//   仍 cited(铁律 3;承载 RS 恒空 → 区间门不达同相)。
+//   0x18!=0 臂(FUN_007abef6 324B GB 删段)同 cited。
 void sectionRemove007b5270(Bank30 *bank, qint64 pos, qint64 len)
 {
 	if (bank->inner20 == nullptr)                // 21910 *(param_1+0x18)==0
@@ -145,7 +241,25 @@ void sectionRemove007b5270(Bank30 *bank, qint64 pos, qint64 len)
 	qint64 len10 = qint64((quint64(bank->f10) * 2 >> 1));   // 21913 (+0x10)*2>>1
 	if (pos < 0 || pos >= len10 || len <= 0)     // 21912-21915 三门
 		return;
-	// 门内段插体 — cited(delegate vt 深族 + GB 删段臂;见上注)
+	LexDelegate20 *dlg = static_cast<LexDelegate20 *>(bank->f20);
+	                                             // 21926 *(param_1+0x20)
+	if (dlg == nullptr || dlg->rs == nullptr)    // 空 delegate/RS 承载早退
+		return;                                  //   (语料空值面:fill 返 0
+	                                             //   → 区间臂不达同相)
+	// 21928-21934 vt+0x28 fill_range(21927 CMP 007a9c50 恒等分派):
+	const qint64 iFill = lexVtFillRangeSlot008897ae(dlg);
+	// 21936-21943 vt+0x40 run_start_at(iFill+1 面;21937 CMP 007a9d82):
+	const qint64 iRun = lexVtRunStartNextSlot0088981c(dlg, iFill);
+	// 21945-21972 区间臂(local_50<local_58 门 → 拆段循环/007b3960 ×2/
+	//   vt+0x38 run_start(iRun 面 21966-21972))+ 21974 removeRange +
+	//   21975-21986 f10 尾计/分臂 — 深族 cited(承载 RS 空值 → 门不达同相)
+	if (iRun < len + pos) {                      // 21945 local_50<local_58 门
+		                                         //   (承载面:空值恒不达;
+		                                         //   语料同相 — 注记直落)
+		// 21974 RunStyles32_removeRange(*(param_1+0x20),pos,len)— cited
+		// 21975-21977 f10 尾计(lVar7 = (len10-len)*2>>1)+ 0x2000001 分臂
+		//   (007b4c50 空面/007b4e70 重排/LOCK 计数)— cited
+	}
 }
 
 // FUN_0096a2f8 piecetable_init(248B)@0031.c:39050 全读 + 种子腿
@@ -253,7 +367,7 @@ fill:
 //   慢路 vcall 同槽 — 承载恒等恒真,注记)/ 5268-5284 逐槽 GB 密排选取
 //   + spin 锁字节 backoff(LOCK/UNLOCK 坍缩注记:单线程常 0 直落,批 145
 //   spinlock 判例)/ 5286-5290 hash remove(*(pc+0x40)+0x14!=0 → FUN_
-//   00933738 hash remove 240B cited — QHashData::freeNode/rehash 深面)/
+//   00933738 240B 批 176 升真 hashRemove00933738 — QHash 承载真身)/
 //   5292 *pc=0 / 5294-5296 条目释放(~RWLock(+0x20)/free(+8)/delete 0x30,
 //   cacheEntryRelease 真身)/ 5307-5345 尾 vt 换面析构链(vt+8 CMP vt14
 //   恒等:换面→RS D1→GB free/delete 0x20→本体 delete 0x20 = vt14 字面

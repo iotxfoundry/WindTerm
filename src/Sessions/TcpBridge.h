@@ -44,6 +44,14 @@ public:
 	// 未连 → 空)
 	QString peerNameLabel() const;
 
+	// 批 176:真拨号面声明层 —— FUN_00876864(23B,decomp-part-0027.c:
+	// 19051)= vt 拨号腿:FUN_0065f572(*(this+0x30),host,port,3,2)
+	// (ReadWrite/AnyIPProtocol 默认参)。0065f572(24B,0020.c:45519)
+	// 分流真身已落 ProxyCommandSocket::connectToHost(m_command 非空 →
+	// FUN_0065d482 代理 spawn;否则 QAbstractSocket::connectToHost —
+	// 真网络/外库边界不逆向,行为面登记)。桥侧 = 纯转发调面。
+	void dial(const QString &host, quint16 port);
+
 private slots:
 	// lambda 008698c0(readyRead 型2 连接)落点:= 00911e60 纯信号转发
 	// (批 83 TelnetBridge 判例同构)。

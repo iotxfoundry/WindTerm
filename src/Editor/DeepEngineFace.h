@@ -8,6 +8,7 @@
 #include <QtGlobal>
 #include <QThread>
 #include <QReadWriteLock>
+#include <QHash>
 #include <stddef.h>
 #include "MarkersStore.h"  // RS8(RunStyles 委托)/vcallSlot 槽尾调(批 152 判例)
 
@@ -73,7 +74,8 @@ static_assert(offsetof(SkipPartition50, tid30)     == 0x30, "sp +0x30 [6] tid");
 static_assert(offsetof(SkipPartition50, serial40)  == 0x40, "sp +0x40 [8] serial");
 static_assert(offsetof(SkipPartition50, spin48)    == 0x48, "sp +0x48 spin 字节");
 
-// 97142a 尾面(批 164 升真 — 123B @0031.c:45510;声明紧随 SkipPartition50)
+// 97142a 尾面(批 164 升真 — 123B @0031.c:45510;声明紧随 SkipPartition50;
+//   批 176:45534 runstyles_insert_space_b RS8 灌入面升真 — 现役 RS 判例)
 void tail97142a(SkipPartition50 *sp, quint64 seed);
 
 // editctx_initThread 字段前奏真身(9714b6 @0031.c:45556-45596 逐字面;
@@ -196,12 +198,43 @@ void cacheEntryRelease(void *ent);
 //   realloc 扩 221B @39819 — 逐字面;shrink4 = ×4 元素版另一 GB 族不落)
 void gbShrink00889e2e(GB20 *g, int to);
 void gbGrow0088a016(GB20 *g, int grow);
+// FUN_00933738(240B @0030.c:32409)hash remove 深面 — QHash 手工节点链
+//   移除真身(QHash 判例:QHashData 手工桶/链布局逐字面;语料底座改版
+//   定性同 kwCacheFill 判例)。param_1 = &hashData 槽(单指针承载:
+//   QHash<u64,CacheEntry30*> 形 — 键 u64 = GB 条目指针值,桶链值字面),
+//   param_2 = &键(local_50 密排 {key});返回移除计数。
+//   5260 delegate vt+0x30 计数源语料形态见 lexStackClear 注。
+qint64 hashRemove00933738(void **hashSlot, const void *keyPacked);
 // FUN_007b5270(601B)@0024.c:21889 — GB 段删除(bank, pos, len;96a280 种子
-//   腿 39045 调面 (bank,0,len))— 骨架门真身(21919-21923);段插体(delegate
-//   vt+0x28/+0x40/+0x38 恒等分派 + 007a7d76/007b3960/RunStyles32_removeRange
-//   007ae172 564B/007b4c50/007b4e70 深族)与 0x18!=0 臂(FUN_007abef6 324B
-//   GB 删段)f10 尾计 cited。
+//   腿 39045 调面 (bank,0,len))— 骨架门真身(21919-21923);段插体
+//   0x18!=0 臂(FUN_007abef6 324B GB 删段)f10 尾计 cited。
 void sectionRemove007b5270(Bank30 *bank, qint64 pos, qint64 len);         // ODR — 批 164
+
+// ---- 批 176:007b5270 门内段插体 delegate vt+0x28·0x38·0x40 槽承载 ----
+// 语料门内臂(21926-21972 逐字面):vt+0x28 fill_range 恒等 007a9c50 /
+// vt+0x40 run_start_at 恒等 007a9d82(idx+1 面)/ vt+0x38 run_start_at
+// 恒等 007a9d76(idx 面)— 快路直调 (dlg+8) RS 面函数,慢路 vcall 同槽。
+// 我方承载 = 函数指针槽(批 164 vt 判例);RS 面 = RS8 承载(怪癖 #35):
+//   fill_range = FillRange(pos,char(0),remaining) 首参形态(21928 语料
+//   Ghidra 丢参 — 5641 insert_space_b 同体形 pos 承载;fill 返 run 索引
+//   = PartitionFromPosition,RS8 FillRange 后 StartRun 对位);
+//   run_start_at = StartRun(idx 面)/+1 槽 = 次-run 面语料同相。
+//   深臂(007a7d76 删条 176B/007b3960 325B/RunStyles32_removeRange
+//   007ae172 564B/007b4c50 519B/007b4e70 984B)仍 cited(铁律 3)。
+qint64 lexVtFillRangeSlot008897ae(void *self);    // vt+0x28 — 008897ae 18B
+                                                  //   @0027.c:39227:
+                                                  //   runstyles_fill_range(
+                                                  //   *(self+8)) 承载
+qint64 lexVtRunStartSlot00889810(void *self, qint64 idx);  // vt+0x38 —
+                                                  //   00889810 12B:run_
+                                                  //   start_at(*(self+8),idx)
+qint64 lexVtRunStartNextSlot0088981c(void *self, qint64 idx); // vt+0x40 —
+                                                  //   0088981c 15B:run_
+                                                  //   start_at(*(self+8),
+                                                  //   idx+1) 同体三源
+                                                  //   (007a9d76/007a9d82
+                                                  //   0024.c:13509 同形)
+
 
 // ---- 调面声明(批 160:ODR 定义落 src/Editor/DeepEngineFace.cpp;
 //   可读段真身,深引擎腿逐处标注 cited — 见 .cpp 逐行出处)----

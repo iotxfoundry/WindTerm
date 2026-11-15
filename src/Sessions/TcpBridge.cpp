@@ -84,6 +84,18 @@ void TcpBridge::onReadyRead()
 	emit readyRead();   // 00911e60(0030.c:1402,activate idx5)
 }
 
+// 批 176:真拨号面 — FUN_00876864(23B)@0027.c:19051 转写:桥侧纯转发
+// FUN_0065f572(*(this+0x30),host,port,3,2)(3,2 = ReadWrite/AnyIPProtocol
+// 默认参;0065f572 分流体真身于 ProxyCommandSocket::connectToHost —
+// 代理 m_command 非空 → 0065d482 spawn,否则 QAbstractSocket::connectToHost。
+// 真网络行为 = Qt/系统边界,不逆向(铁律 6),行为面登记)。
+void TcpBridge::dial(const QString &host, quint16 port)
+{
+	if (QTcpSocket *sock = findChild<QTcpSocket *>())   // +0x30 槽(ctor 恒建)
+		sock->connectToHost(host, port, QIODevice::ReadWrite,
+		                    QAbstractSocket::AnyIPProtocol);  // 0065f572(3,2)
+}
+
 // FUN_007c85dc(87B,decomp-part-0024.c:34783)同构(TelnetBridge 判例):
 // 同值去重门 `(s == m_state) && (1 < s-8U)`(无符号减 ⇒ 仅 s==8/9(Auth
 // 区)同值不重发;其余同值也 emit —— 语料原样,QUIRKS 候选)→

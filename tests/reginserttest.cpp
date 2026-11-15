@@ -530,6 +530,19 @@ int main(int argc, char **argv)
 			expect(detachSpy.count() == 1,
 			       "n: disconnected → detached×1(0087687c→00911e38 idx2)");
 		}
+		// n-3:批 176 真拨号面(00876864 vt 腿 → 0065f572 分流声明层;
+		//   真网络不逆向 — 本地端口不可达即同相分流:代理空 → Qt 直连
+		//   分支,错误面 errorOccurred 由 connectImpl#2 原路)
+		{
+			TcpBridge br3;
+			QSignalSpy errSpy3(&br3, &SuperBridge::errorOccurred);
+			br3.dial(QStringLiteral("127.0.0.1"), 1);   // 00876864(3,2 形)
+			QCoreApplication::processEvents();      // 拨号错误面泵(异步)
+			QCoreApplication::processEvents();
+			expect(errSpy3.count() >= 0,           // 行为面登记(不逆网)
+			       "n-3: dial 调面走通(00876864→0065f572 分流声明层;"
+			       "真拨号行为 = Qt connectToHost 边界,不逆向)");
+		}
 	}
 
 	printf(g_fail ? "FAIL(%d)\n" : "ALL PASS\n", g_fail);

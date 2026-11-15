@@ -95,7 +95,9 @@ inline void flushSessionLogger(void *loggerRaw)
 //   +0x44 int         毫秒余
 // 深依赖(QDateTime token 表引擎 FUN_007c5970/QTimeZone displayName
 // /QLocale)—— 批 165:5970 渲染腿真身(见 renderTimeTokens);深
-// QDateTime 时区面('%z' displayName)仍 cited。
+// QDateTime 时区面('%z' displayName)批 176 升真(init %z 腿直 append —
+// 真库 timeZone().displayName(OffsetName) 承接;语料 007c4bc7 case 0x7a
+// toUtf8 append 逐字面)。
 // 'h' 腿(@007c27d5 卫/@007c2864 replace):label(=virtualLabel,q+0x10
 // 协议槽)空 → "UnknownIP";'n' 腿(@007c2931):name(label 参后段
 // toUtf8,本面 = target 名参)直替换。替换簿记(@007c5882 同构):
@@ -130,8 +132,11 @@ struct SessionTokenState
 		m_anchor.setMSecsSinceEpoch(now);  // @007c4ab3(锚 = now)
 		lastMsecs = -1;                    // init 0xffffffffffffffff @+0x20
 		// pattern 走查(@007c4bc7-4c02):'%%'→'%';%A..%z 时间族 →
-		// token 记录(007c4980 面);%z → tz displayName(007c4bc7
-		// toUtf8 append;深依赖 cited → 记 token);其余逐字 append。
+		// token 记录(007c4980 面);%z → tz displayName 直 append
+		// (32644-32652:toUtf8_helper append;批 176 升真 — 语料 32578
+		// QTimeZone::displayName(anchor.timeZone(), QLocale()) 逐字面,
+		// 真库 QDateTime::timeZone()+QTimeZone::displayName 承接);
+		// 其余逐字 append。
 		for (int i = 0; i < pattern.size();) {
 			const char c = pattern[i];
 			if (c != '%' || i + 1 >= pattern.size()) {
@@ -142,6 +147,14 @@ struct SessionTokenState
 			const char n = pattern[i + 1];
 			if (n == '%') {
 				buf.append('%');           // @007c4bf4
+				i += 2;
+			} else if (n == 'z') {
+				// %z 腿(@007c4bc7 case 0x7a,32644-32652 逐字面):
+				// displayName(tz) toUtf8 直 append(非 token;语料
+				// 32578 QTimeZone::displayName(anchor.tz,QLocale(),
+				// OffsetName) — 批 176 真库 QDateTime 承接面)
+				buf.append(m_anchor.timeZone().displayName(
+				    m_anchor, QTimeZone::OffsetName).toUtf8());   // @007c4bc7 append
 				i += 2;
 			} else if (isTimeToken(n)) {
 				tokens.append({n, buf.size(), 2, 0}); // @007c4980 node
