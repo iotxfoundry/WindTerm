@@ -46,7 +46,7 @@ void MessageBarFace::wireButtons()
 {
 	if (m_f40 != nullptr) {
 		connect(m_f40, &QAbstractButton::clicked, this, [this]() {
-			emit messageSignal(0x80, QString()); // @005981fc(FUN_008f7e38)
+			emitMessage(0x80, QString()); // @005981fc(FUN_008f7e38)
 			close();                            // @00598249
 		});
 	}
@@ -107,4 +107,12 @@ QPushButton *MessageBarFace::findButtonByText(const QString &text) const
 			return b;
 	}
 	return nullptr;
+}
+
+// FUN_008f7e38(56B,0028.c:6832)真身:
+//   QMetaObject::activate(this, smo 0119a2e0, idx 0, args{int, QString})
+//   → 本面 emit messageSignal(code, text)。
+void MessageBarFace::emitMessage(int code, const QString &text)
+{
+	emit messageSignal(code, text); // 等价 activate idx0
 }

@@ -747,3 +747,9 @@ void TabBar::onSideButtonClicked()
 		}
 	}
 }
+
+// FUN_005ab180(21B)真身:QTabBar::tabText(tabBar, index) 包装。
+QString TabBar::tabTextAt(int index) const
+{
+	return tabText(index); // @005ab180
+}

@@ -49,6 +49,10 @@ public:
 	//     → setLayout(hbox)。
 	void assembleChildren();
 
+	// FUN_008f7e38(56B,0028.c:6832)信号发射体:activate(smo 0119a2e0,
+	//   idx0, {int code, QString text})—— 本面 = emit messageSignal。
+	void emitMessage(int code, const QString &text);
+
 	// FUN_0059b046(393B,0018.c:14437)按文本查按钮:
 	//   findChildren<QPushButton>(空名, 递归=1)逐个 text() 比对;
 	//   命中返回按钮,否则 nullptr。

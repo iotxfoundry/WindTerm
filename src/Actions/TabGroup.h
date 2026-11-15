@@ -47,6 +47,8 @@ public:
     // FUN_005a6d00(65B,0018:21888)页状态取值:+0x68 表[index] 命中 →
     //   该 QVariant(引用计数增);越界/负 → 无效 QVariant。
     QVariant tabStateAt(int index) const;
+    // FUN_005ab180(21B,0018:24960 邻)页文:QTabBar::tabText 包装。
+    QString tabTextAt(int index) const;
     // FUN_005a7b66(269B,0018:22507)页色设置:越界返;+0x60 表补齐默认 →
     //   旧值 != 新值才写 → 尾重绘。
     void setTabColor(int index, const QColor &color);
