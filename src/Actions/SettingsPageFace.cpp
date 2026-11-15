@@ -307,8 +307,8 @@ void SettingsPageFace::commitCurrentRow(int index)
 		row.check40 = m_check40->isChecked() ? 1 : 0; // bit1
 	if (m_check38 != nullptr)
 		row.check38 = m_check38->isChecked() ? 1 : 0; // bit0
-	// FUN_0072d84e(this,row) / item setData(0,名) / 图标刷新 /
-	// FUN_0056642a / FUN_0072d304 — 全部 cited(体未转写)。
+	updateRowFlags(row); // FUN_0072d84e @0072dfxx(批 312 真身)
+	// item setData(0,名) / 图标刷新 / FUN_0056642a — cited。
 }
 
 // FUN_0072edfe(521B)重建列表真身:
