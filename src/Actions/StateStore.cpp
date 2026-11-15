@@ -9,6 +9,7 @@
 
 #include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
 #include "KitWindowFactory.h"          // KitWindowFace(8cf0c8 cast 面)
+#include "MuxPaneGroup.h"
 #include "WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
 
 #include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
@@ -211,25 +212,47 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 			b << ss;                               // @8cf452
 		}
 		if ((flags & 1u) != 0) {
-			// LastSessions 组块外框(批 180 位级反推,样本 110..417
-			//   byte-perfect,tools/re/phase5/5c/dump_lastsessions.py):
-			//   [int count][BA 根 splitter saveState][逐 widget:
-			//     char kind + kind==2 → <<BA title] — kind 写 =
-			//     operator<<(char)(asm 8cf783 ESI=1 / 8cf842 ESI=2 →
-			//     PLT 11b9ef8 <<(char) 实读);widget cast 分叉:
-			//     QSplitter(ti 11b8958 import 符号)→ 1(句柄入表,
-			//     零字节产物)/ KitGroup(ti 011ab130,"8KitGroup"
-			//     .data.rel.ro 名实读)→ 2 + title BA。样本外框:
-			//     count=1 + 根 ss 27B + 1×(kind2 + title 267B)。
-			//   title BA 内层 = [int 1][int 2]{BA uuid(UTF-16)+
-			//     BA 会话态}×2 + 15B 尾标(0000ffff 00000000_00000000
-			//     ffffffff 同构 ×2)— 写体 = s_RenamedTitle_8bbab6
-			//     (850B)深域 cited(铁律 3;内层读侧 SpecificSessions
-			//     四槽消费已批 158 面)。
-			//   句柄表迭代(push @8cf6cd / erase @8cf740)静态定序
-			//     不唯一 — 组块写面不落,cited 维持(铁律 3;
-			//     count/根 ss 载体 = param_1[9] LastSessions splitter
-			//     槽位宿主域未建模,铁律 6)。
+			// LastSessions 组块外框真身(批 223;@008cf62f-8ff):
+			//   mode = kitScopedConfigValue(kit,"kit.startupSessions",
+			//     "LastSessions")@008cf62f-6c4;isLast = (mode=="LastSessions");
+			//   队列首节点 = {0, param_1[9](= +0x48 LastSessions splitter)}
+			//     (prepend @008cf977);
+			//   逐节点 pop-front:<< int index << int count
+			//     << QSplitter::saveState @008cf740-76b;
+			//   子件:QSplitter → <<(char)1 + append{1, child}@008cf783-8xx;
+			//     KitGroup(011ab130,= MuxPaneGroup 同址 +0x38 TabGroup)→
+			//     <<(char)2 + << (isLast ? s_RenamedTitle_8bbab6 : 空 BA)
+			//     @008cf842-8ff;BFS 顺序由 append/erase 队列定序。
+			const QString groupMode = Workspace::kitScopedConfigValue(
+			    QStringLiteral("Terminal"),
+			    QByteArrayLiteral("kit.startupSessions"),
+			    QStringLiteral("LastSessions")); // @008cf62f-6c4
+			const bool isLast = groupMode == QLatin1String("LastSessions");
+			QSplitter *root = pane->m_split0x48; // param_1[9]
+			if (root != nullptr) {
+				QList<QPair<int, QSplitter *>> queue;
+				queue.append(qMakePair(0, root)); // prepend 根 @008cf96a
+				while (!queue.isEmpty()) {        // @008cf740 队列消费
+					const QPair<int, QSplitter *> node = queue.takeFirst();
+					b << node.first;                  // << int index
+					b << node.second->count();        // << int count
+					b << node.second->saveState();    // << BA @008cf772
+					QList<QSplitter *> nested;
+					for (int i = 0; i < node.second->count(); ++i) {
+						QWidget *w = node.second->widget(i); // @008cf7c1
+						if (auto *sp = qobject_cast<QSplitter *>(w)) {
+							b << qint8(1);               // @008cf783(ESI=1)
+							nested.append(sp);           // append {1, child}
+						} else if (auto *pg = qobject_cast<MuxPaneGroup *>(w)) {
+							b << qint8(2);               // @008cf842(ESI=2)
+							b << (isLast ? pg->sessionTitleBlob()
+							             : QByteArray()); // @008cf86b-8ff
+						}
+					}
+					for (QSplitter *sp : nested)
+						queue.append(qMakePair(1, sp));
+				}
+			}
 		}
 	}
 	out << blobB; // @008cf490

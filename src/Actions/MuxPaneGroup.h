@@ -35,7 +35,7 @@ public:
     MuxPaneView *paneAtIndex(int index) const;
     // s_RenamedTitle_8bbab6(850B,0028.c:226)组会话帧(blobB 内 kind2 载荷):
     //   收集非空/非 "::" 前缀页 → <<调整后当前索引 <<项数 → 逐项
-    //   <<Url(QString) <<会话态BA(K itView_vt9 cited) <<颜色(005aba32 cited)
+    //   <<Url(QString) <<会话态BA(KitView_vt9 cited) <<颜色(005aba32 cited)
     //   <<(owner=="Terminal" ? property("RenamedTitle") : 无)。
     QByteArray sessionTitleBlob() const;
 
