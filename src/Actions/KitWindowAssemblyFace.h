@@ -82,6 +82,16 @@ int kitTabPositionIndex(TabGroup *tabs, const QString &spec);
 int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
                    bool select);
 
+// s_tabbar_selectionBehaviorOnRemove_89d860(1346B,0027.c:55345)实为
+//   **KitDock 创建腿**(名取自首段配置读):panel 空 → 0;
+//   behavior = 配置 "tabbar.selectionBehaviorOnRemove"(QMetaEnum
+//   keyToValue,缺省 2);dock = new KitDock(0x58)+ctor(panel,parent)
+//   @0089d9d8;dock->tabs->tabBar()->setSelectionBehaviorOnRemove(behavior)
+//   (FUN_008b8680 → 005abbc6 公开 API)@0089d9e0;双 connect + 尾部
+//   connect(panel::destroyed → dock::deleteLater)@0089daxx。
+class KitDockFace;
+KitDockFace *kitCreateDock(QWidget *panel, QWidget *parent);
+
 // 008b84b6(251B,0027.c:75629)按名查页位:归一名 → 逐 i<count
 //   stackWidgetAt(i)->objectName() == 名 → i;无 → -1(008b83ee 53B 取页)。
 int kitPanelIndexByName(TabGroup *tabs, const QString &rawName);

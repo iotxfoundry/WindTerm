@@ -16,10 +16,12 @@
 #include <QStatusBar>
 #include <QVariant>
 
+#include "Actions/KitDockFace.h"
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFactory.h"
 #include "Actions/StatusBarFace.h"
 #include "Actions/TabGroup.h"
+#include "WorkspaceLoader.h"
 #include "Widgets/Splitter.h"
 
 // 008c9ee4(159B,0028.c:11376)菜单栏装配腿:
@@ -504,4 +506,30 @@ int kitPanelToggle(TabGroup *tabs, const QString &name)
 		return i;
 	}
 	return kitPanelShowBack(tabs, name, true); // 008b8abe
+}
+
+// s_tabbar_selectionBehaviorOnRemove_89d860(1346B,0027.c:55345)真身:
+//   @5534x panel 空 → 0;配置键 "tabbar.selectionBehaviorOnRemove"
+//   (QMetaEnum 0x1180860 valueToKey→global_setting_get→keyToValue,
+//   缺省 2 — WorkspaceLoader::tabBarSelectionBehaviorOnRemove 真身复用);
+//   dock = operator_new(0x58)@0089d9d8 + KitDock ctor(panel,parent);
+//   FUN_008b8680(dock)@0089d9e0 = FUN_005abbc6(tabs) =
+//   QTabBar::setSelectionBehaviorOnRemove(behavior)(公开 API);
+//   双 connect:KitDock 信号 idx0(FUN_0091a7d8)→ FUN_008ce100;
+//   idx1(FUN_0091a80c)→ FUN_008ca17a — 槽体未转写,cited 不落;
+//   尾 connect(panel, &QObject::destroyed, dock, &QObject::deleteLater)
+//   @0089daxx(sender=panel / receiver=dock 实证)。
+KitDockFace *kitCreateDock(QWidget *panel, QWidget *parent)
+{
+	if (panel == nullptr) // @5534x 空卫
+		return nullptr;
+	const int behavior = Workspace::tabBarSelectionBehaviorOnRemove(); // 配置腿
+	KitDockFace *dock = new KitDockFace(panel, parent); // @0089d9d8(0x58)
+	dock->tabGroup()->tabBar()->setSelectionBehaviorOnRemove(
+	    static_cast<QTabBar::SelectionBehavior>(behavior)); // @0089d9e0
+	// connect(dock, 信号 idx0 → FUN_008ce100) / (idx1 → FUN_008ca17a)
+	//   — 两槽体未转写,cited 不落接线(KitDock 仅声明 idx0)。
+	QObject::connect(panel, &QObject::destroyed, dock,
+	                 &QObject::deleteLater); // @0089daxx
+	return dock; // @5534x 返回
 }
