@@ -209,6 +209,8 @@ public:
     // S5 接线 lambda 体驱动面(FUN_008e12c0;宿主 connectImpl
     //   @0084e5fd 目标 = 本 lambda — 测试/驱动直调承接,非新增行为):
     friend void muxSplitterMovedDriver(MuxWindow *win, int pos, int index);
+    // FUN_008e1125 timer 槽体直调面(批 175 真身;同上判例):
+    friend void muxSplitterMovedTimerSlotDriver(MuxWindow *win);
 
 private:
     int m_f4c;              // 语料 +0x4c(宿主 0084dd5a 写点 @0084e71c/[RSP+0x1c0];

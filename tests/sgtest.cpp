@@ -29,6 +29,24 @@ static void expect(bool ok, const char *name)
 		g_fail++;
 }
 
+// k2 夹具比较器(0084be6a toInt 承接腿同型;产品符号 static 不可见
+//   → 测试本地同型消歧,k2 断言的是 toInt 语义同相性)
+static bool muxWindowPermLessLocal(const QVariant &a, const QVariant &b)
+{
+	return a.toInt() < b.toInt();
+}
+
+// 测试可见产品符号声明(PanePosNode/驱动函数 = MuxWindow.cpp 匿名域
+//   转写面;测试直构造节点断言槽体行为 — 复刻布局直译,非新增行为):
+struct PanePosNode {
+	QPointer<MuxPaneView> pane;
+	int pos;
+	int pos2;
+	bool vertical;
+};
+void muxSplitterMovedTimerSlotDriver(MuxWindow *win);
+void muxSplitterMovedDriver(MuxWindow *win, int pos, int index);
+
 int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
@@ -319,10 +337,49 @@ int main(int argc, char **argv)
 		QTimer *t1 = jwin.findChild<QTimer *>();
 		expect(t1 != nullptr,
 		       "j4a: S6 懒建 QTimer(+0x38)真身(008e14f6-15f6 start(0) "
-		       "单发面;槽体 008e1125 cited)");
+		       "单发面;槽体 008e1125 批 175 真身)");
 		muxSplitterMovedDriver(&jwin, 130, 1);       // S4 命中腿二发
 		expect(jwin.findChild<QTimer *>() == t1,
 		       "j4b: S4 命中腿二发 pos 直写不重建 timer(008e14a2 值面)");
+	}
+
+	// ======== k. 批 175 MuxWindow 尾清 ========
+	// k1 008e1125 timer 槽体真身(T1 卫/T5 差分/T7 释放):表 1 节点 →
+	//   卫腿直返不释放(008e113a end-beg≤1);表 2 节点(活 pane,垂直,
+	//   pos 差 30/行高桥 1 = diff 30≠0)→ 槽体扫毕表清空 + 节点释放
+	//   (008e1263 shared_null 归位 + FUN_008dfda4 逐节点 delete)。
+	{
+		MuxWindow *kwin = new MuxWindow(true, nullptr);
+		auto *n1 = new PanePosNode;
+		n1->pane = nullptr;                          // 死节点:T4 活门跳过
+		n1->pos = n1->pos2 = 10;
+		n1->vertical = true;
+		auto *n2 = new PanePosNode;
+		n2->pane = new MuxPaneView(nullptr, TypeTerminal); // 活 pane
+		n2->pos = 100;
+		n2->pos2 = 130;                              // 差 30(桥 1 → diff 30)
+		n2->vertical = true;
+		kwin->table30().append(reinterpret_cast<quint64>(n1));
+		kwin->table30().append(reinterpret_cast<quint64>(n2));
+		muxSplitterMovedTimerSlotDriver(kwin);       // 008e1125 体直调
+		expect(kwin->table30().isEmpty(),
+		       "k1: 槽体 T7 表清空(008e1263 shared_null 归位)+ T1 卫过"
+		       "(表 2 节点 >1;T5 差分走 vertical 除桥 1 同相)");
+		delete kwin;                                 // 表已清,无悬垂节点
+	}
+	// k2 比较器无效 QVariant 夹具(0084be6a 无效腿同相性实测):
+	//   invalid vs invalid → 0<0 false(QT 探针 inv.toInt()=0);
+	//   valid vs invalid → 语料 POD +0x8 初始 0 = b_int 0 → a<0 即
+	//   a 为负才 true(7<0 false、-3<0 true;toInt 腿同相)。
+	{
+		QVariant inv;                                // 无效 QVariant
+		QVariant v7(7);
+		QVariant vNeg(-3);
+		expect(!muxWindowPermLessLocal(inv, inv)
+		           && !muxWindowPermLessLocal(v7, inv)
+		           && muxWindowPermLessLocal(vNeg, inv),
+		       "k2: 比较器无效腿同相(0084be6a POD 初始 0 vs toInt 0 — "
+		       "invalid/invalid 双 false + valid/invalid 同符号相)");
 	}
 
 	printf("fail=%d\n", g_fail);
