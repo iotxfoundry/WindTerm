@@ -59,6 +59,9 @@ public:
 	Splitter *m_split0x58 = nullptr;
 	Splitter *m_split0x60 = nullptr;
 	Splitter *m_split0x68 = nullptr;
+	// +0x70 BYTE=1(ctor movb $0x1,0x70 @0x8cc6f8)— 槽 8 的 splitter 选择位:
+	//   1 → +0x68,否则 +0x60(008ca0de 0x8ca0f5 cmpb/cmovne 实读)。
+	quint8 m_flag0x70 = 1;
 	// vtable 槽 62(+0x1f0)纯虚;子类实现:EditorWindow 0x5e97d2 /
 	//   TerminalWindow 0x858fce(懒单例容器 + FUN_008aa896 校验尾)。
 	//   返回 = Config 系单例(批 140 定案:Editor 腿 CEditorConfig 单例
@@ -91,4 +94,14 @@ public:
 	bool kitWindowStartupSessions(const QByteArray &history, int hints);
 	// s_kit_startupSessions 尾段(栏可见性,0028.c:17450 域)→ cpp
 	bool kitWindowBarsRestore(const QByteArray &frame, quint32 magic, quint32 flags);
+	// ── 槽位访问族(批 198;id 字面 1/2/8 = asm 立即数)───────────────
+	//   1 → +0x38 / 2 → +0x40 / 8 → +0x50(三 QSplitter 槽);
+	//   id 1·2 经 +0x58 的 index 0·2 取用,id 8 经 +0x68/+0x60 的 index 1,
+	//   与 008cd068 中央树子序 [+0x38,+0x60,+0x40] 自洽。
+	QSplitter *kitSlotSplitter(int id);            // 008ca096(33B)
+	int kitSlotIdOf(QWidget *widget);              // 008ca0b8(37B)
+	bool kitSlotVisible(int id);                    // 008ca0de(65B)
+	void kitSlotSetVisible(int id, bool visible);   // 008ca120(72B)
+	void kitSlotHide(int id);                       // 008ca168(7B)
+	void kitSlotShow(int id);                       // 008ca170(10B)
 };

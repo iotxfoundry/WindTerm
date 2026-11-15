@@ -179,3 +179,69 @@ void KitWindowFace::kitWindowAssembleDeferred()
 		kitAssembleFailHook();
 	kitAssembleFinishHook();
 }
+
+// ── 槽位访问族(批 198;0028.c:11461-11600,asm 0x8ca096-0x8ca17a 全核)──
+// 008ca096(33B)槽 id → splitter:1→+0x38 @0x8ca0a0 / 2→+0x40 @0x8ca0b5 /
+//   8→+0x50 @0x8ca0ae / 其他 → 0 @0x8ca0b2。
+QSplitter *KitWindowFace::kitSlotSplitter(int id)
+{
+	if (id == 1)
+		return m_split0x38;
+	if (id == 2)
+		return m_split0x40;
+	if (id == 8)
+		return m_split0x50;
+	return nullptr;
+}
+
+// 008ca0b8(37B)widget → 槽 id:+0x38→1 @0x8ca0c2 / +0x40→2 @0x8ca0cb /
+//   +0x50→8 @0x8ca0d5(cmp 结果 <<3,未命中 0)。
+int KitWindowFace::kitSlotIdOf(QWidget *widget)
+{
+	if (m_split0x38 == widget)
+		return 1;
+	if (m_split0x40 == widget)
+		return 2;
+	return m_split0x50 == widget ? 8 : 0;
+}
+
+// 008ca0de(65B)槽可见性(asm 0x8ca0de-0x8ca11a):
+//   id 1 → +0x58 isIndexVisible(0);id 2 → +0x58 isIndexVisible(2)
+//   (0x8ca10b/0x8ca116:esi = id 残留);id 8 → (+0x70==1 ? +0x68 : +0x60)
+//   isIndexVisible(1) @0x8ca0f1-106;其他 false @0x8ca0ed。
+bool KitWindowFace::kitSlotVisible(int id)
+{
+	switch (id) {
+	case 1:
+		return m_split0x58->isIndexVisible(0); // @0x8ca10b-11
+	case 2:
+		return m_split0x58->isIndexVisible(2); // @0x8ca116
+	case 8:
+		return (m_flag0x70 == 1 ? m_split0x68 : m_split0x60)->isIndexVisible(1); // @0x8ca0f1
+	default:
+		return false;
+	}
+}
+
+// 008ca120(72B)槽可见性设置(同 id 分派;FUN_005a2096 = 可见→showIndex /
+//   不可见→hideIndex,与 Splitter::setIndexVisible 同构)。
+void KitWindowFace::kitSlotSetVisible(int id, bool visible)
+{
+	switch (id) {
+	case 1:
+		m_split0x58->setIndexVisible(0, visible);
+		return;
+	case 2:
+		m_split0x58->setIndexVisible(2, visible);
+		return;
+	case 8:
+		(m_flag0x70 == 1 ? m_split0x68 : m_split0x60)->setIndexVisible(1, visible);
+		return;
+	default:
+		return; // 语料:非 1/2/8 直接 return
+	}
+}
+
+// 008ca168(7B)/008ca170(10B):隐藏/显示 = kitSlotSetVisible(id, 0/1)。
+void KitWindowFace::kitSlotHide(int id) { kitSlotSetVisible(id, false); }
+void KitWindowFace::kitSlotShow(int id) { kitSlotSetVisible(id, true); }
