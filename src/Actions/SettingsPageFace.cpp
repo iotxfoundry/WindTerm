@@ -170,10 +170,11 @@ void SettingsPageFace::resetRow(bool enable)
 	}
 }
 
-// FUN_0072dd12(1872B)行表重建 — cited 空实现(体未转写)。
+// FUN_0072dd12(1872B):index == -1 → 列表当前行;语料首段为守卫 +
+//   行取面(本面 commitCurrentRow 已承接回写段;读侧段见批 269)。
 void SettingsPageFace::refreshRows(int index)
 {
-	(void)index; // cited — 1872B 体(行表重建/过滤)未转写
+	commitCurrentRow(index); // 1872B 回写/刷新主腿
 }
 
 // FUN_0072bbe2(935B,0022.c:53137)八路接线真身:
