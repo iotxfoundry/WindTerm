@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QColor>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QIcon>
@@ -40,6 +41,10 @@ public:
     //   FUN_005a6fbe 取 +0x58 tabBar index 旧文 → 比对相等即返 →
     //   FUN_005a7c74(+0x58,index,title)写新文(写函数 cited — wave-2)。
     void setTabText(int index, const QString &title);                    // FUN_005ab09e
+    // FUN_005a6ca6(83B,0018:21853)页色取值:list(+0x60)[index] 命中 →
+    //   该项 QColor;越界/负 → 默认(语料 0xffff00000000/0/0 缺省结构)。
+    QColor tabColor(int index) const;
+    QList<QColor> m_colors60; // 语料 +0x60(QList<QColor*> 节点面,本波值承载)
 
 signals:
     void tabLayoutChanged();                                             // activate idx0(01197f40)

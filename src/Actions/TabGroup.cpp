@@ -659,3 +659,15 @@ void TabGroup::replacePage(int index, QWidget *page)
 		m_f60->setCurrentIndex(current);       // @005ac98x
 	m_f60->blockSignals(false);
 }
+
+// FUN_005a6ca6(83B,0018:21853)页色取值真身:
+//   @005a6ca6 index < 0 → 缺省;index < list(+0x60) 元素数 →
+//   node = list[index] → 逐字段拷贝(u32 + u64 + u16 三段 Ghidra 重叠读,
+//   实为 16 字节 QColor 承载);越界 → 缺省 0xffff00000000/0/0。
+//   本波以 QList<QColor> 值承载(节点指针面等价),越界返无效 QColor。
+QColor TabBar::tabColor(int index) const
+{
+	if (index < 0 || index >= m_colors60.size())
+		return QColor(); // 语料缺省结构(无效色)
+	return m_colors60.at(index);
+}
