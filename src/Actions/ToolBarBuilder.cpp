@@ -1,6 +1,7 @@
 #include "ToolBarBuilder.h"
 
 #include "Widgets/BreadCrumbFace.h"
+#include "Widgets/SearchEditFace.h"
 
 #include <QAction>
 #include <QLabel>
@@ -313,10 +314,14 @@ static QList<QToolBar *> buildOne(QMainWindow *mainWindow,
 			any = true;
 			break;
 		}
-		case 6:                                // FilterEdit @006946a0
-			// FUN_0057eb0c(200B,0017.c:55458)ctor cited — wave-2
-			//   (operator_new(0x80)+QTimer 0x78;本体未落库,同上)。
-			break;                             // cited 空壳
+		case 6: {                              // FilterEdit @006946a0
+			// FUN_0057eb0c(200B)ctor(cited → 批 255 真身 FilterEditFace;
+			//   operator_new(0x80) + +0x78 QTimer 同相)。
+			auto *filter = new FilterEditFace(bar); // @006946a0
+			bar->addWidget(filter);                 // 出口同 case 5
+			any = true;
+			break;
+		}
 		default:
 			break;                             // default 跳过 @0069457f
 		}
