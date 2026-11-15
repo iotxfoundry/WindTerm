@@ -295,8 +295,14 @@ void MuxWindow::confirmPaneClose(MuxPaneView *pane)
 	}
 	if (tabs->count() != 0)                                 // S6 @008df8ec-f7(5abbda)
 		return;
-	// S7:tabCount==0 → singleShot(0) 深腿 — cited(0x28B 闭包/FUN_008de260
-	//   链未建模,见头注;不发明)。
+	// S7 @008df8xx:tabCount==0 → QTimer::singleShot(0, 闭包 FUN_008de260
+	//   (116B):ctx{+0x10 目标,+0x18 表,+0x20} 非空 → FUN_008e01b6(15B):
+	//   目标非空 → FUN_005a29e6(m_f70->+0x70 面)(cited 体未转写)。
+	QTimer::singleShot(0, this, [this]() {
+		if (m_f70 == nullptr)
+			return; // 表/目标门
+		// FUN_005a29e6(m_f70 的 +0x70 槽)@008e01b6 — cited。
+	});
 }
 
 // === onFocusChanged(QWidget*,QWidget*) ===
