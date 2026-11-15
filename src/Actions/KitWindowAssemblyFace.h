@@ -72,6 +72,16 @@ int kitPanelShowBack(TabGroup *tabs, const QString &name, bool select);
 int kitPanelsRestoreList(TabGroup *tabs, const QList<QString> &names,
                          int currentIndex);
 
+// 005abce4(301B,0018.c:25843)页位说明解析:数字直取(int 成功腿);
+//   "First"→0 / "Last"→-1(尾插)/ "Before"→max(cur-1,0)/
+//   "After"→min(count,cur+1)/ 其他→-1。串 0xd0d1c3 域实读。
+int kitTabPositionIndex(TabGroup *tabs, const QString &spec);
+
+// 008b8bb8(44B,0027.c:7604x)按说明插页:index = 解析(spec) →
+//   kitPanelShow(tabs,name,index,select)。
+int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
+                   bool select);
+
 // 008b881c(485B,0027.c:75873)页恢复(blob 空 → false):
 //   >>count >>current → 逐 i:>>panelName >>propBA → blockSignals(current != i)
 //   @008b8899 → panel = 工厂(归一名 find-or-create)→ 非空 →

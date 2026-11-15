@@ -425,3 +425,39 @@ int kitPanelsRestoreList(TabGroup *tabs, const QList<QString> &names,
 	tabs->blockSignals(false); // 尾(实参 cited 同相)
 	return ret;
 }
+
+// 005abce4(301B,0018.c:25843)页位说明真身:
+//   QString::toInt(&ok) 成功腿直返 n @005abce4-cf;
+//   compare("First")==0 → 0(返回值即 0);"Last"(0xd0d1c3 实读)==0 → -1(尾插,
+//   与 QStackedWidget::insertWidget(-1) 同相);"Before" → max(cur-1,0);
+//   "After" → min(count, cur+1);其余 -1。
+int kitTabPositionIndex(TabGroup *tabs, const QString &spec)
+{
+	bool ok = false;
+	const int numeric = spec.toInt(&ok);
+	if (ok)
+		return numeric;
+	if (spec == QLatin1String("First"))
+		return 0;
+	if (spec == QLatin1String("Last"))
+		return -1;
+	if (tabs == nullptr)
+		return -1;
+	const int cur = tabs->tabBar()->currentIndex();
+	if (spec == QLatin1String("Before"))
+		return cur - 1 < 0 ? 0 : cur - 1;
+	if (spec == QLatin1String("After")) {
+		const int next = cur + 1;
+		return tabs->count() < next ? tabs->count() : next;
+	}
+	return -1;
+}
+
+// 008b8bb8(44B,0027.c:7604x)真身:uVar1 = FUN_005abce4(tabs,spec)@008b8bb8;
+//   FUN_008b8a26(this,name,uVar1,param_4)@008b8bc8。
+int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
+                   bool select)
+{
+	const int index = kitTabPositionIndex(tabs, spec); // @008b8bb8
+	return kitPanelShow(tabs, name, index, select);     // @008b8bc8
+}
