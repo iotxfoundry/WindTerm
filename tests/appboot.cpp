@@ -14,6 +14,7 @@
 #include <cstdio>
 #include "Actions/MainWindowFace.h"
 #include "Actions/StartupChain.h"
+#include "Editor/CTerminalConfig.h" // 批 184:承载面对账
 #include "Actions/StateStore.h" // 批 172:aboutToQuit 挂点真身
 #include "Actions/SuperApplicationFace.h" // 批 179:face 级挂点
 
@@ -169,6 +170,54 @@ int main(int argc, char **argv)
 		QFile hf3(hist3);
 		if (!hf3.open(QIODevice::ReadOnly) || hf3.size() < 16)
 			++fails; // face 级写面落盘(FUN_0076073a + 005dd6fc)
+
+		// ======== 批 184(M24-①):searchEngines 消费链 face getter/
+		// setter roundtrip(尾部追加;既有断言不动)— setter 真身
+		// setSearchEngines(6e761e 写腿对位 → CTerminalConfig 值面,
+		// 键面 "application.searchEngines" as-given)→ getter 真身
+		// searchEngines(75dc4c:toList → 逐元素 toJson compact → 非空
+		// append;空引擎名行被 getter 非空门过滤?行 JSON "{}" 非空 →
+		// 全行收录同相)。承载判例:批 174 f13 同键 QVariantList 形态。
+		{
+			CTerminalConfig *cfg = CTerminalConfig::instance();
+			cfg->setConfigPath(QStringLiteral("/nonexistent/b184-wind.config"));
+			cfg->setOverridePath(QString());
+			cfg->reload(); // 空层基线(getter 空表腿)
+			if (!appFace.searchEngines().isEmpty())
+				++fails; // 75dc4c 未命中 → 空表(0075c480 门)
+			const QVariantList rows{
+			    QVariantMap{{QStringLiteral("text"), QStringLiteral("Google")},
+			                {QStringLiteral("url"),
+			                 QStringLiteral("https://www.google.com/search?q={q}")}},
+			    QVariantMap{{QStringLiteral("text"), QStringLiteral("Bing")},
+			                {QStringLiteral("icon"), QStringLiteral("bing.ico")},
+			                {QStringLiteral("url"), QStringLiteral("https://b.com/{q}")}}};
+			appFace.setSearchEngines(rows); // 6e761e 尾 6e6c46 写腿对位
+			const QStringList got = appFace.searchEngines(); // 75dc4c 读面
+			if (got.size() != 2)
+				++fails; // toList 两元素 → 两 JSON 串(@0075dd1a 循环)
+			if (got.size() == 2) {
+				// QJsonDocument compact + QJsonObject 键字典序(icon<text<url):
+				if (got.at(0) != QStringLiteral(
+				                     "{\"text\":\"Google\",\"url\":"
+				                     "\"https://www.google.com/search?q={q}\"}"))
+					++fails; // 首行 compact JSON 双键
+				if (got.at(1) != QStringLiteral(
+				                     "{\"icon\":\"bing.ico\",\"text\":\"Bing\","
+				                     "\"url\":\"https://b.com/{q}\"}"))
+					++fails; // 次行三键字典序
+			}
+			const QVariant back =
+			    cfg->value(QStringLiteral("application.searchEngines"));
+			if (back.toList().size() != 2 || back.toList().at(1)
+			                                         .toMap()
+			                                         .value(QStringLiteral("text"))
+			    != QStringLiteral("Bing"))
+				++fails; // 值面承载对账(6e761e→6e6c46→00a8009c 键名直写)
+			appFace.setSearchEngines(QVariantList{}); // 空表写回腿
+			if (!appFace.searchEngines().isEmpty())
+				++fails; // 空列表 → getter 空表(toList 空 → 循环零次)
+		}
 	}
 
 	printf("appboot: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);

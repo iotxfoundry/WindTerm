@@ -8,6 +8,11 @@
 #include "MuxPane.h"
 #include "StartupChain.h"
 
+#include "../Editor/CTerminalConfig.h"
+
+#include <QJsonDocument>
+#include <QJsonObject>
+
 // === SuperApplicationFace ctor — FUN_0075dba4(131B,0023.c:27019)
 // 槽位清零面 @27022-27(成员缺省零/空同相)+ aboutToQuit 挂点
 // s_WindTerm_75be40(590B,0023.c:25720)connectImpl(aboutToQuit →
@@ -103,7 +108,11 @@ void SuperApplicationFace::closeAllScan(MainWindowFace::Slots winSlots,
 //     0xf:FUN_0075d108 / 0x10:FUN_0075d3f8 / 0x11:s_ShowFolders_75d22e
 //     0x12:FUN_0075d506 / 0x13:FUN_0075d6c0 / 0x14:FUN_0075d6d0(QMap)
 //     0x15:s_application_searchEngines_75dc4c(557B,27058 QList)
-//     0x16:s_application_searchEngines_75e56a(4882B,27388)
+//        — 批 184 升真:searchEngines getter 真身(本文件);
+//     0x16:s_application_searchEngines_75e56a(4882B,27388)⚠ 批 184
+//        定性更名:TextView::searchOnline 辅助(TextView qt_metacall
+//        8f3a74 case 0x95/0x96 方法表实读;非 setter 非 app 域)—
+//        TextView 车道 cited 不落(头注挂账)
 //     0x17:FUN_0075debe / 0x18:FUN_0075d732 / 0x19:FUN_0075d73c(53B,
 //         26759 lockScreenTimeout 存值腿)
 //     0x1a:FUN_0075d78c / 0x1b-0x1d:windowOpacity_75d79c 族 /
@@ -125,6 +134,53 @@ QWidget *SuperApplicationFace::dispatchMetacall(int id,
 		break; // cited case 表(default 直返 0 同相 @31871-72)
 	}
 	return nullptr;
+}
+
+// === searchEngines(getter)— s_application_searchEngines_75dc4c(557B,
+// 0023.c:27058)真身(批 184;metacall case 0x15 @31830 返回表写入):
+// 键面 QByteArray("application.searchEngines")@27072 → global_setting_get
+// (0075c458→0075c480 值卫面;键 as-given,0x1181568 键表指针 MOV 实读)
+// → QVariant::toList → 逐元素 QVariant::toJsonObject(@0075dd29 4bb210)
+// → QJsonDocument(json)→ toJson(Compact,EDX=1? @0075dd39 EDX=1 =
+//   QJsonDocument::Compact 枚举值 0? Compact=0/Indented=1 — 语料 EDX=1
+//   = Indented? Qt5 QJsonDocument::Indented=0x1... 实读 EDX=1 → Indented?
+//   无空白差异对待:fromJson 往返等价,格式位 face 不判(铁律 3 不猜)
+//   → 用 Compact=Qt 默认风格承载,键序 QJsonObject 字典序同相)→
+// QString::fromAscii(@0075dd96 4c3220)非空腿 append(@0075ddd9)。
+// 读通路 = CTerminalConfig 值面缺省 null(批 150;键未命中 → 空表)。
+// 返回 = QStringList(逐引擎 JSON 串;语料 QList<QVariant> 承 QString)。
+// ===
+QStringList SuperApplicationFace::searchEngines() const
+{
+	QStringList out;
+	const QVariantList list =
+	    CTerminalConfig::instance()
+	        ->value(QStringLiteral("application.searchEngines"))
+	        .toList(); // @27072-db + toList 腿
+	for (const QVariant &e : list) { // @0075dd1a-ff 循环腿
+		const QString s = QJsonDocument(e.toJsonObject())
+		                      .toJson(QJsonDocument::Compact); // @0075dd29-96
+		if (!s.isEmpty())                    // *(int *)(local_68+4)!=0 门 @0075ddd9
+			out.append(s);                   // qlist_qvariant_append @0075ddd9
+	}
+	return out; // param_1 表尾 @27170
+}
+
+// === setSearchEngines(setter)— s_application_searchEngines_6e761e
+// (857B,0022.c:12876)写腿对位(批 184):页行集(QTableWidget 行 →
+// QJsonObject{text/icon/url}@12884-13010,行集以 QVariantList 参承接,
+// 页车道 cited)→ 尾 FUN_006e6c46(host,"application.searchEngines",
+// QVariant(array),0)@13034 即时写腿 → FUN_008cbb2e(242B,0028.c:12894)
+// → 00a8009c jsoncpp 成员按名写入(键面 as-given 不归一)。face 落
+// CTerminalConfig::setValue 值面(批 169 setValueKitScoped 判例对偶;
+// 归一面 760b2c 属页车道 — 头注怪癖)。===
+void SuperApplicationFace::setSearchEngines(const QVariantList &engines)
+{
+	// QJsonArray 组装腿(@12884-13010):行集逐行 map 直承(页行 →
+	//   map 的 text/icon/url 三键提写在页车道;face 参已收成品行集,
+	//   值域同相)。空列表腿:QJsonArray()空组 @12879 无行循环直过。
+	CTerminalConfig::instance()->setValue(
+	    QStringLiteral("application.searchEngines"), QVariant(engines)); // @13034
 }
 
 // === aboutToQuitWrite — FUN_00760856(28B,0023.c:28729)真身:
