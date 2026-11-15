@@ -55,6 +55,11 @@ public:
 	//   → ThemeIcons::loadSvg → setIcon;tooltip expanded ? "Shrink" :
 	//   "Expand"(0xc8b041/0xc8afe8)→ setToolTip;setProperty("expanded",b)。
 	void updateExpandButton(bool expanded);
+
+	// FUN_0091a7d8(52B)/FUN_0091a80c(55B)信号发射包装:
+	//   activate(smo 011ab100, idx0/idx1, {bool}) —— 本类两个 emit 面。
+	void emitExpandRequested(bool expanding);
+	void emitFloatingChanged(bool floating);
 	TabGroup *tabGroup() const { return m_tabs; } // +0x30
 
 	// dock_toggleFloat(866B,0027.c:76287 邻)浮停状态机:

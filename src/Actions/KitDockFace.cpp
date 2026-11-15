@@ -131,7 +131,7 @@ void KitDockFace::onTabActivated(int index)
 void KitDockFace::onExpandRequested(bool expanding)
 {
 	if (!m_f39)
-		emit expandRequested(expanding);
+		emitExpandRequested(expanding); // 0091a7d8
 }
 
 // s_ExpandButton_5ab32a(584B,0018.c:25117)真身:
@@ -267,8 +267,8 @@ void KitDockFace::setFloating(bool floating)
 			});
 		}
 	}
-	m_f39 = floating;              // +0x39 写
-	emit floatingChanged(floating); // 0091a80c(信号 idx1)
+	m_f39 = floating;                  // +0x39 写
+	emitFloatingChanged(floating);     // 0091a80c(信号 idx1)
 }
 
 // 008b9050(66B,0027.c:76265)changeEvent 真身:
@@ -328,4 +328,16 @@ QWidget *KitDockFace::innerPage()
 	// cast 011ac070 面(页类未定位 → 以 QWidget 承接)+ 008dfe24(v) 焦点
 	//   收敛腿 — cited(195B 体未转写)。
 	return w;
+}
+
+// FUN_0091a7d8(52B)/FUN_0091a80c(55B)真身:
+//   QMetaObject::activate(this, smo 011ab100, 0/1, args{bool}).
+void KitDockFace::emitExpandRequested(bool expanding)
+{
+	emit expandRequested(expanding); // idx0
+}
+
+void KitDockFace::emitFloatingChanged(bool floating)
+{
+	emit floatingChanged(floating); // idx1
 }
