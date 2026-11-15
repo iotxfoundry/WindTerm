@@ -8,7 +8,23 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第三十八次交接,批 177 · M22 达成)
+## 一句话状态(2026-11-15 第三十九次交接,批 183 · M23 达成)
+
+**M23「全帧对表 + trie 尾渣 + 深引擎收账 + 消费链」达成(用户定,
+四腿分段式),车道停开**:①**reopen 全帧对表执行 = 14 项帧级
+MATCH**(魔数/段序/长度构成/记录框架;原版 789B 喂恢复门闭环全过;
+解析器+原版切段归档;批 180)②trie 分裂触发门真身(容量 12)+ 星数
+逐字节同相实证 + **键串勘正 "tab."→"tabbar."**(0xd0ed40 实读;
+批 181)③searchEngines 消费链 face + **75e56a 定性翻转 =
+TextView::searchOnline**(批 184)④深引擎尾渣(超门分段族四成员
+收账/**rehash 定性 = QHashData::rehash 真库导入非自有面**/RS 灌链
+余段升真 2 段;批 183)。主仓终门 ctest **23/23** ×5 + dlopen OK。
+⚠ 主控教训再录:docs 长锚猜编三次失败 → 改 python 区段重排(锚 =
+节标题,中间整体换);车道虚报/截断 155/168/171 三例同款 → 复活
+硬纪律续推有效。此前:M22(177-179)、M21(173-176)、M20(170-172)、
+M19(166-169/168)、M18(162-165)、M17(158-161)、M16(154-157)、
+M15(150-153)、M14(145-149)、M13(142-144)、M12(138-141)、
+M11(136/137/136b)、M10(134/135)、M9(132/133)、M8 文档整备、M1-M7。
 
 **M22「blobA 树实体 + 排序真身 + SuperApplicationFace」达成(用户
 定,三车道分段式),车道停开**:①**blobA splitter/tabbar 树实体
@@ -244,21 +260,22 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 179 后,按需开批)
+## 现役队列(批 183 后,按需开批)
 
-1. **5c 全帧对表冲刺(续)**:blobA 树实体已真身(批 177,229B 段
-   位级反推)→ 余 = blobB LastSessions 组块(145-417B,句柄表迭代
-   变换定序不唯一)/浮停腿 dock_toggleFloat(866B)/尾钩 vtable+0x248
-   真身化 → 全帧字节对表执行
-2. **wind.config 5 复合键消费面**(承载已落批 174,消费面现无);
-   %z 渲染深跳表逐字节核对;TcpBridge 真拨号(声明层已落批 176)
-3. **eNodes 尾**:88e5a0 超门 0x3fffff 分段族(上游 GapBuffer 算法面,
-   外库边界收账)/00933738 深桶 rehash 体(QHash 真库内部,cited)/
-   97142a RS 灌链余段;styled 哨兵 UB 5c 期仪器裁决
-4. MuxWindow introsort 本体(标准算法已承接,本体永不逆向)/
-   008e1125 行高桥 005b86c0·vt+0x1a8 消费/Phase 4a 尾渣(trie 分裂
-   腿/星数逐字节/键串对证;kit.* 需实机)/ Phase 5c 深化 / 0x4eff
-   观察(需 ptrace 环境变更)
+1. **5c 余深段**:blobB LastSessions 组块写面(外框 byte-perfect
+   反推已落批 180,句柄表迭代定序不唯一 cited)/浮停腿
+   dock_toggleFloat 866B 全读定性已落(批 180,承接体 cited)/尾钩
+   QuickBar 定性已落(批 180,vt+0x248 宿主槽未建模);页 payload
+   674B 深消费(8cf0c8)真身批
+2. **wind.config 复合键消费面**(批 184 矩阵:searchEngines 已落
+   face;text.margins 域 5c2196/5c207a/5bd3d6 三函数一体批;
+   focusMode.settings → StateStore 预留界批);%z 深跳表逐字节核对
+3. **eNodes 尾**:88e5a0 超门分段族已收账(批 183 头注)/00933738
+   rehash 已定性收账(批 183)/00933738 hash remove 深桶 rehash 体
+   cited;styled 哨兵 UB 5c 期仪器裁决
+4. MuxWindow introsort 本体(标准算法已承接)/行高桥 005b86c0·
+   vt+0x1a8 消费/Phase 4a 尾渣(kit.* 需实机)/ 0x4eff 观察(需
+   ptrace 环境变更;ptrace=0 + Xvfb :99 本会话已预置)
 
 ## 已知开放问题
 

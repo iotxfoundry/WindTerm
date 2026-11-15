@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 177,2026-11-15 — 当前真值层)
+## 结论快照(截至批 183,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-177)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-183)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(二十一项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(二十三项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -57,7 +57,12 @@ MuxWindow 尾清(175;**比较器微差实测同相闭环**)/深引擎 + 注册�
 **M22 三车道:blobA splitter/tabbar 树实体真身(177;229B 段逐
 字段位级反推 3 splitter 结构)/排序真身 + rehash 承接(178;
 introsort = std::sort 实例化定性)/SuperApplicationFace 骨架
-(qt_metacall 分派 case3/4/5 真身转发,179)**。
+(qt_metacall 分派 case3/4/5 真身转发,179)**。 → **M23 四腿
+(5c 冲刺+尾渣):reopen 全帧对表执行 14 项帧级 MATCH(180)/trie
+分裂门真身 + 星数逐字节 + **键串勘正 "tab."→"tabbar."**(181)/
+searchEngines 消费链 + **75e56a 定性翻转 = TextView::searchOnline**
+(184)/深引擎尾渣(超门分段族收账/rehash 真库定性/RS 灌链余段
+升真 2 段,183)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -87,33 +92,63 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 2. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
    0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
    EditorContext.h 头扩展)。
-3. eNodes 尾余:00933738 hash remove 已真身(批 176 QHash 承载,
-   rehash 体 cited)/88e5a0 超门 0x3fffff 分段族/007b5270 门内段
-   插体三 delegate 槽已真身(批 176)/97142a RS 灌链已真身(批 176);
-   styled 哨兵 UB(#32)/glibc 复址(#35)待 5c 期仪器裁决。
+3. eNodes 尾余:00933738 hash remove 已真身(批 176 QHash 承载;
+   rehash 定性 = QHashData::rehash 真库导入非自有面,批 183 收账)/
+   88e5a0 超门 0x3fffff 分段族四成员收账入 DeepEngineFace.h 头注
+   (批 183)/007b5270 门内段插体三 delegate 槽已真身(批 176)/
+   97142a RS 灌链 InsertSpace+runstyles_insert_space_b 真身
+   (批 176/183);styled 哨兵 UB(#32)/glibc 复址(#35)待 5c 期
+   仪器裁决。
 4. 注册表下行尾余:%z 时区面真库 QDateTime 承接已落(批 176,深跳表
    逐字节核对 cited)/TcpBridge dial 声明层落(批 176),真拨号行为
-   不逆向;'h'/'n'/state/payload 骨架帧已真身(批 161/173)。
-5. 启动链余量(Phase 4a):trie 分裂腿(00525f50)/星数语义(i-1 直译
-   面,未逐字节对表)/tabBarSelectionBehaviorOnRemove 键串语义面
-   承接(dat_1181468 对证 cited);kit.* 真键实机对证。
-6. MuxWindow 尾余:introsort 7044B = std::sort 实例化已承接(批 178,
-   标准算法不逆向判例;sgtest k3 真排序门)/008e1125 行高桥 005b86c0·
-   vt+0x1a8 消费 cited;宿主读侧未初始化槽 UB 原样(铁律 2);0x10
-   宿主接线(池生产者写侧)。
-7. eNodes 深余(批 178 后):00933738 32422 分离担查(009250ac detach
-   真库承接)+ 32463 收缩门 rehash 真库内部同相注记(markerstest ff4);
-   88e5a0 超门 0x3fffff 分段族仍 cited(上游 GapBuffer 算法面 —
-   0x5fffff GB 收缩/0x400000 分段灌/runbounds_get_a 尾,外库边界
-   EXT-BOUNDARY 同相判例不逆向);旧缓存 0x38 族(0088c088/0088c0fc/
-   GapBuffer_dtor 逐字面转载)— 消费域(词法引擎 delegate 生成点)
-   未建模,持 cited。
-8. 5c 全帧对表余项(批 177 后):blobA 树实体已真身(229B 段位级
-   反推,批 177);余 = blobB LastSessions 组块(样本 145-417B,
-   句柄表迭代变换静态定序不唯一,cited)/浮停腿 dock_toggleFloat
-   (866B)/尾钩 vtable+0x248 体 cited;KitDock→MuxPaneGroup 对位
-   为推断(语义面同形,字节结构全语料转写);reopen 全帧字节对表
-   待三段真身化后执行。
+   不逆向;'h'/'n'/state/payload 骨架帧+blobA 树实体已真身
+   (批 161/173/177)。
+5. 启动链余量(Phase 4a):trie 分裂触发门已真身(批 181,容量 12)/
+   星数语义已逐字节同相实证(批 181)/tabBarSelectionBehaviorOnRemove
+   **键串勘正 "tab."→"tabbar."**(批 181,0xd0ed40 实读);kit.* 真键
+   实机对证。
+6. MuxWindow 尾余:introsort 7044B = std::sort 实例化已承接
+   (批 178,标准算法不逆向判例)/008e1125 行高桥 005b86c0·vt+0x1a8
+   消费 cited;宿主读侧未初始化槽 UB 原样(铁律 2);0x10 宿主接线
+   (池生产者写侧)。
+7. 5c 对表余项(批 180 后):**全帧对表已执行 = 14 项帧级 MATCH**
+   (魔数/段序/长度构成/记录框架,批 180);余深段:blobB LastSessions
+   组块写面(外框 byte-perfect 反推,句柄表定序不唯一 cited)/浮停腿
+   dock_toggleFloat 866B 全读定性/尾钩 QuickBar 定性(vt+0x248)/
+   页 payload 674B 深消费(8cf0c8)/blobA 实体/尾钩体/LastSessions
+   组块 cited。
+
+### 批 180/181/183/184(2026-11-15)M23 四腿(5c 冲刺+尾渣):全帧对表 + trie 尾渣 + 深引擎收账 + 消费链 ✅ ctest 23/23 ×5
+
+- **批 180 reopen 全帧对表执行**:三段深位定性收账(blobB LastSessions
+  外框 byte-perfect 反推 [int][BA 根 ss][char kind][BA title]、kind=
+  operator<<(char) asm 实读/浮停腿 dock_toggleFloat 866B 全读/尾钩
+  vtable+0x248 定性 = QuickBar 窗条面 + 样本尾 9B 误拆勘正为 BA);
+  **全帧对表执行 = 14 项帧级对账表框架 MATCH**;原版字节喂
+  startupRestoreGate 恢复闭环全过;解析器 dump_lastsessions.py/
+  parse_reopen_frame.py + 原版切段 blobA-229B/blobB-417B 归档;
+  t8 全帧断言。⚠ 采集副作用已告知用户(真实 reopen.history 被覆盖)。
+- **批 181 trie 尾渣**:00525f50 分裂腿 kuna 全读(左兄逐槽 0x18
+  交换/子指针 +0x130 迁移/上溢换根 0x1a8)→ **触发计数门真身
+  splitGateCapacity=12**(承载替无容量 → 分裂无观测差,重建体
+  cited #31 同相);**星数逐字节同相实证**(样本 10 处 '@' 字段
+  od/python ↔ sessionTargetMasked);**键串勘正:"tab." 系猜 →
+  "tabbar."**(dat_1181468 → 0xd0ed40 32B 逐字节,与 wind.config
+  L37 同相);mwctest f14。
+- **批 184 searchEngines 消费链**:75dc4c getter 建表/6e761e 写腿
+  → SuperApplicationFace getter/setter 真身;**75e56a 定性翻转 =
+  TextView::searchOnline**(TextView qt_metacall 8f3a74 case 0x95/
+  0x96 方法表实读,编辑器车道不落);UI 页 6e7dda(4777B)引用档;
+  设置页归一写怪癖铁律 2 注记;appboot roundtrip。
+- **批 183 深引擎尾渣**:超门分段族四成员行号收账入 DeepEngineFace.h
+  头注;**00933738 rehash 定性 = QHashData::rehash 真库导入非自有面**
+  (kuna asm 32457 CALL 0x4c13c0 PLT + nm U 符号);余段升真 2 段
+  (00889e90 GapBuffer_reallocate1 371B GB 删段/00940400
+  runstyles_insert_space_b 850B 灌链深面,tail97142a 改调);
+  ff5 初版断言踩坑 5(教科书猜)已按语料自纠;insertSpaceB 5683
+  fill 双承载面语料不可读登记。
+- 验证:四腿独立门 + 主控合流(181→184→180→183 零冲突);主仓终门
+  ctest **23/23** ×5 + dlopen OK。
 
 ### 批 173/174/175/176(2026-11-15)M21 四车道(分段式):payload 帧 + 复合缺口 + MuxWindow 尾清 + 尾余合并腿 ✅ ctest 23/23 ×5
 
