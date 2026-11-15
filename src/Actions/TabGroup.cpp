@@ -890,3 +890,15 @@ bool TabBar::isMnemonicIndex(int index) const
 		return m_f38 == QLatin1String("FirstNine");
 	return false;
 }
+
+// FUN_005a6b1c(62B,0018.c:21740)真身:
+//   @005a6b1c if (d+0x1c8 == 0) return;
+//   +0x213 = QTabBar::expanding() ^ 1;
+//   QTabBar::setExpanding(实参 Ghidra 丢,疑 +0x213)→ cited。
+void TabBar::restoreExpandingState()
+{
+	if (!m_dirty1c8) // +0x1c8
+		return;
+	m_saved213 = expanding() ? 0 : 1;      // @005a6b1c
+	setExpanding(m_saved213 != 0);         // 实参 cited(疑 +0x213)
+}

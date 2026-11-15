@@ -65,6 +65,10 @@ public:
     //   +0x38 模式串 == "All" → true;index < 10 → (模式 == "FirstNine");
     //   否则 false。ctor 初值 "None"。
     bool isMnemonicIndex(int index) const;
+    // FUN_005a6b1c(62B,0018:21740)展开态恢复:
+    //   私有位 +0x1c8(d)为 0 → 返;否则 +0x213 = !expanding();
+    //   setExpanding(+0x213)(实参 Ghidra 丢,cited)。
+    void restoreExpandingState();
     // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。
@@ -119,6 +123,8 @@ private:
     QList<TabNode> m_f60; // 语料 +0x60(节点表)
     QStringList m_titles60;   // 节点 +0x08 标题面(映射承载)
     QList<int> m_shortcutIds; // 节点 +0x04 快捷键 id 面
+    quint8 m_dirty1c8 = 0;    // 私有位 +0x1c8(展开态需恢复标记)
+    quint8 m_saved213 = 0;    // 私有位 +0x213(保存值)
     QList<QVariant> m_f68; // 语料 +0x68(QVariant 列表,FUN_005a8818 消费,cited)
     QList<QVariant> m_f70; // 语料 +0x70(0x18 字节节点,表示 cited — wave-2)
     void *m_f78;       // 语料 +0x78 ← 0
