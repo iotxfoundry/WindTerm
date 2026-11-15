@@ -8,7 +8,22 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第三十二次交接,批 152 · M15 达成)
+## 一句话状态(2026-11-15 第三十三次交接,批 157 · M16 达成)
+
+**M16「工作区装载 + token 引擎 + 底座头 + MuxWindow 宿主」达成(用户
+定,四车道分段式),车道停开**:①WorkspaceLoader 新落(522056 定面
+骨架 + kitStartupSessions 真身四槽实读 + 建窗窄面/&4 尾段;
+**007626ce 挂点裁决 = QTimer singleShot thunk 非信号,cited 维持**,
+批 154)②token 引擎真库委托(applyLinePattern ③ 尾段;①段旗位集 ⊂
+spdlog flags)+ **q+0x10 槽真身语义定案 = bridge 对象** →
+SessionProtocolFace 虚槽 + virtualLabel 真虚调(批 155,续推腿收口)
+③深引擎底座头 DeepEngineFace 落库(API 面 10 项/19 条偏移锁;
+editctxInitThread 前奏真身;实现体 cited 待激活批,批 156)④MuxWindow
+宿主 0084dd5a 分段复刻(9 段:真身 6/cited 3;zoom 复测 #33 再锚定;
+批 157)。⚠ 批 155 首跑虚报未做 → 续推腿实做收口(主控核验)。主仓
+终门 ctest **21/21** ×5 + dlopen OK。
+此前:M15(150-153)、M14(145-149)、M13(142-144)、M12(138-141)、
+M11(136/137/136b)、M10(134/135)、M9(132/133)、M8 文档整备、M1-M7。
 
 **M15「恢复腿 + 注册表下行 + 词法重建 + MuxWindow 取面」达成(用户
 定,四车道并行),车道停开**:①启动链恢复腿真身(startupRestoreGate
@@ -145,20 +160,20 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 152 后,按需开批)
+## 现役队列(批 157 后,按需开批)
 
-1. **Phase 4a 大批:522056 工作区装载器(9063B,独立批)** +
-   启动链余量(&4 尾段 setWindowState/Opacity、8d2f7e
-   startupSessions 3122B、0076f4d6、0075e0f8 765B);007626ce 挂点
-   信号接线面侦察(语料无代码调用者)
-2. **注册表下行余量**:pattern 装配段①/formatter state 尾段③
-   (token 引擎下行);virtualLabel 真虚调面(协议对象层真身化)
-3. **eNodes 深引擎**:editctx_initThread/piecetable_init/
-   gapbuffer_reallocate/93fc60(缺改版底座头,批 111 判例;重开需
-   底座头改版);styled 哨兵 UB 5c 期仪器裁决
-4. MuxWindow 宿主 0084dd5a 复刻批(5076B:标题 arg/detach 窗口腿/
-   空窗面)/ Phase 4c SplitterGroup 下行 / Phase 5c(需可运行应用)/
-   0x4eff DAT_011becc8 运行时观察(需 ptrace 环境变更)
+1. **MuxWindow 宿主批 158**:S4 重排(0084c145 sort 7044B)/
+   muxSplitterMoved(008e12c0 951B)/restoreState(0084b483 1079B)/
+   0x10 重题腿;QVariant POD 旗标字节布局解(旗标真路径 wave-2)
+2. **Phase 4a 余**:522056 收集器(8d0cf2/8d097c)/session_defaultDir
+   (2297B)/Editor 目录扫描/810d6e protocol;kitStartupSessions
+   splitter 段消费(SplitterGroup 批接);kit.* 真键实机对证
+3. **eNodes 深引擎激活批**:DeepEngineFace 调面接 ODR 定义
+   (93fc60 walker 清偿/97142a/88e5a0/96a2f8);styled 哨兵 UB 5c 期
+   仪器裁决
+4. 注册表下行余量(pattern ① 'h'/'n' 自有 token 腿/session_state
+   0x48B/协议对象构造深依赖)/ Phase 4c SplitterGroup 下行 /
+   Phase 5c(需可运行应用)/ 0x4eff 观察(需 ptrace 环境变更)
 
 ## 已知开放问题
 

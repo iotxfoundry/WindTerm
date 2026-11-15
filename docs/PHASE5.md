@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 152,2026-11-15 — 当前真值层)
+## 结论快照(截至批 157,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-152)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-157)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(十五项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(十六项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -30,7 +30,10 @@ static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
 (148;差集 7 项真身 3 定案 4)/启动链对位接线(149)** → **M15 四
 车道:恢复腿 0075ffcc→00766c26 真身 + wind.config 默认层(150)/
 注册表下行 spdlog 委托面 + Transfer 状态机(151)/eNodes 词法重建
-(inner 非恒 null,152)/MuxWindow 归辖取面(153)**。
+(inner 非恒 null,152)/MuxWindow 归辖取面(153)** → **M16 四车道
+(分段式):工作区装载器 522056 定面 + startupSessions 分发腿(154)/
+token 引擎真库委托 + 协议虚面(155)/深引擎底座头改版最小集
+DeepEngineFace(156)/MuxWindow 宿主 0084dd5a 分段复刻(157)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -43,8 +46,8 @@ static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
 | bufferScan 引擎 | Onigmo-改 边界委托(EXT-BOUNDARY;单层针指针契约,批 116b 勘正);engVt50Block/engVt28Class 真身(批 119 转储定案) |
 | scanMask | 活性接线 ✅(批 127 buffer 承载建模 + s_scanCarrier 缝;0x7543 initDoc 零接线点定案,批 128) |
 | 巨 switch 扩谱 | **全清**:五批 66 + EXT 32(批 137)+ 叶 34(批 139:真身 2/cited 32,差集重 derive);0x4ec2=20162 门漏叶勘误已截获;markerstest q/r/s/t/u/v/w/x/y/z 组 |
-| eNodes 节点层 | W 族 20/20 + **深层/词法重建(批 146/152)**:WNodeInner +0xa8 **非恒 null**(rebuild00970850 746B 栈面转写,K3 scanner + 活 RS8,|4 链非退化);96cb3c→Runs/96cb6c→9cd3da 同体/96cb84→9cd91e 同构三路复用;dtor 96d684;trie 有序插入;深引擎(editctx_initThread/piecetable/gapbuffer/93fc60)cited 批 111 判例;**0x7545 真值路径开通**;16 条 static_assert 锁 |
-| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);**yaml 装载腿真身 + 双 Meyers 合一 + kitWindowRestoreFirstPage(批 142,FUN_0075e3fe 对位)**;**树深下钻真身(批 147)**:loadGroupsElement(008a971e Action3/Menu2/Separator0 三级递归)+ loadViewsElement(s_FilterEdit 七 kind 位面/Columns 内省);configPath 勘正 = DAT_00cba75c "/" 单字符;**启动链 + 恢复腿真身(批 149/150)**:startupChain FUN_007626ce 语料序 + startupRestoreGate FUN_0075ffcc(魔数 0xb9e7e600/路径腿 reopen.history)+ startupRestoreDispatch 00766c26 分发壳(&4==0 页挂真调);wind.config 默认层 jsoncpp 委托;522056 工作区装载器 cited 独立批 |
+| eNodes 节点层 | W 族 20/20 + 深层/词法重建(146/152)+ **深引擎底座头 DeepEngineFace(批 156)**:API 面 10 项(Inner20/Bank30/SkipPartition50/PieceTable60 + pieceTableInit/gapBufferReallocate/lexStackClear 声明;19 条 static_assert 锁)/editctxInitThread009714b6 字段前奏真身/makeBank30 三源;**inner 非恒 null**,|4 链非退化;**0x7545 真值路径开通**;深引擎实现体仍 cited |
+| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);**yaml 装载腿真身 + 双 Meyers 合一 + kitWindowRestoreFirstPage(批 142,FUN_0075e3fe 对位)**;**树深下钻真身(批 147)**:loadGroupsElement(008a971e Action3/Menu2/Separator0 三级递归)+ loadViewsElement(s_FilterEdit 七 kind 位面/Columns 内省);configPath 勘正 = DAT_00cba75c "/" 单字符;**启动链 + 恢复腿真身(批 149/150)**:startupChain FUN_007626ce 语料序 + startupRestoreGate FUN_0075ffcc(魔数 0xb9e7e600/路径腿 reopen.history)+ startupRestoreDispatch 00766c26 分发壳(&4==0 页挂真调);wind.config 默认层 jsoncpp 委托;**工作区装载 + startupSessions 真身(批 154)**:WorkspaceLoader(522056 定面/骨架:trimmed 门/kind 位 7|3/三件套/QHash 去重)+ kitStartupSessions(kit.startupSession1-4 四槽实读)+ 建窗窄面/&4 尾段;**007626ce 挂点裁决(批 154):QTimer singleShot thunk 00762925 非信号,零数据引用,cited 维持**;522056 收集器/Editor 扫描深腿 cited |
 
 ### 5b 行为对比终局(批 121-123)
 
@@ -59,21 +62,57 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
 2. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
    0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
    EditorContext.h 头扩展)。
-3. eNodes 深引擎(editctx_initThread/piecetable_init/
-   gapbuffer_reallocate/93fc60)缺改版底座头 → cited(批 111 判例);
-   styled 哨兵 UB 构型(QUIRKS #32)待 5c 期仪器裁决;glibc 复址使
-   "指针换新"不可断言(#35,cc5 改钉非 null+K3+空栈)。
-4. 注册表下行余量:pattern 装配段①/formatter state 尾段③ cited
-   (token 引擎下行未开);virtualLabel 非空臂近面(真虚调面待协议
-   对象层);Transfer 真 socket 行为不逆向(外库边界)。
-5. 启动链余量(Phase 4a):&4 尾段(setWindowState/Opacity)/
-   8d2f7e startupSessions(3122B)/0076f4d6/0075e0f8(765B)/
-   **522056 工作区装载器(9063B,独立批)**;007626ce 挂点信号接线
-   面证据不足。
-6. MuxWindow 宿主 0084dd5a(5076B)其余 300+ 行腿(标题 arg/detach
-   窗口腿/空窗面)cited 挂宿主复刻批;zoomedPane 非空路径 Qt5.15
-   探针未复现(字面锚定);toggleZoomPage 死腿(QUIRKS #33)/views
-   tail 截断(#34)原样保留。
+3. eNodes 深引擎实现体(93fc60 walker QMap/QHash 逐槽清偿面/
+   97142a/88e5a0/96a2f8)仍 cited — 底座头 DeepEngineFace 已落
+   (批 156),激活批接 ODR 定义即可;styled 哨兵 UB(#32)/glibc
+   复址(#35)待 5c 期仪器裁决。
+4. 注册表下行余量:pattern ① 'h'/'n' 自有 token 替换腿 cited
+   (@007c2864/007c2931)/session_state 0x48B 下行 cited;
+   virtualLabel 真虚调已落(批 155),生产 bridge 构造深依赖 face
+   分段;Transfer 真 socket 行为不逆向(外库边界)。
+5. 启动链余量(Phase 4a):522056 收集器(8d0cf2/8d097c)/
+   session_defaultDir(2297B)/Editor 目录扫描/810d6e protocol 深腿
+   cited;startupChain 主面未见 kit.* 真键回读(实机对证);
+   kitStartupSessions splitter 段仅读游不消费(待 SplitterGroup 批接)。
+6. MuxWindow 宿主余段:S4 重排(0084c145 sort 7044B)/muxSplitterMoved
+   (008e12c0 951B)/restoreState(0084b483 1079B)/0x10 重题腿 cited
+   挂批 158;QVariant POD 旗标字节布局未解(旗标腿 0 直译,wave-2);
+   toggleZoomPage 死腿(#33)/views tail 截断(#34)原样保留。
+
+### 批 154/155/156/157(2026-11-15)M16 四车道(分段式):工作区装载 + token 引擎 + 底座头 + MuxWindow 宿主 ✅ ctest 21/21 ×5
+
+- **批 154 工作区装载器分段**:WorkspaceLoader.{h,cpp} 新落
+  (kitStartupSessions 真身:kit.startupSession1-4 四槽 .rodata 实读
+  d0cc1d/cc09/cbf5/cbe1 + indexOf(',')/left/sessionByUuid 命中;
+  kitScopedConfigValue ^kit(?=\.) 剥除 + 12 font 键表;522056 骨架:
+  trimmed 门/kind 位 7|3/三件套/null→uuid 键/QHash 去重;
+  startupWindowCreate 4:5 居中缩放 + &4 尾段);StartupChain 接线;
+  **007626ce 挂点裁决:kuna xrefs + .rela.dyn/.data.rel.ro 全扫描
+  = QTimer singleShotImpl→thunk 00762925 case1,零数据引用,非信号
+  → cited 维持不发明**;mwctest f1-f5。收集器/Editor 扫描深腿 cited。
+- **批 155 token 引擎 + 协议虚面(续推腿收口)**:SpdlogFace
+  applyLinePattern(③ 尾段 @007c349c-3500 真库 set_pattern local;
+  ①段旗位集 @007c2719 ⊂ spdlog 1.9.2 flags 同相;'h'/'n' 自有腿
+  cited);**q+0x10 槽真身语义定案 = bridge 对象**(TcpBridge_vt13
+  008762f4/SshBridge_vt13 00862692 → socket peerAddress)→
+  SessionProtocolFace 虚槽 + virtualLabel 真虚调(批 151 近面退役);
+  k 组断言(含两实现虚分派证明)。⚠ 本批首跑虚报未做,续推腿实做
+  收口(主控核验后合流)。
+- **批 156 深引擎底座头最小集**:src/Editor/DeepEngineFace.h 新落
+  (API 面 10 项:Inner20/Bank30/SkipPartition50/PieceTable60 结构 +
+  pieceTableInit 96a2f8/gapBufferReallocate 88e5a0 容量门 0x4000000/
+  lexStackClear 93fc60 声明;19 条 static_assert);ENodes 升级段
+  (editctxInitThread009714b6 45556-45596 字段前奏真身/makeBank30
+  44925-44938 三源/Inner20);dd 组 8 断言;实现体 cited(激活批接
+  ODR 定义)。
+- **批 157 MuxWindow 宿主分段**:0084dd5a(5076B)全读定 9 段:
+  真身 6(muxOnTmuxWindowsChanged 驱动面 S0-S3 尾扫/setTitle+
+  nameChanged/hasNoPaneChild/detachWindow/序号键/+0x4c·0x50 槽/
+  S5 splitterMoved connect)/cited 3(S4 sort 7044B/muxSplitterMoved
+  951B/restoreState 1079B 挂批 158);zoom 复测探针实证 replaceWidget
+  顶出组树 → #33 面再锚定;sgtest h1-h5(14→18)。
+- 验证:四车道独立门 + 主控合流(156→155→154→157 零冲突);主仓
+  终门 ctest **21/21** ×5 + dlopen OK。
 
 ### 批 150/151/152/153(2026-11-15)M15 四车道:恢复腿 + 注册表下行 + 词法重建 + MuxWindow 取面 ✅ ctest 21/21 ×5
 
