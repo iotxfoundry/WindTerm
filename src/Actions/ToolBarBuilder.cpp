@@ -1,5 +1,7 @@
 #include "ToolBarBuilder.h"
 
+#include "Widgets/BreadCrumbFace.h"
+
 #include <QAction>
 #include <QLabel>
 #include <QMenu>
@@ -303,12 +305,14 @@ static QList<QToolBar *> buildOne(QMainWindow *mainWindow,
 			any = true;
 			break;
 		}
-		case 5:                                // AddressBar @0069453f
-			// FUN_005211fe(162B,0016.c:15189)ctor cited — wave-2:
-			//   BreadCrumb 基座 widget(operator_new(0x48)),本体未落库
-			//   → cited 空壳占位(零行为;铁律 6 组件类宁缺不造)。
-			//   占位面 = 语料 new+addWidget 同相;体 cited。
-			break;                             // cited 空壳:不造组件本体
+		case 5: {                              // AddressBar @0069453f
+			// FUN_005211fe(162B)ctor(cited → 批 253 真身 AddressBarFace;
+			//   BreadCrumb 基座 48 字节 = operator_new(0x48) 同相)。
+			auto *addr = new AddressBarFace(bar); // @0069453f new + ctor
+			bar->addWidget(addr);                 // 出口 @0069455x
+			any = true;
+			break;
+		}
 		case 6:                                // FilterEdit @006946a0
 			// FUN_0057eb0c(200B,0017.c:55458)ctor cited — wave-2
 			//   (operator_new(0x80)+QTimer 0x78;本体未落库,同上)。
