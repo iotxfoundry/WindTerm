@@ -8,7 +8,23 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第三十五次交接,批 163 · M18 达成)
+## 一句话状态(2026-11-15 第三十六次交接,批 168 · M19 达成 · 5c 起步)
+
+**M19「5c 转向五腿」达成(用户定,盘点 + 三 fixer + 续推),Phase 5c
+起步**:①持久化全景盘点矩阵(explorer;reopen 写侧 FUN_0076073a+
+005dd6fc 定位/wind.config 无写者=只读对表/缺口 Top-4)②**可运行
+应用骨架 appboot**(真启动链 offscreen 载体,断裂清单空;ctest
+21→22,批 166)③reopen.history 保存侧 StateStore + roundtrip
+(**魔数写侧实读 0xb9e7e626,读侧 0xb9e7e600 系掩码门**;statereopen
+注册 22→23,批 167)④kit.startupSessions 三态写端 + profiles.config
+回写侧(批 169)⑤三件套保存侧 SessionStore 六函数(**0076913f 定性
+= QMetaType 注册族非写腿**;q+0x10 消费链之外的会话库变更面;批 168,
+复活硬纪律收口)。主仓终门 ctest **23/23** ×5 + dlopen OK(21→22→23)。
+下一步:对表驱动批(reopen 字节 diff vs 原版产物——需 Xvfb 环境
+重开,sudo 步骤待用户确认)+ wind.config/三件套对表。
+此前:M18(162-165)、M17(158-161)、M16(154-157)、M15(150-153)、
+M14(145-149)、M13(142-144)、M12(138-141)、M11(136/137/136b)、
+M10(134/135)、M9(132/133)、M8 文档整备、M1-M7。
 
 **M18「MuxWindow 尾清 + trie 键值 + vt 承载 + 渲染引擎」达成(用户
 定,四车道分段式),车道停开**:①MuxWindow 深腿尾清(S4 表值命中/S5
@@ -193,19 +209,20 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 163 后,按需开批)
+## 现役队列(批 168 后,按需开批)
 
-1. **MuxWindow 尾余**:008e1125 槽体(411B)/introsort·moveTab 深腿/
-   S4-S6 余表值;宿主 S4 比较器 QVariant 双 false 腿微差收口
-2. **Phase 4a 尾余**:trie 分裂腿(00525f50)/星数语义逐字节对表/
-   tabBarSelectionBehaviorOnRemove 键串对证(dat_1181468);kit.*
-   真键实机对证(需实机)
-3. **eNodes 尾余**:00933738 hash remove 深面/88e5a0 超门 0x3fffff
-   分段族/007b5270 门内段插体(delegate vt 深族)/97142a RS 灌链;
-   styled 哨兵 UB 5c 期仪器裁决
-4. 注册表下行尾余(%A..%z 深 QDateTime 时区/TcpBridge 真拨号)/
-   Phase 4c SplitterGroup 下行 / Phase 5c(需可运行应用)/ 0x4eff
-   观察(需 ptrace 环境变更)
+1. **5c 对表驱动批(需原版侧环境)**:原版 Xvfb 重开(sudo 步骤待
+   用户确认)→ 采集原版 reopen.history/wind.config/user.sessions
+   产物 → appboot 我方产物字节 diff(魔数 0xb9e7e626 写侧单源,
+   原版产物二次验证)
+2. **wind.config/三件套对表**(盘点矩阵余项;wind.config 只读对
+   /opt 实证文件)
+3. **StateStore aboutToQuit 产品挂点**(SuperApplication 宿主批;
+   现仅注记)
+4. 各域尾渣(按需):MuxWindow 008e1125 槽体/introsort;eNodes
+   hash remove 深面/超门分段族;trie 分裂腿;注册表 %A..%z 深
+   QDateTime 时区/TcpBridge 真拨号;Phase 5c 深化 / 0x4eff 观察
+   (需 ptrace 环境变更)
 
 ## 已知开放问题
 

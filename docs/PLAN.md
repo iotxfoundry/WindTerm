@@ -15,7 +15,7 @@
 
 ---
 
-## 总览(2026-11-15 批 163;历史明细见 docs/PHASE5.md 批次流水)
+## 总览(2026-11-15 批 168;历史明细见 docs/PHASE5.md 批次流水)
 
 | 阶段 | 状态 |
 |---|---|
@@ -26,7 +26,7 @@
 | Phase 4a 启动路径 | ⏳ SessionManager+ProfileLoader ✅;注册表四表插入侧全定案(141/144/151);启动链+恢复门真身(149/150);**WorkspaceLoader:522056 骨架/收集器/defaultDir/扫描/protocolUrl/trie 键值域/掩盖腿/挂页槽真身(154/159/163)**;分裂腿/实机对证 ⬜ |
 | Phase 4b TerminalWidget | ✅ 槽覆盖 58/58;**渲染层 ✅**(TerminalView 格子绘制/写回通道/resize 接线) |
 | Phase 4c 主窗口 | ⏳ KitWindowFactory+CGlobalConfigFace 真身含树深(134/140/142/147);SplitterGroup 余项收口(148);**MuxWindow 取面 + 宿主深腿 + 尾清真身(153/157/158/162)**;008e1125 槽体/introsort cited |
-| Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⬜** |
+| Phase 5 行为对比 | ✅ 终端栈 98 序列 98/98(批 30);**5b 编辑引擎终局**(批 123:A/B 通道封闭 NOT-RUN 即终局,总表 1/21;RUBY 假设永久化,批 124)| **5c 会话持久化 ⏳(M19 起步)**:盘面矩阵 ✅(盘点)/我方载体 ✅(appboot 166)/reopen 写读闭环 ✅(167)/三件套+kit+profiles 写侧 ✅(168/169);字节级对表 ⬜(需原版侧环境) |
 | 会话装配 | ✅ 管理收口(批 29) |
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
 | 组件重做(铁律 6) | ⏳ M1-M18:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头 ODR+vt 承载+清偿臂/0x7545 真值;余:busy 腿(外库登记)/hash remove 深面/渲染深 QDateTime 时区 |
