@@ -32,8 +32,8 @@ KitDockFace::KitDockFace(bool withExpand, QWidget *parent)
 //   +0x30 写回 → setObjectName("PaneGroup")@008b7e2c →
 //   +0x38 非空 → createButton("ExpandButton",1)@008b7e6x →
 //   createButton("ConfigButton",1) → createButton("CloseButton",1) →
-//   QVBoxLayout(0x20)@008b7e98 → setContentsMargins/setSpacing(实参
-//   Ghidra 折叠,按 0 落—cited)→ addWidget(tabs)@008b7ee8 →
+//   QVBoxLayout(0x20)@008b7e98 → setContentsMargins(0)/setSpacing(0)
+//   (asm 0x8b7eb4/0x8b7ebe 实证)→ addWidget(tabs)@008b7ece →
 //   addWidget(tabs->stack())(FUN_005ab6e8)@008b7f0x → setLayout @008b7f3x。
 void KitDockFace::assembleChildren()
 {
@@ -44,10 +44,10 @@ void KitDockFace::assembleChildren()
 	m_tabs->createButton(QStringLiteral("ConfigButton"), true); // @008b7e8x
 	m_tabs->createButton(QStringLiteral("CloseButton"), true);  // @008b7e9x
 	auto *box = new QVBoxLayout();               // @008b7e98
-	box->setContentsMargins(0, 0, 0, 0);         // 实参折叠 — cited(按 0)
-	box->setSpacing(0);                          // 实参折叠 — cited(按 0)
-	box->addWidget(m_tabs);                      // @008b7ee8
-	box->addWidget(m_tabs->stack());             // @008b7f0x(FUN_005ab6e8)
+	box->setContentsMargins(0, 0, 0, 0); // @008b7eb4(QMargins 两半清零实证)
+	box->setSpacing(0);                  // @008b7ebe(esi=0)
+	box->addWidget(m_tabs);              // @008b7ece(addWidget(w,0,0) 实证)
+	box->addWidget(m_tabs->stack());     // @008b7ee6(FUN_005ab6e8,同样 0/0)
 	setLayout(box);                              // @008b7f3x
 }
 
