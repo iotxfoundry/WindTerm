@@ -77,9 +77,18 @@ public:
 	virtual void kitAssembleFinishHook() {}
 	// +0x218:菜单栏角落件 @0x8c9f3e;默认实现未取证 → cited nullptr。
 	virtual QWidget *kitCornerWidget() { return nullptr; }
+	// +0x1d0:栏可见性槽(名,bool)@0x8d34c3/0x8d350e/0x8d356c;默认实现
+	//   未取证 → cited 空体(Editor/Terminal 腿各自真身化)。
+	virtual void kitSetBarVisible(const QString &name, bool visible)
+	{
+		Q_UNUSED(name);
+		Q_UNUSED(visible);
+	}
 	// FUN_008d3cc2(296B,0028.c:17649)延迟装配门 → KitWindowAssemblyFace.cpp
 	void kitWindowAssembleDeferred();
 	// s_kit_startupSessions_8d2f7e(3122B,0028.c:17278)cited 契约占位 →
-	//   KitWindowAssemblyFace.cpp(体属批 193;当前 payload 恒空,返回 0 同相)
+	//   KitWindowAssemblyFace.cpp(体属批 194;当前 payload 恒空,返回 0 同相)
 	bool kitWindowStartupSessions(const QByteArray &history, int hints);
+	// s_kit_startupSessions 尾段(栏可见性,0028.c:17450 域)→ cpp
+	bool kitWindowBarsRestore(const QByteArray &frame, quint32 magic, quint32 flags);
 };

@@ -117,7 +117,36 @@ bool KitWindowFace::kitWindowStartupSessions(const QByteArray &history, int hint
 {
 	Q_UNUSED(history);
 	Q_UNUSED(hints);
-	return false; // cited — 3122B 体未转写(payload 空腿同相)
+	return false; // cited — 3122B 体前两段未转写(payload 空腿同相)
+}
+
+// s_kit_startupSessions_8d2f7e 尾段(栏可见性)— 0028.c:17450-17540 域,
+//   asm 0x8d3433-0x8d3576 全核。帧结构 = outer >> QByteArray(帧三)
+//   @0x8d346b → QDataStream(frame) @0x8d347b → 连续 BOOL:
+//     MenuBar(名 @0x11826a0→0xd0e6e8)← @0x8d348b,值 = 取反 ^1 @0x8d34a3;
+//     StatusBar(名 @0x1182668→0xd0e6b2)← @0x8d34d6,取反 @0x8d34ee;
+//     ToolBar(名 @0x1182680→0xcb9b17)← @0x8d3534,取反 @0x8d354c。
+//   门:外层 (flags & 4) != 0 || magic > 0xb9e7e621 @0x8d3433/0x8d343e;
+//   ToolBar 另有 (flags & 4) != 0 || magic > 0xb9e7e622 @0x8d3519-0x8d3528。
+//   三腿均经虚槽 +0x1d0(名,bool)→ kitSetBarVisible。
+//   前置段(splitter state 恢复 @0x8d2ff9-0x8d344x / 会话槽恢复 LastSessions
+//   @0x8d3461-0x8d3430 域)= cited,未落;尾钩 +0x240 @0x8d358a 亦 cited。
+bool KitWindowFace::kitWindowBarsRestore(const QByteArray &frame, quint32 magic,
+                                         quint32 flags)
+{
+	if ((flags & 4u) == 0 && magic <= 0xb9e7e621u) // @0x8d3433/0x8d343e
+		return false;
+	QDataStream in(frame);     // @0x8d347b
+	bool hiddenFlag = false;
+	in >> hiddenFlag;          // @0x8d348b
+	kitSetBarVisible(QStringLiteral("MenuBar"), !hiddenFlag); // @0x8d34c3(*0x1d0)
+	in >> hiddenFlag;          // @0x8d34d6
+	kitSetBarVisible(QStringLiteral("StatusBar"), !hiddenFlag); // @0x8d350e
+	if ((flags & 4u) != 0 || magic > 0xb9e7e622u) { // @0x8d3519/0x8d351d
+		in >> hiddenFlag;      // @0x8d3534
+		kitSetBarVisible(QStringLiteral("ToolBar"), !hiddenFlag); // @0x8d356c
+	}
+	return true;               // 语料块尾继续(尾钩 cited)@0x8d358a
 }
 
 // FUN_008d3cc2(296B,0028.c:17649)延迟装配门(asm 0x8d3cc2-0x8d3ddf 全核)。
