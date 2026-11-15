@@ -28,15 +28,17 @@ void RunToolDialogFace::setupUi()
 	//   pass2 → +0x60 组,项表 = +0x70。
 	struct Pass {
 		QGroupBox *box;
-		const QStringList *items;
+		const QList<Entry> *items;
 	};
 	const Pass passes[2] = {{m_group58, &m_items68}, {m_group60, &m_items70}};
 	for (const Pass &pass : passes) {
 		auto *box = new QVBoxLayout(); // @00707bc7(0x20)
-		for (const QString &item : *pass.items) {
+		for (const Entry &item : *pass.items) {
 			auto *radio = new QRadioButton(); // @00707c03(0x30)
-			radio->setProperty("data", QVariant(item)); // 0xc8977d @00707c3e
+			radio->setProperty("data",
+			                   QVariant(QByteArray(item.value))); // 0xc8977d
 			box->addWidget(radio);            // @00707cxx
+			// 标签(item.label)由 FUN_00707320(this,this) 铺设 — cited。
 		}
 		box->addStretch();                    // @00707bef
 		pass.box->setLayout(box);             // @00707cxx
@@ -51,8 +53,40 @@ void RunToolDialogFace::setupUi()
 		le->setPlaceholderText(tr("Program [Arguments]...")); // 0xca0359 @00707d2a
 }
 
+// RunToolDialog ctor(1116B,0022.c:35237)数据表(逐条 BA 字面实读)
+const RunToolDialogFace::Entry RunToolDialogFace::kArgTokens[6] = {
+    {"", "&None"},
+    {"${CurrentChar}", "Current &Char"},
+    {"${CurrentWordText}", "Current &Word"},
+    {"${CurrentLineText}", "Current &Line"},
+    {"${Selection}", "&Selection"},
+    {"${BufferText}", "&Buffer"},
+};
+
+const RunToolDialogFace::Entry RunToolDialogFace::kOutputActions[8] = {
+    {"ignore", "&Ignore"},
+    {"insertText", "&Insert Text"},
+    {"newBuffer", "&New Buffer"},
+    {"replaceBuffer", "&Replace Buffer"},
+    {"replaceSelection", "&Replace Selection"},
+    {"showOutput", "Show &Output"},
+    {"showTooltip", "Show &Tooltip"},
+    {"showHtml", "Show &Html"},
+};
+
+// RunToolDialog_ctor(1116B,0022.c:35237)真身:
+//   @00707f8e QDialog(parent,0);字段 +0x30..+0x60 = 0;
+//   +0x68/+0x70/+0x78 = 空 BA;
+//   @0070803x FUN_00708c5e(+0x68, 6 项表)(上表 1);
+//   @007081c3 FUN_00708c5e(+0x70, 8 项表)(上表 2);
+//   @0070839e RunToolDialog_setupUi(this);@007083a4 FUN_0070716e(this)(cited)。
 RunToolDialogFace::RunToolDialogFace(QWidget *parent)
-	: QDialog(parent)
+	: QDialog(parent) // @00707f8e
 {
-	setupUi(); // ctor 00707f8e(批 315 承接)
+	for (const Entry &e : kArgTokens)
+		m_items68.append(e); // @0070803x(FUN_00708c5e 6 项)
+	for (const Entry &e : kOutputActions)
+		m_items70.append(e); // @007081c3(8 项)
+	setupUi();               // @0070839e
+	// FUN_0070716e(this)@007083a4 — cited(装配后处理体未转写)。
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QDialog>
-#include <QStringList>
+#include <QList>
 
 class QCheckBox;
 class QComboBox;
@@ -30,8 +30,23 @@ public:
 	explicit RunToolDialogFace(QWidget *parent = nullptr); // ctor 00707f8e
 	void setupUi();                                        // 00707ada
 
-	QStringList m_items68; // 语料 +0x68(第一组项表,BA 表)
-	QStringList m_items70; // 语料 +0x70(第二组项表)
+	// 语料 ctor(00707f8e 1116B)两张表(+0x68 6 项 / +0x70 8 项,
+	//   每项 = {值 BA,标签 BA},FUN_00708c5e(count) 装配):
+	//   +0x68:""/&None、${CurrentChar}/Current &Char、${CurrentWordText}/
+	//     Current &Word、${CurrentLineText}/Current &Line、${Selection}/
+	//     &Selection、${BufferText}/&Buffer;
+	//   +0x70:ignore/&Ignore、insertText/&Insert Text、newBuffer/&New Buffer、
+	//     replaceBuffer/&Replace Buffer、replaceSelection/&Replace Selection、
+	//     showOutput/Show &Output、showTooltip/Show &Tooltip、
+	//     showHtml/Show &Html。
+	struct Entry {
+		const char *value;
+		const char *label;
+	};
+	static const Entry kArgTokens[6];
+	static const Entry kOutputActions[8];
+	QList<Entry> m_items68; // 语料 +0x68
+	QList<Entry> m_items70; // 语料 +0x70
 
 private:
 	QCheckBox *m_check30 = nullptr;          // +0x30
