@@ -133,7 +133,7 @@ int TabBar::insertTabWithMeta(int index, const QString &title,
 	// 三 QList 节点插入 + buildPropHash/FUN_005a690e/FUN_005a6a80
 	//   @005a7a0a-005a7939 — cited — wave-2(节点表示未解;icon 实参
 	//   进合并流 @005a790c)
-	m_f60.insert(idx, TabNode()); // 节点初值 0xffff00000000/0/0
+	insertNodeAt(idx, TabNode()); // 节点初值 0xffff00000000/0/0(005a9a80)
 	m_f68.insert(idx, QVariant());
 	m_f70.insert(idx, QVariant());
 	idx = QTabBar::insertTab(idx, title); // 005a79c4
@@ -925,4 +925,17 @@ quint8 TabBar::nodeFlagAt(int index) const
 	if (index < 0 || index >= m_f60.size())
 		return 0;
 	return static_cast<quint8>(m_f60.at(index).f8); // 节点 +0x08 低字节
+}
+
+// FUN_005a9a80(314B,0018.c:24005)节点表插入真身:
+//   @005a9a80 detach_grow(index)@005a9a9x → 自 index 起后段逐节点
+//   operator_new(0x10)+三段拷贝(u32/u64/u16,@005a9ae5-af2)→ 目标位写入。
+//   本仓 QList<TabNode> 值语义插入等价(深拷贝由值承载)。
+void TabBar::insertNodeAt(int index, const TabNode &node)
+{
+	if (index < 0)
+		index = 0;
+	if (index > m_f60.size())
+		index = m_f60.size();
+	m_f60.insert(index, node);
 }

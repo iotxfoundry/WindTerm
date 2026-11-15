@@ -68,6 +68,10 @@ public:
     // FUN_005a6f96(40B,0018:21759 邻)节点字节位:index 越界 → 0;
     //   否则节点 +0x08 首字节(TabNode.f8 低字节)。
     quint8 nodeFlagAt(int index) const;
+    // FUN_005a9a80(314B,0018:24005)节点表插入(insertTabWithMeta 消费):
+    //   QListData::detach_grow(index) → 后段逐节点 0x10 深拷贝
+    //   (u32+u64+u16 三段拷贝实证 = TabNode 布局)→ 目标位写入。
+    void insertNodeAt(int index, const TabNode &node);
     // FUN_005a6b1c(62B,0018:21740)展开态恢复:
     //   私有位 +0x1c8(d)为 0 → 返;否则 +0x213 = !expanding();
     //   setExpanding(+0x213)(实参 Ghidra 丢,cited)。
