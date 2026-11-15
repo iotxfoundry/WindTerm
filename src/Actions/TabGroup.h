@@ -65,6 +65,9 @@ public:
     //   +0x38 模式串 == "All" → true;index < 10 → (模式 == "FirstNine");
     //   否则 false。ctor 初值 "None"。
     bool isMnemonicIndex(int index) const;
+    // FUN_005a6f96(40B,0018:21759 邻)节点字节位:index 越界 → 0;
+    //   否则节点 +0x08 首字节(TabNode.f8 低字节)。
+    quint8 nodeFlagAt(int index) const;
     // FUN_005a6b1c(62B,0018:21740)展开态恢复:
     //   私有位 +0x1c8(d)为 0 → 返;否则 +0x213 = !expanding();
     //   setExpanding(+0x213)(实参 Ghidra 丢,cited)。

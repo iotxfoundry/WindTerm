@@ -918,3 +918,11 @@ int TabBar::indexAtPoint(const QPoint &pos) const
 	const_cast<TabBar *>(this)->restoreExpandingState(); // 005a6b1c
 	return tabAt(pos);                                   // @005a6bec
 }
+
+// FUN_005a6f96(40B)真身:越界 → 0;否则 *(byte*)(节点+8)。
+quint8 TabBar::nodeFlagAt(int index) const
+{
+	if (index < 0 || index >= m_f60.size())
+		return 0;
+	return static_cast<quint8>(m_f60.at(index).f8); // 节点 +0x08 低字节
+}
