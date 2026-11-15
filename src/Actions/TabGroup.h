@@ -47,6 +47,11 @@ public:
     // FUN_005a7b66(269B,0018:22507)页色设置:越界返;+0x60 表补齐默认 →
     //   旧值 != 新值才写 → 尾重绘。
     void setTabColor(int index, const QColor &color);
+    // FUN_005a81c6(134B,0018:22507 邻)侧钮重排:
+    //   side = style()->pixelMetric(0x5d);与 +0x40 不同 →
+    //   逐页:旧侧 setTabButton(i,旧,0) + 新侧 setTabButton(i,新,btn);
+    //   +0x40 = side。
+    void relayoutSideButtons();
     QList<QColor> m_colors60; // 语料 +0x60(QList<QColor*> 节点面,本波值承载)
 
 signals:

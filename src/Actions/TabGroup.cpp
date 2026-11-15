@@ -1,5 +1,7 @@
 #include "TabGroup.h"
 
+#include <QStyle>
+
 #include "ThemeIcons.h"
 
 #include <QHBoxLayout>
@@ -460,9 +462,9 @@ int TabGroup::insertPageBack(QWidget *page, const QString &title,
 void TabGroup::showAfterInsert()
 {
 	hide(); // 005aa7ee case1
-	// plVar1 = *(ctx+0x10)+0x58 = tabbar;
-	//   (**tabbar_vt+0x70)(tabbar) — vcall(FUN_005a81c6 族)— cited — wave-2
-	//   QWidget::setFixedHeight(vcall 返回值)— cited — wave-2(实参未解,不发明)
+	m_f58->relayoutSideButtons(); // vcall vt+0x70 = FUN_005a81c6(批 263)
+	// QWidget::setFixedHeight(返回值)— 语料取 vcall 返回值;FUN_005a81c6
+	//   实为 void(134B 全读,无返回值)→ 该实参面 Ghidra 误配,cited 不落。
 	show();
 	m_f30 = 1; // *(tabGroup+0x30)=1 @005aa802
 }
@@ -700,4 +702,25 @@ void TabGroup::setTabColor(int index, const QColor &color)
 QColor TabGroup::tabColor(int index) const
 {
 	return m_f58 != nullptr ? m_f58->tabColor(index) : QColor(); // @008b9bf4
+}
+
+// FUN_005a81c6(134B,0018.c:22507 邻)侧钮重排真身:
+//   @005a81c6 side = style()->pixelMetric(0x5d,0,0,0)(vtable+0xf0);
+//   @005a81xx if (+0x40 != side) { 逐 i<count:btn=005a6c0e(i) 非空 →
+//     setTabButton(i, +0x40(旧侧), 0)+ setTabButton(i, side, btn);
+//     +0x40 = side; }
+void TabBar::relayoutSideButtons()
+{
+	const int side =
+	    style()->pixelMetric(static_cast<QStyle::PixelMetric>(0x5d)); // 0x5d metric
+	if (m_f40 == side) // @005a81xx
+		return;
+	for (int i = 0; i < count(); ++i) {
+		QToolButton *btn = sideButtonAt(i); // 005a6c0e
+		if (btn == nullptr)
+			continue;
+		setTabButton(i, static_cast<QTabBar::ButtonPosition>(m_f40), nullptr);
+		setTabButton(i, static_cast<QTabBar::ButtonPosition>(side), btn);
+	}
+	m_f40 = side;
 }
