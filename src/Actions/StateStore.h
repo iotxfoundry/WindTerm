@@ -75,6 +75,27 @@ bool stateStoreWriteReopenHistory(const QList<SavedWindowNode> &table,
                                   const QString &historyPath =
                                       startupReopenHistoryPath());
 
+// FUN_00760856(28B,0023.c:28729)aboutToQuit 触发接线真身(批 172,
+// M20-③挂点闭环)— 产品挂点 = s_WindTerm_75be40(590B,0023.c:25720)
+//   connectImpl(aboutToQuit→FUN_00760856)@0075bf6f MOV RAX,0x760856
+//   汇编实读;调用序 = main FUN_0051f3ab(106B,0016.c:13422)→
+//   s_WindTerm_75be40(local_78 宿主)。体两语句全读(0023.c:28731-37):
+//   FUN_0076073a()写面 + FUN_005d8c04(DAT_011c1240)profiles 三卫。
+// profiles 三卫 FUN_005d8c04(43B,0019.c:10352)cited 不落(铁律 6):
+//   FUN_005d7b56(195B,0019.c:9539)once 锁 +0x50 文档 flush /
+//   FUN_005d7c1e(9B)+0x58 flush / FUN_005d8bfe(6B)恒 1 — flush 腿
+//   FUN_00a8086a jsoncpp 域(EXT-BOUNDARY)+ 宿主 +0x50/+0x58 json
+//   文档槽位未建模;恒 1 返回值语料丢弃同相。
+// 窗表参承接:FUN_0076073a param_1+0x50 表槽位宿主侧未建模(铁律 6)
+//   → 表以参数承接(批 163 Slots 判例);现役窗集装配 = 调用侧
+//   stateStoreRemoveWindow(FUN_00760872;语料退出扫描 FUN_007609d2
+//   134B,0023.c:28804 逐窗摘除腿对位,param_3=1)。
+// historyPath 缺省 = 语料内部面(DAT_011c1240);显式实参 = 测试注入
+//   缝(批 150 startupRestoreGate 同判;批 172 appboot 临时路径)。
+void stateStoreAboutToQuit(const QList<SavedWindowNode> &table,
+                           const QString &historyPath =
+                               startupReopenHistoryPath());
+
 // ── 批 168(M19-④)三件套 text/data/session.uuid 保存侧 ──
 // 探锚 FUN_0076913f(5958B,0023.c:35353)定性 = QMetaType 注册族
 //   (KitWindow smeta 0x11ab660 等 registerNormalizedType ×~20;

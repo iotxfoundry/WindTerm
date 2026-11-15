@@ -116,6 +116,18 @@ bool stateStoreWriteReopenHistory(const QList<SavedWindowNode> &table,
 	return f.write(blob) == qint64(blob.size()); // @005dd781-86
 }
 
+// === stateStoreAboutToQuit — FUN_00760856(28B,0023.c:28729)触发
+// 接线真身(头注全出处;s_WindTerm_75be40 connectImpl 汇编实读
+// 0x75bf6f)。FUN_005d8c04 profiles 三卫 cited 不落(铁律 6)。===
+void stateStoreAboutToQuit(const QList<SavedWindowNode> &table,
+                           const QString &historyPath)
+{
+	stateStoreWriteReopenHistory(table, historyPath); // FUN_0076073a
+	                                                  //   @28733 CALL
+	// FUN_005d8c04(DAT_011c1240)@28735 — profiles 三卫 cited(见
+	//   StateStore.h 头注;宿主 json 文档槽位未建模,不发明)。
+}
+
 // === SessionStore — 三件套 text/data/session.uuid 保存侧(批 168,
 // 出处清单见 StateStore.h 头注;数组承载替 = QVariantList 注入面)。===
 
