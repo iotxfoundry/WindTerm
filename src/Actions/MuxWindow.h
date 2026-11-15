@@ -128,6 +128,34 @@ public:
     //   FUN_008e04ae(win,pane,1) zoom)。
     MuxPaneView *paneByIndex(int paneIndex) const;
 
+    // FUN_008e03e4(0028:27444,57B)归辖落点:标题写面 — +0x60(m_f60)
+    //   比对相等即返;不等赋值 + FUN_0091e3c8(0030:14120,39B)=
+    //   QMetaObject::activate(this,smo 011ac2a0,idx0,&m_f60)=
+    //   nameChanged(QString)(MuxWindow smo 池 0xce7e00 面:
+    //   "MuxWindow/nameChanged/name")。live 调用点:宿主 0084dd5a
+    //   @0084e710(建窗题)/s_session__tmux_842414 @0026:34900 区("tmux")。
+    void setTitle(const QString &title);
+
+    // FUN_008e012c(0028:27281,109B)归辖落点:空窗面 — findChild<
+    //   MuxPaneView*>(空名,smo 011abde0,recursive)== 0 → 真
+    //   (窗内无任何面板)。live 调用点:FUN_0083be38(0026:30051,
+    //   detach 窗口腿守卫 — 窗无活面板 → 摘窗,深窗口树腿 cited)。
+    bool hasNoPaneChild() const;
+
+    // FUN_008d9fe0(0028:22169,62B)归辖落点:detach 窗口原语 — desktop
+    //   +0x30 = MuxWindow 页容器 TabGroup(直读同 findPane +0x38 容器
+    //   先例,MuxDesktop 未复刻铁律 6):FUN_005ab6c2(stackIndexOf)
+    //   @008d9fe7 → -1 返 → FUN_005ab2cc(…,0)(0018:25074,param_3=0
+    //   = 仅 removeWidget)@008d9ff6 → QWidget::setParent(win,0)
+    //   @008da01c。live 调用点:FUN_0083be38 @0026:30058(空窗面守卫过
+    //   → 本原语 + deleteLater)。
+    static void detachWindow(void *desktop, QWidget *win);
+
+    // 宿主 0084dd5a 直译面(+0x44 序号键读/写、+0x4c/+0x50 宿主后写):
+    int windowIndex() const;                            // *(win+0x44)(FUN_008da226 键)
+    void setWindowIndex(int idx);                       // @0084e705
+    void setAuxFields(int f4c, int f50);                // @0084e71c/26(POD 源值未解 — wave-2)
+
     // mux_restorePaneSplitter(903B,0026:29862)。语料为自由函数:
     // (会话宿主*、配置容器、QSplitter*、页序、面板描述符*);QSplitter
     // 形参在调用点以 FUN_008e01ac(muxWindow) 形态取自本类
@@ -145,6 +173,10 @@ public:
     void restorePaneSplitter(SuperSession *sessionHost, void *configHolder,
                              unsigned int paneIndex, const PaneDescriptor &desc);
 
+signals:
+    void nameChanged(const QString &title); // idx0(smo 011ac2a0;FUN_0091e3c8 发射面;
+                                            //   setTitle/FUN_008e03e4 消费)
+
 private slots:
     void onFocusChanged(QWidget *old, QWidget *now);           // FUN_008e0bb2(0028:27798;批 92 真身)
 
@@ -154,6 +186,11 @@ private:
 
     QList<quint64> m_f30;   // 语料 +0x30(QListData::shared_null;节点型未解 cited)
     quint64 m_f38;          // 语料 +0x38 ← 0(消费点未读 cited — wave-2)
+    int m_f4c;              // 语料 +0x4c(宿主 0084dd5a 写点 @0084e71c/[RSP+0x1c0];
+                            //   消费点未读 cited — wave-2;ctor 8B 写覆盖 +0x44/+0x48
+                            //   两 int,本槽与 +0x50 同为宿主后写面)
+    int m_f50;              // 语料 +0x50(宿主写点 @0084e726/[RSP+0x1b8] — bit1 旗标腿
+                            //   @0084e12a 门后;消费点未读 cited — wave-2)
     bool m_f40 = true;      // 语料 +0x40 BYTE ← 1 @008e0980(写点 FUN_008dfd93 ←1
                             //   @008dfd96/FUN_008dfd9b ←0 @008dfd9e;读点槽体 S9
                             //   @008e0f92 byte cmp — 三源同证 BYTE;原 QString

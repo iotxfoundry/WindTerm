@@ -10,6 +10,7 @@
 // 重复断言( mwctest b1 + uiassembletest d 已守)。
 // 无头惯例:QApplication + offscreen(tests/uiassembletest.cpp 同面)。
 #include <QApplication>
+#include <QIcon>
 #include <QPointer>
 #include <QSplitter>
 #include <cstdio>
@@ -17,6 +18,7 @@
 #include "Actions/MuxPaneView.h"
 #include "Actions/MuxWindow.h"
 #include "Actions/SplitterGroup.h"
+#include "Actions/TabGroup.h"
 
 static int g_fail = 0;
 static void expect(bool ok, const char *name)
@@ -140,6 +142,51 @@ int main(int argc, char **argv)
 	       "MuxPaneView 子件 — Qt5.15 probe 同相;QUIRKS #33 死腿闭环:"
 	       "宿主 0084e151 unzoom 腿/0084eece [Zoomed] 追加腿双跳过 = 语料"
 	       "字面同相死路,只注记不修)");
+
+	// ======== h. 宿主 0084dd5a 新落段冒烟(批 157)========
+	// 先拆 g 段 zoom(g4 语料死腿不还原 ph)→ 恢复非 zoom 取面。
+	gwin.findChild<SplitterGroup *>()->toggleZoomPage(ggroup, false); // 语料死腿(m_f40 不清,字面)
+	// h1-h2 setTitle(FUN_008e03e4):首写触发 nameChanged,同值不触发。
+	int hFires = 0;
+	QObject::connect(&gwin, &MuxWindow::nameChanged,
+	                 [&hFires](const QString &) { hFires++; });
+	gwin.setTitle(QStringLiteral("w1"));
+	gwin.setTitle(QStringLiteral("w1")); // 同值早退 @008e03ec
+	expect(hFires == 1,
+	       "h1: setTitle 首写发 nameChanged 同值不发(FUN_008e03e4:比对"
+	       "@008e03ec 早退/FUN_0091e3c8 idx0)");
+	// h2:+0x60 槽无读出器(消费面 = FUN_008e03e4 自身比对)— 观测面
+	//   仅 nameChanged(h1 已覆盖),此处只作注记。
+
+	// h3 hasNoPaneChild(FUN_008e012c):zoom 态(g4 残留)窗内无
+	//   MuxPaneView 子件 → 真(探针:zoom 腿 replaceWidget 顶出组树,
+	//   pane parent 迁至 stack 承载侧 → findChild 空 = 语料字面同相);
+	//   重新挂页 → false。
+	expect(gwin.hasNoPaneChild(),
+	       "h3a: zoom 态窗内无 pane 子件 → true(FUN_008e012c findChild 空;"
+	       "Qt5.15 probe:zoom 腿 replaceWidget 顶出组树,pane 不在 win 树)");
+	MuxPaneView *gpane2 = new MuxPaneView(nullptr, TypeTerminal);
+	ggroup->addTab(gpane2, /*normal=*/false);
+	gwin.splitter()->addWidget(ggroup);
+	expect(!gwin.hasNoPaneChild(),
+	       "h3b: 重新挂组后 findChild 非空 → false(FUN_008e012c)");
+	// h4 建窗腿直译(宿主 @0084e6bf-e75):setWindowIndex/序键回读。
+	gwin.setWindowIndex(3);
+	expect(gwin.windowIndex() == 3,
+	       "h4: +0x44 序号键写读(FUN_008da226 键/宿主 @0084e705 写面)");
+	// h5 detachWindow 原语(FUN_008d9fe0):TabGroup 摘页 + setParent(0)。
+	{
+		TabGroup t5(nullptr);
+		MuxPaneGroup grp5(true, nullptr);
+		MuxPaneView p5(nullptr, TypeTerminal);
+		t5.insertPageBack(&grp5, QStringLiteral("t"), QIcon(), QString());
+		char desk5[0x40] = { 0 };
+		*reinterpret_cast<TabGroup **>(desk5 + 0x30) = &t5; // *(desktop+0x30) 容器直读面
+		MuxWindow::detachWindow(desk5, &grp5);
+		expect(t5.stackIndexOf(&grp5) == -1 && grp5.parentWidget() == nullptr,
+		       "h5: detachWindow 摘页+脱管(FUN_008d9fe0:005ab6c2→005ab2cc"
+		       "(param_3=0 仅 removeWidget)→setParent(0))");
+	}
 
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
