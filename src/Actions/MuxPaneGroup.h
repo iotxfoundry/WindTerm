@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QColor>
 #include <QWidget>
 
 class TabGroup;
@@ -34,6 +35,23 @@ public:
     //   tr("Tab Color")(0xcba05d 实读), 5=ShowAlphaChannel|DontUseNativeDialog)
     //   → 有效才 setTabColor(008b9b3e)。
     void pickTabColor(MuxPaneView *pane);
+
+    // s_RenamedTitle_8bb3e6(1693B,0028.c:3)会话恢复帧(读侧)解析面:
+    //   >>int count >>int current;count==0 → 默认会话腿;
+    //   逐项:>>QString name >>QByteArray payload;(magic > 0xb9e7e615 →
+    //   >>QColor;magic > 0xb9e7e624 且 owner=="Terminal" → >>QString renamed)。
+    //   本面只做帧解析(纯函数);开页/去重等副作用腿 cited。
+    struct RestoredSessionEntry {
+        QString name;
+        QByteArray payload;
+        QColor color;
+        QString renamedTitle;
+        bool hasColor = false;
+        bool hasRenamed = false;
+    };
+    static bool parseSessionRestoreBlob(const QByteArray &blob, quint32 magic,
+                                       bool terminalOwner, int *currentIndex,
+                                       QList<RestoredSessionEntry> *entries);
 
     // FUN_008bca9e(193B,0028.c:810)当前页视图:
     //   w = TabGroup::currentWidget(+0x38)@008bca9e;cast 011925c8 →

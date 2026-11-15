@@ -659,3 +659,41 @@ void MuxPaneGroup::activateCurrentView()
 		return;
 	// FUN_008c5d72(view)@008bcb5f — cited(激活体未转写)
 }
+
+// s_RenamedTitle_8bb3e6(1693B,0028.c:3)帧解析真身(纯函数面):
+//   @008bb3xx blob 空 → 0;QDataStream >> int count(local_98)
+//     >> int current(local_94);
+//   count == 0 → 默认会话腿(调用方处理);
+//   逐 i<count:@008bb715 >>QString(name)>>QByteArray(payload);
+//     @008bb7af magic > 0xb9e7e615 → >>QColor;magic > 0xb9e7e624 且
+//     owner == "Terminal" → >>QString(renamed)。
+bool MuxPaneGroup::parseSessionRestoreBlob(const QByteArray &blob, quint32 magic,
+                                          bool terminalOwner, int *currentIndex,
+                                          QList<RestoredSessionEntry> *entries)
+{
+	if (blob.isEmpty()) // @008bb3xx 空负载
+		return false;
+	if (entries == nullptr)
+		return false;
+	entries->clear();
+	QDataStream in(blob); // 局部 QDataStream(local_58)
+	int count = 0;
+	int current = 0;
+	in >> count >> current; // local_98 / local_94
+	if (currentIndex != nullptr)
+		*currentIndex = current;
+	if (count <= 0) // 默认会话腿(副作用面,cited)
+		return true;
+	for (int i = 0; i < count; ++i) {
+		RestoredSessionEntry e;
+		in >> e.name >> e.payload; // @008bb715
+		if (magic > 0xb9e7e615u) { // @008bb7af 版本门
+			in >> e.color;
+			e.hasColor = true;
+			if (magic > 0xb9e7e624u && terminalOwner) // Terminal 腿
+				in >> e.renamedTitle, e.hasRenamed = true;
+		}
+		entries->append(e);
+	}
+	return true;
+}
