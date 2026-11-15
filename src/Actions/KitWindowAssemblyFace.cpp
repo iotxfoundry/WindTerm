@@ -598,3 +598,38 @@ KitDockFace *kitDockRestorePage(KitWindowFace *kit, QSplitter *splitter,
 	splitter->addWidget(dock);                                // @0x8d3260
 	return dock;
 }
+
+// 008d2f7e 中段 splitter 布局段真身(@008d304b-0x8d3317):
+//   local_78/70/68 = param_1[7]/[8]/[10](= +0x38/+0x40/+0x50)→
+//   FUN_008d7840 组表 → FUN_00856880 detach → 迭代:
+//     >>int 页数 @008d3092;
+//     逆序页清理(逐子件 hide+setParent(0),首页 deleteLater)@008d30fa-31d2
+//       — cited(容器子件私有面);
+//     逐页 >>QByteArray(pageBlob)@008d3264 → kitDockRestorePage
+//       (89d860 + 8b881c + addWidget)@008d3247-60;
+//     尾 >>QByteArray → QSplitter::restoreState @008d3290-9f。
+bool kitSplittersRestore(KitWindowFace *kit, const QByteArray &splitterBlob)
+{
+	if (kit == nullptr || splitterBlob.isEmpty())
+		return false;
+	QDataStream in(splitterBlob); // @008d304b
+	QSplitter *splitters[3] = {kit->m_split0x38, kit->m_split0x40,
+	                           kit->m_split0x50}; // FUN_008d7840 三槽 [7]/[8]/[10]
+	for (QSplitter *sp : splitters) { // @008d309a 迭代面
+		if (sp == nullptr)
+			continue;
+		int pageCount = 0;
+		in >> pageCount; // @008d3092(页数头)
+		// 逆序页清理 @008d30fa-0x8d31d2 — cited(宿主子件私有面,
+		//   hide + setParent(0) + 首页 deleteLater 三段未落)
+		for (int i = 0; i < pageCount; ++i) {
+			QByteArray pageBlob;
+			in >> pageBlob; // @008d3264
+			kitDockRestorePage(kit, sp, pageBlob); // @008d3247-60
+		}
+		QByteArray state;
+		in >> state;         // @008d3290
+		sp->restoreState(state); // @008d329f(几何面真库)
+	}
+	return true;
+}

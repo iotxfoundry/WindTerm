@@ -10,6 +10,7 @@
 #include <QStackedWidget>
 #include <QVariantMap>
 
+#include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFace.h"
 #include "Actions/KitWindowFactory.h"
 #include "Actions/MainWindowFace.h"
@@ -712,6 +713,11 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 	//   (QWidget 造面,Pane 域 cited)+ QSplitter::addWidget → 尾
 	//   QByteArray → QSplitter::restoreState(几何面,真库委托 —
 	//   批 158 splitterRestoreStateShim 同相)。
+	// 批 218:KitWindow 宿主腿走真身(三槽 [+0x38,+0x40,+0x50] 顺序恢复);
+	//   非 KitWindow 宿主(face 承接)保留下方 cited 读游循环。
+	if (auto *kitWin = dynamic_cast<KitWindowFace *>(panel)) {
+		kitSplittersRestore(kitWin, splitterBlob); // 8d302f-8d3317 真身
+	} else {
 	QDataStream sub(splitterBlob); // QDataStream(local_58,local_c0)@008d304b
 	while (!sub.atEnd()) {         // splitter 表循环(@008d309a 区 qlist 迭代同相)
 		int pageCount = 0;
@@ -729,6 +735,7 @@ bool kitStartupSessions(QObject *panel, const QByteArray &payload,
 			//   splitterRestoreStateShim 已建模同型几何腿)。
 		}
 	}
+	} // else(非 KitWindow 宿主 cited 腿)
 	QByteArray statesBlob;
 	in >> statesBlob; // local_100 @008d3303
 		// @008d3380-340x:splitter states 表逐 restoreState — 批 158

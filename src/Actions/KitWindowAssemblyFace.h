@@ -92,6 +92,12 @@ int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
 class KitDockFace;
 KitDockFace *kitCreateDock(bool withExpand, QWidget *parent);
 
+// 008d2f7e 中段 splitter 布局段恢复(8d302f-8d3317):
+//   三槽序 [+0x38,+0x40,+0x50](FUN_008d7840 实参 = param_1[7]/[8]/[10]);
+//   逐 splitter:>>int 页数(逆序页清理 cited)→ 逐页 >>BA → kitDockRestorePage
+//   → 尾 >>BA → QSplitter::restoreState。
+bool kitSplittersRestore(KitWindowFace *kit, const QByteArray &splitterBlob);
+
 // 恢复链单页腿(008d2f7e 中段 @asm 0x8d3234-0x8d3260):
 //   withExpand = kit->+0x50->isAncestorOf(splitter)(rdi=+0x50,rsi=splitter);
 //   dock = kitCreateDock(withExpand, kit)(89d860)@0x8d3247;
