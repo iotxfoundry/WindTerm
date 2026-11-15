@@ -133,7 +133,7 @@ int TabBar::insertTabWithMeta(int index, const QString &title,
 	// 三 QList 节点插入 + buildPropHash/FUN_005a690e/FUN_005a6a80
 	//   @005a7a0a-005a7939 — cited — wave-2(节点表示未解;icon 实参
 	//   进合并流 @005a790c)
-	m_f60.insert(idx, QVariant());
+	m_f60.insert(idx, TabNode()); // 节点初值 0xffff00000000/0/0
 	m_f68.insert(idx, QVariant());
 	m_f70.insert(idx, QVariant());
 	idx = QTabBar::insertTab(idx, title); // 005a79c4
@@ -762,7 +762,8 @@ void TabGroup::setCloseButtonsVisible(bool on)
 }
 
 // FUN_005a7db8(495B,0018.c:22727)节点摘除真身:
-//   @005a7db8 index < 0 → 返;+0x60 表 index < size → 删节点(0x10)+remove;
+//   @005a7db8 index < 0 → 返;+0x60 表 index < size → 删节点(0x10,operator_delete)
+//   +remove;
 //   +0x68 表同(+QVariant 引用计数);+0x70 表同。
 //   本仓三表均 QList<QVariant> 值承载 → removeAt 等价。
 void TabBar::removeTabNodes(int index)

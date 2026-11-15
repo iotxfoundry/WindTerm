@@ -90,7 +90,14 @@ private:
     int m_f48;         // 语料 +0x48 ← 0
     int m_f50;         // 语料 +0x50 ← 0
     QLabel *m_f58;     // 语料 +0x58:new QLabel(this,"TextLabel") → hide()
-    QList<QVariant> m_f60; // 语料 +0x60(自定义 tab 节点,表示 cited — wave-2)
+    // 语料 tab 节点(+0x60 表,0x10 字节):FUN_005a7800 @005a7a34 初值
+    //   `*node = 0xffff00000000; *(u32*)(node+8) = 0; *(u16*)(node+0xc) = 0`。
+    struct TabNode {
+        quint64 f0 = 0xffff00000000ull; // 合并流余量(初值实证)
+        quint32 f8 = 0;                 // +0x08
+        quint16 fc = 0;                 // +0x0c
+    };
+    QList<TabNode> m_f60; // 语料 +0x60(节点表)
     QList<QVariant> m_f68; // 语料 +0x68(QVariant 列表,FUN_005a8818 消费,cited)
     QList<QVariant> m_f70; // 语料 +0x70(0x18 字节节点,表示 cited — wave-2)
     void *m_f78;       // 语料 +0x78 ← 0
