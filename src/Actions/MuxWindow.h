@@ -196,8 +196,21 @@ private:
     void muxWindowAssemble();                                  // FUN_008dffa0
     void connectFocusChanged();                                // FUN_008dfee8
 
-    QList<quint64> m_f30;   // 语料 +0x30(QListData::shared_null;节点型未解 cited)
-    quint64 m_f38;          // 语料 +0x38 ← 0(消费点未读 cited — wave-2)
+    QList<quint64> m_f30;   // 语料 +0x30(批 162 = PanePosNode 表,008e1450 值面)
+    quint64 m_f38;          // 语料 +0x38(批 162 定案 = QTimer* 槽:懒建
+                            //   @008e14f6 写/判空读;消费 = splitterMoved
+                            //   惯性滚动单发面 008e15f6 start(0))
+public:
+    // S4/S6 值面访问器(008e1450/008e14f6 直译面 — muxSplitterMoved
+    //   lambda 承接面,测试经 timer findChild 观测;非新增语料行为):
+    QList<quint64> &table30() { return m_f30; }
+    quint64 timerSlot38() const { return m_f38; }
+    void setTimerSlot38(quint64 v) { m_f38 = v; }
+    // S5 接线 lambda 体驱动面(FUN_008e12c0;宿主 connectImpl
+    //   @0084e5fd 目标 = 本 lambda — 测试/驱动直调承接,非新增行为):
+    friend void muxSplitterMovedDriver(MuxWindow *win, int pos, int index);
+
+private:
     int m_f4c;              // 语料 +0x4c(宿主 0084dd5a 写点 @0084e71c/[RSP+0x1c0];
                             //   消费点未读 cited — wave-2;ctor 8B 写覆盖 +0x44/+0x48
                             //   两 int,本槽与 +0x50 同为宿主后写面)

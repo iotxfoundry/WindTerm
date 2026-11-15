@@ -239,6 +239,92 @@ int main(int argc, char **argv)
 		       "尾单段真库委托面;Qt5.15 探针 restore=1 orient 翻转)");
 	}
 
+	// ======== j. 批 162 深腿尾清 ========
+	// j1 restorePaneSplitter 有组腿(0083bc46-98):现组件同相 → 池
+	//   "%1:%2" 合成 + 标题不等才 setTitle/组 tab 同步。
+	{
+		MuxWindow jwin(false, nullptr);
+		MuxPaneGroup *jgrp = new MuxPaneGroup(true, nullptr);
+		MuxPaneView *jpane = new MuxPaneView(nullptr, TypeTerminal);
+		jwin.splitter()->addWidget(jgrp);
+		jgrp->addTab(jpane, false);
+		char holder[0x60] = { 0 };
+		new (holder + 0x50) QMap<int, QString>(); // *(param_2+0x50) QMap 本体 @0083bb27
+		auto *pool = reinterpret_cast<QMap<int, QString> *>(holder + 0x50);
+		pool->insert(0, QStringLiteral("sess"));
+// PaneDescriptor 布局不进产品头(铁律 6)→ 对齐字节桩直传
+		char jdesc[0x28] = { 0 };
+		*reinterpret_cast<int *>(jdesc + 0x18) = jpane->paneIndex();
+		jwin.restorePaneSplitter(nullptr, holder, jpane->paneIndex(),
+		                         *reinterpret_cast<PaneDescriptor *>(jdesc));
+		expect(jpane->title() == QStringLiteral("0:sess"),
+		       "j1: 有组腿 %1:%2 池合成(0083bb15-c7 + upperBound 前置键"
+		       "@0083bb4d-c7 + 同相 else 腿 setTabTitle @0083bc78)");
+		jwin.restorePaneSplitter(nullptr, holder, jpane->paneIndex(),
+		                         *reinterpret_cast<PaneDescriptor *>(jdesc));
+		expect(jpane->title() == QStringLiteral("0:sess"),
+		       "j2: 同值早退(+0x38 operator!= @0083bc52 同相)");
+	}
+	// j3 restorePaneSplitter 无组腿(0083bbd0-08):cur==0 → 手工
+	//   desktop+0x38 容器(FUN_008da01e findPane 布局直读)寻 pane →
+	//   new MuxPaneGroup + addWidget 插入序 + addTab(pane,0)。
+	{
+		MuxWindow jwin(false, nullptr);
+		MuxPaneView *jpane = new MuxPaneView(nullptr, TypeTerminal);
+		// findPane 布局(0028:22186 直译):desktop+0x38 → c;
+		//   c+8=begin / c+0xc=end / c+0x10=节点表;节点+4 int 活,
+		//   节点+0x10 = pane 指针。
+		quint64 node[4] = { 0, 0, 0, 0 };
+		*reinterpret_cast<int *>(reinterpret_cast<char *>(node) + 4) = 1;
+		*reinterpret_cast<MuxPaneView **>(reinterpret_cast<char *>(node) + 0x10) = jpane;
+		quint64 clist[4] = { 0, 0, reinterpret_cast<quint64>(node), 0 };
+		*reinterpret_cast<int *>(reinterpret_cast<char *>(clist) + 8) = 0;  // begin
+		*reinterpret_cast<int *>(reinterpret_cast<char *>(clist) + 0xc) = 1; // end
+		// desktop 桩 = jwin 本体(真 QWidget 可作 MuxPaneGroup ctor
+		//   parent;+0x38 = 本仓 QTimer 槽位,以 accessor 暂载 clist
+		//   容器指针 — 语料 MuxDesktop +0x38 = QList 容器同位,类未
+		//   复刻 → 测试桩语义)。
+		char spref[8] = { 0 };
+		*reinterpret_cast<int *>(spref + 4) = 1;     // ref 槽 +4 int=1 活
+		                                             //   (muxDesktopGet
+		                                             //   @0083baf7 读面)
+		char sess[0x200] = { 0 };
+		*reinterpret_cast<void **>(sess + 0x1c8) = spref;
+		*reinterpret_cast<void **>(sess + 0x1d0) = &jwin;
+		jwin.setTimerSlot38(reinterpret_cast<quint64>(clist)); // *(+0x38) 容器桩
+		char holder[0x60] = { 0 };
+		new (holder + 0x50) QMap<int, QString>();
+// 对齐字节桩同上(+0x18 paneIndex 唯一实证)
+		char jdesc[0x28] = { 0 };
+		*reinterpret_cast<int *>(jdesc + 0x18) = jpane->paneIndex();
+		jwin.restorePaneSplitter(reinterpret_cast<SuperSession *>(sess),
+		                         holder, jpane->paneIndex(),
+		                         *reinterpret_cast<PaneDescriptor *>(jdesc));
+		expect(jwin.splitter()->count() == 1
+		           && jpane->parentWidget() != nullptr
+		           && jpane->title() == QStringLiteral("0:"),
+		       "j3: 无组腿 new MuxPaneGroup + addWidget 插入序(0083bb2c-36)"
+		       " + addTab(pane,0)(0083bc08;空池 → 空串残槽同相)");
+	}
+	// j4 muxSplitterMoved S4/S5/S6(008e1450-15f6):tmux 窗真腿 →
+	//   S5 未命中追加 + S6 懒建 QTimer(+0x38)单发 start(0);二发
+	//   S4 命中不重建 timer。
+	{
+		MuxWindow jwin(true, nullptr);               // +0x41=1 卫腿过 @008e12d1
+		MuxPaneGroup *jgrp = new MuxPaneGroup(true, nullptr);
+		MuxPaneView *jpane = new MuxPaneView(nullptr, TypeTerminal);
+		jwin.splitter()->addWidget(jgrp);
+		jgrp->addTab(jpane, false);
+		muxSplitterMovedDriver(&jwin, 120, 1);       // S5 lambda 体直调面
+		QTimer *t1 = jwin.findChild<QTimer *>();
+		expect(t1 != nullptr,
+		       "j4a: S6 懒建 QTimer(+0x38)真身(008e14f6-15f6 start(0) "
+		       "单发面;槽体 008e1125 cited)");
+		muxSplitterMovedDriver(&jwin, 130, 1);       // S4 命中腿二发
+		expect(jwin.findChild<QTimer *>() == t1,
+		       "j4b: S4 命中腿二发 pos 直写不重建 timer(008e14a2 值面)");
+	}
+
 	printf("fail=%d\n", g_fail);
 	return g_fail == 0 ? 0 : 1;
 }

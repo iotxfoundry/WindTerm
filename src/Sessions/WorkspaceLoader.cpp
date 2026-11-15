@@ -406,9 +406,10 @@ QList<QWidget *> collectorMuxChildren(const QObject *pane,
 {
 	QList<QWidget *> out; // *param_1 = shared_null @008d099f
 	// mux_removeSplitWidget 面 = FUN_008b9b2a(pane+0x38 → TabGroup)。
-	//   面板树遍历真腿:pane findChildren<QWidget*> 直集(语料 = pane
-	//   +0x38 TabGroup +0x60 stack 的页族;pane 域 widget 树同相 —
-	//   页族即 stack 页,树遍历含 stack 页与页内件)。
+	//   面板树遍历真腿(008b9890 直译):+0x38 stack 页逐个 — 页
+	//   dynamic_cast QWidget(0x11925c8)直收;非 QWidget → 页 cast
+	//   MuxDesktop(0x11ab930)→ FUN_008da7a8(findChildren MuxPane
+	//   非 +0x160 位取末件)active pane 腿。
 	QList<QWidget *> kids;
 	const auto *pw = qobject_cast<const QWidget *>(pane);
 	if (pw != nullptr) {
@@ -421,14 +422,14 @@ QList<QWidget *> collectorMuxChildren(const QObject *pane,
 			for (int i = 0; i < n; ++i)
 				if (QWidget *w = stack->widget(i))
 					kids.append(w); // @008bc35c null 门
-		} else {
-			kids = pw->findChildren<QWidget *>(); // 面板树对位(收集器
-			                                      //   消费 = Editor
-			                                      //   windowFilePath 族
-			                                      //   — 树遍历同相;
-			                                      //   8d0cf2 dynamic_cast
-			                                      //   QWidget 腿同构)
 		}
+		// 批 162 嵌套页对位修正:语料无 findChildren 兜底 — 收集面
+		//   = *(pane+0x38) TabGroup stack 页族直读(008b9b2a 计数 =
+		//   QTabBar::count @005abbda tail;空槽 → 0 页 → 空表同相零
+		//   判,同 detachWindow 先例);批 159 findChildren 兜底 =
+		//   自研面,撤销(铁律 6)。页为 MuxDesktop(0x11ab930)时
+		//   008b9890 → 008da7a8 active pane 腿 — MuxDesktop 未复刻
+		//   → cited(本仓 stack 页恒 QWidget,直收腿同相可达)。
 	}
 	for (QWidget *w : kids) { // @008bc32e 循环
 		if (!nameFilter.isEmpty()) { // *(int *)(*param_3 + 4) != 0 @008bc380

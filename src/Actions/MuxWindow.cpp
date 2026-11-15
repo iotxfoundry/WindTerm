@@ -13,7 +13,10 @@
 #include <QMessageBox>
 #include <QSplitter>
 #include <QTabBar>
+#include <QTimer>
 #include <QVBoxLayout>
+
+#include <algorithm> // std::sort 承接面(FUN_0084c145 introsort 体 cited)
 
 class MuxDesktop; // 0x28 槽;此类未复刻(转写面注见 findPane 调用点)
 
@@ -31,6 +34,23 @@ struct PaneDescriptor {                 // 0x28B;+0x18 int(唯一实证消费面
     int paneIndex;                      // +0x18 @0083bb0e/0f8/ded(唯一读面)
     int _1c;                            // +0x1c padding(未读)
     void *f20;                          // +0x20 指针(语义未解 — wave-2)
+};
+
+// === PanePosNode(win+0x30 表 0x20 节点,批 162 读体真身化)===
+// 语料节点 0x20 @008e14f6 区/S5 追加腿 008e19f0 直译:{int pos(+0x0),
+//   int pos2(+0x4,QVariant 头双 int 位 CONCAT44(param_2,param_2)),
+//   bool vertical(+0x8,orientation==2 @008e1567),+0xc pad,int* ref
+//   (+0x10,Qt 私有 ExternalRefCountData* @008e1550 getAndRef),
+//   QObject* pane(+0x18)}。本仓强指针活判定以 QPointer 承接(m_f78
+//   惯式判例:QPointer 惯式 getAndRef(pane)@008e0553-72 同批落形)
+//   — 活判定 = pane 非空(@008e1459 ref 活 && pane==胜者 同相;
+//   布局偏移非铁律约束 — 节点型原批注"未解 cited",本批按消费面
+//   建模,不进产品头同 PaneDescriptor 判例)。
+struct PanePosNode {
+    QPointer<MuxPaneView> pane;         // 强指针活判定(+0x18 语料位)
+    int pos;                            // +0x0(QVariant 头低位)
+    int pos2;                           // +0x4(高位 @008e14a2 命中写位)
+    bool vertical;                      // +0x8(orientation==2 @008e1567)
 };
 
 // === MuxWindow(bool,QWidget*) ===
@@ -552,8 +572,98 @@ void MuxWindow::retitleGroupPane(MuxPaneView *pane,
 	}
 }
 
-// === splitterRestoreStateShim(闭包体 FUN_0084b8ed,1336B)分面 ===
-// 闭包尾调 splitter_restoreState(0084b483 1079B,0026:40034 全读;
+// === restorePaneSplitter — mux_restorePaneSplitter(0083ba78,903B)
+//     分段真身(批 162 读体;0026.c 0083ba78 全读)逐段:
+//   A 现组件核查 @0083ba80-c0:cur = dynamic_cast<MuxPaneGroup>(
+//     splitter.widget(paneIndex))→ curPane = cur->currentPane()
+//     (FUN_008de3b2 @0083baa8)→ cur && curPane && *(curPane+0x30)
+//     == *(desc+0x18) → 有组腿 E;否则走 B-D。
+//   B findPane 腿 @0083bac3-e2:pane = FUN_008da01e(desktop 三连解出,
+//     desc+0x18)→ 0 即返 @0083bae5。
+//   C 标题合成 @0083bb15-c7:"%1:%2"(from_ascii).arg(desc+0x18)
+//     .arg(池值)— 池 = *(configHolder+0x50) QMap<int,QString>
+//     (@0083bb27-d4 QMapDataBase 走查,upperBound 前置键形 —
+//     retitleGroupPane 0084ee00-4d 同形直译;空池 = 空串残槽同相)。
+//   D 无组腿 @0083bbd0-08:cur==0 → new MuxPaneGroup(1,desktop 解出)
+//     (0x40 ctor)→ splitter.count()>paneIndex → replaceWidget
+//     (paneIndex,组)/else addWidget(组)(插入序直译)@0083bb2c-36;
+//     cur!=0 且 tabCount==1(FUN_008de59c @0083bbf5)→ currentPane +
+//     detachPane @0083bbf5-f8;pane->setTitle(FUN_008de224
+//     @0083bc03)+ 组 addTab(pane,0)(FUN_008de3e8 尾参 0 @0083bc08)。
+//   E 有组腿 @0083bc46-98:同 C 合成 → pane->+0x38 title operator!=
+//     (@0083bc52)→ setTitle + FUN_008df06e(cur,pane,title) 组 tab
+//     同步(@0083bc78;stackIndexOf/setTabTitle 面 = retitleGroupPane
+//     尾同面直译)。
+//   深腿 cited:PaneDescriptor 0x28B 仅 +0x18 paneIndex 实证(结构注);
+//     0x20 面板深展开消费端挂 5c 期 Pane 批;kitStartupSessions
+//     splitter 流式表 cited 维持(批 158 分面)。
+void MuxWindow::restorePaneSplitter(SuperSession *sessionHost, void *configHolder,
+                                    unsigned int paneIndex, const PaneDescriptor &desc)
+{
+	QSplitter *sp = splitter();                      // 接收器 = splitter()
+	MuxPaneGroup *cur = nullptr;
+	MuxPaneView *curPane = nullptr;
+	if (sp != nullptr) {                             // 语料 param_3 直用
+		if (QWidget *w = sp->widget(paneIndex))      // A @0083ba80
+			cur = dynamic_cast<MuxPaneGroup *>(w);   // __dynamic_cast 011abe10
+		if (cur != nullptr)
+			curPane = cur->currentPane();            // FUN_008de3b2 @0083baa8
+	}
+	const bool samePane = cur != nullptr && curPane != nullptr
+	    && curPane->paneIndex() == static_cast<int>(desc.paneIndex); // +0x30==+0x18 @0083bab8
+	void *desktop = nullptr;                         // @0083bac3 三连解
+	MuxPaneView *pane = nullptr;
+	if (samePane) {
+		pane = curPane;
+	} else {
+		// 语料 param_1 直解(@0083bac3 mov 0x1c8(%r13) — 调用点恒非
+		//   空);本仓测试桩传 null → 零判承接(detachWindow 同先例,
+		//   桌面解不出 = pane 不寻 → 返)。
+		if (sessionHost != nullptr) {
+			desktop = muxDesktopGet(sessionHost);    // @0083bac3-f0
+			if (desktop != nullptr)
+				pane = findPane(desktop, static_cast<int>(desc.paneIndex)); // FUN_008da01e @0083bad9-e2
+		}
+		if (pane == nullptr)
+			return;                                  // @0083bae5
+	}
+	// C 标题合成 @0083bb15-c7(池 = *(configHolder+0x50) QMap 本体
+	//   @0083bb27;upperBound 前置键,空池 = 空串同相)
+	QString poolValue;
+	if (configHolder != nullptr) {
+		const auto *pool = reinterpret_cast<const QMap<int, QString> *>(
+		    reinterpret_cast<const char *>(configHolder) + 0x50); // *(param_2+0x50) @0083bb27
+		auto it = pool->upperBound(static_cast<int>(paneIndex));
+		if (it != pool->begin())
+			poolValue = (--it).value();              // @0083bb4d-c7 前置节点
+	}
+	const QString title = QStringLiteral("%1:%2")    // from_ascii @0083bb15
+	                          .arg(static_cast<int>(desc.paneIndex)) // @0083bb22
+	                          .arg(poolValue);       // @0083bb4d-c7
+	if (!samePane) {                                 // D 无组腿 @0083bbd0-08
+		if (cur == nullptr) {
+			cur = new MuxPaneGroup(/*expandable=*/1, // 0x40 ctor @0083bbd0
+			    reinterpret_cast<QWidget *>(desktop));
+			if (sp->count() > static_cast<int>(paneIndex))
+				sp->replaceWidget(static_cast<int>(paneIndex), cur); // @0083bb2c
+			else
+				sp->addWidget(cur);                  // @0083bb36 插入序
+		} else if (cur->tabCount() == 1) {           // FUN_008de59c @0083bbf5
+			cur->detachPane(cur->currentPane());     // @0083bbf5-f8
+		}
+		pane->setTitle(title);                       // FUN_008de224 @0083bc03
+		cur->addTab(pane, /*normal=*/false);         // FUN_008de3e8 尾参 0 @0083bc08
+	} else {                                         // E 有组腿 @0083bc46-98
+		if (curPane->title() != title) {             // +0x38 operator!= @0083bc52
+			curPane->setTitle(title);                // FUN_008de224 @0083bc60
+			const int idx = cur->stackIndexOf(pane); // FUN_008df06e 面 @0083bc78
+			if (idx != -1)
+				cur->setTabTitle(idx, title);        // FUN_005ab09e 同面
+		}
+	}
+}
+
+// === splitterRestoreStateShim(闭包体 FUN_0084b8ed,1336B)分面 ===// 闭包尾调 splitter_restoreState(0084b483 1079B,0026:40034 全读;
 //   批 158 分面裁决):
 //   类型注册面:0x28 "Tmux::SplitterWidget"(0xcb7a13 kuna 实读)/
 //     0x20 面板类型(DAT_011c2438/243c 惰性注册)— Qt metatype 底座,
@@ -581,7 +691,10 @@ static void splitterRestoreStateShim(QSplitter *sp, const QByteArray &states)
 	if (!states.isEmpty())
 		sp->restoreState(states);                    // 几何面 = 真库委托(0084b483 尾面)
 	// pane 树重建面(0x20→mux_restorePaneSplitter / 0x28→递归闭包)
-	//   — cited(见上注;铁律 6)。
+	//   — 批 162:消费端真身 = MuxWindow::restorePaneSplitter
+	//   (0083ba78 分段,A-E 段见上);shim 输入为 QByteArray 流式段
+	//   (语料 0084b483 输入 = QVariant 0x28 POD 项级分派,非流式表)
+	//   → 项级分派维持 cited(铁律 6;真库 restoreState 几何腿同相)。
 }
 
 // === muxSplitterMoved(MuxWindow*,int,int) — lambda 体 ===
@@ -595,22 +708,22 @@ static void splitterRestoreStateShim(QSplitter *sp, const QByteArray &states)
 //   S3 极值 pane:@008e13e9-40c 两两 QWidget::mapToGlobal(0x75bd66 同型
 //     — 0x4c... 族 vtable +0x1c 槽面)极值选取(orientation==1 纵比 x 低
 //     位 dword;否则比 y 高位);胜者 pane 存 pQVar15。
-//   S4 表重排:@008e1450-8e +0x30 QList 表 detach ×2(0x20 节点拷贝面
+//   S4 表重排 @008e1450-8e +0x30 QList 表 detach ×2(0x20 节点拷贝面
 //     FUN_008e1ac0)→ 遍历:节点 +0x10 强指针活 && +0x18==胜者 →
 //     节点+4 ← param_2(pos;QVariant 头 int 位直写 @008e14a2)→ 命中
-//     旗 QVar14。
+//     旗 QVar14 — 批 162 真身(节点型 PanePosNode,值面直译)。
 //   S5 未命中腿:@008e1550 ExternalRefCountData::getAndRef(胜者)→
 //     orientation==2 重读(@008e1567)→ 节点 0x20 结构 {pos,pos,
 //     refcount,pane}(CONCAT44(param_2,param_2) 双 int + bool 纵横位
 //     @local_50)→ FUN_008e19f0(115B,0028:28411 = QList append 0x20
-//     节点直译)追加 @008e159c-af。
+//     节点直译)追加 @008e159c-af — 批 162 真身(QPointer 承接活判定)。
 //   S6 QTimer 腿:@008e14f6 +0x38 空 → operator_new(0x20)+QTimer(this)
 //     存 +0x38 → connectImpl(timeout,FUN_008e1125 胶水{1,..,win},Qt
-//     直连)@008e15e0-f6;尾 QTimer::start(0)(0x4bf8e0 ESI=0 字面)。
-//   深腿 cited(FUN_008e1125 定时器槽 411B 惯性滚动 = FUN_005b68ce
-//     double 属性面/FUN_005b86c0 int 面 + vt+0x1a8 消费,Pane/终端
-//     域;布局重排经 S4 表仅 QVariant pos 直写,几何恢复在定时器槽 —
-//     该槽体 411B 转写面挂后续批,本批 S0-S6 落值面)。
+//     直连)@008e15e0-f6;尾 QTimer::start(0)(0x4bf8e0 ESI=0 字面)
+//     — 批 162 单发/周期面真身;槽体 FUN_008e1125(411B)回调深腿
+//     cited(表扫 pos 差 → 005b68ce double/005b86c0 int 属性面 +
+//     vt+0x1a8 滚动消费,Pane/终端域)。
+static bool muxWindowPermLess(const QVariant &a, const QVariant &b); // fwd:S4 比较器真身(宿主区定义)
 static void muxSplitterMoved(MuxWindow *win, int pos, int index,
                              QWidget *w0)
 {
@@ -625,7 +738,7 @@ static void muxSplitterMoved(MuxWindow *win, int pos, int index,
 	//   receiver = win)—— 以 win->findChild 取面等价承接不发明:
 	//   语料 sender 消费仅 widget(index-1)/orientation 两读。
 	QSplitter *sender = w0 ? qobject_cast<QSplitter *>(w0->parentWidget())
-	                         : nullptr; // S1 @008e12fa(sender 消费同相)
+	                         : win->findChild<QSplitter *>(); // S1 @008e12fa(driver 直调时 sender 承接 = win 下首 splitter)
 	if (sender == nullptr)
 		return;
 	QWidget *w = sender->widget(index - 1);          // @008e130f(ESI=index-1)
@@ -651,19 +764,54 @@ static void muxSplitterMoved(MuxWindow *win, int pos, int index,
 	}
 	if (best == nullptr)                             // @008e1432
 		return;
-	// S4 表重排 @008e1450-8e:win+0x30 QList 0x20 节点 {pos(QVariant 头
-	//   int 位 +4),+0x10 refcount,+0x18 pane}——表本体 = PaneDescriptor
-	//   序列(生产者写侧未解,Pane 域);命中腿 = 节点 +0x10 强指针活 &&
-	//   +0x18==best → +4←pos @008e14a2;未命中追加腿 @008e1550-af
-	//   (节点 0x20 {pos,pos,refcount,pane},FUN_008e19f0)。本仓
-	//   PaneDescriptor 仅 +0x18 paneIndex 实证(pos 写位 +0x4 未建模)
-	//   → S4/S5 值面 cited(表结构清单如上,铁律 6 不发明)。
-	// S6 QTimer 腿 @008e14f6-f6:懒建 QTimer(win)存 +0x38 + connect
-	//   (timeout,FUN_008e1125 槽 411B 惯性滚动 = FUN_005b68ce double
-	//   属性面/005b86c0 int 面 + vt+0x1a8 消费,Pane/终端域)+ start(0)
-	//   (0x4bf8e0 ESI=0 字面)。槽体深腿 + win+0x38 槽位(Pane 域
-	//   未建模)→ cited 不发明。
-	(void)pos;                                       // S4 值写位 cited(见上)
+	// S4 表重排 @008e1450-8e(批 162 真身):win+0x30 节点表 detach ×2
+	//   惯式(QList detach 真库承接;节点拷贝 FUN_008e1ac0 面)→ 遍历:
+	//   节点 +0x10 强指针活 && +0x18==best → +0x4←pos @008e14a2
+	//   (QVariant 头 int 位直写)→ 命中旗 QVar14 @008e14e2。
+	bool hit = false;                                // QVar14 @008e14e2
+	for (quint64 raw : win->table30()) {             // @008e14b1-e1 迭代直译
+		auto *n = reinterpret_cast<PanePosNode *>(raw);
+		if (n->pane.data() == best) {                // 活判定同相(见结构注)
+			n->pos2 = pos;                           // +0x4←pos @008e14a2
+			hit = true;
+		}
+	}
+	if (!hit) {                                      // S5 未命中腿 @008e1550-af
+		// getAndRef(胜者)(Qt 私有)→ QPointer 承接(见结构注);
+		// 节点 {pos,pos,refcount,pane} @008e19f0(115B,0028:28411
+		// = QList append 0x20 节点直译)追加;纵横位 orientation==2
+		// @008e1567。
+		auto *n = new PanePosNode;
+		n->pane = static_cast<MuxPaneView *>(best);
+		n->pos = pos;                                // CONCAT44(pos,pos)
+		n->pos2 = pos;                               // @008e159c-af
+		n->vertical = (orientation == 2);            // @008e1567
+		win->table30().append(reinterpret_cast<quint64>(n)); // FUN_008e19f0
+	}
+	// S6 QTimer 腿 @008e14f6-f6(批 162 单发/周期面真身):+0x38 懒建
+	//   QTimer(this,parent=win)+ connectImpl(timeout,FUN_008e1125
+	//   胶水{1,..,win},Qt 直连)@008e15e0-f6 → 尾 start(0)
+	//   (0x4bf8e0 ESI=0 字面)。回调槽体 FUN_008e1125(411B)深腿
+	//   cited:表扫 pos 差 → 滚动消费(005b68ce double/005b86c0 int
+	//   属性面 + vt+0x1a8,Pane/终端域)。
+	if (win->timerSlot38() == 0) {                   // *(win+0x38) 空 @008e14f6
+		QTimer *t = new QTimer(win);                 // QTimer(win) @008e15e0
+		QObject::connect(t, &QTimer::timeout, win, [win]() {
+			// FUN_008e1125 槽体 411B cited(回调深腿,铁律 6):
+			//   表尾清扫 FUN_008e1720/FUN_008dfda4 + 逐节点 pos 差
+			//   → 005b68ce/005b86c0 属性面 + vt+0x1a8 滚动消费。
+			Q_UNUSED(win);
+		}, Qt::DirectConnection);                    // Qt 直连 @008e15f6
+		win->setTimerSlot38(reinterpret_cast<quint64>(t)); // *(win+0x38)
+	}
+	reinterpret_cast<QTimer *>(win->timerSlot38())->start(0); // @008e15f6
+}
+
+// muxSplitterMovedDriver — S5 接线 lambda 体直调面(宿主 connectImpl
+//   @0084e5fd 目标;w0 消费 = sender 承接,见 muxSplitterMoved S1 注)。
+void muxSplitterMovedDriver(MuxWindow *win, int pos, int index)
+{
+	muxSplitterMoved(win, pos, index, nullptr);      // w0=null → sender 兜底
 }
 
 // findWindowByIndex — FUN_008da278(0028:22336,29B)= FUN_008da226
@@ -797,7 +945,19 @@ static QList<MuxWindow *> desktopWindows(void *desktop)
 //     @0084ef84-b6 → 页+0x38 不等 → FUN_008de224 setTitle +
 //     FUN_008df06e 组同步 @0084eefd-0b。
 //     本段(0x10 活性重题腿)批 158 真身 = MuxWindow::retitleGroupPane
-//     (池生产者写侧未解 → 池经形参承载,调用点仍 cited)。
+//     (池生产者写侧未解 → 池经形参承载,调用点仍 cited)。批 162
+//     生产者写侧读体定案:s_window_visible_layout FUN_0087b76a
+//     (3244B)解析 tmux 控制行("window_visible_layout"/
+//     "window_raw_flags" 等,0087b9fb 区 split(';')→indexOf(':')
+//     键值链 @0087c282-3d2)→ 每 0x58 窗口 POD +0x50 = QVariant
+//     (QMap<int,QString> paneId→paneName 池,v39→v6[0x50] 拷贝
+//     @0087c2fc-30e)→ 尾 emit 经 FUN_0091939c activate(smo
+//     011aa220,idx 11)= windowsChanged(QList<QVariant>)(Tmux 宿主
+//     面)→ Screen 信号 28 tmuxWindowsChanged 桥接面(SCREEN-SIGNALS
+//     表)。⚠ 语料宿主读侧 0x10 腿池槽 [RSP+0x200] 全函数无写点
+//     (0084ee00/ef5a/ef74 三读,字节级扫描证)→ 原版读未初始化槽
+//     = 原版 bug(铁律 2 原封不修)→ 调用点维持 cited(池传播链
+//     不可达,不发明承接)。
 //   S3 尾扫腿 @0084e7d1(第二遍同 list):win 再查 FUN_008da278
 //     @0084e83c;bit2|负 → 组摘腿 @0084e854-8a2:sp = FUN_008e01ac
 //     非空 → findChildren<MuxPaneGroup>(smo 011ac040)@0084e9cd →
@@ -820,6 +980,10 @@ static QList<MuxWindow *> desktopWindows(void *desktop)
 //     → 逐 id:FUN_008da278 → FUN_008da1bc(desktop,win,序+1)
 //     (0028:22279 = stackIndexOf → FUN_005ab2c2 QTabBar::moveTab)
 //     @0084ebd1。恒等序承接(比较器深腿不发明;消费面 = moveTab 遍历)。
+//     批 162 升真身:比较器 0084be6a(122B)+ 归序门/数组面落码
+//     (muxWindowPermLess/muxWindowsReorder,见函数体);introsort
+//     体 0084c145 7044B + moveTab 0084da1bc cited(std::sort 承接
+//     同 introsort 语义,libstdc++ 真库委托判例同 yaml-cpp 面)。
 //   S5 splitterMoved 接线腿 @0084e402-637:desktop 活 →
 //     findChildren<MuxWindow>(smo 011ac2a0)@0084e46c → 遍历 →
 //     findChildren<QSplitter>(空名,GOT 0x11b8f70)@0084e518 →
@@ -883,7 +1047,33 @@ void muxOnTmuxWindowsChanged(SuperSession *sessionHost, const QList<QVariant> &w
 		(void)focusAnchor;                              // S9 同步面焦点锚(仅消费于旗腿)
 	}
 	// S3 尾扫/S4 重排/S5 接线:语料旗标门全走 0 路径(同上 flags cited);
-	//   S5 接线腿与 flags 无关 — live:
+	//   S4 重排腿批 162 落值面(gate+归序+比较器,见下)、S5 接线腿与
+	//   flags 无关 — live:
+	// S4 重排腿 @0084ea9d-ebd1:local_1b2 重排挂起旗(bit1 腿写
+	//   @0084e13a,置 0 @0084df69;旗腿 cited → 本仓恒 false 门同相)+
+	//   list 非空 → 归序数组 new int[n] 0..n-1(@0084eae0-b0)→
+	//   FUN_0084c145 introsort(7044B cited,std::sort 承接)+ 比较器
+	//   FUN_0084be6a 真身 → 逐序 findWindowByIndex → FUN_008da1bc
+	//   moveTab(序+1)(0028:22279 — TabGroup moveTab 面未落,cited)。
+	const bool reorderPending = false;               // [RSP+0x96] @0084df69 置 0
+	if (reorderPending && !windows.isEmpty()) {      // @0084ea9d 门(恒关同相)
+		QList<int> perm;                             // new int[n] @0084eae0
+		for (int i = 0; i < windows.size(); ++i)     // 0..n-1 @0084eae7-b0
+			perm.append(i);
+		std::sort(perm.begin(), perm.end(),          // FUN_0084c145 体 cited
+		    [&windows](int x, int y) {
+			    return muxWindowPermLess(windows[x], windows[y]); // 0084be6a 真身
+		    });
+		for (int i = 0; i < perm.size(); ++i) {      // 逐序 @0084eb9f-d1
+			MuxWindow *w = findWindowByIndex(desktop, perm[i]); // FUN_008da278
+			if (w != nullptr) {
+				// FUN_008da1bc(desktop,win,i+1)moveTab — cited
+				//   (0028:22279 = stackIndexOf → QTabBar::moveTab;
+				//   TabGroup moveTab 面未落,铁律 6)。
+				(void)w;
+			}
+		}
+	}
 	// S5 splitterMoved 接线 @0084e402-637
 	const QList<MuxWindow *> wins =
 	    desktopWindows(desktop);                        // findChildren(smo 011ac2a0)@0084e46c
@@ -896,5 +1086,16 @@ void muxOnTmuxWindowsChanged(SuperSession *sessionHost, const QList<QVariant> &w
 			},
 			Qt::QueuedConnection);                      // type 0x80 = Qt::QueuedConnection
 	}
+}
+
+// 窗口序比较器 — FUN_0084be6a(122B,0026:40337)真身:双 QVariant
+//   展取(FUN_00856af2 0026:48432 → 0x58 注册型 POD 直读 +0x8 int
+//   @0084c4b2 区 local_f0/local_154._4_4_;非注册 → QVariant::convert
+//   int,失败 = 无序)→ int<int。本仓 0x58 POD 未建模 → convert int
+//   腿承接(toInt 同相;无效 QVariant toInt=0 与语料 convert 失败
+//   双 false 腿的差异挂 cited — 元素恒有效整型 id,同相)。
+static bool muxWindowPermLess(const QVariant &a, const QVariant &b)
+{
+	return a.toInt() < b.toInt();                    // @0084be9e-b06 convert 腿
 }
 

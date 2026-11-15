@@ -13,6 +13,7 @@
 #include <QFileInfo>
 #include <QMainWindow>
 #include <QMenu>
+#include <QSplitter>
 #include <QTabBar>
 #include <QTimer>
 #include <QWidget>
@@ -23,6 +24,7 @@
 #include "Actions/MainWindowFace.h"
 #include "Actions/MuxWindow.h"
 #include "Actions/MuxPaneGroup.h"
+#include "Actions/MuxPaneView.h"
 #include "Actions/TabGroup.h"
 #include "Editor/CGlobalConfigFace.h"
 #include "Editor/CTerminalConfig.h"
@@ -608,29 +610,57 @@ int main(int argc, char **argv)
 		    != QStringLiteral("Browser"))
 			++fails; // 无 "Window" 尾 → 原样 @008c9e9c remove miss
 
-		// 8d0cf2 Editor 收集器:windowFilePath 非空才收(@008d0dc9 门)
-		QWidget edPane;
+		// 8d0cf2 Editor 收集器(批 162 对位修正:收集 = TabGroup stack
+		//   页族,plain pane → 空表;fixture 改 stack 页承载)
+		MuxPaneGroup edPane(true, nullptr);
 		QWidget withPath;
 		withPath.setWindowTitle(QStringLiteral("t"));
 		withPath.setWindowFilePath(QStringLiteral("/tmp/wt-f6.txt"));
-		withPath.setParent(&edPane);
-		QWidget noPath;
-		noPath.setParent(&edPane);
+		if (edPane.tabGroup() == nullptr || edPane.tabGroup()->stack() == nullptr)
+			++fails;
+		else
+			edPane.tabGroup()->stack()->addWidget(&withPath);
+		QWidget noPath(&edPane); // 非 stack 页 → 不收(页族直读同相)
 		const QList<QString> paths =
 		    Workspace::collectorEditorFilePaths(&edPane);
 		if (paths.size() != 1 || paths.first()
 		    != QStringLiteral("/tmp/wt-f6.txt"))
 			++fails;
 
-		// 8d097c Terminal 收集器:空 pane/无 TabGroup → 空表
-		//   (@008d099f shared_null 起步)
+		// 8d097c Terminal 收集器(批 162 对位修正:stack 页族直读,
+		//   008b9b2a/008b9890;非 TabGroup pane → 空表零判同相)
 		if (!Workspace::collectorMuxChildren(&edPane,
 		                                     QStringLiteral("Terminal"), false)
 		         .isEmpty())
-			++fails; // 无 mux 域 → 空表同相
+			++fails; // 非 group pane → 空表(语料 +0x38 直读空同相)
 		if (!Workspace::collectorMuxChildren(nullptr, QString(), false)
 		         .isEmpty())
 			++fails; // null pane → 空
+		// 嵌套页夹具(批 162 对位实测):stack 页族直收,页内嵌套
+		//   splitter 子件不收(008b9890 逐页 = stack.widget(i) 直收)
+		{
+			MuxPaneGroup fgrp(true, nullptr);
+			QWidget *p1 = new QWidget;
+			fgrp.addTab(new MuxPaneView(nullptr, MuxPaneType(1) /*TypeTerminal*/),
+			            false);
+			QWidget *nested = new QWidget;
+			QSplitter *nsp = new QSplitter(nested);
+			(void)nsp;
+			// 页挂 = TabGroup stack 直插(stack() 页族同相)
+			QWidget *p2 = new QWidget;
+			if (fgrp.tabGroup() == nullptr || fgrp.tabGroup()->stack() == nullptr)
+				++fails;
+			else {
+				fgrp.tabGroup()->stack()->addWidget(p1);
+				fgrp.tabGroup()->stack()->addWidget(nested);
+				fgrp.tabGroup()->stack()->addWidget(p2);
+				const QList<QWidget *> got = Workspace::collectorMuxChildren(
+				    &fgrp, QString(), false);
+				if (got.size() != 4)
+					++fails; // 页族 = pane 页 + 3 直挂页;嵌套 splitter
+				             //   子件不收(008b9890 逐页直收)
+			}
+		}
 
 		// 810d6e protocol URL 拼面:protocol://target(:port 非默认)
 		//   + " / " label 腿(@008110ae)+ toLower 尾(@008112ac)。
