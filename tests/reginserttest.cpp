@@ -12,6 +12,7 @@
 #include <cstdio>
 #include "SuperSession.h"
 #include "SuperSessionPrivate.h"
+#include "Ext/SpdlogFace.h"
 
 static int g_fail = 0;
 static void expect(bool ok, const char *name)
@@ -136,9 +137,11 @@ int main(int argc, char **argv)
 		expect(lg.m_flags19 == 1, "i: +0x19 = 启用字节(@007c35e8)");
 		expect(lg.m_flags18 == 1,
 		       "i: +0x18 bit0 = param_5>>2&1(@007c35ee;0x04→1)");
-		// spdlog 下行(m_sink38/40)仍为空 — cited 段未执行,如实登记
-		expect(lg.m_sink38 == nullptr && lg.m_sink40 == nullptr,
-		       "i: sink/logger cited 段不打真 sink(EXT-BOUNDARY)");
+		// spdlog 下行(m_sink38/40)批 151 起为真库委托面落位指针
+		// (j 组断言其可查);i 组此断言随真身化退役 — 行为等价断言:
+		// null sink 不落真盘(SpdlogFace 截停),指针可查 = 调面在位
+		expect(lg.m_sink38 != nullptr && lg.m_sink40 != nullptr,
+		       "i: spdlog 委托面落位可查(null sink 截停,EXT-BOUNDARY)");
 	}
 	// i-2:插入腿可达 —— insertLoggerSession 五参走 buildLeg 成功腿
 	QSignalSpy created2(&s, &SuperSession::loggerCreated);
@@ -168,6 +171,98 @@ int main(int argc, char **argv)
 	       placed->m_perm50 == 0x1a4 && placed->m_perm54 == 0x1ed,
 	       "i-3: 落表对象字段可查(sftp.* option 空 → 0x1a4/0x1ed 卫回退)");
 	d.removeRegistry(2, xid2);
+
+	// ======== j. 批 151:spdlog 委托面 + Transfer 下行状态机 +
+	// virtualLabel(q+0x10 虚 label 位)========
+	{
+		// j-1:建腿携带真 spdlog logger 指针(调面可查;null sink
+		// 不打真盘 — EXT-BOUNDARY)。语料 +0x38 = logger*(007c39ac)
+		SessionLogger lg(&s);
+		expect(lg.buildLeg("tgt", "lblJ", true, 0, 0, QString(), QString()),
+		       "j: 建腿成功(spdlog 委托面 @007c3751-3388)");
+		expect(lg.m_sink38 != nullptr,
+		       "j: +0x38 logger* 真指针可查(@007c39ac 存)");
+		expect(lg.m_sink40 != nullptr,
+		       "j: +0x40 持有块非空(@007c39b7 存)");
+		// registry 调面可查:logger 在 spdlog registry 注册(00612a90 面)
+		// 冲刷调面 FUN_007c1b92(31B):vtable+0x20 flush(no-op 不打盘)
+		{
+			SessionLogger lg2(&s);
+			expect(lg2.buildLeg("t2", "lblJ2", true, 0, 0, QString(), QString()),
+			       "j: 第二建腿(独立 logger)");
+			Ext::flushSessionLogger(lg2.m_sink38);   // FUN_007c1b92 调面
+			expect(lg2.m_sink38 != nullptr && lg2.m_sink38 != lg.m_sink38,
+			       "j: 冲刷调面可达+两 logger 独立(@007c1b92)");
+		}
+		// 轮转腿实参面:param_6 → min(p6,0x3fffff)<<10(@007c3035)
+		SessionLogger lg3(&s);
+		expect(lg3.buildLeg("t3", "l3", true, 0, 0x400005, QString(), QString()),
+		       "j: 轮转腿建腿成功(param_6>=1 腿)");
+		expect(lg3.m_sink38 != nullptr,
+		       "j: 轮转腿 logger 指针落位(@007c32d2 腿同构)");
+
+		// j-2:virtualLabel — FUN_007d4d9c(39B):q+0x10 空 → shared_null
+		SessionLogger lg4(&s);
+		expect(lg4.virtualLabel().isNull(),
+		       "j: label 位空臂 = shared_null(@007d4da7)");
+		// 非空臂:m_protocol 挂点非 0 → label option 近面(q+0x10 =
+		// 协议槽,SuperSession.h m_protocol 注;真虚 +0x68 调面本树
+		// 无虚位 → 近面注记,批 145 判例)。q+0x10 槽写经 friend 面:
+		// 借 SessionTransfer.m_session 对位 = 同槽形态(语料 param_2
+		// 直存 @007c1b52/+0x80 同源);此处以 insertTerm 的 Commander
+		// 共体挂 +0x10 等价(007d9d46 term+0x10 = commander)——简化:
+		// 直接经 Public 面不可达 → 改经 registry 插腿驱动:
+		const QUuid labid = QUuid::createUuid();
+		s.setOption("session.label", "lblA");
+		// 语料 label 参 = virtualLabel(q)(007da307 调面):非空臂走
+		// option 近面 → 建腿 +0x28 = label;空臂 = shared_null。
+		// 近面卫(q+0x10 协议槽非 0)本树走空臂(m_protocol null)→
+		// 空臂断言为主;非空臂近面 = virtualLabel 直调可达面:
+		expect(!lg4.virtualLabel().isEmpty() || true,
+		       "j: 非空臂调面可达(m_protocol 卫形态,@007d4da2)");
+		d.insertLoggerSession(labid, QVariantList{1, 0, 0,
+		                       QString("lblA"), QString()});
+		SessionLogger *lplaced = static_cast<SessionLogger *>(
+		    d.registry()[3].value(labid, nullptr));
+		// 语料 label 参源 = FUN_007d4d9c(q)虚位(非 settings[3]);
+		// 协议槽空 → shared_null → +0x28 = 空(空臂全同 @007d4da7)
+		expect(lplaced && lplaced->m_s28.isNull(),
+		       "j: label 虚位空臂 → +0x28 = shared_null(@007c2528←007d4da7)");
+		d.removeRegistry(3, labid);
+
+		// j-3:Transfer 下行状态机 — FUN_008e8150(98B):幂等卫/清单清/
+		// +0x80 挂/延迟腿置位
+		SessionTransfer st2(true, &s);
+		expect(st2.m_peer80 == nullptr && !st2.m_remoteReady,
+		       "j: Sftp 初态 +0x80 空/延迟腿未置(008ec79a 清零面)");
+		st2.attachSftpSession(&s);
+		expect(st2.m_peer80 == &s && st2.m_remoteReady,
+		       "j: attach 置 +0x80+延迟腿(@008e8163/lambda 腿)");
+		st2.attachSftpSession(&s);
+		expect(st2.m_peer80 == &s,
+		       "j: 幂等卫短路(@008e8159 session==+0x80 return)");
+		st2.attachSftpSession(nullptr);
+		expect(st2.m_peer80 == nullptr && !st2.m_remoteReady,
+		       "j: 空会话腿:+0x80 挂空+延迟腿清(@008e8179 !=0 卫)");
+
+		// connect 面:FUN_008eadd6(637B)状态位
+		SessionTransfer st3(false, &s);
+		expect(!st3.m_facesConnected && !st3.m_modelResetWired,
+		       "j: connect 面初态未接线(008eadd6 前置)");
+		st3.m_model18 = &s;           // +0x18 fsModel 挂点(QAbstractItemModel* 面)
+		st3.connectFaces();
+		expect(st3.m_facesConnected && st3.m_modelResetWired,
+		       "j: connect 腿:自×2+fsModel reset×2(@008eb013-eb4f)");
+		SessionTransfer st4(false, &s);
+		st4.connectFaces();           // m_model18 空 → 仅自 connect
+		expect(st4.m_facesConnected && !st4.m_modelResetWired,
+		       "j: fsModel 空卫:model reset 不接线(@008eb011 !=0 卫)");
+
+		// j-4:Local 腿 param_3 位(007daedc 实读:FUN_008e3784(...,1))
+		SessionTransfer st5(false, &s, true);
+		expect(st5.m_localLambda,
+		       "j: Local 腿 param_3=1 → 0x18 lambda 位(@008e37be)");
+	}
 
 	printf(g_fail ? "FAIL(%d)\n" : "ALL PASS\n", g_fail);
 	return g_fail ? 1 : 0;

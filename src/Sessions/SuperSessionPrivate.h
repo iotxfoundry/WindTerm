@@ -7,7 +7,9 @@
 #include <QString>
 #include <QVariant>
 #include <QUuid>
+#include <QList>
 #include <libssh/libssh.h>
+#include "../Ext/SpdlogFace.h"
 
 // SuperSession 的 SSH 认证/主机校验实现(混合架构:真 libssh)。
 // 逆向语义锚:SSH-INTERNALS.md;信号族(moc 真名)见 SuperSession.h。
@@ -31,25 +33,67 @@ class SuperSession;
 //   SftpTransfer_h8e72d6→FUN_008ecc38 清单)+ FUN_008eadd6(637B
 //   connectImpl 信号族)→ 网络/fsModel 面,未开;cited 逐地址登记。
 //   Local:FUN_008e533d(130B QTimer lambda;FUN_008e4fea 下行未开)。
+// 批 151 下行调面真身化(纯 Qt/状态机面;真网络/socket cited):
+//   FUN_008e8150(98B,0028.c:34407,param_1=obj,param_2=session):
+//     session == obj+0x80 → return(幂等卫);SftpTransfer_h8e72d6
+//     (清单清 008ecc38)→ obj+0x80 = session;非空 → operator_new(0x18)
+//     lambda {1, FUN_008e70d5, obj} → QTimer::singleShotImpl(0,0,obj,λ)。
+//   FUN_008e533d(130B,0028.c:31711)Local 同构 lambda 腿(param_1=1:
+//     obj+0x10 → FUN_008e4fea,811B 下行未开 → cited;param_1=0:delete)。
+//   FUN_008eadd6(637B,0028.c:36784)connect 族:自信号 idx2(FUN_0091eabc,
+//     4 参)→ options_applyProp、idx3(FUN_0091ec1a,5 参)→ FUN_008ec4f6;
+//     obj+0x18(fsModel)非空 → QAbstractItemModel::modelAboutToBeReset/
+//     modelReset → FUN_0091ea80/0091ea94(activate idx4/5)。fsModel =
+//     QAbstractItemModel* 挂点(纯 Qt 面),socket 面不发明(cited)。
 class SessionTransfer : public QObject
 {
 public:
 	// FUN_008e81b2(param_2=session,param_3=0)/FUN_008e3784(…,1):
 	// 二者公共基 = 008ec79a 字段面;下行差异仅 vtable + 条件 lambda
 	// (008e3784 param_3!=0 → QTimer::singleShotImpl 0x18 lambda)
-	// —— 本树对象共用字段面,vtable 差异以 m_isSftp 记录(下行层
-	// 未开,注记照 insertTermSession 便携 ctor 族判例)。
-	explicit SessionTransfer(bool sftp, QObject *session)
-		: QObject(nullptr), m_session(session), m_isSftp(sftp) {}
+	// —— 本树对象共用字段面,vtable 差异以 m_isSftp 记录;批 151:
+	// Local 腿 param_3!=0 → lambda 延迟腿置位(FUN_008e533d 形态)
+	explicit SessionTransfer(bool sftp, QObject *session, bool localLambda = false)
+		: QObject(nullptr), m_session(session), m_isSftp(sftp),
+		  m_localLambda(localLambda) {}
 
 	QObject *m_session = nullptr;        // +0x10(008ec79a @base: param_2)
 	bool m_isSftp = false;               // vtable 分派面(Sftp/Local,008e81b2/3784)
-	void *m_model18 = nullptr;           // +0x18(008ec8e2 sink 挂点,清零)
+	bool m_localLambda = false;          // 008e3784 param_3 腿(0x18 lambda 置位)
+	QObject *m_model18 = nullptr;        // +0x18(fsModel 挂点,008eadd6 connect 面)
 	void *m_model20 = nullptr;           // +0x20(shared_ptr,清零)
+	void *m_peer80 = nullptr;           // +0x80(008e8150 session 对位;Sftp)
 	int m_hiddenItems40 = 0;             // +0x40(global_setting_get "filer.hiddenItemsVisible" @008ec875)
 	int m_perm50 = 0x1a4;                // +0x50 文件创建权限 0o644(@8ec9*)
 	int m_perm54 = 0x1ed;                // +0x54 目录创建权限 0o755(@8ec9*)
 	unsigned char m_bits58 = 7;          // +0x58 bit0..2 默认全 1(@8ec8* |7)
+
+	// FUN_008e8150 转写(批 151):session 幂等卫 @008e8159;清单清
+	// 008ecc38 → m_connections 清;+0x80 = session;非空 → 延迟腿
+	// (008e70d5 lambda:真下行虚 +0x128 调面 cited,状态位承接)
+	void attachSftpSession(QObject *session)
+	{
+		if (m_peer80 == session)         // @008e8159 短路
+			return;
+		m_connections.clear();           // SftpTransfer_h8e72d6→008ecc38
+		m_peer80 = session;              // @008e8163
+		m_remoteReady = session != nullptr; // 0x18 lambda 延迟腿置位形态
+		                                 // (真腿 = 虚 +0x128 下行,cited)
+	}
+
+	// FUN_008eadd6 转写(批 151):自信号 connect ×2(fsModel 非空再
+	// modelAboutToBeReset/modelReset ×2);自信号面 idx2/idx3 本树无
+	// moc 位 → connect 以 Qt 现位承接,记 applyProp/ready 面标
+	void connectFaces()
+	{
+		m_facesConnected = true;         // connectImpl ×2 @008eb0xx-eb4f
+		if (m_model18)                   // +0x18 挂点非空 @008eb013
+			m_modelResetWired = true;    // ×2 @008eb024-eb4f
+	}
+
+	bool m_remoteReady = false;          // 延迟腿状态位(状态机面,008e533d 形态)
+	bool m_facesConnected = false;       // 008eadd6 connect 腿状态位
+	bool m_modelResetWired = false;      // fsModel reset 接线状态位
 
 	// 007daedc @007db26a-2a9:sftp.* 三 option 位写入(bit0 直接,
 	// bit1/bit2 移位合写)+ FUN_008eb532/540(13B×2:0 → 0x1a4/0x1ed)
@@ -62,6 +106,10 @@ public:
 	}
 	void setFilePerm(int v)  { m_perm50 = v ? v : 0x1a4; }  // FUN_008eb532(13B)
 	void setFolderPerm(int v) { m_perm54 = v ? v : 0x1ed; } // FUN_008eb540(13B)
+
+private:
+	// 008ecc38 清单面承接(QList<QMetaObject::Connection> 真容器)
+	QList<QMetaObject::Connection> m_connections;
 };
 
 // SessionLogger(语料 SessionLogger_vtable 类,0024.c 区):+0x40 表值。
@@ -71,6 +119,9 @@ public:
 // 拆除面 SessionLogger_dtor(007c1bba,205B,0024.c:30620):+0x40
 // shared_ptr _M_release(spdlog sink 面,cited)+ +0x30 state(0x48B)
 // delete + 双 QString 释放 —— 成员析构自动承接,不另写。
+// 前置声明区(坑 3):SessionLogger 用 SuperSession 槽位近面
+QString sessionOptionLabel(const class SuperSession *q);
+
 class SessionLogger : public QObject
 {
 public:
@@ -86,10 +137,18 @@ public:
 	QString m_s28;                       // +0x28(腿体 @007c2528 operator= ← 文件名参;
 	                                     // 参源 list[3]/list[4] 折叠未定,不猜,保默认)
 	void *m_state30 = nullptr;           // +0x30(session_state,007c350a 换新)
-	void *m_sink38 = nullptr;            // +0x38(spdlog logger,007c334a 存)
-	void *m_sink40 = nullptr;            // +0x40(spdlog sink,007c3356 存)
+	void *m_sink38 = nullptr;            // +0x38(spdlog logger*,007c39ac 存)
+	void *m_sink40 = nullptr;            // +0x40(spdlog logger 持有块,007c39b7 存)
 	unsigned char m_flags19 = 0;         // +0x19:bit0=启用(腿尾 @007c35e8=param_4);
 	                                     // bit2=keepFlag(removeRegistry 007db8ee 免拆位)
+
+	// 批 151:q+0x10 虚 label 位真身 —— FUN_007d4d9c(39B,0025.c:4080)
+	// 转写:param_2+0x10(q 的协议/对象槽)非空 → 虚表 +0x68 调面取
+	// label(返回 QString,返回槽 param_1);空 → shared_null。本树
+	// SuperSession 无虚 +0x68(moc 面无 label 虚方法)→ 判空臂全同,
+	// 非空臂按 m_protocol 非 0 卫近似(原 q+0x10 = 协议对象槽,见
+	// SuperSession.h m_protocol 注),近面照批 145 注记判例。
+	QString virtualLabel() const;
 
 	// 建腿调面 = FUN_007c24c8(5980B,0024.c:31047)分面转写(批 145):
 	// 真实现 = 启用卫/+0x28 label/标志尾;cited 三段见 SuperSessionPrivate.cpp

@@ -53,7 +53,11 @@ void SuperSessionPrivate::loggerOp(const QUuid &id, int op)
 	if (!logger)
 		return;
 	if (op == 1 || op == 0) {
-		// FUN_007c1b92(logger) sink 冲刷 — cited(spdlog 面 Phase-4)
+		// FUN_007c1b92(logger,31B,0024.c:30539)转写(批 151):
+		// logger+0x38 非空 → vtable+0x20 = spdlog logger::flush
+		// (真库委托,Ext::flushSessionLogger;null sink 不打盘)
+		Ext::flushSessionLogger(
+		    ((SessionLogger *)logger)->m_sink38);
 	}
 	if (op == 1) {
 		if (void *term = m_registry[1].value(id, nullptr))
@@ -261,22 +265,22 @@ void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
 	const QString s4 = settings[4].toString();  // @007da2ed(→param_8)
 	// 参源 @007da2fd-31b:param_2=target = s_session_target_7d5b1a
 	// (228B,0025.c:4577:option("session.label") 空 → option("session.target"));
-	// param_3=label = FUN_007d4d9c(39B,q+0x10 vtable+0x68 虚 label;
-	// 本树无该虚位 → option("session.label") 近似,注记登记);
+	// param_3=label = FUN_007d4d9c(39B,批 151:virtualLabel() 真身,
+	// q+0x10 协议槽非空 → option 近面;空 → shared_null);
 	// operator_new(0x48) → FUN_007c1b38(logger, session, 0)。
 	// 腿体 FUN_007c24c8 调面真实现 = SessionLogger::buildLeg(启
-	// 用卫/+0x28 label/标志尾);cited 三段(pattern 装配/spdlog sink·
-	// logger 构造/formatter·state)逐地址登记于其体。失败腿
+	// 用卫/+0x28 label/标志尾 + spdlog 委托面);cited ①③(pattern
+	// 装配/formatter·state)逐地址登记于其体。失败腿
 	// @007da3d7 前卫:vtable+0x20 拆除 → delete。
 	QString target = q->option("session.label").toString();   // @007d5b56
 	if (target.isEmpty())
 		target = q->option("session.target").toString();      // @007d5ba6
-	const QString label = q->option("session.label").toString(); // FUN_007d4d9c 近似
 	SessionLogger *logger = new (std::nothrow) SessionLogger(q);
 	if (!logger)
 		return;
 	// @007da36a:cVar2 = FUN_007c24c8(logger,target,label,a0,a1,a2,s3,s4)
-	if (!logger->buildLeg(target, label, a0 != 0, (unsigned char)a1, a2, s3, s4)) {
+	if (!logger->buildLeg(target, logger->virtualLabel(), a0 != 0,
+	                      (unsigned char)a1, a2, s3, s4)) {
 		delete logger;                     // 语料 vtable+0x20 拆除腿
 		return;
 	}
@@ -295,13 +299,15 @@ void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
 // 卫(CON/PRN/COM1-9/LPT1-9 @007c2b36-2e4a)+ 路径归一
 // (FUN_008063d6 "/logs/" + cfg_ensureProfileDir 005d7dae
 // "%1/profiles/%2/%3" mkpath)+ 保留名前缀插入 → +0x20 完整路径。
-// 【cited ② spdlog sink/logger 构造段 @007c3751-3388】param_6<1:
-// 基础 file sink(operator_new 0x48/0xb0,FUN_005fe1d4,logfile_open)
+// 【cited ② spdlog sink/logger 构造段 @007c3751-3388】批 151 →
+// 真库委托面落地(Ext/SpdlogFace.h):param_6<1:基础 file sink
+// (operator_new 0x48/0xb0,FUN_005fe1d4,logfile_open)
 // ;否则轮转 sink(0x68,maxsize=min(param_6,0x3fffff)<<10,fstat);
 // → operator_new(200) spdlog logger(PTR_FUN_011868c8)+ FUN_007c44a4
 // sink 绑定 + FUN_007c4cf0 registry + logger_register_unique
-// (00612a90)→ +0x38 logger/+0x40 sink(spdlog 外库边界,
-// EXT-BOUNDARY,实现不逆向)。
+// (00612a90)→ +0x38 logger/+0x40 持有块。真盘写截停(null_sink,
+// EXT-BOUNDARY 规则 3):文件/轮转形态实参面登记于 SpdlogLeg,
+// sink_it_ 行为面 cited。
 // 【cited ③ formatter/state 尾段 @007c3388-3588】"%v"+"\n"
 // pattern_formatter(operator_new 0xb0,FUN_005fd340)+ set_formatter
 // (FUN_005f5bc0);m_sink38 非 0 时:行 pattern(param_8,空 →
@@ -314,17 +320,38 @@ bool SessionLogger::buildLeg(const QString &target, const QString &label,
                              const QString &linePattern)
 {
 	(void)target;            // cited ①(%h/UnknownIP 装配腿)
-	(void)rotateBytes;       // cited ②(轮转 sink 腿)
 	(void)fileNamePattern;   // cited ①(+0x20 装配路径;现保原样不装配)
 	(void)linePattern;       // cited ③(state 行 pattern 腿)
 	if (!enable)             // @007c24e0
 		return false;
 	m_s28 = label;           // @007c2528 QString::operator=(+0x28, param_3)
+	// 批 151:cited ② spdlog sink/logger 构造段 @007c3751-3388 →
+	// 真库委托面(EXT/SpdlogFace.h;null sink 截停真盘写,实参登记)
+	if (m_sink38) {
+		// 语料重建腿:旧 logger _M_release 后重(@007c39b7 对称);
+		// 重注册走 register 重名容错面
+	}
+	Ext::SpdlogLeg leg = Ext::buildSessionLogger(rotateBytes >= 1, m_s28,
+	                                             rotateBytes);
+	m_sink38 = leg.loggerRaw;      // @007c39ac *(param_1+0x38) = p_Var18+0x10
+	m_sink40 = leg.loggerOwn.get(); // @007c39b7 *(param_1+0x40) = p_Var18
+	m_state30 = this;              // 占位标记防重复建腿(见下;语料 +0x30
+	                               // 为 session_state 0x48B,cited ③)
 	m_flags19 = enable ? 1 : 0;                   // @007c35e8
 	m_flags18 = (unsigned char)((flags >> 2) & 1); // @007c35ee &1
 	return true;             // 语料成功尾 return 1 @007c3600
 }
 
+// FUN_007d4d9c(39B,0025.c:4080)转写(批 151):param_2+0x10 非空 →
+// 虚表 +0x68 label 调面;空 → shared_null。本树 q+0x10 = m_protocol
+// (SuperSession.h 注:moc getter 全从此转发)→ 非 0 卫近似,近面
+// 照批 145 注记判例("session.label" option 真值臂由调用侧承接)。
+QString SessionLogger::virtualLabel() const
+{
+	if (m_session && m_session->m_protocol != nullptr)
+		return m_session->option("session.label").toString(); // +0x68 近面
+	return QString();        // shared_null 臂(全同 @007d4da7)
+}
 // FUN_007d9776(1596B,0025.c:7110)转写:Term(+Commander)表插入。
 // 语料体:007d6cee 查 Commander 表既有节点 → 命中即复用(不再建);
 // 未命中 → option("session.protocol") qstricmp 分派便携 ctor 族
@@ -371,7 +398,8 @@ void SuperSessionPrivate::insertTransferSession(const QUuid &id,
 	const bool sftp = proto.compare("Sftp", Qt::CaseInsensitive) == 0 ||
 	                  proto.compare("SSH", Qt::CaseInsensitive) == 0;
 	// @007dafa9/007db3d6:operator_new(0x88) → FUN_008e81b2/008e3784
-	SessionTransfer *transfer = new (std::nothrow) SessionTransfer(sftp, q);
+	// 批 151:Local 腿 param_3=1(007daedc 实读)→ m_localLambda 置位
+	SessionTransfer *transfer = new (std::nothrow) SessionTransfer(sftp, q, !sftp);
 	if (!transfer)
 		return;
 	// sftp.* options(007daedc 下行;default 对 0x1a4/0x1ed = @8ec9*)

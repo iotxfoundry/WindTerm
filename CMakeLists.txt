@@ -153,12 +153,16 @@ endforeach()
 qt5_wrap_cpp(WT_MOC_SOURCES ${WT_MOC_LIST})
 
 add_library(WindTermRe SHARED ${WT_SOURCES} ${WT_MOC_SOURCES})
+# 批 151:spdlog 真库委托面(src/Ext/SpdlogFace.h)→ TU 局部 -I
+# (全局路径与 Scintilla/Qt 头冲突,CMakeLists 前注判例)
+set_source_files_properties(${CMAKE_SOURCE_DIR}/src/Sessions/SuperSessionPrivate.cpp
+    PROPERTIES COMPILE_OPTIONS "-I${CMAKE_SOURCE_DIR}/src/spdlog/include;-I${CMAKE_SOURCE_DIR}/src/fmt/include")
 set_target_properties(WindTermRe PROPERTIES
   LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
   OUTPUT_NAME WindTermRe
   BUILD_RPATH_USE_ORIGIN TRUE)   # 防 repo lib/ 污染 RUNPATH(Phase 5)
 
-target_include_directories(WindTermRe PRIVATE ${WT_INCLUDES} ${CMAKE_SOURCE_DIR}/src/Onigmo)
+target_include_directories(WindTermRe PRIVATE ${WT_INCLUDES} ${CMAKE_SOURCE_DIR}/src/Onigmo ${CMAKE_SOURCE_DIR}/src/spdlog/include ${CMAKE_SOURCE_DIR}/src/fmt/include)
 # 静态嵌入库源码树(src/spdlog|fmt|dtl)已在 src/ 归位(header-only);
 # 不加全局 include——调用点转写时按 TU 局部 -I 接线(全局路径会
 # 与 Scintilla/Qt 头冲突,实测 6k 错)

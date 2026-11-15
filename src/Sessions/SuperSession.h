@@ -94,6 +94,7 @@ signals:
 
 private:
 	friend class SuperSessionPrivate;
+	friend class SessionLogger;   // 批 151:virtualLabel 读 m_protocol(FUN_007d4d9c)
 	SuperSessionPrivate *m_d;  // d-pointer
 	void *m_protocol = nullptr;   // +0x10 当前协议对象(moc getter 全从此转发)
 };

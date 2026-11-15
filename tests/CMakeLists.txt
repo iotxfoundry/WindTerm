@@ -37,3 +37,6 @@ endforeach()
 find_package(Qt5 REQUIRED COMPONENTS Test)
 target_link_libraries(kitbartest Qt5::Test)
 target_link_libraries(reginserttest Qt5::Test)
+# 批 151:reginserttest j 组断 spdlog 委托面 → TU 局部 -I
+set_source_files_properties(${CMAKE_SOURCE_DIR}/tests/reginserttest.cpp
+    PROPERTIES COMPILE_OPTIONS "-I${CMAKE_SOURCE_DIR}/src/spdlog/include;-I${CMAKE_SOURCE_DIR}/src/fmt/include")
