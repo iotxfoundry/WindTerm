@@ -165,3 +165,52 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - blobB 组块(8cf62f-8ff):BFS 帧 `<<index <<count <<saveState`,
   子件 QSplitter→kind1 入队 / MuxPaneGroup(**= 语料 KitGroup 011ab130**)
   →kind2 + (isLast ? sessionTitleBlob : 空 BA)。
+
+## 追加:批 236-273 落地(2026-11-16 第二段)
+
+### 工具栏补全(P3/P6)— 七 kind 全真身
+- kind5 `AddressBar`:`FUN_005211fe`(162B)= BreadCrumb 基座 + objectName
+  "AddressBar";基座 `FUN_00548546`(110B:setAttribute(0xe)/StrongFocus/
+  +0x38,0x40)+ 子件装配 `0054842a`(258B)+ 激活 `00548630`(55B,
+  setFocus(7))。
+- kind6 `FilterEdit`:`searchEdit_init`(131B)= **SearchEdit : QLineEdit**
+  (+0x30/38/40,+0x48=0x7fffffff,+0x50 QList,+0x58 byte,+0x68);
+  `FUN_0057eb0c`(200B)= +0x78 QTimer(interval 300)+占位 tr("Filter")
+  (0xc893d4)+清除钮 `s_king__clear_57e86e`(442B,icon "king::clear",
+  tooltip "&Clear" 0xc9e7b8,+0x70)。
+- SearchEdit 其余:`0058e028`(158B 布局,HBox 边距 style pixelMetric(5))/
+  `0058d818`(296B 接线)/`0058d940`(47B)/`0058d970`(82B)/`0058dff2`(54B)/
+  `0058dac2`(18B 占位文案)/`0057eb02`(9B QTimer::setInterval)。
+
+### 设置页族(P4/P5)
+- **`SettingsRow`(0x48)** 全字段 asm 实测(名/组合框键/edit50 文本/kind/
+  子件值/check38,40/flags/spin70,68/edit60 文本)。
+- `settings_loadWidgets`(932B) 全流程;`rowIndexByName`(0072d1e4)、
+  `currentListRowIndex`(0072d254)、`resetRow`(0072d0f2)、
+  `rowListItem`(0072bf8a 219B)、`onKindComboChanged`(0072eb15 720B 核心)。
+- **`dialog_connectAcceptReject`(0072bbe2 935B) 八路接线**;基类勘正为
+  **QDialog**;`refreshRows` = `0072dd12`(1872B,cited)。
+- **smeta 011a2240 = SessionDialog**(信号 idx0/1/2 = 00904d62/00904d08/
+  00904d32;idx1 为会话颜色)。
+
+### 状态栏/消息条(P3)
+- `MessageBar`:`FUN_0059af30`(262B ctor)+`s_ExpandButton_5984be`
+  (1021B 装配:HBox[VBox,ExpandButton,CloseButton],tooltip "Expand"/
+  "Close",icon "king::shrink",边距 style pixelMetric 0x4e/0x50)
+  +`FUN_0059834c`(369B 三路接线,信号 idx0=(int,QString),
+  emit(0x80,"")→close)+`0059b046`(393B 按文本查 QPushButton)。
+
+### KitDock/TabBar 收尾
+- `dock_toggleFloat`(866B) 全真身(几何 = QRect(mapToGlobal,size));
+  切分 `008b9092`(375B)+尺寸平分腿;收起尾 → `refreshAfterDockChange`
+  (008cb0c0/008cb0a0)→ `focusActiveView`(008cad6a)→ `innerPage`
+  (008d9764/008d972e);地址栏激活 `008b9838`(0119aec0 = BreadCrumb)。
+- `TabBar::relayoutSideButtons`(005a81c6 134B)、`tabStateAt`(005a6d00 65B)、
+  页色读写(005a6ca6/005a7b66)、`sideButtonAt/setSideButton/makeCloseButton`。
+- 当前组/视图链:`currentPaneGroup`(008ca6ca)、`currentView`(008bca9e)、
+  `activeView`(008cabee)、`ownerConfigName`(008ba210)。
+
+### 会话/5c
+- `MuxPaneView::m_meta20`(语料 +0x20 QMap)真身化;
+  `historyBlob`(KitView_vt9 = property("History"));
+  `parseSessionRestoreBlob`(`s_RenamedTitle_8bb3e6` 1693B 帧面)。
