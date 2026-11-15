@@ -2,6 +2,7 @@
 
 #include <QDialog>
 
+class QButtonGroup;
 class QComboBox;
 class QDialogButtonBox;
 class QLineEdit;
@@ -55,6 +56,10 @@ class SettingsFace : public QDialog {
 public:
 	// FUN_006f1036(175B)壳真身:S1 装配序。
 	explicit SettingsFace(QWidget *parent = nullptr);
+
+	// 语料:3 元素表(每项 0x18 字节 = int id + QString text + QString
+	//   工具提示),id/串出自 asm 立即数+.rodata 实读(见 .cpp)。
+	static QButtonGroup *buildRadioGroup(QWidget *parent);
 
 	// S2 数据面:FUN_006e97f0 递归语义(外层单容器 13 项;0x101 role)。
 	static QStandardItem *categoryDataRoot();

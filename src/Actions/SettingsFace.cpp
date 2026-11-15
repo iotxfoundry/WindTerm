@@ -1,6 +1,7 @@
 #include "SettingsFace.h"
 
 #include <QAbstractItemModel>
+#include <QButtonGroup>
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QFormLayout>
@@ -9,6 +10,7 @@
 #include <QIcon>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QRadioButton>
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QTimer>
@@ -217,4 +219,36 @@ void SettingsFace::searchPageBuildLayout()
 	// width/height 分支均 JBE 跳过(@0075c160/@0075c189),仅
 	// setSizeGripEnabled(1)@0075c1a3:
 	setSizeGripEnabled(true);
+}
+
+// settings_buildRadioGroup — FUN_0070bb32(836B,0022.c:35463)真身:
+//   QButtonGroup(0x10 字节)@0070bb55(父 = 实参指针 *param_1)+ 3 元素静态表
+//   (每项 0x18 字节:int id + QString text + QString toolTip,
+//    asm 立即数 0 / 8 / 0x7f @0070bb6a/0070bb83/0070bb95)+ 循环:
+//   QRadioButton(0x30 字节,text,父)@0070bdd7 → setToolTip @0070bde3 →
+//   addButton(btn, id)@0070bdf4。三串 .rodata 实读:
+//     0xca04fa "&Automatic" / 0xca04fb "Automatic"
+//     0xca0505 "&Backspace" / 0xca0510 "Ctrl+H (Ascii 0x08)"
+//     0xca0524 "&Delete"    / 0xca052c "Ctrl+? (Ascii 0x7F)"
+//   tr 上下文语料 = metaobject 011a2240(cited:本类上下文 ≠ 该 metabo,
+//   无翻译资源时同相;字符串本体已实读,不发明)。
+QButtonGroup *SettingsFace::buildRadioGroup(QWidget *parent)
+{
+	struct Entry {
+		int id;
+		const char *text;
+		const char *toolTip;
+	};
+	static const Entry entries[] = {
+	    {0, "&Automatic", "Automatic"},                    // @0xca04fa/0xca04fb
+	    {8, "&Backspace", "Ctrl+H (Ascii 0x08)"},          // @0xca0505/0xca0510
+	    {0x7f, "&Delete", "Ctrl+? (Ascii 0x7F)"},          // @0xca0524/0xca052c
+	};
+	QButtonGroup *group = new QButtonGroup(parent);         // @0070bb55
+	for (const Entry &e : entries) {
+		QRadioButton *btn = new QRadioButton(tr(e.text), parent); // @0070bdd7
+		btn->setToolTip(tr(e.toolTip));                     // @0070bde3
+		group->addButton(btn, e.id);                        // @0070bdf4
+	}
+	return group;                                           // @0070be4a
 }
