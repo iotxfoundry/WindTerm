@@ -1,5 +1,11 @@
 #include "MuxPaneGroup.h"
 
+#include <QColor>
+#include <QDataStream>
+
+#include "KitWindowAssemblyFace.h"
+#include "KitWindowFace.h"
+
 #include "KitWindowFace.h"
 #include "MuxPaneView.h"
 #include "MuxWindow.h"
@@ -477,4 +483,61 @@ QString MuxPaneGroup::paneUrl(const MuxPaneView *pane)
 	if (pane == nullptr)
 		return QString();
 	return pane->property("Url").toString(); // @008c5578
+}
+
+// s_RenamedTitle_8bbab6(850B,0028.c:226)组会话帧真身(函数名取自其内
+//   重命名标题腿,实际 = 组标题/会话序列化):
+//   @008ba210 owner = 祖先 pane menu() 的 configSelfName(vt+0x1f0 → vt+8);
+//   @008b9b34 iVar4 = 当前索引(tabbar_currentIndex(+0x38));
+//   @008b9b2a iVar5 = 页数(TabGroup::count);
+//   收集腿:item = 008b9890(group,i) 空 → (i<cur) cur--;url = 008c5578(item)
+//     空 → 同上;startsWith("::")(0089e8c8,0xd99dd1 实读)→ 跳过;
+//     否则 append(008bf254);
+//   << cur;<< list.count();逐项:
+//     << QString(url);<< KitView_vt9(item)(会话态 BA,cited);
+//     << 颜色(008b9bf4 → 005aba32(+0x38,idx),cited);
+//     owner == "Terminal" → << property("RenamedTitle").toString();
+QByteArray MuxPaneGroup::sessionTitleBlob() const
+{
+	QByteArray blob;
+	QDataStream os(&blob, QIODevice::WriteOnly); // @008bbae9(WriteOnly=2)
+	// owner 名(008ba210):祖先 KitWindow → menu() → configSelfName(vt+8)
+	QString owner;
+	if (KitWindowFace *kit = kitWindowAncestor(const_cast<MuxPaneGroup *>(this))) {
+		if (CGlobalConfigFace *cfg = kit->menu())
+			owner = QString::fromLatin1(cfg->configSelfName());
+	}
+	int current = m_f38 != nullptr ? m_f38->tabBar()->currentIndex() : -1; // @008b9b34
+	const int n = m_f38 != nullptr ? m_f38->count() : 0;                   // @008b9b2a
+	QList<MuxPaneView *> keep;
+	for (int i = 0; i < n; ++i) {
+		MuxPaneView *item = paneAtIndex(i); // 008b9890
+		if (item == nullptr) {              // @008bbb70 空页
+			if (i < current)
+				--current;
+			continue;
+		}
+		const QString url = paneUrl(item);  // 008c5578
+		if (url.isEmpty()) {
+			if (i < current)
+				--current;
+			continue;
+		}
+		if (url.startsWith(QStringLiteral("::"), Qt::CaseInsensitive)) // 0089e8c8
+			continue;
+		keep.append(item);                  // 008bf254
+	}
+	os << current;                          // @008bbbf9(调整后索引)
+	os << keep.size();                      // @008bbc0x(项数)
+	for (MuxPaneView *item : keep) {
+		os << paneUrl(item);                 // QString @008bbcce
+		// KitView_vt9(item) 会话态 BA @008bbcf6 — 虚槽未转写,cited:
+		//   本波写空 BA(与无会话态页同相),真身化后替换。
+		os << QByteArray();
+		// 颜色 008b9bf4 → 005aba32(TabBar,idx)@008bbdxx — cited:
+		os << QColor();
+		if (owner == QLatin1String("Terminal"))
+			os << item->property("RenamedTitle").toString(); // @008bbd4f
+	}
+	return blob;
 }

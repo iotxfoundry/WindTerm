@@ -33,6 +33,12 @@ public:
     //   stackWidgetAt(i)(FUN_005abbd0)→ cast 011925c8 → MuxPaneView;
     //   011ab930 腿(KitDock → FUN_008da7a8 取内层)cited。
     MuxPaneView *paneAtIndex(int index) const;
+    // s_RenamedTitle_8bbab6(850B,0028.c:226)组会话帧(blobB 内 kind2 载荷):
+    //   收集非空/非 "::" 前缀页 → <<调整后当前索引 <<项数 → 逐项
+    //   <<Url(QString) <<会话态BA(K itView_vt9 cited) <<颜色(005aba32 cited)
+    //   <<(owner=="Terminal" ? property("RenamedTitle") : 无)。
+    QByteArray sessionTitleBlob() const;
+
     // FUN_008c5578(59B,0028.c:7611)页名:属性 "Url"(0xcb6fcc 实读)
     //   → toString(FUN_008c54a4 键读面)。
     static QString paneUrl(const MuxPaneView *pane);
