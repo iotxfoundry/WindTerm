@@ -377,3 +377,25 @@ void SettingsPageFace::updateInfoLabel(const SettingsRow &row)
 	if (m_textA0 != nullptr)
 		m_textA0->setPlainText(row.childValues.join(QLatin1Char('\n')));
 }
+
+// FUN_0072d84e(741B,0022.c:54129)行 flags 推导真身:
+//   @0072d84e puVar3 = FUN_006a521a(DAT_011c1b00)(全局单例,cited)→
+//   行字段逐项拷贝到临时(local_68..local_28)→
+//   @0072d93c cVar1 = FUN_006a2dda(&tmp)(全局布尔,cited);
+//   bVar4 = (*(byte*)(+0x98 子件 +0x30)) & 1;
+//   !cVar1 → flags = -(bVar4==0) & 3(即 b?0:3)@0072d9xx;
+//   cVar1 && !bVar4 → flags = (local_38 != 3) ? 2 : 3;
+//   cVar1 && bVar4 → flags = (local_38 == 1) ? 1 : 0。
+void SettingsPageFace::updateRowFlags(SettingsRow &row)
+{
+	const bool globalFlag = false; // FUN_006a2dda(全局态) — cited
+	const bool b = m_widget98 != nullptr /* (+0x30 & 1) 子件位 — cited */;
+	const quint32 old = row.flags; // local_38(旧值)
+	if (!globalFlag) {
+		row.flags = b ? 0u : 3u; // -(b==0) & 3
+	} else if (!b) {
+		row.flags = (old != 3u) ? 2u : 3u;
+	} else {
+		row.flags = (old == 1u) ? 1u : 0u;
+	}
+}

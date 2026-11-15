@@ -101,6 +101,11 @@ public:
 	//   kind==1 → 文案 = FUN_006a2de4(row) + 0xc8a19a + 0xc9d328 拼接;
 	//   +0x80 QLabel 空则新建 → setText;余腿 cited。
 	void updateInfoLabel(const SettingsRow &row);
+	// FUN_0072d84e(741B,0022.c:54129)行 flags(+0x30)推导:
+	//   g = FUN_006a2dda(全局态)(cited);b = (+0x98 子件 +0x30 & 1);
+	//   !g → flags = b ? 0 : 3;g && !b → flags = (旧flags != 3) ? 2 : 3;
+	//   g && b → flags = (旧flags == 1) ? 1 : 0。
+	void updateRowFlags(SettingsRow &row);
 
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
