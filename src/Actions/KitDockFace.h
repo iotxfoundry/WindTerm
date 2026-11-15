@@ -53,6 +53,7 @@ public:
 	TabGroup *tabGroup() const { return m_tabs; } // +0x30
 
 	bool isFloating() const { return m_f39; } // +0x39
+	bool isDocked() const { return !m_f39; }  // 008b8c76(8B):+0x39 ^ 1
 	void setFloating(bool on) { m_f39 = on; }
 
 signals:

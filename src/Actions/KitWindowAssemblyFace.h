@@ -25,6 +25,11 @@ QMenuBar *kitMenubarAssemble(KitWindowFace *host);
 //   container = menu() 面(仅 cited singleShot 腿消费)。
 QStatusBar *kitStatusbarBuild(CGlobalConfigFace *container, QWidget *hostPane);
 
+// 008cb0d8(75B,0028.c:12465):QMainWindow::statusBar() → dynamic_cast
+//   01196b50(状态栏子类 face)→ 取面;后续 FUN_005a333e(4090B)cited。
+class StatusBarFace;
+StatusBarFace *kitStatusBarFace(QMainWindow *win);
+
 // 008c9f8c(54B,0028.c:11401):构建 → setStatusBar。
 void kitStatusbarAssemble(KitWindowFace *host);
 

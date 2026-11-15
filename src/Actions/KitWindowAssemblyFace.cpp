@@ -20,6 +20,7 @@
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFactory.h"
 #include "Actions/StatusBarFace.h"
+#include <QMainWindow>
 #include "Actions/TabGroup.h"
 #include "WorkspaceLoader.h"
 #include "Widgets/Splitter.h"
@@ -657,4 +658,15 @@ bool kitSplittersStatesRestore(KitWindowFace *kit, const QByteArray &statesBlob)
 			sp->restoreState(one); // @008d33e0(几何面真库)
 	}
 	return true;
+}
+
+// 008cb0d8(75B,0028.c:12465)状态栏取面:
+//   lVar1 = QMainWindow::statusBar()@008cb0d8-е0;非空 →
+//   dynamic_cast 01196b50(状态栏子类);随后 FUN_005a333e(bar,...)
+//   (4090B 大件,cited 不落)。
+StatusBarFace *kitStatusBarFace(QMainWindow *win)
+{
+	if (win == nullptr)
+		return nullptr;
+	return dynamic_cast<StatusBarFace *>(win->statusBar()); // @008cb0d8
 }
