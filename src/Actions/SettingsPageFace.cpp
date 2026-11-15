@@ -4,6 +4,7 @@
 #include <QAbstractButton>
 #include <QComboBox>
 #include <QLabel>
+#include <QPlainTextEdit>
 #include <QLineEdit>
 #include <QListWidget>
 #include <QLabel>
@@ -354,4 +355,25 @@ void SettingsPageFace::updateInfoLabel(const SettingsRow &row)
 		m_label80 = new QLabel(this); // @0072d75c(0x30 字节)
 	}
 	m_label80->setText(desc);
+
+	// +0xa0 详情区 @0072d67d:
+	//   row+0x20(子件值)空 → 已有则 removeRow + 置 0;
+	//   否则懒建 QPlainTextEdit(0x30)→ setReadOnly(true)@0072d6xx →
+	//   setWordWrapMode(1)@0072d6xx → addRow(tr("Error:")(0xc9cf1d))
+	//     @0072d6eb → setPlainText(文本).
+	const bool hasDetail = !row.childValues.isEmpty();
+	if (!hasDetail) {
+		if (m_textA0 != nullptr) {
+			// QFormLayout::removeRow(+0x30 布局)— cited
+			m_textA0 = nullptr;
+		}
+	} else if (m_textA0 == nullptr) {
+		m_textA0 = new QPlainTextEdit(this); // @0072d68a(0x30 字节)
+		m_textA0->setReadOnly(true);         // @0072d69e
+		m_textA0->setWordWrapMode(QTextOption::WordWrap); // 1 @0072d6xx
+		// QFormLayout::addRow(+0x30 布局, tr("Error:")(0xc9cf1d))@0072d6eb
+		//   — cited(+0x30 布局面未建模)。
+	}
+	if (m_textA0 != nullptr)
+		m_textA0->setPlainText(row.childValues.join(QLatin1Char('\n')));
 }

@@ -7,6 +7,7 @@
 class QAbstractButton;
 class QDialogButtonBox;
 class QListWidgetItem;
+class QPlainTextEdit;
 class QModelIndex;
 class QStandardItem;
 class QComboBox;
@@ -145,6 +146,7 @@ public:
 	QSpinBox *m_spin70 = nullptr;        // +0x70
 	QWidget *m_widget98 = nullptr;       // +0x98(FUN_0056672a 消费)
 	QLabel *m_label80 = nullptr;         // +0x80(说明标签)
+	QPlainTextEdit *m_textA0 = nullptr;  // +0xa0(详情文本区)
 	QDialogButtonBox *m_buttons78 = nullptr; // +0x78(accept/reject 面)
 	QWidget *m_widgetA8 = nullptr;       // +0xa8(自定义信号宿主,cited 类)
 	QListWidget *m_listB0 = nullptr;     // +0xb0
