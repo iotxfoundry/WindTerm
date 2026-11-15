@@ -4,9 +4,9 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 168,2026-11-15 — 当前真值层)
+## 结论快照(截至批 171,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-168)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-171)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
@@ -44,7 +44,11 @@ DeepEngineFace(156)/MuxWindow 宿主 0084dd5a 分段复刻(157)** →
 **ctest 21→22**)/reopen.history 保存侧 StateStore + roundtrip
 (167;**statereopen 注册,22→23**)/kit.startupSessions 写端 +
 profiles.config 写侧(169)/三件套保存侧 SessionStore 六函数(168;
-**0076913f 定性 = QMetaType 注册族非写腿**)**。
+**0076913f 定性 = QMetaType 注册族非写腿**)** → **M20 三车道
+(5c 对表轮):reopen 原版采集 + 布局 diff 全 MATCH(170;报告
+tools/re/phase5/5c/5C-REPORT.md + 5C-REPORT.md 双件)/wind.config
+122 键盘点 + 序列化同构(171;报告 5C-REPORT.md)/aboutToQuit
+挂点闭环(172)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -67,18 +71,66 @@ profiles.config 写侧(169)/三件套保存侧 SessionStore 六函数(168;
 证伪批 122 绕行);UI 向量判死(quick-find ≠ SearchPane 三框,批 124)。
 RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未试)。
 
+
+### 开放风险(现役)
+
+1. RUBY 假设无行为级证明(见上)。
+2. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
+   0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
+   EditorContext.h 头扩展)。
+3. eNodes 深引擎尾余:00933738 hash remove 深面/88e5a0 超门
+   0x3fffff 分段族/007b5270 门内段插体(delegate vt+0x28/0x38/0x40
+   族)/97142a 45534 RS 灌链 cited;ee3b 慢路 vcall 臂仅注记(恒等
+   恒真,语料同构);styled 哨兵 UB(#32)/glibc 复址(#35)待 5c 期
+   仪器裁决。
+4. 注册表下行尾余:%A..%z 深 QDateTime 时区 cited/TcpBridge 真拨号
+   cited(状态机·信号面已真身,批 165);pattern 'h'/'n'/state 已
+   真身(批 161)。
 5. 启动链余量(Phase 4a):trie 分裂腿(00525f50)/星数语义(i-1 直译
    面,未逐字节对表)/tabBarSelectionBehaviorOnRemove 键串语义面
    承接(dat_1181468 对证 cited);kit.* 真键实机对证。
 6. MuxWindow:008e1125 槽体(411B)/introsort/moveTab 深腿 cited;
    宿主 S4 比较器无效 QVariant 双 false 腿微差(元素恒有效,同相,
-   cited);collectorMuxChildren findChildren 兜底已撤销(批 162
-   修正为 stack 页族直读);0x10 宿主读侧未初始化槽 UB 原样(铁律 2)。
-7. 5c 对表前置余项(批 166-168 后):reopen 写侧魔数 = 0xb9e7e626
-   汇编实读(读侧 0xb9e7e600 系掩码门,低字节版本位)——字节级对表
-   时以原版产物二次验证;三件套星数语义(i-1 直译)未逐字节对表;
-   StateStore aboutToQuit 产品挂点 cited(SuperApplication 宿主批);
-   原版侧产物采集需 Xvfb 环境重开(sudo 步骤待用户确认)。
+   cited);0x10 宿主读侧未初始化槽 UB 原样(铁律 2)。
+7. 5c 对表余项(批 166-172 后):reopen 写侧魔数 0xb9e7e626 汇编
+   实读(读侧 0xb9e7e600 掩码门)——字节级对表以原版产物二次验证
+   (原版 789B 已采集,批 170);三件套星数语义(i-1 直译)未逐字节
+   对表;StateStore aboutToQuit 产品挂点已闭环(appboot 全生命周期,
+   批 172;SuperApplication 宿主接线仍 cited);页 payload 674B 深消费
+   (8cf0c8) cited。
+
+### 批 170/171/172(2026-11-15)M20 三车道(5c 对表轮):原版采集 + 盘点同构 + 挂点闭环 ✅ ctest 23/23 ×5
+
+- **批 170 reopen 原版采集 + 布局 diff**:突破采集阻塞——遗留实例
+  (HOME=/home/pana)UI 优雅退出拿到**原版 789B reopen.history**
+  (隔离 HOME SIGTERM/KILL 均不写 → **优雅退出 = 写盘前提**实证);
+  我方 115B 经真身面产出;**布局语义 diff 框架全 MATCH**,唯一差 =
+  页 payload(原版 674B vs 8cf0c8 cited 空);**原版字节喂
+  startupRestoreGate 恢复闭环全过**(原版状态我方可恢复);另采
+  user.sessions 22863B + terminal 域 0xb9e7e601 异族 4860B 归档。
+  报告 tools/re/phase5/5c/5C-REPORT.md(产物 original/ ours/)。
+  ⚠ 采集副作用已告知用户:真实配置目录 reopen.history 被新快照覆盖。
+- **批 171 wind.config 盘点 + 序列化同构**:**122 键矩阵 = 117 标量
+  (59 bool/31 int/23 str/6 float)全部入 CTerminalConfig 平铺读面
+  覆盖 + 0 值型错配**;BOM/CRLF/行内 // 注释由 collectComments+
+  tolerant 解析承接;5 复合缺口另批(4 数组 searchEngines/
+  hiddenMargins×2/text.margins + 1 null focusMode.settings,
+  parseInto default:break 不落);序列化对表 config_saveFile
+  00a801c6 底座 → 00afc1b0(vtable[2])/00aef8c0·00af8810(流态
+  0x40000004a = 缩进 4 空格 + rightMargin 74,asm 实读)/00afb830
+  (" : " 分隔+插入序)/00afa810(>0x1f raw 直包 = 中文原样)→
+  **saveSessions+saveConfigPath 同构落 emitUTF8+尾\n+显式 4 空格**
+  (profiles.config 原版产物样本实证);键序差 cited(jsoncpp 字典序
+  vs 插入序,读回等价无消费实证);mwctest f12 roundtrip(中文/
+  多字节/空串/int/bool 字节断言)。报告 tools/re/phase5/5C-REPORT.md。
+- **批 172 aboutToQuit 挂点闭环**:stateStoreAboutToQuit(FUN_00760856
+  28B)真身 + profiles 三卫 cited;appboot 全生命周期闭环(boot →
+  临时路径注入写 history → 退出触发面 → 二次构造 startupChain →
+  restoreGate 对账 页数1/TerminalWindow/idx0);窗表参数承接批 163 判例。
+- 验证:三车道独立门 + 主控合流(172→170→171 零冲突;170/171 双
+  报告件路径差 5c/ 子目录 vs 父目录,无覆盖);主仓终门 ctest
+  **23/23** ×5 + dlopen OK。
+
 
 ### 批 166/167/169/168(2026-11-15)M19 五腿(5c 转向):盘点 + appboot 载体 + 写侧 roundtrip ✅ ctest 23/23 ×5
 
