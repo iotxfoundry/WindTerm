@@ -3,6 +3,7 @@
 
 #include "Actions/KitDockFace.h"
 #include "Actions/KitWindowAssemblyFace.h"
+#include "Actions/TabGroup.h"
 
 // FUN_008b81b0(109B,0027.c:75478)ctor:
 //   QWidget::QWidget(this,param_3,0)@008b81b8;+0x38 = param_2 @008b81c8;
@@ -55,4 +56,48 @@ void KitDockFace::closeWithCollapse()
 	deleteLater(); // @008b8718
 	// 尾:kit = kitWindowAncestor(this) @008b8730;非空 →
 	//   FUN_008cb0c0(kit,3)@008b8738 — cited(同上)。
+}
+
+// FUN_008b7f60(591B,0027.c:75393)四路接线真身(信号为 TabGroup 索引面,
+//   0119dea0 = TabGroup smeta;槽体两真身两 cited):
+//   tabs = this+0x30;connect(tabActivated@FUN_008fb5ac → FUN_008b7d08)
+//   connect(closeRequested@FUN_008fb584 → FUN_008b86e4)
+//   connect(configRequested@FUN_008fb598 → s_ConfigButton_8b877e)
+//   connect(expandRequested@FUN_008fb690 → FUN_008b7ca0)
+void KitDockFace::wireTabGroup(TabGroup *tabs)
+{
+	if (tabs == nullptr)
+		return;
+	m_tabs = tabs; // +0x30
+	connect(tabs, &TabGroup::tabActivated, this, &KitDockFace::onTabActivated);
+	connect(tabs, &TabGroup::closeRequested, this, &KitDockFace::closeWithCollapse);
+	// configRequested → s_ConfigButton_8b877e(150B:KitWindow 菜单组 "Dock"
+	//   + toolButtonPopupMenu(owner+0x30,"ConfigButton",menu)@008b87df)
+	//   — toolButtonPopupMenu(FUN_005ac790)锚点用 QToolButton 私有尺寸面,
+	//   cited 不落接线。
+	connect(tabs, &TabGroup::expandRequested, this, &KitDockFace::onExpandRequested);
+}
+
+// FUN_008b7d08(187B,0027.c:75296)真身:
+//   w = FUN_005abbd0(tabs)(stackWidgetAt)→ cast 011ab690(KitPane)命中 →
+//   setFocus(3)@008b7d5x → setWindowIcon(w->windowIcon())@008b7d6x →
+//   setWindowTitle(w->windowTitle())@008b7d8x。
+void KitDockFace::onTabActivated(int index)
+{
+	if (m_tabs == nullptr)
+		return;
+	QWidget *w = m_tabs->stackWidgetAt(index); // FUN_005abbd0
+	if (w == nullptr)
+		return;
+	w->setFocus(Qt::OtherFocusReason); // 3 @008b7d5x
+	setWindowIcon(w->windowIcon());    // @008b7d6x
+	setWindowTitle(w->windowTitle());  // @008b7d8x
+}
+
+// FUN_008b7ca0(59B,0027.c:75252)真身:闭包体 — +0x39 == 0(非浮停)→
+//   FUN_0091a7d8(this, arg)(自身信号 idx0)@008b7ca0;浮停时不转发。
+void KitDockFace::onExpandRequested(bool expanding)
+{
+	if (!m_f39)
+		emit expandRequested(expanding);
 }

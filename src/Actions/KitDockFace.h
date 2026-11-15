@@ -2,6 +2,8 @@
 
 #include <QWidget>
 
+class TabGroup;
+
 // KitDockFace — 语料 KitDock(QWidget 子类,qt_metacast "KitDock" 0091aa00;
 // smeta 011ab100)承载面(批 207)。
 // ctor FUN_008b81b0(109B,0027.c:75478):
@@ -24,10 +26,32 @@ public:
 	//   否则 deleteLater。尾:kit 存在 → FUN_008cb0c0(kit,3)(cited)。
 	void closeWithCollapse();
 
+	// FUN_008b7f60(591B,0027.c:75393)四路接线(+0x30 = TabGroup):
+	//   tabActivated(idx0)→FUN_008b7d08(本面真身)/
+	//   closeRequested(idx7)→FUN_008b86e4(closeWithCollapse)/
+	//   configRequested(idx8)→s_ConfigButton_8b877e(cited)/
+	//   expandRequested(idx9)→FUN_008b7ca0(本面真身:非浮停才转发
+	//   自身信号 idx0,FUN_0091a7d8 实证)。
+	void wireTabGroup(TabGroup *tabs);
+	TabGroup *tabGroup() const { return m_tabs; } // +0x30
+
 	bool isFloating() const { return m_f39; } // +0x39
 	void setFloating(bool on) { m_f39 = on; }
 
+signals:
+	// qmeta 索引 idx0(FUN_0091a7d8 activate idx0,实参 bool)——
+	//   语料名未取证,按转发面命名为 expandRequested(cited 名)。
+	void expandRequested(bool expanding);
+
+private slots:
+	// FUN_008b7d08(187B,0027.c:75296)页切换槽:stackWidgetAt(idx) →
+	//   cast 011ab690(KitPane)→ setFocus(3)→ 同步 windowIcon/windowTitle。
+	void onTabActivated(int index);
+	// FUN_008b7ca0(59B)展开转发:+0x39 == 0(非浮停)→ emit expandRequested。
+	void onExpandRequested(bool expanding);
+
 private:
+	TabGroup *m_tabs = nullptr; // +0x30(语料 4 路接线与页操作共同宿主)
 	QWidget *m_f38 = nullptr; // +0x38(ctor 实参槽,语义 cited)
 	bool m_f39 = false;       // +0x39 浮停旗标
 };
