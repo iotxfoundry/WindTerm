@@ -461,3 +461,47 @@ int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
 	const int index = kitTabPositionIndex(tabs, spec); // @008b8bb8
 	return kitPanelShow(tabs, name, index, select);     // @008b8bc8
 }
+
+// 008b84b6(251B,0027.c:75629)按名查页真身:
+//   归一名(0089ede8)→ 逐 i<count(005abbda):w = 008b83ee(this,i)
+//   (QStackedWidget::widget + 0x30 空判)→ w->objectName() == 名 → i;
+//   循环完 → -1。
+int kitPanelIndexByName(TabGroup *tabs, const QString &rawName)
+{
+	if (tabs == nullptr)
+		return -1;
+	const QString name = kitPaneNameNormalized(rawName); // @008b84b6(0089ede8)
+	const int n = tabs->count();
+	for (int i = 0; i < n; ++i) {
+		QWidget *w = tabs->stackWidgetAt(i); // 008b83ee @008b84f4
+		if (w != nullptr && w->objectName() == name)
+			return i;
+	}
+	return -1;
+}
+
+// 008b83dc(17B)摘页 = FUN_005ab2cc(this,index,0) 透传:
+//   @005ab2cc QStackedWidget::widget(+0x60) 空 → 返;param_3(此处 0)非 0
+//   腿 = close() 失败即返 + deleteLater;否则 stack->removeWidget(w)。
+void kitPanelRemoveAt(TabGroup *tabs, int index)
+{
+	if (tabs == nullptr || index == -1) // @008b83dc 门
+		return;
+	QWidget *w = tabs->stackWidgetAt(index); // QStackedWidget::widget @005ab2cc
+	if (w == nullptr)
+		return;
+	tabs->stack()->removeWidget(w); // @005ab2cc 尾
+}
+
+// 008b8b7c(60B)面板开关真身:
+//   i = 008b84b6(this)@008b8b7c;!= -1 → 008b83dc(this,i)
+//   (摘页)@008b8b8x;== -1 → 008b8abe(this,name,1)(尾插 + 选中)@008b8b8x。
+int kitPanelToggle(TabGroup *tabs, const QString &name)
+{
+	const int i = kitPanelIndexByName(tabs, name); // @008b8b7c
+	if (i != -1) {
+		kitPanelRemoveAt(tabs, i); // 008b83dc
+		return i;
+	}
+	return kitPanelShowBack(tabs, name, true); // 008b8abe
+}

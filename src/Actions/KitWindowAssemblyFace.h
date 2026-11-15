@@ -82,6 +82,19 @@ int kitTabPositionIndex(TabGroup *tabs, const QString &spec);
 int kitPanelShowAt(TabGroup *tabs, const QString &name, const QString &spec,
                    bool select);
 
+// 008b84b6(251B,0027.c:75629)按名查页位:归一名 → 逐 i<count
+//   stackWidgetAt(i)->objectName() == 名 → i;无 → -1(008b83ee 53B 取页)。
+int kitPanelIndexByName(TabGroup *tabs, const QString &rawName);
+
+// 008b83dc(17B)+005ab2cc(73B,0018:258xx)摘页:index 为 -1 直返;
+//   stackWidgetAt(index) 空直返;否则 QStackedWidget::removeWidget
+//   (param_3 非 0 腿含 close() 门 + deleteLater,此处实参 0)。
+void kitPanelRemoveAt(TabGroup *tabs, int index);
+
+// 008b8b7c(60B,0027.c:7606x)面板开关:按名查到 → 摘页;未查到 →
+//   尾插并选中(kitPanelShowBack(name,true))。
+int kitPanelToggle(TabGroup *tabs, const QString &name);
+
 // 008b881c(485B,0027.c:75873)页恢复(blob 空 → false):
 //   >>count >>current → 逐 i:>>panelName >>propBA → blockSignals(current != i)
 //   @008b8899 → panel = 工厂(归一名 find-or-create)→ 非空 →
