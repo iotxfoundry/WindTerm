@@ -59,4 +59,10 @@ public:
 	QWidget *m_widget98 = nullptr;       // +0x98(FUN_0056672a 消费)
 	QListWidget *m_listB0 = nullptr;     // +0xb0
 	QStringList m_rowNamesB8;            // +0xb8 行表名面(行节点 0x48 字节)
+	// 行节点(0x48 字节)字段证据(待建模,批 246 记录):
+	//   +0x00 QString 名(0072d1e4 比对字段)
+	//   +0x08 QVariant/值(0072e4f6 组合框 findData 取此行字段)
+	//   +0x18 int(0072e4f6:== 1 分支 + 组合框 findData(int) 键)
+	//   +0x20 子件值区(FUN_0056647e(+0x98, row+0x20, 4))
+	//   → 建模前 loadWidgets(932B)保持未落。
 };
