@@ -563,3 +563,22 @@ int MuxPaneGroup::currentPaneIndexEx() const
 {
 	return m_f38 != nullptr ? m_f38->tabBar()->currentIndex() : -1; // @008b9b34
 }
+
+// FUN_008b99f6(221B,0027.c:76894)页索引真身:
+//   pane == 0 → stackIndexOf(0)@008b99f6;
+//   否则 stackIndexOf(cast 011925c8 → QWidget)@008b9a1x;== -1 →
+//   parent 链找 cast 011ab930(KitDock)@008b9a4x → stackIndexOf(dock)。
+//   (KitDock 面 = MuxWindow 族;我方以 MuxWindow 承接 — 同址 +0x70 splitter)
+int MuxPaneGroup::indexOfPane(QWidget *pane) const
+{
+	if (m_f38 == nullptr)
+		return -1;
+	const int idx = m_f38->stackIndexOf(pane); // FUN_005ab6c2 @008b99f6
+	if (idx != -1)
+		return idx;
+	for (QWidget *p = pane; p != nullptr; p = p->parentWidget()) {
+		if (auto *win = dynamic_cast<MuxWindow *>(p)) // 011ab930 cast
+			return m_f38->stackIndexOf(win);           // @008b9a4x
+	}
+	return -1;
+}
