@@ -424,3 +424,20 @@ void SharedConfigHandlerFace::buildMenuBarGroupMenus(QMenuBar *bar,
 		return;                                  // 命中即整段毕(语料单组查)
 	}
 }
+
+// colorMenu_addEntry — FUN_0070a56a(323B,0022.c:34509)真身:
+//   QMenu::addAction(tr 文本)@0070a5a3 → action 非空:图标 =
+//   s_king__colorTransparent(app,menu,名)@0070a643(736B cited,不发明
+//   色块绘制)→ setIcon@0070a652 → setData(QVariant(QByteArray 名))
+//   @0070a678。菜单项文本由调用方 tr 化后传入(语料为 tr 索引实参)。
+QAction *colorMenuAddEntry(QMenu *menu, const QString &text,
+                           const QByteArray &colorName)
+{
+	QAction *act = menu->addAction(text); // @0070a5a3
+	if (act == nullptr)
+		return nullptr; // @0070a5c9
+	// 图标腿 cited:s_king__colorTransparent_757736(736B)— 透明底色块
+	//   生成面未转写,setIcon 调用点保留注释不落假图标。
+	act->setData(QVariant(colorName)); // @0070a678
+	return act;
+}

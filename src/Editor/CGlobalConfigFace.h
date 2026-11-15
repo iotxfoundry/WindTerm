@@ -303,4 +303,14 @@ private:
 	friend class CTerminalConfig;
 };
 
+// colorMenu_addEntry — FUN_0070a56a(323B,0022.c:34509)颜色菜单条目:
+//   tr 文本(语料 = QMetaObject::tr 索引 param_2 @0070a5a3,metaobject
+//   011a2240)→ QMenu::addAction(text)@0070a5a3 → 非空则
+//   icon = s_king__colorTransparent_757736(app,menu,名)(736B,cited)
+//   → QAction::setIcon@0070a652 → setData(QVariant(QByteArray 名))
+//   @0070a678。tr 索引面以已解析文本承接(tr 边界,非行为自造)。
+class QAction;
+QAction *colorMenuAddEntry(QMenu *menu, const QString &text,
+                           const QByteArray &colorName);
+
 #endif // CGLOBALCONFIGFACE_H
