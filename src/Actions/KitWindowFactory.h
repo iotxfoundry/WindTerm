@@ -81,3 +81,24 @@ void kitWindowRestoreFirstPage(MainWindowFace::Slots host, QMainWindow *mainWind
 // face 基面):语料 CTerminalConfig 单例对象 = menu() 容器
 // (KitWindowFactory.cpp 注记;KITWINDOW-RECON §未解 1 收口)。
 CGlobalConfigFace *terminalConfigAsFace();
+
+// 批 189(M24-②):菜单族消费三件(FUN_00692a70/00692ef0 升真承载;
+// 见 CGlobalConfigFace.h 头注与 MuxPaneGroup.cpp 升级注):
+//   kitMenuBarBuild — King::MenuBar::MenuBar(575B,0021.c:18969)装配
+//     腿:operator_new(0x30)+QMenuBar(parent)→ objectName "MenuBar"
+//     (@0069309a-9e)→ windowTitle(registerBarsAndPanes 合成面 cited,
+//     KitBar.cpp:176 同判)→ 容器 buildMenuBarGroupMenus("Kit",host)
+//     (@00693130-6)→ vt+0x218 cornerWidget 非空 setCornerWidget 腿
+//     (cited — 宿主槽未建模)→ setMenuBar(宿主腿 008c9ee4 域,本件
+//     只产 bar 归调用方)。
+QMenuBar *kitMenuBarBuild(CGlobalConfigFace *container, QWidget *hostPane);
+
+//   kitFindOrCreateGroupMenu — FUN_00692ef0(310B,0021.c:18914)升真:
+//     S1 空名 nullptr(@00692ef7)→ S2 FUN_006926c2(+0x28)命中 →
+//     FUN_00692a70(组节点,pane)缓存直返(@00692efc-27)→ S3 未命中
+//     tr+new QMenu(@00692f68-030)。容器面 = CGlobalConfigFace::m_groups
+//     (KITWINDOW-RECON §未解 1 收口:容器类 = Config 系单例,批 140
+//     定案)— MuxPaneGroup::kitFindOrCreateGroupMenu(void* 壳态)随本
+//     件升级(同库真身调用)。
+QMenu *kitFindOrCreateGroupMenu(CGlobalConfigFace *container,
+                                const QByteArray &name, QWidget *pane);

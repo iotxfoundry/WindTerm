@@ -251,9 +251,9 @@ void MuxPaneGroup::focusCurrentPane()
 // 三段真身:kitFindOrCreateGroupMenu(FUN_00692ef0)/kitPopupConfigButton
 //   (FUN_005ac790)见文件尾;KitWindow 上溯腿 = 本仓库 KitWindowFace
 //   (批 133 入库,011ab390 对位)。
-// S3 pane+0x38 = MuxPaneGroup::m_f38(TabGroup,批 71 定案);MENU容器经
-//   menu() 虚调用面(KITWINDOW-RECON Q2:FUN_006926a0 34B = vcall
-//   *(kitwin)+0x1f0,空指针卫 @006926ac 原样)。
+// 批 189 升级:FUN_00692ef0 升真(KitWindowFactory.cpp,容器面 = face
+//   m_groups,KITWINDOW-RECON §未解 1 收口)→ 本处传 face 容器,S2 查建
+//   腔由真身承载(组命中 → 缓存 QMenu;未命中 → 散建,不发明)。
 void MuxPaneGroup::showConfigMenu()
 {
 	// S1:qcoreapp_self_get() 值弃 @008de2e1(原样)
@@ -264,11 +264,11 @@ void MuxPaneGroup::showConfigMenu()
 	}
 	if (kit == nullptr)
 		return;                                  // @008de319(直返,无菜单操作)
-	void *container = kit->menu();               // FUN_006926a0 @008de331(+0x1f0 槽 62)
+	CGlobalConfigFace *container = kit->menu();  // FUN_006926a0 @008de331(+0x1f0 槽 62)
 	// S2:FUN_00692ef0(容器,QByteArray("MuxPaneGroup"),this)@008de33b-57
 	QMenu *menu = kitFindOrCreateGroupMenu(container,
 	                                      QByteArrayLiteral("MuxPaneGroup"),
-	                                      this); // 0021.c:18914
+	                                      this); // 0021.c:18914(批 189 真身)
 	// S3:FUN_005ac790(+0x38,"ConfigButton",menu)@008de389
 	kitPopupConfigButton(m_f38, QStringLiteral("ConfigButton"), menu); // 0018.c:26415
 }
@@ -405,23 +405,24 @@ void MuxPaneGroup::renamePane(int index)
 //     取 *begin 之 +0x20 槽对象 → QMetaObject::tr(串)→ 命中;
 //   S3:未命中 → QMetaObject::tr(name)(QObject 域)→ operator_new(0x30)
 //     QMenu::QMenu(menu,tr,parent)@00692fbf-0069301d → 返回新菜单。
-//   容器内部表示(cited — 批 133):容器 = menu() 返回的懒单例对象,
-//     确切类名未解(KITWINDOW-RECON §未解 1),+0x28 QList 节点含
-//     {QMenu*, name QString} 对面读自 FUN_00692a70(0021:18732,1119B
-//     全读:同容器遍历族,子菜单递归同型节点 +0x20 槽)。壳态(无
-//     KitWindow 实例)本腿不可达;容器落库时升级真身。
-//   本转写面:QList 节点语义经 QMenu 新建腿 + tr 汇合腿已定 —— 节点
-//     记录 (name → QMenu);QMenu 查建逻辑照抄;遍历腔 cited。
+// 批 189 升真:容器类定案(KITWINDOW-RECON §未解 1 收口,批 140 face)
+//   → 真身落 KitWindowFactory.cpp kitFindOrCreateGroupMenu(face 容器,
+//   组查 + FUN_00692a70 缓存面);本壳 = 壳态替位(容器 void* 卫原样,
+//   语义同相:S1/S3 与真身逐句一致;S2 cited 腔由真身承载)。壳保留 =
+//   mwctest 133 批断言面(壳态直返腿)不破。
+//   容器内部表示(定案批 189):容器 = menu() 返回 Config 系单例
+//     (CGlobalConfigFace,m_groups = +0x28 节点树);节点 QMenu 缓存 =
+//     SharedConfigHandlerFace::m_menu(FUN_006926c2 命中读/
+//     FUN_00692a70 建新写回)。
 QMenu *MuxPaneGroup::kitFindOrCreateGroupMenu(void *container,
                                               const QByteArray &name,
                                               QWidget *pane)
 {
 	if (name.isEmpty())                        // S1 @00692ef7(*(int*)(name+4)==0)
 		return nullptr;
-	// S2:@00692efc-27 — 容器 +0x28 QList 遍历查(FUN_006926c2 键面
-	//   已全读)→ 命中即取节点 QMenu 返回 — cited — wave-2(容器对象
-	//   与节点类型未定型,KITWINDOW-RECON §未解 1;查建腔见
-	//   FUN_006926c2/FUN_00692a70 在案,容器落库批升级)
+	// S2:@00692efc-27 — 容器 +0x28 QList 遍历查 → 真身承载(批 189,
+	//   KitWindowFactory.cpp;壳态 void* 不可达 — 无 KitWindow 实例时
+	//   本腿不被调,showConfigMenu 早退同相)。
 	Q_UNUSED(container);
 	// S3:@00692f68-030 — QMetaObject::tr(name) → operator_new(0x30)
 	//   QMenu::QMenu(menu,tr串,pane)照抄(新建腿全读)

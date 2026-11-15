@@ -2,6 +2,9 @@
 
 #include <QByteArray>
 #include <QFile>
+#include <QHash>
+#include <QMenuBar>
+#include <QWidgetAction>
 #include <yaml-cpp/yaml.h>
 
 // 批 140 — 两腿 Meyers 单例体(库内唯一副本,判例
@@ -28,6 +31,65 @@ CEditorConfigFace *CEditorConfigFace::instance()
 // 装载编排/树挂接/遍历面 = FUN_008a99de/008aa39e/008a971e/s_FilterEdit_
 // 8a9d3c 转写。装载语义 = 键值进 groups(+0x28)/views(+0x60)handler
 // 面,与 groupNames()(+0xa8 读面;真身批 140)/menu 查建腿闭环。
+
+// cgmenu 消费腿 — 批 189(M24-②)FUN_00692a70(1119B,0021.c:18732)
+// 真身逐句(S1-S6 见头声明注)。fwd: 静态先声明(坑 3)。
+static QAction *kitMenuFactoryAction(const QByteArray &name); // FUN_00767b36 同构
+
+QMenu *SharedConfigHandlerFace::findOrBuildMenu(QWidget *hostPane)
+{
+	// S1:@00692a96 — 祖先链 MainWindow cast 全 miss → nullptr。face 面
+	//   无窗口链可判(容器/节点非 QWidget)→ 该卫属消费宿主(showConfigMenu
+	//   011ab390 腿已落 MuxPaneGroup.cpp 259);此处 = 组节点根卫同相位:
+	//   根(容器)自身无菜单(语料 *param_1==0 → nullptr @00692aa0)。
+	if (m_parent == nullptr)
+		return nullptr;
+	// S3:@00692b0e-9a — FUN_006926c2(+0x28 表)键查 → 命中取缓存;
+	//   未命中 tr + new QMenu(0x30)。缓存 = 本节点 m_menu 槽(face 载体,
+	//   语料迭代器对面 +0x30 区实读)。
+	if (m_menu != nullptr)
+		return m_menu;                        // @00692c9f 前命中汇流
+	const QString title = QObject::tr(       // QMetaObject::tr @00692b0e
+	    m_value.toByteArray().constData());
+	m_menu = new QMenu(title, hostPane);     // operator_new(0x30)+ctor @00692b1b
+	// S4:@00692b2b-9a 双连接(真身 = connectImpl functor;槽体深链
+	//   cited,行为门不触 exec — 连接面落位,槽体空承载不发明):
+	QObject::connect(m_menu, &QMenu::aboutToHide, m_menu, [menu = m_menu] {
+		const QList<QAction *> acts =        // QWidget::actions @0076c465
+		    menu->actions();
+		for (QAction *a : acts) {            // @0076c48a 逆序遍历腔
+			const QVariant v = a->property("dynamic"); // @0076c48a
+			if (!v.canConvert<QWidgetAction *>())
+				continue;                         // canConvert 门 @0076c499
+			if (qobject_cast<QWidgetAction *>(a) != nullptr)
+				a->deleteLater();                 // @0076c4b3
+		}
+	});
+	// S5:@00692c9f-d9 — children [begin,end) 逐项 kind 消费:
+	//   2 → 递归子 findOrBuildMenu → 非空 addMenu;3 → 工厂查/建
+	//   (FUN_00767b36 → actionFactory_getOrCreate,仓库同构 = KitBar
+	//   137 静态表;此处落同构静态表 — actionFactoryGetOrCreate 私有,
+	//   同构复制面见文件尾注)非空 addAction;0 → addSeparator。
+	for (SharedConfigHandlerFace **it = m_begin; it != m_end; ++it) {
+		const SharedConfigHandlerFace *kid = *it;   // *plVar6 @00692cb2
+		const int k = kid->kind();                  // *(+0x10)&0xf @00692cb8
+		if (k == 2) {
+			QMenu *sub = const_cast<SharedConfigHandlerFace *>(kid)
+			                 ->findOrBuildMenu(hostPane); // 递归 @00692ccc
+			if (sub != nullptr)
+				m_menu->addMenu(sub);                  // QMenu::addMenu @00692dxx
+		} else if (k == 3) {
+			QAction *act = kitMenuFactoryAction(   // FUN_00767b36 @00692d3c
+			    kid->m_value.toByteArray());
+			if (act != nullptr)
+				m_menu->addAction(act);             // QWidget::addAction @00692d5c
+		} else if (k == 0) {
+			m_menu->addSeparator();                 // QMenu::addSeparator @00692d7e
+		}
+		// kind 1/4/5/6 → 无臂(Groups 树不产,防御同相)
+	}
+	return m_menu;                               // @00692d66 汇流
+}
 
 // SharedConfigHandlerFace::appendChild — FUN_008accc8(324B,0027.c:66458):
 // new 子节点(QVariant 键 ← QByteArray @008acc1a 前段,即 FUN_008aabae
@@ -84,8 +146,30 @@ static bool yamlLoadInto(const QString &path, SharedConfigHandlerFace *root,
 	} catch (const YAML::Exception &) {
 		return false;                        // loadFile 失败腿同相
 	}
+	if (doc.Type() == YAML::NodeType::Map) {
+		// 批 189 对账勘正:真配置 menu.config 根 = 单 map(/opt 33 键实读)
+		//   — 语料 s_vector__reserve_af3a20 = Json::Value::getMemberNames()
+		//   (ostringstream "value must be objectValue" 断言串 @00af3b33
+		//   实读)→ 键集遍历(键序 = 成员序,yaml-cpp 保序同相)。
+		root->clearChildren();               // FUN_008aaae2 @008a9add
+		for (const auto &kv : doc) {         // do-while @008a9b0d 区
+			const QString groupName =
+			    QString::fromUtf8(kv.first.Scalar().c_str()); // QByteArray::operator= @008a9b21
+			SharedConfigHandlerFace *grp =
+			    root->appendChild(groupName.toUtf8());        // FUN_008accc8 @008a9b2b
+			if (viewsLeg)
+				loadViewsElement(kv.second, grp);  // s_FilterEdit_8a9d3c @008aa556
+			else
+				loadGroupsElement(kv.second, grp); // FUN_00af4760 下钻 @008a9b6e
+			                                       //   + FUN_008a971e @008a9b96
+		}
+		return true;
+	}
 	if (doc.Type() != YAML::NodeType::Sequence)
 		return false;                        // json_size==0/FUN_00aef7f0 门 @008a9a50-9a
+	// 批 142 序列形态腿(遗留;语料 arrayValue = getMemberNames assert 抛
+	//   → catch @008a9d23,mwctest d9 夹具冻结依赖 — 批 189 登记 divergence
+	//   待主控裁决,不擅自删腿)
 	root->clearChildren();                   // FUN_008aaae2(+0x28/+0x60) @008a9add/@008aa49d
 	for (const auto &item : doc) {           // s_vector__reserve + do-while @008a9b0d
 		if (!item.IsDefined())
@@ -281,4 +365,62 @@ bool CGlobalConfigFace::ensureLoaded()
 	const bool vt18 = true;  // cited — vt+0x18 槽体未转写(不发明)
 	const bool vt28 = true;  // cited — vt+0x28 reopen.history 槽体未转写
 	return vt28 & vt18 & loadGroups() & loadViews(); // uVar4 & uVar1 & uVar3 & uVar2 @008aa8d5
+}
+
+// === 批 189:菜单消费腿静态件 ===
+
+// kitMenuFactoryAction — FUN_00767b36(9B,0023.c:34263)同构:
+//   `actionFactory_getOrCreate(*(host+0x60), 名)` 转发。语料工厂表宿主
+//   = KitBar +0x60 槽(KitBar.h 布局缺口注;宿主未建模)→ 表载体 =
+//   文件级静态承接(KitBar.cpp:137 actionFactoryGetOrCreate 同构先例,
+//   体分级骨架同款:trim → 查 → new QAction + setText + 插表;触发
+//   connectImpl 深腿 cited — wave-2 同判,菜单装配消费 QAction* 身份
+//   与 setText 面,不消费触发链)。
+static QAction *kitMenuFactoryAction(const QByteArray &name)
+{
+	static QHash<QByteArray, QAction *> s_factory; // 语料 +0x10 表(替位载体)
+	const QByteArray key = name.trimmed();          // trimmed_helper @00665e5a
+	if (key.isEmpty())
+		return nullptr;                             // 空名短路 @00665e70
+	const auto it = s_factory.constFind(key);
+	if (it != s_factory.constEnd())
+		return *it;                                 // 命中 → *(node+0x18)
+	if (qstrcmp(key.constData(), "Text.HighlightTextBar") == 0)
+		return nullptr;                             // 特化腿 cited — wave-2
+	auto *action = new QAction;                     // operator_new(0x10) @00665f8x
+	action->setText(QString::fromUtf8(key));        // setText @00665f98 区
+	s_factory.insert(key, action);                  // 插表 @006660f9 区
+	return action;
+}
+
+// SharedConfigHandlerFace::buildMenuBarGroupMenus — King::MenuBar::
+// MenuBar(575B,0021.c:18969)装配腿(LAB_00693130 起):
+//   FUN_006926c2(+0x28,组名)命中(未命中整段跳过 @00693130 return
+//   path)→ 节点 children [begin,end) 遍历(kind 低 nibble == 2 门
+//   @006931b0)→ FUN_00692a70(子节点,宿主)非空 → QMenuBar::addMenu
+//   (@00693052-6)。QMenuBar 产物/ctor 面(objectName "MenuBar"、
+//   registerBarsAndPanes 标题、vt+0x218 cornerWidget 腿)属 008c9ee4
+//   宿主腿 — 本车道外(KitWindow 延迟装配 008d3cc2 域),bar 由调用方
+//   传入,不发明。
+void SharedConfigHandlerFace::buildMenuBarGroupMenus(QMenuBar *bar,
+                                                     const QByteArray &groupName,
+                                                     QWidget *hostPane)
+{
+	if (bar == nullptr || m_parent != nullptr)
+		return;                                  // 语料 *param_1!=0 门(仅根)
+	// FUN_006926c2 键查同相:本 face 遍历 children 找组名(memcmp 语义 =
+	//   m_value.toByteArray() 同长同字节 @006926c2)。
+	for (SharedConfigHandlerFace **it = m_begin; it != m_end; ++it) {
+		if ((*it)->m_value.toByteArray() != groupName)
+			continue;                            // 未命中 → 下一子
+		SharedConfigHandlerFace *grp = *it;      // 命中节点(local_48/lVar1)
+		for (SharedConfigHandlerFace **k = grp->m_begin; k != grp->m_end; ++k) {
+			if ((*k)->kind() != 2)               // 低 nibble==2 门 @006931b0
+				continue;
+			QMenu *menu = (*k)->findOrBuildMenu(hostPane); // FUN_00692a70 @00693052
+			if (menu != nullptr)
+				bar->addMenu(menu);              // QMenuBar::addMenu @00693056
+		}
+		return;                                  // 命中即整段毕(语料单组查)
+	}
 }

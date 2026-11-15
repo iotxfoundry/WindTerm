@@ -1,6 +1,7 @@
 #include "KitWindowFactory.h"
 
 #include <QApplication>
+#include <QMenuBar>
 #include <QStackedWidget>
 #include <QVariant>
 
@@ -16,6 +17,51 @@
 CGlobalConfigFace *terminalConfigAsFace()
 {
 	return CTerminalConfig::face(); // DAT_011c2220 face 视图(= 单例本体)
+}
+
+// === 批 189(M24-②):菜单族消费真身(KitWindowFactory 承载 = menu()
+// 容器消费邻接面;语料落点 0021.c:18732/18914/18969 全读)===
+
+// kitFindOrCreateGroupMenu — FUN_00692ef0(310B,0021.c:18914)逐句:
+//   S1 名空(id==0)→ nullptr @00692ef7;S2 容器 +0x28 组节点 FUN_006926c2
+//   键查 → 命中 → FUN_00692a70(组节点,pane)取缓存 QMenu 返回
+//   (@00692efc-27;命中腔 lVar1=节点);S3 未命中 → QMetaObject::tr(name)
+//   → operator_new(0x30)+QMenu(标题,pane)@00692f68-030(新建不入组表 —
+//   语料同相:散建菜单不写回 +0x28)。容器面 = CGlobalConfigFace(批 140
+//   定案;组遍历 = SharedConfigHandlerFace children 键比对,FUN_006926c2
+//   memcmp 语义同相)。
+QMenu *kitFindOrCreateGroupMenu(CGlobalConfigFace *container,
+                                const QByteArray &name, QWidget *pane)
+{
+	if (name.isEmpty())                       // S1 @00692ef7
+		return nullptr;
+	SharedConfigHandlerFace &groups = container->m_groups; // 容器 +0x28
+	for (SharedConfigHandlerFace **it = groups.m_begin;
+	     it != groups.m_end; ++it) {          // FUN_006926c2 键查 @00692efc
+		if ((*it)->m_value.toByteArray() == name)
+			return (*it)->findOrBuildMenu(pane);  // FUN_00692a70 @00692f4c
+	}
+	return new QMenu(QObject::tr(name.constData()), pane); // S3 @00692fbf-030
+}
+
+// kitMenuBarBuild — King::MenuBar::MenuBar(575B,0021.c:18969)装配腿:
+//   operator_new(0x30)+QMenuBar(hostPane)@00693060 → objectName
+//   "MenuBar"(@0069309a-9e)→ windowTitle(King::registerBarsAndPanes
+//   标题合成面 cited — KitBar.cpp:176 同判,不发明)→ 容器组腿
+//   buildMenuBarGroupMenus("Kit",host)(@00693130-6;组名 "Kit" =
+//   FUN_008c9ee4 实参 QByteArray("Kit")@008c9f1a 二进制面)→ vt+0x218
+//   cornerWidget 非空 → setCornerWidget(w,1)(cited — 宿主槽未建模,
+//   不发明)→ setMenuBar 归 008c9ee4 宿主腿(调用方)。
+QMenuBar *kitMenuBarBuild(CGlobalConfigFace *container, QWidget *hostPane)
+{
+	QMenuBar *bar = new QMenuBar(hostPane);            // @00693060-64
+	bar->setObjectName(QStringLiteral("MenuBar"));     // @0069309a-9e
+	// windowTitle ← King::registerBarsAndPanes(&out,"MenuBar") — cited
+	// (@006930e5-f4;合成面未落库,同 KitBar 判)。
+	container->m_groups.buildMenuBarGroupMenus(
+	    bar, QByteArrayLiteral("Kit"), hostPane);      // @00693130-6(008c9ee4 实参 "Kit")
+	// vt+0x218 cornerWidget 腿 cited(@0069306c-74;宿主 vtable 槽未建模)
+	return bar;                                        // @0069307c
 }
 
 // EditorWindowFace::menu — FUN_005e97d2(39B,0019.c:22781):

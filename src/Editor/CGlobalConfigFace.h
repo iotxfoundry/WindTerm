@@ -35,6 +35,7 @@
 #include <QByteArray>
 #include <QCoreApplication>
 #include <QList>
+#include <QMenu>
 #include <QString>
 #include <QVariant>
 
@@ -108,6 +109,58 @@ public:
 	const QByteArray popupName() const { return m_popup; } // 值对象 +0x8 槽(Action 名腿)
 	void setPopup(const QByteArray &p) { m_popup = p; m_bits1 |= 8; } // @008a9e70 bit3 置
 	bool popupFlag() const { return (m_bits1 & 8) != 0; }
+
+	// === 批 189(M24-②):菜单装载腿消费真身(FUN_00692a70 转写)===
+	// FUN_00692a70(1119B,0021.c:18732,asm 00692a70-00692eaf 全读):
+	//   S1 上溯:pane 祖先链 dynamic_cast(MainWindow typeinfo 011a69d0
+	//     = "10MainWindow" ELF 实读;本仓库消费面 = QWidget 宿主链,QMenuBar
+	//     加持面板由调用方传)→ 全链 miss → nullptr @00692a96;
+	//   S2 容器空卫:*param_1 == 0 → nullptr @00692aa0;
+	//   S3 本节点 QMenu 查建:FUN_006926c2(+0x28)按 m_value 键 memcmp
+	//     命中取缓存;未命中 → QMetaObject::tr(QByteArray 键,@00692b0e
+	//     —— tr 面 = QByteArray→QString 直接,非 FUN_0069297e 剥 &)→
+	//     operator_new(0x30)+QMenu(标题,parent)@00692b1b → 写回本节点
+	//     m_menu(迭代器回写 @00692e33-37 腔,FUN_006926c2 out 对);
+	//   S4 信号双腿(建新才接,命中缓存跳过 @00692b2b-9a):QMenu::
+	//     aboutToShow → FUN_0076cb16(3101B 槽体 cited — 菜单开时按
+	//     keyMode 刷新 action 文本/动态注入,QT 直连 lambda 不落);QMenu::
+	//     aboutToHide → FUN_0076c3ee(275B,0023.c:36995 全读:sender()
+	//     QMenu cast → actions() 逆序遍历 → property("dynamic")非空且
+	//     canConvert<QWidgetAction*> → deleteLater — 动态 QWidgetAction
+	//     清偿腿;Qt5 直连同相)→ 缓存菜单亦接(cited 注记原样,行为门
+	//     不触 exec 不消费);
+	//   S5 子项装配(kids [m_begin,m_end) 逆序不 sensitively—语料
+	//     plVar6 = +8 begin、plVar7 = +0x10 end,do-while 逐项 +1):
+	//     kind 低 nibble == 2 → 递归 FUN_00692a70(子)→ 非空 addMenu
+	//     (@00692cb2-9f 腔 QMenu::addMenu(this));== 3 → FUN_00767b36
+	//     (9B,0023.c:34263 转发 actionFactory_getOrCreate(+0x60,名)
+	//     —— 本仓库 ActionFactory 工厂表同构载体,KitBar.cpp 137 静态表
+	//     先例;命中(QWidget 挂接卫 @00692d5c 由 FUN_00767b36 内在非空
+	//     性保证)→ QWidget::addAction;== 0 → QMenu::addSeparator
+	//     (@00692d7e);其余 kind(1/4/5/6)→ 跳过(无分支臂);
+	//   S6 返回本节点 QMenu(@00692d66 汇流;子递归 null → 该项跳过)。
+	// 缓存位 = 新增 m_menu(QMenu*;语料节点 +0x30 槽对 {QMenu*,…
+	//   } 经 FUN_006926c2/FUN_00692a70 迭代器对面实读 — face 载体化)。
+	QMenu *findOrBuildMenu(QWidget *hostPane); // FUN_00692a70 — cpp 侧
+
+private:
+	QMenu *m_menu = nullptr; // 语料节点 QMenu* 缓存槽(FUN_006926c2 命中
+	                         //   读/FUN_00692a70 建新写回;值域 = 组菜单/
+	                         //   子菜单两级共用)
+
+public:
+	// King::MenuBar::MenuBar(575B,0021.c:18969)MenuBar 装配腿:
+	//   operator_new(0x30)+QMenuBar(parent)→ objectName/windowTitle
+	//   "MenuBar"(King::registerBarsAndPanes 标题合成面 cited — KitBar
+	//   176 行同判不发明)→ FUN_006926c2(+0x28,组名)命中(未命中整段
+	//   跳过 @00693130)→ children 逆序遍历(kind 低 nibble == 2 项才
+	//   消费 @006931b0 门)→ FUN_00692a70(子菜单)非空 → QMenuBar::
+	//   addMenu(@00693052-6)→ setCornerWidget(vt+0x218 槽产物非空腿,
+	//   cited — 宿主槽未建模不发明)→ QMainWindow::setMenuBar。
+	// 本面 = 组遍历+addMenu 消费(语料 param_1 = 容器即 this 处理面;
+	//   QMenuBar 产物归调用方 setMenuBar — 008c9ee4 宿主腿本车道外)。
+	void buildMenuBarGroupMenus(class QMenuBar *bar, const QByteArray &groupName,
+	                            QWidget *hostPane); // King::MenuBar — cpp 侧
 };
 
 // CGlobalConfigFace — menu() 返回容器 face(两腿单例公共基,见头注)。
