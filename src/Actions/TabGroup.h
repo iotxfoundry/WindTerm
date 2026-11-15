@@ -61,6 +61,10 @@ public:
     //   越界返;tabbar_buildPropHash(节点属性哈希,cited)+ FUN_005a690e
     //   (合并体,cited)→ 表 detach → FUN_005a6ab0(写节点,cited)。
     void setNodeTitle(int index, const QString &title);
+    // s_FirstNine_5a6b5a(113B,0018:21759)助记符序号门:
+    //   +0x38 模式串 == "All" → true;index < 10 → (模式 == "FirstNine");
+    //   否则 false。ctor 初值 "None"。
+    bool isMnemonicIndex(int index) const;
     // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。

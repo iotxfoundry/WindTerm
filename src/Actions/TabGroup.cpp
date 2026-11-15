@@ -834,7 +834,8 @@ void TabBar::assignMnemonics()
 		m_shortcutIds.append(0);
 	for (int i = 0; i < n; ++i) {
 		QString title = tabTextAt(i); // 005a6fbe(助记符腿 cited)
-		// s_FirstNine_5a6b5a(this,i)@005a71xx — cited(前九快捷键判定)
+		if (!isMnemonicIndex(i)) // s_FirstNine_5a6b5a @005a71xx(批 297)
+			continue;
 		if (m_titles60.at(i) != title) {
 			// FUN_005a9860(tabBar+0x1d8, 旧标题) — cited
 			m_titles60[i] = title;
@@ -876,4 +877,16 @@ void TabBar::setNodeTitle(int index, const QString &title)
 	while (m_titles60.size() <= index)
 		m_titles60.append(QString());
 	m_titles60[index] = title;
+}
+
+// s_FirstNine_5a6b5a(113B,0018.c:21759)真身:
+//   @005a6b5a if (+0x38 == "All") return true;
+//   if (index < 10) return (+0x38 == "FirstNine");return false。
+bool TabBar::isMnemonicIndex(int index) const
+{
+	if (m_f38 == QLatin1String("All")) // @005a6b5a
+		return true;
+	if (index < 10)
+		return m_f38 == QLatin1String("FirstNine");
+	return false;
 }
