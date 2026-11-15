@@ -44,9 +44,12 @@ public:
     //   <<(owner=="Terminal" ? property("RenamedTitle") : 无)。
     QByteArray sessionTitleBlob() const;
 
-    // FUN_008c5578(59B,0028.c:7611)页名:属性 "Url"(0xcb6fcc 实读)
-    //   → toString(FUN_008c54a4 键读面)。
+    // FUN_008c5578(59B,0028.c:7611)页名 / FUN_008c5534(59B:7617)页状态:
+    //   键 "Url"(0xcb6fcc 实读)/"State";语料读 **内部 QVariantMap
+    //   (+0x20)**(FUN_008c54a4 → FUN_00a85f62 表取),我方 MuxPaneView
+    //   无该成员 → 以 Qt 动态属性面承接(cited 适配,键名同相)。
     static QString paneUrl(const MuxPaneView *pane);
+    static QString paneState(const MuxPaneView *pane);
 
     MuxPaneView *paneAtCurrentIndex() const;             // FUN_008def86(0028:26083;
                                                          //   stack widget(currentIndex) cast 面)
