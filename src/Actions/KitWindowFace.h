@@ -104,4 +104,12 @@ public:
 	void kitSlotSetVisible(int id, bool visible);   // 008ca120(72B)
 	void kitSlotHide(int id);                       // 008ca168(7B)
 	void kitSlotShow(int id);                       // 008ca170(10B)
+	// 008ce100(244B,0028.c:14347)展开/收起:splitter = (+0x70==1 ? +0x68 :
+	//   +0x60);on==0 → showIndex(0)@008ce1xx;否则 hideIndex;随后
+	//   +0x50 下 findChildren<KitDock> 逐个同步展开钮(008b8c68 13B →
+	//   s_ExpandButton_5ab32a 584B cited)。
+	void kitSetSlotExpanded(bool expanded);
+	// 008ca17a(110B,0028.c:11586)子件槽恢复:子件父级为 QSplitter →
+	//   kitSlotIdOf + kitSlotShow(信号 arg 为 false 腿才执行)。
+	void kitRestoreSlotOfChild(QWidget *child);
 };

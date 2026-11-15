@@ -527,9 +527,47 @@ KitDockFace *kitCreateDock(QWidget *panel, QWidget *parent)
 	KitDockFace *dock = new KitDockFace(panel, parent); // @0089d9d8(0x58)
 	dock->tabGroup()->tabBar()->setSelectionBehaviorOnRemove(
 	    static_cast<QTabBar::SelectionBehavior>(behavior)); // @0089d9e0
-	// connect(dock, 信号 idx0 → FUN_008ce100) / (idx1 → FUN_008ca17a)
-	//   — 两槽体未转写,cited 不落接线(KitDock 仅声明 idx0)。
+	// idx0 → FUN_008ce100(= KitWindowFace::kitSetSlotExpanded,真身);
+	// idx1 → FUN_008ca17a(= kitRestoreSlotOfChild,cited 接线 — 信号名未取证)。
+	if (KitWindowFace *kit = kitWindowAncestor(dock)) {
+		QObject::connect(dock, &KitDockFace::expandRequested, kit,
+		                 &KitWindowFace::kitSetSlotExpanded);
+	}
 	QObject::connect(panel, &QObject::destroyed, dock,
 	                 &QObject::deleteLater); // @0089daxx
 	return dock; // @5534x 返回
+}
+
+// 008ce100(244B,0028.c:14347)展开/收起真身:
+//   splitter = (+0x70 == 1 ? +0x68 : +0x60)@008ce10x;
+//   param_2 == 0 → FUN_005a1cfc(splitter,0)(= Splitter::showIndex(0))
+//   @008ce13x;否则 FUN_005a1ebc(splitter)(= hideIndex)@008ce14x;
+//   随后 this+0x50 下 findChildren<KitDock>(smo 011ab100,递归)@008ce165
+//   逐个 FUN_008b8c68(dock,on)(13B:tabGroup->ExpandButton 状态,584B
+//   图标腿 cited)@008ce1aa。
+void KitWindowFace::kitSetSlotExpanded(bool expanded)
+{
+	Splitter *sp = (m_flag0x70 == 1 ? m_split0x68 : m_split0x60); // @008ce10x
+	if (sp == nullptr)
+		return;
+	if (!expanded)
+		sp->showIndex(0); // FUN_005a1cfc @008ce13x
+	else
+		sp->hideIndex(0); // FUN_005a1ebc(索引位语料丢,按同槽 0 落)
+	// findChildren<KitDock>(+0x50 容器,递归)逐个同步展开钮 @008ce1aa —
+	//   s_ExpandButton_5ab32a(584B)图标腿未转写,故本波不遍历(注释留位)。
+}
+
+// 008ca17a(110B,0028.c:11586)子件槽恢复真身:
+//   信号 arg 非 0 → 直返(仅 false 腿动作);sender 空 → 返;sender cast
+//   011aaed0 命中 → parentWidget → dynamic_cast<QSplitter*> →
+//   kitSlotIdOf(sp)@008ca1xx → kitSlotShow(id)(FUN_008ca170)@008ca1xx。
+void KitWindowFace::kitRestoreSlotOfChild(QWidget *child)
+{
+	if (child == nullptr)
+		return;
+	QWidget *p = child->parentWidget();
+	QSplitter *sp = p != nullptr ? dynamic_cast<QSplitter *>(p) : nullptr;
+	const int id = kitSlotIdOf(sp); // FUN_008ca0b8
+	kitSlotShow(id);                // FUN_008ca170
 }
