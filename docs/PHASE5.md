@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 176,2026-11-15 — 当前真值层)
+## 结论快照(截至批 177,2026-11-15 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-176)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-177)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(二十项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(二十一项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -53,7 +53,11 @@ tools/re/phase5/5c/5C-REPORT.md + 5C-REPORT.md 双件)/wind.config
 反推**)/wind.config 复合缺口 + 样本对表(174;**122 键 117 标量
 全覆盖·0 值型错配;原版 49 条目×24 键全标量框架逐项同相**)/
 MuxWindow 尾清(175;**比较器微差实测同相闭环**)/深引擎 + 注册表
-尾余合并腿(176;hash remove/三 delegate 槽/RS 灌链真身)**。
+尾余合并腿(176;hash remove/三 delegate 槽/RS 灌链真身)** →
+**M22 三车道:blobA splitter/tabbar 树实体真身(177;229B 段逐
+字段位级反推 3 splitter 结构)/排序真身 + rehash 承接(178;
+introsort = std::sort 实例化定性)/SuperApplicationFace 骨架
+(qt_metacall 分派 case3/4/5 真身转发,179)**。
 
 ### 编辑引擎子系统当前真值
 
@@ -104,12 +108,12 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
    EXT-BOUNDARY 同相判例不逆向);旧缓存 0x38 族(0088c088/0088c0fc/
    GapBuffer_dtor 逐字面转载)— 消费域(词法引擎 delegate 生成点)
    未建模,持 cited。
-7. 5c 对表余项(批 166-172 后):reopen 写侧魔数 0xb9e7e626 汇编
-   实读(读侧 0xb9e7e600 掩码门)——字节级对表以原版产物二次验证
-   (原版 789B 已采集,批 170);payload 骨架帧已真身(批 173),blobA
-   实体/尾钩体/LastSessions 组块 cited;三件套星数语义(i-1 直译)
-   未逐字节对表;aboutToQuit 产品挂点已闭环(appboot 全生命周期,
-   批 172;SuperApplication 宿主接线仍 cited)。
+8. 5c 全帧对表余项(批 177 后):blobA 树实体已真身(229B 段位级
+   反推,批 177);余 = blobB LastSessions 组块(样本 145-417B,
+   句柄表迭代变换静态定序不唯一,cited)/浮停腿 dock_toggleFloat
+   (866B)/尾钩 vtable+0x248 体 cited;KitDock→MuxPaneGroup 对位
+   为推断(语义面同形,字节结构全语料转写);reopen 全帧字节对表
+   待三段真身化后执行。
 
 ### 批 173/174/175/176(2026-11-15)M21 四车道(分段式):payload 帧 + 复合缺口 + MuxWindow 尾清 + 尾余合并腿 ✅ ctest 23/23 ×5
 
@@ -140,6 +144,33 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
   markerstest ff 6 断言/reginserttest n-3。
 - 验证:四车道独立门 + 主控合流(174→173→175→176 零冲突);主仓
   终门 ctest **23/23** ×5 + dlopen OK。
+
+### 批 177/179(2026-11-15)M22-①③:blobA 树实体 + SuperApplicationFace(178 详见下节)✅ ctest 23/23 ×5
+
+- **批 177 blobA splitter/tabbar 树实体真身(5c 主攻)**:语料读体
+  (8cf0c8 段 8cf245-837f/8b921a/8c37a4 全读)+ **原版 674B blobA
+  229B 段逐字段位级反推印证**(3 splitter:count2{tab70B cur=1
+  Explorer/Session,tab34B cur=0 FilerPane,全 null 态 BA,ss31B}+
+  count1{tab8B cur=-1 空,ss27B}+count0{ss23B}=229B 尽;无外层数量头);
+  写侧 stateStoreSerializeSplitterBlob(8cf245-837f 直译:
+  findChildren<MuxWindow*>→splitter() 逐 count/KitDock-cast-tabbarBA/
+  saveStateBA)+ stateStoreTabbarBlob(8b921a)+ stateStorePaneStateBlob
+  (8c37a4);blobB 升真逐 splitter saveState(@8cf412-456 循环直译);
+  LastSessions 组块(样本 145-417B)/浮停腿 dock_toggleFloat(866B)/
+  尾钩 cited 分段(铁律 3);t7 扩展活体树夹具 roundtrip 6 断言。
+  自修两坑:QDataStream(QByteArray) 只读陷阱/UAF 夹具(改活体
+  TerminalWindowFace)。KitDock→MuxPaneGroup 对位推断注记(语义面
+  0x30 TabGroup 同形,字节结构全语料转写)。
+- **批 179 SuperApplicationFace 骨架**:QObject 面壳;ctor =
+  FUN_0075dba4 槽位清零面 + aboutToQuit connectImpl 挂点(0x75bf6f
+  汇编实读,**批 172 appboot 级接线升 face 级**);startupApplication
+  = thunk 00762925 case1 → 7626ce(startupChain 现役转发);
+  dispatchMetacall = h90e0b4(0029.c:31618-31871)case 表逐条对位 —
+  case3→closeAllScan/case4→window_activeMainPane/case5→
+  restoreFirstPage 真身转发,其余 24 case 逐地址 cited;appboot 尾部
+  face 调度断言(closeAllScan→exec→aboutToQuit face 槽落盘对账)。
+- 验证:三车道独立门 + 主控合流(178→179→177 零冲突);主仓终门
+  ctest **23/23** ×5 + dlopen OK。
 
 ### 批 178(2026-11-15)M22-②:排序真身 + rehash 承接(4 段)✅ ctest 23/23
 
