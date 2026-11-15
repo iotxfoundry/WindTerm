@@ -261,3 +261,49 @@ QListWidgetItem *SettingsPageFace::rowListItem(const SettingsRow &row)
 	item->setData(0x101, QVariant(row.name)); // @0072c048
 	return item;
 }
+
+// FUN_0072dd12(1872B,0022.c:54375)回写段真身(读侧段已批 269 帧解析覆盖):
+//   @0072dd12 index == -1 → list->currentRow();
+//   item = QListWidget::item(+0xb0, index);idx = currentListRowIndex();
+//   item 空或 idx == -1 → 返;row = rowsB8[idx];
+//   @0072df4x row.kind(local_cc)写回;
+//   @0072df57 combo58->currentData().toString() → row.comboKey(+0x08);
+//   @0072dfa5 spin70->value() → row.spin70(+0x34, u16);
+//   @0072dfxx kind == 1 → row.edit60 = 空,否则 edit60->text() → row.edit60(+0x38);
+//   @0072dfxx kind == 1 → row.spin68 = 0,否则 spin68->value() → row.spin68(+0x36);
+//   @0072e0xx row.flags(+0x30) ← (+0x98 子件 +0x30 & 1) ? 2 : 0;
+//   @0072e0xx row.check40(+0x2c bit1)/check38(bit0) ← isChecked();
+//   FUN_0072d84e(this,row)(cited)→ item 名变 → setData(0,名)(cited);
+//   kind/flags 变 → 图标刷新(6a2c16)+setData(1,icon);
+//   FUN_0056642a(+0x98, (flags&~2)==0)(cited)+ FUN_0072d304(this,row)(cited)。
+void SettingsPageFace::commitCurrentRow(int index)
+{
+	if (m_listB0 == nullptr)
+		return;
+	if (index == -1)
+		index = m_listB0->currentRow(); // @0072dd12
+	QListWidgetItem *item = m_listB0->item(index); // @0072dd2x
+	const int rowIdx = currentListRowIndex();      // 0072d254
+	if (item == nullptr || rowIdx == -1)
+		return;
+	SettingsRow &row = m_rowsB8[rowIdx];
+	if (m_combo58 != nullptr) // @0072df57
+		row.comboKey = m_combo58->currentData().toString();
+	if (m_spin70 != nullptr) // @0072dfa5
+		row.spin70 = static_cast<quint16>(m_spin70->value());
+	if (row.kind == 1) // @0072dfxx
+		row.edit60Text.clear();
+	else if (m_edit60 != nullptr)
+		row.edit60Text = m_edit60->text();
+	if (row.kind == 1) // @0072dfxx
+		row.spin68 = 0;
+	else if (m_spin68 != nullptr)
+		row.spin68 = static_cast<quint16>(m_spin68->value());
+	row.flags = (m_widget98 != nullptr) ? 2u : 0u; // (+0x98 子件 +0x30 & 1) 面
+	if (m_check40 != nullptr)
+		row.check40 = m_check40->isChecked() ? 1 : 0; // bit1
+	if (m_check38 != nullptr)
+		row.check38 = m_check38->isChecked() ? 1 : 0; // bit0
+	// FUN_0072d84e(this,row) / item setData(0,名) / 图标刷新 /
+	// FUN_0056642a / FUN_0072d304 — 全部 cited(体未转写)。
+}

@@ -85,6 +85,11 @@ public:
 	// FUN_0072dd12(1872B)行表重建(被 0072e49a/0072e4c8 以 -1 调用;
 	//   体未转写 → cited 空实现,保留签名)。
 	void refreshRows(int index);
+	// FUN_0072dd12(1872B)回写段(@0072df57-0x72e116):把当前控件值写回
+	//   行节点(kind/组合框 data/两 spin/两 edit/flags/勾选两位)+ FUN_0072d84e
+	//   (cited)+ item 名与图标刷新 + FUN_0056642a/FUN_0072d304(cited)。
+	//   index 为 -1 时取列表当前行。
+	void commitCurrentRow(int index);
 
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
