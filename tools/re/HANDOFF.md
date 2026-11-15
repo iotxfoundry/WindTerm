@@ -8,7 +8,25 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-15 第三十九次交接,批 183 · M23 达成)
+## 一句话状态(2026-11-16 第四十次交接,批 190 · M24 达成 · 界面重建转向)
+
+**M24「范围地图 + 主窗族 + 菜单装载 + 工具栏 + 设置壳」达成(用户
+定,五腿语料驱动),界面重建转向起步**:①GUI 重建范围地图落库
+(GUI-MAP.md 七节全枚举 + P1-P6 优先级,界面批总账)②主窗创建族
+全文转写(0075e0f8 765B 全文 + connectSignals S1-S7;批 188)③
+**menu.config 根勘正 = 单 map 33 键** + 菜单树消费真身(findOrBuildMenu
+1119B + King::MenuBar 575B)+ **menutest 25/25 vs /opt 原版对账**
+(已注册 ctest 24/24;批 189)④toolbar_build 00694276 S0-S7 + case3
+克隆腿/Popup/Columns(批 190)⑤设置壳 006f1036 + 分类树 006e9cd8 +
+search 布局 006f09ba(批 191)。**铁律 7 生效(不编译不测试)**:
+188/189 落地于冻结前(其门 24/24 有效),190/191 未编译——雷区
+出处链逐行已落,收尾期首编译修。三项勘正入档:menu.config 根单
+map/75e56a = TextView::searchOnline/键串 "tab."→"tabbar."。
+此前:M23(180/181/183/184)、M22(177-179)、M21(173-176)、
+M20(170-172)、M19(166-169/168)、M18(162-165)、M17(158-161)、
+M16(154-157)、M15(150-153)、M14(145-149)、M13(142-144)、
+M12(138-141)、M11(136/137/136b)、M10(134/135)、M9(132/133)、
+M8 文档整备、M1-M7。
 
 **M23「全帧对表 + trie 尾渣 + 深引擎收账 + 消费链」达成(用户定,
 四腿分段式),车道停开**:①**reopen 全帧对表执行 = 14 项帧级
@@ -260,26 +278,24 @@ E+0x2d8 QMap **键型 char 实锤我方失配**/DocumentTask·ScanTask 字段
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
 
-## 现役队列(批 183 后,按需开批)
+## 现役队列(批 190 后,按需开批)
 
-> **⚠ 测试冻结令生效(2026-11-16,AGENTS.md 最高优先级):以下各批
-> 只做转写+引用+commit(铁律 7:不编译不测试)。已有
-> 25 个测试二进制留作收尾期回归网。**
+> ⚠ 测试冻结令 + 铁律 7 生效:各批只做转写+引用+commit,不编译不测试。
 
-1. **5c 余深段**:blobB LastSessions 组块写面(外框 byte-perfect
-   反推已落批 180,句柄表迭代定序不唯一 cited)/浮停腿
-   dock_toggleFloat 866B 全读定性已落(批 180,承接体 cited)/尾钩
-   QuickBar 定性已落(批 180,vt+0x248 宿主槽未建模);页 payload
-   674B 深消费(8cf0c8)真身批
-2. **wind.config 复合键消费面**(批 184 矩阵:searchEngines 已落
-   face;text.margins 域 5c2196/5c207a/5bd3d6 三函数一体批;
-   focusMode.settings → StateStore 预留界批);%z 深跳表逐字节核对
-3. **eNodes 尾**:88e5a0 超门分段族已收账(批 183 头注)/00933738
-   rehash 已定性收账(批 183)/00933738 hash remove 深桶 rehash 体
-   cited;styled 哨兵 UB 5c 期仪器裁决
-4. MuxWindow introsort 本体(标准算法已承接)/行高桥 005b86c0·
-   vt+0x1a8 消费/Phase 4a 尾渣(kit.* 需实机)/ 0x4eff 观察(需
-   ptrace 环境变更;ptrace=0 + Xvfb :99 本会话已预置)
+1. **GUI 重建 P1-P6(依赖序,GUI-MAP.md 总账)**:P1 KitWindow 延迟
+   装配链 008d3cc2(菜单栏+splitter 恢复,Phase 4c 门)/P2 菜单族
+   ActionFactory 槽接线(QMenu 触发链 0066a148)/P3 状态栏
+   statusbar.config JS 引擎装载/其余 toolbar kind 5·6 cited
+2. **P4 设置页族**:页面引擎五件(settings_loadWidgets 0072e4f6/
+   connectSignals 00735056/enableDependentWidgets 00736bfe/
+   buildRadioGroup 0070bb32/table_row_item 0071b02e)+ 触发器 8 页
+   + 会话页(单点收益最大区)
+3. **P5 对话框高频件**:RunToolDialog/envDialog/pasteDialog/通用
+   dialog_* 件族(buttonsConnect 006c00ce 2230B 等)
+4. **P6 + 尾渣**:KitGroup/TabBar/RenamedTitle 真身;eNodes 超门
+   分段族收账(已落)/rehash 体 cited;Phase 4a 尾渣;收尾期首编译
+   修雷(ToolBarBuilder/SettingsFace/菜单装载/appboot 扩展)
+   / 0x4eff 观察(ptrace=0 + Xvfb :99 本会话已预置)
 
 ## 已知开放问题
 

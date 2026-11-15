@@ -4,13 +4,13 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 183,2026-11-15 — 当前真值层)
+## 结论快照(截至批 190,2026-11-16 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-183)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-190)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
-### 里程碑状态(二十三项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
+### 里程碑状态(二十四项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
 
 M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
 清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
@@ -62,7 +62,12 @@ introsort = std::sort 实例化定性)/SuperApplicationFace 骨架
 分裂门真身 + 星数逐字节 + **键串勘正 "tab."→"tabbar."**(181)/
 searchEngines 消费链 + **75e56a 定性翻转 = TextView::searchOnline**
 (184)/深引擎尾渣(超门分段族收账/rehash 真库定性/RS 灌链余段
-升真 2 段,183)**。
+升真 2 段,183)**。 → **M24 五腿(界面重建转向,铁律 7 首轮):
+GUI 重建范围地图(explorer,GUI-MAP.md 落库)/主窗创建族全文转写
+(188)/menu.config 菜单装载腿 + 菜单树消费真身(189)/toolbar_build
+工具栏族转写(190)/设置壳 + 分类树转写(191)**。⚠ 铁律 7 生效
+(不编译不测试):M24 新码(ToolBarBuilder/SettingsFace/菜单装载/
+appboot 扩展)未过编译门,语法/链接雷留收尾期,出处链逐行已落。
 
 ### 编辑引擎子系统当前真值
 
@@ -117,6 +122,58 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
    dock_toggleFloat 866B 全读定性/尾钩 QuickBar 定性(vt+0x248)/
    页 payload 674B 深消费(8cf0c8)/blobA 实体/尾钩体/LastSessions
    组块 cited。
+7. 5c 对表余项(批 180 后):**全帧对表已执行 = 14 项帧级 MATCH**
+   (魔数/段序/长度构成/记录框架,批 180);余深段:blobB LastSessions
+   组块写面(外框 byte-perfect 反推,句柄表定序不唯一 cited)/浮停腿
+   dock_toggleFloat 866B 全读定性/尾钩 QuickBar 定性(vt+0x248)/
+   页 payload 674B 深消费(8cf0c8)/blobA 实体/尾钩体/LastSessions
+   组块 cited。
+8. 界面重建(批 188-191,GUI-MAP.md 总账):菜单树消费真身
+   (findOrBuildMenu 1119B + King::MenuBar 575B)/menu.config 根
+   **勘正 = 单 map 33 键**(旧序列腿 divergence 登记)/主窗创建族
+   0075e0f8 全文 + connectSignals S1-S7/toolbar_build 00694276
+   S0-S7 + case3 克隆腿/设置壳 006f1036 + 分类树 006e9cd8 + search
+   布局 006f09ba;**未编译雷区**:ToolBarBuilder/SettingsFace/菜单
+   装载/appboot 扩展未过编译门(铁律 7),收尾期首编译按出处链修;
+   menutest/toolbartest 未注册 CMakeLists(收尾期挂接);75e56a
+   定性翻转 = TextView::searchOnline(批 184,侦察疑虑证实);
+   tabBarSelectionBehaviorOnRemove **键串勘正 "tab."→"tabbar."**
+   (批 181,0xd0ed40 实读)。
+
+### 批 188/189/190/191(2026-11-16)M24 五腿(界面重建转向,铁律 7 首轮):范围地图 + 主窗族 + 菜单装载 + 工具栏 + 设置壳 ✅(铁律 7:未编译)
+
+- **盘点(explorer)GUI 重建范围地图**:tools/re/GUI-MAP.md 落库
+  (七节全枚举:主窗装配族依赖序/菜单族/工具栏状态栏族/对话框弹窗
+  族全枚举/设置页族/dock 浮停标签/我方现状对照 + P1-P6 重建优先级;
+  界面批总账依据)。
+- **批 188 主窗创建族全文转写**:startupWindowCreateFull(0075e0f8
+  765B 全文 = 批 154 窄面 + 尾接线段)+ mainWindowConnectSignals
+  S1-S7 分段(S1 动作双源 ActionFactory/keymap 现役面;S4⑤⑥ connect
+  真腿 007656bc/00767ba0;S4①②③④ 发射源无 Q_OBJECT 承载 cited
+  缺席;S7 单发真身);appboot 装配序语料序块;wind.actions 双源
+  重复装载 = 原版行为(铁律 2 注记)。
+- **批 189 菜单装载腿 + 菜单树消费真身**:**勘正 menu.config 根 =
+  单 map 33 键**(s_vector__reserve_af3a20 实为 Json::Value::
+  getMemberNames,旧序列腿 divergence 登记);findOrBuildMenu
+  (FUN_00692a70 1119B 逐句:tr 查建/m_menu 缓存/aboutToHide 动态
+  QWidgetAction 清偿/kind 2·3·0 分支)+ kitFindOrCreateGroupMenu
+  face 容器版 + King::MenuBar::MenuBar(575B,组名 "Kit" @008c9f1a
+  实证);menutest **25/25 vs /opt 原版对账**(33 组/Kit 10 Menu/
+  Session 21 项/子菜单递归/缓存同址/MenuBar 10 addMenu,已注册
+  ctest 24/24);QMenu 触发链 0066a148 深腿 cited。
+- **批 190 toolbar_build 转写**:ToolBarBuilder 新域(00694276
+  2164B S0-S7:MainWindow 上溯链 "10MainWindow" ELF 实读勘正/七
+  kind 分支/case3 克隆腿 FUN_00767b40→00666de2 744B/popupModeFor
+  0066598c 902B/8bade2 全组遍历;5/6 cited 空壳,空栏删判);
+  **AddressBar/FilterEdit ctor cited 空壳不造组件**(铁律 6);
+  toolbartest 手装树 9 断言未注册。
+- **批 191 设置壳 + 分类树**:SettingsFace 新域(S1 006f1036 175B
+  壳全读/S2 分类树 006e9cd8 1520B 数据面 22 串分类项集+FUN_006e97f0
+  递归/S3 search 布局 006f09ba 1498B 结构面 14 项枚举 combo);
+  settingstest 按冻结令自删。
+- 验证:铁律 7 生效——188/189 落地于冻结前(其门 23/23→24/24 有
+  效),190/191 **未编译**(语法/链接雷留收尾期,出处链逐行已落);
+  合流 cherry-pick 即收。
 
 ### 批 180/181/183/184(2026-11-15)M23 四腿(5c 冲刺+尾渣):全帧对表 + trie 尾渣 + 深引擎收账 + 消费链 ✅ ctest 23/23 ×5
 
