@@ -5,6 +5,7 @@
 // 车道合流时 foreach 追加 "statereopen" 即接入;本轮以手工 g++
 // 配方(tools/re/BUILD.md)编译验证。
 #include <QApplication>
+#include <QDataStream>
 #include <QFile>
 #include <QMainWindow>
 #include <QStackedWidget>
@@ -233,6 +234,54 @@ int main(int argc, char **argv)
 		if (!lr.keys.contains(QStringLiteral("dS"))
 		    || !lr.kinds.contains(3))
 			++fails; // data 键 + kind3(非 Terminal/Browser 腿)
+	}
+
+	// ── t7. 页 payload 骨架帧对账(批 173,M21-①;8cf0c8 升真)──
+	{
+		// 写侧产 payload 非空(Terminal 页,KitWindow 命中腿)
+		const QByteArray payload0 = table.at(0).payload;
+		if (payload0.size() < 8)
+			++fails; // 骨架帧 ≥ magic+首段头
+		// 页表壳(count/current/页名)剥离 — 语料页 payload = 7669b2
+		//   帧内逐页 BA 段(见 5C-REPORT 布局语义 diff)。
+		const int pageIdx = payload0.lastIndexOf(
+		    QByteArrayLiteral("\xb9\xe7\xe6\x26\xff\xff\xff\xff\x00"
+		                      "\x00\x00\x01\x01"));
+		if (pageIdx < 0)
+			++fails; // Terminal 页骨架帧在位(magic+三段头指纹)
+		const int payloadLen = static_cast<int>(
+		    static_cast<quint32>(payload0.at(pageIdx - 4) & 0xff) << 24
+		    | static_cast<quint32>(payload0.at(pageIdx - 3) & 0xff)
+		          << 16
+		    | static_cast<quint32>(payload0.at(pageIdx - 2) & 0xff)
+		          << 8
+		    | static_cast<quint32>(payload0.at(pageIdx - 1) & 0xff));
+		const QByteArray frame = payload0.mid(
+		    pageIdx, payload0.size() - pageIdx < payloadLen
+		                 ? payload0.size() - pageIdx
+		                 : payloadLen);
+		QDataStream in(frame);
+		quint32 magic = 0;
+		in >> magic;
+		if (magic != 0xb9e7e626u)
+			++fails; // @008cf173 家族魔数(样本 b9e7e626 实证)
+		QByteArray a, b, c;
+		in >> a >> b >> c; // 三段 << BA 序(@008cf37b/490/587)
+		if (in.status() != QDataStream::Ok)
+			++fails; // 帧自洽(整读尽)
+		if (!a.isNull())
+			++fails; // blobA 槽位 cited(shared_null BA ↔ 样本 229B
+			         //   实体差 = 槽位批填;null BA = -1 序同相)
+		if (b.size() != 1 || quint8(b.at(0)) != 1)
+			++fails; // blobB = pane+0x70 旗标单字节(ctor +0x70=1;
+			         //   原版样本 B[0]=01 同相)
+		if (c.size() != 3)
+			++fails; // blobC 三 bool 段(样本 00 00 00 同相)
+		if (!in.atEnd())
+			++fails; // 尾钩段我方无(壳零虚槽;原版 9B 钩体产物差仅记)
+		// Editor 页 cast 未命中腿?—— EditorWindow 亦 KitWindowFace 子类
+		//   (命中);真"未命中"腿由非 KitWindow 页承载,无现役产物面
+		//   (011ab390 cast 面 = 页工厂全部产物;空 BA 腿不测)。
 	}
 
 	printf("statereopen: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);

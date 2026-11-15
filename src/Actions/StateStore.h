@@ -40,14 +40,45 @@ struct SavedWindowNode {
 //   FUN_008c9e64 面板名(collectorPaneTypeName 真身,批 159)/
 //   未命中 → QObject::objectName(@766aed-f1)→ << QString;
 //   << 页 payload = s_kit_startupSessions_8cf0c8(w,flags)产出
-//   (2233B,0028.c:15003)— cited(>500B 邻档;KitWindow 深域),
-//   空实现同相(读侧批 150 e2 空 payload 页挂闭环判例)。
+//   (2233B,0028.c:15003)— 批 173(M21-①)升真为骨架帧真身
+//   stateStoreSerializePagePayload(深腿 cited 分段,见下)。
 //   &4 段(@766b58-bf5:isFullScreen/saveGeometry/win+0x30 onTop 位/
 //   windowOpacity 子流)调用面 = FUN_007682d2(126B,0023.c:34700,
 //   focusMode 缓存 +0x38/+0x40)属 0076f4d6 cited 域 → 本批不落
 //   (读侧对称面 startupWindowTail 已落 WorkspaceLoader,批 154)。
 QByteArray stateStoreSerializePages(MainWindowFace::Slots host,
                                     quint32 flags);
+
+class KitWindowFace;
+
+// FUN_008cf0c8(2233B,0028.c:15003)s_kit_startupSessions 页 payload
+// 序列化骨架真身(批 173,M21-①升真;原版 674B 实物帧实证,5C-REPORT):
+//   QDataStream(&blob)@008cf162 → << 0xb9e7e626(@008cf173,反编译
+//   -0x461819da)→ << blobA @008cf37b → << blobB @008cf490 →
+//   << blobC @008cf587 → 尾钩 vtable+0x248 != FUN_008d5bf4 腿
+//   (@008cf960;原版样本尾 9B 00000005 00000000 00 = 钩体产物)。
+// 分段面:
+//   blobA(splitter/tabbar 树,样本 229B)= pane+0x38 容器槽族
+//     param_2[7/8/10](FUN_008d7840 逐 splitter <<count + 逐页
+//     <<FUN_008b921a tabbar serialize(306B:cur/count/逐 tab
+//     objectName+会话态 BA)+ <<QSplitter::saveState)— KitWindow
+//     实例槽位族未建模(KITWINDOW-RECON Q2 零字段判例)→ cited
+//     空 BA(容器空表循环零次同相);
+//   blobB(样本 417B)= (char)pane+0x70 旗标(ctor FUN_008cc692
+//     +0x70 BYTE=1,KitWindowFace.h 头注;样本 B[0]=01 同相)+
+//     param_2[0xb/0xc] 逐 splitter saveState(cited 空)+ flags&1
+//     LastSessions 组块(@008cf62f-8ff:FUN_008cba1c 253B 设置读 +
+//     逐项 kind char 2=命名页(s_RenamedTitle_8bbab6 850B BA)/
+//     kind 1=splitter+句柄计数 — cited)→ 旗标单字节帧;
+//   blobC(样本 3B)= MenuBar/StatusBar/ToolBar 三可见 bool
+//     (FUN_008cefe4 212B,QWidgetData +0x28+8 位 0x10000 位域腿
+//     未解)cited → 三 false 缺省(样本 00 00 00 同相)。
+// pane+0x30 旗标门(@008cf0c8 入口 (char)param_2[6]==0 → 全序列化;
+//   非零 → QObject::property 直取 BA @008cf110):置零腿 = 运行期
+//   装配族 cited(ctor +0x30 WORD=0x0101 → 恒走全帧腿 = 样本同相,
+//   恒态不发明)。
+QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
+                                          quint32 flags);
 
 // FUN_00760872(344B,0023.c:28740)单窗摘除+入表真身:
 //   FUN_00764d74(170B,0023.c:31906)窗表 removeAll 对位(@7608a1-8f2

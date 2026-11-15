@@ -7,11 +7,69 @@
 #include <QStackedWidget>
 
 #include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
+#include "KitWindowFactory.h"          // KitWindowFace(8cf0c8 cast 面)
 #include "WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
 
+// === stateStoreSerializePagePayload — FUN_008cf0c8(2233B,
+// 0028.c:15003)页 payload 骨架帧真身(批 173;出处清单见 StateStore.h
+// 头注;深腿 cited 分段 — 铁律 3 宁空不猜)。===
+// (char)pane+0x30 旗标门(ctor +0x30 WORD=0x0101 恒零低位 → 全帧腿
+//   同相;property 直取腿 @008cf110 cited 运行期装配族)。
+QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
+                                          quint32 flags)
+{
+	QByteArray blob; // local_d8 = shared_null @008cf162
+	if (pane == nullptr)
+		return blob; // param_2 卫(语料 param_2 由 7669b2 页非空调用点保证;
+		             //   空指针 = 调用契约外,零消费同相)
+	// QDataStream(&blob,WriteOnly)@008cf162(mode 2)
+	QDataStream out(&blob, QIODevice::WriteOnly);
+	// << 0xb9e7e626(@008cf173,反编译 -0x461819da;原版样本 4B
+	//   b9e7e626 实证,5C-REPORT 页 payload 深 diff 表)
+	out << quint32(0xb9e7e626u);
+	// blobA:pane+0x38 splitter 容器槽族序列化(@008cf1f3-357)——
+	//   KitWindow 实例槽位未建模(壳零字段判例)→ 空容器循环零次,
+	//   空 BA 帧(<< shared_null BA @008cf37b 同相;原版 229B 实体 =
+	//   槽位批升真时填)。
+	QByteArray blobA; // local_b8 @008cf1a3
+	out << blobA; // @008cf37b
+	// blobB:(char)pane+0x70 旗标(ctor +0x70 BYTE=1,KitWindowFace.h
+	//   头注;样本 B[0]=01 实证)+ 逐 splitter saveState(cited 空表)
+	//   + flags&1 LastSessions 组块(cited,>500B 邻档)。
+	QByteArray blobB; // local_d0 @008cf3bb
+	{
+		QDataStream b(&blobB, QIODevice::WriteOnly); // @008cf3bf
+		b << qint8(1); // (int)(char)param_2[0xe] ← ctor +0x70=1
+		               //   @008cf3cd(样本 B[0]=01 同相)
+		// param_2[0xb/0xc] splitter 表逐 saveState(@008cf412-456)—
+		//   槽位 cited → 表空循环零次(样本仅旗标单字节帧起同相)。
+		if ((flags & 1u) != 0) {
+			// LastSessions 组块 @008cf62f-8ff cited(FUN_008cba1c 设置
+			//   读 + kind 2/1 逐项腿,850B s_RenamedTitle 邻档)— 不落。
+		}
+	}
+	out << blobB; // @008cf490
+	// blobC:MenuBar/StatusBar/ToolBar 三可见 bool(FUN_008cefe4 212B
+	//   QWidgetData 位域腿未解 cited)→ 三 false 缺省(样本 3B
+	//   00 00 00 同相)。
+	QByteArray blobC; // local_b8 @008cf4ce
+	{
+		QDataStream c(&blobC, QIODevice::WriteOnly); // @008cf4d2
+		c << false << false << false; // @008cf4e5-56(三 << bool 序同相;
+		                              //   位域腿 cited → false 缺省)
+	}
+	out << blobC; // @008cf587
+	// 尾钩 vtable+0x248 != FUN_008d5bf4(@008cf960)→ 虚调产出(原版
+	//   样本尾 9B 00000005 00000000 00 = 钩体产物)— KitWindowFace 壳
+	//   零虚槽声明(22 虚零消费判例,KitWindowFace.h 头注)→ 钩腿
+	//   cited 不落(铁律 6;恢复侧 startupChain 对页 payload 掩码门
+	//   &0xb9e7e600 + 头三段消费,尾钩段零消费闭环)。
+	return blob; // *param_1 = local_d8 @008cf988
+}
+
 // === stateStoreSerializePages — FUN_007669b2(571B,0023.c:33468)
-// 窄面真身(头注全出处;&4 段 cited 不落;8cf0c8 页 payload cited
-// 空实现 — 读侧空 payload 页挂闭环判例,批 150 mwctest e2)。===
+// 窄面真身(头注全出处;&4 段 cited 不落;页 payload 腿 =
+//   stateStoreSerializePagePayload 骨架帧,批 173 升真)。===
 QByteArray stateStoreSerializePages(MainWindowFace::Slots host,
                                     quint32 flags)
 {
@@ -37,9 +95,13 @@ QByteArray stateStoreSerializePages(MainWindowFace::Slots host,
 		pageName = Workspace::collectorPaneTypeName(page); // @00766a9e-aa / 766aed
 		out << pageName; // operator<<(QString)@00766aaf
 		// 页 payload = s_kit_startupSessions_8cf0c8(w,param_3)
-		// @00766a31 — 2233B cited(>500B 邻档;KitWindow 深域),
-		// 空实现(铁律 3 宁可留空;读侧空 payload 页挂闭环)。
+		// @00766a31 — 批 173 升真骨架帧(dynamic_cast KitWindow
+		// 011ab390 → KitWindowFace 壳承接;非 KitWindow 页 → 语料同相
+		// 空 BA — @00766a8b cast 未命中腿页名走 objectName,payload
+		// local_58 shared_null 同相)。
 		QByteArray pagePayload; // local_58 = shared_null @00766a3c
+		if (auto *kit = dynamic_cast<KitWindowFace *>(page))
+			pagePayload = stateStoreSerializePagePayload(kit, flags); // @00766a31
 		out << pagePayload; // operator<<(QByteArray)@00766a3c-40
 	}
 	return blob; // param_1 返回 @00766c1d
