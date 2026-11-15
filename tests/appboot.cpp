@@ -13,6 +13,7 @@
 #include <QWidget>
 #include <cstdio>
 #include "Actions/MainWindowFace.h"
+#include "Actions/KitBar.h"
 #include "Actions/StartupChain.h"
 #include "Editor/CTerminalConfig.h" // 批 184:承载面对账
 #include "Actions/StateStore.h" // 批 172:aboutToQuit 挂点真身
@@ -218,6 +219,62 @@ int main(int argc, char **argv)
 			if (!appFace.searchEngines().isEmpty())
 				++fails; // 空列表 → getter 空表(toList 空 → 循环零次)
 		}
+	}
+
+	// ======== 批 188(M24-①):主窗创建族转写装配面(尾部追加;既有断言
+	// 不动)— 装配序按转写后语料序重排:mainWindowConnectSignals
+// (mainWindow_connectSignals 0076b9ec 全文)内 S1 动作/键位装载
+// (s_wind_actions_76b7c0 457B + FUN_0076b430 68B)→ S2 元类型注册
+// (cited)→ S3 装配四件套(FUN_007662e6)→ S4 connect×6 → S7 单发;
+// offscreen 保持。断言面 = S3 槽位产物 + S4⑤ kitActivated 接线
+// 真腿(FUN_007656bc index<count 门)。 offscreen 事件循环单拍处理
+// S7 空转闭包(0076be40 windowHandle 空门同直返)。
+	{
+		QMainWindow mwHost5; // 语料 MainWindow 面(mainWindow 类未建模
+		                     //   — QMainWindow 基面承接,批 154 判例)
+		MainWindowFace::Slots sl5 =
+		    mainWindowConnectSignals(&mwHost5); // 0076b9ec 全文(S1-S7 序)
+		if (sl5.f50 == nullptr || sl5.f58 == nullptr)
+			++fails; // S3 装配产物(FUN_007662e6 @0076ba0d)
+		if (sl5.f50 != nullptr && !sl5.f50->isHidden())
+			++fails; // bar->hide @00766348(初始隐藏)
+		if (mwHost5.centralWidget() != sl5.f58)
+			++fails; // setCentralWidget @0076633f(汇编 0x58(%rbx) 实证)
+		// S4⑤ 接线真腿:kitActivated → FUN_007656bc index<count 门 →
+		//   setCurrentIndex(页 = 上面恢复基线外的现役 stack;先挂
+		//   两页保 count 门可过)。
+		if (sl5.f58 != nullptr && sl5.f50 != nullptr) {
+			QWidget pgA, pgB; // 栈页占位(QWidget 基面 — 语料页为
+			                  //   KitWindow 族,装配序验证面用基面同相)
+			sl5.f58->addWidget(&pgA); // addWidget(页挂现役面)
+			sl5.f58->addWidget(&pgB);
+			sl5.f58->setCurrentIndex(0);
+			QMetaObject::invokeMethod(sl5.f50, "kitActivated",
+			                          Q_ARG(int, 1)); // 信号发射面 =
+			//   FUN_0091a518(51B)activate 同相(直接发射承接)
+			if (sl5.f58->currentIndex() != 1)
+				++fails; // FUN_007656bc setCurrentIndex 真腿
+			QMetaObject::invokeMethod(sl5.f50, "kitActivated",
+			                          Q_ARG(int, 99));
+			if (sl5.f58->currentIndex() != 1)
+				++fails; // index<count 门(99 >= count → 不设)
+		}
+		// 语料序建窗全文(FUN_0075e0f8 765B):startupWindowCreateFull
+		//   = 窄面(restoreGeometry 失败腿 → 居中缩放)+ 尾接线段;
+		//   断言 = 返回窗非空 + S3 装配产物挂其上(尾段 @0075e2c0)。
+		QMainWindow *win5 =
+		    startupWindowCreateFull(nullptr, QByteArray()); // @0075e11a 区
+		if (win5 == nullptr)
+			++fails; // 建窗腿(空 geometry → 居中缩放腿)
+		if (win5 != nullptr) {
+			if (win5->centralWidget() == nullptr)
+				++fails; // 尾接线段 S3 装配(@0075e2c0 → 007662e6)
+			delete win5; // 语料窗表 append(+0x48)宿主域 cited —
+			             //   测试域直接清偿(QMainWindow 父链 null)
+		}
+		// S7 单发 + 事件循环一拍(offscreen;0076be40 空门直返同相)
+		QTimer::singleShot(0, &app, SLOT(quit()));
+		app.exec();
 	}
 
 	printf("appboot: %s (%d fails)\n", fails ? "FAIL" : "OK", fails);

@@ -12,6 +12,17 @@
 #include "KitWindowFactory.h"
 #include "WorkspaceLoader.h"
 #include "Editor/CTerminalConfig.h"
+#include "Editor/KeymapEngine.h"
+#include "Editor/ProfileLoader.h"
+
+#include <QAbstractButton>
+#include <QCoreApplication>
+#include <QStackedWidget>
+#include <QTimer>
+#include <QToolButton>
+
+#include "ActionFactory.h"
+#include "KitBar.h"
 
 // === profiles.config "path" 读 — s_profiles_config_5d8732(707B,
 // 0019.c:10148)路径腿转写:appdir + "/profiles.config" yaml_loadFile
@@ -184,12 +195,14 @@ bool startupRestoreGate(MainWindowFace::Slots host, QMainWindow *mainWindow,
 	for (quint32 i = 0; i < count; ++i) { // @2844c do-while iVar6 < local_74
 		QByteArray geometry; // local_68 = shared_null @28454
 		in >> geometry; // operator>>(QByteArray) @2845c
-		// 建窗腿:FUN_0075e0f8(765B,0023.c:27251)— 批 154 真身
-		//   (startupWindowCreate:restoreGeometry/screen 居中缩放腿
-		//   FUN_0075d6e8 74B + mainWindow_connectSignals 尾 cited 宿主域);
+		// 建窗腿:FUN_0075e0f8(765B,0023.c:27251)全文真身
+		//   (批 188:startupWindowCreateFull = 批 154 窄面
+		//   startupWindowCreate + 尾接线段 mainWindow_connectSignals
+		//   @0075e2c0/@27327 — mainWindowConnectSignals S1-S7);
 		//   窗表 append(FUN_00763b64)宿主 +0x48 槽位 cited(Slots 无表
 		//   建模 — 批 150 判例)。
-		QMainWindow *win = startupWindowCreate(mainWindow, geometry); // @2844c
+		QMainWindow *win = startupWindowCreateFull(mainWindow,
+		                                           geometry); // @2844c
 		QByteArray payload; // local_60 = shared_null @28470
 		in >> payload; // @28477-b9
 		startupRestoreDispatch(host, mainWindow, magic, payload,
@@ -268,4 +281,149 @@ void startupChain(MainWindowFace::Slots host, QMainWindow *mainWindow)
 	// (回调体未转写;installEventFilter @007628c6 同 cited)。
 	// QTimer::singleShot(0, ...); // FUN_0075c40d — cited,不落(铁律 3)
 	Q_UNUSED(mainWindow); // 语料 param_1 其余用途仅下游槽位父(本面无消费)
+}
+
+// === mainWindowConnectSignals — mainWindow_connectSignals(1043B,
+// 0023.c:36614)全文分段真身(批 188;段序 = kuna 0076b9ec 全读 +
+// 语料 36614-36736 双源一致)。宿主类不建模(铁律 6):S3 装配段经
+// MainWindowFace 现役真身承载(槽位 = 返回值);无现役面的段 cited
+// 分段(缺席 + 注记,非占位)。===
+MainWindowFace::Slots mainWindowConnectSignals(QMainWindow *mainWindow)
+{
+	// ── S1 @0076b9da-ec(18B 壳体直译):动作/键位装载前置腿 ──
+	// s_wind_actions_76b7c0(457B,0023.c:36525;kuna 全读):累积器
+	// FUN_00a7e75e → "wind.actions"(FUN_005d7cf8 全局路径拼序)→
+	// FUN_00a7e78a → "user.actions"(cfg_ensureProfileDir 用户路径)→
+	// FUN_00a7e866 → +0x60 工厂懒建(operator_new(0x20)+FUN_00665948)
+	// + 双源 FUN_00a7fdd8/00a8017e → toMap → wind_actions_build
+	// (00667102)。工厂体 = ActionFactory::getOrCreate(00665dc2)/
+	// build(00667102)现役真身 — 双源装载序直译(缺文件腿
+	// yaml_loadFile 失败 → 空 map → build 空守卫直返,同相)。
+	{
+		ActionFactory factory; // +0x60 工厂槽 = 槽位承载(宿主类不落,
+		                       //   栈域现役面;工厂表语义同相)
+		const QString globalPath = QCoreApplication::applicationDirPath()
+		                           + QStringLiteral("/global/")
+		                           + QStringLiteral("wind.actions"); // @0076b7f5-821(FUN_005d7cf8 拼序)
+		factory.loadActionsFile(globalPath); // FUN_00a7fdd8 门 + toMap +
+		                                     //   wind_actions_build @0076b888-8a2
+		const QString userPath = ProfileLoader::defaultProfilePath()
+		                         + QStringLiteral("/user.actions"); // cfg_ensureProfileDir @0076b842-864
+		factory.loadActionsFile(userPath); // @0076b8bd-8d7(用户源腿)
+	}
+	// FUN_0076b430(68B,0023.c:36366):+0x68 引擎懒建
+	// (operator_new(0x20)+FUN_00674648 = SuperKeymap ctor parent 注入)
+	// → s_wind_keymaps_768854(428B 双源 YAML 装载)→ FUN_0076aee6
+	// (JSON 导入腿)— KeymapEngine 现役真身面(KeymapEngine.h 头注
+	// "宿主装配批调用"即本位;attachHost ctor 注入对位)。
+	KeymapEngine::instance().load(); // @0076b451-68(懒建+装载序同相)
+
+	// ── S2 @0076ba05 CALL FUN_0076663e(114B,0023.c:33272)— cited
+	// 分段:QMetaType 注册族(pthread_once 0x11c1dd0 + registerNorm
+	// alizedType ×20,KitWindow smeta 0x11ab660 等;探锚 FUN_0076913f
+	// 5958B 体事实 StateStore.h 批 168 在档)。元类型注册 = Qt 底座
+	// 语义(EXT-BOUNDARY,零 fork 特性),QDataStream 页序列化消费
+	// 面在 KitWindow 批 — 本面缺席不改变装配行为(注册惰性)。
+
+	// ── S3 @0076ba0d CALL FUN_007662e6(109B,0023.c:33100)— 装配
+	// 四件套真身:MainWindowFace ctor(addToolBar(1)@00766333/
+	// setCentralWidget @0076633f/bar->hide @00766348)。宿主槽位 =
+	// 返回值(Slots)。
+	MainWindowFace winFace(mainWindow); // FUN_007662e6 @0076ba0d
+	const MainWindowFace::Slots host = winFace.hostSlots();
+
+	// ── S4 ① @0076ba18-4f:qApp signal0(FUN_0090e018 = activate
+	// smo 011a6ce0 idx0;kuna read 0x11a6ce0 实读:className
+	// "14CommanderRobot" @0xcd73c0,method 0x90e0b4)→ FUN_007662ce
+	// (24B,0023.c:33086;sender==receiver 卫)→ FUN_00766192(65B,
+	// 33030:+0x48 旧引擎 deleteLater + 懒建 JsEngine(0064ab10)+
+	// s_MuxPane_64b102 引导)+ FUN_007661dc(234B,33049:+0x80 QTimer
+	// 懒建 + session_throttled_refresh(1480B,37046)接线 + start)。
+	// cited 分段:发射源 smo 011a6ce0 类(CommanderRobot)我方无
+	// Q_OBJECT 承载(铁律 6,类建模属宿主批)→ 接线面缺席;槽体
+	// 引擎/定时器腿体量 >500B 邻档且 +0x48/+0x80 槽位宿主域 —
+	// MuxPaneView::attachJsEngine(JsEngine 引导现役调用面)/
+	// KeymapEngine 同型挂点为消费批接口,本面不发明触发点
+	// (offscreen 无发射点,语料同相死路)。
+
+	// ── S4 ② @0076ba56-8d:qApp focusChanged → FUN_0076dcae(kuna
+	// 全读:activeWidget 祖先链 dynamic_cast MuxPane 011b84d0 →
+	// QPointer 对 getAndRef ×2 写宿主 +0xd8/+0xe0)— 宿主 QPointer
+	// 对槽位未建模(铁律 6)→ 接线面 cited 分段(缺席 + 注记;
+	// 焦点追踪缓存,零产品消费点在档)。
+
+	// ── S4 ③④ @0076ba92-632:tools 容器(FUN_005d9378(DAT_011c1240)
+	// → +0x10)信号 0/1(FUN_008fd3d0/008fd3fc = activate smo
+	// 0119f720 idx0/1;kuna read 实读 = "Tools" 类:toolAdded/
+	// toolRemoved,参数 name/scheme)→ FUN_0076aee6(1185B,36216 =
+	// keymap JSON 导入腿:容器逐项建 {keys,script|when} → reset(1)
+	// → loadEntries(list,1))。发射源 = Tools 容器对象(宿主域
+	// Q_OBJECT 未建模)→ 接线面 cited;接收腿已真身(KeymapEngine::
+	// loadJsonLeg,S1 load() 内同函数;Type 0x82 字面 = Unique(0x80)
+	// |Auto(0x02) 照录 @36690 区)。工具清单 +0x10 槽位 cited
+	// (CTerminalConfig 单例现役,清单容器面未建模 — 铁律 6)。
+
+	// ── S4 ⑤ @0076ba67-6e6:KitBar(host.f50)kitActivated
+	// (FUN_0091a518 → activate smo 011aaea0 idx0;KitBar.h
+	// QMetaObject 实证)→ FUN_007656bc(42B,kuna 全读:index>=0 &&
+	// index<count → setCurrentIndex)。connect 真身(语料 connectImpl
+	// 8 参形 0,0 — 无 Unique 位 @3667x)。
+	if (host.f50 != nullptr && host.f58 != nullptr) { // +0x50/+0x58 槽位读
+		QObject::connect(host.f50, &KitBar::kitActivated, host.f58,
+		    [host](int index) {
+			    // FUN_007656bc(kuna 007656bc 全读):0 <= a1 &&
+			    //   a1 < QStackedWidget::count → setCurrentIndex。
+			    if (index >= 0 && index < host.f58->count())
+				    host.f58->setCurrentIndex(index); // @007656c8 区
+		    });
+	}
+
+	// ── S4 ⑥ @0076baed-718:stack(host.f58)currentChanged
+	// (QStackedWidget::staticMetaObject)→ FUN_00767ba0(27B,34355
+	// 区;kuna 全读 + asm 767ba0-b6:+0x50 非空 → CALL 0x8b3426(查得
+	// 按钮 setChecked(1),asm 008b3434 ESI=1 实证)+ 尾 jmp
+	// FUN_00767b4a(85B,34283:isActiveWindow && +0x70 表非空 &&
+	// +0x78 非空 → QTimer::start 深腿 — +0x70/+0x78 槽位宿主域,
+	// cited))。
+	if (host.f58 != nullptr && host.f50 != nullptr) {
+		QObject::connect(host.f58, &QStackedWidget::currentChanged,
+		    host.f58, [host](int) {
+			    // FUN_00767ba0 @00767ba4-b6:+0x50 非空门 →
+			    // FUN_008b3426(36B,0027.c:71298)= 查得即
+			    // setChecked(1);index 实参 Ghidra 折叠形照录
+			    // (36B 体无第二参传递;查询面 = buttonForIndex,
+			    //   表序首钮语义,批 77 同源,不发明 index 面)。
+			    if (QToolButton *btn = host.f50->buttonForIndex(0))
+				    btn->setChecked(true); // @008b3439-45(ESI=1 实证)
+			    // FUN_00767b4a(85B)活性标题 QTimer 腿 — +0x70/
+			    //   +0x78 槽位宿主域未建模,cited(缺席 + 注记)。
+		    });
+	}
+
+	// ── S7 @36720-36733:QTimer::singleShotImpl(0,0,host,
+	// FUN_0076bdff)(212B,0023.c:36741;kuna 全读:单发 0x18 闭包
+	// {1,FUN_0076bdff,host} → case1:winId + windowHandle 非空门 →
+	// connectImpl(screenChanged → FUN_00765721:窗口 +0xb0 ← screen
+	// + King::refreshWidgetStyle 尾调)— 闭包体屏钩腿深(+0xb0 槽位
+	// 宿主域)cited;单发时序真身照落(零毫秒 = 事件循环首拍;
+	// offscreen windowHandle 为空 → 语料 @0076be40 门同直返)。
+	QTimer::singleShot(0, mainWindow, []() {});
+	return host; // S3 装配产物(+0x50/+0x58 槽位对)
+}
+
+// === startupWindowCreateFull — FUN_0075e0f8(765B,0023.c:27251)
+// 全文真身(批 188 窄面扩张):建窗窄面 = startupWindowCreate
+// (批 154 真身,WorkspaceLoader.cpp 916:operator_new(0xf0)+MainWindow
+// ctor(0)@0075e11a → FUN_00763b64 append @0075e12e → restoreGeometry
+// @0075e140 → 空腿 FUN_0075d6e8 居中缩放 @0075e160-2c0)+ 尾接线段
+// mainWindow_connectSignals(local_40)@0075e2c0(@27327 — 本文件
+// mainWindowConnectSignals S1-S7 真身)。返回新窗(语料 local_40)。===
+QMainWindow *startupWindowCreateFull(QMainWindow *mainWindow,
+                                     const QByteArray &geometry)
+{
+	QMainWindow *win = startupWindowCreate(mainWindow, geometry); // @0075e11a-2c0
+	if (win == nullptr)
+		return nullptr; // FUN_0075e3fe @0075e501 null 卫同相
+	mainWindowConnectSignals(win); // 尾 mainWindow_connectSignals @0075e2c0
+	return win;                    // local_40 @0075e2d8
 }
