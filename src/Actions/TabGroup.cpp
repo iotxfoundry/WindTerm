@@ -861,3 +861,19 @@ QString TabBar::nodeTitleAt(int index, bool withMnemonics) const
 	// 节点 +0x10 非空 → 追加 0xca0e1c(助记符后缀)— cited(键面未读)
 	return title;
 }
+
+// FUN_005a7c74(308B,0018.c:22566)节点标题写真身(结构面):
+//   @005a7c74 index < 0 或 >= (+0x70 表) → 返;
+//   tabbar_buildPropHash(&h,this,index,title)@005a7cbe(cited)→
+//   FUN_005a690e(&merged,title,&h)(cited)→ detach(+0x70)@005a7d9e →
+//   FUN_005a6ab0(节点,&merged)(cited)。
+//   本面以 m_titles60 承载节点标题面(+0x08)。
+void TabBar::setNodeTitle(int index, const QString &title)
+{
+	if (index < 0 || index >= count()) // @005a7c74 钳制
+		return;
+	// tabbar_buildPropHash / FUN_005a690e / FUN_005a6ab0 — 三腿 cited。
+	while (m_titles60.size() <= index)
+		m_titles60.append(QString());
+	m_titles60[index] = title;
+}

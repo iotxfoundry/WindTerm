@@ -57,6 +57,10 @@ public:
     //   index 越界 → 空;节点标题(+0x08 面)→ withMnemonics 且节点 +0x10 非空
     //   → 追加 0xca0e1c 串(cited)。
     QString nodeTitleAt(int index, bool withMnemonics) const;
+    // FUN_005a7c74(308B,0018:22566)节点标题写:
+    //   越界返;tabbar_buildPropHash(节点属性哈希,cited)+ FUN_005a690e
+    //   (合并体,cited)→ 表 detach → FUN_005a6ab0(写节点,cited)。
+    void setNodeTitle(int index, const QString &title);
     // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。
