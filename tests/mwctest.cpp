@@ -27,6 +27,7 @@
 #include "Editor/CGlobalConfigFace.h"
 #include "Editor/CTerminalConfig.h"
 #include "Actions/StartupChain.h"
+#include "Sessions/WorkspaceLoader.h"
 
 int main(int argc, char **argv)
 {
@@ -488,6 +489,105 @@ int main(int argc, char **argv)
 		if (restoredPage == nullptr
 		    || restoredPage->objectName() != QStringLiteral("TerminalWindow"))
 			++fails; // 页名 "Terminal" → 工厂 Terminal 腿(@0089d7df)
+	}
+
+	// ======== 批 154:f 组 — 工作区装载器 + 启动余量 ========
+
+	// f1. sessionByUuid(810056 对位):空 uuid → 空 map(@0081016d);
+	//     命中腿/未命中腿(@00810230/LAB_0081015f)。
+	{
+		QVariantList lib;
+		QVariantMap a; a.insert(QStringLiteral("session.uuid"),
+		                        QStringLiteral("u-1"));
+		QVariantMap b; b.insert(QStringLiteral("session.uuid"),
+		                        QStringLiteral("u-2"));
+		lib << a << b;
+		if (!Workspace::sessionByUuid(lib, QString()).isEmpty())
+			++fails; // 空 uuid → 空(@0081016d)
+		if (Workspace::sessionByUuid(lib, QStringLiteral("u-2"))
+		        .value(QStringLiteral("session.uuid")).toString()
+		    != QStringLiteral("u-2"))
+			++fails; // 命中返回元素(@00810230)
+		if (!Workspace::sessionByUuid(lib, QStringLiteral("nope")).isEmpty())
+			++fails; // 未命中 → 空(LAB_0081015f)
+	}
+
+	// f2. workspaceLoader(522056 骨架):title trimmed(@005220c0);
+	//     三件套 text+data → data 键、null → uuid 键、缺一不落
+	//     (@0052340a 门);kind 位 Terminal/Browser=7 else 3
+	//     (@005224c5);去重(QHash 命中早退 @0052254d)。
+	{
+		QVariantList lib;
+		QVariantMap s1; s1.insert(QStringLiteral("session.uuid"),
+		                         QStringLiteral("u1"));
+		s1.insert(QStringLiteral("text"), QStringLiteral("t1"));
+		s1.insert(QStringLiteral("data"), QStringLiteral("d1"));
+		QVariantMap s2; s2.insert(QStringLiteral("session.uuid"),
+		                         QStringLiteral("u2"));
+		QVariantMap s3; s3.insert(QStringLiteral("session.uuid"),
+		                         QStringLiteral("u3"));
+		s3.insert(QStringLiteral("text"), QStringLiteral("t3")); // 缺 data
+		lib << s1 << s2 << s3;
+		QString title = QStringLiteral("  pad  ");
+		Workspace::LoaderResult r =
+		    Workspace::workspaceLoader(nullptr, nullptr, title, lib);
+		if (title != QStringLiteral("pad"))
+			++fails; // trimmed 换写(@005220c0)
+		if (r.keys.size() != 2 || r.kinds.size() != 2)
+			++fails; // s1→data 键 / s2→uuid 键 / s3 缺 data 不落(3 项)
+		if (!r.keys.contains(QStringLiteral("d1"))
+		    || !r.keys.contains(QStringLiteral("u2")))
+			++fails; // 键面(data 优先 / uuid 回退 @005235d1/00522620)
+		if (r.kinds.contains(7))
+			++fails; // pane=null → 非 Terminal/Browser 腿 kind=3(@005224c5)
+	}
+
+	// f3. kitScopedConfigValue(FUN_008cba1c + 00760b2c 键面):kit.
+	//     前缀剥除(^kit(?=\.) @00760bf1);缺省透传(global_setting_get
+	//     未命中 → 缺省直返同相)。
+	if (kitScopedConfigValue(QStringLiteral("TerminalWindow"),
+	                         QByteArrayLiteral("kit.startupSessions"),
+	                         QStringLiteral("LastSessions"))
+	    != QStringLiteral("LastSessions"))
+		++fails; // 键剥前缀后配置未命中 → 缺省 "LastSessions"
+	             //   (@008d3685 缺省腿;真配置缺 kit.* 键 — 实机对证)
+
+	// f4. startupWindowCreate(FUN_0075e0f8 窄面):geometry 空 →
+	//     居中缩放腿(resize/move 落位非零窗)+ 产物 QMainWindow 基面
+	//     (语料 MainWindow 0xf0 未建模 — KitWindowFace 抽象不可实例化,
+	//     铁律 6 退基面)。
+	{
+		QMainWindow *w = startupWindowCreate(&mwHost, QByteArray());
+		if (w == nullptr)
+			++fails; // 建窗产物非空(@0075e11a)
+		else
+			delete w;
+		QMainWindow *w2 =
+		    startupWindowCreate(&mwHost, QByteArrayLiteral("junk"));
+		if (w2 == nullptr)
+			++fails; // geometry 非空腿(restoreGeometry 失败 → 居中腿
+			         //   同相产物 @0075e13a-2c0)
+		else
+			delete w2;
+	}
+
+	// f5. startupWindowTail(&4 尾段 @00766f22-6fb0):全屏/置顶/透明度
+	//     四读面消费不崩(读游推进 = 语料同相;X11 置顶腿 cited 平台域)。
+	{
+		QByteArray tail;
+		{
+			QDataStream w(&tail, QIODevice::WriteOnly);
+			w << QByteArray();   // subBlob(@00766f22)
+		}
+		QByteArray blob;
+		{
+			QDataStream w(&blob, QIODevice::WriteOnly);
+			w << tail;
+		}
+		QDataStream in(blob);
+		startupWindowTail(&mwHost, in); // 空子流:bool/QByteArray/bool/
+		                                //   double 读全失败腿(atEnd →
+		                                //   零值缺省,不崩同相)
 	}
 
 	delete edW;

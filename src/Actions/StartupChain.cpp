@@ -10,6 +10,7 @@
 #include <json/json.h>
 
 #include "KitWindowFactory.h"
+#include "WorkspaceLoader.h"
 #include "Editor/CTerminalConfig.h"
 
 // === profiles.config "path" 读 — s_profiles_config_5d8732(707B,
@@ -112,15 +113,30 @@ bool startupRestoreDispatch(MainWindowFace::Slots host, QMainWindow *mainWindow,
 			                    currentIndex == i, pagePayload,
 			                    static_cast<int>(flags));
 		} else {
-			// kit.startupSessions 腿 @336ef-336e0c:s_kit_startupSessions_
-			// 8d2f7e(3122B,0028.c:17278)— cited(3122B > 500B 档;
-			// widget(i) dynamic_cast 011ab390 + FUN_008c9e64 名比较段,
-			// 本链 flags=1 不可达,Phase 4a 挂账)。
+			// &4 腿 @336e5d-e0c:widget(i) dynamic_cast(011ab390)+
+			// FUN_008c9e64 名比较 + 命中才分发达(批 154 接真身)。
+			QWidget *widget = host.f58 != nullptr
+			                      ? host.f58->widget(static_cast<int>(i))
+			                      : nullptr; // QStackedWidget::widget @336e5d
+			if (widget != nullptr) { // dynamic_cast KitWindow 011ab390 —
+			                         //   KitWindowFace 承接(批 133 判例;
+			                         //   命中腿名比较)
+				const QString pageTypeName =
+				    widget->objectName().remove(QStringLiteral("Window")); // FUN_008c9e64
+				if (pageTypeName == pageName) { // operator== @336e2x
+					kitStartupSessions(widget, pagePayload, flags); // @336e0c
+				}
+			}
 		}
 	}
 	host.f58->blockSignals(false); // @33662 复原(&4 段内同语句)
 	// &4 尾段 @336f22-66f4c(currentIndex 腿 FUN_00766466/setWindowState
-	// 0x4/setWindowOpacity)→ kit 腿,cited(不可达同因,不发明)。
+	// 0x4/setWindowOpacity)— 批 154 真身:currentIndex 存窗读腿
+	// (FUN_00766466 param_1 = win 面本壳无 win 表,cited — 宿主域)
+	// + startupWindowTail(>>QByteArray 全屏/几何/置顶/透明度四读面)。
+	if ((flags & 4u) != 0) { // @00766f1d 门
+		startupWindowTail(mainWindow, in); // @00766f22-66fb0
+	}
 	return true; // 尾 return 1 @00767061
 }
 
@@ -168,12 +184,12 @@ bool startupRestoreGate(MainWindowFace::Slots host, QMainWindow *mainWindow,
 	for (quint32 i = 0; i < count; ++i) { // @2844c do-while iVar6 < local_74
 		QByteArray geometry; // local_68 = shared_null @28454
 		in >> geometry; // operator>>(QByteArray) @2845c
-		// 建窗腿:FUN_0075e0f8(765B,0023.c:27251)— operator_new +
-		// MainWindow ctor + windows 表 append(FUN_00763b64)+
-		// restoreGeometry/screen 居中缩放腿(FUN_0075d6e8 74B)+
-		// mainWindow_connectSignals 尾(@27327)。MainWindow 类未建模
-		// (铁律 6)→ 窗级几何恢复 cited;页恢复经分发壳 stack 面落。
-		QWidget *win = nullptr; // FUN_0075e0f8 cited(765B > 500B 档)
+		// 建窗腿:FUN_0075e0f8(765B,0023.c:27251)— 批 154 真身
+		//   (startupWindowCreate:restoreGeometry/screen 居中缩放腿
+		//   FUN_0075d6e8 74B + mainWindow_connectSignals 尾 cited 宿主域);
+		//   窗表 append(FUN_00763b64)宿主 +0x48 槽位 cited(Slots 无表
+		//   建模 — 批 150 判例)。
+		QMainWindow *win = startupWindowCreate(mainWindow, geometry); // @2844c
 		QByteArray payload; // local_60 = shared_null @28470
 		in >> payload; // @28477-b9
 		startupRestoreDispatch(host, mainWindow, magic, payload,
@@ -185,9 +201,9 @@ bool startupRestoreGate(MainWindowFace::Slots host, QMainWindow *mainWindow,
 				// *(win+0x32)=1 + FUN_0076f4d6(win,1)— focusMode 恢复
 				// 腿(405B,0023.c:38662)cited:win+0x32 槽位宿主 face
 				// 无建模(铁律 6),恢复面待 KitWindow 真身批。
+				Q_UNUSED(win);
 			}
 		}
-		Q_UNUSED(win);
 		ok = true; // local_91 同相(0 < local_74 已过 → 恒 true)
 	}
 	// 尾段 @28458-73:windows 表(QList@+0x48)detach×2 + 逐窗 show +
