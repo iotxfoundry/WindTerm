@@ -541,3 +541,16 @@ QByteArray MuxPaneGroup::sessionTitleBlob() const
 	}
 	return blob;
 }
+
+// 008b9b2a(9B,0027.c:76957):TabGroup::count(+0x38)(FUN_005abbda)。
+int MuxPaneGroup::paneCountEx() const
+{
+	return m_f38 != nullptr ? m_f38->count() : 0; // @008b9b2a
+}
+
+// 008b9b34(9B,0027.c:76967):TabBar::currentIndex(FUN_005a...8d860 系
+//   tabbar_currentIndex 包装,实参 = +0x38)。
+int MuxPaneGroup::currentPaneIndexEx() const
+{
+	return m_f38 != nullptr ? m_f38->tabBar()->currentIndex() : -1; // @008b9b34
+}

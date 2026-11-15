@@ -29,6 +29,11 @@ public:
     void detachPane(MuxPaneView *page);                  // FUN_008dedae(0028:25986;addTab 对偶)
     int tabCount() const;                                // FUN_008de59c
     MuxPaneView *currentPane() const;                    // FUN_008de3b2(0028:25616)
+    // 008b9b2a(9B)/008b9b34(9B):页数 = TabGroup::count(+0x38);
+    //   当前页索引 = tabBar()->currentIndex()(tabbar_currentIndex 面)。
+    int paneCountEx() const;        // 008b9b2a(FUN_005abbda(+0x38))
+    int currentPaneIndexEx() const; // 008b9b34(tabbar_currentIndex(+0x38))
+
     // FUN_008b9890(149B,0027.c:76790)第 index 页:TabGroup(+0x38)
     //   stackWidgetAt(i)(FUN_005abbd0)→ cast 011925c8 → MuxPaneView;
     //   011ab930 腿(KitDock → FUN_008da7a8 取内层)cited。
