@@ -59,6 +59,12 @@ public:
 	Splitter *m_split0x58 = nullptr;
 	Splitter *m_split0x60 = nullptr;
 	Splitter *m_split0x68 = nullptr;
+	// +0x88 当前视图缓存(FUN_008cabee 首读;ctor 清零)。
+	QWidget *m_f88 = nullptr;
+	// FUN_008cabee(49B,0028.c:12130)当前视图:
+	//   +0x88 非空 → 直返;否则 g = currentPaneGroup() →
+	//   FUN_008bca9e(g,1)(= MuxPaneGroup::currentView(true))。
+	QWidget *activeView();
 	// +0x80 当前页组缓存(FUN_008ca6ca 首读;ctor 清零 @0x8cc70x)。
 	QWidget *m_f80 = nullptr;
 	// FUN_008ca6ca(170B,0028.c:11922)当前页组:

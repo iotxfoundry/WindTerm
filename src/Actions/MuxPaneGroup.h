@@ -35,6 +35,14 @@ public:
     //   → 有效才 setTabColor(008b9b3e)。
     void pickTabColor(MuxPaneView *pane);
 
+    // FUN_008bca9e(193B,0028.c:810)当前页视图:
+    //   w = TabGroup::currentWidget(+0x38)@008bca9e;cast 011925c8 →
+    //   MuxPaneView;否则 cast 011ab930(MuxWindow)→ FUN_008da7a8 内层 →
+    //   再 cast;命中且 activate → KitView_vt6(view)(610B cited)。
+    MuxPaneView *currentView(bool activate) const;
+    // 008bcb5f(72B)激活当前视图:v = currentView(g,1);非空 → FUN_008c5d72(v)。
+    void activateCurrentView();
+
     // 008b9ad4(86B,0027.c:76920)换页:i = indexOfPane(old);i != -1 →
     //   TabGroup::replacePage(i, new)(FUN_005ac8d0)。
     void replacePane(QWidget *oldPane, QWidget *newWidget);

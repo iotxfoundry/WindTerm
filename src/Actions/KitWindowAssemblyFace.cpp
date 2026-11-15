@@ -748,3 +748,16 @@ QWidget *KitWindowFace::currentPaneGroup()
 	// findChild<011ab360>(+0x48,递归=1) @008ca75b
 	return m_split0x48 != nullptr ? m_split0x48->findChild<MuxWindow *>() : nullptr;
 }
+
+// FUN_008cabee(49B,0028.c:12130)当前视图真身:
+//   @008cabee if (+0x88) return +0x88;g = FUN_008ca6ca(this);
+//   g 非空 → FUN_008bca9e(g,1)(= currentView(activate=true))。
+QWidget *KitWindowFace::activeView()
+{
+	if (m_f88 != nullptr) // +0x88 缓存
+		return m_f88;
+	auto *group = qobject_cast<MuxPaneGroup *>(currentPaneGroup()); // 008ca6ca
+	if (group != nullptr)
+		return group->currentView(true); // 008bca9e(g,1)
+	return nullptr;
+}

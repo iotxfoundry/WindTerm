@@ -621,3 +621,41 @@ void MuxPaneGroup::pickTabColor(MuxPaneView *pane)
 	}
 	setTabColor(index, color); // 008b9b3e
 }
+
+// FUN_008bca9e(193B,0028.c:810)当前页视图真身:
+//   w = FUN_005ab316(this+0x38)(= TabGroup::currentWidget)@008bca9e;
+//   cast 011925c8 命中 → view;否则 cast 011ab930(MuxWindow)→
+//   FUN_008da7a8 取内层 → cast 011925c8;命中且 flag →
+//   KitView_vt6(view)(610B,激活面,本仓 MuxPaneView 无对应虚槽 → cited);
+//   返回 view(未命中 0)。
+MuxPaneView *MuxPaneGroup::currentView(bool activate) const
+{
+	if (m_f38 == nullptr)
+		return nullptr;
+	QWidget *w = m_f38->currentWidget(); // @008bca9e(FUN_005ab316)
+	if (w == nullptr)
+		return nullptr;
+	auto *view = dynamic_cast<MuxPaneView *>(w); // 011925c8 cast
+	if (view == nullptr) {
+		if (auto *win = dynamic_cast<MuxWindow *>(w)) { // 011ab930 cast
+			// FUN_008da7a8(win) 取内层 → cast 011925c8 — cited(内层面未转写)
+			(void)win;
+		}
+		return nullptr;
+	}
+	if (activate) {
+		// KitView_vt6(view)@008bcae3 — cited(610B 激活体未转写)
+	}
+	return view;
+}
+
+// 008bcb5f(72B,0028.c:842)激活当前视图真身:
+//   v = FUN_008bca9e(group,1)@008bcb5f;非空 → FUN_008c5d72(v)
+//   (焦点/激活面,cited)。
+void MuxPaneGroup::activateCurrentView()
+{
+	MuxPaneView *view = currentView(true); // @008bcb5f
+	if (view == nullptr)
+		return;
+	// FUN_008c5d72(view)@008bcb5f — cited(激活体未转写)
+}
