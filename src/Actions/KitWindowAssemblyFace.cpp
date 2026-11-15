@@ -18,6 +18,7 @@
 
 #include "Actions/KitWindowAssemblyFace.h"
 #include "Actions/KitWindowFactory.h"
+#include "Actions/StatusBarFace.h"
 #include "Widgets/Splitter.h"
 
 // 008c9ee4(159B,0028.c:11376)菜单栏装配腿:
@@ -37,19 +38,20 @@ QMenuBar *kitMenubarAssemble(KitWindowFace *host)
 }
 
 // FUN_00692766(493B,0021.c:18604)状态栏构建:
-//   operator_new(0x48) @0x692778 + FUN_005a2d26(obj,parent) = QStatusBar
-//   子类 ctor(cited → 以 QStatusBar 承载,三腿皆为 QWidget/QStatusBar 面);
-//   objectName "StatusBar" @0x6927b0-c7;King::registerBarsAndPanes
-//   ("StatusBar") 标题 → setWindowTitle @0x692819(cited 腿,批 189 menuBar
-//   同函数);FUN_005a2e58(bar,QString(),0) @0x692877(cited,用途未明不发明);
-//   cfg 非空 → QTimer::singleShotImpl(0,0,0,{FUN_006933ea,bar,cfg}) @0x6928d5
-//   (cited 回调体)。
+//   operator_new(0x48) @0x692778 + FUN_005a2d26(obj,parent) = 状态栏子类
+//   ctor(批 196 真身 StatusBarFace);objectName "StatusBar" @0x6927b0-c7;
+//   King::registerBarsAndPanes("StatusBar") 标题 → setWindowTitle @0x692819
+//   (cited 腿 = 12455B 巨型注册面,批 189 menuBar 同函数);
+//   FUN_005a2e58(bar,QString(),0) @0x692877 = 空消息 → tr("Ready")
+//   (批 196 真身 showFaceMessage);cfg 非空 → QTimer::singleShotImpl(
+//   0,0,0,{FUN_006933ea,bar,cfg}) @0x6928d5(cited 回调体)。
 QStatusBar *kitStatusbarBuild(CGlobalConfigFace *container, QWidget *hostPane)
 {
 	Q_UNUSED(container); // 语料:仅作 singleShot 闭包第二实参(cited 腿)
-	QStatusBar *bar = new QStatusBar(hostPane);     // cited @0x692778(子类 0x48)
-	bar->setObjectName(QStringLiteral("StatusBar")); // @0x6927b0-7c7
-	return bar;                                     // @rax → setStatusBar 实参
+	StatusBarFace *bar = new StatusBarFace(hostPane); // @0x692778(FUN_005a2d26)
+	bar->setObjectName(QStringLiteral("StatusBar"));  // @0x6927b0-7c7(语料重赋同值)
+	bar->showFaceMessage(QString(), 0);               // @0x692877(FUN_005a2e58)
+	return bar;                                       // @rax → setStatusBar 实参
 }
 
 // 008c9f8c(54B,0028.c:11401)状态栏装配腿:00692766 返回 → setStatusBar。
