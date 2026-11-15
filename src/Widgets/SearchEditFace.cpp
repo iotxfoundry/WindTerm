@@ -1,9 +1,14 @@
 // SearchEditFace.cpp — 语料 SearchEdit / FilterEdit 两个 ctor(批 255)
 #include "SearchEditFace.h"
 
+#include <QCursor>
+
+#include "Actions/ThemeIcons.h"
+
 #include <QHBoxLayout>
 #include <QStyle>
 #include <QTimer>
+#include <QToolButton>
 
 // searchEdit_init(131B,0018.c:5832)ctor 真身:
 //   @0058e0ce QLineEdit(parent);字段 +0x30/38/40=0、+0x48=0x7fffffff、
@@ -32,7 +37,8 @@ FilterEditFace::FilterEditFace(QWidget *parent)
 	// timer 自身 +0x1c |= 1(QTimer 私有单发位)→ cited 不落。
 	m_timer78->setInterval(300); // FUN_0057eb02(9B)= QTimer::setInterval(+0x78, 300)
 	setPlaceholder(tr("Filter")); // tr(0xc893d4)= "Filter"+FUN_0058dac2(批 268)
-	// s_king__clear_57e86e(this) + FUN_0057e662(this) → cited(清除钮/子件)。
+	buildClearButton(); // s_king__clear_57e86e @0057eba8(批 272)
+	// FUN_0057e662(this)@0057ebbx — cited(体未转写)。
 }
 
 // FUN_0058dac2(18B,0018.c:5565)真身:
@@ -103,4 +109,22 @@ void SearchEditFace::applyTextMargins()
 	const int left = 0;  // FUN_0058de52(this,0) — cited(子件宽度面)
 	const int right = 0; // FUN_0058de52(this,1) — cited
 	setTextMargins(left, 0, right);
+}
+
+// s_king__clear_57e86e(442B,0017.c:55328)清除钮真身:
+//   @0057e892 +0x70 = new QToolButton(this)(0x30 字节);
+//   @0057e8xx setAutoRaise(实参 Ghidra 丢→按 false,cited);
+//   @0057e8c1 setCursor(QCursor(0));@0057e914 icon "king::clear";
+//   @0057e98x tooltip tr("&Clear")(0xc9e7b8 实读)@0057e990;
+//   @0057e9ab hide();@0057e9c0 boxlayout_insertRtlAware(this, btn, 1)(cited)。
+void FilterEditFace::buildClearButton()
+{
+	m_clear70 = new QToolButton(this); // @0057e892
+	m_clear70->setAutoRaise(false);    // 实参丢 — cited(按 false)
+	m_clear70->setCursor(QCursor());   // QCursor(0) @0057e8c1
+	m_clear70->setIcon(ThemeIcons::loadSvg(QStringLiteral("king::clear"),
+	                                       QString())); // @0057e914
+	m_clear70->setToolTip(tr("&Clear"));               // 0xc9e7b8 @0057e990
+	m_clear70->hide();                                 // @0057e9ab
+	// boxlayout_insertRtlAware(this, m_clear70, 1)@0057e9c0 — cited。
 }

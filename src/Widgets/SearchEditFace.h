@@ -5,6 +5,7 @@
 
 class QHBoxLayout;
 class QTimer;
+class QToolButton;
 
 // SearchEditFace — 语料 SearchEdit : QLineEdit 基面(批 255)。
 // ctor = searchEdit_init(131B,0018.c:5832):
@@ -61,6 +62,14 @@ class FilterEditFace : public SearchEditFace {
 public:
 	explicit FilterEditFace(QWidget *parent = nullptr); // FUN_0057eb0c
 
+	// s_king__clear_57e86e(442B,0017.c:55328)清除钮:
+	//   +0x70 = new QToolButton(this)(0x30)→ setAutoRaise(cited 实参)→
+	//   setCursor(QCursor(0))→ icon "king::clear"→ tooltip tr("&Clear")
+	//   (0xc9e7b8 实读)→ hide()→ boxlayout_insertRtlAware(this, btn, 1)
+	//   (布局插入辅助,cited)。
+	void buildClearButton();
+
 private:
-	QTimer *m_timer78 = nullptr; // +0x78
+	QTimer *m_timer78 = nullptr;   // +0x78
+	QToolButton *m_clear70 = nullptr; // +0x70(清除钮)
 };
