@@ -431,13 +431,15 @@ LoaderResult workspaceLoader(QObject *pane, QObject *panel, QString &title,
 // === 收集器面(批 159 M17-②)===
 
 // FUN_008c9e64(105B,0028.c:11345)真身:objectName 去 "Window"
-// (fromAscii_helper("Window",6) @008c9e8f + QString::remove cs=1
-// @008c9e9c;返回 param_1 sret)。测试注入面同相。
+// (fromAscii_helper("Window",6) @008c9e8f + QString::remove(名, cs=1
+// = Qt::CaseInsensitive)@008c9ea0-a4;返回 param_1 sret)。测试注入面同相。
+// 批 201 勘正:cs=1 是 CaseInsensitive(此前缺省 CaseSensitive 漏转)。
 QString collectorPaneTypeName(const QObject *pane)
 {
 	if (pane == nullptr)
 		return QString(); // 语料 param_1!=0 门 @00522288(workspaceLoader 侧)
-	return pane->objectName().remove(QStringLiteral("Window")); // @008c9e86-a4
+	return pane->objectName().remove(QStringLiteral("Window"),
+	                                 Qt::CaseInsensitive); // @008c9e86-a4
 }
 
 // KitView_vt6(610B,0028.c:8617)show 腿对位面:语料 = +1 byte 卫 +

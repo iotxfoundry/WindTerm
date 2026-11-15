@@ -133,7 +133,8 @@ bool startupRestoreDispatch(MainWindowFace::Slots host, QMainWindow *mainWindow,
 			                         //   KitWindowFace 承接(批 133 判例;
 			                         //   命中腿名比较)
 				const QString pageTypeName =
-				    widget->objectName().remove(QStringLiteral("Window")); // FUN_008c9e64
+				    Workspace::collectorPaneTypeName(widget); // FUN_008c9e64 真身
+				                                              //   (单源,批 201 收敛)
 				if (pageTypeName == pageName) { // operator== @336e2x
 					kitStartupSessions(widget, pagePayload, flags); // @336e0c
 				}
