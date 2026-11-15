@@ -241,8 +241,13 @@ void KitDockFace::setFloating(bool floating)
 			setParent(nullptr); // 语料实参 Ghidra 丢(浮窗 = 无父)
 			setWindowFlags(windowFlags() | Qt::Window);
 			show();
-			// QTimer::singleShot(0, this, FUN_008b7cdb)@008b90xx — 闭包体
-			//   (8b7cdb 59B)未转写,cited 不落。
+			// QTimer::singleShot(0, this, FUN_008b7cdb)@008b90xx —
+			//   闭包体(45B)= setGeometry(闭包携带 rect)(QRect::setGeometry
+			//   入参面);rect = 本类 +0x3c..+0x48 四边。
+			QTimer::singleShot(0, this, [this]() {
+				setGeometry(QRect(QPoint(m_left3c, m_top40),
+				                  QPoint(m_right44, m_bottom48)));
+			});
 		}
 	}
 	m_f39 = floating;              // +0x39 写
