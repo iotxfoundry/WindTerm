@@ -117,6 +117,37 @@ public:
 LoaderResult workspaceLoader(QObject *pane, QObject *panel, QString &title,
                              const QVariantList &sessionLibrary);
 
+// ── 批 159(M17-②)收集器/defaultDir/扫描/protocol 面 ──
+
+// FUN_008c9e64(105B,0028.c:11345):objectName 去 "Window"
+// ("TerminalWindow"→"Terminal")。
+QString collectorPaneTypeName(const QObject *pane);
+
+// FUN_008d097c(223B,0028.c:15898):Terminal 收集器 — mux stack 子件
+// 逐件(名过滤 toLower + show 腿)QWidget* 列表。
+QList<QWidget *> collectorMuxChildren(const QObject *pane,
+                                      const QString &nameFilter, bool show);
+
+// FUN_008d0cf2(339B,0028.c:16042):Editor 收集器 — 收集子件非空
+// windowFilePath 串列表。
+QList<QString> collectorEditorFilePaths(const QObject *pane);
+
+// FUN_008bca9e(193B,0028.c:810):panel 活动视图(currentWidget 槽
+// 对位面 — MuxPane/KitView 上溯腿 cited)。
+QWidget *collectorActiveView(const QObject *panel);
+
+// FUN_00521702(2297B,0016.c:15428)session_defaultDir 参数卫面:
+// kind 分派标量/tr 标签/1.3·1.5·1.1·2.0 scale 乘数已转写(.rodata
+// 实读),trie 键值消费域(strtrie_find_qv ×5 @00521866 腔)与
+// case 8 段(语料 bad-instruction 0xc89127)cited。
+bool sessionDefaultDir(QObject *config, QString &dir, const QVariant &value,
+                       int kind);
+
+// s_session_protocol_810d6e(1760B,0025.c:47022)URL 拼面:protocol://
+// [group/]target[:port](SSH:22/Telnet:23 缺省腿)+ " / " label 腿 +
+// toLower 尾;session.target addr→* 掩盖腿(8061a0/8062b6)cited。
+QString sessionProtocolUrl(const QVariantMap &session);
+
 // 810056 对位查面(uuid→条目):user.sessions 数组线性扫 session.uuid
 // (s_session_uuid_810056,1408B,0025.c:46473;DAT_011c2200+0xe0 +
 // +0xf0 双源腿 — 本面单源 = 注入库,QHash 缓存腿 0xe8 cited)。

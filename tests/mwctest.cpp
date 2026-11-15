@@ -590,6 +590,107 @@ int main(int argc, char **argv)
 		                                //   零值缺省,不崩同相)
 	}
 
+	// f6. 批 159 收集面:collectorPaneTypeName(8c9e64)/
+	//     collectorEditorFilePaths(8d0cf2)/collectorMuxChildren
+	//     (8d097c)/sessionProtocolUrl(810d6e URL 拼面)。
+	{
+		// 8c9e64:objectName 去 "Window"(fromAscii "Window" 实读)
+		QObject named;
+		named.setObjectName(QStringLiteral("TerminalWindow"));
+		if (Workspace::collectorPaneTypeName(&named)
+		    != QStringLiteral("Terminal"))
+			++fails; // "TerminalWindow"→"Terminal" @008c9e86-a4
+		if (!Workspace::collectorPaneTypeName(nullptr).isEmpty())
+			++fails; // param_1!=0 门 @00522288(workspaceLoader 侧卫)
+		QObject plain;
+		plain.setObjectName(QStringLiteral("Browser"));
+		if (Workspace::collectorPaneTypeName(&plain)
+		    != QStringLiteral("Browser"))
+			++fails; // 无 "Window" 尾 → 原样 @008c9e9c remove miss
+
+		// 8d0cf2 Editor 收集器:windowFilePath 非空才收(@008d0dc9 门)
+		QWidget edPane;
+		QWidget withPath;
+		withPath.setWindowTitle(QStringLiteral("t"));
+		withPath.setWindowFilePath(QStringLiteral("/tmp/wt-f6.txt"));
+		withPath.setParent(&edPane);
+		QWidget noPath;
+		noPath.setParent(&edPane);
+		const QList<QString> paths =
+		    Workspace::collectorEditorFilePaths(&edPane);
+		if (paths.size() != 1 || paths.first()
+		    != QStringLiteral("/tmp/wt-f6.txt"))
+			++fails;
+
+		// 8d097c Terminal 收集器:空 pane/无 TabGroup → 空表
+		//   (@008d099f shared_null 起步)
+		if (!Workspace::collectorMuxChildren(&edPane,
+		                                     QStringLiteral("Terminal"), false)
+		         .isEmpty())
+			++fails; // 无 mux 域 → 空表同相
+		if (!Workspace::collectorMuxChildren(nullptr, QString(), false)
+		         .isEmpty())
+			++fails; // null pane → 空
+
+		// 810d6e protocol URL 拼面:protocol://target(:port 非默认)
+		//   + " / " label 腿(@008110ae)+ toLower 尾(@008112ac)。
+		QVariantMap s1;
+		s1.insert(QStringLiteral("session.protocol"),
+		          QStringLiteral("SSH"));
+		s1.insert(QStringLiteral("session.target"),
+		          QStringLiteral("host.example"));
+		s1.insert(QStringLiteral("session.port"), 22);
+		// SSH:22 缺省腿(@0081137f)→ 无 :port
+		if (Workspace::sessionProtocolUrl(s1)
+		    != QStringLiteral("ssh://host.example"))
+			++fails; // SSH 默认 22 省略腿 @0081137f-a8
+		s1.insert(QStringLiteral("session.port"), 2222);
+		if (Workspace::sessionProtocolUrl(s1)
+		    != QStringLiteral("ssh://host.example:2222"))
+			++fails;
+		s1.insert(QStringLiteral("session.port"), 23);
+		s1.insert(QStringLiteral("session.protocol"),
+		          QStringLiteral("telnet"));
+		if (Workspace::sessionProtocolUrl(s1)
+		    != QStringLiteral("telnet://host.example"))
+			++fails;
+		s1.insert(QStringLiteral("session.port"), 2223);
+		s1.insert(QStringLiteral("session.label"),
+		          QStringLiteral("mylab"));
+		const QString withLabel = Workspace::sessionProtocolUrl(s1);
+		if (!withLabel.contains(QStringLiteral(" / mylab")))
+			++fails;
+		if (withLabel != withLabel.toLower())
+			++fails; // toLower 尾 @008112ac
+		// 组腿:group 非空 → group/target 拼腿(@00811168)
+		QVariantMap s2;
+		s2.insert(QStringLiteral("session.protocol"),
+		          QStringLiteral("SSH"));
+		s2.insert(QStringLiteral("session.group"),
+		          QStringLiteral("Servers"));
+		s2.insert(QStringLiteral("session.target"),
+		          QStringLiteral("h1"));
+		if (Workspace::sessionProtocolUrl(s2)
+		    != QStringLiteral("ssh://servers/h1"))
+			++fails;
+	}
+
+	// f7. session_defaultDir 参数卫面(521702 批 159):kind 分派
+	//     标量腿(applet 尾 2.0 腿/kind<=3 separator 腿)。
+	{
+		QString d = QStringLiteral("/opt/my.applet");
+		if (!Workspace::sessionDefaultDir(nullptr, d, QVariant(), 1))
+			++fails; // kind<=3 卫腿 @00521776(applet 尾命中)
+		QString d2 = QStringLiteral("/home/u/term");
+		if (!Workspace::sessionDefaultDir(nullptr, d2, QVariant(), 2))
+			++fails; // kind=2 defaultDir 腿 @005217ad(1.5 标量域)
+		QString d3;
+		if (Workspace::sessionDefaultDir(nullptr, d3, QVariant(), 8))
+			++fails; // case 8 语料 bad-instruction 段 → false 同相
+		if (!Workspace::sessionDefaultDir(nullptr, d3, QVariant(), 7))
+			++fails; // kind=7 Recent 腿 @00521c75
+	}
+
 	delete edW;
 	delete buyW;
 
