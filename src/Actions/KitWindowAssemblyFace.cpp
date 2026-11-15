@@ -778,9 +778,8 @@ bool KitWindowFace::focusActiveView()
 		return false;
 	w->activateWindow(); // @008cad7x
 	for (QWidget *p = w; p != nullptr; p = p->parentWidget()) {
-		if (dynamic_cast<KitDockFace *>(p) != nullptr) { // 011ab930 cast
-			// FUN_008d9764(dock) 内层页 — cited(33B 体未转写)
-			QWidget *inner = nullptr;
+		if (auto *dock = dynamic_cast<KitDockFace *>(p)) { // 011ab930 cast
+			QWidget *inner = dock->innerPage(); // FUN_008d9764(批 266)
 			if (inner != nullptr)
 				inner->setFocus(Qt::OtherFocusReason); // 3
 			return true;
