@@ -7,7 +7,7 @@
 // 链序(FUN_008d3cc2 全读 + asm 0x8d3cc2-0x8d3ddf):
 //   gate(+0x30) → 008c9ee4 菜单栏 → 008c9f8c 状态栏 →
 //   King::assembleCentralSplitters(008cd068) → 钩 +0x210 →
-//   008cd822 三连线(cited) → 008c9fc2 +0xa0 懒件(cited) → 清 gate →
+//   008cd822 三连线(cited) → 008c9fc2 +0xa0 懒件(真身) → 清 gate →
 //   property "History"/"HistoryHints" → s_kit_startupSessions_8d2f7e →
 //   失败腿 +0x208 → 尾钩 +0x250。
 #include <QApplication>
@@ -215,8 +215,7 @@ void KitWindowFace::kitWindowAssembleDeferred()
 	//   ② sender=qApp QApplication::focusChanged → 槽 FUN_008cd4a2(856B)
 	//   ③ sender=qApp 信号 FUN_0090e084 → 宿主信号 0x221 → FUN_008d5fbc,
 	//      smeta 011a6ce0
-	// 008c9fc2(55B,0028.c:11418):+0xa0 懒建 0x20 字节对象
-	//   (operator_new+FUN_006741a0 ctor)@0x8d3d12 — 类未建模,cited。
+	ensureStateA0(); // 008c9fc2 @0x8d3d12(+0xa0 懒件,批 292 真身)
 	m_assemble0x30 = 0; // movb $0x0,0x30(%rbx) @0x8d3d17
 	// property 名实读:.data.rel.ro 0x11820e8→0xc9e544 = "History"(QByteArray 值)
 	//   / 0x11820e0→0xd0df48 = "HistoryHints"(int 值)。
