@@ -212,6 +212,9 @@ public:
     //   shape = (+0x50 模式 0..3) | ((+0x54 镜像) ? 4 : 0) →
     //   TabBar::setShape(shape)。
     void applyTabShape();
+    // 005ab886(4B)/005ab894?(取面):+0x50 页位模式 / +0x54 镜像位直读。
+    int tabPositionMode() const { return m_f50; }
+    bool tabShapeMirrored() const { return m_f54 != 0; }
     // 008b9b3e(9B)/008b9bf4(18B):组级页色存取(+0x38 TabBar 转发)。
     void setTabColor(int index, const QColor &color);
     QColor tabColor(int index) const;
