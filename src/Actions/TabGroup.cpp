@@ -137,7 +137,8 @@ int TabBar::insertTabWithMeta(int index, const QString &title,
 	m_f68.insert(idx, QVariant());
 	m_f70.insert(idx, QVariant());
 	idx = QTabBar::insertTab(idx, title); // 005a79c4
-	assignMnemonics(); // tabbar_assignMnemonics @005a78xx(批 290 真身)
+	setNodeTitle(idx, title); // 节点标题面(+0x70 表,buildPropHash 三腿 cited)
+	assignMnemonics();        // tabbar_assignMnemonics @005a78xx(批 290 真身)
 	return idx;
 }
 
