@@ -6599,6 +6599,7 @@
 008f6cc6	src/Widgets/Controls/SplitterGroup.h
 008f6d88	src/Widgets/Controls/SearchEditFace.cpp
 008f6d88	src/Widgets/Controls/SearchEditFace.h
+008f6e2e	src/Widgets/Controls/LineEditFace.h
 008f7188	src/Widgets/Controls/SideButtonFace.cpp
 008f7188	src/Widgets/Controls/SideButtonFace.h
 008f73c4	src/Widgets/Controls/SwitchButtonFace.cpp

@@ -25554,7 +25554,7 @@
 008f6d88	16	FUN_008f6d88	ref	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h
 008f6d98	55	FUN_008f6d98	todo	
 008f6dd0	94	SafeEdit_h8f6dd0	qtplumb	
-008f6e2e	66	s_LineEdit_8f6e2e	todo	
+008f6e2e	66	s_LineEdit_8f6e2e	ref	src/Widgets/Controls/LineEditFace.h
 008f6e70	93	BreadEdit_h8f6e70	qtplumb	
 008f6ece	75	FUN_008f6ece	todo	
 008f6f19	76	FUN_008f6f19	todo	
@@ -25803,7 +25803,7 @@
 008faa16	102	FUN_008faa16	todo	
 008faa7c	88	PathEdit_dtor_deleting	todo	
 008faad4	89	FUN_008faad4	todo	
-008fab2e	75	PathEdit_dtor	todo	
+008fab2e	75	PathEdit_dtor	stub	
 008fab7a	1	FUN_008fab7a	todo	
 008fab7c	24	SafeEdit_metaObject	qtplumb	
 008fab94	66	SafeEdit_qt_metacast	qtplumb	
@@ -25811,7 +25811,7 @@
 008fabdc	168	FUN_008fabdc	todo	
 008fac84	160	SafeEdit_dtor_deleting	todo	
 008fad24	155	FUN_008fad24	todo	
-008fadc0	147	SafeEdit_dtor	todo	
+008fadc0	147	SafeEdit_dtor	stub	
 008fae60	24	SlipButton_metaObject	ref	src/Actions/SlipButtonFace.cpp
 008fae78	52	FUN_008fae78	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h,src/Widgets/Settings/TriggerPageFace.cpp
 008faeac	55	FUN_008faeac	ref	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h,src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp

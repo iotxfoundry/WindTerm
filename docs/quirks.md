@@ -121,3 +121,25 @@
    同一函数遇 `0xFF` 时 `insert(i+1, 0xFF)`(asm 0x79b808 edx=r14d=
    0xffffffff)。转写按字面保留。是否原版 bug(本意为补 LF)待 5c 期
    与原版 ZMODEM 会话对表再裁。
+
+## #37 SafeEdit 的基类:dtor 链 vs QMetaObject superdata 互相矛盾(2026-11-16)
+
+- **dtor 链证据**(三级,逐字段可数):
+
+  | 层 | vptr 写入 | 随后释放的字段 |
+  |---|---|---|
+  | SafeEdit | `&SafeEdit_vtable` | `+0x88` QString |
+  | PathEdit | `&PTR_FUN_01198458` | `+0x50` 原子计件、`+0x30` 引用计件 |
+  | LineEdit → QLineEdit | — | 无(LineEdit 零字段) |
+
+  中间那跳写的是 **PathEdit 的 vtable**,紧接着释放的正是 PathEdit 的字段;
+  尺寸也自洽:`0x90` = PathEdit `0x80` + `+0x88` 字段。
+
+- **QMetaObject 证据**:`SafeEdit` 的 metaobject(0x0119d3c0)
+  `superdata = 0x01198660 = LineEdit`,**跳过**了 PathEdit(0x0119d160)。
+
+- 两者只能有一个对。当前**代码按 dtor 链落**(`SafeEditFace : PathEditFace`),
+  理由:dtor 链有三处独立可数的字段释放,误导成本比单个 superdata 字段高。
+
+- **终审办法**(留到能编译时):写一行 `static_cast<PathEdit *>(safeEditPtr)`,
+  能编过 = dtor 链对;报 "not a base" = superdata 对。**不要在此之前改继承**。
