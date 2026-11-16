@@ -18583,7 +18583,7 @@
 006ebd28	794	FUN_006ebd28	real	src/Widgets/Dialogs/HelpDialogFace.cpp,src/Widgets/Dialogs/HelpDialogFace.h
 006ec09d	41	FUN_006ec09d	todo	
 006ec0c6	325	s_terminal_autoComplete_preselectBestM_6ec0c6	todo	
-006ec240	29	CategoryPage_dtor	todo	
+006ec240	29	CategoryPage_dtor	real	
 006ec25d	33	FUN_006ec25d	todo	
 006ec27e	47	CategoryPage_dtor_deleting	todo	
 006ec2ad	51	FUN_006ec2ad	todo	

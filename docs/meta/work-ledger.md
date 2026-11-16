@@ -19,10 +19,10 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 768 | 1.98% | 277485 | 3.62% |
+| 真实现 | 769 | 1.98% | 277514 | 3.62% |
 | 半成品 | 42 | 0.11% | 13975 | 0.18% |
 | 引用档 | 2152 | 5.55% | 798840 | 10.41% |
-| 未触及(真工作) | 20739 | 53.52% | 5568872 | 72.59% |
+| 未触及(真工作) | 20738 | 53.52% | 5568843 | 72.59% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1095 | 2.83% | 225845 | 2.94% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -321,7 +321,7 @@
 | `CGlobalConfig` | `src/Editor/Config/CGlobalConfigFace.h` | 11 | 0 |
 | `CTerminalConfig` | `src/Editor/Config/CTerminalConfig.h` | 3 | 0 |
 | `CaptureGroupsButton` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
-| `CategoryPage` | `src/Widgets/Settings/TriggerPages.h` | 0 | 0 |
+| `CategoryPage` | `src/Widgets/Settings/CategoryPageFace.h` | 0 | 0 |
 | `CategoryTree` | `src/Widgets/Views/CategoryTreeFace.h` | 0 | 0 |
 | `CheckDelegate` | `src/Widgets/Controls/ThinControls.h` | 0 | 0 |
 | `CheckEditor` | `src/Widgets/Controls/DelegateControls.h` | 0 | 0 |

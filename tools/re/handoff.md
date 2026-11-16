@@ -391,3 +391,18 @@ btn->setStyleSheet("QToolButton { color: %1; }".arg(s == 1 ? "red" : "green"));
 6. **先判是不是 B 类**(Scintilla / chardet / libssh 上游件)。
    本轮差点把 Scintilla 的 `Editor` 当自研逆向 —— 函数体里出现
    `editor_textLength` / `runstyles_runnode_init` / `Decoration` 就停手。
+
+7. **建类之前必须查重(本会话唯一一次严重返工)。**
+   曾一次性建了六个"新类",其中 **五个已存在**:
+   `TriggerActionWidgetFace`(TriggerPageFace.h)、
+   `TriggerActionDialogFace`(Dialogs/TriggerActionDialogFace.h)、
+   `ShowTooltipTriggerPageFace` / `RunCommandTriggerPageFace` /
+   `SendTextTriggerPageFace`(TriggerPageFace.h)
+   —— 造成同文件里两份同名 class 定义,只能整批删掉重做。
+   **机械前置**(一条都不能省):
+   ```bash
+   python3 tools/re/coverage.py --what <类名>
+   grep -rl "class <类名>" src/          # 必须为空才新建
+   ```
+   名字相近的族(Trigger* / Category* / *Panel / *View)尤其危险:
+   它们往往已经在同一个文件里落过,只是用了不同的分组方式。
