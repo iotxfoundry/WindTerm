@@ -160,6 +160,7 @@
 00533a0c	src/Widgets/Settings/TriggerPageFace.cpp
 00533a0c	src/Widgets/Settings/TriggerPageFace.h
 00534d80	src/Widgets/Views/LockScreenFace.cpp
+00534da0	src/Actions/FilterEditActionFace.cpp
 00534e62	src/Widgets/Controls/CheckListFace.cpp
 00534e62	src/Widgets/Controls/CheckListFace.h
 00534e62	src/Widgets/Controls/CloseButtonFace.h
