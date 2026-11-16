@@ -42,7 +42,19 @@ void PasteSettingsPageFace::setupUi()
 	//   "terminal.screen.pasteDialog"(tr "Show paste dialog on the &main
 	//     screen" 0xc9f6d8)、"terminal.altScreen.pasteDialog"(tr "...&alternate
 	//     screen" 0xc9f700)— 控件工厂体 cited。
-	// 三 FormLayout(VBox+form3/4/5)@006e00f0-013d;form4 setRowWrapPolicy(2)、
-	//   addRow(form3)/(tr "&Right click:" 0xc9e8cc + 选择器)/form5×3、
-	//   setLayout — 装配面(cited 逐行实参)。
+	// 三 FormLayout 装配(asm 0x6e0157-0x6e01c8 逐实参):
+	//   @0x6e0157 form?->addRow(form3);
+	//   @0x6e0171 tr("&Right click:")(0xc9e8cc)→ @0x6e0184
+	//     form4->addRow(标签, 选择器)(rdx = 选择器);
+	//   @0x6e0199/@0x6e01a9/@0x6e01b6 form5->addRow(三配置件);
+	//   @0x6e01c8 host->setLayout(vbox)/(0x6e01cd) 页根。
+	m_form4 = new QFormLayout();          // @006e0109
+	m_form5 = new QFormLayout();          // @006e0122
+	m_form4->setRowWrapPolicy(QFormLayout::WrapLongRows); // 2
+	if (m_rightClickCombo != nullptr)
+		m_form4->addRow(tr("&Right click:"), m_rightClickCombo); // @0x6e0184
+	for (QWidget *w : {m_localModeW, m_screenPasteW, m_altPasteW})
+		if (w != nullptr)
+			m_form5->addRow(w); // @0x6e0199-0x6e01b6
+	setLayout(m_vbox);                  // @0x6e01c8
 }

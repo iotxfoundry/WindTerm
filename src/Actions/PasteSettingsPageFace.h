@@ -32,7 +32,9 @@ private:
 	QGroupBox *m_group2 = nullptr;   // 组2"Mouse Actions"
 	QGroupBox *m_group3 = nullptr;   // 组3"Paste Dialog"
 	QLabel *m_label = nullptr;       // "When pasting multiple lines..."
-	QFormLayout *m_form = nullptr;   // 行布局(cited)
+	QFormLayout *m_form = nullptr;   // 行布局(主 form3)
+	QFormLayout *m_form4 = nullptr;  // 行布局(右击行,rowWrapPolicy 2)
+	QFormLayout *m_form5 = nullptr;  // 行布局(三个配置件)
 	QComboBox *m_rightClickCombo = nullptr; // "terminal.rightClickAction" 选择器
 	QWidget *m_localModeW = nullptr;        // terminal.localModeEnabled 面
 	QWidget *m_screenPasteW = nullptr;      // terminal.screen.pasteDialog 面
