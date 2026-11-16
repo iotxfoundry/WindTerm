@@ -228,6 +228,8 @@
 0055456a	src/Widgets/Controls/CloseButtonFace.h
 0055456a	src/Widgets/Controls/ExplorerListFace.cpp
 0055456a	src/Widgets/Controls/ExplorerListFace.h
+00556570	src/Widgets/Bars/HighlightTextBarFace.cpp
+00556570	src/Widgets/Bars/HighlightTextBarFace.h
 0055a260	src/Widgets/Dialogs/TextMarkDialogFace.cpp
 0055bbce	src/Actions/ActionRegistryFace.cpp
 0055bbce	src/Actions/ActionRegistryFace.h
@@ -6560,6 +6562,7 @@
 008ef838	src/Widgets/Settings/TriggerPageFace.h
 008ef942	src/Widgets/Settings/TriggerPageFace.cpp
 008ef942	src/Widgets/Settings/TriggerPageFace.h
+008f0b38	src/Widgets/Bars/HighlightTextBarFace.h
 008f0ffa	src/Widgets/Settings/TriggerPageFace.cpp
 008f0ffa	src/Widgets/Settings/TriggerPageFace.h
 008f6608	src/Widgets/Bars/TabBarFace.h

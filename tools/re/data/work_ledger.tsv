@@ -13838,7 +13838,7 @@
 00556195	722	FUN_00556195	todo	
 005564a6	87	FileDialog_vt6	qtplumb	
 00556500	110	FUN_00556500	todo	
-00556570	29	FUN_00556570	todo	
+00556570	29	FUN_00556570	ref	src/Widgets/Bars/HighlightTextBarFace.cpp,src/Widgets/Bars/HighlightTextBarFace.h
 00556590	124	FUN_00556590	todo	
 0055660c	496	FUN_0055660c	todo	
 0055682e	112	FontComboBox_dtor	real	
@@ -25336,11 +25336,11 @@
 008f0aba	47	FontPreviewWidget_dtor_deleting	todo	
 008f0ae9	51	FUN_008f0ae9	todo	
 008f0b20	24	HighlightTextBar_metaObject	qtplumb	
-008f0b38	57	FUN_008f0b38	todo	
+008f0b38	57	FUN_008f0b38	ref	src/Widgets/Bars/HighlightTextBarFace.h
 008f0b72	65	FUN_008f0b72	todo	
 008f0bb4	66	HighlightTextBar_qt_metacast	qtplumb	
 008f0bf6	95	HighlightTextBar_qt_metacall	qtplumb	
-008f0c56	55	HighlightTextBar_dtor	todo	
+008f0c56	55	HighlightTextBar_dtor	real	
 008f0c8d	69	FUN_008f0c8d	todo	
 008f0cd2	82	FUN_008f0cd2	todo	
 008f0d24	68	HighlightTextBar_dtor_deleting	todo	
