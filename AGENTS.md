@@ -50,6 +50,8 @@
 | `.claude/` `.opencode/` | — | 目录 | agent 本地状态(**gitignored**,不入库) |
 | `compile_commands.json` / `WindTerm.til` | — | 文件 | 构建 / IDA 残留(untracked、gitignored,可随时重建) |
 
+> 「体量」列是**量级参考**,随清理/增长漂移,不作判据。
+
 **判据速记**:改行为 → `src/`;找出处 → `tools/re/decomp`;查结论 → `docs/`;
 验事实 → `./WindTerm`;**删东西前先看 `docs/cleanup.md` 与踩坑 14**。
 
@@ -59,7 +61,7 @@
 |---|---|---|
 | `src/App/` | 应用与启动 | SuperApplication / StartupChain / StateStore / JsEngine / ThemeIcons / ApplicationTheme |
 | `src/Windows/` | 窗口系统 | `Kit/`(KitWindow·KitDock·KitBar·MainWindow·Factory)`Mux/`(MuxWindow·MuxPane*) |
-| `src/Widgets/` | UI 控件 | `Dialogs/`(36)`Settings/`(4)`Bars/` `Controls/` `Panes/` `Views/`;根 3 = B 类开源件 |
+| `src/Widgets/` | UI 控件 | `Dialogs/` `Settings/` `Bars/` `Controls/` `Panes/` `Views/`;根目录 = B 类开源件 |
 | `src/Actions/` | 命令层 | ActionFactory / ActionRegistry / ToolBarBuilder / SlipButton / BackwardShortcut |
 | `src/Sessions/` | 连接与传输 | `Core/` `Transports/` `Bridges/` `Commanders/` |
 | `src/Terminal/` | 终端内核 | Screen / ScreenData / TerminalCore / TermViewFace |
@@ -93,6 +95,8 @@ grep -rn '#include "' src/ | ...        # include 必须能按 src/ 根相对路
 > 必须同时加进 `CMakeLists.txt` 的 `WT_SOURCES` 与 `WT_MOC_HEADERS`。
 >
 > 详细清单(每目录逐文件)见 **`src/README.md` §1**;本节只记**分层与判据**。
+> **各层当前文件数/地址数见 `docs/meta/coverage-map.md`(每次 `coverage.py --write` 重生成)**
+> —— 本文与 README 都不写死数字,避免随批次腐化。
 
 
 ## 2. 会话重启加载顺序
@@ -335,7 +339,7 @@ tools/re/decomp/decomp-part-NNNN.c
 | SSH 认证 | `docs/subsystems/ssh-internals.md`;`SuperSessionPrivate.cpp` |
 | Scintilla 内核 | `src/Scintilla/src/`(上游源码)+ `docs/subsystems/editor-engine-commands.md` |
 | 会话/工作区 | `docs/subsystems/session-config-layer.md` |
-| 终端配置 | `CTerminalConfig` 单例(0x00809d78,199 处);`wind.config`=JSON |
+| 终端配置 | `CTerminalConfig` 单例(0x00809d78);`wind.config`=JSON |
 | King 枚举 | `src/Utility/KingEnums.h`(45 枚举全值域,QMetaObject 权威) |
 | 外部库边界 | `docs/ext-boundary.md`(不逆向清单 + 版本) |
 | 界面重建 | `tools/re/gui-map.md`(七节总账)+ `docs/pending-attribution.md` |

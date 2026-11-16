@@ -16,6 +16,9 @@
 **判据 = 软件自身的分层与子系统**,不按"是否逆向过"、不按类名后缀。
 新增类时先问:它在架构里属于哪一层,而不是"它像哪个已有文件"。
 
+> 树中列的是**代表类**,不是全部;各层当前文件数/地址数以
+> **`docs/meta/coverage-map.md`** 为准(自动生成)。本文**不写死任何计数**。
+
 ```
 src/
 ├── App/               应用层(启动 / 全局状态 / 脚本 / 主题)
@@ -26,16 +29,16 @@ src/
 │   │                   KitWindowFactory MainWindow
 │   └── Mux/            多路窗口:MuxWindow MuxPane MuxPaneGroup MuxPaneView MuxPaneJs
 ├── Widgets/           UI 控件
-│   ├── Dialogs/        36  全部对话框 + MsgBox + LoginWizard + Tunnel/TransferAsk
-│   ├── Settings/        4  设置页:Settings SettingsPage PasteSettingsPage TriggerPage
-│   ├── Bars/            6  条状容器:ActionToolBar StatusBar MessageBar
+│   ├── Dialogs/           全部对话框 + MsgBox + LoginWizard + Tunnel/TransferAsk
+│   ├── Settings/          设置页:Settings SettingsPage PasteSettingsPage TriggerPage
+│   ├── Bars/              条状容器:ActionToolBar StatusBar MessageBar
 │   │                       Quick/TransferBar AddressBar+BreadCrumb
-│   ├── Controls/       13  原子控件:按钮( Action/Color/Expand/Close/Completer )/
+│   ├── Controls/          原子控件:按钮( Action/Color/Expand/Close/Completer )/
 │   │                       输入( SearchEdit/FilterEdit/CrumbEdit/CountSpinbox/CursorShape )/
 │   │                       列表( CheckList/ExplorerList )/容器组( TabGroup/SplitterGroup )
-│   ├── Panes/           5  FilerPane OutputPane SessionPane TransferPane ViewBase SearchPanel
-│   ├── Views/           4  TerminalView TerminalWidget TextEdit TextView
-│   └── (根)             3  PopupWidget ScrollBar Splitter   ← **B 类,勿逆向**
+│   ├── Panes/             FilerPane OutputPane SessionPane TransferPane ViewBase SearchPanel
+│   ├── Views/             TerminalView TerminalWidget TextEdit TextView
+│   └── (根)               PopupWidget ScrollBar Splitter   ← **B 类,勿逆向**
 ├── Actions/           命令层(动作 / 菜单 / 工具栏 / 快捷键)
 │                        ActionFactory ActionRegistry ToolBarBuilder
 │                        SlipButton(菜单行) BackwardShortcut(快捷键绑定)
@@ -132,8 +135,8 @@ src/
 二进制里 **没有 `Face` 这个词**(`strings -a WindTerm | grep -c Face` = 0)。
 `*Face` = 我方在 `src/` 里承接语料函数体的类,用来和第三方/第一方开源件区分。
 
-- **去掉 `Face` 后命中二进制 RTTI 真名 → 基名可信**(当前 63/87;
-  全量对照见 `docs/meta/class-names.md`)。
+- **去掉 `Face` 后命中二进制 RTTI 真名 → 基名可信**(统计见
+  `docs/meta/class-names.md`)。
 - **去后缀不命中 → 需查证**:可能是伞形容器名(`ActionRegistry`/`Settings`)、
   我方内部拆分(`Screen`→二进制 `SuperTerm`、`EditorContext`→`Editor`)、
   或重复建模。
