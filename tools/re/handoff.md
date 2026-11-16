@@ -78,6 +78,37 @@ A. 开编译期 —— 一次暴露数千条类型/链接错,是当前最大的�
 B. 继续功能级啃中/大件(每批 1–3 个,1–4KB),进度慢但都是真代码。
 C. 先划第三方区块(boost/libstdc++/Scintilla),把 20,909 的队列洗干净再排产。
 
+
+### 批 499:按功能面探测(结论:多数目标已被前批覆盖)
+
+按"挑调用方已就位的中件"顺序探了 4 个候选,**3 个已覆盖、1 个缺宿主类型**:
+
+| 候选 | 结论 |
+|---|---|
+| `theme_icon_load_svg`(1272B) | **已在** `App/ThemeIcons.cpp:140` `loadSvg`(缓存查/`::`与`.svg` 判/SvgIconEngine/recolor 全在) |
+| `s_kit_startupSessions_8d2f7e`(3122B) | **已在** `KitWindowAssemblyFace.cpp:131`,只差中段 flags&1/&2 两支(语料注明属 Workspace::kitStartupSessions) |
+| 动作配置读入面 `FUN_00a7e75e/00a7fdd8/00a8017e` | **已由** `ActionFactory::loadActionsFile` 承载(StartupChain.cpp:310-316 双源装载序) |
+| `statusButton_setState`(895B) | 语义已全解,**缺宿主类**:`param_1` 是 (QToolButton*, host*) 二指针,host+0xa0 判空;metaobject 0x01198d80 解析失败,类名未定 |
+
+`statusButton_setState` 已解出的语义(下一批可直落,只差宿主类):
+```
+btn = pair[0]; s = state;
+if (host->+0xa0 == nullptr) s = QVariant(0);
+// 文本(嵌套 compare 直译;注意 2/3 两支在编译产物里不可达 —— 待 quirks 登记)
+if (s == 1) { if (s == 2) { if (s == 3) "Unknown" else "Mismatched" } else "Changed" }
+else "Known";
+btn->setText(text.toUpper());
+btn->setStyleSheet("QToolButton { color: %1; }".arg(s == 1 ? "red" : "green"));
+```
+串实读:`Known`@0xc8ac84 / `Changed`@0xc8ac8a / `Mismatched`@0xc8ac92 /
+`Unknown`@0xc8ac9d / `green`@0xc8ac7e / `red`@0xc9e638;
+颜色判据 asm 0x0058f546-556:`test al; cmove` → cmp==0(即 s==1)取 **red**。
+
+**LockScreen 全类规模实测**(若下一批整类推):0x0055f130–0x00561xxx 共 29 个具名
+函数 ≈ 11KB,含 `s_TitleLabel_560414`(1004B)/`s_LockScreen_560888`(243B 疑 ctor)/
+`lockscreen_connectSignals`(883B,6 条 connect,槽 00561492/005614c0/0055fb0b/
+0055fa50/00561990)。整类推可在 3–4 批内收口。
+
 ## 已定案边界与永久假设(新会话勿重开)
 
 - **RUBY 语法假设(永久化,批 124 终裁)**:0x4eff onig 委托以
