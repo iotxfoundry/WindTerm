@@ -2,6 +2,8 @@
 
 #include "Widgets/Panes/SessionPaneFace.h"
 
+// 出处:QMetaObject 0x011a5960(class="SessionPane",methods=10,signals=0,
+// superdata=0x011ab900 KitPane);ctor 内联在调用点,仅转发基构造。
 SessionPaneFace::SessionPaneFace(QWidget *parent)
     : KitPaneFace(parent)
 {
