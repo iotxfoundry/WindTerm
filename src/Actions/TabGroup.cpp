@@ -1053,3 +1053,26 @@ void TabBar::onTabMoved(int to)
 	//   (共享先 detach;+0x68 走 qvariant 深拷贝) — cited
 	assignMnemonics();                        // @tabbar_assignMnemonics
 }
+
+// s_CloseButton_5a6d42(552B)关钮工厂真身
+QToolButton *TabBar::makeCloseButton(QWidget *parent)
+{
+	auto *btn = new QToolButton(parent);          // @005a6d67(0x30)
+	btn->setObjectName(QStringLiteral("CloseButton")); // @005a6d9x(strlen 0xb)
+	btn->setToolTip(QStringLiteral("Close Tab"));      // tr(0xc8b231)
+	// 图标 + clicked → 关页槽 接线 — cited
+	return btn;
+}
+
+// FUN_005a824c(290B)挂关钮真身(结构段)
+void TabBar::attachCloseButtonIfAllowed(int index, QToolButton *button)
+{
+	if (index < 0 || index >= count())
+		return;
+	const QString data = tabData(index).toString();   // 页数据串(+0x68[index])
+	if (button == nullptr)
+		return;
+	if (data.isEmpty() || data == QStringLiteral("Pinned")) // 空名/固定页 → 不挂
+		return;
+	setTabButton(index, QTabBar::RightSide, button);   // @005a82xx
+}

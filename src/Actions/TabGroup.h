@@ -123,6 +123,16 @@ public:
     //   ⇒ 页签的"节点/数据/属性"是三条平行表,move 必须同步。
     void onTabMoved(int to);
 
+    // s_CloseButton_5a6d42(552B,0018.c:21918)关钮工厂:
+    //   **QToolButton(parent)** → objectName **"CloseButton"** →
+    //   setToolTip(**tr("Close Tab")(0xc8b231)**)→ 图标/clicked 接线(余段 cited)。
+    static class QToolButton *makeCloseButton(QWidget *parent);
+
+    // FUN_005a824c(290B,0018.c:22871)给指定页挂关钮:
+    //   取该页 **数据串(+0x68[index])**;**页名为空 或 == "Pinned" → 不挂**
+    //   (即**固定页/无名页没有关闭按钮**);否则 setTabButton(RightSide, 关钮)。
+    void attachCloseButtonIfAllowed(int index, class QToolButton *button);
+
     void removeTabNodes(int index);
     // 0058e38a(1942B,0018:...)TabBar 列表/右键菜单:
     //   +0x50 表空 → FUN_0058d940(空态腿);
