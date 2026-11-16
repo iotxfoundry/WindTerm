@@ -528,3 +528,22 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   收起 `008595c8`、列表读 `0085e0c0`(350B:count→reserve→逐项,状态异常中止)、
   **懒建正主 `0085ad2e`**(0x70 QuickBar)与 `0085af56`(0x58 TransferBar)分辨清楚。
 - **新增 `docs/PENDING-ATTRIBUTION.md`**:收尾期归属工作单(6 项迁移/10 条错案/5 条待定/14 例名不副实)。
+
+### 批 449-455 增量(⑤ 样式件/线型表 + ④ 两对话框接线 + 5c 尾钩定案)
+- **线型表 14 项(.rodata 全实读)** `None/Solid/Double/Thick/Strike/Wavy/Dot/Dash/
+  Dash dot/Dash dot dot/Round box/Dashed box/Dotted box/Box` —— 这是
+  `text.lineStyle` 的取值面;线型下拉 `00703704`(427B)每项 data = **mode 项 +0x40 字节**。
+- **`ColorButton`**(`s_ColorButton_53904e` 582B):QPushButton 子类,
+  objectName `"ColorButton"`,styleSheet 追加 **`QPushButton { text-align: left; }`**。
+- **TextMarkTablePanel**:列头 `Pattern`/`Description`/`Style` + 空态
+  `No text mark available`;`00567084`(683B) 是**接线**(面板信号 idx1/9/0xb 四路)。
+- **5c 尾钩定案**:`+0x248` 虚槽默认 = `008d5bee`(6B `return 1`),**空实现基线**
+  = `008d5bf4`(1B `ret`);`+0x240` 默认 = `008d1014`(85B:`status_showMessage`
+  level 4 / **15000 ms** + `sender`→`008d0fd6`)。
+- **DefaultEditorDialog**:三平台页 `&Linux`/`&macOS`/`&Windows`(键
+  `linux`/`macos`/`windows`)+ 标签 `&Choose a default editor:` +
+  键 `filer.defaultEditor` + 模板 `"%1.%2"`。
+- **EnvironmentDialog**:`+0x40` 可编辑下拉双信号 + `+0x30` 按钮盒;
+  标签 `&Variable:` / `V&alue:`。
+- **自查**:批 429 生成脚本把两条装配腿地址写短(`FUN_00962`/`FUN_b2cd2`),
+  已清/补全(454b/454c)——**生成脚本产出也要逐条核地址**。

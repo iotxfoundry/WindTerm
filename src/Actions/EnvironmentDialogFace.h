@@ -25,5 +25,6 @@ protected:
 	//   **+0x30 QDialogButtonBox** accepted → 闭包 FUN_006b3750(槽偏移 0x1b9);
 	//   rejected → 同族(0x1c1)。
 	//   ⇒ +0x30 按钮盒 / +0x40 名字下拉(可编辑)。
+	//   同行标签实读:**tr("&Variable:")(0xc9d4f8)** / **tr("V&alue:")(0xc9d503)**。
 	void wire();
 };
