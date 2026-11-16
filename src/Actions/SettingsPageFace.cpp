@@ -399,3 +399,14 @@ void SettingsPageFace::updateRowFlags(SettingsRow &row)
 		row.flags = (old == 1u) ? 1u : 0u;
 	}
 }
+
+// 006fe450(1400B,0022.c:26921)真身(结构段):
+//   @006fe47c qstring_assign_from_ascii("action")→ qmap_lower_bound_find(
+//     *rowMap, "action")→ QVariant::toString;
+//   @006fe4f4 FUN_0069b57e(&out)(动作注册表查,cited)→ 组合框同步余段 cited。
+void SettingsPageFace::syncActionCombo(const QVariantMap &row)
+{
+	const QString action = row.value(QStringLiteral("action")).toString(); // "action"
+	// FUN_0069b57e(action) → 注册表项 — cited
+	// 组合框 findData/setCurrentIndex 同步腿 — cited(1400B 余段)。
+}

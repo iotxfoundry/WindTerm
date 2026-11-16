@@ -106,6 +106,10 @@ public:
 	//   !g → flags = b ? 0 : 3;g && !b → flags = (旧flags != 3) ? 2 : 3;
 	//   g && b → flags = (旧flags == 1) ? 1 : 0。
 	void updateRowFlags(SettingsRow &row);
+	// 006fe450(1400B,0022.c:26921)动作组合框同步:
+	//   map 查 "action" 键(实读)→ toString → FUN_0069b57e(动作注册表项)
+	//   → 组合框项/选中同步(余段 cited)。
+	void syncActionCombo(const QVariantMap &row);
 
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
