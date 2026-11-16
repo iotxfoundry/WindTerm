@@ -489,3 +489,33 @@ QMenu *sessionColorMenu(QWidget *owner)
 	//   @0071a225 — 槽体 466B 未转写,cited 不落接线。
 	return menu;
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// 补录(2026-11-16):另有五个 entry,语料名与实物错位,逐个归位
+// ═══════════════════════════════════════════════════════════════════════
+//
+// 1. 0x005d9acc(651B)—— 语料名 `CGlobalConfig_metaObject`,**实为析构体**
+//    判据:首句就写 `&CGlobalConfig_vtable`,且后面整段是字段释放。
+//    逐段:
+//      · `CGlobalConfig_ha83710`(0x00a83710,76B)= **全局互斥锁**:
+//        `pthread_mutex_lock(&DAT_011c2920)` 成功后调 0x00b39960
+//        —— 即配置销毁时先拿全局锁,避免与读配置的线程竞争。
+//      · +0x58(json 对象)非空 → 依次释放其 **+0x28 / +0x20 / +0x18**
+//        三个子值:各自 `json_value_destruct(v)` + `operator_delete(v, 0x28)`
+//        (jsoncpp 的 Value 是 0x28 字节)。
+//      · 随后 +0x58 自身的 +0x10 QString 减引用,再释放 +0x58。
+//    ⇒ **配置的 JSON 树是三层嵌套**,不是一层;每层都是 0x28 的 jsoncpp Value。
+//
+// 2. 0x005dd860(149B)—— 子对象析构(不是主析构):
+//    `QJSValue::~QJSValue(+0x38)` → +0x30 QString → +0x28 QSharedDataPointer
+//    → +0x20 QString → +0x18 QString。
+//    **+0x38 是 QJSValue** —— 说明配置能承载脚本值,这与 JsEngine 的接线对得上。
+//
+// 3. 0x005dd820(53B)—— `std::__shared_ptr` 的 aliasing 访问器:
+//    拿 `typeid` 名与 `"St19_Sp_make_shared_tag"` 比对,命中则返回 `this + 0x10`。
+//    这是 libstdc++ 模板实例,**不是本类业务函数**,记在此处防止被当业务逆向。
+//
+// 4. 0x008aac90(156B)`list_nodes_destroy` —— 节点表整体销毁(已在头注 §71 行登记)。
+//
+// 5. 0x005dd80e / 0x005dd856 / 0x008a5750 各 1–10B —— 裸 `ret` / 纯转发桩,
+//    objdump 已核,不是 0 长函数。
