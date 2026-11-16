@@ -27,6 +27,12 @@ public:
 	explicit SessionDialogFace(const QString &name, const QVariant &config,
 	                           QWidget *parent = nullptr);
 
+	// FUN_007101a0(1166B)主装配(建造部分逐对实测):
+	//   **+0x80 = QStackedWidget(0x30)** / **+0x88 = QStackedWidget(0x30)** /
+	//   **+0x90 = QTabBar(0x30)** / **+0x68 = QDialogButtonBox(0x30)**;
+	//   按钮文案实读:**"Connect"**(0xca02a2)/ **"Cancel"**(0xc8a1b5)/
+	//   **"&Edit Default Settings..."**(0xca0655)。
+	//   ⇒ 双层页签(分类页 + 协议页)+ 连接/取消/编辑默认设置。
 	void buildCommon();   // FUN_007101a0(1166B)
 	// FUN_0070c918(343B)**接线**(非装配),四路:
 	//   ① +0x90 QTabBar::currentChanged → 闭包 impl FUN_007223c8;
@@ -44,6 +50,8 @@ protected:
 	QIntValidator *m_portValidator70 = nullptr; // +0x70(0..99999999)
 	QWidget *m_buttons68 = nullptr;    // +0x68(QDialogButtonBox)
 	QWidget *m_f78 = nullptr;          // +0x78
+	QWidget *m_f80 = nullptr;          // +0x80(QStackedWidget)
+	QWidget *m_f88 = nullptr;          // +0x88(QStackedWidget)
 	QWidget *m_tabBar90 = nullptr;     // +0x90(QTabBar,currentChanged 宿主)
 	QWidget *m_f98 = nullptr;          // +0x98
 	QWidget *m_textA0 = nullptr;       // +0xa0

@@ -2,6 +2,8 @@
 #include "SessionDialogFace.h"
 
 #include <QDialogButtonBox>
+#include <QStackedWidget>
+#include <QTabBar>
 #include <QIntValidator>
 
 // FUN_0072223c(364B)ctor 真身
@@ -20,10 +22,18 @@ SessionDialogFace::SessionDialogFace(const QString &name, const QVariant &config
 	//   — cited(协议取面 1215B 同族)
 }
 
-// FUN_007101a0(1166B)主装配 — 结构段(cited)
+// FUN_007101a0(1166B)主装配真身(建造部分):
+//   @造 +0x80/+0x88 两个 QStackedWidget、+0x90 QTabBar、+0x68 QDialogButtonBox;
+//   按钮 "Connect" / "Cancel" / "&Edit Default Settings..." 三串实读。
 void SessionDialogFace::buildCommon()
 {
-	// 语料在本腿建会话页的通用字段组(+0x78..+0xe8 各控件) — cited
+	m_f80 = new QStackedWidget(this);      // +0x80(0x30)
+	m_f88 = new QStackedWidget(this);      // +0x88(0x30)
+	m_tabBar90 = new QTabBar(this);        // +0x90(0x30)
+	auto *box = new QDialogButtonBox(this);// +0x68(0x30)
+	m_buttons68 = box;
+	// 三个按钮:Connect(自定义)/ Cancel / &Edit Default Settings...
+	//   语料以 addButton + setText 落地,cited(按钮枚举未取证)
 }
 
 // FUN_0070c918(343B)接线真身
