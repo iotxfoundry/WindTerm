@@ -3082,6 +3082,7 @@
 0074f5ac	src/Widgets/Panes/SearchPaneFace.h
 0074feb4	src/Windows/Kit/KitWindowAssemblyFace.cpp
 007525da	src/App/ApplicationTheme.cpp
+0075263e	src/Actions/UndoListActionFace.h
 0075263e	src/Widgets/Controls/SearchEditFace.cpp
 0075263e	src/Widgets/Controls/SearchEditFace.h
 0075263e	src/Widgets/Dialogs/RunToolDialogFace.cpp
@@ -7409,6 +7410,8 @@
 009b9c0e	src/App/ApplicationTheme.cpp
 009ba94c	src/Editor/Engine/EditorEngine.cpp
 009ba966	src/Editor/Engine/EditorEngine.cpp
+009c3e06	src/Actions/UndoListActionFace.cpp
+009c3e06	src/Actions/UndoListActionFace.h
 009c7114	src/Editor/Engine/EditorContext.h
 009c784c	src/Editor/Engine/MatchEngine.cpp
 009c7a84	src/Editor/Engine/MatchEngine.cpp
