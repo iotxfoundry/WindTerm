@@ -192,3 +192,20 @@ void SuperApplicationFace::aboutToQuitWrite()
 	stateStoreAboutToQuit(m_quitTable, m_historyPath); // FUN_0076073a @28733
 	// FUN_005d8c04(DAT_011c1240)@28735 — cited(见上)。
 }
+
+// s_application_windowOpacity_75c4d0(408B)读键真身
+double readWindowOpacity()
+{
+	// global_setting_get(qApp, "application.windowOpacity", QVariant(1.0))
+	//   → QVariant::toDouble — cited(全局读面未建模)
+	return 1.0;
+}
+
+// s_application_windowOpacity_75c4d0(408B)应用真身
+void applyWindowOpacity(double v)
+{
+	if (!(v > 0.0 && v <= 1.0))          // 语料门 0 < v <= 1
+		return;
+	for (QWidget *w : QApplication::topLevelWidgets()) // (+0x20→+0x48 窗口表)
+		w->setWindowOpacity(v);          // QWidget::setWindowOpacity
+}

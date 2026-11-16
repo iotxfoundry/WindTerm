@@ -27,6 +27,15 @@ class QMainWindow;
 //   QApplication::qt_metacall 基调用 + InvokeMetaMethod(id<0x1f →
 //   h90e0b4 分派)+ RegisterMethodArgumentMetaType(0xc,*(int*)argv[0]
 //   = -1 腿)+ _id -= 0x1f(methodCount 31 权威)。
+// s_application_windowOpacity_75c4d0(408B,0023.c:26005 邻)窗口不透明度应用:
+//   键 **"application.windowOpacity"**(默认 **1.0**)→ 取值;
+//   **仅当 0.0 < v <= 1.0** 才动作:
+//     flag(+0x28) == 0 → 遍历 (+0x20 → +0x48) 的窗口表 → 逐个
+//       **QWidget::setWindowOpacity(v)**;
+//     否则 → 走 qApp 的全局写面(cited)。
+void applyWindowOpacity(double v);   // 调用方取值后传入
+double readWindowOpacity();          // 读键(默认 1.0)
+
 class SuperApplicationFace : public QObject {
 public:
 	// historyPath 缺省 = 语料内部面(DAT_011c1240);显式实参 = 测试
