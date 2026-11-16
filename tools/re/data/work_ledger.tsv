@@ -20492,7 +20492,7 @@
 007a26ce	10	FUN_007a26ce	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
 007a26d8	66	FUN_007a26d8	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
 007a2720	18	FUN_007a2720	stub	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
-007a2732	156	SuperProtocol_h7a2732	qtplumb	
+007a2732	156	SuperProtocol_h7a2732	real	
 007a27ce	88	SuperProtocol_metaObject	qtplumb	
 007a2826	23	SuperProtocol_qt_metacast	qtplumb	
 007a283e	71	FUN_007a283e	todo	
@@ -20909,7 +20909,7 @@
 007bc9e6	3782	s_application_proxyPassword_7bc9e6	todo	
 007bd9ce	1350	s_session_proxyJumpServer1_7bd9ce	todo	
 007bdf66	158	SessionConnector_h7bdf66	qtplumb	
-007be004	138	SessionConnector_dtor	todo	
+007be004	138	SessionConnector_dtor	real	
 007be08e	23	SessionConnector_dtor_deleting	todo	
 007be0a6	1922	s_session_proxyHost_7be0a6	ref	src/Sessions/Transports/TelnetSession.h
 007be8b8	43	FUN_007be8b8	todo	
@@ -23727,7 +23727,7 @@
 0087526a	63	FUN_0087526a	todo	
 008752a9	177	FUN_008752a9	todo	
 00875362	150	FUN_00875362	todo	
-00875400	120	ShellExecutor_dtor	todo	
+00875400	120	ShellExecutor_dtor	real	
 00875478	23	ShellExecutor_dtor_deleting	todo	
 00875490	384	FUN_00875490	cleanup	
 00875620	137	FUN_00875620	todo	
@@ -25940,7 +25940,7 @@
 008fd938	66	JumpServer_qt_metacast	qtplumb	
 008fd97a	91	JumpServer_qt_metacall	qtplumb	
 008fd9d6	82	JumpServer_dtor_deleting	todo	
-008fda28	76	JumpServer_dtor	todo	
+008fda28	76	JumpServer_dtor	real	
 008fda74	1	FUN_008fda74	todo	
 008fda76	24	ProxyCommandSocket_metaObject	ref	src/Sessions/Bridges/ProxyCommandSocket.h
 008fda8e	66	ProxyCommandSocket_qt_metacast	ref	src/Sessions/Bridges/ProxyCommandSocket.h
