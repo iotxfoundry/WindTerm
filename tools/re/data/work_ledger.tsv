@@ -14248,7 +14248,7 @@
 0057c762	477	FUN_0057c762	todo	
 0057c970	338	FUN_0057c970	todo	
 0057cae2	360	s_FileView_57cae2	todo	
-0057cc5e	3	SftpTransfer_vt14	qtplumb	
+0057cc5e	3	SftpTransfer_vt14	stub	
 0057cc62	3	SftpTransfer_vt15	qtplumb	
 0057cc66	14	FUN_0057cc66	ref	src/Sessions/Core/FileOps.h
 0057cc74	1	FUN_0057cc74	todo	
@@ -25016,7 +25016,7 @@
 008e5ca4	131	FUN_008e5ca4	todo	
 008e5d30	153	FUN_008e5d30	todo	
 008e5dd2	210	FUN_008e5dd2	todo	
-008e5eac	110	FUN_008e5eac	todo	
+008e5eac	110	FUN_008e5eac	ref	src/Sessions/Transfers/SftpTransferFace.cpp,src/Sessions/Transfers/SftpTransferFace.h
 008e5f1a	17	FUN_008e5f1a	todo	
 008e5f2c	101	FUN_008e5f2c	todo	
 008e5f92	76	FUN_008e5f92	todo	
@@ -25035,7 +25035,7 @@
 008e6322	131	FUN_008e6322	todo	
 008e63ae	153	FUN_008e63ae	todo	
 008e6450	203	FUN_008e6450	todo	
-008e6524	114	FUN_008e6524	todo	
+008e6524	114	FUN_008e6524	ref	src/Sessions/Transfers/SftpTransferFace.cpp,src/Sessions/Transfers/SftpTransferFace.h
 008e6596	17	FUN_008e6596	todo	
 008e65a8	70	FUN_008e65a8	todo	
 008e65ee	76	FUN_008e65ee	todo	
@@ -25055,12 +25055,12 @@
 008e6f38	364	FUN_008e6f38	todo	
 008e70d5	134	FUN_008e70d5	ref	src/Sessions/Core/SuperSessionPrivate.h
 008e7164	342	FUN_008e7164	todo	
-008e72c2	20	FUN_008e72c2	todo	
+008e72c2	20	FUN_008e72c2	ref	src/Sessions/Transfers/SftpTransferFace.h
 008e72d6	18	SftpTransfer_h8e72d6	qtplumb	
-008e72e8	32	SftpTransfer_dtor	todo	
+008e72e8	32	SftpTransfer_dtor	real	
 008e7308	23	SftpTransfer_dtor_deleting	todo	
 008e7320	63	SftpTransfer_vt12	qtplumb	
-008e7368	45	SftpTransfer_vt13	qtplumb	
+008e7368	45	SftpTransfer_vt13	real	
 008e739e	33	FUN_008e739e	todo	
 008e73c0	23	FUN_008e73c0	todo	
 008e73d8	25	FUN_008e73d8	todo	
@@ -25154,7 +25154,7 @@
 008eb8e6	34	FUN_008eb8e6	todo	
 008eb908	1296	FUN_008eb908	todo	
 008ebe4e	1073	file_uniqueCopyName	todo	
-008ec2d6	335	FUN_008ec2d6	todo	
+008ec2d6	335	FUN_008ec2d6	ref	src/Sessions/Transfers/SftpTransferFace.cpp,src/Sessions/Transfers/SftpTransferFace.h
 008ec426	23	FUN_008ec426	todo	
 008ec43e	170	FUN_008ec43e	todo	
 008ec4f6	441	FUN_008ec4f6	ref	src/Sessions/Core/SuperSessionPrivate.h
@@ -25163,7 +25163,7 @@
 008ec9b8	285	FUN_008ec9b8	cleanup	
 008ecaee	157	FUN_008ecaee	todo	
 008ecb8c	171	FUN_008ecb8c	todo	
-008ecc38	214	FUN_008ecc38	ref	src/Sessions/Core/SuperSessionPrivate.h
+008ecc38	214	FUN_008ecc38	ref	src/Sessions/Core/SuperSessionPrivate.h,src/Sessions/Transfers/SftpTransferFace.h
 008ecd0e	1319	s_transfer_maxFileDescriptors_8ecd0e	todo	
 008ed26e	1809	fsitem_makeDir	todo	
 008ed9f8	202	FUN_008ed9f8	todo	

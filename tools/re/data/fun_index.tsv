@@ -6525,7 +6525,12 @@
 008e4fea	src/Sessions/Core/SuperSessionPrivate.h
 008e533d	src/Sessions/Core/SuperSessionPrivate.cpp
 008e533d	src/Sessions/Core/SuperSessionPrivate.h
+008e5eac	src/Sessions/Transfers/SftpTransferFace.cpp
+008e5eac	src/Sessions/Transfers/SftpTransferFace.h
+008e6524	src/Sessions/Transfers/SftpTransferFace.cpp
+008e6524	src/Sessions/Transfers/SftpTransferFace.h
 008e70d5	src/Sessions/Core/SuperSessionPrivate.h
+008e72c2	src/Sessions/Transfers/SftpTransferFace.h
 008e8150	src/Sessions/Core/SuperSessionPrivate.cpp
 008e8150	src/Sessions/Core/SuperSessionPrivate.h
 008e8159	src/Sessions/Core/SuperSessionPrivate.h
@@ -6539,11 +6544,14 @@
 008eb532	src/Sessions/Core/SuperSessionPrivate.cpp
 008eb532	src/Sessions/Core/SuperSessionPrivate.h
 008eb540	src/Sessions/Core/SuperSessionPrivate.h
+008ec2d6	src/Sessions/Transfers/SftpTransferFace.cpp
+008ec2d6	src/Sessions/Transfers/SftpTransferFace.h
 008ec4f6	src/Sessions/Core/SuperSessionPrivate.h
 008ec79a	src/Sessions/Core/SuperSessionPrivate.cpp
 008ec79a	src/Sessions/Core/SuperSessionPrivate.h
 008ec875	src/Sessions/Core/SuperSessionPrivate.h
 008ecc38	src/Sessions/Core/SuperSessionPrivate.h
+008ecc38	src/Sessions/Transfers/SftpTransferFace.h
 008eeec4	src/Widgets/Bars/AppletBarFace.h
 008ef798	src/Widgets/Dialogs/TriggerDialogFace.cpp
 008ef798	src/Widgets/Settings/SettingsPageFace.cpp
