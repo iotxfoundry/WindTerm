@@ -13,6 +13,7 @@
 #include <QTabBar>
 #include <QHeaderView>
 #include <QPainter>
+#include <QShowEvent>
 #include <QPaintEvent>
 #include <QTableWidget>
 #include <QTableView>
@@ -357,6 +358,26 @@ void TriggerTableWidgetFace::paintEvent(QPaintEvent *e)
 		return;
 	}
 	QTableWidget::paintEvent(e);
+}
+
+// FUN_00566de6(163B,0017.c:...)首显示自适配列宽真身:
+//   if (+0x30 && (*(+0x28+9) & 0x80)) {          // 需适配 且 宿主位面允许
+//     逐列:isColumnHidden(col) 探测;再逐列 setColumnWidth(col, …);
+//     +0x30 = 0;                                 // 清标志
+//   }
+//   QWidget::showEvent(e)。
+void TriggerTableWidgetFace::showEvent(QShowEvent *e)
+{
+	if (m_needResize30) {
+		const int n = columnCount();             // @00566de6
+		for (int i = 0; i < n; ++i)
+			if (!isColumnHidden(i))              // @QTableView::isColumnHidden
+				;                                // 测宽腿(Ghidra 折叠)— cited
+		for (int i = 0; i < n; ++i)
+			setColumnWidth(i, columnWidth(i));   // @QTableView::setColumnWidth(实参折叠)
+		m_needResize30 = false;                  // +0x30 = 0
+	}
+	QTableWidget::showEvent(e);                   // QWidget::showEvent
 }
 
 // FUN_00703a58(55B)MarkStyleWidget ctor 真身

@@ -239,9 +239,11 @@ public:
 
 protected:
 	void paintEvent(QPaintEvent *e) override;   // FUN_00566d84(97B)
+	void showEvent(QShowEvent *e) override;     // FUN_00566de6(163B)
 
 	int m_flags = 0x48f;
 	QString m_placeholder;                      // +0x38(语料槽位)
+	bool m_needResize30 = true;                 // +0x30(首show 后置 0)
 };
 
 // MarkStyleWidgetFace — FUN_00703a58(55B,0022.c:29996)ctor:
