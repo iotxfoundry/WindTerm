@@ -16257,7 +16257,7 @@
 006130fe	216	FUN_006130fe	todo	
 006131de	58	FUN_006131de	todo	
 00613220	45	FUN_00613220	todo	
-0061324e	13	FUN_0061324e	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+0061324e	13	FUN_0061324e	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 0061325c	29	FUN_0061325c	todo	
 00613280	102	FUN_00613280	todo	
 006132f0	94	FUN_006132f0	todo	
@@ -16875,7 +16875,7 @@
 0064af3c	348	FUN_0064af3c	real	src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp,src/Windows/Mux/MuxPaneJs.cpp,src/Windows/Mux/MuxPaneJs.h
 0064b0be	18	FUN_0064b0be	real	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp
 0064b0d0	41	FUN_0064b0d0	real	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h
-0064b102	1707	s_MuxPane_64b102	ref	src/App/JsEngine.cpp,src/App/JsEngine.h,src/App/StartupChain.cpp,src/Windows/Mux/MuxPane.cpp,src/Windows/Mux/MuxPane.h,src/Windows/Mux/MuxPaneJs.h,src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
+0064b102	1707	s_MuxPane_64b102	real	src/App/JsEngine.cpp,src/App/JsEngine.h,src/App/StartupChain.cpp,src/Windows/Mux/MuxPane.cpp,src/Windows/Mux/MuxPane.h,src/Windows/Mux/MuxPaneJs.h,src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 0064b86a	26	FUN_0064b86a	todo	
 0064b890	104	FUN_0064b890	todo	
 0064b8f8	151	FUN_0064b8f8	todo	
@@ -20523,115 +20523,115 @@
 007a3b3c	96	FUN_007a3b3c	todo	
 007a3b9c	96	FUN_007a3b9c	todo	
 007a3bfc	30	FUN_007a3bfc	todo	
-007a3c1a	15	FUN_007a3c1a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a3c2a	12	FUN_007a3c2a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a3c1a	15	FUN_007a3c1a	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a3c2a	12	FUN_007a3c2a	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a3c36	12	FUN_007a3c36	todo	
 007a3c42	15	FUN_007a3c42	todo	
 007a3c52	16	FUN_007a3c52	todo	
 007a3c62	5	FUN_007a3c62	todo	
-007a3c68	27	FUN_007a3c68	ref	src/Stubs/gen_stubs.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a3c68	27	FUN_007a3c68	real	src/Stubs/gen_stubs.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a3c84	16	FUN_007a3c84	todo	
 007a3c94	5	FUN_007a3c94	todo	
-007a3c9a	215	FUN_007a3c9a	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a3c9a	215	FUN_007a3c9a	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a3d72	77	FUN_007a3d72	todo	
-007a3dc0	29	FUN_007a3dc0	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a3dde	29	FUN_007a3dde	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a3dfc	4	FUN_007a3dfc	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a3dc0	29	FUN_007a3dc0	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a3dde	29	FUN_007a3dde	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a3dfc	4	FUN_007a3dfc	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a3e00	72	FUN_007a3e00	todo	
 007a3e48	432	FUN_007a3e48	todo	
 007a3ff8	459	FUN_007a3ff8	todo	
-007a41d6	323	FUN_007a41d6	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a41d6	323	FUN_007a41d6	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a431a	23	FUN_007a431a	todo	
 007a4332	364	FUN_007a4332	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.h
 007a449e	16	FUN_007a449e	ref	src/Terminal/Screen.cpp
 007a44ae	7	FUN_007a44ae	todo	
 007a44b6	10	FUN_007a44b6	todo	
-007a44c0	26	FUN_007a44c0	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a44da	8	FUN_007a44da	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a44c0	26	FUN_007a44c0	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a44da	8	FUN_007a44da	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a44e2	22	FUN_007a44e2	todo	
-007a44f8	12	FUN_007a44f8	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a44f8	12	FUN_007a44f8	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a4504	20	FUN_007a4504	ref	src/Terminal/Screen.cpp
-007a4518	25	FUN_007a4518	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4532	17	FUN_007a4532	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4518	25	FUN_007a4518	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4532	17	FUN_007a4532	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a4544	10	FUN_007a4544	todo	
-007a454e	22	FUN_007a454e	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4564	43	FUN_007a4564	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4590	93	FUN_007a4590	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a454e	22	FUN_007a454e	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4564	43	FUN_007a4564	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4590	93	FUN_007a4590	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a45ee	7	FUN_007a45ee	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a45f6	37	FUN_007a45f6	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a45f6	37	FUN_007a45f6	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a461c	31	FUN_007a461c	todo	
-007a463c	54	FUN_007a463c	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4672	31	FUN_007a4672	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a463c	54	FUN_007a463c	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4672	31	FUN_007a4672	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a4692	529	FUN_007a4692	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/ScreenData.h
 007a48a4	98	FUN_007a48a4	todo	
-007a4906	7	terminal_getCols	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a490e	45	FUN_007a490e	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a493c	38	FUN_007a493c	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4962	13	FUN_007a4962	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4970	49	FUN_007a4970	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a49a2	36	FUN_007a49a2	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a49c6	27	FUN_007a49c6	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4906	7	terminal_getCols	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a490e	45	FUN_007a490e	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a493c	38	FUN_007a493c	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4962	13	FUN_007a4962	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4970	49	FUN_007a4970	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a49a2	36	FUN_007a49a2	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a49c6	27	FUN_007a49c6	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a49e2	36	FUN_007a49e2	todo	
-007a4a06	58	FUN_007a4a06	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4a06	58	FUN_007a4a06	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a4a40	87	FUN_007a4a40	todo	
-007a4a98	81	FUN_007a4a98	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4aea	32	FUN_007a4aea	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4b0a	63	FUN_007a4b0a	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4b4a	7	FUN_007a4b4a	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4a98	81	FUN_007a4a98	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4aea	32	FUN_007a4aea	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4b0a	63	FUN_007a4b0a	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4b4a	7	FUN_007a4b4a	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a4b52	97	FUN_007a4b52	todo	
-007a4bb4	45	FUN_007a4bb4	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4be2	38	FUN_007a4be2	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4c08	13	FUN_007a4c08	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4c16	49	FUN_007a4c16	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4c48	36	FUN_007a4c48	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a4c6c	1459	gapbuf_move_items	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5220	112	FUN_007a5220	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5290	115	FUN_007a5290	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5304	27	FUN_007a5304	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4bb4	45	FUN_007a4bb4	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4be2	38	FUN_007a4be2	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4c08	13	FUN_007a4c08	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4c16	49	FUN_007a4c16	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4c48	36	FUN_007a4c48	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a4c6c	1459	gapbuf_move_items	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5220	112	FUN_007a5220	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5290	115	FUN_007a5290	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5304	27	FUN_007a5304	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a5320	36	FUN_007a5320	todo	
 007a5344	70	FUN_007a5344	todo	
-007a538a	199	FUN_007a538a	ref	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5452	13	FUN_007a5452	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5460	11	FUN_007a5460	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a546c	71	FUN_007a546c	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a54b4	67	FUN_007a54b4	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a54f8	119	FUN_007a54f8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5570	11	FUN_007a5570	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a557c	11	FUN_007a557c	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5588	73	FUN_007a5588	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a55d2	70	FUN_007a55d2	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5618	88	FUN_007a5618	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5670	291	FUN_007a5670	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a538a	199	FUN_007a538a	real	src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5452	13	FUN_007a5452	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5460	11	FUN_007a5460	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a546c	71	FUN_007a546c	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a54b4	67	FUN_007a54b4	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a54f8	119	FUN_007a54f8	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5570	11	FUN_007a5570	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a557c	11	FUN_007a557c	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5588	73	FUN_007a5588	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a55d2	70	FUN_007a55d2	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5618	88	FUN_007a5618	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5670	291	FUN_007a5670	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a579c	447	FUN_007a579c	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a596c	146	FUN_007a596c	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a59fe	174	FUN_007a59fe	todo	
-007a5aac	138	FUN_007a5aac	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5b36	87	FUN_007a5b36	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5aac	138	FUN_007a5aac	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5b36	87	FUN_007a5b36	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a5b8e	225	FUN_007a5b8e	ref	src/Terminal/TerminalCore.cpp
-007a5c70	175	FUN_007a5c70	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5d20	173	FUN_007a5d20	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a5dce	368	FUN_007a5dce	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5c70	175	FUN_007a5c70	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5d20	173	FUN_007a5d20	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5dce	368	FUN_007a5dce	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a5f3e	71	FUN_007a5f3e	ref	src/Terminal/TerminalCore.cpp
 007a5f86	108	FUN_007a5f86	ref	src/Terminal/TerminalCore.cpp
-007a5ff2	88	FUN_007a5ff2	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a604a	967	FUN_007a604a	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a5ff2	88	FUN_007a5ff2	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a604a	967	FUN_007a604a	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a641a	431	FUN_007a641a	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a65d2	160	FUN_007a65d2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a6672	139	FUN_007a6672	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a65d2	160	FUN_007a65d2	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a6672	139	FUN_007a6672	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a66fe	131	FUN_007a66fe	todo	
-007a6782	160	FUN_007a6782	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a6822	139	FUN_007a6822	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a68ae	266	FUN_007a68ae	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a6782	160	FUN_007a6782	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a6822	139	FUN_007a6822	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a68ae	266	FUN_007a68ae	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a69b8	224	FUN_007a69b8	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a6ab0	549	FUN_007a6ab0	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a6ab0	549	FUN_007a6ab0	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a6cd6	186	FUN_007a6cd6	todo	
-007a6d98	331	FUN_007a6d98	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a6d98	331	FUN_007a6d98	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a6eec	263	FUN_007a6eec	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a6ffc	295	FUN_007a6ffc	todo	
-007a712b	227	FUN_007a712b	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a721e	606	FUN_007a721e	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a748e	726	FUN_007a748e	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007a7776	882	FUN_007a7776	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a712b	227	FUN_007a712b	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a721e	606	FUN_007a721e	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a748e	726	FUN_007a748e	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007a7776	882	FUN_007a7776	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007a7b00	148	FUN_007a7b00	todo	
 007a7b94	147	FUN_007a7b94	todo	
 007a7c28	148	FUN_007a7c28	todo	
@@ -20709,8 +20709,8 @@
 007aa180	27	FUN_007aa180	todo	
 007aa1a0	27	FUN_007aa1a0	todo	
 007aa1bc	206	FUN_007aa1bc	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007aa28a	88	FUN_007aa28a	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007aa2e2	172	FUN_007aa2e2	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007aa28a	88	FUN_007aa28a	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007aa2e2	172	FUN_007aa2e2	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007aa3a6	466	FUN_007aa3a6	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007aa578	82	FUN_007aa578	todo	
 007aa5ca	221	FUN_007aa5ca	ref	src/Terminal/TerminalCore.cpp
@@ -20915,7 +20915,7 @@
 007be8b8	43	FUN_007be8b8	todo	
 007be8e4	642	FUN_007be8e4	todo	
 007beb8e	77	FUN_007beb8e	todo	
-007bebdc	684	FUN_007bebdc	ref	src/Sessions/Bridges/SshBridge.cpp
+007bebdc	684	FUN_007bebdc	real	src/Sessions/Bridges/SshBridge.cpp
 007beea8	5269	s_ssh_verifyServerFingerprint_7beea8	todo	
 007c0486	10	FUN_007c0486	todo	
 007c0490	1	FUN_007c0490	todo	
@@ -21256,7 +21256,7 @@
 007cbb2a	12	FUN_007cbb2a	todo	
 007cbb36	42	config_sshIdentityFile_get	ref	src/Terminal/Screen.h
 007cbb60	196	s_terminal_answerBack_7cbb60	todo	
-007cbc46	390	s_terminal_bellInterval_7cbc46	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007cbc46	390	s_terminal_bellInterval_7cbc46	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007cbe06	12	FUN_007cbe06	todo	
 007cbe12	12	FUN_007cbe12	todo	
 007cbe1e	86	FUN_007cbe1e	todo	
@@ -21369,7 +21369,7 @@
 007cd120	334	FUN_007cd120	ref	src/Sessions/Bridges/SessionProtocol.h,src/Sessions/Core/SuperSessionPrivate.cpp,src/Sessions/Core/SuperSessionPrivate.h
 007cd26e	231	FUN_007cd26e	todo	
 007cd35a	12	FUN_007cd35a	todo	
-007cd366	244	FUN_007cd366	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007cd366	244	FUN_007cd366	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007cd45f	157	FUN_007cd45f	todo	
 007cd50c	99	FUN_007cd50c	todo	
 007cd578	621	FUN_007cd578	todo	
@@ -21498,7 +21498,7 @@
 007d4682	331	FUN_007d4682	todo	
 007d47ce	224	FUN_007d47ce	todo	
 007d48b6	21	FUN_007d48b6	todo	
-007d48cc	1	FUN_007d48cc	ref	src/Sessions/Core/SuperSession.cpp
+007d48cc	1	FUN_007d48cc	real	src/Sessions/Core/SuperSession.cpp
 007d48ce	700	s_session_protocol_7d48ce	ref	src/Sessions/Transports/TelnetSession.h
 007d4bfa	101	FUN_007d4bfa	todo	
 007d4c60	268	FUN_007d4c60	todo	
@@ -21695,9 +21695,9 @@
 007e34ba	92	FUN_007e34ba	todo	
 007e352c	13	FUN_007e352c	todo	
 007e353a	32	FUN_007e353a	ref	src/Terminal/Screen.cpp
-007e355a	13	FUN_007e355a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e355a	13	FUN_007e355a	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e3568	16	FUN_007e3568	todo	
-007e3578	22	FUN_007e3578	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e3578	22	FUN_007e3578	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e358e	58	FUN_007e358e	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e35c8	23	FUN_007e35c8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e35e0	174	FUN_007e35e0	todo	
@@ -21705,24 +21705,24 @@
 007e369c	14	FUN_007e369c	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e36aa	12	FUN_007e36aa	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e36b6	205	FUN_007e36b6	cleanup	
-007e3784	12	FUN_007e3784	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e3790	12	FUN_007e3790	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e379c	12	FUN_007e379c	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e37a8	51	FUN_007e37a8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e3784	12	FUN_007e3784	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e3790	12	FUN_007e3790	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e379c	12	FUN_007e379c	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e37a8	51	FUN_007e37a8	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e37dc	11	FUN_007e37dc	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e37e8	8	FUN_007e37e8	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e37f0	8	FUN_007e37f0	todo	
-007e37f8	97	FUN_007e37f8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e385a	60	FUN_007e385a	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e37f8	97	FUN_007e37f8	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e385a	60	FUN_007e385a	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e3896	8	FUN_007e3896	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e389e	13	FUN_007e389e	todo	
-007e38ac	15	FUN_007e38ac	ref	src/Terminal/Screen.cpp
+007e38ac	15	FUN_007e38ac	real	src/Terminal/Screen.cpp
 007e38bc	9	FUN_007e38bc	todo	
 007e38c6	463	FUN_007e38c6	todo	
 007e3aae	31	FUN_007e3aae	todo	
-007e3ace	12	FUN_007e3ace	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e3ada	12	FUN_007e3ada	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e3ae6	12	FUN_007e3ae6	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e3ace	12	FUN_007e3ace	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e3ada	12	FUN_007e3ada	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e3ae6	12	FUN_007e3ae6	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e3af2	5	FUN_007e3af2	todo	
 007e3af8	13	FUN_007e3af8	ref	src/Sessions/Commanders/SuperCommander.cpp
 007e3b06	12	FUN_007e3b06	todo	
@@ -21740,7 +21740,7 @@
 007e4010	12	FUN_007e4010	todo	
 007e401c	12	FUN_007e401c	todo	
 007e4028	13	FUN_007e4028	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Widgets/Views/TerminalWidget.cpp
-007e4036	48	FUN_007e4036	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4036	48	FUN_007e4036	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4066	13	FUN_007e4066	todo	
 007e4074	52	FUN_007e4074	todo	
 007e40a8	197	FUN_007e40a8	todo	
@@ -21751,9 +21751,9 @@
 007e41b0	12	FUN_007e41b0	todo	
 007e41bc	14	FUN_007e41bc	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e41ca	25	FUN_007e41ca	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e41e4	82	FUN_007e41e4	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4236	76	FUN_007e4236	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4282	76	FUN_007e4282	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e41e4	82	FUN_007e41e4	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4236	76	FUN_007e4236	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4282	76	FUN_007e4282	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e42ce	12	FUN_007e42ce	todo	
 007e42da	141	FUN_007e42da	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4368	189	FUN_007e4368	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
@@ -21783,46 +21783,46 @@
 007e48f8	7	FUN_007e48f8	todo	
 007e4900	7	FUN_007e4900	todo	
 007e4908	13	FUN_007e4908	ref	src/Sessions/Commanders/SuperCommander.cpp
-007e4916	31	FUN_007e4916	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp
+007e4916	31	FUN_007e4916	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp
 007e4936	18	FUN_007e4936	todo	
 007e4948	18	FUN_007e4948	todo	
 007e495a	24	FUN_007e495a	todo	
 007e4972	25	FUN_007e4972	todo	
 007e498c	12	FUN_007e498c	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4998	236	FUN_007e4998	ref	src/Sessions/Transfers/Modem.cpp
-007e4a94	13	FUN_007e4a94	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4aa2	12	FUN_007e4aa2	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4a94	13	FUN_007e4a94	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4aa2	12	FUN_007e4aa2	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4aae	8	FUN_007e4aae	todo	
 007e4ab6	12	FUN_007e4ab6	todo	
-007e4ac2	110	FUN_007e4ac2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4ac2	110	FUN_007e4ac2	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4b30	51	FUN_007e4b30	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4b64	12	FUN_007e4b64	todo	
 007e4b70	41	FUN_007e4b70	todo	
 007e4b9a	8	FUN_007e4b9a	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.h
-007e4ba2	238	FUN_007e4ba2	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4c90	131	FUN_007e4c90	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4ba2	238	FUN_007e4ba2	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4c90	131	FUN_007e4c90	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4d1c	8	FUN_007e4d1c	todo	
 007e4d24	23	FUN_007e4d24	todo	
-007e4d3c	12	FUN_007e4d3c	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4d48	58	FUN_007e4d48	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4d82	58	FUN_007e4d82	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4dbc	90	FUN_007e4dbc	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4e16	93	FUN_007e4e16	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4e74	12	FUN_007e4e74	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4e80	156	FUN_007e4e80	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4f1c	11	FUN_007e4f1c	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4d3c	12	FUN_007e4d3c	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4d48	58	FUN_007e4d48	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4d82	58	FUN_007e4d82	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4dbc	90	FUN_007e4dbc	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4e16	93	FUN_007e4e16	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4e74	12	FUN_007e4e74	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4e80	156	FUN_007e4e80	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4f1c	11	FUN_007e4f1c	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4f28	15	FUN_007e4f28	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4f38	12	FUN_007e4f38	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4f44	114	FUN_007e4f44	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4f38	12	FUN_007e4f38	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4f44	114	FUN_007e4f44	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4fb6	5	thunk_FUN_00913436	todo	
 007e4fbc	12	FUN_007e4fbc	todo	
-007e4fc8	20	FUN_007e4fc8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e4fdc	12	FUN_007e4fdc	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4fc8	20	FUN_007e4fc8	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4fdc	12	FUN_007e4fdc	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e4fe8	12	FUN_007e4fe8	todo	
 007e4ff4	5	thunk_FUN_009131c8	todo	
-007e4ffa	111	FUN_007e4ffa	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e4ffa	111	FUN_007e4ffa	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e506a	37	FUN_007e506a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5090	122	FUN_007e5090	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5090	122	FUN_007e5090	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e510a	59	FUN_007e510a	todo	
 007e5146	11	FUN_007e5146	todo	
 007e5152	12	FUN_007e5152	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
@@ -21833,54 +21833,54 @@
 007e51ca	27	FUN_007e51ca	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e51e6	37	FUN_007e51e6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e520c	16	FUN_007e520c	todo	
-007e521c	56	FUN_007e521c	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5254	35	FUN_007e5254	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e521c	56	FUN_007e521c	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5254	35	FUN_007e5254	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e5278	11	FUN_007e5278	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5284	96	FUN_007e5284	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5284	96	FUN_007e5284	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e52e4	12	FUN_007e52e4	todo	
 007e52f0	12	FUN_007e52f0	ref	src/Terminal/TerminalCore.h
-007e52fc	133	FUN_007e52fc	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007e52fc	133	FUN_007e52fc	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007e5382	12	FUN_007e5382	todo	
 007e538e	39	FUN_007e538e	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e53b6	399	FUN_007e53b6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5546	111	FUN_007e5546	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e55b6	70	FUN_007e55b6	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e55fc	41	FUN_007e55fc	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e53b6	399	FUN_007e53b6	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5546	111	FUN_007e5546	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e55b6	70	FUN_007e55b6	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e55fc	41	FUN_007e55fc	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e5626	5	thunk_FUN_007e55fc	todo	
-007e562c	18	FUN_007e562c	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e563e	73	FUN_007e563e	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e562c	18	FUN_007e562c	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e563e	73	FUN_007e563e	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e5688	564	terminal_resizeBuffer	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Widgets/Views/TerminalView.cpp
 007e58ce	293	SuperTerm_h7e58ce	qtplumb	
 007e59fc	5	thunk_FUN_007e55fc	todo	
-007e5a02	12	FUN_007e5a02	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5a02	12	FUN_007e5a02	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e5a0e	130	FUN_007e5a0e	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5a90	32	FUN_007e5a90	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.h
-007e5ab0	32	FUN_007e5ab0	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5a90	32	FUN_007e5a90	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.h
+007e5ab0	32	FUN_007e5ab0	stub	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e5ad0	27	FUN_007e5ad0	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5aec	38	FUN_007e5aec	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5b12	132	FUN_007e5b12	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5aec	38	FUN_007e5aec	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5b12	132	FUN_007e5b12	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e5b96	12	FUN_007e5b96	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp
 007e5ba2	49	FUN_007e5ba2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5bd4	196	FUN_007e5bd4	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5c98	75	FUN_007e5c98	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-007e5ce4	58	FUN_007e5ce4	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5d1e	94	FUN_007e5d1e	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5d7c	116	FUN_007e5d7c	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5df0	193	FUN_007e5df0	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007e5bd4	196	FUN_007e5bd4	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5c98	75	FUN_007e5c98	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007e5ce4	58	FUN_007e5ce4	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5d1e	94	FUN_007e5d1e	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5d7c	116	FUN_007e5d7c	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5df0	193	FUN_007e5df0	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007e5eb2	101	FUN_007e5eb2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e5f18	12	FUN_007e5f18	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5f24	130	FUN_007e5f24	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e5fa6	196	FUN_007e5fa6	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e606a	400	FUN_007e606a	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5f24	130	FUN_007e5f24	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e5fa6	196	FUN_007e5fa6	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e606a	400	FUN_007e606a	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e61fa	116	FUN_007e61fa	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e626e	110	FUN_007e626e	ref	src/Terminal/Screen.cpp
 007e62e4	255	FUN_007e62e4	todo	
 007e6406	688	s_window_mouseWheelScrollLines_7e6406	todo	
-007e66c6	110	FUN_007e66c6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TermViewFace.h
-007e673c	22	FUN_007e673c	ref	src/Terminal/Screen.cpp,src/Widgets/Views/TerminalView.cpp
+007e66c6	110	FUN_007e66c6	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TermViewFace.h
+007e673c	22	FUN_007e673c	real	src/Terminal/Screen.cpp,src/Widgets/Views/TerminalView.cpp
 007e6752	25	FUN_007e6752	todo	
-007e676c	208	FUN_007e676c	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007e6844	15	FUN_007e6844	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e676c	208	FUN_007e676c	stub	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e6844	15	FUN_007e6844	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e6854	1	FUN_007e6854	todo	
 007e6856	161	FUN_007e6856	todo	
 007e6900	159	FUN_007e6900	todo	
@@ -21891,11 +21891,11 @@
 007e6d78	194	FUN_007e6d78	todo	
 007e6e3a	128	FUN_007e6e3a	todo	
 007e6ec2	119	FUN_007e6ec2	todo	
-007e6f42	2884	commander_ansi_buffer_build	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e6f42	2884	commander_ansi_buffer_build	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e7a9e	233	FUN_007e7a9e	todo	
 007e7b88	89	FUN_007e7b88	ref	src/Sessions/Transfers/Modem.cpp,src/Terminal/Screen.cpp
 007e7bea	228	FUN_007e7bea	todo	
-007e7cf6	173	FUN_007e7cf6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e7cf6	173	FUN_007e7cf6	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e7dbc	561	FUN_007e7dbc	todo	
 007e7ff6	625	FUN_007e7ff6	todo	
 007e8267	678	FUN_007e8267	todo	
@@ -21903,10 +21903,10 @@
 007e863e	130	FUN_007e863e	todo	
 007e86d8	135	FUN_007e86d8	cleanup	
 007e8770	49	FUN_007e8770	ref	src/Terminal/Screen.cpp
-007e87a2	38	FUN_007e87a2	ref	src/Terminal/Screen.cpp
+007e87a2	38	FUN_007e87a2	real	src/Terminal/Screen.cpp
 007e87c8	232	s_session_term_7e87c8	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e88d0	23	FUN_007e88d0	ref	src/Terminal/Screen.cpp
-007e88e8	20	FUN_007e88e8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e88e8	20	FUN_007e88e8	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e88fc	186	FUN_007e88fc	todo	
 007e89b6	296	FUN_007e89b6	todo	
 007e8ae6	522	FUN_007e8ae6	todo	
@@ -21918,23 +21918,23 @@
 007ea318	1051	FUN_007ea318	ref	src/Terminal/Screen.cpp
 007ea73c	152	FUN_007ea73c	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ea7e6	32	FUN_007ea7e6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Widgets/Views/TerminalWidget.cpp
-007ea806	71	FUN_007ea806	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007ea806	71	FUN_007ea806	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ea84e	805	palette_parseSchemeLine	todo	
 007eab83	191	FUN_007eab83	todo	
 007eac52	352	FUN_007eac52	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007eadba	299	FUN_007eadba	todo	
 007eaeee	613	FUN_007eaeee	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007eb17e	70	FUN_007eb17e	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007eb1c4	70	FUN_007eb1c4	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007eb20a	153	FUN_007eb20a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007eb2ac	70	FUN_007eb2ac	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007eb2f2	467	FUN_007eb2f2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007eb17e	70	FUN_007eb17e	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007eb1c4	70	FUN_007eb1c4	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007eb20a	153	FUN_007eb20a	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007eb2ac	70	FUN_007eb2ac	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007eb2f2	467	FUN_007eb2f2	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007eb4d6	1001	FUN_007eb4d6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007eb8fe	592	FUN_007eb8fe	todo	
 007ebb56	532	FUN_007ebb56	todo	
 007ebd6a	145	FUN_007ebd6a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ebdfc	3853	FUN_007ebdfc	cleanup	
-007ecdc2	242	FUN_007ecdc2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007ecdc2	242	FUN_007ecdc2	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007eced6	570	FUN_007eced6	ref	src/Terminal/Screen.h
 007ed148	282	FUN_007ed148	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ed282	200	FUN_007ed282	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
@@ -21942,8 +21942,8 @@
 007ed7f6	248	FUN_007ed7f6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ed906	184	FUN_007ed906	cleanup	
 007ed9ce	556	FUN_007ed9ce	todo	
-007edc22	174	FUN_007edc22	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007edce6	309	FUN_007edce6	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007edc22	174	FUN_007edc22	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007edce6	309	FUN_007edce6	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ede24	65	FUN_007ede24	todo	
 007ede66	116	FUN_007ede66	todo	
 007ededa	423	FUN_007ededa	todo	
@@ -21951,29 +21951,29 @@
 007ee78e	161	FUN_007ee78e	todo	
 007ee838	425	FUN_007ee838	todo	
 007ee9e2	490	FUN_007ee9e2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007eebd4	227	FUN_007eebd4	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007eecc0	386	FUN_007eecc0	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007eebd4	227	FUN_007eebd4	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007eecc0	386	FUN_007eecc0	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007eee66	59	FUN_007eee66	todo	
 007eeea2	276	FUN_007eeea2	todo	
 007eefbe	220	broadcast_unsupported	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ef0a2	69	FUN_007ef0a2	todo	
 007ef0e8	50	FUN_007ef0e8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007ef11a	80	FUN_007ef11a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007ef16a	75	FUN_007ef16a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007ef11a	80	FUN_007ef11a	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007ef16a	75	FUN_007ef16a	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007ef1b6	1678	vt_dcsParse	ref	src/Terminal/Screen.h
 007ef86e	230	FUN_007ef86e	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007ef95c	2511	vt_sgrParse	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.h
+007ef95c	2511	vt_sgrParse	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.h
 007f0346	230	FUN_007f0346	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007f0434	228	FUN_007f0434	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007f0530	258	FUN_007f0530	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f0530	258	FUN_007f0530	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007f063a	405	FUN_007f063a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007f07d8	120	FUN_007f07d8	todo	
 007f0858	510	FUN_007f0858	todo	
 007f0a5e	128	FUN_007f0a5e	todo	
-007f0ae6	617	FUN_007f0ae6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007f0d7c	1482	term_resp_dec_status	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007f13a0	1033	terminal_handleDECRQM	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007f17c2	370	FUN_007f17c2	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f0ae6	617	FUN_007f0ae6	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f0d7c	1482	term_resp_dec_status	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f13a0	1033	terminal_handleDECRQM	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f17c2	370	FUN_007f17c2	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007f194e	2097	vt_dcsReply	ref	src/Terminal/Screen.h
 007f21a8	731	s_line_caret_remote_7f21a8	todo	
 007f24ae	1213	FUN_007f24ae	todo	
@@ -21985,7 +21985,7 @@
 007f40fa	152	FUN_007f40fa	todo	
 007f4192	108	FUN_007f4192	todo	
 007f4206	108	FUN_007f4206	todo	
-007f427a	331	FUN_007f427a	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f427a	331	FUN_007f427a	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007f43ce	457	FUN_007f43ce	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007f45a0	240	FUN_007f45a0	todo	
 007f4698	240	FUN_007f4698	todo	
@@ -22002,10 +22002,10 @@
 007f5736	239	FUN_007f5736	ref	src/Sessions/Transfers/Modem.cpp
 007f582e	809	SuperTerm_dtor	todo	
 007f5b58	23	SuperTerm_dtor_deleting	todo	
-007f5b70	437	FUN_007f5b70	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007f5d2e	1758	vt_decMode	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007f6426	119	FUN_007f6426	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
-007f64a6	595	FUN_007f64a6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f5b70	437	FUN_007f5b70	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f5d2e	1758	vt_decMode	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f6426	119	FUN_007f6426	real	src/Sessions/Commanders/SuperCommander.cpp,src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007f64a6	595	FUN_007f64a6	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007f670a	559	FUN_007f670a	todo	
 007f6955	1	FUN_007f6955	todo	
 007f6956	1	FUN_007f6956	todo	
@@ -22116,25 +22116,25 @@
 008019d8	94	FUN_008019d8	todo	
 00801a3e	4	FUN_00801a3e	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 00801a42	3	FUN_00801a42	todo	
-00801a46	17	FUN_00801a46	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+00801a46	17	FUN_00801a46	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 00801a58	3787	FUN_00801a58	ref	src/Terminal/Screen.cpp
 00802a26	152	FUN_00802a26	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp
 00802abe	203	FUN_00802abe	cleanup	
 00802b92	18	FUN_00802b92	todo	
 00802ba4	6	FUN_00802ba4	todo	
-00802baa	18	FUN_00802baa	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+00802baa	18	FUN_00802baa	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 00802bbc	25	FUN_00802bbc	todo	
 00802bd6	4	FUN_00802bd6	ref	src/Terminal/Screen.cpp
-00802bda	98	FUN_00802bda	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+00802bda	98	FUN_00802bda	real	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 00802c3c	46	FUN_00802c3c	todo	
 00802c6a	21	FUN_00802c6a	todo	
 00802c80	21	FUN_00802c80	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-00802c96	20	FUN_00802c96	ref	src/Terminal/TerminalCore.cpp
+00802c96	20	FUN_00802c96	real	src/Terminal/TerminalCore.cpp
 00802caa	63	FUN_00802caa	todo	
 00802cea	1725	FUN_00802cea	cleanup	
 008033e8	127	FUN_008033e8	todo	
-00803470	52	FUN_00803470	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
-008034a4	18	FUN_008034a4	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+00803470	52	FUN_00803470	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+008034a4	18	FUN_008034a4	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 008034b6	60	FUN_008034b6	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 008034f2	353	FUN_008034f2	ref	src/Terminal/Screen.cpp
 00803660	39	FUN_00803660	todo	
@@ -22213,8 +22213,8 @@
 008086d0	198	FUN_008086d0	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h,src/Windows/Kit/KitWindowFactory.h
 008087a6	669	FUN_008087a6	todo	
 00808a8e	4353	FUN_00808a8e	todo	
-00809b90	432	FUN_00809b90	ref	src/Editor/Config/CGlobalConfigFace.h,src/Editor/Config/CTerminalConfig.cpp,src/Editor/Config/CTerminalConfig.h
-00809d78	121	FUN_00809d78	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Editor/Config/CTerminalConfig.cpp,src/Editor/Config/CTerminalConfig.h,src/Sessions/Core/SuperSessionPrivate.cpp,src/Terminal/Screen.cpp,src/Windows/Kit/KitWindowFace.h,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/KitWindowFactory.h
+00809b90	432	FUN_00809b90	real	src/Editor/Config/CGlobalConfigFace.h,src/Editor/Config/CTerminalConfig.cpp,src/Editor/Config/CTerminalConfig.h
+00809d78	121	FUN_00809d78	real	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Editor/Config/CTerminalConfig.cpp,src/Editor/Config/CTerminalConfig.h,src/Sessions/Core/SuperSessionPrivate.cpp,src/Terminal/Screen.cpp,src/Windows/Kit/KitWindowFace.h,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/KitWindowFactory.h
 00809dfa	680	CTerminalConfig_vt7	qtplumb	
 0080a0a2	23	CTerminalConfig_vt8	qtplumb	
 0080a0ba	40	FUN_0080a0ba	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CTerminalConfig.h
@@ -26461,7 +26461,7 @@
 00913150	24	SuperTerm_metaObject	qtplumb	
 00913168	16	FUN_00913168	todo	
 00913178	19	FUN_00913178	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-0091318c	19	FUN_0091318c	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+0091318c	19	FUN_0091318c	stub	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 009131a0	19	FUN_009131a0	todo	
 009131b4	19	FUN_009131b4	todo	
 009131c8	54	FUN_009131c8	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
@@ -26481,7 +26481,7 @@
 00913460	55	FUN_00913460	ref	src/Terminal/Screen.cpp
 00913498	55	FUN_00913498	ref	src/Sessions/Transfers/Modem.cpp
 009134d0	55	FUN_009134d0	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
-00913508	55	FUN_00913508	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+00913508	55	FUN_00913508	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 00913540	82	FUN_00913540	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 00913592	69	FUN_00913592	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 009135d8	47	FUN_009135d8	ref	src/Terminal/Screen.cpp
@@ -30467,7 +30467,7 @@
 00a224f0	24	FUN_00a224f0	ref	src/Editor/Engine/EditorEngine.cpp
 00a22508	182	FUN_00a22508	todo	
 00a225be	190	FUN_00a225be	ref	src/Editor/Engine/EditorEngine.cpp
-00a2267c	138	FUN_00a2267c	ref	src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/EditorEngine.h
+00a2267c	138	FUN_00a2267c	real	src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/EditorEngine.h
 00a2270e	310	FUN_00a2270e	todo	
 00a22844	971	FUN_00a22844	todo	
 00a22c20	46	FUN_00a22c20	todo	
@@ -30609,8 +30609,8 @@
 00a29fa8	78	FUN_00a29fa8	ref	src/Editor/Engine/EditorEngine.cpp
 00a29ff6	12	FUN_00a29ff6	ref	src/Editor/Engine/EditorEngine.cpp
 00a2a002	231	FUN_00a2a002	ref	src/Editor/Engine/EditorEngine.cpp
-00a2a0ea	116	FUN_00a2a0ea	ref	src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/EditorEngine.h
-00a2a15e	182	FUN_00a2a15e	ref	src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/EditorEngine.h
+00a2a0ea	116	FUN_00a2a0ea	real	src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/EditorEngine.h
+00a2a15e	182	FUN_00a2a15e	real	src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/EditorEngine.h
 00a2a21c	21	FUN_00a2a21c	ref	src/Editor/Engine/EditorEngine.cpp
 00a2a232	503	FUN_00a2a232	todo	
 00a2a44a	177	FUN_00a2a44a	ref	src/Editor/Engine/EditorEngine.cpp

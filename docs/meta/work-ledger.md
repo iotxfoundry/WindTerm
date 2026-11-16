@@ -19,9 +19,9 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 439 | 1.13% | 213555 | 2.78% |
-| 半成品 | 24 | 0.06% | 12541 | 0.16% |
-| 引用档 | 2260 | 5.83% | 825114 | 10.76% |
+| 真实现 | 619 | 1.60% | 248597 | 3.24% |
+| 半成品 | 27 | 0.07% | 12800 | 0.17% |
+| 引用档 | 2077 | 5.36% | 789813 | 10.30% |
 | 未触及(真工作) | 20909 | 53.96% | 5590367 | 72.87% |
 | 异常清理块(非函数) | 13953 | 36.01% | 786848 | 10.26% |
 | Qt 元数据桩(非逆向对象) | 1163 | 3.00% | 243010 | 3.17% |
@@ -36,6 +36,10 @@
 
 | 文件 | 真实现 | 半成品 | 引用档 |
 |---|---:|---:|---:|
+| `src/Terminal/Screen.cpp` | 131 | 3 | 132 |
+| `src/Terminal/Screen.h` | 114 | 3 | 95 |
+| `src/Terminal/TerminalCore.cpp` | 82 | 0 | 19 |
+| `src/Terminal/TerminalCore.h` | 82 | 0 | 13 |
 | `src/Widgets/Controls/TabGroup.cpp` | 45 | 1 | 29 |
 | `src/Widgets/Controls/TabGroup.h` | 44 | 1 | 32 |
 | `src/Windows/Mux/MuxPaneGroup.cpp` | 44 | 0 | 39 |
@@ -44,8 +48,9 @@
 | `src/Widgets/Dialogs/TriggerDialogFace.cpp` | 33 | 0 | 34 |
 | `src/Widgets/Dialogs/TriggerDialogFace.h` | 33 | 0 | 26 |
 | `src/Windows/Mux/MuxPaneGroup.h` | 31 | 0 | 12 |
+| `src/Sessions/Commanders/SuperCommander.cpp` | 27 | 0 | 27 |
 | `src/Windows/Mux/MuxWindow.cpp` | 27 | 0 | 55 |
-| `src/Windows/Kit/KitWindowFace.h` | 25 | 0 | 31 |
+| `src/Windows/Kit/KitWindowFace.h` | 26 | 0 | 30 |
 | `src/Windows/Mux/MuxWindow.h` | 24 | 0 | 25 |
 | `src/Windows/Kit/KitWindowAssemblyFace.cpp` | 23 | 0 | 67 |
 | `src/Widgets/Settings/SettingsPageFace.h` | 19 | 1 | 22 |
@@ -55,30 +60,34 @@
 | `src/Sessions/Transfers/XYModem.cpp` | 17 | 0 | 0 |
 | `src/Sessions/Transfers/Modem.cpp` | 16 | 0 | 16 |
 | `src/Windows/Kit/KitDockFace.cpp` | 16 | 0 | 19 |
-| `src/Windows/Mux/MuxPaneView.h` | 15 | 0 | 15 |
-| `src/App/StartupChain.cpp` | 12 | 1 | 48 |
+| `src/Windows/Mux/MuxPaneView.h` | 16 | 0 | 14 |
+| `src/App/StartupChain.cpp` | 13 | 1 | 47 |
 | `src/Sessions/Transfers/ZModem.cpp` | 13 | 0 | 4 |
 | `src/Windows/Kit/KitDockFace.h` | 13 | 0 | 10 |
 | `src/Sessions/Bridges/ProxyCommandSocket.h` | 12 | 0 | 12 |
 | `src/Windows/Kit/KitBar.cpp` | 12 | 0 | 18 |
+| `src/Windows/Kit/KitWindowFactory.cpp` | 12 | 0 | 9 |
+| `src/Windows/Mux/MuxPaneView.cpp` | 12 | 0 | 11 |
 | `src/App/StateStore.cpp` | 11 | 0 | 38 |
+| `src/Editor/Config/CGlobalConfigFace.h` | 11 | 0 | 29 |
 | `src/Sessions/Bridges/ProxyCommandSocket.cpp` | 11 | 0 | 14 |
 | `src/Sessions/Transfers/ModemProcess.h` | 10 | 1 | 0 |
-| `src/Windows/Kit/KitWindowFactory.cpp` | 11 | 0 | 10 |
-| `src/Windows/Mux/MuxPaneView.cpp` | 11 | 0 | 12 |
 | `src/Sessions/Bridges/TcpBridge.cpp` | 10 | 0 | 13 |
 | `src/Sessions/Bridges/TelnetBridge.h` | 10 | 0 | 10 |
 | `src/Widgets/Controls/SearchEditFace.cpp` | 10 | 0 | 11 |
 | `src/Widgets/Controls/SearchEditFace.h` | 10 | 0 | 11 |
+| `src/Windows/Kit/KitWindowFactory.h` | 10 | 0 | 25 |
 | `src/App/StartupChain.h` | 8 | 1 | 22 |
-| `src/Editor/Config/CGlobalConfigFace.h` | 9 | 0 | 31 |
+| `src/Editor/Engine/EditorEngine.cpp` | 9 | 0 | 514 |
 | `src/Sessions/Bridges/TcpBridge.h` | 9 | 0 | 10 |
 | `src/Sessions/Transfers/ModemProcess.cpp` | 8 | 1 | 0 |
 | `src/Windows/Kit/KitBar.h` | 9 | 0 | 8 |
-| `src/Windows/Kit/KitWindowFactory.h` | 9 | 0 | 26 |
 | `src/Actions/ActionFactory.cpp` | 8 | 0 | 10 |
+| `src/App/JsEngine.h` | 8 | 0 | 4 |
+| `src/Editor/Config/CGlobalConfigFace.cpp` | 8 | 0 | 20 |
 | `src/Editor/Engine/SuperKeymap.cpp` | 8 | 0 | 60 |
 | `src/Sessions/Bridges/TelnetBridge.cpp` | 8 | 0 | 12 |
+| `src/Sessions/Core/SuperSessionPrivate.cpp` | 8 | 0 | 45 |
 | `src/Sessions/Core/WorkspaceLoader.cpp` | 8 | 0 | 50 |
 | `src/Sessions/Transfers/ZModem.h` | 8 | 0 | 0 |
 | `src/Sessions/Transports/TelnetSession.h` | 8 | 0 | 9 |
@@ -86,19 +95,15 @@
 | `src/Widgets/Dialogs/TunnelDialogFace.cpp` | 7 | 1 | 14 |
 | `src/Widgets/Dialogs/TunnelDialogFace.h` | 7 | 1 | 5 |
 | `src/Actions/ToolBarBuilder.cpp` | 7 | 0 | 10 |
-| `src/App/JsEngine.h` | 7 | 0 | 5 |
+| `src/App/JsEngine.cpp` | 7 | 0 | 3 |
 | `src/App/SuperApplicationFace.cpp` | 7 | 0 | 34 |
 | `src/App/SuperApplicationFace.h` | 7 | 0 | 14 |
-| `src/Editor/Config/CGlobalConfigFace.cpp` | 7 | 0 | 21 |
 | `src/Editor/Engine/CodecMemo.cpp` | 7 | 0 | 26 |
 | `src/Editor/Engine/CodecMemo.h` | 7 | 0 | 12 |
 | `src/Editor/Engine/KeymapEngine.cpp` | 7 | 0 | 8 |
-| `src/Sessions/Core/SuperSessionPrivate.cpp` | 7 | 0 | 46 |
 | `src/Sessions/Core/SuperSessionPrivate.h` | 7 | 0 | 35 |
 | `src/Sessions/Core/WorkspaceLoader.h` | 7 | 0 | 41 |
-| `src/App/JsEngine.cpp` | 6 | 0 | 4 |
 | `src/App/StateStore.h` | 6 | 0 | 36 |
-| `src/Editor/Engine/EditorEngine.cpp` | 6 | 0 | 517 |
 | `src/Editor/Engine/KeymapEngine.h` | 6 | 0 | 10 |
 | `src/Widgets/Bars/MessageBarFace.cpp` | 6 | 0 | 8 |
 | `src/Actions/ToolBarBuilder.h` | 5 | 0 | 12 |
@@ -110,6 +115,7 @@
 | `src/Actions/ActionFactory.h` | 4 | 0 | 5 |
 | `src/Actions/ActionRegistryFace.cpp` | 4 | 0 | 13 |
 | `src/Actions/ActionRegistryFace.h` | 4 | 0 | 15 |
+| `src/Editor/Config/CTerminalConfig.cpp` | 4 | 0 | 8 |
 | `src/Editor/Engine/MatchEngine.h` | 4 | 0 | 28 |
 | `src/Editor/Engine/SuperKeymap.h` | 4 | 0 | 32 |
 | `src/Widgets/Bars/BreadCrumbFace.cpp` | 4 | 0 | 4 |
@@ -130,7 +136,8 @@
 | `src/Widgets/Panes/ViewBase.h` | 4 | 0 | 25 |
 | `src/Widgets/Settings/SettingsFace.cpp` | 4 | 0 | 6 |
 | `src/Windows/Kit/MainWindowFace.h` | 4 | 0 | 13 |
-| `src/Sessions/Commanders/SuperCommander.cpp` | 3 | 0 | 51 |
+| `src/Editor/Config/CTerminalConfig.h` | 3 | 0 | 5 |
+| `src/Editor/Engine/EditorEngine.h` | 3 | 0 | 1 |
 | `src/Sessions/Commanders/SuperCommander.h` | 3 | 0 | 0 |
 | `src/Sessions/Core/SuperSession.h` | 3 | 0 | 2 |
 | `src/Sessions/Transports/TelnetSession.cpp` | 3 | 0 | 3 |
@@ -156,7 +163,7 @@
 | `src/Widgets/Dialogs/TriggerActionDialogFace.cpp` | 2 | 1 | 1 |
 | `src/Widgets/Dialogs/TriggerActionDialogFace.h` | 2 | 1 | 1 |
 | `src/Widgets/Settings/SettingsFace.h` | 3 | 0 | 0 |
-| `src/Editor/Config/CTerminalConfig.cpp` | 2 | 0 | 10 |
+| `src/Windows/Mux/MuxPane.h` | 3 | 0 | 5 |
 | `src/Sessions/Bridges/SessionProtocol.h` | 2 | 0 | 10 |
 | `src/Sessions/Transfers/XModem.cpp` | 2 | 0 | 1 |
 | `src/Sessions/Transfers/YModem.cpp` | 2 | 0 | 1 |
@@ -184,16 +191,18 @@
 | `src/Widgets/Panes/SessionPane.h` | 2 | 0 | 19 |
 | `src/Windows/Kit/KitWindowAssemblyFace.h` | 2 | 0 | 32 |
 | `src/Windows/Kit/MainWindowFace.cpp` | 2 | 0 | 7 |
-| `src/Windows/Mux/MuxPane.h` | 2 | 0 | 6 |
-| `src/Editor/Config/CTerminalConfig.h` | 1 | 0 | 7 |
+| `src/Windows/Mux/MuxPane.cpp` | 2 | 0 | 0 |
+| `src/Windows/Mux/MuxPaneJs.h` | 2 | 0 | 0 |
 | `src/Editor/Engine/EditorContext.h` | 1 | 0 | 121 |
 | `src/Editor/Engine/MatchEngine.cpp` | 1 | 0 | 16 |
+| `src/Sessions/Bridges/SshBridge.cpp` | 1 | 0 | 2 |
 | `src/Sessions/Core/FileOps.h` | 1 | 0 | 23 |
 | `src/Sessions/Core/SessionLoggerOp.h` | 1 | 0 | 14 |
+| `src/Sessions/Core/SuperSession.cpp` | 1 | 0 | 11 |
 | `src/Sessions/Transfers/XModem.h` | 0 | 1 | 1 |
 | `src/Sessions/Transfers/YModem.h` | 0 | 1 | 1 |
-| `src/Terminal/Screen.cpp` | 1 | 0 | 265 |
-| `src/Terminal/Screen.h` | 1 | 0 | 211 |
+| `src/Stubs/gen_stubs.cpp` | 1 | 0 | 0 |
+| `src/Terminal/TermViewFace.h` | 1 | 0 | 0 |
 | `src/Widgets/Controls/ColorButtonFace.h` | 1 | 0 | 1 |
 | `src/Widgets/Controls/CrumbEditFace.cpp` | 1 | 0 | 0 |
 | `src/Widgets/Controls/CrumbEditFace.h` | 1 | 0 | 1 |
@@ -208,10 +217,9 @@
 | `src/Widgets/Settings/PasteSettingsPageFace.h` | 1 | 0 | 1 |
 | `src/Widgets/Splitter.cpp` | 1 | 0 | 0 |
 | `src/Widgets/Splitter.h` | 1 | 0 | 0 |
+| `src/Widgets/Views/TerminalView.cpp` | 1 | 0 | 1 |
 | `src/Widgets/Views/TextView.h` | 1 | 0 | 17 |
-| `src/Windows/Mux/MuxPane.cpp` | 1 | 0 | 1 |
 | `src/Windows/Mux/MuxPaneJs.cpp` | 1 | 0 | 0 |
-| `src/Windows/Mux/MuxPaneJs.h` | 1 | 0 | 1 |
 
 ## 4. 未触及池（按体积降序前 50，下一批候选）
 
@@ -283,16 +291,16 @@
 | `AddressBar` | `src/Widgets/Bars/AddressBarFace.h` | 2 | 0 |
 | `ApplicationTheme` | `src/App/ApplicationTheme.h` | 5 | 0 |
 | `BreadCrumb` | `src/Widgets/Bars/BreadCrumbFace.h` | 4 | 0 |
-| `CEditorConfig` | `src/Editor/Config/CGlobalConfigFace.h` | 9 | 0 |
-| `CGlobalConfig` | `src/Editor/Config/CGlobalConfigFace.h` | 9 | 0 |
-| `CTerminalConfig` | `src/Editor/Config/CTerminalConfig.h` | 1 | 0 |
+| `CEditorConfig` | `src/Editor/Config/CGlobalConfigFace.h` | 11 | 0 |
+| `CGlobalConfig` | `src/Editor/Config/CGlobalConfigFace.h` | 11 | 0 |
+| `CTerminalConfig` | `src/Editor/Config/CTerminalConfig.h` | 3 | 0 |
 | `CaptureGroupsButton` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `CheckList` | `src/Widgets/Controls/CheckListFace.h` | 0 | 0 |
 | `ColorButton` | `src/Widgets/Controls/ColorButtonFace.h` | 1 | 0 |
 | `CustomLinkTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `CustomMenuTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `DefaultEditorDialog` | `src/Widgets/Dialogs/DefaultEditorDialogFace.h` | 1 | 0 |
-| `EditorWindow` | `src/Windows/Kit/KitWindowFactory.h` | 9 | 0 |
+| `EditorWindow` | `src/Windows/Kit/KitWindowFactory.h` | 10 | 0 |
 | `EnvironmentDialog` | `src/Widgets/Dialogs/EnvironmentDialogFace.h` | 2 | 0 |
 | `ExplorerList` | `src/Widgets/Controls/ExplorerListFace.h` | 0 | 0 |
 | `FilerPane` | `src/Widgets/Panes/FilerPane.h` | 0 | 0 |
@@ -302,10 +310,10 @@
 | `HighlightTextDialog` | `src/Widgets/Dialogs/HighlightTextDialogFace.h` | 2 | 1 |
 | `HighlightTextTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `InsertFileDialog` | `src/Widgets/Dialogs/InsertFileDialogFace.h` | 3 | 1 |
-| `JsEngine` | `src/App/JsEngine.h` | 7 | 0 |
+| `JsEngine` | `src/App/JsEngine.h` | 8 | 0 |
 | `KitBar` | `src/Windows/Kit/KitBar.h` | 9 | 0 |
 | `KitDock` | `src/Windows/Kit/KitDockFace.h` | 13 | 0 |
-| `KitWindow` | `src/Windows/Kit/KitWindowFace.h` | 25 | 0 |
+| `KitWindow` | `src/Windows/Kit/KitWindowFace.h` | 26 | 0 |
 | `LogDialog` | `src/Widgets/Dialogs/LogDialogFace.h` | 1 | 1 |
 | `LoginWizard` | `src/Widgets/Dialogs/LoginWizardFace.h` | 0 | 0 |
 | `MainWindow` | `src/Windows/Kit/MainWindowFace.h` | 4 | 0 |
@@ -314,7 +322,7 @@
 | `MessageBar` | `src/Widgets/Bars/MessageBarFace.h` | 5 | 0 |
 | `Modem` | `src/Sessions/Transfers/Modem.h` | 17 | 1 |
 | `ModemProcess` | `src/Sessions/Transfers/ModemProcess.h` | 10 | 1 |
-| `MuxPane` | `src/Windows/Mux/MuxPane.h` | 2 | 0 |
+| `MuxPane` | `src/Windows/Mux/MuxPane.h` | 3 | 0 |
 | `MuxPaneGroup` | `src/Windows/Mux/MuxPaneGroup.h` | 31 | 0 |
 | `MuxWindow` | `src/Windows/Mux/MuxWindow.h` | 24 | 0 |
 | `NameDialog` | `src/Widgets/Dialogs/NameDialogFace.h` | 4 | 0 |
@@ -345,7 +353,7 @@
 | `SessionPane` | `src/Widgets/Panes/SessionPane.h` | 2 | 0 |
 | `SessionTriggerDialog` | `src/Widgets/Dialogs/SessionTriggerDialogFace.h` | 2 | 1 |
 | `SettingDialog` | `src/Widgets/Dialogs/SettingDialogFace.h` | 2 | 1 |
-| `SharedConfigHandler` | `src/Editor/Config/CGlobalConfigFace.h` | 9 | 0 |
+| `SharedConfigHandler` | `src/Editor/Config/CGlobalConfigFace.h` | 11 | 0 |
 | `ShellBridge` | `src/Sessions/Bridges/ShellBridge.h` | 0 | 0 |
 | `ShellCommander` | `src/Sessions/Commanders/ShellCommander.h` | 0 | 0 |
 | `ShellProcess` | `src/Pty/ShellProcess.h` | 0 | 0 |
@@ -375,7 +383,7 @@
 | `TelnetSession` | `src/Sessions/Transports/TelnetSession.h` | 8 | 0 |
 | `TerminalView` | `src/Widgets/Views/TerminalView.h` | 0 | 0 |
 | `TerminalWidget` | `src/Widgets/Views/TerminalWidget.h` | 0 | 0 |
-| `TerminalWindow` | `src/Windows/Kit/KitWindowFactory.h` | 9 | 0 |
+| `TerminalWindow` | `src/Windows/Kit/KitWindowFactory.h` | 10 | 0 |
 | `TextEdit` | `src/Widgets/Views/TextEdit.h` | 0 | 0 |
 | `TextMarkDialog` | `src/Widgets/Dialogs/TextMarkDialogFace.h` | 2 | 0 |
 | `TextMarkTablePanel` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |

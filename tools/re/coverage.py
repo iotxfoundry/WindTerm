@@ -99,6 +99,10 @@ def first_addr(line):
 #   loose  —— 再加 `NNN B`(名在前、地址在括号里的写法)与 `cited`(空壳已锚入口)
 ORIGIN_STRICT = re.compile(r'真身|FUN_[0-9a-f]{8}\s*\(\s*\d+\s*B')
 ORIGIN_LOOSE = re.compile(r'真身|\b\d+\s*B\b|cited')
+# 「块首」写法:出处行直接以地址/符号开头(`// FUN_00809d78: …` /
+# `// CTerminalConfig::instance(0x00809d78) …`)。只认注释块的**第一行**,
+# 避免把函数体内「调用了谁」的行当成出处。
+ORIGIN_HEAD = re.compile(r'^\s*//\s*(?:FUN_[0-9a-f]{8}|[A-Za-z_][\w:]*\(\s*(?:0x)?[0-9a-f]{8})')
 
 
 def origin_of(L, i, loose=False):
@@ -242,6 +246,18 @@ def defs_status():
             nb = re.sub(r'/\*.*?\*/', '', nb, flags=re.S)
             nb = re.sub(r'\s+', '', nb)
             a = origin_of(L, i, loose=True)
+            if not a:
+                # 兜底:出处写在函数体**第一行**(`{` 之后),如
+                # `CTerminalConfig::instance() { // FUN_00809d78: … }`。
+                b = i + 1
+                while b <= j and not L[b].strip() if b < len(L) else False:
+                    b += 1
+                if b <= j and L[b].strip() == '{':
+                    b += 1
+                    while b <= j and not L[b].strip():
+                        b += 1
+                if b <= j and ORIGIN_HEAD.search(L[b]):
+                    a = first_addr(L[b])
             if a:
                 (real if len(nb) > 40 else stub).add(a)
             i = j + 1
