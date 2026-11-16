@@ -181,6 +181,40 @@ protected:
 //   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
 //   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
 //   setFocusProxy(this)。
+// HighlightTextTriggerPageFace — kind 8(new 0x40)装配 FUN_006f7c3c(243B):
+//   form = QFormLayout(0x20);label = QLabel(0x30, tr("&Rules:")(0xc9fd07));
+//   +0x38 = new 0x48 + FUN_005675e8(w, 0)(规则表件);
+//   label->setBuddy(+0x38);form margins 全零;assembleBusyOverlay();
+//   addRow ×2;setLayout(form);setFocusProxy(this)。
+class HighlightTextTriggerPageFace : public TriggerPageFace {
+	Q_OBJECT
+public:
+	explicit HighlightTextTriggerPageFace(QWidget *parent = nullptr);
+	void assembleHighlightPage(); // FUN_006f7c3c
+
+protected:
+	QWidget *m_rules38 = nullptr; // +0x38(0x48 规则件)
+};
+
+// RunCommandTriggerPageFace — kind 10(new 0x50)装配 FUN_006fe290(327B):
+//   form;label = QLabel(0x30, tr("&Match:")(0xc9fd97));
+//   +0x38 = new 0x68 + FUN_0056376e(w, 0xe000, 0)(文本域);+0x40 = w+0x40;
+//   +0x48 = new 0x78 + FUN_006fdcde(w, **10**, 0)(TriggerActionWidget,kind 10);
+//   label->setBuddy(+0x38);FUN_006fb180(+0x48, +0x38)(动作件 ↔ 文本域接线);
+//   margins 全零;assembleBusyOverlay();addRow ×3;setLayout(form);
+//   setTabOrder(+0x40, +0x48)。
+class RunCommandTriggerPageFace : public TriggerPageFace {
+	Q_OBJECT
+public:
+	explicit RunCommandTriggerPageFace(QWidget *parent = nullptr);
+	void assembleRunCommandPage(); // FUN_006fe290
+
+protected:
+	QWidget *m_edit38 = nullptr;              // +0x38(0x68 文本域)
+	QWidget *m_f40 = nullptr;                 // +0x40(文本域 +0x40)
+	TriggerActionWidgetFace *m_action48 = nullptr; // +0x48(0x78,kind 10)
+};
+
 class SendTextTriggerPageFace : public TriggerPageFace {
 	Q_OBJECT
 public:

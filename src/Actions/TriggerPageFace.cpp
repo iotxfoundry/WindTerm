@@ -296,3 +296,47 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	QWidget::setTabOrder(m_combo58, m_spin60);                     // @(+0x58 → +0x60)
 	setFocusProxy(this);
 }
+
+// FUN_006f7c3c(243B)HighlightText 页装配真身
+HighlightTextTriggerPageFace::HighlightTextTriggerPageFace(QWidget *parent)
+	: TriggerPageFace(parent)
+{
+	assembleHighlightPage();
+}
+
+void HighlightTextTriggerPageFace::assembleHighlightPage()
+{
+	auto *form = new QFormLayout;                              // @006f7c5d(0x20)
+	auto *label = new QLabel(QStringLiteral("&Rules:"));       // tr(0xc9fd07),0x30
+	m_rules38 = new QWidget(this);                             // @006f7cb9(0x48 + FUN_005675e8(0)) cited
+	label->setBuddy(m_rules38);
+	form->setContentsMargins(0, 0, 0, 0);                      // 全零
+	assembleBusyOverlay();                                     // @006f7cxx(FUN_006f1994)
+	form->addRow(label);                                       // addRow ×2(实参折叠)
+	setLayout(form);                                           // @006f7dxx
+	setFocusProxy(this);
+}
+
+// FUN_006fe290(327B)RunCommand 页装配真身
+RunCommandTriggerPageFace::RunCommandTriggerPageFace(QWidget *parent)
+	: TriggerPageFace(parent)
+{
+	assembleRunCommandPage();
+}
+
+void RunCommandTriggerPageFace::assembleRunCommandPage()
+{
+	auto *form = new QFormLayout;                              // @006fe2b1(0x20)
+	auto *label = new QLabel(QStringLiteral("&Match:"));       // tr(0xc9fd97),0x30
+	m_edit38 = new QWidget(this);                              // @006fe312(0x68 + FUN_0056376e(0xe000)) cited
+	m_f40 = m_edit38;                                          // +0x40 = w+0x40
+	m_action48 = new TriggerActionWidgetFace(10, this);          // @006fe33a(0x78,kind 10)
+	label->setBuddy(m_edit38);
+	// FUN_006fb180(+0x48, +0x38)(动作件 ↔ 文本域接线)@006fe3xx — cited
+	form->setContentsMargins(0, 0, 0, 0);                      // 全零
+	assembleBusyOverlay();                                     // @006fe3xx(FUN_006f1994)
+	form->addRow(label);                                       // addRow ×3(实参折叠)
+	setLayout(form);                                           // @006fe3xx
+	QWidget::setTabOrder(m_f40, m_action48);                   // @(+0x40 → +0x48)
+	setFocusProxy(this);
+}
