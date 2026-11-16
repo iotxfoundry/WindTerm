@@ -1,6 +1,7 @@
 #include "Sessions/Transfers/XYModem.h"
 
 #include <QDir>
+#include <QFileDevice>
 #include <QFileInfo>
 #include <QSaveFile>
 
@@ -37,10 +38,10 @@ XYModem::XYModem(QObject *session, QObject *writer)
 void XYModem::resetState()
 {
 	m_state58 = 0;
-	m_receiving54 = !m_dirOnly50;
+	m_packetNo54 = m_dirOnly50 ? 0 : 1;
 	m_retriesA8 = 0;
 	m_retryCountB8 = 0;
-	m_f8c = 0;
+	m_errorCount8c = 0;
 	m_writtenA0 = 0;
 	m_expectedSize90 = -1;
 	if (m_dirOnly50) {
@@ -107,11 +108,120 @@ void XYModem::recvPkt(const QByteArray &data)
 	Q_UNUSED(data);
 }
 
-// xymodem_processInput(0x0079ed2e,1030B)— cited:
-//   发包侧的应答处理(ACK/NAK/CAN),驱动下一块发送与重试计数。
+// xymodem_processInput(0x0079ed2e,1030B)上传侧应答状态机(逐字节)。状态 +0x58:
+//   0 = 等 NAK/'C' / 1 = YMODEM 已答头块 / 2 = 正在发 / 3 = 等下一块 ACK /
+//   4 = 等 EOT 应答 / 5 = YMODEM 等结束 / 6 = 完成。
+// 分发:
+//   0x15 NAK → 非 dirOnly 且 state==0: crcMode=1 并 sendNext(1);
+//              否则 sendWithRetry(m_chunk68)
+//   0x18 CAN → state=6;把整块当 C 串去掉 0x18 与 '\b'、trimmed,
+//              非空则显示并 ++m_errorCount8c
+//   'C'      → state==0: crcMode=0,非 dirOnly 则 sendNext(1) 否则 sendNext(0);
+//              state==2: sendNext(1)
+//   0x06 ACK → 非 dirOnly: state==3 → sendNext(1);state==4 → state=6
+//              dirOnly  : state==3 → sendNext(1);state==4 → resetState();
+//                         state==5 → state=6 并显示 "Transfer complete." /
+//                         "Transfer incomplete."(看 m_errorCount8c);
+//                         state==1 → state=2
+// 每个分支末尾统一:state == 6 → finish(m_errorCount8c == 0) 并返回。
+// (sendNext 的实参由 asm 0x79ed8b / 0x79f0ee 回读:mov $1 / xor → 1 与 0。)
 void XYModem::processInput(const QByteArray &data)
 {
-	Q_UNUSED(data);
+	for (int i = 0; i < data.size(); ++i) {
+		const uchar c = uchar(data.at(i));
+
+		if (c == 0x15) { // NAK
+			if (!m_dirOnly50 && m_state58 == 0) {
+				m_crcMode53 = 1;
+				sendNext(1);
+			} else {
+				sendWithRetry(m_chunk68); // 0x0079c1da(this, &m_chunk68)
+			}
+		} else if (c > 0x15) {
+			if (c == 0x18) { // CAN
+				m_state58 = 6;
+				QString text = QString::fromLatin1(data);
+				text.replace(QChar(0x18), QString())
+				    .replace(QChar('\b'), QString());
+				text = text.trimmed();
+				if (!text.isEmpty()) {
+					appendText(text);
+					++m_errorCount8c; // +0x8c
+				}
+			} else if (c == 'C') {
+				if (m_state58 == 0) {
+					m_crcMode53 = 0;
+					if (!m_dirOnly50)
+						sendNext(1);
+					else
+						sendNext(0);
+				} else if (m_state58 == 2) {
+					sendNext(1);
+				}
+			}
+		} else if (c == 0x06) { // ACK
+			if (!m_dirOnly50) {
+				if (m_state58 == 3) {
+					sendNext(1);
+				} else if (m_state58 == 4) {
+					m_state58 = 6;
+				}
+			} else {
+				if (m_state58 == 3) {
+					sendNext(1);
+				} else if (m_state58 > 3) {
+					if (m_state58 == 4) {
+						resetState(); // 0x0079c6de
+					} else if (m_state58 == 5) {
+						m_state58 = 6;
+						appendText(m_errorCount8c == 0
+						               ? QStringLiteral("Transfer complete.")
+						               : QStringLiteral("Transfer incomplete."));
+					}
+				} else if (m_state58 == 1) {
+					m_state58 = 2;
+				}
+			}
+		}
+
+		if (m_state58 == 6) {
+			finish(m_errorCount8c == 0); // 0x0079aba0(this, m_errorCount8c == 0)
+			return;
+		}
+	}
+}
+
+// FUN_0079eb8c(388B)组一块并发出。逐句:
+//   ok = buildPacket(crcMode)(FUN_0079dc32,3833B → cited)
+//   !ok → 有接收文件且 error() != 0 → showError(errorString(), true);
+//         否则 m_chunk68 = QByteArray(1, 0x04)(EOT),writeData(m_chunk68)
+//   ok  → writeData(m_chunk68)
+//   末尾:m_retriesA8 = 0;m_packetNo54 + 1(块号递增)
+void XYModem::sendNext(int crcMode)
+{
+	const bool ok = buildPacket(crcMode); // 0079dc32
+	if (!ok) {
+		if (m_saveFile78 != nullptr && m_saveFile78->error() != QFileDevice::NoError) {
+			showError(m_saveFile78->errorString(), true);
+		} else {
+			m_chunk68 = QByteArray(1, '\x04'); // EOT
+			writeData(m_chunk68);
+		}
+	} else {
+		writeData(m_chunk68);
+	}
+	m_retriesA8 = 0; // +0xa8 = 0
+	++m_packetNo54; // +0x54 += 1
+}
+
+// FUN_0079dc32(0x0079dc32,3833B)— cited:按 +0x54 块号组一帧(头 0x01/0x02、
+// 块号与反码、数据、校验)。返回 false 表示无数据可发(调用方改发 EOT)。
+// ⚠ 本体未转写;此处恒 false 只是占位,会让 sendNext 一直发 EOT ——
+//   收尾期必须先把 0079dc32 转写出来,ZMODEM 之外的内置收发才能真跑。
+bool XYModem::buildPacket(int crcMode)
+{
+	Q_UNUSED(crcMode);
+	return false;
 }
 
 // xymodem_sendInit(0x0079f1ac,1954B)— cited:

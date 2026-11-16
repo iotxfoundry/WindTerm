@@ -62,8 +62,10 @@ protected:
 	void setSubChar(bool on);                     // 0079c88c
 
 	// ---- 协议核(体量 1–4KB,入口已锚定,正文 cited) --------------------
-	void recvPkt(const QByteArray &data);      // xymodem_recvPkt 0079cde6(2094B)
-	void processInput(const QByteArray &data); // xymodem_processInput 0079ed2e(1030B)
+	void recvPkt(const QByteArray &data);      // xymodem_recvPkt 0079cde6(2094B)cited
+	void processInput(const QByteArray &data); // 0079ed2e(1030B)已落
+	void sendNext(int crcMode);                // 0079eb8c(388B)组一块并发出
+	bool buildPacket(int crcMode);             // FUN_0079dc32 0079dc32(3833B)cited
 	void resetState();                         // 0079c6de
 
 	QByteArray m_buf60;      // +0x60
@@ -77,11 +79,11 @@ protected:
 	bool m_trimSub51 = false;   // +0x51
 	char m_subChar52 = 0x1a;    // +0x52
 	quint8 m_crcMode53 = 0;     // +0x53
-	bool m_receiving54 = false; // +0x54
+	quint8 m_packetNo54 = 0;    // +0x54 包序号(块号;resetState 置 !dirOnly)
 	quint16 m_flag56 = 0x80;    // +0x56
 	quint8 m_state58 = 0;       // +0x58
 	quint8 m_mode88 = 0;        // +0x88
-	int m_f8c = 0;              // +0x8c
+	int m_errorCount8c = 0;     // +0x8c 错误/异常计数(CAN 段 ++;finish 用它判成败)
 	int m_expectedSize90 = -1;  // +0x90
 	qint64 m_writtenA0 = 0;     // +0xa0
 	int m_retriesA8 = 0;        // +0xa8
