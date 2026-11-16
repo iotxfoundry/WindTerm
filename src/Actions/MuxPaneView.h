@@ -76,6 +76,14 @@ public:
     //   (cited — wave-2)。
     // paneMeta = 本持有者:语料 newQMetaObject(muxPaneMeta->
     //   metaObject()) 的注册对象即 MuxPane widget 类元对象 → this。
+    // 008c3c6a(1044B,0028.c:6341)pane 弹出菜单:
+    //   门:vt+0x1c0 != 默认(FUN_008c4eae)且返回 true;
+    //   ctx = FUN_008c3c1a(this);mod = FUN_0075d96c(app, event modifiers);
+    //   修饰键前缀串实读:0x4000000→"Shift "(0xcb76d1)、
+    //   0x2000000→"Ctrl "(0xcb76d8)、"Alt "(0xcb76de)、"Meta "(0xcb76e3);
+    //   后续建菜单项/弹出 — cited。
+    void showPanePopupMenu(class QMouseEvent *event);
+
     void attachJsEngine(JsEngine *engine, QObject *kingMeta,
                         QObject *appBridge, QObject *windowBridge);
 

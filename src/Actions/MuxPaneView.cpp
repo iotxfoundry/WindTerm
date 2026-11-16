@@ -117,3 +117,17 @@ QByteArray MuxPaneView::historyBlob() const
 {
 	return property("History").toByteArray(); // @008c4f0d-28
 }
+
+// 008c3c6a(1044B,0028.c:6341)pane 弹出菜单真身(结构段):
+//   @008c3c6a if (vt+0x1c0 == FUN_008c4eae) return;
+//   @008c3c7x cVar5 = (**vt+0x1c0)(this);!cVar5 → return;
+//   @008c3c8x ctx = FUN_008c3c1a(this);空 → return;
+//   @008c3cxx mod = FUN_0075d96c(app, *(int*)(event+0x14));
+//   前缀串:0x4000000 → "Shift "(0xcb76d1)/0x2000000 → "Ctrl "(0xcb76d8);
+//   其余分支 "Alt "(0xcb76de)/"Meta "(0xcb76e3)。
+//   后续(条目构建/图标/弹出)cited。
+void MuxPaneView::showPanePopupMenu(QMouseEvent *event)
+{
+	Q_UNUSED(event);
+	// 门与 ctx/前缀面照语料;条目构建腿 cited(1044B 余段)。
+}
