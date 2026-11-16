@@ -353,3 +353,27 @@ btn->setStyleSheet("QToolButton { color: %1; }".arg(s == 1 ? "red" : "green"));
   拒绝无证激活/发明
 - 权限审批:车道 worktree 路径 reply always 预放行
 - 勘正谱系见上表;新会话读到与谱系冲突的旧结论,以谱系为准
+
+## 新增类时的机械自查(2026-11-16,本轮 6 次踩坑后加)
+
+1. **每个 `.cpp` 开头必须有出处行** —— 哪怕文件里只有一个 ctor。
+   只写 `XFace::XFace(QObject *p) : Base(p) {}` 的 cpp 会被
+   `coverage.py --audit` 判为「无任何出处」。补一行即可:
+   ```
+   // 出处:QMetaObject 0x…(class="X",methods=N,signals=M,superdata=…);
+   // ctor 内联在调用点,仅转发基构造。
+   ```
+   (本轮 6 次审计报红全是这一个原因。)
+
+2. **写 ctor 之前先量 `sizeof`**:deleting 析构里的
+   `operator_delete(_, N)` 就是对象大小。与基类对比即知有没有自有字段
+   (本轮靠它一眼判定 LocalFileSystemItem 0xa0 / SftpFileSystemItem 0x98 /
+   PasswordMeter 0x30 / OutputPane 零字段)。比读函数体快且不会错。
+
+3. **metaobject 地址用 `mo_find.py` 反查**,不要猜。
+   `python3 tools/re/mo_find.py Xxx Yyy` → 打印地址,再喂给 `qmo_class.py`。
+   起因:很多类的 metaObject 函数不带类名前缀(KitWindow 就是)。
+
+4. **先判是不是 B 类**(Scintilla / chardet / libssh 上游件)。
+   本轮差点把 Scintilla 的 `Editor` 当自研逆向 —— 函数体里出现
+   `editor_textLength` / `runstyles_runnode_init` / `Decoration` 就停手。
