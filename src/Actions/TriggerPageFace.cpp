@@ -96,8 +96,10 @@ void TriggerPageFace::assembleConnectionPage(int kind)
 	m_action40 = new TriggerActionWidgetFace(kind, this); // @006fde3d 0x78(FUN_006fdcde)
 	form->setContentsMargins(0, 0, 0, 0);          // @006fde76(QMargins 全零)
 	QLayout *overlay = assembleBusyOverlay();      // @006fde7e(返回值被使用)
-	// @006fde8d page->layout()->itemAt(0)->widget()(vt+0xa0 → vt+0x68)
-	QLayoutItem *it = layout() != nullptr ? layout()->itemAt(0) : nullptr;
+	// @006fde49 **m_action40->layout()**(不是 page 的)→ vt+0xa0 itemAt(0)
+	//   → vt+0x68 widget()(修复 406:此前误用 page->layout(),此时 page 尚无 layout)
+	QLayoutItem *it = (m_action40 != nullptr && m_action40->layout() != nullptr)
+		? m_action40->layout()->itemAt(0) : nullptr;
 	form->addRow(it != nullptr ? it->widget() : nullptr, overlay); // @006fde99(两参)
 	form->addRow(m_action40);                      // @006fdea5
 	setLayout(form);                               // @006fdeba
