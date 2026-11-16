@@ -8,19 +8,19 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第五十一次交接,批 438 · ④ 28 个对话框 ctor 全清单落档)
+## 一句话状态(2026-11-16 第五十二次交接,批 448 · ② 动作执行链闭环 + 5c 窗条全对)
 
 **界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
-243 批 / 95 文件 / +12000 行,新增 52 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **89%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
-/②菜单 75%(右鍵四族结构已定 + **动作 DSL 三件套**:getOrCreate 856B/属性应用 2882B(**六属性集**)/整树装载 7702B + 懒构建 aboutToShow)/③工具栏状态栏 80%(七 kind 全真身)
+253 批 / 100 文件 / +12500 行,新增 54 个 `*Face` 新域。覆盖率(按 GUI-MAP
+条目加权)≈ **90%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
+/②菜单 90%(**动作执行链闭环** 配置表→QAction→PMF 壳→FUN_0066a148→js_actionFire + **动作 DSL 三件套**:getOrCreate 856B/属性应用 2882B(**六属性集**)/整树装载 7702B + 懒构建 aboutToShow)/③工具栏状态栏 80%(七 kind 全真身)
 /④对话框 90%(**28 个 QDialog 全部定位且 ctor 落档**(20 个新落 + 8 个早批);**SessionDialog 全谱**(双层页签/端口校验器/协议切页)+**SyncInputDialog**+**InsertFileDialog**+**TunnelDialog 全谱** ctor/建造 3404B/接线 935B/行→项/行图标/协议填充/行表装载·析构/整行复位 + TriggerDialog **收口**:记录布局定案+kind→图标表(两源互证)+新增/删除/复制/按键选中/提交腿/记录族四件;Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
 LoginWizard 全/Paste 全/**TriggerDialog 全谱 0xe0**:页栈+接线+编辑腿/
 **NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 90%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+**页内件四个方面真类化**(MarkStyle/Table/TextMarkPanel/ActionEditPanel)+占位绘制闭环+
 **八个触发器页装配全数落地**(CustomLink/CustomMenu/HighlightText/PlaySound/
 RunCommand/SendText/ShowTooltip/Connection)+页栈 006f440e 11 kind 表+
 TriggerActionWidget 0x78+TriggerActionEditPanel 0x68+TriggerWidgetKit)/⑥dock 标签 75%(KitDock 全套+TabBar
-节点助记符页色关钮)/5c 写 85% 读 60%(blobA/B/C 真身+会话帧解析)。
+节点助记符页色关钮)/5c 写 92% 读 75%(**QuickBar/TransferBar 读写四腿全落**)(blobA/B/C 真身+会话帧解析)。
 
 **关键勘正**:①`smeta 011a2240 = SessionDialog`(设置对话框族定性);
 ②`KitGroup ≡ MuxPaneGroup`(+0x38 TabGroup 同址);③TabBar 的"Qt 私有面"

@@ -511,3 +511,20 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 
 另有 `006ebd28`(794B)/`006ff1a0`(647B) 两个 QDialog 构造但**未写自有 vtable**
 (疑为子类或复用基类),留待收尾期核。
+
+### 批 439-448 增量(② 动作执行链闭环 + ⑤ 窗条 QuickBar/TransferBar 全对)
+- **② 动作执行链(三环全通)**:
+  `配置表 → actions_from_config_list(4162B)` → `QAction` 树 →
+  `triggered → FUN_0066b3a0(PMF 壳) → FUN_0066a148(103B) → js_actionFire(2282B)`
+  ⇒ **动作点击 = JS 执行**,`sender()` cast 到 QAction 后交给 JS 引擎;
+  错误串模板 `"动作名 [行]"`。菜单条目**确实不在 C++ 硬写**。
+- **⑤ 窗条二类(逐字段)**:
+  | 类 | ctor | 字节 | 关键 |
+  |---|---|---|---|
+  | QuickBar | `0056e26e` | 402 | vtable QuickBar_vtable/副 01195a08,**+0x30 = 父**,+0x60 flags 低 2 位清,**+0x68 项表**,objectName `"QuickBar"` |
+  | TransferBar | `005858fe` | 449 | vtable TransferBar_vtable/副 01196748,+0x30/+0x38/+0x48 flags/+0x50,objectName `"TransferBar"` |
+- **5c 窗条读写四腿全落**:写 `008596b8`(可见位 + count + 项)、读 `0085ae68`
+  (>>BA 子流 >>bool + list;flags&4 门;!visible → 收起)、应用 `0085ae06`、
+  收起 `008595c8`、列表读 `0085e0c0`(350B:count→reserve→逐项,状态异常中止)、
+  **懒建正主 `0085ad2e`**(0x70 QuickBar)与 `0085af56`(0x58 TransferBar)分辨清楚。
+- **新增 `docs/PENDING-ATTRIBUTION.md`**:收尾期归属工作单(6 项迁移/10 条错案/5 条待定/14 例名不副实)。
