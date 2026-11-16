@@ -19,10 +19,10 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 707 | 1.82% | 272986 | 3.56% |
+| 真实现 | 708 | 1.83% | 273015 | 3.56% |
 | 半成品 | 41 | 0.11% | 15517 | 0.20% |
 | 引用档 | 2139 | 5.52% | 801045 | 10.44% |
-| 未触及(真工作) | 20793 | 53.66% | 5567034 | 72.57% |
+| 未触及(真工作) | 20792 | 53.66% | 5567005 | 72.57% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1116 | 2.88% | 228435 | 2.98% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -415,7 +415,7 @@
 | `SessionDialog` | `src/Widgets/Dialogs/SessionDialogFace.h` | 4 | 0 |
 | `SessionGroupDialog` | `src/Widgets/Dialogs/SessionGroupDialogFace.h` | 2 | 1 |
 | `SessionLogger` | `src/Sessions/Core/SuperSessionPrivate.h` | 7 | 0 |
-| `SessionPane` | `src/Widgets/Panes/SessionPane.h` | 2 | 0 |
+| `SessionPane` | `src/Widgets/Panes/SessionPaneFace.h` | 0 | 0 |
 | `SessionTriggerDialog` | `src/Widgets/Dialogs/SessionTriggerDialogFace.h` | 2 | 1 |
 | `SettingDialog` | `src/Widgets/Dialogs/SettingDialogFace.h` | 2 | 1 |
 | `SftpFileSystemItem` | `src/Widgets/Views/SftpFileSystemItemFace.h` | 0 | 0 |
