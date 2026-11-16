@@ -338,7 +338,7 @@ TextMarkTablePanelFace::TextMarkTablePanelFace(QWidget *parent)
 {
 	// vtable TextMarkTablePanel_vtable / 副 01196288(C++ 自洽;尺寸 0x48)
 	setupHeaders();                       // @FUN_00567386(577B)
-	fillRows();                           // @FUN_00567084(683B)
+	wireSignals();                        // @FUN_00567084(683B)
 }
 
 // FUN_00584e4a(74B)自定义表格件 ctor 真身
@@ -764,8 +764,13 @@ void TextMarkTablePanelFace::setupHeaders()
 	setPlaceholder(QStringLiteral("No text mark available")); // tr(0xc8a3ac)
 }
 
-// FUN_00567084(683B)行装配 — 结构段(cited)
-void TextMarkTablePanelFace::fillRows()
+// FUN_00567084(683B)接线真身(结构段)
+void TextMarkTablePanelFace::wireSignals()
 {
-	// 语料按 "text.pattern" / "description" 两个配置键逐行填充 — cited
+	// 本面板信号(smeta 01193440)四路 → 闭包:
+	//   idx1(FUN_008ef798)  → FUN_00566f6a
+	//   idx9(FUN_008ef7d4)  → FUN_00567e96
+	//   FUN_008ef942        → FUN_00569e80(转发 FUN_00584e9c:面板 +0x40 → FUN_00566c80)
+	//   idx0xb(FUN_008ef7e8)→ 转发槽 FUN_00584eaa;idx0xc(FUN_008ef7fc)
+	// 全部槽体 cited(不发明同步语义)。
 }

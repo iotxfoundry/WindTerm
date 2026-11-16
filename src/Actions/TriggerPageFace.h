@@ -251,8 +251,14 @@ public:
 	//   配置键 **"text.pattern"** / **"description"**(fromAscii 实读)。
 	void setupHeaders();
 
-	// FUN_00567084(683B)行装配腿 — 结构段(cited)
-	void fillRows();
+	// FUN_00567084(683B)**接线**(非行装配):本面板自身信号(smeta 01193440)
+	//   逐路接闭包 —— **信号 idx1(FUN_008ef798)→ 闭包 FUN_00566f6a**;
+	//   **idx9(FUN_008ef7d4)→ 闭包 FUN_00567e96**;
+	//   **FUN_008ef942 → 闭包 FUN_00569e80**(转发槽 FUN_00584e9c:调
+	//     `FUN_00566c80(面板 +0x40, 参数)`);
+	//   **idx0xb(FUN_008ef7e8)→ 转发槽 FUN_00584eaa**;idx0xc(FUN_008ef7fc)。
+	//   ⇒ 面板信号 ↔ 可见列/行数据的同步面(槽体 cited)。
+	void wireSignals();
 
 protected:
 };
