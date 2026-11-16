@@ -48,6 +48,20 @@ public:
 		int proto30 = 0;     // +0x30
 	};
 
+	// FUN_0072d056(147B)协议填充:`s_session_protocol_80b1d8(全局配置,
+	//   +0x48 下拉, "SSH")` —— 由全局会话配置填协议表(键 "SSH" 实读)。
+	void fillProtocols();
+
+	// FUN_0072f007(53B)ctor 的 singleShot 落点:
+	//   ① FUN_0072d056(this)(协议填充)② FUN_0072edfe(this)(521B 初始装载)。
+	void initialLoad();
+
+	// FUN_0072d0f2(242B)整行复位(= SettingsPageFace::resetRow 的同源真身):
+	//   !enable 时逐件清:+0x50 clear / +0x58 与 +0x48 setCurrentIndex /
+	//   +0x70 与 +0x68 setValue / +0x60 clear / +0x38 与 +0x40 setChecked /
+	//   +0x98 FUN_0056672a(…,0,0,0) / **+0x30 QLabel::clear()**。
+	void resetRow(bool enable);
+
 	// s_king__tunnelDynamicActive_6a2c16(431B)**名不副实**=行图标:
 	//   标志(+0x20)为空 → 按 kind 取
 	//     `king::tunnelDynamicActive` / `king::tunnelLocalActive` /
@@ -60,7 +74,7 @@ public:
 	static QListWidgetItem *makeRowItem(const TunnelRow &row);
 
 protected:
-	QObject *m_grid30 = nullptr;      // +0x30(QGridLayout)
+	QWidget *m_label30 = nullptr;     // +0x30(**QLabel** —— 批 417 勘正:FUN_0072d0f2 调 QLabel::clear)
 	QWidget *m_check38 = nullptr;     // +0x38(QCheckBox)
 	QWidget *m_check40 = nullptr;     // +0x40(QCheckBox)
 	QWidget *m_combo48 = nullptr;     // +0x48(QComboBox)

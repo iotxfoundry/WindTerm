@@ -3,7 +3,12 @@
 
 #include "ThemeIcons.h"
 
+#include <QAbstractButton>
+#include <QComboBox>
 #include <QDialogButtonBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QSpinBox>
 #include <QIcon>
 #include <QListWidgetItem>
 #include <QVariant>
@@ -31,7 +36,7 @@ TunnelDialogFace::TunnelDialogFace(QWidget *parent)
 //   (0x30/0x38/… = 字段偏移;逐对 operator_new 尺寸 + 构造类实测。)
 void TunnelDialogFace::buildUi()
 {
-	m_grid30 = nullptr;                   // +0x30 QGridLayout — cited(建造体未逐句转写)
+	m_label30 = nullptr;                  // +0x30 QLabel(批 417 勘正)
 	m_check38 = m_check40 = nullptr;
 	m_combo48 = m_combo58 = nullptr;
 	m_edit50 = m_edit60 = nullptr;
@@ -90,4 +95,38 @@ QListWidgetItem *TunnelDialogFace::makeRowItem(const TunnelRow &row)
 	item->setData(0x101, QVariant::fromValue<quintptr>(
 		reinterpret_cast<quintptr>(&row)));                   // @0072c048(setData 0x101 行指针)
 	return item;
+}
+
+// FUN_0072d056(147B)协议填充真身
+void TunnelDialogFace::fillProtocols()
+{
+	// s_session_protocol_80b1d8(DAT_011c2200 /*全局会话配置*/, +0x48, "SSH")
+	//   —— 1215B 表填充(键 "SSH" 实读);此处 cited 承接。
+	if (m_combo48 != nullptr)
+		m_combo48->setObjectName(QStringLiteral("protocol")); // 占位承接(cited)
+}
+
+// FUN_0072f007(53B)singleShot 落点真身
+void TunnelDialogFace::initialLoad()
+{
+	fillProtocols();                     // @FUN_0072d056
+	// FUN_0072edfe(this)(521B 初始装载:把当前行写进各控件) — cited
+}
+
+// FUN_0072d0f2(242B)整行复位真身
+void TunnelDialogFace::resetRow(bool enable)
+{
+	if (!enable) {                       // param_2 == 0
+		if (m_edit50)  static_cast<QLineEdit *>(m_edit50)->clear();
+		if (m_combo58) static_cast<QComboBox *>(m_combo58)->setCurrentIndex(0);
+		if (m_combo48) static_cast<QComboBox *>(m_combo48)->setCurrentIndex(0);
+		if (m_spin70)  static_cast<QSpinBox *>(m_spin70)->setValue(0);
+		if (m_edit60)  static_cast<QLineEdit *>(m_edit60)->clear();
+		if (m_spin68)  static_cast<QSpinBox *>(m_spin68)->setValue(0);
+		if (m_check38) static_cast<QAbstractButton *>(m_check38)->setChecked(false);
+		if (m_check40) static_cast<QAbstractButton *>(m_check40)->setChecked(false);
+		// FUN_0056672a(+0x98, 0, 0, 0)(自定义可切换件置态)— cited
+		if (m_label30) static_cast<QLabel *>(m_label30)->clear();  // **QLabel::clear**
+	}
+	// enable 分支:逐件 setEnabled(实参同值)— cited
 }
