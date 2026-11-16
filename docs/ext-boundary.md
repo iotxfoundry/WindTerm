@@ -107,3 +107,29 @@ platforminputcontexts/platformthemes/xcbglintegrations)26 so 全为
 | 结论 | **不进 `src/`**:它不是源码,是原版随包分发的运行时程序。保留 `vendors/` 与原版布局一致 |
 
 > 待办:转写 spawn 腿时按上述优先级落地;`ZModem` 类(8 个 moc 名)需单独建模。
+
+## 附:RunStyles / Bimap / SuperBuffer 族 —— 归 B 类,不逆向(2026-11-16 取证)
+
+语料里有一整族 WindTerm 自有命名的类,函数体全部落到 Scintilla 的
+RunStyles 语义上。判据不是"名字像",而是**调用点实读**:
+
+| 语料函数 | 体量 | 实读到的调用 |
+|---|---:|---|
+| `CSuperBufferBase_ha62b28` | 49B | `runstyles_fill_range` / `runstyles_fill_value_range` |
+| `CSuperBufferBase_h980580` | 76B | `FUN_00a63336` + `FUN_00926aa6`(样式区间写) |
+| `CSuperBufferBase_h980616` | 80B | `FUN_00927a24` → `FUN_00927c04(...,6,1,1)` / `(...,4,0,1)` |
+
+族成员(`coverage.py --ledger` 未触及池中的大户):
+`CSuperBufferBase`(12条/2021B)、`CSuperBuffer32`(20/17925B)、
+`CSuperBuffer64`(18/3503B)、`Uint8/16/32/64RunStyles`、
+`Uint8/16/32/64SkipRunStyles`、`Uint32Bimap`、`ByteArrayBimap`、
+`Uint64SkipRunStyles`(合计约 25 条以上的数百 KB)。
+
+**处置:不逆向,按 `docs/calibration.md` 移植;实现委托仓库内已有的
+`src/Scintilla/src/RunStyles.{h,cxx}`。** 依据是 AGENTS §10 —
+"标准行为委托真库,fork 特性才逆向自研"。这一族没有 fork 独有的数据布局
+(SGR 位/行格那种才是逆向范围),所以整族划到委托侧。
+
+> 注意:`RunStyles` 在仓库快照里是**非模板类**,而二进制里是
+> `Uint8/16/32/64` 四份实例化 —— 说明上游是模板化版本。移植时按
+> Scintilla 上游模板版对齐,不要拿快照里的单版本硬套。
