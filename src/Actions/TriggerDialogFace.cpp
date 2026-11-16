@@ -668,3 +668,27 @@ void TriggerDialogFace::setStyle(TriggerRecord &rec, const QVariant &style)
 	rec.f28 = style;                      // +0x28
 	rec.f00 = 1;                          // +0x00(样式已设)
 }
+
+// FUN_006f1387(105B,0022.c:18947)延迟聚焦真身
+void TriggerDialogFace::focusCurrentPage()
+{
+	if (m_pageStack40 == nullptr)
+		return;
+	QWidget *page = m_pageStack40->currentWidget();     // +0x40 currentWidget
+	if (page == nullptr)
+		return;
+	if (dynamic_cast<TriggerPageFace *>(page) != nullptr) // 0x11a47b0(typeinfo)
+		page->setFocus(Qt::OtherFocusReason);            // setFocus(3)
+}
+
+// FUN_006f5474(319B,0022.c:21425)记录定稿真身
+void TriggerDialogFace::finalizeRecords()
+{
+	for (TriggerRecord &rec : m_records90) {
+		if (rec.f21 != 0 && rec.f00 != 0) {   // pcVar3[0x21] && *pcVar3
+			regenerateKey(rec);               // @FUN_00698ffc
+			rec.f00 = 0;                      // *pcVar3 = 0
+		}
+	}
+	// 语料随后对 +0x90 再取一次并继续遍历(第二段,内容 cited)
+}

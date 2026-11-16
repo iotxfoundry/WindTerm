@@ -179,6 +179,18 @@ public:
 	//   末尾按 row 刷新列表项/提示框(006f2ed8 面)。
 	void commitCurrentPage(int row);
 
+	// FUN_006f1387(105B,0022.c:18947)延迟聚焦(appendRecord 的 singleShot 落点):
+	//   page = +0x40 currentWidget();dynamic_cast 到页族(typeinfo 0x11a47b0)
+	//   成功 → setFocus(Qt::OtherFocusReason = 3)。
+	void focusCurrentPage();
+
+	// FUN_006f5474(319B,0022.c:21425)记录定稿:
+	//   遍历 +0x90(步长 0x48):**+0x21 != 0 且 +0x00 != 0** 的记录 →
+	//   regenerateKey(rec)(新 uuid) + rec.+0x00 = 0;
+	//   随后继续遍历(第二段 +0x90 重取,见 .cpp 注)——
+	//   即"+0x00 = 待生成 uuid 的脏标记"。
+	void finalizeRecords();
+
 	// FUN_006f3286(89B,0022.c:20176)当前行记录:
 	//   row = +0x68 currentRow();idx = currentRecordIndex(row);
 	//   idx == -1 → 返回 +0x98 缺省记录;否则 +0x90 第 idx 项。
