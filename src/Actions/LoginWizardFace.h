@@ -22,7 +22,12 @@ class QVBoxLayout;
 //     (0xd0d9ac))→ setAlignment(0x84 = AlignCenter)@005910f6 →
 //   +0x60 setChecked(实参折叠)→ FUN_00590ee0(this)(cited)→
 //   HBox: addWidget(+0x60)/addWidget(+0x68)/addWidget(+0x50 按钮盒)→
-//   QFrame: setFrameShape(4 = HLine)/setFrameShadow(折叠)— 余段 cited。
+//   QFrame: setFrameShape(4 = HLine)/setFrameShadow(折叠);
+//   @005911a1 QFormLayout(0x20):setContentsMargins(-1,0,-1)+addRow×3;
+//   @005911f2 QWidget(0)+setLayout(form);
+//   @00591214 QStackedWidget(0):setSizePolicy(0x770000);
+//   @00591236 QVBoxLayout(0x20):addWidget(stack)+addWidget(widget);
+//   @00591293 +0x58 QFrame:setFrameShape(6 = StyledPanel)+setLayout(vbox)。
 class LoginWizardFace : public QDialog {
 	Q_OBJECT
 public:

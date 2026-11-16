@@ -45,5 +45,18 @@ void LoginWizardFace::setupUi()
 	m_hbox->addWidget(m_buttons50);        // +0x50
 	m_frame = new QFrame();                // @00591170
 	m_frame->setFrameShape(QFrame::HLine); // 4
-	// setFrameShadow(实参折叠)— cited;Form/Stacked/VBox 余段 cited。
+	// setFrameShadow(实参折叠)— cited
+	m_form = new QFormLayout();                       // @005911a1(0x20)
+	m_form->setContentsMargins(-1, 0, -1, 0);         // 语料 (-1,0,-1)
+	// addRow ×3(实参 Ghidra 折叠:标签/字段/布局面)— cited
+	auto *host = new QWidget();                       // @005911f2(0x30)
+	host->setLayout(m_form);
+	m_stack = new QStackedWidget();                   // @00591214(0x30)
+	m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred); // 0x770000
+	m_vbox = new QVBoxLayout();                       // @00591236(0x20)
+	m_vbox->addWidget(m_stack);                       // @0059125x
+	m_vbox->addWidget(host);
+	auto *panel = new QFrame();                       // @00591293
+	panel->setFrameShape(QFrame::StyledPanel);        // 6
+	panel->setLayout(m_vbox);
 }
