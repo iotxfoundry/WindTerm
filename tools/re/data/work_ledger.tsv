@@ -13338,7 +13338,7 @@
 00525080	369	completer_priv_dtor	todo	
 00525200	29	qlist_unref_dispose4	todo	
 00525220	29	FUN_00525220	todo	
-0052523e	165	FUN_0052523e	real	src/Sessions/Core/WorkspaceLoader.cpp
+0052523e	165	FUN_0052523e	ref	src/Sessions/Core/WorkspaceLoader.cpp
 005252f0	284	FUN_005252f0	todo	
 00525500	96	FUN_00525500	ref	src/Sessions/Core/WorkspaceLoader.cpp
 005255b0	211	FUN_005255b0	todo	
@@ -14509,7 +14509,7 @@
 0058e194	9	FUN_0058e194	todo	
 0058e19e	9	FUN_0058e19e	todo	
 0058e1a8	476	FUN_0058e1a8	todo	
-0058e38a	1942	tabbar_contextMenu	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
+0058e38a	1942	tabbar_contextMenu	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 0058eb4d	56	FUN_0058eb4d	todo	
 0058eb86	270	SideButton_vt5	todo	
 0058ecae	100	SearchEdit_vt5	todo	
@@ -14635,7 +14635,7 @@
 005a1c70	131	FUN_005a1c70	todo	
 005a1cfc	431	FUN_005a1cfc	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
 005a1ebc	457	FUN_005a1ebc	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
-005a2096	14	FUN_005a2096	real	src/Windows/Kit/KitWindowAssemblyFace.cpp
+005a2096	14	FUN_005a2096	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
 005a20a4	164	Splitter::eventFilter(QObject*,QEvent*)	todo	
 005a2148	38	FUN_005a2148	todo	
 005a2170	119	FUN_005a2170	todo	
@@ -14681,7 +14681,7 @@
 005a6b5a	113	s_FirstNine_5a6b5a	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005a6bcc	32	FUN_005a6bcc	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005a6bec	34	FUN_005a6bec	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
-005a6c0e	84	FUN_005a6c0e	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
+005a6c0e	84	FUN_005a6c0e	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005a6c62	68	FUN_005a6c62	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005a6ca6	83	FUN_005a6ca6	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
 005a6cfa	5	thunk_FUN_008f6608	todo	
@@ -14747,19 +14747,19 @@
 005ab316	9	FUN_005ab316	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Widgets/Controls/TabGroup.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp
 005ab320	9	FUN_005ab320	todo	
 005ab32a	584	s_ExpandButton_5ab32a	ref	src/Widgets/Controls/ExpandButtonFaces.cpp,src/Widgets/Controls/ExpandButtonFaces.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-005ab5a8	13	FUN_005ab5a8	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
+005ab5a8	13	FUN_005ab5a8	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005ab5b6	9	FUN_005ab5b6	todo	
 005ab5c0	9	FUN_005ab5c0	ref	src/Widgets/Controls/TabGroup.h
 005ab5ca	9	tabbar_currentIndex	ref	src/Widgets/Panes/OutputPane.h,src/Windows/Mux/MuxPaneGroup.cpp
 005ab5d4	9	FUN_005ab5d4	ref	src/Widgets/Panes/ViewBase.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h
 005ab5dd	44	FUN_005ab5dd	todo	
 005ab60a	184	FUN_005ab60a	todo	
-005ab6c2	9	FUN_005ab6c2	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
+005ab6c2	9	FUN_005ab6c2	real	src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 005ab6cc	21	FUN_005ab6cc	ref	src/Windows/Mux/MuxWindow.cpp
 005ab6e2	5	FUN_005ab6e2	ref	src/Widgets/Controls/TabGroup.h
-005ab6e8	5	FUN_005ab6e8	real	src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp
+005ab6e8	5	FUN_005ab6e8	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp
 005ab6ee	38	FUN_005ab6ee	todo	
-005ab714	126	FUN_005ab714	ref	src/Widgets/Controls/TabGroup.cpp
+005ab714	126	FUN_005ab714	real	src/Widgets/Controls/TabGroup.cpp
 005ab79a	62	FUN_005ab79a	real	src/Widgets/Controls/TabGroup.cpp
 005ab7d8	59	FUN_005ab7d8	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005ab814	113	FUN_005ab814	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
@@ -14782,7 +14782,7 @@
 005aba4e	352	s_TabGroupButton_5aba4e	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005abbc6	9	FUN_005abbc6	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h
 005abbd0	9	FUN_005abbd0	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
-005abbda	9	FUN_005abbda	real	src/Sessions/Core/WorkspaceLoader.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxWindow.cpp
+005abbda	9	FUN_005abbda	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxWindow.cpp
 005abbe4	255	FUN_005abbe4	todo	
 005abce4	301	FUN_005abce4	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h
 005abe12	9	FUN_005abe12	ref	src/Widgets/Controls/TabGroup.cpp
@@ -16859,7 +16859,7 @@
 0064956c	4359	s_editor_hugeFileThreshold_64956c	todo	
 0064a76e	5	s_editor_hugeFileThreshold_64a76e	todo	
 0064a780	39	FUN_0064a780	todo	
-0064a7a8	121	FUN_0064a7a8	real	src/Windows/Kit/KitDockFace.cpp
+0064a7a8	121	FUN_0064a7a8	ref	src/Windows/Kit/KitDockFace.cpp
 0064a830	164	FUN_0064a830	todo	
 0064a902	99	FUN_0064a902	todo	
 0064a966	97	FUN_0064a966	todo	
@@ -16867,14 +16867,14 @@
 0064a9ea	210	FUN_0064a9ea	todo	
 0064aacc	19	FileSystemModel_dtor	todo	
 0064aae0	37	FileSystemModel_dtor_deleting	todo	
-0064ab10	33	FUN_0064ab10	ref	src/App/JsEngine.cpp,src/App/JsEngine.h,src/App/StartupChain.cpp,src/Windows/Mux/MuxPaneView.h
+0064ab10	33	FUN_0064ab10	real	src/App/JsEngine.cpp,src/App/JsEngine.h,src/App/StartupChain.cpp,src/Windows/Mux/MuxPaneView.h
 0064ab32	19	JsEngine_dtor	ref	src/App/JsEngine.cpp,src/App/JsEngine.h
 0064ab46	23	JsEngine_dtor_deleting	ref	src/App/JsEngine.cpp
-0064ab5e	76	FUN_0064ab5e	ref	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp
-0064abb2	809	FUN_0064abb2	ref	src/App/JsEngine.cpp,src/App/JsEngine.h
-0064af3c	348	FUN_0064af3c	ref	src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp,src/Windows/Mux/MuxPaneJs.cpp,src/Windows/Mux/MuxPaneJs.h
-0064b0be	18	FUN_0064b0be	ref	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp
-0064b0d0	41	FUN_0064b0d0	ref	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h
+0064ab5e	76	FUN_0064ab5e	real	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp
+0064abb2	809	FUN_0064abb2	real	src/App/JsEngine.cpp,src/App/JsEngine.h
+0064af3c	348	FUN_0064af3c	real	src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp,src/Windows/Mux/MuxPaneJs.cpp,src/Windows/Mux/MuxPaneJs.h
+0064b0be	18	FUN_0064b0be	real	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h,src/Editor/Engine/SuperKeymap.cpp
+0064b0d0	41	FUN_0064b0d0	real	src/Actions/ActionFactory.cpp,src/App/JsEngine.cpp,src/App/JsEngine.h
 0064b102	1707	s_MuxPane_64b102	ref	src/App/JsEngine.cpp,src/App/JsEngine.h,src/App/StartupChain.cpp,src/Windows/Mux/MuxPane.cpp,src/Windows/Mux/MuxPane.h,src/Windows/Mux/MuxPaneJs.h,src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 0064b86a	26	FUN_0064b86a	todo	
 0064b890	104	FUN_0064b890	todo	
@@ -17032,7 +17032,7 @@
 0065cf9c	35	FUN_0065cf9c	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TelnetBridge.h
 0065cfc0	36	FUN_0065cfc0	ref	src/Sessions/Bridges/TelnetBridge.cpp
 0065cfe4	22	FUN_0065cfe4	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
-0065cffa	36	FUN_0065cffa	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
+0065cffa	36	FUN_0065cffa	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
 0065d01e	298	FUN_0065d01e	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
 0065d158	47	FUN_0065d158	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp
 0065d188	37	FUN_0065d188	todo	
@@ -17045,8 +17045,8 @@
 0065efde	188	FUN_0065efde	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
 0065f0a0	1170	FUN_0065f0a0	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h,src/Sessions/Transports/TelnetSession.h
 0065f572	24	FUN_0065f572	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h,src/Sessions/Transports/TelnetSession.h
-0065f58a	520	FUN_0065f58a	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
-0065f7a2	5	thunk_FUN_0065f58a	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
+0065f58a	520	FUN_0065f58a	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
+0065f7a2	5	thunk_FUN_0065f58a	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
 0065f7a7	1	FUN_0065f7a7	todo	
 0065f7a8	13	FUN_0065f7a8	todo	
 0065f7b5	1	FUN_0065f7b5	todo	
@@ -17085,16 +17085,16 @@
 00665790	94	FUN_00665790	todo	
 006657ee	124	FUN_006657ee	todo	
 0066586a	124	FUN_0066586a	todo	
-006658e6	98	FUN_006658e6	real	src/Actions/ActionRegistryFace.cpp
+006658e6	98	FUN_006658e6	ref	src/Actions/ActionRegistryFace.cpp
 00665948	60	FUN_00665948	ref	src/Actions/ActionRegistryFace.cpp,src/Actions/ActionRegistryFace.h,src/App/StartupChain.cpp
 0066598c	902	action_registerDataType	ref	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
 00665d3e	68	FUN_00665d3e	todo	
 00665d8a	20	FUN_00665d8a	real	src/Actions/ActionFactory.cpp,src/Actions/ActionRegistryFace.h,src/Windows/Mux/MuxPane.cpp,src/Windows/Mux/MuxPane.h
 00665d9e	36	FUN_00665d9e	todo	
-00665dc2	856	actionFactory_getOrCreate	ref	src/Actions/ActionFactory.cpp,src/Actions/ActionFactory.h,src/Actions/ActionRegistryFace.cpp,src/Actions/ToolBarBuilder.cpp,src/App/StartupChain.cpp,src/Windows/Kit/KitBar.cpp
+00665dc2	856	actionFactory_getOrCreate	real	src/Actions/ActionFactory.cpp,src/Actions/ActionFactory.h,src/Actions/ActionRegistryFace.cpp,src/Actions/ToolBarBuilder.cpp,src/App/StartupChain.cpp,src/Windows/Kit/KitBar.cpp
 0066613a	2882	FUN_0066613a	real	src/Actions/ActionFactory.cpp,src/Actions/ActionFactory.h,src/Actions/ActionRegistryFace.cpp,src/Actions/ActionRegistryFace.h
 00666de2	744	FUN_00666de2	ref	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
-00667102	7702	wind_actions_build	ref	src/Actions/ActionFactory.cpp,src/Actions/ActionFactory.h,src/Actions/ActionRegistryFace.cpp,src/App/StartupChain.cpp
+00667102	7702	wind_actions_build	real	src/Actions/ActionFactory.cpp,src/Actions/ActionFactory.h,src/Actions/ActionRegistryFace.cpp,src/App/StartupChain.cpp
 00668f28	18	FUN_00668f28	todo	
 00668f3a	305	FUN_00668f3a	ref	src/Actions/ActionFactory.cpp,src/Actions/ActionRegistryFace.h,src/Windows/Mux/MuxPane.h
 00669086	1739	js_actionState	ref	src/Actions/ActionFactory.cpp,src/Actions/ActionFactory.h
@@ -17172,8 +17172,8 @@
 00674538	23	SuperKeymap_dtor_deleting	todo	
 00674550	96	FUN_00674550	ref	src/Windows/Kit/KitWindowFace.h
 006745b0	106	FUN_006745b0	ref	src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
-0067461a	45	FUN_0067461a	ref	src/Editor/Engine/KeymapEngine.cpp,src/Editor/Engine/KeymapEngine.h,src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
-00674648	161	FUN_00674648	ref	src/App/StartupChain.cpp,src/Editor/Engine/KeymapEngine.cpp,src/Editor/Engine/KeymapEngine.h,src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
+0067461a	45	FUN_0067461a	real	src/Editor/Engine/KeymapEngine.cpp,src/Editor/Engine/KeymapEngine.h,src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
+00674648	161	FUN_00674648	real	src/App/StartupChain.cpp,src/Editor/Engine/KeymapEngine.cpp,src/Editor/Engine/KeymapEngine.h,src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
 00674702	54	FUN_00674702	ref	src/Editor/Engine/SuperKeymap.cpp
 00674738	15	FUN_00674738	todo	
 00674748	345	FUN_00674748	ref	src/Windows/Kit/KitBar.cpp
@@ -17411,8 +17411,8 @@
 0067d880	125	FUN_0067d880	todo	
 0067d950	94	FUN_0067d950	todo	
 0067d9e0	231	FUN_0067d9e0	todo	
-0067db40	60	FUN_0067db40	real	src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
-0067db7c	266	FUN_0067db7c	real	src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
+0067db40	60	FUN_0067db40	ref	src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
+0067db7c	266	FUN_0067db7c	ref	src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
 0067dc90	196	FUN_0067dc90	ref	src/Editor/Engine/SuperKeymap.cpp
 0067de60	122	FUN_0067de60	ref	src/Editor/Engine/SuperKeymap.cpp
 0067df30	125	FUN_0067df30	ref	src/Editor/Engine/SuperKeymap.cpp,src/Editor/Engine/SuperKeymap.h
@@ -17788,13 +17788,13 @@
 00692766	493	FUN_00692766	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h
 0069297e	166	FUN_0069297e	ref	src/Editor/Config/CGlobalConfigFace.h
 00692a24	75	FUN_00692a24	todo	
-00692a70	1119	FUN_00692a70	ref	src/Actions/ActionRegistryFace.h,src/Actions/ToolBarBuilder.h,src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/KitWindowFactory.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
+00692a70	1119	FUN_00692a70	real	src/Actions/ActionRegistryFace.h,src/Actions/ToolBarBuilder.h,src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/KitWindowFactory.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 00692ef0	310	FUN_00692ef0	real	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/KitWindowFactory.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 00693036	575	King::MenuBar::MenuBar	todo	
 00693296	332	FUN_00693296	todo	
 006933ea	117	FUN_006933ea	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
 00693470	3293	s_ToolBarPopup_693470	ref	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
-006941d5	152	FUN_006941d5	real	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
+006941d5	152	FUN_006941d5	ref	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
 00694276	2164	toolbar_build	ref	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
 00694b76	1	FUN_00694b76	todo	
 00694b78	10	FUN_00694b78	todo	
@@ -18136,7 +18136,7 @@
 006b3016	9	FUN_006b3016	todo	
 006b3020	107	FUN_006b3020	todo	
 006b3094	99	FUN_006b3094	todo	
-006b3100	1109	envDialog_setupUi	todo	
+006b3100	1109	envDialog_setupUi	real	
 006b35a6	175	FUN_006b35a6	real	src/Widgets/Dialogs/EnvironmentDialogFace.cpp,src/Widgets/Dialogs/EnvironmentDialogFace.h
 006b3666	101	FUN_006b3666	todo	
 006b36e0	108	FUN_006b36e0	ref	src/Widgets/Dialogs/EnvironmentDialogFace.cpp,src/Widgets/Dialogs/EnvironmentDialogFace.h
@@ -18212,7 +18212,7 @@
 006bdbe4	249	FUN_006bdbe4	ref	src/Widgets/Dialogs/NameDialogFace.h
 006bdced	65	FUN_006bdced	ref	src/Widgets/Dialogs/NameDialogFace.cpp,src/Widgets/Dialogs/NameDialogFace.h
 006bdd30	50	FUN_006bdd30	todo	
-006bdd62	102	FUN_006bdd62	real	src/Widgets/Dialogs/ExpectDialogFace.cpp,src/Widgets/Dialogs/ExpectDialogFace.h
+006bdd62	102	FUN_006bdd62	ref	src/Widgets/Dialogs/ExpectDialogFace.cpp,src/Widgets/Dialogs/ExpectDialogFace.h
 006bddd0	66	FUN_006bddd0	todo	
 006bde12	80	FUN_006bde12	todo	
 006bde62	90	FUN_006bde62	todo	
@@ -18534,7 +18534,7 @@
 006de920	2803	s_terminal_autoComplete_completeComman_6de920	todo	
 006df506	1174	s_terminal_commandHistory_storage_6df506	todo	
 006dfa0e	823	s_terminal_mouseTracking_doubleClick_6dfa0e	todo	
-006dfd9e	1221	s_terminal_altScreen_pasteDialog_6dfd9e	ref	src/Widgets/Settings/PasteSettingsPageFace.cpp,src/Widgets/Settings/PasteSettingsPageFace.h
+006dfd9e	1221	s_terminal_altScreen_pasteDialog_6dfd9e	real	src/Widgets/Settings/PasteSettingsPageFace.cpp,src/Widgets/Settings/PasteSettingsPageFace.h
 006e0326	723	s_text_alternatingHexColumnColors_6e0326	todo	
 006e064a	2293	s_text_preferThemeFonts_6e064a	todo	
 006e1090	706	s_text_highlightSearchResults_6e1090	todo	
@@ -18650,7 +18650,7 @@
 006f2036	580	FUN_006f2036	real	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
 006f22b2	193	FUN_006f22b2	real	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
 006f2384	156	FUN_006f2384	real	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
-006f2435	43	FUN_006f2435	real	src/Widgets/Dialogs/TriggerDialogFace.cpp
+006f2435	43	FUN_006f2435	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp
 006f2460	425	FUN_006f2460	real	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
 006f263e	199	FUN_006f263e	real	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
 006f272a	13	FUN_006f272a	real	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
@@ -18804,10 +18804,10 @@
 006fd6c0	1203	FUN_006fd6c0	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 006fdcde	274	FUN_006fdcde	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 006fde04	210	FUN_006fde04	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
-006fdf10	281	FUN_006fdf10	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
+006fdf10	281	FUN_006fdf10	ref	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 006fe066	393	FUN_006fe066	stub	src/Widgets/Dialogs/TriggerActionDialogFace.cpp,src/Widgets/Dialogs/TriggerActionDialogFace.h
 006fe290	327	FUN_006fe290	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
-006fe450	1400	settings_sync_action_combo	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+006fe450	1400	settings_sync_action_combo	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 006feb40	613	s_text_matchWholeWord_6feb40	todo	
 006fee40	630	s_text_matchWholeWord_6fee40	todo	
 006ff150	49	FUN_006ff150	todo	
@@ -18883,7 +18883,7 @@
 00708402	1825	FUN_00708402	real	src/Widgets/Dialogs/RunToolDialogFace.cpp,src/Widgets/Dialogs/RunToolDialogFace.h
 00708bd0	102	FUN_00708bd0	todo	
 00708c40	29	FUN_00708c40	todo	
-00708c5e	219	FUN_00708c5e	real	src/Widgets/Dialogs/RunToolDialogFace.cpp,src/Widgets/Dialogs/RunToolDialogFace.h
+00708c5e	219	FUN_00708c5e	ref	src/Widgets/Dialogs/RunToolDialogFace.cpp,src/Widgets/Dialogs/RunToolDialogFace.h
 00708d40	29	qlist_disposeIfShared2	todo	
 00708d60	119	FUN_00708d60	todo	
 00708de0	66	FUN_00708de0	todo	
@@ -19031,7 +19031,7 @@
 0071a2d6	1622	s_session_autoLogin_71a2d6	todo	
 0071aa45	43	FUN_0071aa45	todo	
 0071aa70	1341	s_session_charset_71aa70	todo	
-0071b02e	1507	settings_table_row_item	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0071b02e	1507	settings_table_row_item	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0071b672	2595	s_session_proxyWorkingDirectory_71b672	todo	
 0071c1ce	577	s_process_locale_71c1ce	todo	
 0071c460	1267	s_session_autoExecutionDelay_71c460	todo	
@@ -19699,7 +19699,7 @@
 007525fc	49	FUN_007525fc	todo	
 0075262e	16	FUN_0075262e	todo	
 0075263e	1	FUN_0075263e	ref	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h,src/Widgets/Dialogs/RunToolDialogFace.cpp,src/Widgets/Dialogs/RunToolDialogFace.h
-00752640	67	s_king_refreshWidgetStyle	ref	src/App/ApplicationTheme.cpp,src/App/ApplicationTheme.h,src/Windows/Mux/MuxWindow.cpp
+00752640	67	s_king_refreshWidgetStyle	real	src/App/ApplicationTheme.cpp,src/App/ApplicationTheme.h,src/Windows/Mux/MuxWindow.cpp
 00752684	202	s_text_charSpaceFactor_752684	todo	
 00752766	74	style_getPixelMetric	ref	src/Actions/ToolBarBuilder.cpp
 007527b0	285	FUN_007527b0	ref	src/Widgets/Settings/TriggerPageFace.cpp
@@ -19829,7 +19829,7 @@
 0075c480	80	FUN_0075c480	real	src/App/SuperApplicationFace.cpp,src/App/SuperApplicationFace.h,src/Editor/Config/CTerminalConfig.cpp,src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h,src/Widgets/Bars/BarFaces.cpp,src/Widgets/Bars/BarFaces.h
 0075c4d0	408	s_application_windowOpacity_75c4d0	ref	src/App/SuperApplicationFace.cpp,src/App/SuperApplicationFace.h
 0075c6a0	37	FUN_0075c6a0	ref	src/App/SuperApplicationFace.cpp
-0075c6c6	81	FUN_0075c6c6	real	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h
+0075c6c6	81	FUN_0075c6c6	ref	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h
 0075c720	191	FUN_0075c720	todo	
 0075c7e8	697	FUN_0075c7e8	todo	
 0075cad2	43	FUN_0075cad2	todo	
@@ -20023,7 +20023,7 @@
 007686fe	38	FUN_007686fe	todo	
 00768724	112	FUN_00768724	todo	
 0076879c	176	FUN_0076879c	todo	
-00768854	428	s_wind_keymaps_768854	ref	src/App/StartupChain.cpp,src/Editor/Engine/KeymapEngine.cpp,src/Editor/Engine/KeymapEngine.h
+00768854	428	s_wind_keymaps_768854	real	src/App/StartupChain.cpp,src/Editor/Engine/KeymapEngine.cpp,src/Editor/Engine/KeymapEngine.h
 00768a48	613	FUN_00768a48	todo	
 00768cb6	315	MainWindow::delayedInit	todo	
 00768dfa	314	FUN_00768dfa	todo	
@@ -20038,7 +20038,7 @@
 0076b47c	736	FUN_0076b47c	todo	
 0076b7c0	457	s_wind_actions_76b7c0	ref	src/Actions/ActionFactory.cpp,src/Actions/ActionFactory.h,src/Actions/ActionRegistryFace.cpp,src/Actions/ActionRegistryFace.h,src/App/StartupChain.cpp,src/App/StartupChain.h
 0076b9da	18	FUN_0076b9da	ref	src/App/StartupChain.cpp,src/App/StartupChain.h,src/Windows/Kit/MainWindowFace.cpp,src/Windows/Kit/MainWindowFace.h
-0076b9ec	1043	mainWindow_connectSignals	ref	src/App/StartupChain.cpp,src/App/StartupChain.h,src/App/StateStore.h,src/Editor/Engine/KeymapEngine.cpp,src/Sessions/Core/WorkspaceLoader.cpp,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/MainWindowFace.h,src/Windows/Mux/MuxWindow.h
+0076b9ec	1043	mainWindow_connectSignals	real	src/App/StartupChain.cpp,src/App/StartupChain.h,src/App/StateStore.h,src/Editor/Engine/KeymapEngine.cpp,src/Sessions/Core/WorkspaceLoader.cpp,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/MainWindowFace.h,src/Windows/Mux/MuxWindow.h
 0076bdff	212	FUN_0076bdff	stub	src/App/StartupChain.cpp,src/App/StartupChain.h
 0076bed4	166	FUN_0076bed4	ref	src/Windows/Kit/KitBar.cpp
 0076bf82	113	King::buildKeySequence	ref	src/Windows/Kit/KitBar.cpp
@@ -20453,41 +20453,41 @@
 0079c6de	429	FUN_0079c6de	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
 0079c88c	19	FUN_0079c88c	real	src/Sessions/Transfers/XModem.cpp,src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h,src/Sessions/Transfers/YModem.cpp
 0079c8a0	126	FUN_0079c8a0	real	src/Sessions/Transfers/XModem.cpp,src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h,src/Sessions/Transfers/YModem.cpp
-0079c926	373	XYModem_dtor	ref	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
+0079c926	373	XYModem_dtor	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
 0079ca9c	23	XYModem_dtor_deleting	todo	
 0079cab4	775	FUN_0079cab4	todo	
-0079cde6	2094	xymodem_recvPkt	ref	src/Sessions/Transfers/XYModem.h
+0079cde6	2094	xymodem_recvPkt	real	src/Sessions/Transfers/XYModem.h
 0079d680	1365	FUN_0079d680	todo	
 0079dc32	3833	FUN_0079dc32	todo	
 0079eb8c	388	FUN_0079eb8c	todo	
-0079ed2e	1030	xymodem_processInput	ref	src/Sessions/Transfers/XYModem.h
+0079ed2e	1030	xymodem_processInput	real	src/Sessions/Transfers/XYModem.h
 0079f16e	62	XYModem_vt15	ref	src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.h
-0079f1ac	1954	xymodem_sendInit	ref	src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.h
+0079f1ac	1954	xymodem_sendInit	stub	src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.h
 0079f9ae	139	FUN_0079f9ae	todo	
 0079fa3a	152	FUN_0079fa3a	todo	
 0079fae0	124	FUN_0079fae0	todo	
 0079fb5c	245	FUN_0079fb5c	todo	
-0079fc66	216	ZModem_vt13	ref	src/Sessions/Transfers/ZModem.h
-0079fd3e	64	ZModem_vt14	ref	src/Sessions/Transfers/ZModem.h
+0079fc66	216	ZModem_vt13	real	src/Sessions/Transfers/ZModem.h
+0079fd3e	64	ZModem_vt14	real	src/Sessions/Transfers/ZModem.h
 0079fd7e	882	FUN_0079fd7e	real	src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
 007a0105	47	FUN_007a0105	todo	
-007a0134	44	ZModem_vt15	ref	src/Sessions/Transfers/ZModem.h
+007a0134	44	ZModem_vt15	real	src/Sessions/Transfers/ZModem.h
 007a0160	286	FUN_007a0160	real	src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
-007a029e	523	ZModem_dtor	ref	src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
+007a029e	523	ZModem_dtor	real	src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
 007a04aa	23	ZModem_dtor_deleting	todo	
-007a04c2	2636	zmodem_init	ref	src/Sessions/Transfers/ZModem.h
+007a04c2	2636	zmodem_init	stub	src/Sessions/Transfers/ZModem.h
 007a0f86	3062	FUN_007a0f86	ref	src/Sessions/Transfers/ZModem.cpp
 007a1c20	102	FUN_007a1c20	todo	
 007a1c90	108	FUN_007a1c90	todo	
 007a1d00	110	FUN_007a1d00	todo	
 007a1d70	399	FUN_007a1d70	ref	src/Sessions/Transfers/ModemProcess.cpp
 007a1f07	247	FUN_007a1f07	ref	src/Sessions/Transfers/ModemProcess.cpp
-007a200e	249	ModemProcess_dtor	ref	src/Sessions/Transfers/ModemProcess.h
+007a200e	249	ModemProcess_dtor	real	src/Sessions/Transfers/ModemProcess.h
 007a2108	23	ModemProcess_dtor_deleting	todo	
 007a2120	92	FUN_007a2120	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
 007a217c	135	FUN_007a217c	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
-007a2214	249	FUN_007a2214	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
-007a230e	869	termproc_init	todo	
+007a2214	249	FUN_007a2214	stub	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
+007a230e	869	termproc_init	real	
 007a26be	16	FUN_007a26be	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
 007a26ce	10	FUN_007a26ce	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
 007a26d8	66	FUN_007a26d8	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
@@ -20708,7 +20708,7 @@
 007aa108	118	FUN_007aa108	ref	src/Terminal/TerminalCore.cpp
 007aa180	27	FUN_007aa180	todo	
 007aa1a0	27	FUN_007aa1a0	todo	
-007aa1bc	206	FUN_007aa1bc	real	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
+007aa1bc	206	FUN_007aa1bc	ref	src/Terminal/Screen.cpp,src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007aa28a	88	FUN_007aa28a	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007aa2e2	172	FUN_007aa2e2	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
 007aa3a6	466	FUN_007aa3a6	ref	src/Terminal/TerminalCore.cpp,src/Terminal/TerminalCore.h
@@ -21029,7 +21029,7 @@
 007c8584	83	FUN_007c8584	todo	
 007c85d8	1	FUN_007c85d8	todo	
 007c85da	1	FUN_007c85da	todo	
-007c85dc	87	FUN_007c85dc	real	src/Sessions/Bridges/SuperBridge.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h
+007c85dc	87	FUN_007c85dc	ref	src/Sessions/Bridges/SuperBridge.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h
 007c8640	28	FUN_007c8640	todo	
 007c865c	28	FUN_007c865c	todo	
 007c8678	28	FUN_007c8678	todo	
@@ -21412,9 +21412,9 @@
 007d10c5	234	FUN_007d10c5	todo	
 007d11af	43	FUN_007d11af	todo	
 007d11da	313	s_Session__write_7d11da	ref	src/Sessions/Commanders/SuperCommander.cpp
-007d1348	684	SuperCommander_vt14	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Sessions/Commanders/SuperCommander.h
+007d1348	684	SuperCommander_vt14	real	src/Sessions/Commanders/SuperCommander.cpp,src/Sessions/Commanders/SuperCommander.h
 007d1606	2292	s_Session__doAction_7d1606	ref	src/Sessions/Commanders/SuperCommander.cpp
-007d1f5a	914	SuperCommander_writeSplitData	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Sessions/Commanders/SuperCommander.h
+007d1f5a	914	SuperCommander_writeSplitData	real	src/Sessions/Commanders/SuperCommander.cpp,src/Sessions/Commanders/SuperCommander.h
 007d2306	493	SuperCommander_vt13	todo	
 007d24f4	3	FUN_007d24f4	todo	
 007d24f8	6	FUN_007d24f8	todo	
@@ -21503,7 +21503,7 @@
 007d4bfa	101	FUN_007d4bfa	todo	
 007d4c60	268	FUN_007d4c60	todo	
 007d4d7c	31	FUN_007d4d7c	ref	src/Sessions/Core/SuperSessionPrivate.cpp
-007d4d9c	39	FUN_007d4d9c	real	src/Sessions/Bridges/SessionProtocol.h,src/Sessions/Core/SuperSession.cpp,src/Sessions/Core/SuperSession.h,src/Sessions/Core/SuperSessionPrivate.cpp,src/Sessions/Core/SuperSessionPrivate.h
+007d4d9c	39	FUN_007d4d9c	ref	src/Sessions/Bridges/SessionProtocol.h,src/Sessions/Core/SuperSession.cpp,src/Sessions/Core/SuperSession.h,src/Sessions/Core/SuperSessionPrivate.cpp,src/Sessions/Core/SuperSessionPrivate.h
 007d4dc4	21	FUN_007d4dc4	ref	src/Sessions/Bridges/SessionProtocol.h,src/Sessions/Core/SuperSession.cpp
 007d4dda	150	FUN_007d4dda	ref	src/Sessions/Bridges/SessionProtocol.h,src/Sessions/Core/SuperSession.cpp
 007d4e78	52	FUN_007d4e78	todo	
@@ -21891,7 +21891,7 @@
 007e6d78	194	FUN_007e6d78	todo	
 007e6e3a	128	FUN_007e6e3a	todo	
 007e6ec2	119	FUN_007e6ec2	todo	
-007e6f42	2884	commander_ansi_buffer_build	real	src/Terminal/Screen.cpp,src/Terminal/Screen.h
+007e6f42	2884	commander_ansi_buffer_build	ref	src/Terminal/Screen.cpp,src/Terminal/Screen.h
 007e7a9e	233	FUN_007e7a9e	todo	
 007e7b88	89	FUN_007e7b88	ref	src/Sessions/Transfers/Modem.cpp,src/Terminal/Screen.cpp
 007e7bea	228	FUN_007e7bea	todo	
@@ -22019,9 +22019,9 @@
 007f6a2f	42	FUN_007f6a2f	todo	
 007f6a59	14	FUN_007f6a59	todo	
 007f6a67	19	FUN_007f6a67	todo	
-007f6a7a	19	XModem_dtor	ref	src/Sessions/Transfers/XModem.h
+007f6a7a	19	XModem_dtor	stub	src/Sessions/Transfers/XModem.h
 007f6a8e	37	XModem_dtor_deleting	todo	
-007f6ab4	19	YModem_dtor	ref	src/Sessions/Transfers/YModem.h
+007f6ab4	19	YModem_dtor	stub	src/Sessions/Transfers/YModem.h
 007f6ac8	37	YModem_dtor_deleting	todo	
 007f6aed	214	FUN_007f6aed	todo	
 007f6bc3	34	FUN_007f6bc3	todo	
@@ -23001,7 +23001,7 @@
 0083b8a4	232	FUN_0083b8a4	todo	
 0083b98c	80	FUN_0083b98c	todo	
 0083b9e4	123	FUN_0083b9e4	todo	
-0083ba78	903	mux_restorePaneSplitter	ref	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
+0083ba78	903	mux_restorePaneSplitter	real	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 0083be38	353	FUN_0083be38	ref	src/Windows/Mux/MuxWindow.h
 0083bfaa	57	FUN_0083bfaa	todo	
 0083bfe4	30	FUN_0083bfe4	todo	
@@ -23094,7 +23094,7 @@
 0083f02e	229	FUN_0083f02e	todo	
 0083f12c	110	FUN_0083f12c	todo	
 0083f1aa	62	FUN_0083f1aa	todo	
-0083f1f0	100	FUN_0083f1f0	real	src/Windows/Mux/MuxWindow.cpp
+0083f1f0	100	FUN_0083f1f0	ref	src/Windows/Mux/MuxWindow.cpp
 0083f264	110	FUN_0083f264	todo	
 0083f2e2	110	FUN_0083f2e2	todo	
 0083f360	62	FUN_0083f360	todo	
@@ -23445,7 +23445,7 @@
 00861510	37	TelnetProtocol_qt_metacast	todo	
 00861536	410	FUN_00861536	todo	
 008616d0	25	FUN_008616d0	real	src/Sessions/Transports/TelnetSession.cpp,src/Sessions/Transports/TelnetSession.h
-008616ea	303	TelnetSession_vt15	ref	src/Sessions/Transports/TelnetSession.cpp,src/Sessions/Transports/TelnetSession.h
+008616ea	303	TelnetSession_vt15	real	src/Sessions/Transports/TelnetSession.cpp,src/Sessions/Transports/TelnetSession.h
 00861830	3	FUN_00861830	todo	
 00861833	42	FUN_00861833	todo	
 0086185d	42	FUN_0086185d	todo	
@@ -23742,16 +23742,16 @@
 00875eb0	103	FUN_00875eb0	ref	src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h
 00875f1f	206	FUN_00875f1f	ref	src/Sessions/Bridges/SuperBridge.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h
 00875ffe	642	FUN_00875ffe	real	src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h,src/Sessions/Transports/TelnetSession.cpp,src/Sessions/Transports/TelnetSession.h
-00876290	75	TcpBridge_dtor	ref	src/Sessions/Bridges/TelnetBridge.cpp
+00876290	75	TcpBridge_dtor	real	src/Sessions/Bridges/TelnetBridge.cpp
 008762dc	23	TcpBridge_dtor_deleting	todo	
-008762f4	55	TcpBridge_vt13	ref	src/Sessions/Bridges/SessionProtocol.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h
-00876334	18	TcpBridge_vt14	ref	src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h
+008762f4	55	TcpBridge_vt13	real	src/Sessions/Bridges/SessionProtocol.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h
+00876334	18	TcpBridge_vt14	real	src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h
 00876346	9	TcpBridge_vt15	todo	
 00876350	99	FUN_00876350	todo	
 008763bc	18	FUN_008763bc	todo	
 008763ce	922	net_applyProxyType	todo	
 00876780	218	s_ProxyCommand_876780	ref	src/Sessions/Bridges/ProxyCommandSocket.h
-0087685a	9	FUN_0087685a	real	src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h,src/Sessions/Transports/TelnetSession.cpp
+0087685a	9	FUN_0087685a	ref	src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h,src/Sessions/Transports/TelnetSession.cpp
 00876864	23	FUN_00876864	real	src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.cpp,src/Sessions/Bridges/TelnetBridge.h
 0087687c	78	FUN_0087687c	real	src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TcpBridge.h,src/Sessions/Bridges/TelnetBridge.h
 008768d2	324	s_session_tcpReceiveBufferSize_8768d2	todo	
@@ -24146,7 +24146,7 @@
 0089a756	179	FUN_0089a756	real	src/Editor/Engine/CodecMemo.cpp,src/Editor/Engine/CodecMemo.h,src/Editor/Engine/EditorEngine.cpp
 0089a80a	775	FUN_0089a80a	todo	
 0089ab22	3300	FUN_0089ab22	ref	src/Editor/Engine/CodecMemo.cpp,src/Editor/Engine/CodecMemo.h,src/Editor/Engine/EditorEngine.cpp
-0089b85e	2047	codec_canEncode	ref	src/Editor/Engine/CodecMemo.cpp,src/Editor/Engine/CodecMemo.h,src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/MatchEngine.h
+0089b85e	2047	codec_canEncode	real	src/Editor/Engine/CodecMemo.cpp,src/Editor/Engine/CodecMemo.h,src/Editor/Engine/EditorEngine.cpp,src/Editor/Engine/MatchEngine.h
 0089c086	250	FUN_0089c086	todo	
 0089c198	1	FUN_0089c198	todo	
 0089c19a	30	FUN_0089c19a	todo	
@@ -24161,12 +24161,12 @@
 0089c33c	121	FUN_0089c33c	todo	
 0089c3c0	85	GrepViewConfig_vt15	todo	
 0089c420	44	FUN_0089c420	todo	
-0089c450	2543	codec_convCtor	ref	src/Editor/Engine/CodecMemo.cpp,src/Editor/Engine/CodecMemo.h
+0089c450	2543	codec_convCtor	real	src/Editor/Engine/CodecMemo.cpp,src/Editor/Engine/CodecMemo.h
 0089cf00	29	FUN_0089cf00	todo	
 0089cf20	340	FUN_0089cf20	todo	
 0089d1d0	116	FUN_0089d1d0	todo	
 0089d29e	127	FUN_0089d29e	ref	src/Editor/Engine/CodecMemo.cpp
-0089d31e	127	FUN_0089d31e	real	src/Editor/Engine/CodecMemo.cpp
+0089d31e	127	FUN_0089d31e	ref	src/Editor/Engine/CodecMemo.cpp
 0089d39e	127	FUN_0089d39e	todo	
 0089d41e	127	FUN_0089d41e	todo	
 0089d4a0	50	FUN_0089d4a0	todo	
@@ -24247,7 +24247,7 @@
 008a971e	646	FUN_008a971e	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h
 008a99de	800	FUN_008a99de	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFactory.h
 008a9d3c	1489	s_FilterEdit_8a9d3c	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h
-008aa39e	800	FUN_008aa39e	real	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFactory.h
+008aa39e	800	FUN_008aa39e	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFactory.h
 008aa6fc	363	FUN_008aa6fc	ref	src/Editor/Config/CGlobalConfigFace.h
 008aa890	5	thunk_FUN_008aa6fc	todo	
 008aa896	78	FUN_008aa896	real	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFace.h,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/KitWindowFactory.h
@@ -24308,7 +24308,7 @@
 008b5f04	7331	FUN_008b5f04	todo	
 008b7ba8	239	FUN_008b7ba8	ref	src/Windows/Kit/KitBar.cpp
 008b7ca0	59	FUN_008b7ca0	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
-008b7cdb	45	FUN_008b7cdb	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
+008b7cdb	45	FUN_008b7cdb	ref	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
 008b7d08	187	FUN_008b7d08	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
 008b7dd4	371	s_ExpandButton_8b7dd4	ref	src/Widgets/Controls/ExpandButtonFaces.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
 008b7f60	591	FUN_008b7f60	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
@@ -24343,8 +24343,8 @@
 008b8c76	8	FUN_008b8c76	ref	src/Windows/Kit/KitDockFace.h
 008b8c7e	95	FUN_008b8c7e	todo	
 008b8ce6	866	dock_toggleFloat	ref	src/Windows/Kit/KitDockFace.cpp
-008b9050	66	FUN_008b9050	ref	src/App/StateStore.cpp,src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
-008b9092	375	FUN_008b9092	ref	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
+008b9050	66	FUN_008b9050	real	src/App/StateStore.cpp,src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
+008b9092	375	FUN_008b9092	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h
 008b921a	306	FUN_008b921a	ref	src/App/StateStore.cpp,src/App/StateStore.h
 008b9370	110	FUN_008b9370	todo	
 008b93e0	102	FUN_008b93e0	todo	
@@ -24364,10 +24364,10 @@
 008b9977	63	FUN_008b9977	todo	
 008b99b6	63	FUN_008b99b6	todo	
 008b99f6	221	FUN_008b99f6	real	src/Sessions/Core/FileOps.h,src/Sessions/Core/WorkspaceLoader.h,src/Widgets/Panes/ViewBase.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
-008b9ad4	86	FUN_008b9ad4	ref	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
-008b9b2a	9	FUN_008b9b2a	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Widgets/Panes/ViewBase.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
-008b9b34	9	FUN_008b9b34	ref	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
-008b9b3e	9	FUN_008b9b3e	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008b9ad4	86	FUN_008b9ad4	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008b9b2a	9	FUN_008b9b2a	real	src/Sessions/Core/WorkspaceLoader.cpp,src/Widgets/Panes/ViewBase.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008b9b34	9	FUN_008b9b34	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008b9b3e	9	FUN_008b9b3e	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008b9b48	37	FUN_008b9b48	todo	
 008b9b6e	9	FUN_008b9b6e	todo	
 008b9b78	9	KitView_h8b9b78	todo	
@@ -24377,7 +24377,7 @@
 008b9bbc	9	FUN_008b9bbc	todo	
 008b9bc6	36	FUN_008b9bc6	ref	src/Widgets/Panes/ViewBase.h
 008b9bea	9	FUN_008b9bea	todo	
-008b9bf4	18	FUN_008b9bf4	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
+008b9bf4	18	FUN_008b9bf4	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
 008b9c06	18	FUN_008b9c06	ref	src/Widgets/Panes/ViewBase.h
 008b9c18	46	FUN_008b9c18	ref	src/Widgets/Panes/ViewBase.h
 008b9c46	21	FUN_008b9c46	ref	src/Sessions/Core/WorkspaceLoader.h
@@ -24406,7 +24406,7 @@
 008bc44e	845	FUN_008bc44e	todo	
 008bc7ac	687	FUN_008bc7ac	todo	
 008bca9e	193	FUN_008bca9e	real	src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
-008bcb5f	72	FUN_008bcb5f	ref	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008bcb5f	72	FUN_008bcb5f	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008bcba8	1289	s_PropertyPopup_8bcba8	todo	
 008bd116	476	FUN_008bd116	todo	
 008bd306	76	FUN_008bd306	todo	
@@ -24434,7 +24434,7 @@
 008bef20	29	FUN_008bef20	todo	
 008bef3e	127	FUN_008bef3e	todo	
 008befc0	111	FUN_008befc0	todo	
-008bf030	99	FUN_008bf030	ref	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008bf030	99	FUN_008bf030	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008bf0a0	58	FUN_008bf0a0	todo	
 008bf0da	124	FUN_008bf0da	todo	
 008bf160	244	FUN_008bf160	todo	
@@ -24460,7 +24460,7 @@
 008c1eaa	6081	qmap_detach_copy_nodes2	todo	
 008c3670	14	FUN_008c3670	todo	
 008c367e	6	FUN_008c367e	todo	
-008c3684	263	FUN_008c3684	ref	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
+008c3684	263	FUN_008c3684	real	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 008c379e	5	FUN_008c379e	ref	src/Widgets/Panes/SessionPane.h
 008c37a4	84	FUN_008c37a4	ref	src/App/StateStore.cpp
 008c3800	108	FUN_008c3800	todo	
@@ -24474,7 +24474,7 @@
 008c3ae4	194	FUN_008c3ae4	todo	
 008c3bbe	84	FUN_008c3bbe	todo	
 008c3c1a	79	FUN_008c3c1a	ref	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
-008c3c6a	1044	pane_showPopupMenu	ref	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
+008c3c6a	1044	pane_showPopupMenu	real	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 008c40a6	856	FUN_008c40a6	todo	
 008c442e	24	FUN_008c442e	todo	
 008c4446	1827	ExplorerPane_vt6	todo	
@@ -24482,7 +24482,7 @@
 008c4c18	61	ExplorerPane_vt5	todo	
 008c4c56	443	FUN_008c4c56	todo	
 008c4e1a	148	FUN_008c4e1a	todo	
-008c4eae	3	FUN_008c4eae	real	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
+008c4eae	3	FUN_008c4eae	ref	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 008c4ec0	3	FUN_008c4ec0	todo	
 008c4ec4	3	FUN_008c4ec4	todo	
 008c4ec8	119	KitView_vt9	ref	src/Windows/Mux/MuxPaneView.cpp
@@ -24567,13 +24567,13 @@
 008c9fc2	55	FUN_008c9fc2	real	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
 008ca002	87	FUN_008ca002	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h
 008ca062	52	FUN_008ca062	real	src/Widgets/Splitter.cpp,src/Widgets/Splitter.h
-008ca096	33	FUN_008ca096	ref	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-008ca0b8	37	FUN_008ca0b8	ref	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-008ca0de	65	FUN_008ca0de	ref	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-008ca120	72	FUN_008ca120	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-008ca168	7	FUN_008ca168	ref	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-008ca170	10	FUN_008ca170	real	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-008ca17a	110	FUN_008ca17a	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
+008ca096	33	FUN_008ca096	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
+008ca0b8	37	FUN_008ca0b8	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
+008ca0de	65	FUN_008ca0de	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
+008ca120	72	FUN_008ca120	real	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
+008ca168	7	FUN_008ca168	real	src/Windows/Kit/KitDockFace.cpp,src/Windows/Kit/KitDockFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
+008ca170	10	FUN_008ca170	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
+008ca17a	110	FUN_008ca17a	real	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
 008ca1e8	86	FUN_008ca1e8	todo	
 008ca23e	114	FUN_008ca23e	todo	
 008ca2b8	67	FUN_008ca2b8	todo	
@@ -24606,7 +24606,7 @@
 008cacd0	92	FUN_008cacd0	todo	
 008cad2c	61	FUN_008cad2c	todo	
 008cad6a	237	FUN_008cad6a	real	src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowFace.h
-008cae58	241	FUN_008cae58	ref	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008cae58	241	FUN_008cae58	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008caf52	48	FUN_008caf52	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h
 008caf82	85	FUN_008caf82	todo	
 008cafe0	83	FUN_008cafe0	todo	
@@ -24627,7 +24627,7 @@
 008cb950	18	FUN_008cb950	todo	
 008cb962	186	King::resolveKeyMode	todo	
 008cba1c	253	FUN_008cba1c	ref	src/App/StateStore.h,src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h
-008cbb2e	242	FUN_008cbb2e	real	src/App/SuperApplicationFace.cpp,src/App/SuperApplicationFace.h,src/Editor/Config/CTerminalConfig.cpp,src/Editor/Config/CTerminalConfig.h
+008cbb2e	242	FUN_008cbb2e	ref	src/App/SuperApplicationFace.cpp,src/App/SuperApplicationFace.h,src/Editor/Config/CTerminalConfig.cpp,src/Editor/Config/CTerminalConfig.h
 008cbc36	79	FUN_008cbc36	ref	src/Windows/Kit/KitWindowFactory.h
 008cbc86	843	s_ManageLayoutButton_8cbc86	todo	
 008cbffe	529	s_king__anythingPaletteSmall_8cbffe	todo	
@@ -24699,7 +24699,7 @@
 008d2b60	120	FUN_008d2b60	todo	
 008d2be0	327	FUN_008d2be0	todo	
 008d2d5e	216	FUN_008d2d5e	todo	
-008d2e46	284	FUN_008d2e46	real	src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008d2e46	284	FUN_008d2e46	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h,src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008d2f7e	3122	s_kit_startupSessions_8d2f7e	ref	src/App/StartupChain.cpp,src/App/StartupChain.h,src/App/StateStore.cpp,src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h,src/Windows/Kit/KitWindowFace.h
 008d3cc2	296	FUN_008d3cc2	real	src/Editor/Config/CGlobalConfigFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h,src/Windows/Kit/KitWindowFace.h
 008d3e0e	45	EditorWindow_vt13	todo	
@@ -24766,7 +24766,7 @@
 008da072	314	FUN_008da072	ref	src/Windows/Mux/MuxWindow.cpp
 008da1bc	51	FUN_008da1bc	ref	src/Windows/Mux/MuxWindow.cpp
 008da1f0	53	FUN_008da1f0	ref	src/Windows/Mux/MuxWindow.cpp
-008da226	81	FUN_008da226	real	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
+008da226	81	FUN_008da226	ref	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008da278	29	FUN_008da278	ref	src/Windows/Mux/MuxWindow.cpp
 008da296	81	FUN_008da296	ref	src/Windows/Mux/MuxWindow.cpp
 008da2e8	9	FUN_008da2e8	todo	
@@ -24817,14 +24817,14 @@
 008ddfd0	119	FUN_008ddfd0	todo	
 008de050	1	FUN_008de050	todo	
 008de052	86	FUN_008de052	ref	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
-008de0b0	16	FUN_008de0b0	real	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
+008de0b0	16	FUN_008de0b0	ref	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 008de0c0	202	s_MuxPane_8de0c0	ref	src/Windows/Mux/MuxPane.h,src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 008de1a6	1	FUN_008de1a6	todo	
 008de1a8	124	FUN_008de1a8	real	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h
 008de224	57	FUN_008de224	real	src/Windows/Mux/MuxPaneView.cpp,src/Windows/Mux/MuxPaneView.h,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008de25e	1	FUN_008de25e	todo	
 008de260	116	FUN_008de260	ref	src/Widgets/Controls/SplitterGroup.cpp,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
-008de2d4	214	s_MuxPaneGroup_8de2d4	ref	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
+008de2d4	214	s_MuxPaneGroup_8de2d4	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008de3b2	53	FUN_008de3b2	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxWindow.cpp
 008de3e8	373	FUN_008de3e8	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxPaneView.h,src/Windows/Mux/MuxWindow.cpp
 008de576	38	FUN_008de576	todo	
@@ -24839,7 +24839,7 @@
 008defbc	36	FUN_008defbc	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008defe0	81	FUN_008defe0	todo	
 008df032	59	FUN_008df032	todo	
-008df06e	53	FUN_008df06e	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxPaneView.h,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
+008df06e	53	FUN_008df06e	ref	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxPaneView.h,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008df0a4	904	mux_renamePaneDialog	ref	src/Windows/Mux/MuxPaneGroup.cpp
 008df466	87	FUN_008df466	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008df4c6	52	FUN_008df4c6	todo	
@@ -24852,7 +24852,7 @@
 008df5d6	33	FUN_008df5d6	todo	
 008df5f8	193	FUN_008df5f8	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h,src/Windows/Mux/MuxWindow.h
 008df6ba	5	thunk_FUN_008df5f8	ref	src/Windows/Mux/MuxPaneGroup.cpp
-008df6c0	915	pane_confirmClose	ref	src/Windows/Mux/MuxWindow.cpp
+008df6c0	915	pane_confirmClose	real	src/Windows/Mux/MuxWindow.cpp
 008dfa76	21	FUN_008dfa76	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008dfa8c	21	FUN_008dfa8c	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxPaneGroup.h
 008dfab0	102	FUN_008dfab0	ref	src/Windows/Mux/MuxPaneGroup.cpp
@@ -24887,10 +24887,10 @@
 008e041e	9	FUN_008e041e	ref	src/Widgets/Controls/SplitterGroup.h
 008e0428	126	FUN_008e0428	real	src/Widgets/Controls/SplitterGroup.h,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008e04ae	1095	FUN_008e04ae	real	src/Windows/Mux/MuxPaneGroup.cpp,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
-008e0938	289	s_MuxWindow_8e0938	ref	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
+008e0938	289	s_MuxWindow_8e0938	real	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008e0a72	303	FUN_008e0a72	real	src/Widgets/Controls/SplitterGroup.h,src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008e0bb2	1323	FUN_008e0bb2	real	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
-008e1125	411	FUN_008e1125	real	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
+008e1125	411	FUN_008e1125	ref	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008e12c0	951	FUN_008e12c0	ref	src/Windows/Mux/MuxWindow.cpp,src/Windows/Mux/MuxWindow.h
 008e16a0	118	FUN_008e16a0	ref	src/Windows/Mux/MuxWindow.cpp
 008e1720	29	FUN_008e1720	ref	src/Windows/Mux/MuxWindow.cpp
@@ -25223,7 +25223,7 @@
 008ef6ee	128	ButtonBar_dtor_deleting	todo	
 008ef770	24	ButtonBarPanel_metaObject	todo	
 008ef788	16	FUN_008ef788	todo	
-008ef798	19	FUN_008ef798	real	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
+008ef798	19	FUN_008ef798	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 008ef7ac	19	FUN_008ef7ac	todo	
 008ef7c0	19	FUN_008ef7c0	todo	
 008ef7d4	19	FUN_008ef7d4	ref	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
@@ -25833,13 +25833,13 @@
 008fb430	66	s_TreeView_8fb430	todo	
 008fb472	176	FileTree_h8fb472	todo	
 008fb530	24	TabGroup_metaObject	todo	
-008fb548	19	FUN_008fb548	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
+008fb548	19	FUN_008fb548	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 008fb55c	19	FUN_008fb55c	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
 008fb570	19	FUN_008fb570	ref	src/Widgets/Controls/TabGroup.h
 008fb584	19	FUN_008fb584	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp
 008fb598	19	FUN_008fb598	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp
 008fb5ac	51	FUN_008fb5ac	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitDockFace.cpp,src/Windows/Mux/MuxPaneGroup.cpp
-008fb5e0	54	FUN_008fb5e0	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
+008fb5e0	54	FUN_008fb5e0	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
 008fb616	54	FUN_008fb616	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
 008fb64c	68	FUN_008fb64c	ref	src/Widgets/Controls/TabGroup.h
 008fb690	55	FUN_008fb690	ref	src/Widgets/Controls/TabGroup.h,src/Windows/Kit/KitDockFace.cpp
@@ -26362,7 +26362,7 @@
 0090e996	66	Modem_dtor	todo	
 0090e9d8	93	Modem_dtor_deleting	todo	
 0090ea40	24	ZModem_metaObject	todo	
-0090ea58	39	FUN_0090ea58	real	src/Sessions/Transfers/ZModem.cpp
+0090ea58	39	FUN_0090ea58	ref	src/Sessions/Transfers/ZModem.cpp
 0090ea80	60	FUN_0090ea80	todo	
 0090eabc	66	ZModem_qt_metacast	todo	
 0090eafe	91	ZModem_qt_metacall	todo	
@@ -32016,7 +32016,7 @@
 00aeee40	17	FUN_00aeee40	todo	
 00aeee60	14	FUN_00aeee60	todo	
 00aeee70	400	FUN_00aeee70	todo	
-00aef040	401	FUN_00aef040	real	src/App/StateStore.cpp,src/App/StateStore.h,src/Editor/Config/CGlobalConfigFace.cpp
+00aef040	401	FUN_00aef040	ref	src/App/StateStore.cpp,src/App/StateStore.h,src/Editor/Config/CGlobalConfigFace.cpp
 00aef210	72	FUN_00aef210	todo	
 00aef260	59	json_size_or_int_get	todo	
 00aef2b0	81	FUN_00aef2b0	todo	

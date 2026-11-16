@@ -67,6 +67,9 @@ def scan():
     return out
 
 
+# 「这是在指别人」的行内标记 —— 出现即不算本函数实现
+XREF = re.compile(r'已真身|真身已落|升真|三段真身|转写[,，]')
+
 MANIFEST = os.path.join(DATA, 'open_source_files.txt')
 
 
@@ -76,12 +79,71 @@ def open_source():
     return [l.strip() for l in open(MANIFEST, encoding='utf-8') if l.strip()]
 
 
-def impl_addrs():
-    """实现级地址归属:每个函数定义绑定**紧邻其上的那一行注释**里的地址。
+def first_addr(line):
+    """从一行注释里取第一个**代码地址**出处。
 
-    只认最近一行(而不是整个注释块) —— 我们的写法里,函数自身出处总在
-    定义正上方;再往上多半是「调用了谁」,那些地址属被调方,不是本类实现。
-    含「同构」的行跳过(借用姊妹类出处)。
+    三种写法都认:`FUN_0064ab10` / `0x0064ab10` / `0064ab10`;
+    只取 .text 区间内的值,避免把 `0x7fffffff`、`0x400` 这类常量当地址。
+    """
+    t = line.replace('FUN_', '').replace('0x', '')
+    for a in re.findall(r'(?<![\w.])([0-9a-f]{6,8})(?![\w])', t):
+        if len(a) < 8:
+            continue
+        if TEXT_LO <= int(a, 16) < TEXT_HI:
+            return a
+    return None
+
+
+# 出处标记分两档(同一行还必须含 .text 内地址):
+#   strict —— 只认真实现:`真身` / `FUN_x(NNNB)` / `// ===`
+#   loose  —— 再加 `NNN B`(名在前、地址在括号里的写法)与 `cited`(空壳已锚入口)
+ORIGIN_STRICT = re.compile(r'真身|FUN_[0-9a-f]{8}\s*\(\s*\d+\s*B')
+ORIGIN_LOOSE = re.compile(r'真身|\b\d+\s*B\b|cited')
+
+
+def origin_of(L, i, loose=False):
+    """→ 函数定义(L[i])的出处地址;无则 None。
+
+    判据(三件事同时满足):
+      1) 行是注释,且**紧邻**定义块内(空行处截断)
+      2) 行内带「出处标记」:`真身` / `FUN_x(NNNB)` / `// ===`
+         或 `cited`(体未转写但入口已锚定 —— 记「半成品」)
+      3) 行内含 `.text` 区间内的代码地址
+    三条排除:`同构`(借姊妹类出处)、`XREF`(指别人的行:已真身/真身已落/
+    升真/三段真身/转写,)。
+
+    两个口径共用本函数,但标记宽严不同:
+      · --dups(impl_addrs)   loose=False —— 只认真实现,避免把「调用了别人」
+        的行误报成重复实现
+      · --ledger(defs_status) loose=True  —— 带地址的 cited 空壳属「半成品」,
+        名在前的 `name(0xADDR,NNNB)` 写法也要认
+    """
+    # 注释块范围(到空行为止)
+    lo = i - 1
+    while lo >= 0 and not L[lo].strip():
+        lo -= 1
+    hi = lo
+    while lo >= 0 and L[lo].strip().startswith('//'):
+        lo -= 1
+    lo += 1
+    # 自**块首**向下找:出处行按约定写在块首(其后是解释/被调说明)。
+    # 从块首找而不是从定义向上找 —— 否则最近的那条「调用了谁(cited)」会把
+    # 真正的出处行遮住,地址就记错了。
+    for k in range(lo, hi + 1):
+        line = L[k]
+        if '同构' in line or XREF.search(line):
+            continue
+        if (ORIGIN_LOOSE if loose else ORIGIN_STRICT).search(line):
+            a = first_addr(line)
+            if a:
+                return a
+    return None
+
+
+def impl_addrs():
+    """实现级地址归属:同一地址被 2+ 个 .cpp 当作「自身实现」声明 → 疑似重复。
+
+    取址规则见 origin_of():注释块内带出处标记、且不是交叉引用。
     """
     m = collections.defaultdict(set)
     for f in files():
@@ -89,25 +151,11 @@ def impl_addrs():
             continue
         L = open(f, encoding='utf-8', errors='ignore').read().split('\n')
         for i, l in enumerate(L):
-            if not re.match(r'^[\w:<>,*&\s]*?\b\w+::\w+\s*\(', l):
+            if not re.match(r'^[\w:<>,*&\s]*?\b\w+::~?\w+\s*\(', l):
                 continue
-            k = i - 1
-            while k >= 0 and not L[k].strip():
-                k -= 1
-            # 在紧邻的注释块里找「本函数出处」行:必须带 真身 / 字节数 / ===
-            hit = None
-            while k >= 0 and L[k].lstrip().startswith('//'):
-                if '同构' not in L[k] and (
-                        '真身' in L[k]
-                        or re.search(r'FUN_[0-9a-f]{8}\s*\(\s*\d+\s*B', L[k])
-                        or re.match(r'\s*//\s*===', L[k])):
-                    a = re.findall(r'(?<!PTR_)FUN_([0-9a-f]{8})', L[k])
-                    if a:
-                        hit = a[0]
-                        break
-                k -= 1
-            if hit:
-                m[hit].add(os.path.relpath(f, os.path.join(SRC, '..')))
+            a = origin_of(L, i)
+            if a:
+                m[a].add(os.path.relpath(f, os.path.join(SRC, '..')))
     return m
 
 
@@ -132,11 +180,8 @@ def corpus_entries():
 def defs_status():
     """→ (real, stub)。按函数定义分两档:
 
-      real = 定义紧邻注释带出处,且函数体去掉注释/空白后 >40 字符(真实现)
-      stub = 带出处但体近乎空壳(只有注释 / Q_UNUSED)—— 半成品
-
-    与 impl_addrs() 的区别:impl_addrs 只判「有无出处」(供 --dups),
-    本函数额外看体量,供 --ledger 区分真实现与半成品。
+      real = 有出处(origin_of 命中),且函数体去掉注释/空白后 >40 字符 → 真实现
+      stub = 有出处但体近乎空壳(只有注释 / Q_UNUSED)              → 半成品
     """
     real, stub = set(), set()
     for f in files():
@@ -145,13 +190,9 @@ def defs_status():
         L = open(f, encoding='utf-8', errors='ignore').read().split('\n')
         i = 0
         while i < len(L):
-            if not re.match(r'^[\w:<>,*&\s]*?\b\w+::\w+\s*\(', L[i]):
+            if not re.match(r'^[\w:<>,*&\s]*?\b\w+::~?\w+\s*\(', L[i]):
                 i += 1
                 continue
-            s0 = i
-            while s0 > 0 and L[s0 - 1].lstrip().startswith('//'):
-                s0 -= 1
-            cmt = '\n'.join(L[s0:i])
             j, depth, seen = i, 0, False
             while j < len(L):
                 depth += L[j].count('{') - L[j].count('}')
@@ -164,9 +205,9 @@ def defs_status():
             nb = re.sub(r'//[^\n]*', '', body)
             nb = re.sub(r'/\*.*?\*/', '', nb, flags=re.S)
             nb = re.sub(r'\s+', '', nb)
-            a = re.findall(r'(?<!PTR_)FUN_([0-9a-f]{8})', cmt)
+            a = origin_of(L, i, loose=True)
             if a:
-                (real if len(nb) > 40 else stub).add(a[0])
+                (real if len(nb) > 40 else stub).add(a)
             i = j + 1
     return real, stub
 
@@ -208,6 +249,9 @@ def work_ledger(addr2files):
          '| 半成品 | 带出处,但函数体近乎空壳(只有注释 / `Q_UNUSED`) |',
          '| 引用档 | 地址只在别处被引用(接口声明、调用点、`cited` 注释),没有本函数定义 |',
          '| 未触及 | 地址不出现在 `src/` 任何文件 |', '',
+         '**已知盲区(不修,只声明)**:只枚举 `Class::method` 与 `Class::~Class`;'
+         '自由函数、文件内 `static` 函数(如 `Utility/Format.cpp` 的 `formatDuration`)'
+         '未计入 → **真实现/半成品两档略偏低**(数量级为数十,不影响量级判断)。', '',
          '## 2. 总账', '',
          '| 状态 | 函数 | 函数占比 | 字节 | 字节占比 |', '|---|---:|---:|---:|---:|']
     for k in order:
