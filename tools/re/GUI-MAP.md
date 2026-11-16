@@ -547,3 +547,26 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   标签 `&Variable:` / `V&alue:`。
 - **自查**:批 429 生成脚本把两条装配腿地址写短(`FUN_00962`/`FUN_b2cd2`),
   已清/补全(454b/454c)——**生成脚本产出也要逐条核地址**。
+
+### 批 456-465 增量(④ 对话框装配腿开始"长肉":10 个对话框的 build/wire 分工厘清)
+**关键结构性发现**:每个对话框的两条腿**分工固定** ——
+一条是 **wire**(只有 connect,无 widget/字符串),一条是 **build**(有
+QFormLayout/QVBoxLayout/QTabBar/QSlider 等 + tr 文案)。此前我把它们混称
+`build()/build2()`,现已逐个标明。
+
+| 对话框 | build(装配) | wire(接线) | 装配实读 |
+|---|---|---|---|
+| FocusMode | `006b639e` 656B | `006b3a40` 488B | QTabBar+QStackedWidget+QCheckBox `&Show this dialog when focus mode starts` |
+| HighlightText | `006b698e` 567B | `006b6840` 334B | QLabel `&Text Marks:` + 按钮盒 Ok/Cancel |
+| OneKey | `006c5300` 639B | — | QTabBar+QStackedWidget+QGridLayout+按钮盒 |
+| PlaySound | `006cc276` 859B | `006cbbbe` 627B | QFormLayout+QGroupBox `Sound`+行 `&Pattern:`/`&Description:` |
+| Profile | `006ce668` 602B | +`006cf012`/`006cf09e` | 主题 **`dige-black`** + **QTranslator("auto")→installTranslator** |
+| Log | — | `006b73a2` 700B | +0x40/+0x48/+0x70 三路 |
+| MasterPassword | — | `006b9346` 788B | +0x48/+0x50/+0x58/+0x60 四路 |
+| Password | — | `006c955c` 627B | +0x40/+0x48/+0x50 |
+| Paste | — | `006ca710` 570B | +0x50/+0x60/+0x70 |
+| WindowOpacity | `0070496e` 452B(装配+接线同体) | 同左 | **QSlider ×4 + QLabel ×4 + QHBoxLayout ×3** |
+- **共性**:wire 腿必含 `FUN_006b2420`(按钮盒 PMF 壳)—— 这就是"Ok/Cancel
+  连到 accept/reject"的统一实现。
+- **ProfileDialog 附带两件**:主题名 `dige-black`、翻译器初始化串 `auto`
+  (装在 +0x90,走 `QCoreApplication::installTranslator`)。
