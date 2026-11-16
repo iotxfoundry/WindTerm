@@ -14,6 +14,9 @@ class OneKeyDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit OneKeyDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_006c5300 — 结构段(cited)
+	// FUN_006c5300(639B)**装配**(批 458 实测):**QTabBar + QStackedWidget +
+	//   QGridLayout + QVBoxLayout**,收尾 **QDialogButtonBox**(按钮文案
+	//   tr("Ok")/tr("Cancel") 实读)。⇒ 多页"一键"管理器(页签 + 网格页)。
+	void build();    // FUN_006c5300(639B)
 };
 
