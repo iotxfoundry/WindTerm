@@ -1263,6 +1263,7 @@
 00629b0b	src/Sessions/Transports/SshSession.cpp
 00629dea	src/Sessions/Transports/SshSession.cpp
 0062b040	src/App/StartupChain.cpp
+0062b1e0	src/Utility/FileWatcherFace.h
 0062cd9a	src/Widgets/Controls/TabGroup.cpp
 0062cd9a	src/Widgets/Controls/TabGroup.h
 00632426	src/Sessions/Core/WorkspaceLoader.cpp

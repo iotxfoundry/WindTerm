@@ -16581,9 +16581,9 @@
 0062af7c	98	FUN_0062af7c	todo	
 0062afde	98	FUN_0062afde	todo	
 0062b040	391	FUN_0062b040	ref	src/App/StartupChain.cpp
-0062b1e0	223	FileWatcher_dtor	todo	
+0062b1e0	223	FileWatcher_dtor	real	src/Utility/FileWatcherFace.h
 0062b2c0	23	FileWatcher_dtor_deleting	todo	
-0062b2d8	709	FileWatcher_vt12	qtplumb	
+0062b2d8	709	FileWatcher_vt12	real	
 0062b5b6	175	FUN_0062b5b6	todo	
 0062b686	287	FUN_0062b686	todo	
 0062b7b6	278	FUN_0062b7b6	todo	
