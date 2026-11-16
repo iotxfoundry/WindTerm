@@ -41,7 +41,13 @@ public:
 	//   ③ +0x68 "2accepted()" → this "1accept()";
 	//   ④ +0x68 "2rejected()" → this "1reject()"。
 	void wire();
-	void applyProtocol(int proto); // FUN_00721412(3333B) — 结构段
+	// FUN_00721412(3333B)按协议切页(结构段,逐调用实读):
+	//   遍历 +0x90 QTabBar:count() 取页数、**tabData(i)** 取该页协议 id,
+	//   与目标协议比对 → setCurrentIndex(该页);
+	//   特例字符串 **"Custom"**(0xc8a049)另有一支;
+	//   随后按协议启停 +0xb0 / +0xb8 / +0xc0 / +0xd0 / +0xd8 / +0xe0 / +0xe8 /
+	//   +0xf0 / +0xf8 / +0x100 各控件(+0x80/+0x88 双栈联动)。
+	void applyProtocol(int proto);
 
 protected:
 	QString m_name30;                  // +0x30

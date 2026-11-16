@@ -47,9 +47,21 @@ void SessionDialogFace::wire()
 	}
 }
 
-// FUN_00721412(3333B)按协议切页 — 结构段(cited)
+// FUN_00721412(3333B)按协议切页真身(结构段)
 void SessionDialogFace::applyProtocol(int proto)
 {
-	Q_UNUSED(proto);
-	// 语料:按协议 id 显示/隐藏字段组并改页签(3333B,未逐句转写)
+	auto *tabs = qobject_cast<QTabBar *>(m_tabBar90);       // +0x90
+	if (tabs == nullptr)
+		return;
+	const int n = tabs->count();                            // @QTabBar::count
+	for (int i = 0; i < n; ++i) {
+		const int pageProto = tabs->tabData(i).toInt();     // @QTabBar::tabData
+		if (pageProto == proto) {
+			tabs->setCurrentIndex(i);                       // @QTabBar::setCurrentIndex
+			break;
+		}
+	}
+	// "Custom"(0xc8a049)特例分支 — cited
+	// 各控件按协议启停(+0xb0/+0xb8/+0xc0/+0xd0/+0xd8/+0xe0/+0xe8/+0xf0/
+	//   +0xf8/+0x100;双栈 +0x80/+0x88 联动) — cited
 }
