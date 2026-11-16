@@ -600,3 +600,21 @@ void TriggerDialogFace::duplicateSelectedTrigger()
 	appendRecord(copy);                               // @006f4011(FUN_006f35fe)
 	editSelectedTrigger();                            // @006f401x(FUN_006f32e0)
 }
+
+// FUN_006f22b2(193B,0022.c:19621)按键选中行真身
+void TriggerDialogFace::selectByKey(const QString &key)
+{
+	if (m_triggerList68 == nullptr)
+		return;
+	const int n = m_triggerList68->count();            // @006f22b2
+	for (int i = 0; i < n; ++i) {
+		QListWidgetItem *item = m_triggerList68->item(i);
+		if (item == nullptr)
+			continue;
+		if (item->data(Qt::UserRole).toString() == key) { // data(0x100)
+			m_triggerList68->setCurrentItem(item,
+				QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current); // 0x13
+			return;
+		}
+	}
+}

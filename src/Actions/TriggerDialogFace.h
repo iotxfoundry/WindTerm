@@ -144,6 +144,11 @@ public:
 	//   editSelectedTrigger()(FUN_006f32e0,复制后直接进编辑)。
 	void duplicateSelectedTrigger();
 
+	// FUN_006f22b2(193B,0022.c:19621)按键选中行:
+	//   遍历 +0x68 列表项(i = 0..count-1),逐项 data(0x100).toString()
+	//   与 key 比较,相等 → setCurrentItem(item, 0x13) 并返回。
+	void selectByKey(const QString &key);
+
 	// FUN_006f3286(89B,0022.c:20176)当前行记录:
 	//   row = +0x68 currentRow();idx = currentRecordIndex(row);
 	//   idx == -1 → 返回 +0x98 缺省记录;否则 +0x90 第 idx 项。
