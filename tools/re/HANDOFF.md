@@ -8,15 +8,15 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第四十六次交接,批 380 · ⑤ 八页装配全谱落地)
+## 一句话状态(2026-11-16 第四十七次交接,批 390 · ⑤ 页内件真类化 + ② 懒构建)
 
 **界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
-192 批 / 64 文件 / +8300 行,新增 22 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **78%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
+202 批 / 66 文件 / +9000 行,新增 24 个 `*Face` 新域。覆盖率(按 GUI-MAP
+条目加权)≈ **80%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
 /②菜单 60%(右鍵四族全进"结构已定")/③工具栏状态栏 80%(七 kind 全真身)
 /④对话框 66%(TriggerDialog **收口**:记录布局定案+kind→图标表(两源互证)+新增/删除/复制/按键选中/提交腿/记录族四件;Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
 LoginWizard 全/Paste 全/**TriggerDialog 全谱 0xe0**:页栈+接线+编辑腿/
-**NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 85%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+
+**NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 90%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+**页内件四个方面真类化**(MarkStyle/Table/TextMarkPanel/ActionEditPanel)+占位绘制闭环+
 **八个触发器页装配全数落地**(CustomLink/CustomMenu/HighlightText/PlaySound/
 RunCommand/SendText/ShowTooltip/Connection)+页栈 006f440e 11 kind 表+
 TriggerActionWidget 0x78+TriggerActionEditPanel 0x68+TriggerWidgetKit)/⑥dock 标签 75%(KitDock 全套+TabBar
@@ -77,6 +77,8 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | `TriggerRecord` 语义:+0x08 名 / +0x10 UserRole 键 / +0x18 描述 | 批 354(34dd 回写 + 263e setData 0x100 互证) | 批 349 首判 +0x10=名 |
 | `+0x10` = **uuid**(`QUuid::toString(WithoutBraces)`) | 批 368(80B regenerateKey) | 批 354 "UserRole 键" |
 | `TriggerActionEditPanel`(`0056376e`) = **动作文本面板 0x68**(非"编辑面板") | 批 377(ctor 字段 + 五页 +0x38 用法) | 名不副实 |
+| 表件基类 = **QTableWidget**(非 QWidget) | 批 387(语料直接 rowCount/setColumnCount/paintEvent) | 批 382 按 QWidget 建模 |
+| `NameDialog +0x30` = **允许空名旗标**(置位写 tr("Optional")) | 批 390(`006bdbe4` 249B) | 批 386 首判"默认态" |
 | `s_terminal_ansiBrightBlack_699c2a` = **记录构造函数** / `s_king__beforeDisconnection_69934c` = **kind→图标** / `expectDialog_saveRows` = **映射→表** | 批 359/361/365(函数体实测) | 名不副实(3 例新增) |
 
 | 现结论 | 勘正来源 | 被勘正旧结论 |

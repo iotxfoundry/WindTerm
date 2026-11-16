@@ -397,3 +397,26 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - **CustomMenu 新增菜单**(`006f7830` 394B):`Add &Action` / `Add &Separator`。
 - **NameDialog 装配收口**(`006bd50c` 670B + `006bd34a` 449B):
   `Enter a name for the new %1.` 提示行 + `&Name:` 行 + Ok 文案 `Create` + 0.35 尺寸比。
+
+### 批 381-390 增量(⑤ 页内件真类化 + ④ 传输下拉 + ② 懒构建菜单)
+- **页内件四个方面真类化**(此前全是裸 QWidget / cited):
+  | 类 | ctor | 尺寸 | 用途 |
+  |---|---|---|---|
+  | `MarkStyleWidgetFace` | `00703a58` 55B | 0x40 | CustomLink/ShowTooltip 的 +0x50/+0x58 附件 |
+  | `TriggerTableWidgetFace` | `00584e4a` 74B | 0x48 | PlaySound/CustomMenu 表件,基类为 **QTableWidget**(语料直接 rowCount/setColumnCount) |
+  | `TextMarkTablePanelFace` | `005675e8` 69B | 0x48 | HighlightText 的 +0x38 规则表(继承上者) |
+  | `TriggerActionEditPanelFace` **带 kind 构造** | `006f83b0` 412B | 0x68 | +0x68 = kind;示例样板实读(kind 1 `http://www.sample.com` / kind 4 `echo command\n`) |
+- **占位机制闭环**:`setPlaceholder`(`00566d6e` 22B 写 +0x38)→
+  `paintEvent` 覆写(`00566d84` 97B:空表 → viewport 主题绘制并 return,否则走
+  `QTableView::paintEvent`)。
+- **字段表取放**:`findActionFields`(`006f8c6c` 53B:`findChildren` 空名递归,
+  smeta 01198660)+ `releaseActionFields`(`006f8c50` 27B)。
+- **④ 传输覆盖策略下拉**(`dialog_add_yn_combo` 1482B):`TransferAskFace`,
+  7 个 data/文案对全部实读: `-y` Overwrite / `-n` newer / `-N` newer or longer /
+  `-+` Append(仅 withAppend)/ `-E` Rename / `-r` Resume / `""` Skip。
+- **NameDialog 校验面**:`+0x30` = **允许空名旗标**(非默认);置位时写
+  tr("Optional");清位时按当前文本重算 Ok 启停;`setAcceptEnabled` =
+  `button(0x400)->setEnabled`。
+- **② 菜单懒构建**(`00692a70` 1119B):向上找宿主窗(typeinfo 011a69d0)→
+  `tr(动作项名)` 建 QMenu → **`aboutToShow` 时才从动作项子树填充**
+  (`FUN_0076cb16`)。再次印证:菜单条目来自动作/配置树,不在 C++ 硬写。
