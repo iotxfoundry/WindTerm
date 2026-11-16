@@ -19,14 +19,14 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 721 | 1.86% | 272930 | 3.56% |
-| 半成品 | 40 | 0.10% | 14642 | 0.19% |
+| 真实现 | 723 | 1.87% | 273805 | 3.57% |
+| 半成品 | 39 | 0.10% | 13924 | 0.18% |
 | 引用档 | 2143 | 5.53% | 798126 | 10.40% |
 | 未触及(真工作) | 20781 | 53.63% | 5571095 | 72.62% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
-| Qt 元数据桩(非逆向对象) | 1111 | 2.87% | 228224 | 2.97% |
+| Qt 元数据桩(非逆向对象) | 1110 | 2.86% | 228067 | 2.97% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
-| **真工作分母** | **23685** | — | — | — |
+| **真工作分母** | **23686** | — | — | — |
 
 > 真工作分母 = 合计 − 异常清理块 − Qt 元数据桩。「未触及(真工作)」一栏才是真正的待办量。
 
@@ -174,7 +174,7 @@
 | `src/Widgets/Controls/HoverButtonFace.cpp` | 2 | 0 | 0 |
 | `src/Widgets/Controls/HoverButtonFace.h` | 2 | 0 | 0 |
 | `src/Widgets/Controls/HtmlListFace.h` | 1 | 1 | 0 |
-| `src/Widgets/Controls/ListViewFace.h` | 1 | 1 | 2 |
+| `src/Widgets/Controls/ListViewFace.h` | 2 | 0 | 2 |
 | `src/Widgets/Controls/SideButtonFace.cpp` | 2 | 0 | 0 |
 | `src/Widgets/Controls/SideButtonFace.h` | 2 | 0 | 0 |
 | `src/Widgets/Controls/SwitchButtonFace.cpp` | 2 | 0 | 1 |
@@ -368,7 +368,7 @@
 | `KitWindow` | `src/Windows/Kit/KitWindowFace.h` | 26 | 0 |
 | `LabelAction` | `src/Actions/LabelActionFace.h` | 0 | 0 |
 | `LineEdit` | `src/Widgets/Controls/LineEditFace.h` | 0 | 0 |
-| `ListView` | `src/Widgets/Controls/ListViewFace.h` | 1 | 1 |
+| `ListView` | `src/Widgets/Controls/ListViewFace.h` | 2 | 0 |
 | `ListWidget` | `src/Widgets/Controls/ListWidgetFace.h` | 1 | 0 |
 | `LocalFile` | `src/Sessions/Transfers/LocalFileFace.h` | 0 | 0 |
 | `LocalFileSystemItem` | `src/Widgets/Views/LocalFileSystemItemFace.h` | 0 | 0 |

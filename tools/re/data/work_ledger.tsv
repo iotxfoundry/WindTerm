@@ -14328,7 +14328,7 @@
 00582940	187	HtmlList_vt14	qtplumb	
 00582a00	46	FUN_00582a00	todo	
 00582a2e	556	FUN_00582a2e	todo	
-00582c72	718	ListView_dtor	stub	src/Widgets/Controls/ListViewFace.h
+00582c72	718	ListView_dtor	real	src/Widgets/Controls/ListViewFace.h
 00582f40	9	FUN_00582f40	todo	
 00582f4a	23	ListView_dtor_deleting	todo	
 00582f61	6	FUN_00582f61	todo	
@@ -14354,7 +14354,7 @@
 0058380c	36	FUN_0058380c	todo	
 00583830	645	FUN_00583830	todo	
 00583abe	15	FUN_00583abe	todo	
-00583ace	157	ListView_vt14	qtplumb	
+00583ace	157	ListView_vt14	real	
 00583b6c	30	FUN_00583b6c	todo	
 00583b8a	34	FUN_00583b8a	ref	src/Widgets/Controls/ListViewFace.cpp
 00583bac	703	FUN_00583bac	real	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h,src/Widgets/Controls/ListViewFace.cpp,src/Widgets/Controls/ListViewFace.h

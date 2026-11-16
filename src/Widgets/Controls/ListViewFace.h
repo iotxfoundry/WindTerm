@@ -23,6 +23,7 @@
 // 注:与该类同级的 HtmlList **不是**它的派生(见 HtmlListFace 头)。
 
 #include <QListView>
+#include <QString>
 
 class ListViewFace : public QListView {
 	Q_OBJECT
@@ -30,6 +31,33 @@ class ListViewFace : public QListView {
 public:
 	ListViewFace(QWidget *parent, QListView *owner = nullptr); // 00583bac
 	~ListViewFace() override;                                 // 00582c72
+
+	// ───────── 元接口(出处:QMetaObject 0x0119b720) ─────────
+	// rev=8,class="ListView",methods=3 **signals=2 props=1**:
+	//   #0 modelChanged()          信号
+	//   #1 filterFinished()        信号
+	//   #2 updateFilterString(?)   槽 → 0x008f8d2e 分发
+	//   prop #0 `singleLine` —— 注意它**没有独立字段**(见下 +0x32 位旗标)
+	signals:
+	void modelChanged();   // #0
+	void filterFinished(); // #1
+
+public slots:
+	void updateFilterString(const QString &text); // #2
+
+public:
+	// eventFilter = vt6 0x005843b0(461B):**与 ListWidget 的键位表逐条同构**
+	//   三连门(可见 && watched == +0x38 && KeyPress)+
+	//   0x1000013/15/16/17 → moveCursor(MoveUp=0 / MoveDown=1 /
+	//   MovePageUp=6 / MovePageDown=7) → setCurrentIndex
+	//   0x1000004/0x1000005 → activated(currentIndex())
+	//   **另有 ListWidget 没有的一支**:modifiers == ControlModifier(0x8000000)
+	//   且 key - 0x31 >= 0(model 非空)→ 走 model 的快捷选择
+	// sizeHint = vt14 0x00583ace(157B):
+	//   宽 = min(model->rowCount, +0x60) * 单行高(moveCursor 取)+ frameWidth*2
+	//   高 = (viewport bottom - top) + 1
+	QSize sizeHint() const override;
+	bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
 	void *m_f30 = nullptr;            // +0x30
