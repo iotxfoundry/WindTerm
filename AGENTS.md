@@ -63,7 +63,7 @@
 | `src/Windows/` | 窗口系统 | `Kit/`(KitWindow·KitDock·KitBar·MainWindow·Factory)`Mux/`(MuxWindow·MuxPane*) |
 | `src/Widgets/` | UI 控件 | `Dialogs/` `Settings/` `Bars/` `Controls/` `Panes/` `Views/`;根目录 = B 类开源件 |
 | `src/Actions/` | 命令层 | ActionFactory / ActionRegistry / ToolBarBuilder / SlipButton / BackwardShortcut |
-| `src/Sessions/` | 连接与传输 | `Core/` `Transports/` `Bridges/` `Commanders/` |
+| `src/Sessions/` | 连接与传输 | `Core/` `Transports/` `Bridges/` `Commanders/` `Transfers/`(XMODEM/YMODEM/ZMODEM 协议族 + 外部进程封装) |
 | `src/Terminal/` | 终端内核 | Screen / ScreenData / TerminalCore / TermViewFace |
 | `src/Editor/` | 编辑器 | `Engine/` `Config/` |
 | `src/Utility/` `src/Ext/` `src/Stubs/` | 基元 / 外部库**声明面** / 生成桩 | KingEnums;Zstd;gen_stubs |

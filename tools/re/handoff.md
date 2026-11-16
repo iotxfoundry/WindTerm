@@ -114,7 +114,29 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | KitDock `+0x38` = **bool withExpand**(非 widget) | 批 216(三源) | 批 207 首判 |
 | `dock_toggleFloat` 几何 = **QRect(mapToGlobal,size)**,非私有位 | 批 232(asm 公式) | 批 180 前"私有面不可移植" |
 
-## 现役队列(批 493 后,按需开批)
+## 批 494 新落:文件传输子系统(`src/Sessions/Transfers/`)
+
+原版 ZMODEM 传输链从未建模,本批按 0x0079a842..0x007a2720 连续语料段落地:
+
+| 文件 | 类 | 真实现 | 引用档(cited) |
+|---|---|---|---|
+| `Modem.{h,cpp}` | 基类(QObject):信号 finished/showText/started、进度条、cancel、显示腿 | ctor/wireSignals/appendText/showError/finish/emitStarted/transferProgress/cancel/Progress | 三条接线之一(writer 侧信号名未复原)、槽腿被调 |
+| `XYModem.{h,cpp}` | XMODEM/YMODEM 主体 | ctor/resetState/dtor/reset/isRunning/feed/translateInput/appendLf/writeData/writeByte/addSendFiles/checksum/verifyChecksum/openReceiveFile/saveChunk/sendWithRetry/sendSub/retryTimeout/setSubChar | xymodem_recvPkt(2094B)、xymodem_processInput(1030B)、xymodem_sendInit(1954B)、buffer 追加源 |
+| `ZModem.{h,cpp}` | 外部进程驱动 | ctor/dtor/reset/isRunning/feed/stateText(6 条 tr 串) | zmodem_init(2636B)、FUN_007a0f86(3062B) |
+| `ModemProcess.{h,cpp}` | QProcess 封装(lrzsz) | ctor/dtor/takeStdout/takeStderr/signalFinished/startProcess/writeData | QMetaType 注册、readyRead functor 体 |
+| `XModem/YModem.{h,cpp}` | 变体(空派生 + 协议参数) | ctor/dtor | — |
+| `Utility/Format.{h,cpp}` | 时长/字节数格式化 | formatDuration(006168b6)、formatByteCount(00616636) | 精度分支 |
+
+关键取证(新):
+- 工厂 **0x007e44c0** `s_xmodem_packetSize_7e44c0(session, 0|1)`:0 → XModem
+  (`+0x50 = 0`,键 `xmodem.packetSize`);1 → YModem(`+0x50 = 0x101`,即
+  **dirOnly + trimSub 两个旗标同处一个 16 位写**,键 `ymodem.packetSize`)。
+- 外部程序名实读:`"zsz/sz"@0xca3c3a` / `"rz"@0xca3c50`(ZMODEM 收发两向),
+  与 `vendors/lrzsz/{rz,sz}` 落点一致。
+- 状态文案 6 条 tr 串全部实读(见 `ZModem::stateText`)。
+- 新怪癖 #36:输出换行在 CR 后插 **0x00**(不是 0x0A),asm 0x79b84a 实证。
+
+## 现役队列(批 494 后,按需开批)
 
 > ⚠ 测试冻结令 + 铁律 7 生效:各批只做转写 + 引用 + commit,不编译不测试。
 

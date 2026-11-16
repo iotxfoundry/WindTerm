@@ -42,7 +42,7 @@ src/
 ├── Actions/           命令层(动作 / 菜单 / 工具栏 / 快捷键)
 │                        ActionFactory ActionRegistry ToolBarBuilder
 │                        SlipButton(菜单行) BackwardShortcut(快捷键绑定)
-├── Sessions/          传输与连管
+├── Sessions/          传输与连管(含 Transfers/ 文件传输协议族)
 │   ├── Core/            SuperSession SuperSessionPrivate WorkspaceLoader
 │   │                    FileOps SessionManager
 │   ├── Transports/      Ssh / Tcp / Telnet / Shell / Serial Session

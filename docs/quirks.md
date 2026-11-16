@@ -114,3 +114,10 @@
    scanner 同指概率高)— 指针恒等非语料违例,cc5 不比指针。
    深引擎(editctx_initThread 0x50/piecetable_init 96a2f8/
    gapbuffer_reallocate 88e5a0/93fc60)承 cited — 批 111 判例。
+36. **Modem 输出换行在 CR 后插 0x00(批 494 登记,原样未修)**:
+   `FUN_0079b774`(227B)自尾向头扫,遇 `'\r'` 且
+   `FUN_0085e326(session, 10) == 0` 时执行 `QByteArray::insert(i+1, 0x00)`
+   —— asm 0x79b84a `xor %edx,%edx` 实读,插的是 **0x00 而不是 0x0A**;
+   同一函数遇 `0xFF` 时 `insert(i+1, 0xFF)`(asm 0x79b808 edx=r14d=
+   0xffffffff)。转写按字面保留。是否原版 bug(本意为补 LF)待 5c 期
+   与原版 ZMODEM 会话对表再裁。
