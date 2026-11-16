@@ -366,3 +366,57 @@ void CustomLinkTriggerPageFace::assembleCustomLinkPage()
 	QWidget::setTabOrder(m_action48, m_f50);                   // @(+0x48 → +0x50)
 	setFocusProxy(this);
 }
+
+// FUN_00704340(470B)PlaySound 页装配真身
+PlaySoundTriggerPageFace::PlaySoundTriggerPageFace(QWidget *parent)
+	: TriggerPageFace(parent)
+{
+	assemblePlaySoundPage();
+}
+
+void PlaySoundTriggerPageFace::assemblePlaySoundPage()
+{
+	auto *form = new QFormLayout;                              // @00704363(0x20)
+	auto *label = new QLabel(QStringLiteral("&Rules:"));       // tr(0xc9fd07)
+	m_table38 = new QWidget(this);                             // @007043c9(0x48 + FUN_00584e4a(0x48f)) cited
+	m_f40 = m_table38;                                         // +0x40 = w+0x40
+	label->setBuddy(m_table38);
+	// 三列表头(实读):Pattern / Description / Sound
+	//   qlist_appendRange → FUN_00584ee8(+0x38, list)@00704459 — cited
+	// FUN_00566d6e(+0x40, tr("No sound available")(0xc9ff23))@007044a4 — cited
+	form->setContentsMargins(0, 0, 0, 0);                      // 全零
+	assembleBusyOverlay();                                     // @007045xx(FUN_006f1994)
+	form->addRow(label);                                       // addRow ×4(实参折叠)
+	setLayout(form);
+	setFocusProxy(this);
+}
+
+// FUN_00703ab0(489B)ShowTooltip 页装配真身
+ShowTooltipTriggerPageFace::ShowTooltipTriggerPageFace(QWidget *parent)
+	: TriggerPageFace(parent)
+{
+	assembleShowTooltipPage();
+}
+
+void ShowTooltipTriggerPageFace::assembleShowTooltipPage()
+{
+	auto *form = new QFormLayout;                              // @00703ad3(0x20)
+	auto *l1 = new QLabel(QStringLiteral("&Match:"));          // tr(0xc9fd97)
+	auto *l2 = new QLabel(QStringLiteral("&Tooltip:"));        // tr(0xc9fefb)
+	m_edit38 = new QWidget(this);                              // @00703b75(0x68 + FUN_0056376e(0xe000)) cited
+	m_f40 = m_edit38;                                          // +0x40
+	m_f48 = new QWidget(this);                                 // @00703ba2(0x70 + FUN_006f83b0(5,1,0)) cited
+	m_f50 = m_f48;                                             // +0x50
+	m_f58 = new QWidget(this);                                 // @00703bc5(0x40 + FUN_00703a58(0)) cited
+	l1->setBuddy(m_edit38);
+	l2->setBuddy(m_f48);
+	// if (+0x38) FUN_006f1850(+0x48)@00703cxx — cited
+	form->setContentsMargins(0, 0, 0, 0);                      // 全零
+	assembleBusyOverlay();                                     // @00703cxx(FUN_006f1994)
+	form->addRow(l1);                                          // addRow ×5(实参折叠)
+	form->addRow(l2);
+	setLayout(form);
+	QWidget::setTabOrder(m_f40, m_f50);                        // @(+0x40 → +0x50)
+	QWidget::setTabOrder(m_f50, m_f58);                        // @(+0x50 → +0x58)
+	setFocusProxy(this);
+}

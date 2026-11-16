@@ -201,6 +201,47 @@ protected:
 	QWidget *m_f50 = nullptr;                      // +0x50(0x40 附件)
 };
 
+// PlaySoundTriggerPageFace — kind 9(new 0x48)装配 FUN_00704340(470B):
+//   form;label = QLabel(tr("&Rules:")(0xc9fd07));
+//   +0x38 = new 0x48 + FUN_00584e4a(w, **0x48f**, 0)(表件);+0x40 = w+0x40;
+//   label setBuddy;
+//   三列表头 = tr("Pattern")(0xd0daab) / tr("Description")(0xc8a3a0) /
+//     tr("Sound")(0xc9fb51) → qlist_appendRange → FUN_00584ee8(+0x38);
+//   FUN_00566d6e(+0x40, tr("No sound available")(0xc9ff23))(占位文案);
+//   margins 全零;assembleBusyOverlay();addRow ×4;setLayout;setFocusProxy。
+class PlaySoundTriggerPageFace : public TriggerPageFace {
+	Q_OBJECT
+public:
+	explicit PlaySoundTriggerPageFace(QWidget *parent = nullptr);
+	void assemblePlaySoundPage(); // FUN_00704340
+
+protected:
+	QWidget *m_table38 = nullptr; // +0x38(0x48 表件,0x48f)
+	QWidget *m_f40 = nullptr;     // +0x40(表内视图)
+};
+
+// ShowTooltipTriggerPageFace — kind 12(new 0x60)装配 FUN_00703ab0(489B):
+//   form;l1 = tr("&Match:")(0xc9fd97);l2 = tr("&Tooltip:")(0xc9fefb);
+//   +0x38 = new 0x68 + FUN_0056376e(0xe000)(文本域);+0x40 = w+0x40;
+//   +0x48 = new 0x70 + FUN_006f83b0(w, **5**, 1, 0);+0x50 = w+0x40;
+//   +0x58 = new 0x40 + FUN_00703a58(w, 0);
+//   两 label setBuddy;+0x38 非空 → FUN_006f1850(+0x48);
+//   margins 全零;assembleBusyOverlay();addRow ×5;setLayout;
+//   setTabOrder(+0x40 → +0x50 → +0x58);setFocusProxy。
+class ShowTooltipTriggerPageFace : public TriggerPageFace {
+	Q_OBJECT
+public:
+	explicit ShowTooltipTriggerPageFace(QWidget *parent = nullptr);
+	void assembleShowTooltipPage(); // FUN_00703ab0
+
+protected:
+	QWidget *m_edit38 = nullptr; // +0x38(0x68 文本域)
+	QWidget *m_f40 = nullptr;    // +0x40
+	QWidget *m_f48 = nullptr;    // +0x48(0x70)
+	QWidget *m_f50 = nullptr;    // +0x50
+	QWidget *m_f58 = nullptr;    // +0x58(0x40 附件)
+};
+
 // HighlightTextTriggerPageFace — kind 8(new 0x40)装配 FUN_006f7c3c(243B):
 //   form = QFormLayout(0x20);label = QLabel(0x30, tr("&Rules:")(0xc9fd07));
 //   +0x38 = new 0x48 + FUN_005675e8(w, 0)(规则表件);
