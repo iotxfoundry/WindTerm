@@ -245,6 +245,12 @@ protected:
 //   控件槽:+0x38(**复选组**)/ +0x40 / +0x48(**description → QLineEdit
 //   setText**)/ +0x50。
 //   ⇒ 这就是"文本标记规则"的设置行装载器(与 Inspector 行同型)。
+//
+// **配对函数(批 484)**:s_text_matchWholeWord_6cd0fc(3612B)= **保存方向**
+//   (控件 → 配置表):读 `QLineEdit::text` ×2 + `QAbstractButton::isChecked` ×2
+//   → 写回同名五键(`text.pattern`/`text.matchWholeWord`/`text.matchRegex`/
+//   `text.matchCase`/`description`);另含 **`.wind/`** 路径处理(fromAscii 实读)。
+//   ⇒ 装载 1264B / 保存 3612B,保存侧多出路径与校验腿。
 class TextMarkTablePanelFace : public TriggerTableWidgetFace {
 	Q_OBJECT
 public:
