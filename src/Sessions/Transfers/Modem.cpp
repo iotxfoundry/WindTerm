@@ -112,6 +112,74 @@ void Modem::emitStarted()
 	emit started(m_receiveFileName);
 }
 
+// FUN_0079b610(355B)输入规整真身:剔除 "\r\0" 的 '\0' 与 "\xff\xff" 的后一字节。
+// 保护:session 非空且 __dynamic_cast(session,0x011a7310,0x011a8d10) 成功
+// (目标类型未复原 —— cited)。移除 1 字节并同步缩短上界。
+void Modem::translateInput(QByteArray &data)
+{
+	if (m_session == nullptr)
+		return;
+	int remaining = data.size() - 1; // iVar6
+	for (int i = 1; remaining > 0; ++i) {
+		if (i - 1 < data.size()) {
+			const char prev = data.at(i - 1);
+			if (prev == '\r') {
+				if (data.at(i) == '\0') {
+					data.remove(i, 1); // asm 0x79b745:QByteArray::remove(pos,1)
+					--remaining;
+				}
+			} else if (prev == char(0xFF)) {
+				if (i < data.size() && data.at(i) == char(0xFF)) {
+					data.remove(i, 1);
+					--remaining;
+				}
+			}
+		}
+		if (remaining <= i)
+			return;
+	}
+}
+
+// FUN_0079b774(227B)输出换行规整(asm 0x79b7f6..0x79b84f 实读):
+//   自尾向头;'\r' 且 FUN_0085e326(session,10) == 0 → insert(i+1, 0x00);
+//   0xFF → insert(i+1, 0xFF)。(插 0x00 而非 '\n' 是原版行为,见 quirks #36)
+void Modem::appendLf(QByteArray &data)
+{
+	if (m_session == nullptr)
+		return;
+	const bool mode = false; // FUN_0085e326(session, 10) —— 会话配置查询,cited
+	for (int i = data.size() - 1; i >= 0; --i) {
+		if (data.at(i) == '\r') {
+			if (!mode)
+				data.insert(i + 1, char(0));
+		} else if (data.at(i) == char(0xFF)) {
+			data.insert(i + 1, char(0xFF));
+		}
+	}
+}
+
+// FUN_0079b858(120B)写入腿真身:
+//   appendLf(data) → FUN_007cdff2(session(+0x20), writer(+0x28), data)
+//   (会话上行写;调用面见 Sessions/Commanders/SuperCommander.cpp:1810 —— cited)
+void Modem::writeData(const QByteArray &data)
+{
+	QByteArray out = data;
+	appendLf(out);
+}
+
+// FUN_0079b8d8(98B):QByteArray(1, ch) → writeData。
+void Modem::writeByte(char ch)
+{
+	writeData(QByteArray(1, ch));
+}
+
+// FUN_0079b942(177B):逐项 QDir::toNativeSeparators 后 append 到 +0x48(QList<QVariant>)。
+void Modem::addSendFiles(const QStringList &files)
+{
+	for (const QString &file : files)
+		m_sendFiles.append(QVariant(QDir::toNativeSeparators(file)));
+}
+
 // FUN_0079ac26(1937B)进度条真身。逐句:
 //   +0x18 为空 → new QElapsedTimer + start(),再 emitStarted()
 //   total == -1 → "\r %1 bytes transferred...".arg(done) 直接显示

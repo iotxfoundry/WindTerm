@@ -14269,7 +14269,7 @@
 0057cfc1	121	FUN_0057cfc1	todo	
 0057d040	86	urllist_dispose	todo	
 0057d096	257	FUN_0057d096	todo	
-0057d198	210	FUN_0057d198	todo	
+0057d198	210	FUN_0057d198	ref	src/Sessions/Transfers/ZModem.cpp
 0057d270	680	FUN_0057d270	todo	
 0057d555	148	FUN_0057d555	ref	src/Sessions/Core/FileOps.h,src/Widgets/Panes/OutputPane.h
 0057d5ea	65	FUN_0057d5ea	todo	
@@ -20420,7 +20420,7 @@
 0079a3b4	65	FUN_0079a3b4	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
 0079a3f6	124	FUN_0079a3f6	todo	
 0079a472	278	FUN_0079a472	ref	src/Sessions/Transfers/Modem.cpp
-0079a598	35	FUN_0079a598	ref	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
+0079a598	35	FUN_0079a598	ref	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/ZModem.cpp
 0079a5bc	13	FUN_0079a5bc	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
 0079a5ca	5	thunk_FUN_0079a598	todo	
 0079a5d0	8	FUN_0079a5d0	todo	
@@ -20433,11 +20433,11 @@
 0079ac1c	9	FUN_0079ac1c	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
 0079ac26	1937	transfer_progressMsg	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
 0079b466	396	FUN_0079b466	todo	
-0079b610	355	FUN_0079b610	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h,src/Sessions/Transfers/ZModem.cpp
-0079b774	227	FUN_0079b774	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
-0079b858	120	FUN_0079b858	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
-0079b8d8	98	FUN_0079b8d8	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
-0079b942	177	FUN_0079b942	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
+0079b610	355	FUN_0079b610	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/ZModem.cpp
+0079b774	227	FUN_0079b774	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
+0079b858	120	FUN_0079b858	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/ZModem.cpp
+0079b8d8	98	FUN_0079b8d8	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
+0079b942	177	FUN_0079b942	real	src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/Modem.h
 0079ba00	108	FUN_0079ba00	ref	src/Sessions/Transfers/Modem.cpp
 0079ba70	5	XYModem_vt13	ref	src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.h
 0079ba76	8	XYModem_vt14	ref	src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.h
@@ -20466,17 +20466,17 @@
 0079f9ae	139	FUN_0079f9ae	todo	
 0079fa3a	152	FUN_0079fa3a	todo	
 0079fae0	124	FUN_0079fae0	todo	
-0079fb5c	245	FUN_0079fb5c	todo	
+0079fb5c	245	FUN_0079fb5c	ref	src/Sessions/Transfers/ZModem.cpp
 0079fc66	216	ZModem_vt13	real	src/Sessions/Transfers/ZModem.h
 0079fd3e	64	ZModem_vt14	real	src/Sessions/Transfers/ZModem.h
 0079fd7e	882	FUN_0079fd7e	real	src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
-007a0105	47	FUN_007a0105	todo	
+007a0105	47	FUN_007a0105	ref	src/Sessions/Transfers/ZModem.cpp
 007a0134	44	ZModem_vt15	real	src/Sessions/Transfers/ZModem.h
 007a0160	286	FUN_007a0160	real	src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
-007a029e	523	ZModem_dtor	real	src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
+007a029e	523	ZModem_dtor	real	src/Sessions/Transfers/ZModem.h
 007a04aa	23	ZModem_dtor_deleting	todo	
-007a04c2	2636	zmodem_init	stub	src/Sessions/Transfers/ZModem.h
-007a0f86	3062	FUN_007a0f86	ref	src/Sessions/Transfers/ZModem.cpp
+007a04c2	2636	zmodem_init	real	src/Sessions/Transfers/Modem.h
+007a0f86	3062	FUN_007a0f86	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp,src/Sessions/Transfers/ZModem.h
 007a1c20	102	FUN_007a1c20	todo	
 007a1c90	108	FUN_007a1c90	todo	
 007a1d00	110	FUN_007a1d00	todo	
@@ -20484,13 +20484,13 @@
 007a1f07	247	FUN_007a1f07	ref	src/Sessions/Transfers/ModemProcess.cpp
 007a200e	249	ModemProcess_dtor	real	src/Sessions/Transfers/ModemProcess.h
 007a2108	23	ModemProcess_dtor_deleting	todo	
-007a2120	92	FUN_007a2120	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
-007a217c	135	FUN_007a217c	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
+007a2120	92	FUN_007a2120	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
+007a217c	135	FUN_007a217c	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
 007a2214	249	FUN_007a2214	stub	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
 007a230e	869	termproc_init	real	
 007a26be	16	FUN_007a26be	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
-007a26ce	10	FUN_007a26ce	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
-007a26d8	66	FUN_007a26d8	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
+007a26ce	10	FUN_007a26ce	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
+007a26d8	66	FUN_007a26d8	real	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h,src/Sessions/Transfers/ZModem.cpp
 007a2720	18	FUN_007a2720	stub	src/Sessions/Transfers/ModemProcess.cpp,src/Sessions/Transfers/ModemProcess.h
 007a2732	156	SuperProtocol_h7a2732	todo	
 007a27ce	88	SuperProtocol_metaObject	todo	
@@ -21394,7 +21394,7 @@
 007cddc6	23	SuperCommander_dtor_deleting	todo	
 007cdddd	6	FUN_007cdddd	todo	
 007cdde4	509	FUN_007cdde4	todo	
-007cdff2	504	FUN_007cdff2	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Sessions/Transfers/Modem.cpp,src/Sessions/Transfers/XYModem.cpp
+007cdff2	504	FUN_007cdff2	ref	src/Sessions/Commanders/SuperCommander.cpp,src/Sessions/Transfers/Modem.cpp
 007ce1ea	105	FUN_007ce1ea	todo	
 007ce254	3523	King::registerVtOperations	todo	
 007cf02c	521	FUN_007cf02c	ref	src/Sessions/Commanders/TelnetCommander.cpp,src/Sessions/Commanders/TelnetCommander.h
@@ -23415,7 +23415,7 @@
 0085e2fa	13	FUN_0085e2fa	ref	src/Sessions/Commanders/TelnetCommander.cpp
 0085e308	13	FUN_0085e308	ref	src/Sessions/Commanders/TelnetCommander.cpp,src/Sessions/Commanders/TelnetCommander.h
 0085e316	15	FUN_0085e316	ref	src/Sessions/Commanders/TelnetCommander.cpp
-0085e326	14	FUN_0085e326	ref	src/Sessions/Commanders/TelnetCommander.cpp,src/Sessions/Commanders/TelnetCommander.h,src/Sessions/Transfers/XYModem.cpp
+0085e326	14	FUN_0085e326	ref	src/Sessions/Commanders/TelnetCommander.cpp,src/Sessions/Commanders/TelnetCommander.h,src/Sessions/Transfers/Modem.cpp
 0085e334	22	FUN_0085e334	ref	src/Sessions/Commanders/TelnetCommander.cpp
 0085e34a	17	FUN_0085e34a	ref	src/Sessions/Commanders/TelnetCommander.cpp
 0085e35c	22	FUN_0085e35c	todo	

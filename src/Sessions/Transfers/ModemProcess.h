@@ -32,9 +32,17 @@ public:
 	explicit ModemProcess(int mode, QObject *parent = nullptr); // termproc_init
 	~ModemProcess() override;                                  // 007a200e
 
+signals:
+	// metaobject 自有方法 `readyRead`(1 参,实参 = 通道号;发射器 0x0090eb78,
+	// 槽 FUN_007a0f86 里 `**(int **)(param_4 + 8)` 实读:0 = stdout / 1 = stderr)。
+	// 它与 QIODevice::readyRead() 同名不同签名 —— 本声明隐藏基类那个,
+	// 故 `&ModemProcess::readyRead` 唯一指向本信号。
+	void readyRead(int channel);
+
 	QByteArray takeStdout(); // 007a217c
 	QByteArray takeStderr(); // 007a2120
 
+	bool isMatched() const { return m_matched28; } // +0x28(ZModem::isRunning 读它取反)
 	void signalFinished();                  // 007a26be
 	void startProcess();                    // 007a26ce
 	void writeData(const QByteArray &data); // 007a26d8

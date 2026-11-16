@@ -23,7 +23,8 @@
 //   vt13 @0079ba70 reset()     — 基类纯虚
 //   vt14 @0079ba76 isRunning() — 基类纯虚
 //   vt15 @0079f16e feed()      — 基类纯虚
-//   vt16 @0079f1ac sendInit()  — 基类纯虚
+//   vt16 XYModem @0079f1ac sendInit() / ZModem @007a04c2 startTransfer(dir,args)
+//        —— 两族签名不同,故**不上升为基类纯虚**,各自声明
 // 依据:Modem 的 vtable 0x11a6de8 在 vt13..vt16 四槽写 __cxa_pure_virtual
 // (0x00bec350),vt12 指向实体 0x0079a5d8。
 
@@ -50,7 +51,8 @@ public:
 	virtual void reset() = 0;                // vt13
 	virtual bool isRunning() const = 0;      // vt14
 	virtual void feed(QByteArray &data) = 0; // vt15
-	virtual void sendInit() = 0;             // vt16
+	// vt16 不在此声明:XYModem 侧无参(sendInit),ZModem 侧带参(startTransfer),
+	// 签名不同,统一上来等于编造。
 
 signals:
 	void finished(bool success);           // idx 0
@@ -58,6 +60,13 @@ signals:
 	void started(const QString &fileName); // idx 2
 
 protected:
+	// ---- 写入/翻译腿(ZModem 与 XYModem 共用 → 落基类)----------------------
+	void writeData(const QByteArray &data);      // 0079b858(appendLf 后上行写)
+	void writeByte(char ch);                     // 0079b8d8
+	void translateInput(QByteArray &data);       // 0079b610
+	void appendLf(QByteArray &data);             // 0079b774
+	void addSendFiles(const QStringList &files); // 0079b942
+
 	// ---- 显示腿 ----------------------------------------------------------
 	void appendText(QString text);                   // 0079a8be path_normalizeSep
 	void showError(QString message, bool terminate); // 0079a9de

@@ -136,6 +136,26 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 - 状态文案 6 条 tr 串全部实读(见 `ZModem::stateText`)。
 - 新怪癖 #36:输出换行在 CR 后插 **0x00**(不是 0x0A),asm 0x79b84a 实证。
 
+### 批 495:ZMODEM 启动腿 + 读槽落地(zmodem_init 由 cited 升真)
+
+- `zmodem_init`(0x007a04c2,2636B)→ `ZModem::startTransfer(direction, args)`:
+  参数表 `-b -e -v` + (发送:待发文件表 / 接收:接收文件名),reset,
+  `m_uploading`,程序名 `/vendors/lrzsz/sz`(发送)/`/vendors/lrzsz/rz`(接收),
+  路径 = `toNativeSeparators(applicationDirPath() + 程序名)`,
+  三段正则,`new ModemProcess` + `new QThread`,setProgram/setArguments/
+  moveToThread,五条 connect,`start(TimeCriticalPriority)`。
+- `FUN_007a0f86`(3062B)→ `ZModem::onProcessReadyRead(int channel)`:
+  channel 0(stdout)→ writeData 原样上行;channel 1(stderr)→ 累积 +0x88、
+  抹程序路径、切行、逐行 `transferedSize/totalSize` → transferProgress、
+  `transferFile` → +0x38 + progress.reset(),每行 appendText 显示。
+- 字段模型**勘正**:+0x70/+0x78 = `QSharedPointer<ModemProcess>`(d/value),
+  不是 QByteArray;`ZModem::isRunning` 读的是进程的 +0x28(命中旗标)取反。
+- **方法归属勘正**:writeData/writeByte/translateInput/appendLf/addSendFiles
+  只碰 Modem 字段(+0x20/+0x28/+0x48)→ 已从 XYModem 移入 Modem
+  (依据是 ZModem 也调 0x0079b858,而 ZModem 与 XYModem 是兄弟不是父子)。
+- `ModemProcess::readyRead` 实参是 **int 通道号**(槽里 `**(int**)(param_4+8)`)。
+- vt16 两族签名不同(XYModem 无参 / ZModem 双参),故不上升为 Modem 纯虚。
+
 ## 现役队列(批 494 后,按需开批)
 
 > ⚠ 测试冻结令 + 铁律 7 生效:各批只做转写 + 引用 + commit,不编译不测试。

@@ -54,7 +54,8 @@ ModemProcess::~ModemProcess()
 void ModemProcess::wire()
 {
 	// 两个 functor 体(FUN_007a1d70 399B / FUN_007a1f07 247B)负责把
-	// readAllStandardOutput/Error 收进 +0x30/+0x38 并 wakeOne —— cited。
+	// readAllStandardOutput/Error 收进 +0x30/+0x38、wakeOne,并发
+	// `readyRead(0)` / `readyRead(1)`(槽 FUN_007a0f86 按通道分流)—— cited。
 }
 
 // FUN_007a217c(135B):取走 +0x30 并 wakeOne(+0x10 存在时持锁)。

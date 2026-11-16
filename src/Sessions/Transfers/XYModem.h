@@ -46,16 +46,9 @@ public:
 	void reset() override;                // vt13 0079ba70
 	bool isRunning() const override;      // vt14 0079ba76
 	void feed(QByteArray &data) override; // vt15 0079f16e
-	void sendInit() override;             // vt16 0079f1ac
+	void sendInit();                      // vt16 0079f1ac
 
 protected:
-	// ---- 输入/输出 ------------------------------------------------------
-	void translateInput(QByteArray &data);  // 0079b610
-	void appendLf(QByteArray &data);        // 0079b774
-	void writeData(const QByteArray &data); // 0079b858
-	void writeByte(char ch);                // 0079b8d8
-	void addSendFiles(const QStringList &files); // 0079b942
-
 	// ---- 校验 ------------------------------------------------------------
 	quint16 checksum(const char *data, int len) const;    // 0079bc6a
 	bool verifyChecksum(const char *data, int len) const; // 0079bcd2
