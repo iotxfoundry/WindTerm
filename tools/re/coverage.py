@@ -166,6 +166,42 @@ def corpus_addrs():
     return s
 
 
+# 异常清理块(landing pad)/编译器桩的特征串 —— 它们有 FDE 但不是「函数」
+CLEANUP = re.compile(r'cxa_throw_exception|_Unwind_Resume|__cxa_|unaff_|in_stack_|'
+                     r'stack0x|_ZSt9terminatev|__assert')
+QTPLUMB = re.compile(r'_metaObject|_qt_metacast|_qt_metacall|_vt\d+$|_h[0-9a-f]{6}$')
+
+
+def corpus_bodies():
+    """→ {addr: (name, size, body)}。body 只取到下一个 entry 之前(整段)。"""
+    out = {}
+    for f in glob.glob(os.path.join(DECOMP, '*.c')):
+        txt = open(f, encoding='utf-8', errors='ignore').read()
+        ms = list(re.finditer(r'entry=([0-9a-f]{8}) name=(\S+) size=(\d+)', txt))
+        for i, m in enumerate(ms):
+            end = ms[i + 1].start() if i + 1 < len(ms) else len(txt)
+            out[m.group(1)] = (m.group(2), int(m.group(3)), txt[m.start():end])
+    return out
+
+
+def entry_kind(name, size, body):
+    """判一条语料条目是不是「真工作」。
+
+      cleanup —— 异常清理块 / landing pad(cxa_throw_exception、unaff_ 等);
+                 有 eh_frame 条目,但不是独立函数,不属逆向对象
+      qtplumb —— moc 元数据 / vtable 桩 / __cxa 相关的 Qt 管道
+      todo    —— 其余,即**真正的待办**(未转写但属逆向对象)
+
+    注意:返回 'todo' 而不是 'real' —— 'real' 是「已实现」那一档的键,
+    两者不能同名(曾因此把 21K 条待办算成已完成)。
+    """
+    if CLEANUP.search(body):
+        return 'cleanup'
+    if QTPLUMB.search(name):
+        return 'qtplumb'
+    return 'todo'
+
+
 def corpus_entries():
     """→ {addr: (name, size)},只取 .text 内的语料条目(排除 PLT/数据)。"""
     e = {}
@@ -214,6 +250,7 @@ def defs_status():
 
 def work_ledger(addr2files):
     """→ (md_lines, tsv_lines)。四状态 + 双分母(函数数 / 字节数)。"""
+    bodies = corpus_bodies()
     ent = corpus_entries()
     real, stub = defs_status()
     ref = set()
@@ -228,10 +265,12 @@ def work_ledger(addr2files):
         elif a in ref:
             st[a] = 'ref'
         else:
-            st[a] = 'todo'
+            st[a] = entry_kind(n, sz, bodies.get(a, (n, sz, ''))[2])
 
-    order = ['real', 'stub', 'ref', 'todo']
-    label = {'real': '真实现', 'stub': '半成品', 'ref': '引用档', 'todo': '未触及'}
+    order = ['real', 'stub', 'ref', 'todo', 'cleanup', 'qtplumb']
+    label = {'real': '真实现', 'stub': '半成品', 'ref': '引用档',
+             'todo': '未触及(真工作)', 'cleanup': '异常清理块(非函数)',
+             'qtplumb': 'Qt 元数据桩(非逆向对象)'}
     cnt = collections.Counter(st.values())
     byt = collections.Counter()
     for a, (n, sz) in ent.items():
@@ -258,6 +297,11 @@ def work_ledger(addr2files):
         L.append('| %s | %d | %.2f%% | %d | %.2f%% |'
                  % (label[k], cnt[k], cnt[k] / tot * 100, byt[k], byt[k] / totb * 100))
     L.append('| **合计** | **%d** | 100%% | **%d** | 100%% |' % (tot, totb))
+    work = cnt['real'] + cnt['stub'] + cnt['ref'] + cnt['todo']
+    L.append('| **真工作分母** | **%d** | — | — | — |' % work)
+    L.append('')
+    L.append('> 真工作分母 = 合计 − 异常清理块 − Qt 元数据桩。'
+             '「未触及(真工作)」一栏才是真正的待办量。')
 
     # 按文件
     per = collections.defaultdict(lambda: collections.Counter())
@@ -369,10 +413,17 @@ def main():
     if '--ledger' in sys.argv and '--write' not in sys.argv:
         L, tsv, (cnt, byt, tot, totb) = work_ledger(addr2files)
         print('语料 .text 条目 %d / %d 字节' % (tot, totb))
-        for k, n in (('real', '真实现'), ('stub', '半成品'),
-                     ('ref', '引用档'), ('todo', '未触及')):
+        for k, n in (('real', '真实现'), ('stub', '半成品'), ('ref', '引用档'),
+                     ('todo', '未触及'), ('cleanup', '清理块'),
+                     ('qtplumb', 'Qt桩')):
             print('  %-8s %6d  %5.2f%%   %9d  %5.2f%%'
                   % (n, cnt[k], cnt[k] / tot * 100, byt[k], byt[k] / totb * 100))
+        work = cnt['real'] + cnt['stub'] + cnt['ref'] + cnt['todo']
+        done = cnt['real'] + cnt['stub'] + cnt['ref']
+        doneb = byt['real'] + byt['stub'] + byt['ref']
+        workb = doneb + byt['todo']
+        print('  真工作分母 %d 条 / %d 字节 → 已触 %d (%.1f%%) / %d 字节 (%.1f%%)'
+              % (work, workb, done, done / work * 100, doneb, doneb / workb * 100))
         print()
         print('\n'.join(L[-56:]))
         sys.exit(0)
