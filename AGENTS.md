@@ -137,6 +137,7 @@ grep -rn '#include "' src/ | ...        # include 必须能按 src/ 根相对路
 ```bash
 python3 tools/re/coverage.py --addr 006b35a6   # 这个函数全仓在哪?已有实现则改它,不新建
 python3 tools/re/coverage.py                   # 全视图:各目录规模 / 地址数 / cited 数
+python3 tools/re/coverage.py --ledger          # 工作总账:真实现/半成品/引用档/未触及 + 最大未触及池
 ```
 
 全量索引见 **`docs/meta/coverage-map.md`**(自动生成)。**动笔前先查**,这是

@@ -58,6 +58,7 @@
 | [`classes-sweep.md`](meta/classes-sweep.md) | 全库类清点(名字 / 尺寸 / vtable) |
 | [`impl-addresses.md`](meta/impl-addresses.md) | 实现地址总表(函数 → 文件:行) |
 | [`coverage-map.md`](meta/coverage-map.md) | **全仓覆盖索引**(自动生成):分组规模 + 地址反查 + 疑似重复实现 |
+| [`work-ledger.md`](meta/work-ledger.md) | **逆向工作总账**(自动生成):四状态(真实现/半成品/引用档/未触及)+ 双分母(函数数/字节数)+ 未触及池 |
 | [`class-names.md`](meta/class-names.md) | **类名一致性审计**:二进制 RTTI 真名 vs 我方类名;`*Face` 后缀定性 |
 | [`calibration.md`](calibration.md) | 开源码移植**逐句同构**记录(移植件合法性凭据) |
 | [`build-audit.md`](build-audit.md) | 依赖版本审计(spdlog / fmt / jsoncpp / yaml-cpp / onig) |

@@ -11,7 +11,8 @@
   coverage.py --addr 006b3124 # 这个函数在哪几个文件里被引用/实现
   coverage.py --dups          # 潜在重复实现
   coverage.py --check         # 地址有效性
-  coverage.py --write         # 重新生成 docs/meta/coverage-map.md 与 data/fun_index.tsv
+  coverage.py --write         # 重新生成 coverage-map.md / work-ledger.md / 两个 tsv
+  coverage.py --ledger        # 只重算并打印工作总账(四状态 + 双分母)
 """
 import re, sys, glob, os, collections
 
@@ -117,6 +118,171 @@ def corpus_addrs():
     return s
 
 
+def corpus_entries():
+    """→ {addr: (name, size)},只取 .text 内的语料条目(排除 PLT/数据)。"""
+    e = {}
+    for f in glob.glob(os.path.join(DECOMP, '*.c')):
+        for m in re.finditer(r'entry=([0-9a-f]{8}) name=(\S+) size=(\d+)',
+                             open(f, encoding='utf-8', errors='ignore').read()):
+            if TEXT_LO <= int(m.group(1), 16) < TEXT_HI:
+                e[m.group(1)] = (m.group(2), int(m.group(3)))
+    return e
+
+
+def defs_status():
+    """→ (real, stub)。按函数定义分两档:
+
+      real = 定义紧邻注释带出处,且函数体去掉注释/空白后 >40 字符(真实现)
+      stub = 带出处但体近乎空壳(只有注释 / Q_UNUSED)—— 半成品
+
+    与 impl_addrs() 的区别:impl_addrs 只判「有无出处」(供 --dups),
+    本函数额外看体量,供 --ledger 区分真实现与半成品。
+    """
+    real, stub = set(), set()
+    for f in files():
+        if not f.endswith('.cpp'):
+            continue
+        L = open(f, encoding='utf-8', errors='ignore').read().split('\n')
+        i = 0
+        while i < len(L):
+            if not re.match(r'^[\w:<>,*&\s]*?\b\w+::\w+\s*\(', L[i]):
+                i += 1
+                continue
+            s0 = i
+            while s0 > 0 and L[s0 - 1].lstrip().startswith('//'):
+                s0 -= 1
+            cmt = '\n'.join(L[s0:i])
+            j, depth, seen = i, 0, False
+            while j < len(L):
+                depth += L[j].count('{') - L[j].count('}')
+                if '{' in L[j]:
+                    seen = True
+                if seen and depth == 0:
+                    break
+                j += 1
+            body = '\n'.join(L[i:j + 1])
+            nb = re.sub(r'//[^\n]*', '', body)
+            nb = re.sub(r'/\*.*?\*/', '', nb, flags=re.S)
+            nb = re.sub(r'\s+', '', nb)
+            a = re.findall(r'(?<!PTR_)FUN_([0-9a-f]{8})', cmt)
+            if a:
+                (real if len(nb) > 40 else stub).add(a[0])
+            i = j + 1
+    return real, stub
+
+
+def work_ledger(addr2files):
+    """→ (md_lines, tsv_lines)。四状态 + 双分母(函数数 / 字节数)。"""
+    ent = corpus_entries()
+    real, stub = defs_status()
+    ref = set()
+    for d in scan().values():
+        ref |= d['addrs']
+    st = {}
+    for a, (n, sz) in ent.items():
+        if a in real:
+            st[a] = 'real'
+        elif a in stub:
+            st[a] = 'stub'
+        elif a in ref:
+            st[a] = 'ref'
+        else:
+            st[a] = 'todo'
+
+    order = ['real', 'stub', 'ref', 'todo']
+    label = {'real': '真实现', 'stub': '半成品', 'ref': '引用档', 'todo': '未触及'}
+    cnt = collections.Counter(st.values())
+    byt = collections.Counter()
+    for a, (n, sz) in ent.items():
+        byt[st[a]] += sz
+    tot, totb = len(ent), sum(sz for _, sz in ent.values())
+
+    L = ['# 逆向工作总账（自动生成，勿手改）', '',
+         '> 生成:`python3 tools/re/coverage.py --write`(或 `--ledger` 只打印)。',
+         '> 分母 = 语料 `.text` 内 %d 条(排除 PLT/数据);' % tot,
+         '> 同一件事有两个量纲 —— **函数数**与**字节数**,两者差一倍以上,'
+         '所以下表两列都给。', '',
+         '## 1. 四状态口径', '',
+         '| 状态 | 判据 |', '|---|---|',
+         '| 真实现 | 函数定义紧邻注释里带出处,且函数体去掉注释/空白后 >40 字符 |',
+         '| 半成品 | 带出处,但函数体近乎空壳(只有注释 / `Q_UNUSED`) |',
+         '| 引用档 | 地址只在别处被引用(接口声明、调用点、`cited` 注释),没有本函数定义 |',
+         '| 未触及 | 地址不出现在 `src/` 任何文件 |', '',
+         '## 2. 总账', '',
+         '| 状态 | 函数 | 函数占比 | 字节 | 字节占比 |', '|---|---:|---:|---:|---:|']
+    for k in order:
+        L.append('| %s | %d | %.2f%% | %d | %.2f%% |'
+                 % (label[k], cnt[k], cnt[k] / tot * 100, byt[k], byt[k] / totb * 100))
+    L.append('| **合计** | **%d** | 100%% | **%d** | 100%% |' % (tot, totb))
+
+    # 按文件
+    per = collections.defaultdict(lambda: collections.Counter())
+    for a, s in st.items():
+        for f in addr2files.get(a, ()):
+            per[f][s] += 1
+    rows = sorted(per.items(), key=lambda kv: (-kv[1]['real'] - kv[1]['stub'], kv[0]))
+    L += ['', '## 3. 按文件（有落点的）', '',
+          '`未触及` 无法按文件分(它没有落点),故只列三档。', '',
+          '| 文件 | 真实现 | 半成品 | 引用档 |', '|---|---:|---:|---:|']
+    for f, c in rows:
+        if not (c['real'] or c['stub']):
+            continue
+        L.append('| `%s` | %d | %d | %d |' % (f, c['real'], c['stub'], c['ref']))
+
+    # 未触及池
+    todo = sorted((sz, a, n) for a, (n, sz) in ent.items() if st[a] == 'todo')
+    L += ['', '## 4. 未触及池（按体积降序前 50，下一批候选）', '',
+          '| 地址 | 语料名 | 字节 |', '|---|---|---:|']
+    for sz, a, n in todo[::-1][:50]:
+        L.append('| `%s` | `%s` | %d |' % (a, n, sz))
+
+    # §5 RTTI 类清单:哪些类已有落点文件、文件里落了多少
+    # 归属判据:先按「文件名 == 类名(或类名+Face)」钉死,再回退到首个声明点。
+    # 只认真正的类定义(`class X {` / `class X : ...`),前向声明 `class X;` 不算。
+    decl = collections.defaultdict(list)
+    for f in files():
+        if not f.endswith('.h'):
+            continue
+        t = open(f, encoding='utf-8', errors='ignore').read()
+        rel = os.path.relpath(f, os.path.join(SRC, '..'))
+        for m in re.finditer(r'^\s*(?:class|struct)\s+(\w+)\s*(?::|\{)', t, re.M):
+            decl[m.group(1)].append(rel)
+    owner = {}
+    for name, fl in decl.items():
+        keys = [name] + ([name[:-4]] if name.endswith('Face') else [])
+        for k in keys:
+            hit = [x for x in fl if os.path.basename(x)[:-2] in (k, k + 'Face')]
+            if hit:
+                owner.setdefault(k, hit[0])
+            else:
+                owner.setdefault(k, fl[0])
+    rtti_path = os.path.join(DATA, 'rtti_classes.txt')
+    rtti = [l.strip() for l in open(rtti_path, encoding='utf-8')] if os.path.exists(rtti_path) else []
+    built = [(c, owner[c]) for c in rtti if c in owner]
+    missing = [c for c in rtti if c not in owner]
+    L += ['', '## 5. RTTI 类清单（%d 个：已建 %d / 未建 %d）' % (len(rtti), len(built), len(missing)),
+          '',
+          '> 类名来自 `tools/re/data/rtti_classes.txt`（typeinfo 扫出，**含上游类**）',
+          '> 上游类（Scintilla 的 `RunStyles*`/`GapBuffer*`/`UPartitioning`、',
+          '> universalchardet 的 `ns*Prober`、标准库类型）**不是逆向目标**，',
+          '> 它们出现在此表只表示「二进制里有多态类」，不代表欠债。',
+          '> 已建 = 我方有同名（或去 `Face` 后缀同名）的声明文件。',
+          '> 后两列是**文件级**计数：一个文件装多个类时(如 `TriggerPageFace.h` 装 13 个)，',
+          '> 这几个类会显示同一组数字 —— 二进制里无法把地址反推到具体类，故不伪造类级数字。', '',
+          '| 类 | 文件 | 该文件真实现 | 该文件半成品 |', '|---|---|---:|---:|']
+    for c, f in built:
+        cc = per.get(f, collections.Counter())
+        L.append('| `%s` | `%s` | %d | %d |' % (c, f, cc['real'], cc['stub']))
+    L += ['', '**未建 %d 个**：' % len(missing), '',
+          ', '.join('`%s`' % c for c in missing)]
+
+    tsv = []
+    for a, (n, sz) in sorted(ent.items()):
+        tsv.append('%s\t%d\t%s\t%s\t%s'
+                   % (a, sz, n, st[a], ','.join(sorted(addr2files.get(a, ())))))
+    return L, tsv, (cnt, byt, tot, totb)
+
+
 def groups(scan_):
     g = collections.defaultdict(lambda: {'files': 0, 'lines': 0, 'classes': 0, 'addrs': set(), 'cited': 0})
     for rel, d in scan_.items():
@@ -154,6 +320,17 @@ def main():
         print('疑似重复实现(同一地址在 2+ 个 .cpp 带实现标记):', len(bad))
         for a, f in sorted(bad, key=lambda kv: -len(kv[1])):
             print('  FUN_%s (%d) %s' % (a, len(f), ', '.join(f)))
+        sys.exit(0)
+
+    if '--ledger' in sys.argv and '--write' not in sys.argv:
+        L, tsv, (cnt, byt, tot, totb) = work_ledger(addr2files)
+        print('语料 .text 条目 %d / %d 字节' % (tot, totb))
+        for k, n in (('real', '真实现'), ('stub', '半成品'),
+                     ('ref', '引用档'), ('todo', '未触及')):
+            print('  %-8s %6d  %5.2f%%   %9d  %5.2f%%'
+                  % (n, cnt[k], cnt[k] / tot * 100, byt[k], byt[k] / totb * 100))
+        print()
+        print('\n'.join(L[-56:]))
         sys.exit(0)
 
     if '--check' in sys.argv:
@@ -303,6 +480,16 @@ def main():
         with open(os.path.join(os.path.dirname(__file__), '..', '..', 'docs', 'meta', 'coverage-map.md'),
                   'w', encoding='utf-8') as fh:
             fh.write('\n'.join(lines) + '\n')
+
+        L, tsv, (cnt, byt, tot, totb) = work_ledger(addr2files)
+        with open(os.path.join(os.path.dirname(__file__), '..', '..', 'docs', 'meta',
+                               'work-ledger.md'), 'w', encoding='utf-8') as fh:
+            fh.write('\n'.join(L) + '\n')
+        with open(os.path.join(DATA, 'work_ledger.tsv'), 'w', encoding='utf-8') as fh:
+            fh.write('\n'.join(tsv) + '\n')
+        print('已生成 docs/meta/work-ledger.md 与 data/work_ledger.tsv'
+              '（真实现 %d / 半成品 %d / 引用档 %d / 未触及 %d）'
+              % (cnt['real'], cnt['stub'], cnt['ref'], cnt['todo']))
         print('已生成 docs/meta/coverage-map.md（%d 组 / %d 地址 / %d 处重复）'
               % (len(rows), len(alladdr), len(dup)))
         sys.exit(0)
