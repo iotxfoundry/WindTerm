@@ -19,10 +19,10 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 738 | 1.90% | 274687 | 3.58% |
+| 真实现 | 740 | 1.91% | 274735 | 3.58% |
 | 半成品 | 40 | 0.10% | 13943 | 0.18% |
 | 引用档 | 2143 | 5.53% | 798126 | 10.40% |
-| 未触及(真工作) | 20769 | 53.60% | 5570395 | 72.61% |
+| 未触及(真工作) | 20767 | 53.60% | 5570347 | 72.61% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1106 | 2.85% | 227866 | 2.97% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -423,8 +423,8 @@
 | `SendTextTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `SenderPane` | `src/Widgets/Panes/SenderPaneFace.h` | 0 | 0 |
 | `SerialBridge` | `src/Sessions/Bridges/SerialBridge.h` | 0 | 0 |
-| `SerialCommander` | `src/Sessions/Commanders/SerialCommander.h` | 0 | 0 |
-| `SerialSession` | `src/Sessions/Transports/SerialSession.h` | 0 | 0 |
+| `SerialCommander` | `src/Sessions/Commanders/ConcreteCommanders.h` | 0 | 0 |
+| `SerialSession` | `src/Sessions/Core/ConcreteSessions.h` | 0 | 0 |
 | `SessionConnector` | `src/Sessions/Core/SessionConnectorFace.h` | 0 | 0 |
 | `SessionDialog` | `src/Widgets/Dialogs/SessionDialogFace.h` | 4 | 0 |
 | `SessionGroupDialog` | `src/Widgets/Dialogs/SessionGroupDialogFace.h` | 2 | 1 |
@@ -452,9 +452,9 @@
 | `Splitter` | `src/Widgets/Splitter.h` | 1 | 0 |
 | `SplitterGroup` | `src/Widgets/Controls/SplitterGroup.h` | 8 | 0 |
 | `SshBridge` | `src/Sessions/Bridges/SshBridge.h` | 0 | 0 |
-| `SshCommander` | `src/Sessions/Commanders/SshCommander.h` | 0 | 0 |
+| `SshCommander` | `src/Sessions/Commanders/ConcreteCommanders.h` | 0 | 0 |
 | `SshExecutor` | `src/Sessions/Transports/SshExecutorFace.h` | 0 | 0 |
-| `SshSession` | `src/Sessions/Transports/SshSession.h` | 0 | 0 |
+| `SshSession` | `src/Sessions/Core/ConcreteSessions.h` | 0 | 0 |
 | `SshSocket` | `src/Sessions/Transports/SshSocketFace.h` | 1 | 0 |
 | `StatusBar` | `src/Widgets/Bars/StatusBarFace.h` | 4 | 0 |
 | `SuperApplication` | `src/App/SuperApplicationFace.h` | 7 | 0 |
@@ -474,8 +474,8 @@
 | `TableItemDialog` | `src/Widgets/Dialogs/TableItemDialogFace.h` | 1 | 0 |
 | `TargetsWidgetAction` | `src/Actions/ToolbarWidgetActions.h` | 0 | 0 |
 | `TcpBridge` | `src/Sessions/Bridges/TcpBridge.h` | 9 | 0 |
-| `TcpCommander` | `src/Sessions/Commanders/TcpCommander.h` | 0 | 0 |
-| `TcpSession` | `src/Sessions/Transports/TcpSession.h` | 0 | 0 |
+| `TcpCommander` | `src/Sessions/Commanders/ConcreteCommanders.h` | 0 | 0 |
+| `TcpSession` | `src/Sessions/Core/ConcreteSessions.h` | 0 | 0 |
 | `TelnetCommander` | `src/Sessions/Commanders/TelnetCommander.h` | 5 | 0 |
 | `TelnetProtocol` | `src/Protocols/TelnetProtocol.h` | 0 | 0 |
 | `TelnetSession` | `src/Sessions/Transports/TelnetSession.h` | 8 | 0 |

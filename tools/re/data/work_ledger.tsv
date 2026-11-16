@@ -23485,7 +23485,7 @@
 00862422	38	FUN_00862422	todo	
 00862448	38	FUN_00862448	todo	
 0086246e	16	FUN_0086246e	todo	
-0086247e	8	FUN_0086247e	ref	src/Sessions/Transports/SshExecutorFace.cpp,src/Sessions/Transports/SshExecutorFace.h
+0086247e	8	FUN_0086247e	ref	src/Sessions/Commanders/ConcreteCommanders.h,src/Sessions/Transports/SshExecutorFace.cpp,src/Sessions/Transports/SshExecutorFace.h
 00862486	74	FUN_00862486	todo	
 008624d0	110	FUN_008624d0	todo	
 0086254e	132	FUN_0086254e	todo	
@@ -26572,7 +26572,7 @@
 0091885a	24	SerialCommander_metaObject	qtplumb	
 00918872	66	SerialCommander_qt_metacast	qtplumb	
 009188b4	5	SerialCommander_qt_metacall	qtplumb	
-009188ba	29	SerialCommander_dtor	todo	
+009188ba	29	SerialCommander_dtor	real	
 009188d7	33	FUN_009188d7	todo	
 009188f8	47	SerialCommander_dtor_deleting	todo	
 00918927	51	FUN_00918927	todo	
@@ -26580,7 +26580,7 @@
 0091895c	24	SerialSession_metaObject	qtplumb	
 00918974	66	SerialSession_qt_metacast	qtplumb	
 009189b6	5	SerialSession_qt_metacall	qtplumb	
-009189bc	19	SerialSession_dtor	todo	
+009189bc	19	SerialSession_dtor	real	
 009189d0	37	SerialSession_dtor_deleting	todo	
 009189f6	1	FUN_009189f6	todo	
 009189f8	24	ShellProcess_metaObject	qtplumb	
