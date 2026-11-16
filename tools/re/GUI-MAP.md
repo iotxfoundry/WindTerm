@@ -420,3 +420,15 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - **② 菜单懒构建**(`00692a70` 1119B):向上找宿主窗(typeinfo 011a69d0)→
   `tr(动作项名)` 建 QMenu → **`aboutToShow` 时才从动作项子树填充**
   (`FUN_0076cb16`)。再次印证:菜单条目来自动作/配置树,不在 C++ 硬写。
+
+### 批 391-400 增量(② 动作 DSL 地基落地 + 若干勘正)
+- **② 三件套**(`ActionRegistryFace`):
+  | 函数 | 字节 | 结论 |
+  |---|---|---|
+  | `actionFactory_getOrCreate` | 856 | 名 trimmed → **QHash<QByteArray,QAction*> @ +0x10** → 命中复用;**未命中:仅 `qstrcmp(name,"Text.HighlightTextBar")==0` 走 HighlightTextBarAction(QWidgetAction 子类,0x20),其余 `new QAction(0x10)` + 默认文案 = 原始名**;两路 connect triggered |
+  | `FUN_0066613a` 属性应用 | 2882 | **六属性实读**:`script`→正则(0xc91698,0x7f 字节,含 GBK 中文注释)判定→`setData`;`text`/`tooltip`→`tr(串)`→setText/setToolTip;**`state`→setEnabled+setVisible 双控**;`icon`→setIcon;`kits`→`toStringList()` |
+  | `wind_actions_build` | 7702 | **语义只有两行**(遍历 map → 属性应用);余 ~1.4K 行是 QMap/QVariant/QString 逐节点 unref 的内联展开 |
+- **勘正**:表件 `+0x10` 不是 QMap 而是 **QHash**;`006926c2` 不是 QMap 查而是**按名线性扫表 memcmp**(`findMenuItemIndex`)。
+- **④/⑤ 两小件**:`mapGetOr`(`007349f0` 79B:整数键 QMap 取值带缺省;`dialog_loadWidgetValues` 的覆盖值**按控件地址**存)、`onCursorModeToggled`(`00734f1f` 291B:`setProperty("text", v)` + 标签在 `&Block`/`&Line` 间切换)、`mapGetIntOr`(`006f8cb4` 137B)。
+- **表格件首显示自适配**(`00566de6` 163B):`+0x30` 门 → 逐列测宽 `setColumnWidth` → 清标志。
+- **搜索面板**(`SearchPanelFace`,`searchpanel_apply` 1716B):**`+0x80` = 待应用标志** → `globalMatch` 逐命中 `capturedStart/End` → 装饰层 → 编辑器虚槽 `vt6`。
