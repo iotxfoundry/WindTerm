@@ -7,8 +7,8 @@ EnvironmentDialogFace::EnvironmentDialogFace(QWidget *parent)
 {
 	setWindowTitle(QStringLiteral("Environment Variable")); // tr(0xc9d50b)
 	setAttribute(Qt::WA_DeleteOnClose /*0x37*/, true);
-	build(); // @FUN_b2cd2
+	build(); // @FUN_006b2cd2
 }
 
-// FUN_b2cd2 建造 — 结构段(cited)
+// FUN_006b2cd2(592B) 建造 — 结构段(cited)
 void EnvironmentDialogFace::build() {}

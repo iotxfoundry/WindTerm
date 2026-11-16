@@ -14,5 +14,4 @@ DefaultEditorDialogFace::DefaultEditorDialogFace(QWidget *parent)
 	build(); // @FUN_00962
 }
 
-// FUN_00962 建造 — 结构段(cited)
-void DefaultEditorDialogFace::build() {}
+
