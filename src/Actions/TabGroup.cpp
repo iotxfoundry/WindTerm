@@ -1001,10 +1001,9 @@ int TabBar::shortcutForTitle(const QString &title) const
 void TabBar::showTabListMenu(const QPoint &globalPos)
 {
 	Q_UNUSED(globalPos);
-	if (m_f50.isEmpty()) { // +0x50 表空 → 空态腿
-		// FUN_0058d940()@0058e38a — cited
-		return;
-	}
+	// 语料 @0058e38a:+0x50 表首尾相等(空表)→ FUN_0058d940() 空态腿并返回。
+	//   该表宿主类未定(本类 +0x50 为 int 位面)→ cited,本面不落该门。
+	(void)globalPos;
 	// model = new AddressListModel(this)@0058e3b6 — cited(类未建模)
 	// popup = new 0x50 结构@0058e3d4 + 行/动作/弹出 — cited。
 }
