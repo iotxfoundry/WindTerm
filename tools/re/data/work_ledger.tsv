@@ -24117,7 +24117,7 @@
 00897526	36	FUN_00897526	todo	
 0089754a	2887	FUN_0089754a	todo	
 00898178	508	FUN_00898178	todo	
-00898396	804	DirScaner_vt12	qtplumb	
+00898396	804	DirScaner_vt12	real	
 008986f0	29	FUN_008986f0	todo	
 00898710	421	FUN_00898710	todo	
 00898a10	134	FUN_00898a10	todo	
@@ -26655,8 +26655,8 @@
 00919b8a	24	DirScaner_metaObject	qtplumb	
 00919ba2	66	DirScaner_qt_metacast	qtplumb	
 00919be4	5	DirScaner_qt_metacall	qtplumb	
-00919bea	126	DirScaner_h919bea	qtplumb	
-00919c70	229	DirScaner_dtor	todo	
+00919bea	126	DirScaner_h919bea	real	src/Utility/DirScanerFace.h
+00919c70	229	DirScaner_dtor	real	src/Utility/DirScanerFace.h
 00919d60	238	DirScaner_dtor_deleting	todo	
 00919e50	24	FileScaner_metaObject	qtplumb	
 00919e68	57	FUN_00919e68	todo	

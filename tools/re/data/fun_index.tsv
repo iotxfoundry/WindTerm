@@ -6720,6 +6720,8 @@
 00917f8e	src/Sessions/Transports/TelnetSession.h
 00917fd0	src/Sessions/Transports/TelnetSession.h
 0091939c	src/Windows/Mux/MuxWindow.cpp
+00919bea	src/Utility/DirScanerFace.h
+00919c70	src/Utility/DirScanerFace.h
 0091a518	src/App/StartupChain.cpp
 0091a518	src/App/StartupChain.h
 0091a518	src/Windows/Kit/KitBar.cpp
