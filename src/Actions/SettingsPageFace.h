@@ -201,7 +201,17 @@ public:
 	void resetRow(bool enable);
 
 	// 语料字段族(供后续 loadWidgets/reset 腿使用)
-	QLabel *m_label30 = nullptr;         // +0x30
+	// **字段表(批 414,由 s_king__tunnelDynamic_72c08e 3404B 建造函数逐配对实测)**:
+	//   +0x30 0x20 QGridLayout(布局) / +0x38 QCheckBox / +0x40 QCheckBox /
+	//   +0x48 QComboBox / +0x50 QLineEdit / +0x58 QComboBox / +0x60 QLineEdit /
+	//   +0x68 QSpinBox / +0x70 QSpinBox / +0x78 QDialogButtonBox(0x30)/
+	//   +0x88 QLabel(0x30) / +0x90 QLabel(0x30) / +0x98 0xa0(忙碌遮挡)/
+	//   +0xa8 0x48 / +0xb0 0x48(两个 0x48 列表件)。
+	//   ⚠ 待定:`+0x30` 在 resetRow 里按"可 clear 的件"使用,与本表单的
+	//     QGridLayout 冲突 —— 二者未同时取证,保持现状 + 记待定,不擅改。
+	QLabel *m_label30 = nullptr;         // +0x30(待定,见上)
+	QLabel *m_label88 = nullptr;         // +0x88(0x30)
+	QLabel *m_label90 = nullptr;         // +0x90(0x30)
 	QAbstractButton *m_check38 = nullptr; // +0x38
 	QAbstractButton *m_check40 = nullptr; // +0x40
 	QComboBox *m_combo48 = nullptr;      // +0x48
