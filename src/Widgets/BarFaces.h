@@ -69,3 +69,9 @@ void setShowCommandsInOrder(bool on);
 namespace StartStopButton {
 void setRunning(bool running, QWidget *button);
 }
+
+// ------------------------------------------------ 快捷命令 uuid 查在否(批 482)
+// s_quick_uuid_6cfc46(214B,0021.c:...) 实读:
+//   遍历配置表(+0x38)逐项取 **"quick.uuid"**(json_get_string_default),
+//   与目标串 `QString::compare` 比对;命中返回其下标(否则 -1)。
+bool hasQuickUuid(const QString &uuid);

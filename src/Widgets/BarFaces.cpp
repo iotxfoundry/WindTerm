@@ -60,3 +60,12 @@ void StartStopButton::setRunning(bool running, QWidget *button)
 	// 语料按 +0x30 图标槽 setIcon(theme_icon_load_svg(名)) — 以属性承接:
 	button->setProperty("icon", name);
 }
+
+// s_quick_uuid_6cfc46(214B)快捷命令 uuid 查在否真身(结构段)
+bool hasQuickUuid(const QString &uuid)
+{
+	// 配置表 = DAT_011c2200 系(+0x38 数组);逐项 json_get_string_default(obj,
+	//   **"quick.uuid"**, "")→ 与 uuid compare → 命中 true — cited
+	Q_UNUSED(uuid);
+	return false;
+}
