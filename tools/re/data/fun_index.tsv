@@ -6584,6 +6584,7 @@
 008ef942	src/Widgets/Settings/TriggerPageFace.h
 008f0ffa	src/Widgets/Settings/TriggerPageFace.cpp
 008f0ffa	src/Widgets/Settings/TriggerPageFace.h
+008f6608	src/Widgets/Bars/TabBarFace.h
 008f6608	src/Widgets/Controls/TabGroup.cpp
 008f6af8	src/Windows/Kit/KitWindowAssemblyFace.cpp
 008f6c66	src/Widgets/Controls/SplitterGroup.h

@@ -14706,7 +14706,7 @@
 005a84f6	163	FUN_005a84f6	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005a859a	605	s_TextLabel_5a859a	ref	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 005a8818	631	FUN_005a8818	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h,src/Windows/Mux/MuxPaneGroup.cpp
-005a8aa0	141	TabBar_vt5	qtplumb	
+005a8aa0	141	TabBar_vt5	real	
 005a8b2e	1419	item_delegate_paint	todo	
 005a90fa	1158	tabbar_paintEvent	todo	
 005a95b0	110	FUN_005a95b0	todo	
@@ -25526,13 +25526,13 @@
 008f659e	66	CommandPalette_qt_metacast	qtplumb	
 008f65e0	5	CommandPalette_qt_metacall	qtplumb	
 008f65f0	24	TabBar_metaObject	qtplumb	
-008f6608	16	FUN_008f6608	ref	src/Widgets/Controls/TabGroup.cpp
-008f6618	153	TabBar_h8f6618	qtplumb	
+008f6608	16	FUN_008f6608	ref	src/Widgets/Bars/TabBarFace.h,src/Widgets/Controls/TabGroup.cpp
+008f6618	153	TabBar_h8f6618	real	
 008f66b2	66	TabBar_qt_metacast	qtplumb	
 008f66f4	166	TabBar_qt_metacall	qtplumb	
 008f67a0	92	TabBar_h8f67a0	qtplumb	
 008f67fc	256	TabBar_h8f67fc	qtplumb	
-008f68fc	113	TabBar_dtor	todo	
+008f68fc	113	TabBar_dtor	stub	
 008f696d	115	FUN_008f696d	todo	
 008f69e0	133	FUN_008f69e0	todo	
 008f6a66	119	TabBar_dtor_deleting	todo	
