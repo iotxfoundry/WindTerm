@@ -96,6 +96,12 @@ public:
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。
     void removeTabNodes(int index);
+    // 0058e38a(1942B,0018:...)TabBar 列表/右键菜单:
+    //   +0x50 表空 → FUN_0058d940(空态腿);
+    //   model = new AddressListModel(FUN_0062cd9a 55B:QAbstractListModel 子类,
+    //     +0x10=0 / +0x18 低 3 位清 / +0x1c=1 / +0x20 空 BA);
+    //   popup = new 0x50 列表弹窗结构 → 填行/动作 → 弹出(余段 cited)。
+    void showTabListMenu(const QPoint &globalPos);
     // tabbar_assignMnemonics(756B,0018.c:22061)助记符指派:
     //   逐页 text = tabTextAt(i)(005a6fbe,含助记符腿);s_FirstNine_5a6b5a
     //   命中 → 前缀 "%1."(i+1);标题变化 → releaseShortcut +

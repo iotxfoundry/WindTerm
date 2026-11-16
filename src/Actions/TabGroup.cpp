@@ -991,3 +991,20 @@ int TabBar::shortcutForTitle(const QString &title) const
 {
 	return m_titleShortcuts.value(title, 0); // QHash 查等价
 }
+
+// 0058e38a(1942B)TabBar 列表菜单真身(结构段):
+//   @0058e38a if (+0x50 表首尾相等) → FUN_0058d940()(空态腿)并返回;
+//   @0058e3b6 model = operator_new(0x28)+FUN_0062cd9a(self)
+//     (AddressListModel:QAbstractListModel 子类,+0x1c=1,+0x20 空 BA);
+//   @0058e3d4 popup = operator_new(0x50)(列表弹窗结构,字段清零);
+//   余段:行填充(tab 项)+ 动作接线 + 弹出 — cited(1942B 未逐句转写)。
+void TabBar::showTabListMenu(const QPoint &globalPos)
+{
+	Q_UNUSED(globalPos);
+	if (m_f50.isEmpty()) { // +0x50 表空 → 空态腿
+		// FUN_0058d940()@0058e38a — cited
+		return;
+	}
+	// model = new AddressListModel(this)@0058e3b6 — cited(类未建模)
+	// popup = new 0x50 结构@0058e3d4 + 行/动作/弹出 — cited。
+}
