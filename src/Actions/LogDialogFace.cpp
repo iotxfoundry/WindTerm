@@ -7,8 +7,12 @@ LogDialogFace::LogDialogFace(QWidget *parent)
 {
 	setWindowTitle(QStringLiteral("Log Dialog")); // tr(0xc9d724)
 	setAttribute(Qt::WA_DeleteOnClose /*0x37*/, true);
-	build(); // @FUN_006b73a2
+	wire();  // @FUN_006b73a2(700B)
 }
 
-// FUN_006b73a2 建造 — 结构段(cited)
-void LogDialogFace::build() {}
+// FUN_006b73a2(700B)接线真身(结构段)
+void LogDialogFace::wire()
+{
+	// +0x40 / +0x48 / +0x70 三路 connect;闭包 FUN_006b6d12 / FUN_006b90f0 /
+	//   FUN_006b2420 — cited
+}

@@ -15,6 +15,12 @@ class LogDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit LogDialogFace(QWidget *parent = nullptr);
+
+protected:
+	QWidget *m_f30 = nullptr; // +0x30(ctor 入参写入)
+	QWidget *m_f40 = nullptr; // +0x40
+	QWidget *m_f48 = nullptr; // +0x48
+	QWidget *m_f70 = nullptr; // +0x70
 	void build();    // FUN_006b73a2 — 结构段(cited)
 };
 

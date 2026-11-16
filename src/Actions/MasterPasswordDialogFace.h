@@ -13,6 +13,12 @@ class MasterPasswordDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit MasterPasswordDialogFace(QWidget *parent = nullptr);
+
+protected:
+	QWidget *m_f48 = nullptr; // +0x48
+	QWidget *m_f50 = nullptr; // +0x50
+	QWidget *m_f58 = nullptr; // +0x58
+	QWidget *m_f60 = nullptr; // +0x60
 	void build();    // FUN_006b9346 — 结构段(cited)
 };
 
