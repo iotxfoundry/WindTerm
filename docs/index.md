@@ -20,6 +20,7 @@
 | [`pending-attribution.md`](pending-attribution.md) | **收尾期工作单**:归属迁移 6 项 + 17 例名不副实 + 待定 6 条 |
 | [`ext-boundary.md`](ext-boundary.md) | 外部库边界(不逆向清单 + 版本锚) |
 | [`cleanup.md`](cleanup.md) | 清理台账(删了什么 / 保留什么 / 判据) |
+| [`../src/README.md`](../src/README.md) | **src/ 三类归属**:逆向重建(A)/ 第一方开源(B)/ 第三方库(C)+ 版本表 + 改动规则 |
 
 ## 2. 界面重建
 
