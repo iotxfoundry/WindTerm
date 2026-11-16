@@ -18,7 +18,16 @@ class SettingDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit SettingDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_006dd310 — 结构段(cited)
-	void build2();   // FUN_006ea37a — 结构段(cited)
+	// 两腿分工(批 471):
+	//   FUN_006dd310(**56B**)=短腿:仅动 **+0x50**(单字段,疑为页签/栈切换)。
+	//   FUN_006ea37a(683B)=**装配**:QVBoxLayout + QHBoxLayout + QLabel +
+	//     **QStackedWidget** + QDialogButtonBox;文案实读 **"Close"** 与
+	//     **"Requires a restart to take affect"**(原版拼写 affect,非 effect)。
+	void build();    // FUN_006ea37a(683B)
+	void shortLeg(); // FUN_006dd310(56B)
+
+protected:
+	QWidget *m_f48 = nullptr; QWidget *m_f50 = nullptr;
+	QWidget *m_f58 = nullptr; QWidget *m_f60 = nullptr;
 };
 
