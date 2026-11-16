@@ -261,9 +261,10 @@ void TriggerDialogFace::onTriggerIndexChanged(const QModelIndex &current)
 		; // FUN_006f36be(this, ?)(1608B 提交腿)— cited
 	if (rec->kind24 != 0) {                // +0x24
 		setPageEnabled(true);              // @FUN_006f272a(this,1)
-		// panes_stackInit(this, rec->kind24, rec->f20, &rec->f28) — 见 TriggerPageStackFace::showPage
+		// panes_stackInit(this, rec->kind24, rec->f20, &rec->f28)
+		//   — 见 TriggerPageStackFace::showPage(修复 405:调用序按语料)
+		rebuildActionModel(rec);           // @FUN_006f5b42(this, rec)
 		setNextMode(false);                // @FUN_006f2384(this,0)
-		// FUN_006f5b42(this, rec)(1264B,记录装载进页)— cited
 	} else {
 		setPageEnabled(false);             // @FUN_006f272a(this,0)
 		setNextMode(false);
@@ -321,7 +322,7 @@ void TriggerDialogFace::reloadList()
 		QVariant none;                                 // local_38 空 QVariant
 		// panes_stackInit(this, 8 /*HighlightText*/, 1, &none)@006f6253
 		// — 见 TriggerPageStackFace::showPage
-		// FUN_006f5b42(this, &m_default98)@006f62xx(1264B 缺省记录装载) — cited
+		rebuildActionModel(&m_default98);              // @006f62xx(FUN_006f5b42 缺省记录)
 	} else {
 		setPageEnabled(true);                          // @FUN_006f272a(this,1)
 		m_triggerList68->setFocus(Qt::OtherFocusReason); // @006f622x(setFocus 3)
