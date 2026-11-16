@@ -13967,31 +13967,31 @@
 0055f998	34	FUN_0055f998	todo	
 0055f9c0	108	FUN_0055f9c0	todo	
 0055fa30	29	FUN_0055fa30	todo	
-0055fa50	5	FUN_0055fa50	todo	
+0055fa50	5	FUN_0055fa50	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0055fa55	50	FUN_0055fa55	todo	
 0055fa87	66	FUN_0055fa87	todo	
 0055fac9	66	FUN_0055fac9	todo	
-0055fb0b	192	FUN_0055fb0b	todo	
-0055fbd3	753	FUN_0055fbd3	todo	
-0055ff05	387	FUN_0055ff05	todo	
-005600a0	883	lockscreen_connectSignals	todo	
-00560414	1004	s_TitleLabel_560414	todo	
-00560888	243	s_LockScreen_560888	todo	
-0056098e	381	FUN_0056098e	todo	
+0055fb0b	192	FUN_0055fb0b	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+0055fbd3	753	FUN_0055fbd3	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+0055ff05	387	FUN_0055ff05	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+005600a0	883	lockscreen_connectSignals	ref	src/Widgets/Views/LockScreenFace.h
+00560414	1004	s_TitleLabel_560414	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+00560888	243	s_LockScreen_560888	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+0056098e	381	FUN_0056098e	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00560b20	700	FUN_00560b20	todo	
 00560dec	220	FUN_00560dec	todo	
 00560ed8	776	FUN_00560ed8	todo	
 0056121e	430	FUN_0056121e	cleanup	
 005613ee	156	FUN_005613ee	todo	
-00561492	46	FUN_00561492	todo	
-005614c0	858	FUN_005614c0	todo	
+00561492	46	FUN_00561492	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+005614c0	858	FUN_005614c0	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561852	299	FUN_00561852	todo	
-00561990	102	FUN_00561990	todo	
-00561a00	108	FUN_00561a00	ref	src/Widgets/Dialogs/MasterPasswordDialogFace.cpp
+00561990	102	FUN_00561990	ref	src/Widgets/Views/LockScreenFace.cpp
+00561a00	108	FUN_00561a00	ref	src/Widgets/Dialogs/MasterPasswordDialogFace.cpp,src/Widgets/Views/LockScreenFace.cpp
 00561a70	104	FUN_00561a70	todo	
 00561af0	430	FUN_00561af0	todo	
-00561c9e	129	FUN_00561c9e	todo	
-00561d28	226	FUN_00561d28	todo	
+00561c9e	129	FUN_00561c9e	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+00561d28	226	FUN_00561d28	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561e30	424	FUN_00561e30	todo	
 0056200c	840	FUN_0056200c	todo	
 0056237e	501	FUN_0056237e	todo	
@@ -14029,7 +14029,7 @@
 005644f0	277	FUN_005644f0	todo	
 00564616	88	FUN_00564616	todo	
 00564676	56	FUN_00564676	todo	
-005646ae	148	FUN_005646ae	todo	
+005646ae	148	FUN_005646ae	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00564750	461	FUN_00564750	todo	
 00564936	336	FUN_00564936	todo	
 00564a86	927	action_createShortcut	todo	
@@ -25616,8 +25616,8 @@
 008f774c	66	ListWidget_qt_metacast	qtplumb	
 008f778e	87	ListWidget_qt_metacall	qtplumb	
 008f77f0	24	LockScreen_metaObject	qtplumb	
-008f7808	19	FUN_008f7808	todo	
-008f781c	39	FUN_008f781c	todo	
+008f7808	19	FUN_008f7808	ref	src/Widgets/Views/LockScreenFace.cpp
+008f781c	39	FUN_008f781c	ref	src/Widgets/Views/LockScreenFace.cpp
 008f7844	95	LockScreen_h8f7844	qtplumb	
 008f78a4	66	LockScreen_qt_metacast	qtplumb	
 008f78e6	93	LockScreen_qt_metacall	qtplumb	
