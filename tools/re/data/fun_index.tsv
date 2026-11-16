@@ -395,6 +395,7 @@
 0057eba8	src/Widgets/Controls/SearchEditFace.cpp
 005830f4	src/Widgets/Controls/CompleterFace.cpp
 00583126	src/Widgets/Controls/CompleterFace.cpp
+00583bac	src/Widgets/Controls/CompleteListFace.h
 00583bac	src/Widgets/Controls/CompleterFace.cpp
 00583bac	src/Widgets/Controls/CompleterFace.h
 00584bd8	src/Editor/Engine/EditorEngine.cpp
@@ -7041,7 +7042,10 @@
 009502de	src/Editor/Engine/EditorContext.h
 009502de	src/Editor/Engine/EditorEngine.cpp
 00952088	src/Editor/Engine/EditorEngine.cpp
+00955042	src/Widgets/Controls/CompleteListFace.h
 00955368	src/Editor/Engine/EditorEngine.cpp
+00955856	src/Widgets/Controls/CompleteModelFace.h
+00955d70	src/Widgets/Controls/CompleteModelFace.h
 00957892	src/Editor/Engine/EditorEngine.cpp
 00957fb6	src/Editor/Engine/ModTrack.h
 00958048	src/Editor/Engine/ModTrack.h

@@ -14357,7 +14357,7 @@
 00583ace	157	ListView_vt14	qtplumb	
 00583b6c	30	FUN_00583b6c	todo	
 00583b8a	34	FUN_00583b8a	todo	
-00583bac	703	FUN_00583bac	ref	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
+00583bac	703	FUN_00583bac	ref	src/Widgets/Controls/CompleteListFace.h,src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
 00583e8e	1029	listFilter_applyRegExp	todo	
 005842bd	179	FUN_005842bd	todo	
 00584370	41	FUN_00584370	todo	
@@ -27910,7 +27910,7 @@
 00954ad6	1008	runs_readStyle64At	todo	
 00954ee0	53	FUN_00954ee0	todo	
 00954f16	292	FUN_00954f16	todo	
-00955042	29	CompleteList_dtor	todo	
+00955042	29	CompleteList_dtor	real	src/Widgets/Controls/CompleteListFace.h
 0095505f	6	FUN_0095505f	todo	
 00955066	23	CompleteList_dtor_deleting	todo	
 0095507d	6	FUN_0095507d	todo	
@@ -27934,9 +27934,9 @@
 009555e8	356	FUN_009555e8	cleanup	
 0095574c	130	FUN_0095574c	todo	
 009557e0	101	FUN_009557e0	todo	
-00955856	1282	CompleteModel_dtor	todo	
+00955856	1282	CompleteModel_dtor	real	src/Widgets/Controls/CompleteModelFace.h
 00955d58	23	CompleteModel_dtor_deleting	todo	
-00955d70	85	CompleteModel_vt15	qtplumb	
+00955d70	85	CompleteModel_vt15	ref	src/Widgets/Controls/CompleteModelFace.h
 00955dc6	704	s_king__snippet_955dc6	todo	
 009560a6	339	FUN_009560a6	todo	
 0095620a	301	FUN_0095620a	todo	
