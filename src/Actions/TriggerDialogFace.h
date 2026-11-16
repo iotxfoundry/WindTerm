@@ -149,6 +149,23 @@ public:
 	//       FUN_006f7184(item, matched ? 2 : 0)(item 标志位);appendRow;
 	//   尾:view_connectModelReset(+0x58, model, 1);FUN_005d688e(+0x58)。
 	void rebuildSessionScopeModel(struct TriggerRecord *rec);
+
+	// FUN_006f263e(199B,0022.c:19746)记录 → 列表项:
+	//   icon = FUN_006994ca()(缺省图标);
+	//   item = new QListWidgetItem(0x30, icon, rec->+0x08 /*名*/, 0, 0);
+	//   rec->+0x20 == 0 → FUN_006f2460(this, item, 0)(425B 项外观/态,cited);
+	//   item->setData(0x100 /*UserRole*/, rec->+0x10 /*键*/)—— 与
+	//   rowIndexByName 用 +0x10 比较互证。
+	class QListWidgetItem *makeItemForRecord(const struct TriggerRecord &rec);
+
+	// FUN_006f34dd(259B,0022.c:20259)NameDialog 编辑完成闭包:
+	//   which==0 → 释放闭包(0x38);which==1 且 args[1](finished 结果)==1
+	//   (Accepted)→ 取对话框输入文本(FUN_006bd94e 18B = QLineEdit::text);
+	//   idx = FUN_006f27d4(this, 行);idx != -1 →
+	//     rec->+0x08 = 输入名;rec->+0x18 = 描述;
+	//   捕获项(+0x30)->setData(0, 输入名)。
+	void applyEditedName(class QListWidgetItem *item, int row, const QString &name,
+	                     const QString &desc, int result);
 	void wire();       // dialog_connectAcceptReject2(006f2852,916B)
 
 	QTabBar *tabBar30() const { return m_tabBar30; }

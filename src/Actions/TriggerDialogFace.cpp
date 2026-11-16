@@ -383,3 +383,30 @@ void TriggerDialogFace::rebuildSessionScopeModel(TriggerRecord *rec)
 		// FUN_005d688e(+0x58)@006f5axx — cited
 	}
 }
+
+// FUN_006f263e(199B,0022.c:19746)记录 → 列表项真身
+QListWidgetItem *TriggerDialogFace::makeItemForRecord(const TriggerRecord &rec)
+{
+	const QIcon icon = style()->standardIcon(QStyle::SP_FileIcon); // FUN_006994ca 缺省图标(cited 承接)
+	auto *item = new QListWidgetItem(icon, rec.name08);            // @006f2670(0x30)
+	if (rec.f20 == 0)                                              // +0x20 == 0
+		; // FUN_006f2460(this, item, 0)(425B 项态腿)— cited
+	item->setData(Qt::UserRole, rec.key10);                        // @006f26c3(0x100)
+	return item;
+}
+
+// FUN_006f34dd(259B,0022.c:20259)编辑完成闭包真身
+void TriggerDialogFace::applyEditedName(QListWidgetItem *item, int row, const QString &name,
+                                        const QString &desc, int result)
+{
+	if (result != 1)                     // 仅 Accepted(args[1] == 1)才落库
+		return;
+	const int idx = currentRecordIndex(row); // FUN_006f27d4(this, 行)
+	if (idx >= 0 && idx < m_records90.size()) {
+		TriggerRecord &rec = m_records90[idx];   // +0x90 第 idx 项
+		rec.name08 = name;                       // +0x08 = 输入名
+		rec.desc18 = desc;                       // +0x18 = 描述
+	}
+	if (item)
+		item->setData(Qt::DisplayRole, name);    // 捕获项 setData(0, 名)
+}
