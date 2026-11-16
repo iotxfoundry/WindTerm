@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QMenu>
 #include <QVBoxLayout>
 #include <QStackedLayout>
 #include <QTabBar>
@@ -520,4 +521,17 @@ void TriggerPageFace::wireEditorDependents(QWidget *panel)
 	// connect(this, 信号 FUN_008ef838 → this,闭包 impl FUN_006f6c9e,
 	//   smeta 01193440)@006f18bx — cited
 	// FUN_006f7770(&this, panel->+0x50)(绑定文本目标)@006f18dx — cited
+}
+
+// FUN_006f7830(394B)CustomMenu 页"新增"菜单真身
+QMenu *CustomMenuTriggerPageFace::makeAddMenu()
+{
+	auto *menu = new QMenu(this);                        // @006f7854(0x30)
+	QAction *addAction = menu->addAction(QStringLiteral("Add &Action"));     // tr(0xc9fcec)
+	QAction *addSep = menu->addAction(QStringLiteral("Add &Separator"));     // tr(0xc9fcf8)
+	// connect(addAction, triggered → 闭包 impl FUN_006ff6a9)@006f78xx — cited
+	// connect(addSep,    triggered → 闭包 impl FUN_006fb146)@006f79xx — cited
+	Q_UNUSED(addAction);
+	Q_UNUSED(addSep);
+	return menu;
 }

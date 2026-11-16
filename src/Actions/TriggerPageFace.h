@@ -261,6 +261,14 @@ class CustomMenuTriggerPageFace : public TriggerPageFace {
 public:
 	explicit CustomMenuTriggerPageFace(QWidget *parent = nullptr);
 	void assembleCustomMenuPage(); // FUN_00703fb0
+	// FUN_006f7830(394B,0022.c:23219)CustomMenu 页的"新增"菜单:
+	//   menu = new QMenu(0x30, this);
+	//   a1 = addAction(tr("Add &Action")(0xc9fcec))
+	//     → connect(triggered → 闭包 FUN_006ff6a9);
+	//   a2 = addAction(tr("Add &Separator")(0xc9fcf8))
+	//     → connect(triggered → 闭包 FUN_006fb146);
+	//   返回 menu(供"+"钮弹出)。
+	class QMenu *makeAddMenu();
 
 protected:
 	QWidget *m_edit38 = nullptr;  // +0x38(0x68 文本域)
