@@ -5,6 +5,7 @@
 #include <QBoxLayout>
 #include <QCoreApplication>
 #include <QKeyEvent>
+#include <QMessageBox>
 #include <QStyle>
 #include <QTimer>
 
@@ -121,6 +122,17 @@ void LockScreenFace::onLockClicked()
 	setState(2); // 005613ee
 }
 
+// s_application_masterPassword_81306a(cfg, old, new)— cited:
+//   改主密码(配置面写入 + 校验)。签名按调用点实读。
+static bool changeMasterPassword(CTerminalConfig *cfg, const QString &oldPassword,
+                                 const QString &newPassword)
+{
+	Q_UNUSED(cfg);
+	Q_UNUSED(oldPassword);
+	Q_UNUSED(newPassword);
+	return false;
+}
+
 // FUN_00560dec(220B)「已锁」页布局真身:
 //   new QVBoxLayout;singleShot(0, this, functor 0055fa55)(延迟聚焦腿)
 //   三钮成组(00561a70(+0x58,+0x50,+0x48))→ 装配(00560b20,700B)→ 组收尾(00534d80)
@@ -228,8 +240,44 @@ void LockScreenFace::setState(int mode)
 	}
 }
 
-// FUN_005614c0(858B)— cited:改主密码钮槽体(建改密码对话框)。
-void LockScreenFace::onChangeClicked() {}
+// FUN_005614c0(858B)改主密码钮槽真身。逐句:
+//   +0x88 == 0 → setState(1)(进改密码页)并返回;
+//   +0x88 != 1 → 返回;
+//   +0x68 text() != +0x70 text()(新 ≠ 确认)→ 信号 A 发
+//     tr("The password confirmation does not match."@0xc8a170)
+//   否则:+0x40 hide();调 s_application_masterPassword_81306a(cfg, 旧, 新):
+//     失败 → 信号 A 发 tr("Change the master password failed."@0xc8a148)
+//     成功 → QMessageBox::information(this, tr("Password"@0xc9d743),
+//              tr("The master password has been changed."@0xc8a120), 0x400, 0)
+//            → onCancelClicked()
+//   (信号 A 原版经发射器 0x008f781c;B 自连的等价处理同 onPasswordReturned)
+void LockScreenFace::onChangeClicked()
+{
+	if (m_mode88 == 0) {
+		setState(1); // 进改密码页
+		return;
+	}
+	if (m_mode88 != 1)
+		return;
+
+	if (m_f68 != nullptr && m_f70 != nullptr && m_f68->text() != m_f70->text()) {
+		onSignalA(tr("The password confirmation does not match.")); // 0xc8a170
+		return;
+	}
+
+	if (m_title40 != nullptr)
+		m_title40->hide(); // QWidget::hide
+	if (!changeMasterPassword(CTerminalConfig::instance(),
+	                          m_f60 ? m_f60->text() : QString(),
+	                          m_f68 ? m_f68->text() : QString())) { // 81306a
+		onSignalA(tr("Change the master password failed.")); // 0xc8a148
+		return;
+	}
+	QMessageBox::information(this, tr("Password"), // 0xc9d743
+	                         tr("The master password has been changed."), // 0xc8a120
+	                         QMessageBox::Ok, 0); // 0x400
+	onCancelClicked();
+}
 
 // FUN_0055fa50(5B)真身:空体(语料仅 `return;`)。
 void LockScreenFace::onCancelClicked() {}

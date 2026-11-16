@@ -13984,7 +13984,7 @@
 0056121e	430	FUN_0056121e	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 005613ee	156	FUN_005613ee	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561492	46	FUN_00561492	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
-005614c0	858	FUN_005614c0	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+005614c0	858	FUN_005614c0	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561852	299	FUN_00561852	todo	
 00561990	102	FUN_00561990	ref	src/Widgets/Views/LockScreenFace.cpp
 00561a00	108	FUN_00561a00	ref	src/Widgets/Dialogs/MasterPasswordDialogFace.cpp,src/Widgets/Views/LockScreenFace.cpp
@@ -22257,7 +22257,7 @@
 0081214e	2039	CTerminalConfig_parse	todo	
 008129e6	419	CTerminalConfig_h8129e6	qtplumb	
 00812bd2	1151	FUN_00812bd2	todo	
-0081306a	1546	s_application_masterPassword_81306a	todo	
+0081306a	1546	s_application_masterPassword_81306a	ref	src/Widgets/Views/LockScreenFace.cpp
 0081371e	6208	s_session_proxyJumpServer1_81371e	todo	
 00815268	489	FUN_00815268	todo	
 0081549e	5	CTerminalConfig_vt5	qtplumb	

@@ -4752,6 +4752,7 @@
 008113b4	src/Sessions/Core/WorkspaceLoader.cpp
 008113c3	src/Sessions/Core/WorkspaceLoader.cpp
 008113fa	src/Sessions/Core/WorkspaceLoader.cpp
+0081306a	src/Widgets/Views/LockScreenFace.cpp
 0081a2f6	src/App/StateStore.cpp
 0081a2f6	src/Windows/Kit/KitWindowFace.h
 0083b240	src/Windows/Mux/MuxPaneView.h
