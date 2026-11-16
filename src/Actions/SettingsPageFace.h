@@ -144,6 +144,15 @@ public:
 	//   (FUN_0073b658);否则 convert;失败 → 空 QMap。
 	static QMap<quintptr, QVariant> toPtrVariantMap(QVariant v);
 
+	// FUN_00734f1f(291B,0022.c:60277)光标/选区模式开关的槽:
+	//   v = args[1](bool);
+	//   w = currentPaneWidget(this->+0x10);非空 →
+	//     FUN_005bce74(w, !v)(启停面,cited)+ **w->setProperty("text", v)**
+	//     (属性名 0xc9cf4f 实读);
+	//   label = this->+0x70 → **setText(tr(v ? "&Block"(0xca1bf3)
+	//     : "&Line"(0xca03cf)))** —— 一个开关切换两种光标形态文案。
+	void onCursorModeToggled(bool block);
+
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
 	//     (字符串形 "2accepted()"/"1accept()");

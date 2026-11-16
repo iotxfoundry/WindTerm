@@ -7,7 +7,6 @@
 #include <QPlainTextEdit>
 #include <QLineEdit>
 #include <QListWidget>
-#include <QLabel>
 #include <QSpinBox>
 #include <QListWidgetItem>
 #include <QComboBox>
@@ -467,4 +466,19 @@ QMap<quintptr, QVariant> SettingsPageFace::toPtrVariantMap(QVariant v)
 	if (!v.convert(QMetaType(ut)))               // 失败 → 空
 		return QMap<quintptr, QVariant>();
 	return QMap<quintptr, QVariant>();
+}
+
+// FUN_00734f1f(291B)光标/选区模式开关槽真身
+void SettingsPageFace::onCursorModeToggled(bool block)
+{
+	QWidget *w = currentPaneWidget(this);                 // FUN_00734eea(this+0x10)
+	if (w != nullptr) {
+		w->setEnabled(!block);                            // @FUN_005bce74(w, !v)(承接)
+		w->setProperty("text", block);                    // @setProperty(0xc9cf4f)
+	}
+	// label = this->+0x70(QString*)→ setText:
+	//   block ? tr("&Block")(0xca1bf3) : tr("&Line")(0xca03cf)
+	QLabel *label = findChild<QLabel *>(QString(), Qt::FindChildrenRecursively); // 承接面
+	if (label != nullptr)
+		label->setText(block ? QStringLiteral("&Block") : QStringLiteral("&Line"));
 }
