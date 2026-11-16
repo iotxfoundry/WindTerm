@@ -1,8 +1,11 @@
-// EnvironmentDialogFace.cpp — EnvironmentDialog(批 429)
+// EnvironmentDialogFace.cpp — EnvironmentDialog(批 429;批 313 装配体已并入)
 #include "EnvironmentDialogFace.h"
 
 #include <QComboBox>
 #include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QPlainTextEdit>
+#include <QProcessEnvironment>
 
 // FUN_006b35a6(175B,0021:43065)ctor 真身
 EnvironmentDialogFace::EnvironmentDialogFace(QWidget *parent)
@@ -10,12 +13,25 @@ EnvironmentDialogFace::EnvironmentDialogFace(QWidget *parent)
 {
 	setWindowTitle(QStringLiteral("Environment Variable")); // tr(0xc9d50b)
 	setAttribute(Qt::WA_DeleteOnClose /*0x37*/, true);
-	build(); // (装配)/
+	build(); // envDialog_setupUi(0x006b3100)
 	wire();  // @FUN_006b2cd2(592B)
 }
 
-// 装配 — 结构段(cited;语料建造体未逐句转写)
-void EnvironmentDialogFace::build() {}
+// envDialog_setupUi(1109B,0021.c:42909 入口 0x006b3100)装配真身(批 313 转写)
+void EnvironmentDialogFace::build()
+{
+	m_edit48 = new QPlainTextEdit(this);      // @006b3124(0x30, +0x48)
+	m_combo40 = new QComboBox(this);          // @006b3140(combo_makeSearchCombo 壳, +0x40)
+	m_buttons30 = new QDialogButtonBox(this); // @006b315c(0x30, +0x30)
+	auto *form = new QFormLayout();           // @006b3179(0x20)
+	Q_UNUSED(form);                           // 行装配腿 cited(后续体未转写)
+	// FUN_0075d6e8(app, this)@006b31xx — cited(对话框公共腿)
+	// setMinimumWidth/Height(实参折叠)— cited
+	m_edit48->setWordWrapMode(QTextOption::WrapAnywhere); // 3 @006b32xx
+	const QStringList keys = QProcessEnvironment::systemEnvironment().keys(); // @006b3203
+	// keys 逐项入组合框(+ 后续过滤/排序腿)— cited(体未转写)
+	Q_UNUSED(keys);
+}
 
 // FUN_006b2cd2(592B)接线真身
 void EnvironmentDialogFace::wire()

@@ -3,6 +3,7 @@
 #include <QAbstractNativeEventFilter>
 #include <QByteArray>
 #include <QString>
+#include <QVariant>
 #include <QWidget>
 
 #include "Editor/CGlobalConfigFace.h"
@@ -28,6 +29,16 @@ public:
 		setObjectName(QStringLiteral("EditorWindow")); // @005e970d-26
 	}
 	CGlobalConfigFace *menu() override; // FUN_005e97d2(39B)— cpp 侧
+
+	// --- 槽体半边(原 src/Widgets/EditorWindow.h,2026-11-16 并入本类)---
+	// metacall 0x8fc36e,8 slots;一处信号发射体 + Qt QList 拷贝基建
+	// (0x533df0)+ 下列 4 个实体(0x5e9-0x5eb)。槽体未逐句转写 → cited。
+public slots:
+	void openSessionQuery() { /* FUN_005eb4fc(1.4K)— cited */ }
+	void tripleOp(const QVariant &a, const QVariant &b, const QVariant &c)
+	{ Q_UNUSED(a); Q_UNUSED(b); Q_UNUSED(c); /* FUN_005ea368(1.8K,3 槽共用)— cited */ }
+	void nodeCallbackWalk() { /* FUN_005eb64e(4.8K)— cited */ }
+	void globalRegister() { /* FUN_005e97ba:FUN_005df958(this, DAT_011c12e0)— cited */ }
 };
 
 // TerminalWindowFace — s_TerminalWindow_859902(296B,0026.c:50716):
@@ -51,6 +62,20 @@ public:
 		Q_UNUSED(eventType); Q_UNUSED(message); Q_UNUSED(result);
 		return false; // cited — 副基槽体 011a7f48 未转写(ctor 不注册,零消费面)
 	}
+
+	// --- 槽体半边(原 src/Widgets/TerminalWindow.h,2026-11-16 并入本类)---
+	// metacall 0x911868,18 slots @0x858b-0x859a;tab/容器操作用
+	// dynamic_cast(0x11a8310),全局管理器 0x11c2200/0x11c1a60/0x11c1b00。
+	// 槽体未逐句转写 → cited(空体,不引未定义符号)。
+public slots:
+	void setSplit(bool on) { Q_UNUSED(on); /* FUN_00858b18/0x858be8 分裂/合并对 — cited */ }
+	void openSettingsFlow() { /* FUN_00858cbc(cases 7-8)— cited */ }
+	void arrangeWindows() { /* FUN_00859a42(cases 9-10,2.6K)— cited */ }
+	void toggleTheme() { /* FUN_00858e86(cases 11-13,全局 FUN_008cbc36)— cited */ }
+	void openDialog() { /* FUN_00858efa(0x70 字节对话框 FUN_0072abce)— cited */ }
+	void queryGlobal() { /* FUN_00858f32(global 0x11c1a60)— cited */ }
+	void notifyGlobal2() { /* FUN_00858f9e(global 0x11c1b00)— cited */ }
+	void globalOp() { /* FUN_00858fb0(0x11c2200 via FUN_008086d0)— cited */ }
 };
 
 // FUN_0089d752(246B,0027.c:55302)= KitWindow 子类唯一工厂

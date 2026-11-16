@@ -26,42 +26,38 @@ tools/re/vtable_scan.py WindTerm --addr 0x6b35a6    # 查某个 ctor 写的是�
 
 产物:`tools/re/data/rtti_classes.txt`(380 真名)、`tools/re/data/vtable_map.txt`(715 条)。
 
-## 2. 我方 166 个具名类的归属
+## 2. 我方 162 个具名类的归属
 
 | 判定 | 数量 | 含义 |
 |---|---|---|
-| **A 精确命中** | 48 | 我方类名 = 二进制 RTTI 名,一字不差 |
+| **A 精确命中** | 46 | 我方类名 = 二进制 RTTI 名,一字不差 |
 | **B 基名命中 + Face 后缀** | 63 | 真类名 + 我方后缀 |
-| **C Face 基名不命中** | 24 | 名字无二进制证据(见 §3) |
+| **C Face 基名不命中** | 22 | 名字无二进制证据(见 §3) |
 | **D 非 Face 且不命中** | 31 | 多为组件/内部拆分(见 §4) |
 
-**A 精确命中(48)**:`ApplicationTheme, CTerminalConfig, EditorWindow, FilerPane, JsEngine, KitBar, MuxPane, MuxPaneGroup, MuxWindow, OutputPane, PopupWidget, ProxyCommandSocket, QJSValue, ScintillaEditBase, ScrollBar, SerialBridge, SerialCommander, SerialSession, SessionLogger, SessionPane, ShellBridge, ShellCommander, ShellProcess, ShellSession, Splitter, SplitterGroup, SshBridge, SshCommander, SshSession, SuperBridge, SuperCommander, SuperKeymap, SuperSession, TabBar, TabGroup, TcpBridge, TcpCommander, TcpSession, TelnetCommander, TelnetProtocol, TelnetSession, TerminalView, TerminalWidget, TerminalWindow, TextEdit, TextView, TransferPane, UnixPty
+**A 精确命中(46)**:`ApplicationTheme, CTerminalConfig, FilerPane, JsEngine, KitBar, MuxPane, MuxPaneGroup, MuxWindow, OutputPane, PopupWidget, ProxyCommandSocket, QJSValue, ScintillaEditBase, ScrollBar, SerialBridge, SerialCommander, SerialSession, SessionLogger, SessionPane, ShellBridge, ShellCommander, ShellProcess, ShellSession, Splitter, SplitterGroup, SshBridge, SshCommander, SshSession, SuperBridge, SuperCommander, SuperKeymap, SuperSession, TabBar, TabGroup, TcpBridge, TcpCommander, TcpSession, TelnetCommander, TelnetProtocol, TelnetSession, TerminalView, TerminalWidget, TextEdit, TextView, TransferPane, UnixPty`
 
 **B 基名命中(63)**:`AddressBar, BreadCrumb, CEditorConfig, CGlobalConfig, CTerminalConfig, CaptureGroupsButton, CheckList, ColorButton, CustomLinkTriggerPage, CustomMenuTriggerPage, DefaultEditorDialog, EditorWindow, EnvironmentDialog, ExplorerList, FilterEdit, FocusModeDialog, HighlightTextBarAction, HighlightTextDialog, HighlightTextTriggerPage, InsertFileDialog, KitDock, KitWindow, LogDialog, LoginWizard, MainWindow, MarkStyleWidget, MasterPasswordDialog, MessageBar, NameDialog, OneKeyDialog, PasswordDialog, PasteDialog, PlaySoundDialog, PlaySoundTriggerPage, ProfileDialog, RemoteFileDialog, RunCommandTriggerPage, RunToolDialog, SearchEdit, SearchEngineDialog, SendTextTriggerPage, SessionDialog, SessionGroupDialog, SessionTriggerDialog, SettingDialog, SharedConfigHandler, ShowTooltipTriggerPage, SlipButton, StatusBar, SuperApplication, SyncInputDialog, TableItemDialog, TerminalWindow, TextMarkDialog, TextMarkTablePanel, TransferBar, TriggerActionDialog, TriggerActionEditPanel, TriggerActionWidget, TriggerDialog, TriggerPage, TunnelDialog, WindowOpacityDialog`
 
-## 3. C 类:24 个无二进制证据的 Face 类
+## 3. C 类:22 个无二进制证据的 Face 类
 
 去后缀后的基名在 380 个 RTTI 名里**查无此名**。分三种成因:
 
-### 3.1 已证实重复建模(3 处,应合并)
+### 3.1 已证实重复建模(3 处;2 处已清,1 处待清)
 
-| 我方类 | 实际二进制类 | 证据 |
+| 我方类 | 实际二进制类 | 状态 |
 |---|---|---|
-| `EnvDialogFace` | **EnvironmentDialog** | `FUN_0075d6e8` 是对话框公共腿;`EnvironmentDialogFace` 已用 ctor `FUN_006b35a6`(vtable `0x11a2788` → typeinfo `17EnvironmentDialog`)完整建模。前者是批 313 的局部件,批 429 找到 ctor 后未合并 |
-| `SettingsFace` | **TextMarkDialog**(壳 ctor) | `FUN_006f1036` 同时被 `SettingsFace` 与 `TextMarkDialogFace` 实现(需人工裁定归属) |
-| `SettingsPageFace` ↔ `TunnelDialogFace` | 归属错案 | 共引 `0056672a/006a4d90/0072bf8a/0072d0f2/0072edfe`,已登记 `docs/pending-attribution.md` §1 |
+| `EnvDialogFace` | **EnvironmentDialog**（ctor `FUN_006b35a6`，vtable `0x11a2788` → typeinfo `17EnvironmentDialog`） | ✅ **已合并**(2026-11-16)：`envDialog_setupUi`(1109B,入口 `0x006b3100`)的装配体并入 `EnvironmentDialogFace::build()`，原文件删除 |
+| `SettingsFace` | **TextMarkDialog**（`FUN_006f1036` 内直接调 `search_page_build_layout`） | ✅ **已拆分**：ctor + `searchPageBuildLayout` + 9 个 `+0x30..+0x70` 成员归位到 `TextMarkDialogFace`；`SettingsFace` 降为**纯静态工具 struct**（`categoryDataRoot`/`categoryTreeDataFace`/`buildRadioGroup` 三个自由形态函数，无 QDialog/Q_OBJECT） |
+| `SettingsPageFace` ↔ `TunnelDialogFace` | 归属错案 | ⏳ **待清**：两者对同一 0x48 行结构给出**冲突**布局（见 `docs/pending-attribution.md` §1） |
 
-### 3.1b 同名双建:真类与 Face 壳并存(3 处,应合并)
+### 3.1b 同名双建(3 处;1 处勘正,2 处已合并)
 
-同一个二进制类被我方建了**两个 C++ 类**(一个用真名,一个加 `Face`):
-
-| 真名类 | 并存的 Face 壳 | 说明 |
+| 真名类 | 并存件 | 状态 |
 |---|---|---|
-| `CTerminalConfig`(`src/Editor/CTerminalConfig.h`) | `CTerminalConfigFace`(`src/Editor/CGlobalConfigFace.h`) | 壳是单例子对象,注释自述"合一后由 `CTerminalConfig::face()` 承载" |
-| `EditorWindow`(`src/Widgets/EditorWindow.h`) | `EditorWindowFace`(`src/Actions/KitWindowFactory.h`) | 壳只做基类构造 + `setObjectName("EditorWindow")` |
-| `TerminalWindow`(`src/Widgets/TerminalWindow.h`) | `TerminalWindowFace`(`src/Actions/KitWindowFactory.h`) | 同上 + 原生事件过滤器 |
-
-> 收尾期编译前必须二选一;否则同一 vtable/ctor 有两份实现,`--as-needed` 不报错但行为会分叉。
+| `CTerminalConfig` | `CTerminalConfigFace`(`CGlobalConfigFace.h`) | ✅ **勘正：不是重复** —— 批 142 的**私有基类设计**（`class CTerminalConfig : private CTerminalConfigFace`，`face()` 返回同一单例对象），故意为 face 子对象形态 |
+| `EditorWindow`(`src/Widgets/EditorWindow.h`) | `EditorWindowFace`(`Actions/KitWindowFactory.h`) | ✅ **已合并**：`src/Widgets/EditorWindow.h`（header-only、无人 include）的 4 个槽体并入 `EditorWindowFace` 的 `public slots:`（cited 空体），原文件删除 |
+| `TerminalWindow`(`src/Widgets/TerminalWindow.h`) | `TerminalWindowFace` | ✅ **已合并**：8 个槽体并入 `TerminalWindowFace`（`container`/`applyFlag` 两个未定义私有 helper 未随迁，避免引入链接期未定义符号），原文件删除 |
 
 ### 3.2 伞形/装配容器名(我方为组织代码而设,非原版类)
 
@@ -73,6 +69,10 @@ tools/re/vtable_scan.py WindTerm --addr 0x6b35a6    # 查某个 ctor 写的是�
 ### 3.3 无定论(待核)
 
 `ActionButtonFace, ActionToolBarFace, BackwardShortcutFace, CloseButtonFace, CompleterButtonFace, CountSpinboxFace, CrumbEditFace, CursorShapeFace, ExpandButtonFace, ExpandToggleFace, ExpectDialogFace, HelpDialogFace, PasteSettingsPageFace, ProfileDirDialogFace, SessionProtocolFace, TransferAskFace, TriggerTableWidgetFace`
+
+> 这些基名在 380 个 RTTI 名里查无此名,**也没有相近真名**(difflib 最近邻为空)。
+> 两种可能:①原版确实没有对应类,我方为承载装配而设的局部类;②我方命名偏离。
+> 逐个确认需要读各自 ctor 的 vtable 写点(`vtable_scan.py --addr`),留待下批。
 
 ## 4. D 类:31 个非 Face 且不命中的类
 
@@ -95,7 +95,8 @@ tools/re/vtable_scan.py WindTerm --addr 0x6b35a6    # 查某个 ctor 写的是�
    凡 `*Face` = 我方在 `src/` 里承接口语料函数体的类,**不是**二进制类名;
    去后缀后若命中本文件 §2-B,则该基名即二进制真名。
 2. **A/B 两类保持不变**(基名已与二进制一致,改后缀纯属churn)。
-3. **§3.1 / §3.1b 六处重复/双建必须先清**(收尾期编译前,否则同一 ctor 两份定义)。
+3. **§3.1 仅剩 1 处**(SettingsPage↔TunnelDialog,卡在行结构取证);
+   §3.1b 已全部处置(1 处勘正「非重复」,2 处合并)。收尾期编译前必须清零。
 4. 新增类时:**先在 `tools/re/data/rtti_classes.txt` 里查**,命中就用真名(+`Face`
    与否按仓库惯例);不命中则必须在头注释写"无 RTTI 对应"。
 5. 每批收尾可跑一遍本审计脚本,防止新造的类名悄悄偏离。

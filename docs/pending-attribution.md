@@ -42,6 +42,19 @@
 | 整行复位 | `0072d0f2` | 242 | `SettingsPageFace::resetRow`(TunnelDialogFace 也有一份) |
 | 行→项 | `0072bf8a` | 219 | `TunnelDialogFace::makeRowItem`(已正) |
 
+**2026-11-16 新证据（行结构冲突，必须先裁决）**:
+
+`FUN_0072bf8a`(219B,makeRowItem) 逐句实读:
+`QListWidgetItem(this, param_2+0x10, ...)` → 显示文本取 **行+0x10**;
+`setData(1/3, QVariant(param_2+0x10))` → 图标名也取 +0x10;
+`setData(0x101, QVariant(param_2))` → **行+0x00 是 QString**（QVariant 以 QString* 构造）。
+
+⇒ 「+0x00 是 QString 键」成立 → `SettingsRow::name@0x00` 方向正确,
+`TunnelRow::f00[0x10] 不透明` 属未细化的占位;但两者对 +0x10 的语义命名
+（`edit50Text` vs `name10`）**不一致**。**合并前必须把 0x48 行结构完整重推**,
+否则搬过去就是把错布局固化。重推范围:`0072d0f2`(行复位) / `0072e4f6`(行装载) /
+`0072edfe`(行表装载) / `0072d304` / `0072d84e` / `0072bf8a`(已读)。
+
 **动作**:
 1. 把上表前 6 项从 `SettingsPageFace` 移到 `TunnelDialogFace`;
 2. `SettingsPageFace` 保留**真正的设置页行模型**(`SettingsRow` 0x48 + 装载/回写),
