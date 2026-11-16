@@ -299,6 +299,19 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	setFocusProxy(this);
 }
 
+// FUN_00703a58(55B)MarkStyleWidget ctor 真身
+MarkStyleWidgetFace::MarkStyleWidgetFace(QWidget *parent)
+	: QWidget(parent)                     // @00703a58
+{
+	// vtable MarkStyleWidget_vtable / 副 0118b8c8(C++ 自洽;尺寸 0x40)
+	assemble();                           // @00703a83(FUN_00703900)
+}
+
+// FUN_00703900(268B)MarkStyleWidget 内部装配 — cited(样式行/取色件未逐句转写)
+void MarkStyleWidgetFace::assemble()
+{
+}
+
 // FUN_0056376e(90B)TriggerActionEditPanel ctor 真身
 TriggerActionEditPanelFace::TriggerActionEditPanelFace(int flags, QWidget *parent)
 	: QWidget(parent)                     // FUN_0053397c(基类装配;flags 语料 0xe000)

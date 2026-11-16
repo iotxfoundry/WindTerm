@@ -200,6 +200,20 @@ protected:
 //   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
 //   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
 //   setFocusProxy(this)。
+// MarkStyleWidgetFace — FUN_00703a58(55B,0022.c:29996)ctor:
+//   QWidget(parent, 0) → vtable **MarkStyleWidget_vtable** + 副 vptr 0118b8c8 →
+//   assemble()(FUN_00703900,268B)。dtor 实测尺寸 **0x40**。
+//   即 CustomLink/ShowTooltip 页的 "+0x50/+0x58 附件"(标记样式件)。
+class MarkStyleWidgetFace : public QWidget {
+	Q_OBJECT
+public:
+	explicit MarkStyleWidgetFace(QWidget *parent = nullptr);
+	void assemble(); // FUN_00703900
+
+protected:
+	// FUN_00703900(268B)内部装配 — cited(见 .cpp 注)
+};
+
 // TriggerActionEditPanelFace — FUN_0056376e(90B,0017.c:36762)ctor(名不副实:
 //   Ghidra 取名来自 metaObject 指针;实体是**触发器动作文本面板**,尺寸 0x68):
 //   FUN_0053397c(this, flags, 0, parent)(基类装配;0xe000 = 页内文本域旗标) →
