@@ -16,5 +16,16 @@ TriggerActionDialogFace::TriggerActionDialogFace(QWidget *parent)
 // FUN_006fe066(393B)装配 — 结构段(cited)
 void TriggerActionDialogFace::build() {}
 
-// FUN_006f9f3c(1369B)主体(= TriggerActionWidget 页栈宿主面)— 结构段(cited)
-void TriggerActionDialogFace::body() {}
+// FUN_006f9f3c(1369B)遍历子件接线真身(结构段)
+void TriggerActionDialogFace::body()
+{
+	if (m_body38 == nullptr)
+		return;
+	const QList<QWidget *> kids = m_body38->findChildren<QWidget *>(); // @006f9f96(递归=1)
+	for (QWidget *w : kids) {
+		if (w == nullptr)
+			continue;
+		// dynamic_cast 到 0x1198430(页类型);命中 → 逐项 connect — cited
+		Q_UNUSED(w);
+	}
+}

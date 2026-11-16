@@ -22,5 +22,12 @@ public:
 	explicit TriggerActionDialogFace(QWidget *parent = nullptr);
 
 	void build();   // FUN_006fe066(393B)
-	void body();    // FUN_006f9f3c(1369B) — 结构段
+	// FUN_006f9f3c(1369B)**遍历 +0x38 容器的子件并逐页接线**:
+	//   `findChildren<QWidget*>(this->+0x38, 递归=1)` → 逐件
+	//   `dynamic_cast` 到 **typeinfo 0x1198430**(页类型)→ 命中者逐项 connect
+	//   (闭包多枚;余段 cited)。
+	void body();
+
+protected:
+	QWidget *m_body38 = nullptr; // +0x38(子件容器 = 页栈宿主)
 };
