@@ -23485,7 +23485,7 @@
 00862422	38	FUN_00862422	todo	
 00862448	38	FUN_00862448	todo	
 0086246e	16	FUN_0086246e	todo	
-0086247e	8	FUN_0086247e	todo	
+0086247e	8	FUN_0086247e	ref	src/Sessions/Transports/SshExecutorFace.cpp,src/Sessions/Transports/SshExecutorFace.h
 00862486	74	FUN_00862486	todo	
 008624d0	110	FUN_008624d0	todo	
 0086254e	132	FUN_0086254e	todo	
@@ -23582,7 +23582,7 @@
 00869ca5	46	FUN_00869ca5	todo	
 00869cd3	45	FUN_00869cd3	todo	
 00869d00	277	FUN_00869d00	todo	
-00869e26	322	SshExecutor_dtor	todo	
+00869e26	322	SshExecutor_dtor	real	
 00869f68	23	SshExecutor_dtor_deleting	todo	
 00869f80	249	FUN_00869f80	ref	src/Sessions/Bridges/SshBridge.cpp,src/Sessions/Bridges/SshBridge.h
 0086a082	403	FUN_0086a082	todo	

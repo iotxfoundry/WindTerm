@@ -5151,6 +5151,8 @@
 008616d0	src/Sessions/Transports/TelnetSession.h
 008616ea	src/Sessions/Transports/TelnetSession.cpp
 008616ea	src/Sessions/Transports/TelnetSession.h
+0086247e	src/Sessions/Transports/SshExecutorFace.cpp
+0086247e	src/Sessions/Transports/SshExecutorFace.h
 00862692	src/Sessions/Bridges/SessionProtocol.h
 008698c0	src/Sessions/Bridges/ProxyCommandSocket.cpp
 008698c0	src/Sessions/Bridges/TcpBridge.cpp
