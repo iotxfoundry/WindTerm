@@ -13918,8 +13918,8 @@
 0055ce00	62	FUN_0055ce00	todo	
 0055ce3e	136	FUN_0055ce3e	todo	
 0055cece	182	FUN_0055cece	todo	
-0055cf8c	90	HoverButton_h55cf8c	qtplumb	
-0055cfe6	71	HoverButton_dtor	todo	
+0055cf8c	90	HoverButton_h55cf8c	real	src/Widgets/Controls/HoverButtonFace.cpp,src/Widgets/Controls/HoverButtonFace.h
+0055cfe6	71	HoverButton_dtor	real	src/Widgets/Controls/HoverButtonFace.cpp,src/Widgets/Controls/HoverButtonFace.h
 0055d02d	6	FUN_0055d02d	todo	
 0055d034	23	HoverButton_dtor_deleting	todo	
 0055d04b	6	FUN_0055d04b	todo	
@@ -14511,7 +14511,7 @@
 0058e1a8	476	FUN_0058e1a8	todo	
 0058e38a	1942	tabbar_contextMenu	real	src/Widgets/Controls/TabGroup.cpp,src/Widgets/Controls/TabGroup.h
 0058eb4d	56	FUN_0058eb4d	todo	
-0058eb86	270	SideButton_vt5	qtplumb	
+0058eb86	270	SideButton_vt5	real	src/Widgets/Controls/SideButtonFace.cpp,src/Widgets/Controls/SideButtonFace.h
 0058ecae	100	SearchEdit_vt5	qtplumb	
 0058ed12	538	FUN_0058ed12	todo	
 0058ef3e	197	SearchEdit_vt15	qtplumb	
@@ -14844,9 +14844,9 @@
 005b30b6	50	FUN_005b30b6	todo	
 005b3110	111	FUN_005b3110	todo	
 005b3180	87	FilterEditAction_vt14	qtplumb	
-005b31f0	155	FUN_005b31f0	todo	
+005b31f0	155	FUN_005b31f0	ref	src/Widgets/Controls/SwitchButtonFace.cpp
 005b329c	283	FUN_005b329c	todo	
-005b33e0	270	SwitchButton_vt5	qtplumb	
+005b33e0	270	SwitchButton_vt5	real	src/Widgets/Controls/SwitchButtonFace.cpp,src/Widgets/Controls/SwitchButtonFace.h
 005b3510	1	FUN_005b3510	todo	
 005b3511	28	FUN_005b3511	todo	
 005b352d	28	FUN_005b352d	todo	
@@ -25572,7 +25572,7 @@
 008f7105	33	FUN_008f7105	todo	
 008f7126	47	SideSeparator_dtor_deleting	todo	
 008f7155	51	FUN_008f7155	todo	
-008f7188	29	SideButton_dtor	todo	
+008f7188	29	SideButton_dtor	real	src/Widgets/Controls/SideButtonFace.cpp,src/Widgets/Controls/SideButtonFace.h
 008f71a5	33	FUN_008f71a5	todo	
 008f71c6	47	SideButton_dtor_deleting	todo	
 008f71f5	51	FUN_008f71f5	todo	
@@ -25586,7 +25586,7 @@
 008f7364	24	SwitchButton_metaObject	qtplumb	
 008f737c	66	SwitchButton_qt_metacast	qtplumb	
 008f73be	5	SwitchButton_qt_metacall	qtplumb	
-008f73c4	29	SwitchButton_dtor	todo	
+008f73c4	29	SwitchButton_dtor	real	src/Widgets/Controls/SwitchButtonFace.cpp,src/Widgets/Controls/SwitchButtonFace.h
 008f73e1	33	FUN_008f73e1	todo	
 008f7402	47	SwitchButton_dtor_deleting	todo	
 008f7431	51	FUN_008f7431	todo	

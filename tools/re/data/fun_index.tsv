@@ -230,6 +230,10 @@
 0055bbce	src/Actions/ActionRegistryFace.cpp
 0055bbce	src/Actions/ActionRegistryFace.h
 0055bbce	src/Windows/Kit/KitBar.cpp
+0055cf8c	src/Widgets/Controls/HoverButtonFace.cpp
+0055cf8c	src/Widgets/Controls/HoverButtonFace.h
+0055cfe6	src/Widgets/Controls/HoverButtonFace.cpp
+0055cfe6	src/Widgets/Controls/HoverButtonFace.h
 0055e356	src/Widgets/Dialogs/SyncInputDialogFace.cpp
 0055e356	src/Widgets/Dialogs/SyncInputDialogFace.h
 0055e356	src/Widgets/Dialogs/TriggerDialogFace.cpp
@@ -492,6 +496,8 @@
 0058e38a	src/Widgets/Controls/TabGroup.h
 0058e3b6	src/Widgets/Controls/TabGroup.cpp
 0058e3d4	src/Widgets/Controls/TabGroup.cpp
+0058eb86	src/Widgets/Controls/SideButtonFace.cpp
+0058eb86	src/Widgets/Controls/SideButtonFace.h
 00590ee0	src/Widgets/Dialogs/LoginWizardFace.cpp
 00590ee0	src/Widgets/Dialogs/LoginWizardFace.h
 00590f20	src/Widgets/Dialogs/LoginWizardFace.cpp
@@ -1103,6 +1109,9 @@
 005af9a5	src/Widgets/Controls/TabGroup.cpp
 005b1c08	src/Widgets/Controls/TabGroup.cpp
 005b2ec0	src/Widgets/Controls/TabGroup.cpp
+005b31f0	src/Widgets/Controls/SwitchButtonFace.cpp
+005b33e0	src/Widgets/Controls/SwitchButtonFace.cpp
+005b33e0	src/Widgets/Controls/SwitchButtonFace.h
 005b3e46	src/Widgets/Views/TextView.h
 005b5d68	src/Widgets/Views/TextEdit.h
 005b5d68	src/Widgets/Views/TextView.h
@@ -6580,6 +6589,10 @@
 008f6cc6	src/Widgets/Controls/SplitterGroup.h
 008f6d88	src/Widgets/Controls/SearchEditFace.cpp
 008f6d88	src/Widgets/Controls/SearchEditFace.h
+008f7188	src/Widgets/Controls/SideButtonFace.cpp
+008f7188	src/Widgets/Controls/SideButtonFace.h
+008f73c4	src/Widgets/Controls/SwitchButtonFace.cpp
+008f73c4	src/Widgets/Controls/SwitchButtonFace.h
 008f754e	src/Widgets/Controls/HtmlListFace.h
 008f7808	src/Widgets/Views/LockScreenFace.cpp
 008f781c	src/Widgets/Views/LockScreenFace.cpp
