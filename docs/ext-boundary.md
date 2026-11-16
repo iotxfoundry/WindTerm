@@ -133,3 +133,26 @@ RunStyles 语义上。判据不是"名字像",而是**调用点实读**:
 > 注意:`RunStyles` 在仓库快照里是**非模板类**,而二进制里是
 > `Uint8/16/32/64` 四份实例化 —— 说明上游是模板化版本。移植时按
 > Scintilla 上游模板版对齐,不要拿快照里的单版本硬套。
+
+## 附:TextArrayData —— 同属 RunStyles 族,不逆向(2026-11-16 补登记)
+
+`TextArrayData`(7 条 / 495B)初看是自研的文本存储类,但析构
+(语料名 `TextArrayData_metaObject`,0x009c5d06,414B)首段就是:
+
+```c
+for (i = 0; i < runstyles_runs_count(param_1[6]); ++i) FUN_009c5cba(param_1, i);
+...
+param_1[5] = &Uint64RunStyles_vtable;
+Uint32RunStyles_vt13(param_1 + 5);
+```
+
+判据与 `CSuperBufferBase` 完全一致(**调用点实读**,不是名字像):
+`runstyles_runs_count` + `Uint64RunStyles_vtable` + `Uint32RunStyles_vt13`
+⇒ 它就是 RunStyles 族的一员。
+
+**处置:不逆向,按 `docs/calibration.md` 移植,实现委托
+`src/Scintilla/src/RunStyles.{h,cxx}`。**
+
+它的字段里还夹着一个 **0x28 的子件 + 0x30 的外壳**、以及 `+0x68` 的锁字节
+(`*(char*)(param_1 + 0xd)` 配合自旋语义),这些都属于 RunStyles 内部实现,
+不单独立项。
