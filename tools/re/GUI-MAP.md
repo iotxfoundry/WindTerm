@@ -432,3 +432,23 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - **④/⑤ 两小件**:`mapGetOr`(`007349f0` 79B:整数键 QMap 取值带缺省;`dialog_loadWidgetValues` 的覆盖值**按控件地址**存)、`onCursorModeToggled`(`00734f1f` 291B:`setProperty("text", v)` + 标签在 `&Block`/`&Line` 间切换)、`mapGetIntOr`(`006f8cb4` 137B)。
 - **表格件首显示自适配**(`00566de6` 163B):`+0x30` 门 → 逐列测宽 `setColumnWidth` → 清标志。
 - **搜索面板**(`SearchPanelFace`,`searchpanel_apply` 1716B):**`+0x80` = 待应用标志** → `globalMatch` 逐命中 `capturedStart/End` → 装饰层 → 编辑器虚槽 `vt6`。
+
+### 批 410-419 增量(⑤ 页内件收口 + ④ **TunnelDialog 归属勘正**)
+- **⑤ 页内件**:`MarkStyleWidget` 装配 268B(+0x30 线型件 `00703704` 427B /
+  +0x38 颜色钮 `s_ColorButton_53904e` 582B / 两行 `Mark &Style:`·`Mark &Color:`);
+  **`CaptureGroupsButton`**(`006fad0a` 374B):QToolButton 子类,DownArrow +
+  InstantPopup + menu 弹性填充(捕获组插入 `${…}`),即动作字段旁的 0x38 盒子。
+- **④ TunnelDialog**(`TunnelDialogFace`,全谱):
+  ctor `0072cf44` 257B(title **"Tunnels"**/vtable TunnelDialog_vtable/副 011a4e90);
+  建造 `s_king__tunnelDynamic_72c08e` 3404B;接线 `0072bbe2` 935B;
+  行→项 `0072bf8a` 219B(setData **1 icon / 3 tooltip / 0x101 行指针**);
+  行图标 `6a2c16` 431B(**9 个图标名**:Dynamic/Local/Remote × Active/普通 + Error 三支);
+  协议填充 `0072d056` 147B(键 `"SSH"`);初始装载 `0072f007` → `0072d056`+`0072edfe`;
+  行表 `0072edfe` 521B(0x48 步长)+ 析构 `0072b9ca` 535B;整行复位 `0072d0f2` 242B。
+- **⚠ 两处归属勘正**:
+  ① 3404B 建造 + 935B 接线 **同属 TunnelDialog**,此前记在 SettingsPageFace 名下;
+  ② `+0x30` 是 **QLabel**(`QLabel::clear` 实证),不是 414 误记的 QGridLayout。
+- **`sessionpage_title`(1777B)名不副实**:不是会话页标题,而是**设置分类页标题生成/查重**
+  ——模板 `"%1%2"` + **27 条分类键全实读**(Connection/Proxy/Terminal/Bell/…/Tcp)+
+  `+0x108` 有序表查重。
+- **`expectDialog_collectRows`(984B)名不副实**:固定**一行**遍历各列(非多行)。
