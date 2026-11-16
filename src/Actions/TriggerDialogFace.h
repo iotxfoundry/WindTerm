@@ -158,6 +158,14 @@ public:
 	//   rowIndexByName 用 +0x10 比较互证。
 	class QListWidgetItem *makeItemForRecord(const struct TriggerRecord &rec);
 
+	// FUN_006f2460(425B,0022.c:20141)列表项禁用外观:
+	//   f = item->data(6 /*FontRole*/).value<QFont>()(缺省 QFont);
+	//   f.setStrikeOut(on);item->setData(6, QVariant(f));
+	//   on == false → item->setData(9 /*ForegroundRole*/,
+	//     QBrush(QColor::setNamedColor("Gray")))(.rodata 0xd0d152 = "Gray");
+	//   on == true  → setData(9, 空 QVariant)(清除画笔)。
+	static void applyItemGrayed(class QListWidgetItem *item, bool on);
+
 	// FUN_006f34dd(259B,0022.c:20259)NameDialog 编辑完成闭包:
 	//   which==0 → 释放闭包(0x38);which==1 且 args[1](finished 结果)==1
 	//   (Accepted)→ 取对话框输入文本(FUN_006bd94e 18B = QLineEdit::text);

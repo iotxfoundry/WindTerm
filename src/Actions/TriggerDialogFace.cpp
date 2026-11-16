@@ -11,6 +11,8 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QListWidget>
+#include <QBrush>
+#include <QFont>
 #include <QStandardItemModel>
 #include <QStackedLayout>
 #include <QStackedWidget>
@@ -390,7 +392,7 @@ QListWidgetItem *TriggerDialogFace::makeItemForRecord(const TriggerRecord &rec)
 	const QIcon icon = style()->standardIcon(QStyle::SP_FileIcon); // FUN_006994ca 缺省图标(cited 承接)
 	auto *item = new QListWidgetItem(icon, rec.name08);            // @006f2670(0x30)
 	if (rec.f20 == 0)                                              // +0x20 == 0
-		; // FUN_006f2460(this, item, 0)(425B 项态腿)— cited
+		applyItemGrayed(item, false);                              // FUN_006f2460(this,item,0)
 	item->setData(Qt::UserRole, rec.key10);                        // @006f26c3(0x100)
 	return item;
 }
@@ -409,4 +411,20 @@ void TriggerDialogFace::applyEditedName(QListWidgetItem *item, int row, const QS
 	}
 	if (item)
 		item->setData(Qt::DisplayRole, name);    // 捕获项 setData(0, 名)
+}
+
+// FUN_006f2460(425B,0022.c:20141)列表项禁用外观真身
+void TriggerDialogFace::applyItemGrayed(QListWidgetItem *item, bool on)
+{
+	if (item == nullptr)
+		return;
+	QFont f = item->data(Qt::FontRole).value<QFont>(); // @006f24xx(data(6))
+	f.setStrikeOut(on);                                // @006f24e5
+	item->setData(Qt::FontRole, f);                    // @006f2508(setData(6))
+	if (!on) {
+		item->setData(Qt::ForegroundRole,
+		              QBrush(QColor(QStringLiteral("Gray")))); // @006f25b4(0xd0d152)
+	} else {
+		item->setData(Qt::ForegroundRole, QVariant()); // @006f255e(空 → 清画笔)
+	}
 }
