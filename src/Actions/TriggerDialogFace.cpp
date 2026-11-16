@@ -2,6 +2,7 @@
 #include "TriggerDialogFace.h"
 
 #include "NameDialogFace.h"
+#include "SearchEditFace.h"
 #include "ThemeIcons.h"
 
 #include <QAbstractButton>
@@ -186,7 +187,7 @@ void TriggerDialogFace::editSelectedTrigger()
 	const int row = m_triggerList68->currentRow();  // @006f32exx
 
 	auto *dlg = new NameDialogFace(QStringLiteral("trigger"), this); // @006f334c(0x58,FUN_006bd7f6)
-	auto *field = new QWidget(dlg);                 // @006f336c(0x70 + searchEdit_init)— cited
+	auto *field = new SearchEditFace(dlg);          // @006f336c(0x70,searchEdit_init)
 	// connect(dlg QDialog::finished → 闭包 impl FUN_006f34dd(0x38,捕获
 	//   dlg/field/row/this/item))@006f33xx — cited
 	// filterline_setText(field, 当前行记录 +0x18)@006f3411 — cited
@@ -468,7 +469,7 @@ QIcon TriggerDialogFace::recordIcon(const TriggerRecord &rec)
 void TriggerDialogFace::addTrigger()
 {
 	auto *dlg = new NameDialogFace(QStringLiteral("trigger"), this); // @006f40e7(0x58)
-	auto *field = new QWidget(dlg);                 // @006f4107(0x70 searchEdit_init)— cited
+	auto *field = new SearchEditFace(dlg);          // @006f4107(0x70,searchEdit_init)
 	auto *combo = new QComboBox(dlg);               // @006f411f(0x48 combo_makeSearchCombo)
 
 	// kinds = FUN_0069c3c8(&map)(种类注册表 QMap<kind, …>) — cited
