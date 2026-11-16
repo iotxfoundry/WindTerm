@@ -1,6 +1,8 @@
 // TriggerDialogFace.cpp — 触发器管理对话框(批 346)
 #include "TriggerDialogFace.h"
 
+#include "NameDialogFace.h"
+
 #include <QAbstractButton>
 #include <QDialogButtonBox>
 #include <QFormLayout>
@@ -163,4 +165,25 @@ void TriggerDialogFace::wire()
 		// 闭包 FUN_006f6dd0 → FUN_006f32e0 — cited
 	});
 	// listView->selectionModel() currentChanged → FUN_006f60a8 — cited
+}
+
+// FUN_006f32e0(451B,0022.c:20195)编辑当前触发器真身(结构段)
+void TriggerDialogFace::editSelectedTrigger()
+{
+	QListWidgetItem *item = m_triggerList68 ? m_triggerList68->currentItem() : nullptr; // @006f32e0
+	if (item == nullptr)
+		return;                                     // 无当前项 → 直返
+	const int row = m_triggerList68->currentRow();  // @006f32exx
+
+	auto *dlg = new NameDialogFace(QStringLiteral("trigger"), this); // @006f334c(0x58,FUN_006bd7f6)
+	auto *field = new QWidget(dlg);                 // @006f336c(0x70 + searchEdit_init)— cited
+	// connect(dlg QDialog::finished → 闭包 impl FUN_006f34dd(0x38,捕获
+	//   dlg/field/row/this/item))@006f33xx — cited
+	// filterline_setText(field, 当前行记录 +0x18)@006f3411 — cited
+	//   (记录面 = FUN_006f3286:row → FUN_006f27d4 查下标;-1 → +0x98 缺省;
+	//    否则 +0x90 QList 第 idx 项,步长 0x48)
+	nameDialogAddFormRow(dlg, QStringLiteral("&Description:"), field); // @006f3445(tr 0xc9dfdb)
+	// FUN_006bd960(dlg, item->data(0).toString())@006f347a — cited(553B 回填)
+	// (**(*dlg + 0x1a0))(dlg)@006f34xx — 显示/打开腿(cited 未定名)
+	Q_UNUSED(row);
 }

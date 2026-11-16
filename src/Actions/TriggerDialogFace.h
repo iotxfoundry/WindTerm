@@ -32,6 +32,18 @@ public:
 	explicit TriggerDialogFace(QWidget *parent = nullptr); // FUN_006f2dd4
 
 	void assemble();   // FUN_006f2036(580B)
+	// FUN_006f32e0(451B,0022.c:20195)编辑当前触发器:
+	//   item = +0x68 currentItem();空 → 返;row = currentRow();
+	//   dlg = new 0x58 NameDialog(tr("trigger")(0xc8c40c), this)(FUN_006bd7f6);
+	//   field = new 0x70 + searchEdit_init(field, dlg);
+	//   connect(dlg finished → 闭包 impl FUN_006f34dd(259B));
+	//   filterline_setText(field, 当前行记录(+0x18))(FUN_006f3286 89B:
+	//     row → FUN_006f27d4 查下标;==-1 → this+0x98 缺省记录;否则
+	//     +0x90 QList 第 idx 项,步长 0x48);
+	//   FUN_006bd250(dlg, tr("&Description:")(0xc9dfdb), field)(加行 + Tab 链);
+	//   FUN_006bd960(dlg, item->data(0).toString())(553B,回填);
+	//   (**(*dlg + 0x1a0))(dlg)(显示/打开腿,cited 未定名)。
+	void editSelectedTrigger();
 	void wire();       // dialog_connectAcceptReject2(006f2852,916B)
 
 	QTabBar *tabBar30() const { return m_tabBar30; }
