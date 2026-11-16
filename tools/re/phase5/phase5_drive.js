@@ -74,7 +74,7 @@ async function main() {
   const seqs = JSON.parse(require('fs').readFileSync(seqFile, 'utf8'));
 
   const device = await frida.getLocalDevice();
-  const pid = await device.spawn(['/opt/WindTerm_2.7.0/WindTerm'], {
+  const pid = await device.spawn(['./WindTerm'], {
     env: {
       LD_LIBRARY_PATH: '/opt/WindTerm_2.7.0/lib',
       QT_QPA_PLATFORM: 'offscreen',

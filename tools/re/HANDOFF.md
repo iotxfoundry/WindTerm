@@ -6,7 +6,7 @@
 > 本文件 2026-11-14 重构:旧 24 层堆叠交接删除(历史在 git log,
 > 检索关键词"第 X 次交接");永续内容(环境/恢复/提交规范)保留。
 
-> 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
+> 目标:编译出与 ./WindTerm 行为一致的程序。
 
 ## 一句话状态(2026-11-16 第五十八次交接,批 493 — 文档重整)
 
@@ -146,10 +146,12 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 
 ## 环境速查
 
-- ctest 门:`cd build && ctest`(**20 项**;engtest3 ctest 态间歇 —
-  直跑复核;wordsteptest transient 已根治,批 128)。
-- RE 探针:tools/re/metatest/(手工 g++;**改含内联成员的头后必须
-  重编**,踩坑 15)。
+- **测试已删除**:`tests/` 与 `add_subdirectory(tests)` 已按用户令移除
+  (2026-11-16),`ctest` 门不再存在;收尾期改为 dlopen 零 undefined + 截图对表。
+- **基线二进制 = `./WindTerm`**(仓库内副本,sha256 与 `/opt` 同;运行时库仍取
+  `/opt/WindTerm_2.7.0/lib`)。
+- RE 探针:`tools/re/metatest/`(手工 g++;**改含内联成员的头后必须重编**,
+  踩坑 15)。它不是测试,不参与构建。
 - frida:pip --user;REA MCP 已配置(项目 opencode.json,207 工具);
   ida-pro-mcp 1.4.0 已装(原版开启时 localhost:13337)。
 - kuna CLI:`~/.local/share/rea/bin/kuna`(优于语料 grep,支持
@@ -164,7 +166,7 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 
 1. `sudo sysctl -w kernel.yama.ptrace_scope=0`(须密码,主控代输)
 2. `Xvfb :99 -screen 0 1280x900x24 &`(日志 /tmp/opencode/xvfb.log)
-3. `DISPLAY=:99 nohup /opt/WindTerm_2.7.0/WindTerm`(约 10s 起窗)
+3. `DISPLAY=:99 nohup ./WindTerm`(约 10s 起窗)
 4. xdotool 双击开会话:1014,331 → 1040,359;打字触发回显;
    `exec sleep 100000` 哑化 shell(ALL MATCH 基线前提)
 5. `python3 tools/re/phase5/phase5_attach.py $(pgrep -x WindTerm)`

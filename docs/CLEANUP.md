@@ -66,8 +66,16 @@ for d in src/Scintilla/{src,lexlib,lexers,include,qt/ScintillaEditBase} \
 | `terminal/` `global/` `vendors/` `images/` | ~26M | **数据面参考**:`global/wind.actions` = ② 的配置源、`terminal/commands` = 命令表、`images/screenshots` = 唯一对表证据 |
 | `tests/` | 460K | 25 个测试二进制 = **收尾期回归网** |
 | `docs/` | 468K | 全部结论 / 工作单 |
-| `./WindTerm` | 12M | 原版二进制**仓库内副本**。与 `/opt/WindTerm_2.7.0/WindTerm` 同一文件;本次**保留**(B2 未批准)。脚本不依赖它(仅 `pgrep -x WindTerm` 用进程名) |
+| `./WindTerm` | 12M | **基线二进制**(仓库内副本,sha256 与 `/opt/WindTerm_2.7.0/WindTerm` 同一)。2026-11-16 用户令:逆向基线改用此副本,工具/文档路径已统一改指 |
 | `.git/` | 125M | 历史与出处链,禁止重写 |
+
+## C 组:2026-11-16 第二批(用户令:删 tests + 基线切本地副本)
+
+| 动作 | 内容 | 依据 |
+|---|---|---|
+| 删除 `tests/` | 20 个 cpp + `CMakeLists.txt`(460K);同步删 `CMakeLists.txt` 的 `add_subdirectory(tests)` 与 `enable_testing()` | 用户令「删除所有 tests」;工作重心转向逆向代码落地,不编译不测试 |
+| 基线二进制改本地副本 | 文档/工具中 `/opt/WindTerm_2.7.0/WindTerm` → **`./WindTerm`**(9 处);`sha256 9491b87e…` 与 /opt 逐字节同一 → **语料地址不变** | 用户令「以二进制为准;改为本地库的」 |
+| 保留 | `/opt/WindTerm_2.7.0/lib` 引用(运行时 Qt 依赖,6 处)、`tools/re/metatest/`、`tools/re/phase5/` | 前者是运行依赖;后两者是取证探针,非测试 |
 
 ## 未做(明确排除)
 

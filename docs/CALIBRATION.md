@@ -337,7 +337,7 @@ with -fPIC"。构建替身:onigpic.sh(ar x + objcopy --strip-debug +
 重归档)→ -Wl,-Bsymbolic 绑定数据符号(内部绑定对正则引擎无互插
 需求,同相)。lib/libonig.a 原件不动。
 
-### 测试(tests/onigtest.cpp;ctest 注册 18 号)
+### 测试(tests/onigtest.cpp;ctest 注册 18 号)——⚠ 该测试文件已于 2026-11-16 随 `tests/` 删除,此节仅作历史记录
 
 a(命中契约)/b(无匹配 -1 + 门同相 ×4)/c(wrapper literal+case 档
 ×3)/d(语法样例对账 ×5 组 10 断言,expect 值 = 手工推演 vs 运行一致,

@@ -3153,7 +3153,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 ```bash
 # 1) Xvfb + 原版
 Xvfb :99 -screen 0 1280x900x24 &
-DISPLAY=:99 LD_LIBRARY_PATH=/opt/WindTerm_2.7.0/lib /opt/WindTerm_2.7.0/WindTerm &
+DISPLAY=:99 LD_LIBRARY_PATH=/opt/WindTerm_2.7.0/lib ./WindTerm &
 # 2) xdotool 开会话:双击 本地shell(1014,331)→ bash(1040,359)
 # 3) 附加注入(见 phase5_attach.py;打字触发捕获 Screen)
 python3 tools/re/phase5/phase5_attach.py $(pgrep -x WindTerm)

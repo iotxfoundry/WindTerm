@@ -1,6 +1,6 @@
 # 逆向完成计划(plan)
 
-> 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
+> 目标:编译出与 ./WindTerm 行为一致的程序。
 > 每阶段完成打 ✅,进行中标 ⏳,未开始标 ⬜。
 > 完成判定:所有已实现功能在离屏/实机下行为与原二进制一致。
 >
@@ -31,7 +31,7 @@
 | 新组件四件 | ✅ KeymapEngine/TelnetCommander/UnixPty/TelnetProtocol(见 docs/CALIBRATION.md) |
 | 组件重做(铁律 6) | ⏳ M1-M22:ModTrack 全建模/搜索链激活/位面机/scanMask 活性/eNodes 节点层全清+词法重建+底座头 ODR+vt 承载+清偿臂+RS 灌链/0x7545 真值/排序真身(std::sort 承接 178)+hash remove 分离担查+rehash 注记(178);余:busy 腿(外库登记)/超门分段族(外库边界 178 定性) |
 
-测试矩阵:**ctest 21/21**(e2eterm 25 + recheck 22 + engtest×2 +
+测试矩阵(⚠ 历史,`tests/` 已于 2026-11-16 删除):**ctest 21/21**(e2eterm 25 + recheck 22 + engtest×2 +
 markerstest q·r·s·t·u·v·w·x·y·z·aa·bb 组 274 断言 + reginserttest + **sgtest 14** + modtracktest 22 + onigtest 24 +
 engtest5 61 + wordsteptest g·i 组 + keymap/telnet/pty/shellsession/
 telnetsocket/echo_semantics/actions/kitbar/uiassemble/rendermath/

@@ -1,7 +1,7 @@
 // KitWindowAssemblyFace.cpp — KitWindow 延迟装配链语料转写(批 192,P1)
 //
 // 语料:tools/re/decomp/decomp-part-0028.c(0021.c 状态栏腿)+
-//   /opt/WindTerm_2.7.0/WindTerm 反汇编(vaddr 直读;Ghidra 丢接收者/
+//   ./WindTerm 反汇编(vaddr 直读;Ghidra 丢接收者/
 //   实参处一律以 asm 补,地址 = 文件内 vaddr,无基址差)。
 //
 // 链序(FUN_008d3cc2 全读 + asm 0x8d3cc2-0x8d3ddf):

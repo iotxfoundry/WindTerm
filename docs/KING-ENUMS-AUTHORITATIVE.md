@@ -1,7 +1,7 @@
 # King:: 枚举权威表(QMetaObject 精确值,2026-10-27 复核)
 
 来源:主程序 King 类 QMetaObject 枚举表(qmo_extract.py 直读,
-`python3 tools/re/qmo_extract.py /opt/WindTerm_2.7.0/WindTerm --json`)。
+`python3 tools/re/qmo_extract.py ./WindTerm --json`)。
 45 枚举全部注册 Q_ENUM/Q_FLAGS,**值精确,非声明序猜测**。
 4294967295 = 0xFFFFFFFF(-1)。与 KingEnums.h 逐值一致(脚本校验 45/45)。
 

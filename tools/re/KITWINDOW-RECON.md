@@ -1,5 +1,8 @@
 # KITWINDOW-RECON — KitWindow 承载面侦察(批 131,M7-②)
 
+> ⚠ 2026-11-16:`tests/` 已删除(用户令),
+> 本文中"ctest 通过"类判据**不再适用**;本文转为历史方案书,结论引用前查 `tools/re/HANDOFF.md` 勘正谱系。
+
 > 侦察批:只侦察不转写产品码。产出 = 方案书,供后续转写车道**免侦察直接执行**。
 > 语料根:tools/re/decomp/decomp-part-NNNN.c(行号即 `grep -n "entry=…"` 落点);
 > vtable/typeinfo 为 WindTerm ELF .data.rel.ro / .rodata 实读(kuna read / readelf -rW)。

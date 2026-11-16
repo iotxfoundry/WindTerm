@@ -86,7 +86,7 @@ def main():
     pid = device.spawn([
         '/bin/sh', '-c',
         'QT_QPA_PLATFORM=offscreen LD_LIBRARY_PATH=/opt/WindTerm_2.7.0/lib '
-        'exec /opt/WindTerm_2.7.0/WindTerm',
+        'exec ./WindTerm',
     ])
     print('spawned pid', pid)
     session = device.attach(pid)

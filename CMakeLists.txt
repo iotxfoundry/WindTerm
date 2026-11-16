@@ -175,8 +175,7 @@ target_link_libraries(WindTermRe
 )
 add_dependencies(WindTermRe rebuild_deps onigpic)
 
-enable_testing()
-add_subdirectory(tests)
+# tests/ 已于批 493 后按用户令删除(工作重心转向逆向代码落地,不编译不测试)
 # 去 RUNPATH(repo lib/ 的 Qt5Network 版本符号与系统 Qt 冲突,
 # 会污染测试/宿主链接——Phase 5)
 add_custom_command(TARGET WindTermRe POST_BUILD
