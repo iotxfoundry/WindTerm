@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QByteArray>
 #include <QString>
 #include <QStringList>
 #include <QWidget>
@@ -42,3 +43,20 @@ protected:
 	quint8 m_flags48 = 0;          // +0x48(低 2 位清)
 	QString m_f50;                 // +0x50
 };
+
+// ------------------------------------------------ QuickBar 配置槽(批 479)
+// 语料三个同型槽(各 190B),都是"复选框 → 写配置键":
+//   s_quickbar_showMultipleGroups_6cf858 → **"quickbar.showMultipleGroups"**
+//   s_quickbar_showGroupTitle_6cf926     → **"quickbar.showGroupTitle"**
+//   s_quickbar_showCommandsInOrder_6cf9f5→ **"quickbar.showCommandsInOrder"**
+// 写法统一:`globalSettingSet(qApp, 键, QVariant(bool), 0)`。
+//
+// 底层 FUN_0075c480(80B)=**带门的全局写**:
+//   `if (FUN_005d972a(DAT_011c1240) /*设置已启用*/ || force)`
+//     `FUN_0090e084(app, key, value)`(真实写入);返回是否写入。
+namespace QuickBarSettings {
+bool setGlobalSetting(const QByteArray &key, const QVariant &value, bool force = false);
+void setShowMultipleGroups(bool on);
+void setShowGroupTitle(bool on);
+void setShowCommandsInOrder(bool on);
+}
