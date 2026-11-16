@@ -13,6 +13,8 @@
 class QuickDialogFace : public QDialog {
 	Q_OBJECT
 public:
+	QWidget *m_f68 = nullptr; QWidget *m_f70 = nullptr; QWidget *m_f78 = nullptr;
+	QWidget *m_f88 = nullptr; QWidget *m_f90 = nullptr; QWidget *m_f98 = nullptr;
 	explicit QuickDialogFace(QWidget *parent = nullptr);
 	void build();    // FUN_006cfe98 — 结构段(cited)
 };
