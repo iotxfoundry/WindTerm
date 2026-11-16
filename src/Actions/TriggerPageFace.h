@@ -254,10 +254,23 @@ class TriggerActionEditPanelFace : public QWidget {
 public:
 	explicit TriggerActionEditPanelFace(int flags, QWidget *parent = nullptr);
 
+	// FUN_006f83b0(412B,0022.c:23612)**同名类的第二构造**(带 kind):
+	//   FUN_0056376e(this, active ? 0x11800 : 0xFFFF1800, parent)(基类)→
+	//   vtable TriggerActionEditPanel_vtable + 副 0118bac8 →
+	//   **+0x68 = kind** →
+	//   示例样板按 kind:1 → 提示 "%1\nhttp://www.sample.com" /
+	//     脚本 "%1\n() => {\n return `https://www.sample.com`;\n}"(0x18/0x2e 实读);
+	//     4 → 提示 "%1\necho command\\n" /
+	//     脚本 "%1\n() => {\n return `echo command\\n`;\n}"(0x11/0x26 实读);
+	//   tr("E.g.:")(0xc9fc02).arg(样板) → FUN_005631dc / FUN_0056321c 两路写入。
+	//   即 SendText/CustomLink/CustomMenu/ShowTooltip 页 +0x48/+0x70 的字段件。
+	TriggerActionEditPanelFace(int kind, bool active, QWidget *parent);
+
 	bool f48a() const { return m_f48a; }  // +0x48 低字节(0x0101)
 	bool f48b() const { return m_f48b; }  // +0x49 高字节
 
 protected:
+	int m_kind68 = 0;     // +0x68(仅带 kind 构造置位)
 	bool m_f48a = true;   // +0x48
 	bool m_f48b = true;   // +0x49
 	QString m_f50;        // +0x50

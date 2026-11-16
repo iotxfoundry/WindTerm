@@ -219,8 +219,7 @@ void TriggerActionWidgetFace::build()
 			continue;
 		const bool gt4 = (m_kind30 - 1) > 3;                     // @006fd8xx bVar3
 		if (sub == 1) {
-			// new 0x70 + FUN_006f83b0(w, 1, gt4, 0) — cited(件未建模)
-			m_f58 = new QWidget;
+			m_f58 = new TriggerActionEditPanelFace(1, gt4, this);   // 0x70,FUN_006f83b0(1,gt4,0)
 			m_stack40->addWidget(m_f58);                         // @006fdaxx
 		} else if (sub == 2) {
 			auto *group = new QGroupBox;                         // @006fda80(0x30)
@@ -229,8 +228,7 @@ void TriggerActionWidgetFace::build()
 			vbox->addWidget(m_f50, 0, Qt::Alignment());          // @006fdaxx
 			m_stack40->addWidget(group);                         // @006fdaxx
 		} else if (sub == 4) {
-			// new 0x70 + FUN_006f83b0(w, 4, gt4, 0) — cited
-			m_f60 = new QWidget;
+			m_f60 = new TriggerActionEditPanelFace(4, gt4, this);   // 0x70,FUN_006f83b0(4,gt4,0)
 			m_stack40->addWidget(m_f60);                         // @006fdbxx
 		} else {
 			// sub == 3:语料 @006fd987 直接 addWidget(入参 Ghidra 折叠)— cited
@@ -268,7 +266,7 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	auto *label2 = new QLabel(QStringLiteral("&Send:"));           // tr(0xc9dafd),0x30
 
 	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);                                  // @006f8658(0x68,FUN_0056376e)
-	m_f48 = new QWidget(this);                                     // @006f8686 0x70 + FUN_006f83b0(4,1,0) cited
+	m_f48 = new TriggerActionEditPanelFace(4, true, this);          // @006f8686(0x70,FUN_006f83b0(4,1,0))
 	m_combo58 = new QComboBox;                                     // @006f86aa 0x48
 	m_spin60 = new QDoubleSpinBox;                                 // @006f86c5 0x30
 
@@ -297,6 +295,25 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	QWidget::setTabOrder(m_f48, m_combo58);                        // @(+0x50 → +0x58)
 	QWidget::setTabOrder(m_combo58, m_spin60);                     // @(+0x58 → +0x60)
 	setFocusProxy(this);
+}
+
+// FUN_006f83b0(412B)TriggerActionEditPanel 带 kind 构造真身
+TriggerActionEditPanelFace::TriggerActionEditPanelFace(int kind, bool active, QWidget *parent)
+	: QWidget(parent)                     // FUN_0056376e(基类,active ? 0x11800 : 0xFFFF1800)
+	, m_kind68(kind)                      // +0x68
+{
+	Q_UNUSED(active);
+	QString hint, script;                 // local_58 / local_50
+	if (kind == 1) {
+		hint = QStringLiteral("%1\nhttp://www.sample.com");                       // 0x18 实读
+		script = QStringLiteral("%1\n() => {\n return `https://www.sample.com`;\n}"); // 0x2e 实读
+	} else if (kind == 4) {
+		hint = QStringLiteral("%1\necho command\\n");                            // 0x11 实读
+		script = QStringLiteral("%1\n() => {\n return `echo command\\n`;\n}");  // 0x26 实读
+	}
+	// 两路写入:tr("E.g.:")(0xc9fc02).arg(hint) → FUN_005631dc(this, …)@006f845e;
+	//           tr("E.g.:").arg(script)        → FUN_0056321c(this, …)@006f84b4
+	//   (两腿均 cited;占位/提示文案设置面)
 }
 
 // FUN_005675e8(69B)TextMarkTablePanel ctor 真身
@@ -448,7 +465,7 @@ void ShowTooltipTriggerPageFace::assembleShowTooltipPage()
 	auto *l2 = new QLabel(QStringLiteral("&Tooltip:"));        // tr(0xc9fefb)
 	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);                              // @00703b75(0x68,FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40
-	m_f48 = new QWidget(this);                                 // @00703ba2(0x70 + FUN_006f83b0(5,1,0)) cited
+	m_f48 = new TriggerActionEditPanelFace(5, true, this);     // @00703ba2(0x70,FUN_006f83b0(5,1,0))
 	m_f50 = m_f48;                                             // +0x50
 	m_f58 = new QWidget(this);                                 // @00703bc5(0x40 + FUN_00703a58(0)) cited
 	l1->setBuddy(m_edit38);
