@@ -133,6 +133,17 @@ public:
 	//     (kind 8 + 缺省记录,cited);否则维持当前项。
 	void removeSelectedTriggers();
 
+	// FUN_006f3d98(655B,0022.c:20567)复制所选触发器:
+	//   row = currentRow;idx = currentRecordIndex(row);-1 → 返;
+	//   FUN_006f36be(this, row)(提交);copy = +0x90[idx](拷贝构造);
+	//   把现有记录名(+0x21 非 0 者)收进 QHash;
+	//   从 n = 2 起试 copy.name + " (%1)".arg(n)(十进制),首次未被占用即用
+	//     (**格式串 " (%1)" 实读**);
+	//   copy.+0x00..(名) = 新名;FUN_00698ffc(copy)(重生成唯一键);
+	//   copy.+0x18..? 清;appendRecord(copy)(FUN_006f35fe);
+	//   editSelectedTrigger()(FUN_006f32e0,复制后直接进编辑)。
+	void duplicateSelectedTrigger();
+
 	// FUN_006f3286(89B,0022.c:20176)当前行记录:
 	//   row = +0x68 currentRow();idx = currentRecordIndex(row);
 	//   idx == -1 → 返回 +0x98 缺省记录;否则 +0x90 第 idx 项。

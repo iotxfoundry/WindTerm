@@ -6,6 +6,7 @@
 
 #include <QAbstractButton>
 #include <QDialogButtonBox>
+#include <QHash>
 #include <QMessageBox>
 #include <QFormLayout>
 #include <QItemSelectionModel>
@@ -567,4 +568,35 @@ void TriggerDialogFace::removeSelectedTriggers()
 		// 空表页腿:panes_stackInit(this, 8, 1, &空 QVariant) + 缺省记录装载
 		//   — 同 reloadList 空表分支,cited
 	}
+}
+
+// FUN_006f3d98(655B,0022.c:20567)复制所选触发器真身
+void TriggerDialogFace::duplicateSelectedTrigger()
+{
+	if (m_triggerList68 == nullptr)
+		return;
+	const int row = m_triggerList68->currentRow();
+	const int idx = currentRecordIndex(row);          // @006f3d98
+	if (idx < 0 || idx >= m_records90.size())
+		return;
+	// FUN_006f36be(this, row)(提交当前编辑)@006f3dbx — cited
+
+	TriggerRecord copy = m_records90.at(idx);         // FUN_0069f970 拷贝构造
+
+	QHash<QString, int> used;                         // local_b0(QHash)
+	for (const TriggerRecord &r : m_records90) {
+		if (r.f21 != 0)                               // 只统计入列者
+			used.insert(r.name08, 0);                 // FUN_006a2140 插入
+	}
+	QString cand;                                     // local_b8
+	for (int n = 2;; ++n) {                           // @006f3edd(lVar4 从 2 起)
+		cand = copy.name08 + QStringLiteral(" (%1)").arg(n, 0, 10); // 格式串实读
+		if (!used.contains(cand))                     // while (*node != hash_null)
+			break;
+	}
+	copy.name08 = cand;                               // QString::operator=(local_80,…)
+	// FUN_00698ffc(copy)(重生成唯一键)@006f3ff0 — cited
+	copy.key10 = QString();                           // local_88[0] = 0
+	appendRecord(copy);                               // @006f4011(FUN_006f35fe)
+	editSelectedTrigger();                            // @006f401x(FUN_006f32e0)
 }
