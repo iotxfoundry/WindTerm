@@ -2,6 +2,7 @@
 #include "JsEngine.h"
 #include "ThemeIcons.h"
 #include <QCoreApplication>
+#include <cstring>
 #include <QMenu>
 #include <QVBoxLayout>
 
@@ -188,7 +189,7 @@ QMenu *MuxPaneView::findOrCreateMenu(QObject *ctx, const QString &name, QWidget 
 	if (name.isEmpty())                                          // @00692ef8(名空 → 0)
 		return nullptr;
 	if (ctx != nullptr) {
-		// FUN_006926c2(&it, ctx, ctx->+0x28, name)QMap 查 — cited;
+		// FUN_006926c2 = 线性扫表比名(memcmp,见 findMenuItemIndex);
 		// 命中则 FUN_00692a70(ctx, &desc, parent) 非空即返 — cited
 	}
 	// 未命中:new QMenu(0x30, tr(name), parent)@00692fd0
@@ -220,4 +221,15 @@ QMenu *MuxPaneView::buildActionMenu(QObject *ctx, void *actionItem, QWidget *par
 		Q_UNUSED(menu);
 	});
 	return menu;
+}
+
+// 006926c2(164B)按名线性查找真身
+int MuxPaneView::findMenuItemIndex(const QList<QByteArray> &names, const QByteArray &name)
+{
+	for (int i = 0; i < names.size(); ++i) {      // plVar6 逐项
+		if (names.at(i).size() == name.size() &&
+		    memcmp(names.at(i).constData(), name.constData(), name.size()) == 0) // @006926c2
+			return i;                             // 命中
+	}
+	return names.size();                          // 未命中 = 末位
 }

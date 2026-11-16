@@ -95,7 +95,8 @@ public:
 
     // 00692ef0(310B,0021.c:18914)按名取/建菜单:
     //   name 为空 → nullptr;
-    //   ctx 非空 → FUN_006926c2(&it, ctx, ctx->+0x28, name)(QMap 查);
+    //   ctx 非空 → **FUN_006926c2(&it, ctx, ctx->+0x28, name)** =
+    //     **线性扫表**比较条目名(memcmp),非 QMap(批 397 勘正);
     //     命中 → FUN_00692a70(ctx, &desc, parent) 返非空即用;
     //   否则 new QMenu(0x30, tr(name), parent)。
     static class QMenu *findOrCreateMenu(QObject *ctx, const QString &name, QWidget *parent);
@@ -110,6 +111,11 @@ public:
     //   ⑥ 余段(逐子项 addAction/addMenu/分隔符)由 FUN_0076cb16 承接(cited)。
     //   ⇒ 再次印证:② 菜单条目来自动作/配置树,不在 C++ 里硬写。
     static class QMenu *buildActionMenu(QObject *ctx, void *actionItem, QWidget *parent);
+
+    // 006926c2(164B,0021.c:18567)在动作条目表里按名线性查找:
+    //   逐项取条目名(条目 +0x20 → 名字串)与目标串 **memcmp**;
+    //   命中 → 返回该位置迭代器;否则返回末位(即"未找到")。
+    static int findMenuItemIndex(const QList<QByteArray> &names, const QByteArray &name);
 
     void attachJsEngine(JsEngine *engine, QObject *kingMeta,
                         QObject *appBridge, QObject *windowBridge);
