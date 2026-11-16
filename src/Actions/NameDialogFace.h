@@ -30,6 +30,13 @@ public:
 	//   Ok 按钮 setText(tr("Create")(0xc9da96));
 	//   form->addRow(tr("&Name:")(0xc9da9d), +0x50);
 	//   setLayout(vbox);FUN_0075c132(0.35 /*0x3fd6666666666666*/, 0, qApp, this)。
+	// FUN_006bdced(65B,0021.c:50472)文本变化闭包:
+	//   **+0x30 != 0 → 直返**(+0x30 = "允许空名"旗标);
+	//   否则 FUN_006bdbc6(this, text 长度 != 0)(Ok 按钮 setEnabled)。
+	//   ⇒ 名字为空时 Ok 灰显。
+	void onTextChanged(const QString &text);
+
+	void setAcceptEnabled(bool on); // FUN_006bdbc6(承接)
 	void build();   // FUN_006bd50c
 	void wire();    // FUN_006bd34a(449B)
 

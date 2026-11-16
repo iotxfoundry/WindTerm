@@ -1,6 +1,7 @@
 // NameDialogFace.cpp — 通用 Create 名字对话框(批 347)
 #include "NameDialogFace.h"
 
+#include <QAbstractButton>
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QLabel>
@@ -51,9 +52,25 @@ void NameDialogFace::build()
 //   connect(?, ?, 闭包 impl FUN_006bdced);(**回车/文本变化腿,cited**)
 //   connect(+0x40 QDialogButtonBox::accepted → this accept,闭包 FUN_006b2420);
 //   connect(+0x40 QDialogButtonBox::rejected → this reject,闭包 FUN_006b2420)。
+void NameDialogFace::onTextChanged(const QString &text)
+{
+	if (m_f30 != 0)                     // +0x30 = 允许空名 → 不做校验
+		return;
+	setAcceptEnabled(!text.isEmpty());  // FUN_006bdbc6(this, len != 0)
+}
+
+void NameDialogFace::setAcceptEnabled(bool on)
+{
+	if (m_buttons40)
+		if (QAbstractButton *ok = m_buttons40->button(QDialogButtonBox::Ok))
+			ok->setEnabled(on);
+}
+
 void NameDialogFace::wire()
 {
-	// connect(闭包 FUN_006bdced)@006bd34a — cited(触发面未定)
+	// connect(+0x50 searchEdit 的文本变化 → 闭包 impl FUN_006bdced)@006bd34a
+	//   — 编辑器件(searchEdit_init)未建模 ⇒ cited(不发明信号面);
+	//   行为面已由 onTextChanged 承载。
 	connect(m_buttons40, &QDialogButtonBox::accepted, this, &QDialog::accept);
 	connect(m_buttons40, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
