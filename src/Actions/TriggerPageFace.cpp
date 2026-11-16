@@ -265,7 +265,7 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	auto *label1 = new QLabel(QStringLiteral("&Match:"));          // tr(0xc9fd97),0x30
 	auto *label2 = new QLabel(QStringLiteral("&Send:"));           // tr(0xc9dafd),0x30
 
-	m_edit38 = new QWidget(this);                                  // @006f8658 0x68 + FUN_0056376e(0xe000) cited
+	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);                                  // @006f8658(0x68,FUN_0056376e)
 	m_f48 = new QWidget(this);                                     // @006f8686 0x70 + FUN_006f83b0(4,1,0) cited
 	m_combo58 = new QComboBox;                                     // @006f86aa 0x48
 	m_spin60 = new QDoubleSpinBox;                                 // @006f86c5 0x30
@@ -295,6 +295,17 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	QWidget::setTabOrder(m_f48, m_combo58);                        // @(+0x50 → +0x58)
 	QWidget::setTabOrder(m_combo58, m_spin60);                     // @(+0x58 → +0x60)
 	setFocusProxy(this);
+}
+
+// FUN_0056376e(90B)TriggerActionEditPanel ctor 真身
+TriggerActionEditPanelFace::TriggerActionEditPanelFace(int flags, QWidget *parent)
+	: QWidget(parent)                     // FUN_0053397c(基类装配;flags 语料 0xe000)
+{
+	Q_UNUSED(flags);                      // 0xe000 交由基类面(cited)
+	m_f48a = true;                        // +0x48 = 0x0101
+	m_f48b = true;                        // +0x49
+	// +0x50/+0x58/+0x60 空 QString;metaObject 011955f8 / 副 011957a8(C++ 自洽)
+	// s_king__visible_56325c(this) 初始化腿 — cited
 }
 
 // FUN_006f7c3c(243B)HighlightText 页装配真身
@@ -328,7 +339,7 @@ void RunCommandTriggerPageFace::assembleRunCommandPage()
 {
 	auto *form = new QFormLayout;                              // @006fe2b1(0x20)
 	auto *label = new QLabel(QStringLiteral("&Match:"));       // tr(0xc9fd97),0x30
-	m_edit38 = new QWidget(this);                              // @006fe312(0x68 + FUN_0056376e(0xe000)) cited
+	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);                              // @006fe312(0x68,FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40 = w+0x40
 	m_action48 = new TriggerActionWidgetFace(10, this);          // @006fe33a(0x78,kind 10)
 	label->setBuddy(m_edit38);
@@ -352,7 +363,7 @@ void CustomLinkTriggerPageFace::assembleCustomLinkPage()
 {
 	auto *form = new QFormLayout;                              // @00703d5f(0x20)
 	auto *label = new QLabel(QStringLiteral("&Match:"));       // tr(0xc9fd97),0x30
-	m_edit38 = new QWidget(this);                              // @00703dc0(0x68 + FUN_0056376e(0xe000)) cited
+	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);                              // @00703dc0(0x68,FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40 = w+0x40
 	m_action48 = new TriggerActionWidgetFace(5, this);          // @00703de8(0x78,kind 5)
 	m_f50 = new QWidget(this);                                 // @00703e03(0x40 + FUN_00703a58(0)) cited
@@ -403,7 +414,7 @@ void ShowTooltipTriggerPageFace::assembleShowTooltipPage()
 	auto *form = new QFormLayout;                              // @00703ad3(0x20)
 	auto *l1 = new QLabel(QStringLiteral("&Match:"));          // tr(0xc9fd97)
 	auto *l2 = new QLabel(QStringLiteral("&Tooltip:"));        // tr(0xc9fefb)
-	m_edit38 = new QWidget(this);                              // @00703b75(0x68 + FUN_0056376e(0xe000)) cited
+	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);                              // @00703b75(0x68,FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40
 	m_f48 = new QWidget(this);                                 // @00703ba2(0x70 + FUN_006f83b0(5,1,0)) cited
 	m_f50 = m_f48;                                             // +0x50
@@ -434,7 +445,7 @@ void CustomMenuTriggerPageFace::assembleCustomMenuPage()
 	auto *l1 = new QLabel(QStringLiteral("&Match:"));          // tr(0xc9fd97)
 	auto *l2 = new QLabel(QStringLiteral("&Actions:"));        // tr(0xc9ff05)
 	// src = FUN_006f7830(this)@00703fxx(行源/模型)— cited
-	m_edit38 = new QWidget(this);                              // 0x68 + FUN_0056376e(0xe000) cited
+	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);    // 0x68(FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40
 	m_table48 = new QWidget(this);                             // 0x48 + FUN_00584e4a(0x48f) cited
 	m_f50 = new QWidget(this);                                 // 0x40 + FUN_00703a58(0) cited

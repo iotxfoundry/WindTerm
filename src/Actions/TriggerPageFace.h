@@ -181,6 +181,29 @@ protected:
 //   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
 //   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
 //   setFocusProxy(this)。
+// TriggerActionEditPanelFace — FUN_0056376e(90B,0017.c:36762)ctor(名不副实:
+//   Ghidra 取名来自 metaObject 指针;实体是**触发器动作文本面板**,尺寸 0x68):
+//   FUN_0053397c(this, flags, 0, parent)(基类装配;0xe000 = 页内文本域旗标) →
+//   metaObject = TriggerActionEditPanel_metaObject(011955f8)+ 副 vptr 011957a8 →
+//   **+0x48 = 0x0101**(两 bool)→ +0x50/+0x58/+0x60 = 空 QString →
+//   s_king__visible_56325c(this)。
+//   五个动作页的 +0x38 文本域即本类(批 377 起以本类替换裸 QWidget)。
+class TriggerActionEditPanelFace : public QWidget {
+	Q_OBJECT
+public:
+	explicit TriggerActionEditPanelFace(int flags, QWidget *parent = nullptr);
+
+	bool f48a() const { return m_f48a; }  // +0x48 低字节(0x0101)
+	bool f48b() const { return m_f48b; }  // +0x49 高字节
+
+protected:
+	bool m_f48a = true;   // +0x48
+	bool m_f48b = true;   // +0x49
+	QString m_f50;        // +0x50
+	QString m_f58;        // +0x58
+	QString m_f60;        // +0x60
+};
+
 // CustomLinkTriggerPageFace — kind 5(new 0x58)装配 FUN_00703d3e(379B):
 //   form;label = QLabel(tr("&Match:")(0xc9fd97));
 //   +0x38 = new 0x68 + FUN_0056376e(w, 0xe000, 0)(文本域);+0x40 = w+0x40;
@@ -195,7 +218,7 @@ public:
 	void assembleCustomLinkPage(); // FUN_00703d3e
 
 protected:
-	QWidget *m_edit38 = nullptr;                   // +0x38(0x68 文本域)
+	TriggerActionEditPanelFace *m_edit38 = nullptr; // +0x38(0x68 文本面板)
 	QWidget *m_f40 = nullptr;                      // +0x40(文本域 +0x40)
 	TriggerActionWidgetFace *m_action48 = nullptr; // +0x48(0x78,kind 5)
 	QWidget *m_f50 = nullptr;                      // +0x50(0x40 附件)
@@ -262,7 +285,7 @@ public:
 	void assembleShowTooltipPage(); // FUN_00703ab0
 
 protected:
-	QWidget *m_edit38 = nullptr; // +0x38(0x68 文本域)
+	TriggerActionEditPanelFace *m_edit38 = nullptr; // +0x38(0x68 文本面板)
 	QWidget *m_f40 = nullptr;    // +0x40
 	QWidget *m_f48 = nullptr;    // +0x48(0x70)
 	QWidget *m_f50 = nullptr;    // +0x50
@@ -298,7 +321,7 @@ public:
 	void assembleRunCommandPage(); // FUN_006fe290
 
 protected:
-	QWidget *m_edit38 = nullptr;              // +0x38(0x68 文本域)
+	TriggerActionEditPanelFace *m_edit38 = nullptr; // +0x38(0x68 文本面板)
 	QWidget *m_f40 = nullptr;                 // +0x40(文本域 +0x40)
 	TriggerActionWidgetFace *m_action48 = nullptr; // +0x48(0x78,kind 10)
 };
