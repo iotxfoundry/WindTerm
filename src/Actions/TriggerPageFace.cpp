@@ -2,6 +2,7 @@
 #include "TriggerPageFace.h"
 
 #include <QComboBox>
+#include <QDoubleSpinBox>
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
@@ -249,4 +250,49 @@ void TriggerActionWidgetFace::build()
 	setLayout(form);                                         // @006fdaxx
 	QWidget::setTabOrder(m_combo38, m_stack40);              // @006fdaxx(+0x38 → +0x40)
 	setFocusProxy(this);                                     // @006fdaxx
+}
+
+// FUN_006f8590(dialog_buildSpinForm,1013B,0022.c:23660)SendText 页装配真身
+SendTextTriggerPageFace::SendTextTriggerPageFace(QWidget *parent)
+	: TriggerPageFace(parent)
+{
+	assembleSendTextPage();
+}
+
+void SendTextTriggerPageFace::assembleSendTextPage()
+{
+	auto *form = new QFormLayout;                                  // @006f85b3(0x20)
+	auto *label1 = new QLabel(QStringLiteral("&Match:"));          // tr(0xc9fd97),0x30
+	auto *label2 = new QLabel(QStringLiteral("&Send:"));           // tr(0xc9dafd),0x30
+
+	m_edit38 = new QWidget(this);                                  // @006f8658 0x68 + FUN_0056376e(0xe000) cited
+	m_f48 = new QWidget(this);                                     // @006f8686 0x70 + FUN_006f83b0(4,1,0) cited
+	m_combo58 = new QComboBox;                                     // @006f86aa 0x48
+	m_spin60 = new QDoubleSpinBox;                                 // @006f86c5 0x30
+
+	m_combo58->addItem(QStringLiteral("Send after text match and next command prompt"), 2); // 0xc9fdd8
+	m_combo58->addItem(QStringLiteral("Send after text match and next line break"), 1);     // 0xc9fe08
+	m_combo58->addItem(QStringLiteral("Send after text match "), 0);                        // 0xc9fd9f
+
+	m_spin60->setSuffix(QStringLiteral("s"));                      // @006f8804
+	m_spin60->setMinimum(0.0);                                     // @006fxxxx
+	m_spin60->setMaximum(999999.9);                                // @006fxxxx
+	m_spin60->setSingleStep(0.1);                                  // @006fxxxx
+
+	label1->setBuddy(m_edit38);                                    // setBuddy ×2
+	label2->setBuddy(m_combo58);
+	// if (+0x38) FUN_006f1850(+0x48)@006f88xx — cited
+	form->setContentsMargins(0, 0, 0, 0);                          // 全零
+	assembleBusyOverlay();                                         // @006f88xx(FUN_006f1994)
+	form->addRow(label1, m_edit38);                                // addRow ×4(字段行,实参折叠)
+	form->addRow(label2, m_combo58);
+	form->addRow(QStringLiteral("Send &Condition:"));              // tr(0xc9fdb6) 表头行
+	form->addRow(QStringLiteral("Send &Later:"));                  // tr(0xc9fdc7) 表头行
+	setLayout(form);                                               // @006fxxxx
+	// 语料 setTabOrder 链走 +0x40/+0x50(两件各自的内部 +0x40 子件);
+	//   本面以两件本体顺序承接(cited)。
+	QWidget::setTabOrder(m_edit38, m_f48);                         // @(+0x40 → +0x50)
+	QWidget::setTabOrder(m_f48, m_combo58);                        // @(+0x50 → +0x58)
+	QWidget::setTabOrder(m_combo58, m_spin60);                     // @(+0x58 → +0x60)
+	setFocusProxy(this);
 }

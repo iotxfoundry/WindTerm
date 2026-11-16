@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class QComboBox;
+class QDoubleSpinBox;
 class QHBoxLayout;
 class QStackedLayout;
 class QStackedWidget;
@@ -159,4 +160,34 @@ protected:
 	QWidget *m_f60 = nullptr;            // +0x60(new 0x70 sub=4 件)
 	QWidget *m_f68 = nullptr;            // +0x68(sub=1 件 +0x40)
 	QWidget *m_f70 = nullptr;            // +0x70(sub=4 件 +0x40)
+};
+
+// SendTextTriggerPageFace — kind 11(new 0x68)装配 FUN_006f8590
+//   (dialog_buildSpinForm,1013B,0022.c:23660) 全量实读:
+//   form = QFormLayout(0x20);label1  tr("&Match:")(0xc9fd97,0x30);
+//                               label2  tr("&Send:")(0xc9dafd,0x30);
+//   +0x38 = new 0x68 + FUN_0056376e(w, 0xe000, 0)(文本域);+0x40 = w+0x40;
+//   +0x48 = new 0x70 + FUN_006f83b0(w, 4, 1, 0);+0x50 = w+0x40;
+//   +0x58 = new 0x48 combo_makeSearchCombo;+0x60 = new QDoubleSpinBox(0x30);
+//   combo 三项(data 2/1/0)文案 = tr(0xc9fdd8 "Send after text match and next
+//     command prompt" / 0xc9fe08 "Send after text match and next line break" /
+//     0xc9fd9f "Send after text match ");
+//   spin:setSuffix("s") / setDecimals / setMinimum(0.0) /
+//     setMaximum(999999.9) / setSingleStep(0.1);
+//   label->setBuddy ×2;+0x38 非空 → FUN_006f1850(+0x48);
+//   form margins 全零;assembleBusyOverlay(FUN_006f1994);addRow ×4;
+//   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
+//   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
+//   setFocusProxy(this)。
+class SendTextTriggerPageFace : public TriggerPageFace {
+	Q_OBJECT
+public:
+	explicit SendTextTriggerPageFace(QWidget *parent = nullptr);
+	void assembleSendTextPage(); // FUN_006f8590
+
+protected:
+	QWidget *m_edit38 = nullptr;      // +0x38(0x68 文本域;语料 +0x40 = 其内部件)
+	QWidget *m_f48 = nullptr;         // +0x48(new 0x70,FUN_006f83b0(4,1);+0x50 = 其 +0x40)
+	QComboBox *m_combo58 = nullptr;   // +0x58(0x48 search combo)
+	QDoubleSpinBox *m_spin60 = nullptr; // +0x60(QDoubleSpinBox 0x30)
 };
