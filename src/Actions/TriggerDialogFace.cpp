@@ -11,6 +11,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QListWidget>
+#include <QStandardItemModel>
 #include <QStackedLayout>
 #include <QStackedWidget>
 #include <QTabBar>
@@ -322,4 +323,37 @@ void TriggerDialogFace::reloadList()
 				first, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current); // 0x13
 		}
 	}
+}
+
+// FUN_006f5b42(1264B,0022.c:21635)动作下拉模型重建 + 记录装载真身(结构段):
+//   本面落「模型构建 + "*"→"all systems" 改写」两段;逐字段装载腿
+//   (s_session_uuid_6f571a 927B)cited。
+void TriggerDialogFace::rebuildActionModel(TriggerRecord *rec)
+{
+	auto *model = new QStandardItemModel(m_actionView60);   // @006f5b75(0x10)
+
+	// names = FUN_008086d0(DAT_011c2200)(全局动作名表,QList<QVariant>)
+	//   → 头插 "*"(@006f5ba3/5bc2;引用计数换手)→ 逐名 QStandardItem。—— cited
+	// 逐名(setEnabled 按可用性)@006f5cd1..5f:
+	//   item = new QStandardItem(0x10, name);item->setData(name, 0);
+	//   item->setEnabled(…);model->appendRow(item)(@006f5dxx)。
+
+	connect(model, &QStandardItemModel::itemChanged, this, [this](QStandardItem *) {
+		// 闭包槽体 — cited
+	});
+
+	if (m_actionView60) {
+		// view_connectModelReset(+0x60, model, 1)@006f5e1x — cited(视图置模型)
+		// m = +0x60->model() → dynamic_cast<QStandardItemModel*>;item(0)
+		if (QStandardItem *first = model->item(0)) {         // @006f5e8x
+			if (first->data(Qt::DisplayRole).toString() == QStringLiteral("*")) { // @006f5efe
+				model->blockSignals(true);                   // @006f5f3d
+				first->setData(QStringLiteral("all systems"), Qt::DisplayRole); // tr(0xc9fb7d)
+				model->blockSignals(false);                  // @006f5fxx
+			}
+		}
+	}
+
+	// s_session_uuid_6f571a(this, rec)(927B,记录逐字段装入各页)— cited
+	Q_UNUSED(rec);
 }

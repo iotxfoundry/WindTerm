@@ -10,6 +10,7 @@ class QGridLayout;
 class QModelIndex;
 class QLabel;
 class QListWidget;
+class QStandardItemModel;
 class QStackedLayout;
 class QStackedWidget;
 class QTabBar;
@@ -119,6 +120,19 @@ public:
 	//   否则 → setPageEnabled(true);list->setFocus(3);item(0) 非空 →
 	//     setCurrentItem(item, 0x13 = ClearAndSelect|Current)。
 	void reloadList();
+
+	// FUN_006f5b42(1264B,0022.c:21635)动作下拉模型重建 + 记录装载:
+	//   @006f5b75 model = new QStandardItemModel(0x10, 父 = +0x60 视图);
+	//   @006f5b9x names = FUN_008086d0(DAT_011c2200)(全局动作名表)→ 头插 "*";
+	//   逐名:item = new QStandardItem(0x10, 名);setData(名, 0);按可用性
+	//     setEnabled;model->appendRow(item);
+	//   connect(model itemChanged → this, 闭包);
+	//   @006f5e1x view_connectModelReset(+0x60, model, 1);
+	//   @006f5e6x m = FUN_005d68a8(+0x60)->model(),dynamic_cast 到
+	//     QStandardItemModel;item(0)->data(0) == "*" → blockSignals(m);
+	//     item(0)->setData(tr("all systems")(0xc9fb7d), 0);解除 block;
+	//   @006f60xx s_session_uuid_6f571a(&this, rec)(927B 逐字段装载)— cited。
+	void rebuildActionModel(struct TriggerRecord *rec);
 	void wire();       // dialog_connectAcceptReject2(006f2852,916B)
 
 	QTabBar *tabBar30() const { return m_tabBar30; }
@@ -138,7 +152,8 @@ protected:
 	QWidget *m_sessions48 = nullptr;      // +0x48(new 0x50 + FUN_00535a76)
 	QWidget *m_systems50 = nullptr;       // +0x50(同上)
 	QWidget *m_f58 = nullptr;             // +0x58(+0x48 件 +0x48,附 "No session available")
-	QWidget *m_f60 = nullptr;             // +0x60(+0x50 件 +0x48,附 "No system available")
+	QWidget *m_actionView60 = nullptr;    // +0x60(+0x50 件 +0x48,附 "No system available";
+	                                      //   同时是动作模型宿主视图)
 	QListWidget *m_triggerList68 = nullptr; // +0x68(new 0x48 + FUN_0055e356(0x143))
 	QWidget *m_triggerView70 = nullptr;   // +0x70(+0x68 件 +0x40,附 "No trigger available")
 	bool m_f78 = false;                   // +0x78(bool,ctor 清 0)
