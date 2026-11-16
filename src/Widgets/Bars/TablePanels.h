@@ -13,8 +13,8 @@
 //
 // | 类 | dtor | deleting | 自有字段 |
 // |---|---|---|---|
-// | TablePanel         | 0x008f16d2(66B) | 0x008f1714(5B) | 有(见注) |
-// | TextMarkTablePanel | 0x008f171a(29B) | 0x008f1758(47B) | **零** |
+// | TablePanel         | 0x008f16d2(66B)真身 | 0x008f1714(5B) | 有(见注) |
+// | TextMarkTablePanel | 0x008f171a(29B)真身 | 0x008f1758(47B) | **零** |
 //
 // TextMarkTablePanel 的 dtor 29B 只复位 vptr 后落基类 ⇒ 它比 TablePanel
 // 一个字段都不多,纯粹靠基类 + 装配腿区分。
