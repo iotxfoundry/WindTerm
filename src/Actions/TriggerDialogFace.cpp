@@ -6,6 +6,7 @@
 #include <QAbstractButton>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QModelIndex>
 #include <QGridLayout>
 #include <QLabel>
 #include <QListWidget>
@@ -186,4 +187,76 @@ void TriggerDialogFace::editSelectedTrigger()
 	// FUN_006bd960(dlg, item->data(0).toString())@006f347a — cited(553B 回填)
 	// (**(*dlg + 0x1a0))(dlg)@006f34xx — 显示/打开腿(cited 未定名)
 	Q_UNUSED(row);
+}
+
+// FUN_006f272a(13B)页容器启停:0x6f272a 单条 setEnabled(asm 里被调为 (this,on));
+//   语料 Ghidra 把实参折成 SUB81(*(this+0x38),0),按 +0x38 页容器承接(cited)。
+void TriggerDialogFace::setPageEnabled(bool on)
+{
+	if (m_stack38)
+		m_stack38->setEnabled(on);
+}
+
+// FUN_006f2738(155B)名字 → 下标
+int TriggerDialogFace::rowIndexByName(const QString &name) const
+{
+	const int n = m_records90.size();     // +0x90 size(@*+4)
+	for (int i = 0; i < n; ++i) {
+		if (m_records90.at(i).name10 == name) // @record+0x10 逐项 ==
+			return i;
+	}
+	return -1;                            // @006f27cb
+}
+
+// FUN_006f27d4(110B)当前行 → 记录下标
+int TriggerDialogFace::currentRecordIndex(int row) const
+{
+	if (m_triggerList68 == nullptr)
+		return -1;
+	QListWidgetItem *item = m_triggerList68->item(row); // +0x68 ->item(row)
+	if (item == nullptr)
+		return -1;
+	const QString name = item->data(Qt::UserRole).toString(); // data(0x100)
+	return rowIndexByName(name);
+}
+
+// FUN_006f3286(89B)当前行记录指针
+TriggerDialogFace::TriggerRecord *TriggerDialogFace::currentRecord()
+{
+	const int row = m_triggerList68 ? m_triggerList68->currentRow() : -1;
+	const int idx = currentRecordIndex(row);
+	if (idx < 0 || idx >= m_records90.size())
+		return &m_default98;              // == -1 → this+0x98
+	return &m_records90[idx];             // +0x90 第 idx 项(步长 0x48)
+}
+
+// FUN_006f2384(156B)确定键文案切换
+void TriggerDialogFace::setNextMode(bool on)
+{
+	if (m_f78 == on)                      // +0x78 同态 → 直返
+		return;
+	if (m_buttons80) {
+		if (QAbstractButton *ok = m_buttons80->button(QDialogButtonBox::Ok)) { // 0x400
+			ok->setText(on ? QStringLiteral("&Next")   // tr(0xc9fb14)
+			               : QStringLiteral("&Ok"));   // tr(0xc9e1cc)
+		}
+	}
+	m_f78 = on;                           // +0x78 = on
+}
+
+// FUN_006f60a8(139B)当前触发器换行槽真身
+void TriggerDialogFace::onTriggerIndexChanged(const QModelIndex &current)
+{
+	TriggerRecord *rec = currentRecord();  // FUN_006f3286
+	if (current.row() >= 0 && current.column() >= 0 && current.internalPointer() != nullptr)
+		; // FUN_006f36be(this, ?)(1608B 提交腿)— cited
+	if (rec->kind24 != 0) {                // +0x24
+		setPageEnabled(true);              // @FUN_006f272a(this,1)
+		// panes_stackInit(this, rec->kind24, rec->f20, &rec->f28) — 见 TriggerPageStackFace::showPage
+		setNextMode(false);                // @FUN_006f2384(this,0)
+		// FUN_006f5b42(this, rec)(1264B,记录装载进页)— cited
+	} else {
+		setPageEnabled(false);             // @FUN_006f272a(this,0)
+		setNextMode(false);
+	}
 }

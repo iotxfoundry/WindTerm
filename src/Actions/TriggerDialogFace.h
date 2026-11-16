@@ -1,10 +1,13 @@
 #pragma once
 
 #include <QDialog>
+#include <QList>
 #include <QMap>
+#include <QString>
 
 class QDialogButtonBox;
 class QGridLayout;
+class QModelIndex;
 class QLabel;
 class QListWidget;
 class QStackedLayout;
@@ -44,6 +47,50 @@ public:
 	//   FUN_006bd960(dlg, item->data(0).toString())(553B,回填);
 	//   (**(*dlg + 0x1a0))(dlg)(显示/打开腿,cited 未定名)。
 	void editSelectedTrigger();
+
+	// ---- 记录面(批 349)------------------------------------------------
+	// +0x90 QList 元素步长 0x48(006f2d8a 74B 析构循环实测:
+	//   逐项 FUN_006f9f0c 后 deallocate(0x48,8));+0x98 = 缺省记录。
+	// 字段:+0x10 名字 QString(006f2738 逐项 == 比较)/+0x20 byte(页栈
+	//   param_3)/+0x24 int 页 kind(0 = 无页)/+0x28 子结构(页栈 param_4)。
+	struct TriggerRecord {          // 总 0x48(与 deallocate(0x48,8) 一致)
+		char f00[0x10] = {};        // +0x00..0x0f(未解)
+		QString name10;             // +0x10(006f2738 逐项 == 比较)
+		QString desc18;             // +0x18(编辑框回填源,006f3411)
+		char f20 = 0;               // +0x20(页栈 param_3)
+		int kind24 = 0;             // +0x24(页 kind;0 = 无页)
+		char f28[0x48 - 0x28] = {}; // +0x28..0x47(页栈 param_4 的宿主)
+	};
+
+	// FUN_006f3286(89B,0022.c:20176)当前行记录:
+	//   row = +0x68 currentRow();idx = currentRecordIndex(row);
+	//   idx == -1 → 返回 +0x98 缺省记录;否则 +0x90 第 idx 项。
+	TriggerRecord *currentRecord();
+
+	// FUN_006f27d4(110B,0022.c:...):当前行下标:
+	//   item = +0x68 ->item(row);空 → -1;name = item->data(0x100).toString()
+	//   → rowIndexByName(name)。
+	int currentRecordIndex(int row) const;
+
+	// FUN_006f2738(155B)名字 → 下标:遍历 +0x90(步长 0x48),逐项比较 +0x10
+	//   QString;命中返回下标,否则 -1。
+	int rowIndexByName(const QString &name) const;
+
+	// FUN_006f2384(156B)确定键文案切换(+0x78 态):
+	//   与 +0x78 相同 → 直返;Ok 按钮(+0x80, 0x400)文案 =
+	//   on ? tr("&Next")(0xc9fb14) : tr("&Ok")(0xc9e1cc);+0x78 = on。
+	void setNextMode(bool on);
+
+	// FUN_006f60a8(139B)"当前触发器换行"槽(接线里的 selectionModel
+	//   currentChanged 腿):
+	//   rec = currentRecord();
+	//   索引有效(row≥0 && col≥0 && 内部指针非空)→ FUN_006f36be(this)(1608B
+	//     提交腿,cited);
+	//   rec->+0x24 != 0 → setPageEnabled(true);panes_stackInit(this,
+	//     rec->+0x24, rec->+0x20, &rec->+0x28);FUN_006f5b42(this, rec)(1264B
+	//     cited);setNextMode(false);
+	//   否则 setPageEnabled(false);setNextMode(false)。
+	void onTriggerIndexChanged(const QModelIndex &current);
 	void wire();       // dialog_connectAcceptReject2(006f2852,916B)
 
 	QTabBar *tabBar30() const { return m_tabBar30; }
@@ -69,6 +116,8 @@ protected:
 	bool m_f78 = false;                   // +0x78(bool,ctor 清 0)
 	QDialogButtonBox *m_buttons80 = nullptr; // +0x80(0x30,flags 0x400400)
 	QMap<int, QWidget *> m_pages88;       // +0x88(QMap<int,page*>)
-	QWidget *m_f90 = nullptr;             // +0x90(QList 面)
-	QWidget *m_f98 = nullptr;             // +0x98(FUN_00698fb2 构造成员)
+	QList<TriggerRecord> m_records90;     // +0x90(步长 0x48)
+	TriggerRecord m_default98;            // +0x98(缺省记录)
+
+	void setPageEnabled(bool on);         // FUN_006f272a(13B)
 };
