@@ -1,6 +1,13 @@
 // ListFaces.cpp — CheckList / ExplorerList(批 487)
 #include "ListFaces.h"
 
+// s_CloseButton_585528(897B)ctor
+CloseButtonFace::CloseButtonFace(QWidget *parent)
+	: QWidget(parent)
+{
+	// +0x30 / +0x38 / +0x40 三字段 + 897B 体(图标/接线)— cited
+}
+
 // s_CheckList_534e62(344B)ctor
 CheckListFace::CheckListFace(QWidget *parent)
 	: QWidget(parent)                  // vtable CheckList_vtable
