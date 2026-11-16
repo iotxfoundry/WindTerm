@@ -85,6 +85,21 @@ public:
     //   后续建菜单项/弹出 — cited。
     void showPanePopupMenu(class QMouseEvent *event);
 
+    // 008c3684(263B,0028.c:5993)pane 菜单基名:`objectName()` 去掉子串
+    //   "Pane"(QString::remove) —— 即 "Pane<X>" → "<X>"(菜单名 %2 位)。
+    QString paneMenuBaseName() const;
+
+    // 006926a0(34B,0021.c:18550)动作上下文:obj 非空 → (*vt+0x1f0)(obj),
+    //   否则 0(虚槽面 cited)。
+    QObject *actionContext() const;
+
+    // 00692ef0(310B,0021.c:18914)按名取/建菜单:
+    //   name 为空 → nullptr;
+    //   ctx 非空 → FUN_006926c2(&it, ctx, ctx->+0x28, name)(QMap 查);
+    //     命中 → FUN_00692a70(ctx, &desc, parent) 返非空即用;
+    //   否则 new QMenu(0x30, tr(name), parent)。
+    static class QMenu *findOrCreateMenu(QObject *ctx, const QString &name, QWidget *parent);
+
     void attachJsEngine(JsEngine *engine, QObject *kingMeta,
                         QObject *appBridge, QObject *windowBridge);
 

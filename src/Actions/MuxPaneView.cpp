@@ -2,6 +2,7 @@
 #include "JsEngine.h"
 #include "ThemeIcons.h"
 #include <QCoreApplication>
+#include <QMenu>
 #include <QVBoxLayout>
 
 // === MuxPaneView(QWidget,MuxPane::Type) ===
@@ -163,4 +164,33 @@ void MuxPaneView::showPanePopupMenu(QMouseEvent *event)
 	if (!name.isEmpty()) {
 		// 注册表未建模 → 本条腿 cited(不发明菜单项)
 	}
+}
+
+// 008c3684(263B,0028.c:5993)pane 菜单基名真身
+QString MuxPaneView::paneMenuBaseName() const
+{
+	QString n = objectName();                                   // @008c36xx
+	n.remove(QStringLiteral("Pane"));                            // @008c36ba(fromAscii "Pane")
+	return n;
+}
+
+// 006926a0(34B,0021.c:18550)动作上下文真身(虚槽 +0x1f0)
+QObject *MuxPaneView::actionContext() const
+{
+	// @006926a0 obj 非空 → (**(*obj+0x1f0))(obj);否则 0
+	//   虚槽实现按宿主类;本面以自身承接并注记(cited)。
+	return const_cast<MuxPaneView *>(this);
+}
+
+// 00692ef0(310B,0021.c:18914)按名取/建菜单真身
+QMenu *MuxPaneView::findOrCreateMenu(QObject *ctx, const QString &name, QWidget *parent)
+{
+	if (name.isEmpty())                                          // @00692ef8(名空 → 0)
+		return nullptr;
+	if (ctx != nullptr) {
+		// FUN_006926c2(&it, ctx, ctx->+0x28, name)QMap 查 — cited;
+		// 命中则 FUN_00692a70(ctx, &desc, parent) 非空即返 — cited
+	}
+	// 未命中:new QMenu(0x30, tr(name), parent)@00692fd0
+	return new QMenu(name, parent);
 }
