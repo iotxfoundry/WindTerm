@@ -14291,7 +14291,7 @@
 0057eb02	9	FUN_0057eb02	ref	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h
 0057eb0c	200	FUN_0057eb0c	real	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h,src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h
 0057ebf0	102	FUN_0057ebf0	todo	
-0057ec60	284	FUN_0057ec60	todo	
+0057ec60	284	FUN_0057ec60	ref	src/Widgets/Controls/HtmlListFace.cpp
 0057ed96	1516	HtmlDelegate_vt13	qtplumb	
 0057f3e6	5	FUN_0057f3e6	todo	
 0057f3ec	2951	HtmlDelegate_vt12	qtplumb	
@@ -14308,27 +14308,27 @@
 00580432	34	FUN_00580432	todo	
 00580460	1857	s_DummyArrowLabel_580460	todo	
 00580c32	761	FUN_00580c32	todo	
-00580f5e	9	FUN_00580f5e	todo	
+00580f5e	9	FUN_00580f5e	ref	src/Widgets/Controls/ListViewFace.cpp
 00580f68	98	ListItemDelegate_vt13	qtplumb	
 00580fca	604	FUN_00580fca	todo	
 0058122e	20	FUN_0058122e	todo	
 00581242	29	FUN_00581242	todo	
-00581260	80	FUN_00581260	todo	
+00581260	80	FUN_00581260	ref	src/Widgets/Controls/ListViewFace.cpp,src/Widgets/Controls/ListViewFace.h
 005812b8	20	FUN_005812b8	todo	
 005812cc	3335	ListItemDelegate_vt12	qtplumb	
 005820a0	98	FUN_005820a0	todo	
 00582102	111	FUN_00582102	todo	
 00582180	29	FUN_00582180	todo	
 005821a0	119	FUN_005821a0	todo	
-00582220	10	FUN_00582220	todo	
-0058222a	131	FUN_0058222a	todo	
+00582220	10	FUN_00582220	ref	src/Widgets/Controls/HtmlListFace.cpp
+0058222a	131	FUN_0058222a	real	src/Widgets/Controls/HtmlListFace.cpp,src/Widgets/Controls/HtmlListFace.h
 005822be	56	FUN_005822be	todo	
 005822f6	53	FUN_005822f6	todo	
 0058232c	1492	tree_sizehint_index	todo	
 00582940	187	HtmlList_vt14	qtplumb	
 00582a00	46	FUN_00582a00	todo	
 00582a2e	556	FUN_00582a2e	todo	
-00582c72	718	ListView_dtor	todo	
+00582c72	718	ListView_dtor	stub	src/Widgets/Controls/ListViewFace.h
 00582f40	9	FUN_00582f40	todo	
 00582f4a	23	ListView_dtor_deleting	todo	
 00582f61	6	FUN_00582f61	todo	
@@ -14356,8 +14356,8 @@
 00583abe	15	FUN_00583abe	todo	
 00583ace	157	ListView_vt14	qtplumb	
 00583b6c	30	FUN_00583b6c	todo	
-00583b8a	34	FUN_00583b8a	todo	
-00583bac	703	FUN_00583bac	ref	src/Widgets/Controls/CompleteListFace.h,src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
+00583b8a	34	FUN_00583b8a	ref	src/Widgets/Controls/ListViewFace.cpp
+00583bac	703	FUN_00583bac	real	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h,src/Widgets/Controls/ListViewFace.cpp,src/Widgets/Controls/ListViewFace.h
 00583e8e	1029	listFilter_applyRegExp	todo	
 005842bd	179	FUN_005842bd	todo	
 00584370	41	FUN_00584370	todo	
@@ -14365,7 +14365,7 @@
 005843b0	461	ListView_vt6	qtplumb	
 0058457e	143	FUN_0058457e	todo	
 0058460e	93	FUN_0058460e	todo	
-00584670	108	FUN_00584670	todo	
+00584670	108	FUN_00584670	ref	src/Widgets/Controls/ListViewFace.cpp
 005846e0	102	FUN_005846e0	todo	
 00584750	107	FUN_00584750	todo	
 005847bb	407	FUN_005847bb	todo	
@@ -25598,7 +25598,7 @@
 008f7500	5	HtmlListModel_qt_metacall	qtplumb	
 008f7506	66	HtmlList_qt_metacast	qtplumb	
 008f7548	5	HtmlList_qt_metacall	qtplumb	
-008f754e	29	HtmlList_dtor	todo	
+008f754e	29	HtmlList_dtor	stub	src/Widgets/Controls/HtmlListFace.h
 008f756b	33	FUN_008f756b	todo	
 008f758c	47	HtmlList_dtor_deleting	todo	
 008f75bb	51	FUN_008f75bb	todo	
@@ -31562,7 +31562,7 @@
 00a8e8b8	500	qname_entry_build	todo	
 00a8eaac	299	FUN_00a8eaac	todo	
 00a8ebd8	187	FUN_00a8ebd8	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h
-00a8ec9c	99	FUN_00a8ec9c	todo	
+00a8ec9c	99	FUN_00a8ec9c	ref	src/Widgets/Controls/ListViewFace.cpp,src/Widgets/Controls/ListViewFace.h
 00a8ed08	240	FUN_00a8ed08	todo	
 00a8ee00	309	FUN_00a8ee00	cleanup	
 00a8ef3e	572	FUN_00a8ef3e	todo	
