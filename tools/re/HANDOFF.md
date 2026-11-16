@@ -8,17 +8,18 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第四十五次交接,批 368 · ④ TriggerDialog 行为面收口)
+## 一句话状态(2026-11-16 第四十六次交接,批 380 · ⑤ 八页装配全谱落地)
 
 **界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
-182 批 / 64 文件 / +7600 行,新增 21 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **76%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
+192 批 / 64 文件 / +8300 行,新增 22 个 `*Face` 新域。覆盖率(按 GUI-MAP
+条目加权)≈ **78%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
 /②菜单 60%(右鍵四族全进"结构已定")/③工具栏状态栏 80%(七 kind 全真身)
 /④对话框 66%(TriggerDialog **收口**:记录布局定案+kind→图标表(两源互证)+新增/删除/复制/按键选中/提交腿/记录族四件;Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
 LoginWizard 全/Paste 全/**TriggerDialog 全谱 0xe0**:页栈+接线+编辑腿/
-**NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 75%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+
-**触发器页族全谱**:页栈 006f440e 11 kind 表/TriggerActionWidget 0x78/
-SendText 页 1013B/遮挡槽 395B)/⑥dock 标签 75%(KitDock 全套+TabBar
+**NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 85%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+
+**八个触发器页装配全数落地**(CustomLink/CustomMenu/HighlightText/PlaySound/
+RunCommand/SendText/ShowTooltip/Connection)+页栈 006f440e 11 kind 表+
+TriggerActionWidget 0x78+TriggerActionEditPanel 0x68+TriggerWidgetKit)/⑥dock 标签 75%(KitDock 全套+TabBar
 节点助记符页色关钮)/5c 写 85% 读 60%(blobA/B/C 真身+会话帧解析)。
 
 **关键勘正**:①`smeta 011a2240 = SessionDialog`(设置对话框族定性);
@@ -75,6 +76,7 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | pane 菜单前缀 **0x04000000=Ctrl / 0x02000000=Shift** | 批 355(asm 0x8c3cbf 分支序) | 批 336 二者写反 |
 | `TriggerRecord` 语义:+0x08 名 / +0x10 UserRole 键 / +0x18 描述 | 批 354(34dd 回写 + 263e setData 0x100 互证) | 批 349 首判 +0x10=名 |
 | `+0x10` = **uuid**(`QUuid::toString(WithoutBraces)`) | 批 368(80B regenerateKey) | 批 354 "UserRole 键" |
+| `TriggerActionEditPanel`(`0056376e`) = **动作文本面板 0x68**(非"编辑面板") | 批 377(ctor 字段 + 五页 +0x38 用法) | 名不副实 |
 | `s_terminal_ansiBrightBlack_699c2a` = **记录构造函数** / `s_king__beforeDisconnection_69934c` = **kind→图标** / `expectDialog_saveRows` = **映射→表** | 批 359/361/365(函数体实测) | 名不副实(3 例新增) |
 
 | 现结论 | 勘正来源 | 被勘正旧结论 |

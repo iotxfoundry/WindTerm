@@ -372,3 +372,28 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   与 `+0x1a0` 同族)、**记录族四件**(`defaultRecord`/`regenerateKey`/
   `setStyle`/`isConnectionKind`)、**expect saveRows 997B**(**名不副实**
   = 映射→表回填)。
+
+### 批 369-380 增量(⑤ 八个触发器页装配全数落地 + 表格/面板助手)
+- **八页装配全谱**(每页 = QFormLayout + 标签 + 字段 + 遮罩 + addRow + Tab 链):
+  | 页(kind) | 装配 | 关键实读 |
+  |---|---|---|
+  | CustomLink(5) 379B | `00703d3e` | `&Match:` + 文本面板 0x68 + **TriggerActionWidget kind 5** + 0x50 附件 |
+  | CustomMenu(6) 683B | `00703fb0` | `&Match:`/`&Actions:` + 表 0x48(0x48f) + 列头 `Label`/`Action` + `No action available` |
+  | HighlightText(8) 243B | `006f7c3c` | `&Rules:` + 0x38 规则件 0x48 |
+  | PlaySound(9) 470B | `00704340` | `&Rules:` + 表 0x48(0x48f) + 列头 `Pattern`/`Description`/`Sound` + `No sound available` |
+  | RunCommand(10) 327B | `006fe290` | `&Match:` + 文本面板 + **TriggerActionWidget kind 10** |
+  | SendText(11) 1013B | `006f8590` | 已落(批 345) |
+  | ShowTooltip(12) 489B | `00703ab0` | `&Match:`/`&Tooltip:` + 0x70 件(FUN_006f83b0 5,1) + 0x58 附件 |
+  | Connection(1-4) | `006fde04` | 已落(批 343) |
+  每页 **Tab 链**均为 `setTabOrder(+0x40 → +0x48 → +0x50 …)` 逐页实测。
+- **TriggerActionEditPanelFace**(`0056376e` 90B,**名不副实**=动作文本面板 0x68):
+  +0x48 = 0x0101,+0x50/58/60 空串;五页的 +0x38 文本域全部由裸 QWidget 换真类。
+- **TriggerWidgetKit**:`setupTable`(`00584ee8` 159B:列数/表头/SingleSelection/
+  高亮+拉伸+Interactive/横头 show 纵头 hide)、`setPlaceholder`
+  (`00566d6e` 22B + 绘制 `00566d84` 97B:空表时主题绘制占位文案)。
+- **两条绑定腿**:`bindEditorToActionWidget`(`006fb180` 438B:字段名含
+  `arguments` → 插 0x38 盒子 + 属性值 `"${match}"`)、`wireEditorDependents`
+  (`006f1850` 278B:两路 connect + 绑定 +0x50)。
+- **CustomMenu 新增菜单**(`006f7830` 394B):`Add &Action` / `Add &Separator`。
+- **NameDialog 装配收口**(`006bd50c` 670B + `006bd34a` 449B):
+  `Enter a name for the new %1.` 提示行 + `&Name:` 行 + Ok 文案 `Create` + 0.35 尺寸比。
