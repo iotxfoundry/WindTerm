@@ -54,9 +54,10 @@ public:
 	// 字段:+0x10 名字 QString(006f2738 逐项 == 比较)/+0x20 byte(页栈
 	//   param_3)/+0x24 int 页 kind(0 = 无页)/+0x28 子结构(页栈 param_4)。
 	struct TriggerRecord {          // 总 0x48(与 deallocate(0x48,8) 一致)
-		char f00[0x10] = {};        // +0x00..0x0f(未解)
-		QString name10;             // +0x10(006f2738 逐项 == 比较)
-		QString desc18;             // +0x18(编辑框回填源,006f3411)
+		char f00[8] = {};           // +0x00..0x07(未解)
+		QString name08;             // +0x08(提示框 "Name" 行,006f2f6x)
+		QString key10;              // +0x10(006f2738 逐项 == 的键)
+		QString desc18;             // +0x18(提示框 "Description" 行 + 编辑框回填)
 		char f20 = 0;               // +0x20(页栈 param_3)
 		int kind24 = 0;             // +0x24(页 kind;0 = 无页)
 		char f28[0x48 - 0x28] = {}; // +0x28..0x47(页栈 param_4 的宿主)
@@ -91,6 +92,17 @@ public:
 	//     cited);setNextMode(false);
 	//   否则 setPageEnabled(false);setNextMode(false)。
 	void onTriggerIndexChanged(const QModelIndex &current);
+
+	// FUN_006f2ed8(821B,0022.c:20068)列表项提示框(接线里 itemEntered 腿):
+	//   name = item->data(0x100).toString();idx = rowIndexByName(name);
+	//   idx == -1 → 返;
+	//   name = rec->+0x08;desc = rec->+0x18;
+	//   name 非空:desc 空 → 提示 = name;否则按模板逐行拼:
+	//     "<tr style=\"white-space: nowrap;\"><td style=\"text-align:right;\">%1: </td><td><b>%2</b></td></tr>"
+	//     行标签 tr("Name")(0xc9e6e7)/tr("Description")(0xc8a3a0),
+	//     外层 qstring_prepend_utf8("<table>") + append("</table>");
+	//   与 item->data(3)(ToolTipRole) 比较,不同才 setData(3, 结果)。
+	void updateItemTooltip(class QListWidgetItem *item);
 	void wire();       // dialog_connectAcceptReject2(006f2852,916B)
 
 	QTabBar *tabBar30() const { return m_tabBar30; }

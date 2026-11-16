@@ -260,3 +260,32 @@ void TriggerDialogFace::onTriggerIndexChanged(const QModelIndex &current)
 		setNextMode(false);
 	}
 }
+
+// FUN_006f2ed8(821B,0022.c:20068)列表项提示框真身
+void TriggerDialogFace::updateItemTooltip(QListWidgetItem *item)
+{
+	if (item == nullptr)
+		return;
+	const QString name = item->data(Qt::UserRole).toString(); // data(0x100)
+	const int idx = rowIndexByName(name);                     // @006f2f37
+	if (idx < 0 || idx >= m_records90.size())
+		return;                                               // -1 → 直返
+	const TriggerRecord &rec = m_records90.at(idx);
+
+	QString tip;                                              // local_78
+	if (!rec.name08.isEmpty()) {                              // @006f2fxx(+0x08 非空)
+		if (rec.desc18.isEmpty()) {                           // +0x18 空
+			tip = rec.name08;                                 // @006f2fxx
+		} else {
+			// 模板串 @006f3000(实读,含内联样式)
+			const QString rowFmt = QStringLiteral(
+				"<tr style=\"white-space: nowrap;\"><td style=\"text-align:right;\">%1: </td><td><b>%2</b></td></tr>");
+			tip += rowFmt.arg(QStringLiteral("Name")).arg(rec.name08);         // tr(0xc9e6e7)
+			tip += rowFmt.arg(QStringLiteral("Description")).arg(rec.desc18);  // tr(0xc8a3a0)
+			tip.prepend(QStringLiteral("<table>"));           // @006f30e1
+			tip.append(QStringLiteral("</table>"));           // @006f30xx
+		}
+	}
+	if (item->data(Qt::ToolTipRole).toString() != tip)         // data(3) 比较
+		item->setData(Qt::ToolTipRole, tip);                   // @006f315x(vt+0x28)
+}
