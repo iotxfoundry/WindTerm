@@ -14167,7 +14167,7 @@
 005756dc	743	FUN_005756dc	todo	
 005759ee	681	FUN_005759ee	todo	
 00575cb6	92	TreeItemDelegate_vt6	qtplumb	
-00575d12	1	FUN_00575d12	todo	
+00575d12	1	FUN_00575d12	ref	src/Widgets/Panes/OutlinePaneFace.cpp
 00575d14	4	FileSystemItem_dtor_deleting	ref	src/Sessions/Core/FileOps.h
 00575d18	6	_M_destroy	todo	
 00575d1e	214	FUN_00575d1e	todo	
@@ -19508,33 +19508,33 @@
 00745d6e	124	FUN_00745d6e	todo	
 00745dea	234	s_OutlinePane_745dea	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
 00745edc	6	FUN_00745edc	todo	
-00745ee2	25	FUN_00745ee2	todo	
+00745ee2	25	FUN_00745ee2	ref	src/Widgets/Panes/OutlinePaneFace.h
 00745efc	770	FUN_00745efc	todo	
 007461fe	193	FUN_007461fe	todo	
 007462c0	385	FUN_007462c0	todo	
-0074644a	96	FUN_0074644a	todo	
+0074644a	96	FUN_0074644a	ref	src/Widgets/Panes/OutlinePaneFace.cpp,src/Widgets/Panes/OutlinePaneFace.h
 007464aa	414	FUN_007464aa	todo	
 00746648	6	FUN_00746648	todo	
 0074664e	14	FUN_0074664e	todo	
 0074665c	691	FUN_0074665c	todo	
 00746930	432	FUN_00746930	todo	
-00746b00	62	FUN_00746b00	todo	
-00746b46	175	FUN_00746b46	todo	
-00746bfe	221	FUN_00746bfe	todo	
-00746ce4	456	s_SenderPane_746ce4	todo	
+00746b00	62	FUN_00746b00	ref	src/Widgets/Panes/OutlinePaneFace.cpp,src/Widgets/Panes/OutlinePaneFace.h
+00746b46	175	FUN_00746b46	ref	src/Widgets/Panes/OutlinePaneFace.cpp,src/Widgets/Panes/OutlinePaneFace.h
+00746bfe	221	FUN_00746bfe	ref	src/Widgets/Panes/OutlinePaneFace.cpp,src/Widgets/Panes/OutlinePaneFace.h
+00746ce4	456	s_SenderPane_746ce4	ref	src/Widgets/Panes/OutlinePaneFace.cpp,src/Widgets/Panes/OutlinePaneFace.h
 00746ec6	910	outline_collectVisibleText	todo	
 0074727e	590	FUN_0074727e	todo	
 007474f6	31	FUN_007474f6	todo	
 00747516	225	FUN_00747516	todo	
 00747600	270	FUN_00747600	todo	
 00747716	407	s_outline_symbolPreviewEnabled_747716	todo	
-007478c6	111	FUN_007478c6	todo	
+007478c6	111	FUN_007478c6	ref	src/Widgets/Panes/OutlinePaneFace.cpp,src/Widgets/Panes/OutlinePaneFace.h
 0074793e	591	FUN_0074793e	todo	
 00747b8e	528	FUN_00747b8e	todo	
 00747d9e	1541	outline_pane_connect	todo	
 007483b3	137	FUN_007483b3	todo	
 0074843c	203	FUN_0074843c	todo	
-00748510	111	FUN_00748510	todo	
+00748510	111	FUN_00748510	ref	src/Widgets/Panes/OutlinePaneFace.cpp,src/Widgets/Panes/OutlinePaneFace.h
 00748587	135	FUN_00748587	todo	
 0074860e	29	OutlineTree_dtor	todo	
 0074862b	33	FUN_0074862b	todo	
@@ -26299,7 +26299,7 @@
 0090ae9a	279	OutlinePane_h90ae9a	qtplumb	
 0090afb2	17	FUN_0090afb2	todo	
 0090afc4	91	OutlinePane_qt_metacall	qtplumb	
-0090b020	244	OutlinePane_dtor	todo	
+0090b020	244	OutlinePane_dtor	real	src/Widgets/Panes/OutlinePaneFace.h
 0090b114	235	FUN_0090b114	todo	
 0090b200	267	FUN_0090b200	todo	
 0090b30c	253	OutlinePane_dtor_deleting	todo	
@@ -26727,10 +26727,10 @@
 0091d250	66	s_KitWindow_91d250	todo	
 0091d292	176	KitWindow_h91d292	qtplumb	
 0091d350	24	FUN_0091d350	todo	
-0091d368	16	FUN_0091d368	ref	src/Windows/Kit/KitWindowAssemblyFace.h
-0091d378	19	FUN_0091d378	ref	src/Windows/Kit/KitWindowAssemblyFace.h
+0091d368	16	FUN_0091d368	ref	src/Widgets/Panes/KitPaneFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h
+0091d378	19	FUN_0091d378	ref	src/Widgets/Panes/KitPaneFace.cpp,src/Windows/Kit/KitWindowAssemblyFace.h
 0091d38c	86	KitPane_h91d38c	qtplumb	
-0091d3e2	66	s_KitPane_91d3e2	todo	
+0091d3e2	66	s_KitPane_91d3e2	ref	src/Widgets/Panes/KitPaneFace.h
 0091d424	93	OutlinePane_h91d424	qtplumb	
 0091d490	24	MuxDesktop_metaObject	qtplumb	
 0091d4a8	1389	MuxDesktop_h91d4a8	qtplumb	
