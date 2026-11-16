@@ -2,6 +2,8 @@
 
 #include <QDialog>
 
+class QTranslator;
+
 // ProfileDialogFace — 语料 ProfileDialog(批 434)。
 //
 // ctor FUN_006cf13c(240B,0021:61296) asm 实测:

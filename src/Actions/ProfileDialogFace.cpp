@@ -1,6 +1,9 @@
 // ProfileDialogFace.cpp — ProfileDialog(批 434)
 #include "ProfileDialogFace.h"
 
+#include <QCoreApplication>
+#include <QTranslator>
+
 // FUN_006cf13c(240B,0021:61296)ctor 真身
 ProfileDialogFace::ProfileDialogFace(QWidget *parent)
 	: QDialog(parent, Qt::WindowFlags(0)) // @006cf13c
