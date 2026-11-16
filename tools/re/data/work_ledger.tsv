@@ -18004,15 +18004,15 @@
 006a2668	184	FUN_006a2668	todo	
 006a2720	184	FUN_006a2720	todo	
 006a27e0	124	FUN_006a27e0	todo	
-006a285c	535	FUN_006a285c	todo	
+006a285c	535	FUN_006a285c	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp,src/Sessions/Tunnels/TunnelCenterFace.h
 006a2a73	221	FUN_006a2a73	todo	
 006a2b60	174	FUN_006a2b60	todo	
 006a2c16	431	s_king__tunnelDynamicActive_6a2c16	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-006a2dda	9	FUN_006a2dda	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+006a2dda	9	FUN_006a2dda	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 006a2de4	350	FUN_006a2de4	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 006a2f66	122	FUN_006a2f66	ref	src/Widgets/Settings/SettingsPageFace.cpp
 006a2fe0	130	FUN_006a2fe0	todo	
-006a3062	2896	FUN_006a3062	todo	
+006a3062	2896	FUN_006a3062	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp
 006a3cce	109	FUN_006a3cce	todo	
 006a3d3c	601	FUN_006a3d3c	todo	
 006a3f95	45	FUN_006a3f95	todo	
@@ -18029,10 +18029,10 @@
 006a4f28	689	TunnelCenter_dtor	todo	
 006a51da	23	TunnelCenter_dtor_deleting	todo	
 006a51f2	40	FUN_006a51f2	todo	
-006a521a	265	FUN_006a521a	ref	src/Widgets/Settings/SettingsPageFace.cpp
+006a521a	265	FUN_006a521a	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp
 006a5323	97	FUN_006a5323	todo	
 006a5384	168	FUN_006a5384	todo	
-006a5434	236	TunnelCenter_vt6	qtplumb	
+006a5434	236	TunnelCenter_vt6	real	
 006a553e	679	FUN_006a553e	todo	
 006a57f6	247	FUN_006a57f6	todo	
 006a58ee	565	FUN_006a58ee	todo	
@@ -18071,7 +18071,7 @@
 006a90fe	177	FUN_006a90fe	todo	
 006a91c2	177	FUN_006a91c2	todo	
 006a9290	39	FUN_006a9290	todo	
-006a92b7	222	TunnelCenter_h6a92b7	qtplumb	
+006a92b7	222	TunnelCenter_h6a92b7	real	
 006a9396	83	FUN_006a9396	todo	
 006a93f0	164	FUN_006a93f0	todo	
 006a94d0	60	FUN_006a94d0	todo	
@@ -20943,7 +20943,7 @@
 007c145e	5	thunk_FUN_007c17c0	todo	
 007c1464	40	FUN_007c1464	todo	
 007c148c	113	SuperApplication_h7c148c	qtplumb	
-007c14fe	204	FUN_007c14fe	todo	
+007c14fe	204	FUN_007c14fe	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp
 007c15ca	474	FUN_007c15ca	todo	
 007c17c0	29	FUN_007c17c0	todo	
 007c17de	245	FUN_007c17de	todo	
