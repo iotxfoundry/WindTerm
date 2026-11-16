@@ -21,8 +21,8 @@
 |---|---:|---:|---:|---:|
 | 真实现 | 688 | 1.78% | 268551 | 3.50% |
 | 半成品 | 37 | 0.10% | 15173 | 0.20% |
-| 引用档 | 2134 | 5.51% | 800225 | 10.43% |
-| 未触及(真工作) | 20810 | 53.71% | 5569123 | 72.60% |
+| 引用档 | 2136 | 5.51% | 800738 | 10.44% |
+| 未触及(真工作) | 20808 | 53.70% | 5568610 | 72.59% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1127 | 2.91% | 231945 | 3.02% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -133,7 +133,7 @@
 | `src/Widgets/Dialogs/NameDialogFace.h` | 4 | 0 | 4 |
 | `src/Widgets/Dialogs/ProfileDialogFace.cpp` | 2 | 2 | 5 |
 | `src/Widgets/Dialogs/ProfileDialogFace.h` | 2 | 2 | 5 |
-| `src/Widgets/Dialogs/SessionDialogFace.cpp` | 4 | 0 | 4 |
+| `src/Widgets/Dialogs/SessionDialogFace.cpp` | 4 | 0 | 6 |
 | `src/Widgets/Dialogs/SessionDialogFace.h` | 4 | 0 | 4 |
 | `src/Widgets/Dialogs/SyncInputDialogFace.cpp` | 3 | 1 | 2 |
 | `src/Widgets/Dialogs/SyncInputDialogFace.h` | 3 | 1 | 2 |

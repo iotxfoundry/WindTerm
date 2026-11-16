@@ -2372,6 +2372,7 @@
 006ebd68	src/Widgets/Dialogs/HelpDialogFace.cpp
 006ebd86	src/Widgets/Dialogs/HelpDialogFace.cpp
 006ebd9b	src/Widgets/Dialogs/HelpDialogFace.cpp
+006ec54c	src/Widgets/Dialogs/SessionDialogFace.cpp
 006ec720	src/App/StateStore.cpp
 006ec720	src/Windows/Kit/KitWindowFace.h
 006edad0	src/Widgets/Dialogs/TextMarkDialogFace.cpp
@@ -2856,6 +2857,7 @@
 00722376	src/Widgets/Dialogs/SessionDialogFace.cpp
 007223c8	src/Widgets/Dialogs/SessionDialogFace.cpp
 007223c8	src/Widgets/Dialogs/SessionDialogFace.h
+0072759c	src/Widgets/Dialogs/SessionDialogFace.cpp
 00729616	src/Widgets/Dialogs/SyncInputDialogFace.cpp
 00729616	src/Widgets/Dialogs/SyncInputDialogFace.h
 00729f1e	src/Widgets/Dialogs/SyncInputDialogFace.cpp

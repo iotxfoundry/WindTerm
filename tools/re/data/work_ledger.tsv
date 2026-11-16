@@ -18596,7 +18596,7 @@
 006ec45a	78	combobox_insert_item	todo	
 006ec4c0	111	FUN_006ec4c0	todo	
 006ec530	27	FUN_006ec530	todo	
-006ec54c	456	FUN_006ec54c	todo	
+006ec54c	456	FUN_006ec54c	ref	src/Widgets/Dialogs/SessionDialogFace.cpp
 006ec720	26	FUN_006ec720	ref	src/App/StateStore.cpp,src/Windows/Kit/KitWindowFace.h
 006ec73a	292	FUN_006ec73a	todo	
 006ec872	582	FUN_006ec872	todo	
@@ -19104,7 +19104,7 @@
 00727336	110	FUN_00727336	todo	
 007273b0	347	FUN_007273b0	todo	
 00727534	85	FUN_00727534	todo	
-0072759c	57	FUN_0072759c	todo	
+0072759c	57	FUN_0072759c	ref	src/Widgets/Dialogs/SessionDialogFace.cpp
 007275d6	119	FUN_007275d6	todo	
 0072764d	87	FUN_0072764d	cleanup	
 007276c0	161	FUN_007276c0	todo	

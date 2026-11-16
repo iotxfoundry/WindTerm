@@ -65,3 +65,25 @@ void SessionDialogFace::applyProtocol(int proto)
 	// 各控件按协议启停(+0xb0/+0xb8/+0xc0/+0xd0/+0xd8/+0xe0/+0xe8/+0xf0/
 	//   +0xf8/+0x100;双栈 +0x80/+0x88 联动) — cited
 }
+
+// ───────── 析构 0x00751eae(243B)/deleting 0x0075219e(249B) ─────────
+// 逐字段释放,顺序即偏移从高到低:
+//   vptr = &SessionDialog_vtable;*(this+0x10) = &PTR_FUN_011a21f0;
+//   +0x108 非空 → FUN_006ec54c(+0x108)(子对话框/页对象)
+//   +0x100 非空 → FUN_0072759c(+0x100)
+//   +0xf8 QHash → QHashData::free_helper
+//   +0xf0 QHash → QHashData::free_helper
+//   +0x40 JSON 值 / +0x38 QString 的引用计数递减
+//   QDialog::~QDialog
+// deleting:末尾 operator_delete(this, **0x110**) ⇒ sizeof = 0x110。
+// (ctor 注释里说"字段到 +0x108",与 sizeof 0x110 自洽。)
+
+// ───────── moc 生成面(出处:QMetaObject 元数据) ─────────
+// metaObject 0x00904cf0 → &PTR_staticMetaObject_011a2240
+//   (rev=8,class="SessionDialog",methods=3,**signals=3**,props=0)
+//   信号串表真名:#0 properptySynchronized(**原版就拼错成 properpty**,
+//   不是我们抄错)/ #1 sessionColorChanged / #2 sessionIconChanged
+// qt_metacast 0x00904e1a(strcmp "SessionDialog" → QDialog::qt_metacast)
+// qt_metacall 0x00904e5c(97B):3 条记录转发到 0x00904d8e(140B)的 switch → 
+//   #1 走 0x00904d08(1 参)、#2 走 0x00904d32(2 参)、#0 走 0x00904ce0 区。
+//   超出则返回 (index - 3)。
