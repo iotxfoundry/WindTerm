@@ -474,3 +474,40 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   收集所选会话 774B(逐页列表 → data(0x100) → 去重)。
 - **InsertFileDialogFace**:ctor 74B(**不设窗口标题**);接线 229B;标签 517B
   (title `Insert File` / label `&File:`)。
+
+### 批 429-438 增量(④ **对话框全清单落档** —— 28 个 QDialog ctor 全部定位)
+方法:扫全语料找"调 `QDialog::QDialog` 且写 vtable"的函数 ⇒ 得到**权威清单**;
+每个 ctor 再取 `副 vptr / 字段写 / tr 标题 / setAttribute(0x37) / singleShot / 装配腿`。
+
+| 对话框 | ctor | 字节 | 标题(tr 实读) | 状态 |
+|---|---|---|---|---|
+| DefaultEditorDialog | `006b22e6` | 165 | Default Editor | ✅ 429 |
+| EnvironmentDialog | `006b35a6` | 175 | Environment Variable | ✅ 429 |
+| FocusModeDialog | `006b6676` | 157 | Focus Mode | ✅ 430 |
+| HighlightTextDialog | `006b6bfe` | 175 | Highlight Text | ✅ 430 |
+| LogDialog | `006b874c` | 206 | Log Dialog | ✅ 431 |
+| MasterPasswordDialog | `006b9e92` | 157 | Password(同串) | ✅ 431 |
+| NameDialog | `006bd7f6` | 319 | Create <名> | ✅ 347 |
+| OneKeyDialog | `006c55c0` | 206 | OneKey Manager | ✅ 432 |
+| TableItemDialog | `006c7080` | 254 | **(无标题)** | ✅ 432 |
+| PasswordDialog | `006c9e70` | 227 | Password | ✅ 433 |
+| PasteDialog | `006caf18` | 221 | Paste | ✅ 433 |
+| PlaySoundDialog | `006cc63e` | 175 | Play Sound | ✅ 434 |
+| ProfileDialog | `006cf13c` | 240 | Choose Profiles Directory | ✅ 434 |
+| QuickDialog | `006d3630` | 125 | **(无标题)** | ✅ 435 |
+| RemoteFileDialog | `006d8cfe` | 247 | **(无标题)** | ✅ 435 |
+| SearchEngineDialog | `006d9574` | 175 | Search Engine | ✅ 436 |
+| SessionGroupDialog | `006d9a66` | 175 | Session Group | ✅ 436 |
+| SessionTriggerDialog | `006da816` | 270 | Session Triggers | ✅ 437 |
+| SettingDialog | `006ea66e` | 318 | Settings(+Terminal/Editor Settings) | ✅ 437 |
+| TextMarkDialog | `006f1036` | 175 | Text Mark | ✅ 438 |
+| TriggerDialog | `006f2dd4` | 236 | Triggers | ✅ 346 |
+| WindowOpacityDialog | `00704dd2` | 175 | Window Opacity | ✅ 438 |
+| RunToolDialog | `00707f8e` | 1116 | — | ✅ 早批 |
+| SessionDialog | `0072223c` | 364 | — | ✅ 420 |
+| SyncInputDialog | `0072abce` | 239 | Sync Input | ✅ 424 |
+| TunnelDialog | `0072cf44` | 257 | Tunnels | ✅ 415 |
+| InsertFileDialog | `0072facc` | 74 | **(不设标题)** | ✅ 425 |
+
+另有 `006ebd28`(794B)/`006ff1a0`(647B) 两个 QDialog 构造但**未写自有 vtable**
+(疑为子类或复用基类),留待收尾期核。
