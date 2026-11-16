@@ -4,6 +4,20 @@
 > 触发原因:多轮反编译中按"地址邻近"猜归属,后期用"ctor 调用链"复盘时发现错案。
 > **收尾期第一步(编译之前)必须先清这张单**,否则编译错误会与模型错混在一起。
 
+## 0. 编译前必读(规模与已知雷区)
+
+- **待编译规模**:自基线 `3b7a774f` 起 330 提交 / 139 文件 / +11816 行 /
+  **59 个 `*Face` 头** —— **一次编译器都没见过**。
+- **已知"必然要改"的四类**:
+  1. 本文件 §1 的 6 项归属迁移(SettingsPageFace → TunnelDialog);
+  2. 头文件里被多处 `static_cast` 的成员类型偏窄(如 `TunnelDialogFace`
+     的 `m_combo48` 等以 `QWidget*` 承接,收尾期可收窄为具体类型);
+  3. 各 `*Face` 的 `Q_OBJECT` 与派生类链(新增头文件需重跑 `cmake ..`,
+     GLOB 无 CONFIGURE_DEPENDS);
+  4. 抄写自 Ghidra 的折叠实参处,凡未回 asm 取寄存器的,编译后需逐个运行期验证。
+- **建议顺序**:清 §1 → 全量编译修错 → 25 个测试二进制回归 → 装配 `main`
+  → Xvfb 截图 vs `/opt` 对表。
+
 ## 1. SettingsPageFace ↔ TunnelDialog(最高优先)
 
 **事实**:`FUN_0072cf44` = TunnelDialog ctor(标题 `"Tunnels"`),它调用:
