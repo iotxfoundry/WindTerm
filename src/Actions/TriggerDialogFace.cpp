@@ -398,7 +398,7 @@ QListWidgetItem *TriggerDialogFace::makeItemForRecord(const TriggerRecord &rec)
 	auto *item = new QListWidgetItem(icon, rec.name08);            // @006f2670(0x30)
 	if (rec.f20 == 0)                                              // +0x20 == 0
 		applyItemGrayed(item, false);                              // FUN_006f2460(this,item,0)
-	item->setData(Qt::UserRole, rec.key10);                        // @006f26c3(0x100)
+	item->setData(Qt::UserRole, rec.uuid10);                        // @006f26c3(0x100)
 	return item;
 }
 
@@ -492,7 +492,7 @@ TriggerDialogFace::TriggerRecord TriggerDialogFace::makeRecord(int kind, const Q
 {
 	TriggerRecord r;                       // @00699c2a *param_1 = 0;逐字段落
 	r.name08 = name;                       // +0x08
-	r.key10 = key;                         // +0x10
+	r.uuid10 = key;                         // +0x10
 	r.desc18 = QString();                  // +0x18(shared_null)
 	r.f20 = 1;                             // +0x20 ┐ 0x0101 一次写
 	r.f21 = 1;                             // +0x21 ┘
@@ -597,7 +597,7 @@ void TriggerDialogFace::duplicateSelectedTrigger()
 	}
 	copy.name08 = cand;                               // QString::operator=(local_80,…)
 	// FUN_00698ffc(copy)(重生成唯一键)@006f3ff0 — cited
-	copy.key10 = QString();                           // local_88[0] = 0
+	copy.uuid10 = QString();                           // local_88[0] = 0
 	appendRecord(copy);                               // @006f4011(FUN_006f35fe)
 	editSelectedTrigger();                            // @006f401x(FUN_006f32e0)
 }
@@ -657,7 +657,7 @@ TriggerDialogFace::TriggerRecord TriggerDialogFace::defaultRecord()
 // FUN_00698ffc(80B)重生成唯一键真身
 void TriggerDialogFace::regenerateKey(TriggerRecord &rec)
 {
-	rec.key10 = QUuid::createUuid().toString(QUuid::WithoutBraces); // +0x10
+	rec.uuid10 = QUuid::createUuid().toString(QUuid::WithoutBraces); // +0x10
 }
 
 // FUN_0069904c(50B)设样式真身
