@@ -111,6 +111,11 @@ git rev-list --count origin/dev..dev    # 领先量(只提交不推送,勿惯性
 
 1. **每行代码有出处**:真实现引用 `FUN_XXXXXXXX` / `name@地址`;thunk 引反向
    表项;文档引用 `docs/meta/impl-addresses.md`。**没地址不写**。
+   **出处三种写法都算数,且都会被 `coverage.py` 索引**:
+   `FUN_0064ab10` / 裸地址 `0064ab10`(`@addr` 内部标号亦可)/ 符号名
+   `s_CheckList_534e62`。纯 moc 声明类(无独立函数体)用一句
+   「出处:QMetaObject 元数据」说明。**既无地址也无说明 = 违规**,
+   `tools/re/coverage.py --audit` 会报出来。
 2. **bug 原封不动**:不修、不美化、不"顺手改进"。原版有 bug 就是我们的 bug。
    发现疑似 bug 只**记录**到 `docs/quirks.md`,**不修**。
 3. **禁止捏造**:语料里没有的行不写。不确定时用 `// cited` 标记空实现,

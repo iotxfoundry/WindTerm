@@ -29,16 +29,38 @@ def files():
             yield f
 
 
+TEXT_LO, TEXT_HI = 0x4c33c0, 0xc89000     # .text 范围(非 PIE, 只认代码地址)
+
+
+def addrs_of(text):
+    """三种出处写法统一归一化为 8 位地址:
+
+      FUN_0064ab10 / 0064ab10(裸地址) / s_CheckList_534e62(6 位符号名)
+
+    裸地址必须落在 .text 内,避免把 `00000005` 这类字面量当成出处。
+    """
+    fun = set(re.findall(r'(?<!PTR_)FUN_([0-9a-f]{8})', text))
+    out = set(fun)
+    for a in re.findall(r'(?<![\w.])(00[0-9a-f]{6})(?![\w])', text):
+        if TEXT_LO <= int(a, 16) < TEXT_HI:
+            out.add(a)
+    for a in re.findall(r'\bs_[A-Za-z0-9_]+_([0-9a-f]{6})\b', text):
+        out.add('00' + a)
+    return out, fun
+
+
 def scan():
     """→ {相对路径: {'lines','classes','addrs':set,'cited'}}"""
     out = {}
     for f in files():
         s = open(f, encoding='utf-8', errors='ignore').read()
         rel = os.path.relpath(f, os.path.join(SRC, '..'))
+        alladdrs, funaddrs = addrs_of(s)
         out[rel] = {
             'lines': s.count('\n') + 1,
             'classes': re.findall(r'^\s*(?:class|struct)\s+([A-Za-z_]\w*)\s*(?::|\{)', s, re.M),
-            'addrs': set(re.findall(r'(?<!PTR_)FUN_([0-9a-f]{8})', s)),
+            'addrs': alladdrs,
+            'fun_addrs': funaddrs,
             'cited': len(re.findall(r'//\s*cited|— cited', s)),
         }
     return out
@@ -65,7 +87,7 @@ def impl_addrs():
         for ln in open(f, encoding='utf-8', errors='ignore'):
             if '真身' not in ln and not re.match(r'\s*//\s*===', ln):
                 continue
-            for a in re.findall(r'(?<!PTR_)FUN_([0-9a-f]{8})', ln):
+            for a in addrs_of(ln)[0]:
                 m[a].add(os.path.relpath(f, os.path.join(SRC, '..')))
     return m
 
@@ -119,7 +141,11 @@ def main():
     if '--check' in sys.argv:
         corp = corpus_addrs()
         alladdr = set(addr2files)
-        miss = sorted(alladdr - corp)
+        claimed = set()
+        for d in scan_.values():
+            claimed |= d['fun_addrs']
+        miss = sorted(claimed - corp)
+        print('断言为函数的地址(FUN_ 形式): %d' % len(claimed))
         text = [a for a in miss if int(a, 16) < 0x0c89000]
         data = [a for a in miss if int(a, 16) >= 0x0c89000]
         print('src 引用地址 %d / 语料条目 %d' % (len(alladdr), len(corp)))
@@ -134,23 +160,30 @@ def main():
 
     if '--audit' in sys.argv:
         want = open_source()
-        bad_missing = [f for f in want if os.path.exists(f)
-                       and '[B-OPENSOURCE]' not in open(f, encoding='utf-8', errors='ignore').read()]
-        bad_stray = [rel for rel, d in scan_.items()
-                     if rel.endswith(('.h', '.cpp'))
-                     and '[B-OPENSOURCE]' in open(os.path.join(SRC, '..', rel), encoding='utf-8', errors='ignore').read()
-                     and rel not in want]
-        suspect = [rel for rel, d in scan_.items()
-                   if rel not in want and rel.endswith(('.h', '.cpp'))
-                   and not d['addrs'] and d['cited'] == 0 and 'ApplicationTheme' not in rel
-                   and 'KingEnums' not in rel and 'Ext' not in rel and 'Stubs' not in rel]
-        print('B 类清单: %d 个文件' % len(want))
-        print('清单内缺标记: %d %s' % (len(bad_missing), bad_missing[:5]))
-        print('有标记但不在清单: %d %s' % (len(bad_stray), bad_stray[:5]))
-        print('无标记且零 FUN_/cited(疑似漏标,需人工判): %d' % len(suspect))
-        for x in suspect[:12]:
+        prose = re.compile(r'语料|反编译|Reconstructed from WindTerm|QMetaObject|出处')
+        bmiss, bstray, unlab, empty = [], [], [], []
+        for rel, d in scan_.items():
+            full = os.path.join(SRC, '..', rel)
+            txt = open(full, encoding='utf-8', errors='ignore').read()
+            marked = '[B-OPENSOURCE]' in txt
+            if rel in want:
+                if not marked:
+                    bmiss.append(rel)
+            elif marked:
+                bstray.append(rel)
+            elif not d['addrs'] and 'cited' not in txt and not prose.search(txt):
+                unlab.append(rel)
+            if not txt.strip():
+                empty.append(rel)
+        print('第一方开源件(B): %d  清单内缺标记 %d / 有标记不在清单 %d'
+              % (len(want), len(bmiss), len(bstray)))
+        print('有出处或说明(A): %d' % (len(scan_) - len(unlab) - len(want)))
+        print('**无任何出处/说明**: %d' % len(unlab))
+        for x in unlab:
             print('   ', x)
-        sys.exit(0 if not bad_missing and not bad_stray else 1)
+        print('空文件: %d %s' % (len(empty), empty))
+        rc = 1 if (bmiss or bstray or unlab) else 0
+        sys.exit(rc)
 
     g = groups(scan_)
     total = {'files': 0, 'lines': 0, 'classes': 0, 'cited': 0}

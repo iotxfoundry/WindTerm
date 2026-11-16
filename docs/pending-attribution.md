@@ -117,3 +117,28 @@
 - `MuxPaneView::actionContext` 的 `vt+0x1f0` 目标(vtable 该槽实测为 0)
 - `CountSpinbox` / `CursorShape` 的基类未取证(批 492)
 - 线型表 14 项的 **id ↔ 名逐项配对**(批 449 只确证名集)
+
+## 7. 转写了但未接线(2026-11-16 全树清点)
+
+以下头文件**没有任何 .h/.cpp include 它们** —— 代码在,但不在任何装配链上。
+收尾期要么接线,要么确认是备用接口并写明。
+
+| 文件 | 说明 |
+|---|---|
+| `Actions/TunnelFace.h` | 隧道行模型(TunnelDialog 相关,尚未被 dialog 引用) |
+| `Sessions/Core/FileOps.h` | 文件操作(SuperTransfer 侧未接) |
+| `Sessions/Terminal/ScreenData.h` | 终端数据面 |
+| `Widgets/Panels/FilerPane.h` | 文件浏览面板 |
+| `Widgets/Panels/OutputPane.h` | 输出面板 |
+| `Widgets/Panels/SessionPane.h` | 会话面板 |
+| `Widgets/Panels/TransferPane.h` | 传输面板 |
+| `Widgets/Panels/TextEdit.h` | 文本编辑控件 |
+| `Widgets/Panels/ViewBase.h` | 视图基类 |
+| `Utility/CircularBuffer.h` | **B 类**:模板,未被实例化属正常 |
+| `Utility/MemoryPointer.h` | **B 类**:同上 |
+| `Utility/ScopeGuard.h` | **B 类**:同上 |
+
+> 复查命令:`python3 tools/re/coverage.py --audit`(分类)/ 本清单由
+> "头文件无人 include" 扫描得出。B 类三件是模板,不需接线;前 9 项是 A 类,
+> 属于"转写了还没挂上",收尾期必须处理。
+

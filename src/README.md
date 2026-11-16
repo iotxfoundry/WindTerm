@@ -46,6 +46,9 @@ src/
 └── Stubs/                1   gen_stubs.cpp(自动生成的 cited-stub,随转写递减)
 ```
 
+**出处写法**(三种均可,机器统一索引):`FUN_0064ab10` / 裸 `0064ab10` /
+`s_Name_534e62`;纯 moc 声明类写「出处:QMetaObject 元数据」。
+
 **动手前先查**:`python3 tools/re/coverage.py --addr <地址>` —— 该函数全仓是否
 已有实现。全量索引 `docs/meta/coverage-map.md`(自动生成)。
 
