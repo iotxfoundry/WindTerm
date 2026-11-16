@@ -26708,7 +26708,7 @@
 0091b014	96	FUN_0091b014	todo	
 0091b074	92	KitGroup_dtor_deleting	todo	
 0091b0d0	88	FUN_0091b0d0	todo	
-0091b128	86	KitGroup_dtor	todo	
+0091b128	86	KitGroup_dtor	real	
 0091b180	24	FUN_0091b180	todo	
 0091b198	57	FUN_0091b198	ref	src/Widgets/Views/TextView.h
 0091b1d2	42	FUN_0091b1d2	todo	
