@@ -173,7 +173,13 @@
 0053d596	src/Widgets/Dialogs/RunToolDialogFace.h
 0053e936	src/Actions/BackwardShortcutFace.cpp
 0053e936	src/Actions/BackwardShortcutFace.h
+0053ecae	src/Widgets/Controls/CommandPaletteFace.cpp
+0053ecae	src/Widgets/Controls/CommandPaletteFace.h
+005401d6	src/Widgets/Controls/CommandPaletteFace.cpp
+005401d6	src/Widgets/Controls/CommandPaletteFace.h
 005445c4	src/Editor/Engine/EditorEngine.cpp
+005446d0	src/Widgets/Controls/CommandPaletteFace.cpp
+005446d0	src/Widgets/Controls/CommandPaletteFace.h
 005454b0	src/Editor/Engine/SuperKeymap.cpp
 00546bae	src/Editor/Engine/EditorEngine.cpp
 0054813e	src/Widgets/Bars/BreadCrumbFace.cpp
@@ -1346,6 +1352,8 @@
 0064b2e2	src/App/JsEngine.cpp
 0064b2e2	src/Windows/Mux/MuxPaneJs.cpp
 0064b2e2	src/Windows/Mux/MuxPaneJs.h
+00659460	src/Widgets/Dialogs/OneKeyDialogFace.cpp
+00659460	src/Widgets/Dialogs/OneKeyDialogFace.h
 0065b9da	src/Sessions/Bridges/ProxyCommandSocket.cpp
 0065ba3e	src/Sessions/Bridges/ProxyCommandSocket.cpp
 0065c11e	src/Sessions/Bridges/ProxyCommandSocket.cpp
@@ -2162,10 +2170,6 @@
 006bfb8c	src/Widgets/Dialogs/ExpectDialogFace.cpp
 006bfc85	src/Widgets/Dialogs/ExpectDialogFace.cpp
 006bfcd0	src/Widgets/Dialogs/ExpectDialogFace.cpp
-006c5300	src/Widgets/Dialogs/OneKeyDialogFace.cpp
-006c5300	src/Widgets/Dialogs/OneKeyDialogFace.h
-006c55c0	src/Widgets/Dialogs/OneKeyDialogFace.cpp
-006c55c0	src/Widgets/Dialogs/OneKeyDialogFace.h
 006c7080	src/Widgets/Dialogs/TableItemDialogFace.cpp
 006c7080	src/Widgets/Dialogs/TableItemDialogFace.h
 006c7280	src/Widgets/Dialogs/ExpectDialogFace.cpp

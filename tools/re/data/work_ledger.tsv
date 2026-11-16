@@ -13524,7 +13524,7 @@
 0053e806	90	FUN_0053e806	todo	
 0053e868	198	FUN_0053e868	todo	
 0053e936	753	s_BackwardButton_53e936	ref	src/Actions/BackwardShortcutFace.cpp,src/Actions/BackwardShortcutFace.h
-0053ecae	37	FUN_0053ecae	todo	
+0053ecae	37	FUN_0053ecae	ref	src/Widgets/Controls/CommandPaletteFace.cpp,src/Widgets/Controls/CommandPaletteFace.h
 0053ecd4	104	FUN_0053ecd4	todo	
 0053ed3c	79	FUN_0053ed3c	todo	
 0053ed8c	33	FUN_0053ed8c	todo	
@@ -13533,14 +13533,14 @@
 0053f14e	901	script_callItemDecorator	todo	
 0053f552	1379	FUN_0053f552	todo	
 0053fab6	325	FUN_0053fab6	todo	
-0053fbfc	51	CommandPalette_dtor	todo	
+0053fbfc	51	CommandPalette_dtor	real	
 0053fc2f	6	FUN_0053fc2f	todo	
 0053fc36	23	CommandPalette_dtor_deleting	todo	
 0053fc4d	6	FUN_0053fc4d	todo	
 0053fc54	254	FUN_0053fc54	todo	
 0053fd52	344	FUN_0053fd52	todo	
 0053feaa	756	FUN_0053feaa	todo	
-005401d6	527	FUN_005401d6	todo	
+005401d6	527	FUN_005401d6	ref	src/Widgets/Controls/CommandPaletteFace.cpp,src/Widgets/Controls/CommandPaletteFace.h
 005403f6	241	s_CommandPalette_5403f6	todo	
 00540500	51	CommandPalette_vt6	qtplumb	
 00540534	508	FUN_00540534	todo	
@@ -13580,7 +13580,7 @@
 00544670	27	qatomic_unref_call_deleter2	todo	
 00544690	27	FUN_00544690	todo	
 005446b0	27	FUN_005446b0	todo	
-005446d0	27	FUN_005446d0	todo	
+005446d0	27	FUN_005446d0	ref	src/Widgets/Controls/CommandPaletteFace.cpp,src/Widgets/Controls/CommandPaletteFace.h
 005446f0	27	qlist_unref_dispose2	todo	
 00544710	27	FUN_00544710	todo	
 0054472c	251	FUN_0054472c	todo	
@@ -16986,7 +16986,7 @@
 00659276	58	FUN_00659276	todo	
 006592b0	168	FUN_006592b0	todo	
 006593d6	99	FUN_006593d6	todo	
-00659460	27	FUN_00659460	todo	
+00659460	27	FUN_00659460	ref	src/Widgets/Dialogs/OneKeyDialogFace.cpp,src/Widgets/Dialogs/OneKeyDialogFace.h
 00659480	192	FUN_00659480	todo	
 006595e0	130	FUN_006595e0	todo	
 006596da	103	FUN_006596da	todo	
@@ -18265,8 +18265,8 @@
 006c4a56	227	FUN_006c4a56	todo	
 006c4b51	1038	view_handleRowAction	todo	
 006c4fa0	776	s_OneKeyPageSession_6c4fa0	todo	
-006c5300	639	FUN_006c5300	real	src/Widgets/Dialogs/OneKeyDialogFace.cpp,src/Widgets/Dialogs/OneKeyDialogFace.h
-006c55c0	206	FUN_006c55c0	real	src/Widgets/Dialogs/OneKeyDialogFace.cpp,src/Widgets/Dialogs/OneKeyDialogFace.h
+006c5300	639	FUN_006c5300	todo	
+006c55c0	206	FUN_006c55c0	todo	
 006c569e	16	FUN_006c569e	todo	
 006c56ae	23	FUN_006c56ae	todo	
 006c56c5	23	FUN_006c56c5	todo	
@@ -26094,7 +26094,7 @@
 00904942	24	OneKeyDialog_metaObject	qtplumb	
 0090495a	66	OneKeyDialog_qt_metacast	qtplumb	
 0090499c	5	OneKeyDialog_qt_metacall	qtplumb	
-009049a2	49	OneKeyDialog_dtor	todo	
+009049a2	49	OneKeyDialog_dtor	real	
 009049d3	50	FUN_009049d3	todo	
 00904a06	62	OneKeyDialog_dtor_deleting	todo	
 00904a44	63	FUN_00904a44	todo	
