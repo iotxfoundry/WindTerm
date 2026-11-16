@@ -48,7 +48,11 @@ void LoginWizardFace::setupUi()
 	// setFrameShadow(实参折叠)— cited
 	m_form = new QFormLayout();                       // @005911a1(0x20)
 	m_form->setContentsMargins(-1, 0, -1, 0);         // 语料 (-1,0,-1)
-	// addRow ×3(实参 Ghidra 折叠:标签/字段/布局面)— cited
+	// addRow ×3(asm 0x5911bc-0x5911d9 实参):
+	//   ① addRow(+0x70 QLabel)(rsi = 0x70(%rbx))
+	//   ② addRow(<widget r14>)(组件面,cited)
+	//   ③ addRow(<layout r13>)(布局面,cited)
+	m_form->addRow(m_label70); // ①@0x5911c3
 	auto *host = new QWidget();                       // @005911f2(0x30)
 	host->setLayout(m_form);
 	m_stack = new QStackedWidget();                   // @00591214(0x30)
