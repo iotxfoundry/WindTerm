@@ -100,6 +100,17 @@ public:
     //   否则 new QMenu(0x30, tr(name), parent)。
     static class QMenu *findOrCreateMenu(QObject *ctx, const QString &name, QWidget *parent);
 
+    // 00692a70(1119B,0021.c:18732)按动作项建菜单(**懒构建**):
+    //   ① 从 parent 向上找宿主窗(dynamic_cast 到 typeinfo 011a69d0);找不到 → 0;
+    //   ② ctx 空 → 0;
+    //   ③ name = tr(动作项名(+0x20 经 +0x10 取 char*));
+    //   ④ menu = new QMenu(0x30, tr(name), parent);
+    //   ⑤ **connect(menu->aboutToShow → 闭包 impl FUN_00694b90 → FUN_0076cb16)**
+    //      —— 菜单内容在**首次弹出时**才从动作项子树填充;
+    //   ⑥ 余段(逐子项 addAction/addMenu/分隔符)由 FUN_0076cb16 承接(cited)。
+    //   ⇒ 再次印证:② 菜单条目来自动作/配置树,不在 C++ 里硬写。
+    static class QMenu *buildActionMenu(QObject *ctx, void *actionItem, QWidget *parent);
+
     void attachJsEngine(JsEngine *engine, QObject *kingMeta,
                         QObject *appBridge, QObject *windowBridge);
 

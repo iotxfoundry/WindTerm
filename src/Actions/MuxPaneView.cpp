@@ -194,3 +194,30 @@ QMenu *MuxPaneView::findOrCreateMenu(QObject *ctx, const QString &name, QWidget 
 	// 未命中:new QMenu(0x30, tr(name), parent)@00692fd0
 	return new QMenu(name, parent);
 }
+
+// 00692a70(1119B)按动作项建菜单真身(结构段)
+QMenu *MuxPaneView::buildActionMenu(QObject *ctx, void *actionItem, QWidget *parent)
+{
+	// ① 向上找宿主窗(011a69d0)
+	QWidget *w = parent;
+	while (w != nullptr) {
+		if (dynamic_cast<QMainWindow *>(w) != nullptr) // 宿主窗类型(cited)
+			break;
+		w = w->parentWidget();
+	}
+	if (w == nullptr)
+		return nullptr;                    // ① 失败 → 0
+	if (ctx == nullptr)                    // ② ctx 空 → 0
+		return nullptr;
+	if (actionItem == nullptr)
+		return nullptr;
+
+	// ③④ 菜单标题 = tr(动作项名);⑤ 内容在 aboutToShow 时懒填充
+	auto *menu = new QMenu(QStringLiteral("actions"), parent); // @00692b12/25(tr 面 cited)
+	connect(menu, &QMenu::aboutToShow, menu, [menu]( ) {
+		// FUN_0076cb16(动作项子树 → 逐项 addAction/addMenu)@闭包 impl FUN_00694b90
+		//   — cited(不发明条目)
+		Q_UNUSED(menu);
+	});
+	return menu;
+}
