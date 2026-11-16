@@ -25,7 +25,17 @@ class RemoteFileDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit RemoteFileDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_006d5eec — 结构段(cited)
-	void build2();   // FUN_006d6bf2 — 结构段(cited)
+
+	// FUN_006d5eec(616B)**按模式改标题**(批 467 实测,四串全实读):
+	//   **"Create Directory" / "Create File" / "Create Link" / "Move to"**
+	//   ⇒ 同一对话框承担四种用途(远端文件面板的 新建目录/新建文件/
+	//   新建链接/移动)。
+	void setMode(int mode);
+
+	// FUN_006d6bf2(**7811B**)**装配**:QFormLayout + QHBoxLayout + QFrame +
+	//   **QCheckBox** + QDialogButtonBox + QIcon;行文案实读
+	//   **"&Directory:" / "&File:" / "&Link:"**,
+	//   复选文案 **"&Open directory after created"**。
+	void build();
 };
 
