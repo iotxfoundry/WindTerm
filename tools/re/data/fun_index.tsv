@@ -1255,6 +1255,7 @@
 006168b6	src/Utility/Format.h
 0061b448	src/Sessions/Core/SuperSessionPrivate.cpp
 0061b448	src/Sessions/Core/SuperSessionPrivate.h
+00625fb6	src/Widgets/Views/RemoteFileSystemModelFace.h
 0062860c	src/Sessions/Transports/SshSession.cpp
 006286ba	src/Sessions/Transports/SshSession.cpp
 0062870c	src/Sessions/Transports/SshSession.cpp
