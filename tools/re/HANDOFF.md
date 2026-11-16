@@ -82,6 +82,18 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | 两 Config 单例基构造 = FUN_008a71e4 **CGlobalConfig**;SharedConfig = 独立 0x18B 小类非基类 → face 平铺 | 批 140(ctor 首句实读) | 批 138 侦察:SharedConfig 基类候选 |
 | 0x4ec2(20162)落 SCI/EXT 边界下沿,dispatch 门 cmd≥20163 漏叶 → 已截获 | 批 139 | 批 137 前"门 20163 全含"假定 |
 | configPath = DAT_00cba75c "/" 单字符 | 批 147(二进制实读) | 批 140 "/configs/"(槽内嵌串误读) |
+| `smeta 011a2240` = **SessionDialog**(设置对话框族) | 批 204/207(metaObject 反查) | 批 191 前"未知设置类" |
+| **KitGroup(011ab130) ≡ MuxPaneGroup**(同址 +0x38 TabGroup) | 批 223(blobB 组块 + 008b9890) | 批 191 前"KitGroup 独立类" |
+| TabBar "Qt 私有面" 实为 **公开 API**(`setTabButton`/`tabButton`) | 批 208(005a80f8/005a6c0e 全读) | 批 46–190 全部"QTabBarPrivate cited" |
+| `SettingsPageFace` 基类 = **QDialog**(accept/reject 直连自身) | 批 258(0072bbe2 字符串形) | 批 246 按 QWidget 建模 |
+| `pasteDialog_6dfd9e` = **设置分类页**(CategoryPage) | 批 318(vtable 实证) | 名不副实 |
+| `dirCompareDialog` = **配置目录选择框** | 批 321(文案实读) | 名不副实 |
+| `TunnelDialog_h9097b0` = **隧道行表析构** | 批 325(0x48 步长释放序) | 名不副实 |
+| `msgbox_buildRich` = **上传确认富文本框** | 批 317(文案实读) | 名不副实 |
+| `s_ExpandButton_8b7dd4` = **KitDock 装配** | 批 212 | 名不副实 |
+| `s_tabbar_selectionBehaviorOnRemove_89d860` = **KitDock 创建腿** | 批 213 | 名不副实 |
+| KitDock `+0x38` = **bool withExpand**(非 widget) | 批 216(三源) | 批 207 首判 |
+| `dock_toggleFloat` 几何 = **QRect(mapToGlobal,size)**,非私有位 | 批 232(asm 公式) | 批 180 前"私有面不可移植" |
 
 ## 现役队列(批 341 后,按需开批)
 
