@@ -4,6 +4,7 @@
 #include <QString>
 
 class QListWidgetItem;
+class QIcon;
 
 // TunnelDialogFace — 语料 **TunnelDialog**(批 415 归属勘定完成)。
 //
@@ -33,7 +34,30 @@ public:
 	//     **setData(1 /*DecorationRole*/, icon)**;
 	//   **setData(3 /*ToolTipRole*/, row+0x10)**;
 	//   **setData(0x101, QVariant(row))** —— 行指针存在 0x101 角色里。
-	static QListWidgetItem *makeRowItem(const void *row);
+	// 行结构(由 s_king__tunnelDynamicActive_6a2c16 + makeRowItem 交叉实读):
+	//   +0x10 QString 名称(item 文本 & 提示)/ **+0x18 int kind**
+	//   (1 = Dynamic / 2 = Local / 3 = Remote)/ +0x20 QString 标志(空 → Active)/
+	//   +0x30 int 协议(1/2)。
+	struct TunnelRow {
+		char f00[0x10] = {};
+		QString name10;      // +0x10
+		int kind18 = 0;      // +0x18
+		char pad1c[4] = {};
+		QString flag20;      // +0x20
+		char f28[8] = {};
+		int proto30 = 0;     // +0x30
+	};
+
+	// s_king__tunnelDynamicActive_6a2c16(431B)**名不副实**=行图标:
+	//   标志(+0x20)为空 → 按 kind 取
+	//     `king::tunnelDynamicActive` / `king::tunnelLocalActive` /
+	//     `king::tunnelRemoteActive`;
+	//   否则 → `king::tunnelDynamic` / `king::tunnelLocal` /
+	//     `king::tunnelRemote`;(同族另有 `…Error` 三支)
+	//   再按 +0x30 协议分支;图标经 ThemeIcons::loadSvg。
+	static QIcon rowIcon(const TunnelRow &row);
+
+	static QListWidgetItem *makeRowItem(const TunnelRow &row);
 
 protected:
 	QObject *m_grid30 = nullptr;      // +0x30(QGridLayout)

@@ -1,6 +1,8 @@
 // TunnelDialogFace.cpp — 隧道对话框(批 415)
 #include "TunnelDialogFace.h"
 
+#include "ThemeIcons.h"
+
 #include <QDialogButtonBox>
 #include <QIcon>
 #include <QListWidgetItem>
@@ -55,11 +57,37 @@ void TunnelDialogFace::wire()
 	// 其余六路(体 FUN_0072db3c/0072e8d2/0072e49a/0072e4c8/0072eb15)— cited
 }
 
-// FUN_0072bf8a(219B)行 → 列表项真身
-QListWidgetItem *TunnelDialogFace::makeRowItem(const void *row)
+// s_king__tunnelDynamicActive_6a2c16(431B,0021.c:...)行图标真身
+QIcon TunnelDialogFace::rowIcon(const TunnelRow &row)
 {
-	auto *item = new QListWidgetItem(QString(), nullptr); // @0072bfb6(0x30)
-	// 语料:text = row+0x10;icon = s_king__tunnelDynamicActive_6a2c16(row)
-	Q_UNUSED(row);
+	QString name;
+	if (row.flag20.isEmpty()) {                  // @006a2c2x(+0x20 size == 0)
+		switch (row.kind18) {                     // +0x18
+		case 1: name = QStringLiteral("king::tunnelDynamicActive"); break;
+		case 2: name = QStringLiteral("king::tunnelLocalActive"); break;
+		case 3: name = QStringLiteral("king::tunnelRemoteActive"); break;
+		default: break;
+		}
+	} else {
+		switch (row.kind18) {
+		case 1: name = QStringLiteral("king::tunnelDynamic"); break;
+		case 2: name = QStringLiteral("king::tunnelLocal"); break;
+		case 3: name = QStringLiteral("king::tunnelRemote"); break;
+		default: break;
+		}
+	}
+	if (name.isEmpty())
+		return QIcon();
+	return ThemeIcons::loadSvg(name, QString()); // DAT_011c1ce0 主题
+}
+
+// FUN_0072bf8a(219B)行 → 列表项真身
+QListWidgetItem *TunnelDialogFace::makeRowItem(const TunnelRow &row)
+{
+	auto *item = new QListWidgetItem(row.name10, nullptr);   // @0072bfb6(0x30,text = +0x10)
+	item->setData(Qt::DecorationRole, rowIcon(row));          // @0072bfde(setData 1, icon)
+	item->setData(Qt::ToolTipRole, row.name10);               // @0072c01f(setData 3)
+	item->setData(0x101, QVariant::fromValue<quintptr>(
+		reinterpret_cast<quintptr>(&row)));                   // @0072c048(setData 0x101 行指针)
 	return item;
 }
