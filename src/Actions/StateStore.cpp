@@ -256,14 +256,16 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 		}
 	}
 	out << blobB; // @008cf490
-	// blobC:MenuBar/StatusBar/ToolBar 三可见 bool(FUN_008cefe4 212B
-	//   QWidgetData 位域腿未解 cited)→ 三 false 缺省(样本 3B
-	//   00 00 00 同相)。
+	// blobC:MenuBar/StatusBar/ToolBar 三「全隐藏」bool —
+	//   FUN_008cefe4(212B,0028.c:14969)真身:findChildren<QWidget>(名,递归)
+	//   逐项读 QWidget 私有位(d+8 bit 0x10000)全为 1 才 true;
+	//   本面以 isHidden() 等价承接(cited 适配,位域不可移植)。
 	QByteArray blobC; // local_b8 @008cf4ce
 	{
 		QDataStream c(&blobC, QIODevice::WriteOnly); // @008cf4d2
-		c << false << false << false; // @008cf4e5-56(三 << bool 序同相;
-		                              //   位域腿 cited → false 缺省)
+		c << allNamedHidden(pane, QStringLiteral("MenuBar"))    // @008cf4e5
+		  << allNamedHidden(pane, QStringLiteral("StatusBar"))  // @008cf4xx
+		  << allNamedHidden(pane, QStringLiteral("ToolBar"));   // @008cf4xx
 	}
 	out << blobC; // @008cf587
 	// 尾钩 vtable+0x248 != FUN_008d5bf4(@008cf960)→ 虚调(本批定性,
@@ -288,6 +290,24 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 }
 
 // === stateStoreSerializePages — FUN_007669b2(571B,0023.c:33468)
+// FUN_008cefe4(212B,0028.c:14969)全隐藏判定真身(cited 等价面):
+//   findChildren<QWidget>(root, name, 递归=1);空表 → false;
+//   逐项 (d+8 & 0x10000) 全为 1 → true。本面以 isHidden() 承接
+//   (语料直读 QWidget 私有位,不可移植 — 已注记)。
+static bool allNamedHidden(const QWidget *root, const QString &name)
+{
+	if (root == nullptr)
+		return false;
+	const QList<QWidget *> ws = root->findChildren<QWidget *>(name);
+	if (ws.isEmpty())
+		return false;
+	for (QWidget *w : ws) {
+		if (!w->isHidden()) // 位域 0x10000 等价面(cited)
+			return false;
+	}
+	return true;
+}
+
 // 窄面真身(头注全出处;&4 段 cited 不落;页 payload 腿 =
 //   stateStoreSerializePagePayload 骨架帧,批 173 升真)。===
 QByteArray stateStoreSerializePages(MainWindowFace::Slots host,
