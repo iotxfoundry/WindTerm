@@ -158,6 +158,7 @@
 0053397c	src/Widgets/Settings/TriggerPageFace.h
 00533a0c	src/Widgets/Settings/TriggerPageFace.cpp
 00533a0c	src/Widgets/Settings/TriggerPageFace.h
+00534d80	src/Widgets/Views/LockScreenFace.cpp
 00534e62	src/Widgets/Controls/CheckListFace.cpp
 00534e62	src/Widgets/Controls/CheckListFace.h
 00534e62	src/Widgets/Controls/CloseButtonFace.h
@@ -227,6 +228,8 @@
 0055f224	src/Widgets/Dialogs/TriggerDialogFace.cpp
 0055fa50	src/Widgets/Views/LockScreenFace.cpp
 0055fa50	src/Widgets/Views/LockScreenFace.h
+0055fa55	src/Widgets/Views/LockScreenFace.cpp
+0055fa87	src/Widgets/Views/LockScreenFace.cpp
 0055fb0b	src/Widgets/Views/LockScreenFace.cpp
 0055fb0b	src/Widgets/Views/LockScreenFace.h
 0055fbd3	src/Widgets/Views/LockScreenFace.cpp
@@ -240,9 +243,13 @@
 00560888	src/Widgets/Views/LockScreenFace.h
 0056098e	src/Widgets/Views/LockScreenFace.cpp
 0056098e	src/Widgets/Views/LockScreenFace.h
+00560b20	src/Widgets/Views/LockScreenFace.cpp
 00560dec	src/Widgets/Views/LockScreenFace.cpp
+00560dec	src/Widgets/Views/LockScreenFace.h
 00560ed8	src/Widgets/Views/LockScreenFace.cpp
+00560ed8	src/Widgets/Views/LockScreenFace.h
 0056121e	src/Widgets/Views/LockScreenFace.cpp
+0056121e	src/Widgets/Views/LockScreenFace.h
 005613ee	src/Widgets/Views/LockScreenFace.cpp
 005613ee	src/Widgets/Views/LockScreenFace.h
 00561492	src/Widgets/Views/LockScreenFace.cpp
@@ -252,6 +259,7 @@
 00561990	src/Widgets/Views/LockScreenFace.cpp
 00561a00	src/Widgets/Dialogs/MasterPasswordDialogFace.cpp
 00561a00	src/Widgets/Views/LockScreenFace.cpp
+00561a70	src/Widgets/Views/LockScreenFace.cpp
 00561c9e	src/Widgets/Views/LockScreenFace.cpp
 00561c9e	src/Widgets/Views/LockScreenFace.h
 00561d28	src/Widgets/Views/LockScreenFace.cpp
@@ -421,6 +429,7 @@
 0058dac2	src/Widgets/Controls/SearchEditFace.h
 0058dac2	src/Widgets/Settings/TriggerPageFace.cpp
 0058dac2	src/Widgets/Settings/TriggerPageFace.h
+0058dac2	src/Widgets/Views/LockScreenFace.cpp
 0058dad4	src/Widgets/Bars/BreadCrumbFace.cpp
 0058dad4	src/Widgets/Bars/BreadCrumbFace.h
 0058dad4	src/Widgets/Controls/CompleterButtonFace.cpp

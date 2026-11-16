@@ -13455,7 +13455,7 @@
 00534c90	13	FUN_00534c90	todo	
 00534ca0	111	FUN_00534ca0	todo	
 00534d10	102	FUN_00534d10	todo	
-00534d80	29	FUN_00534d80	todo	
+00534d80	29	FUN_00534d80	ref	src/Widgets/Views/LockScreenFace.cpp
 00534da0	119	FUN_00534da0	todo	
 00534e20	66	FUN_00534e20	todo	
 00534e62	344	s_CheckList_534e62	ref	src/Widgets/Controls/CheckListFace.cpp,src/Widgets/Controls/CheckListFace.h,src/Widgets/Controls/CloseButtonFace.h
@@ -13968,8 +13968,8 @@
 0055f9c0	108	FUN_0055f9c0	todo	
 0055fa30	29	FUN_0055fa30	todo	
 0055fa50	5	FUN_0055fa50	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
-0055fa55	50	FUN_0055fa55	todo	
-0055fa87	66	FUN_0055fa87	todo	
+0055fa55	50	FUN_0055fa55	ref	src/Widgets/Views/LockScreenFace.cpp
+0055fa87	66	FUN_0055fa87	ref	src/Widgets/Views/LockScreenFace.cpp
 0055fac9	66	FUN_0055fac9	todo	
 0055fb0b	192	FUN_0055fb0b	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0055fbd3	753	FUN_0055fbd3	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
@@ -13978,17 +13978,17 @@
 00560414	1004	s_TitleLabel_560414	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00560888	243	s_LockScreen_560888	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0056098e	381	FUN_0056098e	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
-00560b20	700	FUN_00560b20	todo	
-00560dec	220	FUN_00560dec	ref	src/Widgets/Views/LockScreenFace.cpp
-00560ed8	776	FUN_00560ed8	ref	src/Widgets/Views/LockScreenFace.cpp
-0056121e	430	FUN_0056121e	ref	src/Widgets/Views/LockScreenFace.cpp
+00560b20	700	FUN_00560b20	ref	src/Widgets/Views/LockScreenFace.cpp
+00560dec	220	FUN_00560dec	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+00560ed8	776	FUN_00560ed8	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+0056121e	430	FUN_0056121e	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 005613ee	156	FUN_005613ee	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561492	46	FUN_00561492	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 005614c0	858	FUN_005614c0	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561852	299	FUN_00561852	todo	
 00561990	102	FUN_00561990	ref	src/Widgets/Views/LockScreenFace.cpp
 00561a00	108	FUN_00561a00	ref	src/Widgets/Dialogs/MasterPasswordDialogFace.cpp,src/Widgets/Views/LockScreenFace.cpp
-00561a70	104	FUN_00561a70	todo	
+00561a70	104	FUN_00561a70	ref	src/Widgets/Views/LockScreenFace.cpp
 00561af0	430	FUN_00561af0	todo	
 00561c9e	129	FUN_00561c9e	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561d28	226	FUN_00561d28	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
@@ -14497,7 +14497,7 @@
 0058d970	82	FUN_0058d970	real	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h
 0058d9c2	34	filterline_setText	todo	
 0058d9e4	205	FUN_0058d9e4	todo	
-0058dac2	18	FUN_0058dac2	real	src/Widgets/Bars/BreadCrumbFace.cpp,src/Widgets/Bars/BreadCrumbFace.h,src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
+0058dac2	18	FUN_0058dac2	real	src/Widgets/Bars/BreadCrumbFace.cpp,src/Widgets/Bars/BreadCrumbFace.h,src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h,src/Widgets/Views/LockScreenFace.cpp
 0058dad4	819	s_CompleterButton_58dad4	ref	src/Widgets/Bars/BreadCrumbFace.cpp,src/Widgets/Bars/BreadCrumbFace.h,src/Widgets/Controls/CompleterButtonFace.cpp,src/Widgets/Controls/CompleterButtonFace.h
 0058de3c	22	FUN_0058de3c	todo	
 0058de52	236	FUN_0058de52	ref	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h

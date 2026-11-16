@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include <QKeyEvent>
 #include <QStyle>
+#include <QTimer>
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 出处:tools/re/decomp/decomp-part-0007.c 邻段 0x005600a0..0x005614c0。
@@ -120,11 +121,49 @@ void LockScreenFace::onLockClicked()
 	setState(2); // 005613ee
 }
 
-// FUN_00560dec(220B)/ FUN_00560ed8(776B)/ FUN_0056121e(430B)— cited:
-// 三个状态页的布局构建,均返回 QLayout(由 setState 包一层 QWidget 入栈)。
-static QLayout *buildStatePage0() { return nullptr; }
-static QLayout *buildStatePage1() { return nullptr; }
-static QLayout *buildStatePage2() { return nullptr; }
+// FUN_00560dec(220B)「已锁」页布局真身:
+//   new QVBoxLayout;singleShot(0, this, functor 0055fa55)(延迟聚焦腿)
+//   三钮成组(00561a70(+0x58,+0x50,+0x48))→ 装配(00560b20,700B)→ 组收尾(00534d80)
+//   setSpacing(实参折叠)→ 依次 addWidget(+0x58 / +0x50 / +0x48)
+QLayout *LockScreenFace::buildLockedPage()
+{
+	auto *v = new QVBoxLayout;
+	// 0055fa55:延迟腿(单次 0ms),body cited
+	QTimer::singleShot(0, this, [this] {});
+	// 00561a70(成组)+ 00560b20(装配)+ 00534d80(收尾) —— cited
+	v->setSpacing(0); // 实参被折叠,按 0 占位(cited)
+	v->addWidget(m_lock58, 0, 0);   // +0x58
+	v->addWidget(m_change50, 0, 0); // +0x50
+	v->addWidget(m_cancel48, 0, 0); // +0x48
+	return v;
+}
+
+// FUN_00560ed8(776B)「改主密码」页 — cited(体量大,留收尾期)
+QLayout *LockScreenFace::buildChangePage()
+{
+	return nullptr;
+}
+
+// FUN_0056121e(430B)「Screen Locked」页布局真身:
+//   new QVBoxLayout;+0x40 标题 setText(tr("Screen Locked")@0xc8a223)
+//   +0x60 编辑件设占位 tr("Password")@0xc9d743(0058dac2 为件上的 setter)
+//   *(quint8*)(+0x60 + 0x7c) = 1(件内字段,件类未建模 → 不落)
+//   singleShot(0, this, functor 0055fa87);成组(+0x40,+0x60)→ 装配 → 组收尾
+//   addWidget(+0x40 / +0x60 / +0x30)
+QLayout *LockScreenFace::buildPasswordPage()
+{
+	auto *v = new QVBoxLayout;
+	m_title40->setText(tr("Screen Locked")); // 0xc8a223
+	if (m_f60 != nullptr)
+		m_f60->setPlaceholderText(tr("Password")); // 0058dac2
+	QTimer::singleShot(0, this, [this] {}); // 0055fa87 延迟腿,cited
+	// 00561a70 / 00560b20 / 00534d80 —— cited
+	v->setSpacing(0);
+	v->addWidget(m_title40, 0, 0); // +0x40
+	v->addWidget(m_f60, 0, 0);     // +0x60
+	v->addWidget(m_f30, 0, 0);     // +0x30
+	return v;
+}
 
 // FUN_005613ee(156B)状态切换真身:
 //   mode 0 → FUN_00560dec(220B 页布局);1 → FUN_00560ed8(776B);2 → FUN_0056121e(430B)
@@ -136,13 +175,13 @@ void LockScreenFace::setState(int mode)
 	QLayout *page = nullptr;
 	switch (mode) {
 	case 0:
-		page = buildStatePage0(); // 00560dec
+		page = buildLockedPage(); // 00560dec
 		break;
 	case 1:
-		page = buildStatePage1(); // 00560ed8
+		page = buildChangePage(); // 00560ed8
 		break;
 	case 2:
-		page = buildStatePage2(); // 0056121e
+		page = buildPasswordPage(); // 0056121e
 		break;
 	default:
 		return; // 语料:其它 mode 直接跳尾

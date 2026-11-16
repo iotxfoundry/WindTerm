@@ -19,10 +19,10 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 624 | 1.61% | 249759 | 3.26% |
+| 真实现 | 627 | 1.62% | 251185 | 3.27% |
 | 半成品 | 31 | 0.08% | 14545 | 0.19% |
-| 引用档 | 2089 | 5.39% | 795288 | 10.37% |
-| 未触及(真工作) | 20889 | 53.91% | 5582415 | 72.77% |
+| 引用档 | 2091 | 5.40% | 794811 | 10.36% |
+| 未触及(真工作) | 20884 | 53.90% | 5581466 | 72.76% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1163 | 3.00% | 243010 | 3.17% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -63,8 +63,10 @@
 | `src/Windows/Mux/MuxPaneView.h` | 16 | 0 | 14 |
 | `src/App/StartupChain.cpp` | 13 | 1 | 47 |
 | `src/Sessions/Transfers/ZModem.cpp` | 13 | 0 | 4 |
+| `src/Widgets/Views/LockScreenFace.cpp` | 9 | 4 | 14 |
 | `src/Windows/Kit/KitDockFace.h` | 13 | 0 | 10 |
 | `src/Sessions/Bridges/ProxyCommandSocket.h` | 12 | 0 | 12 |
+| `src/Widgets/Views/LockScreenFace.h` | 8 | 4 | 5 |
 | `src/Windows/Kit/KitBar.cpp` | 12 | 0 | 18 |
 | `src/Windows/Kit/KitWindowFactory.cpp` | 12 | 0 | 9 |
 | `src/Windows/Mux/MuxPaneView.cpp` | 12 | 0 | 11 |
@@ -81,8 +83,6 @@
 | `src/Editor/Engine/EditorEngine.cpp` | 9 | 0 | 514 |
 | `src/Sessions/Bridges/TcpBridge.h` | 9 | 0 | 10 |
 | `src/Sessions/Transfers/ModemProcess.cpp` | 8 | 1 | 0 |
-| `src/Widgets/Views/LockScreenFace.cpp` | 5 | 4 | 12 |
-| `src/Widgets/Views/LockScreenFace.h` | 5 | 4 | 5 |
 | `src/Windows/Kit/KitBar.h` | 9 | 0 | 8 |
 | `src/Actions/ActionFactory.cpp` | 8 | 0 | 10 |
 | `src/App/JsEngine.h` | 8 | 0 | 4 |
@@ -316,7 +316,7 @@
 | `KitBar` | `src/Windows/Kit/KitBar.h` | 9 | 0 |
 | `KitDock` | `src/Windows/Kit/KitDockFace.h` | 13 | 0 |
 | `KitWindow` | `src/Windows/Kit/KitWindowFace.h` | 26 | 0 |
-| `LockScreen` | `src/Widgets/Views/LockScreenFace.h` | 5 | 4 |
+| `LockScreen` | `src/Widgets/Views/LockScreenFace.h` | 8 | 4 |
 | `LogDialog` | `src/Widgets/Dialogs/LogDialogFace.h` | 1 | 1 |
 | `LoginWizard` | `src/Widgets/Dialogs/LoginWizardFace.h` | 0 | 0 |
 | `MainWindow` | `src/Windows/Kit/MainWindowFace.h` | 4 | 0 |

@@ -44,6 +44,9 @@ private:
 	void connectSignals(); // 005600a0
 	// 005613ee(156B):mode 0/1/2 → 取对应页布局,包一层 QWidget 加进 +0x80 栈并置当前
 	void setState(int mode);
+	QLayout *buildLockedPage();      // 00560dec(220B)
+	QLayout *buildChangePage();      // 00560ed8(776B)
+	QLayout *buildPasswordPage();    // 0056121e(430B)
 
 	// ---- 槽体(逐条见 .cpp;体量大的标 cited)----------------------------
 	void onLockClicked();        // 00561492(46B)
