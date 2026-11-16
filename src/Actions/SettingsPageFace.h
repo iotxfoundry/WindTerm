@@ -135,6 +135,15 @@ public:
 	//   ⇒ 该对话框的"覆盖值"是**按控件地址**存的(非名字键)。
 	void loadWidgetValues();
 
+	// FUN_00734eea(53B,0022.c:60260)当前页控件:
+	//   w = FUN_005ab316(this->+0x48);空 → 0;否则 dynamic_cast 到 01196db0 类型。
+	static QWidget *currentPaneWidget(QWidget *host);
+
+	// FUN_0073b6ec(193B,0023.c:2048)QVariant → 注册映射类型:
+	//   ut = FUN_00739b50()(注册的 userType);v.userType() == ut → 直接拷贝
+	//   (FUN_0073b658);否则 convert;失败 → 空 QMap。
+	static QMap<quintptr, QVariant> toPtrVariantMap(QVariant v);
+
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
 	//     (字符串形 "2accepted()"/"1accept()");

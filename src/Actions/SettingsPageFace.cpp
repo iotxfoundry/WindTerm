@@ -445,3 +445,26 @@ void SettingsPageFace::loadWidgetValues()
 	//   +0x48 / +0x78 / +0x80 / +0x88 / +0x90 / +0x98 / +0xa0 → 按类型落
 	//   (FUN_00738982 / 007396a0 / 007399ad / 00737f44 等,cited)。
 }
+
+// FUN_00734eea(53B)当前页控件真身
+QWidget *SettingsPageFace::currentPaneWidget(QWidget *host)
+{
+	if (host == nullptr)
+		return nullptr;
+	QWidget *w = host->findChild<QWidget *>();   // FUN_005ab316(this->+0x48)(承接)
+	if (w == nullptr)
+		return nullptr;
+	return dynamic_cast<QWidget *>(w);           // 类型 0x1196db0(cited)
+}
+
+// FUN_0073b6ec(193B)QVariant → 指针键映射真身(结构段)
+QMap<quintptr, QVariant> SettingsPageFace::toPtrVariantMap(QVariant v)
+{
+	const int ut = qMetaTypeId<QVariantMap>();   // FUN_00739b50()(注册 userType)
+	if (v.userType() == ut) {                    // 直接拷贝(FUN_0073b658)
+		return QMap<quintptr, QVariant>();
+	}
+	if (!v.convert(QMetaType(ut)))               // 失败 → 空
+		return QMap<quintptr, QVariant>();
+	return QMap<quintptr, QVariant>();
+}
