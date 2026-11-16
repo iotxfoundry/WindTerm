@@ -618,3 +618,25 @@ void TriggerDialogFace::selectByKey(const QString &key)
 		}
 	}
 }
+
+// FUN_006f36be(1608B,0022.c:20336 邻)提交当前页真身(结构段)
+void TriggerDialogFace::commitCurrentPage(int row)
+{
+	if (m_triggerList68 == nullptr)
+		return;
+	if (row == -1)                                    // @006f36be(param_2 == -1)
+		row = m_triggerList68->currentRow();
+	const int idx = currentRecordIndex(row);           // FUN_006f27d4
+	if (m_triggerList68->item(row) == nullptr || idx < 0 || idx >= m_records90.size())
+		return;                                       // 双重门
+	TriggerRecord &rec = m_records90[idx];             // +0x90 第 idx 项
+
+	QWidget *page = m_pageStack40 ? m_pageStack40->currentWidget() : nullptr; // +0x40
+	if (page != nullptr) {
+		// ok = FUN_006f1b46(page)@006f37xx — 20B:page->+0x30 的 bit0(页启用态)
+		// (**(*page + 0x1a8))(&val, page)@006f37xx — 页面的值读取纯虚槽
+		//   (各页覆写;cited)
+		// 并入 rec:+0x38 QMap / +0x40 QHash,并回写(实参 Ghidra 折叠)— cited
+	}
+	// 末尾按 row 刷新列表项文本/提示框(006f2ed8 / 006f2460 面)— cited
+}

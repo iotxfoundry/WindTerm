@@ -149,6 +149,18 @@ public:
 	//   与 key 比较,相等 → setCurrentItem(item, 0x13) 并返回。
 	void selectByKey(const QString &key);
 
+	// FUN_006f36be(1608B,0022.c:20336 邻)提交当前页到记录:
+	//   row == -1 → row = +0x68 currentRow();
+	//   item = +0x68 item(row);idx = currentRecordIndex(row);任一无效 → 返;
+	//   rec = +0x90[idx];
+	//   page = +0x40 currentWidget();非空 →
+	//     ok = FUN_006f1b46(page)(20B:page->+0x30 的 bit0 = 该页"启用"态);
+	//     (**(*page + 0x1a8))(&val, page)(**页面的值读取纯虚槽** —— 与
+	//       +0x1a0 同族的另一纯虚;各页覆写,cited);
+	//   把 val 并入 rec 的 +0x38 QMap / +0x40 QHash 并回写(cited);
+	//   末尾按 row 刷新列表项/提示框(006f2ed8 面)。
+	void commitCurrentPage(int row);
+
 	// FUN_006f3286(89B,0022.c:20176)当前行记录:
 	//   row = +0x68 currentRow();idx = currentRecordIndex(row);
 	//   idx == -1 → 返回 +0x98 缺省记录;否则 +0x90 第 idx 项。
