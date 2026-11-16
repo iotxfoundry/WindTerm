@@ -13970,7 +13970,7 @@
 0055fa50	5	FUN_0055fa50	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0055fa55	50	FUN_0055fa55	ref	src/Widgets/Views/LockScreenFace.cpp
 0055fa87	66	FUN_0055fa87	ref	src/Widgets/Views/LockScreenFace.cpp
-0055fac9	66	FUN_0055fac9	todo	
+0055fac9	66	FUN_0055fac9	ref	src/Widgets/Views/LockScreenFace.cpp
 0055fb0b	192	FUN_0055fb0b	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0055fbd3	753	FUN_0055fbd3	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0055ff05	387	FUN_0055ff05	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h

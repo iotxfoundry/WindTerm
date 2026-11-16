@@ -138,10 +138,44 @@ QLayout *LockScreenFace::buildLockedPage()
 	return v;
 }
 
-// FUN_00560ed8(776B)「改主密码」页 — cited(体量大,留收尾期)
+// FUN_00560ed8(776B)「Change master password」页布局真身。逐句:
+//   new QHBoxLayout(hbox) + new QVBoxLayout(vbox)
+//   +0x40 标题 setText(tr("Change master password")@0xc8a1e1)
+//   +0x60/+0x68/+0x70 三编辑件 setPlaceholder(tr("Old password"@0xc8a1f8 /
+//     "New password"@0xc8a205 / "Confirm password"@0xc8a212),件上 setter = 0058dac2)
+//   singleShot(0, this, functor 0055fac9)
+//   成组 7 件(00561a70: +0x40,+0x60,+0x68,+0x70,+0x50,+0x78,+0x48)→
+//     装配(00560b20)→ 收尾(00534d80)
+//   vbox::setSpacing(折叠)→ addWidget(+0x40,+0x60,+0x68,+0x70,+0x78)
+//   hbox::addWidget(+0x48)(Cancel)→ addWidget(+0x50)(Change)
+//   vbox::addLayout(hbox)→ vbox::addWidget(+0x30)→ **返回 vbox**
 QLayout *LockScreenFace::buildChangePage()
 {
-	return nullptr;
+	auto *hbox = new QHBoxLayout;
+	auto *vbox = new QVBoxLayout;
+
+	m_title40->setText(tr("Change master password")); // 0xc8a1e1
+	if (m_f60 != nullptr)
+		m_f60->setPlaceholderText(tr("Old password")); // 0xc8a1f8
+	if (m_f68 != nullptr)
+		m_f68->setPlaceholderText(tr("New password")); // 0xc8a205
+	if (m_f70 != nullptr)
+		m_f70->setPlaceholderText(tr("Confirm password")); // 0xc8a212
+
+	QTimer::singleShot(0, this, [this] {}); // 0055fac9 延迟腿,cited
+	// 00561a70 / 00560b20 / 00534d80 —— cited
+
+	vbox->setSpacing(0); // 实参折叠,cited
+	vbox->addWidget(m_title40, 0, 0); // +0x40
+	vbox->addWidget(m_f60, 0, 0); // +0x60
+	vbox->addWidget(m_f68, 0, 0); // +0x68
+	vbox->addWidget(m_f70, 0, 0); // +0x70
+	vbox->addWidget(m_f78, 0, 0); // +0x78
+	hbox->addWidget(m_cancel48, 0, 0); // +0x48
+	hbox->addWidget(m_change50, 0, 0); // +0x50
+	vbox->addLayout(hbox); // 语料 addLayout(vbox, hbox)
+	vbox->addWidget(m_f30, 0, 0); // +0x30
+	return vbox;
 }
 
 // FUN_0056121e(430B)「Screen Locked」页布局真身:

@@ -21,8 +21,8 @@
 |---|---:|---:|---:|---:|
 | 真实现 | 627 | 1.62% | 251185 | 3.27% |
 | 半成品 | 31 | 0.08% | 14545 | 0.19% |
-| 引用档 | 2091 | 5.40% | 794811 | 10.36% |
-| 未触及(真工作) | 20884 | 53.90% | 5581466 | 72.76% |
+| 引用档 | 2092 | 5.40% | 794877 | 10.36% |
+| 未触及(真工作) | 20883 | 53.89% | 5581400 | 72.76% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1163 | 3.00% | 243010 | 3.17% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -63,7 +63,7 @@
 | `src/Windows/Mux/MuxPaneView.h` | 16 | 0 | 14 |
 | `src/App/StartupChain.cpp` | 13 | 1 | 47 |
 | `src/Sessions/Transfers/ZModem.cpp` | 13 | 0 | 4 |
-| `src/Widgets/Views/LockScreenFace.cpp` | 9 | 4 | 14 |
+| `src/Widgets/Views/LockScreenFace.cpp` | 9 | 4 | 15 |
 | `src/Windows/Kit/KitDockFace.h` | 13 | 0 | 10 |
 | `src/Sessions/Bridges/ProxyCommandSocket.h` | 12 | 0 | 12 |
 | `src/Widgets/Views/LockScreenFace.h` | 8 | 4 | 5 |
