@@ -13756,16 +13756,16 @@
 00551430	119	FUN_00551430	ref	src/Widgets/Panes/SearchPanelFace.cpp,src/Widgets/Panes/SearchPanelFace.h
 005514b0	163	FUN_005514b0	ref	src/Widgets/Panes/SearchPanelFace.cpp,src/Widgets/Panes/SearchPanelFace.h
 005515b0	235	FUN_005515b0	todo	
-0055169b	98	FUN_0055169b	todo	
-005516fe	227	FUN_005516fe	todo	
-005517e2	229	FUN_005517e2	todo	
-005518d8	247	FUN_005518d8	todo	
+0055169b	98	FUN_0055169b	stub	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
+005516fe	227	FUN_005516fe	real	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
+005517e2	229	FUN_005517e2	real	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
+005518d8	247	FUN_005518d8	real	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
 005519e0	9	FUN_005519e0	todo	
 005519ea	9	FUN_005519ea	todo	
 005519f4	69	FUN_005519f4	todo	
 00551a3a	65	FUN_00551a3a	todo	
 00551a7c	93	FUN_00551a7c	ref	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h
-00551ada	642	Completer_vt6	qtplumb	
+00551ada	642	Completer_vt6	real	src/Widgets/Controls/CompleterFace.h
 00551d5c	41	FUN_00551d5c	todo	
 00551d86	145	FUN_00551d86	todo	
 00551e18	6	VBoxLayout_vt15	qtplumb	
@@ -14338,7 +14338,7 @@
 005830b2	14	ListView_vt15	qtplumb	
 005830c0	52	FUN_005830c0	todo	
 005830f4	49	FUN_005830f4	todo	
-00583126	16	FUN_00583126	todo	
+00583126	16	FUN_00583126	ref	src/Widgets/Controls/CompleterFace.cpp
 00583136	5	FUN_00583136	todo	
 0058313c	1346	FUN_0058313c	todo	
 005836a6	57	FUN_005836a6	todo	
@@ -14357,7 +14357,7 @@
 00583ace	157	ListView_vt14	qtplumb	
 00583b6c	30	FUN_00583b6c	todo	
 00583b8a	34	FUN_00583b8a	todo	
-00583bac	703	FUN_00583bac	todo	
+00583bac	703	FUN_00583bac	ref	src/Widgets/Controls/CompleterFace.cpp,src/Widgets/Controls/CompleterFace.h
 00583e8e	1029	listFilter_applyRegExp	todo	
 005842bd	179	FUN_005842bd	todo	
 00584370	41	FUN_00584370	todo	

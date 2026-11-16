@@ -210,8 +210,17 @@
 00551430	src/Widgets/Panes/SearchPanelFace.h
 005514b0	src/Widgets/Panes/SearchPanelFace.cpp
 005514b0	src/Widgets/Panes/SearchPanelFace.h
+0055169b	src/Widgets/Controls/CompleterFace.cpp
+0055169b	src/Widgets/Controls/CompleterFace.h
+005516fe	src/Widgets/Controls/CompleterFace.cpp
+005516fe	src/Widgets/Controls/CompleterFace.h
+005517e2	src/Widgets/Controls/CompleterFace.cpp
+005517e2	src/Widgets/Controls/CompleterFace.h
+005518d8	src/Widgets/Controls/CompleterFace.cpp
+005518d8	src/Widgets/Controls/CompleterFace.h
 00551a7c	src/Widgets/Controls/SearchEditFace.cpp
 00551a7c	src/Widgets/Controls/SearchEditFace.h
+00551ada	src/Widgets/Controls/CompleterFace.h
 0055456a	src/Widgets/Controls/CloseButtonFace.h
 0055456a	src/Widgets/Controls/ExplorerListFace.cpp
 0055456a	src/Widgets/Controls/ExplorerListFace.h
@@ -382,6 +391,9 @@
 0057eb5c	src/Widgets/Controls/SearchEditFace.cpp
 0057eb83	src/Widgets/Controls/SearchEditFace.cpp
 0057eba8	src/Widgets/Controls/SearchEditFace.cpp
+00583126	src/Widgets/Controls/CompleterFace.cpp
+00583bac	src/Widgets/Controls/CompleterFace.cpp
+00583bac	src/Widgets/Controls/CompleterFace.h
 00584bd8	src/Editor/Engine/EditorEngine.cpp
 00584c96	src/Widgets/Settings/TriggerPageFace.cpp
 00584c96	src/Widgets/Settings/TriggerPageFace.h
