@@ -337,7 +337,8 @@ TextMarkTablePanelFace::TextMarkTablePanelFace(QWidget *parent)
 	: TriggerTableWidgetFace(0x48f, parent) // @005675e8(基类 0x48f)
 {
 	// vtable TextMarkTablePanel_vtable / 副 01196288(C++ 自洽;尺寸 0x48)
-	// FUN_00567386(577B)+FUN_00567084(683B) — cited(规则表装配腿)
+	setupHeaders();                       // @FUN_00567386(577B)
+	fillRows();                           // @FUN_00567084(683B)
 }
 
 // FUN_00584e4a(74B)自定义表格件 ctor 真身
@@ -750,4 +751,21 @@ const QStringList &MarkStyleWidgetFace::lineStyleNames()
 		QStringLiteral("Box"),           // 0xceeac4
 	};
 	return names;
+}
+
+// FUN_00567386(577B)列头 + 空态真身
+void TextMarkTablePanelFace::setupHeaders()
+{
+	TriggerWidgetKit::setupTable(this, QStringList{
+		QStringLiteral("Pattern"),      // tr(0xd0daab)
+		QStringLiteral("Description"),  // tr(0xc8a3a0)
+		QStringLiteral("Style"),        // tr(0xd0c6c2)
+	});
+	setPlaceholder(QStringLiteral("No text mark available")); // tr(0xc8a3ac)
+}
+
+// FUN_00567084(683B)行装配 — 结构段(cited)
+void TextMarkTablePanelFace::fillRows()
+{
+	// 语料按 "text.pattern" / "description" 两个配置键逐行填充 — cited
 }

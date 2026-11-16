@@ -244,8 +244,17 @@ class TextMarkTablePanelFace : public TriggerTableWidgetFace {
 public:
 	explicit TextMarkTablePanelFace(QWidget *parent = nullptr);
 
+	// FUN_00567386(577B,0017.c:39442)列头 + 空态(实读):
+	//   **三列头 = tr("Pattern")(0xd0daab) / tr("Description")(0xc8a3a0) /
+	//     tr("Style")(0xd0c6c2)**;
+	//   空态文案 **tr("No text mark available")(0xc8a3ac)**(占位绘制面);
+	//   配置键 **"text.pattern"** / **"description"**(fromAscii 实读)。
+	void setupHeaders();
+
+	// FUN_00567084(683B)行装配腿 — 结构段(cited)
+	void fillRows();
+
 protected:
-	// FUN_00567386(577B)/FUN_00567084(683B) 装配腿 — cited
 };
 
 // TriggerTableWidgetFace — FUN_00584e4a(74B,0017.c:59880)ctor(自定义**表格**件):
