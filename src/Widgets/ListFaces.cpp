@@ -1,6 +1,13 @@
 // ListFaces.cpp — CheckList / ExplorerList(批 487)
 #include "ListFaces.h"
 
+// s_CompleterButton_58dad4(819B)ctor
+CompleterButtonFace::CompleterButtonFace(QWidget *parent)
+	: QWidget(parent)
+{
+	// +0x40 字段 + 819B 体(补全菜单/接线)— cited
+}
+
 // s_CloseButton_585528(897B)ctor
 CloseButtonFace::CloseButtonFace(QWidget *parent)
 	: QWidget(parent)
