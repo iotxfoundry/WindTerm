@@ -79,3 +79,22 @@ void ActionRegistryFace::build(const QVariant &root)
 	for (auto it = map.constBegin(); it != map.constEnd(); ++it)
 		applyAttributes(it.key().toUtf8(), it.value().toMap()); // @006671b5
 }
+
+// FUN_0066a148(103B)动作 triggered 槽真身
+void ActionRegistryFace::onActionTriggered()
+{
+	// sender() → cast 到 QAction(@0066a148)
+	auto *action = qobject_cast<QAction *>(sender());
+	fireAction(action);                     // js_actionFire(…, QJSValue(true))
+}
+
+// js_actionFire(2282B)动作脚本执行 — 结构段(cited 深处)
+bool ActionRegistryFace::fireAction(QAction *action)
+{
+	if (action == nullptr)
+		return false;
+	// 语料:取动作脚本(动作 setData 存的 script)→ QJSValue::isCallable →
+	//   call(动作对象)→ QJSValue::isError 时组 "名 [行]" 报错串。
+	//   全链路依赖 QJSEngine 装配面 → cited(不发明 JS 运行时)。
+	return true;
+}

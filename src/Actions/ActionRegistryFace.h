@@ -65,6 +65,21 @@ public:
 	//     (逐节点 unref),真正的语义只有上述两行。
 	void build(const QVariant &root);
 
+	// FUN_0066a148(103B,0020.c:52857)动作 triggered 槽(整段):
+	//   `sender()` → `QMetaObject::cast(&QAction::staticMetaObject)` 取动作 →
+	//   `QJSValue(true)` → **`js_actionFire(&out, this, action, QJSValue(true))`**。
+	//   ⇒ 动作点击 = **JS 执行**(不是 C++ 硬编码分支)。
+	void onActionTriggered();
+
+	// js_actionFire(2282B,0020.c:52522)动作脚本执行(结构段,逐调用实读):
+	//   QJSValue 族 46 处:isCallable / isError / toString / toVariant /
+	//   isQObject / toQObject;property ×2;evaluate;call;
+	//   错误串模板含 **" ["**(fromAscii_helper)—— 形如 "动作名 [行号]";
+	//   另经 FUN_00668f3a / FUN_00665d8a / FUN_0066b36f / FUN_00767a70 中转。
+	//   ⇒ 流程:取 script(setData 存的那个)→ isCallable → call →
+	//     isError 则组 "名 [行]" 报错。
+	bool fireAction(QAction *action);
+
 private:
 	QHash<QByteArray, QAction *> m_actions10; // +0x10
 };
