@@ -3,8 +3,7 @@
 > 目标:完全逆向 WindTerm 2.7.0(含 bug 原封不动)。每行代码必须有出处
 > (逆向地址 / 语料行),禁止捏造。
 >
-> **冷启动顺序**:本文件 → `tools/re/handoff.md`(当前态)→ `docs/index.md`
-> (文档总目录)→ `docs/plan.md`(阶段)→ `docs/phase5.md` 顶部「结论快照」。
+> **冷启动顺序**:见 §2「会话重启加载顺序」(必读 6 份 + 3 条状态核对命令)。
 
 ## 0. 目标与基线(**以二进制为准**)
 
@@ -24,7 +23,81 @@
   `.rodata` addr `0xc89000` ↔ off `0x889000`);`.data.rel.ro` 段偏移不同,
   用段感知读取(`tools/re/rd.py` 或 `readelf -SW` 现算),**勿手算**。
 
-## 1. 铁律
+## 1. 仓库根目录布局
+
+| 路径 | 体量 | 类型 | 用途 / 规则 |
+|---|---|---|---|
+| `AGENTS.md` | 13K | 文件 | **本文件**:规则与基线(每次开工先读) |
+| `README.md` | 2K | 文件 | 仓库入口:这是什么、三条纪律、目录速览 |
+| **`WindTerm`** | 12M | 文件 | **基线二进制**(RE 唯一事实源;sha256 见 §0) |
+| `src/` | 19M | 目录 | 重建代码 + 第三方库 + 第一方开源件 → **`src/README.md` 有三类归属表** |
+| `tools/` | 51M | 目录 | `decomp/`(**主语料 49M**)+ 取证脚本 + `handoff.md`/`gui-map.md` |
+| `docs/` | 576K | 目录 | 文档总目录 → 入口 `docs/index.md` |
+| `lib/` | 86M | 目录 | 预构建静态库(`libscintilla_core.a` 等)+ 运行时 so + Qt 插件目录 —— **构建期才用** |
+| `inc/` | 21M | 目录 | 上游头文件快照 = **版本对齐锚点,复刻完成前勿删**(踩坑 14) |
+| `global/` | 8M | 目录 | 原版数据面:**`wind.actions`(② 动作配置源)**、`wind.config`、`wind.keymaps`、locales/palettes/themes |
+| `terminal/` | 17M | 目录 | 原版数据面:`commands/`(命令表)`configs/` `protocols/` `schemes/` `terms/` `applets/` |
+| `images/` | 1.1M | 目录 | 图标 + **`screenshots/`(截图对表证据)** |
+| `vendors/` | 164K | 目录 | 原版捆绑的第三方(lrzsz) |
+| `benchmark/` | 8K | 目录 | 上游遗留脚本(`urandom_test.sh`),非逆向资产 |
+| `license.txt` | 52K | 文件 | 原版(WindTerm)许可证文本 |
+| `profiles.config` | 21B | 文件 | 原版启动配置 `{"path":"~"}`(跑原版时用) |
+| `qt.conf` | 26B | 文件 | 跑原版用的 Qt 插件路径 `[Paths] Plugins=./lib` |
+| `windterm.desktop` / `windterm.png` | 414B / 12K | 文件 | 原版 Linux 桌面项与图标 |
+| `opencode.json` | 626B | 文件 | REA MCP 配置(207 工具) |
+| `CMakeLists.txt` | 9K | 文件 | 构建脚本 —— **构建期才用**(平时不跑,铁律 7) |
+| `.gitignore` | 176B | 文件 | 忽略 `build/`、编译产物、IDA 库(`*.i64/.id*/.nam`)、`__pycache__`、`frida_binding.node` |
+| `.claude/` `.opencode/` | — | 目录 | agent 本地状态(**gitignored**,不入库) |
+| `compile_commands.json` / `WindTerm.til` | — | 文件 | 构建 / IDA 残留(untracked、gitignored,可随时重建) |
+
+**判据速记**:改行为 → `src/`;找出处 → `tools/re/decomp`;查结论 → `docs/`;
+验事实 → `./WindTerm`;**删东西前先看 `docs/cleanup.md` 与踩坑 14**。
+
+## 2. 会话重启加载顺序
+
+### 2.1 必读(按序,合计约 700 行)
+
+| # | 文件 | 读完应知道 |
+|---|---|---|
+| 1 | `AGENTS.md`(本文件) | 规则、基线、工具、踩坑 |
+| 2 | `tools/re/handoff.md` | **单页当前态**:七节覆盖表 / 勘正谱系 / 现役队列 |
+| 3 | `docs/index.md` | 文档索引(后续按需跳转的唯一入口) |
+| 4 | `docs/plan.md` | 阶段总览(现在在哪一阶段) |
+| 5 | `docs/phase5.md` 顶部「结论快照」 | 里程碑 / 编辑引擎真值 / 5b 终局 / 开放风险 |
+| 6 | `docs/quirks.md` | 原版怪癖(**动代码前扫一遍,别把怪癖当 bug 修**) |
+
+### 2.2 状态核对(3 条命令,再做任何改动)
+
+```bash
+git log --oneline -5                    # 最近 5 批做了什么
+git status --short                      # 应为空;有残留先问清再动
+git rev-list --count origin/dev..dev    # 领先量(只提交不推送,勿惯性 push)
+```
+
+然后读 `handoff.md`「现役队列」第 1 条 —— 那即是下一批起点。
+
+### 2.3 按任务取(不必全读)
+
+| 任务 | 读什么 |
+|---|---|
+| 界面/对话框/菜单 | `tools/re/gui-map.md`(七节)+ `docs/pending-attribution.md`(归属工作单) |
+| 某子系统 | `docs/subsystems/<名字>.md`(state-machine / terminal-core / ssh-internals / editor-engine-commands …) |
+| vtable / 枚举 / 函数地址 | `docs/meta/{vtable-map,king-enums,impl-addresses}.md` |
+| 原版 bug 判定 | `docs/quirks.md` |
+| 外部库行为 | `docs/ext-boundary.md`(不逆向清单 + 版本) |
+| 某批的取证细节 | `docs/history/*`(检索用,**结论以现行文档为准**) |
+| src 里某文件属于哪一类 | `src/README.md`(逆向 / 第一方开源 / 第三方) |
+
+### 2.4 冷启动禁忌
+
+- **不要全量读 `docs/history/`**(phase5-log 3000+ 行):只在追问具体批次时 `grep`。
+- **不要把覆盖率当完成度**:`handoff.md` 的百分比是**转写覆盖**,
+  可编译/可运行另有口径(见 §3 末「构建与测试不在本文件范围」)。
+- **不要以文档为依据反驳二进制**:文档与语料冲突 → 回 `./WindTerm` 取证
+  再改文档(§0 口径纪律)。
+- **不要因为"构建未引用"就删参考材料**(踩坑 14;删除动作必须登记 `docs/cleanup.md`)。
+
+## 3. 铁律
 
 1. **每行代码有出处**:真实现引用 `FUN_XXXXXXXX` / `name@地址`;thunk 引反向
    表项;文档引用 `docs/meta/impl-addresses.md`。**没地址不写**。
@@ -50,13 +123,13 @@
 > 构建与测试**不在本文件范围**:何时编译、如何链接、收尾期顺序,一律按用户
 > 当时的指令执行。`tests/` 已删除,不恢复、不新增。
 
-## 2. 工作重心
+## 4. 工作重心
 
 - **重心 = 逆向代码落地**(语料 → `src/`),不是写文档、不是写测试。
 - 文档按**里程碑**更新(不逐批流水);结论只进 `docs/`。
 - 取证优先于猜测:语料 > kuna 反编译 > IDA spot check。
 
-## 3. 分层体系(三档)
+## 5. 分层体系(三档)
 
 | 档 | 标记 | 何时升级 |
 |---|---|---|
@@ -66,7 +139,7 @@
 
 引用档 → 真实现 = 读语料 entry → 转写为代码 → 删除 cited 标记。
 
-## 4. 工具优先
+## 6. 工具优先
 
 | 工具 | 用途 |
 |---|---|
@@ -80,7 +153,7 @@
 | `pkill -f 'pat[t]ern'` | 杀进程用括号法,避免自匹配(踩坑 15) |
 | IDA(若开着) | 基址差 `−0x400000`;仅 spot check |
 
-## 5. 已踩坑(重复同样的错就在这里追加)
+## 7. 已踩坑(重复同样的错就在这里追加)
 
 > 2026-11-16 重整:构建/测试类条目已移除(不再适用),余下按出现序重编号 1-18。
 
@@ -182,7 +255,7 @@
   重测相反。**对策**:任何"原版确定行为"裁决前,先核对测量脚本的状态前提
   (reset/基线/会话隔离),实验脚本尽量 import 主驱动的 baseline()。
 
-## 6. 反编译语料结构
+## 8. 反编译语料结构
 
 ```
 tools/re/decomp/decomp-part-NNNN.c
@@ -195,7 +268,7 @@ tools/re/decomp/decomp-part-NNNN.c
 - 反编译器:Ghidra 12.1.4(`-revoke` 不可重入,一次性导出);
 - 源二进制 = `./WindTerm`(见 §0)。
 
-## 7. 领域知识锚点(索引见 `docs/index.md`)
+## 9. 领域知识锚点(索引见 `docs/index.md`)
 
 | 子系统 | 关键文件/文档 |
 |---|---|
@@ -210,7 +283,7 @@ tools/re/decomp/decomp-part-NNNN.c
 | 语料怪癖 | `docs/quirks.md`(原版 bug 台账,勿修) |
 | src 三类归属 | `src/README.md`(逆向重建 / 第一方开源 / 第三方库) |
 
-## 8. 混合架构边界(不要越线)
+## 10. 混合架构边界(不要越线)
 
 ```
 QVariant dispatch(cmd, a, b)
@@ -224,14 +297,14 @@ QVariant dispatch(cmd, a, b)
 同一策略适用于 **libssh**(认证族委托真库)与 **yaml-cpp**(ConfigBridge
 委托真库):**标准行为委托真库,fork 特性才逆向自研**。
 
-## 9. 外部库边界
+## 11. 外部库边界
 
 - 静态嵌入的开源库(boost/yaml-cpp/jsoncpp/dtl/zstd/fmt+spdlog)
   **实现不逆向**;命中见 `docs/ext-boundary.md` → 标记边界、转写调用接口面
   (`src/Ext/` 声明层),行为由委托真库或 no-op 承接。
 - 例外:外库数据布局被 WindTerm 业务消费的部分(SGR 位/行格)仍属逆向范围。
 
-## 10. 提交规范
+## 12. 提交规范
 
 - **中文 commit**;一条 commit 对应一批改动 + 相应 `.md` 更新。
 - **只提交,不主动推送**(push 仅用户明示 + 代理参数,见铁律 8)。
