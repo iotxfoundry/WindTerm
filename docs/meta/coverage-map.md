@@ -17,21 +17,20 @@
 | `Editor/Config` | 9 | 2303 | 14 | 71 | 23 |
 | `Editor/Engine` | 17 | 11325 | 55 | 675 | 341 |
 | `Ext` | 2 | 494 | 3 | 11 | 1 |
-| `Protocols` | 3 | 336 | 3 | 0 | 0 |
-| `Pty` | 9 | 1207 | 6 | 0 | 0 |
-| `Pty/Public` | 1 | 2 | 0 | 0 | 0 |
+| `Protocols` | 3 | 348 | 3 | 0 | 0 |
+| `Pty` | 9 | 1243 | 6 | 0 | 0 |
+| `Pty/Public` | 1 | 6 | 0 | 0 | 0 |
 | `Sessions/Bridges` | 15 | 1027 | 8 | 42 | 2 |
 | `Sessions/Commanders` | 12 | 3135 | 7 | 60 | 44 |
 | `Sessions/Core` | 7 | 2437 | 7 | 125 | 19 |
 | `Sessions/Protocols` | 10 | 315 | 5 | 14 | 0 |
 | `Sessions/Terminal` | 6 | 5783 | 12 | 325 | 50 |
 | `Stubs` | 1 | 25 | 0 | 1 | 0 |
-| `Utility` | 3 | 668 | 1 | 12 | 6 |
-| `Utility/Components` | 8 | 734 | 10 | 0 | 0 |
+| `Utility` | 11 | 1434 | 11 | 12 | 6 |
+| `Widgets` | 6 | 722 | 3 | 1 | 0 |
 | `Widgets/Faces` | 18 | 1059 | 20 | 46 | 32 |
-| `Widgets/OpenSource` | 6 | 702 | 3 | 1 | 0 |
 | `Widgets/Panels` | 13 | 2183 | 13 | 150 | 23 |
-| **合计** | **266** | **50795** | **259** | **2129** | **853** |
+| **合计** | **266** | **50899** | **259** | **2129** | **853** |
 
 ## 2. 被引用最多的地址（多为共享腿，不要重复实现）
 
@@ -75,3 +74,36 @@
 | `FUN_0089a756` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
 | `FUN_00899316` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
 | `FUN_0092547e` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
+
+## 4. 第一方开源件（B 类·勿逆向）
+
+文件带 `[B-OPENSOURCE]` 标记;清单 `tools/re/data/open_source_files.txt`;校验 `coverage.py --audit`。
+
+| 文件 |
+|---|
+| `src/Protocols/Protocol.h` |
+| `src/Protocols/TelnetProtocol.cpp` |
+| `src/Protocols/TelnetProtocol.h` |
+| `src/Pty/ConPty.cpp` |
+| `src/Pty/ConPty.h` |
+| `src/Pty/Pty.cpp` |
+| `src/Pty/Pty.h` |
+| `src/Pty/Public/Spin.h` |
+| `src/Pty/ShellProcess.h` |
+| `src/Pty/UnixPty.cpp` |
+| `src/Pty/UnixPty.h` |
+| `src/Pty/WinPty.cpp` |
+| `src/Pty/WinPty.h` |
+| `src/Utility/CircularBuffer.h` |
+| `src/Utility/Cryptographic.cpp` |
+| `src/Utility/Cryptographic.h` |
+| `src/Utility/MemoryPointer.h` |
+| `src/Utility/ScopeGuard.h` |
+| `src/Utility/Spin.h` |
+| `src/Utility/ThreadLocal.cpp` |
+| `src/Utility/ThreadLocal.h` |
+| `src/Widgets/PopupWidget.cpp` |
+| `src/Widgets/PopupWidget.h` |
+| `src/Widgets/ScrollBar.cpp` |
+| `src/Widgets/ScrollBar.h` |
+| `src/Widgets/Splitter.h` |

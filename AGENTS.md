@@ -310,6 +310,10 @@ QVariant dispatch(cmd, a, b)
 
 ## 11. 外部库边界
 
+- **第一方开源件(B 类)与逆向代码混放,不做物理分目录**。识别靠三条显式标记:
+  文件头 `// [B-OPENSOURCE] …`、清单 `tools/re/data/open_source_files.txt`、
+  校验 `tools/re/coverage.py --audit`。**看到标记就别逆向** —— 直接按
+  `docs/calibration.md` 移植。新增/移动文件后跑一次 `--audit`。
 - 静态嵌入的开源库(boost/yaml-cpp/jsoncpp/dtl/zstd/fmt+spdlog)
   **实现不逆向**;命中见 `docs/ext-boundary.md` → 标记边界、转写调用接口面
   (`src/Ext/` 声明层),行为由委托真库或 no-op 承接。

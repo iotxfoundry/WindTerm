@@ -29,7 +29,7 @@
 #include "Actions/Mux/MuxPaneGroup.h"
 #include "Actions/Kit/TabGroup.h"
 #include "Sessions/Core/WorkspaceLoader.h"
-#include "Widgets/OpenSource/Splitter.h"
+#include "Widgets/Splitter.h"
 
 // 008c9ee4(159B,0028.c:11376)菜单栏装配腿:
 //   menuBar = King::MenuBar::MenuBar(menu(),"Kit",this) @0x8c9f22(批 189

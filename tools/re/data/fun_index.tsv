@@ -2670,8 +2670,8 @@
 008c9ee4	src/Actions/Kit/KitWindowFactory.cpp
 008c9fc2	src/Actions/Kit/KitWindowAssemblyFace.cpp
 008c9fc2	src/Actions/Kit/KitWindowFace.h
-008ca062	src/Widgets/OpenSource/Splitter.cpp
-008ca062	src/Widgets/OpenSource/Splitter.h
+008ca062	src/Widgets/Splitter.cpp
+008ca062	src/Widgets/Splitter.h
 008ca0b8	src/Actions/Kit/KitWindowAssemblyFace.cpp
 008ca170	src/Actions/Kit/KitWindowAssemblyFace.cpp
 008ca17a	src/Actions/Kit/KitWindowAssemblyFace.cpp

@@ -34,12 +34,12 @@ src/
 │   ├── Terminal/         6    Screen / ScreenData / TerminalCore / TermViewFace
 │   └── Core/             7    SuperSession / SuperSessionPrivate / WorkspaceLoader / FileOps
 ├── Widgets/             37   Qt 控件
-│   ├── Faces/           18    自绘控件族(ActionButton/Bar/BreadCrumb/ColorButton/Expand/List …)
+│   ├── Faces/           15    自绘控件族(ActionButton/Bar/BreadCrumb/ColorButton/Expand/List …)
 │   ├── Panels/          13    FilerPane / OutputPane / SessionPane / TerminalView / TextView …
-│   └── OpenSource/       6    PopupWidget / ScrollBar / Splitter(**第一方开源,勿逆向**)
+│   └── (根)              5    PopupWidget / ScrollBar / Splitter  ← **B 类,勿逆向**
 ├── Utility/             11   共享基元
-│   ├── (根)              3    KingEnums / ApplicationTheme
-│   └── Components/       8    CircularBuffer / Cryptographic / ScopeGuard / Spin …
+│   └── (根)             11    KingEnums / ApplicationTheme(A)+ CircularBuffer / Cryptographic /
+│                              ScopeGuard / Spin / ThreadLocal …(← **B 类,勿逆向**)
 ├── Pty/                 10   第一方开源(基于 ptyqt 重写)
 ├── Protocols/            3   第一方开源(Telnet)
 ├── Ext/                  2   外部库接口面(Spdlog/Zstd,不含实现)
@@ -57,24 +57,38 @@ src/
 | 目录 | 类 | 说明 |
 |---|---|---|
 | `Actions/` `Editor/` `Sessions/` `Widgets/` `Stubs/` | **A** | 逆向重建;每行有 `FUN_`/`cited` |
-| `Widgets/OpenSource/` `Utility/Components/` `Protocols/` `Pty/` | **B** | 作者 Apache-2.0 开源件,移植须 `docs/calibration.md` 逐句同构 |
+| `Utility/` `Widgets/` 内的 `[B-OPENSOURCE]` 文件,`Protocols/` `Pty/` | **B** | 作者 Apache-2.0 开源件,移植须 `docs/calibration.md` 逐句同构 |
 | `Scintilla/` `jsoncpp/` `yaml-cpp/` `spdlog/` `fmt/` `dtl/` `libssh/` `Onigmo/` | **C** | 第三方库,不逆向不改 |
 | `Ext/` | A | 外部库的**接口面**声明(Spdlog/Zstd) |
 
-## 2. 第一方开源件(勿逆向)
+## 2. 第一方开源件(勿逆向)—— 混放 + 文件级标记
 
-已归入独立子目录,与逆向代码物理隔离:
+**不与逆向代码物理分目录**。理由:分目录会破坏与上游项目的结构对应(移位置即
+改结构),还会让"这一坨是开源的"变成只存在于目录名里的隐含知识 —— 一旦有人
+把文件挪回去或新建同族文件,就再也认不出来,进而**重复逆向已有开源实现**。
 
-| 目录 | 文件 |
+改为三条**显式标记**,任一即可识别:
+
+1. **文件头标记**(最直接):每个 B 类文件首行都是
+
+   ```
+   // [B-OPENSOURCE] 第一方开源件 —— **勿逆向**。
+   ```
+
+2. **清单**(机器可读):`tools/re/data/open_source_files.txt`
+3. **校验**(防漂移):`python3 tools/re/coverage.py --audit`
+   —— 清单内缺标记、有标记不在清单,都会报错。
+
+| 位置 | 文件 |
 |---|---|
-| `Utility/Components/` | `CircularBuffer.h`(环形缓冲模板)`Cryptographic.{h,cpp}`(PBKDF2/RFC 8018)`MemoryPointer.h` `ScopeGuard.h` `Spin.h` `ThreadLocal.{h,cpp}` |
-| `Widgets/OpenSource/` | `PopupWidget.{h,cpp}` `ScrollBar.{h,cpp}`(支持 64 位范围)`Splitter.h` |
+| `Utility/` | `CircularBuffer.h` `Cryptographic.{h,cpp}` `MemoryPointer.h` `ScopeGuard.h` `Spin.h` `ThreadLocal.{h,cpp}` |
+| `Widgets/` | `PopupWidget.{h,cpp}` `ScrollBar.{h,cpp}`(64 位范围)`Splitter.h` |
 | `Protocols/` | `Protocol.h` `TelnetProtocol.{h,cpp}` |
-| `Pty/` | 基于 [ptyqt](https://github.com/kafeg/ptyqt) **几乎全部重写**(作者自述) |
+| `Pty/` | `Pty.{h,cpp}` `UnixPty.{h,cpp}` `WinPty.{h,cpp}` `ConPty.{h,cpp}` `ShellProcess.h` `Public/Spin.h`(ptyqt 兼容壳) |
+| `Pty/ptyqt LICENSE` | 上游许可原文 |
 
 > 依据:上游 README 自述"These are first-party components";移植/校准记录见
 > `docs/calibration.md`(第一方 6 组件:保持移植,对应子系统**停止逆向**)。
-> `Pty/Public/Spin.h` 是 ptyqt 兼容壳(一行转发到 `Utility/Components/Spin.h`)。
 
 ## 3. 第三方库:版本、许可、构建参与
 

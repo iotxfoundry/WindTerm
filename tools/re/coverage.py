@@ -44,6 +44,15 @@ def scan():
     return out
 
 
+MANIFEST = os.path.join(DATA, 'open_source_files.txt')
+
+
+def open_source():
+    if not os.path.exists(MANIFEST):
+        return []
+    return [l.strip() for l in open(MANIFEST, encoding='utf-8') if l.strip()]
+
+
 def impl_addrs():
     """带实现标记(`真身` 或 `// ===` 函数头)的地址 → .cpp 集合。
 
@@ -123,6 +132,26 @@ def main():
             print('  0x%s  %s' % (a, ', '.join(sorted(addr2files[a]))[:80]))
         sys.exit(0)
 
+    if '--audit' in sys.argv:
+        want = open_source()
+        bad_missing = [f for f in want if os.path.exists(f)
+                       and '[B-OPENSOURCE]' not in open(f, encoding='utf-8', errors='ignore').read()]
+        bad_stray = [rel for rel, d in scan_.items()
+                     if rel.endswith(('.h', '.cpp'))
+                     and '[B-OPENSOURCE]' in open(os.path.join(SRC, '..', rel), encoding='utf-8', errors='ignore').read()
+                     and rel not in want]
+        suspect = [rel for rel, d in scan_.items()
+                   if rel not in want and rel.endswith(('.h', '.cpp'))
+                   and not d['addrs'] and d['cited'] == 0 and 'ApplicationTheme' not in rel
+                   and 'KingEnums' not in rel and 'Ext' not in rel and 'Stubs' not in rel]
+        print('B 类清单: %d 个文件' % len(want))
+        print('清单内缺标记: %d %s' % (len(bad_missing), bad_missing[:5]))
+        print('有标记但不在清单: %d %s' % (len(bad_stray), bad_stray[:5]))
+        print('无标记且零 FUN_/cited(疑似漏标,需人工判): %d' % len(suspect))
+        for x in suspect[:12]:
+            print('   ', x)
+        sys.exit(0 if not bad_missing and not bad_stray else 1)
+
     g = groups(scan_)
     total = {'files': 0, 'lines': 0, 'classes': 0, 'cited': 0}
     rows = []
@@ -162,6 +191,12 @@ def main():
                   '| 地址 | 文件 |', '|---|---|']
         for a, f in sorted(dup, key=lambda kv: -len(kv[1])):
             lines.append('| `FUN_%s` | %s |' % (a, '<br>'.join(f)))
+        want = open_source()
+        lines += ['', '## 4. 第一方开源件（B 类·勿逆向）', '',
+                  '文件带 `[B-OPENSOURCE]` 标记;清单 `tools/re/data/open_source_files.txt`;'
+                  '校验 `coverage.py --audit`。', '', '| 文件 |', '|---|']
+        for w in want:
+            lines.append('| `%s` |' % w)
         with open(os.path.join(os.path.dirname(__file__), '..', '..', 'docs', 'meta', 'coverage-map.md'),
                   'w', encoding='utf-8') as fh:
             fh.write('\n'.join(lines) + '\n')
