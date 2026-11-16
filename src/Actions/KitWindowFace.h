@@ -112,6 +112,16 @@ public:
 	//   末尾 `s_SearchPane_85a7a6(this, 宿主)`(与搜索面板联动)。
 	void ensureTransferBar();
 	QObject *m_transferBarF0 = nullptr;  // +0xf0(TransferBar 宿主)
+	// --- 5c 尾钩默认腿(批 453,补齐批 333 的尾钩 cited)---
+	// 语料判据:`vtable + 0x248 != FUN_008d5bf4`(1 字节 `ret`,即**空实现基线**)
+	//   → 说明 +0x248 是虚槽,默认实现 = **FUN_008d5bee**(6B:`return 1`);
+	//   TerminalWindow 覆写为 FUN_0085ae68(QuickBar 读,已落批 442)。
+	// +0x240 默认 = **FUN_008d1014**(85B):
+	//   `status_showMessage(this, this, msg, 4, 0, **15000**)`(级别 4、15 秒)
+	//   + `sender()` 转 **FUN_008d0fd6**(this, sender)。
+	virtual bool windowTailLeg() { return true; }   // +0x248 默认(FUN_008d5bee)
+	void statusMessageLeg(const QString &msg);      // +0x240 默认(FUN_008d1014)
+
 	QString m_quickBarName;      // +0xd8
 	QWidget *m_quickBarHost = nullptr; // +0xe0
 	QStringList m_quickBarItems; // +0xe0 宿主的 +0x68 表(承接)

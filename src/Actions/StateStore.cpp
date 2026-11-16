@@ -268,7 +268,9 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 		  << allNamedHidden(pane, QStringLiteral("ToolBar"));   // @008cf4xx
 	}
 	out << blobC; // @008cf587
-	// 尾钩 vtable+0x248 != FUN_008d5bf4(@008cf960)→ 虚调(本批定性,
+	// 尾钩 vtable+0x248 != FUN_008d5bf4(@008cf960)→ 虚调:默认实现与基线
+	//   已在批 453 落定(KitWindowFace::windowTailLeg = FUN_008d5bee `return 1`;
+	//   基线 FUN_008d5bf4 = 1 字节 `ret`)。以下为原有定性,(本批复核,
 	//   asm/kuna 双源;QuickBar 窗条面):
 	//   - TerminalWindow vt 0x11a7c80 +0x248 = FUN_0085ae68(220B)读侧
 	//     face(>>BA → 子流 >>bool 可见 >>int count >>QString×count
@@ -677,4 +679,13 @@ void KitWindowFace::setHostItems(QWidget *host, const QStringList &items)
 	// if (*(host+0x68) != items) { detach 拷贝;释放旧表 } — cited
 	// s_king__config_56f866(host)(刷新) — cited
 	Q_UNUSED(items);
+}
+
+// FUN_008d1014(85B)+0x240 默认腿真身:
+//   status_showMessage(this, this, msg, 4, 0, 15000) → sender 转 FUN_008d0fd6。
+void KitWindowFace::statusMessageLeg(const QString &msg)
+{
+	// status_showMessage(this, this, msg, /*level*/4, /*?*/0, /*ms*/15000) — cited
+	Q_UNUSED(msg);
+	// sender() → FUN_008d0fd6(this, sender) — cited
 }
