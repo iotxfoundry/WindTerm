@@ -327,3 +327,28 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   (FUN_006bd250 242B:addRow(label,field)+FieldRole 逐行 setTabOrder 链)。
 - **方法学**:.rodata 取串改用 `file_offset = addr - 0x400000`(readelf 实测
   .rodata addr 0xc89000 ↔ off 0x889000),替代手工读 objdump 行,消除错位。
+
+### 批 349-358 增量(TriggerDialog 行为面补齐 + 菜单机械 + expect 数据面)
+- **记录面**:`TriggerRecord` 0x48(+0x08 名/+0x10 UserRole 键/+0x18 描述/
+  +0x20 启用/+0x21 入列/+0x24 页 kind/+0x28 子结构)——四条独立证据互证
+  (263e setData 0x100 用 +0x10;34dd 回写 +0x08/+0x18;6134 +0x21 门;
+  60a8 +0x24 页 kind)。
+- **换行驱动 139B**(`006f60a8`):索引有效→提交腿;`+0x24 != 0`→
+  页栈 kind + 装载 + 按钮回 "&Ok"。
+- **提示框 821B**(`006f2ed8`):HTML 模板实读
+  `<tr style="white-space: nowrap;"><td style="text-align:right;">%1: </td><td><b>%2</b></td></tr>`
+  + 行标签 `Name`/`Description` + `<table>` 包裹;`data(3)` 比较后才写。
+- **初始装载 415B**(`006f6134`):clear → 全局表换手 → 逐记录 `+0x21` 门
+  → 空表走 **kind 8(HighlightText)** 页 → 否则 setFocus(3)+setCurrentItem(0x13)。
+- **两个范围模型**:动作表 1264B(`006f5b42`,`"*"`→`"all systems"`);
+  会话表 927B(`s_session_uuid_6f571a`,键 `session.uuid`/`session.icon`,
+  `"%1 / "` 组名头插)。
+- **编辑完成 259B**(`006f34dd`):仅 Accepted 落 `+0x08`/`+0x18` 并刷新项文本。
+- **禁用外观 425B**(`006f2460`):`FontRole` strikeout + `ForegroundRole`
+  `Gray`(`0xd0d152` 实读)。
+- **菜单机械**:`paneMenuBaseName`(objectName 去 "Pane")/
+  `actionContext`(vt+0x1f0)/`findOrCreateMenu`(QMap 命中 → 复用,否则
+  `new QMenu(0x30, tr(name), parent)`)。
+- **pane 右键菜单全量 + 勘正**:菜单名 = `"%1 %2Popup"`,前缀
+  **0x04000000→Ctrl** / **0x02000000→Shift**(批 336 写反,已纠)。
+- **expect 数据面**:`collectRows`(键模板 `%1.path` / `%1.pass` 实读)。
