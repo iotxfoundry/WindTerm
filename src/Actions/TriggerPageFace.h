@@ -5,7 +5,9 @@
 
 class QComboBox;
 class QDoubleSpinBox;
+class QAbstractItemView;
 class QHBoxLayout;
+class QTableWidget;
 class QStackedLayout;
 class QStackedWidget;
 class QTabBar;
@@ -338,3 +340,20 @@ protected:
 	QComboBox *m_combo58 = nullptr;   // +0x58(0x48 search combo)
 	QDoubleSpinBox *m_spin60 = nullptr; // +0x60(QDoubleSpinBox 0x30)
 };
+
+// ---------------------------------------------------------------- 表格助手
+// FUN_00584ee8(159B,0017.c:59935)表格初始化(PlaySound/CustomMenu 页共用):
+//   setColumnCount(labels.size());setHorizontalHeaderLabels(labels);
+//   setSelectionMode(1 /*SingleSelection*/);
+//   水平头:setHighlightSections(true)/setStretchLastSection(true)/
+//     setSectionResizeMode(0 /*Interactive*/)/setDefaultAlignment(1);
+//   水平头 show()/垂直头 hide()。
+namespace TriggerWidgetKit {
+void setupTable(QTableWidget *table, const QStringList &labels);
+
+// FUN_00566d6e(22B,0017.c:39167)占位文案:`view->+0x38 = text;view->update()`。
+//   配套绘制 FUN_00566d84(97B):rowCount()==0 且 +0x38 非空 →
+//   viewport 上以主题绘制该文案(即 "No sound available"/"No action available"
+//   的实际显示路径;DAT_011c1ce0 = 主题单例)。
+void setPlaceholder(QAbstractItemView *view, const QString &text);
+}

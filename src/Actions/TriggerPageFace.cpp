@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 #include <QStackedLayout>
 #include <QTabBar>
+#include <QHeaderView>
 #include <QTableView>
 
 // FUN_006f1966(45B,0022.c:19239)ctor 真身
@@ -462,4 +463,32 @@ void CustomMenuTriggerPageFace::assembleCustomMenuPage()
 	QWidget::setTabOrder(m_f40, m_f50);                        // @(+0x40 → +0x50)
 	QWidget::setTabOrder(m_f50, m_f58);                        // @(+0x50 → +0x58)
 	setFocusProxy(this);
+}
+
+// FUN_00584ee8(159B)表格初始化真身
+void TriggerWidgetKit::setupTable(QTableWidget *table, const QStringList &labels)
+{
+	if (table == nullptr)
+		return;
+	table->setColumnCount(labels.size());                 // @00584ee8
+	table->setHorizontalHeaderLabels(labels);             // @00584exx
+	table->setSelectionMode(QAbstractItemView::SingleSelection); // 模式 1
+	if (QHeaderView *h = table->horizontalHeader()) {
+		h->setHighlightSections(true);                    // @00584fxx
+		h->setStretchLastSection(true);
+		h->setSectionResizeMode(QHeaderView::Interactive); // 模式 0
+		h->setDefaultAlignment(Qt::Alignment());          // 实参 1(Ghidra 折叠)
+		h->show();                                        // @00584fxx
+	}
+	if (QHeaderView *v = table->verticalHeader())
+		v->hide();                                        // @00584fxx
+}
+
+// FUN_00566d6e(22B)占位文案真身
+void TriggerWidgetKit::setPlaceholder(QAbstractItemView *view, const QString &text)
+{
+	if (view == nullptr)
+		return;
+	view->setProperty("placeholderText", text);           // 语料 +0x38 字符串
+	view->update();                                       // QWidget::update()
 }
