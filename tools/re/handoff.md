@@ -238,7 +238,42 @@ btn->setStyleSheet("QToolButton { color: %1; }".arg(s == 1 ? "red" : "green"));
 `FUN_0079dc32`(3833B,组帧)/ `FUN_0079cab4`(775B,YMODEM 头块)/
 `FUN_0079d680`(1365B)/ `xymodem_sendInit`(1954B)/ `ModemProcess::clearFlag`(18B)。
 
-## 现役队列(批 494 后,按需开批)
+## 现役队列(批 508 后,按需开批)
+
+> 2026-11-16 起走「整类推」:一个类 ctor→字段→接线→槽→dtor 一次落地,
+> 收口判据 = dtor 出现。当前已整类闭合 21 类(见下方进度表)。
+> 下一条队列(按"能整类闭合"优先,不按体量):
+>
+> | 序 | 类 | 规模 | 备注 |
+> |---|---|---|---|
+> | 1 | `Grep` / `GrepView` | 6/1135B、6/1191B | 搜索视图,信号真名可读 |
+> | 2 | `KitView` | 14/2943B max694 | 面板视图基座 |
+> | 3 | `SftpTransfer` | 11/1059B | 传输条目 |
+> | 4 | `SshAuthOperator` | 8/1026B | 认证算子 |
+> | 5 | `SftpFileSystemItem` / `LocalFileSystemItem` | 2/1217B、5/1252B | 与已落的 FileSystemItem 同族 |
+> | 6 | `GrepViewConfig` / `TerminalViewConfig` | 4/11680B、2/6005B | 配置面,函数巨大,需分面 |
+> | 7 | `MediaCenter` / `ExpectTask` / `TerminalSender` | 6/14499B、5/15741B、7/16722B | **大件**:单函数 6-8KB,需按面拆 |
+> | 8 | `Tmux` | 11/18288B | 最大单类,留最后 |
+>
+> ### ⚠ ActionHandler → SuperCommander(终端内核,单独立项)
+>
+> - `ActionHandler` 的 metacall 本体 **4022B**(语料名错标成 `ActionHandler_dtor`),
+>   是全仓最大的单个 metacall。
+> - `SuperCommander` 的 QMetaObject 是 **methods=264**(5 信号 + 259 槽):
+>   `adjustScreenAlignment` / `allowScrollback` / `answerBack` /
+>   `assignUserPreferredSupplementalSet` … 全部经 metacall 暴露。
+> - `SuperCommander::qt_metacast` 先 strcmp "SuperCommander" 再逐字符比
+>   **"ActionHandler"** ⇒ **SuperCommander 派生自 ActionHandler**。
+> - 结论:**必须从 ActionHandler 基类往上搭**,不能以 QObject 顶着;
+>   这批需要独立的 3-4 轮(基类 metacall 分面 → 264 条槽 → 字段),不要塞进
+>   普通批次。
+>
+> ### 不做(已裁定)
+>
+> `RunStyles` / `Bimap` / `SuperBuffer` 整族 → 归 B 类,委托
+> `src/Scintilla/src/RunStyles`,依据见 `docs/ext-boundary.md` 末节。
+
+## 旧队列(批 494,历史保留)
 
 > ⚠ 测试冻结令 + 铁律 7 生效:各批只做转写 + 引用 + commit,不编译不测试。
 
