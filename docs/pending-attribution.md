@@ -76,15 +76,7 @@
 | 3404B / 935B 归属 | TunnelDialog | SettingsPageFace | 批 415 |
 | `0085af56` | TransferBar 懒建 | QuickBar 懒建 | 批 443 |
 
-## 3. 待定(证据不足,勿擅改)
-
-- `TriggerRecord +0x18` = 描述? (34dd 回写 / 263e 建项都用它,但未见语义定义)
-- `TriggerRecord +0x30` 8 字节未定(初值 `0x80000000`)
-- `applyAttributes` 的 `state` 键落点
-- `006ebd28`(794B)/`006ff1a0`(647B):两个 QDialog 构造但**未写自有 vtable**
-- `MuxPaneView::actionContext` 的 `vt+0x1f0` 目标(vtable 该槽实测为 0)
-
-## 4. 名不副实清单(17 例;引用时勿信函数名)
+## 3. 名不副实清单(17 例;引用时勿信函数名)
 
 > 成因:Ghidra 以"函数里第一个字符串"命名,而 WindTerm 的 ctor 常先设
 > objectName / tooltip / config key,于是名字与真实类型无关。
@@ -109,7 +101,7 @@
 | `s_ActionButton_56e540` | **基类是 QToolBar**(动作工具条) | 批 488 |
 | `s_BackwardButton_53e936` | **基类是 QShortcut**(快捷键) | 批 493 |
 
-## 5. 待定(证据不足,勿擅改)
+## 4. 待定(证据不足,勿擅改)
 
 - `TriggerRecord +0x18` = 描述?(回写与建项都用它,未见语义定义)
 - `TriggerRecord +0x30` 8 字节未定(初值 `0x80000000`)
@@ -118,7 +110,7 @@
 - `CountSpinbox` / `CursorShape` 的基类未取证(批 492)
 - 线型表 14 项的 **id ↔ 名逐项配对**(批 449 只确证名集)
 
-## 7. 转写了但未接线(2026-11-16 全树清点)
+## 5. 转写了但未接线(2026-11-16 全树清点)
 
 以下头文件**没有任何 .h/.cpp include 它们** —— 代码在,但不在任何装配链上。
 收尾期要么接线,要么确认是备用接口并写明。
