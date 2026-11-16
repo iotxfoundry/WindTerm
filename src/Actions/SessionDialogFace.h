@@ -28,7 +28,13 @@ public:
 	                           QWidget *parent = nullptr);
 
 	void buildCommon();   // FUN_007101a0(1166B)
-	void buildExtras();   // FUN_0070c918(343B)
+	// FUN_0070c918(343B)**接线**(非装配),四路:
+	//   ① +0x90 QTabBar::currentChanged → 闭包 impl FUN_007223c8;
+	//   ② 本类信号 FUN_00904d62 → 闭包 impl s_ColorButton_71850e(**名不副实**),
+	//      smeta **011a2240 = SessionDialog** 自身;
+	//   ③ +0x68 "2accepted()" → this "1accept()";
+	//   ④ +0x68 "2rejected()" → this "1reject()"。
+	void wire();
 	void applyProtocol(int proto); // FUN_00721412(3333B) — 结构段
 
 protected:
@@ -36,7 +42,9 @@ protected:
 	QString m_f38;                     // +0x38
 	QVariant m_config40;               // +0x40(会话 JSON)
 	QIntValidator *m_portValidator70 = nullptr; // +0x70(0..99999999)
+	QWidget *m_buttons68 = nullptr;    // +0x68(QDialogButtonBox)
 	QWidget *m_f78 = nullptr;          // +0x78
+	QWidget *m_tabBar90 = nullptr;     // +0x90(QTabBar,currentChanged 宿主)
 	QWidget *m_f98 = nullptr;          // +0x98
 	QWidget *m_textA0 = nullptr;       // +0xa0
 	QWidget *m_fA8 = nullptr;          // +0xa8
