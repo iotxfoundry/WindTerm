@@ -95,6 +95,19 @@ public:
     // FUN_005a7db8(495B,0018:22727)节点摘除:index 越界返;+0x60/+0x68/+0x70
     //   三表各自 remove(index)(语料为节点指针+QListData::remove;
     //   本面值承载等价)。
+    // FUN_005a80f8(206B,0018.c:22795)**= QTabBar::setTabButton 的等价实现**
+    //   (勘正:此前记作"私有面 +0x1d0 不可移植",实为公开 API):
+    //     index < 0 → 返;tab 列表越界 → 返;共享则 detach;
+    //     取该 tab 节点;**新件 setParent/lower/show**;
+    //     **pos == 0(LeftSide)→ 旧 +0x78 件 hide,+0x78 = 新件**;
+    //     **pos != 0(RightSide)→ 旧 +0x80 件 hide,+0x80 = 新件**。
+    //   ⇒ 关钮/左钮就是 setTabButton(LeftSide/RightSide)。
+    void setTabButtonAt(int index, int pos, QWidget *w);
+
+    // FUN_005a6c62(68B,0018.c:21827)关钮槽:遍历页找到按钮 == sender
+    //   → 关该页(槽体 thin)。
+    void onCloseButtonClicked();
+
     void removeTabNodes(int index);
     // 0058e38a(1942B,0018:...)TabBar 列表/右键菜单:
     //   +0x50 表空 → FUN_0058d940(空态腿);

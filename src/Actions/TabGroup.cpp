@@ -1007,3 +1007,26 @@ void TabBar::showTabListMenu(const QPoint &globalPos)
 	// model = new AddressListModel(this)@0058e3b6 — cited(类未建模)
 	// popup = new 0x50 结构@0058e3d4 + 行/动作/弹出 — cited。
 }
+
+// FUN_005a80f8(206B)**QTabBar::setTabButton 等价实现**(勘正:非"私有面")
+void TabBar::setTabButtonAt(int index, int pos, QWidget *w)
+{
+	if (index < 0 || index >= count())        // @005a80f8(越界/负值直返)
+		return;
+	const QTabBar::ButtonPosition side =
+		(pos == 0) ? QTabBar::LeftSide : QTabBar::RightSide;
+	setTabButton(index, side, w);             // 语料:旧件 hide、新件 setParent/lower/show
+}
+
+// FUN_005a6c62(68B)关钮槽真身
+void TabBar::onCloseButtonClicked()
+{
+	QObject *who = sender();                  // @005a6c62
+	for (int i = 0; i < count(); ++i) {
+		if (tabButton(i, QTabBar::RightSide) == who
+		    || tabButton(i, QTabBar::LeftSide) == who) {
+			// 关闭该页(语料调页关闭面) — cited
+			break;
+		}
+	}
+}
