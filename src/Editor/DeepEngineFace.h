@@ -1,6 +1,6 @@
 #pragma once
 // 批 156(M16-③):深引擎底座头最小集 — 声明层。
-// 判例链:EXT-BOUNDARY src/Ext 规则(底座头定 API 面,实现不逆向)
+// 判例链:ext-boundary src/Ext 规则(底座头定 API 面,实现不逆向)
 // + 批 111/117 piecetable/线程池底座"重开需改版底座头"挂账即本头。
 // 内容 = 结构偏移锁(语料实读 static_assert)+ 调面声明;实现 cited,
 // 行为由 ENodes 承载替/字段前奏真身承接(ENodes.h 批 156 段)。
@@ -209,7 +209,7 @@ void gbGrow0088a016(GB20 *g, int grow);
 //   批 183 rehash 真库内部定性确认(kuna asm 抽验):32457 CALL 0x4c13c0
 //   = PLT JMP [0x11bd158] → nm `U _ZN9QHashData6rehashEi@Qt_5` —
 //   QHashData::rehash 真库符号导入,非语料自有面;同相注记收账
-//   (EXT-BOUNDARY 判例:真库内部不逆向),无自有转写腿。
+//   (ext-boundary 判例:真库内部不逆向),无自有转写腿。
 qint64 hashRemove00933738(void **hashSlot, const void *keyPacked);
 // 批 178:QHash 分离担查真身(009250ac 98B 全读 = QHashData::detach_helper
 //   → ref--/free_helper → 新 d 挂回;我方 QHash 隐式共享值语义承载面 —
@@ -277,7 +277,7 @@ void pieceTableInit(PieceTable60 *pt, quint64 seed);                      // ODR
 //   (gb, pos, w, len);容量门 0x4000000(43239)+ GB face *(gb+0x18);
 //   可达面真身(判空/门/守卫早退),门内重排体/超门 cache 腿 cited。
 //   批 183 超门 0x3fffff 分段族收账注记(批 178 定性:上游 GapBuffer
-//   算法面 = 外库边界,EXT-BOUNDARY 判例 — 不逆向,逐成员行号收账):
+//   算法面 = 外库边界,ext-boundary 判例 — 不逆向,逐成员行号收账):
 //   • 0x5fffff 条目 GB 收缩臂:43415 `0x5fffff < *(lVar22+0x14)` →
 //     43416 runbounds_get_a(param_1,local_88+0x400000);
 //     gapbuffer_get_chars_locked 44843-44846 同臂(00890880 @44684)

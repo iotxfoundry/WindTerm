@@ -3,8 +3,8 @@
 > 目标:完全逆向 WindTerm 2.7.0(含 bug 原封不动)。每行代码必须有出处
 > (逆向地址 / 语料行),禁止捏造。
 >
-> **冷启动顺序**:本文件 → `tools/re/HANDOFF.md`(当前态)→ `docs/INDEX.md`
-> (文档总目录)→ `docs/PLAN.md`(阶段)→ `docs/PHASE5.md` 顶部「结论快照」。
+> **冷启动顺序**:本文件 → `tools/re/handoff.md`(当前态)→ `docs/index.md`
+> (文档总目录)→ `docs/plan.md`(阶段)→ `docs/phase5.md` 顶部「结论快照」。
 >
 > 本文件 2026-11-16 重整:合并重复条目、删除测试相关流程、加入基线二进制口径。
 
@@ -32,16 +32,16 @@
 1. **每行代码有出处**:真实现引用 `FUN_XXXXXXXX` / `name@地址`;thunk 引反向
    表项;文档引用 `docs/IMPL-*.md`。没地址不写。
 2. **bug 原封不动**:不修、不美化、不"顺手改进"。原版有 bug 就是我们的 bug。
-   发现疑似 bug 只**记录**到对应 `.md`(及 `docs/QUIRKS.md`),**不修**。
+   发现疑似 bug 只**记录**到对应 `.md`(及 `docs/quirks.md`),**不修**。
 3. **禁止捏造**:语料里没有的行不写。不确定时用 `// cited` 标记空实现,
    宁可留空也不猜。
 4. **禁用脚本批量替换 case 体**:每条 case 手工读语料、手工写。脚本只做机械
    收尾(行号定位、重复检查、括号平衡)。
 5. **以语料裁决,不按教科书**(2026-11-16 修订,替代原"测试断言语料行为"):
    出现"这里好像不对"时,先回语料确认原版就是这样;是原版怪癖 → 记
-   `docs/QUIRKS.md` 并保持原样。**禁止**按"终端/编辑器应该怎样"改代码。
+   `docs/quirks.md` 并保持原样。**禁止**按"终端/编辑器应该怎样"改代码。
 6. **产品代码零自研**:`src/` 内每一行为必须有落点——语料函数转写(引地址/
-   行号)或 `cited` 空实现;开源码移植须 `docs/CALIBRATION.md` 逐句同构记录。
+   行号)或 `cited` 空实现;开源码移植须 `docs/calibration.md` 逐句同构记录。
    **由实验、推测或工程便利引出的行为代码一律禁止入库**;组件类无转写则整体
    退回 `cited` 空壳,宁可空缺不可自造。
 7. **不编译、不测试(最高优先级)**:每批只做**语料转写 + 引用出处 + commit**。
@@ -54,7 +54,7 @@
 
 触发条件:**语料锚定段全清**。顺序固定:
 
-1. 清 `docs/PENDING-ATTRIBUTION.md`(归属工作单 —— 先清再编译,否则语法错与
+1. 清 `docs/pending-attribution.md`(归属工作单 —— 先清再编译,否则语法错与
    模型错混在一起无法定位);
 2. 全量编译修错;
 3. 全量回归(测试已删,改为 `LD_LIBRARY_PATH=build:lib` dlopen 零 undefined);
@@ -95,11 +95,11 @@ cmake .. && make -j$(nproc)   # → libWindTermRe.so
 - moc 自动检测(CMakeLists 内 grep `Q_OBJECT`),新 `Q_OBJECT` 头零配置。
 - 环境:系统 Qt 头 5.15.13 × 仓库 `lib/` Qt 5.15.2 = 同代 ABI 直链;
   `inc/qt5`(转发头)与 `inc/boost`(残缺)已删,一律用系统头。
-- 手工 g++ 配方(不走 CMake 时)见 `tools/re/BUILD.md`。
+- 手工 g++ 配方(不走 CMake 时)见 `tools/re/build.md`。
 - Scintilla 混合:`src/Scintilla`(4.4.6)承接标准 `SCI_*`;
   WindTerm EXT/WT(≥20163)在 `EditorEngine::customDispatch`。
 - 上游库的 test/example 树已移除(构建不引用,属外部库边界);
-  需要时按 `docs/EXT-BOUNDARY.md` 记录的版本重新拉取。
+  需要时按 `docs/ext-boundary.md` 记录的版本重新拉取。
 
 ## 5. 工具优先
 
@@ -174,7 +174,7 @@ cmake .. && make -j$(nproc)   # → libWindTermRe.so
 - 曾把声明序当值(全错),后从 QMetaObject 精确读回。
 
 ### 13. CASE 注释勿丢:标签行是唯一溯源
-- `EDITOR-ENGINE-COMMANDS.md` 的 case 标签注释是**唯一反向溯源**(没有函数名
+- `editor-engine-commands.md` 的 case 标签注释是**唯一反向溯源**(没有函数名
   只有 cmd)。改代码时 case 标签行**绝对不能删**。
 
 ### 14. moc 的两个坑
@@ -210,9 +210,9 @@ cmake .. && make -j$(nproc)   # → libWindTermRe.so
   头文件/API 快照 = 该子系统复刻时的**版本对齐锚点**。
 - **原则**:参考性材料删除 = 该子系统复刻完成并通过行为对比之后;提交前自问
   "复刻时是否需要它当 API 文档"。
-- **例外口径(2026-11-16 补)**:`docs/EXT-BOUNDARY.md` 登记的外部库
+- **例外口径(2026-11-16 补)**:`docs/ext-boundary.md` 登记的外部库
   (yaml-cpp/jsoncpp/libssh/Onigmo/spdlog/fmt/dtl)**不逆向**,其上游
-  `test/`/`examples/` 树不属反向参考 → 已按 `docs/CLEANUP.md` 移除;
+  `test/`/`examples/` 树不属反向参考 → 已按 `docs/cleanup.md` 移除;
   库**实现源码与头**保留(需重编时才用)。
 
 ### 18. pkill -f 自匹配误杀自身命令
@@ -259,19 +259,19 @@ tools/re/decomp/decomp-part-NNNN.c
 - 反编译器:Ghidra 12.1.4(`-revoke` 不可重入,一次性导出)。
 - 源二进制 = `./WindTerm`(见 §0)。
 
-## 8. 领域知识锚点(索引见 `docs/INDEX.md`)
+## 8. 领域知识锚点(索引见 `docs/index.md`)
 
 | 子系统 | 关键文件/文档 |
 |---|---|
-| 终端状态机 | `docs/STATE-MACHINE.md`;`Screen.cpp`(SGR/DECSM 等) |
-| SSH 认证 | `docs/SSH-INTERNALS.md`;`SuperSessionPrivate.cpp` |
-| Scintilla 内核 | `src/Scintilla/src/`(上游源码)+ `docs/EDITOR-ENGINE-COMMANDS.md` |
-| 会话/工作区 | `docs/SESSION-CONFIG-LAYER.md`(装载器/管理器/schema) |
+| 终端状态机 | `docs/subsystems/state-machine.md`;`Screen.cpp`(SGR/DECSM 等) |
+| SSH 认证 | `docs/subsystems/ssh-internals.md`;`SuperSessionPrivate.cpp` |
+| Scintilla 内核 | `src/Scintilla/src/`(上游源码)+ `docs/subsystems/editor-engine-commands.md` |
+| 会话/工作区 | `docs/subsystems/session-config-layer.md`(装载器/管理器/schema) |
 | 终端配置 | `CTerminalConfig` 单例(0x00809d78,199 处);`wind.config`=JSON |
 | King 枚举 | `src/Utility/KingEnums.h`(45 枚举全值域,QMetaObject 权威) |
-| 外部库边界 | `docs/EXT-BOUNDARY.md`(不逆向清单 + 版本) |
-| 界面重建 | `tools/re/GUI-MAP.md`(七节总账)+ `docs/PENDING-ATTRIBUTION.md`(收尾期工作单) |
-| 语料怪癖 | `docs/QUIRKS.md`(原版 bug 台账,勿修) |
+| 外部库边界 | `docs/ext-boundary.md`(不逆向清单 + 版本) |
+| 界面重建 | `tools/re/gui-map.md`(七节总账)+ `docs/pending-attribution.md`(收尾期工作单) |
+| 语料怪癖 | `docs/quirks.md`(原版 bug 台账,勿修) |
 
 ## 9. 混合架构边界(不要越线)
 
@@ -290,7 +290,7 @@ QVariant dispatch(cmd, a, b)
 ## 10. 外部库边界(2026-10-29)
 
 - 静态嵌入的开源库(boost/yaml-cpp/jsoncpp/dtl/zstd/fmt+spdlog)
-  **实现不逆向**;命中见 `docs/EXT-BOUNDARY.md` 注册表 → 标记边界、转写调用
+  **实现不逆向**;命中见 `docs/ext-boundary.md` 注册表 → 标记边界、转写调用
   接口面(`src/Ext/` 声明层),行为由委托真库或 no-op 承接。
 - 例外:外库数据布局被 WindTerm 业务消费的部分(SGR 位/行格)仍属逆向范围。
 
@@ -299,5 +299,5 @@ QVariant dispatch(cmd, a, b)
 - **中文 commit**;一条 commit 对应一批改动 + 相应 `.md` 更新。
 - **只提交,不主动推送**(push 仅用户明示 + 代理参数,见铁律 8)。
 - 车道批次:worktree 隔离 + 恰好一个 commit + 绝不 push(见
-  `tools/re/HANDOFF.md`「车道方法论」)。
+  `tools/re/handoff.md`「车道方法论」)。
 - 收尾前自查:`git status` 干净 + `git diff --shortstat` 与报告一致。

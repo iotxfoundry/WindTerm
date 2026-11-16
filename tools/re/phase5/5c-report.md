@@ -1,4 +1,4 @@
-# 5C-REPORT — Phase 5c 会话持久化对表报告
+# 5c-report — Phase 5c 会话持久化对表报告
 
 ## 批 171(2026-11-15)M20-②:wind.config 盘点 + user.sessions 序列化对表 ✅ ctest 23/23
 

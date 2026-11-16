@@ -138,7 +138,7 @@ QVariantMap ProfileLoader::loadConfig(const QString &relPath) const
 //   @005d8e25  json root + "path" 键赋值(json_value_assign_stdstring
 //              @005d8e94 / json_assign_cstring "path")→ config_saveFile
 //              (00a801c6,0034.c:59978;序列化底座 std::ofstream,
-//              jsoncpp 委托 EXT-BOUNDARY 判例)。
+//              jsoncpp 委托 ext-boundary 判例)。
 bool ProfileLoader::saveConfigPath(const QString &dirAbs,
                                    const QString &oldDir) const
 {

@@ -2,14 +2,14 @@
 
 驱动器 `tests/engtest5.cpp` 按本表产出 `/tmp/opencode/phase5_seq_editor.json`
 (每序列一行 `{seq_id, …摘要}`;/tmp/opencode/ 前缀惯例同 engtest4 的
-phase5_seq.json — HANDOFF)。原版侧捕获批(环境就绪后)以同序列集对表;
+phase5_seq.json — handoff)。原版侧捕获批(环境就绪后)以同序列集对表;
 我方断言 = 已定案语义自检(wordsteptest/markerstest/onigtest 同锚),
 作为对比前的基线冻结。
 
 ## A 族:0x4eff 正则搜索(11 序列)
 
 引擎腿 = OnigSearch 委托(批 116 激活);语法假设 ONIG_SYNTAX_RUBY
-(CALIBRATION 批 116 五样例对账:A1/A2 = triggers.config,A3/A4/A5 =
+(calibration 批 116 五样例对账:A1/A2 = triggers.config,A3/A4/A5 =
 linux.lexer)。序列引擎面直呼(与 onigtest 同层),并附 0x4eff
 dispatch 占位链快照(needlePair=null → 12665 门 → 0;op+0x3c 不污染)。
 

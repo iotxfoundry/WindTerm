@@ -18,7 +18,7 @@ set(SCINTILLA_CORE ${LIB_OUT}/libscintilla_core.a)
 set(SCINTILLA_QT    ${LIB_OUT}/libscintilla_qt.a)
 set(YAML_CPP       ${LIB_OUT}/libyaml-cpp.a)
 set(JSONCPP        ${LIB_OUT}/libjsoncpp.a)
-# 批 116:Onigmo 上游静态库(EXT-BOUNDARY 委托;src/Onigmo 同源树)。
+# 批 116:Onigmo 上游静态库(ext-boundary 委托;src/Onigmo 同源树)。
 # 预构建 lib/libonig.a 为非 PIC(带 debug 绝对重定位 + 数据符号 PC32 直
 # 寻)— 直链 .so 报 "recompile with -fPIC"。构建时产出 PIC 化替身:
 # 提取 → objcopy --strip-debug(去 debug 绝对域)→ 重归档;链接侧
@@ -77,7 +77,7 @@ else()
       message(FATAL_ERROR
         "Missing pre-built library: ${lib}\n"
         "Run: cmake .. -DBUILD_DEPS=ON && make rebuild_deps\n"
-        "Or build manually per tools/re/BUILD.md")
+        "Or build manually per tools/re/build.md")
     endif()
   endforeach()
   if(NOT EXISTS ${LIB_OUT}/libonig.a)

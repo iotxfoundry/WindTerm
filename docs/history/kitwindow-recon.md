@@ -1,7 +1,7 @@
-# KITWINDOW-RECON — KitWindow 承载面侦察(批 131,M7-②)
+# kitwindow-recon — KitWindow 承载面侦察(批 131,M7-②)
 
 > ⚠ 2026-11-16:`tests/` 已删除(用户令),
-> 本文中"ctest 通过"类判据**不再适用**;本文转为历史方案书,结论引用前查 `tools/re/HANDOFF.md` 勘正谱系。
+> 本文中"ctest 通过"类判据**不再适用**;本文转为历史方案书,结论引用前查 `tools/re/handoff.md` 勘正谱系。
 
 > 侦察批:只侦察不转写产品码。产出 = 方案书,供后续转写车道**免侦察直接执行**。
 > 语料根:tools/re/decomp/decomp-part-NNNN.c(行号即 `grep -n "entry=…"` 落点);
@@ -81,7 +81,7 @@
 class QMenu;
 // KitWindowFace —— 语料 KitWindow(011ab390)承载面壳(MainWindowFace 判例批 100;
 // 铁律 6:抽象身份 + 纯虚 menu();showConfigMenu 消费清单 = 零字段 + 一虚调用,
-// 见 tools/re/KITWINDOW-RECON.md Q2,故不落数据成员,布局证据在案待后续批)。
+// 见 docs/history/kitwindow-recon.md Q2,故不落数据成员,布局证据在案待后续批)。
 // ctor/dtor 对位 FUN_008cc692(214B,0028.c:13331)/FUN_008cc770(92B,0028.c:13364)。
 class KitWindowFace : public QMainWindow {
 public:

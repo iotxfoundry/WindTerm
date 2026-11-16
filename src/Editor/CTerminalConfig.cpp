@@ -40,7 +40,7 @@ void CTerminalConfig::setConfigPath(const QString &path)
 void CTerminalConfig::setOverridePath(const QString &path)
 {
 	// 用户覆写层(~/.wind/.../user.config);装载顺序见
-	// docs/CONFIG-SCHEMAS.md 二节:wind.config 基线 → user.config 覆盖
+	// docs/subsystems/config-schemas.md 二节:wind.config 基线 → user.config 覆盖
 	if (m_overridePath == path)
 		return;
 	m_overridePath = path;
@@ -61,7 +61,7 @@ void CTerminalConfig::setOverridePath(const QString &path)
 //                  + QMap 插入);
 //   default      → json_value_as_string → QByteArray(@00a7f0f4)。
 // 消费面现无(searchEngines/margins 族现役读点零;wind.config 五复合
-// 键盘点见 5C-REPORT 批 171 矩阵)→ 承载档,cited 待消费点开批。
+// 键盘点见 5c-report 批 171 矩阵)→ 承载档,cited 待消费点开批。
 static QVariant jsonValueToVariant(const Json::Value &v)
 {
 	switch (v.type()) {
@@ -118,7 +118,7 @@ void CTerminalConfig::reload()
 	//   @005d80f1 appdir + "/global/wind.config"(FUN_005d7cf8 174B 拼
 	//   序:applicationDirPath + "/" + "global/" + "wind.config" 字面
 	//   @005d80fa-d8)→ 源 1 槽(FUN_00a7e78a);值面加载序 = wind.config
-	//   基线 → user.config 覆写(005d8180,CONFIG-SCHEMAS 装载顺序;
+	//   基线 → user.config 覆写(005d8180,config-schemas 装载顺序;
 	//   yaml_loadFile 三层源链 FUN_00a7fe9a @59852:源0 → 源4 → 源8 →
 	//   缺省参,miss 链逐层回落)。配置路径未显式注入时自动拼全局层
 	//   (configPath 语义同相;m_configPath 显式注入 = 测试缝优先)。

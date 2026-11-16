@@ -163,7 +163,7 @@ def main():
         for attempt in range(3):
             baseline(script)     # 清屏基线(双发,见 baseline() 注释)
             time.sleep(1.0)   # 前置 settle(iter1 强化,0.6→1.0)
-            # ',' 分批:验证 pending flush(QUIRKS 13)必需——批间即 flush 点
+            # ',' 分批:验证 pending flush(quirks 13)必需——批间即 flush 点
             for part in seq['bytes'].split(','):
                 script.exports_sync.inject(part)
                 time.sleep(0.05)

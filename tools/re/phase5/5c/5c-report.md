@@ -1,4 +1,4 @@
-# 5C-REPORT — 批 170(M20-①)5c 对表驱动:reopen.history 原版采集 + 布局 diff(2026-11-15)
+# 5c-report — 批 170(M20-①)5c 对表驱动:reopen.history 原版采集 + 布局 diff(2026-11-15)
 
 > 产物目录:`tools/re/phase5/5c/original/`(原版字节)/ `5c/ours/`(我方真身面产出)。
 > 采集源:遗留实例 pid 1610117(HOME=/home/pana,真实会话窗

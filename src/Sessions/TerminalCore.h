@@ -9,7 +9,7 @@
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) disassembly.
 // The terminal screen interpreter core: called from SuperCommander's VT/ANSI
 // slots via a two-hop forward chain (Commander +0x80 -> Screen +0x80 -> this).
-// See TERMINAL-CORE.md for the evidence chain.
+// See terminal-core.md for the evidence chain.
 //
 // Call chain (proven, moveCursorDown example):
 //   SuperCommander::moveCursorDown   0x7c8cc6  (guard adapter)
@@ -34,7 +34,7 @@ struct Row {
 	void *spare;              // +0x58 spare
 	// 重建侧容量追踪(语料 Row 0x58B 的 +0x08 覆盖头在 C 结构下
 	// 与 length/_pad0 错位——ASan 定位后改显式字段;行为对比以
-	// 格子级为准,见 PHASE5.md)
+	// 格子级为准,见 phase5.md)
 	int cellsCap = 0;
 	int attrCap = 0;
 };
@@ -107,7 +107,7 @@ public:
 	int m_cursorY;                // +0xc4 (FUN_007a538a)
 	int m_cursorX;                // +0xc8 (FUN_007a538a)
 
-	// --- 光标/行操作一行真身(TERMINAL-CORE.md 地址表)---
+	// --- 光标/行操作一行真身(terminal-core.md 地址表)---
 	void removeRow(int y);                     // FUN_007a463c
 	int m_scrollRegionTop;        // +0xd0 (FUN_007a4672)
 	int m_scrollRegionBottom;     // +0xd4 (FUN_007a4bb4)

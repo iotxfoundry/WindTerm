@@ -454,7 +454,7 @@ MuxPaneView *MuxWindow::findPane(void *desktop, int paneIndex)
 //   smo 011abde0 = MuxPaneView,recursive=1)= stackCurrentPage()->findChild
 //   <MuxPaneView*>()。live 调用点 0084dd5a 宿主两处(@0084e155 zoom 拆解
 //   腿/@0084eece zoomed 标题比对腿),宿主 5076B 未复刻 → 本批取面真身。
-// QUIRKS #33 死腿闭环核对(只注记,不修):zoom 落位后 stackCurrentPage
+// quirks #33 死腿闭环核对(只注记,不修):zoom 落位后 stackCurrentPage
 //   = 占位页 ph(Qt5.15 本机 probe 同相;sgtest f1),ph 无 MuxPaneView
 //   子件 → 本取面恒 0 → 宿主 @0084e151 unzoom 腿与 @0084eece " [Zoomed]"
 //   追加腿双跳过 = 语料字面同相死路(unzoom 恢复仅余 toggleZoomPage
@@ -1041,7 +1041,7 @@ static QList<MuxWindow *> desktopWindows(void *desktop)
 // 转写 FUN_0084dd5a(0026:41621,5076B,asm 0084dd5a-0084f002 全读;
 //   触发 = Screen 信号 28 tmuxWindowsChanged(QList<QVariant>),
 //   安装器 s_window_caretStyle_8464ec @0026:37972 connectImpl —
-//   docs/SCREEN-SIGNALS.md idx28 表)。语料为自由函数(param_1 = 会话
+//   docs/subsystems/screen-signals.md idx28 表)。语料为自由函数(param_1 = 会话
 //   宿主,param_2 = QList<QVariant>*);本仓库 Screen 信号面未落库
 //   (src/Sessions/Screen.h 无 Q_OBJECT)→ 落 MuxWindow 静态驱动,
 //   供 5c 期信号接线批引用;本批消费真身面 = 宿主取窗/建窗/标题腿。
@@ -1103,7 +1103,7 @@ static QList<MuxWindow *> desktopWindows(void *desktop)
 //     (QMap<int,QString> paneId→paneName 池,v39→v6[0x50] 拷贝
 //     @0087c2fc-30e)→ 尾 emit 经 FUN_0091939c activate(smo
 //     011aa220,idx 11)= windowsChanged(QList<QVariant>)(Tmux 宿主
-//     面)→ Screen 信号 28 tmuxWindowsChanged 桥接面(SCREEN-SIGNALS
+//     面)→ Screen 信号 28 tmuxWindowsChanged 桥接面(screen-signals
 //     表)。⚠ 语料宿主读侧 0x10 腿池槽 [RSP+0x200] 全函数无写点
 //     (0084ee00/ef5a/ef74 三读,字节级扫描证)→ 原版读未初始化槽
 //     = 原版 bug(铁律 2 原封不修)→ 调用点维持 cited(池传播链
@@ -1170,7 +1170,7 @@ void muxOnTmuxWindowsChanged(SuperSession *sessionHost, const QList<QVariant> &w
 		                                                //   按实读定案:**旗标腿不升** — 生产者
 		                                                //   87b76a 3244B >500B 且 pane 域 diff 面
 		                                                //   未建模 → 维持 0 路径(语料可变旗全走
-		                                                //   同 0 门;登记 PHASE5)。
+		                                                //   同 0 门;登记 phase5)。
 		const QString title = QStringLiteral("%1:%2%3") // 0xcb77b3 @0084e031
 		                          .arg(id)              // QString::arg(long) @0084e069
 		                          .arg(prevTail)        // @0084e085

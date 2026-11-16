@@ -37,7 +37,7 @@
 #      TODO(p3_notes_pxd)。
 #   4. QString filename 每次 capture 泄漏一个(dtor inline 未导出;
 #      QArrayData::deallocate 已导出,在线验证后再补手工释放,TODO(p3_notes_pxd))。
-#   5. 本方(renderpixtest)同参 dispatch 侧 + QUIRKS 对账自动化不在本文件
+#   5. 本方(renderpixtest)同参 dispatch 侧 + quirks 对账自动化不在本文件
 #      写域(diff 子命令已备,输入两侧 PNG 即可)。
 #   6. 整链不在线上跑(原版在线环境主线程验证)——本骨架只保证结构与符号链。
 #
@@ -280,7 +280,7 @@ def capture(script, seq, dims, out_dir, env, idx):
     time.sleep(1.0)                      # 前置 settle(phase5_dump iter1 强化)
     for part in seq['bytes'].split(','):
         script.exports_sync.inject(part)
-        time.sleep(0.05)                 # 批间 flush 点(phase5_dump QUIRKS 13)
+        time.sleep(0.05)                 # 批间 flush 点(phase5_dump quirks 13)
     time.sleep(0.6)                      # 批后 settle(phase5_dump probe15)
     script.exports_sync.arm('paint', dims[0], dims[1], path)
     force_repaint(env)
@@ -353,7 +353,7 @@ def diff_png(orig_png, ours_png):
     """双 PNG reload ARGB32 逐像素 diff(非字节比,zlib 版本差,p3_notes §5)。
 
     差异对账:cited 空洞(markerBand 桩 / S5 色槽 EditorEngine.cpp:2205-2230
-    asm 未核)为预期差;其余 = 真转写 bug(QUIRKS 裁决流程,AGENTS 铁律 5)。
+    asm 未核)为预期差;其余 = 真转写 bug(quirks 裁决流程,AGENTS 铁律 5)。
     """
     from PIL import Image
     a = Image.open(orig_png).convert('RGBA')   # reload → ARGB32 归一
@@ -371,7 +371,7 @@ def diff_png(orig_png, ours_png):
             p % w, p // w,
             tuple(ab[p * 4:p * 4 + 4]), tuple(bb[p * 4:p * 4 + 4])))
     # TODO(p3_notes_pxd):cited 空洞/markerBand 桩的自动分桶未做(清单第 5 条);
-    # 坐标清单人工与 QUIRKS/cited 清单对账。
+    # 坐标清单人工与 quirks/cited 清单对账。
     return 0 if not diffs else 1
 
 

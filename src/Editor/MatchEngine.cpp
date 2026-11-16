@@ -3,7 +3,7 @@
 #include <QByteArray>     // 批 119:vt 载体 docBytes 直读(charAt/block16 承载)
 
 #include "CodecMemo.h"   // GrepNeedle448 完整型(0x448;批 93 convCtor 构造链)
-#include "OnigSearch.h"  // 批 116:0x4eff 引擎腿委托(批 102 EXT-BOUNDARY 激活)
+#include "OnigSearch.h"  // 批 116:0x4eff 引擎腿委托(批 102 ext-boundary 激活)
 
 // 批 94 定案 1:1 方案落地。每行出处:语料 tools/re/decomp/
 // decomp-part-0030.c(eng 四函数 + 分派器)/ decomp-part-0037.c
@@ -239,16 +239,16 @@ bool carrierLive()                            // 缝读面(0x7543 短路门同�
 }
 
 // FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — 批 116 激活:OnigSearch
-//   委托薄包装(批 102 EXT-BOUNDARY 勘定;恒 -1 占位退役)。逐句映射:
+//   委托薄包装(批 102 ext-boundary 勘定;恒 -1 占位退役)。逐句映射:
 //   · 门 32611(param_4<param_6 return -1)/32614(param_6<param_3
 //     return -1)→ 本包装 to/from 契约校验同相(bufferScan 内 search
 //     门前置);needlePair null → -1(00a83946 *param_2 门)。
 //   · 引擎主体(regex_nfa_compile/regexp_match_dispatch NFA 搜索环)
 //     = onig_search(regexec.c:3905)委托 — Onigmo-改 与上游同源,
-//     行为由 libonig.a 承接(EXT-BOUNDARY 注册表;CALIBRATION 批 116)。
+//     行为由 libonig.a 承接(ext-boundary 注册表;calibration 批 116)。
 //   · 返回契约:命中绝对字节位 / -1(0x4eff 段 E 12719 LAB_00a33299
 //     消费同相)。
-//   · 语法/编码假设(RUBY/UTF-8)= CALIBRATION 批 116 对账定案,
+//   · 语法/编码假设(RUBY/UTF-8)= calibration 批 116 对账定案,
 //     非语料直证 — 假设登记行(铁律 3:不猜已显式声明)。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to)
 {

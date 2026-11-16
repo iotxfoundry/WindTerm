@@ -14,7 +14,7 @@
 | Utility/CircularBuffer, Spin, ScopeGuard, MemoryPointer, ThreadLocal | 环形缓冲/自旋锁/RAII/智能指针/线程局部 | +0x118 自旋锁等命名结构校准 |
 | libssh(改版) | 基于 0.95:pageant、external socket、hmac-md5-96(-etm)、hmac-sha1-96(-etm) | **diff 官方 0.95 = 认证行为差异清单**(单独轮) |
 | Onigmo(改版 5.13.5) | 新增 iterator 可匹配 gap buffer/非邻接内存块 | EditorEngine 搜索面机制对照 |
-| Scintilla/jsoncpp/yaml-cpp/dtl/fmt/spdlog | 第三方原版 | 已按 EXT-BOUNDARY 委托真库 |
+| Scintilla/jsoncpp/yaml-cpp/dtl/fmt/spdlog | 第三方原版 | 已按 ext-boundary 委托真库 |
 
 ## 组件校准结论(2026-10-30,三路 subagent 并行)
 
@@ -39,7 +39,7 @@
 | Widgets/PopupWidget | ⚠️ 部分同版 | TRIANGLE_HEIGHT 18↔6 待核 |
 | KeymapEngine(新) | ⏳ 引壳+装载器转写(批 42/47) | 装载器 s_wind_keymaps_768854(428B)转写落地;匹配体 = FUN_0067500e(9978B)已定位,转写待专用批 |
 | TelnetCommander(新) | ⏳ 槽体结构转写(批 41/48b) | metacall 00917e20 → 槽 0/1(FUN_008606fe/00860642)结构落地;协商 = session.term 配置驱动分类(批 48b/52 全链闭环);助手链(0085e2xx/0085fa60/00860a50)已转写;响应写出(term_processCR)与会话终端面(72014e)待转写 |
-| JsEngine(新) | ✅ 重做(批 68) | 底座勘定 = 动态 QJSEngine(EXT-BOUNDARY);12 函数逐个转写(0064a/b 族)+ bootstrap 收编 0064b102;tr 文本 0xc91268 字面 cited |
+| JsEngine(新) | ✅ 重做(批 68) | 底座勘定 = 动态 QJSEngine(ext-boundary);12 函数逐个转写(0064a/b 族)+ bootstrap 收编 0064b102;tr 文本 0xc91268 字面 cited |
 
 ## 混合架构边界增补(2026-10-30 批 51)
 

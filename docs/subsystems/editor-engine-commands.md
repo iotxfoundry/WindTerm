@@ -3,12 +3,12 @@
 # 【实现状态 2026-10-29】WT 段(30001-30166)93 case 已在
 # EditorEngine::customDispatch 实现(批 1-7,含 RunNode/
 # 标记注册表/调色板管线);SCI 段委托真 Scintilla。余量与
-# cited 清单见 docs/PLAN.md Phase 3。
+# cited 清单见 docs/plan.md Phase 3。
 
-两级分派第二级(第一级 0xa5205e SCI 快速段,见 TEXTVIEW-IMPL.md)。
+两级分派第二级(第一级 0xa5205e SCI 快速段,见 textview-impl.md)。
 由 tools/re/gen_editor_cmds.py 从反编译语料机械提取:336 个 `==` 叶
 (全部比较点),实现/动作列 = 叶内前 4 个调用 + 引擎虚表槽,成员列 =
-直接写入的引擎偏移。TextView 方法列为 TEXTVIEW-COMMANDS.md 交叉。
+直接写入的引擎偏移。TextView 方法列为 textview-commands.md 交叉。
 
 | cmd | dec | 段 | TextView 方法 | 实现/动作 | 成员写入 |
 |---|---|---|---|---|---|

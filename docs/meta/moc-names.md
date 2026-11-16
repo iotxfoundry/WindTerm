@@ -15,7 +15,7 @@ authPublicKey/autoLogin/drop)+ term/logger/transfer 生命周期 +
 槽族(removeTerm/removeTransfer/verifyKnownHost/writeKnownHost/
 serverBanner/opensshVersion...)
 
-**SuperTerm(Screen)89 名**:39 信号(见 SCREEN-SIGNALS.md)
+**SuperTerm(Screen)89 名**:39 信号(见 screen-signals.md)
 
 **SuperBridge 真信号名**:commanderCreated(QPointer<SuperCommander>)/
 commandOutput/aboutToConnect/aboutToDisconnect/disconnected/

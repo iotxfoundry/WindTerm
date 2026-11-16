@@ -44,6 +44,6 @@ QSerialPort(13 导入)/QTcpSocket 在主程序中无任何引用 —— 链接
 
 | 家族 | 逆向进度 |
 |---|---|
-| SSH | 深度完成(SSH-INTERNALS.md:分层/认证流/49 API 调用点) |
+| SSH | 深度完成(ssh-internals.md:分层/认证流/49 API 调用点) |
 | Telnet | 架构确认(配置驱动正则分发),协议字节级实现待深入 |
 | Tcp/Serial | 薄壳骨架已还原;实现构造路径待查 |

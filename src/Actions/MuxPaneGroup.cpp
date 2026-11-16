@@ -260,7 +260,7 @@ void MuxPaneGroup::focusCurrentPane()
 //   (FUN_005ac790)见文件尾;KitWindow 上溯腿 = 本仓库 KitWindowFace
 //   (批 133 入库,011ab390 对位)。
 // 批 189 升级:FUN_00692ef0 升真(KitWindowFactory.cpp,容器面 = face
-//   m_groups,KITWINDOW-RECON §未解 1 收口)→ 本处传 face 容器,S2 查建
+//   m_groups,kitwindow-recon §未解 1 收口)→ 本处传 face 容器,S2 查建
 //   腔由真身承载(组命中 → 缓存 QMenu;未命中 → 散建,不发明)。
 void MuxPaneGroup::showConfigMenu()
 {
@@ -413,7 +413,7 @@ void MuxPaneGroup::renamePane(int index)
 //     取 *begin 之 +0x20 槽对象 → QMetaObject::tr(串)→ 命中;
 //   S3:未命中 → QMetaObject::tr(name)(QObject 域)→ operator_new(0x30)
 //     QMenu::QMenu(menu,tr,parent)@00692fbf-0069301d → 返回新菜单。
-// 批 189 升真:容器类定案(KITWINDOW-RECON §未解 1 收口,批 140 face)
+// 批 189 升真:容器类定案(kitwindow-recon §未解 1 收口,批 140 face)
 //   → 真身落 KitWindowFactory.cpp kitFindOrCreateGroupMenu(face 容器,
 //   组查 + FUN_00692a70 缓存面);本壳 = 壳态替位(容器 void* 卫原样,
 //   语义同相:S1/S3 与真身逐句一致;S2 cited 腔由真身承载)。壳保留 =

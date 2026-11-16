@@ -1,7 +1,7 @@
 #ifndef WT_EXT_ZSTDFACE_H
 #define WT_EXT_ZSTDFACE_H
 
-// EXT-BOUNDARY zstd 接口面(docs/EXT-BOUNDARY.md 注册表"压缩面")。
+// ext-boundary zstd 接口面(docs/ext-boundary.md 注册表"压缩面")。
 //
 // 语料调用点:s_PairColor_a72272@00a7246x → zstd_ctxCreate(dst,dstSize,
 // src,srcSize)(00bb88b0@decomp-0038.c:84689,388B 全读:cpuid 派发 +

@@ -184,7 +184,7 @@ QByteArray stateStoreSerializePagePayload(const KitWindowFace *pane,
 	// QDataStream(&blob,WriteOnly)@008cf162(mode 2)
 	QDataStream out(&blob, QIODevice::WriteOnly);
 	// << 0xb9e7e626(@008cf173,反编译 -0x461819da;原版样本 4B
-	//   b9e7e626 实证,5C-REPORT 页 payload 深 diff 表)
+	//   b9e7e626 实证,5c-report 页 payload 深 diff 表)
 	out << quint32(0xb9e7e626u);
 	// blobA:pane+0x38 splitter 容器槽族序列化(@008cf1f3-357)——
 	//   批 177 升真 = stateStoreSerializeSplitterBlob(现役树只读面,

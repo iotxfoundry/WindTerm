@@ -16,7 +16,7 @@
 //   SCI  - standard Scintilla messages (<= 2400)
 //   EXT  - WindTerm extension block (20173-20228)
 //   WT   - WindTerm custom commands (30001-30166)
-// See TEXTVIEW-COMMANDS.md for the full method->command table.
+// See textview-commands.md for the full method->command table.
 
 class QVariant;
 
@@ -83,7 +83,7 @@ public:
 	void showFindReplaceDialog();                   // FUN_005c3320 (QDialog::finished
 	                                                //  wired to FUN_005c3409)
 
-	// --- command forwards (generated from TEXTVIEW-COMMANDS.md) ---
+	// --- command forwards (generated from textview-commands.md) ---
 
 	void activateNextSelection()
 	{

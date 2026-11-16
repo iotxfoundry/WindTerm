@@ -82,7 +82,7 @@ bool stateStoreRestoreQuickBar(KitWindowFace *pane, QDataStream &in, quint32 fla
 void stateStoreEnsureTransferBar(KitWindowFace *pane);
 
 // FUN_008cf0c8(2233B,0028.c:15003)s_kit_startupSessions 页 payload
-// 序列化骨架真身(批 173,M21-①升真;原版 674B 实物帧实证,5C-REPORT):
+// 序列化骨架真身(批 173,M21-①升真;原版 674B 实物帧实证,5c-report):
 //   QDataStream(&blob)@008cf162 → << 0xb9e7e626(@008cf173,反编译
 //   -0x461819da)→ << blobA @008cf37b → << blobB @008cf490 →
 //   << blobC @008cf587 → 尾钩 vtable+0x248 != FUN_008d5bf4 腿
@@ -165,7 +165,7 @@ bool stateStoreWriteReopenHistory(const QList<SavedWindowNode> &table,
 // profiles 三卫 FUN_005d8c04(43B,0019.c:10352)cited 不落(铁律 6):
 //   FUN_005d7b56(195B,0019.c:9539)once 锁 +0x50 文档 flush /
 //   FUN_005d7c1e(9B)+0x58 flush / FUN_005d8bfe(6B)恒 1 — flush 腿
-//   FUN_00a8086a jsoncpp 域(EXT-BOUNDARY)+ 宿主 +0x50/+0x58 json
+//   FUN_00a8086a jsoncpp 域(ext-boundary)+ 宿主 +0x50/+0x58 json
 //   文档槽位未建模;恒 1 返回值语料丢弃同相。
 // 窗表参承接:FUN_0076073a param_1+0x50 表槽位宿主侧未建模(铁律 6)
 //   → 表以参数承接(批 163 Slots 判例);现役窗集装配 = 调用侧

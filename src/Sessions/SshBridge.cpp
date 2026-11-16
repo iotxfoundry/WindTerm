@@ -6,7 +6,7 @@
 #include <functional>
 
 // Implementation notes reconstructed from the signal-routing hub
-// FUN_007bc21e (see SSH-INTERNALS.md "signal routing"):
+// FUN_007bc21e (see ssh-internals.md "signal routing"):
 //
 // commandOutput is distributed to subscribers after stripping a trailing
 // "###" prompt marker (FUN_007bebdc: QString::endsWith("###") -> chop),

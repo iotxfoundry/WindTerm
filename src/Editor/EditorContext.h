@@ -568,7 +568,7 @@ public:
 	}
 	// FUN_0092601a(46B)@0030.c:21386:emit 底座 — E+0x70..+0x78
 	//   监听者 QList 遍历,逐项 `(**(obj vptr+0x38))(obj, evs)`。
-	//   监听者挂接面(ENODES-RECON 未解 #2)未建模 → 空表零迭代
+	//   监听者挂接面(enodes-recon 未解 #2)未建模 → 空表零迭代
 	//   同相;事件载荷销毁面 924f02(35B@19894:槽 ref 双降)—
 	//   本批登记,eNodeEmitKind/0x3f0 直调此空底座。
 	void eNodeEmitDispatch()
@@ -695,7 +695,7 @@ public:
 	//   (0,0,2) 重开)};pieceTable/GapBuffer/threadCtx 外库边界面 → 我方
 	//   RS8 委托坍缩(路线 A 惯例,rsFill8 同面);ensure 重建腿 0x95c19d
 	//   vt+0x08(D1 链)旧象释放 ≡ delete;ret 1=吸收/0=新写 与 changed
-	//   不同相 = QUIRKS 候选,76c 笔记)
+	//   不同相 = quirks 候选,76c 笔记)
 	Scintilla::RunStyles<int, char> *charUsedView = nullptr;
 	// runvector(批 82 勘察:ctx+0x178 = 0x28{count,docState,begin,end,cap}
 	//   ≡ std::vector<ValueTable*>;run 元素 = wt::ValueTable 0x40 复用)
@@ -865,7 +865,7 @@ public:
 		if (hexBase == base || (unsigned)(base - 2) >= 0x23)
 			return;
 		hexBase = base;
-		hexBaseStr = "255";   // 语料:number(0xff) 固定值 — QUIRKS
+		hexBaseStr = "255";   // 语料:number(0xff) 固定值 — quirks
 		// if (hexMode) { FUN_00a28c70; session_view_soft_reset; } — cited
 	}
 	void setHexMode(bool on)

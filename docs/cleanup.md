@@ -8,7 +8,7 @@
 
 1. **构建是否引用?**(看 `CMakeLists.txt` 的 `GLOB` / `add_subdirectory` /
    `COMMAND ... -c ${CMAKE_SOURCE_DIR}/...`)—— 不引用 = 可从构建角度移除。
-2. **是否外部库边界?**(`docs/EXT-BOUNDARY.md`:yaml-cpp / jsoncpp / libssh /
+2. **是否外部库边界?**(`docs/ext-boundary.md`:yaml-cpp / jsoncpp / libssh /
    Onigmo / spdlog / fmt / dtl 一律**不逆向,委托真库**)—— 其上游**自测/示例**
    代码与 WindTerm 行为复刻无关,可移除;库**实现源码**保留(需要时重编)。
 3. **是否逆向参考材料?**(主语料 `tools/re/decomp`、数据面 `terminal/`、
@@ -24,7 +24,7 @@
 | 项 | 体积 | 删除理由 | 重建方式 |
 |---|---|---|---|
 | `build/` | 29M | 批 189 时代的陈旧产物;铁律 7 收尾期才编译 | `mkdir build && cd build && cmake .. && make -j$(nproc)` |
-| `frida_binding.node` | 132M | frida 的 **Node 绑定**;本项目用 **python frida + REA MCP**,仓库内零代码引用 | `npm i frida` 或 `prebuild-install`(见 PHASE5 原文记载) |
+| `frida_binding.node` | 132M | frida 的 **Node 绑定**;本项目用 **python frida + REA MCP**,仓库内零代码引用 | `npm i frida` 或 `prebuild-install`(见 phase5 原文记载) |
 | `WindTerm.i64` `.id1` `.id0` `.nam` | 136M | **IDA 数据库**;主语料是 `tools/re/decomp`(49M),IDA 仅作 spot check(且需基址差 `−0x400000`) | **只能重跑 IDA 自动分析;人工标注(若有)不可恢复** |
 | `tools/re/phase5/__pycache__` | ~1M | python 字节码缓存 | 自动重建 |
 

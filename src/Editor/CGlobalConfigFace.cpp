@@ -27,7 +27,7 @@ CEditorConfigFace *CEditorConfigFace::instance()
 // 两个静态对象合为一。
 
 // ======== 批 142:yaml 装载腿真身化 ========
-// 委托真 yaml-cpp 解析(EXT-BOUNDARY/ConfigBridge 判例:实现不逆向);
+// 委托真 yaml-cpp 解析(ext-boundary/ConfigBridge 判例:实现不逆向);
 // 装载编排/树挂接/遍历面 = FUN_008a99de/008aa39e/008a971e/s_FilterEdit_
 // 8a9d3c 转写。装载语义 = 键值进 groups(+0x28)/views(+0x60)handler
 // 面,与 groupNames()(+0xa8 读面;真身批 140)/menu 查建腿闭环。
@@ -316,7 +316,7 @@ static void loadViewsElement(const YAML::Node &arr, SharedConfigHandlerFace *par
 			} else if (const YAML::Node pn = el["Popup"]) { // @008aa0e3
 				child->setPopup(QByteArray(pn.Scalar().c_str())); // @008aa10f-2b(bit3 清态,
 				                             //   setPopup 置旗与语料清位相悖 — popup
-				                             //   读面名字槽权威,旗位怪癖入 QUIRKS 注记)
+				                             //   读面名字槽权威,旗位怪癖入 quirks 注记)
 			}
 			// Columns 高 nibble(@008a9e87-f0):get_string_default("Columns")
 			// → asUInt;真配置无 "Columns" 键 → 0。

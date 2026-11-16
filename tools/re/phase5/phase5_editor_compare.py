@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # 批 121:Phase 5b 21 序列对表(我方基线 phase5_seq_editor.json × 原版
 #   phase5_editor_original.json)→ 逐序列 MATCH/MISMATCH + RUBY 语法假设
-#   裁决节。只报告,不修产品码(QUIRKS 裁决流程)。
+#   裁决节。只报告,不修产品码(quirks 裁决流程)。
 import json
 import sys
 

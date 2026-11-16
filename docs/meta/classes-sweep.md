@@ -15,10 +15,10 @@
 
 | 类 | 形态 |
 |---|---|
-| TextView(227) | 命令转发壳 + 9 真逻辑体(TEXTVIEW-COMMANDS.md) |
-| TextEdit(66) | 命令转发壳 + 10 真逻辑体(TEXTEDIT-COMMANDS.md) |
-| TerminalWidget(58) | 五形态混合(TERMINALWIDGET-IMPL.md) |
-| SuperCommander(259) | 全量真实现(SUPERCOMMANDER-IMPL.md) |
+| TextView(227) | 命令转发壳 + 9 真逻辑体(textview-commands.md) |
+| TextEdit(66) | 命令转发壳 + 10 真逻辑体(textedit-commands.md) |
+| TerminalWidget(58) | 五形态混合(terminal-widget.md) |
+| SuperCommander(259) | 全量真实现(supercommander.md) |
 
 ## 架构结论
 

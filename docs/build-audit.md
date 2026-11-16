@@ -1,4 +1,4 @@
-# BUILD-AUDIT — 开源组件嵌入审计(原版 vs 重建)
+# build-audit — 开源组件嵌入审计(原版 vs 重建)
 
 > 调查日期:2026-10-29。证据 = 原版二进制符号/版本串 + 我方
 > libWindTermRe 的 nm + compile_commands.json 包含路径。

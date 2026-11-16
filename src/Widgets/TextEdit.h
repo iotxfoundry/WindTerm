@@ -7,7 +7,7 @@
 // TextEdit = command-forwarding shell (same sendEditor architecture as
 // TextView): 51 of 66 slots are direct command forwards; the remaining
 // real logic bodies are cited below. metacall: 0x8f267a.
-// Full table: TEXTEDIT-COMMANDS.md.
+// Full table: textedit-commands.md.
 
 #include <QVariant>
 #include <QTextCodec>

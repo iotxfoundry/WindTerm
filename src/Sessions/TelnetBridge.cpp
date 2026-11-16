@@ -73,7 +73,7 @@ void TelnetBridge::connectToTarget(const QString &host, unsigned short port)
 
 // FUN_007c85dc(87B,decomp-part-0024.c:34783)同构:同值去重门
 // `(s == +0x2c) && (1 < s-8U)`(无符号减法 ⇒ 仅 s==8/9 大于 1…即 Auth
-// 态同值不重发;其余同值也 emit——语料原样,见 QUIRKS 候选)→
+// 态同值不重发;其余同值也 emit——语料原样,见 quirks 候选)→
 // 写 +0x2c → 00911ef2 emit stateChanged(state, extra)。
 void TelnetBridge::setState(King::SessionState state, const QVariant &extra)
 {

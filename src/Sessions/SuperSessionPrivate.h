@@ -13,7 +13,7 @@
 #include "SessionProtocol.h"
 
 // SuperSession 的 SSH 认证/主机校验实现(混合架构:真 libssh)。
-// 逆向语义锚:SSH-INTERNALS.md;信号族(moc 真名)见 SuperSession.h。
+// 逆向语义锚:ssh-internals.md;信号族(moc 真名)见 SuperSession.h。
 // 0x40xxxx 区 auth* 实现 → libssh API 直映射,session 句柄经
 // SuperSession::m_d 携带。
 
@@ -182,7 +182,7 @@ public:
 	// (session_applySetting 007dc146 case 0xd @007dc4d8 调用)。
 	// 语料三源定 kind:ctor 007c1b38 置 SessionLogger_vtable;配对
 	// 移除 007db8ee@+0x40 发 loggerRemoved;信号 00912264 =
-	// activate(idx5)= loggerCreated(IMPL-ADDRESSES #5;qmo idx 序:
+	// activate(idx5)= loggerCreated(impl-addresses #5;qmo idx 序:
 	// 0 asyncMessage/1 autoLoginFailed/2 commanderCreated/3
 	// commandOutput/4 errorOccurred/5 loggerCreated/6 loggerRemoved
 	// /7 stateChanged/8 syncMessage/9 termCreated/10 transferCreated)。
@@ -226,13 +226,13 @@ public:
 	QVariant option(const QString &name, const QVariant &defaultValue) const;
 	void setOption(const QString &name, const QVariant &value);
 
-	// --- 连接与状态(逆向:状态机见 STATE-MACHINE.md)---
+	// --- 连接与状态(逆向:状态机见 state-machine.md)---
 	bool openSession(const QString &host, int port, const QString &user);
 	void closeSession();
 
 	// --- 主机校验(0x4xxxxx:verifyKnownHost/writeKnownHost)---
 	// libssh ssh_session_is_known_server: ServerKnown 状态族与
-	// King::ServerKnownState 逐值对齐(SSH-INTERNALS.md)
+	// King::ServerKnownState 逐值对齐(ssh-internals.md)
 	int verifyKnownHost();
 	void writeKnownHost(int knownState);
 

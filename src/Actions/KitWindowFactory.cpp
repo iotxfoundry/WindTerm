@@ -135,7 +135,7 @@ void kitWindowAttachPage(MainWindowFace::Slots host, QMainWindow *mainWindow,
 }
 
 // === kitWindowRestoreFirstPage — FUN_0075e3fe(332B,0023.c:27332)对位
-// 恢复路径(批 142 宿主接线;KITWINDOW-RECON Q4 接线结论兑现):
+// 恢复路径(批 142 宿主接线;kitwindow-recon Q4 接线结论兑现):
 //   语料 window_activeMainPane(105B,0023.c:25789)==0 腿 @0075e3fe-4a:
 //   无活动 pane → FUN_007665ae(122B,0023.c:33235)= s_HistoryHints
 //   ("Terminal",select=0,hints=shared_null,hintValue=1)—— "Terminal"
@@ -145,7 +145,7 @@ void kitWindowAttachPage(MainWindowFace::Slots host, QMainWindow *mainWindow,
 // 本接线 = 无 pane 腿挂 MainWindowFace::Slots(装配面判例 mwctest d1/d2);
 // 产品启动链(mainWindow_connectSignals 0076b9ec 第 3 步 FUN_0076663e →
 // FUN_007662e6 装配)无我方可运行消费点 → mwctest 级接线 + 报告,不发明
-// 启动路径(KITWINDOW-RECON Q4 同判)。
+// 启动路径(kitwindow-recon Q4 同判)。
 void kitWindowRestoreFirstPage(MainWindowFace::Slots host, QMainWindow *mainWindow)
 {
 	QWidget *aw = QApplication::activeWindow(); // @0075c0be 首句

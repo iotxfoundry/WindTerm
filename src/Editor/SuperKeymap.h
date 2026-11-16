@@ -17,7 +17,7 @@
 // 编译产物 —— 分派体 FUN_0068aaf0(4118B,0021.c 12163)= xpressive
 // 动态编译器(0068dd28 "expression cannot be quantified" 路径串 =
 // boost/xpressive/detail/dynamic/dynamic.hpp 铁证);boost 边界不逆向,
-// EXT-BOUNDARY)。语料对应体 = FUN_00681a40 产的 0x18 ctrl 块
+// ext-boundary)。语料对应体 = FUN_00681a40 产的 0x18 ctrl 块
 // (PTR_FUN_011895b0,use 初 0x100000001,LOCK use++ 4649-4651):
 // 委托 boost、永不解引 —— _Sp_counted_base 计数面(use/weak)由
 // std::shared_ptr<void> 标准库委托承接;编译腿 cited — wave-2,
@@ -53,7 +53,7 @@ struct TrieCtrlLess {
 //       km2 §6 "QSlotObjectBase" 勘正)。vtable+0x10 = matchable_ex::match(
 //       state&) → bool(true_matcher = FUN_0067a354 恒返 1;eos = FUN_0067bd04
 //       26B 尾匹配 + 下行递归;string = FUN_0067ac0c 127B 逐字符 traits 比较)。
-//       boost 边界(EXT-BOUNDARY,实现不逆向)→ 委托形态 = 谓词不可调用,
+//       boost 边界(ext-boundary,实现不逆向)→ 委托形态 = 谓词不可调用,
 //       保持 cited — wave-2(装载腿 xpressive 编译 cited 未建,槽恒空)。
 //   +0x80/+0x88 slotA/slotB(use@+8;vptr+8 dispose,62816-62833)
 //   +0x90..+0xa0 children vector<pair<wstring,X>>(COW 16B/元素 62738-62777;

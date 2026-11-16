@@ -1,7 +1,7 @@
-# ENODES-RECON — eNodes 节点层侦察(批 135,M10-②)
+# enodes-recon — eNodes 节点层侦察(批 135,M10-②)
 
 > ⚠ 2026-11-16:`tests/` 已删除(用户令),
-> 本文中"ctest 通过"类判据**不再适用**;本文转为历史方案书,结论引用前查 `tools/re/HANDOFF.md` 勘正谱系。
+> 本文中"ctest 通过"类判据**不再适用**;本文转为历史方案书,结论引用前查 `tools/re/handoff.md` 勘正谱系。
 
 > 侦察批:只侦察不转写产品码。产出 = 方案书,供后续建模车道**免侦察直接执行**(KitWindow 判例批 131 格式)。
 > 语料:tools/re/decomp/decomp-part-NNNN.c(`grep -n "entry=…"` 落点);kuna 直反编译(地址即 Ghidra VA)。

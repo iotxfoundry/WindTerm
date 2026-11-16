@@ -41,4 +41,4 @@ for name in seqs:
     if bad:
         fails += 1; fails_names.append(name); print(f'{name:14s} FAIL {" | ".join(bad)[:110]}')
     else: ok += 1
-print(f'=== PHASE5: {ok}/{len(seqs)} MATCH, {fails} DIFFS: {fails_names}')
+print(f'=== phase5: {ok}/{len(seqs)} MATCH, {fails} DIFFS: {fails_names}')

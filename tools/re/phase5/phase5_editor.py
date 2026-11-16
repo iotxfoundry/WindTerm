@@ -4,7 +4,7 @@
 #
 # 通道(00a418c4 dispatch 钩 armed 法;批 121 实测定案):
 #   · editor = 钩 a[1](0x1270B EditorContext;vptr = ScintillaQt 0x11ae558,
-#     VTABLE-MAP 定案)。**vtable+0x1c0 直呼不可行** — 0x1270B 对象表
+#     vtable-map 定案)。**vtable+0x1c0 直呼不可行** — 0x1270B 对象表
 #     尾 0x1c0 = 0(rpc 线程 access violation 实锤 ×2)。
 #   · dispatch 本体 = FUN_00a418c4 五参直呼(ret,editor,cmd,a,b)在
 #     **钩内**(= 自然 dispatch 上下文,GUI 线程;rpc 线程直呼同函数
@@ -25,7 +25,7 @@
 #   · A 族:op 直填同禁 → 0x4eff dispatch 经 a=null(qint64 0)→ 语料
 #     22609 toULongLong → opb=0 非空判?0 = null 桥 → 原版 12651 链在
 #     op=0 上解引用会崩。**A 族只捕 dispatchRet 经 0x7576 同构 armed 读**
-#     不发 0x4eff/0x4f00;原版 A 族对账改由 **b116/drive 样例**(CALIBRATION
+#     不发 0x4eff/0x4f00;原版 A 族对账改由 **b116/drive 样例**(calibration
 #     批 116 五样例,同引擎腿字节对账)承担,原版侧 dispatch 面读数记
 #     not-run + 原因。
 #
@@ -191,7 +191,7 @@ def main():
         rec = {'seq_id': sid, 'family': fam}
         if fam in ('4eff-ruby', '4f00-wordstep'):
             # op 桥面直填腿禁用(脚本头注裁决:批 121 目标死事故);
-            # dispatch 读数 notRun,对账由 CALIBRATION 批 116 五样例
+            # dispatch 读数 notRun,对账由 calibration 批 116 五样例
             # (同引擎腿字节对账)与我方 onigtest/wordsteptest 承担。
             rec['notRun'] = 'op-bridge disabled (b121 crash gate)'
         elif fam == '7576-insertstyle':

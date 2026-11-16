@@ -3,7 +3,7 @@
 
 #pragma once
 
-// 终端部件组装(TERMINALWIDGET-IMPL.md;metacall 0x910a98,idx 即该表)。
+// 终端部件组装(terminal-widget.md;metacall 0x910a98,idx 即该表)。
 // 全 58+ 槽覆盖:守卫+查询 / 输入 / 清屏 / 复位 / CMD 直传 / 日志 /
 // modem / FreeType / 会话组。渲染层与深子系统腿(对话框/全局管理器/
 // 会话栈)按注释 cited,随 Phase-4 后续接线。

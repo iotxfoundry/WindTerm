@@ -13,7 +13,7 @@
 
 #include "ScintillaEditBase.h"
 #include "Scintilla.h"
-#include "Ext/ZstdFace.h"   // EXT-BOUNDARY 声明面(zstd 委托;调用点待链接)
+#include "Ext/ZstdFace.h"   // ext-boundary 声明面(zstd 委托;调用点待链接)
 
 // HYBRID EditorEngine: standard SCI_* delegates to real Scintilla
 // (src/Scintilla static libs); WindTerm EXT/WT stays in customDispatch.
@@ -393,7 +393,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
                                       const QVariant &b)
 {
 	// WindTerm 扩展命令(EXT 20163-20228 / WT 30001-30166)。
-	// 逆向语义(EDITOR-ENGINE-COMMANDS.md)经真 Scintilla 公共 API 实现;
+	// 逆向语义(editor-engine-commands.md)经真 Scintilla 公共 API 实现;
 	// 无上游等价的 fork 特性按文档桩保留。
 	auto send = [this](uint msg, uptr_t w = 0, sptr_t l = 0) {
 		return m_edit->send(msg, w, l);
@@ -511,7 +511,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 	                 //   探针:939d14(key≥8 树区间)→ 逐值 9635d0
 	                 //   (+0xc==8)—— 批 136 真身化(原误接 SCI_GETREADONLY;
 	                 //   语料实读 = kind-8 mode==8 存在性探针。原误注
-	                 //   QUIRKS 候选,勘正登记)
+	                 //   quirks 候选,勘正登记)
 		for (auto it = m_ctx.eNodes.lowerBound(8);
 		     it != m_ctx.eNodes.end() && it.key() == 8; ++it) {
 			if (static_cast<wt::ENodeTask *>(it.value())->gate009635d0(8))
@@ -2418,7 +2418,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 										//   +0x1c=0/+0x2c=0
 										//   (00a7246x-00a7251x)。
 										//   zstd 委托真库
-										//   (EXT-BOUNDARY;语料
+										//   (ext-boundary;语料
 										//   包装 00bb88b0 全
 										//   zstd 内部态 = 真库
 										//   ZSTD_decompress
@@ -3005,7 +3005,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 				};
 				// 逐码点循环(00a7331a-00a7344c)真身化:pos 累加、
 				//   fold 步行去重、行向 y 条带。fstep 可为 0(S2 截断)
-				//   → 语料直除(SIGFPE 怪癖,原样保留不修,QUIRKS 登记)
+				//   → 语料直除(SIGFPE 怪癖,原样保留不修,quirks 登记)
 				qint64 pos = 0, lastStep = -1;           // 00a7331a
 				bool has = hasNext();                    // 00a73326 首检
 				for (;;) {
@@ -3239,7 +3239,7 @@ QVariant EditorEngine::customDispatch(uint cmd, const QVariant &a,
 						// 0x95c62a 身份检查三连:vt+0x30==0x889860(runs_count)
 						//   /vt+0x38==0x889804(run_start_at)/vt+0x40==0x8897f4
 						//   (run_start_at(u+1) 内联 +1)。我方 RS 委托形态
-						//   直调等价函数(EXT-BOUNDARY 同 mtrack 面)。
+						//   直调等价函数(ext-boundary 同 mtrack 面)。
 						// runs_count = 0x968a72(+0x10 缓存/0x30 DAT+0x10*2
 						//   步进,+8 平路分支)— 委托 RS::Runs() 同面
 						const int rsCount = int(m_ctx.charUsedView->Runs());
@@ -4399,7 +4399,7 @@ step:;
 			// FUN_00925a78() 缓存失效 — cited
 			// E+0x2d8 type-8 遍历(FUN_00933830 @0030.c:32465,批 136
 			//   W4 节点腿):dynamic_cast + kind==8 门 → 96d89e(QHash
-			//   收集 — record 载荷面 cited,ENODES-RECON 未解 #1)→
+			//   收集 — record 载荷面 cited,enodes-recon 未解 #1)→
 			//   词表差分/重排腿 92e44e+92e270+92e368 — 词容器 cited
 			for (auto it = m_ctx.eNodes.begin();
 			     it != m_ctx.eNodes.end(); ++it) {
@@ -4747,7 +4747,7 @@ step:;
 	default:
 		// 其余 ~44 个 fork 特性(scrollbar marks/margin 链表/
 		// std::string 返回族/hexBase…):真名与语义锚见
-		// EDITOR-ENGINE-COMMANDS.md,按需逐个接
+		// editor-engine-commands.md,按需逐个接
 		(void)a; (void)b;
 		return QVariant(0);
 	}

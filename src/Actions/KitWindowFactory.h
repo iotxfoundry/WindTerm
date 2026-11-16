@@ -9,7 +9,7 @@
 #include "KitWindowFace.h"
 #include "MainWindowFace.h"
 
-// 批 134:KitWindow 子类工厂 + 页挂接线(方案书 §4 直执;KITWINDOW-RECON
+// 批 134:KitWindow 子类工厂 + 页挂接线(方案书 §4 直执;kitwindow-recon
 // Q4:工厂唯一调用点 = s_HistoryHints_7664a2 @asm 0x7664c7,不挂
 // EditorEngine)。EditorWindow/TerminalWindow 真身类未建模 → face 壳
 // (批 133 判例:壳不落数据成员,字段族 cited;铁律 6)。
@@ -37,7 +37,7 @@ public:
 //   "TerminalWindow"(@008599c4-dd)。menu() = FUN_00858fce(39B,
 //   0026.c:50296):懒单例 DAT_011c2200 ← FUN_00809d78(= CTerminalConfig::
 //   instance(),src/Editor 已落库)+ FUN_008aa896 校验尾(cited —
-//   FUN_008a99de/008aa39e yaml 装载腿;KITWINDOW-RECON §未解 1 余项)。
+//   FUN_008a99de/008aa39e yaml 装载腿;kitwindow-recon §未解 1 余项)。
 class TerminalWindowFace : public KitWindowFace, private QAbstractNativeEventFilter {
 public:
 	explicit TerminalWindowFace(QWidget *parent = nullptr)
@@ -79,7 +79,7 @@ void kitWindowRestoreFirstPage(MainWindowFace::Slots host, QMainWindow *mainWind
 
 // Terminal 腿 face 转接(批 140;批 142 双 Meyers 合一 — 同一单例的
 // face 基面):语料 CTerminalConfig 单例对象 = menu() 容器
-// (KitWindowFactory.cpp 注记;KITWINDOW-RECON §未解 1 收口)。
+// (KitWindowFactory.cpp 注记;kitwindow-recon §未解 1 收口)。
 CGlobalConfigFace *terminalConfigAsFace();
 
 // 批 189(M24-②):菜单族消费三件(FUN_00692a70/00692ef0 升真承载;
@@ -97,7 +97,7 @@ QMenuBar *kitMenuBarBuild(CGlobalConfigFace *container, QWidget *hostPane);
 //     S1 空名 nullptr(@00692ef7)→ S2 FUN_006926c2(+0x28)命中 →
 //     FUN_00692a70(组节点,pane)缓存直返(@00692efc-27)→ S3 未命中
 //     tr+new QMenu(@00692f68-030)。容器面 = CGlobalConfigFace::m_groups
-//     (KITWINDOW-RECON §未解 1 收口:容器类 = Config 系单例,批 140
+//     (kitwindow-recon §未解 1 收口:容器类 = Config 系单例,批 140
 //     定案)— MuxPaneGroup::kitFindOrCreateGroupMenu(void* 壳态)随本
 //     件升级(同库真身调用)。
 QMenu *kitFindOrCreateGroupMenu(CGlobalConfigFace *container,

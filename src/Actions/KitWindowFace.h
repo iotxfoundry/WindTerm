@@ -14,7 +14,7 @@
 
 // KitWindowFace —— 语料 KitWindow(typeinfo 011ab390,名 "9KitWindow" ELF
 // 实读)承载面壳(MainWindowFace 判例批 100;铁律 6:抽象身份 + 纯虚 menu()。
-// showConfigMenu 消费清单 = 零实例字段 + 一记虚调用 —— KITWINDOW-RECON.md
+// showConfigMenu 消费清单 = 零实例字段 + 一记虚调用 —— kitwindow-recon.md
 // Q2 实证"KitWindow 实例字段被读数 = 0",故本壳不落数据成员。
 // ⚠ 批 192 勘正:Q2"字段零消费"只对 showConfigMenu 面成立;延迟装配链
 //   008d3cc2 / 008cd068 / 008d2f7e 直读 +0x30 门与 +0x38..+0x68 七槽

@@ -67,8 +67,8 @@ bool carrierLive();                            // 缝非空读面(scanLineDoc �
 // FUN_00b422d0(2750B)@decomp-part-0037.c:32598 — 缓冲扫描引擎 — **边界
 //   委托(批 102 勘定)**:直调 regex_nfa_compile(00b3cc80 20839B)/
 //   regexp_match_dispatch(00b3b730)命名符号,本体 = Onigmo-改 搜索
-//   驱动(≈onig_search),EXT-BOUNDARY 第一方组件 → 停止逆向,行为由
-//   src/Onigmo 移植校准委托承接(激活批需 CALIBRATION)。thunk 链:
+//   驱动(≈onig_search),ext-boundary 第一方组件 → 停止逆向,行为由
+//   src/Onigmo 移植校准委托承接(激活批需 calibration)。thunk 链:
 //   0092547e → 00a8395c(42B)→ 00a83946(21B 门)→ 00b42e10(28B)→ 本体。
 //
 //   批 105 取证结论(kuna CLI 全实证;激活未落行为码 — 任务书失败条款):
@@ -137,14 +137,14 @@ bool carrierLive();                            // 缝非空读面(scanLineDoc �
 //       aa2728×2}(aa1f90 继承构造,aa26b0/28 = pattern 扫描虚方法)。
 //     · 语法 op/op2/behavior 域零消费(硬编码进 a9c780)→ 上游
 //       ONIG_SYNTAX_*/ONIG_ENCODING_* 映射无落点,libonig 委托缺
-//       syntax/encoding 实参 — 零行为码(详 docs/CALIBRATION.md 批 110)。
-//   ⑥ 批 116 激活定案(2026-11-13;CALIBRATION 批 116 对账):
+//       syntax/encoding 实参 — 零行为码(详 docs/calibration.md 批 110)。
+//   ⑥ 批 116 激活定案(2026-11-13;calibration 批 116 对账):
 //     语法假设 = ONIG_SYNTAX_RUBY(五真实样例对账:possessive ++ 与
 //     \g<X> 子例程调用同时要求 → RUBY 唯一上游覆盖,Java/Perl 无
 //     ESC_G_SUBEXP_CALL;(*UTF) 前缀 = WindTerm 层剥壳非语法域)。
 //     委托形态 = onig_new(RUBY+UTF-8)+ onig_search 字节承载替
 //     (OnigIterator{onig_default_charat};OnigSearch.cpp 逐句映射,
-//     CALIBRATION 批 116 逐句条目)。缓冲字节契约 = 0x4eff case
+//     calibration 批 116 逐句条目)。缓冲字节契约 = 0x4eff case
 //     needlePair(conv+0x08 针字节/+0x01 case 位)→ bufferScan。
 qint64 bufferScan00b422d0(const void *needlePair, qint64 from, qint64 to);
 

@@ -2082,12 +2082,12 @@ void SuperCommander::writeSplitData(const char *data, int len)
 	// 经表驱动状态机(00a8158c)→ doAction(007d1606,2292B)。
 	// 本实现 = 行为等价子集:字面直通 writeText + C0 直派 +
 	// CSI(final m/J/H/f/A-D)派已转写 Screen 方法;全表状态机
-	// 与 doAction 全量随后续批(语料锚齐,见 PHASE5.md)。
+	// 与 doAction 全量随后续批(语料锚齐,见 phase5.md)。
 	if (m_screen == nullptr)
 		return;
 	// 入口排空 ESC D/E/M 专队列(批 21 v6:dump 双锚——ind/nel 单批
 	// 永不生效 (0,0);ind_bot_scroll/ri_top_scroll 有 follower 批
-	// 才生效。QUIRKS 13 原型回归,机制 = 队列重放)
+	// 才生效。quirks 13 原型回归,机制 = 队列重放)
 	if (!m_replaying && !m_escPending.isEmpty()) {
 		m_replaying = true;
 		const QVector<QByteArray> q = m_escPending;
@@ -2121,7 +2121,7 @@ void SuperCommander::writeSplitData(const char *data, int len)
 	};
 	// checkControlCharacter 门(007d1f5a 主循环尾,0025 语料
 	// 1714-1749):doAction 后若 +0x101 置位,匹配序列回显字面
-	// (QUIRKS 21:ESC = 1 列字形),进门即自清(与回显分支无关)
+	// (quirks 21:ESC = 1 列字形),进门即自清(与回显分支无关)
 	auto controlCharGate = [&](int seqStart, int seqEnd) {
 		if (!m_checkControlChars || seqStart >= seqEnd)
 			return;

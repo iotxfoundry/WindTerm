@@ -12,7 +12,7 @@ class QMenuBar;
 class QSplitter;
 class TabGroup;
 
-// KitWindowAssemblyFace — KitWindow 延迟装配链(批 192,P1 · GUI-MAP ①):
+// KitWindowAssemblyFace — KitWindow 延迟装配链(批 192,P1 · gui-map ①):
 // 语料锚 = FUN_008d3cc2(296B,0028.c:17649)调用序;各段地址见实现处注。
 // 铁律 7:本域未过编译门(收尾期首编译修);铁律 1:每句带 vaddr。
 

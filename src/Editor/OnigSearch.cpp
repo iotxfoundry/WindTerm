@@ -1,13 +1,13 @@
 #include "OnigSearch.h"
 
-// 批 116:0x4eff 引擎腿激活(EXT-BOUNDARY 委托 — 批 102 勘定)。铁律 1
+// 批 116:0x4eff 引擎腿激活(ext-boundary 委托 — 批 102 勘定)。铁律 1
 // 出处:语料 = FUN_00b422d0(2750B 缓冲扫描引擎,decomp-part-0037.c:32598,
 // Onigmo-改 ≈onig_search)/ 编译栈 = 00a81655 → 00a9c780(22512B 编译本体,
 // 6 参 = regex** 出参改返回值 + 无 encoding 形参 — 批 109 改版差异登记)/
 // 惰性编译门 = 00ad7360(304B,产物挂对象 +0x20 槽)/ free face =
 // 00aa1f80(5B free 尾调用,批 110)/ alloc face = 00aa1f70(malloc)。
 // 委托形态:上游 onig_new(7 参,regcomp.c:5941)+ onig_search(regexec.c:
-// 3905)。语法假设 ONIG_SYNTAX_RUBY:CALIBRATION 批 116 五样例对账定案
+// 3905)。语法假设 ONIG_SYNTAX_RUBY:calibration 批 116 五样例对账定案
 // (possessive ++ / \g<X> 子例程调用同时覆盖 → RUBY 唯一候选;Java 无
 // ESC_G_SUBEXP_CALL regsyntax.c:162-182,Perl 同)。编码 UTF-8(0xd35f40
 // ASCII 折叠表 + \x{...} 样例域;批 110)。字节承载替 = OnigIterator
@@ -43,7 +43,7 @@ OnigRegex compile(const char *pat, int len, bool ignoreCase, int *errOut)
 	const OnigOptionType opt = ignoreCase ? ONIG_OPTION_IGNORECASE
 	                                      : ONIG_OPTION_NONE;
 	// onig_new(regcomp.c:5941)上游 7 参形态;RUBY 语法 + UTF-8
-	// (批 116 假设行,CALIBRATION 登记)。
+	// (批 116 假设行,calibration 登记)。
 	const int r = onig_new(&re, (const OnigUChar *)pat,
 	                       (const OnigUChar *)(pat + len), opt,
 	                       ONIG_ENCODING_UTF8, ONIG_SYNTAX_RUBY, &einfo);

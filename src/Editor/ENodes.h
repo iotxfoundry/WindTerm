@@ -1,5 +1,5 @@
 #pragma once
-// eNodes 节点层建模(批 136,方案书 tools/re/ENODES-RECON.md Q4 直执)。
+// eNodes 节点层建模(批 136,方案书 docs/history/enodes-recon.md Q4 直执)。
 // 载体两级:Map = E+0x2d8 QMap(键 = char kind;EditorContext.h 承接)·
 // 值 = 多态任务两族。基类 DocumentTask(TI 0x11ad4b0,0x30B,ctor
 // FUN_00963590 64B @0031.c:34095)/ 派生 ScanTask(TI 0x11ad588,
@@ -111,7 +111,7 @@ struct WNodeInner {
 	//   登记);旧词法栈 93fc60 清偿(空表零迭代同相);scanner 换新
 	//   ValueTable(9cc22c);+0x10 槽 = operator_new(0x20){0,0,0,0}
 	//   → 承载 = RsHolder20(空)—— 承载替字段(类尾追加,0x18 语料
-	//   分配尾外 — QUIRKS 怪癖登记)。
+	//   分配尾外 — quirks 怪癖登记)。
 	wt::RsHolder20 *holder = nullptr;   // puVar6 — 00970850 词法栈栈面
 	// 批 156:009708a1 0x50 SkipPartition 字段真身(编辑底座头
 	//   DeepEngineFace::SkipPartition50 — 偏移锁+prologue;97142a 尾
@@ -132,7 +132,7 @@ struct WNodeInner {
 	{
 		// 00970887:puVar6 = operator_new(0x20){vt cited,+8=0,+0x10=0}
 		//   语料 970850 直建新栈(无旧栈持有面;holder 处置权 = WNodeInner
-		//   承载替生命周期 — 类尾字段,QUIRKS 承载替登记)
+		//   承载替生命周期 — 类尾字段,quirks 承载替登记)
 		if (holder == nullptr)
 			holder = wt::makeHolder0x20(new RS8());
 		else
@@ -416,7 +416,7 @@ struct ENodeScan : ENodeTask {
 	//   scannerResetState)+ 00970850 词法重建(rebuild00970850 批 152
 	//   栈面真身/深引擎 cited);f68 ← 0(0096cba2(0,0) 真身:旧值>0
 	//   才写,语义等价收敛);9635d8 门开 → 尾组播 926356(0x3f0,0,tag)/
-	//   9263fa(kind)— 底座 92601a 监听者表未建模(ENODES-RECON 未解 #2)
+	//   9263fa(kind)— 底座 92601a 监听者表未建模(enodes-recon 未解 #2)
 	//   零投递同相;p18=E 调面在案(cited)。
 	void runReset0096f6fe()
 	{
@@ -701,7 +701,7 @@ struct WNodeTrie {
 	//   `<=` 门同相)。分裂面 trie_insert_node30(1369B,0031.c:4687
 	//   全读:叶满 0x1e → 96f21c 换根/9cc22c 族)/FUN_0093f7aa 5069-5096
 	//   半满晋升只重排内存布局,产出序列恒升序 — QVector 保序承载
-	//   遍历序同相(QUIRKS #31 同族承载替证据;5c 期字节级对表待)。
+	//   遍历序同相(quirks #31 同族承载替证据;5c 期字节级对表待)。
 	void insert0093f7aa(qint64 line)        // 0093f7aa(有序插入腿)
 	{
 		int i = 0;

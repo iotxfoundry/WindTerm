@@ -10,7 +10,7 @@ class QStandardItem;
 class QTreeView;
 class QWidget;
 
-// === SettingsFace — 设置页族语料面(批 191,M24-③;⑤ 设置页族,GUI-MAP.md)===
+// === SettingsFace — 设置页族语料面(批 191,M24-③;⑤ 设置页族,gui-map.md)===
 // 铁律 6:全语料转写,零自研行为。三段(出处=decomp-part-0022.c 行号+汇编):
 //   S1 TextMarkDialog 壳 ctor FUN_006f1036(175B,0022:18703;汇编
 //      006f1036-006f10ce 全读):QDialog(param_2,0)@006f1043 → setWindowTitle

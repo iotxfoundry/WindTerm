@@ -471,7 +471,7 @@ int TerminalCore::rowEraseCells(struct Row *row, int from, unsigned short attr,
 }
 
 // ---------------------------------------------------------------------------
-// Cursor setters (一行真身,TERMINAL-CORE.md)
+// Cursor setters (一行真身,terminal-core.md)
 // ---------------------------------------------------------------------------
 void TerminalCore::setCursorX(int x)
 {
@@ -524,7 +524,7 @@ void TerminalCore::removeRow(int y)
 }
 
 // ---------------------------------------------------------------------------
-// Row cell operations (TERMINAL-CORE.md cited helpers)
+// Row cell operations (terminal-core.md cited helpers)
 // ---------------------------------------------------------------------------
 void TerminalCore::writeBlankCell(struct Row *row, int i, unsigned short attr,
                                   void *blankTemplate)

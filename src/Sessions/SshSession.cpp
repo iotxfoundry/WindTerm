@@ -3,7 +3,7 @@
 #include <libssh/libssh.h>
 
 // Implementation reconstructed from the libssh RAII wrapper class at
-// 0x627-0x62a (see SSH-INTERNALS.md). The wrapper predates the bridge:
+// 0x627-0x62a (see ssh-internals.md). The wrapper predates the bridge:
 // construction throws on failure, options throw on -1, and interactive
 // authentication runs the kbdint loop transcribed from FUN_00629dea.
 

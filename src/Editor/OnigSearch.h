@@ -6,8 +6,8 @@
 
 #include "Onigmo/oniguruma.h"   // 上游 Onigmo 面(src/Onigmo;lib/libonig.a 预构建)
 
-// 批 116:0x4eff 搜索引擎腿委托(批 102 EXT-BOUNDARY 激活;语法假设 =
-// ONIG_SYNTAX_RUBY — CALIBRATION 批 116 对账定案;铁律 1 落点见 .cpp)。
+// 批 116:0x4eff 搜索引擎腿委托(批 102 ext-boundary 激活;语法假设 =
+// ONIG_SYNTAX_RUBY — calibration 批 116 对账定案;铁律 1 落点见 .cpp)。
 namespace OnigSearch {
 
 // 编译:pattern 字节 → OnigRegex。RUBY 语法 + UTF-8 编码 + 可选忽略

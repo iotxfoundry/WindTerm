@@ -408,7 +408,7 @@ int SuperKeymap::feedKey(KeymapInputRecord &record, uint key, int flags)
 //   use++ 持有(*param_1 = 旧根),槽换新后旧根 FUN_0067fae4 释放面
 //   由调用方走查收尾承载(§6-§8 后 use-- 复位)。
 //   km3 ctrl 落地:0x18 ctrl 块 = xpressive 编译产物(boost 边界
-//   EXT-BOUNDARY,块体不伪造 —— 编译腿 cited — wave-2);shared_ptr
+//   ext-boundary,块体不伪造 —— 编译腿 cited — wave-2);shared_ptr
 //   承载 = 标准库委托(_Sp_counted_base use/weak 计数面同构)。
 //   4649-4651 LOCK use++ → shared_ptr 强引用持有 +0x68;编译产物本体
 //   永不解引(空 delete 形,块仅计数)。
@@ -890,7 +890,7 @@ static void triePrefixChordAppend(QList<KeymapEntry> &chords,
 // §3 地图逐段转写。km3 裁决:走查体执行前提 = Trie 根(entry+0x08 槽,
 // 语料 *(lVar7+8)),该槽由装载翼 xpressive 编译腿(00678295-006783fe →
 // FUN_00687320 换入;km3 勘正:onig → boost::xpressive 编译腿,boost
-// 边界 EXT-BOUNDARY)建立 —— 该腿在案 cited — wave-2,根槽恒空 →
+// 边界 ext-boundary)建立 —— 该腿在案 cited — wave-2,根槽恒空 →
 // §4 首门(00675296:根空或 *(根+0x78)==0 即出)短路全部走查体,
 // 与批 72 骨架行为一致(匹配恒未竟,不产生伪结果)。ctrl = shared_ptr
 // 承载(km3:§5/§7/§8 计数面闭环,见上方真身);因此本批落点 =
@@ -934,7 +934,7 @@ static void triePrefixChordAppend(QList<KeymapEntry> &chords,
 //       FUN_00673dec 查找(localMatchNodeAt);谓词虚调(**(*plVar27)+0x10)
 //       类身份 km4 定案 = boost::xpressive dynamic_xpression / matchable_ex
 //       系(typeinfo + vtable 样本铁证,见 .h KeymapChildGroup 注)—— vcall
-//       = matchable_ex::match(state) → bool,实现属 boost(EXT-BOUNDARY)→
+//       = matchable_ex::match(state) → bool,实现属 boost(ext-boundary)→
 //       cited — wave-2(不伪造);叶写门 local_238(0xe0 节点挂链态)随谓词
 //       批 cited;挂链 splice(local_210/local_98,0067e45e)同域 cited。
 //   §12(63444-63516)when 腿 —— 本批真身:FUN_00767a70/0076745c 引擎门
@@ -1112,7 +1112,7 @@ int SuperKeymap::matchTrie(MatchOut &out, QList<KeymapEntry> &slotList,
 			// 恒真 / eos = FUN_0067bd04 / string = FUN_0067ac0c)。63401:
 			// local_108(walk 树头)初始化 = *(根+0x78) 同源 —— 0xe0 匹配节点
 			// 兼作本地树根链头(00690e90 构造 / 0067e2c0 回收)。
-			// 谓词实现属 boost(EXT-BOUNDARY 不逆向)→ 调用不可伪造,保持
+			// 谓词实现属 boost(ext-boundary 不逆向)→ 调用不可伪造,保持
 			// cited — wave-2:不伪造调用;语料 false → 叶写(63430 门 local_238
 			// = 挂链态 —— 0xe0 节点域,随谓词批 cited)/ true → FUN_0067e4c2
 			// 入本地树(真身 trieMatchInsert)。谓词批接入前两臂按 63430 门

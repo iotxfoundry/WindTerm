@@ -1,8 +1,8 @@
 # 新会话起点(交接文档 · 单页当前态)
 
-> 用途:新会话冷启动。冷启动顺序:AGENTS.md → 本文件 → docs/PLAN.md →
-> docs/PHASE5.md(**顶部「结论快照」节 = 当前真值,正文批次流水为审计
-> 轨迹,冲突时以快照为准**)→ docs/QUIRKS.md。
+> 用途:新会话冷启动。冷启动顺序:AGENTS.md → 本文件 → docs/plan.md →
+> docs/phase5.md(**顶部「结论快照」节 = 当前真值,正文批次流水为审计
+> 轨迹,冲突时以快照为准**)→ docs/quirks.md。
 > 本文件 2026-11-14 重构:旧 24 层堆叠交接删除(历史在 git log,
 > 检索关键词"第 X 次交接");永续内容(环境/恢复/提交规范)保留。
 
@@ -14,9 +14,9 @@
 新增 **59 个 `*Face` 头**(`src/Actions` + `src/Widgets`)。
 **纪律**:铁律 7(零编译零测试)贯穿全部批次 —— **可编译 / 可运行仍为 0%**。
 
-**七节覆盖率(按 GUI-MAP 条目加权 ≈ 95%)**
+**七节覆盖率(按 gui-map 条目加权 ≈ 95%)**
 
-| 节 | 覆盖 | 已落锚点(逐批判据见 `tools/re/GUI-MAP.md`) |
+| 节 | 覆盖 | 已落锚点(逐批判据见 `tools/re/gui-map.md`) |
 |---|---|---|
 | ① 主窗装配 | 90% | `008d3cc2` 全链 + 中央七槽树(`0x68[0x58[0x38,0x60[0x48],0x40],0x50]`)+ 槽位族 + 焦点链 |
 | ② 菜单 / 动作 | 95% | **数据源** `wind.actions` + `user.actions` 两层 → 整树装载 7702B → 六属性应用(`script/text/tooltip/state/icon/kits`)→ `actions_from_config_list` → QAction 树 → 懒构建(`aboutToShow`)/ 触发 → **`js_actionFire`** |
@@ -26,7 +26,7 @@
 | ⑥ dock / 标签 | 85% | KitDock 全套 + **页签关钮机制闭环**(只当前页有钮 / 空名·`Pinned` 无钮 / 三平行表 move) |
 | 5c 状态存取 | 写 95% / 读 85% | blobA/B/C 真身 + QuickBar/TransferBar 读写四腿 + 尾钩默认腿定案 |
 
-**收尾期第一步**:`docs/PENDING-ATTRIBUTION.md`(归属工作单)——
+**收尾期第一步**:`docs/pending-attribution.md`(归属工作单)——
 `SettingsPageFace ↔ TunnelDialog` 的 6 项函数迁移,清完再编译;
 否则语法错与模型错混在一起,无法定位。
 
@@ -57,13 +57,13 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
   SearchPane UI 自动化输入(未试,需 SearchPane 弹出条件侦察)。
 - **外库边界登记**:busy 腿 009e975a(doc 批处理通知器 + 线程池
   底座,批 117)/迁移腿 0099bc2c(piecetable 链,批 111)/
-  Onigmo-改(EXT-BOUNDARY 第一方组件,批 102 定案:00b4xxxx 停
+  Onigmo-改(ext-boundary 第一方组件,批 102 定案:00b4xxxx 停
   逆向,src/Onigmo 委托)。
 - **scanMask 活性接线 ✅**(批 127:buffer 承载建模 + s_scanCarrier
   缝;残项 0x7543 initDoc 驱动挂线经批 128 定案 = **零接线点**,
   RAII 即语料挂线,FUN_0092ef06 拆建腿不含 +0xf8)。
 - **KitWindow = 抽象基类**(menu() 槽 62 纯虚,showConfigMenu 消费
-  = 零字段 + 一虚调用);转写车道照 tools/re/KITWINDOW-RECON.md
+  = 零字段 + 一虚调用);转写车道照 docs/history/kitwindow-recon.md
   方案书**免侦察直执**(批 131)。
 
 ## 勘正谱系(现结论 ← 被勘正;新会话读到旧结论先查此表)
@@ -132,14 +132,14 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 7. **大件**:`KitBar::addKit`(9743B,需分 3-4 面)、`FUN_008cf0c8`(2233B)、
    `RemoteFileDialog` 装配体 7811B 的内部。
 8. **收尾期**(语料锚定段全清后):
-   **① 清 `docs/PENDING-ATTRIBUTION.md` 的 6 项归属迁移 → ② 全量编译修错 →
+   **① 清 `docs/pending-attribution.md` 的 6 项归属迁移 → ② 全量编译修错 →
    ③ 25 个测试二进制全量回归 → ④ 装配 `main` → ⑤ Xvfb 截图 vs `/opt` 对表**。
 
 ## 已知开放问题
 
 - wordsteptest transient 已根治(批 128,i3 simdBlocks 勘误);
   若复现超 1/20 失败率须重开排查。
-- 0x7545 真值路径已开通(批 143;varint 承载替值序怪癖 QUIRKS #31,
+- 0x7545 真值路径已开通(批 143;varint 承载替值序怪癖 quirks #31,
   字节级对表留 5c 期)。
 - editor 型 doc +0xe0 承载与 terminal 型不同构,未建模(批 122 登记)。
 - 0x7564 勘正(批 130)的他处 dispatch 消费者 xref 未查。
@@ -158,7 +158,7 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
   --addr;批 103/128 两次实战破案)。
 - libssh-dev/patchelf/Xvfb 已装;ptrace_scope 重启后回 1,frida 前
   需 `sudo sysctl -w kernel.yama.ptrace_scope=0`。
-- **清理台账见 `docs/CLEANUP.md`**(批 493 后):已删 IDA 库 / node 版 frida /
+- **清理台账见 `docs/cleanup.md`**(批 493 后):已删 IDA 库 / node 版 frida /
   `build/` / 上游库 test-example ≈11M;**保留** decomp 语料、`inc/`、数据面、
   `./WindTerm` 副本(判据 = AGENTS 条 16 + 构建引用分析)。
 
@@ -184,8 +184,8 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 
 ## 车道方法论(硬护栏,四轮 12 车道实战沉淀)
 
-- worktree 隔离 + 写域互斥任务书 + 主控统一 docs(PHASE5/HANDOFF
-  主控写;车道越权写 PHASE5 两起,内容合格保留,主控核对)
+- worktree 隔离 + 写域互斥任务书 + 主控统一 docs(phase5/handoff
+  主控写;车道越权写 phase5 两起,内容合格保留,主控核对)
 - 大语料读取型任务书**必须带输出上限**(批 107 首轮零产物教训)
 - **边读边落 + shell 预算 ≤60**(批 112 500+ shell 零产物教训;
   批 129 ~70 超限如实自报)

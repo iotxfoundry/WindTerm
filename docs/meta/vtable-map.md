@@ -28,7 +28,7 @@
   `vt+0xe8(self,kind=1/2)` 命令 0x7546/0x7548 实际命中 ScintillaQt 槽
   (EditorContext 实例首 vptr=0x11ae558 者,即 FUN_0094a056 建的 0x1270B 对象);
   Editor 基类槽 29 纯虚,不改写。
-- **勘误(批 58b)**:PHASE5.md"静态扫描无命中、运行期转储两路未解"——
+- **勘误(批 58b)**:phase5.md"静态扫描无命中、运行期转储两路未解"——
   本批经 .data.rel.ro 重定位+语料语义双向静态定位,已解。
 
 ## EditorContext 主 vtable 槽表(0x11afd30,派生最终态)

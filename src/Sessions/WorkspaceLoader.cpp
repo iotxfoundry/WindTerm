@@ -26,7 +26,7 @@
 static QVariantList WorkspaceLoader_sessionsLibrary()
 {
 	// 语料消费形态 = 全局会话数组;ProfileLoader::defaultProfilePath
-	// = ~/.wind/profiles/default.v10(实机对证 — CONFIG-SCHEMAS);
+	// = ~/.wind/profiles/default.v10(实机对证 — config-schemas);
 	// 空文件/缺文件 → 空表同相(装载腿 cited)。
 	static QVariantList s_library = ProfileLoader().loadSessions();
 	return s_library;
@@ -421,7 +421,7 @@ LoaderResult workspaceLoader(QObject *pane, QObject *panel, QString &title,
 //   (@0052645c-6a)+ 子指针右移(@0052647b-92);返 {*根, i, 1}。
 //   消费面(session_defaultDir ×6 @00521866-21ac4 腔):键升序不变量
 //   = 线性扫+右移批插直译 → QMap<quint32,QVariant> 承载同相
-//   (QUIRKS 承载替判例 — 00525f50 分裂/扩容腿 = QMap 内部重排,
+//   (quirks 承载替判例 — 00525f50 分裂/扩容腿 = QMap 内部重排,
 //   字节级对表待;分裂触发计数门真身化见头侧 splitGateCapacity —
 //   批 181:00525f50 kuna 全读,左兄逐槽交换/子指针迁移/上溢换根
 //   0x1a8/前插 0x198/0x130 全布局面,产出序列恒升序,承载无观测

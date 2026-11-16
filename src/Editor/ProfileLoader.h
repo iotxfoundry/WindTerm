@@ -7,7 +7,7 @@
 //   terminal/user.sessions  会话数组(FUN_00806904 路径拼接;
 //   FUN_00806958 = saveSessions:config_saveFile("/user.sessions", +0xe0))
 //   terminal/session.config 等 = 扁平键配置
-// 格式为带注释/容错的 JSON(与 wind.config 同族,QUIRKS:数组元素
+// 格式为带注释/容错的 JSON(与 wind.config 同族,quirks:数组元素
 // 逗号缺失也被原解析器容忍)。
 
 #include <QVariantList>

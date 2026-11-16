@@ -1,7 +1,7 @@
 #ifndef EXT_SPDLOGFACE_H
 #define EXT_SPDLOGFACE_H
 
-// 批 151(M15-②):spdlog 1.9.2 真库委托面(EXT-BOUNDARY:外库实现
+// 批 151(M15-②):spdlog 1.9.2 真库委托面(ext-boundary:外库实现
 // 不逆向,只落 WindTerm 侧调面)。include 按 TU 局部接线(CMake
 // set_source_files_properties;全局 -I 与 Scintilla/Qt 头冲突实测
 // 6k 错,见 CMakeLists 批前注)。
@@ -17,7 +17,7 @@
 //   (p_Var18 @007c39b7)。
 //   formatter③前段 @007c3388-3499:pattern_formatter("%v", local,
 //   "\n")→ set_formatter FUN_005f5bc0。
-// 真盘写截停:sink 以 null_sink 承接(EXT-BOUNDARY 使用规则 3
+// 真盘写截停:sink 以 null_sink 承接(ext-boundary 使用规则 3
 // no-op sink 判例)——文件/轮转形态实参由本面登记,行为面 cited。
 #include <chrono>
 #include <memory>
@@ -51,7 +51,7 @@ inline SpdlogLeg buildSessionLogger(bool rotating, const QString &name,
 	// @007c3035:lVar9 = 0x3fffff if param_6 >= 0x400000 else param_6
 	leg.maxBytes = (rotateBytes < 0x400000 ? rotateBytes : 0x3fffff) << 10;
 	// sink 形态登记(真形态 = basic/rotating file sink,实参照上注);
-	// 真盘写由 null_sink 截停(EXT-BOUNDARY 规则 3)
+	// 真盘写由 null_sink 截停(ext-boundary 规则 3)
 	std::shared_ptr<spdlog::sinks::sink> sink =
 	    std::make_shared<spdlog::sinks::null_sink_mt>();
 	auto lg = std::make_shared<spdlog::logger>(name.toStdString(), sink);
@@ -78,7 +78,7 @@ inline void flushSessionLogger(void *loggerRaw)
 }
 
 // 批 161:'h'(host)/'n'(name)自有 token 腿升真 —— spdlog 实现不逆向
-// (铁律/EXT-BOUNDARY):自有 token 用 face 层字面替换承接(语料引擎 =
+// (铁律/ext-boundary):自有 token 用 face 层字面替换承接(语料引擎 =
 // token 记录 + QByteArray::replace 偏移簿记,非 spdlog custom_flag_formatter
 // 通道 —— 语料 %h/%n 不经 spdlog formatter,是 buildLeg 对文件名/行
 // pattern 的前置替换,见 FUN_007c24c8 体)。

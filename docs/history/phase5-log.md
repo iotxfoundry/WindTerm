@@ -1,144 +1,9 @@
-# PHASE 5 — 离屏行为对比(v1 战果与方法)
+# phase5 批次流水(审计轨迹)
 
-> 目标:重建行为 vs 原二进制行为,同字节序列逐格对比。
-> 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
-> 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
-
-## 结论快照(截至批 493,2026-11-16 — 当前真值层)
-
-> **读法**:本节为当前真值;下方批次流水(批 20-341 + 阶段段 192-493)为审计轨迹,
-> 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
-> 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
-
-### 里程碑状态(二十四项 + M8 文档整备全部达成,定义见 HANDOFF 总账)
-
-M1 编辑器搜索链闭环(116b)→ M2 残项清零(117/118)→ M3 vtable
-清偿 + 5b 通道/构造(119/121/122)→ 5b 终局(123)→ M4 RUBY 终裁 +
-扩谱首批(124/125)→ M5 扩谱二批 + scanMask 活性(126/127)→ M6
-initDoc 零点 + transient 根治 + 扩谱三批(128/129)→ M7 扩谱四批 +
-KitWindow 方案书(130/131)→ M8 文档整备(单页当前态/快照/谱系)→
-M9 巨 switch WT 段全清 + KitWindowFace(132/133)→ M10 工厂接线 +
-eNodes 侦察方案书(134/135)→ M11 eNodes 建模 + 扩谱五批 EXT 段
-(136/137/**136b 布局勘正**;W 族 13/20;键型勘正 int;16 条
-static_assert 偏移锁)→ **M12 四车道:eNodes W 族收尾 19/20 + 应用族
-真身(138)/EXT 叶全清 34 条(139)/CGlobalConfigFace + menu() 容器型
-定案(140)/4a 注册表 Logger 插入侧(141)** → **M13 三车道:KitWindow
-宿主接线 + yaml 装载腿 + 双 Meyers 合一(142)/W 尾 inner 词法面 +
-0x7545 真值路径开通(143)/注册表余量 Term·Transfer 插入侧(144;
-四表插入侧全定案)** → **M14 五车道:注册表面余量(145)/eNodes 深层
-(146)/Config 树深下钻(147;configPath 勘正"/")/SplitterGroup 余项
-(148;差集 7 项真身 3 定案 4)/启动链对位接线(149)** → **M15 四
-车道:恢复腿 0075ffcc→00766c26 真身 + wind.config 默认层(150)/
-注册表下行 spdlog 委托面 + Transfer 状态机(151)/eNodes 词法重建
-(inner 非恒 null,152)/MuxWindow 归辖取面(153)** → **M16 四车道
-(分段式):工作区装载器 522056 定面 + startupSessions 分发腿(154)/
-token 引擎真库委托 + 协议虚面(155)/深引擎底座头改版最小集
-DeepEngineFace(156)/MuxWindow 宿主 0084dd5a 分段复刻(157)** →
-**M17 四车道:宿主深腿 + splitter 段消费(158;旗标布局实读定案)/
-522056 收集器 + 扫描深腿(159)/深引擎 ODR 激活(160)/自有 token 腿
-+ state 下行 + TcpBridge 生产 face(161)** → **M18 四车道:MuxWindow
-深腿尾清(S4-S6 表值/restorePaneSplitter A-E/宿主比较器;旗标不升
-定案维持;162)/trie 键值域 + 掩盖腿 + 挂页槽(163)/vt 槽承载 + 清偿
-臂升真(164)/%A..%z 渲染 + connectImpl 分段(165)** → **M19 五腿
-(5c 转向):持久化全景盘点(explorer)/可运行应用骨架 appboot(166;
-**ctest 21→22**)/reopen.history 保存侧 StateStore + roundtrip
-(167;**statereopen 注册,22→23**)/kit.startupSessions 写端 +
-profiles.config 写侧(169)/三件套保存侧 SessionStore 六函数(168;
-**0076913f 定性 = QMetaType 注册族非写腿**)** → **M20 三车道
-(5c 对表轮):reopen 原版采集 + 布局 diff 全 MATCH(170;报告
-tools/re/phase5/5c/5C-REPORT.md + 5C-REPORT.md 双件)/wind.config
-122 键盘点 + 序列化同构(171;报告 5C-REPORT.md)/aboutToQuit
-挂点闭环(172)** → **M21 四车道:页 payload 序列化升真(173;
-**帧结构四段定案:魔数+blobA/blobB/blobC+尾钩,原版 674B 位级
-反推**)/wind.config 复合缺口 + 样本对表(174;**122 键 117 标量
-全覆盖·0 值型错配;原版 49 条目×24 键全标量框架逐项同相**)/
-MuxWindow 尾清(175;**比较器微差实测同相闭环**)/深引擎 + 注册表
-尾余合并腿(176;hash remove/三 delegate 槽/RS 灌链真身)** →
-**M22 三车道:blobA splitter/tabbar 树实体真身(177;229B 段逐
-字段位级反推 3 splitter 结构)/排序真身 + rehash 承接(178;
-introsort = std::sort 实例化定性)/SuperApplicationFace 骨架
-(qt_metacall 分派 case3/4/5 真身转发,179)**。 → **M23 四腿
-(5c 冲刺+尾渣):reopen 全帧对表执行 14 项帧级 MATCH(180)/trie
-分裂门真身 + 星数逐字节 + **键串勘正 "tab."→"tabbar."**(181)/
-searchEngines 消费链 + **75e56a 定性翻转 = TextView::searchOnline**
-(184)/深引擎尾渣(超门分段族收账/rehash 真库定性/RS 灌链余段
-升真 2 段,183)**。 → **M24 五腿(界面重建转向,铁律 7 首轮):
-GUI 重建范围地图(explorer,GUI-MAP.md 落库)/主窗创建族全文转写
-(188)/menu.config 菜单装载腿 + 菜单树消费真身(189)/toolbar_build
-工具栏族转写(190)/设置壳 + 分类树转写(191)**。⚠ 铁律 7 生效
-(不编译不测试):M24 新码(ToolBarBuilder/SettingsFace/菜单装载/
-appboot 扩展)未过编译门,语法/链接雷留收尾期,出处链逐行已落。
-
-### 编辑引擎子系统当前真值
-
-| 面 | 状态 |
-|---|---|
-| c1c2 内层(0x7576) | 真身(thunk p4/p5/p6=0/0/i 勘正后);T 段真身 + 位面写;残:busy 腿(外库登记)/入口 0095c086(外库边界面坍缩)/p4==2 busy 位(同) |
-| M 修改行跟踪器 | ModTrack.h 全建模:读侧七函数/写侧 b152·b15e/位面机 flagmaskSetRange/两段容量机;游程支 RS 合并腿测试装置承载;迁移腿外库登记 |
-| markerBand(00927a78) | 真身(经 modTrack);T 段调点已改位面(mtBit4SetClr);残:958108 ctx+0x28 已接线(批 117) |
-| 0x4eff 正则搜索 | **已激活**(批 116/116b):OnigSearch 委托(onig_new RUBY 预编译 + onig_search);RUBY 语法 = 永久假设(批 124 终裁,双证伪通道封闭,零反例) |
-| bufferScan 引擎 | Onigmo-改 边界委托(EXT-BOUNDARY;单层针指针契约,批 116b 勘正);engVt50Block/engVt28Class 真身(批 119 转储定案) |
-| scanMask | 活性接线 ✅(批 127 buffer 承载建模 + s_scanCarrier 缝;0x7543 initDoc 零接线点定案,批 128) |
-| 巨 switch 扩谱 | **全清**:五批 66 + EXT 32(批 137)+ 叶 34(批 139:真身 2/cited 32,差集重 derive);0x4ec2=20162 门漏叶勘误已截获;markerstest q/r/s/t/u/v/w/x/y/z 组 |
-| eNodes 节点层 | W 族 20/20 + 深层/词法重建(146/152)+ **深引擎底座头 DeepEngineFace(批 156)+ ODR/vt 槽承载(批 160/164)**:API 面 10 项(19 条 static_assert 锁)/editctxInitThread009714b6 前奏真身/**93fc60 清偿臂升真(GB 密排/spin backoff 坍缩/条目 ~RWLock+free/尾 vt 换面析构链 5328-5345)·88e5a0 门内重排体(gbShrink/gbGrow)·007b5270 骨架门·97142a 尾(123B)真身**;**inner 非恒 null**,|4 链非退化;**0x7545 真值路径开通**;余:00933738 hash remove/超门 0x3fffff 分段族/段插体 delegate 深族 cited |
-| KitWindow | 抽象基类定案(menu() 槽 62 纯虚);KitWindowFactory 真身(批 134);**menu() 容器型定案(批 140)**:两腿返回 Config 系单例 → CGlobalConfigFace(基构造 FUN_008a71e4 CGlobalConfig;SharedConfig 系独立小类非基类);**yaml 装载腿真身 + 双 Meyers 合一 + kitWindowRestoreFirstPage(批 142,FUN_0075e3fe 对位)**;**树深下钻真身(批 147)**:loadGroupsElement(008a971e Action3/Menu2/Separator0 三级递归)+ loadViewsElement(s_FilterEdit 七 kind 位面/Columns 内省);configPath 勘正 = DAT_00cba75c "/" 单字符;**启动链 + 恢复腿真身(批 149/150)**:startupChain FUN_007626ce 语料序 + startupRestoreGate FUN_0075ffcc(魔数 0xb9e7e600/路径腿 reopen.history)+ startupRestoreDispatch 00766c26 分发壳(&4==0 页挂真调);wind.config 默认层 jsoncpp 委托;**工作区装载 + startupSessions 真身(批 154)**:WorkspaceLoader(522056 定面/骨架:trimmed 门/kind 位 7|3/三件套/QHash 去重)+ kitStartupSessions(kit.startupSession1-4 四槽实读)+ 建窗窄面/&4 尾段;**007626ce 挂点裁决(批 154):QTimer singleShot thunk 00762925 非信号,零数据引用,cited 维持**;522056 收集器/Editor 扫描深腿 **真身(批 159)**:collectorPaneTypeName/MuxChildren/EditorFilePaths + collectorActiveView + sessionDefaultDir(521702 参数卫/kind 分派)+ editorDirScan QDirIterator + sessionProtocolUrl(URL 拼面 SSH22/Telnet23);**宿主深腿 + splitter 段消费(批 158)**:retitleGroupPane(0084ecf0)/muxSplitterMoved S0-S3/restoreState Shim 几何腿/kitStartupSessions splitter 读游;旗标 0x58 POD = 0x2f 位旗定案 |
-
-### 5b 行为对比终局(批 121-123)
-
-总表 **1/21 MATCH、2 MISMATCH(仪器性)、18 NOT-RUN(通道封闭)**。
-原版侧 find 注入通道不存在(memo 唯一串源,op+0x18 零消费,批 123
-证伪批 122 绕行);UI 向量判死(quick-find ≠ SearchPane 三框,批 124)。
-RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未试)。
-
-
-### 开放风险(现役)
-
-1. RUBY 假设无行为级证明(见上)。
-2. editor 型 doc +0xe0 承载未建模(批 122 登记);0x4e23 +0x214/
-   0x4eba-c encoding face/0x4e25-28 formatter 字段族 cited(需
-   EditorContext.h 头扩展)。
-3. eNodes 尾余:00933738 hash remove 已真身(批 176 QHash 承载;
-   rehash 定性 = QHashData::rehash 真库导入非自有面,批 183 收账)/
-   88e5a0 超门 0x3fffff 分段族四成员收账入 DeepEngineFace.h 头注
-   (批 183)/007b5270 门内段插体三 delegate 槽已真身(批 176)/
-   97142a RS 灌链 InsertSpace+runstyles_insert_space_b 真身
-   (批 176/183);styled 哨兵 UB(#32)/glibc 复址(#35)待 5c 期
-   仪器裁决。
-4. 注册表下行尾余:%z 时区面真库 QDateTime 承接已落(批 176,深跳表
-   逐字节核对 cited)/TcpBridge dial 声明层落(批 176),真拨号行为
-   不逆向;'h'/'n'/state/payload 骨架帧+blobA 树实体已真身
-   (批 161/173/177)。
-5. 启动链余量(Phase 4a):trie 分裂触发门已真身(批 181,容量 12)/
-   星数语义已逐字节同相实证(批 181)/tabBarSelectionBehaviorOnRemove
-   **键串勘正 "tab."→"tabbar."**(批 181,0xd0ed40 实读);kit.* 真键
-   实机对证。
-6. MuxWindow 尾余:introsort 7044B = std::sort 实例化已承接
-   (批 178,标准算法不逆向判例)/008e1125 行高桥 005b86c0·vt+0x1a8
-   消费 cited;宿主读侧未初始化槽 UB 原样(铁律 2);0x10 宿主接线
-   (池生产者写侧)。
-7. 5c 对表余项(批 180 后):**全帧对表已执行 = 14 项帧级 MATCH**
-   (魔数/段序/长度构成/记录框架,批 180);余深段:blobB LastSessions
-   组块写面(外框 byte-perfect 反推,句柄表定序不唯一 cited)/浮停腿
-   dock_toggleFloat 866B 全读定性/尾钩 QuickBar 定性(vt+0x248)/
-   页 payload 674B 深消费(8cf0c8)/blobA 实体/尾钩体/LastSessions
-   组块 cited。
-7. 5c 对表余项(批 180 后):**全帧对表已执行 = 14 项帧级 MATCH**
-   (魔数/段序/长度构成/记录框架,批 180);余深段:blobB LastSessions
-   组块写面(外框 byte-perfect 反推,句柄表定序不唯一 cited)/浮停腿
-   dock_toggleFloat 866B 全读定性/尾钩 QuickBar 定性(vt+0x248)/
-   页 payload 674B 深消费(8cf0c8)/blobA 实体/尾钩体/LastSessions
-   组块 cited。
-8. 界面重建(批 188-191,GUI-MAP.md 总账):菜单树消费真身
-   (findOrBuildMenu 1119B + King::MenuBar 575B)/menu.config 根
-   **勘正 = 单 map 33 键**(旧序列腿 divergence 登记)/主窗创建族
-   0075e0f8 全文 + connectSignals S1-S7/toolbar_build 00694276
-   S0-S7 + case3 克隆腿/设置壳 006f1036 + 分类树 006e9cd8 + search
-   布局 006f09ba;**未编译雷区**:ToolBarBuilder/SettingsFace/菜单
-   装载/appboot 扩展未过编译门(铁律 7),收尾期首编译按出处链修;
-   menutest/toolbartest 未注册 CMakeLists(收尾期挂接);75e56a
-   定性翻转 = TextView::searchOnline(批 184,侦察疑虑证实);
-   tabBarSelectionBehaviorOnRemove **键串勘正 "tab."→"tabbar."**
-   (批 181,0xd0ed40 实读)。
+> 从 `../phase5.md` 拆出(2026-11-16 文档重整)。**本文件是历史记录**:
+> 结论已归并到 `../phase5.md` 顶部「结论快照」与 `../../tools/re/handoff.md`
+> 「勘正谱系」;**引用前先查谱系**,冲突时以快照/谱系为准。
+> 文中 `ctest N/N` 为当时判据 —— `tests/` 已于 2026-11-16 删除,不再复现。
 
 ### 批 342-493(2026-11-16)界面逆向收官段 —— 七节加权 ≈95% ✅(铁律 7:零编译)
 
@@ -182,10 +47,10 @@ PlaySound / RunCommand / SendText / ShowTooltip)+ 页栈 11 kind 表;页内件�
 分清);**尾钩定案**:`+0x248` 默认 `008d5bee`(`return 1`)、空实现基线 `008d5bf4`
 (1 字节 `ret`)、`+0x240` = `status_showMessage`(level 4 / 15000 ms)。
 
-**名不副实 17 例**(Ghidra 以首个字符串命名所致,清单见 `docs/PENDING-ATTRIBUTION.md`)。
+**名不副实 17 例**(Ghidra 以首个字符串命名所致,清单见 `docs/pending-attribution.md`)。
 
 **未编译雷区(铁律 7 预期)**:59 个 `*Face` 头 + 字段扩容 + 基类变更,
-全部未过编译门;收尾期顺序见 HANDOFF 现役队列第 8 条。
+全部未过编译门;收尾期顺序见 handoff 现役队列第 8 条。
 
 ### 批 192-341(2026-11-16)界面逆向深推 150 批(铁律 7:零编译/零测试) ✅
 
@@ -242,7 +107,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
 
 ### 批 188/189/190/191(2026-11-16)M24 五腿(界面重建转向,铁律 7 首轮):范围地图 + 主窗族 + 菜单装载 + 工具栏 + 设置壳 ✅(铁律 7:未编译)
 
-- **盘点(explorer)GUI 重建范围地图**:tools/re/GUI-MAP.md 落库
+- **盘点(explorer)GUI 重建范围地图**:tools/re/gui-map.md 落库
   (七节全枚举:主窗装配族依赖序/菜单族/工具栏状态栏族/对话框弹窗
   族全枚举/设置页族/dock 浮停标签/我方现状对照 + P1-P6 重建优先级;
   界面批总账依据)。
@@ -386,8 +251,8 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
   cited 收账)。
 - **88e5a0 超门 0x3fffff 分段族**:读体定性 = 上游 GapBuffer 算法面
   (0x5fffff GB 收缩门/0x400000 分段灌 + memset/runbounds_get_a 尾
-  /新条目 0x30 + hash 登记)— 外库边界 EXT-BOUNDARY 同相判例不逆向
-  (PHASE5 风险 7 结构清单);顺带定性族 0088c088(115B QMap 删链)/
+  /新条目 0x30 + hash 登记)— 外库边界 ext-boundary 同相判例不逆向
+  (phase5 风险 7 结构清单);顺带定性族 0088c088(115B QMap 删链)/
   0088c0fc(437B 旧缓存清)/0088c2c0/0088c850(1389B/1357B 旧栈清
   双体)/GapBuffer_dtor(1421B)— 消费域(词法 delegate 生成点)
   未建模持 cited。
@@ -402,7 +267,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
   页 payload(原版 674B vs 8cf0c8 cited 空);**原版字节喂
   startupRestoreGate 恢复闭环全过**(原版状态我方可恢复);另采
   user.sessions 22863B + terminal 域 0xb9e7e601 异族 4860B 归档。
-  报告 tools/re/phase5/5c/5C-REPORT.md(产物 original/ ours/)。
+  报告 tools/re/phase5/5c/5c-report.md(产物 original/ ours/)。
   ⚠ 采集副作用已告知用户:真实配置目录 reopen.history 被新快照覆盖。
 - **批 171 wind.config 盘点 + 序列化同构**:**122 键矩阵 = 117 标量
   (59 bool/31 int/23 str/6 float)全部入 CTerminalConfig 平铺读面
@@ -416,7 +281,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
   **saveSessions+saveConfigPath 同构落 emitUTF8+尾\n+显式 4 空格**
   (profiles.config 原版产物样本实证);键序差 cited(jsoncpp 字典序
   vs 插入序,读回等价无消费实证);mwctest f12 roundtrip(中文/
-  多字节/空串/int/bool 字节断言)。报告 tools/re/phase5/5C-REPORT.md。
+  多字节/空串/int/bool 字节断言)。报告 tools/re/phase5/5c-report.md。
 - **批 172 aboutToQuit 挂点闭环**:stateStoreAboutToQuit(FUN_00760856
   28B)真身 + profiles 三卫 cited;appboot 全生命周期闭环(boot →
   临时路径注入写 history → 退出触发面 → 二次构造 startupChain →
@@ -577,7 +442,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
 - **批 152 eNodes 词法重建**:rebuild00970850(746B 全读)栈面转写
   → inner 非恒 null(ctor0096f606 产出 K3 scanner + 活 RS8,|4 非
   退化);96cb3c→Runs 委托/96cb6c→9cd3da 同体/96cb84→9cd91e 同构;
-  runReset/dtor 真身复用;cc 组 11 断言;QUIRKS #35 登记。
+  runReset/dtor 真身复用;cc 组 11 断言;quirks #35 登记。
 - **批 153 MuxWindow 归辖取面**:zoomedPane(FUN_008e0428 126B/
   stackCurrentPage→findChild smo 011abde0)+ paneByIndex(008e0a72
   303B/findChildren 全域扫 +0x30 首命中)真身落 MuxWindow;宿主
@@ -590,25 +455,25 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
 
 - **批 145 注册表面余量**:logger 腿体 FUN_007c24c8 分面(buildLeg
   真身:启用卫@007c24e0/label@007c2528/标志尾@007c35e8-ee;spdlog
-  sink 构造/pattern 装配/state 三段 EXT-BOUNDARY cited);SessionTransfer
+  sink 构造/pattern 装配/state 三段 ext-boundary cited);SessionTransfer
   真对象(008ec79a 字段面:+0x50·54=0x1a4·0x1ed/+0x58 bit0..2 默认 1;
   下行网络面 cited);reginserttest h/i 组 13 断言 + b 组启用门语义修正。
 - **批 146 eNodes 深层**:WNodeInner 承接 +0xa8(44000-44005 字面);
   96cb3c/b6c/b84 真身(kuna 全读,null 臂字面保留);runRefresh 逐项
   |4 链(4405c/4406c/44077)/runReset inner+8 复位坍缩/dtor 96d684;
-  WNodeTrie 有序 upper_bound(93f7aa 门字面);bb1 组断言;QUIRKS
+  WNodeTrie 有序 upper_bound(93f7aa 门字面);bb1 组断言;quirks
   #31 补同相证据 + #32 styled 哨兵 UB 登记。
 - **批 147 Config 树深下钻**:loadGroupsElement/loadViewsElement
   真身(kind 位面 Action3/Menu2/Separator0 + 七 kind + Columns 内省
   @008a9eb8-f0);children 值对象三段槽(+0x8/+0x10 kind|Columns/
   +0x11 bit3,008aabae/008acb70 实读);**configPath 勘正:DAT_00cba75c
   = "/" 单字符(批 140 "/configs/" 系槽内嵌串误读)**;loadViews
-  tail 22 字符截断怪癖原样(QUIRKS #34);mwctest d9/d9a/d9b。
+  tail 22 字符截断怪癖原样(quirks #34);mwctest d9/d9a/d9b。
 - **批 148 SplitterGroup 余项**:差集自 derive(kuna xrefs + 全二进制
   四路扫描双源)= 7 项:真身 3(removePage FUN_005a29e6 690B asm
   全读/装配 setSpacing+margins)/定案 4(swap 孤儿/insertPane 孤儿
   链/moc+dtor 生成同构/MuxWindow 归辖 2 项挂账);sgtest 新建 14
-  断言(ctest 20→**21**);toggleZoomPage 死腿 QUIRKS #33。
+  断言(ctest 20→**21**);toggleZoomPage 死腿 quirks #33。
 - **批 149 启动链对位接线**:StartupChain 新落(startupChain 语料序
   逐语句;themeGui "dige-black" 缺省/lockScreenTimeout 读真腿/失败腿
   kitWindowRestoreFirstPage 真调;恢复门 0075ffcc cited 恒 false 同相);
@@ -633,7 +498,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
   00970850 词法重建;96d022 payload 经 00a837f6 memcmp 比对命中返 1
   → 92e5e8 命中即止);0x7545 三腿真值(0093f7aa trie 收集 + 00a92326
   varint LEB128 变体序列化 + 非空 data append;承载替 8B 值序怪癖
-  QUIRKS #31);aa 组 19 断言;**16 条 static_assert 零字段追加恒过**。
+  quirks #31);aa 组 19 断言;**16 条 static_assert 零字段追加恒过**。
 - **批 144 注册表余量**:SessionLogger ctor 007c1b38 字段面真身
   (腿体 007c24c8 spdlog 外库边界 cited);**四表插入侧全定案**:
   Term(+0x20)= FUN_007d9776(1596B,复用卫/termCreated idx3)/
@@ -744,10 +609,10 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
 - e2eterm/recheck 主路径不受影响(全绿)。
 
 ### 批 12(2026-10-29):ESC pending 队列机制定型 + 差分扩谱 58 ✅/⏳
-- **QUIRKS 13 机制破解(p5probe4/5 决定性实验)**:ESC D/M/E = 教科书
+- **quirks 13 机制破解(p5probe4/5 决定性实验)**:ESC D/M/E = 教科书
   IND/RI/NEL + **pending 队列**——动作入队,下次 writeSplitData 入口
   flush(doAction 007d1606 = 记录器:xxhash64 动作名 → +0x20 容器)。
-  单批尾动作在下批注入前不可见。QUIRKS 11/12 撤销(观测伪影)
+  单批尾动作在下批注入前不可见。quirks 11/12 撤销(观测伪影)
 - 我方实现:SuperCommander::flushPendingActions() + m_pendingActions
   (入队 D/M/E;入口 flush)→ **38 序列回归 38/38 全绿** ✓
 - **DECSTBM 反参数拒绝**(p5probe6 实测:CSI 5;1 r 原版区域/光标均
@@ -757,7 +622,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
 - 扩谱 38→58(+20:CUP f/HPA/CHT/CBT/SGR 组合/256 色/RGB/RIS/LF/
   越界钳制/区域滚动/TBC/HTS/OSC/复合写;decaln/wrap_edge 移除待深挖)
 - **当前 42/58**:原版侧会话脏(echo 残留:tab/bs 老序列也漂)——
-  下一轮开头重置原版会话(HANDOFF 流程)再重 dump 对比
+  下一轮开头重置原版会话(handoff 流程)再重 dump 对比
 - engtest3 光标 XOR 断言间歇失败(1/3,全量时)——渲染层偶发,
   与本轮改动无关,待诊
 
@@ -771,8 +636,8 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
   - nextTabstop 行尾语义(88=cols-1)✓ 语料已在;尺寸修正后自绿
   - HPA(ESC[`)原版不识别 → 删 '`' case(probe a:ESC[10` 不动)
   - CHT(CSI I)= 跳 n stop → 补 case 'I'(cht2 (0,16) 旧会话)
-  - CUB/VPA 越界整体拒绝(QUIRKS 15)→ CSI D/d 加守卫
-  - LF 未写行不动(QUIRKS 14)→ lineFeed rowHasContent 门
+  - CUB/VPA 越界整体拒绝(quirks 15)→ CSI D/d 加守卫
+  - LF 未写行不动(quirks 14)→ lineFeed rowHasContent 门
   - ICH blank attr head=0x20 + attrArray 平行搬移(rowInsertBlanks
     只搬 cells 的缺口;ich2 diff 暴露)
   - DCH 尾部补 = 0(非 space)→ rowInsertBlanks blankHead 参数
@@ -781,7 +646,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
   光标 (1,2) = **CSI CUP 也入 pending 队列**(字面写在动作前;
   timer 亚 100ms flush——probe a CUP 单批 imm 0.02 已生效)。
   实现需 doAction 全量重构(动作枚举+参数化队列)= 下一轮主菜
-- 53→54/58;剩 4:tab/cht2/hts_tab(默认 stop 表谜,QUIRKS 16,
+- 53→54/58;剩 4:tab/cht2/hts_tab(默认 stop 表谜,quirks 16,
   新会话表={4}:HT→4/CHT2→行尾/HTS+HT→0 待 probe)+ crlf_cup_text
   (pending v3 实现)
 
@@ -799,7 +664,7 @@ SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
 | 4 | OSC 吞吐循环 | 未定位(007e4908 表 ']' 项)→ 行为保留+注释声明 |
 | 5 | CHT(CSI I) | 未定位 → 行为保留+注释声明 |
 | 6 | CUB/VPA 拒绝守卫 | **语料冲突实锤**:007a546c 是 clamp;拒绝层=CSI 动作执行器(doAction 消费链)未定位 → 守卫暂留+注释声明,v3 迁移 |
-| 7 | LF rowHasContent 门 | ✅ **证伪我方层**:007e55fc(41B)/007e55b6(70B)均无门;真身位置在 C0 分派或 writeText 字面流 → 门暂留(行为锚 QUIRKS 14)+注释声明,writeText 轮迁移 |
+| 7 | LF rowHasContent 门 | ✅ **证伪我方层**:007e55fc(41B)/007e55b6(70B)均无门;真身位置在 C0 分派或 writeText 字面流 → 门暂留(行为锚 quirks 14)+注释声明,writeText 轮迁移 |
 | 8 | rowInsertBlanks/ICH/DCH | ✅ **全定位**:007a641a(431B)= 5 参(row,at,count,blankHead*,sgr 格),attr grow(007aa1bc)+memmove+尾填 *head;ICH=0x20(007a6782 local_1a)、DCH=0(007a65d2 local_1a)——**我方结构已与语料一致**,注释升级真身地址 |
 | 9 | Tabstops::clear | ✅ 上轮补读 007e5df0(193B),行为一致,注释已补 |
 
@@ -895,7 +760,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   到达的 stop(干净会话锚:表{4} 时 CHT2→4;HT 的"无 stop→行尾"
   是 FUN_007e5d1e 另一语义,两 final 行为分叉实锤)
 - **stop 表 = {4} 单元素**(干净会话两轮稳定复现;HT 连发:0→4→
-  行尾 88)。表来源未定位(非 resizeCore every-8 增量)——QUIRKS 17
+  行尾 88)。表来源未定位(非 resizeCore every-8 增量)——quirks 17
   登记;我方测试以 HTS@4 前置对齐会话态
 - **tab u=8 待查**:HTS@4 前置后 HT 仍跳 8(set(4,true) 未落表?
   下轮 engtest4 打表验证)
@@ -905,7 +770,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **HT(C0 09)入 pending 队列**(PendingAction::Ht;dump 锚:tab 单批
   尾 HT 不执行→(0,4))——tab/cht2/hts_tab 三绿(HTS/CHT/表状态对齐
   组合生效)
-- **QUIRKS 18**:col 已是 stop → HT 不动;表空 → 行尾 88(两锚);
+- **quirks 18**:col 已是 stop → HT 不动;表空 → 行尾 88(两锚);
   hts_tab (0,0) 与 tbc_all (0,88) 的 HTS pending/flush 时机二义
   待 HT 语义矩阵实验
 - 我方无 timer:批尾挂起动作在 dump 时点未执行(原版 0.35s 内
@@ -971,7 +836,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   伪影(同签名 0x1b 格,probe15 证清);decsc_rc/scosc_rc = mid-drain
   读数;decstbm_ri = M 时序(E2-bits 同族矛盾);wide_wrap = 原版
   o[0]=ffff 哨兵在前 vs 我方字形在前(与 cjk 绿矛盾,待解)
-- 3 路校准 subagent 并行完成(Telnet/Pty/Widgets,见 CALIBRATION.md)
+- 3 路校准 subagent 并行完成(Telnet/Pty/Widgets,见 calibration.md)
 - 诊断基建:dbg_cursor 微驱动 + engtest4 [diag] 逐序列状态
 
 ### 批 23(2026-10-30)/loop 四轮:92→94→**96/98**,save/restore miss 族 + glitch 重试 ⏳
@@ -1063,7 +928,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   响应 → pty.write;带引号命令需参数列表式重载,已知项)
 - ctest 10/10 全绿(含 engtest3;keymap/telnet/pty/shellsession 四新)
 - 文档:AGENTS 踩坑 #16-19(pkill 自匹配/锚点编辑互踩/QByteArray
-  strlen \x00 截断/moc 基类子句换行);CALIBRATION 组件结论表
+  strlen \x00 截断/moc 基类子句换行);calibration 组件结论表
 
 ### 批 29(2026-10-30)/loop:Phase 4a 会话管理 ✅ + tbc3 众数终裁 + probe38b 矩阵终裁 ✅
 - **A1 ShellSession::stop 接线**:UnixPty::stop 移 public(line 52 private→
@@ -1099,7 +964,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
     **字面先行、动作后置**(同调用内动作在批尾应用,E5 同型)
   - (d4) 区内标记 BBBB@row6 → 批 `CUP(5;1)+M` → cur(4,0) →
     触发入口 `5a` 后 **r5 BBBB 未移动**:M 在入口 flush 时**动作丢失**
-    ⇒ **QUIRKS 13 实锤**(组合注入 M 丢失,原版确定性,非我方 bug;
+    ⇒ **quirks 13 实锤**(组合注入 M 丢失,原版确定性,非我方 bug;
     decstbm_ri 归绿与本条一致)
   - (e) E2-bits 复验:tab 批后 r0 全 0、cur(0,4) → 干净,0x1b 字面
     不复现 ✓
@@ -1125,11 +990,11 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
     glitch 族随机,decom 光标 (4,0) = decstbm_ri CUP 落点残留);
     run3 **98/98**(零重试);驱动加**稳定性复读网**(批 30:复读
     一次,读数不稳 → mode-of-5)后 run4 **98/98**(网零触发)
-- **残余怪癖挂账 = QUIRKS 22**(+0x101 流回显;我方未实现——suite
+- **残余怪癖挂账 = quirks 22**(+0x101 流回显;我方未实现——suite
   净基线语义下永不触发,实现随 pending v3 族)
 - **PHASE 5 收官:98 序列 98/98 MATCH**(双侧净基线对齐;ctest 11/11)
 
-### 批 31(2026-10-30)/loop:checkControlCharacter 门补齐(QUIRKS 22 落地)(**触发接线已回退,批 34;门转写保留**)
+### 批 31(2026-10-30)/loop:checkControlCharacter 门补齐(quirks 22 落地)(**触发接线已回退,批 34;门转写保留**)
 - **语料四要素**:①门 = writeSplitData 主循环尾(0025 语料
   1714-1749):doAction 后若 +0x101 置位 → 匹配序列回显字面 +
   进门即自清;压制 = 尾字节 0x18/0x1a;控制尾字节 partial 再匹配
@@ -1164,7 +1029,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **落地**:src/Editor/JsEngine.{h,cpp}(loadActions jsoncpp
   JSONC 容错/runAction 可选 action 实参/installBridge/runScript)
   + KeymapEngine::dispatch(match → action 走注册表,script 直评;
-  全命中执行——首中即停无证据,挂 CALIBRATION 待核)+ CMake
+  全命中执行——首中即停无证据,挂 calibration 待核)+ CMake
   Qt5::Qml 组件(运行库在,dev 头已在 qtdeclarative5-dev)+
   Editor/*.h 入 moc GLOB + tests AUTOMOC。
 - **actions_test**(新,6 断言)✅:480 动作装载/Application.Exit
@@ -1174,7 +1039,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - ctest 13(engtest3 ctest 态间歇,直跑复核 OK);phase5 98/98。
 
 ### 批 33(2026-10-30)/loop:Telnet 协商策略 = 实验锚捕获落地(**已回退,批 34**)
-- **实验锚(CALIBRATION 协议,金标准)**:原版 2.7.0 连
+- **实验锚(calibration 协议,金标准)**:原版 2.7.0 连
   127.0.0.1:3023 捕获(user.sessions 种子克隆 Telnet 条目 →
   xdotool 开会话)——telnet_capture.json:
   - client_init(连接主动协商)= WILL NAWS(31) WILL TTYPE(24)
@@ -1185,10 +1050,10 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
     "xterm-256color" SE;DO 39 → WONT 39;WILL 1/3 → 不应
 - **语料边界**:telnet.protocol 仅解析面(refs+match);三叶
   00860b30/00860cd6/00861156 = 名字表/日志 → 策略体语料不可达,
-  响应策略以实验锚为准(不发明;CALIBRATION 协议步骤 3)
+  响应策略以实验锚为准(不发明;calibration 协议步骤 3)
 - **落地**:响应生成入 TelnetCommander(feed 内 DO/WILL/SB 分支,
   negotiationReply 信号回写;initialNegotiation() 面)——语料架构
-  对齐(协商 = TelnetCommander 槽,CALIBRATION);TelnetSession 退
+  对齐(协商 = TelnetCommander 槽,calibration);TelnetSession 退
   纯转发(connected → init;negotiationReply → socket;rfcReply
   默认拒绝层删除)
 - **telnetsocket_test 重写为捕获断言**(7 断言)✅:init 原字节/
@@ -1215,7 +1080,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   - 测试:keymap/telnet/shellsession/telnetsocket/actions/
     echo_semantics 六冒烟随组件回退删除
 - **保留(有落点)**:门转写/批 26 统一模型/Screen ctor 修复/
-  Pty(开源码逐句同构,CALIBRATION 在案)/phase5 驱动与
+  Pty(开源码逐句同构,calibration 在案)/phase5 驱动与
   engtest4 基线卫生(工具面,镜像原版驱动 resetState)
 - **实验资产保留在案**:telnet_capture.json(协商字节)/E1-E7
   触发面矩阵/probe39 隔离证据 —— 待语料定位后按转写重做组件
@@ -1342,7 +1207,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **定性**:触发发射点 = 语料静态不可达(cited — wave-2 永久
   挂账);触发面实证(E7)与门转写(批 31)在案;运行期行为
   与 E7 矩阵一致即可,接线留待动态证据(probe 捕获 connect 调用)
-- 门本体(0025 语料 1714-1749)已转写休眠,QUIRKS 22 状态准确
+- 门本体(0025 语料 1714-1749)已转写休眠,quirks 22 状态准确
 
 ### 批 46(2026-10-30)/loop:SuperKeymap 类转写 ✅
 - **FUN_00674648(161B,ctor)解明**:QObject(parent) → vtable →
@@ -1352,7 +1217,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (+0x10 + mode*8 + *(+0x10+0x10))—— mode*8 槽寻址
 - **SuperKeymap 族边界**:语料仅 ctor/dtor + moc 三件(metaObject/
   metacast/metacall 全 5-66B 壳,无槽)→ **匹配体语料未定位**
-  → cited — wave-2 挂账(PHASE5 批 46);ctor/复位已转写
+  → cited — wave-2 挂账(phase5 批 46);ctor/复位已转写
 - 落地:src/Editor/SuperKeymap.{h,cpp}(Editor moc GLOB 补回——
   批 34 回退时连带丢失)
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
@@ -1753,7 +1618,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   SCI_GET{H,V}SCROLLBAR 承接(混合边界);+0xf8 = FUN_00948ab0
   策略切换(QAbstractScrollArea 承接,v^1 语义原样)→ 0x754b/c
   真身化;+0xd0/+0xc0 槽定位(体 cited);全槽表 53 项入
-  docs/VTABLE-MAP.md;批 58b 两路未解就此收口
+  docs/meta/vtable-map.md;批 58b 两路未解就此收口
 - **归属核定案**(V lane,全语料唯一 dispatch 体 L23339/L24915):
   0x7583 = pairHighlightUnmatched 无双面;0x75ab = gotoLine,
   FUN_00a26ec6 即其实现体(重着色 = 内部步骤);**0x7582 修正** =
@@ -1815,7 +1680,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
 ### 批 68(2026-10-31)调查结果应用:JsEngine 重做(QJSEngine 委托钉死)✅
-- **底座勘定应用**:EXT-BOUNDARY libQt5Qml 45 符号 = QJSEngine 全家
+- **底座勘定应用**:ext-boundary libQt5Qml 45 符号 = QJSEngine 全家
   → JsEngine 39 行锚点壳重做为真实现(铁律 6:12 函数逐个转写,
   0064ab10/32/46/b0be/b0d0/ab5e/af3c/abb2 + bootstrap 收编
   s_MuxPane_64b102)
@@ -1832,7 +1697,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   = AES-256-CBC;blob = [32B 盐|48B key|48B iv|密文] base64;
   主密码 PBKDF2-HMAC-SHA256(100000)派生;对象 = 配置敏感字段
   (autoLogin/proxyPassword);包装链 5 函数(00a7e12e/e258/e3f0/
-  e5f6/e61c)→ 入 EXT-BOUNDARY
+  e5f6/e61c)→ 入 ext-boundary
 - 验证:构建零 undefined;ctest 6/6;engtest3 直跑 OK
 
 ### 批 69(2026-10-31)四 lane 并行:构建者勘正 + 0x7547 S2-S4 + tr 取证 ✅
@@ -1852,7 +1717,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **tr 文本取证成功**(tr lane):"Line %1: %2"(ASCII @0xc91268,
   LOAD1 file = vaddr-0x400000)→ JsEngine::runScript 字面腿激活
 - **DynamicLibraryImpl 定案**(五重扫描零调用者):未激活机制,
-  EXT-BOUNDARY 登记维持
+  ext-boundary 登记维持
 - 渲染族测绘(rd lane):0x753e/0x7544 同核 FUN_00a41552(QPixmap
   出参);包装层可转写,核 vtbl+0x88/0x20/0x130 + 00a72686 未展开;
   0x7547 与渲染核无调用关系(独立底座)
@@ -2007,7 +1872,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (Application 信号面未建模)
 - **0x7576 视图结构定案**(V3):*(ctx+0x180) = 0x20 壳{vtbl,RS8,
   密排 GapBuffer} ≡ RunStyles::FillRange;**路线 A 定案:RS8 委托
-  坍缩**(rsFill8 同面,零自研);ret 相位不同相 = QUIRKS 候选;
+  坍缩**(rsFill8 同面,零自研);ret 相位不同相 = quirks 候选;
   EditorContext.charUsedView 成员落位;00962310 = 1208B double
   泛型同体(测绘毕)
 - 验证:make 零错;ctest 6/6;engtest3 直跑 OK
@@ -2017,7 +1882,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   + grep.mark×3+grep.match;体内 5 级腿分级,行对象表未建模 = 查
   不到同相 return);S6 真身 —— eSerialEntries 无锁遍历(怪癖原样)
   + QDataStream 3×QByteArray + CSuperBuffer varint 态机(9 字节形态/
-  NUL 转义/耗尽哨兵)+ 逐码点绘循环(SCI 行号承接);**QUIRKS 24/25
+  NUL 转义/耗尽哨兵)+ 逐码点绘循环(SCI 行号承接);**quirks 24/25
   登记**(hasNext 恒真风险/fstep SIGFPE 同原版)
 - **markers 行为测试批**(W2):tests/markerstest.cpp 7 用例 35 断言
   全绿(bankCtor K3/rsValue 8·16·32 委托读写/markWrite id 分配/
@@ -2051,7 +1916,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   FUN_008de3e8 归属 MuxPaneGroup;moc stringdata 与语料 0xccacd8
   **逐字一致**;cited 24
 - **0x7576 骨架可落**(X3):dispatch 拆解/runnode_init/charUsedMark
-  闭包实接 charUsedView->FillRange(null 守卫 + QUIRKS 23 相位引用);
+  闭包实接 charUsedView->FillRange(null 守卫 + quirks 23 相位引用);
   runvector 循环/迭代器/R·T 段 cited(runvector 未建模)
 - **Phase 3 全量清点**(X4):语料全集 **190** / 我方 176;正向差集
   19 = 区间默认腿 10(无体登记)+ 薄 7 + 中 1 + 大 1(0x7596 样式
@@ -2083,7 +1948,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 
 ### 批 79(2026-10-31)两落地 lane:keymap ctrl 闭环/渲染核 A− 两被叫 ✅
 - **keymap ctrl 装载腿闭环**(Y1'):ctrl = shared_ptr<KeymapCtrlPayload>
-  承载(块体 = xpressive 编译产物,EXT-BOUNDARY 不伪造);§5 闭环
+  承载(块体 = xpressive 编译产物,ext-boundary 不伪造);§5 闭环
   (getOrCreate ctrl 产出 + +0x68 挂接;节点 use@+0x70 保留语料裸
   计数)/§7 闭环(weak_ptr + owner_before 承载 TrieCtrlLess)/§8 闭环
   (weak_ptr::lock 探活,差异注记);§13 count 门真身(wcstol→stoi
@@ -2217,8 +2082,8 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   QString &errStr)`(activate idx4 双参序,moc 'code','info' 佐证);
   stateChanged 改 `(King::SessionState, const QVariant&)`(emit 桩
   00911ef2 = activate idx6 {int,QVariant-arg};007c85dc 单 state 门
-  与 oldState 对矛盾)—— **无 QUIRKS 需求,证据直接成立**;同值去重
-  门 `(1<s-8U)` 原样转写(QUIRKS 候选注);onReadyRead 真身 =
+  与 oldState 对矛盾)—— **无 quirks 需求,证据直接成立**;同值去重
+  门 `(1<s-8U)` 原样转写(quirks 候选注);onReadyRead 真身 =
   emit readyRead() 一行(00911e60 idx5);全库影响点清查:SuperSession
   同名信号 = 自己的面不在链上,他桥零受影响
 - **selection 接线点定案**(D2):Editor_vt8(00a1e8da 439B)= 槽 6;
@@ -2234,7 +2099,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   (u32Obj) 委托双解引错位登记(铁律 2 不修)
 - 验证:make 零错;ctest 11/11;engtest3 直跑 OK
 
-### 批 85(2026-11-01)三 lane 并行:PairColor 真身/a66ae8 升级 B/QUIRKS 26·27 定案/runstyles 测试 ✅
+### 批 85(2026-11-01)三 lane 并行:PairColor 真身/a66ae8 升级 B/quirks 26·27 定案/runstyles 测试 ✅
 - **PairColor a72272 真身化**(E1):消费循环全落码(块状态机:state==2
   膨胀腿 zstd 委托真库/state==1 清零/buf[idx]−1 取值 byte==0=无值/
   v<7 门);PcBlock/PcSlice 局部空模型(壳期 runs 恒 0 循环不可达
@@ -2243,7 +2108,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **a66ae8 升级 B 补完**(E1):特殊路径 3/4 真身化(0096d19a 纯函数/
   6994e0 QList::at/00974d18 走查结构);fillRect 色槽按推断转写注明;
   009c8bf2 唯一余 cited
-- **QUIRKS 26/27 双定案**(E3 三源复核):26 cur 读源 = **tlist(D+0x18)**
+- **quirks 26/27 双定案**(E3 三源复核):26 cur 读源 = **tlist(D+0x18)**
   (39463 param_1=A→D 回指;bank 无 +0x60 槽不可能作 arg;恒同值条件
   = A+0x08 ≡ D+0x18 同值双槽)→ **entryValueAt 修正落地**(keyPropsOf
   tlist 守卫版);27 rsFill32 登记撤销(u32Obj = 复合载体{vtbl;runs@8;
@@ -2333,7 +2198,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **markers builder 六函数分级**(I2):A 级 5(attr setter ×2 19B +
   行面 ×3 17/17/26B,门 = *(slot10+0x10) 下游转发 lineFace+0x08
   **ValueTable —— markers 实现复用新发现**)/B 级 2(捕获起止 75/76B
-  双态)/C 级 1(00a83c7a 400B regex 状态机,Onigmo EXT-BOUNDARY 前置);
+  双态)/C 级 1(00a83c7a 400B regex 状态机,Onigmo ext-boundary 前置);
   调用图:非装载前置 = d4de 命中腿被调面;QUIRK:88c8 空面腿惰性重建
 - **行为门小项三件**(I3):① 0x7547 空样式表默认色回填(双源定值
   GlobalColor(3)=white;同族 0094a576 空→black 注明)② 0x7576 prune
@@ -2394,7 +2259,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   iconName);S0-S10 分段;13 helper 全读 A 档;signal kitActivated(int)
   moc 直读实证;King/actionFactory/theme 三 cited 占位;与 008e0bb2
   分工定案(焦点读 vs 页挂写,零调用面)
-- **⚠ 流程事件登记**:M1 lane 违禁自行 commit(60803376,含 PHASE5
+- **⚠ 流程事件登记**:M1 lane 违禁自行 commit(60803376,含 phase5
   自写记录)—— 主线程核实:范围 4+2 文件与其报告一致、无禁改文件、
   ctest 13/13 复验通过 → commit 保留;禁令三度重申
 - 验证(主线程复验):make 零错;ctest 13/13;engtest3 直跑 OK
@@ -2474,7 +2339,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   paintEvent 助手(FUN_00a1e1a4 经 vtable+0x1c0);导出 = 全链 Qt 符号
   (toImage→save PNG,无需 QPixmap d 偏移);GUI 线程 → 钩内执行
   (00a1e1a4 挂钩,原版自身同线程合法);phase5_px.py 设计
-  (arm/save rpc + 双侧 ARGB32 逐像素 diff 对账 QUIRKS:cited 空洞
+  (arm/save rpc + 双侧 ARGB32 逐像素 diff 对账 quirks:cited 空洞
   预期 markerBand 桩/S5 色槽)
 - 验证:工作树与 HEAD 一致(R1 只读核查);ctest 13/13 态维持
 
@@ -2588,10 +2453,10 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - **L1 bufferScan00b422d0 边界定案**(推翻转写路线):函数直调
   regex_nfa_compile(00b3cc80 20839B)/regexp_match_dispatch(00b3b730)
   命名符号,邻域 onig_*/regex_*/xpr_* 命名密集,消费对象 = 编译后
-  regex 对象 → 本体 = Onigmo-改 搜索驱动(≈onig_search)。EXT-BOUNDARY
+  regex 对象 → 本体 = Onigmo-改 搜索驱动(≈onig_search)。ext-boundary
   第一方组件定案 → **停止逆向**,行为由 src/Onigmo 移植校准委托
   (libonig.a 已链);MatchEngine.h/.cpp cited 语义勘正(cited —
-  wave-2 → 边界委托),激活批需 CALIBRATION。与批 101 执行腿
+  wave-2 → 边界委托),激活批需 calibration。与批 101 执行腿
   00ad74a0 同判。
 - **L2a scanner_resetState 升真身**:FUN_009cc2d4(140B @0032.c:67038)
   全读转写 MarkersStore.h `scannerResetState`(六 holder 槽 +0x10..+0x38
@@ -2610,7 +2475,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   更新)。批 96 upgrade 相位/markWrite 悬漏已消解,本条为队尾。
 - **L4 0x75dc 间接调用面闭环**:批 81/82 定案(直接调用零/数据段)
   后补全二进制 4 字节 LE 扫描:0x75dc = **0 命中**,对照 0x75db =
-  3 命中(0x1bf39c/0x531ff1/0x64499d)— 间接面注销定案闭环,HANDOFF
+  3 命中(0x1bf39c/0x531ff1/0x64499d)— 间接面注销定案闭环,handoff
   队列第 6 项消账。
 - 验证:cmake --build 零错;**ctest 16/16**;dlopen OK。
   附:批 100 误入库 np/re(37MB×2 PostScript)git rm + .gitignore
@@ -2645,7 +2510,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   索同源);lib/libonig.a 导出 onig_new/onig_free/onig_search/
   onig_error_code_to_format(委托面就绪);业务区(0093/0095)零
   onig_* 直调 — 引擎边界纯在 00b4xxxx(批 102 L1 定案一致)。激活
-  批 = onig_new 语法/编码选项取证 + onig_search 缓冲映射 + CALIBRATION。
+  批 = onig_new 语法/编码选项取证 + onig_search 缓冲映射 + calibration。
 - 验证:cmake --build 零错;**ctest 16/16**;dlopen OK。
 
 ### 批 104-106(2026-11-13)子任务三车道并行:markerBand 升真身/0x4eff 取证/四槽 3/4 ✅ ctest 17/17
@@ -2670,7 +2535,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   onig_new 直调(kuna xrefs + 语料 49M 双源零命中)。b422d0 param_2
   扩展 regex_t 布局实测(+0x48 iterator vt/+0x50 选项位/+0x80,88
   minLen,maxLen/+0x1c0 精确串)。**激活缺证**:FindContext→编译栈
-  入参(语法/编码不猜,铁律 3)— CALIBRATION 激活清单已录。
+  入参(语法/编码不猜,铁律 3)— calibration 激活清单已录。
 - **批 106 界面四槽落点 3/4**:①confirmClose/closeCurrentPane →
   MuxWindow::confirmPaneClose(pane_confirmClose 008df6c0 915B)②
   onTabBlankRequested → setPaneZoom(FUN_008e04ae 1095B)+ SplitterGroup
@@ -2703,7 +2568,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   008dadfa char 判)+ 调用点五处实参全 0/1 — m_f40 QString =
   **Ghidra 8B 槽误型**,修正 bool 双旗标(+0x40 恒 true/+0x41=tmux
   分支);S7 gate/setPaneZoom 落码(008e0764/07bd/07d4),S9 门
-  008e0bb2 语义重估为 byte 判(008e0f87/0f92)。QUIRKS #28 登记
+  008e0bb2 语义重估为 byte 判(008e0f87/0f92)。quirks #28 登记
   误型模式;基线回退验证排除假阳。
 - **批 109 FindContext 取证(未激活,失败条款)**:编译栈调用链
   全图(00a81655 门 210B → 00a9c780 22512B 本体 ← 00ad7360 惰性门;
@@ -2791,7 +2656,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   **ASCII case-fold 表**(A-Z→a-z,勘正主控"恒等表"误判);dat_d15860 =
   编译环境 face 0x48B{alloc,free,ctx,fold 表,限长∞,u16{2,5},flags} —
   语法 op/op2 域零消费(00a9c780 硬编码)→ ONIG_SYNTAX_*/ENCODING_*
-  映射无落点 → 激活形态改判(见批 116)。CALIBRATION 批 110 节。
+  映射无落点 → 激活形态改判(见批 116)。calibration 批 110 节。
 - **批 114 flagmask 位面机**:flagmaskSetRange(0099b740,31520..31716
   全读:(cur&~clr)|set;flat 两段逐行/runs 单 run 特判+头中尾三段+
   c10e 合并腿)+ M+0x28 行槽登记 + mtBit4SetClr(00958048)/
@@ -2807,7 +2672,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   编译缓存 ↔ 00ad7360);bufferScan00b422d0 激活;语法假设 =
   ONIG_SYNTAX_RUBY 经 **5 真实样例对账**(triggers.config ×2 +
   linux.lexer ×3:\g<X> 子例程调用 + ++ 占有量词 → RUBY 唯一上游;
-  Java/Perl 无 ESC_G_SUBEXP_CALL)— 假设显式登记 CALIBRATION。
+  Java/Perl 无 ESC_G_SUBEXP_CALL)— 假设显式登记 calibration。
   libonig PIC 化替身(tools/re/onigpic.sh:strip-debug + -Bsymbolic;
   lib/ 原件只读,替身落 build/)。onigtest 新 24 断言。
 - **批 116b 主控勘误(ASLR 段错误根因)**:bufferScan 双层解引 =
@@ -2857,13 +2722,13 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   nullptr = 壳态同相,产品调点零改动);h 组 3 断言(engScan 首次
   全活性走查:lane0 命中 pack/miss 哨兵/skip 有界推进)。残项:
   scanMask 活性接线挂 buffer 承载批(engDispatch 现传 nullptr);
-  static 16B scratch 出参承载替单线程同相已登记 CALIBRATION。
+  static 16B scratch 出参承载替单线程同相已登记 calibration。
 - **批 120 Phase 5b 我方序列驱动器 engtest5**:21 序列(0x4eff
   正则 11:五 RUBY 样例+literal/icase/无命中/越界/空域变体;0x4f00
   词步进 7:wordsteptest 构型一比一;markers/0x7576 插入 3)→
   /tmp/opencode/phase5_seq_editor.json(phase5 同格式,原版捕获批
   直接对表);61 断言基线冻结。C3 构型发现 props 门壳期跳过形态
-  (styleProps190 需注入)— 登记 ENG5-SEQS.md,原版对表需等价装配。
+  (styleProps190 需注入)— 登记 eng5-seqs.md,原版对表需等价装配。
 - 验证:两车道独立门 + 主控合流,主线 **ctest 19/19 + dlopen OK**。
   原版侧捕获(5b 对表)阻塞于 ptrace_scope=0(用户手动步骤)。
 
@@ -2873,13 +2738,13 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   editor = 00a418c4 钩 a[1](0x1270B EditorContext);**armed 单命令
   队列**(rpc.arm → 下一自然 dispatch 钩内消费 = GUI 线程;xdotool
   空格回显触发,phase5_px 同源实证)。0x1270B vtable+0x1c0 直呼不可行
-  (表尾槽 = 0,QUIRKS 29);dispatch 本体五参直呼钩内成立。
+  (表尾槽 = 0,quirks 29);dispatch 本体五参直呼钩内成立。
 - **C 族 0x7576 三序列原版读数**:ret=0/userType=1(bool)/runVec=0/
   charUsedPtr=null ×3。C1 **MATCH**(L29033 空 runvector 门双侧同相);
   C2/C3 MISMATCH = 构型不可达(原版壳期 c92c obj runvector 空/charUsed
   未建;C3 等价装配留后续批),ret 维同相。**ctx 读格勘正**:宿主 =
   c92c 对象 *(editor+0x10a0) 槽[0x2f]/[0x30](FUN_009585a2 26049;
-  QUIRKS 30),editor+0x178 直读 = 垃圾(0x1000d0000 实锤)。
+  quirks 30),editor+0x178 直读 = 垃圾(0x1000d0000 实锤)。
 - **⚠ 事故(1 起)+ 根因**:armed 0x4f00 op 桥面直填(flags=0/type=3)
   → 目标实例死(script destroyed)。根因(语料静读):手填 op 无 codec
   memo → cursorSearch 段 9 FUN_0092547e → FUN_00a83946(needle[0]
@@ -2894,15 +2759,15 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   brace-hex 1/datetime 3)与我方 OnigSearch 委托逐样例同相;原版
   dispatch 面直证缺位(壳期 find 串空 → 产腿 null → 12665 门 ret 0,
   对语法无判别力);证伪条件登记(置真 find 串后命中位 ≠ RUBY 推演
-  → 列反例)。详见 tools/re/phase5/5B-REPORT.md。
+  → 列反例)。详见 tools/re/phase5/5b-report.md。
 - **对表**:phase5_editor_compare.py → **1/21 MATCH**(C1)/2 MISMATCH
   (C2/C3,仪器非行为)/18 NOT-RUN;产物 phase5_editor_original.json
-  (21 行)。QUIRKS 29/30 登记。
+  (21 行)。quirks 29/30 登记。
 - 验证:worktree ctest **19/19**;engtest5 直跑 61 断言 fail=0(我方
   基线覆盖重生成同相);零产品码改动。
 
 ### 批 122(2026-11-13)Phase 5b 收官批:安全注入通道侦察(A/B 18 NOT-RUN 维持;通道形态定案)✅ ctest 19/19
-- **安全通道三层定案**(5B-REPORT 批 122 节,语料+运行期双面):
+- **安全通道三层定案**(5b-report 批 122 节,语料+运行期双面):
   ① 0x4eff/0x4f00/FUN_00a31966 的 find 串源 = doc+0xe0 memo +0x28
   (FUN_009276e2→009975c8;replace = +0x20)— doc 级持久搜索状态,
   非 dispatch 实参;② op 构造腿 = Grep 0x68 体(FUN_00899fba ctor,
@@ -2921,13 +2786,13 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   对表 1/21 MATCH / 2 MISMATCH / 18 NOT-RUN 维持。
 - **RUBY 终裁:维持假设(零反例;证伪条件未触发)** — 批 122
   原版 dispatch 面读数未取得(setter 未通),A 族原版命中位 vs
-  Ruby 推演对表缺位;5B-REPORT 裁决节已按任务书替换"维持假设"
+  Ruby 推演对表缺位;5b-report 裁决节已按任务书替换"维持假设"
   措辞为终裁形态(推演链 + b116/drive 六样例字节级直证 + 证伪
   条件登记保持)。
 - **原版实例零事故**:全程单实例存活,零重启(手填 op 桥面弃用,
   真 ctor op 稳定;批 121 事故不复现)。
 - 验证:worktree ctest **19/19**;零产品码改动。
-- 产物:5B-REPORT.md(批 122 节 + RUBY 终裁)/
+- 产物:5b-report.md(批 122 节 + RUBY 终裁)/
   tools/re/phase5/phase5_editor_b122_op.js(frida agent 资产)。
 
 ### 批 123(2026-11-14)Phase 5b 终局批:双路实验全败收口(A/B 0/18 NOT-RUN 维持;RUBY<维持假设>)⚠ 实验未通 ✅ ctest 19/19
@@ -3039,7 +2904,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   16 断言。仍 cited:0x7555/7557 行级替换腿(00a2546a)/0x7551 iter
   深腿/0x7539 字段落位/0x75fd elapsed/0x75fa·fb 时间戳深度。
   风险登记:0x7564 勘正的他处 dispatch 消费者 xref 未查。
-- **批 131 KitWindow 侦察方案书**(零产品码,KITWINDOW-RECON.md
+- **批 131 KitWindow 侦察方案书**(零产品码,kitwindow-recon.md
   155 行,22 处地址引证):KitWindow = **抽象 QMainWindow 子类**
   (ctor FUN_008cc692 214B,双 vptr 0x11ab3b8/0x11ab620,sizeof=0xb8,
   字段 +0x30..+0xb0 全录);menu() = 槽 62 **纯虚**(EditorWindow
@@ -3092,7 +2957,7 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
   未建模,cited 不发明)/TerminalWindowFace = CTerminalConfig::instance()
   (00809d78 已落库)。mwctest d1/d2(MainWindowFace 真宿主装配,零
   真窗口)。
-- **批 135 eNodes 节点层侦察方案书**(ENODES-RECON.md 245 行,零产品码):
+- **批 135 eNodes 节点层侦察方案书**(enodes-recon.md 245 行,零产品码):
   两级载体定案(E+0x2d8 QMapDataBase **键型 char 非 QString — 我方
   EditorContext.h:419 键型失配实锤,后续建模必改**);值 = DocumentTask
   0x30B(TI 0x11ad4b0/vptr 0x11ad4e8)+ ScanTask 0xB0(0x11ad588/
@@ -3137,15 +3002,15 @@ growRowArrays 一致 ✓);DCH 缩短 ✓(批 16 主轮);dch3 现 MATCH。
 - 验证:两车道独立门 + 主控合流;**批 136b 后 static_assert 全过
   (语料偏移锁定)+ ctest 19/19 ×5 + dlopen OK**。
 
-### 待解(批 131 后残余;现役队列以 HANDOFF「现役队列」为准)
+### 待解(批 131 后残余;现役队列以 handoff「现役队列」为准)
 
-- **+0x101 流回显语义**:我方 writeSplitData 未实现(QUIRKS 22;
+- **+0x101 流回显语义**:我方 writeSplitData 未实现(quirks 22;
   suite 净基线下永不触发,随 pending v3 族补)
 - **Phase 4a 注册表插入侧**:语料无直呼者(批 29 A3,cited 挂账)
 - **ModTrack 游程支产品侧构造腿**(0xfffff 迁移门 piecetable 链):
   外库边界登记(批 111/117);运行时驱动以测试装置承载
   (modAttachRunFace),产品侧接线待 piecetable/GB 底座激活批
-- 其余现役项见 HANDOFF「现役队列」(扩谱余 ~18 条/KitWindow 转写/
+- 其余现役项见 handoff「现役队列」(扩谱余 ~18 条/KitWindow 转写/
   Phase 4a·4c·5c)
 
 ## 复现

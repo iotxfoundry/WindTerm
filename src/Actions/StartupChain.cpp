@@ -28,8 +28,8 @@
 // 0019.c:10148)路径腿转写:appdir + "/profiles.config" yaml_loadFile
 // → json "path" 键(缺省 DAT_00cb99b6)→ "." 特判 homePath 替换
 // (@005d88c1 0x2e 首字符腿)/"~" 前缀 homePath 插入(@005d88d4)。
-// yaml_loadFile = JSON 兼容解析(SESSION-CONFIG-LAYER yaml 层判例;
-// profiles.config 实文件为 JSON 形)— jsoncpp 委托(EXT-BOUNDARY)。
+// yaml_loadFile = JSON 兼容解析(session-config-layer yaml 层判例;
+// profiles.config 实文件为 JSON 形)— jsoncpp 委托(ext-boundary)。
 // profileDir = FUN_005d8a36(429B,0019.c:10263)+0x30 槽存取同相。
 static QString startupProfileDir()
 {
@@ -323,7 +323,7 @@ MainWindowFace::Slots mainWindowConnectSignals(QMainWindow *mainWindow)
 	// 分段:QMetaType 注册族(pthread_once 0x11c1dd0 + registerNorm
 	// alizedType ×20,KitWindow smeta 0x11ab660 等;探锚 FUN_0076913f
 	// 5958B 体事实 StateStore.h 批 168 在档)。元类型注册 = Qt 底座
-	// 语义(EXT-BOUNDARY,零 fork 特性),QDataStream 页序列化消费
+	// 语义(ext-boundary,零 fork 特性),QDataStream 页序列化消费
 	// 面在 KitWindow 批 — 本面缺席不改变装配行为(注册惰性)。
 
 	// ── S3 @0076ba0d CALL FUN_007662e6(109B,0023.c:33100)— 装配

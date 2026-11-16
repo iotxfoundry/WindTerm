@@ -179,7 +179,7 @@ void Screen::lineFeed()
 	// newline mode (LNM, +0x12f) is set
 	m_core->resetWrapPending();   // FUN_007a4564
 	// LF 无条件下移(批 21 v6:lf40 实锤——空屏 40×LF → (30,0),
-	// 原版无 rowHasContent 门;007e55fc 语料本就无门。QUIRKS 14 撤销)
+	// 原版无 rowHasContent 门;007e55fc 语料本就无门。quirks 14 撤销)
 	indexDown();
 	if (!m_newlineMode)
 		return;

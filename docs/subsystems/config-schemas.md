@@ -1,4 +1,4 @@
-# CONFIG-SCHEMAS — 原版配置面资产(global/ + terminal/ + 运行期剖面)
+# config-schemas — 原版配置面资产(global/ + terminal/ + 运行期剖面)
 
 > 调查日期:2026-10-29。资产 = 原版仓库附带(global/ + terminal/,
 > Apache-2.0 首方)与 ~/.wind/profiles/default.v10 运行期剖面。

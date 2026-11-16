@@ -3,7 +3,7 @@
 
 #pragma once
 
-// 批 140(M12-② 前半)— menu() 容器 face,KITWINDOW-RECON §未解 1 收口:
+// 批 140(M12-② 前半)— menu() 容器 face,kitwindow-recon §未解 1 收口:
 // showConfigMenu 虚调用 menu()(vtable 槽 62 +0x1f0)返回的是 Config 系
 // 单例对象,非 QMenu:
 //   - Editor 腿 FUN_005e97d2(39B,0019.c:22781):DAT_011c12e0 懒缓存 ←
@@ -202,7 +202,7 @@ protected:
 	~CGlobalConfigFace() = default;
 
 public:
-	// === yaml 装载腿真身(批 142;委托真 yaml-cpp,EXT-BOUNDARY/ConfigBridge
+	// === yaml 装载腿真身(批 142;委托真 yaml-cpp,ext-boundary/ConfigBridge
 	// 判例 — 解析器实现不逆向,装载编排 = 语料函数转写)===
 
 	// FUN_008a58f0(390B,0027.c:60279)configPath 面:applicationDirPath()

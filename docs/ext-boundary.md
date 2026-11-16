@@ -1,9 +1,9 @@
-# EXT-BOUNDARY — 外部库接口边界(不逆向实现)
+# ext-boundary — 外部库接口边界(不逆向实现)
 
 > 原则:原版静态嵌入的开源库,其**实现不逆向**。转写中命中下列
 > 命名空间/行为特征 → 标记为外库边界,只转写 WindTerm 侧的调用
 > 接口面;行为由接口层(委托真库或 no-op sink)承接。
-> 依据:docs/BUILD-AUDIT.md(嵌入审计)。
+> 依据:docs/build-audit.md(嵌入审计)。
 
 ## 边界注册表
 
@@ -18,7 +18,7 @@
 | ICU 56 | lib/icudata.so.56 动态捆绑 | 运行时动态库 | 不需接口(动态加载) |
 | glib/gtk/X11/alsa/pulse/gstreamer/dbus | 动态系统栈 | 运行时动态库 | 不需接口 |
 
-## 第一方开源组件(2026-10-29 新增,见 docs/CALIBRATION.md)
+## 第一方开源组件(2026-10-29 新增,见 docs/calibration.md)
 
 src/ 本就包含官方开源的 6 个第一方组件(TelnetProtocol/Pty/Utility/
 Widgets/libssh-改/Onigmo-改,Apache-2.0;勿重复 clone)——**对应子系统停止逆向,
@@ -33,7 +33,7 @@ Widgets/libssh-改/Onigmo-改,Apache-2.0;勿重复 clone)——**对应子系统
 - 执行腿先例:批 101 markers 执行腿 00ad74a0 已 cited 同判。
 - 委托路径:src/Onigmo 源树 + lib/libonig.a(2.1M 预构建已链);
   业务侧(EditorEngine 0x4eff 搜索腿/MatchEngine::bufferScan00b422d0)
-  保持 cited 占位,激活批移植 onig 调用面并按 CALIBRATION 记录。
+  保持 cited 占位,激活批移植 onig 调用面并按 calibration 记录。
 
 ## 使用规则
 
@@ -61,8 +61,8 @@ Face 声明。
 | 库 | 符号数 | 结论 |
 |---|---|---|
 | Qt5Widgets/Core/Gui/Network | 1535/1052/371/91 | 委托真库(既有策略)|
-| **libssh.so.4** | **117**(sftp_async_* 47 全套)| SSH-INTERNALS 委托边界精确到符号清单;TLS 走 libssh(libssl 交集=0)|
-| **libQt5Qml** | **45 = QJSEngine 全家** | **JsEngine 底座钉死:动态 QJSEngine 真库,零逆向**(CALIBRATION 落定)|
+| **libssh.so.4** | **117**(sftp_async_* 47 全套)| ssh-internals 委托边界精确到符号清单;TLS 走 libssh(libssl 交集=0)|
+| **libQt5Qml** | **45 = QJSEngine 全家** | **JsEngine 底座钉死:动态 QJSEngine 真库,零逆向**(calibration 落定)|
 | Qt5SerialPort | 18 | 串口会话 = 纯委托 QSerialPort |
 | Qt5Multimedia / Qt5Svg | 13 / 8 | 提示音 / SVG(QSvgRenderer 委托吻合)|
 | X11/Xtst | 10 | XSendEvent/XTestFakeKeyEvent/XKeysymToKeycode(按键模拟/热键)|

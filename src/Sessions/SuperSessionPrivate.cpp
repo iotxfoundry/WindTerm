@@ -68,7 +68,7 @@ void SuperSessionPrivate::loggerOp(const QUuid &id, int op)
 	}
 }
 
-// --- 选项:CTerminalConfig 单例为下层(SESSION-CONFIG-LAYER.md ①)---
+// --- 选项:CTerminalConfig 单例为下层(session-config-layer.md ①)---
 QVariant SuperSessionPrivate::option(const QString &name,
                                      const QVariant &defaultValue) const
 {
@@ -248,10 +248,10 @@ void SuperSessionPrivate::linkCommanderSession(SuperCommander *commander,
 // ctor FUN_007c1b38(90B,0024.c:30589)= SessionLogger 字段初始化面
 // (批 144 转写,见 SuperSessionPrivate.h);腿体 FUN_007c24c8
 // (5980B,0024.c:31047)= spdlog logger/sink 建腿(spdlog 下行层
-// 外库边界,EXT-BOUNDARY)→ cited 引地址,不发明(铁律 3)。
+// 外库边界,ext-boundary)→ cited 引地址,不发明(铁律 3)。
 // 失败腿 vtable+0x20 拆除 @007da3d7 保留;成功腿 spinlock@+0x61 →
 // FUN_007e159e(this+0x40)插入 → FUN_00912264 = loggerCreated
-// (idx5;IMPL-ADDRESSES #5,0030.c:1683)。单线程重建免锁,注记
+// (idx5;impl-addresses #5,0030.c:1683)。单线程重建免锁,注记
 // 照 007da178 判例。
 void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
                                               const QVariantList &settings)
@@ -312,7 +312,7 @@ void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
 // → operator_new(200) spdlog logger(PTR_FUN_011868c8)+ FUN_007c44a4
 // sink 绑定 + FUN_007c4cf0 registry + logger_register_unique
 // (00612a90)→ +0x38 logger/+0x40 持有块。真盘写截停(null_sink,
-// EXT-BOUNDARY 规则 3):文件/轮转形态实参面登记于 SpdlogLeg,
+// ext-boundary 规则 3):文件/轮转形态实参面登记于 SpdlogLeg,
 // sink_it_ 行为面 cited。
 // 【cited ③ formatter/state 尾段 @007c3388-3588】"%v"+"\n"
 // pattern_formatter(operator_new 0xb0,FUN_005fd340)+ set_formatter

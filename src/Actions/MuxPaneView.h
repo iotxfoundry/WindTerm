@@ -7,7 +7,7 @@
 
 // MuxPaneView —— 语料 MuxPane 面板 widget(QWidget)真身(Phase 4c,mp lane)。
 // 命名避让:src/Actions/MuxPane.h(批 50 壳;批 71 勘误后为主窗口宿主语义)
-//   已占 "MuxPane" 类名,本类随笔记 §5 定名 MuxPaneView(记 QUIRKS)。
+//   已占 "MuxPane" 类名,本类随笔记 §5 定名 MuxPaneView(记 quirks)。
 // 语料落点:
 //   ctor            s_MuxPane_8de0c0(202B,decomp-part-0028.c:25440)
 //   setCentralView  FUN_008de1a8(124B,0028:25489)

@@ -20,7 +20,7 @@ class ScintillaEditBase;
 //   WindTerm WT  (30001-30166)    → custom layer
 // Reverse-engineered internals (selection transactions, runnodes,
 // gap-buffer lookups…) were retired with the delegation; the forensic
-// record lives in EDITOR-ENGINE-COMMANDS.md / EDITOR-SCINTILLA-MAP.md.
+// record lives in editor-engine-commands.md / editor-scintilla-map.md.
 class EditorEngine
 {
 public:

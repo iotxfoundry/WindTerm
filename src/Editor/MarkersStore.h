@@ -1,12 +1,12 @@
 // MarkersStore — markers 对象读侧真身化(批 67a;布局与函数全部语料实证)
-// 布局还原:FUN_0099cxxx/009a0xxx 存储族 16 函数(台账见 docs/PHASE5.md 批 67)。
+// 布局还原:FUN_0099cxxx/009a0xxx 存储族 16 函数(台账见 docs/phase5.md 批 67)。
 // 写侧构建者批已落地(mk3):markersCtxInit(009a2e1e 尾段)/bankCtor 族(009cc22c/
 // 009cc264/009cc29c)/runstylesUpgrade(009cd554)/coreWriteRange(0099c8d6)/
 // markWrite(009a62c0)/publishOutline(009a2766)+ rsValue* 委托真身(§7)。
 // 值迁移腿六函数已落地(批 86):migrateLayer 参数化体(009cee86/009cf8c2/009cf69e/
 // 009cf0b0/009cfae6/009cfd0a 六体同构)+ migU* 六入口,runstylesUpgrade 接真身调用。
 // builder C 级 regex 执行机已落地(批 101):builderRegexRun(00a83c7a 400B)调用面
-// 转写 + Onigmo-改 底座(EXT-BOUNDARY 2026-10-29 第一方组件条目:委托 src/Onigmo);
+// 转写 + Onigmo-改 底座(ext-boundary 2026-10-29 第一方组件条目:委托 src/Onigmo);
 // kwMatchCache 装载侧真身(kwCacheFill 0099d27e 600B)→ 击中面仍 cited(QHash
 // 底座改版定性:语料 QHashData 手工节点布局,我方 QHash 承载 — 怪癖登记)。
 // regionScan 0099d072 关键词腿返回门落地(批 88 挂账;keywordsLoad 自由函数 +
@@ -61,7 +61,7 @@ inline void vcallSlotVoid(void *obj, int off)
     reinterpret_cast<Fn>(vt[off / 8])(obj);
 }
 
-// --- RS valueAt 真身(mk3 §7:委托 Scintilla::RunStyles,EXT-BOUNDARY)---
+// --- RS valueAt 真身(mk3 §7:委托 Scintilla::RunStyles,ext-boundary)---
 // 语料 007b7b70/007b5a30/007b6dd0/0088ff00 各 ~240B:直接数组快路 + 线程缓存回退,体已读。
 // 语料 valueAt 的 arg = GB 句柄(0x30:{vt cited,+0x18 DATA},DATA 密排直读);我方委托 RS
 //   实例(run 编码)读逐位等价,线程缓存路单线程直读等价 — 怪癖登记维持 mk2 §4。
@@ -164,7 +164,7 @@ inline RsHolder20 *makeHolder0x20(void *rs)
     return h;
 }
 
-// 灌值腿委托(EXT-BOUNDARY:体不自研)。FUN_007b7290/007b8000(1141/1137B 全读,
+// 灌值腿委托(ext-boundary:体不自研)。FUN_007b7290/007b8000(1141/1137B 全读,
 // 0024:23258/23837)= runstyles_fill_range + run 起止拆分/相邻合并 ≡ RunStyles::FillRange
 // (RunStyles.cxx:132;changed 对应 *param_5)。⚠ 语料合并吸收路径返 1/普通写返 0/1,
 // 委托 .changed 与之未必逐值同相 — 行为门裁决点(登记待测)。Skip/plain 委托同形,
@@ -309,7 +309,7 @@ inline void bankCtorK5(ValueTable *b, void *rs)   // FUN_009cc29c
 // FUN_00a1092a(403B @0033.c:43953)ctor 全读;分配 0x70,vt=PTR_scanner_freeEntries_
 // 011ae108;+0x58/+0x60 = 两个 Uint32Bimap(0x20 holder:{vt;+4 u32;+c spin;+0x10
 // QListData;+0x18 0})— 我方 QVector<quint32> 双表承载(styleProps190 同款先例,
-// EXT-BOUNDARY:metacall 体未读 — 查得即返/miss 追加,怪癖登记)。
+// ext-boundary:metacall 体未读 — 查得即返/miss 追加,怪癖登记)。
 // 生产者 = FUN_009de20a(3051B,yaml lexer 装载)— cited;消费面 = tlist(D+0x18)≡ 同指针。
 // Uint32Bimap_qt_metacall 承载(值→idx;查得即返,miss 追加)— styleProps190 同款:
 inline quint32 bimapPut(QVector<quint32> &t, quint32 v)
@@ -348,7 +348,7 @@ struct ScannerX {                        // 0x70 布局照 ctor 语料(分配 0x
     //   lineNo) 形参 Ghidra 签名 (param_3=u32 mode,param_4=u32 lineNo),33051
     //   CONCAT44(param_3,param_4) = key 低 32=mode/高 32=lineNo;本填充方按此
     //   键序承载。语料:memo = *(D+0x38)(M+0x38 QHashData 手工布局;>1 项时
-    //   FUN_0099c3a4 rehash 面 — 我方 QHash 容器坍缩免手工 rehash,EXT-BOUNDARY
+    //   FUN_0099c3a4 rehash 面 — 我方 QHash 容器坍缩免手工 rehash,ext-boundary
     //   规则 4:读写面等价,布局怪癖登记);FUN_009a3916(127B)查找(命中即返
     //   33133 节点值;miss → 33060 FUN_00a12ab6 句柄 ctor + 逐记录 FUN_00a11f02
     //   探测循环 33064..33074 — 记录源 *(lex+0x18..0x20) 列表,词法引擎面
@@ -574,8 +574,8 @@ inline bool kwProbeLine(void *, quint32, quint16, quint64)  { return false; }
 //      全套编译器(xpressive 字符串仅 0021/0025/0026/0032/0033 段出现,37 段
 //      零命中 → c7a 底座非 xpressive)。
 //   ③ onig_vm_exec(871B)/onig_emitImm/onig_compileOp 直接名化(0035.c:14247/
-//      28224/37809)+ src/Onigmo 第一方组件在册(EXT-BOUNDARY 2026-10-29 条目)
-//      → EXT-BOUNDARY 定案:**Onigmo-改 委托边界**,WindTerm 侧只保留调用面。
+//      28224/37809)+ src/Onigmo 第一方组件在册(ext-boundary 2026-10-29 条目)
+//      → ext-boundary 定案:**Onigmo-改 委托边界**,WindTerm 侧只保留调用面。
 //   注:regex_nfa_compile(00b3cc80 20839B)族与 onig_ 符号并存 — 二级引擎
 //      (QHashData/pcre2_configGet 面 0034.c 混在),不在本批定性范围;c7a
 //      只触 ①②③ 链路。
@@ -598,7 +598,7 @@ inline bool kwProbeLine(void *, quint32, quint16, quint64)  { return false; }
 //   733..738 FUN_00b421c0(regex 条目+0x10,flags…) 流式执行 — 同 Onigmo 底座
 //     (32546 220B:FUN_00b41ee0 捕获数组扩容 244B/regex_nfa_compile 编译 —
 //     二级引擎面,同批定性注记,不触)
-// 我方落法(EXT-BOUNDARY 规则 2/3):调用面结构逐行转写;Onigmo 底座以
+// 我方落法(ext-boundary 规则 2/3):调用面结构逐行转写;Onigmo 底座以
 //   src/Onigmo 真库委托(OnigRegex 前置声明;壳期 regex 未装载恒走 -1 腿,
 //   与语料 681 空门同相 — builder 壳 nullptr,regionScan 命中腿不可达)。
 // regex 条目 = *param_2 指向的 {OnigRegex body@+0x18, u32 minLen@+4,
@@ -831,7 +831,7 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B 语料尾;
 
     // ============ FUN_0099cecc(114B)swap-then-delete ============
     // swap A[i]↔A[j];毁 swap 后 A[i](vt+0x08 D1 dtor + operator_delete 0x18)。
-    // QUIRKS:仅 +0x08 内对象析构(+0x10 路线不析构)——语料原样。
+    // quirks:仅 +0x08 内对象析构(+0x10 路线不析构)——语料原样。
     void moveEntry(int i, int j)
     {
         MarkEntry *tmp    = *arr->entryPtr(i);
@@ -941,7 +941,7 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B 语料尾;
         if (!e->u32Obj || !e->u32Obj->styles)
             return 0;
         const quint32 v = rsValue32(rsOf(e->u32Obj->styles), pos);
-        // QUIRKS 26 定案(批 85 三源复核):cur 读源 = tlist(D+0x18;
+        // quirks 26 定案(批 85 三源复核):cur 读源 = tlist(D+0x18;
         //   39463 *param_1=A→D 回指;bank 0x40 无 +0x60 槽不可能作 arg)
         const quint32 props = tlist
             ? keyPropsOf(tlist, v & 0x1fff) : 0;                 // FUN_00a10384
@@ -1421,7 +1421,7 @@ struct MarkersStore {                    // M ≡ D = doc-state(0x70B 语料尾;
 };
 
 // ⚠ 批 101:kwcMemo(QHash)挂结构尾 → sizeof > 0x70。语料 D 分配 0x70(裸
-//   内存零化);kwcMemo = D+0x38 memo 承载坍缩(EXT-BOUNDARY 规则 4 读侧面
+//   内存零化);kwcMemo = D+0x38 memo 承载坍缩(ext-boundary 规则 4 读侧面
 //   等价),超尾承载不进语料偏移域 — static_assert 改语料尾锚(mk2 勘正链)。
 //   0x70 内偏移(+0x00..+0x68)全部不变(QHash 成员挂尾)。
 static_assert(offsetof(MarkersStore, pendSnap) + sizeof(void*) == 0x70,

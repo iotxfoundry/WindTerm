@@ -45,8 +45,8 @@ python3 + numpy + binutils(readelf)。
 ## 相关文档
 
 - **AGENTS.md**(根目录):完整方法论 + 13 项踩坑 + 构建配方
-- **docs/PLAN.md**:202 项待收口计划(Phase 1-5)
-- **docs/*.md**(18 个):SSH-INTERNALS / PROTOCOL-ARCHITECTURE /
-  STATE-MACHINE / TERMINAL-CORE / EDITOR-ENGINE-COMMANDS(336 命令)/
-  EDITOR-SCINTILLA-MAP(120 真名)/ SESSION-CONFIG-LAYER / 等
-- **tools/re/BUILD.md**:CMake 构建详解 + 静态库配方
+- **docs/plan.md**:202 项待收口计划(Phase 1-5)
+- **docs/*.md**(18 个):ssh-internals / protocol-architecture /
+  state-machine / terminal-core / editor-engine-commands(336 命令)/
+  editor-scintilla-map(120 真名)/ session-config-layer / 等
+- **tools/re/build.md**:CMake 构建详解 + 静态库配方

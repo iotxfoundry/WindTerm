@@ -1,4 +1,4 @@
-# 5B-REPORT — Phase 5b 原版捕获对表(批 121/122,2026-11-13)
+# 5b-report — Phase 5b 原版捕获对表(批 121/122,2026-11-13)
 
 > M3-① 原版侧捕获 + 对表。驱动:`tools/re/phase5/phase5_editor.py`
 > (00a418c4 armed 钩通道);我方基线:`/tmp/opencode/phase5_seq_editor.json`
@@ -8,7 +8,7 @@
 > **环境事件(如实登记)**:捕获中途一次 armed 0x4f00(op 桥面直填
 > flags=0/type=3)使目标实例死(脚本 destroyed;根因见下"事故与根因"),
 > 按任务书收口条款:已收口 C 族并重启原版一次(专用 Xvfb 实例,无用户
-> 日常实例受损;重启流程照 HANDOFF 复现节)。
+> 日常实例受损;重启流程照 handoff 复现节)。
 
 ## 对表结果(3 族 21 序列)
 
@@ -30,9 +30,9 @@
 ### A/B 族 NOT-RUN 事故与根因(铁律 5 裁决材料)
 
 1. **vtable+0x1c0 直呼不可行**:钩捕获的 a[1] = 0x1270B EditorContext
-   (vptr = ScintillaQt 0x11ae558,VTABLE-MAP 定案)——0x1270B 表尾
+   (vptr = ScintillaQt 0x11ae558,vtable-map 定案)——0x1270B 表尾
    0x1c0 槽 = 0(rpc 直呼 access violation ×2 实测)。sendEditor
-   +0x1c0 形态属 **TextView+0x58 子对象**(TEXTVIEW-IMPL 架构节),
+   +0x1c0 形态属 **TextView+0x58 子对象**(textview-impl 架构节),
    非 0x1270B 本体。改走 00a418c4 五参直呼(ret,editor,cmd,a,b)。
 2. **armed 钩通道成立**:rpc.arm → 下一自然 dispatch(xdotool 空格回显
    触发)钩内消费 = GUI 线程;C 族 0x7576 三序列全链通(ret/userType/
@@ -70,7 +70,7 @@ Ruby 推演值(engtest5 A1-A5 hit,与 b116/drive 六样例 OnigSearch
 委托逐样例同源)维持为唯一可对账锚;证伪条件登记保持原样
 (置真 find 串后原版命中位 ≠ RUBY 推演 → 列反例)。
 
-- **推演链**(批 116 CALIBRATION,批 122 复核一致): possessive `++`
+- **推演链**(批 116 calibration,批 122 复核一致): possessive `++`
   (OP2_PLUS_POSSESSIVE_REPEAT)+ `\g<X>` 子例程(ESC_G_SUBEXP_CALL)
   同时被 triggers.config/linux.lexer 真实样例要求 → 上游 Onigmo 语法规
   格中 **RUBY 是唯一同时覆盖二者的语法**(Java regsyntax.c:162-182 /
@@ -144,7 +144,7 @@ Grep op ctor 腿)留后续批。原版实例全程存活(零重启,批 121 事�
 判死证据如下(任务书预授权收口)。
 
 **路 a(setter 路)判死**:
-- 全命令空间核对无 memo 写命令(EDITOR-ENGINE-COMMANDS 0x4ee/0x4ef/
+- 全命令空间核对无 memo 写命令(editor-engine-commands 0x4ee/0x4ef/
   0x4f 段零命中;批 122 setter 面侦察结论维持)。
 - terminal 会话 doc+0xe0 memo 运行期实锤(批 123 转储,doc=0x348c2090、
   memo=0x352ce290):+0x20=0x11bf0e0(PTR_FUN UTF-16LE codec face)、
@@ -183,11 +183,11 @@ ScintillaEditBase=0x352ca8b0(+0x400→ctx,+0x1098=0);针消费形态 =
 探针资产:`/tmp/opencode/b123/`(b123a.js/drive.py/dispall.js/
 peek*.js/spy*.js)。原版实例零事故(pid 1377053 全程存活)。
 
-## QUIRKS 候选(只登记,不修)
+## quirks 候选(只登记,不修)
 
 - **#29 候选(仪器怪癖)**:0x1270B EditorContext **vtable+0x1c0 = 0**
   (表尾越界槽)— sendEditor 的 +0x1c0 形态属 TextView+0x58 引擎子
-  对象;与 VTABLE-MAP 槽表(51 槽 +0x198 止)一致,非缺陷,登记防
+  对象;与 vtable-map 槽表(51 槽 +0x198 止)一致,非缺陷,登记防
   后续批再踩。
 - **#30 候选(承载替差异)**:我方 EditorContext 将 runvector/
   charUsed 平铺(ctx+0x178/0x180);原版独立 c92c 对象(*(editor+

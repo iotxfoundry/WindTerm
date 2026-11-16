@@ -133,7 +133,7 @@ struct StrTrie
 	// 重建体(左兄有 room → 逐槽 0x18 交换搬 i 个 + 子指针 +0x130 区
 	// 迁移 + 上溢换根 0x1a8 节点;无 room → 新 0x198/0x130 节点
 	// 00525c5e 前插)仅重排内存布局,产出序列恒升序 — QMap 承载无
-	// 容量概念 → 门恒不触发,分裂无观测差(QUIRKS #31 同相判例);
+	// 容量概念 → 门恒不触发,分裂无观测差(quirks #31 同相判例);
 	// 重建体 cited)。
 	static constexpr int splitGateCapacity = 12; // 0xc cap 上限
 	                                             //   @00526845

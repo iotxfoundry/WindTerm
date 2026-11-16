@@ -70,7 +70,7 @@ void TerminalCore::setTopBottomMargins(int top, int bottom) {
 - **copyCell(FUN_007aa2e2)= 格 MOVE 原语**:dst aux 对象按释放规约
   销毁(非内嵌 payload free + 0x18 delete)→ 4×8B 块拷(aux 指针
   随块转移)。**不解引用 src aux**——深拷转写会在未初始化 aux 上崩
-  (Phase 5 diff 暴露,QUIRKS 候选)
+  (Phase 5 diff 暴露,quirks 候选)
 - **m_sgrState(+0x88)= 0x20 整格状态单元**:flags byte0=1、
   aux@+0x10=null、SGR 域@+0x18(=m_sgrBits,setSgrState 同步);
   buildBlankCell/rowInsertBlanks 以它为 blank 源(调用方传

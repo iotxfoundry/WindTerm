@@ -6,7 +6,7 @@
 #include <QObject>
 
 // JsEngine —— 语料转写(批 68 重做;底座勘定:动态 QJSEngine 真库,
-// EXT-BOUNDARY 2026-10-31 libQt5Qml 45 符号交集)。铁律 6:逐函数
+// ext-boundary 2026-10-31 libQt5Qml 45 符号交集)。铁律 6:逐函数
 // 片段见 tools/re 侧笔记(0064a/b 族;地址注释在实现处)。
 // 结构实证:sizeof=0x18 = QObject(16B) + QJSEngine* @+0x10(指针,
 // 非值;父链 = this,0020:30179)。无自有信号/槽(qt_metacall 5B

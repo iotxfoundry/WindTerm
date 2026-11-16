@@ -237,7 +237,7 @@ TextView = 命令转发壳:方法体仅 QVariant 装配后经 sendEditor
 - ≤2 参:直接 QVariant 形参(如 FUN_005b99de cmd 0x75ad)
 - >2 参:QList\<QVariant\> 打包进一个 QVariant
   (qlist_variant_append_heap,如 FUN_005c4c68 cmd 0x7545)
-61 个命令号全解见 TEXTVIEW-COMMANDS.md(11 标准 SCI + 40 自定义:
+61 个命令号全解见 textview-commands.md(11 标准 SCI + 40 自定义:
 扩展块 20173-20228 / WindTerm 命令空间 30001-30166)。
 属性存储 +0xf8 = **QMap(有序,lower_bound 查找)**,非哈希;
 节点 0x30 字节:key QString@+0x18(引用计数复制)、value QVariant@+0x20;
