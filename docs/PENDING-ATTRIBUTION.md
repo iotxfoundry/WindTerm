@@ -1,6 +1,6 @@
 # 归属待办(收尾期第一批工作单)
 
-> 生成于批 448。本文档是**代码级工作单**,不是设计文档。
+> 生成于批 448,**批 493 复核更新**。本文档是**代码级工作单**,不是设计文档。
 > 触发原因:多轮反编译中按"地址邻近"猜归属,后期用"ctor 调用链"复盘时发现错案。
 > **收尾期第一步(编译之前)必须先清这张单**,否则编译错误会与模型错混在一起。
 
@@ -52,12 +52,36 @@
 - `006ebd28`(794B)/`006ff1a0`(647B):两个 QDialog 构造但**未写自有 vtable**
 - `MuxPaneView::actionContext` 的 `vt+0x1f0` 目标(vtable 该槽实测为 0)
 
-## 4. 名不副实清单(引用时勿信函数名)
+## 4. 名不副实清单(17 例;引用时勿信函数名)
 
-`s_ExpandButton_8b7dd4`=KitDock 装配 · `s_tabbar_..._89d860`=dock 工厂 ·
-`pasteDialog_6dfd9e`=设置分类页 · `dirCompareDialog`=配置目录框 ·
-`TunnelDialog_h9097b0`=行表 dtor · `msgbox_buildRich`=上传确认框 ·
-`s_terminal_ansiBrightBlack_699c2a`=记录构造 · `s_king__beforeDisconnection_69934c`=kind→图标 ·
-`expectDialog_saveRows`=映射→表 · `expectDialog_collectRows`=单行遍历 ·
-`sessionpage_title`=设置分类标题生成 · `TriggerActionEditPanel`=动作文本面板 ·
-`s_king__tunnelDynamicActive_6a2c16`=行图标 · `s_ColorButton_71850e`=SessionDialog 信号槽
+> 成因:Ghidra 以"函数里第一个字符串"命名,而 WindTerm 的 ctor 常先设
+> objectName / tooltip / config key,于是名字与真实类型无关。
+
+| 语料名 | 实际是什么 | 依据 |
+|---|---|---|
+| `s_ExpandButton_8b7dd4` | KitDock 装配 | 批 212 |
+| `s_tabbar_selectionBehaviorOnRemove_89d860` | KitDock 创建腿 | 批 213 |
+| `pasteDialog_6dfd9e` | 设置分类页 | 批 318 |
+| `dirCompareDialog` | 配置目录选择框 | 批 321 |
+| `TunnelDialog_h9097b0` | 隧道行表析构 | 批 325 |
+| `msgbox_buildRich` | 上传确认富文本框 | 批 317 |
+| `s_terminal_ansiBrightBlack_699c2a` | **TriggerRecord 构造函数** | 批 361 |
+| `s_king__beforeDisconnection_69934c` | **kind → 主题图标** | 批 359 |
+| `expectDialog_saveRows` | **映射 → 表回填** | 批 365 |
+| `expectDialog_collectRows` | **固定一行遍历各列**(非多行) | 批 412 |
+| `sessionpage_title` | **设置分类页标题生成/查重** | 批 413 |
+| `TriggerActionEditPanel`(`0056376e`) | **动作文本面板 0x68** | 批 377 |
+| `s_king__tunnelDynamicActive_6a2c16` | **隧道行图标**(9 个名) | 批 416 |
+| `s_ColorButton_71850e` | SessionDialog 的信号槽 | 批 421 |
+| `TriggerDialog`(`006f2dd4`,标题 "Triggers") | 与题意相符(非反例,列此备查) | 批 346 |
+| `s_ActionButton_56e540` | **基类是 QToolBar**(动作工具条) | 批 488 |
+| `s_BackwardButton_53e936` | **基类是 QShortcut**(快捷键) | 批 493 |
+
+## 5. 待定(证据不足,勿擅改)
+
+- `TriggerRecord +0x18` = 描述?(回写与建项都用它,未见语义定义)
+- `TriggerRecord +0x30` 8 字节未定(初值 `0x80000000`)
+- `applyAttributes` 的 `state` 键**落点未知**(批 404 已撤回"双控"结论)
+- `MuxPaneView::actionContext` 的 `vt+0x1f0` 目标(vtable 该槽实测为 0)
+- `CountSpinbox` / `CursorShape` 的基类未取证(批 492)
+- 线型表 14 项的 **id ↔ 名逐项配对**(批 449 只确证名集)

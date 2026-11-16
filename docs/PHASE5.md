@@ -6,7 +6,7 @@
 
 ## 结论快照(截至批 493,2026-11-16 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-341)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-341 + 阶段段 192-493)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
@@ -139,6 +139,53 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
    定性翻转 = TextView::searchOnline(批 184,侦察疑虑证实);
    tabBarSelectionBehaviorOnRemove **键串勘正 "tab."→"tabbar."**
    (批 181,0xd0ed40 实读)。
+
+### 批 342-493(2026-11-16)界面逆向收官段 —— 七节加权 ≈95% ✅(铁律 7:零编译)
+
+**规模**:自基线 `3b7a774f` 起 330 提交 / 139 文件 / +11816 行 / 59 个 `*Face` 头。
+
+**① 主窗装配(90%)**:`008d3cc2` 全链、中央七槽树、槽位族、焦点链;
+主窗 7 路接线 `mainWindow_connectSignals`(含 **`QApplication::focusChanged`**
+→`FUN_0076dcae`;配置对象双信号 **flags 0x82 = Queued|Unique**)。
+
+**② 菜单/动作(95%,全链闭合)**:
+**数据源** = 配置键 **`wind.actions` + `user.actions` 两层**(`s_wind_actions_76b7c0`
+457B)→ `wind_actions_build`(7702B,**语义仅两行**,余为 QMap/QVariant 内联析构)
+→ 属性应用(`FUN_0066613a` 2882B,**六键** `script/text/tooltip/state/icon/kits`)
+→ `actions_from_config_list`(4162B)→ QAction 树 → 菜单**懒构建**(`aboutToShow`)
+→ 触发 → **`js_actionFire`**(2282B)。右键菜单名 = `"%1 %2Popup"`。
+
+**③ 工具栏/状态栏(80%)**:七 kind 全真身;`ColorButton`(objectName +
+`text-align: left` 样式)、`ActionToolBar`(**基类 QToolBar**)、`BackwardShortcut`
+(**基类 QShortcut**)等自绘件逐字段落档。
+
+**④ 对话框(95%)**:扫全库得 **29 个 QDialog**(含 1 个**工厂型** `TriggerActionDialog`),
+ctor 全落(vtable/副 vptr/字段/tr 标题/装配腿指针);**build/wire 分工**厘清
+(wire 腿必含 `FUN_006b2420` = 按钮盒 PMF 壳);10 个对话框装配面落真;
+`SessionDialog`(双层页签 + 端口校验器 `QIntValidator 0..99999999` + 协议切页)、
+`TunnelDialog`(0xe0,建造 3404B / 接线 935B / 行图标 9 名)、`TriggerDialog`(记录
+布局 0x48 定案 + kind→图标表两源互证)、`SyncInputDialog`、`InsertFileDialog`、
+`NameDialog`(通用 Create 框 + `addFormRow`);**VcXsrv 帮助弹窗**
+(`/vendors/vcxsrv/help.md`,按钮盒 `0x200000` = Close 单钮)。
+
+**⑤ 设置页/触发器页(93%)**:行模型 `SettingsRow` 0x48、八路接线、装载/回写/重建;
+**八个触发器页装配全落**(Connection×4 / CustomLink / CustomMenu / HighlightText /
+PlaySound / RunCommand / SendText / ShowTooltip)+ 页栈 11 kind 表;页内件四类真身化
+(`MarkStyleWidget` / `TriggerTableWidget` / `TextMarkTablePanel` / `TriggerActionEditPanel`);
+**线型表 14 项**实读;占位绘制闭环。
+
+**⑥ dock/标签(85%)**:**页签关钮机制闭环** —— `setTabButton` 等价(非私有面)、
+只当前页有钮、空名/`Pinned` 无钮、`+0x60/+0x68/+0x70` 三平行表同步 move + 重排助记符。
+
+**5c 状态存取(写 95% / 读 85%)**:blobA/B/C 真身;**QuickBar / TransferBar**
+读写四腿全落(`008596b8` 写 / `0085ae68` 读 / `0085ad2e` 与 `0085af56` 两个懒建正主
+分清);**尾钩定案**:`+0x248` 默认 `008d5bee`(`return 1`)、空实现基线 `008d5bf4`
+(1 字节 `ret`)、`+0x240` = `status_showMessage`(level 4 / 15000 ms)。
+
+**名不副实 17 例**(Ghidra 以首个字符串命名所致,清单见 `docs/PENDING-ATTRIBUTION.md`)。
+
+**未编译雷区(铁律 7 预期)**:59 个 `*Face` 头 + 字段扩容 + 基类变更,
+全部未过编译门;收尾期顺序见 HANDOFF 现役队列第 8 条。
 
 ### 批 192-341(2026-11-16)界面逆向深推 150 批(铁律 7:零编译/零测试) ✅
 

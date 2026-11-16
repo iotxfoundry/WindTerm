@@ -8,35 +8,32 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第五十七次交接,批 493 · ② 数据源落定(全链闭合) + 自绘控件族)
+## 一句话状态(2026-11-16 第五十八次交接,批 493 — 文档重整)
 
-**界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
-302 批 / 111 文件 / +15300 行,新增 68 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **95%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
-/②菜单 95%(**数据源落定 wind.actions+user.actions 两层** + **动作执行链闭环** 配置表→QAction→PMF 壳→FUN_0066a148→js_actionFire + **动作 DSL 三件套**:getOrCreate 856B/属性应用 2882B(**六属性集**)/整树装载 7702B + 懒构建 aboutToShow)/③工具栏状态栏 80%(七 kind 全真身)
-/④对话框 95%(**29 个 QDialog 全清**(含工厂型 TriggerActionDialog)+**10 个对话框的 build/wire 分工与装配面落真**:FocusMode/HighlightText/OneKey/PlaySound/Profile/Log/MasterPassword/Password/Paste/WindowOpacity(20 个新落 + 8 个早批);**SessionDialog 全谱**(双层页签/端口校验器/协议切页)+**SyncInputDialog**+**InsertFileDialog**+**TunnelDialog 全谱** ctor/建造 3404B/接线 935B/行→项/行图标/协议填充/行表装载·析构/整行复位 + TriggerDialog **收口**:记录布局定案+kind→图标表(两源互证)+新增/删除/复制/按键选中/提交腿/记录族四件;Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
-LoginWizard 全/Paste 全/**TriggerDialog 全谱 0xe0**:页栈+接线+编辑腿/
-**NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 93%(**线型表 14 项 + ColorButton + TextMark 列头/空态**)(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+**页内件四个方面真类化**(MarkStyle/Table/TextMarkPanel/ActionEditPanel)+占位绘制闭环+
-**八个触发器页装配全数落地**(CustomLink/CustomMenu/HighlightText/PlaySound/
-RunCommand/SendText/ShowTooltip/Connection)+页栈 006f440e 11 kind 表+
-TriggerActionWidget 0x78+TriggerActionEditPanel 0x68+TriggerWidgetKit)/⑥dock 标签 85%(**页签关钮机制闭环**:setTabButton 等价/只当前页有钮/空名·Pinned 无钮/三平行表 move)(KitDock 全套+TabBar
-节点助记符页色关钮)/5c 写 95% 读 85%(**尾钩默认腿定案**:+0x248=FUN_008d5bee/+0x240=FUN_008d1014)(**QuickBar/TransferBar 读写四腿全落**)(blobA/B/C 真身+会话帧解析)。
+**规模**:自基线 `3b7a774f` 起 **330 提交 / 139 文件 / +11816 行**,
+新增 **59 个 `*Face` 头**(`src/Actions` + `src/Widgets`)。
+**纪律**:铁律 7(零编译零测试)贯穿全部批次 —— **可编译 / 可运行仍为 0%**。
 
-**关键勘正**:①`smeta 011a2240 = SessionDialog`(设置对话框族定性);
-②`KitGroup ≡ MuxPaneGroup`(+0x38 TabGroup 同址);③TabBar 的"Qt 私有面"
-实为公开 API(`setTabButton/tabButton`);④`pasteDialog`=设置分类页、
-`dirCompareDialog`=配置目录框、`TunnelDialog`=行表 dtor、
-`msgbox_buildRich`=上传确认框(名不副实 6 例,见图纸);
-⑤`SettingsPageFace` 基类 QWidget→**QDialog**。
+**七节覆盖率(按 GUI-MAP 条目加权 ≈ 95%)**
 
-**未编译雷区**:14 个新 Face 类 + KitWindowFace 字段扩容 +
-SettingsPageFace 基类变更 + TabGroup 节点结构 —— 收尾期首编译集中修。
+| 节 | 覆盖 | 已落锚点(逐批判据见 `tools/re/GUI-MAP.md`) |
+|---|---|---|
+| ① 主窗装配 | 90% | `008d3cc2` 全链 + 中央七槽树(`0x68[0x58[0x38,0x60[0x48],0x40],0x50]`)+ 槽位族 + 焦点链 |
+| ② 菜单 / 动作 | 95% | **数据源** `wind.actions` + `user.actions` 两层 → 整树装载 7702B → 六属性应用(`script/text/tooltip/state/icon/kits`)→ `actions_from_config_list` → QAction 树 → 懒构建(`aboutToShow`)/ 触发 → **`js_actionFire`** |
+| ③ 工具栏 / 状态栏 | 80% | 七 kind 全真身(含 `AddressBar` / `SearchEdit` / `FilterEdit` / Ready 染色) |
+| ④ 对话框 | 95% | **29 个 QDialog 全清**(含 1 个工厂型 `TriggerActionDialog`)+ 10 个对话框 build/wire 分工与装配面落真 |
+| ⑤ 设置页 / 触发器页 | 93% | 行模型 `SettingsRow` 0x48 + 八路接线 + **八个触发器页装配全落** + 线型表 14 项 + `ColorButton` |
+| ⑥ dock / 标签 | 85% | KitDock 全套 + **页签关钮机制闭环**(只当前页有钮 / 空名·`Pinned` 无钮 / 三平行表 move) |
+| 5c 状态存取 | 写 95% / 读 85% | blobA/B/C 真身 + QuickBar/TransferBar 读写四腿 + 尾钩默认腿定案 |
 
-此前:M24(192 前五腿)、M23(180/181/183/184)、M22(177-179)、
-M21(173-176)、M20(170-172)、M19(166-169)、M18(162-165)、M17(158-161)、
-M16(154-157)、M15(150-153)、M14(145-149)、M13(142-144)、M12(138-141)、
+**收尾期第一步**:`docs/PENDING-ATTRIBUTION.md`(归属工作单)——
+`SettingsPageFace ↔ TunnelDialog` 的 6 项函数迁移,清完再编译;
+否则语法错与模型错混在一起,无法定位。
+
+此前里程碑:M24(192 前五腿)、M23(180-184)、M22(177-179)、M21(173-176)、
+M20(170-172)、M19(166-169)、M18(162-165)、M17(158-161)、M16(154-157)、
+M15(150-153)、M14(145-149)、M13(142-144)、M12(138-141)、
 M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
-
 
 ## 里程碑总账(全部 ✅,定义均为用户终点条件)
 
@@ -71,6 +68,8 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 
 ## 勘正谱系(现结论 ← 被勘正;新会话读到旧结论先查此表)
 
+| 现结论 | 勘正来源 | 被勘正旧结论 |
+|---|---|---|
 | `TriggerDialog`(0xe0) = 页栈 006f440e / 接线 006f2852 **同一宿主** | 批 346(ctor 字段三源吻合) | 批 343 记"宿主类名未定" |
 | `nameDialogAddFormRow` 为 **三实参**(dlg/标签/字段) | 批 347b(asm 0x6bd25c/5f) | 批 347 两实参落 |
 | pane 菜单前缀 **0x04000000=Ctrl / 0x02000000=Shift** | 批 355(asm 0x8c3cbf 分支序) | 批 336 二者写反 |
@@ -90,8 +89,6 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | `NameDialog +0x30` = **允许空名旗标**(置位写 tr("Optional")) | 批 390(`006bdbe4` 249B) | 批 386 首判"默认态" |
 | `s_terminal_ansiBrightBlack_699c2a` = **记录构造函数** / `s_king__beforeDisconnection_69934c` = **kind→图标** / `expectDialog_saveRows` = **映射→表** | 批 359/361/365(函数体实测) | 名不副实(3 例新增) |
 
-| 现结论 | 勘正来源 | 被勘正旧结论 |
-|---|---|---|
 | c1c2 p4/p5/p6 = 0/0/i( thunk 0095c91e 寄存器洗牌) | 批 103(kuna asm) | 批 83:p4=i/p5=sv/p6=-1 |
 | T 段 fA/fB = bit4 位 + mtBit4SetClr 位面写 | 批 114b(asm 三源) | 批 113:整字节写 |
 | wordsteptest transient 真因 = i3 simdBlocks 0x10 应为 len<<4 | 批 128 | 批 126:"未定位" |
@@ -117,24 +114,26 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | KitDock `+0x38` = **bool withExpand**(非 widget) | 批 216(三源) | 批 207 首判 |
 | `dock_toggleFloat` 几何 = **QRect(mapToGlobal,size)**,非私有位 | 批 232(asm 公式) | 批 180 前"私有面不可移植" |
 
-## 现役队列(批 341 后,按需开批)
+## 现役队列(批 493 后,按需开批)
 
-> ⚠ 测试冻结令 + 铁律 7 生效:各批只做转写+引用+commit,不编译不测试。
+> ⚠ 测试冻结令 + 铁律 7 生效:各批只做转写 + 引用 + commit,不编译不测试。
 
-1. **② 菜单族余段**:右鍵四族的行填充/动作体(tabbar_contextMenu 1942B
-   余段、pane_showPopupMenu 条目、trigger_buildMenu 递归、SlipButton
-   overlay 0xa0 件)
-2. **④ 对话框剩 13 件**:SessionGroup/TriggerAction/WindowOpacity/Mask/
-   TableItem/Profile/expect/TextMark 余段
-3. **⑤ 触发器 8 页**:ConnectionTrigger/CustomLink/CustomMenu/
-   HighlightText/PlaySound/RunCommand/SendText/ShowTooltip
-   (ctor 45B 级同型 + 417B 装配同型)
-4. **⑥ 余段**:RenamedTitle(1693B/850B)、KitGroup 真身、TabBar 节点写腿
-5. **5c 余段**:blobB 尾钩 +0x240/+0x248、旧格式 008ce8f6 尾部差异、
-   QuickBar 写侧 008596b8(395B)
-6. **大件**:KitBar::addKit 9743B(需分 3-4 面)、FUN_008cf0c8 2233B
-7. **收尾期**(语料锚定段全清后):全量编译修错 → 25 测试二进制回归 →
-   装配 main → Xvfb 截图 vs /opt 对表
+1. **④ 对话框腿内部体**:构造骨架(ctor/vtable/字段/标题/腿指针)已全清,
+   剩 ~18 条 `build()` 的内部逐句(装配布局/信号槽体)。
+2. **② 动作配置的磁盘读入面**:`wind.actions` / `user.actions` 已定位到
+   `s_wind_actions_76b7c0`,但其上游 `FUN_00a7e75e` / `00a7fdd8` / `00a8017e`
+   族(配置读入器)未转写。
+3. **⑤ 触发器页字段装配余段**:八页外层已落,页内 `+0x38..+0x60` 字段的
+   逐件装配仍有 cited。
+4. **⑥ 标签页写腿尾部**:`insertTabWithMeta` 的 icon/属性写面、节点表建立。
+5. **5c 读侧余段**:帧解析细节(`parseSessionRestoreBlob` 深层)、旧格式尾部差异。
+6. **自绘控件族**:全库 463 个 `s_*` 处理器(250–1600B)中约 **60 个控件 ctor**
+   尚未落(CheckList/ExplorerList/ActionButton/CloseButton/ExpandButton 等已落 11 个)。
+7. **大件**:`KitBar::addKit`(9743B,需分 3-4 面)、`FUN_008cf0c8`(2233B)、
+   `RemoteFileDialog` 装配体 7811B 的内部。
+8. **收尾期**(语料锚定段全清后):
+   **① 清 `docs/PENDING-ATTRIBUTION.md` 的 6 项归属迁移 → ② 全量编译修错 →
+   ③ 25 个测试二进制全量回归 → ④ 装配 `main` → ⑤ Xvfb 截图 vs `/opt` 对表**。
 
 ## 已知开放问题
 
