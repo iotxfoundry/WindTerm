@@ -239,6 +239,12 @@ protected:
 //   vtable **TextMarkTablePanel_vtable** + 副 01196288 →
 //   FUN_00567386(577B)/FUN_00567084(683B)(装配腿,cited)。尺寸 0x48。
 //   即 HighlightText 页的 +0x38 "规则表"。
+// TextMark 行 ↔ 控件绑定(s_text_matchWholeWord_6cc89c,1264B,批 483):
+//   **键全实读**:`text.pattern` / `description` / `text.matchWholeWord` /
+//   `text.matchRegex` / `text.matchCase` / `sound`;
+//   控件槽:+0x38(**复选组**)/ +0x40 / +0x48(**description → QLineEdit
+//   setText**)/ +0x50。
+//   ⇒ 这就是"文本标记规则"的设置行装载器(与 Inspector 行同型)。
 class TextMarkTablePanelFace : public TriggerTableWidgetFace {
 	Q_OBJECT
 public:
