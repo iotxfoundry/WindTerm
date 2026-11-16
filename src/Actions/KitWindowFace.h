@@ -64,6 +64,8 @@ public:
 		m_quickBarHost = host;
 		m_quickBarItems = items;
 	}
+	void applyQuickBarItems(const QStringList &items) { m_quickBarItems = items; } // FUN_0085ae06(cited)
+	void collapseQuickBar() {}   // FUN_008595c8(收起腿,cited 体)
 	QString m_quickBarName;      // +0xd8
 	QWidget *m_quickBarHost = nullptr; // +0xe0
 	QStringList m_quickBarItems; // +0xe0 宿主的 +0x68 表(承接)

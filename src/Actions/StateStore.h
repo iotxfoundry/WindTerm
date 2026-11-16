@@ -70,6 +70,14 @@ QByteArray stateStoreSerializeSplitterBlob(const KitWindowFace *pane);
 //   ⇒ 样本尾 9B = BA(5B 00+00000000)= 可见 false + 空表,与读侧同相。
 QByteArray stateStoreSerializeQuickBar(const KitWindowFace *pane);
 
+// FUN_0085ae68(220B,0026.c:51550)QuickBar **读侧**(与上函数互为镜像):
+//   `>> BA` 取子流 → 子流 `>> bool visible` → FUN_0085e0c0 取 QVariantList
+//   (count + 项)→ **`(flags & 4) == 0` 时 FUN_0085ae06(this,&list) 应用条目**
+//   → **`!visible` 时 FUN_008595c8(this)`(收起/隐藏 QuickBar)** → 返回 1。
+//   备注:**懒建**在 FUN_0085af56(329B):+0xe8 名称空或 +0xf0 宿主空 →
+//   `new 0x58 + FUN_005858fe` 建 QuickBar(与写侧 +0xd8/+0xe0 是另一对槽)。
+bool stateStoreRestoreQuickBar(KitWindowFace *pane, QDataStream &in, quint32 flags);
+
 // FUN_008cf0c8(2233B,0028.c:15003)s_kit_startupSessions 页 payload
 // 序列化骨架真身(批 173,M21-①升真;原版 674B 实物帧实证,5C-REPORT):
 //   QDataStream(&blob)@008cf162 → << 0xb9e7e626(@008cf173,反编译

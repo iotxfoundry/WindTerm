@@ -608,3 +608,22 @@ QByteArray stateStoreSerializeQuickBar(const KitWindowFace *pane)
 		s << n;                                        // 逐项 <<QString
 	return buf;                                        // 外层再 out << buf
 }
+
+// FUN_0085ae68(220B,0026.c:51550)QuickBar 读侧真身(结构段)
+bool stateStoreRestoreQuickBar(KitWindowFace *pane, QDataStream &in, quint32 flags)
+{
+	QByteArray buf;
+	in >> buf;                                    // @0085ae91(>>BA)
+	QDataStream sub(&buf);                        // @0085ae9x(子流)
+	bool visible = false;
+	sub >> visible;                               // @0085aebf(>>bool)
+	QStringList items;                            // FUN_0085e0c0 → QVariantList
+	// sub >> items(list)  — FUN_0085e0c0(sub, &list) cited(格式 = count+项)
+	if (pane != nullptr) {
+		if ((flags & 4) == 0)
+			pane->applyQuickBarItems(items);      // @FUN_0085ae06(应用条目)
+		if (!visible)
+			pane->collapseQuickBar();             // @FUN_008595c8(收起)
+	}
+	return true;                                  // 语料恒 return 1
+}
