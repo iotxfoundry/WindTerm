@@ -15,6 +15,13 @@ class QTabWidget;
 
 // TriggerPageFace — 语料触发器页族共有面(批 341/342/343)。
 //
+// **各页 QFormLayout::addRow 调用数(asm 逐函数计数,修复 403 实测)**:
+//   Connection 2 / HighlightText 2 / RunCommand 3 / CustomLink 4 /
+//   ShowTooltip 5 / PlaySound 2 / CustomMenu 5 / SendText 6 /
+//   TriggerActionWidget 3。
+//   下表各行仅落实参可辨者(标签/文本域/表件),其余行的实参被 Ghidra 折叠,
+//   保留 cited(不发明空行 —— 空行会改变视觉行距)。
+//
 // ctor FUN_006f1966(45B,0022.c:19227) 实测:
 //   QWidget::QWidget(this,parent,0) → vptr = 0x11a47f0(vt0 ConnectionTriggerPage;
 //   asm 0x6f66fe: mov $0x11a47e0 + lea 0x10 = 0x11a47f0) →
@@ -220,7 +227,7 @@ protected:
 //     setMaximum(999999.9) / setSingleStep(0.1);
 //   label->setBuddy ×2;+0x38 非空 → FUN_006f1850(+0x48);
 //   form margins 全零;assembleBusyOverlay(FUN_006f1994);addRow ×4;
-//   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
+//   **addRow 共 6 行(asm 计数)**;本面落 4 行(双标签 + 两表头),余 2 行 cited;
 //   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
 //   setFocusProxy(this)。
 // TextMarkTablePanelFace — FUN_005675e8(69B,0017.c:39545)ctor:
@@ -318,7 +325,7 @@ protected:
 //   +0x48 = new 0x78 + FUN_006fdcde(w, **5**, 0)(TriggerActionWidget,kind 5);
 //   +0x50 = new 0x40 + FUN_00703a58(w, 0)(0x40 附件);
 //   setBuddy;FUN_006fb180(+0x48, +0x38);margins 全零;assembleBusyOverlay();
-//   addRow ×4;setLayout;setTabOrder(+0x40→+0x48→+0x50);setFocusProxy。
+//   **addRow 共 4 行(asm 计数)**;本面落标签 1 行,余 3 行 cited。
 class CustomLinkTriggerPageFace : public TriggerPageFace {
 	Q_OBJECT
 public:
@@ -343,8 +350,8 @@ protected:
 //     qlist_appendRange → FUN_00584ee8(+0x48);
 //   FUN_00533a0c(+0x48, 1, src)(表 → 行源);
 //   FUN_00566d6e(+0x40, tr("No action available")(0xc9ff0f))(占位);
-//   margins 全零;assembleBusyOverlay();addRow ×5;setLayout;
-//   setTabOrder(+0x40 → +0x50 → +0x58);setFocusProxy。
+//   margins 全零;assembleBusyOverlay();**addRow 共 5 行(asm 计数)**;
+//   本面落两标签,余 3 行 cited;setTabOrder(+0x40→+0x50→+0x58)。
 class CustomMenuTriggerPageFace : public TriggerPageFace {
 	Q_OBJECT
 public:
@@ -374,7 +381,8 @@ protected:
 //   三列表头 = tr("Pattern")(0xd0daab) / tr("Description")(0xc8a3a0) /
 //     tr("Sound")(0xc9fb51) → qlist_appendRange → FUN_00584ee8(+0x38);
 //   FUN_00566d6e(+0x40, tr("No sound available")(0xc9ff23))(占位文案);
-//   margins 全零;assembleBusyOverlay();addRow ×4;setLayout;setFocusProxy。
+//   margins 全零;assembleBusyOverlay();**addRow 共 2 行(asm 计数)**;
+//   本面落标签 1 行,余 1 行 cited。
 class PlaySoundTriggerPageFace : public TriggerPageFace {
 	Q_OBJECT
 public:
@@ -392,8 +400,8 @@ protected:
 //   +0x48 = new 0x70 + FUN_006f83b0(w, **5**, 1, 0);+0x50 = w+0x40;
 //   +0x58 = new 0x40 + FUN_00703a58(w, 0);
 //   两 label setBuddy;+0x38 非空 → FUN_006f1850(+0x48);
-//   margins 全零;assembleBusyOverlay();addRow ×5;setLayout;
-//   setTabOrder(+0x40 → +0x50 → +0x58);setFocusProxy。
+//   margins 全零;assembleBusyOverlay();**addRow 共 5 行(asm 计数)**;
+//   本面落两标签,余 3 行 cited;setTabOrder(+0x40→+0x50→+0x58)。
 class ShowTooltipTriggerPageFace : public TriggerPageFace {
 	Q_OBJECT
 public:
@@ -412,7 +420,7 @@ protected:
 //   form = QFormLayout(0x20);label = QLabel(0x30, tr("&Rules:")(0xc9fd07));
 //   +0x38 = new 0x48 + FUN_005675e8(w, 0)(规则表件);
 //   label->setBuddy(+0x38);form margins 全零;assembleBusyOverlay();
-//   addRow ×2;setLayout(form);setFocusProxy(this)。
+//   **addRow 共 2 行(asm 计数)**;本面落标签 1 行,余 1 行 cited。
 class HighlightTextTriggerPageFace : public TriggerPageFace {
 	Q_OBJECT
 public:
@@ -428,8 +436,8 @@ protected:
 //   +0x38 = new 0x68 + FUN_0056376e(w, 0xe000, 0)(文本域);+0x40 = w+0x40;
 //   +0x48 = new 0x78 + FUN_006fdcde(w, **10**, 0)(TriggerActionWidget,kind 10);
 //   label->setBuddy(+0x38);FUN_006fb180(+0x48, +0x38)(动作件 ↔ 文本域接线);
-//   margins 全零;assembleBusyOverlay();addRow ×3;setLayout(form);
-//   setTabOrder(+0x40, +0x48)。
+//   margins 全零;assembleBusyOverlay();**addRow 共 3 行(asm 计数)**;
+//   本面落标签 1 行,余 2 行 cited;setTabOrder(+0x40, +0x48)。
 class RunCommandTriggerPageFace : public TriggerPageFace {
 	Q_OBJECT
 public:

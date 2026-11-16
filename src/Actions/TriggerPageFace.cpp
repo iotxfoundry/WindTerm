@@ -295,10 +295,10 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	// if (+0x38) FUN_006f1850(+0x48)@006f88xx — cited
 	form->setContentsMargins(0, 0, 0, 0);                          // 全零
 	assembleBusyOverlay();                                         // @006f88xx(FUN_006f1994)
-	form->addRow(label1, m_edit38);                                // addRow ×4(字段行,实参折叠)
-	form->addRow(label2, m_combo58);
-	form->addRow(QStringLiteral("Send &Condition:"));              // tr(0xc9fdb6) 表头行
-	form->addRow(QStringLiteral("Send &Later:"));                  // tr(0xc9fdc7) 表头行
+	form->addRow(label1, m_edit38);                                // 1/6
+	form->addRow(label2, m_combo58);                               // 2/6
+	form->addRow(QStringLiteral("Send &Condition:"));              // tr(0xc9fdb6) 表头行(3/6)
+	form->addRow(QStringLiteral("Send &Later:"));                  // tr(0xc9fdc7) 表头行(4/6;余 2 行实参折叠)
 	setLayout(form);                                               // @006fxxxx
 	// 语料 setTabOrder 链走 +0x40/+0x50(两件各自的内部 +0x40 子件);
 	//   本面以两件本体顺序承接(cited)。
@@ -426,7 +426,7 @@ void HighlightTextTriggerPageFace::assembleHighlightPage()
 	label->setBuddy(m_rules38);
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @006f7cxx(FUN_006f1994)
-	form->addRow(label);                                       // addRow ×2(实参折叠)
+	form->addRow(label);                                       // 1/2(余 1 行实参折叠)
 	setLayout(form);                                           // @006f7d11
 	setFocusProxy(m_rules38);                                  // @006f7d1d(+0x38)
 }
@@ -449,7 +449,7 @@ void RunCommandTriggerPageFace::assembleRunCommandPage()
 	// FUN_006fb180(+0x48, +0x38)(动作件 ↔ 文本域接线)@006fe3xx — cited
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @006fe3xx(FUN_006f1994)
-	form->addRow(label);                                       // addRow ×3(实参折叠)
+	form->addRow(label);                                       // 1/3(余 2 行实参折叠)
 	setLayout(form);                                           // @006fe3xx
 	QWidget::setTabOrder(m_f40, m_action48);                   // @006fe3b9(+0x40 → +0x48)
 	setFocusProxy(m_f40);                                      // @006fe3c5(+0x40)
@@ -474,7 +474,7 @@ void CustomLinkTriggerPageFace::assembleCustomLinkPage()
 	// FUN_006fb180(+0x48, +0x38)(动作件 ↔ 文本域)@00703exx — cited
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @00703exx(FUN_006f1994)
-	form->addRow(label);                                       // addRow ×4(实参折叠)
+	form->addRow(label);                                       // 1/4(余 3 行实参折叠)
 	setLayout(form);                                           // @00703exx
 	QWidget::setTabOrder(m_f40, m_action48);                   // @(+0x40 → +0x48)
 	QWidget::setTabOrder(m_action48, m_f50);                   // @00703exx(+0x48 → +0x50)
@@ -500,7 +500,7 @@ void PlaySoundTriggerPageFace::assemblePlaySoundPage()
 	// FUN_00566d6e(+0x40, tr("No sound available")(0xc9ff23))@007044a4 — cited
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @007045xx(FUN_006f1994)
-	form->addRow(label);                                       // addRow ×4(实参折叠)
+	form->addRow(label);                                       // 1/4(余 3 行实参折叠)
 	setLayout(form);
 	setFocusProxy(m_table38);                                  // @00704502(+0x38)
 }
@@ -527,7 +527,7 @@ void ShowTooltipTriggerPageFace::assembleShowTooltipPage()
 	// if (+0x38) FUN_006f1850(+0x48)@00703cxx — cited
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @00703cxx(FUN_006f1994)
-	form->addRow(l1);                                          // addRow ×5(实参折叠)
+	form->addRow(l1);                                          // 1/5(余 3 行实参折叠)
 	form->addRow(l2);
 	setLayout(form);
 	QWidget::setTabOrder(m_f40, m_f50);                        // @(+0x40 → +0x50)
@@ -559,7 +559,7 @@ void CustomMenuTriggerPageFace::assembleCustomMenuPage()
 	// FUN_00566d6e(+0x40, tr("No action available")(0xc9ff0f))@007040xx — cited
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @007041xx(FUN_006f1994)
-	form->addRow(l1);                                          // addRow ×5(实参折叠)
+	form->addRow(l1);                                          // 1/5(余 3 行实参折叠)
 	form->addRow(l2);
 	setLayout(form);
 	QWidget::setTabOrder(m_f40, m_f50);                        // @(+0x40 → +0x50)
