@@ -2,6 +2,7 @@
 #include "TriggerDialogFace.h"
 
 #include "NameDialogFace.h"
+#include "ThemeIcons.h"
 
 #include <QAbstractButton>
 #include <QDialogButtonBox>
@@ -389,7 +390,7 @@ void TriggerDialogFace::rebuildSessionScopeModel(TriggerRecord *rec)
 // FUN_006f263e(199B,0022.c:19746)记录 → 列表项真身
 QListWidgetItem *TriggerDialogFace::makeItemForRecord(const TriggerRecord &rec)
 {
-	const QIcon icon = style()->standardIcon(QStyle::SP_FileIcon); // FUN_006994ca 缺省图标(cited 承接)
+	const QIcon icon = recordIcon(rec);                            // FUN_006994ca(21B)
 	auto *item = new QListWidgetItem(icon, rec.name08);            // @006f2670(0x30)
 	if (rec.f20 == 0)                                              // +0x20 == 0
 		applyItemGrayed(item, false);                              // FUN_006f2460(this,item,0)
@@ -427,4 +428,33 @@ void TriggerDialogFace::applyItemGrayed(QListWidgetItem *item, bool on)
 	} else {
 		item->setData(Qt::ForegroundRole, QVariant()); // @006f255e(空 → 清画笔)
 	}
+}
+
+// s_king__beforeDisconnection_69934c(365B,0021.c:23917)kind → 主题图标真身
+QIcon TriggerDialogFace::kindIcon(int kind, bool active)
+{
+	QString name;                                  // local_38(空串起始)
+	switch (kind) {                                // @0069938e switch 逐 case
+	case 1:  name = QStringLiteral("king::afterConnection"); break;
+	case 2:  name = QStringLiteral("king::afterDisconnection"); break;
+	case 3:  name = QStringLiteral("king::beforeConnection"); break;
+	case 4:  name = QStringLiteral("king::beforeDisconnection"); break;
+	case 5:  name = QStringLiteral("king::customLink"); break;
+	case 6:  name = QStringLiteral("king::customMenu"); break;
+	case 8:  name = QStringLiteral("king::highlightText"); break;
+	case 9:  name = QStringLiteral("king::playSound"); break;
+	case 10: name = QStringLiteral("king::runCommand"); break;
+	case 11: name = QStringLiteral("king::sendText"); break;
+	case 12: name = QStringLiteral("king::showTooltip"); break;
+	default: break;                                // 7 等无 case → 空名
+	}
+	if (active && !name.isEmpty())                 // @006993ed(flag 且非空)→ 追加
+		name.append(QStringLiteral("Active"));     // FUN_0069e842(append "Active")
+	return ThemeIcons::loadSvg(name, QString());   // @006993c0(theme_icon_load_svg)
+}
+
+// FUN_006994ca(21B)记录图标
+QIcon TriggerDialogFace::recordIcon(const TriggerRecord &rec)
+{
+	return kindIcon(rec.kind24, rec.f20 != 0);     // +0x24 kind / +0x20 active
 }

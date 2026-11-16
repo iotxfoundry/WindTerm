@@ -156,6 +156,22 @@ public:
 	//   rec->+0x20 == 0 → FUN_006f2460(this, item, 0)(425B 项外观/态,cited);
 	//   item->setData(0x100 /*UserRole*/, rec->+0x10 /*键*/)—— 与
 	//   rowIndexByName 用 +0x10 比较互证。
+	// s_king__beforeDisconnection_69934c(365B,0021.c:23917)触发器种类图标(名不副实:
+	//   Ghidra 取了首个 case 的字面当函数名,实为"kind → 主题图标"):
+	//   name 按 kind 取:
+	//     1 king::afterConnection / 2 king::afterDisconnection /
+	//     3 king::beforeConnection / 4 king::beforeDisconnection /
+	//     5 king::customLink / 6 king::customMenu / 8 king::highlightText /
+	//     9 king::playSound / 10 king::runCommand / 11 king::sendText /
+	//     12 king::showTooltip(7 无 case ⇒ 空名)
+	//   active 且名非空 → 追加 "Active"("king::customLinkActive");
+	//   → theme_icon_load_svg(名)(= ThemeIcons::loadSvg)。
+	//   **与 006f440e 的 kind 语义完全一致 —— 两独立源互证。**
+	static QIcon kindIcon(int kind, bool active);
+
+	// FUN_006994ca(21B)记录图标:+0x24 kind / +0x20 active。
+	static QIcon recordIcon(const struct TriggerRecord &rec);
+
 	class QListWidgetItem *makeItemForRecord(const struct TriggerRecord &rec);
 
 	// FUN_006f2460(425B,0022.c:20141)列表项禁用外观:
