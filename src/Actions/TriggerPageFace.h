@@ -6,8 +6,11 @@
 class QComboBox;
 class QDoubleSpinBox;
 class QAbstractItemView;
+class QToolButton;
 class QHBoxLayout;
+class QMenu;
 class QTableWidget;
+class QToolButton;
 class QStackedLayout;
 class QStackedWidget;
 class QTabBar;
@@ -267,6 +270,25 @@ protected:
 	int m_flags = 0x48f;
 	QString m_placeholder;                      // +0x38(语料槽位)
 	bool m_needResize30 = true;                 // +0x30(首show 后置 0)
+};
+
+// CaptureGroupsButtonFace — FUN_006fad0a(374B,0022.c:24991)ctor:
+//   **QToolButton** 子类(vtable CaptureGroupsButton_vtable / 副 0118b6c8)→
+//   **+0x30 = 目标控件**(参数 2:要把 ${…} 插入的那个文本面板)→
+//   setAutoRaise(…)/**setArrowType(4=DownArrow)**/
+//   **setPopupMode(2=InstantPopup)** →
+//   menu = QMenu(0x30, 本钮);
+//   connect(menu->aboutToShow → 闭包 FUN_006f7300)(**弹性填充:按目标里的
+//     正则捕获组生成条目**);connect(menu->triggered → 闭包 FUN_006f7043)
+//     (插入所选项);setMenu(menu)。尺寸 0x38。
+class CaptureGroupsButtonFace : public QToolButton {
+	Q_OBJECT
+public:
+	explicit CaptureGroupsButtonFace(QWidget *target, QWidget *parent = nullptr);
+
+protected:
+	QWidget *m_target30 = nullptr; // +0x30(插入目标)
+	QMenu *m_menu38 = nullptr;     // +0x38(捕获组菜单)
 };
 
 // MarkStyleWidgetFace — FUN_00703a58(55B,0022.c:29996)ctor:

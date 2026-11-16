@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QLayoutItem>
 #include <QMenu>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QStackedLayout>
 #include <QTabBar>
@@ -389,6 +390,24 @@ void TriggerTableWidgetFace::showEvent(QShowEvent *e)
 	QTableWidget::showEvent(e);                   // QWidget::showEvent
 }
 
+// FUN_006fad0a(374B)CaptureGroupsButton ctor 真身
+CaptureGroupsButtonFace::CaptureGroupsButtonFace(QWidget *target, QWidget *parent)
+	: QToolButton(parent)                 // @006fad0a
+	, m_target30(target)                  // +0x30
+{
+	setAutoRaise(true);                   // setAutoRaise(实参折叠)
+	setArrowType(Qt::DownArrow);          // @setArrowType(4)
+	setPopupMode(QToolButton::InstantPopup); // @setPopupMode(2)
+	m_menu38 = new QMenu(this);           // @006fad78(0x30)
+	connect(m_menu38, &QMenu::aboutToShow, this, [this]() {
+		// 闭包 impl FUN_006f7300:按 m_target30 的正则捕获组填充菜单 — cited
+	});
+	connect(m_menu38, &QMenu::triggered, this, [this](QAction *) {
+		// 闭包 impl FUN_006f7043:把所选组的 ${…} 插入 m_target30 — cited
+	});
+	setMenu(m_menu38);                    // @setMenu
+}
+
 // FUN_00703a58(55B)MarkStyleWidget ctor 真身
 MarkStyleWidgetFace::MarkStyleWidgetFace(QWidget *parent)
 	: QWidget(parent)                     // @00703a58
@@ -637,7 +656,7 @@ void TriggerPageFace::bindEditorToActionWidget(TriggerActionWidgetFace *actionWi
 	// 逐字段:
 	//   name = field->property(<折叠>).toString()@006fb24x;
 	//   if (name.contains("arguments")) {
-	//     box = new 0x38 + FUN_006fad0a(box, editor, 0)@006fb2a6;
+	//     **box = new CaptureGroupsButtonFace(editor)@006fb2a6(0x38,FUN_006fad0a)**;
 	//     boxlayout_insertRtlAware(field, box, 1)@006fb2b6;
 	//     FUN_0058dac2(field, "${match}")@006fb2d0;   // 属性值实读
 	//   }
