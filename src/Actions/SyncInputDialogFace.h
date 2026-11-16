@@ -16,10 +16,27 @@ class SyncInputDialogFace : public QDialog {
 public:
 	explicit SyncInputDialogFace(QWidget *parent = nullptr);
 
-	void buildMain();   // FUN_00729f1e(3005B) — 结构段
+	// FUN_00729f1e(3005B)主装配(建造部分逐对实测):
+	//   **+0x30 = QComboBox(0x30)** / **+0x40 = QTabBar(0x30)** /
+	//   **+0x48 = QStackedWidget(0x30)** /
+	//   **+0x58 = new 0x48 + FUN_0055e356(w, 0x201)**(列表件,旗标 0x201;
+	//   +0x50 = w+0x40)/ **+0x38 = QDialogButtonBox(0x30, 0x400400 Ok|Cancel)**;
+	//   combo 三项(data → 文案,实读):
+	//     2 → "Sessions In Current Window"(0xca1824)
+	//     1 → "Sessions In All Windows"(0xca183f)
+	//     3 → "Sessions In Group %1"(0xca1857)
+	//   另有标签 tr("Joined:")(0xca181c)/ tr("Channel")(0xcb7054)/ title
+	//   "Sync Input";按钮 Ok(0xc9e1cd)/Cancel(0xc8a1b5)。
+	void buildMain();   // FUN_00729f1e(3005B)
 	void buildExtra();  // FUN_00729616(867B) — 结构段
 
 protected:
+	QWidget *m_combo30 = nullptr;   // +0x30(QComboBox)
+	QWidget *m_buttons38 = nullptr; // +0x38(QDialogButtonBox,0x400400)
+	QWidget *m_tabBar40 = nullptr;  // +0x40(QTabBar)
+	QWidget *m_stack48 = nullptr;   // +0x48(QStackedWidget)
+	QWidget *m_listView50 = nullptr;// +0x50(列表件 +0x40)
+	QWidget *m_list58 = nullptr;    // +0x58(0x48,FUN_0055e356(0x201))
 	int m_f60 = 0;        // +0x60
 	QString m_f68;        // +0x68
 };
