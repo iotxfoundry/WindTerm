@@ -1,7 +1,7 @@
 #include "Actions/Menu/ToolBarBuilder.h"
 
-#include "Widgets/BreadCrumbFace.h"
-#include "Widgets/SearchEditFace.h"
+#include "Widgets/Faces/BreadCrumbFace.h"
+#include "Widgets/Faces/SearchEditFace.h"
 
 #include <QAction>
 #include <QLabel>
@@ -15,7 +15,7 @@
 #include "Actions/Kit/KitWindowFace.h"
 #include "Actions/Kit/KitWindowFactory.h"
 #include "Actions/Kit/MainWindowFace.h"
-#include "Editor/CGlobalConfigFace.h"
+#include "Editor/Config/CGlobalConfigFace.h"
 
 // SharedConfigHandlerFace 是 CGlobalConfigFace 的公开嵌套型(批 147);
 // 头内以全局名前置引用 — 此处 using 对齐(CGlobalConfigFace 头实读,

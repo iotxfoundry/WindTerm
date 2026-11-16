@@ -9,8 +9,8 @@
 #include <QMainWindow>
 #include <QSplitter>
 
-#include "Editor/CGlobalConfigFace.h"
-#include "Widgets/Splitter.h"
+#include "Editor/Config/CGlobalConfigFace.h"
+#include "Widgets/OpenSource/Splitter.h"
 
 // KitWindowFace —— 语料 KitWindow(typeinfo 011ab390,名 "9KitWindow" ELF
 // 实读)承载面壳(MainWindowFace 判例批 100;铁律 6:抽象身份 + 纯虚 menu()。

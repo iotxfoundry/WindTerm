@@ -20,7 +20,7 @@
 
 #include "Actions/Kit/KitDockFace.h"
 #include "Actions/Mux/MuxPaneView.h"
-#include "Widgets/BreadCrumbFace.h"
+#include "Widgets/Faces/BreadCrumbFace.h"
 #include "Actions/Kit/KitWindowAssemblyFace.h"
 #include "Actions/Kit/KitWindowFactory.h"
 #include "Actions/Kit/StatusBarFace.h"
@@ -28,8 +28,8 @@
 #include "Actions/Mux/MuxWindow.h"
 #include "Actions/Mux/MuxPaneGroup.h"
 #include "Actions/Kit/TabGroup.h"
-#include "WorkspaceLoader.h"
-#include "Widgets/Splitter.h"
+#include "Sessions/Core/WorkspaceLoader.h"
+#include "Widgets/OpenSource/Splitter.h"
 
 // 008c9ee4(159B,0028.c:11376)菜单栏装配腿:
 //   menuBar = King::MenuBar::MenuBar(menu(),"Kit",this) @0x8c9f22(批 189

@@ -1,7 +1,7 @@
 // NameDialogFace.cpp — 通用 Create 名字对话框(批 347)
 #include "Actions/Dialogs/NameDialogFace.h"
 
-#include "SearchEditFace.h"
+#include "Widgets/Faces/SearchEditFace.h"
 
 #include <QAbstractButton>
 #include <QDialogButtonBox>

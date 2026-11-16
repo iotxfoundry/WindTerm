@@ -12,7 +12,7 @@
 #include "Actions/Menu/ActionFactory.h"
 #include "Actions/Menu/ThemeIcons.h"
 
-#include "../Editor/SuperKeymap.h"   // King 面:host+0x68 SuperKeymap(批 87 parent() 链);keymapKeyForward 00674206
+#include "Editor/Engine/SuperKeymap.h"   // King 面:host+0x68 SuperKeymap(批 87 parent() 链);keymapKeyForward 00674206
 #include <QHash>
 
 // ── King 面(0076bf82 外壳链;调用点 KitBar S6 0027:73051 / Palette

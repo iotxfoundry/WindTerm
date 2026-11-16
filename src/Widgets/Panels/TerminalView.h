@@ -12,7 +12,7 @@
 // Screen::paletteColor(+0xd0 容器);空表回落 16 色 xterm 默认。
 // 刷新 = TermViewFace::viewWrite(语料 vtable+0x70 通道)→ update()。
 
-#include "TermViewFace.h"
+#include "Sessions/Terminal/TermViewFace.h"
 
 #include <QWidget>
 

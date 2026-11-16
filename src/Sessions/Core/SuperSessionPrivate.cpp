@@ -1,11 +1,11 @@
 #include "SuperSessionPrivate.h"
-#include "SuperCommander.h"
+#include "Sessions/Commanders/SuperCommander.h"
 #include "SuperSession.h"
 
 #include <QMap>
 #include <QVariantList>
 #include <new>
-#include "../Editor/CTerminalConfig.h"
+#include "Editor/Config/CTerminalConfig.h"
 
 // 混合实现:逆向信号/方法名(moc 权威)× 真 libssh API。
 // libssh 0.9.6+ 补丁精确源码见 src/libssh。

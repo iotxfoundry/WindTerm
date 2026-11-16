@@ -1,7 +1,7 @@
 #include "TelnetCommander.h"
-#include "../Editor/CTerminalConfig.h"
+#include "Editor/Config/CTerminalConfig.h"
 #include "SuperCommander.h"
-#include "SuperSession.h"
+#include "Sessions/Core/SuperSession.h"
 
 #include <QTimer>
 #include <QVector>

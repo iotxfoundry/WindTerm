@@ -1,6 +1,6 @@
 #include "KeymapEngine.h"
 
-#include "ProfileLoader.h"
+#include "Editor/Config/ProfileLoader.h"
 
 #include <QFileInfo>
 

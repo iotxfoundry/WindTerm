@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "SuperSession.h"
+#include "Sessions/Core/SuperSession.h"
 
 class TelnetBridge;
 

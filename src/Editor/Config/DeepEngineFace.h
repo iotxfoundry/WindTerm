@@ -10,7 +10,7 @@
 #include <QReadWriteLock>
 #include <QHash>
 #include <stddef.h>
-#include "MarkersStore.h"  // RS8(RunStyles 委托)/vcallSlot 槽尾调(批 152 判例)
+#include "Editor/Engine/MarkersStore.h"  // RS8(RunStyles 委托)/vcallSlot 槽尾调(批 152 判例)
 
 namespace wt {
 

@@ -10,10 +10,10 @@
 #include <json/json.h>
 
 #include "Actions/Kit/KitWindowFactory.h"
-#include "WorkspaceLoader.h"
-#include "Editor/CTerminalConfig.h"
-#include "Editor/KeymapEngine.h"
-#include "Editor/ProfileLoader.h"
+#include "Sessions/Core/WorkspaceLoader.h"
+#include "Editor/Config/CTerminalConfig.h"
+#include "Editor/Engine/KeymapEngine.h"
+#include "Editor/Config/ProfileLoader.h"
 
 #include <QAbstractButton>
 #include <QCoreApplication>

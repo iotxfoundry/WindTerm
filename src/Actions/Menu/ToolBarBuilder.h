@@ -3,7 +3,7 @@
 #include <QList>
 #include <QMainWindow>
 
-#include "Editor/CGlobalConfigFace.h"
+#include "Editor/Config/CGlobalConfigFace.h"
 
 class QToolBar;
 class QToolButton;

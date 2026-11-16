@@ -7,18 +7,18 @@
 #include <QSplitter>
 #include <QStackedWidget>
 
-#include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
+#include "Editor/Config/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
 #include "Actions/Kit/KitWindowFactory.h"          // KitWindowFace(8cf0c8 cast 面)
 #include "Actions/Mux/MuxPaneGroup.h"
-#include "WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
+#include "Sessions/Core/WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
 
-#include "Editor/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
+#include "Editor/Config/ProfileLoader.h"      // 806958/806904 对偶(批 169 现役)
 #include "Actions/Kit/KitWindowFactory.h"          // KitWindowFace(8cf0c8 cast 面)
 #include "Actions/Mux/MuxPaneGroup.h"              // MuxPaneGroup/tabGroup()(KitDock 对位,批 177)
 #include "Actions/Mux/MuxPaneView.h"               // MuxPaneView(KitPane 对位;paneIndex)
 #include "Actions/Mux/MuxWindow.h"                 // MuxWindow::splitter()(现役树只读)
 #include "Actions/Kit/TabGroup.h"                  // TabGroup tabBar()/count()(8b85d8/ce 面)
-#include "WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
+#include "Sessions/Core/WorkspaceLoader.h" // collectorPaneTypeName/sessionByUuid 真身
 
 // === stateStoreSerializeSplitterBlob — 批 177(M22-①)blobA 实体真身。
 // 语料锚(8cf0c8 内 8cf245-837f 段;asm/反编译双源):

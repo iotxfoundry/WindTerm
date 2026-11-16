@@ -11,41 +11,67 @@
 
 判据:`grep -c "FUN_\|cited" <文件>` —— 命中即 A 类。
 
-## 1. 逐目录状态
+## 1. 目录结构(2026-11-16 按角色重组)
+
+**分组判据 = 职责不同、改动规则不同**,不是体积、不是字母表。
+
+```
+src/
+├── Actions/            126 文件  界面装配(动作/菜单/对话框/主窗)
+│   ├── Dialogs/         33    全部 *DialogFace + MsgBoxFace
+│   ├── Settings/         4    Settings* / *SettingsPageFace / TriggerPageFace
+│   ├── Kit/             12    KitWindow* / MainWindow / StatusBar / TabGroup / KitBar
+│   ├── Menu/             4    ActionFactory / ActionRegistry / ToolBarBuilder / ThemeIcons
+│   ├── Mux/              5    MuxWindow / MuxPane* 
+│   └── (根)              6    StartupChain / StateStore / JsEngine / SearchPanelFace …
+├── Editor/              26   编辑器引擎与配置
+│   ├── Engine/           17    EditorContext / EditorEngine / ENodes / MatchEngine / SuperKeymap …
+│   └── Config/            8    CGlobalConfigFace / CTerminalConfig / CEditorConfig / ConfigBridge …
+├── Sessions/            51   会话层
+│   ├── Bridges/         15    SuperBridge + Ssh/Tcp/Telnet/Serial/Shell 五种
+│   ├── Commanders/      12    SuperCommander + 五种
+│   ├── Protocols/       10    SshSession/TcpSession/TelnetSession/ShellSession/SerialSession
+│   ├── Terminal/         6    Screen / ScreenData / TerminalCore / TermViewFace
+│   └── Core/             7    SuperSession / SuperSessionPrivate / WorkspaceLoader / FileOps
+├── Widgets/             37   Qt 控件
+│   ├── Faces/           18    自绘控件族(ActionButton/Bar/BreadCrumb/ColorButton/Expand/List …)
+│   ├── Panels/          13    FilerPane / OutputPane / SessionPane / TerminalView / TextView …
+│   └── OpenSource/       6    PopupWidget / ScrollBar / Splitter(**第一方开源,勿逆向**)
+├── Utility/             11   共享基元
+│   ├── (根)              3    KingEnums / ApplicationTheme
+│   └── Components/       8    CircularBuffer / Cryptographic / ScopeGuard / Spin …
+├── Pty/                 10   第一方开源(基于 ptyqt 重写)
+├── Protocols/            3   第一方开源(Telnet)
+├── Ext/                  2   外部库接口面(Spdlog/Zstd,不含实现)
+└── Stubs/                1   gen_stubs.cpp(自动生成的 cited-stub,随转写递减)
+```
+
+**include 约定**:`src/` 是 include 根 → 跨目录一律写根相对路径
+`#include "Sessions/Core/SuperSession.h"`;同目录才可用裸文件名。
+
+## 1b. 三类来源(与上面结构正交)
 
 | 目录 | 类 | 说明 |
 |---|---|---|
-| `Actions/` | **A** | 主窗装配、菜单/动作、dock、标签、设置页、对话框(126 文件 64 头,最大目录)→ **5 个子目录(Dialogs/Settings/Kit/Menu/Mux),见 `Actions/README.md`** |
-| `Editor/` | **A** | 编辑器桥、`EditorEngine` 分派、`CTerminalConfig`(26/26) |
-| `Sessions/` | **A** + B | 会话/SSH 管家为 A;`SuperSessionPrivate` 认证族**委托 libssh**(边界) |
-| `Widgets/` | **A** 为主 | `*Face.*`/`EditorWindow`/`FilerPane`/`TerminalView` 为 A;**例外见 §2** |
-| `Protocols/` | **B** | `TelnetProtocol.*`/`Protocol.h` 为作者开源组件(非逆向) |
-| `Utility/` | **A** + B | `KingEnums.h`/`ApplicationTheme.*` 为 A;**其余见 §2** |
-| `Pty/` | **B** | 基于 [ptyqt](https://github.com/kafeg/ptyqt) **几乎全部重写**(作者自述);`Pty/UnixPty` 为我方平台分叉 |
-| `Ext/` | **A**(边界声明层) | `SpdlogFace.h` / `ZstdFace.h`:外部库的**接口面**,不含库实现 |
-| `Scintilla/` | **C** | 上游 Scintilla **4.4.6**(`version.txt` = `446`);标准 `SCI_*` 全委托 |
-| `jsoncpp/` | **C** | **1.9.4**(`JSONCPP_VERSION_STRING`) |
-| `yaml-cpp/` | **C** | **0.6.3**(`project(YAML_CPP VERSION 0.6.3)`) |
-| `spdlog/` | **C** | **1.9.2**(header-only) |
-| `fmt/` | **C** | **8.1.1**(header-only;spdlog 依赖) |
-| `dtl/` | **C** | diff-template-library(header-only,无版本宏) |
-| `libssh/` | **C**(作者改进分支) | 基于 **libssh 0.9.6**;作者加了 pageant/external socket/hmac-*-96 等。**认证族委托** |
-| `Onigmo/` | **C**(作者改进分支) | 基于 **Onigmo 5.13.5**;作者加了 iterator(gap buffer 匹配)。**正则引擎停逆向**(`docs/ext-boundary.md` 批 102) |
+| `Actions/` `Editor/` `Sessions/` `Widgets/` `Stubs/` | **A** | 逆向重建;每行有 `FUN_`/`cited` |
+| `Widgets/OpenSource/` `Utility/Components/` `Protocols/` `Pty/` | **B** | 作者 Apache-2.0 开源件,移植须 `docs/calibration.md` 逐句同构 |
+| `Scintilla/` `jsoncpp/` `yaml-cpp/` `spdlog/` `fmt/` `dtl/` `libssh/` `Onigmo/` | **C** | 第三方库,不逆向不改 |
+| `Ext/` | A | 外部库的**接口面**声明(Spdlog/Zstd) |
 
-## 2. 混合目录的文件级归属
+## 2. 第一方开源件(勿逆向)
 
-**`Utility/` —— 作者开源组件(移植,勿逆向)**
+已归入独立子目录,与逆向代码物理隔离:
 
-`CircularBuffer.h`(环形缓冲模板)、`Cryptographic.{h,cpp}`(PBKDF2/RFC 8018)、
-`MemoryPointer.h`、`ScopeGuard.h`、`Spin.h`、`ThreadLocal.{h,cpp}`
+| 目录 | 文件 |
+|---|---|
+| `Utility/Components/` | `CircularBuffer.h`(环形缓冲模板)`Cryptographic.{h,cpp}`(PBKDF2/RFC 8018)`MemoryPointer.h` `ScopeGuard.h` `Spin.h` `ThreadLocal.{h,cpp}` |
+| `Widgets/OpenSource/` | `PopupWidget.{h,cpp}` `ScrollBar.{h,cpp}`(支持 64 位范围)`Splitter.h` |
+| `Protocols/` | `Protocol.h` `TelnetProtocol.{h,cpp}` |
+| `Pty/` | 基于 [ptyqt](https://github.com/kafeg/ptyqt) **几乎全部重写**(作者自述) |
 
-**`Widgets/` —— 作者开源组件(移植,勿逆向)**
-
-`PopupWidget.{h,cpp}`、`ScrollBar.{h,cpp}`(支持 64 位范围)、`Splitter.h`
-
-> 依据:上游 `src/README.md`(已移除此处原文)自述"These are first-party
-> components";移植/校准记录见 `docs/calibration.md`(第一方 6 组件:保持移植,
-> 对应子系统**停止逆向**)。
+> 依据:上游 README 自述"These are first-party components";移植/校准记录见
+> `docs/calibration.md`(第一方 6 组件:保持移植,对应子系统**停止逆向**)。
+> `Pty/Public/Spin.h` 是 ptyqt 兼容壳(一行转发到 `Utility/Components/Spin.h`)。
 
 ## 3. 第三方库:版本、许可、构建参与
 

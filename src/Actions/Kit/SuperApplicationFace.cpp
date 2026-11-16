@@ -8,7 +8,7 @@
 #include "Actions/Mux/MuxPane.h"
 #include "Actions/StartupChain.h"
 
-#include "../Editor/CTerminalConfig.h"
+#include "Editor/Config/CTerminalConfig.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>

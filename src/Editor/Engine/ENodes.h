@@ -23,7 +23,7 @@
 #include <QThread>
 #include <QtGlobal>
 #include "MarkersStore.h"   // 批 152:RsHolder20/makeHolder0x20 承载复用(词法栈 0x20 holder)
-#include "DeepEngineFace.h" // 批 156:深引擎底座头(API 面;偏移锁+调面声明,实现 cited)
+#include "Editor/Config/DeepEngineFace.h" // 批 156:深引擎底座头(API 面;偏移锁+调面声明,实现 cited)
 
 class EditorContext; // ENodeRunner 前向(仅存指针)
 

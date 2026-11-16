@@ -10,7 +10,7 @@
 #include "Actions/Kit/KitWindowFace.h"
 #include "Actions/Mux/MuxPaneView.h"
 #include "Actions/Mux/MuxWindow.h"
-#include "Sessions/WorkspaceLoader.h"
+#include "Sessions/Core/WorkspaceLoader.h"
 #include "Actions/Kit/TabGroup.h"
 
 #include <QVBoxLayout>

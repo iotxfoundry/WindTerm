@@ -2,7 +2,7 @@
 #include "Actions/Dialogs/TriggerDialogFace.h"
 
 #include "Actions/Dialogs/NameDialogFace.h"
-#include "SearchEditFace.h"
+#include "Widgets/Faces/SearchEditFace.h"
 #include "Actions/Menu/ThemeIcons.h"
 
 #include <QAbstractButton>

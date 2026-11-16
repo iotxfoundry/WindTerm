@@ -124,6 +124,7 @@ file(GLOB_RECURSE WT_SOURCES
   ${CMAKE_SOURCE_DIR}/src/Widgets/*.cpp
   ${CMAKE_SOURCE_DIR}/src/Protocols/*.cpp
   ${CMAKE_SOURCE_DIR}/src/Utility/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/Stubs/*.cpp
 )
 if(UNIX)
   list(APPEND WT_SOURCES
@@ -138,9 +139,8 @@ file(GLOB_RECURSE WT_MOC_HEADERS
   ${CMAKE_SOURCE_DIR}/src/Sessions/*.h
   ${CMAKE_SOURCE_DIR}/src/Widgets/*.h
   ${CMAKE_SOURCE_DIR}/src/Protocols/*.h
-  ${CMAKE_SOURCE_DIR}/src/Pty/Pty.h
-  ${CMAKE_SOURCE_DIR}/src/Pty/ShellProcess.h
-  ${CMAKE_SOURCE_DIR}/src/Pty/UnixPty.h
+  ${CMAKE_SOURCE_DIR}/src/Utility/*.h
+  ${CMAKE_SOURCE_DIR}/src/Pty/*.h
 )
 # 只有含 Q_OBJECT 的头需要 moc
 set(WT_MOC_LIST "")

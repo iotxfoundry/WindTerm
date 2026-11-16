@@ -8,7 +8,7 @@
 // modem / FreeType / 会话组。渲染层与深子系统腿(对话框/全局管理器/
 // 会话栈)按注释 cited,随 Phase-4 后续接线。
 
-#include "SuperCommander.h"
+#include "Sessions/Commanders/SuperCommander.h"
 
 #include <QWidget>
 

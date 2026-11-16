@@ -1,6 +1,6 @@
 #include "TerminalView.h"
-#include "Screen.h"
-#include "TerminalCore.h"
+#include "Sessions/Terminal/Screen.h"
+#include "Sessions/Terminal/TerminalCore.h"
 
 #include <QKeyEvent>
 #include <QPainter>

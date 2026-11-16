@@ -4,7 +4,7 @@
 #include "Actions/Mux/MuxPaneView.h"
 #include "Actions/Kit/SplitterGroup.h"
 #include "Actions/Kit/TabGroup.h"
-#include "../Sessions/SuperSession.h"
+#include "Sessions/Core/SuperSession.h"
 #include "../Utility/ApplicationTheme.h"
 
 #include <QApplication>

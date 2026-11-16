@@ -1,5 +1,5 @@
 #include "SuperCommander.h"
-#include "Screen.h"
+#include "Sessions/Terminal/Screen.h"
 #include <cctype>
 
 // 第一/二批转写:光标/擦除/滚动族 + DEC 模式/字符集/SGR/插入删除族(259 个真实现体)。

@@ -7,8 +7,8 @@
 
 #include "Actions/Kit/KitBar.h"
 #include "Actions/Mux/MuxPane.h"
-#include "Editor/CGlobalConfigFace.h"
-#include "Editor/CTerminalConfig.h"
+#include "Editor/Config/CGlobalConfigFace.h"
+#include "Editor/Config/CTerminalConfig.h"
 
 // Terminal 腿面转接:语料 CTerminalConfig 单例对象(DAT_011c2220)即
 // menu() 返回容器(IS-A CGlobalConfig 基,CGlobalConfigFace.h 头注)。

@@ -10,7 +10,7 @@
 #include <QList>
 #include <libssh/libssh.h>
 #include "../Ext/SpdlogFace.h"
-#include "SessionProtocol.h"
+#include "Sessions/Bridges/SessionProtocol.h"
 
 // SuperSession 的 SSH 认证/主机校验实现(混合架构:真 libssh)。
 // 逆向语义锚:ssh-internals.md;信号族(moc 真名)见 SuperSession.h。

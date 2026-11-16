@@ -1,5 +1,5 @@
 #include "TelnetSession.h"
-#include "TelnetBridge.h"
+#include "Sessions/Bridges/TelnetBridge.h"
 
 // ctor 语料 = FUN_008616d0(0x8616d0,25B):FUN_007d807e(SuperSession
 // 基)+ 置 vtable 0x11a8e78,零自有成员动作(桥由装配点 007d846e 于

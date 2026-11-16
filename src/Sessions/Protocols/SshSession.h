@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "SuperSession.h"
+#include "Sessions/Core/SuperSession.h"
 
 // Reconstructed from WindTerm 2.7.0 (libWindTerm) QMetaObject metadata.
 // No new meta methods beyond SuperSession.

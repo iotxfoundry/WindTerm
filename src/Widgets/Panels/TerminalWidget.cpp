@@ -1,5 +1,5 @@
 #include "TerminalWidget.h"
-#include "Screen.h"
+#include "Sessions/Terminal/Screen.h"
 #include "TerminalView.h"
 
 #include <QApplication>

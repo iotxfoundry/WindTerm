@@ -1,5 +1,5 @@
 #include "Screen.h"
-#include "CTerminalConfig.h"
+#include "Editor/Config/CTerminalConfig.h"
 
 #include <QElapsedTimer>
 #include <QDateTime>
@@ -1849,7 +1849,7 @@ void Screen::setHyperlinkTarget(const QByteArray &target)
 // Qt/config primitives (binary addresses noted; reference tier thunks)
 // session config getter — now wired to the CTerminalConfig singleton
 // (FUN_00809d78); the Screen-side seam keeps the corpus call shape
-#include "../Editor/CTerminalConfig.h"
+#include "Editor/Config/CTerminalConfig.h"
 static void sessionConfigGet(QVariant *out, const Screen *s, const QByteArray &key)
 {
 	(void)s;

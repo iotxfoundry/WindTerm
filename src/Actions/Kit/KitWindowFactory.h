@@ -6,7 +6,7 @@
 #include <QVariant>
 #include <QWidget>
 
-#include "Editor/CGlobalConfigFace.h"
+#include "Editor/Config/CGlobalConfigFace.h"
 #include "Actions/Kit/KitWindowFace.h"
 #include "Actions/Kit/MainWindowFace.h"
 

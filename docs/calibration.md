@@ -302,7 +302,7 @@ command/ip/datetime 原文)→ 特性域推演 vs 上游 OnigSyntaxRuby
 Perl(:244-279)同缺 → `\g<X>` 与 `++` 同时要求的唯一上游语法 =
 RUBY。**假设成立**。
 
-### 委托逐句映射(src/Editor/OnigSearch.cpp;铁律 1 落点)
+### 委托逐句映射(src/Editor/Engine/OnigSearch.cpp;铁律 1 落点)
 
 | 语料(Onigmo-改) | 委托(上游同源) | 备注 |
 |---|---|---|

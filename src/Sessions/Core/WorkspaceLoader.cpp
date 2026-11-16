@@ -17,8 +17,8 @@
 #include "Actions/Mux/MuxPaneGroup.h"
 #include "Actions/Kit/TabGroup.h"
 #include "Actions/StartupChain.h"
-#include "Editor/CTerminalConfig.h"
-#include "Editor/ProfileLoader.h"
+#include "Editor/Config/CTerminalConfig.h"
+#include "Editor/Config/ProfileLoader.h"
 
 // 会话库源:DAT_011c2200+0xe0(user.sessions 数组)对位 — ProfileLoader
 // (批 149 判例)profilePath 面;语料 QHash 缓存层 cited(单源线性扫
