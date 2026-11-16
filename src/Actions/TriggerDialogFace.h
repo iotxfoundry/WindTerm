@@ -59,6 +59,8 @@ public:
 		QString key10;              // +0x10(006f2738 逐项 == 的键)
 		QString desc18;             // +0x18(提示框 "Description" 行 + 编辑框回填)
 		char f20 = 0;               // +0x20(页栈 param_3)
+		char f21 = 0;               // +0x21(0 = 不进列表,006f61xx)
+		char f22[2] = {};           // +0x22..0x23(未解)
 		int kind24 = 0;             // +0x24(页 kind;0 = 无页)
 		char f28[0x48 - 0x28] = {}; // +0x28..0x47(页栈 param_4 的宿主)
 	};
@@ -103,6 +105,20 @@ public:
 	//     外层 qstring_prepend_utf8("<table>") + append("</table>");
 	//   与 item->data(3)(ToolTipRole) 比较,不同才 setData(3, 结果)。
 	void updateItemTooltip(class QListWidgetItem *item);
+
+	// FUN_006f6134(415B,0022.c:...)初始装载/刷新列表(ctor 的
+	//   QTimer::singleShot(0) 腿,闭包 FUN_006f62db 41B → 本函数):
+	//   @006f6134 list->clear();
+	//   @006f61xx 全局表取面 FUN_0069d59e(DAT_011c1a60);与 +0x90 不同 →
+	//     引用计数换手(旧表经 FUN_006f2d8a 释放);
+	//   @006f61xx 逐记录(步长 0x48):+0x21 == 0 跳过;FUN_006f263e(this, rec)
+	//     (199B 过滤)返 0 跳过;否则 insertItem(count, …)(实参折叠,cited);
+	//   @006f6219 count == 0 → setPageEnabled(false);panes_stackInit(this,
+	//     **8**(= HighlightText), 1, &QVariant())(空参);FUN_006f5b42(this,
+	//     &+0x98 缺省记录)(1264B,cited);
+	//   否则 → setPageEnabled(true);list->setFocus(3);item(0) 非空 →
+	//     setCurrentItem(item, 0x13 = ClearAndSelect|Current)。
+	void reloadList();
 	void wire();       // dialog_connectAcceptReject2(006f2852,916B)
 
 	QTabBar *tabBar30() const { return m_tabBar30; }

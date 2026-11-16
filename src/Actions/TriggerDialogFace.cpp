@@ -6,6 +6,7 @@
 #include <QAbstractButton>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QItemSelectionModel>
 #include <QModelIndex>
 #include <QGridLayout>
 #include <QLabel>
@@ -288,4 +289,37 @@ void TriggerDialogFace::updateItemTooltip(QListWidgetItem *item)
 	}
 	if (item->data(Qt::ToolTipRole).toString() != tip)         // data(3) 比较
 		item->setData(Qt::ToolTipRole, tip);                   // @006f315x(vt+0x28)
+}
+
+// FUN_006f6134(415B)初始装载/刷新列表真身(结构段)
+void TriggerDialogFace::reloadList()
+{
+	if (m_triggerList68 == nullptr)
+		return;
+	m_triggerList68->clear();                          // @006f6134
+
+	// 全局触发表换手:FUN_0069d59e(DAT_011c1a60) → +0x90
+	//   (引用计数换手;旧表 FUN_006f2d8a(74B) 逐项释放后 deallocate(0x48,8))
+	//   — cited
+	for (const TriggerRecord &rec : m_records90) {
+		if (rec.f21 == 0)                              // +0x21 关 → 不进列表
+			continue;
+		// FUN_006f263e(this, rec)(199B 过滤;返 0 → 跳过) — cited
+		// insertItem(count, …)@006f61xx — 实参 Ghidra 折叠,cited
+	}
+
+	if (m_triggerList68->count() == 0) {               // @006f6219
+		setPageEnabled(false);                         // @FUN_006f272a(this,0)
+		QVariant none;                                 // local_38 空 QVariant
+		// panes_stackInit(this, 8 /*HighlightText*/, 1, &none)@006f6253
+		// — 见 TriggerPageStackFace::showPage
+		// FUN_006f5b42(this, &m_default98)@006f62xx(1264B 缺省记录装载) — cited
+	} else {
+		setPageEnabled(true);                          // @FUN_006f272a(this,1)
+		m_triggerList68->setFocus(Qt::OtherFocusReason); // @006f622x(setFocus 3)
+		if (QListWidgetItem *first = m_triggerList68->item(0)) {
+			m_triggerList68->setCurrentItem(
+				first, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current); // 0x13
+		}
+	}
 }
