@@ -8,8 +8,8 @@
 #include <QMap>
 #include <QVariantList>
 
-#include "Actions/KitWindowFace.h"
-#include "Actions/MainWindowFace.h"
+#include "Actions/Kit/KitWindowFace.h"
+#include "Actions/Kit/MainWindowFace.h"
 
 // 批 154(M16-①)— 工作区装载器分段 + 启动余量。
 // 段清单(铁律 1/3/6:每行有出处;cited 段挂地址清单,不发明):

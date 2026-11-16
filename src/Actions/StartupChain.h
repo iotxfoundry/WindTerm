@@ -3,7 +3,7 @@
 #include <QByteArray>
 #include <QString>
 
-#include "MainWindowFace.h"
+#include "Actions/Kit/MainWindowFace.h"
 
 class QMainWindow;
 

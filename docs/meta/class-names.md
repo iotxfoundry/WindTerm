@@ -56,7 +56,7 @@ tools/re/vtable_scan.py WindTerm --addr 0x6b35a6    # 查某个 ctor 写的是�
 | 真名类 | 并存件 | 状态 |
 |---|---|---|
 | `CTerminalConfig` | `CTerminalConfigFace`(`CGlobalConfigFace.h`) | ✅ **勘正：不是重复** —— 批 142 的**私有基类设计**（`class CTerminalConfig : private CTerminalConfigFace`，`face()` 返回同一单例对象），故意为 face 子对象形态 |
-| `EditorWindow`(`src/Widgets/EditorWindow.h`) | `EditorWindowFace`(`Actions/KitWindowFactory.h`) | ✅ **已合并**：`src/Widgets/EditorWindow.h`（header-only、无人 include）的 4 个槽体并入 `EditorWindowFace` 的 `public slots:`（cited 空体），原文件删除 |
+| `EditorWindow`(`src/Widgets/EditorWindow.h`) | `EditorWindowFace`(`Actions/Kit/KitWindowFactory.h`) | ✅ **已合并**：`src/Widgets/EditorWindow.h`（header-only、无人 include）的 4 个槽体并入 `EditorWindowFace` 的 `public slots:`（cited 空体），原文件删除 |
 | `TerminalWindow`(`src/Widgets/TerminalWindow.h`) | `TerminalWindowFace` | ✅ **已合并**：8 个槽体并入 `TerminalWindowFace`（`container`/`applyFlag` 两个未定义私有 helper 未随迁，避免引入链接期未定义符号），原文件删除 |
 
 ### 3.2 伞形/装配容器名(我方为组织代码而设,非原版类)

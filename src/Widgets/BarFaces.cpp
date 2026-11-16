@@ -4,7 +4,7 @@
 #include <QCoreApplication>
 #include <QVariant>
 
-#include "ThemeIcons.h"
+#include "Actions/Menu/ThemeIcons.h"
 
 // FUN_0056e26e(402B)QuickBar ctor 真身
 QuickBarFace::QuickBarFace(QWidget *parent)

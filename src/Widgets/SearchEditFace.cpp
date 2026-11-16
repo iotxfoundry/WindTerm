@@ -4,7 +4,7 @@
 #include <QCursor>
 #include <QFocusEvent>
 
-#include "Actions/ThemeIcons.h"
+#include "Actions/Menu/ThemeIcons.h"
 
 #include <QHBoxLayout>
 #include <QStyle>

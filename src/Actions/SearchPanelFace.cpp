@@ -1,5 +1,5 @@
 // SearchPanelFace.cpp — 搜索面板 apply(批 398)
-#include "SearchPanelFace.h"
+#include "Actions/SearchPanelFace.h"
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>

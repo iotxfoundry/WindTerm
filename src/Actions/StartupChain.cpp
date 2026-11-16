@@ -1,4 +1,4 @@
-#include "StartupChain.h"
+#include "Actions/StartupChain.h"
 
 #include <QCoreApplication>
 #include <QDataStream>
@@ -9,7 +9,7 @@
 #include <QWidget>
 #include <json/json.h>
 
-#include "KitWindowFactory.h"
+#include "Actions/Kit/KitWindowFactory.h"
 #include "WorkspaceLoader.h"
 #include "Editor/CTerminalConfig.h"
 #include "Editor/KeymapEngine.h"
@@ -21,8 +21,8 @@
 #include <QTimer>
 #include <QToolButton>
 
-#include "ActionFactory.h"
-#include "KitBar.h"
+#include "Actions/Menu/ActionFactory.h"
+#include "Actions/Kit/KitBar.h"
 
 // === profiles.config "path" 读 — s_profiles_config_5d8732(707B,
 // 0019.c:10148)路径腿转写:appdir + "/profiles.config" yaml_loadFile

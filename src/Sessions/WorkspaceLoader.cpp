@@ -10,12 +10,12 @@
 #include <QStackedWidget>
 #include <QVariantMap>
 
-#include "Actions/KitWindowAssemblyFace.h"
-#include "Actions/KitWindowFace.h"
-#include "Actions/KitWindowFactory.h"
-#include "Actions/MainWindowFace.h"
-#include "Actions/MuxPaneGroup.h"
-#include "Actions/TabGroup.h"
+#include "Actions/Kit/KitWindowAssemblyFace.h"
+#include "Actions/Kit/KitWindowFace.h"
+#include "Actions/Kit/KitWindowFactory.h"
+#include "Actions/Kit/MainWindowFace.h"
+#include "Actions/Mux/MuxPaneGroup.h"
+#include "Actions/Kit/TabGroup.h"
 #include "Actions/StartupChain.h"
 #include "Editor/CTerminalConfig.h"
 #include "Editor/ProfileLoader.h"

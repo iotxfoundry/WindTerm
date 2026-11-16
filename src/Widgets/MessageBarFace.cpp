@@ -1,7 +1,7 @@
 // MessageBarFace.cpp — 语料 MessageBar ctor 转写(批 244)
 #include "MessageBarFace.h"
 
-#include "Actions/ThemeIcons.h"
+#include "Actions/Menu/ThemeIcons.h"
 
 #include <QAbstractButton>
 #include <QPushButton>

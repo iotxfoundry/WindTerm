@@ -7,8 +7,8 @@
 #include <QVariantList>
 #include <QVariantMap>
 
-#include "MainWindowFace.h"
-#include "StartupChain.h" // startupReopenHistoryPath 缺省参路径腿(批 150)
+#include "Actions/Kit/MainWindowFace.h"
+#include "Actions/StartupChain.h" // startupReopenHistoryPath 缺省参路径腿(批 150)
 
 // 批 167(M19-②)reopen.history 保存侧真身 — 写侧对称面:
 //   恢复门 FUN_0075ffcc(批 150 读侧,startupRestoreGate)⇄
