@@ -4,7 +4,7 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 484,2026-11-16 — 当前真值层)
+## 结论快照(截至批 493,2026-11-16 — 当前真值层)
 
 > **读法**:本节为当前真值;下方批次流水(批 20-341)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md

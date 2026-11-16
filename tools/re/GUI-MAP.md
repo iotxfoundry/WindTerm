@@ -608,3 +608,29 @@ QFormLayout/QVBoxLayout/QTabBar/QSlider 等 + tr 文案)。此前我把它们混
   `6cd0fc`(3612B,控件→map,**+`.wind/` 路径处理**);六键
   `text.pattern` / `description` / `text.matchWholeWord` / `text.matchRegex` /
   `text.matchCase` / `sound` 全实读。
+
+### 批 485-493 增量(② 数据源落定 + 主窗接线 + 一批自绘控件)
+- **② 数据源(链路闭合)**:`s_wind_actions_76b7c0`(457B)——
+  **`wind.actions` + `user.actions` 两层叠加**(user 在后):
+  `cfg = FUN_00a7e75e()` → 读键 → 并入 → `+0x60 = new 0x20`(动作注册表)
+  → `wind_actions_build` 各装一层。至此 ② 全链为:
+  **配置键 → wind_actions_build → 属性应用(六键) → actions_from_config_list
+  → QAction 树 → 菜单(懒构建)/触发 → js_actionFire**。
+- **主窗接线**(`mainWindow_connectSignals` 1043B,**7 路**):
+  qApp 信号 `FUN_0090e018`→`FUN_007662ce`;**`QApplication::focusChanged`**
+  →`FUN_0076dcae`;配置对象 `FUN_008fd3d0`/`FUN_008fd3fc`→`FUN_0076aee6`
+  (**flags 0x82 = Queued|Unique**);另 3 路挂 `+0xe0/+0xe8` QPointer 对。
+- **自绘控件族(逐字段)**:
+  | 类 | 语料 | 字节 | 关键 |
+  |---|---|---|---|
+  | CheckList | `534e62` | 344 | vtable CheckList_vtable,+0x30 |
+  | ExplorerList | `55456a` | 291 | vtable ExplorerList_vtable,+0x30/+0x60 |
+  | **ActionToolBar**(名不副实) | `56e540` | 1291 | 基类 **QToolBar** 非按钮 |
+  | ActionButton | `733f60` | 942 | QToolButton,+0x58 |
+  | CloseButton(Explorer 族) | `585528` | 897 | +0x30/+0x38/+0x40 |
+  | CompleterButton | `58dad4` | 819 | +0x40 |
+  | ExpandButton | `5984be` | 1021 | +0x30/+0x38/+0x40 |
+  | ExpandToggle | `5ab32a` | 584 | 无字段 |
+  | CountSpinbox | `73bea0` | 278 | 基类未取证 |
+  | CursorShape | `7cf5d0` | 619 | +0x80 |
+  | **BackwardButton**(名不副实) | `53e936` | 753 | 基类 **QShortcut** 非按钮 |
