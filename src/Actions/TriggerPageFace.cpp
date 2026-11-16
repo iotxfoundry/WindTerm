@@ -397,9 +397,24 @@ MarkStyleWidgetFace::MarkStyleWidgetFace(QWidget *parent)
 	assemble();                           // @00703a83(FUN_00703900)
 }
 
-// FUN_00703900(268B)MarkStyleWidget 内部装配 — cited(样式行/取色件未逐句转写)
+// FUN_00703900(268B)MarkStyleWidget 内部装配真身:
+//   @00703921 form = QFormLayout(0x20, 父 0);
+//   @0070393x **+0x30 = FUN_00703704(this)**(线型选择件,427B — cited);
+//   @00703944 **+0x38 = new 0x30 + s_ColorButton_53904e(w, 0)**(颜色钮,582B — cited);
+//   margins 全零;两行 addRow:tr("Mark &Style:")(0xc9fee1)/
+//     tr("Mark &Color:")(0xc9feee);
+//   setLayout(form);setTabOrder(+0x30, +0x38);setFocusProxy(this)。
 void MarkStyleWidgetFace::assemble()
 {
+	auto *form = new QFormLayout;                                  // @00703921(0x20,父 0)
+	m_style30 = new QWidget(this);                                 // @0070393x(FUN_00703704) cited
+	m_color38 = new QWidget(this);                                 // @00703944(0x30 颜色钮) cited
+	form->setContentsMargins(0, 0, 0, 0);                          // 全零
+	form->addRow(QStringLiteral("Mark &Style:"));                  // tr(0xc9fee1)
+	form->addRow(QStringLiteral("Mark &Color:"));                  // tr(0xc9feee)
+	setLayout(form);                                               // @007039xx
+	QWidget::setTabOrder(m_style30, m_color38);                    // @(+0x30 → +0x38)
+	setFocusProxy(this);                                          // @(this)
 }
 
 // FUN_0056376e(90B)TriggerActionEditPanel ctor 真身

@@ -277,10 +277,11 @@ class MarkStyleWidgetFace : public QWidget {
 	Q_OBJECT
 public:
 	explicit MarkStyleWidgetFace(QWidget *parent = nullptr);
-	void assemble(); // FUN_00703900
+	void assemble(); // FUN_00703900(268B)
 
 protected:
-	// FUN_00703900(268B)内部装配 — cited(见 .cpp 注)
+	QWidget *m_style30 = nullptr;  // +0x30(FUN_00703704,427B:线型选择件)
+	QWidget *m_color38 = nullptr;  // +0x38(new 0x30 + s_ColorButton_53904e:颜色钮 582B)
 };
 
 // TriggerActionEditPanelFace — FUN_0056376e(90B,0017.c:36762)ctor(名不副实:
