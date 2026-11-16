@@ -452,3 +452,25 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   ——模板 `"%1%2"` + **27 条分类键全实读**(Connection/Proxy/Terminal/Bell/…/Tcp)+
   `+0x108` 有序表查重。
 - **`expectDialog_collectRows`(984B)名不副实**:固定**一行**遍历各列(非多行)。
+
+### 批 420-428 增量(④ 四个对话框 ctor 全落 + **0x72xxxx 归属图谱**)
+- **归属图谱(本轮建立,解 414/415 的串味问题)**:0x72xxxx 区间只有 **4 个 ctor**,
+  按"ctor 调用谁"即可判定归属:
+  | ctor | 地址/字节 | 归属 |
+  |---|---|---|
+  | `SessionDialog` | `0072223c` 364B | 00722xxx–0072bxxx 的函数 |
+  | `SyncInputDialog` | `0072abce` 239B | 00729xx–0072bxxx |
+  | `TunnelDialog` | `0072cf44` 257B | **0072bbe2 接线 / 0072c08e 建造 3404B / 0072d0f2 复位 / 0072d304 说明 / 0072edfe 装载** |
+  | `InsertFileDialog` | `0072facc` 74B | 0072f49e 接线 / 0072f584 标签 |
+- **SessionDialogFace**:ctor 逐字段(+0x30 名/+0x40 会话 JSON/**+0x70 端口
+  QIntValidator 0..99999999** 子类/+0x78..+0xe8 控件槽/**+0xf0·f8 两 QHash**);
+  接线 343B(+0x90 页签/+0x68 按钮盒/信号 FUN_00904d62,smeta **011a2240 = 自身**);
+  主装配 1166B(**+0x80/+0x88 双 QStackedWidget + +0x90 QTabBar**,按钮
+  `Connect`/`Cancel`/`&Edit Default Settings...`);协议切页 3333B(`tabData` 比对 +
+  特例串 `Custom`)。
+- **SyncInputDialogFace**:ctor 239B(title `Sync Input`);主装配 3005B
+  (combo/+0x40 tabBar/+0x48 stacked/+0x58 列表 0x201/+0x38 按钮盒 0x400400);
+  **combo 三项实读** `Sessions In Current Window`/`All Windows`/`Group %1`(data 2/1/3);
+  收集所选会话 774B(逐页列表 → data(0x100) → 去重)。
+- **InsertFileDialogFace**:ctor 74B(**不设窗口标题**);接线 229B;标签 517B
+  (title `Insert File` / label `&File:`)。
