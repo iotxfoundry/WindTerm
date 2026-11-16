@@ -65,9 +65,11 @@ def main():
 
     def qstr(q, i):
         p = q + i * 24
+        if p + 24 > len(data):
+            return None
         ln = struct.unpack('<i', data[p + 4:p + 8])[0]
         so = struct.unpack('<q', data[p + 16:p + 24])[0]
-        if ln < 0 or ln > 300:
+        if ln < 0 or ln > 300 or p + so < 0 or p + so + ln > len(data):
             return None
         return data[p + so:p + so + ln].decode('utf-8', 'replace')
 

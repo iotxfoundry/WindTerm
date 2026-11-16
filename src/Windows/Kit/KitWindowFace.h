@@ -238,4 +238,76 @@ public:
 	// 008ca17a(110B)槽体:浮停变更信号(bool)——arg 非 0 直返;
 	//   sender(cast 011aaed0)非空 → kitRestoreSlotOfChild(sender)。
 	void kitOnDockFloatChanged(bool floating);
+
+public:
+	// ───────── 元对象 API 面(出处:QMetaObject 0x11ab660 串表实读) ─────────
+	// rev=8,class="KitWindow",**methods=111 / signals=13 / props=1**。
+	// 这 98 条槽就是 wind.actions / 脚本层能调的整个主窗口 API ——
+	// 名字全部从串表读出,按串表顺序分组列在下面(不按字母重排,
+	// 因为**索引序就是 metacall 的分发序**,是接口契约的一部分)。
+	//
+	// 13 条信号(索引 0..12,顺序即契约):
+	//   0  doSearch                 1  muxPaneGotFocus
+	//   2  muxPaneLostFocus         3  viewActivated
+	//   4  viewAdded                5  viewChanged
+	//   6  viewClosing              7  viewClosed
+	//   8  viewDiscarded            9  viewGotFocus
+	//  10  viewLostFocus           11  viewRemoved
+	//  12  viewStateChanged
+	//
+	// 98 条槽(索引 13..110;同名多条 = 重载,索引序不可动):
+	//   [窗格]     13 name            14 isDockAreaVisible
+	//              15 pane            16 pane
+	//              17 addPane         18 addPane
+	//              19 addPane         20 addPane
+	//              21 openSettings    22 openSettings
+	//              23 removePane      24 removePane
+	//              25 toggleBar       26 toggleDockArea
+	//              27 togglePane      28 togglePane
+	//              29 showBar         30 showPane
+	//              31 hideBar         32 hidePane
+	//              33 isHidden        34 isVisible
+	//              35 isPaneHidden    36 isPaneVisible
+	//              37 setBarVisible   38 setPaneVisible
+	//   [分组]     39 allGroups       40 allGroupNames
+	//              41 groups          42 groupNames
+	//              43 closeGroup      44 closeGroup
+	//              45 canCloseGroup   46 canCloseGroup
+	//              47 splitGroup      48 splitGroup
+	//              49 splitGroup
+	//   [视图]     50 view            51 view
+	//              52 views           53 views
+	//              54 moveGroupToGroup  55 moveGroupToGroup
+	//              56 moveViewToGroup   57 moveViewToGroup
+	//              58 cloneView       59 cloneView
+	//              60 renameView      61 renameView
+	//              62 splitView       63 splitView
+	//              64 splitViewToGroup  65 splitViewToGroup
+	//              66 activeView      67 activateNextView
+	//              68 activatePreviousView  69 activateView
+	//              70 closeAllViews   71 closeAllViewsButActive
+	//              72 closeRightViews 73 closeView
+	//              74 closeView       75 closeView
+	//              76 setTabColor     77 setTabColor
+	//   [状态栏]   78 gotoAddressBar
+	//              79 addStatusIndicator  80 addStatusIndicator
+	//              81 setStatusMessage     82 setStatusMessage
+	//              83 setStatusMessage
+	//   [打开]     84 open  85 open  86 open  87 open
+	//              88 open  89 open  90 open
+	//              91 reopen 92 reopen 93 reopen
+	//              94 openedUrls 95 recentUrls 96 recentUrls
+	//              97 clearRecentUrls
+	//   [工具]     98 processId
+	//              99 runningTools 100 runningTools
+	//             101 runToolDialog 102 startTool 103 startTool
+	//             104 startExternalTool
+	//             105 stopTool 106 stopTool 107 stopTool
+	//             108 tools 109 tools 110 tools
+	//
+	// ⚠ 槽体实现分散在 008cxxxx / 008dxxxx 两大段,尚未逐条转写;
+	//   本表的作用是**把接口契约先钉住** —— 后续每转写一条槽,按下标回填,
+	//   不会因为同名重载而挂错索引。
+	// metacall 入口 0x0091d292(176B)调 QMainWindow::qt_metacall,
+	// 超出 111 条则返回 (index - 111)。
 };
