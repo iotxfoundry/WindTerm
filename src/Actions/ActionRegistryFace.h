@@ -44,12 +44,17 @@ public:
 	// FUN_0066613a(2882B) applyAttributes(name, attrMap):
 	//   ① name 空(trimmed 后长度 0)→ 直返;
 	//   ② act = getOrCreate(name);
-	//   ③ 逐属性取面(键名 .rodata 实读):
-	//      **"script"**(6) → toString().trimmed() → 脚本面(赋值腿,cited);
-	//      **"text"**(4)   → toString().trimmed() → **tr(该串)** → setText;
-	//      **"tooltip"**(7) → 同上 → setToolTip;
-	//      **"state"**(5)   → toString().trimmed() → setEnabled/setVisible 面(cited);
-	//      另:icon(QIcon 11 处)/shortcut/setData 面(顺序见 .cpp 注)。
+	//   ③ 逐属性取面 —— **六个键名 .rodata 实读**(顺序即语料处理序):
+	//      "script" (6) → toString().trimmed() → 按正则(0xc91698,0x7f 字节:
+	//        箭头函数/匿名 function 识别式,**内含 GBK 中文注释**)判定 →
+	//        setData(**QAction::setData 唯一调用点**);
+	//      "text" (4)   → toString().trimmed() → **tr(该串)** → setText;
+	//      "tooltip"(7) → 同上 → setToolTip;
+	//      "state"(5)   → toString().trimmed() → **setEnabled + setVisible**
+	//        (state 同时控制可用与可见 —— 两个调用的唯一来源);
+	//      "icon"(4)    → setIcon(主题图标装载面);
+	//      "kits"(4)    → **toStringList()**(动作归属的 kit 名表)。
+	//   = 动作 DSL 的完整属性集。
 	QAction *applyAttributes(const QByteArray &name, const QVariantMap &attrMap);
 
 	// wind_actions_build(7702B) build(rootMap):

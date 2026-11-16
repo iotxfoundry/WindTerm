@@ -47,7 +47,9 @@ QAction *ActionRegistryFace::applyAttributes(const QByteArray &name, const QVari
 	if (act == nullptr)
 		return nullptr;
 
-	// "script"(6)@006661f7:toString().trimmed() → 脚本面(cited)
+	// "script"(6)@006661f7:trimmed 后与 0xc91698(0x7f 字节)正则匹配
+	//   —— 该式为"箭头函数 / 匿名 function"识别(内含 GBK 中文注释)→
+	//   QAction::setData(脚本串)(语料唯一 setData 调用点) — cited
 	// "text"(4)@00666378:toString().trimmed() → **tr(该串)** → QAction::setText
 	if (attrMap.contains(QStringLiteral("text"))) {
 		const QString t = attrMap.value(QStringLiteral("text")).toString().trimmed();
@@ -58,8 +60,10 @@ QAction *ActionRegistryFace::applyAttributes(const QByteArray &name, const QVari
 		const QString t = attrMap.value(QStringLiteral("tooltip")).toString().trimmed();
 		act->setToolTip(QCoreApplication::translate("Actions", t.toUtf8().constData()));
 	}
-	// "state"(5)@00666568:toString().trimmed() → setEnabled/setVisible 面(cited)
-	// 另:icon/shortcut/setData 面(QIcon 11 处引用;顺序见语料)— cited
+	// "state"(5)@00666568:toString().trimmed() → **setEnabled + setVisible**
+	//   (state 一个键控两个属性)—— cited(取值语义未定,不猜)
+	// "icon"(4)@006664xx:setIcon(主题装载)— cited
+	// "kits"(4)@006666xx:toStringList()(动作归属 kit 名表)— cited
 	return act;
 }
 
