@@ -5,6 +5,16 @@
 > 接口面;行为由接口层(委托真库或 no-op sink)承接。
 > 依据:docs/build-audit.md(嵌入审计)。
 
+## 外部资产三类归属(判据)
+
+| 去处 | 含义 | 例 | 判据 |
+|---|---|---|---|
+| `src/<lib>/` | **参与编译**的第三方源码 | Scintilla · jsoncpp · yaml-cpp · Onigmo · libssh-改 | 有 `.c/.cpp`,进 CMake 目标或预构建 `.a` |
+| `inc/<lib>/` | **不参与编译**的系统头 / 版本锚 | zstd · X11 · gtk · icu · openssl | 只有 `.h`;用于 API/版本对齐 |
+| `vendors/<name>/` | 原版捆绑的**运行时资产** | `lrzsz/{rz,sz}` | 可执行文件/数据,运行时被 spawn 或读取 |
+
+> 判据一句话:**会被编译的进 `src/`,只对齐 API 的进 `inc/`,运行时才用的资产留 `vendors/`。**
+
 ## 边界注册表
 
 | 库 | 证据(原版) | 符号/行为特征 | 边界面 |
@@ -13,7 +23,7 @@
 | yaml-cpp 0.7.0 | 构建路径串 | `YAML::` | 委托真库(ConfigBridge 已接) |
 | jsoncpp | `Json::Value` | `Json::` | 委托真库(已接) |
 | dtl | `N3dtl…` 符号 | `dtl::Sequence/Lcs/Diff3` | diff 面转写时补 |
-| zstd | `ZSTD_trace_*` | `ZSTD_*` | 压缩面转写时补 |
+| zstd **1.5.2** | **静态嵌入**:`zstd_ctxCreate`(`0x00bb88b0`,388B)在 `.text`,alloc `0x176d8`(96K DCtx);二进制里仅 4 个 `ZSTD_trace_*` 弱符号为动态引用(`ldd` 因此显示 libzstd.so.1) | `ZSTD_*` | 已落声明面 `src/Ext/ZstdFace.h`;调用点(`EditorEngine.cpp` PairColor 膨胀腿)暂 no-op。**版本锚**:`inc/zstd`(1.5.2 头快照,43 个 .h / 0 个 .c) |
 | spdlog/fmt | 特征串(0 符号,可见性隐藏) | 日志 sink 行为、`fmt::format` | **src/Ext/**(已建接口层) |
 | ICU 56 | lib/icudata.so.56 动态捆绑 | 运行时动态库 | 不需接口(动态加载) |
 | glib/gtk/X11/alsa/pulse/gstreamer/dbus | 动态系统栈 | 运行时动态库 | 不需接口 |
@@ -85,3 +95,15 @@ platforminputcontexts/platformthemes/xcbglintegrations)26 so 全为
   "18DynamicLibraryImpl"→"14DynamicLibrary"→"7Surface")—— **五重
   扫描零调用者**(E8/E9/LEA rip/绝对引用/xref_scan):机制存在未激活,
   无创建者无加载路径,定案(批 69 tr lane)
+
+## 附:vendors/lrzsz 定性(2026-11-16 取证)
+
+| 项 | 事实 |
+|---|---|
+| 内容 | 两个 **stripped ELF 可执行文件**:`rz`(76K)/ `sz`(80K)。**无源码** |
+| 基线引用 | 二进制内串 `/vendors/lrzsz/sz`、`/vendors/lrzsz/rz`、`The lrzsz is not detected. Please install lrzsz first.` |
+| 用法 | WindTerm **spawn 外部进程**跑 ZMODEM 传输;优先 `applicationDirPath()/vendors/lrzsz`,缺失则回退系统 lrzsz |
+| 我方状态 | **未转写** —— `src/` 内无该路径引用;`ZModem` 类仅出现在 moc 名表,实现为零 |
+| 结论 | **不进 `src/`**:它不是源码,是原版随包分发的运行时程序。保留 `vendors/` 与原版布局一致 |
+
+> 待办:转写 spawn 腿时按上述优先级落地;`ZModem` 类(8 个 moc 名)需单独建模。

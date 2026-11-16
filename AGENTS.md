@@ -38,7 +38,7 @@
 | `global/` | 8M | 目录 | 原版数据面:**`wind.actions`(② 动作配置源)**、`wind.config`、`wind.keymaps`、locales/palettes/themes |
 | `terminal/` | 17M | 目录 | 原版数据面:`commands/`(命令表)`configs/` `protocols/` `schemes/` `terms/` `applets/` |
 | `images/` | 1.1M | 目录 | 图标 + **`screenshots/`(截图对表证据)** |
-| `vendors/` | 164K | 目录 | 原版捆绑的第三方(lrzsz) |
+| `vendors/` | 164K | 目录 | 原版捆绑的**运行时可执行文件**(`lrzsz/{rz,sz}`,无源码;运行时 spawn,字符串 `/vendors/lrzsz/*` 实证) |
 | `benchmark/` | 8K | 目录 | 上游遗留脚本(`urandom_test.sh`),非逆向资产 |
 | `license.txt` | 52K | 文件 | 原版(WindTerm)许可证文本 |
 | `profiles.config` | 21B | 文件 | 原版启动配置 `{"path":"~"}`(跑原版时用) |
@@ -386,6 +386,9 @@ QVariant dispatch(cmd, a, b)
   文件头 `// [B-OPENSOURCE] …`、清单 `tools/re/data/open_source_files.txt`、
   校验 `tools/re/coverage.py --audit`。**看到标记就别逆向** —— 直接按
   `docs/calibration.md` 移植。新增/移动文件后跑一次 `--audit`。
+- **外部资产三归属**:被编译的源码进 `src/<lib>/`;只对齐 API 的头快照进 `inc/<lib>/`;
+  运行时才用的程序/数据留 `vendors/<name>/`(如 lrzsz)。判据与清单见
+  `docs/ext-boundary.md`。
 - 静态嵌入的开源库(boost/yaml-cpp/jsoncpp/dtl/zstd/fmt+spdlog)
   **实现不逆向**;命中见 `docs/ext-boundary.md` → 标记边界、转写调用接口面
   (`src/Ext/` 声明层),行为由委托真库或 no-op 承接。
