@@ -24,3 +24,10 @@ class ExpandToggleFace : public QWidget {
 public:
 	explicit ExpandToggleFace(QWidget *parent = nullptr);
 };
+
+// s_ExpandButton_5ab32a(584B)真身 —— 它是**行为函数**,不是 ctor:
+//   签名 (QWidget *host, bool expanded):
+//   ① host->findChild<QToolButton*>("ExpandButton", Qt::FindChildrenRecursively)
+//   ② 空则返回;否则取图标名 expanded ? "king::expand" : "king::shrink"
+//   ③ theme_icon_load_svg(DAT_011c1ce0, 名, …) → QToolButton::setIcon
+void setExpandButtonIcon(QWidget *host, bool expanded);
