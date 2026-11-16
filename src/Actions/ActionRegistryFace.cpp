@@ -115,3 +115,16 @@ QList<QAction *> ActionRegistryFace::actionsFromConfig(const QVariantList &list,
 	Q_UNUSED(parent);
 	return out;
 }
+
+// s_wind_actions_76b7c0(457B)② 数据源真身(结构段)
+void ActionRegistryFace::loadFromConfig()
+{
+	// cfg = FUN_00a7e75e()(读入器) — cited
+	// ① "wind.actions":FUN_005d7cf8(DAT_011c1240, 键) → FUN_00a7e78a(cfg, 值)
+	// ② "user.actions":键实读 → FUN_00a7e866(cfg, 值)
+	// ③ 注册表懒建:new 0x20 + FUN_00665948(this) 存 +0x60(cited)
+	// ④ wind 层:FUN_00a7fdd8(cfg).toMap() → build(map)
+	// ⑤ user 层:FUN_00a8017e(cfg).toMap() → build(map)
+	//   (两层叠加,user 在后)
+	build(QVariant());   // 承接:实际两层 map 体 cited
+}

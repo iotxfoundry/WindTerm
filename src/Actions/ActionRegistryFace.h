@@ -91,6 +91,17 @@ public:
 	//     菜单条目**确实不在 C++ 里硬写**(与 00692a70 的懒构建结论一致)。
 	QList<QAction *> actionsFromConfig(const QVariantList &list, QObject *parent);
 
+	// s_wind_actions_76b7c0(**457B**,0023.c:36551)**② 的数据源** —— 逐句实读:
+	//   cfg = FUN_00a7e75e()(配置读入器);
+	//   ① 读键 **"wind.actions"**(FUN_005d7cf8(DAT_011c1240, 键))→ 并入 cfg;
+	//   ② 读键 **"user.actions"**(cfg_ensureProfileDir 同址族)→ 并入 cfg;
+	//   ③ `if (this->+0x60 == 0)` → **+0x60 = new 0x20 + FUN_00665948(this)**
+	//      (动作注册表对象);
+	//   ④ `wind_actions_build(+0x60, FUN_00a7fdd8(cfg).toMap())`(**wind 层**);
+	//   ⑤ `wind_actions_build(+0x60, FUN_00a8017e(cfg).toMap())`(**user 层**)。
+	//   ⇒ **内置动作 + 用户动作两层叠加**(user 后写入 → 覆盖/追加)。
+	void loadFromConfig();
+
 private:
 	QHash<QByteArray, QAction *> m_actions10; // +0x10
 };
