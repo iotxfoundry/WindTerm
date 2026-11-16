@@ -181,6 +181,26 @@ protected:
 //   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
 //   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
 //   setFocusProxy(this)。
+// CustomLinkTriggerPageFace — kind 5(new 0x58)装配 FUN_00703d3e(379B):
+//   form;label = QLabel(tr("&Match:")(0xc9fd97));
+//   +0x38 = new 0x68 + FUN_0056376e(w, 0xe000, 0)(文本域);+0x40 = w+0x40;
+//   +0x48 = new 0x78 + FUN_006fdcde(w, **5**, 0)(TriggerActionWidget,kind 5);
+//   +0x50 = new 0x40 + FUN_00703a58(w, 0)(0x40 附件);
+//   setBuddy;FUN_006fb180(+0x48, +0x38);margins 全零;assembleBusyOverlay();
+//   addRow ×4;setLayout;setTabOrder(+0x40→+0x48→+0x50);setFocusProxy。
+class CustomLinkTriggerPageFace : public TriggerPageFace {
+	Q_OBJECT
+public:
+	explicit CustomLinkTriggerPageFace(QWidget *parent = nullptr);
+	void assembleCustomLinkPage(); // FUN_00703d3e
+
+protected:
+	QWidget *m_edit38 = nullptr;                   // +0x38(0x68 文本域)
+	QWidget *m_f40 = nullptr;                      // +0x40(文本域 +0x40)
+	TriggerActionWidgetFace *m_action48 = nullptr; // +0x48(0x78,kind 5)
+	QWidget *m_f50 = nullptr;                      // +0x50(0x40 附件)
+};
+
 // HighlightTextTriggerPageFace — kind 8(new 0x40)装配 FUN_006f7c3c(243B):
 //   form = QFormLayout(0x20);label = QLabel(0x30, tr("&Rules:")(0xc9fd07));
 //   +0x38 = new 0x48 + FUN_005675e8(w, 0)(规则表件);

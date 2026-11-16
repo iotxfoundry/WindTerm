@@ -340,3 +340,29 @@ void RunCommandTriggerPageFace::assembleRunCommandPage()
 	QWidget::setTabOrder(m_f40, m_action48);                   // @(+0x40 → +0x48)
 	setFocusProxy(this);
 }
+
+// FUN_00703d3e(379B)CustomLink 页装配真身
+CustomLinkTriggerPageFace::CustomLinkTriggerPageFace(QWidget *parent)
+	: TriggerPageFace(parent)
+{
+	assembleCustomLinkPage();
+}
+
+void CustomLinkTriggerPageFace::assembleCustomLinkPage()
+{
+	auto *form = new QFormLayout;                              // @00703d5f(0x20)
+	auto *label = new QLabel(QStringLiteral("&Match:"));       // tr(0xc9fd97),0x30
+	m_edit38 = new QWidget(this);                              // @00703dc0(0x68 + FUN_0056376e(0xe000)) cited
+	m_f40 = m_edit38;                                          // +0x40 = w+0x40
+	m_action48 = new TriggerActionWidgetFace(5, this);          // @00703de8(0x78,kind 5)
+	m_f50 = new QWidget(this);                                 // @00703e03(0x40 + FUN_00703a58(0)) cited
+	label->setBuddy(m_edit38);
+	// FUN_006fb180(+0x48, +0x38)(动作件 ↔ 文本域)@00703exx — cited
+	form->setContentsMargins(0, 0, 0, 0);                      // 全零
+	assembleBusyOverlay();                                     // @00703exx(FUN_006f1994)
+	form->addRow(label);                                       // addRow ×4(实参折叠)
+	setLayout(form);                                           // @00703exx
+	QWidget::setTabOrder(m_f40, m_action48);                   // @(+0x40 → +0x48)
+	QWidget::setTabOrder(m_action48, m_f50);                   // @(+0x48 → +0x50)
+	setFocusProxy(this);
+}
