@@ -16472,7 +16472,7 @@
 006275e8	8	FUN_006275e8	todo	
 006275f0	8	FUN_006275f0	todo	
 006275f8	8	FUN_006275f8	todo	
-00627600	16	FUN_00627600	todo	
+00627600	16	FUN_00627600	ref	src/Sessions/Bridges/SshBridge.cpp,src/Sessions/Bridges/SshBridge.h
 00627610	53	FUN_00627610	todo	
 00627646	22	FUN_00627646	todo	
 0062765c	22	FUN_0062765c	todo	
@@ -23491,7 +23491,7 @@
 0086254e	132	FUN_0086254e	todo	
 008625da	154	FUN_008625da	todo	
 0086267c	21	FUN_0086267c	todo	
-00862692	52	SshBridge_vt13	ref	src/Sessions/Bridges/SessionProtocol.h
+00862692	52	SshBridge_vt13	real	src/Sessions/Bridges/SessionProtocol.h
 008626c6	52	SshBridge_vt14	qtplumb	
 008626fa	15	FUN_008626fa	todo	
 0086270a	58	SshBridge_vt15	qtplumb	
@@ -23537,7 +23537,7 @@
 008644b8	171	FUN_008644b8	todo	
 00864563	161	FUN_00864563	todo	
 00864604	43	FUN_00864604	todo	
-00864630	437	SshBridge_vt12	qtplumb	
+00864630	437	SshBridge_vt12	real	
 008647ee	380	FUN_008647ee	todo	
 00864972	1398	FUN_00864972	todo	
 00864f08	252	FUN_00864f08	todo	
@@ -23554,7 +23554,7 @@
 00866372	617	FUN_00866372	todo	
 00866620	870	FUN_00866620	todo	
 008669c6	615	FUN_008669c6	todo	
-00866c36	508	SshBridge_dtor	todo	
+00866c36	508	SshBridge_dtor	real	
 00866e32	23	SshBridge_dtor_deleting	todo	
 00866e4a	2734	s_PasswordEnabled_866e4a	todo	
 00867a2e	1553	s_session_tcpReceiveBufferSize_867a2e	todo	
@@ -23584,7 +23584,7 @@
 00869d00	277	FUN_00869d00	todo	
 00869e26	322	SshExecutor_dtor	todo	
 00869f68	23	SshExecutor_dtor_deleting	todo	
-00869f80	249	FUN_00869f80	todo	
+00869f80	249	FUN_00869f80	ref	src/Sessions/Bridges/SshBridge.cpp,src/Sessions/Bridges/SshBridge.h
 0086a082	403	FUN_0086a082	todo	
 0086a22e	232	FUN_0086a22e	todo	
 0086a316	360	FUN_0086a316	todo	
@@ -23636,10 +23636,10 @@
 0086bc31	52	FUN_0086bc31	todo	
 0086bc66	594	FUN_0086bc66	todo	
 0086bed8	171	FUN_0086bed8	todo	
-0086bf84	232	FUN_0086bf84	todo	
+0086bf84	232	FUN_0086bf84	ref	src/Sessions/Bridges/SshBridge.cpp
 0086c076	395	FUN_0086c076	todo	
-0086c20a	247	FUN_0086c20a	todo	
-0086c312	225	FUN_0086c312	todo	
+0086c20a	247	FUN_0086c20a	ref	src/Sessions/Bridges/SshBridge.cpp
+0086c312	225	FUN_0086c312	ref	src/Sessions/Bridges/SshBridge.cpp
 0086c3f8	220	FUN_0086c3f8	todo	
 0086c4da	204	FUN_0086c4da	todo	
 0086c5ac	99	FUN_0086c5ac	todo	
@@ -26531,8 +26531,8 @@
 00917fd6	19	TelnetSession_dtor	todo	
 00917fea	37	TelnetSession_dtor_deleting	todo	
 00918010	24	SshBridge_metaObject	qtplumb	
-00918028	57	FUN_00918028	todo	
-00918062	60	FUN_00918062	todo	
+00918028	57	FUN_00918028	ref	src/Sessions/Bridges/SshBridge.cpp
+00918062	60	FUN_00918062	ref	src/Sessions/Bridges/SshBridge.cpp
 0091809e	108	SshBridge_h91809e	qtplumb	
 0091810a	66	SshBridge_qt_metacast	qtplumb	
 0091814c	97	SshBridge_qt_metacall	qtplumb	

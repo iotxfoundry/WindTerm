@@ -1256,6 +1256,8 @@
 0061b448	src/Sessions/Core/SuperSessionPrivate.cpp
 0061b448	src/Sessions/Core/SuperSessionPrivate.h
 00625fb6	src/Widgets/Views/RemoteFileSystemModelFace.h
+00627600	src/Sessions/Bridges/SshBridge.cpp
+00627600	src/Sessions/Bridges/SshBridge.h
 0062860c	src/Sessions/Transports/SshSession.cpp
 006286ba	src/Sessions/Transports/SshSession.cpp
 0062870c	src/Sessions/Transports/SshSession.cpp
@@ -5137,6 +5139,11 @@
 008699b0	src/Sessions/Bridges/SessionProtocol.h
 008699b0	src/Sessions/Core/SuperSessionPrivate.cpp
 008699b0	src/Sessions/Core/SuperSessionPrivate.h
+00869f80	src/Sessions/Bridges/SshBridge.cpp
+00869f80	src/Sessions/Bridges/SshBridge.h
+0086bf84	src/Sessions/Bridges/SshBridge.cpp
+0086c20a	src/Sessions/Bridges/SshBridge.cpp
+0086c312	src/Sessions/Bridges/SshBridge.cpp
 0086c7b2	src/Sessions/Bridges/ProxyCommandSocket.cpp
 0086ff6c	src/Sessions/Bridges/SessionProtocol.h
 0086ff6c	src/Sessions/Core/SuperSessionPrivate.cpp
@@ -6719,6 +6726,8 @@
 00917f76	src/Sessions/Transports/TelnetSession.h
 00917f8e	src/Sessions/Transports/TelnetSession.h
 00917fd0	src/Sessions/Transports/TelnetSession.h
+00918028	src/Sessions/Bridges/SshBridge.cpp
+00918062	src/Sessions/Bridges/SshBridge.cpp
 0091939c	src/Windows/Mux/MuxWindow.cpp
 00919bea	src/Utility/DirScanerFace.h
 00919c70	src/Utility/DirScanerFace.h

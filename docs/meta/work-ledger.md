@@ -19,14 +19,14 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 667 | 1.72% | 263533 | 3.44% |
+| 真实现 | 670 | 1.73% | 264530 | 3.45% |
 | 半成品 | 34 | 0.09% | 14625 | 0.19% |
-| 引用档 | 2117 | 5.46% | 793607 | 10.34% |
-| 未触及(真工作) | 20836 | 53.77% | 5576973 | 72.70% |
+| 引用档 | 2123 | 5.48% | 794641 | 10.36% |
+| 未触及(真工作) | 20828 | 53.75% | 5575379 | 72.68% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
-| Qt 元数据桩(非逆向对象) | 1142 | 2.95% | 236279 | 3.08% |
+| Qt 元数据桩(非逆向对象) | 1141 | 2.94% | 235842 | 3.07% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
-| **真工作分母** | **23654** | — | — | — |
+| **真工作分母** | **23655** | — | — | — |
 
 > 真工作分母 = 合计 − 异常清理块 − Qt 元数据桩。「未触及(真工作)」一栏才是真正的待办量。
 
@@ -142,6 +142,7 @@
 | `src/Windows/Kit/MainWindowFace.h` | 4 | 0 | 13 |
 | `src/Editor/Config/CTerminalConfig.h` | 3 | 0 | 5 |
 | `src/Editor/Engine/EditorEngine.h` | 3 | 0 | 1 |
+| `src/Sessions/Bridges/SessionProtocol.h` | 3 | 0 | 9 |
 | `src/Sessions/Commanders/SuperCommander.h` | 3 | 0 | 0 |
 | `src/Sessions/Core/SuperSession.h` | 3 | 0 | 2 |
 | `src/Sessions/Transports/TelnetSession.cpp` | 3 | 0 | 3 |
@@ -168,7 +169,6 @@
 | `src/Widgets/Dialogs/TriggerActionDialogFace.h` | 2 | 1 | 1 |
 | `src/Widgets/Settings/SettingsFace.h` | 3 | 0 | 0 |
 | `src/Windows/Mux/MuxPane.h` | 3 | 0 | 5 |
-| `src/Sessions/Bridges/SessionProtocol.h` | 2 | 0 | 10 |
 | `src/Sessions/Transfers/XModem.cpp` | 2 | 0 | 1 |
 | `src/Sessions/Transfers/YModem.cpp` | 2 | 0 | 1 |
 | `src/Utility/DirScanerFace.h` | 2 | 0 | 0 |
@@ -209,7 +209,7 @@
 | `src/Windows/Mux/MuxPaneJs.h` | 2 | 0 | 0 |
 | `src/Editor/Engine/EditorContext.h` | 1 | 0 | 121 |
 | `src/Editor/Engine/MatchEngine.cpp` | 1 | 0 | 16 |
-| `src/Sessions/Bridges/SshBridge.cpp` | 1 | 0 | 2 |
+| `src/Sessions/Bridges/SshBridge.cpp` | 1 | 0 | 9 |
 | `src/Sessions/Core/FileOps.h` | 1 | 0 | 23 |
 | `src/Sessions/Core/SessionLoggerOp.h` | 1 | 0 | 14 |
 | `src/Sessions/Core/SuperSession.cpp` | 1 | 0 | 11 |
