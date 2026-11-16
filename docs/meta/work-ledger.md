@@ -19,14 +19,14 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 695 | 1.79% | 270415 | 3.52% |
+| 真实现 | 697 | 1.80% | 271104 | 3.53% |
 | 半成品 | 37 | 0.10% | 15173 | 0.20% |
 | 引用档 | 2136 | 5.51% | 800738 | 10.44% |
 | 未触及(真工作) | 20806 | 53.70% | 5568111 | 72.58% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
-| Qt 元数据桩(非逆向对象) | 1122 | 2.90% | 230580 | 3.01% |
+| Qt 元数据桩(非逆向对象) | 1120 | 2.89% | 229891 | 3.00% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
-| **真工作分母** | **23674** | — | — | — |
+| **真工作分母** | **23676** | — | — | — |
 
 > 真工作分母 = 合计 − 异常清理块 − Qt 元数据桩。「未触及(真工作)」一栏才是真正的待办量。
 
@@ -344,7 +344,7 @@
 | `FilterEdit` | `src/Widgets/Controls/SearchEditFace.h` | 10 | 1 |
 | `FocusModeDialog` | `src/Widgets/Dialogs/FocusModeDialogFace.h` | 2 | 1 |
 | `ForwardingHandler` | `src/Sessions/Tunnels/ForwardingHandlerFace.h` | 0 | 0 |
-| `HighlightTextBarAction` | `src/Actions/ActionRegistryFace.h` | 4 | 0 |
+| `HighlightTextBarAction` | `src/Widgets/Bars/HighlightTextBarActionFace.h` | 0 | 0 |
 | `HighlightTextDialog` | `src/Widgets/Dialogs/HighlightTextDialogFace.h` | 2 | 1 |
 | `HighlightTextTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `HoverButton` | `src/Widgets/Controls/HoverButtonFace.h` | 2 | 0 |
