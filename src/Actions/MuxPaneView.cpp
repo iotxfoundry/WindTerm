@@ -126,8 +126,41 @@ QByteArray MuxPaneView::historyBlob() const
 //   前缀串:0x4000000 → "Shift "(0xcb76d1)/0x2000000 → "Ctrl "(0xcb76d8);
 //   其余分支 "Alt "(0xcb76de)/"Meta "(0xcb76e3)。
 //   后续(条目构建/图标/弹出)cited。
+// 008c3c6a(1044B,0028.c:6341)pane 弹出菜单 **全量**真身:
+//   @008c3c6a vt+0x1c0 == FUN_008c4eae(默认腿)→ return;
+//   @008c3c7x (**vt+0x1c0)(this) == false → return;
+//   @008c3c8x ctxObj = FUN_008c3c1a(this);空 → return;
+//   @008c3cbf mod = FUN_0075d96c(qApp, *(int*)(event+0x14))(修饰键);
+//     0x04000000 → "Ctrl "(0xcb76d8)/0x02000000 → "Shift "(0xcb76d1)/
+//     0x08000000 → "Alt "(0xcb76de)/0x10000000 → "Meta "(0xcb76e3);
+//   @008c3d6x ctx = FUN_006926a0(&c, ctxObj);
+//   @008c3d6x fmt = QString::fromAscii("%1 %2Popup", 10)(**实读**);
+//   @008c3d8x name = FUN_008c3684(&s, this);
+//   @008c3dfx full = fmt.arg(前缀).arg(name)(QtPrivate::argToQString);
+//   @008c3e4x menu = FUN_00692ef0(ctx, full, this)(注册表按名取菜单);
+//   @008c3e8x 非空 → QMenu::exec(menu, *(QPoint*)(event+0x28))(即 globalPos)
+//     → (**(*menu+0x20))(menu)(销毁/关闭腿)。
+//   ⇒ 右键菜单**不在本函数里造条目**:名字 = "<修饰键> <动作名>Popup",
+//     由动作/配置面注册后在运行期查表;无该名即无菜单。
 void MuxPaneView::showPanePopupMenu(QMouseEvent *event)
 {
-	Q_UNUSED(event);
-	// 门与 ctx/前缀面照语料;条目构建腿 cited(1044B 余段)。
+	// 门:vt+0x1c0 默认实现 / 虚槽返回 false / ctx 为空 → 直返(cited 虚槽面)
+	if (event == nullptr)
+		return;
+	const unsigned int mod = static_cast<unsigned int>(event->modifiers());
+	QString prefix;
+	switch (mod) {
+	case 0x04000000u: prefix = QStringLiteral("Ctrl "); break;  // 0xcb76d8
+	case 0x02000000u: prefix = QStringLiteral("Shift "); break; // 0xcb76d1
+	case 0x08000000u: prefix = QStringLiteral("Alt "); break;  // 0xcb76de
+	case 0x10000000u: prefix = QStringLiteral("Meta "); break; // 0xcb76e3
+	default: break;
+	}
+	// ctx = FUN_006926a0(&c, ctxObj)@008c3d6x — cited
+	const QString name = QLatin1String("%1 %2Popup").arg(prefix).arg(QString()); // @008c3d6x
+	// menu = FUN_00692ef0(ctx, name, this)@008c3e4x — cited(注册表按名取菜单)
+	// if (menu) { menu->exec(event->globalPos());delete menu; }
+	if (!name.isEmpty()) {
+		// 注册表未建模 → 本条腿 cited(不发明菜单项)
+	}
 }

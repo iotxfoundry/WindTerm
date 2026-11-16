@@ -79,8 +79,9 @@ public:
     // 008c3c6a(1044B,0028.c:6341)pane 弹出菜单:
     //   门:vt+0x1c0 != 默认(FUN_008c4eae)且返回 true;
     //   ctx = FUN_008c3c1a(this);mod = FUN_0075d96c(app, event modifiers);
-    //   修饰键前缀串实读:0x4000000→"Shift "(0xcb76d1)、
-    //   0x2000000→"Ctrl "(0xcb76d8)、"Alt "(0xcb76de)、"Meta "(0xcb76e3);
+    //   修饰键前缀串实读(批 355 勘正;0x8c3cbf..8c3d72 分支序):
+    //   0x04000000→"Ctrl "(0xcb76d8)、0x02000000→"Shift "(0xcb76d1)、
+    //   0x08000000→"Alt "(0xcb76de)、0x10000000→"Meta "(0xcb76e3);
     //   后续建菜单项/弹出 — cited。
     void showPanePopupMenu(class QMouseEvent *event);
 
