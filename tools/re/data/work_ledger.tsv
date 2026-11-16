@@ -15780,7 +15780,7 @@
 005ece34	23	ForwardingCenter_dtor_deleting	todo	
 005ece4c	40	FUN_005ece4c	todo	
 005ece74	2937	FUN_005ece74	todo	
-005eda26	695	ForwardingHandler_h5eda26	qtplumb	
+005eda26	695	ForwardingHandler_h5eda26	ref	src/Sessions/Tunnels/ForwardingHandlerFace.cpp
 005edce2	426	FUN_005edce2	todo	
 005ede91	1081	tcpServer_handleNewConnection	todo	
 005ee2e5	1	FUN_005ee2e5	todo	
@@ -15819,7 +15819,7 @@
 005f17b0	45	FUN_005f17b0	todo	
 005f17dd	45	FUN_005f17dd	todo	
 005f180a	45	FUN_005f180a	todo	
-005f1838	367	ForwardingHandler_dtor	todo	
+005f1838	367	ForwardingHandler_dtor	real	
 005f19a8	23	ForwardingHandler_dtor_deleting	todo	
 005f19c0	380	FUN_005f19c0	todo	
 005f1b3c	572	FUN_005f1b3c	todo	
@@ -15835,7 +15835,7 @@
 005f22e4	50	FUN_005f22e4	todo	
 005f2334	245	FUN_005f2334	todo	
 005f242a	50	FUN_005f242a	todo	
-005f2480	119	FUN_005f2480	todo	
+005f2480	119	FUN_005f2480	ref	src/Sessions/Tunnels/ForwardingHandlerFace.cpp
 005f2500	119	FUN_005f2500	todo	
 005f2578	278	FUN_005f2578	todo	
 005f268e	140	FUN_005f268e	todo	

@@ -1222,6 +1222,8 @@
 005ea368	src/Windows/Kit/KitWindowFactory.h
 005eb4fc	src/Windows/Kit/KitWindowFactory.h
 005eb64e	src/Windows/Kit/KitWindowFactory.h
+005eda26	src/Sessions/Tunnels/ForwardingHandlerFace.cpp
+005f2480	src/Sessions/Tunnels/ForwardingHandlerFace.cpp
 005f5bc0	src/Sessions/Core/SessionLoggerOp.h
 005f5bc0	src/Sessions/Core/SuperSessionPrivate.cpp
 005f611c	src/Sessions/Core/SessionLoggerOp.h
