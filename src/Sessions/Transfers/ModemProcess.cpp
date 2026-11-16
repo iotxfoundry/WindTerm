@@ -53,9 +53,66 @@ ModemProcess::~ModemProcess()
 //   connect(this, QProcess::readyReadStandardError,  this, functor 007a1f07)
 void ModemProcess::wire()
 {
-	// 两个 functor 体(FUN_007a1d70 399B / FUN_007a1f07 247B)负责把
-	// readAllStandardOutput/Error 收进 +0x30/+0x38、wakeOne,并发
-	// `readyRead(0)` / `readyRead(1)`(槽 FUN_007a0f86 按通道分流)—— cited。
+	connect(this, &QProcess::readyReadStandardOutput, this,
+	        &ModemProcess::onReadyReadStandardOutput);
+	connect(this, &QProcess::readyReadStandardError, this,
+	        &ModemProcess::onReadyReadStandardError);
+}
+
+// FUN_007a1d70(399B)stdout 槽真身。逐句:
+//   有 +0x10 → 加锁;+0x20(结束旗标)已置 → 解锁返回
+//   +0x30 非空 → QWaitCondition::wait(+0x18, +0x10, 无限)(等消费方取走)
+//   +0x20 仍为 0 → +0x30 = readAllStandardOutput()
+//     mode(+0x24) == 0(接收):
+//        未命中(+0x28 == 0)→ emit readyRead(0)
+//        matcher(+0x40) 在 +0x30 里命中 → +0x28 = 1 且 closeWriteChannel()
+//     否则 → emit readyRead(0)
+void ModemProcess::onReadyReadStandardOutput()
+{
+	const bool locked = (m_mutex10 != nullptr);
+	if (locked)
+		m_mutex10->lock();
+
+	if (m_f20) { // 已结束
+		if (locked)
+			m_mutex10->unlock();
+		return;
+	}
+	if (!m_out30.isEmpty())
+		m_cond18->wait(m_mutex10); // 等消费方取走,无限等待
+
+	if (!m_f20) {
+		m_out30 = readAllStandardOutput(); // +0x30
+		if (m_mode24 == 0) {
+			if (!m_matched28)
+				emit readyRead(0);
+			if (m_matcher40->indexIn(m_out30) != -1) {
+				m_matched28 = true; // +0x28
+				closeWriteChannel();
+			}
+		} else {
+			emit readyRead(0);
+		}
+	}
+	if (locked)
+		m_mutex10->unlock();
+}
+
+// FUN_007a1f07(247B)stderr 槽真身:加锁 → readAllStandardError → 未结束则
+// 追加到 +0x38 并 emit readyRead(1) → 解锁。
+void ModemProcess::onReadyReadStandardError()
+{
+	const bool locked = (m_mutex10 != nullptr);
+	if (locked)
+		m_mutex10->lock();
+
+	const QByteArray err = readAllStandardError();
+	if (!m_f20) {
+		m_err38 += err; // +0x38
+		emit readyRead(1);
+	}
+	if (locked)
+		m_mutex10->unlock();
 }
 
 // FUN_007a217c(135B):取走 +0x30 并 wakeOne(+0x10 存在时持锁)。

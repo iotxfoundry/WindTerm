@@ -19,9 +19,9 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 431 | 1.11% | 207023 | 2.70% |
-| 半成品 | 25 | 0.06% | 12790 | 0.17% |
-| 引用档 | 2263 | 5.84% | 826005 | 10.77% |
+| 真实现 | 435 | 1.12% | 208163 | 2.71% |
+| 半成品 | 24 | 0.06% | 12541 | 0.16% |
+| 引用档 | 2260 | 5.83% | 825114 | 10.76% |
 | 未触及 | 36029 | 92.98% | 6625617 | 86.37% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
 
@@ -52,12 +52,13 @@
 | `src/Sessions/Transfers/XYModem.h` | 13 | 1 | 3 |
 | `src/App/StartupChain.cpp` | 12 | 1 | 48 |
 | `src/Sessions/Transfers/XYModem.cpp` | 13 | 0 | 0 |
+| `src/Sessions/Transfers/ZModem.cpp` | 13 | 0 | 4 |
 | `src/Windows/Kit/KitDockFace.h` | 13 | 0 | 10 |
 | `src/Sessions/Bridges/ProxyCommandSocket.h` | 12 | 0 | 12 |
 | `src/Windows/Kit/KitBar.cpp` | 12 | 0 | 18 |
 | `src/App/StateStore.cpp` | 11 | 0 | 38 |
 | `src/Sessions/Bridges/ProxyCommandSocket.cpp` | 11 | 0 | 14 |
-| `src/Sessions/Transfers/ZModem.cpp` | 11 | 0 | 5 |
+| `src/Sessions/Transfers/ModemProcess.h` | 10 | 1 | 0 |
 | `src/Windows/Kit/KitWindowFactory.cpp` | 11 | 0 | 10 |
 | `src/Windows/Mux/MuxPaneView.cpp` | 11 | 0 | 12 |
 | `src/Sessions/Bridges/TcpBridge.cpp` | 10 | 0 | 13 |
@@ -67,14 +68,14 @@
 | `src/App/StartupChain.h` | 8 | 1 | 22 |
 | `src/Editor/Config/CGlobalConfigFace.h` | 9 | 0 | 31 |
 | `src/Sessions/Bridges/TcpBridge.h` | 9 | 0 | 10 |
-| `src/Sessions/Transfers/ModemProcess.h` | 7 | 2 | 0 |
+| `src/Sessions/Transfers/ModemProcess.cpp` | 8 | 1 | 0 |
 | `src/Windows/Kit/KitBar.h` | 9 | 0 | 8 |
 | `src/Windows/Kit/KitWindowFactory.h` | 9 | 0 | 26 |
 | `src/Actions/ActionFactory.cpp` | 8 | 0 | 10 |
 | `src/Editor/Engine/SuperKeymap.cpp` | 8 | 0 | 60 |
 | `src/Sessions/Bridges/TelnetBridge.cpp` | 8 | 0 | 12 |
 | `src/Sessions/Core/WorkspaceLoader.cpp` | 8 | 0 | 50 |
-| `src/Sessions/Transfers/ModemProcess.cpp` | 6 | 2 | 2 |
+| `src/Sessions/Transfers/ZModem.h` | 8 | 0 | 0 |
 | `src/Sessions/Transports/TelnetSession.h` | 8 | 0 | 9 |
 | `src/Widgets/Controls/SplitterGroup.h` | 8 | 0 | 14 |
 | `src/Widgets/Dialogs/TunnelDialogFace.cpp` | 7 | 1 | 14 |
@@ -90,7 +91,6 @@
 | `src/Sessions/Core/SuperSessionPrivate.cpp` | 7 | 0 | 46 |
 | `src/Sessions/Core/SuperSessionPrivate.h` | 7 | 0 | 35 |
 | `src/Sessions/Core/WorkspaceLoader.h` | 7 | 0 | 41 |
-| `src/Sessions/Transfers/ZModem.h` | 7 | 0 | 0 |
 | `src/App/JsEngine.cpp` | 6 | 0 | 4 |
 | `src/App/StateStore.h` | 6 | 0 | 36 |
 | `src/Editor/Engine/EditorEngine.cpp` | 6 | 0 | 517 |
@@ -308,7 +308,7 @@
 | `MasterPasswordDialog` | `src/Widgets/Dialogs/MasterPasswordDialogFace.h` | 1 | 1 |
 | `MessageBar` | `src/Widgets/Bars/MessageBarFace.h` | 5 | 0 |
 | `Modem` | `src/Sessions/Transfers/Modem.h` | 17 | 1 |
-| `ModemProcess` | `src/Sessions/Transfers/ModemProcess.h` | 7 | 2 |
+| `ModemProcess` | `src/Sessions/Transfers/ModemProcess.h` | 10 | 1 |
 | `MuxPane` | `src/Windows/Mux/MuxPane.h` | 2 | 0 |
 | `MuxPaneGroup` | `src/Windows/Mux/MuxPaneGroup.h` | 31 | 0 |
 | `MuxWindow` | `src/Windows/Mux/MuxWindow.h` | 24 | 0 |
@@ -388,7 +388,7 @@
 | `XModem` | `src/Sessions/Transfers/XModem.h` | 0 | 1 |
 | `XYModem` | `src/Sessions/Transfers/XYModem.h` | 13 | 1 |
 | `YModem` | `src/Sessions/Transfers/YModem.h` | 0 | 1 |
-| `ZModem` | `src/Sessions/Transfers/ZModem.h` | 7 | 0 |
+| `ZModem` | `src/Sessions/Transfers/ZModem.h` | 8 | 0 |
 
 **未建 266 个**：
 

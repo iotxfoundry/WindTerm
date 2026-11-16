@@ -57,6 +57,12 @@ public:
 	// 进程侧状态文案(0..5),末尾统一 showError(…, true)。
 	void stateText(int code); // 0079fd7e
 
+	// QProcess::stateChanged 槽(FUN_0079fb5c,245B):
+	//   +0x50 记「已进入 Running」;从 Running(2) 掉到 NotRunning(0) 且已
+	//   Running 过 → "Process %1 crashed before the transfer is completed."
+	//   + finish(false)。末尾无条件 +0x80 = state。
+	void setProcessState(int state);
+
 	// 进程输出读槽(FUN_007a0f86,3062B):
 	//   channel 0(stdout)→ 原样上行给会话(writeData)
 	//   channel 1(stderr)→ 累积到 +0x88,抹掉程序路径,按 [\r\n] 切行,

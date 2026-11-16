@@ -129,9 +129,8 @@ void ZModem::startTransfer(int direction, QStringList &args)
 	        &ModemProcess::startProcess);
 	connect(this, &ZModem::modemRead, m_process70.data(),
 	        &ModemProcess::writeData);
-	connect(m_process70.data(), &QProcess::stateChanged, this, [this](QProcess::ProcessState) {
-		// FUN_0079fb5c(245B)状态槽:按 state 切换 +0x80 与提示文案 —— cited。
-	});
+	connect(m_process70.data(), &QProcess::stateChanged, this,
+	        [this](QProcess::ProcessState state) { setProcessState(int(state)); });
 	connect(m_process70.data(), &ModemProcess::readyRead, this,
 	        &ZModem::onProcessReadyRead);
 	connect(m_process70.data(), &QProcess::errorOccurred, this, [this](QProcess::ProcessError e) {
@@ -247,4 +246,28 @@ void ZModem::onProcessReadyRead(int channel)
 		}
 		appendText(line);
 	}
+}
+
+// FUN_0079fb5c(245B)状态槽真身。QProcess 状态:0 = NotRunning / 2 = Running。
+//   +0x80 == state → 直接返回(无变化)
+//   (不是「旧值 2 且新值 0」)或「新值 2」→ 新值 2 时 +0x50 = 1,落 state
+//   旧值 2 → 新值 0:+0x50 != 1(没跑起来过)→ 落 state;
+//                    否则报 "Process %1 crashed before the transfer is completed."
+//                    并 finish(false)
+//   末尾:+0x80 = state
+void ZModem::setProcessState(int state)
+{
+	if (m_state80 == state)
+		return;
+
+	if (m_state80 != 2 || state != 0) {
+		if (state == 2)
+			m_f50 = 1; // +0x50 = 1(进入过 Running)
+	} else if (m_f50 == 1) {
+		showError(tr("Process %1 crashed before the transfer is completed.") // 0x34 字符
+		              .arg(m_name60),
+		          true);
+		finish(false); // 0079aba0(this, 0)
+	}
+	m_state80 = state; // +0x80
 }

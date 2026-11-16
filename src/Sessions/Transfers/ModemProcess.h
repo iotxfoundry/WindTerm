@@ -51,6 +51,14 @@ signals:
 private:
 	void wire(); // 007a2214
 
+	// 两条 readyRead 槽(实读):
+	//   stdout FUN_007a1d70(399B):等消费者取空 → readAllStandardOutput 入 +0x30
+	//     → mode==0(接收)且未命中:emit readyRead(0);再跑 matcher,命中置
+	//     +0x28 并 closeWriteChannel();mode!=0 只 emit。
+	//   stderr FUN_007a1f07(247B):readAllStandardError 追加 +0x38 → emit readyRead(1)。
+	void onReadyReadStandardOutput();
+	void onReadyReadStandardError();
+
 	QMutex *m_mutex10 = nullptr;            // +0x10
 	QWaitCondition *m_cond18 = nullptr;     // +0x18
 	bool m_f20 = false;                     // +0x20
