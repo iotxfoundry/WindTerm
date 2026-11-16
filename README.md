@@ -23,7 +23,7 @@
 ## 目录
 
 ```
-AGENTS.md                铁律 / 基线 / 踩坑 22 条
+AGENTS.md                铁律 / 基线 / 工具优先 / 踩坑 18 条
 src/                     重建代码(Actions/Editor/Sessions/Widgets/…)
 src/Scintilla/           上游 Scintilla 4.4.6(标准 SCI_* 委托)
 tools/re/decomp/         反编译语料(主语料)
@@ -33,10 +33,10 @@ docs/pending-attribution.md  收尾期工作单(编译前第一步)
 lib/*.a                  预构建静态库(构建直接链接)
 ```
 
-## 收尾期(唯一允许编译测试的阶段)
+## 构建与测试
 
-语料锚定段全清后:清归属工作单 → 全量编译修错 → dlopen 零 undefined →
-装配 `main` → Xvfb 截图 vs `./WindTerm` 对表。
+**不在本仓库文档范围内**(铁律 7:平时不编译不测试)。何时构建、如何链接、
+验收顺序,一律按用户当时指令执行;`tests/` 已删除,不恢复。
 
 ---
 上游 WindTerm 的功能/性能说明已按文档重整移除(与逆向重建无关;

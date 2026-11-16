@@ -44,7 +44,7 @@ python3 + numpy + binutils(readelf)。
 
 ## 相关文档
 
-- **AGENTS.md**(根目录):完整方法论 + 13 项踩坑 + 构建配方
+- **AGENTS.md**(根目录):完整方法论 + 18 项踩坑(构建/测试已移出该文件)
 - **docs/plan.md**:202 项待收口计划(Phase 1-5)
 - **docs/*.md**(18 个):ssh-internals / protocol-architecture /
   state-machine / terminal-core / editor-engine-commands(336 命令)/

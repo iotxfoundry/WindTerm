@@ -150,8 +150,8 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
   (2026-11-16),`ctest` 门不再存在;收尾期改为 dlopen 零 undefined + 截图对表。
 - **基线二进制 = `./WindTerm`**(仓库内副本,sha256 与 `/opt` 同;运行时库仍取
   `/opt/WindTerm_2.7.0/lib`)。
-- RE 探针:`tools/re/metatest/`(手工 g++;**改含内联成员的头后必须重编**,
-  踩坑 15)。它不是测试,不参与构建。
+- RE 探针:`tools/re/metatest/`(手工 g++;**改含内联成员的头后必须重编探针**,
+  否则旧探针按旧偏移读新库会段错误)。它不是测试,不参与构建。
 - frida:pip --user;REA MCP 已配置(项目 opencode.json,207 工具);
   ida-pro-mcp 1.4.0 已装(原版开启时 localhost:13337)。
 - kuna CLI:`~/.local/share/rea/bin/kuna`(优于语料 grep,支持
