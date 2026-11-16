@@ -15,6 +15,12 @@ class PasteDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit PasteDialogFace(QWidget *parent = nullptr);
+
+protected:
+	QWidget *m_f50 = nullptr; // +0x50
+	QWidget *m_f60 = nullptr; // +0x60
+	QWidget *m_f70 = nullptr; // +0x70
+	QWidget *m_f78 = nullptr; // +0x78(ctor 清 0)
 	void build();    // FUN_006ca710 — 结构段(cited)
 };
 
