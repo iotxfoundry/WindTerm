@@ -10,8 +10,8 @@
 #include <QJSValue>
 #include <QJSValueList>
 
-#include "Actions/JsEngine.h"
-#include "Actions/Mux/MuxPane.h"   // FUN_00674442 cast 目标(PTR_011a6c00 壳,批 50;+0x48 JsEngine* 公有槽)
+#include "App/JsEngine.h"
+#include "Windows/Mux/MuxPane.h"   // FUN_00674442 cast 目标(PTR_011a6c00 壳,批 50;+0x48 JsEngine* 公有槽)
 
 #include <cstring>
 #include <cerrno>

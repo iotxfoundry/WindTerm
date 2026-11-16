@@ -11,49 +11,63 @@
 
 判据:`grep -c "FUN_\|cited" <文件>` —— 命中即 A 类。
 
-## 1. 目录结构(2026-11-16 按角色重组)
+## 1. 目录结构(按软件架构分层)
 
-**分组判据 = 职责不同、改动规则不同**,不是体积、不是字母表。
+**判据 = 软件自身的分层与子系统**,不按"是否逆向过"、不按类名后缀。
+新增类时先问:它在架构里属于哪一层,而不是"它像哪个已有文件"。
 
 ```
 src/
-├── Actions/            126 文件  界面装配(动作/菜单/对话框/主窗)
-│   ├── Dialogs/         33    全部 *DialogFace + MsgBoxFace
-│   ├── Settings/         4    Settings* / *SettingsPageFace / TriggerPageFace
-│   ├── Kit/             12    KitWindow* / MainWindow / StatusBar / TabGroup / KitBar
-│   ├── Menu/             4    ActionFactory / ActionRegistry / ToolBarBuilder / ThemeIcons
-│   ├── Mux/              5    MuxWindow / MuxPane* 
-│   └── (根)              6    StartupChain / StateStore / JsEngine / SearchPanelFace …
-├── Editor/              26   编辑器引擎与配置
-│   ├── Engine/           17    EditorContext / EditorEngine / ENodes / MatchEngine / SuperKeymap …
-│   └── Config/            8    CGlobalConfigFace / CTerminalConfig / CEditorConfig / ConfigBridge …
-├── Sessions/            51   会话层
-│   ├── Bridges/         15    SuperBridge + Ssh/Tcp/Telnet/Serial/Shell 五种
-│   ├── Commanders/      12    SuperCommander + 五种
-│   ├── Protocols/       10    SshSession/TcpSession/TelnetSession/ShellSession/SerialSession
-│   ├── Terminal/         6    Screen / ScreenData / TerminalCore / TermViewFace
-│   └── Core/             7    SuperSession / SuperSessionPrivate / WorkspaceLoader / FileOps
-├── Widgets/             37   Qt 控件
-│   ├── Faces/           15    自绘控件族(ActionButton/Bar/BreadCrumb/ColorButton/Expand/List …)
-│   ├── Panels/          13    FilerPane / OutputPane / SessionPane / TerminalView / TextView …
-│   └── (根)              5    PopupWidget / ScrollBar / Splitter  ← **B 类,勿逆向**
-├── Utility/             11   共享基元
-│   └── (根)             11    KingEnums / ApplicationTheme(A)+ CircularBuffer / Cryptographic /
-│                              ScopeGuard / Spin / ThreadLocal …(← **B 类,勿逆向**)
-├── Pty/                 10   第一方开源(基于 ptyqt 重写)
-├── Protocols/            3   第一方开源(Telnet)
-├── Ext/                  2   外部库接口面(Spdlog/Zstd,不含实现)
-└── Stubs/                1   gen_stubs.cpp(自动生成的 cited-stub,随转写递减)
+├── App/               应用层(启动 / 全局状态 / 脚本 / 主题)
+│                        SuperApplication StartupChain StateStore JsEngine
+│                        ThemeIcons ApplicationTheme
+├── Windows/           窗口系统
+│   ├── Kit/            主窗与 Kit 体系:KitWindow KitWindowAssembly KitDock KitBar
+│   │                   KitWindowFactory MainWindow
+│   └── Mux/            多路窗口:MuxWindow MuxPane MuxPaneGroup MuxPaneView MuxPaneJs
+├── Widgets/           UI 控件
+│   ├── Dialogs/        36  全部对话框 + MsgBox + LoginWizard + Tunnel/TransferAsk
+│   ├── Settings/        4  设置页:Settings SettingsPage PasteSettingsPage TriggerPage
+│   ├── Bars/            6  条状容器:ActionToolBar StatusBar MessageBar
+│   │                       Quick/TransferBar AddressBar+BreadCrumb
+│   ├── Controls/       13  原子控件:按钮( Action/Color/Expand/Close/Completer )/
+│   │                       输入( SearchEdit/FilterEdit/CrumbEdit/CountSpinbox/CursorShape )/
+│   │                       列表( CheckList/ExplorerList )/容器组( TabGroup/SplitterGroup )
+│   ├── Panes/           5  FilerPane OutputPane SessionPane TransferPane ViewBase SearchPanel
+│   ├── Views/           4  TerminalView TerminalWidget TextEdit TextView
+│   └── (根)             3  PopupWidget ScrollBar Splitter   ← **B 类,勿逆向**
+├── Actions/           命令层(动作 / 菜单 / 工具栏 / 快捷键)
+│                        ActionFactory ActionRegistry ToolBarBuilder
+│                        SlipButton(菜单行) BackwardShortcut(快捷键绑定)
+├── Sessions/          传输与连管
+│   ├── Core/            SuperSession SuperSessionPrivate WorkspaceLoader
+│   │                    FileOps SessionManager
+│   ├── Transports/      Ssh / Tcp / Telnet / Shell / Serial Session
+│   ├── Bridges/         SuperBridge + 五种
+│   └── Commanders/      SuperCommander + 五种
+├── Terminal/          终端内核:Screen ScreenData TerminalCore TermViewFace
+├── Editor/            编辑器
+│   ├── Engine/          EditorContext EditorEngine ENodes MatchEngine MarkersStore
+│   │                    ModTrack OnigSearch RunNode Keymap SuperKeymap CodecMemo
+│   └── Config/          CGlobalConfig CTerminalConfig CEditorConfig ProfileLoader ConfigBridge
+├── Utility/           共享基元:KingEnums + B 类组件(见 §2)
+├── Protocols/         Telnet 协议(**B 类**)
+├── Pty/               伪终端(**B 类**,基于 ptyqt 重写)
+├── Ext/               外部库接口面(Spdlog / Zstd)
+└── Stubs/             gen_stubs.cpp(自动生成 cited-stub,随转写递减)
 ```
 
-**出处写法**(三种均可,机器统一索引):`FUN_0064ab10` / 裸 `0064ab10` /
-`s_Name_534e62`;纯 moc 声明类写「出处:QMetaObject 元数据」。
+分层要点(改代码时别越线):
 
-**动手前先查**:`python3 tools/re/coverage.py --addr <地址>` —— 该函数全仓是否
-已有实现。全量索引 `docs/meta/coverage-map.md`(自动生成)。
-
-**include 约定**:`src/` 是 include 根 → 跨目录一律写根相对路径
-`#include "Sessions/Core/SuperSession.h"`;同目录才可用裸文件名。
+| 层 | 只做 | 不要放 |
+|---|---|---|
+| `App/` | 启动装配、全局单例、脚本桥 | 具体控件 |
+| `Windows/` | 窗口/停靠/多路容器 | 窗内控件本体(→ `Widgets/`) |
+| `Widgets/` | 可复用 UI 控件、对话框、页面 | 业务逻辑(→ `Sessions/` `Editor/`) |
+| `Actions/` | 动作/菜单/快捷键构建 | 控件实现 |
+| `Sessions/` | 连接、传输、命令分发 | Qt 控件 |
+| `Terminal/` | 终端数据模型与状态机 | 渲染控件(→ `Widgets/Views/`) |
+| `Editor/` | 编辑引擎与配置 | 通用控件 |
 
 ## 1b. 三类来源(与上面结构正交)
 

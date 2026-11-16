@@ -8,12 +8,8 @@
 
 | 目录 | 文件 | 行数 | 类 | 唯一地址 | cited 标记 |
 |---|---:|---:|---:|---:|---:|
-| `Actions` | 11 | 1757 | 5 | 264 | 27 |
-| `Actions/Dialogs` | 66 | 3900 | 35 | 416 | 99 |
-| `Actions/Kit` | 23 | 4957 | 18 | 866 | 90 |
-| `Actions/Menu` | 8 | 1198 | 5 | 141 | 13 |
-| `Actions/Mux` | 10 | 2885 | 8 | 635 | 27 |
-| `Actions/Settings` | 8 | 2363 | 21 | 339 | 56 |
+| `Actions` | 10 | 1070 | 5 | 139 | 15 |
+| `App` | 12 | 2326 | 6 | 325 | 33 |
 | `Editor/Config` | 9 | 2303 | 14 | 269 | 23 |
 | `Editor/Engine` | 17 | 11325 | 55 | 1259 | 341 |
 | `Ext` | 2 | 494 | 3 | 106 | 1 |
@@ -22,62 +18,69 @@
 | `Pty/Public` | 1 | 6 | 0 | 0 | 0 |
 | `Sessions/Bridges` | 14 | 1032 | 8 | 157 | 2 |
 | `Sessions/Commanders` | 12 | 3147 | 7 | 80 | 44 |
-| `Sessions/Core` | 7 | 2437 | 7 | 486 | 19 |
-| `Sessions/Protocols` | 10 | 324 | 5 | 28 | 0 |
-| `Sessions/Terminal` | 6 | 5783 | 12 | 327 | 50 |
+| `Sessions/Core` | 9 | 2544 | 8 | 491 | 20 |
+| `Sessions/Transports` | 10 | 324 | 5 | 28 | 0 |
 | `Stubs` | 1 | 25 | 0 | 1 | 0 |
-| `Utility` | 11 | 1434 | 11 | 30 | 6 |
+| `Terminal` | 6 | 5783 | 12 | 327 | 50 |
+| `Utility` | 9 | 1256 | 10 | 0 | 0 |
 | `Widgets` | 6 | 722 | 3 | 4 | 0 |
-| `Widgets/Faces` | 18 | 1059 | 20 | 110 | 32 |
-| `Widgets/Panels` | 13 | 2183 | 13 | 194 | 23 |
-| **合计** | **265** | **50925** | **259** | **5222** | **853** |
+| `Widgets/Bars` | 12 | 663 | 7 | 88 | 9 |
+| `Widgets/Controls` | 26 | 2276 | 17 | 403 | 57 |
+| `Widgets/Dialogs` | 71 | 4098 | 38 | 434 | 107 |
+| `Widgets/Panes` | 7 | 566 | 9 | 108 | 12 |
+| `Widgets/Settings` | 8 | 2363 | 21 | 339 | 56 |
+| `Widgets/Views` | 6 | 1576 | 4 | 87 | 13 |
+| `Windows/Kit` | 11 | 2597 | 10 | 431 | 43 |
+| `Windows/Mux` | 10 | 2885 | 8 | 635 | 27 |
+| **合计** | **281** | **50972** | **259** | **5221** | **853** |
 
 ## 2. 被引用最多的地址（多为共享腿，不要重复实现）
 
 | 地址 | 文件数 | 位置 |
 |---|---:|---|
-| `FUN_006b2420` | 19 | src/Actions/Dialogs/DefaultEditorDialogFace.h<br>src/Actions/Dialogs/FocusModeDialogFace.cpp<br>src/Actions/Dialogs/FocusModeDialogFace.h<br>src/Actions/Dialogs/HighlightTextDialogFace.cpp |
-| `FUN_00692ef0` | 11 | src/Actions/Kit/KitWindowAssemblyFace.cpp<br>src/Actions/Kit/KitWindowFace.h<br>src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/KitWindowFactory.h |
-| `FUN_00809d78` | 9 | src/Actions/Kit/KitWindowFace.h<br>src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/KitWindowFactory.h<br>src/Editor/Config/CGlobalConfigFace.cpp |
-| `FUN_007664a2` | 9 | src/Actions/Kit/KitBar.cpp<br>src/Actions/Kit/KitBar.h<br>src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/KitWindowFactory.h |
-| `FUN_00692a70` | 9 | src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/KitWindowFactory.h<br>src/Actions/Menu/ActionRegistryFace.h<br>src/Actions/Menu/ToolBarBuilder.h |
-| `FUN_008d2f7e` | 8 | src/Actions/Kit/KitWindowAssemblyFace.cpp<br>src/Actions/Kit/KitWindowAssemblyFace.h<br>src/Actions/Kit/KitWindowFace.h<br>src/Actions/StartupChain.cpp |
-| `FUN_0076b9ec` | 8 | src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/MainWindowFace.h<br>src/Actions/Mux/MuxWindow.h<br>src/Actions/StartupChain.cpp |
-| `FUN_006926c2` | 8 | src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/KitWindowFactory.h<br>src/Actions/Menu/ToolBarBuilder.cpp<br>src/Actions/Mux/MuxPaneGroup.cpp |
-| `FUN_0064b102` | 8 | src/Actions/JsEngine.cpp<br>src/Actions/JsEngine.h<br>src/Actions/Mux/MuxPane.cpp<br>src/Actions/Mux/MuxPane.h |
+| `FUN_006b2420` | 19 | src/Widgets/Dialogs/DefaultEditorDialogFace.h<br>src/Widgets/Dialogs/FocusModeDialogFace.cpp<br>src/Widgets/Dialogs/FocusModeDialogFace.h<br>src/Widgets/Dialogs/HighlightTextDialogFace.cpp |
+| `FUN_00692ef0` | 11 | src/Actions/ToolBarBuilder.cpp<br>src/Actions/ToolBarBuilder.h<br>src/Editor/Config/CGlobalConfigFace.h<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
+| `FUN_00809d78` | 9 | src/Editor/Config/CGlobalConfigFace.cpp<br>src/Editor/Config/CGlobalConfigFace.h<br>src/Editor/Config/CTerminalConfig.cpp<br>src/Editor/Config/CTerminalConfig.h |
+| `FUN_007664a2` | 9 | src/App/StartupChain.cpp<br>src/App/StartupChain.h<br>src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Kit/KitBar.cpp |
+| `FUN_00692a70` | 9 | src/Actions/ActionRegistryFace.h<br>src/Actions/ToolBarBuilder.h<br>src/Editor/Config/CGlobalConfigFace.cpp<br>src/Editor/Config/CGlobalConfigFace.h |
+| `FUN_008d2f7e` | 8 | src/App/StartupChain.cpp<br>src/App/StartupChain.h<br>src/App/StateStore.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
+| `FUN_0076b9ec` | 8 | src/App/StartupChain.cpp<br>src/App/StartupChain.h<br>src/App/StateStore.h<br>src/Editor/Engine/KeymapEngine.cpp |
+| `FUN_006926c2` | 8 | src/Actions/ToolBarBuilder.cpp<br>src/Editor/Config/CGlobalConfigFace.cpp<br>src/Editor/Config/CGlobalConfigFace.h<br>src/Windows/Kit/KitWindowFactory.cpp |
+| `FUN_0064b102` | 8 | src/App/JsEngine.cpp<br>src/App/JsEngine.h<br>src/App/StartupChain.cpp<br>src/Windows/Mux/MuxPane.cpp |
 | `FUN_00b422d0` | 7 | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/CodecMemo.h<br>src/Editor/Engine/EditorEngine.cpp<br>src/Editor/Engine/MatchEngine.cpp |
-| `FUN_008c9ee4` | 7 | src/Actions/Kit/KitWindowAssemblyFace.cpp<br>src/Actions/Kit/KitWindowAssemblyFace.h<br>src/Actions/Kit/KitWindowFace.h<br>src/Actions/Kit/KitWindowFactory.cpp |
-| `FUN_008062b6` | 7 | src/Actions/Dialogs/TriggerDialogFace.cpp<br>src/Actions/Dialogs/TriggerDialogFace.h<br>src/Sessions/Core/WorkspaceLoader.cpp<br>src/Sessions/Core/WorkspaceLoader.h |
-| `FUN_0076663e` | 7 | src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/MainWindowFace.cpp<br>src/Actions/Kit/MainWindowFace.h<br>src/Actions/Mux/MuxWindow.h |
-| `FUN_007662e6` | 7 | src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/MainWindowFace.cpp<br>src/Actions/Kit/MainWindowFace.h<br>src/Actions/Mux/MuxWindow.h |
-| `FUN_00766192` | 7 | src/Actions/JsEngine.h<br>src/Actions/Mux/MuxPane.h<br>src/Actions/Mux/MuxPaneView.cpp<br>src/Actions/Mux/MuxPaneView.h |
+| `FUN_008c9ee4` | 7 | src/Editor/Config/CGlobalConfigFace.cpp<br>src/Editor/Config/CGlobalConfigFace.h<br>src/Windows/Kit/KitWindowAssemblyFace.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.h |
+| `FUN_008062b6` | 7 | src/Sessions/Core/SessionManager.cpp<br>src/Sessions/Core/SessionManager.h<br>src/Sessions/Core/WorkspaceLoader.cpp<br>src/Sessions/Core/WorkspaceLoader.h |
+| `FUN_0076663e` | 7 | src/App/StartupChain.cpp<br>src/App/StartupChain.h<br>src/App/StateStore.h<br>src/Windows/Kit/KitWindowFactory.cpp |
+| `FUN_007662e6` | 7 | src/App/StartupChain.cpp<br>src/App/StartupChain.h<br>src/Sessions/Core/WorkspaceLoader.h<br>src/Windows/Kit/KitWindowFactory.cpp |
+| `FUN_00766192` | 7 | src/App/JsEngine.h<br>src/App/StartupChain.cpp<br>src/App/StartupChain.h<br>src/Editor/Engine/SuperKeymap.cpp |
 
 ## 3. 疑似重复实现（同一地址在 2+ 个 .cpp 带实现标记）
 
-只统计带 `真身` / `// ===` 实现标记的行,普通引用不计 —— 共 **19** 处。
+只统计带 `真身` / `// ===` 实现标记的行,普通引用不计 —— 共 **20** 处。
 逐条核对:共享腿(合理,补交叉引用)还是重复转写(应合并)。
 
 | 地址 | 文件 |
 |---|---|
-| `FUN_00692ef0` | src/Actions/Kit/KitWindowAssemblyFace.cpp<br>src/Actions/Menu/ToolBarBuilder.cpp<br>src/Actions/Mux/MuxPaneGroup.cpp<br>src/Actions/Mux/MuxPaneView.cpp |
-| `FUN_008c9e64` | src/Actions/StartupChain.cpp<br>src/Actions/StateStore.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_00766c26` | src/Actions/StartupChain.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_0075e0f8` | src/Actions/StartupChain.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_00760856` | src/Actions/Kit/SuperApplicationFace.cpp<br>src/Actions/StateStore.cpp |
-| `FUN_00752640` | src/Actions/Mux/MuxWindow.cpp<br>src/Utility/ApplicationTheme.cpp |
-| `FUN_008bca9e` | src/Actions/Mux/MuxPaneGroup.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_005211fe` | src/Actions/Menu/ToolBarBuilder.cpp<br>src/Widgets/Faces/BreadCrumbFace.cpp |
-| `FUN_0057eb0c` | src/Actions/Menu/ToolBarBuilder.cpp<br>src/Widgets/Faces/SearchEditFace.cpp |
-| `FUN_0072d0f2` | src/Actions/Dialogs/TunnelDialogFace.cpp<br>src/Actions/Settings/SettingsPageFace.cpp |
-| `FUN_0072bf8a` | src/Actions/Dialogs/TunnelDialogFace.cpp<br>src/Actions/Settings/SettingsPageFace.cpp |
-| `FUN_0072edfe` | src/Actions/Dialogs/TunnelDialogFace.cpp<br>src/Actions/Settings/SettingsPageFace.cpp |
-| `FUN_005ab32a` | src/Actions/Kit/KitDockFace.cpp<br>src/Actions/Kit/KitWindowAssemblyFace.cpp |
-| `FUN_0075e3fe` | src/Actions/Kit/KitWindowFactory.cpp<br>src/Actions/Kit/SuperApplicationFace.cpp |
-| `FUN_008d2f7e` | src/Actions/Kit/KitWindowAssemblyFace.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_008d304b` | src/Actions/Kit/KitWindowAssemblyFace.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
+| `FUN_00692ef0` | src/Actions/ToolBarBuilder.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp<br>src/Windows/Mux/MuxPaneGroup.cpp<br>src/Windows/Mux/MuxPaneView.cpp |
+| `FUN_008c9e64` | src/App/StartupChain.cpp<br>src/App/StateStore.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
+| `FUN_005211fe` | src/Actions/ToolBarBuilder.cpp<br>src/Widgets/Bars/AddressBarFace.cpp<br>src/Widgets/Bars/BreadCrumbFace.cpp |
+| `FUN_00752640` | src/App/ApplicationTheme.cpp<br>src/Windows/Mux/MuxWindow.cpp |
+| `FUN_008bca9e` | src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Mux/MuxPaneGroup.cpp |
+| `FUN_005ab32a` | src/Windows/Kit/KitDockFace.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
+| `FUN_0075e3fe` | src/App/SuperApplicationFace.cpp<br>src/Windows/Kit/KitWindowFactory.cpp |
+| `FUN_008d2f7e` | src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
+| `FUN_008d304b` | src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
+| `FUN_00760856` | src/App/StateStore.cpp<br>src/App/SuperApplicationFace.cpp |
+| `FUN_00766c26` | src/App/StartupChain.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
+| `FUN_0075e0f8` | src/App/StartupChain.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
+| `FUN_0057eb0c` | src/Actions/ToolBarBuilder.cpp<br>src/Widgets/Controls/SearchEditFace.cpp |
 | `FUN_0089a756` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
 | `FUN_00899316` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
 | `FUN_0092547e` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
+| `FUN_0054d22a` | src/Widgets/Bars/BreadCrumbFace.cpp<br>src/Widgets/Controls/CrumbEditFace.cpp |
+| `FUN_0072d0f2` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
+| `FUN_0072bf8a` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
+| `FUN_0072edfe` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
 
 ## 4. 第一方开源件（B 类·勿逆向）
 

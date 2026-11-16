@@ -117,15 +117,15 @@
 
 | 文件 | 说明 |
 |---|---|
-| `Actions/TunnelFace.h` | 隧道行模型(TunnelDialog 相关,尚未被 dialog 引用) |
+| `Widgets/Dialogs/TunnelFace.h` | 隧道行模型(TunnelDialog 相关,尚未被 dialog 引用) |
 | `Sessions/Core/FileOps.h` | 文件操作(SuperTransfer 侧未接) |
-| `Sessions/Terminal/ScreenData.h` | 终端数据面 |
-| `Widgets/Panels/FilerPane.h` | 文件浏览面板 |
-| `Widgets/Panels/OutputPane.h` | 输出面板 |
-| `Widgets/Panels/SessionPane.h` | 会话面板 |
-| `Widgets/Panels/TransferPane.h` | 传输面板 |
-| `Widgets/Panels/TextEdit.h` | 文本编辑控件 |
-| `Widgets/Panels/ViewBase.h` | 视图基类 |
+| `Terminal/ScreenData.h` | 终端数据面 |
+| `Widgets/Panes/FilerPane.h` | 文件浏览面板 |
+| `Widgets/Panes/OutputPane.h` | 输出面板 |
+| `Widgets/Panes/SessionPane.h` | 会话面板 |
+| `Widgets/Panes/TransferPane.h` | 传输面板 |
+| `Widgets/Views/TextEdit.h` | 文本编辑控件 |
+| `Widgets/Panes/ViewBase.h` | 视图基类 |
 | `Utility/CircularBuffer.h` | **B 类**:模板,未被实例化属正常 |
 | `Utility/MemoryPointer.h` | **B 类**:同上 |
 | `Utility/ScopeGuard.h` | **B 类**:同上 |

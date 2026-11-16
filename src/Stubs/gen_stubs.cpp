@@ -3,19 +3,19 @@
 
 #include "Sessions/Core/SuperSession.h"
 #include "Sessions/Bridges/SuperBridge.h"
-#include "Sessions/Terminal/TerminalCore.h"
-#include "Sessions/Terminal/Screen.h"
-#include "Widgets/Panels/TextView.h"
-#include "Sessions/Terminal/Screen.h"
+#include "Terminal/TerminalCore.h"
+#include "Terminal/Screen.h"
+#include "Widgets/Views/TextView.h"
+#include "Terminal/Screen.h"
 #include "Sessions/Core/SuperSession.h"
-#include "Sessions/Terminal/TerminalCore.h"
+#include "Terminal/TerminalCore.h"
 
 SuperBridge::SuperBridge(QObject*) {}   // ctor/dtor stub
 
 void Screen::filterRectangle(int, int, int, int) {  } // stub
 void Screen::codecFromUnicode(QString const&) {  } // stub
 int Screen::convertRowToHistory(TerminalCore*, Row*, void*, int) { return 0; } // stub
-#include "Sessions/Terminal/TerminalCore.h"
+#include "Terminal/TerminalCore.h"
 int TerminalCore::cellFlags(struct Row *row, int i) const
 {
 	// FUN_007a3c68: attr head bits at +0x40 + i*2

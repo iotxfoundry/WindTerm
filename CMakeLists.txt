@@ -119,6 +119,9 @@ set(WT_INCLUDES
 # --- 源文件(按目录自动收集,新文件零配置) ---
 file(GLOB_RECURSE WT_SOURCES
   ${CMAKE_SOURCE_DIR}/src/Actions/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/App/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/Windows/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/Terminal/*.cpp
   ${CMAKE_SOURCE_DIR}/src/Sessions/*.cpp
   ${CMAKE_SOURCE_DIR}/src/Editor/*.cpp
   ${CMAKE_SOURCE_DIR}/src/Widgets/*.cpp
@@ -135,6 +138,9 @@ endif()
 
 file(GLOB_RECURSE WT_MOC_HEADERS
   ${CMAKE_SOURCE_DIR}/src/Actions/*.h
+  ${CMAKE_SOURCE_DIR}/src/App/*.h
+  ${CMAKE_SOURCE_DIR}/src/Windows/*.h
+  ${CMAKE_SOURCE_DIR}/src/Terminal/*.h
   ${CMAKE_SOURCE_DIR}/src/Editor/*.h
   ${CMAKE_SOURCE_DIR}/src/Sessions/*.h
   ${CMAKE_SOURCE_DIR}/src/Widgets/*.h

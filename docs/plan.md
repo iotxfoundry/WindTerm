@@ -75,7 +75,7 @@
 
 ### 4b. TerminalWidget 组装 ⏳
 - **渲染层 ✅**(2026-10-28):src/Widgets/TerminalView.{h,cpp} +
-  src/Sessions/Terminal/TermViewFace.h——
+  src/Terminal/TermViewFace.h——
   * TerminalView:格子绘制(attrArray u16 字头 + cell+0x18 SGR
     位义全解:0-13 属性/14-37 fg/38 bright/39-62 bg/63 bg-bright;
     bold/underline/strike/inverse 落 QPainter;光标 XOR 框);
