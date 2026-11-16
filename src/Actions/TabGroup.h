@@ -108,6 +108,21 @@ public:
     //   → 关该页(槽体 thin)。
     void onCloseButtonClicked();
 
+    // FUN_005a8376(383B,0018.c:22922)页切换槽:
+    //   门 `+0x30 != 0 && count > 0`;逐页 i:
+    //     **i == 新索引 → 造关钮**(s_CloseButton_5a6d42)→
+    //       `FUN_005a824c(this, i, 关钮)`(= setTabButton RightSide);
+    //     **i != 新索引 → 该页节点 deleteLater()**(旧关钮销毁)。
+    //   ⇒ **只有当前页显示关钮**(关钮随切换腾挪)。
+    void onCurrentChangedBuildCloseButton(int index);
+
+    // FUN_005a7fa7(251B,0018.c:22729)页移动闭包:
+    //   对 **+0x60 / +0x68 / +0x70 三条平行 QList** 各做
+    //   `QListData::move(from, to)`(共享则先 detach;+0x68 用 qvariant 深拷贝),
+    //   末尾 **tabbar_assignMnemonics(this)** 重排助记符。
+    //   ⇒ 页签的"节点/数据/属性"是三条平行表,move 必须同步。
+    void onTabMoved(int to);
+
     void removeTabNodes(int index);
     // 0058e38a(1942B,0018:...)TabBar 列表/右键菜单:
     //   +0x50 表空 → FUN_0058d940(空态腿);

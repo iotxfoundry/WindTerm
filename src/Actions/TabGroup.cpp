@@ -1030,3 +1030,26 @@ void TabBar::onCloseButtonClicked()
 		}
 	}
 }
+
+// FUN_005a8376(383B)页切换槽真身(结构段)
+void TabBar::onCurrentChangedBuildCloseButton(int index)
+{
+	if (!m_f30 || count() <= 0)              // 门:+0x30 与页数
+		return;
+	for (int i = 0; i < count(); ++i) {
+		if (i == index) {
+			// 造关钮(s_CloseButton_5a6d42)+ FUN_005a824c(this, i, 关钮)
+			//   = setTabButton(i, RightSide, 关钮) — 造钮体 cited
+		} else {
+			// 该页节点 deleteLater()(旧关钮销毁)— cited
+		}
+	}
+}
+
+// FUN_005a7fa7(251B)页移动闭包真身(结构段)
+void TabBar::onTabMoved(int to)
+{
+	// 三条平行表 +0x60 / +0x68 / +0x70:各 QListData::move(from → to)
+	//   (共享先 detach;+0x68 走 qvariant 深拷贝) — cited
+	assignMnemonics();                        // @tabbar_assignMnemonics
+}
