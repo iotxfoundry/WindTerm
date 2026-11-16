@@ -240,6 +240,11 @@
 00560888	src/Widgets/Views/LockScreenFace.h
 0056098e	src/Widgets/Views/LockScreenFace.cpp
 0056098e	src/Widgets/Views/LockScreenFace.h
+00560dec	src/Widgets/Views/LockScreenFace.cpp
+00560ed8	src/Widgets/Views/LockScreenFace.cpp
+0056121e	src/Widgets/Views/LockScreenFace.cpp
+005613ee	src/Widgets/Views/LockScreenFace.cpp
+005613ee	src/Widgets/Views/LockScreenFace.h
 00561492	src/Widgets/Views/LockScreenFace.cpp
 00561492	src/Widgets/Views/LockScreenFace.h
 005614c0	src/Widgets/Views/LockScreenFace.cpp
@@ -4645,6 +4650,7 @@
 008052f3	src/App/StateStore.cpp
 00805342	src/App/StateStore.cpp
 008053bd	src/App/StateStore.cpp
+0080542c	src/Widgets/Views/LockScreenFace.cpp
 00805a3e	src/App/StateStore.cpp
 00805a3e	src/Sessions/Core/SessionManager.cpp
 00805a3e	src/Sessions/Core/SessionManager.h

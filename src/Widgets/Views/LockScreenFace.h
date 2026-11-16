@@ -25,6 +25,7 @@
 //   +0x90 int  = 0
 
 #include <QLabel>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QWidget>
@@ -41,6 +42,8 @@ protected:
 private:
 	void buildUi();        // 00560414
 	void connectSignals(); // 005600a0
+	// 005613ee(156B):mode 0/1/2 → 取对应页布局,包一层 QWidget 加进 +0x80 栈并置当前
+	void setState(int mode);
 
 	// ---- 槽体(逐条见 .cpp;体量大的标 cited)----------------------------
 	void onLockClicked();        // 00561492(46B)
@@ -48,7 +51,7 @@ private:
 	void onCancelClicked();      // 0055fa50(5B)
 	void onPasswordReturned();   // 0055fb0b(192B)
 	void onPasswordEdited();     // 00561c9e
-	void onSignalA();            // 0055ff05(387B)
+	void onSignalA(const QString &text); // 0055ff05(387B)
 	void onSignalB();            // 0055fbd3(753B)
 
 	QLabel *m_f30 = nullptr;        // +0x30
@@ -56,9 +59,11 @@ private:
 	QPushButton *m_cancel48 = nullptr; // +0x48
 	QPushButton *m_change50 = nullptr; // +0x50
 	QPushButton *m_lock58 = nullptr;   // +0x58
-	QWidget *m_f60 = nullptr;       // +0x60(0x90B 自定义件)
-	QWidget *m_f68 = nullptr;       // +0x68
-	QWidget *m_f70 = nullptr;       // +0x70
+	// +0x60/+0x68:0x90B 自定义件,基类 QLineEdit(接线实读 QLineEdit::returnPressed /
+	// textChanged);件类未建模,按基类面使用。+0x70 同类。
+	QLineEdit *m_f60 = nullptr;     // +0x60
+	QLineEdit *m_f68 = nullptr;     // +0x68
+	QLineEdit *m_f70 = nullptr;     // +0x70
 	QWidget *m_f78 = nullptr;       // +0x78(0x30B 自定义件)
 	QStackedWidget *m_stack80 = nullptr; // +0x80
 	quint8 m_mode88 = 0;            // +0x88

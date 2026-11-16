@@ -13973,17 +13973,17 @@
 0055fac9	66	FUN_0055fac9	todo	
 0055fb0b	192	FUN_0055fb0b	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0055fbd3	753	FUN_0055fbd3	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
-0055ff05	387	FUN_0055ff05	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+0055ff05	387	FUN_0055ff05	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 005600a0	883	lockscreen_connectSignals	ref	src/Widgets/Views/LockScreenFace.h
 00560414	1004	s_TitleLabel_560414	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00560888	243	s_LockScreen_560888	ref	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 0056098e	381	FUN_0056098e	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00560b20	700	FUN_00560b20	todo	
-00560dec	220	FUN_00560dec	todo	
-00560ed8	776	FUN_00560ed8	todo	
-0056121e	430	FUN_0056121e	cleanup	
-005613ee	156	FUN_005613ee	todo	
-00561492	46	FUN_00561492	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+00560dec	220	FUN_00560dec	ref	src/Widgets/Views/LockScreenFace.cpp
+00560ed8	776	FUN_00560ed8	ref	src/Widgets/Views/LockScreenFace.cpp
+0056121e	430	FUN_0056121e	ref	src/Widgets/Views/LockScreenFace.cpp
+005613ee	156	FUN_005613ee	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
+00561492	46	FUN_00561492	real	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 005614c0	858	FUN_005614c0	stub	src/Widgets/Views/LockScreenFace.cpp,src/Widgets/Views/LockScreenFace.h
 00561852	299	FUN_00561852	todo	
 00561990	102	FUN_00561990	ref	src/Widgets/Views/LockScreenFace.cpp
@@ -22177,7 +22177,7 @@
 008051f2	304	s_session_uuid_8051f2	todo	
 00805342	85	FUN_00805342	ref	src/App/StateStore.cpp
 00805398	139	FUN_00805398	todo	
-0080542c	1385	s_application_masterPassword_80542c	todo	
+0080542c	1385	s_application_masterPassword_80542c	ref	src/Widgets/Views/LockScreenFace.cpp
 00805a3e	195	s_session_group_805a3e	ref	src/App/StateStore.cpp,src/Sessions/Core/SessionManager.cpp,src/Sessions/Core/SessionManager.h,src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h,src/Widgets/Panes/SessionPane.h
 00805b1a	369	FUN_00805b1a	todo	
 00805c94	569	s_session_protocol_805c94	todo	

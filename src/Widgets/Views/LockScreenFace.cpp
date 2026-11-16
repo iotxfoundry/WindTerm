@@ -1,5 +1,7 @@
 #include "Widgets/Views/LockScreenFace.h"
 
+#include "Editor/Config/CTerminalConfig.h"
+
 #include <QBoxLayout>
 #include <QCoreApplication>
 #include <QKeyEvent>
@@ -10,6 +12,15 @@
 // 槽体中体量大的(005614c0 858B / 0055fbd3 753B / 0055ff05 387B)按 AGENTS §5
 // 引用档只锚入口;其余逐句转写。
 // ─────────────────────────────────────────────────────────────────────────────
+
+// s_application_masterPassword_80542c(cfg, pw)— cited:
+//   主密码校验(配置面比较,body 未转写)。签名按调用点实读。
+static bool masterPasswordMatches(CTerminalConfig *cfg, const QString &password)
+{
+	Q_UNUSED(cfg);
+	Q_UNUSED(password);
+	return false;
+}
 
 // s_LockScreen_560888(243B)ctor 真身:
 //   QWidget::QWidget(this, parent, 0) → vptr = LockScreen vtable
@@ -50,10 +61,10 @@ void LockScreenFace::buildUi()
 	m_change50 = new QPushButton(tr("&Change Master Password"), this); // 0xc8a1bc
 	m_lock58 = new QPushButton(tr("&Lock Screen"), this); // 0xc8a1d4
 
-	// 0x90B 自定义件 ×3:类未建模,按 QWidget 承载(构造参数 (this, 3) 见语料)
-	m_f60 = new QWidget(this);
-	m_f68 = new QWidget(this);
-	m_f70 = new QWidget(this);
+	// 0x90B 自定义件 ×3(FUN_005646ae(this, 3));件类未建模,按 QLineEdit 面承载
+	m_f60 = new QLineEdit(this);
+	m_f68 = new QLineEdit(this);
+	m_f70 = new QLineEdit(this);
 	m_f78 = new QWidget(this); // 0x30B 件
 
 	m_f30 = new QLabel(this); // +0x30
@@ -103,8 +114,46 @@ void LockScreenFace::connectSignals()
 	// 6/7 见头文件信号表,亦是 cited(信号名未从 metaobject 复原)。
 }
 
-// FUN_00561492(46B)— cited:锁屏钮槽体。
-void LockScreenFace::onLockClicked() {}
+// FUN_00561492(46B)槽腿真身:转调 FUN_005613ee(this, 2)(状态 2 = 锁屏页)。
+void LockScreenFace::onLockClicked()
+{
+	setState(2); // 005613ee
+}
+
+// FUN_00560dec(220B)/ FUN_00560ed8(776B)/ FUN_0056121e(430B)— cited:
+// 三个状态页的布局构建,均返回 QLayout(由 setState 包一层 QWidget 入栈)。
+static QLayout *buildStatePage0() { return nullptr; }
+static QLayout *buildStatePage1() { return nullptr; }
+static QLayout *buildStatePage2() { return nullptr; }
+
+// FUN_005613ee(156B)状态切换真身:
+//   mode 0 → FUN_00560dec(220B 页布局);1 → FUN_00560ed8(776B);2 → FUN_0056121e(430B)
+//   其它 mode → 跳尾(LAB_0056140e,尾段落 cited)
+//   取到布局则:new QWidget(this) → setLayout(该布局)→
+//   +0x80(QStackedWidget)addWidget(包装件)+ setCurrentWidget(包装件)
+void LockScreenFace::setState(int mode)
+{
+	QLayout *page = nullptr;
+	switch (mode) {
+	case 0:
+		page = buildStatePage0(); // 00560dec
+		break;
+	case 1:
+		page = buildStatePage1(); // 00560ed8
+		break;
+	case 2:
+		page = buildStatePage2(); // 0056121e
+		break;
+	default:
+		return; // 语料:其它 mode 直接跳尾
+	}
+	if (page != nullptr) {
+		QWidget *w = new QWidget(this); // operator_new(0x30)
+		w->setLayout(page);
+		m_stack80->addWidget(w);
+		m_stack80->setCurrentWidget(w);
+	}
+}
 
 // FUN_005614c0(858B)— cited:改主密码钮槽体(建改密码对话框)。
 void LockScreenFace::onChangeClicked() {}
@@ -112,14 +161,38 @@ void LockScreenFace::onChangeClicked() {}
 // FUN_0055fa50(5B)真身:空体(语料仅 `return;`)。
 void LockScreenFace::onCancelClicked() {}
 
-// FUN_0055fb0b(192B)— cited:密码框回车槽体。
-void LockScreenFace::onPasswordReturned() {}
+// FUN_0055fb0b(192B)密码回车槽真身:
+//   +0x88 != 2 → 返回;
+//   CTerminalConfig::instance()(DAT_011c2200)为空 → 直接走取消腿;
+//   否则取 +0x60 的文本做 s_application_masterPassword_80542c(cfg, pw) 校验:
+//     不通过 → 发本类信号 B(FUN_008f7808 发射器)并返回;
+//     通过   → 取消腿(FUN_0055fa50 = 空体,见 onCancelClicked)
+void LockScreenFace::onPasswordReturned()
+{
+	if (m_mode88 != 2)
+		return;
+	if (CTerminalConfig *cfg = CTerminalConfig::instance()) {
+		if (!masterPasswordMatches(cfg, m_f60->text())) { // 80542c
+			// 原版发本类信号 B(008f7808),B 自连到 onSignalB;
+			// 自连不成环 → 直调等价(不新增信号名,避免改 moc 串表)
+			onSignalB();
+			return;
+		}
+	}
+	onCancelClicked(); // 0055fa50
+}
 
 // FUN_00561c9e — cited:密码框 textChanged 槽体。
 void LockScreenFace::onPasswordEdited() {}
 
-// FUN_0055ff05(387B)— cited:本类信号 A 的槽体。
-void LockScreenFace::onSignalA() {}
+// FUN_0055ff05(387B)信号 A 槽真身:+0x30 QLabel 设为
+//   "<font color=\"darkorange\">%1</font>"(0x22 字符).arg(信号实参)
+void LockScreenFace::onSignalA(const QString &text)
+{
+	if (m_f30 == nullptr)
+		return;
+	m_f30->setText(QStringLiteral("<font color=\"darkorange\">%1</font>").arg(text));
+}
 
 // FUN_0055fbd3(753B)— cited:本类信号 B 的槽体。
 void LockScreenFace::onSignalB() {}

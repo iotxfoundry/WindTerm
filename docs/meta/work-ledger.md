@@ -19,14 +19,14 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 621 | 1.60% | 249170 | 3.25% |
-| 半成品 | 33 | 0.09% | 14978 | 0.20% |
-| 引用档 | 2085 | 5.38% | 792477 | 10.33% |
-| 未触及(真工作) | 20893 | 53.92% | 5584952 | 72.80% |
-| 异常清理块(非函数) | 13953 | 36.01% | 786848 | 10.26% |
+| 真实现 | 624 | 1.61% | 249759 | 3.26% |
+| 半成品 | 31 | 0.08% | 14545 | 0.19% |
+| 引用档 | 2089 | 5.39% | 795288 | 10.37% |
+| 未触及(真工作) | 20889 | 53.91% | 5582415 | 72.77% |
+| 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1163 | 3.00% | 243010 | 3.17% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
-| **真工作分母** | **23632** | — | — | — |
+| **真工作分母** | **23633** | — | — | — |
 
 > 真工作分母 = 合计 − 异常清理块 − Qt 元数据桩。「未触及(真工作)」一栏才是真正的待办量。
 
@@ -81,6 +81,8 @@
 | `src/Editor/Engine/EditorEngine.cpp` | 9 | 0 | 514 |
 | `src/Sessions/Bridges/TcpBridge.h` | 9 | 0 | 10 |
 | `src/Sessions/Transfers/ModemProcess.cpp` | 8 | 1 | 0 |
+| `src/Widgets/Views/LockScreenFace.cpp` | 5 | 4 | 12 |
+| `src/Widgets/Views/LockScreenFace.h` | 5 | 4 | 5 |
 | `src/Windows/Kit/KitBar.h` | 9 | 0 | 8 |
 | `src/Actions/ActionFactory.cpp` | 8 | 0 | 10 |
 | `src/App/JsEngine.h` | 8 | 0 | 4 |
@@ -94,8 +96,6 @@
 | `src/Widgets/Controls/SplitterGroup.h` | 8 | 0 | 14 |
 | `src/Widgets/Dialogs/TunnelDialogFace.cpp` | 7 | 1 | 14 |
 | `src/Widgets/Dialogs/TunnelDialogFace.h` | 7 | 1 | 5 |
-| `src/Widgets/Views/LockScreenFace.cpp` | 2 | 6 | 8 |
-| `src/Widgets/Views/LockScreenFace.h` | 2 | 6 | 5 |
 | `src/Actions/ToolBarBuilder.cpp` | 7 | 0 | 10 |
 | `src/App/JsEngine.cpp` | 7 | 0 | 3 |
 | `src/App/SuperApplicationFace.cpp` | 7 | 0 | 34 |
@@ -316,7 +316,7 @@
 | `KitBar` | `src/Windows/Kit/KitBar.h` | 9 | 0 |
 | `KitDock` | `src/Windows/Kit/KitDockFace.h` | 13 | 0 |
 | `KitWindow` | `src/Windows/Kit/KitWindowFace.h` | 26 | 0 |
-| `LockScreen` | `src/Widgets/Views/LockScreenFace.h` | 2 | 6 |
+| `LockScreen` | `src/Widgets/Views/LockScreenFace.h` | 5 | 4 |
 | `LogDialog` | `src/Widgets/Dialogs/LogDialogFace.h` | 1 | 1 |
 | `LoginWizard` | `src/Widgets/Dialogs/LoginWizardFace.h` | 0 | 0 |
 | `MainWindow` | `src/Windows/Kit/MainWindowFace.h` | 4 | 0 |
