@@ -117,6 +117,24 @@ public:
 	//   qlist_appendRange → FUN_00584ee8(item, 列列表);余段 cited。
 	static class QTableWidgetItem *tableRowItem(QWidget *parent);
 
+	// FUN_007349f0(79B,0022.c:60043)整数键映射取值(带缺省):
+	//   map 非空 → 以 **quintptr 键**二分遍历(QMap<ulong, QVariant>);
+	//   命中(node+0x18 <= key)→ 返回 node+0x20;否则返回缺省(fallback)。
+	static QVariant mapGetOr(const QMap<quintptr, QVariant> &map, quintptr key,
+	                          const QVariant &fallback);
+
+	// dialog_loadWidgetValues(1102B,0022.c:61597)对话框值装载(9 个控件):
+	//   src = FUN_00734eea()(当前条目对象;空 → 直返);
+	//   v = src->property(<属性名>);不可转 → 直返;
+	//   vals = FUN_0073b6ec(&v)(转成 QMap<quintptr,QVariant>);空 → 直返;
+	//   逐控件以 **控件指针为键** 取缺省:
+	//     +0x60/+0x68/+0x70(复选钮)→ mapGetOr(vals, ptr, true/false)
+	//        → setChecked;
+	//     +0x48/+0x78/+0x80/+0x88/+0x90/+0x98/+0xa0(其余控件)→ 同类
+	//       取面后按类型落(FUN_00738982/007396a0/007399ad/00737f44/… cited)。
+	//   ⇒ 该对话框的"覆盖值"是**按控件地址**存的(非名字键)。
+	void loadWidgetValues();
+
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject
 	//     (字符串形 "2accepted()"/"1accept()");

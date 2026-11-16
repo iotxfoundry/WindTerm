@@ -423,3 +423,25 @@ QTableWidgetItem *SettingsPageFace::tableRowItem(QWidget *parent)
 	// 列标签:tr("Variable")/tr("Value");单元格填充与委托 — cited。
 	return nullptr;
 }
+
+// FUN_007349f0(79B)整数键映射取值真身
+QVariant SettingsPageFace::mapGetOr(const QMap<quintptr, QVariant> &map, quintptr key,
+                                    const QVariant &fallback)
+{
+	auto it = map.constFind(key);        // @007349f0(QMap 二分:node+0x18 <= key)
+	return it != map.constEnd() ? it.value() : fallback;
+}
+
+// dialog_loadWidgetValues(1102B)对话框值装载真身(结构段):
+//   9 个控件,键 = 控件指针;逐项 mapGetOr → setChecked / 按类型落。
+void SettingsPageFace::loadWidgetValues()
+{
+	// src = FUN_00734eea()@0073733x — cited(当前条目)
+	// v = src->property(<名>)@0073735x;!v.canConvert → 返 — cited
+	// vals = FUN_0073b6ec(&v)@007373xx(QMap<quintptr,QVariant>);空 → 返 — cited
+	const QMap<quintptr, QVariant> vals;   // 承接面(cited)
+	Q_UNUSED(vals);
+	// 逐字段(语料序):+0x60 / +0x68 / +0x70 → setChecked(mapGetOr(vals, ptr, …));
+	//   +0x48 / +0x78 / +0x80 / +0x88 / +0x90 / +0x98 / +0xa0 → 按类型落
+	//   (FUN_00738982 / 007396a0 / 007399ad / 00737f44 等,cited)。
+}
