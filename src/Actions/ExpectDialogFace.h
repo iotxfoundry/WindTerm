@@ -26,4 +26,15 @@ class ExpectDialogFace {
 public:
 	// 单表收集:col 固定,逐行取 0x100 角色值;空值行跳过。
 	static QVariant collectRows(QTableWidget *table, int col);
+
+	// expectDialog_saveRows(997B,0021.c:...)表 ⇄ 映射回填(名不副实:
+	//   实际方向是"映射 → 表"):
+	//   门 `*(this+0xb0) == table`:
+	//   主表腿 —— 逐行 i:item(col, i)→data(0).toString().toLower()
+	//     → key = "%1.path".arg(该值) → 映射查 → 取 .toString() 组 QVariant
+	//     → `QTableWidget::setItem(row, col, item)` 写回(实参 Ghidra 折叠);
+	//   副表腿 —— `FUN_006c7280(&list, table)` 取行源 → setRowCount(n) →
+	//     逐格 setItem(…)(实参折叠)。
+	//   复用 collectRows 的键模板("%1.path"/"%1.pass" 实读)。
+	static void saveRows(QTableWidget *table, int col, const QVariantMap &map);
 };

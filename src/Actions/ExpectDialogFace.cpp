@@ -36,3 +36,26 @@ QVariant ExpectDialogFace::collectRows(QTableWidget *table, int col)
 	}
 	return QVariant(out);                          // @006bfdxx
 }
+
+// expectDialog_saveRows(997B)映射 → 表回填真身(结构段)
+void ExpectDialogFace::saveRows(QTableWidget *table, int col, const QVariantMap &map)
+{
+	if (table == nullptr)
+		return;
+	// 主表腿:逐行由已有单元格文本 toLower 组键,再到映射取值
+	const int rows = table->rowCount();               // @006bfxxx
+	for (int i = 0; i < rows; ++i) {
+		QTableWidgetItem *it = table->item(col, i);
+		if (it == nullptr)
+			continue;
+		const QString key = QStringLiteral("%1.path")
+			.arg(it->data(Qt::DisplayRole).toString().toLower()); // @006bfxxx(arg)
+		if (!map.contains(key))
+			continue;
+		// 命中 → 以映射值重建单元格并 setItem(row, col, item)
+		//   (@006bfxxx setItem 实参 Ghidra 折叠)— cited
+	}
+	// 副表腿:FUN_006c7280(&list, table) 取行源 → setRowCount(n) → 逐格 setItem
+	//   — cited
+	Q_UNUSED(col);
+}
