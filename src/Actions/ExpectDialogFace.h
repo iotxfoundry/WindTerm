@@ -24,8 +24,15 @@ class QTableWidget;
 //   **键模板 "%1.path" / "%1.pass" 为 .rodata 实读**(fromAscii_helper n=7)。
 class ExpectDialogFace {
 public:
-	// 单表收集:col 固定,逐行取 0x100 角色值;空值行跳过。
-	static QVariant collectRows(QTableWidget *table, int col);
+	// FUN_006bdd62(102B,0021.c:50520)单元格取文本:
+	//   it = table->item(row, col);空 → 空串;否则 it->data(role).toString()。
+	//   ⇒ 即"列取面",先前 cited 处全部可落真。
+	static QString cellText(QTableWidget *table, int row, int col, int role);
+
+	// expectDialog_collectRows(984B)**名不副实**:语料 `QTableWidget::item(
+	//   iVar3, iVar4)` 的 iVar3 = 传入的固定索引、iVar4 迭代 →
+	//   **固定一行、遍历各列**收集(不是"收集多行")。键 = 该格 data(0).toLower()。
+	static QVariant collectRows(QTableWidget *table, int fixedRow);
 
 	// expectDialog_saveRows(997B,0021.c:...)表 ⇄ 映射回填(名不副实:
 	//   实际方向是"映射 → 表"):
