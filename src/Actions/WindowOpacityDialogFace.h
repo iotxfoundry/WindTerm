@@ -13,6 +13,10 @@ class WindowOpacityDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit WindowOpacityDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_0070496e — 结构段(cited)
+	// FUN_0070496e(452B)**接线 + 滑杆面**(批 465 实测):
+	//   **QSlider ×4** / QLabel ×4 / QHBoxLayout ×3 / **QDialogButtonBox**
+	//   (槽偏移 accepted **0x1b9** / rejected **0x1c1**);
+	//   ctor 侧 setAttribute(0x37)。
+	void build();    // FUN_0070496e(452B)
 };
 
