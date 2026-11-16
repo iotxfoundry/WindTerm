@@ -19,10 +19,10 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 711 | 1.83% | 273631 | 3.57% |
-| 半成品 | 41 | 0.11% | 15517 | 0.20% |
-| 引用档 | 2142 | 5.53% | 802006 | 10.45% |
-| 未触及(真工作) | 20786 | 53.64% | 5565428 | 72.55% |
+| 真实现 | 708 | 1.83% | 272721 | 3.56% |
+| 半成品 | 40 | 0.10% | 14996 | 0.20% |
+| 引用档 | 2139 | 5.52% | 797694 | 10.40% |
+| 未触及(真工作) | 20793 | 53.66% | 5571171 | 72.62% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1116 | 2.88% | 228435 | 2.98% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -53,8 +53,8 @@
 | `src/Windows/Kit/KitWindowFace.h` | 26 | 0 | 30 |
 | `src/Windows/Mux/MuxWindow.h` | 24 | 0 | 25 |
 | `src/Windows/Kit/KitWindowAssemblyFace.cpp` | 23 | 0 | 67 |
-| `src/Widgets/Settings/SettingsPageFace.h` | 19 | 1 | 22 |
 | `src/Widgets/Settings/SettingsPageFace.cpp` | 19 | 0 | 23 |
+| `src/Widgets/Settings/SettingsPageFace.h` | 19 | 0 | 23 |
 | `src/Sessions/Transfers/Modem.h` | 17 | 1 | 4 |
 | `src/Sessions/Transfers/XYModem.h` | 17 | 1 | 3 |
 | `src/Sessions/Transfers/XYModem.cpp` | 17 | 0 | 0 |
@@ -94,8 +94,6 @@
 | `src/Sessions/Transfers/ZModem.h` | 8 | 0 | 0 |
 | `src/Sessions/Transports/TelnetSession.h` | 8 | 0 | 9 |
 | `src/Widgets/Controls/SplitterGroup.h` | 8 | 0 | 14 |
-| `src/Widgets/Dialogs/TunnelDialogFace.cpp` | 7 | 1 | 14 |
-| `src/Widgets/Dialogs/TunnelDialogFace.h` | 7 | 1 | 5 |
 | `src/Actions/SlipButtonFace.cpp` | 7 | 0 | 7 |
 | `src/Actions/SlipButtonFace.h` | 7 | 0 | 2 |
 | `src/Actions/ToolBarBuilder.cpp` | 7 | 0 | 10 |
@@ -200,6 +198,7 @@
 | `src/Widgets/Dialogs/RunToolDialogFace.cpp` | 2 | 0 | 5 |
 | `src/Widgets/Dialogs/RunToolDialogFace.h` | 2 | 0 | 5 |
 | `src/Widgets/Dialogs/TextMarkDialogFace.h` | 2 | 0 | 2 |
+| `src/Widgets/Dialogs/TunnelDialogFace.cpp` | 2 | 0 | 0 |
 | `src/Widgets/Dialogs/WindowOpacityDialogFace.cpp` | 2 | 0 | 0 |
 | `src/Widgets/Dialogs/WindowOpacityDialogFace.h` | 2 | 0 | 0 |
 | `src/Widgets/Panes/SessionPane.h` | 2 | 0 | 19 |
@@ -476,7 +475,7 @@
 | `TriggerDialog` | `src/Widgets/Dialogs/TriggerDialogFace.h` | 33 | 0 |
 | `TriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `TunnelCenter` | `src/Sessions/Tunnels/TunnelCenterFace.h` | 0 | 0 |
-| `TunnelDialog` | `src/Widgets/Dialogs/TunnelDialogFace.h` | 7 | 1 |
+| `TunnelDialog` | `src/Widgets/Dialogs/TunnelDialogFace.h` | 0 | 0 |
 | `TunnelSession` | `src/Sessions/Tunnels/TunnelSessionFace.h` | 0 | 0 |
 | `UndoListAction` | `src/Actions/UndoListActionFace.h` | 0 | 0 |
 | `UnitWidgetAction` | `src/Actions/ToolbarWidgetActions.h` | 0 | 0 |

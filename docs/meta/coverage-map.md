@@ -28,13 +28,13 @@
 | `Widgets` | 6 | 722 | 3 | 4 | 0 |
 | `Widgets/Bars` | 24 | 1073 | 13 | 58 | 7 |
 | `Widgets/Controls` | 68 | 3932 | 38 | 437 | 77 |
-| `Widgets/Dialogs` | 71 | 4120 | 38 | 436 | 107 |
+| `Widgets/Dialogs` | 71 | 3914 | 37 | 411 | 101 |
 | `Widgets/Panes` | 21 | 1159 | 16 | 128 | 16 |
 | `Widgets/Settings` | 8 | 2342 | 21 | 339 | 55 |
 | `Widgets/Views` | 20 | 2479 | 11 | 118 | 20 |
 | `Windows/Kit` | 11 | 2669 | 10 | 431 | 43 |
 | `Windows/Mux` | 10 | 2885 | 8 | 635 | 27 |
-| **合计** | **411** | **58705** | **331** | **5385** | **902** |
+| **合计** | **411** | **58499** | **330** | **5375** | **896** |
 
 ## 2. 被引用最多的地址（多为共享腿，不要重复实现）
 
@@ -58,13 +58,11 @@
 
 ## 3. 疑似重复实现（同一地址在 2+ 个 .cpp 带实现标记）
 
-判定:函数定义紧邻注释块中带 `真身`/字节数/`===` 的那一行,取首个地址作为该函数出处;含 `同构` 的行不计。共 **2** 处。
+判定:函数定义紧邻注释块中带 `真身`/字节数/`===` 的那一行,取首个地址作为该函数出处;含 `同构` 的行不计。共 **0** 处。
 逐条核对:共享腿(合理,补交叉引用)还是重复转写(应合并)。
 
 | 地址 | 文件 |
 |---|---|
-| `FUN_0072d0f2` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
-| `FUN_0072bf8a` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
 
 ## 4. 第一方开源件（B 类·勿逆向）
 

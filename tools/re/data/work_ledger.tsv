@@ -14061,7 +14061,7 @@
 0056642a	84	FUN_0056642a	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0056647e	543	FUN_0056647e	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 005666c6	92	FUN_005666c6	todo	
-0056672a	179	FUN_0056672a	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp
+0056672a	179	FUN_0056672a	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp
 005667de	58	FUN_005667de	todo	
 00566818	81	FUN_00566818	todo	
 0056686a	722	FUN_0056686a	todo	
@@ -18007,7 +18007,7 @@
 006a285c	535	FUN_006a285c	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp,src/Sessions/Tunnels/TunnelCenterFace.h
 006a2a73	221	FUN_006a2a73	todo	
 006a2b60	174	FUN_006a2b60	todo	
-006a2c16	431	s_king__tunnelDynamicActive_6a2c16	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+006a2c16	431	s_king__tunnelDynamicActive_6a2c16	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 006a2dda	9	FUN_006a2dda	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 006a2de4	350	FUN_006a2de4	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 006a2f66	122	FUN_006a2f66	ref	src/Widgets/Settings/SettingsPageFace.cpp
@@ -18022,7 +18022,7 @@
 006a4465	45	FUN_006a4465	todo	
 006a4492	1833	ssh_tunnelDesc	todo	
 006a4c58	304	FUN_006a4c58	todo	
-006a4d90	5	FUN_006a4d90	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.h
+006a4d90	5	FUN_006a4d90	ref	src/Widgets/Settings/SettingsPageFace.h
 006a4d96	110	FUN_006a4d96	todo	
 006a4e16	123	FUN_006a4e16	cleanup	
 006a4e9a	133	FUN_006a4e9a	todo	
@@ -19164,32 +19164,32 @@
 0072b8a0	119	FUN_0072b8a0	todo	
 0072b920	119	FUN_0072b920	todo	
 0072b9a0	42	FUN_0072b9a0	todo	
-0072b9ca	535	FUN_0072b9ca	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h
-0072bbe2	935	dialog_connectAcceptReject	real	src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072bf8a	219	FUN_0072bf8a	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072c08e	3404	s_king__tunnelDynamic_72c08e	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h
-0072cf44	257	FUN_0072cf44	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h
-0072d056	147	FUN_0072d056	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h
-0072d0f2	242	FUN_0072d0f2	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072b9ca	535	FUN_0072b9ca	todo	
+0072bbe2	935	dialog_connectAcceptReject	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072bf8a	219	FUN_0072bf8a	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072c08e	3404	s_king__tunnelDynamic_72c08e	todo	
+0072cf44	257	FUN_0072cf44	todo	
+0072d056	147	FUN_0072d056	todo	
+0072d0f2	242	FUN_0072d0f2	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0072d1e4	112	FUN_0072d1e4	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0072d254	160	FUN_0072d254	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0072d304	1257	FUN_0072d304	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0072d84e	741	FUN_0072d84e	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072db3c	462	FUN_0072db3c	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072db3c	462	FUN_0072db3c	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0072dd12	1872	FUN_0072dd12	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072e49a	46	FUN_0072e49a	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072e4c8	46	FUN_0072e4c8	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072e49a	46	FUN_0072e49a	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072e4c8	46	FUN_0072e4c8	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
 0072e4f6	932	settings_loadWidgets	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072e8d2	546	FUN_0072e8d2	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072eb15	720	FUN_0072eb15	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
-0072edfe	521	FUN_0072edfe	stub	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h,src/Widgets/Settings/SettingsPageFace.h
-0072f007	53	FUN_0072f007	real	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h
+0072e8d2	546	FUN_0072e8d2	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072eb15	720	FUN_0072eb15	real	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
+0072edfe	521	FUN_0072edfe	ref	src/Widgets/Settings/SettingsPageFace.h
+0072f007	53	FUN_0072f007	todo	
 0072f03c	74	FUN_0072f03c	todo	
 0072f086	23	FUN_0072f086	todo	
 0072f09d	1	FUN_0072f09d	todo	
 0072f09e	13	FUN_0072f09e	todo	
-0072f0b0	102	FUN_0072f0b0	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp
-0072f120	112	FUN_0072f120	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp
+0072f0b0	102	FUN_0072f0b0	todo	
+0072f120	112	FUN_0072f120	todo	
 0072f190	439	FUN_0072f190	todo	
 0072f350	204	FUN_0072f350	ref	src/Widgets/Dialogs/InsertFileDialogFace.cpp,src/Widgets/Dialogs/InsertFileDialogFace.h
 0072f424	86	InsertFileDialog_dtor	todo	
@@ -22225,7 +22225,7 @@
 0080a992	941	quickcmd_makeLabel	todo	
 0080ad9a	464	FUN_0080ad9a	todo	
 0080af9a	526	FUN_0080af9a	todo	
-0080b1d8	1215	s_session_protocol_80b1d8	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.h
+0080b1d8	1215	s_session_protocol_80b1d8	todo	
 0080b720	1296	FUN_0080b720	todo	
 0080bc66	534	s_SessionGroupComboBox_80bc66	todo	
 0080bebe	484	FUN_0080bebe	todo	
@@ -25223,12 +25223,12 @@
 008ef6ee	128	ButtonBar_dtor_deleting	todo	
 008ef770	24	ButtonBarPanel_metaObject	qtplumb	
 008ef788	16	FUN_008ef788	todo	
-008ef798	19	FUN_008ef798	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
+008ef798	19	FUN_008ef798	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 008ef7ac	19	FUN_008ef7ac	todo	
 008ef7c0	19	FUN_008ef7c0	todo	
 008ef7d4	19	FUN_008ef7d4	ref	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 008ef7e8	19	FUN_008ef7e8	ref	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
-008ef7fc	19	FUN_008ef7fc	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
+008ef7fc	19	FUN_008ef7fc	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 008ef810	19	FUN_008ef810	todo	
 008ef824	19	FUN_008ef824	todo	
 008ef838	42	FUN_008ef838	ref	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
@@ -25814,7 +25814,7 @@
 008fadc0	147	SafeEdit_dtor	stub	
 008fae60	24	SlipButton_metaObject	ref	src/Actions/SlipButtonFace.cpp
 008fae78	52	FUN_008fae78	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h,src/Widgets/Settings/TriggerPageFace.cpp
-008faeac	55	FUN_008faeac	ref	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h,src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp
+008faeac	55	FUN_008faeac	ref	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp
 008faee4	460	SlipButton_h8faee4	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
 008fb0b0	66	SlipButton_qt_metacast	ref	src/Actions/SlipButtonFace.cpp
 008fb0f2	176	SlipButton_qt_metacall	ref	src/Actions/SlipButtonFace.cpp
@@ -26251,7 +26251,7 @@
 009097b0	535	TunnelDialog_h9097b0	qtplumb	
 009099c8	88	TunnelDialog_dtor_deleting	todo	
 00909a20	92	FUN_00909a20	todo	
-00909a7c	82	TunnelDialog_dtor	todo	
+00909a7c	82	TunnelDialog_dtor	real	
 00909ace	84	FUN_00909ace	todo	
 00909b22	1	FUN_00909b22	todo	
 00909b24	24	ExplorerPane_vt0	qtplumb	
