@@ -570,3 +570,21 @@ QFormLayout/QVBoxLayout/QTabBar/QSlider 等 + tr 文案)。此前我把它们混
   连到 accept/reject"的统一实现。
 - **ProfileDialog 附带两件**:主题名 `dige-black`、翻译器初始化串 `auto`
   (装在 +0x90,走 `QCoreApplication::installTranslator`)。
+
+### 批 466-475 增量(④ 余下装配腿 + ⑥ 页签关钮机制闭环)
+- **④ 六对话框两腿全落**:
+  | 对话框 | build | wire | 实读 |
+  |---|---|---|---|
+  | QuickDialog | —(ctor 手装) | `006cfe98` **1230B** | +0x68/70/78/88/90/98 六路 |
+  | RemoteFileDialog | `006d6bf2` **7811B** | `006d5eec` 616B | **四模式标题** `Create Directory`/`Create File`/`Create Link`/`Move to`;行 `&Directory:`/`&File:`/`&Link:`;复选 `&Open directory after created` |
+  | SearchEngineDialog | `006d9290` 670B | `006d906a` 550B | 行 `&Search engine:` / `&URL with {q} in place of query:` |
+  | SessionGroupDialog | `006d991e` 293B | `006d97d0` 334B | 仅 QFormLayout+按钮盒(**无本地 tr**) |
+  | SessionTriggerDialog | `006da092` 644B | `006d9d8a` 776B | QLabel+QPushButton+HBox/VBox |
+  | SettingDialog | `006ea37a` 683B | `006dd310` **56B** | `Close` + **`Requires a restart to take affect`**(原版拼写 affect) |
+- **⑥ 页签关钮机制(完整闭环,修正"私有面"旧结论)**:
+  - `005a80f8`(206B)= **`QTabBar::setTabButton` 等价** —— pos 0=`LeftSide`(+0x78)/非 0=`RightSide`(+0x80),旧件 hide、新件 setParent/lower/show;
+  - `005a8376`(383B)= 页切换槽:**只有当前页造关钮**,其余页节点 `deleteLater()`;
+  - `s_CloseButton_5a6d42`(552B)= 关钮:QToolButton + objectName **`CloseButton`** + tooltip **`Close Tab`**;
+  - `005a824c`(290B)= 挂钮规则:**页名为空 或 `== "Pinned"` → 不挂**(固定页无关闭按钮);
+  - `005a6d00`(65B)= 取页数据串(`+0x68` 平行表),切换槽据此判门;
+  - `005a7fa7`(251B)= 页移动:**`+0x60/+0x68/+0x70` 三条平行表**同步 `move` + 重排助记符。

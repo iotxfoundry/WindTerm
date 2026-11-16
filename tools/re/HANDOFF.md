@@ -8,18 +8,18 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第五十四次交接,批 465 · ④ 十条装配腿落真 + build/wire 分工厘清)
+## 一句话状态(2026-11-16 第五十五次交接,批 475 · ④ 十六条装配腿 + ⑥ 关钮机制闭环)
 
 **界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
-273 批 / 104 文件 / +13500 行,新增 56 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **92%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
+283 批 / 104 文件 / +14200 行,新增 56 个 `*Face` 新域。覆盖率(按 GUI-MAP
+条目加权)≈ **93%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
 /②菜单 90%(**动作执行链闭环** 配置表→QAction→PMF 壳→FUN_0066a148→js_actionFire + **动作 DSL 三件套**:getOrCreate 856B/属性应用 2882B(**六属性集**)/整树装载 7702B + 懒构建 aboutToShow)/③工具栏状态栏 80%(七 kind 全真身)
 /④对话框 93%(**28 个 QDialog 全部定位**+**10 个对话框的 build/wire 分工与装配面落真**:FocusMode/HighlightText/OneKey/PlaySound/Profile/Log/MasterPassword/Password/Paste/WindowOpacity(20 个新落 + 8 个早批);**SessionDialog 全谱**(双层页签/端口校验器/协议切页)+**SyncInputDialog**+**InsertFileDialog**+**TunnelDialog 全谱** ctor/建造 3404B/接线 935B/行→项/行图标/协议填充/行表装载·析构/整行复位 + TriggerDialog **收口**:记录布局定案+kind→图标表(两源互证)+新增/删除/复制/按键选中/提交腿/记录族四件;Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
 LoginWizard 全/Paste 全/**TriggerDialog 全谱 0xe0**:页栈+接线+编辑腿/
 **NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 93%(**线型表 14 项 + ColorButton + TextMark 列头/空态**)(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+**页内件四个方面真类化**(MarkStyle/Table/TextMarkPanel/ActionEditPanel)+占位绘制闭环+
 **八个触发器页装配全数落地**(CustomLink/CustomMenu/HighlightText/PlaySound/
 RunCommand/SendText/ShowTooltip/Connection)+页栈 006f440e 11 kind 表+
-TriggerActionWidget 0x78+TriggerActionEditPanel 0x68+TriggerWidgetKit)/⑥dock 标签 75%(KitDock 全套+TabBar
+TriggerActionWidget 0x78+TriggerActionEditPanel 0x68+TriggerWidgetKit)/⑥dock 标签 85%(**页签关钮机制闭环**:setTabButton 等价/只当前页有钮/空名·Pinned 无钮/三平行表 move)(KitDock 全套+TabBar
 节点助记符页色关钮)/5c 写 95% 读 85%(**尾钩默认腿定案**:+0x248=FUN_008d5bee/+0x240=FUN_008d1014)(**QuickBar/TransferBar 读写四腿全落**)(blobA/B/C 真身+会话帧解析)。
 
 **关键勘正**:①`smeta 011a2240 = SessionDialog`(设置对话框族定性);
@@ -77,6 +77,7 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | `TriggerRecord` 语义:+0x08 名 / +0x10 UserRole 键 / +0x18 描述 | 批 354(34dd 回写 + 263e setData 0x100 互证) | 批 349 首判 +0x10=名 |
 | `+0x10` = **uuid**(`QUuid::toString(WithoutBraces)`) | 批 368(80B regenerateKey) | 批 354 "UserRole 键" |
 | `TriggerActionEditPanel`(`0056376e`) = **动作文本面板 0x68**(非"编辑面板") | 批 377(ctor 字段 + 五页 +0x38 用法) | 名不副实 |
+| TabBar `005a80f8` = **`QTabBar::setTabButton` 等价**(非私有面) | 批 472(函数体 +0x78/+0x80 两槽) | 批 46–190 "QTabBarPrivate cited" |
 | 表件基类 = **QTableWidget**(非 QWidget) | 批 387(语料直接 rowCount/setColumnCount/paintEvent) | 批 382 按 QWidget 建模 |
 | 动作表 `+0x10` = **QHash**<QByteArray,QAction*>(非 QMap) | 批 391(qHash/FUN_0066b584 查) | 批 391 初稿措辞 |
 | `006926c2` = **按名线性扫表**(memcmp),非 QMap 查 | 批 397(逐项内存比较) | 批 356 "QMap 查" 注 |
