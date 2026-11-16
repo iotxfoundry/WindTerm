@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QLayoutItem>
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QStackedLayout>
@@ -93,11 +94,14 @@ void TriggerPageFace::assembleConnectionPage(int kind)
 {
 	auto *form = new QFormLayout;                  // @006fde23(0x20,父 0)
 	m_action40 = new TriggerActionWidgetFace(kind, this); // @006fde3d 0x78(FUN_006fdcde)
-	form->setContentsMargins(0, 0, 0, 0);          // @006fde5x(全零)
-	assembleBusyOverlay();                         // @006fde6x(FUN_006f1994)
-	form->addRow(m_action40);                      // @006fde7x
-	setLayout(form);                               // @006fdex
-	setFocusProxy(this);                           // @006fdex
+	form->setContentsMargins(0, 0, 0, 0);          // @006fde76(QMargins 全零)
+	QLayout *overlay = assembleBusyOverlay();      // @006fde7e(返回值被使用)
+	// @006fde8d page->layout()->itemAt(0)->widget()(vt+0xa0 → vt+0x68)
+	QLayoutItem *it = layout() != nullptr ? layout()->itemAt(0) : nullptr;
+	form->addRow(it != nullptr ? it->widget() : nullptr, overlay); // @006fde99(两参)
+	form->addRow(m_action40);                      // @006fdea5
+	setLayout(form);                               // @006fdeba
+	setFocusProxy(m_action40);                     // @006fdec6(+0x40)
 }
 
 // FUN_006fdf10(281B,0022.c:26774)ConnectionTriggerPage ctor(1-4 共用):
@@ -301,7 +305,7 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	QWidget::setTabOrder(m_edit38, m_f48);                         // @(+0x40 → +0x50)
 	QWidget::setTabOrder(m_f48, m_combo58);                        // @(+0x50 → +0x58)
 	QWidget::setTabOrder(m_combo58, m_spin60);                     // @(+0x58 → +0x60)
-	setFocusProxy(this);
+	setFocusProxy(m_f40);                                          // @006f8971(+0x40)
 }
 
 // FUN_006f83b0(412B)TriggerActionEditPanel 带 kind 构造真身
@@ -423,8 +427,8 @@ void HighlightTextTriggerPageFace::assembleHighlightPage()
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @006f7cxx(FUN_006f1994)
 	form->addRow(label);                                       // addRow ×2(实参折叠)
-	setLayout(form);                                           // @006f7dxx
-	setFocusProxy(this);
+	setLayout(form);                                           // @006f7d11
+	setFocusProxy(m_rules38);                                  // @006f7d1d(+0x38)
 }
 
 // FUN_006fe290(327B)RunCommand 页装配真身
@@ -447,8 +451,8 @@ void RunCommandTriggerPageFace::assembleRunCommandPage()
 	assembleBusyOverlay();                                     // @006fe3xx(FUN_006f1994)
 	form->addRow(label);                                       // addRow ×3(实参折叠)
 	setLayout(form);                                           // @006fe3xx
-	QWidget::setTabOrder(m_f40, m_action48);                   // @(+0x40 → +0x48)
-	setFocusProxy(this);
+	QWidget::setTabOrder(m_f40, m_action48);                   // @006fe3b9(+0x40 → +0x48)
+	setFocusProxy(m_f40);                                      // @006fe3c5(+0x40)
 }
 
 // FUN_00703d3e(379B)CustomLink 页装配真身
@@ -473,8 +477,8 @@ void CustomLinkTriggerPageFace::assembleCustomLinkPage()
 	form->addRow(label);                                       // addRow ×4(实参折叠)
 	setLayout(form);                                           // @00703exx
 	QWidget::setTabOrder(m_f40, m_action48);                   // @(+0x40 → +0x48)
-	QWidget::setTabOrder(m_action48, m_f50);                   // @(+0x48 → +0x50)
-	setFocusProxy(this);
+	QWidget::setTabOrder(m_action48, m_f50);                   // @00703exx(+0x48 → +0x50)
+	setFocusProxy(m_f40);                                      // @00703ea7(+0x40)
 }
 
 // FUN_00704340(470B)PlaySound 页装配真身
@@ -498,7 +502,7 @@ void PlaySoundTriggerPageFace::assemblePlaySoundPage()
 	assembleBusyOverlay();                                     // @007045xx(FUN_006f1994)
 	form->addRow(label);                                       // addRow ×4(实参折叠)
 	setLayout(form);
-	setFocusProxy(this);
+	setFocusProxy(m_table38);                                  // @00704502(+0x38)
 }
 
 // FUN_00703ab0(489B)ShowTooltip 页装配真身
@@ -528,7 +532,7 @@ void ShowTooltipTriggerPageFace::assembleShowTooltipPage()
 	setLayout(form);
 	QWidget::setTabOrder(m_f40, m_f50);                        // @(+0x40 → +0x50)
 	QWidget::setTabOrder(m_f50, m_f58);                        // @(+0x50 → +0x58)
-	setFocusProxy(this);
+	setFocusProxy(m_f40);                                      // @00703c85(+0x40)
 }
 
 // FUN_00703fb0(683B)CustomMenu 页装配真身
@@ -560,7 +564,7 @@ void CustomMenuTriggerPageFace::assembleCustomMenuPage()
 	setLayout(form);
 	QWidget::setTabOrder(m_f40, m_f50);                        // @(+0x40 → +0x50)
 	QWidget::setTabOrder(m_f50, m_f58);                        // @(+0x50 → +0x58)
-	setFocusProxy(this);
+	setFocusProxy(m_f40);                                      // @00704247(+0x40)
 }
 
 // FUN_00584ee8(159B)表格初始化真身

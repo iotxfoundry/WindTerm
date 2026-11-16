@@ -41,9 +41,12 @@ public:
 	// FUN_006fde04(210B,0022.c:26743)ConnectionTriggerPage 装配:
 	//   form = new QFormLayout(0x20)(父 0);
 	//   +0x40 = new 0x78 + FUN_006fdcde(w, +0x38(kind), 0)(TriggerActionWidget 0x78);
-	//   setContentsMargins(margins 全零);assembleBusyOverlay();
-	//   form->addRow(子件);form->addRow(...);page->setLayout(form→实际接 form);
-	//   page->setFocusProxy(page)。
+	//   setContentsMargins(margins 全零);
+	//   **overlay = assembleBusyOverlay()**(返回值被使用,非丢弃);
+	//   it = page->layout()->itemAt(0);                 // vt+0xa0 → vt+0x68(widget)
+	//   **form->addRow(it->widget(), overlay)**;        // 两参重载
+	//   **form->addRow(+0x40)**(TriggerActionWidget);
+	//   page->setLayout(form);**setFocusProxy(+0x40)**。
 	void assembleConnectionPage(int kind);
 
 	// FUN_006fb180(438B,0022.c:25134)把动作件的字段绑定到文本面板:
@@ -446,7 +449,8 @@ public:
 	void assembleSendTextPage(); // FUN_006f8590
 
 protected:
-	QWidget *m_edit38 = nullptr;      // +0x38(0x68 文本域;语料 +0x40 = 其内部件)
+	QWidget *m_edit38 = nullptr;      // +0x38(0x68 文本域)
+	QWidget *m_f40 = nullptr;         // +0x40(文本域 +0x40;setFocusProxy 目标)
 	QWidget *m_f48 = nullptr;         // +0x48(new 0x70,FUN_006f83b0(4,1);+0x50 = 其 +0x40)
 	QComboBox *m_combo58 = nullptr;   // +0x58(0x48 search combo)
 	QDoubleSpinBox *m_spin60 = nullptr; // +0x60(QDoubleSpinBox 0x30)
