@@ -1284,6 +1284,8 @@
 00639200	src/App/ThemeIcons.h
 0063a000	src/App/ThemeIcons.cpp
 0063a568	src/App/StartupChain.cpp
+0063a5f2	src/Sessions/Transports/SshSocketFace.cpp
+0063a5f2	src/Sessions/Transports/SshSocketFace.h
 00643e32	src/Editor/Engine/MarkersStore.h
 0064a7a8	src/Windows/Kit/KitDockFace.cpp
 0064ab10	src/App/JsEngine.cpp
@@ -1378,6 +1380,8 @@
 0065cf9c	src/Sessions/Bridges/ProxyCommandSocket.h
 0065cf9c	src/Sessions/Bridges/TcpBridge.cpp
 0065cf9c	src/Sessions/Bridges/TelnetBridge.h
+0065cf9c	src/Sessions/Transports/SshSocketFace.cpp
+0065cf9c	src/Sessions/Transports/SshSocketFace.h
 0065cfc0	src/Sessions/Bridges/TelnetBridge.cpp
 0065cfe4	src/Sessions/Bridges/ProxyCommandSocket.cpp
 0065cfe4	src/Sessions/Bridges/ProxyCommandSocket.h
@@ -5156,6 +5160,7 @@
 0086c20a	src/Sessions/Bridges/SshBridge.cpp
 0086c312	src/Sessions/Bridges/SshBridge.cpp
 0086c7b2	src/Sessions/Bridges/ProxyCommandSocket.cpp
+0086c7b2	src/Sessions/Transports/SshSocketFace.h
 0086ff6c	src/Sessions/Bridges/SessionProtocol.h
 0086ff6c	src/Sessions/Core/SuperSessionPrivate.cpp
 0086ff6c	src/Sessions/Core/SuperSessionPrivate.h

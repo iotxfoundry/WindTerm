@@ -16673,7 +16673,7 @@
 0063a3a8	205	FUN_0063a3a8	todo	
 0063a47a	229	FUN_0063a47a	todo	
 0063a568	122	FUN_0063a568	ref	src/App/StartupChain.cpp
-0063a5f2	205	FUN_0063a5f2	todo	
+0063a5f2	205	FUN_0063a5f2	ref	src/Sessions/Transports/SshSocketFace.cpp,src/Sessions/Transports/SshSocketFace.h
 0063a6d0	102	FUN_0063a6d0	todo	
 0063a740	76	FUN_0063a740	todo	
 0063a78c	136	FUN_0063a78c	todo	
@@ -17029,7 +17029,7 @@
 0065cd40	69	FUN_0065cd40	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp
 0065cd86	124	FUN_0065cd86	todo	
 0065ce02	393	FUN_0065ce02	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp
-0065cf9c	35	FUN_0065cf9c	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TelnetBridge.h
+0065cf9c	35	FUN_0065cf9c	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h,src/Sessions/Bridges/TcpBridge.cpp,src/Sessions/Bridges/TelnetBridge.h,src/Sessions/Transports/SshSocketFace.cpp,src/Sessions/Transports/SshSocketFace.h
 0065cfc0	36	FUN_0065cfc0	ref	src/Sessions/Bridges/TelnetBridge.cpp
 0065cfe4	22	FUN_0065cfe4	real	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
 0065cffa	36	FUN_0065cffa	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Bridges/ProxyCommandSocket.h
@@ -23645,10 +23645,10 @@
 0086c5ac	99	FUN_0086c5ac	todo	
 0086c618	47	FUN_0086c618	todo	
 0086c648	322	FUN_0086c648	cleanup	
-0086c7b2	7768	s_session_proxyWorkingDirectory_86c7b2	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp
+0086c7b2	7768	s_session_proxyWorkingDirectory_86c7b2	ref	src/Sessions/Bridges/ProxyCommandSocket.cpp,src/Sessions/Transports/SshSocketFace.h
 0086e756	396	FUN_0086e756	todo	
 0086e8ea	764	FUN_0086e8ea	todo	
-0086ebee	320	SshSocket_dtor	todo	
+0086ebee	320	SshSocket_dtor	real	
 0086ed2e	23	SshSocket_dtor_deleting	todo	
 0086ed46	287	FUN_0086ed46	todo	
 0086ee70	110	FUN_0086ee70	todo	
@@ -26561,7 +26561,7 @@
 009184a8	54	FUN_009184a8	todo	
 009184de	55	FUN_009184de	todo	
 00918516	42	FUN_00918516	todo	
-00918540	502	SshSocket_h918540	qtplumb	
+00918540	502	SshSocket_h918540	real	
 00918746	66	SshSocket_qt_metacast	qtplumb	
 00918788	109	SshSocket_qt_metacall	qtplumb	
 009187f6	1	FUN_009187f6	todo	
