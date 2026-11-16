@@ -299,6 +299,14 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	setFocusProxy(this);
 }
 
+// FUN_005675e8(69B)TextMarkTablePanel ctor 真身
+TextMarkTablePanelFace::TextMarkTablePanelFace(QWidget *parent)
+	: TriggerTableWidgetFace(0x48f, parent) // @005675e8(基类 0x48f)
+{
+	// vtable TextMarkTablePanel_vtable / 副 01196288(C++ 自洽;尺寸 0x48)
+	// FUN_00567386(577B)+FUN_00567084(683B) — cited(规则表装配腿)
+}
+
 // FUN_00584e4a(74B)自定义表格件 ctor 真身
 TriggerTableWidgetFace::TriggerTableWidgetFace(int flags, QWidget *parent)
 	: QWidget(parent)                     // FUN_0053397c(基类装配,flags)
@@ -343,7 +351,7 @@ void HighlightTextTriggerPageFace::assembleHighlightPage()
 {
 	auto *form = new QFormLayout;                              // @006f7c5d(0x20)
 	auto *label = new QLabel(QStringLiteral("&Rules:"));       // tr(0xc9fd07),0x30
-	m_rules38 = new QWidget(this);                             // @006f7cb9(0x48 + FUN_005675e8(0)) cited
+	m_rules38 = new TextMarkTablePanelFace(this);               // @006f7cb9(0x48,FUN_005675e8)
 	label->setBuddy(m_rules38);
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
 	assembleBusyOverlay();                                     // @006f7cxx(FUN_006f1994)

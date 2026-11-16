@@ -200,6 +200,20 @@ protected:
 //   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
 //   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
 //   setFocusProxy(this)。
+// TextMarkTablePanelFace — FUN_005675e8(69B,0017.c:39545)ctor:
+//   FUN_00584e4a(this, 0x48f, parent)(上表件基类)→
+//   vtable **TextMarkTablePanel_vtable** + 副 01196288 →
+//   FUN_00567386(577B)/FUN_00567084(683B)(装配腿,cited)。尺寸 0x48。
+//   即 HighlightText 页的 +0x38 "规则表"。
+class TextMarkTablePanelFace : public TriggerTableWidgetFace {
+	Q_OBJECT
+public:
+	explicit TextMarkTablePanelFace(QWidget *parent = nullptr);
+
+protected:
+	// FUN_00567386(577B)/FUN_00567084(683B) 装配腿 — cited
+};
+
 // TriggerTableWidgetFace — FUN_00584e4a(74B,0017.c:59880)ctor(自定义表格件):
 //   FUN_0053397c(this, flags, 0, parent)(基类装配;语料 flags 恒 **0x48f**)→
 //   vtable 0119d678 + 副 0119d828 → 三条初始化腿(FUN_00584e0a/00584cb6/
@@ -359,7 +373,7 @@ public:
 	void assembleHighlightPage(); // FUN_006f7c3c
 
 protected:
-	QWidget *m_rules38 = nullptr; // +0x38(0x48 规则件 → TextMarkTablePanel,批 383)
+	TextMarkTablePanelFace *m_rules38 = nullptr; // +0x38(0x48 规则表)
 };
 
 // RunCommandTriggerPageFace — kind 10(new 0x50)装配 FUN_006fe290(327B):
