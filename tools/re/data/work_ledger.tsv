@@ -18060,13 +18060,13 @@
 006a8b3a	1	TunnelSession_vt10	qtplumb	
 006a8b3c	1	TunnelSession_vt11	qtplumb	
 006a8b3e	1	TunnelSession_vt13	qtplumb	
-006a8b40	15	TunnelSession_vt6	qtplumb	
+006a8b40	15	TunnelSession_vt6	real	
 006a8b50	365	TunnelSession_metaObject	qtplumb	
 006a8cd6	19	SlipButtonAction_dtor	todo	
 006a8cea	37	SlipButtonAction_dtor_deleting	todo	
-006a8d10	54	TunnelSession_dtor	todo	
+006a8d10	54	TunnelSession_dtor	real	
 006a8d46	187	s_session_keepAlive_6a8d46	todo	
-006a8e22	202	TunnelSession_vt12	qtplumb	
+006a8e22	202	TunnelSession_vt12	real	
 006a8f00	444	TunnelSession_vt7	qtplumb	
 006a90fe	177	FUN_006a90fe	todo	
 006a91c2	177	FUN_006a91c2	todo	
@@ -18081,7 +18081,7 @@
 006a9c70	60	FUN_006a9c70	todo	
 006a9cb0	1360	FUN_006a9cb0	todo	
 006aa200	169	FUN_006aa200	todo	
-006aa2aa	189	TunnelSession_vt8	qtplumb	
+006aa2aa	189	TunnelSession_vt8	real	
 006aa370	279	SlipButtonAction_vt14	real	
 006aa4b8	163	FUN_006aa4b8	todo	
 006aa590	124	FUN_006aa590	todo	
@@ -20943,8 +20943,8 @@
 007c145e	5	thunk_FUN_007c17c0	todo	
 007c1464	40	FUN_007c1464	todo	
 007c148c	113	SuperApplication_h7c148c	qtplumb	
-007c14fe	204	FUN_007c14fe	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp
-007c15ca	474	FUN_007c15ca	todo	
+007c14fe	204	FUN_007c14fe	ref	src/Sessions/Tunnels/TunnelCenterFace.cpp,src/Sessions/Tunnels/TunnelSessionFace.cpp
+007c15ca	474	FUN_007c15ca	ref	src/Sessions/Tunnels/TunnelSessionFace.cpp
 007c17c0	29	FUN_007c17c0	todo	
 007c17de	245	FUN_007c17de	todo	
 007c18d4	50	FUN_007c18d4	todo	
@@ -21551,7 +21551,7 @@
 007d6d66	119	FUN_007d6d66	todo	
 007d6dde	53	FUN_007d6dde	todo	
 007d6e14	235	FUN_007d6e14	todo	
-007d6f30	330	FUN_007d6f30	todo	
+007d6f30	330	FUN_007d6f30	ref	src/Sessions/Tunnels/TunnelSessionFace.cpp
 007d7096	3886	SuperSession_h7d7096	qtplumb	
 007d7fc4	162	SuperSession_h7d7fc4	qtplumb	
 007d806c	18	FUN_007d806c	todo	
@@ -26035,11 +26035,11 @@
 00903bc2	66	TriggerCenter_qt_metacast	qtplumb	
 00903c04	84	TriggerCenter_qt_metacall	qtplumb	
 00903c60	24	TunnelCenter_metaObject	qtplumb	
-00903c78	19	FUN_00903c78	todo	
-00903c8c	47	FUN_00903c8c	todo	
+00903c78	19	FUN_00903c78	ref	src/Sessions/Tunnels/TunnelSessionFace.cpp
+00903c8c	47	FUN_00903c8c	ref	src/Sessions/Tunnels/TunnelSessionFace.cpp
 00903cbc	42	FUN_00903cbc	todo	
 00903ce6	61	FUN_00903ce6	todo	
-00903d24	60	FUN_00903d24	todo	
+00903d24	60	FUN_00903d24	ref	src/Sessions/Tunnels/TunnelSessionFace.cpp
 00903d60	59	FUN_00903d60	todo	
 00903d9c	301	TunnelCenter_h903d9c	qtplumb	
 00903eca	66	TunnelCenter_qt_metacast	qtplumb	

@@ -3947,6 +3947,8 @@
 007be0a6	src/Sessions/Transports/TelnetSession.h
 007bebdc	src/Sessions/Bridges/SshBridge.cpp
 007c14fe	src/Sessions/Tunnels/TunnelCenterFace.cpp
+007c14fe	src/Sessions/Tunnels/TunnelSessionFace.cpp
+007c15ca	src/Sessions/Tunnels/TunnelSessionFace.cpp
 007c1b38	src/Sessions/Core/SuperSessionPrivate.cpp
 007c1b38	src/Sessions/Core/SuperSessionPrivate.h
 007c1b52	src/Sessions/Core/SuperSessionPrivate.h
@@ -4198,6 +4200,7 @@
 007d6736	src/Widgets/Views/TerminalWidget.cpp
 007d6cee	src/Sessions/Core/SuperSessionPrivate.cpp
 007d6cee	src/Sessions/Core/SuperSessionPrivate.h
+007d6f30	src/Sessions/Tunnels/TunnelSessionFace.cpp
 007d807e	src/Sessions/Transports/TelnetSession.cpp
 007d846e	src/Sessions/Bridges/TcpBridge.h
 007d846e	src/Sessions/Transports/TelnetSession.cpp
@@ -6650,6 +6653,9 @@
 008fda76	src/Sessions/Bridges/ProxyCommandSocket.h
 008fda8e	src/Sessions/Bridges/ProxyCommandSocket.h
 008fdad0	src/Sessions/Bridges/ProxyCommandSocket.h
+00903c78	src/Sessions/Tunnels/TunnelSessionFace.cpp
+00903c8c	src/Sessions/Tunnels/TunnelSessionFace.cpp
+00903d24	src/Sessions/Tunnels/TunnelSessionFace.cpp
 00904d62	src/Widgets/Dialogs/SessionDialogFace.cpp
 00904d62	src/Widgets/Dialogs/SessionDialogFace.h
 00909092	src/Widgets/Settings/TriggerPageFace.cpp
