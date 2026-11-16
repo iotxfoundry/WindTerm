@@ -471,7 +471,7 @@ void CustomLinkTriggerPageFace::assembleCustomLinkPage()
 	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);                              // @00703dc0(0x68,FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40 = w+0x40
 	m_action48 = new TriggerActionWidgetFace(5, this);          // @00703de8(0x78,kind 5)
-	m_f50 = new QWidget(this);                                 // @00703e03(0x40 + FUN_00703a58(0)) cited
+	m_f50 = new MarkStyleWidgetFace(this);                     // @00703e03(0x40,FUN_00703a58)
 	label->setBuddy(m_edit38);
 	// FUN_006fb180(+0x48, +0x38)(动作件 ↔ 文本域)@00703exx — cited
 	form->setContentsMargins(0, 0, 0, 0);                      // 全零
@@ -523,7 +523,7 @@ void ShowTooltipTriggerPageFace::assembleShowTooltipPage()
 	m_f40 = m_edit38;                                          // +0x40
 	m_f48 = new TriggerActionEditPanelFace(5, true, this);     // @00703ba2(0x70,FUN_006f83b0(5,1,0))
 	m_f50 = m_f48;                                             // +0x50
-	m_f58 = new QWidget(this);                                 // @00703bc5(0x40 + FUN_00703a58(0)) cited
+	m_f58 = new MarkStyleWidgetFace(this);                     // @00703bc5(0x40,FUN_00703a58)
 	l1->setBuddy(m_edit38);
 	l2->setBuddy(m_f48);
 	// if (+0x38) FUN_006f1850(+0x48)@00703cxx — cited
@@ -553,7 +553,7 @@ void CustomMenuTriggerPageFace::assembleCustomMenuPage()
 	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);    // 0x68(FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40
 	m_table48 = new TriggerTableWidgetFace(0x48f, this);       // 0x48(FUN_00584e4a)
-	m_f50 = new QWidget(this);                                 // 0x40 + FUN_00703a58(0) cited
+	m_f50 = new MarkStyleWidgetFace(this);                     // 0x40(FUN_00703a58)
 	l1->setBuddy(m_edit38);
 	l2->setBuddy(m_table48);
 	// 两列表头(实读):Label / Action → FUN_00584ee8(+0x48)@007040xx — cited
