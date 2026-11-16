@@ -6,6 +6,7 @@
 
 #include <QAbstractButton>
 #include <QDialogButtonBox>
+#include <QMessageBox>
 #include <QFormLayout>
 #include <QItemSelectionModel>
 #include <QModelIndex>
@@ -540,4 +541,30 @@ void TriggerDialogFace::onAddFinished(int kind, const QString &name, int result)
 	appendRecord(rec);                                // @006f35fe
 	setNextMode(true);                                // @006f35xx(FUN_006f2384(this,1))
 	// FUN_006f9f0c(rec)(临时记录析构)@006f35xx — Qt 成员自洽承接
+}
+
+// FUN_006f6304(483B,0022.c:20336)删除所选触发器真身(结构段)
+void TriggerDialogFace::removeSelectedTriggers()
+{
+	if (m_triggerList68 == nullptr)
+		return;
+	if (!m_triggerList68->selectionModel()->hasSelection())       // @006f6304
+		return;
+	const int r = QMessageBox::warning(
+		this,
+		QStringLiteral("Remove triggers"),                        // tr(0xc9fb89)
+		QStringLiteral("Do you want to remove the selected triggers?"), // tr(0xca0090)
+		QMessageBox::Yes | QMessageBox::No,                      // 0x14000
+		QMessageBox::NoButton);                                   // @006f638f
+	if (r != QMessageBox::Yes)                                    // 0x4000
+		return;
+	if (QItemSelectionModel *sel = m_triggerList68->selectionModel())
+		sel->blockSignals(true);                                  // @006f63d5
+	// FUN_006f36be(this, -1)(提交当前编辑;行 -1)@006f63fe — cited
+	// FUN_0055efe8(+0x70, &list)(取走选中项)@006f64xx — cited
+	if (m_triggerList68->count() == 0) {                          // @006f64xx
+		setPageEnabled(false);                                    // @FUN_006f272a(this,0)
+		// 空表页腿:panes_stackInit(this, 8, 1, &空 QVariant) + 缺省记录装载
+		//   — 同 reloadList 空表分支,cited
+	}
 }

@@ -122,6 +122,17 @@ public:
 	//     FUN_0069f90c(rec)(记录析构)。
 	void onAddFinished(int kind, const QString &name, int result);
 
+	// FUN_006f6304(483B,0022.c:20336)删除所选触发器:
+	//   selectionModel()->hasSelection() 为真才动作;
+	//   QMessageBox::warning(this, tr("Remove triggers")(0xc9fb89),
+	//     tr("Do you want to remove the selected triggers?")(0xca0090),
+	//     0x14000 /*Yes|No*/, 0);结果 == 0x4000(Yes)才删:
+	//   blockSignals(selectionModel);
+	//   FUN_006f36be(this, -1)(提交当前编辑,行 -1);FUN_0055efe8(+0x70,&list)
+	//     (取走选中项);count == 0 → setPageEnabled(false) + 空表页腿
+	//     (kind 8 + 缺省记录,cited);否则维持当前项。
+	void removeSelectedTriggers();
+
 	// FUN_006f3286(89B,0022.c:20176)当前行记录:
 	//   row = +0x68 currentRow();idx = currentRecordIndex(row);
 	//   idx == -1 → 返回 +0x98 缺省记录;否则 +0x90 第 idx 项。
