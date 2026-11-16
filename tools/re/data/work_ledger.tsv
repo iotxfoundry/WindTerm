@@ -14044,18 +14044,18 @@
 005658e2	55	FUN_005658e2	todo	
 00565919	65	FUN_00565919	todo	
 0056595a	121	FUN_0056595a	todo	
-005659d4	513	overlay_makeBusyWidget	todo	
-00565c0e	202	SlipButton_dtor	todo	
+005659d4	513	overlay_makeBusyWidget	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
+00565c0e	202	SlipButton_dtor	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
 00565cd8	9	FUN_00565cd8	todo	
 00565ce2	23	SlipButton_dtor_deleting	todo	
 00565cf9	6	FUN_00565cf9	todo	
-00565d00	146	FUN_00565d00	todo	
-00565da6	25	FUN_00565da6	todo	
-00565dc0	359	FUN_00565dc0	todo	
+00565d00	146	FUN_00565d00	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
+00565da6	25	FUN_00565da6	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
+00565dc0	359	FUN_00565dc0	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
 00565f28	18	FUN_00565f28	todo	
-00565f3a	42	FUN_00565f3a	todo	
-00565f64	350	SlipButton_vt14	qtplumb	
-005660d6	5	SlipButton_vt15	qtplumb	
+00565f3a	42	FUN_00565f3a	ref	src/Actions/SlipButtonFace.cpp
+00565f64	350	SlipButton_vt14	ref	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
+005660d6	5	SlipButton_vt15	ref	src/Actions/SlipButtonFace.cpp
 005660dc	443	FUN_005660dc	todo	
 005662a0	386	FUN_005662a0	todo	
 0056642a	84	FUN_0056642a	ref	src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h
@@ -25812,12 +25812,12 @@
 008fac84	160	SafeEdit_dtor_deleting	todo	
 008fad24	155	FUN_008fad24	todo	
 008fadc0	147	SafeEdit_dtor	todo	
-008fae60	24	SlipButton_metaObject	qtplumb	
-008fae78	52	FUN_008fae78	ref	src/Widgets/Settings/TriggerPageFace.cpp
-008faeac	55	FUN_008faeac	ref	src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp
-008faee4	460	SlipButton_h8faee4	qtplumb	
-008fb0b0	66	SlipButton_qt_metacast	qtplumb	
-008fb0f2	176	SlipButton_qt_metacall	qtplumb	
+008fae60	24	SlipButton_metaObject	ref	src/Actions/SlipButtonFace.cpp
+008fae78	52	FUN_008fae78	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h,src/Widgets/Settings/TriggerPageFace.cpp
+008faeac	55	FUN_008faeac	ref	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h,src/Widgets/Dialogs/TunnelDialogFace.cpp,src/Widgets/Settings/SettingsPageFace.cpp,src/Widgets/Settings/SettingsPageFace.h,src/Widgets/Settings/TriggerPageFace.cpp
+008faee4	460	SlipButton_h8faee4	real	src/Actions/SlipButtonFace.cpp,src/Actions/SlipButtonFace.h
+008fb0b0	66	SlipButton_qt_metacast	ref	src/Actions/SlipButtonFace.cpp
+008fb0f2	176	SlipButton_qt_metacall	ref	src/Actions/SlipButtonFace.cpp
 008fb1a2	1	FUN_008fb1a2	todo	
 008fb1a4	24	FUN_008fb1a4	todo	
 008fb1bc	66	s_TablePanel_8fb1bc	todo	

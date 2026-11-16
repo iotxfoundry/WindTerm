@@ -19,14 +19,14 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 636 | 1.64% | 255533 | 3.33% |
+| 真实现 | 643 | 1.66% | 257290 | 3.35% |
 | 半成品 | 34 | 0.09% | 14625 | 0.19% |
-| 引用档 | 2103 | 5.43% | 797146 | 10.39% |
-| 未触及(真工作) | 20862 | 53.84% | 5575430 | 72.68% |
+| 引用档 | 2108 | 5.44% | 797757 | 10.40% |
+| 未触及(真工作) | 20856 | 53.82% | 5574143 | 72.66% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
-| Qt 元数据桩(非逆向对象) | 1161 | 3.00% | 242283 | 3.16% |
+| Qt 元数据桩(非逆向对象) | 1155 | 2.98% | 241202 | 3.14% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
-| **真工作分母** | **23635** | — | — | — |
+| **真工作分母** | **23641** | — | — | — |
 
 > 真工作分母 = 合计 − 异常清理块 − Qt 元数据桩。「未触及(真工作)」一栏才是真正的待办量。
 
@@ -43,8 +43,8 @@
 | `src/Widgets/Controls/TabGroup.cpp` | 45 | 1 | 29 |
 | `src/Widgets/Controls/TabGroup.h` | 44 | 1 | 32 |
 | `src/Windows/Mux/MuxPaneGroup.cpp` | 44 | 0 | 39 |
+| `src/Widgets/Settings/TriggerPageFace.cpp` | 38 | 0 | 41 |
 | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 | 40 |
-| `src/Widgets/Settings/TriggerPageFace.cpp` | 37 | 0 | 42 |
 | `src/Widgets/Dialogs/TriggerDialogFace.cpp` | 33 | 0 | 34 |
 | `src/Widgets/Dialogs/TriggerDialogFace.h` | 33 | 0 | 26 |
 | `src/Windows/Mux/MuxPaneGroup.h` | 31 | 0 | 12 |
@@ -96,6 +96,8 @@
 | `src/Widgets/Controls/SplitterGroup.h` | 8 | 0 | 14 |
 | `src/Widgets/Dialogs/TunnelDialogFace.cpp` | 7 | 1 | 14 |
 | `src/Widgets/Dialogs/TunnelDialogFace.h` | 7 | 1 | 5 |
+| `src/Actions/SlipButtonFace.cpp` | 7 | 0 | 7 |
+| `src/Actions/SlipButtonFace.h` | 7 | 0 | 2 |
 | `src/Actions/ToolBarBuilder.cpp` | 7 | 0 | 10 |
 | `src/App/JsEngine.cpp` | 7 | 0 | 3 |
 | `src/App/SuperApplicationFace.cpp` | 7 | 0 | 34 |
@@ -375,7 +377,7 @@
 | `ShellProcess` | `src/Pty/ShellProcess.h` | 0 | 0 |
 | `ShellSession` | `src/Sessions/Transports/ShellSession.h` | 0 | 0 |
 | `ShowTooltipTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
-| `SlipButton` | `src/Actions/SlipButtonFace.h` | 0 | 0 |
+| `SlipButton` | `src/Actions/SlipButtonFace.h` | 7 | 0 |
 | `Splitter` | `src/Widgets/Splitter.h` | 1 | 0 |
 | `SplitterGroup` | `src/Widgets/Controls/SplitterGroup.h` | 8 | 0 |
 | `SshBridge` | `src/Sessions/Bridges/SshBridge.h` | 0 | 0 |
