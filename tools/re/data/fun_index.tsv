@@ -1299,6 +1299,7 @@
 0063a568	src/App/StartupChain.cpp
 0063a5f2	src/Sessions/Transports/SshSocketFace.cpp
 0063a5f2	src/Sessions/Transports/SshSocketFace.h
+00643cd0	src/Widgets/Views/TreeModelFace.h
 00643e32	src/Editor/Engine/MarkersStore.h
 0064a7a8	src/Windows/Kit/KitDockFace.cpp
 0064ab10	src/App/JsEngine.cpp

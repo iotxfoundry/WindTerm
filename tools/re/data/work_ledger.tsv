@@ -16803,7 +16803,7 @@
 00643c4e	6	FUN_00643c4e	todo	
 00643c54	99	FUN_00643c54	todo	
 00643cb8	24	FUN_00643cb8	todo	
-00643cd0	4	FUN_00643cd0	todo	
+00643cd0	4	FUN_00643cd0	ref	src/Widgets/Views/TreeModelFace.h
 00643cd4	77	FUN_00643cd4	todo	
 00643d22	19	FUN_00643d22	todo	
 00643d36	11	FUN_00643d36	todo	
@@ -16811,7 +16811,7 @@
 00643d48	71	FUN_00643d48	todo	
 00643d90	161	TreeModel_vt12	qtplumb	
 00643e32	5	FUN_00643e32	ref	src/Editor/Engine/MarkersStore.h
-00643e38	135	TreeModel_vt13	qtplumb	
+00643e38	135	TreeModel_vt13	real	
 00643ec0	45	TreeModel_vt15	qtplumb	
 00643eee	188	FUN_00643eee	todo	
 00643faa	350	FUN_00643faa	todo	
@@ -25355,7 +25355,7 @@
 008f0e2c	94	PlainTextEdit_dtor_deleting	todo	
 008f0e8a	98	FUN_008f0e8a	todo	
 008f0eec	90	FUN_008f0eec	todo	
-008f0f46	88	PlainTextEdit_dtor	todo	
+008f0f46	88	PlainTextEdit_dtor	real	
 008f0fa0	24	TriggerActionEditPanel_metaObject	qtplumb	
 008f0fb8	66	TriggerActionEditPanel_qt_metacast	qtplumb	
 008f0ffa	39	FUN_008f0ffa	ref	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h

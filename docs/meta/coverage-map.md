@@ -18,7 +18,7 @@
 | `Pty/Public` | 1 | 6 | 0 | 0 | 0 |
 | `Sessions/Bridges` | 14 | 1142 | 8 | 164 | 8 |
 | `Sessions/Commanders` | 16 | 3258 | 11 | 81 | 44 |
-| `Sessions/Core` | 22 | 3340 | 19 | 572 | 22 |
+| `Sessions/Core` | 24 | 3383 | 20 | 572 | 22 |
 | `Sessions/Transfers` | 22 | 2341 | 15 | 82 | 9 |
 | `Sessions/Transports` | 16 | 572 | 8 | 32 | 0 |
 | `Sessions/Tunnels` | 6 | 347 | 3 | 12 | 1 |
@@ -27,14 +27,14 @@
 | `Utility` | 21 | 1876 | 18 | 5 | 2 |
 | `Widgets` | 6 | 722 | 3 | 4 | 0 |
 | `Widgets/Bars` | 28 | 1207 | 16 | 60 | 7 |
-| `Widgets/Controls` | 88 | 4797 | 59 | 437 | 79 |
+| `Widgets/Controls` | 90 | 4874 | 62 | 437 | 79 |
 | `Widgets/Dialogs` | 75 | 4092 | 49 | 405 | 97 |
 | `Widgets/Panes` | 23 | 1238 | 17 | 128 | 21 |
 | `Widgets/Settings` | 8 | 2342 | 21 | 339 | 55 |
-| `Widgets/Views` | 26 | 2678 | 17 | 118 | 20 |
+| `Widgets/Views` | 28 | 2767 | 18 | 119 | 20 |
 | `Windows/Kit` | 11 | 2669 | 10 | 431 | 43 |
 | `Windows/Mux` | 12 | 2947 | 9 | 635 | 27 |
-| **合计** | **479** | **61002** | **397** | **5377** | **900** |
+| **合计** | **485** | **61211** | **402** | **5378** | **900** |
 
 ## 2. 被引用最多的地址（多为共享腿，不要重复实现）
 
