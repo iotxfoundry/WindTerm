@@ -13,7 +13,17 @@ class SearchEngineDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit SearchEngineDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_006d906a — 结构段(cited)
-	void build2();   // FUN_006d9290 — 结构段(cited)
+
+	// FUN_006d9290(670B)**装配**:QFormLayout + QLineEdit ×2 + QDialogButtonBox;
+	//   两行文案实读 **"&Search engine:"** /
+	//   **"&URL with {q} in place of query:"**(查询占位符 **{q}**)。
+	void build();
+
+	// FUN_006d906a(550B)**接线**:字段 +0x30 / +0x40 / +0x48,
+	//   闭包 FUN_006b2420 / FUN_006d8ff5 / FUN_006d902f。
+	void wire();
+
+protected:
+	QWidget *m_f30 = nullptr; QWidget *m_f40 = nullptr; QWidget *m_f48 = nullptr;
 };
 
