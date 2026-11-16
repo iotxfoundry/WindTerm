@@ -2,6 +2,7 @@
 
 #include <QWidget>
 
+class QComboBox;
 class QFormLayout;
 class QGroupBox;
 class QLabel;
@@ -32,4 +33,8 @@ private:
 	QGroupBox *m_group3 = nullptr;   // 组3"Paste Dialog"
 	QLabel *m_label = nullptr;       // "When pasting multiple lines..."
 	QFormLayout *m_form = nullptr;   // 行布局(cited)
+	QComboBox *m_rightClickCombo = nullptr; // "terminal.rightClickAction" 选择器
+	QWidget *m_localModeW = nullptr;        // terminal.localModeEnabled 面
+	QWidget *m_screenPasteW = nullptr;      // terminal.screen.pasteDialog 面
+	QWidget *m_altPasteW = nullptr;         // terminal.altScreen.pasteDialog 面
 };

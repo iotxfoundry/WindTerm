@@ -4,7 +4,9 @@
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QLabel>
+#include <QComboBox>
 #include <QVBoxLayout>
+#include <QVariant>
 
 // 006dfd9e(1221B)装配真身(结构段):
 //   @006dfdc4 CategoryPage(parent)(0x38)+0x30 = 0;
@@ -26,7 +28,21 @@ void PasteSettingsPageFace::setupUi()
 	m_label = new QLabel(tr("When pasting multiple lines..."), this); // @006dfee9
 	m_vbox = new QVBoxLayout();  // 页根布局(cited:装配序未逐句核对)
 	m_form = new QFormLayout();  // 行布局(cited)
-	// s_terminal_autoComplete_preselectBestM_6dcc80(parent,
-	//   "terminal.rightClickAction", 空串)@006dff12 — cited(读面)。
-	// 行/单选/复选装配(1221B 余段)— cited。
+	// 右键动作选择器:配置 "terminal.rightClickAction"(preselectBestM 读面 cited)
+	//   三项(值/标签逐条实读 @006dff4e/006dffa2/006dfff6):
+	//   ShowMenu→"Show menu"(0xc9e8a4)、PasteText→"Paste text"(0xc9e8ae)、
+	//   CopyOrPasteText→"Copy text if selected, otherwise paste text"(0xc9f6a8)。
+	m_rightClickCombo = new QComboBox(this);
+	m_rightClickCombo->addItem(tr("Show menu"), QStringLiteral("ShowMenu"));
+	m_rightClickCombo->addItem(tr("Paste text"), QStringLiteral("PasteText"));
+	m_rightClickCombo->addItem(tr("Copy text if selected, otherwise paste text"),
+	                           QStringLiteral("CopyOrPasteText"));
+	// 三个配置背衬控件(FUN_006dcb1e(parent, tr, 键)@006e0050/006e008f/006e00ce):
+	//   "terminal.localModeEnabled"(tr "Enable &local mode" 0xc9e8b9)、
+	//   "terminal.screen.pasteDialog"(tr "Show paste dialog on the &main
+	//     screen" 0xc9f6d8)、"terminal.altScreen.pasteDialog"(tr "...&alternate
+	//     screen" 0xc9f700)— 控件工厂体 cited。
+	// 三 FormLayout(VBox+form3/4/5)@006e00f0-013d;form4 setRowWrapPolicy(2)、
+	//   addRow(form3)/(tr "&Right click:" 0xc9e8cc + 选择器)/form5×3、
+	//   setLayout — 装配面(cited 逐行实参)。
 }
