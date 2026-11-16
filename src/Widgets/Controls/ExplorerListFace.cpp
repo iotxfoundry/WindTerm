@@ -1,4 +1,4 @@
-// ExplorerListFace.cpp —— 从 Widgets/Faces/ListFaces 拆出(按 UI 架构归位)
+// ExplorerListFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Controls/ExplorerListFace.h"
 
 // s_ExplorerList_55456a(291B)ctor

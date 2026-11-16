@@ -170,7 +170,7 @@ QStringList SuperApplicationFace::searchEngines() const
 // (857B,0022.c:12876)写腿对位(批 184):页行集(QTableWidget 行 →
 // QJsonObject{text/icon/url}@12884-13010,行集以 QVariantList 参承接,
 // 页车道 cited)→ 尾 FUN_006e6c46(host,"application.searchEngines",
-// QVariant(array),0)@13034 即时写腿 → FUN_008cbb2e(242B,0028.c:12894)
+// QVariant(array),0)@13034 即时写腿 → FUN_008cbb2e 写腿(实现见 Editor/Config/CTerminalConfig.cpp)
 // → 00a8009c jsoncpp 成员按名写入(键面 as-given 不归一)。face 落
 // CTerminalConfig::setValue 值面(批 169 setValueKitScoped 判例对偶;
 // 归一面 760b2c 属页车道 — 头注怪癖)。===

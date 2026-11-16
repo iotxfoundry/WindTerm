@@ -1,4 +1,4 @@
-// CheckListFace.cpp —— 从 Widgets/Faces/ListFaces 拆出(按 UI 架构归位)
+// CheckListFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Controls/CheckListFace.h"
 
 // s_CheckList_534e62(344B)ctor

@@ -3,15 +3,12 @@
 005204a8	src/Editor/Engine/EditorEngine.cpp
 00521178	src/Widgets/Bars/AddressBarFace.cpp
 00521178	src/Widgets/Bars/AddressBarFace.h
-00521178	src/Widgets/Bars/BreadCrumbFace.cpp
 005211fe	src/Actions/ToolBarBuilder.cpp
 005211fe	src/Actions/ToolBarBuilder.h
 005211fe	src/Widgets/Bars/AddressBarFace.cpp
 005211fe	src/Widgets/Bars/AddressBarFace.h
-005211fe	src/Widgets/Bars/BreadCrumbFace.cpp
 00521242	src/Widgets/Bars/AddressBarFace.cpp
 00521242	src/Widgets/Bars/AddressBarFace.h
-00521242	src/Widgets/Bars/BreadCrumbFace.cpp
 00521702	src/Sessions/Core/WorkspaceLoader.cpp
 00521702	src/Sessions/Core/WorkspaceLoader.h
 00521733	src/Sessions/Core/WorkspaceLoader.cpp
@@ -137,7 +134,6 @@
 005240c4	src/Sessions/Core/WorkspaceLoader.cpp
 005247c5	src/Widgets/Bars/AddressBarFace.cpp
 005247c5	src/Widgets/Bars/AddressBarFace.h
-005247c5	src/Widgets/Bars/BreadCrumbFace.cpp
 0052523e	src/Sessions/Core/WorkspaceLoader.cpp
 00525500	src/Sessions/Core/WorkspaceLoader.cpp
 00525800	src/Widgets/Panes/FilerPane.h
@@ -180,12 +176,15 @@
 005445c4	src/Editor/Engine/EditorEngine.cpp
 005454b0	src/Editor/Engine/SuperKeymap.cpp
 00546bae	src/Editor/Engine/EditorEngine.cpp
+0054813e	src/Widgets/Bars/BreadCrumbFace.cpp
 0054813e	src/Widgets/Bars/BreadCrumbFace.h
+0054842a	src/Widgets/Bars/BreadCrumbFace.cpp
 0054842a	src/Widgets/Bars/BreadCrumbFace.h
 00548546	src/Widgets/Bars/AddressBarFace.cpp
 00548546	src/Widgets/Bars/AddressBarFace.h
 00548546	src/Widgets/Bars/BreadCrumbFace.cpp
 00548546	src/Widgets/Bars/BreadCrumbFace.h
+0054858b	src/Widgets/Bars/BreadCrumbFace.cpp
 00548630	src/Widgets/Bars/BreadCrumbFace.cpp
 00548630	src/Widgets/Bars/BreadCrumbFace.h
 00548630	src/Windows/Kit/KitWindowAssemblyFace.cpp
@@ -196,6 +195,7 @@
 0054d22a	src/Widgets/Controls/CrumbEditFace.h
 0054d25d	src/Widgets/Controls/CrumbEditFace.cpp
 0054d278	src/Widgets/Controls/CrumbEditFace.cpp
+0054e188	src/Widgets/Bars/BreadCrumbFace.cpp
 0054e188	src/Widgets/Bars/BreadCrumbFace.h
 0054e188	src/Widgets/Controls/CrumbEditFace.h
 0054e850	src/Widgets/Panes/SearchPanelFace.cpp
@@ -382,11 +382,13 @@
 0058d940	src/Widgets/Controls/TabGroup.h
 0058d970	src/Widgets/Controls/SearchEditFace.cpp
 0058d970	src/Widgets/Controls/SearchEditFace.h
+0058dac2	src/Widgets/Bars/BreadCrumbFace.cpp
 0058dac2	src/Widgets/Bars/BreadCrumbFace.h
 0058dac2	src/Widgets/Controls/SearchEditFace.cpp
 0058dac2	src/Widgets/Controls/SearchEditFace.h
 0058dac2	src/Widgets/Settings/TriggerPageFace.cpp
 0058dac2	src/Widgets/Settings/TriggerPageFace.h
+0058dad4	src/Widgets/Bars/BreadCrumbFace.cpp
 0058dad4	src/Widgets/Bars/BreadCrumbFace.h
 0058dad4	src/Widgets/Controls/CompleterButtonFace.cpp
 0058dad4	src/Widgets/Controls/CompleterButtonFace.h
@@ -1971,7 +1973,6 @@
 006a2f66	src/Widgets/Settings/SettingsPageFace.cpp
 006a4d90	src/Widgets/Dialogs/TunnelDialogFace.cpp
 006a4d90	src/Widgets/Dialogs/TunnelDialogFace.h
-006a4d90	src/Widgets/Settings/SettingsPageFace.cpp
 006a4d90	src/Widgets/Settings/SettingsPageFace.h
 006a521a	src/Widgets/Settings/SettingsPageFace.cpp
 006af0f5	src/Actions/SlipButtonFace.cpp
@@ -2881,7 +2882,6 @@
 0072ebb4	src/Widgets/Settings/SettingsPageFace.cpp
 0072edfe	src/Widgets/Dialogs/TunnelDialogFace.cpp
 0072edfe	src/Widgets/Dialogs/TunnelDialogFace.h
-0072edfe	src/Widgets/Settings/SettingsPageFace.cpp
 0072edfe	src/Widgets/Settings/SettingsPageFace.h
 0072f007	src/Widgets/Dialogs/TunnelDialogFace.cpp
 0072f007	src/Widgets/Dialogs/TunnelDialogFace.h
@@ -4824,7 +4824,6 @@
 00858f9e	src/Windows/Kit/KitWindowFactory.h
 00858fb0	src/Windows/Kit/KitWindowFactory.h
 00858fce	src/Editor/Config/CGlobalConfigFace.h
-00858fce	src/Editor/Config/CTerminalConfig.cpp
 00858fce	src/Editor/Config/CTerminalConfig.h
 00858fce	src/Windows/Kit/KitWindowFactory.cpp
 00858fce	src/Windows/Kit/KitWindowFactory.h
@@ -6357,7 +6356,6 @@
 008f7f28	src/Widgets/Bars/MessageBarFace.h
 008f826e	src/Widgets/Bars/AddressBarFace.cpp
 008f826e	src/Widgets/Bars/AddressBarFace.h
-008f826e	src/Widgets/Bars/BreadCrumbFace.cpp
 008f92e2	src/Widgets/Controls/SearchEditFace.cpp
 008f92e2	src/Widgets/Controls/SearchEditFace.h
 008fa97a	src/Widgets/Dialogs/InsertFileDialogFace.cpp

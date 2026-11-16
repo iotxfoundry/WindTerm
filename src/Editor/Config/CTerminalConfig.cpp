@@ -21,9 +21,9 @@ CTerminalConfig *CTerminalConfig::instance()
 	return &cfg;
 }
 
-// CTerminalConfig::face — FUN_00858fce 对位真身(FUN_00858fce 39B,
-// 0026.c:50296:DAT_011c2200 懒缓存 ← FUN_00809d78):合一后 = 同一单例
-// 的 face 基面(无第二静态对象;upcast 同址)。
+// CTerminalConfig::face — **单例的 face 视图转换**,不是独立二进制函数。
+// 语料 39B 懒缓存函数(0026.c:50296)的实现属 TerminalWindowFace::menu()
+// (Windows/Kit/KitWindowFactory.cpp),本函数只是同址 upcast(批 142 合一)。
 CTerminalConfigFace *CTerminalConfig::face()
 {
 	return CTerminalConfig::instance(); // IS-A CTerminalConfigFace(私有基)

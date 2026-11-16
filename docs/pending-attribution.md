@@ -55,6 +55,13 @@
 否则搬过去就是把错布局固化。重推范围:`0072d0f2`(行复位) / `0072e4f6`(行装载) /
 `0072edfe`(行表装载) / `0072d304` / `0072d84e` / `0072bf8a`(已读)。
 
+**2026-11-16 去重批结论**:
+`SettingsPageFace` **无人 include**(死代码),其 0x48 行模型与本类冲突;
+`coverage.py --dups` 现在恰好只报这两处(`FUN_0072d0f2` / `FUN_0072bf8a`)。
+已删其中确属重复且类内零调用的 `rebuildRowsFromGlobal`(=`0072edfe`,本类
+`reloadRows` 已实现);其余两处因被本类内部调用,须待行结构裁决后再合并。
+两文件头已加 ⚠ 警示,禁止继续扩写。
+
 **动作**:
 1. 把上表前 6 项从 `SettingsPageFace` 移到 `TunnelDialogFace`;
 2. `SettingsPageFace` 保留**真正的设置页行模型**(`SettingsRow` 0x48 + 装载/回写),

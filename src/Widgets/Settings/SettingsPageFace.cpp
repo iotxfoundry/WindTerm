@@ -130,7 +130,9 @@ int SettingsPageFace::currentListRowIndex() const
 	return rowIndexByName(text);                       // @0072d2a4
 }
 
-// FUN_0072d0f2(242B,0022.c:53821)复位/使能真身:
+// FUN_0072d0f2(242B,0022.c:53821)复位/使能真身
+// ⚠ 与 TunnelDialogFace::resetRow 同址(重复实现)。归属判定见
+//   docs/pending-attribution.md §1:先重推 0x48 行结构,再二选一。勿再扩写。
 //   @0072d0f2 uVar1 = *(byte*)(this+0x50);
 //   if (!enable) { QLineEdit::clear@0072d0f2;QComboBox::setCurrentIndex(+0x58/
 //     +0x48)@0072d10x;QSpinBox::setValue(+0x70/+0x68)@0072d12x;
@@ -248,7 +250,8 @@ void SettingsPageFace::onKindComboChanged()
 	refreshRows(-1); // @0072edxx
 }
 
-// FUN_0072bf8a(219B,0022.c:53246)行 → 列表项真身:
+// FUN_0072bf8a(219B,0022.c:53246)行 → 列表项真身
+// ⚠ 与 TunnelDialogFace::makeRowItem 同址(重复实现),同上勿再扩写。
 //   @0072bf8a operator_new(0x30)+QListWidgetItem(row+0x10 名,0,0);
 //   @0072bfb6 s_king__tunnelDynamicActive_6a2c16(&icon, row)(cited 图标面)
 //   → item->setData(1, QVariant(QIcon))@0072bfee;
@@ -310,32 +313,6 @@ void SettingsPageFace::commitCurrentRow(int index)
 	// item setData(0,名) / 图标刷新 / FUN_0056642a — cited。
 }
 
-// FUN_0072edfe(521B)重建列表真身:
-//   @0072edfe src = FUN_006a4d90(DAT_011c1b00)(全局行表单例,cited);
-//   +0xb8 ← src(refcount 拷贝);@0072efxx 逐行:FUN_0072bf8a(行)生成项 →
-//   QListWidget::insertItem(+0xb0, count)@0072efxx;
-//   @0072efxx count == 0 → FUN_0072d0f2(this,0);
-//   否则 FUN_0072d0f2(this,1)+ setFocus(+0xb0,3)+ item(0) 非空 →
-//   setCurrentItem(item, 0x13)。
-void SettingsPageFace::rebuildRowsFromGlobal()
-{
-	// FUN_006a4d90(DAT_011c1b00) 全局行表 — cited(源面未转写)
-	if (m_listB0 == nullptr)
-		return;
-	m_listB0->clear();
-	for (const SettingsRow &row : m_rowsB8) {
-		if (QListWidgetItem *item = rowListItem(row)) // 0072bf8a
-			m_listB0->insertItem(m_listB0->count(), item);
-	}
-	if (m_listB0->count() == 0) {
-		resetRow(false); // @0072efxx
-		return;
-	}
-	resetRow(true);
-	m_listB0->setFocus(Qt::OtherFocusReason); // 3
-	if (QListWidgetItem *first = m_listB0->item(0))
-		m_listB0->setCurrentItem(first, QItemSelectionModel::ClearAndSelect); // 0x13
-}
 
 // FUN_0072d304(1257B,0022.c:53931)后处理真身(标签腿):
 //   @0072d304 FUN_006a2f66(&desc, row+0x30)(cited);

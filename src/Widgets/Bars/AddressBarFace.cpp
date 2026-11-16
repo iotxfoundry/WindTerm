@@ -1,4 +1,4 @@
-// AddressBarFace.cpp —— 从 Widgets/Faces/BreadCrumbFace 拆出(按 UI 架构归位)
+// AddressBarFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Bars/AddressBarFace.h"
 
 // FUN_005211fe(162B,0016.c:15189)AddressBar ctor 真身:

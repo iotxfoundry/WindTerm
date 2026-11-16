@@ -312,7 +312,7 @@ MainWindowFace::Slots mainWindowConnectSignals(QMainWindow *mainWindow)
 		                         + QStringLiteral("/user.actions"); // cfg_ensureProfileDir @0076b842-864
 		factory.loadActionsFile(userPath); // @0076b8bd-8d7(用户源腿)
 	}
-	// FUN_0076b430(68B,0023.c:36366):+0x68 引擎懒建
+	// 引擎懒建(实现见 Editor/Engine/KeymapEngine.cpp;FUN_0076b430 @0023.c:36366)
 	// (operator_new(0x20)+FUN_00674648 = SuperKeymap ctor parent 注入)
 	// → s_wind_keymaps_768854(428B 双源 YAML 装载)→ FUN_0076aee6
 	// (JSON 导入腿)— KeymapEngine 现役真身面(KeymapEngine.h 头注

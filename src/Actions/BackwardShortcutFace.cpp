@@ -1,4 +1,4 @@
-// BackwardShortcutFace.cpp —— 从 Widgets/Faces/MiscWidgetFaces 拆出(按 UI 架构归位)
+// BackwardShortcutFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Actions/BackwardShortcutFace.h"
 
 // s_BackwardButton_53e936(753B)**QShortcut** 族 ctor

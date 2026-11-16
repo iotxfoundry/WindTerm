@@ -8,7 +8,7 @@
 // 批 161:协议对象构造窄面(00875ffe/0x38B 最小窗);批 165:connectImpl×4
 // 升真(0027.c:18673 asm/体双源;槽体 008698c0/00875eb0/00875f1f +
 // SerialBridge_h7c83c6 007c83c6 全读,语义见 TcpBridge.h 头注)。
-// 语料 TcpBridge ctor FUN_00875ffe(642B):SuperBridge 基(007c8290)→
+// 同构参照 TelnetBridge ctor(642B)转写;Tcp 自身 ctor 入口地址待核:SuperBridge 基(007c8290)→
 // +0x30 = operator_new(0x40) → FUN_0065f0a0(ProxyCommandSocket,QTcpSocket
 // 子类)→ 4×connectImpl。socket 深依赖(真拨号腿 = 0065f572 分流,代理
 // spawn = 0065d482 已真身于 ProxyCommandSocket)—— 本类 socket 槽以

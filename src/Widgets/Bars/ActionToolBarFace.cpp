@@ -1,4 +1,4 @@
-// ActionToolBarFace.cpp —— 从 Widgets/Faces/ActionButtonFaces 拆出(按 UI 架构归位)
+// ActionToolBarFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Bars/ActionToolBarFace.h"
 
 // s_ActionButton_56e540(1291B)**QToolBar** 构建腿

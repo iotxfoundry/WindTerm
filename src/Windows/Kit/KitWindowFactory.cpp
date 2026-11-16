@@ -65,7 +65,7 @@ QMenuBar *kitMenuBarBuild(CGlobalConfigFace *container, QWidget *hostPane)
 
 // EditorWindowFace::menu — FUN_005e97d2(39B,0019.c:22781):
 //   DAT_011c12e0 懒缓存 → FUN_005df8d6(CEditorConfig Meyers 单例,face
-//   批 140 落库)→ FUN_008aa896 校验尾(批 142:两 yaml 装载腿真身化
+//   批 140 落库)→ 校验尾 ensureLoaded()(实现见 Editor/Config/CGlobalConfigFace.cpp;批 142 两 yaml 装载腿即此法)
 //   入 ensureLoaded)。单例身份恒同一对象 → 一次缓存后恒返(DAT 懒缓存同相)。
 CGlobalConfigFace *EditorWindowFace::menu()
 {

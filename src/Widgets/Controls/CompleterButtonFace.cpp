@@ -1,4 +1,4 @@
-// CompleterButtonFace.cpp —— 从 Widgets/Faces/ListFaces 拆出(按 UI 架构归位)
+// CompleterButtonFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Controls/CompleterButtonFace.h"
 
 // s_CompleterButton_58dad4(819B)ctor

@@ -1,4 +1,4 @@
-// CrumbEditFace.cpp —— 从 Widgets/Faces/BreadCrumbFace 拆出(按 UI 架构归位)
+// CrumbEditFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Controls/CrumbEditFace.h"
 
 // FUN_0054d22a(197B,0017.c:19741)激活切换真身:

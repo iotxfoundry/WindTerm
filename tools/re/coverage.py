@@ -76,19 +76,37 @@ def open_source():
 
 
 def impl_addrs():
-    """带实现标记(`真身` 或 `// ===` 函数头)的地址 → .cpp 集合。
+    """实现级地址归属:每个函数定义绑定**紧邻其上的那一行注释**里的地址。
 
-    只认实现标记,不认普通引用 —— 否则共享腿会淹没真正的重复转写。
+    只认最近一行(而不是整个注释块) —— 我们的写法里,函数自身出处总在
+    定义正上方;再往上多半是「调用了谁」,那些地址属被调方,不是本类实现。
+    含「同构」的行跳过(借用姊妹类出处)。
     """
     m = collections.defaultdict(set)
     for f in files():
         if not f.endswith('.cpp'):
             continue
-        for ln in open(f, encoding='utf-8', errors='ignore'):
-            if '真身' not in ln and not re.match(r'\s*//\s*===', ln):
+        L = open(f, encoding='utf-8', errors='ignore').read().split('\n')
+        for i, l in enumerate(L):
+            if not re.match(r'^[\w:<>,*&\s]*?\b\w+::\w+\s*\(', l):
                 continue
-            for a in addrs_of(ln)[0]:
-                m[a].add(os.path.relpath(f, os.path.join(SRC, '..')))
+            k = i - 1
+            while k >= 0 and not L[k].strip():
+                k -= 1
+            # 在紧邻的注释块里找「本函数出处」行:必须带 真身 / 字节数 / ===
+            hit = None
+            while k >= 0 and L[k].lstrip().startswith('//'):
+                if '同构' not in L[k] and (
+                        '真身' in L[k]
+                        or re.search(r'FUN_[0-9a-f]{8}\s*\(\s*\d+\s*B', L[k])
+                        or re.match(r'\s*//\s*===', L[k])):
+                    a = re.findall(r'(?<!PTR_)FUN_([0-9a-f]{8})', L[k])
+                    if a:
+                        hit = a[0]
+                        break
+                k -= 1
+            if hit:
+                m[hit].add(os.path.relpath(f, os.path.join(SRC, '..')))
     return m
 
 
@@ -219,7 +237,8 @@ def main():
         impl = impl_addrs()
         dup = [(a, sorted(f)) for a, f in impl.items() if len(f) > 1]
         lines += ['', '## 3. 疑似重复实现（同一地址在 2+ 个 .cpp 带实现标记）', '',
-                  '只统计带 `真身` / `// ===` 实现标记的行,普通引用不计 —— 共 **%d** 处。' % len(dup),
+                  '判定:函数定义紧邻注释块中带 `真身`/字节数/`===` 的那一行,'
+                  '取首个地址作为该函数出处;含 `同构` 的行不计。共 **%d** 处。' % len(dup),
                   '逐条核对:共享腿(合理,补交叉引用)还是重复转写(应合并)。', '',
                   '| 地址 | 文件 |', '|---|---|']
         for a, f in sorted(dup, key=lambda kv: -len(kv[1])):

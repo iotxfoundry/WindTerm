@@ -24,15 +24,15 @@
 | `Terminal` | 6 | 5783 | 12 | 327 | 50 |
 | `Utility` | 9 | 1256 | 10 | 0 | 0 |
 | `Widgets` | 6 | 722 | 3 | 4 | 0 |
-| `Widgets/Bars` | 12 | 663 | 7 | 88 | 9 |
-| `Widgets/Controls` | 26 | 2276 | 17 | 403 | 57 |
+| `Widgets/Bars` | 12 | 670 | 7 | 89 | 9 |
+| `Widgets/Controls` | 26 | 2277 | 17 | 403 | 57 |
 | `Widgets/Dialogs` | 71 | 4098 | 38 | 434 | 107 |
 | `Widgets/Panes` | 7 | 566 | 9 | 108 | 12 |
-| `Widgets/Settings` | 8 | 2363 | 21 | 339 | 56 |
+| `Widgets/Settings` | 8 | 2342 | 21 | 339 | 55 |
 | `Widgets/Views` | 6 | 1576 | 4 | 87 | 13 |
 | `Windows/Kit` | 11 | 2597 | 10 | 431 | 43 |
 | `Windows/Mux` | 10 | 2885 | 8 | 635 | 27 |
-| **合计** | **281** | **50972** | **259** | **5221** | **853** |
+| **合计** | **281** | **50959** | **259** | **5222** | **852** |
 
 ## 2. 被引用最多的地址（多为共享腿，不要重复实现）
 
@@ -56,31 +56,13 @@
 
 ## 3. 疑似重复实现（同一地址在 2+ 个 .cpp 带实现标记）
 
-只统计带 `真身` / `// ===` 实现标记的行,普通引用不计 —— 共 **20** 处。
+判定:函数定义紧邻注释块中带 `真身`/字节数/`===` 的那一行,取首个地址作为该函数出处;含 `同构` 的行不计。共 **2** 处。
 逐条核对:共享腿(合理,补交叉引用)还是重复转写(应合并)。
 
 | 地址 | 文件 |
 |---|---|
-| `FUN_00692ef0` | src/Actions/ToolBarBuilder.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp<br>src/Windows/Mux/MuxPaneGroup.cpp<br>src/Windows/Mux/MuxPaneView.cpp |
-| `FUN_008c9e64` | src/App/StartupChain.cpp<br>src/App/StateStore.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_005211fe` | src/Actions/ToolBarBuilder.cpp<br>src/Widgets/Bars/AddressBarFace.cpp<br>src/Widgets/Bars/BreadCrumbFace.cpp |
-| `FUN_00752640` | src/App/ApplicationTheme.cpp<br>src/Windows/Mux/MuxWindow.cpp |
-| `FUN_008bca9e` | src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Mux/MuxPaneGroup.cpp |
-| `FUN_005ab32a` | src/Windows/Kit/KitDockFace.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
-| `FUN_0075e3fe` | src/App/SuperApplicationFace.cpp<br>src/Windows/Kit/KitWindowFactory.cpp |
-| `FUN_008d2f7e` | src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
-| `FUN_008d304b` | src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
-| `FUN_00760856` | src/App/StateStore.cpp<br>src/App/SuperApplicationFace.cpp |
-| `FUN_00766c26` | src/App/StartupChain.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_0075e0f8` | src/App/StartupChain.cpp<br>src/Sessions/Core/WorkspaceLoader.cpp |
-| `FUN_0057eb0c` | src/Actions/ToolBarBuilder.cpp<br>src/Widgets/Controls/SearchEditFace.cpp |
-| `FUN_0089a756` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
-| `FUN_00899316` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
-| `FUN_0092547e` | src/Editor/Engine/CodecMemo.cpp<br>src/Editor/Engine/EditorEngine.cpp |
-| `FUN_0054d22a` | src/Widgets/Bars/BreadCrumbFace.cpp<br>src/Widgets/Controls/CrumbEditFace.cpp |
 | `FUN_0072d0f2` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
 | `FUN_0072bf8a` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
-| `FUN_0072edfe` | src/Widgets/Dialogs/TunnelDialogFace.cpp<br>src/Widgets/Settings/SettingsPageFace.cpp |
 
 ## 4. 第一方开源件（B 类·勿逆向）
 

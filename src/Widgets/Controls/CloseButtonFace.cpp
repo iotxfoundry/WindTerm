@@ -1,4 +1,4 @@
-// CloseButtonFace.cpp —— 从 Widgets/Faces/ListFaces 拆出(按 UI 架构归位)
+// CloseButtonFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Controls/CloseButtonFace.h"
 
 // s_CloseButton_585528(897B)ctor

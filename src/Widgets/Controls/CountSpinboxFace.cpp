@@ -1,4 +1,4 @@
-// CountSpinboxFace.cpp —— 从 Widgets/Faces/MiscWidgetFaces 拆出(按 UI 架构归位)
+// CountSpinboxFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Controls/CountSpinboxFace.h"
 
 // s_CountSpinbox_73bea0(278B)ctor

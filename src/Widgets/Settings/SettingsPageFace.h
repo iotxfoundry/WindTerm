@@ -60,6 +60,10 @@ struct SettingsItemRef {
 	int pad = 0;
 	const QStandardItem *item = nullptr;
 };
+// ⚠ 本类当前**无人引用**(死代码),且其 0x48 行模型与 TunnelDialogFace 冲突
+//   (同一地址 FUN_0072d0f2 / 0072bf8a 两处实现)。收尾期按
+//   docs/pending-attribution.md §1 处置:重推行结构 → 合并到 TunnelDialogFace 或改造。
+//   在此之前**不要**再往本类加转写。
 class SettingsPageFace : public QDialog { // 语料:连接 accept/reject → QDialog
 	Q_OBJECT
 public:
@@ -96,8 +100,6 @@ public:
 	// FUN_0072edfe(521B,0022.c:55060 邻)重建列表:
 	//   行表 = FUN_006a4d90(DAT_011c1b00)(全局单例,cited)→ 逐行
 	//   rowListItem(0072bf8a)→ insertItem(count)→ 空表 resetRow(false);
-	//   否则 resetRow(true)+list setFocus(3)+setCurrentItem(item0, 0x13)。
-	void rebuildRowsFromGlobal();
 	// FUN_0072d304(1257B,0022.c:53931)后处理:
 	//   kind==1 → 文案 = FUN_006a2de4(row) + 0xc8a19a + 0xc9d328 拼接;
 	//   +0x80 QLabel 空则新建 → setText;余腿 cited。

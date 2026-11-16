@@ -1,4 +1,4 @@
-// CursorShapeFace.cpp —— 从 Widgets/Faces/MiscWidgetFaces 拆出(按 UI 架构归位)
+// CursorShapeFace.cpp —— 从 Widgets/Faces 拆出(按 UI 架构归位)
 #include "Widgets/Controls/CursorShapeFace.h"
 
 // s_CursorShape_7cf5d0(619B)ctor
