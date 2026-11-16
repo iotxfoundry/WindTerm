@@ -357,3 +357,29 @@ void TriggerDialogFace::rebuildActionModel(TriggerRecord *rec)
 	// s_session_uuid_6f571a(this, rec)(927B,记录逐字段装入各页)— cited
 	Q_UNUSED(rec);
 }
+
+// s_session_uuid_6f571a(927B,0022.c:21521)会话范围模型重建真身(结构段):
+//   逐会话取键 "session.uuid"/"session.icon"(实读),组名/标签经
+//   s_session_group_805a3e / s_session_label_8062b6 取面(cited)。
+void TriggerDialogFace::rebuildSessionScopeModel(TriggerRecord *rec)
+{
+	auto *model = new QStandardItemModel(m_f58);            // @006f5751(0x10,父 +0x58)
+	// defIcon = FUN_0075727c(DAT_011c1ce0, +0x58) — cited(主题缺省图标)
+	// arr = DAT_011c2200->+0xe0;n = 元素数(json_size_or_int_get) — cited
+	// 逐项(0..n-1):
+	//   uuid  = json_get_string_default(obj, "session.uuid", "")   // 键实读
+	//   icon  = json_get_string_default(obj, "session.icon", "")   // 键实读
+	//   group = s_session_group_805a3e(DAT_011c2200, obj)          // cited
+	//   label = s_session_label_8062b6(DAT_011c2200, obj, 1)       // cited
+	//   uuid/label 皆非空才建项;group 非空则 label = "%1 / ".arg(group)+label;
+	//   item = new QStandardItem(icon, label)@006f5862;setData(uuid, 0);
+	//   matched = FUN_0069a216(rec, uuid, 1)@006f589b;
+	//   FUN_006f7184(item, matched ? 2 : 0)@006f58xx(item 标志);
+	//   model->appendRow(item)@006f58xx。
+	Q_UNUSED(rec);
+
+	if (m_f58) {
+		// view_connectModelReset(+0x58, model, 1)@006f5axx — cited
+		// FUN_005d688e(+0x58)@006f5axx — cited
+	}
+}

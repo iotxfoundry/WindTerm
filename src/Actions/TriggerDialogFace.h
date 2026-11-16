@@ -133,6 +133,22 @@ public:
 	//     item(0)->setData(tr("all systems")(0xc9fb7d), 0);解除 block;
 	//   @006f60xx s_session_uuid_6f571a(&this, rec)(927B 逐字段装载)— cited。
 	void rebuildActionModel(struct TriggerRecord *rec);
+
+	// s_session_uuid_6f571a(927B,0022.c:21521)会话范围模型重建(父 = +0x58):
+	//   model = new QStandardItemModel(0x10, +0x58);
+	//   arr = DAT_011c2200->+0xe0(全局会话表);n = 元素数;
+	//   defIcon = FUN_0075727c(DAT_011c1ce0, +0x58)(主题缺省图标);
+	//   逐项 i:[uuid = "session.uuid" / icon = "session.icon" 默认空串]
+	//     group = s_session_group_805a3e(DAT_011c2200, obj);
+	//     label = s_session_label_8062b6(DAT_011c2200, obj, 1);
+	//     uuid/label 皆非空才建项:
+	//       icon 空 → 用 defIcon;否则 theme_icon_load_svg(icon);
+	//       group 非空 → label = "%1 / " .arg(group) + label(头插);
+	//       item = QStandardItem(icon, label);item->setData(uuid, 0);
+	//       matched = FUN_0069a216(rec, uuid, 1);
+	//       FUN_006f7184(item, matched ? 2 : 0)(item 标志位);appendRow;
+	//   尾:view_connectModelReset(+0x58, model, 1);FUN_005d688e(+0x58)。
+	void rebuildSessionScopeModel(struct TriggerRecord *rec);
 	void wire();       // dialog_connectAcceptReject2(006f2852,916B)
 
 	QTabBar *tabBar30() const { return m_tabBar30; }
