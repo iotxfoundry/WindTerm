@@ -24,10 +24,11 @@ protected:
 	QString m_name38;     // +0x38
 };
 
-// FUN_006bd250(242B,0021.c:50039)通用"表单加一行 + 重排 Tab 序"真身:
-//   form = dlg->findChild<QFormLayout*>();空 → 返;
-//   form->addRow(field);
+// FUN_006bd250(242B,0021.c:50039)通用"表单加一行 + 重排 Tab 序"真身。
+// 实参三路 asm 实测(0x6bd25c mov %rsi→rbp / 0x6bd25f mov %rdx→r12):
+//   (dlg, 标签 QString, 字段 QWidget*) → addRow(标签, 字段)。
+//   form = dlg->findChild<QFormLayout*>()(空名递归);空 → 返;
+//   form->addRow(label, field);
 //   prev = form->itemAt(0, FieldRole)->widget();
-//   for (i = 1; i < form->rowCount(); ++i)
-//     cur = form->itemAt(i, FieldRole)->widget();setTabOrder(prev, cur);prev = cur;
-void nameDialogAddFormRow(QWidget *dlg, QWidget *field);
+//   for (i = 1; i < rowCount(); ++i)(itemAt(i, FieldRole)→widget())setTabOrder。
+void nameDialogAddFormRow(QWidget *dlg, const QString &label, QWidget *field);

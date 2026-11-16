@@ -20,15 +20,15 @@ NameDialogFace::NameDialogFace(const QString &name, QWidget *parent)
 	// FUN_006bd50c(670B)+FUN_006bd34a(449B) — cited(输入行/按钮行装配未逐句转写)
 }
 
-// FUN_006bd250(242B,0021.c:50039)真身
-void nameDialogAddFormRow(QWidget *dlg, QWidget *field)
+// FUN_006bd250(242B,0021.c:50039)真身(三实参:dlg / 标签 / 字段)
+void nameDialogAddFormRow(QWidget *dlg, const QString &label, QWidget *field)
 {
 	if (dlg == nullptr || field == nullptr)
 		return;
 	auto *form = dlg->findChild<QFormLayout *>(); // @006bd282(空名递归)
 	if (form == nullptr)
 		return;
-	form->addRow(field);                          // @006bd2a8
+	form->addRow(label, field);                   // @006bd2a8
 
 	QLayoutItem *it = form->itemAt(0, QFormLayout::FieldRole); // @006bd2xx(role 1)
 	if (it == nullptr)
