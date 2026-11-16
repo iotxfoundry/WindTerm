@@ -10,6 +10,7 @@
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QAbstractButton>
 
 // LoginWizard_setupUi(1088B)真身(头部):
 //   @00590f20 +0x50 = QDialogButtonBox(0x400400 = Ok|Cancel);
@@ -31,5 +32,18 @@ void LoginWizardFace::setupUi()
 		ok->setText(tr("Continue")); // 0xc8ace9 @00590f63
 	if (QAbstractButton *cancel = m_buttons50->button(QDialogButtonBox::Cancel))
 		cancel->setText(tr("&Cancel")); // 0xc8a1b5 @00590fb6
-	// 复选/标签/Frame/Form/Stacked/VBox 装配(1088B 余段)— cited。
+	m_check60 = new QCheckBox(tr("&Auto login next time")); // 0xc8acf2 @00591007
+	m_check68 = new QCheckBox(tr("&Remember this step"));   // 0xc8ad08 @0059105c
+	m_label70 = new QLabel();                               // @00591096
+	m_label78 = new QLabel(tr("Login"));                    // 0xd0d9ac @005910d0
+	m_label78->setAlignment(Qt::AlignCenter);               // 0x84 @005910f6
+	m_check60->setChecked(false); // 实参折叠 — cited
+	// FUN_00590ee0(this)@005910xx — cited
+	m_hbox = new QHBoxLayout();            // @00591127
+	m_hbox->addWidget(m_check60);          // +0x60
+	m_hbox->addWidget(m_check68);          // +0x68
+	m_hbox->addWidget(m_buttons50);        // +0x50
+	m_frame = new QFrame();                // @00591170
+	m_frame->setFrameShape(QFrame::HLine); // 4
+	// setFrameShadow(实参折叠)— cited;Form/Stacked/VBox 余段 cited。
 }
