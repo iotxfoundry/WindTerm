@@ -3493,6 +3493,8 @@
 0079ac1c	src/Sessions/Transfers/Modem.h
 0079ac26	src/Sessions/Transfers/Modem.cpp
 0079ac26	src/Sessions/Transfers/Modem.h
+0079b466	src/Sessions/Transfers/XYModem.cpp
+0079b466	src/Sessions/Transfers/XYModem.h
 0079b610	src/Sessions/Transfers/Modem.cpp
 0079b610	src/Sessions/Transfers/Modem.h
 0079b610	src/Sessions/Transfers/ZModem.cpp

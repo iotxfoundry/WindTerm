@@ -246,13 +246,47 @@ void XYModem::recvPkt(const QByteArray &data)
 	}
 }
 
-// FUN_0079cab4(0x0079cab4,775B)— cited:解析 YMODEM 头块(文件名 / 大小 /
-// 修改时间,写入 +0x38 / +0x90 / +0x98),返回 false 表示头块无效。
+// FUN_0079cab4(775B)YMODEM 头块解析真身。逐句:
+//   block  = QByteArray::fromRawData(payload, len)
+//   nul    = block.indexOf('\0');name = block.left(nul);rest = block.mid(nul + 1)
+//   fields = rest.split(' ')(QList<QByteArray>)
+//   setReceiveFileName(QString::fromUtf8(name))(0x0079b466)
+//   fields 非空 → m_expectedSize90 = fields[0].toUInt(&ok),!ok → -1;
+//                 fields 多于 1 项 → m_f98 = fields[1].toLongLong(&ok2),!ok2 → -1
+//   m_writtenA0 = 0;返回 true
 bool XYModem::handleHeader(const char *payload, int len)
 {
-	Q_UNUSED(payload);
-	Q_UNUSED(len);
-	return false;
+	const QByteArray block = QByteArray::fromRawData(payload, len);
+	const int nul = block.indexOf('\0');
+	setReceiveFileName(QString::fromUtf8(block.left(nul))); // +0x38
+	const QList<QByteArray> fields = block.mid(nul + 1).split(' ');
+
+	if (!fields.isEmpty()) {
+		bool ok = false;
+		const uint size = fields.at(0).toUInt(&ok);
+		m_expectedSize90 = ok ? int(size) : -1; // +0x90
+		if (fields.size() > 1) {
+			bool okTime = false;
+			const qlonglong mtime = fields.at(1).toLongLong(&okTime);
+			m_f98 = okTime ? mtime : -1; // +0x98
+		}
+	}
+	m_writtenA0 = 0; // +0xa0
+	return true;
+}
+
+// FUN_0079b466(396B)接收文件名真身。逐句:
+//   name 为空 → 返回;+0x38 = QDir::toNativeSeparators(name)
+//   slash = +0x38.lastIndexOf(QDir::separator(), -1, Qt::CaseSensitive)
+//   path_normalizeSep("Receiving: %1\r\n"(0x0f 字符).arg(+0x38.mid(slash + 1)))
+//   (mid 的 pos 由 asm 0x79b4f7 `lea 0x1(%r12),%edx` 实读 = lastIndexOf + 1)
+void XYModem::setReceiveFileName(const QString &name)
+{
+	if (name.isEmpty())
+		return;
+	m_receiveFileName = QDir::toNativeSeparators(name); // +0x38
+	const int slash = m_receiveFileName.lastIndexOf(QDir::separator());
+	appendText(QStringLiteral("Receiving: %1\r\n").arg(m_receiveFileName.mid(slash + 1)));
 }
 
 // xymodem_processInput(0x0079ed2e,1030B)上传侧应答状态机(逐字节)。状态 +0x58:

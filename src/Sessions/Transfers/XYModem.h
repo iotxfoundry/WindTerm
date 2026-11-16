@@ -63,7 +63,8 @@ protected:
 
 	// ---- 协议核(体量 1–4KB,入口已锚定,正文 cited) --------------------
 	void recvPkt(const QByteArray &data);      // 0079cde6(2094B)已落
-	bool handleHeader(const char *payload, int len); // FUN_0079cab4 0079cab4(775B)cited
+	bool handleHeader(const char *payload, int len); // 0079cab4(775B)已落
+	void setReceiveFileName(const QString &name);      // 0079b466(396B)已落
 	void processInput(const QByteArray &data); // 0079ed2e(1030B)已落
 	void sendNext(int crcMode);                // 0079eb8c(388B)组一块并发出
 	bool buildPacket(int crcMode);             // FUN_0079dc32 0079dc32(3833B)cited
