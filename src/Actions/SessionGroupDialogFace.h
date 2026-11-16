@@ -14,7 +14,15 @@ class SessionGroupDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit SessionGroupDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_006d97d0 — 结构段(cited)
-	void build2();   // FUN_006d991e — 结构段(cited)
+
+	// FUN_006d991e(293B)**装配**:仅 **QFormLayout + QDialogButtonBox**
+	//   (无 tr 字符串 —— 行标签来自别处/复用)。
+	void build();
+	// FUN_006d97d0(334B)**接线**:字段 **+0x30** 一路,闭包 FUN_006b2420。
+	void wire();
+
+protected:
+	QWidget *m_f30 = nullptr; // +0x30
+	QWidget *m_f38 = nullptr; // +0x38
 };
 
