@@ -201,6 +201,33 @@ protected:
 	QWidget *m_f50 = nullptr;                      // +0x50(0x40 附件)
 };
 
+// CustomMenuTriggerPageFace — kind 6(new 0x60)装配 FUN_00703fb0(683B):
+//   form;l1 = tr("&Match:")(0xc9fd97);l2 = tr("&Actions:")(0xc9ff05);
+//   src = FUN_006f7830(this)(行源/模型,cited);
+//   +0x38 = new 0x68 + FUN_0056376e(0xe000)(文本域);+0x40 = w+0x40;
+//   +0x48 = new 0x48 + FUN_00584e4a(w, **0x48f**, 0)(表件);
+//   +0x50 = new 0x40 + FUN_00703a58(w, 0);
+//   两 label setBuddy;
+//   两列表头 = tr("Label")(0xd0e72f) / tr("Action")(0xc9fcf1) →
+//     qlist_appendRange → FUN_00584ee8(+0x48);
+//   FUN_00533a0c(+0x48, 1, src)(表 → 行源);
+//   FUN_00566d6e(+0x40, tr("No action available")(0xc9ff0f))(占位);
+//   margins 全零;assembleBusyOverlay();addRow ×5;setLayout;
+//   setTabOrder(+0x40 → +0x50 → +0x58);setFocusProxy。
+class CustomMenuTriggerPageFace : public TriggerPageFace {
+	Q_OBJECT
+public:
+	explicit CustomMenuTriggerPageFace(QWidget *parent = nullptr);
+	void assembleCustomMenuPage(); // FUN_00703fb0
+
+protected:
+	QWidget *m_edit38 = nullptr;  // +0x38(0x68 文本域)
+	QWidget *m_f40 = nullptr;     // +0x40
+	QWidget *m_table48 = nullptr; // +0x48(0x48 表件,0x48f)
+	QWidget *m_f50 = nullptr;     // +0x50(0x40 附件)
+	QWidget *m_f58 = nullptr;     // +0x58(行源件,FUN_006f7830)
+};
+
 // PlaySoundTriggerPageFace — kind 9(new 0x48)装配 FUN_00704340(470B):
 //   form;label = QLabel(tr("&Rules:")(0xc9fd07));
 //   +0x38 = new 0x48 + FUN_00584e4a(w, **0x48f**, 0)(表件);+0x40 = w+0x40;

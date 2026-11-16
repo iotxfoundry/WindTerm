@@ -420,3 +420,35 @@ void ShowTooltipTriggerPageFace::assembleShowTooltipPage()
 	QWidget::setTabOrder(m_f50, m_f58);                        // @(+0x50 → +0x58)
 	setFocusProxy(this);
 }
+
+// FUN_00703fb0(683B)CustomMenu 页装配真身
+CustomMenuTriggerPageFace::CustomMenuTriggerPageFace(QWidget *parent)
+	: TriggerPageFace(parent)
+{
+	assembleCustomMenuPage();
+}
+
+void CustomMenuTriggerPageFace::assembleCustomMenuPage()
+{
+	auto *form = new QFormLayout;                              // @00703fd1(0x20)
+	auto *l1 = new QLabel(QStringLiteral("&Match:"));          // tr(0xc9fd97)
+	auto *l2 = new QLabel(QStringLiteral("&Actions:"));        // tr(0xc9ff05)
+	// src = FUN_006f7830(this)@00703fxx(行源/模型)— cited
+	m_edit38 = new QWidget(this);                              // 0x68 + FUN_0056376e(0xe000) cited
+	m_f40 = m_edit38;                                          // +0x40
+	m_table48 = new QWidget(this);                             // 0x48 + FUN_00584e4a(0x48f) cited
+	m_f50 = new QWidget(this);                                 // 0x40 + FUN_00703a58(0) cited
+	l1->setBuddy(m_edit38);
+	l2->setBuddy(m_table48);
+	// 两列表头(实读):Label / Action → FUN_00584ee8(+0x48)@007040xx — cited
+	// FUN_00533a0c(+0x48, 1, src)@007040xx(表 ← 行源)— cited
+	// FUN_00566d6e(+0x40, tr("No action available")(0xc9ff0f))@007040xx — cited
+	form->setContentsMargins(0, 0, 0, 0);                      // 全零
+	assembleBusyOverlay();                                     // @007041xx(FUN_006f1994)
+	form->addRow(l1);                                          // addRow ×5(实参折叠)
+	form->addRow(l2);
+	setLayout(form);
+	QWidget::setTabOrder(m_f40, m_f50);                        // @(+0x40 → +0x50)
+	QWidget::setTabOrder(m_f50, m_f58);                        // @(+0x50 → +0x58)
+	setFocusProxy(this);
+}
