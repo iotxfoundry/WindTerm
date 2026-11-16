@@ -1038,8 +1038,8 @@ void TabBar::onCurrentChangedBuildCloseButton(int index)
 		return;
 	for (int i = 0; i < count(); ++i) {
 		if (i == index) {
-			// 造关钮(s_CloseButton_5a6d42)+ FUN_005a824c(this, i, 关钮)
-			//   = setTabButton(i, RightSide, 关钮) — 造钮体 cited
+			if (!tabDataAt(index).isEmpty())          // 空数据页不造关钮
+				attachCloseButtonIfAllowed(index, makeCloseButton(this));
 		} else {
 			// 该页节点 deleteLater()(旧关钮销毁)— cited
 		}
@@ -1075,4 +1075,12 @@ void TabBar::attachCloseButtonIfAllowed(int index, QToolButton *button)
 	if (data.isEmpty() || data == QStringLiteral("Pinned")) // 空名/固定页 → 不挂
 		return;
 	setTabButton(index, QTabBar::RightSide, button);   // @005a82xx
+}
+
+// FUN_005a6d00(65B)取该页数据串真身
+QString TabBar::tabDataAt(int index) const
+{
+	if (index < 0 || index >= count())           // 越界 → 空串
+		return QString();
+	return tabData(index).toString();            // +0x68 平行表第 index 项
 }

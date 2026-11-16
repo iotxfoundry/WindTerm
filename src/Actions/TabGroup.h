@@ -133,6 +133,12 @@ public:
     //   (即**固定页/无名页没有关闭按钮**);否则 setTabButton(RightSide, 关钮)。
     void attachCloseButtonIfAllowed(int index, class QToolButton *button);
 
+    // FUN_005a6d00(65B,0018.c:21888)取该页数据串:
+    //   **+0x68 平行表**第 index 项(越界/负值 → 空串)。
+    //   页切换槽即用它判 `长度 != 0` 才造关钮 —— 与 005a824c 的
+    //   "空名不挂钮" 规则同源。
+    QString tabDataAt(int index) const;
+
     void removeTabNodes(int index);
     // 0058e38a(1942B,0018:...)TabBar 列表/右键菜单:
     //   +0x50 表空 → FUN_0058d940(空态腿);
