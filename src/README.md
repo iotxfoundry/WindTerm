@@ -72,14 +72,45 @@ src/
 | `Terminal/` | 终端数据模型与状态机 | 渲染控件(→ `Widgets/Views/`) |
 | `Editor/` | 编辑引擎与配置 | 通用控件 |
 
-## 1b. 三类来源(与上面结构正交)
+## 1b. 五类代码 —— 判定流程(按序问,先命中先定)
 
-| 目录 | 类 | 说明 |
-|---|---|---|
-| `Actions/` `Editor/` `Sessions/` `Widgets/` `Stubs/` | **A** | 逆向重建;每行有 `FUN_`/`cited` |
-| `Utility/` `Widgets/` 内的 `[B-OPENSOURCE]` 文件,`Protocols/` `Pty/` | **B** | 作者 Apache-2.0 开源件,移植须 `docs/calibration.md` 逐句同构 |
-| `Scintilla/` `jsoncpp/` `yaml-cpp/` `spdlog/` `fmt/` `dtl/` `libssh/` `Onigmo/` | **C** | 第三方库,不逆向不改 |
-| `Ext/` | A | 外部库的**接口面**声明(Spdlog/Zstd) |
+| # | 类 | 判据 | 怎么处理 |
+|---|---|---|---|
+| 1 | **C 第三方库** | 路径在 `Scintilla/` `jsoncpp/` `yaml-cpp/` `spdlog/` `fmt/` `dtl/` `libssh/` `Onigmo/` | **不逆向、不改**;只转写 WindTerm 侧调用面(`src/Ext/`) |
+| 2 | **D 外部库接口面** | 路径在 `Ext/` | 只有声明;实现委托真库或 no-op |
+| 3 | **E 生成桩** | 路径在 `Stubs/` | `gen_stubs.py` 生成的 cited 空实现;转写出真身后删该行 |
+| 4 | **B 第一方开源** | 文件头有 `[B-OPENSOURCE]`,或在 `tools/re/data/open_source_files.txt` | **勿逆向**;移植须 `docs/calibration.md` 逐句同构 |
+| 5 | **A 已逆向** | 有出处 —— `FUN_xxxxxxxx` / 裸地址 `00xxxxxx`(在 `.text` 内)/ `s_名_xxxxxx` / `// cited` / 「出处:QMetaObject」 | 正常逆向;`coverage.py --addr` 查重后再动 |
+| — | *未分类* | 以上都不命中 | **违规**;`coverage.py --audit` 会报 |
+
+**一条命令搞定**:
+
+```bash
+python3 tools/re/coverage.py --what src/Widgets/Bars/StatusBarFace.h
+python3 tools/re/coverage.py --what TunnelDialogFace        # 也收类名
+```
+
+输出:类别 / 依据(出处计数)/ Q_OBJECT / 基类 / Qt 前置声明数。
+
+### Qt 接口怎么算?
+
+Qt **不在本仓**(用系统 Qt5,`lib/` 只放运行时 so)。所以:
+
+- `#include <QWidget>` = 外部头,不是我们的代码;
+- `class QComboBox;` = 我们的**前置声明**,只为省编译;
+- `class FooFace : public QDialog` = **我们的类**,基类是 Qt 的,派生类是本仓的 ——
+  逆向对象是 `FooFace`(基类行为不转写,直接委托 Qt)。
+
+判定口诀:**尖括号里的是 Qt,`src/` 里 `Q*` 开头的只是前向声明。**
+
+### 函数级判定
+
+文件级看上面;函数级问「这条地址做过没有」:
+
+```bash
+python3 tools/re/coverage.py --addr 006b35a6     # → 2 个文件(已做)
+python3 tools/re/coverage.py --addr 00abcdef     # → 0 个文件(未做)
+```
 
 ## 2. 第一方开源件(勿逆向)—— 混放 + 文件级标记
 

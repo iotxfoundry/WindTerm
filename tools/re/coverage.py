@@ -176,6 +176,57 @@ def main():
             print('  0x%s  %s' % (a, ', '.join(sorted(addr2files[a]))[:80]))
         sys.exit(0)
 
+    if '--what' in sys.argv:
+        arg = sys.argv[sys.argv.index('--what') + 1]
+        # 允许传类名:先按类名找声明文件
+        if not arg.endswith(('.h', '.cpp')):
+            for f in glob.glob(os.path.join(SRC, '**', '*.h'), recursive=True):
+                if re.search(r'^\s*(?:class|struct)\s+%s\b' % re.escape(arg),
+                             open(f, encoding='utf-8', errors='ignore').read(), re.M):
+                    arg = os.path.relpath(f, os.path.join(SRC, '..'))
+                    break
+            else:   # 退回按文件名匹配(文件名≠类名的情况,如 KingEnums.h)
+                for f in glob.glob(os.path.join(SRC, '**', arg + '.*'), recursive=True):
+                    arg = os.path.relpath(f, os.path.join(SRC, '..'))
+                    break
+        if not os.path.exists(arg):
+            print('找不到:', arg); sys.exit(1)
+        txt = open(arg, encoding='utf-8', errors='ignore').read()
+        rel = os.path.relpath(os.path.abspath(arg), os.path.abspath(os.path.join(SRC, '..')))
+        third = ('Scintilla', 'jsoncpp', 'yaml-cpp', 'spdlog', 'fmt', 'dtl', 'libssh', 'Onigmo')
+        if any(x in rel.split('/')[1:2] for x in third):
+            kind, why = 'C 第三方库', '路径在第三方库目录下(不逆向、不改)'
+        elif '/Ext/' in '/' + rel:
+            kind, why = 'D 外部库接口面', 'Ext/:只声明调用面,实现委托真库'
+        elif '/Stubs/' in '/' + rel:
+            kind, why = 'E 生成桩', 'Stubs/:gen_stubs 生成的 cited 空实现,转写后删除该行'
+        elif '[B-OPENSOURCE]' in txt or rel in open_source():
+            kind, why = 'B 第一方开源', '带 [B-OPENSOURCE] 标记 / 在 open_source_files.txt'
+        else:
+            n_fun = len(re.findall(r'(?<!PTR_)FUN_[0-9a-f]{8}', txt))
+            n_bare = len([a for a in re.findall(r'(?<![\w.])(00[0-9a-f]{6})(?![\w])', txt)
+                          if 0x4c33c0 <= int(a, 16) < 0xc89000])
+            n_sym = len(re.findall(r'\bs_[A-Za-z0-9_]+_[0-9a-f]{6}\b', txt))
+            prose = re.search(r'语料|反编译|Reconstructed from WindTerm|QMetaObject|出处', txt)
+            if n_fun or n_bare or n_sym or 'cited' in txt or prose:
+                kind = 'A 已逆向'
+                why = '出处 FUN_×%d / 裸地址×%d / s_符号×%d / cited=%s%s' % (
+                    n_fun, n_bare, n_sym, '有' if 'cited' in txt else '无',
+                    ' / 说明型出处(%s)' % prose.group(0) if prose and not (n_fun or n_bare or n_sym) else '')
+            else:
+                kind, why = '?) 未分类', '无任何出处 —— coverage.py --audit 会报'
+        qobj = 'Q_OBJECT' if 'Q_OBJECT' in txt else '—'
+        bases = re.findall(r'^\s*class\s+\w+\s*:\s*(?:public|private|protected)\s+([\w:]+)',
+                           txt, re.M)
+        qfwd = len(set(re.findall(r'^class\s+(Q\w+);', txt, re.M)))
+        print('文件   :', rel)
+        print('类别   :', kind)
+        print('依据   :', why)
+        print('Q_OBJECT:', qobj, ' 基类:', ', '.join(bases) or '—')
+        if qfwd:
+            print('Qt 接口: 本文件有 %d 个 Qt 前置声明(Q* 类不属本仓,不逆向)' % qfwd)
+        sys.exit(0)
+
     if '--audit' in sys.argv:
         want = open_source()
         prose = re.compile(r'语料|反编译|Reconstructed from WindTerm|QMetaObject|出处')

@@ -84,6 +84,26 @@
 - ❌ 把**不同层的类塞进同一个文件**(一个文件一个架构角色;拆开)
 - ❌ 在 `Actions/` 放控件、在 `Widgets/` 放业务逻辑、在 `Sessions/` 放 QWidget
 
+**动手前先判「这文件是什么」—— 一条命令**
+
+```bash
+python3 tools/re/coverage.py --what <文件或类名>
+```
+
+按序判定,先命中先定(**Qt 不在本仓,不算任何一类**):
+
+| 序 | 类 | 命中条件 | 处置 |
+|---|---|---|---|
+| 1 | C 第三方 | 路径在 `Scintilla/jsoncpp/yaml-cpp/spdlog/fmt/dtl/libssh/Onigmo` | 不逆向不改 |
+| 2 | D 外库接口面 | `Ext/` | 只声明,委托真库 |
+| 3 | E 生成桩 | `Stubs/` | cited 空实现,转写后删行 |
+| 4 | B 第一方开源 | `[B-OPENSOURCE]` 或清单命中 | **勿逆向**,按 calibration 移植 |
+| 5 | A 已逆向 | 有 `FUN_`/裸地址/`s_符号`/`cited`/「出处:QMetaObject」 | 正常逆向,先 `--addr` 查重 |
+| — | 未分类 | 都不命中 | 违规,`--audit` 报 |
+
+Qt 的边界:`#include <Q...>` 是外部头;`class QFoo;` 只是我们的前置声明;
+`class XFace : public QDialog` 里**反的是 XFace**,Qt 基类行为不转写。
+
 **反漂移检查(改完目录/新增文件后跑)**
 
 ```bash
