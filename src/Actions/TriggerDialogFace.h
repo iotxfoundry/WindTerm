@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QDialog>
+#include <QHash>
 #include <QList>
 #include <QMap>
 #include <QString>
@@ -72,17 +73,38 @@ public:
 	//   逐项 FUN_006f9f0c 后 deallocate(0x48,8));+0x98 = 缺省记录。
 	// 字段:+0x10 名字 QString(006f2738 逐项 == 比较)/+0x20 byte(页栈
 	//   param_3)/+0x24 int 页 kind(0 = 无页)/+0x28 子结构(页栈 param_4)。
-	struct TriggerRecord {          // 总 0x48(与 deallocate(0x48,8) 一致)
-		char f00[8] = {};           // +0x00..0x07(未解)
-		QString name08;             // +0x08(提示框 "Name" 行,006f2f6x)
-		QString key10;              // +0x10(006f2738 逐项 == 的键)
-		QString desc18;             // +0x18(提示框 "Description" 行 + 编辑框回填)
-		char f20 = 0;               // +0x20(页栈 param_3)
-		char f21 = 0;               // +0x21(0 = 不进列表,006f61xx)
-		char f22[2] = {};           // +0x22..0x23(未解)
-		int kind24 = 0;             // +0x24(页 kind;0 = 无页)
-		char f28[0x48 - 0x28] = {}; // +0x28..0x47(页栈 param_4 的宿主)
+	// 布局由 448B ctor(s_terminal_ansiBrightBlack_699c2a,批 361)逐字段实测:
+	//   +0x00 byte=0 / +0x08 name / +0x10 key / +0x18 空 QString /
+	//   +0x20 + 0x21 都置 1(0x0101 一次写;+0x20 = 启用/图标 active,
+	//   +0x21 = 入列表)/ +0x24 kind / +0x28 默认样式(QVariant)/
+	//   +0x30 未定(初值 0x80000000)/ +0x38 QMap / +0x40 QHash。
+	//   总 0x48 —— 与 deallocate(0x48,8) 一致。
+	struct TriggerRecord {
+		char f00 = 0;                            // +0x00
+		char pad01[7] = {};                      // +0x01..0x07
+		QString name08;                          // +0x08(建项/提示框 "Name")
+		QString key10;                           // +0x10(UserRole 键)
+		QString desc18;                          // +0x18(提示框 "Description"/编辑回填)
+		char f20 = 1;                            // +0x20(启用;图标 active 位)
+		char f21 = 1;                            // +0x21(入列表;0 = 隐藏)
+		char pad22[2] = {};                      // +0x22..0x23
+		int kind24 = 0;                          // +0x24(页 kind;0 = 无页)
+		QVariant f28;                            // +0x28(默认样式 map)
+		char f30[8] = {};                        // +0x30(未定;初值 0x80000000)
+		QMap<QString, QVariant> f38;             // +0x38
+		QHash<QString, QVariant> f40;            // +0x40
 	};
+
+	// s_terminal_ansiBrightBlack_699c2a(448B,0021.c:24341)**名不副实**:
+	//   实为 TriggerRecord 构造函数。逐字段见上;尾部:
+	//   key 空 && kind == 0 → 直返;key 空 → FUN_00698ffc(缺省化);
+	//   kind ∉ [5..] 且 != 12 → 直返;否则置默认样式:
+	//     map["text.lineStyle"] = QVariant(QMetaEnum::valueToKey(
+	//        enumerator(0x1180860), kind));
+	//     map["text.lineColor"] = QVariant("terminal.ansiBrightBlack")
+	//        ← **函数名即由此字面而来**;
+	//     → +0x28 = QVariant(map)。
+	static TriggerRecord makeRecord(int kind, const QString &name, const QString &key);
 
 	// FUN_006f3286(89B,0022.c:20176)当前行记录:
 	//   row = +0x68 currentRow();idx = currentRecordIndex(row);

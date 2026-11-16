@@ -482,3 +482,37 @@ void TriggerDialogFace::addTrigger()
 	nameDialogAddFormRow(dlg, QStringLiteral("&Type:"), combo);        // @006f4358(0xc9fb1a)
 	// (**(*dlg + 0x1a0))(dlg)@006f43xx — 显示腿(cited 未定名)
 }
+
+// s_terminal_ansiBrightBlack_699c2a(448B,0021.c:24341)TriggerRecord ctor 真身
+TriggerDialogFace::TriggerRecord TriggerDialogFace::makeRecord(int kind, const QString &name,
+                                                               const QString &key)
+{
+	TriggerRecord r;                       // @00699c2a *param_1 = 0;逐字段落
+	r.name08 = name;                       // +0x08
+	r.key10 = key;                         // +0x10
+	r.desc18 = QString();                  // +0x18(shared_null)
+	r.f20 = 1;                             // +0x20 ┐ 0x0101 一次写
+	r.f21 = 1;                             // +0x21 ┘
+	r.kind24 = kind;                       // +0x24
+	// +0x28 = 空;+0x30 = 0x80000000;+0x38 QMap / +0x40 QHash 空(成员默认)
+
+	if (key.isEmpty()) {
+		// @00699cb2 key 空:kind == 0 → 直返;否则 FUN_00698ffc(&r) 缺省化 — cited
+		if (kind == 0)
+			return r;
+	}
+	// @00699ccx 语料:if (1 < (unsigned)(kind - 5) && kind != 0xc) return;
+	//   ⇒ 只有 kind ∈ {5, 6, 12} 落默认样式腿。
+	if ((kind < 5 || kind >= 7) && kind != 12)
+		return r;
+
+	if (kind == 5 || kind == 6 || kind == 12) { // @00699cxx 默认样式腿
+		QMap<QString, QVariant> style;
+		// enumKey = QMetaEnum::valueToKey(enumerator(0x1180860), kind) — cited
+		style.insert(QStringLiteral("text.lineStyle"), QVariant());  // 值 cited
+		style.insert(QStringLiteral("text.lineColor"),
+		             QVariant(QStringLiteral("terminal.ansiBrightBlack"))); // @00699d64
+		r.f28 = QVariant(style);           // +0x28 = QVariant(map)
+	}
+	return r;
+}
