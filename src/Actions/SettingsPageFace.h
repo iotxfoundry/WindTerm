@@ -201,7 +201,12 @@ public:
 	void resetRow(bool enable);
 
 	// 语料字段族(供后续 loadWidgets/reset 腿使用)
-	// **字段表(批 414,由 s_king__tunnelDynamic_72c08e 3404B 建造函数逐配对实测)**:
+	// ⚠ **本字段表的出处已被勘正(批 415)**:下面的偏移表来自 3404B 建造函数,
+	//   而 3404B 与 935B 接线**同属 TunnelDialog**(见 TunnelDialogFace.h)。
+	//   故本表是 **TunnelDialog 的字段**,本类(SettingsPageFace)沿用它是
+	//   **批 258/414 的误归属**,待收尾期复核后修;此处保留以免连带破坏。
+	//
+	// **字段表(批 414 原记,出处见上)**:
 	//   +0x30 0x20 QGridLayout(布局) / +0x38 QCheckBox / +0x40 QCheckBox /
 	//   +0x48 QComboBox / +0x50 QLineEdit / +0x58 QComboBox / +0x60 QLineEdit /
 	//   +0x68 QSpinBox / +0x70 QSpinBox / +0x78 QDialogButtonBox(0x30)/
