@@ -18,6 +18,7 @@
 #include <QCoreApplication>
 #include <QFont>
 #include <QStandardItemModel>
+#include <QUuid>
 #include <QStackedLayout>
 #include <QStackedWidget>
 #include <QTabBar>
@@ -639,4 +640,31 @@ void TriggerDialogFace::commitCurrentPage(int row)
 		// 并入 rec:+0x38 QMap / +0x40 QHash,并回写(实参 Ghidra 折叠)— cited
 	}
 	// 末尾按 row 刷新列表项文本/提示框(006f2ed8 / 006f2460 面)— cited
+}
+
+// FUN_00698fb2(73B,0021.c:23754)记录缺省构造真身
+TriggerDialogFace::TriggerRecord TriggerDialogFace::defaultRecord()
+{
+	TriggerRecord r;
+	r.f00 = 0;                            // +0x00
+	r.f20 = 0;                            // +0x20 ┐ 0x0100 一次写
+	r.f21 = 1;                            // +0x21 ┘
+	r.kind24 = 0;                         // +0x24
+	// +0x28.. 清;+0x38 QMap / +0x40 QHash 空(成员默认)
+	return r;
+}
+
+// FUN_00698ffc(80B)重生成唯一键真身
+void TriggerDialogFace::regenerateKey(TriggerRecord &rec)
+{
+	rec.key10 = QUuid::createUuid().toString(QUuid::WithoutBraces); // +0x10
+}
+
+// FUN_0069904c(50B)设样式真身
+void TriggerDialogFace::setStyle(TriggerRecord &rec, const QVariant &style)
+{
+	if (rec.f28 == style)                 // QVariant::cmp == 0
+		return;
+	rec.f28 = style;                      // +0x28
+	rec.f00 = 1;                          // +0x00(样式已设)
 }

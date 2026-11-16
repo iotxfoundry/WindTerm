@@ -106,6 +106,24 @@ public:
 	//     → +0x28 = QVariant(map)。
 	static TriggerRecord makeRecord(int kind, const QString &name, const QString &key);
 
+	// FUN_00698fb2(73B,0021.c:23754)记录缺省构造:
+	//   +0x00=0 / +0x08,+0x10,+0x18 空 QString / **+0x20..0x21 = 0x0100**
+	//   (低字节 f20=0 未启用,高字节 f21=1 入列表)/ +0x24 kind=0 /
+	//   +0x28 起清 / +0x38 QMap / +0x40 QHash。
+	static TriggerRecord defaultRecord();
+
+	// FUN_00698ffc(80B)重生成唯一键:**+0x10 = QUuid::createUuid()
+	//   .toString(WithoutBraces)** —— 故 +0x10 是 uuid(即 UserRole 存的键),
+	//   不是"名字"。
+	static void regenerateKey(TriggerRecord &rec);
+
+	// FUN_0069904c(50B)设样式:若 +0x28 QVariant 与入参不同 →
+	//   +0x28 = 入参;+0x00 = 1(样式已设 flag)。
+	static void setStyle(TriggerRecord &rec, const QVariant &style);
+
+	// FUN_0069907e(10B)是否连接类 kind:`kind - 1 < 4` ⇒ 1..4。
+	static bool isConnectionKind(int kind) { return static_cast<unsigned>(kind - 1) < 4; }
+
 	// FUN_006f35fe(192B,0022.c:20306)追加记录(新增腿的落库步):
 	//   item = makeItemForRecord(rec)(FUN_006f263e);null → 返;
 	//   row = +0x68 currentRow();+0x90 在 row+1 处插入 rec(FUN_006a0090);
