@@ -249,14 +249,14 @@ def defs_status():
             if not a:
                 # 兜底:出处写在函数体**第一行**(`{` 之后),如
                 # `CTerminalConfig::instance() { // FUN_00809d78: … }`。
-                b = i + 1
-                while b <= j and not L[b].strip() if b < len(L) else False:
+                b, n = i + 1, len(L)
+                while b <= j and b < n and not L[b].strip():
                     b += 1
-                if b <= j and L[b].strip() == '{':
+                if b <= j and b < n and L[b].strip() == '{':
                     b += 1
-                    while b <= j and not L[b].strip():
+                    while b <= j and b < n and not L[b].strip():
                         b += 1
-                if b <= j and ORIGIN_HEAD.search(L[b]):
+                if b <= j and b < n and ORIGIN_HEAD.search(L[b]):
                     a = first_addr(L[b])
             if a:
                 (real if len(nb) > 40 else stub).add(a)

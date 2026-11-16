@@ -13456,7 +13456,7 @@
 00534ca0	111	FUN_00534ca0	todo	
 00534d10	102	FUN_00534d10	todo	
 00534d80	29	FUN_00534d80	ref	src/Widgets/Views/LockScreenFace.cpp
-00534da0	119	FUN_00534da0	todo	
+00534da0	119	FUN_00534da0	ref	src/Actions/FilterEditActionFace.cpp
 00534e20	66	FUN_00534e20	todo	
 00534e62	344	s_CheckList_534e62	ref	src/Widgets/Controls/CheckListFace.cpp,src/Widgets/Controls/CheckListFace.h,src/Widgets/Controls/CloseButtonFace.h
 00534fd6	128	FUN_00534fd6	todo	
@@ -13841,7 +13841,7 @@
 00556570	29	FUN_00556570	todo	
 00556590	124	FUN_00556590	todo	
 0055660c	496	FUN_0055660c	todo	
-0055682e	112	FontComboBox_dtor	todo	
+0055682e	112	FontComboBox_dtor	real	
 0055689e	6	FUN_0055689e	todo	
 005568a4	23	FontComboBox_dtor_deleting	todo	
 005568bb	6	FUN_005568bb	todo	
@@ -14149,7 +14149,7 @@
 005710b8	60	FUN_005710b8	todo	
 00571116	67	FUN_00571116	todo	
 00571170	119	FUN_00571170	todo	
-005711f0	369	LabelAction_vt14	qtplumb	
+005711f0	369	LabelAction_vt14	real	
 005713b0	1034	s_ItemContainer_5713b0	todo	
 0057181a	304	s_king__pause_57181a	todo	
 0057196a	12007	s_transfer_localFileSystem_57196a	todo	
@@ -14167,7 +14167,7 @@
 005756dc	743	FUN_005756dc	todo	
 005759ee	681	FUN_005759ee	todo	
 00575cb6	92	TreeItemDelegate_vt6	qtplumb	
-00575d12	1	FUN_00575d12	ref	src/Widgets/Panes/OutlinePaneFace.cpp
+00575d12	1	FUN_00575d12	ref	src/Widgets/Controls/ToolsFace.cpp,src/Widgets/Panes/OutlinePaneFace.cpp
 00575d14	4	FileSystemItem_dtor_deleting	ref	src/Sessions/Core/FileOps.h
 00575d18	6	_M_destroy	todo	
 00575d1e	214	FUN_00575d1e	todo	
@@ -14833,7 +14833,7 @@
 005b2c00	37	CloseButtonAction_dtor_deleting	todo	
 005b2c26	19	FilterEditAction_dtor	todo	
 005b2c3a	37	FilterEditAction_dtor_deleting	todo	
-005b2c60	222	CloseButtonAction_vt12	qtplumb	
+005b2c60	222	CloseButtonAction_vt12	real	
 005b2d60	110	FUN_005b2d60	todo	
 005b2dd0	116	FUN_005b2dd0	todo	
 005b2e50	102	FUN_005b2e50	todo	
@@ -14843,7 +14843,7 @@
 005b2fc0	245	FUN_005b2fc0	todo	
 005b30b6	50	FUN_005b30b6	todo	
 005b3110	111	FUN_005b3110	todo	
-005b3180	87	FilterEditAction_vt14	qtplumb	
+005b3180	87	FilterEditAction_vt14	real	
 005b31f0	155	FUN_005b31f0	ref	src/Widgets/Controls/SwitchButtonFace.cpp
 005b329c	283	FUN_005b329c	todo	
 005b33e0	270	SwitchButton_vt5	real	src/Widgets/Controls/SwitchButtonFace.cpp,src/Widgets/Controls/SwitchButtonFace.h
@@ -19549,7 +19549,7 @@
 007488da	124	FUN_007488da	todo	
 00748956	106	FUN_00748956	todo	
 007489c0	155	s_OutputPane_7489c0	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
-00748a66	29	OutputPane_dtor	todo	
+00748a66	29	OutputPane_dtor	real	
 00748a83	6	FUN_00748a83	todo	
 00748a8a	23	OutputPane_dtor_deleting	todo	
 00748aa1	6	FUN_00748aa1	todo	
@@ -19698,7 +19698,7 @@
 007525da	34	FUN_007525da	ref	src/App/ApplicationTheme.cpp
 007525fc	49	FUN_007525fc	todo	
 0075262e	16	FUN_0075262e	todo	
-0075263e	1	FUN_0075263e	ref	src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h,src/Widgets/Dialogs/RunToolDialogFace.cpp,src/Widgets/Dialogs/RunToolDialogFace.h
+0075263e	1	FUN_0075263e	ref	src/Actions/UndoListActionFace.h,src/Widgets/Controls/SearchEditFace.cpp,src/Widgets/Controls/SearchEditFace.h,src/Widgets/Dialogs/RunToolDialogFace.cpp,src/Widgets/Dialogs/RunToolDialogFace.h
 00752640	67	s_king_refreshWidgetStyle	real	src/App/ApplicationTheme.cpp,src/App/ApplicationTheme.h,src/Windows/Mux/MuxWindow.cpp
 00752684	202	s_text_charSpaceFactor_752684	todo	
 00752766	74	style_getPixelMetric	ref	src/Actions/ToolBarBuilder.cpp
@@ -25399,7 +25399,7 @@
 008f17d8	167	TransferLabel_h8f17d8	qtplumb	
 008f1880	66	TransferLabel_qt_metacast	qtplumb	
 008f18c2	120	TransferLabel_qt_metacall	qtplumb	
-008f193a	104	TransferLabel_dtor	todo	
+008f193a	104	TransferLabel_dtor	real	
 008f19a2	106	FUN_008f19a2	todo	
 008f1a0c	124	FUN_008f1a0c	todo	
 008f1a88	110	TransferLabel_dtor_deleting	todo	
@@ -25928,7 +25928,7 @@
 008fd636	66	ToolRunner_qt_metacast	qtplumb	
 008fd678	93	ToolRunner_qt_metacall	qtplumb	
 008fd6e0	279	Tools_h8fd6e0	qtplumb	
-008fd7f8	36	Tools_dtor	todo	
+008fd7f8	36	Tools_dtor	stub	
 008fd81c	49	Tools_dtor_deleting	todo	
 008fd84e	1	FUN_008fd84e	todo	
 008fd850	24	JsEngine_metaObject	ref	src/App/JsEngine.h
@@ -29205,11 +29205,11 @@
 009c3bba	55	FUN_009c3bba	cleanup	
 009c3c10	66	FUN_009c3c10	todo	
 009c3c52	403	FUN_009c3c52	todo	
-009c3e06	122	FUN_009c3e06	todo	
+009c3e06	122	FUN_009c3e06	ref	src/Actions/UndoListActionFace.cpp,src/Actions/UndoListActionFace.h
 009c3e88	46	FUN_009c3e88	todo	
 009c3eb6	46	FUN_009c3eb6	todo	
 009c3ee4	45	FUN_009c3ee4	todo	
-009c3f12	778	UndoListAction_vt12	qtplumb	
+009c3f12	778	UndoListAction_vt12	real	
 009c423e	172	FUN_009c423e	todo	
 009c42f2	112	FUN_009c42f2	todo	
 009c4362	78	FUN_009c4362	todo	
