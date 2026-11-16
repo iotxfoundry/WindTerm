@@ -1,37 +1,14 @@
-// SearchEngineDialogFace.cpp — SearchEngineDialog(批 436)
+// SearchEngineDialogFace.cpp — 搜索引擎配置对话框。
+
 #include "Widgets/Dialogs/SearchEngineDialogFace.h"
 
-#include <QDialogButtonBox>
-#include <QFormLayout>
-#include <QLineEdit>
-
-// FUN_006d9574(175B,0022:5538)ctor 真身
+// 出处:QMetaObject 0x011a4000(methods=0 signals=0 props=0 superdata=0);
+// ctor 内联在调用点,仅转发 QDialog 基构造。
 SearchEngineDialogFace::SearchEngineDialogFace(QWidget *parent)
-	: QDialog(parent, Qt::WindowFlags(0)) // @006d9574
+    : QDialog(parent)
 {
-	setWindowTitle(QStringLiteral("Search Engine")); // tr(0xc9e45d)
-	setAttribute(Qt::WA_DeleteOnClose /*0x37*/, true);
-	build(); // @FUN_006d9290(670B)
-	wire();  // @FUN_006d906a(550B)
 }
 
-// FUN_006d9290(670B)装配真身
-void SearchEngineDialogFace::build()
-{
-	auto *form = new QFormLayout;                     // 表单
-	auto *name = new QLineEdit;                        // 引擎名
-	auto *url = new QLineEdit;                         // URL 模板
-	auto *box = new QDialogButtonBox(
-		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
-	form->addRow(QStringLiteral("&Search engine:"), name);                     // tr 实读
-	form->addRow(QStringLiteral("&URL with {q} in place of query:"), url);     // tr 实读
-	Q_UNUSED(box);
-	// 表单一并入布局(实参折叠) — cited
-}
-
-// FUN_006d906a(550B)接线真身(结构段)
-void SearchEngineDialogFace::wire()
-{
-	// +0x30 / +0x40 / +0x48 三路 connect;闭包 FUN_006b2420 / FUN_006d8ff5 /
-	//   FUN_006d902f — cited
-}
+// 0x00905d5c(29B)dtor: vptr 复位 + QDialog::~QDialog(零字段)。
+// deleting 0x00905d9a(47B): + operator_delete(_, 0x58)。
+SearchEngineDialogFace::~SearchEngineDialogFace() = default;

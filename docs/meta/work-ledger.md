@@ -19,10 +19,10 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 718 | 1.85% | 273507 | 3.57% |
-| 半成品 | 41 | 0.11% | 15192 | 0.20% |
-| 引用档 | 2145 | 5.54% | 798242 | 10.41% |
-| 未触及(真工作) | 20780 | 53.63% | 5569764 | 72.60% |
+| 真实现 | 720 | 1.86% | 272842 | 3.56% |
+| 半成品 | 40 | 0.10% | 14642 | 0.19% |
+| 引用档 | 2143 | 5.53% | 798126 | 10.40% |
+| 未触及(真工作) | 20781 | 53.63% | 5571095 | 72.62% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1112 | 2.87% | 228312 | 2.98% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -154,8 +154,6 @@
 | `src/Widgets/Dialogs/PlaySoundDialogFace.h` | 2 | 1 | 2 |
 | `src/Widgets/Dialogs/RemoteFileDialogFace.cpp` | 3 | 0 | 0 |
 | `src/Widgets/Dialogs/RemoteFileDialogFace.h` | 3 | 0 | 0 |
-| `src/Widgets/Dialogs/SearchEngineDialogFace.cpp` | 2 | 1 | 3 |
-| `src/Widgets/Dialogs/SearchEngineDialogFace.h` | 2 | 1 | 3 |
 | `src/Widgets/Dialogs/SessionGroupDialogFace.cpp` | 2 | 1 | 1 |
 | `src/Widgets/Dialogs/SessionGroupDialogFace.h` | 2 | 1 | 1 |
 | `src/Widgets/Dialogs/SessionTriggerDialogFace.cpp` | 2 | 1 | 2 |
@@ -221,7 +219,6 @@
 | `src/Utility/FileWatcherFace.h` | 1 | 0 | 0 |
 | `src/Widgets/Bars/AppletBarFace.cpp` | 1 | 0 | 0 |
 | `src/Widgets/Bars/MessageBarFace.h` | 1 | 0 | 0 |
-| `src/Widgets/Controls/ColorButtonFace.h` | 1 | 0 | 1 |
 | `src/Widgets/Controls/CompleteListFace.h` | 1 | 0 | 0 |
 | `src/Widgets/Controls/CompleteModelFace.h` | 1 | 0 | 1 |
 | `src/Widgets/Controls/CrumbEditFace.cpp` | 1 | 0 | 0 |
@@ -302,7 +299,7 @@
 | `00549240` | `s_session_protocol_549240` | 7347 |
 | `008b5f04` | `FUN_008b5f04` | 7331 |
 
-## 5. RTTI 类清单（380 个：已建 179 / 未建 201）
+## 5. RTTI 类清单（380 个：已建 183 / 未建 197）
 
 > 类名来自 `tools/re/data/rtti_classes.txt`（typeinfo 扫出，**含上游类**）
 > 上游类（Scintilla 的 `RunStyles*`/`GapBuffer*`/`UPartitioning`、
@@ -326,7 +323,7 @@
 | `CaptureGroupsButton` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `CheckList` | `src/Widgets/Controls/CheckListFace.h` | 0 | 0 |
 | `CloseButtonAction` | `src/Actions/CloseButtonActionFace.h` | 0 | 0 |
-| `ColorButton` | `src/Widgets/Controls/ColorButtonFace.h` | 1 | 0 |
+| `ColorButton` | `src/Widgets/Controls/ColorButtonFace.h` | 0 | 0 |
 | `ComboBox` | `src/Widgets/Controls/ComboBoxFace.h` | 0 | 0 |
 | `CompleteList` | `src/Widgets/Controls/CompleteListFace.h` | 1 | 0 |
 | `CompleteModel` | `src/Widgets/Controls/CompleteModelFace.h` | 1 | 0 |
@@ -336,6 +333,7 @@
 | `CustomMenuTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `DefaultEditorDialog` | `src/Widgets/Dialogs/DefaultEditorDialogFace.h` | 1 | 0 |
 | `DirScaner` | `src/Utility/DirScanerFace.h` | 2 | 0 |
+| `DoubleSpinBox` | `src/Widgets/Controls/SpinBoxFaces.h` | 0 | 0 |
 | `EditWidgetAction` | `src/Actions/ToolbarWidgetActions.h` | 0 | 0 |
 | `EditorWindow` | `src/Windows/Kit/KitWindowFactory.h` | 10 | 0 |
 | `EnvironmentDialog` | `src/Widgets/Dialogs/EnvironmentDialogFace.h` | 2 | 0 |
@@ -358,8 +356,10 @@
 | `HoverButton` | `src/Widgets/Controls/HoverButtonFace.h` | 2 | 0 |
 | `HtmlLabel` | `src/Widgets/Controls/HtmlLabelFace.h` | 0 | 0 |
 | `HtmlList` | `src/Widgets/Controls/HtmlListFace.h` | 1 | 1 |
+| `IconSelector` | `src/Widgets/Controls/IconSelectorFace.h` | 0 | 0 |
 | `InsertFileDialog` | `src/Widgets/Dialogs/InsertFileDialogFace.h` | 3 | 1 |
 | `InsertFilePage` | `src/Widgets/Dialogs/SimpleDialogs.h` | 0 | 0 |
+| `IntValidator` | `src/Widgets/Controls/IntValidatorFace.h` | 0 | 0 |
 | `IntervalWidgetAction` | `src/Actions/ToolbarWidgetActions.h` | 0 | 0 |
 | `JsEngine` | `src/App/JsEngine.h` | 8 | 0 |
 | `KitBar` | `src/Windows/Kit/KitBar.h` | 9 | 0 |
@@ -409,7 +409,7 @@
 | `SafeEdit` | `src/Widgets/Controls/SafeEditFace.h` | 0 | 0 |
 | `ScrollBar` | `src/Widgets/ScrollBar.h` | 0 | 0 |
 | `SearchEdit` | `src/Widgets/Controls/SearchEditFace.h` | 10 | 1 |
-| `SearchEngineDialog` | `src/Widgets/Dialogs/SearchEngineDialogFace.h` | 2 | 1 |
+| `SearchEngineDialog` | `src/Widgets/Dialogs/SearchEngineDialogFace.h` | 0 | 0 |
 | `SearchPane` | `src/Widgets/Panes/SearchPaneFace.h` | 1 | 0 |
 | `SendTextTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `SenderPane` | `src/Widgets/Panes/SenderPaneFace.h` | 0 | 0 |
@@ -435,6 +435,7 @@
 | `SideSeparator` | `src/Widgets/Controls/SideSeparatorFace.h` | 0 | 0 |
 | `SlipButton` | `src/Actions/SlipButtonFace.h` | 7 | 0 |
 | `SlipButtonAction` | `src/Actions/SlipButtonActionFace.h` | 0 | 0 |
+| `SpinBox` | `src/Widgets/Controls/SpinBoxFaces.h` | 0 | 0 |
 | `Splitter` | `src/Widgets/Splitter.h` | 1 | 0 |
 | `SplitterGroup` | `src/Widgets/Controls/SplitterGroup.h` | 8 | 0 |
 | `SshBridge` | `src/Sessions/Bridges/SshBridge.h` | 0 | 0 |
@@ -494,6 +495,6 @@
 | `YModem` | `src/Sessions/Transfers/YModem.h` | 0 | 1 |
 | `ZModem` | `src/Sessions/Transfers/ZModem.h` | 8 | 0 |
 
-**未建 201 个**：
+**未建 197 个**：
 
-`ActionHandler`, `AddressListModel`, `ApplicationPalette`, `Big5DistributionAnalysis`, `BreadButton`, `BreadEdit`, `BreadMenu`, `ByteArrayBimap`, `CKitConfig`, `CSuperBuffer32`, `CSuperBuffer64`, `CSuperBufferBase`, `CategoryPage`, `CategoryTree`, `CharDistributionAnalysis`, `CheckDelegate`, `CheckEditor`, `CheckListPanel`, `CheckListSortFilterProxyModel`, `ComboBoxDelegate`, `CommandListModel`, `CommandPalette`, `CommanderRobot`, `ConnectionTriggerPage`, `CyclicMemoryPool`, `DocWatcher`, `DocumentTaskRunner`, `DoubleSpinBox`, `DynamicLibrary`, `DynamicLibraryImpl`, `EUCJPContextAnalysis`, `EUCJPDistributionAnalysis`, `EUCKRDistributionAnalysis`, `EUCTWDistributionAnalysis`, `EditDelegate`, `Editor`, `EditorView`, `EditorViewConfig`, `ExpectTask`, `ExplorerDelegate`, `ExplorerEditor`, `ExplorerPane`, `FileDialog`, `FileGrep`, `FileScaner`, `FileSystemModel`, `FileSystemSortFilterProxyModel`, `FileTree`, `FocusModeController`, `FontPreviewDelegate`, `FontPreviewWidget`, `ForwardingCenter`, `GB2312DistributionAnalysis`, `Grep`, `GrepView`, `GrepViewConfig`, `HtmlAbstractModel`, `HtmlDelegate`, `HtmlListModel`, `IconSelector`, `IntValidator`, `JapaneseContextAnalysis`, `JumpServer`, `KitGroup`, `KitView`, `LinePartition`, `ListItemDelegate`, `ListModel`, `ListPanel`, `LocalFolder`, `LocalTransfer`, `MediaCenter`, `ModemFileDialog`, `MuxDesktop`, `OneKeyCenter`, `OutlineTree`, `OutlineTreeModel`, `Partitioning`, `PeriodTimer`, `PlainTextEdit`, `PlainTextEditPanel`, `PlaySoundWidget`, `Process`, `ProxyStyle`, `QJSValue`, `QSharedData`, `RGBAImage`, `RunStylesInterface`, `SJISContextAnalysis`, `SJISDistributionAnalysis`, `ScanTask`, `SciCalltipClickEvent`, `SciCharAddedEvent`, `SciCompleterEvent`, `SciContainerChangeEvent`, `SciDecorationChangeEvent`, `SciExpectEvent`, `SciFocusEvent`, `SciHighlightEvent`, `SciHoverEvent`, `SciMacroRecordEvent`, `SciMarginChangeEvent`, `SciMarginClickEvent`, `SciMouseEvent`, `SciNavigateEvent`, `SciPaintEvent`, `SciPasteEvent`, `SciPreview`, `SciSaveStateChangeEvent`, `SciSchemeChangeEvent`, `SciScrollBarMarkEvent`, `SciScrollbar`, `SciShownLinesChange`, `SciTextChangeEvent`, `SciTextClientResizeEvent`, `SciTextMultiChangeEvent`, `SciTryModifyReadOnlyEvent`, `SciZoomEvent`, `ScintillaBase`, `ScintillaEditBase`, `ScintillaEditWatcher`, `ScintillaQt`, `SessionConnector`, `SessionThread`, `SessionWatcher`, `SftpFile`, `SftpTransfer`, `SharedConfig`, `ShellExecutor`, `SkipPartition`, `Snapshot`, `Snapshot32`, `Snapshot64`, `SortFilterProxyModel`, `SparsePartition`, `SpinBox`, `SshAuthOperator`, `SshOperator`, `SuperAction`, `SuperFile`, `SuperProtocol`, `SuperPty`, `SuperTerm`, `SuperTransfer`, `SuperTranslator`, `Surface`, `SurfaceImpl`, `SvgIconEngine`, `TablePanel`, `TableWidget`, `TerminalKeyboard`, `TerminalSender`, `TerminalViewConfig`, `TerminalWatcher`, `TextArrayData`, `ThemeChangeEvent`, `Tmux`, `ToolRunner`, `TransferCenter`, `TransferDelegate`, `TreeItemDelegate`, `TreeModel`, `TreeView`, `TriggerCenter`, `TriggerData`, `Uint16RunStyles`, `Uint16SkipRunStyles`, `Uint32Bimap`, `Uint32PieceTable`, `Uint32RunStyles`, `Uint32SkipRunStyles`, `Uint64RunStyles`, `Uint64SkipRunStyles`, `Uint8PieceTable`, `Uint8RunStyles`, `Uint8SkipRunStyles`, `UndoList`, `UndoModel`, `UniversalChardet`, `UuidCenter`, `VBoxLayout`, `WidgetAction`, `WidgetContainer`, `WidgetDelegate`, `Window`, `XServerCenter`, `nsBig5Prober`, `nsCharSetProber`, `nsEUCJPProber`, `nsEUCKRProber`, `nsEUCTWProber`, `nsEscCharSetProber`, `nsGB18030Prober`, `nsHebrewProber`, `nsLatin1Prober`, `nsMBCSGroupProber`, `nsSBCSGroupProber`, `nsSJISProber`, `nsSingleByteCharSetProber`, `nsUTF8Prober`, `nsUniversalDetector`
+`ActionHandler`, `AddressListModel`, `ApplicationPalette`, `Big5DistributionAnalysis`, `BreadButton`, `BreadEdit`, `BreadMenu`, `ByteArrayBimap`, `CKitConfig`, `CSuperBuffer32`, `CSuperBuffer64`, `CSuperBufferBase`, `CategoryPage`, `CategoryTree`, `CharDistributionAnalysis`, `CheckDelegate`, `CheckEditor`, `CheckListPanel`, `CheckListSortFilterProxyModel`, `ComboBoxDelegate`, `CommandListModel`, `CommandPalette`, `CommanderRobot`, `ConnectionTriggerPage`, `CyclicMemoryPool`, `DocWatcher`, `DocumentTaskRunner`, `DynamicLibrary`, `DynamicLibraryImpl`, `EUCJPContextAnalysis`, `EUCJPDistributionAnalysis`, `EUCKRDistributionAnalysis`, `EUCTWDistributionAnalysis`, `EditDelegate`, `Editor`, `EditorView`, `EditorViewConfig`, `ExpectTask`, `ExplorerDelegate`, `ExplorerEditor`, `ExplorerPane`, `FileDialog`, `FileGrep`, `FileScaner`, `FileSystemModel`, `FileSystemSortFilterProxyModel`, `FileTree`, `FocusModeController`, `FontPreviewDelegate`, `FontPreviewWidget`, `ForwardingCenter`, `GB2312DistributionAnalysis`, `Grep`, `GrepView`, `GrepViewConfig`, `HtmlAbstractModel`, `HtmlDelegate`, `HtmlListModel`, `JapaneseContextAnalysis`, `JumpServer`, `KitGroup`, `KitView`, `LinePartition`, `ListItemDelegate`, `ListModel`, `ListPanel`, `LocalFolder`, `LocalTransfer`, `MediaCenter`, `ModemFileDialog`, `MuxDesktop`, `OneKeyCenter`, `OutlineTree`, `OutlineTreeModel`, `Partitioning`, `PeriodTimer`, `PlainTextEdit`, `PlainTextEditPanel`, `PlaySoundWidget`, `Process`, `ProxyStyle`, `QJSValue`, `QSharedData`, `RGBAImage`, `RunStylesInterface`, `SJISContextAnalysis`, `SJISDistributionAnalysis`, `ScanTask`, `SciCalltipClickEvent`, `SciCharAddedEvent`, `SciCompleterEvent`, `SciContainerChangeEvent`, `SciDecorationChangeEvent`, `SciExpectEvent`, `SciFocusEvent`, `SciHighlightEvent`, `SciHoverEvent`, `SciMacroRecordEvent`, `SciMarginChangeEvent`, `SciMarginClickEvent`, `SciMouseEvent`, `SciNavigateEvent`, `SciPaintEvent`, `SciPasteEvent`, `SciPreview`, `SciSaveStateChangeEvent`, `SciSchemeChangeEvent`, `SciScrollBarMarkEvent`, `SciScrollbar`, `SciShownLinesChange`, `SciTextChangeEvent`, `SciTextClientResizeEvent`, `SciTextMultiChangeEvent`, `SciTryModifyReadOnlyEvent`, `SciZoomEvent`, `ScintillaBase`, `ScintillaEditBase`, `ScintillaEditWatcher`, `ScintillaQt`, `SessionConnector`, `SessionThread`, `SessionWatcher`, `SftpFile`, `SftpTransfer`, `SharedConfig`, `ShellExecutor`, `SkipPartition`, `Snapshot`, `Snapshot32`, `Snapshot64`, `SortFilterProxyModel`, `SparsePartition`, `SshAuthOperator`, `SshOperator`, `SuperAction`, `SuperFile`, `SuperProtocol`, `SuperPty`, `SuperTerm`, `SuperTransfer`, `SuperTranslator`, `Surface`, `SurfaceImpl`, `SvgIconEngine`, `TablePanel`, `TableWidget`, `TerminalKeyboard`, `TerminalSender`, `TerminalViewConfig`, `TerminalWatcher`, `TextArrayData`, `ThemeChangeEvent`, `Tmux`, `ToolRunner`, `TransferCenter`, `TransferDelegate`, `TreeItemDelegate`, `TreeModel`, `TreeView`, `TriggerCenter`, `TriggerData`, `Uint16RunStyles`, `Uint16SkipRunStyles`, `Uint32Bimap`, `Uint32PieceTable`, `Uint32RunStyles`, `Uint32SkipRunStyles`, `Uint64RunStyles`, `Uint64SkipRunStyles`, `Uint8PieceTable`, `Uint8RunStyles`, `Uint8SkipRunStyles`, `UndoList`, `UndoModel`, `UniversalChardet`, `UuidCenter`, `VBoxLayout`, `WidgetAction`, `WidgetContainer`, `WidgetDelegate`, `Window`, `XServerCenter`, `nsBig5Prober`, `nsCharSetProber`, `nsEUCJPProber`, `nsEUCKRProber`, `nsEUCTWProber`, `nsEscCharSetProber`, `nsGB18030Prober`, `nsHebrewProber`, `nsLatin1Prober`, `nsMBCSGroupProber`, `nsSBCSGroupProber`, `nsSJISProber`, `nsSingleByteCharSetProber`, `nsUTF8Prober`, `nsUniversalDetector`

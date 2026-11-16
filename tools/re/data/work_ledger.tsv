@@ -13484,7 +13484,7 @@
 00535d00	11834	s_terminal_ansiBrightMagenta_535d00	todo	
 00538bfe	511	FUN_00538bfe	todo	
 00538e2e	509	colorButton_setEmpty	todo	
-0053904e	582	s_ColorButton_53904e	ref	src/Widgets/Controls/ColorButtonFace.cpp,src/Widgets/Controls/ColorButtonFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
+0053904e	582	s_ColorButton_53904e	ref	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 005392c5	533	FUN_005392c5	todo	
 00539502	7937	s_terminal_ansiBrightMagenta_539502	cleanup	
 0053b6fd	41	FUN_0053b6fd	todo	
@@ -18123,7 +18123,7 @@
 006b22e6	165	FUN_006b22e6	real	src/Widgets/Dialogs/DefaultEditorDialogFace.cpp,src/Widgets/Dialogs/DefaultEditorDialogFace.h
 006b239c	18	FUN_006b239c	todo	
 006b23b0	102	FUN_006b23b0	ref	src/Widgets/Dialogs/DefaultEditorDialogFace.h
-006b2420	102	FUN_006b2420	ref	src/Widgets/Dialogs/DefaultEditorDialogFace.h,src/Widgets/Dialogs/FocusModeDialogFace.cpp,src/Widgets/Dialogs/FocusModeDialogFace.h,src/Widgets/Dialogs/HighlightTextDialogFace.cpp,src/Widgets/Dialogs/HighlightTextDialogFace.h,src/Widgets/Dialogs/LogDialogFace.cpp,src/Widgets/Dialogs/MasterPasswordDialogFace.cpp,src/Widgets/Dialogs/NameDialogFace.cpp,src/Widgets/Dialogs/PasswordDialogFace.cpp,src/Widgets/Dialogs/PasteDialogFace.cpp,src/Widgets/Dialogs/PlaySoundDialogFace.h,src/Widgets/Dialogs/ProfileDialogFace.cpp,src/Widgets/Dialogs/ProfileDialogFace.h,src/Widgets/Dialogs/SearchEngineDialogFace.cpp,src/Widgets/Dialogs/SearchEngineDialogFace.h,src/Widgets/Dialogs/SessionGroupDialogFace.cpp,src/Widgets/Dialogs/SessionGroupDialogFace.h,src/Widgets/Dialogs/SessionTriggerDialogFace.cpp,src/Widgets/Dialogs/SessionTriggerDialogFace.h
+006b2420	102	FUN_006b2420	ref	src/Widgets/Dialogs/DefaultEditorDialogFace.h,src/Widgets/Dialogs/FocusModeDialogFace.cpp,src/Widgets/Dialogs/FocusModeDialogFace.h,src/Widgets/Dialogs/HighlightTextDialogFace.cpp,src/Widgets/Dialogs/HighlightTextDialogFace.h,src/Widgets/Dialogs/LogDialogFace.cpp,src/Widgets/Dialogs/MasterPasswordDialogFace.cpp,src/Widgets/Dialogs/NameDialogFace.cpp,src/Widgets/Dialogs/PasswordDialogFace.cpp,src/Widgets/Dialogs/PasteDialogFace.cpp,src/Widgets/Dialogs/PlaySoundDialogFace.h,src/Widgets/Dialogs/ProfileDialogFace.cpp,src/Widgets/Dialogs/ProfileDialogFace.h,src/Widgets/Dialogs/SessionGroupDialogFace.cpp,src/Widgets/Dialogs/SessionGroupDialogFace.h,src/Widgets/Dialogs/SessionTriggerDialogFace.cpp,src/Widgets/Dialogs/SessionTriggerDialogFace.h
 006b2490	124	FUN_006b2490	todo	
 006b250c	159	FUN_006b250c	todo	
 006b25ab	229	FUN_006b25ab	todo	
@@ -18451,11 +18451,11 @@
 006d8e00	102	FUN_006d8e00	todo	
 006d8e70	29	FUN_006d8e70	todo	
 006d8e90	323	FUN_006d8e90	todo	
-006d8ff5	58	FUN_006d8ff5	ref	src/Widgets/Dialogs/SearchEngineDialogFace.cpp,src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d902f	58	FUN_006d902f	ref	src/Widgets/Dialogs/SearchEngineDialogFace.cpp,src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d906a	550	FUN_006d906a	stub	src/Widgets/Dialogs/SearchEngineDialogFace.cpp,src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d9290	670	FUN_006d9290	real	src/Widgets/Dialogs/SearchEngineDialogFace.cpp,src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d9574	175	FUN_006d9574	real	src/Widgets/Dialogs/SearchEngineDialogFace.cpp,src/Widgets/Dialogs/SearchEngineDialogFace.h
+006d8ff5	58	FUN_006d8ff5	todo	
+006d902f	58	FUN_006d902f	todo	
+006d906a	550	FUN_006d906a	todo	
+006d9290	670	FUN_006d9290	todo	
+006d9574	175	FUN_006d9574	todo	
 006d9636	18	FUN_006d9636	todo	
 006d9648	99	FUN_006d9648	todo	
 006d96b4	99	FUN_006d96b4	todo	
@@ -18835,7 +18835,7 @@
 0070331a	162	FUN_0070331a	ref	src/Widgets/Dialogs/TriggerActionDialogFace.cpp,src/Widgets/Dialogs/TriggerActionDialogFace.h
 007033d0	686	s_text_matchWholeWord_7033d0	todo	
 00703704	427	FUN_00703704	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
-00703900	268	FUN_00703900	real	src/Widgets/Controls/ColorButtonFace.h,src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
+00703900	268	FUN_00703900	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 00703a58	55	FUN_00703a58	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 00703ab0	489	FUN_00703ab0	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
 00703d3e	379	FUN_00703d3e	real	src/Widgets/Settings/TriggerPageFace.cpp,src/Widgets/Settings/TriggerPageFace.h
@@ -19085,7 +19085,7 @@
 00726e63	47	FUN_00726e63	todo	
 00726e92	87	FUN_00726e92	todo	
 00726ee9	149	FUN_00726ee9	todo	
-00726f86	19	IntValidator_dtor	todo	
+00726f86	19	IntValidator_dtor	real	
 00726f9a	37	IntValidator_dtor_deleting	todo	
 00726fc0	102	FUN_00726fc0	todo	
 00727030	44	FUN_00727030	todo	
@@ -25282,7 +25282,7 @@
 008f02c0	60	FUN_008f02c0	todo	
 008f02fc	66	ColorButton_qt_metacast	qtplumb	
 008f033e	91	ColorButton_qt_metacall	qtplumb	
-008f039a	29	ColorButton_dtor	todo	
+008f039a	29	ColorButton_dtor	real	
 008f03b7	33	FUN_008f03b7	todo	
 008f03d8	47	ColorButton_dtor_deleting	todo	
 008f0407	51	FUN_008f0407	todo	
@@ -25794,7 +25794,7 @@
 008fa75a	116	IconSelector_dtor_deleting	todo	
 008fa7ce	130	FUN_008fa7ce	todo	
 008fa850	104	FUN_008fa850	todo	
-008fa8b8	103	IconSelector_dtor	todo	
+008fa8b8	103	IconSelector_dtor	real	
 008fa920	24	PathEdit_metaObject	qtplumb	
 008fa938	66	PathEdit_qt_metacast	qtplumb	
 008fa97a	16	FUN_008fa97a	ref	src/Widgets/Dialogs/InsertFileDialogFace.cpp,src/Widgets/Dialogs/InsertFileDialogFace.h
@@ -26202,7 +26202,7 @@
 00905cfc	24	SearchEngineDialog_metaObject	qtplumb	
 00905d14	66	SearchEngineDialog_qt_metacast	qtplumb	
 00905d56	5	SearchEngineDialog_qt_metacall	qtplumb	
-00905d5c	29	SearchEngineDialog_dtor	todo	
+00905d5c	29	SearchEngineDialog_dtor	real	
 00905d79	33	FUN_00905d79	todo	
 00905d9a	47	SearchEngineDialog_dtor_deleting	todo	
 00905dc9	51	FUN_00905dc9	todo	

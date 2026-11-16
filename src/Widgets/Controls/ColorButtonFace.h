@@ -2,17 +2,23 @@
 
 #include <QPushButton>
 
-// ColorButtonFace — 语料 **ColorButton**(批 450)。
+// ColorButtonFace — 颜色按钮(QPushButton 派生,**零字段**)。
 //
-// ctor s_ColorButton_53904e(582B,0017.c:5452) asm 实测:
-//   QPushButton(parent) → vtable **ColorButton_vtable** + 副 01193fe0 →
-//   **objectName = "ColorButton"**(strlen 0xb)→
-//   **styleSheet = 原样式 + "QPushButton { text-align: left; }"**(33 字节实读)→
-//   余段(取色/绘制腿)。
-//   用途:MarkStyleWidget 的 +0x38 颜色钮(FUN_00703900),以及 SessionDialog
-//   的同族槽。
+// 出处:RTTI "ColorButton";QMetaObject 0x01194020
+// (rev=8,class="ColorButton",methods=1,**signals=1**,props=0,superdata=0);
+// sizeof = **0x30**(deleting 0x008f03d8 的 operator_delete(_,0x30))
+//   —— 与 QPushButton 同尺寸 ⇒ 零字段;
+// dtor 0x008f039a(29B)/deleting 0x008f03d8(47B);
+// metacast 0x008f02fc / metacall 0x008f033e(91B)。
+//
+// 唯一条信号:`colorChanged(?)` 1 参。
 class ColorButtonFace : public QPushButton {
 	Q_OBJECT
+
 public:
 	explicit ColorButtonFace(QWidget *parent = nullptr);
+	~ColorButtonFace() override; // 0x008f039a
+
+signals:
+	void colorChanged(const QColor &color); // #0
 };

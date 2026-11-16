@@ -2,28 +2,18 @@
 
 #include <QDialog>
 
-// SearchEngineDialogFace — 语料 SearchEngineDialog(批 436)。
+// SearchEngineDialogFace — 搜索引擎配置对话框。
 //
-// ctor FUN_006d9574(175B,0022:5538) asm 实测:
-//   QDialog(parent, 0) → vtable SearchEngineDialog_vtable + 副 011a3fb0 →
-//   setWindowTitle(tr("Search Engine")(0xc9e45d)) →
-//   setAttribute(0x37, true) →
-//   build()(FUN_006d906a) + build2()(FUN_006d9290)。
+// 出处:RTTI "SearchEngineDialog";QMetaObject 0x011a4000
+// (**methods=0 / signals=0 / props=0 / superdata=0**);
+// sizeof = **0x58**(deleting 0x00905d9a 的 operator_delete(_,0x58));
+// dtor 0x00905d5c(29B)/deleting 0x00905d9a(47B)
+//   —— 只有 vptr 复位 + QDialog 析构 ⇒ **零自有字段**(0x58 全来自基类链);
+// metacast 0x00905d14 / metacall 0x00905d56(5B,纯转发)。
 class SearchEngineDialogFace : public QDialog {
 	Q_OBJECT
+
 public:
 	explicit SearchEngineDialogFace(QWidget *parent = nullptr);
-
-	// FUN_006d9290(670B)**装配**:QFormLayout + QLineEdit ×2 + QDialogButtonBox;
-	//   两行文案实读 **"&Search engine:"** /
-	//   **"&URL with {q} in place of query:"**(查询占位符 **{q}**)。
-	void build();
-
-	// FUN_006d906a(550B)**接线**:字段 +0x30 / +0x40 / +0x48,
-	//   闭包 FUN_006b2420 / FUN_006d8ff5 / FUN_006d902f。
-	void wire();
-
-protected:
-	QWidget *m_f30 = nullptr; QWidget *m_f40 = nullptr; QWidget *m_f48 = nullptr;
+	~SearchEngineDialogFace() override; // 0x00905d5c
 };
-

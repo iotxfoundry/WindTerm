@@ -27,20 +27,20 @@
 | `Utility` | 15 | 1697 | 14 | 5 | 2 |
 | `Widgets` | 6 | 722 | 3 | 4 | 0 |
 | `Widgets/Bars` | 26 | 1145 | 14 | 60 | 7 |
-| `Widgets/Controls` | 70 | 4002 | 39 | 437 | 77 |
-| `Widgets/Dialogs` | 73 | 4029 | 41 | 411 | 101 |
+| `Widgets/Controls` | 76 | 4180 | 43 | 434 | 76 |
+| `Widgets/Dialogs` | 73 | 3996 | 41 | 406 | 99 |
 | `Widgets/Panes` | 23 | 1238 | 17 | 128 | 21 |
 | `Widgets/Settings` | 8 | 2342 | 21 | 339 | 55 |
 | `Widgets/Views` | 20 | 2479 | 11 | 118 | 20 |
 | `Windows/Kit` | 11 | 2669 | 10 | 431 | 43 |
 | `Windows/Mux` | 12 | 2947 | 9 | 635 | 27 |
-| **合计** | **427** | **59115** | **341** | **5381** | **901** |
+| **合计** | **433** | **59260** | **345** | **5375** | **898** |
 
 ## 2. 被引用最多的地址（多为共享腿，不要重复实现）
 
 | 地址 | 文件数 | 位置 |
 |---|---:|---|
-| `FUN_006b2420` | 19 | src/Widgets/Dialogs/DefaultEditorDialogFace.h<br>src/Widgets/Dialogs/FocusModeDialogFace.cpp<br>src/Widgets/Dialogs/FocusModeDialogFace.h<br>src/Widgets/Dialogs/HighlightTextDialogFace.cpp |
+| `FUN_006b2420` | 17 | src/Widgets/Dialogs/DefaultEditorDialogFace.h<br>src/Widgets/Dialogs/FocusModeDialogFace.cpp<br>src/Widgets/Dialogs/FocusModeDialogFace.h<br>src/Widgets/Dialogs/HighlightTextDialogFace.cpp |
 | `FUN_00692ef0` | 11 | src/Actions/ToolBarBuilder.cpp<br>src/Actions/ToolBarBuilder.h<br>src/Editor/Config/CGlobalConfigFace.h<br>src/Windows/Kit/KitWindowAssemblyFace.cpp |
 | `FUN_00809d78` | 9 | src/Editor/Config/CGlobalConfigFace.cpp<br>src/Editor/Config/CGlobalConfigFace.h<br>src/Editor/Config/CTerminalConfig.cpp<br>src/Editor/Config/CTerminalConfig.h |
 | `FUN_007664a2` | 9 | src/App/StartupChain.cpp<br>src/App/StartupChain.h<br>src/Sessions/Core/WorkspaceLoader.cpp<br>src/Windows/Kit/KitBar.cpp |

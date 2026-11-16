@@ -167,11 +167,8 @@
 00535620	src/Widgets/Panes/SessionPane.h
 00535a76	src/Widgets/Dialogs/TriggerDialogFace.cpp
 00535a76	src/Widgets/Dialogs/TriggerDialogFace.h
-0053904e	src/Widgets/Controls/ColorButtonFace.cpp
-0053904e	src/Widgets/Controls/ColorButtonFace.h
 0053904e	src/Widgets/Settings/TriggerPageFace.cpp
 0053904e	src/Widgets/Settings/TriggerPageFace.h
-0053909c	src/Widgets/Controls/ColorButtonFace.cpp
 0053d596	src/Widgets/Dialogs/RunToolDialogFace.cpp
 0053d596	src/Widgets/Dialogs/RunToolDialogFace.h
 0053e936	src/Actions/BackwardShortcutFace.cpp
@@ -2076,8 +2073,6 @@
 006b2420	src/Widgets/Dialogs/PlaySoundDialogFace.h
 006b2420	src/Widgets/Dialogs/ProfileDialogFace.cpp
 006b2420	src/Widgets/Dialogs/ProfileDialogFace.h
-006b2420	src/Widgets/Dialogs/SearchEngineDialogFace.cpp
-006b2420	src/Widgets/Dialogs/SearchEngineDialogFace.h
 006b2420	src/Widgets/Dialogs/SessionGroupDialogFace.cpp
 006b2420	src/Widgets/Dialogs/SessionGroupDialogFace.h
 006b2420	src/Widgets/Dialogs/SessionTriggerDialogFace.cpp
@@ -2247,16 +2242,6 @@
 006d6bf2	src/Widgets/Dialogs/RemoteFileDialogFace.h
 006d8cfe	src/Widgets/Dialogs/RemoteFileDialogFace.cpp
 006d8cfe	src/Widgets/Dialogs/RemoteFileDialogFace.h
-006d8ff5	src/Widgets/Dialogs/SearchEngineDialogFace.cpp
-006d8ff5	src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d902f	src/Widgets/Dialogs/SearchEngineDialogFace.cpp
-006d902f	src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d906a	src/Widgets/Dialogs/SearchEngineDialogFace.cpp
-006d906a	src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d9290	src/Widgets/Dialogs/SearchEngineDialogFace.cpp
-006d9290	src/Widgets/Dialogs/SearchEngineDialogFace.h
-006d9574	src/Widgets/Dialogs/SearchEngineDialogFace.cpp
-006d9574	src/Widgets/Dialogs/SearchEngineDialogFace.h
 006d97d0	src/Widgets/Dialogs/SessionGroupDialogFace.cpp
 006d97d0	src/Widgets/Dialogs/SessionGroupDialogFace.h
 006d991e	src/Widgets/Dialogs/SessionGroupDialogFace.cpp
@@ -2727,7 +2712,6 @@
 00703729	src/Widgets/Settings/TriggerPageFace.cpp
 007037c1	src/Widgets/Settings/TriggerPageFace.cpp
 007037e0	src/Widgets/Settings/TriggerPageFace.cpp
-00703900	src/Widgets/Controls/ColorButtonFace.h
 00703900	src/Widgets/Settings/TriggerPageFace.cpp
 00703900	src/Widgets/Settings/TriggerPageFace.h
 00703921	src/Widgets/Settings/TriggerPageFace.cpp
