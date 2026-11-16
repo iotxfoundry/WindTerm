@@ -567,13 +567,28 @@ void TriggerWidgetKit::setPlaceholder(QAbstractItemView *view, const QString &te
 	view->update();                                       // QWidget::update()
 }
 
+// FUN_006f8c6c(53B)取动作件字段表真身
+QList<QWidget *> TriggerPageFace::findActionFields(QWidget *actionWidget)
+{
+	if (actionWidget == nullptr)
+		return {};
+	return actionWidget->findChildren<QWidget *>(QString()); // smeta 01198660(递归)
+}
+
+// FUN_006f8c50(27B)释放字段表真身
+void TriggerPageFace::releaseActionFields(QList<QWidget *> &fields)
+{
+	fields.clear();   // 语料 = 引用计数减 1,归零则 QListData::dispose
+}
+
 // FUN_006fb180(438B)动作件字段 ↔ 文本面板绑定真身(结构段)
 void TriggerPageFace::bindEditorToActionWidget(TriggerActionWidgetFace *actionWidget,
                                                QWidget *editor)
 {
 	if (editor == nullptr || actionWidget == nullptr)
 		return;
-	// fields = FUN_006f8c6c(actionWidget->+0x48, 空 QVariant, 1) — cited
+	QList<QWidget *> fields = findActionFields(actionWidget);  // FUN_006f8c6c(actionWidget->+0x48)
+	Q_UNUSED(fields);
 	// 逐字段:
 	//   name = field->property(<折叠>).toString()@006fb24x;
 	//   if (name.contains("arguments")) {
@@ -581,6 +596,7 @@ void TriggerPageFace::bindEditorToActionWidget(TriggerActionWidgetFace *actionWi
 	//     boxlayout_insertRtlAware(field, box, 1)@006fb2b6;
 	//     FUN_0058dac2(field, "${match}")@006fb2d0;   // 属性值实读
 	//   }
+	releaseActionFields(fields);                              // FUN_006f8c50
 	// if (actionWidget->+0x58) 递归(由调用方对子件再调一次)
 }
 

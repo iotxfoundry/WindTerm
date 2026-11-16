@@ -53,6 +53,13 @@ public:
 	//       boxlayout_insertRtlAware(field, box, 1)(插到字段布局);
 	//       FUN_0058dac2(field, "${match}")(**属性值 = "${match}" 实读**);
 	//   actionWidget->+0x58 非空 → 递归本函数。
+	// FUN_006f8c6c(53B,0022.c:23884)取动作件字段表:
+	//   qt_qFindChildren_helper(obj, name(空), smeta **01198660**, &list, flags)
+	//   ⇒ findChildren<字段类*>(空名, 递归)。字段类 = smeta 01198660。
+	// FUN_006f8c50(27B,0022.c:23868)释放该表:引用计数减到 0 → QListData::dispose。
+	static QList<QWidget *> findActionFields(QWidget *actionWidget);
+	static void releaseActionFields(QList<QWidget *> &fields);
+
 	void bindEditorToActionWidget(TriggerActionWidgetFace *actionWidget, QWidget *editor);
 
 	// FUN_006f1850(278B,0022.c:19193)文本面板 ↔ 页接线:
