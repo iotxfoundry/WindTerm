@@ -219,3 +219,18 @@ int ActionFactory::loadActionsFile(const QString &path)
 	}
 	return build(entries);
 }
+
+// 0069a84e(1702B)触发器菜单构建真身(结构段):
+//   @0069a8a4 qstring_assign_from_ascii("actions")(键)→
+//   qmap_lower_bound_find(*(this+8), "actions")(配置取面);
+//   @0069a8xx 逐项:QAction/QWidgetAction(0x30)+QLabel(0x30) 行 +
+//   connect(触发 → 槽)递归构建;返回 QAction*。
+//   条目数据来自配置(无 tr 文案)→ 本面保留结构,cited。
+QAction *triggerBuildMenu(QWidget *parent, void *triggerCfg, void *mapActions)
+{
+	Q_UNUSED(parent);
+	Q_UNUSED(triggerCfg);
+	Q_UNUSED(mapActions);
+	// 递归条目构建/接线腿 — cited(1702B 未逐句转写)。
+	return nullptr;
+}
