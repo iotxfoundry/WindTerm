@@ -1,8 +1,12 @@
 // TriggerPageFace.cpp — 触发器页族共有面(批 341/342)
 #include "TriggerPageFace.h"
 
+#include <QComboBox>
 #include <QFormLayout>
+#include <QGroupBox>
 #include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 #include <QStackedLayout>
 #include <QTabBar>
 #include <QTableView>
@@ -81,8 +85,7 @@ void TriggerPageFace::onBusyStateChanged(bool v)
 void TriggerPageFace::assembleConnectionPage(int kind)
 {
 	auto *form = new QFormLayout;                  // @006fde23(0x20,父 0)
-	m_action40 = new QWidget(this);                // @006fde3d 0x78 — cited(FUN_006fdcde 件未建模)
-	Q_UNUSED(kind);                                // +0x38 = kind(FUN_006fdf10)
+	m_action40 = new TriggerActionWidgetFace(kind, this); // @006fde3d 0x78(FUN_006fdcde)
 	form->setContentsMargins(0, 0, 0, 0);          // @006fde5x(全零)
 	assembleBusyOverlay();                         // @006fde6x(FUN_006f1994)
 	form->addRow(m_action40);                      // @006fde7x
@@ -175,4 +178,75 @@ QWidget *TriggerPageStackFace::showPage(int kind, bool state, void *param4)
 	if (m_stack40)
 		m_stack40->setCurrentWidget(page);  // @006f4586
 	return page;
+}
+
+// FUN_006fdcde(274B,0022.c:26700)TriggerActionWidget ctor 真身
+TriggerActionWidgetFace::TriggerActionWidgetFace(int kind, QWidget *parent)
+	: QWidget(parent, Qt::WindowFlags(0)) // @006fdcde
+	, m_kind30(kind)                      // +0x30
+{
+	// +0x50..+0x70 五槽清零(成员初值)
+	build();                              // @006fdd3d FUN_006fd6c0
+	// connect(+0x38 currentIndexChanged → +0x40 setCurrentIndex)@006fdd5x
+	// — 闭包 impl FUN_006b6730,smeta QComboBox;cited(槽面同签名直连)。
+}
+
+// FUN_006fd6c0(1203B,0022.c:26537)TriggerActionWidget 内部装配真身(结构段)
+void TriggerActionWidgetFace::build()
+{
+	auto *form = new QFormLayout;                          // @006fd6ea(0x20,父 0)
+	auto *label = new QLabel(QStringLiteral("&Action:"));  // tr(0xc9fe80),new 0x30
+
+	m_combo38 = new QComboBox;                             // @006fd74a 0x48
+	//   combo_makeSearchCombo 承接(搜索式下拉;cited 附加件)
+	m_stack40 = new QStackedWidget;                        // @006fd765(0x30)
+	m_tabs48 = new QTabWidget;                             // @006fd780(0x30)
+
+	m_tabs48->addTab(new QWidget, QStringLiteral("&Linux"));   // @006fd7xx(0xc9d4aa)
+	m_tabs48->addTab(new QWidget, QStringLiteral("&macOS"));   // @006fd7xx(0xc9d4cb)
+	m_tabs48->addTab(new QWidget, QStringLiteral("&Windows")); // @006fd820(ascii)
+
+	// 建页序 int 表 @0xc9ff80 实读 = {3, 2, 1, 4}
+	static const int kBuildOrder[4] = { 3, 2, 1, 4 };
+	for (int i = 0; i < 4; ++i) {
+		const int sub = kBuildOrder[i];
+		if (m_kind30 == 10 && sub != 3)                          // @006fd982
+			continue;
+		if (m_kind30 >= 2 && m_kind30 <= 4 && sub == 4)          // @006fd874
+			continue;
+		const bool gt4 = (m_kind30 - 1) > 3;                     // @006fd8xx bVar3
+		if (sub == 1) {
+			// new 0x70 + FUN_006f83b0(w, 1, gt4, 0) — cited(件未建模)
+			m_f58 = new QWidget;
+			m_stack40->addWidget(m_f58);                         // @006fdaxx
+		} else if (sub == 2) {
+			auto *group = new QGroupBox;                         // @006fda80(0x30)
+			auto *vbox = new QVBoxLayout(group);                 // @006fda97(0x20)
+			m_f50 = new QWidget;                                 // 0x50 + FUN_006cc226(w,0) cited
+			vbox->addWidget(m_f50, 0, Qt::Alignment());          // @006fdaxx
+			m_stack40->addWidget(group);                         // @006fdaxx
+		} else if (sub == 4) {
+			// new 0x70 + FUN_006f83b0(w, 4, gt4, 0) — cited
+			m_f60 = new QWidget;
+			m_stack40->addWidget(m_f60);                         // @006fdbxx
+		} else {
+			// sub == 3:语料 @006fd987 直接 addWidget(入参 Ghidra 折叠)— cited
+		}
+		// combo 追加项:文案 = FUN_0069b57e/FUN_006f8cb4 → tr,data = sub
+		//   (@006fd8f4 count/insert_item)— cited(文案链未转写,不发明)。
+	}
+
+	label->setBuddy(m_combo38);                              // @006fd9xx(setBuddy)
+	if (m_kind30 == 10) {
+		const int idx = m_combo38->findData(3, Qt::UserRole); // @006fdb0d(0x100,0x10)
+		m_combo38->setCurrentIndex(idx);                      // @006fdaxx
+		hide();                                               // @006fdaxx
+	}
+	form->setContentsMargins(0, 0, 0, 0);                     // @006fdaxx(全零)
+	form->addRow(label);                                     // addRow ×3(实参折叠,cited)
+	form->addRow(m_combo38);
+	form->addRow(m_tabs48);
+	setLayout(form);                                         // @006fdaxx
+	QWidget::setTabOrder(m_combo38, m_stack40);              // @006fdaxx(+0x38 → +0x40)
+	setFocusProxy(this);                                     // @006fdaxx
 }

@@ -3,9 +3,12 @@
 #include <QMap>
 #include <QWidget>
 
+class QComboBox;
 class QHBoxLayout;
 class QStackedLayout;
+class QStackedWidget;
 class QTabBar;
+class QTabWidget;
 
 // TriggerPageFace — 语料触发器页族共有面(批 341/342/343)。
 //
@@ -111,4 +114,49 @@ private:
 	QTabBar *m_tabBar30 = nullptr;          // +0x30
 	QStackedLayout *m_stack40 = nullptr;    // +0x40
 	QMap<int, QWidget *> m_pages88;         // +0x88
+};
+
+// TriggerActionWidgetFace — FUN_006fdcde(274B,0022.c:26700) ctor 全量实读:
+//   QWidget(parent, 0) → vtable TriggerActionWidget_vtable + 副 vptr 0118bcc8 →
+//   +0x30 = kind(int) → +0x50/+0x58/+0x60/+0x68/+0x70 = 0 →
+//   build()(FUN_006fd6c0)→ connect(+0x38 QComboBox::currentIndexChanged →
+//   +0x40 QStackedWidget::setCurrentIndex,闭包 impl FUN_006b6730,
+//   smeta QComboBox)。dtor 族实测对象尺寸 0x78(与 new 0x78 一致)。
+//
+// 内部装配 FUN_006fd6c0(1203B,0022.c:26537) 实测:
+//   form = new QFormLayout(0x20)(父 0);
+//   label = new QLabel(0x30, tr("&Action:")(0xc9fe80), 0, 0);
+//   +0x38 = new 0x48 + combo_makeSearchCombo(搜索下拉);
+//   +0x40 = new QStackedWidget(0x30);  +0x48 = new QTabWidget(0x30);
+//   三平台页签:addTab(FUN_006f8e30(this,"linux"),"&Linux"(0xc9d4aa))/
+//     ("macos","&macOS"(0xc9d4cb))/("windows","&Windows"(ascii));
+//   建页序 = int 表 @0xc9ff80 实读 {3, 2, 1, 4}:
+//     sub=1 → new 0x70 + FUN_006f83b0(w,sub,(kind-1>3),0) → +0x58;+0x68 = w+0x40;
+//     sub=2 → new QGroupBox + QVBoxLayout + new 0x50 + FUN_006cc226(w,0) → +0x50;
+//             group->setLayout(vbox);(group 进 stack)
+//     sub=4 → new 0x70 + FUN_006f83b0 → +0x60;+0x70 = w+0x40;
+//     sub=3 → 无建件(直接入 stack);
+//     每页入 stack 后 combo 追加一项(文案 = FUN_0069b57e/FUN_006f8cb4 链 tr,
+//       data = sub);
+//   门:kind == 10 只建 sub==3;kind ∈ 2..4 时不建 sub==4;
+//   尾:@label->setBuddy(...);kind==10 → combo->findData(QVariant(3), 0x100,
+//     0x10)(Qt::UserRole / Qt::MatchCaseSensitive)→ setCurrentIndex → hide();
+//     form->setContentsMargins(全零);addRow ×3;setLayout(form);
+//     setTabOrder(+0x38, +0x40);setFocusProxy(this)。
+class TriggerActionWidgetFace : public QWidget {
+	Q_OBJECT
+public:
+	explicit TriggerActionWidgetFace(int kind, QWidget *parent = nullptr); // FUN_006fdcde
+	void build();                                                          // FUN_006fd6c0
+
+protected:
+	int m_kind30 = 0;                    // +0x30
+	QComboBox *m_combo38 = nullptr;      // +0x38(0x48 search combo)
+	QStackedWidget *m_stack40 = nullptr; // +0x40
+	QTabWidget *m_tabs48 = nullptr;      // +0x48
+	QWidget *m_f50 = nullptr;            // +0x50(new 0x50 sub=2 件)
+	QWidget *m_f58 = nullptr;            // +0x58(new 0x70 sub=1 件)
+	QWidget *m_f60 = nullptr;            // +0x60(new 0x70 sub=4 件)
+	QWidget *m_f68 = nullptr;            // +0x68(sub=1 件 +0x40)
+	QWidget *m_f70 = nullptr;            // +0x70(sub=4 件 +0x40)
 };
