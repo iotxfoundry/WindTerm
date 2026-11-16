@@ -156,6 +156,9 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
   --addr;批 103/128 两次实战破案)。
 - libssh-dev/patchelf/Xvfb 已装;ptrace_scope 重启后回 1,frida 前
   需 `sudo sysctl -w kernel.yama.ptrace_scope=0`。
+- **清理台账见 `docs/CLEANUP.md`**(批 493 后):已删 IDA 库 / node 版 frida /
+  `build/` / 上游库 test-example ≈11M;**保留** decomp 语料、`inc/`、数据面、
+  `./WindTerm` 副本(判据 = AGENTS 条 16 + 构建引用分析)。
 
 ## 原版环境拉起流程(5b/对比批用;批 121-123 实战)
 
