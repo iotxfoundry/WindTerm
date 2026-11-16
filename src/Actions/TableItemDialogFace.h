@@ -10,12 +10,11 @@
 //   setAttribute(0x37, true) →
 //   字段 +0x30 = *param_2 →
 //   字段 +0x38 = *param_3 →
-//   build()(FUN_006c7xxx)。
+//   **无独立装配腿**(ctor 内直接写 +0x30/+0x38 两入参,不调 FUN_)。
 //   **不设标题**;+0x30/+0x38 两个入参指针入字段
 class TableItemDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit TableItemDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_006c7xxx — 结构段(cited)
 };
 
