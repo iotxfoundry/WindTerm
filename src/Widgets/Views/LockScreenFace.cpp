@@ -140,8 +140,8 @@ static bool changeMasterPassword(CTerminalConfig *cfg, const QString &oldPasswor
 QLayout *LockScreenFace::buildLockedPage()
 {
 	auto *v = new QVBoxLayout;
-	// 0055fa55:延迟腿(单次 0ms),body cited
-	QTimer::singleShot(0, this, [this] {});
+	// 0055fa55(50B)延迟腿真身:setFocus(+0x58, 1 = TabFocusReason)
+	QTimer::singleShot(0, this, [this] { m_lock58->setFocus(Qt::TabFocusReason); });
 	// 00561a70(成组)+ 00560b20(装配)+ 00534d80(收尾) —— cited
 	v->setSpacing(0); // 实参被折叠,按 0 占位(cited)
 	v->addWidget(m_lock58, 0, 0);   // +0x58
@@ -174,7 +174,12 @@ QLayout *LockScreenFace::buildChangePage()
 	if (m_f70 != nullptr)
 		m_f70->setPlaceholderText(tr("Confirm password")); // 0xc8a212
 
-	QTimer::singleShot(0, this, [this] {}); // 0055fac9 延迟腿,cited
+	// 0055fac9(66B)延迟腿真身:与 0055fa87 同形
+	//   (QWidget::hide() 接收者折叠 → cited;setFocus(+0x60, 7))
+	QTimer::singleShot(0, this, [this] {
+		if (m_f60 != nullptr)
+			m_f60->setFocus(Qt::OtherFocusReason); // 7
+	});
 	// 00561a70 / 00560b20 / 00534d80 —— cited
 
 	vbox->setSpacing(0); // 实参折叠,cited
@@ -202,7 +207,12 @@ QLayout *LockScreenFace::buildPasswordPage()
 	m_title40->setText(tr("Screen Locked")); // 0xc8a223
 	if (m_f60 != nullptr)
 		m_f60->setPlaceholderText(tr("Password")); // 0058dac2
-	QTimer::singleShot(0, this, [this] {}); // 0055fa87 延迟腿,cited
+	// 0055fa87(66B)延迟腿真身:QWidget::hide()(接收者被折叠,cited)+
+	//   setFocus(+0x60, 7 = OtherFocusReason)
+	QTimer::singleShot(0, this, [this] {
+		if (m_f60 != nullptr)
+			m_f60->setFocus(Qt::OtherFocusReason); // 7
+	});
 	// 00561a70 / 00560b20 / 00534d80 —— cited
 	v->setSpacing(0);
 	v->addWidget(m_title40, 0, 0); // +0x40
