@@ -66,6 +66,16 @@ public:
 	}
 	void applyQuickBarItems(const QStringList &items) { m_quickBarItems = items; } // FUN_0085ae06(cited)
 	void collapseQuickBar() {}   // FUN_008595c8(收起腿,cited 体)
+
+	// FUN_0085af56(329B,0026.c:51580)**TransferBar 懒建**(非 QuickBar):
+	//   +0xe8 引用计数数据空 || +0xf0 宿主空 →
+	//     bar = new 0x58 + FUN_005858fe(this)(TransferBar ctor)→
+	//     存 +0xe8(ExternalRefCountData)/+0xf0(宿主)→
+	//     connect(bar, 信号 **TransferBar_h8f1b18** → 闭包 impl
+	//       **s_TransferPane_857528**,flags = **2**,smeta 011967a0)→
+	//   末尾 `s_SearchPane_85a7a6(this, 宿主)`(与搜索面板联动)。
+	void ensureTransferBar();
+	QObject *m_transferBarF0 = nullptr;  // +0xf0(TransferBar 宿主)
 	QString m_quickBarName;      // +0xd8
 	QWidget *m_quickBarHost = nullptr; // +0xe0
 	QStringList m_quickBarItems; // +0xe0 宿主的 +0x68 表(承接)

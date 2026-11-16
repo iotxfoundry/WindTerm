@@ -627,3 +627,16 @@ bool stateStoreRestoreQuickBar(KitWindowFace *pane, QDataStream &in, quint32 fla
 	}
 	return true;                                  // 语料恒 return 1
 }
+
+// FUN_0085af56(329B)**TransferBar 懒建**真身(结构段):
+//   注意:与 QuickBar(+0xd8/+0xe0)是两对不同的槽 —— 批 442 曾误记。
+void stateStoreEnsureTransferBar(KitWindowFace *pane)
+{
+	if (pane == nullptr)
+		return;
+	// if (+0xe8 空 || +0xf0 空) → new 0x58 TransferBar(FUN_005858fe)+
+	//   存 +0xe8/+0xf0 + connect(信号 TransferBar_h8f1b18 → s_TransferPane_857528,
+	//   flags 2,smeta 011967a0) — cited
+	pane->ensureTransferBar();                 // 承接(见 KitWindowFace.h 声明)
+	// s_SearchPane_85a7a6(this, +0xf0) — cited(搜索面板联动)
+}
