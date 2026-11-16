@@ -117,6 +117,39 @@
 - `CountSpinbox` / `CursorShape` 的基类未取证(批 492)
 - 线型表 14 项的 **id ↔ 名逐项配对**(批 449 只确证名集)
 
+
+## 4b. 模型缺口:TriggerPage 族是**多重继承**(2026-11-16 取证)
+
+七个触发器页(`CustomMenu/HighlightText/PlaySound/RunCommand/SendText/ShowTooltip`
++ 基类 `TriggerPage`)的析构在语料里成对出现,每对形态固定:
+
+```
+CustomMenuTriggerPage_dtor(this):            // 0x006f683e
+    *(void**)this        = &TriggerPage_vt0(0x011a47f0);
+    *(void**)(this+0x10) = &DAT_011a49b0;    // ← 第二个 vptr
+    QWidget::~QWidget(this);
+
+FUN_006f680b(this):                          // 0x006f680b(adjustor thunk)
+    *(void**)(this-0x10) = &TriggerPage_vt0;
+    *(void**)this        = &DAT_011a49b0;
+    QWidget::~QWidget(this-0x10);            // 基址回退 0x10
+```
+
+两个信号同时成立即为**第二多态基**:
+1. 对象 `+0x10` 另存一个 vptr;
+2. 另一支析构以 `this-0x10` 为基址(标准 adjustor thunk)。
+
+**我方现状**:`TriggerPageFace : public QWidget` 只有单继承,对象布局比原版少
+0x10 字节的第二基子对象。影响:`qobject_cast`/`dynamic_cast` 到第二基的路径、
+`sizeof`、以及 `this-0x10` 那支析构无法生成。
+
+**未定**:第二基的类名。`vtable_scan` 对该 vptr 解出的 typeinfo 仍是
+`11TriggerPage`(同一类的第二 vtable),说明 moc 侧不暴露第二个基;其槽位在
+静态读取下全为 0,未进一步定性。
+
+**处置**:编译期若出现「页对象指针偏移不符 / 第二基 cast 失败」,先回到本条。
+在此之前**不要**给 TriggerPageFace 加第二个基(会连带改动 7 个派生类的尺寸)。
+
 ## 5. 转写了但未接线(2026-11-16 全树清点)
 
 以下头文件**没有任何 .h/.cpp include 它们** —— 代码在,但不在任何装配链上。
