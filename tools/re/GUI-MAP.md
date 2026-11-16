@@ -214,3 +214,60 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - `MuxPaneView::m_meta20`(语料 +0x20 QMap)真身化;
   `historyBlob`(KitView_vt9 = property("History"));
   `parseSessionRestoreBlob`(`s_RenamedTitle_8bb3e6` 1693B 帧面)。
+
+## 追加:批 313-331(P5 对话框族 + Paste/Login/RunTool 数据面)
+
+### P5 对话框(全部按"装配序 + 文案实读"落库)
+- **EnvDialogFace**(`envDialog_setupUi` 1109B):+0x48 QPlainTextEdit /
+  +0x40 搜索组合框 / +0x30 QDialogButtonBox / QFormLayout /
+  `setWordWrapMode(3)` / `systemEnvironment().keys()`。
+- **RunToolDialogFace**(`RunToolDialog_setupUi` 1098B + ctor 1116B):
+  七控件序(+0x30 check/+0x38 buttons/+0x40 combo/+0x48 label/+0x50 tool/
+  +0x58,+0x60 组)+ 两轮 VBox 单选(`setProperty("data")`)+ Ok/Apply +
+  占位 `tr("Program [Arguments]...")`(0xca0359);
+  **两数据表实读**:参数占位符 6 项(`""/${CurrentChar}/${CurrentWordText}/
+  ${CurrentLineText}/${Selection}/${BufferText}`)、输出动作 8 项
+  (`ignore/insertText/newBuffer/replaceBuffer/replaceSelection/showOutput/
+  showTooltip/showHtml`);
+  `applyRadioLabels`(FUN_00707320 1849B:data BA ↔ 表 memcmp → setText(tr));
+  `buildCommandObject`(FUN_00708402 1825B:三键 command/stdin/stdout)。
+- **MsgBoxFace**(`msgbox_buildRich` 918B + `FUN_00615ad0` 281B):
+  三行(File name/Remote path)+ watcher 双分支(icon 3+Ok+"Stop watching
+  this file" / icon 1+0x1c000)+ `<pre>%1<br><table>` 拼装 + 行模板
+  `<tr><td>%1:</td><td><b>%2</b></td></tr>` + `WA_DeleteOnClose` +
+  标题 "Upload File";
+  `fileShowErrorBox`(820B):尾 `/` 剥除 + 子目录剔除 + 标题 "Copy" +
+  正文 "The destination folder is a subfolder of the source folder:\n%1" +
+  Warning(2) + detailedText。
+- **FileDialogFace**(`save_file_dialog_exec` 1412B 结构):静态目录缓存 +
+  QFileInfo(fileName/exists/absolutePath) + getSaveFileName。
+- **ProfileDirDialogFace**(`dirCompareDialog` 1695B,**名不副实** =
+  配置目录选择):HBox/VBox + QButtonGroup(+0x38) + 三 QLabel +
+  "Please select your profile directory that will be used to store user
+  preferences."(0xc9e098) + 候选 `&Application Directory`/`&Home Directory`
+  /` - %1`。
+- **LoginWizardFace**(`LoginWizard_setupUi` 1088B 全):+0x50 QDialogButtonBox
+  (Ok="Continue"/Cancel="&Cancel")+ +0x60/+0x68 QCheckBox
+  ("&Auto login next time"/"&Remember this step")+ +0x70/+0x78 QLabel
+  (空/"Login" 居中 0x84)+ HBox + QFrame(HLine)+ QFormLayout(-1,0,-1)+
+  宿主 QWidget + QStackedWidget(setSizePolicy 0x770000)+ VBox +
+  QFrame(StyledPanel)。
+- **PasteSettingsPageFace**(`pasteDialog_6dfd9e` 1221B,**实为 CategoryPage**):
+  三 QGroupBox(Features/Mouse Actions/Paste Dialog)+ 标签
+  "When pasting multiple lines..." + 右键动作三枚举
+  (ShowMenu/PasteText/CopyOrPasteText)+ 三配置键
+  (terminal.localModeEnabled / terminal.screen.pasteDialog /
+  terminal.altScreen.pasteDialog)+ form4 WrapLongRows + form5 三行。
+- **TunnelFace**(`TunnelDialog_h9097b0` 535B,**实为行表析构**):
+  0x48 步长行,五个 QByteArray(+0x00/+0x08/+0x10/+0x20/+0x38)。
+
+### 5c 会话恢复(读侧补齐)
+- `parseSessionRestoreBlob`(帧:>>count>>current + 逐项 name/payload
+  (magic 门 → color / renamed))批 269;
+- `restoreSessions`(副作用:空表默认会话 / blockSignals / 去重
+  QSet ↔ FUN_008bf030 QMap 表查 / 开户腿 cited)批 328。
+
+### 名不副实清单(累计 6 例)
+`s_ExpandButton_8b7dd4`=KitDock 装配;`s_tabbar_..._89d860`=dock 工厂;
+`pasteDialog`=设置分类页;`dirCompareDialog`=配置目录框;
+`TunnelDialog`=行表 dtor;`msgbox_buildRich`=上传确认框。
