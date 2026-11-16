@@ -15597,16 +15597,16 @@
 005df8ae	39	FUN_005df8ae	ref	src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFactory.h
 005df8d6	121	FUN_005df8d6	real	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFace.h,src/Windows/Kit/KitWindowFactory.cpp,src/Windows/Kit/KitWindowFactory.h
 005df958	316	FUN_005df958	ref	src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitWindowFactory.h
-005dfaae	317	CEditorConfig_vt7	qtplumb	
+005dfaae	317	CEditorConfig_vt7	real	
 005dfbec	23	CEditorConfig_vt8	ref	src/Editor/Config/CGlobalConfigFace.h
 005dfc04	40	FUN_005dfc04	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h
 005dfc2c	2122	lexer_scanDir	todo	
 005e050e	614	FUN_005e050e	todo	
 005e0784	3693	s_text_useTabPosition_5e0784	todo	
-005e1732	472	CEditorConfig_h5e1732	qtplumb	
+005e1732	472	CEditorConfig_h5e1732	real	
 005e1932	28	CEditorConfig_dtor	todo	
-005e194e	5	CEditorConfig_vt5	qtplumb	
-005e1954	5	CEditorConfig_vt6	qtplumb	
+005e194e	5	CEditorConfig_vt5	real	
+005e1954	5	CEditorConfig_vt6	real	
 005e195a	41	swap	todo	
 005e1990	164	FUN_005e1990	todo	
 005e1a62	130	FUN_005e1a62	todo	
