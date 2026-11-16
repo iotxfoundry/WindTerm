@@ -46,6 +46,8 @@ public:
 		QString flag20;      // +0x20
 		char f28[8] = {};
 		int proto30 = 0;     // +0x30
+		char f34[4] = {};
+		QString f38;         // +0x38(行内引用计数对象;析构逐行释放)
 	};
 
 	// FUN_0072d056(147B)协议填充:`s_session_protocol_80b1d8(全局配置,
@@ -68,6 +70,11 @@ public:
 	//   (qlist72_realloc)并逐行落表。
 	//   ⇒ +0xb8 = QList<0x48 行>(与本类行结构一致)。
 	void reloadRows();
+
+	// FUN_0072b9ca(535B,0022.c:53017)行表析构:
+	//   按 **0x48 步长**遍历 +0x10 起各行;逐行释放其 +0x38(引用计数对象);
+	//   末 QArrayData::deallocate(list, 0x48, 8)。
+	static void destroyRows(QList<TunnelRow> &rows);
 
 	// s_king__tunnelDynamicActive_6a2c16(431B)**名不副实**=行图标:
 	//   标志(+0x20)为空 → 按 kind 取

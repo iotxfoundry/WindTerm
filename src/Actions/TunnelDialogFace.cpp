@@ -139,3 +139,12 @@ void TunnelDialogFace::reloadRows()
 	// 其后按 0x48 步长扩容(qlist72_realloc)+ 逐行落表 — cited
 	// 列表件(+0xa8/+0xb0)随后按行重建(见 makeRowItem)。
 }
+
+// FUN_0072b9ca(535B)行表析构真身
+void TunnelDialogFace::destroyRows(QList<TunnelRow> &rows)
+{
+	for (TunnelRow &r : rows) {           // @0072b9ca(0x48 步长遍历)
+		r.f38.clear();                    // +0x38 引用计数对象释放
+	}
+	rows.clear();                         // deallocate(0x48,8)
+}
