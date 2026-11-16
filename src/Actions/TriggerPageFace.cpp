@@ -1,6 +1,8 @@
 // TriggerPageFace.cpp — 触发器页族共有面(批 341/342)
 #include "TriggerPageFace.h"
 
+#include "../Widgets/ColorButtonFace.h"
+
 #include <QComboBox>
 #include <QDoubleSpinBox>
 #include <QFormLayout>
