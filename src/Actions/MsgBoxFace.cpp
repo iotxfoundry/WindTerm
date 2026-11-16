@@ -28,13 +28,13 @@ QMessageBox *msgboxBuildRich(const QString &name, const QString &remotePath,
 {
 	auto *box = new QMessageBox(nullptr); // @00615d26
 
-	// 三行文案(行拼 FUN_00615ad0 未转写 → 以 "标签: 值" 形式承载,cited)
-	const QString row1 = QObject::tr("File name") + QStringLiteral(": ") + name;
-	const QString row2 = remotePath; // tr(0xc9d3fe) 标签面 cited
-	const QString row3 = QObject::tr("Remote path") + QStringLiteral(": ") + third;
+	// 三行(行拼 = FUN_00615ad0,批 324 真身)
+	const QString row1 = msgBoxRow(QObject::tr("File name"), name);   // 0xc90200
+	const QString row2 = msgBoxRow(QString(), remotePath);            // tr(0xc9d3fe) cited
+	const QString row3 = msgBoxRow(QObject::tr("Remote path"), third); // 0xc9020a
 
 	QString body = QStringLiteral("<pre>%1<br><table>").arg(row1); // 0xc90228
-	body += row2 + row3; // 表行拼接(cited:表头/单元格格式面未转写)
+	body += row2 + row3; // 表行
 	body += QString::fromUtf8(""); // 0xc8a3c9 尾串(cited)
 
 	QCheckBox *check = nullptr;
@@ -94,4 +94,16 @@ QMessageBox *fileShowErrorBox(QWidget *parent, const QStringList &paths,
 	box->setDetailedText(keep.join(QLatin1Char('\n'))); // @00579d9f
 	// vt+0x1a0(this)@00579dba — cited(展示面)
 	return box;
+}
+
+// FUN_00615ad0(281B)真身:
+//   @00615ad0 模板 = "<tr><td>%1:</td><td><b>%2</b></td></tr>"(0xc901f8 邻);
+//   @00615b0d QString::replace(值, 0xca2286 "&<" → 0xc901fb "&lt;")(语义
+//     cited:两串直读,Ghidra 实参序未定)→ argToQString(模板, 2 参) →
+//   append 到输出。
+QString msgBoxRow(const QString &label, const QString &value)
+{
+	QString v = value;
+	v.replace(QStringLiteral("&<"), QStringLiteral("&lt;")); // cited(实参序待核)
+	return QStringLiteral("<tr><td>%1:</td><td><b>%2</b></td></tr>").arg(label, v);
 }

@@ -33,3 +33,9 @@ QMessageBox *msgboxBuildRich(const QString &name, const QString &remotePath,
 //   setDetailedText(表 join '\n')+ vt+0x1a0(cited)。
 QMessageBox *fileShowErrorBox(QWidget *parent, const QStringList &paths,
                               const QString &path);
+
+// FUN_00615ad0(281B,0019.c:...):富文本框行拼 —
+//   模板 "<tr><td>%1:</td><td><b>%2</b></td></tr>"(0xc901f8 邻) →
+//   值先 QString::replace(0xca2286 "&<" → 0xc901fb "&lt;")(语义 cited)→
+//   模板.arg(标签, 值) → 追加到输出串。
+QString msgBoxRow(const QString &label, const QString &value);
