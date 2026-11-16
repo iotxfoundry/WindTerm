@@ -13351,8 +13351,8 @@
 00525f50	2042	FUN_00525f50	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h
 0052674a	765	strtrie_find_qv	ref	src/Sessions/Core/WorkspaceLoader.cpp,src/Sessions/Core/WorkspaceLoader.h
 00526a50	43	FUN_00526a50	todo	
-00526a7c	324	FUN_00526a7c	todo	
-00526be0	174	FUN_00526be0	todo	
+00526a7c	324	FUN_00526a7c	real	src/Widgets/Bars/AppletBarFace.h
+00526be0	174	FUN_00526be0	real	
 00526c96	105	FUN_00526c96	todo	
 00526d00	748	FUN_00526d00	todo	
 00526ffa	5055	FUN_00526ffa	cleanup	
@@ -14577,11 +14577,11 @@
 005980e4	5	addSeparator	todo	
 005980f0	45	FUN_005980f0	todo	
 0059811d	45	FUN_0059811d	todo	
-0059814a	119	FUN_0059814a	ref	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-005981c1	162	FUN_005981c1	ref	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
+0059814a	119	FUN_0059814a	todo	
+005981c1	162	FUN_005981c1	todo	
 0059826c	215	FUN_0059826c	todo	
-0059834c	369	FUN_0059834c	real	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-005984be	1021	s_ExpandButton_5984be	ref	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h,src/Widgets/Controls/ExpandButtonFaces.cpp,src/Widgets/Controls/ExpandButtonFaces.h
+0059834c	369	FUN_0059834c	todo	
+005984be	1021	s_ExpandButton_5984be	ref	src/Widgets/Controls/ExpandButtonFaces.cpp,src/Widgets/Controls/ExpandButtonFaces.h
 0059891a	55	FUN_0059891a	todo	
 00598951	298	FUN_00598951	todo	
 00598a8c	39	FUN_00598a8c	todo	
@@ -14589,19 +14589,19 @@
 00598adc	260	FUN_00598adc	todo	
 00598c0e	186	FUN_00598c0e	todo	
 00598cc8	8808	FUN_00598cc8	todo	
-0059af30	262	FUN_0059af30	real	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-0059b046	393	FUN_0059b046	real	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-0059b1e0	5777	s_IconLabel_59b1e0	ref	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-0059c9e2	882	s_king__expand_59c9e2	ref	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-0059cd82	306	FUN_0059cd82	real	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-0059ced9	58	FUN_0059ced9	ref	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
+0059af30	262	FUN_0059af30	todo	
+0059b046	393	FUN_0059b046	todo	
+0059b1e0	5777	s_IconLabel_59b1e0	todo	
+0059c9e2	882	s_king__expand_59c9e2	todo	
+0059cd82	306	FUN_0059cd82	todo	
+0059ced9	58	FUN_0059ced9	todo	
 0059cf14	325	FUN_0059cf14	todo	
 0059d076	1	FUN_0059d076	todo	
 0059d077	15	FUN_0059d077	todo	
 0059d086	14	FUN_0059d086	todo	
 0059d0a0	29	qlist_unref_dispose3	todo	
 0059d0c0	302	FUN_0059d0c0	todo	
-0059ebe0	130	FUN_0059ebe0	ref	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
+0059ebe0	130	FUN_0059ebe0	todo	
 0059ecda	6468	qmap_detach_copy_nodes	ref	src/Widgets/Views/TextView.h
 005a0620	173	FUN_005a0620	todo	
 005a074f	285	FUN_005a074f	todo	
@@ -14655,7 +14655,7 @@
 005a29e6	690	FUN_005a29e6	real	src/Widgets/Controls/SplitterGroup.cpp,src/Widgets/Controls/SplitterGroup.h,src/Windows/Mux/MuxWindow.cpp
 005a2ca0	40	FUN_005a2ca0	todo	
 005a2cc8	94	FUN_005a2cc8	todo	
-005a2d26	252	FUN_005a2d26	real	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/StatusBarFace.cpp,src/Widgets/Bars/StatusBarFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp
+005a2d26	252	FUN_005a2d26	real	src/Widgets/Bars/AppletBarFace.cpp,src/Widgets/Bars/StatusBarFace.cpp,src/Widgets/Bars/StatusBarFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp
 005a2e32	38	FUN_005a2e32	ref	src/Widgets/Bars/StatusBarFace.cpp
 005a2e58	654	FUN_005a2e58	real	src/Widgets/Bars/StatusBarFace.cpp,src/Widgets/Bars/StatusBarFace.h,src/Windows/Kit/KitWindowAssemblyFace.cpp
 005a3106	79	FUN_005a3106	todo	
@@ -19993,7 +19993,7 @@
 00767aa8	142	FUN_00767aa8	todo	
 00767b36	9	FUN_00767b36	ref	src/Editor/Config/CGlobalConfigFace.cpp,src/Editor/Config/CGlobalConfigFace.h,src/Windows/Kit/KitBar.cpp,src/Windows/Kit/KitBar.h
 00767b40	9	FUN_00767b40	ref	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
-00767b4a	85	FUN_00767b4a	ref	src/App/StartupChain.cpp,src/App/StartupChain.h,src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
+00767b4a	85	FUN_00767b4a	ref	src/App/StartupChain.cpp,src/App/StartupChain.h
 00767ba0	27	FUN_00767ba0	ref	src/App/StartupChain.cpp,src/App/StartupChain.h
 00767bbb	143	FUN_00767bbb	todo	
 00767c4a	9	FUN_00767c4a	ref	src/Actions/ToolBarBuilder.cpp,src/Actions/ToolBarBuilder.h
@@ -25192,7 +25192,7 @@
 008eee64	24	AppletBar_vt0	qtplumb	
 008eee7c	66	StatusBar_dtor	todo	
 008eeebe	5	StatusBar_dtor_deleting	todo	
-008eeec4	29	AppletBar_dtor	todo	
+008eeec4	29	AppletBar_dtor	real	src/Widgets/Bars/AppletBarFace.h
 008eeee1	33	FUN_008eeee1	todo	
 008eef02	47	AppletBar_dtor_deleting	todo	
 008eef31	51	FUN_008eef31	todo	
@@ -25635,11 +25635,11 @@
 008f7db4	47	Menu_dtor_deleting	todo	
 008f7de3	51	FUN_008f7de3	todo	
 008f7e20	24	MessageBar_metaObject	qtplumb	
-008f7e38	56	FUN_008f7e38	real	src/Widgets/Bars/MessageBarFace.cpp,src/Widgets/Bars/MessageBarFace.h
-008f7e70	175	MessageBar_h8f7e70	ref	src/Widgets/Bars/MessageBarFace.h
-008f7f28	66	MessageBar_qt_metacast	ref	src/Widgets/Bars/MessageBarFace.h
+008f7e38	56	FUN_008f7e38	todo	
+008f7e70	175	MessageBar_h8f7e70	qtplumb	
+008f7f28	66	MessageBar_qt_metacast	qtplumb	
 008f7f6a	93	MessageBar_qt_metacall	qtplumb	
-008f7fc8	95	MessageBar_dtor	todo	
+008f7fc8	95	MessageBar_dtor	real	src/Widgets/Bars/MessageBarFace.h
 008f8027	97	FUN_008f8027	todo	
 008f8088	115	FUN_008f8088	todo	
 008f80fc	101	MessageBar_dtor_deleting	todo	
