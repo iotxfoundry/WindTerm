@@ -25,6 +25,7 @@
 //   9 preview               → FUN_007478c6()
 //
 // 字段(dtor 实读):基类 +0x50 / +0x70 之外无自有字段。
+// sizeof = **0x90**(deleting 0x0090b30c 的 operator_delete(_,0x90))。
 class OutlinePaneFace : public KitPaneFace {
 	Q_OBJECT
 

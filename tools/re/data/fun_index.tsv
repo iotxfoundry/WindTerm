@@ -3051,7 +3051,15 @@
 0074a8f6	src/Widgets/Panes/OutputPane.h
 0074a946	src/Widgets/Panes/OutputPane.h
 0074dda2	src/Editor/Engine/ENodes.h
+0074e58e	src/Widgets/Panes/SearchPaneFace.cpp
+0074e58e	src/Widgets/Panes/SearchPaneFace.h
+0074e9cc	src/Widgets/Panes/SearchPaneFace.cpp
+0074e9cc	src/Widgets/Panes/SearchPaneFace.h
+0074eecc	src/Widgets/Panes/SearchPaneFace.cpp
+0074eecc	src/Widgets/Panes/SearchPaneFace.h
 0074efe6	src/Windows/Kit/KitWindowAssemblyFace.cpp
+0074f5ac	src/Widgets/Panes/SearchPaneFace.cpp
+0074f5ac	src/Widgets/Panes/SearchPaneFace.h
 0074feb4	src/Windows/Kit/KitWindowAssemblyFace.cpp
 007525da	src/App/ApplicationTheme.cpp
 0075263e	src/Widgets/Controls/SearchEditFace.cpp
@@ -6629,6 +6637,7 @@
 00904d62	src/Widgets/Dialogs/SessionDialogFace.h
 00909092	src/Widgets/Settings/TriggerPageFace.cpp
 0090b020	src/Widgets/Panes/OutlinePaneFace.h
+0090b61c	src/Widgets/Panes/SearchPaneFace.h
 0090e018	src/App/StartupChain.cpp
 0090e018	src/App/StartupChain.h
 0090e018	src/App/SuperApplicationFace.cpp

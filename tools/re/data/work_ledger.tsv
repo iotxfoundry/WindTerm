@@ -19623,16 +19623,16 @@
 0074d90c	1173	s_king__searchIncremental_74d90c	todo	
 0074dda2	1267	FUN_0074dda2	ref	src/Editor/Engine/ENodes.h
 0074e2c6	670	FUN_0074e2c6	todo	
-0074e58e	64	FUN_0074e58e	todo	
+0074e58e	64	FUN_0074e58e	ref	src/Widgets/Panes/SearchPaneFace.cpp,src/Widgets/Panes/SearchPaneFace.h
 0074e5ce	976	FUN_0074e5ce	todo	
-0074e9cc	1084	FUN_0074e9cc	todo	
+0074e9cc	1084	FUN_0074e9cc	ref	src/Widgets/Panes/SearchPaneFace.cpp,src/Widgets/Panes/SearchPaneFace.h
 0074ee28	163	FUN_0074ee28	todo	
-0074eecc	9	FUN_0074eecc	todo	
+0074eecc	9	FUN_0074eecc	ref	src/Widgets/Panes/SearchPaneFace.cpp,src/Widgets/Panes/SearchPaneFace.h
 0074eed6	245	FUN_0074eed6	todo	
 0074efe6	378	s_SearchPane_74efe6	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
 0074f188	531	FUN_0074f188	todo	
 0074f3ac	504	FUN_0074f3ac	todo	
-0074f5ac	138	FUN_0074f5ac	todo	
+0074f5ac	138	FUN_0074f5ac	ref	src/Widgets/Panes/SearchPaneFace.cpp,src/Widgets/Panes/SearchPaneFace.h
 0074f636	239	FUN_0074f636	todo	
 0074f730	110	FUN_0074f730	todo	
 0074f7a0	102	FUN_0074f7a0	todo	
@@ -26311,7 +26311,7 @@
 0090b4c6	147	SearchPane_h90b4c6	qtplumb	
 0090b55a	101	FUN_0090b55a	todo	
 0090b5c0	91	SearchPane_qt_metacall	qtplumb	
-0090b61c	258	SearchPane_dtor	todo	
+0090b61c	258	SearchPane_dtor	real	src/Widgets/Panes/SearchPaneFace.h
 0090b71e	258	FUN_0090b71e	todo	
 0090b820	270	FUN_0090b820	todo	
 0090b92e	271	SearchPane_dtor_deleting	todo	
