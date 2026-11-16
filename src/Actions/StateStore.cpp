@@ -640,3 +640,22 @@ void stateStoreEnsureTransferBar(KitWindowFace *pane)
 	pane->ensureTransferBar();                 // 承接(见 KitWindowFace.h 声明)
 	// s_SearchPane_85a7a6(this, +0xf0) — cited(搜索面板联动)
 }
+
+// FUN_0085e0c0(350B)读 QVariantList 真身
+bool KitWindowFace::readVariantList(QDataStream &in, QVariantList &out)
+{
+	out.clear();                                  // FUN_0081a2f6(out)
+	int count = 0;
+	in >> count;                                  // @0085e111(>>int)
+	out.reserve(count);                           // FUN_006ec720(out, count)
+	for (int i = 0; i < count; ++i) {
+		QString s;
+		in >> s;                                  // @0085e167(>>QString)
+		if (in.status() != QDataStream::Ok) {      // status 非 0 → 清并中止
+			out.clear();
+			return false;
+		}
+		out.append(s);                            // qlist_qvariant_append
+	}
+	return true;
+}

@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QString>
+#include <QDataStream>
 #include <QStringList>
+#include <QVariantList>
 
 #include <QByteArray>
 #include <QMainWindow>
@@ -64,8 +66,31 @@ public:
 		m_quickBarHost = host;
 		m_quickBarItems = items;
 	}
-	void applyQuickBarItems(const QStringList &items) { m_quickBarItems = items; } // FUN_0085ae06(cited)
-	void collapseQuickBar() {}   // FUN_008595c8(收起腿,cited 体)
+	// FUN_0085ae06(97B,0026.c:51529)应用快捷项:**顺序实读** ——
+	//   先 FUN_0085ad2e()(预备);再 +0xd8/+0xe0 双槽有效时
+	//   FUN_00570a80(+0xe0, 列表)(把项灌进宿主),宿主无效则喂 0。
+	void applyQuickBarItems(const QStringList &items)
+	{
+		// FUN_0085ad2e() 预备腿 — cited
+		if (!m_quickBarName.isEmpty() && m_quickBarHost != nullptr) {
+			m_quickBarItems = items;               // FUN_00570a80(host, list)
+			setQuickBar(m_quickBarName, m_quickBarHost, items);
+		}
+	}
+
+	// FUN_008595c8(56B,0026.c:50519)收起:**仅** +0xd8 与 +0xe0 都有效时
+	//   调 QWidget::hide();否则什么都不做(不建栏)。
+	void collapseQuickBar()
+	{
+		if (m_quickBarHost != nullptr && !m_quickBarName.isEmpty())
+			m_quickBarHost->hide();
+	}
+
+	// FUN_0085e0c0(350B,0027.c:595)读 QVariantList(写侧 count+项 的镜像):
+	//   FUN_0081a2f6(out)(清空)→ **>> int count** → FUN_006ec720(out,count)
+	//   (预留)→ 循环 **>> QString** + qlist_qvariant_append;
+	//   流状态异常 → 清 out 后中止。
+	static bool readVariantList(QDataStream &in, QVariantList &out);
 
 	// FUN_0085af56(329B,0026.c:51580)**TransferBar 懒建**(非 QuickBar):
 	//   +0xe8 引用计数数据空 || +0xf0 宿主空 →
