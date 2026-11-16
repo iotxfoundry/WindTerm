@@ -184,6 +184,13 @@ public:
 	//   ⇒ 006fd6c0 里"每页入 combo 的文案"即 mapGetIntOr(kindNameMap, sub, 缺省)。
 	static QString mapGetIntOr(const QMap<int, QString> &m, int key, const QString &fallback);
 
+	// FUN_0069b57e(512B,0021.c:25340)动作子类名表 **实读**(修复批 401:
+	//   原 build 里 combo 文案为空缺省,现按语料落):
+	//     "Open hyperlink" → 1 / "Play sound" → 2 /
+	//     "Run command"    → 3 / "Send text"  → 4
+	//   (QMap<QString,int> 名→kind;显示侧取逆表 kind→名,见 FUN_006f8cb4)。
+	static const QMap<int, QString> &kindNameTable();
+
 protected:
 	int m_kind30 = 0;                    // +0x30
 	QComboBox *m_combo38 = nullptr;      // +0x38(0x48 search combo)

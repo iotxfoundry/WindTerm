@@ -237,10 +237,9 @@ void TriggerActionWidgetFace::build()
 		} else {
 			// sub == 3:语料 @006fd987 直接 addWidget(入参 Ghidra 折叠)— cited
 		}
-		// combo 追加项:文案 = FUN_0069b57e 取名表 → FUN_006f8cb4(取 sub 对应项)
-		//   → tr;data = sub(@006fd8f4 insert_item)。
-		//   名表本体(FUN_0069b57e)未转写 ⇒ 以空缺省落,不发明文案(铁律 3)。
-		const QString label = mapGetIntOr(QMap<int, QString>(), sub, QString());
+		// combo 追加项:文案 = 名表(FUN_0069b57e)按 sub 取 → tr;data = sub
+		//   (@006fd8f4 insert_item)。修复批 401:名表已实读,不再留空。
+		const QString label = mapGetIntOr(kindNameTable(), sub, QString());
 		if (!label.isEmpty())
 			m_combo38->addItem(label, sub);
 	}
@@ -658,4 +657,20 @@ QString TriggerActionWidgetFace::mapGetIntOr(const QMap<int, QString> &m, int ke
 		return fallback;
 	auto it = m.constFind(key);            // 逐节点比 node+0x20
 	return it != m.constEnd() ? it.value() : fallback; // 值在 node+0x18
+}
+
+// FUN_0069b57e(512B,0021.c:25340)动作子类名表真身:
+//   语料逐条 qstring_assign_from_ascii + 值对实读:
+//     "Run command" → 3 / "Open hyperlink" → 1 /
+//     "Play sound" → 2 / "Send text" → 4
+//   (显示用逆表:kind → 名)
+const QMap<int, QString> &TriggerActionWidgetFace::kindNameTable()
+{
+	static const QMap<int, QString> table = {
+		{ 1, QStringLiteral("Open hyperlink") },
+		{ 2, QStringLiteral("Play sound") },
+		{ 3, QStringLiteral("Run command") },
+		{ 4, QStringLiteral("Send text") },
+	};
+	return table;
 }
