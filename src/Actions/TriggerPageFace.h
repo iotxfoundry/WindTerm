@@ -6,6 +6,7 @@
 class QComboBox;
 class QDoubleSpinBox;
 class QAbstractItemView;
+class QComboBox;
 class QToolButton;
 class QHBoxLayout;
 class QMenu;
@@ -300,6 +301,21 @@ class MarkStyleWidgetFace : public QWidget {
 public:
 	explicit MarkStyleWidgetFace(QWidget *parent = nullptr);
 	void assemble(); // FUN_00703900(268B)
+
+	// FUN_00703704(427B,0022.c:29958)线型下拉:
+	//   combo = new 0x48 + combo_makeSearchCombo(combo, 0);
+	//   list = FUN_0094e9cc(&list)(线型表,2222B);
+	//   逐项 `insertItem(count, QIcon(), item->名, QVariant((char)item[8]))`
+	//     —— **item 的 +0x40 字节 = 线型 id**(语料把 char 存进 QVariant);
+	//   connect(currentIndexChanged → 闭包 impl **FUN_006f6ccf**(捕获 this+combo));
+	//   return combo(装到 +0x30)。
+	static class QComboBox *makeLineStyleCombo(QWidget *markStyle);
+
+	// 线型表(FUN_0094e9cc 2222B)的**名串集**(.rodata 全实读,14 项):
+	//   None / Solid / Double / Thick / Strike / Wavy / Dot / Dash /
+	//   Dash dot / Dash dot dot / Round box / Dashed box / Dotted box / Box
+	//   (id ↔ 名的逐项配对未取证 —— 不猜,留待收尾期用 QMetaEnum 反查)
+	static const QStringList &lineStyleNames();
 
 protected:
 	QWidget *m_style30 = nullptr;  // +0x30(FUN_00703704,427B:线型选择件)

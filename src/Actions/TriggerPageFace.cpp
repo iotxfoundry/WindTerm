@@ -426,7 +426,7 @@ MarkStyleWidgetFace::MarkStyleWidgetFace(QWidget *parent)
 void MarkStyleWidgetFace::assemble()
 {
 	auto *form = new QFormLayout;                                  // @00703921(0x20,父 0)
-	m_style30 = new QWidget(this);                                 // @0070393x(FUN_00703704) cited
+	m_style30 = makeLineStyleCombo(this);                          // @0070393x(0x48,FUN_00703704)
 	m_color38 = new QWidget(this);                                 // @00703944(0x30 颜色钮) cited
 	form->setContentsMargins(0, 0, 0, 0);                          // 全零
 	form->addRow(QStringLiteral("Mark &Style:"));                  // tr(0xc9fee1)
@@ -713,4 +713,39 @@ const QMap<int, QString> &TriggerActionWidgetFace::kindNameTable()
 		{ 4, QStringLiteral("Send text") },
 	};
 	return table;
+}
+
+// FUN_00703704(427B)线型下拉真身
+QComboBox *MarkStyleWidgetFace::makeLineStyleCombo(QWidget *markStyle)
+{
+	auto *combo = new QComboBox;                    // @00703729(0x48 + combo_makeSearchCombo) cited
+	int idx = 0;
+	for (const QString &n : lineStyleNames()) {
+		combo->insertItem(idx++, QIcon(), n, QVariant()); // @007037c1(图标空;data = item+0x40 字节)
+	}
+	// connect(currentIndexChanged → 闭包 impl FUN_006f6ccf)@007037e0 — cited
+	Q_UNUSED(markStyle);
+	return combo;                                   // 装到 +0x30
+}
+
+// 线型名表(FUN_0094e9cc 2222B;.rodata 逐串实读)
+const QStringList &MarkStyleWidgetFace::lineStyleNames()
+{
+	static const QStringList names = {
+		QStringLiteral("None"),          // 0xca0371
+		QStringLiteral("Solid"),         // 0xce8d32
+		QStringLiteral("Double"),        // 0xce8d38
+		QStringLiteral("Thick"),         // 0xce8d3f
+		QStringLiteral("Strike"),        // 0xce8d45
+		QStringLiteral("Wavy"),          // 0xce8d4c
+		QStringLiteral("Dot"),           // 0xce8d51
+		QStringLiteral("Dash"),          // 0xce8d55
+		QStringLiteral("Dash dot"),      // 0xce8d5a
+		QStringLiteral("Dash dot dot"),  // 0xce8d63
+		QStringLiteral("Round box"),     // 0xce8d70
+		QStringLiteral("Dashed box"),    // 0xce8d7a
+		QStringLiteral("Dotted box"),    // 0xce8d85
+		QStringLiteral("Box"),           // 0xceeac4
+	};
+	return names;
 }
