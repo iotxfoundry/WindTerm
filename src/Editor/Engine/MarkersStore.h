@@ -29,10 +29,10 @@
 #include <errno.h>
 #include <sched.h>
 
-#include "../Scintilla/include/Platform.h"   // SplitVector.h 依赖 PLATFORM_ASSERT(上游含序同 RunStyles.cxx)
-#include "../Scintilla/src/SplitVector.h"
-#include "../Scintilla/src/Partitioning.h"
-#include "../Scintilla/src/RunStyles.h"
+#include "Scintilla/include/Platform.h"   // SplitVector.h 依赖 PLATFORM_ASSERT(上游含序同 RunStyles.cxx)
+#include "Scintilla/src/SplitVector.h"
+#include "Scintilla/src/Partitioning.h"
+#include "Scintilla/src/RunStyles.h"
 using RS8  = Scintilla::RunStyles<int, char>;        // FUN_0088ff00(u8 密排;读逐位等价)
 using RS16 = Scintilla::RunStyles<int, int>;         // runstyles_value_at16(u16 值窄存 int,位型等价)
 using RS32 = Scintilla::RunStyles<int, int>;         // Uint32RunStyles_valueAt

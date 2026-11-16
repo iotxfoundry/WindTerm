@@ -1,10 +1,13 @@
 #ifndef EXT_SPDLOGFACE_H
 #define EXT_SPDLOGFACE_H
 
-// 批 151(M15-②):spdlog 1.9.2 真库委托面(ext-boundary:外库实现
-// 不逆向,只落 WindTerm 侧调面)。include 按 TU 局部接线(CMake
-// set_source_files_properties;全局 -I 与 Scintilla/Qt 头冲突实测
-// 6k 错,见 CMakeLists 批前注)。
+// SessionLoggerOp — **WindTerm 自己的会话日志构建腿**(A 类,已逆向)。
+// 不是 spdlog 的代码:spdlog 只作为 sink/logger 容器被调用(第三方,不逆向);
+// 本文件转写的是语料 FUN_007c24c8 建腿、FUN_007c4a30/FUN_007c5970 的
+// **自研 token 时间格式化引擎**(语料 %h/%n/%A..%z 不经 spdlog formatter,
+// 是 buildLeg 对 pattern 的前置替换 + 记录簿记)。
+// 归属:Sessions/Core(与 SuperSessionPrivate::SessionLogger 同链),
+// 2026-11-16 从 src/Ext/SpdlogFace.h 迁出 —— 放 Ext/ 会被误当成第三方接口面。
 //
 // 语料调面源(0024.c FUN_007c24c8 腿体):
 //   建腿② @007c3751-3388:param_6<1 → 基础 file sink(operator_new
@@ -33,7 +36,7 @@
 #include <spdlog/pattern_formatter.h>
 #include <spdlog/details/log_msg.h>
 
-namespace Ext {
+namespace LoggerOp {
 
 struct SpdlogLeg
 {
@@ -463,6 +466,6 @@ inline QByteArray formatSampleLine(void *loggerRaw, SessionTokenState &state,
 	return state.buf;
 }
 
-} // namespace Ext
+} // namespace LoggerOp
 
 #endif // EXT_SPDLOGFACE_H

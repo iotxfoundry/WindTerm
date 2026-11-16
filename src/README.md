@@ -56,7 +56,7 @@ src/
 ├── Utility/           共享基元:KingEnums + B 类组件(见 §2)
 ├── Protocols/         Telnet 协议(**B 类**)
 ├── Pty/               伪终端(**B 类**,基于 ptyqt 重写)
-├── Ext/               外部库接口面(Spdlog / Zstd)
+├── Ext/               外部库**声明面**(目前仅 Zstd;纯 extern 声明,无 WindTerm 逻辑)
 └── Stubs/             gen_stubs.cpp(自动生成 cited-stub,随转写递减)
 ```
 
@@ -76,7 +76,7 @@ src/
 
 | # | 类 | 判据 | 怎么处理 |
 |---|---|---|---|
-| 1 | **C 第三方库** | 路径在 `Scintilla/` `jsoncpp/` `yaml-cpp/` `spdlog/` `fmt/` `dtl/` `libssh/` `Onigmo/` | **不逆向、不改**;只转写 WindTerm 侧调用面(`src/Ext/`) |
+| 1 | **C 第三方库** | 路径在 `Scintilla/` `jsoncpp/` `yaml-cpp/` `spdlog/` `fmt/` `dtl/` `libssh/` `Onigmo/` | **不逆向、不改**;WindTerm 侧的调用逻辑按架构归位(`Ext/` 只放纯声明) |
 | 2 | **D 外部库接口面** | 路径在 `Ext/` | 只有声明;实现委托真库或 no-op |
 | 3 | **E 生成桩** | 路径在 `Stubs/` | `gen_stubs.py` 生成的 cited 空实现;转写出真身后删该行 |
 | 4 | **B 第一方开源** | 文件头有 `[B-OPENSOURCE]`,或在 `tools/re/data/open_source_files.txt` | **勿逆向**;移植须 `docs/calibration.md` 逐句同构 |
@@ -150,7 +150,7 @@ python3 tools/re/coverage.py --addr 00abcdef     # → 0 个文件(未做)
 | yaml-cpp | 0.6.3 | `src/yaml-cpp/LICENSE`(MIT) | 源码在树;`lib/libyaml-cpp.a`(923K)预构建 |
 | Onigmo(改) | 5.13.5 | `src/Onigmo/COPYING`(BSD) | 源码在树;`lib/libonig.a`(2.1M)预构建,**委托** |
 | libssh(改) | 0.9.6 | `src/libssh/COPYING`(LGPL-2.1) | **不编源码**;`lib/libssh.so.4.8.7` 运行时链,认证族委托 |
-| spdlog | 1.9.2 | MIT(头注) | header-only,无预构建;经 `src/Ext/SpdlogFace.h` 使用 |
+| spdlog | 1.9.2 | MIT(头注) | header-only,无预构建;由 `Sessions/Core/SessionLoggerOp.h` 调用(**该文件是 WindTerm 的日志构建腿,不是 spdlog 代码**) |
 | fmt | 8.1.1 | MIT(头注) | header-only(spdlog 内部依赖) |
 | dtl | 无版本宏 | 头注(MIT) | header-only |
 
@@ -180,7 +180,7 @@ python3 tools/re/coverage.py --addr 00abcdef     # → 0 个文件(未做)
 |---|---|
 | **A 逆向重建** | 必须回 `tools/re/decomp` 语料取出处(`FUN_XXXXXXXX` / 行号);不许凭记忆改;不确定就 `cited`。见 `AGENTS.md` 铁律 1/3/6 |
 | **B 第一方开源** | 以原码为准移植,**逐句同构**记录进 `docs/calibration.md`;不得混入逆向推测 |
-| **C 第三方库** | **不逆向、不改**;只转写 WindTerm 侧的调用接口面(`src/Ext/`),行为委托真库。见 `docs/ext-boundary.md` |
+| **C 第三方库** | **不逆向、不改**;WindTerm 侧调用逻辑按架构归位,`src/Ext/` 只放**纯声明**(目前仅 ZstdFace)。见 `docs/ext-boundary.md` |
 
 边界速查(不要越线):
 

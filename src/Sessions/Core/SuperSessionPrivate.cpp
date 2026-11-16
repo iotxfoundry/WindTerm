@@ -55,8 +55,8 @@ void SuperSessionPrivate::loggerOp(const QUuid &id, int op)
 	if (op == 1 || op == 0) {
 		// FUN_007c1b92(logger,31B,0024.c:30539)转写(批 151):
 		// logger+0x38 非空 → vtable+0x20 = spdlog logger::flush
-		// (真库委托,Ext::flushSessionLogger;null sink 不打盘)
-		Ext::flushSessionLogger(
+		// (真库委托,LoggerOp::flushSessionLogger;null sink 不打盘)
+		LoggerOp::flushSessionLogger(
 		    ((SessionLogger *)logger)->m_sink38);
 	}
 	if (op == 1) {
@@ -306,7 +306,7 @@ void SuperSessionPrivate::insertLoggerSession(const QUuid &id,
 // (FUN_008063d6 "/logs/" + cfg_ensureProfileDir 005d7dae
 // "%1/profiles/%2/%3" mkpath)+ 保留名前缀插入 → +0x20 完整路径。
 // 【cited ② spdlog sink/logger 构造段 @007c3751-3388】批 151 →
-// 真库委托面落地(Ext/SpdlogFace.h):param_6<1:基础 file sink
+// 真库委托面落地(Sessions/Core/SessionLoggerOp.h):param_6<1:基础 file sink
 // (operator_new 0x48/0xb0,FUN_005fe1d4,logfile_open)
 // ;否则轮转 sink(0x68,maxsize=min(param_6,0x3fffff)<<10,fstat);
 // → operator_new(200) spdlog logger(PTR_FUN_011868c8)+ FUN_007c44a4
@@ -336,12 +336,12 @@ bool SessionLogger::buildLeg(const QString &target, const QString &label,
 	m_s28 = label;           // @007c2528 QString::operator=(+0x28, param_3)
 	// 批 151:cited ② spdlog sink/logger 构造段 @007c3751-3388 →
 	// 真库委托面(EXT/SpdlogFace.h;null sink 截停真盘写,实参登记)
-	Ext::SpdlogLeg leg = Ext::buildSessionLogger(rotateBytes >= 1, m_s28,
+	LoggerOp::SpdlogLeg leg = LoggerOp::buildSessionLogger(rotateBytes >= 1, m_s28,
 	                                             rotateBytes);
 	m_sink38 = leg.loggerRaw;      // @007c39ac *(param_1+0x38) = p_Var18+0x10
 	m_sink40 = leg.loggerOwn.get(); // @007c39b7 *(param_1+0x40) = p_Var18
 	if (m_sink38) {  // cited ③ 行 pattern 腿(@007c34c8:m_sink38 非 0)
-		Ext::applyLinePattern(m_sink38, linePattern);
+		LoggerOp::applyLinePattern(m_sink38, linePattern);
 		// 批 161:session_state 0x48B 下行窄面真身(@007c350a
 		// operator_new(0x48) → 007c4a30 init):行 pattern(空 →
 		// "[%Y-%m-%d %H:%M:%S] %v" @007c3500)→ state.init;+0x30

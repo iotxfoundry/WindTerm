@@ -4,7 +4,7 @@
 #pragma once
 
 #include <QObject>
-#include "../Utility/KingEnums.h"
+#include "Utility/KingEnums.h"
 
 class Screen;
 

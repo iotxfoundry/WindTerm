@@ -66,7 +66,7 @@
 | `src/Sessions/` | 连接与传输 | `Core/` `Transports/` `Bridges/` `Commanders/` |
 | `src/Terminal/` | 终端内核 | Screen / ScreenData / TerminalCore / TermViewFace |
 | `src/Editor/` | 编辑器 | `Engine/` `Config/` |
-| `src/Utility/` `src/Ext/` `src/Stubs/` | 基元 / 外部库接口面 / 生成桩 | KingEnums;Spdlog·Zstd;gen_stubs |
+| `src/Utility/` `src/Ext/` `src/Stubs/` | 基元 / 外部库**声明面** / 生成桩 | KingEnums;Zstd;gen_stubs |
 | `src/Protocols/` `src/Pty/` | **第一方开源(B 类)** | 见 §11,勿逆向 |
 
 **归位判据(三步,不许靠"像哪个已有文件")**

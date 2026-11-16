@@ -50,10 +50,10 @@
 #include <memory>
 #include <stdexcept>
 #include <stddef.h>
-#include "../Scintilla/include/Platform.h"   // 含序同 MarkersStore.h(RunStyles 链)
-#include "../Scintilla/src/SplitVector.h"
-#include "../Scintilla/src/Partitioning.h"
-#include "../Scintilla/src/RunStyles.h"
+#include "Scintilla/include/Platform.h"   // 含序同 MarkersStore.h(RunStyles 链)
+#include "Scintilla/src/SplitVector.h"
+#include "Scintilla/src/Partitioning.h"
+#include "Scintilla/src/RunStyles.h"
 
 namespace wt {
 

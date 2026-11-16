@@ -9,7 +9,7 @@
 #include <QUuid>
 #include <QList>
 #include <libssh/libssh.h>
-#include "../Ext/SpdlogFace.h"
+#include "Sessions/Core/SessionLoggerOp.h"
 #include "Sessions/Bridges/SessionProtocol.h"
 
 // SuperSession 的 SSH 认证/主机校验实现(混合架构:真 libssh)。
@@ -141,7 +141,7 @@ public:
 	// 批 161:session_state 0x48B 窄面真身(007c4a30 字段面;深依赖
 	// QDateTime/token 渲染引擎 007c5970 cited)——语料 +0x30 指向
 	// 0x48B 块,本树以值成员承接(buildLeg 置指针面),析构自动对称。
-	Ext::SessionTokenState m_state;
+	LoggerOp::SessionTokenState m_state;
 	void *m_sink38 = nullptr;            // +0x38(spdlog logger*,007c39ac 存)
 	void *m_sink40 = nullptr;            // +0x40(spdlog logger 持有块,007c39b7 存)
 	unsigned char m_flags19 = 0;         // +0x19:bit0=启用(腿尾 @007c35e8=param_4);
@@ -159,7 +159,7 @@ public:
 	// 真实现 = 启用卫/+0x28 label/标志尾;①/② cited 见
 	// SuperSessionPrivate.cpp(pattern/路径装配、spdlog sink/logger
 	// 构造);③ formatter/state 尾段行 pattern 腿批 155 升真
-	// (Ext::applyLinePattern 真库委托,@007c34c8)。
+	// (LoggerOp::applyLinePattern 真库委托,@007c34c8)。
 	// 参形照语料:param_2=target 串(007d5b1a)/param_3=label(007d4d9c)/
 	// param_4=启用/param_5=标志字节(bit0=append)/param_6=轮转字节/
 	// param_7=文件名 pattern/param_8=行 pattern。
