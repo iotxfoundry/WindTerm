@@ -30,6 +30,13 @@ public:
 	void buildMain();   // FUN_00729f1e(3005B)
 	void buildExtra();  // FUN_00729616(867B) — 结构段
 
+	// FUN_0072acce(774B)**收集所选会话**:
+	//   遍历 +0x48 QStackedWidget 各页(count()/widget(i))→ 页 dynamic_cast 到
+	//   typeinfo 0x11995d0 → 该页 **+0x40 = QListWidget** → 逐项
+	//   item->data(0x100) → metatype 还原 → dynamic_cast 到 **0x11a8310**
+	//   (会话/面板类)→ 收进 QMap 去重(键 = 指针)。
+	QList<QObject *> collectSessions();
+
 protected:
 	QWidget *m_combo30 = nullptr;   // +0x30(QComboBox)
 	QWidget *m_buttons38 = nullptr; // +0x38(QDialogButtonBox,0x400400)

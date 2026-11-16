@@ -40,3 +40,31 @@ void SyncInputDialogFace::buildMain()
 
 // FUN_00729616(867B)副装配 — 结构段(cited)
 void SyncInputDialogFace::buildExtra() {}
+
+// FUN_0072acce(774B)收集所选会话真身(结构段)
+QList<QObject *> SyncInputDialogFace::collectSessions()
+{
+	QList<QObject *> out;
+	auto *stack = qobject_cast<QStackedWidget *>(m_stack48);   // +0x48
+	if (stack == nullptr)
+		return out;
+	const int n = stack->count();                              // @QStackedWidget::count
+	for (int i = 0; i < n; ++i) {
+		QWidget *page = stack->widget(i);                      // @QStackedWidget::widget
+		if (page == nullptr)
+			continue;
+		// 页类型 0x11995d0;页 +0x40 = QListWidget(cited 类型面)
+		auto *list = qobject_cast<QListWidget *>(page->findChild<QListWidget *>());
+		if (list == nullptr)
+			continue;
+		for (int k = 0; k < list->count(); ++k) {
+			QListWidgetItem *it = list->item(k);
+			if (it == nullptr)
+				continue;
+			QObject *obj = it->data(Qt::UserRole).value<QObject *>(); // data(0x100)
+			if (obj != nullptr && !out.contains(obj))          // QMap 去重
+				out.append(obj);
+		}
+	}
+	return out;
+}
