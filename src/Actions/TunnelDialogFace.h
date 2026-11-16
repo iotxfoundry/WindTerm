@@ -62,6 +62,13 @@ public:
 	//   +0x98 FUN_0056672a(…,0,0,0) / **+0x30 QLabel::clear()**。
 	void resetRow(bool enable);
 
+	// FUN_0072edfe(521B,0022.c:55065)行表装载:
+	//   src = FUN_006a4d90(DAT_011c1b00)(全局隧道表);与 +0xb8 不同 → 引用
+	//   计数换手(旧表 FUN_0072b9ca 释放);随后按 **0x48 步长**扩容
+	//   (qlist72_realloc)并逐行落表。
+	//   ⇒ +0xb8 = QList<0x48 行>(与本类行结构一致)。
+	void reloadRows();
+
 	// s_king__tunnelDynamicActive_6a2c16(431B)**名不副实**=行图标:
 	//   标志(+0x20)为空 → 按 kind 取
 	//     `king::tunnelDynamicActive` / `king::tunnelLocalActive` /
@@ -74,6 +81,7 @@ public:
 	static QListWidgetItem *makeRowItem(const TunnelRow &row);
 
 protected:
+	QList<TunnelRow> m_rowsB8;        // +0xb8(0x48 步长行表)
 	QWidget *m_label30 = nullptr;     // +0x30(**QLabel** —— 批 417 勘正:FUN_0072d0f2 调 QLabel::clear)
 	QWidget *m_check38 = nullptr;     // +0x38(QCheckBox)
 	QWidget *m_check40 = nullptr;     // +0x40(QCheckBox)

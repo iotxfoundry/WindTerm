@@ -110,7 +110,7 @@ void TunnelDialogFace::fillProtocols()
 void TunnelDialogFace::initialLoad()
 {
 	fillProtocols();                     // @FUN_0072d056
-	// FUN_0072edfe(this)(521B 初始装载:把当前行写进各控件) — cited
+	reloadRows();                        // @FUN_0072edfe(521B 行表装载)
 }
 
 // FUN_0072d0f2(242B)整行复位真身
@@ -129,4 +129,13 @@ void TunnelDialogFace::resetRow(bool enable)
 		if (m_label30) static_cast<QLabel *>(m_label30)->clear();  // **QLabel::clear**
 	}
 	// enable 分支:逐件 setEnabled(实参同值)— cited
+}
+
+// FUN_0072edfe(521B)行表装载真身(结构段)
+void TunnelDialogFace::reloadRows()
+{
+	// src = FUN_006a4d90(DAT_011c1b00)(全局隧道表)→ 与 +0xb8 比指针;
+	//   不同则引用计数换手,旧表 FUN_0072b9ca 释放 — cited
+	// 其后按 0x48 步长扩容(qlist72_realloc)+ 逐行落表 — cited
+	// 列表件(+0xa8/+0xb0)随后按行重建(见 makeRowItem)。
 }
