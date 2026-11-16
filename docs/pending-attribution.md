@@ -174,3 +174,31 @@ FUN_006f680b(this):                          // 0x006f680b(adjustor thunk)
 > "头文件无人 include" 扫描得出。B 类三件是模板,不需接线;前 9 项是 A 类,
 > 属于"转写了还没挂上",收尾期必须处理。
 
+
+## §6 TextView 的真实基类是 MuxPane(2026-11-16 取证,待装配期改)
+
+用 QMetaObject 的 superdata 逐跳读出来的一条链:
+
+```
+GrepView (0x011aab80)
+  └─ superdata 0x01197a60  TextView
+       └─ superdata 0x011abde0  MuxPane
+```
+
+也就是说真实继承是 **`MuxPane → TextView → GrepView`**,
+而 `src/Widgets/Views/TextView.h` 现在是一个**裸类**(不带 QWidget/QObject 基,
+也不带 MuxPane 基),只建模了字段与命令转发面。
+
+- **现在不改**:TextView 的 400+ 行命令面已经按"裸类 + 委托"跑通,
+  改基会连带影响所有 include 与构造点,属装配期工作。
+- **装配期必须改**:`class TextViewFace : public MuxPaneFace`,并把
+  `GrepViewFace : TextViewFace` 一起接上。判据就在上面这条 superdata 链,
+  不需要重新取证。
+- **GrepView 本身的元接口已取全**(17 条:1 信号 `ready` + 16 槽:
+  activate / close×2 / closeMessageBar / groupName / isLoaded / path /
+  setTabIcon / setTabText / showMessageBar / tabIcon / tabText / url /
+  caretVirtualSpace / scrollbackLimit / scrollbackLines),
+  等基类接好即可一次回填。
+
+> 记号:`MuxPane`(0x011abde0)与 `TextView`(0x01197a60)各自的 metaobject
+> 都还没进本仓;装配期先用 `mo_find.py` 取地址再补。
