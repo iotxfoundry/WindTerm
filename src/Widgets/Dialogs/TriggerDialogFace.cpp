@@ -695,3 +695,20 @@ void TriggerDialogFace::finalizeRecords()
 	}
 	// 语料随后对 +0x90 再取一次并继续遍历(第二段,内容 cited)
 }
+
+// ───────── 析构 0x00909354(250B)/deleting 0x0090963e(271B) ─────────
+// 逐段实读:
+//   vptr = &TriggerDialog_vtable;
+//   +0x98 的子对象先收尾(经 0x00698fxx 族的析构腿);
+//   +0x90 QList 逐元素释放;
+//   +0x88 QMap:引用计数归零 → QMapDataBase::freeTree(根)+ freeData;
+//   QDialog::~QDialog
+// deleting 0x0090963e(271B):末尾 operator_delete(this, **0xe0**)
+//   —— 与头注里"dtor_deleting 实测尺寸 0xe0"一致,字段上界 +0x98 也自洽。
+//
+// ───────── moc 生成面(出处:QMetaObject 元数据) ─────────
+// QMetaObject 0x011a4c20:**methods=0 / signals=0 / props=0 / superdata=0**
+//   —— 本对话框没有任何元接口,全部信息在 ctor 装配腿与 dtor 里。
+// metaObject 0x0090907a → &PTR_staticMetaObject_011a4c20
+// qt_metacast 0x0090930c(strcmp "TriggerDialog" → QDialog::qt_metacast)
+// qt_metacall 0x0090934e(5B)= 纯转发 QDialog::qt_metacall。
