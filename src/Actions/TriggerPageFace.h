@@ -214,18 +214,27 @@ protected:
 	// FUN_00567386(577B)/FUN_00567084(683B) 装配腿 — cited
 };
 
-// TriggerTableWidgetFace — FUN_00584e4a(74B,0017.c:59880)ctor(自定义表格件):
+// TriggerTableWidgetFace — FUN_00584e4a(74B,0017.c:59880)ctor(自定义**表格**件):
 //   FUN_0053397c(this, flags, 0, parent)(基类装配;语料 flags 恒 **0x48f**)→
 //   vtable 0119d678 + 副 0119d828 → 三条初始化腿(FUN_00584e0a/00584cb6/
 //   00584c96,均 cited)。dtor 实测尺寸 **0x48**。
 //   即 PlaySound(+0x38)/CustomMenu(+0x48) 的表件,也是 TextMarkTablePanel 基类。
-class TriggerTableWidgetFace : public QWidget {
+//   基类为表格:语料直接在其上调用 setColumnCount/setHorizontalHeaderLabels/
+//   rowCount,故以 QTableWidget 承接。占位绘制见 FUN_00566d84(97B):
+//   rowCount()==0 且占位串非空 → 在 viewport 上以主题绘制该串并 return;
+//   否则走 QTableView::paintEvent。
+class TriggerTableWidgetFace : public QTableWidget {
 	Q_OBJECT
 public:
 	explicit TriggerTableWidgetFace(int flags = 0x48f, QWidget *parent = nullptr);
 
+	void setPlaceholder(const QString &text);  // FUN_00566d6e(22B)
+
 protected:
+	void paintEvent(QPaintEvent *e) override;   // FUN_00566d84(97B)
+
 	int m_flags = 0x48f;
+	QString m_placeholder;                      // +0x38(语料槽位)
 };
 
 // MarkStyleWidgetFace — FUN_00703a58(55B,0022.c:29996)ctor:

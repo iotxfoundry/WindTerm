@@ -12,6 +12,9 @@
 #include <QStackedLayout>
 #include <QTabBar>
 #include <QHeaderView>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QTableWidget>
 #include <QTableView>
 
 // FUN_006f1966(45B,0022.c:19239)ctor 真身
@@ -326,11 +329,34 @@ TextMarkTablePanelFace::TextMarkTablePanelFace(QWidget *parent)
 
 // FUN_00584e4a(74B)自定义表格件 ctor 真身
 TriggerTableWidgetFace::TriggerTableWidgetFace(int flags, QWidget *parent)
-	: QWidget(parent)                     // FUN_0053397c(基类装配,flags)
+	: QTableWidget(parent)                // FUN_0053397c(基类装配,flags)
 	, m_flags(flags)                      // 语料 0x48f
 {
 	// vtable 0119d678 / 副 0119d828(C++ 自洽;尺寸 0x48)
 	// 三条初始化腿 FUN_00584e0a / FUN_00584cb6 / FUN_00584c96 — cited
+}
+
+// FUN_00566d6e(22B)占位文案真身
+void TriggerTableWidgetFace::setPlaceholder(const QString &text)
+{
+	m_placeholder = text;                 // +0x38
+	update();                             // QWidget::update()
+}
+
+// FUN_00566d84(97B)绘制覆写真身:
+//   rowCount()==0 且 +0x38 非空 → viewport 上主题绘制占位
+//   (FUN_007527b0(DAT_011c1ce0, viewport, &+0x38))并 return;
+//   否则 QTableView::paintEvent(e)。
+void TriggerTableWidgetFace::paintEvent(QPaintEvent *e)
+{
+	if (rowCount() == 0 && !m_placeholder.isEmpty()) {
+		// FUN_007527b0(主题, viewport(), &占位串) 承接:居中绘制灰字
+		QPainter p(viewport());
+		p.setPen(palette().color(QPalette::Disabled, QPalette::Text));
+		p.drawText(viewport()->rect(), Qt::AlignCenter, m_placeholder);
+		return;
+	}
+	QTableWidget::paintEvent(e);
 }
 
 // FUN_00703a58(55B)MarkStyleWidget ctor 真身
