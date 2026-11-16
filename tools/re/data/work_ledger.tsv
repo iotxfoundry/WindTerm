@@ -17909,7 +17909,7 @@
 0069991e	103	FUN_0069991e	todo	
 00699996	270	FUN_00699996	todo	
 00699ac2	154	FUN_00699ac2	todo	
-00699b7a	151	TriggerData_metaObject	qtplumb	
+00699b7a	151	TriggerData_metaObject	real	
 00699c12	23	TriggerData_qt_metacast	qtplumb	
 00699c2a	448	s_terminal_ansiBrightBlack_699c2a	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
 00699e1e	74	FUN_00699e1e	todo	
@@ -17955,7 +17955,7 @@
 0069e8ac	164	spinlock_lock_backoff	ref	src/Editor/Engine/MarkersStore.h
 0069e950	38	qhash_unref_free	todo	
 0069e976	211	FUN_0069e976	todo	
-0069ea50	27	FUN_0069ea50	todo	
+0069ea50	27	FUN_0069ea50	ref	src/Widgets/Settings/TriggerDataFace.cpp,src/Widgets/Settings/TriggerDataFace.h
 0069ea70	27	FUN_0069ea70	todo	
 0069ea90	27	FUN_0069ea90	todo	
 0069eab0	27	FUN_0069eab0	todo	

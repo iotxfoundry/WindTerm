@@ -2042,6 +2042,8 @@
 0069e908	src/Editor/Engine/MarkersStore.h
 0069e914	src/Editor/Engine/MarkersStore.h
 0069e93c	src/Editor/Engine/MarkersStore.h
+0069ea50	src/Widgets/Settings/TriggerDataFace.cpp
+0069ea50	src/Widgets/Settings/TriggerDataFace.h
 0069eb30	src/Editor/Engine/EditorEngine.cpp
 0069f90c	src/Widgets/Dialogs/TriggerDialogFace.h
 0069f970	src/Widgets/Dialogs/TriggerDialogFace.cpp
