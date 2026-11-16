@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QListWidget>
 #include <QBrush>
+#include <QCoreApplication>
 #include <QFont>
 #include <QStandardItemModel>
 #include <QStackedLayout>
@@ -457,4 +458,27 @@ QIcon TriggerDialogFace::kindIcon(int kind, bool active)
 QIcon TriggerDialogFace::recordIcon(const TriggerRecord &rec)
 {
 	return kindIcon(rec.kind24, rec.f20 != 0);     // +0x24 kind / +0x20 active
+}
+
+// FUN_006f409a(790B)新增触发器真身(结构段)
+void TriggerDialogFace::addTrigger()
+{
+	auto *dlg = new NameDialogFace(QStringLiteral("trigger"), this); // @006f40e7(0x58)
+	auto *field = new QWidget(dlg);                 // @006f4107(0x70 searchEdit_init)— cited
+	auto *combo = new QComboBox(dlg);               // @006f411f(0x48 combo_makeSearchCombo)
+
+	// kinds = FUN_0069c3c8(&map)(种类注册表 QMap<kind, …>) — cited
+	// 逐项(kind = 节点 +0x20):
+	for (int kind : {1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12}) { // 注册表内容 cited;kind 面见 006f440e/69934c
+		const QIcon icon = kindIcon(kind, false);              // @006f4196
+		const QString text = QCoreApplication::translate(       // @006f41d2(动态 tr)
+			"TriggerDialog", QString::number(kind).toUtf8().constData());
+		combo->insertItem(combo->count(), icon, text, QVariant(kind)); // @006f41da
+	}
+	combo->model()->sort(0);                                   // @006f426a(vt+0x138)
+
+	// connect(dlg QDialog::finished → 闭包 impl FUN_006f4ed6(0x30))@006f4280 — cited
+	nameDialogAddFormRow(dlg, QStringLiteral("&Description:"), field); // @006f4324(0xc9dfdb)
+	nameDialogAddFormRow(dlg, QStringLiteral("&Type:"), combo);        // @006f4358(0xc9fb1a)
+	// (**(*dlg + 0x1a0))(dlg)@006f43xx — 显示腿(cited 未定名)
 }

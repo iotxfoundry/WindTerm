@@ -49,6 +49,24 @@ public:
 	//   (**(*dlg + 0x1a0))(dlg)(显示/打开腿,cited 未定名)。
 	void editSelectedTrigger();
 
+	// FUN_006f409a(790B,0022.c:20068 邻)新增触发器(与编辑腿同型):
+	//   dlg = NameDialog(tr("trigger")(0xc8c40c), this)(FUN_006bd7f6, 0x58);
+	//   field = 0x70 + searchEdit_init(field, dlg);
+	//   combo = 0x48 + combo_makeSearchCombo(combo, dlg);
+	//   kinds = FUN_0069c3c8(&map)(种类注册表,键值 = kind);逐项:
+	//     **text = tr(QString::number(kind))** —— tr 实参是动态串
+	//     (先 QVariant(kind).toString().toUtf8() 再 QMetaObject::tr,
+	//     即翻译表以数字源串为键);
+	//     icon = kindIcon(kind, false);combo->insertItem(count, icon,
+	//       text, QVariant(kind));
+	//   combo->model()->(vt+0x138)(0, 0)(排序);   // 0x138 = sort 槽
+	//   connect(dlg finished → 闭包 impl FUN_006f4ed6(0x30,
+	//     捕获 combo/dlg/field/this));
+	//   nameDialogAddFormRow(dlg, tr("&Description:")(0xc9dfdb), field);
+	//   nameDialogAddFormRow(dlg, tr("&Type:")(0xc9fb1a), combo);
+	//   (**(*dlg + 0x1a0))(dlg)(显示腿,cited 未定名)。
+	void addTrigger();
+
 	// ---- 记录面(批 349)------------------------------------------------
 	// +0x90 QList 元素步长 0x48(006f2d8a 74B 析构循环实测:
 	//   逐项 FUN_006f9f0c 后 deallocate(0x48,8));+0x98 = 缺省记录。
