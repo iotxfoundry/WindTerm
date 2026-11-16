@@ -492,3 +492,32 @@ void TriggerWidgetKit::setPlaceholder(QAbstractItemView *view, const QString &te
 	view->setProperty("placeholderText", text);           // 语料 +0x38 字符串
 	view->update();                                       // QWidget::update()
 }
+
+// FUN_006fb180(438B)动作件字段 ↔ 文本面板绑定真身(结构段)
+void TriggerPageFace::bindEditorToActionWidget(TriggerActionWidgetFace *actionWidget,
+                                               QWidget *editor)
+{
+	if (editor == nullptr || actionWidget == nullptr)
+		return;
+	// fields = FUN_006f8c6c(actionWidget->+0x48, 空 QVariant, 1) — cited
+	// 逐字段:
+	//   name = field->property(<折叠>).toString()@006fb24x;
+	//   if (name.contains("arguments")) {
+	//     box = new 0x38 + FUN_006fad0a(box, editor, 0)@006fb2a6;
+	//     boxlayout_insertRtlAware(field, box, 1)@006fb2b6;
+	//     FUN_0058dac2(field, "${match}")@006fb2d0;   // 属性值实读
+	//   }
+	// if (actionWidget->+0x58) 递归(由调用方对子件再调一次)
+}
+
+// FUN_006f1850(278B)文本面板 ↔ 页接线真身(结构段)
+void TriggerPageFace::wireEditorDependents(QWidget *panel)
+{
+	if (panel == nullptr)
+		return;
+	// connect(panel, 信号 FUN_008f0ffa → this,闭包 impl FUN_006f77fd,
+	//   smeta 01195800)@006f186x — cited
+	// connect(this, 信号 FUN_008ef838 → this,闭包 impl FUN_006f6c9e,
+	//   smeta 01193440)@006f18bx — cited
+	// FUN_006f7770(&this, panel->+0x50)(绑定文本目标)@006f18dx — cited
+}

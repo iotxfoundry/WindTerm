@@ -46,6 +46,23 @@ public:
 	//   page->setFocusProxy(page)。
 	void assembleConnectionPage(int kind);
 
+	// FUN_006fb180(438B,0022.c:25134)把动作件的字段绑定到文本面板:
+	//   editor 空 → 返;fields = FUN_006f8c6c(actionWidget->+0x48, 空, 1);
+	//   逐字段:name = field->property(...).toString();
+	//     name 含 "arguments" → box = new 0x38 + FUN_006fad0a(box, editor, 0);
+	//       boxlayout_insertRtlAware(field, box, 1)(插到字段布局);
+	//       FUN_0058dac2(field, "${match}")(**属性值 = "${match}" 实读**);
+	//   actionWidget->+0x58 非空 → 递归本函数。
+	void bindEditorToActionWidget(TriggerActionWidgetFace *actionWidget, QWidget *editor);
+
+	// FUN_006f1850(278B,0022.c:19193)文本面板 ↔ 页接线:
+	//   connect(panel, 信号 FUN_008f0ffa, this, 闭包 FUN_006f77fd,
+	//     smeta 01195800);
+	//   connect(this, 信号 FUN_008ef838, this, 闭包 FUN_006f6c9e,
+	//     smeta 01193440);
+	//   FUN_006f7770(&this, panel->+0x50)(绑定文本目标)。
+	void wireEditorDependents(QWidget *panel); // panel = TriggerActionEditPanelFace
+
 	QWidget *busyOverlay() const { return m_busy30; }  // +0x30
 	QWidget *actionWidget40() const { return m_action40; } // +0x40(0x78)
 
