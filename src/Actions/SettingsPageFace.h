@@ -10,6 +10,7 @@ class QListWidgetItem;
 class QPlainTextEdit;
 class QModelIndex;
 class QStandardItem;
+class QTableWidgetItem;
 class QComboBox;
 class QLabel;
 class QLineEdit;
@@ -110,6 +111,11 @@ public:
 	//   map 查 "action" 键(实读)→ toString → FUN_0069b57e(动作注册表项)
 	//   → 组合框项/选中同步(余段 cited)。
 	void syncActionCombo(const QVariantMap &row);
+	// 0071b02e(1507B,0022.c:43186)设置表行项:
+	//   item = new 0x48(FUN_00584e4a(item, 0x83, parent));
+	//   两列标签 tr("Variable")(0xc9d517)/tr("Value")(0xc91689) →
+	//   qlist_appendRange → FUN_00584ee8(item, 列列表);余段 cited。
+	static class QTableWidgetItem *tableRowItem(QWidget *parent);
 
 	// FUN_0072bbe2(935B,0022.c:53137)设置对话框八路接线真身:
 	//   +0x78 QDialogButtonBox accepted/rejected → this accept/reject

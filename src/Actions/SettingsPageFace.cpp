@@ -410,3 +410,16 @@ void SettingsPageFace::syncActionCombo(const QVariantMap &row)
 	// FUN_0069b57e(action) → 注册表项 — cited
 	// 组合框 findData/setCurrentIndex 同步腿 — cited(1400B 余段)。
 }
+
+// 0071b02e(1507B,0022.c:43186)真身(结构段):
+//   @0071b064 item = operator_new(0x48)+FUN_00584e4a(item, 0x83, parent);
+//   @0071b0xx tr("Variable")(0xc9d517)+tr("Value")(0xc91689)→
+//   qlist_appendRange → FUN_00584ee8(item, 列列表)@0071b0d3;
+//   余段(单元格填充/编辑委托/信号)cited。
+QTableWidgetItem *SettingsPageFace::tableRowItem(QWidget *parent)
+{
+	Q_UNUSED(parent);
+	// FUN_00584e4a(item, 0x83, parent) 0x48 字节项 — cited(类未建模)
+	// 列标签:tr("Variable")/tr("Value");单元格填充与委托 — cited。
+	return nullptr;
+}
