@@ -178,6 +178,12 @@ public:
 	explicit TriggerActionWidgetFace(int kind, QWidget *parent = nullptr); // FUN_006fdcde
 	void build();                                                          // FUN_006fd6c0
 
+	// FUN_006f8cb4(137B,0022.c:238xx)**整型键映射取值**(带缺省):
+	//   m = 映射(map 非空 && 首节点 != end 才查);key 命中(node+0x20 == key)
+	//   → 返回 node+0x18(值);否则 fallback(*param_4)。
+	//   ⇒ 006fd6c0 里"每页入 combo 的文案"即 mapGetIntOr(kindNameMap, sub, 缺省)。
+	static QString mapGetIntOr(const QMap<int, QString> &m, int key, const QString &fallback);
+
 protected:
 	int m_kind30 = 0;                    // +0x30
 	QComboBox *m_combo38 = nullptr;      // +0x38(0x48 search combo)

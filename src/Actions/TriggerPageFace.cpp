@@ -237,8 +237,12 @@ void TriggerActionWidgetFace::build()
 		} else {
 			// sub == 3:语料 @006fd987 直接 addWidget(入参 Ghidra 折叠)— cited
 		}
-		// combo 追加项:文案 = FUN_0069b57e/FUN_006f8cb4 → tr,data = sub
-		//   (@006fd8f4 count/insert_item)— cited(文案链未转写,不发明)。
+		// combo 追加项:文案 = FUN_0069b57e 取名表 → FUN_006f8cb4(取 sub 对应项)
+		//   → tr;data = sub(@006fd8f4 insert_item)。
+		//   名表本体(FUN_0069b57e)未转写 ⇒ 以空缺省落,不发明文案(铁律 3)。
+		const QString label = mapGetIntOr(QMap<int, QString>(), sub, QString());
+		if (!label.isEmpty())
+			m_combo38->addItem(label, sub);
 	}
 
 	label->setBuddy(m_combo38);                              // @006fd9xx(setBuddy)
@@ -644,4 +648,14 @@ QMenu *CustomMenuTriggerPageFace::makeAddMenu()
 	Q_UNUSED(addAction);
 	Q_UNUSED(addSep);
 	return menu;
+}
+
+// FUN_006f8cb4(137B)整型键映射取值真身
+QString TriggerActionWidgetFace::mapGetIntOr(const QMap<int, QString> &m, int key,
+                                             const QString &fallback)
+{
+	if (m.isEmpty())                       // 空映射 → 缺省
+		return fallback;
+	auto it = m.constFind(key);            // 逐节点比 node+0x20
+	return it != m.constEnd() ? it.value() : fallback; // 值在 node+0x18
 }
