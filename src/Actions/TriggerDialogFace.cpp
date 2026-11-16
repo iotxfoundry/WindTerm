@@ -68,8 +68,9 @@ void TriggerDialogFace::assemble()
 	buildSettingsTab();                                            // @006f20ee
 	buildSessionsTab();                                            // @006f20f4
 
-	form->setContentsMargins(px, 0, 0, 0);                          // @006f211x
-	// form->addRow ×2 — 语料实参折叠,cited
+	form->setContentsMargins(px, 0, 0, 0);                          // @006f211x(QMargins{px,0,0,0})
+	// **form->addRow 共 2 行(asm 计数,修复 409)** —— 实参被 Ghidra 折叠,
+	//   保留 cited(不造空行,空行会改行距)。
 
 	if (QAbstractButton *ok = m_buttons80->button(QDialogButtonBox::Ok))
 		ok->setText(QStringLiteral("Ok"));                          // tr(0xc9e1cd)
