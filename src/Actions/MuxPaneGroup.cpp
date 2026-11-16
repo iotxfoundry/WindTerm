@@ -10,6 +10,7 @@
 #include "KitWindowFace.h"
 #include "MuxPaneView.h"
 #include "MuxWindow.h"
+#include "Sessions/WorkspaceLoader.h"
 #include "TabGroup.h"
 
 #include <QVBoxLayout>
@@ -704,4 +705,37 @@ QString MuxPaneGroup::ownerConfigName() const
 			return QString::fromLatin1(cfg->configSelfName());
 	}
 	return QString();
+}
+
+// s_RenamedTitle_8bb3e6(1693B)副作用真身(读侧):
+//   @008bb3xx count == 0 → FUN_008d2e46(pane, 空名, 0, "Last", this)(默认会话);
+//   否则逐 i:@008bb7xx blockSignals(+0x38)→
+//     if (+0x40 位 == 0 || FUN_008bf030(*seen, 名) == 0)
+//       FUN_008d2e46(pane, 名, cur == i, "Last", this);
+//     else 去重腿(FUN_008bf030 + FUN_008da7a8)— cited。
+void MuxPaneGroup::restoreSessions(const QByteArray &blob, quint32 magic,
+                                   QSet<QString> *seen)
+{
+	int current = 0;
+	QList<RestoredSessionEntry> entries;
+	if (!parseSessionRestoreBlob(blob, magic, ownerConfigName() == QLatin1String("Terminal"),
+	                             &current, &entries))
+		return;
+	if (entries.isEmpty()) { // count == 0 → 默认会话
+		// FUN_008d2e46(pane, "", false, "Last", this) — cited 开户腿
+		return;
+	}
+	for (int i = 0; i < entries.size(); ++i) {
+		const RestoredSessionEntry &e = entries.at(i);
+		if (m_f38 != nullptr)
+			m_f38->blockSignals(true); // @008bb7xx(+0x38 面)
+		if (seen != nullptr && seen->contains(e.name)) {
+			// 去重腿:FUN_008bf030(表查命中)+ FUN_008da7a8(重挂)— cited
+			continue;
+		}
+		if (seen != nullptr)
+			seen->insert(e.name);
+		// FUN_008d2e46(this, e.name, current == i, "Last", this) — cited
+		//   (开户体 = Workspace::kitStartupOpenSession 现役面)
+	}
 }

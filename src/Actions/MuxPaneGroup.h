@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QColor>
+#include <QSet>
 #include <QWidget>
 
 class TabGroup;
@@ -56,6 +57,13 @@ public:
     static bool parseSessionRestoreBlob(const QByteArray &blob, quint32 magic,
                                        bool terminalOwner, int *currentIndex,
                                        QList<RestoredSessionEntry> *entries);
+
+    // s_RenamedTitle_8bb3e6 副作用面(读侧,帧解析之后):
+    //   count == 0 → 开默认会话(008d2e46 名空 + "Last");
+    //   否则逐项:blockSignals(+0x38)→ (+0x40 位 == 0 或 未见该名)→
+    //   kitStartupOpenSession(this, 名, select = (cur==i), "Last");
+    //   已见 → 去重腿 cited(FUN_008bf030 表查 + FUN_008da7a8 重挂)。
+    void restoreSessions(const QByteArray &blob, quint32 magic, QSet<QString> *seen);
 
     // FUN_008bca9e(193B,0028.c:810)当前页视图:
     //   w = TabGroup::currentWidget(+0x38)@008bca9e;cast 011925c8 →
