@@ -271,3 +271,19 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 `s_ExpandButton_8b7dd4`=KitDock 装配;`s_tabbar_..._89d860`=dock 工厂;
 `pasteDialog`=设置分类页;`dirCompareDialog`=配置目录框;
 `TunnelDialog`=行表 dtor;`msgbox_buildRich`=上传确认框。
+
+### 批 333-341 增量(菜单族右鍵四件 + 设置页两件 + 触发器基类)
+- **② 菜单族**:`tabbar_contextMenu`(1942B,AddressListModel 模型弹窗:
+  `FUN_0062cd9a` 55B QAbstractListModel 子类 +0x1c=1)/`pane_showPopupMenu`
+  (1044B,vt+0x1c0 双门 + 修饰键前缀四串 "Shift "/"Ctrl "/"Alt "/"Meta "
+  0xcb76d1/d8/de/e3)/`trigger_buildMenu`(1702B,"actions" 键 + 递归条目)/
+  `slipButton_makeMenu`(1023B,QWidgetAction 行 +0x18 label/+0x20 overlay
+  busy 0xa0/+0x28 容器)。
+- **⑤ 设置页**:`settings_sync_action_combo`(1400B,"action" 键 +
+  FUN_0069b57e 注册表查)/`settings_table_row_item`(1507B,0x48 项 +
+  两列 tr("Variable")/tr("Value") 0xc9d517/0xc91689)/
+  `TriggerPageFace`(基类 ctor 006f1966 45B + 装配 006f1994 417B 忙碌遮罩
+  overlay 0xa0)。
+- **5c**:blobC 三栏可见性真身(`008cefe4`:findChildren 全 isHidden)。
+- **TabBar**:`insertTabWithMeta` 增节点标题落位;showTabListMenu 误用
+  int 成员已修正。

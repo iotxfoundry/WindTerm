@@ -4,9 +4,9 @@
 > 工具链:Xvfb(:99)+ xdotool(自动化原版)+ Python frida(附加注入)
 > 驱动:tools/re/phase5/phase5_drive.py(spawn 版)/ phase5_attach.py(attach 版)
 
-## 结论快照(截至批 190,2026-11-16 — 当前真值层)
+## 结论快照(截至批 341,2026-11-16 — 当前真值层)
 
-> **读法**:本节为当前真值;下方批次流水(批 20-190)为审计轨迹,
+> **读法**:本节为当前真值;下方批次流水(批 20-341)为审计轨迹,
 > 保留全部历史结论原样。**冲突时以本节与 tools/re/HANDOFF.md
 > 「勘正谱系」表为准**(九条勘正链已在谱系表显式化)。
 
@@ -139,6 +139,59 @@ RUBY 语法假设永久化(零反例;理论备选 = SearchPane UI 自动化,未�
    定性翻转 = TextView::searchOnline(批 184,侦察疑虑证实);
    tabBarSelectionBehaviorOnRemove **键串勘正 "tab."→"tabbar."**
    (批 181,0xd0ed40 实读)。
+
+### 批 192-341(2026-11-16)界面逆向深推 150 批(铁律 7:零编译/零测试) ✅
+
+**规模**:150 批,54 文件,+5365 行(其中 UI 新域 14 个 `*Face`)。
+
+**P1 主窗装配链(真身)**:`008d3cc2` 全链(gate→菜单栏→状态栏→中央树→
+钩 +0x210→清 gate→History/HistoryHints→startupSessions→+0x208/+0x250)/
+`King::assembleCentralSplitters` 1010B 中央七槽树(asm 还原接收者
+`0x68[0x58[0x38,0x60[0x48],0x40],0x50]`)/槽位访问族(id 1·2·8 ↔
++0x38/+0x40/+0x50)/展开收起 008ce100/焦点链 008cad6a/当前组·视图
+008ca6ca·008cabee。
+
+**P2 菜单族(35%→60%)**:右鍵四族全进"结构已定"——tabbar_contextMenu
+1942B(AddressListModel 模型弹窗)/pane_showPopupMenu 1044B(修饰键前缀
+"Shift /Ctrl /Alt /Meta " 实读)/trigger_buildMenu 1702B("actions" 键)/
+slipButton_makeMenu 1023B(QWidgetAction 行 0x18 label/0x20 overlay 0xa0)。
+
+**P3 工具栏/状态栏(80%)**:七 kind 全真身——kind5 AddressBar(BreadCrumb
+基座 110B+地址串)/kind6 FilterEdit(SearchEdit:QLineEdit 子类 131B+
+0x78 QTimer/清除钮 king::clear);状态栏 StatusBarFace(Ready 0xc8b211/
+messageLevel 染色 787B/超时槽)。
+
+**P4 设置页(50%→66%)**:`SettingsRow`(0x48)全字段 asm 实测;
+loadWidgets 932B/commitCurrentRow(0072dd12 回写段)/rebuildRows 521B/
+rowListItem 219B/resetRow/updateRowFlags(0072d84e 741B)/
+updateInfoLabel(0072d304)/syncActionCombo(1400B)/tableRowItem(1507B);
+八路接线(`0072bbe2` 935B);**基类勘正 QWidget→QDialog**;
+触发器页基 `TriggerPageFace`(006f1966+006f1994 忙碌遮罩)。
+
+**P5 对话框族(40%)**:EnvDialog 1109B/RunToolDialog(1098B 装配+1116B
+两数据表:参数占位符 6/输出动作 8+00707320 单选文案 1849B+00708402 命令
+JSON 1825B)/MsgBoxFace(918B 富文本+281B 行拼)/fileShowErrorBox 820B/
+FileDialogFace 1412B/ProfileDirDialogFace 1695B(名不副实=配置目录框)/
+LoginWizardFace 1088B 全/PasteSettingsPageFace 1221B(名不副实=分类页:
+右键动作三枚举+三配置键)/TunnelFace(名不副实=行表析构)。
+
+**P6 dock/标签(75%)**:KitDockFace 全套(ctor 109B/装配 371B/四路接线
+591B/收起 153B/浮停 866B/切分 375B/changeEvent 66B/创建腿 1346B);
+TabBar 节点 `TabNode`(0x10)/助记符 assignMnemonics 756B/页色读写/
+关钮四件/滚动态/页形 113B;KitWindow 槽位与 KitGroup(≡MuxPaneGroup)。
+
+**5c(写 85% / 读 60%)**:blobA/B/C 三帧框架真身(blobC 三栏可见性
+008cefe4)/LastSessions 组块 BFS 帧/sessionTitleBlob(850B 主体)/
+KitView_vt9=property("History")/页元数据 +0x20 QMap/会话恢复帧解析+
+restoreSessions 副作用骨架/旧格式 008ce8f6 结构面。
+
+**名不副实清单(6 例)**:s_ExpandButton_8b7dd4=KitDock 装配/
+s_tabbar_..._89d860=dock 工厂/pasteDialog=设置分类页/dirCompareDialog=
+配置目录框/TunnelDialog=行表 dtor/msgbox_buildRich=上传确认框。
+
+**未编译雷区(铁律 7 预期)**:14 个新 Face 类 + KitWindowFace 字段扩容 +
+SettingsPageFace 基类变更 + TabGroup 节点结构,全部未过编译门;
+收尾期首编译顺序 = 全量编译修错 → 25 测试二进制回归。
 
 ### 批 188/189/190/191(2026-11-16)M24 五腿(界面重建转向,铁律 7 首轮):范围地图 + 主窗族 + 菜单装载 + 工具栏 + 设置壳 ✅(铁律 7:未编译)
 
