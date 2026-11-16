@@ -28339,7 +28339,7 @@
 0096d5e6	53	FUN_0096d5e6	ref	src/Editor/Engine/EditorEngine.cpp
 0096d620	76	FUN_0096d620	ref	src/Editor/Engine/ENodes.h,src/Editor/Engine/EditorEngine.cpp
 0096d66c	24	FUN_0096d66c	todo	
-0096d684	514	ScanTask_metaObject	ref	src/Editor/Engine/ENodes.h
+0096d684	514	ScanTask_metaObject	real	src/Editor/Engine/ENodes.h
 0096d886	23	ScanTask_qt_metacast	qtplumb	
 0096d89e	357	FUN_0096d89e	ref	src/Editor/Engine/ENodes.h
 0096da0c	185	FUN_0096da0c	todo	
