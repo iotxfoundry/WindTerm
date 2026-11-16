@@ -348,6 +348,7 @@
 0056f866	src/Windows/Kit/KitWindowFace.h
 00570a80	src/App/StateStore.cpp
 00570a80	src/Windows/Kit/KitWindowFace.h
+00575d12	src/Widgets/Controls/ToolsFace.cpp
 00575d12	src/Widgets/Panes/OutlinePaneFace.cpp
 00575d14	src/Sessions/Core/FileOps.h
 0057664e	src/Sessions/Core/FileOps.h
