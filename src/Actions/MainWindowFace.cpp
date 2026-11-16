@@ -28,3 +28,14 @@ MainWindowFace::MainWindowFace(QMainWindow *host)
 	host->setCentralWidget(stack);                  // QMainWindow::setCentralWidget(param_1,stack)@0076633f(第二实参汇编实证)
 	bar->hide();                                    // QWidget::hide(bar)@00766348(初始隐藏,bar 侧)
 }
+
+// mainWindow_connectSignals(1043B)主窗信号接线真身(结构段,7 路)
+void MainWindowFace::connectAppSignals()
+{
+	// ①②③ 三条子接线族(FUN_0076b9da / 0076663e / 007662e6)— cited
+	// ④ qApp 信号 FUN_0090e018 → 槽 FUN_007662ce(smeta 011a6ce0)— cited
+	// ⑤ QApplication::focusChanged → 槽 FUN_0076dcae — cited
+	// ⑥⑦ 配置对象信号 FUN_008fd3d0 / FUN_008fd3fc → 槽 FUN_0076aee6,
+	//    flags **0x82**(QueuedConnection|UniqueConnection)— cited
+	// 其余 3 路挂在 +0xe0/+0xe8 QPointer 对上(与 QuickBar/TransferBar 同型)— cited
+}

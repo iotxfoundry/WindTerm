@@ -24,6 +24,18 @@ class QStackedWidget;
 // 下游消费(不在本壳转写域):页挂 s_HistoryHints_7664a2(244B,0023:
 // 33200)、关闭扫描 FUN_007660e6(171B,0023:32991)—— MuxWindow 侧承接。
 // +0x50/+0x58 宿主槽位经返回结构承载(本壳零自造行为)。
+// mainWindow_connectSignals(1043B,0023.c:...)主窗信号接线(**7 路**):
+//   ① `FUN_0076b9da()` ② `FUN_0076663e(this)` ③ `FUN_007662e6(this)`
+//      (三条子接线族,cited);
+//   ④ qApp 信号 FUN_0090e018 → 闭包 FUN_007702f0 → 槽 **FUN_007662ce**
+//      (smeta 011a6ce0);
+//   ⑤ **QApplication::focusChanged** → 闭包 FUN_00770360 → 槽 **FUN_0076dcae**;
+//   ⑥ 配置对象(FUN_005d9378(DAT_011c1240))信号 FUN_008fd3d0 → 闭包
+//      FUN_007703e0 → 槽 **FUN_0076aee6**,flags **0x82**(Queued|Unique);
+//   ⑦ 同对象信号 FUN_008fd3fc → 同槽(同 flags)。
+//   另 +0x48(3 处)与 **+0xe0/+0xe8 QPointer 对**(3 处)参与其余 connect。
+void connectAppSignals();   // 主窗信号接线
+
 class MainWindowFace {
 public:
 	// 装配四件套(bar→+0x50 / stack→+0x58 / addToolBar(1) /
