@@ -13945,7 +13945,7 @@
 0055e3a0	55	FUN_0055e3a0	todo	
 0055e3e0	819	FUN_0055e3e0	todo	
 0055e736	373	s_ListWidget_55e736	todo	
-0055e8ce	677	ListWidget_dtor	todo	
+0055e8ce	677	ListWidget_dtor	real	src/Widgets/Controls/ListWidgetFace.h
 0055eb73	9	FUN_0055eb73	todo	
 0055eb7c	23	ListWidget_dtor_deleting	todo	
 0055eb93	6	FUN_0055eb93	todo	
@@ -13958,9 +13958,9 @@
 0055efe8	327	FUN_0055efe8	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp,src/Widgets/Dialogs/TriggerDialogFace.h
 0055f130	244	FUN_0055f130	todo	
 0055f224	22	FUN_0055f224	ref	src/Widgets/Dialogs/TriggerDialogFace.cpp
-0055f23a	203	FUN_0055f23a	todo	
+0055f23a	203	FUN_0055f23a	ref	src/Widgets/Controls/ListWidgetFace.cpp
 0055f30e	5	thunk_FUN_0055f23a	todo	
-0055f314	347	ListWidget_vt6	qtplumb	
+0055f314	347	ListWidget_vt6	real	
 0055f470	912	FUN_0055f470	todo	
 0055f826	271	FUN_0055f826	todo	
 0055f936	97	FUN_0055f936	todo	

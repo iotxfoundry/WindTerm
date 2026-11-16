@@ -239,9 +239,11 @@
 0055e356	src/Widgets/Dialogs/SyncInputDialogFace.h
 0055e356	src/Widgets/Dialogs/TriggerDialogFace.cpp
 0055e356	src/Widgets/Dialogs/TriggerDialogFace.h
+0055e8ce	src/Widgets/Controls/ListWidgetFace.h
 0055efe8	src/Widgets/Dialogs/TriggerDialogFace.cpp
 0055efe8	src/Widgets/Dialogs/TriggerDialogFace.h
 0055f224	src/Widgets/Dialogs/TriggerDialogFace.cpp
+0055f23a	src/Widgets/Controls/ListWidgetFace.cpp
 0055fa50	src/Widgets/Views/LockScreenFace.cpp
 0055fa50	src/Widgets/Views/LockScreenFace.h
 0055fa55	src/Widgets/Views/LockScreenFace.cpp
