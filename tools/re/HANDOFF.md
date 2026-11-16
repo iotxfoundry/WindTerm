@@ -8,13 +8,13 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第四十四次交接,批 358 · ④ TriggerDialog 行为面补齐)
+## 一句话状态(2026-11-16 第四十五次交接,批 368 · ④ TriggerDialog 行为面收口)
 
 **界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
-170 批 / 63 文件 / +6900 行,新增 21 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **73%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
+182 批 / 64 文件 / +7600 行,新增 21 个 `*Face` 新域。覆盖率(按 GUI-MAP
+条目加权)≈ **76%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
 /②菜单 60%(右鍵四族全进"结构已定")/③工具栏状态栏 80%(七 kind 全真身)
-/④对话框 58%(TriggerDialog 行为面齐:换行驱动/提示框/初始装载/两范围模型/编辑完成/禁用外观/expect 收集;Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
+/④对话框 66%(TriggerDialog **收口**:记录布局定案+kind→图标表(两源互证)+新增/删除/复制/按键选中/提交腿/记录族四件;Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
 LoginWizard 全/Paste 全/**TriggerDialog 全谱 0xe0**:页栈+接线+编辑腿/
 **NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 75%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+
 **触发器页族全谱**:页栈 006f440e 11 kind 表/TriggerActionWidget 0x78/
@@ -74,6 +74,8 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 | `nameDialogAddFormRow` 为 **三实参**(dlg/标签/字段) | 批 347b(asm 0x6bd25c/5f) | 批 347 两实参落 |
 | pane 菜单前缀 **0x04000000=Ctrl / 0x02000000=Shift** | 批 355(asm 0x8c3cbf 分支序) | 批 336 二者写反 |
 | `TriggerRecord` 语义:+0x08 名 / +0x10 UserRole 键 / +0x18 描述 | 批 354(34dd 回写 + 263e setData 0x100 互证) | 批 349 首判 +0x10=名 |
+| `+0x10` = **uuid**(`QUuid::toString(WithoutBraces)`) | 批 368(80B regenerateKey) | 批 354 "UserRole 键" |
+| `s_terminal_ansiBrightBlack_699c2a` = **记录构造函数** / `s_king__beforeDisconnection_69934c` = **kind→图标** / `expectDialog_saveRows` = **映射→表** | 批 359/361/365(函数体实测) | 名不副实(3 例新增) |
 
 | 现结论 | 勘正来源 | 被勘正旧结论 |
 |---|---|---|

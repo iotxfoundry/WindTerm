@@ -352,3 +352,23 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - **pane 右键菜单全量 + 勘正**:菜单名 = `"%1 %2Popup"`,前缀
   **0x04000000→Ctrl** / **0x02000000→Shift**(批 336 写反,已纠)。
 - **expect 数据面**:`collectRows`(键模板 `%1.path` / `%1.pass` 实读)。
+
+### 批 359-368 增量(TriggerDialog 行为面收口 + 记录布局定案)
+- **记录布局定案**(448B ctor + 73B 缺省 ctor 双源):+0x00 样式已设 flag /
+  +0x08 名 / **+0x10 uuid**(`QUuid::toString(WithoutBraces)`,故 UserRole 存
+  的是记录 id)/ +0x18 描述 / +0x20 启用(图标 active)/ +0x21 入列 /
+  +0x24 kind / +0x28 样式 QVariant / +0x30 未定 / +0x38 QMap / +0x40 QHash。
+- **kind → 图标表 365B**(`s_king__beforeDisconnection_69934c`,**名不副实**):
+  `king::afterConnection/…/showTooltip`,active 追加 `"Active"` —— 与
+  `006f440e` 的 kind 表**两独立源互证**(7 无 case)。
+- **新增腿 790B + 完成闭包 324B + 追加 192B**:`NameDialog("trigger")` +
+  种类 combo(**text = tr(数字源串)**,实参动态)+两行 `&Description:`/`&Type:`
+  → `makeRecord` → 在 `currentRow+1` 插入 → 按钮转 `&Next`。
+- **删除腿 483B**:`QMessageBox::warning` 文案实读
+  「Remove triggers」/「Do you want to remove the selected triggers?」
+  (`0x14000` = Yes|No,`Yes` = `0x4000`)。
+- **复制腿 655B**:名后缀 `" (%1)".arg(n,10)` 从 2 起避重 + 重生成 uuid。
+- **按键选中 193B**、**提交当前页 1608B 结构段**(页值读取纯虚 `vt+0x1a8`,
+  与 `+0x1a0` 同族)、**记录族四件**(`defaultRecord`/`regenerateKey`/
+  `setStyle`/`isConnectionKind`)、**expect saveRows 997B**(**名不副实**
+  = 映射→表回填)。
