@@ -588,3 +588,23 @@ QFormLayout/QVBoxLayout/QTabBar/QSlider 等 + tr 文案)。此前我把它们混
   - `005a824c`(290B)= 挂钮规则:**页名为空 或 `== "Pinned"` → 不挂**(固定页无关闭按钮);
   - `005a6d00`(65B)= 取页数据串(`+0x68` 平行表),切换槽据此判门;
   - `005a7fa7`(251B)= 页移动:**`+0x60/+0x68/+0x70` 三条平行表**同步 `move` + 重排助记符。
+
+### 批 476-484 增量(④ 清单补一篇 + 配置键面成批落)
+- **对话框清单修正**:`TriggerActionDialog` 是**工厂型 ctor**(`FUN_006ff1a0` 647B
+  内部 `new 0x48`),不在"调 QDialog::QDialog 且写 vtable"的扫描口径里 →
+  已补入清单(**共 29 个**),并全库复查确认**仅此一例**工厂型。
+- **VcXsrv 帮助弹窗**(`FUN_006ebd28` 794B):QTextEdit + 按钮盒 **0x200000
+  = Close 单钮**;正文路径 = `applicationDirPath()` + **`/vendors/vcxsrv/help.md`**。
+- **QuickBar 三配置槽**(各 190B):`quickbar.showMultipleGroups` /
+  `showGroupTitle` / `showCommandsInOrder`;底层 `FUN_0075c480`(80B)=
+  **带门全局写**(门 `FUN_005d972a` 或 force → `FUN_0090e084(app,key,value)`)。
+- **窗口不透明度**(`s_application_windowOpacity_75c4d0` 408B):键
+  `application.windowOpacity` 默认 **1.0**,门 **0 < v <= 1**,逐窗
+  `setWindowOpacity`。
+- **启动/停止图标**(`s_king__start_6cb4e5` 392B):running ? `king::stop` :
+  `king::start`。
+- **快捷命令 uuid 查在否**(`s_quick_uuid_6cfc46` 214B):键 `quick.uuid`。
+- **TextMark 行装载/保存配对**:`6cc89c`(1264B,map→控件)/
+  `6cd0fc`(3612B,控件→map,**+`.wind/` 路径处理**);六键
+  `text.pattern` / `description` / `text.matchWholeWord` / `text.matchRegex` /
+  `text.matchCase` / `sound` 全实读。
