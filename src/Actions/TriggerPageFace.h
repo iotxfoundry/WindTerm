@@ -200,6 +200,20 @@ protected:
 //   另两行表头 tr("Send &Condition:")(0xc9fdb6)/tr("Send &Later:")(0xc9fdc7);
 //   setLayout(form);setTabOrder(+0x40,+0x50)→(+0x50,+0x58)→(+0x58,+0x60);
 //   setFocusProxy(this)。
+// TriggerTableWidgetFace — FUN_00584e4a(74B,0017.c:59880)ctor(自定义表格件):
+//   FUN_0053397c(this, flags, 0, parent)(基类装配;语料 flags 恒 **0x48f**)→
+//   vtable 0119d678 + 副 0119d828 → 三条初始化腿(FUN_00584e0a/00584cb6/
+//   00584c96,均 cited)。dtor 实测尺寸 **0x48**。
+//   即 PlaySound(+0x38)/CustomMenu(+0x48) 的表件,也是 TextMarkTablePanel 基类。
+class TriggerTableWidgetFace : public QWidget {
+	Q_OBJECT
+public:
+	explicit TriggerTableWidgetFace(int flags = 0x48f, QWidget *parent = nullptr);
+
+protected:
+	int m_flags = 0x48f;
+};
+
 // MarkStyleWidgetFace — FUN_00703a58(55B,0022.c:29996)ctor:
 //   QWidget(parent, 0) → vtable **MarkStyleWidget_vtable** + 副 vptr 0118b8c8 →
 //   assemble()(FUN_00703900,268B)。dtor 实测尺寸 **0x40**。
@@ -287,7 +301,7 @@ public:
 protected:
 	QWidget *m_edit38 = nullptr;  // +0x38(0x68 文本域)
 	QWidget *m_f40 = nullptr;     // +0x40
-	QWidget *m_table48 = nullptr; // +0x48(0x48 表件,0x48f)
+	TriggerTableWidgetFace *m_table48 = nullptr; // +0x48(0x48 表件,0x48f)
 	QWidget *m_f50 = nullptr;     // +0x50(0x40 附件)
 	QWidget *m_f58 = nullptr;     // +0x58(行源件,FUN_006f7830)
 };
@@ -307,7 +321,7 @@ public:
 	void assemblePlaySoundPage(); // FUN_00704340
 
 protected:
-	QWidget *m_table38 = nullptr; // +0x38(0x48 表件,0x48f)
+	TriggerTableWidgetFace *m_table38 = nullptr; // +0x38(0x48 表件,0x48f)
 	QWidget *m_f40 = nullptr;     // +0x40(表内视图)
 };
 
@@ -345,7 +359,7 @@ public:
 	void assembleHighlightPage(); // FUN_006f7c3c
 
 protected:
-	QWidget *m_rules38 = nullptr; // +0x38(0x48 规则件)
+	QWidget *m_rules38 = nullptr; // +0x38(0x48 规则件 → TextMarkTablePanel,批 383)
 };
 
 // RunCommandTriggerPageFace — kind 10(new 0x50)装配 FUN_006fe290(327B):

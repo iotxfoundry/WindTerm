@@ -299,6 +299,15 @@ void SendTextTriggerPageFace::assembleSendTextPage()
 	setFocusProxy(this);
 }
 
+// FUN_00584e4a(74B)自定义表格件 ctor 真身
+TriggerTableWidgetFace::TriggerTableWidgetFace(int flags, QWidget *parent)
+	: QWidget(parent)                     // FUN_0053397c(基类装配,flags)
+	, m_flags(flags)                      // 语料 0x48f
+{
+	// vtable 0119d678 / 副 0119d828(C++ 自洽;尺寸 0x48)
+	// 三条初始化腿 FUN_00584e0a / FUN_00584cb6 / FUN_00584c96 — cited
+}
+
 // FUN_00703a58(55B)MarkStyleWidget ctor 真身
 MarkStyleWidgetFace::MarkStyleWidgetFace(QWidget *parent)
 	: QWidget(parent)                     // @00703a58
@@ -404,7 +413,7 @@ void PlaySoundTriggerPageFace::assemblePlaySoundPage()
 {
 	auto *form = new QFormLayout;                              // @00704363(0x20)
 	auto *label = new QLabel(QStringLiteral("&Rules:"));       // tr(0xc9fd07)
-	m_table38 = new QWidget(this);                             // @007043c9(0x48 + FUN_00584e4a(0x48f)) cited
+	m_table38 = new TriggerTableWidgetFace(0x48f, this);       // @007043c9(0x48)
 	m_f40 = m_table38;                                         // +0x40 = w+0x40
 	label->setBuddy(m_table38);
 	// 三列表头(实读):Pattern / Description / Sound
@@ -462,7 +471,7 @@ void CustomMenuTriggerPageFace::assembleCustomMenuPage()
 	// src = FUN_006f7830(this)@00703fxx(行源/模型)— cited
 	m_edit38 = new TriggerActionEditPanelFace(0xe000, this);    // 0x68(FUN_0056376e)
 	m_f40 = m_edit38;                                          // +0x40
-	m_table48 = new QWidget(this);                             // 0x48 + FUN_00584e4a(0x48f) cited
+	m_table48 = new TriggerTableWidgetFace(0x48f, this);       // 0x48(FUN_00584e4a)
 	m_f50 = new QWidget(this);                                 // 0x40 + FUN_00703a58(0) cited
 	l1->setBuddy(m_edit38);
 	l2->setBuddy(m_table48);
