@@ -1,0 +1,166 @@
+// TriggerDialogFace.cpp — 触发器管理对话框(批 346)
+#include "TriggerDialogFace.h"
+
+#include <QAbstractButton>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QGridLayout>
+#include <QLabel>
+#include <QListWidget>
+#include <QStackedLayout>
+#include <QStackedWidget>
+#include <QTabBar>
+#include <QVBoxLayout>
+#include <QVariant>
+
+// FUN_006f2dd4(236B,0022.c:20034)ctor 真身
+TriggerDialogFace::TriggerDialogFace(QWidget *parent)
+	: QDialog(parent, Qt::WindowFlags(0)) // @006f2dd4
+{
+	// vptr 0x11a4a00 / 副 0x11a4bd8(C++ 自洽);+0x78 bool / +0x88 QMap /
+	//   +0x90 QList / +0x98 成员由成员声明承接。
+	setWindowTitle(QStringLiteral("Triggers")); // tr(0xc9e4d3)
+	setAttribute(Qt::WA_DeleteOnClose /*0x37*/, true); // @006f2e72(setAttribute 0x37,1)
+	assemble();                                  // @006f2e7a FUN_006f2036
+	wire();                                      // @006f2e82 FUN_006f2852
+	// QTimer::singleShot(0, this, 闭包 FUN_006f62db)@006f2eb0 — cited(槽体未转写)
+}
+
+// FUN_006f2036(580B,0022.c:19516)装配真身:
+//   form = new QFormLayout(0x20,父 0);grid = new QGridLayout(0x20);
+//   px = style()->(vt+0xe0)(0x52, 0, 0)(QStyle::pixelMetric(PM_SmallIconSize));
+//   +0x30 = new QTabBar(0x30,父 0);+0x38 = new QStackedWidget(0x30,父 0);
+//   +0x80 = new QDialogButtonBox(0x30, 0x400400 /*Ok|Cancel*/, 0);
+//   buildTriggerList()/buildSettingsTab()/buildSessionsTab();
+//   form->setContentsMargins(QMargins(px,0,0,0))(asm 0x6f21xx: local_48=px,
+//     其余 3 个 int 清 0);form->addRow ×2(实参折叠);
+//   buttons->button(0x400 /*Ok*/)->setText(tr("Ok")(0xc9e1cd));
+//   buttons->button(0x400000 /*Cancel*/)->setText(tr("Cancel")(0xc8a1b5));
+//   grid->addWidget(+0x68, 0,0,1,2,0);
+//   grid->addLayout(form, 0,2,1,6,0);
+//   grid->addWidget(+0x80, 1,6,1,2,0);
+//   setLayout(grid);FUN_0075c132(0.6 /*0x3fe3333333333333*/,
+//     0.74 /*0x3fe7ae147ae147ae*/, qApp, this)。
+void TriggerDialogFace::assemble()
+{
+	auto *form = new QFormLayout;                                  // @006f2059
+	auto *grid = new QGridLayout;                                  // @006f206e
+	const int px = style()->pixelMetric(QStyle::PM_SmallIconSize, nullptr, nullptr); // @006f208x(0x52)
+
+	m_tabBar30 = new QTabBar;                                      // @006f20a6(0x30)
+	m_stack38 = new QStackedWidget;                                // @006f20c1(0x30)
+	m_buttons80 = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel); // @006f20e1(0x400400)
+
+	buildTriggerList();                                            // @006f20e9
+	buildSettingsTab();                                            // @006f20ee
+	buildSessionsTab();                                            // @006f20f4
+
+	form->setContentsMargins(px, 0, 0, 0);                          // @006f211x
+	// form->addRow ×2 — 语料实参折叠,cited
+
+	if (QAbstractButton *ok = m_buttons80->button(QDialogButtonBox::Ok))
+		ok->setText(QStringLiteral("Ok"));                          // tr(0xc9e1cd)
+	if (QAbstractButton *cancel = m_buttons80->button(QDialogButtonBox::Cancel))
+		cancel->setText(QStringLiteral("Cancel"));                  // tr(0xc8a1b5)
+
+	grid->addWidget(m_triggerList68, 0, 0, 1, 2);                   // @006f21xx
+	grid->addLayout(form, 0, 2, 1, 6);                              // @006f21xx
+	grid->addWidget(m_buttons80, 1, 6, 1, 2);                       // @006f21xx
+	setLayout(grid);                                                // @006f22xx
+	// FUN_0075c132(0.6, 0.74, qApp, this)@006f22xx — cited(窗口尺寸比例腿)
+}
+
+// FUN_006f1c74(257B,0022.c:19367)触发器列表:
+//   +0x68 = new 0x48 + FUN_0055e356(w, 0x143, 0);+0x70 = w+0x40;
+//   setAttribute(+0x70, 2 /*WA_Resized*/, true);
+//   FUN_0055f224(+0x70, tr("No trigger available")(0xc9e4dc))(占位文案);
+//   connect(+0x70 QListWidget::itemEntered → 闭包 impl FUN_006f2ed8(821B))。
+void TriggerDialogFace::buildTriggerList()
+{
+	m_triggerList68 = new QListWidget;       // @006f1c98(0x48 + FUN_0055e356(0x143))
+	m_triggerView70 = m_triggerList68;       // +0x70 = w+0x40(同族子件)
+	m_triggerView70->setAttribute(Qt::WA_Resized, true); // @006f1cxx(2,1)
+	// FUN_0055f224(+0x70, "No trigger available") — cited(占位文案设置腿)
+	// connect(itemEntered → FUN_006f2ed8) — cited
+}
+
+// FUN_006f1f68(182B,0022.c:19471)"&Settings" 页容器:
+//   page = new QWidget(0x30, 父 0);+0x40 = new QStackedLayout(0x20);
+//   stacked->setContentsMargins(QMargins 全零,asm 16 字节清零);
+//   page->setLayout(stacked);
+//   +0x30 tabBar->addTab(tr("&Settings")(0xc9fb0a));
+//   +0x38 stackedWidget->addWidget(page)。
+void TriggerDialogFace::buildSettingsTab()
+{
+	auto *page = new QWidget;                 // @006f1f89(0x30,父 0)
+	m_pageStack40 = new QStackedLayout;       // @006f1f9e(0x20)
+	m_pageStack40->setContentsMargins(0, 0, 0, 0);
+	page->setLayout(m_pageStack40);
+	m_tabBar30->addTab(QStringLiteral("&Settings")); // tr(0xc9fb0a)
+	m_stack38->addWidget(page);               // @006f1fxx
+}
+
+// FUN_006f1d86(425B,0022.c:19405)"S&essions" 页:
+//   page = new QWidget(0x30, 父 0);
+//   l1 = new QLabel(0x30, tr("Target &Sessions:")(0xc9fadd));
+//   l2 = new QLabel(0x30, tr("Target &Systems:")(0xc9faef));
+//   vbox = new QVBoxLayout(0x20);
+//   FUN_006f1b74(+0x48 = new 0x50 + FUN_00535a76;+0x58 = w+0x48;
+//     FUN_005d6878(+0x58, tr("No session available")(0xc9fab4)));
+//   FUN_006f1bf4(+0x50 = 同构造;+0x60 = w+0x48;
+//     FUN_005d6878(+0x60, tr("No system available")(0xc9fac9)));
+//   l1/l2 setBuddy;vbox margins 全零;
+//   addWidget(l2,0) → addWidget(+0x50,1) → addWidget(l1,0) → addWidget(+0x48,2);
+//   page->setLayout(vbox);tabBar->addTab(tr("S&essions")(0xc9fb00));
+//   stackedWidget->addWidget(page)。
+void TriggerDialogFace::buildSessionsTab()
+{
+	auto *page = new QWidget;                                       // @006f1dab(0x30)
+	auto *l1 = new QLabel(QStringLiteral("Target &Sessions:"));     // tr(0xc9fadd)
+	auto *l2 = new QLabel(QStringLiteral("Target &Systems:"));      // tr(0xc9faef)
+	auto *vbox = new QVBoxLayout;                                   // @006f1e47(0x20)
+
+	m_sessions48 = new QWidget;            // @006f1b91(0x50 + FUN_00535a76) cited
+	m_systems50 = new QWidget;             // @006f1c11(同上) cited
+	// +0x58/+0x60 占位文案 "No session available"/"No system available" — cited
+
+	l2->setBuddy(m_systems50);             // setBuddy
+	l1->setBuddy(m_sessions48);
+	vbox->setContentsMargins(0, 0, 0, 0);   // 全零
+	vbox->addWidget(l2, 0, Qt::Alignment());        // @006f1exx
+	vbox->addWidget(m_systems50, 1, Qt::Alignment());
+	vbox->addWidget(l1, 0, Qt::Alignment());
+	vbox->addWidget(m_sessions48, 2, Qt::Alignment());
+	page->setLayout(vbox);                 // @006f1exx
+	m_tabBar30->addTab(QStringLiteral("S&essions")); // tr(0xc9fb00)
+	m_stack38->addWidget(page);            // @006f1fxx
+}
+
+// dialog_connectAcceptReject2(916B,0022.c:19855)八路接线真身(结构段):
+//   @006f287x buttons(+0x80) "2accepted()" → this "1accept()";
+//   @006f289x buttons(+0x80) "2rejected()" → this "1reject()";
+//   @006f28bx tabBar(+0x30) currentChanged → 闭包 impl FUN_006f2435;
+//   @006f28ex tabBar(+0x30) currentChanged → stacked(+0x38) setCurrentIndex
+//     (闭包 impl FUN_006b6730,QTabBar smeta);
+//   @006f29xx +0x68 的 4 路信号(FUN_008ef798 idx1 / 8ef7c0 idx4 /
+//     8ef7fc idx0xc / 8ef810 idx0xd,smeta 01193440)→ 槽 FUN_006f409a(790B)/
+//     FUN_006f3d98(655B)/FUN_006f6304(483B)/FUN_006f32e0(451B)(经
+//     FUN_006f9535 143B 闭包转发,槽体均 cited);
+//   @006f2axx listView(+0x70) doubleClicked → 闭包 FUN_006f6dd0 → FUN_006f32e0;
+//   @006f2bxx listView(+0x70)->selectionModel() currentChanged → 闭包
+//     FUN_006f6e40 → FUN_006f60a8(74B)。
+void TriggerDialogFace::wire()
+{
+	connect(m_buttons80, &QDialogButtonBox::accepted, this, &QDialog::accept);
+	connect(m_buttons80, &QDialogButtonBox::rejected, this, &QDialog::reject);
+	connect(m_tabBar30, &QTabBar::currentChanged, this, [this](int) {
+		// 闭包 impl FUN_006f2435 — cited
+	});
+	connect(m_tabBar30, &QTabBar::currentChanged, m_stack38, &QStackedWidget::setCurrentIndex);
+	// +0x68 四路信号(FUN_008ef798/8ef7c0/8ef7fc/8ef810,smeta 01193440)
+	//   → FUN_006f409a/006f3d98/006f6304/006f32e0 — cited(槽体未转写)
+	connect(m_triggerList68, &QListWidget::doubleClicked, this, [this](const QModelIndex &) {
+		// 闭包 FUN_006f6dd0 → FUN_006f32e0 — cited
+	});
+	// listView->selectionModel() currentChanged → FUN_006f60a8 — cited
+}

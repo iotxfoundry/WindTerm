@@ -97,7 +97,9 @@ enum class TriggerPageKind : int {
 };
 
 // TriggerPageStackFace — FUN_006f440e(1804B,0022.c:20784)页栈建页。
-// 宿主类名未定(Ghidra 无符号;cited),字段由 asm 实读:
+// **宿主已勘定为 TriggerDialogFace**(批 346:FUN_006f2dd4 ctor 实测
+//   +0x30 QTabBar / +0x40 QStackedLayout / +0x88 QMap,与本文用例逐项吻合;
+//   两者可视为同一类的行为面拆分)。字段由 asm 实读:
 //   +0x30 QTabBar / +0x40 QStackedLayout / +0x88 QMap<int,QWidget*>
 //   (节点 0x28:键 int @+0x18,值 ptr @+0x20)。
 // 流程:命中 +0x88 → 复用;未命中 → 按 kind 建页 → 插表 → stack->addWidget;
