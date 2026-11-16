@@ -8,14 +8,15 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第四十二次交接,批 345 · 触发器页族全谱落地)
+## 一句话状态(2026-11-16 第四十三次交接,批 348 · ④ TriggerDialog 归属勘定 + 全谱)
 
 **界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
-155 批 / 57 文件 / +5938 行,新增 17 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **69%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
+160 批 / 60 文件 / +6300 行,新增 19 个 `*Face` 新域。覆盖率(按 GUI-MAP
+条目加权)≈ **71%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
 /②菜单 60%(右鍵四族全进"结构已定")/③工具栏状态栏 80%(七 kind 全真身)
-/④对话框 40%(Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
-LoginWizard 全/Paste 全)/⑤设置页 75%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+
+/④对话框 50%(Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
+LoginWizard 全/Paste 全/**TriggerDialog 全谱 0xe0**:页栈+接线+编辑腿/
+**NameDialog 通用 Create 框**+`addFormRow` 通用行)/⑤设置页 75%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+
 **触发器页族全谱**:页栈 006f440e 11 kind 表/TriggerActionWidget 0x78/
 SendText 页 1013B/遮挡槽 395B)/⑥dock 标签 75%(KitDock 全套+TabBar
 节点助记符页色关钮)/5c 写 85% 读 60%(blobA/B/C 真身+会话帧解析)。
@@ -68,6 +69,9 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
   方案书**免侦察直执**(批 131)。
 
 ## 勘正谱系(现结论 ← 被勘正;新会话读到旧结论先查此表)
+
+| `TriggerDialog`(0xe0) = 页栈 006f440e / 接线 006f2852 **同一宿主** | 批 346(ctor 字段三源吻合) | 批 343 记"宿主类名未定" |
+| `nameDialogAddFormRow` 为 **三实参**(dlg/标签/字段) | 批 347b(asm 0x6bd25c/5f) | 批 347 两实参落 |
 
 | 现结论 | 勘正来源 | 被勘正旧结论 |
 |---|---|---|

@@ -310,3 +310,20 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   +0x38 文本域 0x68(FUN_0056376e 0xe000),+0x48 件 0x70(FUN_006f83b0 4,1),
   +0x58 combo 三选项(data 2/1/0),+0x60 QDoubleSpinBox(suffix s/0..999999.9/
   step 0.1),两表头 Send &Condition:/Send &Later:,setTabOrder 链。
+
+### 批 346-348 增量(归属勘定 → ④ TriggerDialog 全谱 + 通用 NameDialog)
+- **归属勘定方法**(可复用):ctor 的 `operator_new` 尺寸 + 字段偏移反查——
+  `FUN_006f2dd4` = TriggerDialog ctor(尺寸 **0xe0**),其 +0x30 QTabBar /
+  +0x40 QStackedLayout / +0x88 QMap 与页栈 `006f440e`、接线 `006f2852`
+  三处逐项吻合 ⇒ 三者同宿主。
+- **TriggerDialogFace**:ctor 236B(vptr 0x11a4a00/副 0x11a4bd8/+0x78 bool/
+  +0x88 QMap/+0x90 QList/+0x98/title **"Triggers"**/setAttribute 0x37)/
+  装配 580B(form+grid+tabBar+stacked+buttonBox **0x400400**+PM_SmallIconSize
+  左边距+Ok·Cancel 文案+网格 1×2/6格+0.6·0.74)/三子装配(触发器列表 0x68
+  「No trigger available」/&Settings 页/S&essions 页 Target &Sessions:·
+  Target &Systems:·No session·No system)/八路接线/编辑当前触发器 451B。
+- **NameDialogFace**:通用「Create <名>」框(FUN_006bd7f6 319B,vptr 0x11a13b8/
+  副 0x11a1590/+0x30 bool/+0x38 名);通用 `nameDialogAddFormRow`
+  (FUN_006bd250 242B:addRow(label,field)+FieldRole 逐行 setTabOrder 链)。
+- **方法学**:.rodata 取串改用 `file_offset = addr - 0x400000`(readelf 实测
+  .rodata addr 0xc89000 ↔ off 0x889000),替代手工读 objdump 行,消除错位。
