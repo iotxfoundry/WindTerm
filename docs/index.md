@@ -57,6 +57,7 @@
 | [`moc-names.md`](meta/moc-names.md) | moc 名表(签名对齐用) |
 | [`classes-sweep.md`](meta/classes-sweep.md) | 全库类清点(名字 / 尺寸 / vtable) |
 | [`impl-addresses.md`](meta/impl-addresses.md) | 实现地址总表(函数 → 文件:行) |
+| [`class-names.md`](meta/class-names.md) | **类名一致性审计**:380 个 RTTI 真名 vs 我方 166 类;`*Face` 后缀定性 |
 | [`calibration.md`](calibration.md) | 开源码移植**逐句同构**记录(移植件合法性凭据) |
 | [`build-audit.md`](build-audit.md) | 依赖版本审计(spdlog / fmt / jsoncpp / yaml-cpp / onig) |
 

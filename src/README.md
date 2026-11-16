@@ -67,7 +67,20 @@
 > `test/`/`examples/` 树已于 2026-11-16 移除(属外部库边界,非逆向参考),
 > 需要时按上表版本重新拉取。见 `docs/cleanup.md`。
 
-## 4. 改动规则(按类分)
+## 4. 命名:`*Face` 是重建标记,不是原版类名
+
+二进制里 **没有 `Face` 这个词**(`strings -a WindTerm | grep -c Face` = 0)。
+`*Face` = 我方在 `src/` 里承接语料函数体的类,用来和第三方/第一方开源件区分。
+
+- **去掉 `Face` 后命中二进制 RTTI 真名 → 基名可信**(当前 63/87;
+  全量对照见 `docs/meta/class-names.md`)。
+- **去后缀不命中 → 需查证**:可能是伞形容器名(`ActionRegistry`/`Settings`)、
+  我方内部拆分(`Screen`→二进制 `SuperTerm`、`EditorContext`→`Editor`)、
+  或重复建模。
+- 新增类前先查 `tools/re/data/rtti_classes.txt`(380 个真名);
+  命中就用真名,不命中必须在头注释写"无 RTTI 对应"。
+
+## 5. 改动规则(按类分)
 
 | 类 | 规则 |
 |---|---|

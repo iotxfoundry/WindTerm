@@ -18,6 +18,11 @@
 - **建议顺序**:清 §1 → 全量编译修错 → 25 个测试二进制回归 → 装配 `main`
   → Xvfb 截图 vs `/opt` 对表。
 
+> **类名级重复(2026-11-16 新查)**:6 处重复/双建已在
+> [`meta/class-names.md`](meta/class-names.md) §3.1/§3.1b 列表
+> (EnvDialog / Settings↔TextMarkDialog / SettingsPage↔TunnelDialog /
+> CTerminalConfig / EditorWindow / TerminalWindow),与本文件合并清理。
+
 ## 1. SettingsPageFace ↔ TunnelDialog(最高优先)
 
 **事实**:`FUN_0072cf44` = TunnelDialog ctor(标题 `"Tunnels"`),它调用:

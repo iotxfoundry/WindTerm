@@ -21,7 +21,7 @@
 - IDA 若使用:**IDA 地址 = Ghidra − 0x400000**。
 - `.rodata` 取串:`file_offset = addr − 0x400000`(readelf 实测
   `.rodata` addr `0xc89000` ↔ off `0x889000`);`.data.rel.ro` 段偏移不同,
-  用段感知读取(`tools/re/rd.py` 或 `readelf -SW` 现算),**勿手算**。
+  用 `readelf -SW` 现算段偏移读取,**勿手算**。
 
 ## 1. 仓库根目录布局
 
@@ -147,7 +147,7 @@ git rev-list --count origin/dev..dev    # 领先量(只提交不推送,勿惯性
 | `tools/re/xref_scan.py` | 交叉引用:调用者 / 导入 |
 | `tools/re/ehframe_fdes.py` | 30566 函数边界(零重叠) |
 | `tools/re/qmo_extract.py` | QMetaObject:类/方法/Q_ENUM(**值权威**) |
-| `tools/re/rd.py` | 段感知地址读取(`q`/`d`/`cstr`) |
+| `tools/re/vtable_scan.py` | vtable → typeinfo → **真实类名**(715 条);`--vtable`/`--addr` 查单体 |
 | kuna CLI(`~/.local/share/rea/bin/kuna`) | 反编译(支持 `--addr`);Ghidra 12.1.4 包装 |
 | `objdump -d --start-address=… --stop-address=…` | **折叠实参必回 asm 取寄存器**(踩坑 18) |
 | `pkill -f 'pat[t]ern'` | 杀进程用括号法,避免自匹配(踩坑 15) |
