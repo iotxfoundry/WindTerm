@@ -14,7 +14,15 @@ class SessionTriggerDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit SessionTriggerDialogFace(QWidget *parent = nullptr);
-	void build();    // FUN_006d9d8a — 结构段(cited)
-	void build2();   // FUN_006da092 — 结构段(cited)
+
+	// FUN_006da092(644B)**装配**:QVBoxLayout + QHBoxLayout + **QLabel +
+	//   QPushButton** + QDialogButtonBox(无 tr 字符串 —— 按钮文案复用)。
+	void build();
+	// FUN_006d9d8a(776B)**接线**:字段 +0x30 / +0x38 / +0x48,
+	//   闭包 FUN_006b2420 / **FUN_006db5b0**。
+	void wire();
+
+protected:
+	QWidget *m_f30 = nullptr; QWidget *m_f38 = nullptr; QWidget *m_f48 = nullptr;
 };
 
