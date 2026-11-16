@@ -15,7 +15,7 @@
 
 | 目录 | 类 | 说明 |
 |---|---|---|
-| `Actions/` | **A** | 主窗装配、菜单/动作、dock、标签、设置页、对话框(128 文件中 124 有转写标记) |
+| `Actions/` | **A** | 主窗装配、菜单/动作、dock、标签、设置页、对话框(126 文件 64 头,最大目录)→ **分组索引见 `Actions/README.md`** |
 | `Editor/` | **A** | 编辑器桥、`EditorEngine` 分派、`CTerminalConfig`(26/26) |
 | `Sessions/` | **A** + B | 会话/SSH 管家为 A;`SuperSessionPrivate` 认证族**委托 libssh**(边界) |
 | `Widgets/` | **A** 为主 | `*Face.*`/`EditorWindow`/`FilerPane`/`TerminalView` 为 A;**例外见 §2** |

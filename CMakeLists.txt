@@ -132,7 +132,7 @@ if(UNIX)
   )
 endif()
 
-file(GLOB WT_MOC_HEADERS
+file(GLOB_RECURSE WT_MOC_HEADERS
   ${CMAKE_SOURCE_DIR}/src/Actions/*.h
   ${CMAKE_SOURCE_DIR}/src/Editor/*.h
   ${CMAKE_SOURCE_DIR}/src/Sessions/*.h
