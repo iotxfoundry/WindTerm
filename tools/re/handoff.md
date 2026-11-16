@@ -374,6 +374,13 @@ btn->setStyleSheet("QToolButton { color: %1; }".arg(s == 1 ? "red" : "green"));
    `python3 tools/re/mo_find.py Xxx Yyy` → 打印地址,再喂给 `qmo_class.py`。
    起因:很多类的 metaObject 函数不带类名前缀(KitWindow 就是)。
 
-4. **先判是不是 B 类**(Scintilla / chardet / libssh 上游件)。
+4. **出处注释必须"地址 + 标记词"两个都有**。
+   `coverage.py` 的 `origin_of()` 要求同时满足:
+     ① 注释行里有 `.text` 区间的地址;
+     ② 该行带标记词 `真身` / `cited` / `FUN_x(NNNB)` / `// ===`。
+   只写 `// dtor 0x008e59f2(47B)` 会被判「无出处」——
+   写成 `// dtor 0x008e59f2(47B)真身` 才认。本轮为此踩了 3 次。
+
+5. **先判是不是 B 类**(Scintilla / chardet / libssh 上游件)。
    本轮差点把 Scintilla 的 `Editor` 当自研逆向 —— 函数体里出现
    `editor_textLength` / `runstyles_runnode_init` / `Decoration` 就停手。
