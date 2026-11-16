@@ -1,5 +1,8 @@
 #pragma once
 
+#include <QString>
+#include <QStringList>
+
 #include <QByteArray>
 #include <QMainWindow>
 #include <QSplitter>
@@ -46,6 +49,24 @@ public:
 	// +0x30 = 装配待命门:008d3cc2 首门 cmpb 0x30 @0x8d3cc2 / 清零
 	//   movb 0x30 @0x8d3d17;008d2f7e movzbl 0x30 @0x8d2f8f(门 != 0 → 返 0)。
 	quint8 m_assemble0x30 = 1;
+
+	// --- QuickBar 槽(批 441;语料 +0xd8 名称 / +0xe0 宿主 QPointer 对)---
+	//   +0xd8 QString 名称(QuickBar 懒建时以 objectName "QuickBar" 取,0xd0e6d4)
+	//   +0xe0 宿主控件指针(其 +0x68 = 快捷项名表 QStringList)
+	//   仅 StateStore 写侧(stateStoreSerializeQuickBar)与读侧消费;
+	//   建面(lazy ctor)未转写 → 两个 setter 由装配面调用(cited 建面)。
+	const QString &quickBarName() const { return m_quickBarName; }
+	QWidget *quickBarHost() const { return m_quickBarHost; }
+	const QStringList &quickBarItemNames() const { return m_quickBarItems; }
+	void setQuickBar(const QString &name, QWidget *host, const QStringList &items)
+	{
+		m_quickBarName = name;
+		m_quickBarHost = host;
+		m_quickBarItems = items;
+	}
+	QString m_quickBarName;      // +0xd8
+	QWidget *m_quickBarHost = nullptr; // +0xe0
+	QStringList m_quickBarItems; // +0xe0 宿主的 +0x68 表(承接)
 	// +0x31 ctor 同 WORD 高字节;深段(008d2f7e 选择行为腿)消费,本波不读。
 	quint8 m_flag0x31 = 1;
 	// +0x38..+0x50 四 QSplitter(QWidget*0):

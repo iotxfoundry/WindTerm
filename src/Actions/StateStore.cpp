@@ -584,3 +584,27 @@ bool SessionStore::setField(QVariantList &library, const QString &uuid,
 	const bool saved = upsert(library, entry, save, profilePath);
 	return saved;
 }
+
+// FUN_008596b8(395B,0026.c:50614)QuickBar 写侧真身
+QByteArray stateStoreSerializeQuickBar(const KitWindowFace *pane)
+{
+	QByteArray buf;                                   // local_68(shared_null)
+	QDataStream s(&buf, QIODevice::WriteOnly);         // @008596ef(2 = WriteOnly)
+
+	// 可见位:名称非空且宿主非空才取 QWidget 私有位 bit15
+	bool vis = false;                                 // @0085970x
+	if (pane != nullptr && !pane->quickBarName().isEmpty() && pane->quickBarHost() != nullptr) {
+		// 语料直读私有位 (*(+0xe0 的 +0x28 的 +8) >> 0xf) & 1
+		vis = pane->quickBarHost()->isVisible();       // 等价承接(cited)
+	}
+	s << vis;                                          // @00859737
+
+	// 快捷项名表
+	QStringList names;                                 // local_60(QList)
+	if (pane != nullptr && !pane->quickBarName().isEmpty() && pane->quickBarHost() != nullptr)
+		names = pane->quickBarItemNames();              // detach(+0xe0 + 0x68)
+	s << names.size();                                 // @008597a0(<< int count)
+	for (const QString &n : names)
+		s << n;                                        // 逐项 <<QString
+	return buf;                                        // 外层再 out << buf
+}

@@ -58,6 +58,18 @@ class MuxWindow;
 //   表位;树深依赖浮停腿 cited 分段)。
 QByteArray stateStoreSerializeSplitterBlob(const KitWindowFace *pane);
 
+// FUN_008596b8(395B,0026.c:50614)QuickBar 写侧(补齐批 333 的 cited 空位)。
+// 逐句实读:
+//   QByteArray buf;QDataStream s(&buf, QIODevice::WriteOnly /*2*/);
+//   **可见位**:名称槽(+0xd8)非空 && 宿主(+0xe0)非空 →
+//     `(*(uint*)(*(*(+0xe0)+0x28)+8) >> 0xf) & 1`(QWidget 私有位 bit15);
+//     否则 false。`s << vis`;
+//   **快捷项名表**:同上条件成立 → detach(+0xe0 + 0x68) 得 QStringList;
+//     `s << count`;逐项 `s << name`;
+//   外层 `out << buf`(子流并入)。
+//   ⇒ 样本尾 9B = BA(5B 00+00000000)= 可见 false + 空表,与读侧同相。
+QByteArray stateStoreSerializeQuickBar(const KitWindowFace *pane);
+
 // FUN_008cf0c8(2233B,0028.c:15003)s_kit_startupSessions 页 payload
 // 序列化骨架真身(批 173,M21-①升真;原版 674B 实物帧实证,5C-REPORT):
 //   QDataStream(&blob)@008cf162 → << 0xb9e7e626(@008cf173,反编译
