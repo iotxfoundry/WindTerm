@@ -516,3 +516,28 @@ TriggerDialogFace::TriggerRecord TriggerDialogFace::makeRecord(int kind, const Q
 	}
 	return r;
 }
+
+// FUN_006f35fe(192B,0022.c:20306)追加记录真身
+void TriggerDialogFace::appendRecord(const TriggerRecord &rec)
+{
+	QListWidgetItem *item = makeItemForRecord(rec);   // @006f35fe(FUN_006f263e)
+	if (item == nullptr)
+		return;
+	const int row = m_triggerList68 ? m_triggerList68->currentRow() : -1;
+	m_records90.insert(row + 1, rec);                 // +0x90 在 row+1 插入
+	m_triggerList68->insertItem(row + 1, item);       // @006f36xx
+	m_triggerList68->setCurrentItem(item,
+		QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current); // 0x13
+	// QTimer::singleShot(0, this, 闭包 FUN_006f1387)@006f36xx — 延迟刷新,cited
+}
+
+// FUN_006f4ed6(324B)新增完成闭包真身(结构段)
+void TriggerDialogFace::onAddFinished(int kind, const QString &name, int result)
+{
+	if (result != 1)                                  // 仅 Accepted
+		return;
+	const TriggerRecord rec = makeRecord(kind, name, QString()); // 空 key → 缺省化
+	appendRecord(rec);                                // @006f35fe
+	setNextMode(true);                                // @006f35xx(FUN_006f2384(this,1))
+	// FUN_006f9f0c(rec)(临时记录析构)@006f35xx — Qt 成员自洽承接
+}

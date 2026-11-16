@@ -106,6 +106,22 @@ public:
 	//     → +0x28 = QVariant(map)。
 	static TriggerRecord makeRecord(int kind, const QString &name, const QString &key);
 
+	// FUN_006f35fe(192B,0022.c:20306)追加记录(新增腿的落库步):
+	//   item = makeItemForRecord(rec)(FUN_006f263e);null → 返;
+	//   row = +0x68 currentRow();+0x90 在 row+1 处插入 rec(FUN_006a0090);
+	//   +0x68 insertItem(row+1, item);setCurrentItem(item, 0x13);
+	//   QTimer::singleShot(0, this, 闭包 FUN_006f1387)(延迟刷新)。
+	void appendRecord(const TriggerRecord &rec);
+
+	// FUN_006f4ed6(324B,0022.c:20176 邻)新增完成闭包:
+	//   which==0 → 释放闭包(0x30);which==1 且 args[1](finished)==1:
+	//     kind = combo->currentData().toInt()(userType/convert 双路);
+	//     name = NameDialog 文本(FUN_006bd94e);key = 空串;
+	//     rec = makeRecord(kind, name, key)(448B ctor,空 key → 缺省化);
+	//     appendRecord(rec);setNextMode(true)(→ "&Next");
+	//     FUN_0069f90c(rec)(记录析构)。
+	void onAddFinished(int kind, const QString &name, int result);
+
 	// FUN_006f3286(89B,0022.c:20176)当前行记录:
 	//   row = +0x68 currentRow();idx = currentRecordIndex(row);
 	//   idx == -1 → 返回 +0x98 缺省记录;否则 +0x90 第 idx 项。
