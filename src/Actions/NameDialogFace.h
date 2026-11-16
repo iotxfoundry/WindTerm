@@ -36,7 +36,14 @@ public:
 	//   ⇒ 名字为空时 Ok 灰显。
 	void onTextChanged(const QString &text);
 
-	void setAcceptEnabled(bool on); // FUN_006bdbc6(承接)
+	// FUN_006bdbc6(29B,0021.c:50407)Ok 按钮启停真身:
+	//   setEnabled(button(+0x40, 0x400 /*Ok*/) != 0)。
+	void setAcceptEnabled(bool on);
+
+	// FUN_006bdbe4(249B,0021.c:504xx)"允许空名"置位:
+	//   与 +0x30 同值 → 直返;否则 +0x30 = 入参;
+	//   入参为 0 → 以编辑框当前文本重算 Ok 启停(setAcceptEnabled(文本非空));
+	//   入参非 0 → tr("Optional")(0xc9dabf 实读) → 写入编辑框占位(放开校验提示)。
 	void build();   // FUN_006bd50c
 	void wire();    // FUN_006bd34a(449B)
 

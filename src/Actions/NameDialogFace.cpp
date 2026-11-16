@@ -59,11 +59,13 @@ void NameDialogFace::onTextChanged(const QString &text)
 	setAcceptEnabled(!text.isEmpty());  // FUN_006bdbc6(this, len != 0)
 }
 
+// FUN_006bdbc6(29B)Ok 按钮启停真身
 void NameDialogFace::setAcceptEnabled(bool on)
 {
-	if (m_buttons40)
-		if (QAbstractButton *ok = m_buttons40->button(QDialogButtonBox::Ok))
-			ok->setEnabled(on);
+	if (m_buttons40 == nullptr)
+		return;
+	if (QAbstractButton *ok = m_buttons40->button(QDialogButtonBox::Ok)) // 0x400
+		ok->setEnabled(on);                                              // QWidget::setEnabled
 }
 
 void NameDialogFace::wire()
