@@ -426,7 +426,7 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
   | 函数 | 字节 | 结论 |
   |---|---|---|
   | `actionFactory_getOrCreate` | 856 | 名 trimmed → **QHash<QByteArray,QAction*> @ +0x10** → 命中复用;**未命中:仅 `qstrcmp(name,"Text.HighlightTextBar")==0` 走 HighlightTextBarAction(QWidgetAction 子类,0x20),其余 `new QAction(0x10)` + 默认文案 = 原始名**;两路 connect triggered |
-  | `FUN_0066613a` 属性应用 | 2882 | **六属性实读**:`script`→正则(0xc91698,0x7f 字节,含 GBK 中文注释)判定→`setData`;`text`/`tooltip`→`tr(串)`→setText/setToolTip;**`state`→setEnabled+setVisible 双控**;`icon`→setIcon;`kits`→`toStringList()` |
+  | `FUN_0066613a` 属性应用 | 2882 | **六属性实读**:**`script` 空→setEnabled(false) / 非空→setData+正则命中→`setProperty("dynamic")`+setVisible**;`text`/`tooltip`→`tr(串)`→setText/setToolTip;`icon`→setIcon;`kits`→`toStringList()`;`state` 落点未定(cited) |
   | `wind_actions_build` | 7702 | **语义只有两行**(遍历 map → 属性应用);余 ~1.4K 行是 QMap/QVariant/QString 逐节点 unref 的内联展开 |
 - **勘正**:表件 `+0x10` 不是 QMap 而是 **QHash**;`006926c2` 不是 QMap 查而是**按名线性扫表 memcmp**(`findMenuItemIndex`)。
 - **④/⑤ 两小件**:`mapGetOr`(`007349f0` 79B:整数键 QMap 取值带缺省;`dialog_loadWidgetValues` 的覆盖值**按控件地址**存)、`onCursorModeToggled`(`00734f1f` 291B:`setProperty("text", v)` + 标签在 `&Block`/`&Line` 间切换)、`mapGetIntOr`(`006f8cb4` 137B)。

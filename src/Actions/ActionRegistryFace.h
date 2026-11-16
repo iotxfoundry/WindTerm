@@ -44,17 +44,18 @@ public:
 	// FUN_0066613a(2882B) applyAttributes(name, attrMap):
 	//   ① name 空(trimmed 后长度 0)→ 直返;
 	//   ② act = getOrCreate(name);
-	//   ③ 逐属性取面 —— **六个键名 .rodata 实读**(顺序即语料处理序):
-	//      "script" (6) → toString().trimmed() → 按正则(0xc91698,0x7f 字节:
-	//        箭头函数/匿名 function 识别式,**内含 GBK 中文注释**)判定 →
-	//        setData(**QAction::setData 唯一调用点**);
-	//      "text" (4)   → toString().trimmed() → **tr(该串)** → setText;
+	//   ③ 逐属性取面 —— **六个键名 .rodata 实读**(修复 404:按 asm 校正归属):
+	//      "script" (6) → trimmed;**空 → `setEnabled(false)`**;
+	//        非空 → `setData(QVariant(script))`,再以正则(0xc91698,0x7f 字节:
+	//        箭头/匿名 function 识别式,内含 GBK 中文注释)match:
+	//        **命中 → setProperty("dynamic", true) + setVisible(…)**;
+	//      "text" (4)   → trimmed → **tr(该串)** → setText;
 	//      "tooltip"(7) → 同上 → setToolTip;
-	//      "state"(5)   → toString().trimmed() → **setEnabled + setVisible**
-	//        (state 同时控制可用与可见 —— 两个调用的唯一来源);
 	//      "icon"(4)    → setIcon(主题图标装载面);
-	//      "kits"(4)    → **toStringList()**(动作归属的 kit 名表)。
-	//   = 动作 DSL 的完整属性集。
+	//      "kits"(4)    → **toStringList()**(动作归属的 kit 名表);
+	//      "state"(5)   → trimmed(**落点仍未定 —— 保持 cited,不猜**)。
+	//   ⇒ 原批 393 把 setEnabled/setVisible 记到 "state" 名下是错的:
+	//     两者属 "script" 分支(空脚本禁用 / dynamic 判定后可见性)。
 	QAction *applyAttributes(const QByteArray &name, const QVariantMap &attrMap);
 
 	// wind_actions_build(7702B) build(rootMap):
