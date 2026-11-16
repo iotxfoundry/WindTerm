@@ -66,7 +66,17 @@
 | 5 | `docs/phase5.md` 顶部「结论快照」 | 里程碑 / 编辑引擎真值 / 5b 终局 / 开放风险 |
 | 6 | `docs/quirks.md` | 原版怪癖(**动代码前扫一遍,别把怪癖当 bug 修**) |
 
-### 2.2 状态核对(3 条命令,再做任何改动)
+### 2.2 转写前必查(防止在已有代码上重复新增)
+
+```bash
+python3 tools/re/coverage.py --addr 006b35a6   # 这个函数全仓在哪?已有实现则改它,不新建
+python3 tools/re/coverage.py                   # 全视图:各目录规模 / 地址数 / cited 数
+```
+
+全量索引见 **`docs/meta/coverage-map.md`**(自动生成)。**动笔前先查**,这是
+"不要重复造已有实现"的机械保证,不靠记忆。
+
+### 2.3 状态核对(3 条命令,再做任何改动)
 
 ```bash
 git log --oneline -5                    # 最近 5 批做了什么
@@ -76,7 +86,7 @@ git rev-list --count origin/dev..dev    # 领先量(只提交不推送,勿惯性
 
 然后读 `handoff.md`「现役队列」第 1 条 —— 那即是下一批起点。
 
-### 2.3 按任务取(不必全读)
+### 2.4 按任务取(不必全读)
 
 | 任务 | 读什么 |
 |---|---|
@@ -88,7 +98,7 @@ git rev-list --count origin/dev..dev    # 领先量(只提交不推送,勿惯性
 | 某批的取证细节 | `docs/history/*`(检索用,**结论以现行文档为准**) |
 | src 里某文件属于哪一类 | `src/README.md`(逆向 / 第一方开源 / 第三方) |
 
-### 2.4 冷启动禁忌
+### 2.5 冷启动禁忌
 
 - **不要全量读 `docs/history/`**(phase5-log 3000+ 行):只在追问具体批次时 `grep`。
 - **不要把覆盖率当完成度**:`handoff.md` 的百分比是**转写覆盖**,
@@ -148,6 +158,7 @@ git rev-list --count origin/dev..dev    # 领先量(只提交不推送,勿惯性
 | `tools/re/ehframe_fdes.py` | 30566 函数边界(零重叠) |
 | `tools/re/qmo_extract.py` | QMetaObject:类/方法/Q_ENUM(**值权威**) |
 | `tools/re/vtable_scan.py` | vtable → typeinfo → **真实类名**(715 条);`--vtable`/`--addr` 查单体 |
+| `tools/re/coverage.py` | **全仓覆盖索引**:`--addr <地址>` 查该函数是否已转写;`--dups` 重复实现;`--check` 出处有效性 |
 | kuna CLI(`~/.local/share/rea/bin/kuna`) | 反编译(支持 `--addr`);Ghidra 12.1.4 包装 |
 | `objdump -d --start-address=… --stop-address=…` | **折叠实参必回 asm 取寄存器**(踩坑 18) |
 | `pkill -f 'pat[t]ern'` | 杀进程用括号法,避免自匹配(踩坑 15) |

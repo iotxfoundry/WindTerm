@@ -15,6 +15,8 @@ python3 + numpy + binutils(readelf)。
 | `gen_editor_cmds.py` | 编辑引擎 38K 分派器提取:cmd→action/成员表 + `--cpp` 生成 switch | `gen_editor_cmds.py decomp-part-0034.c --cpp` |
 | `gen_scintilla_returns.py` | Scintilla.iface → 返回类型表(scintilla_returns.inc) | `gen_scintilla_returns.py src/Scintilla/include/Scintilla.iface out.inc` |
 | `gen_stubs.py` | 链接器 mangled 未定义 × 头文件返回类型 → cited-stub 定义 | `gen_stubs.py lib.so out.cpp headers...` |
+| `coverage.py` | 全仓覆盖索引:地址→文件反查 / 重复实现 / 出处有效性 | `coverage.py --addr 006b35a6`；`--write` 重生成 `docs/meta/coverage-map.md` |
+| `vtable_scan.py` | vtable→typeinfo→真实类名(715 条) | `vtable_scan.py WindTerm --vtable 0x11a2788` |
 | `decomp/` | **49M 反编译语料**(Ghidra 12.1.4 导出,每函数有 entry/name/size) | `grep -n "entry=007xxxxx" decomp/*.c` 直达 |
 | `data/ida_makeqmo2.py` | IDA 控制台批量建函数 | IDA Python: `exec(open(...).read())` |
 

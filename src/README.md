@@ -46,6 +46,9 @@ src/
 └── Stubs/                1   gen_stubs.cpp(自动生成的 cited-stub,随转写递减)
 ```
 
+**动手前先查**:`python3 tools/re/coverage.py --addr <地址>` —— 该函数全仓是否
+已有实现。全量索引 `docs/meta/coverage-map.md`(自动生成)。
+
 **include 约定**:`src/` 是 include 根 → 跨目录一律写根相对路径
 `#include "Sessions/Core/SuperSession.h"`;同目录才可用裸文件名。
 
