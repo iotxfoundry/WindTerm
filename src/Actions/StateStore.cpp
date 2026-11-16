@@ -659,3 +659,22 @@ bool KitWindowFace::readVariantList(QDataStream &in, QVariantList &out)
 	}
 	return true;
 }
+
+// FUN_0085ad2e(208B)QuickBar 懒建真身(结构段)
+void KitWindowFace::ensureQuickBar()
+{
+	if (!m_quickBarName.isEmpty() && m_quickBarHost != nullptr)
+		return;                                    // 双槽已就绪 → 直返
+	// bar = new 0x70 + FUN_0056e26e(this)(QuickBar ctor) — cited
+	// 存 +0xd8(引用计数)/+0xe0(宿主);s_SearchPane_85a7a6(this, 宿主) — cited
+}
+
+// FUN_00570a80(72B)灌入快捷项真身(结构段)
+void KitWindowFace::setHostItems(QWidget *host, const QStringList &items)
+{
+	if (host == nullptr)
+		return;
+	// if (*(host+0x68) != items) { detach 拷贝;释放旧表 } — cited
+	// s_king__config_56f866(host)(刷新) — cited
+	Q_UNUSED(items);
+}

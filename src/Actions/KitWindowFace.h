@@ -86,6 +86,17 @@ public:
 			m_quickBarHost->hide();
 	}
 
+	// FUN_0085ad2e(208B,0026.c:51483)**QuickBar 懒建**(正主;与 TransferBar 区分):
+	//   +0xd8 引用计数空 || +0xe0 宿主空 →
+	//     bar = **new 0x70** + FUN_0056e26e(this)(QuickBar ctor,0x70)→
+	//     存 +0xd8/+0xe0 → s_SearchPane_85a7a6(this, 宿主)(搜索面板联动)。
+	void ensureQuickBar();
+
+	// FUN_00570a80(72B,0017.c:45682)灌入快捷项(宿主侧):
+	//   宿主 +0x68 != 入列表 → detach 拷贝 + 释放旧表 → **s_king__config_56f866(宿主)**
+	//   (刷新腿)。
+	static void setHostItems(QWidget *host, const QStringList &items);
+
 	// FUN_0085e0c0(350B,0027.c:595)读 QVariantList(写侧 count+项 的镜像):
 	//   FUN_0081a2f6(out)(清空)→ **>> int count** → FUN_006ec720(out,count)
 	//   (预留)→ 循环 **>> QString** + qlist_qvariant_append;
