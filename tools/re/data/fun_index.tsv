@@ -6597,6 +6597,7 @@
 008fb64c	src/Widgets/Controls/TabGroup.h
 008fb690	src/Widgets/Controls/TabGroup.h
 008fb690	src/Windows/Kit/KitDockFace.cpp
+008fbb66	src/Widgets/Controls/ToolButtonFace.h
 008fd3d0	src/App/StartupChain.cpp
 008fd3d0	src/App/StartupChain.h
 008fd3d0	src/Windows/Kit/MainWindowFace.cpp
