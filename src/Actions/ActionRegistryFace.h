@@ -8,6 +8,16 @@
 
 class QAction;
 
+// HighlightTextBarAction — FUN_0055bbce(41B,0017.c:30825)ctor:
+//   QWidgetAction(parent) → vtable HighlightTextBarAction_vtable →
+//   +0x10 = 0 / +0x18 = 0(尺寸 0x20)。
+//   `Text.HighlightTextBar` 这一条动作名走本类(唯一硬编码特例)。
+class HighlightTextBarActionFace : public QWidgetAction {
+	Q_OBJECT
+public:
+	explicit HighlightTextBarActionFace(QObject *parent);
+};
+
 // ActionRegistryFace — 语料动作注册表(② 菜单/动作树的地基,批 391/392/393)。
 //
 // 语料三件套(全部为"名 → 动作"的 DSL 装载):
@@ -22,10 +32,13 @@ public:
 	//   ② 表在 **this+0x10 = QHash<QByteArray, QAction*>**(共享则 detach);
 	//      h = qHash(name, this+0x10 的 seed);FUN_0066b584(hash, name, h) 查;
 	//   ③ 命中 → 直接返回该 QAction*;
-	//   ④ 未命中按名字形态分两路建:
-	//      含 "::"(菜单族)→ **new 0x20 + FUN_0055bbce(this, 父)**(菜单型动作);
-	//      否则 → **new QAction(0x10, 父)**;
-	//      两路均 connect(triggered → 闭包 impl) 并插入哈希表。
+	//   ④ 未命中按**唯一硬编码名**分两路(asn 0x665f2x qstrcmp 实测):
+	//      `qstrcmp(name, "Text.HighlightTextBar") == 0` →
+	//        **new 0x20 + FUN_0055bbce(this, 父)** = HighlightTextBarAction
+	//        (QWidgetAction 子类,vtable HighlightTextBarAction_vtable,+0x10/+0x18 清 0);
+	//      否则 → **new QAction(0x10, 父)** + `setText(QString::fromAscii(name))`
+	//        (**默认文案 = 原始名**,@00665f83);
+	//      两路均 connect(triggered → 闭包 impl FUN_0066a148 → FUN_0066b3a0)@00665fea。
 	QAction *getOrCreate(const QByteArray &name);
 
 	// FUN_0066613a(2882B) applyAttributes(name, attrMap):

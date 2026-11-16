@@ -4,6 +4,14 @@
 #include <QAction>
 #include <QCoreApplication>
 #include <QIcon>
+#include <QWidgetAction>
+
+// HighlightTextBarAction ctor(41B)真身
+HighlightTextBarActionFace::HighlightTextBarActionFace(QObject *parent)
+	: QWidgetAction(parent)               // @0055bbce
+{
+	// vtable HighlightTextBarAction_vtable / +0x10 / +0x18 清 0(C++ 自洽;尺寸 0x20)
+}
 
 // actionFactory_getOrCreate(856B,0020.c:50071)真身(结构段):
 //   @00665dc2 name = QByteArray::trimmed(name);
@@ -18,13 +26,13 @@ QAction *ActionRegistryFace::getOrCreate(const QByteArray &name)
 		return it.value();                       // ③ 命中
 
 	QAction *act = nullptr;
-	if (key.contains("::")) {                    // ④ 菜单族
-		// new 0x20 + FUN_0055bbce(this, 父)(菜单型动作)@0066xxxx — cited
-		act = new QAction(this);
+	if (key == QByteArray("Text.HighlightTextBar")) { // @00665f2x qstrcmp 唯一硬编码
+		act = new HighlightTextBarActionFace(this);   // new 0x20 + FUN_0055bbce
 	} else {
-		act = new QAction(this);                 // @new 0x10 QAction(父)
+		act = new QAction(this);                     // new 0x10 QAction(父)
+		act->setText(QString::fromLatin1(key));      // @00665f83 默认文案 = 原始名
 	}
-	// connect(act triggered → 闭包 impl ……,QAction::staticMetaObject)@0066xxxx — cited
+	// connect(act, triggered → 闭包 impl FUN_0066a148 → FUN_0066b3a0)@00665fea — cited
 	m_actions10.insert(key, act);
 	return act;
 }
