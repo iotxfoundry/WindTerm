@@ -4,6 +4,8 @@
 #include <QCoreApplication>
 #include <QVariant>
 
+#include "ThemeIcons.h"
+
 // FUN_0056e26e(402B)QuickBar ctor 真身
 QuickBarFace::QuickBarFace(QWidget *parent)
 	: QWidget(parent, Qt::WindowFlags(0)) // @0056e26e
@@ -46,4 +48,15 @@ void QuickBarSettings::setShowGroupTitle(bool on)
 void QuickBarSettings::setShowCommandsInOrder(bool on)
 {
 	setGlobalSetting(QByteArray("quickbar.showCommandsInOrder"), QVariant(on), false);
+}
+
+// s_king__start_6cb4e5(392B)启动/停止图标真身
+void StartStopButton::setRunning(bool running, QWidget *button)
+{
+	if (button == nullptr)
+		return;
+	const QString name = running ? QStringLiteral("king::stop")   // 实读
+	                             : QStringLiteral("king::start");  // 实读
+	// 语料按 +0x30 图标槽 setIcon(theme_icon_load_svg(名)) — 以属性承接:
+	button->setProperty("icon", name);
 }

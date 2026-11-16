@@ -60,3 +60,12 @@ void setShowMultipleGroups(bool on);
 void setShowGroupTitle(bool on);
 void setShowCommandsInOrder(bool on);
 }
+
+// ------------------------------------------------ 启动/停止按钮图标(批 481)
+// s_king__start_6cb4e5(392B,0021.c:...) 实读:
+//   入参 bool = "运行中";按钮 = 宿主 +0x30 的图标槽;
+//   **true → 图标 `king::stop`(10 字节实读)/ false → 图标 `king::start`**,
+//   两次 `setIcon`(主题装载 theme_icon_load_svg)。
+namespace StartStopButton {
+void setRunning(bool running, QWidget *button);
+}
