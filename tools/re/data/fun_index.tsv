@@ -3082,6 +3082,9 @@
 0074f5ac	src/Widgets/Panes/SearchPaneFace.cpp
 0074f5ac	src/Widgets/Panes/SearchPaneFace.h
 0074feb4	src/Windows/Kit/KitWindowAssemblyFace.cpp
+0074ffde	src/Widgets/Panes/ShellPaneFace.h
+007503a0	src/Widgets/Panes/ShellPaneFace.cpp
+007503a0	src/Widgets/Panes/ShellPaneFace.h
 007525da	src/App/ApplicationTheme.cpp
 0075263e	src/Actions/UndoListActionFace.h
 0075263e	src/Widgets/Controls/SearchEditFace.cpp

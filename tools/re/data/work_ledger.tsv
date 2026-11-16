@@ -19344,7 +19344,7 @@
 007357b4	6	FUN_007357b4	todo	
 007357ba	157	FUN_007357ba	todo	
 00735858	188	FUN_00735858	todo	
-0073591c	164	SenderPane_dtor	todo	
+0073591c	164	SenderPane_dtor	real	
 007359c0	9	FUN_007359c0	todo	
 007359ca	23	SenderPane_dtor_deleting	todo	
 007359e1	6	FUN_007359e1	todo	
@@ -19650,10 +19650,10 @@
 0074feb4	193	s_ShellPane_74feb4	ref	src/Windows/Kit/KitWindowAssemblyFace.cpp
 0074ff7e	53	FUN_0074ff7e	todo	
 0074ffb4	42	FUN_0074ffb4	todo	
-0074ffde	9	FUN_0074ffde	todo	
+0074ffde	9	FUN_0074ffde	ref	src/Widgets/Panes/ShellPaneFace.h
 0074ffe8	776	FUN_0074ffe8	todo	
 007502f0	167	s_ShowMenu_7502f0	todo	
-007503a0	944	s_session_color_7503a0	todo	
+007503a0	944	s_session_color_7503a0	ref	src/Widgets/Panes/ShellPaneFace.cpp,src/Widgets/Panes/ShellPaneFace.h
 007507a0	187	FUN_007507a0	todo	
 0075086e	573	s_tabbar_showSequenceNumbers_75086e	todo	
 00750aee	24	FUN_00750aee	todo	
@@ -26322,7 +26322,7 @@
 0090bb30	143	ShellPane_dtor_deleting	todo	
 0090bbbf	143	FUN_0090bbbf	todo	
 0090bc4e	131	FUN_0090bc4e	todo	
-0090bcd2	130	ShellPane_dtor	todo	
+0090bcd2	130	ShellPane_dtor	real	
 0090bd54	1	FUN_0090bd54	todo	
 0090bd56	24	ApplicationTheme_metaObject	qtplumb	
 0090bd6e	66	ApplicationTheme_qt_metacast	qtplumb	
