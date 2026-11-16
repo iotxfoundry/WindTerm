@@ -8,15 +8,16 @@
 
 > 目标:编译出与 /opt/WindTerm_2.7.0/WindTerm 行为一致的程序。
 
-## 一句话状态(2026-11-16 第四十一次交接,批 341 · 界面逆向深推 150 批)
+## 一句话状态(2026-11-16 第四十二次交接,批 345 · 触发器页族全谱落地)
 
 **界面逆向从"五腿起步"推进到"七节全面铺开"(铁律 7:零编译零测试)**:
 150 批 / 54 文件 / +5365 行,新增 14 个 `*Face` 新域。覆盖率(按 GUI-MAP
-条目加权)≈ **67%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
+条目加权)≈ **69%**:①主窗装配 90%(008d3cc2 全链+中央七槽树+槽位族+焦点链)
 /②菜单 60%(右鍵四族全进"结构已定")/③工具栏状态栏 80%(七 kind 全真身)
 /④对话框 40%(Env/RunTool 四腿/MsgBox/CopyError/SaveFile/ProfileDir/
-LoginWizard 全/Paste 全)/⑤设置页 66%(SettingsRow 0x48 全字段 asm 实测+
-装载/回写/重建+八路接线+触发器基类)/⑥dock 标签 75%(KitDock 全套+TabBar
+LoginWizard 全/Paste 全)/⑤设置页 75%(SettingsRow 0x48 全字段 asm 实测+装载/回写/重建+八路接线+
+**触发器页族全谱**:页栈 006f440e 11 kind 表/TriggerActionWidget 0x78/
+SendText 页 1013B/遮挡槽 395B)/⑥dock 标签 75%(KitDock 全套+TabBar
 节点助记符页色关钮)/5c 写 85% 读 60%(blobA/B/C 真身+会话帧解析)。
 
 **关键勘正**:①`smeta 011a2240 = SessionDialog`(设置对话框族定性);

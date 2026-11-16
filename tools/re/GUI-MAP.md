@@ -287,3 +287,26 @@ P6 标签/dock 真身(KitGroup/TabBar/RenamedTitle)。
 - **5c**:blobC 三栏可见性真身(`008cefe4`:findChildren 全 isHidden)。
 - **TabBar**:`insertTabWithMeta` 增节点标题落位;showTabListMenu 误用
   int 成员已修正。
+
+### 批 342-345 增量(触发器页族全谱)
+- **页族共有面**(`FUN_006f1966` 45B):base ctor(vptr 0x11a47f0 / 副 0x11a49b0);
+  八页 dtor **汇编逐字节相同**,差异仅 operator_delete 尺寸
+  (0x40/0x48×2/0x50/0x58/0x60×2/0x68)。
+- **`FUN_006f1994` 417B 全量**:overlay 0xa0 → +0x30;两路 connect
+  (信号 0x008fae78 / 0x008faeac);QHBoxLayout margins 全零 + addStretch(0)
+  + addWidget(overlay,0,0);**不** setLayout(返回给调用方)。
+- **`FUN_006f2be6` 395B 全量**(遮挡槽):遍历子件 → QTableView 子类
+  (typeinfo 0x1195cf0)且带子件(0x1194e40)→ v ? selectRow(0) : clearSelection;
+  其余(除 +0x30)setEnabled(v)。附:`FUN_0056672a` 179B = 自定义可切换件
+  置态(+0x30 bit0;param_4≠0 → 发 0x008faeac)。
+- **`FUN_006f440e` 1804B 页栈**:11 kind 表(尺寸/副 vptr/tr 标题全部实读,
+  kind 7 无 case);QMap<kind,page> 复用 + addWidget + 合流
+  (setTabText **恒 0** / windowTitle / state / vt+0x1a0 = __cxa_pure_virtual)。
+- **`FUN_006fdcde` 274B + `FUN_006fd6c0` 1203B**:TriggerActionWidget
+  (0x78):+0x30 kind/+0x38 combo 0x48/+0x40 stack 0x30/+0x48 tabs 0x30,
+  三平台页签 &Linux/&macOS/&Windows,建页序 {3,2,1,4}(0xc9ff80),
+  label tr("&Action:")(0xc9fe80),kind==10 只建 3 号页 + findData(3)/hide。
+- **`FUN_006f8590` 1013B 全量**:SendText 页(0x68)——&Match:/&Send: 双标签,
+  +0x38 文本域 0x68(FUN_0056376e 0xe000),+0x48 件 0x70(FUN_006f83b0 4,1),
+  +0x58 combo 三选项(data 2/1/0),+0x60 QDoubleSpinBox(suffix s/0..999999.9/
+  step 0.1),两表头 Send &Condition:/Send &Later:,setTabOrder 链。
