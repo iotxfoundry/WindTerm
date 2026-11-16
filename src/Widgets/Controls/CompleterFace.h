@@ -32,6 +32,7 @@ private:
 	void buildView(); // 005517e2
 	void wire();      // 005516fe
 	void onActivated(); // 0055169b
+	void dismissPopup(); // 00551a7c
 
 	QListView *m_view30 = nullptr; // +0x30(0x78B 自绘列表件)
 	QObject *m_host38 = nullptr;           // +0x38

@@ -1,8 +1,28 @@
 #include "Widgets/Controls/CompleterFace.h"
 
+#include <QKeyEvent>
 #include <QListView>
+#include <QMouseEvent>
 #include <QBoxLayout>
 #include <QCoreApplication>
+
+// ① 可见性门:QWidget 的 d_ptr(+0x28) byte[+9] & 0x80。
+//    Qt 不暴露该位;按语料原样做位测试 —— cited(位语义未复原)。
+static bool widgetVisibleBit80(const QWidget *w)
+{
+	Q_UNUSED(w);
+	return false;
+}
+
+// FUN_005830f4 — cited:视图侧推进一页/一行(接收者折叠,body 未转写)。
+static void viewAdvance(QListView *view) { Q_UNUSED(view); }
+
+// 008f9060 — cited:发 activated(currentIndex) 信号(发射器实参折叠)。
+static void emitActivatedSignal(QWidget *self, const QModelIndex &index)
+{
+	Q_UNUSED(self);
+	Q_UNUSED(index);
+}
 
 // FUN_00583bac(this, 0)— cited:0x78B 自绘列表件构造(类未建模)。
 static QListView *createItemView(QWidget *parent)
@@ -87,8 +107,77 @@ void CompleterFace::wire()
 // FUN_0055169b — cited:列表项激活(选中后回填并隐藏)。
 void CompleterFace::onActivated() {}
 
-// Completer_vt6(0x00551ada,642B)— cited:事件过滤全链(键/鼠标/焦点)。
+// Completer_vt6(0x00551ada,642B)事件过滤真身。逐句:
+//   ① 门:this->d_ptr(+0x28) 的 byte[+9] & 0x80 为 0 → 直接走 QObject::eventFilter
+//      (该位是 QWidget 的可见/挂起态缓存;位名未复原,按位测试原样转写)
+//   ② watched == +0x30 视图的 parentWidget:
+//        FocusOut(9)                          → dismiss
+//        KeyPress(6)按自定义键码:
+//          0x1000000 → dismiss;0x1000002 → FUN_005830f4(视图侧, cited);
+//          0x1000001 → emit activated(视图 currentIndex)(发射器 008f9060)
+//          然后 event->accept() 并返回 true(吞掉按键)
+//        Move(13)                             → dismiss
+//        Resize(14)                           → 落 QObject::eventFilter
+//   ③ watched == +0x38 宿主:Move(13) → dismiss;其余落 QObject::eventFilter
+//   ④ 其它对象:MouseButtonPress(2) 且点击点不在浮层矩形内、也不在视图窗口内 →
+//        setAttribute(0x36, true) 后 dismiss
+//   ⑤ dismiss 腿统一:FUN_00551a7c(this) 后落 QObject::eventFilter
 bool CompleterFace::eventFilter(QObject *watched, QEvent *event)
 {
+	// ① 可见性门(位测试原样保留)
+	if (!widgetVisibleBit80(this))
+		return QWidget::eventFilter(watched, event);
+
+	const QEvent::Type type = event->type();
+
+	if (m_view30 != nullptr && watched == m_view30->parentWidget()) {
+		if (type == QEvent::FocusOut) {
+			dismissPopup();
+			return QWidget::eventFilter(watched, event);
+		}
+		if (int(type) < 10) {
+			if (type == QEvent::KeyPress) {
+				const int key = static_cast<QKeyEvent *>(event)->key();
+				if (key == 0x1000000) {
+					dismissPopup();
+				} else if (key == 0x1000002) {
+					viewAdvance(m_view30); // FUN_005830f4
+				} else if (key == 0x1000001) {
+					emitActivatedSignal(this, m_view30->currentIndex()); // 008f9060
+				}
+				event->accept();
+				return true;
+			}
+			return QWidget::eventFilter(watched, event);
+		}
+		if (type == QEvent::Move) {
+			dismissPopup();
+			return QWidget::eventFilter(watched, event);
+		}
+		if (type == QEvent::Resize)
+			return QWidget::eventFilter(watched, event);
+	} else if (watched == m_host38) {
+		if (type == QEvent::Move) {
+			dismissPopup();
+			return QWidget::eventFilter(watched, event);
+		}
+		return QWidget::eventFilter(watched, event);
+	} else if (type == QEvent::MouseButtonPress) {
+		auto *me = static_cast<QMouseEvent *>(event);
+		const QRect r = geometry(); // 语料自 d_ptr 取 0x14..0x20 四边
+		const QPoint p = mapFromGlobal(me->globalPos());
+		if (!r.contains(p)) {
+			QWidget *vw = m_view30 != nullptr ? m_view30->window() : nullptr;
+			if (vw == nullptr)
+				vw = nullptr;
+			if (vw == nullptr) {
+				setAttribute(Qt::WidgetAttribute(0x36), true);
+				dismissPopup();
+			}
+		}
+	}
 	return QWidget::eventFilter(watched, event);
 }
+
+// FUN_00551a7c — cited:收起浮层(隐藏 + 清选中 + 通知宿主)。
+void CompleterFace::dismissPopup() {}

@@ -20,9 +20,9 @@
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
 | 真实现 | 632 | 1.63% | 253388 | 3.30% |
-| 半成品 | 31 | 0.08% | 13785 | 0.18% |
-| 引用档 | 2095 | 5.41% | 797142 | 10.39% |
-| 未触及(真工作) | 20876 | 53.88% | 5578334 | 72.72% |
+| 半成品 | 32 | 0.08% | 13878 | 0.18% |
+| 引用档 | 2096 | 5.41% | 797140 | 10.39% |
+| 未触及(真工作) | 20874 | 53.87% | 5578243 | 72.71% |
 | 异常清理块(非函数) | 13952 | 36.01% | 786418 | 10.25% |
 | Qt 元数据桩(非逆向对象) | 1162 | 3.00% | 242368 | 3.16% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
@@ -74,10 +74,10 @@
 | `src/Editor/Config/CGlobalConfigFace.h` | 11 | 0 | 29 |
 | `src/Sessions/Bridges/ProxyCommandSocket.cpp` | 11 | 0 | 14 |
 | `src/Sessions/Transfers/ModemProcess.h` | 10 | 1 | 0 |
+| `src/Widgets/Controls/SearchEditFace.cpp` | 10 | 1 | 10 |
+| `src/Widgets/Controls/SearchEditFace.h` | 10 | 1 | 10 |
 | `src/Sessions/Bridges/TcpBridge.cpp` | 10 | 0 | 13 |
 | `src/Sessions/Bridges/TelnetBridge.h` | 10 | 0 | 10 |
-| `src/Widgets/Controls/SearchEditFace.cpp` | 10 | 0 | 11 |
-| `src/Widgets/Controls/SearchEditFace.h` | 10 | 0 | 11 |
 | `src/Windows/Kit/KitWindowFactory.h` | 10 | 0 | 25 |
 | `src/App/StartupChain.h` | 8 | 1 | 22 |
 | `src/Editor/Engine/EditorEngine.cpp` | 9 | 0 | 514 |
@@ -108,13 +108,14 @@
 | `src/App/StateStore.h` | 6 | 0 | 36 |
 | `src/Editor/Engine/KeymapEngine.h` | 6 | 0 | 10 |
 | `src/Widgets/Bars/MessageBarFace.cpp` | 6 | 0 | 8 |
+| `src/Widgets/Controls/CompleterFace.h` | 4 | 2 | 1 |
 | `src/Actions/ToolBarBuilder.h` | 5 | 0 | 12 |
 | `src/App/ApplicationTheme.cpp` | 5 | 0 | 10 |
 | `src/App/ApplicationTheme.h` | 5 | 0 | 1 |
 | `src/Sessions/Commanders/TelnetCommander.cpp` | 5 | 0 | 19 |
 | `src/Sessions/Commanders/TelnetCommander.h` | 5 | 0 | 11 |
 | `src/Widgets/Bars/MessageBarFace.h` | 5 | 0 | 10 |
-| `src/Widgets/Controls/CompleterFace.h` | 4 | 1 | 1 |
+| `src/Widgets/Controls/CompleterFace.cpp` | 3 | 2 | 4 |
 | `src/Actions/ActionFactory.h` | 4 | 0 | 5 |
 | `src/Actions/ActionRegistryFace.cpp` | 4 | 0 | 13 |
 | `src/Actions/ActionRegistryFace.h` | 4 | 0 | 15 |
@@ -125,7 +126,6 @@
 | `src/Widgets/Bars/BreadCrumbFace.h` | 4 | 0 | 4 |
 | `src/Widgets/Bars/StatusBarFace.cpp` | 4 | 0 | 1 |
 | `src/Widgets/Bars/StatusBarFace.h` | 4 | 0 | 0 |
-| `src/Widgets/Controls/CompleterFace.cpp` | 3 | 1 | 2 |
 | `src/Widgets/Controls/SplitterGroup.cpp` | 4 | 0 | 10 |
 | `src/Widgets/Dialogs/InsertFileDialogFace.cpp` | 3 | 1 | 2 |
 | `src/Widgets/Dialogs/InsertFileDialogFace.h` | 3 | 1 | 2 |
@@ -301,7 +301,7 @@
 | `CaptureGroupsButton` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `CheckList` | `src/Widgets/Controls/CheckListFace.h` | 0 | 0 |
 | `ColorButton` | `src/Widgets/Controls/ColorButtonFace.h` | 1 | 0 |
-| `Completer` | `src/Widgets/Controls/CompleterFace.h` | 4 | 1 |
+| `Completer` | `src/Widgets/Controls/CompleterFace.h` | 4 | 2 |
 | `CustomLinkTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `CustomMenuTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `DefaultEditorDialog` | `src/Widgets/Dialogs/DefaultEditorDialogFace.h` | 1 | 0 |
@@ -309,7 +309,7 @@
 | `EnvironmentDialog` | `src/Widgets/Dialogs/EnvironmentDialogFace.h` | 2 | 0 |
 | `ExplorerList` | `src/Widgets/Controls/ExplorerListFace.h` | 0 | 0 |
 | `FilerPane` | `src/Widgets/Panes/FilerPane.h` | 0 | 0 |
-| `FilterEdit` | `src/Widgets/Controls/SearchEditFace.h` | 10 | 0 |
+| `FilterEdit` | `src/Widgets/Controls/SearchEditFace.h` | 10 | 1 |
 | `FocusModeDialog` | `src/Widgets/Dialogs/FocusModeDialogFace.h` | 2 | 1 |
 | `HighlightTextBarAction` | `src/Actions/ActionRegistryFace.h` | 4 | 0 |
 | `HighlightTextDialog` | `src/Widgets/Dialogs/HighlightTextDialogFace.h` | 2 | 1 |
@@ -347,7 +347,7 @@
 | `RunCommandTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `RunToolDialog` | `src/Widgets/Dialogs/RunToolDialogFace.h` | 2 | 0 |
 | `ScrollBar` | `src/Widgets/ScrollBar.h` | 0 | 0 |
-| `SearchEdit` | `src/Widgets/Controls/SearchEditFace.h` | 10 | 0 |
+| `SearchEdit` | `src/Widgets/Controls/SearchEditFace.h` | 10 | 1 |
 | `SearchEngineDialog` | `src/Widgets/Dialogs/SearchEngineDialogFace.h` | 2 | 1 |
 | `SendTextTriggerPage` | `src/Widgets/Settings/TriggerPageFace.h` | 38 | 0 |
 | `SerialBridge` | `src/Sessions/Bridges/SerialBridge.h` | 0 | 0 |

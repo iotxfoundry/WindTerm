@@ -218,6 +218,8 @@
 005517e2	src/Widgets/Controls/CompleterFace.h
 005518d8	src/Widgets/Controls/CompleterFace.cpp
 005518d8	src/Widgets/Controls/CompleterFace.h
+00551a7c	src/Widgets/Controls/CompleterFace.cpp
+00551a7c	src/Widgets/Controls/CompleterFace.h
 00551a7c	src/Widgets/Controls/SearchEditFace.cpp
 00551a7c	src/Widgets/Controls/SearchEditFace.h
 00551ada	src/Widgets/Controls/CompleterFace.h
@@ -391,6 +393,7 @@
 0057eb5c	src/Widgets/Controls/SearchEditFace.cpp
 0057eb83	src/Widgets/Controls/SearchEditFace.cpp
 0057eba8	src/Widgets/Controls/SearchEditFace.cpp
+005830f4	src/Widgets/Controls/CompleterFace.cpp
 00583126	src/Widgets/Controls/CompleterFace.cpp
 00583bac	src/Widgets/Controls/CompleterFace.cpp
 00583bac	src/Widgets/Controls/CompleterFace.h
@@ -6559,6 +6562,7 @@
 008f7f28	src/Widgets/Bars/MessageBarFace.h
 008f826e	src/Widgets/Bars/AddressBarFace.cpp
 008f826e	src/Widgets/Bars/AddressBarFace.h
+008f9060	src/Widgets/Controls/CompleterFace.cpp
 008f92e2	src/Widgets/Controls/SearchEditFace.cpp
 008f92e2	src/Widgets/Controls/SearchEditFace.h
 008fa97a	src/Widgets/Dialogs/InsertFileDialogFace.cpp
