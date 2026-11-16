@@ -30,7 +30,7 @@
 | `AGENTS.md` | 13K | 文件 | **本文件**:规则与基线(每次开工先读) |
 | `README.md` | 2K | 文件 | 仓库入口:这是什么、三条纪律、目录速览 |
 | **`WindTerm`** | 12M | 文件 | **基线二进制**(RE 唯一事实源;sha256 见 §0) |
-| `src/` | 19M | 目录 | 重建代码 + 第三方库 + 第一方开源件 → **`src/README.md` 有三类归属表** |
+| `src/` | 19M | 目录 | 重建代码 + 第三方库 + 第一方开源件 → **架构分层见 §1.1;三类归属见 `src/README.md`** |
 | `tools/` | 51M | 目录 | `decomp/`(**主语料 49M**)+ 取证脚本 + `handoff.md`/`gui-map.md` |
 | `docs/` | 576K | 目录 | 文档总目录 → 入口 `docs/index.md` |
 | `lib/` | 86M | 目录 | 预构建静态库(`libscintilla_core.a` 等)+ 运行时 so + Qt 插件目录 —— **构建期才用** |
@@ -52,6 +52,48 @@
 
 **判据速记**:改行为 → `src/`;找出处 → `tools/re/decomp`;查结论 → `docs/`;
 验事实 → `./WindTerm`;**删东西前先看 `docs/cleanup.md` 与踩坑 14**。
+
+### 1.1 src/ 架构分层(**新增代码必须归位,防止漂移**)
+
+| 层 | 职责 | 内含 |
+|---|---|---|
+| `src/App/` | 应用与启动 | SuperApplication / StartupChain / StateStore / JsEngine / ThemeIcons / ApplicationTheme |
+| `src/Windows/` | 窗口系统 | `Kit/`(KitWindow·KitDock·KitBar·MainWindow·Factory)`Mux/`(MuxWindow·MuxPane*) |
+| `src/Widgets/` | UI 控件 | `Dialogs/`(36)`Settings/`(4)`Bars/` `Controls/` `Panes/` `Views/`;根 3 = B 类开源件 |
+| `src/Actions/` | 命令层 | ActionFactory / ActionRegistry / ToolBarBuilder / SlipButton / BackwardShortcut |
+| `src/Sessions/` | 连接与传输 | `Core/` `Transports/` `Bridges/` `Commanders/` |
+| `src/Terminal/` | 终端内核 | Screen / ScreenData / TerminalCore / TermViewFace |
+| `src/Editor/` | 编辑器 | `Engine/` `Config/` |
+| `src/Utility/` `src/Ext/` `src/Stubs/` | 基元 / 外部库接口面 / 生成桩 | KingEnums;Spdlog·Zstd;gen_stubs |
+| `src/Protocols/` `src/Pty/` | **第一方开源(B 类)** | 见 §11,勿逆向 |
+
+**归位判据(三步,不许靠"像哪个已有文件")**
+
+1. **先判层**:它是窗口容器 / 可复用控件 / 对话框 / 连接 / 终端模型 / 编辑引擎?
+   对应 `Windows` / `Widgets` / `Sessions` / `Terminal` / `Editor`。
+2. **再判组**:同组 = 同一装配链上一起出现的类(例:`TriggerPage` 归 `Widgets/Settings`,
+   而 `TriggerDialog` 归 `Widgets/Dialogs` —— 页与对话框不同层)。
+3. **最后查重**:`python3 tools/re/coverage.py --addr <地址>` —— 已存在就改它,**不新建**。
+
+**禁止(会立刻造成漂移)**
+
+- ❌ 建按**命名后缀**分的桶(`Faces/`、`*Faces.h` 混装、`Misc*`、`Utils/`)
+- ❌ 按**"是否逆向过"**分目录(B 类不得单独挪出去 —— 见 §11)
+- ❌ 把**不同层的类塞进同一个文件**(一个文件一个架构角色;拆开)
+- ❌ 在 `Actions/` 放控件、在 `Widgets/` 放业务逻辑、在 `Sessions/` 放 QWidget
+
+**反漂移检查(改完目录/新增文件后跑)**
+
+```bash
+python3 tools/re/coverage.py --audit    # 每个文件必须有归属(A 出处 / B 标记),0 未标注
+python3 tools/re/coverage.py --addr X   # 查重:该函数是否已有实现
+grep -rn '#include "' src/ | ...        # include 必须能按 src/ 根相对路径解析
+```
+> moc 头与源文件通配都是 `GLOB_RECURSE`(新子目录零配置);若新增 **顶层目录**,
+> 必须同时加进 `CMakeLists.txt` 的 `WT_SOURCES` 与 `WT_MOC_HEADERS`。
+>
+> 详细清单(每目录逐文件)见 **`src/README.md` §1**;本节只记**分层与判据**。
+
 
 ## 2. 会话重启加载顺序
 
@@ -97,6 +139,7 @@ git rev-list --count origin/dev..dev    # 领先量(只提交不推送,勿惯性
 | 外部库行为 | `docs/ext-boundary.md`(不逆向清单 + 版本) |
 | 某批的取证细节 | `docs/history/*`(检索用,**结论以现行文档为准**) |
 | src 里某文件属于哪一类 | `src/README.md`(逆向 / 第一方开源 / 第三方) |
+| **新增类该放哪** | **§1.1 归位判据**(先判层 → 再判组 → 最后查重) |
 
 ### 2.5 冷启动禁忌
 
