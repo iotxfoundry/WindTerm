@@ -135,6 +135,21 @@ public:
 	//   ⇒ 该对话框的"覆盖值"是**按控件地址**存的(非名字键)。
 	void loadWidgetValues();
 
+	// sessionpage_title(1777B,0022.c:725D66)**名不副实**:不是"会话页标题",
+	//   而是**设置页/分类页标题生成 + 查重**:
+	//   ① key = **"%1%2"**.arg(param_3).arg(param_2, 10)(模板实读 0x18);
+	//   ② 在 **this+0x108 的有序串表**里查该 key(节点:计数 byte @+3、
+	//      子数组 @+0x100、末位标记 @+0);命中 → 说明已占用;
+	//   ③ 未命中 → 按 param_3(分类键)分支取显示名 —— 语料为**27 条
+	//      qstring_equals_utf8 链**(键全实读):
+	//      Connection / Proxy / Terminal / Bell / Keyboard / Logging / Mode /
+	//      Security / Window / Selection / X/Y/Z Modem / Session / SSH /
+	//      SFTP / X11 / Telnet / Serial / Shell / Agent / Process / Protocol /
+	//      Authentication / Ciphers / MAC Hashes / Public Keys /
+	//      Key Exchange / Tcp
+	//   ⇒ 用途 = 新增分类页时生成不重名标题(如 "Logging 2")。
+	static QString uniquePageTitle(QWidget *host, const QString &key, int startIndex);
+
 	// FUN_00734eea(53B,0022.c:60260)当前页控件:
 	//   w = FUN_005ab316(this->+0x48);空 → 0;否则 dynamic_cast 到 01196db0 类型。
 	static QWidget *currentPaneWidget(QWidget *host);

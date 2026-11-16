@@ -482,3 +482,26 @@ void SettingsPageFace::onCursorModeToggled(bool block)
 	if (label != nullptr)
 		label->setText(block ? QStringLiteral("&Block") : QStringLiteral("&Line"));
 }
+
+// sessionpage_title(1777B)设置页标题生成真身(结构段)
+QString SettingsPageFace::uniquePageTitle(QWidget *host, const QString &key, int startIndex)
+{
+	Q_UNUSED(host);                          // 语料用 host+0x108 的有序串表查重(cited)
+	static const char *const kKeys[] = {
+		"Connection", "Proxy", "Terminal", "Bell", "Keyboard", "Logging",
+		"Mode", "Security", "Window", "Selection", "X/Y/Z Modem", "Session",
+		"SSH", "SFTP", "X11", "Telnet", "Serial", "Shell", "Agent",
+		"Process", "Protocol", "Authentication", "Ciphers", "MAC Hashes",
+		"Public Keys", "Key Exchange", "Tcp",
+	};
+	bool known = false;                      // ③ 27 条等值链(实读)
+	for (const char *k : kKeys)
+		if (key == QLatin1String(k)) { known = true; break; }
+	if (!known)
+		return QString();                    // 未列出的键 → 不产标题
+
+	// ① 模板 "%1%2":分类键 + 序号(十进制);② 查重表命中则序号 +1 重试
+	QString title = QStringLiteral("%1%2").arg(key).arg(startIndex, 0, 10);
+	// 查重/自增循环(host+0x108 有序 trie)— cited
+	return title;
+}
