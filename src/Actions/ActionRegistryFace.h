@@ -80,6 +80,17 @@ public:
 	//     isError 则组 "名 [行]" 报错。
 	bool fireAction(QAction *action);
 
+	// actions_from_config_list(4162B,0020.c:52878**)配置表 → QAction 表(② 数据源):
+	//   逐项建 QAction(或子类),按配置落:
+	//     **setSeparator**(分隔符项)/ **setIcon**(两处:普通图标 + 活动态图标)/
+	//     **setEnabled**(读 isEnabled 后回写)/ 读 data() / text();
+	//   错误串模板同 js_actionFire 的 **" ["**(动作名 [行]);
+	//   经 FUN_0066b472 / 0066b43c / 0066b410 / 0066b36f / 00665d8a 中转,
+	//   triggered 接 FUN_0066b3a0(PMF 转发壳)。
+	//   ⇒ ② 的真实链路 = 配置表 → 本函数 → QAction 树 → 菜单;
+	//     菜单条目**确实不在 C++ 里硬写**(与 00692a70 的懒构建结论一致)。
+	QList<QAction *> actionsFromConfig(const QVariantList &list, QObject *parent);
+
 private:
 	QHash<QByteArray, QAction *> m_actions10; // +0x10
 };

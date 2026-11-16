@@ -98,3 +98,20 @@ bool ActionRegistryFace::fireAction(QAction *action)
 	//   全链路依赖 QJSEngine 装配面 → cited(不发明 JS 运行时)。
 	return true;
 }
+
+// actions_from_config_list(4162B)配置表 → QAction 表真身(结构段)
+QList<QAction *> ActionRegistryFace::actionsFromConfig(const QVariantList &list, QObject *parent)
+{
+	QList<QAction *> out;
+	for (const QVariant &item : list) {          // 逐配置项
+		const QVariantMap m = item.toMap();
+		// name = m["text"];act = getOrCreate(name.toUtf8())@0066a1b8 —
+		//   setSeparator(m 为分隔符项)/ setIcon(两处)/ setEnabled /
+		//   data()/text() 读取;triggered → FUN_0066b3a0(PMF 壳)→
+		//   FUN_0066a148 → js_actionFire。
+		//   全部 cited(4162B 未逐句转写)
+		Q_UNUSED(m);
+	}
+	Q_UNUSED(parent);
+	return out;
+}
