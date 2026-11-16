@@ -12,5 +12,18 @@ class EnvironmentDialogFace : public QDialog {
 	Q_OBJECT
 public:
 	explicit EnvironmentDialogFace(QWidget *parent = nullptr);
-	void build();   // FUN_006b2cd2(592B) — 结构段(cited)
+
+protected:
+	QWidget *m_buttons30 = nullptr; // +0x30(QDialogButtonBox)
+	QWidget *m_combo40 = nullptr;   // +0x40(QComboBox,可编辑)
+	void build();   // FUN_006b2cd2(592B)
+
+	// FUN_006b2cd2(592B)**接线**(非装配):
+	//   **+0x40 QComboBox::editTextChanged** → 闭包 FUN_006b2c36;
+	//   **+0x40 QComboBox::currentTextChanged** → 闭包 FUN_006b36e0
+	//     (转发槽 FUN_006b2f2c);
+	//   **+0x30 QDialogButtonBox** accepted → 闭包 FUN_006b3750(槽偏移 0x1b9);
+	//   rejected → 同族(0x1c1)。
+	//   ⇒ +0x30 按钮盒 / +0x40 名字下拉(可编辑)。
+	void wire();
 };
