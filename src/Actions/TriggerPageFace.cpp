@@ -429,7 +429,7 @@ void MarkStyleWidgetFace::assemble()
 {
 	auto *form = new QFormLayout;                                  // @00703921(0x20,父 0)
 	m_style30 = makeLineStyleCombo(this);                          // @0070393x(0x48,FUN_00703704)
-	m_color38 = new QWidget(this);                                 // @00703944(0x30 颜色钮) cited
+	m_color38 = new ColorButtonFace(this);                         // @00703944(0x30,ColorButton)
 	form->setContentsMargins(0, 0, 0, 0);                          // 全零
 	form->addRow(QStringLiteral("Mark &Style:"));                  // tr(0xc9fee1)
 	form->addRow(QStringLiteral("Mark &Color:"));                  // tr(0xc9feee)
