@@ -381,6 +381,13 @@ btn->setStyleSheet("QToolButton { color: %1; }".arg(s == 1 ? "red" : "green"));
    只写 `// dtor 0x008e59f2(47B)` 会被判「无出处」——
    写成 `// dtor 0x008e59f2(47B)真身` 才认。本轮为此踩了 3 次。
 
-5. **先判是不是 B 类**(Scintilla / chardet / libssh 上游件)。
+5. **`.h` 与 `.cpp` 的文件级出处走两条路**。
+   `defs_status()` 只扫 `*.cpp`,所以报在 `.h` 上的「无任何出处」不是函数
+   标注问题,而是头部声明类的那套检查 —— 在文件顶部加一行
+   `// 出处:QMetaObject 元数据(...)` 即过。
+   另:`~X() override; // 0x…` 这种**行尾地址不算数**,
+   `origin_of()` 只读定义行之前的注释,必须把 `// 0x… 真身` 单独一行放在前面。
+
+6. **先判是不是 B 类**(Scintilla / chardet / libssh 上游件)。
    本轮差点把 Scintilla 的 `Editor` 当自研逆向 —— 函数体里出现
    `editor_textLength` / `runstyles_runnode_init` / `Decoration` 就停手。
