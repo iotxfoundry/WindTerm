@@ -99,13 +99,160 @@ void XYModem::feed(QByteArray &data)
 		processInput(data);
 }
 
-// xymodem_recvPkt(0x0079cde6,2094B)— cited:
-//   收包主循环:按 +0x56 的块参取报文头(0x01 SOH / 0x02 STX / 0x18 CAN),
-//   校验 checksum()/verifyChecksum(),写 ACK(0x06)/NAK(0x15)/CAN(0x18),
-//   成功后 saveChunk() 落盘并 transferProgress()。逐句未转写。
+// xymodem_recvPkt(0x0079cde6,2094B)下载侧收包真身。逐句:
+//   ① 若 +0xc0 非空且首字节 b < 0x19 且位图 0x1000016 命中 → resetState()
+//      (0x1000016 置位 = bit1/2/4/24 → 字面集合 {0x02,0x04,0x10,0x18},
+//       即 STX / EOT / DLE / CAN —— 按位图原样转写,不解释语义)
+//   ② +0x60 累积本次数据,循环消费:
+//      c == 0x01/0x02(SOH/STX):payload = 0x80/0x400,packetLen = 0x83/0x403,
+//          need = packetLen + (crcMode == 0 ? 2 : 1)
+//          (asm 0x79cf09-0x79cf20:r8d = payload,esi = packetLen,
+//           edx = crcMode==0 ? 0 : -1,lea 0x2(rdx,rsi) → 32 位回绕)
+//          need > 剩余 → return(等下一批)
+//          seq = data[1],inv = data[2];seq != (quint8)~inv → 丢 1 字节 + NAK(0x15)
+//          seq == m_packetNo54:
+//            校验 verifyChecksum(payload) 失败 → 丢 1 字节 + NAK
+//            普通块(包号 != 0 或已有文件名):saveChunk(payload) → ++包号,state = 3
+//            YMODEM 头块(包号 == 0 且无文件名):handleHeader(payload) →
+//              文件名仍空 → finish(true),state = 6;否则 ++包号,state = 3
+//            丢整包(need 字节)+ ACK(0x06)
+//          seq == quint8(包号 - 1) → 重复块:丢整包 + ACK
+//          其余 → showError("Invalid packet sequence number.", true),建重试定时器
+//                 (+0xb0,QTimer 接 timeout → sendSub),m_retriesA8 = 0
+//      c == 0x04(EOT):openReceiveFile() 成功后按 mode88 决定提交/取消 → resetState();
+//          非 dirOnly → finish(true),state = 6;否则 state = 0;丢包 + ACK
+//      c == 0x18(CAN):整块去 0x18 与 '\b'、trimmed,非空则显示;
+//          再显示 "Server canceled transfer.";finish(false),state = 6
+//      (0x04/0x18 的 finish 实参由 asm 回读:0x79d4fc/0x79d606 `mov $1,%esi`
+//       → finish(true);0x79d25a `xor %esi,%esi` → finish(false);
+//       ACK 字符 0x79d308 `mov $0x6,%esi`。)
 void XYModem::recvPkt(const QByteArray &data)
 {
-	Q_UNUSED(data);
+	if (m_fC0 != nullptr && !data.isEmpty()) {
+		const uchar b = uchar(data.at(0));
+		if (b < 0x19 && ((0x1000016UL >> b) & 1))
+			resetState(); // 0x0079c6de
+	}
+	m_buf60.append(data); // +0x60
+
+	while (!m_buf60.isEmpty()) {
+		const char c = m_buf60.at(0);
+
+		if (c == 0x01 || c == 0x02) { // SOH / STX
+			const int payload = (c == 0x01) ? 0x80 : 0x400;
+			const int packetLen = (c == 0x01) ? 0x83 : 0x403;
+			const int need = packetLen + (m_crcMode53 == 0 ? 2 : 1);
+			if (m_buf60.size() < need)
+				return; // 等下一批
+
+			const quint8 seq = quint8(m_buf60.at(1));
+			const quint8 inv = quint8(m_buf60.at(2));
+			if (seq != quint8(~inv)) {
+				m_buf60.remove(0, 1); // asm 0x79ce9d
+				writeByte('\x15'); // NAK
+				continue;
+			}
+
+			if (quint8(m_packetNo54) == seq) {
+				const char *body = m_buf60.constData() + 3;
+				if (!verifyChecksum(body, payload)) {
+					m_buf60.remove(0, 1);
+					writeByte('\x15');
+					continue;
+				}
+				if (m_packetNo54 != 0 || !m_receiveFileName.isEmpty()) {
+					if (!saveChunk(body, payload)) {
+						m_buf60.remove(0, 1);
+						writeByte('\x15');
+						continue;
+					}
+					++m_packetNo54;
+					m_state58 = 3;
+				} else { // YMODEM 头块
+					if (!handleHeader(body, payload)) {
+						m_buf60.remove(0, 1);
+						writeByte('\x15');
+						continue;
+					}
+					if (m_receiveFileName.isEmpty()) {
+						finish(true);
+						m_state58 = 6;
+					} else {
+						++m_packetNo54;
+						m_state58 = 3;
+					}
+				}
+				m_buf60.remove(0, need); // asm 0x79d390:edx = r12d = need
+				writeByte('\x06'); // ACK(asm 0x79d308)
+			} else if (seq == quint8(m_packetNo54 - 1)) {
+				m_buf60.remove(0, need); // 重复块
+				writeByte('\x06');
+			} else {
+				showError(QStringLiteral("Invalid packet sequence number."), true); // 0x1f 字符
+				if (m_fB0 == nullptr) {
+					// 重试定时器:new QTimer(this),interval 由连接参数给,
+					// timeout → sendSub();m_retriesA8 = 0 —— 间隔实参被折叠,cited。
+					m_fB0 = new QObject(this);
+				}
+				m_retriesA8 = 0;
+			}
+		} else if (c == 0x04) { // EOT
+			if (openReceiveFile()) { // 0x0079bd1a
+				bool cancel = false;
+				if (m_mode88 == 1 || m_mode88 == 2 || m_mode88 == 4) {
+					QFileInfo info(m_saveFile78->fileName()); // vtable +0xe0
+					if (info.exists()) {
+						if (m_mode88 == 1 || m_mode88 == 2) {
+							const qint64 mtime = info.lastModified().toSecsSinceEpoch();
+							cancel = (mtime < m_f98)
+							         || (m_mode88 == 2 && info.size() < m_expectedSize90);
+						}
+					}
+				}
+				saveChunk(nullptr, 0); // 收尾:按 +0x51/+0x90 裁剪
+				if (cancel) {
+					m_saveFile78->cancelWriting(); // 保留原文件
+				} else if (!m_saveFile78->commit()) {
+					showError(m_saveFile78->errorString(), true);
+				}
+				resetState();
+			}
+			if (!m_dirOnly50) {
+				finish(true); // asm 0x79d4fc / 0x79d606
+				m_state58 = 6;
+			} else {
+				m_state58 = 0;
+			}
+			m_buf60.remove(0, 1); // asm 0x79d2f8:mov $1,%edx
+			writeByte('\x06');
+			if (m_dirOnly50)
+				continue;
+		} else if (c == 0x18) { // CAN
+			QString text = QString::fromLatin1(m_buf60);
+			text.replace(QChar(0x18), QString()).replace(QChar('\b'), QString());
+			text = text.trimmed();
+			if (!text.isEmpty())
+				appendText(text);
+			appendText(QStringLiteral("Server canceled transfer.")); // 0x19 字符
+			finish(false); // asm 0x79d25a
+			m_state58 = 6;
+		} else {
+			break; // 其余首字节:本函数不消费(语料 LAB_0079ce93 退出循环)
+		}
+
+		// 任一支进入「完成」态即收口(否则 +0x60 不再被消费会死循环)。
+		if (m_state58 == 6)
+			return;
+	}
+}
+
+// FUN_0079cab4(0x0079cab4,775B)— cited:解析 YMODEM 头块(文件名 / 大小 /
+// 修改时间,写入 +0x38 / +0x90 / +0x98),返回 false 表示头块无效。
+bool XYModem::handleHeader(const char *payload, int len)
+{
+	Q_UNUSED(payload);
+	Q_UNUSED(len);
+	return false;
 }
 
 // xymodem_processInput(0x0079ed2e,1030B)上传侧应答状态机(逐字节)。状态 +0x58:

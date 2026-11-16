@@ -19,10 +19,10 @@
 
 | 状态 | 函数 | 函数占比 | 字节 | 字节占比 |
 |---|---:|---:|---:|---:|
-| 真实现 | 435 | 1.12% | 208163 | 2.71% |
+| 真实现 | 438 | 1.13% | 213159 | 2.78% |
 | 半成品 | 24 | 0.06% | 12541 | 0.16% |
 | 引用档 | 2260 | 5.83% | 825114 | 10.76% |
-| 未触及 | 36029 | 92.98% | 6625617 | 86.37% |
+| 未触及 | 36026 | 92.98% | 6620621 | 86.30% |
 | **合计** | **38748** | 100% | **7671435** | 100% |
 
 ## 3. 按文件（有落点的）
@@ -46,12 +46,12 @@
 | `src/Widgets/Settings/SettingsPageFace.h` | 19 | 1 | 22 |
 | `src/Widgets/Settings/SettingsPageFace.cpp` | 19 | 0 | 23 |
 | `src/Sessions/Transfers/Modem.h` | 17 | 1 | 4 |
+| `src/Sessions/Transfers/XYModem.h` | 16 | 1 | 3 |
 | `src/Sessions/Transfers/Modem.cpp` | 16 | 0 | 16 |
+| `src/Sessions/Transfers/XYModem.cpp` | 16 | 0 | 0 |
 | `src/Windows/Kit/KitDockFace.cpp` | 16 | 0 | 19 |
 | `src/Windows/Mux/MuxPaneView.h` | 15 | 0 | 15 |
-| `src/Sessions/Transfers/XYModem.h` | 13 | 1 | 3 |
 | `src/App/StartupChain.cpp` | 12 | 1 | 48 |
-| `src/Sessions/Transfers/XYModem.cpp` | 13 | 0 | 0 |
 | `src/Sessions/Transfers/ZModem.cpp` | 13 | 0 | 4 |
 | `src/Windows/Kit/KitDockFace.h` | 13 | 0 | 10 |
 | `src/Sessions/Bridges/ProxyCommandSocket.h` | 12 | 0 | 12 |
@@ -386,7 +386,7 @@
 | `UnixPty` | `src/Pty/UnixPty.h` | 0 | 0 |
 | `WindowOpacityDialog` | `src/Widgets/Dialogs/WindowOpacityDialogFace.h` | 2 | 0 |
 | `XModem` | `src/Sessions/Transfers/XModem.h` | 0 | 1 |
-| `XYModem` | `src/Sessions/Transfers/XYModem.h` | 13 | 1 |
+| `XYModem` | `src/Sessions/Transfers/XYModem.h` | 16 | 1 |
 | `YModem` | `src/Sessions/Transfers/YModem.h` | 0 | 1 |
 | `ZModem` | `src/Sessions/Transfers/ZModem.h` | 8 | 0 |
 

@@ -20455,11 +20455,11 @@
 0079c8a0	126	FUN_0079c8a0	real	src/Sessions/Transfers/XModem.cpp,src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h,src/Sessions/Transfers/YModem.cpp
 0079c926	373	XYModem_dtor	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
 0079ca9c	23	XYModem_dtor_deleting	todo	
-0079cab4	775	FUN_0079cab4	todo	
+0079cab4	775	FUN_0079cab4	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
 0079cde6	2094	xymodem_recvPkt	real	src/Sessions/Transfers/XYModem.h
 0079d680	1365	FUN_0079d680	todo	
-0079dc32	3833	FUN_0079dc32	todo	
-0079eb8c	388	FUN_0079eb8c	todo	
+0079dc32	3833	FUN_0079dc32	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
+0079eb8c	388	FUN_0079eb8c	real	src/Sessions/Transfers/XYModem.cpp,src/Sessions/Transfers/XYModem.h
 0079ed2e	1030	xymodem_processInput	real	src/Sessions/Transfers/XYModem.h
 0079f16e	62	XYModem_vt15	ref	src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.h
 0079f1ac	1954	xymodem_sendInit	stub	src/Sessions/Transfers/Modem.h,src/Sessions/Transfers/XYModem.h

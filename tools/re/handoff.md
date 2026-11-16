@@ -156,6 +156,26 @@ M11(136/137/136b)、M10(134/135)、M9(132/133)、M8、M1-M7。
 - `ModemProcess::readyRead` 实参是 **int 通道号**(槽里 `**(int**)(param_4+8)`)。
 - vt16 两族签名不同(XYModem 无参 / ZModem 双参),故不上升为 Modem 纯虚。
 
+### 批 496-497:XYModem 收发核 + 进程槽
+
+- `xymodem_processInput`(1030B)→ `XYModem::processInput`:逐字节应答状态机
+  (状态 +0x58 六档),NAK/CAN/'C'/ACK 四路分发,每字节末 state==6 → finish。
+- `FUN_0079eb8c`(388B)→ `XYModem::sendNext(crcMode)`:组块 → 发;失败且有
+  接收文件则报错,否则发 EOT(0x04);末尾清重试计数、块号 ++。
+- `xymodem_recvPkt`(2094B)→ `XYModem::recvPkt`:SOH/STX 帧解析(序号反码、
+  校验、重复块、YMODEM 头块)、EOT 收尾(按 mode88 决定 commit/cancel)、
+  CAN 取消。整包长度 `need = packetLen + (crcMode==0 ? 2 : 1)`
+  (asm 0x79cf09-0x79cf20 32 位回绕算得)。
+- `FUN_0079fb5c`/`007a1d70`/`007a1f07` → ZModem 状态槽 + ModemProcess 两条
+  readyRead 槽(见上批)。
+- 折叠实参统一回 asm:finish 的 bool(0x79d4fc `mov $1,%esi` / 0x79d25a
+  `xor %esi,%esi`)、ACK 字符(0x79d308 `mov $0x6`)、remove 长度
+  (0x79ce9d/0x79d2f8 `mov $1,%edx`、0x79d390 `mov %r12d,%edx`)。
+
+仍 cited(收尾期必须先补):
+`FUN_0079dc32`(3833B,组帧)/ `FUN_0079cab4`(775B,YMODEM 头块)/
+`FUN_0079d680`(1365B)/ `xymodem_sendInit`(1954B)/ `ModemProcess::clearFlag`(18B)。
+
 ## 现役队列(批 494 后,按需开批)
 
 > ⚠ 测试冻结令 + 铁律 7 生效:各批只做转写 + 引用 + commit,不编译不测试。

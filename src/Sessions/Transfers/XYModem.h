@@ -62,7 +62,8 @@ protected:
 	void setSubChar(bool on);                     // 0079c88c
 
 	// ---- 协议核(体量 1–4KB,入口已锚定,正文 cited) --------------------
-	void recvPkt(const QByteArray &data);      // xymodem_recvPkt 0079cde6(2094B)cited
+	void recvPkt(const QByteArray &data);      // 0079cde6(2094B)已落
+	bool handleHeader(const char *payload, int len); // FUN_0079cab4 0079cab4(775B)cited
 	void processInput(const QByteArray &data); // 0079ed2e(1030B)已落
 	void sendNext(int crcMode);                // 0079eb8c(388B)组一块并发出
 	bool buildPacket(int crcMode);             // FUN_0079dc32 0079dc32(3833B)cited
@@ -84,6 +85,7 @@ protected:
 	quint8 m_state58 = 0;       // +0x58
 	quint8 m_mode88 = 0;        // +0x88
 	int m_errorCount8c = 0;     // +0x8c 错误/异常计数(CAN 段 ++;finish 用它判成败)
+	qint64 m_f98 = 0;           // +0x98 已存在文件的修改时间(秒),mode 1/2 比较用
 	int m_expectedSize90 = -1;  // +0x90
 	qint64 m_writtenA0 = 0;     // +0xa0
 	int m_retriesA8 = 0;        // +0xa8

@@ -3537,7 +3537,13 @@
 0079c8a0	src/Sessions/Transfers/YModem.cpp
 0079c926	src/Sessions/Transfers/XYModem.cpp
 0079c926	src/Sessions/Transfers/XYModem.h
+0079cab4	src/Sessions/Transfers/XYModem.cpp
+0079cab4	src/Sessions/Transfers/XYModem.h
 0079cde6	src/Sessions/Transfers/XYModem.h
+0079dc32	src/Sessions/Transfers/XYModem.cpp
+0079dc32	src/Sessions/Transfers/XYModem.h
+0079eb8c	src/Sessions/Transfers/XYModem.cpp
+0079eb8c	src/Sessions/Transfers/XYModem.h
 0079ed2e	src/Sessions/Transfers/XYModem.h
 0079f16e	src/Sessions/Transfers/Modem.h
 0079f16e	src/Sessions/Transfers/XYModem.h
