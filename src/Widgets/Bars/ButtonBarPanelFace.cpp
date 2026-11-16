@@ -2,6 +2,8 @@
 
 #include "Widgets/Bars/ButtonBarPanelFace.h"
 
+// 出处:QMetaObject 0x01193440(class="ButtonBarPanel",signals=17,superdata=0);
+// ctor 无独立语料条目(内联在调用点),仅转发 QFrame 基构造。
 ButtonBarPanelFace::ButtonBarPanelFace(QWidget *parent)
     : QFrame(parent)
 {
